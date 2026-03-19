@@ -4,90 +4,101 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 317B41090223
-	for <amd-gfx@archiver.kernel.org>; Thu, 19 Mar 2026 12:57:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 63BC31090220
+	for <amd-gfx@archiver.kernel.org>; Thu, 19 Mar 2026 13:10:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C2B3B10EA08;
-	Thu, 19 Mar 2026 12:57:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 03C2710EA0E;
+	Thu, 19 Mar 2026 13:10:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="OSiWJBb0";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="a3WfOdrI";
 	dkim-atps=neutral
-Received: from mail-dl1-f52.google.com (mail-dl1-f52.google.com [74.125.82.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DC40E10EA08
- for <amd-gfx@lists.freedesktop.org>; Thu, 19 Mar 2026 12:57:32 +0000 (UTC)
-Received: by mail-dl1-f52.google.com with SMTP id
- a92af1059eb24-127148c2112so92730c88.3
- for <amd-gfx@lists.freedesktop.org>; Thu, 19 Mar 2026 05:57:32 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1773925052; cv=none;
- d=google.com; s=arc-20240605;
- b=Rk4CCDCVdP5FysXshiokAcsNGe1g8IHG8LiE3/1MCTVxnj5Vp06rcdMHpz3dPLkzAb
- /x8D/TSZJb7ZrRfN571gjUh0mrHL4SE819jdA8QlOsqYITtjno3J/tWjNoYv0dEOwRUV
- X5XKRBhBOawik4ik8fSp2ZjRTtCQIGT7g6HZU0Kqsuk9BhySZugMu2Abu5XmLQiuN5fq
- f/dGSKveTy5UkHmK/aaxsCGu6YZVamHuf48euOeROYRXkyuw7BFW3122zs6qUlNp0Hj4
- XqqFED7olb/wYe9s0bJKNrDvW+SnhibMt3xZdAL6A/f3eQU0B6R6RFo/KanD5t0VBPGh
- 0ksA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=83PwkEGmCKDs3jaXOG2oRx8BToDpLy7MsIIkVBwtad8=;
- fh=ef20Xe9w3moUMLSr91PnwNIFupJfidka0pXpS8D+8d0=;
- b=TMsUD2u9AeQNRO6uZ2NTQHgBdbd2NgW51DIB+WhSKfjKbcWmDFOqbtAcYXuoPdQA/Z
- sPqZ89ZmBA5Xo8HEA8VjOHM8LfXn72kBsv3tptSwVjbqB4KzTuf2hjeP/h8I8/K220Jn
- Zvh4lOcuHDOwLacn6Dnf1TBPcvS3x++8ZaPz+nTP+vhhitHJT3819Xyz9AE/HxRWJC2T
- sMrmZi66+XgqNV5M4FvvMV+HjM2uEEUqiAM1hW2OKo5YfH9WiJEXsxCUhMmt/4yDeKzn
- Smxh4AjE+7r2TVvk/OXD2rLvBsXpX7IEiKGfhoqdbTNc5g3c5IDtQTV5TU1zGP+RSwMP
- K1aA==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1773925052; x=1774529852; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=83PwkEGmCKDs3jaXOG2oRx8BToDpLy7MsIIkVBwtad8=;
- b=OSiWJBb0tLFwAnAWnpL5ZsrQ2IBzX6ROQTdcmiV4AslB2PeSToIAzEKaOybeYql7b7
- YnlcIRwjSYR10gN4ubLpuxT6n/dhcnj2yLO49+LjTIxfX6IxQZ5gWY4SjGMOg/dAczHm
- 9+MHPu2EveBpaaVutl0+ssUmA5dTLZImZE3u2r9DcLwDzFF7vILcymKEa3XSEsOFiCeT
- UOcPDL7WCSXO/QxeadBMz8xkcdWvfJMcw8TszkAJu/4Kqmapm2Ob15d40WNCTpKlVynG
- lTLianYto1KkN1EmUP+0KRuzIw8o++UVojIGSy57mCmtVsbBuircxSQmwc4c+N26We9I
- yWUA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1773925052; x=1774529852;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=83PwkEGmCKDs3jaXOG2oRx8BToDpLy7MsIIkVBwtad8=;
- b=F8JzzMb3X5gng8SJDvB5CCQ3VeW3UWPlkNdmsvNKUWXR5tyPsgm2Ta3nfmGk/Ox9Bm
- xlMZp+qW17qTJ2ASuIfbQ7uQQx8/yo+mGqERqKqBbLq6KwcI/QyvboAlnyvp/y8y/ah7
- DNyD8CdVxlXFSSezMxTtKocACAwo0mpiV8Ah0Flpxx0M3cVpN/U3N/ZcrfzDJ7gAciA/
- eKTWCc9wMByUYiEDKAmSi+atbGIptgqo0QPriQQGMZUi6KhsSuKdOJR08l5tNJczq2Lo
- VVy1Pl/cPk7KQBFvnNMLHr1PVsmGOdNrfh6CkpB4W+DPZextrgZtWQqMSIs9Fvxriugm
- KYGQ==
-X-Gm-Message-State: AOJu0Ywgwp4YiZDI3FdbXn9vpUianqSG/dTPceuaHSdWhQfEM/Xobme5
- 5Na/ciIGSCAllfWfQgiETrqG5DQJ3ZeIY1ZbiIk5tdOelNJBAVQTQAuWpmWAJ0DiXHyHzNsgg63
- Sb69hrIW19fKFMYRGpHYRCxBEhvjmyuI=
-X-Gm-Gg: ATEYQzx3DYJhggFb/Kr5fX56/VsQGwm8CEvVD3ya6x7EqZQJZTmQQOz6U+CJP2/wRkQ
- eQB44zE4r3pnlwkLUpw/V9WIRLetPEI2mH8Mg84AKFLxs00kIDtfqKsXpOOTsTyEh+U3oAICFDU
- pi+hokPrNAmDGoOc/BO+fNsTRGQPWr7Obtzopu+M3GOR+tOAkq/4ohFCb5yP5QcMzjCSgVbGU8w
- i+635Ew2ZCuCpr4WXVaz4bAhp08wMMc1iBPzaDpRTPYIXC4yFbeT8UdDanUOaNBMdPGrnpTjbVt
- JpMQvsBInVdlLmwAmdB3J9ss4iCSLEYXLqqZkrJbMQPCCtFV8wspeCmpwJqt6OE2XoJSGg==
-X-Received: by 2002:a05:7022:3f08:b0:11a:2020:ac85 with SMTP id
- a92af1059eb24-129a7147f94mr1328047c88.4.1773925052003; Thu, 19 Mar 2026
- 05:57:32 -0700 (PDT)
+Received: from CH1PR05CU001.outbound.protection.outlook.com
+ (mail-northcentralusazon11010030.outbound.protection.outlook.com
+ [52.101.193.30])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7A00710EA0C;
+ Thu, 19 Mar 2026 13:10:26 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=wCqcWh9wzXnhb8r1OZZTAdOrih54EITieC/OWQ3KjjPBFj/MB3GViNnLwDjDKjMp/hPlELNB2IaO/Unk13MFU0LcPEvPpW6MfIzKLY/7oK8zjNGvy8OcFXnqczEA14A7X6J1gI+fW3v3bXimx4MRp3Hh+070JgTPoY9oNmRnG0Bw+VeUhdZ1QXCNmWHOoWf/KqQsQlcrhnn/IqKnTRNAxQoTw2nKR+nMgIyGIOK4ZjPOujORfWssafhCn4YnjzqBGqZsnQjJoymV/qxKGmP4DcxQdkFCiVrM+ubpghicxw5gZA345PjEglBQ9wbeYlFnd7VBC167ICyy3mzdKfAL7w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=CQ6ppPHPugdi0+lW+EI6Tv9vJfzvKZwUWxsfand5PhI=;
+ b=GJsqu43Z+T507NJoSVlQd99z0avYDfBzS6OTa5X5JhIeHhbdY9+LRxlQbSsFDqx7j7+m3y8cva8Q6UwJB+knzhb9cRqjxrtDJv2CSO+kkVsXbuDKO3gwsvpT0GcgkrTjuTejUmqMP/G2FuZKrmbXMnj5+zlxCwttfOFbAqK8RdgXQZdmIiVwNwR5lTcnc0ahHe86aokrrYA2DAQxzJMDf2srxSEe0GkKzdN5N2kGMS8bu6cJ4/cwdtts/4nQHyOJ0X/b4aDneX48M5s4ziRz1Tk1yo7fEYpcYSGn1wG/GsXoeTHE1IlUJ4CVIKKW//Ce8Z4onjRW/Ee821Rd+AEyQw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=CQ6ppPHPugdi0+lW+EI6Tv9vJfzvKZwUWxsfand5PhI=;
+ b=a3WfOdrIw2fw3CZr1ihw12HyZA5o7UUEKgrAZ59NKbET6KfUss5kPC0EfSplmWyDs07070ZSSP5sZ8PJiGqAI7RfPwMM9Yt9ONjdxE5kMDsevJUyfVqfTzCMw6S24GopwBP2EfmIc5wd5wNhAH1U3ywqBIIn2zGM5E11bFDXL2U=
+Received: from BLAPR05CA0007.namprd05.prod.outlook.com (2603:10b6:208:36e::7)
+ by CH2PR12MB4120.namprd12.prod.outlook.com (2603:10b6:610:7b::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.9; Thu, 19 Mar
+ 2026 13:10:22 +0000
+Received: from MN1PEPF0000ECDB.namprd02.prod.outlook.com
+ (2603:10b6:208:36e:cafe::6b) by BLAPR05CA0007.outlook.office365.com
+ (2603:10b6:208:36e::7) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9723.20 via Frontend Transport; Thu,
+ 19 Mar 2026 13:10:21 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ MN1PEPF0000ECDB.mail.protection.outlook.com (10.167.242.139) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9723.19 via Frontend Transport; Thu, 19 Mar 2026 13:10:21 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Thu, 19 Mar
+ 2026 08:10:21 -0500
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Thu, 19 Mar
+ 2026 06:10:21 -0700
+Received: from p8.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
+ Transport; Thu, 19 Mar 2026 08:10:20 -0500
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <airlied@gmail.com>, <simona.vetter@ffwll.ch>
+CC: Alex Deucher <alexander.deucher@amd.com>
+Subject: [pull] amdgpu, radeon drm-fixes-7.0
+Date: Thu, 19 Mar 2026 09:10:13 -0400
+Message-ID: <20260319131013.36639-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
-References: <20260319081541.70848-1-kevinyang.wang@amd.com>
-In-Reply-To: <20260319081541.70848-1-kevinyang.wang@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 19 Mar 2026 08:57:20 -0400
-X-Gm-Features: AaiRm51nsY2aRrLVaolnIqh1CS94hUIXnbBj0Bb0TKQpsHW2Jv-bnP2ydvH6N-I
-Message-ID: <CADnq5_N3E70+QCZGDY11BoRJNm-+EtvRgDAQBMgE7HB0dv8PrA@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/pm: disable OD_FAN_CURVE if temp or pwm range
- invalid
-To: Yang Wang <kevinyang.wang@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com, 
- hawking.zhang@amd.com, kenneth.feng@amd.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MN1PEPF0000ECDB:EE_|CH2PR12MB4120:EE_
+X-MS-Office365-Filtering-Correlation-Id: e5131814-c349-475e-ea65-08de85b8e036
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|376014|82310400026|36860700016|56012099003|18002099003;
+X-Microsoft-Antispam-Message-Info: toxwROvnryzCPZB74oFPSdKdnh003bvicEm9dEO5SU6txCodQE8NgnGHAsZXJJfgZ8Y0hlradg5dia5tfEWUP10wk1WRl2YjeDynIaEsuzLwaJLKkBTuGcjj8JLQr0KvsJFOIFPyqlK72bMMDsOOBHQq2lIXy/HxMW6mpfhA53jgZTTjtTAlWnDDOah725VmUqe7FXjwHXmRXY0013/Xy/C0Msh8Imzc/27e4MDfFvk8/GhTB0HTBGFrKGKQTvnB/2HptRm8tQ69LwBNCremTa5TCMi5G0s5SI5eVYz6s6FNBAUnXQDIhUM9Mf3rMWPkn2zxYZPsDIndT+n+sK89zGwMucJ58RQUCGecnX/CtDyNg4a+Re7p7FWaVw2/aY2ZJZCsDyQKGxhiYBhVDymathkc2Gyl5HyegCv8HDlMuJZIZ7HZOnPTB3+opdF1x3qiUMTtxiPSnRyqHQdDKfP+j6/4RjmiBJ5bKtv7ED40VEDJAVTA8TVKYcLtn/oFhaSpNyhoHPw5crWwe/cAffM8KKDQ6l2OQI6fy4WoNLPiZRX8rv7fQjX1doadIwk0CqYylvpYkt/nzFmHSKeoUD80+IUVbkJZoQ8/usiTACIdouYXkCqkAAVZdXmppGpmMQeIpaUdblCtAITDrIa3/+/a7ff/jUB7/dNNNsqL+0SRmebExeEkR4ruYMNJJr1yqv+7mHIOHDKmDN+sxLpiQZUaPAXbfoRtuyhGeJQdW4ryLTw=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(82310400026)(36860700016)(56012099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: Wbf4VPrgUXRzbxfZdFkNXpDTZWMrb9kUrZ8H3wlkud0Lr7fcskgnFmHJJC2bQu14CsSA8kNCoQI+97y/mVCcSgNRjr0a+AahnI9iUqvsaVCcnyio4oenwQy+TtvAVDK8SLXl5JSPq0sYhAUiqhkQAD2tEr8yBlhSmphcgfwElHoe0JZ2yeiMNVkmX8xMrBIYTOURKc32xR/dr07qRbgcHLs20erYA8Tf8bdVVXNqvhhvkIu7ExrrCT1/j3gX/6iIPsoGCceWk/zWo8sNtNQUhRutKU+9/ih0IOkrBKt4emQwinlDHNFwxsuFvC/aYVStyLVdtAxKaq7J7tZ6IeR+/hkriAax+U0B7a5HJWxxTtkSIMXZ2NXJkpRwW4V6lro66/JKHX5chpl0L/vg2yAp+qCBhZKGHZ6wdWow3QJcZ/4Yf1qaeKXE5zwPyCGQX/OA
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Mar 2026 13:10:21.4909 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e5131814-c349-475e-ea65-08de85b8e036
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: MN1PEPF0000ECDB.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4120
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,106 +113,91 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Mar 19, 2026 at 4:24=E2=80=AFAM Yang Wang <kevinyang.wang@amd.com> =
-wrote:
->
-> Forcibly disable the OD_FAN_CURVE feature when temperature or PWM range i=
-s invalid,
-> otherwise PMFW will reject this configuration on smu v14.0.2/14.0.3.
->
-> example:
-> $ sudo cat /sys/bus/pci/devices/<BDF>/gpu_od/fan_ctrl/fan_curve
->
-> OD_FAN_CURVE:
-> 0: 0C 0%
-> 1: 0C 0%
-> 2: 0C 0%
-> 3: 0C 0%
-> 4: 0C 0%
-> OD_RANGE:
-> FAN_CURVE(hotspot temp): 0C 0C
-> FAN_CURVE(fan speed): 0% 0%
->
-> $ echo "0 50 40" | sudo tee fan_curve
->
-> kernel log:
-> [  969.761627] amdgpu 0000:03:00.0: amdgpu: Fan curve temp setting(50) mu=
-st be within [0, 0]!
-> [ 1010.897800] amdgpu 0000:03:00.0: amdgpu: Fan curve temp setting(50) mu=
-st be within [0, 0]!
->
-> Signed-off-by: Yang Wang <kevinyang.wang@amd.com>
+Hi Dave, Simona,
 
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
+Fixes for 7.0.
 
-> ---
->  .../drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c  | 33 ++++++++++++++++++-
->  1 file changed, 32 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c b/drive=
-rs/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
-> index 0b78e62cd3b0..8ab99a8e2790 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
-> @@ -56,6 +56,10 @@
->
->  #define to_amdgpu_device(x) (container_of(x, struct amdgpu_device, pm.sm=
-u_i2c))
->
-> +static void smu_v14_0_2_get_od_setting_limits(struct smu_context *smu,
-> +                                             int od_feature_bit,
-> +                                             int32_t *min, int32_t *max)=
-;
-> +
->  static const struct smu_feature_bits smu_v14_0_2_dpm_features =3D {
->         .bits =3D { SMU_FEATURE_BIT_INIT(FEATURE_DPM_GFXCLK_BIT),
->                   SMU_FEATURE_BIT_INIT(FEATURE_DPM_UCLK_BIT),
-> @@ -928,8 +932,35 @@ static bool smu_v14_0_2_is_od_feature_supported(stru=
-ct smu_context *smu,
->         PPTable_t *pptable =3D smu->smu_table.driver_pptable;
->         const OverDriveLimits_t * const overdrive_upperlimits =3D
->                                 &pptable->SkuTable.OverDriveLimitsBasicMa=
-x;
-> +       int32_t min_value, max_value;
-> +       bool feature_enabled;
->
-> -       return overdrive_upperlimits->FeatureCtrlMask & (1U << od_feature=
-_bit);
-> +       switch (od_feature_bit) {
-> +       case OD_FAN_CURVE:
-> +               feature_enabled =3D !!(overdrive_upperlimits->FeatureCtrl=
-Mask & (1U << od_feature_bit));
-> +               if (feature_enabled) {
-> +                       smu_v14_0_2_get_od_setting_limits(smu, PP_OD_FEAT=
-URE_FAN_CURVE_TEMP,
-> +                                                         &min_value, &ma=
-x_value);
-> +                       if (!min_value && !max_value) {
-> +                               feature_enabled =3D false;
-> +                               goto out;
-> +                       }
-> +
-> +                       smu_v14_0_2_get_od_setting_limits(smu, PP_OD_FEAT=
-URE_FAN_CURVE_PWM,
-> +                                                         &min_value, &ma=
-x_value);
-> +                       if (!min_value && !max_value) {
-> +                               feature_enabled =3D false;
-> +                               goto out;
-> +                       }
-> +               }
-> +               break;
-> +       default:
-> +               feature_enabled =3D !!(overdrive_upperlimits->FeatureCtrl=
-Mask & (1U << od_feature_bit));
-> +               break;
-> +       }
-> +
-> +out:
-> +       return feature_enabled;
->  }
->
->  static void smu_v14_0_2_get_od_setting_limits(struct smu_context *smu,
-> --
-> 2.47.3
->
+The following changes since commit f338e77383789c0cae23ca3d48adcc5e9e137e3c:
+
+  Linux 7.0-rc4 (2026-03-15 13:52:05 -0700)
+
+are available in the Git repository at:
+
+  https://gitlab.freedesktop.org/agd5f/linux.git tags/amd-drm-fixes-7.0-2026-03-19
+
+for you to fetch changes up to 86650ee2241ff84207eaa298ab318533f3c21a38:
+
+  drm/radeon: apply state adjust rules to some additional HAINAN vairants (2026-03-17 18:04:15 -0400)
+
+----------------------------------------------------------------
+amd-drm-fixes-7.0-2026-03-19:
+
+amdgpu:
+- Fix gamma 2.2 colorop TFs
+- BO list fix
+- LTO fix
+- DC FP fix
+- DisplayID handling fix
+- DCN 2.01 fix
+- MMHUB boundary fixes
+- ISP fix
+- TLB fence fix
+- Hainan pm fix
+
+radeon:
+- Hainan pm fix
+
+----------------------------------------------------------------
+Alex Deucher (11):
+      drm/amdgpu/mmhub2.0: add bounds checking for cid
+      drm/amdgpu/mmhub2.3: add bounds checking for cid
+      drm/amdgpu/mmhub3.0.1: add bounds checking for cid
+      drm/amdgpu/mmhub3.0.2: add bounds checking for cid
+      drm/amdgpu/mmhub3.0: add bounds checking for cid
+      drm/amdgpu/mmhub4.1.0: add bounds checking for cid
+      drm/amdgpu/mmhub4.2.0: add bounds checking for cid
+      drm/amdgpu/gmc9.0: add bounds checking for cid
+      drm/amdgpu: rework how we handle TLB fences
+      drm/amdgpu: apply state adjust rules to some additional HAINAN vairants
+      drm/radeon: apply state adjust rules to some additional HAINAN vairants
+
+Alex Hung (1):
+      drm/amd/display: Fix gamma 2.2 colorop TFs
+
+Andy Nguyen (1):
+      drm/amd: fix dcn 2.01 check
+
+Calvin Owens (1):
+      drm/amd/display: Fix uninitialized variable use which breaks full LTO
+
+Jesse.Zhang (1):
+      drm/amdgpu: Limit BO list entry count to prevent resource exhaustion
+
+Pratap Nirujogi (1):
+      drm/amdgpu: Fix ISP segfault issue in kernel v7.0
+
+Srinivasan Shanmugam (1):
+      drm/amd/display: Fix DisplayID not-found handling in parse_edid_displayid_vrr()
+
+Xi Ruoyao (1):
+      drm/amd/display: Wrap dcn32_override_min_req_memclk() in DC_FP_{START, END}
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c         |  4 ++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c              |  7 ++++++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h              |  2 ++
+ drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c               | 21 ++++++++++++++-------
+ drivers/gpu/drm/amd/amdgpu/isp_v4_1_1.c             |  4 ++--
+ drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c             |  9 ++++++---
+ drivers/gpu/drm/amd/amdgpu/mmhub_v2_3.c             |  3 ++-
+ drivers/gpu/drm/amd/amdgpu/mmhub_v3_0.c             |  3 ++-
+ drivers/gpu/drm/amd/amdgpu/mmhub_v3_0_1.c           |  3 ++-
+ drivers/gpu/drm/amd/amdgpu/mmhub_v3_0_2.c           |  3 ++-
+ drivers/gpu/drm/amd/amdgpu/mmhub_v4_1_0.c           |  3 ++-
+ drivers/gpu/drm/amd/amdgpu/mmhub_v4_2_0.c           |  3 ++-
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c   |  6 +++---
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.c   |  6 +++---
+ drivers/gpu/drm/amd/display/dc/clk_mgr/clk_mgr.c    |  8 ++++----
+ .../amd/display/dc/resource/dcn32/dcn32_resource.c  |  3 +++
+ drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c          |  4 +++-
+ drivers/gpu/drm/radeon/si_dpm.c                     |  4 +++-
+ 18 files changed, 65 insertions(+), 31 deletions(-)
