@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 732CF10987B0
-	for <amd-gfx@archiver.kernel.org>; Fri, 20 Mar 2026 16:42:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DA8BB10987AB
+	for <amd-gfx@archiver.kernel.org>; Fri, 20 Mar 2026 16:42:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C514510EB9F;
-	Fri, 20 Mar 2026 16:42:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7888F10EBA0;
+	Fri, 20 Mar 2026 16:42:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="yUs8Q+YW";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="VoQC0Thz";
 	dkim-atps=neutral
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3ABFA10EB99;
- Fri, 20 Mar 2026 16:42:15 +0000 (UTC)
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0B48010EBA1
+ for <amd-gfx@lists.freedesktop.org>; Fri, 20 Mar 2026 16:42:19 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-03.galae.net (Postfix) with ESMTPS id 245E14E4274C;
- Fri, 20 Mar 2026 16:42:14 +0000 (UTC)
+ by smtpout-02.galae.net (Postfix) with ESMTPS id F16791A2F12;
+ Fri, 20 Mar 2026 16:42:17 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id E7C29600E0;
- Fri, 20 Mar 2026 16:42:13 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id C6867600E0;
+ Fri, 20 Mar 2026 16:42:17 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 9E66010450CB5; Fri, 20 Mar 2026 17:42:09 +0100 (CET)
+ with ESMTPSA id 4ED4410450CB6; Fri, 20 Mar 2026 17:42:13 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1774024932; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ t=1774024936; h=from:subject:date:message-id:to:cc:mime-version:content-type:
  content-transfer-encoding:in-reply-to:references;
- bh=S7QKYFkdGmt21Q5w/0Gy0s0gEip8hNwwF1SafTCqptQ=;
- b=yUs8Q+YWvn0s5Rfbz+8hfItCz5EOAYxfTBeYV7YCQrq4ZOKYwUjX92TxWgsrYq3bvsDYq8
- yGc8eZIZeCmkCt0Igms1ZIJu/tsQADqVFac/0TAgsScGhi6/XGaQ8WFPPuZ4G/lJEyfbez
- UYQBkDHyzduJZbFwW283Zz9gn8VED6DY3rFeYgyWaWVGnCpjRtKntDicjAjroSZPSIjrDV
- 7qXCkbXpHVs8KrKtk50XnT1pHDUuoOXeat1PgKoOc+ELwFIsZcfVeEAg7r4KFWY8ojsXPU
- mQecgPXkMjA03HfAzO+tO8sQyHJU1soN9whazgTyUG0oI6143WaxSL36/9Ox2Q==
+ bh=IpIrkQUhN8f9igBcCmDP+0RFUmudVzc+7akDpTrZ6nU=;
+ b=VoQC0ThzFJinqd5e1n9HS6KWBV5NRmpjFvScHyP+XxqNHEyuoSWX/aJzfFJjM0+vwswadm
+ OjUlL+JUZYgTXkMBsY98T0IqlTgjoUCUhcB9UR1hGQ8ROGpbSEfVAlSLT5q3TWJzcVWee3
+ l5ZfkLrEC10+81aIjQtznNYe0h/ZHdyDvrt/DaPUMkdHogNH5/T2XKtMF2Nua2cZegqO63
+ xfrP2ciDmdt3rsLUxCvQvpU0EMxg2Z2HuN9QobwFYko+fZoM/cZqlokD53//4ZjwJ7C4BN
+ fGHjVTCMIo9l5+cJNkCjFTauPayTbgXw++44DVBKPyCl539EX/V9wfaahjj3Pg==
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v11 25/65] dyndbg-test: change do_prints testpoint to
- accept a loopct
+Subject: Re: [PATCH v11 26/65] dyndbg-API: promote
+ DYNAMIC_DEBUG_CLASSMAP_PARAM to API
 From: Louis Chauvet <louis.chauvet@bootlin.com>
 To: airlied@gmail.com, simona@ffwll.ch, jbaron@akamai.com, 
  gregkh@linuxfoundation.org
@@ -48,27 +48,27 @@ Cc: Jim Cromie <jim.cromie@gmail.com>, mripard@kernel.org,
  skhan@linuxfoundation.org, pmladek@suse.com, ukaszb@chromium.org, 
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
  intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-In-Reply-To: <20260313132103.2529746-26-jim.cromie@gmail.com>
+In-Reply-To: <20260313132103.2529746-27-jim.cromie@gmail.com>
 References: <20260313132103.2529746-1-jim.cromie@gmail.com>
- <20260313132103.2529746-26-jim.cromie@gmail.com>
+ <20260313132103.2529746-27-jim.cromie@gmail.com>
 Date: Fri, 20 Mar 2026 17:41:54 +0100
-Message-Id: <177402491445.6181.17476474646230121112.b4-review@b4>
+Message-Id: <177402491446.6181.10584556385608309440.b4-review@b4>
 X-Mailer: b4 0.15-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=564;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=505;
  i=louis.chauvet@bootlin.com; h=from:subject:message-id;
- bh=D8Z6vQ8f3S7TR6K6EECvygVJXXr3o/f6eREwPfBXuQc=;
- b=owEBiQJ2/ZANAwAIASCtLsZbECziAcsmYgBpvXjYCc0ma02xdM3ReceM8XIBs+YHio2nhctfn
- sJT7wd7c++JAk8EAAEIADkWIQRPj7g/vng8MQxQWQQgrS7GWxAs4gUCab142BsUgAAAAAAEAA5t
- YW51MiwyLjUrMS4xMSwyLDIACgkQIK0uxlsQLOIxiBAAhvLs6RL4qKRZHF2hqjsfT8XJJGk7HEI
- uaD3mgqpekgVCgsCucjnAU1xxvtHz/RVun1qojFPYm43fHl8qGX1bUH0TvYznNm9P8dz/ByZqCz
- 67TwNLdHz3ohxeIOenziTaD0SkhVXO+lXltB6JBR0sQOQFwWZX/AlibWTHjLa09JTj2T83VCQGH
- OcYii8o4QbNiE7/Rm+eQwhIU2Y9LfaZ+wQSCdE4i1sB1A2VLc0ReWnfz/ryJgfoyrldcxU0PLvK
- TEan5Oi/0oaydKQyC6/Spuss+SBSsZateSJLPXRsIO34dxU76Fs6PK3QUWiJTXcDsAxjKFBi9sV
- LGDhvbZ2igtrZ7lBNNx5M6fIi5ig7RXLD5m2ptmQiJUVEmIK0F+us3T4WsSpmlZUPAwp7eZ/Vv0
- E2iDvg0LkECqYag1Zwh4o81gT6cnEJp/kwzrWyae1UrQZxpHSUB50NaJyDI8Ywp1iCmybJwy93M
- qQoJQnfzqbALZ5LtdYoUobZFnol1jLA3XxDUlR8SfwqXafELezceHGQcWPagm3FmW3SzvCciaSi
- sPeXmWML2HQTNJkZ7duWUMuY7rMgEAyGUbgPtId9kPUKHAvQ4kRh4tVH0yFbOAIB9WsSb3LAvKX
- MoNd3JmmpLLQwzHNp8HXE3e0qOl+MNUwSTOgJ4EaEi+dCJHy/7YM=
+ bh=QnoSxbC/cY3NZCY1pQn05gze166+KvYaqE2hHUZIazo=;
+ b=owEBiQJ2/ZANAwAIASCtLsZbECziAcsmYgBpvXjYVKznFtfm2NveHmwQmNVFdRP9BwFBABzkr
+ 51i8gtIGGCJAk8EAAEIADkWIQRPj7g/vng8MQxQWQQgrS7GWxAs4gUCab142BsUgAAAAAAEAA5t
+ YW51MiwyLjUrMS4xMSwyLDIACgkQIK0uxlsQLOK8Hw/9Geg+lz6YSmcNWoNyrjdqBcH3CO8z8wC
+ t2fz23bkJg28OvwD/nZ5GukYX3ab2sIlJmdvfiFd0Ny4Tt8Mc/9XH3Cvv+ujZ4xfveJ9hXSKkZV
+ 9qusbFNE2PsO7ZKLpnSuDYdAT60NTOa9HC7dDp0MVBXU+IpYKmJ14pN7jQbJ2CVEnzh2n2RLSSq
+ FxDOQzWo4V6ssj0k0QFIht3Y089QYHUajO0tluOLa8UhEUQ5iv32TQ6fCDT82fSlZkK1kyO4DVb
+ UrsRiCPFW9aiIGyoQEuUK1y/9fVQgr2ZoovaHGvM+TnCAKD8Q1ZLMRLy7g+5SoRYzTyDZk7ECvZ
+ Wowy+PS29IMMg+53GOG60cLew/x14K6Fk5hifKimi6GGzP9c+jT1Q6nblzZlXO+P/Ow1pxtQcd6
+ Lx89ooK+UHbLnW7Sf8GB6KMGcLCei6EFo7IB/ED8z1dcyuTU/uF0AdMAlolvK5LiUrwmwO2YFJl
+ 5iHi9KTPJkPS7hZvCiHQj2Co+XjUpvVE/u9ziYxKdQhnOt/MaC9Zqsq1kuf3xuIFH0FmQg/2AJQ
+ YWoXOJyNtxyfhnw/cRFbLNnj1cEJanRlYGOHLz26LV5EjyowL0Jg2FVQw3R8GelQelmbqg8jEeX
+ 3GqWTg84YpgHUJYOAd/+S2UZ43M9Jgtq4Zn8juYazQ+7npwQVawE=
 X-Developer-Key: i=louis.chauvet@bootlin.com; a=openpgp;
  fpr=8B7104AE9A272D6693F527F2EC1883F55E0B40A5
 X-Last-TLS-Session-Version: TLSv1.3
@@ -86,18 +86,15 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, 13 Mar 2026 07:19:50 -0600, Jim Cromie <jim.cromie@gmail.com> wrote:
-> echo 1000 > /sys/module/test_dynamic_debug/parameters/do_prints
+On Fri, 13 Mar 2026 07:19:51 -0600, Jim Cromie <jim.cromie@gmail.com> wrote:
+> move the DYNAMIC_DEBUG_CLASSMAP_PARAM macro from test-dynamic-debug.c into
+> the header, and refine it, by distinguishing the 2 use cases:
 > 
-> This allows its use as a scriptable load generator, to generate
-> dynamic-prefix-emits for flag combinations vs undecorated messages.
-> This will make it easy to assess the cost of the prefixing.
+> 1.DYNAMIC_DEBUG_CLASSMAP_PARAM_REF
+>     for DRM, to pass in extern __drm_debug by name.
+>     dyndbg keeps bits in it, so drm can still use it as before
 > 
-> Reading the ./do_prints node also prints messages (once) to the-log.
-
-s/the-log/the logs/ ?
-
->
+> [...]
 
 Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
 
