@@ -4,38 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9480310987B1
-	for <amd-gfx@archiver.kernel.org>; Fri, 20 Mar 2026 16:42:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CD73E10987A5
+	for <amd-gfx@archiver.kernel.org>; Fri, 20 Mar 2026 16:42:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0CA5810EBC9;
-	Fri, 20 Mar 2026 16:42:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4D07E10EBCC;
+	Fri, 20 Mar 2026 16:42:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="vgthYYBC";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="VfVvPUka";
 	dkim-atps=neutral
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A09AB10EBCC
- for <amd-gfx@lists.freedesktop.org>; Fri, 20 Mar 2026 16:42:51 +0000 (UTC)
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D1A0910EBCC;
+ Fri, 20 Mar 2026 16:42:54 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-02.galae.net (Postfix) with ESMTPS id 90EFC1A2F12;
- Fri, 20 Mar 2026 16:42:50 +0000 (UTC)
+ by smtpout-03.galae.net (Postfix) with ESMTPS id A38234E4274C;
+ Fri, 20 Mar 2026 16:42:53 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 5FE0E600E0;
- Fri, 20 Mar 2026 16:42:50 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 7855A600E0;
+ Fri, 20 Mar 2026 16:42:53 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id EED2110450CB4; Fri, 20 Mar 2026 17:42:45 +0100 (CET)
+ with ESMTPSA id 5A3D110450CB6; Fri, 20 Mar 2026 17:42:49 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1774024969; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ t=1774024972; h=from:subject:date:message-id:to:cc:mime-version:content-type:
  content-transfer-encoding:in-reply-to:references;
- bh=qg6IbGXWjfVAnRxGx77rFZBUXDaj+DssoskePXce2g8=;
- b=vgthYYBC+WS1Uic5VUDyktKZIPPHYJbsFmoOYHXL4xJ1b56iIkawe/QsrymHUI50OukdWe
- L5qnGsaQ0UTlbZX39iELz+JkrU7etVyPOAcnkW+qG6Po4f5quEwDrkZsu/0fga7nRqxzW2
- hdLMaktF0RPTti2T3uSvYO82uWQF9kXJt3vgQ1p9hANEjNxP6SeMT+kjewBJ6LJ4ngSkRg
- IJUErDMOnIEnPFiRm9dk4wklR0fXUfSYqS4EuWbBRs7NEFroJpXzRRRByR1rZfsM6Ca7Vf
- xzUEmVY6SL5ilCZNtjWDORkmZFpJ+Hp+WBMeZcEvqhJ93ScXvCI03R0svFeQQA==
+ bh=Ng4JhdsTJJyshZU7Z8wG7ah3v/b7t8Ek/DzG/SwNHls=;
+ b=VfVvPUka2Z6GE97Ejs5S/Zgot1NwEWyzSWCBWrZSo8+4KmfUV4QFCRDgCh1nU7gqF0gb2M
+ IJLPK5iZKhpQlisg+hYC9Wpy6vcsdOcU34BPAu3eE6FkBWFgirSzMLO2wex2/4hMIGxMtm
+ k7AeSqqxCBFOnK/MhI74wIPdlr8ph9IqxqzE4ul8DYhUFUs3D1JREUEVaJ6Xrzk4OpsD3c
+ ffyl/0VyiT7bXIzdJRL/Hx5A82fkt1xrwGDYfKaJvU7smjEtAm85+hyuj28TojNZiuaXLS
+ 0B1XlLx5sgDALbjdxaqbUl7N2ieyky6y+C/r8PNk//PyBR0a4Hzo716NRxmueQ==
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v11 45/65] drm-dyndbg: add DRM_CLASSMAP_USE to virtio_gpu
+Subject: Re: [PATCH v11 46/65] drm-dyndbg: add DRM_CLASSMAP_USE to
+ simpledrm
 From: Louis Chauvet <louis.chauvet@bootlin.com>
 To: airlied@gmail.com, simona@ffwll.ch, jbaron@akamai.com, 
  gregkh@linuxfoundation.org
@@ -47,27 +48,27 @@ Cc: Jim Cromie <jim.cromie@gmail.com>, mripard@kernel.org,
  skhan@linuxfoundation.org, pmladek@suse.com, ukaszb@chromium.org, 
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
  intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-In-Reply-To: <20260313132103.2529746-46-jim.cromie@gmail.com>
+In-Reply-To: <20260313132103.2529746-47-jim.cromie@gmail.com>
 References: <20260313132103.2529746-1-jim.cromie@gmail.com>
- <20260313132103.2529746-46-jim.cromie@gmail.com>
+ <20260313132103.2529746-47-jim.cromie@gmail.com>
 Date: Fri, 20 Mar 2026 17:41:54 +0100
-Message-Id: <177402491461.6181.10410600947387909666.b4-review@b4>
+Message-Id: <177402491462.6181.11857331396045294184.b4-review@b4>
 X-Mailer: b4 0.15-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=346;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=351;
  i=louis.chauvet@bootlin.com; h=from:subject:message-id;
- bh=BZ9OnSZMjHtnBy8UMjGQ5P4rP4eQBOgbvGHCa8uMjxk=;
- b=owEBiQJ2/ZANAwAIASCtLsZbECziAcsmYgBpvXjZxddlPCl1+/58HJgkL+0TsGWxatjLXA4vh
- IqI6KZs35qJAk8EAAEIADkWIQRPj7g/vng8MQxQWQQgrS7GWxAs4gUCab142RsUgAAAAAAEAA5t
- YW51MiwyLjUrMS4xMSwyLDIACgkQIK0uxlsQLOKg7g/+JRrhl90D/DT44Ju7Vwke71c5FFg8GW6
- 0sJqES018X3UNC0YltTGljJayaKOvsJo/qDdUhwR6JSI+YtE3u3Cw5doHY90JfquUMrdnJtW/Cf
- m9h5ZV9eCEDkvd68DwfTu/Lia7Cqy0E5jxNCTR3kSuXgcbpJoAxm0yaOH4QjXNBhIOgQcsuKXSO
- xbnzVsGnIwZDCAuK/za8t988MWyL6Uxf/W8ANPjwKFFSDaKjyur7U7qYSOWW0bLlBZ2CIWKD1Ww
- P7Wy/nvas3HynlgYL/7w17o6nZ9vT+AYddPUHT3KmAUA3Hkpkt677HfSA9CiIQeWedIU6IrGWQ2
- ZXRbbtnuGuhFAONII6OL9/3Gfjr96nNiUEFzs0qZdchR04b800F4l6sKPrniS0Hsqs9c41co6xV
- 694vBuot0QTgXmbDd52seNVtOgQBdCqI5gSPwvxztfNivusJEwPOu4u6dOHRHgprQjkrCsaz3lE
- 4i5dfBHGbhCJT9HgXWe1WZzt/BeNtdPLwVZb0Z6u+kN5dtcuHZzeyUpP2h/PdhBbMmD6Ukw2+cv
- Fow04PnvlBlj8HfReRmWs5dw8bREW4bSjxVSEwe051PySHs0q1z2KPe8GikuPzSUdef9FSlarvc
- aR0Q6g0UKn6BAmdSJdReUPxCr3Cr8CmgIwFMMtVvqJvQ6FoPR8gs=
+ bh=jRGHvGCSK73Yf22bn0ZMUkzfIexa3s85Q39fOenYGFE=;
+ b=owEBiQJ2/ZANAwAIASCtLsZbECziAcsmYgBpvXjZCQDTtNcfg9X2biz9bNBG1caPcGcLZ48mz
+ ZrwfQChxC+JAk8EAAEIADkWIQRPj7g/vng8MQxQWQQgrS7GWxAs4gUCab142RsUgAAAAAAEAA5t
+ YW51MiwyLjUrMS4xMSwyLDIACgkQIK0uxlsQLOLX5w/+JAkpfQWOg4UH0cLGl0Ae/Av7CYRGxxb
+ hWkw8ED3Q5BbhIBYvbR5LQbWABZZVDdZUwxdFi+ovzTwgl2gOLU+cHYYiYDrkwyH2x0/1n0HYS9
+ zqb2lSbTxOiiqcYAPmjJifBgMWYIt/Cy1MyIb/6/lYkJ6YEh5RuMw3z9WrYHeB6k5gkN6/qEbU8
+ d7hW+Lu2PHzOrJujarHIVlvvkdsfV8ZDKSuE5j6Ky+W+MzKbciY2hOKxSJw6MRh91xm5aHXR8ft
+ eOvkukNwF+93mmJHVBOW+uUjduefn8o5zCb/kcZ37hVRYLXvx/vxrGIMvEuINiJhDGv6C8rrd9I
+ CxrTaJp5krF5GuFDKVnhonVh96oNoTzIUjjETfdjmWA0OnNeERHd3jRFnf0KOGm1e5w/zwc26hk
+ UybD7WGENj8bKUVah/LlKnCpI19HbR93BYlnZmOtiVzsUvfRUUlKlAo7dES68EATBOAScl+SzGS
+ 0JYateK5Wk3B4G6pidAy6YqoEEv2HMyDA5wEDv+ki7uwvyfPosCM0zfl3zf9qwdIJTYb3vZzHbS
+ oQ4vTWx7lO7GWz0kpsJTTCVa7HOc6fvoVsQE+aS0WS19/z1h7wROp6mnZxFl/qJS/d+xXqqEzyh
+ B5CFy8WaZddDlVnsjzQLt3COqlB8Lsa3dWgQvl/P3Jr62MG7pwKQ=
 X-Developer-Key: i=louis.chauvet@bootlin.com; a=openpgp;
  fpr=8B7104AE9A272D6693F527F2EC1883F55E0B40A5
 X-Last-TLS-Session-Version: TLSv1.3
@@ -85,8 +86,8 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, 13 Mar 2026 07:20:10 -0600, Jim Cromie <jim.cromie@gmail.com> wrote:
-> virtio_gpu has 10 DRM_UT_CORE debugs, make them controllable when
+On Fri, 13 Mar 2026 07:20:11 -0600, Jim Cromie <jim.cromie@gmail.com> wrote:
+> tiny/simpledrm has 3 DRM_UT_DRIVER debugs, make them controllable when
 > CONFIG_DRM_USE_DYNAMIC_DEBUG=y by telling dyndbg that the module has
 > class'd debugs.
 
