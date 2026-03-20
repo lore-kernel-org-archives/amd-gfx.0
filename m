@@ -4,38 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CE1BE10987B0
-	for <amd-gfx@archiver.kernel.org>; Fri, 20 Mar 2026 16:43:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3A18010987B1
+	for <amd-gfx@archiver.kernel.org>; Fri, 20 Mar 2026 16:44:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4E00010EC0A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9ECF110EC0D;
 	Fri, 20 Mar 2026 16:43:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="Qr0Q2O5S";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="N74HNX4b";
 	dkim-atps=neutral
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C58E910EC02;
- Fri, 20 Mar 2026 16:43:54 +0000 (UTC)
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7F8A210EBFC
+ for <amd-gfx@lists.freedesktop.org>; Fri, 20 Mar 2026 16:43:43 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-02.galae.net (Postfix) with ESMTPS id B7B301A2F04;
- Fri, 20 Mar 2026 16:43:53 +0000 (UTC)
+ by smtpout-03.galae.net (Postfix) with ESMTPS id 698384E4274C;
+ Fri, 20 Mar 2026 16:43:42 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 8DD23600E0;
- Fri, 20 Mar 2026 16:43:53 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 39C08600E0;
+ Fri, 20 Mar 2026 16:43:42 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 8486C10450CB2; Fri, 20 Mar 2026 17:43:49 +0100 (CET)
+ with ESMTPSA id C0B7810450CB2; Fri, 20 Mar 2026 17:43:37 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1774025032; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ t=1774025021; h=from:subject:date:message-id:to:cc:mime-version:content-type:
  content-transfer-encoding:in-reply-to:references;
- bh=o3TXJDYgzD0dmnxmRY/CvJQPOemiCTt86JVL7IpYsus=;
- b=Qr0Q2O5SE+fxx+BR+IEUfeudH8G1RGHpvsTIxl0lO3sHWEr1nxCj8M+cmuq+6likWftabc
- aKoCCWdCgy7zYI6+gK+BKVP9VDeIasNX8GTZHW8p/qkB6mz8r8+gPQ53uuD2v3hmyzBHgh
- gC5OZNZdyTKRMZmgx+YN+T7shDBpfo83fOZMkWnldBpE+zX//abG3C+nDS3ntGOV/hO/Dl
- +yNLTzWhDe7V/lQ4jIxz7vRzKmfx6aKxOM4A4gRzqh6EIImsnPqtTwbP713HKN+L3mHRYl
- QOUDd8C9Uf4JoWjEprmzCXyVusw8YoJPgiUzT5oO3e/1HG8brXogLOQdG96l6Q==
+ bh=mYNuIL9yId09WjptvvKYSf8bf610PowqD7OK/zNQYqY=;
+ b=N74HNX4bTptZKAGXOFycCeCrtNsYNUWp4/1c7qOZtZ4kHnX7YqvzQJCIUhMmAC/uaThYx+
+ qrTqgotiTx+8ydkFAyQEFYiGwiYwxWRLoh7uHGLHCAyCA0bMDR4J7CHZoh6ZS0gajh/K2X
+ 3Ktfi7TzwVrautHxjCLOnUAP644iwviAM1QTJnXDfg8EVom9l4dwtiecP8cKhsPpdletci
+ S4kbLpj11ptSlFz62j+PifPO5Z1hK9O3CqCRUT6KFyKza55DPMzhtoHrHwCMomJbez136N
+ bFHkSyvJ827Tyt2IKCbx8ajBCc5WfCmmyhi5r6ekPYlzu1g6d3+ZNzRCl43WLA==
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v11 64/65] drm_print: fix drm_printer dynamic debug bypass
+Subject: Re: [PATCH v11 60/65] drm: restore CONFIG_DRM_USE_DYNAMIC_DEBUG
+ un-BROKEN
 From: Louis Chauvet <louis.chauvet@bootlin.com>
 To: airlied@gmail.com, simona@ffwll.ch, jbaron@akamai.com, 
  gregkh@linuxfoundation.org
@@ -47,27 +48,27 @@ Cc: Jim Cromie <jim.cromie@gmail.com>, mripard@kernel.org,
  skhan@linuxfoundation.org, pmladek@suse.com, ukaszb@chromium.org, 
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
  intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-In-Reply-To: <20260313132103.2529746-65-jim.cromie@gmail.com>
+In-Reply-To: <20260313132103.2529746-61-jim.cromie@gmail.com>
 References: <20260313132103.2529746-1-jim.cromie@gmail.com>
- <20260313132103.2529746-65-jim.cromie@gmail.com>
+ <20260313132103.2529746-61-jim.cromie@gmail.com>
 Date: Fri, 20 Mar 2026 17:41:54 +0100
-Message-Id: <177402491485.6181.1878747749743687917.b4-review@b4>
+Message-Id: <177402491478.6181.1346005469829325170.b4-review@b4>
 X-Mailer: b4 0.15-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=612;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=476;
  i=louis.chauvet@bootlin.com; h=from:subject:message-id;
- bh=Enxz/CcS4dPtd+s/MVIidGMfH3pGlf0ScOzJEm/MQ4Q=;
- b=owEBiQJ2/ZANAwAIASCtLsZbECziAcsmYgBpvXjcBJnEH32EGjcohuGKyo7Uk6ttAtORp7pSX
- 79okPPk9HqJAk8EAAEIADkWIQRPj7g/vng8MQxQWQQgrS7GWxAs4gUCab143BsUgAAAAAAEAA5t
- YW51MiwyLjUrMS4xMSwyLDIACgkQIK0uxlsQLOJ0IRAAtvJ4V8XWD0jXnFnIuRM6s2dU3QGRQgk
- At7QqstxQUvULu6HboZlEUCOhM2osLgght28TTqVfqSoSXbRvnaXH+c67yBYiNXFmasvKZfDtWg
- uyZbxw+8eY2awXf4pevPmqRMqXfSeDBvHJGFaklLCfp0ye+Vnkt7rAZeFqNC7x+keU8GsD6o1NT
- w1aQaSbtpiWjwhi5F5K7AjAAd6jAY5OF8JAFszDtU2fHi2LjiPl5Poelw9Z0uo+F7fXfl+onx1w
- 6Y2A8cy2UJdQofxR994qGF50aTav6ttOMe0xjWQGjF+ZGxARs4Dvwbp/IOttfGeyt06WZaLIXXm
- 5YqMD5c922q+Z+tyLZTyoqE8I3C1A5kgcJt3OuXeE+SHJemRULzw1qQzk1894bMkiSiSKEIs8q7
- mb90QP7D5mgjAWyJZYPjcGtsaYvZCqvVoaeGwAQ4B4SZburEa9NLyVlp7H4Hv+gvW7Ap4I40eS6
- W5urVH4tV/wBnYX6Zfee4PYYoqjc+W2ALcCKBGElxOTB7wk7YgZNNKPFX0YL/nUXmZPAdx1rGag
- 98YKY0suxFrzi2fY8d1ZSLPTyVvrPrzddRpaI2qBZQObVlQbzLME0vKW7q/vfjQ0JpA83AfKdUl
- vfgmf0JNMYfRfZ1Fh8rT88GbwL261lTZLvaJWxVOVIBxE/82V/+I=
+ bh=yeS4y+WMHxZwLeHWBUsM7zWsCPYI7FDza/++wcXC7yQ=;
+ b=owEBiQJ2/ZANAwAIASCtLsZbECziAcsmYgBpvXjb1MsOk2TyzdfTgAtSh2+5mexAzH9mwVfCi
+ hduMkLo+YKJAk8EAAEIADkWIQRPj7g/vng8MQxQWQQgrS7GWxAs4gUCab142xsUgAAAAAAEAA5t
+ YW51MiwyLjUrMS4xMSwyLDIACgkQIK0uxlsQLOJkKQ/9GFUv32TJsCzbk+LxyZd3JKbtf5/zRrJ
+ g4l3e53GgEZ6CY7JV8lqkXBYwNdizgE2UYMgwl6uYT+hKjRCj97WikZPJS0vbzk1C5sEwsrHUbN
+ aLRGuoBqC7BrCCeY/s6I7wOTrh2aPJTJc+VfAzabPA+uc0qucstShgm6BXYYZGvwE1Cz7evVJ6x
+ wdCuthwmxEpSHJxtyfuZD47f6IxRK23d9u9e3GSsewSv1Y5A6VurCv1Ye/R1zKxW02PmdsaFfmh
+ yovIo4PvK+iAi/uy7Bkd2CLTpfRkzgOKRGXGN/diFsAD/D/Qw4oHE8JLeR47vW8yfceL13TM4ii
+ u1+q1FyXVpHA4/vcVWUxsForb6DbA8Wo+GmwiZPTt2ojN5Csk4CiW4EQmSdBaZrCir9Nv8GMoHv
+ 4PA8aNUyIsNQenkDADhIA5/YQ15xl+FuLTbKIBF/tRzIxwbfVyg7PMzy3qhwE2Zn2S54xbA0eFx
+ bwrtwxsCB5sOfVbi+zulAnTOHAL7D9K1rhJRv4UigJFAS2cONyJ8/snHXKqV+BR+ZFsNmaGaIOe
+ VDk2j9sIYPkh+33DlMNzKkyBJGCQgDa9R8GdTB3Ij85jmErpNr/CWVgOt2tP2qH9cb2fHMF3HSE
+ QngLGVe/LP70d788BtA1RstsTkF98NPu72Zp2aCCK3zG74vjeXxk=
 X-Developer-Key: i=louis.chauvet@bootlin.com; a=openpgp;
  fpr=8B7104AE9A272D6693F527F2EC1883F55E0B40A5
 X-Last-TLS-Session-Version: TLSv1.3
@@ -85,19 +86,17 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, 13 Mar 2026 07:20:29 -0600, Jim Cromie <jim.cromie@gmail.com> wrote:
-> [...]
-> mismatch in intel_pipe_config_compare(), the resulting UART storm
-> causes a hard timeout after 20 minutes (see below the snip).
+On Fri, 13 Mar 2026 07:20:25 -0600, Jim Cromie <jim.cromie@gmail.com> wrote:
+> Time for some thorough CI.
 > 
-> To fix this, change __drm_printfn_dbg() to use the explicit
-> drm_debug_enabled_instrumented() instead. This ensures the bit-test is
-> performed at runtime for this unguarded helper, stopping the UART storm.
+> Also, the previous 18 patches could perhaps be replaced by a single
+> invocation of DYNDBG_CLASSMAP_USE, from a C-file linked into all drm
+> drivers & helpers.  I didn't find such a file, nor a drm-client
+> linkage item in the Makefile.
+> 
+> [...]
 
-Why don't use use drm_debug_enabled directly? Does it make sense to call
-the _instrumented when [2] is not enabled?
-
->
+Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
 
 -- 
 Louis Chauvet <louis.chauvet@bootlin.com>
