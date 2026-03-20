@@ -4,38 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3C0B110987A5
-	for <amd-gfx@archiver.kernel.org>; Fri, 20 Mar 2026 16:43:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 562F010987A5
+	for <amd-gfx@archiver.kernel.org>; Fri, 20 Mar 2026 16:43:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B296010EBFE;
-	Fri, 20 Mar 2026 16:43:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E81D710EC00;
+	Fri, 20 Mar 2026 16:43:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="ehHFLJme";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="OJu+/q7l";
 	dkim-atps=neutral
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 03B8E10EBFD
- for <amd-gfx@lists.freedesktop.org>; Fri, 20 Mar 2026 16:43:46 +0000 (UTC)
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9635B10EC00
+ for <amd-gfx@lists.freedesktop.org>; Fri, 20 Mar 2026 16:43:51 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-03.galae.net (Postfix) with ESMTPS id E03954E4274C;
- Fri, 20 Mar 2026 16:43:44 +0000 (UTC)
+ by smtpout-02.galae.net (Postfix) with ESMTPS id 89FEA1A2F04;
+ Fri, 20 Mar 2026 16:43:50 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id B0214600E0;
- Fri, 20 Mar 2026 16:43:44 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 5EFE3600E0;
+ Fri, 20 Mar 2026 16:43:50 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 62B8A10450CB3; Fri, 20 Mar 2026 17:43:41 +0100 (CET)
+ with ESMTPSA id 1C0EC10450CB3; Fri, 20 Mar 2026 17:43:46 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1774025023; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ t=1774025029; h=from:subject:date:message-id:to:cc:mime-version:content-type:
  content-transfer-encoding:in-reply-to:references;
- bh=lRME75nZ5IjiOQqvGi2z388Xo/P305LX3Jwfh4O+I9Q=;
- b=ehHFLJmePtppOLvir1UeZHE7ZOVuRdohtwtjK6sXBNCNZFHdAlJSEdIaf4zIQpfs1Rcwjb
- HYKTEfcOhZdxiXITSxX6i0CiBE2RsZ/HlQ/SqTMVODTLHJ0xYgBdZwcBKiMpdWhCXK3Wfb
- GswA8h4lzEOw/9XwARsEtkOd2iWAhrHgq9BV4tTR6sOMIacNxslcsJejOtCEywPoRad1G0
- n9bGSLIohD4W+hnY+rfIaHIoXbCG45qscwJnlzK1NgZbH8+GTyPVc3gnpjZ1mkP108wzsO
- hrCrDr/x8Ok1l9YETg2d0qkLSN3H4OJ9gNXde7FgCXrN9a6DXD3q300T+P4DHg==
+ bh=x2jomYIVcHsmbCXSkgnfVSZ1ezBsyA+cu8Tfc/iGI+E=;
+ b=OJu+/q7l7Q+uT9hCnBfuRF2A7regTlfo5s6pf4wF/CLgOs1TBNEeggG/p0Wxk/Sw+vMDaQ
+ gvk0lMOJgeDoWx6OYDwXdgH3os8pIAEm3k9uihhTLOeB3bSLxpmmSXH8Vt1MOFYf0yucMX
+ lJEJCS7tV6F6RMzjDqJfOHef772FODw/nJSM1fOFXgmZWpKJtX7H58DrykbgyCX0wHDrVe
+ GZE7d1c+5BHdKR0O17QK72fEnZRs0dm5bAcTaQUbJ5VJk8XFwjg9EDdTWUHQqg5wAdZtuw
+ tZusADkGcDvLkCj6florrw7qIH30jZ8R/bmrLpe6/3aaahlc+ypRFnWCYvWJ2Q==
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v11 61/65] accel/ethosu: enable drm.debug control
+Subject: Re: [PATCH v11 63/65] drm_buddy: fix 64-bit truncation in
+ power-of-2 rounding
 From: Louis Chauvet <louis.chauvet@bootlin.com>
 To: airlied@gmail.com, simona@ffwll.ch, jbaron@akamai.com, 
  gregkh@linuxfoundation.org
@@ -47,27 +48,27 @@ Cc: Jim Cromie <jim.cromie@gmail.com>, mripard@kernel.org,
  skhan@linuxfoundation.org, pmladek@suse.com, ukaszb@chromium.org, 
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
  intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-In-Reply-To: <20260313132103.2529746-62-jim.cromie@gmail.com>
+In-Reply-To: <20260313132103.2529746-64-jim.cromie@gmail.com>
 References: <20260313132103.2529746-1-jim.cromie@gmail.com>
- <20260313132103.2529746-62-jim.cromie@gmail.com>
+ <20260313132103.2529746-64-jim.cromie@gmail.com>
 Date: Fri, 20 Mar 2026 17:41:54 +0100
-Message-Id: <177402491480.6181.6449203113049115438.b4-review@b4>
+Message-Id: <177402491483.6181.11788631907510647484.b4-review@b4>
 X-Mailer: b4 0.15-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=426;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1336;
  i=louis.chauvet@bootlin.com; h=from:subject:message-id;
- bh=Csz2VdFCLeQS26BklNvMRkpRSthxwjNTh1RVfmFt3vY=;
- b=owEBiQJ2/ZANAwAIASCtLsZbECziAcsmYgBpvXjbq2Lr+ZM0ltkVBCGSBbNvtCYdoPoZjCeJP
- kBRzm/YilKJAk8EAAEIADkWIQRPj7g/vng8MQxQWQQgrS7GWxAs4gUCab142xsUgAAAAAAEAA5t
- YW51MiwyLjUrMS4xMSwyLDIACgkQIK0uxlsQLOJntA//dlpI87c2vbu2NJahx9hriOxl/4D+3c2
- lvCikyh3gxfokOwsMCXtx8TEdvWaxdTpo//LKZxQOzqoz2B+LPPG8ebDPRdQTm865oOJj0GF+RQ
- I9StFK42pawzoi7/+dMI1/m5j0h4ChczQPkiq7jMQUV8zA9EjLMpbZytOMlGTq/CQo+X1xJjNAy
- LzZHPoYS1ygDoUVjQz0/k0pmQD6JYw5uowk6kSdpSKe6udvf0x/kqS3tuJdl8XlSZtRbkKwPrDo
- xoVF7WFWNRmDazbitdkF/UDL5Dyab8UkWEis+WRwFUXA7dVBLgt/jn+bJCQpX6za35iegAOMUCb
- qoPI4MLUCEQ/hqZLWkoTwdMMXvJTwa1acf815LUoBNBSGoD0R/7Ez+Ov3CvoMZSb2kPFpGU7iA/
- Ir+swIFrIbslJ7zPDW9wqNOuqhGb7VjsQ8swjGrcEZOduqqAn9rB39K9SEdqPxyo8lGCG1MTlNV
- VSq3Sk0QTqFv+WA8HFBn7GcncjvM4vOVKnLax9/ZDnIVLYsD0oPGsuY8Ewr//WPoY1uKDoMG7kx
- WO8cOjs9JRhl2xmcBUfD6a32rQeI+LSqP7miUIKa1qpmlMXOdoTMHOlFlraQf4xmQyTsOG39WVh
- o8iyrMEQlTilideaNTv0D1/VWz7knyfXZr+u/whKE5/z01tg738o=
+ bh=6aSbIg/8iFip1SYs4zO/D0GiF2Q/h3bYhaGjD6Gxw10=;
+ b=owEBiQJ2/ZANAwAIASCtLsZbECziAcsmYgBpvXjcUC7u6+1kFI700lYOn5R9e7bbxwF+r6Qn5
+ rjLQs95CFOJAk8EAAEIADkWIQRPj7g/vng8MQxQWQQgrS7GWxAs4gUCab143BsUgAAAAAAEAA5t
+ YW51MiwyLjUrMS4xMSwyLDIACgkQIK0uxlsQLOIkVw//c+i84OcoNXvQJKPre7SbJ6CPMKXQrGo
+ hHDotwlGy49qjt+lRX64zbXpmPW+qDpnow2FYunCZiEadvNs/vcRKWSa+1bkuLVlQ/uyR/y42Qf
+ xCevqDZBD4B2fqd9SyrK/Zkd7yVfGR5JI+2eTe6NPnnCbfxJIR5A9HFlpKH6AhhkzsqtHd6Q8BF
+ eTL7h4wU1n02cQcM2htb/FXAQspJivxl2NWU5yarof9ZsdRZNffROPfpq72P7Zb+PTAZfS9RcQt
+ MyaGT8Vm6bMXYXQaXSxZw5O0L9wocQUgMqrPios2+6NEbmqG7w2N5ewhCOGaZft8g+R3WCV+SRR
+ ZIJQuGvPJSWym7ef5an3d1vdUD8S9Ome++z64S8mGRk46xg1ovEASNCWb4Ot440Y4B6edWhKrMa
+ 8yixIETD5yz/AEB505CPnBMl8QED4upGIlVKez6bzok9rHXsPN6SCCAcpqzn6y+4Vee9JoLJfvn
+ eaIiCpPBoPwoQt2pW7jLMEDQGgr1m7Xw58FWC1oreoX7MRENyQW3CudegJDsLSFcO/R+gx3zz95
+ 0PLlI3KWGlQr40g4ZbUcIiVbEQ3HRJL1rJB/2AHAz1qv6xVhYEs3D7qc5mpObQ1Thki+kFJIJ4z
+ xpgW6rf89twloUqXAJ3MXHqIkJ6clzQYt7EXx0ZoRK+2PAez4C+8=
 X-Developer-Key: i=louis.chauvet@bootlin.com; a=openpgp;
  fpr=8B7104AE9A272D6693F527F2EC1883F55E0B40A5
 X-Last-TLS-Session-Version: TLSv1.3
@@ -85,16 +86,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, 13 Mar 2026 07:20:26 -0600, Jim Cromie <jim.cromie@gmail.com> wrote:
-> ethosu.ko has several drm*dbg() calls, it must call DRM_CLASSMAP_USE
-> to tell dynamic-debug what classmap enables them.
-> Also include drm/drm_print.h explicitly.
+On Fri, 13 Mar 2026 07:20:28 -0600, Jim Cromie <jim.cromie@gmail.com> wrote:
+> [...]
+> drm_test_buddy_alloc_exceeds_max_order() uses the on a u64 value,
+> where they silently truncate the 10GB allocation, giving unexpected
+> success in DRM-CI.  (see below the snip).
+> 
+> Fix this by replacing the standard macros with safe 64-bit
+> power-of-two calculations using ilog2().
 
-Can you move this with all the other DRM_CLASSMAP_USE commits?
+This is a general DRM bug, if you send a new iteration, can you move it at
+then start so it can be applied easly?
 
 >
+>
+> diff --git a/drivers/gpu/buddy.c b/drivers/gpu/buddy.c
+> index b27761246d4b..ff158cc1d27e 100644
+> --- a/drivers/gpu/buddy.c
+> +++ b/drivers/gpu/buddy.c
+> @@ -915,7 +915,7 @@ static int __alloc_contig_try_harder(struct gpu_buddy *mm,
+>  	u64 modify_size;
+>  	int err;
+>  
+> -	modify_size = rounddown_pow_of_two(size);
+> +	modify_size = 1ULL << ilog2(size);
 
-Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
+Thanks for catching this issue!
+
+To avoid this kind of issue later / in other parts of the kernel, maybe you
+can change the macro itself to properly handle u64? I am thinking about
+something similar to ilog2[1]:
+
+( \
+	(sizeof(n) <= 4) ?		\
+	__rounddown_pow_of_two_u32(n) :	\
+	__rounddown_pow_of_two_u64(n)	\
+)
+
+[1]:https://elixir.bootlin.com/linux/v6.19.8/source/include/linux/log2.h#L156-L164
 
 -- 
 Louis Chauvet <louis.chauvet@bootlin.com>
