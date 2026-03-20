@@ -4,20 +4,20 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D5F83108B911
-	for <amd-gfx@archiver.kernel.org>; Fri, 20 Mar 2026 12:08:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E2937108B90B
+	for <amd-gfx@archiver.kernel.org>; Fri, 20 Mar 2026 12:10:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 79F2210EAD7;
-	Fri, 20 Mar 2026 12:08:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7AA1510E204;
+	Fri, 20 Mar 2026 12:10:05 +0000 (UTC)
 Received: from rtg-sunil-navi33.amd.com (unknown [165.204.156.251])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7E9CA10EAD7
- for <amd-gfx@lists.freedesktop.org>; Fri, 20 Mar 2026 12:08:29 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 88D9710E204
+ for <amd-gfx@lists.freedesktop.org>; Fri, 20 Mar 2026 12:10:03 +0000 (UTC)
 Received: from rtg-sunil-navi33.amd.com (localhost [127.0.0.1])
  by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Debian-22ubuntu3) with ESMTP id
- 62KC8NYO3776388; Fri, 20 Mar 2026 17:38:23 +0530
+ 62KC9w7r3777055; Fri, 20 Mar 2026 17:39:58 +0530
 Received: (from sunil@localhost)
- by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 62KC8Nni3776387;
- Fri, 20 Mar 2026 17:38:23 +0530
+ by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 62KC9wQ33777054;
+ Fri, 20 Mar 2026 17:39:58 +0530
 From: Sunil Khatri <sunil.khatri@amd.com>
 To: Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
@@ -25,8 +25,8 @@ Cc: amd-gfx@lists.freedesktop.org, Sunil Khatri <sunil.khatri@amd.com>,
  Prike Liang <Prike.Liang@amd.com>
 Subject: [PATCH] drm/amdgpu/userq: cleanup amdgpu_userq_get/put where not
  needed
-Date: Fri, 20 Mar 2026 17:38:22 +0530
-Message-Id: <20260320120822.3776362-1-sunil.khatri@amd.com>
+Date: Fri, 20 Mar 2026 17:39:57 +0530
+Message-Id: <20260320120957.3777035-1-sunil.khatri@amd.com>
 X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
