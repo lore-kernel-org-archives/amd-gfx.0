@@ -4,97 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3817B1094462
-	for <amd-gfx@archiver.kernel.org>; Sat, 21 Mar 2026 09:47:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D80D8109446F
+	for <amd-gfx@archiver.kernel.org>; Sat, 21 Mar 2026 09:47:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6B7CE10E37D;
-	Sat, 21 Mar 2026 09:47:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D752010E377;
+	Sat, 21 Mar 2026 09:47:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="EYGykoMx";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="Us5s1osT";
 	dkim-atps=neutral
-Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com
- [209.85.215.181])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C4EE710E2D5
- for <amd-gfx@lists.freedesktop.org>; Sat, 21 Mar 2026 05:45:14 +0000 (UTC)
-Received: by mail-pg1-f181.google.com with SMTP id
- 41be03b00d2f7-c74244dc0b3so1827252a12.2
- for <amd-gfx@lists.freedesktop.org>; Fri, 20 Mar 2026 22:45:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1774071914; x=1774676714; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=+adMGPlhVk0bbFqFiUYYCeP0eNPb1PCXZHc4YqFFXSQ=;
- b=EYGykoMx/+fMjOtrExMmEXIpYeGaKsHPE9DE9LeS/a652h1sxe4dlfHL1hOEGWerck
- P1Nzo8e/gcs4L5eAkGJxh8HsfXGs0UbZxNtSj5xj0FYhe6VotpyP1oOyqXOKRW7a/nFk
- u6bRVvU3B9pP3YXRSRaA3unI4BJ2FxMUPUug2RGZ2qibaafb5oqln/OvFvXCioX2ye6W
- xhhjCLYcNTiWiiHTydsfD9z3p+jy9P0XzobgS8nHb/3b0WUjxMXWSNmKLYMebh1PPnz/
- QzCmZQ+1uptDyIa2exgZ0quVtvoF0gsGy0koCJiEuxLZ/NbWfhv0wMR1AGtb2WjIS6gi
- WK3Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774071914; x=1774676714;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=+adMGPlhVk0bbFqFiUYYCeP0eNPb1PCXZHc4YqFFXSQ=;
- b=HgjPOIAwgyxy2uFL+Oini83kUCfqpPTlU5w7YIA2RxXmKWMRRK8tRjyh63J61h0Ixx
- zJ2UFX4Rg0lIsNXPVWYPP3KbDZareRC35IpC5BN5nYC7scFgreoItmjveYtEJNA0AQv4
- Qbz6rZxcZzlqnoNdbgldK+OY6zv0+6/qdRfg8meONMMrWUBUxPDJolHIxY1QoZOt7+zq
- wr4ULT48nzyHQhYKKSAk+EAb8/jNHnQ+FvzfWlqnPp2TQyWQZNRY3WKto2llrww/YMOU
- VP3k6hdBklfPMER/oY7xEycWYvBUI5sdLEzIGFVZYcBrT4BHA1CCyjDzHvMg4Hw/6EF/
- Rs3A==
-X-Forwarded-Encrypted: i=1;
- AJvYcCU8qLMzoS7rEh7Qz/qMiqw4o5va2O6a7cZ2RGl1g2g0m0xFETLeylYkEML0u9yuOB8CPLldBotm@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyxSiQp/giAmwXdVHPDdgFYqA6Np5r+VVlAKqmjisZI2KlRSY6Z
- /n/EFdZB9tIXrxvBXpL1Xf/x7qFGfUbOga3/QfdKk+cquzcD9Bkpyu7x
-X-Gm-Gg: ATEYQzw5NXqtpshTlREM9yTrFAxO/wRoGl9CcljJ44Jb1KgFuxQjsfCKh6iAzWIlPfF
- ThvitX6oRvwHTtKOswkfF2vBNp4j0azS1cHLdQO98zv8/y3QIkyq8FdfFT9b27uOexTvAvCA/zZ
- PzZxWYI0x1bvjXd67gdmjwgqrzDI4S+kkVVTeSrXIchnwa6fTiigRhy7hmBnAJr+EQXRGERwyXW
- b4UpqxY0if32SaUfXvNcS5u6Z83ENv5IjVxhYCQj37b7924ecMnmJYh9H9CZMwZgZdPRNA6pfDb
- YbsB1X7MNADdtlWpr25WdLCFbt+UqeEHWk3bfrxWeUt5lhc0Cdfjc/W0cF/NuWgB71K0Z7YEcet
- 6qMhaqbgv1eosdCV2DGx120jZa5PnGVGskJPmp+bIhZTCwXh+2LDsHVljrlcAk8K6FtT6y8rO1x
- 84jt6PRCqAxKCLysA+BMYunX3DD2+zxVSxQ+75pQnRgO2lAdZPbVp0XCw=
-X-Received: by 2002:a05:6a20:9146:b0:398:8bd7:4f80 with SMTP id
- adf61e73a8af0-39bcec0692amr4985522637.46.1774071914235; 
- Fri, 20 Mar 2026 22:45:14 -0700 (PDT)
-Received: from ryzen ([2601:644:8000:5b5d::8bd])
- by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-82b0409c681sm4338783b3a.37.2026.03.20.22.45.12
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 20 Mar 2026 22:45:13 -0700 (PDT)
-From: Rosen Penev <rosenp@gmail.com>
-To: stable@vger.kernel.org
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, Harry Wentland <harry.wentland@amd.com>,
- Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- Evan Quan <evan.quan@amd.com>,
- Mario Limonciello <mario.limonciello@amd.com>,
- Sasha Levin <sashal@kernel.org>, Rosen Penev <rosenp@gmail.com>,
- Lijo Lazar <lijo.lazar@amd.com>, Ma Jun <Jun.Ma2@amd.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
- "Mario Limonciello (AMD)" <superm1@kernel.org>,
- Zhigang Luo <Zhigang.Luo@amd.com>, Bert Karwatzki <spasswolf@web.de>,
- Ray Wu <ray.wu@amd.com>, Wayne Lin <Wayne.Lin@amd.com>,
- Roman Li <Roman.Li@amd.com>, Hersen Wu <hersenxs.wu@amd.com>,
- =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>,
- Alex Hung <alex.hung@amd.com>, decce6 <decce6@proton.me>,
- Wentao Liang <vulab@iscas.ac.cn>,
- amd-gfx@lists.freedesktop.org (open list:RADEON and AMDGPU DRM DRIVERS),
- dri-devel@lists.freedesktop.org (open list:DRM DRIVERS),
- linux-kernel@vger.kernel.org (open list)
-Subject: [PATCHv3 for 6.1 1/4] drm/amdgpu: use proper DC check in
- amdgpu_display_supported_domains()
-Date: Fri, 20 Mar 2026 22:44:50 -0700
-Message-ID: <20260321054453.19683-2-rosenp@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260321054453.19683-1-rosenp@gmail.com>
-References: <20260321054453.19683-1-rosenp@gmail.com>
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
+ [136.143.188.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3E3C110EA80;
+ Fri, 20 Mar 2026 18:03:09 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1774029766; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=PNxUySczSU38mMzdR84YaYxhTGdpHIm85C/2EgkWKYUucqXLiH1HOd/0wZ86bQhFBux2ibqk05DUwk7LQmJAcgyEYI2Uo3AWVMG0UuIMJoDrVIm2TML7/yr/uhn191bG79yDa3/OZfYzh8db0X7g/9MNOTTXk9fZuG5AmAKuXdY=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1774029766;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=1E0I4plasL+V6dSSfgn7rPNZ1ua8f3OiCtwTZiwbiaw=; 
+ b=Amm6yTt8XPa5K6KIhOtPrhmlBC6e2st2/RJ3nyGGBZNsWU2cXyt/2Beiy4xYALzeKVvK6LfAG3ikqR/N7r8K6lDh8SYirXyE21kxoqE9b9i0rW5Ui6c0n3CZ2nZ7FfW0PT+MjmGAyXgKT2Xfis043Hx3sQClSf54eTwjKevhlts=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
+ dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1774029766; 
+ s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
+ h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:Content-Type:Message-Id:Reply-To;
+ bh=1E0I4plasL+V6dSSfgn7rPNZ1ua8f3OiCtwTZiwbiaw=;
+ b=Us5s1osTfkHhnms5hX+M6EhSSMNK5mmIT6RC01edi8CMmuUzfJ+A7VKXAusxTwfx
+ wuaCvftlokyr2NpkPbgeTYaMipIMP69KU6FPEOXPzf1I1OtpFFil6iCNwdFZwHf+Klz
+ 4jJOfsq45cxuL1SDwt4ebU0tXvo+xEWlu8yjzbYg=
+Received: by mx.zohomail.com with SMTPS id 1774029764491913.3305342227886;
+ Fri, 20 Mar 2026 11:02:44 -0700 (PDT)
+From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ Ville =?UTF-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
+ Daniel Stone <daniels@collabora.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Michel =?UTF-8?B?RMOkbnplcg==?= <michel.daenzer@mailbox.org>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, kernel@collabora.com,
+ Derek Foreman <derek.foreman@collabora.com>,
+ Marius Vlad <marius.vlad@collabora.com>
+Subject: Re: [PATCH v5 0/3] Add "link bpc" DRM property
+Date: Fri, 20 Mar 2026 19:02:38 +0100
+Message-ID: <5797606.kQq0lBPeGt@workhorse>
+In-Reply-To: <8ba60a99-f69e-482e-bd68-f6bc36291c54@mailbox.org>
+References: <20260319-link-bpc-v5-0-5306cd04a708@collabora.com>
+ <8ba60a99-f69e-482e-bd68-f6bc36291c54@mailbox.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 X-Mailman-Approved-At: Sat, 21 Mar 2026 09:47:17 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -110,36 +77,76 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Alex Deucher <alexander.deucher@amd.com>
+On Friday, 20 March 2026 15:32:37 Central European Standard Time Michel D=
+=C3=A4nzer wrote:
+> On 3/19/26 13:28, Nicolas Frattaroli wrote:
+> > This series adds a new "link bpc" DRM property. It reflects the display
+> > link's actual achieved output bits per component, considering any
+> > degradation of the bit depth done by drivers for bandwidth or other
+> > reasons. The property's value is updated during an atomic commit, which
+> > is also when it fires an uevent if it changed to let userspace know.
+> >=20
+> > There's a weston implementation at [1] which makes use of this new
+> > property to warn when a user's requested bpc could not be reached.
+> >=20
+> > [1]: https://gitlab.freedesktop.org/wayland/weston/-/merge_requests/1850
+>=20
+> I see no description of a real-world use case, either in this series
+> or in the weston MR, beyond logging a message when the "link bpc" &
+> "max bpc" property values don't match. They are not expected to match
+> in general, so I have a hard time seeing the usefulness of that.
 
-[ Upstream commit 96ce96f8773da4814622fd97e5226915a2c30706 ]
+Hello,
 
-amdgpu_device_asic_has_dc_support() just checks the asic itself.
-amdgpu_device_has_dc_support() is a runtime check which not
-only checks the asic, but also other things in the driver
-like whether virtual display is enabled.  We want the latter
-here.
+these are valid concerns. The problem being addressed is related to
+userspace being able to detect whether the link has degraded due to,
+say, a sketchy cable.
 
-Acked-by: Christian König <christian.koenig@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Rosen Penev <rosenp@gmail.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_display.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+This patch started out as a method of forcing the output link's BPC
+value to a certain value, but this is not desirable. The max bpc
+property is already used to restrict the link's bpc due to sketchy
+hardware that advertises a higher max bpc than it can actually
+achieve.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-index cd0bccc95205..98cce09684f2 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-@@ -534,7 +534,7 @@ uint32_t amdgpu_display_supported_domains(struct amdgpu_device *adev,
- 	 */
- 	if ((bo_flags & AMDGPU_GEM_CREATE_CPU_GTT_USWC) &&
- 	    amdgpu_bo_support_uswc(bo_flags) &&
--	    amdgpu_device_asic_has_dc_support(adev->asic_type) &&
-+	    amdgpu_device_has_dc_support(adev) &&
- 	    adev->mode_info.gpu_vm_support)
- 		domain |= AMDGPU_GEM_DOMAIN_GTT;
- #endif
---
-2.53.0
+This adds the other side of the equation, where userspace isn't
+necessarily keen on blindly accepting the combination of output
+link parameters the kernel degraded to. This allows userspace to
+detect that an explicitly chosen value it tried did not work, and
+try again with a different color format/VRR/bpc/etc.
+
+A particular real-world use case is for playback of video content.
+When playing back YUV 4:2:0 10-bit video content in a full-screen
+setting, having RGB 10-bit degrade to YUV 4:2:0 10-bit rather than
+RGB 8-bit is more desirable. However, this is a tradeoff only
+userspace knows to make; the kernel doesn't necessarily know that
+the framebuffer it has been handed as RGB 10-bit is secretly just
+a video player's playback of YUV 4:2:0 10-bit content. As for
+the property that let's userspace actually set the output color
+format, that's a separate series of mine.
+
+I agree that the weston implementation isn't a great showcase,
+but it's actually supposed to compare link bpc with an explicitly
+set max bpc config value, not the property value. The config value
+exists to request a certain bpc.
+
+> Moreover, there's no description of what exactly the "link bpc" property
+> value means, e.g. vs things like DSC or dithering, or how a compositor /=
+=20
+> user would determine which value they need / want under given circumstanc=
+es.
+
+I agree that I should've expanded on this after splitting it out of the
+HDMI patch. It's the output BPC as HDMI understands it. That means DSC is n=
+ot
+a factor. I don't know if any display protocols do dithering at the
+protocol level, I only know some monitors dither internally, which isn't
+something that can be detected.
+
+> In summary, I'm skeptical that this will be useful in practice in the
+> current form. I do see potential for spurious bug reports based on the
+> "link bpc" property having the "wrong" value though.
+
+Kind regards,
+Nicolas Frattaroli
+
 
