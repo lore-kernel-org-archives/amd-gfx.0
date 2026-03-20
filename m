@@ -4,74 +4,93 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 09DF210987B2
-	for <amd-gfx@archiver.kernel.org>; Fri, 20 Mar 2026 16:44:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 34A6A1099B33
+	for <amd-gfx@archiver.kernel.org>; Fri, 20 Mar 2026 18:15:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 93E1A10EC0C;
-	Fri, 20 Mar 2026 16:44:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B2AB610EA21;
+	Fri, 20 Mar 2026 18:15:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="16zynauu";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ExUtI9Ju";
 	dkim-atps=neutral
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 50A5410EC0A
- for <amd-gfx@lists.freedesktop.org>; Fri, 20 Mar 2026 16:43:57 +0000 (UTC)
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-03.galae.net (Postfix) with ESMTPS id 33C204E4274D;
- Fri, 20 Mar 2026 16:43:56 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 09077600E0;
- Fri, 20 Mar 2026 16:43:56 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id D243110450CB5; Fri, 20 Mar 2026 17:43:52 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1774025034; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding:in-reply-to:references;
- bh=a3n5vw+rDIMQiLwiaCuuTlkkpK5uafDLslMZG+41CRQ=;
- b=16zynauuABPys0pqMhPSawKQXkY2A4j9NE56YqAFfewB46l7Eq0PSQoqO22+2j82fHcbL5
- aQyZA+xe1dSlVx07tbweMjLr9oH8P9xTHQ/Z61A3T3/6zSJIXw31IgGq9N1NOi1DEwdrtE
- NcEI3EHfiuMmGNkS17WOplrpZ3drcicO7HJYH2sIgT73+yOTjaeRTJlSFs0/gRUHnIkavX
- MLS7A7yx8XUQ4wDSex9+Yr4lUVYC4A7xZawA62TYtCu4XGbOZwG3SEjIAb2cSGA2EhwqFe
- OwIRIIFZpBMi6TCuR4qG05FMYrr7frtaWoHvLFVUAGYDsFBZbLkiXglJBlfmBg==
+Received: from mail-dl1-f54.google.com (mail-dl1-f54.google.com [74.125.82.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 39D6010EA21
+ for <amd-gfx@lists.freedesktop.org>; Fri, 20 Mar 2026 18:15:17 +0000 (UTC)
+Received: by mail-dl1-f54.google.com with SMTP id
+ a92af1059eb24-1273c690e5bso213018c88.2
+ for <amd-gfx@lists.freedesktop.org>; Fri, 20 Mar 2026 11:15:17 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1774030516; cv=none;
+ d=google.com; s=arc-20240605;
+ b=f1i44I5sFxyoisMAYPpKD1ZjbOaTyka7cPokdrL/3e2qqssw6NPXCE0UD3JDbYibfy
+ FydNOvOP7zyEP9tyR/w6jy9yA+AWGZ+MZC+MQt3DfYfnoG11Z9CG++CKjJ8c7oobGCW6
+ oxbN4VSrm9AieUzf5t7wV15YC8Sw0nhrHHUoKe0Sig0fxr4KGN74QXvHWOfN1ZMYxpci
+ tibJ1C+H0SE4xsTSX7yp7CS8GKuyo1ACLnopDvIDdq9JWmys7BOlMXoo+uBG2sSHx9Z+
+ 5hrts+xFSeeuIGCvnpN+3fA0hvV8eamk1PWo+p8aWSGCFOaIAmN0LvC7pRZ0Z+hxLMC8
+ hX3w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=3gYu0lPwzdGEz1Yi5GTTKkhY/44T3z177ERghSZGOPM=;
+ fh=71VkXJtsWnrS0YqLNTqW148VSsoh0S3c+hQD0YDWlqM=;
+ b=EBULWNduN9hR44olsXi4HErx/pAvdk0zpRaKRtCoP6GSurX8JC/BY1GKa1FNYldbQ4
+ T7FgfCqyCclvoGcIuuM+OEspZWWabZQJ3y5A1wABWmOsGeqDvb3FVdw/h79tRjsx6Hjw
+ eNI2GFculFgaUE/87TBdYcMX16Y615pP1ZgI9DJGs1QQorFuLABcgjIVG8J0r9KTvvsx
+ XWD1SiOTvGbyLnr9iVND2AdfzgXXL5w6ylqYXeWIoJ3yjFF6XeFJ52WKo4T2OOWmh8zz
+ 64rkTML5FEnjDMa+RdSyeqSzqufD68fbGDMwadTiCR7uZNV6visKHsk1UzR/RESycs6W
+ InrA==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1774030516; x=1774635316; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=3gYu0lPwzdGEz1Yi5GTTKkhY/44T3z177ERghSZGOPM=;
+ b=ExUtI9JukNuu2ygUjsrFAtZPg0ysOYs8wqG5c3b+naoPgFMmjDwHRWuhM6+wfwhPoz
+ OVXlb+CYk9XUaucZWt9nHbip5tRpzoit8YlkR8J3AtZi3l3lQZ/nlhFzeOzBBQvBABop
+ 29x6vX5X5VE5Zus71C3m+krhGRQsZ6m7fHzTjSA6W5JOQhvD/2iXZND43uB/Q6kqqML/
+ xDIg/dnIHH2I0fuamcZrDtV7VqE3h3Zld+wevISclmwIU06wzhBimAcZsBA4TmO/gsyJ
+ GfyZBOYgdjZuOGrT107PBtxeY5bV7v/kY8uo+fMA+USS20n7vcUJK138v+U9cMhM9tgz
+ bqPQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1774030516; x=1774635316;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=3gYu0lPwzdGEz1Yi5GTTKkhY/44T3z177ERghSZGOPM=;
+ b=GHc5ZPyoN/mkMC1ezYv9vnQts9+sg7LFwQTXj4xv7Tx2xvOS9uHrpE7tqirblIp8m3
+ Raj5k+hlc4VVqPCezxaAb8qKsmEui2Eo+mXGb7JL00ObwZCiS1EYDIxhe0YRhujP1tSb
+ RWr2XyzkJYFfWWi4rtvtz2JbwAZVNgyV5j5HjOtZt8llp+58XuIibPEP52piyb1jsHMU
+ IrmMjywonVKwNJ6RZheqdMSJ5TXK1arJPoho9RhBNcVkss3dpiXvDWXl4ICxMUOomPSo
+ dqC/o/WVyHsJxHrodg+5em2M4NIKCwvrBA34nLvot1uVhIT1Gn0lTaT96VNndTyDsx5e
+ TdtA==
+X-Gm-Message-State: AOJu0Yxvg/Ix3uADa+8PHQzaBiXDgvLGtWk7QRZsOrILRHg6oinI2SKG
+ s7GSpaBei7n8rIkQiBXrkDdgwL/ib3hyN2+54KSGiFKj2MWhmgeehkAp1oBy+yjngCZpq6IzKVD
+ oYTCypZwDR7tG7FN5ZCw03TcWKNJ0z5I=
+X-Gm-Gg: ATEYQzyWikhjc+LXEVR3PPtQ2yNSqoToSDcv38zzbJVPPnYfTBDChXALOqH9a1lvjSC
+ 882xW9BqUZ3xMK3UUpjpS/uvXCQW9XJI/19WZNEJEnsMWHwqHSvAqjqn9mZVdi9dvC3Asl35Y5u
+ 5fL5dSl7AM6no5vzFpgotPeWSwHwvNZgoMk4qT3SJbtpswSLyi2jDQMRAyVcrKEN9uEjHt/U5sG
+ /uzm2GbBABkFBVaiA2WGdZxGoa/8NCt4JzZnCKBIUCIK6G/carAxKWvqOtWvmokxx7faDh1Wse/
+ xlK4AIJRs0Z536M5voMfjSCQGoM36PwOAUXZyClog7E6DRInteE/fjP1M6zfE9UGoFVIUMG/TpB
+ rgVu1
+X-Received: by 2002:a05:7022:699b:b0:12a:716c:d27c with SMTP id
+ a92af1059eb24-12a726569ecmr892155c88.2.1774030516193; Fri, 20 Mar 2026
+ 11:15:16 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v11 65/65] drm_vblank: use dyndbg's static-key to avoid
- flag-check
-From: Louis Chauvet <louis.chauvet@bootlin.com>
-To: airlied@gmail.com, simona@ffwll.ch, jbaron@akamai.com, 
- gregkh@linuxfoundation.org
-Cc: Jim Cromie <jim.cromie@gmail.com>, mripard@kernel.org, 
- tzimmermann@suse.de, maarten.lankhorst@linux.intel.com, 
- jani.nikula@intel.com, ville.syrjala@linux.intel.com, 
- christian.koenig@amd.com, matthew.auld@intel.com, 
- arunpravin.paneerselvam@amd.com, louis.chauvet@bootlin.com, 
- skhan@linuxfoundation.org, pmladek@suse.com, ukaszb@chromium.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-In-Reply-To: <20260313132103.2529746-66-jim.cromie@gmail.com>
-References: <20260313132103.2529746-1-jim.cromie@gmail.com>
- <20260313132103.2529746-66-jim.cromie@gmail.com>
-Date: Fri, 20 Mar 2026 17:41:54 +0100
-Message-Id: <177402491486.6181.8708643086354041969.b4-review@b4>
-X-Mailer: b4 0.15-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=624;
- i=louis.chauvet@bootlin.com; h=from:subject:message-id;
- bh=p10Kv8NeHTDKVeqeVN7NQm9HSesgyb+B0sSXPicMRLE=;
- b=owEBiQJ2/ZANAwAIASCtLsZbECziAcsmYgBpvXjc8KwPlWKu7gsoo5PcwPkMXzTLFkSOijp+D
- tv/3lOAJB+JAk8EAAEIADkWIQRPj7g/vng8MQxQWQQgrS7GWxAs4gUCab143BsUgAAAAAAEAA5t
- YW51MiwyLjUrMS4xMSwyLDIACgkQIK0uxlsQLOKdhxAAwbAtpk6ueQX/rSWm8t4jVCvV/PFBvTN
- OCx7C/IfCLz8n+wmMSuovEnMBPCL8ddcycGWajInsmSA6WI3DwyCGWBZSTdaMHCyVnm6TIOoD2P
- wkhUpwNXWKA4vAXUR7hn4he8OHxMtZURiR9IdDonjTnNIBVVPC59+AQRhtebEcKmjLbpfbI0llH
- VgqiUsQAyk3Vg6m+8ZVMBpt6a0gDYGw/ky1+8gLvGkFOuz3MnurM1vKF1A1mkm2vjXeXwtORIeS
- KpFfxL8urNEOEsQNbEUy4edMrEmK2MC1J3QuWMt1W6Axv1/kA2TCia0m9krYfbkG7Lx/mFM9MwK
- 9DgLhJgi7J/PYyW9BPiNQDVEV4W/bdwiYFwQQPxKe8f21bTGheBXh//2jb98EsweX/DWM6O682r
- PpDyW2ddLO6R+/SVwPruTqMcHvudkAxek6ywZzWISKdMe/2mgDE3Zv7VH2gbNSSlcsyxgNut1yq
- LDCtk8PvZl4AIsTDlsMbUIisZ5yBRvZbE/MAUThp5oKxC8hfB3TbfxRsRtUB2nTS4UC4gVgC/Jp
- sn/0nYx0CCYrVdB7y7gNg/3NGDGHycSNtLYp2LtE0RkhChCT+h0xx35wS9Uo137YurGSAIUBh+B
- Q+CkTZrfE2vakSSRIDNpf9BB+bXH04OfysqgYHSLGUMPVTvofgPM=
-X-Developer-Key: i=louis.chauvet@bootlin.com; a=openpgp;
- fpr=8B7104AE9A272D6693F527F2EC1883F55E0B40A5
-X-Last-TLS-Session-Version: TLSv1.3
+References: <20260320014800.228582-1-kevinyang.wang@amd.com>
+ <DM6PR12MB2972DD522606573881D360A8824CA@DM6PR12MB2972.namprd12.prod.outlook.com>
+In-Reply-To: <DM6PR12MB2972DD522606573881D360A8824CA@DM6PR12MB2972.namprd12.prod.outlook.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Fri, 20 Mar 2026 14:15:05 -0400
+X-Gm-Features: AaiRm52leodgeIrk-FlZME-OPWBSET3TcPTz66w-E4exI5OZ73uYWRWnxYbQWrk
+Message-ID: <CADnq5_MO0L=BXcwMi3-Xe_OErm4n=+2h2hJdwuPMZQXBHUcLTg@mail.gmail.com>
+Subject: Re: [PATCH 1/2] drm/amd/pm: disable OD_FAN_CURVE if temp or pwm range
+ invalid for smu v13
+To: "Wang, Yang(Kevin)" <KevinYang.Wang@amd.com>
+Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, 
+ "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Zhang,
+ Hawking" <Hawking.Zhang@amd.com>, "Feng, Kenneth" <Kenneth.Feng@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,19 +105,191 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, 13 Mar 2026 07:20:30 -0600, Jim Cromie <jim.cromie@gmail.com> wrote:
-> drm_crtc_vblank_helper_get_vblank_timestamp_internal() is called about
-> ~100 times per sec, on a single display. It currently calls
-> drm_debug_enabled(DRM_UT_VBL) to avoid doing ktime_to_timespec64()
-> conversions when the debug logging is disabled.
-> 
-> When CONFIG_DRM_USE_DYNAMIC_DEBUG=Y, the drm_debug_enabled() is
-> redundant, because the following drm_dbg_vbl() already carries a
-> static-key optimization.
-> 
-> [...]
+On Thu, Mar 19, 2026 at 11:24=E2=80=AFPM Wang, Yang(Kevin)
+<KevinYang.Wang@amd.com> wrote:
+>
+> [AMD Official Use Only - AMD Internal Distribution Only]
+>
+> Extra information:
+>
+> [Issue]: Can not set fan speed on Radeon Pro W7900
+> Closes: https://github.com/ROCm/amdgpu/issues/208
 
-Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
+With that line added to the commit,
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
 
--- 
-Louis Chauvet <louis.chauvet@bootlin.com>
+>
+> Best Regards,
+> Kevin
+>
+> -----Original Message-----
+> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Yang W=
+ang
+> Sent: Friday, March 20, 2026 09:48
+> To: amd-gfx@lists.freedesktop.org
+> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Zhang, Hawking <Hawki=
+ng.Zhang@amd.com>; Feng, Kenneth <Kenneth.Feng@amd.com>
+> Subject: [PATCH 1/2] drm/amd/pm: disable OD_FAN_CURVE if temp or pwm rang=
+e invalid for smu v13
+>
+> Forcibly disable the OD_FAN_CURVE feature when temperature or PWM range i=
+s invalid, otherwise PMFW will reject this configuration on smu v13.0.x
+>
+> example:
+> $ sudo cat /sys/bus/pci/devices/<BDF>/gpu_od/fan_ctrl/fan_curve
+>
+> OD_FAN_CURVE:
+> 0: 0C 0%
+> 1: 0C 0%
+> 2: 0C 0%
+> 3: 0C 0%
+> 4: 0C 0%
+> OD_RANGE:
+> FAN_CURVE(hotspot temp): 0C 0C
+> FAN_CURVE(fan speed): 0% 0%
+>
+> $ echo "0 50 40" | sudo tee fan_curve
+>
+> kernel log:
+> [  756.442527] amdgpu 0000:03:00.0: amdgpu: Fan curve temp setting(50) mu=
+st be within [0, 0]!
+> [  777.345800] amdgpu 0000:03:00.0: amdgpu: Fan curve temp setting(50) mu=
+st be within [0, 0]!
+>
+> Signed-off-by: Yang Wang <kevinyang.wang@amd.com>
+> ---
+>  .../drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c  | 33 ++++++++++++++++++-  =
+.../drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c  | 33 ++++++++++++++++++-
+>  2 files changed, 64 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c b/drive=
+rs/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
+> index cd077151f3e4..9be7a2af560d 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
+> @@ -59,6 +59,10 @@
+>
+>  #define to_amdgpu_device(x) (container_of(x, struct amdgpu_device, pm.sm=
+u_i2c))
+>
+> +static void smu_v13_0_0_get_od_setting_limits(struct smu_context *smu,
+> +                                             int od_feature_bit,
+> +                                             int32_t *min, int32_t *max)=
+;
+> +
+>  static const struct smu_feature_bits smu_v13_0_0_dpm_features =3D {
+>         .bits =3D {
+>                 SMU_FEATURE_BIT_INIT(FEATURE_DPM_GFXCLK_BIT),
+> @@ -1044,8 +1048,35 @@ static bool smu_v13_0_0_is_od_feature_supported(st=
+ruct smu_context *smu,
+>         PPTable_t *pptable =3D smu->smu_table.driver_pptable;
+>         const OverDriveLimits_t * const overdrive_upperlimits =3D
+>                                 &pptable->SkuTable.OverDriveLimitsBasicMa=
+x;
+> +       int32_t min_value, max_value;
+> +       bool feature_enabled;
+>
+> -       return overdrive_upperlimits->FeatureCtrlMask & (1U << od_feature=
+_bit);
+> +       switch (od_feature_bit) {
+> +       case PP_OD_FEATURE_FAN_CURVE_BIT:
+> +               feature_enabled =3D !!(overdrive_upperlimits->FeatureCtrl=
+Mask & (1U << od_feature_bit));
+> +               if (feature_enabled) {
+> +                       smu_v13_0_0_get_od_setting_limits(smu, PP_OD_FEAT=
+URE_FAN_CURVE_TEMP,
+> +                                                         &min_value, &ma=
+x_value);
+> +                       if (!min_value && !max_value) {
+> +                               feature_enabled =3D false;
+> +                               goto out;
+> +                       }
+> +
+> +                       smu_v13_0_0_get_od_setting_limits(smu, PP_OD_FEAT=
+URE_FAN_CURVE_PWM,
+> +                                                         &min_value, &ma=
+x_value);
+> +                       if (!min_value && !max_value) {
+> +                               feature_enabled =3D false;
+> +                               goto out;
+> +                       }
+> +               }
+> +               break;
+> +       default:
+> +               feature_enabled =3D !!(overdrive_upperlimits->FeatureCtrl=
+Mask & (1U << od_feature_bit));
+> +               break;
+> +       }
+> +
+> +out:
+> +       return feature_enabled;
+>  }
+>
+>  static void smu_v13_0_0_get_od_setting_limits(struct smu_context *smu, d=
+iff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c b/drivers/=
+gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
+> index a1d50654db72..5cc15545da6e 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
+> @@ -59,6 +59,10 @@
+>
+>  #define to_amdgpu_device(x) (container_of(x, struct amdgpu_device, pm.sm=
+u_i2c))
+>
+> +static void smu_v13_0_7_get_od_setting_limits(struct smu_context *smu,
+> +                                             int od_feature_bit,
+> +                                             int32_t *min, int32_t *max)=
+;
+> +
+>  static const struct smu_feature_bits smu_v13_0_7_dpm_features =3D {
+>         .bits =3D {
+>                 SMU_FEATURE_BIT_INIT(FEATURE_DPM_GFXCLK_BIT),
+> @@ -1054,8 +1058,35 @@ static bool smu_v13_0_7_is_od_feature_supported(st=
+ruct smu_context *smu,
+>         PPTable_t *pptable =3D smu->smu_table.driver_pptable;
+>         const OverDriveLimits_t * const overdrive_upperlimits =3D
+>                                 &pptable->SkuTable.OverDriveLimitsBasicMa=
+x;
+> +       int32_t min_value, max_value;
+> +       bool feature_enabled;
+>
+> -       return overdrive_upperlimits->FeatureCtrlMask & (1U << od_feature=
+_bit);
+> +       switch (od_feature_bit) {
+> +       case PP_OD_FEATURE_FAN_CURVE_BIT:
+> +               feature_enabled =3D !!(overdrive_upperlimits->FeatureCtrl=
+Mask & (1U << od_feature_bit));
+> +               if (feature_enabled) {
+> +                       smu_v13_0_7_get_od_setting_limits(smu, PP_OD_FEAT=
+URE_FAN_CURVE_TEMP,
+> +                                                         &min_value, &ma=
+x_value);
+> +                       if (!min_value && !max_value) {
+> +                               feature_enabled =3D false;
+> +                               goto out;
+> +                       }
+> +
+> +                       smu_v13_0_7_get_od_setting_limits(smu, PP_OD_FEAT=
+URE_FAN_CURVE_PWM,
+> +                                                         &min_value, &ma=
+x_value);
+> +                       if (!min_value && !max_value) {
+> +                               feature_enabled =3D false;
+> +                               goto out;
+> +                       }
+> +               }
+> +               break;
+> +       default:
+> +               feature_enabled =3D !!(overdrive_upperlimits->FeatureCtrl=
+Mask & (1U << od_feature_bit));
+> +               break;
+> +       }
+> +
+> +out:
+> +       return feature_enabled;
+>  }
+>
+>  static void smu_v13_0_7_get_od_setting_limits(struct smu_context *smu,
+> --
+> 2.47.3
+>
