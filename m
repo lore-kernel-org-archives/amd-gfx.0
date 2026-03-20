@@ -4,79 +4,101 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EB94C1099B3C
-	for <amd-gfx@archiver.kernel.org>; Sat, 21 Mar 2026 05:20:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C90341094462
+	for <amd-gfx@archiver.kernel.org>; Sat, 21 Mar 2026 09:47:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 897DA10EB65;
-	Sat, 21 Mar 2026 05:20:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5F4F410E2B0;
+	Sat, 21 Mar 2026 09:47:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="gAHnRJtW";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="aR8GJdfQ";
 	dkim-atps=neutral
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com
- [209.85.128.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C227A10EB65
- for <amd-gfx@lists.freedesktop.org>; Sat, 21 Mar 2026 05:20:47 +0000 (UTC)
-Received: by mail-wm1-f52.google.com with SMTP id
- 5b1f17b1804b1-486b96760easo28702125e9.2
- for <amd-gfx@lists.freedesktop.org>; Fri, 20 Mar 2026 22:20:47 -0700 (PDT)
+Received: from mail-yx1-f47.google.com (mail-yx1-f47.google.com
+ [74.125.224.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7F92110EBAC
+ for <amd-gfx@lists.freedesktop.org>; Fri, 20 Mar 2026 17:48:31 +0000 (UTC)
+Received: by mail-yx1-f47.google.com with SMTP id
+ 956f58d0204a3-64ad79dfb7cso2910797d50.2
+ for <amd-gfx@lists.freedesktop.org>; Fri, 20 Mar 2026 10:48:31 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1774028910; cv=none;
+ d=google.com; s=arc-20240605;
+ b=EFnYSm+QXmfN+bVSLD7uLydrcoMC+fQUpbx5c5BcpLpcNpWybYw/sBxC/NfoxFn8QZ
+ Dp/f3r7ZcNYrmbVZmqxB8uhiJrCvcRLN80W1eadPyl3Qb42IARA3F2KLGAwjIEwWBk84
+ mqa9iAJR8FQ/Mk3lTDpY3LtrhnPbqLIyP9ue9K6npMMuj+sopivO3u6YkfalDA4VDdUg
+ mSzVBuPJusGVUC2O+7zi8Hknep6d8UKMkht5x8Q+7248pSiPL1+/6Njf8xC8kjjJ5ILC
+ greZyJbnmxSP5rXXAAL0l9XFxbHLrRgrzu9SaViYs1EgG30kXg5FYMbC59WwM4LPa7Pc
+ dHNg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=+0Ef+wM9iBGnlAV74+t5ecaaFq7fGhBfxH9EipXPT+0=;
+ fh=EZ30pniOhT6tVCQF9ZBo1Q8IQGE9UZAvBUmtOsBgpzs=;
+ b=GWn/X09UPDINNh0RFeIRAoDHCbMSH4O9MSY8ufZXj365Oer3K3+03tC9U5JFcGN97H
+ nFabuXm77OsSNLK2Cmn21+T3TWAuDMpxZyyVxyTu5mefU/WW4Ws2G3nyWD2le9DjWL+c
+ tGYc3w68PccrzGZEBaajGvHwsc3UfIbl2uy4srqJ01rvpQmbzUDMhs2SlRoUi19IL5LS
+ Jfh8vlQnjW/xFXAbg/fnwfOmXYv/K4Umn5FiyeFUJ68ybNDty3JTHn7Qgh92tE3dp3qn
+ bo94qQz9X4ElnGPioDzfD93q/81lF0farpolLTo4XNpSBgt5pzmGEwcz6ykBVUl5Yvze
+ Mjqg==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1774070446; x=1774675246; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=1EKq1vLfgwYt/zYwN9FJYIigJVZ+pwHlskrnj75NFik=;
- b=gAHnRJtWNrYe0Xrl7F6d2/AW8wL9XnNcAhacRQtyTJfCaGvP2MbiXW8SSqhxAC8n3N
- +krqQYLC61OW6iEBLIoXPyyy0krW2rGK9zL4wJjwaANl4wnQ9B/1rzQWt6uZd7G/eWlN
- G52Apaxu1oCiZ5PpTQYWcNANPp3qIroSzVlbtQ6fbSwUieybtY2DyyLwLTl93G9E5FAe
- en2lapb6e8MiVo4BOXXqoBodAmdoZiA539Uemt3TPyNkZzF37thokpbvzT3p51q7uxX5
- PdHlHNeOuW/ZgLZLJOUt1l/cvg7+Zab0+1inTZYcerFKgm0/dyXaGo4sxU/cyGWxbb1+
- Kfrw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774070446; x=1774675246;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=gmail.com; s=20230601; t=1774028910; x=1774633710; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=1EKq1vLfgwYt/zYwN9FJYIigJVZ+pwHlskrnj75NFik=;
- b=it8ocdPw7PzFh96RI/NPizrFt6XXZYhQ+fch4woCuwBQEHhD0JSIjwSLhwR7SL3e0Z
- zTqE+Sl9SQM6aWRxgclURvKg3ZGzKaFJBCPbibB2l6BU0II4NZ17Ai5x8FH8tb4iwnFk
- mJKfFKW/nBkGJkQjD4X8PTccE08w0fezfr9jkTwtb5b1PUZi+MEGQwVOBcbmdtwQAc8b
- KuECtU6FudeY316VghM5QDczSFmYugUcTrZYZygr+vqv5Xksd3WdlKeGL4qDnXGIWmFs
- h4Dg04ydTTGO0o6P/RTSMQGjwmogK/NH8dMFl3KAmaRp90r/ExmGl4q2TWtNrNDIUBzL
- NVkA==
-X-Gm-Message-State: AOJu0YyitU0iB4jYQmx9qhHAFVTO/4fyQiDNB6sDuX8MrsGM+JyN08YS
- RJiVx6ocVVdV2Vm172JH+lVUxgyOFxIJEYPhKf9F9RlVMiVEoiVWade63EOVmOwC
-X-Gm-Gg: ATEYQzzXoztBYxorxQuX8PypQESlNZH/Hfdo/Eyr4VDUCIWtrygaIKqfuMlPOWoXney
- 6aHmck/HUHtM+tnrBgugNZMU2XCOBV65JdRHbAkNM2o2PBO3mCwUbyk3D1jQ44AQ3nhzn2OupI1
- R9p91c+0KqSbiDsbzp57U6YbX2+xh1gytkwScPDzvZQj3+I0PflvQjMqC8BJYHDdkjOXzh0rNyP
- rCg1iXXZEx115bpZEG49ErljYiwb00ZPAVxKxbNQv/vzsc8a9Ed7mGi1u0zL1eFFtuD5lm/r/1v
- XzqLydF83P6KswmaMcQjwVNdYlgFcEQr/BEk/vIpZx84pKtNrMtARH7yOH6wD20zgxZJ1c1AznV
- /5RAJtftvyke3k/E60ClpNH8kwMeM+8n4RTqn1rbdTcaOTMLEFvNH+6DKiaia49SxIlHlTI5m22
- RUIQFkd949cX/H/9qJ4zBfBd1qu7UtBx5aFkLxZ5y4JtvQqlJPeSsbr/zWZ7X1l6ZRm4Uv5JRhA
- 5jf9SlAXB6X1JDIm1VjVlgHq+NkvJvwXV/oADzDqhwFKf5Zv/92TfME0VERrUnwb0WY
-X-Received: by 2002:a05:600c:3b07:b0:485:5ba3:37d8 with SMTP id
- 5b1f17b1804b1-486fedab1e5mr73958065e9.5.1774070445643; 
- Fri, 20 Mar 2026 22:20:45 -0700 (PDT)
-Received: from groovy.localdomain
- (dynamic-2a02-3100-5a1e-5a00-2fe0-b647-7443-5e95.310.pool.telefonica.de.
- [2a02:3100:5a1e:5a00:2fe0:b647:7443:5e95])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-486fe032a55sm208361275e9.7.2026.03.20.22.20.44
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 20 Mar 2026 22:20:45 -0700 (PDT)
-From: Mario Kleiner <mario.kleiner.de@gmail.com>
-To: amd-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org, mario.kleiner.de@gmail.com,
- stable@vger.kernel.org, Aric Cyr <aric.cyr@amd.com>,
- Anthony Koo <anthony.koo@amd.com>,
- Rodrigo Siqueira <rodrigo.siqueira@amd.com>,
- Krunoslav Kovac <krunoslav.kovac@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>
-Subject: [PATCH] drm/amd/display: Change dither policy for 10 bpc output back
- to dithering
-Date: Sat, 21 Mar 2026 06:20:33 +0100
-Message-ID: <20260321052033.23472-1-mario.kleiner.de@gmail.com>
-X-Mailer: git-send-email 2.43.0
+ bh=+0Ef+wM9iBGnlAV74+t5ecaaFq7fGhBfxH9EipXPT+0=;
+ b=aR8GJdfQHp5DtS0OsfAPafh10gpfyew81AJsWoYQGjH4kunZyKCK1m0sENjx4nk9uo
+ p9iZHxhf6MwCUDgvpUQFs3zMccQKmltGaUJZM+AK3hj2LMfOe6d0HQ5DBZ9PRW73DJiS
+ /3yMDFdjMppgRyDcQ8CO2c1u3aItcbpNlCdgjOJ25ImmYfjTfxTmj4r24Ffi+9mDZDp4
+ LjdoBN7HznsJMMb0h1ETx5LvQvgNbsw/Cfn057OB1RRRwamoIc3X1utcVcPi318wAwBz
+ UwItBrlHrNhlbQ5PPsCjdDAt+2fZ3bnj2PqakylVdkzUe3G2bPfFP5noG/PVyqg9T0V0
+ EwZA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1774028910; x=1774633710;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=+0Ef+wM9iBGnlAV74+t5ecaaFq7fGhBfxH9EipXPT+0=;
+ b=pcGzmPTybdG9Ve7Hs+9V6H5OALFpEFNUHES5oVz564FqO+r6UrMjGt5EiUARvbi5F3
+ qNaKl7N6vtY6XSTjisGnl3ZTES/5qh1/KrLMvH4mrQudoVx7ooB2W2QrZiVWYyynDXW0
+ 0bywrVOaTyfesPmmbznhKU63rqtiQcVtZwioJYoapb9uznck8EMT685tROrIgak/xlwM
+ /WMjj3OoU0svB/rzqTNw9g1WS2VKqXt3qjGvdZsDVHyui9QxM5vyOeyGWaoHMNgHzP7s
+ bYx55s1B7md+60CjqXynB96faqIjpdSNjjGXnLw57Q+SWObzTDV2lg47EDCRSUqjQUBa
+ zE+A==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCW0T8wUVfBBCD5HDG1cwXpYwRVRhn4PI87J95r8zRWQ0SXNOI+R2KzaRNBm3VShsuBItIoJ8WIl@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyAx/VWexfnSElV+LjmpjOXsE4PPV7A34PIKfP93OKgNs2zE58h
+ ITDTnshaiL0e2OFRcYINbQugfGsRIGSHSu9iGA0OoBMCz28dLSUgIUy72OhmR6zeYv5JdChBPs0
+ 2wcxn8AXp60y9IRvWPD488GVqMlHKaQ0=
+X-Gm-Gg: ATEYQzxwxTHehsjl0f08txESXbbRuBimJAFWn7dz3JKu4Nb+TJo8l+JVQPF2V+6hB10
+ J5CA/6X/oaFbbRgzrqFuNtdPoPTmFjKSQggEi/b392gYPEgn3bWpUUNfJ7PiwXltQn5UclN76p+
+ QlGXg2+aqDz9BeYzkLZTSUGTWwKHxonczCKWEkLRb7uWkSsWvAelXTetu0kWfXyVi4IcTsKM4IW
+ EpcRS/aKpnN6qrmXo3sthP9zX1nDw22DScKhboRc2Em8FAmsdqaLvMV99/TusvHFPzGa0LFOH/I
+ bFrq
+X-Received: by 2002:a53:ec8b:0:b0:64c:b12f:f02f with SMTP id
+ 956f58d0204a3-64eaa85b7bemr2817354d50.76.1774028910527; Fri, 20 Mar 2026
+ 10:48:30 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260313132103.2529746-1-jim.cromie@gmail.com>
+ <20260313132103.2529746-23-jim.cromie@gmail.com>
+ <177402491440.6181.10370884123666440440.b4-review@b4>
+In-Reply-To: <177402491440.6181.10370884123666440440.b4-review@b4>
+From: jim.cromie@gmail.com
+Date: Fri, 20 Mar 2026 11:48:04 -0600
+X-Gm-Features: AaiRm53q7raCfT2VIY8VRpmfB57j5ltDj3LlcQ8Lkb1cOQPVeem0bJxBrAwha0Y
+Message-ID: <CAJfuBxzAuWYMs32FUcz7TAHzQxr3Pmo8xeZ=-c4BpVG-zpAMQw@mail.gmail.com>
+Subject: Re: [PATCH v11 22/65] dyndbg-API: replace DECLARE_DYNDBG_CLASSMAP
+To: Louis Chauvet <louis.chauvet@bootlin.com>
+Cc: airlied@gmail.com, simona@ffwll.ch, jbaron@akamai.com, 
+ gregkh@linuxfoundation.org, mripard@kernel.org, tzimmermann@suse.de, 
+ maarten.lankhorst@linux.intel.com, jani.nikula@intel.com, 
+ ville.syrjala@linux.intel.com, christian.koenig@amd.com, 
+ matthew.auld@intel.com, arunpravin.paneerselvam@amd.com, 
+ skhan@linuxfoundation.org, pmladek@suse.com, ukaszb@chromium.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Mailman-Approved-At: Sat, 21 Mar 2026 09:47:17 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,84 +113,73 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Commit d5df648ec830 ("drm/amd/display: Change dither policy for 10bpc to
-round") degraded display of 12 bpc color precision output to 10 bpc sinks
-by switching 10 bpc output from dithering to "truncate to 10 bpc".
+On Fri, Mar 20, 2026 at 10:42=E2=80=AFAM Louis Chauvet
+<louis.chauvet@bootlin.com> wrote:
+>
+> On Fri, 13 Mar 2026 07:19:47 -0600, Jim Cromie <jim.cromie@gmail.com> wro=
+te:
+> > diff --git a/include/linux/dynamic_debug.h b/include/linux/dynamic_debu=
+g.h
+> > index 80160028461a..74ed18a038bd 100644
+> > --- a/include/linux/dynamic_debug.h
+> > +++ b/include/linux/dynamic_debug.h
+> > @@ -81,10 +84,18 @@ struct _ddebug_class_map {
+> >       enum ddebug_class_map_type map_type;
+> >  };
+> >
+> > +struct _ddebug_class_user {
+> > +     char *mod_name;
+> > +     struct _ddebug_class_map *map;
+> > +     const int offset;       /* user offset to re-number the used map =
+*/
+> > +};
+>
+> Is it usefull at this point?
+>
+> > @@ -137,6 +223,25 @@ struct _ddebug_class_param {
+> > [ ... skip 14 lines ... ]
+> > +     extern struct _ddebug_class_map _var;                           \
+> > +     static struct _ddebug_class_user __aligned(8) __used            \
+> > +     __section("__dyndbg_class_users") _uname =3D {                   =
+ \
+> > +             .mod_name =3D KBUILD_MODNAME,                            =
+ \
+> > +             .map =3D &(_var),                                        =
+ \
+> > +             .offset =3D _offset                                      =
+ \
+>
+> I think this offset is useless at this point, or did I miss something?
 
-I don't find the argumentation in that commit convincing, but the
-consequences highly unfortunate, especially for applications that
-require effective > 10 bpc precision output of > 10 bpc framebuffers.
+It is unused yet, it gets used later (patch ~31) in _USE_
+to deconflict class-ids when its needed.
 
-The argument wasn't something strong like "there are hardware design
-defects or limitations which require us to work around broken dithering
-to 10 bpc", or "there are some special use cases which do require
-truncation to 10 bpc", but essentially "at some point in the past we
-used truncation in Polaris/Vega times and it looks like it got
-inadvertently changed for Navi, so let's do that again". I couldn't find
-evidence for that in the git commit logs for this. The commit message also
-acknowledges that using dithering "...makes some sense for FP16...
-...but not for ARGB2101010 surfaces..."
+I squashed it in here to reduce churn later, and because it is closely
+related in function to the offset in class_maps, so I thought it would be
+easier to explain in context.
 
-The problem with this is that it makes fp16 surfaces, and especially
-rgba16 fixed point surfaces, less useful. These are now well
-supported by Mesa 25.3 and later via OpenGL + EGL, Vulkan/WSI, and by
-OSS AMDVLK Vulkan/WSI/display, and also by GNOME 50 mutter under Wayland,
-and they used to provide more than 10 bpc effective precision at the
-output.
+>
+> >
+> > diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
+> > index e8ffc2b5b330..66f4bfe39e89 100644
+> > --- a/lib/dynamic_debug.c
+> > +++ b/lib/dynamic_debug.c
+> > @@ -1190,6 +1292,22 @@ static void ddebug_attach_module_classes(struct =
+ddebug_table *dt, struct _ddebug
+> > [ ... skip 13 lines ... ]
+> > +             return -EINVAL;
+> > +     }
+> > +     *reserved_ids |=3D range;
+> > +     return 0;
+> > +}
+> > +
+>
+> Can you introduce this function when it is used?
+>
 
-Even for 8 or 10 bpc surfaces, the color pipeline behind the framebuffer,
-e.g., gamma tables, CTM, can be used for color correction and will
-benefit from an effective > 10 bpc output precision via dithering,
-retaining some precision that would get lost on the way through the
-pipeline, e.g., due to non-linear gamma functions.
+not sure I follow,
+the ddebug_attach_module_classes is from v1 (committed code),
+its basically going away in v2 (candidate, at rev11 now)
 
-Scientific apps rely on this for > 10 bpc display precision. Truncating
-to 10 bpc, instead of dithering the pipeline internal 12 bpc precision
-down to 10 bpc, causes a serious loss of precision. This also creates the
-undesirable and slightly absurd situation that using a cheap monitor
-with only 8 bpc input and display panel will yield roughly 12 bpc
-precision via dithering from 12 -> 8 bpc, whereas investment into a
-more expensive monitor with 10 bpc input and native 10 bpc display will
-only yield 10 bpc, even if a fp16 or rgb16 framebuffer and/or a properly
-set up color pipeline (gamma tables, CTM's etc. with more than 10 bpc out
-precision) would allow effective 12 bpc precision output.
-
-Therefore this patch proposes reverting that commit and going back to
-dithering down to 10 bpc, consistent with the behaviour for 6 bpc or 8 bpc
-output.
-
-Successfully tested on AMD Polaris DCE 11.2 and Raven Ridge DCN 1.0 with
-a native 10 bpc capable monitor, outputting a RGBA16 unorm framebuffer and
-measuring resulting color precision with a photometer. No apparent visual
-artifacts or problems were observed, and effective precision was measured
-to be 12 bpc again, as expected.
-
-Fixes: d5df648ec830 ("drm/amd/display: Change dither policy for 10bpc to round")
-Signed-off-by: Mario Kleiner <mario.kleiner.de@gmail.com>
-Tested-by: Mario Kleiner <mario.kleiner.de@gmail.com>
-Cc: stable@vger.kernel.org
-Cc: Aric Cyr <aric.cyr@amd.com>
-Cc: Anthony Koo <anthony.koo@amd.com>
-Cc: Rodrigo Siqueira <rodrigo.siqueira@amd.com>
-Cc: Krunoslav Kovac <krunoslav.kovac@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>
----
- drivers/gpu/drm/amd/display/dc/core/dc_resource.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
-index c9fbb64d706a..29db5404c4a0 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
-@@ -5056,7 +5056,7 @@ void resource_build_bit_depth_reduction_params(struct dc_stream_state *stream,
- 			option = DITHER_OPTION_SPATIAL8;
- 			break;
- 		case COLOR_DEPTH_101010:
--			option = DITHER_OPTION_TRUN10;
-+			option = DITHER_OPTION_SPATIAL10;
- 			break;
- 		default:
- 			option = DITHER_OPTION_DISABLE;
--- 
-2.43.0
-
+> --
+> Louis Chauvet <louis.chauvet@bootlin.com>
