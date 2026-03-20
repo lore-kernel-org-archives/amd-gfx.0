@@ -4,150 +4,138 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 99E451093172
-	for <amd-gfx@archiver.kernel.org>; Fri, 20 Mar 2026 03:58:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D1F4DFB5EA9
+	for <amd-gfx@archiver.kernel.org>; Fri, 20 Mar 2026 04:14:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3518710E86C;
-	Fri, 20 Mar 2026 03:58:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6C94910E89C;
+	Fri, 20 Mar 2026 04:14:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="WjSqGQgh";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="DI7WYLTr";
 	dkim-atps=neutral
-Received: from CY7PR03CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11010001.outbound.protection.outlook.com
- [40.93.198.1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A004010E86C;
- Fri, 20 Mar 2026 03:58:52 +0000 (UTC)
+Received: from SA9PR02CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11013051.outbound.protection.outlook.com
+ [40.93.196.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3EC7410E89C
+ for <amd-gfx@lists.freedesktop.org>; Fri, 20 Mar 2026 04:14:09 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=hgb4hx5j9B5EZXO4j1kpDpCrPz7r9wuFUIEaWt4u6yArC+HXMbjnC+fawt/P8jKQmqSZbBHpcR5kXy2IrHDQw+tti1s3nghMMy0PQpYAyHwha7CCaYWNH/9dUi5Px91ZbTovK9QfewfFYYtOsNhiANh7cLvsnAG1VHJMJjU1k8zoGvyQbS/0/BYlOS6GfuGEWwATH3GLevHY8HB6+xClmeaQ7vUmz5kYpXy77qEcp4hxnwjORRJkPvzNwwHhKiy5W/Mx9YArn4yo3jPUkOsv5dVJGe4i6ZgHNBS86GVYcEbR1yPImYbDVenhwBesD6r4/v9ZzIhuL3bMzz2O3qGHOw==
+ b=vqynbSfs9xNNRwAkUUDjft4YLc/Xv3W6o+Z5JMXnCJRrjbr6fGJU96ZR7z/QPQhsuXzdkCRez7m/bXZ/bjnPPRpfE9P4g0kZ5mw1A2W9O0NOX/vDsbvDh2BJQKp8C8wcgp0KYNjfQ3OoOmX+4faguBS6rBDUUv4Uqv/Xes84VjytEth8FHZHjynEcvVPuY/2mQQGevK9n3UftP78NtgHJhhRWG1JOnfavxz17BBPP6Aauj/VMcWMsTXljePOOMaT8ZIDgQFhQ3j36UUXGGX/ozSKh1Qjba3rilZGm/1piCcqspbrm03IBFbZ1ogsj07YZhI2urdKZVUQtZ4Cdj89jg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=3tlLblkfYgEkE1wLy7+yWutLX3Jkp+j2N6yUcXaBwlg=;
- b=DJxx57HSxi9TQ4wcZyCbeXNLpdB3jXEMpTGRD1A7C/91Il67ZlGFs2tf31pQRUUCmPlSSXPTqgEnQZW0dQuE0U73rSn78UUcF5iDhs6m3GqZRrUacWoHCy5HzG2iYUbHNSV4y6ZuhQesthfHTv3k4QRbOTPq5QuBSI6jSrWD1TKrvrDrv7jG9gS10hx5gnBeSD3V69mdgfcejiJkfVLKYS0TO9LtzSIQHGva54nZUqZcU84gpGtSaRnsgkhkdIa/JCVvBOSS0c+AO+/6M37x5cfSSCOev5hT6geSA8J65hkta2J9DTyXR8kLsfQi6vA0WZj/pCS87jOiJNq3C1adVw==
+ bh=rvg3U1I0s9t/v9LlZqW4wugMYP4DL5jBGAMDmg+6jK8=;
+ b=BdI8oMYL7hcM017a4GHcvwsSMfAIlAyGnWl3ciE1cH/Bo8fD2rKSmi1qsCfhD6Gh2zBT8aU3Zl862KdZWnSSbj8ctyssWbQW6otxXut+OsdzuzvxxAMr7Yv9W1/viHkhVTUQuZogNYZlY8ZSGm0lpgBrE5jYbb5ShoTlPN75f2C3+pBTs8+3rdvIQcoHcBqx8rKjJKALnDILFj37Z8gfdD1TVdnWDShtvlHLfrLhDNGnRHOpo1KDk0dnzkaPP+i+jlyLc8Y/P0gEIi3Wlht1/UjbWM4l11xdncpCoQW9KBplgNtnl/5iYwzbTAXFJuxtx9WeetPKY00XX3xb7ychbQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3tlLblkfYgEkE1wLy7+yWutLX3Jkp+j2N6yUcXaBwlg=;
- b=WjSqGQghzjlLLgyA98Bz6Syfb3KMudifW4ThpGT2u2ytVA5OwWUgPhkyN2crt57ow18r9ffsbaZWoZQoh1Rp4geV2YnRTjrS8VNPMJSPJX7OP4wdw788zzTvxF9mduWBg3s9YnVs/Ce6pP+++xfIbMZ7zOtKANImY+zNx9haRl8=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB8476.namprd12.prod.outlook.com (2603:10b6:8:17e::15)
- by IA1PR12MB6436.namprd12.prod.outlook.com (2603:10b6:208:3ac::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.12; Fri, 20 Mar
- 2026 03:58:48 +0000
-Received: from DM4PR12MB8476.namprd12.prod.outlook.com
- ([fe80::2d79:122f:c62b:1cd8]) by DM4PR12MB8476.namprd12.prod.outlook.com
- ([fe80::2d79:122f:c62b:1cd8%6]) with mapi id 15.20.9745.007; Fri, 20 Mar 2026
- 03:58:48 +0000
-Message-ID: <7476bdd2-be51-4444-b0ac-bbc1d3225d4e@amd.com>
-Date: Thu, 19 Mar 2026 21:58:43 -0600
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] drm/amd/display: Rename enum 'pixel_format' to
- 'dc_pixel_format'
-To: Hou Wenlong <houwenlong.hwl@antgroup.com>, linux-kernel@vger.kernel.org
-Cc: Alex Deucher <alexander.deucher@amd.com>, Alvin Lee <alvin.lee2@amd.com>, 
- amd-gfx@lists.freedesktop.org, Ankit Nautiyal <ankit.k.nautiyal@intel.com>,
- Aurabindo Pillai <aurabindo.pillai@amd.com>, Ausef Yousof
- <auyousof@amd.com>, Bhuvanachandra Pinninti <bpinnint@amd.com>,
- Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>,
- Charlene Liu <charlene.liu@amd.com>, Chenyu Chen <chen-yu.chen@amd.com>,
- Chris Park <chris.park@amd.com>, =?UTF-8?Q?Christian_K=C3=B6nig?=
- <christian.koenig@amd.com>, David Airlie <airlied@gmail.com>,
- Dillon Varone <dillon.varone@amd.com>,
- Dmytro Laktyushkin <dmytro.laktyushkin@amd.com>,
- dri-devel@lists.freedesktop.org, Gustavo Sousa <gustavo.sousa@intel.com>,
- Harold Sun <Harold.Sun@amd.com>, Harry Wentland <harry.wentland@amd.com>,
- intel-gfx@lists.freedesktop.org, Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, Jun Lei
- <jun.lei@amd.com>, Karthi Kandasamy <karthi.kandasamy@amd.com>,
- Leo Chen <leo.chen@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Lohita Mudimela <lohita.mudimela@amd.com>,
- Lucas De Marchi <demarchi@kernel.org>,
- Meenakshikumar Somasundaram <meenakshikumar.somasundaram@amd.com>,
- Nicholas Carbones <Nicholas.Carbones@amd.com>, Ray Wu <ray.wu@amd.com>,
- Relja Vojvodic <rvojvodi@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Ryan Seto <ryanseto@amd.com>,
- Samson Tam <Samson.Tam@amd.com>, Simona Vetter <simona@ffwll.ch>,
- =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, Wayne Lin <wayne.lin@amd.com>,
- Wenjing Liu <wenjing.liu@amd.com>, Yan Li <yan.li@amd.com>,
- Zhenyu Wang <zhenyuw.linux@gmail.com>, Zhi Wang <zhi.wang.linux@gmail.com>
-References: <cover.1773629419.git.houwenlong.hwl@antgroup.com>
- <d3b123a7d3192947e2eb4c33cd10cbaa8c79dfc1.1773629419.git.houwenlong.hwl@antgroup.com>
+ bh=rvg3U1I0s9t/v9LlZqW4wugMYP4DL5jBGAMDmg+6jK8=;
+ b=DI7WYLTrE93nEA7xjHtFLiHJg6jioBuKl2w6MLIK56j39hjrytMuTAmlDbcK2oxACeQF1F09n0DqVc6zhXoqGc7ZR39BaF/k+ISL9kNAreWg/81INJfluElYsdObhu7Xsquz5UbqxKD/IF4yqhJo3HXZDH/qOk4Bw0Yh7vkm8nQ=
+Received: from PH7PR12MB6633.namprd12.prod.outlook.com (2603:10b6:510:1ff::20)
+ by SJ1PR12MB6145.namprd12.prod.outlook.com (2603:10b6:a03:45c::12)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.10; Fri, 20 Mar
+ 2026 04:14:06 +0000
+Received: from PH7PR12MB6633.namprd12.prod.outlook.com
+ ([fe80::fbd5:79fe:588c:41c3]) by PH7PR12MB6633.namprd12.prod.outlook.com
+ ([fe80::fbd5:79fe:588c:41c3%6]) with mapi id 15.20.9745.007; Fri, 20 Mar 2026
+ 04:14:05 +0000
+From: "Mohan Marimuthu, Yogesh" <Yogesh.Mohanmarimuthu@amd.com>
+To: "Liang, Prike" <Prike.Liang@amd.com>, =?Windows-1252?Q?Michel_D=E4nzer?=
+ <michel.daenzer@mailbox.org>, "Koenig, Christian" <Christian.Koenig@amd.com>, 
+ "Khatri, Sunil" <Sunil.Khatri@amd.com>, "Zhang, Jesse(Jie)"
+ <Jesse.Zhang@amd.com>, "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ "Olsak, Marek" <Marek.Olsak@amd.com>
+CC: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Subject: Re: [PATCH] Revert "drm/amdgpu: harden SIGNAL/WAIT ioctl argument
+ validation"
+Thread-Topic: [PATCH] Revert "drm/amdgpu: harden SIGNAL/WAIT ioctl argument
+ validation"
+Thread-Index: AQHctq0tde2MDjjZ2kW1JaItaybTorWz802AgAATn4CAAAHhAIABG2YAgAAwkJOAABCwAIAAEdmAgAA2vQCAAQrWAIAAFqt3
+Date: Fri, 20 Mar 2026 04:14:05 +0000
+Message-ID: <PH7PR12MB6633017F95D0FB898F1411A9FF4CA@PH7PR12MB6633.namprd12.prod.outlook.com>
+References: <20260318074708.2078535-1-sunil.khatri@amd.com>
+ <dfca1bb0-26dd-45bd-ac11-c3756ce808ac@amd.com>
+ <48df3b31-724a-4548-a52b-9f034664d422@amd.com>
+ <DM4PR12MB5152791EDD4F7021198821E3E34EA@DM4PR12MB5152.namprd12.prod.outlook.com>
+ <2e6d0e34-e093-41a9-a4b3-59afe3050dfc@amd.com>
+ <PH7PR12MB6000DAD5B8EFDBCB3F3F4663FB4FA@PH7PR12MB6000.namprd12.prod.outlook.com>
+ <PH7PR12MB6633BABDE8B0785EF6ADA694FF4FA@PH7PR12MB6633.namprd12.prod.outlook.com>
+ <PH7PR12MB6000366C1E6582CD02D90AD6FB4FA@PH7PR12MB6000.namprd12.prod.outlook.com>
+ <74e768dc-d4a1-445b-b699-e837a1d20234@amd.com>
+ <f6526ba3-91a0-4407-94f6-a34176587b40@mailbox.org>
+ <MN0PR12MB6004462D78DC45C7B45B0E10FB4CA@MN0PR12MB6004.namprd12.prod.outlook.com>
+In-Reply-To: <MN0PR12MB6004462D78DC45C7B45B0E10FB4CA@MN0PR12MB6004.namprd12.prod.outlook.com>
+Accept-Language: en-US
 Content-Language: en-US
-From: Alex Hung <alex.hung@amd.com>
-In-Reply-To: <d3b123a7d3192947e2eb4c33cd10cbaa8c79dfc1.1773629419.git.houwenlong.hwl@antgroup.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MW4PR04CA0305.namprd04.prod.outlook.com
- (2603:10b6:303:82::10) To DM4PR12MB8476.namprd12.prod.outlook.com
- (2603:10b6:8:17e::15)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB8476:EE_|IA1PR12MB6436:EE_
-X-MS-Office365-Filtering-Correlation-Id: fc3cfceb-3137-4af3-61f0-08de8634fd24
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|376014|1800799024|7416014|22082099003|56012099003|18002099003|7053199007;
-X-Microsoft-Antispam-Message-Info: OxteHf3qfv5BcWEMVSvmzj0FIgEsqfEuxH/hoNXVlFoT0uXk3E9tp258cdS5TI9DM8EHJl5APToSmU+/ucwZvFJdtRrbJU74MGVuNBRo/CN9G7m1YviMSpks0i2ixdhFzQT2nyZmML8jeOWA/B13sAgluSDgV9NCwcP4Kq2NyE2YNPkCzxEFaGlBiPISjW2QYhMihOAY4eXElpY9NeyZi8hlJeLvR6mbWRfdqOyaUJSejOG5BWuJ4BK9fT/h6hF9hkSXquQDowB3S6lC/KEh/qaiMp/5QpVzxb9yLXYlMNHGpwmmoZUJoIYaHW8ImmyLzK8uCKeVjTMPkC2XvQdHgxz2H8M8Z1R/PBpPUM3Vn3YySoemCgiXRAuWRMbA95KCR1UXv29GD0KG+4X6M7qXbPP0+kuy9OLDfh6gZ/WmYpPu2rb1YRBM91twpu35fpFgM651q0X2PlKFgsuTaOVwvOFj8QvXqRNPlDPwKndcM8O6czvAsdOWGFWeILMewSUUnUmcdW8Sbx7MN5atI9Cjs8SRHp6rxlpXwaThA6oNI1gHI0zslwJTEMYvmrxZ/ueQV9yEYRWUUV5wFIn/Ubn8OBxhN4J7vsvAXuxJmfkTV7SWFAkF/CCH8f0w7KxvVn/70gRTu1t1Uwgl/bcc9yEbzCi8jpuvxYtxnUf1tZZMVm5qukzPbGljm8YuHKYV9vuyZM3HtwzctLdTNaw5ZbC6NbArMy33YhZLvV3IwWGXDDQ=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB8476.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(1800799024)(7416014)(22082099003)(56012099003)(18002099003)(7053199007);
+X-Mentions: Prike.Liang@amd.com
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Enabled=True;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SetDate=2026-03-20T04:14:05.104Z;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Name=Open
+ Source; MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_ContentBits=1;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Method=Standard; 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: PH7PR12MB6633:EE_|SJ1PR12MB6145:EE_
+x-ms-office365-filtering-correlation-id: 4e510c37-76e8-4560-b92a-08de86372057
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|376014|1800799024|366016|8096899003|921020|13003099007|38070700021|7053199007|56012099003|18002099003|22082099003;
+x-microsoft-antispam-message-info: X+8XbmS/gQ1mZB9LeLkF0lGsMLr4Mcy/gnU0MrzcfaxrN09ZmAb1GAMIkWVQQjiZgwd1KU1JXNEhyuEviI9zFmW8ETihLVequGakV1+HoW614OA8X+nTyoIn06DwZn1FdlmbrXfRijjvnkIG3CS+uJ98Arf5vaSKccD/Uf6n1dXUDdSDbbKfSABVHqhs5bwZK8n+L07z3m0PYIDp/CywoDxykdNEvdIiFftW0sXTeIvC4RuILm2SHrJs3TZrW18T+mmb5cnxwR25DkBtzK8HZJfsrXMiDSlIpfJdeHLic9t2DUH8r3RgDQQtJBoGT0xKYN0c1u9qQwVj3sYr4daImClA+NbNfDY0yasME72gVjW3kmfg/BghuWQkbHmQ8paxvi3H0JqGz6P/wy7NA62DRF2D8Q6vCPU4vdTRwAuNHuTKBw/2SFyy409ZXbaiCMbEyaodQOqrOCZ5GGIWPdn7QuxDmEmPFRwMW9x7SeMmq0jD70Vila6+S7PeyrQ27Uthd9aEh5f7vRFByMGc6OMg/bYTObEbqtCfyzaW1vGk6Be3o2GPLAmjah60BRdFnGdt7eyovh3wM5vDRIOb6ymURtvGq/d31HhflLMtNhguPzHo08917oA/baM6VeHRO1O1iSDEq+gK6YUSBwwlfCZixnpH3mEhTqqertV0rnSJS4DaXfNjT7ZS0X+K8P3mWseEO54zrZJcHwyCS/g/mr+Ebi3TSSgyF0INEc++CuORaoTl4/Q0Det1Rs3MGzC9Gy79
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB6633.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(366016)(8096899003)(921020)(13003099007)(38070700021)(7053199007)(56012099003)(18002099003)(22082099003);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?L2U0REtIYm5ES3JRbW9rK0E2NG4xMzNZM1BoMFdMRGEyVjlhRFZ1cUh4TCsw?=
- =?utf-8?B?eWhQZmdQNWdjNUpKSVBLV1hQd0pzMy80VjYvM0N2Sk9IVml0OXBla05oK21p?=
- =?utf-8?B?L3A1UVBReVo1dm45aEY3Y3dib1BqR3dsVmJoVlFtd2xBU0xUbUVYd002OTFz?=
- =?utf-8?B?dW5aMkpIQ2VhUkMwcWFwT2pYeGQxV2VNN1A0U0x0MVNOZi8wdDNRUGdZbDBv?=
- =?utf-8?B?OGE5dCtwNkpVTDRYSHZ3NVBINDY0QmhJbWVabnpJK0RPYkprT3pjWTdoNnJM?=
- =?utf-8?B?ZkRXWHhleWRmL0VoY3h6bjArNzM0TUNnbS9wYVhTQm81SnNMVUhlMnpadk55?=
- =?utf-8?B?VlUrUFNOZUlpaHZ5QmNSTVhGSC9HWEYxYUN2Z0FKR2swTXF4Z3ovYXYxQVh2?=
- =?utf-8?B?WWhQVnJjdUgzcFhQNjU2WW5SWFkwRGgrNEdNTmM5M3ExZEEvV2o3TnNnNy9T?=
- =?utf-8?B?Rk5CakY1Z0xJUGJmdkxZdlF3eVk2NnFZMDRFdk5HMlgvU1pvZ1RFbFRSdzY0?=
- =?utf-8?B?aGJYSmRITzJFZzh6azZLZyt5NDN2VE83Zjd6VUQ2dERaSGx2Y2tuZ29UV2Zo?=
- =?utf-8?B?VUtidFpZenZqNVdWc0JIOEVuRzZQaUowekhTOTMyejVpcmpQTHpjKzBLaHNy?=
- =?utf-8?B?S082YVF4ZWZTbUtibTlpcCtJeG56MWo0UlpZTmxVWmUzbm5TNFQranR1SVZ0?=
- =?utf-8?B?V0kyM2FlL0dDNHFGb3dFM29hd2RNbjlRVG5ENXduNmRDK25ueVk3eVNxc3VE?=
- =?utf-8?B?L1lYYzFrZUx6ZWpGUm5TV2E3YkhjbW5PYUFrNjYxb2FWV1A4ZUtDOUJXYnpI?=
- =?utf-8?B?TUdIcVdESUVubjBkTWdKTmp0T1h0cnc1UHpDOUx4Z3NiNlBQUWJJeXV5SndF?=
- =?utf-8?B?bUN4dWdhaHlWZTVxc0dUYU0zMXZ6MnFlcjFjLzN2WEdtaVllZGthNFVsTm1H?=
- =?utf-8?B?bVcrNXE0NHRMY3VUYXZqb0gzbkdlZENtSUp4Wm9TWGoyZlc1STBELzhnd3Y1?=
- =?utf-8?B?V1JvUkRMcUhjVWl3Rzh2RWsrb0x0M2ZPb0QwUVJrdW9yUXo0ajhoNHFyK1NJ?=
- =?utf-8?B?YlJQa0FZVmgzYzBjSVFJZ2FOYkY2QUY5MjF4THY0UGFGMDl3eFhoUG5qSmw2?=
- =?utf-8?B?Rkd2VTZBTlFTNWZWVk1pV0dzdkZRRmo5MEx0eDlxYVZMTVNJUFd0MU1FUVJ4?=
- =?utf-8?B?ZGFlY2RQRVV3WFJrNDNJRlFqRnNJSlk1S0ZqRldsTjBLbnExYzBpMFV5Wk9y?=
- =?utf-8?B?d3MyUFZ6RTZrRHlsR0RabEVwK0J2NVlaZVkvbXhqdkJsV281L293OEFUeDNK?=
- =?utf-8?B?cmJhYndET3NicHBkRS9URFNoV05QRjZkRGVNTnZVOUN0WE5odk8xakNtNmRN?=
- =?utf-8?B?NCsxSXh0Z3RPZ1Y1NzNzeUN6cWdaN3oyTkl0anZJU21Wa2VRS2JEZU12emFF?=
- =?utf-8?B?YUhhZy9ISlRHWSt5RmlydE8vMjZjcTgyRUlaTkdrSEd0bitFQlBNSjVNMVQ1?=
- =?utf-8?B?TjhLTkI4NXF5SEhORXlMaTFNTVRhVmo1NHR6MXMzMllLWUIyUFBEMW5LZzFU?=
- =?utf-8?B?UE1EVUNjZTM0RUlMQWpnZkZON2FGbWF5SFFxTWE2RGcxSW9tZDFHYzQ2QmpM?=
- =?utf-8?B?TFd2YVNtdUpXdWdFNUZURzFNRjF2bmZQM2ZXMUVRZklHV3lUN2FnQXVtZDhJ?=
- =?utf-8?B?VkN5Q2dzdjBSMTZ1aW03SXUrY3FpZUdxVTliTEp1MisrenZlV3B2aE01QlB1?=
- =?utf-8?B?REFFSVUycjN1Z2RzM2c3bFZTSkM4UXByQmJ6eEQ3eThNVFVOeGhCc1U1Lzhq?=
- =?utf-8?B?VERiTWNLSVQxMWk4RC9TVkVzVVhoTC9LNm94Qzl0WkVTM0lDdStOc2J2eXJj?=
- =?utf-8?B?bmczc0dXSmNlem92SXM0Q3ZmcUJ0Sm5JVldIbk9yQ1JaQUJhSlpiN0paRFFN?=
- =?utf-8?B?c0M0NEFVNzlqUHN6aFYvQm4wVHFFbHNNOFM3dElNZUZJVGk5Uk16MDBVWS9M?=
- =?utf-8?B?YzJTTTgwcW93bkdmM1JjVGpOZGZvYnRsYUhuNkpaQitlYVRucDd4b1FDeUx4?=
- =?utf-8?B?Q2daQklrcjVLWjczMG91Y2lWVURnbzcwUlVmeVRxTEswR3AzREhGLzRKSngv?=
- =?utf-8?B?WkdvQUExaGdsNmZqbFRhYm5sNzFCQzVXMG5BTVMvVjZVanNlU24zR2JVYXlz?=
- =?utf-8?B?cEh2QU92K2tQN2xWSkUrRjVIdlZETDFzNmcwR3d5d3VUcjRhMDBQdzBQRitX?=
- =?utf-8?B?SGo2MmpLOHB1WmYxTlpybXRpKzNFSUxXMGFEeTFXZ0lZZ3J6M3FrR1dOWk5D?=
- =?utf-8?Q?XDrCHE6+Kf3GLijj6f?=
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?Windows-1252?Q?qWv0rJU53gQvSduFms7vnG2Y36EeywsW6IUe/tWfjMSW+YEpAwaj0Jd7?=
+ =?Windows-1252?Q?2EIn2ytBPFo6nh4U4C6NecsLRMh3QAFEcN5vG1lUL46dvkXlhzGY1EJR?=
+ =?Windows-1252?Q?9rdAA53s4ehhhy48ZrJluRg9PthznfgijeN9AGMTFwDV09tTw235mrlX?=
+ =?Windows-1252?Q?bDzfDiX9mxmPSNropKaeuYJfwdPgHayiGAuULeI51938ujAW5OWABMy4?=
+ =?Windows-1252?Q?PQ7LBuz+bbJA5gsYafsNUI3a7lWGMQcB1rzL5U5YQ5u6eYmQIzeCC/74?=
+ =?Windows-1252?Q?tkuuU7QaAm0I/0ClU/Lkzm5j7N0KoJA8TTgIQ+RFxBzQtfflASkKpGbT?=
+ =?Windows-1252?Q?x5xwma85ZoNwiqgjPcabSCSCk/hg4m6SNHZJHt3k7y5f7F3LIY9qCIbn?=
+ =?Windows-1252?Q?/raSejhaWFPqf1bBu4L4mCz3nM8U1bi5MwRxKdjity+Ha37JpSjQZJCG?=
+ =?Windows-1252?Q?SrygWExg3VEQGCOT3IlDujucxBtel+nKChpWmeWX3m17a840kN+VtUz0?=
+ =?Windows-1252?Q?Yf/zHNjNaAyD/5UAmYh6EUbFZyJM81zhUmvwqy0OuTagXD4iup3/nSNc?=
+ =?Windows-1252?Q?E6cWL3GUVijZVKcEFD1x5tQM6hSdO5fLS8yxtO3tykSMlg+Ct2wVzzar?=
+ =?Windows-1252?Q?6kkN+rSMXuppKgAKytSDYZRv10m/TYrAVngmb0Hzy9G5eADbg7TPiSQa?=
+ =?Windows-1252?Q?KySx1C4r8GxPsAR9d393wsnZDmb/00Sfince+SstZW0GFARCj5uo2vvt?=
+ =?Windows-1252?Q?15hAPbfD7desQ1alIXuAH4hr1m1sOcCTrmyiloBw8GCV0rMpEh61G5WQ?=
+ =?Windows-1252?Q?atOOXnJ8dsvA18hz7F4WG1YKUNj2ZEcgQxQkdioRiYHwrV6CCLJYruuy?=
+ =?Windows-1252?Q?gotoRk1DeUoqqgA5IDgYdiNt88JbsnwRSBvd0mBaI2QEqlSrjaIjl/J8?=
+ =?Windows-1252?Q?cGB1mT1ZwA+bjZRzMqWjzpK3bxeixhjZT+62YMshpM6b52rYHoDjoB65?=
+ =?Windows-1252?Q?fR5GhZam/mMbV4JlYostcgKH0paijTjjxSs8obRf8Ct/ZBghSxBw22IF?=
+ =?Windows-1252?Q?PdsFvXd+tjTmm1yGkUBTRQv+ziGrNyOsxSNGdwXmrvFXKO6tDDldqvLa?=
+ =?Windows-1252?Q?draDhM9UvfwWyD1EaluVz7xh17axCu+UWbCeLc1LGhdDkxIl188N+ThR?=
+ =?Windows-1252?Q?3OgY8eH6DvufuYWqk/BroCMvaT8HesEXV2MHYYx7ldufpAAAPi6NuxN0?=
+ =?Windows-1252?Q?I2i8Kl5PT0MmwGYgUvTe2KUIf0Ou+LhMUoRsAgemTRQ/42KgLy34pRzu?=
+ =?Windows-1252?Q?NlfcBvXAtNMI7g1oXiDMoPf+FxtRXUVnfpQkSvS8mP6QuPxIl/CSU+gn?=
+ =?Windows-1252?Q?SCuZQrlsqQcCoKo/zxd7J9SUaec+pBhubuw0/Vm9PqCk0lka/qGGA/JT?=
+ =?Windows-1252?Q?R7m49hdS0YFTamwflbaaqTP314Zo01mDdj1H1Vz1tqOSo5KkkmfQ1kry?=
+ =?Windows-1252?Q?FwEwtl0eExx35TIo2BOw6+svYNp9ghvBuPrRi/qKKiHY1Z5pgOLuZDn6?=
+ =?Windows-1252?Q?mQCeBaoDid1/ZZT0VLnzEC4ZCy7FlWhvhihNVD97IbqRgUg12V7h3U6N?=
+ =?Windows-1252?Q?pXDkleKIs4dq7kFfX5b5PJNRcdnk+nVXJ187GS2IqTfC8fJvBveoUlKS?=
+ =?Windows-1252?Q?7/MvQ9uKaQrPGz3NGNxAVYNmN4/qN32xDDG3gq9ynsIB8VjUhQSpjGxw?=
+ =?Windows-1252?Q?civWjagFFe+r6ORiuh0uqlkIW73iTshUXSK1CQwvI6MF0q7vP7W5Hy9v?=
+ =?Windows-1252?Q?9rsgmrKjRZRi2f6bCJxc3B2ed6eiPlvtCnzfubER8jdTnKTp?=
+Content-Type: multipart/alternative;
+ boundary="_000_PH7PR12MB6633017F95D0FB898F1411A9FF4CAPH7PR12MB6633namp_"
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: fc3cfceb-3137-4af3-61f0-08de8634fd24
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB8476.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Mar 2026 03:58:47.9055 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: xVWwqArT4+nz/wAJZcv/jK4BR8u7NyfV5gxT2dfnGEAAbEEMD6Y2nfB/dJpX49kphUuW1AIS7I6slIeRd3nugQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6436
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB6633.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4e510c37-76e8-4560-b92a-08de86372057
+X-MS-Exchange-CrossTenant-originalarrivaltime: 20 Mar 2026 04:14:05.7002 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: tTzf6dAMoLT0mVStniW5KRgTlmADCyB8Et1jd33YTMtkVbZg8s4ZqSrhtIDEzULX9QjlQssfwtqF5wejnlY28Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR12MB6145
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -162,141 +150,290 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Reviewed-by: Alex Hung <alex.hung@amd.com>
+--_000_PH7PR12MB6633017F95D0FB898F1411A9FF4CAPH7PR12MB6633namp_
+Content-Type: text/plain; charset="Windows-1252"
+Content-Transfer-Encoding: quoted-printable
 
-On 3/15/26 21:46, Hou Wenlong wrote:
-> [Some people who received this message don't often get email from houwenlong.hwl@antgroup.com. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
-> 
-> Rename the enum 'pixel_format' to 'dc_pixel_format' to avoid potential
-> name conflicts with the pixel_format struct defined in
-> include/video/pixel_format.h.
-> 
-> Signed-off-by: Hou Wenlong <houwenlong.hwl@antgroup.com>
-> ---
->   drivers/gpu/drm/amd/display/dc/core/dc_resource.c           | 4 ++--
->   drivers/gpu/drm/amd/display/dc/dc_hw_types.h                | 2 +-
->   drivers/gpu/drm/amd/display/dc/dc_spl_translate.c           | 3 ++-
->   drivers/gpu/drm/amd/display/dc/dpp/dcn10/dcn10_dpp_dscl.c   | 4 ++--
->   drivers/gpu/drm/amd/display/dc/dpp/dcn401/dcn401_dpp_dscl.c | 4 ++--
->   drivers/gpu/drm/amd/display/dc/inc/hw/hw_shared.h           | 2 +-
->   drivers/gpu/drm/amd/display/dc/inc/hw/transform.h           | 2 +-
->   7 files changed, 11 insertions(+), 10 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
-> index 03d125f794b0..cadc52728108 100644
-> --- a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
-> +++ b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
-> @@ -742,10 +742,10 @@ struct clock_source *resource_find_used_clk_src_for_sharing(
->          return NULL;
->   }
-> 
-> -static enum pixel_format convert_pixel_format_to_dalsurface(
-> +static enum dc_pixel_format convert_pixel_format_to_dalsurface(
->                  enum surface_pixel_format surface_pixel_format)
->   {
-> -       enum pixel_format dal_pixel_format = PIXEL_FORMAT_UNKNOWN;
-> +       enum dc_pixel_format dal_pixel_format = PIXEL_FORMAT_UNKNOWN;
-> 
->          switch (surface_pixel_format) {
->          case SURFACE_PIXEL_FORMAT_GRPH_PALETA_256_COLORS:
-> diff --git a/drivers/gpu/drm/amd/display/dc/dc_hw_types.h b/drivers/gpu/drm/amd/display/dc/dc_hw_types.h
-> index cfa569a7bff1..81d12df8f54e 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dc_hw_types.h
-> +++ b/drivers/gpu/drm/amd/display/dc/dc_hw_types.h
-> @@ -218,7 +218,7 @@ enum surface_pixel_format {
-> 
-> 
->   /* Pixel format */
-> -enum pixel_format {
-> +enum dc_pixel_format {
->          /*graph*/
->          PIXEL_FORMAT_UNINITIALIZED,
->          PIXEL_FORMAT_INDEX8,
-> diff --git a/drivers/gpu/drm/amd/display/dc/dc_spl_translate.c b/drivers/gpu/drm/amd/display/dc/dc_spl_translate.c
-> index 37d1a79e8241..854d50ab1a6c 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dc_spl_translate.c
-> +++ b/drivers/gpu/drm/amd/display/dc/dc_spl_translate.c
-> @@ -63,7 +63,8 @@ static void populate_inits_from_splinits(struct scl_inits *inits,
->          inits->h_c = dc_fixpt_from_int_dy(spl_inits->h_filter_init_int_c, spl_inits->h_filter_init_frac_c >> 5, 0, 19);
->          inits->v_c = dc_fixpt_from_int_dy(spl_inits->v_filter_init_int_c, spl_inits->v_filter_init_frac_c >> 5, 0, 19);
->   }
-> -static void populate_splformat_from_format(enum spl_pixel_format *spl_pixel_format, const enum pixel_format pixel_format)
-> +static void populate_splformat_from_format(enum spl_pixel_format *spl_pixel_format,
-> +                                          const enum dc_pixel_format pixel_format)
->   {
->          if (pixel_format < PIXEL_FORMAT_INVALID)
->                  *spl_pixel_format = (enum spl_pixel_format)pixel_format;
-> diff --git a/drivers/gpu/drm/amd/display/dc/dpp/dcn10/dcn10_dpp_dscl.c b/drivers/gpu/drm/amd/display/dc/dpp/dcn10/dcn10_dpp_dscl.c
-> index 808bca9fb804..0d2c9fcd3362 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dpp/dcn10/dcn10_dpp_dscl.c
-> +++ b/drivers/gpu/drm/amd/display/dc/dpp/dcn10/dcn10_dpp_dscl.c
-> @@ -102,7 +102,7 @@ static int dpp1_dscl_get_pixel_depth_val(enum lb_pixel_depth depth)
->          }
->   }
-> 
-> -static bool dpp1_dscl_is_video_format(enum pixel_format format)
-> +static bool dpp1_dscl_is_video_format(enum dc_pixel_format format)
->   {
->          if (format >= PIXEL_FORMAT_VIDEO_BEGIN
->                          && format <= PIXEL_FORMAT_VIDEO_END)
-> @@ -111,7 +111,7 @@ static bool dpp1_dscl_is_video_format(enum pixel_format format)
->                  return false;
->   }
-> 
-> -static bool dpp1_dscl_is_420_format(enum pixel_format format)
-> +static bool dpp1_dscl_is_420_format(enum dc_pixel_format format)
->   {
->          if (format == PIXEL_FORMAT_420BPP8 ||
->                          format == PIXEL_FORMAT_420BPP10)
-> diff --git a/drivers/gpu/drm/amd/display/dc/dpp/dcn401/dcn401_dpp_dscl.c b/drivers/gpu/drm/amd/display/dc/dpp/dcn401/dcn401_dpp_dscl.c
-> index a62c4733ed3b..e2489eaf0004 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dpp/dcn401/dcn401_dpp_dscl.c
-> +++ b/drivers/gpu/drm/amd/display/dc/dpp/dcn401/dcn401_dpp_dscl.c
-> @@ -94,7 +94,7 @@ static int dpp401_dscl_get_pixel_depth_val(enum lb_pixel_depth depth)
->          }
->   }
-> 
-> -static bool dpp401_dscl_is_video_format(enum pixel_format format)
-> +static bool dpp401_dscl_is_video_format(enum dc_pixel_format format)
->   {
->          if (format >= PIXEL_FORMAT_VIDEO_BEGIN
->                          && format <= PIXEL_FORMAT_VIDEO_END)
-> @@ -103,7 +103,7 @@ static bool dpp401_dscl_is_video_format(enum pixel_format format)
->                  return false;
->   }
-> 
-> -static bool dpp401_dscl_is_420_format(enum pixel_format format)
-> +static bool dpp401_dscl_is_420_format(enum dc_pixel_format format)
->   {
->          if (format == PIXEL_FORMAT_420BPP8 ||
->                          format == PIXEL_FORMAT_420BPP10)
-> diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw/hw_shared.h b/drivers/gpu/drm/amd/display/dc/inc/hw/hw_shared.h
-> index a61d12ec61bc..b4a95807b73b 100644
-> --- a/drivers/gpu/drm/amd/display/dc/inc/hw/hw_shared.h
-> +++ b/drivers/gpu/drm/amd/display/dc/inc/hw/hw_shared.h
-> @@ -240,7 +240,7 @@ struct default_adjustment {
->          enum dc_color_space out_color_space;
->          enum dc_color_space in_color_space;
->          enum dc_color_depth color_depth;
-> -       enum pixel_format surface_pixel_format;
-> +       enum dc_pixel_format surface_pixel_format;
->          enum graphics_csc_adjust_type csc_adjust_type;
->          bool force_hw_default;
->   };
-> diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw/transform.h b/drivers/gpu/drm/amd/display/dc/inc/hw/transform.h
-> index 5a1d9b708a9d..30990355985d 100644
-> --- a/drivers/gpu/drm/amd/display/dc/inc/hw/transform.h
-> +++ b/drivers/gpu/drm/amd/display/dc/inc/hw/transform.h
-> @@ -160,7 +160,7 @@ struct scaler_data {
->          struct scaling_ratios ratios;
->          struct scl_inits inits;
->          struct sharpness_adj sharpness;
-> -       enum pixel_format format;
-> +       enum dc_pixel_format format;
->          struct line_buffer_params lb_params;
->          // Below struct holds the scaler values to program hw registers
->          struct dscl_prog_data dscl_prog_data;
+[Public]
+
+Hi,
+
+I studied the documentation at https://docs.kernel.org/process/botching-up-=
+ioctls.html
+
+In this case there is size and a pointer, so it is not strictly required. B=
+ut good to follow coding guidelines.
+
+@Liang, Prike<mailto:Prike.Liang@amd.com> your proposed changes looks good.
+
+Thank you,
+Yogesh
+
+________________________________
+From: Liang, Prike <Prike.Liang@amd.com>
+Sent: Friday, March 20, 2026 8:11 AM
+To: Michel D=E4nzer <michel.daenzer@mailbox.org>; Koenig, Christian <Christ=
+ian.Koenig@amd.com>; Mohan Marimuthu, Yogesh <Yogesh.Mohanmarimuthu@amd.com=
+>; Khatri, Sunil <Sunil.Khatri@amd.com>; Zhang, Jesse(Jie) <Jesse.Zhang@amd=
+.com>; Deucher, Alexander <Alexander.Deucher@amd.com>; Olsak, Marek <Marek.=
+Olsak@amd.com>
+Cc: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH] Revert "drm/amdgpu: harden SIGNAL/WAIT ioctl argument =
+validation"
+
+[Public]
+
+Yes, in this case it=92s cleaner and more robust to not allocate at all whe=
+n num =3D=3D 0, and keep the pointer as NULL.
+For the mesa driver, how about use the following allocation pattern?
+
+unsigned num_syncobj_dependencies =3D csc->syncobj_dependencies.num;
+uint32_t *syncobj_dependencies_list =3D NULL;
+if (num_syncobj_dependencies > 0) {
+    syncobj_dependencies_list =3D
+        alloca(num_syncobj_dependencies * sizeof(uint32_t));
+    /* fill the buffer */
+}
+
+Regards,
+      Prike
+
+> -----Original Message-----
+> From: Michel D=E4nzer <michel.daenzer@mailbox.org>
+> Sent: Thursday, March 19, 2026 6:47 PM
+> To: Koenig, Christian <Christian.Koenig@amd.com>; Liang, Prike
+> <Prike.Liang@amd.com>; Mohan Marimuthu, Yogesh
+> <Yogesh.Mohanmarimuthu@amd.com>; Khatri, Sunil <Sunil.Khatri@amd.com>;
+> Zhang, Jesse(Jie) <Jesse.Zhang@amd.com>; Deucher, Alexander
+> <Alexander.Deucher@amd.com>; Olsak, Marek <Marek.Olsak@amd.com>
+> Cc: amd-gfx@lists.freedesktop.org
+> Subject: Re: [PATCH] Revert "drm/amdgpu: harden SIGNAL/WAIT ioctl argumen=
+t
+> validation"
+>
+> On 3/19/26 08:30, Christian K=F6nig wrote:
+> > Hi guys,
+> >
+> > well when mesa leaves some fields in the structure uninitialized then t=
+hat is a
+> pretty bad idea and we should eventually fix that.
+> >
+> > But always setting the pointers to valid arrays and just setting the nu=
+mber of array
+> elements to zero is perfectly valid.
+> >
+> > That doesn't even needs a debug message.
+>
+> As discussed recently for another patch, the "(How to avoid) Botching up =
+ioctls"
+> page of the kernel documentation says under Basics:
+>
+> * Check all unused fields and flags and all the padding for whether it=92=
+s 0, and reject
+> the ioctl if that=92s not the case.
+>
+> That seems to apply here, i.e. the kernel should have these checks and Me=
+sa should
+> initialize the pointer field to 0 when the corresponding num_* field is.
+>
+>
+> P.S. I agree it probably doesn't make a practical difference in this spec=
+ific case. I
+> suspect the rule is aimed at when the ioctl struct is extended, in which =
+case Mesa's
+> current behaviour would be indistinguishable from user-space code which a=
+ctually
+> doesn't properly initialize the newly-added fields.
+>
+> It seems safer to stick to the rule even in cases like this where it's no=
+t strictly
+> required.
+>
+>
 > --
-> 2.31.1
-> 
+> Earthling Michel D=E4nzer       \        GNOME / Xwayland / Mesa develope=
+r
+> https://redhat.com             \               Libre software enthusiast
 
+--_000_PH7PR12MB6633017F95D0FB898F1411A9FF4CAPH7PR12MB6633namp_
+Content-Type: text/html; charset="Windows-1252"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3DWindows-1=
+252">
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<div>
+<div style=3D"font-family: Calibri; text-align: left; color: rgb(0, 128, 0)=
+; margin-left: 5pt; font-size: 10pt;">
+[Public]</div>
+<br>
+</div>
+<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
+Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);" clas=
+s=3D"elementToProof">
+Hi,</div>
+<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
+Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);" clas=
+s=3D"elementToProof">
+<br>
+</div>
+<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
+Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);" clas=
+s=3D"elementToProof">
+I studied the documentation at <a class=3D"OWAAutoLink" id=3D"OWAa8a90965-9=
+aee-95ce-cc84-ba1df97f477d" href=3D"https://docs.kernel.org/process/botchin=
+g-up-ioctls.html">
+https://docs.kernel.org/process/botching-up-ioctls.html</a></div>
+<div id=3D"appendonsend"></div>
+<span style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService,=
+ Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);"><br=
+>
+</span>
+<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
+Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);" clas=
+s=3D"elementToProof">
+In this case there is size and a pointer, so it is not strictly required. B=
+ut good to follow coding guidelines.</div>
+<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
+Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);" clas=
+s=3D"elementToProof">
+<br>
+</div>
+<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
+Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);" clas=
+s=3D"elementToProof">
+<a class=3D"tWKOu mention ms-bgc-nlr ms-fcl-b" id=3D"OWAAM929495" href=3D"m=
+ailto:Prike.Liang@amd.com">@Liang, Prike</a>&nbsp;your proposed changes loo=
+ks good.</div>
+<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
+Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);" clas=
+s=3D"elementToProof">
+<br>
+</div>
+<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
+Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);" clas=
+s=3D"elementToProof">
+Thank you,</div>
+<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
+Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);" clas=
+s=3D"elementToProof">
+Yogesh</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<hr style=3D"display: inline-block; width: 98%;">
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<b>From:</b>&nbsp;Liang, Prike &lt;Prike.Liang@amd.com&gt;<br>
+<b>Sent:</b>&nbsp;Friday, March 20, 2026 8:11 AM<br>
+<b>To:</b>&nbsp;Michel D=E4nzer &lt;michel.daenzer@mailbox.org&gt;; Koenig,=
+ Christian &lt;Christian.Koenig@amd.com&gt;; Mohan Marimuthu, Yogesh &lt;Yo=
+gesh.Mohanmarimuthu@amd.com&gt;; Khatri, Sunil &lt;Sunil.Khatri@amd.com&gt;=
+; Zhang, Jesse(Jie) &lt;Jesse.Zhang@amd.com&gt;; Deucher, Alexander &lt;Ale=
+xander.Deucher@amd.com&gt;;
+ Olsak, Marek &lt;Marek.Olsak@amd.com&gt;<br>
+<b>Cc:</b>&nbsp;amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop=
+.org&gt;<br>
+<b>Subject:</b>&nbsp;RE: [PATCH] Revert &quot;drm/amdgpu: harden SIGNAL/WAI=
+T ioctl argument validation&quot;
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div style=3D"font-family: &quot;Times New Roman&quot;; font-size: 12pt;"><=
+a name=3D"BM_BEGIN"></a></div>
+<div style=3D"font-family: &quot;Times New Roman&quot;; font-size: 11pt;">[=
+Public]<br>
+<br>
+Yes, in this case it=92s cleaner and more robust to not allocate at all whe=
+n num =3D=3D 0, and keep the pointer as NULL.<br>
+For the mesa driver, how about use the following allocation pattern?<br>
+<br>
+unsigned num_syncobj_dependencies =3D csc-&gt;syncobj_dependencies.num;<br>
+uint32_t *syncobj_dependencies_list =3D NULL;<br>
+if (num_syncobj_dependencies &gt; 0) {<br>
+&nbsp;&nbsp;&nbsp; syncobj_dependencies_list =3D<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; alloca(num_syncobj_dependencies =
+* sizeof(uint32_t));<br>
+&nbsp;&nbsp;&nbsp; /* fill the buffer */<br>
+}<br>
+<br>
+Regards,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Prike<br>
+<br>
+&gt; -----Original Message-----<br>
+&gt; From: Michel D=E4nzer &lt;michel.daenzer@mailbox.org&gt;<br>
+&gt; Sent: Thursday, March 19, 2026 6:47 PM<br>
+&gt; To: Koenig, Christian &lt;Christian.Koenig@amd.com&gt;; Liang, Prike<b=
+r>
+&gt; &lt;Prike.Liang@amd.com&gt;; Mohan Marimuthu, Yogesh<br>
+&gt; &lt;Yogesh.Mohanmarimuthu@amd.com&gt;; Khatri, Sunil &lt;Sunil.Khatri@=
+amd.com&gt;;<br>
+&gt; Zhang, Jesse(Jie) &lt;Jesse.Zhang@amd.com&gt;; Deucher, Alexander<br>
+&gt; &lt;Alexander.Deucher@amd.com&gt;; Olsak, Marek &lt;Marek.Olsak@amd.co=
+m&gt;<br>
+&gt; Cc: amd-gfx@lists.freedesktop.org<br>
+&gt; Subject: Re: [PATCH] Revert &quot;drm/amdgpu: harden SIGNAL/WAIT ioctl=
+ argument<br>
+&gt; validation&quot;<br>
+&gt;<br>
+&gt; On 3/19/26 08:30, Christian K=F6nig wrote:<br>
+&gt; &gt; Hi guys,<br>
+&gt; &gt;<br>
+&gt; &gt; well when mesa leaves some fields in the structure uninitialized =
+then that is a<br>
+&gt; pretty bad idea and we should eventually fix that.<br>
+&gt; &gt;<br>
+&gt; &gt; But always setting the pointers to valid arrays and just setting =
+the number of array<br>
+&gt; elements to zero is perfectly valid.<br>
+&gt; &gt;<br>
+&gt; &gt; That doesn't even needs a debug message.<br>
+&gt;<br>
+&gt; As discussed recently for another patch, the &quot;(How to avoid) Botc=
+hing up ioctls&quot;<br>
+&gt; page of the kernel documentation says under Basics:<br>
+&gt;<br>
+&gt; * Check all unused fields and flags and all the padding for whether it=
+=92s 0, and reject<br>
+&gt; the ioctl if that=92s not the case.<br>
+&gt;<br>
+&gt; That seems to apply here, i.e. the kernel should have these checks and=
+ Mesa should<br>
+&gt; initialize the pointer field to 0 when the corresponding num_* field i=
+s.<br>
+&gt;<br>
+&gt;<br>
+&gt; P.S. I agree it probably doesn't make a practical difference in this s=
+pecific case. I<br>
+&gt; suspect the rule is aimed at when the ioctl struct is extended, in whi=
+ch case Mesa's<br>
+&gt; current behaviour would be indistinguishable from user-space code whic=
+h actually<br>
+&gt; doesn't properly initialize the newly-added fields.<br>
+&gt;<br>
+&gt; It seems safer to stick to the rule even in cases like this where it's=
+ not strictly<br>
+&gt; required.<br>
+&gt;<br>
+&gt;<br>
+&gt; --<br>
+&gt; Earthling Michel D=E4nzer&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; GNOME / Xwayland / Mesa developer<br>
+&gt; <a data-auth=3D"NotApplicable" class=3D"OWAAutoLink" id=3D"OWA48716f8e=
+-d1e0-a6a5-4192-1a85d4577e36" href=3D"https://redhat.com">
+https://redhat.com</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; \&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Libre software enthusiast<br>
+</div>
+</body>
+</html>
+
+--_000_PH7PR12MB6633017F95D0FB898F1411A9FF4CAPH7PR12MB6633namp_--
