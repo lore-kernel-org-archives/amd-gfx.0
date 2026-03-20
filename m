@@ -4,38 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E7CB610987B1
-	for <amd-gfx@archiver.kernel.org>; Fri, 20 Mar 2026 16:42:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 310E210987AB
+	for <amd-gfx@archiver.kernel.org>; Fri, 20 Mar 2026 16:42:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7ED4610EBB7;
-	Fri, 20 Mar 2026 16:42:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 888C810EBC5;
+	Fri, 20 Mar 2026 16:42:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="1PhghB6P";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="Fz9+KOI5";
 	dkim-atps=neutral
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E1EA010EBB3
- for <amd-gfx@lists.freedesktop.org>; Fri, 20 Mar 2026 16:42:41 +0000 (UTC)
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B91C210EBBB;
+ Fri, 20 Mar 2026 16:42:44 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-04.galae.net (Postfix) with ESMTPS id 014AAC5668F;
- Fri, 20 Mar 2026 16:43:06 +0000 (UTC)
+ by smtpout-03.galae.net (Postfix) with ESMTPS id A3FCE4E4273A;
+ Fri, 20 Mar 2026 16:42:43 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 7B2E2600E0;
- Fri, 20 Mar 2026 16:42:40 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 7A679600E0;
+ Fri, 20 Mar 2026 16:42:43 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 1368810450CB4; Fri, 20 Mar 2026 17:42:36 +0100 (CET)
+ with ESMTPSA id 29C5310450CB6; Fri, 20 Mar 2026 17:42:39 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1774024959; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ t=1774024962; h=from:subject:date:message-id:to:cc:mime-version:content-type:
  content-transfer-encoding:in-reply-to:references;
- bh=iZdDScs1svj3Y2kEsx3AF0o56fDyFfnYnPud0AdDX4Q=;
- b=1PhghB6P4SLdN2MWy6T0pdCcAUPMN4IytL6aXQyVMgz8wDxXjcZC1H1saH3x8WfSBCXXws
- ZhNpFRxbmygy+1ZLaC+08myPKaKxEBZG2X/99ir0cdqTD0zw3ERg70Ttds0c/Uy3qQzR1K
- oB1j6CJtd9OTLR3I9zMjaqAf+MQacPuxgQ2fMy7Gsb/XWssZf1K2+Vlv/kPFgRZpa1HuNz
- xi6U1eUmST8/KUDuWtnytLRr2Bhukx+bcAg8gv8sP0kiII3uOCEb8x5mzvujieMjhP5BV1
- lpo7lybB9r52SPYtgaTII6S75Uwh9mB+ZpWx1YO/kQ4MRgj84XTLIKvGvn774w==
+ bh=7TnxlAxfxEjwQTNjRbSYJGkJHtkKFPmIUBN531IXF64=;
+ b=Fz9+KOI5niCcdP485jQLFQN4jmhxDYZYFxEVE8zrzZVag2j0NaZhbNL4s3EVJHv8NSLGTs
+ KO6datdkHJzfubopLGspPAel6giWKyWhO+FG9lToWw4M5e0dXbzPko1890XOQSheJLp5gj
+ m9RkysLaeuE0dCt05aOEPGcxPO2eZyMVM8W2tHWy97yYk9xXNAAgA2Xqx4aH4eFNSOoNh1
+ 5f/a2CswNjaQTG93ZWO6Kp66Hm7hk0w+5xcvoGzjEJpnXvlugevLEtAo7s7Gf+2Vz3J/e/
+ CN7MR7zdaBYocSofLrPBDGEDLgvIe+Eomnqm+lfPE1eKCZPSm/Tb4VMLc5bUvA==
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v11 37/65] drm-print: modernize an archaic comment
+Subject: Re: [PATCH v11 43/65] drm-dyndbg: DRM_CLASSMAP_USE in nouveau
 From: Louis Chauvet <louis.chauvet@bootlin.com>
 To: airlied@gmail.com, simona@ffwll.ch, jbaron@akamai.com, 
  gregkh@linuxfoundation.org
@@ -47,27 +47,27 @@ Cc: Jim Cromie <jim.cromie@gmail.com>, mripard@kernel.org,
  skhan@linuxfoundation.org, pmladek@suse.com, ukaszb@chromium.org, 
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
  intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-In-Reply-To: <20260313132103.2529746-38-jim.cromie@gmail.com>
+In-Reply-To: <20260313132103.2529746-44-jim.cromie@gmail.com>
 References: <20260313132103.2529746-1-jim.cromie@gmail.com>
- <20260313132103.2529746-38-jim.cromie@gmail.com>
+ <20260313132103.2529746-44-jim.cromie@gmail.com>
 Date: Fri, 20 Mar 2026 17:41:54 +0100
-Message-Id: <177402491457.6181.147190124416339138.b4-review@b4>
+Message-Id: <177402491458.6181.15706166444323339101.b4-review@b4>
 X-Mailer: b4 0.15-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=326;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=507;
  i=louis.chauvet@bootlin.com; h=from:subject:message-id;
- bh=lda5FcNWSAaI1o3RyjUZ4uvI6l3nv4ZHl5X45LAplqI=;
- b=owEBiQJ2/ZANAwAIASCtLsZbECziAcsmYgBpvXjZzp2Ge/3QqAEbtHUNXbp/pyuf91pJ3qQ4k
- YzhugkRwJGJAk8EAAEIADkWIQRPj7g/vng8MQxQWQQgrS7GWxAs4gUCab142RsUgAAAAAAEAA5t
- YW51MiwyLjUrMS4xMSwyLDIACgkQIK0uxlsQLOI9DA/9HApltA5hJZ2/7AxblfNQI7Q3z9yVQ1L
- NxZI1WH5uXeE5DtpzMNItBks8Xt+H/v3ppc/qnL1Un6w1u5W2pfHSNQ0DQqevUrqmyEWLmm2PgJ
- gVevqisdm5ol+SDz/UHBMabDSsQxjAZRKXyaTYrOwQp/Lbde7i/QddtgkqSFKkmEohCDpYOlIVx
- g5zw8bODfkOaJ2lD2LDeWJF3zMbJ5q17l9AwBLBhJpqj/JxZynaxOT5d2KVZxPtJsaCkeBuL3ml
- lJcrWvfXu2B883RnqtidE5It1gj3NDTaerWAmLqsLfqcHT0Hl70JRIRq8YZIT5df7eO2x4db4lq
- t0w/bLcMvLa0FGnxHCJlhqlMokDR2VPojlTfNTYo6yjGkXb1AwcduUiyLmCkGAC1RkNn4q2LHEl
- MjiXwdBMskds86sh51FK6Ee30l58nqmEchtWb5ZLNPLbDOwcUAVMxLlJiidhsJKZr1oit9PRn3d
- r88tr67qnsgigJKCU7VYDOD13JoKYUsG3VDG8Xz0HRJgRDTuyufgNF9ToibjSmeb4VBXsYTXp2R
- ZbyW2WMSFXDzba7Gsc5CIJxYbl52ZNjKYy0qBxXGXO9pUpK02jKzLlgTVAjft/tc2pf3qqar/GX
- fJUZcFRuSf5A3Ss0FgHhZ5CdoLcG1sImSLI4d5+1HKWN7yXVeuEo=
+ bh=m2c6UL2tk8kMT+C+4PEMVEtBDNTIGDGKRTBSrfGgQzw=;
+ b=owEBiQJ2/ZANAwAIASCtLsZbECziAcsmYgBpvXjZsLlEI7+NlIq7goerLfKsJgG2pHovrXRpK
+ n0/tOKIdXOJAk8EAAEIADkWIQRPj7g/vng8MQxQWQQgrS7GWxAs4gUCab142RsUgAAAAAAEAA5t
+ YW51MiwyLjUrMS4xMSwyLDIACgkQIK0uxlsQLOILfBAAnoQshhVTooWQvE/IcB1KgKyVlrMBkWn
+ Zsyqa9lNOlW0HUj7knSkWm32IIi17oC67gL+bvfj8Dc9VaFzXuNQmdQZ+h9+B8dTrnv8bxLCYQF
+ anX5iC5c2RhrrOeA7cFY/W0WUxneGrNJcsGZpZKP+SAypJG2zNpipe3hT7v4rDSJ0Urjt9YBGd2
+ KUHPtoRfMJy9XQPjqDqjSGqcl0Hy8VXZ10dN9QUKgsxzCHOyRNRWWH1bvkS6XY1CUkjwI1mkbpa
+ 0AEmMiS2Nyw1AkKdrVUAziEJ736slhoUh99HkJjKHcmEKIlUfpigvXMRVxFOeG2TGVJsVDfTgln
+ kRFGry2M7OlIXUnlCYFgfncBiw2aMTRVwJIr7U37xPjbxgSscJSyy4OyXCqRdyfJ1bvkHWVdw7z
+ Arl0BRobTROX8NM0lFR1+aEKitYBAopSNc10qYIltyDH2NCLM/VaKz6wlSk7vcOyRpuFvNoiQqW
+ K1vvVl9Yeg2j0BgFLWJgx00aHGHIRWsKIZ4FwukC6ZwiM3LdkiRnx4to46R+73AKxgrJhg5R6ny
+ o7zf+EWwep7x12OgHYbgbNZANetwuENXygpp8nr+UQ7DTXUpmqyX1yZMQr70eP97xKPjYhZSmy1
+ 6Pbu2wyHg00hZg+d2735EMo0cLDRxRZ7tnq6DXlV+FZFzNfMPiTk=
 X-Developer-Key: i=louis.chauvet@bootlin.com; a=openpgp;
  fpr=8B7104AE9A272D6693F527F2EC1883F55E0B40A5
 X-Last-TLS-Session-Version: TLSv1.3
@@ -85,9 +85,15 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, 13 Mar 2026 07:20:02 -0600, Jim Cromie <jim.cromie@gmail.com> wrote:
-> In the year 2025 it is no longer noteworthy that drm.debug logging is
-> adjustable at runtime, via sysfs node.  Simplify the statement.
+On Fri, 13 Mar 2026 07:20:08 -0600, Jim Cromie <jim.cromie@gmail.com> wrote:
+> Following the dyndbg-api-fix, replace DECLARE_DYNDBG_CLASSMAP with
+> DRM_CLASSMAP_USE.  This refs the defined & exported classmap, rather
+> than re-declaring it redundantly, and error-prone-ly.
+> 
+> This resolves the appearance of "class:_UNKNOWN_" in the control file
+> for the driver's drm_dbg()s.
+> 
+> [...]
 
 Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
 
