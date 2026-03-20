@@ -4,31 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CA119108B913
-	for <amd-gfx@archiver.kernel.org>; Fri, 20 Mar 2026 12:14:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A7BC8108B91E
+	for <amd-gfx@archiver.kernel.org>; Fri, 20 Mar 2026 12:48:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6D52A10EAA4;
-	Fri, 20 Mar 2026 12:14:50 +0000 (UTC)
-Received: from rtg-sunil-navi33.amd.com (unknown [165.204.156.251])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4569C10EAA4
- for <amd-gfx@lists.freedesktop.org>; Fri, 20 Mar 2026 12:14:49 +0000 (UTC)
-Received: from rtg-sunil-navi33.amd.com (localhost [127.0.0.1])
- by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Debian-22ubuntu3) with ESMTP id
- 62KCEiYh3779246; Fri, 20 Mar 2026 17:44:44 +0530
-Received: (from sunil@localhost)
- by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 62KCEi9t3779245;
- Fri, 20 Mar 2026 17:44:44 +0530
-From: Sunil Khatri <sunil.khatri@amd.com>
-To: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, Sunil Khatri <sunil.khatri@amd.com>,
- Prike Liang <Prike.Liang@amd.com>
-Subject: [V2] drm/amdgpu/userq: cleanup amdgpu_userq_get/put where not needed
-Date: Fri, 20 Mar 2026 17:44:43 +0530
-Message-Id: <20260320121443.3779226-1-sunil.khatri@amd.com>
-X-Mailer: git-send-email 2.34.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4511B10EAD8;
+	Fri, 20 Mar 2026 12:48:34 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="Li8/pXHT";
+	dkim-atps=neutral
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4FE2810EAB9;
+ Fri, 20 Mar 2026 12:48:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=kEnWwn4hCL/bKIi4frW8u1y9gr96rd7KnbMzf+7KM8Y=; b=Li8/pXHTzlSfU5VAjZY5WKsJtk
+ lCzyyKlgOTd7ykcZTq9lMLJ6cC4I4Qxqiuvbrt+6jcZmkvVyuiOzipFt3qH4tr3LPw6kAu0nWgd5V
+ /UM8blvv8pFr6PbQe91ulzOM/Yz8mIsrHEkGycQO4esmaan5bG7QrKcdRMEEGWaGbLE9JGRNsHl8B
+ c/9HYpxC9fPweJK9QvMVcvntpm6nKLJIwybRrSSUp+62cSIsn8ZwSlEpqi+HbCrLXorQ2jTamUcYg
+ kgpaDUEITuH5tiaqi+sC2H8ZmDAjvulf/wzSzZzpZD3LF9sJlJhEraxoWMvsQpw+ULaIiK4AVLcKZ
+ bW7xNDVQ==;
+Received: from [186.208.74.38] (helo=[192.168.18.14])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1w3ZGb-003nrM-1L; Fri, 20 Mar 2026 13:47:53 +0100
+Message-ID: <f993cd33-cb39-4fb4-9dbb-42abd22c3112@igalia.com>
+Date: Fri, 20 Mar 2026 09:47:47 -0300
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] drm/drm_atomic: duplicate colorop states if plane
+ color pipeline in use
+To: Maxime Ripard <mripard@kernel.org>
+Cc: maarten.lankhorst@linux.intel.com, tzimmermann@suse.de,
+ airlied@gmail.com, simona@ffwll.ch, contact@emersion.fr,
+ sebastian.wick@redhat.com, harry.wentland@amd.com, daniels@collabora.com,
+ Alex Hung <alex.hung@amd.com>,
+ Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>,
+ Uma Shankar <uma.shankar@intel.com>, Xaver Hugl <xaver.hugl@kde.org>,
+ amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com,
+ dri-devel@lists.freedesktop.org
+References: <20260318163629.300627-1-mwen@igalia.com>
+ <20260319-nocturnal-mighty-chupacabra-87cbd0@houat>
+Content-Language: en-US
+From: Melissa Wen <mwen@igalia.com>
+In-Reply-To: <20260319-nocturnal-mighty-chupacabra-87cbd0@houat>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -43,91 +68,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-amdgpu_userq_put/get are not needed in case we already holding
-the userq_mutex and reference is valid already from queue create
-time or from signal ioctl. These additional get/put could be a
-potential reason for deadlock in case the ref count reaches zero
-and destroy is called which again try to take the userq_mutex.
 
-Due to the above change we avoid deadlock between suspend/restore
-calling destroy queues trying to take userq_mutex again.
 
-Cc: Prike Liang <Prike.Liang@amd.com>
-Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 21 +++------------------
- 1 file changed, 3 insertions(+), 18 deletions(-)
+On 19/03/2026 07:00, Maxime Ripard wrote:
+> Hi Melissa,
+>
+> On Wed, Mar 18, 2026 at 01:27:11PM -0300, Melissa Wen wrote:
+>> For suspend/resume to work correctly, do for colorop state the same we
+>> do for plane/crtc/connector states: duplicate the state of colorops in a
+>> color pipeline if it's in use by a given plane when suspending and
+>> restore cached colorop states when resuming.
+>>
+>> Fixes: 2afc3184f3b3 ("drm/plane: Add COLOR PIPELINE property")
+>> Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+>> Reviewed-by: Alex Hung <alex.hung@amd.com>
+>> Reviewed-by: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
+>> Signed-off-by: Melissa Wen <mwen@igalia.com>
+> Only slightly related to this patch itself, so this discussion must not
+> block merging this patch.
+>
+> I've been looking at revamping the state allocation / reset recently and
+> came across the colorop. It's not clear to me if it's something that
+> should be expected to be reset across a suspend/resume cycle or if it's
+> something that should be maintained across that cycle.
+>
+> What is your opinion on that?
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-index ced9ade44be4..eb07ed078bfa 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-@@ -999,15 +999,11 @@ amdgpu_userq_restore_all(struct amdgpu_userq_mgr *uq_mgr)
- 
- 	/* Resume all the queues for this process */
- 	xa_for_each(&uq_mgr->userq_xa, queue_id, queue) {
--		queue = amdgpu_userq_get(uq_mgr, queue_id);
--		if (!queue)
--			continue;
- 
- 		if (!amdgpu_userq_buffer_vas_mapped(queue)) {
- 			drm_file_err(uq_mgr->file,
- 				     "trying restore queue without va mapping\n");
- 			queue->state = AMDGPU_USERQ_STATE_INVALID_VA;
--			amdgpu_userq_put(queue);
- 			continue;
- 		}
- 
-@@ -1015,7 +1011,6 @@ amdgpu_userq_restore_all(struct amdgpu_userq_mgr *uq_mgr)
- 		if (r)
- 			ret = r;
- 
--		amdgpu_userq_put(queue);
- 	}
- 
- 	if (ret)
-@@ -1252,13 +1247,9 @@ amdgpu_userq_evict_all(struct amdgpu_userq_mgr *uq_mgr)
- 	amdgpu_userq_detect_and_reset_queues(uq_mgr);
- 	/* Try to unmap all the queues in this process ctx */
- 	xa_for_each(&uq_mgr->userq_xa, queue_id, queue) {
--		queue = amdgpu_userq_get(uq_mgr, queue_id);
--		if (!queue)
--			continue;
- 		r = amdgpu_userq_preempt_helper(queue);
- 		if (r)
- 			ret = r;
--		amdgpu_userq_put(queue);
- 	}
- 
- 	if (ret)
-@@ -1291,24 +1282,18 @@ amdgpu_userq_wait_for_signal(struct amdgpu_userq_mgr *uq_mgr)
- 	int ret;
- 
- 	xa_for_each(&uq_mgr->userq_xa, queue_id, queue) {
--		queue = amdgpu_userq_get(uq_mgr, queue_id);
--		if (!queue)
--			continue;
--
- 		struct dma_fence *f = queue->last_fence;
- 
--		if (!f || dma_fence_is_signaled(f)) {
--			amdgpu_userq_put(queue);
-+		if (!f || dma_fence_is_signaled(f))
- 			continue;
--		}
-+
- 		ret = dma_fence_wait_timeout(f, true, msecs_to_jiffies(100));
- 		if (ret <= 0) {
- 			drm_file_err(uq_mgr->file, "Timed out waiting for fence=%llu:%llu\n",
- 				     f->context, f->seqno);
--			amdgpu_userq_put(queue);
-+
- 			return -ETIMEDOUT;
- 		}
--		amdgpu_userq_put(queue);
- 	}
- 
- 	return 0;
--- 
-2.34.1
+Hi Maxime,
+
+I understand colorop should follow the same lifecycle of plane, since 
+colorop
+is associated with a plane and represent the color configuration of a given
+plane state. So, I think it should be preserved and restored in a
+suspend/resume cycle.
+
+You mentioned about "revamping state allocation/reset", is there already a
+public link for this work that I can take a look?
+
+Melissa
+
+>
+> Thanks!
+> Maxime
 
