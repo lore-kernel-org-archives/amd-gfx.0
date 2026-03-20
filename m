@@ -4,122 +4,124 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B6D261093168
-	for <amd-gfx@archiver.kernel.org>; Fri, 20 Mar 2026 03:13:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E78F41093170
+	for <amd-gfx@archiver.kernel.org>; Fri, 20 Mar 2026 03:16:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0806E10E1AC;
-	Fri, 20 Mar 2026 03:13:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 755D210E88C;
+	Fri, 20 Mar 2026 03:16:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="4p2gLfwV";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="z/1pETSw";
 	dkim-atps=neutral
-Received: from BL2PR02CU003.outbound.protection.outlook.com
- (mail-eastusazon11011039.outbound.protection.outlook.com [52.101.52.39])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C974D10E1AC
- for <amd-gfx@lists.freedesktop.org>; Fri, 20 Mar 2026 03:13:49 +0000 (UTC)
+Received: from CY3PR05CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11013014.outbound.protection.outlook.com
+ [40.93.201.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B05BE10E954
+ for <amd-gfx@lists.freedesktop.org>; Fri, 20 Mar 2026 03:16:07 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=uWW0ivSWoVgubv6eNHZfKfNW2eobVXtVK0nCCuO/J859MkpnyJhUqljlg5/Cdw3wEQoK26l8JVbf4AHRDgEAB3NdbnS0fGUGwWm+OrmkLQfVrN8IZ9zJaZyiW5/7vZEksK4PgFSceJCh2R3VyvYCd7kihIli71FBTsFhr0sgz+IwyG5Zk4gaejjYPFI0ZygN4Ft+rewwMeIGA39jcxtq+q0kVc7GCQy16/3pM/YrJS3V/OMyXWfMp20iSSuLa1GDB8Voyvv01up6GuJcpLobXDGpXytEpJgM/HEaw1L2P42QZOXTxnOW/3gMIAhOaigpHcLHCy0V+XELkjTLlj2i5A==
+ b=htxwhj+8phz7D7ZpUFu3vf2wcr8O9wAtws7kFk6DWYFsk7SaHHcOTapZd0ryqSKRGnJCIQ82Va7oaW0q7aXoKHSrQSKbLuOUup+ki7zhkVRa5TBT7S9+PiqPTpKWUBaXY814AC0CIkpZtR0jRtPExZrfVX3Oxg29FptpgZ03UBSTtMIjHqkDAG+IZmzPJBJuYTwYR97c9R1WfKPvs00Oc1kiwrrECCjw8iZprbQj5s7WnSrgnJ7GCw5wOHxVLH+VQ2d1VtkzeRHsSbc3mcpf6uUv31Q8NozglzetmfSuaBaTL50NIvMR/SsQlGz0VaRPgTTA20Ay570UFZVa2fftCw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=SViElfFM3k0+coSJX2WvQZ7wWG/YFZBnb2MKDCWmgYw=;
- b=CKvCv+6v/w2wsq0/MvpbXBQJw0FcJlh0cYVIigCj2fSUnluB25y7vfeeogIp8pmGyCcc1QKSP/r4vjgMdyQF+2179RQYiSSCQ4jJHcCz0OrIUrpqhgAkM3l9cQlzj/jYYKVOnSaSTH0CUbtHApGkcsPPpxUnKlnQ8jxO1YN3xebAzsC9GcT/OT386Ly+5EsDu56Y4sUGkNFwJ/77pd6FxUSKYAPIoy5rAgSefnY1r4ayGbF/gp7FUcTOM/ThJIpffRvT0xrFzNC52JGjJYGupyotwfqS7gWWeWhzCD5NSmNPVBfSwDK/WLKR6Zp/RND9MmZKx05GItPMik4MCquxig==
+ bh=B9wUDms3ZjGuHvm2L78H/yKen22Wf7CvconJUy/pPPc=;
+ b=Dmmrl/oxC1eoeslnctbKHIiWyP9/fMONG8gvx/ead673u3tw4f6FgDKGhUgbXTmWh+jb+BxnB4v/yW0P8Ev7/XZKmy0NnZhor1vHe8lME5U8h8Lb7OrvfZEGAsuhIMqRBcRsyX4gSIsoRm5J+SZg0mFAI4QsGdNB2BjmwqWrRnrIGcLUZia62Bst7VDb2YM3ahRSI+1ZqR3iEGPwmQeQTem1qeI9HnuYAsIBVvDdfQOLpjjILBdFfvvM5RqotCyZFntU6NdKADUAMn0M8/7oEPnrs3ijtO3ylqhsov+rjlES1rjCvVJD1boxiQID5t5U7nMmZX6a3ZG9LgnT+J62xA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=SViElfFM3k0+coSJX2WvQZ7wWG/YFZBnb2MKDCWmgYw=;
- b=4p2gLfwVngKTxIfS/BVo3au5NYaTuidbuRPyO9D6ly2B8FvVRRJsdNsmr87ABEHXw2C3w9t248+IROIHCd9IvXsmBIXmAsJFqsa2pYs2ifnFxShzMvNq670//idAhTN3N+QwN9HSVls/g9WJLHhNorWhXTPFfioQDKBe+9xdS/0=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from SA0PR12MB4557.namprd12.prod.outlook.com (2603:10b6:806:9d::10)
- by CY8PR12MB8267.namprd12.prod.outlook.com (2603:10b6:930:7c::22)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.9; Fri, 20 Mar
- 2026 03:13:45 +0000
-Received: from SA0PR12MB4557.namprd12.prod.outlook.com
- ([fe80::885a:79b3:8288:287]) by SA0PR12MB4557.namprd12.prod.outlook.com
- ([fe80::885a:79b3:8288:287%5]) with mapi id 15.20.9745.007; Fri, 20 Mar 2026
- 03:13:45 +0000
-Message-ID: <80732b5f-27a9-4969-8afe-98f3156c725e@amd.com>
-Date: Thu, 19 Mar 2026 22:13:43 -0500
-User-Agent: Mozilla Thunderbird
-From: Mario Limonciello <mario.limonciello@amd.com>
-Subject: Re: [PATCH v2] drm/amdkfd: check system memory when set apu_prefer_gtt
-To: Yifan Zhang <yifan1.zhang@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: Alexander.Deucher@amd.com, christian.koenig@amd.com, mlimonci@amd.com,
- Perry.Yuan@amd.com
-References: <20260319073250.147808-1-yifan1.zhang@amd.com>
+ bh=B9wUDms3ZjGuHvm2L78H/yKen22Wf7CvconJUy/pPPc=;
+ b=z/1pETSwySZ66hxH9vc9FLxYaFxU1ZY0jfG//EK47D5ruZVMAliR7S5ve5QeJMDvjUfkoB3fzt7F3aOY5EkTEjZUr7iPXKK9ZPxFjlUDu2lIV3F0yeOIeStgG1Eit985Mza6zKGnr9QZmCYeAO2saC0aaA+nqlod2xSA5uFwj3k=
+Received: from DM6PR12MB2972.namprd12.prod.outlook.com (2603:10b6:5:39::31) by
+ MN2PR12MB4423.namprd12.prod.outlook.com (2603:10b6:208:24f::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.13; Fri, 20 Mar
+ 2026 03:16:04 +0000
+Received: from DM6PR12MB2972.namprd12.prod.outlook.com
+ ([fe80::574d:7c2d:4d0a:855e]) by DM6PR12MB2972.namprd12.prod.outlook.com
+ ([fe80::574d:7c2d:4d0a:855e%6]) with mapi id 15.20.9700.006; Fri, 20 Mar 2026
+ 03:16:04 +0000
+From: "Wang, Yang(Kevin)" <KevinYang.Wang@amd.com>
+To: "Wang, Yang(Kevin)" <KevinYang.Wang@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+CC: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Zhang, Hawking"
+ <Hawking.Zhang@amd.com>, "Feng, Kenneth" <Kenneth.Feng@amd.com>
+Subject: RE: [PATCH 1/2] drm/amd/pm: disable OD_FAN_CURVE if temp or pwm range
+ invalid for smu v13
+Thread-Topic: [PATCH 1/2] drm/amd/pm: disable OD_FAN_CURVE if temp or pwm
+ range invalid for smu v13
+Thread-Index: AQHcuAumnseXlchgw0WNZARhPgQHKLW2vgaw
+Date: Fri, 20 Mar 2026 03:16:04 +0000
+Message-ID: <DM6PR12MB2972DD522606573881D360A8824CA@DM6PR12MB2972.namprd12.prod.outlook.com>
+References: <20260320014800.228582-1-kevinyang.wang@amd.com>
+In-Reply-To: <20260320014800.228582-1-kevinyang.wang@amd.com>
+Accept-Language: en-US, zh-CN
 Content-Language: en-US
-In-Reply-To: <20260319073250.147808-1-yifan1.zhang@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: CH2PR08CA0003.namprd08.prod.outlook.com
- (2603:10b6:610:5a::13) To SA0PR12MB4557.namprd12.prod.outlook.com
- (2603:10b6:806:9d::10)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA0PR12MB4557:EE_|CY8PR12MB8267:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3dab17fa-9f40-426a-125e-08de862eb28d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|1800799024|376014|18002099003|56012099003|22082099003; 
-X-Microsoft-Antispam-Message-Info: xUqUkhwm6fyNBXuSW+UDX06awtmtIylsRq7QaXuEqfDJIZn+gzyhIzuap34T3bWv+P5pvmKSKd8uJOYgSxd01jVUZgfg7Z2AZrABcJEiRUQs1nbC/u0wWTLlvmwBBAiqhldQUZ+moC2O6J6zDWOF01e6l6rx1cR6uXraxJ7XxVoFO6RjCe+bg28JOLPub4vtVxyzPqFsV6EapvaXPX4D59PmgBMKvAHTuYkGc2AO7AI9C01wW4lPm+htRbi+6F1tMX5GLdV37lFZFzgbUNwWtyMi2leLP+j1H6Fnf45zXZR7ET9kcmbtNSeluywvMRtQbXF4amOhre8Bspwp80d6c8bcBqYn0Od24s/LtUAtryrXyiPhOrvXQsrxEfYfLlXotoXJVnVCr5kTvq/Z+a44+Oe3HQ1AbQJr4Ke0AT+IwkKM/2uR8kxPOWkSoC+ZQlrx551cSwZuyqOvzjKWY0GbE0BNgw6rajqJ86+AGo4trkLTwyvSDfdMuMWS/D6J/KGf7zMqGPBtbUyUrVvzbCkkkD+47/T+LpNz8bJOnyFsLUJEqGPxK6oIIZAte6G21CKh/zMHkkrUGneNPBh+puNp+IGhiXTTz6E8UpS9M2UbCLsr81A2LDNRQO2tNjU2f2mcHc9n6rrgetBlmwTdIbIbSqo0L0gNt4i+WyQKDxqRW56iM5UkJMwuCZ8m+toAO0H6uG3wXlfJ87KyGpS9XhnFnOz+b86XN4TMFD9IZY0RUP4=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SA0PR12MB4557.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014)(18002099003)(56012099003)(22082099003);
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=True;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2026-03-20T03:10:08.0000000Z;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
+ Internal Distribution
+ Only; MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=3;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DM6PR12MB2972:EE_|MN2PR12MB4423:EE_
+x-ms-office365-filtering-correlation-id: bb1e8c00-7956-4f4c-75d0-08de862f0542
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|366016|1800799024|376014|7053199007|56012099003|18002099003|22082099003|38070700021;
+x-microsoft-antispam-message-info: Ra1LXNtJ4lg7D38ww9fGSynaII058SVkQDeTp/4mVCv2ZBJKpiC5HTW8161lfDASNWrN0a0bZu4oNwQe4wqgQS6+q/4EJ3N1onfiNfiC9cNfMtrX4PuccbddCLN4HYHbYuDIZzYimrf3Si+fqsYhxBXQqx8Wo2ktSZzLsXTTmqU+VdRiim7fxIn109CDAKFrJWG9DLEIhcWjJp69XvuSkP1qr0n+jFvJJxn5PnVlmDr9YDNK6VYfW3Fh4FyQv6vEEgmyTPiTNPOzFBNoXWxInuM2+XoxJPwkFrdrlMkcgJ+f8f33DPt+oVZxJARY3PcFsuQsYv6ELp4JrnEN4FKArzf7RQQu7OL8IdEnb0JWJ9ztm93ML/PEKgJOajfwQREcP3yWDizakkzqUS2JudofH8s4FqdstF+pr1IG9W+s/vrZPVkpx3WzAKWnMyZPUJX087/Wy2dh28miOBfgP44vJVTguRoZXPhkGIKld92se1U9hvxD35MOQ9Z4CGsdZ5XAxQz8Nh52efl4FVxycoeCwH/WTDkT6VoZfdZbaPcwkNm7mgcKul1tl1vaM7hXgswLuD222ordL/YuWsMvAvwiy99PGSyMIVYuWuIKyp/pBZpdju8Fj1E+eAO3nM70WDFSjyAt53tcHydIdgFb7jzcp8/Ycot6imd/eYR0FCmExEDdHkZ0N2wbXw2BwwKPtc17LqBGz4UjuxzoWJ92N40zzv2uXmTVqYnmp2Xk4b3N5SBMKJ9jFV31+EGg40U+aUbZ
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB2972.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(376014)(7053199007)(56012099003)(18002099003)(22082099003)(38070700021);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MTZpWEV4MlBPRlIrY01ES1lUNFEwZzd1dUpYZWhSOU4zM0lvQzVCdGJUQ2NP?=
- =?utf-8?B?ajRndVhYUjVQMDN3TXhTdTJVUmgzRkdMRlNpWlFKM1JwbG5hdFZuU3ozL3BS?=
- =?utf-8?B?c0kveGdrdWpKRVBzOEVobFBML29GbG1ld3RtU3oxaWM2Skc5TGp2SEcxT04y?=
- =?utf-8?B?NjJqQTlKcXdNd3RlWXhhT3kxVEgxL1h4NWd4Sldud3dITDh6TVhjZUFrSUxK?=
- =?utf-8?B?UXVoNnExcmpyS1g4R2hOM0FKUlNYYTBRTTdSZlpvbjNDbTdpRFQvRFV1Rnly?=
- =?utf-8?B?c29sQ3dnTlNEWi9QU1V5Y1U2Z3huQzRZeFRGR1FWKzVqRTFOM09UVnRvUTFu?=
- =?utf-8?B?Mk5HaDhrK3doZ2lOV1BlbTVNbFk1cFJkdGhRTzBockE0SnQvdTViU3U1b1lk?=
- =?utf-8?B?S01SUndhMC9mdHlqY2k4WmMrQmxzS3J4a1pqWndPNTZ2TnFsTmpnNnlUK1dk?=
- =?utf-8?B?VmE0enJnYWVxYzh0UkF6S1UvNTQ3ckRWS1RmOEZjY0IrcVNaL3BzeXZqeXJw?=
- =?utf-8?B?TmIxdURBdU5sQll5UnI2S3pHTzBRRGk1RXoyZ3JrbDZPdVZxTndpQXB3NXFI?=
- =?utf-8?B?Zk01VVJjb3ZrN2ZZOGdqeHNTNjQ1VGZ6akhXbFIvaXhRVWtTaUVuZE5rR3Ay?=
- =?utf-8?B?QTJGcWZWc1RoS3NlN3E1VVdNVFhYWjJhejhoSm5jeVBRQkFVbHF3dmd0YmRQ?=
- =?utf-8?B?MWRlNnppTE9OMmRKK2VWbGJ6TlpvcEsvWW9lMVVialZ3NHVCazl4b3UyUzBI?=
- =?utf-8?B?QkhhR3RxZ2U5VnFVTlU2dmt6RWcrWXluL2RhUzBZYURtU05heGZnTTkrQlFt?=
- =?utf-8?B?REJoWmFLWVVGV3FkZ3puYlFMeXo4ekhmeXU0Yjk1a2hLcm1PdldkMzRDV2t5?=
- =?utf-8?B?RDhiQzN6TmFjN09MSEVyK2xsRXZwR3lsT0hTQ2lyNDYrU3A2VkR0SHoyQ0NS?=
- =?utf-8?B?NmtQK1Awd2E0M0h2WlZoV1RVcjVjZzNaMEF1Z0ZuZXd1Wi9va1p4ckZMUjVk?=
- =?utf-8?B?Z3ZIWFBvbFRLbWYzdTRpcHdEdEpKYnVGSnRjcnpneTk4S3FVUGZweGFtQitG?=
- =?utf-8?B?WWVVaEdVYmE2Wkx2VitwRWN5UngwTlJ0RGZzZm1GRXdBTEJMKzlRT1JyS2po?=
- =?utf-8?B?VFZiZkljaHV0dmo2MHpvQ2M4TE5WeXBMRWcyeGJ4dEhIQkd6aHFUaDZ6VjhI?=
- =?utf-8?B?OS9KdDlJTnlUTU80ZTZ1TnZJTlcwTFRwUXFSM3ZFWkRjaHoycEpZKzEzWUVj?=
- =?utf-8?B?TU0zUUFFQWVJSXFUUDlQRStzZkltRG1QK3dScXU3dVMxeSt1Q3JKdmlrUTJl?=
- =?utf-8?B?YjBIMVBTUFloSkxSaXBKWGNicGN0YVk4cFlUT3RmT3k2b2NOWnhOeTJSYVJ6?=
- =?utf-8?B?RFQwZWhKSFFyd2dONWFtcy9KWGJ1SjNCUlpoM1djYklzTTlQNTM2bXpkOS9M?=
- =?utf-8?B?d2tabjFrYmpOVW14MlQrdlUrWW5ERmY0NkgrcFdDQjBJdFNvZkNyUDdYWFhD?=
- =?utf-8?B?NDIzaStUWVJGNHlxYUtPNjBRV0phWndmNDB5amFGSnc4NmhNUDJtV09KN2k5?=
- =?utf-8?B?VFFTdHpTWmNieHFFaVZIc3kzdWZmaVIwVnhPNllTcHpmOXd0MmRTa1QvZ2Vi?=
- =?utf-8?B?UlhpNDA0eHJidDJZR2NqVk5janJEZDZlZDU1M3RJdUtwUzZuUzErQzRrVGJZ?=
- =?utf-8?B?YlhtMHc2TFdZdjFaYzFwZTZmNnlGbHpYdVJKZzZlS0cvQkVZanZmTXJlYlBK?=
- =?utf-8?B?SHhQWkptTndoSFVaSGpDN0xjNlFab0pWaE9LR00zeXNUOXlTUmRwMmo1djRv?=
- =?utf-8?B?bzhROVZtNWk1S1NSRjZNZWc3SjhMQUhSQ3VHREQ4WHI2Sk1laHZnZ3RKNzQ2?=
- =?utf-8?B?bjRndWEyUWgybE5lcEtQOURDN09rOTNpRFZERnBESmgzR1FBV0dOV0p2Y3ZX?=
- =?utf-8?B?ZzBrbXRDL1N5Rk9BaVVkTUdXMDBFdzM3MUlobVJlWjdsOEUyV2JqWFJ2aHlz?=
- =?utf-8?B?YU9IT2xRLy92T1JQK0xVYUtWSEFpTDNxWlBCMUVZcmRxWEp4WkdLM2U4UXlu?=
- =?utf-8?B?MDdWSjRUU3AvNTVzaDB5OWk4djV5YzViMGs2VGZPallIMkdqV3dlRml2VlE1?=
- =?utf-8?B?OXBEMWVXYzlvTDJta0dEbFhVakJSbFVzUjlPSjdDNkJLM0diUnFBNXI4MmtI?=
- =?utf-8?B?eU9YU0lxM0tUbXRLbGNpRTdNRUV0elhmcjhSQ2J2eVRmWXZ1eWxROEg2OWtU?=
- =?utf-8?B?Y0xHRURidDlabm1qbVF2dVVRaWNjU0pTZENEUDg3S21ESWdjckhGUHZqaTNx?=
- =?utf-8?B?WjhYZ2tZMGpkcXJ2cDJ0NVlCcFlYL3o1dUJNdkpVSmtLR0Q5L2VRZz09?=
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?zxl7scv/yj8cVQvjz/w2VbH2YifWdXulDFUCi83XGUzIO7I9Np6kNYcEDU7n?=
+ =?us-ascii?Q?NUIOzNvu3BNvd5WCBsoBgWNwdngdNXKOE8qKQxrSdAoPcwZyFC59hMQF8mR9?=
+ =?us-ascii?Q?YcZP59UvGaQhOBZzRROQD4jWvUWQneLMz801PqJJaZJpyDqXVIQYf3RiBzyA?=
+ =?us-ascii?Q?6pW26b5xGMeZvF4nrtAERCbsTx3XVJ+3KuYLctElVAyoj0Rj6wCwyj07Akj0?=
+ =?us-ascii?Q?UitCXYBN9f4y52fJiDlzhqJJUrGkHqhxp65oZ7toNbyYPaGcHhn+5x6BYsQq?=
+ =?us-ascii?Q?Q5d2tvYSklj0o+pWccz+aLZi+rrqWGxd5VjU1wNC/z91uWhAwFwOLzTzcGnw?=
+ =?us-ascii?Q?fTdn1Zcivsn85bz5l8lKF9q5FpgpN6r/WFYIJZH+3sOidWpH2T5DqVSCFE2V?=
+ =?us-ascii?Q?z1XGQOuEIHeUtWl2fLkDFDx256DtE5lg93bUmC7RIavPEHgNqLb+naLhBa9b?=
+ =?us-ascii?Q?mHlzJ6lzE7tEZs6MsfEnbvHSEqZ/f5rt86+5ymUYX3R10ZsegejnMJYiUZCH?=
+ =?us-ascii?Q?HHDP8l1/CiYdRJL+/X8b6ysRKs0Zjj8NbdZqJeAdnHsAv0Dh8U9TkuQL9Yj9?=
+ =?us-ascii?Q?Vl+etslx/lIjCvqGbM4spJ3spuSlIVH5V45jHkYsmF3GiEDC9+mIrusZ+nkX?=
+ =?us-ascii?Q?DBqnT4VMZhTDsi9ZgCw4Is/qzUPymhYPJiAUw6+QSLGRP/C9N/IU6bcLSWNj?=
+ =?us-ascii?Q?Rzgps4RUsYlTZeegTvEzBtGZZ7N/DRgKJeMCveRxbAiDHXCSf1W4nwZmnary?=
+ =?us-ascii?Q?rfaTKu0MPaN/mJa16v2ZKymtdUju0lCSYdhwMmc7qDN0Fqy7mS9ITuiOZ6y/?=
+ =?us-ascii?Q?Ya2NeDIm/H0AcrJrFMDtZnM4gBmU4vNLXh3CYPgZpK7puL/5cJC22LdzyInT?=
+ =?us-ascii?Q?Q9KR4ca2yt20VYdalA05QbMTa/qoqCO5dH2D+9rdj9yBVnsLef6J7VrmwT6f?=
+ =?us-ascii?Q?0eiD5JFs4ADX6DQqBOHd7p6ikYbepRpCQTi7hFduWOA2TBIBRrKNbNPr+XnE?=
+ =?us-ascii?Q?nckOhRjci1XDeKhFlci1OnrIk7/Ij3mqHy5X6BdKchRJUTohsvrPYEsEADUu?=
+ =?us-ascii?Q?MkfG1wshtnJmqNLFvmYLNZdAuBFJr6QkiImkGqpn7lodc/6Ca7a2x6ub6cKH?=
+ =?us-ascii?Q?QhctmMfO8QEXA9Xo5n1fJhHx2Kxp5y/9BEVDKyU1nsvLfSfL3dH0mGnDRqmM?=
+ =?us-ascii?Q?PbXHxyTq4eqRP9NfsQrvVH2RAtPOIkx1vDf1FMuRj6S79MTppARUYgZ85L8l?=
+ =?us-ascii?Q?n3UeEQcyMzqtIsP8OQrXuKc8Mg/Hmpym28qvCJ6zud/7KZENTBE4znsVWkId?=
+ =?us-ascii?Q?vW98wSo8S03FMYJmcUWCcx2gSngpo2sQXqgMRWAv/MLZGAlaVAuUEMjN8LJI?=
+ =?us-ascii?Q?0ebE0BLjCiZiKuzslUQatOjOhyFaE74FUwtByi5/NJLkC1KYUXLe9o4MDgpw?=
+ =?us-ascii?Q?zLS+PR8PLIBzd4uVOovTNTqCoCdZCIILuG0eM7EzBQYyuLNfEhSGmoM2qNtj?=
+ =?us-ascii?Q?TViSsSDo14HEskIIFMiA1wy5SdYh1Rb4WqXLF4M6V3njy6qagcFW9II/nsHd?=
+ =?us-ascii?Q?qeLheKrcTumkAeCPrRXYQdEs3zAMLGEtfOEWg66H6npwAG++Dnw0JR8AcX9+?=
+ =?us-ascii?Q?1bsGoBvjMkzCXONfV6iPACIHoW19KFLidlsQauTZ0jFGANJySeoPWHiGoSKG?=
+ =?us-ascii?Q?vSsxdVnRUau6gNsfyK8hQMt/p6xAM4gybAtDDICDyorQfmlA?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3dab17fa-9f40-426a-125e-08de862eb28d
-X-MS-Exchange-CrossTenant-AuthSource: SA0PR12MB4557.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Mar 2026 03:13:45.7033 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: bIHQkYaT1/urHndMDiJm+sl4NsSoGsU8Lb3yYh3WvMdxdJOAy5XheFgTf+BqHgUh4fGLc94sgyz6Jv6ZC+Gl7Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB8267
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB2972.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: bb1e8c00-7956-4f4c-75d0-08de862f0542
+X-MS-Exchange-CrossTenant-originalarrivaltime: 20 Mar 2026 03:16:04.2498 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: mI00T8i1YKoIN54IBZhIpY5BcZQXVNpzDxYj6J8WFTBOdfWrFcAUZl/YPw2rTIrI
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4423
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,124 +136,180 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+[AMD Official Use Only - AMD Internal Distribution Only]
 
+Extra information:
 
-On 3/19/2026 2:32 AM, Yifan Zhang wrote:
-> Current apu_prefer_gtt setting only check gtt_size, which could be set
-> by user to a larger than system memory value (via ttm modules parameter
-> pages_limit). E.g. carveout vram 32GB, gtt_size 50GB (via ttm modules
-> parameter pages_limit), system memory 31GB. In that case, apu_prefer_gtt
-> will be set incorrectly. Take system memory into account when set
-> apu_prefer_gtt.
-> 
+[Issue]: Can not set fan speed on Radeon Pro W7900
+Closes: https://github.com/ROCm/amdgpu/issues/208
 
-Wouldn't it be cleaner to do this in TTM?  IE test that a bad option was 
-set by user pages_limit value and then show something like:
+Best Regards,
+Kevin
 
-if (user > possible) {
-     pr_warn("Requested invalid %d pages, limiting to %d pages", user, 
-possible);
-     user = possible;
-}
+-----Original Message-----
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Yang Wan=
+g
+Sent: Friday, March 20, 2026 09:48
+To: amd-gfx@lists.freedesktop.org
+Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Zhang, Hawking <Hawking=
+.Zhang@amd.com>; Feng, Kenneth <Kenneth.Feng@amd.com>
+Subject: [PATCH 1/2] drm/amd/pm: disable OD_FAN_CURVE if temp or pwm range =
+invalid for smu v13
 
-Then we can always trust what we get from TTM.
+Forcibly disable the OD_FAN_CURVE feature when temperature or PWM range is =
+invalid, otherwise PMFW will reject this configuration on smu v13.0.x
 
-> Signed-off-by: Yifan Zhang <yifan1.zhang@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c       | 2 --
->   drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h       | 4 ++--
->   drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c | 6 ++++--
->   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c          | 7 ++++++-
->   4 files changed, 12 insertions(+), 7 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-> index 3bfd79c89df3..a6ee9d9bfafb 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-> @@ -170,8 +170,6 @@ void amdgpu_amdkfd_device_init(struct amdgpu_device *adev)
->   	int i;
->   	int last_valid_bit;
->   
-> -	amdgpu_amdkfd_gpuvm_init_mem_limits();
-> -
->   	if (adev->kfd.dev) {
->   		struct kgd2kfd_shared_resources gpu_resources = {
->   			.compute_vmid_bitmap =
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-> index cdbab7f8cee8..13cada7da4a9 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-> @@ -369,7 +369,7 @@ u64 amdgpu_amdkfd_xcp_memory_size(struct amdgpu_device *adev, int xcp_id);
->   
->   
->   #if IS_ENABLED(CONFIG_HSA_AMD)
-> -void amdgpu_amdkfd_gpuvm_init_mem_limits(void);
-> +uint64_t amdgpu_amdkfd_gpuvm_init_mem_limits(void);
->   void amdgpu_amdkfd_gpuvm_destroy_cb(struct amdgpu_device *adev,
->   				struct amdgpu_vm *vm);
->   
-> @@ -382,7 +382,7 @@ void amdgpu_amdkfd_release_notify(struct amdgpu_bo *bo);
->   void amdgpu_amdkfd_reserve_system_mem(uint64_t size);
->   #else
->   static inline
-> -void amdgpu_amdkfd_gpuvm_init_mem_limits(void)
-> +uint64_t amdgpu_amdkfd_gpuvm_init_mem_limits(void)
->   {
->   }
->   
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-> index 8a869fe41acd..4fba7d2f34a9 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-> @@ -109,13 +109,13 @@ static bool reuse_dmamap(struct amdgpu_device *adev, struct amdgpu_device *bo_ad
->    *  System (TTM + userptr) memory - 15/16th System RAM
->    *  TTM memory - 3/8th System RAM
->    */
-> -void amdgpu_amdkfd_gpuvm_init_mem_limits(void)
-> +uint64_t amdgpu_amdkfd_gpuvm_init_mem_limits(void)
->   {
->   	struct sysinfo si;
->   	uint64_t mem;
->   
->   	if (kfd_mem_limit.max_system_mem_limit)
-> -		return;
-> +		return kfd_mem_limit.max_system_mem_limit;
->   
->   	si_meminfo(&si);
->   	mem = si.totalram - si.totalhigh;
-> @@ -132,6 +132,8 @@ void amdgpu_amdkfd_gpuvm_init_mem_limits(void)
->   	pr_debug("Kernel memory limit %lluM, TTM limit %lluM\n",
->   		(kfd_mem_limit.max_system_mem_limit >> 20),
->   		(kfd_mem_limit.max_ttm_mem_limit >> 20));
-> +
-> +	return kfd_mem_limit.max_system_mem_limit;
->   }
->   
->   void amdgpu_amdkfd_reserve_system_mem(uint64_t size)
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> index 714fd8d12ca5..df98ece071e1 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> @@ -2071,6 +2071,7 @@ static void amdgpu_ttm_buffer_entity_fini(struct amdgpu_gtt_mgr *mgr,
->   int amdgpu_ttm_init(struct amdgpu_device *adev)
->   {
->   	uint64_t gtt_size;
-> +	uint64_t max_system_mem_limit;
->   	int r;
->   
->   	dma_set_max_seg_size(adev->dev, UINT_MAX);
-> @@ -2210,8 +2211,12 @@ int amdgpu_ttm_init(struct amdgpu_device *adev)
->   	dev_info(adev->dev, " %uM of GTT memory ready.\n",
->   		 (unsigned int)(gtt_size / (1024 * 1024)));
->   
-> +
-> +	max_system_mem_limit = amdgpu_amdkfd_gpuvm_init_mem_limits();
-> +
->   	if (adev->flags & AMD_IS_APU) {
-> -		if (adev->gmc.real_vram_size < gtt_size)
-> +		if (adev->gmc.real_vram_size < gtt_size &&
-> +			adev->gmc.real_vram_size < max_system_mem_limit)
->   			adev->apu_prefer_gtt = true;
->   	}
->   
+example:
+$ sudo cat /sys/bus/pci/devices/<BDF>/gpu_od/fan_ctrl/fan_curve
+
+OD_FAN_CURVE:
+0: 0C 0%
+1: 0C 0%
+2: 0C 0%
+3: 0C 0%
+4: 0C 0%
+OD_RANGE:
+FAN_CURVE(hotspot temp): 0C 0C
+FAN_CURVE(fan speed): 0% 0%
+
+$ echo "0 50 40" | sudo tee fan_curve
+
+kernel log:
+[  756.442527] amdgpu 0000:03:00.0: amdgpu: Fan curve temp setting(50) must=
+ be within [0, 0]!
+[  777.345800] amdgpu 0000:03:00.0: amdgpu: Fan curve temp setting(50) must=
+ be within [0, 0]!
+
+Signed-off-by: Yang Wang <kevinyang.wang@amd.com>
+---
+ .../drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c  | 33 ++++++++++++++++++-  ..=
+./drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c  | 33 ++++++++++++++++++-
+ 2 files changed, 64 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c b/drivers=
+/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
+index cd077151f3e4..9be7a2af560d 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
+@@ -59,6 +59,10 @@
+
+ #define to_amdgpu_device(x) (container_of(x, struct amdgpu_device, pm.smu_=
+i2c))
+
++static void smu_v13_0_0_get_od_setting_limits(struct smu_context *smu,
++                                             int od_feature_bit,
++                                             int32_t *min, int32_t *max);
++
+ static const struct smu_feature_bits smu_v13_0_0_dpm_features =3D {
+        .bits =3D {
+                SMU_FEATURE_BIT_INIT(FEATURE_DPM_GFXCLK_BIT),
+@@ -1044,8 +1048,35 @@ static bool smu_v13_0_0_is_od_feature_supported(stru=
+ct smu_context *smu,
+        PPTable_t *pptable =3D smu->smu_table.driver_pptable;
+        const OverDriveLimits_t * const overdrive_upperlimits =3D
+                                &pptable->SkuTable.OverDriveLimitsBasicMax;
++       int32_t min_value, max_value;
++       bool feature_enabled;
+
+-       return overdrive_upperlimits->FeatureCtrlMask & (1U << od_feature_b=
+it);
++       switch (od_feature_bit) {
++       case PP_OD_FEATURE_FAN_CURVE_BIT:
++               feature_enabled =3D !!(overdrive_upperlimits->FeatureCtrlMa=
+sk & (1U << od_feature_bit));
++               if (feature_enabled) {
++                       smu_v13_0_0_get_od_setting_limits(smu, PP_OD_FEATUR=
+E_FAN_CURVE_TEMP,
++                                                         &min_value, &max_=
+value);
++                       if (!min_value && !max_value) {
++                               feature_enabled =3D false;
++                               goto out;
++                       }
++
++                       smu_v13_0_0_get_od_setting_limits(smu, PP_OD_FEATUR=
+E_FAN_CURVE_PWM,
++                                                         &min_value, &max_=
+value);
++                       if (!min_value && !max_value) {
++                               feature_enabled =3D false;
++                               goto out;
++                       }
++               }
++               break;
++       default:
++               feature_enabled =3D !!(overdrive_upperlimits->FeatureCtrlMa=
+sk & (1U << od_feature_bit));
++               break;
++       }
++
++out:
++       return feature_enabled;
+ }
+
+ static void smu_v13_0_0_get_od_setting_limits(struct smu_context *smu, dif=
+f --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c b/drivers/gp=
+u/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
+index a1d50654db72..5cc15545da6e 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
+@@ -59,6 +59,10 @@
+
+ #define to_amdgpu_device(x) (container_of(x, struct amdgpu_device, pm.smu_=
+i2c))
+
++static void smu_v13_0_7_get_od_setting_limits(struct smu_context *smu,
++                                             int od_feature_bit,
++                                             int32_t *min, int32_t *max);
++
+ static const struct smu_feature_bits smu_v13_0_7_dpm_features =3D {
+        .bits =3D {
+                SMU_FEATURE_BIT_INIT(FEATURE_DPM_GFXCLK_BIT),
+@@ -1054,8 +1058,35 @@ static bool smu_v13_0_7_is_od_feature_supported(stru=
+ct smu_context *smu,
+        PPTable_t *pptable =3D smu->smu_table.driver_pptable;
+        const OverDriveLimits_t * const overdrive_upperlimits =3D
+                                &pptable->SkuTable.OverDriveLimitsBasicMax;
++       int32_t min_value, max_value;
++       bool feature_enabled;
+
+-       return overdrive_upperlimits->FeatureCtrlMask & (1U << od_feature_b=
+it);
++       switch (od_feature_bit) {
++       case PP_OD_FEATURE_FAN_CURVE_BIT:
++               feature_enabled =3D !!(overdrive_upperlimits->FeatureCtrlMa=
+sk & (1U << od_feature_bit));
++               if (feature_enabled) {
++                       smu_v13_0_7_get_od_setting_limits(smu, PP_OD_FEATUR=
+E_FAN_CURVE_TEMP,
++                                                         &min_value, &max_=
+value);
++                       if (!min_value && !max_value) {
++                               feature_enabled =3D false;
++                               goto out;
++                       }
++
++                       smu_v13_0_7_get_od_setting_limits(smu, PP_OD_FEATUR=
+E_FAN_CURVE_PWM,
++                                                         &min_value, &max_=
+value);
++                       if (!min_value && !max_value) {
++                               feature_enabled =3D false;
++                               goto out;
++                       }
++               }
++               break;
++       default:
++               feature_enabled =3D !!(overdrive_upperlimits->FeatureCtrlMa=
+sk & (1U << od_feature_bit));
++               break;
++       }
++
++out:
++       return feature_enabled;
+ }
+
+ static void smu_v13_0_7_get_od_setting_limits(struct smu_context *smu,
+--
+2.47.3
 
