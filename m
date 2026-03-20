@@ -4,88 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EB31E1094471
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 806B71094465
 	for <amd-gfx@archiver.kernel.org>; Sat, 21 Mar 2026 09:47:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 448FC10E385;
-	Sat, 21 Mar 2026 09:47:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ED97410E383;
+	Sat, 21 Mar 2026 09:47:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="LgDltKzq";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="h+5GLWM7";
 	dkim-atps=neutral
 Received: from mail-yx1-f47.google.com (mail-yx1-f47.google.com
  [74.125.224.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C381310EAFB
- for <amd-gfx@lists.freedesktop.org>; Fri, 20 Mar 2026 21:58:16 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B7D4B10EAC1
+ for <amd-gfx@lists.freedesktop.org>; Fri, 20 Mar 2026 18:04:02 +0000 (UTC)
 Received: by mail-yx1-f47.google.com with SMTP id
- 956f58d0204a3-64eb7def21dso227631d50.1
- for <amd-gfx@lists.freedesktop.org>; Fri, 20 Mar 2026 14:58:16 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1774043896; cv=none;
+ 956f58d0204a3-64aedd812baso2461728d50.3
+ for <amd-gfx@lists.freedesktop.org>; Fri, 20 Mar 2026 11:04:02 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1774029842; cv=none;
  d=google.com; s=arc-20240605;
- b=c1TnshdVrnktMwZ+j89/KLvjr/gS93eWHEBHdpLJiQcLq96n7ukWpOD7ws+5Nlg1zH
- 2gPtpySxwkoZ4NQThf/D40jQdHZ4R/KHGp4pmUmdIKEQ0i+0Xx/f6Cu+ZR1DgRNLQdvZ
- mm91wmy8j8NKWS7KZCdknM8mMzjSyYhHYOxd3mInJEHRtWxWTvtQgrMTgu/OcrfiViOy
- 3lx7bfqBFzE/JDYpzk2IPxZOpIAgsRSKQvz7RTYwGYpaQ5wvePGfmEURkUx2vtDHw+Qi
- TFfK7JktfL9Yy1ppmCptYsA2QNbG2im2NQeFcy881MIuFW6812+V8gVHzUkNHiLzv8k2
- 6wNQ==
+ b=erPjyqqtj/L1LEf+oX+atrFs9u0y0ENWYbEQXFl4wedpIaR/Zfsyl9Q3pbiX18h9JD
+ 6pvlLuslyuGOZ5nSPk5z+NEDWLwr/I9bRm1+EyK3MNSshT5/8WTOJcde66Es5leOgm2B
+ GnP57aDjgr7U7OTOctpILdtDHL0FaQXL8+8SqYtFoGs7JfNhguP1u1d8xHhxoFyuby5C
+ EGdqeLIK5aAg4H+R9IFe0fy/znWsz/4HmD9Ea+/TH2OcYi5zxx0Z2mPPvwbRwE9paggh
+ bo2PEzPZigy15YX2rHYvZNtvU2BsHXeMyQTknW1oTiEHp6YF/WHxPiCTAlBV77vC+lFo
+ Eu8w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20240605; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=Wqd+go642a+TWwe7PKtBfdSDa2EC78pSofkTaJD/gQ4=;
- fh=aLXBT3rHuawrQvKY8PxWFHcCuCqgxDMLiJyiMvQak6s=;
- b=EnhgMCtfn754hXdqiPAT8LRzSjJlm4j2o28WPhLJg8CMk0yJnIlJIybbhE9q43mKLI
- UIYemcDFZG085drhn9Hou9BvdCNk8X4oM8vQi9KZj968PWPJDLNFQ9ciyOfvaAaw3R3o
- d386AZXDXhCrrSQh4YuDMS8DQsnUDNZIhyj64WRnPcC04+J62d0OcLv+C/XyTQTDw2bO
- tu5al75tDkf6c/47OPMai+U9jo+pmffSWAZHUntCYvMqQqNYe+c8txbqmo+Va48Mdqt1
- hSpU6XHLRZ7vhl+9JrL8j46/oaH6RgyN3S1e7i7Eq3H/aGua17PKUr5Z8pOcPZsDYxBQ
- ypZw==; darn=lists.freedesktop.org
+ bh=n0ReudbBcJ1VWJQ8xSvYlWUHawfsvlE3jFdIh1UvDJg=;
+ fh=GPFPUAwWwpIgsl3gUe1t5r1Arwj1kiDu38cLJEdL0Y4=;
+ b=Qfp+5ujembB3dKi6KeKa36D+bW3D0swXNOAAe7+SLyevPxeCwbPr1o+JjFlCwaHDbW
+ Mul0gCnDKVSfwt/vdHL/3uedilYP2IpH0/MONICS/ePxInelYwafywP2PQZKqgkNQtGf
+ qrGVU8NThmBMcZk/9TzjH3ymsvIX8z076P4/+rIDI9FNxh5OzLiz0PuBCSCbglltiydH
+ JGsdU3jMWY/Pd/jyF1pv7Os03CdudzbYR4QaG9cCBaRrqM/X0PXtl52itmaIG06uVevd
+ HDyxvvHy8HYdMnMvpoNBlYssI+lfrQFQ5biSHgQ4WfWXaPxHJpjkMbmI59Cko9OGEvg8
+ AJVQ==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1774043896; x=1774648696; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1774029842; x=1774634642; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=Wqd+go642a+TWwe7PKtBfdSDa2EC78pSofkTaJD/gQ4=;
- b=LgDltKzqnH9RGSfNFpFbAMsxOSjiIL5HojGOJfKMZh5Ft9qiXTsMlL4yXpgOIT+o8c
- NXSvszqQ1qG1bhuvOrHdOZKJgvh+4HwpmU9DVm+fOMe/jWPiH/hkdovdSVJ0lSOFpzJG
- a3/9HWWsizE2OpORKD1cID3EihwQiU5Nme1HnRhs9HfY1UsHbTeonlHIg7Bg421IiXxU
- h9+GfSwdALiWVS/fjFkcI7N92jcr8G1JxbWqzEqY2h0CmH5VfDkBOQi4/AjxTN+VfAt4
- sz2ZkoR+XJ+oOlbjOfbzDrXSbtYZt58YyI7pXT/qEVT0BsK+aBxb7OTTBtXu3ZdbJdNi
- nX2g==
+ bh=n0ReudbBcJ1VWJQ8xSvYlWUHawfsvlE3jFdIh1UvDJg=;
+ b=h+5GLWM7gOz6wIV5N+PjMYBSto7oRLGWGaLrjUv4foO+8Eg7YmRwD3oc+T/saNv8OK
+ 2X/jZgLY+jrbBh61GzsZn2pUN3FwI7xDhcvjUkRHqX6ZEVqI6DbOh+JUpZ0U74L8Blky
+ lgiY6xHshv3fhU5Jca0ADOaRaZqzNWyUT3UgHEQmCh6CFoA9Js5NSFujBfhmXzZc+uum
+ 67oA2f/mVvBHcpHBaWU9Zk+kkXBdQQh4/IIcagPgez6e4CdnR7GwCBmBUqA6MT/MLHM+
+ H+xshFNwQWXhaZmOnfGJp6oTrkmMKmhdh0dZOWj0K2ocAwTma3mpOFBXbQPuXC4+pT1u
+ ImjQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774043896; x=1774648696;
+ d=1e100.net; s=20251104; t=1774029842; x=1774634642;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=Wqd+go642a+TWwe7PKtBfdSDa2EC78pSofkTaJD/gQ4=;
- b=fpjQuLuWHCFH9KPt7ptMz43tUp9JK9NeVw45xCD6aPd4Jsh4yZIP/ojEJLZnkGNOx+
- 2ydP4cTZ6aVXwWOaNqaNk/5ygGHa+J3kG/uoKDxQ+32qNaZT6na6LHBC5kjZAWiwddgG
- lTfx4F9yiEMqVY8SxCUTIOCaUNd3DyJvHVHvtgceS4GKzruVql6feNwYQ4ByOlRTTi1m
- +6hXBxWlVmA6MJDd2KWJSa1Yd8WmDMkywedDAHeY5ACV4qTX+pGC9H64WSmTfwAzI5XN
- YiOgloejhariLUVXQYf6L7OPA9R9wAlyY9CSODGIOwTjaDxjPEKh29cAm32OEKCG19rQ
- 1kXQ==
+ bh=n0ReudbBcJ1VWJQ8xSvYlWUHawfsvlE3jFdIh1UvDJg=;
+ b=iNz0BcohirHbdRxnazhxOiK5P5y/YIzJJRvHNfkCWqt/U0dG60LZ2zBHQwJ4l5tUvv
+ i5AKwC1b2PmUKNU5NcHzgqv0ij8r1H+Bobq8+UZORAn3L+sQiRcocCCLJqFmqTwLK7MX
+ NpUWqhAoskQ1v6lCvzKgQ2/gkbjUNc4U7KZ5B/SKwB/2XVPiHibQL+Kj+Cm9Gv5Ykgi0
+ VXpPskqaBTBG6aAo5Cf3uo2Ky+htz1GMkt7CY5wfB/s6DyE53JSBDQ4UgKbgIMm+dmza
+ F+hCujwLXZArk5qF7B1/yMB9Gqst7cQQwbjn7XGKOGZatpHnR2PiNmSA9qfc6FsktFje
+ /FXg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUod8xaLberh6PFp8L6Kbt1gVPtqiIHIGAaR6+egzbvQao0p7ddJvVzlYxShkuHRqTZtWH2Cedr@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyeMb5ROkRWG6v/MtHd0mk9Htay1rtynqrV3ZCrpEk7FEND1nkf
- KA63f/Ch0+q8r28cWo8br1xjOXALSrkW9aWYtpsBfvUOrETRGZIm7US7U/Q4IRhM6w3liaLdkCp
- ZzSKtD+nysIs/Ri+iVFssKua55SVwBm8=
-X-Gm-Gg: ATEYQzxxR8dGenKxkDppYa8lbt7NcRe9qD1Dh7A2hGuaBNxiitHdHZfcQpG04HmfrF3
- Ocq6ZNdB2gAgbED/i6W2AhornntA4u6KD7KS8MzoScK2ly9nEHedUPXv3TDDR8WAs1cedQiI5Ef
- aklIHBYdzLUb2UKJPM1bamgMmOzYHxv2ZJPj14ps3crQp0EB9bBy65gEofD23ALjbUnc1S0h0W5
- sQgrLXFagShUjHg7r0XcfRC72JoCVRZdhhPuIwjnkPX5RrMr/sqlkvKzT8ucfij9bAXSPJwiwmY
- 8inZ
-X-Received: by 2002:a05:690e:449f:b0:64e:8d62:9f33 with SMTP id
- 956f58d0204a3-64eaa6dd45dmr4024453d50.30.1774043895560; Fri, 20 Mar 2026
- 14:58:15 -0700 (PDT)
+ AJvYcCWBNtLH+UKB9FipqBJ7j5Rix6NjCnnKZtVxLkzXkmLnFiXVelhgNg9pDNeFcAqiVd490OPCFanr@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yy2qLZKQS0Ggz2NmqQp2LViSSxHQQ6e9ZFSf8WrnQ6Z+gMQuqdV
+ Qq9p5PYJMGhUrEPO6FKNTOPd50WbeiUVNqWc1sMMYNYV5PwAce8lyhPFChqasj2SnFkbW1ZruB6
+ SDtKRIey7iIVP9rDc4EIG3yJqEHM4FXI=
+X-Gm-Gg: ATEYQzykbBkVMeo+LXsoEufuV3hvny2ac9dNF3wenXa4UypNf6eO7f4CLH9rCYkn9/B
+ hVGCOf/WHuCPK3i+9zkG1GW+ZAXZTOO6JEXTCYrm+hwc31WHu7aA5xZ/yCsYEwO5EC+mIC17Hb3
+ r3azFPhm41CCnFXEaNpPWAjUwgS0KNIpWcYnKWepmb6bK5JyzEkwgS/WfycZRNzk1qSW4ft+Q6w
+ 4y/+z2shrYKkPA7+DFRbX20lJJ7XRlA6mkiy78WFRjs46W9dVDTfrYrC6Qq/699/rQ19C6g2tJ/
+ P+27
+X-Received: by 2002:a05:690e:74e:b0:64a:ce9a:ace2 with SMTP id
+ 956f58d0204a3-64eaa7f7bc9mr3212110d50.56.1774029841504; Fri, 20 Mar 2026
+ 11:04:01 -0700 (PDT)
 MIME-Version: 1.0
 References: <20260313132103.2529746-1-jim.cromie@gmail.com>
- <177402491424.6181.2389443184024817919.b4-review@b4>
-In-Reply-To: <177402491424.6181.2389443184024817919.b4-review@b4>
+ <20260313132103.2529746-32-jim.cromie@gmail.com>
+ <177402491451.6181.5247342952148189934.b4-review@b4>
+In-Reply-To: <177402491451.6181.5247342952148189934.b4-review@b4>
 From: jim.cromie@gmail.com
-Date: Fri, 20 Mar 2026 15:57:49 -0600
-X-Gm-Features: AaiRm51cb3dCqAyrsJA38fQfr2R4JXFEq57xAGqK5lcZWHyVmE6QB8o4PW3zixg
-Message-ID: <CAJfuBxxXAU7UivRQbTgDoKcqiD2BVOWpMBP4YLq_wAkEN=3W8Q@mail.gmail.com>
-Subject: Re: [PATCH v11 00/65] Fix DRM_USE_DYNAMIC_DEBUG=y
+Date: Fri, 20 Mar 2026 12:03:35 -0600
+X-Gm-Features: AaiRm53l_YjOB-S5RZgL9xPfAK8bYaoK2HLT6VSg9ZSzbMdUrD-RUBzNTMJmVgQ
+Message-ID: <CAJfuBxx748fTNk51joPgCUTqd8PmTG-mwp0YL3gTSzcnu5w8KA@mail.gmail.com>
+Subject: Re: [PATCH v11 31/65] dyndbg: add
+ DYNAMIC_DEBUG_CLASSMAP_USE_(dd_class_name, offset)
 To: Louis Chauvet <louis.chauvet@bootlin.com>
 Cc: airlied@gmail.com, simona@ffwll.ch, jbaron@akamai.com, 
  gregkh@linuxfoundation.org, mripard@kernel.org, tzimmermann@suse.de, 
@@ -112,85 +114,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Mar 20, 2026 at 10:41=E2=80=AFAM Louis Chauvet
+On Fri, Mar 20, 2026 at 10:42=E2=80=AFAM Louis Chauvet
 <louis.chauvet@bootlin.com> wrote:
 >
-> Hi Jim,
+> On Fri, 13 Mar 2026 07:19:56 -0600, Jim Cromie <jim.cromie@gmail.com> wro=
+te:
+> > [...]
+> > cases; perhaps a 3-X-3 of classmap-defns X classmap-users would get
+> > too awkward and fiddly.
+> >
+> > This is an untested interface extension, so drop this patch if it
+> > feels too speculative, knowing theres at least a notional solution
+> > should the situation arise.
 >
-> Thanks for this new iteration, the whole series is in good shape, and I a=
-m
-> also interested in the "future work", you can count on me for
-> tests/reviews.
+> I agree on the patch principle, the implementation seems good.
 >
-> This series is very long, but early patches are trivials or tiny fixes
-> (4..11), can you apply them to reduce the overall size?
->
-
-lib/ "belongs" to GregKH, so its his call.
-IIRC, he has applied low-risk things case-by-case up until rc3,
-I dont know his criteria for doing so, or his assessment of
-how low-risk the initial patches are, but we're past that milepost,
-so its a more-than-usual ask.
-
-
-> I will add this series on my kernel to test it on "everyday life", I will
-> report issues if I have.
-
-yay. that should be helpful
-
-> In addition, can you move the accel and class offset implementation after
-> the rest? I think the "basic" part is good and could be merged soon (my
-> comments are minor). This way Lukas can start to work on a stable basis.
+> Can you move this patch after the BROKEN removal? I think you should
+> "stabilize" core features first so we can merge part of the series (and
+> reduce patch count).
 >
 
-They are already quite late in the stack, do you mean _USE_ after all
-the drm patches ?
+I'll do this.
 
-Im testing v12 now, it has a few noteworthy changes:
-(I will work your feedback in soon).
+> >
+> >
+> > diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
+> > index e9fa0c8868db..2083a8546460 100644
+> > --- a/lib/dynamic_debug.c
+> > +++ b/lib/dynamic_debug.c
+> > @@ -206,12 +206,17 @@ ddebug_find_valid_class(struct _ddebug_info const=
+ *di, const char *query_class,
+> >       return NULL;
+> >  }
+> >
+> > -static bool ddebug_class_in_range(const int class_id, const struct _dd=
+ebug_class_map *map)
+> > +static bool ddebug_class_map_in_range(const int class_id, const struct=
+ _ddebug_class_map *map)
+>
+> (that the rename I mentionned earlier)
 
-1- Ive found a way to address this TODO-ish item:
+I dont know what you mean here.
 
-    drm: restore CONFIG_DRM_USE_DYNAMIC_DEBUG un-BROKEN
-
-    Time for some thorough CI.
-
-    Also, the previous 18 patches could perhaps be replaced by a single
-    invocation of DYNDBG_CLASSMAP_USE, from a C-file linked into all drm
-    drivers & helpers.  I didn't find such a file, nor a drm-client
-    linkage item in the Makefile.
-
-+subdir-ccflags-$(CONFIG_DRM_USE_DYNAMIC_DEBUG)  +=3D
--DDYNAMIC_DEBUG_MODULE -include
-$(srctree)/drivers/gpu/drm/drm_dyndbg_classmap_mgr.h
-
-injects that new file into every compilation unit,
-the file has a single call: DYNAMIC_DEBUG_CLASSMAP_USE(drm_debug_classes)
-with a few #ifdefs.
-
-the approach has the advantages of:
-a- no 18 1-liner patches needed
-b- no need for future drivers to call the macro explicitly (since its injec=
-ted)
-
-disadvantages:
-c- redundant class-user records (1 per object), 315 extras in i915
-d- mysterious, action-at-a-distance
-
-a- is fixable, by introducing a MODULE_MAIN, added once per driver/helper
-but thats not much different than adding the DRM_CLASSMAP_USE() itself.
-
-2- Ive split up patch 1, the BOUNDED_SECTION_* patch
-a- split BOUNDED_* macros to include/asm-generic/bounded_sections.lds.h
-b- include it from vmlinux.lds.h
-c- imitate include/asm-generic/codetag.lds.h --> dyndbg.lds.h
-d- scripts/module.lds.S includes c), calls MOD_DYNDBG_SECTIONS()
-
-this addresses some lost sections in DRM-drivers, the problem was exposed b=
-y 1
-
-> Thanks,
-> Louis Chauvet
 >
 > --
 > Louis Chauvet <louis.chauvet@bootlin.com>
