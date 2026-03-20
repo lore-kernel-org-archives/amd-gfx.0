@@ -4,97 +4,100 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 112981094465
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B18931094467
 	for <amd-gfx@archiver.kernel.org>; Sat, 21 Mar 2026 09:47:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 83B3B10E2B1;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DC6F310E2EE;
 	Sat, 21 Mar 2026 09:47:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="SrDW3CGk";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="HgNFAUq0";
 	dkim-atps=neutral
-Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com
- [209.85.215.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EF76D10E2E1
- for <amd-gfx@lists.freedesktop.org>; Sat, 21 Mar 2026 05:45:18 +0000 (UTC)
-Received: by mail-pg1-f174.google.com with SMTP id
- 41be03b00d2f7-c70fb6aa323so1022411a12.3
- for <amd-gfx@lists.freedesktop.org>; Fri, 20 Mar 2026 22:45:18 -0700 (PDT)
+Received: from mail-yx1-f52.google.com (mail-yx1-f52.google.com
+ [74.125.224.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B1C2D10EACB
+ for <amd-gfx@lists.freedesktop.org>; Fri, 20 Mar 2026 18:15:51 +0000 (UTC)
+Received: by mail-yx1-f52.google.com with SMTP id
+ 956f58d0204a3-64e8c7f5082so2036225d50.0
+ for <amd-gfx@lists.freedesktop.org>; Fri, 20 Mar 2026 11:15:51 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1774030551; cv=none;
+ d=google.com; s=arc-20240605;
+ b=GMBJgMhlpaM1Y3gyR5Y/gWd4hUxs0/gBdmVVE6SZNUDSDdyUAC1WjgTbpfDGifS7d0
+ p2c5W4JWF80NkuJWJFfC6ANy7vvGZPLMDsAuWol4/inoKIrEWcaTgvCqUltnvKsBj44I
+ CCUM1NoCmyThOhCfd62s5xYTR7WPRIzStGupdCZZ56PyZKEek61BRZsZ08JTEo7nzvjO
+ RJVUl6RbIMEVX265pMimXjMoD7iJOa68HrkMgx3pcF/K2lLaJh/fDgMrMVqV1PuKmz6/
+ 5aKnronAMw9ldkMWPH/ED11FTe1W63fUvRI3UzaYgFLhrv6Y5kcAFDyJ9cuM3JYk8gB5
+ 6w6A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=yqVOmyZ2Z9NpjvmKpf4W2/OoeWedoqj5iVulCJB7QGg=;
+ fh=Nu1Hk+DvYGUu/pNVcFsfgfIWijg3q2rqfAvSnyhKb4A=;
+ b=is2c7xSI6FHG9+PBl6GfX+WBLakazP0aQpovAoJ2hK42p5JDNCDoVT0Y4oMP8ycxVL
+ 8A3OJs1WAJdh0hKXJ/f7Mvj9q84ETFn3eOaOu40lmL4k/yZxFHaWjkW8QcZYDMzJGC+R
+ nx4r/ZV04IeIJGewOzuQXJXWdxXBO9HOMeoAZ+91ZHmQCCpXygomYpUt+w4ShcvQ7+bE
+ Ka9ILUwExCFZBSzEU6V4Vfy1S/65q9kkxs7IIl+pWwCqefKCZ3mTBO4lVIg8h/qZZN3P
+ pEWDEACnqpiK4s2tIy97lsX7RZHWcZM/0wDep4JzeAqrbsEhim3QvA6HOO4bhzxyN4+H
+ SiqQ==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1774071918; x=1774676718; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ d=gmail.com; s=20230601; t=1774030551; x=1774635351; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=o1e3VlB8M6gxe/ov0H5wYQTMPrywihYmSqb8em+k4zw=;
- b=SrDW3CGkTAw0CBIsrrr66VRBZP4fSY1nVa/9x+ujDlYGYlOGdxA9HijUIkXeCebD+S
- OPR770DkjOc12foATwwSNcMPugOlSpIJotDkHLGapSUl4CsG6iHkMklal/j5G0aoTkzu
- HNA22Vb1tYY+QzwugJcKJiHXYRxGudKgSv+xFvh268iINRjTI6eAgX8BhQzhFY8+3VuL
- Mnp3pbirTRTaSUhx1Y+W/BM0vD3XxZrFsJOYfFm+R77xCFsbSdTIUZw9R8dTtcVxMiei
- KkzINH/Y7LN8NrMnhh8NF+iDPzP5pSbqgVnXfUzoyx3g4BLNQkeKX1LfzpGNhaUlwcKl
- 39SQ==
+ bh=yqVOmyZ2Z9NpjvmKpf4W2/OoeWedoqj5iVulCJB7QGg=;
+ b=HgNFAUq0Hgyiw4zqw3JgpV0k0nbDWJydu24VMfUWtYQna+PmQ6RaWNYT/uWn00NVAi
+ soJwDvNOzhXjPxepn/j32sje7SpaG+PvCuTe82490IjW1mRurXGcEU2t1Tfx4bbY8bTv
+ yObon8XLsqbwtWFCKC6z4IBMs2+zqYMHVrVfdm7JndzaopaWHlDf/2CgiOMS4XOJJ5+T
+ aFJimKhyY9IcRVSx3fr37rzLUYzsk9QWoKU8PBLlts4rMODpi6S4L9clcKak8LddQf2l
+ EhKypPRVIsoHOyncX80e9DgR/hdbxavjR1HXTZkguvE1e9h5O/zAy61uYwMfUM4W6g8m
+ Mb7w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774071918; x=1774676718;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ d=1e100.net; s=20251104; t=1774030551; x=1774635351;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=o1e3VlB8M6gxe/ov0H5wYQTMPrywihYmSqb8em+k4zw=;
- b=n2t3YWQREHLHTAGydvA2rbwGhZwQEWIS+26l5GgZg5F2sGRo8ktrHpkKjYPy3plI+S
- yPdImmowyqfNCl3ldVIrCfoPs4CR8WVYiTi8jlxDZuO2d1rs1FfiMsbSb0YYI30ntDcG
- rQ2r4uJS33v2YGuumgn+lhESiRw+gl03Wu+10vvZNgMqpTp6Rvwpq2uza83pU8TREdj7
- P45YA89lhDhNsH6U/6Y0sSN5pXxhjOP6GPYbJQByX9adxWeXFqTT30aQbua3IPNxEIl/
- q+nyBD3/8YGyf5lAHp23J8TqBTFkegt+SenYhLeJ07McZ8ZPNDtavvfVdlSuNGyWRib9
- IUMw==
+ bh=yqVOmyZ2Z9NpjvmKpf4W2/OoeWedoqj5iVulCJB7QGg=;
+ b=oNfWaqWhbNtj0L6lr02a8WVQJym7zggUtSK7CYMGNRLLCUEAuyG30Oj2jL6fEjy78L
+ x+DSUDcZReJHNLei95Xa0byxYJ9Z6YTGZOUIJvzV8H0/vlPtq1k7iWwnk3WgJggJ/0/2
+ FYWAFpaJG3FYv+EDYGBmowpFY7YlAflSo51VGl0oGBTfKFHAFIIJYTczWCfjbRd97Tcv
+ BRAQkUswLL+4dDrZ+m//PR7ulxIdK1e9Qrm9FMrEc2ysCcV9StxKYsvY0ne/hj3ZY3Gt
+ x4iAH0jkAOSzXYrCQ2MNjL49dIgmqz7NUQjftOQZoraftu7ylxEleSeevaM9O7AOWWze
+ MmLA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWZGGu65MtQqp3dHHEB5Y01m5PHDwmSb6vgg17FFvonMVPuKN2fOjeDuMUIGpw2ac89Lm9CZ5DK@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yy+yGfHo9KWxJXEqMb6bko5RCeHCbMniR6MUhnT9bRBmN9en8jq
- YfMcXsM982v00gmr6ky2qyH0S7a1ck6G+jI4MefDKozinparUu8y2eBh
-X-Gm-Gg: ATEYQzzswycVzcRZrFPo3eIOH+LiW7UzrwFzolNS4m9+vHVs3rtlvM9H5XyxcgWTE5/
- P1T38j7189oPP+bMxwJ8n5ycYiT8nVpplCI2ie4XByXwNBYBd+gn1scVwFX+OkiBu9MVfCP4xh4
- 5R1xe+ar2wcoMiPm0X5+S+3KoCipdQxbQesscAoZ6rt183M6rpIlv2g9OxTNm/+8gSWPTya7mdU
- 2crDe8qgwM8MMSSIAJhmi2znF25pESaKHyqZyXccSqUjEkEhfjsv3VHfY8wk4b2TBzmYe0KUcgC
- FDQUa/qhwhx6oYVozPefckXuQAP2bcD/UFZXobhkvlFNrMlyojt5HOycrvjHtzWOsX7q8uhUUqL
- bv8RneBDx370n+5Zie8BW6tEAhKrrDiYJn64oYLfEAz2ANOSqWpH10+1W1b9LJ3iRh6BYy32OF+
- 1rDKtOSsjDS5vipqABgY6Sgnf/3/0ZZP9xx3A9/bVRnC/srB4540tOVuQ=
-X-Received: by 2002:a05:6a21:6d99:b0:398:7357:bb81 with SMTP id
- adf61e73a8af0-39bce9f0d74mr5250717637.15.1774071918403; 
- Fri, 20 Mar 2026 22:45:18 -0700 (PDT)
-Received: from ryzen ([2601:644:8000:5b5d::8bd])
- by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-82b0409c681sm4338783b3a.37.2026.03.20.22.45.16
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 20 Mar 2026 22:45:17 -0700 (PDT)
-From: Rosen Penev <rosenp@gmail.com>
-To: stable@vger.kernel.org
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, Harry Wentland <harry.wentland@amd.com>,
- Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- Evan Quan <evan.quan@amd.com>,
- Mario Limonciello <mario.limonciello@amd.com>,
- Sasha Levin <sashal@kernel.org>, Rosen Penev <rosenp@gmail.com>,
- Lijo Lazar <lijo.lazar@amd.com>, Ma Jun <Jun.Ma2@amd.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
- "Mario Limonciello (AMD)" <superm1@kernel.org>,
- Zhigang Luo <Zhigang.Luo@amd.com>, Bert Karwatzki <spasswolf@web.de>,
- Ray Wu <ray.wu@amd.com>, Wayne Lin <Wayne.Lin@amd.com>,
- Roman Li <Roman.Li@amd.com>, Hersen Wu <hersenxs.wu@amd.com>,
- =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>,
- Alex Hung <alex.hung@amd.com>, decce6 <decce6@proton.me>,
- Wentao Liang <vulab@iscas.ac.cn>,
- amd-gfx@lists.freedesktop.org (open list:RADEON and AMDGPU DRM DRIVERS),
- dri-devel@lists.freedesktop.org (open list:DRM DRIVERS),
- linux-kernel@vger.kernel.org (open list)
-Subject: [PATCHv3 for 6.1 3/4] drm/amd/display: Add pixel_clock to
- amd_pp_display_configuration
-Date: Fri, 20 Mar 2026 22:44:52 -0700
-Message-ID: <20260321054453.19683-4-rosenp@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260321054453.19683-1-rosenp@gmail.com>
-References: <20260321054453.19683-1-rosenp@gmail.com>
+ AJvYcCVFiyUDwxp7eS6fSt9/obeoEraAYuB/5aU70hzIfaXnoH3wAwOsVgrTGdmVC3ejwZEGgXVw7FXu@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yw75tNAjaPmWmUpALHt/Fk81gxpTL21ck/94VNTzSCYWtz6+ZSC
+ sqGvT5XZJEpegq2pqpJWnzINzahTDpxp7Fp2K/8q4jHG9kQrH8KaO8cXo7ehlzX9ZajsJQTgXfB
+ yRDBL7dEJSREu3pSZpVe3XGHigXUbhT8=
+X-Gm-Gg: ATEYQzwJlObwxvv/OjyC/FI5q/AsEwWpkpuQ3/UgUk6Rb5onH0yDtvv7HbxzIsrJOVj
+ E6tbyOnISbxinQTaf6eV8+R4qPYrV09l48fnpZVAD7cjPup04f+jY/TWBVxUJClPiICFB1qs+rX
+ 4nbcs/8rzWHnrCIMJWBI+48NkiMGfRtcxWuc5Z3wE4Em74v1K4599VmKiyV5c4aGIEKyxkrUd4k
+ cS82kjXC9HoBJodrDvSTlSk7wr9hSLKt5gy9vtmc48AAvhDs5Rwhl8Ss0lHZJywzIu3fxEXH3gn
+ x5AT
+X-Received: by 2002:a53:c052:0:10b0:64e:a220:295c with SMTP id
+ 956f58d0204a3-64eaa6de30amr3530515d50.23.1774030550487; Fri, 20 Mar 2026
+ 11:15:50 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20260313132103.2529746-1-jim.cromie@gmail.com>
+ <20260313132103.2529746-34-jim.cromie@gmail.com>
+ <177402491455.6181.14143715499365255565.b4-review@b4>
+In-Reply-To: <177402491455.6181.14143715499365255565.b4-review@b4>
+From: jim.cromie@gmail.com
+Date: Fri, 20 Mar 2026 12:15:24 -0600
+X-Gm-Features: AaiRm50oHJtX5DOcrlwYqkPT1yywLsHi6Mo-IWiyIyjkVSYXdjkPbyeG6tTGqzc
+Message-ID: <CAJfuBxxJBPxG9uYp2XrKF4952ika8AitSUq=ExT0N+_VZqKEAg@mail.gmail.com>
+Subject: Re: [PATCH v11 33/65] docs/dyndbg: add classmap info to howto
+To: Louis Chauvet <louis.chauvet@bootlin.com>
+Cc: airlied@gmail.com, simona@ffwll.ch, jbaron@akamai.com, 
+ gregkh@linuxfoundation.org, mripard@kernel.org, tzimmermann@suse.de, 
+ maarten.lankhorst@linux.intel.com, jani.nikula@intel.com, 
+ ville.syrjala@linux.intel.com, christian.koenig@amd.com, 
+ matthew.auld@intel.com, arunpravin.paneerselvam@amd.com, 
+ skhan@linuxfoundation.org, pmladek@suse.com, ukaszb@chromium.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Sat, 21 Mar 2026 09:47:17 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -110,82 +113,50 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Timur Kristóf <timur.kristof@gmail.com>
+On Fri, Mar 20, 2026 at 10:42=E2=80=AFAM Louis Chauvet
+<louis.chauvet@bootlin.com> wrote:
+>
+> On Fri, 13 Mar 2026 07:19:58 -0600, Jim Cromie <jim.cromie@gmail.com> wro=
+te:
+> > diff --git a/Documentation/admin-guide/dynamic-debug-howto.rst b/Docume=
+ntation/admin-guide/dynamic-debug-howto.rst
+> > index 0a42b9de55ac..734be0b5fe9a 100644
+> > --- a/Documentation/admin-guide/dynamic-debug-howto.rst
+> > +++ b/Documentation/admin-guide/dynamic-debug-howto.rst
+> > @@ -218,6 +211,25 @@ line
+> > [ ... skip 13 lines ... ]
+> > +
+> > +.. note::
+> > +
+> > +    Unlike other keywords, classes are "name-to-change", not
+> > +    "omitting-constraint-allows-change".  See Dynamic Debug Classmaps
+> > +
+>
+> Why did you move the class description?
+> Is there a way to add a link to _dyndbg-classmaps? (I don't know well the
+> rst syntax)
 
-[ Upstream commit b515dcb0dc4e85d8254f5459cfb32fce88dacbfb ]
+I think I moved it to the bottom cuz its the latest keyword, and the
+longest description.
+(theyre not alphabetical, they could be, should they be ?)
 
-This commit adds the pixel_clock field to the display config
-struct so that power management (DPM) can use it.
 
-We currently don't have a proper bandwidth calculation on old
-GPUs with DCE 6-10 because dce_calcs only supports DCE 11+.
-So the power management (DPM) on these GPUs may need to make
-ad-hoc decisions for display based on the pixel clock.
-
-Also rename sym_clock to pixel_clock in dm_pp_single_disp_config
-to avoid confusion with other code where the sym_clock refers to
-the DisplayPort symbol clock.
-
-Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Rosen Penev <rosenp@gmail.com>
----
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c       | 1 +
- drivers/gpu/drm/amd/display/dc/clk_mgr/dce110/dce110_clk_mgr.c | 2 +-
- drivers/gpu/drm/amd/display/dc/dm_services_types.h             | 2 +-
- drivers/gpu/drm/amd/include/dm_pp_interface.h                  | 1 +
- 4 files changed, 4 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c
-index 75284e2cec74..c4e7d9212cd4 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c
-@@ -97,6 +97,7 @@ bool dm_pp_apply_display_requirements(
- 			const struct dm_pp_single_disp_config *dc_cfg =
- 						&pp_display_cfg->disp_configs[i];
- 			adev->pm.pm_display_cfg.displays[i].controller_id = dc_cfg->pipe_idx + 1;
-+			adev->pm.pm_display_cfg.displays[i].pixel_clock = dc_cfg->pixel_clock;
- 		}
-
- 		amdgpu_dpm_display_configuration_change(adev, &adev->pm.pm_display_cfg);
-diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dce110/dce110_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dce110/dce110_clk_mgr.c
-index fb2f154f4fda..bce53ab36f3e 100644
---- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dce110/dce110_clk_mgr.c
-+++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dce110/dce110_clk_mgr.c
-@@ -164,7 +164,7 @@ void dce110_fill_display_configs(
- 			stream->link->cur_link_settings.link_rate;
- 		cfg->link_settings.link_spread =
- 			stream->link->cur_link_settings.link_spread;
--		cfg->sym_clock = stream->phy_pix_clk;
-+		cfg->pixel_clock = stream->phy_pix_clk;
- 		/* Round v_refresh*/
- 		cfg->v_refresh = stream->timing.pix_clk_100hz * 100;
- 		cfg->v_refresh /= stream->timing.h_total;
-diff --git a/drivers/gpu/drm/amd/display/dc/dm_services_types.h b/drivers/gpu/drm/amd/display/dc/dm_services_types.h
-index b52ba6ffabe1..954b3aa65adb 100644
---- a/drivers/gpu/drm/amd/display/dc/dm_services_types.h
-+++ b/drivers/gpu/drm/amd/display/dc/dm_services_types.h
-@@ -127,7 +127,7 @@ struct dm_pp_single_disp_config {
- 	uint32_t src_height;
- 	uint32_t src_width;
- 	uint32_t v_refresh;
--	uint32_t sym_clock; /* HDMI only */
-+	uint32_t pixel_clock; /* Pixel clock in KHz (for HDMI only: normalized) */
- 	struct dc_link_settings link_settings; /* DP only */
- };
-
-diff --git a/drivers/gpu/drm/amd/include/dm_pp_interface.h b/drivers/gpu/drm/amd/include/dm_pp_interface.h
-index 1d93a0c574c9..ee4212cc93d1 100644
---- a/drivers/gpu/drm/amd/include/dm_pp_interface.h
-+++ b/drivers/gpu/drm/amd/include/dm_pp_interface.h
-@@ -66,6 +66,7 @@ struct single_display_configuration
- 	uint32_t view_resolution_cy;
- 	enum amd_pp_display_config_type displayconfigtype;
- 	uint32_t vertical_refresh; /* for active display */
-+	uint32_t pixel_clock; /* Pixel clock in KHz (for HDMI only: normalized) */
- };
-
- #define MAX_NUM_DISPLAY 32
---
-2.53.0
-
+>
+> > @@ -395,3 +412,98 @@ just a shortcut for ``print_hex_dump(KERN_DEBUG)``=
+.
+> > [ ... skip 45 lines ... ]
+> > +DYNAMIC_DEBUG_CLASSMAP_DEFINE(clname,type,_base,classnames) - this map=
+s
+> > +classnames (a list of strings) onto class-ids consecutively, starting
+> > +at _base.
+> > +
+> > +DYNAMIC_DEBUG_CLASSMAP_USE(clname) & _USE_(clname,_base) - modules
+> > +call this to refer to the var _DEFINEd elsewhere (and exported).
+>
+> (if you reorder the patches to merge the "basic" stuff, don't forget to
+> move the _USE_ and offset explaination in a second documentation patch)
+>
+> Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
+>
+> --
+> Louis Chauvet <louis.chauvet@bootlin.com>
