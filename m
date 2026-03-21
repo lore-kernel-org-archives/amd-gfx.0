@@ -4,101 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 311F61094472
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6BE961094473
 	for <amd-gfx@archiver.kernel.org>; Sat, 21 Mar 2026 09:47:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 57F0B10E386;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8B45010E381;
 	Sat, 21 Mar 2026 09:47:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="jOZ5g/GN";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="J7B+sIvs";
 	dkim-atps=neutral
-Received: from mail-yx1-f43.google.com (mail-yx1-f43.google.com
- [74.125.224.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C5A8D10EB1A
- for <amd-gfx@lists.freedesktop.org>; Fri, 20 Mar 2026 17:26:19 +0000 (UTC)
-Received: by mail-yx1-f43.google.com with SMTP id
- 956f58d0204a3-64c9ebd1369so2263622d50.1
- for <amd-gfx@lists.freedesktop.org>; Fri, 20 Mar 2026 10:26:19 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1774027579; cv=none;
- d=google.com; s=arc-20240605;
- b=MvjU1BFw6+tGFHVEyV/YP5f3KliDHUGW3/BbqBvhIe9n10hevthjOjWJLIgz2Oo/Vs
- i2dx5IF85sbfL5OMy2QG61yPij82KsjcP4nG5rxb6zNcaQQlFf09saJMRhQsrbnPkrXj
- EfumYTBy9g4VvFEqQEJ1u5BDCLUd4UCZg16nyq8hGsS2kOX9CIc/JfvV3fitf9f7UFxm
- q/XSR5w8yU3ty3XyoIWVSOWJR5uKMhZny1WHuXb9jMdvESDrjou1cq2oR32VS986ADB0
- 4zgEtWb2udACNCxsyJzaQyGa4mugzFv2SEtrXbETV+oGf/SjScb+HO9N7uHTXzPsu4/y
- iDYA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=Tj3p8eyqsxs0jrqaosm095XCJBb6sVTFmtKJ+h8XxqE=;
- fh=h27AcMFliJPkG4CaoDRENIiKL3358r7zx8oAXiEhhCA=;
- b=CkBlxMxTCRUm8azD2PVaoRFZJlaWvpqMdPn54MkoTMtRUZfx+rXGtIMr16Ofrh+u8T
- rTySJL9FXOiGSVwJWJ98lR3O44Y++py3JMxbhBETy2qemVp/wi6gixj7ABlODxBy0umc
- 5Y7+qLgPMu9FoyArPI9wDgV+6wqLP7ccvVAi8wu8EY0OWPllmCDtuUOYaUUH/coco08E
- nDMeLxyd+zLH/cA94W3Pdc8h+9u6Cafx5CnUWwPls1shJ8FCsVV9EvSayavqRX6k2s2E
- OdqvFW6sINKA2p+PCFBJzAtzqkLZxHXVKY41t4uQIFwL3hu7+fKUeNt7IRbnA40wZzbe
- 8PeQ==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mail-ua1-f53.google.com (mail-ua1-f53.google.com
+ [209.85.222.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 679C710E053
+ for <amd-gfx@lists.freedesktop.org>; Sat, 21 Mar 2026 01:57:28 +0000 (UTC)
+Received: by mail-ua1-f53.google.com with SMTP id
+ a1e0cc1a2514c-950b77942deso666947241.1
+ for <amd-gfx@lists.freedesktop.org>; Fri, 20 Mar 2026 18:57:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1774027579; x=1774632379; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=Tj3p8eyqsxs0jrqaosm095XCJBb6sVTFmtKJ+h8XxqE=;
- b=jOZ5g/GNpWjiPQn6fcUx6KHfCZmbLNDvmaIIfNDWYqBst4A/Hm1MOIpKJ6Y1cdFP43
- 4cZ+y6hyacc6tVquPGlhlIpS00gUy610LH6OTWE4sa1vf7oJRWDJdDuv6XDydeFLb1um
- +xWAWZ9Quj6DEsXC2wTJkzTDZ9qerrZRzD27n5XEEXcFLQTIlEkFaXB24t+wlwsMttuC
- qLW9B9RIhvNxqh7IFMNiuJzOW0myTmSR/NJt0wU/rS4N3hPgo/yl5ZYoEHzTRugpwRZM
- rwfK9aEVFkWH6B8Xu8r0qcNnEQd291q3hg+J9tC1s7u/2LrqpiZhdRLkxOADE8HZDnzD
- 93JA==
+ d=gmail.com; s=20230601; t=1774058247; x=1774663047; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=NOjbfVu2iFXxJILdCEl8FiFsVKUYJeRJ3TBc4EnNsEs=;
+ b=J7B+sIvsTOeO4OnJ9+0tlVHHfyWIVIPYt2XjcT6uTPsvmHnR8kYihGbpdEce2tNVIH
+ 0tK/MTcyXhJDKyMA9XbL0mZMLzNYnl3rQ+biFef3zs7mdVlyfcAo/ZfdRVaH2tfHvO3F
+ IMn6nslL9XtW+jc8O5MbuyoF2hYuz8YpUdTrtXnAciwfU1enaPuYX3vafR6EoPW3mbFI
+ RXzNqUU9ebqWP34NBhVfYM0TagOHbJF2Jh7cR9eNEn2suIPYLZUSF9y1yASYzuIC+MTc
+ DjkUq1sJGRk9Cutx9QsyFyr9JaNL0ryXQjkjzD4ZQwfjORrrb7Uoa5Pz+AEXpxMwFOtv
+ H/DA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774027579; x=1774632379;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=Tj3p8eyqsxs0jrqaosm095XCJBb6sVTFmtKJ+h8XxqE=;
- b=M10rEn2NPsCF8PLHSl1Ge728vCBzphwERlBv6iM2z8rNfUoxehCq/Mnkf9vrZga+Ao
- 34tUQzhcR+hJiSpVwy29r4ZaT4/n2eBZZouL8EPz9fQsrzG4uACXYOTVWRorbEU9o3ak
- mBm9Y5q4M2tJ2Ye5QOyBhK8Un1LfUntF5eFdYaa0YXWppVCjvdCRcLFy05G1dh+7XCKW
- H4nn2mz2n4wLUzrqPisBFB+p1nl4MGhFZRFj4b75aEGClbcr9ygxE0Icvq8A7S0/wC0Q
- jBEhklS3gDT7zjQJBSc0zuuuF8k8G5ngF/5Gs8aS9bt8qQ8T8T7v8f+w3nJuhenIu8pw
- 9gcw==
+ d=1e100.net; s=20251104; t=1774058247; x=1774663047;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=NOjbfVu2iFXxJILdCEl8FiFsVKUYJeRJ3TBc4EnNsEs=;
+ b=hTyY7/jkSy9B+K5IljN/6TYstkI0ZNzIbmIIf4cNq9pt5RbfPEDpk8/LV6nluoMuQu
+ 1FGDl5spWTSo6nWkfDgH6YDASvL3ZlZWdRZk8dnBqzPQm3pZKJf24Oi6oZUHMYc45Dju
+ uXp1fk4fJKbTpiWFgX5WaFYkl3wUXPlys+X1sAurAvIA1PvjB1FvZHE/oEiIzEVZVLfH
+ 4+pa7FYL1Gbk4rt/glEjuZuSEod5taPzZtso/ob55eTUlVIn1RcO2BA4e+DFgC6QQjIL
+ RAPvIyr30ioQZA/2Llom9HGhMOAJfmMxCy7MR4uI2y0m482c310tz4eRXu0is9tCDXdo
+ 9uTg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCV7aXOQ/Hg/L4LLv0RG4sAfHJrrctBLXAOFtrRz+sYNtzx94KEA6I5gZVwwBsg3yVzPCU6uxVGa@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Ywaq/5Ruhr8jcLQWzQxHKKAwqWEwBHIh/gHYkHxeAwIodALt4a1
- B+XBRm6X8wdH2IriE27b9Ivn3IyQdPZyRbop0V9IbZEuw6erRLUFcgXPwuQ0wyG8+cVwXiyLYif
- 03uikLeD/VanmnBhXdBncnt6GbAsy86A=
-X-Gm-Gg: ATEYQzyXpw0aYQnMcqp/xr/+Deq7gV7t/eVBdswsm4owGmTxX1CEPr+u2Py8IulRn9t
- HUZmmThlkoE5iQ2misc1kLOz7YW7oC+AAcG+3r6rf0rt/unuQht2r4xlFzUr7VpNyPohBADP6ci
- 8uyI0nZ1W1R0iCZGK1lvH5DsI1VQYBLiHpBbNoh0AcYIbT00nm4a+xyPWFuyatV6hWb55F035Fw
- f9gcQ6a9DwV+csfSkzM4Xh1G8cGX60zPrzMz/PTc082Yu403WjNtZ9zTcFjNCenn54Zifcv1r7e
- x1iK
-X-Received: by 2002:a53:b6c5:0:b0:64c:9aa7:549d with SMTP id
- 956f58d0204a3-64eaa78df37mr3443072d50.38.1774027578377; Fri, 20 Mar 2026
- 10:26:18 -0700 (PDT)
+ AJvYcCVK6NlOcZYeTSv1+ArBBjt6uvuPckT+vkipti2Z3jd4gCLtZDKhZjpf0c5HJ28i7k9TerBwl2PY@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yxuoyey1a/L2SjlOA+r1pcpm71Vn983MwfCmB44fAjhLVQADcIk
+ CZLSX+r2F4DfZ2c2tQqRgdUAIM0CEFMtfAwEgqF4qe85721cDTqbBpWs
+X-Gm-Gg: ATEYQzzuFf4Z8kkyKYj3K6TCFmJ/VKKhvMrEPSLu4hhhrKU/3XXKe5rvg5CWZSBvI1p
+ ZroNtCdEA7b2ULoGJkLcz94qiQr8JjmbD/n1T+BjzvO6vADM1D8DB21k+sWwD9WxWP6OyJoVOt6
+ ctCla/QrjK6b2wBBWl1200Caoc2j11qe0nVa/jzntNvBLsDMsB9sKOAYNINEQQ6wes3Xm22QNeU
+ Uk16nwPS5NageVyAKs/pbOnfAs3tqaG0OVgzhDj0B85KscaUTHAwMNGC74WkzbgOy3AcEQ7wWFP
+ YiE9n0ERJIBpusNf0qroHxrk9wAQpApaDc3twlq/4QdDD2Q4FZxT7PBMpSRejsFXpLifo+yKCr0
+ Adw5aCMyWEKK/TRIrcT/QEl2ChXGEpq4SUwNvr/NZDo3/DvHxzvOaVoWgFLH8mcihY/Ixpo07Ji
+ CELv44w/5Y++VC1/edR2V9I/jNC2mzIQY=
+X-Received: by 2002:a05:6102:2ac1:b0:5ff:b403:a36a with SMTP id
+ ada2fe7eead31-602aeb08fb4mr2284953137.16.1774058247111; 
+ Fri, 20 Mar 2026 18:57:27 -0700 (PDT)
+Received: from gui-host.Dlink ([177.140.57.219])
+ by smtp.gmail.com with ESMTPSA id
+ ada2fe7eead31-602afb00179sm1989296137.9.2026.03.20.18.57.22
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 20 Mar 2026 18:57:25 -0700 (PDT)
+From: guilhermeivo <guilhermeivob@gmail.com>
+To: harry.wentland@amd.com, sunpeng.li@amd.com, siqueira@igalia.com,
+ alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
+ simona@ffwll.ch
+Cc: guilherme.bozi@usp.br, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ guilhermeivo <guilhermeivob@gmail.com>
+Subject: [PATCH] drm/amd/display: Deduplicate DCN DDC register assignment
+Date: Fri, 20 Mar 2026 22:56:54 -0300
+Message-ID: <20260321015654.105059-1-guilhermeivob@gmail.com>
+X-Mailer: git-send-email 2.47.3
 MIME-Version: 1.0
-References: <20260313132103.2529746-1-jim.cromie@gmail.com>
- <20260313132103.2529746-2-jim.cromie@gmail.com>
- <177402491426.6181.12855763650074831089.b4-review@b4>
-In-Reply-To: <177402491426.6181.12855763650074831089.b4-review@b4>
-From: jim.cromie@gmail.com
-Date: Fri, 20 Mar 2026 11:25:51 -0600
-X-Gm-Features: AaiRm52mzW6EX86AA5Jjc_AE9pPFD7jbLjCUGPg_V9Sh6yOZDr0TEo5Rj5JOx1Q
-Message-ID: <CAJfuBxzYUdM=HJ1yc=bTCHuRfPSznRZCPdfq_hfJSW7zxk4pEg@mail.gmail.com>
-Subject: Re: [PATCH v11 01/65] dyndbg: fix NULL ptr on i386 due to section
- alignment
-To: Louis Chauvet <louis.chauvet@bootlin.com>
-Cc: airlied@gmail.com, simona@ffwll.ch, jbaron@akamai.com, 
- gregkh@linuxfoundation.org, mripard@kernel.org, tzimmermann@suse.de, 
- maarten.lankhorst@linux.intel.com, jani.nikula@intel.com, 
- ville.syrjala@linux.intel.com, christian.koenig@amd.com, 
- matthew.auld@intel.com, arunpravin.paneerselvam@amd.com, 
- skhan@linuxfoundation.org, pmladek@suse.com, ukaszb@chromium.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Sat, 21 Mar 2026 09:47:17 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -114,98 +89,345 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Mar 20, 2026 at 10:41=E2=80=AFAM Louis Chauvet
-<louis.chauvet@bootlin.com> wrote:
->
-> On Fri, 13 Mar 2026 07:19:26 -0600, Jim Cromie <jim.cromie@gmail.com> wro=
-te:
-> > [...]
-> > smaller alignments, *and* scripts/sorttable.c does not tolerate the
-> > added ALIGN(8) padding.
-> >
+Several DCN generations implement identical define_ddc_registers()
+functions to assign DDC register, shift and mask pointers based on
+GPIO ID.
 
-More specifically, it counts records in 2 sections, and insists
-they're the same count,
-and there's no slop/extra space.  the align(8) broke that last constraint.
+Introduce a shared inline helper,
+dcn_define_ddc_registers_common(), and convert all DCN
+implementations to use it.
 
-> > Reported-by: kernel test robot <oliver.sang@intel.com>
-> > Closes: https://lore.kernel.org/oe-lkp/202601211325.7e1f336-lkp@intel.c=
-om
-> > Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
->
-> comments may be wrong.
+This reduces duplication and improves maintainability without
+changing behavior.
 
+No functional changes intended.
 
-in v12, I found a way to use the makefile to conditionally include a "heade=
-r"
-file which invokes DYNAMIC_DEBUG_CLASSMAP_USE().
+Signed-off-by: guilhermeivo <guilhermeivob@gmail.com>
+---
+ .../display/dc/gpio/dcn20/hw_factory_dcn20.c  | 27 ++++---------
+ .../display/dc/gpio/dcn21/hw_factory_dcn21.c  | 27 ++++---------
+ .../display/dc/gpio/dcn30/hw_factory_dcn30.c  | 27 ++++---------
+ .../dc/gpio/dcn315/hw_factory_dcn315.c        | 27 ++++---------
+ .../display/dc/gpio/dcn32/hw_factory_dcn32.c  | 27 ++++---------
+ .../dc/gpio/dcn401/hw_factory_dcn401.c        | 26 ++++---------
+ .../amd/display/dc/gpio/hw_factory_dcn_ddc.h  | 39 +++++++++++++++++++
+ 7 files changed, 86 insertions(+), 114 deletions(-)
+ create mode 100644 drivers/gpu/drm/amd/display/dc/gpio/hw_factory_dcn_ddc.h
 
-In doing this, I encountered some lost sections (lacking a KEEP in modules)
-which I fixed by reusing the codetag.lds.h model, to make dyndbg.lds.h,
-which reuses the (now separated out) BOUNDED_SECTION* macros,
-and contains MOD_DYNDBG_SECTIONS(). which scripts/module.lds.S invokes.
-So, those comments are now obsolete.
+diff --git a/drivers/gpu/drm/amd/display/dc/gpio/dcn20/hw_factory_dcn20.c b/drivers/gpu/drm/amd/display/dc/gpio/dcn20/hw_factory_dcn20.c
+index e0bd0c722e00..905d14079b91 100644
+--- a/drivers/gpu/drm/amd/display/dc/gpio/dcn20/hw_factory_dcn20.c
++++ b/drivers/gpu/drm/amd/display/dc/gpio/dcn20/hw_factory_dcn20.c
+@@ -32,6 +32,8 @@
+ #include "../hw_hpd.h"
+ #include "../hw_generic.h"
+ 
++#include "../hw_factory_dcn_ddc.h"
++
+ #include "hw_factory_dcn20.h"
+ 
+ 
+@@ -182,25 +184,12 @@ static void define_ddc_registers(
+ 		struct hw_gpio_pin *pin,
+ 		uint32_t en)
+ {
+-	struct hw_ddc *ddc = HW_DDC_FROM_BASE(pin);
+-
+-	switch (pin->id) {
+-	case GPIO_ID_DDC_DATA:
+-		ddc->regs = &ddc_data_regs_dcn[en];
+-		ddc->base.regs = &ddc_data_regs_dcn[en].gpio;
+-		break;
+-	case GPIO_ID_DDC_CLOCK:
+-		ddc->regs = &ddc_clk_regs_dcn[en];
+-		ddc->base.regs = &ddc_clk_regs_dcn[en].gpio;
+-		break;
+-	default:
+-		ASSERT_CRITICAL(false);
+-		return;
+-	}
+-
+-	ddc->shifts = &ddc_shift[en];
+-	ddc->masks = &ddc_mask[en];
+-
++	dcn_define_ddc_registers_common(
++		pin, en,
++		ddc_data_regs_dcn,
++		ddc_clk_regs_dcn,
++		ddc_shift,
++		ddc_mask);
+ }
+ 
+ static void define_hpd_registers(struct hw_gpio_pin *pin, uint32_t en)
+diff --git a/drivers/gpu/drm/amd/display/dc/gpio/dcn21/hw_factory_dcn21.c b/drivers/gpu/drm/amd/display/dc/gpio/dcn21/hw_factory_dcn21.c
+index 2f57ee6deabc..f347b8c7e2b6 100644
+--- a/drivers/gpu/drm/amd/display/dc/gpio/dcn21/hw_factory_dcn21.c
++++ b/drivers/gpu/drm/amd/display/dc/gpio/dcn21/hw_factory_dcn21.c
+@@ -32,6 +32,8 @@
+ #include "../hw_hpd.h"
+ #include "../hw_generic.h"
+ 
++#include "../hw_factory_dcn_ddc.h"
++
+ #include "hw_factory_dcn21.h"
+ 
+ #include "dcn/dcn_2_1_0_offset.h"
+@@ -170,25 +172,12 @@ static void define_ddc_registers(
+ 		struct hw_gpio_pin *pin,
+ 		uint32_t en)
+ {
+-	struct hw_ddc *ddc = HW_DDC_FROM_BASE(pin);
+-
+-	switch (pin->id) {
+-	case GPIO_ID_DDC_DATA:
+-		ddc->regs = &ddc_data_regs_dcn[en];
+-		ddc->base.regs = &ddc_data_regs_dcn[en].gpio;
+-		break;
+-	case GPIO_ID_DDC_CLOCK:
+-		ddc->regs = &ddc_clk_regs_dcn[en];
+-		ddc->base.regs = &ddc_clk_regs_dcn[en].gpio;
+-		break;
+-	default:
+-		ASSERT_CRITICAL(false);
+-		return;
+-	}
+-
+-	ddc->shifts = &ddc_shift[en];
+-	ddc->masks = &ddc_mask[en];
+-
++	dcn_define_ddc_registers_common(
++		pin, en,
++		ddc_data_regs_dcn,
++		ddc_clk_regs_dcn,
++		ddc_shift,
++		ddc_mask);
+ }
+ 
+ static void define_hpd_registers(struct hw_gpio_pin *pin, uint32_t en)
+diff --git a/drivers/gpu/drm/amd/display/dc/gpio/dcn30/hw_factory_dcn30.c b/drivers/gpu/drm/amd/display/dc/gpio/dcn30/hw_factory_dcn30.c
+index 36a5736c58c9..25eef1ee10fe 100644
+--- a/drivers/gpu/drm/amd/display/dc/gpio/dcn30/hw_factory_dcn30.c
++++ b/drivers/gpu/drm/amd/display/dc/gpio/dcn30/hw_factory_dcn30.c
+@@ -32,6 +32,8 @@
+ #include "../hw_hpd.h"
+ #include "../hw_generic.h"
+ 
++#include "../hw_factory_dcn_ddc.h"
++
+ #include "hw_factory_dcn30.h"
+ 
+ 
+@@ -199,25 +201,12 @@ static void define_ddc_registers(
+ 		struct hw_gpio_pin *pin,
+ 		uint32_t en)
+ {
+-	struct hw_ddc *ddc = HW_DDC_FROM_BASE(pin);
+-
+-	switch (pin->id) {
+-	case GPIO_ID_DDC_DATA:
+-		ddc->regs = &ddc_data_regs_dcn[en];
+-		ddc->base.regs = &ddc_data_regs_dcn[en].gpio;
+-		break;
+-	case GPIO_ID_DDC_CLOCK:
+-		ddc->regs = &ddc_clk_regs_dcn[en];
+-		ddc->base.regs = &ddc_clk_regs_dcn[en].gpio;
+-		break;
+-	default:
+-		ASSERT_CRITICAL(false);
+-		return;
+-	}
+-
+-	ddc->shifts = &ddc_shift[en];
+-	ddc->masks = &ddc_mask[en];
+-
++	dcn_define_ddc_registers_common(
++		pin, en,
++		ddc_data_regs_dcn,
++		ddc_clk_regs_dcn,
++		ddc_shift,
++		ddc_mask);
+ }
+ 
+ static void define_hpd_registers(struct hw_gpio_pin *pin, uint32_t en)
+diff --git a/drivers/gpu/drm/amd/display/dc/gpio/dcn315/hw_factory_dcn315.c b/drivers/gpu/drm/amd/display/dc/gpio/dcn315/hw_factory_dcn315.c
+index 5feebb3b95ca..571a6f1b0cf9 100644
+--- a/drivers/gpu/drm/amd/display/dc/gpio/dcn315/hw_factory_dcn315.c
++++ b/drivers/gpu/drm/amd/display/dc/gpio/dcn315/hw_factory_dcn315.c
+@@ -32,6 +32,8 @@
+ #include "../hw_hpd.h"
+ #include "../hw_generic.h"
+ 
++#include "../hw_factory_dcn_ddc.h"
++
+ #include "hw_factory_dcn315.h"
+ 
+ #include "dcn/dcn_3_1_5_offset.h"
+@@ -191,25 +193,12 @@ static void define_ddc_registers(
+ 		struct hw_gpio_pin *pin,
+ 		uint32_t en)
+ {
+-	struct hw_ddc *ddc = HW_DDC_FROM_BASE(pin);
+-
+-	switch (pin->id) {
+-	case GPIO_ID_DDC_DATA:
+-		ddc->regs = &ddc_data_regs_dcn[en];
+-		ddc->base.regs = &ddc_data_regs_dcn[en].gpio;
+-		break;
+-	case GPIO_ID_DDC_CLOCK:
+-		ddc->regs = &ddc_clk_regs_dcn[en];
+-		ddc->base.regs = &ddc_clk_regs_dcn[en].gpio;
+-		break;
+-	default:
+-		ASSERT_CRITICAL(false);
+-		return;
+-	}
+-
+-	ddc->shifts = &ddc_shift[en];
+-	ddc->masks = &ddc_mask[en];
+-
++	dcn_define_ddc_registers_common(
++		pin, en,
++		ddc_data_regs_dcn,
++		ddc_clk_regs_dcn,
++		ddc_shift,
++		ddc_mask);
+ }
+ 
+ static void define_hpd_registers(struct hw_gpio_pin *pin, uint32_t en)
+diff --git a/drivers/gpu/drm/amd/display/dc/gpio/dcn32/hw_factory_dcn32.c b/drivers/gpu/drm/amd/display/dc/gpio/dcn32/hw_factory_dcn32.c
+index 985f10b39750..d6e97b246bae 100644
+--- a/drivers/gpu/drm/amd/display/dc/gpio/dcn32/hw_factory_dcn32.c
++++ b/drivers/gpu/drm/amd/display/dc/gpio/dcn32/hw_factory_dcn32.c
+@@ -32,6 +32,8 @@
+ #include "../hw_hpd.h"
+ #include "../hw_generic.h"
+ 
++#include "../hw_factory_dcn_ddc.h"
++
+ #include "hw_factory_dcn32.h"
+ 
+ #include "dcn/dcn_3_2_0_offset.h"
+@@ -203,25 +205,12 @@ static void define_ddc_registers(
+ 		struct hw_gpio_pin *pin,
+ 		uint32_t en)
+ {
+-	struct hw_ddc *ddc = HW_DDC_FROM_BASE(pin);
+-
+-	switch (pin->id) {
+-	case GPIO_ID_DDC_DATA:
+-		ddc->regs = &ddc_data_regs_dcn[en];
+-		ddc->base.regs = &ddc_data_regs_dcn[en].gpio;
+-		break;
+-	case GPIO_ID_DDC_CLOCK:
+-		ddc->regs = &ddc_clk_regs_dcn[en];
+-		ddc->base.regs = &ddc_clk_regs_dcn[en].gpio;
+-		break;
+-	default:
+-		ASSERT_CRITICAL(false);
+-		return;
+-	}
+-
+-	ddc->shifts = &ddc_shift[en];
+-	ddc->masks = &ddc_mask[en];
+-
++	dcn_define_ddc_registers_common(
++		pin, en,
++		ddc_data_regs_dcn,
++		ddc_clk_regs_dcn,
++		ddc_shift,
++		ddc_mask);
+ }
+ 
+ static void define_hpd_registers(struct hw_gpio_pin *pin, uint32_t en)
+diff --git a/drivers/gpu/drm/amd/display/dc/gpio/dcn401/hw_factory_dcn401.c b/drivers/gpu/drm/amd/display/dc/gpio/dcn401/hw_factory_dcn401.c
+index 928abca18a18..06a4d7a8a1ac 100644
+--- a/drivers/gpu/drm/amd/display/dc/gpio/dcn401/hw_factory_dcn401.c
++++ b/drivers/gpu/drm/amd/display/dc/gpio/dcn401/hw_factory_dcn401.c
+@@ -12,6 +12,7 @@
+ #include "../hw_hpd.h"
+ #include "../hw_generic.h"
+ 
++#include "../hw_factory_dcn_ddc.h"
+ 
+ #include "dcn/dcn_4_1_0_offset.h"
+ #include "dcn/dcn_4_1_0_sh_mask.h"
+@@ -195,25 +196,12 @@ static void define_ddc_registers(
+ 		struct hw_gpio_pin *pin,
+ 		uint32_t en)
+ {
+-	struct hw_ddc *ddc = HW_DDC_FROM_BASE(pin);
+-
+-	switch (pin->id) {
+-	case GPIO_ID_DDC_DATA:
+-		ddc->regs = &ddc_data_regs_dcn[en];
+-		ddc->base.regs = &ddc_data_regs_dcn[en].gpio;
+-		break;
+-	case GPIO_ID_DDC_CLOCK:
+-		ddc->regs = &ddc_clk_regs_dcn[en];
+-		ddc->base.regs = &ddc_clk_regs_dcn[en].gpio;
+-		break;
+-	default:
+-		ASSERT_CRITICAL(false);
+-		return;
+-	}
+-
+-	ddc->shifts = &ddc_shift[en];
+-	ddc->masks = &ddc_mask[en];
+-
++	dcn_define_ddc_registers_common(
++		pin, en,
++		ddc_data_regs_dcn,
++		ddc_clk_regs_dcn,
++		ddc_shift,
++		ddc_mask);
+ }
+ 
+ static void define_hpd_registers(struct hw_gpio_pin *pin, uint32_t en)
+diff --git a/drivers/gpu/drm/amd/display/dc/gpio/hw_factory_dcn_ddc.h b/drivers/gpu/drm/amd/display/dc/gpio/hw_factory_dcn_ddc.h
+new file mode 100644
+index 000000000000..1f2bc7eea82e
+--- /dev/null
++++ b/drivers/gpu/drm/amd/display/dc/gpio/hw_factory_dcn_ddc.h
+@@ -0,0 +1,39 @@
++/* SPDX-License-Identifier: MIT */
++/*
++ * Copyright 2024 Advanced Micro Devices, Inc.
++ */
++
++#ifndef __DAL_HW_FACTORY_DCN_DDC_H__
++#define __DAL_HW_FACTORY_DCN_DDC_H__
++
++static inline void dcn_define_ddc_registers_common(
++		struct hw_gpio_pin *pin,
++		uint32_t en,
++		const struct ddc_registers *data_regs,
++		const struct ddc_registers *clk_regs,
++		const struct ddc_shift *shift,
++		const struct ddc_mask *mask)
++{
++	struct hw_ddc *ddc = HW_DDC_FROM_BASE(pin);
++
++	switch (pin->id) {
++	case GPIO_ID_DDC_DATA:
++		ddc->regs = &data_regs[en];
++		ddc->base.regs = &data_regs[en].gpio;
++		break;
++
++	case GPIO_ID_DDC_CLOCK:
++		ddc->regs = &clk_regs[en];
++		ddc->base.regs = &clk_regs[en].gpio;
++		break;
++
++	default:
++		ASSERT_CRITICAL(false);
++		return;
++	}
++
++	ddc->shifts = &shift[en];
++	ddc->masks = &mask[en];
++}
++
++#endif /* __DAL_HW_FACTORY_DCN_DDC_H__ */
+-- 
+2.47.3
 
-
->
-> >
-> >
-> > diff --git a/include/asm-generic/vmlinux.lds.h b/include/asm-generic/vm=
-linux.lds.h
-> > index eeb070f330bd..a2ba7e3d9994 100644
-> > --- a/include/asm-generic/vmlinux.lds.h
-> > +++ b/include/asm-generic/vmlinux.lds.h
-> > @@ -212,11 +212,13 @@
-> > [ ... skip 7 lines ... ]
-> >
-> >  #define BOUNDED_SECTION_POST_LABEL(_sec_, _label_, _BEGIN_, _END_)   \
-> > +     . =3D ALIGN(8);                                                  =
- \
-> >       _label_##_BEGIN_ =3D .;                                          =
- \
-> >       KEEP(*(_sec_))                                                  \
-> >       _label_##_END_ =3D .;
->
-> This affects a lot of existing BOUNDED_SECTION_BY. I agree that it is
-> not a big issue (most of them already have ALIGN(8) or ALIGN(32), but
-> some have ALIGN(4) or just not aligned at all). I think this can increase
-> the size of the kernel in other places.
->
-> What do you think about a new macro or a
-> BOUNDED_SECTION_BY_ALIGNED(sec,label,align) with explicit aligement?
-
-Thats not crazy, but Im not sure its justified by the 6 lines that the
-_ALIGNED() variant would save.  It does add some modest complexity to
-the macros.
-
-
->
-> > @@ -867,15 +869,21 @@
-> > [ ... skip 15 lines ... ]
-> >       . =3D ALIGN(2);                                                  =
- \
-> >       .orc_unwind : AT(ADDR(.orc_unwind) - LOAD_OFFSET) {             \
-> > -             BOUNDED_SECTION_BY(.orc_unwind, _orc_unwind)            \
-> > +             __start_orc_unwind =3D .;                                =
- \
-> > +             KEEP(*(.orc_unwind))                                    \
-> > +             __stop_orc_unwind =3D .;                                 =
- \
->
-> You already noticed an issue here for example, and you had to manually
-> expand the macro to "disable" the align. This is error-prone, I think it =
-is
-> better to keep BOUNDED_SECTION_BY here.
->
-
-I'll look at it - there is a stack of 3-4 macros that would need adjusting.
-
-> Note: I don't understand well linker scripts and all the implications, my
->
-> Note: I don't understand well linker scripts and all the implications, my
->
-> --
-> Louis Chauvet <louis.chauvet@bootlin.com>
-
-thanks Louis,
-Jim
