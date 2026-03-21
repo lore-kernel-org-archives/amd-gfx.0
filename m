@@ -4,105 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A480B1099B3C
-	for <amd-gfx@archiver.kernel.org>; Sat, 21 Mar 2026 02:34:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EB94C1099B3C
+	for <amd-gfx@archiver.kernel.org>; Sat, 21 Mar 2026 05:20:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 39A1310E248;
-	Sat, 21 Mar 2026 02:34:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 897DA10EB65;
+	Sat, 21 Mar 2026 05:20:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="QAgDjYRf";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="gAHnRJtW";
 	dkim-atps=neutral
-Received: from mail-dl1-f51.google.com (mail-dl1-f51.google.com [74.125.82.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A833510E249
- for <amd-gfx@lists.freedesktop.org>; Sat, 21 Mar 2026 02:34:27 +0000 (UTC)
-Received: by mail-dl1-f51.google.com with SMTP id
- a92af1059eb24-126ea4b77adso2563319c88.1
- for <amd-gfx@lists.freedesktop.org>; Fri, 20 Mar 2026 19:34:27 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1774060467; cv=none;
- d=google.com; s=arc-20240605;
- b=c8A5B8KeU6dF49roauP1FVAvGJTcyRGyeOs3aOStgmXBQ/vf0ZhLwUpSziYJyInbHw
- VNnlegAdNXcuT0OfWgetshNadwZDXD1mbs4ihHXooQF3nnp3tX8kMOj9nV+nkF5oRfta
- lC5+uSH8glZooyqsjJFzlroCFV1HERpjxEs/b54ArEwXgXDCOaxtdHbG1D87aHQYiYax
- NV8IS4w5L7c0lqlHmaLkTKwlGfy6xpVHlsZd0bW56if4LoF2UkLMcM5ysQIzuAAxBjjK
- r9JpZuCi6Q5xGXdfV4XCttLi0rnkSCBYF576cRoDBCbpnWvQch8BWpKaFuhNHwk3QO/c
- kRhw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:dkim-signature;
- bh=4Q3kqLc2+DATRyIjfQQzda1s2xOQFKyxST9nwoPM2ss=;
- fh=06G8Jf2dL1fNZx7IHOd4sXnhxuzSBVJnzZy8pqZ4PeU=;
- b=gZqr6R2bMZEfpV51pm1w3opBJ3/fQFPvovVnmQMaPvVqrGPC8SXDS+5zwinSkuUPaD
- KEXUtN+l/F/ikaeTjVnWz4kaBV2Q9/uqxz7S78sD2WNQbeI9xx6qw+I/Ulcl82uuwbcu
- DPGfDKi1yjlupdQ7ZdjVZmIRveBRUl9Hus6RnSdk6if3ppdDO0Z90omR6hIlqzp7hl1V
- DfK6tN9D6Uzq4ty0ahO0PnstvxUhdY8WQEF8/r2GFJzQZxbP7QS92QQ2K8i77xJc1KKX
- JOAI2btl9YVTVl9buKgbXZ+eGucrw4LTdKJhqocWmbx/Ojd8JG/l7sbV5VJx2W0kwvGA
- CFfw==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com
+ [209.85.128.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C227A10EB65
+ for <amd-gfx@lists.freedesktop.org>; Sat, 21 Mar 2026 05:20:47 +0000 (UTC)
+Received: by mail-wm1-f52.google.com with SMTP id
+ 5b1f17b1804b1-486b96760easo28702125e9.2
+ for <amd-gfx@lists.freedesktop.org>; Fri, 20 Mar 2026 22:20:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1774060467; x=1774665267; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=4Q3kqLc2+DATRyIjfQQzda1s2xOQFKyxST9nwoPM2ss=;
- b=QAgDjYRfD42xcZ797LnwqgGxqkaq54xEkXLrB/e5qJqHI2n1cJp1ikXbGgoFKnunRg
- 6XYUmrnOpRQMimRhuJ9b4tbDjLb1gikP1yaDAuDfbPmhPAOQO94a5lG/R3cmgtIaMN99
- o+/sixazLNS9cZQNKSOegqm/eDH2x3JxQLOSXVkQeIR54RZo6l5N03SEBucFd5tGvy99
- T4nm2LI/IL/2wip35UQiUaD88QvfIkxtPuOo5zhINeU3qLi/CVPCl035tiSRxqBHCaRi
- e5YxMAG+LoF8d2xDjFWfBNo3ge0/xytCn8E9Fes88ph7y4TuyoOoNQv0WmfIcGvZfSUX
- 7t5A==
+ d=gmail.com; s=20230601; t=1774070446; x=1774675246; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=1EKq1vLfgwYt/zYwN9FJYIigJVZ+pwHlskrnj75NFik=;
+ b=gAHnRJtWNrYe0Xrl7F6d2/AW8wL9XnNcAhacRQtyTJfCaGvP2MbiXW8SSqhxAC8n3N
+ +krqQYLC61OW6iEBLIoXPyyy0krW2rGK9zL4wJjwaANl4wnQ9B/1rzQWt6uZd7G/eWlN
+ G52Apaxu1oCiZ5PpTQYWcNANPp3qIroSzVlbtQ6fbSwUieybtY2DyyLwLTl93G9E5FAe
+ en2lapb6e8MiVo4BOXXqoBodAmdoZiA539Uemt3TPyNkZzF37thokpbvzT3p51q7uxX5
+ PdHlHNeOuW/ZgLZLJOUt1l/cvg7+Zab0+1inTZYcerFKgm0/dyXaGo4sxU/cyGWxbb1+
+ Kfrw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774060467; x=1774665267;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=1e100.net; s=20251104; t=1774070446; x=1774675246;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=4Q3kqLc2+DATRyIjfQQzda1s2xOQFKyxST9nwoPM2ss=;
- b=CeP9zrcJZwaoLGHmzfn+VnfAKu4VJ1kwM/RWEyJhFvpPOujUIUX8ckayMLOMAzVK8/
- 8YzcHkWsxyANp4ZzRQUvxPu9f/1qit3oNa3iWfCJN2mAiV1TrEE1G70460e1LkCwJjBY
- +grvMsIVL69cyPNzASjaVBdi0GuVT7TVVR38lXobnDKBQpVGB7PSWA3I4Es5Uh7iCckq
- hPMHq7ZJu9TMYSxb38pH8S0DYaa7ttDTXTut1VreQq7NZ7mTBXaqoX6B9QfSXAcZ+3n9
- yT/vP3cKVvsYNAgbwwHnR4Z5ZkhIQYGnZR5dJxPUdZY4mgetlgrHYxxS00EpIKm31rRz
- wMGw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWmSxIIalCRDuAqlcSkD9jKEKD6HiGCNtbw9cmuf4RJqnSAHGQCjC+mvpluRjMvueQHNiCJMgaE@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxDmeo+HPJRtBlXc+80PlxRbPQj9nPqR3UptoPugr3P+tbwLYlX
- AgYhuwYNMyAW5cAu08bhpVvw5ASNFnWN+sVA8RVDZ6PGLx8czqgpS/xG9zPdjmC68OhV8QVu0ZT
- 6bRQOkVX081etVsv8GBim87vbQ/CZDSs=
-X-Gm-Gg: ATEYQzxtCJzuAqhUZtdFSjWTGUEgQe87yyrMam3E49p4Hf1U6gO4Umruk4mIo4MYNAn
- yzg8dOv1c0V9YZVfH4gYVtQinpOcRgcIXPVbobd/bTZig8uZA9xPmyCfwVnbwV7E+F3HI41E9H2
- QiPH8ulthnrD3PpD8YkVjMogRfpVMNNas+afKGRf66hHsqWyn6qasT5aM6uhD475ataxs3Bp5T1
- j9Lg3Mpflbom65CdlNx0chvPVNFDAdm4ckilVfSMuccd9CoV9cxPLL1Ff+3GUzokoJgD+E9yxeN
- YM3qWQxNPu1Gf+20g3flL/6iqzZzLMQyDyQyxI2K3w==
-X-Received: by 2002:a05:7022:41a5:b0:11a:6424:f40f with SMTP id
- a92af1059eb24-12a726ddac3mr2231033c88.36.1774060466683; Fri, 20 Mar 2026
- 19:34:26 -0700 (PDT)
-MIME-Version: 1.0
-References: <20260319-link-bpc-v5-0-5306cd04a708@collabora.com>
- <8ba60a99-f69e-482e-bd68-f6bc36291c54@mailbox.org>
- <5797606.kQq0lBPeGt@workhorse>
-In-Reply-To: <5797606.kQq0lBPeGt@workhorse>
+ bh=1EKq1vLfgwYt/zYwN9FJYIigJVZ+pwHlskrnj75NFik=;
+ b=it8ocdPw7PzFh96RI/NPizrFt6XXZYhQ+fch4woCuwBQEHhD0JSIjwSLhwR7SL3e0Z
+ zTqE+Sl9SQM6aWRxgclURvKg3ZGzKaFJBCPbibB2l6BU0II4NZ17Ai5x8FH8tb4iwnFk
+ mJKfFKW/nBkGJkQjD4X8PTccE08w0fezfr9jkTwtb5b1PUZi+MEGQwVOBcbmdtwQAc8b
+ KuECtU6FudeY316VghM5QDczSFmYugUcTrZYZygr+vqv5Xksd3WdlKeGL4qDnXGIWmFs
+ h4Dg04ydTTGO0o6P/RTSMQGjwmogK/NH8dMFl3KAmaRp90r/ExmGl4q2TWtNrNDIUBzL
+ NVkA==
+X-Gm-Message-State: AOJu0YyitU0iB4jYQmx9qhHAFVTO/4fyQiDNB6sDuX8MrsGM+JyN08YS
+ RJiVx6ocVVdV2Vm172JH+lVUxgyOFxIJEYPhKf9F9RlVMiVEoiVWade63EOVmOwC
+X-Gm-Gg: ATEYQzzXoztBYxorxQuX8PypQESlNZH/Hfdo/Eyr4VDUCIWtrygaIKqfuMlPOWoXney
+ 6aHmck/HUHtM+tnrBgugNZMU2XCOBV65JdRHbAkNM2o2PBO3mCwUbyk3D1jQ44AQ3nhzn2OupI1
+ R9p91c+0KqSbiDsbzp57U6YbX2+xh1gytkwScPDzvZQj3+I0PflvQjMqC8BJYHDdkjOXzh0rNyP
+ rCg1iXXZEx115bpZEG49ErljYiwb00ZPAVxKxbNQv/vzsc8a9Ed7mGi1u0zL1eFFtuD5lm/r/1v
+ XzqLydF83P6KswmaMcQjwVNdYlgFcEQr/BEk/vIpZx84pKtNrMtARH7yOH6wD20zgxZJ1c1AznV
+ /5RAJtftvyke3k/E60ClpNH8kwMeM+8n4RTqn1rbdTcaOTMLEFvNH+6DKiaia49SxIlHlTI5m22
+ RUIQFkd949cX/H/9qJ4zBfBd1qu7UtBx5aFkLxZ5y4JtvQqlJPeSsbr/zWZ7X1l6ZRm4Uv5JRhA
+ 5jf9SlAXB6X1JDIm1VjVlgHq+NkvJvwXV/oADzDqhwFKf5Zv/92TfME0VERrUnwb0WY
+X-Received: by 2002:a05:600c:3b07:b0:485:5ba3:37d8 with SMTP id
+ 5b1f17b1804b1-486fedab1e5mr73958065e9.5.1774070445643; 
+ Fri, 20 Mar 2026 22:20:45 -0700 (PDT)
+Received: from groovy.localdomain
+ (dynamic-2a02-3100-5a1e-5a00-2fe0-b647-7443-5e95.310.pool.telefonica.de.
+ [2a02:3100:5a1e:5a00:2fe0:b647:7443:5e95])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-486fe032a55sm208361275e9.7.2026.03.20.22.20.44
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 20 Mar 2026 22:20:45 -0700 (PDT)
 From: Mario Kleiner <mario.kleiner.de@gmail.com>
-Date: Sat, 21 Mar 2026 03:33:50 +0100
-X-Gm-Features: AaiRm51HklmEz7GrV_pORHHrZHyoKZT0POzQhQmu1DQijPkt8nqirfdRn2tKzuQ
-Message-ID: <CAEsyxyhnALbkaF+9nav8FkW5gcJdtTw5CHhK3Hf8f=fymFiOKw@mail.gmail.com>
-Subject: Re: [PATCH v5 0/3] Add "link bpc" DRM property
-To: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, 
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
- Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>, 
- Daniel Stone <daniels@collabora.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
- =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- amd-gfx@lists.freedesktop.org, kernel@collabora.com, 
- Derek Foreman <derek.foreman@collabora.com>,
- Marius Vlad <marius.vlad@collabora.com>
-Content-Type: multipart/alternative; boundary="000000000000ed42d3064d7fa3d3"
+To: amd-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org, mario.kleiner.de@gmail.com,
+ stable@vger.kernel.org, Aric Cyr <aric.cyr@amd.com>,
+ Anthony Koo <anthony.koo@amd.com>,
+ Rodrigo Siqueira <rodrigo.siqueira@amd.com>,
+ Krunoslav Kovac <krunoslav.kovac@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>
+Subject: [PATCH] drm/amd/display: Change dither policy for 10 bpc output back
+ to dithering
+Date: Sat, 21 Mar 2026 06:20:33 +0100
+Message-ID: <20260321052033.23472-1-mario.kleiner.de@gmail.com>
+X-Mailer: git-send-email 2.43.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,341 +91,84 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---000000000000ed42d3064d7fa3d3
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Commit d5df648ec830 ("drm/amd/display: Change dither policy for 10bpc to
+round") degraded display of 12 bpc color precision output to 10 bpc sinks
+by switching 10 bpc output from dithering to "truncate to 10 bpc".
 
-As somebody who writes software for neuroscience research, I would find
-this new property very useful.
+I don't find the argumentation in that commit convincing, but the
+consequences highly unfortunate, especially for applications that
+require effective > 10 bpc precision output of > 10 bpc framebuffers.
 
-Even if the 'link bpc' is not the perfectly accurate answer in presence of
-dithering or display stream compression, I think it could provide an idea
-about the minimum precision available, so a DRM client can at least make
-sure its minimum requirements are met. E.g., a 'link bpc' of 10 would at
-least guarantee 10 bpc, and effectively a bit more if spatial dithering is
-applied in addition. That said, I don't have practical experience with the
-effects of DSC, I don't have any suitable hardware. Afaik it is not truly
-lossless, but only (supposed to be, usually) perceptually lossless. It
-would be great to have some property that informs clients if DSC is active
-or not, or allow some control over that.
+The argument wasn't something strong like "there are hardware design
+defects or limitations which require us to work around broken dithering
+to 10 bpc", or "there are some special use cases which do require
+truncation to 10 bpc", but essentially "at some point in the past we
+used truncation in Polaris/Vega times and it looks like it got
+inadvertently changed for Navi, so let's do that again". I couldn't find
+evidence for that in the git commit logs for this. The commit message also
+acknowledges that using dithering "...makes some sense for FP16...
+...but not for ARGB2101010 surfaces..."
 
-Also as somebody who has spent many hours of his life hunting down some
-sysfs or debugfs files for reporting such numbers, the files usually being
-differently named, at different paths, with different formats, or not
-existing at all, depending on kernel version and gpu configuration. I'd
-like to do less of that in the future.
+The problem with this is that it makes fp16 surfaces, and especially
+rgba16 fixed point surfaces, less useful. These are now well
+supported by Mesa 25.3 and later via OpenGL + EGL, Vulkan/WSI, and by
+OSS AMDVLK Vulkan/WSI/display, and also by GNOME 50 mutter under Wayland,
+and they used to provide more than 10 bpc effective precision at the
+output.
 
-In this field of application it is often very important to know about the
-actual precision of "what goes out of the computer", e.g., visual test
-stimuli. Scientists use different methods to verify their experimental
-stimulation setups, of different levels of rigorosity, including
-photometers, colorimeters etc. to measure the actual light emitted by a
-display. But knowing if things work, or where in the pipeline from app to
-photon they break or degrade, if they break, is useful, and the more the
-software can help with this, or warn about problems, the better for us.
+Even for 8 or 10 bpc surfaces, the color pipeline behind the framebuffer,
+e.g., gamma tables, CTM, can be used for color correction and will
+benefit from an effective > 10 bpc output precision via dithering,
+retaining some precision that would get lost on the way through the
+pipeline, e.g., due to non-linear gamma functions.
 
-Even if Wayland compositors wouldn't pick this up quickly, if it is a drm
-connector property, I think it would be accessible under a native X11
-X-Server via RandR output properties -- and my kind of applications still
-heavily relies on native X11, as the Wayland eco system currently is not
-ready for the more demanding or non-trivial use cases in this field. Also,
-those properties are read-accessible to non-root, non-drm masters, so
-applications like mine could read the property even under leased drm
-connectors (Vulkan/WSI/display, OpenGL/EGL/drm), or probably even under a
-running Wayland desktop if Wayland protocol lacks the means to do so.
+Scientific apps rely on this for > 10 bpc display precision. Truncating
+to 10 bpc, instead of dithering the pipeline internal 12 bpc precision
+down to 10 bpc, causes a serious loss of precision. This also creates the
+undesirable and slightly absurd situation that using a cheap monitor
+with only 8 bpc input and display panel will yield roughly 12 bpc
+precision via dithering from 12 -> 8 bpc, whereas investment into a
+more expensive monitor with 10 bpc input and native 10 bpc display will
+only yield 10 bpc, even if a fp16 or rgb16 framebuffer and/or a properly
+set up color pipeline (gamma tables, CTM's etc. with more than 10 bpc out
+precision) would allow effective 12 bpc precision output.
 
-In the scenarios used by my app, the app often knows what an optimal
-setting for 'max bpc' or reported value from such a 'link bpc' would be, so
-it can be used to reconfigure things (under X11 RandR, or as a drm master),
-adapt to the situation, or at least warn the user if they are about to ruin
-their experimental data collection, possibly guide them a bit in
-troubleshooting.
+Therefore this patch proposes reverting that commit and going back to
+dithering down to 10 bpc, consistent with the behaviour for 6 bpc or 8 bpc
+output.
 
-But I could imagine regular desktop use cases, where a Wayland compositor
-can somewhat know what good minimum values for 'link bpc' would be, and
-maybe adapt, or give the user a hint about potentially degraded quality,
-and what to do about it ("Check your cables", "Reduce video resolution or
-refresh rate", "Run with less displays",...).
+Successfully tested on AMD Polaris DCE 11.2 and Raven Ridge DCN 1.0 with
+a native 10 bpc capable monitor, outputting a RGBA16 unorm framebuffer and
+measuring resulting color precision with a photometer. No apparent visual
+artifacts or problems were observed, and effective precision was measured
+to be 12 bpc again, as expected.
 
-Similar to Nicolas rgb 10 bpc vs. yuv 10 bpc example for video playback:
-While all these are critical for apps like mine, or other pro apps
-depending on color quality, I'd assume a Wayland compositor could use the
-same constraints, even if the worst case desktop scenario may only be an
-underwhelmed user, if their HDR videos don't look as spiffy as they hoped.
+Fixes: d5df648ec830 ("drm/amd/display: Change dither policy for 10bpc to round")
+Signed-off-by: Mario Kleiner <mario.kleiner.de@gmail.com>
+Tested-by: Mario Kleiner <mario.kleiner.de@gmail.com>
+Cc: stable@vger.kernel.org
+Cc: Aric Cyr <aric.cyr@amd.com>
+Cc: Anthony Koo <anthony.koo@amd.com>
+Cc: Rodrigo Siqueira <rodrigo.siqueira@amd.com>
+Cc: Krunoslav Kovac <krunoslav.kovac@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+---
+ drivers/gpu/drm/amd/display/dc/core/dc_resource.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-- A HDR-10 display mode on a true HDR sink implies one really wants a 'link
-bpc' of at least 10 bpc, especially given the large nonlinearity of EOTF's
-like Perceptual Quantizer, or things will look poor. In a scientific
-research setting that would not just be a bummer, but degradation would be
-an absolute show stopper. Something one wants to fix, be it by
-checking/swapping cables, or maybe by selecting a video mode with lower
-bandwidth requirements, etc.
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
+index c9fbb64d706a..29db5404c4a0 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
+@@ -5056,7 +5056,7 @@ void resource_build_bit_depth_reduction_params(struct dc_stream_state *stream,
+ 			option = DITHER_OPTION_SPATIAL8;
+ 			break;
+ 		case COLOR_DEPTH_101010:
+-			option = DITHER_OPTION_TRUN10;
++			option = DITHER_OPTION_SPATIAL10;
+ 			break;
+ 		default:
+ 			option = DITHER_OPTION_DISABLE;
+-- 
+2.43.0
 
-- Same is true for wide color gamut WCG color spaces, where one wants more
-than 8 bits to resolve the larger color volume fine enough for good results=
-.
-
-- I'd also assume or hope that a wayland client asking for a fullscreen
-(=3Dpossibly direct scanout capable) RGB10 framebuffer or fp16 fb or even
-RGBA16 fb would imply to the compositor that that client really wants to
-get at 10 bpc or even 12+ bpc out of the display connector. So having a too
-low link bpc would be a reason to possibly notify the user.
-
-Excuse the verbose reply, but at least from my corner of applications this
-would have a big thumbs up.
-
-Thanks,
--mario
-
-On Fri, Mar 20, 2026 at 7:09=E2=80=AFPM Nicolas Frattaroli <
-nicolas.frattaroli@collabora.com> wrote:
-
-> On Friday, 20 March 2026 15:32:37 Central European Standard Time Michel
-> D=C3=A4nzer wrote:
-> > On 3/19/26 13:28, Nicolas Frattaroli wrote:
-> > > This series adds a new "link bpc" DRM property. It reflects the displ=
-ay
-> > > link's actual achieved output bits per component, considering any
-> > > degradation of the bit depth done by drivers for bandwidth or other
-> > > reasons. The property's value is updated during an atomic commit, whi=
-ch
-> > > is also when it fires an uevent if it changed to let userspace know.
-> > >
-> > > There's a weston implementation at [1] which makes use of this new
-> > > property to warn when a user's requested bpc could not be reached.
-> > >
-> > > [1]:
-> https://gitlab.freedesktop.org/wayland/weston/-/merge_requests/1850
-> >
-> > I see no description of a real-world use case, either in this series
-> > or in the weston MR, beyond logging a message when the "link bpc" &
-> > "max bpc" property values don't match. They are not expected to match
-> > in general, so I have a hard time seeing the usefulness of that.
->
-> Hello,
->
-> these are valid concerns. The problem being addressed is related to
-> userspace being able to detect whether the link has degraded due to,
-> say, a sketchy cable.
->
-> This patch started out as a method of forcing the output link's BPC
-> value to a certain value, but this is not desirable. The max bpc
-> property is already used to restrict the link's bpc due to sketchy
-> hardware that advertises a higher max bpc than it can actually
-> achieve.
->
-> This adds the other side of the equation, where userspace isn't
-> necessarily keen on blindly accepting the combination of output
-> link parameters the kernel degraded to. This allows userspace to
-> detect that an explicitly chosen value it tried did not work, and
-> try again with a different color format/VRR/bpc/etc.
->
-> A particular real-world use case is for playback of video content.
-> When playing back YUV 4:2:0 10-bit video content in a full-screen
-> setting, having RGB 10-bit degrade to YUV 4:2:0 10-bit rather than
-> RGB 8-bit is more desirable. However, this is a tradeoff only
-> userspace knows to make; the kernel doesn't necessarily know that
-> the framebuffer it has been handed as RGB 10-bit is secretly just
-> a video player's playback of YUV 4:2:0 10-bit content. As for
-> the property that let's userspace actually set the output color
-> format, that's a separate series of mine.
->
-> I agree that the weston implementation isn't a great showcase,
-> but it's actually supposed to compare link bpc with an explicitly
-> set max bpc config value, not the property value. The config value
-> exists to request a certain bpc.
->
-> > Moreover, there's no description of what exactly the "link bpc" propert=
-y
-> > value means, e.g. vs things like DSC or dithering, or how a compositor =
-/
-> > user would determine which value they need / want under given
-> circumstances.
->
-> I agree that I should've expanded on this after splitting it out of the
-> HDMI patch. It's the output BPC as HDMI understands it. That means DSC is
-> not
-> a factor. I don't know if any display protocols do dithering at the
-> protocol level, I only know some monitors dither internally, which isn't
-> something that can be detected.
->
-> > In summary, I'm skeptical that this will be useful in practice in the
-> > current form. I do see potential for spurious bug reports based on the
-> > "link bpc" property having the "wrong" value though.
->
-> Kind regards,
-> Nicolas Frattaroli
->
->
->
-
---000000000000ed42d3064d7fa3d3
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div>As somebody who writes software for neuroscience rese=
-arch, I would find this new property very useful.</div><div><br></div><div>=
-Even if the &#39;link bpc&#39; is not the perfectly accurate answer in pres=
-ence of dithering or display stream compression, I think it could provide a=
-n idea about the minimum precision available,=C2=A0so a DRM client can at l=
-east make sure its=C2=A0minimum requirements are met. E.g., a &#39;link bpc=
-&#39; of 10 would at least guarantee 10 bpc, and effectively a bit more if =
-spatial dithering is applied in addition. That said, I don&#39;t have pract=
-ical experience with the effects of DSC, I don&#39;t have any suitable hard=
-ware. Afaik it is not truly lossless, but only (supposed to be, usually) pe=
-rceptually lossless. It would be great to have some property that informs c=
-lients if DSC is active or not, or allow some control over that.</div><div>=
-<br></div><div>Also as somebody who has spent many hours of his life huntin=
-g down some sysfs or debugfs files for reporting such numbers, the files us=
-ually being differently named, at different paths, with different formats, =
-or not existing at all, depending on kernel version and gpu configuration. =
-I&#39;d like to do less of that in the future.</div><div><br></div><div>In =
-this field of application it is often very important to know about the actu=
-al precision of &quot;what goes out of the computer&quot;, e.g., visual tes=
-t stimuli. Scientists use different methods to verify their experimental st=
-imulation setups,=C2=A0of different levels of rigorosity, including photome=
-ters, colorimeters etc. to measure the actual light emitted by a display. B=
-ut knowing if things work, or where in the pipeline from app to photon they=
- break or degrade, if they break, is useful, and the more the software can =
-help with this, or warn about problems, the better for us.</div><div><br></=
-div><div>Even if Wayland compositors wouldn&#39;t pick this up quickly, if =
-it is a drm connector property, I think it would be accessible under a nati=
-ve X11 X-Server via RandR output properties -- and my kind of applications =
-still heavily relies on native X11, as the Wayland eco system currently is =
-not ready for the more demanding or non-trivial use cases in this field. Al=
-so, those properties are read-accessible to non-root, non-drm masters, so a=
-pplications like mine could read the property even under leased drm connect=
-ors (Vulkan/WSI/display, OpenGL/EGL/drm), or probably even under a running =
-Wayland desktop if Wayland protocol lacks the means to do so.</div><div><br=
-></div><div>In the scenarios used by my app, the app often knows what an op=
-timal setting for &#39;max bpc&#39; or reported value from such a &#39;link=
- bpc&#39; would be, so it can be used to reconfigure things (under X11 Rand=
-R, or as a drm master), adapt to the situation, or at least warn the user i=
-f they are about to ruin their experimental data collection, possibly guide=
- them a bit in troubleshooting.</div><div><br></div><div>But I could imagin=
-e regular desktop use cases, where a Wayland compositor can somewhat know w=
-hat good minimum values for &#39;link bpc&#39; would be, and maybe adapt, o=
-r give the user a hint about potentially degraded quality, and what to do a=
-bout it (&quot;Check your cables&quot;, &quot;Reduce video resolution or re=
-fresh rate&quot;, &quot;Run with less displays&quot;,...).</div><div><br></=
-div><div>Similar to Nicolas rgb 10 bpc vs. yuv 10 bpc example for video pla=
-yback: While all these are critical for apps like mine, or other pro apps d=
-epending on color quality, I&#39;d assume a Wayland compositor could use th=
-e same constraints, even if the worst case desktop scenario may only be an =
-underwhelmed user, if their HDR videos don&#39;t look as spiffy as they hop=
-ed.</div><div><br></div><div>- A HDR-10 display mode on a true HDR sink imp=
-lies one really wants a &#39;link bpc&#39; of at least 10 bpc, especially g=
-iven the large nonlinearity of EOTF&#39;s like Perceptual Quantizer, or thi=
-ngs will look poor. In a scientific research setting that would not just be=
- a bummer, but degradation would be an absolute show stopper. Something one=
- wants to fix, be it by checking/swapping cables, or maybe by selecting a v=
-ideo mode with lower bandwidth requirements, etc.</div><div><br></div><div>=
-- Same is true for wide color gamut=C2=A0WCG color spaces, where one wants =
-more than 8 bits to resolve the larger color volume fine enough for good re=
-sults.</div><div><br></div><div>- I&#39;d also assume or hope that a waylan=
-d client asking for a fullscreen (=3Dpossibly direct scanout capable) RGB10=
- framebuffer or fp16 fb or even RGBA16 fb would imply to the compositor tha=
-t that client really wants to get at 10 bpc or even 12+ bpc out of the disp=
-lay connector. So having a too low link bpc would be a reason to possibly n=
-otify the user.</div><div><br></div><div>Excuse the verbose reply, but at l=
-east from my corner of applications this would have a big thumbs up.</div><=
-div><br></div><div>Thanks,</div><div>-mario</div></div><br><div class=3D"gm=
-ail_quote gmail_quote_container"><div dir=3D"ltr" class=3D"gmail_attr">On F=
-ri, Mar 20, 2026 at 7:09=E2=80=AFPM Nicolas Frattaroli &lt;<a href=3D"mailt=
-o:nicolas.frattaroli@collabora.com">nicolas.frattaroli@collabora.com</a>&gt=
-; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px=
- 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">On Frid=
-ay, 20 March 2026 15:32:37 Central European Standard Time Michel D=C3=A4nze=
-r wrote:<br>
-&gt; On 3/19/26 13:28, Nicolas Frattaroli wrote:<br>
-&gt; &gt; This series adds a new &quot;link bpc&quot; DRM property. It refl=
-ects the display<br>
-&gt; &gt; link&#39;s actual achieved output bits per component, considering=
- any<br>
-&gt; &gt; degradation of the bit depth done by drivers for bandwidth or oth=
-er<br>
-&gt; &gt; reasons. The property&#39;s value is updated during an atomic com=
-mit, which<br>
-&gt; &gt; is also when it fires an uevent if it changed to let userspace kn=
-ow.<br>
-&gt; &gt; <br>
-&gt; &gt; There&#39;s a weston implementation at [1] which makes use of thi=
-s new<br>
-&gt; &gt; property to warn when a user&#39;s requested bpc could not be rea=
-ched.<br>
-&gt; &gt; <br>
-&gt; &gt; [1]: <a href=3D"https://gitlab.freedesktop.org/wayland/weston/-/m=
-erge_requests/1850" rel=3D"noreferrer" target=3D"_blank">https://gitlab.fre=
-edesktop.org/wayland/weston/-/merge_requests/1850</a><br>
-&gt; <br>
-&gt; I see no description of a real-world use case, either in this series<b=
-r>
-&gt; or in the weston MR, beyond logging a message when the &quot;link bpc&=
-quot; &amp;<br>
-&gt; &quot;max bpc&quot; property values don&#39;t match. They are not expe=
-cted to match<br>
-&gt; in general, so I have a hard time seeing the usefulness of that.<br>
-<br>
-Hello,<br>
-<br>
-these are valid concerns. The problem being addressed is related to<br>
-userspace being able to detect whether the link has degraded due to,<br>
-say, a sketchy cable.<br>
-<br>
-This patch started out as a method of forcing the output link&#39;s BPC<br>
-value to a certain value, but this is not desirable. The max bpc<br>
-property is already used to restrict the link&#39;s bpc due to sketchy<br>
-hardware that advertises a higher max bpc than it can actually<br>
-achieve.<br>
-<br>
-This adds the other side of the equation, where userspace isn&#39;t<br>
-necessarily keen on blindly accepting the combination of output<br>
-link parameters the kernel degraded to. This allows userspace to<br>
-detect that an explicitly chosen value it tried did not work, and<br>
-try again with a different color format/VRR/bpc/etc.<br>
-<br>
-A particular real-world use case is for playback of video content.<br>
-When playing back YUV 4:2:0 10-bit video content in a full-screen<br>
-setting, having RGB 10-bit degrade to YUV 4:2:0 10-bit rather than<br>
-RGB 8-bit is more desirable. However, this is a tradeoff only<br>
-userspace knows to make; the kernel doesn&#39;t necessarily know that<br>
-the framebuffer it has been handed as RGB 10-bit is secretly just<br>
-a video player&#39;s playback of YUV 4:2:0 10-bit content. As for<br>
-the property that let&#39;s userspace actually set the output color<br>
-format, that&#39;s a separate series of mine.<br>
-<br>
-I agree that the weston implementation isn&#39;t a great showcase,<br>
-but it&#39;s actually supposed to compare link bpc with an explicitly<br>
-set max bpc config value, not the property value. The config value<br>
-exists to request a certain bpc.<br>
-<br>
-&gt; Moreover, there&#39;s no description of what exactly the &quot;link bp=
-c&quot; property<br>
-&gt; value means, e.g. vs things like DSC or dithering, or how a compositor=
- / <br>
-&gt; user would determine which value they need / want under given circumst=
-ances.<br>
-<br>
-I agree that I should&#39;ve expanded on this after splitting it out of the=
-<br>
-HDMI patch. It&#39;s the output BPC as HDMI understands it. That means DSC =
-is not<br>
-a factor. I don&#39;t know if any display protocols do dithering at the<br>
-protocol level, I only know some monitors dither internally, which isn&#39;=
-t<br>
-something that can be detected.<br>
-<br>
-&gt; In summary, I&#39;m skeptical that this will be useful in practice in =
-the<br>
-&gt; current form. I do see potential for spurious bug reports based on the=
-<br>
-&gt; &quot;link bpc&quot; property having the &quot;wrong&quot; value thoug=
-h.<br>
-<br>
-Kind regards,<br>
-Nicolas Frattaroli<br>
-<br>
-<br>
-</blockquote></div>
-
---000000000000ed42d3064d7fa3d3--
