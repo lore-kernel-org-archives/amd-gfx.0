@@ -4,64 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B0BF9109446D
-	for <amd-gfx@archiver.kernel.org>; Sat, 21 Mar 2026 09:47:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3817B1094462
+	for <amd-gfx@archiver.kernel.org>; Sat, 21 Mar 2026 09:47:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B599910E372;
-	Sat, 21 Mar 2026 09:47:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6B7CE10E37D;
+	Sat, 21 Mar 2026 09:47:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="WXvdzev5";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="EYGykoMx";
 	dkim-atps=neutral
-Received: from mail-pf1-f171.google.com (mail-pf1-f171.google.com
- [209.85.210.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CB5FC10E2CE
- for <amd-gfx@lists.freedesktop.org>; Sat, 21 Mar 2026 05:45:16 +0000 (UTC)
-Received: by mail-pf1-f171.google.com with SMTP id
- d2e1a72fcca58-823c56765fdso1458630b3a.1
- for <amd-gfx@lists.freedesktop.org>; Fri, 20 Mar 2026 22:45:16 -0700 (PDT)
+Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com
+ [209.85.215.181])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C4EE710E2D5
+ for <amd-gfx@lists.freedesktop.org>; Sat, 21 Mar 2026 05:45:14 +0000 (UTC)
+Received: by mail-pg1-f181.google.com with SMTP id
+ 41be03b00d2f7-c74244dc0b3so1827252a12.2
+ for <amd-gfx@lists.freedesktop.org>; Fri, 20 Mar 2026 22:45:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1774071916; x=1774676716; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1774071914; x=1774676714; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=4FP34IF1NqA/DrYCuAVhgwWOfQKjwg0Ze9v4T9XeI0k=;
- b=WXvdzev5BE+fUwVwfOLCrte3KgM8p71Wh/HxkTWOZP4IZ9BuMGpeTzM68llU3juGR+
- LX/EjYuSywDRO1rj5Xd3gUUJ0iqVzQToh7abUgif5VgKfHIluDrGsXAqekT4qH3RYltw
- OH6r7VwM+tNfJzjRIJKxabjO3TMc24P+8NpZFQIAZ2wN7H7N8arFL/iB2iGdytXdTJ5f
- q0VCw6UPvKTho8RgWbn7fRFBte1jnnGgJde0SkH5aWma1ro4Cskjk+FqKnln6/Tnw8OZ
- RNpC7LaCN3M+wNRWI9lxvYPwQ/uVwHGA9uXYn9q0Gz1mtmkEXY81S6rGQcqwvcc3C284
- 43lw==
+ bh=+adMGPlhVk0bbFqFiUYYCeP0eNPb1PCXZHc4YqFFXSQ=;
+ b=EYGykoMx/+fMjOtrExMmEXIpYeGaKsHPE9DE9LeS/a652h1sxe4dlfHL1hOEGWerck
+ P1Nzo8e/gcs4L5eAkGJxh8HsfXGs0UbZxNtSj5xj0FYhe6VotpyP1oOyqXOKRW7a/nFk
+ u6bRVvU3B9pP3YXRSRaA3unI4BJ2FxMUPUug2RGZ2qibaafb5oqln/OvFvXCioX2ye6W
+ xhhjCLYcNTiWiiHTydsfD9z3p+jy9P0XzobgS8nHb/3b0WUjxMXWSNmKLYMebh1PPnz/
+ QzCmZQ+1uptDyIa2exgZ0quVtvoF0gsGy0koCJiEuxLZ/NbWfhv0wMR1AGtb2WjIS6gi
+ WK3Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774071916; x=1774676716;
+ d=1e100.net; s=20251104; t=1774071914; x=1774676714;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=4FP34IF1NqA/DrYCuAVhgwWOfQKjwg0Ze9v4T9XeI0k=;
- b=GJarHAiZRECCalrtLjS/4iF753VwO+ZhjlBHgwnOvVxwYmf+Tf2ERwNBIlnzaD75yE
- cOAGzbQmfC+9p5Zsb8K+JbHqP3roXO4f14WVOEMyV5ramwJRTu0QJLLGMLdRu1NgmkmB
- mPPNZ1A2fnDBHyVcx/CsBWblQR1QCmUurjQXJJ62eQ4wDdoBjrQ5anQOo4QaIPOLOAFB
- gAH5AQEVnWhOIKSLBsGQRu63qBcZ8xWSOMNQzxt0Kw6GkcvNjF8P3oJjOdywP00uNChE
- SEOaW5sin+dxO7WYQeKIt5siTdwuMAKx6JIOQH7AKvnzLXGBLRWK3XQMag4e29kqype+
- 2Jjw==
+ bh=+adMGPlhVk0bbFqFiUYYCeP0eNPb1PCXZHc4YqFFXSQ=;
+ b=HgjPOIAwgyxy2uFL+Oini83kUCfqpPTlU5w7YIA2RxXmKWMRRK8tRjyh63J61h0Ixx
+ zJ2UFX4Rg0lIsNXPVWYPP3KbDZareRC35IpC5BN5nYC7scFgreoItmjveYtEJNA0AQv4
+ Qbz6rZxcZzlqnoNdbgldK+OY6zv0+6/qdRfg8meONMMrWUBUxPDJolHIxY1QoZOt7+zq
+ wr4ULT48nzyHQhYKKSAk+EAb8/jNHnQ+FvzfWlqnPp2TQyWQZNRY3WKto2llrww/YMOU
+ VP3k6hdBklfPMER/oY7xEycWYvBUI5sdLEzIGFVZYcBrT4BHA1CCyjDzHvMg4Hw/6EF/
+ Rs3A==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUNhybzNm+TCl4Q8WuQBBBDkYIn81bSLr5cBX/IVKoPfpuBEppF3aWkIAkBHWVsIoy3GYsxl//G@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yypy7y2ZeY0KtvNlNR28WFBPcZtTpnzPgrP0bXq3UDSlczwqnnT
- b2gjaUxsz5sGZOF79QzyAQW+2En0avcXthWmY07zuzMPGM6UUAk5YrWc
-X-Gm-Gg: ATEYQzzboWSBXLBTvUiZ/OaKeGgDMWbiBVpUBe3NegvYptEnaxZ4Ob5MOjT2ch/VteE
- zzhFb8PzjBsNKts6K2BSwv8RYPhaqv732w8gSXLv5XURvQR+AZbtizqW9/Ax8kUV0zfURNJroYH
- YqxAIFXCX8xsvI9vaSCqQKfXLFDAudwjJ6V9u5OaNZvtBv1IedqtoJBzluWVVSG+z5tb48yZR8e
- OGoWs4EUzQMi13ngkVY7ev01K3vHcWfD+NjfbpRaq/5irMHobETRZVkfaP0KA0sBVxJZQAmRT1b
- FpYYY4UXJ7CVmrKcBCeG7O0KaiDzErNLrZuYfDMimyw4/J0PVpc61NcrM7ezL7+n4FGTjv5hgj+
- 5KREmc3ClOTXrpK3xnStsD8/eKJsUvMSesWewyQOVbpzbevuqBjemHwFq80Xt3+wfWxzm4gBEON
- VLoyK8z5TZUwcViiNadQacOoJ4aoYSPg1NZ8O6AuXD+F9UGojLskUvEqo=
-X-Received: by 2002:a05:6a00:13a9:b0:81e:6d2d:a121 with SMTP id
- d2e1a72fcca58-82a8c3c3239mr4749010b3a.62.1774071916251; 
- Fri, 20 Mar 2026 22:45:16 -0700 (PDT)
+ AJvYcCU8qLMzoS7rEh7Qz/qMiqw4o5va2O6a7cZ2RGl1g2g0m0xFETLeylYkEML0u9yuOB8CPLldBotm@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyxSiQp/giAmwXdVHPDdgFYqA6Np5r+VVlAKqmjisZI2KlRSY6Z
+ /n/EFdZB9tIXrxvBXpL1Xf/x7qFGfUbOga3/QfdKk+cquzcD9Bkpyu7x
+X-Gm-Gg: ATEYQzw5NXqtpshTlREM9yTrFAxO/wRoGl9CcljJ44Jb1KgFuxQjsfCKh6iAzWIlPfF
+ ThvitX6oRvwHTtKOswkfF2vBNp4j0azS1cHLdQO98zv8/y3QIkyq8FdfFT9b27uOexTvAvCA/zZ
+ PzZxWYI0x1bvjXd67gdmjwgqrzDI4S+kkVVTeSrXIchnwa6fTiigRhy7hmBnAJr+EQXRGERwyXW
+ b4UpqxY0if32SaUfXvNcS5u6Z83ENv5IjVxhYCQj37b7924ecMnmJYh9H9CZMwZgZdPRNA6pfDb
+ YbsB1X7MNADdtlWpr25WdLCFbt+UqeEHWk3bfrxWeUt5lhc0Cdfjc/W0cF/NuWgB71K0Z7YEcet
+ 6qMhaqbgv1eosdCV2DGx120jZa5PnGVGskJPmp+bIhZTCwXh+2LDsHVljrlcAk8K6FtT6y8rO1x
+ 84jt6PRCqAxKCLysA+BMYunX3DD2+zxVSxQ+75pQnRgO2lAdZPbVp0XCw=
+X-Received: by 2002:a05:6a20:9146:b0:398:8bd7:4f80 with SMTP id
+ adf61e73a8af0-39bcec0692amr4985522637.46.1774071914235; 
+ Fri, 20 Mar 2026 22:45:14 -0700 (PDT)
 Received: from ryzen ([2601:644:8000:5b5d::8bd])
  by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-82b0409c681sm4338783b3a.37.2026.03.20.22.45.14
+ d2e1a72fcca58-82b0409c681sm4338783b3a.37.2026.03.20.22.45.12
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 20 Mar 2026 22:45:15 -0700 (PDT)
+ Fri, 20 Mar 2026 22:45:13 -0700 (PDT)
 From: Rosen Penev <rosenp@gmail.com>
 To: stable@vger.kernel.org
 Cc: Alex Deucher <alexander.deucher@amd.com>,
@@ -85,9 +85,10 @@ Cc: Alex Deucher <alexander.deucher@amd.com>,
  amd-gfx@lists.freedesktop.org (open list:RADEON and AMDGPU DRM DRIVERS),
  dri-devel@lists.freedesktop.org (open list:DRM DRIVERS),
  linux-kernel@vger.kernel.org (open list)
-Subject: [PATCHv3 for 6.1 2/4] drm/amdgpu: clarify DC checks
-Date: Fri, 20 Mar 2026 22:44:51 -0700
-Message-ID: <20260321054453.19683-3-rosenp@gmail.com>
+Subject: [PATCHv3 for 6.1 1/4] drm/amdgpu: use proper DC check in
+ amdgpu_display_supported_domains()
+Date: Fri, 20 Mar 2026 22:44:50 -0700
+Message-ID: <20260321054453.19683-2-rosenp@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260321054453.19683-1-rosenp@gmail.com>
 References: <20260321054453.19683-1-rosenp@gmail.com>
@@ -111,172 +112,34 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Alex Deucher <alexander.deucher@amd.com>
 
-[ Upstream commit d09ef243035b75a6d403ebfeb7e87fa20d7e25c6 ]
+[ Upstream commit 96ce96f8773da4814622fd97e5226915a2c30706 ]
 
-There are several places where we don't want to check
-if a particular asic could support DC, but rather, if
-DC is enabled.  Set a flag if DC is enabled and check
-for that rather than if a device supports DC or not.
+amdgpu_device_asic_has_dc_support() just checks the asic itself.
+amdgpu_device_has_dc_support() is a runtime check which not
+only checks the asic, but also other things in the driver
+like whether virtual display is enabled.  We want the latter
+here.
 
 Acked-by: Christian König <christian.koenig@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Rosen Penev <rosenp@gmail.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu.h           |  1 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c      |  2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c   |  2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    | 32 ++++++++++---------
- drivers/gpu/drm/amd/amdgpu/amdgpu_display.c   |  4 +--
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       |  2 +-
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  1 +
- .../gpu/drm/amd/pm/powerplay/amd_powerplay.c  |  2 +-
- 8 files changed, 25 insertions(+), 21 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_display.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-index dcb5de01a220..c4287e09658f 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-@@ -1071,6 +1071,7 @@ struct amdgpu_device {
- 	struct work_struct		reset_work;
-
- 	bool                            job_hang;
-+	bool                            dc_enabled;
- };
-
- static inline struct amdgpu_device *drm_to_adev(struct drm_device *ddev)
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
-index 5fa7f6d8aa30..9ced0c60ec8b 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
-@@ -857,7 +857,7 @@ int amdgpu_acpi_init(struct amdgpu_device *adev)
- 	struct amdgpu_atif *atif = &amdgpu_acpi_priv.atif;
-
- 	if (atif->notifications.brightness_change) {
--		if (amdgpu_device_has_dc_support(adev)) {
-+		if (adev->dc_enabled) {
- #if defined(CONFIG_DRM_AMD_DC)
- 			struct amdgpu_display_manager *dm = &adev->dm;
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-index 3cca3f07f34d..11bfbf1d6a3d 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-@@ -1981,7 +1981,7 @@ int amdgpu_debugfs_init(struct amdgpu_device *adev)
- 	amdgpu_ta_if_debugfs_init(adev);
-
- #if defined(CONFIG_DRM_AMD_DC)
--	if (amdgpu_device_has_dc_support(adev))
-+	if (adev->dc_enabled)
- 		dtn_debugfs_init(adev);
- #endif
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index 535cc74c5880..a43f18defa7a 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -4402,25 +4402,27 @@ int amdgpu_device_resume(struct drm_device *dev, bool fbcon)
-
- 	amdgpu_ras_resume(adev);
-
--	/*
--	 * Most of the connector probing functions try to acquire runtime pm
--	 * refs to ensure that the GPU is powered on when connector polling is
--	 * performed. Since we're calling this from a runtime PM callback,
--	 * trying to acquire rpm refs will cause us to deadlock.
--	 *
--	 * Since we're guaranteed to be holding the rpm lock, it's safe to
--	 * temporarily disable the rpm helpers so this doesn't deadlock us.
--	 */
-+	if (adev->mode_info.num_crtc) {
-+		/*
-+		 * Most of the connector probing functions try to acquire runtime pm
-+		 * refs to ensure that the GPU is powered on when connector polling is
-+		 * performed. Since we're calling this from a runtime PM callback,
-+		 * trying to acquire rpm refs will cause us to deadlock.
-+		 *
-+		 * Since we're guaranteed to be holding the rpm lock, it's safe to
-+		 * temporarily disable the rpm helpers so this doesn't deadlock us.
-+		 */
- #ifdef CONFIG_PM
--	dev->dev->power.disable_depth++;
-+		dev->dev->power.disable_depth++;
- #endif
--	if (!amdgpu_device_has_dc_support(adev))
--		drm_helper_hpd_irq_event(dev);
--	else
--		drm_kms_helper_hotplug_event(dev);
-+		if (!adev->dc_enabled)
-+			drm_helper_hpd_irq_event(dev);
-+		else
-+			drm_kms_helper_hotplug_event(dev);
- #ifdef CONFIG_PM
--	dev->dev->power.disable_depth--;
-+		dev->dev->power.disable_depth--;
- #endif
-+	}
- 	adev->in_suspend = false;
-
- 	if (adev->enable_mes)
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-index 98cce09684f2..f9692e724409 100644
+index cd0bccc95205..98cce09684f2 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
 @@ -534,7 +534,7 @@ uint32_t amdgpu_display_supported_domains(struct amdgpu_device *adev,
  	 */
  	if ((bo_flags & AMDGPU_GEM_CREATE_CPU_GTT_USWC) &&
  	    amdgpu_bo_support_uswc(bo_flags) &&
--	    amdgpu_device_has_dc_support(adev) &&
-+	    adev->dc_enabled &&
+-	    amdgpu_device_asic_has_dc_support(adev->asic_type) &&
++	    amdgpu_device_has_dc_support(adev) &&
  	    adev->mode_info.gpu_vm_support)
  		domain |= AMDGPU_GEM_DOMAIN_GTT;
  #endif
-@@ -1330,7 +1330,7 @@ int amdgpu_display_modeset_create_props(struct amdgpu_device *adev)
- 					 "dither",
- 					 amdgpu_dither_enum_list, sz);
-
--	if (amdgpu_device_has_dc_support(adev)) {
-+	if (adev->dc_enabled) {
- 		adev->mode_info.abm_level_property =
- 			drm_property_create_range(adev_to_drm(adev), 0,
- 						  "abm level", 0, 4);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-index 055e05b2cb22..3c01bb464248 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-@@ -2530,7 +2530,7 @@ static int amdgpu_runtime_idle_check_display(struct device *dev)
- 		if (ret)
- 			return ret;
-
--		if (amdgpu_device_has_dc_support(adev)) {
-+		if (adev->dc_enabled) {
- 			struct drm_crtc *crtc;
-
- 			drm_for_each_crtc(crtc, drm_dev) {
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 213054071904..7eff2b94ab66 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -4842,6 +4842,7 @@ static int dm_early_init(void *handle)
- 		adev_to_drm(adev)->dev,
- 		&dev_attr_s3_debug);
- #endif
-+	adev->dc_enabled = true;
-
- 	return 0;
- }
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c b/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
-index ab8ae7464664..9bf85ca607c3 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
-+++ b/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
-@@ -1567,7 +1567,7 @@ static void pp_pm_compute_clocks(void *handle)
- 	struct pp_hwmgr *hwmgr = handle;
- 	struct amdgpu_device *adev = hwmgr->adev;
-
--	if (!amdgpu_device_has_dc_support(adev)) {
-+	if (!adev->dc_enabled) {
- 		amdgpu_dpm_get_active_displays(adev);
- 		adev->pm.pm_display_cfg.num_display = adev->pm.dpm.new_active_crtc_count;
- 		adev->pm.pm_display_cfg.vrefresh = amdgpu_dpm_get_vrefresh(adev);
 --
 2.53.0
 
