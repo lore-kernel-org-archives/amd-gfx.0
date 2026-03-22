@@ -4,73 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 45E67EC01A6
-	for <amd-gfx@archiver.kernel.org>; Mon, 23 Mar 2026 08:11:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2B77CEC01A3
+	for <amd-gfx@archiver.kernel.org>; Mon, 23 Mar 2026 08:11:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9571F10E413;
-	Mon, 23 Mar 2026 08:11:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 92DFC10E409;
+	Mon, 23 Mar 2026 08:11:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=smail.nju.edu.cn header.i=@smail.nju.edu.cn header.b="pB0amgU2";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="DjFSpqOb";
 	dkim-atps=neutral
-X-Greylist: delayed 476 seconds by postgrey-1.36 at gabe;
- Sat, 21 Mar 2026 11:06:36 UTC
-Received: from bg1.exmail.qq.com (bg1.exmail.qq.com [114.132.79.153])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D154810E2B3
- for <amd-gfx@lists.freedesktop.org>; Sat, 21 Mar 2026 11:06:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=smail.nju.edu.cn;
- s=iohv2404; t=1774091188;
- bh=Bh7Ir3H0CY3VDMvhV9FMShbp9LroW2I2hlAtJxWy2m0=;
- h=From:To:Subject:Date:Message-Id:MIME-Version;
- b=pB0amgU20f4c1TqKzMqTIW1RVDxZ9XnffPpxmGxqKonOuY6HyD0pXw5OSKX7+CMoV
- 8C8brPgcCYR7iE9RvUeN7kMlkiDABLu0jNTYvkw7PzFIYN4zJ4lJqOgoEyejrmZ07n
- QkOMERi3oF0IvYxZVfwcvtBGv30eFVM7aijKuL48=
-X-QQ-mid: zesmtpsz1t1774090641t308b39db
-X-QQ-Originating-IP: paFbi8WlmVrJS3irHdYehrm5QNgV5zXZdOJspUeAEc4=
-Received: from localhost.localdomain ( [116.172.93.199])
- by bizesmtp.qq.com (ESMTP) with 
- id ; Sat, 21 Mar 2026 18:57:18 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 13888191121335503655
-EX-QQ-RecipientCnt: 24
-From: Kexin Sun <kexinsun@smail.nju.edu.cn>
+Received: from mail-vk1-f175.google.com (mail-vk1-f175.google.com
+ [209.85.221.175])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 846D510E1B1
+ for <amd-gfx@lists.freedesktop.org>; Sun, 22 Mar 2026 09:52:14 +0000 (UTC)
+Received: by mail-vk1-f175.google.com with SMTP id
+ 71dfb90a1353d-56a9076813bso1375656e0c.3
+ for <amd-gfx@lists.freedesktop.org>; Sun, 22 Mar 2026 02:52:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1774173133; x=1774777933; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=A0z8vkkJ6J9YgqDewSEz62c0xgaFgNlFmTCBQg8J1EQ=;
+ b=DjFSpqObtNRBgNRkxNlC2tOZe2NV90PDeIlEKU+3e+Yh/xMw43n2Wv7+88uz/zaeJp
+ YH56fQ1+w68+AFRaSoO4botEOR5291mL2l57X88CrwMQNcgw7I5qKJxTTQyncJaZOjRg
+ t+iUUydJbUOhpeboySaIEgDALlPb9iB7iDbIPCVGH9mhouaq57doh9OjI6UQonOgTgED
+ JCtgsuYj01mwVziyPvrAY73AyRSt9AJIViu14SKnRgzPbOe6Tfp5RCHhtOqgNM5WmWOQ
+ vX9NfmHSu0nU775hrPWmYZG7jqEAm+x96+2p0KAWSl9FmX9SAHLBi0MugO+vbpt3+Pt5
+ A+zQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1774173133; x=1774777933;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=A0z8vkkJ6J9YgqDewSEz62c0xgaFgNlFmTCBQg8J1EQ=;
+ b=eZOKbV/1dWds/ljnNjf9XkocbiRUeFcGx+J/8kIwIS66UynfP8ff663U7UV1x8p1ZQ
+ HyOZ/xIFr1qOtuXqLh3Hz/x4e/VNd7ZTtXb0SKf2Tx+SdJQzV4nKT3RGlUEX49s2KaJr
+ uQDlaT+nb0EGPGtRcQ79Sbh9Hargs5PJyevfUs416P6+4OS+mY9ZnMTQiHHoxyiWeD7V
+ ZvobetxWM5tMaIMdgfh25HTDbh8OE6CSAYr62empkbpgLf/BMq4ACTK5+u+tqvGW6j7w
+ MC0jdDsp6hL1tkeg0PSe2y8IqGsGnhfoxb0TXpx/fTDGqaH4VK996iqW4aDkoP30SDT+
+ VXUw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVZU8cUwajdZydTrPq5SEp8l67hOGErurlB7yKqg8kgqoVVjUxX8JCUsnUxEHltunGHdGDSgMU4@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzQKu41c7oK74rlylmGHKLOcKTYiGniUIooSaX/RUHXFOYH+vj4
+ e4nU9M3Xfn2WXSgccf8am0VTbVS3doc3011quZm3bDzkJUeHRohZ4W7k
+X-Gm-Gg: ATEYQzxIcQZcZrQBPhauG03GyIH6G86oKncJhnWMVHpS4KztId2j4hvbcRtEP97JPvk
+ ka5EnHZ4Nm58FPiPdAf3V49ITR322ByrzimXdHLQ1x3q8FAYaQlKqHptjDX2P/ViFuqGj8LxPMe
+ QbOe3LQ/1UwhZ0LAw9ZNnQaCO/Z6yUB4vGF4qHqWbeVPQig6gj9yCXpzbZEan9PNHf4rJxV2R6+
+ CyPUhx6ZJOTZTvfvOdGVdbkT698CEieE5JoPjcBDIoEStB6yNyLXBdx44+PPPXvLqT9DZeiVfp8
+ 2eZdJ0/hU8HRodfJaYEf5AV2ay3o5LlTT/R6vwqvTfz7SOs1dFhIv+7h9GjRE8uUPmmGjNYmtZ6
+ OWnh1Fs0vpka4AfDimWx2RpTKa0UJjiawogILbrvhZJqD8zLfqZJqMUQN3CYQoFu1PB3hS5V0xP
+ ZYAKrXVA/EEDB+uNSV0SVJbnx7HM/ZkYqzwSPrUjbZuQ==
+X-Received: by 2002:a05:6122:2883:b0:56c:d623:896e with SMTP id
+ 71dfb90a1353d-56cde465491mr3635672e0c.14.1774173133123; 
+ Sun, 22 Mar 2026 02:52:13 -0700 (PDT)
+Received: from gui-host.Dlink ([177.140.57.219])
+ by smtp.gmail.com with ESMTPSA id
+ 71dfb90a1353d-56cddb94eaasm7050081e0c.8.2026.03.22.02.52.07
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 22 Mar 2026 02:52:11 -0700 (PDT)
+From: guilhermeivo <guilhermeivob@gmail.com>
 To: harry.wentland@amd.com, sunpeng.li@amd.com, siqueira@igalia.com,
  alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
- simona@ffwll.ch, mario.limonciello@amd.com, alex.hung@amd.com,
- aurabindo.pillai@amd.com, ray.wu@amd.com, Wayne.Lin@amd.com,
- timur.kristof@gmail.com, superm1@kernel.org, ivan.lipski@amd.com,
- dominik.kaszewski@amd.com, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Cc: julia.lawall@inria.fr, xutong.ma@inria.fr, kexinsun@smail.nju.edu.cn,
- yunbolyu@smu.edu.sg, ratnadiraw@smu.edu.sg
-Subject: [PATCH] drm/amd/display: update outdated comments for renamed
- vblank_control_worker()
-Date: Sat, 21 Mar 2026 18:57:17 +0800
-Message-Id: <20260321105717.6212-1-kexinsun@smail.nju.edu.cn>
-X-Mailer: git-send-email 2.25.1
+ simona@ffwll.ch
+Cc: guilherme.bozi@usp.br, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ guilhermeivo <guilhermeivob@gmail.com>, kernel test robot <lkp@intel.com>
+Subject: [PATCH v2] drm/amd/display: Fix DDC register assignment type errors
+Date: Sun, 22 Mar 2026 06:51:55 -0300
+Message-ID: <20260322095155.248283-1-guilhermeivob@gmail.com>
+X-Mailer: git-send-email 2.47.3
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpsz:smail.nju.edu.cn:qybglogicsvrgz:qybglogicsvrgz5b-0
-X-QQ-XMAILINFO: OAykwSsVAcprVxpVphQ9R+O5zu723FH2ntCTmPGSDjuRjHVT26IB6CyN
- Q/4C9J+DLHwW0qkXaNSjEl5v0936PxuuKmVxXB0lXEoW4lfFbQNL+aXkPP1HmvNiUBVgWRl
- qIRtJKcjN7cqUibc7t5Ar/1xE1X32wgHZubjzjVAOXv0wj8RMEfzxPRlf0wa2xuJINHwfdc
- H835yo5WJ7t6P+W/0/nk6wk2iXIwGsLrtFwJT7OrQ/AP4hxkwAjnjh5RO/ya1MROfX8BUs8
- +mvwjWFzyxOO7qYbyWWp09rQ8Y3xPINDEAXdLXnYI7t5+q83Y2mv7vyC/CLf0ecZH2yun9F
- A7Lr5y7pQc396lyUk2/6pFFRUFpetrtg1xJEJ70pNFgb3bWoCQ57KSfOTtDTV0zWc2im8eS
- 2QStWs7MkiVLphtzDNaoEudwk42ohpxtVhA5/6s21xFlY5okvaO8bVx9gvwyI9X11EHALDI
- 7qtmCkaa8CbToZXa0SLQhc/fI3dx4L2K1iedndJcd7O0eiHjP9+kJX5mywZVNV5z8ItLUUH
- 8t2YUhB/jKHrSf3Q5SgrXwBlNY4qlH/bwc12n++wP745H9wmIbQembK5fXcBlKOaH/EWj91
- WqX36kOSjfrzAzWmFqcMTdWRzDL6yYU/hkchAi/dW2xYJq9mg7LwUduMPZ4aNZg0GJ6nII8
- r1Xobdz9TDpLoDZWaOBj9r5hhQPqLAXOYzMx4s4lYBLb9QSKYTE6IQ83ls18M/Q9J1N3zqV
- OBmXHAQD/jnzLZz61yblykCj3LRKI9fIeS8W7JQxqRiFfmeVvRkU8fMPQZ6hkQ1/mV4i28R
- 9GxJDFHwLkeGG4mpBdI2WI/kXCIwTC0z3x47eNOhVFIeTx5FR7a42evqhzNQCgH52LWpuDa
- WjwjtNk+gXVjtT4YUcMthxNvrEESakADkHvrn/dFSIR1Ogyo4uRx2s32OLil5LxEDnPZ2b1
- 9aIbUGuHQ9+eFC8ExRUV00WVDX3tY+mD8cGQye3BIfF1zaqhtE8Z2VRmNfM2rkxHlTQJKai
- CIByJOS/T3zffns4PW6C6UZ7X7rul78vnLrlh6t+2P+IWIYPozLY+4hui3aHhlqEUZ5MP4h
- DKe70hpZsV+fdr/zKbbBjg=
-X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
-X-QQ-RECHKSPAM: 0
 X-Mailman-Approved-At: Mon, 23 Mar 2026 08:11:39 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -86,44 +89,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The function vblank_control_worker() was renamed
-to amdgpu_dm_crtc_vblank_control_worker() by commit
-6ce4f9ee25ff ("drm/amd/display: Add prefix to amdgpu crtc
-functions").  Update the two stale references in
-amdgpu_dm.c.
+Fix invalid type assignments in ddc_sh_mask.
 
-Assisted-by: unnamed:deepseek-v3.2 coccinelle
-Signed-off-by: Kexin Sun <kexinsun@smail.nju.edu.cn>
+Signed-off-by: guilhermeivo <guilhermeivob@gmail.com>
+Reported-by: kernel test robot <lkp@intel.com>
+Closes: https://lore.kernel.org/oe-kbuild-all/202603221553.GzXoxzCw-lkp@intel.com/
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/amd/display/dc/gpio/hw_factory_dcn_ddc.h | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index b3d6f2cd8ab6..c2b7b31b0d29 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -9894,7 +9894,8 @@ static void amdgpu_dm_enable_self_refresh(struct amdgpu_crtc *acrtc_attach,
- 		 * a vblank event disable request to enable PSR/RP. PSR SU/RP
- 		 * can be enabled immediately once OS demonstrates an
- 		 * adequate number of fast atomic commits to notify KMD
--		 * of update events. See `vblank_control_worker()`.
-+		 * of update events.
-+		 * See `amdgpu_dm_crtc_vblank_control_worker()`.
- 		 */
- 		if (!vrr_active &&
- 		    acrtc_attach->dm_irq_params.allow_sr_entry &&
-@@ -10062,8 +10063,9 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_state *state,
- 			/*
- 			 * If the dirty regions changed, PSR-SU need to be disabled temporarily
- 			 * and enabled it again after dirty regions are stable to avoid video glitch.
--			 * PSR-SU will be enabled in vblank_control_worker() if user pause the video
--			 * during the PSR-SU was disabled.
-+			 * PSR-SU will be enabled in
-+			 * amdgpu_dm_crtc_vblank_control_worker() if user
-+			 * pause the video during the PSR-SU was disabled.
- 			 */
- 			if (acrtc_state->stream->link->psr_settings.psr_version >= DC_PSR_VERSION_SU_1 &&
- 			    acrtc_attach->dm_irq_params.allow_sr_entry &&
+diff --git a/drivers/gpu/drm/amd/display/dc/gpio/hw_factory_dcn_ddc.h b/drivers/gpu/drm/amd/display/dc/gpio/hw_factory_dcn_ddc.h
+index 1f2bc7eea82e..863177cf67e8 100644
+--- a/drivers/gpu/drm/amd/display/dc/gpio/hw_factory_dcn_ddc.h
++++ b/drivers/gpu/drm/amd/display/dc/gpio/hw_factory_dcn_ddc.h
+@@ -11,8 +11,8 @@ static inline void dcn_define_ddc_registers_common(
+ 		uint32_t en,
+ 		const struct ddc_registers *data_regs,
+ 		const struct ddc_registers *clk_regs,
+-		const struct ddc_shift *shift,
+-		const struct ddc_mask *mask)
++		const struct ddc_sh_mask *shift,
++		const struct ddc_sh_mask *mask)
+ {
+ 	struct hw_ddc *ddc = HW_DDC_FROM_BASE(pin);
+ 
 -- 
-2.25.1
+2.47.3
 
