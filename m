@@ -4,90 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C5CDD58CCE
-	for <amd-gfx@archiver.kernel.org>; Mon, 23 Mar 2026 04:09:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ED98ED58CBE
+	for <amd-gfx@archiver.kernel.org>; Mon, 23 Mar 2026 04:10:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3125310E3B6;
-	Mon, 23 Mar 2026 04:09:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 672DF10E3BA;
+	Mon, 23 Mar 2026 04:10:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="PJM5pA+8";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Iz5cwlvg";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="i7kecrEV";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="eh7JdEO0";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D4D7810E3B6
- for <amd-gfx@lists.freedesktop.org>; Mon, 23 Mar 2026 04:09:00 +0000 (UTC)
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2AC5310E3BA
+ for <amd-gfx@lists.freedesktop.org>; Mon, 23 Mar 2026 04:10:29 +0000 (UTC)
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 62MN8E9f3529248
- for <amd-gfx@lists.freedesktop.org>; Mon, 23 Mar 2026 04:09:00 GMT
+ 62MAjW6C4045054
+ for <amd-gfx@lists.freedesktop.org>; Mon, 23 Mar 2026 04:10:28 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=5mLU7+MItDUu5Kth0lmGo6bE
- IH05p2nnnuPD4hW7xVo=; b=PJM5pA+8Rt+CP033st/WkGLskaoVd4kJ2BweO5Sh
- 6RXUql+pqIyx8wo7KPHvogwy6ApWsQP1j0BPMjHgC1FBuyJnWnDgW2r2qI7TsUqi
- lqzMi6Ml1Ye0E10VE5n9jF9747H3vVQdENdPz5e1lV/gR0rao9xzqK82jWN3s8zY
- C+68PvP7iz/GbY1epbq9ej2RUlYmh+SJRFqMpVgU56cyWBwYsxkWmqfOrwhwjY3i
- yPCb5/wgJW3JLgpswMvct5EcWgxjtBFZLI9fRkVcdwy034NKz7D/cgD+XC6BYRHz
- bujwB1nCbXbN7gV/TlGRRsS6Fwg4gNHT1Tg+H3k8z7G3yA==
-Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com
- [209.85.160.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d2ca8hkpc-1
+ :references:subject:to; s=qcppdkim1; bh=sQGEJXGCGP1VT5nokRdn3QZg
+ aBAAwrlU3lx1pdI7M98=; b=i7kecrEVBLxO1WNf+l5nmTc2n+Uzo/nysllO0FnQ
+ hbeqyVQsO9lmxoRPFiatAESTJXCA8eVSpw5OfaSJbcdhkTF/N1TPrtV/f/q0FEYl
+ VlWbN2Ms4pzCJGQp0A4A0hnIfUhYvgig+FROqZ3fKWWu8EjxjsKBg7+fzAaBis03
+ GEkWpvszzEevqzO8lVdYQMInB4zOdGLjJgW7M8nsg0VsQnzLtoIKQz9qNccJz67X
+ 9j0TO8uUebepnxQM4MMlABNs6ApY1DEps+N15UmcVqtj2IaOXoHw/MG8hWlNRAfT
+ vOekq4oJi59jpYJwBZnCYkszmNMG9AtJDnL5BsKdqUB9yw==
+Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
+ [209.85.160.197])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d1kq5un6a-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <amd-gfx@lists.freedesktop.org>; Mon, 23 Mar 2026 04:09:00 +0000 (GMT)
-Received: by mail-qt1-f200.google.com with SMTP id
- d75a77b69052e-50b469e5543so16707041cf.1
- for <amd-gfx@lists.freedesktop.org>; Sun, 22 Mar 2026 21:09:00 -0700 (PDT)
+ for <amd-gfx@lists.freedesktop.org>; Mon, 23 Mar 2026 04:10:28 +0000 (GMT)
+Received: by mail-qt1-f197.google.com with SMTP id
+ d75a77b69052e-50b5f675be9so69248841cf.0
+ for <amd-gfx@lists.freedesktop.org>; Sun, 22 Mar 2026 21:10:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1774238939; x=1774843739;
+ d=oss.qualcomm.com; s=google; t=1774239028; x=1774843828;
  darn=lists.freedesktop.org; 
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=5mLU7+MItDUu5Kth0lmGo6bEIH05p2nnnuPD4hW7xVo=;
- b=Iz5cwlvgxFAEKDlinCt0BDySwju4SEmPy1pgWGQlBZsmL0Qlm6xRF8YBeFedgWsj8f
- 3SNAE4XPKOkFg4mK09zNLkIWlO2Xyp27DR1BSwuNKBsQX0/IsWRwK7XrQO1bENpxQsKy
- 7KASWAQ68zvFJGnoz6D8W+QEitIJvwqoZlHQBUyG5hDYkkEdDz8sQjxw6nDoYNzJm5B6
- MvnoZr/XcDG6xpaOcivId5eRse79dVRL37DvpgVCBLCONfoFX35cf03BwIyJQNdYM3vB
- S8NnNT5ufPvp6IwXJe7GNeWVqgIKsyg6Llydw4i5idf+VsN4+E2luxgOgOIeA5B9fl56
- Utiw==
+ bh=sQGEJXGCGP1VT5nokRdn3QZgaBAAwrlU3lx1pdI7M98=;
+ b=eh7JdEO0KPPJWhZprpOjyrooia8zk7Vq+hghFXYU+CBPDG99Wxu+xse77iA6e1nmrW
+ vyrF3N8txNb/zMHFCUGHXO7qvKV6pDMIZ4yKlq1rvQMVfGYOF9tJo31IC8iWgs9rvkT5
+ TSouGhda72d5Y5wbklc9mPxq5q829PjX4erHKgF+G3QrunjpokdMzlUmzkRtA2Et0RIq
+ P0j6c3F8C/x6nWQtXA2z6dQmzAPZDnL0+cmpAkN8NROrMKtkVyqcuKz5R62wYPU9gTAp
+ eguVv24/CVlnVh3epu8vI+ZVKMRXRrF1356FNMh4orNGHTK3/kmAopT0FH95vg0rMrez
+ HTQw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774238939; x=1774843739;
+ d=1e100.net; s=20251104; t=1774239028; x=1774843828;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=5mLU7+MItDUu5Kth0lmGo6bEIH05p2nnnuPD4hW7xVo=;
- b=GRBy0Cblk5lF8HivEt/v1s8DFzaQMBCAnTBz65Qv8sUOi7T3nxhO/PMNbsGp3Ex0qn
- ItCG+Eoiwo5gDzNMT4WQ49h30L8DVR/zfYAv8AwZqQOGpXdJU6LgHLBXjU2Q40TfMDjc
- XIZeII/otsolRbfrgztRVBsDmeCbAxHKDN8dvW+vPnOxSUbADrj+Y6GAs80tGa7MQMQs
- Y/foXk6ytvxtiRnmbS5Cn296tVzJsHZ/9r3gZK5eqfC4xKttcDNlvteZ5uLM2b5D8mcx
- 1jllPhK5FG+zbRRlNfm2+yXqzfnxlRKfw4SvtE64lpZLeI7Enp/cSGzi4S8t4EMJ2TLe
- 05Qw==
+ bh=sQGEJXGCGP1VT5nokRdn3QZgaBAAwrlU3lx1pdI7M98=;
+ b=qNpM6Uw861cUJaX2MwQM6arY97kSJrWvtIZ5BpLL425wwPMgk2f28qXdMy1Lp5+se6
+ plPhQRJfGJICL42qSYjIoDzRVlkIv8kX1sX6QmmxQI7Dxa0mFQ+sHs9OudfMoDK3Tb7S
+ 6JwYI1zGlSRIYM1Al+iV9KQJwjAIQYiG0KYqiPJW1RZMPqYNASMbJhEoKRf8Pk5a2+2H
+ j3XLPRJbCrWOxo8Q7Pr2R3K0ZKoBY9jDzqMhbe9i18eso3aSjLhDClTkj1hdfNnrfgXX
+ pxpVahiO7gm+qX8bseM3wpUeiA8QxlhT42PN0MJ1lpPF/M9krI47c3zmVo0Ie7nOeWSe
+ wwig==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXERDIvbri789RCv92hMlvg9vZFIlEiqMm2rwrDuWXJCWUhiXSlut4aBXlPhEeFsW9eGMOo1M1M@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yz+k1FLEWG32maD+lxRaX5W/G6e5U70LSfDYf81Y3NQs349aXd8
- cgSSyT+nEo83r7qt8C+3Y4Tvj0ipo6CwHTUrjBFYj6XsLk76QrTnjY6lZZAQXTVsi2S37mliTvk
- EFcd24kDBVRY1ksma5kwRw2C3KpjuhMDtl4juNE/xgcwFCObudh3R5hsh2xqtwjxqapP2
-X-Gm-Gg: ATEYQzyU+ZQGtwrTmMstEs0pI9QpiwlbGc1L8Z7eabLGPMsq3Ek0wN0SQEqYQsvR227
- ZgQWJ2IxNFoIBzCrTeFl8rrgj7NdukOhXLr0qOUG49X8kad5bVSE7jq1o8dONm2FIk0TC29H0Xm
- oDvir3KjhvgFYcRWLFmeVFCNezTjPyVnVfZdGXZQWzw9hmHPLRBxG4UpFCI3hmG1FhxtSGr90cN
- sDXSdMULBC5Vcc61f7Xr319Z2PG0XQayoIyQOMZuIMop1hkCfDe6wkr5+z1HG67f8jDPmBtf6dd
- fXOHo16n0ALrNuP93p9rbJdCX/GOl0CQrZ0GKT0oVUwjHHqqBeQp0guURmnUxmpvd75G2MukixM
- oHQNPmYZogKFiOa2E2nMObOWoiQZWEFyPYi6ct/qFGGnDheJlz8PnsoH4k3J4ie2YhcpXIoE9UJ
- ZMP+Be209ZIdYEEufVeDg2PXJpMYJGRgC9XWY=
-X-Received: by 2002:a05:622a:2288:b0:50b:55fb:1c87 with SMTP id
- d75a77b69052e-50b55fb20admr59358681cf.5.1774238939257; 
- Sun, 22 Mar 2026 21:08:59 -0700 (PDT)
-X-Received: by 2002:a05:622a:2288:b0:50b:55fb:1c87 with SMTP id
- d75a77b69052e-50b55fb20admr59358441cf.5.1774238938791; 
- Sun, 22 Mar 2026 21:08:58 -0700 (PDT)
+ AJvYcCXLvE9b3OkZrVeeIX8JgUfjzbfjQ0aCEOHEADkQ4IDRECursMW7jKV40q1mAMM39URQcvinNS2S@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzGICMzS/9uexjq10vKry6qfzWyFNZNYn7WqowIOQoIovyZUC2J
+ dcu7VArd+HUn5dK8haoFQ9SZnfM0/G+/kgxadqJjgAR3HLIaYvyoO7GJQD4zjp5vfEUnelkr1XN
+ zKpkklsSNJmGzZDp7zcjzX5TTL4p9N4gvza6bKrcd2JOEzdO0A1y7qrLSwH0mC8dr/m0u
+X-Gm-Gg: ATEYQzxXxD/lx5Xfe1szoR3TnJ2MWZZV5iKtSx4Xw3Z/b6DQ9yM9J35k9LJic1TwRPW
+ LGRe23J3TNGLzpVI8o5Kv01NZ/yApHXhUAW10RcUvcBTV8A3twJ3Og9lGUu6rAxBB1yxt947QNs
+ bGinrWdx+MbMdlHf3P9pCj1h4vgkwKix+BU9C6EqsZuJ0whVYsh+PhdE5rJCORwMIcMbenFmUds
+ kwV5QG6ZvlCSm/gefekomWCXZMo/dDUhz5RzWpeVTiwNguM9DjJsLLLltps6ODQ3QuG+ruUfHpE
+ Rf7EA/aTpiTuBearDl69V4lPSCtyJYkKgyLIcJYchtSnaSqjaKXYFxhPhimR6mvgUXhJ/Yc9Aqi
+ PHDA1lZoeJufh08Y5J1nZNhzL5lAlDj6ufOyIQdhFDE386RcxTleS1+7Gj2R/BEpfeg2ooc2Ulp
+ iVT64QOVErvd+sdHUuaGmRIHJ/0RXc2EEzhyQ=
+X-Received: by 2002:a05:622a:4287:b0:509:f36:497d with SMTP id
+ d75a77b69052e-50b374a7a76mr157306471cf.30.1774239027591; 
+ Sun, 22 Mar 2026 21:10:27 -0700 (PDT)
+X-Received: by 2002:a05:622a:4287:b0:509:f36:497d with SMTP id
+ d75a77b69052e-50b374a7a76mr157306021cf.30.1774239027086; 
+ Sun, 22 Mar 2026 21:10:27 -0700 (PDT)
 Received: from umbar.lan
  (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
  [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5a288268a0bsm1994449e87.14.2026.03.22.21.08.57
+ 2adb3069b0e04-5a285192b44sm2215746e87.5.2026.03.22.21.10.25
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 22 Mar 2026 21:08:57 -0700 (PDT)
-Date: Mon, 23 Mar 2026 06:08:55 +0200
+ Sun, 22 Mar 2026 21:10:25 -0700 (PDT)
+Date: Mon, 23 Mar 2026 06:10:24 +0200
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 To: Maxime Ripard <mripard@kernel.org>
 Cc: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
@@ -120,38 +120,40 @@ Cc: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
  linux-arm-kernel@lists.infradead.org,
  linux-rockchip@lists.infradead.org, linux-sunxi@lists.linux.dev,
  Jani Nikula <jani.nikula@intel.com>
-Subject: Re: [PATCH v3 13/14] drm/connector: Remove DRM_COLOR_FORMAT defines
-Message-ID: <lfq2myl6gnzog33md2madm3qky2x4sasbrqkthhvdvgtfigrjf@dc5ccj7iq444>
+Subject: Re: [PATCH v3 14/14] drm/display: hdmi: Use drm_output_color_format
+ instead of hdmi_colorspace
+Message-ID: <gcl34au4vrbew3gtr7z3ui5tpkiehiatiicrawe7ls7ulq5vk4@tecy3vwgihcr>
 References: <20260305-drm-rework-color-formats-v3-0-f3935f6db579@kernel.org>
- <20260305-drm-rework-color-formats-v3-13-f3935f6db579@kernel.org>
+ <20260305-drm-rework-color-formats-v3-14-f3935f6db579@kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260305-drm-rework-color-formats-v3-13-f3935f6db579@kernel.org>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzIzMDAyOCBTYWx0ZWRfX7VsqcclzWc9P
- cLQEJ2T2FNBRouB14muonIDn4AzYm+UZ0XeXqvCNaJR+iZtMUwUtOWzKz9ZwzfJNjyPWXjG2elJ
- K79MWtlM9DNbtvpy6nNuLUmO2BRJ90E9NAPvq2646m2ZCPG4Kh4JOQqdCTQH30ISl3FEG6qeFkh
- 4dSiqNc/2iD9j/CljqOXkbBJbocLdIY/QIqzZJBHk8NfhITfvUYIFTywlZWJGigF2A+NBXjtmI6
- qWeLnXxl5CZl/L11qIxjNhtmUq5rBQU/xPi4Jcy2mJJMvWXOzMAV0cK2lLxGjoV1jy8RXt/EjRz
- KeLoZ86p9Ka8ODiEG/Dm08FBjr+P0B9Ywyb4jdq66u7fDoRhzd6NCmRC41kZmEY0laJrSU/jlCw
- WXyUwMtjtNC91QAlBuqm8ovRAl7/FiFxXgUvWf62RCSV7SmzSO887ifuw57UFQVSTfZJaROrO1I
- sQD6649z/IvrIBjQisw==
-X-Authority-Analysis: v=2.4 cv=cf3fb3DM c=1 sm=1 tr=0 ts=69c0bcdc cx=c_pps
- a=JbAStetqSzwMeJznSMzCyw==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+In-Reply-To: <20260305-drm-rework-color-formats-v3-14-f3935f6db579@kernel.org>
+X-Authority-Analysis: v=2.4 cv=GNoF0+NK c=1 sm=1 tr=0 ts=69c0bd34 cx=c_pps
+ a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
  a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22 a=QyXUC8HyAAAA:8
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=z8SGupnk27XsGNPOeu8A:9 a=CjuIK1q_8ugA:10
- a=uxP6HrT_eTzRwkO_Te1X:22
-X-Proofpoint-ORIG-GUID: NqgEqKxQIJ9qEIAS6e9lTnBzkGveVaC-
-X-Proofpoint-GUID: NqgEqKxQIJ9qEIAS6e9lTnBzkGveVaC-
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=QyXUC8HyAAAA:8
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=PZBe32_PtwNt9AllZ3gA:9 a=CjuIK1q_8ugA:10
+ a=a_PwQJl-kcHnX1M80qC6:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzIzMDAyOSBTYWx0ZWRfXwycYutA0/8cI
+ d4Hj8UhSynExv9+VEOC9UHcY1idCp21KYIlYP3l21+kFv2wX8z6bWEVJ7nPNFG1eyF6WLU7nHOa
+ yGE6RNkQXu74Ex8gBwRD0jinjMPwiSZnW7RLlKKui3Hs8Tb8aCc5jyu+E6HwnftuOmJTyf35zid
+ 4+LJQmxE6JXV8mY64rPF8elrmlM14I3nQPobE5X4Do7lrHSXRyUt9wg3czV5Yoj8TlcKDFAmTN7
+ CobtJVbHFE2UxkHVksUrhOVIyA8bVQDt0XAL+JMYQGe+d7K7Jt997HhIBZspr13RAVYL8/4sGNu
+ Hz/9RGFHz2ryHM+yQlxPGsj9ZSgfRxWedFUHpMqvRsg9VbyM8HsCFyM1Ewna21AmW9hUjUwvKpV
+ uipeLBPijzRiaFzPkmF6ZFeA/ltCeD+VDJDhqqGVZKYKZ8wLe/8BKlON++z69I5cTU+Tu53a6NR
+ +tPeZDzh4HqpkAaBRNg==
+X-Proofpoint-ORIG-GUID: XBafLv1tbTm82r_TMYFAWrqv1co7y0_t
+X-Proofpoint-GUID: XBafLv1tbTm82r_TMYFAWrqv1co7y0_t
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
  definitions=2026-03-23_01,2026-03-20_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 adultscore=0 bulkscore=0 spamscore=0 impostorscore=0
- malwarescore=0 phishscore=0 lowpriorityscore=0 clxscore=1015 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603230028
+ priorityscore=1501 lowpriorityscore=0 clxscore=1015 suspectscore=0
+ spamscore=0 adultscore=0 bulkscore=0 phishscore=0 impostorscore=0
+ malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2603050001
+ definitions=main-2603230029
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -166,15 +168,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Mar 05, 2026 at 10:05:05AM +0100, Maxime Ripard wrote:
-> Now that all users of DRM_COLOR_FORMAT_* defines have been converted to
-> the new enum, we can get rid of those defines.
+On Thu, Mar 05, 2026 at 10:05:06AM +0100, Maxime Ripard wrote:
+> The hdmi_colorspace enum was defined to represent the colorspace value
+> of the HDMI infoframes. It was later used by some HDMI drivers to
+> express the output format they should be setting up.
+> 
+> During the introduction of the HDMI helpers, it then was used to
+> represent it in the drm_connector_hdmi_state structure.
+> 
+> However, it's always been somewhat redundant with the DRM_COLOR_FORMAT_*
+> defines, and now with the drm_output_color_format enum. Let's
+> consolidate around drm_output_color_format in drm_connector_hdmi_state
+> to facilitate the current effort to provide a global output format
+> selection mechanism.
 > 
 > Acked-by: Jani Nikula <jani.nikula@intel.com>
 > Signed-off-by: Maxime Ripard <mripard@kernel.org>
 > ---
->  include/drm/drm_connector.h | 5 -----
->  1 file changed, 5 deletions(-)
+>  drivers/gpu/drm/bridge/inno-hdmi.c                 |   6 +-
+>  drivers/gpu/drm/bridge/ite-it6263.c                |   2 +-
+>  drivers/gpu/drm/display/drm_bridge_connector.c     |   4 +-
+>  drivers/gpu/drm/display/drm_hdmi_helper.c          |   7 +-
+>  drivers/gpu/drm/display/drm_hdmi_state_helper.c    |  52 ++++--
+>  drivers/gpu/drm/drm_bridge.c                       |   2 +-
+>  drivers/gpu/drm/drm_connector.c                    |  16 +-
+>  drivers/gpu/drm/mediatek/mtk_hdmi_v2.c             |   8 +-
+>  drivers/gpu/drm/sun4i/sun4i_hdmi_enc.c             |   2 +-
+>  drivers/gpu/drm/tests/drm_connector_test.c         |  80 ++++-----
+>  drivers/gpu/drm/tests/drm_hdmi_state_helper_test.c | 182 ++++++++++-----------
+>  drivers/gpu/drm/vc4/vc4_hdmi.c                     |  18 +-
+>  drivers/gpu/drm/vc4/vc4_hdmi.h                     |   2 +-
+>  include/drm/bridge/dw_hdmi_qp.h                    |   2 +-
+>  include/drm/display/drm_hdmi_helper.h              |   3 +-
+>  include/drm/drm_bridge.h                           |   5 +-
+>  include/drm/drm_connector.h                        |   9 +-
+>  17 files changed, 213 insertions(+), 187 deletions(-)
 > 
 
 Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
