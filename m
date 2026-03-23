@@ -4,76 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2B77CEC01A3
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4827FEC01A0
 	for <amd-gfx@archiver.kernel.org>; Mon, 23 Mar 2026 08:11:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 92DFC10E409;
+	by gabe.freedesktop.org (Postfix) with ESMTP id ACA7910E410;
 	Mon, 23 Mar 2026 08:11:49 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="DjFSpqOb";
-	dkim-atps=neutral
-Received: from mail-vk1-f175.google.com (mail-vk1-f175.google.com
- [209.85.221.175])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 846D510E1B1
- for <amd-gfx@lists.freedesktop.org>; Sun, 22 Mar 2026 09:52:14 +0000 (UTC)
-Received: by mail-vk1-f175.google.com with SMTP id
- 71dfb90a1353d-56a9076813bso1375656e0c.3
- for <amd-gfx@lists.freedesktop.org>; Sun, 22 Mar 2026 02:52:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1774173133; x=1774777933; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=A0z8vkkJ6J9YgqDewSEz62c0xgaFgNlFmTCBQg8J1EQ=;
- b=DjFSpqObtNRBgNRkxNlC2tOZe2NV90PDeIlEKU+3e+Yh/xMw43n2Wv7+88uz/zaeJp
- YH56fQ1+w68+AFRaSoO4botEOR5291mL2l57X88CrwMQNcgw7I5qKJxTTQyncJaZOjRg
- t+iUUydJbUOhpeboySaIEgDALlPb9iB7iDbIPCVGH9mhouaq57doh9OjI6UQonOgTgED
- JCtgsuYj01mwVziyPvrAY73AyRSt9AJIViu14SKnRgzPbOe6Tfp5RCHhtOqgNM5WmWOQ
- vX9NfmHSu0nU775hrPWmYZG7jqEAm+x96+2p0KAWSl9FmX9SAHLBi0MugO+vbpt3+Pt5
- A+zQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774173133; x=1774777933;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=A0z8vkkJ6J9YgqDewSEz62c0xgaFgNlFmTCBQg8J1EQ=;
- b=eZOKbV/1dWds/ljnNjf9XkocbiRUeFcGx+J/8kIwIS66UynfP8ff663U7UV1x8p1ZQ
- HyOZ/xIFr1qOtuXqLh3Hz/x4e/VNd7ZTtXb0SKf2Tx+SdJQzV4nKT3RGlUEX49s2KaJr
- uQDlaT+nb0EGPGtRcQ79Sbh9Hargs5PJyevfUs416P6+4OS+mY9ZnMTQiHHoxyiWeD7V
- ZvobetxWM5tMaIMdgfh25HTDbh8OE6CSAYr62empkbpgLf/BMq4ACTK5+u+tqvGW6j7w
- MC0jdDsp6hL1tkeg0PSe2y8IqGsGnhfoxb0TXpx/fTDGqaH4VK996iqW4aDkoP30SDT+
- VXUw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVZU8cUwajdZydTrPq5SEp8l67hOGErurlB7yKqg8kgqoVVjUxX8JCUsnUxEHltunGHdGDSgMU4@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzQKu41c7oK74rlylmGHKLOcKTYiGniUIooSaX/RUHXFOYH+vj4
- e4nU9M3Xfn2WXSgccf8am0VTbVS3doc3011quZm3bDzkJUeHRohZ4W7k
-X-Gm-Gg: ATEYQzxIcQZcZrQBPhauG03GyIH6G86oKncJhnWMVHpS4KztId2j4hvbcRtEP97JPvk
- ka5EnHZ4Nm58FPiPdAf3V49ITR322ByrzimXdHLQ1x3q8FAYaQlKqHptjDX2P/ViFuqGj8LxPMe
- QbOe3LQ/1UwhZ0LAw9ZNnQaCO/Z6yUB4vGF4qHqWbeVPQig6gj9yCXpzbZEan9PNHf4rJxV2R6+
- CyPUhx6ZJOTZTvfvOdGVdbkT698CEieE5JoPjcBDIoEStB6yNyLXBdx44+PPPXvLqT9DZeiVfp8
- 2eZdJ0/hU8HRodfJaYEf5AV2ay3o5LlTT/R6vwqvTfz7SOs1dFhIv+7h9GjRE8uUPmmGjNYmtZ6
- OWnh1Fs0vpka4AfDimWx2RpTKa0UJjiawogILbrvhZJqD8zLfqZJqMUQN3CYQoFu1PB3hS5V0xP
- ZYAKrXVA/EEDB+uNSV0SVJbnx7HM/ZkYqzwSPrUjbZuQ==
-X-Received: by 2002:a05:6122:2883:b0:56c:d623:896e with SMTP id
- 71dfb90a1353d-56cde465491mr3635672e0c.14.1774173133123; 
- Sun, 22 Mar 2026 02:52:13 -0700 (PDT)
-Received: from gui-host.Dlink ([177.140.57.219])
- by smtp.gmail.com with ESMTPSA id
- 71dfb90a1353d-56cddb94eaasm7050081e0c.8.2026.03.22.02.52.07
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 22 Mar 2026 02:52:11 -0700 (PDT)
-From: guilhermeivo <guilhermeivob@gmail.com>
-To: harry.wentland@amd.com, sunpeng.li@amd.com, siqueira@igalia.com,
- alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
- simona@ffwll.ch
-Cc: guilherme.bozi@usp.br, linux-kernel@vger.kernel.org,
+X-Greylist: delayed 428 seconds by postgrey-1.36 at gabe;
+ Mon, 23 Mar 2026 07:11:47 UTC
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A6A7810E3CF;
+ Mon, 23 Mar 2026 07:11:47 +0000 (UTC)
+Received: from localhost.localdomain (unknown [111.196.245.197])
+ by APP-03 (Coremail) with SMTP id rQCowAD32+Kw5cBpVAWGCw--.56745S2;
+ Mon, 23 Mar 2026 15:03:12 +0800 (CST)
+From: Pengpeng Hou <pengpeng@iscas.ac.cn>
+To: harry.wentland@amd.com
+Cc: sunpeng.li@amd.com, siqueira@igalia.com, alexander.deucher@amd.com,
+ christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch,
  amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- guilhermeivo <guilhermeivob@gmail.com>, kernel test robot <lkp@intel.com>
-Subject: [PATCH v2] drm/amd/display: Fix DDC register assignment type errors
-Date: Sun, 22 Mar 2026 06:51:55 -0300
-Message-ID: <20260322095155.248283-1-guilhermeivob@gmail.com>
-X-Mailer: git-send-email 2.47.3
+ linux-kernel@vger.kernel.org, pengpeng@iscas.ac.cn
+Subject: [PATCH 3/7] drm/amd/display: make HDCP connector arrays match
+ connector IDs
+Date: Mon, 23 Mar 2026 15:03:12 +0800
+Message-ID: <20260323070312.42870-1-pengpeng@iscas.ac.cn>
+X-Mailer: git-send-email 2.50.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: rQCowAD32+Kw5cBpVAWGCw--.56745S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxXF1DGFyUZw48uFW3XFWrKrg_yoWrKr45pr
+ W5XFWjqw4DArWa934DZ3WkWFn8Kwn5uFyxKr4fu348K3WrGrnxt3Z5tF9F9ay7JrZ7uFy3
+ Za10q39rA3Wqyw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUU9014x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+ rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+ 1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
+ 6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
+ Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
+ I7IYx2IY67AKxVWUXVWUAwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r
+ 4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628v
+ n2kIc2xKxwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7x
+ kEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E
+ 67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCw
+ CI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1x
+ MIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIda
+ VFxhVjvjDU0xZFpf9x0JUpwZcUUUUU=
+X-Originating-IP: [111.196.245.197]
+X-CM-SenderInfo: pshqw1xhqjqxpvfd2hldfou0/
 X-Mailman-Approved-At: Mon, 23 Mar 2026 08:11:39 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -89,30 +64,110 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Fix invalid type assignments in ddc_sh_mask.
+The DRM connector core allocates connector indices in the inclusive
+0..31 range, but the AMDGPU HDCP workqueue stores per-connector state in
+arrays sized with AMDGPU_DM_MAX_DISPLAY_INDEX, which is also 31. As a
+result, connector index 31 can write one element past those arrays.
 
-Signed-off-by: guilhermeivo <guilhermeivob@gmail.com>
-Reported-by: kernel test robot <lkp@intel.com>
-Closes: https://lore.kernel.org/oe-kbuild-all/202603221553.GzXoxzCw-lkp@intel.com/
+Resize the HDCP per-connector arrays to cover the full connector ID
+range and switch the related loops and memset() calls to ARRAY_SIZE() so
+index 31 is handled safely.
+
+Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
 ---
- drivers/gpu/drm/amd/display/dc/gpio/hw_factory_dcn_ddc.h | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.c | 18 ++++++++++--------
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.h |  8 ++++----
+ 2 files changed, 14 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/gpio/hw_factory_dcn_ddc.h b/drivers/gpu/drm/amd/display/dc/gpio/hw_factory_dcn_ddc.h
-index 1f2bc7eea82e..863177cf67e8 100644
---- a/drivers/gpu/drm/amd/display/dc/gpio/hw_factory_dcn_ddc.h
-+++ b/drivers/gpu/drm/amd/display/dc/gpio/hw_factory_dcn_ddc.h
-@@ -11,8 +11,8 @@ static inline void dcn_define_ddc_registers_common(
- 		uint32_t en,
- 		const struct ddc_registers *data_regs,
- 		const struct ddc_registers *clk_regs,
--		const struct ddc_shift *shift,
--		const struct ddc_mask *mask)
-+		const struct ddc_sh_mask *shift,
-+		const struct ddc_sh_mask *mask)
- {
- 	struct hw_ddc *ddc = HW_DDC_FROM_BASE(pin);
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.c
+index eb73bbf8f411..e1ef86674e55 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.c
+@@ -291,7 +291,9 @@ void hdcp_reset_display(struct hdcp_workqueue *hdcp_work, unsigned int link_inde
+ 
+ 	cancel_delayed_work(&hdcp_w->property_validate_dwork);
+ 
+-	for (conn_index = 0; conn_index < AMDGPU_DM_MAX_DISPLAY_INDEX; conn_index++) {
++	for (conn_index = 0;
++	     conn_index < ARRAY_SIZE(hdcp_w->encryption_status);
++	     conn_index++) {
+ 		hdcp_w->encryption_status[conn_index] =
+ 			MOD_HDCP_ENCRYPTION_STATUS_HDCP_OFF;
+ 		if (hdcp_w->aconnector[conn_index]) {
+@@ -338,7 +340,9 @@ static void event_property_update(struct work_struct *work)
+ 	struct drm_connector *connector;
+ 	struct drm_connector_state *conn_state;
+ 
+-	for (conn_index = 0; conn_index < AMDGPU_DM_MAX_DISPLAY_INDEX; conn_index++) {
++	for (conn_index = 0;
++	     conn_index < ARRAY_SIZE(hdcp_work->aconnector);
++	     conn_index++) {
+ 		aconnector = hdcp_work->aconnector[conn_index];
+ 
+ 		if (!aconnector)
+@@ -407,7 +411,8 @@ static void event_property_validate(struct work_struct *work)
+ 
+ 	guard(mutex)(&hdcp_work->mutex);
+ 
+-	for (conn_index = 0; conn_index < AMDGPU_DM_MAX_DISPLAY_INDEX;
++	for (conn_index = 0;
++	     conn_index < ARRAY_SIZE(hdcp_work->aconnector);
+ 	     conn_index++) {
+ 		aconnector = hdcp_work->aconnector[conn_index];
+ 
+@@ -799,11 +804,9 @@ struct hdcp_workqueue *hdcp_create_workqueue(struct amdgpu_device *adev,
+ 		ddc_funcs->atomic_write_poll_read_aux = lp_atomic_write_poll_read_aux;
+ 
+ 		memset(hdcp_work[i].aconnector, 0,
+-		       sizeof(struct amdgpu_dm_connector *) *
+-			       AMDGPU_DM_MAX_DISPLAY_INDEX);
++		       sizeof(hdcp_work[i].aconnector));
+ 		memset(hdcp_work[i].encryption_status, 0,
+-		       sizeof(enum mod_hdcp_encryption_status) *
+-			       AMDGPU_DM_MAX_DISPLAY_INDEX);
++		       sizeof(hdcp_work[i].encryption_status));
+ 	}
+ 
+ 	cp_psp->funcs.update_stream_config = update_config;
+@@ -826,4 +829,3 @@ struct hdcp_workqueue *hdcp_create_workqueue(struct amdgpu_device *adev,
+ 
+ 	return NULL;
+ }
+-
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.h
+index 4faa344f196e..d0f87d393ce7 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.h
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.h
+@@ -44,7 +44,7 @@ struct hdcp_workqueue {
+ 	struct delayed_work callback_dwork;
+ 	struct delayed_work watchdog_timer_dwork;
+ 	struct delayed_work property_validate_dwork;
+-	struct amdgpu_dm_connector *aconnector[AMDGPU_DM_MAX_DISPLAY_INDEX];
++	struct amdgpu_dm_connector *aconnector[AMDGPU_DM_MAX_DISPLAY_INDEX + 1];
+ 	struct mutex mutex;
+ 
+ 	struct mod_hdcp hdcp;
+@@ -52,7 +52,7 @@ struct hdcp_workqueue {
+ 	struct mod_hdcp_display display;
+ 	struct mod_hdcp_link link;
+ 
+-	enum mod_hdcp_encryption_status encryption_status[AMDGPU_DM_MAX_DISPLAY_INDEX];
++	enum mod_hdcp_encryption_status encryption_status[AMDGPU_DM_MAX_DISPLAY_INDEX + 1];
+ 	/* when display is unplugged from mst hub, connctor will be
+ 	 * destroyed within dm_dp_mst_connector_destroy. connector
+ 	 * hdcp perperties, like type, undesired, desired, enabled,
+@@ -62,9 +62,9 @@ struct hdcp_workqueue {
+ 	 * will be retrieved from hdcp_work within dm_dp_mst_get_modes
+ 	 */
+ 	/* un-desired, desired, enabled */
+-	unsigned int content_protection[AMDGPU_DM_MAX_DISPLAY_INDEX];
++	unsigned int content_protection[AMDGPU_DM_MAX_DISPLAY_INDEX + 1];
+ 	/* hdcp1.x, hdcp2.x */
+-	unsigned int hdcp_content_type[AMDGPU_DM_MAX_DISPLAY_INDEX];
++	unsigned int hdcp_content_type[AMDGPU_DM_MAX_DISPLAY_INDEX + 1];
+ 
+ 	uint8_t max_link;
  
 -- 
-2.47.3
+2.50.1 (Apple Git-155)
 
