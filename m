@@ -4,91 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7FC23D58CCE
-	for <amd-gfx@archiver.kernel.org>; Mon, 23 Mar 2026 04:08:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C5CDD58CCE
+	for <amd-gfx@archiver.kernel.org>; Mon, 23 Mar 2026 04:09:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1B3B710E3B5;
-	Mon, 23 Mar 2026 04:08:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3125310E3B6;
+	Mon, 23 Mar 2026 04:09:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Hm87qYBK";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="W7+HWP2B";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="PJM5pA+8";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Iz5cwlvg";
 	dkim-atps=neutral
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0BF0F10E3B4
- for <amd-gfx@lists.freedesktop.org>; Mon, 23 Mar 2026 04:08:42 +0000 (UTC)
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D4D7810E3B6
+ for <amd-gfx@lists.freedesktop.org>; Mon, 23 Mar 2026 04:09:00 +0000 (UTC)
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 62MJeKZX1040726
- for <amd-gfx@lists.freedesktop.org>; Mon, 23 Mar 2026 04:08:41 GMT
+ 62MN8E9f3529248
+ for <amd-gfx@lists.freedesktop.org>; Mon, 23 Mar 2026 04:09:00 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=L0DNNdGHDR5wlsCt28DXVO7/
- ykGGtL6iZ7ih/B1pDZQ=; b=Hm87qYBK6EpqLzvsAKKiVfisJdYCA29Rw9vKImJz
- lU+T3ZSsQtEyN0sicc1mVQfFiOJsMlFjJdAn1ibQornp8c+1tT3rdXIfazxKoT+0
- r3paTKRMYcrOnDzrgpbSpH8tw/vChxTcx0bH62Dg3aYq57KgrNidMW8QBuaISVjp
- 9YDOiKfjC+4FZQ48QIHNEtaGcdKhYgUIL8v1syDcBi7YbkbLuQbMbfbS/qXtxWnO
- xii5Fg3z6LruZZPDsJ/9otr4vKpZK54kJwDez+Wlgw8qNYeYn6a45LXb7YJua2dX
- FswqKzTSGkiGIaMaAod2Kfk0A9WqVRW8/qqRoxGYxhQxuA==
+ :references:subject:to; s=qcppdkim1; bh=5mLU7+MItDUu5Kth0lmGo6bE
+ IH05p2nnnuPD4hW7xVo=; b=PJM5pA+8Rt+CP033st/WkGLskaoVd4kJ2BweO5Sh
+ 6RXUql+pqIyx8wo7KPHvogwy6ApWsQP1j0BPMjHgC1FBuyJnWnDgW2r2qI7TsUqi
+ lqzMi6Ml1Ye0E10VE5n9jF9747H3vVQdENdPz5e1lV/gR0rao9xzqK82jWN3s8zY
+ C+68PvP7iz/GbY1epbq9ej2RUlYmh+SJRFqMpVgU56cyWBwYsxkWmqfOrwhwjY3i
+ yPCb5/wgJW3JLgpswMvct5EcWgxjtBFZLI9fRkVcdwy034NKz7D/cgD+XC6BYRHz
+ bujwB1nCbXbN7gV/TlGRRsS6Fwg4gNHT1Tg+H3k8z7G3yA==
 Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com
  [209.85.160.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d1mghbh8a-1
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d2ca8hkpc-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <amd-gfx@lists.freedesktop.org>; Mon, 23 Mar 2026 04:08:41 +0000 (GMT)
+ for <amd-gfx@lists.freedesktop.org>; Mon, 23 Mar 2026 04:09:00 +0000 (GMT)
 Received: by mail-qt1-f200.google.com with SMTP id
- d75a77b69052e-5090e08dcfcso349815461cf.0
- for <amd-gfx@lists.freedesktop.org>; Sun, 22 Mar 2026 21:08:41 -0700 (PDT)
+ d75a77b69052e-50b469e5543so16707041cf.1
+ for <amd-gfx@lists.freedesktop.org>; Sun, 22 Mar 2026 21:09:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1774238920; x=1774843720;
+ d=oss.qualcomm.com; s=google; t=1774238939; x=1774843739;
  darn=lists.freedesktop.org; 
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=L0DNNdGHDR5wlsCt28DXVO7/ykGGtL6iZ7ih/B1pDZQ=;
- b=W7+HWP2BA566RV+D6jiReDCG+S90AjlYtFZl3p1X/usFYoWOSbR4WNfBkWWF5EwRKi
- 64mdTZPjTSBVmg+6uRMNfeozumv5oIyrO3K4hD5VHMy9IzKVF9iShMwCvqFhdxcZA9tN
- BCrvUVoeJ+zCtN9ZvFqFarlsjG/EKPWdemMzQCoUG4qB4qRTHVFhkyn7g9LMKu79SOzc
- 7cuYChX1pq+6C5u82DZLrPL8rtHBvRauIxP1300mrSO0/TjMPt1LulgvQOPiUrDHRj9P
- q8uI9OuADvbmroYtPk2vdEKDX+v/3i6J4cP1h+JD4ZweEu8OAjaSzbksj8esVksQP8ki
- xSmA==
+ bh=5mLU7+MItDUu5Kth0lmGo6bEIH05p2nnnuPD4hW7xVo=;
+ b=Iz5cwlvgxFAEKDlinCt0BDySwju4SEmPy1pgWGQlBZsmL0Qlm6xRF8YBeFedgWsj8f
+ 3SNAE4XPKOkFg4mK09zNLkIWlO2Xyp27DR1BSwuNKBsQX0/IsWRwK7XrQO1bENpxQsKy
+ 7KASWAQ68zvFJGnoz6D8W+QEitIJvwqoZlHQBUyG5hDYkkEdDz8sQjxw6nDoYNzJm5B6
+ MvnoZr/XcDG6xpaOcivId5eRse79dVRL37DvpgVCBLCONfoFX35cf03BwIyJQNdYM3vB
+ S8NnNT5ufPvp6IwXJe7GNeWVqgIKsyg6Llydw4i5idf+VsN4+E2luxgOgOIeA5B9fl56
+ Utiw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774238920; x=1774843720;
+ d=1e100.net; s=20251104; t=1774238939; x=1774843739;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=L0DNNdGHDR5wlsCt28DXVO7/ykGGtL6iZ7ih/B1pDZQ=;
- b=UVUh/iKOwuxHUBcZldylPnVw4b2xjlXUSPmFjHi26NKV17O4i70Zz5DKVm2Lo8ydMH
- 4wkSGKydmcg7MH4gXOUtYO4tMzAwXmIYVb+ZmseOUSw1IpgsYCTy6um+mdnZqVuVa0ND
- b/GYrVtYbUGfzd/hBBCmvo/0+Dq8fMTRvQgZgJK1TfpFnFBilu1Ra95CFgZhzCHHXV1S
- wvorklPepj82Yy7iVKvbmj5dXknOpaAWqWqkIlEX8F1m9jm9yvInQaidKHQPEv79SmMI
- QtcUJhc/bV4VeKpS9iR2aQDH2cfQIwFMkNtItPI3Pl7bAHVBxDP9z0hPKYcWNVEeNK9K
- RT9Q==
+ bh=5mLU7+MItDUu5Kth0lmGo6bEIH05p2nnnuPD4hW7xVo=;
+ b=GRBy0Cblk5lF8HivEt/v1s8DFzaQMBCAnTBz65Qv8sUOi7T3nxhO/PMNbsGp3Ex0qn
+ ItCG+Eoiwo5gDzNMT4WQ49h30L8DVR/zfYAv8AwZqQOGpXdJU6LgHLBXjU2Q40TfMDjc
+ XIZeII/otsolRbfrgztRVBsDmeCbAxHKDN8dvW+vPnOxSUbADrj+Y6GAs80tGa7MQMQs
+ Y/foXk6ytvxtiRnmbS5Cn296tVzJsHZ/9r3gZK5eqfC4xKttcDNlvteZ5uLM2b5D8mcx
+ 1jllPhK5FG+zbRRlNfm2+yXqzfnxlRKfw4SvtE64lpZLeI7Enp/cSGzi4S8t4EMJ2TLe
+ 05Qw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWV/hItL1YyUjlJ2jYAH8VTs9q3HIZAlTf/JLp25NKELtsN670rvQzasC58PIuWt3ZOM4I2sMTT@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyrGbXyTAsvDd44y4XhJlw2EHlvbhunX9bFPhcXxO3TTFGkPLsv
- clYdxA0LUuJhV7udErmtYHsGxS0wNZ42Q3Mm/dj866U9a6aE+B0lQgiJZslpP04dZcojL8FmPIn
- 4+wuQrFKEKp2qkLaX82a2sdIAh+XyM0NWqqXThjkkh8WQ9FjQJUZACtERco8W2w4uoAX61tYZkI
- 82
-X-Gm-Gg: ATEYQzyjSTUkkpsp1A1jMXFUzqsauENLHdGYeg6Hy0bZGI+MAT2zPaV43E+lG8tx42q
- HxG0gk44Sre+8VmQzEjtd4kgOoGjTrGabYAhN8hVAffO83xVn4HH0buGfvCVW5A0JohJ2N5uRyl
- sF0RBOaCnaBxnTfbnH6OJIBjUnkutMj6yMrzOCBhwurb8viLg8SPZa3gUH5WPBowOcuJVrif+pg
- zkCMJTplAERpxYlSVlA2tk1v3nNQi1kA7vF5QbvIukKi7waIj8a4Wvklw6FSyeHY9MFda6/piwP
- Bdt1R8W1ql9hhdc/ihWeN4IzHLNkl7ZNhRKpokkX7x8lM8VZs3fptUMXwDh8C6B8TKCHJVpe20n
- Yb+HLrVGy8jlC6FubzHOOSD2dOYmUr/MOx9Xy44lF9CYdPV6ayDIQOnN++HhfBP5Rg9Yrgu7rZg
- RNWrbuHxtsNILyWhI4j7sy86f74etRKehyP+U=
-X-Received: by 2002:a05:622a:901a:b0:501:b1d8:637a with SMTP id
- d75a77b69052e-50b37597952mr157491971cf.61.1774238920223; 
- Sun, 22 Mar 2026 21:08:40 -0700 (PDT)
-X-Received: by 2002:a05:622a:901a:b0:501:b1d8:637a with SMTP id
- d75a77b69052e-50b37597952mr157491621cf.61.1774238919820; 
- Sun, 22 Mar 2026 21:08:39 -0700 (PDT)
+ AJvYcCXERDIvbri789RCv92hMlvg9vZFIlEiqMm2rwrDuWXJCWUhiXSlut4aBXlPhEeFsW9eGMOo1M1M@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yz+k1FLEWG32maD+lxRaX5W/G6e5U70LSfDYf81Y3NQs349aXd8
+ cgSSyT+nEo83r7qt8C+3Y4Tvj0ipo6CwHTUrjBFYj6XsLk76QrTnjY6lZZAQXTVsi2S37mliTvk
+ EFcd24kDBVRY1ksma5kwRw2C3KpjuhMDtl4juNE/xgcwFCObudh3R5hsh2xqtwjxqapP2
+X-Gm-Gg: ATEYQzyU+ZQGtwrTmMstEs0pI9QpiwlbGc1L8Z7eabLGPMsq3Ek0wN0SQEqYQsvR227
+ ZgQWJ2IxNFoIBzCrTeFl8rrgj7NdukOhXLr0qOUG49X8kad5bVSE7jq1o8dONm2FIk0TC29H0Xm
+ oDvir3KjhvgFYcRWLFmeVFCNezTjPyVnVfZdGXZQWzw9hmHPLRBxG4UpFCI3hmG1FhxtSGr90cN
+ sDXSdMULBC5Vcc61f7Xr319Z2PG0XQayoIyQOMZuIMop1hkCfDe6wkr5+z1HG67f8jDPmBtf6dd
+ fXOHo16n0ALrNuP93p9rbJdCX/GOl0CQrZ0GKT0oVUwjHHqqBeQp0guURmnUxmpvd75G2MukixM
+ oHQNPmYZogKFiOa2E2nMObOWoiQZWEFyPYi6ct/qFGGnDheJlz8PnsoH4k3J4ie2YhcpXIoE9UJ
+ ZMP+Be209ZIdYEEufVeDg2PXJpMYJGRgC9XWY=
+X-Received: by 2002:a05:622a:2288:b0:50b:55fb:1c87 with SMTP id
+ d75a77b69052e-50b55fb20admr59358681cf.5.1774238939257; 
+ Sun, 22 Mar 2026 21:08:59 -0700 (PDT)
+X-Received: by 2002:a05:622a:2288:b0:50b:55fb:1c87 with SMTP id
+ d75a77b69052e-50b55fb20admr59358441cf.5.1774238938791; 
+ Sun, 22 Mar 2026 21:08:58 -0700 (PDT)
 Received: from umbar.lan
  (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
  [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5a285206f73sm2204742e87.54.2026.03.22.21.08.37
+ 2adb3069b0e04-5a288268a0bsm1994449e87.14.2026.03.22.21.08.57
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 22 Mar 2026 21:08:38 -0700 (PDT)
-Date: Mon, 23 Mar 2026 06:08:35 +0200
+ Sun, 22 Mar 2026 21:08:57 -0700 (PDT)
+Date: Mon, 23 Mar 2026 06:08:55 +0200
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 To: Maxime Ripard <mripard@kernel.org>
 Cc: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
@@ -121,37 +120,36 @@ Cc: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
  linux-arm-kernel@lists.infradead.org,
  linux-rockchip@lists.infradead.org, linux-sunxi@lists.linux.dev,
  Jani Nikula <jani.nikula@intel.com>
-Subject: Re: [PATCH v3 09/14] drm/bridge: synopsys: dw-hdmi: Convert to
- drm_output_color_format
-Message-ID: <dahh4njgirmhll7tttfxe6dlqaz5qhpyz7g2vztgvbys6xysyq@ord6abbyjt2i>
+Subject: Re: [PATCH v3 13/14] drm/connector: Remove DRM_COLOR_FORMAT defines
+Message-ID: <lfq2myl6gnzog33md2madm3qky2x4sasbrqkthhvdvgtfigrjf@dc5ccj7iq444>
 References: <20260305-drm-rework-color-formats-v3-0-f3935f6db579@kernel.org>
- <20260305-drm-rework-color-formats-v3-9-f3935f6db579@kernel.org>
+ <20260305-drm-rework-color-formats-v3-13-f3935f6db579@kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260305-drm-rework-color-formats-v3-9-f3935f6db579@kernel.org>
-X-Authority-Analysis: v=2.4 cv=HI7O14tv c=1 sm=1 tr=0 ts=69c0bcc9 cx=c_pps
+In-Reply-To: <20260305-drm-rework-color-formats-v3-13-f3935f6db579@kernel.org>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzIzMDAyOCBTYWx0ZWRfX7VsqcclzWc9P
+ cLQEJ2T2FNBRouB14muonIDn4AzYm+UZ0XeXqvCNaJR+iZtMUwUtOWzKz9ZwzfJNjyPWXjG2elJ
+ K79MWtlM9DNbtvpy6nNuLUmO2BRJ90E9NAPvq2646m2ZCPG4Kh4JOQqdCTQH30ISl3FEG6qeFkh
+ 4dSiqNc/2iD9j/CljqOXkbBJbocLdIY/QIqzZJBHk8NfhITfvUYIFTywlZWJGigF2A+NBXjtmI6
+ qWeLnXxl5CZl/L11qIxjNhtmUq5rBQU/xPi4Jcy2mJJMvWXOzMAV0cK2lLxGjoV1jy8RXt/EjRz
+ KeLoZ86p9Ka8ODiEG/Dm08FBjr+P0B9Ywyb4jdq66u7fDoRhzd6NCmRC41kZmEY0laJrSU/jlCw
+ WXyUwMtjtNC91QAlBuqm8ovRAl7/FiFxXgUvWf62RCSV7SmzSO887ifuw57UFQVSTfZJaROrO1I
+ sQD6649z/IvrIBjQisw==
+X-Authority-Analysis: v=2.4 cv=cf3fb3DM c=1 sm=1 tr=0 ts=69c0bcdc cx=c_pps
  a=JbAStetqSzwMeJznSMzCyw==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
  a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=QyXUC8HyAAAA:8
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=TUq2ns179Pknwtu5XVYA:9 a=CjuIK1q_8ugA:10
+ a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22 a=QyXUC8HyAAAA:8
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=z8SGupnk27XsGNPOeu8A:9 a=CjuIK1q_8ugA:10
  a=uxP6HrT_eTzRwkO_Te1X:22
-X-Proofpoint-ORIG-GUID: 446p2VnZdW2QnVwf1GYaX0Ns3RvWEy7s
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzIzMDAyOCBTYWx0ZWRfX7Ntfe2Ue4TVi
- +0oAKOua1FvEfIpSy7NzOiqFEIoXpVv/jMZNyQt0ce6DLwxXkPD36kZekoVIO+92QLIezSQohk5
- TjbmSy3IFW4ulWGZq4X9RVkqzTuzf0FMehanlTXmepRsRZIASmrKySL1FsY8woRGEMwKsKmofQU
- ai2WDSJrHkPUEyKRvi5P9GkDrcBTlc10gYO4a8p/8Gw6+A6QPakc04YIGWqMFcpvCy2iUoNuoFx
- cXgx9v71X0YfLs5xHUBpbOOzUcS6QHtheOOneF8tv5/BSL+X3hsea/XUaGeniMNMtkmkPKmFa/q
- CfR64jyeL0mFPMav4vOUF2q4HBhWuHRXXPSHAG+j6Utidj/8nNuP1uu5gUyPLYRWXSIzwXSHvxu
- sitDXMuRa/mYqbCE1Aw21oWRFHCGEzAW5cgNH8rzEOBh4JNoxW/bes6Mz73CdgMHVjQf3ukTkYN
- +vQSiTwnRaie+UisZyg==
-X-Proofpoint-GUID: 446p2VnZdW2QnVwf1GYaX0Ns3RvWEy7s
+X-Proofpoint-ORIG-GUID: NqgEqKxQIJ9qEIAS6e9lTnBzkGveVaC-
+X-Proofpoint-GUID: NqgEqKxQIJ9qEIAS6e9lTnBzkGveVaC-
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
  definitions=2026-03-23_01,2026-03-20_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 clxscore=1015 phishscore=0 malwarescore=0 bulkscore=0
- impostorscore=0 suspectscore=0 spamscore=0 adultscore=0 lowpriorityscore=0
+ priorityscore=1501 adultscore=0 bulkscore=0 spamscore=0 impostorscore=0
+ malwarescore=0 phishscore=0 lowpriorityscore=0 clxscore=1015 suspectscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603230028
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -168,26 +166,15 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Mar 05, 2026 at 10:05:01AM +0100, Maxime Ripard wrote:
-> Now that we introduced a new drm_output_color_format enum to represent
-> what DRM_COLOR_FORMAT_* bits were representing, we can switch to the new
-> enum.
+On Thu, Mar 05, 2026 at 10:05:05AM +0100, Maxime Ripard wrote:
+> Now that all users of DRM_COLOR_FORMAT_* defines have been converted to
+> the new enum, we can get rid of those defines.
 > 
-> The main difference is that while DRM_COLOR_FORMAT_ was a bitmask,
-> drm_output_color_format is a proper enum. However, the enum was done is
-> such a way than DRM_COLOR_FORMAT_X = BIT(DRM_OUTPUT_COLOR_FORMAT_X) so
-> the transitition is easier.
-> 
-> The only thing we need to consider is if the original code meant to use
-> that value as a bitmask, in which case we do need to keep the bit shift,
-> or as a discriminant in which case we don't.
-> 
-> Reviewed-by: Philipp Zabel <p.zabel@pengutronix.de>
 > Acked-by: Jani Nikula <jani.nikula@intel.com>
 > Signed-off-by: Maxime Ripard <mripard@kernel.org>
 > ---
->  drivers/gpu/drm/bridge/synopsys/dw-hdmi.c | 16 ++++++++--------
->  1 file changed, 8 insertions(+), 8 deletions(-)
+>  include/drm/drm_connector.h | 5 -----
+>  1 file changed, 5 deletions(-)
 > 
 
 Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
