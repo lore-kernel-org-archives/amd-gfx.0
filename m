@@ -4,57 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7A441D58CC5
-	for <amd-gfx@archiver.kernel.org>; Mon, 23 Mar 2026 04:29:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8A154D58CC5
+	for <amd-gfx@archiver.kernel.org>; Mon, 23 Mar 2026 04:29:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1D2C810E2DF;
-	Mon, 23 Mar 2026 04:29:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2BEB910E2EF;
+	Mon, 23 Mar 2026 04:29:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.b="FWc2VjGm";
+	dkim=pass (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.b="s1ZqyXO3";
 	dkim-atps=neutral
 Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
  [148.163.156.1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4C59710E2DF
- for <amd-gfx@lists.freedesktop.org>; Mon, 23 Mar 2026 04:28:59 +0000 (UTC)
-Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4996410E2EF
+ for <amd-gfx@lists.freedesktop.org>; Mon, 23 Mar 2026 04:29:03 +0000 (UTC)
+Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
  by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 62MJvLtW556595; Mon, 23 Mar 2026 04:28:57 GMT
+ 62MIeNll092005; Mon, 23 Mar 2026 04:29:01 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
  :content-transfer-encoding:date:from:in-reply-to:message-id
- :mime-version:references:subject:to; s=pp1; bh=6tlSYwsLIJCldRTAZ
- V8rItxaUUAmIpLiVrOlilIDnYs=; b=FWc2VjGmt25IhlYMkD9w8QNoCn9foohK4
- PrBlfhvmi49nZw3L7uHOvCeFBtPJ3tENhRT4fHQBV4frpGM0bnVUZFEp9PPu9d3w
- o5RaFf784JUX61nhBs2kQFwVYhoKNdpMCbpIQyKwhLm1Wm8t2YzVF1TqvSTCfZco
- 9bgUds1qooC9DGNjFFBU6izfuqGyGGG21EK9HL44d4HrwhxK1bqDFDSCw1zjrWJ4
- iFtliGm4y+Hi72wjC0XTfc4e+zweRs739LtdTpkdUYsqRCKF9MmFauxJs+6iwImi
- SIjaiqDJ+8/EEDDirTtmyHsuWWQGHCA7nnbnC6DSA3GHX453gGXcA==
-Received: from ppma11.dal12v.mail.ibm.com
- (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
- by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4d1kxq5c7x-1
+ :mime-version:references:subject:to; s=pp1; bh=KUvAry7IHrQ5VKYAc
+ 2YeBDC6Mz4A5HSHay2p0bSB0jc=; b=s1ZqyXO3OXRPyr/qHBqcPlws9i99fi9ce
+ vp0+Mkjyh++J2/MZZuTl+y2Wa8G53/aGbtQnEqQUrKa1kbgFWBfzWA8sEIEwkOEy
+ AsoAPRy7dVMk1R1yvCUhRP7FygU+iZQuRR5XQQ4pm/F5JMBFBTz1JQICPgmsymjr
+ HwQTeAuwznF5QRHvUKTuyhWze1I819a7SBTlG7QK73q/mKIZoA1PSfOMk75PQHJj
+ rQemFQiaTzQHI4ExqP7TD4l0XYNumg0jVl1wr9MG9cgVk3IArj4ky/1tbTy++XB2
+ mgtQI+fe5jwRD6r5hKqSAMgLTQqL6KO/7yeD0z+NidFl4I7SwmQIA==
+Received: from ppma23.wdc07v.mail.ibm.com
+ (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
+ by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4d1kw9nca9-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 23 Mar 2026 04:28:56 +0000 (GMT)
-Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
- by ppma11.dal12v.mail.ibm.com (8.18.1.2/8.18.1.2) with ESMTP id 62N356ji004398;
- Mon, 23 Mar 2026 04:28:55 GMT
-Received: from smtprelay02.fra02v.mail.ibm.com ([9.218.2.226])
- by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4d28c1uq02-1
+ Mon, 23 Mar 2026 04:29:00 +0000 (GMT)
+Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
+ by ppma23.wdc07v.mail.ibm.com (8.18.1.2/8.18.1.2) with ESMTP id 62N1YD5R026864;
+ Mon, 23 Mar 2026 04:28:59 GMT
+Received: from smtprelay01.fra02v.mail.ibm.com ([9.218.2.227])
+ by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4d275kkw87-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 23 Mar 2026 04:28:55 +0000
+ Mon, 23 Mar 2026 04:28:59 +0000
 Received: from smtpav06.fra02v.mail.ibm.com (smtpav06.fra02v.mail.ibm.com
  [10.20.54.105])
- by smtprelay02.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 62N4SqdP52756984
+ by smtprelay01.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 62N4Ste952166978
  (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Mon, 23 Mar 2026 04:28:52 GMT
+ Mon, 23 Mar 2026 04:28:55 GMT
 Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 135C52004D;
+ by IMSVA (Postfix) with ESMTP id 5DD3E2004D;
+ Mon, 23 Mar 2026 04:28:55 +0000 (GMT)
+Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 811B920049;
  Mon, 23 Mar 2026 04:28:52 +0000 (GMT)
-Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 7AC0320049;
- Mon, 23 Mar 2026 04:28:49 +0000 (GMT)
 Received: from li-218185cc-29b5-11b2-a85c-9a1300ae2e6e.bl1-in.ibm.com (unknown
  [9.123.6.34]) by smtpav06.fra02v.mail.ibm.com (Postfix) with ESMTP;
- Mon, 23 Mar 2026 04:28:49 +0000 (GMT)
+ Mon, 23 Mar 2026 04:28:52 +0000 (GMT)
 From: Donet Tom <donettom@linux.ibm.com>
 To: amd-gfx@lists.freedesktop.org, Felix Kuehling <Felix.Kuehling@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>,
@@ -63,10 +63,10 @@ To: amd-gfx@lists.freedesktop.org, Felix Kuehling <Felix.Kuehling@amd.com>,
 Cc: David.YatSin@amd.com, Kent.Russell@amd.com,
  Ritesh Harjani <ritesh.list@gmail.com>,
  Vaidyanathan Srinivasan <svaidy@linux.ibm.com>, donettom@linux.ibm.com
-Subject: [RESEND RFC PATCH v3 2/6] drm/amdkfd: Align expected_queue_size to
- PAGE_SIZE
-Date: Mon, 23 Mar 2026 09:58:35 +0530
-Message-ID: <1afca38f9d8b7d8ce16694f37edd006c15c9bd2c.1774239489.git.donettom@linux.ibm.com>
+Subject: [RESEND RFC PATCH v3 3/6] drm/amdgpu: Handle GPU page faults
+ correctly on non-4K page systems
+Date: Mon, 23 Mar 2026 09:58:36 +0530
+Message-ID: <1e6240945c2fcb53b6703ae62d4b36f5958ca8a6.1774239489.git.donettom@linux.ibm.com>
 X-Mailer: git-send-email 2.52.0
 In-Reply-To: <cover.1774239489.git.donettom@linux.ibm.com>
 References: <cover.1774239489.git.donettom@linux.ibm.com>
@@ -74,29 +74,28 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-TM-AS-GCONF: 00
 X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-ORIG-GUID: IRebVLKp7L-4xGOTryYGTKMFoFyJlMtM
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzIzMDAzMCBTYWx0ZWRfX0rQKbjZpFBwQ
- 6LEjDGxtsso9iiK8gFBeAgM+TzufS+AI94YAfulA4gCS5hsvftEywaRXXVQl+KhDV4sKvJwfV8r
- ikioyrTPtae5Wa0d7D4BxIv8+KClAyYQKO5/CHswh8aKP+sI0uI+8UZetx8oZecEkAoUk0Fxk8b
- dm+9rdp0xxKNWaMm6g/xPh4+gGGL8WRLgUDxvq6oKZBzgYlOxrvXGAYzvkVb0iSxBDcXwpSx1BA
- 87L3raB5O43Cv57UpE6lOypAIdIRqD4sx0AP+77M40lO3Hn0g/owCUHZ2m/F2sxETBiariTLEMB
- aydDj8njg/v9PChQfQ05rxtP5Ehr1Nr9x65R6KMYNiWYMsL6ruID2KtdRQxxHoTWbY16h1Mi9sd
- pz+S0KwxBti7wBJSJDIaWZhdzL8nUAZTREatO66rgfvOhbqjpi8BkFTbi2OqTP8Dc/MaIMhnS5I
- wvoQHybUuou6ERFzRqA==
-X-Authority-Analysis: v=2.4 cv=bLEb4f+Z c=1 sm=1 tr=0 ts=69c0c189 cx=c_pps
- a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
+X-Proofpoint-ORIG-GUID: L0WYAQIBd2i93eoeqv0fP5TDqHL6_1Qm
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzIzMDAzMCBTYWx0ZWRfX1+IZqIpDcjhL
+ 0r7yyd8r+iPGxSmWm9WdznU0gAhjBDKPn4PTXGlEzY3ywsxAZVBw4P3qXJWlTEwKMkL0wmxFjDb
+ 44e/b25T+5u/7IRuHX/Im3HXQfhszCS7rAlU+pj0XK/iieSsZv+5TIyzWD/+QdF8KvbyXA9VopR
+ Kbp/hnqnAr6fOdGxvicX+r5q3GOaLwV46tCKvflMT6uzGuG0BQrSfkgy0D2darPihQsJuLhjgtl
+ gSTKzFNayNvKMQWH2ybuyVsEvi6lk+wXiE+8lcVlo3GiMwU+AK/VB988f3R3P5oSL3gGzsFsQAN
+ C9iTztkTM4d0XBT5MFn4xOdDime3ae2pTm4HneyQ04z8zK0x5+5wy11uVP7g9m/iWRxNnZOcict
+ YQDlqzBZrl/kDFP2H2njkSGSLQY3dnBoo3L1RqCOE0/LRrWMblpQWUr4bmgBKTX6/MxTIJ9TmeN
+ Gqe8UnL5lws2DuQNauQ==
+X-Proofpoint-GUID: jLNmss5-Iq4VeZzJNycGhzFH8mvUhFeh
+X-Authority-Analysis: v=2.4 cv=OsZCCi/t c=1 sm=1 tr=0 ts=69c0c18d cx=c_pps
+ a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
  a=Yq5XynenixoA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=iQ6ETzBq9ecOQQE5vZCe:22 a=VnNF1IyMAAAA:8 a=qkJDUqGYG33CgAXL-3sA:9
-X-Proofpoint-GUID: 9nqWJzwhLateKqC7eo9Pid5Dd0zz21T1
+ a=U7nrCbtTmkRpXpFmAIza:22 a=VnNF1IyMAAAA:8 a=gKbHINidcilSpodcztQA:9
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
  definitions=2026-03-23_01,2026-03-20_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 adultscore=0 clxscore=1015 phishscore=0 impostorscore=0
- malwarescore=0 lowpriorityscore=0 suspectscore=0 bulkscore=0
- priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2603050001
- definitions=main-2603230030
+ impostorscore=0 adultscore=0 clxscore=1015 phishscore=0 suspectscore=0
+ lowpriorityscore=0 priorityscore=1501 bulkscore=0 spamscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603230030
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,36 +110,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The AQL queue size can be 4K, but the minimum buffer object (BO)
-allocation size is PAGE_SIZE. On systems with a page size larger
-than 4K, the expected queue size does not match the allocated BO
-size, causing queue creation to fail.
+During a GPU page fault, the driver restores the SVM range and then maps it
+into the GPU page tables. The current implementation passes a GPU-page-size
+(4K-based) PFN to svm_range_restore_pages() to restore the range.
 
-Align the expected queue size to PAGE_SIZE so that it matches the
-allocated BO size and allows queue creation to succeed.
+SVM ranges are tracked using system-page-size PFNs. On systems where the
+system page size is larger than 4K, using GPU-page-size PFNs to restore the
+range causes two problems:
+
+Range lookup fails:
+Because the restore function receives PFNs in GPU (4K) units, the SVM
+range lookup does not find the existing range. This will result in a
+duplicate SVM range being created.
+
+VMA lookup failure:
+The restore function also tries to locate the VMA for the faulting address.
+It converts the GPU-page-size PFN into an address using the system page
+size, which results in an incorrect address on non-4K page-size systems.
+As a result, the VMA lookup fails with the message: "address 0xxxx VMA is
+removed".
+
+This patch passes the system-page-size PFN to svm_range_restore_pages() so
+that the SVM range is restored correctly on non-4K page systems.
 
 Signed-off-by: Donet Tom <donettom@linux.ibm.com>
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_queue.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_queue.c b/drivers/gpu/drm/amd/amdkfd/kfd_queue.c
-index d1978e3f68be..572b21e39e83 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_queue.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_queue.c
-@@ -249,10 +249,10 @@ int kfd_queue_acquire_buffers(struct kfd_process_device *pdd, struct queue_prope
- 	    topo_dev->node_props.gfx_target_version < 90000)
- 		/* metadata_queue_size not supported on GFX7/GFX8 */
- 		expected_queue_size =
--			properties->queue_size / 2;
-+			PAGE_ALIGN(properties->queue_size / 2);
- 	else
- 		expected_queue_size =
--			properties->queue_size + properties->metadata_queue_size;
-+			PAGE_ALIGN(properties->queue_size + properties->metadata_queue_size);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+index 6a2ea200d90c..7a3cb0057ac5 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+@@ -2985,14 +2985,14 @@ bool amdgpu_vm_handle_fault(struct amdgpu_device *adev, u32 pasid,
+ 	if (!root)
+ 		return false;
  
- 	vm = drm_priv_to_vm(pdd->drm_priv);
- 	err = amdgpu_bo_reserve(vm->root.bo, false);
+-	addr /= AMDGPU_GPU_PAGE_SIZE;
+-
+ 	if (is_compute_context && !svm_range_restore_pages(adev, pasid, vmid,
+-	    node_id, addr, ts, write_fault)) {
++	    node_id, addr >> PAGE_SHIFT, ts, write_fault)) {
+ 		amdgpu_bo_unref(&root);
+ 		return true;
+ 	}
+ 
++	addr /= AMDGPU_GPU_PAGE_SIZE;
++
+ 	r = amdgpu_bo_reserve(root, true);
+ 	if (r)
+ 		goto error_unref;
 -- 
 2.52.0
 
