@@ -4,58 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D2E12D58CBE
-	for <amd-gfx@archiver.kernel.org>; Mon, 23 Mar 2026 04:29:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0AC7FD58CC5
+	for <amd-gfx@archiver.kernel.org>; Mon, 23 Mar 2026 04:29:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 728FD10E2FA;
-	Mon, 23 Mar 2026 04:29:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7A1EA10E2FF;
+	Mon, 23 Mar 2026 04:29:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.b="XFI+fxxs";
+	dkim=pass (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.b="VT7ywpEP";
 	dkim-atps=neutral
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 35AD710E2FA
- for <amd-gfx@lists.freedesktop.org>; Mon, 23 Mar 2026 04:29:05 +0000 (UTC)
-Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7CF4E10E2FD
+ for <amd-gfx@lists.freedesktop.org>; Mon, 23 Mar 2026 04:29:08 +0000 (UTC)
+Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
  by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 62MNhBhH665898; Mon, 23 Mar 2026 04:29:03 GMT
+ 62MEHOSm3820072; Mon, 23 Mar 2026 04:29:06 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
  :content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=pp1; bh=19+jLy
- Qm4zvsV2sS5egiKao0eNycbroVcOHWTBRuZDc=; b=XFI+fxxsxHrkfI5vZr5pjX
- Mes3kDgSYueJlBXszOPRxhtOrRbHO2Gsh8PbsBV0PtFdEsMayp8Q5yB2pKBDbCjA
- a4kjQgJLhfpqPvf2Drv+4v78xA4UklVB7kHmRlxWCRESoVl7nbuuSuNRifjziv6s
- i1uiLobsZff2SgGWHN1vLCwyaaRLKhb/zHHfA4c7skwJ6XbUbMTL3ZeVSg2ENa+m
- bZI0MVtI9GmTDwmZaBcNbcDacthB4jUxL5PZ6DBrOLCkmFDYfyrZ/nkYVHN80Hh2
- ZEaGA6gLI9Tg1q/2WrLx78ZmXJdxPGoxdD0oKbxKGf2niJBfYX0ovEs+/MNV6Rgw
+ :message-id:mime-version:references:subject:to; s=pp1; bh=5GQwrX
+ SOZnh7eQFnLSl3+xAn0sbH1kDU2ESubo13hkQ=; b=VT7ywpEP/+GeB2ocSFmnQ/
+ 6PCXOwRpUsmTbL4lTUwEvzJtQwasffRSwIMeaYmvgxcMuiLuFkHcL+B5cjYfF7xe
+ xrm4uqFb0+63JeTdWjf62SkK5FaGNejNWAR2daRi5evOlu48x4iMa7yEzGcED6g/
+ lOa2Zer2CCqpZDCFPXH3hqrI/bJEIOq4uy/T0sVvjsU5BK+9q1OO0nFGlNP/QnXt
+ a8Me15XCsBTinyYwozkbhqoAvLevpmEocNbT4avHEqBZGPshIShDeU2/gtJ+XxIA
+ l9J+Fp/U6/+Z85fEtqR9ddiTegUoZofLr+F5mgrZz9FAqmngM1iipavzxtJrgoSA
  ==
-Received: from ppma12.dal12v.mail.ibm.com
- (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
- by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4d1kw9ncas-1
+Received: from ppma13.dal12v.mail.ibm.com
+ (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
+ by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4d1ktun4dq-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 23 Mar 2026 04:29:02 +0000 (GMT)
-Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
- by ppma12.dal12v.mail.ibm.com (8.18.1.2/8.18.1.2) with ESMTP id 62N13JNb031583;
- Mon, 23 Mar 2026 04:29:02 GMT
-Received: from smtprelay06.fra02v.mail.ibm.com ([9.218.2.230])
- by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4d25nsm3rx-1
+ Mon, 23 Mar 2026 04:29:05 +0000 (GMT)
+Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
+ by ppma13.dal12v.mail.ibm.com (8.18.1.2/8.18.1.2) with ESMTP id 62N2MD5x012185;
+ Mon, 23 Mar 2026 04:29:05 GMT
+Received: from smtprelay04.fra02v.mail.ibm.com ([9.218.2.228])
+ by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4d27vjusp3-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 23 Mar 2026 04:29:01 +0000
+ Mon, 23 Mar 2026 04:29:04 +0000
 Received: from smtpav06.fra02v.mail.ibm.com (smtpav06.fra02v.mail.ibm.com
  [10.20.54.105])
- by smtprelay06.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 62N4SwfB29229476
+ by smtprelay04.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 62N4T1MY30868198
  (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Mon, 23 Mar 2026 04:28:58 GMT
+ Mon, 23 Mar 2026 04:29:01 GMT
 Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 56C042004D;
+ by IMSVA (Postfix) with ESMTP id 481472004E;
+ Mon, 23 Mar 2026 04:29:01 +0000 (GMT)
+Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id B9B4420049;
  Mon, 23 Mar 2026 04:28:58 +0000 (GMT)
-Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id C10FD20049;
- Mon, 23 Mar 2026 04:28:55 +0000 (GMT)
 Received: from li-218185cc-29b5-11b2-a85c-9a1300ae2e6e.bl1-in.ibm.com (unknown
  [9.123.6.34]) by smtpav06.fra02v.mail.ibm.com (Postfix) with ESMTP;
- Mon, 23 Mar 2026 04:28:55 +0000 (GMT)
+ Mon, 23 Mar 2026 04:28:58 +0000 (GMT)
 From: Donet Tom <donettom@linux.ibm.com>
 To: amd-gfx@lists.freedesktop.org, Felix Kuehling <Felix.Kuehling@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>,
@@ -64,10 +64,10 @@ To: amd-gfx@lists.freedesktop.org, Felix Kuehling <Felix.Kuehling@amd.com>,
 Cc: David.YatSin@amd.com, Kent.Russell@amd.com,
  Ritesh Harjani <ritesh.list@gmail.com>,
  Vaidyanathan Srinivasan <svaidy@linux.ibm.com>, donettom@linux.ibm.com
-Subject: [RESEND RFC PATCH v3 4/6] drm/amdgpu: Fix
- AMDGPU_GTT_MAX_TRANSFER_SIZE for non-4K page size
-Date: Mon, 23 Mar 2026 09:58:37 +0530
-Message-ID: <5c4031f2858c8591f4881bfab26a2fa3edfa9be6.1774239489.git.donettom@linux.ibm.com>
+Subject: [RESEND RFC PATCH v3 5/6] drm/amd: Fix MQD and control stack
+ alignment for non-4K
+Date: Mon, 23 Mar 2026 09:58:38 +0530
+Message-ID: <d4b7297891badff6bc6030c71e51dddc27c54451.1774239489.git.donettom@linux.ibm.com>
 X-Mailer: git-send-email 2.52.0
 In-Reply-To: <cover.1774239489.git.donettom@linux.ibm.com>
 References: <cover.1774239489.git.donettom@linux.ibm.com>
@@ -76,27 +76,28 @@ Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-TM-AS-GCONF: 00
 X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-ORIG-GUID: c8AbsyQNd-tZfjW_GXqzv6oiTgfGk2xo
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzIzMDAzMCBTYWx0ZWRfX+8Wuipo1447Q
- 2vTd8otAaty9a7Jr2zm5c3QUL8pj77Jeu0HF4dkazOmKhk0VVm3ZtazOsagBjoZtri9h1gkyXjR
- 4PyH/ZuZ3diahkircB5FegMbC24q+9JW72PQWFTRDNGdGcU0/k6eX/4UEeaJDu+FVxEnQfDmbax
- rC6MLFul44APrsfhWWpZg9jZ6RAJriDL71Hlg96zUPOxXzUEEuPQwsTes/+Oas4CrSFlLZVXT0M
- H2MABmgjbtxDblL1s9AzAW1cOqEsWOEGW1/RwbmWaovXDPYup8S1Qv2YBfcC4CE2U8MO0Xw/H1L
- F3uYrW/HR52fdPTwoi4nuQchT5JKr7cgRDVBd/AbDccRGez6P1H/0KCJWom7i+QSUpO2NJx1BBI
- LzQ60FMSwDsPJxUzv9Rbr0VL93YllzY+MR9D2U5sCemp6rD4h6xVRvSe505WrfnnofPBpjeFS2O
- 4h2oScLzzB/9dIBubpQ==
-X-Proofpoint-GUID: 9oGsWDvhp09vjOMy0uOIwUIUVdxZ0cot
-X-Authority-Analysis: v=2.4 cv=OsZCCi/t c=1 sm=1 tr=0 ts=69c0c18f cx=c_pps
- a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
+X-Proofpoint-ORIG-GUID: o5AVjIYEHcP0FSR0eGC6m18mJsauMxCn
+X-Authority-Analysis: v=2.4 cv=aMr9aL9m c=1 sm=1 tr=0 ts=69c0c192 cx=c_pps
+ a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
  a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=U7nrCbtTmkRpXpFmAIza:22 a=VnNF1IyMAAAA:8
- a=8OR251-K1x8n-3lZjzsA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=RnoormkPH1_aCDwRdu11:22 a=Y2IxJ9c9Rs8Kov3niI8_:22 a=P-IC7800AAAA:8
+ a=VnNF1IyMAAAA:8 a=-1EX8FYKhcfrhsM7lu0A:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=d3PnA9EDa4IxuAV0gXij:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzIzMDAzMCBTYWx0ZWRfX7sXoMRnKXX/y
+ d8qvbkwa+U0SmegUm9keysnc5/EKyyisPRqfCknkT+qWTOXsynKDzuX+qXNegsIIUtlSqDyozL3
+ pyUu6FQxfTIuJCKzbmpsrMvQ+7gia82wVVM9a7NIvd5qBcEk9Oz/SbZ1mZoZU1tRDo1Jxy/A0Jn
+ oADkFtIZsGhLClnfDZtn2AzWpe8R6QTQevpoCuok/sAd6uuUVYD4anKrSPmUGpxk9UFZ6hRbYoS
+ nmSaqCeNc2h0U0k7zoJkwS/vn8U06yayhPUrS7TfsSD28cXX2G2YJY6DVVh3bJfJlYBGN3crBzU
+ d9phEkZL4vFr6aDEaCVz+LLHlRzN+QYfYENDR+hpvJcYUeKpWPhW+TdVoaDXXx13TrJdg88L0Yr
+ HxDDYIkK7HgMsMoZ8D/R3Wf/PSLzbsVE3g6xK6TWXo3F5EJsd7CulAb4C7wQx1yPenJb0oyLy+z
+ pCM0B1BufOoycHyNJ+Q==
+X-Proofpoint-GUID: VBTdKC52ayXIfE-KVWoE_YXQMHpGGTNy
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
  definitions=2026-03-23_01,2026-03-20_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 adultscore=0 clxscore=1015 phishscore=0 suspectscore=0
- lowpriorityscore=0 priorityscore=1501 bulkscore=0 spamscore=0 malwarescore=0
+ spamscore=0 lowpriorityscore=0 adultscore=0 impostorscore=0 malwarescore=0
+ suspectscore=0 phishscore=0 priorityscore=1501 bulkscore=0 clxscore=1015
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603230030
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -113,113 +114,203 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-AMDGPU_GTT_MAX_TRANSFER_SIZE represented the maximum number of
-system-page-sized pages that could be transferred in a single
-operation. The effective maximum transfer size was intended to be
-one PMD-sized mapping.
+For gfxV9, due to a hardware bug ("based on the comments in the code
+here [1]"), the control stack of a user-mode compute queue must be
+allocated immediately after the page boundary of its regular MQD buffer.
+To handle this, we allocate an enlarged MQD buffer where the first page
+is used as the MQD and the remaining pages store the control stack.
+Although these regions share the same BO, they require different memory
+types: the MQD must be UC (uncached), while the control stack must be
+NC (non-coherent), matching the behavior when the control stack is
+allocated in user space.
 
-In the existing code, AMDGPU_GTT_MAX_TRANSFER_SIZE was hard-coded
-to 512 pages. This corresponded to 2 MB on 4 KB page-size systems,
-matching the PMD size. However, on systems with a non-4 KB page
-size, this value no longer matched the PMD size.
+This logic works correctly on systems where the CPU page size matches
+the GPU page size (4K). However, the current implementation aligns both
+the MQD and the control stack to the CPU PAGE_SIZE. On systems with a
+larger CPU page size, the entire first CPU page is marked UC—even though
+that page may contain multiple GPU pages. The GPU treats the second 4K
+GPU page inside that CPU page as part of the control stack, but it is
+incorrectly mapped as UC.
 
-This patch changed the calculation of AMDGPU_GTT_MAX_TRANSFER_SIZE
-to derive it from PMD_SHIFT and PAGE_SHIFT, ensuring that the
-maximum transfer size remained PMD-sized across all system page
-sizes.
+This patch fixes the issue by aligning both the MQD and control stack
+sizes to the GPU page size (4K). The first 4K page is correctly marked
+as UC for the MQD, and the remaining GPU pages are marked NC for the
+control stack. This ensures proper memory type assignment on systems
+with larger CPU page sizes.
 
-Additionally, in some places, AMDGPU_GTT_MAX_TRANSFER_SIZE was
-implicitly assumed to be based on 4 KB pages. This resulted in
-incorrect address offset calculations. This patch updated the
-address calculations to correctly handle non-4 KB system page
-sizes as well.
-
-amdgpu_ttm_map_buffer() can create both GTT GART entries and
-VRAM GART entries. For GTT mappings, amdgpu_gart_map() takes
-system page–sized PFNs, and the mappings are created correctly.
-
-However, for VRAM GART mappings, amdgpu_gart_map_vram_range() expects
-GPU page–sized PFNs, but CPU page–sized PFNs were being passed,
-resulting in incorrect mappings.
-
-This patch updates the code to pass GPU page–sized PFNs to
-amdgpu_gart_map_vram_range(), ensuring that VRAM GART mappings are
-created correctly.
+[1]: https://elixir.bootlin.com/linux/v6.18/source/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c#L118
 
 Signed-off-by: Donet Tom <donettom@linux.ibm.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 8 +++++---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h | 2 +-
- drivers/gpu/drm/amd/amdgpu/vce_v1_0.c   | 3 ++-
- 3 files changed, 8 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c      | 44 +++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gart.h      |  2 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c       | 16 ++-----
+ .../gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c   | 23 ++++++----
+ 4 files changed, 64 insertions(+), 21 deletions(-)
 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c
+index ec911dce345f..4d884180cf61 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c
+@@ -403,6 +403,50 @@ void amdgpu_gart_map_vram_range(struct amdgpu_device *adev, uint64_t pa,
+ 	drm_dev_exit(idx);
+ }
+ 
++/**
++ * amdgpu_gart_map_gfx9_mqd - map mqd and ctrl_stack dma_addresses into GART entries
++ *
++ * @adev: amdgpu_device pointer
++ * @offset: offset into the GPU's gart aperture
++ * @pages: number of pages to bind
++ * @dma_addr: DMA addresses of pages
++ * @flags: page table entry flags
++ *
++ * Map the MQD and control stack addresses into GART entries with the correct
++ * memory types on gfxv9. The MQD occupies the first 4KB and is followed by
++ * the control stack. The MQD uses UC (uncached) memory, while the control stack
++ * uses NC (non-coherent) memory.
++ */
++void amdgpu_gart_map_gfx9_mqd(struct amdgpu_device *adev, uint64_t offset,
++			int pages, dma_addr_t *dma_addr, uint64_t flags)
++{
++	uint64_t page_base;
++	unsigned int i, j, t;
++	int idx;
++	uint64_t ctrl_flags = AMDGPU_PTE_MTYPE_VG10(flags, AMDGPU_MTYPE_NC);
++	void *dst;
++
++	if (!adev->gart.ptr)
++		return;
++
++	if (!drm_dev_enter(adev_to_drm(adev), &idx))
++		return;
++
++	t = offset / AMDGPU_GPU_PAGE_SIZE;
++	dst = adev->gart.ptr;
++	for (i = 0; i < pages; i++) {
++		page_base = dma_addr[i];
++		for (j = 0; j < AMDGPU_GPU_PAGES_IN_CPU_PAGE; j++, t++) {
++			if ((i == 0) && (j == 0))
++				amdgpu_gmc_set_pte_pde(adev, dst, t, page_base, flags);
++			else
++				amdgpu_gmc_set_pte_pde(adev, dst, t, page_base, ctrl_flags);
++			page_base += AMDGPU_GPU_PAGE_SIZE;
++		}
++	}
++	drm_dev_exit(idx);
++}
++
+ /**
+  * amdgpu_gart_bind - bind pages into the gart page table
+  *
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.h
+index d3118275ddae..6ebd2da32ea6 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.h
+@@ -62,6 +62,8 @@ void amdgpu_gart_unbind(struct amdgpu_device *adev, uint64_t offset,
+ void amdgpu_gart_map(struct amdgpu_device *adev, uint64_t offset,
+ 		     int pages, dma_addr_t *dma_addr, uint64_t flags,
+ 		     void *dst);
++void amdgpu_gart_map_gfx9_mqd(struct amdgpu_device *adev, uint64_t offset,
++			int pages, dma_addr_t *dma_addr, uint64_t flags);
+ void amdgpu_gart_bind(struct amdgpu_device *adev, uint64_t offset,
+ 		      int pages, dma_addr_t *dma_addr, uint64_t flags);
+ void amdgpu_gart_map_vram_range(struct amdgpu_device *adev, uint64_t pa,
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-index 15d561e3d87f..67983955a124 100644
+index 67983955a124..e086eb1d2b24 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-@@ -204,7 +204,7 @@ static int amdgpu_ttm_map_buffer(struct amdgpu_ttm_buffer_entity *entity,
- 	int r;
+@@ -855,25 +855,15 @@ static void amdgpu_ttm_gart_bind_gfx9_mqd(struct amdgpu_device *adev,
+ 	int num_xcc = max(1U, adev->gfx.num_xcc_per_xcp);
+ 	uint64_t page_idx, pages_per_xcc;
+ 	int i;
+-	uint64_t ctrl_flags = AMDGPU_PTE_MTYPE_VG10(flags, AMDGPU_MTYPE_NC);
  
- 	BUG_ON(adev->mman.buffer_funcs->copy_max_bytes <
--	       AMDGPU_GTT_MAX_TRANSFER_SIZE * 8);
-+	       AMDGPU_GTT_MAX_TRANSFER_SIZE * AMDGPU_GPU_PAGES_IN_CPU_PAGE * 8);
+ 	pages_per_xcc = total_pages;
+ 	do_div(pages_per_xcc, num_xcc);
  
- 	if (WARN_ON(mem->mem_type == AMDGPU_PL_PREEMPT))
- 		return -EINVAL;
-@@ -230,7 +230,7 @@ static int amdgpu_ttm_map_buffer(struct amdgpu_ttm_buffer_entity *entity,
- 
- 	*addr = adev->gmc.gart_start;
- 	*addr += (u64)window * AMDGPU_GTT_MAX_TRANSFER_SIZE *
--		AMDGPU_GPU_PAGE_SIZE;
-+		AMDGPU_GPU_PAGES_IN_CPU_PAGE * AMDGPU_GPU_PAGE_SIZE;
- 	*addr += offset;
- 
- 	num_dw = ALIGN(adev->mman.buffer_funcs->copy_num_dw, 8);
-@@ -248,7 +248,8 @@ static int amdgpu_ttm_map_buffer(struct amdgpu_ttm_buffer_entity *entity,
- 	src_addr += job->ibs[0].gpu_addr;
- 
- 	dst_addr = amdgpu_bo_gpu_offset(adev->gart.bo);
--	dst_addr += window * AMDGPU_GTT_MAX_TRANSFER_SIZE * 8;
-+	dst_addr += window * AMDGPU_GTT_MAX_TRANSFER_SIZE *
-+		AMDGPU_GPU_PAGES_IN_CPU_PAGE * 8;
- 	amdgpu_emit_copy_buffer(adev, &job->ibs[0], src_addr,
- 				dst_addr, num_bytes, 0);
- 
-@@ -266,6 +267,7 @@ static int amdgpu_ttm_map_buffer(struct amdgpu_ttm_buffer_entity *entity,
- 	} else {
- 		u64 pa = mm_cur->start + adev->vm_manager.vram_base_offset;
- 
-+		num_pages *= AMDGPU_GPU_PAGES_IN_CPU_PAGE;
- 		amdgpu_gart_map_vram_range(adev, pa, 0, num_pages, flags, cpu_addr);
+ 	for (i = 0, page_idx = 0; i < num_xcc; i++, page_idx += pages_per_xcc) {
+-		/* MQD page: use default flags */
+-		amdgpu_gart_bind(adev,
++		amdgpu_gart_map_gfx9_mqd(adev,
+ 				gtt->offset + (page_idx << PAGE_SHIFT),
+-				1, &gtt->ttm.dma_address[page_idx], flags);
+-		/*
+-		 * Ctrl pages - modify the memory type to NC (ctrl_flags) from
+-		 * the second page of the BO onward.
+-		 */
+-		amdgpu_gart_bind(adev,
+-				gtt->offset + ((page_idx + 1) << PAGE_SHIFT),
+-				pages_per_xcc - 1,
+-				&gtt->ttm.dma_address[page_idx + 1],
+-				ctrl_flags);
++				pages_per_xcc, &gtt->ttm.dma_address[page_idx],
++				flags);
  	}
+ }
  
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-index 143201ecea3f..15aff225af1d 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-@@ -38,7 +38,7 @@
- #define AMDGPU_PL_MMIO_REMAP	(TTM_PL_PRIV + 5)
- #define __AMDGPU_PL_NUM	(TTM_PL_PRIV + 6)
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
+index dcf4bbfa641b..ff0e483514da 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
+@@ -42,9 +42,16 @@ static uint64_t mqd_stride_v9(struct mqd_manager *mm,
+ 				struct queue_properties *q)
+ {
+ 	if (mm->dev->kfd->cwsr_enabled &&
+-	    q->type == KFD_QUEUE_TYPE_COMPUTE)
+-		return ALIGN(q->ctl_stack_size, PAGE_SIZE) +
+-			ALIGN(sizeof(struct v9_mqd), PAGE_SIZE);
++	    q->type == KFD_QUEUE_TYPE_COMPUTE) {
++
++		/* On gfxv9, the MQD resides in the first 4K page,
++		 * followed by the control stack. Align both to
++		 * AMDGPU_GPU_PAGE_SIZE to maintain the required 4K boundary.
++		 */
++
++		return ALIGN(ALIGN(q->ctl_stack_size, AMDGPU_GPU_PAGE_SIZE) +
++			ALIGN(sizeof(struct v9_mqd), AMDGPU_GPU_PAGE_SIZE), PAGE_SIZE);
++	}
  
--#define AMDGPU_GTT_MAX_TRANSFER_SIZE	512
-+#define AMDGPU_GTT_MAX_TRANSFER_SIZE	(1 << (PMD_SHIFT - PAGE_SHIFT))
- #define AMDGPU_GTT_NUM_TRANSFER_WINDOWS	2
+ 	return mm->mqd_size;
+ }
+@@ -148,8 +155,8 @@ static struct kfd_mem_obj *allocate_mqd(struct mqd_manager *mm,
+ 		if (!mqd_mem_obj)
+ 			return NULL;
+ 		retval = amdgpu_amdkfd_alloc_kernel_mem(node->adev,
+-			(ALIGN(q->ctl_stack_size, PAGE_SIZE) +
+-			ALIGN(sizeof(struct v9_mqd), PAGE_SIZE)) *
++			(ALIGN(ALIGN(q->ctl_stack_size, AMDGPU_GPU_PAGE_SIZE) +
++			ALIGN(sizeof(struct v9_mqd), AMDGPU_GPU_PAGE_SIZE), PAGE_SIZE)) *
+ 			NUM_XCC(node->xcc_mask),
+ 			mqd_on_vram(node->adev) ? AMDGPU_GEM_DOMAIN_VRAM :
+ 						  AMDGPU_GEM_DOMAIN_GTT,
+@@ -357,7 +364,7 @@ static int get_wave_state(struct mqd_manager *mm, void *mqd,
+ 	struct kfd_context_save_area_header header;
  
- extern const struct attribute_group amdgpu_vram_mgr_attr_group;
-diff --git a/drivers/gpu/drm/amd/amdgpu/vce_v1_0.c b/drivers/gpu/drm/amd/amdgpu/vce_v1_0.c
-index 9ae424618556..b2d4114c258c 100644
---- a/drivers/gpu/drm/amd/amdgpu/vce_v1_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vce_v1_0.c
-@@ -48,7 +48,8 @@
- #define VCE_STATUS_VCPU_REPORT_FW_LOADED_MASK	0x02
+ 	/* Control stack is located one page after MQD. */
+-	void *mqd_ctl_stack = (void *)((uintptr_t)mqd + PAGE_SIZE);
++	void *mqd_ctl_stack = (void *)((uintptr_t)mqd + AMDGPU_GPU_PAGE_SIZE);
  
- #define VCE_V1_0_GART_PAGE_START \
--	(AMDGPU_GTT_MAX_TRANSFER_SIZE * AMDGPU_GTT_NUM_TRANSFER_WINDOWS)
-+	(AMDGPU_GTT_MAX_TRANSFER_SIZE * AMDGPU_GPU_PAGES_IN_CPU_PAGE * \
-+	 AMDGPU_GTT_NUM_TRANSFER_WINDOWS)
- #define VCE_V1_0_GART_ADDR_START \
- 	(VCE_V1_0_GART_PAGE_START * AMDGPU_GPU_PAGE_SIZE)
+ 	m = get_mqd(mqd);
  
+@@ -394,7 +401,7 @@ static void checkpoint_mqd(struct mqd_manager *mm, void *mqd, void *mqd_dst, voi
+ {
+ 	struct v9_mqd *m;
+ 	/* Control stack is located one page after MQD. */
+-	void *ctl_stack = (void *)((uintptr_t)mqd + PAGE_SIZE);
++	void *ctl_stack = (void *)((uintptr_t)mqd + AMDGPU_GPU_PAGE_SIZE);
+ 
+ 	m = get_mqd(mqd);
+ 
+@@ -440,7 +447,7 @@ static void restore_mqd(struct mqd_manager *mm, void **mqd,
+ 		*gart_addr = addr;
+ 
+ 	/* Control stack is located one page after MQD. */
+-	ctl_stack = (void *)((uintptr_t)*mqd + PAGE_SIZE);
++	ctl_stack = (void *)((uintptr_t)*mqd + AMDGPU_GPU_PAGE_SIZE);
+ 	memcpy(ctl_stack, ctl_stack_src, ctl_stack_size);
+ 
+ 	m->cp_hqd_pq_doorbell_control =
 -- 
 2.52.0
 
