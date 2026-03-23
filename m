@@ -4,103 +4,97 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 68F29D58B00
-	for <amd-gfx@archiver.kernel.org>; Mon, 23 Mar 2026 06:07:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C0B97D58CDC
+	for <amd-gfx@archiver.kernel.org>; Mon, 23 Mar 2026 06:19:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E67D910E058;
-	Mon, 23 Mar 2026 06:07:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3D87E10E049;
+	Mon, 23 Mar 2026 06:19:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="5apnPsub";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="cGWW7Ruj";
 	dkim-atps=neutral
-Received: from CH4PR04CU002.outbound.protection.outlook.com
- (mail-northcentralusazon11013018.outbound.protection.outlook.com
- [40.107.201.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A7DC110E058
- for <amd-gfx@lists.freedesktop.org>; Mon, 23 Mar 2026 06:07:13 +0000 (UTC)
+Received: from CO1PR03CU002.outbound.protection.outlook.com
+ (mail-westus2azon11010069.outbound.protection.outlook.com [52.101.46.69])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EE26810E049
+ for <amd-gfx@lists.freedesktop.org>; Mon, 23 Mar 2026 06:19:31 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=JuujIb+8OfHyolk2m9CNxjeLiLSob5PJr1ONd36IDKrslnBP6bE6WfmoevuKOILLXO8rD3SPaeuP8mOCT4i9mE3QlRdH1ahpIc7JR+zfSCYxzvy1ROx6caWKPWMFmHX2faZZXRtCU/WvM2eGhZIujBRsTlsXIYrP5Iv4Y0zFki1lBM+ZLEvsINQ6pzc425y/XeF3XGIUya79R/t9V7EsxdwiwTNCmYNBANuavyAAIvPeNPQt4l6XLnVdp3aLybdBY4sCkJ3wXFX6VYYGhb2jprpxdiFpKAh7XhKEa1j2VN2luXxYHNkEeIwvJgwo4/fknLhxxhdjVh8LHtchhdgl4Q==
+ b=FDzPfQ77zEC5OKWhMZqvqGfCgGW9FVt9XsPbBfDcay//xSguqpTsI/B8/FxGKMBhSpeOdGB/ORxFCTPL9sQUSfnQVjQ0O9LBIEeW979NVJrYM4dkxfYCmDHjeujkSvVjAhROIygJ9SWPF6F1MwL5Kj1CzlX+2q3lS66gIxQInLwjfRvsuHXGyIM7Vrl5QeaH+g8hqUQCfIrrW7NpjGrzo5QKF4XO2XnrNGGf0bpACJ1dwSFWgqAk9zn/Fua4MN2RC7dztqt3DnNE3mI5K6vfaA/vWdMGilo+YGOIxENIqqzot6opHZRwYRd1coI53PHLrwMjdODuUVG8tI0w3fPuNQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=EA8KL0y04xOKPATYFvlh+hTwUSvFOyrOHjPsCx5eAs0=;
- b=d75Ki4dP635q4xMPuYXuc8E6kNDIa6xyd6owIkJVM5mBv/S0zUYwe5CScr/oGVrDz8KqRwQHBDITtvQB5mkTEuDtnut6dYlMQQSOD3OL84XKUZdcdA+gUxU4kdzhn/y8smyqe0iVmBSLp84U+F0MS6D4jfzNebpPtal+FeIPxcmjVddvbheVapHCFKoMz4SlCYginFXOw0L3BbkokEPgjzDu1C/Si4Jb6z4aVL2jtiHaDsJC3Ij1fBL1tOGcMWt5craFpKEtF9oS+vZf72cfLF+j5P0eCIzgqvOgsPgsIb3Fhe5oHE/Z8rh8CF2XPlCjA+Xj/Y0SnTYstcfNxCcm0g==
+ bh=zU5uEnhiTbSZYm7OXeqHrVvYlWWSReIzY4PFaL/f86Q=;
+ b=QJLvugFxNmtATy7k+ThD9gulIStobUFvePRVPjL1tIyXRROUajHYrGrwObhry+MtUbQhNKU+mqAYYeIBiIZcCo0c7FS1now8svh6iRz0vPREA6x2Y6K5tmBU/ZU8rpmgx0/RVGUWyvJWo9aYM5F1iZXdzpW0ScGsIfsjc13EHJsrwMXycMUv3MbraYsjJE+ylWaG1v2BUXOWiAAAf4gZorDDvQhNAzBk2GYV7fFHVizBluaDEXByAjLIofLkq5T3KHY+mE0Nj7CA2R0mSj5HzSzCJSyOCDKWqGFKcayETtZdzUOZQ8uyzO+JOLjgMpo5Gc4LlQiNohSV4zMsX6W55w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=EA8KL0y04xOKPATYFvlh+hTwUSvFOyrOHjPsCx5eAs0=;
- b=5apnPsubA0AYXXpCoWSN66xN8TS454hBy/ICZ8S2yy1DSXPRv2BYVNuPcVLBCtGaUf4/eYsAFCUwFo4IfnjNkxHXejoPOxuHmsY1rvRd3gn3EeXdZhS1HvA/fVpXS8WBjmmV8tec8XZa7ThgTkW2zXwHo1t74ygLwnZpt/UZcGY=
-Received: from PH8PR07CA0038.namprd07.prod.outlook.com (2603:10b6:510:2cf::18)
- by LV3PR12MB9439.namprd12.prod.outlook.com (2603:10b6:408:20e::16)
+ bh=zU5uEnhiTbSZYm7OXeqHrVvYlWWSReIzY4PFaL/f86Q=;
+ b=cGWW7RujUBdt7X+vWBT2EbH1ow2CD0SYTGZrT1XEVfsWi9qe1W8jWximBTj32403Q7uVFzqWTS/qnnH/4NSJQbA2UvQpBap9iGhfvXTDjJnxa59hD4M+fovSlkU7sWcNvgJXH+FyQ3fXbVatRzjRoG42ALAg9Ari/ZkYseGg0mY=
+Received: from BN9PR03CA0665.namprd03.prod.outlook.com (2603:10b6:408:10e::10)
+ by PH7PR12MB6810.namprd12.prod.outlook.com (2603:10b6:510:1b4::12)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.20; Mon, 23 Mar
- 2026 06:07:09 +0000
-Received: from CY4PEPF0000EE3A.namprd03.prod.outlook.com
- (2603:10b6:510:2cf:cafe::f9) by PH8PR07CA0038.outlook.office365.com
- (2603:10b6:510:2cf::18) with Microsoft SMTP Server (version=TLS1_3,
+ 2026 06:19:25 +0000
+Received: from BN2PEPF000044A2.namprd02.prod.outlook.com
+ (2603:10b6:408:10e:cafe::e2) by BN9PR03CA0665.outlook.office365.com
+ (2603:10b6:408:10e::10) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.20.9723.31 via Frontend Transport; Mon,
- 23 Mar 2026 06:07:06 +0000
+ 23 Mar 2026 06:19:22 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- CY4PEPF0000EE3A.mail.protection.outlook.com (10.167.242.12) with Microsoft
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BN2PEPF000044A2.mail.protection.outlook.com (10.167.243.153) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9723.19 via Frontend Transport; Mon, 23 Mar 2026 06:07:09 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.9700.17 via Frontend Transport; Mon, 23 Mar 2026 06:19:24 +0000
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Mon, 23 Mar
- 2026 01:07:09 -0500
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Mon, 23 Mar
- 2026 01:07:08 -0500
-Received: from JesseDEV.amd.com (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
- Transport; Mon, 23 Mar 2026 01:07:02 -0500
+ 2026 01:19:24 -0500
+Received: from JesseDEV.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
+ Transport; Mon, 23 Mar 2026 01:19:17 -0500
 From: Jesse.Zhang <Jesse.Zhang@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <Alexander.Deucher@amd.com>, Christian Koenig <christian.koenig@amd.com>, 
  <lijo.lazar@amd.com>, Jesse.Zhang <Jesse.Zhang@amd.com>, Jesse Zhang
  <jesse.zhang@amd.com>
-Subject: [PATCH V2] drm/amdgpu/vcn4.0.3: gate per-queue reset by PSP SOS
- program version
-Date: Mon, 23 Mar 2026 14:06:43 +0800
-Message-ID: <20260323060701.437428-1-Jesse.Zhang@amd.com>
+Subject: [PATCH V2] drm/amdgpu: guard atom_context in devcoredump VBIOS dump
+Date: Mon, 23 Mar 2026 14:18:32 +0800
+Message-ID: <20260323061912.505329-1-Jesse.Zhang@amd.com>
 X-Mailer: git-send-email 2.49.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000EE3A:EE_|LV3PR12MB9439:EE_
-X-MS-Office365-Filtering-Correlation-Id: f0c91577-eada-47dd-309b-08de88a26aee
+X-MS-TrafficTypeDiagnostic: BN2PEPF000044A2:EE_|PH7PR12MB6810:EE_
+X-MS-Office365-Filtering-Correlation-Id: aad309fd-83a3-4771-4c1c-08de88a42143
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|1800799024|376014|36860700016|56012099003|18002099003;
-X-Microsoft-Antispam-Message-Info: DCC3/gnvZgH+mc1OiDN+l5pDHUbD530V63NFqugffM1OO7JhaaCOUjssmgUI4fbmRyYHZzrvNN6YzOZR+8030R9gvkz8uzFx89W1BFPwG8WuJu65Wku0ZtVe83pIjt3s7wO9WW+uvq9OMFEe0HcrKd/Hquqsb6wFqQyUIcUyKDdUaCM/Pmo8ovZKStihua2faCTHElckQ3mHNhDCbsFHfIciS/WvjJ2RQdjGrnxdmLPnFgUKRXC2eaunb9KkAnoZv9ZMNRpz9KvkKvsqpeNFwTTEJtLc6K1A0Y5HEoCGWeKKAnzK6FO3qaSlNXZpsPrUiHXCAmJqkHK723t26GET17FPXUc/qQsuIBgF8PvqgbkLZV99wH7tkxoHPjxET0+vZ6bRA/XZtIXirTN47JMVOJamuB2jMXI6Ryj76/nd4fwxkvI9q/HGvqC9Zzig29i1YBXUQO97uCAsv8DT8VYo17prgznWzJCbgIfrx4ta/FItNEWh+K+AukqZJdZZ1wgCX5OIvnHQsybqy/NqfZdHLQrmraEAxE8qPkT5Zo4+C/uAukhq5hnrURA+eJ5aQtTIlj6EP7hMzDaNE8PcnHuf9DeNicGPpfZgE15bCFmIMvvuK0w8/rv4WdmEz6Hpz4UDXM2qzQ11Lzdb7VJ4q1DNV9vJ0OZCYS6yG5svn4dyU4P1lgiSCujS0EbfXuWix7IX0ULurZ2Yv7sBsIe5oQuNfNGJSLEpZD619Mtu30LEz9CiSyDia43A1+hQ31hzdwSbqmG1IG9rwdy3kesoFPYXNg==
+ ARA:13230040|36860700016|82310400026|376014|1800799024|18002099003|56012099003;
+X-Microsoft-Antispam-Message-Info: eE6+UV9u8ZsYzYTvHvifUhKEsbvgMpkNL4GYaVJEIa0ecM03zXGpVZN+Z5vkt+5sDXQ8P5ijCcvVUDCRM8sQUfnyX80c3yYreuB6b0rmxpLTwHZ21Ny06l4CIiS3j1e51SZfKIXV85IpXoepeb5Sz9oPstumtDZ6WILNECnvNzu9T565baTghXSLCx76q0yWgjriiAWxqoDR6bzBklNpwxBpGTLWF5NGqyrmn1P6eUC3ySfnowBkwmpq0MBL+pbe61Vty14cA00//8hsxxaa3ecYg4HwtovNMuBqq4/N7fI6XXO9/7b0UN2a2sdGHUPnlBn5VIMmDUd6MWaBARde+Ku3HrqxegQqLRxOlv6HROlzreHoUurNfJ/BMF49RHXQoS8KWcxlg7qOgciYPkylSSQs2UoH2hxWilLoJYiJOtttZAqWKBCtP340fawul3D88/TuKiMwriI2UKv73w48NFJJ4nMYp4t2nZzqltmhbJPYnck2zE5a0CyYYCrJwJIZPOFasionGqgRYSeB7fGN2MD2fnuuW7DGp8uL3JwJpuoGxjkjBcMyc+GL78q0UyxJURHhhss6DK3UgBLRCihlL1jB3bdOMOcrZdq5TSvBQuySsaoMbnPN+gL+Z6HGMyEOks6oebTE0Kc0xSR+uUD5KlC3boFi+AKJ+bbkcNPqIJcR0j81smROfs2MS2+TjIJiEs0E/ePA5AA4oEj+oC94aSqAmnrUy/kg/Syw3Q4NeOy+9MbsW/LLBLae1icO3Ww/880kKgEoKXnOEkxyBIrbag==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(1800799024)(376014)(36860700016)(56012099003)(18002099003);
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700016)(82310400026)(376014)(1800799024)(18002099003)(56012099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: B2X809+OwvUrTyMp2lFU5NAvlOtlDyKL2zCnA678uIQoRaHsm6ceb3R3G75fm2KHfUCE+g8U4ikiK++GMZKb3oSXEV+2/Ob+OGzCgfrqjYtUexbwTaAaK4RQUoUVA/MnZqO87KFbMr5bWEAno+6GLhA009qd+8WsGv6xnpk59G+QoU5YIXfHlHSamjpJcSS8cQzPx++M1eYvtrkum/cVayWZZsq90l/1SUYLNTYCPdjp6dO7wjmHEWWyO+3YRy+mAzXVagcumwNb6jS6mrQ9bo+aOtfuaMkUGvsr6lRK6uvpeCdc3tRnm0es5NHyXwzvB+cdVdXNylU2vCa9BJXByc6oREEn3IsWEFzYx+CILQ1m/s5MfGgX/LX5XVdDCOlApHP/vch2OkmrXIuU7gRLotIHmxMA4hvH4DVQmV24YP45rd+TysoFYjPkP8ogeRpt
+X-MS-Exchange-AntiSpam-MessageData-0: arzYl5J8WWVTGDjtv5uoHpGjpke4e8tPUQVCKbgpUnQeOz5N9IARoKTAWjYHsbMKlEsrcJ6Si5Ht7hV+zyNFEjXxO1T6veQJX96CGcw2FX7Rku1VCs8GmYNmiBEjGiDnshcvtyZ+81tvJvfwLeracto9qytcURDoTtTg+jwP0VxlOgidyh68V/N/Jxy/y6v+59EL34ASW8Gw6HZUDPq2qpOcm9hsBxKPGEp8u+8ejob3FtaU9qxvjRGAkGfCK1AuimoZHOe5n8XaDeww4jJ4kMzIhhAURTkq8tIIR9bEz+LUY4qUyPPrJ90uXFelnDeASM2fUz9G1nAQVGSShLypqtV4+S1gbkr/pXV59G83Ow3ddLjM2bu5m5LxWxpJyJfv5wxY3+i0QztarWpES8Rx4YmRet+01WuINI6m7NyIKt2Hwj+klXMoCGed/GY6M56S
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Mar 2026 06:07:09.2866 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: f0c91577-eada-47dd-309b-08de88a26aee
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Mar 2026 06:19:24.6837 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: aad309fd-83a3-4771-4c1c-08de88a42143
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000EE3A.namprd03.prod.outlook.com
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF000044A2.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR12MB9439
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6810
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,55 +109,89 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add a PSP SOS firmware compatibility check before enabling VCN per-queue
-reset on vcn_v4_0_3.
+During GPU reset coredump generation, amdgpu_devcoredump_fw_info() unconditionally
+dereferences adev->mode_info.atom_context to print VBIOS fields. On reset/teardown
+paths this pointer can be NULL, causing a kernel page fault from the deferred
+coredump workqueue.
 
-Per review, program check is sufficient: when PSP SOS program is 0x01,
-require fw version >= 0x0036015f; otherwise allow per-queue reset.
+Fix by checking ctx before printing VBIOS fields:
 
-Suggested-by: Lijo Lazar <lijo.lazar@amd.com>
+if ctx is valid, print full VBIOS information as before;
+otherwise print a fallback line:
+vbios info       : unavailable (atom_context is NULL).
+This prevents NULL-dereference crashes while preserving coredump output.
+
+Observed page fault log:
+[  667.933329] RIP: 0010:amdgpu_devcoredump_format+0x780/0xc00 [amdgpu]
+[  667.941517] amdgpu 0002:01:00.0: Dumping IP State
+[  667.949660] Code: 8d 57 74 48 c7 c6 01 65 9f c2 48 8d 7d 98 e8 97 96 7a ff 49 8d 97 b4 00 00 00 48 c7 c6 18 65 9f c2 48 8d 7d 98 e8 80 96 7a ff <41> 8b 97 f4 00 00 00 48 c7 c6 2f 65 9f c2 48 8d 7d 98 e8 69 96 7a
+[  667.949666] RSP: 0018:ffffc9002302bd50 EFLAGS: 00010246
+[  667.949673] RAX: 0000000000000000 RBX: ffff888110600000 RCX: 0000000000000000
+[  667.949676] RDX: 000000000000a9b5 RSI: 0000000000000405 RDI: 000000000000a999
+[  667.949680] RBP: ffffc9002302be00 R08: ffffffffc09c3084 R09: ffffffffc09c3085
+[  667.949684] R10: 0000000000000000 R11: 0000000000000004 R12: 00000000000048e0
+[  667.993908] amdgpu 0002:01:00.0: Dumping IP State Completed
+[  667.994229] R13: 0000000000000025 R14: 000000000000000c R15: 0000000000000000
+[  667.994233] FS:  0000000000000000(0000) GS:ffff88c44c2c9000(0000) knlGS:0000000000000000
+[  668.000076] amdgpu 0002:01:00.0: [drm] AMDGPU device coredump file has been created
+[  668.008025] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+[  668.008030] CR2: 00000000000000f4 CR3: 000000011195f001 CR4: 0000000000770ef0
+[  668.008035] PKRU: 55555554
+[  668.008040] Call Trace:
+[  668.008045]  <TASK>
+[  668.016010] amdgpu 0002:01:00.0: [drm] Check your /sys/class/drm/card16/device/devcoredump/data
+[  668.023967]  ? srso_alias_return_thunk+0x5/0xfbef5
+[  668.023988]  ? __pfx___drm_printfn_coredump+0x10/0x10 [drm]
+[  668.031950] amdgpu 0003:01:00.0: Dumping IP State
+[  668.038159]  ? __pfx___drm_puts_coredump+0x10/0x10 [drm]
+[  668.083017] amdgpu 0003:01:00.0: Dumping IP State Completed
+[  668.083824]  amdgpu_devcoredump_deferred_work+0x26/0xc0 [amdgpu]
+[  668.086163] amdgpu 0003:01:00.0: [drm] AMDGPU device coredump file has been created
+[  668.095863]  process_scheduled_works+0xa6/0x420
+[  668.095880]  worker_thread+0x12a/0x270
+[  668.101223] amdgpu 0003:01:00.0: [drm] Check your /sys/class/drm/card24/device/devcoredump/data
+[  668.107441]  kthread+0x10d/0x230
+[  668.107451]  ? __pfx_worker_thread+0x10/0x10
+[  668.107458]  ? __pfx_kthread+0x10/0x10
+[  668.112709] amdgpu 0000:01:00.0: ring vcn_unified_1 timeout, signaled seq=9, emitted seq=10
+[  668.118630]  ret_from_fork+0x17c/0x1f0
+[  668.118640]  ? __pfx_kthread+0x10/0x10
+[  668.118647]  ret_from_fork_asm+0x1a/0x30
+
+v2: add check !adev->bios (Lijo)
+
 Signed-off-by: Jesse Zhang <jesse.zhang@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c | 19 ++++++++++++++++++-
- 1 file changed, 18 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c | 16 ++++++++++------
+ 1 file changed, 10 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
-index e78526a4e521..ff3013b97abd 100644
---- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
-@@ -134,6 +134,21 @@ static int vcn_v4_0_3_early_init(struct amdgpu_ip_block *ip_block)
- 	return 0;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c
+index bbb5afd67b49..7896ddf46ae0 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c
+@@ -192,12 +192,16 @@ static void amdgpu_devcoredump_fw_info(struct amdgpu_device *adev,
+ 	drm_printf(p, "VPE feature version: %u, fw version: 0x%08x\n",
+ 		   adev->vpe.feature_version, adev->vpe.fw_version);
+ 
+-	drm_printf(p, "\nVBIOS Information\n");
+-	drm_printf(p, "vbios name       : %s\n", ctx->name);
+-	drm_printf(p, "vbios pn         : %s\n", ctx->vbios_pn);
+-	drm_printf(p, "vbios version    : %d\n", ctx->version);
+-	drm_printf(p, "vbios ver_str    : %s\n", ctx->vbios_ver_str);
+-	drm_printf(p, "vbios date       : %s\n", ctx->date);
++	if (ctx) {
++		drm_printf(p, "\nVBIOS Information\n");
++		drm_printf(p, "vbios name       : %s\n", ctx->name);
++		drm_printf(p, "vbios pn         : %s\n", ctx->vbios_pn);
++		drm_printf(p, "vbios version    : %d\n", ctx->version);
++		drm_printf(p, "vbios ver_str    : %s\n", ctx->vbios_ver_str);
++		drm_printf(p, "vbios date       : %s\n", ctx->date);
++	} else {
++		drm_printf(p, "vbios info       : unavailable (atom_context is NULL)\n");
++	}
  }
  
-+static bool vcn_v4_0_3_is_psp_fw_reset_supported(struct amdgpu_device *adev)
-+{
-+	uint32_t fw_ver = adev->psp.sos.fw_version;
-+	uint32_t pgm = (fw_ver >> 8) & 0xFF;
-+
-+	/*
-+	 * FWDEV-159155: PSP SOS FW must be >= 0x0036015f for program 0x01
-+	 * before enabling VCN per-queue reset.
-+	 */
-+	if (pgm == 1)
-+		return fw_ver >= 0x0036015f;
-+
-+	return true;
-+}
-+
- static int vcn_v4_0_3_late_init(struct amdgpu_ip_block *ip_block)
- {
- 	struct amdgpu_device *adev = ip_block->adev;
-@@ -141,7 +156,9 @@ static int vcn_v4_0_3_late_init(struct amdgpu_ip_block *ip_block)
- 	adev->vcn.supported_reset =
- 		amdgpu_get_soft_full_reset_mask(&adev->vcn.inst[0].ring_enc[0]);
- 
--	if (amdgpu_dpm_reset_vcn_is_supported(adev) && !amdgpu_sriov_vf(adev))
-+	if (amdgpu_dpm_reset_vcn_is_supported(adev) &&
-+	    vcn_v4_0_3_is_psp_fw_reset_supported(adev) &&
-+	    !amdgpu_sriov_vf(adev))
- 		adev->vcn.supported_reset |= AMDGPU_RESET_TYPE_PER_QUEUE;
- 
- 	return 0;
+ static ssize_t
 -- 
 2.49.0
 
