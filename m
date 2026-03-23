@@ -4,65 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 02B30D58B00
-	for <amd-gfx@archiver.kernel.org>; Mon, 23 Mar 2026 12:37:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 01923FC72CA
+	for <amd-gfx@archiver.kernel.org>; Mon, 23 Mar 2026 12:37:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8B6B710E037;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 90F3F10E23D;
 	Mon, 23 Mar 2026 12:37:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="TkmCunsj";
+	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="04wGH4mC";
 	dkim-atps=neutral
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
- [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6237C10E101;
- Mon, 23 Mar 2026 12:05:42 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1774267524; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=VTXkphppy8+W88fOqN/b//QigWYt7YrMw5sKkdwsQ+8hCIIjgLpqr6AzGNmowYG/pEtf9LWmTWHXUPxec6AfCEF30IDjcPP1E3sSl8UIOdAJKmwAPdE4cH5hX3RPo3aJIVf9CTGm305SGAMLVMXOUhxm1xcKSwPGMBHzDEP6f0o=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1774267524;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=ZWv0IoWA5epHfToB99lEQCP6b+VCT7VtM2YpOFnH+XY=; 
- b=ST8RocsKlbmUeI10jofrr9ejIfOcNAlthjlbfGbcVUiySjKEdtt8rXu1W6+F2YeyA4BzpkfM346aLks8HRNGGaqDVLcAxpOdV7fzU8Lvop+mDG0V9yX2TiWo8yhQ5I2GozC2ZdSsT8GM+JDUAoJ7f9iKscnvOsvVNCeFvW3uV04=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
- dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1774267524; 
- s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
- h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:Content-Type:Message-Id:Reply-To;
- bh=ZWv0IoWA5epHfToB99lEQCP6b+VCT7VtM2YpOFnH+XY=;
- b=TkmCunsjnkukSCJYSV7hkfKe3VqHhBLsidsq8CtnXeBR+wDHi123p+FDNLNYfIpT
- zswomBM8hOnSQUHpVvAsDE1pybKN/L/VGCY+5ynFtDDu5iLQf8kzVrkA2rklsYKWnz3
- vV6yfk1obgpjKkWf88nehYID+aULrZZS6kyp6SS0=
-Received: by mx.zohomail.com with SMTPS id 1774267521930650.1010496194826;
- Mon, 23 Mar 2026 05:05:21 -0700 (PDT)
-From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- Ville =?UTF-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
- Daniel Stone <daniels@collabora.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Michel =?UTF-8?B?RMOkbnplcg==?= <michel.daenzer@mailbox.org>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, kernel@collabora.com,
- Derek Foreman <derek.foreman@collabora.com>,
- Marius Vlad <marius.vlad@collabora.com>
-Subject: Re: [PATCH v5 0/3] Add "link bpc" DRM property
-Date: Mon, 23 Mar 2026 13:05:14 +0100
-Message-ID: <5995842.DvuYhMxLoT@workhorse>
-In-Reply-To: <6baaebff-ea82-4b40-a4d9-419045526cfa@mailbox.org>
-References: <20260319-link-bpc-v5-0-5306cd04a708@collabora.com>
- <5797606.kQq0lBPeGt@workhorse>
- <6baaebff-ea82-4b40-a4d9-419045526cfa@mailbox.org>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 10EE310E4D0;
+ Mon, 23 Mar 2026 10:32:57 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id AFC9B43FA5;
+ Mon, 23 Mar 2026 10:32:56 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 155C6C4CEF7;
+ Mon, 23 Mar 2026 10:32:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+ s=korg; t=1774261976;
+ bh=nu9KpscKUDBHHpMe1GSngED3iiYBegN779XB3oiDq/0=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=04wGH4mC1KfLOSBXHPTRJfNUuxnMmyK+Lsx5lpOWNqMYwWDLirA8niGIkoAcmghVA
+ jyiXRHixl+6ydXRyru9sEQgDb3javn5DMXGxej+/A5KEl6Ghpvpk5JMDhhfo10luEX
+ KFngbqFlqN/0lTu76BpXagjLE/N7QY7WCsuJpGDI=
+Date: Mon, 23 Mar 2026 11:32:35 +0100
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+Cc: Li hongliang <1468888505@139.com>, srinivasan.shanmugam@amd.com,
+ patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ alexander.deucher@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
+ daniel@ffwll.ch, sashal@kernel.org, guchun.chen@amd.com,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH 6.1.y] drm/amdgpu: Fix potential out-of-bounds access in
+ 'amdgpu_discovery_reg_base_init()'
+Message-ID: <2026032346-ruse-dork-baf3@gregkh>
+References: <20260323071052.4068410-1-1468888505@139.com>
+ <f2d125ce-8cb9-4ae8-8f55-0b5a78e66f83@amd.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <f2d125ce-8cb9-4ae8-8f55-0b5a78e66f83@amd.com>
 X-Mailman-Approved-At: Mon, 23 Mar 2026 12:37:19 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -78,100 +60,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Monday, 23 March 2026 11:55:34 Central European Standard Time Michel D=
-=C3=A4nzer wrote:
-> On 3/20/26 19:02, Nicolas Frattaroli wrote:
-> > On Friday, 20 March 2026 15:32:37 Central European Standard Time Michel=
- D=C3=A4nzer wrote:
-> >> On 3/19/26 13:28, Nicolas Frattaroli wrote:
-> >>> This series adds a new "link bpc" DRM property. It reflects the displ=
-ay
-> >>> link's actual achieved output bits per component, considering any
-> >>> degradation of the bit depth done by drivers for bandwidth or other
-> >>> reasons. The property's value is updated during an atomic commit, whi=
-ch
-> >>> is also when it fires an uevent if it changed to let userspace know.
-> >>>
-> >>> There's a weston implementation at [1] which makes use of this new
-> >>> property to warn when a user's requested bpc could not be reached.
-> >>>
-> >>> [1]: https://gitlab.freedesktop.org/wayland/weston/-/merge_requests/1=
-850
-> >>
-> >> I see no description of a real-world use case, either in this series
-> >> or in the weston MR, beyond logging a message when the "link bpc" &
-> >> "max bpc" property values don't match. They are not expected to match
-> >> in general, so I have a hard time seeing the usefulness of that.
-> >=20
-> > Hello,
-> >=20
-> > these are valid concerns. The problem being addressed is related to
-> > userspace being able to detect whether the link has degraded due to,
-> > say, a sketchy cable.
-> >=20
-> > This patch started out as a method of forcing the output link's BPC
-> > value to a certain value, but this is not desirable. The max bpc
-> > property is already used to restrict the link's bpc due to sketchy
-> > hardware that advertises a higher max bpc than it can actually
-> > achieve.
->=20
-> Not really.
->=20
-> The "max bpc" property is simply an upper limit for the effective bpc tha=
-t can be used by the driver; nothing more or less. The driver is free to us=
-e any lower bpc value though, that doesn't mean anything's wrong.
->=20
-> It doesn't imply that the "max bpc" value can actually be achieved under =
-any circumstances.
->=20
-> The practical purpose is mainly to restrict bpc in cases where higher bpc=
- would prevent e.g. higher refresh rate.
+On Mon, Mar 23, 2026 at 10:51:18AM +0100, Christian König wrote:
+> Hi Li,
+> 
+> On 3/23/26 08:10, Li hongliang wrote:
+> > From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+> > 
+> > [ Upstream commit cdb637d339572398821204a1142d8d615668f1e9 ]
+> > 
+> > The issue arises when the array 'adev->vcn.vcn_config' is accessed
+> > before checking if the index 'adev->vcn.num_vcn_inst' is within the
+> > bounds of the array.
+> > 
+> > The fix involves moving the bounds check before the array access. This
+> > ensures that 'adev->vcn.num_vcn_inst' is within the bounds of the array
+> > before it is used as an index.
+> > 
+> > Fixes the below:
+> > drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c:1289 amdgpu_discovery_reg_base_init() error: testing array offset 'adev->vcn.num_vcn_inst' after use.
+> 
+> well this patch only fixed a compiler warning and has not much practical value otherwise.
+> 
+> Why are you sending this for inclusion into the 6.1 kernel?
 
-The max bpc property's upper limit is an arbitrary driver-set value as
-you stated, but that's not what I'm talking about here. Please look at
-the code in drm_atomic_uapi.c.
+Perhaps because it was assigned to CVE-2024-27042?  If this is ONLY a
+compiler warning fix, and NOT an actual vulnerability fix, please let
+cve@kernel.org know about that and they will revoke this CVE.
 
->=20
->=20
-> > I agree that the weston implementation isn't a great showcase,
-> > but it's actually supposed to compare link bpc with an explicitly
-> > set max bpc config value, not the property value. The config value
-> > exists to request a certain bpc.
->=20
-> Per above, the "max bpc" property isn't really useful for that.
+thanks,
 
-This is straight up false. Setting a max bpc value in weston's config
-sets the max bpc DRM property to that value, which in turn sets
-max_requested_bpc. On atomic_check, the minimum of state->max_bpc
-and state->max_requested_bpc is taken for the new value of
-state->max_bpc, i.e. what is set through the property does constrain
-the max bpc.
-
->=20
->=20
-> >> Moreover, there's no description of what exactly the "link bpc" proper=
-ty
-> >> value means, e.g. vs things like DSC or dithering, or how a compositor=
- /=20
-> >> user would determine which value they need / want under given circumst=
-ances.
-> >=20
-> > I agree that I should've expanded on this after splitting it out of the
-> > HDMI patch. It's the output BPC as HDMI understands it. That means DSC =
-is not
-> > a factor. I don't know if any display protocols do dithering at the
-> > protocol level, I only know some monitors dither internally, which isn't
-> > something that can be detected.
->=20
-> I know AMD GPUs can do at least temporal dithering of the data they send =
-over the link, I suspect non-temporal as well.
->=20
-> Either way, the user may be able to distinguish more information than the=
- "link bpc" property value implies.
->=20
->=20
->=20
-
-
-
-
+greg k-h
