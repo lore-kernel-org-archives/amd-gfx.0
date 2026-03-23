@@ -4,122 +4,155 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6574DD58CBE
-	for <amd-gfx@archiver.kernel.org>; Mon, 23 Mar 2026 04:06:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0A165D58CCE
+	for <amd-gfx@archiver.kernel.org>; Mon, 23 Mar 2026 04:07:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EA24C10E366;
-	Mon, 23 Mar 2026 04:06:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 986B910E368;
+	Mon, 23 Mar 2026 04:07:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Fq5hyNyD";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="mkB7ye1A";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="LJ+CdmxD";
 	dkim-atps=neutral
-Received: from PH0PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11011058.outbound.protection.outlook.com [40.107.208.58])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3197910E3AC
- for <amd-gfx@lists.freedesktop.org>; Mon, 23 Mar 2026 04:06:01 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=wvITr5f2qopA+MiWo/EnckBVCekCLocTssHTAOIKZ3xL/nS61TEKvY7Mqxp9hX5zxiScl06gQGMj7NVt2abKjiEDd3th+2OVDQJGm7vLvoEODCaRDnzMIkvdv46fMBP3wJB9h4e+9+g7APpCmnt1EiK+iACSn9jz9OilwNG3/hab64IfVXDm2PIzEzlruGgZXAkq1nanATLoIDmKXOpKRkM4u2emw/6jRj6Cl2tN4p2lXN7d9BHk8Ehc2rfYCwcVYg+ouw3DOE8d60qIp4s6EkcY53HjWW9Od4FhM0UX8T8l8lGsoJdb2bOq4/U+ENSDbzw03vyoIUxWDqHUxc85sA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=trytq5t3PRSaDgyLXja6k78M7NWeXxLH8DR1KJjdi4A=;
- b=GBJut+eeY7NoIiBHQodbJla4PGanL8zrwuOn0UhCmWJv3G5XC6uWYjoW0fpamkAnvtppxg/OK54Eg7yhnWNQLewIpTbcP53fsdyx4zTZiya0woKzkKw/qjGxK09RwTJOr688nFdrHF1muevMYKwRcP/QEaW43qCltzyWxACRMxq3MWgFJ+h/OZOqNRQUA/ZDvdIRO+QA2K4FSSnVTEeIjmdR7yNY+X014aa2/FNKRO8GC9Di+E5SL7xhqe/BdG7PIKntBmn+m1LMqX/LOT3CmWeXV5ZdlSsUv4OggxKFzNi5dPVnOmjG77kRuJH2SVJHQ0iKesqWLSojgT5ICguQQQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=trytq5t3PRSaDgyLXja6k78M7NWeXxLH8DR1KJjdi4A=;
- b=Fq5hyNyDfOFp+F1hEX27lucCIplZqvOnIOcK6rOwZF2tsI+W2ZDeBvWtbbaVWK5XMTlKQnF79cRH0zzsoAe1Nm9jN7OKnUm/HV4G81I+kY1wj9nJtkzCRrGEbSiZ158VuNwL7ATf1bxP6D0oy0oCbdctnma0ng5y6Pao5xGcng8=
-Received: from DS7PR12MB6071.namprd12.prod.outlook.com (2603:10b6:8:9d::11) by
- MW6PR12MB8900.namprd12.prod.outlook.com (2603:10b6:303:244::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.15; Mon, 23 Mar
- 2026 04:05:58 +0000
-Received: from DS7PR12MB6071.namprd12.prod.outlook.com
- ([fe80::6f14:4646:fb11:829]) by DS7PR12MB6071.namprd12.prod.outlook.com
- ([fe80::6f14:4646:fb11:829%3]) with mapi id 15.20.9745.012; Mon, 23 Mar 2026
- 04:05:57 +0000
-From: "Kamal, Asad" <Asad.Kamal@amd.com>
-To: "Wang, Yang(Kevin)" <KevinYang.Wang@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-CC: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Zhang, Hawking"
- <Hawking.Zhang@amd.com>, "Feng, Kenneth" <Kenneth.Feng@amd.com>, "Lazar,
- Lijo" <Lijo.Lazar@amd.com>
-Subject: RE: [PATCH] drm/amd/pm: add dedicated dram addr msg for smu v15
-Thread-Topic: [PATCH] drm/amd/pm: add dedicated dram addr msg for smu v15
-Thread-Index: AQHcumh0hQzi+Mh63UmUCeU9IN9WlbW7f9ug
-Date: Mon, 23 Mar 2026 04:05:57 +0000
-Message-ID: <DS7PR12MB60710414048B709ADCD618458E4BA@DS7PR12MB6071.namprd12.prod.outlook.com>
-References: <20260323015732.564251-1-kevinyang.wang@amd.com>
-In-Reply-To: <20260323015732.564251-1-kevinyang.wang@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=True;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2026-03-23T04:05:51.0000000Z;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
- Internal Distribution
- Only; MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=3;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DS7PR12MB6071:EE_|MW6PR12MB8900:EE_
-x-ms-office365-filtering-correlation-id: 2b50c377-b68e-489d-335b-08de88917cae
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|366016|376014|1800799024|38070700021|18002099003|7053199007|56012099003|22082099003;
-x-microsoft-antispam-message-info: kfvgQkc+EF0q+lSF/dPtVC/j5/qSBiCWx/XN12130G9sIgPe/dsLEewM9MrW7ZixAYhs3qo1so3EdOieg5Qd8hAVhZhIg1WeU7FpmUzAcoy2efJzUDBSAOAZHTyf39I6iVavVKCN6D1NjnFblbX2XRXaI8qX4F/mJ6pBCFlwuLwX97ZoulQoPfQ0go8PtoufeJ6imVMj/wfbMwkhVMCPTPnftfc9i2hCMnvlgkCWkKb9QAFCucAe1huDO4kldEGBy6AdjkgsUsj7MwDGhaj8DXQjfU3o4Qtk6V8VSJ/0erZen3XSW9plWF27IkKU9OET6ggvlaMqNvrobDzrT39Nr9yCKwYKFk3S77GtyWF7SsI25z6PdbDzjxVy5BDsvTi5KxpUnxsqZmD+3p6x1JjXem1AeGJooxw2W2DHNZvqtIW2I8UFo/HsJVIh6jwo1BAhCyjNDHUC+TVYDc/5JB2Io+yERlGw9a+i8Ule+41Y3t51UB1XStIY40oA6GXGLeJuHkrHxYfw4RbAhVYqDudKZtZCCl5Ewtyj+XWr9bDKKNI+3PIm915ZHUF/+kIBO4H9/tDOmEdiUIjsbULs7QGDh1QzyEh2qQOMef+K/4iE7iRLco1ngWjLR83kL7Qn8O/6+wnO43ylB2iVIIh0UPqRLMYistq4/skryrwyWwwAVeqILqSrzot3sXpwRDGD3tLrc7RGVWDCAHEy2TjSTAfNqnaBJ2Pw85Vpb7g6VvIAWoITjbkdpBoZl2WGgKSw0Wq2zS2XAog3xgy1ixmsTN56nzkAHLgtLTO279Gli9bn+b4=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS7PR12MB6071.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(1800799024)(38070700021)(18002099003)(7053199007)(56012099003)(22082099003);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?KJtudDUB+bbXwa6XE/m2GuNoAGCqXGy8TSQNyPhr+30/RoBObERwXoUeCo8A?=
- =?us-ascii?Q?SdeCR4WOuwk3udmYF0AhumS1TzwEEqmG92Ji1FBXCLcivHlFlS6cilmg39I3?=
- =?us-ascii?Q?rO7H6oFWjHVptTW0JAzQl3iiPHMaY03cQ0y0sXjVQRD45fWNr4+2tmethebE?=
- =?us-ascii?Q?aRKVUafaFHF5RdScqLVCYDufaBv6pXZ3XzkL/x45ZAlyBJKszW5SA4g+LVZg?=
- =?us-ascii?Q?LqtnJJJiOMPpVSTMBFkAo9pYQzs2JZHK471JvQUpDi5h+SMcS4I1AJGEzAt2?=
- =?us-ascii?Q?R23ONVI1P0PYT8DMCEwTF3HEqF+fnzM3snkTCrtgCepVVuQuHxmg6xdgKWRD?=
- =?us-ascii?Q?YBvtYm7QsM11VqSlcqPGGUBb9U7qjQVRmnO2fNawAFdGWpnnvidAZjRdebwp?=
- =?us-ascii?Q?ytXRg6BROarYScyf7gcQgr/do3G7vb4sG21WjsPc5ChlNkWDCM28h1CMTHFC?=
- =?us-ascii?Q?lxmzCdiD6aj0mOHLUYE17h4CiiBs+vrRrc2jBfRvRakHvK7HCkFUbqlaOUn8?=
- =?us-ascii?Q?/rnurtFDfhZcve2GpMs8i8o2dDDlFrZA6qKmllup/M+auB1syEt3ngp2MsNz?=
- =?us-ascii?Q?wkBWwbZ1LZmKxc1j+5ihn8cdBod21xxkrGk5Nhb78UJPJ8j75BNIpRBkttOd?=
- =?us-ascii?Q?ngG/NLVXhPKDe5na0YzV6QGhn72S2PKRFAOYwjHfEPz9GMTrNuDWd7xRXpiF?=
- =?us-ascii?Q?yc+h+c1N52zQIbqyQ33cdmpMGpzDJaWSkFjgF4jhyIBWaREDnuaSGFFmGKkR?=
- =?us-ascii?Q?DfEewi/0v4mhfw8kTZTdyB2jME396t/czTFjl4hgb/uuJvvXCnwpCblhWKzr?=
- =?us-ascii?Q?O0fHY88P80FC+dPT7aN7EXovyiC+F4oYCp/jMaaFIgSQ9CYssfCf3P5YFox9?=
- =?us-ascii?Q?RseHo9TC8B3GGCRCLeHJTvH2KwC2zaNxCKBqLuReKr+5/okCU1N6Pq1u+54/?=
- =?us-ascii?Q?hy1i3wsKlOepfJlwAks+nydtbyRDDuQwZZQfMVmajdfycYsR9YPDz3naJzEG?=
- =?us-ascii?Q?xm9CnlhCavne8pJSVSJrbPmdQW1P/JS4RuQytOmdFs78+KyDUKkDYGvshqei?=
- =?us-ascii?Q?ZQZu2mhmtaOSL+2Z9tnY73P2wf+fqzN6SqDtjkEFaBzIYdYzIfcstS1cu6bO?=
- =?us-ascii?Q?e946IFX57LGgER878I7UeTEbRho61sZtUSEQWWtX1Sh/QfdtlOTj5I/GXQQK?=
- =?us-ascii?Q?mpcsZMC67zDrhCuflF+RQT4I+gAOvHEG+pxUwMAb/CU39jnt+iZYSAkeR8Fg?=
- =?us-ascii?Q?HsQBEKdrV6gnO+CjV/Oa4HC9a0B4obA0OlKa5NwxuZFTmyTrGcv12/JF8sbO?=
- =?us-ascii?Q?NOku7keQXPuSx+kRbOYUhiGx7Q3R/DR4zWfrduXy9h6JoP5ZPVmHkCa/FyKV?=
- =?us-ascii?Q?aUE6YH4mpeDgwxVnnCiygkxrPTdIm5M+1sADKhH4RhUhkSojZclS+9T0oEUA?=
- =?us-ascii?Q?Jky37vs43ZLt6RTevtXahcAF3IKgglasavq7EN0TLJIGrtdsJhneZlUK0tsi?=
- =?us-ascii?Q?wkCnrAfU7+sE4BQCOEJzZ25rSwGXEqG217ob+DNkyyvUkrLvaUPXG6zY20RD?=
- =?us-ascii?Q?lpxkQISgYHS30aNiPhp4t2QEaAI5Xt6cEQZxfvps70YKsy0ZUfCA9g8W1qKQ?=
- =?us-ascii?Q?wz0PZ2hAWBvwcmnqspL86Pp9MHY61hYNeA9JuY78bKWNkDLdUCa6t10lj5it?=
- =?us-ascii?Q?S0nSv5nwp6q8StpLQ+kcwbIhIYKi5/6mpk1xEgkgcsuomZCC?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 88FD210E395
+ for <amd-gfx@lists.freedesktop.org>; Mon, 23 Mar 2026 04:07:19 +0000 (UTC)
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 62MITpo42104697
+ for <amd-gfx@lists.freedesktop.org>; Mon, 23 Mar 2026 04:07:18 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=FkOlnsc0EKvOIhkAtLnyw5lm
+ SHO8rtw4V09fAITZLBs=; b=mkB7ye1ABcjRkiyURKA6wmiG8gu2qAXGJgZYQfvJ
+ ys04tLxs4TicdQbJAnSx1QrGvOI/bS2qSouJw9b59PiEeMYFbBx6awIaPGFioOKH
+ D9Fm4SNw7zNoaoz8bw5lDksOz0792gDPV4/hn/T+vmnCG0D+bdzNAv6vuNTo3Gfy
+ yXK5x0dNxWoEOd+3l/QpN5OURspZ4R4/RJ7PIwIANXfMBzg8WXBs2kgWI5kPb8Cu
+ Vgfxb9to87kSFRUIRwSqEE0/abOf7aYutz0S3EmGAEXZcKD/vhcAdUqinQ6hvxZP
+ vzfZgAMXEsfq/dl1rJPcbYykgUoGgjt7H6UH3mx6Aq2Trw==
+Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com
+ [209.85.160.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d1jb5krmq-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <amd-gfx@lists.freedesktop.org>; Mon, 23 Mar 2026 04:07:18 +0000 (GMT)
+Received: by mail-qt1-f199.google.com with SMTP id
+ d75a77b69052e-50b44f7b7bbso180228091cf.3
+ for <amd-gfx@lists.freedesktop.org>; Sun, 22 Mar 2026 21:07:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1774238838; x=1774843638;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=FkOlnsc0EKvOIhkAtLnyw5lmSHO8rtw4V09fAITZLBs=;
+ b=LJ+CdmxDHk6JfdgDQbKAEHbwXAuWKzgtk5kMju2dWGHFObuQAYHHG/8vh+47edHS34
+ DQ74eqaLThre+euqrDc4QdK5kayZTToKuQk+O/iZxfBiPIvKlR+k0A7JBBtawlTBLQmZ
+ Fprz78VbIp4WkAS6rS1AyiTZptplrKo+/PVhiA/uLaRL9wJAC/fsgrGbOZFJXfp76Cgu
+ BogB7jN+OkYVQgDqafswCIuK5JmTML8/Uflg2Yh2vKUXNgQE0YSkaQ4k22kBuKrmrgVi
+ Pu/0N+IrWzrmaG+oo5Zsjtf9ts0PDIXh5v8dVN4uNjoGMX00JnRhAB29y6J9W61Jnle7
+ gAmA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1774238838; x=1774843638;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=FkOlnsc0EKvOIhkAtLnyw5lmSHO8rtw4V09fAITZLBs=;
+ b=Hi+EzOw3dMqZ2DLDxT/Q4XSDj392Yi0zJDmuKIOkIhcESXPBM+0VBkVsiBbHyM2DXY
+ OG0h2pCFMhs37Cr0ZgW0thQMQd/lph6nL3iZ8/9EL8wW8vgfSc3arLvcEBdjFhWsMPY5
+ PjKU/l7OrTFWerwteXwM3ZUJay0JD4Th8ot3ydqzanhDT7x0ov/HfGoNrdjYAv3ebhrf
+ UB9KRl+QJ97ZUT17MPUxfzZRXd5tPx0rYNQ+JOp7k+GvPufB8NRz7NWM5Rj8ZK/qbcqV
+ BomOCBhdK9ASRpgzYrSBEBP7nlt0LZZpTSyBXdz08e2/Py7/bGICt0+1Mn5K9yYu7amp
+ 9mmg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVEwRXxAbiYjlgPOcO0Ver+y+/qXmuPymPPTYQYTtpIQVPJ6T4xtF/VdFv0uDw4Q3VVE4Eniqqb@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YymPNk+05Wjsodov8y8ZgK/rNoZ3vX47l4wEloxDE5VkufhDxFm
+ jKvSdx9fEHOiqbkYunmINNeR398bLb/hpc3TftoWvZTZkQWDLrpdFhxMGPGnq2EM7jyD4xZfGbp
+ mL2E+3lCJmPRuyKErSgyYFQ+/hhopB5fvv5ka2XXbPKbyLwI8jvFjluXeT2pjEPAd9t/k
+X-Gm-Gg: ATEYQzwxw7THZB3gTqQahFWr+ey3sgc2pCskyD10le+ekRlCqzkNS1e7wGcZmEE3KPO
+ Tg3WJbcHaxp/o+XYq1x0A5aJtA+TbKWtKT5mSsRYmwhH7Fryr3wVzi0OPxWdWm+JS9QFGF6pW+s
+ kmaLeEJqZBQhbhAAUw75ostwnRay4YhUmKCs0W+Z6yZorl+2KaxbLZPP08eAZ7fax7KScHbLVDl
+ POxVB0sOqjBl8nR8t1cL1KFc5mV5Fe9Kj57M3a9OqNhJjDBHt+c5NDhUc46mv6Wdqfj7s+voQ+/
+ gVnAd+s2zKwCAQTe/TOhdTYk18IUB0AfKi4lUINTWbnDmPvUQRuTGxvPmAjQ0wkfymQv1yIF79t
+ +TVW9Im2ioCi/4XQ031siiMl0UtFfibNFceGuEE63NXhRk29IQqsmlQlakF0wy+DpdK0jT1ZIbe
+ VprbkliLPKQQu965NplV37yY00xqvULCOUwuI=
+X-Received: by 2002:a05:622a:2611:b0:50b:4e65:95dd with SMTP id
+ d75a77b69052e-50b4e6598dcmr84026471cf.62.1774238838049; 
+ Sun, 22 Mar 2026 21:07:18 -0700 (PDT)
+X-Received: by 2002:a05:622a:2611:b0:50b:4e65:95dd with SMTP id
+ d75a77b69052e-50b4e6598dcmr84026151cf.62.1774238837540; 
+ Sun, 22 Mar 2026 21:07:17 -0700 (PDT)
+Received: from umbar.lan
+ (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+ by smtp.gmail.com with ESMTPSA id
+ 38308e7fff4ca-38bf9ac2661sm22658351fa.39.2026.03.22.21.07.14
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 22 Mar 2026 21:07:16 -0700 (PDT)
+Date: Mon, 23 Mar 2026 06:07:13 +0200
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Maxime Ripard <mripard@kernel.org>
+Cc: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Andy Yan <andy.yan@rock-chips.com>, Liviu Dudau <liviu.dudau@arm.com>,
+ Chun-Kuang Hu <chunkuang.hu@kernel.org>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Sandy Huang <hjc@rock-chips.com>,
+ Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>,
+ Liu Ying <victor.liu@nxp.com>, Chen-Yu Tsai <wens@kernel.org>,
+ Samuel Holland <samuel@sholland.org>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ =?utf-8?B?TWHDrXJh?= Canal <mcanal@igalia.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, linux-mediatek@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org, linux-sunxi@lists.linux.dev,
+ Jani Nikula <jani.nikula@intel.com>
+Subject: Re: [PATCH v3 01/14] drm/connector: Introduce
+ drm_output_color_format enum
+Message-ID: <mvur5pb6jjbvssdhvbzoekfy7hq4h5vketlzembwb2l6fgt63i@a5f43tecwecr>
+References: <20260305-drm-rework-color-formats-v3-0-f3935f6db579@kernel.org>
+ <20260305-drm-rework-color-formats-v3-1-f3935f6db579@kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DS7PR12MB6071.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2b50c377-b68e-489d-335b-08de88917cae
-X-MS-Exchange-CrossTenant-originalarrivaltime: 23 Mar 2026 04:05:57.6465 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: jvltDtGM4Txvter5J7HOXvbAbvk/DHOizR+/mjRJ1LcfI5QXHj3eT3bmX0EtrZMagprDO/q2qieWEO7P3o5Jpw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR12MB8900
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260305-drm-rework-color-formats-v3-1-f3935f6db579@kernel.org>
+X-Authority-Analysis: v=2.4 cv=aJv9aL9m c=1 sm=1 tr=0 ts=69c0bc76 cx=c_pps
+ a=WeENfcodrlLV9YRTxbY/uA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22 a=QyXUC8HyAAAA:8
+ a=7CQSdrXTAAAA:8 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=Myhj0e63kkGcRKXW9oMA:9
+ a=CjuIK1q_8ugA:10 a=kacYvNCVWA4VmyqE58fU:22 a=a-qgeE7W1pNrGK8U0ZQC:22
+X-Proofpoint-GUID: Unm3QIeNyTAqnUvEyNz7DWZME-osP5TL
+X-Proofpoint-ORIG-GUID: Unm3QIeNyTAqnUvEyNz7DWZME-osP5TL
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzIzMDAyOCBTYWx0ZWRfX5uFmZn+7dZHF
+ 8Qp1tc25tsxzC7oWLMe50WT2XyxUEvGWpC8wZKGHG6KcdyH4sRxRauxX2Bi6dfmGc1rb/yHhj1G
+ dlG5PFhxCOXmdmThYWLVUTVBr15grr1TrXrEkk75sClUdx2HwqcLIKL/cyxUEPo1+s8gT4i1dFa
+ pAeOa+NWYYUj8kR8R4Ym4iRZvftpH4XeUuIlibvDyukhaNbOs5TNWoNsh/enIeumtrBeEWdIPNk
+ iszvG3jgGV9+oX//GOpg3O3eIuxhCdOFuVL5h/Ft1qXD3Lo3ZjWqrQWPRh4Wn0fIj2GG8ujPAID
+ hcjEk+sk1PzK4neTyKnRrkzAMCIF3mUR372O1/4UFIXfpoDWjFuLLYIzKMORnN4mTW84VwnJanO
+ siOVrRttRFtz5r4vccsvBJIcTp2dCBcPA0j9MRib5lt+wJImV0oPEfOHgi1cV+hXxE93oHt0QPh
+ nhHFZx3GQMz5y5G/NZA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-03-23_01,2026-03-20_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 malwarescore=0 adultscore=0 priorityscore=1501 spamscore=0
+ impostorscore=0 clxscore=1015 bulkscore=0 phishscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603230028
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,103 +167,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only - AMD Internal Distribution Only]
+On Thu, Mar 05, 2026 at 10:04:53AM +0100, Maxime Ripard wrote:
+> The EDID parsing code initially introduced the DRM_COLOR_FORMAT_*
+> defines to represent the sink capabilities. Since a given sink could
+> support multiple formats, it was first defined as a bitmask.
+> 
+> However, the core and drivers have since leveraged those defines to
+> represent both the supported formats but also the current format being
+> used.
+> 
+> Considering the latter case, the more natural, and consistent, thing to
+> do would be to create an enum of all the possible formats, and then list
+> the supported formats using a bitmask of the individual enum values.
+> 
+> Let's create a new enum following that pattern, drm_output_color_format,
+> while maintaining the DRM_COLOR_FORMAT_* compatibility to make the
+> transition easier.
+> 
+> Acked-by: Jani Nikula <jani.nikula@intel.com>
+> Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
+> Signed-off-by: Maxime Ripard <mripard@kernel.org>
+> ---
+>  include/drm/drm_connector.h | 42 ++++++++++++++++++++++++++++++++++--------
+>  1 file changed, 34 insertions(+), 8 deletions(-)
+> 
 
-Reviewed-by: Asad Kamal <asad.kamal@amd.com>
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
-Thanks & Regards
-Asad
 
------Original Message-----
-From: Wang, Yang(Kevin) <KevinYang.Wang@amd.com>
-Sent: Monday, March 23, 2026 7:28 AM
-To: amd-gfx@lists.freedesktop.org
-Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Zhang, Hawking <Hawking=
-.Zhang@amd.com>; Feng, Kenneth <Kenneth.Feng@amd.com>; Kamal, Asad <Asad.Ka=
-mal@amd.com>; Lazar, Lijo <Lijo.Lazar@amd.com>
-Subject: [PATCH] drm/amd/pm: add dedicated dram addr msg for smu v15
-
-Add dedicated SMU Dram MSG mapping to avoid conflicts in SMU IP v15 common =
-code for upcoming ASICs.
-
-add new smu msg:
-- SMU_MSG_SetDriverDramAddr
-- SMU_MSG_SetToolsDramAddr
-
-Signed-off-by: Yang Wang <kevinyang.wang@amd.com>
----
- drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h         | 2 ++
- drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0.c       | 4 ++--
- drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_8_ppt.c | 4 ++--
- 3 files changed, 6 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h b/drivers/gpu/drm=
-/amd/pm/swsmu/inc/smu_types.h
-index fc31cc5e97c8..636ff90923d9 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h
-+++ b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h
-@@ -42,8 +42,10 @@
-        __SMU_DUMMY_MAP(SetPptLimit),                  \
-        __SMU_DUMMY_MAP(SetDriverDramAddrHigh),        \
-        __SMU_DUMMY_MAP(SetDriverDramAddrLow),         \
-+       __SMU_DUMMY_MAP(SetDriverDramAddr),            \
-        __SMU_DUMMY_MAP(SetToolsDramAddrHigh),         \
-        __SMU_DUMMY_MAP(SetToolsDramAddrLow),          \
-+       __SMU_DUMMY_MAP(SetToolsDramAddr),             \
-        __SMU_DUMMY_MAP(TransferTableSmu2Dram),        \
-        __SMU_DUMMY_MAP(TransferTableDram2Smu),        \
-        __SMU_DUMMY_MAP(UseDefaultPPTable),            \
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0.c b/drivers/gpu/d=
-rm/amd/pm/swsmu/smu15/smu_v15_0.c
-index 966fa0238ad0..8e95a62e186c 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0.c
-@@ -611,7 +611,7 @@ int smu_v15_0_set_driver_table_location(struct smu_cont=
-ext *smu)  {
-        struct smu_table *driver_table =3D &smu->smu_table.driver_table;
-        struct smu_msg_args args =3D {
--               .msg =3D SMU_MSG_SetDriverDramAddrHigh,
-+               .msg =3D SMU_MSG_SetDriverDramAddr,
-                .num_args =3D 2,
-                .num_out_args =3D 0,
-        };
-@@ -626,7 +626,7 @@ int smu_v15_0_set_tool_table_location(struct smu_contex=
-t *smu)  {
-        struct smu_table *tool_table =3D &smu->smu_table.tables[SMU_TABLE_P=
-MSTATUSLOG];
-        struct smu_msg_args args =3D {
--               .msg =3D SMU_MSG_SetToolsDramAddrHigh,
-+               .msg =3D SMU_MSG_SetToolsDramAddr,
-                .num_args =3D 2,
-                .num_out_args =3D 0,
-        };
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_8_ppt.c b/drivers=
-/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_8_ppt.c
-index 5938e88726d2..89a44b456e8a 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_8_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_8_ppt.c
-@@ -87,8 +87,8 @@ static const struct cmn2asic_msg_mapping smu_v15_0_8_mess=
-age_map[SMU_MSG_MAX_COU
-        MSG_MAP(GetMetricsVersion,                   PPSMC_MSG_GetMetricsVe=
-rsion,               1),
-        MSG_MAP(GetMetricsTable,                     PPSMC_MSG_GetMetricsTa=
-ble,                 1),
-        MSG_MAP(GetEnabledSmuFeatures,               PPSMC_MSG_GetEnabledSm=
-uFeatures,           1),
--       MSG_MAP(SetDriverDramAddrHigh,               PPSMC_MSG_SetDriverDra=
-mAddr,               1),
--       MSG_MAP(SetToolsDramAddrHigh,                PPSMC_MSG_SetToolsDram=
-Addr,                0),
-+       MSG_MAP(SetDriverDramAddr,                   PPSMC_MSG_SetDriverDra=
-mAddr,               1),
-+       MSG_MAP(SetToolsDramAddr,                    PPSMC_MSG_SetToolsDram=
-Addr,                0),
-        MSG_MAP(SetSoftMaxByFreq,                    PPSMC_MSG_SetSoftMaxBy=
-Freq,                1),
-        MSG_MAP(SetPptLimit,                         PPSMC_MSG_SetPptLimit,=
-                     0),
-        MSG_MAP(GetPptLimit,                         PPSMC_MSG_GetPptLimit,=
-                     1),
---
-2.47.3
-
+-- 
+With best wishes
+Dmitry
