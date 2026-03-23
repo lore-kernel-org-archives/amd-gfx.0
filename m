@@ -4,98 +4,100 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 41EC0D58CBE
-	for <amd-gfx@archiver.kernel.org>; Mon, 23 Mar 2026 04:29:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9D27DD58CC5
+	for <amd-gfx@archiver.kernel.org>; Mon, 23 Mar 2026 04:39:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CA87C10E3B8;
-	Mon, 23 Mar 2026 04:29:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2445510E3BB;
+	Mon, 23 Mar 2026 04:39:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.b="NS8pTeGh";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Ay48DKjl";
 	dkim-atps=neutral
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 87EA710E3B8
- for <amd-gfx@lists.freedesktop.org>; Mon, 23 Mar 2026 04:29:11 +0000 (UTC)
-Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 62MNIj1Z540492; Mon, 23 Mar 2026 04:29:09 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
- :content-transfer-encoding:date:from:in-reply-to:message-id
- :mime-version:references:subject:to; s=pp1; bh=nHuW8BA17L57unX6w
- jDsnsG0Yun2KSjyEBlyfR6DU1c=; b=NS8pTeGhBSKhu0EYOvQccWkGpsrIoC/Hd
- q75ewDPQeC9jH8ZbSdl6VM+EY/qjwVgbW7zLHJok0AaO37vA+Mz7tQAAKjpBulA1
- LS1h3pg+Hl0yKLP8bAok/TC/h4iJ+FmIjtr1GVvqqmyDoY+1QoG+9pA3yIywGRQr
- DP4nBnCdqT1JsHFftwxDlJErIUzXIwLsRHEM3dxAxHgZXeJv3bIYP6A7jQuHziV4
- OZ+HFdH61J+hwFWHqn5vdyKWzqX+zVwiciAp+2SSK0iFduTQy5x4s+PQC+Oyptph
- wW67ENEYPngVyAmiN8LjyZr71hH5uVKIBYzVtnIK0jSJJKx3XZUdA==
-Received: from ppma22.wdc07v.mail.ibm.com
- (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
- by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4d1kxyw32a-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 23 Mar 2026 04:29:08 +0000 (GMT)
-Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
- by ppma22.wdc07v.mail.ibm.com (8.18.1.2/8.18.1.2) with ESMTP id 62N1FZgO005972;
- Mon, 23 Mar 2026 04:29:08 GMT
-Received: from smtprelay05.fra02v.mail.ibm.com ([9.218.2.225])
- by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4d261yc2v2-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 23 Mar 2026 04:29:07 +0000
-Received: from smtpav06.fra02v.mail.ibm.com (smtpav06.fra02v.mail.ibm.com
- [10.20.54.105])
- by smtprelay05.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 62N4T4Ze46465426
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Mon, 23 Mar 2026 04:29:04 GMT
-Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 0CC852004D;
- Mon, 23 Mar 2026 04:29:04 +0000 (GMT)
-Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 9748320049;
- Mon, 23 Mar 2026 04:29:01 +0000 (GMT)
-Received: from li-218185cc-29b5-11b2-a85c-9a1300ae2e6e.bl1-in.ibm.com (unknown
- [9.123.6.34]) by smtpav06.fra02v.mail.ibm.com (Postfix) with ESMTP;
- Mon, 23 Mar 2026 04:29:01 +0000 (GMT)
-From: Donet Tom <donettom@linux.ibm.com>
-To: amd-gfx@lists.freedesktop.org, Felix Kuehling <Felix.Kuehling@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Alex Deucher <alexdeucher@gmail.com>, christian.koenig@amd.com,
- Philip Yang <yangp@amd.com>
-Cc: David.YatSin@amd.com, Kent.Russell@amd.com,
- Ritesh Harjani <ritesh.list@gmail.com>,
- Vaidyanathan Srinivasan <svaidy@linux.ibm.com>, donettom@linux.ibm.com
-Subject: [RESEND RFC PATCH v3 6/6] drm/amdkfd: Fix queue preemption/eviction
- failures by aligning control stack size to GPU page size
-Date: Mon, 23 Mar 2026 09:58:39 +0530
-Message-ID: <9b5d3040f6ce7d99be2c656f68055c8c7529b34a.1774239489.git.donettom@linux.ibm.com>
-X-Mailer: git-send-email 2.52.0
-In-Reply-To: <cover.1774239489.git.donettom@linux.ibm.com>
-References: <cover.1774239489.git.donettom@linux.ibm.com>
+Received: from BL2PR02CU003.outbound.protection.outlook.com
+ (mail-eastusazon11011064.outbound.protection.outlook.com [52.101.52.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 74CDD10E3BB
+ for <amd-gfx@lists.freedesktop.org>; Mon, 23 Mar 2026 04:39:30 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=BlCN3VNRlqm7nsd4xsF91Cc9zBheDT+b16cx0w/dxX3hvtDUHG35NbQhJ77xdadU8jwyylQ3vsFRdxPXxO96vHEjKnTa0lzn9fbYZqnqk0PVtXdD+1v0r4Pzk7W5kMh/Yd1muZn4edhGnx5o3XHPerl/mCeJDLGfltmHa7yI1KXRq35aC/gQFL5xdY2nfgwF6DKN/HZvfG8z8QSNdj4YPve5Pa5c8UYqXYcwkTuFsAbSUAkYq5OPJ8YQmCsQK22wgwZFBmPmc0MAlNcKHiGY/oxmnsAQnCS8UxXdcISbfhQDXDRHb094Co7/ypnA6DityKXQwGRy2iv28XPCzlqbwA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=eZI8pt0GFqIdc1youo5FqVzA1RauG0uEaoKqc/RETEk=;
+ b=WHAns4CuEEWppLhFnMLn/WrGkcJjcsjjoSd/L3VUeMM8dn2tvO6oXZgQTYEsT54wOZfju+L53HXpTclOX9+cgiWceqcCv1wUJuAbJeyV51vozJDzfWSejT9B6Gh8dt8Qx9UiqgJ5vqXyWRyarQCEMjY1olyQGvkoI/YVfTi0CssA4nhPwg7IaRdV3WdPrNhKlBARHAdKKTX1/KaKaVWm0ChRt3dz3Zf0PwCy17dbn099RqKzLHbvGQfmNT7dc8WApFMQBsydWyIRvBLRz1Il9QoMepOck9aP+9hKyQC4uFep1paGJETLTZIZa8r1u5uSTruWy+51eevT+514VPOR4Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=eZI8pt0GFqIdc1youo5FqVzA1RauG0uEaoKqc/RETEk=;
+ b=Ay48DKjl9zsCGy//vcreCHV8s2Qj3okKYnnyG9RJkV+mxlMDRrTNRwHywGxxVKB8/6CiG1a4OVqTQaqqerM3sdOZWbxaKQozK/AqsOcf4iswHf547MDjdYbxArE5tR1ibs5U60uvYLVjTD9Fe9goU3WiaWequsEPpL8Nv66u3d0=
+Received: from DM6PR02CA0064.namprd02.prod.outlook.com (2603:10b6:5:177::41)
+ by DS7PR12MB9041.namprd12.prod.outlook.com (2603:10b6:8:ea::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.20; Mon, 23 Mar
+ 2026 04:39:26 +0000
+Received: from DS1PEPF00017093.namprd03.prod.outlook.com
+ (2603:10b6:5:177:cafe::f3) by DM6PR02CA0064.outlook.office365.com
+ (2603:10b6:5:177::41) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9723.31 via Frontend Transport; Mon,
+ 23 Mar 2026 04:39:27 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ DS1PEPF00017093.mail.protection.outlook.com (10.167.17.136) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9723.19 via Frontend Transport; Mon, 23 Mar 2026 04:39:25 +0000
+Received: from srishanm-Cloudripper.amd.com (10.180.168.240) by
+ satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.17; Sun, 22 Mar 2026 23:39:22 -0500
+From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+To: Alex Hung <alex.hung@amd.com>, Aurabindo Pillai <aurabindo.pillai@amd.com>
+CC: <amd-gfx@lists.freedesktop.org>, Srinivasan Shanmugam
+ <srinivasan.shanmugam@amd.com>, Nicholas Kazlauskas
+ <nicholas.kazlauskas@amd.com>, Dillon Varone <Dillon.Varone@amd.com>,
+ "Chuanyu Tseng" <chuanyu.tseng@amd.com>, Roman Li <roman.li@amd.com>, Tom
+ Chung <chiahsuan.chung@amd.com>, Dan Carpenter <dan.carpenter@linaro.org>
+Subject: [PATCH v2] drm/amd/display: Add update_descriptor param info in
+ 'update_planes_and_stream_state'
+Date: Mon, 23 Mar 2026 10:08:57 +0530
+Message-ID: <20260323043857.2043958-1-srinivasan.shanmugam@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzIzMDAzMCBTYWx0ZWRfX/e1+TQPSO6G6
- wDhSURU43BibTy3p+3SgRfu0ApQten+R6vBMx4FXYhrCIydvn4Mt/Uh2ZY+A84NaSeoX7IyTlln
- kvEq9hgOViHgknaT/ENhaVVLmK5bbDteYElVqXlATrcvTBary9XCEltCsfEr6PolWWp2J6vhByM
- RCb0OiZAr4I9bSmDelkkP2rPzsPXFZaHpLJOrOILp0DWdE7SmrJEOj0HBtFsLJJBsXHXTEHiMta
- Kp9+OOrj8dojTH3awKGhPibgBxuwOQHrdxj2ZP0VdCNnaOGgcNst0RJySXFqzcmAUMkowQFeMCI
- Kw/4++OoVdZCiooCuqalrtDIpuIsyB6qsi696tHhi8rVzEwgXT9KcfWkyAOG9auRlSs7uk7P//Z
- 5uO+irclOm1n9rmNzlLjQ5w+/ldxLg0m33nJJV18qZHpU8n0Rt4U6XeIEoERJBt72+e0FexH1BC
- eHZeBXIGkdPAXmrMrOg==
-X-Authority-Analysis: v=2.4 cv=JK42csKb c=1 sm=1 tr=0 ts=69c0c195 cx=c_pps
- a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
- a=Yq5XynenixoA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=V8glGbnc2Ofi9Qvn3v5h:22 a=VnNF1IyMAAAA:8 a=5xC4zRIfMAlGsE5dwogA:9
-X-Proofpoint-ORIG-GUID: v34hF6afjO6lCtsFi1wFra948ELF7zF7
-X-Proofpoint-GUID: ldpJhEKMDhAg7vYAcaLG4DLet57grFxT
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-03-23_01,2026-03-20_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 clxscore=1015 priorityscore=1501 malwarescore=0 adultscore=0
- spamscore=0 suspectscore=0 phishscore=0 lowpriorityscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603230030
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS1PEPF00017093:EE_|DS7PR12MB9041:EE_
+X-MS-Office365-Filtering-Correlation-Id: 55b1baaf-6e01-4231-2b01-08de88962994
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|82310400026|36860700016|376014|18002099003|56012099003;
+X-Microsoft-Antispam-Message-Info: E5fR9ezyN5hXLuiNMmjQCnZTow2VwlMFBOrl++zVSmW6Gf9A/GZXjMZ8U3Vh3i/AxA9JOkjQGreC3dq5Miv+ksdqEOZTbcSjMPmzkHbL6dGLY5ClrlXE86KHYbDRZHSIFKIa6p9B1KRfqMFqJOacmMTxfgVkpv/4ROMMpi4W0y5e/7O2xsr1Pv9OUeagWgcyNgYLg6Zk/35jf9Pb1SkwoMv7C1HHNjDix6w3P+8QUywm3fnPLc7T8ktpxnBmicTGfXDM2emFiQP3A3dqK98cM41fudnwB8ILG6koUeqc35pF8gRC0DARD0P8E89fEZJJ8as7V5WQE2jX1T2yaiQ85MP1LCs3ro9rOwxUToK9dpFgAEv6cuif+rEfssyDtgR0/ZSJRFW9NA6vIt0URkDc1CxiFAa/BoeQk9IjlcOeB5Fxxhbju7NrPcgksqiEoL9/I7vUGiuEwHGADiLj7Mgj65hNLuwOK/nMQMJ1wKev5TekPs6oWuLLLdVDQwb/W2nKRmkkoiJilJG5kc5+3A5yURCluz3i4I8y7TMQWH9S991uYTv+l9isMYYE6FObuEdffeq13JYMEfU583mmfcw/JXPJLvR8TSfisk6PUp6nvlLVELj2YDOvfFD1TFRrFLVy6m6YO8Rogg+8NngUVGUowclE9Xc4SIyth098G7clReIrFiozDIdlkt2mLXLUQeIT/ZQAUHRE/JgEA2DyQFbxMeMryjFM9vzUbtbYkW1oXsGIT45NrAj+YTTRTs9KjfOZnOmUDN1jx/GrUgYxZFvRJg==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(82310400026)(36860700016)(376014)(18002099003)(56012099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: ZZ6KG8oSfIZJcG9Dzybr2tqu9CU8Z8oEreA/VxjK3PFBn1FH7vrw5LlbM0DzpjxZeH9ST/PCMyFUTa8bGDCrjpGlhWhs5qUgFpBnb5a8g6uz5CeKU6Dj0QU1xzdO30HJ0aWgWCH8LwhRoacxBuHNxwLhhnkMG9uScI7KhQILojSR3/E+F1ZF+n08Py8AEAVqAVafbYlkaW2R0ZtNj2G1/tZxztqC++3qY6of11LBvr4YdW9DX6oc37TZQ+XaSlUNlwg6sz+wZ716NF+Gi0Y9D838rhit0fXhhXREA6PD//nQUQIPEtpegJ8fhg2m7txg08GG46/rutQYUKqD4LAUlWZNQ5vpQzRWULzNRzjpkNe0+Yswi7E2XAeWBhgHIwgtq0JoN15KaTxp7Letoxk/YRu80jL308KMya/mFkOlz6zlDdF25FX1i0ayduKrAxLH
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Mar 2026 04:39:25.6601 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 55b1baaf-6e01-4231-2b01-08de88962994
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DS1PEPF00017093.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB9041
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,66 +112,38 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The control stack size is calculated based on the number of CUs and
-waves, and is then aligned to PAGE_SIZE. When the resulting control
-stack size is aligned to 64 KB, GPU hangs and queue preemption
-failures are observed while running RCCL unit tests on systems with
-more than two GPUs.
+Add missing info for the update_descriptor parameter in
+update_planes_and_stream_state().
 
-amdgpu 0048:0f:00.0: amdgpu: Queue preemption failed for queue with
-doorbell_id: 80030008
-amdgpu 0048:0f:00.0: amdgpu: Failed to evict process queues
-amdgpu 0048:0f:00.0: amdgpu: GPU reset begin!. Source: 4
-amdgpu 0048:0f:00.0: amdgpu: Queue preemption failed for queue with
-doorbell_id: 80030008
-amdgpu 0048:0f:00.0: amdgpu: Failed to evict process queues
-amdgpu 0048:0f:00.0: amdgpu: Failed to restore process queues
+Fixes the below with gcc W=1:
+../display/dc/core/dc.c:3630 function parameter 'update_descriptor' not described in 'update_planes_and_stream_state'
 
-This issue is observed on both 4 KB and 64 KB system page-size
-configurations.
-
-This patch fixes the issue by aligning the control stack size to
-AMDGPU_GPU_PAGE_SIZE instead of PAGE_SIZE, so the control stack size
-will not be 64 KB on systems with a 64 KB page size and queue
-preemption works correctly.
-
-Additionally, In the current code, wg_data_size is aligned to PAGE_SIZE,
-which can waste memory if the system page size is large. In this patch,
-wg_data_size is aligned to AMDGPU_GPU_PAGE_SIZE. The cwsr_size, calculated
-from wg_data_size and the control stack size, is aligned to PAGE_SIZE.
-
-Signed-off-by: Donet Tom <donettom@linux.ibm.com>
+Fixes: 90fe5f44136d ("drm/amd/display: Refactor DC update checks")
+Cc: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+Cc: Dillon Varone <Dillon.Varone@amd.com>
+Cc: Chuanyu Tseng <chuanyu.tseng@amd.com>
+Cc: Roman Li <roman.li@amd.com>
+Cc: Alex Hung <alex.hung@amd.com>
+Cc: Tom Chung <chiahsuan.chung@amd.com>
+Cc: Dan Carpenter <dan.carpenter@linaro.org>
+Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>
+Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_queue.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/amd/display/dc/core/dc.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_queue.c b/drivers/gpu/drm/amd/amdkfd/kfd_queue.c
-index 572b21e39e83..9d4838461168 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_queue.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_queue.c
-@@ -492,10 +492,11 @@ void kfd_queue_ctx_save_restore_size(struct kfd_topology_device *dev)
- 	cu_num = props->simd_count / props->simd_per_cu / NUM_XCC(dev->gpu->xcc_mask);
- 	wave_num = get_num_waves(props, gfxv, cu_num);
- 
--	wg_data_size = ALIGN(cu_num * WG_CONTEXT_DATA_SIZE_PER_CU(gfxv, props), PAGE_SIZE);
-+	wg_data_size = ALIGN(cu_num * WG_CONTEXT_DATA_SIZE_PER_CU(gfxv, props),
-+				AMDGPU_GPU_PAGE_SIZE);
- 	ctl_stack_size = wave_num * CNTL_STACK_BYTES_PER_WAVE(gfxv) + 8;
- 	ctl_stack_size = ALIGN(SIZEOF_HSA_USER_CONTEXT_SAVE_AREA_HEADER + ctl_stack_size,
--			       PAGE_SIZE);
-+			       AMDGPU_GPU_PAGE_SIZE);
- 
- 	if ((gfxv / 10000 * 10000) == 100000) {
- 		/* HW design limits control stack size to 0x7000.
-@@ -507,7 +508,7 @@ void kfd_queue_ctx_save_restore_size(struct kfd_topology_device *dev)
- 
- 	props->ctl_stack_size = ctl_stack_size;
- 	props->debug_memory_size = ALIGN(wave_num * DEBUGGER_BYTES_PER_WAVE, DEBUGGER_BYTES_ALIGN);
--	props->cwsr_size = ctl_stack_size + wg_data_size;
-+	props->cwsr_size = ALIGN(ctl_stack_size + wg_data_size, PAGE_SIZE);
- 
- 	if (gfxv == 80002)	/* GFX_VERSION_TONGA */
- 		props->eop_buffer_size = 0x8000;
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
+index 8b21816cf7c8..e3992ca43c8d 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
+@@ -3615,6 +3615,7 @@ static void restore_minimal_pipe_split_policy(struct dc *dc,
+  * @surface_count: surface update count
+  * @stream: Corresponding stream to be updated
+  * @stream_update: stream update
++ * @update_descriptor: describes what plane and stream changes to apply
+  * @new_update_type: [out] determined update type by the function
+  * @new_context: [out] new context allocated and validated if update type is
+  * FULL, reference to current context if update type is less than FULL.
 -- 
-2.52.0
+2.34.1
 
