@@ -4,61 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 37163FC72D2
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CE576F532FE
 	for <amd-gfx@archiver.kernel.org>; Tue, 24 Mar 2026 09:12:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E05D910E64C;
-	Tue, 24 Mar 2026 09:12:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0B23410E64D;
+	Tue, 24 Mar 2026 09:12:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=139.com header.i=@139.com header.b="vzOqwIND";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="mdjJHA5j";
 	dkim-atps=neutral
-X-Greylist: delayed 560 seconds by postgrey-1.36 at gabe;
- Tue, 24 Mar 2026 01:01:30 UTC
-Received: from n169-110.mail.139.com (d255-143.mail.139.com [36.138.255.143])
- by gabe.freedesktop.org (Postfix) with ESMTP id 13BD510E2AB;
- Tue, 24 Mar 2026 01:01:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=139.com; s=dkim; l=0;
- h=from:subject:message-id:to:cc:mime-version;
- bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
- b=vzOqwINDB91eV8+Xm8AYdJubgN2sv0Ozjh4V8rnqN+AbLd3z5AEVMBufOsr6WslFWxkSD/rqqMky9
- YbKHpJkK/VDWWeoQEqkEKscEMnwc69zwMFQLb6QT+ycKa6x3NZ9NKfDv2DqwtQ0VWN50FFmu0KY7C1
- zcWQPT5nr4bnc2dI=
-X-RM-SAVE-FROM: 1
-X-RM-SPAM-FLAG: 00000000
-Received: from 1468888505@139.com ( [60.247.85.88] )
- by ajax-webmail-appmail_28-11028 (Richmail) with HTTP;
- Tue, 24 Mar 2026 08:52:01 +0800 (CST)
-Date: Tue, 24 Mar 2026 08:52:01 +0800 (CST)
-From: 18801328227 <1468888505@139.com>
-To: Greg KH  <gregkh@linuxfoundation.org>, 
- =?utf-8?Q?ChristianK=C3=B6nig=20?= <christian.koenig@amd.com>
-Cc: cve  <cve@kernel.org>, 
- "srinivasan.shanmugam " <srinivasan.shanmugam@amd.com>, 
- patches  <patches@lists.linux.dev>, 
- linux-kernel  <linux-kernel@vger.kernel.org>, 
- "alexander.deucher " <alexander.deucher@amd.com>, 
- "Xinhui.Pan " <Xinhui.Pan@amd.com>, airlied  <airlied@gmail.com>, 
- daniel  <daniel@ffwll.ch>, sashal  <sashal@kernel.org>, 
- "guchun.chen " <guchun.chen@amd.com>, 
- amd-gfx  <amd-gfx@lists.freedesktop.org>, 
- dri-devel  <dri-devel@lists.freedesktop.org>
-Message-ID: <2b1469c1e031aed-00001.Richmail.02090755151412502065@139.com>
-References: <20260323071052.4068410-1-1468888505@139.com>
- <f2d125ce-8cb9-4ae8-8f55-0b5a78e66f83@amd.com>
- <2026032346-ruse-dork-baf3@gregkh>
- <bd383c94-8350-420c-adbf-cc02a9918a37@amd.com>,
- <2026032335-muster-chump-60f7@gregkh>
-Subject: Re:Re: [PATCH 6.1.y] drm/amdgpu: Fix potential out-of-bounds access
- in'amdgpu_discovery_reg_base_init()'
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 247E610E3E9;
+ Mon, 23 Mar 2026 13:04:12 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id 85015600C4;
+ Mon, 23 Mar 2026 13:04:11 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 98957C4CEF7;
+ Mon, 23 Mar 2026 13:04:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+ s=korg; t=1774271051;
+ bh=nj+qiVG7IbV8YyBFK4Zymy8knypFitPwdeCO1dTeODQ=;
+ h=Subject:To:Cc:From:Date:In-Reply-To:From;
+ b=mdjJHA5jSbQmBqHMVL7U/FQKcVxlyZCaRZNhgzPFewKtWfFbqM82/J5io3zNaKV1n
+ NAPWtryUbhz25aS1KbKF40q+6YVGWlMjo4lJ5QgzhodmOECHMQdqWspVN+TSGf8pms
+ CXprloAnuKQLGZshpkezfBZp1UyRIN9Fy5Na5pz0=
+Subject: Patch "drm/amdgpu: clarify DC checks" has been added to the
+ 6.1-stable tree
+To: Jun.Ma2@amd.com, Rodrigo.Siqueira@amd.com, Roman.Li@amd.com,
+ Wayne.Lin@amd.com, Xinhui.Pan@amd.com, Zhigang.Luo@amd.com, airlied@gmail.com,
+ alex.hung@amd.com, alexander.deucher@amd.com, amd-gfx@lists.freedesktop.org,
+ christian.koenig@amd.com, daniel@ffwll.ch, decce6@proton.me,
+ dri-devel@lists.freedesktop.org, evan.quan@amd.com, gregkh@linuxfoundation.org,
+ harry.wentland@amd.com, hersenxs.wu@amd.com, lijo.lazar@amd.com,
+ mario.limonciello@amd.com, ray.wu@amd.com, rosenp@gmail.com, sashal@kernel.org,
+ spasswolf@web.de, srinivasan.shanmugam@amd.com, sunpeng.li@amd.com,
+ superm1@kernel.org, timur.kristof@gmail.com, vulab@iscas.ac.cn
+Cc: <stable-commits@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Mon, 23 Mar 2026 14:03:39 +0100
+In-Reply-To: <20260321054453.19683-3-rosenp@gmail.com>
+Message-ID: <2026032338-raging-elm-0386@gregkh>
 MIME-Version: 1.0
-Content-Type: multipart/alternative; 
- boundary="----=_Part_7137_44425550.1774313521908"
-X-Priority: 3
-X-RM-TRANSID: 2b1469c1e031aed-00001
-X-RM-OA-ENC-TYPE: 0
-X-RM-FontColor: 0
-X-CLIENT-INFO: X-TIMING=0&X-MASSSENT=0&X-SENSITIVE=0
-X-Mailer: Richmail_Webapp(V2.5.32)
+Content-Type: text/plain; charset=ISO-8859-1
+Content-Transfer-Encoding: 8bit
+X-stable: commit
+X-Patchwork-Hint: ignore
 X-Mailman-Approved-At: Tue, 24 Mar 2026 09:12:40 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -74,395 +63,189 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-------=_Part_7137_44425550.1774313521908
-Content-Type: text/plain;charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+
+This is a note to let you know that I've just added the patch titled
+
+    drm/amdgpu: clarify DC checks
+
+to the 6.1-stable tree which can be found at:
+    http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
+
+The filename of the patch is:
+     drm-amdgpu-clarify-dc-checks.patch
+and it can be found in the queue-6.1 subdirectory.
+
+If you, or anyone else, feels it should not be added to the stable tree,
+please let <stable@vger.kernel.org> know about it.
 
 
+From rosenp@gmail.com Sat Mar 21 06:45:17 2026
+From: Rosen Penev <rosenp@gmail.com>
+Date: Fri, 20 Mar 2026 22:44:51 -0700
+Subject: drm/amdgpu: clarify DC checks
+To: stable@vger.kernel.org
+Cc: "Alex Deucher" <alexander.deucher@amd.com>, "Christian König" <christian.koenig@amd.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>, "David Airlie" <airlied@gmail.com>, "Daniel Vetter" <daniel@ffwll.ch>, "Harry Wentland" <harry.wentland@amd.com>, "Leo Li" <sunpeng.li@amd.com>, "Rodrigo Siqueira" <Rodrigo.Siqueira@amd.com>, "Evan Quan" <evan.quan@amd.com>, "Mario Limonciello" <mario.limonciello@amd.com>, "Sasha Levin" <sashal@kernel.org>, "Rosen Penev" <rosenp@gmail.com>, "Lijo Lazar" <lijo.lazar@amd.com>, "Ma Jun" <Jun.Ma2@amd.com>, "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>, "Srinivasan Shanmugam" <srinivasan.shanmugam@amd.com>, "Mario Limonciello (AMD)" <superm1@kernel.org>, "Zhigang Luo" <Zhigang.Luo@amd.com>, "Bert Karwatzki" <spasswolf@web.de>, "Ray Wu" <ray.wu@amd.com>, "Wayne Lin" <Wayne.Lin@amd.com>, "Roman Li" <Roman.Li@amd.com>, "Hersen Wu" <hersenxs.wu@amd.com>, "Timur Kristóf" <timur.kristof@gmail.com>, "Alex Hung" <alex.hung@amd.com>, decce6 <decce6@proton.me>, "Went
+ ao Liang" <vulab@iscas.ac.cn>, amd-gfx@lists.freedesktop.org (open list:RADEON and AMDGPU DRM DRIVERS), dri-devel@lists.freedesktop.org (open list:DRM DRIVERS), linux-kernel@vger.kernel.org (open list)
+Message-ID: <20260321054453.19683-3-rosenp@gmail.com>
 
-Hi Greg & Christian,
+From: Alex Deucher <alexander.deucher@amd.com>
 
-Thanks for pointing this out. You are correct! I submitted this patch solel=
-y to fix CVE-2024-27042. I am happy to withdraw it. Thanks a lot.
+[ Upstream commit d09ef243035b75a6d403ebfeb7e87fa20d7e25c6 ]
+
+There are several places where we don't want to check
+if a particular asic could support DC, but rather, if
+DC is enabled.  Set a flag if DC is enabled and check
+for that rather than if a device supports DC or not.
+
+Acked-by: Christian KÃ¶nig <christian.koenig@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h               |    1 
+ drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c          |    2 -
+ drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c       |    2 -
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c        |   32 +++++++++++-----------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_display.c       |    4 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c           |    2 -
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |    1 
+ drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c  |    2 -
+ 8 files changed, 25 insertions(+), 21 deletions(-)
+
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+@@ -1071,6 +1071,7 @@ struct amdgpu_device {
+ 	struct work_struct		reset_work;
+ 
+ 	bool                            job_hang;
++	bool                            dc_enabled;
+ };
+ 
+ static inline struct amdgpu_device *drm_to_adev(struct drm_device *ddev)
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
+@@ -857,7 +857,7 @@ int amdgpu_acpi_init(struct amdgpu_devic
+ 	struct amdgpu_atif *atif = &amdgpu_acpi_priv.atif;
+ 
+ 	if (atif->notifications.brightness_change) {
+-		if (amdgpu_device_has_dc_support(adev)) {
++		if (adev->dc_enabled) {
+ #if defined(CONFIG_DRM_AMD_DC)
+ 			struct amdgpu_display_manager *dm = &adev->dm;
+ 
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+@@ -1981,7 +1981,7 @@ int amdgpu_debugfs_init(struct amdgpu_de
+ 	amdgpu_ta_if_debugfs_init(adev);
+ 
+ #if defined(CONFIG_DRM_AMD_DC)
+-	if (amdgpu_device_has_dc_support(adev))
++	if (adev->dc_enabled)
+ 		dtn_debugfs_init(adev);
+ #endif
+ 
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -4404,25 +4404,27 @@ int amdgpu_device_resume(struct drm_devi
+ 
+ 	amdgpu_ras_resume(adev);
+ 
+-	/*
+-	 * Most of the connector probing functions try to acquire runtime pm
+-	 * refs to ensure that the GPU is powered on when connector polling is
+-	 * performed. Since we're calling this from a runtime PM callback,
+-	 * trying to acquire rpm refs will cause us to deadlock.
+-	 *
+-	 * Since we're guaranteed to be holding the rpm lock, it's safe to
+-	 * temporarily disable the rpm helpers so this doesn't deadlock us.
+-	 */
++	if (adev->mode_info.num_crtc) {
++		/*
++		 * Most of the connector probing functions try to acquire runtime pm
++		 * refs to ensure that the GPU is powered on when connector polling is
++		 * performed. Since we're calling this from a runtime PM callback,
++		 * trying to acquire rpm refs will cause us to deadlock.
++		 *
++		 * Since we're guaranteed to be holding the rpm lock, it's safe to
++		 * temporarily disable the rpm helpers so this doesn't deadlock us.
++		 */
+ #ifdef CONFIG_PM
+-	dev->dev->power.disable_depth++;
++		dev->dev->power.disable_depth++;
+ #endif
+-	if (!amdgpu_device_has_dc_support(adev))
+-		drm_helper_hpd_irq_event(dev);
+-	else
+-		drm_kms_helper_hotplug_event(dev);
++		if (!adev->dc_enabled)
++			drm_helper_hpd_irq_event(dev);
++		else
++			drm_kms_helper_hotplug_event(dev);
+ #ifdef CONFIG_PM
+-	dev->dev->power.disable_depth--;
++		dev->dev->power.disable_depth--;
+ #endif
++	}
+ 	adev->in_suspend = false;
+ 
+ 	if (adev->enable_mes)
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
+@@ -534,7 +534,7 @@ uint32_t amdgpu_display_supported_domain
+ 	 */
+ 	if ((bo_flags & AMDGPU_GEM_CREATE_CPU_GTT_USWC) &&
+ 	    amdgpu_bo_support_uswc(bo_flags) &&
+-	    amdgpu_device_has_dc_support(adev) &&
++	    adev->dc_enabled &&
+ 	    adev->mode_info.gpu_vm_support)
+ 		domain |= AMDGPU_GEM_DOMAIN_GTT;
+ #endif
+@@ -1330,7 +1330,7 @@ int amdgpu_display_modeset_create_props(
+ 					 "dither",
+ 					 amdgpu_dither_enum_list, sz);
+ 
+-	if (amdgpu_device_has_dc_support(adev)) {
++	if (adev->dc_enabled) {
+ 		adev->mode_info.abm_level_property =
+ 			drm_property_create_range(adev_to_drm(adev), 0,
+ 						  "abm level", 0, 4);
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+@@ -2530,7 +2530,7 @@ static int amdgpu_runtime_idle_check_dis
+ 		if (ret)
+ 			return ret;
+ 
+-		if (amdgpu_device_has_dc_support(adev)) {
++		if (adev->dc_enabled) {
+ 			struct drm_crtc *crtc;
+ 
+ 			drm_for_each_crtc(crtc, drm_dev) {
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -4842,6 +4842,7 @@ static int dm_early_init(void *handle)
+ 		adev_to_drm(adev)->dev,
+ 		&dev_attr_s3_debug);
+ #endif
++	adev->dc_enabled = true;
+ 
+ 	return 0;
+ }
+--- a/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
++++ b/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
+@@ -1567,7 +1567,7 @@ static void pp_pm_compute_clocks(void *h
+ 	struct pp_hwmgr *hwmgr = handle;
+ 	struct amdgpu_device *adev = hwmgr->adev;
+ 
+-	if (!amdgpu_device_has_dc_support(adev)) {
++	if (!adev->dc_enabled) {
+ 		amdgpu_dpm_get_active_displays(adev);
+ 		adev->pm.pm_display_cfg.num_display = adev->pm.dpm.new_active_crtc_count;
+ 		adev->pm.pm_display_cfg.vrefresh = amdgpu_dpm_get_vrefresh(adev);
 
 
+Patches currently in stable-queue which might be from rosenp@gmail.com are
 
-
-
-
----------------------------------------------------------------------------=
------
-
-
-----The following is the content of the forwarded email----
-From=EF=BC=9AGreg KH=20
-To=EF=BC=9A"ChristianK=C3=B6nig"=20
-Date=EF=BC=9A2026-03-23 20:37:46
-Subject=EF=BC=9ARe: [PATCH 6.1.y] drm/amdgpu: Fix potential out-of-bounds a=
-ccess in'amdgpu_discovery_reg_base_init()'
-
-On Mon, Mar 23, 2026 at 01:28:24PM +0100, Christian K=C3=B6nig wrote:
-> Hi Greg,
->=20
-> On 3/23/26 11:32, Greg KH wrote:
-> > On Mon, Mar 23, 2026 at 10:51:18AM +0100, Christian K=C3=B6nig wrote:
-> >> Hi Li,
-> >>
-> >> On 3/23/26 08:10, Li hongliang wrote:
-> >>> From: Srinivasan Shanmugam=20
-> >>>
-> >>> [ Upstream commit cdb637d339572398821204a1142d8d615668f1e9 ]
-> >>>
-> >>> The issue arises when the array 'adev->vcn.vcn_config' is accessed
-> >>> before checking if the index 'adev->vcn.num_vcn_inst' is within the
-> >>> bounds of the array.
-> >>>
-> >>> The fix involves moving the bounds check before the array access. Thi=
-s
-> >>> ensures that 'adev->vcn.num_vcn_inst' is within the bounds of the arr=
-ay
-> >>> before it is used as an index.
-> >>>
-> >>> Fixes the below:
-> >>> drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c:1289 amdgpu_discovery_r=
-eg_base_init() error: testing array offset 'adev->vcn.num_vcn_inst' after u=
-se.
-> >>
-> >> well this patch only fixed a compiler warning and has not much practic=
-al value otherwise.
-> >>
-> >> Why are you sending this for inclusion into the 6.1 kernel?
-> >=20
-> > Perhaps because it was assigned to CVE-2024-27042? If this is ONLY a
-> > compiler warning fix, and NOT an actual vulnerability fix, please let
-> > cve@kernel.org know about that and they will revoke this CVE.
->=20
-> Thanks a lot for pointing that out, adding cve@kernel.org.
->=20
-> As far as I can see the CVE-2024-27042 is not valid or at least not corre=
-ctly categorized.
->=20
-> It is correct that there is a potential array overrun in amdgpu_discovery=
-_reg_base_init(), but that function is used to parse a VBIOS table from a f=
-lash EEPROM located on the HW and not user input.
->=20
-> If an attacker already had the ability to modify that EEPROM he could jus=
-t overwrite the VBIOS code were parts are directly executed at bootup and/o=
-r driver load. So this problem here wouldn't be needed at all.
->=20
-> It is good that this warning is fixed, but as far as I can see there is n=
-o reason whatsoever to backport it nor to assign a CVE entry for it.
-
-Now rejected, thanks!
-
-greg k-h
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-------=_Part_7137_44425550.1774313521908
-Content-Type: text/html;charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-
-<div style=3D"font-family: =E5=BE=AE=E8=BD=AF=E9=9B=85=E9=BB=91; color: rgb=
-(0, 0, 0); line-height: 1.5; overflow-wrap: break-word;"><div class=3D"qk-m=
-d-paragraph" style=3D"-webkit-font-smoothing: antialiased; --tw-border-spac=
-ing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: =
-0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-sc=
-ale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-s=
-trictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-posi=
-tion: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; -=
--tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw=
--ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; -=
--tw-ring-color: rgba(59,130,246,.5); --tw-ring-offset-shadow: 0 0 transpare=
-nt; --tw-ring-shadow: 0 0 transparent; --tw-shadow: 0 0 transparent; --tw-s=
-hadow-colored: 0 0 transparent; --tw-blur: ; --tw-brightness: ; --tw-contra=
-st: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; =
---tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brigh=
-tness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop=
--hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdr=
-op-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-lay=
-out: ; --tw-contain-paint: ; --tw-contain-style: ; box-sizing: border-box; =
-border: 0px solid; margin-top: 0px; margin-bottom: 16px; content-visibility=
-: auto; contain-intrinsic-size: auto 30px; opacity: 1; color: rgb(6, 10, 38=
-); font-family: 'PingFang SC', 'Helvetica Neue', system-ui, -apple-system, =
-BlinkMacSystemFont, 'Segoe UI', Roboto, 'Noto Sans', Ubuntu, Cantarell, STH=
-eiti, 'Microsoft Yahei', Simsun, Tahoma, 'Apple Color Emoji', 'Segoe UI Emo=
-ji', 'Segoe UI Symbol', 'Noto Color Emoji', sans-serif; background-color: r=
-gb(255, 255, 255); animation: auto ease 0s 1 normal none running none !impo=
-rtant;"><span class=3D"qk-md-text complete" style=3D"-webkit-font-smoothing=
-: antialiased; --tw-border-spacing-x: 0; --tw-border-spacing-y: 0; --tw-tra=
-nslate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew=
--y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-p=
-inch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-pos=
-ition: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-or=
-dinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: =
-; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; =
---tw-ring-offset-color: #fff; --tw-ring-color: rgba(59,130,246,.5); --tw-ri=
-ng-offset-shadow: 0 0 transparent; --tw-ring-shadow: 0 0 transparent; --tw-=
-shadow: 0 0 transparent; --tw-shadow-colored: 0 0 transparent; --tw-blur: ;=
- --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; -=
--tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backd=
-rop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-back=
-drop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-=
-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-c=
-ontain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-st=
-yle: ; box-sizing: border-box; border: 0px solid; opacity: 1; color: rgba(6=
-, 10, 38, 0.7) !important; animation: auto ease 0s 1 normal none running no=
-ne !important;"><font size=3D"3">Hi Greg &amp; Christian,</font></span></di=
-v><div class=3D"qk-md-paragraph" data-spm-anchor-id=3D"5176.28103460.0.i3.6=
-3d66308gQ31KT" style=3D"-webkit-font-smoothing: antialiased; --tw-border-sp=
-acing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y=
-: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-=
-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap=
--strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-po=
-sition: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ;=
- --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --=
-tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff;=
- --tw-ring-color: rgba(59,130,246,.5); --tw-ring-offset-shadow: 0 0 transpa=
-rent; --tw-ring-shadow: 0 0 transparent; --tw-shadow: 0 0 transparent; --tw=
--shadow-colored: 0 0 transparent; --tw-blur: ; --tw-brightness: ; --tw-cont=
-rast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: =
-; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-bri=
-ghtness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdr=
-op-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-back=
-drop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-l=
-ayout: ; --tw-contain-paint: ; --tw-contain-style: ; box-sizing: border-box=
-; border: 0px solid; margin-top: 0px; content-visibility: auto; contain-int=
-rinsic-size: auto 30px; opacity: 1; color: rgb(6, 10, 38); font-family: 'Pi=
-ngFang SC', 'Helvetica Neue', system-ui, -apple-system, BlinkMacSystemFont,=
- 'Segoe UI', Roboto, 'Noto Sans', Ubuntu, Cantarell, STHeiti, 'Microsoft Ya=
-hei', Simsun, Tahoma, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symb=
-ol', 'Noto Color Emoji', sans-serif; background-color: rgb(255, 255, 255); =
-margin-bottom: 0px !important; animation: auto ease 0s 1 normal none runnin=
-g none !important;"><font size=3D"3"><span class=3D"qk-md-text complete" st=
-yle=3D"-webkit-font-smoothing: antialiased; --tw-border-spacing-x: 0; --tw-=
-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate:=
- 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-=
-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: prox=
-imity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gr=
-adient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-fig=
-ure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; =
---tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color:=
- rgba(59,130,246,.5); --tw-ring-offset-shadow: 0 0 transparent; --tw-ring-s=
-hadow: 0 0 transparent; --tw-shadow: 0 0 transparent; --tw-shadow-colored: =
-0 0 transparent; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-gray=
-scale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; -=
--tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-b=
-ackdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; =
---tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; =
---tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-con=
-tain-paint: ; --tw-contain-style: ; box-sizing: border-box; border: 0px sol=
-id; opacity: 1; color: rgba(6, 10, 38, 0.7) !important; animation: auto eas=
-e 0s 1 normal none running none !important;">Thanks for&nbsp;</span><span c=
-lass=3D"qk-md-strong complete" style=3D"-webkit-font-smoothing: antialiased=
-; --tw-border-spacing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; =
---tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-s=
-cale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; =
---tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw=
--gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw=
--slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeri=
-c-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-off=
-set-color: #fff; --tw-ring-color: rgba(59,130,246,.5); --tw-ring-offset-sha=
-dow: 0 0 transparent; --tw-ring-shadow: 0 0 transparent; --tw-shadow: 0 0 t=
-ransparent; --tw-shadow-colored: 0 0 transparent; --tw-blur: ; --tw-brightn=
-ess: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ;=
- --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; -=
--tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscal=
-e: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opac=
-ity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: =
-; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; box-si=
-zing: border-box; border: 0px solid; opacity: 1; animation: auto ease 0s 1 =
-normal none running none !important;">pointing this out</span><span class=
-=3D"qk-md-text complete" style=3D"-webkit-font-smoothing: antialiased; --tw=
--border-spacing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-t=
-ranslate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x=
-: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-s=
-croll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradi=
-ent-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slash=
-ed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-frac=
-tion: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-co=
-lor: #fff; --tw-ring-color: rgba(59,130,246,.5); --tw-ring-offset-shadow: 0=
- 0 transparent; --tw-ring-shadow: 0 0 transparent; --tw-shadow: 0 0 transpa=
-rent; --tw-shadow-colored: 0 0 transparent; --tw-blur: ; --tw-brightness: ;=
- --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-=
-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-ba=
-ckdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; -=
--tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ;=
- --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw=
--contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; box-sizing: =
-border-box; border: 0px solid; opacity: 1; color: rgba(6, 10, 38, 0.7) !imp=
-ortant; animation: auto ease 0s 1 normal none running none !important;">. Y=
-ou are correct! I submitted this patch&nbsp;</span><span class=3D"qk-md-str=
-ong complete" style=3D"-webkit-font-smoothing: antialiased; --tw-border-spa=
-cing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y:=
- 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-s=
-cale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-=
-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-pos=
-ition: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; =
---tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --t=
-w-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; =
---tw-ring-color: rgba(59,130,246,.5); --tw-ring-offset-shadow: 0 0 transpar=
-ent; --tw-ring-shadow: 0 0 transparent; --tw-shadow: 0 0 transparent; --tw-=
-shadow-colored: 0 0 transparent; --tw-blur: ; --tw-brightness: ; --tw-contr=
-ast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ;=
- --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brig=
-htness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdro=
-p-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backd=
-rop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-la=
-yout: ; --tw-contain-paint: ; --tw-contain-style: ; box-sizing: border-box;=
- border: 0px solid; opacity: 1; animation: auto ease 0s 1 normal none runni=
-ng none !important;">solely to fix</span><span class=3D"qk-md-text complete=
-" style=3D"-webkit-font-smoothing: antialiased; --tw-border-spacing-x: 0; -=
--tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rot=
-ate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; -=
--tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: =
-proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --t=
-w-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric=
--figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset=
-: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-co=
-lor: rgba(59,130,246,.5); --tw-ring-offset-shadow: 0 0 transparent; --tw-ri=
-ng-shadow: 0 0 transparent; --tw-shadow: 0 0 transparent; --tw-shadow-color=
-ed: 0 0 transparent; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-=
-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia:=
- ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --=
-tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate=
-: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate=
-: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw=
--contain-paint: ; --tw-contain-style: ; box-sizing: border-box; border: 0px=
- solid; opacity: 1; color: rgba(6, 10, 38, 0.7) !important; animation: auto=
- ease 0s 1 normal none running none !important;">&nbsp;CVE-2024-27042. I am=
-&nbsp;</span><span class=3D"qk-md-strong complete" style=3D"-webkit-font-sm=
-oothing: antialiased; --tw-border-spacing-x: 0; --tw-border-spacing-y: 0; -=
--tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --=
-tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ;=
- --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-f=
-rom-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; =
---tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-sp=
-acing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width=
-: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgba(59,130,246,.5); =
---tw-ring-offset-shadow: 0 0 transparent; --tw-ring-shadow: 0 0 transparent=
-; --tw-shadow: 0 0 transparent; --tw-shadow-colored: 0 0 transparent; --tw-=
-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rota=
-te: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --t=
-w-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --=
-tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: =
-; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ;=
- --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-con=
-tain-style: ; box-sizing: border-box; border: 0px solid; opacity: 1; animat=
-ion: auto ease 0s 1 normal none running none !important;">happy to</span><s=
-pan class=3D"qk-md-text complete" style=3D"-webkit-font-smoothing: antialia=
-sed; --tw-border-spacing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: =
-0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --t=
-w-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom:=
- ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; -=
--tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; -=
--tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-num=
-eric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-=
-offset-color: #fff; --tw-ring-color: rgba(59,130,246,.5); --tw-ring-offset-=
-shadow: 0 0 transparent; --tw-ring-shadow: 0 0 transparent; --tw-shadow: 0 =
-0 transparent; --tw-shadow-colored: 0 0 transparent; --tw-blur: ; --tw-brig=
-htness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert=
-: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: =
-; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grays=
-cale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-o=
-pacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-siz=
-e: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; box=
--sizing: border-box; border: 0px solid; opacity: 1; color: rgba(6, 10, 38, =
-0.7) !important; animation: auto ease 0s 1 normal none running none !import=
-ant;">&nbsp;withdraw it. Thanks a lot.</span></font></div></div><div style=
-=3D"font-family: =E5=BE=AE=E8=BD=AF=E9=9B=85=E9=BB=91; font-size: 16px; col=
-or: #000000; line-height: 1.5; overflow-wrap: break-word; "><br><br></div><=
-hr id=3D"replySplit" style=3D"font-family: =E5=BE=AE=E8=BD=AF=E9=9B=85=E9=
-=BB=91; font-size: 16px; color: rgb(0, 0, 0); line-height: 1.5;"><div id=3D=
-"reply139content" style=3D"position: relative; font-family: =E5=BE=AE=E8=BD=
-=AF=E9=9B=85=E9=BB=91; font-size: 16px; color: rgb(0, 0, 0); line-height: 1=
-.5;" "=3D""><div id=3D"mainReplyContent">----The following is the content o=
-f the forwarded email----
-From=EF=BC=9AGreg KH  <gregkh@linuxfoundation.org>
-To=EF=BC=9A"ChristianK=C3=B6nig" <christian.koenig@amd.com>
-Date=EF=BC=9A2026-03-23 20:37:46
-Subject=EF=BC=9ARe: [PATCH 6.1.y] drm/amdgpu: Fix potential out-of-bounds a=
-ccess in'amdgpu_discovery_reg_base_init()'
-
-On Mon, Mar 23, 2026 at 01:28:24PM +0100, Christian K=C3=B6nig wrote:
-&gt; Hi Greg,
-&gt;=20
-&gt; On 3/23/26 11:32, Greg KH wrote:
-&gt; &gt; On Mon, Mar 23, 2026 at 10:51:18AM +0100, Christian K=C3=B6nig wr=
-ote:
-&gt; &gt;&gt; Hi Li,
-&gt; &gt;&gt;
-&gt; &gt;&gt; On 3/23/26 08:10, Li hongliang wrote:
-&gt; &gt;&gt;&gt; From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-&gt; &gt;&gt;&gt;
-&gt; &gt;&gt;&gt; [ Upstream commit cdb637d339572398821204a1142d8d615668f1e=
-9 ]
-&gt; &gt;&gt;&gt;
-&gt; &gt;&gt;&gt; The issue arises when the array 'adev-&gt;vcn.vcn_config'=
- is accessed
-&gt; &gt;&gt;&gt; before checking if the index 'adev-&gt;vcn.num_vcn_inst' =
-is within the
-&gt; &gt;&gt;&gt; bounds of the array.
-&gt; &gt;&gt;&gt;
-&gt; &gt;&gt;&gt; The fix involves moving the bounds check before the array=
- access. This
-&gt; &gt;&gt;&gt; ensures that 'adev-&gt;vcn.num_vcn_inst' is within the bo=
-unds of the array
-&gt; &gt;&gt;&gt; before it is used as an index.
-&gt; &gt;&gt;&gt;
-&gt; &gt;&gt;&gt; Fixes the below:
-&gt; &gt;&gt;&gt; drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c:1289 amdgpu=
-_discovery_reg_base_init() error: testing array offset 'adev-&gt;vcn.num_vc=
-n_inst' after use.
-&gt; &gt;&gt;
-&gt; &gt;&gt; well this patch only fixed a compiler warning and has not muc=
-h practical value otherwise.
-&gt; &gt;&gt;
-&gt; &gt;&gt; Why are you sending this for inclusion into the 6.1 kernel?
-&gt; &gt;=20
-&gt; &gt; Perhaps because it was assigned to CVE-2024-27042?  If this is ON=
-LY a
-&gt; &gt; compiler warning fix, and NOT an actual vulnerability fix, please=
- let
-&gt; &gt; cve@kernel.org know about that and they will revoke this CVE.
-&gt;=20
-&gt; Thanks a lot for pointing that out, adding cve@kernel.org.
-&gt;=20
-&gt; As far as I can see the CVE-2024-27042 is not valid or at least not co=
-rrectly categorized.
-&gt;=20
-&gt; It is correct that there is a potential array overrun in amdgpu_discov=
-ery_reg_base_init(), but that function is used to parse a VBIOS table from =
-a flash EEPROM located on the HW and not user input.
-&gt;=20
-&gt; If an attacker already had the ability to modify that EEPROM he could =
-just overwrite the VBIOS code were parts are directly executed at bootup an=
-d/or driver load. So this problem here wouldn't be needed at all.
-&gt;=20
-&gt; It is good that this warning is fixed, but as far as I can see there i=
-s no reason whatsoever to backport it nor to assign a CVE entry for it.
-
-Now rejected, thanks!
-
-greg k-h
-</srinivasan.shanmugam@amd.com></christian.koenig@amd.com></gregkh@linuxfou=
-ndation.org></div><div contenteditable=3D"false"></div></div><div style=3D"=
-font-family: =E5=BE=AE=E8=BD=AF=E9=9B=85=E9=BB=91; font-size: 16px; color: =
-#000000; line-height: 1.5; overflow-wrap: break-word; "><br><br><br><br><br=
-><br></div><div id=3D"signContainer" style=3D"font-family: =E5=BE=AE=E8=BD=
-=AF=E9=9B=85=E9=BB=91; font-size: 16px; color: rgb(0, 0, 0); line-height: 1=
-.5;"></div>
-------=_Part_7137_44425550.1774313521908--
-
+queue-6.1/drm-amdgpu-clarify-dc-checks.patch
+queue-6.1/drm-amd-pm-use-pm_display_cfg-in-legacy-dpm-v2.patch
+queue-6.1/drm-amdgpu-use-proper-dc-check-in-amdgpu_display_supported_domains.patch
+queue-6.1/drm-amd-display-add-pixel_clock-to-amd_pp_display_configuration.patch
