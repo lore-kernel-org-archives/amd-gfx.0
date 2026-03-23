@@ -4,45 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DE49BF4613B
-	for <amd-gfx@archiver.kernel.org>; Mon, 23 Mar 2026 15:44:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1DA5DF483DD
+	for <amd-gfx@archiver.kernel.org>; Mon, 23 Mar 2026 17:28:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7CA5E10E120;
-	Mon, 23 Mar 2026 15:44:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B87F410E14A;
+	Mon, 23 Mar 2026 17:27:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ELrnanuY";
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="HdxUmOqy";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3B74210E120
- for <amd-gfx@lists.freedesktop.org>; Mon, 23 Mar 2026 15:44:03 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 49F2643FFC;
- Mon, 23 Mar 2026 15:44:03 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E249AC4CEF7;
- Mon, 23 Mar 2026 15:44:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1774280643;
- bh=uY38mLKVP3tl29S7TYQEDCv6g3DlKXfA9Mkl7fnpJaE=;
- h=Date:Subject:To:References:From:In-Reply-To:From;
- b=ELrnanuY3KVnyjDqdH7p2pd8g2BRTgd0ZOq84hzhXfLP/F5fvv+4ENZwD5O5tBUio
- 7B1ROQL8AEgiKqGbRNp6gzubN7TIFUQB557jg9NRhn7RMeOzQR4Ef06BPQzGGWenpZ
- KWbwq9h1c+E6Hn/C2jcF2z/Swqi6YxTfATRb1MPqCCRlUtIeL7gqn1khmVCGNem003
- qHTQlVT2ENKZZSkqxxXWX522MAgheEBJKjARW6QgVGPOBmj7UrSjC+ikL8+WgPcl5T
- Z6C2Cku/z2Gpdk70bHZSSJ5eRMB5jf5ku17FHk8ZWiTm0RKHqck2jRCrbNYhk1IjjI
- mrHiUT1O+nd+A==
-Message-ID: <cae0746a-0c10-4857-8fd0-c372e149ed92@kernel.org>
-Date: Mon, 23 Mar 2026 10:44:02 -0500
+Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1893610E13E;
+ Mon, 23 Mar 2026 17:27:56 +0000 (UTC)
+Received: from smtp2.mailbox.org (smtp2.mailbox.org [10.196.197.2])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4ffg9P1Yqpz9vDB;
+ Mon, 23 Mar 2026 18:27:53 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; t=1774286873;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=+udIamB9qVMmOxfn1liNDI7no1r2FUy5L/0xY27clGs=;
+ b=HdxUmOqy3JaDWsva2nxnkD7aHgj2w9hQLkehA1IYl5tsKhgbLGIj850Ps1g4+MjGlJEUfL
+ ZoyyBDwK0WvDgsRgDPV6ef2cww91zhbjrNT4Rgvcjxip/cVQO1PweMC+GlqTpuLnbECWib
+ AZYizywt/wL4QSQ7dw3eZJfzBApSej6ESIL6XVV1TDgNw2s4UAwy2BVm9WA7lN47t4iM5m
+ inXwDWECg0XDMXbF0sFQP7WAAIrpz4jWtgqMqnly+1HrhNR0fuDc/santc90sbV7yDF4nN
+ BrX52y+pBI4/c5Ex9dWYgOoSqMON732MxYHGuXMbGpNFRirBXCJz+fCZFZ2U+g==
+Message-ID: <eff61423-a854-44c1-8634-30e2bd61e005@mailbox.org>
+Date: Mon, 23 Mar 2026 18:27:41 +0100
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] drm/amd/display: check if ext_caps is valid in BL
- setup
-To: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20260323153923.1055788-1-alexander.deucher@amd.com>
-Content-Language: en-US
-From: "Mario Limonciello (AMD) (kernel.org)" <superm1@kernel.org>
-In-Reply-To: <20260323153923.1055788-1-alexander.deucher@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v5 0/3] Add "link bpc" DRM property
+To: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
+ Daniel Stone <daniels@collabora.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, kernel@collabora.com,
+ Derek Foreman <derek.foreman@collabora.com>,
+ Marius Vlad <marius.vlad@collabora.com>
+References: <20260319-link-bpc-v5-0-5306cd04a708@collabora.com>
+ <5995842.DvuYhMxLoT@workhorse>
+ <aead136d-4da5-42de-aef8-3f91815a95a9@mailbox.org>
+ <8676926.T7Z3S40VBb@workhorse>
+From: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>
+Content-Language: en-CA
+In-Reply-To: <8676926.T7Z3S40VBb@workhorse>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-MBO-RS-ID: e7d63257e60408e7c9d
+X-MBO-RS-META: amyc3acawnkpqay14oy3pyfzzipmmpwh
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,35 +77,13 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+On 3/23/26 17:55, Nicolas Frattaroli wrote:
+>
+> "Someone might not understand its purpose" is, in my eyes, not a valid reason to
+> not have this property, [...]
+Per my previous posts, that's not my concern.
 
 
-On 3/23/2026 10:39 AM, Alex Deucher wrote:
-> LVDS connectors don't have extended backlight caps so check
-> if the pointer is valid before accessing it.
-> 
-> Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/5012
-> Fixes: 1454642960b0 ("drm/amd: Re-introduce property to control adaptive backlight modulation")
-> Cc: Mario Limonciello <mario.limonciello@amd.com>
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> ---
->   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index 0955c2318ef2f..a347f48e3cd89 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -5417,7 +5417,7 @@ static void setup_backlight_device(struct amdgpu_display_manager *dm,
->   	caps = &dm->backlight_caps[aconnector->bl_idx];
->   
->   	/* Only offer ABM property when non-OLED and user didn't turn off by module parameter */
-> -	if (!caps->ext_caps->bits.oled && amdgpu_dm_abm_level < 0)
-> +	if (caps->ext_caps && !caps->ext_caps->bits.oled && amdgpu_dm_abm_level < 0)
->   		drm_object_attach_property(&aconnector->base.base,
->   					   dm->adev->mode_info.abm_level_property,
->   					   ABM_SYSFS_CONTROL);
-
-Cc: stable@vger.kernel.org
-Reviewed-by: Mario Limonciello (AMD) <superm1@kernel.org>
-
-
+-- 
+Earthling Michel Dänzer       \        GNOME / Xwayland / Mesa developer
+https://redhat.com             \               Libre software enthusiast
