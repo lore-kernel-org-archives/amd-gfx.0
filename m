@@ -4,66 +4,128 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6A1C2F483CA
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4F514F4613D
 	for <amd-gfx@archiver.kernel.org>; Tue, 24 Mar 2026 09:12:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6D2A610E647;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6238210E641;
 	Tue, 24 Mar 2026 09:12:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="NwbZ64iu";
+	dkim=pass (2048-bit key; secure) header.d=bitbyteword.org header.i=@bitbyteword.org header.b="Wj4fEqwb";
 	dkim-atps=neutral
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
- [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9F33F10E5B1;
- Mon, 23 Mar 2026 16:55:53 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1774284936; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=hn01+A1MpwSwu42ddL8NIjneXPC773MdPO3N/cVPmkSUizy78h68Kn6xtxU2p27DJNEXvHLbQdK269h1azz9lAr8fsw2S4TTHGDGAPFsHvsDo+HeWcAmALg/oTA1gCujhpHXMP8dNH+xYyQ4/mbzZCNOVDYmMSH8j2Hs5q3p4rA=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1774284936;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=1RIp2XliOHFyhsE2i39U7wdZc+w/m/jcDr9m8q9DG1o=; 
- b=N+68h7LnGXwBl++4P+cvAYG7kmAk/2YEy0/487NeII+H7dL5BmeM/YO8mjWk9adbrAnQ/zAUp3qsPK+MtNVimWuXBowawyF4cJlueJJZ4BGoFeD6A207Umhmxx/NY8TsdRfKWaAL/kxWwlkzdgcYRbRDXWhlKoRqAMlvrcDQTDc=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
- dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1774284936; 
- s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
- h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:Content-Type:Message-Id:Reply-To;
- bh=1RIp2XliOHFyhsE2i39U7wdZc+w/m/jcDr9m8q9DG1o=;
- b=NwbZ64iue9c5uA2EGuqXTv+09nX90SlyFmqA3OEsn2ri5mcvGxFTMMJsjsFgjRU0
- sVzBSkUq/z+4L1MN67CJSCFkVHG51s28SNkokwndqkQNC8sHIizHrt4HDzKkmspYgj3
- 0qQ4ze77WMC1ek/DzFsmphF4hy8k4EEAaxLBDgp8=
-Received: by mx.zohomail.com with SMTPS id 1774284934084912.9501784983873;
- Mon, 23 Mar 2026 09:55:34 -0700 (PDT)
-From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+Received: from mail-pg1-f176.google.com (mail-pg1-f176.google.com
+ [209.85.215.176])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B666E10E42D
+ for <amd-gfx@lists.freedesktop.org>; Mon, 23 Mar 2026 16:01:21 +0000 (UTC)
+Received: by mail-pg1-f176.google.com with SMTP id
+ 41be03b00d2f7-c2af7d09533so2674896a12.1
+ for <amd-gfx@lists.freedesktop.org>; Mon, 23 Mar 2026 09:01:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=bitbyteword.org; s=google; t=1774281681; x=1774886481;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=eViZzzv8Sc/M5QSGBQX9CwMHZ/34uumJnzvDlBpaGpc=;
+ b=Wj4fEqwbCQkp4L7/JJxJrpsZDmeAVtRQEEa9gcTWv8UJHUdo/f1O5tf08SHE/R8cV0
+ O5i/P7tz6Gi87e3JyGJXwbnwF4a0nfOVX6DV7nFZ1ASfxtEKm1NV3JPhI1Tdv2x8POwZ
+ hmTC7xbKc8Zs/nzU3cGNeczYdnbsW4kWQcxrmV2Idgy3ZCdzAfvlMCCSnwrU5VJJolMV
+ 1rKOBOyL6fA6UEek/F7CnAJukwIaXaGMTkitAPrXqwM0l4ena8yuLACGqft2SXBg8p72
+ +EE7PVIGUf2u6zm1yGPzA1ixPJYQyO9K4vWzr5rPhc7XbUd6UqjFI2zwNH6pMlTPuFIi
+ GgjQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1774281681; x=1774886481;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=eViZzzv8Sc/M5QSGBQX9CwMHZ/34uumJnzvDlBpaGpc=;
+ b=EL3DCdPQ/JzX8Oaeqj6CAl2jZBba+PxjgLKwxfxDBxOf+mpf4TZIW6DUGsH9sItrLU
+ 937J+CmfLtH52LY9eaVLW5RirNIktyw40hCgMO6V2FEHYq5aigXUPJ4KOPxrrf6bgGNQ
+ fQIP2XXCmp9vw8yDUb+r0Vyni/CFJ3PsOC1y8UYWhQw9UAl24E8/XHGLK5Nc7KGhgfP7
+ W4ZmE8pWYO4FrMqtPUEgxh5klLeXq36aTi1xyns7oGS1vxfE2lkuERReKrbJ+8v4aWFR
+ g23Sm1fvHv9iej3JZXhVBiqRCsgTFXKvcmVjLT/sGbXw/MrSTtRi5I4FA/hp+uCNojMs
+ fXfw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXbwTyrgq1ykMMJGh9JDFiFDgq3A399FuacBSbQHN4c1jo38QTyQA2MVui9OPE66VeyIMQ33EAq@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzP6r6HEnKydtqty/8+D8zQEUzBdHv/E7+p4NSaqUPWoIBUFwfe
+ JL4kDCSFmu/6reKObfXpdnUhP9w6HNILrv7R2BT47/O0kb9IjXRentZpBUo996kdsYc=
+X-Gm-Gg: ATEYQzyaaJc1TzwobMOrqChigcmE3mFt4SdeNNI0zk8BHH+IrD68JiUlo6RaiORQ3mo
+ EfWCzQUgac0F4BSt6glMq2UAdzGQWYdXDXxf1e3QSMIeRkDpcpFHIrQu5QBldyN0J+WVA+Ygxfp
+ +0+wcKBSkSmZi24Ra0FjWemq5ms6tNwPSmdSFsEOYHcHnqH/EpvPHJITdnH0hsy0z8g6EPyis/n
+ ePKHzXUpd1LuG2LW6bSprKlxRnzkBU2fT7NH0yK6LjQJ/U8/p+ozCjwRDVSmVCClwtmRfrBT/wB
+ zzj+a7AAHMoYhngqlII6Qz8vbPBbB6pVC2DFMzJiTMugmmeJUKwwOOA7Ms/2KItl+lEpNFKTzzZ
+ id3UmUuLHPSdun74DhUoKm1RH0UXmA64M+pccWy6ryingVo6TVf3iLree0ed8oMhlQkW/0rb+Uq
+ 1u8XRDJN09p/E2tMQxl2pfxshyQwVAwHa24UuCxXnIYuwtUI06X1yjzjszU8EGnAvu1Q==
+X-Received: by 2002:a05:620a:198a:b0:8cd:8d4c:aa0c with SMTP id
+ af79cd13be357-8cfc7a796e7mr1828317285a.0.1774281661473; 
+ Mon, 23 Mar 2026 09:01:01 -0700 (PDT)
+Received: from vinmini.lan (c-73-143-21-186.hsd1.vt.comcast.net.
+ [73.143.21.186]) by smtp.gmail.com with ESMTPSA id
+ af79cd13be357-8cfc9088df1sm843364185a.25.2026.03.23.09.00.57
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 23 Mar 2026 09:01:00 -0700 (PDT)
+From: "Vineeth Pillai (Google)" <vineeth@bitbyteword.org>
+To: Steven Rostedt <rostedt@goodmis.org>,
+ Peter Zijlstra <peterz@infradead.org>, Dmitry Ilvokhin <d@ilvokhin.com>
+Cc: "Vineeth Pillai (Google)" <vineeth@bitbyteword.org>,
+ Masami Hiramatsu <mhiramat@kernel.org>,
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ Ingo Molnar <mingo@redhat.com>, Jens Axboe <axboe@kernel.dk>,
+ io-uring@vger.kernel.org, "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Alexei Starovoitov <ast@kernel.org>,
+ Daniel Borkmann <daniel@iogearbox.net>,
+ Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>,
+ Xin Long <lucien.xin@gmail.com>, Jon Maloy <jmaloy@redhat.com>,
+ Aaron Conole <aconole@redhat.com>, Eelco Chaudron <echaudro@redhat.com>,
+ Ilya Maximets <i.maximets@ovn.org>, netdev@vger.kernel.org,
+ bpf@vger.kernel.org, linux-sctp@vger.kernel.org,
+ tipc-discussion@lists.sourceforge.net, dev@openvswitch.org,
+ Jiri Pirko <jiri@resnulli.us>, Oded Gabbay <ogabbay@kernel.org>,
+ Koby Elbaz <koby.elbaz@intel.com>, dri-devel@lists.freedesktop.org,
+ "Rafael J. Wysocki" <rafael@kernel.org>,
+ Viresh Kumar <viresh.kumar@linaro.org>,
+ "Gautham R. Shenoy" <gautham.shenoy@amd.com>,
+ Huang Rui <ray.huang@amd.com>,
+ Mario Limonciello <mario.limonciello@amd.com>, Len Brown <lenb@kernel.org>,
+ Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
+ linux-pm@vger.kernel.org, MyungJoo Ham <myungjoo.ham@samsung.com>,
+ Kyungmin Park <kyungmin.park@samsung.com>,
+ Chanwoo Choi <cw00.choi@samsung.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>, linaro-mm-sig@lists.linaro.org,
+ Eddie James <eajames@linux.ibm.com>,
+ Andrew Jeffery <andrew@codeconstruct.com.au>,
+ Joel Stanley <joel@jms.id.au>, linux-fsi@lists.ozlabs.org,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
  Alex Deucher <alexander.deucher@amd.com>,
- Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- Ville =?UTF-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
- Daniel Stone <daniels@collabora.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Michel =?UTF-8?B?RMOkbnplcg==?= <michel.daenzer@mailbox.org>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, kernel@collabora.com,
- Derek Foreman <derek.foreman@collabora.com>,
- Marius Vlad <marius.vlad@collabora.com>
-Subject: Re: [PATCH v5 0/3] Add "link bpc" DRM property
-Date: Mon, 23 Mar 2026 17:55:27 +0100
-Message-ID: <8676926.T7Z3S40VBb@workhorse>
-In-Reply-To: <aead136d-4da5-42de-aef8-3f91815a95a9@mailbox.org>
-References: <20260319-link-bpc-v5-0-5306cd04a708@collabora.com>
- <5995842.DvuYhMxLoT@workhorse>
- <aead136d-4da5-42de-aef8-3f91815a95a9@mailbox.org>
+ Danilo Krummrich <dakr@kernel.org>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Philipp Stanner <phasta@kernel.org>,
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ amd-gfx@lists.freedesktop.org, Jiri Kosina <jikos@kernel.org>,
+ Benjamin Tissoires <bentiss@kernel.org>, linux-input@vger.kernel.org,
+ Wolfram Sang <wsa+renesas@sang-engineering.com>, linux-i2c@vger.kernel.org,
+ Mark Brown <broonie@kernel.org>,
+ Michael Hennerich <michael.hennerich@analog.com>,
+ =?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>, linux-spi@vger.kernel.org,
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+ "Martin K. Petersen" <martin.petersen@oracle.com>,
+ linux-scsi@vger.kernel.org, Chris Mason <clm@fb.com>,
+ David Sterba <dsterba@suse.com>, linux-btrfs@vger.kernel.org,
+ Thomas Gleixner <tglx@linutronix.de>,
+ Andrew Morton <akpm@linux-foundation.org>, SeongJae Park <sj@kernel.org>,
+ linux-mm@kvack.org, Borislav Petkov <bp@alien8.de>,
+ Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+ linux-trace-kernel@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [PATCH v2 01/19] tracepoint: Add trace_call__##name() API
+Date: Mon, 23 Mar 2026 12:00:20 -0400
+Message-ID: <20260323160052.17528-2-vineeth@bitbyteword.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260323160052.17528-1-vineeth@bitbyteword.org>
+References: <20260323160052.17528-1-vineeth@bitbyteword.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
-X-Mailman-Approved-At: Tue, 24 Mar 2026 09:12:40 +0000
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Tue, 24 Mar 2026 09:12:39 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,113 +140,76 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Monday, 23 March 2026 15:38:58 Central European Standard Time Michel D=
-=C3=A4nzer wrote:
-> On 3/23/26 13:05, Nicolas Frattaroli wrote:
-> > On Monday, 23 March 2026 11:55:34 Central European Standard Time Michel=
- D=C3=A4nzer wrote:
-> >> On 3/20/26 19:02, Nicolas Frattaroli wrote:
-> >>> On Friday, 20 March 2026 15:32:37 Central European Standard Time Mich=
-el D=C3=A4nzer wrote:
-> >>>> On 3/19/26 13:28, Nicolas Frattaroli wrote:
-> >>>>> This series adds a new "link bpc" DRM property. It reflects the dis=
-play
-> >>>>> link's actual achieved output bits per component, considering any
-> >>>>> degradation of the bit depth done by drivers for bandwidth or other
-> >>>>> reasons. The property's value is updated during an atomic commit, w=
-hich
-> >>>>> is also when it fires an uevent if it changed to let userspace know.
-> >>>>>
-> >>>>> There's a weston implementation at [1] which makes use of this new
-> >>>>> property to warn when a user's requested bpc could not be reached.
-> >>>>>
-> >>>>> [1]: https://gitlab.freedesktop.org/wayland/weston/-/merge_requests=
-/1850
-> >>>>
-> >>>> I see no description of a real-world use case, either in this series
-> >>>> or in the weston MR, beyond logging a message when the "link bpc" &
-> >>>> "max bpc" property values don't match. They are not expected to match
-> >>>> in general, so I have a hard time seeing the usefulness of that.
-> >>>
-> >>> Hello,
-> >>>
-> >>> these are valid concerns. The problem being addressed is related to
-> >>> userspace being able to detect whether the link has degraded due to,
-> >>> say, a sketchy cable.
-> >>>
-> >>> This patch started out as a method of forcing the output link's BPC
-> >>> value to a certain value, but this is not desirable. The max bpc
-> >>> property is already used to restrict the link's bpc due to sketchy
-> >>> hardware that advertises a higher max bpc than it can actually
-> >>> achieve.
-> >>
-> >> Not really.
-> >>
-> >> The "max bpc" property is simply an upper limit for the effective bpc =
-that can be used by the driver; nothing more or less. The driver is free to=
- use any lower bpc value though, that doesn't mean anything's wrong.
-> >>
-> >> It doesn't imply that the "max bpc" value can actually be achieved und=
-er any circumstances.
-> >>
-> >> The practical purpose is mainly to restrict bpc in cases where higher =
-bpc would prevent e.g. higher refresh rate.
-> >=20
-> > The max bpc property's upper limit is an arbitrary driver-set value as
-> > you stated, but that's not what I'm talking about here.
->=20
-> I'm not talking about the maximum value of the property itself either.
->=20
-> The value of the "max bpc" property, which can be modified by user space,=
- defines the upper limit for the effective bpc used by the driver.
+Add trace_call__##name() as a companion to trace_##name().  When a
+caller already guards a tracepoint with an explicit enabled check:
 
-Yes, I know what the max bpc property does. I do not think it defines
-a fixed bpc the driver was required to use, as if it did, the link bpc
-property would be useless.
+  if (trace_foo_enabled() && cond)
+      trace_foo(args);
 
-> >>> I agree that the weston implementation isn't a great showcase,
-> >>> but it's actually supposed to compare link bpc with an explicitly
-> >>> set max bpc config value, not the property value. The config value
-> >>> exists to request a certain bpc.
-> >>
-> >> Per above, the "max bpc" property isn't really useful for that.
-> >=20
-> > This is straight up false. Setting a max bpc value in weston's config
-> > sets the max bpc DRM property to that value, which in turn sets
-> > max_requested_bpc. On atomic_check, the minimum of state->max_bpc
-> > and state->max_requested_bpc is taken for the new value of
-> > state->max_bpc, i.e. what is set through the property does constrain
-> > the max bpc.
->=20
-> What I mean is that the "max bpc" property isn't useful for the purpose o=
-f "request a certain bpc".
+trace_foo() internally repeats the static_branch_unlikely() test, which
+the compiler cannot fold since static branches are patched binary
+instructions.  This results in two static-branch evaluations for every
+guarded call site.
 
-Yes it is? It requests an upper limit for BPC and every driver
-will try to pick the highest that's practically possible.
+trace_call__##name() calls __do_trace_##name() directly, skipping the
+redundant static-branch re-check.  This avoids leaking the internal
+__do_trace_##name() symbol into call sites while still eliminating the
+double evaluation:
 
-> It only affects the upper limit, not the effective value, which can legit=
-imately be lower.
+  if (trace_foo_enabled() && cond)
+      trace_invoke_foo(args);   /* calls __do_trace_foo() directly */
 
-I am aware, that is why the link bpc property is added, to evaluate
-what the driver ended up picking. See "practically possible" above.
+Three locations are updated:
+- __DECLARE_TRACE: invoke form omits static_branch_unlikely, retains
+  the LOCKDEP RCU-watching assertion.
+- __DECLARE_TRACE_SYSCALL: same, plus retains might_fault().
+- !TRACEPOINTS_ENABLED stub: empty no-op so callers compile cleanly
+  when tracepoints are compiled out.
 
-> Logging a message in that case may be a false positive which may result i=
-n a spurious issue report.
+Suggested-by: Steven Rostedt <rostedt@goodmis.org>
+Suggested-by: Peter Zijlstra <peterz@infradead.org>
+Signed-off-by: Vineeth Pillai (Google) <vineeth@bitbyteword.org>
+Assisted-by: Claude:claude-sonnet-4-6
+---
+ include/linux/tracepoint.h | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
 
-That is not what any of this is used for. In the MR, it acts on the weston
-option of the name max-bpc, which incidentally sets the max bpc
-property, but is an explicit request by a user made through a config
-file. The use here is just a basic userspace use of it, the point is
-not to create a new warning out of nothing for the fun of it.
-
-The whole point of this property is to close the feedback loop
-between requesting a new bpc with max-bpc and seeing what comes out
-the other end with link-bpc. This answers all questions you should
-have about the definition of what bits per component is (same as
-with max bpc), and why this property should exist. "Someone might
-not understand its purpose" is, in my eyes, not a valid reason to
-not have this property, as this argument applies to every property.
-
-
-
+diff --git a/include/linux/tracepoint.h b/include/linux/tracepoint.h
+index 22ca1c8b54f32..ed969705341f1 100644
+--- a/include/linux/tracepoint.h
++++ b/include/linux/tracepoint.h
+@@ -294,6 +294,10 @@ static inline struct tracepoint *tracepoint_ptr_deref(tracepoint_ptr_t *p)
+ 			WARN_ONCE(!rcu_is_watching(),			\
+ 				  "RCU not watching for tracepoint");	\
+ 		}							\
++	}								\
++	static inline void trace_call__##name(proto)			\
++	{								\
++		__do_trace_##name(args);				\
+ 	}
+ 
+ #define __DECLARE_TRACE_SYSCALL(name, proto, args, data_proto)		\
+@@ -313,6 +317,11 @@ static inline struct tracepoint *tracepoint_ptr_deref(tracepoint_ptr_t *p)
+ 			WARN_ONCE(!rcu_is_watching(),			\
+ 				  "RCU not watching for tracepoint");	\
+ 		}							\
++	}								\
++	static inline void trace_call__##name(proto)			\
++	{								\
++		might_fault();						\
++		__do_trace_##name(args);				\
+ 	}
+ 
+ /*
+@@ -398,6 +407,8 @@ static inline struct tracepoint *tracepoint_ptr_deref(tracepoint_ptr_t *p)
+ #define __DECLARE_TRACE_COMMON(name, proto, args, data_proto)		\
+ 	static inline void trace_##name(proto)				\
+ 	{ }								\
++	static inline void trace_call__##name(proto)			\
++	{ }								\
+ 	static inline int						\
+ 	register_trace_##name(void (*probe)(data_proto),		\
+ 			      void *data)				\
+-- 
+2.53.0
 
