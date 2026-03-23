@@ -4,140 +4,125 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6C731EC01AF
-	for <amd-gfx@archiver.kernel.org>; Mon, 23 Mar 2026 09:29:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C917EC01B6
+	for <amd-gfx@archiver.kernel.org>; Mon, 23 Mar 2026 09:43:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0B5B889262;
-	Mon, 23 Mar 2026 09:29:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 35B4F10E349;
+	Mon, 23 Mar 2026 09:43:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Ir87Tici";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="IGS2tsXf";
 	dkim-atps=neutral
-Received: from SA9PR02CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11013049.outbound.protection.outlook.com
- [40.93.196.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4B42910E339;
- Mon, 23 Mar 2026 09:29:18 +0000 (UTC)
+Received: from SJ2PR03CU001.outbound.protection.outlook.com
+ (mail-westusazon11012040.outbound.protection.outlook.com [52.101.43.40])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B929310E33E
+ for <amd-gfx@lists.freedesktop.org>; Mon, 23 Mar 2026 09:43:10 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=xoNULSdg7fFgxeHYq/AnCuJXnWfh/ESJ12/DrV2elxib8gwp3rceVwqXbr/VlIBc8kO9v0DYAZD3MB3vKUJ/J55knsJhADcXkZ8U6LwfqdeOqDnX0nVfqM1cP7cnUiwPq/a88p9ANhRR8nOu09IdNeNNCi55qRpEvK6RDHk+zksXoP3+XgtHejmnTUL60HNs26yeJqlLbjeUIlzWL1KFoTse1E7Xxisq3ZEDdO07EPK/ZTM4E1BV5mQtDR41OwJNADMxv/aqKK02RlI9m0nU2r+3z8b8b+UkH1KDRnoYRfKR8ZwFNRpKMzQIrP230NrH7u6OfPz5gzE2FaIHW8OKQw==
+ b=vt9Yi52XT5pNqRT9zCUOmaOxNHXx0I16LiTjPc4g+MZCx6GqXwlt1mmbTLwvwxVELAX0dqzRRnO/SutMyeudZ9xyfzlqTVQB7uYdZkzt3QCyVy+gNhNe3cwu9oltVirhdSYjQoDa35uMJucQjmjENjOwHlqBKSr9k4gt9H20ynKJg+7GBNuwOsk8NubSviTLpF9u8fNivxZbnvzpO+Lh0BaXS11Y8Aw2fLRXO0PheG38WfRAhMjxkeKT9TOymF2RRM/8Hm65dcffu18yJKREr9ZrlWQ8OLvT12IP/c3u3P12D4BWtkx7305mMb9knrHJxbnM6BRPjfeYVbgH2NbHmw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5JaQLPEtiDHMQzBiZWbnYPKDI51B5s+DioSDUoEWXLc=;
- b=b+fPS+RUifSL1MnMLUgDa2qwHkF1a1OHj/M440c18FN+RFPrP5eqAnKDRy1LCx1zmNiqbytTGwzTbpP+tfbBHVyYD9fNZeyZN6s2mfoNsbirtaZ7iFjOsx02Yox1TFMISMucf2I1WY/vT5Pks0EKWt+0fxVHdRpg4ORV2/8E4lVwrlKKP8a1gC81u33HCkw/cisueTJfp4kMn5Tan3HrfXD/+hkGSEt8s3z0zFETMNoug+9TwqJ4QXyH8Uc8QZBhZC3bfduLsiPuLh05HPHGlNmTTUUhNPKTB/29AnicuGDyGCez4fnyX2K9CbRVa2z4uHU66lkagXP2XnHit0DCGA==
+ bh=FtUBWShl59EM4hUkHXNjw+AeGFUKHjGNnra4B8Snvnc=;
+ b=IRykR0RmswPluac9bCr25Rg7MOmAUK+CwhcJf0Zv6ubxw30ONyZXBMzl7midtq5uUBE0go0kcA4tfxqYb6LJvqmRxMkxPs9ESUCwnsQqdPUjjH6r6CzTvubWpbD3upxOHbA/rj8CdM/TUN3ZaPIAZHFxgP8vbFx8Lhyy2iwIMlLf4dUC4sIIUT8rR1bjM1oDQlNIq40NzCklDMCT53JQCy/1nBkGON3xbWhwLh3qAc6fnhdmEvzBF4OrjghnrhdzcvatJEsLiDBFgTdpD+6RemgnPX3NRTcaCYxyXX/o+oRNvogBBbUm0CUcKExLSk28N9IdYzMcciXzonzMgZx+EQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5JaQLPEtiDHMQzBiZWbnYPKDI51B5s+DioSDUoEWXLc=;
- b=Ir87Ticih/XZaKDIi2P07ejJNIPKGBoOrFamuvdeacQNG+OAiGh+wEBOguyV4jT+ZR9fl5lHmiLLwyY59PXlTTEX69mXfxc5NJBLIovayY3y1QIbct/om09c53lIskYglTVES2wdVGA5NwqPQs4aoWvQq2lfgQsGQE82Bg9H+Ro=
+ bh=FtUBWShl59EM4hUkHXNjw+AeGFUKHjGNnra4B8Snvnc=;
+ b=IGS2tsXfAK66G2/zwVl/ddqyhyr3tR9I3moGsrPnRonKQbpml4MFuZVxjeCh0ro9Yps/e6h62stynEoVicuvv9NSGM4cvI3IxKZKVycxsCaJtNxv9iPWRCMKR/fJlZIxoXfvSmpkpo4galW2Zd0tjJMD3mrcMUxQEYRD+C4NBko=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by IA0PPFD78AA37BB.namprd12.prod.outlook.com
- (2603:10b6:20f:fc04::be6) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.6; Mon, 23 Mar
- 2026 09:29:13 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.20.9745.019; Mon, 23 Mar 2026
- 09:29:12 +0000
-Message-ID: <0c0fcc34-a3b5-4c9a-9095-854eb6475abc@amd.com>
-Date: Mon, 23 Mar 2026 10:29:04 +0100
+Received: from SN7PR12MB7835.namprd12.prod.outlook.com (2603:10b6:806:328::22)
+ by SJ2PR12MB8806.namprd12.prod.outlook.com (2603:10b6:a03:4d0::8)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.20; Mon, 23 Mar
+ 2026 09:43:08 +0000
+Received: from SN7PR12MB7835.namprd12.prod.outlook.com
+ ([fe80::f67f:61a2:998f:fe0d]) by SN7PR12MB7835.namprd12.prod.outlook.com
+ ([fe80::f67f:61a2:998f:fe0d%6]) with mapi id 15.20.9745.019; Mon, 23 Mar 2026
+ 09:43:08 +0000
+Content-Type: multipart/alternative;
+ boundary="------------2RRfx34SupRdbkubsz5jDaXq"
+Message-ID: <a341305a-aa2d-4910-9fb6-b2c11fd71fcc@amd.com>
+Date: Mon, 23 Mar 2026 17:43:01 +0800
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCHv3 for 6.1 0/4] amdgpu: fix panic on old GPUs
-To: Rosen Penev <rosenp@gmail.com>, stable@vger.kernel.org
-Cc: Alex Deucher <alexander.deucher@amd.com>, "Pan, Xinhui"
- <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, Harry Wentland <harry.wentland@amd.com>,
- Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- Evan Quan <evan.quan@amd.com>, Mario Limonciello
- <mario.limonciello@amd.com>, Sasha Levin <sashal@kernel.org>,
- Lijo Lazar <lijo.lazar@amd.com>, Ma Jun <Jun.Ma2@amd.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
- "Mario Limonciello (AMD)" <superm1@kernel.org>,
- Zhigang Luo <Zhigang.Luo@amd.com>, Bert Karwatzki <spasswolf@web.de>,
- Ray Wu <ray.wu@amd.com>, Wayne Lin <Wayne.Lin@amd.com>,
- Roman Li <Roman.Li@amd.com>, Hersen Wu <hersenxs.wu@amd.com>,
- =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>,
- Alex Hung <alex.hung@amd.com>, decce6 <decce6@proton.me>,
- Wentao Liang <vulab@iscas.ac.cn>,
- "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>,
- "open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>,
- open list <linux-kernel@vger.kernel.org>
-References: <20260321054453.19683-1-rosenp@gmail.com>
+Subject: Re: [PATCH] drm/amdkfd: Fix NULL pointer check order in
+ kfd_ioctl_create_process
+To: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, Felix Kuehling <felix.kuehling@amd.com>,
+ Dan Carpenter <dan.carpenter@linaro.org>
+References: <20260323085953.2047082-1-srinivasan.shanmugam@amd.com>
 Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260321054453.19683-1-rosenp@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR4P281CA0356.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:f4::20) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+From: "Zhu, Lingshan" <lingshan.zhu@amd.com>
+In-Reply-To: <20260323085953.2047082-1-srinivasan.shanmugam@amd.com>
+X-ClientProxiedBy: SE2P216CA0182.KORP216.PROD.OUTLOOK.COM
+ (2603:1096:101:2ca::15) To SN7PR12MB7835.namprd12.prod.outlook.com
+ (2603:10b6:806:328::22)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|IA0PPFD78AA37BB:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0d4583c5-5137-4def-ff17-08de88bea4b2
+X-MS-TrafficTypeDiagnostic: SN7PR12MB7835:EE_|SJ2PR12MB8806:EE_
+X-MS-Office365-Filtering-Correlation-Id: 09f08a5c-1173-4ffb-c329-08de88c096de
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|7416014|366016|376014|1800799024|56012099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: ejct2COMi6WGMkfE+rY0fvWs+kLHSEQ2MrvEUOoxD8vPZ9inRX6NjP1xowzA/zUBbxXMkh9fT113ows0qzB7+NSYTy0Zx13klHvv2K/KUMi0oXj7WgdXCi1QHVjX7JSDkL3GpjCmptsteVpysk9PHxCk7WH5hdTCdy5u8CkqNFA1xXmEVjPLlw8c6xoIeKikMhHhskAdAssuGdh12KR/MPfPl/NH3sipa9FoYqyaq0Qa1G+k5w/MJejQSdEFF3hXwWspffHy9bhej3pjuPnmwlNLQkUVhTTQcc5SYVAkQTbZPob0XJgs6nAD6ikqZve4ZF6T5jHeaDHXLfgAsRZttk1ETuDgkQ5FfbpMBKa1t6LGyO/UmeCCQfqP1m+Mfd4HdZqdhXznrMbbbRP/y2b+uwjCuJ1OQfVQFXIG732s5rauGmyIwTc8Ruw1cOhROcD5ZPYurEW31ByY32AC/rfjIdda9Jyrdbm7rW2qN6cbgnE60nrvbt9WM3yTaa1j5aYvxjeVklymPFOvXV4FHU1rTccGxO4UsebmdlOWtSZufKTBtW2vYYZrFrvBlsz/hWunhjCXPSf+t7NkIXg9eZuXxywWpQ+y9tCUgr+cBtQfNlcYW8kI8s7nDYrrYGIcY2eRoJnp4o1ppMC2SLxkPKD3twOG+OQZeXc6JvUa8YS5iFoaxW7xniJTvxR52Aaa/wmK5DsyUIU0PmcspoqeCVfDHU+nlhnsQHHzNumrMskaCAY=
+ ARA:13230040|1800799024|376014|366016|8096899003|56012099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: CSiJgJvP9bxi8guuiJVpK7jpslD+URpn8XNN8fsA83R8AtWEuMEXJuTRiWE+yBWD5P055Vb+Zeb8EghjKHhBpdcXTvNDJXNoYi7N1gFuPPGT8mbw31u/Ld7S/hEaC03gopTj5dK3gH6ocghgPmM+iFqNThmZDDL4cewgxp18dtCtqvsHsNjOENqv9vxxajgGx7LGUOusLNx4iHSJ91gk4iCdzVcZF2kQYUCwQ22fux+MzTsOdfRROAcDaiHSYPE78MZUtcUnvRpjI9iIMkjmEMxKD8peYFbcTfF8rlvdHYn7NpcAs6JILi+9Y9H1GGnoWW4SdmXD1149Kej4O7L5RSrBrx88Un+MrZLgxYWVojFSC2s2ws3mmH4Vdwr2X4Q/NqXbzUJ6cYcZ4hXVcb3gv+uDCL9ncBSEA0DPGMCwdjvd7ZD3bh4cXwrqRd4VWBp33u5PqgK2GYetgGHtKl+P+DJj9PQCrZy8QIunCSdDVqrIwjBIbX7DonXGRO1SIJc2G/sQyyXjrhANZc+N4tW/jIm45TJsn7z6Bf0sJeSZ6nHjD7OeLV2MxWiHLsQ3x5bIitTWbjaq3ptMjKObdBuUf0W3sKe7p6xIkpOUM8yEVGSmpkBy8rU/OeAa3g6Ncs5TsYVfOkig3RGM0mdatWAVcnv/US/nJbu3QhDNCjz8xcTsFSw/yMQ/2Zc94vMDw8rLisLzQwRTbhdB5vSZm7uCgvw2T7ZZFk07uS0mgosZ9Uk=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(7416014)(366016)(376014)(1800799024)(56012099003)(18002099003)(22082099003);
+ IPV:NLI; SFV:NSPM; H:SN7PR12MB7835.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(366016)(8096899003)(56012099003)(18002099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?T1Nwck1tWnRoSUZ1L1J0L2o4c1NMaUN3QURMUDRxZkk4eW4xejlxNG1SN1Y0?=
- =?utf-8?B?aHJTMlBybWtKS1l1K1MraUJ0dkhTWW51a1M3YTFaeXkwR21HZmt0WGZEOEpV?=
- =?utf-8?B?M1RwVnBoZWRneFZtSzBpQk9KOGxGeXlPOFRlcDM1amJhODN1aHlyOWFqc1NU?=
- =?utf-8?B?VGNacVZ4SWJzUllIVW1hYjJWcUE3REVhSlgybjQvVWxzL0tKUnc4WW9NeUVs?=
- =?utf-8?B?YVZvdVk2UmlqZ0QyQXc5MVpDSDQ1RDMwQXcvRzRSTk9aYnVnK0VSOWhNenpN?=
- =?utf-8?B?WDRzcklmUDY1cDdLNFprcVVhdjkrdDRqaTA4T0twcTJvZi9uYWRiMXFtU01m?=
- =?utf-8?B?eXYydHVpb1ZDR29hNnpJb0s4cm14L0FNTkJKeDd5R0w5Qy9HUEIvYW5WRCtk?=
- =?utf-8?B?SVg2Sk1oQncyMUpWVk9nWGZWQVhmaEZaN2VtbFh3WGNXT1MyTkhqT3pWaW1K?=
- =?utf-8?B?K05INWpRenI5NUpUMWp5RC9zbGJBTldUUFYwTndPZ01CU1lVM1pNODl1Q25Z?=
- =?utf-8?B?S0E1L3plUit4cmZYMTRvU0pFN09LWE9tSmJDeTgxbjk1bTM4NWpsRFd2blFm?=
- =?utf-8?B?NDI2ckYrTTBLbGpaOEdBVWVtQUwzZ0JwbG9SNGg5OFFYVmpLWUFFaXJHNGFN?=
- =?utf-8?B?dVhCS0ZwcVViZUY4aG5iQzhKczlvbElmV0pOS0JmSnVLYUVZQ3d3Zkl0RXJJ?=
- =?utf-8?B?S241QThxelJrUFUzMVVQSjk4SEU0N3U5WXl5MERIWDdEL2E3ZEZRazFwSENJ?=
- =?utf-8?B?ZFZrWlg4WTRUOFR2ZU1sdlV4M0xRM2lnS1U1RWx0MUl5TVZaenBleGVKZDl2?=
- =?utf-8?B?cUYxeXZ3dU5XMmV5ZjhNMFMwVGx3NEFYWEJONWJQa3BIS084TEViV2RPMUFu?=
- =?utf-8?B?c3FlT2FqdWtiT0lnMXR6VjI5enRrNUptbWc0K0VkeDZtd2xWNW9wMWd5OHJo?=
- =?utf-8?B?eDlWMm9qakxsQTJQZmQwZUhwQ1I1K3krQ0pzbHJFekJ4SXZKZzB3Qlh4NWlZ?=
- =?utf-8?B?R1c0SnRCUmUzeDIvQ3VMY0xMdENmTkMyeU14bnJCdjd4NzZvVU00MExNVGtt?=
- =?utf-8?B?Z2l5eWIvMy9oczF2bXpYSUhBSjE3bGJ0Z3VnNHdDTzFDUXJSWGZYczUyMHE3?=
- =?utf-8?B?SWh0Vy9sSXFDbUFLMlBYN2xram9ya0phUExHNFFSV21kZEVVZG81N3NxQ0hM?=
- =?utf-8?B?V2k2TklBZm0xbzF3RU1YekpsT2ZyWkwrQXhlYkNPYkpzM2JsVEZ0cTU3Mis0?=
- =?utf-8?B?VVRlT3hUaVVQQzhjUWFwZkdiS1ZWZ1hXZk1KclRwTVdmb3laMHMzY3V3dXJt?=
- =?utf-8?B?eWVVUkxMNTd4Mk1PQ1RrcE45NWxKRVlqcVZNbEhLWUtNNVdCNWdCUU1ERm96?=
- =?utf-8?B?T1BUMW1vUk5ibGpzMmVzcGM1L0FtYUFZVFFROTJqNFRhK0pqQWZrQW85K2Ni?=
- =?utf-8?B?Y09RcVJKZ3BxNWExeXdpRklZSlM5RzlRZTVQY09KY3NlZS9VL0sxeFVsRDU3?=
- =?utf-8?B?VkZNQlNJNXhpUDBycVkvYzRlV3NuekRYeEVYbDkrb01GN0RFYThaU0VwOVZW?=
- =?utf-8?B?S2VMUktmZENWd0hvcmN5Qk1keHd6UTQraDdHSWZOTlZ0QkQyUlRUM1pTNWEr?=
- =?utf-8?B?V1djeW5wVUtuRkhLS3htbnB0UXgvaHBPMklGVGVIS3RMeXJ4aUg1Q0ZWVmVM?=
- =?utf-8?B?dFZ1TmxVOWQ1c1VHamorMzlWWlhDNFpaMThTUzhkQU1oRlFzMUM0MkpRVkpS?=
- =?utf-8?B?bW1Kc2tPUEVsR0dXdVJObWc2THJHSmQ0b3ZxS1ExeDlxWStIUG5FcHVRN3Ny?=
- =?utf-8?B?dHJJcllaYzdCdmN1cERkZXJDb2dwN05NSzdScUlHSzBwQ2V6ZmowLzF1SklZ?=
- =?utf-8?B?WU5KZ0JvTVI2TEVOSkIyZlRMM1F3TjhQYmFzcGVZbE04MnRsWXo0bTJCSnk0?=
- =?utf-8?B?L1VTNVFyWXBiaktGUHZ3Y0pQb0tRdmRCRnBGWk50YUxucmNHRjM1bThYRWpl?=
- =?utf-8?B?ckE1dy8yYjBtbmRLMmdsR3JFdEpubExFM21NTGovT2liQ1Y5T0dvWmdlUnlN?=
- =?utf-8?B?bVAwSTAxV01DRlpZcG1NcmN4RUxJYkFQMGlpRFhrOWVNamdQcmlSZWJONGhG?=
- =?utf-8?B?S2RUOVlaTVg3UjdET1AwUkl1UE5TZEtZKzF1K1hwbTlrc05kTERrcDZFamJJ?=
- =?utf-8?B?akREK3VIZllCdUlYQzV5ckwxSUVJMVpoZ0ovWXZkVFBOM2k1VTFlcEo3ajFD?=
- =?utf-8?B?bXk5VlZId3hFcFVvVTdRbGNGMElidVAwSHVxcitFaWhtRnQzTUEzR0xuSFE0?=
- =?utf-8?Q?J8nDMWDTkVwTF86AXX?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VzRwNVRNaE5KY3Q5bHhRU1dXRWJ6aWt0SUdOYTJ1QVVQcEx2SFVDdHRYWFVG?=
+ =?utf-8?B?YWtuSVRmaFdoUmN0MlJHbDFHWDZiNnBSRFM2aHphQlFGUy9WanIrWlFkWFZB?=
+ =?utf-8?B?MjRVQmx3Vk9IU1kvWmdaa2U2NUxQYndOeUxEMnBibmZJRGp3RFhDYXlGMG00?=
+ =?utf-8?B?ellQNVJUbW1Xb0JpbHpWZVdxcnVFcTgxMnlxK1ByK0IrNVRVbHhScERQZTBX?=
+ =?utf-8?B?TWNxSnVVaU1WUmRNY3dvZnQvazE3MkNiRm9SRXJ0UjVQSEVhM2VDc010K2pU?=
+ =?utf-8?B?a2lKQTNEdkIyY3JoNjhNM2lrV1FUKytNWVNqQUFyVHFUODdFZW5mL2lCbWMv?=
+ =?utf-8?B?bUtjMXFYNWJCUUhVK1ZWb051YXJOL2VWTk9IRE9nLzRUc1Nidm5SdC9NaFdU?=
+ =?utf-8?B?Uk5Qa3pJWjJNcDMrbW1pd0ZlcGh2bnRaYlhjOC9IMkkyQkpKSEQxMHNIaEJ4?=
+ =?utf-8?B?SnVUbVF4bXdxZm5RcytUcFdQVUxZajlGUGp6L0NsMG9RTXBvb2tzZnNoa04z?=
+ =?utf-8?B?MWZHL2d2WTFXdmQ1QUdqMTFhMjJNOE8veXkySHVzTk5GNzRxSkkzMWR1RS9R?=
+ =?utf-8?B?VkFMOVArMXdnUkFtQVpPd1NWR1NpNWZqZ01ERUdWZWFmUUVJbTJrd2c5RkNE?=
+ =?utf-8?B?S3ppeWdldUhEdkgxcWxLT1piOGF3UzljeFA0OE5VdUJmOGV5Rk95OGxoWFda?=
+ =?utf-8?B?LzZXa1F5WVJIRzdkYUUwVWlGdVRzSnB0dHJRR0ZEK0dpMjF3YW9URzBYSGdz?=
+ =?utf-8?B?eG84MmExQjVEVDNPU1JSTmd3Wit3YTdPWWZmUUJFcDdOcXBnTU15aWZSTC9u?=
+ =?utf-8?B?eTVLT2tRbU5XZ01SaUdoM1NDU0QyWDRYUXgvbXZLa2RmVTNyZitEUHlJY21h?=
+ =?utf-8?B?Q0V6M0ZEVHQrUTk0ODRsOXNmWVZKQ3ZoV3R6SGpOV28zY0FUazFHS2J3N0hZ?=
+ =?utf-8?B?eTBFWUZmeS91YlhLVzY5RERmK1RSR1IrbDE2WkM0WVA3UlkzSS9BSE9DeDh4?=
+ =?utf-8?B?UmpBWTc0MHN0cDZxSVZPV0ZjU1VBdTRkODN4MmlDNmowUU5xR2xhaWFmTEY2?=
+ =?utf-8?B?ZVJJdStTS2tNTzVDTnU4Z3ZLVWJTbVZaYW0rMnhKV2RIZ0ExaEhmNnFPN3lD?=
+ =?utf-8?B?Vk9SN01Mc2hZc0hYTDFHYTdOYWxZT05nQklHWm1wTWdDUWhYREcwOTcxM1dD?=
+ =?utf-8?B?UjlrL0FhZ2NPbEVDUnRwVXdwZGo3d01uaW9XOW5XTjRVNTVUbHkzSWpSYnJJ?=
+ =?utf-8?B?S2ZrZWRXTTBCWk5SS2NoYVZyMGVGL1hiL3B0MVBwbHNENnhjeE4rT2RvTmQ5?=
+ =?utf-8?B?NXFPUU9sOFNUamNJRFM0c1JjSzh6U1N1Q256S2Y0c2tVOUxKdXc0eTJpZk5a?=
+ =?utf-8?B?RkRjWXFpaGFtRlVIRFVNNnk4R29oelJvdjN2TDBXU2t2bGI1OEQ2emp3cGR1?=
+ =?utf-8?B?WEJGVk53VCtRV1h3d0l3bk9rSnAxK3VqN0UvdktYMXFKVW1RWlRkOXhxRWRy?=
+ =?utf-8?B?Q1J6RmRvNk9WVGhMRFBLY0haSDZNVEJwQ29sekpzVXhYNVRNVURSRUk2SnlI?=
+ =?utf-8?B?M044UDBzTTg3cExGRHE5UzNOM2x1UjJFVkVTdFF4TEtzd29yWVk2Wm5vSWhT?=
+ =?utf-8?B?T3NqdVJpYng3bm9XVi9na3dZMFhFMzRNdldkM3EyS2U0R2xiaFFjL29jcWlv?=
+ =?utf-8?B?L2hKOHJDQmpMWjgvREJ0V3F2ZmhVTHNFNWhHUldNYUcxd2paL2ZkZ0tOam5i?=
+ =?utf-8?B?elZzeVEzMVZZTE1TREQ4SjNWUGRMdDNTTDlkWnI5L1M2RzE5Q0lzNitsYldX?=
+ =?utf-8?B?ejN2SzVEYUhvcW8vU1Z3VjB4VlJsRVhMRVIxM1REUFlHTWhweUFFRWF3K2c0?=
+ =?utf-8?B?Y3Q2SklobzdoRlgvMlhybkJkOEMybkhqQWp3NGRVb0VkSy9uN2MrL1hJclNC?=
+ =?utf-8?B?a1NYOFNHZmI2SGRpYUttaW5BdGpYL2dRQzFiQThtUnlTUFFSQURndnhKckZm?=
+ =?utf-8?B?Rld3WjlGSVkxM1VYTVZiQURLcHRRVDR4WFllTytFVUxhVnNTZWpIS1lIRXNF?=
+ =?utf-8?B?d29CbE8xWGsxNzlXbUMzRW43YzlONGxQNjJLM3ZEaHA3MzF3Rk5hZ3NERys1?=
+ =?utf-8?B?OThsdW5BUnUwWlpMT2djY1hvVmp2OW1ZUkxieXRBb05VejVjaXVpeEIyeFFh?=
+ =?utf-8?B?dm9qdStvQ1prR2NocDBBZjJSTGJNSDlqVHFISSswNHlsSThweDVWaXJJMHln?=
+ =?utf-8?B?SVNyWU1kU1lYYmdXdlQ1cTliMDVsQUVHVGF4bkhjTU1Bc2RQZUg3cUxsSW1i?=
+ =?utf-8?Q?OGGS9p4/G6QaLEQRiT?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0d4583c5-5137-4def-ff17-08de88bea4b2
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 09f08a5c-1173-4ffb-c329-08de88c096de
+X-MS-Exchange-CrossTenant-AuthSource: SN7PR12MB7835.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Mar 2026 09:29:12.3765 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Mar 2026 09:43:08.0694 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: fO5thiae3HV7fx1AVovFO9/8r77Z8O1t89cHMLZq5BA+Uv/Bb9YUmGQi0kz8yom4
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PPFD78AA37BB
+X-MS-Exchange-CrossTenant-UserPrincipalName: 9OR5dCtDkeJr8dSMY9V3mZUiG+M6V3P9c3zk3hZx+dfSrQg9y3i8QcnmCGF02HHpuRglRwLqMcf+NE0be4+mgQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8806
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -152,58 +137,125 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 3/21/26 06:44, Rosen Penev wrote:
-> Because of incomplete backports to stable kernels, DC ended up breaking
-> on older GCN 1 GPUs. This patchset adds the missing upstream commits to
-> at least fix the panic/black screen on boot.
-> 
-> They are applicable to 6.12, 6.6, and 6.1 as those are the currently
-> supported kernels that 7009e3af0474aca5f64262b3c72fb6e23b232f9b got
-> backported to.
-> 
-> 6.1 needs two extra backports for these two commits to be cherry-picked
-> cleanly. Those are
-> 
-> 96ce96f8773da4814622fd97e5226915a2c30706
-> d09ef243035b75a6d403ebfeb7e87fa20d7e25c6
+--------------2RRfx34SupRdbkubsz5jDaXq
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Acked-by: Christian König <christian.koenig@amd.com> for backporting this series and those two additional patches.
+On 3/23/2026 4:59 PM, Srinivasan Shanmugam wrote:
 
-Regards,
-Christian.
+> In kfd_ioctl_create_process(), the pointer 'p' is used before checking
+> if it is NULL.
+>
+> The code accesses p->context_id before validating 'p'. This can lead
+> to a possible NULL pointer dereference.
+>
+> Move the NULL check before using 'p' so that the pointer is validated
+> before access.
+>
+> Fixes the below:
+> drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_chardev.c:3177 kfd_ioctl_create_process() warn: variable dereferenced before check 'p' (see line 3174)
+>
+> Fixes: cc6b66d661fd ("amdkfd: introduce new ioctl AMDKFD_IOC_CREATE_PROCESS")
+> Cc: Zhu Lingshan <lingshan.zhu@amd.com>
+> Cc: Felix Kuehling <felix.kuehling@amd.com>
+> Cc: Christian König <christian.koenig@amd.com>
+> Cc: Alex Deucher <alexander.deucher@amd.com>
+> Cc: Dan Carpenter <dan.carpenter@linaro.org>
+> Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdkfd/kfd_chardev.c | 6 +++---
+>  1 file changed, 3 insertions(+), 3 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+> index 732ad1224a61..1db565442c48 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+> @@ -3170,11 +3170,11 @@ static int kfd_ioctl_create_process(struct file *filep, struct kfd_process *p, v
+>  	struct kfd_process *process;
+>  	int ret;
+>  
+> -	/* Each FD owns only one kfd_process */
+> -	if (p->context_id != KFD_CONTEXT_ID_PRIMARY)
+> +	if (!filep->private_data || !p)
+>  		return -EINVAL;
+>  
+> -	if (!filep->private_data || !p)
+> +	/* Each FD owns only one kfd_process */
+> +	if (p->context_id != KFD_CONTEXT_ID_PRIMARY)
+>  		return -EINVAL;
 
-> 
-> v3: Add those commits to this series and sign them off.
-> v2: Add Signed-off-by.
-> 
-> Alex Deucher (2):
->   drm/amdgpu: use proper DC check in amdgpu_display_supported_domains()
->   drm/amdgpu: clarify DC checks
-> 
-> Timur Kristóf (2):
->   drm/amd/display: Add pixel_clock to amd_pp_display_configuration
->   drm/amd/pm: Use pm_display_cfg in legacy DPM (v2)
-> 
->  drivers/gpu/drm/amd/amdgpu/amdgpu.h           |  1 +
->  drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c      |  2 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c   |  2 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    | 32 ++++-----
->  drivers/gpu/drm/amd/amdgpu/amdgpu_display.c   |  4 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       |  2 +-
->  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  1 +
->  .../amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c  |  1 +
->  .../dc/clk_mgr/dce110/dce110_clk_mgr.c        |  2 +-
->  .../drm/amd/display/dc/dm_services_types.h    |  2 +-
->  drivers/gpu/drm/amd/include/dm_pp_interface.h |  1 +
->  drivers/gpu/drm/amd/pm/amdgpu_dpm_internal.c  | 67 +++++++++++++++++++
->  .../gpu/drm/amd/pm/inc/amdgpu_dpm_internal.h  |  2 +
->  drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c    |  4 +-
->  .../gpu/drm/amd/pm/legacy-dpm/legacy_dpm.c    |  6 +-
->  drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c    | 65 ++++++------------
->  .../gpu/drm/amd/pm/powerplay/amd_powerplay.c  | 13 +---
->  17 files changed, 126 insertions(+), 81 deletions(-)
-> 
-> --
-> 2.53.0
-> 
+p should be always valid since it is from a fd, it is either a primary of a secondary context
 
+I agree this patch improves readability and better defensive programming.
+
+Reviewed-by: Zhu Lingshan <lingshan.zhu@amd.com>
+
+>  
+>  	mutex_lock(&kfd_processes_mutex);
+--------------2RRfx34SupRdbkubsz5jDaXq
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+<!DOCTYPE html><html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body>
+    <pre class="moz-cite-prefix">On 3/23/2026 4:59 PM, Srinivasan Shanmugam wrote:
+</pre>
+    <blockquote type="cite" cite="mid:20260323085953.2047082-1-srinivasan.shanmugam@amd.com">
+      <pre wrap="" class="moz-quote-pre">In kfd_ioctl_create_process(), the pointer 'p' is used before checking
+if it is NULL.
+
+The code accesses p-&gt;context_id before validating 'p'. This can lead
+to a possible NULL pointer dereference.
+
+Move the NULL check before using 'p' so that the pointer is validated
+before access.
+
+Fixes the below:
+drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_chardev.c:3177 kfd_ioctl_create_process() warn: variable dereferenced before check 'p' (see line 3174)
+
+Fixes: cc6b66d661fd (&quot;amdkfd: introduce new ioctl AMDKFD_IOC_CREATE_PROCESS&quot;)
+Cc: Zhu Lingshan <a class="moz-txt-link-rfc2396E" href="mailto:lingshan.zhu@amd.com">&lt;lingshan.zhu@amd.com&gt;</a>
+Cc: Felix Kuehling <a class="moz-txt-link-rfc2396E" href="mailto:felix.kuehling@amd.com">&lt;felix.kuehling@amd.com&gt;</a>
+Cc: Christian König <a class="moz-txt-link-rfc2396E" href="mailto:christian.koenig@amd.com">&lt;christian.koenig@amd.com&gt;</a>
+Cc: Alex Deucher <a class="moz-txt-link-rfc2396E" href="mailto:alexander.deucher@amd.com">&lt;alexander.deucher@amd.com&gt;</a>
+Cc: Dan Carpenter <a class="moz-txt-link-rfc2396E" href="mailto:dan.carpenter@linaro.org">&lt;dan.carpenter@linaro.org&gt;</a>
+Signed-off-by: Srinivasan Shanmugam <a class="moz-txt-link-rfc2396E" href="mailto:srinivasan.shanmugam@amd.com">&lt;srinivasan.shanmugam@amd.com&gt;</a>
+---
+ drivers/gpu/drm/amd/amdkfd/kfd_chardev.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+index 732ad1224a61..1db565442c48 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+@@ -3170,11 +3170,11 @@ static int kfd_ioctl_create_process(struct file *filep, struct kfd_process *p, v
+ 	struct kfd_process *process;
+ 	int ret;
+ 
+-	/* Each FD owns only one kfd_process */
+-	if (p-&gt;context_id != KFD_CONTEXT_ID_PRIMARY)
++	if (!filep-&gt;private_data || !p)
+ 		return -EINVAL;
+ 
+-	if (!filep-&gt;private_data || !p)
++	/* Each FD owns only one kfd_process */
++	if (p-&gt;context_id != KFD_CONTEXT_ID_PRIMARY)
+ 		return -EINVAL;</pre>
+    </blockquote>
+    <pre>p should be always valid since it is from a fd, it is either a primary of a secondary context
+
+I agree this patch improves readability and better defensive programming.
+
+Reviewed-by: Zhu Lingshan <a class="moz-txt-link-rfc2396E" href="mailto:lingshan.zhu@amd.com">&lt;lingshan.zhu@amd.com&gt;</a></pre>
+    <blockquote type="cite" cite="mid:20260323085953.2047082-1-srinivasan.shanmugam@amd.com">
+      <pre wrap="" class="moz-quote-pre">
+ 
+ 	mutex_lock(&amp;kfd_processes_mutex);
+</pre>
+    </blockquote>
+  </body>
+</html>
+
+--------------2RRfx34SupRdbkubsz5jDaXq--
