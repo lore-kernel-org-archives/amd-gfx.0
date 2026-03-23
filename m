@@ -4,65 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4F514F4613D
-	for <amd-gfx@archiver.kernel.org>; Tue, 24 Mar 2026 09:12:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8B8F1D58CC9
+	for <amd-gfx@archiver.kernel.org>; Tue, 24 Mar 2026 09:12:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6238210E641;
-	Tue, 24 Mar 2026 09:12:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B801C10E640;
+	Tue, 24 Mar 2026 09:12:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=bitbyteword.org header.i=@bitbyteword.org header.b="Wj4fEqwb";
+	dkim=pass (2048-bit key; secure) header.d=bitbyteword.org header.i=@bitbyteword.org header.b="H+xL9RHe";
 	dkim-atps=neutral
-Received: from mail-pg1-f176.google.com (mail-pg1-f176.google.com
- [209.85.215.176])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B666E10E42D
- for <amd-gfx@lists.freedesktop.org>; Mon, 23 Mar 2026 16:01:21 +0000 (UTC)
-Received: by mail-pg1-f176.google.com with SMTP id
- 41be03b00d2f7-c2af7d09533so2674896a12.1
- for <amd-gfx@lists.freedesktop.org>; Mon, 23 Mar 2026 09:01:21 -0700 (PDT)
+Received: from mail-ot1-f43.google.com (mail-ot1-f43.google.com
+ [209.85.210.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BB8BC10E027
+ for <amd-gfx@lists.freedesktop.org>; Mon, 23 Mar 2026 16:00:58 +0000 (UTC)
+Received: by mail-ot1-f43.google.com with SMTP id
+ 46e09a7af769-7d7422b4ff1so1446840a34.3
+ for <amd-gfx@lists.freedesktop.org>; Mon, 23 Mar 2026 09:00:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=bitbyteword.org; s=google; t=1774281681; x=1774886481;
+ d=bitbyteword.org; s=google; t=1774281658; x=1774886458;
  darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=eViZzzv8Sc/M5QSGBQX9CwMHZ/34uumJnzvDlBpaGpc=;
- b=Wj4fEqwbCQkp4L7/JJxJrpsZDmeAVtRQEEa9gcTWv8UJHUdo/f1O5tf08SHE/R8cV0
- O5i/P7tz6Gi87e3JyGJXwbnwF4a0nfOVX6DV7nFZ1ASfxtEKm1NV3JPhI1Tdv2x8POwZ
- hmTC7xbKc8Zs/nzU3cGNeczYdnbsW4kWQcxrmV2Idgy3ZCdzAfvlMCCSnwrU5VJJolMV
- 1rKOBOyL6fA6UEek/F7CnAJukwIaXaGMTkitAPrXqwM0l4ena8yuLACGqft2SXBg8p72
- +EE7PVIGUf2u6zm1yGPzA1ixPJYQyO9K4vWzr5rPhc7XbUd6UqjFI2zwNH6pMlTPuFIi
- GgjQ==
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=7SscKSPRtp5r0bOyZYtc8orw97P+lM4BuDDRyRnpM2Q=;
+ b=H+xL9RHe9VU5nOSq+UddbTB5g2aBOBsnDaYYW6NILMjAE899A+30pqzF5kLxPQ6H1/
+ S5/ysLhgKqR0U66soMpp0jjnueziv7NyjBMtdpdR/oUX0bDXysMfQJAVVoGkz30eHFpX
+ E69AdifUwQ0RHQxiS0EXmwmQeoISYXRJxDZ+j8DehenOeCBx6fK4cSohHMnotIAqWmA0
+ nbaGI/pCv4legH8EPH7lpd690Fh9H2cuX+0x0VqAIPj8wNl3JUIQKaQ1zfCRA+HHtBWa
+ k2AI8ziTeYUMJdm7W5ipS80OORimfqK1DUlvuhYWCiIMSqM2z+FWEZLELdayEfRkC0eY
+ zNwg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774281681; x=1774886481;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=eViZzzv8Sc/M5QSGBQX9CwMHZ/34uumJnzvDlBpaGpc=;
- b=EL3DCdPQ/JzX8Oaeqj6CAl2jZBba+PxjgLKwxfxDBxOf+mpf4TZIW6DUGsH9sItrLU
- 937J+CmfLtH52LY9eaVLW5RirNIktyw40hCgMO6V2FEHYq5aigXUPJ4KOPxrrf6bgGNQ
- fQIP2XXCmp9vw8yDUb+r0Vyni/CFJ3PsOC1y8UYWhQw9UAl24E8/XHGLK5Nc7KGhgfP7
- W4ZmE8pWYO4FrMqtPUEgxh5klLeXq36aTi1xyns7oGS1vxfE2lkuERReKrbJ+8v4aWFR
- g23Sm1fvHv9iej3JZXhVBiqRCsgTFXKvcmVjLT/sGbXw/MrSTtRi5I4FA/hp+uCNojMs
- fXfw==
+ d=1e100.net; s=20251104; t=1774281658; x=1774886458;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=7SscKSPRtp5r0bOyZYtc8orw97P+lM4BuDDRyRnpM2Q=;
+ b=R4NIpfifVLz++0QRbXUbiu6xCjJwRU/SL8sA3m2RszSTD6awAbVrAwW4IywFlQMEZj
+ DBg8XI2//fPbXIRiIgcW3xpSxj6mIcWMEs6KRrp8HcR3MOA1LD/uigXrT2S0p0VOEZTJ
+ 388yqI/J50yZQKfhPBMMNRAKxQPpBXkqTfDOXq0nb7lTcirMXfkIkSi4fWg1ks+q/tEV
+ sk2kLz6nypdTpBWmz3f8HnHeRcU8MZtfFK4n6iWxF/SS22eEX4kvWKs2Duj59xCQCOoj
+ UtUWi1950tojPx/Cd9y/z/gLxUuqO7P2nfdXWlzZdoJIFbx30AG6mqqte4UO0F1yqTQy
+ t0GQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXbwTyrgq1ykMMJGh9JDFiFDgq3A399FuacBSbQHN4c1jo38QTyQA2MVui9OPE66VeyIMQ33EAq@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzP6r6HEnKydtqty/8+D8zQEUzBdHv/E7+p4NSaqUPWoIBUFwfe
- JL4kDCSFmu/6reKObfXpdnUhP9w6HNILrv7R2BT47/O0kb9IjXRentZpBUo996kdsYc=
-X-Gm-Gg: ATEYQzyaaJc1TzwobMOrqChigcmE3mFt4SdeNNI0zk8BHH+IrD68JiUlo6RaiORQ3mo
- EfWCzQUgac0F4BSt6glMq2UAdzGQWYdXDXxf1e3QSMIeRkDpcpFHIrQu5QBldyN0J+WVA+Ygxfp
- +0+wcKBSkSmZi24Ra0FjWemq5ms6tNwPSmdSFsEOYHcHnqH/EpvPHJITdnH0hsy0z8g6EPyis/n
- ePKHzXUpd1LuG2LW6bSprKlxRnzkBU2fT7NH0yK6LjQJ/U8/p+ozCjwRDVSmVCClwtmRfrBT/wB
- zzj+a7AAHMoYhngqlII6Qz8vbPBbB6pVC2DFMzJiTMugmmeJUKwwOOA7Ms/2KItl+lEpNFKTzzZ
- id3UmUuLHPSdun74DhUoKm1RH0UXmA64M+pccWy6ryingVo6TVf3iLree0ed8oMhlQkW/0rb+Uq
- 1u8XRDJN09p/E2tMQxl2pfxshyQwVAwHa24UuCxXnIYuwtUI06X1yjzjszU8EGnAvu1Q==
-X-Received: by 2002:a05:620a:198a:b0:8cd:8d4c:aa0c with SMTP id
- af79cd13be357-8cfc7a796e7mr1828317285a.0.1774281661473; 
- Mon, 23 Mar 2026 09:01:01 -0700 (PDT)
+ AJvYcCXcbUzp2qO9Vaip0dq/U2TI3tzkce8aMAEN/3AZu7F8V9QYRbeAl+MkOFiiE6/OUzY3Ycz5s566@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyycsL2MfuE3/HXDKTv194nSFzpSo4JO/xMDVFgnxsMV2UkkfDr
+ ReLPldtqN6cBL8FMNvzU8tKbtXQynCiqzroT0pKW/qznMmyLy2XEbJpPGde70JsXdAg=
+X-Gm-Gg: ATEYQzx37F4Fj3RX0rPdJSifCGacXOWoHBtM1zDIfXQUTO5ebQ6b0YbgmEf7DcN5zTu
+ dSqbZSRfs+doA7Ct5WAZyZw9yeU1iVkx3t23kx7irpx//nubBlsiE9Jh0lY6/F8uW459IQB3H08
+ PNOyYXT+g4SCFHfrI0vxg0wiLO6CRQhj+FzsER5mZ3iTYPmnQz1vcyq4HKuL2QPUPIjCsUUE5vu
+ TWVWh87ud4RrOw+9DiXq/D6NvGyGuLdU62RD07FAKoXV6R0AiVSNawS3D4OPiLBwL6pucoIeyWz
+ PhzC01R2lO8rGBWhFg0jeahsx3TfdAL4UWkp+vdz5i3FNI/1F1OrWO9jsk2TNxNBfND5e+3/lW/
+ XZn7RPo0kRJn/OnvwWZpWR62T6z7NUz8tc2ajxzyDLzNRaEztU33yXLX9QX3ucvrR1WHDFb+fDv
+ YstSkGdg0YeGXEhJdv///KaN5EeWrjpyFernqjaSyMeUfgo49lpuNKto3zKug8Jvs6Hg==
+X-Received: by 2002:a05:6820:3091:b0:67d:9cc0:968 with SMTP id
+ 006d021491bc7-67d9cc00e0dmr6486936eaf.63.1774281657494; 
+ Mon, 23 Mar 2026 09:00:57 -0700 (PDT)
 Received: from vinmini.lan (c-73-143-21-186.hsd1.vt.comcast.net.
  [73.143.21.186]) by smtp.gmail.com with ESMTPSA id
- af79cd13be357-8cfc9088df1sm843364185a.25.2026.03.23.09.00.57
+ af79cd13be357-8cfc9088df1sm843364185a.25.2026.03.23.09.00.53
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 23 Mar 2026 09:01:00 -0700 (PDT)
+ Mon, 23 Mar 2026 09:00:56 -0700 (PDT)
 From: "Vineeth Pillai (Google)" <vineeth@bitbyteword.org>
 To: Steven Rostedt <rostedt@goodmis.org>,
  Peter Zijlstra <peterz@infradead.org>, Dmitry Ilvokhin <d@ilvokhin.com>
@@ -117,15 +116,14 @@ Cc: "Vineeth Pillai (Google)" <vineeth@bitbyteword.org>,
  linux-mm@kvack.org, Borislav Petkov <bp@alien8.de>,
  Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
  linux-trace-kernel@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v2 01/19] tracepoint: Add trace_call__##name() API
-Date: Mon, 23 Mar 2026 12:00:20 -0400
-Message-ID: <20260323160052.17528-2-vineeth@bitbyteword.org>
+Subject: [PATCH v2 00/19] tracepoint: Avoid double static_branch evaluation at
+ guarded call sites
+Date: Mon, 23 Mar 2026 12:00:19 -0400
+Message-ID: <20260323160052.17528-1-vineeth@bitbyteword.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260323160052.17528-1-vineeth@bitbyteword.org>
-References: <20260323160052.17528-1-vineeth@bitbyteword.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Tue, 24 Mar 2026 09:12:39 +0000
+X-Mailman-Approved-At: Tue, 24 Mar 2026 09:12:40 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -140,76 +138,122 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add trace_call__##name() as a companion to trace_##name().  When a
-caller already guards a tracepoint with an explicit enabled check:
+When a caller already guards a tracepoint with an explicit enabled check:
 
   if (trace_foo_enabled() && cond)
       trace_foo(args);
 
-trace_foo() internally repeats the static_branch_unlikely() test, which
-the compiler cannot fold since static branches are patched binary
-instructions.  This results in two static-branch evaluations for every
-guarded call site.
+trace_foo() internally re-evaluates the static_branch_unlikely() key.
+Since static branches are patched binary instructions the compiler cannot
+fold the two evaluations, so every such site pays the cost twice.
 
-trace_call__##name() calls __do_trace_##name() directly, skipping the
-redundant static-branch re-check.  This avoids leaking the internal
-__do_trace_##name() symbol into call sites while still eliminating the
-double evaluation:
+This series introduces trace_call__##name() as a companion to
+trace_##name().  It calls __do_trace_##name() directly, bypassing the
+redundant static-branch re-check, while preserving all other correctness
+properties of the normal path (RCU-watching assertion, might_fault() for
+syscall tracepoints).  The internal __do_trace_##name() symbol is not
+leaked to call sites; trace_call__##name() is the only new public API.
 
   if (trace_foo_enabled() && cond)
-      trace_invoke_foo(args);   /* calls __do_trace_foo() directly */
+      trace_call__foo(args);   /* calls __do_trace_foo() directly */
 
-Three locations are updated:
-- __DECLARE_TRACE: invoke form omits static_branch_unlikely, retains
-  the LOCKDEP RCU-watching assertion.
-- __DECLARE_TRACE_SYSCALL: same, plus retains might_fault().
-- !TRACEPOINTS_ENABLED stub: empty no-op so callers compile cleanly
-  when tracepoints are compiled out.
+The first patch adds the three-location change to
+include/linux/tracepoint.h (__DECLARE_TRACE, __DECLARE_TRACE_SYSCALL,
+and the !TRACEPOINTS_ENABLED stub).  The remaining 18 patches
+mechanically convert all guarded call sites found in the tree:
+kernel/, io_uring/, net/, accel/habanalabs, cpufreq/, devfreq/,
+dma-buf/, fsi/, drm/, HID, i2c/, spi/, scsi/ufs/, btrfs/,
+net/devlink/, kernel/time/, kernel/trace/, mm/damon/, and arch/x86/.
+
+This series is motivated by Peter Zijlstra's observation in the discussion
+around Dmitry Ilvokhin's locking tracepoint instrumentation series, where
+he noted that compilers cannot optimize static branches and that guarded
+call sites end up evaluating the static branch twice for no reason, and
+by Steven Rostedt's suggestion to add a proper API instead of exposing
+internal implementation details like __do_trace_##name() directly to
+call sites:
+
+  https://lore.kernel.org/linux-trace-kernel/8298e098d3418cb446ef396f119edac58a3414e9.1772642407.git.d@ilvokhin.com
 
 Suggested-by: Steven Rostedt <rostedt@goodmis.org>
 Suggested-by: Peter Zijlstra <peterz@infradead.org>
-Signed-off-by: Vineeth Pillai (Google) <vineeth@bitbyteword.org>
-Assisted-by: Claude:claude-sonnet-4-6
----
- include/linux/tracepoint.h | 11 +++++++++++
- 1 file changed, 11 insertions(+)
 
-diff --git a/include/linux/tracepoint.h b/include/linux/tracepoint.h
-index 22ca1c8b54f32..ed969705341f1 100644
---- a/include/linux/tracepoint.h
-+++ b/include/linux/tracepoint.h
-@@ -294,6 +294,10 @@ static inline struct tracepoint *tracepoint_ptr_deref(tracepoint_ptr_t *p)
- 			WARN_ONCE(!rcu_is_watching(),			\
- 				  "RCU not watching for tracepoint");	\
- 		}							\
-+	}								\
-+	static inline void trace_call__##name(proto)			\
-+	{								\
-+		__do_trace_##name(args);				\
- 	}
- 
- #define __DECLARE_TRACE_SYSCALL(name, proto, args, data_proto)		\
-@@ -313,6 +317,11 @@ static inline struct tracepoint *tracepoint_ptr_deref(tracepoint_ptr_t *p)
- 			WARN_ONCE(!rcu_is_watching(),			\
- 				  "RCU not watching for tracepoint");	\
- 		}							\
-+	}								\
-+	static inline void trace_call__##name(proto)			\
-+	{								\
-+		might_fault();						\
-+		__do_trace_##name(args);				\
- 	}
- 
- /*
-@@ -398,6 +407,8 @@ static inline struct tracepoint *tracepoint_ptr_deref(tracepoint_ptr_t *p)
- #define __DECLARE_TRACE_COMMON(name, proto, args, data_proto)		\
- 	static inline void trace_##name(proto)				\
- 	{ }								\
-+	static inline void trace_call__##name(proto)			\
-+	{ }								\
- 	static inline int						\
- 	register_trace_##name(void (*probe)(data_proto),		\
- 			      void *data)				\
+Changes in v2:
+- Renamed trace_invoke_##name() to trace_call__##name() (double
+  underscore) per review comments.
+- Added 4 new patches covering sites missed in v1, found using
+  coccinelle to scan the tree (Keith Busch):
+    * net/devlink: guarded tracepoint_enabled() block in trap.c
+    * kernel/time: early-return guard in tick-sched.c (tick_stop)
+    * kernel/trace: early-return guard in trace_benchmark.c
+    * mm/damon: early-return guard in core.c
+    * arch/x86: do_trace_*() wrapper functions in lib/msr.c, which
+      are called exclusively from tracepoint_enabled()-guarded sites
+      in asm/msr.h
+
+v1: https://lore.kernel.org/linux-trace-kernel/abSqrJ1J59RQC47U@kbusch-mbp/
+
+Vineeth Pillai (Google) (19):
+  tracepoint: Add trace_call__##name() API
+  kernel: Use trace_call__##name() at guarded tracepoint call sites
+  io_uring: Use trace_call__##name() at guarded tracepoint call sites
+  net: Use trace_call__##name() at guarded tracepoint call sites
+  accel/habanalabs: Use trace_call__##name() at guarded tracepoint call
+    sites
+  cpufreq: Use trace_call__##name() at guarded tracepoint call sites
+  devfreq: Use trace_call__##name() at guarded tracepoint call sites
+  dma-buf: Use trace_call__##name() at guarded tracepoint call sites
+  fsi: Use trace_call__##name() at guarded tracepoint call sites
+  drm: Use trace_call__##name() at guarded tracepoint call sites
+  HID: Use trace_call__##name() at guarded tracepoint call sites
+  i2c: Use trace_call__##name() at guarded tracepoint call sites
+  spi: Use trace_call__##name() at guarded tracepoint call sites
+  scsi: ufs: Use trace_call__##name() at guarded tracepoint call sites
+  btrfs: Use trace_call__##name() at guarded tracepoint call sites
+  net: devlink: Use trace_call__##name() at guarded tracepoint call
+    sites
+  kernel: time, trace: Use trace_call__##name() at guarded tracepoint
+    call sites
+  mm: damon: Use trace_call__##name() at guarded tracepoint call sites
+  x86: msr: Use trace_call__##name() at guarded tracepoint call sites
+
+ arch/x86/lib/msr.c                                |  6 +++---
+ drivers/accel/habanalabs/common/device.c          | 12 ++++++------
+ drivers/accel/habanalabs/common/mmu/mmu.c         |  3 ++-
+ drivers/accel/habanalabs/common/pci/pci.c         |  4 ++--
+ drivers/cpufreq/amd-pstate.c                      | 10 +++++-----
+ drivers/cpufreq/cpufreq.c                         |  2 +-
+ drivers/cpufreq/intel_pstate.c                    |  2 +-
+ drivers/devfreq/devfreq.c                         |  2 +-
+ drivers/dma-buf/dma-fence.c                       |  4 ++--
+ drivers/fsi/fsi-master-aspeed.c                   |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c            |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c            |  4 ++--
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  2 +-
+ drivers/gpu/drm/scheduler/sched_entity.c          |  4 ++--
+ drivers/hid/intel-ish-hid/ipc/pci-ish.c           |  2 +-
+ drivers/i2c/i2c-core-slave.c                      |  2 +-
+ drivers/spi/spi-axi-spi-engine.c                  |  4 ++--
+ drivers/ufs/core/ufshcd.c                         | 12 ++++++------
+ fs/btrfs/extent_map.c                             |  4 ++--
+ fs/btrfs/raid56.c                                 |  4 ++--
+ include/linux/tracepoint.h                        | 11 +++++++++++
+ io_uring/io_uring.h                               |  2 +-
+ kernel/irq_work.c                                 |  2 +-
+ kernel/sched/ext.c                                |  2 +-
+ kernel/smp.c                                      |  2 +-
+ kernel/time/tick-sched.c                          | 12 ++++++------
+ kernel/trace/trace_benchmark.c                    |  2 +-
+ mm/damon/core.c                                   |  2 +-
+ net/core/dev.c                                    |  2 +-
+ net/core/xdp.c                                    |  2 +-
+ net/devlink/trap.c                                |  2 +-
+ net/openvswitch/actions.c                         |  2 +-
+ net/openvswitch/datapath.c                        |  2 +-
+ net/sctp/outqueue.c                               |  2 +-
+ net/tipc/node.c                                   |  2 +-
+ 35 files changed, 74 insertions(+), 62 deletions(-)
+
 -- 
 2.53.0
 
