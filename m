@@ -4,50 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CE576F532FE
-	for <amd-gfx@archiver.kernel.org>; Tue, 24 Mar 2026 09:12:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 50495E9A741
+	for <amd-gfx@archiver.kernel.org>; Tue, 24 Mar 2026 09:12:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0B23410E64D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E71C310E64E;
 	Tue, 24 Mar 2026 09:12:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="mdjJHA5j";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="YkCS/Gxp";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 247E610E3E9;
- Mon, 23 Mar 2026 13:04:12 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 85015600C4;
- Mon, 23 Mar 2026 13:04:11 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 98957C4CEF7;
- Mon, 23 Mar 2026 13:04:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1774271051;
- bh=nj+qiVG7IbV8YyBFK4Zymy8knypFitPwdeCO1dTeODQ=;
- h=Subject:To:Cc:From:Date:In-Reply-To:From;
- b=mdjJHA5jSbQmBqHMVL7U/FQKcVxlyZCaRZNhgzPFewKtWfFbqM82/J5io3zNaKV1n
- NAPWtryUbhz25aS1KbKF40q+6YVGWlMjo4lJ5QgzhodmOECHMQdqWspVN+TSGf8pms
- CXprloAnuKQLGZshpkezfBZp1UyRIN9Fy5Na5pz0=
-Subject: Patch "drm/amdgpu: clarify DC checks" has been added to the
- 6.1-stable tree
-To: Jun.Ma2@amd.com, Rodrigo.Siqueira@amd.com, Roman.Li@amd.com,
- Wayne.Lin@amd.com, Xinhui.Pan@amd.com, Zhigang.Luo@amd.com, airlied@gmail.com,
- alex.hung@amd.com, alexander.deucher@amd.com, amd-gfx@lists.freedesktop.org,
- christian.koenig@amd.com, daniel@ffwll.ch, decce6@proton.me,
- dri-devel@lists.freedesktop.org, evan.quan@amd.com, gregkh@linuxfoundation.org,
- harry.wentland@amd.com, hersenxs.wu@amd.com, lijo.lazar@amd.com,
- mario.limonciello@amd.com, ray.wu@amd.com, rosenp@gmail.com, sashal@kernel.org,
- spasswolf@web.de, srinivasan.shanmugam@amd.com, sunpeng.li@amd.com,
- superm1@kernel.org, timur.kristof@gmail.com, vulab@iscas.ac.cn
-Cc: <stable-commits@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Mon, 23 Mar 2026 14:03:39 +0100
-In-Reply-To: <20260321054453.19683-3-rosenp@gmail.com>
-Message-ID: <2026032338-raging-elm-0386@gregkh>
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com
+ [209.85.128.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8762010E44A
+ for <amd-gfx@lists.freedesktop.org>; Mon, 23 Mar 2026 22:45:14 +0000 (UTC)
+Received: by mail-wm1-f53.google.com with SMTP id
+ 5b1f17b1804b1-48558d6ef83so31657135e9.3
+ for <amd-gfx@lists.freedesktop.org>; Mon, 23 Mar 2026 15:45:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1774305913; x=1774910713; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=66u/VBwHFIYtSS0ffR+AH+e9AgRhJBGf6jfFuy18y7Q=;
+ b=YkCS/GxpJnEVTlKO8ztWdRV/vsXQijEsAeLqnwpRy4km3OQFNU4NjRO2TPxzYL9Wt3
+ +9Ax3czyyxWjJFy1m9LRd77Vx7jhzxoLtG7JtxrOCgv5D4uRXZx8mHPlHqkZ04iDWyQ5
+ YheUFrgk0F0a2hM/LQuCqLZrMVKfa2h6c8oot5BM65nTJpN0zuCsPfoJxVrQjnRDwAGb
+ 5sGv9vytO1PgZTFYMxWjNIkAHPi5LZJEoYtPy68SY7yKq0+He8wJzSMVc8ufxacuK9Ft
+ tegRgYY7eAJxEbn6YbJaeN85IQZvbIfbvp+UP1O/FS++e1EkLNsP3Db2vUgiVaA83O1w
+ uFaA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1774305913; x=1774910713;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=66u/VBwHFIYtSS0ffR+AH+e9AgRhJBGf6jfFuy18y7Q=;
+ b=EmRKEOsl0VmvXE58VJtpTkvZ/+dNikz62pZU/hQsRM6OuSc/2ct76SgYMTkVw4Ic9Z
+ 3WBXAkda5ZayTowQD5RgMRkbZZA+pNvYmE1xvswy7X/EN6J6W//847TvKtjIxI88ld/0
+ z3kyILiU/A9ZQjT3GMKjQX8kXl1ONMx/TEarCukrXoUyjOF5b1z/EGYSYttmXRIAEKzm
+ 7+RBKFCpjw0nT+fBu7+Xsz/TXjnlq8KFI7kGLkkNcbMgbciOrcJPuEvSpo5Xh/L2oVXB
+ X4bPj1iccA/bV5Gc89iRnhmt+K6uVqnOebV2NgBzT+4DBSaF7aipzViGa2EhKF9gCdYZ
+ siiA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXtzoT84Exlu0l1vtujKRHHhk5nyrYtVIEK/lNtYbmw4Evr5cDKg+Z/o4iOdQ8Q9sT32yEjJILF@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzWsxORrFtKI4wQ4+IBVzz0J776kdhcO6lqewWysVUfLP/W2QDa
+ afIQK78abC3qw6QAVxeoXjNb9yP6TLUGgI+cvlG5/XXTUgVuZz7IgiQt
+X-Gm-Gg: ATEYQzySOxiO3jgfgG9VkaFiuvIVS1aQkBFDtgVF8RI+uPl30N/ijHZn+JkuWazloq7
+ xtJFqHhWvvg9F5RcaRjQF+LyCFQYvWrxoFr8wLEwv3fO5ND0bSwBtyFGhVM2/xhWHSVhz0fCIs7
+ BkEtK4J04K+p+QexBhSICLvBBFX1CFF1fcrDViLa8q/nUoi38+5+kVw8/M8t62CVfvsTMMh5S3s
+ XgCMZTUcSoLZp2ZaRgSvNLpX9TsELWszMs5A22+SlE2tQQAtakh8XylUOjq+rY7gu/M85WH3t7I
+ QK7p60xO4vu8viBCDnvSeMZnqIrFyjG904i/XeVY7WF2JamXAmU3DKMaH158eYIZSWF7tABcnIO
+ 083QMpl/iA3APXNx2n4/HkcujLh8AmZ666JMx9F6a9kj/qOzJjKJ8zFzKfMozitCdHFPtlSa3q+
+ iEqevAVT/oiMPdL99RYJ2HYw==
+X-Received: by 2002:a05:600c:1d15:b0:485:2ce2:4c75 with SMTP id
+ 5b1f17b1804b1-486febbc648mr193158595e9.1.1774305912768; 
+ Mon, 23 Mar 2026 15:45:12 -0700 (PDT)
+Received: from localhost ([87.254.0.141]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4870f6d5fd9sm4775495e9.4.2026.03.23.15.45.11
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 23 Mar 2026 15:45:12 -0700 (PDT)
+From: Colin Ian King <colin.i.king@gmail.com>
+To: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Cc: kernel-janitors@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH][nexr] drm/amdgpu/mes12_1: emove extra ;
+ from declaration statement
+Date: Mon, 23 Mar 2026 22:43:48 +0000
+Message-ID: <20260323224348.343495-1-colin.i.king@gmail.com>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ISO-8859-1
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-stable: commit
-X-Patchwork-Hint: ignore
 X-Mailman-Approved-At: Tue, 24 Mar 2026 09:12:40 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -63,189 +90,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+There is a declaration statement that has a ;; at the end, remove the
+extraneous ;
 
-This is a note to let you know that I've just added the patch titled
-
-    drm/amdgpu: clarify DC checks
-
-to the 6.1-stable tree which can be found at:
-    http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
-
-The filename of the patch is:
-     drm-amdgpu-clarify-dc-checks.patch
-and it can be found in the queue-6.1 subdirectory.
-
-If you, or anyone else, feels it should not be added to the stable tree,
-please let <stable@vger.kernel.org> know about it.
-
-
-From rosenp@gmail.com Sat Mar 21 06:45:17 2026
-From: Rosen Penev <rosenp@gmail.com>
-Date: Fri, 20 Mar 2026 22:44:51 -0700
-Subject: drm/amdgpu: clarify DC checks
-To: stable@vger.kernel.org
-Cc: "Alex Deucher" <alexander.deucher@amd.com>, "Christian König" <christian.koenig@amd.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>, "David Airlie" <airlied@gmail.com>, "Daniel Vetter" <daniel@ffwll.ch>, "Harry Wentland" <harry.wentland@amd.com>, "Leo Li" <sunpeng.li@amd.com>, "Rodrigo Siqueira" <Rodrigo.Siqueira@amd.com>, "Evan Quan" <evan.quan@amd.com>, "Mario Limonciello" <mario.limonciello@amd.com>, "Sasha Levin" <sashal@kernel.org>, "Rosen Penev" <rosenp@gmail.com>, "Lijo Lazar" <lijo.lazar@amd.com>, "Ma Jun" <Jun.Ma2@amd.com>, "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>, "Srinivasan Shanmugam" <srinivasan.shanmugam@amd.com>, "Mario Limonciello (AMD)" <superm1@kernel.org>, "Zhigang Luo" <Zhigang.Luo@amd.com>, "Bert Karwatzki" <spasswolf@web.de>, "Ray Wu" <ray.wu@amd.com>, "Wayne Lin" <Wayne.Lin@amd.com>, "Roman Li" <Roman.Li@amd.com>, "Hersen Wu" <hersenxs.wu@amd.com>, "Timur Kristóf" <timur.kristof@gmail.com>, "Alex Hung" <alex.hung@amd.com>, decce6 <decce6@proton.me>, "Went
- ao Liang" <vulab@iscas.ac.cn>, amd-gfx@lists.freedesktop.org (open list:RADEON and AMDGPU DRM DRIVERS), dri-devel@lists.freedesktop.org (open list:DRM DRIVERS), linux-kernel@vger.kernel.org (open list)
-Message-ID: <20260321054453.19683-3-rosenp@gmail.com>
-
-From: Alex Deucher <alexander.deucher@amd.com>
-
-[ Upstream commit d09ef243035b75a6d403ebfeb7e87fa20d7e25c6 ]
-
-There are several places where we don't want to check
-if a particular asic could support DC, but rather, if
-DC is enabled.  Set a flag if DC is enabled and check
-for that rather than if a device supports DC or not.
-
-Acked-by: Christian KÃ¶nig <christian.koenig@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Rosen Penev <rosenp@gmail.com>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Signed-off-by: Colin Ian King <colin.i.king@gmail.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu.h               |    1 
- drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c          |    2 -
- drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c       |    2 -
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c        |   32 +++++++++++-----------
- drivers/gpu/drm/amd/amdgpu/amdgpu_display.c       |    4 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c           |    2 -
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |    1 
- drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c  |    2 -
- 8 files changed, 25 insertions(+), 21 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/mes_v12_1.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-@@ -1071,6 +1071,7 @@ struct amdgpu_device {
- 	struct work_struct		reset_work;
+diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v12_1.c b/drivers/gpu/drm/amd/amdgpu/mes_v12_1.c
+index 5dcc2c32644a..0e9089544769 100644
+--- a/drivers/gpu/drm/amd/amdgpu/mes_v12_1.c
++++ b/drivers/gpu/drm/amd/amdgpu/mes_v12_1.c
+@@ -2227,7 +2227,7 @@ static int mes_v12_1_self_test(struct amdgpu_device *adev, int xcc_id)
+ 	struct amdgpu_bo *meta_bo = NULL, *ctx_bo = NULL;
+ 	void *meta_ptr = NULL, *ctx_ptr = NULL;
+ 	u64 meta_gpu_addr, ctx_gpu_addr;
+-	int size, i, r, pasid;;
++	int size, i, r, pasid;
  
- 	bool                            job_hang;
-+	bool                            dc_enabled;
- };
- 
- static inline struct amdgpu_device *drm_to_adev(struct drm_device *ddev)
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
-@@ -857,7 +857,7 @@ int amdgpu_acpi_init(struct amdgpu_devic
- 	struct amdgpu_atif *atif = &amdgpu_acpi_priv.atif;
- 
- 	if (atif->notifications.brightness_change) {
--		if (amdgpu_device_has_dc_support(adev)) {
-+		if (adev->dc_enabled) {
- #if defined(CONFIG_DRM_AMD_DC)
- 			struct amdgpu_display_manager *dm = &adev->dm;
- 
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-@@ -1981,7 +1981,7 @@ int amdgpu_debugfs_init(struct amdgpu_de
- 	amdgpu_ta_if_debugfs_init(adev);
- 
- #if defined(CONFIG_DRM_AMD_DC)
--	if (amdgpu_device_has_dc_support(adev))
-+	if (adev->dc_enabled)
- 		dtn_debugfs_init(adev);
- #endif
- 
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -4404,25 +4404,27 @@ int amdgpu_device_resume(struct drm_devi
- 
- 	amdgpu_ras_resume(adev);
- 
--	/*
--	 * Most of the connector probing functions try to acquire runtime pm
--	 * refs to ensure that the GPU is powered on when connector polling is
--	 * performed. Since we're calling this from a runtime PM callback,
--	 * trying to acquire rpm refs will cause us to deadlock.
--	 *
--	 * Since we're guaranteed to be holding the rpm lock, it's safe to
--	 * temporarily disable the rpm helpers so this doesn't deadlock us.
--	 */
-+	if (adev->mode_info.num_crtc) {
-+		/*
-+		 * Most of the connector probing functions try to acquire runtime pm
-+		 * refs to ensure that the GPU is powered on when connector polling is
-+		 * performed. Since we're calling this from a runtime PM callback,
-+		 * trying to acquire rpm refs will cause us to deadlock.
-+		 *
-+		 * Since we're guaranteed to be holding the rpm lock, it's safe to
-+		 * temporarily disable the rpm helpers so this doesn't deadlock us.
-+		 */
- #ifdef CONFIG_PM
--	dev->dev->power.disable_depth++;
-+		dev->dev->power.disable_depth++;
- #endif
--	if (!amdgpu_device_has_dc_support(adev))
--		drm_helper_hpd_irq_event(dev);
--	else
--		drm_kms_helper_hotplug_event(dev);
-+		if (!adev->dc_enabled)
-+			drm_helper_hpd_irq_event(dev);
-+		else
-+			drm_kms_helper_hotplug_event(dev);
- #ifdef CONFIG_PM
--	dev->dev->power.disable_depth--;
-+		dev->dev->power.disable_depth--;
- #endif
-+	}
- 	adev->in_suspend = false;
- 
- 	if (adev->enable_mes)
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-@@ -534,7 +534,7 @@ uint32_t amdgpu_display_supported_domain
- 	 */
- 	if ((bo_flags & AMDGPU_GEM_CREATE_CPU_GTT_USWC) &&
- 	    amdgpu_bo_support_uswc(bo_flags) &&
--	    amdgpu_device_has_dc_support(adev) &&
-+	    adev->dc_enabled &&
- 	    adev->mode_info.gpu_vm_support)
- 		domain |= AMDGPU_GEM_DOMAIN_GTT;
- #endif
-@@ -1330,7 +1330,7 @@ int amdgpu_display_modeset_create_props(
- 					 "dither",
- 					 amdgpu_dither_enum_list, sz);
- 
--	if (amdgpu_device_has_dc_support(adev)) {
-+	if (adev->dc_enabled) {
- 		adev->mode_info.abm_level_property =
- 			drm_property_create_range(adev_to_drm(adev), 0,
- 						  "abm level", 0, 4);
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-@@ -2530,7 +2530,7 @@ static int amdgpu_runtime_idle_check_dis
- 		if (ret)
- 			return ret;
- 
--		if (amdgpu_device_has_dc_support(adev)) {
-+		if (adev->dc_enabled) {
- 			struct drm_crtc *crtc;
- 
- 			drm_for_each_crtc(crtc, drm_dev) {
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -4842,6 +4842,7 @@ static int dm_early_init(void *handle)
- 		adev_to_drm(adev)->dev,
- 		&dev_attr_s3_debug);
- #endif
-+	adev->dc_enabled = true;
- 
- 	return 0;
- }
---- a/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
-+++ b/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
-@@ -1567,7 +1567,7 @@ static void pp_pm_compute_clocks(void *h
- 	struct pp_hwmgr *hwmgr = handle;
- 	struct amdgpu_device *adev = hwmgr->adev;
- 
--	if (!amdgpu_device_has_dc_support(adev)) {
-+	if (!adev->dc_enabled) {
- 		amdgpu_dpm_get_active_displays(adev);
- 		adev->pm.pm_display_cfg.num_display = adev->pm.dpm.new_active_crtc_count;
- 		adev->pm.pm_display_cfg.vrefresh = amdgpu_dpm_get_vrefresh(adev);
+ 	pasid = amdgpu_pasid_alloc(16);
+ 	if (pasid < 0)
+-- 
+2.53.0
 
-
-Patches currently in stable-queue which might be from rosenp@gmail.com are
-
-queue-6.1/drm-amdgpu-clarify-dc-checks.patch
-queue-6.1/drm-amd-pm-use-pm_display_cfg-in-legacy-dpm-v2.patch
-queue-6.1/drm-amdgpu-use-proper-dc-check-in-amdgpu_display_supported_domains.patch
-queue-6.1/drm-amd-display-add-pixel_clock-to-amd_pp_display_configuration.patch
