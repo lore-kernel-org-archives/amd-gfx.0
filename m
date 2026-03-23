@@ -4,85 +4,86 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B1FC7F483E5
-	for <amd-gfx@archiver.kernel.org>; Mon, 23 Mar 2026 19:11:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 49D55F483E5
+	for <amd-gfx@archiver.kernel.org>; Mon, 23 Mar 2026 19:12:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4CF4910E498;
-	Mon, 23 Mar 2026 19:11:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E153A10E499;
+	Mon, 23 Mar 2026 19:12:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="tBEKsSr+";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="RuuNI+uL";
 	dkim-atps=neutral
-Received: from mail-dl1-f44.google.com (mail-dl1-f44.google.com [74.125.82.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E2B6310E498
- for <amd-gfx@lists.freedesktop.org>; Mon, 23 Mar 2026 19:11:37 +0000 (UTC)
-Received: by mail-dl1-f44.google.com with SMTP id
- a92af1059eb24-128bae6a35aso292087c88.1
- for <amd-gfx@lists.freedesktop.org>; Mon, 23 Mar 2026 12:11:37 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1774293097; cv=none;
+Received: from mail-dl1-f52.google.com (mail-dl1-f52.google.com [74.125.82.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 813B810E499
+ for <amd-gfx@lists.freedesktop.org>; Mon, 23 Mar 2026 19:12:44 +0000 (UTC)
+Received: by mail-dl1-f52.google.com with SMTP id
+ a92af1059eb24-127148c2112so403116c88.3
+ for <amd-gfx@lists.freedesktop.org>; Mon, 23 Mar 2026 12:12:44 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1774293164; cv=none;
  d=google.com; s=arc-20240605;
- b=ZDYu5IQhgdKjSJ8T18WkwYRkvj2J+Ra88scwGwvSmr82W/eBzMX3JzDvPCrrXtrd82
- HiCl7vSctF9uFuniBn3Byyob70I2bs8els7uFT57ejFNbe+P0Swm5o/DuwSi29jKbecG
- snE1qw9LQlsdhkI17nnrOPITCm1rRlO26PeeuuGZTTIbH0oNOM4QAMGbXPBnYrOmkA/D
- AA7Bwqcl+60L0/qpG6bAIJYIRPM3D7M8vKbSqzu9qCZ7h3Leg6dM6X1lbOn27rm3oeh8
- Q5qvywYKAi8PBjs8NG7ttmmcQBPa94MThQiVTPJHTNqzcSkHb4q59qHNNVm5EZU5y790
- AMBA==
+ b=CTP5dqGnJN/uIgKWTfzVDJHxm/1Q92sEfk2clA0b6HrtlnP4maV1DvuQD0V7dWFAZP
+ xf3+TXJPfy7IhRok4KgUFtdqrCvURwyiiTIExhHuuLM9h3t2pOm5WzcaHsAnQYvhIJnn
+ 0tqYpVqEEF9kulrNUDhlT7ah+dVNEQjRXSjJf0UJvYlI7XMw8CLRL4DlTLHVjOaEulv4
+ wB3C5gaEnzIae1ey4GW3Z/ecC3jiVzKOOIqgYCx7LfvNaF8nnhk3pdf80pTZPfPXFkox
+ 9KcJN7xp6KE5t2tWsZDDmeavHGVtpR1r849nQD3R5z8HlmYZzQs/6XrBeJPwhx97TDv/
+ qpSQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20240605; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=t1YZQ8usqlKO96YJKshFlmer+T40bhC6JQAn383HrzM=;
+ bh=SZv4sVfznlVRMM6LAKDKkkDdLYuRrr2Jd3wBBloIc/Q=;
  fh=TjSDHDexhxAlozvahAqSjH/1kZYNEUCZM+OUwnm2QTM=;
- b=Pb385VewCpofmkz1oL/2r9YQCtvVQVHxasrZkSzQlYbMygXIvZmW46ZtgfSTNCyUZO
- ZjyTzlZul891tmN8WUKGXfUvWI5qukwayFi85rjTi8ngyd8E5qlttYCJa026uB9t5I18
- ZBPyC00gaUNw9xKwH07kyWGqLWXv3u4krY57JJsy1tBdoaB6CCkp+Io8Kl2p0EjwUgC3
- 9UYs6LwSznTwO6cwqsjLCblmmHrpZ0h4UEygijLE1q3gLWHgW3QgIof1a7/nV8ddD7Iu
- oDybOET9mSLu8cEZ8DbJn/GhHKXt895b5yWpmFWjlErRJt5xaYCkwWPFiBlpkQw5+tp9
- RYog==; darn=lists.freedesktop.org
+ b=BQ9T1SDYTjxMNe5RWoMhaa88k6hiG08UWVcj05Qv5L0SyXO2wuRwPH5qA2OF2QIJOD
+ j0KqT1c1ToSFRnC6FL2dzXMgljOnrmHO3NZGx9/mU0Uxu/uCWyovK6CEbcqVVyVfVNbE
+ t5v+rCornF5AexXRtO0u5aN1jHzi1m+VAP/tMeqk7l8eAq6vEEo438ypgnLzSv8znhLu
+ 59v6GOS9zorEf8/Vd+HhBxgj9x6SBUWHQIA4oEjEo8gfhBvOpwwF3hyWM5PuGpgwPaHs
+ 5vfPWMiO7ZQjbmryWAVb9a1GBackPO/0Jtd7aMFFnF3c4NOrOmc7TYwCXCoNEUysyVtB
+ vlXA==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1774293097; x=1774897897; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1774293164; x=1774897964; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=t1YZQ8usqlKO96YJKshFlmer+T40bhC6JQAn383HrzM=;
- b=tBEKsSr+wgpLpseP6uzlLDdAWjZngOh+N/weLSOzWj7IKiw7C5rAjblYAxgoovBrED
- 27D/j3/Bz3f7+0EdgB6Jfu7bku/7K51CstHeT6fHGZFT+DjW8krP/ZAbSDfgy0ndSdtQ
- SHntYLZqf4q+SxO694WUuHEsKPO4W8dPqt7JKPYJD2mIhYojw5iEvzFC9HAiPZ7zMGSv
- 19LL05k0yjWO+2kV9FmptdsKoqR3BWM/hLolfBKgvNPtrXD8+WKLsmLYtqr/sAfh/rut
- TymodNEG5wq0FrMuevBl+qg1vGv9o7D7K1/hBe97f6L1gdBzqtoe9RreGy+L2yCaN7Kb
- SqKg==
+ bh=SZv4sVfznlVRMM6LAKDKkkDdLYuRrr2Jd3wBBloIc/Q=;
+ b=RuuNI+uLf5sNkhT3R0ZODd3w7Zi31TwRBGS81Gft6HXKCf3tutwD9zr/JaVE5ByxVu
+ S7P9V0efZYfc+EOnX/TTZZNB1RmEsibNjEi0NEy/Ur0P+n6BpFVxszQ6TOlqvbM0BEap
+ K/dzeX1wSfj9kuMoleHGr20SU3gMKIb1MZUCIv9yhdofF0QZltInVAGpGITFsCIttWgA
+ 4K8eUHfI9dQ+0ZKSwaZpcLA6MX1MJLx06fsiSTnIu1+CHCpU3smEOI3juZTe1J7QaOmP
+ Y+YEKs08zzhIWBgGFZQXF0+rgrFjeLRYabMY3wL4y8vSbI0LPkdymZ91UnxNhqdQ1G8o
+ Y4kg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774293097; x=1774897897;
+ d=1e100.net; s=20251104; t=1774293164; x=1774897964;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=t1YZQ8usqlKO96YJKshFlmer+T40bhC6JQAn383HrzM=;
- b=muGBkaMl17KxztkMPS86eQmoMt8iJ/5D0LEN9fnpBLjdcEXwJPWfsNTlzIOHNUN831
- yhpjkl6DBFbeRfd6gUdO2oDU5J6uGfUgiai2plb5HRm8PHUG9cOsrm5GbWD3iADhPL0C
- AiejhlULEd1vgulWi/IAkAo/kK6yfXcSRQUTkrMGdHftRnNLQsLgtdSa1A48ECN2atTs
- RnOKCIzTlV7Tfw70fBJk6Dr9OTsTCyUUHevbWIYsLdbhLmvY09pxfgtYsYgHndn4/qC7
- 6hoP1y00aqxGWWgqqWo0CAtSbibioE8/Oe7fbN7JvZSb8DTZN3jHSe8xDV/1f0j6ZkuW
- B9VQ==
-X-Gm-Message-State: AOJu0YxR92gwPTcP9sv8Q40j4ymXqL+PhY8O5OAEJlFVV0Yjqi6VJ+eA
- YQc4FeRGX2/CmK6RIftrGxexBERl+9J/1kBb8IG/No+GD7JjZJoQ5ulvvh1zWYad9f3Vt2vIScP
- 8yuO9aDe1xDVSDc/Wjw3QvnD/5OaFvjo=
-X-Gm-Gg: ATEYQzyEVfL0rPnmC1UymRppSFcPkFPJBcWnAKDjksQYsl7+VJQU43Pk5bjoqVxM63R
- BAKQSH3d/NjHX9bPHcz+1Zm1msIzsmldro8Ey7g2Ru9FX8E/l86yClFNu51TNVVsqE/Jv5Dl4tr
- 1w6LS9j2SVMFeYFpYnVutmS0rUXiCC84yRxBg4Pvx/t9EEmTtPBtU9Jgs3i87+XgVZzqDrlSsAM
- 5XIz0LpN6a3ME7JJ4qj+2fDOLk1B0hWRfgAca4UCMOcpBVMaWEQ7O6J8VcppEORTR+uqBAFIQaD
- ktE/MhBj37Oftejmk+nEmxYdE8CLMyL8o0+SCikWB4Vh+SsmXI723RZWz06pW3BY8WvZ0w==
-X-Received: by 2002:a05:7022:699b:b0:12a:716c:d27c with SMTP id
- a92af1059eb24-12a726569ecmr2892746c88.2.1774293097106; Mon, 23 Mar 2026
- 12:11:37 -0700 (PDT)
+ bh=SZv4sVfznlVRMM6LAKDKkkDdLYuRrr2Jd3wBBloIc/Q=;
+ b=g8RSMPXJxejP2tfWZ+PxJMKKquqlBSL/VIN6MU8b1wfOdEf9YKt+zcOSJw6H4loDqK
+ 8z+t5eOnsIN5zObnV7y9QYaijIyfRETWTXq8MAakT9MiStkO8m0F43gad0obri/DR1nI
+ oAAzHVN7OF9Q07jiGjpd1tfk5RRwiswoWm1v6Q8xqqpXGUViD3pwBQ1pG0zcZPr/1EBi
+ lGqNifHAzkeHXEXG3l3u33EV/BcAfaHSTHXzwFIzM6SlGf1zJMQLzBgqKvAcCm/9VtFX
+ gZJ0XM56Pnn3fx9sfBK/O1d9LIsodolXUaWhSBio2X8ejRs6zw4hfSUukBF4E6dMG69a
+ z4zQ==
+X-Gm-Message-State: AOJu0Yx2NlWpgsE+xZXYdEuy4Uv1bCNQWC+Hkx/LWlR0NU/T+5xhiiaZ
+ JrMBrBGMBQzazYw9oQQ58Rx+XBpvggJV+TbrOBLwmiPZOM8KVIdXROTxFOjlNlY1Cnhixak/9FP
+ H02tR57motOH2qKKRbczn/UB2oSYlxIU=
+X-Gm-Gg: ATEYQzw6ZmroZoZKk1EwzdyAeWrMliz69vg3d7lHDpqIJ2TQrKM+CLqgE9CCJBfd+nT
+ y9u505l8icJEtZwziF7FiMcV6MB9bF6ZuU1CkobbXzTanfaMKru0INH/8k5PbtSkg0vkZgw+D4B
+ a9+glz0QAzqusd2RBFcBX1XljKQLrMMv2FXWg/mtw/C/4Ks+opLJa48miNEu2dDgjC9ynkmTkkR
+ HTkyfyGUHrTXU/udFSLsDozy0atcfAUh6QSbK+erMuzP7kspg5eHrwQA8T7np4k1ouDukG69i8S
+ 9eN3qKhrzVd1YD+Oyxh7D4tptuZH3zZUhP7Uwbv7q0YGkIPdpRQJSA/LrxBcCJzHxD+i0W82fwJ
+ Q6I15
+X-Received: by 2002:a05:7022:503:b0:11e:3e9:3e88 with SMTP id
+ a92af1059eb24-12a726d9462mr3653119c88.6.1774293163730; Mon, 23 Mar 2026
+ 12:12:43 -0700 (PDT)
 MIME-Version: 1.0
 References: <20260320200208.1188307-1-Amber.Lin@amd.com>
- <20260320200208.1188307-7-Amber.Lin@amd.com>
-In-Reply-To: <20260320200208.1188307-7-Amber.Lin@amd.com>
+ <20260320200208.1188307-8-Amber.Lin@amd.com>
+In-Reply-To: <20260320200208.1188307-8-Amber.Lin@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 23 Mar 2026 15:11:25 -0400
-X-Gm-Features: AaiRm53RUKMPlsHvqFCtErg8rO9y3s9bDnYh5CLko_uaz5cnvyXOhwVe6KWNnQo
-Message-ID: <CADnq5_O+cxvEtPvq7ig5UuCKSPryQxiRTA-JjFXpTe4d22obRQ@mail.gmail.com>
-Subject: Re: [PATCH 6/8] drm/amdgpu: Enable suspend/resume gang in mes 12.1
+Date: Mon, 23 Mar 2026 15:12:31 -0400
+X-Gm-Features: AaiRm50ESiAv5gbQ3Hvc03h3At2pOSAnDc0ZV023atvbOjAbQpsnnxj3cvvwdZw
+Message-ID: <CADnq5_Nv-1p-HH6gcWijR6z6xhoQH4+MLkYhyhy9W14nQ4hY+A@mail.gmail.com>
+Subject: Re: [PATCH 7/8] drm/amdkfd: Add detect+reset hangs to GC 12.1
 To: Amber Lin <Amber.Lin@amd.com>
 Cc: amd-gfx@lists.freedesktop.org, Shaoyun.Liu@amd.com, Michael.Chen@amd.com, 
  Jesse.Zhang@amd.com
@@ -102,80 +103,107 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Mar 20, 2026 at 4:02=E2=80=AFPM Amber Lin <Amber.Lin@amd.com> wrote=
+On Fri, Mar 20, 2026 at 4:09=E2=80=AFPM Amber Lin <Amber.Lin@amd.com> wrote=
 :
 >
-> This patch adds code to mes_v12_1_suspend_gang and mes_v12_1_resume_gang.
+> Add detect_and_reset_hung_queues to user mode compute queues on GC 12.1.
 >
 > Signed-off-by: Amber Lin <Amber.Lin@amd.com>
 
 Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
 > ---
->  drivers/gpu/drm/amd/amdgpu/mes_v12_1.c | 34 ++++++++++++++++++++++++--
->  1 file changed, 32 insertions(+), 2 deletions(-)
+>  drivers/gpu/drm/amd/amdgpu/mes_v12_1.c | 35 +++++++++++++++++++++++++-
+>  1 file changed, 34 insertions(+), 1 deletion(-)
 >
 > diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v12_1.c b/drivers/gpu/drm/amd=
 /amdgpu/mes_v12_1.c
-> index 4b279259b9d3..7aea3a50e712 100644
+> index 7aea3a50e712..ac9e26b8bb52 100644
 > --- a/drivers/gpu/drm/amd/amdgpu/mes_v12_1.c
 > +++ b/drivers/gpu/drm/amd/amdgpu/mes_v12_1.c
-> @@ -468,13 +468,43 @@ static int mes_v12_1_unmap_legacy_queue(struct amdg=
-pu_mes *mes,
->  static int mes_v12_1_suspend_gang(struct amdgpu_mes *mes,
->                                   struct mes_suspend_gang_input *input)
->  {
-> -       return 0;
-> +       union MESAPI__SUSPEND mes_suspend_gang_pkt;
-> +
-> +       memset(&mes_suspend_gang_pkt, 0, sizeof(mes_suspend_gang_pkt));
-> +
-> +       mes_suspend_gang_pkt.header.type =3D MES_API_TYPE_SCHEDULER;
-> +       mes_suspend_gang_pkt.header.opcode =3D MES_SCH_API_SUSPEND;
-> +       mes_suspend_gang_pkt.header.dwsize =3D API_FRAME_SIZE_IN_DWORDS;
-> +
-> +       mes_suspend_gang_pkt.suspend_all_gangs =3D input->suspend_all_gan=
-gs;
-> +       mes_suspend_gang_pkt.gang_context_addr =3D input->gang_context_ad=
-dr;
-> +       mes_suspend_gang_pkt.suspend_fence_addr =3D input->suspend_fence_=
-addr;
-> +       mes_suspend_gang_pkt.suspend_fence_value =3D input->suspend_fence=
-_value;
-> +
-> +       /* Suspend gang is handled by master MES */
-> +       return mes_v12_1_submit_pkt_and_poll_completion(mes, input->xcc_i=
-d, AMDGPU_MES_SCHED_PIPE,
-> +                       &mes_suspend_gang_pkt, sizeof(mes_suspend_gang_pk=
-t),
-> +                       offsetof(union MESAPI__SUSPEND, api_status));
->  }
+> @@ -46,6 +46,8 @@ static int mes_v12_1_kiq_hw_fini(struct amdgpu_device *=
+adev, uint32_t xcc_id);
+>  static int mes_v12_1_self_test(struct amdgpu_device *adev, int xcc_id);
 >
->  static int mes_v12_1_resume_gang(struct amdgpu_mes *mes,
->                                  struct mes_resume_gang_input *input)
->  {
-> -       return 0;
-> +       union MESAPI__RESUME mes_resume_gang_pkt;
-> +
-> +       memset(&mes_resume_gang_pkt, 0, sizeof(mes_resume_gang_pkt));
-> +
-> +       mes_resume_gang_pkt.header.type =3D MES_API_TYPE_SCHEDULER;
-> +       mes_resume_gang_pkt.header.opcode =3D MES_SCH_API_RESUME;
-> +       mes_resume_gang_pkt.header.dwsize =3D API_FRAME_SIZE_IN_DWORDS;
-> +
-> +       mes_resume_gang_pkt.resume_all_gangs =3D input->resume_all_gangs;
-> +       mes_resume_gang_pkt.gang_context_addr =3D input->gang_context_add=
-r;
-> +
-> +       /* Resume gang is handled by master MES */
-> +       return mes_v12_1_submit_pkt_and_poll_completion(mes, input->xcc_i=
-d, AMDGPU_MES_SCHED_PIPE,
-> +                       &mes_resume_gang_pkt, sizeof(mes_resume_gang_pkt)=
+>  #define MES_EOP_SIZE   2048
+> +#define MES12_HUNG_DB_OFFSET_ARRAY_SIZE 8 /* [0:3] =3D db offset [4:7] h=
+qd info */
+> +#define MES12_HUNG_HQD_INFO_OFFSET      4
+>
+>  #define regCP_HQD_IB_CONTROL_MES_12_1_DEFAULT 0x100000
+>  #define XCC_MID_MASK 0x41000000
+> @@ -229,7 +231,7 @@ static int mes_v12_1_submit_pkt_and_poll_completion(s=
+truct amdgpu_mes *mes,
+>                         xcc_id, pipe, x_pkt->header.opcode);
+>
+>         r =3D amdgpu_fence_wait_polling(ring, seq, timeout);
+> -       if (r < 1 || !*status_ptr) {
+> +       if (r < 1 || !lower_32_bits(*status_ptr)) {
+>                 if (misc_op_str)
+>                         dev_err(adev->dev,
+>                                 "MES(%d, %d) failed to respond to msg=3D%=
+s (%s)\n",
+> @@ -858,6 +860,33 @@ static int mes_v12_1_reset_legacy_queue(struct amdgp=
+u_mes *mes,
+>  }
+>  #endif
+>
+> +static int mes_v12_1_detect_and_reset_hung_queues(struct amdgpu_mes *mes=
 ,
-> +                       offsetof(union MESAPI__RESUME, api_status));
->  }
+> +                                                 struct mes_detect_and_r=
+eset_queue_input *input)
+> +{
+> +       union MESAPI__RESET mes_reset_queue_pkt;
+> +
+> +       memset(&mes_reset_queue_pkt, 0, sizeof(mes_reset_queue_pkt));
+> +
+> +       mes_reset_queue_pkt.header.type =3D MES_API_TYPE_SCHEDULER;
+> +       mes_reset_queue_pkt.header.opcode =3D MES_SCH_API_RESET;
+> +       mes_reset_queue_pkt.header.dwsize =3D API_FRAME_SIZE_IN_DWORDS;
+> +
+> +       mes_reset_queue_pkt.queue_type =3D
+> +               convert_to_mes_queue_type(input->queue_type);
+> +       mes_reset_queue_pkt.doorbell_offset_addr =3D
+> +               mes->hung_queue_db_array_gpu_addr[0];
+> +
+> +       if (input->detect_only)
+> +               mes_reset_queue_pkt.hang_detect_only =3D 1;
+> +       else
+> +               mes_reset_queue_pkt.hang_detect_then_reset =3D 1;
+> +
+> +       return mes_v12_1_submit_pkt_and_poll_completion(mes,
+> +                       input->xcc_id, AMDGPU_MES_SCHED_PIPE,
+> +                       &mes_reset_queue_pkt, sizeof(mes_reset_queue_pkt)=
+,
+> +                       offsetof(union MESAPI__RESET, api_status));
+> +}
+> +
+>  static int mes_v12_inv_tlb_convert_hub_id(uint8_t id)
+>  {
+>         /*
+> @@ -915,6 +944,7 @@ static const struct amdgpu_mes_funcs mes_v12_1_funcs =
+=3D {
+>         .resume_gang =3D mes_v12_1_resume_gang,
+>         .misc_op =3D mes_v12_1_misc_op,
+>         .reset_hw_queue =3D mes_v12_1_reset_hw_queue,
+> +       .detect_and_reset_hung_queues =3D mes_v12_1_detect_and_reset_hung=
+_queues,
+>         .invalidate_tlbs_pasid =3D mes_v12_1_inv_tlbs_pasid,
+>  };
 >
->  static int mes_v12_1_query_sched_status(struct amdgpu_mes *mes,
+> @@ -1931,6 +1961,9 @@ static int mes_v12_1_early_init(struct amdgpu_ip_bl=
+ock *ip_block)
+>         struct amdgpu_device *adev =3D ip_block->adev;
+>         int pipe, r;
+>
+> +       adev->mes.hung_queue_db_array_size =3D MES12_HUNG_DB_OFFSET_ARRAY=
+_SIZE;
+> +       adev->mes.hung_queue_hqd_info_offset =3D MES12_HUNG_HQD_INFO_OFFS=
+ET;
+> +
+>         for (pipe =3D 0; pipe < AMDGPU_MAX_MES_PIPES; pipe++) {
+>                 r =3D amdgpu_mes_init_microcode(adev, pipe);
+>                 if (r)
 > --
 > 2.43.0
 >
