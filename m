@@ -4,98 +4,122 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E3318D58CC5
-	for <amd-gfx@archiver.kernel.org>; Mon, 23 Mar 2026 04:54:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D9421D58CD7
+	for <amd-gfx@archiver.kernel.org>; Mon, 23 Mar 2026 05:37:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 78F6D10E3C3;
-	Mon, 23 Mar 2026 04:54:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4E22910E054;
+	Mon, 23 Mar 2026 05:37:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="PAo7WPgh";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="vU0DjZBF";
 	dkim-atps=neutral
-Received: from PH7PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11010011.outbound.protection.outlook.com [52.101.201.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7B6A210E3C3
- for <amd-gfx@lists.freedesktop.org>; Mon, 23 Mar 2026 04:54:43 +0000 (UTC)
+Received: from CO1PR03CU002.outbound.protection.outlook.com
+ (mail-westus2azon11010038.outbound.protection.outlook.com [52.101.46.38])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6592F10E054
+ for <amd-gfx@lists.freedesktop.org>; Mon, 23 Mar 2026 05:37:44 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=r9g7TAOaP3hnQHCCr51YpG8kvlUz9l5C4bFONF4Qq68yr5ff3DjPOyoP+DzcouPOEoy+xrKi8L7Q7BZrZxYXEputyP9w/0gVFYR9QY7RUUJAONypU6dMH1KRGE2tu5JyHiXwl+sUooYNU6F1T4x4q0mAVEToMuGv8Ewc495Kcx/euFED3ytP+SqUiNW285dve4OQKvYKP92WJ1emKYJF8qcxdm4GpIkuGmZApbQccwEnzRMNElbl0KxbWqDLoSDar6izQvDnE51ev0VAVcIKtgntE3UuKPpAa7PN0sXOtDTQ7+zKBjJ5CDJbaQ4c0lY+h7ABCtLcnnGPUFVUBrL9wg==
+ b=uQGGN1s6i+EiCGkFGLD+dWxPUEUF8lHzKJ4dv6+CSlEbGpOr6DvR9d15XPWeuMCqGb2L7maMyZPcjNbKjRyEh6vvRaOHM+QBUF4oVVWEp4ea+TDPWTnVl2sRTIBr5cF/hqabjQqUYNbYq6hXuUeKxA9Ep4FNyBQ+WxU16M2x1XexilRiQbyFh4RM9NEudKiEb2QhZgk1EdPt7XgeLnWO+AWg5b9MTzos2JvQbsmPkz/S6WYt/+madDlGnwoVuBZe13KvXB30g+37EPGCCKOxpfq9axFSG/CqVVBme0Bq1skuN91CdrKUxy0mnJK8D1Bn51wEqmllA/Y4+sEGpD9OcA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+NYkWmqSr1KGF+gj3fgqCYjgBe8rBsnCZULdYWhNscA=;
- b=w+3c/fuTNRsK48FALWen6lsmbevDm0/cF6Jm45zDGPuws8y6DqyRAon7jJmpofdKRg0a2xOlIK2bnKfMRRadjF1nuhJVMfRozryPszBuIAFmpDe1l5DqtIrHlPaQGeSjGkuxBC9xaWDYjd7EnA/r9nJA/5qoNQOKwGfAfVaIwULeP+ZSPDtphe6uqhIcR21kR0HZyKFiEG+HPahubfrsfCu1rGbaTNLAVpRqZiDbBc5RPJzC0pmI+R/YAEplfirTqxEXrkngEKD1qSGWRzU/JocaaOB74ZhJVmSTSm9cMk+dKBOWGEWhQzDhOcv6fwqqGJRonUrMZaiUiEYbJFbZjg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
+ bh=9F3suYpfgkwQZTj2VgnEWNHBx8w748CkH01F1sxSEL8=;
+ b=eRTleghS/tag0a1ScR1c0JxX9+xckof5uvW0uUJAvVynpv+7I4L9qfk/uxRTRuA9Mfjef1WEycWUblF3GzDNgrbeTY0zv7Da3bF8S5o/kSfc2SY9QiJ4irqmWJWWxf2kwTd0aKkA8orYDZL1h/Wn5CuCX8MVflfOKskmmgiWdRLcvf6px5DkMoZJsjHNd/0rg61f84aHezJ39woQnbvYvoNARIYG/eezQoZZgzieBV8gIl0/XFEGUMvk+Gkmnuj2+K7B+oQRik36xGf7Um9iKuEJMSJRBw/W+1QRcqt7D4MVtXyOODJ0jl6qlnEWQzBjW6FvXZjzgeQqrf4zF20t5w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+NYkWmqSr1KGF+gj3fgqCYjgBe8rBsnCZULdYWhNscA=;
- b=PAo7WPghargqV86+iH538hfXDxafsc/xRI/20qb3zNZKVFF0z+NqI5EPZiPu5ySF7b2kOvKY+l/YDxq29LLCr3jPcF7wKokI4tP+ZatZvkgih9cqr/ltI/Vz07BpbXyBhzLiNLY0AxSC9E/EZUv5UAHnuBzz0R7dpGEpcEk2NHc=
-Received: from PH5P222CA0009.NAMP222.PROD.OUTLOOK.COM (2603:10b6:510:34b::14)
- by DM4PR12MB6664.namprd12.prod.outlook.com (2603:10b6:8:bb::18) with
- Microsoft SMTP Server (version=TLS1_2,
+ bh=9F3suYpfgkwQZTj2VgnEWNHBx8w748CkH01F1sxSEL8=;
+ b=vU0DjZBFIyKs7paWeor1aLwk5HxMECz72cKbx5+a1rs3jSm/VMcfwxQ6BRyVmhozNwcatPstdRdPmOeViEyRmBhP6fNZC761hmiTaZLolZXzpUGtZCR0z+MxtwHXWZK+9iC+FyMzyAoZvqKjBx/5dgI5InukOk+tnMv3XZYGZQI=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from SA0PR12MB7091.namprd12.prod.outlook.com (2603:10b6:806:2d5::17)
+ by IA1PR12MB8223.namprd12.prod.outlook.com (2603:10b6:208:3f3::10)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.20; Mon, 23 Mar
- 2026 04:54:38 +0000
-Received: from MW1PEPF0001615D.namprd21.prod.outlook.com
- (2603:10b6:510:34b:cafe::ca) by PH5P222CA0009.outlook.office365.com
- (2603:10b6:510:34b::14) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9723.29 via Frontend Transport; Mon,
- 23 Mar 2026 04:54:48 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- MW1PEPF0001615D.mail.protection.outlook.com (10.167.249.88) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9769.0 via Frontend Transport; Mon, 23 Mar 2026 04:54:37 +0000
-Received: from srishanm-Cloudripper.amd.com (10.180.168.240) by
- satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.17; Sun, 22 Mar 2026 23:54:34 -0500
-From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-To: Alex Hung <alex.hung@amd.com>, Aurabindo Pillai <aurabindo.pillai@amd.com>
-CC: <amd-gfx@lists.freedesktop.org>, Srinivasan Shanmugam
- <srinivasan.shanmugam@amd.com>, Roman Li <roman.li@amd.com>, Tom Chung
- <chiahsuan.chung@amd.com>, Dan Carpenter <dan.carpenter@linaro.org>
-Subject: [PATCH v2] drm/amd/display: Add NULL check for integrated_info in
- clk_mgr_construct
-Date: Mon, 23 Mar 2026 10:24:15 +0530
-Message-ID: <20260323045415.2044583-1-srinivasan.shanmugam@amd.com>
-X-Mailer: git-send-email 2.34.1
+ 2026 05:37:41 +0000
+Received: from SA0PR12MB7091.namprd12.prod.outlook.com
+ ([fe80::ec33:1213:cfd8:63bc]) by SA0PR12MB7091.namprd12.prod.outlook.com
+ ([fe80::ec33:1213:cfd8:63bc%6]) with mapi id 15.20.9745.019; Mon, 23 Mar 2026
+ 05:37:41 +0000
+Message-ID: <37cba211-07cf-439f-b9a5-27994a85f13c@amd.com>
+Date: Mon, 23 Mar 2026 11:07:35 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/3] drm/amd/pm: Unify version check in SMUv11
+From: "Lazar, Lijo" <lijo.lazar@amd.com>
+To: amd-gfx@lists.freedesktop.org
+Cc: Hawking.Zhang@amd.com, Alexander.Deucher@amd.com, Asad.Kamal@amd.com,
+ kevinyang.wang@amd.com
+References: <20260320060409.616702-1-lijo.lazar@amd.com>
+Content-Language: en-US
+In-Reply-To: <20260320060409.616702-1-lijo.lazar@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: PN3PR01CA0166.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:de::10) To SA0PR12MB7091.namprd12.prod.outlook.com
+ (2603:10b6:806:2d5::17)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW1PEPF0001615D:EE_|DM4PR12MB6664:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0d2ce930-ab68-468c-31ca-08de88984946
+X-MS-TrafficTypeDiagnostic: SA0PR12MB7091:EE_|IA1PR12MB8223:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3904578e-0f7e-4f1f-7a00-08de889e4cff
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|36860700016|82310400026|1800799024|56012099003|18002099003;
-X-Microsoft-Antispam-Message-Info: SaSPpJdFu5mCEbFh5tqlsIvKKLj71b5NULjK5T35f4U15abSvvDItDDPJW1QX5NtMwI9lS1h5zJshmd5To5XNEBpsOj0UBxWDUNzph4HNLSTMgklJghc+SfqTFI2gt5rHhXOdLfWpPz48q/DwCL8fjearJd5rd/zlr5YEP7h2C9EcGUcU79we8HKd2E5IWJwNRjWkyscOgsj/UFg2I+/C5luyWWEHJNlrHyfXPH7El1H/T9YgEQ+gvD1mZclZDNz6QZgqHNjdiLaEn1Bs6+8dvv7+PeQD4vlOBBrs+2skARCOI6q9sT7s2N3IxPCX+LHc5UHfqqBHPqjB5oee7bHS4eScgdI+9gByXG58ejiwLOUCz+LzESqBSMED3l/vuqmi2R5Q6InBtIZUGYeGoTCS/53RYiEDAblQD5irX5zy4BotgkgMf1T/j4QFh2oraPiYxQ+4neldg5Pq3nn6dNrT/VIDfoDX0IDqeBEErUmdIHGIR2T8y31IGqZRtZYUmPf30vFk9kxJj5oGR2WEgtpCbERruLIvm164wxudXpN2gztv0FkR8acOUYJt+wNZMET1PNFi2rSjg50hOWdL4wFJpccBi6SQt4M0oZaWiLO7UFKxAI0YEaFRVf1Rn5wJjDNZNXQ1sqt8EZ3dWu/4YXJRfxr9sb1NsJHvdyAGeT9LZQ3ANvt/bKSE8oFMQb0FH2vtNiXR180gIoegXTTs/GqmSIHlzKyT3EHDLLPA/wKd7GZ9TVa2cyRQicZYyxE51JZ
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(36860700016)(82310400026)(1800799024)(56012099003)(18002099003);
+ ARA:13230040|366016|1800799024|376014|18002099003|22082099003|56012099003; 
+X-Microsoft-Antispam-Message-Info: IoNe5rYFHBn50TGD5qqTe2jdQ0bJ++15oB23WecbPThvbU68qNMEqJMIxqYfmT3NOjk1UoWEYy2QYg018bDVTDu5mue0g6lbI1ngm4lWSJDDp0O5qOThQHcLYTG3cZMoqjktgNRSL8sTeeo+t2T9rngKXi52IHzDw+EUHrLWLpd0415Zkli2BSK7juAP2BFD5oqk5ny3Ul0XCJdboKMTYGLa2hTKOIwLpA+WcdZ+Wa+IxW84wdApDH/l47n/+y6lWEcz+bs5lwRWnL/NQg0/gAbdDwdIlMwdIDMrTq0UoqLGuPmU7u/xQ+86BbKVDLYXxsSqM/fWqD6WiFGkKIpYjam3bWdKRkKzbAyTkcq9rK0g7jFh2FqVWFRpZkLsy2uNI9nYzOh2PVnGwB37hcTxpxHhSYk8IGz66B/N5cgyrIbhpx0z8W2CGwSWGDi6uvt5A2glCKsUVqtYKU+CZpISx5lJZeYP7y5maNhoTp4noeeYjONdudZtrjVhaP6wfwx+9ZD1/qWJ2fc1I1gu8hP7PToSJ17ltngIqH3gLzKJhY9gyToy+tdkkxkHjV1SXJZcDee3JRpMMClunH18wbHEMmcAQDiWcZ70qerUNR7oFyN9ZtWpza//YYtRlCO4o0jKw1RhLFjxeXgFHaoC4YeQ6Nk8b9U3hLLuemqdzR+g5Au82CoSQCgBOtEqe1m8IdV5/Mnpg/uTTIzKFuK18YT4bCuxYLfVJB49T78Q3Id9Irk=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SA0PR12MB7091.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(376014)(18002099003)(22082099003)(56012099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: gk2SkvK3zW8K6p+vvhPjxiwmEeQMmjWirTUXpsGAwwZqweluSngyvZFy2e9Zb9sBvAMD3bpqRrQJDOTEXISWO3LGuZK/01zVo0jY9+SVUZrynx+/ZmpL+l1BiyKaOusnxU0KfOnlc4dQAlUVyPxFEZbJIaIhRT2QtcdOKUp/W9AOq9DhXEcwGlldjBvMLdUuwlMJxdqwOPxVzImNS/34CABO23y2/HdQ98Hwfe5LdmVtC0DdMtdbbvJOBSObByKAc8aVStK9nMBjH+SkQg7RLPeMyD6hqZsXTxvBjY9YzmUkLVQrXXgTZGBsUP2NtpCH49XGwulwqfqmP2e7fH5SdMy3ocoeMKKwSLPyWssgzGqDBb+m/66SnLfhKnkQpKd+hY7f4oIX4+Hnfg4qXAZjE3+cwEvW3xhlpMJMtQuLivH2+q9OKDJhbzE39gGUsdJb
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UjY3bzF1VmZFeTcrczJJNTVTTjZiN3ZUZTNtM0twSitFYWlzRE1TZTkyL3dY?=
+ =?utf-8?B?M1BTdCtLV2luZWJwT2c1UFpJWmVDMlM1eWJxWmt5SDc3UG1EdmlvVjJ4Ry91?=
+ =?utf-8?B?NWVYWUd5bmVkUVBiV3NVTXNmZmhGMTF4VDB2QWx3N1N2ZEJ0S3J6dnA4Rkp1?=
+ =?utf-8?B?WjRCZXltckxTRlZ4aWxmNmV2Y0xCZnFEU1ZhVmdxQ1lBNG1lck9QNUVYZlVV?=
+ =?utf-8?B?aWFFMXY4Wmw5eWlGVDNCeGd2R1N2Wm95OGtsRUFZYk1rQjdTUThwY2ptall0?=
+ =?utf-8?B?TDMxajFwVXl4ZG4wSDdpeG01S2E2eDQyUkM5clR4Sm9wTDRaNGRFWmQzSnNw?=
+ =?utf-8?B?SEtUbFdIeVhtb0ZVSUI1anl5d0tBbllVM2d1TmcrRForZVovekw3c0xtcGFl?=
+ =?utf-8?B?Rmx1THhwYlVUL1JBakJyb2hLRFdhc1B5aEtUWXFzSnR1RkM0TFp3S3ZLQ1Bq?=
+ =?utf-8?B?VkJLYWwramRkeXpyQWJaMlkzczN6MTkyck5tZFZxNFMxa2U4UXk3VzZpWkdy?=
+ =?utf-8?B?cGR0WFRiaWZOV2NybjczTWR0NFVRSUhiWXJXbml3RHBJVUphcnB5YTdDQXhM?=
+ =?utf-8?B?STlnMDArTVJYOUw0NHJSTlQyMjNNNXZtNVVYQmNKaFFPWkdab1N0NGE5YkJR?=
+ =?utf-8?B?VVVTaWlPazdjVll4TGxCbDh4V2FYcENGdHZZTnFLRkhsUmFFSU9VRHU3VC9x?=
+ =?utf-8?B?KysrMXZSZVNRemU4Mi9vMzhPTWdZSW91ME5GRndoaWluWXZhOWpyRFY1MWdh?=
+ =?utf-8?B?cVF4Nm1zVzVmZTZHZFhiRHYvalRmWUxLdGZoRkE2WFgrWS8wSEtqMm9QeWts?=
+ =?utf-8?B?SVBSbWdyaG9PODZwVURxaWhJMWkzeHl1Q292M25FUjRIREh4d2RaNTJKbUFE?=
+ =?utf-8?B?VFFLNU9NZm9OT3VYR0Z5ajNUdTFNR0dpbVUxUlFyTCtuWWw1WGQ4TUlKV1BO?=
+ =?utf-8?B?L2g4UDVqTnRzMWVRU0dEMzBuY2t4bkJCK21zTlJJR2pjenU3OUpQMm11SUdW?=
+ =?utf-8?B?SzV0WFh0WlBLSG9MNElpSjVFUFRvd2hNeGZrR0FYZ05PbFZqMFhqdnM4V0VI?=
+ =?utf-8?B?ekVWTTRDc24rZytKaU1mSTI2Y1JEZC9waElab2Z5YU9yb3BYSU5hVnVLVzZp?=
+ =?utf-8?B?QWcrQUZpejVxY1h2MzJXa1F6bXZib083eU5hbU5vTXRSbXVLTEdlK3FkREZp?=
+ =?utf-8?B?OWZ5OUo0cWFYVUFKeElGaXBrRm9UNDUzYTlTUy80c3I4M2lwb0pYMEE1Y2FU?=
+ =?utf-8?B?VDRGcVpnZ0lhcWxiSFJpN2gvUXQzVy9DeDZpUFJ2S25RZi9GUlI4TjZzRFk4?=
+ =?utf-8?B?UWxLUkp1N0pvcUFnZktlWkNMWjdGV1cxclJ1U0RsUkh4dGppRk5VdEo2Ym44?=
+ =?utf-8?B?MUJxZnFTWFdiUS8za2FZUnZzcUlxTnF5V1dRalo0RjlKZWJtUlJtdGYzdHVP?=
+ =?utf-8?B?OG56WTFkN3NMZXE1MjkrajY5RFhkV1FkbER1T2c1OWVYYWFDSW5TT1NFUVZn?=
+ =?utf-8?B?UG9jNHh0ZmRTQUZheGt6ZWdFd1JLbDJYTkZLTStQbUtRdGhoaTBUU0pOQ1Nm?=
+ =?utf-8?B?ZHFmR241K1VoeEVUOVZCNUxBUHJIQXJoREdlc3RQLzdBTHM0aXUxWC9RR2hz?=
+ =?utf-8?B?VW5nYW13eGdBSTJJakhTZ2tlbnJyTnlSR2tuSnVQRGNXRCtWSnZUUVlmdTdz?=
+ =?utf-8?B?dFo1c29WV3dVWHRDemV2d1VGMG1OeFVFblFub3Vwbks4WU9TTmxuTHV5VThj?=
+ =?utf-8?B?YVI4RHRYUVZQZTVrcjVEUG40RXNJS0J6V29ZRmE0eGZFWkxNSlFUbEtLbm1i?=
+ =?utf-8?B?aDE1Z2Y4VUJjOWtkcE1ONHNQUnM5VWduR09uempCM2RtK0ZOb1I2eGRTQ2J0?=
+ =?utf-8?B?NHV3MjVGaE1ubEZxWTI3M2cvRHcwRnFTNklDd01yUHlQNWJobXVwSkZTb0ta?=
+ =?utf-8?B?R0JSb1NUZ3h0NGxHc1lCT2RjbTFrTEx6eGZJSG41a09Eck1LT2xVY0M4cXZY?=
+ =?utf-8?B?UDNVRTJvNFMrbytMa1lIMy9RdG1EUElBelQzU2JucmZWMERtdWZPUno4NzFR?=
+ =?utf-8?B?cVFaa1VIa2taWjRqa25HQWdRZkxJSGF2VjBjZEwvZ2gvRWpwM1NsUHBpTmxm?=
+ =?utf-8?B?ZFl5b1g4TUxrMEZLYlZ3SXE5b2V1Mk55Z0t4WEhEZUxyTTJoWTBXL1AwZ2dO?=
+ =?utf-8?B?bFErVVZhb1lkL0R2aUY3SlEvR08zVmttMFpZZXQxbVNwMkM2ZG42N1UyQUc3?=
+ =?utf-8?B?QXJkVjZiZGRhcTlvTWVRZ0JBOGNqSUczdGU1TFpsODA4ZHVDYWt4Q3FKTmxO?=
+ =?utf-8?B?ZFNmOFRlbUR6dFBZUlJmSTdBZzdqWXlZNjVFSG5qOXhOMnpwdGc5UT09?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Mar 2026 04:54:37.8085 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0d2ce930-ab68-468c-31ca-08de88984946
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3904578e-0f7e-4f1f-7a00-08de889e4cff
+X-MS-Exchange-CrossTenant-AuthSource: SA0PR12MB7091.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Mar 2026 05:37:41.6291 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: MW1PEPF0001615D.namprd21.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6664
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: +CdBGHzXuv0iQOdaLAbuINoh4o33AXKRcIjwARvM61pi563GoqSeDNAWJlLOjVhM
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8223
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,186 +134,309 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-clk_mgr_construct() initializes display clock and memory bandwidth
-settings during driver bring-up.
+<ping>
 
-As part of this, the driver selects a watermark table based on the
-memory type (DDR4, LPDDR4, LPDDR5) from ctx->dc_bios->integrated_info.
-
-The display pipeline continuously reads pixel data from memory,
-processes it (such as scaling, color conversion, and blending), and
-sends it to the screen. To keep this pipeline running smoothly, the
-driver must ensure there is enough memory bandwidth and that clocks are
-increased when needed.
-
-Watermark tables define when the GPU should increase clocks to ensure
-there is enough bandwidth to feed pixel data without underflow.
-
-However, ctx->dc_bios->integrated_info is dereferenced without checking
-for NULL in multiple clk_mgr_construct() implementations. On some
-platforms, BIOS may not provide this information, and accessing it
-directly can cause a NULL pointer dereference during initialization.
-
-Fix this by adding a NULL check before accessing integrated_info.
-
-If integrated_info is not available, the driver safely falls back to
-default watermark tables.
-
-Fixes:
-../dcn21/rn_clk_mgr.c:775 rn_clk_mgr_construct() warn: variable dereferenced before check 'ctx->dc_bios->integrated_info' (see line 743)
-../dcn301/vg_clk_mgr.c:750 vg_clk_mgr_construct() warn: variable dereferenced before check 'ctx->dc_bios->integrated_info' (see line 736)
-../dcn31/dcn31_clk_mgr.c:789 dcn31_clk_mgr_construct() warn: variable dereferenced before check 'ctx->dc_bios->integrated_info' (see line 728)
-../dcn314/dcn314_clk_mgr.c:906 dcn314_clk_mgr_construct() warn: variable dereferenced before check 'ctx->dc_bios->integrated_info' (see line 845)
-../dcn315/dcn315_clk_mgr.c:716 dcn315_clk_mgr_construct() warn: variable dereferenced before check 'ctx->dc_bios->integrated_info' (see line 655)
-../dcn316/dcn316_clk_mgr.c:660 dcn316_clk_mgr_construct() warn: variable dereferenced before check 'ctx->dc_bios->integrated_info' (see line 639)
-../dcn35/dcn35_clk_mgr.c:1540 dcn35_clk_mgr_construct() warn: variable dereferenced before check 'ctx->dc_bios->integrated_info' (see line 1467)
-
-Fixes: 25879d7b4986 ("drm/amd/display: Clean FPGA code in dc")
-Cc: Roman Li <roman.li@amd.com>
-Cc: Alex Hung <alex.hung@amd.com>
-Cc: Tom Chung <chiahsuan.chung@amd.com>
-Cc: Dan Carpenter <dan.carpenter@linaro.org>
-Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>
-Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-Change-Id: I972e6837222f0181bc2c44ca1e31abaf8c64a088
----
- drivers/gpu/drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr.c  | 3 ++-
- drivers/gpu/drm/amd/display/dc/clk_mgr/dcn301/vg_clk_mgr.c | 7 ++++---
- .../gpu/drm/amd/display/dc/clk_mgr/dcn31/dcn31_clk_mgr.c   | 7 ++++---
- .../gpu/drm/amd/display/dc/clk_mgr/dcn314/dcn314_clk_mgr.c | 3 ++-
- .../gpu/drm/amd/display/dc/clk_mgr/dcn315/dcn315_clk_mgr.c | 7 ++++---
- .../gpu/drm/amd/display/dc/clk_mgr/dcn316/dcn316_clk_mgr.c | 7 ++++---
- .../gpu/drm/amd/display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c   | 7 ++++---
- 7 files changed, 24 insertions(+), 17 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr.c
-index e18097f82091..09e83097a623 100644
---- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr.c
-+++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr.c
-@@ -740,7 +740,8 @@ void rn_clk_mgr_construct(
- 	if (clk_mgr->base.dentist_vco_freq_khz == 0)
- 		clk_mgr->base.dentist_vco_freq_khz = 3600000;
- 
--	if (ctx->dc_bios->integrated_info->memory_type == LpDdr4MemType) {
-+	if (ctx->dc_bios->integrated_info &&
-+	    ctx->dc_bios->integrated_info->memory_type == LpDdr4MemType) {
- 		if (clk_mgr->periodic_retraining_disabled) {
- 			rn_bw_params.wm_table = lpddr4_wm_table_with_disabled_ppt;
- 		} else {
-diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn301/vg_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn301/vg_clk_mgr.c
-index 7aee02d56292..57ba7bc4d16e 100644
---- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn301/vg_clk_mgr.c
-+++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn301/vg_clk_mgr.c
-@@ -733,11 +733,12 @@ void vg_clk_mgr_construct(
- 	if (clk_mgr->base.base.dentist_vco_freq_khz == 0)
- 		clk_mgr->base.base.dentist_vco_freq_khz = 3600000;
- 
--	if (ctx->dc_bios->integrated_info->memory_type == LpDdr5MemType) {
-+	if (ctx->dc_bios->integrated_info &&
-+	    ctx->dc_bios->integrated_info->memory_type == LpDdr5MemType)
- 		vg_bw_params.wm_table = lpddr5_wm_table;
--	} else {
-+	else
- 		vg_bw_params.wm_table = ddr4_wm_table;
--	}
-+
- 	/* Saved clocks configured at boot for debug purposes */
- 	vg_dump_clk_registers(&clk_mgr->base.base.boot_snapshot, &clk_mgr->base.base, &log_info);
- 
-diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn31/dcn31_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn31/dcn31_clk_mgr.c
-index 051052bd10c9..44bf48f96183 100644
---- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn31/dcn31_clk_mgr.c
-+++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn31/dcn31_clk_mgr.c
-@@ -725,11 +725,12 @@ void dcn31_clk_mgr_construct(
- 	/* TODO: Check we get what we expect during bringup */
- 	clk_mgr->base.base.dentist_vco_freq_khz = get_vco_frequency_from_reg(&clk_mgr->base);
- 
--	if (ctx->dc_bios->integrated_info->memory_type == LpDdr5MemType) {
-+	if (ctx->dc_bios->integrated_info &&
-+	    ctx->dc_bios->integrated_info->memory_type == LpDdr5MemType)
- 		dcn31_bw_params.wm_table = lpddr5_wm_table;
--	} else {
-+	else
- 		dcn31_bw_params.wm_table = ddr5_wm_table;
--	}
-+
- 	/* Saved clocks configured at boot for debug purposes */
- 	dcn31_dump_clk_registers(&clk_mgr->base.base.boot_snapshot,
- 				 &clk_mgr->base.base, &log_info);
-diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn314/dcn314_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn314/dcn314_clk_mgr.c
-index 0cb37827a62b..c69ec7a0e0ae 100644
---- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn314/dcn314_clk_mgr.c
-+++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn314/dcn314_clk_mgr.c
-@@ -842,7 +842,8 @@ void dcn314_clk_mgr_construct(
- 	/* TODO: Check we get what we expect during bringup */
- 	clk_mgr->base.base.dentist_vco_freq_khz = get_vco_frequency_from_reg(&clk_mgr->base);
- 
--	if (ctx->dc_bios->integrated_info->memory_type == LpDdr5MemType)
-+	if (ctx->dc_bios->integrated_info &&
-+	    ctx->dc_bios->integrated_info->memory_type == LpDdr5MemType)
- 		dcn314_bw_params.wm_table = lpddr5_wm_table;
- 	else
- 		dcn314_bw_params.wm_table = ddr5_wm_table;
-diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn315/dcn315_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn315/dcn315_clk_mgr.c
-index c49268db85f6..8d6949ad700d 100644
---- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn315/dcn315_clk_mgr.c
-+++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn315/dcn315_clk_mgr.c
-@@ -652,11 +652,12 @@ void dcn315_clk_mgr_construct(
- 	if (clk_mgr->base.smu_ver > 0)
- 		clk_mgr->base.smu_present = true;
- 
--	if (ctx->dc_bios->integrated_info->memory_type == LpDdr5MemType) {
-+	if (ctx->dc_bios->integrated_info &&
-+	    ctx->dc_bios->integrated_info->memory_type == LpDdr5MemType)
- 		dcn315_bw_params.wm_table = lpddr5_wm_table;
--	} else {
-+	else
- 		dcn315_bw_params.wm_table = ddr5_wm_table;
--	}
-+
- 	/* Saved clocks configured at boot for debug purposes */
- 	dcn315_dump_clk_registers(&clk_mgr->base.base.boot_snapshot,
- 				  &clk_mgr->base.base, &log_info);
-diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn316/dcn316_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn316/dcn316_clk_mgr.c
-index 1769b1f26e75..b858e21ca070 100644
---- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn316/dcn316_clk_mgr.c
-+++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn316/dcn316_clk_mgr.c
-@@ -636,11 +636,12 @@ void dcn316_clk_mgr_construct(
- 		clk_mgr->base.base.dentist_vco_freq_khz = 2500000; /* 2400MHz */
- 
- 
--	if (ctx->dc_bios->integrated_info->memory_type == LpDdr5MemType) {
-+	if (ctx->dc_bios->integrated_info &&
-+	    ctx->dc_bios->integrated_info->memory_type == LpDdr5MemType)
- 		dcn316_bw_params.wm_table = lpddr5_wm_table;
--	} else {
-+	else
- 		dcn316_bw_params.wm_table = ddr4_wm_table;
--	}
-+
- 	/* Saved clocks configured at boot for debug purposes */
- 	dcn316_dump_clk_registers(&clk_mgr->base.base.boot_snapshot,
- 				  &clk_mgr->base.base, &log_info);
-diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c
-index 6fc524752613..2798088842f4 100644
---- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c
-+++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c
-@@ -1464,11 +1464,12 @@ void dcn35_clk_mgr_construct(
- 	/* TODO: Check we get what we expect during bringup */
- 	clk_mgr->base.base.dentist_vco_freq_khz = get_vco_frequency_from_reg(&clk_mgr->base);
- 
--	if (ctx->dc_bios->integrated_info->memory_type == LpDdr5MemType) {
-+	if (ctx->dc_bios->integrated_info &&
-+	    ctx->dc_bios->integrated_info->memory_type == LpDdr5MemType)
- 		dcn35_bw_params.wm_table = lpddr5_wm_table;
--	} else {
-+	else
- 		dcn35_bw_params.wm_table = ddr5_wm_table;
--	}
-+
- 	/* Saved clocks configured at boot for debug purposes */
- 	dcn35_save_clk_registers(&clk_mgr->base.base.boot_snapshot, clk_mgr);
- 
--- 
-2.34.1
+On 20-Mar-26 11:34 AM, Lijo Lazar wrote:
+> Use common helper function for firmware version check and logging in
+> SMUv11
+> 
+> Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
+> ---
+>   drivers/gpu/drm/amd/pm/swsmu/inc/smu_v11_0.h  | 14 ----
+>   .../gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c |  5 +-
+>   .../amd/pm/swsmu/smu11/cyan_skillfish_ppt.c   |  3 +-
+>   .../gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c   | 21 +++++-
+>   .../amd/pm/swsmu/smu11/sienna_cichlid_ppt.c   | 25 ++++++-
+>   .../gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c    | 75 -------------------
+>   .../gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c  |  3 +-
+>   7 files changed, 52 insertions(+), 94 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v11_0.h b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v11_0.h
+> index 7c1701ed3e11..dd94e8a9e218 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v11_0.h
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v11_0.h
+> @@ -25,18 +25,6 @@
+>   
+>   #include "amdgpu_smu.h"
+>   
+> -#define SMU11_DRIVER_IF_VERSION_INV 0xFFFFFFFF
+> -#define SMU11_DRIVER_IF_VERSION_ARCT 0x17
+> -#define SMU11_DRIVER_IF_VERSION_NV10 0x37
+> -#define SMU11_DRIVER_IF_VERSION_NV12 0x38
+> -#define SMU11_DRIVER_IF_VERSION_NV14 0x38
+> -#define SMU11_DRIVER_IF_VERSION_Sienna_Cichlid 0x40
+> -#define SMU11_DRIVER_IF_VERSION_Navy_Flounder 0xE
+> -#define SMU11_DRIVER_IF_VERSION_VANGOGH 0x03
+> -#define SMU11_DRIVER_IF_VERSION_Dimgrey_Cavefish 0xF
+> -#define SMU11_DRIVER_IF_VERSION_Beige_Goby 0xD
+> -#define SMU11_DRIVER_IF_VERSION_Cyan_Skillfish 0x8
+> -
+>   /* MP Apertures */
+>   #define MP0_Public			0x03800000
+>   #define MP0_SRAM			0x03900000
+> @@ -148,8 +136,6 @@ int smu_v11_0_setup_pptable(struct smu_context *smu);
+>   
+>   int smu_v11_0_get_vbios_bootup_values(struct smu_context *smu);
+>   
+> -int smu_v11_0_check_fw_version(struct smu_context *smu);
+> -
+>   int smu_v11_0_set_driver_table_location(struct smu_context *smu);
+>   
+>   int smu_v11_0_set_tool_table_location(struct smu_context *smu);
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
+> index 0c4afd1e1aab..d73c3c191e9c 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
+> @@ -65,6 +65,8 @@
+>   #define SMU_FEATURES_HIGH_MASK       0xFFFFFFFF00000000
+>   #define SMU_FEATURES_HIGH_SHIFT      32
+>   
+> +#define SMU11_DRIVER_IF_VERSION_ARCT 0x17
+> +
+>   static const struct smu_feature_bits arcturus_dpm_features = {
+>   	.bits = { SMU_FEATURE_BIT_INIT(FEATURE_DPM_PREFETCHER_BIT),
+>   		  SMU_FEATURE_BIT_INIT(FEATURE_DPM_GFXCLK_BIT),
+> @@ -1906,7 +1908,7 @@ static const struct pptable_funcs arcturus_ppt_funcs = {
+>   	/* pptable related */
+>   	.setup_pptable = arcturus_setup_pptable,
+>   	.get_vbios_bootup_values = smu_v11_0_get_vbios_bootup_values,
+> -	.check_fw_version = smu_v11_0_check_fw_version,
+> +	.check_fw_version = smu_cmn_check_fw_version,
+>   	.write_pptable = smu_cmn_write_pptable,
+>   	.set_driver_table_location = smu_v11_0_set_driver_table_location,
+>   	.set_tool_table_location = smu_v11_0_set_tool_table_location,
+> @@ -1959,5 +1961,6 @@ void arcturus_set_ppt_funcs(struct smu_context *smu)
+>   	smu->table_map = arcturus_table_map;
+>   	smu->pwr_src_map = arcturus_pwr_src_map;
+>   	smu->workload_map = arcturus_workload_map;
+> +	smu->smc_driver_if_version = SMU11_DRIVER_IF_VERSION_ARCT;
+>   	smu_v11_0_init_msg_ctl(smu, arcturus_message_map);
+>   }
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/cyan_skillfish_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/cyan_skillfish_ppt.c
+> index 87953a4d0a43..1cc26cc79454 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/cyan_skillfish_ppt.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/cyan_skillfish_ppt.c
+> @@ -582,7 +582,7 @@ cyan_skillfish_get_enabled_mask(struct smu_context *smu,
+>   static const struct pptable_funcs cyan_skillfish_ppt_funcs = {
+>   
+>   	.check_fw_status = smu_v11_0_check_fw_status,
+> -	.check_fw_version = smu_v11_0_check_fw_version,
+> +	.check_fw_version = smu_cmn_check_fw_version,
+>   	.init_power = smu_v11_0_init_power,
+>   	.fini_power = smu_v11_0_fini_power,
+>   	.init_smc_tables = cyan_skillfish_init_smc_tables,
+> @@ -605,5 +605,6 @@ void cyan_skillfish_set_ppt_funcs(struct smu_context *smu)
+>   	smu->ppt_funcs = &cyan_skillfish_ppt_funcs;
+>   	smu->table_map = cyan_skillfish_table_map;
+>   	smu->is_apu = true;
+> +	smu->smc_driver_if_version = MP1_DRIVER_IF_VERSION;
+>   	smu_v11_0_init_msg_ctl(smu, cyan_skillfish_message_map);
+>   }
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
+> index 737bfdfb814c..f2ce8de58cb9 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
+> @@ -73,6 +73,10 @@ static const struct smu_feature_bits navi10_dpm_features = {
+>   
+>   #define SMU_11_0_GFX_BUSY_THRESHOLD 15
+>   
+> +#define SMU11_DRIVER_IF_VERSION_NV10  0x37
+> +#define SMU11_DRIVER_IF_VERSION_NV12  0x38
+> +#define SMU11_DRIVER_IF_VERSION_NV14  0x38
+> +
+>   static struct cmn2asic_msg_mapping navi10_message_map[SMU_MSG_MAX_COUNT] = {
+>   	MSG_MAP(TestMessage,			PPSMC_MSG_TestMessage,			1),
+>   	MSG_MAP(GetSmuVersion,			PPSMC_MSG_GetSmuVersion,		1),
+> @@ -3310,7 +3314,7 @@ static const struct pptable_funcs navi10_ppt_funcs = {
+>   	.check_fw_status = smu_v11_0_check_fw_status,
+>   	.setup_pptable = navi10_setup_pptable,
+>   	.get_vbios_bootup_values = smu_v11_0_get_vbios_bootup_values,
+> -	.check_fw_version = smu_v11_0_check_fw_version,
+> +	.check_fw_version = smu_cmn_check_fw_version,
+>   	.write_pptable = smu_cmn_write_pptable,
+>   	.set_driver_table_location = smu_v11_0_set_driver_table_location,
+>   	.set_tool_table_location = smu_v11_0_set_tool_table_location,
+> @@ -3363,11 +3367,26 @@ static const struct pptable_funcs navi10_ppt_funcs = {
+>   
+>   void navi10_set_ppt_funcs(struct smu_context *smu)
+>   {
+> +	struct amdgpu_device *adev = smu->adev;
+> +
+>   	smu->ppt_funcs = &navi10_ppt_funcs;
+>   	smu->clock_map = navi10_clk_map;
+>   	smu->feature_map = navi10_feature_mask_map;
+>   	smu->table_map = navi10_table_map;
+>   	smu->pwr_src_map = navi10_pwr_src_map;
+>   	smu->workload_map = navi10_workload_map;
+> +
+> +	switch (amdgpu_ip_version(adev, MP1_HWIP, 0)) {
+> +	case IP_VERSION(11, 0, 0):
+> +		smu->smc_driver_if_version = SMU11_DRIVER_IF_VERSION_NV10;
+> +		break;
+> +	case IP_VERSION(11, 0, 9):
+> +		smu->smc_driver_if_version = SMU11_DRIVER_IF_VERSION_NV12;
+> +		break;
+> +	case IP_VERSION(11, 0, 5):
+> +		smu->smc_driver_if_version = SMU11_DRIVER_IF_VERSION_NV14;
+> +		break;
+> +	}
+> +
+>   	smu_v11_0_init_msg_ctl(smu, navi10_message_map);
+>   }
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
+> index 6268bc5ed3e6..68255cfcb04d 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
+> @@ -3120,7 +3120,7 @@ static const struct pptable_funcs sienna_cichlid_ppt_funcs = {
+>   	.check_fw_status = smu_v11_0_check_fw_status,
+>   	.setup_pptable = sienna_cichlid_setup_pptable,
+>   	.get_vbios_bootup_values = smu_v11_0_get_vbios_bootup_values,
+> -	.check_fw_version = smu_v11_0_check_fw_version,
+> +	.check_fw_version = smu_cmn_check_fw_version,
+>   	.write_pptable = smu_cmn_write_pptable,
+>   	.set_driver_table_location = smu_v11_0_set_driver_table_location,
+>   	.set_tool_table_location = smu_v11_0_set_tool_table_location,
+> @@ -3177,13 +3177,36 @@ static const struct pptable_funcs sienna_cichlid_ppt_funcs = {
+>   	.mode2_reset = sienna_cichlid_mode2_reset,
+>   };
+>   
+> +#define SMU11_DRIVER_IF_VERSION_Sienna_Cichlid  0x40
+> +#define SMU11_DRIVER_IF_VERSION_Navy_Flounder   0xE
+> +#define SMU11_DRIVER_IF_VERSION_Dimgrey_Cavefish 0xF
+> +#define SMU11_DRIVER_IF_VERSION_Beige_Goby      0xD
+> +
+>   void sienna_cichlid_set_ppt_funcs(struct smu_context *smu)
+>   {
+> +	struct amdgpu_device *adev = smu->adev;
+> +
+>   	smu->ppt_funcs = &sienna_cichlid_ppt_funcs;
+>   	smu->clock_map = sienna_cichlid_clk_map;
+>   	smu->feature_map = sienna_cichlid_feature_mask_map;
+>   	smu->table_map = sienna_cichlid_table_map;
+>   	smu->pwr_src_map = sienna_cichlid_pwr_src_map;
+>   	smu->workload_map = sienna_cichlid_workload_map;
+> +
+> +	switch (amdgpu_ip_version(adev, MP1_HWIP, 0)) {
+> +	case IP_VERSION(11, 0, 7):
+> +		smu->smc_driver_if_version = SMU11_DRIVER_IF_VERSION_Sienna_Cichlid;
+> +		break;
+> +	case IP_VERSION(11, 0, 11):
+> +		smu->smc_driver_if_version = SMU11_DRIVER_IF_VERSION_Navy_Flounder;
+> +		break;
+> +	case IP_VERSION(11, 0, 12):
+> +		smu->smc_driver_if_version = SMU11_DRIVER_IF_VERSION_Dimgrey_Cavefish;
+> +		break;
+> +	case IP_VERSION(11, 0, 13):
+> +		smu->smc_driver_if_version = SMU11_DRIVER_IF_VERSION_Beige_Goby;
+> +		break;
+> +	}
+> +
+>   	smu_v11_0_init_msg_ctl(smu, sienna_cichlid_message_map);
+>   }
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
+> index 1eec1a88e05f..98e7109bbc95 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
+> @@ -192,81 +192,6 @@ int smu_v11_0_check_fw_status(struct smu_context *smu)
+>   	return -EIO;
+>   }
+>   
+> -int smu_v11_0_check_fw_version(struct smu_context *smu)
+> -{
+> -	struct amdgpu_device *adev = smu->adev;
+> -	uint32_t if_version = 0xff, smu_version = 0xff;
+> -	uint8_t smu_program, smu_major, smu_minor, smu_debug;
+> -	int ret = 0;
+> -
+> -	ret = smu_cmn_get_smc_version(smu, &if_version, &smu_version);
+> -	if (ret)
+> -		return ret;
+> -
+> -	smu_program = (smu_version >> 24) & 0xff;
+> -	smu_major = (smu_version >> 16) & 0xff;
+> -	smu_minor = (smu_version >> 8) & 0xff;
+> -	smu_debug = (smu_version >> 0) & 0xff;
+> -	if (smu->is_apu)
+> -		adev->pm.fw_version = smu_version;
+> -
+> -	switch (amdgpu_ip_version(adev, MP1_HWIP, 0)) {
+> -	case IP_VERSION(11, 0, 0):
+> -		smu->smc_driver_if_version = SMU11_DRIVER_IF_VERSION_NV10;
+> -		break;
+> -	case IP_VERSION(11, 0, 9):
+> -		smu->smc_driver_if_version = SMU11_DRIVER_IF_VERSION_NV12;
+> -		break;
+> -	case IP_VERSION(11, 0, 5):
+> -		smu->smc_driver_if_version = SMU11_DRIVER_IF_VERSION_NV14;
+> -		break;
+> -	case IP_VERSION(11, 0, 7):
+> -		smu->smc_driver_if_version = SMU11_DRIVER_IF_VERSION_Sienna_Cichlid;
+> -		break;
+> -	case IP_VERSION(11, 0, 11):
+> -		smu->smc_driver_if_version = SMU11_DRIVER_IF_VERSION_Navy_Flounder;
+> -		break;
+> -	case IP_VERSION(11, 5, 0):
+> -	case IP_VERSION(11, 5, 2):
+> -		smu->smc_driver_if_version = SMU11_DRIVER_IF_VERSION_VANGOGH;
+> -		break;
+> -	case IP_VERSION(11, 0, 12):
+> -		smu->smc_driver_if_version = SMU11_DRIVER_IF_VERSION_Dimgrey_Cavefish;
+> -		break;
+> -	case IP_VERSION(11, 0, 13):
+> -		smu->smc_driver_if_version = SMU11_DRIVER_IF_VERSION_Beige_Goby;
+> -		break;
+> -	case IP_VERSION(11, 0, 8):
+> -		smu->smc_driver_if_version = SMU11_DRIVER_IF_VERSION_Cyan_Skillfish;
+> -		break;
+> -	case IP_VERSION(11, 0, 2):
+> -		smu->smc_driver_if_version = SMU11_DRIVER_IF_VERSION_ARCT;
+> -		break;
+> -	default:
+> -		dev_err(smu->adev->dev, "smu unsupported IP version: 0x%x.\n",
+> -			amdgpu_ip_version(adev, MP1_HWIP, 0));
+> -		smu->smc_driver_if_version = SMU11_DRIVER_IF_VERSION_INV;
+> -		break;
+> -	}
+> -
+> -	/*
+> -	 * 1. if_version mismatch is not critical as our fw is designed
+> -	 * to be backward compatible.
+> -	 * 2. New fw usually brings some optimizations. But that's visible
+> -	 * only on the paired driver.
+> -	 * Considering above, we just leave user a verbal message instead
+> -	 * of halt driver loading.
+> -	 */
+> -	if (if_version != smu->smc_driver_if_version) {
+> -		dev_info(smu->adev->dev, "smu driver if version = 0x%08x, smu fw if version = 0x%08x, "
+> -			"smu fw program = %d, version = 0x%08x (%d.%d.%d)\n",
+> -			smu->smc_driver_if_version, if_version,
+> -			smu_program, smu_version, smu_major, smu_minor, smu_debug);
+> -	}
+> -
+> -	return ret;
+> -}
+> -
+>   static int smu_v11_0_set_pptable_v2_0(struct smu_context *smu, void **table, uint32_t *size)
+>   {
+>   	struct amdgpu_device *adev = smu->adev;
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
+> index 08179840697e..0349c73eb000 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
+> @@ -2512,7 +2512,7 @@ static u32 vangogh_get_gfxoff_entrycount(struct smu_context *smu, uint64_t *entr
+>   static const struct pptable_funcs vangogh_ppt_funcs = {
+>   
+>   	.check_fw_status = smu_v11_0_check_fw_status,
+> -	.check_fw_version = smu_v11_0_check_fw_version,
+> +	.check_fw_version = smu_cmn_check_fw_version,
+>   	.init_smc_tables = vangogh_init_smc_tables,
+>   	.fini_smc_tables = smu_v11_0_fini_smc_tables,
+>   	.init_power = smu_v11_0_init_power,
+> @@ -2562,5 +2562,6 @@ void vangogh_set_ppt_funcs(struct smu_context *smu)
+>   	smu->table_map = vangogh_table_map;
+>   	smu->workload_map = vangogh_workload_map;
+>   	smu->is_apu = true;
+> +	smu->smc_driver_if_version = SMU13_DRIVER_IF_VERSION;
+>   	smu_v11_0_init_msg_ctl(smu, vangogh_message_map);
+>   }
 
