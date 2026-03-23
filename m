@@ -4,45 +4,98 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7E687D58CD1
-	for <amd-gfx@archiver.kernel.org>; Mon, 23 Mar 2026 04:53:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E3318D58CC5
+	for <amd-gfx@archiver.kernel.org>; Mon, 23 Mar 2026 04:54:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E540110E3BF;
-	Mon, 23 Mar 2026 04:53:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 78F6D10E3C3;
+	Mon, 23 Mar 2026 04:54:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="dPgnTOva";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="PAo7WPgh";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3043B10E3BF
- for <amd-gfx@lists.freedesktop.org>; Mon, 23 Mar 2026 04:53:48 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id BC892402E8;
- Mon, 23 Mar 2026 04:53:47 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2561AC4CEF7;
- Mon, 23 Mar 2026 04:53:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1774241627;
- bh=/9fSo2CceyrI7aLvXh9YvmnprnrRgVHbZHqyJ3A9OKk=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=dPgnTOvat3eaw8MzIqrn0F0cSx30tkI2ByZaz/2FdW8ur+ttXgoizp9owlKzYIc6z
- VqaFYN+7UqCQ9xMEGyHsf5VWrsQuP/Wdv/fGtYKjfVaDljwLff/ofu75bC2A3TO+NG
- 6k2PJzFzjerFYjDDsQ6MBjR5in/wWPEzu7Iz+GzxsrlepnKgXR4ZZZ8YvnMUMypzz/
- gsJ5v1MrPox/0gLgX+crOsAoODXcO987wiqXh3G1Z725Et9QdUlSEFmrVnydTz8aFJ
- k7G4gm07Zl0MBaLfQIscTuipXjHdXHTBAjVFGypF6AzbPCklaywSGQ5oGqStqNzftl
- 4n3JVbnYN417Q==
-Message-ID: <bf10be76-862e-4f66-808c-1dc93ee58576@kernel.org>
-Date: Sun, 22 Mar 2026 23:53:46 -0500
+Received: from PH7PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11010011.outbound.protection.outlook.com [52.101.201.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7B6A210E3C3
+ for <amd-gfx@lists.freedesktop.org>; Mon, 23 Mar 2026 04:54:43 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=r9g7TAOaP3hnQHCCr51YpG8kvlUz9l5C4bFONF4Qq68yr5ff3DjPOyoP+DzcouPOEoy+xrKi8L7Q7BZrZxYXEputyP9w/0gVFYR9QY7RUUJAONypU6dMH1KRGE2tu5JyHiXwl+sUooYNU6F1T4x4q0mAVEToMuGv8Ewc495Kcx/euFED3ytP+SqUiNW285dve4OQKvYKP92WJ1emKYJF8qcxdm4GpIkuGmZApbQccwEnzRMNElbl0KxbWqDLoSDar6izQvDnE51ev0VAVcIKtgntE3UuKPpAa7PN0sXOtDTQ7+zKBjJ5CDJbaQ4c0lY+h7ABCtLcnnGPUFVUBrL9wg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=+NYkWmqSr1KGF+gj3fgqCYjgBe8rBsnCZULdYWhNscA=;
+ b=w+3c/fuTNRsK48FALWen6lsmbevDm0/cF6Jm45zDGPuws8y6DqyRAon7jJmpofdKRg0a2xOlIK2bnKfMRRadjF1nuhJVMfRozryPszBuIAFmpDe1l5DqtIrHlPaQGeSjGkuxBC9xaWDYjd7EnA/r9nJA/5qoNQOKwGfAfVaIwULeP+ZSPDtphe6uqhIcR21kR0HZyKFiEG+HPahubfrsfCu1rGbaTNLAVpRqZiDbBc5RPJzC0pmI+R/YAEplfirTqxEXrkngEKD1qSGWRzU/JocaaOB74ZhJVmSTSm9cMk+dKBOWGEWhQzDhOcv6fwqqGJRonUrMZaiUiEYbJFbZjg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=+NYkWmqSr1KGF+gj3fgqCYjgBe8rBsnCZULdYWhNscA=;
+ b=PAo7WPghargqV86+iH538hfXDxafsc/xRI/20qb3zNZKVFF0z+NqI5EPZiPu5ySF7b2kOvKY+l/YDxq29LLCr3jPcF7wKokI4tP+ZatZvkgih9cqr/ltI/Vz07BpbXyBhzLiNLY0AxSC9E/EZUv5UAHnuBzz0R7dpGEpcEk2NHc=
+Received: from PH5P222CA0009.NAMP222.PROD.OUTLOOK.COM (2603:10b6:510:34b::14)
+ by DM4PR12MB6664.namprd12.prod.outlook.com (2603:10b6:8:bb::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.20; Mon, 23 Mar
+ 2026 04:54:38 +0000
+Received: from MW1PEPF0001615D.namprd21.prod.outlook.com
+ (2603:10b6:510:34b:cafe::ca) by PH5P222CA0009.outlook.office365.com
+ (2603:10b6:510:34b::14) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9723.29 via Frontend Transport; Mon,
+ 23 Mar 2026 04:54:48 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ MW1PEPF0001615D.mail.protection.outlook.com (10.167.249.88) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9769.0 via Frontend Transport; Mon, 23 Mar 2026 04:54:37 +0000
+Received: from srishanm-Cloudripper.amd.com (10.180.168.240) by
+ satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.17; Sun, 22 Mar 2026 23:54:34 -0500
+From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+To: Alex Hung <alex.hung@amd.com>, Aurabindo Pillai <aurabindo.pillai@amd.com>
+CC: <amd-gfx@lists.freedesktop.org>, Srinivasan Shanmugam
+ <srinivasan.shanmugam@amd.com>, Roman Li <roman.li@amd.com>, Tom Chung
+ <chiahsuan.chung@amd.com>, Dan Carpenter <dan.carpenter@linaro.org>
+Subject: [PATCH v2] drm/amd/display: Add NULL check for integrated_info in
+ clk_mgr_construct
+Date: Mon, 23 Mar 2026 10:24:15 +0530
+Message-ID: <20260323045415.2044583-1-srinivasan.shanmugam@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amd/display: Add Idle state manager(ISM)
-To: sunpeng.li@amd.com, amd-gfx@lists.freedesktop.org
-Cc: Harry.Wentland@amd.com, Ray.Wu@amd.com
-References: <20260319154141.567018-1-sunpeng.li@amd.com>
-Content-Language: en-US
-From: Mario Limonciello <superm1@kernel.org>
-In-Reply-To: <20260319154141.567018-1-sunpeng.li@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MW1PEPF0001615D:EE_|DM4PR12MB6664:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0d2ce930-ab68-468c-31ca-08de88984946
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|36860700016|82310400026|1800799024|56012099003|18002099003;
+X-Microsoft-Antispam-Message-Info: SaSPpJdFu5mCEbFh5tqlsIvKKLj71b5NULjK5T35f4U15abSvvDItDDPJW1QX5NtMwI9lS1h5zJshmd5To5XNEBpsOj0UBxWDUNzph4HNLSTMgklJghc+SfqTFI2gt5rHhXOdLfWpPz48q/DwCL8fjearJd5rd/zlr5YEP7h2C9EcGUcU79we8HKd2E5IWJwNRjWkyscOgsj/UFg2I+/C5luyWWEHJNlrHyfXPH7El1H/T9YgEQ+gvD1mZclZDNz6QZgqHNjdiLaEn1Bs6+8dvv7+PeQD4vlOBBrs+2skARCOI6q9sT7s2N3IxPCX+LHc5UHfqqBHPqjB5oee7bHS4eScgdI+9gByXG58ejiwLOUCz+LzESqBSMED3l/vuqmi2R5Q6InBtIZUGYeGoTCS/53RYiEDAblQD5irX5zy4BotgkgMf1T/j4QFh2oraPiYxQ+4neldg5Pq3nn6dNrT/VIDfoDX0IDqeBEErUmdIHGIR2T8y31IGqZRtZYUmPf30vFk9kxJj5oGR2WEgtpCbERruLIvm164wxudXpN2gztv0FkR8acOUYJt+wNZMET1PNFi2rSjg50hOWdL4wFJpccBi6SQt4M0oZaWiLO7UFKxAI0YEaFRVf1Rn5wJjDNZNXQ1sqt8EZ3dWu/4YXJRfxr9sb1NsJHvdyAGeT9LZQ3ANvt/bKSE8oFMQb0FH2vtNiXR180gIoegXTTs/GqmSIHlzKyT3EHDLLPA/wKd7GZ9TVa2cyRQicZYyxE51JZ
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(36860700016)(82310400026)(1800799024)(56012099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: gk2SkvK3zW8K6p+vvhPjxiwmEeQMmjWirTUXpsGAwwZqweluSngyvZFy2e9Zb9sBvAMD3bpqRrQJDOTEXISWO3LGuZK/01zVo0jY9+SVUZrynx+/ZmpL+l1BiyKaOusnxU0KfOnlc4dQAlUVyPxFEZbJIaIhRT2QtcdOKUp/W9AOq9DhXEcwGlldjBvMLdUuwlMJxdqwOPxVzImNS/34CABO23y2/HdQ98Hwfe5LdmVtC0DdMtdbbvJOBSObByKAc8aVStK9nMBjH+SkQg7RLPeMyD6hqZsXTxvBjY9YzmUkLVQrXXgTZGBsUP2NtpCH49XGwulwqfqmP2e7fH5SdMy3ocoeMKKwSLPyWssgzGqDBb+m/66SnLfhKnkQpKd+hY7f4oIX4+Hnfg4qXAZjE3+cwEvW3xhlpMJMtQuLivH2+q9OKDJhbzE39gGUsdJb
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Mar 2026 04:54:37.8085 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0d2ce930-ab68-468c-31ca-08de88984946
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: MW1PEPF0001615D.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6664
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,1140 +110,186 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+clk_mgr_construct() initializes display clock and memory bandwidth
+settings during driver bring-up.
 
+As part of this, the driver selects a watermark table based on the
+memory type (DDR4, LPDDR4, LPDDR5) from ctx->dc_bios->integrated_info.
 
-On 3/19/26 10:41 AM, sunpeng.li@amd.com wrote:
-> From: Ray Wu <ray.wu@amd.com>
-> 
-> [Why]
-> 
-> Rapid allow/disallow of idle optimization calls, whether it be IPS or
-> self-refresh features, can end up using more power if actual
-> time-in-idle is low. It can also spam DMUB command submission in a way
-> that prevents it from servicing other requestors.
-> 
-> [How]
-> 
-> Introduce the Idle State Manager (ISM) to amdgpu. It maintains a finite
-> state machine that uses a hysteresis to determine if a delay should be
-> inserted between a caller allowing idle, and when the actual idle
-> optimizations are programmed.
-> 
-> A second timer is also introduced to enable static screen optimizations
-> (SSO) such as PSR1 and Replay low HZ idle mode. Rapid SSO enable/disable
-> can have a negative power impact on some low hz video playback, and can
-> introduce user lag for PSR1 (due to up to 3 frames of sync latency).
-> 
-> This effectively rate-limits idle optimizations, based on hysteresis.
-> 
-> This also replaces the existing delay logic used for PSR1, allowing
-> drm_vblank_crtc_config.disable_immediate = true, and thus allowing
-> drm_crtc_vblank_restore().
-> 
-> Fixes: https://gitlab.freedesktop.org/drm/amd/-/issues/4527
-> Fixes: https://gitlab.freedesktop.org/drm/amd/-/issues/3709
-> Signed-off-by: Ray Wu <ray.wu@amd.com>
-> Signed-off-by: Leo Li <sunpeng.li@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h      |   5 +
->   .../gpu/drm/amd/display/amdgpu_dm/Makefile    |   3 +-
->   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  34 +-
->   .../amd/display/amdgpu_dm/amdgpu_dm_crtc.c    |  70 +--
->   .../amd/display/amdgpu_dm/amdgpu_dm_crtc.h    |   6 +
->   .../drm/amd/display/amdgpu_dm/amdgpu_dm_ism.c | 591 ++++++++++++++++++
->   .../drm/amd/display/amdgpu_dm/amdgpu_dm_ism.h | 151 +++++
->   .../amd/display/amdgpu_dm/amdgpu_dm_plane.c   |  16 +
->   8 files changed, 813 insertions(+), 63 deletions(-)
->   create mode 100755 drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_ism.c
->   create mode 100755 drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_ism.h
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
-> index 90352284c5ee2..51ab1a3326157 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
-> @@ -44,6 +44,7 @@
->   #include <drm/display/drm_dp_mst_helper.h>
->   #include "modules/inc/mod_freesync.h"
->   #include "amdgpu_dm_irq_params.h"
-> +#include "amdgpu_dm_ism.h"
->   
->   struct amdgpu_bo;
->   struct amdgpu_device;
-> @@ -486,6 +487,10 @@ struct amdgpu_crtc {
->   	int deferred_flip_completion;
->   	/* parameters access from DM IRQ handler */
->   	struct dm_irq_params dm_irq_params;
-> +
-> +	/* DM idle state manager */
-> +	struct amdgpu_dm_ism ism;
-> +
->   	/* pll sharing */
->   	struct amdgpu_atom_ss ss;
->   	bool ss_enabled;
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/Makefile b/drivers/gpu/drm/amd/display/amdgpu_dm/Makefile
-> index 8e949fe773129..89350aa9ca7ec 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/Makefile
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/Makefile
-> @@ -40,7 +40,8 @@ AMDGPUDM = \
->   	amdgpu_dm_replay.o \
->   	amdgpu_dm_quirks.o \
->   	amdgpu_dm_wb.o \
-> -	amdgpu_dm_colorop.o
-> +	amdgpu_dm_colorop.o \
-> +	amdgpu_dm_ism.o
->   
->   ifdef CONFIG_DRM_AMD_DC_FP
->   AMDGPUDM += dc_fpu.o
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index d487e92bd5d61..95a093f4ec329 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -3281,6 +3281,7 @@ static int dm_suspend(struct amdgpu_ip_block *ip_block)
->   
->   		mutex_lock(&dm->dc_lock);
->   
-> +		amdgpu_dm_ism_disable(dm);
->   		dc_allow_idle_optimizations(adev->dm.dc, false);
->   
->   		dm->cached_dc_state = dc_state_create_copy(dm->dc->current_state);
-> @@ -3314,6 +3315,9 @@ static int dm_suspend(struct amdgpu_ip_block *ip_block)
->   
->   	amdgpu_dm_irq_suspend(adev);
->   
-> +	scoped_guard(mutex, &dm->dc_lock)
-> +		amdgpu_dm_ism_disable(dm);
-> +
->   	hpd_rx_irq_work_suspend(dm);
->   
->   	dc_set_power_state(dm->dc, DC_ACPI_CM_POWER_STATE_D3);
-> @@ -3604,6 +3608,7 @@ static int dm_resume(struct amdgpu_ip_block *ip_block)
->   
->   		dc_resume(dm->dc);
->   
-> +		amdgpu_dm_ism_enable(dm);
->   		amdgpu_dm_irq_resume_early(adev);
->   
->   		for (i = 0; i < dc_state->stream_count; i++) {
-> @@ -3664,6 +3669,9 @@ static int dm_resume(struct amdgpu_ip_block *ip_block)
->   	/* program HPD filter */
->   	dc_resume(dm->dc);
->   
-> +	scoped_guard(mutex, &dm->dc_lock)
-> +		amdgpu_dm_ism_enable(dm);
-> +
->   	/*
->   	 * early enable HPD Rx IRQ, should be done before set mode as short
->   	 * pulse interrupts are used for MST
-> @@ -9328,31 +9336,7 @@ static void manage_dm_interrupts(struct amdgpu_device *adev,
->   	if (acrtc_state) {
->   		timing = &acrtc_state->stream->timing;
->   
-> -		/*
-> -		 * Depending on when the HW latching event of double-buffered
-> -		 * registers happen relative to the PSR SDP deadline, and how
-> -		 * bad the Panel clock has drifted since the last ALPM off
-> -		 * event, there can be up to 3 frames of delay between sending
-> -		 * the PSR exit cmd to DMUB fw, and when the panel starts
-> -		 * displaying live frames.
-> -		 *
-> -		 * We can set:
-> -		 *
-> -		 * 20/100 * offdelay_ms = 3_frames_ms
-> -		 * => offdelay_ms = 5 * 3_frames_ms
-> -		 *
-> -		 * This ensures that `3_frames_ms` will only be experienced as a
-> -		 * 20% delay on top how long the display has been static, and
-> -		 * thus make the delay less perceivable.
-> -		 */
-> -		if (acrtc_state->stream->link->psr_settings.psr_version <
-> -		    DC_PSR_VERSION_UNSUPPORTED) {
-> -			offdelay = DIV64_U64_ROUND_UP((u64)5 * 3 * 10 *
-> -						      timing->v_total *
-> -						      timing->h_total,
-> -						      timing->pix_clk_100hz);
-> -			config.offdelay_ms = offdelay ?: 30;
-> -		} else if (amdgpu_ip_version(adev, DCE_HWIP, 0) <
-> +		if (amdgpu_ip_version(adev, DCE_HWIP, 0) <
->   			   IP_VERSION(3, 5, 0) ||
->   			   !(adev->flags & AMD_IS_APU)) {
->   			/*
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
-> index 39fcbc3e702dc..ac064144f2e79 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
-> @@ -124,37 +124,37 @@ bool amdgpu_dm_crtc_vrr_active(const struct dm_crtc_state *dm_state)
->    * - Enable condition same as above
->    * - Disable when vblank counter is enabled
->    */
-> -static void amdgpu_dm_crtc_set_panel_sr_feature(
-> -	struct vblank_control_work *vblank_work,
-> +void amdgpu_dm_crtc_set_panel_sr_feature(
-> +	struct amdgpu_display_manager *dm,
-> +	struct amdgpu_crtc *acrtc,
-> +	struct dc_stream_state *stream,
->   	bool vblank_enabled, bool allow_sr_entry)
->   {
-> -	struct dc_link *link = vblank_work->stream->link;
-> +	struct dc_link *link = stream->link;
->   	bool is_sr_active = (link->replay_settings.replay_allow_active ||
->   				 link->psr_settings.psr_allow_active);
->   	bool is_crc_window_active = false;
-> -	bool vrr_active = amdgpu_dm_crtc_vrr_active_irq(vblank_work->acrtc);
-> +	bool vrr_active = amdgpu_dm_crtc_vrr_active_irq(acrtc);
->   
->   #ifdef CONFIG_DRM_AMD_SECURE_DISPLAY
->   	is_crc_window_active =
-> -		amdgpu_dm_crc_window_is_activated(&vblank_work->acrtc->base);
-> +		amdgpu_dm_crc_window_is_activated(&acrtc->base);
->   #endif
->   
->   	if (link->replay_settings.replay_feature_enabled && !vrr_active &&
->   		allow_sr_entry && !is_sr_active && !is_crc_window_active) {
-> -		amdgpu_dm_replay_enable(vblank_work->stream, true);
-> +		amdgpu_dm_replay_enable(stream, true);
->   	} else if (vblank_enabled) {
->   		if (link->psr_settings.psr_version < DC_PSR_VERSION_SU_1 && is_sr_active)
-> -			amdgpu_dm_psr_disable(vblank_work->stream, false);
-> +			amdgpu_dm_psr_disable(stream, false);
->   	} else if (link->psr_settings.psr_feature_enabled && !vrr_active &&
->   		allow_sr_entry && !is_sr_active && !is_crc_window_active) {
->   
->   		struct amdgpu_dm_connector *aconn =
-> -			(struct amdgpu_dm_connector *) vblank_work->stream->dm_stream_context;
-> +			(struct amdgpu_dm_connector *) stream->dm_stream_context;
->   
->   		if (!aconn->disallow_edp_enter_psr) {
-> -			struct amdgpu_display_manager *dm = vblank_work->dm;
-> -
-> -			amdgpu_dm_psr_enable(vblank_work->stream);
-> +			amdgpu_dm_psr_enable(stream);
->   			if (dm->idle_workqueue &&
->   			    (dm->dc->config.disable_ips == DMUB_IPS_ENABLE) &&
->   			    dm->dc->idle_optimizations_allowed &&
-> @@ -251,33 +251,15 @@ static void amdgpu_dm_crtc_vblank_control_worker(struct work_struct *work)
->   
->   	mutex_lock(&dm->dc_lock);
->   
-> -	if (vblank_work->enable)
-> +	if (vblank_work->enable) {
->   		dm->active_vblank_irq_count++;
-> -	else if (dm->active_vblank_irq_count)
-> -		dm->active_vblank_irq_count--;
-> -
-> -	if (dm->active_vblank_irq_count > 0)
-> -		dc_allow_idle_optimizations(dm->dc, false);
-> -
-> -	/*
-> -	 * Control PSR based on vblank requirements from OS
-> -	 *
-> -	 * If panel supports PSR SU, there's no need to disable PSR when OS is
-> -	 * submitting fast atomic commits (we infer this by whether the OS
-> -	 * requests vblank events). Fast atomic commits will simply trigger a
-> -	 * full-frame-update (FFU); a specific case of selective-update (SU)
-> -	 * where the SU region is the full hactive*vactive region. See
-> -	 * fill_dc_dirty_rects().
-> -	 */
-> -	if (vblank_work->stream && vblank_work->stream->link && vblank_work->acrtc) {
-> -		amdgpu_dm_crtc_set_panel_sr_feature(
-> -			vblank_work, vblank_work->enable,
-> -			vblank_work->acrtc->dm_irq_params.allow_sr_entry);
-> -	}
-> -
-> -	if (dm->active_vblank_irq_count == 0) {
-> -		dc_post_update_surfaces_to_stream(dm->dc);
-> -		dc_allow_idle_optimizations(dm->dc, true);
-> +		amdgpu_dm_ism_commit_event(&vblank_work->acrtc->ism,
-> +				DM_ISM_EVENT_EXIT_IDLE_REQUESTED);
-> +	} else {
-> +		if (dm->active_vblank_irq_count > 0)
-> +			dm->active_vblank_irq_count--;
-> +		amdgpu_dm_ism_commit_event(&vblank_work->acrtc->ism,
-> +				DM_ISM_EVENT_ENTER_IDLE_REQUESTED);
->   	}
->   
->   	mutex_unlock(&dm->dc_lock);
-> @@ -476,6 +458,9 @@ static struct drm_crtc_state *amdgpu_dm_crtc_duplicate_state(struct drm_crtc *cr
->   
->   static void amdgpu_dm_crtc_destroy(struct drm_crtc *crtc)
->   {
-> +	struct amdgpu_crtc *acrtc = to_amdgpu_crtc(crtc);
-> +
-> +	amdgpu_dm_ism_fini(&acrtc->ism);
->   	drm_crtc_cleanup(crtc);
->   	kfree(crtc);
->   }
-> @@ -719,6 +704,15 @@ static const struct drm_crtc_helper_funcs amdgpu_dm_crtc_helper_funcs = {
->   	.get_scanout_position = amdgpu_crtc_get_scanout_position,
->   };
->   
-> +static struct amdgpu_dm_ism_config default_ism_config = {
-> +	.filter_num_frames = 4,
-> +	.filter_history_size = 8,
-> +	.filter_entry_count = 1,
-> +	.activation_num_delay_frames = 4,
-> +	.filter_old_history_threshold = 0,
-> +	.sso_num_frames = 11,
-> +}
+The display pipeline continuously reads pixel data from memory,
+processes it (such as scaling, color conversion, and blending), and
+sends it to the screen. To keep this pipeline running smoothly, the
+driver must ensure there is enough memory bandwidth and that clocks are
+increased when needed.
 
-As these are a lot of magic numbers; would it be a good idea to add some 
-comments about how you came up with them?  Even if it was empricial 
-measurement it will help to have the information when it comes time to 
-modify one in the future.
+Watermark tables define when the GPU should increase clocks to ensure
+there is enough bandwidth to feed pixel data without underflow.
 
-;
-> +
->   int amdgpu_dm_crtc_init(struct amdgpu_display_manager *dm,
->   			       struct drm_plane *plane,
->   			       uint32_t crtc_index)
-> @@ -749,6 +743,8 @@ int amdgpu_dm_crtc_init(struct amdgpu_display_manager *dm,
->   	if (res)
->   		goto fail;
->   
-> +	amdgpu_dm_ism_init(&acrtc->ism, &default_ism_config);
-> +
->   	drm_crtc_helper_add(&acrtc->base, &amdgpu_dm_crtc_helper_funcs);
->   
->   	/* Create (reset) the plane state */
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.h
-> index c1212947a77b8..3a8094013a5d0 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.h
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.h
-> @@ -27,6 +27,12 @@
->   #ifndef __AMDGPU_DM_CRTC_H__
->   #define __AMDGPU_DM_CRTC_H__
->   
-> +void amdgpu_dm_crtc_set_panel_sr_feature(
-> +	struct amdgpu_display_manager *dm,
-> +	struct amdgpu_crtc *acrtc,
-> +	struct dc_stream_state *stream,
-> +	bool vblank_enabled, bool allow_sr_entry);
-> +
->   void amdgpu_dm_crtc_handle_vblank(struct amdgpu_crtc *acrtc);
->   
->   bool amdgpu_dm_crtc_modeset_required(struct drm_crtc_state *crtc_state,
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_ism.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_ism.c
-> new file mode 100755
-> index 0000000000000..7f7393e5336cd
-> --- /dev/null
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_ism.c
-> @@ -0,0 +1,591 @@
-> +// SPDX-License-Identifier: MIT
-> +/*
-> + * Copyright 2025 Advanced Micro Devices, Inc.
+However, ctx->dc_bios->integrated_info is dereferenced without checking
+for NULL in multiple clk_mgr_construct() implementations. On some
+platforms, BIOS may not provide this information, and accessing it
+directly can cause a NULL pointer dereference during initialization.
 
-New code, so this should be 2026 now, right?
+Fix this by adding a NULL check before accessing integrated_info.
 
-> + *
-> + * Permission is hereby granted, free of charge, to any person obtaining a
-> + * copy of this software and associated documentation files (the "Software"),
-> + * to deal in the Software without restriction, including without limitation
-> + * the rights to use, copy, modify, merge, publish, distribute, sublicense,
-> + * and/or sell copies of the Software, and to permit persons to whom the
-> + * Software is furnished to do so, subject to the following conditions:
-> + *
-> + * The above copyright notice and this permission notice shall be included in
-> + * all copies or substantial portions of the Software.
-> + *
-> + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-> + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-> + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-> + * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
-> + * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-> + * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-> + * OTHER DEALINGS IN THE SOFTWARE.
-> + *
-> + * Authors: AMD
-> + *
-> + */
-> +
-> +#include <linux/types.h>
-> +#include <drm/drm_vblank.h>
-> +
-> +#include "dc.h"
-> +#include "amdgpu.h"
-> +#include "amdgpu_dm_ism.h"
-> +#include "amdgpu_dm_crtc.h"
-> +
-> +/**
-> + * dm_ism_next_state - Get next state based on current state and event
-> + *
-> + * This function defines the idle state management FSM. Invalid transitions
-> + * are ignored and will not progress the FSM.
-> + */
-> +static bool dm_ism_next_state(enum amdgpu_dm_ism_state current_state,
-> +			      enum amdgpu_dm_ism_event event,
-> +			      enum amdgpu_dm_ism_state *next_state)
-> +{
-> +	switch (STATE_EVENT(current_state, event))
-> +	{
-> +	case STATE_EVENT(DM_ISM_STATE_FULL_POWER_RUNNING,
-> +			 DM_ISM_EVENT_ENTER_IDLE_REQUESTED):
-> +		*next_state = DM_ISM_STATE_HYSTERESIS_WAITING;
-> +		break;
-> +	case STATE_EVENT(DM_ISM_STATE_FULL_POWER_RUNNING,
-> +			 DM_ISM_EVENT_BEGIN_CURSOR_UPDATE):
-> +		*next_state = DM_ISM_STATE_FULL_POWER_BUSY;
-> +		break;
-> +
-> +	case STATE_EVENT(DM_ISM_STATE_FULL_POWER_BUSY,
-> +			 DM_ISM_EVENT_ENTER_IDLE_REQUESTED):
-> +		*next_state = DM_ISM_STATE_HYSTERESIS_BUSY;
-> +		break;
-> +	case STATE_EVENT(DM_ISM_STATE_FULL_POWER_BUSY,
-> +			 DM_ISM_EVENT_END_CURSOR_UPDATE):
-> +		*next_state = DM_ISM_STATE_FULL_POWER_RUNNING;
-> +		break;
-> +
-> +	case STATE_EVENT(DM_ISM_STATE_HYSTERESIS_WAITING,
-> +			 DM_ISM_EVENT_EXIT_IDLE_REQUESTED):
-> +		*next_state = DM_ISM_STATE_TIMER_ABORTED;
-> +		break;
-> +	case STATE_EVENT(DM_ISM_STATE_HYSTERESIS_WAITING,
-> +			 DM_ISM_EVENT_BEGIN_CURSOR_UPDATE):
-> +		*next_state = DM_ISM_STATE_HYSTERESIS_BUSY;
-> +		break;
-> +	case STATE_EVENT(DM_ISM_STATE_HYSTERESIS_WAITING,
-> +			 DM_ISM_EVENT_TIMER_ELAPSED):
-> +		*next_state = DM_ISM_STATE_OPTIMIZED_IDLE;
-> +		break;
-> +	case STATE_EVENT(DM_ISM_STATE_HYSTERESIS_WAITING,
-> +			 DM_ISM_EVENT_IMMEDIATE):
-> +		*next_state = DM_ISM_STATE_OPTIMIZED_IDLE;
-> +		break;
-> +
-> +	case STATE_EVENT(DM_ISM_STATE_HYSTERESIS_BUSY,
-> +			 DM_ISM_EVENT_EXIT_IDLE_REQUESTED):
-> +		*next_state = DM_ISM_STATE_FULL_POWER_BUSY;
-> +		break;
-> +	case STATE_EVENT(DM_ISM_STATE_HYSTERESIS_BUSY,
-> +			 DM_ISM_EVENT_END_CURSOR_UPDATE):
-> +		*next_state = DM_ISM_STATE_HYSTERESIS_WAITING;
-> +		break;
-> +
-> +	case STATE_EVENT(DM_ISM_STATE_OPTIMIZED_IDLE,
-> +			 DM_ISM_EVENT_EXIT_IDLE_REQUESTED):
-> +		*next_state = DM_ISM_STATE_FULL_POWER_RUNNING;
-> +		break;
-> +	case STATE_EVENT(DM_ISM_STATE_OPTIMIZED_IDLE,
-> +			 DM_ISM_EVENT_BEGIN_CURSOR_UPDATE):
-> +		*next_state = DM_ISM_STATE_HYSTERESIS_BUSY;
-> +		break;
-> +	case STATE_EVENT(DM_ISM_STATE_OPTIMIZED_IDLE,
-> +			 DM_ISM_EVENT_SSO_TIMER_ELAPSED):
-> +	case STATE_EVENT(DM_ISM_STATE_OPTIMIZED_IDLE,
-> +			 DM_ISM_EVENT_IMMEDIATE):
-> +		*next_state = DM_ISM_STATE_OPTIMIZED_IDLE_SSO;
-> +		break;
-> +
-> +	case STATE_EVENT(DM_ISM_STATE_OPTIMIZED_IDLE_SSO,
-> +			 DM_ISM_EVENT_EXIT_IDLE_REQUESTED):
-> +		*next_state = DM_ISM_STATE_FULL_POWER_RUNNING;
-> +		break;
-> +	case STATE_EVENT(DM_ISM_STATE_OPTIMIZED_IDLE_SSO,
-> +			 DM_ISM_EVENT_BEGIN_CURSOR_UPDATE):
-> +		*next_state = DM_ISM_STATE_HYSTERESIS_BUSY;
-> +		break;
-> +
-> +	case STATE_EVENT(DM_ISM_STATE_TIMER_ABORTED,
-> +			 DM_ISM_EVENT_IMMEDIATE):
-> +		*next_state = DM_ISM_STATE_FULL_POWER_RUNNING;
-> +		break;
-> +
-> +	default:
-> +		return false;
+If integrated_info is not available, the driver safely falls back to
+default watermark tables.
 
-Should invalid transitions be logged to debug logging?  Or are they too 
-frequent that this is not useful?
+Fixes:
+../dcn21/rn_clk_mgr.c:775 rn_clk_mgr_construct() warn: variable dereferenced before check 'ctx->dc_bios->integrated_info' (see line 743)
+../dcn301/vg_clk_mgr.c:750 vg_clk_mgr_construct() warn: variable dereferenced before check 'ctx->dc_bios->integrated_info' (see line 736)
+../dcn31/dcn31_clk_mgr.c:789 dcn31_clk_mgr_construct() warn: variable dereferenced before check 'ctx->dc_bios->integrated_info' (see line 728)
+../dcn314/dcn314_clk_mgr.c:906 dcn314_clk_mgr_construct() warn: variable dereferenced before check 'ctx->dc_bios->integrated_info' (see line 845)
+../dcn315/dcn315_clk_mgr.c:716 dcn315_clk_mgr_construct() warn: variable dereferenced before check 'ctx->dc_bios->integrated_info' (see line 655)
+../dcn316/dcn316_clk_mgr.c:660 dcn316_clk_mgr_construct() warn: variable dereferenced before check 'ctx->dc_bios->integrated_info' (see line 639)
+../dcn35/dcn35_clk_mgr.c:1540 dcn35_clk_mgr_construct() warn: variable dereferenced before check 'ctx->dc_bios->integrated_info' (see line 1467)
 
-> +	}
-> +	return true;
-> +}
-> +
-> +static uint64_t dm_ism_get_sso_delay(const struct amdgpu_dm_ism *ism,
-> +				     const struct dc_stream_state *stream)
-> +{
-> +	const struct amdgpu_dm_ism_config *config = &ism->config;
-> +	uint32_t v_total, h_total;
-> +	uint64_t one_frame_ns, sso_delay_ns;
-> +
-> +	if (!stream)
-> +		return 0;
-> +
-> +	if (!config->sso_num_frames)
-> +		return 0;
-> +
-> +	v_total = stream->timing.v_total;
-> +	h_total = stream->timing.h_total;
-> +
-> +	one_frame_ns = div64_u64(v_total * h_total * 10000000ull,
-> +				 stream->timing.pix_clk_100hz);
-> +	sso_delay_ns = config->sso_num_frames * one_frame_ns;
-> +
-> +	return sso_delay_ns;
-> +}
-> +
-> +/**
-> + * dm_ism_get_idle_allow_delay - Calculate hysteresis-based idle allow delay
-> + */
-> +static uint64_t dm_ism_get_idle_allow_delay(const struct amdgpu_dm_ism *ism,
-> +					    const struct dc_stream_state *stream)
-> +{
-> +	const struct amdgpu_dm_ism_config *config = &ism->config;
-> +	uint32_t v_total, h_total;
-> +	uint64_t one_frame_ns, short_idle_ns, old_hist_ns;
-> +	uint32_t history_size;
-> +	int pos;
-> +	uint32_t short_idle_count = 0;
-> +	uint64_t ret_ns = 0;
-> +
-> +	if (!stream)
-> +		return 0;
-> +
-> +	if (!config->filter_num_frames)
-> +		return 0;
-> +	if (!config->filter_entry_count)
-> +		return 0;
-> +	if (!config->activation_num_delay_frames)
-> +		return 0;
-> +
-> +	v_total = stream->timing.v_total;
-> +	h_total = stream->timing.h_total;
-> +
-> +	one_frame_ns = div64_u64(v_total * h_total * 10000000ull,
-> +				 stream->timing.pix_clk_100hz);
-> +
-> +	short_idle_ns = config->filter_num_frames * one_frame_ns;
-> +	old_hist_ns = config->filter_old_history_threshold * one_frame_ns;
-> +
-> +	// Look back into the recent history and count how many times we entered
-> +	// idle power state for a short duration of time
+Fixes: 25879d7b4986 ("drm/amd/display: Clean FPGA code in dc")
+Cc: Roman Li <roman.li@amd.com>
+Cc: Alex Hung <alex.hung@amd.com>
+Cc: Tom Chung <chiahsuan.chung@amd.com>
+Cc: Dan Carpenter <dan.carpenter@linaro.org>
+Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>
+Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+Change-Id: I972e6837222f0181bc2c44ca1e31abaf8c64a088
+---
+ drivers/gpu/drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr.c  | 3 ++-
+ drivers/gpu/drm/amd/display/dc/clk_mgr/dcn301/vg_clk_mgr.c | 7 ++++---
+ .../gpu/drm/amd/display/dc/clk_mgr/dcn31/dcn31_clk_mgr.c   | 7 ++++---
+ .../gpu/drm/amd/display/dc/clk_mgr/dcn314/dcn314_clk_mgr.c | 3 ++-
+ .../gpu/drm/amd/display/dc/clk_mgr/dcn315/dcn315_clk_mgr.c | 7 ++++---
+ .../gpu/drm/amd/display/dc/clk_mgr/dcn316/dcn316_clk_mgr.c | 7 ++++---
+ .../gpu/drm/amd/display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c   | 7 ++++---
+ 7 files changed, 24 insertions(+), 17 deletions(-)
 
-Switch to /* */ for comments
-
-> +	history_size = min(
-> +		max(config->filter_history_size, config->filter_entry_count),
-> +		AMDGPU_DM_IDLE_HIST_LEN);
-> +	pos = ism->next_record_idx;
-> +
-> +	for (int k = 0; k < history_size; k++)
-> +	{
-> +		if (pos <= 0 || pos > AMDGPU_DM_IDLE_HIST_LEN)
-> +			pos = AMDGPU_DM_IDLE_HIST_LEN;
-> +		pos -= 1;
-> +
-> +		if (ism->records[pos].duration_ns <= short_idle_ns)
-> +			short_idle_count += 1;
-> +
-> +		if (short_idle_count >= config->filter_entry_count)
-> +			break;
-> +
-> +		if (old_hist_ns > 0 &&
-> +		    ism->last_idle_timestamp_ns - ism->records[pos].timestamp_ns > old_hist_ns)
-> +			break;
-> +	}
-> +
-> +	if (short_idle_count >= config->filter_entry_count)
-> +		ret_ns = config->activation_num_delay_frames * one_frame_ns;
-> +
-> +	return ret_ns;
-> +}
-> +
-> +/**
-> + * dm_ism_insert_record - Insert a record into the circular history buffer
-> + */
-> +static void dm_ism_insert_record(struct amdgpu_dm_ism *ism)
-> +{
-> +	struct amdgpu_dm_ism_record *record;
-> +
-> +	if (ism->next_record_idx < 0 ||
-> +	    ism->next_record_idx >= AMDGPU_DM_IDLE_HIST_LEN)
-> +		ism->next_record_idx = 0;
-> +
-> +	record = &ism->records[ism->next_record_idx];
-> +	ism->next_record_idx += 1;
-> +
-> +	record->timestamp_ns = ktime_get_ns();
-> +	record->duration_ns =
-> +		record->timestamp_ns - ism->last_idle_timestamp_ns;
-> +}
-> +
-> +
-> +static void dm_ism_set_last_idle_ts(struct amdgpu_dm_ism *ism)
-> +{
-> +	ism->last_idle_timestamp_ns = ktime_get_ns();
-> +}
-> +
-> +
-> +static bool dm_ism_trigger_event(struct amdgpu_dm_ism *ism,
-> +				 enum amdgpu_dm_ism_event event)
-> +{
-> +	enum amdgpu_dm_ism_state next_state;
-> +
-> +	bool gotNextState = dm_ism_next_state(ism->current_state, event,
-> +					      &next_state);
-> +
-> +	if (gotNextState)
-> +	{
-> +		ism->previous_state = ism->current_state;
-> +		ism->current_state = next_state;
-> +	}
-> +
-> +	return gotNextState;
-> +}
-> +
-> +
-> +static void dm_ism_commit_idle_optimization_state(struct amdgpu_dm_ism *ism,
-> +					     struct dc_stream_state *stream,
-> +					     bool vblank_enabled,
-> +					     bool allow_panel_sso)
-> +{
-> +	struct amdgpu_crtc *acrtc = ism_to_amdgpu_crtc(ism);
-> +	struct amdgpu_device *adev = drm_to_adev(acrtc->base.dev);
-> +	struct amdgpu_display_manager *dm = &adev->dm;
-> +	int r;
-> +
-> +	pr_debug("[DM ISM] active_vblank_irq_count=%d vblank_enabled=%d allow_panel_sso=%d\n",
-> +		      dm->active_vblank_irq_count, vblank_enabled, allow_panel_sso);
-
-Shouldn't this be drm_dbg()?
-
-> +
-> +	/*
-> +	 * If there is a CRTC with vblanks enabled, or if SSO is being engaged,
-> +	 * then disallow idle optimizations.
-> +	 */
-> +	if ((vblank_enabled && dm->active_vblank_irq_count > 0) ||
-> +	    (!vblank_enabled && allow_panel_sso))
-> +		dc_allow_idle_optimizations(dm->dc, false);
-> +
-> +	/*
-> +	 * Control PSR based on vblank requirements from OS
-> +	 *
-> +	 * If panel supports PSR SU/Replay, there's no need to exit self-refresh
-> +	 * when OS is submitting fast atomic commits, as they can allow
-> +	 * self-refresh during vblank periods.
-> +	 */
-> +	if (stream && stream->link) {
-> +		/*
-> +		 * If allow_panel_sso is true when disabling vblank, allow
-> +		 * deeper panel sleep states such as PSR1 and Replay static
-> +		 * screen optimization.
-> +		 */
-> +		if (!vblank_enabled && allow_panel_sso) {
-> +			pr_debug("[DM ISM] CRTC %d: Allowing static screen optimizations\n",
-> +				 acrtc->crtc_id);
-dev_dbg()?
-
-> +			amdgpu_dm_crtc_set_panel_sr_feature(
-> +				dm, acrtc, stream, false,
-> +				acrtc->dm_irq_params.allow_sr_entry);
-> +		} else if (vblank_enabled) {
-> +			/* Make sure to exit SSO on vblank enable */
-> +			amdgpu_dm_crtc_set_panel_sr_feature(
-> +				dm, acrtc, stream, true,
-> +				acrtc->dm_irq_params.allow_sr_entry);
-> +		}
-> +		/*
-> +		 * Else, vblank_enabled == false and allow_panel_sso == false;
-> +		 * do nothing here.
-> +		 */
-> +	}
-> +
-> +	if (!vblank_enabled && dm->active_vblank_irq_count == 0) {
-> +		dc_post_update_surfaces_to_stream(dm->dc);
-> +
-> +		r = amdgpu_dpm_pause_power_profile(adev, true);
-> +		if (r)
-> +			dev_warn(adev->dev, "failed to set default power profile mode\n");
-> +
-> +		dc_allow_idle_optimizations(dm->dc, true);
-> +
-> +		r = amdgpu_dpm_pause_power_profile(adev, false);
-> +		if (r)
-> +			dev_warn(adev->dev, "failed to restore the power profile mode\n");
-> +	}
-> +}
-> +
-> +
-> +static enum amdgpu_dm_ism_event dm_ism_dispatch_power_state(
-> +	struct amdgpu_dm_ism *ism,
-> +	struct dm_crtc_state *acrtc_state,
-> +	enum amdgpu_dm_ism_event event)
-> +{
-> +	enum amdgpu_dm_ism_event ret = event;
-> +	const struct amdgpu_dm_ism_config *config = &ism->config;
-> +	uint64_t delay_ns, sso_delay_ns;
-> +
-> +	switch (ism->previous_state)
-> +	{
-> +	case DM_ISM_STATE_HYSTERESIS_WAITING:
-> +		/*
-> +		 * Stop the timer if it was set, and we're not running from the
-> +		 * idle allow worker.
-> +		 */
-> +		if (ism->current_state != DM_ISM_STATE_OPTIMIZED_IDLE &&
-> +		    ism->current_state != DM_ISM_STATE_OPTIMIZED_IDLE_SSO)
-> +			cancel_delayed_work(&ism->delayed_work);
-> +		break;
-> +	case DM_ISM_STATE_OPTIMIZED_IDLE:
-> +		if (ism->current_state == DM_ISM_STATE_OPTIMIZED_IDLE_SSO)
-> +			break;
-> +		/* If idle disallow, cancel SSO work and insert record */
-> +		cancel_delayed_work(&ism->sso_delayed_work);
-> +		dm_ism_insert_record(ism);
-> +		dm_ism_commit_idle_optimization_state(ism, acrtc_state->stream,
-> +						      true, false);
-> +		break;
-> +	case DM_ISM_STATE_OPTIMIZED_IDLE_SSO:
-> +		/* Disable idle optimization */
-> +		dm_ism_insert_record(ism);
-> +		dm_ism_commit_idle_optimization_state(ism, acrtc_state->stream,
-> +						      true, false);
-> +		break;
-> +	default:
-> +		break;
-> +	}
-> +
-> +	switch (ism->current_state)
-> +	{
-> +	case DM_ISM_STATE_HYSTERESIS_WAITING:
-> +		dm_ism_set_last_idle_ts(ism);
-> +
-> +		/* CRTC can be disabled; allow immediate idle */
-> +		if (!acrtc_state->stream) {
-> +			ret = DM_ISM_EVENT_IMMEDIATE;
-> +			break;
-> +		}
-> +
-> +		delay_ns = dm_ism_get_idle_allow_delay(ism,
-> +						       acrtc_state->stream);
-> +		if (delay_ns == 0) {
-> +			ret = DM_ISM_EVENT_IMMEDIATE;
-> +			break;
-> +		}
-> +
-> +		/* Schedule worker */
-> +		mod_delayed_work(system_unbound_wq, &ism->delayed_work,
-> +				 nsecs_to_jiffies(delay_ns));
-> +
-> +		break;
-> +	case DM_ISM_STATE_OPTIMIZED_IDLE:
-> +		sso_delay_ns = dm_ism_get_sso_delay(ism, acrtc_state->stream);
-> +		if (sso_delay_ns == 0)
-> +			ret = DM_ISM_EVENT_IMMEDIATE;
-> +		else if (config->sso_num_frames < config->filter_num_frames){
-> +			/*
-> +			 * If sso_num_frames is less than hysteresis frames, it
-> +			 * indicates that allowing idle here, then disallowing
-> +			 * idle after sso_num_frames has expired, will likely
-> +			 * have a negative power impact. Skip idle allow here,
-> +			 * and let the sso_delayed_work handle it.
-> +			 */
-> +			mod_delayed_work(system_unbound_wq,
-> +					 &ism->sso_delayed_work,
-> +					 nsecs_to_jiffies(sso_delay_ns));
-> +		} else {
-> +			/* Enable idle optimization without SSO */
-> +			dm_ism_commit_idle_optimization_state(
-> +				ism, acrtc_state->stream, false, false);
-> +			mod_delayed_work(system_unbound_wq,
-> +					 &ism->sso_delayed_work,
-> +					 nsecs_to_jiffies(sso_delay_ns));
-> +		}
-> +		break;
-> +	case DM_ISM_STATE_OPTIMIZED_IDLE_SSO:
-> +		/* Enable static screen optimizations. */
-> +		dm_ism_commit_idle_optimization_state(ism, acrtc_state->stream,
-> +						      false, true);
-> +		break;
-> +	case DM_ISM_STATE_TIMER_ABORTED:
-> +		dm_ism_insert_record(ism);
-> +		dm_ism_commit_idle_optimization_state(ism, acrtc_state->stream,
-> +						      true, false);
-> +		ret = DM_ISM_EVENT_IMMEDIATE;
-> +		break;
-> +	default:
-> +		break;
-> +	}
-> +
-> +	return ret;
-> +}
-> +
-> +static char *dm_ism_events_str[DM_ISM_NUM_EVENTS] = {
-> +	[DM_ISM_EVENT_IMMEDIATE] = "IMMEDIATE",
-> +	[DM_ISM_EVENT_ENTER_IDLE_REQUESTED] = "ENTER_IDLE_REQUESTED",
-> +	[DM_ISM_EVENT_EXIT_IDLE_REQUESTED] = "EXIT_IDLE_REQUESTED",
-> +	[DM_ISM_EVENT_BEGIN_CURSOR_UPDATE] = "BEGIN_CURSOR_UPDATE",
-> +	[DM_ISM_EVENT_END_CURSOR_UPDATE] = "END_CURSOR_UPDATE",
-> +	[DM_ISM_EVENT_TIMER_ELAPSED] = "TIMER_ELAPSED",
-> +	[DM_ISM_EVENT_SSO_TIMER_ELAPSED] = "SSO_TIMER_ELAPSED",
-> +};
-> +
-> +static char *dm_ism_states_str[DM_ISM_NUM_STATES] = {
-> +	[DM_ISM_STATE_FULL_POWER_RUNNING] = "FULL_POWER_RUNNING",
-> +	[DM_ISM_STATE_FULL_POWER_BUSY] = "FULL_POWER_BUSY",
-> +	[DM_ISM_STATE_HYSTERESIS_WAITING] = "HYSTERESIS_WAITING",
-> +	[DM_ISM_STATE_HYSTERESIS_BUSY] = "HYSTERESIS_BUSY",
-> +	[DM_ISM_STATE_OPTIMIZED_IDLE] = "OPTIMIZED_IDLE",
-> +	[DM_ISM_STATE_OPTIMIZED_IDLE_SSO] = "OPTIMIZED_IDLE_SSO",
-> +	[DM_ISM_STATE_TIMER_ABORTED] = "TIMER_ABORTED",
-> +};
-> +
-> +
-> +void amdgpu_dm_ism_commit_event(struct amdgpu_dm_ism *ism,
-> +				enum amdgpu_dm_ism_event event)
-> +{
-> +	enum amdgpu_dm_ism_event next_event = event;
-> +	struct amdgpu_crtc *acrtc = ism_to_amdgpu_crtc(ism);
-> +	struct amdgpu_device *adev = drm_to_adev(acrtc->base.dev);
-> +	struct amdgpu_display_manager *dm = &adev->dm;
-> +	struct dm_crtc_state *acrtc_state = to_dm_crtc_state(acrtc->base.state);
-> +
-> +	/* ISM transitions must be called with mutex acquired */
-> +	ASSERT(mutex_is_locked(&dm->dc_lock));
-> +
-> +	if (!acrtc_state) {
-> +		pr_debug("[DM ISM] CRTC %d No state associated, ignoring event %s\n",
-> +			      acrtc->crtc_id,
-> +			      dm_ism_events_str[event]);
-drm_dbg()
-
-> +		return;
-> +	}
-> +
-> +	do {
-> +		bool transition = dm_ism_trigger_event(ism, event);
-> +		next_event = DM_ISM_NUM_EVENTS;
-> +
-> +		if (transition) {
-> +			pr_debug("[DM ISM] CRTC %d: %s -> %s on event %s\n",
-drm_dbg()
-> +				      acrtc->crtc_id,
-> +				      dm_ism_states_str[ism->previous_state],
-> +				      dm_ism_states_str[ism->current_state],
-> +				      dm_ism_events_str[event]);
-> +			next_event = dm_ism_dispatch_power_state(
-> +				ism, acrtc_state, next_event);
-> +		} else {
-> +			pr_debug("[DM ISM] CRTC %d: No transition on event %s (current state %s)\n",
-drm_dbg()
-> +				      acrtc->crtc_id,
-> +				      dm_ism_events_str[event],
-> +				      dm_ism_states_str[ism->current_state]);
-> +		}
-> +
-> +		event = next_event;
-> +
-> +	} while (next_event < DM_ISM_NUM_EVENTS);
-> +}
-> +
-> +
-> +static void dm_ism_delayed_work_func(struct work_struct *work)
-> +{
-> +	struct amdgpu_dm_ism *ism =
-> +		container_of(work, struct amdgpu_dm_ism, delayed_work.work);
-> +	struct amdgpu_crtc *acrtc = ism_to_amdgpu_crtc(ism);
-> +	struct amdgpu_device *adev = drm_to_adev(acrtc->base.dev);
-> +	struct amdgpu_display_manager *dm = &adev->dm;
-> +
-> +	guard(mutex)(&dm->dc_lock);
-> +
-> +	amdgpu_dm_ism_commit_event(ism, DM_ISM_EVENT_TIMER_ELAPSED);
-> +}
-> +
-> +static void dm_ism_sso_delayed_work_func(struct work_struct *work)
-> +{
-> +	struct amdgpu_dm_ism *ism =
-> +		container_of(work, struct amdgpu_dm_ism, sso_delayed_work.work);
-> +	struct amdgpu_crtc *acrtc = ism_to_amdgpu_crtc(ism);
-> +	struct amdgpu_device *adev = drm_to_adev(acrtc->base.dev);
-> +	struct amdgpu_display_manager *dm = &adev->dm;
-> +
-> +	guard(mutex)(&dm->dc_lock);
-> +
-> +	amdgpu_dm_ism_commit_event(ism, DM_ISM_EVENT_SSO_TIMER_ELAPSED);
-> +}
-> +
-> +/**
-> + * amdgpu_dm_ism_disable - Disable the ISM
-> + *
-> + * @dm: The amdgpu display manager
-> + *
-> + * Disable the idle state manager by disabling any ISM work, canceling pending
-> + * work, and waiting for in-progress work to finish. After disabling, the system
-> + * is left in DM_ISM_STATE_FULL_POWER_RUNNING state.
-> + */
-> +void amdgpu_dm_ism_disable(struct amdgpu_display_manager *dm)
-> +{
-> +	struct drm_crtc *crtc;
-> +	struct amdgpu_crtc *acrtc;
-> +	struct amdgpu_dm_ism *ism;
-> +
-> +	drm_for_each_crtc(crtc, dm->ddev) {
-> +		acrtc = to_amdgpu_crtc(crtc);
-> +		ism = &acrtc->ism;
-> +
-> +		/* Cancel and disable any pending work */
-> +		disable_delayed_work_sync(&ism->delayed_work);
-> +		disable_delayed_work_sync(&ism->sso_delayed_work);
-> +
-> +		/* When disabled, leave in FULL_POWER_RUNNING state.
-> +		 * EXIT_IDLE will not queue any work */
-> +		amdgpu_dm_ism_commit_event(ism,
-> +					   DM_ISM_EVENT_EXIT_IDLE_REQUESTED);
-> +	}
-> +}
-> +
-> +/**
-> + * amdgpu_dm_ism_enable - enable the ISM
-> + *
-> + * @dm: The amdgpu display manager
-> + *
-> + * Re-enable the idle state manager by enabling work that was disabled by
-> + * amdgpu_dm_ism_disable.
-> + */
-> +void amdgpu_dm_ism_enable(struct amdgpu_display_manager *dm)
-> +{
-> +	struct drm_crtc *crtc;
-> +	struct amdgpu_crtc *acrtc;
-> +	struct amdgpu_dm_ism *ism;
-> +
-> +	drm_for_each_crtc(crtc, dm->ddev) {
-> +		acrtc = to_amdgpu_crtc(crtc);
-> +		ism = &acrtc->ism;
-> +
-> +		enable_delayed_work(&ism->delayed_work);
-> +		enable_delayed_work(&ism->sso_delayed_work);
-> +	}
-> +}
-> +
-> +void amdgpu_dm_ism_init(struct amdgpu_dm_ism *ism,
-> +			struct amdgpu_dm_ism_config *config)
-> +{
-> +	ism->config = *config;
-> +
-> +	ism->current_state = DM_ISM_STATE_FULL_POWER_RUNNING;
-> +	ism->previous_state = DM_ISM_STATE_FULL_POWER_RUNNING;
-> +	ism->next_record_idx = 0;
-> +	ism->last_idle_timestamp_ns = 0;
-> +
-> +	INIT_DELAYED_WORK(&ism->delayed_work, dm_ism_delayed_work_func);
-> +	INIT_DELAYED_WORK(&ism->sso_delayed_work, dm_ism_sso_delayed_work_func);
-> +}
-> +
-> +
-> +void amdgpu_dm_ism_fini(struct amdgpu_dm_ism *ism)
-> +{
-> +	cancel_delayed_work_sync(&ism->sso_delayed_work);
-> +	cancel_delayed_work_sync(&ism->delayed_work);
-> +}
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_ism.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_ism.h
-> new file mode 100755
-> index 0000000000000..ba5ea37800d12
-> --- /dev/null
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_ism.h
-> @@ -0,0 +1,151 @@
-> +// SPDX-License-Identifier: MIT
-> +/*
-> + * Copyright 2025 Advanced Micro Devices, Inc.
-
-2026
-
-> + *
-> + * Permission is hereby granted, free of charge, to any person obtaining a
-> + * copy of this software and associated documentation files (the "Software"),
-> + * to deal in the Software without restriction, including without limitation
-> + * the rights to use, copy, modify, merge, publish, distribute, sublicense,
-> + * and/or sell copies of the Software, and to permit persons to whom the
-> + * Software is furnished to do so, subject to the following conditions:
-> + *
-> + * The above copyright notice and this permission notice shall be included in
-> + * all copies or substantial portions of the Software.
-> + *
-> + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-> + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-> + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-> + * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
-> + * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-> + * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-> + * OTHER DEALINGS IN THE SOFTWARE.
-> + *
-> + * Authors: AMD
-> + *
-> + */
-> +
-> +#ifndef __AMDGPU_DM_ISM_H__
-> +#define __AMDGPU_DM_ISM_H__
-> +
-> +#include <linux/workqueue.h>
-> +
-> +struct amdgpu_crtc;
-> +struct amdgpu_display_manager;
-> +
-> +#define AMDGPU_DM_IDLE_HIST_LEN 16
-> +
-> +enum amdgpu_dm_ism_state {
-> +	DM_ISM_STATE_FULL_POWER_RUNNING = 0,
-
-explicitly setting to 0 should be unnecessary
-
-> +	DM_ISM_STATE_FULL_POWER_BUSY,
-> +	DM_ISM_STATE_HYSTERESIS_WAITING,
-> +	DM_ISM_STATE_HYSTERESIS_BUSY,
-> +	DM_ISM_STATE_OPTIMIZED_IDLE,
-> +	DM_ISM_STATE_OPTIMIZED_IDLE_SSO,
-> +	DM_ISM_STATE_TIMER_ABORTED,
-> +	DM_ISM_NUM_STATES,
-> +};
-> +
-> +enum amdgpu_dm_ism_event {
-> +	DM_ISM_EVENT_IMMEDIATE = 0,
-
-explicitly setting to 0 should be unnecessary
-
-> +	DM_ISM_EVENT_ENTER_IDLE_REQUESTED,
-> +	DM_ISM_EVENT_EXIT_IDLE_REQUESTED,
-> +	DM_ISM_EVENT_BEGIN_CURSOR_UPDATE,
-> +	DM_ISM_EVENT_END_CURSOR_UPDATE,
-> +	DM_ISM_EVENT_TIMER_ELAPSED,
-> +	DM_ISM_EVENT_SSO_TIMER_ELAPSED,
-> +	DM_ISM_NUM_EVENTS,
-> +};
-> +
-> +#define STATE_EVENT(state, event) (((state) << 8) | (event))
-> +
-> +struct amdgpu_dm_ism_config {
-> +
-> +	/**
-> +	 * @filter_num_frames: Idle periods shorter than this number of frames
-> +	 * will be considered a "short idle period" for filtering.
-> +	 *
-> +	 * 0 indicates no filtering (i.e. no idle allow delay will be applied)
-> +	 */
-> +	unsigned int filter_num_frames;
-> +
-> +	/**
-> +	 * @filter_history_size: Number of recent idle periods to consider when
-> +	 * counting the number of short idle periods.
-> +	 */
-> +	unsigned int filter_history_size;
-> +
-> +	/**
-> +	 * @filter_entry_count: When the number of short idle periods within
-> +	 * recent &filter_history_size reaches this count, the idle allow delay
-> +	 * will be applied.
-> +	 *
-> +	 * 0 indicates no filtering (i.e. no idle allow delay will be applied)
-> +	 */
-> +	unsigned int filter_entry_count;
-> +
-> +	/**
-> +	 * @activation_num_delay_frames: Defines the number of frames to wait
-> +	 * for the idle allow delay.
-> +	 *
-> +	 * 0 indicates no filtering (i.e. no idle allow delay will be applied)
-> +	 */
-> +	unsigned int activation_num_delay_frames;
-> +
-> +	/**
-> +	 * @filter_old_history_threshold: A time-based restriction on top of
-> +	 * &filter_history_size. Idle periods older than this threshold (in
-> +	 * number of frames) will be ignored when counting the number of short
-> +	 * idle periods.
-> +	 *
-> +	 * 0 indicates no time-based restriction, i.e. history is limited only
-> +	 * by &filter_history_size.
-> +	 */
-> +	unsigned int filter_old_history_threshold;
-> +
-> +	/**
-> +	 * @sso_num_frames: Number of frames to delay before enabling static
-> +	 * screen optimizations, such as PSR1 and Replay low HZ idle mode.
-> +	 *
-> +	 * 0 indicates immediate SSO enable upon allowing idle.
-> +	 */
-> +	unsigned int sso_num_frames;
-> +};
-> +
-> +struct amdgpu_dm_ism_record {
-> +	/**
-> +	 * @timestamp_ns: When idle was allowed
-> +	 */
-> +	unsigned long long timestamp_ns;
-> +
-> +	/**
-> +	 * @duration_ns: How long idle was allowed
-> +	 */
-> +	unsigned long long duration_ns;
-> +};
-> +
-> +struct amdgpu_dm_ism {
-> +	struct amdgpu_dm_ism_config config;
-> +	unsigned long long int last_idle_timestamp_ns;
-> +
-> +	enum amdgpu_dm_ism_state current_state;
-> +	enum amdgpu_dm_ism_state previous_state;
-> +
-> +	struct amdgpu_dm_ism_record records[AMDGPU_DM_IDLE_HIST_LEN];
-> +	int next_record_idx;
-> +
-> +	struct delayed_work delayed_work;
-> +	struct delayed_work sso_delayed_work;
-> +};
-> +
-> +#define ism_to_amdgpu_crtc(ism_ptr) \
-> +	container_of(ism_ptr, struct amdgpu_crtc, ism)
-> +
-> +void amdgpu_dm_ism_init(struct amdgpu_dm_ism *ism,
-> +			struct amdgpu_dm_ism_config *config);
-> +void amdgpu_dm_ism_fini(struct amdgpu_dm_ism *ism);
-> +void amdgpu_dm_ism_commit_event(struct amdgpu_dm_ism *ism,
-> +				enum amdgpu_dm_ism_event event);
-> +void amdgpu_dm_ism_disable(struct amdgpu_display_manager *dm);
-> +void amdgpu_dm_ism_enable(struct amdgpu_display_manager *dm);
-> +
-> +#endif
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-> index 812497d428aa0..9ff40f6643ba8 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-> @@ -1374,8 +1374,16 @@ void amdgpu_dm_plane_handle_cursor_update(struct drm_plane *plane,
->   		/* turn off cursor */
->   		if (crtc_state && crtc_state->stream) {
->   			mutex_lock(&adev->dm.dc_lock);
-> +			amdgpu_dm_ism_commit_event(
-> +				&amdgpu_crtc->ism,
-> +				DM_ISM_EVENT_BEGIN_CURSOR_UPDATE);
-> +
->   			dc_stream_program_cursor_position(crtc_state->stream,
->   						      &position);
-> +
-> +			amdgpu_dm_ism_commit_event(
-> +				&amdgpu_crtc->ism,
-> +				DM_ISM_EVENT_END_CURSOR_UPDATE);
->   			mutex_unlock(&adev->dm.dc_lock);
->   		}
->   		return;
-> @@ -1405,6 +1413,10 @@ void amdgpu_dm_plane_handle_cursor_update(struct drm_plane *plane,
->   
->   	if (crtc_state->stream) {
->   		mutex_lock(&adev->dm.dc_lock);
-> +		amdgpu_dm_ism_commit_event(
-> +			&amdgpu_crtc->ism,
-> +			DM_ISM_EVENT_BEGIN_CURSOR_UPDATE);
-> +
->   		if (!dc_stream_program_cursor_attributes(crtc_state->stream,
->   							 &attributes))
->   			DRM_ERROR("DC failed to set cursor attributes\n");
-> @@ -1412,6 +1424,10 @@ void amdgpu_dm_plane_handle_cursor_update(struct drm_plane *plane,
->   		if (!dc_stream_program_cursor_position(crtc_state->stream,
->   						   &position))
->   			DRM_ERROR("DC failed to set cursor position\n");
-> +
-> +		amdgpu_dm_ism_commit_event(
-> +			&amdgpu_crtc->ism,
-> +			DM_ISM_EVENT_END_CURSOR_UPDATE);
->   		mutex_unlock(&adev->dm.dc_lock);
->   	}
->   }
+diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr.c
+index e18097f82091..09e83097a623 100644
+--- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr.c
++++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr.c
+@@ -740,7 +740,8 @@ void rn_clk_mgr_construct(
+ 	if (clk_mgr->base.dentist_vco_freq_khz == 0)
+ 		clk_mgr->base.dentist_vco_freq_khz = 3600000;
+ 
+-	if (ctx->dc_bios->integrated_info->memory_type == LpDdr4MemType) {
++	if (ctx->dc_bios->integrated_info &&
++	    ctx->dc_bios->integrated_info->memory_type == LpDdr4MemType) {
+ 		if (clk_mgr->periodic_retraining_disabled) {
+ 			rn_bw_params.wm_table = lpddr4_wm_table_with_disabled_ppt;
+ 		} else {
+diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn301/vg_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn301/vg_clk_mgr.c
+index 7aee02d56292..57ba7bc4d16e 100644
+--- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn301/vg_clk_mgr.c
++++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn301/vg_clk_mgr.c
+@@ -733,11 +733,12 @@ void vg_clk_mgr_construct(
+ 	if (clk_mgr->base.base.dentist_vco_freq_khz == 0)
+ 		clk_mgr->base.base.dentist_vco_freq_khz = 3600000;
+ 
+-	if (ctx->dc_bios->integrated_info->memory_type == LpDdr5MemType) {
++	if (ctx->dc_bios->integrated_info &&
++	    ctx->dc_bios->integrated_info->memory_type == LpDdr5MemType)
+ 		vg_bw_params.wm_table = lpddr5_wm_table;
+-	} else {
++	else
+ 		vg_bw_params.wm_table = ddr4_wm_table;
+-	}
++
+ 	/* Saved clocks configured at boot for debug purposes */
+ 	vg_dump_clk_registers(&clk_mgr->base.base.boot_snapshot, &clk_mgr->base.base, &log_info);
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn31/dcn31_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn31/dcn31_clk_mgr.c
+index 051052bd10c9..44bf48f96183 100644
+--- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn31/dcn31_clk_mgr.c
++++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn31/dcn31_clk_mgr.c
+@@ -725,11 +725,12 @@ void dcn31_clk_mgr_construct(
+ 	/* TODO: Check we get what we expect during bringup */
+ 	clk_mgr->base.base.dentist_vco_freq_khz = get_vco_frequency_from_reg(&clk_mgr->base);
+ 
+-	if (ctx->dc_bios->integrated_info->memory_type == LpDdr5MemType) {
++	if (ctx->dc_bios->integrated_info &&
++	    ctx->dc_bios->integrated_info->memory_type == LpDdr5MemType)
+ 		dcn31_bw_params.wm_table = lpddr5_wm_table;
+-	} else {
++	else
+ 		dcn31_bw_params.wm_table = ddr5_wm_table;
+-	}
++
+ 	/* Saved clocks configured at boot for debug purposes */
+ 	dcn31_dump_clk_registers(&clk_mgr->base.base.boot_snapshot,
+ 				 &clk_mgr->base.base, &log_info);
+diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn314/dcn314_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn314/dcn314_clk_mgr.c
+index 0cb37827a62b..c69ec7a0e0ae 100644
+--- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn314/dcn314_clk_mgr.c
++++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn314/dcn314_clk_mgr.c
+@@ -842,7 +842,8 @@ void dcn314_clk_mgr_construct(
+ 	/* TODO: Check we get what we expect during bringup */
+ 	clk_mgr->base.base.dentist_vco_freq_khz = get_vco_frequency_from_reg(&clk_mgr->base);
+ 
+-	if (ctx->dc_bios->integrated_info->memory_type == LpDdr5MemType)
++	if (ctx->dc_bios->integrated_info &&
++	    ctx->dc_bios->integrated_info->memory_type == LpDdr5MemType)
+ 		dcn314_bw_params.wm_table = lpddr5_wm_table;
+ 	else
+ 		dcn314_bw_params.wm_table = ddr5_wm_table;
+diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn315/dcn315_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn315/dcn315_clk_mgr.c
+index c49268db85f6..8d6949ad700d 100644
+--- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn315/dcn315_clk_mgr.c
++++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn315/dcn315_clk_mgr.c
+@@ -652,11 +652,12 @@ void dcn315_clk_mgr_construct(
+ 	if (clk_mgr->base.smu_ver > 0)
+ 		clk_mgr->base.smu_present = true;
+ 
+-	if (ctx->dc_bios->integrated_info->memory_type == LpDdr5MemType) {
++	if (ctx->dc_bios->integrated_info &&
++	    ctx->dc_bios->integrated_info->memory_type == LpDdr5MemType)
+ 		dcn315_bw_params.wm_table = lpddr5_wm_table;
+-	} else {
++	else
+ 		dcn315_bw_params.wm_table = ddr5_wm_table;
+-	}
++
+ 	/* Saved clocks configured at boot for debug purposes */
+ 	dcn315_dump_clk_registers(&clk_mgr->base.base.boot_snapshot,
+ 				  &clk_mgr->base.base, &log_info);
+diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn316/dcn316_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn316/dcn316_clk_mgr.c
+index 1769b1f26e75..b858e21ca070 100644
+--- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn316/dcn316_clk_mgr.c
++++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn316/dcn316_clk_mgr.c
+@@ -636,11 +636,12 @@ void dcn316_clk_mgr_construct(
+ 		clk_mgr->base.base.dentist_vco_freq_khz = 2500000; /* 2400MHz */
+ 
+ 
+-	if (ctx->dc_bios->integrated_info->memory_type == LpDdr5MemType) {
++	if (ctx->dc_bios->integrated_info &&
++	    ctx->dc_bios->integrated_info->memory_type == LpDdr5MemType)
+ 		dcn316_bw_params.wm_table = lpddr5_wm_table;
+-	} else {
++	else
+ 		dcn316_bw_params.wm_table = ddr4_wm_table;
+-	}
++
+ 	/* Saved clocks configured at boot for debug purposes */
+ 	dcn316_dump_clk_registers(&clk_mgr->base.base.boot_snapshot,
+ 				  &clk_mgr->base.base, &log_info);
+diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c
+index 6fc524752613..2798088842f4 100644
+--- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c
++++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c
+@@ -1464,11 +1464,12 @@ void dcn35_clk_mgr_construct(
+ 	/* TODO: Check we get what we expect during bringup */
+ 	clk_mgr->base.base.dentist_vco_freq_khz = get_vco_frequency_from_reg(&clk_mgr->base);
+ 
+-	if (ctx->dc_bios->integrated_info->memory_type == LpDdr5MemType) {
++	if (ctx->dc_bios->integrated_info &&
++	    ctx->dc_bios->integrated_info->memory_type == LpDdr5MemType)
+ 		dcn35_bw_params.wm_table = lpddr5_wm_table;
+-	} else {
++	else
+ 		dcn35_bw_params.wm_table = ddr5_wm_table;
+-	}
++
+ 	/* Saved clocks configured at boot for debug purposes */
+ 	dcn35_save_clk_registers(&clk_mgr->base.base.boot_snapshot, clk_mgr);
+ 
+-- 
+2.34.1
 
