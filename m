@@ -4,47 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E6BDB106B532
-	for <amd-gfx@archiver.kernel.org>; Wed, 25 Mar 2026 13:03:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 447B6106B531
+	for <amd-gfx@archiver.kernel.org>; Wed, 25 Mar 2026 13:03:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 593EF10E8AA;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7EEB010E8B3;
 	Wed, 25 Mar 2026 13:03:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="PkSzPmmO";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="SOfxtOkD";
 	dkim-atps=neutral
 Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
  [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DB58C10E62C;
- Tue, 24 Mar 2026 16:04:26 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1774368256; cv=none; 
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8494510E729;
+ Tue, 24 Mar 2026 16:02:52 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1774368160; cv=none; 
  d=zohomail.com; s=zohoarc; 
- b=OxMcIOVv2rZimfePgomnAkVHEykgXiHSoyjceWNDz2mAVIw2cUrUytZMZl/xhK4v7RcHu6F57E1nDhK599X8BkiZLuLbuQ08Hk/EN6/i5afUmvSWLGTFuQUbLn0OHMuD+F99GucLKMgi5el/ArneDIQUx9SJcAjaz987qF2ePWQ=
+ b=AnjM3f2By/KnL1JDMgO9p8dK9utkE2JtGow2QxQOFLmgs7K7YRAPjGKRXBHZ4wGEzhKXC61C6DKFwRybHmeu1VQfTcwjEXmpFsr/86fm9QY4RDw0GBcWno8oqAjfu6a0b8HYyTA2iu98vM9shU0B2+N5iih8uxtMdaaAoslWG4o=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1774368256;
+ s=zohoarc; t=1774368160;
  h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=mW0Ja2FbkQHM1K+7Np14cKRo9Q3SNA4jFH3nNeqjQjs=; 
- b=OXiUG7yhwkEW+pbzvU25XnRGX3gNaTxD2/cDLeww1+ZY0QRhnZIiXP2sFH1IvgeIy4FVUt/+/x6r0cuggZcwkNrrvkMWmLYjVoByYWLPQRHHyUwlNVlvEBgH1lXOmBPRmzlozGqC+MZnNNfEJR4jVOTtH0bdaMnvVT2om3AdWh0=
+ bh=qKDW5cCkc6Yc25EspTFIwIh6CBuYqZ4ISFoGDi+bfO4=; 
+ b=KcQ5xScaZJ6ZoHNYkMV8uPs5VTwRKwYZWni7n4XaDdOHuemU0jkvhkxklOuOVbPLaFYYgUjQzAWUWzOybexduyq5o8bfQDP5wyVSUbg8l/PIw/jFZpW5UgY7cEN7pteh/+U7ICqyIRfQrHyUP7TgU3oJptXPHruMVdGOoCbpLr4=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
  dkim=pass  header.i=collabora.com;
  spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
  dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1774368256; 
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1774368160; 
  s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
  h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:References:In-Reply-To:To:To:Cc:Cc:Reply-To;
- bh=mW0Ja2FbkQHM1K+7Np14cKRo9Q3SNA4jFH3nNeqjQjs=;
- b=PkSzPmmOHOEjnlNylJPJecDc3n8wZNITM9m1ju36Xik8kzfRVlCn/JCQfndgeGuI
- OeCMkS7mGpc2lZ4bdiq2Vk3GXwVUhkzmrcq1gRaO8A5eI9qV+1/fYekNE75atgVhpk9
- AkSFFP822v0w0FgrfYsMlmyy8weI+5/3yMhfyMgE=
-Received: by mx.zohomail.com with SMTPS id 17743682546421005.1292512966011;
- Tue, 24 Mar 2026 09:04:14 -0700 (PDT)
+ bh=qKDW5cCkc6Yc25EspTFIwIh6CBuYqZ4ISFoGDi+bfO4=;
+ b=SOfxtOkDP40ClpDAsELCoKIH9haoSIACef3szO+uOdsFNsJVRuoh1MRU4rrtKFC2
+ BuNlYA/h3Y+XEHcYhzoS/M2/SaZBPGh2/YNT6yoTDUhmwjF8O3Sel4e+tWU6Fy4nRz+
+ Eu4Bv3xy+l/8lw9d2b77pwZ8R/SLBun3D2m5q24U=
+Received: by mx.zohomail.com with SMTPS id 1774368158488556.584910037494;
+ Tue, 24 Mar 2026 09:02:38 -0700 (PDT)
 From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Date: Tue, 24 Mar 2026 17:01:25 +0100
-Subject: [PATCH v11 21/22] drm/tests: bridge: Add test for HDMI output bus
- formats helper
+Date: Tue, 24 Mar 2026 17:01:12 +0100
+Subject: [PATCH v11 08/22] drm/i915: Implement the "color format" DRM property
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260324-color-format-v11-21-605559af4fb4@collabora.com>
+Message-Id: <20260324-color-format-v11-8-605559af4fb4@collabora.com>
 References: <20260324-color-format-v11-0-605559af4fb4@collabora.com>
 In-Reply-To: <20260324-color-format-v11-0-605559af4fb4@collabora.com>
 To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
@@ -72,7 +71,9 @@ Cc: kernel@collabora.com, amd-gfx@lists.freedesktop.org,
  linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
  intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
  linux-doc@vger.kernel.org, 
- Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+ Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, 
+ Werner Sembach <wse@tuxedocomputers.com>, 
+ Andri Yngvason <andri@yngvason.is>, Marius Vlad <marius.vlad@collabora.com>
 X-Mailer: b4 0.15.0
 X-Mailman-Approved-At: Wed, 25 Mar 2026 13:03:04 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -89,239 +90,387 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The common atomic_get_output_bus_fmts helper for HDMI bridge connectors,
-called drm_atomic_helper_bridge_get_hdmi_output_bus_fmts, should return
-an array of output bus formats depending on the supported formats of the
-connector, and the current output BPC.
+This includes RGB, YUV420, YUV444 and Auto. Auto will pick RGB, unless
+the mode being asked for is YUV420-only, in which case it picks YUV420.
 
-Add a test to exercise some of this helper.
+Should the explicitly requested color format not be supported by the
+sink, then an error is returned to userspace, so that it can make a
+better choice.
 
-Reviewed-by: Maxime Ripard <mripard@kernel.org>
+Co-developed-by: Werner Sembach <wse@tuxedocomputers.com>
+Signed-off-by: Werner Sembach <wse@tuxedocomputers.com>
+Co-developed-by: Andri Yngvason <andri@yngvason.is>
+Signed-off-by: Andri Yngvason <andri@yngvason.is>
+Co-developed-by: Marius Vlad <marius.vlad@collabora.com>
+Signed-off-by: Marius Vlad <marius.vlad@collabora.com>
 Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 ---
- drivers/gpu/drm/tests/drm_bridge_test.c | 184 ++++++++++++++++++++++++++++++++
- 1 file changed, 184 insertions(+)
+ drivers/gpu/drm/i915/display/intel_connector.c | 10 ++++
+ drivers/gpu/drm/i915/display/intel_connector.h |  1 +
+ drivers/gpu/drm/i915/display/intel_dp.c        | 71 ++++++++++++++++++++-----
+ drivers/gpu/drm/i915/display/intel_dp.h        |  4 ++
+ drivers/gpu/drm/i915/display/intel_dp_mst.c    | 52 ++++++++++++++++++-
+ drivers/gpu/drm/i915/display/intel_hdmi.c      | 72 ++++++++++++++++++++------
+ 6 files changed, 181 insertions(+), 29 deletions(-)
 
-diff --git a/drivers/gpu/drm/tests/drm_bridge_test.c b/drivers/gpu/drm/tests/drm_bridge_test.c
-index cb821c606070..d9bd930b1197 100644
---- a/drivers/gpu/drm/tests/drm_bridge_test.c
-+++ b/drivers/gpu/drm/tests/drm_bridge_test.c
-@@ -5,6 +5,7 @@
- #include <linux/cleanup.h>
- #include <linux/media-bus-format.h>
+diff --git a/drivers/gpu/drm/i915/display/intel_connector.c b/drivers/gpu/drm/i915/display/intel_connector.c
+index 7ef9338d67ab..d54ae1522b6f 100644
+--- a/drivers/gpu/drm/i915/display/intel_connector.c
++++ b/drivers/gpu/drm/i915/display/intel_connector.c
+@@ -38,6 +38,10 @@
+ #include "intel_hdcp.h"
+ #include "intel_panel.h"
  
-+#include <drm/drm_atomic_helper.h>
- #include <drm/drm_atomic_state_helper.h>
- #include <drm/drm_atomic_uapi.h>
- #include <drm/drm_bridge.h>
-@@ -118,6 +119,28 @@ static const struct drm_bridge_funcs drm_test_bridge_atomic_funcs = {
- 	.atomic_reset		= drm_atomic_helper_bridge_reset,
- };
- 
-+static int dummy_clear_infoframe(struct drm_bridge *bridge)
-+{
-+	return 0;
-+}
++static const u32 supported_colorformats = BIT(DRM_OUTPUT_COLOR_FORMAT_RGB444) |
++					  BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR444) |
++					  BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR420);
 +
-+static int dummy_write_infoframe(struct drm_bridge *bridge, const u8 *buffer,
-+				 size_t len)
-+{
-+	return 0;
-+}
-+
-+static const struct drm_bridge_funcs drm_test_bridge_bus_fmts_funcs = {
-+	.atomic_get_output_bus_fmts	= drm_atomic_helper_bridge_get_hdmi_output_bus_fmts,
-+	.atomic_destroy_state		= drm_atomic_helper_bridge_destroy_state,
-+	.atomic_duplicate_state		= drm_atomic_helper_bridge_duplicate_state,
-+	.atomic_reset			= drm_atomic_helper_bridge_reset,
-+	.hdmi_write_avi_infoframe	= dummy_write_infoframe,
-+	.hdmi_write_hdmi_infoframe	= dummy_write_infoframe,
-+	.hdmi_clear_avi_infoframe	= dummy_clear_infoframe,
-+	.hdmi_clear_hdmi_infoframe	= dummy_clear_infoframe,
-+};
-+
- /**
-  * struct fmt_tuple - a tuple of input/output MEDIA_BUS_FMT_*
-  */
-@@ -539,6 +562,83 @@ drm_test_bridge_chain_init(struct kunit *test, unsigned int num_bridges,
- 	return priv;
+ static void intel_connector_modeset_retry_work_fn(struct work_struct *work)
+ {
+ 	struct intel_connector *connector = container_of(work, typeof(*connector),
+@@ -321,6 +325,12 @@ intel_attach_dp_colorspace_property(struct drm_connector *connector)
+ 		drm_connector_attach_colorspace_property(connector);
  }
  
-+static struct drm_bridge_init_priv *
-+drm_test_bridge_hdmi_init(struct kunit *test, const struct drm_bridge_funcs *funcs,
-+			  unsigned int supported_formats, int max_bpc)
++void
++intel_attach_colorformat_property(struct drm_connector *connector)
 +{
-+	struct drm_bridge_init_priv *priv;
-+	struct drm_encoder *enc;
-+	struct drm_bridge *bridge;
-+	struct drm_device *drm;
-+	struct device *dev;
-+	int ret;
-+
-+	dev = drm_kunit_helper_alloc_device(test);
-+	if (IS_ERR(dev))
-+		return ERR_CAST(dev);
-+
-+	priv = drm_kunit_helper_alloc_drm_device(test, dev,
-+						 struct drm_bridge_init_priv, drm,
-+						 DRIVER_MODESET | DRIVER_ATOMIC);
-+	if (IS_ERR(priv))
-+		return ERR_CAST(priv);
-+
-+	priv->test_bridge = devm_drm_bridge_alloc(dev, struct drm_bridge_priv, bridge, funcs);
-+	if (IS_ERR(priv->test_bridge))
-+		return ERR_CAST(priv->test_bridge);
-+
-+	priv->test_bridge->data = priv;
-+
-+	drm = &priv->drm;
-+	priv->plane = drm_kunit_helper_create_primary_plane(test, drm,
-+							    NULL,
-+							    NULL,
-+							    NULL, 0,
-+							    NULL);
-+	if (IS_ERR(priv->plane))
-+		return ERR_CAST(priv->plane);
-+
-+	priv->crtc = drm_kunit_helper_create_crtc(test, drm,
-+						  priv->plane, NULL,
-+						  NULL,
-+						  NULL);
-+	if (IS_ERR(priv->crtc))
-+		return ERR_CAST(priv->crtc);
-+
-+	enc = &priv->encoder;
-+	ret = drmm_encoder_init(drm, enc, NULL, DRM_MODE_ENCODER_TMDS, NULL);
-+	if (ret)
-+		return ERR_PTR(ret);
-+
-+	enc->possible_crtcs = drm_crtc_mask(priv->crtc);
-+
-+	bridge = &priv->test_bridge->bridge;
-+	bridge->type = DRM_MODE_CONNECTOR_HDMIA;
-+	bridge->supported_formats = supported_formats;
-+	bridge->max_bpc = max_bpc;
-+	bridge->ops |= DRM_BRIDGE_OP_HDMI;
-+	bridge->vendor = "LNX";
-+	bridge->product = "KUnit";
-+
-+	ret = drm_kunit_bridge_add(test, bridge);
-+	if (ret)
-+		return ERR_PTR(ret);
-+
-+	ret = drm_bridge_attach(enc, bridge, NULL, 0);
-+	if (ret)
-+		return ERR_PTR(ret);
-+
-+	priv->connector = drm_bridge_connector_init(drm, enc);
-+	if (IS_ERR(priv->connector))
-+		return ERR_CAST(priv->connector);
-+
-+	drm_connector_attach_encoder(priv->connector, enc);
-+
-+	drm_mode_config_reset(drm);
-+
-+	return priv;
++	drm_connector_attach_color_format_property(connector, supported_colorformats);
 +}
 +
+ void
+ intel_attach_scaling_mode_property(struct drm_connector *connector)
+ {
+diff --git a/drivers/gpu/drm/i915/display/intel_connector.h b/drivers/gpu/drm/i915/display/intel_connector.h
+index 0aa86626e646..fe6149d1d559 100644
+--- a/drivers/gpu/drm/i915/display/intel_connector.h
++++ b/drivers/gpu/drm/i915/display/intel_connector.h
+@@ -31,6 +31,7 @@ void intel_attach_broadcast_rgb_property(struct drm_connector *connector);
+ void intel_attach_aspect_ratio_property(struct drm_connector *connector);
+ void intel_attach_hdmi_colorspace_property(struct drm_connector *connector);
+ void intel_attach_dp_colorspace_property(struct drm_connector *connector);
++void intel_attach_colorformat_property(struct drm_connector *connector);
+ void intel_attach_scaling_mode_property(struct drm_connector *connector);
+ void intel_connector_queue_modeset_retry_work(struct intel_connector *connector);
+ void intel_connector_cancel_modeset_retry_work(struct intel_connector *connector);
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index 4955bd8b11d7..31f2bb92bba6 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -1178,7 +1178,7 @@ dfp_can_convert(struct intel_dp *intel_dp,
+ 	return false;
+ }
+ 
+-static enum intel_output_format
++enum intel_output_format
+ intel_dp_output_format(struct intel_connector *connector,
+ 		       enum intel_output_format sink_format)
+ {
+@@ -3337,17 +3337,24 @@ intel_dp_compute_output_format(struct intel_encoder *encoder,
+ 	struct intel_connector *connector = intel_dp->attached_connector;
+ 	const struct drm_display_info *info = &connector->base.display_info;
+ 	const struct drm_display_mode *adjusted_mode = &crtc_state->hw.adjusted_mode;
+-	bool ycbcr_420_only;
++	enum drm_connector_color_format actual_format;
+ 	int ret;
+ 
+-	ycbcr_420_only = drm_mode_is_420_only(info, adjusted_mode);
++	if ((conn_state->color_format == DRM_CONNECTOR_COLOR_FORMAT_YCBCR420 &&
++	     drm_mode_is_420(info, adjusted_mode)) ||
++	    (conn_state->color_format == DRM_CONNECTOR_COLOR_FORMAT_AUTO &&
++	     drm_mode_is_420_only(info, adjusted_mode)))
++		crtc_state->sink_format = INTEL_OUTPUT_FORMAT_YCBCR420;
++	else if (conn_state->color_format == DRM_CONNECTOR_COLOR_FORMAT_YCBCR444)
++		crtc_state->sink_format = INTEL_OUTPUT_FORMAT_YCBCR444;
++	else
++		crtc_state->sink_format = INTEL_OUTPUT_FORMAT_RGB;
+ 
+-	if (ycbcr_420_only && !connector->base.ycbcr_420_allowed) {
++	if (crtc_state->sink_format == INTEL_OUTPUT_FORMAT_YCBCR420 &&
++	    !connector->base.ycbcr_420_allowed) {
+ 		drm_dbg_kms(display->drm,
+-			    "YCbCr 4:2:0 mode but YCbCr 4:2:0 output not possible. Falling back to RGB.\n");
+-		crtc_state->sink_format = INTEL_OUTPUT_FORMAT_RGB;
+-	} else {
+-		crtc_state->sink_format = intel_dp_sink_format(connector, adjusted_mode);
++			"YCbCr 4:2:0 mode requested but unsupported by connector.\n");
++		return -EINVAL;
+ 	}
+ 
+ 	crtc_state->output_format = intel_dp_output_format(connector, crtc_state->sink_format);
+@@ -3355,9 +3362,20 @@ intel_dp_compute_output_format(struct intel_encoder *encoder,
+ 	ret = intel_dp_compute_link_config(encoder, crtc_state, conn_state,
+ 					   respect_downstream_limits);
+ 	if (ret) {
+-		if (crtc_state->sink_format == INTEL_OUTPUT_FORMAT_YCBCR420 ||
+-		    !connector->base.ycbcr_420_allowed ||
+-		    !drm_mode_is_420_also(info, adjusted_mode))
++		/*
++		 * If no valid link config can be found due to bandwidth constraints,
++		 * degrade from RGB/YCbCr 4:4:4 to YCbCr 4:2:0 if permitted by
++		 * the source and sink.
++		 */
++		if (!connector->base.ycbcr_420_allowed)
++			return ret;
++		/* No point in trying YCbCr420 a second time. */
++		if (crtc_state->sink_format == INTEL_OUTPUT_FORMAT_YCBCR420)
++			return ret;
++		if (!drm_mode_is_420(info, adjusted_mode))
++			return ret;
++		/* If a non-AUTO color format is chosen, don't fall back. */
++		if (conn_state->color_format)
+ 			return ret;
+ 
+ 		crtc_state->sink_format = INTEL_OUTPUT_FORMAT_YCBCR420;
+@@ -3365,9 +3383,36 @@ intel_dp_compute_output_format(struct intel_encoder *encoder,
+ 								   crtc_state->sink_format);
+ 		ret = intel_dp_compute_link_config(encoder, crtc_state, conn_state,
+ 						   respect_downstream_limits);
++		if (ret)
++			return ret;
+ 	}
+ 
+-	return ret;
++	if (conn_state->color_format == DRM_CONNECTOR_COLOR_FORMAT_AUTO)
++		return 0;
++
++	switch (crtc_state->sink_format) {
++	case INTEL_OUTPUT_FORMAT_RGB:
++		actual_format = DRM_CONNECTOR_COLOR_FORMAT_RGB444;
++		break;
++	case INTEL_OUTPUT_FORMAT_YCBCR444:
++		actual_format = DRM_CONNECTOR_COLOR_FORMAT_YCBCR444;
++		break;
++	case INTEL_OUTPUT_FORMAT_YCBCR420:
++		actual_format = DRM_CONNECTOR_COLOR_FORMAT_YCBCR420;
++		break;
++	default:
++		drm_dbg_kms(display->drm, "Intel format %d has no connector equivalent\n",
++			    crtc_state->sink_format);
++		return -EINVAL;
++	}
++
++	if (actual_format != conn_state->color_format) {
++		drm_dbg_kms(display->drm, "Requested connector color format %d, got %d\n",
++			    conn_state->color_format, actual_format);
++		return -EINVAL;
++	}
++
++	return 0;
+ }
+ 
+ void
+@@ -6956,6 +7001,8 @@ intel_dp_add_properties(struct intel_dp *intel_dp, struct drm_connector *_connec
+ 		intel_attach_dp_colorspace_property(&connector->base);
+ 	}
+ 
++	intel_attach_colorformat_property(&connector->base);
++
+ 	if (intel_dp_has_gamut_metadata_dip(&dp_to_dig_port(intel_dp)->base))
+ 		drm_connector_attach_hdr_output_metadata_property(&connector->base);
+ 
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.h b/drivers/gpu/drm/i915/display/intel_dp.h
+index 2849b9ecdc71..c42badf752e2 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.h
++++ b/drivers/gpu/drm/i915/display/intel_dp.h
+@@ -204,6 +204,10 @@ bool intel_dp_compute_config_limits(struct intel_dp *intel_dp,
+ void intel_dp_get_dsc_sink_cap(u8 dpcd_rev,
+ 			       const struct drm_dp_desc *desc, bool is_branch,
+ 			       struct intel_connector *connector);
++enum intel_output_format
++intel_dp_output_format(struct intel_connector *connector,
++		       enum intel_output_format sink_format);
++
+ bool intel_dp_has_gamut_metadata_dip(struct intel_encoder *encoder);
+ 
+ bool intel_dp_link_params_valid(struct intel_dp *intel_dp, int link_rate,
+diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+index 887b6de14e46..1b939c7adf9d 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
++++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+@@ -705,10 +705,13 @@ static int mst_stream_compute_config(struct intel_encoder *encoder,
+ 	struct intel_atomic_state *state = to_intel_atomic_state(conn_state->state);
+ 	struct intel_crtc *crtc = to_intel_crtc(pipe_config->uapi.crtc);
+ 	struct intel_dp *intel_dp = to_primary_dp(encoder);
++	enum drm_connector_color_format actual_format;
+ 	struct intel_connector *connector =
+ 		to_intel_connector(conn_state->connector);
+ 	const struct drm_display_mode *adjusted_mode =
+ 		&pipe_config->hw.adjusted_mode;
++	const struct drm_display_info *info =
++		&connector->base.display_info;
+ 	int num_joined_pipes;
+ 	int ret = -EINVAL;
+ 
+@@ -719,10 +722,53 @@ static int mst_stream_compute_config(struct intel_encoder *encoder,
+ 	if (adjusted_mode->flags & DRM_MODE_FLAG_DBLSCAN)
+ 		return -EINVAL;
+ 
+-	pipe_config->sink_format = INTEL_OUTPUT_FORMAT_RGB;
+-	pipe_config->output_format = INTEL_OUTPUT_FORMAT_RGB;
++	if ((conn_state->color_format == DRM_CONNECTOR_COLOR_FORMAT_YCBCR420 &&
++	     drm_mode_is_420(info, adjusted_mode)) ||
++	    (conn_state->color_format == DRM_CONNECTOR_COLOR_FORMAT_AUTO &&
++	     drm_mode_is_420_only(info, adjusted_mode))) {
++		pipe_config->sink_format = INTEL_OUTPUT_FORMAT_YCBCR420;
++	} else if (conn_state->color_format == DRM_CONNECTOR_COLOR_FORMAT_YCBCR444) {
++		pipe_config->sink_format = INTEL_OUTPUT_FORMAT_YCBCR444;
++	} else if (conn_state->color_format == DRM_CONNECTOR_COLOR_FORMAT_AUTO ||
++		   conn_state->color_format == DRM_CONNECTOR_COLOR_FORMAT_RGB444) {
++		pipe_config->sink_format = INTEL_OUTPUT_FORMAT_RGB;
++	} else {
++		drm_dbg_kms(display->drm, "Requested format %d unsupported.\n",
++			    conn_state->color_format);
++		return -EINVAL;
++	}
++
++	if (pipe_config->sink_format == INTEL_OUTPUT_FORMAT_YCBCR420 &&
++	    !connector->base.ycbcr_420_allowed) {
++		drm_dbg_kms(display->drm,
++			    "YCbCr 4:2:0 mode requested but unsupported by connector.\n");
++		return -EINVAL;
++	}
++
++	pipe_config->output_format = intel_dp_output_format(connector, pipe_config->sink_format);
+ 	pipe_config->has_pch_encoder = false;
+ 
++	/* Validate that the right format was picked if explicitly requested */
++	if (conn_state->color_format != DRM_CONNECTOR_COLOR_FORMAT_AUTO) {
++		switch (pipe_config->output_format) {
++		case INTEL_OUTPUT_FORMAT_RGB:
++			actual_format = DRM_CONNECTOR_COLOR_FORMAT_RGB444;
++			break;
++		case INTEL_OUTPUT_FORMAT_YCBCR444:
++			actual_format = DRM_CONNECTOR_COLOR_FORMAT_YCBCR444;
++			break;
++		case INTEL_OUTPUT_FORMAT_YCBCR420:
++			actual_format = DRM_CONNECTOR_COLOR_FORMAT_YCBCR420;
++			break;
++		}
++
++		if (actual_format != conn_state->color_format) {
++			drm_dbg_kms(display->drm, "Requested connector color format %d, got %d\n",
++				    conn_state->color_format, actual_format);
++			return -EINVAL;
++		}
++	}
++
+ 	for_each_joiner_candidate(connector, adjusted_mode, num_joined_pipes) {
+ 		if (num_joined_pipes > 1)
+ 			pipe_config->joiner_pipes = GENMASK(crtc->pipe + num_joined_pipes - 1,
+@@ -1693,6 +1739,8 @@ static int mst_topology_add_connector_properties(struct intel_dp *intel_dp,
+ 	if (connector->base.max_bpc_property)
+ 		drm_connector_attach_max_bpc_property(&connector->base, 6, 12);
+ 
++	intel_attach_colorformat_property(&connector->base);
++
+ 	return drm_connector_set_path_property(&connector->base, pathprop);
+ }
+ 
+diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.c b/drivers/gpu/drm/i915/display/intel_hdmi.c
+index 05e898d10a2b..6b685d9a458e 100644
+--- a/drivers/gpu/drm/i915/display/intel_hdmi.c
++++ b/drivers/gpu/drm/i915/display/intel_hdmi.c
+@@ -2270,33 +2270,73 @@ static int intel_hdmi_compute_output_format(struct intel_encoder *encoder,
+ 	struct intel_connector *connector = to_intel_connector(conn_state->connector);
+ 	const struct drm_display_mode *adjusted_mode = &crtc_state->hw.adjusted_mode;
+ 	const struct drm_display_info *info = &connector->base.display_info;
+-	bool ycbcr_420_only = drm_mode_is_420_only(info, adjusted_mode);
++	enum drm_connector_color_format req_fmt = conn_state->color_format;
++	enum drm_connector_color_format actual_fmt;
+ 	int ret;
+ 
+-	crtc_state->sink_format =
+-		intel_hdmi_sink_format(crtc_state, connector, ycbcr_420_only);
+-
+-	if (ycbcr_420_only && crtc_state->sink_format != INTEL_OUTPUT_FORMAT_YCBCR420) {
+-		drm_dbg_kms(display->drm,
+-			    "YCbCr 4:2:0 mode but YCbCr 4:2:0 output not possible. Falling back to RGB.\n");
+-		crtc_state->sink_format = INTEL_OUTPUT_FORMAT_RGB;
+-	}
++	if (!req_fmt)
++		crtc_state->sink_format =
++			intel_hdmi_sink_format(crtc_state, connector,
++					       drm_mode_is_420_only(info, adjusted_mode));
++	else if (req_fmt == DRM_CONNECTOR_COLOR_FORMAT_YCBCR444)
++		crtc_state->sink_format = INTEL_OUTPUT_FORMAT_YCBCR444;
++	else
++		crtc_state->sink_format =
++			intel_hdmi_sink_format(crtc_state, connector,
++					       req_fmt == DRM_CONNECTOR_COLOR_FORMAT_YCBCR420);
+ 
+ 	crtc_state->output_format = intel_hdmi_output_format(crtc_state);
+ 	ret = intel_hdmi_compute_clock(encoder, crtc_state, respect_downstream_limits);
+ 	if (ret) {
+-		if (crtc_state->sink_format == INTEL_OUTPUT_FORMAT_YCBCR420 ||
+-		    !crtc_state->has_hdmi_sink ||
+-		    !connector->base.ycbcr_420_allowed ||
+-		    !drm_mode_is_420_also(info, adjusted_mode))
++		/*
++		 * If no valid link config can be found due to bandwidth constraints,
++		 * degrade from RGB/YCbCr 4:4:4 to YCbCr 4:2:0 if permitted by
++		 * the source and sink.
++		 */
++		if (!connector->base.ycbcr_420_allowed)
++			return ret;
++		/* No point in trying YCbCr420 a second time. */
++		if (crtc_state->sink_format == INTEL_OUTPUT_FORMAT_YCBCR420)
++			return ret;
++		if (!drm_mode_is_420(info, adjusted_mode))
++			return ret;
++		/* If a non-AUTO color format is chosen, don't fall back. */
++		if (req_fmt)
+ 			return ret;
+ 
+ 		crtc_state->sink_format = INTEL_OUTPUT_FORMAT_YCBCR420;
+ 		crtc_state->output_format = intel_hdmi_output_format(crtc_state);
+ 		ret = intel_hdmi_compute_clock(encoder, crtc_state, respect_downstream_limits);
++		if (ret)
++			return ret;
+ 	}
+ 
+-	return ret;
++	if (req_fmt == DRM_CONNECTOR_COLOR_FORMAT_AUTO)
++		return 0;
++
++	switch (crtc_state->sink_format) {
++	case INTEL_OUTPUT_FORMAT_RGB:
++		actual_fmt = DRM_CONNECTOR_COLOR_FORMAT_RGB444;
++		break;
++	case INTEL_OUTPUT_FORMAT_YCBCR444:
++		actual_fmt = DRM_CONNECTOR_COLOR_FORMAT_YCBCR444;
++		break;
++	case INTEL_OUTPUT_FORMAT_YCBCR420:
++		actual_fmt = DRM_CONNECTOR_COLOR_FORMAT_YCBCR420;
++		break;
++	default:
++		drm_dbg_kms(display->drm, "Intel format %d has no connector equivalent\n",
++			    crtc_state->sink_format);
++		return -EINVAL;
++	}
++
++	if (req_fmt != actual_fmt) {
++		drm_dbg_kms(display->drm, "Requested connector color format %d, got %d\n",
++			    req_fmt, actual_fmt);
++		return -EINVAL;
++	}
++
++	return 0;
+ }
+ 
+ static bool intel_hdmi_is_cloned(const struct intel_crtc_state *crtc_state)
+@@ -2689,8 +2729,10 @@ intel_hdmi_add_properties(struct intel_hdmi *intel_hdmi, struct drm_connector *_
+ 	if (DISPLAY_VER(display) >= 10)
+ 		drm_connector_attach_hdr_output_metadata_property(&connector->base);
+ 
+-	if (!HAS_GMCH(display))
++	if (!HAS_GMCH(display)) {
+ 		drm_connector_attach_max_bpc_property(&connector->base, 8, 12);
++		intel_attach_colorformat_property(&connector->base);
++	}
+ }
+ 
  /*
-  * Test that drm_bridge_get_current_state() returns the last committed
-  * state for an atomic bridge.
-@@ -786,10 +886,94 @@ static void drm_test_drm_bridge_helper_reset_crtc_legacy(struct kunit *test)
- 	KUNIT_EXPECT_EQ(test, bridge_priv->disable_count, 1);
- }
- 
-+/*
-+ * Test that a bridge using the drm_atomic_helper_bridge_get_hdmi_output_bus_fmts()
-+ * function for &drm_bridge_funcs.atomic_get_output_bus_fmts behaves as expected
-+ * for an HDMI connector bridge. Does so by creating an HDMI bridge connector
-+ * with RGB444, YCBCR444, and YCBCR420 (but not YCBCR422) as supported formats,
-+ * sets the output depth to 8 bits per component, and then validates the returned
-+ * list of bus formats.
-+ */
-+static void drm_test_drm_bridge_helper_hdmi_output_bus_fmts(struct kunit *test)
-+{
-+	struct drm_connector_state *conn_state;
-+	struct drm_bridge_state *bridge_state;
-+	struct drm_modeset_acquire_ctx ctx;
-+	struct drm_bridge_init_priv *priv;
-+	struct drm_crtc_state *crtc_state;
-+	struct drm_atomic_state *state;
-+	struct drm_display_mode *mode;
-+	unsigned int num_output_fmts;
-+	struct drm_bridge *bridge;
-+	u32 *out_bus_fmts;
-+	int ret;
-+
-+	priv = drm_test_bridge_hdmi_init(test, &drm_test_bridge_bus_fmts_funcs,
-+					 BIT(DRM_OUTPUT_COLOR_FORMAT_RGB444) |
-+					 BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR444) |
-+					 BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR420),
-+					 12);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, priv);
-+
-+	bridge = &priv->test_bridge->bridge;
-+
-+	drm_modeset_acquire_init(&ctx, 0);
-+
-+	state = drm_kunit_helper_atomic_state_alloc(test, &priv->drm, &ctx);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, state);
-+
-+retry_commit:
-+	conn_state = drm_atomic_get_connector_state(state, priv->connector);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, conn_state);
-+
-+	conn_state->hdmi.output_bpc = 8;
-+
-+	mode = drm_kunit_display_mode_from_cea_vic(test, &priv->drm, 16);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, mode);
-+
-+	ret = drm_atomic_set_crtc_for_connector(conn_state, priv->crtc);
-+	if (ret == -EDEADLK) {
-+		drm_modeset_backoff(&ctx);
-+		goto retry_commit;
-+	}
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+
-+	crtc_state = drm_atomic_get_crtc_state(state, priv->crtc);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, crtc_state);
-+
-+	ret = drm_atomic_set_mode_for_crtc(crtc_state, mode);
-+	if (ret == -EDEADLK) {
-+		drm_modeset_backoff(&ctx);
-+		goto retry_commit;
-+	}
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+
-+	crtc_state->enable = true;
-+	crtc_state->active = true;
-+
-+	bridge_state = drm_atomic_get_bridge_state(state, bridge);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, bridge_state);
-+
-+	out_bus_fmts = bridge->funcs->atomic_get_output_bus_fmts(
-+		bridge, bridge_state, crtc_state, conn_state, &num_output_fmts);
-+	KUNIT_EXPECT_NOT_NULL(test, out_bus_fmts);
-+	KUNIT_EXPECT_EQ(test, num_output_fmts, 3);
-+
-+	KUNIT_EXPECT_EQ(test, out_bus_fmts[0], MEDIA_BUS_FMT_RGB888_1X24);
-+	KUNIT_EXPECT_EQ(test, out_bus_fmts[1], MEDIA_BUS_FMT_YUV8_1X24);
-+	KUNIT_EXPECT_EQ(test, out_bus_fmts[2], MEDIA_BUS_FMT_UYYVYY8_0_5X24);
-+
-+	drm_modeset_drop_locks(&ctx);
-+	drm_modeset_acquire_fini(&ctx);
-+
-+	kfree(out_bus_fmts);
-+}
-+
- static struct kunit_case drm_bridge_helper_reset_crtc_tests[] = {
- 	KUNIT_CASE(drm_test_drm_bridge_helper_reset_crtc_atomic),
- 	KUNIT_CASE(drm_test_drm_bridge_helper_reset_crtc_atomic_disabled),
- 	KUNIT_CASE(drm_test_drm_bridge_helper_reset_crtc_legacy),
-+	KUNIT_CASE(drm_test_drm_bridge_helper_hdmi_output_bus_fmts),
- 	{ }
- };
- 
 
 -- 
 2.53.0
