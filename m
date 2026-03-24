@@ -4,47 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 44F96106B536
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A6BFC106B532
 	for <amd-gfx@archiver.kernel.org>; Wed, 25 Mar 2026 13:03:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 91CB810E8B5;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C6C5110E8BA;
 	Wed, 25 Mar 2026 13:03:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="eSVDxpuQ";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="SVilGr7z";
 	dkim-atps=neutral
 Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
  [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 34CB810E73B;
- Tue, 24 Mar 2026 16:03:21 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1774368190; cv=none; 
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0723910E62F;
+ Tue, 24 Mar 2026 16:04:36 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1774368264; cv=none; 
  d=zohomail.com; s=zohoarc; 
- b=LReOyZYw5x4/D9u1OTFZn4uK7ZLhsOj7VBT/dwEiIASJyln5+JOYlPGxI5vvoraEMPXs1dj1LaYVhzLRL3klX1ziV2x9x76TVpcmBWb+qAK36d+js5cOqYMs6hoB4WauaY5IOLXsRCVsehQF/BrV2pQaFWf9Ic1zC36//CAlBVI=
+ b=O6qAhMxUcCq3vSDeUaXQ3PiFqPXyEJ044LZwR+IyhlKc+L/pZc02LmCCNBgLcghX1E8IdI+dM97C9+d4KHlXr091tzTJG17QlHfF/0l3XkCAj/TbYSntcNUBV8HXPPM+EHfnsytHvQukJG4eUWTV7LnM4y9sfcTlIsTB9dX6frU=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1774368190;
+ s=zohoarc; t=1774368264;
  h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=FenlZU+Q9fcqz4rTVQF15NxhkdYoxpJFDd83oJEXDMg=; 
- b=AGi0E1hbiljbqxnSIfI7gdW3MeokgzqDWncROtxJjOsqIYyuFTXDxN6NkHZV/hUQMChl5/ZHpe3/u38RH9jT6+8ppy5zdgcXbxPlUMYB8ZPzXq42yhAtYm2VPCX/uiA7xxpZ/DJPPdRnh3IwE5rsadMcCTyd0KhqYIM9XAaE1YQ=
+ bh=g0VbMYs0AEkV9EivTOSR7pyyzqpN5PApU+4T9PAdEGo=; 
+ b=dsaYCQjCcuot+3tC4bN7Eui2+HzhabrP6wZJCMYANZMujpZ797CCdYqXPmsTsOVwxhY957Gd8gCojmqWtFn4UdRffaJfSlYESyCcTFOikdowwP8oeBG0bv6ce7L7T4kEVCA6hwlXss/XSb/Gyh7jCleudx0/FJVkVHhmGzvU3KA=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
  dkim=pass  header.i=collabora.com;
  spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
  dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1774368190; 
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1774368264; 
  s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
  h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:References:In-Reply-To:To:To:Cc:Cc:Reply-To;
- bh=FenlZU+Q9fcqz4rTVQF15NxhkdYoxpJFDd83oJEXDMg=;
- b=eSVDxpuQZgx9S9cjhwgvh11gPzulYEI4dFiNsA+OHtfjw8FubXSQrUmk4aNF4Wl2
- ZovT6ytW3bC+RcT+ds90hURGjg+EAChHTZkvBiL+YN+M3JpsM5PErWNqQTgZpoC+SDp
- BHaRuzeRTRc3GiDckulPXAF15riKG4/zO9GpdBkA=
-Received: by mx.zohomail.com with SMTPS id 1774368188441327.08097183352686;
- Tue, 24 Mar 2026 09:03:08 -0700 (PDT)
+ bh=g0VbMYs0AEkV9EivTOSR7pyyzqpN5PApU+4T9PAdEGo=;
+ b=SVilGr7zeevJfoUOthl2KApf2d/GxJSg2p4OlCffNrVXMFkG1hP35dmB1aJjd46g
+ 83KPksyomhKeXbSSmjnd6/kc4tJ4HAiLcEXE7+3o87gPvJthPTxB3BTjxI+pOVbBEgi
+ 4/q3xD2ofeoKtW+T3CHeKPprlvdWfPK26xIZYg28=
+Received: by mx.zohomail.com with SMTPS id 1774368261854804.4850539540041;
+ Tue, 24 Mar 2026 09:04:21 -0700 (PDT)
 From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Date: Tue, 24 Mar 2026 17:01:16 +0100
-Subject: [PATCH v11 12/22] drm/rockchip: vop2: Recognise 10-bit YUV422 as
- YUV format
+Date: Tue, 24 Mar 2026 17:01:26 +0100
+Subject: [PATCH v11 22/22] drm/bridge: Document bridge chain format selection
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260324-color-format-v11-12-605559af4fb4@collabora.com>
+Message-Id: <20260324-color-format-v11-22-605559af4fb4@collabora.com>
 References: <20260324-color-format-v11-0-605559af4fb4@collabora.com>
 In-Reply-To: <20260324-color-format-v11-0-605559af4fb4@collabora.com>
 To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
@@ -72,8 +71,7 @@ Cc: kernel@collabora.com, amd-gfx@lists.freedesktop.org,
  linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
  intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
  linux-doc@vger.kernel.org, 
- Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, 
- Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+ Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 X-Mailer: b4 0.15.0
 X-Mailman-Approved-At: Wed, 25 Mar 2026 13:03:04 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -90,35 +88,90 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The Rockchip VOP2 video output driver has a "is_yuv_output" function,
-which returns true when a given bus format is a YUV format, and false
-otherwise.
+The bridge chain format selection behaviour was, until now,
+undocumented. With the addition of the "color format" DRM property, it's
+not sufficiently complex enough that documentation is warranted,
+especially for driver authors trying to do the right thing.
 
-This switch statement is lacking the bus format used for YUV422 10-bit.
+Add a high-level overview of how the process is supposed to work, and
+mention what the display driver is supposed to do if it wants to make
+use of this functionality.
 
-Add the two component orderings of the YUV422 10-bit bus formats to the
-switch statement.
-
-Fixes: 604be85547ce ("drm/rockchip: Add VOP2 driver")
-Reviewed-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+Reviewed-by: Maxime Ripard <mripard@kernel.org>
 Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 ---
- drivers/gpu/drm/rockchip/rockchip_drm_vop2.c | 2 ++
- 1 file changed, 2 insertions(+)
+ Documentation/gpu/drm-kms-helpers.rst |  6 ++++++
+ drivers/gpu/drm/drm_bridge.c          | 40 +++++++++++++++++++++++++++++++++++
+ 2 files changed, 46 insertions(+)
 
-diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-index d3b76e7e785e..59d15bacf023 100644
---- a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-+++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-@@ -352,6 +352,8 @@ static bool is_yuv_output(u32 bus_format)
- 	switch (bus_format) {
- 	case MEDIA_BUS_FMT_YUV8_1X24:
- 	case MEDIA_BUS_FMT_YUV10_1X30:
-+	case MEDIA_BUS_FMT_YUYV10_1X20:
-+	case MEDIA_BUS_FMT_UYVY10_1X20:
- 	case MEDIA_BUS_FMT_UYYVYY8_0_5X24:
- 	case MEDIA_BUS_FMT_UYYVYY10_0_5X30:
- 	case MEDIA_BUS_FMT_YUYV8_2X8:
+diff --git a/Documentation/gpu/drm-kms-helpers.rst b/Documentation/gpu/drm-kms-helpers.rst
+index 781129f78b06..47c4f593cf9d 100644
+--- a/Documentation/gpu/drm-kms-helpers.rst
++++ b/Documentation/gpu/drm-kms-helpers.rst
+@@ -181,6 +181,12 @@ Bridge Operations
+ .. kernel-doc:: drivers/gpu/drm/drm_bridge.c
+    :doc: bridge operations
+ 
++Bridge Chain Format Selection
++-----------------------------
++
++.. kernel-doc:: drivers/gpu/drm/drm_bridge.c
++   :doc: bridge chain format selection
++
+ Bridge Connector Helper
+ -----------------------
+ 
+diff --git a/drivers/gpu/drm/drm_bridge.c b/drivers/gpu/drm/drm_bridge.c
+index 9ee3a8c25510..188606a34313 100644
+--- a/drivers/gpu/drm/drm_bridge.c
++++ b/drivers/gpu/drm/drm_bridge.c
+@@ -198,6 +198,46 @@
+  * driver.
+  */
+ 
++/**
++ * DOC: bridge chain format selection
++ *
++ * A bridge chain, from display output processor to connector, may contain
++ * bridges capable of converting between bus formats on their inputs, and
++ * output formats on their outputs. For example, a bridge may be able to convert
++ * from RGB to YCbCr 4:4:4, and pass through YCbCr 4:2:0 as-is, but not convert
++ * from RGB to YCbCr 4:2:0. This means not all input formats map to all output
++ * formats.
++ *
++ * Further adding to this, a desired output color format, as specified with the
++ * "color format" DRM property, might not correspond 1:1 to what the display
++ * driver should set at its output. The bridge chain it feeds into may only be
++ * able to reach the desired output format, if a conversion from a different
++ * starting format is performed.
++ *
++ * To deal with this complexity, the recursive bridge chain bus format selection
++ * logic starts with the last bridge in the chain, usually the connector, and
++ * then recursively walks the chain of bridges backwards to the first bridge,
++ * trying to find a path.
++ *
++ * For a display driver to work in such a scenario, it should read the first
++ * bridge's bridge state to figure out which bus format the chain resolved to.
++ * If the first bridge's input format resolved to %MEDIA_BUS_FMT_FIXED, then its
++ * output format should be used.
++ *
++ * Special handling is done for HDMI as it relates to format selection. Instead
++ * of directly using the "color format" DRM property for bridge chains that end
++ * in HDMI bridges, the bridge chain format selection logic will trust the logic
++ * that set the HDMI output format. For the common HDMI state helper
++ * functionality, this means that %DRM_CONNECTOR_COLOR_FORMAT_AUTO will allow
++ * fallbacks to YCBCr 4:2:0 if the bandwidth requirements would otherwise be too
++ * high but the mode and connector allow it.
++ *
++ * For bridge chains that do not end in an HDMI bridge,
++ * %DRM_CONNECTOR_COLOR_FORMAT_AUTO will be satisfied with the first output
++ * format on the last bridge for which it can find a path back to the first
++ * bridge.
++ */
++
+ /* Protect bridge_list and bridge_lingering_list */
+ static DEFINE_MUTEX(bridge_lock);
+ static LIST_HEAD(bridge_list);
 
 -- 
 2.53.0
