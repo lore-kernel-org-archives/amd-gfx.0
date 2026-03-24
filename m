@@ -4,96 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B240AF54AAD
-	for <amd-gfx@archiver.kernel.org>; Tue, 24 Mar 2026 13:10:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 22D1FF54AAE
+	for <amd-gfx@archiver.kernel.org>; Tue, 24 Mar 2026 13:11:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1B9C410E58C;
-	Tue, 24 Mar 2026 13:10:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B893810E660;
+	Tue, 24 Mar 2026 13:11:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="cZX/agZN";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="gXbZm1cF";
 	dkim-atps=neutral
 Received: from mail-dl1-f47.google.com (mail-dl1-f47.google.com [74.125.82.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AA9F910E58C
- for <amd-gfx@lists.freedesktop.org>; Tue, 24 Mar 2026 13:10:19 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9D74E10E660
+ for <amd-gfx@lists.freedesktop.org>; Tue, 24 Mar 2026 13:11:36 +0000 (UTC)
 Received: by mail-dl1-f47.google.com with SMTP id
- a92af1059eb24-12714f01940so260479c88.0
- for <amd-gfx@lists.freedesktop.org>; Tue, 24 Mar 2026 06:10:19 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1774357819; cv=none;
+ a92af1059eb24-1273c690e5bso499012c88.2
+ for <amd-gfx@lists.freedesktop.org>; Tue, 24 Mar 2026 06:11:36 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1774357896; cv=none;
  d=google.com; s=arc-20240605;
- b=hM0dN2f2IlgAUAurAuUPtfm7MwykvjYp66O7TAOX7MkNK7E/gIbIwdC1v4XsyMoBy5
- yA1Ol/jtowu72ZRRwFIrH5T96VIl7E7AD9Du0sZxyd8bWONxiHpDAMFIM7h6caF8ysDk
- qx9BhSz38OH2mvYxE7O05P1EmQ/w0r/aRvVMSBw8DE6hc538pirSSQ2PULN5eUbWVb7w
- T9kbywU0XlPSDW0azXNK9E/Bj4Zvni7bkLpvA505zX2fUj8KQYvgcfwUxgNA1JgdS4xw
- K1RuG+E/CaFhl8oEEHfJE/CvtfGHPef9vvUh6CUzDX0CLkpzNyDxatYb9n/OjhdpxxBf
- AsTQ==
+ b=hMZM/JoUZqGxixzvQibuGMI1uoGbmGlYAjbmX0YGAGkr5w3lmpsGVkJ0iR5Lm38DVC
+ hw4N2uSt4j8JQwE7G3R4JHiCAMJJKwOKNkp0oapqfqEtdc32Bsae+wMBjpbJe+SSyLkI
+ L7lvMoKYuZr5x4Y94w1ipjG+z5hYeJX1AEo2lyycL3H/eZzD5xrfeZOqIxM6lGQEHGWu
+ L8pvt7o6RUdSjbSyA58JhmylCcjykIr4jAXUXufnrsdAFbUfFxJS4VevbL8WV5h0o3Js
+ tlRCB/So/w2IwjpuzXKlaez1C+EzFoLJCBCli4VCfDLB3DFeth4nbmBvIMXcUkK4qRDE
+ 7XUA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20240605; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=TwWbl3gQrlg4sgo335nHJ9PERnGe6ovz4ONesm9QN2Q=;
- fh=vqfujzjIqeyU+/f9qzJWK5H0HSMKoD59R8PKI29HyXQ=;
- b=Vnf0GtlIKItG8FFZaq98QoHFRShS+XFrzB+BMQYQGoGLddsNciaitHU8+z7DLo6XJy
- E4f49zOrR5cp0WEOZZvVlwfqH57RvUrrywwwoXgUJTg443sA2aBI92SyT/LCiK6spsGK
- lL3OlE4JxBIY8WLZgBZHXE7wtt1YO0CkSEse7QXpRn6mDWKY0KpDvI6pz6Gn0ULecBMc
- knhlZn6sT/+jC8+R+z/E/bRKrZlBHiNkCNmSHt6MjpSuYYytm/kfkdYDU5cgdcsxlmMU
- 0jBQ18yfJJQz3LIRBajpHhAvorfIQGE6vORi9D7RsGXMlmnSkYkAf6FeMN7CJRFHDN22
- tJCw==; darn=lists.freedesktop.org
+ bh=HQZx/kvnFzJcbke4KxeXmKPQO4Our1sxl7Tf5UayGA8=;
+ fh=enN+75eEHTet0bD/KwLzYfNFOocFpgcZBQrHGRaOAEA=;
+ b=gY13o0smNqenuo3CZ+qfAiIm/LlfTFE8ZnmxrV+IX2fIbaiSawFOH0OIA9F4ky5wAY
+ U/Mj9MTPz0jpqteU1PxjithiFCrLOde7+YPjmQc4V4AKQJWwpJG10H/yq3l4QceDP+La
+ WFfc/zncoQkicvUFt0NIs5/uo2+kZ+lH3NbbA1PP37KH1HQnnSoG0xIkIp/8v5DpN+Jr
+ vIco3uuFrj/PdG/ShkQzy6mJBmBfDyS0qrzcn4yJ+IW4TKAef/T0sIPuJquoiH5eIMCU
+ Ya0UPXbvbj2YtkY+NCQoW4X3CO7BF27YohUaRl1kuc9eXQSuGXssMrIwNSYrk6wQ8LV2
+ wKsg==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1774357819; x=1774962619; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1774357896; x=1774962696; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=TwWbl3gQrlg4sgo335nHJ9PERnGe6ovz4ONesm9QN2Q=;
- b=cZX/agZNqFgVcCLvcePjuKbf0efMZc1x+g1DzDXdPLEol/Fdu0Q3YxNL1TxIW00iX6
- SnHYoLjwJejrsK9TTXolW2IbGDKOcTxMRfjLwJdAS2fj8tIxN8ohNt5fJjLM5GLueLAS
- OUufDezHlHt+9MTmXhEa3aR6y/xQWoEnHXxO3FzXYkvj+fmVFVfGXYP8oqeORJMaUvDw
- FC7bhi2S5uQVdqOH6W79Kg4uYI91GgOgyod8jcix/yDr4nOQPsA/YBziYGLdTAwvTiWO
- /SIFnfLiSjCzqBvH2SM9rh/OFG/ulD4EqrOm2pkxxZjnBdXhq5t02wjREkKSLmAAuYp+
- /8BQ==
+ bh=HQZx/kvnFzJcbke4KxeXmKPQO4Our1sxl7Tf5UayGA8=;
+ b=gXbZm1cFP1GEQ3arec9DgjTty+IDH/MhsytHeno37+85yCPB1/CoNFbfprlwopSpD+
+ CxNFyIKGtZF2RiL/PEhxjGPr8wgFc92SqMmyHMV1Q31S/Gz+s9XDiNAfZBCHMKDvDcRo
+ 9zEeieitLoaYC/oUsvfWTiairu93uyWyxyj4lszBz1epjK/MV1y7ZPaJJQXTEzJ6Kkcb
+ p0daMHgZPPX/vkbGKhCFvxZ/nly3woixFPGAi+MFJcZrVkqvg1cQDqZRRSezx2ZE4Ct3
+ Bsf5X7gVjsDOVAsCHe/4GCfkbfy0CThfdp6JWzh1K9raTDkIZ3nX2fc3gIkdzOikSz/p
+ 9DrQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774357819; x=1774962619;
+ d=1e100.net; s=20251104; t=1774357896; x=1774962696;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=TwWbl3gQrlg4sgo335nHJ9PERnGe6ovz4ONesm9QN2Q=;
- b=Q59yBepM3V2CTARUF3tLbQdT+YKsaF3DsVRYC1NS6RAgM0g8jstHUWcYEF6wvk6rkW
- eR+nTIagBbE7nIfcxBMfD7yiOOo7bBjaxqShvkbclqPaVDcunuUyu6v/N2tfRIgyK+p1
- 5bX9gy7EN+7g2eleSnXlaoU1zpo8emsSF8vJKwWN+uFT41ekYTycP8ED72qOxthkMiT4
- QOyDHfnhI3CIbhwDCKzSAfervFu7oYhoZA2Pku/0EOr4MEL1PScHpbDl+6KIJCRJ45en
- LnTyPDYSqmN0FVF4KHg0QwUEkPr5K2LNvH4qUdka7OvAcqgokYx+6o1m2ACSM7cwCzsO
- LQ6Q==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVthl5t8Zlax17xbQPejTTEF/xc8H236fEPLBK/SfJRiJCbblsCA8hqun6/4yeXqgT1NnUB3BNh@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyYdiquze1TmIRwIKohA2xgzROYFIihBjk7kd1UPNmVw19yJQR+
- rNcxK0wOIioCr3jKnEPz+fDnbjcHl1OmbIX5MGSIPdxYIoQ+TJypk/HA/ZFfkEODVVexetAV9sm
- uHNyuAFOoeNjZjhJc2fFjlDq0sHfJeQif/g==
-X-Gm-Gg: ATEYQzypJVsfAR6DNS1H6sb1Vf3WvKOBSmWIXiw8vikrN5LdrYMUoPYnyFoL/wFJGS+
- kqYQoGvivOg1KOAMBQVtFvedqRUupFP7oe9kH8Hzl7Dc33uYF+1LU1NHHh2O5Se9Lyr4mUS+/PQ
- hM5Jdq4Sids5JyB0KbiU+UZvAxJ3hCK97znasrfQlICMoywjz85TF6iZTqd98UBzOgJ2mjhI8oB
- 40gdKfRCYbDiOsJaBCUeVGWXiCRnF5OkCvKBCIPyyDtZmUvONAyXm6aaJqYQVGQGnNNimpHuPYA
- 3Kvu8tUiHrSfJsfn8mUvdJPNoeWBb4RQ1MtbgWdeL8RaRmuU7ppM6g86dmPr1Ss21a1oxw==
-X-Received: by 2002:a05:7022:792:b0:119:e56b:c3f1 with SMTP id
- a92af1059eb24-12a72651381mr3814100c88.1.1774357818810; Tue, 24 Mar 2026
- 06:10:18 -0700 (PDT)
+ bh=HQZx/kvnFzJcbke4KxeXmKPQO4Our1sxl7Tf5UayGA8=;
+ b=CGjpoJ3aXou5jrOXiFD7vAdvXsjrO2R7zrln33NsZAQ54mrGynmV1Z25/z6PhVwAwk
+ ocHwOPjWI9dLcIQhwkNVlV9WbyEUCqGHVBgKr5IL/kAdvUWi+raB+fwIQN47+EHwAleL
+ M/Y9D5ZSyiUCiB8iNFHetYEJCrEHAkKhdheo3n3UA8ThGO73z4RsZBhV+Ft+b51q4yVt
+ Ksxzl4omt5oQrVwT3B2nTUAXLLZnIdJT4ZbF1olEBv2SbF9XGq3kO4S1bj/DBTrECu4i
+ e24+YA38ykGEJuFlOxBMrQK5epdjbC7JnxyOYjCL6EmwFTf3NNlTqGygfrxJaNwQ5Bu6
+ GP/w==
+X-Gm-Message-State: AOJu0Yw8u1aGeSMvVJh2yIUkjufJ3nPhstKAkPfopFbrcQ7tT4epFscL
+ Q20uCH3hKini8TxvbAj3GwRYtUfF63cvPWv46eTCoN2q1h/9+5if8YFzsYU04uZ7huHUMPjLBC9
+ /h7tbrKVbmh8hZH7DqYUibz+849Yur14=
+X-Gm-Gg: ATEYQzz3wtbgFQHI1o1XuzKcPpByuFQYJU6LQQ9ktblHb6KclnUWZDieHatRmMV3hEJ
+ yHf3ixmn5Gc5mXppn5HAds6XRk/YwaHFOrhwXDYxXCJKWHW6l95x3ZYrtTFwSECmyttSt+h/oJs
+ CScFNDbMXXa/eaPSr7V0yDnoAMiM4B+FfIct836HwDG734KAs9T78sXhxMR5mVlihYPcY2WGoJg
+ 41gFAb0fh6dyYnszTiuK6OXXs/6reCGLeHSXE9kX+jNqIPUgzTPVDjOToHT0JiafYrsTjfkLHNU
+ fyvq0jl1IUt2AiIzhVpQcl6kfONeoYE/s8WSaTAqpdWzw5RcofYCU+b0YVjxS2Jbvyo90w==
+X-Received: by 2002:a05:7022:2224:b0:128:d590:2947 with SMTP id
+ a92af1059eb24-12a726c143dmr3367139c88.4.1774357895871; Tue, 24 Mar 2026
+ 06:11:35 -0700 (PDT)
 MIME-Version: 1.0
-References: <cover.1774239489.git.donettom@linux.ibm.com>
- <1e6240945c2fcb53b6703ae62d4b36f5958ca8a6.1774239489.git.donettom@linux.ibm.com>
- <3a5ed765-3a50-446d-bd26-aa09dfe3d6a2@amd.com>
-In-Reply-To: <3a5ed765-3a50-446d-bd26-aa09dfe3d6a2@amd.com>
+References: <20260320083247.428482-1-nichen@iscas.ac.cn>
+In-Reply-To: <20260320083247.428482-1-nichen@iscas.ac.cn>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 24 Mar 2026 09:10:07 -0400
-X-Gm-Features: AaiRm53wTvFaie_ti12g5_uhAPMMa80SbX_M6oLaqW46aYiqMuKI-7GKZg1TM-Q
-Message-ID: <CADnq5_Mc5TEBXD+sTLmT2ew6KKH++=8YjN=3N9d_bWUqqKgMRA@mail.gmail.com>
-Subject: Re: [RESEND RFC PATCH v3 3/6] drm/amdgpu: Handle GPU page faults
- correctly on non-4K page systems
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: Donet Tom <donettom@linux.ibm.com>, amd-gfx@lists.freedesktop.org, 
- Felix Kuehling <Felix.Kuehling@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, 
- Philip Yang <yangp@amd.com>, David.YatSin@amd.com, Kent.Russell@amd.com, 
- Ritesh Harjani <ritesh.list@gmail.com>,
- Vaidyanathan Srinivasan <svaidy@linux.ibm.com>
+Date: Tue, 24 Mar 2026 09:11:24 -0400
+X-Gm-Features: AaiRm52hZWMu_Hps_nL6ZzI9xC82b-C0ijos6SKmEDSAmtR9aU33yL7mfuLLMkQ
+Message-ID: <CADnq5_Ni0AUQYWT1hP2DqA0HGdDgTGPwTa4mPszbD1nNVGqA2w@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu/userq: convert comma to semicolon
+To: Chen Ni <nichen@iscas.ac.cn>
+Cc: amd-gfx@lists.freedesktop.org, christian.koenig@amd.com, 
+ alexander.deucher@amd.com, sunil.khatri@amd.com, 
+ dri-devel@lists.freedesktop.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -110,76 +102,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.  Thanks!
+Applied.  thanks!
 
 Alex
 
-On Mon, Mar 23, 2026 at 9:04=E2=80=AFAM Christian K=C3=B6nig
-<christian.koenig@amd.com> wrote:
+On Fri, Mar 20, 2026 at 4:47=E2=80=AFAM Chen Ni <nichen@iscas.ac.cn> wrote:
 >
-> On 3/23/26 05:28, Donet Tom wrote:
-> > During a GPU page fault, the driver restores the SVM range and then map=
-s it
-> > into the GPU page tables. The current implementation passes a GPU-page-=
-size
-> > (4K-based) PFN to svm_range_restore_pages() to restore the range.
-> >
-> > SVM ranges are tracked using system-page-size PFNs. On systems where th=
-e
-> > system page size is larger than 4K, using GPU-page-size PFNs to restore=
- the
-> > range causes two problems:
-> >
-> > Range lookup fails:
-> > Because the restore function receives PFNs in GPU (4K) units, the SVM
-> > range lookup does not find the existing range. This will result in a
-> > duplicate SVM range being created.
-> >
-> > VMA lookup failure:
-> > The restore function also tries to locate the VMA for the faulting addr=
-ess.
-> > It converts the GPU-page-size PFN into an address using the system page
-> > size, which results in an incorrect address on non-4K page-size systems=
-.
-> > As a result, the VMA lookup fails with the message: "address 0xxxx VMA =
-is
-> > removed".
-> >
-> > This patch passes the system-page-size PFN to svm_range_restore_pages()=
- so
-> > that the SVM range is restored correctly on non-4K page systems.
-> >
-> > Signed-off-by: Donet Tom <donettom@linux.ibm.com>
+> Using a ',' in place of a ';' can have unintended side effects.
+> Although that is not the case here, it seems best to use ';'
+> unless ',' is intended.
 >
-> Acked-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+> Found by inspection.
+> No functional change intended.
+> Compile tested only.
 >
-> > ---
-> >  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 6 +++---
-> >  1 file changed, 3 insertions(+), 3 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_vm.c
-> > index 6a2ea200d90c..7a3cb0057ac5 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> > @@ -2985,14 +2985,14 @@ bool amdgpu_vm_handle_fault(struct amdgpu_devic=
-e *adev, u32 pasid,
-> >       if (!root)
-> >               return false;
-> >
-> > -     addr /=3D AMDGPU_GPU_PAGE_SIZE;
-> > -
-> >       if (is_compute_context && !svm_range_restore_pages(adev, pasid, v=
-mid,
-> > -         node_id, addr, ts, write_fault)) {
-> > +         node_id, addr >> PAGE_SHIFT, ts, write_fault)) {
-> >               amdgpu_bo_unref(&root);
-> >               return true;
-> >       }
-> >
-> > +     addr /=3D AMDGPU_GPU_PAGE_SIZE;
-> > +
-> >       r =3D amdgpu_bo_reserve(root, true);
-> >       if (r)
-> >               goto error_unref;
+> Signed-off-by: Chen Ni <nichen@iscas.ac.cn>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c b/drivers/gp=
+u/drm/amd/amdgpu/amdgpu_userq_fence.c
+> index 781896c9fd26..6daec964ca5e 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
+> @@ -961,13 +961,13 @@ int amdgpu_userq_wait_ioctl(struct drm_device *dev,=
+ void *data,
+>         }
+>
+>         num_read_bo_handles =3D wait_info->num_bo_read_handles;
+> -       ptr =3D u64_to_user_ptr(wait_info->bo_read_handles),
+> +       ptr =3D u64_to_user_ptr(wait_info->bo_read_handles);
+>         r =3D drm_gem_objects_lookup(filp, ptr, num_read_bo_handles, &gob=
+j_read);
+>         if (r)
+>                 goto free_timeline_points;
+>
+>         num_write_bo_handles =3D wait_info->num_bo_write_handles;
+> -       ptr =3D u64_to_user_ptr(wait_info->bo_write_handles),
+> +       ptr =3D u64_to_user_ptr(wait_info->bo_write_handles);
+>         r =3D drm_gem_objects_lookup(filp, ptr, num_write_bo_handles,
+>                                    &gobj_write);
+>         if (r)
+> --
+> 2.25.1
 >
