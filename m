@@ -4,77 +4,82 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 07F47106B535
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 64D33106B534
 	for <amd-gfx@archiver.kernel.org>; Wed, 25 Mar 2026 13:03:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EA2FF10E8BC;
-	Wed, 25 Mar 2026 13:03:05 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="Ip/ReNo8";
-	dkim-atps=neutral
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
- [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D9C8310E746;
- Tue, 24 Mar 2026 16:03:51 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1774368220; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=lyRIb74b+5JewRV+amJa5Cw4ceMru9ILeBJPl460i1oj1x63EH4x5TtJ3mlGt4a/54ldjq7iynqoAMWq+N9hNtmz+IvapCz2wafCbMJsj+mBi40NRUIWGYM+TZCU9F3j4EMyw0OtUeQi/scjvUtangxpsimmgPze0eRsZAju8GQ=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1774368220;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=lB0j2lq2LWsiJngjiTH6IKajspe0V1BafT22AHF3h7Q=; 
- b=VGooJGWabgHas4msgI+vxel/HRU7BaXTZej5nNClXii72V7d75YYwH0y4HXl5E4l0rSTa4MdA7At2ckdepIfL/g7d+uNRlOH/MLrsqHREMrbfbgY/ZtbGxOBwm03/tLQ32X4/vj8HXBywAg3udDKi+PZRQ3ALn5S3J8PDd74S2c=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
- dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1774368220; 
- s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
- h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:References:In-Reply-To:To:To:Cc:Cc:Reply-To;
- bh=lB0j2lq2LWsiJngjiTH6IKajspe0V1BafT22AHF3h7Q=;
- b=Ip/ReNo80mujw4qLUYVl1GBerxPUCg/ZnDKgyimSY+FSHZ0GmPW0Uczw3sel++gX
- yr8dHUQT26ZSaYX5lUElmMRahrBEl3UeRhn8JZUDO9Bai76kK7vShnEehUEO+Qff55O
- HAksHxJGHuvbKql71fchu+40CQ1PP0ny0sXJtwCM=
-Received: by mx.zohomail.com with SMTPS id 1774368217997429.93644086552706;
- Tue, 24 Mar 2026 09:03:37 -0700 (PDT)
-From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Date: Tue, 24 Mar 2026 17:01:20 +0100
-Subject: [PATCH v11 16/22] drm/rockchip: dw_hdmi_qp: Set supported_formats
- platdata
+	by gabe.freedesktop.org (Postfix) with ESMTP id 188D510E8C1;
+	Wed, 25 Mar 2026 13:03:06 +0000 (UTC)
+Received: from relay.hostedemail.com (smtprelay0014.hostedemail.com
+ [216.40.44.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EC57E10E659
+ for <amd-gfx@lists.freedesktop.org>; Tue, 24 Mar 2026 14:27:58 +0000 (UTC)
+Received: from omf02.hostedemail.com (a10.router.float.18 [10.200.18.1])
+ by unirelay10.hostedemail.com (Postfix) with ESMTP id 1BB3AC3B50;
+ Tue, 24 Mar 2026 14:27:53 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by
+ omf02.hostedemail.com (Postfix) with ESMTPA id DC83180011; 
+ Tue, 24 Mar 2026 14:27:20 +0000 (UTC)
+Date: Tue, 24 Mar 2026 10:28:02 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: "Vineeth Pillai (Google)" <vineeth@bitbyteword.org>
+Cc: Peter Zijlstra <peterz@infradead.org>, Dmitry Ilvokhin <d@ilvokhin.com>,
+ Masami Hiramatsu <mhiramat@kernel.org>, Mathieu Desnoyers
+ <mathieu.desnoyers@efficios.com>, Ingo Molnar <mingo@redhat.com>, Jens
+ Axboe <axboe@kernel.dk>, io-uring@vger.kernel.org, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub Kicinski
+ <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Alexei Starovoitov
+ <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, Marcelo Ricardo
+ Leitner <marcelo.leitner@gmail.com>, Xin Long <lucien.xin@gmail.com>, Jon
+ Maloy <jmaloy@redhat.com>, Aaron Conole <aconole@redhat.com>, Eelco
+ Chaudron <echaudro@redhat.com>, Ilya Maximets <i.maximets@ovn.org>,
+ netdev@vger.kernel.org, bpf@vger.kernel.org, linux-sctp@vger.kernel.org,
+ tipc-discussion@lists.sourceforge.net, dev@openvswitch.org, Jiri Pirko
+ <jiri@resnulli.us>, Oded Gabbay <ogabbay@kernel.org>, Koby Elbaz
+ <koby.elbaz@intel.com>, dri-devel@lists.freedesktop.org, "Rafael J.
+ Wysocki" <rafael@kernel.org>, Viresh Kumar <viresh.kumar@linaro.org>,
+ "Gautham R. Shenoy" <gautham.shenoy@amd.com>, Huang Rui
+ <ray.huang@amd.com>, Mario Limonciello <mario.limonciello@amd.com>, Len
+ Brown <lenb@kernel.org>, Srinivas Pandruvada
+ <srinivas.pandruvada@linux.intel.com>, linux-pm@vger.kernel.org, MyungJoo
+ Ham <myungjoo.ham@samsung.com>, Kyungmin Park <kyungmin.park@samsung.com>,
+ Chanwoo Choi <cw00.choi@samsung.com>, Christian =?UTF-8?B?S8O2bmln?=
+ <christian.koenig@amd.com>, Sumit Semwal <sumit.semwal@linaro.org>,
+ linaro-mm-sig@lists.linaro.org, Eddie James <eajames@linux.ibm.com>, Andrew
+ Jeffery <andrew@codeconstruct.com.au>, Joel Stanley <joel@jms.id.au>,
+ linux-fsi@lists.ozlabs.org, David Airlie <airlied@gmail.com>, Simona Vetter
+ <simona@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>, Danilo
+ Krummrich <dakr@kernel.org>, Matthew Brost <matthew.brost@intel.com>,
+ Philipp Stanner <phasta@kernel.org>, Harry Wentland
+ <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ amd-gfx@lists.freedesktop.org, Jiri Kosina <jikos@kernel.org>, Benjamin
+ Tissoires <bentiss@kernel.org>, linux-input@vger.kernel.org, Wolfram Sang
+ <wsa+renesas@sang-engineering.com>, linux-i2c@vger.kernel.org, Mark Brown
+ <broonie@kernel.org>, Michael Hennerich <michael.hennerich@analog.com>,
+ Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, linux-spi@vger.kernel.org,
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, "Martin K.
+ Petersen" <martin.petersen@oracle.com>, linux-scsi@vger.kernel.org, Chris
+ Mason <clm@fb.com>, David Sterba <dsterba@suse.com>,
+ linux-btrfs@vger.kernel.org, Thomas Gleixner <tglx@linutronix.de>, Andrew
+ Morton <akpm@linux-foundation.org>, SeongJae Park <sj@kernel.org>,
+ linux-mm@kvack.org, Borislav Petkov <bp@alien8.de>, Dave Hansen
+ <dave.hansen@linux.intel.com>, x86@kernel.org,
+ linux-trace-kernel@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 00/19] tracepoint: Avoid double static_branch
+ evaluation at guarded call sites
+Message-ID: <20260324102802.4f8af148@gandalf.local.home>
+In-Reply-To: <20260323160052.17528-1-vineeth@bitbyteword.org>
+References: <20260323160052.17528-1-vineeth@bitbyteword.org>
+X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260324-color-format-v11-16-605559af4fb4@collabora.com>
-References: <20260324-color-format-v11-0-605559af4fb4@collabora.com>
-In-Reply-To: <20260324-color-format-v11-0-605559af4fb4@collabora.com>
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
- Rodrigo Siqueira <siqueira@igalia.com>, 
- Alex Deucher <alexander.deucher@amd.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Sandy Huang <hjc@rock-chips.com>, 
- =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
- Andy Yan <andy.yan@rock-chips.com>, 
- Jani Nikula <jani.nikula@linux.intel.com>, 
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
- Tvrtko Ursulin <tursulin@ursulin.net>, Dmitry Baryshkov <lumag@kernel.org>, 
- Sascha Hauer <s.hauer@pengutronix.de>, Rob Herring <robh@kernel.org>, 
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>
-Cc: kernel@collabora.com, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
- linux-doc@vger.kernel.org, 
- Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, 
- Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-X-Mailer: b4 0.15.0
+X-Stat-Signature: rgnt1g9q8d9rzsk6azwgoui85joqhwik
+X-Rspamd-Server: rspamout04
+X-Rspamd-Queue-Id: DC83180011
+X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
+X-Session-ID: U2FsdGVkX19u4yDoihzmlvbQbp4GBKk4Sx0FsrK0H8g=
+X-HE-Tag: 1774362440-296898
+X-HE-Meta: U2FsdGVkX18Kg3NfvHLPV0rnp3UrERb/HeySVgjR0PuCDys+LVJ4s2L8fsy1rJHv82yu9UO4h+xU9iEx3z3YFKVS1OFx2Vvti4rEmq0enV2xaTwbpZ+YWf60TFzb8QMlheid4NsXOVqOYcFPHCn+ZrWqPDCdrmq0l+tkyLSeYhbpJixFuANIjXhtSBZInyEBtAAqHPqUuWZ3PdZupXAY7JMTASH2KNw+CMFxYOXnDTbb38gpzJzBKiUcyoxK6GlO0db0aEPLlOAMHWKzcQEu5msgaweBGFFWtD9G0uWRbe+OcS9gBl+SI1CDJFvGCt0Z8gh5xinNWW7KF0gSIEh3ZlA0AO0+B5wCRjivVxgdquYH5bWbk7CtReb5es0u0tOp
 X-Mailman-Approved-At: Wed, 25 Mar 2026 13:03:04 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -90,38 +95,22 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-With the introduction of the supported_formats member in the
-dw-hdmi-qp platform data struct, drivers that have access to this
-information should now set it.
+On Mon, 23 Mar 2026 12:00:19 -0400
+"Vineeth Pillai (Google)" <vineeth@bitbyteword.org> wrote:
 
-Set it in the rockchip dw_hdmi_qp glue driver.
+> When a caller already guards a tracepoint with an explicit enabled check:
+> 
+>   if (trace_foo_enabled() && cond)
+>       trace_foo(args);
 
-This allows this information to be passed down to the dw-hdmi-qp core,
-which sets it in the bridge it creates, and consequently will allow the
-common HDMI bridge code to act on it.
+Thanks Vineeth!
 
-Reviewed-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
----
- drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c | 4 ++++
- 1 file changed, 4 insertions(+)
+I'm going to start pulling in this series. I'll take the first patch, and
+then any patch that has an Acked-by or Reviewed-by from the maintainer.
 
-diff --git a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
-index e2fa1aa53394..ec78c6895334 100644
---- a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
-+++ b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
-@@ -601,6 +601,10 @@ static int dw_hdmi_qp_rockchip_bind(struct device *dev, struct device *master,
- 	plat_data.phy_data = hdmi;
- 	plat_data.max_bpc = 10;
- 
-+	plat_data.supported_formats = BIT(DRM_OUTPUT_COLOR_FORMAT_RGB444) |
-+				      BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR444) |
-+				      BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR422);
-+
- 	encoder = &hdmi->encoder.encoder;
- 	encoder->possible_crtcs = drm_of_find_possible_crtcs(drm, dev->of_node);
- 
+For patches without acks, I'll leave alone and then after the first patch
+gets merged into mainline, the maintainers could pull in their own patches
+at their own convenience. Unless of course they speak up now if they want
+me to take them ;-)
 
--- 
-2.53.0
-
+-- Steve
