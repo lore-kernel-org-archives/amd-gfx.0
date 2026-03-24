@@ -4,47 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5DEA2106B532
-	for <amd-gfx@archiver.kernel.org>; Wed, 25 Mar 2026 13:03:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8DC10106B531
+	for <amd-gfx@archiver.kernel.org>; Wed, 25 Mar 2026 13:03:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C14AC10E8C8;
-	Wed, 25 Mar 2026 13:03:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2299810E8BE;
+	Wed, 25 Mar 2026 13:03:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="P/FNneop";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="Juacd6/t";
 	dkim-atps=neutral
 Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
  [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8852F10E71A;
- Tue, 24 Mar 2026 16:01:59 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1774368107; cv=none; 
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 27BAD10E758;
+ Tue, 24 Mar 2026 16:03:34 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1774368204; cv=none; 
  d=zohomail.com; s=zohoarc; 
- b=GSHLWSvL1ey7UKnEBHr54QllXY25zi/iQYdBm7ghNiOOdAHUi8fcb6NpCFMfO+Qbc+cO/STQto2RMa2ohRzCJ0juDO8itcchMeh1NSB+QrkN/oMF/d1UktGUEqBCT5MF7NuxnvGNm+Yx0aOu/pKNxd8qWyz4ct7lkkkTHcd1fVo=
+ b=ghbBsPBgFM7BcUp1qFA1QCntA/3UiWTKuxuBl4yUBR+HoxRMMKaJ9qgBIhR/5xck+HFc/SZ3Pwfw+OQKgFQkYHY+uLLPpvf0lHNT9F/v++ihmQ67jRJmjZHhkD+fnE/tBmtGaDMQ+qrs8aR7slPAsJVVA2i7APhuhVP3u+39cWE=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1774368107;
+ s=zohoarc; t=1774368204;
  h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=mu1XGj5EiVT5drNcReQYQM3PhOjoRRxgQTVeHo55NM8=; 
- b=cPx4mz3NM6wUCjjDUa7wMoSJOctK4qnKBGZjE91hXLlUlTEVqj7BDTBhRx7Pwkh7iYQGjAssKdK3tHrWmXOt/OXqiaKqzSPZZ2YVbtwtE7rDa9PMIbBX4P059F8C2Rg5BYjMt3tU63jR4CRxR9w4xApr4gRhoIKQ5B3owG1vApc=
+ bh=+F2WuEiqCUVykRB3XRC/Bxq6Gy1eCIr0ZWhVWJ26imU=; 
+ b=TFeozRhV3GIZRinH9z5qCgNm7mwd/2PcTBZCdrCwNROeTRaUFCGbbrI72ijSbaPRf9Svog0EzakOPfZXK74FnvciNjnz0oxyDmsj4ESLHUSXAXNLleLcTb6yphIafQyEpnYCTG/eQwH3aMLRVMT0ViPf5j6CBDetcbCP4dK92ys=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
  dkim=pass  header.i=collabora.com;
  spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
  dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1774368107; 
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1774368204; 
  s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
  h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:References:In-Reply-To:To:To:Cc:Cc:Reply-To;
- bh=mu1XGj5EiVT5drNcReQYQM3PhOjoRRxgQTVeHo55NM8=;
- b=P/FNneoplZ4So8iGyT1GqXJyB034CB0kLTbF3pDKjudgCA8V/XUqkaYs8yD35acY
- mLMDxTVIwJeMxR9AcQ0U/04UZ73EpIoCPca8bVGMiyPld1Qb1CHpWPbqpWxAEXMbMJ1
- cJFUvVdrz3WQeeO74tqIHbxWj5a95wDiK1PQnAz8=
-Received: by mx.zohomail.com with SMTPS id 1774368105495460.86037447788044;
- Tue, 24 Mar 2026 09:01:45 -0700 (PDT)
+ bh=+F2WuEiqCUVykRB3XRC/Bxq6Gy1eCIr0ZWhVWJ26imU=;
+ b=Juacd6/tndDn8bt3LvvFk+OyXDN52ta7kxhgnEQY19Sm50Z7oGKBgANRwor75Qmm
+ WYWnr0rnYe0n94WPwQdcHya3vUTz5w3EvflfRVnk3nksvw/h9sSZJMTXsNFGBZqsTwZ
+ RGbdXX+cEiW/j1rzJKh79CT7+O7xWfjkBTmbznSk=
+Received: by mx.zohomail.com with SMTPS id 1774368203121560.0965334782762;
+ Tue, 24 Mar 2026 09:03:23 -0700 (PDT)
 From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Date: Tue, 24 Mar 2026 17:01:05 +0100
-Subject: [PATCH v11 01/22] drm/amd/display: Remove unnecessary
- SIGNAL_TYPE_HDMI_TYPE_A check
+Date: Tue, 24 Mar 2026 17:01:18 +0100
+Subject: [PATCH v11 14/22] drm/bridge: dw-hdmi-qp: Use common HDMI output
+ bus fmts helper
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260324-color-format-v11-1-605559af4fb4@collabora.com>
+Message-Id: <20260324-color-format-v11-14-605559af4fb4@collabora.com>
 References: <20260324-color-format-v11-0-605559af4fb4@collabora.com>
 In-Reply-To: <20260324-color-format-v11-0-605559af4fb4@collabora.com>
 To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
@@ -73,8 +73,7 @@ Cc: kernel@collabora.com, amd-gfx@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
  linux-doc@vger.kernel.org, 
  Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, 
- Werner Sembach <wse@tuxedocomputers.com>, 
- Andri Yngvason <andri@yngvason.is>
+ Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 X-Mailer: b4 0.15.0
 X-Mailman-Approved-At: Wed, 25 Mar 2026 13:03:04 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -91,47 +90,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Werner Sembach <wse@tuxedocomputers.com>
+Make use of the common drm_bridge_funcs.atomic_get_output_bus_fmts
+helper for HDMI bridge connectors.
 
-Remove unnecessary SIGNAL_TYPE_HDMI_TYPE_A check that was performed in the
-drm_mode_is_420_only() case, but not in the drm_mode_is_420_also() &&
-force_yuv420_output case.
+This allows dw-hdmi-qp HDMI bridges to participate in recursive bus
+format selection in a meaningful way.
 
-Without further knowledge if YCbCr 4:2:0 is supported outside of HDMI,
-there is no reason to use RGB when the display
-reports drm_mode_is_420_only() even on a non HDMI connection.
-
-This patch also moves both checks in the same if-case. This  eliminates an
-extra else-if-case.
-
-Signed-off-by: Werner Sembach <wse@tuxedocomputers.com>
-Signed-off-by: Andri Yngvason <andri@yngvason.is>
-Tested-by: Andri Yngvason <andri@yngvason.is>
+Reviewed-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 9 +++------
- 1 file changed, 3 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 646fbdd5688b..86a64e98e8a1 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -6713,12 +6713,9 @@ static void fill_stream_properties_from_drm_display_mode(
- 	timing_out->v_border_top = 0;
- 	timing_out->v_border_bottom = 0;
- 	/* TODO: un-hardcode */
--	if (drm_mode_is_420_only(info, mode_in)
--			&& stream->signal == SIGNAL_TYPE_HDMI_TYPE_A)
--		timing_out->pixel_encoding = PIXEL_ENCODING_YCBCR420;
--	else if (drm_mode_is_420_also(info, mode_in)
--			&& aconnector
--			&& aconnector->force_yuv420_output)
-+	if (drm_mode_is_420_only(info, mode_in) ||
-+	    (aconnector && aconnector->force_yuv420_output &&
-+	     drm_mode_is_420_also(info, mode_in)))
- 		timing_out->pixel_encoding = PIXEL_ENCODING_YCBCR420;
- 	else if ((connector->display_info.color_formats & BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR422))
- 			&& aconnector
+diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
+index d649a1cf07f5..5380aa7d82a8 100644
+--- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
++++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
+@@ -1192,6 +1192,7 @@ static int dw_hdmi_qp_cec_transmit(struct drm_bridge *bridge, u8 attempts,
+ #endif /* CONFIG_DRM_DW_HDMI_QP_CEC */
+ 
+ static const struct drm_bridge_funcs dw_hdmi_qp_bridge_funcs = {
++	.atomic_get_output_bus_fmts = drm_atomic_helper_bridge_get_hdmi_output_bus_fmts,
+ 	.atomic_duplicate_state = drm_atomic_helper_bridge_duplicate_state,
+ 	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
+ 	.atomic_reset = drm_atomic_helper_bridge_reset,
 
 -- 
 2.53.0
