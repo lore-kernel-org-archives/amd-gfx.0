@@ -4,95 +4,94 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AFA63F54AB0
-	for <amd-gfx@archiver.kernel.org>; Tue, 24 Mar 2026 13:22:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9E2E3F54AB8
+	for <amd-gfx@archiver.kernel.org>; Tue, 24 Mar 2026 13:32:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4D50C10E6CA;
-	Tue, 24 Mar 2026 13:22:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2EB1F10E6D2;
+	Tue, 24 Mar 2026 13:32:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="HLpbIGiR";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ePsdTKWm";
 	dkim-atps=neutral
-Received: from mail-dl1-f44.google.com (mail-dl1-f44.google.com [74.125.82.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 181DA10E6C1
- for <amd-gfx@lists.freedesktop.org>; Tue, 24 Mar 2026 13:22:24 +0000 (UTC)
-Received: by mail-dl1-f44.google.com with SMTP id
- a92af1059eb24-1273c690e5bso500749c88.2
- for <amd-gfx@lists.freedesktop.org>; Tue, 24 Mar 2026 06:22:24 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1774358543; cv=none;
+Received: from mail-dl1-f43.google.com (mail-dl1-f43.google.com [74.125.82.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0B44010E6D2
+ for <amd-gfx@lists.freedesktop.org>; Tue, 24 Mar 2026 13:32:04 +0000 (UTC)
+Received: by mail-dl1-f43.google.com with SMTP id
+ a92af1059eb24-12a6b260693so361027c88.2
+ for <amd-gfx@lists.freedesktop.org>; Tue, 24 Mar 2026 06:32:04 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1774359123; cv=none;
  d=google.com; s=arc-20240605;
- b=Gt0OLA3C60K3FN3KDHvAyomyS/P7ox2FZTY7YXsp5AiKVOziceMfLFNr64fWWodHOr
- Z84IoW6ND01IKv+v/pqi0RpynKgLWsZ04iAyj9sTQHKh5nKOVFIHFCynkgbpdNkqjJDl
- BduTu3KlwbYXzryELzitA5BQUK5Se+FZigggHdYNByb0YGSlO45TNyrpEYZXGcYLqOSu
- QajCAqSUATmzEOQ8yIFk3K7r+cVpmLll78J3xgw4EcJ5EETblaPsFKP9/nGOwn8rNjjF
- 8K1JXl4s7DYTdYcHasOMx2774T7L7J4r/4R8MIYwpCEsVAJ4NUPoEj/O4A4MmVNoTuKB
- bkFg==
+ b=DwHiHi3NEhmCB0w9a/En66MXLeJeTLZzhZNck5t/gazYNgAjqOUuqJFxAbkryHJvkQ
+ EgQtI6I6etyRr04On1Yp3/+WX4Wfui++gz/rDtwps0fpzpswcj67DMteyAdoHVXgZeMr
+ JPMKh4yOmOv2yidHCsJ2FDOkDkk/oGXvyhnKL/z9xXiGez0gF66++HUUpzfNwRKXqMu+
+ eJSfGqIB0qQ3rv0pWhA1BEvfJ4CCUVCzSuxs2bZ79vp8MrW6jE0vwk3XPGNKq34PzkNJ
+ imVU6SuBNLl/0qqjbzOupLMkaI/ZJ4jnz92z+9oQWwiQKtD5f3B+awrM5+a9heZkKuaQ
+ MfXQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20240605; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=FpafDwQpmjLC+aw1RTAqKBuFIpkEFXad75Wwh/OZldU=;
- fh=WO8wYbuP7fVnYwVoKUe57FqCNRHmei5UiKYHDcBSSlI=;
- b=CkGNSpkpJVWts/be6U4IHyNN9MqdylFNQ8U8uUQM7bGLh6s1vhLqyeA+XIFZfTn0KT
- HdL0JtPWUoBT53XdRciJkV5aubWd0ffcB/orjpAREcGPfY2RMBA4uYAXLSaulkYrfEbq
- Rou6ZC5E+oNjanBWOiroQp+w6XNTDdM+GiKHh+UF8NWTrkuDhcUeT4EmVYDdiQZpHyvJ
- CcLX9kZP/9iy34E8W/SvXaAlAKd/SHxxFiakSN0FhZF02VvKa3MYEwOVPaZ/Tu1T4tK4
- 9w8I4wciq75tPjIKydJk3cc04raQv6Spm/dOQXqJYn/GiqbE5aiKsSoSs7MuACBzOU6k
- h2Tg==; darn=lists.freedesktop.org
+ bh=j5883fLgA4Kxp5uDjU6jNZrlbfEleppgZMvpZ9qx8xQ=;
+ fh=wI+ouv168YECt8ESdcDuYVThhZrSxBi2e2g5niu2U0M=;
+ b=D7DzOQuy5vj4ce/TtLdbJnErogxA7umlqGIRbNrCoi60dLGzRqX9y3mKDn85gaJbC0
+ YutJPqCwxmAKSEwiHGS4v+UD9RhB4L61E48hf87zd6n5i7i0y53/6IPt4Vn+ipoAAcX/
+ uXwR6waZXO+40gUjJCLnaiE+ASf803QeZ6sV0JRLQAsLWiMFSvakbK7WpVgWOL9QNcvP
+ XLxCRDzxWA+Hn5ytyfPvKMtGSFaVbUsIMuvTcFDIiyoFt0H5PtbnNR4aoq+eygHGWJ7d
+ rU9uxVaA8smmXDRS4fRaq7Uahml4QAGjMuieTaLsJ1nO3t37+r3YTKVUTQYvCQGZ/plP
+ E+Wg==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1774358543; x=1774963343; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1774359123; x=1774963923; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=FpafDwQpmjLC+aw1RTAqKBuFIpkEFXad75Wwh/OZldU=;
- b=HLpbIGiRKqvFhhE0q2Zg4ZYS8I+L15QbfkvtnbtyHlZdFZqKji8vpt+TD9DkKyX7J3
- FI3YRZ9hztugm2Fxe1+zm5gNs4PhY1OWVJzzjMZrCLSE9NMRn5FKWj7Mn3EY4/9d4K42
- JcWSjQgpuZ6NYscSeaVA5D3O2mqotqHnkd+PCP7Vt/b++0DZXYMHgvSq1I4ZCz+Y6xD0
- 2ZL7wJT7tBgJ8cfbDMJYq6OI8bgCcC7dryImzieuHi7Blv13vBHjSP4Up8pu2PdE0sK7
- W7nxO3MbJMDJEGmHBBzYSb8d/euAch2LhpSURXjNLM1AbE20UVSZabye0JYoAIEPpLv9
- Qfcw==
+ bh=j5883fLgA4Kxp5uDjU6jNZrlbfEleppgZMvpZ9qx8xQ=;
+ b=ePsdTKWmlKuBLhY5gaor493LRdIvw/A9fOukZ3DnwdE2Ke2GTeZHcrOK4stEuEuX0W
+ GJhG+RZ+lmyMq6c4JqoIV5s/TSoO9NZFtVdgEQ3ryPjx/WESg0phz+JcAp1EJF7W8nbO
+ ISaeDgZN56cjUhirq4KIApK8sC5Bo7HN1f1Ih4L/lBUiU91T9TaW9llOwmKFQ5v3Tqy3
+ mOJjAz6UqvxQlGiQhBu9/wFVIf2i9bfhWsfgUIXE6ftRtvSYzvmFl6LPwFJC2reeJHaU
+ jlj3M+HBFdONmXCqpMkxYetZhgd/n69YpWJHpFLodCIfriQxf7U19krfyNQb7cVjKXNi
+ eqQA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774358543; x=1774963343;
+ d=1e100.net; s=20251104; t=1774359123; x=1774963923;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=FpafDwQpmjLC+aw1RTAqKBuFIpkEFXad75Wwh/OZldU=;
- b=AQIJrDMb3Iqeut94sQaY3o6QTzwrLnbJ85PMlvDQDhvvGay5pyV7flDAkSMjcsxjkF
- 6vuTTyRfpdjBBlUbCco2ej5i/Fli8OWs5a8JhF1TCRcT1Ed3yu5CXK5cHXrreOAm/WLe
- 5I38fKHcfzP0v75mQgtBx3q2ds68BKYVe8eApkUOPtxM3w16j5gwSqLrpPp72o1bv2M+
- BBvENY9XJY0I9owYcwjdoyypKUu42swmDzEk5GnbjECHlQAUo+ZdrHAcUywyu53ZqGvK
- kSpnZ6ICrZGZRSWy2IcDGuVPR2LTZJUH7HiAFa4/X7fXKux7mHaD7ymsnzhvhdEDZs/T
- wGPg==
+ bh=j5883fLgA4Kxp5uDjU6jNZrlbfEleppgZMvpZ9qx8xQ=;
+ b=CeCelNSqULFWT44tR/AhW8k3WNLqkHQ4tD4Xfr9pjbvFu8+1GLB1P9JR5Jl3dopyd/
+ hEX3PnDv1FqpGkDrQ0hFABbnyn5vXxEq07FcuhZ3fAWEAhoqnCu2c82/qs5uneOTLjd/
+ FVF5AlmqjlHcKY6BVzoLifQ/kZzbIBT//IVbq/1PkTimCKSvXZCniDJ20xx01JZy6qbD
+ ML3uJB1b1t6lCKpIUfGvuy2tp3z4drniXZ0Liz7EgnlIPLbovSY4C5kkIjz/vo7596nG
+ ReZ1RXrY92XAoM7s99jr1tFzqEz22j12V0Pu3nK7G8wpt+iza9B/SiAXH8DBGO79HfCf
+ zP5g==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWjUnAdsmm47b/i6Qz+wtF748tDJNXksehaGIjyULFPQtjDIMNXsd5Vwf/zURGdr6Mx/eHZVIJt@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwdHzudYNlQWGsOs80ZSF0h0P/XVP/iQujz1KHzlhavMOa5+KUF
- D9WfsByC89P68Xpp5kNDgXxOkOvygBbL0s+Yq+7HyCmt1pvjFAZeUGlGmCINYOXAEN+1Agv/7MT
- WnIJOAOpB1YbbToMVzWZoOsLgkpRjT7Y=
-X-Gm-Gg: ATEYQzzSJA4zH3frpg/N/qMt/8NmTY1175SPd/+prvMwRAZ72cacR7eSqjpQdqWI1Wf
- yOQLkmd80aqvvI0gGLCBxHGDVBh/KW81Gqu3OyeXtZKDZjD+FqodBe0JuaSvNtmQOJaxtX4Nj7D
- GSt1TpT0FyikOosXNSPw+dhvrIsYOMwi6UbWLG//Gt6XgmrZusZ30aKi8LyiTrYDMS0+GI5xXTQ
- dekgpEGqM9Ph6FaSILpyxvACQ6d65Evq3ACn9M1hy3V1dvokVyTWjf1AAwHNVr2K2WO3O+xeyhw
- IbdYtRqSFImMsAyELzWSW8SvmlzM6Rq17Ohc2RzShdQ5HQthbqvztrZFcorNlGriI2g4Yw==
-X-Received: by 2002:a05:7022:2224:b0:128:d590:2947 with SMTP id
- a92af1059eb24-12a726c143dmr3378135c88.4.1774358543184; Tue, 24 Mar 2026
- 06:22:23 -0700 (PDT)
+ AJvYcCXSVeNUSb9pUFK5TrFf95FDDQgOf+6OMiR+yTbXmW5iIQ9VmUuBYSkzFd33kdjUudX4fWHy6DKL@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yw76UaKhwA8jmXmdFiISlUSWHWlMv6nabM6jdvM0nSLWJG8wVfz
+ 9mgPdrkQgPcjwuIdYdmSV3Vha7WhntB0tZ4OYJ+CwmZbThdKBAC+Vs+u+wkq1ZpkcYiRqwSMWCB
+ rfaXk1qvLecKdqrrymfDkILAkIDY17y0=
+X-Gm-Gg: ATEYQzx2LSJswHj259fThrAzz+vQc8Chbi7djgkERQXUzBUp+Qtow/+Hfk/9VUdtFg+
+ 7SpitO4XQc05RErHgvaao4WkoI7K4oEjltXDISlBRF9BGnOzH5pAmj6RsjRt4gJWJiCkp5hVeLN
+ NbaCfpkQgzOo4v0cmdTIi+8M2phUyyhMXCU6UlFigpSUCU5VcoCOph3MSCvyYhP2Jc+iGaQrnCW
+ BGVXeGwO7lD+kDbeipbzGAWHbiLHH7R1Flzrfo53gtwJwdbVUml5+yWtpK6WHiKFo1b8yOLyNOU
+ zHYtifDc3+T2hQznh4akyl4O/gW3HJ9Hooy4UTKuG9gbgc93JmxjHQdzh0VrAWW7uuHSdA==
+X-Received: by 2002:a05:7022:60c:b0:127:def:dd72 with SMTP id
+ a92af1059eb24-12a72646221mr3600922c88.2.1774359123172; Tue, 24 Mar 2026
+ 06:32:03 -0700 (PDT)
 MIME-Version: 1.0
-References: <20260323224348.343495-1-colin.i.king@gmail.com>
- <1060acb4-1a8c-4e52-add2-fbda4f2efb7d@amd.com>
-In-Reply-To: <1060acb4-1a8c-4e52-add2-fbda4f2efb7d@amd.com>
+References: <SYBPR01MB78816FAF00EC3DADFA588E0CAF48A@SYBPR01MB7881.ausprd01.prod.outlook.com>
+In-Reply-To: <SYBPR01MB78816FAF00EC3DADFA588E0CAF48A@SYBPR01MB7881.ausprd01.prod.outlook.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 24 Mar 2026 09:22:10 -0400
-X-Gm-Features: AaiRm5365YdEJSMouctlHAFL3xVlmZM5_M9mMvfLm75WvY684wOEa50LTTLTuN0
-Message-ID: <CADnq5_MBNLH6ArJT5J87xcqvPo4y4N15EKO-oJPa3MAqEnr2_g@mail.gmail.com>
-Subject: Re: [PATCH][nexr] drm/amdgpu/mes12_1: emove extra ;
- from declaration statement
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: Colin Ian King <colin.i.king@gmail.com>,
- Alex Deucher <alexander.deucher@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, kernel-janitors@vger.kernel.org, 
- linux-kernel@vger.kernel.org
+Date: Tue, 24 Mar 2026 09:31:51 -0400
+X-Gm-Features: AaiRm5082bmB1vEFeF97G50_iqqBjFx7HoPxAOrnxaX1HwxWGKygBeGTgapRc_0
+Message-ID: <CADnq5_N83j3ZjNKXH2K8jEod0s64JB_pdugGsx4AURoPjpveSA@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: validate doorbell_offset in user queue
+ creation
+To: Junrui Luo <moonafterrain@outlook.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Shashank Sharma <shashank.sharma@amd.com>, amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Yuhao Jiang <danisjiang@gmail.com>, stable@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -111,34 +110,53 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Applied.  Thanks!
 
-On Tue, Mar 24, 2026 at 5:49=E2=80=AFAM Christian K=C3=B6nig
-<christian.koenig@amd.com> wrote:
+On Tue, Mar 24, 2026 at 5:49=E2=80=AFAM Junrui Luo <moonafterrain@outlook.c=
+om> wrote:
 >
-> On 3/23/26 23:43, Colin Ian King wrote:
-> > There is a declaration statement that has a ;; at the end, remove the
-> > extraneous ;
-> >
-> > Signed-off-by: Colin Ian King <colin.i.king@gmail.com>
+> amdgpu_userq_get_doorbell_index() passes the user-provided
+> doorbell_offset to amdgpu_doorbell_index_on_bar() without bounds
+> checking. An arbitrarily large doorbell_offset can cause the
+> calculated doorbell index to fall outside the allocated doorbell BO,
+> potentially corrupting kernel doorbell space.
 >
-> Reviewed-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+> Validate that doorbell_offset falls within the doorbell BO before
+> computing the BAR index, using u64 arithmetic to prevent overflow.
 >
-> > ---
-> >  drivers/gpu/drm/amd/amdgpu/mes_v12_1.c | 2 +-
-> >  1 file changed, 1 insertion(+), 1 deletion(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v12_1.c b/drivers/gpu/drm/a=
-md/amdgpu/mes_v12_1.c
-> > index 5dcc2c32644a..0e9089544769 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/mes_v12_1.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/mes_v12_1.c
-> > @@ -2227,7 +2227,7 @@ static int mes_v12_1_self_test(struct amdgpu_devi=
-ce *adev, int xcc_id)
-> >       struct amdgpu_bo *meta_bo =3D NULL, *ctx_bo =3D NULL;
-> >       void *meta_ptr =3D NULL, *ctx_ptr =3D NULL;
-> >       u64 meta_gpu_addr, ctx_gpu_addr;
-> > -     int size, i, r, pasid;;
-> > +     int size, i, r, pasid;
-> >
-> >       pasid =3D amdgpu_pasid_alloc(16);
-> >       if (pasid < 0)
+> Fixes: f09c1e6077ab ("drm/amdgpu: generate doorbell index for userqueue")
+> Reported-by: Yuhao Jiang <danisjiang@gmail.com>
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Junrui Luo <moonafterrain@outlook.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 7 +++++++
+>  1 file changed, 7 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/=
+amd/amdgpu/amdgpu_userq.c
+> index 7c450350847d..0a1b93259887 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+> @@ -600,6 +600,13 @@ amdgpu_userq_get_doorbell_index(struct amdgpu_userq_=
+mgr *uq_mgr,
+>                 goto unpin_bo;
+>         }
+>
+> +       /* Validate doorbell_offset is within the doorbell BO */
+> +       if ((u64)db_info->doorbell_offset * db_size + db_size >
+> +           amdgpu_bo_size(db_obj->obj)) {
+> +               r =3D -EINVAL;
+> +               goto unpin_bo;
+> +       }
+> +
+>         index =3D amdgpu_doorbell_index_on_bar(uq_mgr->adev, db_obj->obj,
+>                                              db_info->doorbell_offset, db=
+_size);
+>         drm_dbg_driver(adev_to_drm(uq_mgr->adev),
+>
+> ---
+> base-commit: c369299895a591d96745d6492d4888259b004a9e
+> change-id: 20260324-fixes-9ee6cab7bc47
+>
+> Best regards,
+> --
+> Junrui Luo <moonafterrain@outlook.com>
 >
