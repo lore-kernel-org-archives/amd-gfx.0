@@ -4,75 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 47102F532FF
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6A0FCF532FE
 	for <amd-gfx@archiver.kernel.org>; Tue, 24 Mar 2026 09:12:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B6DF810E63F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id CB21110E643;
 	Tue, 24 Mar 2026 09:12:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="XcVyf0ZH";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="NeRVdyX1";
 	dkim-atps=neutral
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com
- [209.85.128.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D475C10E5C7
- for <amd-gfx@lists.freedesktop.org>; Tue, 24 Mar 2026 08:07:14 +0000 (UTC)
-Received: by mail-wm1-f47.google.com with SMTP id
- 5b1f17b1804b1-486fb439299so40564815e9.0
- for <amd-gfx@lists.freedesktop.org>; Tue, 24 Mar 2026 01:07:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1774339633; x=1774944433; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=/8bnpujtgHbsks7L4Tj5bUa0w9XirOzGs+CASTk1y64=;
- b=XcVyf0ZHiEdHAMVVrI5Ek5Vv/zgJi3S3LoK+8E+V76tbutg9VoQAQ2T4t/Y5++kuMZ
- S9TeZNBfNdjI7/Kdwrg7t3NoFVByY3ydGxIAeQUYcFDO66lotUhplYPlXyym1T334lMU
- 20mu4Pk/eYh6XfSU0Jjgzx3S7X+YdDMSeE8P8g0HPfceqS3uLB6ZhC2KYKj1LHM3CVdh
- CnJitf7zHkE987AWZroMlenWnmsZPwPunJgPhKI75Kw0c8kqYlknL2Qg4vngYiFK2a9h
- cGgGgigssdwe1fqLrbqGekPli+PwtXAkQdS6902axkqqvm+zOr5XNAOXu0iM6c5h4oIW
- QvqQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774339633; x=1774944433;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=/8bnpujtgHbsks7L4Tj5bUa0w9XirOzGs+CASTk1y64=;
- b=U2xUonQb/BYo0RHiEsUcgLAYkOsgvReyqZD4VZLFaO6aQR23GJNIS3QsldZfsS3CnV
- 1sgQXGDfx6Bco1o+xJudIvbKCTufa8JQEFWJpFxYDdP01qE9eEoExAMdTPrTpDuZfbwY
- YysM1ynlARAtp/qmdplLaSZCLkEdyw7X1YVPotDOa5Ve0S1owE9lW8WyzVom2qFuJG/r
- u944bfiJCNlnjOXxGNtLEG3PPHI8mlmEhIIBxcFAiv0U36XNxwcGttau1kT2q7ud487p
- pTI72dRG7UkytAUa24Wladq/1Fo+OWb7Y5xnBt+ByhacRMUZLTXqoNy/0wLvkrgMz0mG
- uMgw==
-X-Gm-Message-State: AOJu0YzZ4zGU+hVLcN46XtpyfUrsrqWMbhpf22gY5tu978q/iiwdsNeU
- XZ+lfTUjIHCFchAIGDp2GzZHHkM8zAvGtWhfmiYBuS78Pi3Yb8AgY98P
-X-Gm-Gg: ATEYQzyJwoajERu7JCnI313dcPY8enfPpJ1fGB6mXNFOXmISMzrgJPBBWHHwRnFy78A
- TQBFDFw7xtnR89YzgoTIylat9Zl9OjSDWT5XCYXU7Qhrwhi8RldmVKxe90nIYX/YQzM/mM7HYsP
- s7VKKbu4tY663G+f/mEWaITm350zErzMaUTIbYnzcZ+p8ClstewiYpUGRclF3bVM188RbwQ6t3/
- NBoFx+g5e5LyT71lVDedpR6InUWQW0dvDTVI2njRDeHyDWHHikF6ksgG3X4K9vXXTNL31SaRdcP
- LvV2S/MIc9lnnVJv1V69ZHi8wZn9neZb8BefcBW/t+Nf5vTABNvQYmOKsTjP1FXbUUFe4Puq/6N
- i81f4lj7ZiNLB3oqC5CuSYtcwgiTNOA6uXT7hM6wQ4u7NgivlB4m560VGZGNJDlegnCMLHt/1/Y
- PANSTAy9Y6dFi+PXiQvQ0GvA9paFmAHB69hgef/2vX7gK7rI79v6g=
-X-Received: by 2002:a05:600c:3549:b0:485:3fe6:21f5 with SMTP id
- 5b1f17b1804b1-486fedb5928mr203633045e9.10.1774339632859; 
- Tue, 24 Mar 2026 01:07:12 -0700 (PDT)
-Received: from ionutnechita-arz2022.local
- ([2a02:2f0e:ca0b:2300:50e3:a57c:9a13:3636])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4870f822b83sm20298555e9.4.2026.03.24.01.07.12
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 24 Mar 2026 01:07:12 -0700 (PDT)
-From: "Ionut Nechita (Sunlight Linux)" <sunlightlinux@gmail.com>
-To: christian.koenig@amd.com
-Cc: amd-gfx@lists.freedesktop.org
-Subject: Re: [PATCH 1/1] drm/amdgpu: Fix TLB flush failures after hibernation
- resume
-Date: Tue, 24 Mar 2026 10:07:10 +0200
-Message-ID: <20260324080710.12404-1-sunlightlinux@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <d57a4e9c-d0a8-4ae0-b289-6131bde9c72e@amd.com>
-References: <d57a4e9c-d0a8-4ae0-b289-6131bde9c72e@amd.com>
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
+ [136.143.188.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 189FD10E636;
+ Tue, 24 Mar 2026 09:09:04 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1774343335; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=O0Hdz56be/8KaHfU9qnv3CO8OOJ1oPU1gv/AfF3/JP/4zwrnLAxuDF/FHcQ6sEr5QhZfMjhwOsw/8dylYbQKkyu3SQ5xdRTd02Fh3wb6cQJb9qqIVVXhWv+JYvoyEigRscSGqPq6YuV+57ecOwGUuKSGDriS4fqjSdPV9QC87ow=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1774343335;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=joZ/1jdRFsPMk+xnPDVTFuNcjEEqbrkRjRzofTM5y0Q=; 
+ b=Bkk073o7CGNuNgfxwcsSNmdXkqYpB9+yCsJgihwThSjtzCzaC4iPwvv5IyiW5UF04sy0odFUxXc71w+u2dvWgFKxS8I6f18fTjcVxFLJN1oWSRPb/jOPskxsY7ZfE3p0C7BC0M2RIqpsajThcey1eXbPO3jeSRTv4zfzwv/+pYU=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
+ dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1774343335; 
+ s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
+ h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:Content-Type:Message-Id:Reply-To;
+ bh=joZ/1jdRFsPMk+xnPDVTFuNcjEEqbrkRjRzofTM5y0Q=;
+ b=NeRVdyX1dTbevqzn5YIfXosyF0UznGO96JvhmesokmSGQWQI1PuKPJY5PxaBLNfk
+ aO2qz4uWcrFf9eeiv0zzHeE41A0MOn5cZVCjzVpQuTlLI2mW1wbjo8h/W1GWtS2MYIz
+ vBg6qJfzwjHSB6VC3nouwGENd1IUXhjC25DDdmwQ=
+Received: by mx.zohomail.com with SMTPS id 1774343334007578.4758740983518;
+ Tue, 24 Mar 2026 02:08:54 -0700 (PDT)
+From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+To: Jani Nikula <jani.nikula@linux.intel.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Andy Yan <andy.yan@rock-chips.com>, Liviu Dudau <liviu.dudau@arm.com>,
+ Chun-Kuang Hu <chunkuang.hu@kernel.org>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Sandy Huang <hjc@rock-chips.com>,
+ Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>,
+ Liu Ying <victor.liu@nxp.com>, Chen-Yu Tsai <wens@kernel.org>,
+ Samuel Holland <samuel@sholland.org>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ =?UTF-8?B?TWHDrXJh?= Canal <mcanal@igalia.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+ Maxime Ripard <mripard@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, linux-mediatek@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
+ linux-sunxi@lists.linux.dev, Jani Nikula <jani.nikula@intel.com>
+Subject: Re: [PATCH v3 14/14] drm/display: hdmi: Use drm_output_color_format
+ instead of hdmi_colorspace
+Date: Tue, 24 Mar 2026 10:08:44 +0100
+Message-ID: <3687080.mvXUDI8C0e@workhorse>
+In-Reply-To: <20260305-drm-rework-color-formats-v3-14-f3935f6db579@kernel.org>
+References: <20260305-drm-rework-color-formats-v3-0-f3935f6db579@kernel.org>
+ <20260305-drm-rework-color-formats-v3-14-f3935f6db579@kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="utf-8"
 X-Mailman-Approved-At: Tue, 24 Mar 2026 09:12:40 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -88,14 +92,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Christian,
+On Thursday, 5 March 2026 10:05:06 Central European Standard Time Maxime Ripard wrote:
+> The hdmi_colorspace enum was defined to represent the colorspace value
+> of the HDMI infoframes. It was later used by some HDMI drivers to
+> express the output format they should be setting up.
+> 
+> During the introduction of the HDMI helpers, it then was used to
+> represent it in the drm_connector_hdmi_state structure.
+> 
+> However, it's always been somewhat redundant with the DRM_COLOR_FORMAT_*
+> defines, and now with the drm_output_color_format enum. Let's
+> consolidate around drm_output_color_format in drm_connector_hdmi_state
+> to facilitate the current effort to provide a global output format
+> selection mechanism.
+> 
+> Acked-by: Jani Nikula <jani.nikula@intel.com>
+> Signed-off-by: Maxime Ripard <mripard@kernel.org>
+> ---
+>  drivers/gpu/drm/bridge/inno-hdmi.c                 |   6 +-
+>  drivers/gpu/drm/bridge/ite-it6263.c                |   2 +-
+>  drivers/gpu/drm/display/drm_bridge_connector.c     |   4 +-
+>  drivers/gpu/drm/display/drm_hdmi_helper.c          |   7 +-
+>  drivers/gpu/drm/display/drm_hdmi_state_helper.c    |  52 ++++--
+>  drivers/gpu/drm/drm_bridge.c                       |   2 +-
+>  drivers/gpu/drm/drm_connector.c                    |  16 +-
+>  drivers/gpu/drm/mediatek/mtk_hdmi_v2.c             |   8 +-
+>  drivers/gpu/drm/sun4i/sun4i_hdmi_enc.c             |   2 +-
+>  drivers/gpu/drm/tests/drm_connector_test.c         |  80 ++++-----
+>  drivers/gpu/drm/tests/drm_hdmi_state_helper_test.c | 182 ++++++++++-----------
+>  drivers/gpu/drm/vc4/vc4_hdmi.c                     |  18 +-
+>  drivers/gpu/drm/vc4/vc4_hdmi.h                     |   2 +-
+>  include/drm/bridge/dw_hdmi_qp.h                    |   2 +-
+>  include/drm/display/drm_hdmi_helper.h              |   3 +-
+>  include/drm/drm_bridge.h                           |   5 +-
+>  include/drm/drm_connector.h                        |   9 +-
+>  17 files changed, 213 insertions(+), 187 deletions(-)
+> 
 
-Thank you for the guidance on checking the KIQ ring test.
+Since I've been relying this for a while now and could find no further
+issues with the conversion, I'll give this a:
 
-I apologize for the late reply - I haven't had time to investigate this
-further as I've been busy with other work. I will try to look into the
-KIQ ring test behavior after hibernation resume in the coming period
-and report back with my findings.
+Reviewed-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 
-Thanks,
-Ionut
+Thank you for the refactor!
+
+
