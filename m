@@ -4,99 +4,93 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3E14FF54AA0
-	for <amd-gfx@archiver.kernel.org>; Tue, 24 Mar 2026 13:18:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D2AD0F54AAF
+	for <amd-gfx@archiver.kernel.org>; Tue, 24 Mar 2026 13:19:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D09CB10E668;
-	Tue, 24 Mar 2026 13:18:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 75A6010E6A8;
+	Tue, 24 Mar 2026 13:19:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="L4+bo43M";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ShoTM7G4";
 	dkim-atps=neutral
-Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com
- [74.125.82.169])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 19A5910E668
- for <amd-gfx@lists.freedesktop.org>; Tue, 24 Mar 2026 13:18:12 +0000 (UTC)
-Received: by mail-dy1-f169.google.com with SMTP id
- 5a478bee46e88-2c151551a6eso21855eec.0
- for <amd-gfx@lists.freedesktop.org>; Tue, 24 Mar 2026 06:18:12 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1774358291; cv=none;
+Received: from mail-dl1-f41.google.com (mail-dl1-f41.google.com [74.125.82.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6491210E6AB
+ for <amd-gfx@lists.freedesktop.org>; Tue, 24 Mar 2026 13:19:30 +0000 (UTC)
+Received: by mail-dl1-f41.google.com with SMTP id
+ a92af1059eb24-128eb45835cso224076c88.1
+ for <amd-gfx@lists.freedesktop.org>; Tue, 24 Mar 2026 06:19:30 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1774358369; cv=none;
  d=google.com; s=arc-20240605;
- b=kBMM5/jsYs04wPrMjaTIjbmUnYP2y81XrJlff5Z1TUx3R0lNLgjUsAiCbyfEuFPJcg
- 3/OrwNWwWi4Y04sWyKNDFMmbd8H1z9lW5gy6c9UHLOSHi8wXIaP+zfEUu/6ntq5ac8eS
- YDZ1xRsB+ZDdUj9n+j6N+kt3H7d6uelkSxk30Z2zH5BIcxsQANuiN3jiMrz4PfpZZWkj
- wHLsH/3OudEiC71zq9H2sp/Dpz4Q2EGfpGB62JZpiqvB+OSmAJUKRu5wr7EcyyPKjWj4
- 8OgoI5NSd6fEnamKfMsQ3199bnV/Zl/4s1AG0sow+giLI+AHh5zAx4u3Lh3arVS3x54J
- vrMQ==
+ b=fjJo7WAfPcbLGXw3nYARO0VuYR04PIDn0hM4pbOV7lugkKBYyqM52jaedEyR7glnms
+ HAC1PjX8IYgdPGgBE4A/dVZUtM82RUI4ahb6S1cQdNgMLq9wXxg5Btn9rt9OV2nsNEU6
+ 2ESbhCktosvRyTF8xwOLa8TqGWhfF8EBDEzznExWk7Ix7ijAJ0FbhqmMT+B21nLYXvbu
+ TLtVOidgMzfiowOSAl8Yph2AYWlSR6kkgQ8QsWWtZDx9yV31i7d8a4jO3dp+/3Yre4Qb
+ abGYg86TiY8BWcurzx00wU08CsCRLsxh1a28D47lynUCDk7DDv9w4NwDT+QYg28PLUBI
+ 6aNA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20240605; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=AD5VHBPGim6PdL8ZwGxtS6PvF4rAsfXKUPAGUcXH+Co=;
- fh=NhDn2E6vgWC2RmAK/byQiDMniOJS95wckYH+xJKt0+k=;
- b=MzN5bCgS+SOBUgXVsdRfwA6Hvky4Umiw+piIpPPxTCO+Cha3FzJKG6GCyRNgVDJU39
- pHqYVd7ULXEfaFAxDrINfdMhBVUD+bAM38Wjz1O9oFvtFlugX6SEVMCVRub/6bQWEoXB
- jG+iN3DJhN7LsA9Qb2xA3DNtIazcpg2mdSu3dftU3F9ICqkeSLxmMCGlQ865hezD9+QO
- W/xIpOkf98smm1VLGbn8rXMrFMwr8zuocw2re6oQghd2wmSUEfxjgLpUxxQGNdvSys3f
- AEt8972WSeQAKPXw/0A1/yNmPoXbkyncaeTrOfhgryxBRehbMB40iwowlruy1xMGqvRa
- 31Mw==; darn=lists.freedesktop.org
+ bh=BsRLgUtA5JSsXZ4xXw8vk1eoQqR+UCw1mR7ln0dyj1E=;
+ fh=0DU2kfv211GmKLo6p4OtGkNQGb62nWgg9fY5bZv8duM=;
+ b=ftCgnZuIgnFOS2oANEI3qMT289g5mpWjpWjyOncORaYUe7ovboUivt7IiiP8UeCK6I
+ yZFKyVN3qe6ushAA0F25jYjaWsAHE1haQXvq3nPaXvEHSRpKk59VH/DD982hModdOt4i
+ W4vxCRkEI2z45pEA7fV5IgzW4dBD89s1ZOxLbIiTF8Z6Q/p8GKM5wpeft3HTRuzZXkNJ
+ 1BHrTASozoMWvx3chw5lFXVonVkOdXRbp1ILglABUMteqAT3RzFcECXwo3deB9802LSU
+ hFyk/nTuSoPNAnhsuuRQo8LiE0UheJJIm5T/AsAt9bLqCUUqEL+ZQcSYHusA1E0H/5/g
+ rHlg==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1774358291; x=1774963091; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1774358369; x=1774963169; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=AD5VHBPGim6PdL8ZwGxtS6PvF4rAsfXKUPAGUcXH+Co=;
- b=L4+bo43Mq2ZAc3gVesc4ULuc1B5ndhZWhoPFARm8BARVFTvDuz7KPF6+4U2qa1kHAN
- L1EoTwDgUvb6MjitKE/chLjWMVkzkgPwM0IL2xKQktkoOMY+3CJ8/8uRWLXKZ4OwEpl5
- 2lvrdnxWBaGgvLPLVq77qXDqjJ81wPq4NYdvhi8K7wdk9MWURYTnnfUGlmTOnhJwedK1
- U4/DY4C0CA5FEgSdFsU+Yth5s0Bxuk8CUZWBSCrc6bO4wFdBYbfCP7fv82QpEbP5z2GQ
- 0qwXeZl7bRpAYAmY2xVBjhy2eofVsGG4JKKMj1gd457hn3dFvuJ/y0PdK17XObFK+I6t
- vmww==
+ bh=BsRLgUtA5JSsXZ4xXw8vk1eoQqR+UCw1mR7ln0dyj1E=;
+ b=ShoTM7G40GOcdeRA93SYQ+pyvrjJd8Aavyl5JNHa1v+8h9F7EtVhR9zdGQ2wrZB7JE
+ YwNupUct3+AJYa8dDZNLgTAMR3XFFf2XCoUH5pt0DVct1/h+tKFbOhXAzvowSClOfxb7
+ 6wTAp4ebKs/4sdPo4dUUlUNcwyD30EPqD8MEN4rnATZhf6G0fYbnhO06gszTDSvxy/QK
+ jspjBb4VKO2nbFcJnVXrk4LCULJUY9lWTedTnGzvuLSg3n7BEkrAp0bCyW0p8kl2T7kq
+ z3b4mKULjq+3yPaERJNv7raOOXY7HgmeTBKYtFYPUFiqlV0LYrUh6zISvEqFrikSRbxt
+ TZFA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774358291; x=1774963091;
+ d=1e100.net; s=20251104; t=1774358369; x=1774963169;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=AD5VHBPGim6PdL8ZwGxtS6PvF4rAsfXKUPAGUcXH+Co=;
- b=qi2iX2GC/BXSCL3XIp1GMAhgvIm8EZHWUBwlkUVv5aYaP5O6QzGegLcxj7YC8yj9DD
- ZIgw746pCRPTghVkqYHZKBoSSzy4J67R+5ML3v1KeZC9crzf/FrxSUU+zpw/228tMNfm
- yn4Zr96zQm01Nu25FNiYnq/zxLVQSFC0AXfR8UUIAnKMDQdZZcuMKHZ8/UW9Cg43+gm5
- 7Crfy/FVIKvxYW72QMZb0Pgtf+0cJ6FM/1TWpQM4K+1SAdpHqdLtRyJFc3cnrq3JRY/a
- gjeOlKHT2iBqe25fP3XfOLX02t/AcbOIHaDo8V9z9p8/Z0cxGjMse88Tg8Skha2uM2Xh
- Mvtg==
+ bh=BsRLgUtA5JSsXZ4xXw8vk1eoQqR+UCw1mR7ln0dyj1E=;
+ b=hUOVsJmTI6ObhKCi7aB+/qy1VhVfZWa5PHk17Q7LhFV9D5gkWdlktrt5n9uRc5ymqN
+ me4qYzrNyapOou2Q/xa88W9Y40GCb8G3JAyqpvcGILgavCeIPuiX9cXxKFiMAESJV/Kc
+ yS9T8ro+KLrSqryDJiOOocqxQDMpsSbLyci3fIc448g000GdhAMim+IJP/emaml1b5fQ
+ qnPp0mOY+Qqgp+fI/FQa7QeA/d7y9/CTCfGA8x2nzpUcrG07sOCSYDqxWVlZIMUgqxtx
+ EDxECetHJstkdj+O224QjWLvoaaVUUTDYB/WqqlM49RFvTWlR4+GLT1Y6snlv2BmaAeT
+ yNaQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVoSEyj6YNf7or4RHMDAXKnr3GY7OR5HXCshsHWrxibpDNPclpPRwjCg2bs+Sx8cPXdY302Vpky@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yx1gzPYiDBSGMAoGI3mO3XRcS+fet/TZuTesH7TxIAQlEiwzRtx
- PfZWx9RYjAeVZyi9tcQQQwuJHMoyc2uA+gEG+IO3yOtOxXP6yG3EIF7so/hRa40zbqOdEfUUk83
- NXRjYfsBJqdljj1TbFGNr3P2yz399oaI=
-X-Gm-Gg: ATEYQzx44Ynx3syKk+xJeYlqJuzpWJk5QFmRhGmcu7eGlLpMk00K979CM6LjUnBCsav
- dAPts4izPHQoROZ6JLC8YKCZ5EjBBEcqU95XMkPxcYXrfGioL/xWs0mvwr3v8FrTFYahgwAEAyH
- rhqF+cQOyu/dW5wdBm2WTS8cG4kGkLt/4uhzKRdvQT6ax+eK4P7Jf4FvGYic4G+FcFITLHesueS
- wdzUWw8LLktkrC3r7xJsPTEtVnw0xz3VVdmXHWCuVHFYDFJee7IT1XiJ9rnfbzOoqW2nkrGIT42
- f3UQD+zowEHtUZBf2J0JMIk38R/v9xSD/BQyvMEGW3SJpB8pzF3GgX5FfwvniP5Ke+p6Y+3h5bb
- HmN34
-X-Received: by 2002:a05:7301:4442:b0:2be:7eb2:2ed3 with SMTP id
- 5a478bee46e88-2c1095f6454mr3344144eec.1.1774358291324; Tue, 24 Mar 2026
- 06:18:11 -0700 (PDT)
+ AJvYcCXUDrSGzFeLLXvCcAI2TmGr3h3zBqmyoOvqncmnb6ynXsME/Fr7x6JnCeVG5P98mUXzVP1w4S1M@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzjEatSRrfiIrsSHc8h2PfVTkPLJgHi1LlDCvBuvWhBohT6uwzS
+ pOXc+YrrYpGLY7f0wJ4wCQHQpeERt+Drg+IBLATc5xCRvvGRBS2WlOk5NpYITLwYYE+5we04RsR
+ 3lZcs4HyYA5rvyVBsohMciuLPv1uzyjQ=
+X-Gm-Gg: ATEYQzyB9FtFZXDnluqq7xqr+seEz/AcHhe9Db+MONPgyq1S0RlrjRBRAO8t58n13fv
+ dpNhvKlAfgpn741JWik15fx1vpz3g5wN1FBvDQtU2r4j7yEfH+//4zSImnelocFrfbKRXJP8aL+
+ uABqWbKxoaaRYo5+1BRrNIMS4z9PslBjkOjW9O0mw+Z3V+ZH/Xse/dfhzJFr93Huz2fQQOpGmTY
+ rLMTCk6ZzQprXI1Ny2kOk7QTqV6KEu+RF5gdhPM+sNnr88slsg4Jp7fFow0zbFORf1njaZUY6Mb
+ ZoLEkyh0YlWfA4nJKr+a9TxenD+vy/3K16jVCbfQJp9QZf2jg6nxo+IKzRQ00P46YPNxnw==
+X-Received: by 2002:a05:7022:f8d:b0:11e:332:1e01 with SMTP id
+ a92af1059eb24-12a726a9b6amr3506204c88.3.1774358369493; Tue, 24 Mar 2026
+ 06:19:29 -0700 (PDT)
 MIME-Version: 1.0
-References: <20260321105717.6212-1-kexinsun@smail.nju.edu.cn>
-In-Reply-To: <20260321105717.6212-1-kexinsun@smail.nju.edu.cn>
+References: <20260321105728.6304-1-kexinsun@smail.nju.edu.cn>
+In-Reply-To: <20260321105728.6304-1-kexinsun@smail.nju.edu.cn>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 24 Mar 2026 09:17:59 -0400
-X-Gm-Features: AaiRm51BvxeAEOmeZZxEHJw085Bt5qt60MIORwpxuCeiZLkyyl9_4EF2NqW-WTs
-Message-ID: <CADnq5_PATAoqfG9NMTB-dGxs0V+t6PA=jVvo=OkUDyNbqca3SQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/display: update outdated comments for renamed
- vblank_control_worker()
+Date: Tue, 24 Mar 2026 09:19:17 -0400
+X-Gm-Features: AaiRm526BG_rM9muwvFrczqMS3-tFt9tDF8XTVojFBAC5700mXENfyNJwBxRyIg
+Message-ID: <CADnq5_PO_Ns7=48ZOKa+08gwO038BzJm8K_KqE1Zz7XTa+M5uw@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: update outdated comment for renamed
+ amdgpu_fence_driver_init()
 To: Kexin Sun <kexinsun@smail.nju.edu.cn>
-Cc: harry.wentland@amd.com, sunpeng.li@amd.com, siqueira@igalia.com, 
- alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com, 
- simona@ffwll.ch, mario.limonciello@amd.com, alex.hung@amd.com, 
- aurabindo.pillai@amd.com, ray.wu@amd.com, Wayne.Lin@amd.com, 
- timur.kristof@gmail.com, superm1@kernel.org, ivan.lipski@amd.com, 
- dominik.kaszewski@amd.com, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- julia.lawall@inria.fr, xutong.ma@inria.fr, yunbolyu@smu.edu.sg, 
- ratnadiraw@smu.edu.sg
+Cc: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com, 
+ simona@ffwll.ch, timur.kristof@gmail.com, tglx@kernel.org, mingo@kernel.org, 
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, julia.lawall@inria.fr, xutong.ma@inria.fr, 
+ yunbolyu@smu.edu.sg, ratnadiraw@smu.edu.sg
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -113,58 +107,38 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.  Thanks!
+Applied.  thanks!
 
-On Sat, Mar 21, 2026 at 7:14=E2=80=AFAM Kexin Sun <kexinsun@smail.nju.edu.c=
+On Sat, Mar 21, 2026 at 7:44=E2=80=AFAM Kexin Sun <kexinsun@smail.nju.edu.c=
 n> wrote:
 >
-> The function vblank_control_worker() was renamed
-> to amdgpu_dm_crtc_vblank_control_worker() by commit
-> 6ce4f9ee25ff ("drm/amd/display: Add prefix to amdgpu crtc
-> functions").  Update the two stale references in
-> amdgpu_dm.c.
+> The function amdgpu_fence_driver_init() was renamed to
+> amdgpu_fence_driver_sw_init() by commit 067f44c8b459
+> ("drm/amdgpu: avoid over-handle of fence driver fini in s3
+> test (v2)").  Update the stale reference in the
+> amdgpu_fence_driver_init_ring() kdoc.
 >
 > Assisted-by: unnamed:deepseek-v3.2 coccinelle
 > Signed-off-by: Kexin Sun <kexinsun@smail.nju.edu.cn>
 > ---
->  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 8 +++++---
->  1 file changed, 5 insertions(+), 3 deletions(-)
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 >
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/=
-gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index b3d6f2cd8ab6..c2b7b31b0d29 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -9894,7 +9894,8 @@ static void amdgpu_dm_enable_self_refresh(struct am=
-dgpu_crtc *acrtc_attach,
->                  * a vblank event disable request to enable PSR/RP. PSR S=
-U/RP
->                  * can be enabled immediately once OS demonstrates an
->                  * adequate number of fast atomic commits to notify KMD
-> -                * of update events. See `vblank_control_worker()`.
-> +                * of update events.
-> +                * See `amdgpu_dm_crtc_vblank_control_worker()`.
->                  */
->                 if (!vrr_active &&
->                     acrtc_attach->dm_irq_params.allow_sr_entry &&
-> @@ -10062,8 +10063,9 @@ static void amdgpu_dm_commit_planes(struct drm_at=
-omic_state *state,
->                         /*
->                          * If the dirty regions changed, PSR-SU need to b=
-e disabled temporarily
->                          * and enabled it again after dirty regions are s=
-table to avoid video glitch.
-> -                        * PSR-SU will be enabled in vblank_control_worke=
-r() if user pause the video
-> -                        * during the PSR-SU was disabled.
-> +                        * PSR-SU will be enabled in
-> +                        * amdgpu_dm_crtc_vblank_control_worker() if user
-> +                        * pause the video during the PSR-SU was disabled=
-.
->                          */
->                         if (acrtc_state->stream->link->psr_settings.psr_v=
-ersion >=3D DC_PSR_VERSION_SU_1 &&
->                             acrtc_attach->dm_irq_params.allow_sr_entry &&
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c b/drivers/gpu/drm/=
+amd/amdgpu/amdgpu_fence.c
+> index 1054d66c54fa..37534f66c755 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
+> @@ -458,7 +458,7 @@ int amdgpu_fence_driver_start_ring(struct amdgpu_ring=
+ *ring,
+>   * @ring: ring to init the fence driver on
+>   *
+>   * Init the fence driver for the requested ring (all asics).
+> - * Helper function for amdgpu_fence_driver_init().
+> + * Helper function for amdgpu_fence_driver_sw_init().
+>   */
+>  int amdgpu_fence_driver_init_ring(struct amdgpu_ring *ring)
+>  {
 > --
 > 2.25.1
 >
