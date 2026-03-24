@@ -4,138 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 01D23E9A769
-	for <amd-gfx@archiver.kernel.org>; Tue, 24 Mar 2026 10:59:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1C9F0E9A76F
+	for <amd-gfx@archiver.kernel.org>; Tue, 24 Mar 2026 11:19:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9525410E5D0;
-	Tue, 24 Mar 2026 10:59:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8ECF610E5EB;
+	Tue, 24 Mar 2026 11:19:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Hh7+WmRc";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="EUgDf5cC";
 	dkim-atps=neutral
-Received: from CH5PR02CU005.outbound.protection.outlook.com
- (mail-northcentralusazon11012003.outbound.protection.outlook.com
- [40.107.200.3])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AA7C210E5D0
- for <amd-gfx@lists.freedesktop.org>; Tue, 24 Mar 2026 10:59:18 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=cwLXC9JTBMwXgIl+89ftLZydtMPWHd2TTYTccq9U7ThY1J7NtBEiAeFKkJyHq3MeSsdE5Y59QsVkM/YKJheTn0IKIFXm7GaIza7RqjuVskk4KnjZrhjVekBwxWMtRk8CRC3E+Vf00QtAue0nxW9Y2WCKdKcCMEf0Pdvh2GRid/wl3VTE3Hl144/xLeWJWxAL4LqYWF341F9C+QoGuY3h2vsIZrjMcoyNxUQDCXD3CYZ8O6rtePztYyBPje7lnBPKjRCNXsg0ZaLcz1vNdf0jmrPxVHiPtCSn/xBz0yIFks7NHMVPmyTnqnsewXDijy8K3Eb0pzvf5uZfej5D6VF31w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=R4R3bt35MbNKvko/Me6tDl3j6y0fMBvdQt+Fre3AmoE=;
- b=hBQHeeJtLsBdwS9c8st4ZHn+63Ptb9H7HkMl0wlHa1nw3arJCwxwMo+1WPCMXg2bOlHkRtdTAgJZsUlCKP0dQ4zZZrk6G7aMt58s9iMNIMRAv8H6Nix0HDSpixk33SgvITE7KOnG2Yx2B0Ge0l2aMINSmFAPApZnElbwajiXr9CIC0GgsS9OuUun20sB6H6rMKciJl9rHZB9KcwGWZU4CXO6IePawyC9yKd2x8WA9Pfwwoeg2xh/jW05UM/4Ci9JafXzS427//AYGknG2Qo/gXlvSL3Nv3tukPkkz45z7Q19SiNFJD9qhuErcf4vi0m2vmPyzdgBrvleRa9VXHBWsw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=R4R3bt35MbNKvko/Me6tDl3j6y0fMBvdQt+Fre3AmoE=;
- b=Hh7+WmRcsVRRiB+sl64PHqhGWe3V8dNkaUwO+JeYaqCBP5qR28Ro9Xz/IlHdmPx7UauLXddno55CHDteQvcMLGcf48gNVCvyavnxm9mA14JKu/HybYpbcDGGUsrbQHI3o7KQigptRa753ZlJlBKJ7yK9qNADRpHGmq7UgG7FiTg=
-Received: from DM6PR12MB2972.namprd12.prod.outlook.com (2603:10b6:5:39::31) by
- PH7PR12MB8425.namprd12.prod.outlook.com (2603:10b6:510:240::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.20; Tue, 24 Mar
- 2026 10:59:13 +0000
-Received: from DM6PR12MB2972.namprd12.prod.outlook.com
- ([fe80::574d:7c2d:4d0a:855e]) by DM6PR12MB2972.namprd12.prod.outlook.com
- ([fe80::574d:7c2d:4d0a:855e%6]) with mapi id 15.20.9700.006; Tue, 24 Mar 2026
- 10:59:12 +0000
-From: "Wang, Yang(Kevin)" <KevinYang.Wang@amd.com>
-To: "Lazar, Lijo" <Lijo.Lazar@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-CC: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Zhang, Hawking"
- <Hawking.Zhang@amd.com>, "Feng, Kenneth" <Kenneth.Feng@amd.com>
-Subject: RE: [PATCH 1/4] drm/amd/pm: add variant func smu_cmn_send_msg() to
- unify msg sending logic
-Thread-Topic: [PATCH 1/4] drm/amd/pm: add variant func smu_cmn_send_msg() to
- unify msg sending logic
-Thread-Index: AQHcuxqIZGzHnQJXaEuCwyrkc7gfJrW9NAKAgAAywDCAAAwFAIAAAheAgAAMXBA=
-Date: Tue, 24 Mar 2026 10:59:12 +0000
-Message-ID: <DM6PR12MB297206E8D97B1516B1196A688248A@DM6PR12MB2972.namprd12.prod.outlook.com>
-References: <20260323231206.722067-1-kevinyang.wang@amd.com>
- <ec7369d6-8f6d-4c2b-bbd8-b43fe11a41e1@amd.com>
- <DM6PR12MB2972AF9E1A2818BFA249ED7B8248A@DM6PR12MB2972.namprd12.prod.outlook.com>
- <042cf542-683d-435a-b54b-0c7161003d1b@amd.com>
- <2d9c0d04-7b68-4091-9774-37ab9ed39a0a@amd.com>
-In-Reply-To: <2d9c0d04-7b68-4091-9774-37ab9ed39a0a@amd.com>
-Accept-Language: en-US, zh-CN
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=True;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2026-03-24T10:48:15.0000000Z;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
- Internal Distribution
- Only; MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=3;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DM6PR12MB2972:EE_|PH7PR12MB8425:EE_
-x-ms-office365-filtering-correlation-id: 01ffff8d-ee77-412c-916c-08de89946224
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|376014|1800799024|366016|38070700021|7053199007|22082099003|18002099003|56012099003;
-x-microsoft-antispam-message-info: SrVDNSSl9xBNY3WMfNew8J2CGpW0GHrtr+DnCcHZpfc0exXss8QvSRGJg9FbM9Phi7aBze8YmV7gSgx10VwRPTtv5z1l2pwvMH56KvzI8NYW2uDDFKat9MBSpmwAY3/AzdhXPSOS6WbNyE3MJUP2Bzk1EwsS1uejVISZ609Xb0Wr9s/QTN73LvQ3sHIIG1U9rLorbgHZjJzUl0qPnrX0S2NMatVkui5JzRCOKxv94dmFT/n9HNlpGkhFQGB/30lzXBrCNtIlBWANV5lAlBVlSl9xGCTmzNkN6PU7POI5MBWE1DzsKKDV9c1VDsvutM5loO7CBbO5MucbYxCwAcy9wQ4P7LY8A1jU0YXXRdVMYtUcjHMHgF89+oxVSW93nv0vrIx4uzZDAXKA64XmeXwV/4uYh7yf0XsrUM4nkyrVLoKzwI9tjBEIJx+m2ZbXH4dBkwxeksrLwtFUGBRN+CVSlxsicVCcuKpbvkZw2gKEs3cgtwcicxirn6hMDqIcPHX+Dcd1xrsSokbKIx8fFZgSwj2SDkHuO0B/xm4Vlh/4iSgiJCztHIAcKkGaIBDvaUbkSI6n/4cSVp4RebxIYXnELZooEaQoiWLNrWkWAmEpuCSL/Ji9/adyf3+KRT7QATL5vBxjI3bXYwoiDH7gqtouwkBSDsfAdgoTPeJ7n8lNjk2WSikBAjCv4Gjk5fyeub2Fz0JA8TuPajeKdcHyHNUnf+E5zrJfBNNh8aV6uyIIN22fOk3GCnez19P0no6w/4tK
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB2972.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(366016)(38070700021)(7053199007)(22082099003)(18002099003)(56012099003);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?SGtyalp2MzN1VE9LNlNSaldUUk5VSGJzZ3JZVFdoRUlHbE4wMDB0NVNWbjRK?=
- =?utf-8?B?b1BYTER4OHFPRzNLMGxQaDg3WmRZbEdmNGRKU3lrZ0w0cWQxcHQyNTBMb28v?=
- =?utf-8?B?RzdIWENpQm5MaWFRM2hLQUpRUERqNnJ3YXVOb3ljdWdOV2wxbDBJdXd0N2lq?=
- =?utf-8?B?ZklBVTFyUG81ZW0xNmJVT1lYRnQ5OUUxRHp5SUJHMzMxSTlzZkx6MXp2TnJx?=
- =?utf-8?B?c29rK3A4MkFxS0xEYVFKWUx3ejEweVlybklqbTEvOE9wcWVBREN1TXV3dFp6?=
- =?utf-8?B?UStoWTdqeWg0TTdtNEt4dkduQXRvNG8wYTJKZ3piSVp1SW85Q0tKdStVQWd3?=
- =?utf-8?B?UCtydXdRL3FUbmNBMmNCenBYcm92M3JVK21GcXEyazlkNVJBc0VIWXh4YnVi?=
- =?utf-8?B?d0xtcFJybFBPN2lOcHVNRkhSMjZobDlxYXlEejAvbjV2em9yRldGV3pFNGZD?=
- =?utf-8?B?MlUyRFVkaStGVFZMdWNPSGZhY0VyNE5qTTdKeUR1cGVVZGhOcThlSkdsYjda?=
- =?utf-8?B?YVlkcUllcjdPQ2VrWEdnQzJmZk82VkFsNTN0eUhiTTVkVzVnWjlkdnluOXgr?=
- =?utf-8?B?RVNxYzQrNXp0alhnMzc3OHQ4WjZXanp0Tzllci9BT0RlSTY5ZjFpV0ZSTzFT?=
- =?utf-8?B?d3hkeTJuWW1XYSsvTGVLczZTenc5TWh1clFJWmtxc2dOSEdxcmRDQ09GYjhK?=
- =?utf-8?B?RlZGemEvVHh6dVdNUlhrL0kxOVc3b09udGxFcW9nTnpBWlFibUF6SzFCYjJW?=
- =?utf-8?B?UENBSjlLYzRMdFBsaXJIdXIxQU9MZEZVNWYrMDBtRCtzbC92NWhoakJzaUlI?=
- =?utf-8?B?cWhKZDJUOXYxdFVNekUvdjBGQ2owSG5KTkRpeHNPaHlDTDFZd0xYWEFQdkdT?=
- =?utf-8?B?MXExV1VGTmQyTndBYjQ5UCtpYXRwMjlTOXdnZ2pjZEZtZjB1ZVZNemQyQUpa?=
- =?utf-8?B?YlNZWDBHMUgydmVMMGNrMGkvcDgzRy9FR2tkZkVPTjBiUjFzNDczblgyVUdS?=
- =?utf-8?B?M2FxbFFuWWlZWFJaaW9mOFR0eFUvRVh2SFJnNW8zclpQcEVMR2lMNFFZN3Vr?=
- =?utf-8?B?RkFydjM3b3lsQzBNUENTQ0tKVStnRm9VVXRvc1pHaXh4YmltSTZsa1ZLM05E?=
- =?utf-8?B?RnZlaXh6RTdGRlhHK21lSTlTYUhiR3FvZjMzWmp0RlBnaHErYzRudTRFcmxR?=
- =?utf-8?B?OHpvYi9VKzhGUUlHVHFpQjhHY1Zsc0toTjNoVzlWaysydm54UWFrdTVYazZa?=
- =?utf-8?B?NStZd3lkaWJDeUZQNUhTKy9vQ2ZmdmxvQjNNUWRGaENVMG5KZUpKVTBnWjVq?=
- =?utf-8?B?amVKV0lCTDZpTlpmOFdYZm9GTUpzaS96aCtQaUl2T1ZZeDc0bloycEdPcVhS?=
- =?utf-8?B?TklqRHZRZkZvVmJqRDhqbG5QenFodFU1NDFremRpbGFZVnhpTlVLUW91SE1k?=
- =?utf-8?B?VzlGRzFkZlkvdmlDcXIxeTFJVE9BNGpnVHUvcmxpNmRxcUswc2JORTJ5SVpx?=
- =?utf-8?B?NnZHZzBGVHU0OXBiWGF5NVN1a0x2bnU3d0RxSjhnYUc5TE90TmdMeXd4SVZX?=
- =?utf-8?B?TmRGM21IK2lzbTFHdmJGTXJwanl0NXo4WGpJblkrWXRHWURjRldmRklGaXM1?=
- =?utf-8?B?TlZQb0VSc1hSMjBtd2NaOVRXV3JXUTRVMU1nV0d0T2ovdWhMNXFlckQxRWYv?=
- =?utf-8?B?V09WS1luWTJEQy9tK1VOemQ5QVpIdXZ5UExxSlVrK2krM2NmaXArY3Y3UFdh?=
- =?utf-8?B?QWo2bktkU2R3RENkWGpSU2NhL2liSzVjS0gzdmphVG51NkNsNDd2WVFFajJ2?=
- =?utf-8?B?WE1qTWlkOUUvL0xwRjlUVmRGSnlWS0Q4dldUaDVWQ2FERk1EQ1F2MzZqbG9H?=
- =?utf-8?B?QXZSSGVqb1lMSk96czJKYjlJMXNScHBkTVFBeUZUdnN1YUFjN0F1bE1YZnIv?=
- =?utf-8?B?WGliTlU0MVhpK3BGZVZ4a1EvakgrdlA1Y2FQM2VnbW10cjFVaG9jcEtxQS9u?=
- =?utf-8?B?UDh0Qjc3NkRiR2Y2eHVWOU5WUTA2RWJDb2tJdDhtQmhTWHFGTjZIR2tCeGtR?=
- =?utf-8?B?ZHdaQXlXSVBzR0xoRW0ydnFpL1IydVZUS1ppTldQYVc5Tk50WG9SZ2JTRWg4?=
- =?utf-8?B?LzVNR3VHc25QU3k0WlhBeTB6L0NibFY4KzVvYVZBcjU1eTRkemV6ZXF3Tkp0?=
- =?utf-8?B?NjQvOW5pOGZ1cWRnKzlucVJpRkx4aE8rVmF6eVArSkpQcXFndGRJVGJzZTZh?=
- =?utf-8?B?RHNhVkpPL2svMlM4MDYrdmh6U3VQS0xxZUlxcERwQndVVkozUmxkV2k3aWdi?=
- =?utf-8?Q?rbdYHe9EFggNQpmZSd?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 23F0910E5E9;
+ Tue, 24 Mar 2026 11:19:35 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id 3A0F160123;
+ Tue, 24 Mar 2026 11:19:34 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D7A5C19424;
+ Tue, 24 Mar 2026 11:19:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1774351173;
+ bh=lelFSv8KIxfumUBSgNRBDGBB2PjvcsMNY6yIMv4a0UE=;
+ h=From:To:Cc:Subject:Date:From;
+ b=EUgDf5cCCgUbxl4OVUdC7/KhkysJV5oBwJQGqF/iXKd9ZmF1ggFP+YG3ADnO9zFkv
+ onGmcfP1WZytGeKHE9aSty7GA44uqy2LbPP78yKhm8IbUw/ikE1AjLUUNj47+INml8
+ 6l5oi/fAHxO1MLtS6KsuzxQfgHRbp12b23d44zILlQY5e48aHs3Q0J4+m1V/dLOqYA
+ KvpROFnxbcsTf8/0V/KtPrwb/BrE7Rz+Uce6QYfYc6U6S6+08dqqbHvWUVzlraDSJo
+ 3kmkCMHjV5KvyaemEwWyaqPgOrjUkaqPJ7YC46D1usvG7P8NMU8Ry9YoQ9+YYFFPn2
+ C0MUGQZ7sBAzQ==
+From: Sasha Levin <sashal@kernel.org>
+To: patches@lists.linux.dev,
+	stable@vger.kernel.org
+Cc: Alex Hung <alex.hung@amd.com>, Xaver Hugl <xaver.hugl@kde.org>,
+ Melissa Wen <mwen@igalia.com>, Harry Wentland <harry.wentland@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
+ sunpeng.li@amd.com, christian.koenig@amd.com, airlied@gmail.com,
+ simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [PATCH AUTOSEL 6.19] drm/amd/display: Fix gamma 2.2 colorop TFs
+Date: Tue, 24 Mar 2026 07:19:10 -0400
+Message-ID: <20260324111931.3257972-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.51.0
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB2972.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 01ffff8d-ee77-412c-916c-08de89946224
-X-MS-Exchange-CrossTenant-originalarrivaltime: 24 Mar 2026 10:59:12.7383 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: lxYQ23GkUoS9BuWV8GXwxHlIJT73tvCHNXQwlTNovywSSZCzIVIQolyCX4EpZ1F7
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB8425
+X-stable: review
+X-Patchwork-Hint: Ignore
+X-stable-base: Linux 6.19.9
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -150,176 +63,244 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-W0FNRCBPZmZpY2lhbCBVc2UgT25seSAtIEFNRCBJbnRlcm5hbCBEaXN0cmlidXRpb24gT25seV0N
-Cg0KSSBzdHJvbmdseSBkaXNhZ3JlZSB3aXRoIHlvdXIgdmlld3BvaW50IHRoYXQgdmFyaWFibGUg
-cGFyYW1ldGVycyBjYW4gbGVhZCB0byBjb21wbGV4aXR5LA0KVGhlIGdvYWwgb2YgdmFyaWFibGUg
-cGFyYW1ldGVycyBpcyB0byBzb2x2ZSBwcm9ibGVtcyBpbiBjb21wbGV4IHNjZW5hcmlvcywgd2hp
-Y2ggaXMgYSB2ZXJ5IGNvbW1vbiBwcm9ncmFtbWluZyB0ZWNobmlxdWUgb24gTGludXgsDQplLmcu
-OiBwcmludGsoKS9vcGVuKCkvZXJyKCkvZXhlYygpLy4uLiAsIGV2ZW4gYnBmX3RyYWNlX3J1bjwx
-Li4uMTI+KCkgYXBpIGluIGtlcm5lbCBzaWRlLg0Kd2hpY2ggYWxsIGFkb3B0IHRoaXMgZGVzaWdu
-IHRvIG1lZXQgdGhlIG5lZWRzIG9mIGNvbXBsZXggc2NlbmFyaW9zLg0KDQpCdHcsDQp3aXRob3V0
-IGZ1cnRoZXIgdGVjaG5pY2FsIGNvbmNlcm5zLCBJIHdpbGwgc3RvcCB0aGlzIHRocmVhZCB0byBy
-ZWR1Y2UgdW5uZWNlc3NhcnkgcmV2aWV3IG5vaXNlLg0KDQpCZXN0IFJlZ2FyZHMsDQpLZXZpbg0K
-DQotLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KRnJvbTogTGF6YXIsIExpam8gPExpam8uTGF6
-YXJAYW1kLmNvbT4NClNlbnQ6IFR1ZXNkYXksIE1hcmNoIDI0LCAyMDI2IDY6MDQgUE0NClRvOiBX
-YW5nLCBZYW5nKEtldmluKSA8S2V2aW5ZYW5nLldhbmdAYW1kLmNvbT47IGFtZC1nZnhAbGlzdHMu
-ZnJlZWRlc2t0b3Aub3JnDQpDYzogRGV1Y2hlciwgQWxleGFuZGVyIDxBbGV4YW5kZXIuRGV1Y2hl
-ckBhbWQuY29tPjsgWmhhbmcsIEhhd2tpbmcgPEhhd2tpbmcuWmhhbmdAYW1kLmNvbT47IEZlbmcs
-IEtlbm5ldGggPEtlbm5ldGguRmVuZ0BhbWQuY29tPg0KU3ViamVjdDogUmU6IFtQQVRDSCAxLzRd
-IGRybS9hbWQvcG06IGFkZCB2YXJpYW50IGZ1bmMgc211X2Ntbl9zZW5kX21zZygpIHRvIHVuaWZ5
-IG1zZyBzZW5kaW5nIGxvZ2ljDQoNCg0KVG8gYWRkIC0gdGhlIGV4aXN0aW5nIHVzYWdlIGFsc28g
-YXZvaWRzIHJlZHVuZGFudCBtZW1vcnkgY29waWVzIG9mIGluL291dCBhcmd1bWVudHMgd2hpY2gg
-aXMgdGhlcmUgd2l0aCB0aGUgbmV3IHNlcmllcy4NCg0KT24gMjQtTWFyLTI2IDM6MjYgUE0sIExh
-emFyLCBMaWpvIHdyb3RlOg0KPg0KPg0KPiBPbiAyNC1NYXItMjYgMzowMCBQTSwgV2FuZywgWWFu
-ZyhLZXZpbikgd3JvdGU6DQo+PiBbQU1EIE9mZmljaWFsIFVzZSBPbmx5IC0gQU1EIEludGVybmFs
-IERpc3RyaWJ1dGlvbiBPbmx5XQ0KPj4NCj4+IFlvdXIgY29tbWVudHMgcmVseSBvbiBzdWJqZWN0
-aXZlIGFzc3VtcHRpb25zICgiSSBkb24ndCB0aGluayIpDQo+PiBsYWNraW5nIHRlY2huaWNhbCBq
-dXN0aWZpY2F0aW9uLg0KPj4gdGhpcyBpbmNyZWFzZXMgcmV2aWV3IGNvc3QgYW5kIHNsb3dzIHBy
-b2dyZXNzIHdpdGhvdXQgY2xlYXIgdGVjaG5pY2FsDQo+PiBiYXNpcy4NCj4+DQo+PiBteSBhcHBy
-b2FjaCBzdGF5cyBzaW1wbGU6IHRoaXMgcGF0Y2ggb3B0aW1pemVzIGNvbW1vbiBtZXNzYWdlIHBh
-dGhzDQo+PiBhbmQgaGlkZXMgdW5uZWNlc3NhcnkgbG93LWxldmVsIGRldGFpbHMuDQo+PiBBbmQg
-dGhlIG9yaWdpbmFsIGxvd+KAkWxldmVsIEFQSXMgcmVtYWluIGF2YWlsYWJsZSwgc28sIGRldmVs
-b3BlcnMgY2FuDQo+PiBzdGlsbCB1c2UgdGhlbSB3aGVuZXZlciBmaW5l4oCRZ3JhaW5lZCBjb250
-cm9sIGlzIHJlcXVpcmVkLg0KPg0KPiBUaGVzZSBhcmUgdGhlIG9uZXMgaW4gY2FzZSB5b3UgbWlz
-c2VkIC0NCj4NCj4gMSkgVGhpcyB1c2VzIHNhbWUgZnVuY3Rpb24gd2l0aCBtdWx0aXBsZSB2YXJp
-YW50cyBhbmQgaXQgaXMgZGlmZmljdWx0DQo+IHRvIGZpZ3VyZSBvdXQgd2hpY2ggZm9ybSB0byB1
-c2UuDQo+DQo+IDIpIEl0IGFsc28gYmVjb21lcyByZWFkaW5nIGNvZGluZyB0aGUgZGlmZmljdWx0
-LiBSZWZlciBiYWNrIHRoZSBzYW1lDQo+IG1lc3NhZ2UgdG8gZmlndXJlIG91dCB3aGljaCBmb3Jt
-IGlzIGJlaW5nIHVzZWQuDQo+DQo+IDMpIFRoZSBleGlzdGluZyBpbXBsZW1lbnRhdGlvbiBpcyBu
-b3QgY29tcGxpY2F0ZWQsIHRoZXJlIGlzIG5vdGhpbmcNCj4gbG93bGV2ZWwgaW4gdGhhdC4gSXQn
-cyBqdXN0IGEgZm9ybSBvZiBBUEkgd2hpY2ggdGFrZXMgYSBzdHJ1Y3QgaW5zdGVhZA0KPiBvZiAx
-MSBwYXJhbWV0ZXJzIGZvciBpbi9vdXQgKGF0IGl0IGZ1bGxlc3QgbGV2ZWwgaXQgY2FuIGhhdmUg
-MTINCj4gcGFyYW1ldGVycyBpbiB0aGlzIGZvcm0pLiBJdCdzIG11Y2ggY2xlYXJlciB0byByZWFk
-IHRoZSBjb2RlIGluIHRoYXQNCj4gdXNhZ2UgYW5kIGl0IHByZXNlbnRzIGEgdW5pZm9ybSBBUEkg
-cmF0aGVyIHRoYW4gbXVsdGlwbGUgZm9ybXMgb2YgdXNhZ2UuDQo+DQo+IFRoYW5rcywNCj4gTGlq
-bw0KPg0KPj4NCj4+IEJlc3QgUmVnYXJkcywNCj4+IEtldmluDQo+Pg0KPj4gLS0tLS1PcmlnaW5h
-bCBNZXNzYWdlLS0tLS0NCj4+IEZyb206IExhemFyLCBMaWpvIDxMaWpvLkxhemFyQGFtZC5jb20+
-DQo+PiBTZW50OiBUdWVzZGF5LCBNYXJjaCAyNCwgMjAyNiAyOjEyIFBNDQo+PiBUbzogV2FuZywg
-WWFuZyhLZXZpbikgPEtldmluWWFuZy5XYW5nQGFtZC5jb20+OyBhbWQtDQo+PiBnZnhAbGlzdHMu
-ZnJlZWRlc2t0b3Aub3JnDQo+PiBDYzogRGV1Y2hlciwgQWxleGFuZGVyIDxBbGV4YW5kZXIuRGV1
-Y2hlckBhbWQuY29tPjsgWmhhbmcsIEhhd2tpbmcNCj4+IDxIYXdraW5nLlpoYW5nQGFtZC5jb20+
-OyBGZW5nLCBLZW5uZXRoIDxLZW5uZXRoLkZlbmdAYW1kLmNvbT4NCj4+IFN1YmplY3Q6IFJlOiBb
-UEFUQ0ggMS80XSBkcm0vYW1kL3BtOiBhZGQgdmFyaWFudCBmdW5jDQo+PiBzbXVfY21uX3NlbmRf
-bXNnKCkgdG8gdW5pZnkgbXNnIHNlbmRpbmcgbG9naWMNCj4+DQo+Pg0KPj4NCj4+IE9uIDI0LU1h
-ci0yNiA0OjQyIEFNLCBZYW5nIFdhbmcgd3JvdGU6DQo+Pj4gYWRkIHZhcmlhbnQgZnVuYyBzbXVf
-Y21uX3NlbmRfbXNnKCkgdG8gdW5pZnkgc211IG1lc3NhZ2Ugc2VuZGluZw0KPj4+IGxvZ2ljLCBh
-bmQgZW5hYmxpbmcgc3VwcG9ydCBmb3IgbmV3ZXIgQVNJQyBpbnRlcmZhY2VzIHN1Y2ggYXMgU01V
-DQo+Pj4gdjE1IGFuZCB1cGNvbWluZyBkZXZpY2VzLg0KPj4+IChzdXBwb3J0IG11bHRpLXBhcmFt
-L211bHRpLXJlc3BvbnNlLCBzdGFuZGFyZGl6ZSBjb2RlIGFjcm9zcyBhbGwgc211DQo+Pj4gY29k
-ZSBsYXllcnMpDQo+Pj4NCj4+PiBUaGUgc211X2Ntbl9zZW5kX21zZygpIEFQSSB3aWxsIGV4cGFu
-ZCB0byB0aGUgZm9sbG93aW5nIHByb3RvdHlwZXMNCj4+PiBiYXNlZCBvbiB0aGUgbnVtYmVyIG9m
-IGlucHV0IHBhcmFtZXRlcnMuDQo+Pj4gZS5nOg0KPj4+IDEuIHIgPSBzbXVfY21uX3NlbmRfbXNn
-KHNtdSwgbXNnX2lkKTsgMi4gciA9IHNtdV9jbW5fc2VuZF9tc2coc211LA0KPj4+IG1zZ19pZCwg
-JnJlYWRfYXJnKTsgMy4gciA9IHNtdV9jbW5fc2VuZF9tc2coc211LCBtc2dfaWQsIHBhcmFtLA0K
-Pj4+ICZyZWFkX2FyZyk7IDQuIHIgPSBzbXVfY21uX3NlbmRfbXNnKHNtdSwgbXNnX2lkLA0KPj4+
-ICAgICAgICAgICAgICAgICAgICAgICAgbnVtX3BhcmFtLCBbcGFyYW0wLCBwYXJhbTEsIC4uLl0s
-DQo+Pj4gICAgICAgICAgICAgICAgICAgICAgICBudW1fcmVzcG9uc2UsIFthcmcwLCBhcmcxLCAu
-Li5dDQo+Pg0KPj4gQXMgbWVudGlvbmVkIGVhcmxpZXIsIEkgZG9uJ3QgdGhpbmsgdGhpcyBoZWxw
-cyB3aXRoIHJlYWRhYmlsaXR5IG9mDQo+PiB0aGUgY29kZS4gVGhpcyBjb21taXQgbWVzc2FnZSBo
-YXMgdG8gYmUgcmVmZXJyZWQgYWx3YXlzIHJlZ2FyZGluZw0KPj4gdXNhZ2UuIEZvcg0KPj4gZXg6
-IGlmIEkgd2FudCB0byBzZW5kIGEgbWVzc2FnZSB3aGljaCBoYXMgb25seSBvbmUgb3V0cHV0IGFy
-Z3VtZW50DQo+PiBhbmQgbm8gaW5wdXQgYXJndW1lbnQsIGl0IHRha2VzIGEgd2hpbGUgdG8gZmln
-dXJlIG91dCB3aGljaCBmb3JtIHRvIHVzZS4NCj4+DQo+PiBJbnN0ZWFkLCBpdCdzIGJldHRlciB0
-byBleHBvc2UgYXJncyBzdHJ1Y3R1cmUgZGlyZWN0bHkgdG8gdXNlci4gSQ0KPj4gZG9uJ3QgdGhp
-bmsgaXQncyBzbyBjb21wbGljYXRlZCB0byB1c2UgbGlrZSB0aGlzLg0KPj4NCj4+IGh0dHBzOi8v
-Z2l0bGFiLmZyZWVkZXNrdG9wLm9yZy9hZ2Q1Zi9saW51eC8tL2Jsb2IvZHJtLW5leHQvZHJpdmVy
-cy8NCj4+IGdwdS9kcm0vYW1kL3BtL3N3c211L3NtdTE1L3NtdV92MTVfMC5jI0w2MjcNCj4+DQo+
-PiBNYXliZSBJJ3ZlIGEgYmlhc2VkIHZpZXcsIEkgZmVlbCBsaWtlIGl0J3MgZWFzaWVyIHRvIHJl
-YWQgdGhpcyB3YXkNCj4+IGFib3V0IHdoYXQgaXMgYmVpbmcgZG9uZS4NCj4+DQo+PiBUaGFua3Ms
-DQo+PiBMaWpvDQo+Pg0KPj4NCj4+Pg0KPj4+IFNpZ25lZC1vZmYtYnk6IFlhbmcgV2FuZyA8a2V2
-aW55YW5nLndhbmdAYW1kLmNvbT4NCj4+PiAtLS0NCj4+PiAgICBkcml2ZXJzL2dwdS9kcm0vYW1k
-L3BtL3N3c211L3NtdV9jbW4uYyB8IDc5DQo+Pj4gKysrKysrKysrKysrKysrKysrKysrKw0KPj4+
-ICsrKysNCj4+PiAgICBkcml2ZXJzL2dwdS9kcm0vYW1kL3BtL3N3c211L3NtdV9jbW4uaCB8IDIy
-ICsrKysrKysNCj4+PiAgICAyIGZpbGVzIGNoYW5nZWQsIDEwMSBpbnNlcnRpb25zKCspDQo+Pj4N
-Cj4+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wbS9zd3NtdS9zbXVfY21uLmMN
-Cj4+PiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG0vc3dzbXUvc211X2Ntbi5jDQo+Pj4gaW5kZXgg
-N2JkOGM0MzU0NjZhLi40ODBkOTFkODg5NTcgMTAwNjQ0DQo+Pj4gLS0tIGEvZHJpdmVycy9ncHUv
-ZHJtL2FtZC9wbS9zd3NtdS9zbXVfY21uLmMNCj4+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1k
-L3BtL3N3c211L3NtdV9jbW4uYw0KPj4+IEBAIC0xOTMsNiArMTkzLDg1IEBAIGludCBzbXVfY21u
-X3NlbmRfc21jX21zZyhzdHJ1Y3Qgc211X2NvbnRleHQNCj4+PiAqc211LA0KPj4+ICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICByZWFkX2FyZyk7DQo+Pj4gICAg
-fQ0KPj4+DQo+Pj4gK3N0YXRpYyBpbmxpbmUgaW50IHNtdV9jbW5fc2VuZF9tc2dfaW50ZXJuYWwo
-c3RydWN0IHNtdV9jb250ZXh0DQo+Pj4gKypzbXUsDQo+Pj4gZW51bSBzbXVfbWVzc2FnZV90eXBl
-IG1zZywNCj4+PiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBpbnQg
-bnVtX2luX2FyZ3MsIHUzMg0KPj4+ICsqaW5fYXJncywNCj4+PiArICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICBpbnQgbnVtX291dF9hcmdzLCB1MzINCj4+PiAqb3V0X2Fy
-Z3MpIHsNCj4+PiArICAgICBzdHJ1Y3Qgc211X21zZ19jdGwgKmN0bCA9ICZzbXUtPm1zZ19jdGw7
-DQo+Pj4gKyAgICAgc3RydWN0IHNtdV9tc2dfYXJncyBhcmdzID0geyAwIH07DQo+Pj4gKyAgICAg
-aW50IHJldDsNCj4+PiArDQo+Pj4gKyAgICAgaWYgKG1zZyA+PSBTTVVfTVNHX01BWF9DT1VOVCkN
-Cj4+PiArICAgICAgICAgICAgIHJldHVybiAtRUlOVkFMOw0KPj4+ICsNCj4+PiArICAgICBpZiAo
-KG51bV9pbl9hcmdzID49IEFSUkFZX1NJWkUoYXJncy5hcmdzKSB8fCBudW1faW5fYXJncyA8IDAp
-DQo+Pj4gK3x8DQo+Pj4gKyAgICAgICAgIChudW1fb3V0X2FyZ3MgPj0gQVJSQVlfU0laRShhcmdz
-Lm91dF9hcmdzKSB8fCBudW1fb3V0X2FyZ3MNCj4+PiA8IDApKQ0KPj4+ICsgICAgICAgICAgICAg
-cmV0dXJuIC1FSU5WQUw7DQo+Pj4gKw0KPj4+ICsgICAgIGlmICgobnVtX2luX2FyZ3MgPiAwICYm
-ICFpbl9hcmdzKSB8fCAobnVtX291dF9hcmdzID4gMCAmJiAhDQo+Pj4gb3V0X2FyZ3MpKQ0KPj4+
-ICsgICAgICAgICAgICAgcmV0dXJuIC1FSU5WQUw7DQo+Pj4gKw0KPj4+ICsgICAgIGlmICghY3Rs
-LT5vcHMgfHwgIWN0bC0+b3BzLT5zZW5kX21zZykNCj4+PiArICAgICAgICAgICAgIHJldHVybiAt
-RU9QTk9UU1VQUDsNCj4+PiArDQo+Pj4gKyAgICAgYXJncy5tc2cgPSBtc2c7DQo+Pj4gKyAgICAg
-YXJncy5udW1fYXJncyA9IG51bV9pbl9hcmdzOw0KPj4+ICsgICAgIGFyZ3MubnVtX291dF9hcmdz
-ID0gbnVtX291dF9hcmdzOw0KPj4+ICsgICAgIGFyZ3MuZmxhZ3MgPSAwOw0KPj4+ICsgICAgIGFy
-Z3MudGltZW91dCA9IDA7DQo+Pj4gKw0KPj4+ICsgICAgIGlmIChudW1faW5fYXJncykNCj4+PiAr
-ICAgICAgICAgICAgIG1lbWNweSgmYXJncy5hcmdzWzBdLCBpbl9hcmdzLCBudW1faW5fYXJncyAq
-DQo+Pj4gK3NpemVvZih1MzIpKTsNCj4+PiArDQo+Pj4gKyAgICAgcmV0ID0gY3RsLT5vcHMtPnNl
-bmRfbXNnKGN0bCwgJmFyZ3MpOw0KPj4+ICsgICAgIGlmIChyZXQpDQo+Pj4gKyAgICAgICAgICAg
-ICByZXR1cm4gcmV0Ow0KPj4+ICsNCj4+PiArICAgICBpZiAobnVtX291dF9hcmdzKQ0KPj4+ICsg
-ICAgICAgICAgICAgbWVtY3B5KG91dF9hcmdzLCAmYXJncy5vdXRfYXJnc1swXSwgbnVtX291dF9h
-cmdzICoNCj4+PiBzaXplb2YodTMyKSk7DQo+Pj4gKw0KPj4+ICsgICAgIHJldHVybiByZXQ7DQo+
-Pj4gK30NCj4+PiArDQo+Pj4gKy8qDQo+Pj4gKyAqIE5PVEU6IFRvIGVuc3VyZSBjb21wYXRpYmls
-aXR5IHdpdGggdGhlIGJlaGF2aW9yYWwgbG9naWMgb2YgdGhlDQo+Pj4gK2xlZ2FjeSBBUEksDQo+
-Pj4gKyAqIGl0IGlzIHJlcXVpcmVkIHRvIGV4cGxpY2l0bHkgc2V0IHRoZSBwYXJhbWV0ZXIgInBh
-cmFtIiB0byAwIHdoZW4NCj4+PiAraW52b2tpbmcNCj4+PiArICogdGhlIG1zZ18wIGFuZCBtc2df
-MSBmdW5jdGlvbnMuDQo+Pj4gKyAqICovDQo+Pj4gKw0KPj4+ICtpbnQgX19zbXVfY21uX3NlbmRf
-bXNnXzAoc3RydWN0IHNtdV9jb250ZXh0ICpzbXUsIGVudW0NCj4+PiArc211X21lc3NhZ2VfdHlw
-ZSBtc2cpIHsNCj4+PiArICAgICByZXR1cm4gX19zbXVfY21uX3NlbmRfbXNnXzIoc211LCBtc2cs
-IDAsIE5VTEwpOyB9DQo+Pj4gKw0KPj4+ICtpbnQgX19zbXVfY21uX3NlbmRfbXNnXzEoc3RydWN0
-IHNtdV9jb250ZXh0ICpzbXUsIGVudW0NCj4+PiBzbXVfbWVzc2FnZV90eXBlIG1zZywNCj4+PiAr
-ICAgICAgICAgICAgICAgICAgICAgIHUzMiAqcmVhZF9hcmcpIHsNCj4+PiArICAgICByZXR1cm4g
-X19zbXVfY21uX3NlbmRfbXNnXzIoc211LCBtc2csIDAsIHJlYWRfYXJnKTsgfQ0KPj4+ICsNCj4+
-PiAraW50IF9fc211X2Ntbl9zZW5kX21zZ18yKHN0cnVjdCBzbXVfY29udGV4dCAqc211LCBlbnVt
-DQo+Pj4gc211X21lc3NhZ2VfdHlwZSBtc2csDQo+Pj4gKyAgICAgICAgICAgICAgICAgICAgICB1
-MzIgcGFyYW0sIHUzMiAqcmVhZF9hcmcpIHsNCj4+PiArICAgICBpbnQgcmV0Ow0KPj4+ICsNCj4+
-PiArICAgICBpZiAocmVhZF9hcmcpDQo+Pj4gKyAgICAgICAgICAgICByZXQgPSBzbXVfY21uX3Nl
-bmRfbXNnX2ludGVybmFsKHNtdSwgbXNnLCAxLCAmcGFyYW0sDQo+Pj4gKzEsDQo+Pj4gcmVhZF9h
-cmcpOw0KPj4+ICsgICAgIGVsc2UNCj4+PiArICAgICAgICAgICAgIHJldCA9IHNtdV9jbW5fc2Vu
-ZF9tc2dfaW50ZXJuYWwoc211LCBtc2csIDEsICZwYXJhbSwNCj4+PiArMCwNCj4+PiBOVUxMKTsN
-Cj4+PiArDQo+Pj4gKyAgICAgcmV0dXJuIHJldDsNCj4+PiArfQ0KPj4+ICsNCj4+PiAraW50IF9f
-c211X2Ntbl9zZW5kX21zZ180KHN0cnVjdCBzbXVfY29udGV4dCAqc211LCBlbnVtDQo+Pj4gc211
-X21lc3NhZ2VfdHlwZSBtc2csDQo+Pj4gKyAgICAgICAgICAgICAgICAgICAgICBpbnQgbnVtX2lu
-X2FyZ3MsIHUzMiAqaW5fYXJncywNCj4+PiArICAgICAgICAgICAgICAgICAgICAgIGludCBudW1f
-b3V0X2FyZ3MsIHUzMiAqb3V0X2FyZ3MpIHsNCj4+PiArICAgICByZXR1cm4gc211X2Ntbl9zZW5k
-X21zZ19pbnRlcm5hbChzbXUsIG1zZywNCj4+PiArICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICBudW1faW5fYXJncywgaW5fYXJncywNCj4+PiArICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICBudW1fb3V0X2FyZ3MsIG91dF9hcmdzKTsgfQ0KPj4+ICsNCj4+
-PiAgICBpbnQgc211X2Ntbl9zZW5kX2RlYnVnX3NtY19tc2coc3RydWN0IHNtdV9jb250ZXh0ICpz
-bXUsDQo+Pj4gICAgICAgICAgICAgICAgICAgICAgICAgdWludDMyX3QgbXNnKQ0KPj4+ICAgIHsN
-Cj4+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wbS9zd3NtdS9zbXVfY21uLmgN
-Cj4+PiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG0vc3dzbXUvc211X2Ntbi5oDQo+Pj4gaW5kZXgg
-Yjc2ZTg2ZGY1ZGE3Li41YzE0ZWQ5ZWQ5YjQgMTAwNjQ0DQo+Pj4gLS0tIGEvZHJpdmVycy9ncHUv
-ZHJtL2FtZC9wbS9zd3NtdS9zbXVfY21uLmgNCj4+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1k
-L3BtL3N3c211L3NtdV9jbW4uaA0KPj4+IEBAIC0yMTAsNiArMjEwLDI4IEBAIGludCBzbXVfY21u
-X2RwbV9wY2llX2dlbl9pZHgoaW50IGdlbik7DQo+Pj4gICAgaW50IHNtdV9jbW5fZHBtX3BjaWVf
-d2lkdGhfaWR4KGludCB3aWR0aCk7DQo+Pj4gICAgaW50IHNtdV9jbW5fY2hlY2tfZndfdmVyc2lv
-bihzdHJ1Y3Qgc211X2NvbnRleHQgKnNtdSk7DQo+Pj4NCj4+PiAraW50IF9fc211X2Ntbl9zZW5k
-X21zZ18wKHN0cnVjdCBzbXVfY29udGV4dCAqc211LCBlbnVtDQo+Pj4gK3NtdV9tZXNzYWdlX3R5
-cGUgbXNnKTsgaW50IF9fc211X2Ntbl9zZW5kX21zZ18xKHN0cnVjdCBzbXVfY29udGV4dA0KPj4+
-ICpzbXUsIGVudW0gc211X21lc3NhZ2VfdHlwZSBtc2csDQo+Pj4gKyAgICAgICAgICAgICAgICAg
-ICAgICB1MzIgKnJlYWRfYXJnKTsgaW50DQo+Pj4gK19fc211X2Ntbl9zZW5kX21zZ18yKHN0cnVj
-dCBzbXVfY29udGV4dCAqc211LCBlbnVtDQo+Pj4gc211X21lc3NhZ2VfdHlwZSBtc2csDQo+Pj4g
-KyAgICAgICAgICAgICAgICAgICAgICB1MzIgcGFyYW0sIHUzMiAqcmVhZF9hcmcpOyBpbnQNCj4+
-PiArX19zbXVfY21uX3NlbmRfbXNnXzQoc3RydWN0IHNtdV9jb250ZXh0ICpzbXUsIGVudW0NCj4+
-PiBzbXVfbWVzc2FnZV90eXBlIG1zZywNCj4+PiArICAgICAgICAgICAgICAgICAgICAgIGludCBu
-dW1faW5fYXJncywgdTMyICppbl9hcmdzLA0KPj4+ICsgICAgICAgICAgICAgICAgICAgICAgaW50
-IG51bV9vdXRfYXJncywgdTMyICpvdXRfYXJncyk7DQo+Pj4gKw0KPj4+ICsvKg0KPj4+ICsqIFRo
-ZSBzbXVfY21uX3NlbmRfbXNnKCkgQVBJIHdpbGwgZXhwYW5kIHRvIHRoZSBmb2xsb3dpbmcNCj4+
-PiArcHJvdG90eXBlcw0KPj4+IGJhc2VkIG9uIHRoZSBudW1iZXIgb2YgaW5wdXQgcGFyYW1ldGVy
-cy4NCj4+PiArKiBlLmc6DQo+Pj4gKyogMS4gciA9IHNtdV9jbW5fc2VuZF9tc2coc211LCBtc2df
-aWQpOw0KPj4+ICsqIDIuIHIgPSBzbXVfY21uX3NlbmRfbXNnKHNtdSwgbXNnX2lkLCAmcmVhZF9h
-cmcpOw0KPj4+ICsqIDMuIHIgPSBzbXVfY21uX3NlbmRfbXNnKHNtdSwgbXNnX2lkLCBwYXJhbSwg
-JnJlYWRfYXJnKTsNCj4+PiArKiA0LiByID0gc211X2Ntbl9zZW5kX21zZyhzbXUsIG1zZ19pZCwN
-Cj4+PiArKiAgICAgICAgICAgICAgICAgICAgICBudW1fcGFyYW0sIFtwYXJhbTAsIHBhcmFtMSwg
-Li4uXSwNCj4+PiArKiAgICAgICAgICAgICAgICAgICAgICBudW1fcmVzcG9uc2UsIFthcmcwLCBh
-cmcxLCAuLi5dICovICNkZWZpbmUNCj4+PiArc211X2Ntbl9zZW5kX21zZyhzbXUsIG1zZywgLi4u
-KSBcDQo+Pj4gKyAgICAgQ09OQ0FURU5BVEUoX19zbXVfY21uX3NlbmRfbXNnXywgQ09VTlRfQVJH
-UyhfX1ZBX0FSR1NfXykpKHNtdSwNCj4+PiBtc2csDQo+Pj4gKyMjX19WQV9BUkdTX18pDQo+Pj4g
-Kw0KPj4+ICAgIC8qU01VIGdwdSBtZXRyaWNzICovDQo+Pj4NCj4+PiAgICAvKiBBdHRyaWJ1dGUg
-SUQgbWFwcGluZyAqLw0KPj4NCj4NCg0K
+From: Alex Hung <alex.hung@amd.com>
+
+[ Upstream commit b49814033cb5224c818cfb04dccb3260da10cc4f ]
+
+Use GAMMA22 for degamma/blend and GAMMA22_INV for shaper so
+curves match the color pipeline.
+
+Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/5016
+Tested-by: Xaver Hugl <xaver.hugl@kde.org>
+Reviewed-by: Melissa Wen <mwen@igalia.com>
+Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+Signed-off-by: Alex Hung <alex.hung@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+(cherry picked from commit d8f9f42effd767ffa7bbcd7e05fbd6b20737e468)
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+
+LLM Generated explanations, may be completely bogus:
+
+Now I have all the information I need. Let me compile the full analysis.
+
+## PHASE 1: COMMIT MESSAGE FORENSICS
+
+**Step 1.1:** [drm/amd/display] [Fix] [Gamma 2.2 colorop transfer
+functions were swapped between degamma/blend and shaper]
+
+**Step 1.2:** Tags: Closes (gitlab issue #5016), Tested-by (Xaver Hugl,
+KDE), Reviewed-by (Melissa Wen, Igalia; Harry Wentland, AMD), Signed-
+off-by (Alex Hung, AMD + Alex Deucher, AMD maintainer). No Cc: stable,
+no Fixes: tag. Strong review chain.
+
+**Step 1.3:** Bug: GAMMA22 and GAMMA22_INV were swapped in the
+degamma/blend and shaper TF tables, causing incorrect color pipeline
+behavior. Symptom: incorrect gamma 2.2 color rendering. The gitlab issue
+title confirms: "Drm color pipeline has gamma 2.2 and inverse flipped."
+
+**Step 1.4:** Not hidden - explicitly labeled as a fix.
+
+## PHASE 2: DIFF ANALYSIS
+
+**Step 2.1:** 1 file changed, 3 lines modified (value swaps only).
+Functions affected: none - these are static constant array initializers.
+Scope: minimal/surgical.
+
+**Step 2.2:**
+- `amdgpu_dm_supported_degam_tfs`: GAMMA22_INV → GAMMA22
+- `amdgpu_dm_supported_shaper_tfs`: GAMMA22 → GAMMA22_INV
+- `amdgpu_dm_supported_blnd_tfs`: GAMMA22_INV → GAMMA22
+
+**Step 2.3:** Logic/correctness bug. The pattern across all three tables
+makes it clear:
+- Degamma/blend: SRGB_**EOTF**, PQ_125_**EOTF**, BT2020_**INV_OETF** →
+  all "forward" transforms → GAMMA22 (forward) is correct
+- Shaper: SRGB_**INV_EOTF**, PQ_125_**INV_EOTF**, BT2020_**OETF** → all
+  "inverse" transforms → GAMMA22_**INV** is correct
+
+**Step 2.4:** Obviously correct by pattern consistency. Zero regression
+risk - just swapping constants to match the established convention.
+
+## PHASE 3: GIT HISTORY
+
+**Step 3.1:** Git blame confirms all buggy lines were introduced by
+commit `db2bad93fe206` ("Enable support for Gamma 2.2") from 2025-11-14,
+which is v6.19-rc1 material.
+
+**Step 3.2:** No Fixes: tag, but the bug was introduced by
+`db2bad93fe206`.
+
+**Step 3.3:** The file `amdgpu_dm_colorop.c` was created in v6.19-rc1
+cycle. Only one other fix has been backported to 6.19.y stable for this
+file (`c5d11ab0cad0b`). This fix is standalone.
+
+**Step 3.4:** Alex Hung is an AMD display developer, author of the
+original buggy commit and several other colorop-related changes. Fix
+authored by the same person who introduced the bug.
+
+**Step 3.5:** No dependencies. The fix only changes constant values in
+arrays already present.
+
+## PHASE 4: MAILING LIST RESEARCH
+
+**Step 4.1:** Patch submitted 2026-03-11, reviewed by Melissa Wen and
+Harry Wentland, accepted by Alex Deucher. No explicit Cc: stable
+nomination found.
+
+**Step 4.2:** Bug report at gitlab.freedesktop.org/drm/amd/-/issues/5016
+confirms "gamma 2.2 and inverse flipped" in the color pipeline. Tested
+by Xaver Hugl (KDE Plasma compositor developer), indicating real-world
+impact on desktop compositors.
+
+**Step 4.3:** Standalone fix, not part of a series.
+
+**Step 4.4:** No stable-specific discussion found.
+
+## PHASE 5: CODE SEMANTIC ANALYSIS
+
+**Step 5.1:** No functions modified - only constant array definitions.
+
+**Step 5.2:** These constants are used in:
+- `amdgpu_dm_initialize_default_pipeline()` - pipeline initialization
+- `amdgpu_dm_color.c` - multiple places validating colorop state against
+  supported TFs
+
+**Step 5.3-5.4:** The TF bitmasks control which transfer functions are
+advertised as supported to userspace and validated during atomic check.
+With the wrong values, userspace compositors (like KDE Plasma) would see
+incorrect supported TFs and get wrong color output.
+
+**Step 5.5:** The pattern is consistent with all other TFs in the same
+tables (sRGB, PQ, BT.2020).
+
+## PHASE 6: STABLE TREE ANALYSIS
+
+**Step 6.1:** The file `amdgpu_dm_colorop.c` does NOT exist in v6.18 or
+earlier. It was introduced in v6.19-rc1. The bug only exists in 6.19.y
+stable.
+
+**Step 6.2:** The fix would apply cleanly to 6.19.y - the code in 6.19.9
+still has the buggy values (verified).
+
+**Step 6.3:** No related fixes for this specific issue found in stable.
+
+## PHASE 7: SUBSYSTEM CONTEXT
+
+**Step 7.1:** [drm/amd/display] [IMPORTANT - AMD GPU is the most widely
+used GPU on Linux desktops]
+
+**Step 7.2:** Active subsystem with frequent changes to the colorop
+infrastructure.
+
+## PHASE 8: IMPACT AND RISK ASSESSMENT
+
+**Step 8.1:** Affects users of AMD GPUs using the new DRM colorop/color
+pipeline API (e.g., KDE Plasma 6 compositor). Driver-specific but widely
+used hardware.
+
+**Step 8.2:** Triggered whenever a compositor uses gamma 2.2 transfer
+functions through the DRM color pipeline. The KDE Plasma compositor is a
+primary consumer.
+
+**Step 8.3:** Incorrect color rendering - not a crash, but produces
+visually wrong output for users. Severity: MEDIUM-HIGH (functional
+incorrectness in display output).
+
+**Step 8.4:**
+- **Benefit:** Fixes incorrect color output for AMD GPU users with
+  compositors using the color pipeline. Tested by KDE developer.
+- **Risk:** Extremely low - 3 constant value swaps, pattern-consistent,
+  no logic changes.
+- **Ratio:** High benefit / Very low risk = Strong candidate.
+
+## PHASE 9: FINAL SYNTHESIS
+
+**Step 9.1 Evidence FOR:**
+- Fixes a real, user-reported bug (gitlab issue #5016)
+- Values were demonstrably swapped (pattern mismatch with other TFs in
+  same tables)
+- Fix is trivial: 3 constant swaps
+- Tested by KDE compositor developer (real-world validation)
+- Reviewed by two color pipeline experts
+- Code exists in 6.19.y stable and still has the bug
+- Obviously correct by pattern analysis
+
+**Step 9.1 Evidence AGAINST:**
+- Only applies to 6.19.y (very limited scope)
+- DRM colorop is new infrastructure, not widely deployed yet
+- Not a crash or security issue (just incorrect color output)
+- No Cc: stable tag or Fixes: tag
+
+**Step 9.2 Stable Rules Checklist:**
+1. Obviously correct? **YES** - pattern analysis proves it
+2. Fixes a real bug? **YES** - reported bug with wrong color output
+3. Important issue? **YES** - incorrect display output for users
+4. Small and contained? **YES** - 3 lines in 1 file
+5. No new features? **YES** - pure bugfix
+6. Can apply to stable? **YES** - verified code matches in 6.19.9
+
+**Step 9.3:** No exception category - standard bugfix.
+
+**Step 9.4:** The fix is trivially correct, minimal, well-reviewed,
+tested, and fixes a real user-reported bug. Despite being limited to
+6.19.y, it meets all stable criteria.
+
+## Verification
+
+- [Phase 1] Parsed tags: Closes gitlab issue, Tested-by KDE developer,
+  two Reviewed-by from display experts
+- [Phase 2] Diff: 3 constant value swaps in static arrays, no logic
+  changes
+- [Phase 2] Pattern analysis: degamma/blend use forward TFs (EOTF,
+  INV_OETF, GAMMA22), shaper uses inverse TFs (INV_EOTF, OETF,
+  GAMMA22_INV) - confirmed correct
+- [Phase 3] git blame: buggy lines from `db2bad93fe206` (v6.19-rc1)
+- [Phase 3] git show v6.18/v6.12: file does not exist in pre-6.19 trees
+- [Phase 3] git show v6.19.9: confirmed buggy code still present in
+  6.19.9 stable
+- [Phase 4] lore.kernel.org: found patch at 20260311211837.2482799-1, no
+  explicit Cc: stable
+- [Phase 4] gitlab issue #5016: title confirms "gamma 2.2 and inverse
+  flipped"
+- [Phase 5] grep: variables used in pipeline init and color state
+  validation (6 callsites in amdgpu_dm_color.c)
+- [Phase 6] Only 6.19.y stable tree affected; patch applies cleanly
+- [Phase 8] Impact: incorrect color rendering for AMD GPU + compositor
+  users; Severity: MEDIUM-HIGH
+
+**YES**
+
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.c
+index cc124ab6aa7f7..212c13b745d0c 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.c
+@@ -37,19 +37,19 @@ const u64 amdgpu_dm_supported_degam_tfs =
+ 	BIT(DRM_COLOROP_1D_CURVE_SRGB_EOTF) |
+ 	BIT(DRM_COLOROP_1D_CURVE_PQ_125_EOTF) |
+ 	BIT(DRM_COLOROP_1D_CURVE_BT2020_INV_OETF) |
+-	BIT(DRM_COLOROP_1D_CURVE_GAMMA22_INV);
++	BIT(DRM_COLOROP_1D_CURVE_GAMMA22);
+ 
+ const u64 amdgpu_dm_supported_shaper_tfs =
+ 	BIT(DRM_COLOROP_1D_CURVE_SRGB_INV_EOTF) |
+ 	BIT(DRM_COLOROP_1D_CURVE_PQ_125_INV_EOTF) |
+ 	BIT(DRM_COLOROP_1D_CURVE_BT2020_OETF) |
+-	BIT(DRM_COLOROP_1D_CURVE_GAMMA22);
++	BIT(DRM_COLOROP_1D_CURVE_GAMMA22_INV);
+ 
+ const u64 amdgpu_dm_supported_blnd_tfs =
+ 	BIT(DRM_COLOROP_1D_CURVE_SRGB_EOTF) |
+ 	BIT(DRM_COLOROP_1D_CURVE_PQ_125_EOTF) |
+ 	BIT(DRM_COLOROP_1D_CURVE_BT2020_INV_OETF) |
+-	BIT(DRM_COLOROP_1D_CURVE_GAMMA22_INV);
++	BIT(DRM_COLOROP_1D_CURVE_GAMMA22);
+ 
+ #define MAX_COLOR_PIPELINE_OPS 10
+ 
+-- 
+2.51.0
+
