@@ -4,93 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BEB33F54AAC
-	for <amd-gfx@archiver.kernel.org>; Tue, 24 Mar 2026 13:03:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3A4ECF54AAD
+	for <amd-gfx@archiver.kernel.org>; Tue, 24 Mar 2026 13:07:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4233A10E6A7;
-	Tue, 24 Mar 2026 13:03:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CD59810E13D;
+	Tue, 24 Mar 2026 13:07:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="KULGNxdv";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="lasowkfk";
 	dkim-atps=neutral
-Received: from mail-dl1-f45.google.com (mail-dl1-f45.google.com [74.125.82.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 99C2C10E6A7
- for <amd-gfx@lists.freedesktop.org>; Tue, 24 Mar 2026 13:03:34 +0000 (UTC)
-Received: by mail-dl1-f45.google.com with SMTP id
- a92af1059eb24-1273c690e5bso498046c88.2
- for <amd-gfx@lists.freedesktop.org>; Tue, 24 Mar 2026 06:03:34 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1774357414; cv=none;
- d=google.com; s=arc-20240605;
- b=HF8WDKZb63ASyvS1EqeV303YEeOoqO0d9y/2V5V6Y+ONNyohE8Mlb2L5UVEHj5HHqq
- cZuR9JlPS2lAizPfPRVdDVYbB1tNfLmsMzs8bBraNoWJqwUhNz7iWMZ1c3nEry2IWwog
- Plhg6nm9ma4Q2MgzfCzVkg4ERcQ60nGiorhafBBTeChRuXo6T3gb0qtleOkA+DiOrEYi
- xsfoOt8Cj7Des9JZZWvkskDSXxZ/z/RstgP2rX5/LQ2wQ5jESSAjTLN621BvS4RuBQdF
- hLRmL/TOaV7aRPf5IteS4YSyejMIocEWUOufevg4rznXsy27q+M0PKSnaKjvBGqjUvEI
- +8kQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=3XpLQPB3ENND1esnFU6ZpBx1/Nv1CnrVFUKLQpcwhWE=;
- fh=M0cOBvsBLmBdPzqHpztj1DYdPdrr7zKkcKB9CjyZusA=;
- b=VtU7Hopyhne0jfTRYp9jaj7Q15rV2Esltq2UZPJa4UWkzeRUbUuuZYDj+pMl0hQ7Sr
- Tkjx4FJs/0eurxlQ3VBHbLAq58pH1fhO3wZQLIekt3Z1nPsqaVvaXicvd4PX9PvDovI2
- /AsKWmuAxwEu+7LrkgcGBn661BDfEqPB93xxEUGpnrm2STFDabkYN3RahAFF625TlSbB
- LstB76AawR3pl7AEckSaQnPnW9jobBm6HgO/cgYFHB3yF2mBd79sCTJVO4jWuTimaxif
- 1DypS1lBHGUB8ubfr3UBiPf9e4km1a2zCHy4r8jzAC7JP/ky8YIYZqIHO/hPaoCMGLRE
- jmLw==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1774357414; x=1774962214; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=3XpLQPB3ENND1esnFU6ZpBx1/Nv1CnrVFUKLQpcwhWE=;
- b=KULGNxdvc/jirVxPoc/hUOZ5DKbxUg6+hiz2XKk6JDkt845kzzhlU5F2+5+eE450uB
- er0iTRTPJyUKzaGLM3Cr2bGUPGI6Vb3RMzUUkuHi+jDmS6i3TPfqwwk+Lv9g+/aIXsGw
- f+5/jw3LxErCG+QkC4LginQoUc3eTxKvoSYEg1UWP8uKbkyEhPpv7j6Mfly2XGRtWTqF
- IFfc7+E20BqCthAZEa5EsTrcT2z+CJ7nerl2p2jFz99Br0kMJRdBVbdtfemqONeMDUli
- ejoN1NvwD4kzCC+tgvpx0IrSMQOMSYxHACiE3n/VjeqvmLbazrdYXv8dyJJ0M7gR5n1w
- jLnQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774357414; x=1774962214;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=3XpLQPB3ENND1esnFU6ZpBx1/Nv1CnrVFUKLQpcwhWE=;
- b=kV3thNhG40iDJ2PiQ4km5qOzFkVDuv0vCHIRnO+D1SpNn+C70VgfyZ90tK2Pm1uuRU
- 0CNvivNxI0PeZcScKjzOgggPQxfKOoaV8Gqnw2MsEzCWObGwSyvkLV/48B6PJ1jwcocC
- C+dnXpMPRNCWYRuFy3og4sqLfAjbKNHm2OjGj1sM7GqF2xBKZyd3XO7fBuTBlWHW0hMz
- UeBkE8zFxi0HTEqrOwvHfpSEZWDYiRX2T9DTKGfjy8XmJM9+4Eucp+84UfwyRHn/G0N6
- 71k0VlvBZQF5GB3v5W7NXQ7/DlgDwD99CJn1Uau+obhp830K8KHcKLn0+W5kUHvh7Aep
- wM0w==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWNKQsreE68mqhxO0VtUgoSTLlO1fsuwDBHmRyE6lMZL+SxO7pVMeu01LdGDKlJEQtMIIJeDJve@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxF9lvgOsOGrmDgCrfVYvPEwE9M2kWQL6GZf4MIOg3ZgQwQID/M
- HRUkZwWFVAumi11wN6ny+OAfxfegAfmv2aV0Vi6A/oxIiOngLpc+Kge3CaXK9Zg8x/hhh/3C2t0
- jmd30oY8W3uDWPGOgcx+O1bpQ/waCY7U=
-X-Gm-Gg: ATEYQzyI2zf24lteUfQn7/khCE3NlfxP0EqnSQnERhyzq4TCCK0NeUwb251E5EPBcF1
- Hd1+ZshwSh0JG8om8Ly7yK8xIefaQJPund+7tRSzXSsX5UvArealC64FT1k0ZF5C/6u/HJVc4qL
- ++9DKY9ZE1TbXCXhd0q07wxOuZ5x3r6tvip4t3GuxYqACXgCOX2nCnL8G7q6bjk1KO0e4RlIwx9
- E1bvIdU87yIgyrjFDJUq7ipaLtdNRWdycEnZ1dXcAUuDLlubtsaEjLHakc+D2pP51Tir5zkmCee
- m5B8RXf42/GtjZOfuN0raWH1kH7o5RPtbeAe8G0gyIrPoLW47ZMl32lRaeNYQUhKxioazw==
-X-Received: by 2002:a05:7022:439a:b0:128:d279:b8ea with SMTP id
- a92af1059eb24-12a726d6b3cmr3190842c88.5.1774357413533; Tue, 24 Mar 2026
- 06:03:33 -0700 (PDT)
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5CBCE10E13D;
+ Tue, 24 Mar 2026 13:07:48 +0000 (UTC)
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+ by smtpout-02.galae.net (Postfix) with ESMTPS id DDDA51A2FC5;
+ Tue, 24 Mar 2026 13:07:46 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+ by smtpout-01.galae.net (Postfix) with ESMTPS id A0D5C6011D;
+ Tue, 24 Mar 2026 13:07:46 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
+ with ESMTPSA id D3F4110451273; Tue, 24 Mar 2026 14:07:33 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+ t=1774357664; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ content-transfer-encoding; bh=oz2n6EGzzohxeupK2HnEka+WLJWsM35paHY/3OjrXOI=;
+ b=lasowkfkGR1jPvF44IgZjk2NBlO2y0FNCjB+SkEGW4alIwhrJQJfOPfZzMT4yUoQhUMzqg
+ K7MGJqRyFTlm/3+Pi3fRvYQosVj3YHVev4QC+4Y/8yxtUk4ax7bhwO3OKXCCXSPvtrp2mi
+ zmPXG6uFwucE3VMM9yWvSJPOVnrTmg6IjswG6i29GemocuisliWWSi7aKzPUNzRhYDSa8f
+ IitiYmZuesN+f8nAm4yFp2dabTZELhgIOSfVmsFKSMB6owRGcHaUT4RXTIII13a4LE/inW
+ K3GZWVpEB/O+2XIxmxOOlUpfdbFgIBhC0HZG0hpd6AFQFnsqDuAQl9xEji1eJA==
+From: Luca Ceresoli <luca.ceresoli@bootlin.com>
+Subject: [PATCH v3] drm/atomic: protect bridge private_obj during bridge
+ removal
+Date: Tue, 24 Mar 2026 14:07:29 +0100
+Message-Id: <20260324-drm-bridge-atomic-vs-remove-private_obj-v3-0-64deefe84044@bootlin.com>
 MIME-Version: 1.0
-References: <20260324075149.622626-1-sunil.khatri@amd.com>
-In-Reply-To: <20260324075149.622626-1-sunil.khatri@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 24 Mar 2026 09:03:21 -0400
-X-Gm-Features: AaiRm528OMbKbdc0UWtMxspJONjeGXUeNpF1KpQdo3IRJx4L1TjOMAUimWrO5uI
-Message-ID: <CADnq5_OzqJwPnWSk6ThbrcFMauPY4DKTpVxdrVFzf3Uskm=nAw@mail.gmail.com>
-Subject: Re: [Patch v1] drm/amdgpu/userq: dont use goto to jump when at end of
- function
-To: Sunil Khatri <sunil.khatri@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- amd-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAJGMwmkC/5WQy07DMBBFfyXymkEeu0mcrvgPhJAfEzoIx8U2F
+ qjqv+O2G9jB8s6VztGdkyiUmYrYDyeRqXHhtPWg7wbhD3Z7IeDQs1BSjShRQ8gRXObQG1tTZA+
+ tQKaYGsExc7OVnpN7hTAvysjRkQtedNox08qfV9PjU88HLjXlr6u44eX6f0dDkICrVzQalIrkg
+ 0upvvF271MUF0tTP8gK/05WgLBDZdHoZXHW/yafb4MyvX/0j9XbKuFsIeh95LofZrJyNxltunb
+ yKN2sJ63dMk9Ba1qt8aiCnscOO38DQlj9HYYBAAA=
+X-Change-ID: 20251013-drm-bridge-atomic-vs-remove-private_obj-d792805bebdc
+To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
+ Rodrigo Siqueira <siqueira@igalia.com>, 
+ Alex Deucher <alexander.deucher@amd.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Liviu Dudau <liviu.dudau@arm.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Paul Cercueil <paul@crapouillou.net>, 
+ Rob Clark <robin.clark@oss.qualcomm.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>, 
+ Abhinav Kumar <abhinav.kumar@linux.dev>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, 
+ Thierry Reding <thierry.reding@gmail.com>, 
+ Mikko Perttunen <mperttunen@nvidia.com>, 
+ Jonathan Hunter <jonathanh@nvidia.com>, 
+ Dave Stevenson <dave.stevenson@raspberrypi.com>, 
+ =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>, 
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
+Cc: Hui Pu <Hui.Pu@gehealthcare.com>, 
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, linux-mips@vger.kernel.org, 
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, 
+ linux-tegra@vger.kernel.org, Ian Ray <ian.ray@gehealthcare.com>, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>
+X-Mailer: b4 0.15.0
+X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,40 +92,93 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Mar 24, 2026 at 3:51=E2=80=AFAM Sunil Khatri <sunil.khatri@amd.com>=
- wrote:
->
-> In function amdgpu_userq_restore_worker we dont need to use
-> goto as we already in the end of function and it will exit
-> naturally.
->
-> Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
+This series prevents a race between DRM bridge removal and usage of the
+bridge private_obj during DRM_MODESET_LOCK_ALL_BEGIN/END() and other
+locking operations.
 
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+== Series description
 
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 4 +---
->  1 file changed, 1 insertion(+), 3 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/=
-amd/amdgpu/amdgpu_userq.c
-> index eb07ed078bfa..a351383b432b 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-> @@ -1227,10 +1227,8 @@ static void amdgpu_userq_restore_worker(struct wor=
-k_struct *work)
->         }
->
->         ret =3D amdgpu_userq_restore_all(uq_mgr);
-> -       if (ret) {
-> +       if (ret)
->                 drm_file_err(uq_mgr->file, "Failed to restore all queues\=
-n");
-> -               goto unlock;
-> -       }
->
->  unlock:
->         mutex_unlock(&uq_mgr->userq_mutex);
-> --
-> 2.34.1
->
+The need for this series emerged during testing of DRM bridge
+hot-plugging. Very rarely on hot-unplug the following warning has appeared:
+
+  WARNING: CPU: 0 PID: 123 at include/drm/drm_modeset_lock.h:114 drm_atomic_private_obj_fini+0x64/0x80
+  ...
+  Call trace:
+   drm_atomic_private_obj_fini+0x64/0x80
+   drm_bridge_detach+0x38/0x98
+
+This series does not depend on other series.
+
+== Grand plan
+
+This is part of the work to support hotplug of DRM bridges. The grand plan
+was discussed in [0].
+
+Here's the work breakdown (➜ marks the current series):
+
+ 1. … add refcounting to DRM bridges struct drm_bridge,
+      based on devm_drm_bridge_alloc()
+    A. ✔ add new alloc API and refcounting (v6.16)
+    B. ✔ convert all bridge drivers to new API (v6.17)
+    C. ✔ kunit tests (v6.17)
+    D. ✔ add get/put to drm_bridge_add/remove() + attach/detach()
+         and warn on old allocation pattern (v6.17)
+    E. … add get/put on drm_bridge accessors
+       1. ✔ drm_bridge_chain_get_first_bridge(), add cleanup action (v6.18)
+       2. ✔ drm_bridge_get_prev_bridge() (v6.18)
+       3. ✔ drm_bridge_get_next_bridge() (v6.19)
+       4. ✔ drm_for_each_bridge_in_chain() (v6.19)
+       5. ✔ drm_bridge_connector_init (v6.19)
+       6. … protect encoder bridge chain with a mutex
+       7. … of_drm_find_bridge
+          a. ✔ add of_drm_get_bridge() (v7.0),
+	       convert basic direct users (v7.0-v7.1)
+	  b. ✔ convert direct of_drm_get_bridge() users, part 2 (v7.0)
+	  c. ✔ convert direct of_drm_get_bridge() users, part 3 (v7.0)
+	  d. ✔… convert direct of_drm_get_bridge() users, part 4
+	        (some v7.1, some pending)
+	  e.   convert bridge-only drm_of_find_panel_or_bridge() users
+       8. drm_of_find_panel_or_bridge, *_of_get_bridge
+       9. ✔ enforce drm_bridge_add before drm_bridge_attach (v6.19)
+    F. ✔ debugfs improvements
+       1. ✔ add top-level 'bridges' file (v6.16)
+       2. ✔ show refcount and list lingering bridges (v6.19)
+ 2. ➜ handle gracefully atomic updates during bridge removal
+    A. ✔ Add drm_bridge_enter/exit() to protect device resources (v7.0)
+    B. ➜ protect private_obj removal from list
+    C. ✔ Add drm_bridge_clear_and_put() (v7.1)
+ 3. … DSI host-device driver interaction
+ 4. ✔ removing the need for the "always-disconnected" connector
+ 5. … Migrate i.MX LCDIF driver to bridge-connector
+ 6.   DRM bridge hotplug
+    A.   Bridge hotplug management in the DRM core
+    B.   Device tree description
+
+[0] https://lore.kernel.org/lkml/20250206-hotplug-drm-bridge-v6-0-9d6f2c9c3058@bootlin.com/#t
+
+Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+---
+Changes in v3:
+- Rebased on current drm-misc-next (on 7.0-rc3)
+- Small commit message clarification
+- Link to v2: https://lore.kernel.org/r/20251021-drm-bridge-atomic-vs-remove-private_obj-v2-1-412a18399bac@bootlin.com
+
+Changes in v2:
+- Adapted to work on top of "drm/atomic: Add dev pointer to drm_private_obj"
+- Removed 'To: jessica.zhang@oss.qualcomm.com', invalid address
+- Link to v1: https://lore.kernel.org/r/20251013-drm-bridge-atomic-vs-remove-private_obj-v1-0-1fc2e58102e0@bootlin.com
+
+---
+Luca Ceresoli (1):
+      drm/atomic: drm_atomic_private_obj_fini: protect private_obj removal from list
+
+ drivers/gpu/drm/drm_atomic.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
+---
+base-commit: 7ea0468380216c10b73633b976d33efa8c12d375
+change-id: 20251013-drm-bridge-atomic-vs-remove-private_obj-d792805bebdc
+
+Best regards,
+--  
+Luca Ceresoli <luca.ceresoli@bootlin.com>
+
