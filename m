@@ -4,51 +4,124 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1C9F0E9A76F
-	for <amd-gfx@archiver.kernel.org>; Tue, 24 Mar 2026 11:19:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 055D6D58CC9
+	for <amd-gfx@archiver.kernel.org>; Tue, 24 Mar 2026 12:35:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8ECF610E5EB;
-	Tue, 24 Mar 2026 11:19:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8FF9C10E693;
+	Tue, 24 Mar 2026 12:35:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="EUgDf5cC";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="T1+8TkvK";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 23F0910E5E9;
- Tue, 24 Mar 2026 11:19:35 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 3A0F160123;
- Tue, 24 Mar 2026 11:19:34 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D7A5C19424;
- Tue, 24 Mar 2026 11:19:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1774351173;
- bh=lelFSv8KIxfumUBSgNRBDGBB2PjvcsMNY6yIMv4a0UE=;
- h=From:To:Cc:Subject:Date:From;
- b=EUgDf5cCCgUbxl4OVUdC7/KhkysJV5oBwJQGqF/iXKd9ZmF1ggFP+YG3ADnO9zFkv
- onGmcfP1WZytGeKHE9aSty7GA44uqy2LbPP78yKhm8IbUw/ikE1AjLUUNj47+INml8
- 6l5oi/fAHxO1MLtS6KsuzxQfgHRbp12b23d44zILlQY5e48aHs3Q0J4+m1V/dLOqYA
- KvpROFnxbcsTf8/0V/KtPrwb/BrE7Rz+Uce6QYfYc6U6S6+08dqqbHvWUVzlraDSJo
- 3kmkCMHjV5KvyaemEwWyaqPgOrjUkaqPJ7YC46D1usvG7P8NMU8Ry9YoQ9+YYFFPn2
- C0MUGQZ7sBAzQ==
-From: Sasha Levin <sashal@kernel.org>
-To: patches@lists.linux.dev,
-	stable@vger.kernel.org
-Cc: Alex Hung <alex.hung@amd.com>, Xaver Hugl <xaver.hugl@kde.org>,
- Melissa Wen <mwen@igalia.com>, Harry Wentland <harry.wentland@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
- sunpeng.li@amd.com, christian.koenig@amd.com, airlied@gmail.com,
- simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.19] drm/amd/display: Fix gamma 2.2 colorop TFs
-Date: Tue, 24 Mar 2026 07:19:10 -0400
-Message-ID: <20260324111931.3257972-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.51.0
+Received: from DM5PR21CU001.outbound.protection.outlook.com
+ (mail-centralusazon11011037.outbound.protection.outlook.com [52.101.62.37])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4F3AD10E693
+ for <amd-gfx@lists.freedesktop.org>; Tue, 24 Mar 2026 12:35:55 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=NNHrcz+PYjDuIT8EWtzuu3rGe7PQnk1hoTXKkd1Z5w96IVt2UFhO96KwtXsqrzIqVWPm+ky3E9ZGJ+545RoGL6574GbMGqeHQ1AvPE1N3zZdvUSvbflC/gLQ8e1IjDZ651+uqlM+sfTcw1UVx8JHE1kEySpRhzNLr0vOy2Tfa5EcadQ2+D5jErahTZ7CQtzBZjxrtR1H9a6dyBbbZl64Y9ueCvv4U4v+YUtg0Gca1ySmwxfagEX/aAABsmUpGD62M1n6/PuEWyW6w1gl28QJyRxpaiIWx7CzS1YyeAXUhxe8uqnoOKu7SIUTtsZZ/4nzZH04ComfkaS98L17syUAxQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=SbUKoPYOTVB6LfjLIA64QVptyLYi9LNG5V4ALjXKSnE=;
+ b=LxLENTTJrW/LV/81Bs15dxiBhhbdGmeSQgHp3YZTYS3btkCa927M1TT5EThx8zR1j+MFqsb8aEbQDR090z9szTe6/0IPIpukGzVma1pbvAO5AiOvYCST/c58P0XN5tvvjXA+rfCBGfS23AtFUUUz1UdflhVUsf35zQbOjlZu/JEQo4kgDVm0CRrZI/D8aAIORR9FaweaAOgCEdCwNm6uEOVK7eHpng+dygSo6OWhTMpvFLDZXB0DVXV8B3bebsN9i0QfuVdJhBCovbbtT7BIxYKIPTTR93GNcX0oroC0KMEi6l/fw2DQ6lNOOovK4vzt717hXZlFJ1JBg14+lZqxvw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=SbUKoPYOTVB6LfjLIA64QVptyLYi9LNG5V4ALjXKSnE=;
+ b=T1+8TkvKGab80eLknkuaigJxDxEMblUQoIPjqc4V5XyLShopXYQGHDurBqEubyKfeDxjyc2qBNccwA1ivrC+MY7ZGB1aPbztrCzGWyVNjvQ3d8PGiCxv9ZW7d60M0q9WZYv8qkaCL3LB7HeU9uyXZlcQtyy35/Xwb4WXl55ynNg=
+Received: from BL1PR12MB5753.namprd12.prod.outlook.com (2603:10b6:208:390::15)
+ by DS0PR12MB8480.namprd12.prod.outlook.com (2603:10b6:8:159::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.20; Tue, 24 Mar
+ 2026 12:35:48 +0000
+Received: from BL1PR12MB5753.namprd12.prod.outlook.com
+ ([fe80::81e6:908a:a59b:87e2]) by BL1PR12MB5753.namprd12.prod.outlook.com
+ ([fe80::81e6:908a:a59b:87e2%4]) with mapi id 15.20.9745.019; Tue, 24 Mar 2026
+ 12:35:48 +0000
+From: "Khatri, Sunil" <Sunil.Khatri@amd.com>
+To: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Koenig, Christian"
+ <Christian.Koenig@amd.com>
+CC: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Subject: Re: [Patch v1] drm/amdgpu/userq: dont use goto to jump when at end of
+ function
+Thread-Topic: [Patch v1] drm/amdgpu/userq: dont use goto to jump when at end
+ of function
+Thread-Index: AQHcu2MYwczL1CzShECBl3e0neahnbW9nqMZ
+Date: Tue, 24 Mar 2026 12:35:47 +0000
+Message-ID: <BL1PR12MB575358F35CCAE32F698AB0949348A@BL1PR12MB5753.namprd12.prod.outlook.com>
+References: <20260324075149.622626-1-sunil.khatri@amd.com>
+In-Reply-To: <20260324075149.622626-1-sunil.khatri@amd.com>
+Accept-Language: en-US
+Content-Language: en-GB
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=True;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2026-03-24T12:35:32.4378294Z;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
+ Internal Distribution
+ Only; MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=3;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard
+x-ms-reactions: allow
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: BL1PR12MB5753:EE_|DS0PR12MB8480:EE_
+x-ms-office365-filtering-correlation-id: 15e78f9c-045a-49c3-6195-08de89a1e056
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|1800799024|376014|366016|8096899003|38070700021|56012099003|22082099003|7053199007|18002099003;
+x-microsoft-antispam-message-info: tac0UzsQXlHhbUAw4rslIuFBxIayGsVpulExAHelMkrH1PMuYylniqRrJyn0mY+09iQCMNgRFKc95iIgncY6rrnHTOR/BGIQuVUIt0aly6cT6pRuUxJgCMoDXIbap3PQNzB15MgYsGyEk+tscLcfVCPGhWf5i1XqzXtZpEVGK1Ojcp/dVgZxMWVSOk7LM5Ejbn5WtL12FfkU2pxbwFx+uko1y0nAf73RmkWae8SBcxLyaa3VucOXQ8mtKoPUXAfqhNRwZLnZ3RC2OrUigjyTagAV8pAnxjYLKwePaVqt2Q2zMQiCGQHQzTvaeJdt59v6Hpk/RJXlB++C+lpuGAKfBLuMqnt1v5LopUHyCLd1y1dvvjCilUrpWOkZOPfcgbGcsdg4aFDoPomdeBZapTeNtTBXRpYQs/pJtFXve3+NB4puvpjfqU+tJ005FLswIr7gmihPkADaprH/Xp2ufaeQVa13lK52f271ozBTjEBi07BjKjMWHV2xqJXmjk1EKNZHtpri+rVqUTVDcNDwp0AlnFgRAxauVrEFQQMvRQslbw/540PbIssmrZdjZORgrfyrly79raOg/HmOZAZkdIlOJC/GpPPvtI+D7UaQ2SRnAG0TGtpfknOTdxf7fQ+Epj6vLizOh7LeWdbEsQWtynfuB8GDPm27R6o7LMSrJKpu0tjXfSp177ZkMgvZ54rT+qMR/wlK+yoE7836iP8IdirM81EziD27mtVWaH0PKePn+PpVTo3Ghilb6wGPdxcpv9yvcwb2eyUXWTDCi3nFuBh+zYsIBNaF3u4fY/xoDb1YdRI=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BL1PR12MB5753.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(366016)(8096899003)(38070700021)(56012099003)(22082099003)(7053199007)(18002099003);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?HS92IaQmT2d3MiywEcgj5lY3VGjv5ExrA9VyzKMupYC68T4LU2Q0aeeFqh++?=
+ =?us-ascii?Q?ZfOp2pQ3e3TJ0F2MUVgpcIyntyJXlbg5R/XIfbfFZvLVwwLLTp+lAVY6BB9U?=
+ =?us-ascii?Q?15ZyHbOiGVPhSurfzyoWDv8l1BQRh3NbJK9Ayoab4XRmSpOiWDk1j7jeCZDV?=
+ =?us-ascii?Q?k6yKWGJbJ4MHC724ZZM/Smfw0BxLsZsT/nsbDLnNDkCFU/bNt1nrq2N63ZBp?=
+ =?us-ascii?Q?7QQzfyyIONcmSAMOebd3ptz1EOu/6pxfsRypVpiHcLz+Xyq2N/K1lauL72pU?=
+ =?us-ascii?Q?bMFmEw6HeYwkQgIbM29KhTTJjHJHmzE6n2fjEl9F6Pg1OY3y+2KXFIgu6LaY?=
+ =?us-ascii?Q?VR3DIlfil7V9uixk04OI8C6cQesYRPKPv1W2NHEqd+tR4s+U3z0w7Nf9uBZL?=
+ =?us-ascii?Q?Emebc/+9cBe8XOKkOXLpiyZG6kkqUdxzVT0L+KC2gT/gIS8zextY4WXmiEb7?=
+ =?us-ascii?Q?MBKx8c+/6Jg1CvoZDiYwrGtzsV0LAsEH9htAQK1gzatfDKSmQbRcnEJPk+vH?=
+ =?us-ascii?Q?hNY7ORZ29SsqfbFFtjDci2LCNQZpiXOemk7oWrcYe9DFuEKXr6k2/TApmYhM?=
+ =?us-ascii?Q?xJCVS+lcf05Du+Mt/R7kPmCLEQN3vgvJWZI05JFtcb836DsRAmtAiuylm88m?=
+ =?us-ascii?Q?0qaAGmIX8tlgyu0eAnMd0ecM1OSImysh+r8Ct9qv3AkfHXVeKZz0fpqgZ4m7?=
+ =?us-ascii?Q?foSycF8rO4jTNunT9oKeTWaT9jyRa0a599cy4/JOEMSCwpLz+xNd8fA1qcn0?=
+ =?us-ascii?Q?Dcw+4UVrTjFChhDjV1fg1K2NsZQ8ZU5TNxTNsf4xjaku0UN7I0JOoQ2vz9aF?=
+ =?us-ascii?Q?j9tT5OCMTbKSorYk7njkKojvCGmR9kLzUK0GQ8Qzhl7vpkk+zGY9MsKQe7QU?=
+ =?us-ascii?Q?0Rzpd66eSXzrjXc4bseAY6fO/tXnHF+2bpzB0PeofMO6Jv08+hfNsp4sqXYJ?=
+ =?us-ascii?Q?4C5f+knhdrQTvEiad6swSAWWcvFt0D8LSDAhpkAB1fPFsMxitoPmFSHFjBOc?=
+ =?us-ascii?Q?/xzAgdq+MX3iaKzReWzzg+1gboGAN800wz19H1cKbDJuJbLuol4d9a5Kv57U?=
+ =?us-ascii?Q?wVr8XshGctTDL2QzbPjrv4yHjfMUe1D7PZKYP4jExAjAd3FpI5FVfAoMeku7?=
+ =?us-ascii?Q?/HDMTGwVLXVah003yQMxMORPIi32HCLQQSK5Sg59EA8hMbQUknH62HRutnGb?=
+ =?us-ascii?Q?4+l3ndngNylOLNPCmAUtvsg2WdKJuqUpCJOxI8t2QBkvNZCUuWpwbvwzVKNr?=
+ =?us-ascii?Q?2+Q2R2sOu4pbx9Sg+AQZu1ejnFF9L9Q6g503RViYMS5ybatX6tXoosmrY+W4?=
+ =?us-ascii?Q?2C528S4RiNyUjfOBfUPqOhpBpcOdkTLo9aDMOr84J3zAfnXxJYJnyzQu8Rzs?=
+ =?us-ascii?Q?bmABlly2y9Of+ngmqTKuhYx30R2AwSxDemHwaBGFcv/4i3/LYXbHxr5yF511?=
+ =?us-ascii?Q?+NTLW+XN3HhoyNHnEZcvWsAFQK1M/GuIZY/b6jq/5ikETGkCbYenY3Gd4YuP?=
+ =?us-ascii?Q?KhKG1VBrW/Vfkkff8FXPmcJP9HveEEAgBhgVwCrEBTHXQXQ79Yc8wfav14KP?=
+ =?us-ascii?Q?n9XQysgQARpxVCKpaz/Jo1R8OvtVKTWYZy/ocq2QlnaO5TNrz73wZujcPhs+?=
+ =?us-ascii?Q?TT26aOd0BztfiYHYiBD11ueCKDjP2Bt3j3jW21JkvjcF4KbApI3GbTkUfVpT?=
+ =?us-ascii?Q?LuMDV27TGFqG2cB5MMjmcMqCJ1x5EDZdH+OFJUm198UyjO6pa8+EbaXpEXAU?=
+ =?us-ascii?Q?I6snF56dbg=3D=3D?=
+Content-Type: multipart/alternative;
+ boundary="_000_BL1PR12MB575358F35CCAE32F698AB0949348ABL1PR12MB5753namp_"
 MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
-X-stable-base: Linux 6.19.9
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5753.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 15e78f9c-045a-49c3-6195-08de89a1e056
+X-MS-Exchange-CrossTenant-originalarrivaltime: 24 Mar 2026 12:35:47.9158 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: MTMLPR2LBW8TcC4q3K+fQAU1fa2UEQyhA0jCpZ0KBYfXaLnNk2UJlwMiXXUmz/5rkj1d25SaDMrp91iZRwnKOA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8480
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,244 +136,142 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Alex Hung <alex.hung@amd.com>
+--_000_BL1PR12MB575358F35CCAE32F698AB0949348ABL1PR12MB5753namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-[ Upstream commit b49814033cb5224c818cfb04dccb3260da10cc4f ]
+[AMD Official Use Only - AMD Internal Distribution Only]
 
-Use GAMMA22 for degamma/blend and GAMMA22_INV for shaper so
-curves match the color pipeline.
+Ping!
 
-Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/5016
-Tested-by: Xaver Hugl <xaver.hugl@kde.org>
-Reviewed-by: Melissa Wen <mwen@igalia.com>
-Reviewed-by: Harry Wentland <harry.wentland@amd.com>
-Signed-off-by: Alex Hung <alex.hung@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit d8f9f42effd767ffa7bbcd7e05fbd6b20737e468)
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Get Outlook for iOS<https://aka.ms/o0ukef>
+________________________________
+From: Sunil Khatri <sunil.khatri@amd.com>
+Sent: Tuesday, March 24, 2026 1:21:49 PM
+To: Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian <Chri=
+stian.Koenig@amd.com>
+Cc: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>; Khatri, =
+Sunil <Sunil.Khatri@amd.com>
+Subject: [Patch v1] drm/amdgpu/userq: dont use goto to jump when at end of =
+function
+
+In function amdgpu_userq_restore_worker we dont need to use
+goto as we already in the end of function and it will exit
+naturally.
+
+Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
 ---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
-LLM Generated explanations, may be completely bogus:
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_userq.c
+index eb07ed078bfa..a351383b432b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+@@ -1227,10 +1227,8 @@ static void amdgpu_userq_restore_worker(struct work_=
+struct *work)
+         }
 
-Now I have all the information I need. Let me compile the full analysis.
+         ret =3D amdgpu_userq_restore_all(uq_mgr);
+-       if (ret) {
++       if (ret)
+                 drm_file_err(uq_mgr->file, "Failed to restore all queues\n=
+");
+-               goto unlock;
+-       }
 
-## PHASE 1: COMMIT MESSAGE FORENSICS
+ unlock:
+         mutex_unlock(&uq_mgr->userq_mutex);
+--
+2.34.1
 
-**Step 1.1:** [drm/amd/display] [Fix] [Gamma 2.2 colorop transfer
-functions were swapped between degamma/blend and shaper]
 
-**Step 1.2:** Tags: Closes (gitlab issue #5016), Tested-by (Xaver Hugl,
-KDE), Reviewed-by (Melissa Wen, Igalia; Harry Wentland, AMD), Signed-
-off-by (Alex Hung, AMD + Alex Deucher, AMD maintainer). No Cc: stable,
-no Fixes: tag. Strong review chain.
+--_000_BL1PR12MB575358F35CCAE32F698AB0949348ABL1PR12MB5753namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-**Step 1.3:** Bug: GAMMA22 and GAMMA22_INV were swapped in the
-degamma/blend and shaper TF tables, causing incorrect color pipeline
-behavior. Symptom: incorrect gamma 2.2 color rendering. The gitlab issue
-title confirms: "Drm color pipeline has gamma 2.2 and inverse flipped."
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+</head>
+<body>
+<p style=3D"font-family:Calibri;font-size:10pt;color:#0000FF;margin:5pt;fon=
+t-style:normal;font-weight:normal;text-decoration:none;" align=3D"Left">
+[AMD Official Use Only - AMD Internal Distribution Only]<br>
+</p>
+<br>
+<div>
+<div style=3D"font-family: Aptos, -apple-system, HelveticaNeue, sans-serif;=
+font-size: 12pt">
+<div style=3D"font-family: Aptos, Aptos_MSFontService, -apple-system, Robot=
+o, Arial, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);" dir=
+=3D"ltr">
+Ping!</div>
+</div>
+<div id=3D"ms-outlook-mobile-body-separator-line" style=3D"font-family: Apt=
+os, -apple-system, HelveticaNeue, sans-serif;font-size: 12pt" dir=3D"auto">
+<br>
+</div>
+<div id=3D"ms-outlook-mobile-signature" style=3D"font-family: Aptos, -apple=
+-system, HelveticaNeue, sans-serif;font-size: 12pt">
+Get <a href=3D"https://aka.ms/o0ukef">Outlook for iOS</a></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Sunil Khatri &lt;suni=
+l.khatri@amd.com&gt;<br>
+<b>Sent:</b> Tuesday, March 24, 2026 1:21:49 PM<br>
+<b>To:</b> Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;; Koenig, Ch=
+ristian &lt;Christian.Koenig@amd.com&gt;<br>
+<b>Cc:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
+gt;; Khatri, Sunil &lt;Sunil.Khatri@amd.com&gt;<br>
+<b>Subject:</b> [Patch v1] drm/amdgpu/userq: dont use goto to jump when at =
+end of function</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">In function amdgpu_userq_restore_worker we dont ne=
+ed to use<br>
+goto as we already in the end of function and it will exit<br>
+naturally.<br>
+<br>
+Signed-off-by: Sunil Khatri &lt;sunil.khatri@amd.com&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 4 +---<br>
+&nbsp;1 file changed, 1 insertion(+), 3 deletions(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_userq.c<br>
+index eb07ed078bfa..a351383b432b 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c<br>
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c<br>
+@@ -1227,10 +1227,8 @@ static void amdgpu_userq_restore_worker(struct work_=
+struct *work)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D amdgpu_userq_resto=
+re_all(uq_mgr);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ret) {<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ret)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; drm_file_err(uq_mgr-&gt;file, &quot;Failed to restore=
+ all queues\n&quot;);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; goto unlock;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;<br>
+&nbsp;unlock:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_unlock(&amp;uq_mgr-&=
+gt;userq_mutex);<br>
+-- <br>
+2.34.1<br>
+<br>
+</div>
+</span></font></div>
+</div>
+</body>
+</html>
 
-**Step 1.4:** Not hidden - explicitly labeled as a fix.
-
-## PHASE 2: DIFF ANALYSIS
-
-**Step 2.1:** 1 file changed, 3 lines modified (value swaps only).
-Functions affected: none - these are static constant array initializers.
-Scope: minimal/surgical.
-
-**Step 2.2:**
-- `amdgpu_dm_supported_degam_tfs`: GAMMA22_INV → GAMMA22
-- `amdgpu_dm_supported_shaper_tfs`: GAMMA22 → GAMMA22_INV
-- `amdgpu_dm_supported_blnd_tfs`: GAMMA22_INV → GAMMA22
-
-**Step 2.3:** Logic/correctness bug. The pattern across all three tables
-makes it clear:
-- Degamma/blend: SRGB_**EOTF**, PQ_125_**EOTF**, BT2020_**INV_OETF** →
-  all "forward" transforms → GAMMA22 (forward) is correct
-- Shaper: SRGB_**INV_EOTF**, PQ_125_**INV_EOTF**, BT2020_**OETF** → all
-  "inverse" transforms → GAMMA22_**INV** is correct
-
-**Step 2.4:** Obviously correct by pattern consistency. Zero regression
-risk - just swapping constants to match the established convention.
-
-## PHASE 3: GIT HISTORY
-
-**Step 3.1:** Git blame confirms all buggy lines were introduced by
-commit `db2bad93fe206` ("Enable support for Gamma 2.2") from 2025-11-14,
-which is v6.19-rc1 material.
-
-**Step 3.2:** No Fixes: tag, but the bug was introduced by
-`db2bad93fe206`.
-
-**Step 3.3:** The file `amdgpu_dm_colorop.c` was created in v6.19-rc1
-cycle. Only one other fix has been backported to 6.19.y stable for this
-file (`c5d11ab0cad0b`). This fix is standalone.
-
-**Step 3.4:** Alex Hung is an AMD display developer, author of the
-original buggy commit and several other colorop-related changes. Fix
-authored by the same person who introduced the bug.
-
-**Step 3.5:** No dependencies. The fix only changes constant values in
-arrays already present.
-
-## PHASE 4: MAILING LIST RESEARCH
-
-**Step 4.1:** Patch submitted 2026-03-11, reviewed by Melissa Wen and
-Harry Wentland, accepted by Alex Deucher. No explicit Cc: stable
-nomination found.
-
-**Step 4.2:** Bug report at gitlab.freedesktop.org/drm/amd/-/issues/5016
-confirms "gamma 2.2 and inverse flipped" in the color pipeline. Tested
-by Xaver Hugl (KDE Plasma compositor developer), indicating real-world
-impact on desktop compositors.
-
-**Step 4.3:** Standalone fix, not part of a series.
-
-**Step 4.4:** No stable-specific discussion found.
-
-## PHASE 5: CODE SEMANTIC ANALYSIS
-
-**Step 5.1:** No functions modified - only constant array definitions.
-
-**Step 5.2:** These constants are used in:
-- `amdgpu_dm_initialize_default_pipeline()` - pipeline initialization
-- `amdgpu_dm_color.c` - multiple places validating colorop state against
-  supported TFs
-
-**Step 5.3-5.4:** The TF bitmasks control which transfer functions are
-advertised as supported to userspace and validated during atomic check.
-With the wrong values, userspace compositors (like KDE Plasma) would see
-incorrect supported TFs and get wrong color output.
-
-**Step 5.5:** The pattern is consistent with all other TFs in the same
-tables (sRGB, PQ, BT.2020).
-
-## PHASE 6: STABLE TREE ANALYSIS
-
-**Step 6.1:** The file `amdgpu_dm_colorop.c` does NOT exist in v6.18 or
-earlier. It was introduced in v6.19-rc1. The bug only exists in 6.19.y
-stable.
-
-**Step 6.2:** The fix would apply cleanly to 6.19.y - the code in 6.19.9
-still has the buggy values (verified).
-
-**Step 6.3:** No related fixes for this specific issue found in stable.
-
-## PHASE 7: SUBSYSTEM CONTEXT
-
-**Step 7.1:** [drm/amd/display] [IMPORTANT - AMD GPU is the most widely
-used GPU on Linux desktops]
-
-**Step 7.2:** Active subsystem with frequent changes to the colorop
-infrastructure.
-
-## PHASE 8: IMPACT AND RISK ASSESSMENT
-
-**Step 8.1:** Affects users of AMD GPUs using the new DRM colorop/color
-pipeline API (e.g., KDE Plasma 6 compositor). Driver-specific but widely
-used hardware.
-
-**Step 8.2:** Triggered whenever a compositor uses gamma 2.2 transfer
-functions through the DRM color pipeline. The KDE Plasma compositor is a
-primary consumer.
-
-**Step 8.3:** Incorrect color rendering - not a crash, but produces
-visually wrong output for users. Severity: MEDIUM-HIGH (functional
-incorrectness in display output).
-
-**Step 8.4:**
-- **Benefit:** Fixes incorrect color output for AMD GPU users with
-  compositors using the color pipeline. Tested by KDE developer.
-- **Risk:** Extremely low - 3 constant value swaps, pattern-consistent,
-  no logic changes.
-- **Ratio:** High benefit / Very low risk = Strong candidate.
-
-## PHASE 9: FINAL SYNTHESIS
-
-**Step 9.1 Evidence FOR:**
-- Fixes a real, user-reported bug (gitlab issue #5016)
-- Values were demonstrably swapped (pattern mismatch with other TFs in
-  same tables)
-- Fix is trivial: 3 constant swaps
-- Tested by KDE compositor developer (real-world validation)
-- Reviewed by two color pipeline experts
-- Code exists in 6.19.y stable and still has the bug
-- Obviously correct by pattern analysis
-
-**Step 9.1 Evidence AGAINST:**
-- Only applies to 6.19.y (very limited scope)
-- DRM colorop is new infrastructure, not widely deployed yet
-- Not a crash or security issue (just incorrect color output)
-- No Cc: stable tag or Fixes: tag
-
-**Step 9.2 Stable Rules Checklist:**
-1. Obviously correct? **YES** - pattern analysis proves it
-2. Fixes a real bug? **YES** - reported bug with wrong color output
-3. Important issue? **YES** - incorrect display output for users
-4. Small and contained? **YES** - 3 lines in 1 file
-5. No new features? **YES** - pure bugfix
-6. Can apply to stable? **YES** - verified code matches in 6.19.9
-
-**Step 9.3:** No exception category - standard bugfix.
-
-**Step 9.4:** The fix is trivially correct, minimal, well-reviewed,
-tested, and fixes a real user-reported bug. Despite being limited to
-6.19.y, it meets all stable criteria.
-
-## Verification
-
-- [Phase 1] Parsed tags: Closes gitlab issue, Tested-by KDE developer,
-  two Reviewed-by from display experts
-- [Phase 2] Diff: 3 constant value swaps in static arrays, no logic
-  changes
-- [Phase 2] Pattern analysis: degamma/blend use forward TFs (EOTF,
-  INV_OETF, GAMMA22), shaper uses inverse TFs (INV_EOTF, OETF,
-  GAMMA22_INV) - confirmed correct
-- [Phase 3] git blame: buggy lines from `db2bad93fe206` (v6.19-rc1)
-- [Phase 3] git show v6.18/v6.12: file does not exist in pre-6.19 trees
-- [Phase 3] git show v6.19.9: confirmed buggy code still present in
-  6.19.9 stable
-- [Phase 4] lore.kernel.org: found patch at 20260311211837.2482799-1, no
-  explicit Cc: stable
-- [Phase 4] gitlab issue #5016: title confirms "gamma 2.2 and inverse
-  flipped"
-- [Phase 5] grep: variables used in pipeline init and color state
-  validation (6 callsites in amdgpu_dm_color.c)
-- [Phase 6] Only 6.19.y stable tree affected; patch applies cleanly
-- [Phase 8] Impact: incorrect color rendering for AMD GPU + compositor
-  users; Severity: MEDIUM-HIGH
-
-**YES**
-
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.c
-index cc124ab6aa7f7..212c13b745d0c 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.c
-@@ -37,19 +37,19 @@ const u64 amdgpu_dm_supported_degam_tfs =
- 	BIT(DRM_COLOROP_1D_CURVE_SRGB_EOTF) |
- 	BIT(DRM_COLOROP_1D_CURVE_PQ_125_EOTF) |
- 	BIT(DRM_COLOROP_1D_CURVE_BT2020_INV_OETF) |
--	BIT(DRM_COLOROP_1D_CURVE_GAMMA22_INV);
-+	BIT(DRM_COLOROP_1D_CURVE_GAMMA22);
- 
- const u64 amdgpu_dm_supported_shaper_tfs =
- 	BIT(DRM_COLOROP_1D_CURVE_SRGB_INV_EOTF) |
- 	BIT(DRM_COLOROP_1D_CURVE_PQ_125_INV_EOTF) |
- 	BIT(DRM_COLOROP_1D_CURVE_BT2020_OETF) |
--	BIT(DRM_COLOROP_1D_CURVE_GAMMA22);
-+	BIT(DRM_COLOROP_1D_CURVE_GAMMA22_INV);
- 
- const u64 amdgpu_dm_supported_blnd_tfs =
- 	BIT(DRM_COLOROP_1D_CURVE_SRGB_EOTF) |
- 	BIT(DRM_COLOROP_1D_CURVE_PQ_125_EOTF) |
- 	BIT(DRM_COLOROP_1D_CURVE_BT2020_INV_OETF) |
--	BIT(DRM_COLOROP_1D_CURVE_GAMMA22_INV);
-+	BIT(DRM_COLOROP_1D_CURVE_GAMMA22);
- 
- #define MAX_COLOR_PIPELINE_OPS 10
- 
--- 
-2.51.0
-
+--_000_BL1PR12MB575358F35CCAE32F698AB0949348ABL1PR12MB5753namp_--
