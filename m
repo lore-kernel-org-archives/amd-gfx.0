@@ -4,94 +4,136 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 35369F54AC6
-	for <amd-gfx@archiver.kernel.org>; Tue, 24 Mar 2026 14:37:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 378BFF54AC5
+	for <amd-gfx@archiver.kernel.org>; Tue, 24 Mar 2026 14:57:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BE4CC10E6F7;
-	Tue, 24 Mar 2026 14:37:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C802910E176;
+	Tue, 24 Mar 2026 14:57:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="YHuBfyjF";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="dnDBLhf3";
 	dkim-atps=neutral
-Received: from mail-dl1-f49.google.com (mail-dl1-f49.google.com [74.125.82.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 12E5410E6F6
- for <amd-gfx@lists.freedesktop.org>; Tue, 24 Mar 2026 14:37:51 +0000 (UTC)
-Received: by mail-dl1-f49.google.com with SMTP id
- a92af1059eb24-12711867ca1so230596c88.3
- for <amd-gfx@lists.freedesktop.org>; Tue, 24 Mar 2026 07:37:51 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1774363070; cv=none;
- d=google.com; s=arc-20240605;
- b=YZ2uBF/hjG7VcyS2x4auqEeUt7A9dtbUuz0Fnvpm+sovnZTCX10KQHEAp/L0Wl43rg
- HTEGkP4j+aK2HXM7j/e8bVa933BOWZ1BChEmyZU7VZMM1A1rXHioXF8L0ILBNr1Q3gpT
- oYJgBtfn4hFIj1F+g/xmVKtqraN42DUTHQnYH21adY5+XO8DpBlx6WVkPf8f5dv2gf/9
- O5GzieTD3pLfZprotwvlglDOZMJhRHjaxpkAxn/qskRa75D87KT8vC+RRW5WQtkjf8H5
- Wss8iXeFvADdQlDxORZsVnPDX1sBzE7TARV4DxLJkC8IAtX13QH9Ly6nLnCZAOXYveZQ
- fYBQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=4ohm3myHwg9cmAVnpbRUolzwBvkcMRf3i7unYvU0SFM=;
- fh=tmM1mGcBR8h1Ydqp+Gcvtcq5r5htSSh0D3MMaoflD5M=;
- b=LjK0dTWeI/D3N5d6f6+7zpgk5IsFEuERCz7QPt49KMAUT/odTQ1Lbnc4MHsGpJNomA
- mqkI7hfLKhZhpg2bjeff6GMf8CsrhoMMyp1LR/EFdRoG7Sp3dteCDWaKnWXuEyCSIoaQ
- 64npTZBWUrnheiUrcCEJcbT0v3ffI/rDWephIRuAZRE3QFypfmBFOnkwFKMp3rFudoh3
- c7i/3PNqJilw2fB2mURRqKVTiQ4PtAVzXBVR16Abp0QglLeA6tR/jjFWurs5tJ1kOMoG
- F36N2NN4LAGOpEN2qNnNYMQSglfFxzzEce4KCHCX24f+wWBurM/S7dXNn4xnkkGWLtCm
- K+rg==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1774363070; x=1774967870; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=4ohm3myHwg9cmAVnpbRUolzwBvkcMRf3i7unYvU0SFM=;
- b=YHuBfyjFsk3rX7bMJiNbkxIZxupiy5QAANvlbwnBdFybi7BOsYCPAPChE6MyKfJ3W7
- yxfYk6O54Hl/OB9pFFyUpXSttWOJpAgsDHXKBgIRRfmvgj41Bxgaba+RJO2Glqt1S2wo
- T418Lglhms2e1tqXHR9/c2K1V9JwRJ0kg1Vqu03Uya9mtL05nkH66HYGxiHr7lrr7uYH
- GUIdHy/HLvOVaLsjDZTcqDz31BJjsda80WnTbflmI2kjr8fStIAF+3r3F5W9m9j1oKoJ
- SHhOQhbTgxp89/UmogSdZdJ0pWN2Vf8vr9OZTCk+K+nqxRputoXXQLKr4eQwDOYCJqXp
- g79w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774363070; x=1774967870;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=4ohm3myHwg9cmAVnpbRUolzwBvkcMRf3i7unYvU0SFM=;
- b=VEVpvrXFKkOTGS1QRe1ztdgH0BC+0pJDTBEnyI+AYLy9HwIcBOdmVpQY1PyaPWr0gG
- 44+18ODcmpISbozyunBA4jbOgpTvvJxsbA8venO94zlhdUqchZ4y0XJeLWYdiwC4Jztl
- An6Pe6dsNiBtGihJOPGuYJJ+T1MejhKIUQw7m0p10EE0+dG0Kf/sw83pgwpjgfC3T3kU
- z5Kkf7dn7NCN/8tjTvEJsOLeCibt1VeeBhv6eYwxxYIQNAzHIZ4OJ9atj9tHhxIoVVXG
- B5S90yGFSZyGI/8ShJeEFbLn3RuEOzNvzrOg8lGldcPBRGaloc78n/X5W5BiWg5K2JnY
- BO2w==
-X-Gm-Message-State: AOJu0YxVyieg02eicifXtc697Vsw9N/0LMtBh13XHwoNW3fLeXQlV+h3
- NLjETYXDSOkybckr9yk7QchkK/Z1OLjglJ01iIGUOm3ZfHOBtKyJU3rsVN80bFoXCKd2UT6pyoj
- pl/MtZK6b6wlha1mbzoL31CFnqX/OBno=
-X-Gm-Gg: ATEYQzzs1HJ3xQVAl0vOPGH37LK3jfcXxAbYXOgDhycPhrpTWxPE4tCxhBVcyan2cpB
- P0b2EqCiihgreEeDyYCCdj+8gABOVrZMWY4d3IHZIDpH4Yp9BV503beRxVcosTq0bJFGAYPq9Cc
- QJbuUrrN7CD0YFANpgtKcS30x8ed+eHr/PWcWuGBzjt0M5+ziPtuqo8saPo+6sTjhuyvSXzwm6f
- 1kKWUyKr6HGA6JiMP5DgfHb7BdVwa/4Lg5dhwgtwckpYWn0JoELFpwh3LN40Sh5eaQ4R1mEGoDP
- DJiRKWhJrA0tDDg6x5P2zaDs+GVPVnKeibwb3t7XYBX6RUuwTdJ+v5dfo4MA+B71hzuFumURcP7
- jhfJR
-X-Received: by 2002:a05:7022:e16:b0:128:e6e2:0 with SMTP id
- a92af1059eb24-12a726d3218mr3224733c88.6.1774363069847; Tue, 24 Mar 2026
- 07:37:49 -0700 (PDT)
+Received: from DM5PR21CU001.outbound.protection.outlook.com
+ (mail-centralusazon11011057.outbound.protection.outlook.com [52.101.62.57])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0A0DD10E176
+ for <amd-gfx@lists.freedesktop.org>; Tue, 24 Mar 2026 14:57:54 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=jXhpAkwGRmmPD5VOy32AxmhvPSoXJN2MxhRErcTVjbhmAeq6MjgK4fPw/eaxR49I97xzky1ExBte8uJKpvIstHvatTpJMxffFutvsR7E+yClmHz4L+j5oSQw+Y7iQeNPmpg5QkBkUDqmtIJcwZK2pFC/kSueIB+LM9FWpzxOIVFTmHyM5mIUogAxdY3WLqdCDJqR7GzM91XyWuiP4GPtw7HcsUK85g3yrvy6Y4lK9w+1ZsLhTwkIzfCE9Cl4TRiP1FaiSykEf8O4L0NVR6t0vc4soxrcq6/oEes56AygFdJdgBmu2EMwDPCqMOl/pIM1xQOFhhNREKqEsGEfW1Y7pQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=9tKm65Manhil3+/H719sISMly7taDpxd4ilkp35sbBQ=;
+ b=w+u1BrCuid0yIl9xTn6PFMFz2AV2pvUat0GEiSjgYZAqHOIqrc3y7Wb4rCtbv4uXk5aL2LwaiP0HtxONgZYI/2GbBY6zVZkbIb2TCmFHMdU3zcXnlDaL/INStK+HXqz68TSKNjbU2EBcQK60cMJIN4BRAdqRhS8zbVFNRni93lC4N+CCkEo86F0+HRhWQe80jsuUq5GLB7HaLQ9aRtB9bfIZRvZkK7TVUIk/QsVp2/4q2ohwZ1+GqRG7RrS7TaZL7mQNQrPeiiKsY9tOjUwaWHd4dxXECJ5plKGPSPd5w7jVFIJMksVpwKQCvR+88/yU+XIN2cBXrstS+IamPtN6YA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=9tKm65Manhil3+/H719sISMly7taDpxd4ilkp35sbBQ=;
+ b=dnDBLhf3zdvLaDjS4aOgNw/xvjIFlWKcB62NuXua8bBVuFa2+GxfYcawJqaXcKS+r5uPPCE5FX5v9WsqcJezU0y+MDPDVYaQWk6eZMdStD294JKbyYsKEvEaFEzli4NqTQ1azLd/pf0c1UMVAHEJBZyNa+nf1qzxUI5TAplJB+I=
+Received: from IA0PR12MB8208.namprd12.prod.outlook.com (2603:10b6:208:409::17)
+ by BL3PR12MB6474.namprd12.prod.outlook.com (2603:10b6:208:3ba::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.20; Tue, 24 Mar
+ 2026 14:57:44 +0000
+Received: from IA0PR12MB8208.namprd12.prod.outlook.com
+ ([fe80::dbd3:cc22:a850:dc1e]) by IA0PR12MB8208.namprd12.prod.outlook.com
+ ([fe80::dbd3:cc22:a850:dc1e%5]) with mapi id 15.20.9745.019; Tue, 24 Mar 2026
+ 14:57:44 +0000
+From: "SHANMUGAM, SRINIVASAN" <SRINIVASAN.SHANMUGAM@amd.com>
+To: Alex Deucher <alexdeucher@gmail.com>, "Li, Roman" <Roman.Li@amd.com>,
+ "Pillai, Aurabindo" <Aurabindo.Pillai@amd.com>
+CC: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH 2/3] drm/amd/display: Fix DCE LVDS handling
+Thread-Topic: [PATCH 2/3] drm/amd/display: Fix DCE LVDS handling
+Thread-Index: AQHcutuLoTD+nujSJ0CawEV8ur8n0LW9ozOAgAAVlrCAAAITAIAAC2lg
+Date: Tue, 24 Mar 2026 14:57:44 +0000
+Message-ID: <IA0PR12MB820861C4CA6ECD3AA73F9B029048A@IA0PR12MB8208.namprd12.prod.outlook.com>
+References: <20260323153923.1055788-1-alexander.deucher@amd.com>
+ <20260323153923.1055788-2-alexander.deucher@amd.com>
+ <CADnq5_NaEEH1-Kcpmbze96g6GucAanpZF6AgFmhMcDHu90uSRg@mail.gmail.com>
+ <IA0PR12MB82080E42594DA1C4940FD8569048A@IA0PR12MB8208.namprd12.prod.outlook.com>
+ <CADnq5_PtxmANpDoN6h1_T_x42U6wwgAF+Q6TOk4tRRnSpg0Ujg@mail.gmail.com>
+In-Reply-To: <CADnq5_PtxmANpDoN6h1_T_x42U6wwgAF+Q6TOk4tRRnSpg0Ujg@mail.gmail.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-Mentions: alexdeucher@gmail.com,Roman.Li@amd.com,Aurabindo.Pillai@amd.com
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=True;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2026-03-24T14:53:36.0000000Z;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
+ Internal Distribution
+ Only; MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=3;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: IA0PR12MB8208:EE_|BL3PR12MB6474:EE_
+x-ms-office365-filtering-correlation-id: 6079ea24-3729-4050-26f2-08de89b5b49e
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|366016|1800799024|376014|38070700021|22082099003|18002099003|56012099003;
+x-microsoft-antispam-message-info: dV+RMOoDxWhI+YytTIiZk1IDz0EpYyGRUk+TUJZ/Fbb84ARuz5MNLt9Blq4J+NdsCektYopopxdpsQt9ysBGysCeUC7OGCTL6T+AAB5wDgQVcbIw+uBO/0L0NtWnkUEpI1SMmf9vps97YVuVECFcSRPEu7Si2zj9ic8Cyd2loqOEUYxUIv+UUghtrEyEeAw08UDdMV8F5IzPpFSsQRx5Pr7HDE/p1RO3k4zMS2vqg2EfpC+nbAGVwmjyK4CecL25H/MfRAdGDTLlwt6xtOcOfjAoYZTlbQHXxhVSwDRYBkjrQJ8DTEooQKRFGrq+UOOj02QvmW1wLsmCUBndrMzDJOZ2/7afHSTnVme4YeJJid218OQXQlbWiq/TSk0t/RRsa88f5vGKWylEIwkm5aCZ8yCj3E1W+/aB8tzRXN3uxRtQugZGv8QIBmIionWNYiB0lXYrUfdKWTkcP6PbzUd51/IODz+AfzYy7nPAdDLSH49Gi6Tb5gzJQKseOILvvWXqLX+eVqyuBSIq8IhER75UwE0UcJ3TcMrb7hJIndKwfkU3vARljoZBzfxvAN2e47yKs5UP82MULWBe4Agh4gOlFuQuuVKYaKJgoxHSWDIcP5k6apwWQznTDppdoalZkvcYRZn1B1cOrHOZ1HaV5D+DxcCJTy1QAll6ovX6QIcwIJKx5l2uiZBEMUFPGPbXFrn/k4GPO0FXkIPjvZVep3FTbYFgESL5vN9fKXKnmtI5FoWbjUIwaF7jH+oHgMaLsuwV
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:IA0PR12MB8208.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(376014)(38070700021)(22082099003)(18002099003)(56012099003);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?TWgvYVpMUC9KMS94RUw2ejQ0YkRtOGNQejRDbklvU0RjUXFmMHVWckxWc1NN?=
+ =?utf-8?B?T2VGQkF0OXhYLzYyVnZ0TXdZdkdoMTFHRmo3OXRYRmZOVTBDSTBzVDh1K3JP?=
+ =?utf-8?B?SWE5RFN1dWJxUEZYeUZFblc4UEFEdHpKK2ZDSlIwTUlZRExMTlZnNjYyaklq?=
+ =?utf-8?B?TWYxSWtRMkVRMTRMdXdFOWE4Uk9EUm4zTmsxaXhBN1lzbnN5elZydk5OdDFk?=
+ =?utf-8?B?OU9ZS3ptZlgyUmFvWU4vdExhaUxaSHNodzFMWlp2Vlc1VE1CRXJYTmNSNnUv?=
+ =?utf-8?B?YVRXOFpvY3B3UGltTlNBbzNvMU1oMjdicThHaXEvM1IwTGVDNnJBWXc0Qjl5?=
+ =?utf-8?B?cHAxbFVqRWxNVW9DMXZTblNSaVdOSzNlUVNZT1hrNFhGaEtWYzl0SHEzaHNT?=
+ =?utf-8?B?SEEzcHE2UDJ5UFJHdm91WXNQZmVVSWRsY05PMERBMS9VbG1mak1ZNjlRREQ0?=
+ =?utf-8?B?TW9QaHp2clFaZ1VZZ3dHM3FaeWt2UDNBbW9hVzZudFFvZ0EwbkQ0SEFMRGZx?=
+ =?utf-8?B?QzNKMG9LbHhKcGRrajZ1QVR6ZEUwbnFKZ1RpSG1QUHQ5OFRhcHdnbUZSaThH?=
+ =?utf-8?B?ZGJ0TGwvY0YvWkZ6UllubDczdGg5Y1pQS3g5YUt4eW1aQ1Y1QkxXaUZ4enpk?=
+ =?utf-8?B?RjBHc1JuVHA0Vnp5THArY1lEcVZBdzExQm9HSS9YZnJPSVd5WGg4MDlYdzhT?=
+ =?utf-8?B?azM4ekF6a2QxYkJCRnJadks5SC8wS3lxdW5kWXdwYWhibHVNSEw2UVZtbC9N?=
+ =?utf-8?B?VTRZWGJscmIvdytsemQ0aDFqanlyYWNaalBWSFNibmdmNWp0QTB0M0FWajlo?=
+ =?utf-8?B?N1I0Y2x4Um1palhKdWxHQ05DcThsb29DY1NyQjFjcTJXUlhGbHdmOW9vRk5h?=
+ =?utf-8?B?WjlPZFlqSGdRc20vYUgzYjJnVHNUK0lEaE82NXBVd0lTT3BzbFU0NHhQZHh5?=
+ =?utf-8?B?V3dGbG5ULy9lQyttYjhmTXZNVkVyaldzMXF2VFBRY2ZIZlp2OUJZYW5lRjFN?=
+ =?utf-8?B?Z0J5a01VdVhKTjZ3bllpV0NBTTJ6SHlpSTlKVjhPcEsvVlZFN1J2N0NFVzdr?=
+ =?utf-8?B?RElnQUljSDd3Q1BPekJmOE9aKzAyTit3M202L2xnTUtKV3NJcU5BZkpDb3hB?=
+ =?utf-8?B?V1BvbEJ1eWl4WEE1a1VxUXZTM3lpWXUwaEpiYjhHQmFvdEpqU3Ird2lJY0RP?=
+ =?utf-8?B?OU9UQ2xaMG5qbVVvU1VuTXlzTnM0RmZjWFA5RW42ZS9RVFNIV3JPN2hIamZN?=
+ =?utf-8?B?NUU5d1dpZ0p5WXJkSCswak1uR0xTb0JXTHRMNjFubTkrMlpWUFRpa2F3dEx3?=
+ =?utf-8?B?Z3Z2K1JTdWdnVS83M3F0cFpZYW9JTStNUUdNTTIzL2t3WHhEWnA0NTZXQ2lu?=
+ =?utf-8?B?UlFTNFdzR1liOGtqSG5sNFhsSzFCUlRpelp6Y0ZBMjBiZkRpeWpjVjN1b3VI?=
+ =?utf-8?B?cTdWQS8vbnRFazJSYUFrakNTZnNpaXJTaUcwWTBhWkxsaXdQV2ZETWFnOUpX?=
+ =?utf-8?B?Q0ZTdzlwSnBDRFMrK0hScC8yRTB5MnVYRjR5ZkcxVW03NUVMMkluV3BVaUcr?=
+ =?utf-8?B?ZXRoTEJMUEx2bXRyL1hOUFFJL1lvN2gzYzZJOXZldlA4eUhBYTlPRC9MSFJR?=
+ =?utf-8?B?QXptT083OFl4WjV0NnRVVEI1aFJzZUxTTDJselRDNUlyWmpUWkNCWVlRNEd5?=
+ =?utf-8?B?K0JhK1l4Q2Y1L3htVzc4eCtMbldVcWNkSldneS9YTlJXdzQzVitKb205TW5C?=
+ =?utf-8?B?Zy9NbzlVaW5JVnpjZHQ0dzJ6YkVuV0NWd0pOUUNUME5Ua0UxZ0pCTHZFdllI?=
+ =?utf-8?B?OWxOdE93MWpNWnFnbGtzNHVocjdBMksyMUV5UEpBcGZpaVl4cEE1WXFyZmR6?=
+ =?utf-8?B?UGFLd2E1aGd4R0pNcU5pcUhSQnhmcHBRQmVXZWc1dnUwdHhSWVRVeFlpTzZo?=
+ =?utf-8?B?TkRTZ2lkUnd6MnhhVHdWakxQQlNVOWFGSlJJUDU2OHpMdU9relZ4TUlIcEdt?=
+ =?utf-8?B?NXpoVk5JVS90QnBtZ0QxVytkbVR2Ti81T2l4YjVERmtFd1QrWERaSFhpd2Z4?=
+ =?utf-8?B?cXZUV1ZOYStRVldEWkhmNEhLNGZZeXZjWThuSEhJSk9SSWtNQnBTT2dEM2pa?=
+ =?utf-8?B?NXkwbGx6Tm90M2ZYSWIrTytkajdVOFVyb050alpkK0VKU1VmNzVoa0FQc0wv?=
+ =?utf-8?B?ZHI2T1F3cUIzSjhuVUFBZWJkS1BLdlNkYTllYnpvc3Jrd0o3eHc0alJEdmZ4?=
+ =?utf-8?B?NGpXZXFBRExpU0JSamcxdnluTk9iRUtuMjlFTlF6cXRVSmM5V3UreU54RG1H?=
+ =?utf-8?Q?T+GKFUOl2bRXvSSwAq?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-References: <20260323211343.263909-1-sunlightlinux@gmail.com>
-In-Reply-To: <20260323211343.263909-1-sunlightlinux@gmail.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 24 Mar 2026 10:37:38 -0400
-X-Gm-Features: AaiRm51rFGTs41eshW8t3PECnG85cZLG9Q1LK6OKJbeoeY6hB-J5fD-wFronzsQ
-Message-ID: <CADnq5_N+CzdUtk3PXHUBvHGWMF+BkoHPp=Qc5vyODGuQsne97A@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/display: Wire up dcn10_dio_construct() for all
- pre-DCN401 generations
-To: "Ionut Nechita (Sunlight Linux)" <sunlightlinux@gmail.com>, "LIPSKI,
- IVAN" <IVAN.LIPSKI@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, harry.wentland@amd.com, sunpeng.li@amd.com, 
- siqueira@igalia.com, alexander.deucher@amd.com, christian.koenig@amd.com, 
- airlied@gmail.com, simona@ffwll.ch, dri-devel@lists.freedesktop.org, 
- Ionut Nechita <ionut_n2001@yahoo.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8208.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6079ea24-3729-4050-26f2-08de89b5b49e
+X-MS-Exchange-CrossTenant-originalarrivaltime: 24 Mar 2026 14:57:44.5295 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: lfURBSOzqR0tAbehjkxSUL5fBp0DWy8OEuTq+9RreHteonQwVC1HyLE3mOljKbQBcAfHPibNHnhm2AKjYrdQHA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL3PR12MB6474
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,1441 +148,221 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-+ Ivan
-
-On Mon, Mar 23, 2026 at 5:24=E2=80=AFPM Ionut Nechita (Sunlight Linux)
-<sunlightlinux@gmail.com> wrote:
->
-> From: Ionut Nechita <ionut_n2001@yahoo.com>
->
-> Description:
->  - Commit b82f0759346617b2 ("drm/amd/display: Migrate DIO registers acces=
-s
->    from hwseq to dio component") moved DIO_MEM_PWR_CTRL register access
->    behind the new dio abstraction layer but only created the dio object f=
-or
->    DCN 4.01. On all other generations (DCN 10/20/21/201/30/301/302/303/
->    31/314/315/316/32/321/35/351/36), the dio pointer is NULL, causing the
->    register write to be silently skipped.
->
->    This results in AFMT HDMI memory not being powered on during init_hw,
->    which can cause HDMI audio failures and display issues on affected
->    hardware including Renoir/Cezanne (DCN 2.1) APUs that use dcn10_init_h=
-w.
->
->    Call dcn10_dio_construct() in each older DCN generation's resource.c
->    to create the dio object, following the same pattern as DCN 4.01. This
->    ensures the dio pointer is non-NULL and the mem_pwr_ctrl callback work=
-s
->    through the dio abstraction for all DCN generations.
->
-> Fixes: b82f0759346617b2 ("drm/amd/display: Migrate DIO registers access f=
-rom hwseq to dio component.")
-> Signed-off-by: Ionut Nechita <ionut_n2001@yahoo.com>
-> ---
->  .../dc/resource/dcn10/dcn10_resource.c        | 41 ++++++++++++++++++
->  .../dc/resource/dcn20/dcn20_resource.c        | 42 ++++++++++++++++++
->  .../dc/resource/dcn201/dcn201_resource.c      | 41 ++++++++++++++++++
->  .../dc/resource/dcn21/dcn21_resource.c        | 34 +++++++++++++++
->  .../dc/resource/dcn30/dcn30_resource.c        | 42 ++++++++++++++++++
->  .../dc/resource/dcn301/dcn301_resource.c      | 42 ++++++++++++++++++
->  .../dc/resource/dcn302/dcn302_resource.c      | 41 ++++++++++++++++++
->  .../dc/resource/dcn303/dcn303_resource.c      | 41 ++++++++++++++++++
->  .../dc/resource/dcn31/dcn31_resource.c        | 40 +++++++++++++++++
->  .../dc/resource/dcn314/dcn314_resource.c      | 40 +++++++++++++++++
->  .../dc/resource/dcn315/dcn315_resource.c      | 40 +++++++++++++++++
->  .../dc/resource/dcn316/dcn316_resource.c      | 40 +++++++++++++++++
->  .../dc/resource/dcn32/dcn32_resource.c        | 43 +++++++++++++++++++
->  .../dc/resource/dcn321/dcn321_resource.c      | 43 +++++++++++++++++++
->  .../dc/resource/dcn35/dcn35_resource.c        | 43 +++++++++++++++++++
->  .../dc/resource/dcn351/dcn351_resource.c      | 43 +++++++++++++++++++
->  .../dc/resource/dcn36/dcn36_resource.c        | 43 +++++++++++++++++++
->  17 files changed, 699 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn10/dcn10_resource=
-.c b/drivers/gpu/drm/amd/display/dc/resource/dcn10/dcn10_resource.c
-> index bbe185e15eb67..4663456a736a2 100644
-> --- a/drivers/gpu/drm/amd/display/dc/resource/dcn10/dcn10_resource.c
-> +++ b/drivers/gpu/drm/amd/display/dc/resource/dcn10/dcn10_resource.c
-> @@ -71,6 +71,7 @@
->  #include "dce/dce_dmcu.h"
->  #include "dce/dce_aux.h"
->  #include "dce/dce_i2c.h"
-> +#include "dio/dcn10/dcn10_dio.h"
->
->  #ifndef mmDP0_DP_DPHY_INTERNAL_CTRL
->         #define mmDP0_DP_DPHY_INTERNAL_CTRL             0x210f
-> @@ -444,6 +445,33 @@ static const struct dcn_hubbub_mask hubbub_mask =3D =
-{
->                 HUBBUB_MASK_SH_LIST_DCN10(_MASK)
->  };
->
-> +static const struct dcn_dio_registers dio_regs =3D {
-> +               DIO_REG_LIST_DCN10()
-> +};
-> +
-> +#define DIO_MASK_SH_LIST(mask_sh)\
-> +               HWS_SF(, DIO_MEM_PWR_CTRL, I2C_LIGHT_SLEEP_FORCE, mask_sh=
-)
-> +
-> +static const struct dcn_dio_shift dio_shift =3D {
-> +               DIO_MASK_SH_LIST(__SHIFT)
-> +};
-> +
-> +static const struct dcn_dio_mask dio_mask =3D {
-> +               DIO_MASK_SH_LIST(_MASK)
-> +};
-> +
-> +static struct dio *dcn10_dio_create(struct dc_context *ctx)
-> +{
-> +       struct dcn10_dio *dio10 =3D kzalloc_obj(struct dcn10_dio);
-> +
-> +       if (!dio10)
-> +               return NULL;
-> +
-> +       dcn10_dio_construct(dio10, ctx, &dio_regs, &dio_shift, &dio_mask)=
-;
-> +
-> +       return &dio10->base;
-> +}
-> +
->  static int map_transmitter_id_to_phy_instance(
->         enum transmitter transmitter)
->  {
-> @@ -917,6 +945,11 @@ static void dcn10_resource_destruct(struct dcn10_res=
-ource_pool *pool)
->         kfree(pool->base.hubbub);
->         pool->base.hubbub =3D NULL;
->
-> +       if (pool->base.dio !=3D NULL) {
-> +               kfree(TO_DCN10_DIO(pool->base.dio));
-> +               pool->base.dio =3D NULL;
-> +       }
-> +
->         for (i =3D 0; i < pool->base.pipe_count; i++) {
->                 if (pool->base.opps[i] !=3D NULL)
->                         pool->base.opps[i]->funcs->opp_destroy(&pool->bas=
-e.opps[i]);
-> @@ -1653,6 +1686,14 @@ static bool dcn10_resource_construct(
->                 goto fail;
->         }
->
-> +       /* DIO */
-> +       pool->base.dio =3D dcn10_dio_create(ctx);
-> +       if (pool->base.dio =3D=3D NULL) {
-> +               BREAK_TO_DEBUGGER();
-> +               dm_error("DC: failed to create dio!\n");
-> +               goto fail;
-> +       }
-> +
->         if (!resource_construct(num_virtual_links, dc, &pool->base,
->                         &res_create_funcs))
->                 goto fail;
-> diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn20/dcn20_resource=
-.c b/drivers/gpu/drm/amd/display/dc/resource/dcn20/dcn20_resource.c
-> index 8b555187ac753..74e8d229c9dd3 100644
-> --- a/drivers/gpu/drm/amd/display/dc/resource/dcn20/dcn20_resource.c
-> +++ b/drivers/gpu/drm/amd/display/dc/resource/dcn20/dcn20_resource.c
-> @@ -82,6 +82,7 @@
->  #include "dce/dce_dmcu.h"
->  #include "dce/dce_aux.h"
->  #include "dce/dce_i2c.h"
-> +#include "dio/dcn10/dcn10_dio.h"
->  #include "vm_helper.h"
->
->  #include "link_enc_cfg.h"
-> @@ -550,6 +551,33 @@ static const struct dcn_hubbub_mask hubbub_mask =3D =
-{
->                 HUBBUB_MASK_SH_LIST_DCN20(_MASK)
->  };
->
-> +static const struct dcn_dio_registers dio_regs =3D {
-> +               DIO_REG_LIST_DCN10()
-> +};
-> +
-> +#define DIO_MASK_SH_LIST(mask_sh)\
-> +               HWS_SF(, DIO_MEM_PWR_CTRL, I2C_LIGHT_SLEEP_FORCE, mask_sh=
-)
-> +
-> +static const struct dcn_dio_shift dio_shift =3D {
-> +               DIO_MASK_SH_LIST(__SHIFT)
-> +};
-> +
-> +static const struct dcn_dio_mask dio_mask =3D {
-> +               DIO_MASK_SH_LIST(_MASK)
-> +};
-> +
-> +static struct dio *dcn20_dio_create(struct dc_context *ctx)
-> +{
-> +       struct dcn10_dio *dio10 =3D kzalloc_obj(struct dcn10_dio);
-> +
-> +       if (!dio10)
-> +               return NULL;
-> +
-> +       dcn10_dio_construct(dio10, ctx, &dio_regs, &dio_shift, &dio_mask)=
-;
-> +
-> +       return &dio10->base;
-> +}
-> +
->  #define vmid_regs(id)\
->  [id] =3D {\
->                 DCN20_VMID_REG_LIST(id)\
-> @@ -1104,6 +1132,12 @@ static void dcn20_resource_destruct(struct dcn20_r=
-esource_pool *pool)
->                 kfree(pool->base.hubbub);
->                 pool->base.hubbub =3D NULL;
->         }
-> +
-> +       if (pool->base.dio !=3D NULL) {
-> +               kfree(TO_DCN10_DIO(pool->base.dio));
-> +               pool->base.dio =3D NULL;
-> +       }
-> +
->         for (i =3D 0; i < pool->base.pipe_count; i++) {
->                 if (pool->base.dpps[i] !=3D NULL)
->                         dcn20_dpp_destroy(&pool->base.dpps[i]);
-> @@ -2692,6 +2726,14 @@ static bool dcn20_resource_construct(
->                 goto create_fail;
->         }
->
-> +       /* DIO */
-> +       pool->base.dio =3D dcn20_dio_create(ctx);
-> +       if (pool->base.dio =3D=3D NULL) {
-> +               BREAK_TO_DEBUGGER();
-> +               dm_error("DC: failed to create dio!\n");
-> +               goto create_fail;
-> +       }
-> +
->         for (i =3D 0; i < pool->base.res_cap->num_dsc; i++) {
->                 pool->base.dscs[i] =3D dcn20_dsc_create(ctx, i);
->                 if (pool->base.dscs[i] =3D=3D NULL) {
-> diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn201/dcn201_resour=
-ce.c b/drivers/gpu/drm/amd/display/dc/resource/dcn201/dcn201_resource.c
-> index 4ea76e46ab15d..e289be70efb54 100644
-> --- a/drivers/gpu/drm/amd/display/dc/resource/dcn201/dcn201_resource.c
-> +++ b/drivers/gpu/drm/amd/display/dc/resource/dcn201/dcn201_resource.c
-> @@ -56,6 +56,7 @@
->  #include "dce/dce_aux.h"
->  #include "dce/dce_i2c.h"
->  #include "dcn10/dcn10_resource.h"
-> +#include "dio/dcn10/dcn10_dio.h"
->
->  #include "cyan_skillfish_ip_offset.h"
->
-> @@ -755,6 +756,33 @@ static struct hubbub *dcn201_hubbub_create(struct dc=
-_context *ctx)
->         return &hubbub->base;
->  }
->
-> +static const struct dcn_dio_registers dio_regs =3D {
-> +               DIO_REG_LIST_DCN10()
-> +};
-> +
-> +#define DIO_MASK_SH_LIST(mask_sh)\
-> +               HWS_SF(, DIO_MEM_PWR_CTRL, I2C_LIGHT_SLEEP_FORCE, mask_sh=
-)
-> +
-> +static const struct dcn_dio_shift dio_shift =3D {
-> +               DIO_MASK_SH_LIST(__SHIFT)
-> +};
-> +
-> +static const struct dcn_dio_mask dio_mask =3D {
-> +               DIO_MASK_SH_LIST(_MASK)
-> +};
-> +
-> +static struct dio *dcn201_dio_create(struct dc_context *ctx)
-> +{
-> +       struct dcn10_dio *dio10 =3D kzalloc_obj(struct dcn10_dio);
-> +
-> +       if (!dio10)
-> +               return NULL;
-> +
-> +       dcn10_dio_construct(dio10, ctx, &dio_regs, &dio_shift, &dio_mask)=
-;
-> +
-> +       return &dio10->base;
-> +}
-> +
->  static struct timing_generator *dcn201_timing_generator_create(
->                 struct dc_context *ctx,
->                 uint32_t instance)
-> @@ -930,6 +958,11 @@ static void dcn201_resource_destruct(struct dcn201_r=
-esource_pool *pool)
->                 pool->base.hubbub =3D NULL;
->         }
->
-> +       if (pool->base.dio !=3D NULL) {
-> +               kfree(TO_DCN10_DIO(pool->base.dio));
-> +               pool->base.dio =3D NULL;
-> +       }
-> +
->         for (i =3D 0; i < pool->base.pipe_count; i++) {
->                 if (pool->base.dpps[i] !=3D NULL)
->                         dcn201_dpp_destroy(&pool->base.dpps[i]);
-> @@ -1276,6 +1309,14 @@ static bool dcn201_resource_construct(
->                 goto create_fail;
->         }
->
-> +       /* DIO */
-> +       pool->base.dio =3D dcn201_dio_create(ctx);
-> +       if (pool->base.dio =3D=3D NULL) {
-> +               BREAK_TO_DEBUGGER();
-> +               dm_error("DC: failed to create dio!\n");
-> +               goto create_fail;
-> +       }
-> +
->         if (!resource_construct(num_virtual_links, dc, &pool->base,
->                         &res_create_funcs))
->                 goto create_fail;
-> diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn21/dcn21_resource=
-.c b/drivers/gpu/drm/amd/display/dc/resource/dcn21/dcn21_resource.c
-> index 0f4307f8f3dd5..4333baac96ad7 100644
-> --- a/drivers/gpu/drm/amd/display/dc/resource/dcn21/dcn21_resource.c
-> +++ b/drivers/gpu/drm/amd/display/dc/resource/dcn21/dcn21_resource.c
-> @@ -84,6 +84,7 @@
->  #include "dce/dce_dmcu.h"
->  #include "dce/dce_aux.h"
->  #include "dce/dce_i2c.h"
-> +#include "dio/dcn10/dcn10_dio.h"
->  #include "dcn21_resource.h"
->  #include "vm_helper.h"
->  #include "dcn20/dcn20_vmid.h"
-> @@ -329,6 +330,25 @@ static const struct dcn_hubbub_mask hubbub_mask =3D =
-{
->                 HUBBUB_MASK_SH_LIST_DCN21(_MASK)
->  };
->
-> +static const struct dcn_dio_registers dio_regs =3D {
-> +               DIO_REG_LIST_DCN10()
-> +};
-> +
-> +static const struct dcn_dio_shift dio_shift =3D { 0 };
-> +
-> +static const struct dcn_dio_mask dio_mask =3D { 0 };
-> +
-> +static struct dio *dcn21_dio_create(struct dc_context *ctx)
-> +{
-> +       struct dcn10_dio *dio10 =3D kzalloc_obj(struct dcn10_dio);
-> +
-> +       if (!dio10)
-> +               return NULL;
-> +
-> +       dcn10_dio_construct(dio10, ctx, &dio_regs, &dio_shift, &dio_mask)=
-;
-> +
-> +       return &dio10->base;
-> +}
->
->  #define vmid_regs(id)\
->  [id] =3D {\
-> @@ -677,6 +697,12 @@ static void dcn21_resource_destruct(struct dcn21_res=
-ource_pool *pool)
->                 kfree(pool->base.hubbub);
->                 pool->base.hubbub =3D NULL;
->         }
-> +
-> +       if (pool->base.dio !=3D NULL) {
-> +               kfree(TO_DCN10_DIO(pool->base.dio));
-> +               pool->base.dio =3D NULL;
-> +       }
-> +
->         for (i =3D 0; i < pool->base.pipe_count; i++) {
->                 if (pool->base.dpps[i] !=3D NULL)
->                         dcn20_dpp_destroy(&pool->base.dpps[i]);
-> @@ -1654,6 +1680,14 @@ static bool dcn21_resource_construct(
->                 goto create_fail;
->         }
->
-> +       /* DIO */
-> +       pool->base.dio =3D dcn21_dio_create(ctx);
-> +       if (pool->base.dio =3D=3D NULL) {
-> +               BREAK_TO_DEBUGGER();
-> +               dm_error("DC: failed to create dio!\n");
-> +               goto create_fail;
-> +       }
-> +
->         for (i =3D 0; i < pool->base.res_cap->num_dsc; i++) {
->                 pool->base.dscs[i] =3D dcn21_dsc_create(ctx, i);
->                 if (pool->base.dscs[i] =3D=3D NULL) {
-> diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn30/dcn30_resource=
-.c b/drivers/gpu/drm/amd/display/dc/resource/dcn30/dcn30_resource.c
-> index 2fa86b9587ed0..87b7b4ee04c64 100644
-> --- a/drivers/gpu/drm/amd/display/dc/resource/dcn30/dcn30_resource.c
-> +++ b/drivers/gpu/drm/amd/display/dc/resource/dcn30/dcn30_resource.c
-> @@ -60,6 +60,7 @@
->  #include "dml/display_mode_vba.h"
->  #include "dcn30/dcn30_dccg.h"
->  #include "dcn10/dcn10_resource.h"
-> +#include "dio/dcn10/dcn10_dio.h"
->  #include "link_service.h"
->  #include "dce/dce_panel_cntl.h"
->
-> @@ -886,6 +887,33 @@ static struct hubbub *dcn30_hubbub_create(struct dc_=
-context *ctx)
->         return &hubbub3->base;
->  }
->
-> +static const struct dcn_dio_registers dio_regs =3D {
-> +               DIO_REG_LIST_DCN10()
-> +};
-> +
-> +#define DIO_MASK_SH_LIST(mask_sh)\
-> +               HWS_SF(, DIO_MEM_PWR_CTRL, I2C_LIGHT_SLEEP_FORCE, mask_sh=
-)
-> +
-> +static const struct dcn_dio_shift dio_shift =3D {
-> +               DIO_MASK_SH_LIST(__SHIFT)
-> +};
-> +
-> +static const struct dcn_dio_mask dio_mask =3D {
-> +               DIO_MASK_SH_LIST(_MASK)
-> +};
-> +
-> +static struct dio *dcn30_dio_create(struct dc_context *ctx)
-> +{
-> +       struct dcn10_dio *dio10 =3D kzalloc_obj(struct dcn10_dio);
-> +
-> +       if (!dio10)
-> +               return NULL;
-> +
-> +       dcn10_dio_construct(dio10, ctx, &dio_regs, &dio_shift, &dio_mask)=
-;
-> +
-> +       return &dio10->base;
-> +}
-> +
->  static struct timing_generator *dcn30_timing_generator_create(
->                 struct dc_context *ctx,
->                 uint32_t instance)
-> @@ -1095,6 +1123,12 @@ static void dcn30_resource_destruct(struct dcn30_r=
-esource_pool *pool)
->                 kfree(pool->base.hubbub);
->                 pool->base.hubbub =3D NULL;
->         }
-> +
-> +       if (pool->base.dio !=3D NULL) {
-> +               kfree(TO_DCN10_DIO(pool->base.dio));
-> +               pool->base.dio =3D NULL;
-> +       }
-> +
->         for (i =3D 0; i < pool->base.pipe_count; i++) {
->                 if (pool->base.dpps[i] !=3D NULL)
->                         dcn30_dpp_destroy(&pool->base.dpps[i]);
-> @@ -2464,6 +2498,14 @@ static bool dcn30_resource_construct(
->                 goto create_fail;
->         }
->
-> +       /* DIO */
-> +       pool->base.dio =3D dcn30_dio_create(ctx);
-> +       if (pool->base.dio =3D=3D NULL) {
-> +               BREAK_TO_DEBUGGER();
-> +               dm_error("DC: failed to create dio!\n");
-> +               goto create_fail;
-> +       }
-> +
->         /* HUBPs, DPPs, OPPs and TGs */
->         for (i =3D 0; i < pool->base.pipe_count; i++) {
->                 pool->base.hubps[i] =3D dcn30_hubp_create(ctx, i);
-> diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn301/dcn301_resour=
-ce.c b/drivers/gpu/drm/amd/display/dc/resource/dcn301/dcn301_resource.c
-> index 7842bee57e636..6bb1c62124bb4 100644
-> --- a/drivers/gpu/drm/amd/display/dc/resource/dcn301/dcn301_resource.c
-> +++ b/drivers/gpu/drm/amd/display/dc/resource/dcn301/dcn301_resource.c
-> @@ -59,6 +59,7 @@
->  #include "dml/display_mode_vba.h"
->  #include "dcn301/dcn301_dccg.h"
->  #include "dcn10/dcn10_resource.h"
-> +#include "dio/dcn10/dcn10_dio.h"
->  #include "dcn30/dcn30_dio_stream_encoder.h"
->  #include "dcn301/dcn301_dio_link_encoder.h"
->  #include "dcn301/dcn301_panel_cntl.h"
-> @@ -843,6 +844,33 @@ static struct hubbub *dcn301_hubbub_create(struct dc=
-_context *ctx)
->         return &hubbub3->base;
->  }
->
-> +static const struct dcn_dio_registers dio_regs =3D {
-> +               DIO_REG_LIST_DCN10()
-> +};
-> +
-> +#define DIO_MASK_SH_LIST(mask_sh)\
-> +               HWS_SF(, DIO_MEM_PWR_CTRL, I2C_LIGHT_SLEEP_FORCE, mask_sh=
-)
-> +
-> +static const struct dcn_dio_shift dio_shift =3D {
-> +               DIO_MASK_SH_LIST(__SHIFT)
-> +};
-> +
-> +static const struct dcn_dio_mask dio_mask =3D {
-> +               DIO_MASK_SH_LIST(_MASK)
-> +};
-> +
-> +static struct dio *dcn301_dio_create(struct dc_context *ctx)
-> +{
-> +       struct dcn10_dio *dio10 =3D kzalloc_obj(struct dcn10_dio);
-> +
-> +       if (!dio10)
-> +               return NULL;
-> +
-> +       dcn10_dio_construct(dio10, ctx, &dio_regs, &dio_shift, &dio_mask)=
-;
-> +
-> +       return &dio10->base;
-> +}
-> +
->  static struct timing_generator *dcn301_timing_generator_create(
->         struct dc_context *ctx, uint32_t instance)
->  {
-> @@ -1066,6 +1094,12 @@ static void dcn301_destruct(struct dcn301_resource=
-_pool *pool)
->                 kfree(pool->base.hubbub);
->                 pool->base.hubbub =3D NULL;
->         }
-> +
-> +       if (pool->base.dio !=3D NULL) {
-> +               kfree(TO_DCN10_DIO(pool->base.dio));
-> +               pool->base.dio =3D NULL;
-> +       }
-> +
->         for (i =3D 0; i < pool->base.pipe_count; i++) {
->                 if (pool->base.dpps[i] !=3D NULL)
->                         dcn301_dpp_destroy(&pool->base.dpps[i]);
-> @@ -1582,6 +1616,14 @@ static bool dcn301_resource_construct(
->                 goto create_fail;
->         }
->
-> +       /* DIO */
-> +       pool->base.dio =3D dcn301_dio_create(ctx);
-> +       if (pool->base.dio =3D=3D NULL) {
-> +               BREAK_TO_DEBUGGER();
-> +               dm_error("DC: failed to create dio!\n");
-> +               goto create_fail;
-> +       }
-> +
->         j =3D 0;
->         /* HUBPs, DPPs, OPPs and TGs */
->         for (i =3D 0; i < pool->base.pipe_count; i++) {
-> diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn302/dcn302_resour=
-ce.c b/drivers/gpu/drm/amd/display/dc/resource/dcn302/dcn302_resource.c
-> index 1874d5d6b7820..d02aafd06fd45 100644
-> --- a/drivers/gpu/drm/amd/display/dc/resource/dcn302/dcn302_resource.c
-> +++ b/drivers/gpu/drm/amd/display/dc/resource/dcn302/dcn302_resource.c
-> @@ -46,6 +46,7 @@
->  #include "dml/dcn30/dcn30_fpu.h"
->
->  #include "dcn10/dcn10_resource.h"
-> +#include "dio/dcn10/dcn10_dio.h"
->
->  #include "link_service.h"
->
-> @@ -253,6 +254,33 @@ static const struct dcn20_vmid_mask vmid_masks =3D {
->                 DCN20_VMID_MASK_SH_LIST(_MASK)
->  };
->
-> +static const struct dcn_dio_registers dio_regs =3D {
-> +               DIO_REG_LIST_DCN10()
-> +};
-> +
-> +#define DIO_MASK_SH_LIST(mask_sh)\
-> +               HWS_SF(, DIO_MEM_PWR_CTRL, I2C_LIGHT_SLEEP_FORCE, mask_sh=
-)
-> +
-> +static const struct dcn_dio_shift dio_shift =3D {
-> +               DIO_MASK_SH_LIST(__SHIFT)
-> +};
-> +
-> +static const struct dcn_dio_mask dio_mask =3D {
-> +               DIO_MASK_SH_LIST(_MASK)
-> +};
-> +
-> +static struct dio *dcn302_dio_create(struct dc_context *ctx)
-> +{
-> +       struct dcn10_dio *dio10 =3D kzalloc_obj(struct dcn10_dio);
-> +
-> +       if (!dio10)
-> +               return NULL;
-> +
-> +       dcn10_dio_construct(dio10, ctx, &dio_regs, &dio_shift, &dio_mask)=
-;
-> +
-> +       return &dio10->base;
-> +}
-> +
->  static struct hubbub *dcn302_hubbub_create(struct dc_context *ctx)
->  {
->         int i;
-> @@ -1022,6 +1050,11 @@ static void dcn302_resource_destruct(struct resour=
-ce_pool *pool)
->                 pool->hubbub =3D NULL;
->         }
->
-> +       if (pool->dio !=3D NULL) {
-> +               kfree(TO_DCN10_DIO(pool->dio));
-> +               pool->dio =3D NULL;
-> +       }
-> +
->         for (i =3D 0; i < pool->pipe_count; i++) {
->                 if (pool->dpps[i] !=3D NULL) {
->                         kfree(TO_DCN20_DPP(pool->dpps[i]));
-> @@ -1372,6 +1405,14 @@ static bool dcn302_resource_construct(
->                 goto create_fail;
->         }
->
-> +       /* DIO */
-> +       pool->dio =3D dcn302_dio_create(ctx);
-> +       if (pool->dio =3D=3D NULL) {
-> +               BREAK_TO_DEBUGGER();
-> +               dm_error("DC: failed to create dio!\n");
-> +               goto create_fail;
-> +       }
-> +
->         /* HUBPs, DPPs, OPPs and TGs */
->         for (i =3D 0; i < pool->pipe_count; i++) {
->                 pool->hubps[i] =3D dcn302_hubp_create(ctx, i);
-> diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn303/dcn303_resour=
-ce.c b/drivers/gpu/drm/amd/display/dc/resource/dcn303/dcn303_resource.c
-> index d52201cb359fd..30b1403112c6c 100644
-> --- a/drivers/gpu/drm/amd/display/dc/resource/dcn303/dcn303_resource.c
-> +++ b/drivers/gpu/drm/amd/display/dc/resource/dcn303/dcn303_resource.c
-> @@ -46,6 +46,7 @@
->  #include "dml/dcn30/dcn30_fpu.h"
->
->  #include "dcn10/dcn10_resource.h"
-> +#include "dio/dcn10/dcn10_dio.h"
->
->  #include "link_service.h"
->
-> @@ -249,6 +250,33 @@ static const struct dcn20_vmid_mask vmid_masks =3D {
->                 DCN20_VMID_MASK_SH_LIST(_MASK)
->  };
->
-> +static const struct dcn_dio_registers dio_regs =3D {
-> +               DIO_REG_LIST_DCN10()
-> +};
-> +
-> +#define DIO_MASK_SH_LIST(mask_sh)\
-> +               HWS_SF(, DIO_MEM_PWR_CTRL, I2C_LIGHT_SLEEP_FORCE, mask_sh=
-)
-> +
-> +static const struct dcn_dio_shift dio_shift =3D {
-> +               DIO_MASK_SH_LIST(__SHIFT)
-> +};
-> +
-> +static const struct dcn_dio_mask dio_mask =3D {
-> +               DIO_MASK_SH_LIST(_MASK)
-> +};
-> +
-> +static struct dio *dcn303_dio_create(struct dc_context *ctx)
-> +{
-> +       struct dcn10_dio *dio10 =3D kzalloc_obj(struct dcn10_dio);
-> +
-> +       if (!dio10)
-> +               return NULL;
-> +
-> +       dcn10_dio_construct(dio10, ctx, &dio_regs, &dio_shift, &dio_mask)=
-;
-> +
-> +       return &dio10->base;
-> +}
-> +
->  static struct hubbub *dcn303_hubbub_create(struct dc_context *ctx)
->  {
->         int i;
-> @@ -966,6 +994,11 @@ static void dcn303_resource_destruct(struct resource=
-_pool *pool)
->                 pool->hubbub =3D NULL;
->         }
->
-> +       if (pool->dio !=3D NULL) {
-> +               kfree(TO_DCN10_DIO(pool->dio));
-> +               pool->dio =3D NULL;
-> +       }
-> +
->         for (i =3D 0; i < pool->pipe_count; i++) {
->                 if (pool->dpps[i] !=3D NULL) {
->                         kfree(TO_DCN20_DPP(pool->dpps[i]));
-> @@ -1304,6 +1337,14 @@ static bool dcn303_resource_construct(
->                 goto create_fail;
->         }
->
-> +       /* DIO */
-> +       pool->dio =3D dcn303_dio_create(ctx);
-> +       if (pool->dio =3D=3D NULL) {
-> +               BREAK_TO_DEBUGGER();
-> +               dm_error("DC: failed to create dio!\n");
-> +               goto create_fail;
-> +       }
-> +
->         /* HUBPs, DPPs, OPPs and TGs */
->         for (i =3D 0; i < pool->pipe_count; i++) {
->                 pool->hubps[i] =3D dcn303_hubp_create(ctx, i);
-> diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn31/dcn31_resource=
-.c b/drivers/gpu/drm/amd/display/dc/resource/dcn31/dcn31_resource.c
-> index 2055f1f8af652..4e9c041c707a6 100644
-> --- a/drivers/gpu/drm/amd/display/dc/resource/dcn31/dcn31_resource.c
-> +++ b/drivers/gpu/drm/amd/display/dc/resource/dcn31/dcn31_resource.c
-> @@ -64,6 +64,7 @@
->  #include "dce/dce_audio.h"
->  #include "dce/dce_hwseq.h"
->  #include "clk_mgr.h"
-> +#include "dio/dcn10/dcn10_dio.h"
->  #include "dio/virtual/virtual_stream_encoder.h"
->  #include "dce110/dce110_resource.h"
->  #include "dml/display_mode_vba.h"
-> @@ -810,6 +811,21 @@ static const struct dcn20_vmid_mask vmid_masks =3D {
->                 DCN20_VMID_MASK_SH_LIST(_MASK)
->  };
->
-> +static const struct dcn_dio_registers dio_regs =3D {
-> +               DIO_REG_LIST_DCN10()
-> +};
-> +
-> +#define DIO_MASK_SH_LIST(mask_sh)\
-> +               HWS_SF(, DIO_MEM_PWR_CTRL, I2C_LIGHT_SLEEP_FORCE, mask_sh=
-)
-> +
-> +static const struct dcn_dio_shift dio_shift =3D {
-> +               DIO_MASK_SH_LIST(__SHIFT)
-> +};
-> +
-> +static const struct dcn_dio_mask dio_mask =3D {
-> +               DIO_MASK_SH_LIST(_MASK)
-> +};
-> +
->  static const struct resource_caps res_cap_dcn31 =3D {
->         .num_timing_generator =3D 4,
->         .num_opp =3D 4,
-> @@ -1021,6 +1037,18 @@ static struct mpc *dcn31_mpc_create(
->         return &mpc30->base;
->  }
->
-> +static struct dio *dcn31_dio_create(struct dc_context *ctx)
-> +{
-> +       struct dcn10_dio *dio10 =3D kzalloc_obj(struct dcn10_dio);
-> +
-> +       if (!dio10)
-> +               return NULL;
-> +
-> +       dcn10_dio_construct(dio10, ctx, &dio_regs, &dio_shift, &dio_mask)=
-;
-> +
-> +       return &dio10->base;
-> +}
-> +
->  static struct hubbub *dcn31_hubbub_create(struct dc_context *ctx)
->  {
->         int i;
-> @@ -1396,6 +1424,10 @@ static void dcn31_resource_destruct(struct dcn31_r=
-esource_pool *pool)
->                 kfree(pool->base.hubbub);
->                 pool->base.hubbub =3D NULL;
->         }
-> +       if (pool->base.dio !=3D NULL) {
-> +               kfree(TO_DCN10_DIO(pool->base.dio));
-> +               pool->base.dio =3D NULL;
-> +       }
->         for (i =3D 0; i < pool->base.pipe_count; i++) {
->                 if (pool->base.dpps[i] !=3D NULL)
->                         dcn31_dpp_destroy(&pool->base.dpps[i]);
-> @@ -2063,6 +2095,14 @@ static bool dcn31_resource_construct(
->                 goto create_fail;
->         }
->
-> +       /* DIO */
-> +       pool->base.dio =3D dcn31_dio_create(ctx);
-> +       if (pool->base.dio =3D=3D NULL) {
-> +               BREAK_TO_DEBUGGER();
-> +               dm_error("DC: failed to create dio!\n");
-> +               goto create_fail;
-> +       }
-> +
->         /* HUBPs, DPPs, OPPs and TGs */
->         for (i =3D 0; i < pool->base.pipe_count; i++) {
->                 pool->base.hubps[i] =3D dcn31_hubp_create(ctx, i);
-> diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn314/dcn314_resour=
-ce.c b/drivers/gpu/drm/amd/display/dc/resource/dcn314/dcn314_resource.c
-> index 1939f720ba295..e26a6427916a0 100644
-> --- a/drivers/gpu/drm/amd/display/dc/resource/dcn314/dcn314_resource.c
-> +++ b/drivers/gpu/drm/amd/display/dc/resource/dcn314/dcn314_resource.c
-> @@ -66,6 +66,7 @@
->  #include "dce/dce_audio.h"
->  #include "dce/dce_hwseq.h"
->  #include "clk_mgr.h"
-> +#include "dio/dcn10/dcn10_dio.h"
->  #include "dio/virtual/virtual_stream_encoder.h"
->  #include "dce110/dce110_resource.h"
->  #include "dml/display_mode_vba.h"
-> @@ -822,6 +823,21 @@ static const struct dcn20_vmid_mask vmid_masks =3D {
->                 DCN20_VMID_MASK_SH_LIST(_MASK)
->  };
->
-> +static const struct dcn_dio_registers dio_regs =3D {
-> +               DIO_REG_LIST_DCN10()
-> +};
-> +
-> +#define DIO_MASK_SH_LIST(mask_sh)\
-> +               HWS_SF(, DIO_MEM_PWR_CTRL, I2C_LIGHT_SLEEP_FORCE, mask_sh=
-)
-> +
-> +static const struct dcn_dio_shift dio_shift =3D {
-> +               DIO_MASK_SH_LIST(__SHIFT)
-> +};
-> +
-> +static const struct dcn_dio_mask dio_mask =3D {
-> +               DIO_MASK_SH_LIST(_MASK)
-> +};
-> +
->  static const struct resource_caps res_cap_dcn314 =3D {
->         .num_timing_generator =3D 4,
->         .num_opp =3D 4,
-> @@ -1079,6 +1095,18 @@ static struct mpc *dcn31_mpc_create(
->         return &mpc30->base;
->  }
->
-> +static struct dio *dcn314_dio_create(struct dc_context *ctx)
-> +{
-> +       struct dcn10_dio *dio10 =3D kzalloc_obj(struct dcn10_dio);
-> +
-> +       if (!dio10)
-> +               return NULL;
-> +
-> +       dcn10_dio_construct(dio10, ctx, &dio_regs, &dio_shift, &dio_mask)=
-;
-> +
-> +       return &dio10->base;
-> +}
-> +
->  static struct hubbub *dcn31_hubbub_create(struct dc_context *ctx)
->  {
->         int i;
-> @@ -1455,6 +1483,10 @@ static void dcn314_resource_destruct(struct dcn314=
-_resource_pool *pool)
->                 kfree(pool->base.hubbub);
->                 pool->base.hubbub =3D NULL;
->         }
-> +       if (pool->base.dio !=3D NULL) {
-> +               kfree(TO_DCN10_DIO(pool->base.dio));
-> +               pool->base.dio =3D NULL;
-> +       }
->         for (i =3D 0; i < pool->base.pipe_count; i++) {
->                 if (pool->base.dpps[i] !=3D NULL)
->                         dcn31_dpp_destroy(&pool->base.dpps[i]);
-> @@ -1987,6 +2019,14 @@ static bool dcn314_resource_construct(
->                 goto create_fail;
->         }
->
-> +       /* DIO */
-> +       pool->base.dio =3D dcn314_dio_create(ctx);
-> +       if (pool->base.dio =3D=3D NULL) {
-> +               BREAK_TO_DEBUGGER();
-> +               dm_error("DC: failed to create dio!\n");
-> +               goto create_fail;
-> +       }
-> +
->         /* HUBPs, DPPs, OPPs and TGs */
->         for (i =3D 0; i < pool->base.pipe_count; i++) {
->                 pool->base.hubps[i] =3D dcn31_hubp_create(ctx, i);
-> diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn315/dcn315_resour=
-ce.c b/drivers/gpu/drm/amd/display/dc/resource/dcn315/dcn315_resource.c
-> index e8377c190f635..131a6cd4c7352 100644
-> --- a/drivers/gpu/drm/amd/display/dc/resource/dcn315/dcn315_resource.c
-> +++ b/drivers/gpu/drm/amd/display/dc/resource/dcn315/dcn315_resource.c
-> @@ -63,6 +63,7 @@
->  #include "dce/dce_audio.h"
->  #include "dce/dce_hwseq.h"
->  #include "clk_mgr.h"
-> +#include "dio/dcn10/dcn10_dio.h"
->  #include "dio/virtual/virtual_stream_encoder.h"
->  #include "dce110/dce110_resource.h"
->  #include "dml/display_mode_vba.h"
-> @@ -809,6 +810,21 @@ static const struct dcn20_vmid_mask vmid_masks =3D {
->                 DCN20_VMID_MASK_SH_LIST(_MASK)
->  };
->
-> +static const struct dcn_dio_registers dio_regs =3D {
-> +               DIO_REG_LIST_DCN10()
-> +};
-> +
-> +#define DIO_MASK_SH_LIST(mask_sh)\
-> +               HWS_SF(, DIO_MEM_PWR_CTRL, I2C_LIGHT_SLEEP_FORCE, mask_sh=
-)
-> +
-> +static const struct dcn_dio_shift dio_shift =3D {
-> +               DIO_MASK_SH_LIST(__SHIFT)
-> +};
-> +
-> +static const struct dcn_dio_mask dio_mask =3D {
-> +               DIO_MASK_SH_LIST(_MASK)
-> +};
-> +
->  static const struct resource_caps res_cap_dcn31 =3D {
->         .num_timing_generator =3D 4,
->         .num_opp =3D 4,
-> @@ -1020,6 +1036,18 @@ static struct mpc *dcn31_mpc_create(
->         return &mpc30->base;
->  }
->
-> +static struct dio *dcn315_dio_create(struct dc_context *ctx)
-> +{
-> +       struct dcn10_dio *dio10 =3D kzalloc_obj(struct dcn10_dio);
-> +
-> +       if (!dio10)
-> +               return NULL;
-> +
-> +       dcn10_dio_construct(dio10, ctx, &dio_regs, &dio_shift, &dio_mask)=
-;
-> +
-> +       return &dio10->base;
-> +}
-> +
->  static struct hubbub *dcn31_hubbub_create(struct dc_context *ctx)
->  {
->         int i;
-> @@ -1397,6 +1425,10 @@ static void dcn315_resource_destruct(struct dcn315=
-_resource_pool *pool)
->                 kfree(pool->base.hubbub);
->                 pool->base.hubbub =3D NULL;
->         }
-> +       if (pool->base.dio !=3D NULL) {
-> +               kfree(TO_DCN10_DIO(pool->base.dio));
-> +               pool->base.dio =3D NULL;
-> +       }
->         for (i =3D 0; i < pool->base.pipe_count; i++) {
->                 if (pool->base.dpps[i] !=3D NULL)
->                         dcn31_dpp_destroy(&pool->base.dpps[i]);
-> @@ -2012,6 +2044,14 @@ static bool dcn315_resource_construct(
->                 goto create_fail;
->         }
->
-> +       /* DIO */
-> +       pool->base.dio =3D dcn315_dio_create(ctx);
-> +       if (pool->base.dio =3D=3D NULL) {
-> +               BREAK_TO_DEBUGGER();
-> +               dm_error("DC: failed to create dio!\n");
-> +               goto create_fail;
-> +       }
-> +
->         /* HUBPs, DPPs, OPPs and TGs */
->         for (i =3D 0; i < pool->base.pipe_count; i++) {
->                 pool->base.hubps[i] =3D dcn31_hubp_create(ctx, i);
-> diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn316/dcn316_resour=
-ce.c b/drivers/gpu/drm/amd/display/dc/resource/dcn316/dcn316_resource.c
-> index 045ce01bd74eb..c8c0ce6efcfdc 100644
-> --- a/drivers/gpu/drm/amd/display/dc/resource/dcn316/dcn316_resource.c
-> +++ b/drivers/gpu/drm/amd/display/dc/resource/dcn316/dcn316_resource.c
-> @@ -63,6 +63,7 @@
->  #include "dce/dce_audio.h"
->  #include "dce/dce_hwseq.h"
->  #include "clk_mgr.h"
-> +#include "dio/dcn10/dcn10_dio.h"
->  #include "dio/virtual/virtual_stream_encoder.h"
->  #include "dce110/dce110_resource.h"
->  #include "dml/display_mode_vba.h"
-> @@ -804,6 +805,21 @@ static const struct dcn20_vmid_mask vmid_masks =3D {
->                 DCN20_VMID_MASK_SH_LIST(_MASK)
->  };
->
-> +static const struct dcn_dio_registers dio_regs =3D {
-> +               DIO_REG_LIST_DCN10()
-> +};
-> +
-> +#define DIO_MASK_SH_LIST(mask_sh)\
-> +               HWS_SF(, DIO_MEM_PWR_CTRL, I2C_LIGHT_SLEEP_FORCE, mask_sh=
-)
-> +
-> +static const struct dcn_dio_shift dio_shift =3D {
-> +               DIO_MASK_SH_LIST(__SHIFT)
-> +};
-> +
-> +static const struct dcn_dio_mask dio_mask =3D {
-> +               DIO_MASK_SH_LIST(_MASK)
-> +};
-> +
->  static const struct resource_caps res_cap_dcn31 =3D {
->         .num_timing_generator =3D 4,
->         .num_opp =3D 4,
-> @@ -1013,6 +1029,18 @@ static struct mpc *dcn31_mpc_create(
->         return &mpc30->base;
->  }
->
-> +static struct dio *dcn316_dio_create(struct dc_context *ctx)
-> +{
-> +       struct dcn10_dio *dio10 =3D kzalloc_obj(struct dcn10_dio);
-> +
-> +       if (!dio10)
-> +               return NULL;
-> +
-> +       dcn10_dio_construct(dio10, ctx, &dio_regs, &dio_shift, &dio_mask)=
-;
-> +
-> +       return &dio10->base;
-> +}
-> +
->  static struct hubbub *dcn31_hubbub_create(struct dc_context *ctx)
->  {
->         int i;
-> @@ -1392,6 +1420,10 @@ static void dcn316_resource_destruct(struct dcn316=
-_resource_pool *pool)
->                 kfree(pool->base.hubbub);
->                 pool->base.hubbub =3D NULL;
->         }
-> +       if (pool->base.dio !=3D NULL) {
-> +               kfree(TO_DCN10_DIO(pool->base.dio));
-> +               pool->base.dio =3D NULL;
-> +       }
->         for (i =3D 0; i < pool->base.pipe_count; i++) {
->                 if (pool->base.dpps[i] !=3D NULL)
->                         dcn31_dpp_destroy(&pool->base.dpps[i]);
-> @@ -1887,6 +1919,14 @@ static bool dcn316_resource_construct(
->                 goto create_fail;
->         }
->
-> +       /* DIO */
-> +       pool->base.dio =3D dcn316_dio_create(ctx);
-> +       if (pool->base.dio =3D=3D NULL) {
-> +               BREAK_TO_DEBUGGER();
-> +               dm_error("DC: failed to create dio!\n");
-> +               goto create_fail;
-> +       }
-> +
->         /* HUBPs, DPPs, OPPs and TGs */
->         for (i =3D 0; i < pool->base.pipe_count; i++) {
->                 pool->base.hubps[i] =3D dcn31_hubp_create(ctx, i);
-> diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource=
-.c b/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c
-> index c7fd604024d64..c3a6ae14de18b 100644
-> --- a/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c
-> +++ b/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c
-> @@ -66,6 +66,7 @@
->  #include "dce/dce_hwseq.h"
->  #include "clk_mgr.h"
->  #include "dio/virtual/virtual_stream_encoder.h"
-> +#include "dio/dcn10/dcn10_dio.h"
->  #include "dml/display_mode_vba.h"
->  #include "dcn32/dcn32_dccg.h"
->  #include "dcn10/dcn10_resource.h"
-> @@ -643,6 +644,19 @@ static const struct dcn20_vmid_mask vmid_masks =3D {
->                 DCN20_VMID_MASK_SH_LIST(_MASK)
->  };
->
-> +static struct dcn_dio_registers dio_regs;
-> +
-> +#define DIO_MASK_SH_LIST(mask_sh)\
-> +               HWS_SF(, DIO_MEM_PWR_CTRL, I2C_LIGHT_SLEEP_FORCE, mask_sh=
-)
-> +
-> +static const struct dcn_dio_shift dio_shift =3D {
-> +               DIO_MASK_SH_LIST(__SHIFT)
-> +};
-> +
-> +static const struct dcn_dio_mask dio_mask =3D {
-> +               DIO_MASK_SH_LIST(_MASK)
-> +};
-> +
->  static const struct resource_caps res_cap_dcn32 =3D {
->         .num_timing_generator =3D 4,
->         .num_opp =3D 4,
-> @@ -833,6 +847,22 @@ static struct clock_source *dcn32_clock_source_creat=
-e(
->         return NULL;
->  }
->
-> +static struct dio *dcn32_dio_create(struct dc_context *ctx)
-> +{
-> +       struct dcn10_dio *dio10 =3D kzalloc_obj(struct dcn10_dio);
-> +
-> +       if (!dio10)
-> +               return NULL;
-> +
-> +#undef REG_STRUCT
-> +#define REG_STRUCT dio_regs
-> +       DIO_REG_LIST_DCN10();
-> +
-> +       dcn10_dio_construct(dio10, ctx, &dio_regs, &dio_shift, &dio_mask)=
-;
-> +
-> +       return &dio10->base;
-> +}
-> +
->  static struct hubbub *dcn32_hubbub_create(struct dc_context *ctx)
->  {
->         int i;
-> @@ -1494,6 +1524,11 @@ static void dcn32_resource_destruct(struct dcn32_r=
-esource_pool *pool)
->         if (pool->base.dccg !=3D NULL)
->                 dcn_dccg_destroy(&pool->base.dccg);
->
-> +       if (pool->base.dio !=3D NULL) {
-> +               kfree(TO_DCN10_DIO(pool->base.dio));
-> +               pool->base.dio =3D NULL;
-> +       }
-> +
->         if (pool->base.oem_device !=3D NULL) {
->                 struct dc *dc =3D pool->base.oem_device->ctx->dc;
->
-> @@ -2373,6 +2408,14 @@ static bool dcn32_resource_construct(
->                 goto create_fail;
->         }
->
-> +       /* DIO */
-> +       pool->base.dio =3D dcn32_dio_create(ctx);
-> +       if (pool->base.dio =3D=3D NULL) {
-> +               BREAK_TO_DEBUGGER();
-> +               dm_error("DC: failed to create dio!\n");
-> +               goto create_fail;
-> +       }
-> +
->         /* HUBPs, DPPs, OPPs, TGs, ABMs */
->         for (i =3D 0, j =3D 0; i < pool->base.res_cap->num_timing_generat=
-or; i++) {
->
-> diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn321/dcn321_resour=
-ce.c b/drivers/gpu/drm/amd/display/dc/resource/dcn321/dcn321_resource.c
-> index c1582c27ac872..990aec7eb3d07 100644
-> --- a/drivers/gpu/drm/amd/display/dc/resource/dcn321/dcn321_resource.c
-> +++ b/drivers/gpu/drm/amd/display/dc/resource/dcn321/dcn321_resource.c
-> @@ -69,6 +69,7 @@
->  #include "dce/dce_hwseq.h"
->  #include "clk_mgr.h"
->  #include "dio/virtual/virtual_stream_encoder.h"
-> +#include "dio/dcn10/dcn10_dio.h"
->  #include "dml/display_mode_vba.h"
->  #include "dcn32/dcn32_dccg.h"
->  #include "dcn10/dcn10_resource.h"
-> @@ -639,6 +640,19 @@ static const struct dcn20_vmid_mask vmid_masks =3D {
->                 DCN20_VMID_MASK_SH_LIST(_MASK)
->  };
->
-> +static struct dcn_dio_registers dio_regs;
-> +
-> +#define DIO_MASK_SH_LIST(mask_sh)\
-> +               HWS_SF(, DIO_MEM_PWR_CTRL, I2C_LIGHT_SLEEP_FORCE, mask_sh=
-)
-> +
-> +static const struct dcn_dio_shift dio_shift =3D {
-> +               DIO_MASK_SH_LIST(__SHIFT)
-> +};
-> +
-> +static const struct dcn_dio_mask dio_mask =3D {
-> +               DIO_MASK_SH_LIST(_MASK)
-> +};
-> +
->  static const struct resource_caps res_cap_dcn321 =3D {
->         .num_timing_generator =3D 4,
->         .num_opp =3D 4,
-> @@ -827,6 +841,22 @@ static struct clock_source *dcn321_clock_source_crea=
-te(
->         return NULL;
->  }
->
-> +static struct dio *dcn321_dio_create(struct dc_context *ctx)
-> +{
-> +       struct dcn10_dio *dio10 =3D kzalloc_obj(struct dcn10_dio);
-> +
-> +       if (!dio10)
-> +               return NULL;
-> +
-> +#undef REG_STRUCT
-> +#define REG_STRUCT dio_regs
-> +       DIO_REG_LIST_DCN10();
-> +
-> +       dcn10_dio_construct(dio10, ctx, &dio_regs, &dio_shift, &dio_mask)=
-;
-> +
-> +       return &dio10->base;
-> +}
-> +
->  static struct hubbub *dcn321_hubbub_create(struct dc_context *ctx)
->  {
->         int i;
-> @@ -1474,6 +1504,11 @@ static void dcn321_resource_destruct(struct dcn321=
-_resource_pool *pool)
->         if (pool->base.dccg !=3D NULL)
->                 dcn_dccg_destroy(&pool->base.dccg);
->
-> +       if (pool->base.dio !=3D NULL) {
-> +               kfree(TO_DCN10_DIO(pool->base.dio));
-> +               pool->base.dio =3D NULL;
-> +       }
-> +
->         if (pool->base.oem_device !=3D NULL) {
->                 struct dc *dc =3D pool->base.oem_device->ctx->dc;
->
-> @@ -1872,6 +1907,14 @@ static bool dcn321_resource_construct(
->                 goto create_fail;
->         }
->
-> +       /* DIO */
-> +       pool->base.dio =3D dcn321_dio_create(ctx);
-> +       if (pool->base.dio =3D=3D NULL) {
-> +               BREAK_TO_DEBUGGER();
-> +               dm_error("DC: failed to create dio!\n");
-> +               goto create_fail;
-> +       }
-> +
->         /* HUBPs, DPPs, OPPs, TGs, ABMs */
->         for (i =3D 0, j =3D 0; i < pool->base.res_cap->num_timing_generat=
-or; i++) {
->
-> diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn35/dcn35_resource=
-.c b/drivers/gpu/drm/amd/display/dc/resource/dcn35/dcn35_resource.c
-> index 3494a40cea99f..598b2f25881da 100644
-> --- a/drivers/gpu/drm/amd/display/dc/resource/dcn35/dcn35_resource.c
-> +++ b/drivers/gpu/drm/amd/display/dc/resource/dcn35/dcn35_resource.c
-> @@ -71,6 +71,7 @@
->  #include "dce/dce_hwseq.h"
->  #include "clk_mgr.h"
->  #include "dio/virtual/virtual_stream_encoder.h"
-> +#include "dio/dcn10/dcn10_dio.h"
->  #include "dce110/dce110_resource.h"
->  #include "dml/display_mode_vba.h"
->  #include "dcn35/dcn35_dccg.h"
-> @@ -664,6 +665,19 @@ static const struct dcn20_vmid_mask vmid_masks =3D {
->                 DCN20_VMID_MASK_SH_LIST(_MASK)
->  };
->
-> +static struct dcn_dio_registers dio_regs;
-> +
-> +#define DIO_MASK_SH_LIST(mask_sh)\
-> +               HWS_SF(, DIO_MEM_PWR_CTRL, I2C_LIGHT_SLEEP_FORCE, mask_sh=
-)
-> +
-> +static const struct dcn_dio_shift dio_shift =3D {
-> +               DIO_MASK_SH_LIST(__SHIFT)
-> +};
-> +
-> +static const struct dcn_dio_mask dio_mask =3D {
-> +               DIO_MASK_SH_LIST(_MASK)
-> +};
-> +
->  static const struct resource_caps res_cap_dcn35 =3D {
->         .num_timing_generator =3D 4,
->         .num_opp =3D 4,
-> @@ -973,6 +987,22 @@ static struct mpc *dcn35_mpc_create(
->         return &mpc30->base;
->  }
->
-> +static struct dio *dcn35_dio_create(struct dc_context *ctx)
-> +{
-> +       struct dcn10_dio *dio10 =3D kzalloc_obj(struct dcn10_dio);
-> +
-> +       if (!dio10)
-> +               return NULL;
-> +
-> +#undef REG_STRUCT
-> +#define REG_STRUCT dio_regs
-> +       DIO_REG_LIST_DCN10();
-> +
-> +       dcn10_dio_construct(dio10, ctx, &dio_regs, &dio_shift, &dio_mask)=
-;
-> +
-> +       return &dio10->base;
-> +}
-> +
->  static struct hubbub *dcn35_hubbub_create(struct dc_context *ctx)
->  {
->         int i;
-> @@ -1563,6 +1593,11 @@ static void dcn35_resource_destruct(struct dcn35_r=
-esource_pool *pool)
->
->         if (pool->base.dccg !=3D NULL)
->                 dcn_dccg_destroy(&pool->base.dccg);
-> +
-> +       if (pool->base.dio !=3D NULL) {
-> +               kfree(TO_DCN10_DIO(pool->base.dio));
-> +               pool->base.dio =3D NULL;
-> +       }
->  }
->
->  static struct hubp *dcn35_hubp_create(
-> @@ -2033,6 +2068,14 @@ static bool dcn35_resource_construct(
->                 goto create_fail;
->         }
->
-> +       /* DIO */
-> +       pool->base.dio =3D dcn35_dio_create(ctx);
-> +       if (pool->base.dio =3D=3D NULL) {
-> +               BREAK_TO_DEBUGGER();
-> +               dm_error("DC: failed to create dio!\n");
-> +               goto create_fail;
-> +       }
-> +
->         /* HUBPs, DPPs, OPPs and TGs */
->         for (i =3D 0; i < pool->base.pipe_count; i++) {
->                 pool->base.hubps[i] =3D dcn35_hubp_create(ctx, i);
-> diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn351/dcn351_resour=
-ce.c b/drivers/gpu/drm/amd/display/dc/resource/dcn351/dcn351_resource.c
-> index 080bc7f24ffaa..7e15d07df7a33 100644
-> --- a/drivers/gpu/drm/amd/display/dc/resource/dcn351/dcn351_resource.c
-> +++ b/drivers/gpu/drm/amd/display/dc/resource/dcn351/dcn351_resource.c
-> @@ -50,6 +50,7 @@
->  #include "dce/dce_hwseq.h"
->  #include "clk_mgr.h"
->  #include "dio/virtual/virtual_stream_encoder.h"
-> +#include "dio/dcn10/dcn10_dio.h"
->  #include "dce110/dce110_resource.h"
->  #include "dml/display_mode_vba.h"
->  #include "dcn35/dcn35_dccg.h"
-> @@ -644,6 +645,19 @@ static const struct dcn20_vmid_mask vmid_masks =3D {
->                 DCN20_VMID_MASK_SH_LIST(_MASK)
->  };
->
-> +static struct dcn_dio_registers dio_regs;
-> +
-> +#define DIO_MASK_SH_LIST(mask_sh)\
-> +               HWS_SF(, DIO_MEM_PWR_CTRL, I2C_LIGHT_SLEEP_FORCE, mask_sh=
-)
-> +
-> +static const struct dcn_dio_shift dio_shift =3D {
-> +               DIO_MASK_SH_LIST(__SHIFT)
-> +};
-> +
-> +static const struct dcn_dio_mask dio_mask =3D {
-> +               DIO_MASK_SH_LIST(_MASK)
-> +};
-> +
->  static const struct resource_caps res_cap_dcn351 =3D {
->         .num_timing_generator =3D 4,
->         .num_opp =3D 4,
-> @@ -953,6 +967,22 @@ static struct mpc *dcn35_mpc_create(
->         return &mpc30->base;
->  }
->
-> +static struct dio *dcn351_dio_create(struct dc_context *ctx)
-> +{
-> +       struct dcn10_dio *dio10 =3D kzalloc_obj(struct dcn10_dio);
-> +
-> +       if (!dio10)
-> +               return NULL;
-> +
-> +#undef REG_STRUCT
-> +#define REG_STRUCT dio_regs
-> +       DIO_REG_LIST_DCN10();
-> +
-> +       dcn10_dio_construct(dio10, ctx, &dio_regs, &dio_shift, &dio_mask)=
-;
-> +
-> +       return &dio10->base;
-> +}
-> +
->  static struct hubbub *dcn35_hubbub_create(struct dc_context *ctx)
->  {
->         int i;
-> @@ -1543,6 +1573,11 @@ static void dcn351_resource_destruct(struct dcn351=
-_resource_pool *pool)
->
->         if (pool->base.dccg !=3D NULL)
->                 dcn_dccg_destroy(&pool->base.dccg);
-> +
-> +       if (pool->base.dio !=3D NULL) {
-> +               kfree(TO_DCN10_DIO(pool->base.dio));
-> +               pool->base.dio =3D NULL;
-> +       }
->  }
->
->  static struct hubp *dcn35_hubp_create(
-> @@ -2005,6 +2040,14 @@ static bool dcn351_resource_construct(
->                 goto create_fail;
->         }
->
-> +       /* DIO */
-> +       pool->base.dio =3D dcn351_dio_create(ctx);
-> +       if (pool->base.dio =3D=3D NULL) {
-> +               BREAK_TO_DEBUGGER();
-> +               dm_error("DC: failed to create dio!\n");
-> +               goto create_fail;
-> +       }
-> +
->         /* HUBPs, DPPs, OPPs and TGs */
->         for (i =3D 0; i < pool->base.pipe_count; i++) {
->                 pool->base.hubps[i] =3D dcn35_hubp_create(ctx, i);
-> diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn36/dcn36_resource=
-.c b/drivers/gpu/drm/amd/display/dc/resource/dcn36/dcn36_resource.c
-> index af51ac4ea59e2..83fee2ca61bff 100644
-> --- a/drivers/gpu/drm/amd/display/dc/resource/dcn36/dcn36_resource.c
-> +++ b/drivers/gpu/drm/amd/display/dc/resource/dcn36/dcn36_resource.c
-> @@ -50,6 +50,7 @@
->  #include "dce/dce_hwseq.h"
->  #include "clk_mgr.h"
->  #include "dio/virtual/virtual_stream_encoder.h"
-> +#include "dio/dcn10/dcn10_dio.h"
->  #include "dce110/dce110_resource.h"
->  #include "dml/display_mode_vba.h"
->  #include "dcn35/dcn35_dccg.h"
-> @@ -651,6 +652,19 @@ static const struct dcn20_vmid_mask vmid_masks =3D {
->                 DCN20_VMID_MASK_SH_LIST(_MASK)
->  };
->
-> +static struct dcn_dio_registers dio_regs;
-> +
-> +#define DIO_MASK_SH_LIST(mask_sh)\
-> +               HWS_SF(, DIO_MEM_PWR_CTRL, I2C_LIGHT_SLEEP_FORCE, mask_sh=
-)
-> +
-> +static const struct dcn_dio_shift dio_shift =3D {
-> +               DIO_MASK_SH_LIST(__SHIFT)
-> +};
-> +
-> +static const struct dcn_dio_mask dio_mask =3D {
-> +               DIO_MASK_SH_LIST(_MASK)
-> +};
-> +
->  static const struct resource_caps res_cap_dcn36 =3D {
->         .num_timing_generator =3D 4,
->         .num_opp =3D 4,
-> @@ -960,6 +974,22 @@ static struct mpc *dcn35_mpc_create(
->         return &mpc30->base;
->  }
->
-> +static struct dio *dcn36_dio_create(struct dc_context *ctx)
-> +{
-> +       struct dcn10_dio *dio10 =3D kzalloc_obj(struct dcn10_dio);
-> +
-> +       if (!dio10)
-> +               return NULL;
-> +
-> +#undef REG_STRUCT
-> +#define REG_STRUCT dio_regs
-> +       DIO_REG_LIST_DCN10();
-> +
-> +       dcn10_dio_construct(dio10, ctx, &dio_regs, &dio_shift, &dio_mask)=
-;
-> +
-> +       return &dio10->base;
-> +}
-> +
->  static struct hubbub *dcn35_hubbub_create(struct dc_context *ctx)
->  {
->         int i;
-> @@ -1550,6 +1580,11 @@ static void dcn36_resource_destruct(struct dcn36_r=
-esource_pool *pool)
->
->         if (pool->base.dccg !=3D NULL)
->                 dcn_dccg_destroy(&pool->base.dccg);
-> +
-> +       if (pool->base.dio !=3D NULL) {
-> +               kfree(TO_DCN10_DIO(pool->base.dio));
-> +               pool->base.dio =3D NULL;
-> +       }
->  }
->
->  static struct hubp *dcn35_hubp_create(
-> @@ -2012,6 +2047,14 @@ static bool dcn36_resource_construct(
->                 goto create_fail;
->         }
->
-> +       /* DIO */
-> +       pool->base.dio =3D dcn36_dio_create(ctx);
-> +       if (pool->base.dio =3D=3D NULL) {
-> +               BREAK_TO_DEBUGGER();
-> +               dm_error("DC: failed to create dio!\n");
-> +               goto create_fail;
-> +       }
-> +
->         /* HUBPs, DPPs, OPPs and TGs */
->         for (i =3D 0; i < pool->base.pipe_count; i++) {
->                 pool->base.hubps[i] =3D dcn35_hubp_create(ctx, i);
-> --
-> 2.53.0
->
+W0FNRCBPZmZpY2lhbCBVc2UgT25seSAtIEFNRCBJbnRlcm5hbCBEaXN0cmlidXRpb24gT25seV0N
+Cg0KVGhhbmtzIGEgbG90IEBBbGV4IERldWNoZXIhDQoNCkl0IHdvdWxkIGJlIGhlbHBmdWwgdG8g
+Z2V0IGZlZWRiYWNrIGZyb20gZGlzcGxheSBmb2xrcyBAUGlsbGFpLCBBdXJhYmluZG8gYW5kIEBM
+aSwgUm9tYW4gYXMgd2VsbC4NCg0KQmVzdCByZWdhcmRzLA0KU3JpbmkNCg0KPiAtLS0tLU9yaWdp
+bmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBBbGV4IERldWNoZXIgPGFsZXhkZXVjaGVyQGdtYWls
+LmNvbT4NCj4gU2VudDogVHVlc2RheSwgTWFyY2ggMjQsIDIwMjYgNzo0MyBQTQ0KPiBUbzogU0hB
+Tk1VR0FNLCBTUklOSVZBU0FOIDxTUklOSVZBU0FOLlNIQU5NVUdBTUBhbWQuY29tPg0KPiBDYzog
+RGV1Y2hlciwgQWxleGFuZGVyIDxBbGV4YW5kZXIuRGV1Y2hlckBhbWQuY29tPjsgYW1kLQ0KPiBn
+ZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnOyBMaSwgUm9tYW4gPFJvbWFuLkxpQGFtZC5jb20+DQo+
+IFN1YmplY3Q6IFJlOiBbUEFUQ0ggMi8zXSBkcm0vYW1kL2Rpc3BsYXk6IEZpeCBEQ0UgTFZEUyBo
+YW5kbGluZw0KPg0KPiBPbiBUdWUsIE1hciAyNCwgMjAyNiBhdCAxMDoxMOKAr0FNIFNIQU5NVUdB
+TSwgU1JJTklWQVNBTg0KPiA8U1JJTklWQVNBTi5TSEFOTVVHQU1AYW1kLmNvbT4gd3JvdGU6DQo+
+ID4NCj4gPiBbQU1EIE9mZmljaWFsIFVzZSBPbmx5IC0gQU1EIEludGVybmFsIERpc3RyaWJ1dGlv
+biBPbmx5XQ0KPiA+DQo+ID4gSGkgQWxleCwNCj4gPg0KPiA+IERvIHdlIG5lZWQgdG8gaGFuZGxl
+IHNpbWlsYXIgY2FzZXMgaW4gRENOIHJlc291cmNlIHBhdGhzIChlLmcuLCBkY24xMC9kY240MDEp
+DQo+IGllLiwgZGNuNDAxX3Jlc291cmNlLmMgYW5kIGRjbjEwX3Jlc291cmNlLmM/DQo+ID4gVGhl
+eSBhbHNvIHJlamVjdCBlbmNvZGVyIGNyZWF0aW9uIHdoZW4gaHBkX3NvdXJjZSBpcyBvdXQgb2Yg
+cmFuZ2UsIGJ1dA0KPiA+IHVubGlrZSBEQ0UgdGhleSBkb27igJl0IGhhdmUgbm9faHBkIGhhbmRs
+aW5nLiBPciBpcyB0aGlzIG5vdCBhcHBsaWNhYmxlDQo+ID4gc2luY2UgRENOIGRvZXNu4oCZdCBz
+dXBwb3J0IExWRFMvbm8tSFBEIGNhc2VzPw0KPg0KPiBDb3JyZWN0LiAgRXZlcnl0aGluZyBzaG91
+bGQgaGF2ZSBIUEQgZm9yIERDTi4NCj4NCj4gQWxleA0KPg0KPiA+DQo+ID4gVGhhbmtzLA0KPiA+
+IFNyaW5pDQo+ID4NCj4gPiA+IC0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQo+ID4gPiBGcm9t
+OiBBbGV4IERldWNoZXIgPGFsZXhkZXVjaGVyQGdtYWlsLmNvbT4NCj4gPiA+IFNlbnQ6IFR1ZXNk
+YXksIE1hcmNoIDI0LCAyMDI2IDY6MTggUE0NCj4gPiA+IFRvOiBEZXVjaGVyLCBBbGV4YW5kZXIg
+PEFsZXhhbmRlci5EZXVjaGVyQGFtZC5jb20+DQo+ID4gPiBDYzogYW1kLWdmeEBsaXN0cy5mcmVl
+ZGVza3RvcC5vcmc7IFNIQU5NVUdBTSwgU1JJTklWQVNBTg0KPiA+ID4gPFNSSU5JVkFTQU4uU0hB
+Tk1VR0FNQGFtZC5jb20+OyBMaSwgUm9tYW4NCj4gPFJvbWFuLkxpQGFtZC5jb20+DQo+ID4gPiBT
+dWJqZWN0OiBSZTogW1BBVENIIDIvM10gZHJtL2FtZC9kaXNwbGF5OiBGaXggRENFIExWRFMgaGFu
+ZGxpbmcNCj4gPiA+DQo+ID4gPiBQaW5nPyAgVGhpcyBmaXhlcyBhIHJlZ3Jlc3Npb24gb24gTFZE
+UyBzeXN0ZW1zLg0KPiA+ID4NCj4gPiA+IEFsZXgNCj4gPiA+DQo+ID4gPiBPbiBNb24sIE1hciAy
+MywgMjAyNiBhdCAxMTo0MeKAr0FNIEFsZXggRGV1Y2hlcg0KPiA+ID4gPGFsZXhhbmRlci5kZXVj
+aGVyQGFtZC5jb20+DQo+ID4gPiB3cm90ZToNCj4gPiA+ID4NCj4gPiA+ID4gTFZEUyBkb2VzIG5v
+dCB1c2UgYW4gSFBEIHBpbiBzbyBpdCBtYXkgYmUgaW52YWxpZC4gIEhhbmRsZSB0aGlzDQo+ID4g
+PiA+IGNhc2UgY29ycmVjdGx5IGluIGxpbmsgZW5jb2RlciBjcmVhdGlvbi4NCj4gPiA+ID4NCj4g
+PiA+ID4gRml4ZXM6IDdjOGZiM2I4ZTliYSAoImRybS9hbWQvZGlzcGxheTogQWRkIGhwZF9zb3Vy
+Y2UgaW5kZXggY2hlY2sNCj4gPiA+ID4gZm9yDQo+ID4gPiA+IERDRTYwLzgwLzEwMC8xMTAvMTEy
+LzEyMCBsaW5rIGVuY29kZXJzIikNCj4gPiA+ID4gQ2xvc2VzOiBodHRwczovL2dpdGxhYi5mcmVl
+ZGVza3RvcC5vcmcvZHJtL2FtZC8tL2lzc3Vlcy81MDEyDQo+ID4gPiA+IENjOiBTcmluaXZhc2Fu
+IFNoYW5tdWdhbSA8c3Jpbml2YXNhbi5zaGFubXVnYW1AYW1kLmNvbT4NCj4gPiA+ID4gQ2M6IFJv
+bWFuIExpIDxyb21hbi5saUBhbWQuY29tPg0KPiA+ID4gPiBTaWduZWQtb2ZmLWJ5OiBBbGV4IERl
+dWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+DQo+ID4gPiA+IC0tLQ0KPiA+ID4gPiAg
+Li4uL2Rpc3BsYXkvZGMvcmVzb3VyY2UvZGNlMTAwL2RjZTEwMF9yZXNvdXJjZS5jICAgfCAgNiAr
+Ky0tLS0NCj4gPiA+ID4gIC4uLi9kaXNwbGF5L2RjL3Jlc291cmNlL2RjZTExMC9kY2UxMTBfcmVz
+b3VyY2UuYyAgIHwgIDUgKysrLS0NCj4gPiA+ID4gIC4uLi9kaXNwbGF5L2RjL3Jlc291cmNlL2Rj
+ZTExMi9kY2UxMTJfcmVzb3VyY2UuYyAgIHwgIDUgKysrLS0NCj4gPiA+ID4gIC4uLi9kaXNwbGF5
+L2RjL3Jlc291cmNlL2RjZTEyMC9kY2UxMjBfcmVzb3VyY2UuYyAgIHwgIDUgKysrLS0NCj4gPiA+
+ID4gIC4uLi9hbWQvZGlzcGxheS9kYy9yZXNvdXJjZS9kY2U2MC9kY2U2MF9yZXNvdXJjZS5jIHwg
+MTQNCj4gPiA+ID4gKysrKysrLS0tLS0tLS0gIC4uLi9hbWQvZGlzcGxheS9kYy9yZXNvdXJjZS9k
+Y2U4MC9kY2U4MF9yZXNvdXJjZS5jDQo+ID4gPiA+ICsrKysrK3wNCj4gPiA+ID4gNiArKy0tLS0N
+Cj4gPiA+ID4gIDYgZmlsZXMgY2hhbmdlZCwgMTkgaW5zZXJ0aW9ucygrKSwgMjIgZGVsZXRpb25z
+KC0pDQo+ID4gPiA+DQo+ID4gPiA+IGRpZmYgLS1naXQNCj4gPiA+ID4gYS9kcml2ZXJzL2dwdS9k
+cm0vYW1kL2Rpc3BsYXkvZGMvcmVzb3VyY2UvZGNlMTAwL2RjZTEwMF9yZXNvdXJjZS5jDQo+ID4g
+PiA+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL3Jlc291cmNlL2RjZTEwMC9kY2Ux
+MDBfcmVzb3VyY2UuYw0KPiA+ID4gPiBpbmRleCAwNWY3ZmY2MGY4ZjVhLi4yYjg4NGUyODcyN2Jh
+IDEwMDY0NA0KPiA+ID4gPiAtLS0NCj4gPiA+ID4gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3Bs
+YXkvZGMvcmVzb3VyY2UvZGNlMTAwL2RjZTEwMF9yZXNvdXJjZS5jDQo+ID4gPiA+ICsrKyBiL2Ry
+aXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9yZXNvdXJjZS9kY2UxMDAvZGNlMTAwX3Jlc291
+cg0KPiA+ID4gPiArKysgY2UuYw0KPiA+ID4gPiBAQCAtNjUxLDkgKzY1MSw2IEBAIHN0YXRpYyBz
+dHJ1Y3QgbGlua19lbmNvZGVyDQo+ICpkY2UxMDBfbGlua19lbmNvZGVyX2NyZWF0ZSgNCj4gPiA+
+ID4gICAgICAgICAgICAgICAgIHJldHVybiAmZW5jMTEwLT5iYXNlOw0KPiA+ID4gPiAgICAgICAg
+IH0NCj4gPiA+ID4NCj4gPiA+ID4gLSAgICAgICBpZiAoZW5jX2luaXRfZGF0YS0+aHBkX3NvdXJj
+ZSA+PSBBUlJBWV9TSVpFKGxpbmtfZW5jX2hwZF9yZWdzKSkNCj4gPiA+ID4gLSAgICAgICAgICAg
+ICAgIHJldHVybiBOVUxMOw0KPiA+ID4gPiAtDQo+ID4gPiA+ICAgICAgICAgbGlua19yZWdzX2lk
+ID0NCj4gPiA+ID4NCj4gPiA+ID4gbWFwX3RyYW5zbWl0dGVyX2lkX3RvX3BoeV9pbnN0YW5jZShl
+bmNfaW5pdF9kYXRhLT50cmFuc21pdHRlcik7DQo+ID4gPiA+DQo+ID4gPiA+IEBAIC02NjIsNyAr
+NjU5LDggQEAgc3RhdGljIHN0cnVjdCBsaW5rX2VuY29kZXINCj4gKmRjZTEwMF9saW5rX2VuY29k
+ZXJfY3JlYXRlKA0KPiA+ID4gPiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICZsaW5rX2VuY19mZWF0dXJlLA0KPiA+ID4gPiAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICZsaW5rX2VuY19yZWdzW2xpbmtfcmVnc19pZF0sDQo+ID4gPiA+ICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgJmxpbmtfZW5jX2F1eF9yZWdzW2VuY19pbml0
+X2RhdGEtPmNoYW5uZWwgLSAxXSwNCj4gPiA+ID4gLSAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAmbGlua19lbmNfaHBkX3JlZ3NbZW5jX2luaXRfZGF0YS0+aHBkX3NvdXJjZV0p
+Ow0KPiA+ID4gPiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGVuY19pbml0
+X2RhdGEtPmhwZF9zb3VyY2UgPj0NCj4gPiA+IEFSUkFZX1NJWkUobGlua19lbmNfaHBkX3JlZ3Mp
+ID8NCj4gPiA+ID4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBOVUxMIDoN
+Cj4gPiA+ID4gKyAmbGlua19lbmNfaHBkX3JlZ3NbZW5jX2luaXRfZGF0YS0+aHBkX3NvdXJjZV0p
+Ow0KPiA+ID4gPiAgICAgICAgIHJldHVybiAmZW5jMTEwLT5iYXNlOw0KPiA+ID4gPiAgfQ0KPiA+
+ID4gPg0KPiA+ID4gPiBkaWZmIC0tZ2l0DQo+ID4gPiA+IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9k
+aXNwbGF5L2RjL3Jlc291cmNlL2RjZTExMC9kY2UxMTBfcmVzb3VyY2UuYw0KPiA+ID4gPiBiL2Ry
+aXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9yZXNvdXJjZS9kY2UxMTAvZGNlMTEwX3Jlc291
+cmNlLmMNCj4gPiA+ID4gaW5kZXggN2MwOTgyNWNkOWJkMy4uZDk1NzU5ODkxMWNiYyAxMDA2NDQN
+Cj4gPiA+ID4gLS0tDQo+ID4gPiA+IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL3Jl
+c291cmNlL2RjZTExMC9kY2UxMTBfcmVzb3VyY2UuYw0KPiA+ID4gPiArKysgYi9kcml2ZXJzL2dw
+dS9kcm0vYW1kL2Rpc3BsYXkvZGMvcmVzb3VyY2UvZGNlMTEwL2RjZTExMF9yZXNvdXINCj4gPiA+
+ID4gKysrIGNlLmMNCj4gPiA+ID4gQEAgLTY3Miw3ICs2NzIsNyBAQCBzdGF0aWMgc3RydWN0IGxp
+bmtfZW5jb2Rlcg0KPiAqZGNlMTEwX2xpbmtfZW5jb2Rlcl9jcmVhdGUoDQo+ID4gPiA+ICAgICAg
+ICAgICAgICAgICBremFsbG9jKHNpemVvZihzdHJ1Y3QgZGNlMTEwX2xpbmtfZW5jb2RlciksIEdG
+UF9LRVJORUwpOw0KPiA+ID4gPiAgICAgICAgIGludCBsaW5rX3JlZ3NfaWQ7DQo+ID4gPiA+DQo+
+ID4gPiA+IC0gICAgICAgaWYgKCFlbmMxMTAgfHwgZW5jX2luaXRfZGF0YS0+aHBkX3NvdXJjZSA+
+PQ0KPiA+ID4gQVJSQVlfU0laRShsaW5rX2VuY19ocGRfcmVncykpDQo+ID4gPiA+ICsgICAgICAg
+aWYgKCFlbmMxMTApDQo+ID4gPiA+ICAgICAgICAgICAgICAgICByZXR1cm4gTlVMTDsNCj4gPiA+
+ID4NCj4gPiA+ID4gICAgICAgICBsaW5rX3JlZ3NfaWQgPQ0KPiA+ID4gPiBAQCAtNjgzLDcgKzY4
+Myw4IEBAIHN0YXRpYyBzdHJ1Y3QgbGlua19lbmNvZGVyDQo+ICpkY2UxMTBfbGlua19lbmNvZGVy
+X2NyZWF0ZSgNCj4gPiA+ID4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAm
+bGlua19lbmNfZmVhdHVyZSwNCj4gPiA+ID4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAmbGlua19lbmNfcmVnc1tsaW5rX3JlZ3NfaWRdLA0KPiA+ID4gPiAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICZsaW5rX2VuY19hdXhfcmVnc1tlbmNfaW5pdF9k
+YXRhLT5jaGFubmVsIC0gMV0sDQo+ID4gPiA+IC0gICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgJmxpbmtfZW5jX2hwZF9yZWdzW2VuY19pbml0X2RhdGEtPmhwZF9zb3VyY2VdKTsN
+Cj4gPiA+ID4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBlbmNfaW5pdF9k
+YXRhLT5ocGRfc291cmNlID49DQo+ID4gPiBBUlJBWV9TSVpFKGxpbmtfZW5jX2hwZF9yZWdzKSA/
+DQo+ID4gPiA+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgTlVMTCA6DQo+
+ID4gPiA+ICsgJmxpbmtfZW5jX2hwZF9yZWdzW2VuY19pbml0X2RhdGEtPmhwZF9zb3VyY2VdKTsN
+Cj4gPiA+ID4gICAgICAgICByZXR1cm4gJmVuYzExMC0+YmFzZTsNCj4gPiA+ID4gIH0NCj4gPiA+
+ID4NCj4gPiA+ID4gZGlmZiAtLWdpdA0KPiA+ID4gPiBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlz
+cGxheS9kYy9yZXNvdXJjZS9kY2UxMTIvZGNlMTEyX3Jlc291cmNlLmMNCj4gPiA+ID4gYi9kcml2
+ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvcmVzb3VyY2UvZGNlMTEyL2RjZTExMl9yZXNvdXJj
+ZS5jDQo+ID4gPiA+IGluZGV4IDNmMGE2YmM0ZGNjMjMuLjFjY2U5MDNkNDc3YWEgMTAwNjQ0DQo+
+ID4gPiA+IC0tLQ0KPiA+ID4gPiBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9yZXNv
+dXJjZS9kY2UxMTIvZGNlMTEyX3Jlc291cmNlLmMNCj4gPiA+ID4gKysrIGIvZHJpdmVycy9ncHUv
+ZHJtL2FtZC9kaXNwbGF5L2RjL3Jlc291cmNlL2RjZTExMi9kY2UxMTJfcmVzb3VyDQo+ID4gPiA+
+ICsrKyBjZS5jDQo+ID4gPiA+IEBAIC02MzMsNyArNjMzLDcgQEAgc3RhdGljIHN0cnVjdCBsaW5r
+X2VuY29kZXINCj4gKmRjZTExMl9saW5rX2VuY29kZXJfY3JlYXRlKA0KPiA+ID4gPiAgICAgICAg
+ICAgICAgICAga3phbGxvYyhzaXplb2Yoc3RydWN0IGRjZTExMF9saW5rX2VuY29kZXIpLCBHRlBf
+S0VSTkVMKTsNCj4gPiA+ID4gICAgICAgICBpbnQgbGlua19yZWdzX2lkOw0KPiA+ID4gPg0KPiA+
+ID4gPiAtICAgICAgIGlmICghZW5jMTEwIHx8IGVuY19pbml0X2RhdGEtPmhwZF9zb3VyY2UgPj0N
+Cj4gPiA+IEFSUkFZX1NJWkUobGlua19lbmNfaHBkX3JlZ3MpKQ0KPiA+ID4gPiArICAgICAgIGlm
+ICghZW5jMTEwKQ0KPiA+ID4gPiAgICAgICAgICAgICAgICAgcmV0dXJuIE5VTEw7DQo+ID4gPiA+
+DQo+ID4gPiA+ICAgICAgICAgbGlua19yZWdzX2lkID0NCj4gPiA+ID4gQEAgLTY0NCw3ICs2NDQs
+OCBAQCBzdGF0aWMgc3RydWN0IGxpbmtfZW5jb2Rlcg0KPiAqZGNlMTEyX2xpbmtfZW5jb2Rlcl9j
+cmVhdGUoDQo+ID4gPiA+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgJmxp
+bmtfZW5jX2ZlYXR1cmUsDQo+ID4gPiA+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgJmxpbmtfZW5jX3JlZ3NbbGlua19yZWdzX2lkXSwNCj4gPiA+ID4gICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAmbGlua19lbmNfYXV4X3JlZ3NbZW5jX2luaXRfZGF0
+YS0+Y2hhbm5lbCAtIDFdLA0KPiA+ID4gPiAtICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICZsaW5rX2VuY19ocGRfcmVnc1tlbmNfaW5pdF9kYXRhLT5ocGRfc291cmNlXSk7DQo+
+ID4gPiA+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgZW5jX2luaXRfZGF0
+YS0+aHBkX3NvdXJjZSA+PQ0KPiA+ID4gQVJSQVlfU0laRShsaW5rX2VuY19ocGRfcmVncykgPw0K
+PiA+ID4gPiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIE5VTEwgOg0KPiA+
+ID4gPiArICZsaW5rX2VuY19ocGRfcmVnc1tlbmNfaW5pdF9kYXRhLT5ocGRfc291cmNlXSk7DQo+
+ID4gPiA+ICAgICAgICAgcmV0dXJuICZlbmMxMTAtPmJhc2U7DQo+ID4gPiA+ICB9DQo+ID4gPiA+
+DQo+ID4gPiA+IGRpZmYgLS1naXQNCj4gPiA+ID4gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3Bs
+YXkvZGMvcmVzb3VyY2UvZGNlMTIwL2RjZTEyMF9yZXNvdXJjZS5jDQo+ID4gPiA+IGIvZHJpdmVy
+cy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL3Jlc291cmNlL2RjZTEyMC9kY2UxMjBfcmVzb3VyY2Uu
+Yw0KPiA+ID4gPiBpbmRleCA5Mjg5MDc4NGNhYTZlLi44YjU2OGJlMjBhNzdiIDEwMDY0NA0KPiA+
+ID4gPiAtLS0NCj4gPiA+ID4gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvcmVzb3Vy
+Y2UvZGNlMTIwL2RjZTEyMF9yZXNvdXJjZS5jDQo+ID4gPiA+ICsrKyBiL2RyaXZlcnMvZ3B1L2Ry
+bS9hbWQvZGlzcGxheS9kYy9yZXNvdXJjZS9kY2UxMjAvZGNlMTIwX3Jlc291cg0KPiA+ID4gPiAr
+KysgY2UuYw0KPiA+ID4gPiBAQCAtNzE3LDcgKzcxNyw3IEBAIHN0YXRpYyBzdHJ1Y3QgbGlua19l
+bmNvZGVyDQo+ICpkY2UxMjBfbGlua19lbmNvZGVyX2NyZWF0ZSgNCj4gPiA+ID4gICAgICAgICAg
+ICAgICAgIGt6YWxsb2Moc2l6ZW9mKHN0cnVjdCBkY2UxMTBfbGlua19lbmNvZGVyKSwgR0ZQX0tF
+Uk5FTCk7DQo+ID4gPiA+ICAgICAgICAgaW50IGxpbmtfcmVnc19pZDsNCj4gPiA+ID4NCj4gPiA+
+ID4gLSAgICAgICBpZiAoIWVuYzExMCB8fCBlbmNfaW5pdF9kYXRhLT5ocGRfc291cmNlID49DQo+
+ID4gPiBBUlJBWV9TSVpFKGxpbmtfZW5jX2hwZF9yZWdzKSkNCj4gPiA+ID4gKyAgICAgICBpZiAo
+IWVuYzExMCkNCj4gPiA+ID4gICAgICAgICAgICAgICAgIHJldHVybiBOVUxMOw0KPiA+ID4gPg0K
+PiA+ID4gPiAgICAgICAgIGxpbmtfcmVnc19pZCA9DQo+ID4gPiA+IEBAIC03MjgsNyArNzI4LDgg
+QEAgc3RhdGljIHN0cnVjdCBsaW5rX2VuY29kZXINCj4gKmRjZTEyMF9saW5rX2VuY29kZXJfY3Jl
+YXRlKA0KPiA+ID4gPiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICZsaW5r
+X2VuY19mZWF0dXJlLA0KPiA+ID4gPiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICZsaW5rX2VuY19yZWdzW2xpbmtfcmVnc19pZF0sDQo+ID4gPiA+ICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgJmxpbmtfZW5jX2F1eF9yZWdzW2VuY19pbml0X2RhdGEt
+PmNoYW5uZWwgLSAxXSwNCj4gPiA+ID4gLSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAmbGlua19lbmNfaHBkX3JlZ3NbZW5jX2luaXRfZGF0YS0+aHBkX3NvdXJjZV0pOw0KPiA+
+ID4gPiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGVuY19pbml0X2RhdGEt
+PmhwZF9zb3VyY2UgPj0NCj4gPiA+IEFSUkFZX1NJWkUobGlua19lbmNfaHBkX3JlZ3MpID8NCj4g
+PiA+ID4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBOVUxMIDoNCj4gPiA+
+ID4gKyAmbGlua19lbmNfaHBkX3JlZ3NbZW5jX2luaXRfZGF0YS0+aHBkX3NvdXJjZV0pOw0KPiA+
+ID4gPg0KPiA+ID4gPiAgICAgICAgIHJldHVybiAmZW5jMTEwLT5iYXNlOw0KPiA+ID4gPiAgfQ0K
+PiA+ID4gPiBkaWZmIC0tZ2l0DQo+ID4gPiA+IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5
+L2RjL3Jlc291cmNlL2RjZTYwL2RjZTYwX3Jlc291cmNlLmMNCj4gPiA+ID4gYi9kcml2ZXJzL2dw
+dS9kcm0vYW1kL2Rpc3BsYXkvZGMvcmVzb3VyY2UvZGNlNjAvZGNlNjBfcmVzb3VyY2UuYw0KPiA+
+ID4gPiBpbmRleCBkNDFkMjRiNzZjMTFmLi4yZjVlZTlkODUzNmFmIDEwMDY0NA0KPiA+ID4gPiAt
+LS0NCj4gPiA+ID4gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvcmVzb3VyY2UvZGNl
+NjAvZGNlNjBfcmVzb3VyY2UuYw0KPiA+ID4gPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rp
+c3BsYXkvZGMvcmVzb3VyY2UvZGNlNjAvZGNlNjBfcmVzb3VyY2UNCj4gPiA+ID4gKysrIC5jDQo+
+ID4gPiA+IEBAIC03NDcsMTggKzc0NywxNiBAQCBzdGF0aWMgc3RydWN0IGxpbmtfZW5jb2Rlcg0K
+PiA+ID4gKmRjZTYwX2xpbmtfZW5jb2Rlcl9jcmVhdGUoDQo+ID4gPiA+ICAgICAgICAgICAgICAg
+ICByZXR1cm4gJmVuYzExMC0+YmFzZTsNCj4gPiA+ID4gICAgICAgICB9DQo+ID4gPiA+DQo+ID4g
+PiA+IC0gICAgICAgaWYgKGVuY19pbml0X2RhdGEtPmhwZF9zb3VyY2UgPj0gQVJSQVlfU0laRShs
+aW5rX2VuY19ocGRfcmVncykpDQo+ID4gPiA+IC0gICAgICAgICAgICAgICByZXR1cm4gTlVMTDsN
+Cj4gPiA+ID4gLQ0KPiA+ID4gPiAgICAgICAgIGxpbmtfcmVnc19pZCA9DQo+ID4gPiA+DQo+ID4g
+PiA+IG1hcF90cmFuc21pdHRlcl9pZF90b19waHlfaW5zdGFuY2UoZW5jX2luaXRfZGF0YS0+dHJh
+bnNtaXR0ZXIpOw0KPiA+ID4gPg0KPiA+ID4gPiAgICAgICAgIGRjZTYwX2xpbmtfZW5jb2Rlcl9j
+b25zdHJ1Y3QoZW5jMTEwLA0KPiA+ID4gPiAtICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgIGVuY19pbml0X2RhdGEsDQo+ID4gPiA+IC0gICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgJmxpbmtfZW5jX2ZlYXR1cmUsDQo+ID4gPiA+IC0gICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgJmxpbmtfZW5jX3JlZ3NbbGlua19yZWdzX2lkXSwNCj4gPiA+
+ID4gLSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAmbGlua19lbmNfYXV4X3Jl
+Z3NbZW5jX2luaXRfZGF0YS0+Y2hhbm5lbCAtIDFdLA0KPiA+ID4gPiAtICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICZsaW5rX2VuY19ocGRfcmVnc1tlbmNfaW5pdF9kYXRhLT5o
+cGRfc291cmNlXSk7DQo+ID4gPiA+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICBlbmNfaW5pdF9kYXRhLA0KPiA+ID4gPiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgJmxpbmtfZW5jX2ZlYXR1cmUsDQo+ID4gPiA+ICsgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAmbGlua19lbmNfcmVnc1tsaW5rX3JlZ3NfaWRdLA0KPiA+ID4gPiArICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgJmxpbmtfZW5jX2F1eF9yZWdzW2VuY19p
+bml0X2RhdGEtPmNoYW5uZWwgLSAxXSwNCj4gPiA+ID4gKyAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgIGVuY19pbml0X2RhdGEtPmhwZF9zb3VyY2UgPj0NCj4gPiA+IEFSUkFZX1NJ
+WkUobGlua19lbmNfaHBkX3JlZ3MpID8NCj4gPiA+ID4gKyAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgIE5VTEwgOg0KPiA+ID4gPiArICZsaW5rX2VuY19ocGRfcmVnc1tlbmNfaW5p
+dF9kYXRhLT5ocGRfc291cmNlXSk7DQo+ID4gPiA+ICAgICAgICAgcmV0dXJuICZlbmMxMTAtPmJh
+c2U7DQo+ID4gPiA+ICB9DQo+ID4gPiA+DQo+ID4gPiA+IGRpZmYgLS1naXQNCj4gPiA+ID4gYS9k
+cml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvcmVzb3VyY2UvZGNlODAvZGNlODBfcmVzb3Vy
+Y2UuYw0KPiA+ID4gPiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9yZXNvdXJjZS9k
+Y2U4MC9kY2U4MF9yZXNvdXJjZS5jDQo+ID4gPiA+IGluZGV4IGE2OGU3OTlkNTg4NTQuLjQwNjcw
+NWZhYzdkNjQgMTAwNjQ0DQo+ID4gPiA+IC0tLQ0KPiA+ID4gPiBhL2RyaXZlcnMvZ3B1L2RybS9h
+bWQvZGlzcGxheS9kYy9yZXNvdXJjZS9kY2U4MC9kY2U4MF9yZXNvdXJjZS5jDQo+ID4gPiA+ICsr
+KyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9yZXNvdXJjZS9kY2U4MC9kY2U4MF9y
+ZXNvdXJjZQ0KPiA+ID4gPiArKysgLmMNCj4gPiA+ID4gQEAgLTc1Myw5ICs3NTMsNiBAQCBzdGF0
+aWMgc3RydWN0IGxpbmtfZW5jb2Rlcg0KPiAqZGNlODBfbGlua19lbmNvZGVyX2NyZWF0ZSgNCj4g
+PiA+ID4gICAgICAgICAgICAgICAgIHJldHVybiAmZW5jMTEwLT5iYXNlOw0KPiA+ID4gPiAgICAg
+ICAgIH0NCj4gPiA+ID4NCj4gPiA+ID4gLSAgICAgICBpZiAoZW5jX2luaXRfZGF0YS0+aHBkX3Nv
+dXJjZSA+PSBBUlJBWV9TSVpFKGxpbmtfZW5jX2hwZF9yZWdzKSkNCj4gPiA+ID4gLSAgICAgICAg
+ICAgICAgIHJldHVybiBOVUxMOw0KPiA+ID4gPiAtDQo+ID4gPiA+ICAgICAgICAgbGlua19yZWdz
+X2lkID0NCj4gPiA+ID4NCj4gPiA+ID4gbWFwX3RyYW5zbWl0dGVyX2lkX3RvX3BoeV9pbnN0YW5j
+ZShlbmNfaW5pdF9kYXRhLT50cmFuc21pdHRlcik7DQo+ID4gPiA+DQo+ID4gPiA+IEBAIC03NjQs
+NyArNzYxLDggQEAgc3RhdGljIHN0cnVjdCBsaW5rX2VuY29kZXINCj4gKmRjZTgwX2xpbmtfZW5j
+b2Rlcl9jcmVhdGUoDQo+ID4gPiA+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgJmxpbmtfZW5jX2ZlYXR1cmUsDQo+ID4gPiA+ICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgJmxpbmtfZW5jX3JlZ3NbbGlua19yZWdzX2lkXSwNCj4gPiA+ID4gICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAmbGlua19lbmNfYXV4X3JlZ3NbZW5jX2lu
+aXRfZGF0YS0+Y2hhbm5lbCAtIDFdLA0KPiA+ID4gPiAtICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICZsaW5rX2VuY19ocGRfcmVnc1tlbmNfaW5pdF9kYXRhLT5ocGRfc291cmNl
+XSk7DQo+ID4gPiA+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgZW5jX2lu
+aXRfZGF0YS0+aHBkX3NvdXJjZSA+PQ0KPiA+ID4gQVJSQVlfU0laRShsaW5rX2VuY19ocGRfcmVn
+cykgPw0KPiA+ID4gPiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIE5VTEwg
+Og0KPiA+ID4gPiArICZsaW5rX2VuY19ocGRfcmVnc1tlbmNfaW5pdF9kYXRhLT5ocGRfc291cmNl
+XSk7DQo+ID4gPiA+ICAgICAgICAgcmV0dXJuICZlbmMxMTAtPmJhc2U7DQo+ID4gPiA+ICB9DQo+
+ID4gPiA+DQo+ID4gPiA+IC0tDQo+ID4gPiA+IDIuNTMuMA0KPiA+ID4gPg0K
