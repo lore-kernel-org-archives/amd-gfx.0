@@ -4,78 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C24A5106B538
-	for <amd-gfx@archiver.kernel.org>; Wed, 25 Mar 2026 13:03:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EC192106B53B
+	for <amd-gfx@archiver.kernel.org>; Wed, 25 Mar 2026 13:03:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2158110E8C3;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 16B9410E8BF;
 	Wed, 25 Mar 2026 13:03:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="EqltIUTy";
+	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="rvVER+so";
 	dkim-atps=neutral
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
- [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C66CE10E732;
- Tue, 24 Mar 2026 16:02:59 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1774368168; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=lPOY6DYExUikD2orQdHPpzLsp7rvvmYiLnPRZOAtyPYLvVYbD0QS6y4+pc8a01ORb7sKnVZv//D0G8/7/fzhFBfDcu17Ic2vg/ul6IPMlrm7x13FkPORhDAh07d60ktGZqFDWkE6BUpgW15+EyRNjd589OsST+xXpF6rRoNBBmQ=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1774368168;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=KXxGgh7Ft1EYn/nrzNsahVPYUiRTr4ygTPzIPixWc6o=; 
- b=EE29NXwYpfzlTqUzyxQv+1P6TGx6Ejo/nZck0Mo+EbeI/S1BHRyyULs8xyzeoUAWGi+NkpTA/bzmlBcoy4m653CWlUue/blzrthSvQ29L8WOkgMjGiexsGOgrArb869O0UMa5OHitiyPFiL4WbOcU+vOKkL6aqeNXtt8K+5Fm8s=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
- dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1774368167; 
- s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
- h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:References:In-Reply-To:To:To:Cc:Cc:Reply-To;
- bh=KXxGgh7Ft1EYn/nrzNsahVPYUiRTr4ygTPzIPixWc6o=;
- b=EqltIUTynLE4sE5n54X+2ONiGQIAC1Z0md/66RbQE+y2zlYoRfCIuvaX6VV3Uo0T
- VRAeRF0yr7PCN74ChDjvKcOY0laaP4W5hDIP/ArUg6xWBp6YbS+cVbYzPgUth0aaigJ
- VgLTR1/pTRAGbqXXtvZpKdCAWJBv1fKKFVVWptAI=
-Received: by mx.zohomail.com with SMTPS id 1774368166236717.7801083515856;
- Tue, 24 Mar 2026 09:02:46 -0700 (PDT)
-From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Date: Tue, 24 Mar 2026 17:01:13 +0100
-Subject: [PATCH v11 09/22] drm/amdgpu: Implement "color format" DRM
- property
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0815210E5F0;
+ Tue, 24 Mar 2026 16:39:33 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id B2D8243A93;
+ Tue, 24 Mar 2026 16:39:33 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 025E3C19424;
+ Tue, 24 Mar 2026 16:39:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+ s=korg; t=1774370373;
+ bh=SucaKA0NzyZJdhS9+9yt3dqHcXk76x3cifX9yRYxzWQ=;
+ h=From:To:Cc:Subject:Date:From;
+ b=rvVER+sodacBOuAVjTL/y1npPJvWbZdgWOpXhtIDcutqxMeFL5R6lcHudJBfyydmO
+ tX0HuOv5Cl4e8LQ/qJmoBXtjfxY3qGFK/GzvyeCBFDQdfXRynveRdnIp+93u9bBols
+ vTHwtEqZ7kEjZdOnZtDVXEM5a7nCHl6RdIrd9tME=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: amd-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Felix Kuehling <Felix.Kuehling@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ stable <stable@kernel.org>
+Subject: [PATCH] drm/amdkfd: stop speculation on the kfd_ioctl path
+Date: Tue, 24 Mar 2026 17:39:09 +0100
+Message-ID: <2026032408-divided-racing-fe78@gregkh>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260324-color-format-v11-9-605559af4fb4@collabora.com>
-References: <20260324-color-format-v11-0-605559af4fb4@collabora.com>
-In-Reply-To: <20260324-color-format-v11-0-605559af4fb4@collabora.com>
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
- Rodrigo Siqueira <siqueira@igalia.com>, 
- Alex Deucher <alexander.deucher@amd.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Sandy Huang <hjc@rock-chips.com>, 
- =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
- Andy Yan <andy.yan@rock-chips.com>, 
- Jani Nikula <jani.nikula@linux.intel.com>, 
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
- Tvrtko Ursulin <tursulin@ursulin.net>, Dmitry Baryshkov <lumag@kernel.org>, 
- Sascha Hauer <s.hauer@pengutronix.de>, Rob Herring <robh@kernel.org>, 
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>
-Cc: kernel@collabora.com, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
- linux-doc@vger.kernel.org, 
- Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, 
- Werner Sembach <wse@tuxedocomputers.com>, 
- Andri Yngvason <andri@yngvason.is>, Marius Vlad <marius.vlad@collabora.com>
-X-Mailer: b4 0.15.0
+Content-Type: text/plain; charset=UTF-8
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1479;
+ i=gregkh@linuxfoundation.org; h=from:subject:message-id;
+ bh=SucaKA0NzyZJdhS9+9yt3dqHcXk76x3cifX9yRYxzWQ=;
+ b=owGbwMvMwCRo6H6F97bub03G02pJDJmH9ulc2zlhS4XwwX6Jm/4aZvueiunxJft5ZK812p7lk
+ 7rB8uSijlgWBkEmBlkxRZYv23iO7q84pOhlaHsaZg4rE8gQBi5OAZiIQiLDgmudB4Muql3+vZ/1
+ mn1p6tuD8VoFExkW7FQ/9WxW7hzryKtPtx3TyD5/U34rFwA=
+X-Developer-Key: i=gregkh@linuxfoundation.org; a=openpgp;
+ fpr=F4B60CC5BF78C2214A313DCB3147D40DDB2DFB29
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 25 Mar 2026 13:03:04 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -91,200 +66,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The "color format" DRM property allows userspace to explicitly pick a
-color format to use. If an unsupported color format is requested,
-userspace will be given an error instead of silently having its request
-disobeyed.
+The kfd_ioctl takes a user controlled pointer, and then dereferences it
+into a table of function pointers, the signature method of spectre
+problems.  Fix this up by calling array_index_nospec() on the index to
+the function pointer list.
 
-The default case, which is AUTO, picks YCbCr 4:2:0 if it's a 4:2:0-only
-mode, and RGB in all other cases.
-
-Co-developed-by: Werner Sembach <wse@tuxedocomputers.com>
-Signed-off-by: Werner Sembach <wse@tuxedocomputers.com>
-Co-developed-by: Andri Yngvason <andri@yngvason.is>
-Signed-off-by: Andri Yngvason <andri@yngvason.is>
-Co-developed-by: Marius Vlad <marius.vlad@collabora.com>
-Signed-off-by: Marius Vlad <marius.vlad@collabora.com>
-Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+Cc: Felix Kuehling <Felix.Kuehling@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: "Christian König" <christian.koenig@amd.com>
+Cc: David Airlie <airlied@gmail.com>
+Cc: Simona Vetter <simona@ffwll.ch>
+Cc: stable <stable@kernel.org>
+Assisted-by: gkh_clanker_2000
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  | 90 +++++++++++++++++++---
- .../amd/display/amdgpu_dm/amdgpu_dm_mst_types.c    |  9 +++
- 2 files changed, 88 insertions(+), 11 deletions(-)
+ drivers/gpu/drm/amd/amdkfd/kfd_chardev.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 86a64e98e8a1..5d3c6f3984ab 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -6695,11 +6695,14 @@ static void fill_stream_properties_from_drm_display_mode(
- 	const struct dc_stream_state *old_stream,
- 	int requested_bpc)
- {
-+	bool is_dp_or_hdmi = dc_is_hdmi_signal(stream->signal) || dc_is_dp_signal(stream->signal);
- 	struct dc_crtc_timing *timing_out = &stream->timing;
- 	const struct drm_display_info *info = &connector->display_info;
- 	struct amdgpu_dm_connector *aconnector = NULL;
- 	struct hdmi_vendor_infoframe hv_frame;
- 	struct hdmi_avi_infoframe avi_frame;
-+	bool want_420;
-+	bool want_422;
- 	ssize_t err;
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+index 09dabb3b3297..d2ef693c63da 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+@@ -35,6 +35,7 @@
+ #include <linux/mman.h>
+ #include <linux/ptrace.h>
+ #include <linux/dma-buf.h>
++#include <linux/nospec.h>
+ #include <linux/processor.h>
+ #include "kfd_priv.h"
+ #include "kfd_device_queue_manager.h"
+@@ -3349,6 +3350,7 @@ static long kfd_ioctl(struct file *filep, unsigned int cmd, unsigned long arg)
+ 	if ((nr >= AMDKFD_COMMAND_START) && (nr < AMDKFD_COMMAND_END)) {
+ 		u32 amdkfd_size;
  
- 	if (connector->connector_type != DRM_MODE_CONNECTOR_WRITEBACK)
-@@ -6712,20 +6715,41 @@ static void fill_stream_properties_from_drm_display_mode(
- 	timing_out->h_border_right = 0;
- 	timing_out->v_border_top = 0;
- 	timing_out->v_border_bottom = 0;
--	/* TODO: un-hardcode */
--	if (drm_mode_is_420_only(info, mode_in) ||
--	    (aconnector && aconnector->force_yuv420_output &&
--	     drm_mode_is_420_also(info, mode_in)))
-+
-+	want_420 = (aconnector && aconnector->force_yuv420_output) ||
-+		   (connector_state->color_format == DRM_CONNECTOR_COLOR_FORMAT_YCBCR420);
-+	want_422 = (aconnector && aconnector->force_yuv422_output) ||
-+		   (connector_state->color_format == DRM_CONNECTOR_COLOR_FORMAT_YCBCR422);
-+
-+	if (drm_mode_is_420_only(info, mode_in) &&
-+	    (want_420 || connector_state->color_format == DRM_CONNECTOR_COLOR_FORMAT_AUTO)) {
- 		timing_out->pixel_encoding = PIXEL_ENCODING_YCBCR420;
--	else if ((connector->display_info.color_formats & BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR422))
--			&& aconnector
--			&& aconnector->force_yuv422_output)
-+	} else if (drm_mode_is_420_also(info, mode_in) && want_420) {
-+		timing_out->pixel_encoding = PIXEL_ENCODING_YCBCR420;
-+	} else if ((info->color_formats & BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR422)) &&
-+		   want_422 && is_dp_or_hdmi) {
- 		timing_out->pixel_encoding = PIXEL_ENCODING_YCBCR422;
--	else if ((connector->display_info.color_formats & BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR444))
--			&& stream->signal == SIGNAL_TYPE_HDMI_TYPE_A)
-+	} else if (connector_state->color_format == DRM_CONNECTOR_COLOR_FORMAT_YCBCR444 &&
-+		   (info->color_formats & BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR444)) &&
-+		   is_dp_or_hdmi) {
- 		timing_out->pixel_encoding = PIXEL_ENCODING_YCBCR444;
--	else
-+	} else if (connector_state->color_format == DRM_CONNECTOR_COLOR_FORMAT_RGB444 ||
-+		   connector_state->color_format == DRM_CONNECTOR_COLOR_FORMAT_AUTO) {
- 		timing_out->pixel_encoding = PIXEL_ENCODING_RGB;
-+	} else {
-+		/*
-+		 * If a format was explicitly requested but the requested format
-+		 * can't be satisfied, set it to an invalid value so that an
-+		 * error bubbles up to userspace. This way, userspace knows it
-+		 * needs to make a better choice.
-+		 */
-+		if (connector_state->color_format != DRM_CONNECTOR_COLOR_FORMAT_AUTO)
-+			timing_out->pixel_encoding = PIXEL_ENCODING_UNDEFINED;
-+		else if (drm_mode_is_420_only(info, mode_in))
-+			timing_out->pixel_encoding = PIXEL_ENCODING_YCBCR420;
-+		else
-+			timing_out->pixel_encoding = PIXEL_ENCODING_RGB;
-+	}
++		nr = array_index_nospec(nr, AMDKFD_CORE_IOCTL_COUNT);
+ 		ioctl = &amdkfd_ioctls[nr];
  
- 	timing_out->timing_3d_format = TIMING_3D_FORMAT_NONE;
- 	timing_out->display_color_depth = convert_color_depth_from_display_info(
-@@ -8075,6 +8099,38 @@ static enum dc_status dm_validate_stream_and_context(struct dc *dc,
- 	return dc_result;
- }
- 
-+static enum dc_status
-+dm_validate_stream_color_format(const struct drm_connector_state *drm_state,
-+				const struct dc_stream_state *stream)
-+{
-+	enum dc_pixel_encoding encoding;
-+
-+	if (!drm_state->color_format)
-+		return DC_OK;
-+
-+	switch (drm_state->color_format) {
-+	case DRM_CONNECTOR_COLOR_FORMAT_AUTO:
-+	case DRM_CONNECTOR_COLOR_FORMAT_RGB444:
-+		encoding = PIXEL_ENCODING_RGB;
-+		break;
-+	case DRM_CONNECTOR_COLOR_FORMAT_YCBCR444:
-+		encoding = PIXEL_ENCODING_YCBCR444;
-+		break;
-+	case DRM_CONNECTOR_COLOR_FORMAT_YCBCR422:
-+		encoding = PIXEL_ENCODING_YCBCR422;
-+		break;
-+	case DRM_CONNECTOR_COLOR_FORMAT_YCBCR420:
-+		encoding = PIXEL_ENCODING_YCBCR420;
-+		break;
-+	default:
-+		encoding = PIXEL_ENCODING_UNDEFINED;
-+		break;
-+	}
-+
-+	return encoding == stream->timing.pixel_encoding ?
-+		DC_OK : DC_UNSUPPORTED_VALUE;
-+}
-+
- struct dc_stream_state *
- create_validate_stream_for_sink(struct drm_connector *connector,
- 				const struct drm_display_mode *drm_mode,
-@@ -8121,6 +8177,9 @@ create_validate_stream_for_sink(struct drm_connector *connector,
- 		if (dc_result == DC_OK)
- 			dc_result = dm_validate_stream_and_context(adev->dm.dc, stream);
- 
-+		if (dc_result == DC_OK)
-+			dc_result = dm_validate_stream_color_format(drm_state, stream);
-+
- 		if (dc_result != DC_OK) {
- 			drm_dbg_kms(connector->dev, "Pruned mode %d x %d (clk %d) %s %s -- %s\n",
- 				      drm_mode->hdisplay,
-@@ -8950,6 +9009,12 @@ static const u32 supported_colorspaces =
- 	BIT(DRM_MODE_COLORIMETRY_BT2020_RGB) |
- 	BIT(DRM_MODE_COLORIMETRY_BT2020_YCC);
- 
-+static const u32 supported_colorformats =
-+	BIT(DRM_OUTPUT_COLOR_FORMAT_RGB444) |
-+	BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR444) |
-+	BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR422) |
-+	BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR420);
-+
- void amdgpu_dm_connector_init_helper(struct amdgpu_display_manager *dm,
- 				     struct amdgpu_dm_connector *aconnector,
- 				     int connector_type,
-@@ -9066,8 +9131,11 @@ void amdgpu_dm_connector_init_helper(struct amdgpu_display_manager *dm,
- 	    connector_type == DRM_MODE_CONNECTOR_eDP) {
- 		drm_connector_attach_hdr_output_metadata_property(&aconnector->base);
- 
--		if (!aconnector->mst_root)
-+		if (!aconnector->mst_root) {
- 			drm_connector_attach_vrr_capable_property(&aconnector->base);
-+			drm_connector_attach_color_format_property(&aconnector->base,
-+								   supported_colorformats);
-+		}
- 
- 		if (adev->dm.hdcp_workqueue)
- 			drm_connector_attach_content_protection_property(&aconnector->base, true);
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-index 7be50e8c0636..9bced7257f8b 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-@@ -52,6 +52,12 @@
- 
- #define PEAK_FACTOR_X1000 1006
- 
-+static const u32 supported_colorformats =
-+	BIT(DRM_OUTPUT_COLOR_FORMAT_RGB444) |
-+	BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR444) |
-+	BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR422) |
-+	BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR420);
-+
- /*
-  * This function handles both native AUX and I2C-Over-AUX transactions.
-  */
-@@ -679,6 +685,9 @@ dm_dp_add_mst_connector(struct drm_dp_mst_topology_mgr *mgr,
- 	if (connector->max_bpc_property)
- 		drm_connector_attach_max_bpc_property(connector, 8, 16);
- 
-+	drm_connector_attach_color_format_property(&aconnector->base,
-+						   supported_colorformats);
-+
- 	connector->vrr_capable_property = master->base.vrr_capable_property;
- 	if (connector->vrr_capable_property)
- 		drm_connector_attach_vrr_capable_property(connector);
-
+ 		amdkfd_size = _IOC_SIZE(ioctl->cmd);
 -- 
 2.53.0
 
