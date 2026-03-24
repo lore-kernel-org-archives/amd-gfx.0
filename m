@@ -4,125 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8B8F1D58CC9
-	for <amd-gfx@archiver.kernel.org>; Tue, 24 Mar 2026 09:12:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E88C2FC72C5
+	for <amd-gfx@archiver.kernel.org>; Tue, 24 Mar 2026 09:12:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B801C10E640;
-	Tue, 24 Mar 2026 09:12:40 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=bitbyteword.org header.i=@bitbyteword.org header.b="H+xL9RHe";
-	dkim-atps=neutral
-Received: from mail-ot1-f43.google.com (mail-ot1-f43.google.com
- [209.85.210.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BB8BC10E027
- for <amd-gfx@lists.freedesktop.org>; Mon, 23 Mar 2026 16:00:58 +0000 (UTC)
-Received: by mail-ot1-f43.google.com with SMTP id
- 46e09a7af769-7d7422b4ff1so1446840a34.3
- for <amd-gfx@lists.freedesktop.org>; Mon, 23 Mar 2026 09:00:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=bitbyteword.org; s=google; t=1774281658; x=1774886458;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=7SscKSPRtp5r0bOyZYtc8orw97P+lM4BuDDRyRnpM2Q=;
- b=H+xL9RHe9VU5nOSq+UddbTB5g2aBOBsnDaYYW6NILMjAE899A+30pqzF5kLxPQ6H1/
- S5/ysLhgKqR0U66soMpp0jjnueziv7NyjBMtdpdR/oUX0bDXysMfQJAVVoGkz30eHFpX
- E69AdifUwQ0RHQxiS0EXmwmQeoISYXRJxDZ+j8DehenOeCBx6fK4cSohHMnotIAqWmA0
- nbaGI/pCv4legH8EPH7lpd690Fh9H2cuX+0x0VqAIPj8wNl3JUIQKaQ1zfCRA+HHtBWa
- k2AI8ziTeYUMJdm7W5ipS80OORimfqK1DUlvuhYWCiIMSqM2z+FWEZLELdayEfRkC0eY
- zNwg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774281658; x=1774886458;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=7SscKSPRtp5r0bOyZYtc8orw97P+lM4BuDDRyRnpM2Q=;
- b=R4NIpfifVLz++0QRbXUbiu6xCjJwRU/SL8sA3m2RszSTD6awAbVrAwW4IywFlQMEZj
- DBg8XI2//fPbXIRiIgcW3xpSxj6mIcWMEs6KRrp8HcR3MOA1LD/uigXrT2S0p0VOEZTJ
- 388yqI/J50yZQKfhPBMMNRAKxQPpBXkqTfDOXq0nb7lTcirMXfkIkSi4fWg1ks+q/tEV
- sk2kLz6nypdTpBWmz3f8HnHeRcU8MZtfFK4n6iWxF/SS22eEX4kvWKs2Duj59xCQCOoj
- UtUWi1950tojPx/Cd9y/z/gLxUuqO7P2nfdXWlzZdoJIFbx30AG6mqqte4UO0F1yqTQy
- t0GQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXcbUzp2qO9Vaip0dq/U2TI3tzkce8aMAEN/3AZu7F8V9QYRbeAl+MkOFiiE6/OUzY3Ycz5s566@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyycsL2MfuE3/HXDKTv194nSFzpSo4JO/xMDVFgnxsMV2UkkfDr
- ReLPldtqN6cBL8FMNvzU8tKbtXQynCiqzroT0pKW/qznMmyLy2XEbJpPGde70JsXdAg=
-X-Gm-Gg: ATEYQzx37F4Fj3RX0rPdJSifCGacXOWoHBtM1zDIfXQUTO5ebQ6b0YbgmEf7DcN5zTu
- dSqbZSRfs+doA7Ct5WAZyZw9yeU1iVkx3t23kx7irpx//nubBlsiE9Jh0lY6/F8uW459IQB3H08
- PNOyYXT+g4SCFHfrI0vxg0wiLO6CRQhj+FzsER5mZ3iTYPmnQz1vcyq4HKuL2QPUPIjCsUUE5vu
- TWVWh87ud4RrOw+9DiXq/D6NvGyGuLdU62RD07FAKoXV6R0AiVSNawS3D4OPiLBwL6pucoIeyWz
- PhzC01R2lO8rGBWhFg0jeahsx3TfdAL4UWkp+vdz5i3FNI/1F1OrWO9jsk2TNxNBfND5e+3/lW/
- XZn7RPo0kRJn/OnvwWZpWR62T6z7NUz8tc2ajxzyDLzNRaEztU33yXLX9QX3ucvrR1WHDFb+fDv
- YstSkGdg0YeGXEhJdv///KaN5EeWrjpyFernqjaSyMeUfgo49lpuNKto3zKug8Jvs6Hg==
-X-Received: by 2002:a05:6820:3091:b0:67d:9cc0:968 with SMTP id
- 006d021491bc7-67d9cc00e0dmr6486936eaf.63.1774281657494; 
- Mon, 23 Mar 2026 09:00:57 -0700 (PDT)
-Received: from vinmini.lan (c-73-143-21-186.hsd1.vt.comcast.net.
- [73.143.21.186]) by smtp.gmail.com with ESMTPSA id
- af79cd13be357-8cfc9088df1sm843364185a.25.2026.03.23.09.00.53
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 23 Mar 2026 09:00:56 -0700 (PDT)
-From: "Vineeth Pillai (Google)" <vineeth@bitbyteword.org>
-To: Steven Rostedt <rostedt@goodmis.org>,
- Peter Zijlstra <peterz@infradead.org>, Dmitry Ilvokhin <d@ilvokhin.com>
-Cc: "Vineeth Pillai (Google)" <vineeth@bitbyteword.org>,
- Masami Hiramatsu <mhiramat@kernel.org>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Ingo Molnar <mingo@redhat.com>, Jens Axboe <axboe@kernel.dk>,
- io-uring@vger.kernel.org, "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Alexei Starovoitov <ast@kernel.org>,
- Daniel Borkmann <daniel@iogearbox.net>,
- Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>,
- Xin Long <lucien.xin@gmail.com>, Jon Maloy <jmaloy@redhat.com>,
- Aaron Conole <aconole@redhat.com>, Eelco Chaudron <echaudro@redhat.com>,
- Ilya Maximets <i.maximets@ovn.org>, netdev@vger.kernel.org,
- bpf@vger.kernel.org, linux-sctp@vger.kernel.org,
- tipc-discussion@lists.sourceforge.net, dev@openvswitch.org,
- Jiri Pirko <jiri@resnulli.us>, Oded Gabbay <ogabbay@kernel.org>,
- Koby Elbaz <koby.elbaz@intel.com>, dri-devel@lists.freedesktop.org,
- "Rafael J. Wysocki" <rafael@kernel.org>,
- Viresh Kumar <viresh.kumar@linaro.org>,
- "Gautham R. Shenoy" <gautham.shenoy@amd.com>,
- Huang Rui <ray.huang@amd.com>,
- Mario Limonciello <mario.limonciello@amd.com>, Len Brown <lenb@kernel.org>,
- Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
- linux-pm@vger.kernel.org, MyungJoo Ham <myungjoo.ham@samsung.com>,
- Kyungmin Park <kyungmin.park@samsung.com>,
- Chanwoo Choi <cw00.choi@samsung.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Sumit Semwal <sumit.semwal@linaro.org>, linaro-mm-sig@lists.linaro.org,
- Eddie James <eajames@linux.ibm.com>,
- Andrew Jeffery <andrew@codeconstruct.com.au>,
- Joel Stanley <joel@jms.id.au>, linux-fsi@lists.ozlabs.org,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Alex Deucher <alexander.deucher@amd.com>,
- Danilo Krummrich <dakr@kernel.org>,
- Matthew Brost <matthew.brost@intel.com>,
- Philipp Stanner <phasta@kernel.org>,
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- amd-gfx@lists.freedesktop.org, Jiri Kosina <jikos@kernel.org>,
- Benjamin Tissoires <bentiss@kernel.org>, linux-input@vger.kernel.org,
- Wolfram Sang <wsa+renesas@sang-engineering.com>, linux-i2c@vger.kernel.org,
- Mark Brown <broonie@kernel.org>,
- Michael Hennerich <michael.hennerich@analog.com>,
- =?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>, linux-spi@vger.kernel.org,
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
- "Martin K. Petersen" <martin.petersen@oracle.com>,
- linux-scsi@vger.kernel.org, Chris Mason <clm@fb.com>,
- David Sterba <dsterba@suse.com>, linux-btrfs@vger.kernel.org,
- Thomas Gleixner <tglx@linutronix.de>,
- Andrew Morton <akpm@linux-foundation.org>, SeongJae Park <sj@kernel.org>,
- linux-mm@kvack.org, Borislav Petkov <bp@alien8.de>,
- Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
- linux-trace-kernel@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v2 00/19] tracepoint: Avoid double static_branch evaluation at
- guarded call sites
-Date: Mon, 23 Mar 2026 12:00:19 -0400
-Message-ID: <20260323160052.17528-1-vineeth@bitbyteword.org>
-X-Mailer: git-send-email 2.53.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id C361710E649;
+	Tue, 24 Mar 2026 09:12:41 +0000 (UTC)
+Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3FF4910E0F3;
+ Tue, 24 Mar 2026 08:51:36 +0000 (UTC)
+Received: from localhost.localdomain (unknown [111.196.245.197])
+ by APP-01 (Coremail) with SMTP id qwCowACHMGyTUMJpOqb8Cg--.13633S2;
+ Tue, 24 Mar 2026 16:51:31 +0800 (CST)
+From: Pengpeng Hou <pengpeng@iscas.ac.cn>
+To: harry.wentland@amd.com, sunpeng.li@amd.com, siqueira@igalia.com,
+ alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
+ simona@ffwll.ch
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, pengpeng@iscas.ac.cn
+Subject: [PATCH] drm/amd/display: bios_parser: fix GPIO I2C line off-by-one
+Date: Tue, 24 Mar 2026 16:51:30 +0800
+Message-ID: <20260324085130.74534-1-pengpeng@iscas.ac.cn>
+X-Mailer: git-send-email 2.50.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: qwCowACHMGyTUMJpOqb8Cg--.13633S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7AryUKw4UAryxZF1UKFWUXFb_yoW8Gry5pw
+ 47GF1Fq39Yy3WFkrZ8Za4UuFW8u3s5JFy8tF4rK34SkrnrZr48C345GFyY9ry5Kr1ruayS
+ qFW5Way7uF1vyF7anT9S1TB71UUUUUDqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUU9014x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+ rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+ 1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+ 6F4UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s
+ 0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xII
+ jxv20xvE14v26r106r15McIj6I8E87Iv67AKxVW8JVWxJwAm72CE4IkC6x0Yz7v_Jr0_Gr
+ 1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E8cxa
+ n2IY04v7MxkF7I0En4kS14v26r4a6rW5MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4
+ AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE
+ 17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMI
+ IF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4l
+ IxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr0_Cr1UYxBIda
+ VFxhVjvjDU0xZFpf9x0pRdb1nUUUUU=
+X-Originating-IP: [111.196.245.197]
+X-CM-SenderInfo: pshqw1xhqjqxpvfd2hldfou0/
 X-Mailman-Approved-At: Tue, 24 Mar 2026 09:12:40 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -138,122 +61,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-When a caller already guards a tracepoint with an explicit enabled check:
+get_gpio_i2c_info() computes the number of GPIO I2C assignment records
+present in the BIOS table and then uses bfI2C_LineMux as an array index
+into header->asGPIO_Info[]. The current check only rejects values
+strictly larger than the record count, so an index equal to count still
+falls through and reaches the fixed table one element past the end.
 
-  if (trace_foo_enabled() && cond)
-      trace_foo(args);
+Reject indices at or above the number of available records before using
+them as an array index.
 
-trace_foo() internally re-evaluates the static_branch_unlikely() key.
-Since static branches are patched binary instructions the compiler cannot
-fold the two evaluations, so every such site pays the cost twice.
+Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
+---
+ drivers/gpu/drm/amd/display/dc/bios/bios_parser.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-This series introduces trace_call__##name() as a companion to
-trace_##name().  It calls __do_trace_##name() directly, bypassing the
-redundant static-branch re-check, while preserving all other correctness
-properties of the normal path (RCU-watching assertion, might_fault() for
-syscall tracepoints).  The internal __do_trace_##name() symbol is not
-leaked to call sites; trace_call__##name() is the only new public API.
-
-  if (trace_foo_enabled() && cond)
-      trace_call__foo(args);   /* calls __do_trace_foo() directly */
-
-The first patch adds the three-location change to
-include/linux/tracepoint.h (__DECLARE_TRACE, __DECLARE_TRACE_SYSCALL,
-and the !TRACEPOINTS_ENABLED stub).  The remaining 18 patches
-mechanically convert all guarded call sites found in the tree:
-kernel/, io_uring/, net/, accel/habanalabs, cpufreq/, devfreq/,
-dma-buf/, fsi/, drm/, HID, i2c/, spi/, scsi/ufs/, btrfs/,
-net/devlink/, kernel/time/, kernel/trace/, mm/damon/, and arch/x86/.
-
-This series is motivated by Peter Zijlstra's observation in the discussion
-around Dmitry Ilvokhin's locking tracepoint instrumentation series, where
-he noted that compilers cannot optimize static branches and that guarded
-call sites end up evaluating the static branch twice for no reason, and
-by Steven Rostedt's suggestion to add a proper API instead of exposing
-internal implementation details like __do_trace_##name() directly to
-call sites:
-
-  https://lore.kernel.org/linux-trace-kernel/8298e098d3418cb446ef396f119edac58a3414e9.1772642407.git.d@ilvokhin.com
-
-Suggested-by: Steven Rostedt <rostedt@goodmis.org>
-Suggested-by: Peter Zijlstra <peterz@infradead.org>
-
-Changes in v2:
-- Renamed trace_invoke_##name() to trace_call__##name() (double
-  underscore) per review comments.
-- Added 4 new patches covering sites missed in v1, found using
-  coccinelle to scan the tree (Keith Busch):
-    * net/devlink: guarded tracepoint_enabled() block in trap.c
-    * kernel/time: early-return guard in tick-sched.c (tick_stop)
-    * kernel/trace: early-return guard in trace_benchmark.c
-    * mm/damon: early-return guard in core.c
-    * arch/x86: do_trace_*() wrapper functions in lib/msr.c, which
-      are called exclusively from tracepoint_enabled()-guarded sites
-      in asm/msr.h
-
-v1: https://lore.kernel.org/linux-trace-kernel/abSqrJ1J59RQC47U@kbusch-mbp/
-
-Vineeth Pillai (Google) (19):
-  tracepoint: Add trace_call__##name() API
-  kernel: Use trace_call__##name() at guarded tracepoint call sites
-  io_uring: Use trace_call__##name() at guarded tracepoint call sites
-  net: Use trace_call__##name() at guarded tracepoint call sites
-  accel/habanalabs: Use trace_call__##name() at guarded tracepoint call
-    sites
-  cpufreq: Use trace_call__##name() at guarded tracepoint call sites
-  devfreq: Use trace_call__##name() at guarded tracepoint call sites
-  dma-buf: Use trace_call__##name() at guarded tracepoint call sites
-  fsi: Use trace_call__##name() at guarded tracepoint call sites
-  drm: Use trace_call__##name() at guarded tracepoint call sites
-  HID: Use trace_call__##name() at guarded tracepoint call sites
-  i2c: Use trace_call__##name() at guarded tracepoint call sites
-  spi: Use trace_call__##name() at guarded tracepoint call sites
-  scsi: ufs: Use trace_call__##name() at guarded tracepoint call sites
-  btrfs: Use trace_call__##name() at guarded tracepoint call sites
-  net: devlink: Use trace_call__##name() at guarded tracepoint call
-    sites
-  kernel: time, trace: Use trace_call__##name() at guarded tracepoint
-    call sites
-  mm: damon: Use trace_call__##name() at guarded tracepoint call sites
-  x86: msr: Use trace_call__##name() at guarded tracepoint call sites
-
- arch/x86/lib/msr.c                                |  6 +++---
- drivers/accel/habanalabs/common/device.c          | 12 ++++++------
- drivers/accel/habanalabs/common/mmu/mmu.c         |  3 ++-
- drivers/accel/habanalabs/common/pci/pci.c         |  4 ++--
- drivers/cpufreq/amd-pstate.c                      | 10 +++++-----
- drivers/cpufreq/cpufreq.c                         |  2 +-
- drivers/cpufreq/intel_pstate.c                    |  2 +-
- drivers/devfreq/devfreq.c                         |  2 +-
- drivers/dma-buf/dma-fence.c                       |  4 ++--
- drivers/fsi/fsi-master-aspeed.c                   |  2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c            |  2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c            |  4 ++--
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  2 +-
- drivers/gpu/drm/scheduler/sched_entity.c          |  4 ++--
- drivers/hid/intel-ish-hid/ipc/pci-ish.c           |  2 +-
- drivers/i2c/i2c-core-slave.c                      |  2 +-
- drivers/spi/spi-axi-spi-engine.c                  |  4 ++--
- drivers/ufs/core/ufshcd.c                         | 12 ++++++------
- fs/btrfs/extent_map.c                             |  4 ++--
- fs/btrfs/raid56.c                                 |  4 ++--
- include/linux/tracepoint.h                        | 11 +++++++++++
- io_uring/io_uring.h                               |  2 +-
- kernel/irq_work.c                                 |  2 +-
- kernel/sched/ext.c                                |  2 +-
- kernel/smp.c                                      |  2 +-
- kernel/time/tick-sched.c                          | 12 ++++++------
- kernel/trace/trace_benchmark.c                    |  2 +-
- mm/damon/core.c                                   |  2 +-
- net/core/dev.c                                    |  2 +-
- net/core/xdp.c                                    |  2 +-
- net/devlink/trap.c                                |  2 +-
- net/openvswitch/actions.c                         |  2 +-
- net/openvswitch/datapath.c                        |  2 +-
- net/sctp/outqueue.c                               |  2 +-
- net/tipc/node.c                                   |  2 +-
- 35 files changed, 74 insertions(+), 62 deletions(-)
-
+diff --git a/drivers/gpu/drm/amd/display/dc/bios/bios_parser.c b/drivers/gpu/drm/amd/display/dc/bios/bios_parser.c
+index 8b3084cc59fd..85c8f5479a52 100644
+--- a/drivers/gpu/drm/amd/display/dc/bios/bios_parser.c
++++ b/drivers/gpu/drm/amd/display/dc/bios/bios_parser.c
+@@ -1952,7 +1952,7 @@ static enum bp_result get_gpio_i2c_info(struct bios_parser *bp,
+ 	count = (le16_to_cpu(header->sHeader.usStructureSize)
+ 			- sizeof(ATOM_COMMON_TABLE_HEADER))
+ 				/ sizeof(ATOM_GPIO_I2C_ASSIGMENT);
+-	if (count < record->sucI2cId.bfI2C_LineMux)
++	if (count <= record->sucI2cId.bfI2C_LineMux)
+ 		return BP_RESULT_BADBIOSTABLE;
+ 
+ 	/* get the GPIO_I2C_INFO */
 -- 
-2.53.0
+2.50.1 (Apple Git-155)
 
