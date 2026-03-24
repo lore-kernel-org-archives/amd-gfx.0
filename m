@@ -4,122 +4,97 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 17A8AF532D4
-	for <amd-gfx@archiver.kernel.org>; Tue, 24 Mar 2026 04:19:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5588FF532D0
+	for <amd-gfx@archiver.kernel.org>; Tue, 24 Mar 2026 04:36:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 91CC710E0C2;
-	Tue, 24 Mar 2026 04:19:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D7B6110E1C9;
+	Tue, 24 Mar 2026 04:36:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="xEcG4cqQ";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="wBSA2QP8";
 	dkim-atps=neutral
-Received: from PH0PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11011003.outbound.protection.outlook.com [40.107.208.3])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 80CA210E0C2
- for <amd-gfx@lists.freedesktop.org>; Tue, 24 Mar 2026 04:19:24 +0000 (UTC)
+Received: from CO1PR03CU002.outbound.protection.outlook.com
+ (mail-westus2azon11010009.outbound.protection.outlook.com [52.101.46.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B769010E01F
+ for <amd-gfx@lists.freedesktop.org>; Tue, 24 Mar 2026 04:36:40 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=qKxhEqIqd7/z8gDFptAwU4FAvtHLW+v/TcbgY/cp1DZLKOEhbG/mfpI2vIMZn0si6YanaLw+R5xy2uhWrFu+7OvHCE4tZPejF7W4YdyWIW9n1+2b+VmV21KP9I2mrx3KOAMDjtzaEpP0w5AxTtF5kILzsbWZfV0I7oFauM1urapZdxldvqo00kl49QpfcMfHuDEdc0PBOqNcdXW9Sw+BPTcK/qlkQKg9vSF/ssz4X3Di7NjtOAcY7ikZJq2ZN8wAWItVtWDn1Hu/tjF0JlrAYaZ24RAZLxQ5a3qjvWki7I8dcccynzbJXuC/0B/yYLFuldtuawx362HhCeejhNzZnQ==
+ b=fdU4FePnr2T9dXR/tVjWRzmQ6p8fLOAD2Be5UGDXxxQZq8lHJ5+ip5+7onzzP0Mx/w6NO2unNl5oZ7nYs7CRZrAwYERb1XoSixiCi9h6VOXD10KklxtwkX9k1Km+SNLJnds6gw/D0FgEkznkf/tv+SPth1+teDtKVFol8Molxps7i0aE7Mgewa29AmS2grGM/QdSW7BvsEvSs1pXtxRVT1yTf3f0e7DbBlW9tRCUg0CXyHVFXfMEoWskcOQGgJl6PD2WCPL/3FTP5GhZRInkiq7PhDKM4AXAFqxhGk8j7kAlkh+BGguHD7L3zWlMMQwZ/VCevRliOZCIqHO51xgEUQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=laAVEuNvGOo7Xx3SlINWULk8b7kavaEkjlzG1WckHEU=;
- b=Duja/Q2rqhLoWZ2A8ST6C9YzR0tO8soX8tpBEmsyrMM9DHh4UmJzZa0tkh8QwqVlUzIl9e7EjEBd8iRX9XfQZQU8IRoC72ZihHvIHI7tHKtvmKDAV6IMT+cIPW1SsxqctlzfdJbOyao2YAU06K2fInH+1C/Pid/1j2GzeaA2Ie9yR49kOTBpXldaPt/mjbfjc58NM91X3qa2oTO2j5TfJsBW++xI7R84ty74t7BaZdI4gmOQRRIisAHfOkbD/A8hAZkCZrHx5YIRNVLMPbGaYbI5eSHhu7tJ8MF4fh8WftsOOQ0zeAg3eszdUrlbD64mxuWFdMhhJJql9UMgU87qIw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=RpzsSXx9qTWP1wDNcCFhDygEmVG4yI4wHzrg9bZB0wo=;
+ b=rDqVB0+9OHGZW+a1/pTuc/eoF2KPNC01aZHiDbgMclfNzezqmtIpbCo5Z8TcchX47Yt6kXpbxb6l/KOClMzNM55TVX0Q7rw8NdQVHvMIu9X4zFv/sRce9poj2dvkfomyrO4DxQN3PGewzWGW1bRqOoPXTzY+KAg5oD9ccTvm8y2nJYw+JB5kQQt341HvEzOGo4W6/8txE0+pKYFMOIH+EHwkCqA+XaKQAAnNuM4b1ghV052/beTkuVUWPzqvAg10ESmQf1rFDFWxafNRqg3gZwhh7TRujwqMAmDkZpwCVKBbgl6d5/77MYZnhP9rbRLcwcHkxp22lADFoltK7n4vhw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=laAVEuNvGOo7Xx3SlINWULk8b7kavaEkjlzG1WckHEU=;
- b=xEcG4cqQXflUfQhGjww6WjjC89Bb6XRUd4/dKe7PSBs8nn/iuAB2ZUkIyG1bI4ib14HkeyVT6OYiIVNNSOgiWf4oJ+0Qf9Y0mXuywceZl5nZkhtP9Ps504Qhkvu3MYCNUZvCor+xw/5s9J/2E9VoUO/J/6fGko3yTU+Y4+5IqOw=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from SA0PR12MB7091.namprd12.prod.outlook.com (2603:10b6:806:2d5::17)
- by CYXPR12MB9279.namprd12.prod.outlook.com (2603:10b6:930:d5::7) with
+ bh=RpzsSXx9qTWP1wDNcCFhDygEmVG4yI4wHzrg9bZB0wo=;
+ b=wBSA2QP8R8RycPMoa5NKLrMBHJfhwRiGn4Tcwa+IHyhs6SEsYnsNrKz56DgaYqO1sGD/Qr82oq85CaR0+0Qi6sF0jAvTJONprqrMnOScURZtuhx55AfY8qhuTZm3z+L3vF8PTJ5QbDUpM20Kk16OEs7S+ya7Ni9YkqUQuw5yvxo=
+Received: from SA1P222CA0074.NAMP222.PROD.OUTLOOK.COM (2603:10b6:806:2c1::20)
+ by DM4PR12MB6614.namprd12.prod.outlook.com (2603:10b6:8:bb::13) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.20; Tue, 24 Mar
- 2026 04:19:20 +0000
-Received: from SA0PR12MB7091.namprd12.prod.outlook.com
- ([fe80::ec33:1213:cfd8:63bc]) by SA0PR12MB7091.namprd12.prod.outlook.com
- ([fe80::ec33:1213:cfd8:63bc%6]) with mapi id 15.20.9745.019; Tue, 24 Mar 2026
- 04:19:20 +0000
-Message-ID: <151ad3b4-c455-4109-b687-f4220453281b@amd.com>
-Date: Tue, 24 Mar 2026 09:49:14 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH V2] drm/amdgpu: add support to query vram info from
- firmware
-To: Gangliang Xie <ganglxie@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: Hawking.Zhang@amd.com, tao.zhou1@amd.com
-References: <20260324041123.1882318-1-ganglxie@amd.com>
-Content-Language: en-US
-From: "Lazar, Lijo" <lijo.lazar@amd.com>
-In-Reply-To: <20260324041123.1882318-1-ganglxie@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MA5P287CA0066.INDP287.PROD.OUTLOOK.COM
- (2603:1096:a01:1b3::11) To SA0PR12MB7091.namprd12.prod.outlook.com
- (2603:10b6:806:2d5::17)
+ 2026 04:36:37 +0000
+Received: from SA2PEPF00003AE9.namprd02.prod.outlook.com
+ (2603:10b6:806:2c1:cafe::cd) by SA1P222CA0074.outlook.office365.com
+ (2603:10b6:806:2c1::20) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9723.31 via Frontend Transport; Tue,
+ 24 Mar 2026 04:36:30 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SA2PEPF00003AE9.mail.protection.outlook.com (10.167.248.9) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9723.19 via Frontend Transport; Tue, 24 Mar 2026 04:36:36 +0000
+Received: from srishanm-Cloudripper.amd.com (10.180.168.240) by
+ satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.17; Mon, 23 Mar 2026 23:36:35 -0500
+From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+To: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "Alex
+ Deucher" <alexander.deucher@amd.com>
+CC: <amd-gfx@lists.freedesktop.org>, Srinivasan Shanmugam
+ <srinivasan.shanmugam@amd.com>
+Subject: [PATCH] drm/amdgpu: Fix NULL bo_va dereference in VA clear path
+Date: Tue, 24 Mar 2026 10:06:00 +0530
+Message-ID: <20260324043600.2075763-1-srinivasan.shanmugam@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA0PR12MB7091:EE_|CYXPR12MB9279:EE_
-X-MS-Office365-Filtering-Correlation-Id: 204c520a-b057-4fda-d116-08de895c854d
+X-MS-TrafficTypeDiagnostic: SA2PEPF00003AE9:EE_|DM4PR12MB6614:EE_
+X-MS-Office365-Filtering-Correlation-Id: f4f05963-d67c-42a0-232a-08de895eef69
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|366016|56012099003|22082099003|18002099003; 
-X-Microsoft-Antispam-Message-Info: VJzihc8fP6zWBynR5idpxMgFlL4Y1hz1YwwGpN6/MZK8mqIDF/fpePcjcxAKrovDHcSwGdCDG3v4oyWI9SJKgA203gc4rWMcXCDtsufqANunQz/ggNMcsizJho9CWggUDP90BhMy9kQfegpb8OBxSGG6uAk+agKOfyO2oK9JPYhK6SrP8kQb1LxxVrN+bRg5HNEaTOlEIghw+ZtUTmX3sXbI0IXaaCi8792meCAoHWKviS215gMDS8KWbFcd/FGnJeRxuyTn5kDAUU3iVjrKEhm5bFFvMaom7WyN7guahj69niX7yxOgDlkAWCWxWlYcKh1QakCy/q67JGNcN7b9h6QF9gwDPGM3NeAb4TYMwv7jVpNhQLZNWHpe08AhPq3peoRwBmSzafyPqM8pb6xZd/b1KcOAy5Qp5v0gZTEuzNBWWPUy7D7foay1/kMLH9Fhq3vygW4yLIeVDeildNEmRbRZUMQHLJBZJNWSrwJA3VaMRcsA4s5M1KvS45e/XhmknpaXzP7OpgyQymrwks1VE7l9BQiCdNXDC+r3wfGU59MaP1x0JnEAxogdaAbHru821JLjXNiDmARAiNDEpVIPVjT8/SctXydEeklXyhVf3Kdftg3kRrSVd8U5mMtiIlCVi6tV25aH41yn2evgB8V+2lTZbnHKZN0BOiwSZESm8Jcgg+res/4iSu0MU22P2vpFZp6eC95gpr1cMNK15MulSmeKRG1QDLIBzU6f2bS0/1w=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SA0PR12MB7091.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(366016)(56012099003)(22082099003)(18002099003);
+ ARA:13230040|1800799024|82310400026|36860700016|376014|18002099003|56012099003;
+X-Microsoft-Antispam-Message-Info: BtDOGgrUK9vn1TEZE1CsN/ox+yQCQzH4JncifF7TC39g0O7QdY2ALJEk2teBZfTPW7L+z7WL6SjmfeQnn0fypvWIGJ17YuNiG9LjzhN+M1jGjKfy93OfPQfKt4F6B0N2NC5V4hz1IsIeAeVtmAZbwyzWY8CtH/2JdX2thHnrGTiM+1DurxYzS/Qh5zr+SQrLLxsTmHKrJ3JAv7gFCuIulU6kH2h6h6GNTFnFgHEDhWdFpqUuL/eHzS6qdX5lvCbl6LJV6SfxSn3KjhURPkQ4cUtEiU+jXjakbBTU0g28VV3z/Sr5EQpElI37wqecv2ShERtIbRypOieXvLaKOxcQkc1SFuZGdSlJXtfXxfDhs7v4jnrTR/wAsLqWt1say9B1YLdLTcjNYrmLnuHJBeL3KkywZWdbRZEjq/xzkebvgX3IrnnnkcNz5uwCpXLXQ729ovUQKPoPorlYLpJ5yCGLF8LrD4jTAz+UrQ2YYEBSQskHXF7fQgSEolnXijppAjtja+U7a7QujTm1tHOpRf408QBt/9drTttVsiZHeaKNP48Dy/NkQeMjooTRfZuR9eLR8TivP1LQWAmU87/TrTQk+g1NL1DwQCdLFLpJJtTHkNhPSQv4xERK2Oh2rcRYTHvLg6mIJ5gKkXezGtycTVVgdDuvFrRDBxVT8pAQiuUUhyqafbCWTjQi1DdeAcA/fHX5Nb9ZEPbOrzls/kZXHj/d3LtmJ88U3eymeGWA2VqlRJPmx4dglrEYmNaZtBEEE/mAeFHjIH2bywqpTKJpQc8uvA==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(82310400026)(36860700016)(376014)(18002099003)(56012099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NGZRd2FtZ1dWVThVVE52bWQvbzJXYU93ZlYya0FtKzhyYzdaZG8wWG9xZWxD?=
- =?utf-8?B?cUFGV0xTZXBZNmYxYWVpUWxxT1JpdGQ0dEUzUnZkZEVUeXRVVzBTK3dlaDRU?=
- =?utf-8?B?RFJUb2tDa08wbFlNK2FpRThOWEFFc3J6Qi85OUxneG16S1ZsMVM0cU8yU1V0?=
- =?utf-8?B?SUp2bmNRM0JBdXk4MmhuVTd2c2VaN1lrbTFTbEVQcHpyT3RXeWVmNlZianU2?=
- =?utf-8?B?Z2NoTkY4R0EvaERYUERZeUJ1RXZjajlHRVgyT1doTjRVU3A5WThNT044RU5P?=
- =?utf-8?B?NkZtaEx1SDZ6c2VITXJKOWNqWE92bHlFMUNVZnhQZGIyUTFFUysyeGswcXl6?=
- =?utf-8?B?UGlQVXprZElzam5DeVdGZGp1RVJrbHZMdmh3Zm1RUHdCSjU1S01lUUlPU2ZC?=
- =?utf-8?B?cDNLdWpVbS9JeGJBeXJXUlVmdUJudFVLcU9IRmpxNFFTTnVOdDhCcFNXZVBq?=
- =?utf-8?B?QXhnWGIwdHRqRlI5bTA0ckxya0RZN3BBMDJBd1lqTWhxU0lZci96SGZGU1NC?=
- =?utf-8?B?MEt0VUVteFZCKzRraXk3N3pZN2IycGtuQTQ2ODdoYTFkMm1UUHlYU3BFaUc1?=
- =?utf-8?B?bTNuc05oZHFJZTI1UkZxeTdGR1ZVSkdpZGdoZHJVcy9XZkN4djNpZTVlTkRE?=
- =?utf-8?B?ZUhVY1cwNTFtN3VFOVJNbmU5RW91Q2pCZWpMWEpoN0tZOG1qR2FXWFZCby9O?=
- =?utf-8?B?UmVSeE04OVdiNkZ4WlphV0dTVTdkU2wrajRnMkoxd3QybW41dE1DeUR5WFF2?=
- =?utf-8?B?T2ZsZFptV2g5Z25FS2xwNlFPYWR1Z2gvblZXaEFQL0ljR214TVFwTVUrUmFZ?=
- =?utf-8?B?em81eVI2TVhPL255TTlrVDNnTnU0M3ZFLzFjYW9Nc20wUTVsQVdxTjIrY2Jn?=
- =?utf-8?B?UlREVmk0YnpySU1uajdFdGo3TjJzRFpoVUdxa1pZb2U1UlNRMGk3L1lobldo?=
- =?utf-8?B?bmJ3ZlF0Z2QybWFQRUZNL0t5Y2tJSnRuK3QzYkFtUThCNklHVjF2b0tMVGhi?=
- =?utf-8?B?UmdkU2xFU1l2UVJpanVBR240OGRjVWxjRlQwSzYvclBPU0h6a0lkOXRRejVw?=
- =?utf-8?B?TUMyaEVjaEwwdElNdzRtaTFPTktJMzBZNTh6R1NwRXpwNGpvTmNZckZ2NVdS?=
- =?utf-8?B?UkFXRHA5TmtnWVdQREszZVRtaC80Q3hZVnZDWU9SSU5xaDk5dWVkY1E3U2Ju?=
- =?utf-8?B?aVdFZ2RWNThGeFoxQ2tnMGVyNy9oanQ4Q2JFN3V0bkZGQ2EyNTk3a05UK0dv?=
- =?utf-8?B?ai9xMHB1eWRYNkxBQU9UakNjNWpQZU9yR2JEQ1BRY2M3SzZZQTk3MVJFRS9E?=
- =?utf-8?B?Sk5QMUtrSm41NjVDWm4reG9PSnltZ0ZESFk0VWpmUlAyajhocURpL1ducTZ4?=
- =?utf-8?B?RjErbnE4Zi96RjUvRXJ3M1l5bEl3UDJGMTFMRSs2RHpGdWpzLzBsUTJxS1Az?=
- =?utf-8?B?bjlxNGk4akpJY1lLWFpkK2xoaENmNDJEbDlHSFBBU2ZkNWlVWVQwbkk2bmFi?=
- =?utf-8?B?UWhxam1UZWVxMGRTUUE4T1ZOSjhSODZxRWErc2x2N09JTSt2aG5XeEtBa2ZY?=
- =?utf-8?B?UkMybC9GNkkwTmVRdEtyejM3QnIxWHIyQm1aYXpNeXhZU01zRFAzVkFrUXl0?=
- =?utf-8?B?SWlPa1JFY3NIa0c2TmcxcCt0emVPWkVJSm84NTFJVzJsTGFFYXVub2J2Q0Rq?=
- =?utf-8?B?ZHFQQm9vRGliVmZ5cTM3aVkyUU00M0JGa3dnbHUxTDFGYzNscm1WV01BV1ZU?=
- =?utf-8?B?ZWlJSVZwMS9SRDc1cWJCbUxDQmFRL2JJZmdDSXNFRk5nWWY3bHhVci9yV0RN?=
- =?utf-8?B?R2UzUnlKSnQrUkZGN0FMQTlVeWJDUkxudXd6SnVrYUU2bVB4M2hpUW1YbjZt?=
- =?utf-8?B?WEZNZmVEQzcrc3VmRjlaUGo3c2hIQSs1djBva2laenYxVkFlNENmd1dVdERj?=
- =?utf-8?B?eC9wbVZDRkJ6dzRGQ1QwelVXOUVJcmJVODdsNU9ML2lhY2FKVkZyN1NOczBD?=
- =?utf-8?B?RVRhZFZ4QnI4MUZaRytuQ1VVZHFCbndIMXRvd0k1RTBLUER2ZE50ZmxCOENF?=
- =?utf-8?B?WENwak5Jd1RrUGRveThzc003c3B6c291SWlYWTFlWW90TGFTc3Y2OTg3K0p3?=
- =?utf-8?B?Sk9jK05yQVBRL1lWejVYalNwMTZIdTIyRzdTUmhVU0ozcmpJY3RmVmY0eko1?=
- =?utf-8?B?TXdyVUs5WkVMczZzMng3ZzkwWE1XbE43cS9wQUFuMklaRzlUSXFKWExwa2dM?=
- =?utf-8?B?ZlR6elFaZndsRkp3NmZLNFlHNE8zYVU0OS9maC96MmRTSWdha0RDeEZjeVZH?=
- =?utf-8?B?bnZoYTkxZTJZeW5NcXN2VWt5a2hrZWtLQml6TFprWWhEZW9QUWs0QT09?=
+X-MS-Exchange-AntiSpam-MessageData-0: Xxd1Rkad6gwDgeEFE26AVIjOMHr+mHaayOgKrgvrPRvMeLAfCiwKuYZChkQ7irp1u6hRcZs4YrfG59ZzHvjS0R6xjIqOslDvycrHkcEVnj7piok9a/yERa6I02WXL7g3ZpWeowz/yEs4frUPwHXWuJQypqTz85/shi9yoSWX9EdvlgtXN9Wwme8WPW/iBYQT+dIDFYvXuzL2lyt6lPdzMmpRyyCK1Jn4MoyZ0zWyfVmgQOJYmOPDBxrLBn59ySdPIR5xxgZFOSa2KphmaMwD7NSy4oHHZzj+nmZaXFdix3TJLi/Kw2ngt07IH8bO+aAgn6JYz+f79XHK3qnzIIotlgiQaQOtajqHxvzBpuyeAkYcdsMWNlUsEcv40a1Bn5utc9jCH+X6deMEeul4oBaAZnhUlZQ0+G4fCegmMe/DyWkmW26cYI0gbaZXQiRby2bA
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 204c520a-b057-4fda-d116-08de895c854d
-X-MS-Exchange-CrossTenant-AuthSource: SA0PR12MB7091.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Mar 2026 04:19:20.0813 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Mar 2026 04:36:36.9108 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f4f05963-d67c-42a0-232a-08de895eef69
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: GWX1fha9lndtvU/bKRPJZqKZOpa8oOZFkw8ENQ6xx5IGMM/aeu4y26FWQMGsZXH6
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYXPR12MB9279
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SA2PEPF00003AE9.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6614
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,149 +109,92 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+amdgpu_gem_va_ioctl() sets bo_va to NULL for VA clear operations,
+because CLEAR works on a VM address range and not on a specific BO.
 
+However, the code still calls amdgpu_gem_va_update_vm() with this
+NULL bo_va. That helper expects a valid bo_va and dereferences it.
 
-On 24-Mar-26 9:41 AM, Gangliang Xie wrote:
-> add support to query vram info from firmware
-> 
-> v2: change APU vram type, add multi-aid check
-> 
-> Signed-off-by: Gangliang Xie <ganglxie@amd.com>
-> ---
->   .../gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c  | 13 ++++-
->   drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c         | 56 ++++++++++---------
->   2 files changed, 43 insertions(+), 26 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c
-> index 7f4751e5caaf..504b5f0a74ab 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c
-> @@ -399,6 +399,9 @@ amdgpu_atomfirmware_get_vram_info(struct amdgpu_device *adev,
->   		switch (amdgpu_ip_version(adev, GC_HWIP, 0)) {
->   		case IP_VERSION(12, 0, 0):
->   		case IP_VERSION(12, 0, 1):
-> +		case IP_VERSION(9, 5, 0):
-> +		case IP_VERSION(9, 4, 4):
-> +		case IP_VERSION(9, 4, 3):
->   			index = get_index_into_master_table(atom_master_list_of_data_tables_v2_1, umc_info);
->   			break;
->   		default:
-> @@ -475,6 +478,9 @@ amdgpu_atomfirmware_get_vram_info(struct amdgpu_device *adev,
->   			switch (amdgpu_ip_version(adev, GC_HWIP, 0)) {
->   			case IP_VERSION(12, 0, 0):
->   			case IP_VERSION(12, 0, 1):
-> +			case IP_VERSION(9, 5, 0):
-> +			case IP_VERSION(9, 4, 4):
-> +			case IP_VERSION(9, 4, 3):
->   				umc_info = (union umc_info *)(mode_info->atom_context->bios + data_offset);
->   
->   				if (frev == 4) {
-> @@ -488,8 +494,13 @@ amdgpu_atomfirmware_get_vram_info(struct amdgpu_device *adev,
->   							*vram_vendor = mem_vendor;
->   						if (vram_type)
->   							*vram_type = convert_atom_mem_type_to_vram_type(adev, mem_type);
-> -						if (vram_width)
-> +						if (vram_width) {
->   							*vram_width = mem_channel_number * (1 << mem_channel_width);
-> +							if (amdgpu_ip_version(adev, GC_HWIP, 0) == IP_VERSION(9, 5, 0) ||
-> +							    amdgpu_ip_version(adev, GC_HWIP, 0) == IP_VERSION(9, 4, 4) ||
-> +							    amdgpu_ip_version(adev, GC_HWIP, 0) == IP_VERSION(9, 4, 3))
-> +								*vram_width *= 4;
+This can lead to a NULL pointer dereference, as seen in amd_bo IGT.
 
-This is not the place to do this and this is not the way also. It should 
-be based on total number of AIDs available.
+Fix this by skipping the BO-VA update helper for CLEAR operations
+and using vm->last_update instead.
 
-Thanks,
-Lijo
-> +						}
->   						break;
->   					default:
->   						return -EINVAL;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-> index 1ca0202cfdea..285eecb65522 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-> @@ -1823,24 +1823,37 @@ static void gmc_v9_0_save_registers(struct amdgpu_device *adev)
->   		adev->gmc.sdpif_register = RREG32_SOC15(DCE, 0, mmDCHUBBUB_SDPIF_MMIO_CNTRL_0);
->   }
->   
-> -static void gmc_v9_4_3_init_vram_info(struct amdgpu_device *adev)
-> +static void gmc_v9_0_init_vram_info(struct amdgpu_device *adev)
->   {
->   	static const u32 regBIF_BIOS_SCRATCH_4 = 0x50;
-> +	int dev_var = adev->pdev->device & 0xF;
->   	u32 vram_info;
->   
-> -	adev->gmc.vram_type = AMDGPU_VRAM_TYPE_HBM;
-> -	adev->gmc.vram_width = 128 * 64;
-> -
-> -	if (amdgpu_ip_version(adev, GC_HWIP, 0) == IP_VERSION(9, 5, 0))
-> -		adev->gmc.vram_type = AMDGPU_VRAM_TYPE_HBM3E;
-> -
-> -	if (amdgpu_ip_version(adev, GC_HWIP, 0) == IP_VERSION(9, 4, 4) &&
-> -		adev->rev_id == 0x3)
-> -		adev->gmc.vram_type = AMDGPU_VRAM_TYPE_HBM3E;
-> -
-> -	if (!(adev->flags & AMD_IS_APU) && !amdgpu_sriov_vf(adev)) {
-> -		vram_info = RREG32(regBIF_BIOS_SCRATCH_4);
-> -		adev->gmc.vram_vendor = vram_info & 0xF;
-> +	if (adev->gmc.is_app_apu) {
-> +		adev->gmc.vram_type = AMDGPU_VRAM_TYPE_HBM;
-> +		adev->gmc.vram_width = 128 * 64;
-> +	} else if (adev->flags & AMD_IS_APU) {
-> +		adev->gmc.vram_type = AMDGPU_VRAM_TYPE_DDR4;
-> +		adev->gmc.vram_width = 64 * 64;
-> +	} else if (amdgpu_is_multi_aid(adev)) {
-> +		adev->gmc.vram_type = AMDGPU_VRAM_TYPE_HBM;
-> +		adev->gmc.vram_width = 128 * 64;
-> +
-> +		if (amdgpu_ip_version(adev, GC_HWIP, 0) == IP_VERSION(9, 5, 0))
-> +			adev->gmc.vram_type = AMDGPU_VRAM_TYPE_HBM3E;
-> +
-> +		if (amdgpu_ip_version(adev, GC_HWIP, 0) == IP_VERSION(9, 4, 4) &&
-> +		    adev->rev_id == 0x3)
-> +			adev->gmc.vram_type = AMDGPU_VRAM_TYPE_HBM3E;
-> +
-> +		if (amdgpu_ip_version(adev, GC_HWIP, 0) == IP_VERSION(9, 4, 3) &&
-> +		    (dev_var == 0x5))
-> +			adev->gmc.vram_type = AMDGPU_VRAM_TYPE_HBM3E;
-> +
-> +		if (!(adev->flags & AMD_IS_APU) && !amdgpu_sriov_vf(adev)) {
-> +			vram_info = RREG32(regBIF_BIOS_SCRATCH_4);
-> +			adev->gmc.vram_vendor = vram_info & 0xF;
-> +		}
->   	}
->   }
->   
-> @@ -1856,19 +1869,11 @@ static int gmc_v9_0_sw_init(struct amdgpu_ip_block *ip_block)
->   
->   	spin_lock_init(&adev->gmc.invalidate_lock);
->   
-> -	if (amdgpu_is_multi_aid(adev)) {
-> -		gmc_v9_4_3_init_vram_info(adev);
-> -	} else if (!adev->bios) {
-> -		if (adev->flags & AMD_IS_APU) {
-> -			adev->gmc.vram_type = AMDGPU_VRAM_TYPE_DDR4;
-> -			adev->gmc.vram_width = 64 * 64;
-> -		} else {
-> -			adev->gmc.vram_type = AMDGPU_VRAM_TYPE_HBM;
-> -			adev->gmc.vram_width = 128 * 64;
-> -		}
-> +	if (!adev->bios) {
-> +		gmc_v9_0_init_vram_info(adev);
->   	} else {
->   		r = amdgpu_atomfirmware_get_vram_info(adev,
-> -			&vram_width, &vram_type, &vram_vendor);
-> +				&vram_width, &vram_type, &vram_vendor);
->   		if (amdgpu_sriov_vf(adev))
->   			/* For Vega10 SR-IOV, vram_width can't be read from ATOM as RAVEN,
->   			 * and DF related registers is not readable, seems hardcord is the
-> @@ -1896,6 +1901,7 @@ static int gmc_v9_0_sw_init(struct amdgpu_ip_block *ip_block)
->   		adev->gmc.vram_type = vram_type;
->   		adev->gmc.vram_vendor = vram_vendor;
->   	}
-> +
->   	switch (amdgpu_ip_version(adev, GC_HWIP, 0)) {
->   	case IP_VERSION(9, 1, 0):
->   	case IP_VERSION(9, 2, 2):
+Other operations (MAP, UNMAP, REPLACE) are unchanged.
+
+Fixes the below:
+[  325.716062] [IGT] amd_bo: executing
+[  325.779102] ==================================================================
+[  325.786483] BUG: KASAN: null-ptr-deref in amdgpu_gem_va_ioctl+0x380/0x1130 [amdgpu]
+[  325.795105] Write of size 4 at addr 0000000000000000 by task amd_bo/7893
+[  325.801997]
+[  325.803595] CPU: 12 UID: 0 PID: 7893 Comm: amd_bo Not tainted 6.19.0-1314135.2.zuul.928a0cbbebc74c4f8d5a99a4d0a7ca55 #1 PREEMPT(voluntary)
+[  325.803602] Hardware name: TYAN B8021G88V2HR-2T/S8021GM2NR-2T, BIOS V1.03.B10 04/01/2019
+[  325.803606] Call Trace:
+[  325.803609]  <TASK>
+[  325.803612]  dump_stack_lvl+0x64/0x80
+[  325.803623]  kasan_report+0xb8/0xf0
+[  325.803631]  ? amdgpu_gem_va_ioctl+0x380/0x1130 [amdgpu]
+[  325.804427]  kasan_check_range+0x105/0x1b0
+[  325.804432]  amdgpu_gem_va_ioctl+0x380/0x1130 [amdgpu]
+[  325.805229]  ? __pfx_amdgpu_gem_create_ioctl+0x10/0x10 [amdgpu]
+[  325.806022]  ? __pfx_amdgpu_gem_va_ioctl+0x10/0x10 [amdgpu]
+[  325.806815]  ? __pfx___drm_dev_dbg+0x10/0x10 [drm]
+[  325.806894]  ? __pfx_amdgpu_gem_va_ioctl+0x10/0x10 [amdgpu]
+[  325.807686]  drm_ioctl_kernel+0x13d/0x2b0 [drm]
+[  325.807767]  ? __pfx_file_has_perm+0x10/0x10
+[  325.807777]  ? __pfx_drm_ioctl_kernel+0x10/0x10 [drm]
+[  325.807857]  drm_ioctl+0x4be/0xae0 [drm]
+[  325.807936]  ? __pfx_amdgpu_gem_va_ioctl+0x10/0x10 [amdgpu]
+[  325.808728]  ? __pfx_sock_write_iter+0x10/0x10
+[  325.808737]  ? __pfx_drm_ioctl+0x10/0x10 [drm]
+[  325.808816]  ? ioctl_has_perm.constprop.0.isra.0+0x2ad/0x490
+[  325.808823]  ? __pfx_ioctl_has_perm.constprop.0.isra.0+0x10/0x10
+[  325.808827]  ? _raw_spin_lock_irqsave+0x86/0xd0
+[  325.808835]  ? __pfx__raw_spin_lock_irqsave+0x10/0x10
+[  325.808841]  amdgpu_drm_ioctl+0xce/0x180 [amdgpu]
+[  325.809622]  __x64_sys_ioctl+0x139/0x1c0
+[  325.809630]  do_syscall_64+0x64/0x880
+[  325.809638]  entry_SYSCALL_64_after_hwframe+0x76/0x7e
+[  325.809645] RIP: 0033:0x7f205fd12e1d
+[  325.809650] Code: 04 25 28 00 00 00 48 89 45 c8 31 c0 48 8d 45 10 c7 45 b0 10 00 00 00 48 89 45 b8 48 8d 45 d0 48 89 45 c0 b8 10 00 00 00 0f 05 <89> c2 3d 00 f0 ff ff 77 1a 48 8b 45 c8 64 48 2b 04 25 28 00 00 00
+[  325.809654] RSP: 002b:00007ffe9032b510 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
+[  325.809660] RAX: ffffffffffffffda RBX: 0000000000000000 RCX: 00007f205fd12e1d
+[  325.809663] RDX: 00007ffe9032b5b0 RSI: 00000000c0406448 RDI: 0000000000000006
+[  325.809665] RBP: 00007ffe9032b560 R08: 0000000100000000 R09: 000000000000000e
+[  325.809668] R10: 0000000000000000 R11: 0000000000000246 R12: 00000000c0406448
+[  325.809670] R13: 0000000000000006 R14: 0000000000001000 R15: 0000000000000001
+[  325.809675]  </TASK>
+[  325.809678] ==================================================================
+
+Fixes: dc54d3d1744d ("drm/amdgpu: implement AMDGPU_VA_OP_CLEAR v2")
+Cc: Christian König <christian.koenig@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+index 98276b55ad3c..a07d00f1127b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+@@ -967,8 +967,13 @@ int amdgpu_gem_va_ioctl(struct drm_device *dev, void *data,
+ 	    (!adev->debug_vm || timeline_syncobj)) {
+ 		struct dma_fence *fence;
+ 
+-		fence = amdgpu_gem_va_update_vm(adev, &fpriv->vm, bo_va,
+-						args->operation);
++		if (args->operation == AMDGPU_VA_OP_CLEAR)
++			fence = dma_fence_get(fpriv->vm.last_update);
++		else
++			fence = amdgpu_gem_va_update_vm(adev, &fpriv->vm,
++							bo_va,
++							args->operation);
++
+ 		if (timeline_syncobj) {
+ 			if (!args->vm_timeline_point) {
+ 				/* Replace the existing fence when no point is given. */
+-- 
+2.34.1
 
