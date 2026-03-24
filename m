@@ -4,77 +4,98 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6A4AAF54AAD
-	for <amd-gfx@archiver.kernel.org>; Tue, 24 Mar 2026 13:07:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B240AF54AAD
+	for <amd-gfx@archiver.kernel.org>; Tue, 24 Mar 2026 13:10:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EE6F310E58D;
-	Tue, 24 Mar 2026 13:07:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1B9C410E58C;
+	Tue, 24 Mar 2026 13:10:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="QcbodRRZ";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="cZX/agZN";
 	dkim-atps=neutral
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2F9E110E58D;
- Tue, 24 Mar 2026 13:07:54 +0000 (UTC)
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-02.galae.net (Postfix) with ESMTPS id 1EBBE1A2FC6;
- Tue, 24 Mar 2026 13:07:53 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id E5B506011D;
- Tue, 24 Mar 2026 13:07:52 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id CC98510451277; Tue, 24 Mar 2026 14:07:44 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1774357670; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding:in-reply-to:references;
- bh=fzs1pWNycSsS39sE+twHeUSR+qT4+7glSHwX8hsiv/I=;
- b=QcbodRRZQ7IqeUKtkAQoCsXRCzX49zCQ7c/T+hCSVAXapnmgLoW9sIiyhNT46+mtFpU61J
- gJKeSKsjZKwJOSysmrVxJF3olbTeDJZ2DqVTCNwCP9TRBajYIcDIENx5tLs+7THxp2dWu0
- G/nuEQt7uiBb0r0BIkhRCZVn6pXSbqYfjcLzD/L4CbpSNR9WLcFeTQpZ4rS6QK/GzA8nkX
- h9C6LEGO1+qyCWSTqAgOYNv4hY+3xqTMYTAflOF0bmF5eF20QckGAirTPjA+Op1MqF0Nv7
- 40zg4pJn5YPXFwI/uVYiiJu5XpAy2TfiMXAYQmP7sGyJ6NVFPthK0xMFXjZ6wA==
-From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Date: Tue, 24 Mar 2026 14:07:30 +0100
-Subject: [PATCH v3] drm/atomic: drm_atomic_private_obj_fini: protect
- private_obj removal from list
+Received: from mail-dl1-f47.google.com (mail-dl1-f47.google.com [74.125.82.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AA9F910E58C
+ for <amd-gfx@lists.freedesktop.org>; Tue, 24 Mar 2026 13:10:19 +0000 (UTC)
+Received: by mail-dl1-f47.google.com with SMTP id
+ a92af1059eb24-12714f01940so260479c88.0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 24 Mar 2026 06:10:19 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1774357819; cv=none;
+ d=google.com; s=arc-20240605;
+ b=hM0dN2f2IlgAUAurAuUPtfm7MwykvjYp66O7TAOX7MkNK7E/gIbIwdC1v4XsyMoBy5
+ yA1Ol/jtowu72ZRRwFIrH5T96VIl7E7AD9Du0sZxyd8bWONxiHpDAMFIM7h6caF8ysDk
+ qx9BhSz38OH2mvYxE7O05P1EmQ/w0r/aRvVMSBw8DE6hc538pirSSQ2PULN5eUbWVb7w
+ T9kbywU0XlPSDW0azXNK9E/Bj4Zvni7bkLpvA505zX2fUj8KQYvgcfwUxgNA1JgdS4xw
+ K1RuG+E/CaFhl8oEEHfJE/CvtfGHPef9vvUh6CUzDX0CLkpzNyDxatYb9n/OjhdpxxBf
+ AsTQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=TwWbl3gQrlg4sgo335nHJ9PERnGe6ovz4ONesm9QN2Q=;
+ fh=vqfujzjIqeyU+/f9qzJWK5H0HSMKoD59R8PKI29HyXQ=;
+ b=Vnf0GtlIKItG8FFZaq98QoHFRShS+XFrzB+BMQYQGoGLddsNciaitHU8+z7DLo6XJy
+ E4f49zOrR5cp0WEOZZvVlwfqH57RvUrrywwwoXgUJTg443sA2aBI92SyT/LCiK6spsGK
+ lL3OlE4JxBIY8WLZgBZHXE7wtt1YO0CkSEse7QXpRn6mDWKY0KpDvI6pz6Gn0ULecBMc
+ knhlZn6sT/+jC8+R+z/E/bRKrZlBHiNkCNmSHt6MjpSuYYytm/kfkdYDU5cgdcsxlmMU
+ 0jBQ18yfJJQz3LIRBajpHhAvorfIQGE6vORi9D7RsGXMlmnSkYkAf6FeMN7CJRFHDN22
+ tJCw==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1774357819; x=1774962619; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=TwWbl3gQrlg4sgo335nHJ9PERnGe6ovz4ONesm9QN2Q=;
+ b=cZX/agZNqFgVcCLvcePjuKbf0efMZc1x+g1DzDXdPLEol/Fdu0Q3YxNL1TxIW00iX6
+ SnHYoLjwJejrsK9TTXolW2IbGDKOcTxMRfjLwJdAS2fj8tIxN8ohNt5fJjLM5GLueLAS
+ OUufDezHlHt+9MTmXhEa3aR6y/xQWoEnHXxO3FzXYkvj+fmVFVfGXYP8oqeORJMaUvDw
+ FC7bhi2S5uQVdqOH6W79Kg4uYI91GgOgyod8jcix/yDr4nOQPsA/YBziYGLdTAwvTiWO
+ /SIFnfLiSjCzqBvH2SM9rh/OFG/ulD4EqrOm2pkxxZjnBdXhq5t02wjREkKSLmAAuYp+
+ /8BQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1774357819; x=1774962619;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=TwWbl3gQrlg4sgo335nHJ9PERnGe6ovz4ONesm9QN2Q=;
+ b=Q59yBepM3V2CTARUF3tLbQdT+YKsaF3DsVRYC1NS6RAgM0g8jstHUWcYEF6wvk6rkW
+ eR+nTIagBbE7nIfcxBMfD7yiOOo7bBjaxqShvkbclqPaVDcunuUyu6v/N2tfRIgyK+p1
+ 5bX9gy7EN+7g2eleSnXlaoU1zpo8emsSF8vJKwWN+uFT41ekYTycP8ED72qOxthkMiT4
+ QOyDHfnhI3CIbhwDCKzSAfervFu7oYhoZA2Pku/0EOr4MEL1PScHpbDl+6KIJCRJ45en
+ LnTyPDYSqmN0FVF4KHg0QwUEkPr5K2LNvH4qUdka7OvAcqgokYx+6o1m2ACSM7cwCzsO
+ LQ6Q==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVthl5t8Zlax17xbQPejTTEF/xc8H236fEPLBK/SfJRiJCbblsCA8hqun6/4yeXqgT1NnUB3BNh@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyYdiquze1TmIRwIKohA2xgzROYFIihBjk7kd1UPNmVw19yJQR+
+ rNcxK0wOIioCr3jKnEPz+fDnbjcHl1OmbIX5MGSIPdxYIoQ+TJypk/HA/ZFfkEODVVexetAV9sm
+ uHNyuAFOoeNjZjhJc2fFjlDq0sHfJeQif/g==
+X-Gm-Gg: ATEYQzypJVsfAR6DNS1H6sb1Vf3WvKOBSmWIXiw8vikrN5LdrYMUoPYnyFoL/wFJGS+
+ kqYQoGvivOg1KOAMBQVtFvedqRUupFP7oe9kH8Hzl7Dc33uYF+1LU1NHHh2O5Se9Lyr4mUS+/PQ
+ hM5Jdq4Sids5JyB0KbiU+UZvAxJ3hCK97znasrfQlICMoywjz85TF6iZTqd98UBzOgJ2mjhI8oB
+ 40gdKfRCYbDiOsJaBCUeVGWXiCRnF5OkCvKBCIPyyDtZmUvONAyXm6aaJqYQVGQGnNNimpHuPYA
+ 3Kvu8tUiHrSfJsfn8mUvdJPNoeWBb4RQ1MtbgWdeL8RaRmuU7ppM6g86dmPr1Ss21a1oxw==
+X-Received: by 2002:a05:7022:792:b0:119:e56b:c3f1 with SMTP id
+ a92af1059eb24-12a72651381mr3814100c88.1.1774357818810; Tue, 24 Mar 2026
+ 06:10:18 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260324-drm-bridge-atomic-vs-remove-private_obj-v3-1-64deefe84044@bootlin.com>
-References: <20260324-drm-bridge-atomic-vs-remove-private_obj-v3-0-64deefe84044@bootlin.com>
-In-Reply-To: <20260324-drm-bridge-atomic-vs-remove-private_obj-v3-0-64deefe84044@bootlin.com>
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
- Rodrigo Siqueira <siqueira@igalia.com>, 
+References: <cover.1774239489.git.donettom@linux.ibm.com>
+ <1e6240945c2fcb53b6703ae62d4b36f5958ca8a6.1774239489.git.donettom@linux.ibm.com>
+ <3a5ed765-3a50-446d-bd26-aa09dfe3d6a2@amd.com>
+In-Reply-To: <3a5ed765-3a50-446d-bd26-aa09dfe3d6a2@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 24 Mar 2026 09:10:07 -0400
+X-Gm-Features: AaiRm53wTvFaie_ti12g5_uhAPMMa80SbX_M6oLaqW46aYiqMuKI-7GKZg1TM-Q
+Message-ID: <CADnq5_Mc5TEBXD+sTLmT2ew6KKH++=8YjN=3N9d_bWUqqKgMRA@mail.gmail.com>
+Subject: Re: [RESEND RFC PATCH v3 3/6] drm/amdgpu: Handle GPU page faults
+ correctly on non-4K page systems
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Donet Tom <donettom@linux.ibm.com>, amd-gfx@lists.freedesktop.org, 
+ Felix Kuehling <Felix.Kuehling@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Liviu Dudau <liviu.dudau@arm.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Paul Cercueil <paul@crapouillou.net>, 
- Rob Clark <robin.clark@oss.qualcomm.com>, 
- Dmitry Baryshkov <lumag@kernel.org>, 
- Abhinav Kumar <abhinav.kumar@linux.dev>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, 
- Thierry Reding <thierry.reding@gmail.com>, 
- Mikko Perttunen <mperttunen@nvidia.com>, 
- Jonathan Hunter <jonathanh@nvidia.com>, 
- Dave Stevenson <dave.stevenson@raspberrypi.com>, 
- =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>, 
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
-Cc: Hui Pu <Hui.Pu@gehealthcare.com>, 
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, linux-mips@vger.kernel.org, 
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, 
- linux-tegra@vger.kernel.org, Ian Ray <ian.ray@gehealthcare.com>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>
-X-Mailer: b4 0.15.0
-X-Last-TLS-Session-Version: TLSv1.3
+ Philip Yang <yangp@amd.com>, David.YatSin@amd.com, Kent.Russell@amd.com, 
+ Ritesh Harjani <ritesh.list@gmail.com>,
+ Vaidyanathan Srinivasan <svaidy@linux.ibm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,88 +110,76 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Currently drm_bridge_detach() expects that the bridge private_obj is not
-locked by a drm_modeset_acquire_ctx, and it warns in case that happens:
+Applied.  Thanks!
 
-  drm_bridge_detach()
-  -> drm_atomic_private_obj_fini()
-     -> list_del(&obj->head) // removes priv_obj from
-                             // dev->mode_config.privobj_list
-     -> obj->funcs->atomic_destroy_state()
-     -> drm_modeset_lock_fini(&obj->lock)
-        -> WARN_ON(!list_empty(&lock->head)) // warn if priv_obj->lock
-	                                     // is still in ctx->locked
+Alex
 
-The expectation is not respected when introducing bridge hot-plugging. In
-such case the warning triggers if the bridge is being removed concurrently
-to an operation that locks the private object using a
-drm_modeset_acquire_ctx, such as in this execution scenario:
-
-  CPU0:
-  drm_mode_obj_get_properties_ioctl() // userspace request
-  -> DRM_MODESET_LOCK_ALL_BEGIN()
-  .  -> drm_for_each_privobj() // loop on dev->mode_config.privobj_list
-  .     - lock the privobj mutex
-  .	- add priv_obj->lock to ctx->locked
-  .	  (list of locks to be released later)
-  .
-  .                         CPU1:
-  .                         drm_bridge_detach() // bridge hot-unplug
-  .		            -> WARN triggers!
-  .
-  -> DRM_MODESET_LOCK_ALL_END()
-     -> for each lock in ctx->locked
-	- remove priv_obj->lock from ctx->locked
-        - unlock the privobj mutex
-
-Prevent this potential deadlock by using DRM_MODESET_LOCK_ALL_BEGIN/END()
-around the list removal in drm_atomic_private_obj_fini(). This ensures that
-exactly one of these happens:
-
- * the concurrent code (e.g. drm_mode_obj_get_properties_ioctl()) acquires
-   all the locks first, so it can execute fully and release the
-   privobj->lock before drm_atomic_private_obj_fini() calls list_del() and
-   before the WARN_ON()
- * drm_atomic_private_obj_fini() acquires all the locks first, so it
-   removes its privobj->lock from the dev->mode_config.privobj_list; the
-   concurrent code will run afterwards and not acquire that lock because it
-   is not present anymore
-
-Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
-
----
-
-Changes in v3:
-- Rebased on current drm-misc-next (on 7.0-rc3)
-- Small commit message clarification
-
-Changes in v2:
-- added 'drm/atomic:' prefix to commit title
-- Adapted to work on top of "drm/atomic: Add dev pointer to drm_private_obj"
-- Slightly improved commit message
----
- drivers/gpu/drm/drm_atomic.c | 6 ++++++
- 1 file changed, 6 insertions(+)
-
-diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
-index 41c57063f3b4..0f9c2528c9ee 100644
---- a/drivers/gpu/drm/drm_atomic.c
-+++ b/drivers/gpu/drm/drm_atomic.c
-@@ -962,7 +962,13 @@ EXPORT_SYMBOL(drm_atomic_private_obj_init);
- void
- drm_atomic_private_obj_fini(struct drm_private_obj *obj)
- {
-+	struct drm_modeset_acquire_ctx ctx;
-+	int ret = 0;
-+
-+	DRM_MODESET_LOCK_ALL_BEGIN(obj->dev, ctx, 0, ret);
- 	list_del(&obj->head);
-+	DRM_MODESET_LOCK_ALL_END(obj->dev, ctx, ret);
-+
- 	obj->funcs->atomic_destroy_state(obj, obj->state);
- 	drm_modeset_lock_fini(&obj->lock);
- }
-
--- 
-2.53.0
-
+On Mon, Mar 23, 2026 at 9:04=E2=80=AFAM Christian K=C3=B6nig
+<christian.koenig@amd.com> wrote:
+>
+> On 3/23/26 05:28, Donet Tom wrote:
+> > During a GPU page fault, the driver restores the SVM range and then map=
+s it
+> > into the GPU page tables. The current implementation passes a GPU-page-=
+size
+> > (4K-based) PFN to svm_range_restore_pages() to restore the range.
+> >
+> > SVM ranges are tracked using system-page-size PFNs. On systems where th=
+e
+> > system page size is larger than 4K, using GPU-page-size PFNs to restore=
+ the
+> > range causes two problems:
+> >
+> > Range lookup fails:
+> > Because the restore function receives PFNs in GPU (4K) units, the SVM
+> > range lookup does not find the existing range. This will result in a
+> > duplicate SVM range being created.
+> >
+> > VMA lookup failure:
+> > The restore function also tries to locate the VMA for the faulting addr=
+ess.
+> > It converts the GPU-page-size PFN into an address using the system page
+> > size, which results in an incorrect address on non-4K page-size systems=
+.
+> > As a result, the VMA lookup fails with the message: "address 0xxxx VMA =
+is
+> > removed".
+> >
+> > This patch passes the system-page-size PFN to svm_range_restore_pages()=
+ so
+> > that the SVM range is restored correctly on non-4K page systems.
+> >
+> > Signed-off-by: Donet Tom <donettom@linux.ibm.com>
+>
+> Acked-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+>
+> > ---
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 6 +++---
+> >  1 file changed, 3 insertions(+), 3 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_vm.c
+> > index 6a2ea200d90c..7a3cb0057ac5 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> > @@ -2985,14 +2985,14 @@ bool amdgpu_vm_handle_fault(struct amdgpu_devic=
+e *adev, u32 pasid,
+> >       if (!root)
+> >               return false;
+> >
+> > -     addr /=3D AMDGPU_GPU_PAGE_SIZE;
+> > -
+> >       if (is_compute_context && !svm_range_restore_pages(adev, pasid, v=
+mid,
+> > -         node_id, addr, ts, write_fault)) {
+> > +         node_id, addr >> PAGE_SHIFT, ts, write_fault)) {
+> >               amdgpu_bo_unref(&root);
+> >               return true;
+> >       }
+> >
+> > +     addr /=3D AMDGPU_GPU_PAGE_SIZE;
+> > +
+> >       r =3D amdgpu_bo_reserve(root, true);
+> >       if (r)
+> >               goto error_unref;
+>
