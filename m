@@ -4,129 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1D69910A3D8B
-	for <amd-gfx@archiver.kernel.org>; Thu, 26 Mar 2026 12:48:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E570210A3D8E
+	for <amd-gfx@archiver.kernel.org>; Thu, 26 Mar 2026 12:50:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9994F10E2EE;
-	Thu, 26 Mar 2026 12:48:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0E00010E90C;
+	Thu, 26 Mar 2026 12:50:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="cyAxGiXa";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="k5dCxAcc";
 	dkim-atps=neutral
-Received: from CH4PR04CU002.outbound.protection.outlook.com
- (mail-northcentralusazon11013035.outbound.protection.outlook.com
- [40.107.201.35])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9EA6910E9F0;
- Thu, 26 Mar 2026 12:48:17 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=nRHLIavLkWzWX7Z/CcZa4n3WFrJIN6oi5X4pNIuI8jHHulCNHWeJkGVjiWO4sTcDl7T250N2yivBerPjpTz6eckMrsneeqs2LZKZIbYdO8r4JI1WmzildaK0Ob0CplYE+y4zMS1lTH6NXIjtWO/xUVMuVKI8fL2vqTqsxHZTiVni/GEt6wHZy5QlOxeHFYzg4iknCFGdjvjPXyqFjb6l3WcK6a68Lw6vcHCCCAF6vAURXtjsVHsIbWa88BPibbmcWS218wKeiPb6PCWaW4gCbefOWvG0Dse+8LeXPwSyTu+MJZYmTV10k1RoIrbGZhagKW5HokEIzY2EcoMmOhnKoA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+3O506dJcL1pShLqRQGTt0zwEjCwSVvtPKVRf9aHZLE=;
- b=AFPghjfDsEHD8TNeA/tkgtQE9aRvRLLFLN53C+vkT8fi/NnzsABcB0QJZatqfkGXIr9tdS+6UmUnIwzJck0cRE9T3ea6j2zWn/ymx65LfDZPzqumJSp9aybUNvvi0ZwAT5ZJ0D8/J5qlUTdmL6aH4gM/RaAiw1D3Rygek6IXpld4LvgPESNi6B/hRBI1Dgjs+7byZKBxdkMV+g8CzaIFtXkw9WQNCg0xOBi6gj42hKKrwz624kAcekBdp+bvb0aJ2MoivzytyZMF8gOBKC45Vvl6MxP2es7lXZyUWI/xLp1aqLnq/vsQeO6q1P0xMuoN5Is7hUwq7gQ++JgFCu+pjA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+3O506dJcL1pShLqRQGTt0zwEjCwSVvtPKVRf9aHZLE=;
- b=cyAxGiXaMcf+WW0w7dSMGyqQnNYQZbUM6ytEbsR9a6RUUiiyrfivswrI2EttHWLEu8aG3hppTOGc6clh3yOWzifmantrtSPKOnE5MUtb8Na/B+rPPFvnc5MuEHzb9DAEtgipgFDsELmeEGFWuzJoj4hwG5KWr6MfSDTbxvJ0Zwg=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by LV8PR12MB9207.namprd12.prod.outlook.com (2603:10b6:408:187::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.7; Thu, 26 Mar
- 2026 12:48:12 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.20.9769.006; Thu, 26 Mar 2026
- 12:48:12 +0000
-Message-ID: <ca366b4a-ae51-4387-b0e7-86e9844b01e1@amd.com>
-Date: Thu, 26 Mar 2026 13:48:05 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 00/12] drm/amdgpu: use all SDMA instances for TTM
- clears and moves
-To: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>, David Airlie
- <airlied@gmail.com>, Felix Kuehling <Felix.Kuehling@amd.com>,
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Simona Vetter <simona@ffwll.ch>, Sumit Semwal <sumit.semwal@linaro.org>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org
-References: <20260203102236.3456-1-pierre-eric.pelloux-prayer@amd.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260203102236.3456-1-pierre-eric.pelloux-prayer@amd.com>
-Content-Type: text/plain; charset=UTF-8
+Received: from mail-pf1-f169.google.com (mail-pf1-f169.google.com
+ [209.85.210.169])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2EF5B10E28B
+ for <amd-gfx@lists.freedesktop.org>; Wed, 25 Mar 2026 17:48:12 +0000 (UTC)
+Received: by mail-pf1-f169.google.com with SMTP id
+ d2e1a72fcca58-82c20b9fb16so61968b3a.0
+ for <amd-gfx@lists.freedesktop.org>; Wed, 25 Mar 2026 10:48:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1774460892; x=1775065692; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:message-id:date
+ :in-reply-to:subject:cc:to:from:from:to:cc:subject:date:message-id
+ :reply-to; bh=i+6XwSK5H5qgv00vvEDadVF3Hm2TplkNoSLsjeJsXPE=;
+ b=k5dCxAccvAKsPrMZuSAUKR6bdVcVR+cBW0po41V3NuDqyYs6Cf6gFiYyIP9uxUHsp1
+ pbjlv1bkAd05N6xoJBPS6lK/TrLSmtzLX4/SjhvdrLT0bR84xTD8Mn1oVf8ydmHpXMjb
+ jdc0YwF9oFTDzD3wpONKJPNwb28ia/E6A4WYatxJrj0AmefXUcPcK/EcYdrjlngO/JLX
+ u77bKuE/iU6FziHLVSrr7TyvHWu8ma62GX2AMcVp2T2lafWkSdDX1wWkJD79hNPTMIf/
+ GdyXhoMA30Iax2UpGui4qyfCO2ZbwzKy9h+wJQQT4w2FBFA/U7qJDFmRfobkAXbKRxNo
+ 4+iQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1774460892; x=1775065692;
+ h=content-transfer-encoding:mime-version:references:message-id:date
+ :in-reply-to:subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=i+6XwSK5H5qgv00vvEDadVF3Hm2TplkNoSLsjeJsXPE=;
+ b=gS/DRkbjkRwB95GxbQCOyIEsJpwNy1yOa/+QroYuqEwltzy+7csL9k+BaIJive3PLB
+ ZhKZfjsJ9t5X6sESReC7IHpyjofRSEBDOBRyzf17DQKE5TXJh1YdcFuF/tGEXlN9i+6J
+ CYgVoR/aLgnHKcmHXUmWW6fq/guoiaovZBrJyy0mhKYjXoLe58pQjEeOvJWcFwOYJChZ
+ 6+Upv2CGfPezgBaRfci8CpfwTk3ubuBfl6vu8P0aVTwBW8CeeUHv2BpicHcbL5rhOSyo
+ CtdWB2Fcg+ofP6TW3MuPHu2PqNrw1vY6qsm12ZpiKdxQngGlqmO8Q3p3txsCuCuw2sJg
+ tUQA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWhCj7zvPORCbcfkC/vFvEUgHicjkDrO/enlEbcxA+WLUzBUPYcsy5V29srD8Qod7N+AfM6t+sU@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxQM64ZU8tmuBYcec4sNMYAMX5l5FmfuWTYCt8U9bquaCszTFKK
+ WBIto+u8w2l7UTNP6JAiEENSlf8TENAPTpZXmUzqnmW4tDzp0J76ezW4
+X-Gm-Gg: ATEYQzz4aCHqSpw9rXub9uY7cGIctbxLjGWRf/zFlJxUup56zY7dv4nS4q72jq/xZCA
+ m9///S4HP1JPeTOOLbuQH1hFvI3/LUt0GhfRzEMwWwryybY+9o8/B80oCfVFPOBys4uXg3NUfir
+ TGQrBW67ITlTcgndTWZBfMwzerg5Az64Yn3R8t+bqKDQ17fAHP9Hy/vP5v7QakcRRpW+s56fL8x
+ EYOg0SZdb9yZcezptyU5Ua7IFsLy5dvAaiUm1rwg1UjVwAtSY7Z398um8vmc8WaMxPmp/JhV65o
+ 6U0oiYvXZbaDtyft2grIGWv8KaAYzpKB2Z28lH/DJvZmcx7hduAAmvRHlwO6CubJufRf0Zu+9Ih
+ aNlHBHiMKFZQgRm+8aO+HLVVAO+f8XnImdwEQcGDPfgRTYU9bEHh69oA9SiMnhkkgSRuCcOhJMv
+ cf9kSR06wEcZe6s6Vpobvh0Q==
+X-Received: by 2002:a05:6a00:c95:b0:81f:17b:c70f with SMTP id
+ d2e1a72fcca58-82c6df62c67mr4543895b3a.29.1774460891508; 
+ Wed, 25 Mar 2026 10:48:11 -0700 (PDT)
+Received: from pve-server ([49.205.216.49]) by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-82c7d1e63c7sm388961b3a.2.2026.03.25.10.48.08
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 25 Mar 2026 10:48:10 -0700 (PDT)
+From: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
+To: Gaurav Batra <gbatra@linux.ibm.com>, Dan =?utf-8?Q?Hor=C3=A1k?=
+ <dan@danny.cz>
+Cc: linuxppc-dev@lists.ozlabs.org, amd-gfx@lists.freedesktop.org,
+ Donet Tom <donettom@linux.ibm.com>
+Subject: Re: amdgpu driver fails to initialize on ppc64le in 7.0-rc1 and newer
+In-Reply-To: <2d5fd6ec-003f-4d24-aa2e-06ba94d6cba4@linux.ibm.com>
+Date: Wed, 25 Mar 2026 23:12:16 +0530
+Message-ID: <341nolfr.ritesh.list@gmail.com>
+References: <20260313142351.609bc4c3efe1184f64ca5f44@danny.cz>
+ <1phlu3bs.ritesh.list@gmail.com>
+ <20260315105021.667e52d4a99b154ef1e6aa34@danny.cz>
+ <da93575e-92ad-4a7b-83df-1cb956bd2bc2@linux.ibm.com>
+ <5x6knm5q.ritesh.list@gmail.com>
+ <2d5fd6ec-003f-4d24-aa2e-06ba94d6cba4@linux.ibm.com>
+MIME-version: 1.0
+Content-type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR2P281CA0162.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:99::12) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|LV8PR12MB9207:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6b911031-1fec-4645-069d-08de8b35f0b6
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|1800799024|376014|18002099003|56012099003|22082099003; 
-X-Microsoft-Antispam-Message-Info: 0MvPLb7L2ImW0qO5qq+dBxRNE0V1uSR5B4gTdSJLCcrrP1FB0KyQG4VnXMHETR/1bzRiS/7gO0T4hr6NsRdgafJIbCDHlQ/x2iUPtW+urDHNi6rTEUZZCUfNGMtLcAuxaA2m9Airw2qCVHYYRjoKDoQJgt+TkjG9uOUqA83ZcudBwfgIX8yf74k/c0hT1FbnHrnGfU3lXsUGv3H+8dP51Rw/re7U1Ham/KbJBDurkftNHt3fIg20vXaoTQ1UlU7h7HHRKlsItRl/EQc4eY3u0CvhSgJrR6qLuD/haEeBsGA9AZoVcsOZzycNfNHQVM8JfqD8Ai8f8/SPJ6EbysvUfEBcSZNQ7Km05sLYAkj+XQyepwkWZW3NG8drg13EWPrukF7CMAv3GAJZkv2GxebXbfvZdhy1DJunFhOTk/GJHdxZPRjeXY9DtYXnH23675m3xmsn80FAso2dHSk2nOBtAOX3oH4Cz6nu1BGQRSmbGDvJkP/48ObPlvEir1qWSeQ2Y7gDOfRD2b2+mhdbMsGvJNnIlZ3WPwHzZd5KQ2jxS8n9DLzPXMYLgoCNRgD0Mr4pgvddAYRHu7HeUotFJYZVUMqDqqatM2h+iNF1bXDTrqC2EiorWuC3hImpmuiSEGP/7ludmFbm2vk6e+VPs1HP0mBI02wjtNOVvR/orXxBJVboPcfipCzpZUPohHtIgGF/
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014)(18002099003)(56012099003)(22082099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?V015NngvTmJmYWtKdjZ6ZzRKbzY5S1drWmhUUk82TjdDeFRZdGVuR2F0bWZa?=
- =?utf-8?B?UGJQdm05U2tZRUN4ZFArZkMrVWJsZ1phaUNsZXB4K01VbHhnZXdXbUpZY0sv?=
- =?utf-8?B?Nm5ybDJSMWZkY21iYSt1bTlJbDhTS2g1MjhBRVBjUTJZQWo2NElmRUhKd09l?=
- =?utf-8?B?U3Zucjk2Q0JXMFlvTzg2YWVra0JqWTZJYU5hdTh2SllGTi80Y3NoK2svU0hM?=
- =?utf-8?B?VnlIcVA0Q1RSUjYzeUIyaGZtdlYyeGM4YnEwcVVyT3N0TjZGNFloTy9qbWM1?=
- =?utf-8?B?Vjc1Z2xUWjlFM0ljMjBYNGIveDlva2QyNXRHNWxjS1FIUUVUUmIyWnEyOEhr?=
- =?utf-8?B?WXhBYXY5d1FtQ1ZLV2l0NDVJeVpEb2paemIyVUIrZEFlUENMbFdPS3VxN3ND?=
- =?utf-8?B?UndsRDBMN3dSb21VR0JtYVhHUkt2WkhFelY1UnY0REpHSW5UMlFKOTNXdjZY?=
- =?utf-8?B?NWM5a3VzdjRvcUlLdFV3V2tUbU15eE5GaUd2cEZYNWxIWS8vS3JkTVVsZjhs?=
- =?utf-8?B?cWFGcGpRS2tQR2IyYWhXM2x5M2MyZU5BTXh3cTVaQmFpejhuYlA5Vnp5bnVG?=
- =?utf-8?B?SUZvOXVWWENIMENKK3FZYitDdURyTHhmaXRSU3pqYVZrck5Sc3NrU2JoWVlC?=
- =?utf-8?B?TTJXM0J1UTJkdlQ1R0JuY3V2SVJydEtwU1pxNnNGQUNXNC94RWpBWGYwMTc4?=
- =?utf-8?B?UU9qVjB2OVlhSnVSc3lFd0MzYVkyKzVMY1JNWXFyQkh4M24zYTZnNklMMlVZ?=
- =?utf-8?B?VXpRZ3ZTVFdEZVpGSUU1US9jZWU3OUU5U2JmRmhPVXBWU2pMSVY2U3RjL0Zl?=
- =?utf-8?B?SmhhU0JrNHA2ejJtOFV3eXdJUElFcDlIZ01uaU94TGZ2bUg3RkkydUFSTDFG?=
- =?utf-8?B?ZWZYWVhLK2hZZHRWdXkwYkhGUDVYMnViYTFjRE1ybTkxQmcydWpVTGw2SDJ6?=
- =?utf-8?B?KzQyNnFFYWQyZWMvd1ZKdWlXdERsZXRYV2FVbEhmMnRON201cEtPcTF0NFJm?=
- =?utf-8?B?WVhMWjVhdHFnK2tLWURXbzFvdlkvK2RxenMyWTQzRk1mY3VUNUliaVJoQjhC?=
- =?utf-8?B?QWFPekcxYU9rOEhVdFNEY3hTcmVhOGFEd0NmVXdtb0loVm1lbkJwTGRSZkhP?=
- =?utf-8?B?Zmp4cDlHNDYxdEsvRTQxU0F5NmFmbWNzZk5DaGdYdStwSUVQeG9wRGdnRHB6?=
- =?utf-8?B?VmQ1VWhSaTRkZjBZVkhneDFmc0FSRDVxUVFPQk5GUjN5SXc5K3UyelJNYmVE?=
- =?utf-8?B?ZDIwVkowbmxZOWhIa0xVMTBLRU14K25TWkVQNlhrWXMyNnYwV1ordVNsSjBi?=
- =?utf-8?B?SDhMWGZHdVY1VjI1ZWlZZWZIQ1FNMnBWaDluUkdudTBnRWVmc0JzaXpzZWJC?=
- =?utf-8?B?WFRtLzByVkpHK2diQkhMVkFQVXJKOW4reGk4eHhCSUp4THJMOC9DZG1oNXV6?=
- =?utf-8?B?dVd2VFpGQXRYOWlqSkhTdytCVnhXUVh5bUZYUXUyTmwwczNxbGJXZ0l6cFEw?=
- =?utf-8?B?eE8xZWFRaE1ZQ1lBQldyTllZSGNLN2NHSUtMdHZ0Mi9HWGovdlVlMU1lQXE3?=
- =?utf-8?B?aWVOMnpZNFZ1U3ppUnlTZno2RW9aNjdmNlowODZUT2lYMHJrSm56Vi9xSHhj?=
- =?utf-8?B?T2M4aEdrQS85QmNHMWlRejE3dWdnMThmY0NJdUNLZG5kNWpmYWdYMDY2K0xD?=
- =?utf-8?B?UFNNcTkzRDBjY2xSSE5WMTdNT0NiMlV4NTZMRHNhZnBvV0svSjJSRmxUUFNn?=
- =?utf-8?B?V1dUcVY3bEhxZHhoUmRjZnZCYW5rUS9aZi9qenp4RWFkU0JFNllZeVlUVGNF?=
- =?utf-8?B?UWZPaGJabWdXOVdUQTJiRFN2b29HN0RuUklmT3NHUjIwNU9rV0ErS0gzaFNm?=
- =?utf-8?B?UGh4R1BPQkRTODVJeDYwV0hNdG13SGJ4dGFQWUthR0cyYVhCbm5uL1JpZXh1?=
- =?utf-8?B?S2dNdjFQR2M5ZGo3ZWJBNHg2R3hVVm9OTzVjbnR2eTBIR1FpZW16SmdMaHlw?=
- =?utf-8?B?WUxHdHNRbXAvYlVqZFUrSzJTdzBTYWVlOWFyOWNIbDl3TjhiTGlIQU5Rc3lW?=
- =?utf-8?B?VS9jWnloSXF2SUx0Q0xYanFDQ1hKVUlvNVBiTWlLTUdFeGtyeUw0MjkvZUxt?=
- =?utf-8?B?ckZpTkJVYnl2cVpmOGxOQUhDaXkzbklBYkptVVZZNEdlZXZEZ1grYzA5THU4?=
- =?utf-8?B?V2ZCL1BWZXBWcE13OFNaSlZQZ0N2d1lvanZSNFpxdDl0TUE2YlZmMTFKNHB1?=
- =?utf-8?B?S29hM3VRVTladEUvM0E1eW82eExvTVRsYkRmalNtZGJXSDd6SGFaZ0VabHBk?=
- =?utf-8?Q?95un2f+vJdrSB4s2UE?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6b911031-1fec-4645-069d-08de8b35f0b6
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Mar 2026 12:48:12.4725 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: xUWCJ9tyHaysMu419CKFN1/inIYO6ldAOgMag8ofZwhtVSb8UnWpjXrrATEqbeyQ
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9207
+X-Mailman-Approved-At: Thu, 26 Mar 2026 12:50:40 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -141,71 +93,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Finally coming back to this patch set here.
+Gaurav Batra <gbatra@linux.ibm.com> writes:
 
-Fell free to add Reviewed-by: Christian König <christian.koenig@amd.com> to the first two patches as well and then please start pushing the patches to amd-staging-drm-next.
+> Hello Ritesh
+>
+> I think, what you are proposing to add dev->bus_dma_limit in the check 
+> might work. In the case of PowerNV, this is not set, but 
+> dev->dma_ops_bypass is set. So, for PowerNV, it will fall back to how it 
+> was before.
+>
+> Also, since these both are set in LPAR mode, the current patch as-is 
+> will work.
+>
+> Dan, can you please try Ritesh proposed fix on your PowerNV box? I am 
+> not able to lay my hands on a PowerNV box yet.
+>
 
-I probably need to go over the last patches once more, but I think it would be better to have the first few upstream first.
+It would be this diff then. Note, I have only compile tested it.
 
-Regards,
-Christian.
+diff --git a/arch/powerpc/kernel/dma-iommu.c b/arch/powerpc/kernel/dma-iommu.c
+index 73e10bd4d56d..8b4de508d2eb 100644
+--- a/arch/powerpc/kernel/dma-iommu.c
++++ b/arch/powerpc/kernel/dma-iommu.c
+@@ -67,7 +67,7 @@ bool arch_dma_unmap_sg_direct(struct device *dev, struct scatterlist *sg,
+ }
+ bool arch_dma_alloc_direct(struct device *dev)
+ {
+-       if (dev->dma_ops_bypass)
++       if (dev->dma_ops_bypass && dev->bus_dma_limit)
+                return true;
 
-On 2/3/26 11:22, Pierre-Eric Pelloux-Prayer wrote:
-> The drm/ttm patch modifies TTM to support multiple contexts for the pipelined moves.
-> 
-> Then amdgpu/ttm is updated to express dependencies between jobs explicitely,
-> instead of relying on the ordering of execution guaranteed by the use of a single
-> instance.
-> With all of this in place, we can use multiple entities, with each having access
-> to the available SDMA instances.
-> 
-> This rework also gives the opportunity to merge the clear functions into a single
-> one and to optimize a bit GART usage.
-> 
-> Since v3 some patches have been already reviewed and merged separately:
-> - https://lists.freedesktop.org/archives/amd-gfx/2026-January/137747.html
-> - https://gitlab.freedesktop.org/drm/kernel/-/commit/ddf055b80a544d6f36f77be5f0c6d3c80177d57c
-> This version depend on them.
-> 
-> v3: https://lists.freedesktop.org/archives/dri-devel/2025-November/537830.html
-> 
-> Pierre-Eric Pelloux-Prayer (12):
->   drm/amdgpu: allocate clear entities dynamically
->   drm/amdgpu: allocate move entities dynamically
->   drm/amdgpu: round robin through clear_entities in amdgpu_fill_buffer
->   drm/amdgpu: use TTM_NUM_MOVE_FENCES when reserving fences
->   drm/amdgpu: use multiple entities in amdgpu_move_blit
->   drm/amdgpu: pass all the sdma scheds to amdgpu_mman
->   drm/amdgpu: only use working sdma schedulers for ttm
->   drm/amdgpu: create multiple clear/move ttm entities
->   drm/amdgpu: give ttm entities access to all the sdma scheds
->   drm/amdgpu: get rid of amdgpu_ttm_clear_buffer
->   drm/amdgpu: rename amdgpu_fill_buffer as amdgpu_ttm_clear_buffer
->   drm/amdgpu: split amdgpu_ttm_set_buffer_funcs_status in 2 funcs
-> 
->  drivers/gpu/drm/amd/amdgpu/amdgpu.h           |   2 +
->  drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c        |   5 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    |  16 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c       |   4 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_object.c    |  17 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c       | 329 ++++++++++--------
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h       |  29 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c      |   6 +-
->  drivers/gpu/drm/amd/amdgpu/cik_sdma.c         |  13 +-
->  drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c        |   8 +-
->  drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c        |   8 +-
->  drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c        |  15 +-
->  drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c      |  12 +-
->  drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c        |  11 +-
->  drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c        |  14 +-
->  drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c        |   5 +-
->  drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c        |   5 +-
->  drivers/gpu/drm/amd/amdgpu/sdma_v7_1.c        |  12 +-
->  drivers/gpu/drm/amd/amdgpu/si_dma.c           |  12 +-
->  drivers/gpu/drm/amd/amdkfd/kfd_migrate.c      |   5 +-
->  drivers/gpu/drm/amd/amdkfd/kfd_svm.c          |   3 +-
->  .../amd/display/amdgpu_dm/amdgpu_dm_plane.c   |   6 +-
->  .../drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c  |   6 +-
->  23 files changed, 300 insertions(+), 243 deletions(-)
-> 
+        return false;
+@@ -75,7 +75,7 @@ bool arch_dma_alloc_direct(struct device *dev)
 
+ bool arch_dma_free_direct(struct device *dev, dma_addr_t dma_handle)
+ {
+-       if (!dev->dma_ops_bypass)
++       if (!dev->dma_ops_bypass || !dev->bus_dma_limit)
+                return false;
+
+        return is_direct_handle(dev, dma_handle);
