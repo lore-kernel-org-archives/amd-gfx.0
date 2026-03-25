@@ -4,110 +4,103 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A59DA109C040
-	for <amd-gfx@archiver.kernel.org>; Wed, 25 Mar 2026 18:00:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DF803109C04D
+	for <amd-gfx@archiver.kernel.org>; Wed, 25 Mar 2026 18:05:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4051210E7E8;
-	Wed, 25 Mar 2026 18:00:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 792EF10E827;
+	Wed, 25 Mar 2026 18:05:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.b="gprVEQ92";
+	dkim=pass (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.b="LalpDEiV";
 	dkim-atps=neutral
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 480FE10E7E8
- for <amd-gfx@lists.freedesktop.org>; Wed, 25 Mar 2026 17:59:58 +0000 (UTC)
-Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3929010E82B
+ for <amd-gfx@lists.freedesktop.org>; Wed, 25 Mar 2026 18:05:00 +0000 (UTC)
+Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
  by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 62P9KXmX3640057; Wed, 25 Mar 2026 17:59:56 GMT
+ 62P6WbTD3448655; Wed, 25 Mar 2026 18:04:58 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
  :content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=pp1; bh=H24rz3
- DEIfcIP/AazTnPtuWcItY8Vl+U2/MMWlSk+NU=; b=gprVEQ92rcuMNi/5xLt8Wd
- +PfCRWOu5OpUVF2ZFWommX2CAjSaUxmW+BPbwtAoba4E5Tf59FSqiqlUUP4hJrYE
- FrUlgTTZ+vYLFgTMS27UBgNf9wQAJJoytP6UK8I254Q2c8CZu6YeZZemPjvawL1z
- 9tDryj0XAd3D6kma2piD2xJ9lWFfkujjMrvN7YiJpm15FdMr+wFx5oH871ZwILkw
- ATjF5JPK87MErXaw2UcEsSgBDLuCZ8D/8Odgs82N5eZxLNC0qGq1sHE764672kDT
- RVE0L9KLdZTXQ11WppYzHlDp/yxUEUT0+qGM6JFSRjomQjIUYvB26TTapalVUzYg
+ :message-id:mime-version:references:subject:to; s=pp1; bh=CffkZY
+ SLtF7pdkPdtJ8cnop0B6jjmHh/XrdKtHonmzU=; b=LalpDEiVSAVCCItW2Vt3JK
+ eU8/jiJQ2NPLpKBPQuo6V9aC8hy1Qry0/tBVDx/937rXR2uEVmT7pvWC2Vm0xiS5
+ n7umqLfV4lx01g/j7qOkXnBMcURJZUcFQFWjZsbIn9m9vlShN//m5xac7Tbt0/Vc
+ KSTJQ2kN+dZhkRaQ1DL9q+UDOTeCZT+5INHu40D2c9Rpbgic0UhRgvHNTel3k0Dt
+ mqHN/kB1YXpDjA8RUKOi1MLd5M4ybz6He5mfYtjnIlCv9HEI5GGSh5MDFokMDrgc
+ W/igmlk6LGuQPeAxsRbrSs8vkYX76GmCVLuu4oJWZdZyjRTl82KCiBWda8/weCrw
  ==
-Received: from ppma11.dal12v.mail.ibm.com
- (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
- by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4d1ky08v7d-1
+Received: from ppma13.dal12v.mail.ibm.com
+ (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
+ by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4d1kwa1sr7-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 25 Mar 2026 17:59:55 +0000 (GMT)
-Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
- by ppma11.dal12v.mail.ibm.com (8.18.1.2/8.18.1.2) with ESMTP id 62PH8pnh004399;
- Wed, 25 Mar 2026 17:59:54 GMT
-Received: from smtprelay05.dal12v.mail.ibm.com ([172.16.1.7])
- by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4d28c27cwt-1
+ Wed, 25 Mar 2026 18:04:58 +0000 (GMT)
+Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
+ by ppma13.dal12v.mail.ibm.com (8.18.1.2/8.18.1.2) with ESMTP id 62PG9fC4012213;
+ Wed, 25 Mar 2026 18:04:57 GMT
+Received: from smtprelay02.wdc07v.mail.ibm.com ([172.16.1.69])
+ by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4d27vk7frx-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 25 Mar 2026 17:59:54 +0000
+ Wed, 25 Mar 2026 18:04:57 +0000
 Received: from smtpav06.wdc07v.mail.ibm.com (smtpav06.wdc07v.mail.ibm.com
  [10.39.53.233])
- by smtprelay05.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 62PHxsaZ29295220
+ by smtprelay02.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 62PI4u9519595812
  (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Wed, 25 Mar 2026 17:59:54 GMT
+ Wed, 25 Mar 2026 18:04:56 GMT
 Received: from smtpav06.wdc07v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id E09EF5803F;
- Wed, 25 Mar 2026 17:59:53 +0000 (GMT)
+ by IMSVA (Postfix) with ESMTP id 7C8D858056;
+ Wed, 25 Mar 2026 18:04:56 +0000 (GMT)
 Received: from smtpav06.wdc07v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 2640A58054;
- Wed, 25 Mar 2026 17:59:50 +0000 (GMT)
+ by IMSVA (Postfix) with ESMTP id E1FBE5803F;
+ Wed, 25 Mar 2026 18:04:52 +0000 (GMT)
 Received: from [9.39.25.125] (unknown [9.39.25.125])
  by smtpav06.wdc07v.mail.ibm.com (Postfix) with ESMTP;
- Wed, 25 Mar 2026 17:59:49 +0000 (GMT)
-Message-ID: <a6ee70c8-e350-43dc-a188-e33b70ca047d@linux.ibm.com>
-Date: Wed, 25 Mar 2026 23:29:48 +0530
+ Wed, 25 Mar 2026 18:04:52 +0000 (GMT)
+Message-ID: <5cad327b-55bd-4cc9-96a4-54318f1b4588@linux.ibm.com>
+Date: Wed, 25 Mar 2026 23:34:51 +0530
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RESEND RFC PATCH v3 1/6] drm/amdgpu: Change
- AMDGPU_VA_RESERVED_TRAP_SIZE to 2 PAGE_SIZE pages
-To: "Kuehling, Felix" <felix.kuehling@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
- Alex Deucher <alexdeucher@gmail.com>, Philip Yang <yangp@amd.com>
-Cc: David.YatSin@amd.com, Kent.Russell@amd.com,
+Subject: Re: [RESEND RFC PATCH v3 3/6] drm/amdgpu: Handle GPU page faults
+ correctly on non-4K page systems
+To: Alex Deucher <alexdeucher@gmail.com>
+Cc: amd-gfx@lists.freedesktop.org, Felix Kuehling <Felix.Kuehling@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, Philip Yang <yangp@amd.com>,
+ David.YatSin@amd.com, Kent.Russell@amd.com,
  Ritesh Harjani <ritesh.list@gmail.com>,
- Vaidyanathan Srinivasan <svaidy@linux.ibm.com>, stable@vger.kernel.org
+ Vaidyanathan Srinivasan <svaidy@linux.ibm.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
 References: <cover.1774239489.git.donettom@linux.ibm.com>
- <d3a5bd9b4bcff28c1c43c4c46479cd95d4dcf7f0.1774239489.git.donettom@linux.ibm.com>
- <65a96159-1266-4b42-91ce-359fcd1a76ea@amd.com>
- <7beedf3b-99f7-4096-9a49-88f98b9b4eb5@linux.ibm.com>
- <bf255b34-0def-4a0b-a07d-30b9271b0166@amd.com>
- <6171f849-4164-4fd5-b31e-79c08df936c2@linux.ibm.com>
- <6b2d502d-08ef-4008-8399-f5630de2385c@amd.com>
- <cbbc63ba-0c21-4fd9-b701-d79356b75d12@amd.com>
- <79783c4d-13cb-4ae9-b2ba-45c066fb515a@linux.ibm.com>
- <f54a9107-a19f-47b8-83ee-6ebe0d305499@amd.com>
- <00db9c57-9d16-4123-8e2c-b9251aa702ad@amd.com>
+ <1e6240945c2fcb53b6703ae62d4b36f5958ca8a6.1774239489.git.donettom@linux.ibm.com>
+ <3a5ed765-3a50-446d-bd26-aa09dfe3d6a2@amd.com>
+ <CADnq5_Mc5TEBXD+sTLmT2ew6KKH++=8YjN=3N9d_bWUqqKgMRA@mail.gmail.com>
 Content-Language: en-US
 From: Donet Tom <donettom@linux.ibm.com>
-In-Reply-To: <00db9c57-9d16-4123-8e2c-b9251aa702ad@amd.com>
+In-Reply-To: <CADnq5_Mc5TEBXD+sTLmT2ew6KKH++=8YjN=3N9d_bWUqqKgMRA@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-TM-AS-GCONF: 00
 X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzI1MDEyOSBTYWx0ZWRfX50dG+MjqkT1A
- BsVodQipM9y5640MP8Ec/Y7aUeQd20rZERkwfPz0XrcdvULDlUvX8rgc/3NhH80R1EMw1UkNFHy
- Zpbe7aSeYVXV0S+r3s1+GeKAszqwttJHxVCct9xIFo8YDnTtADw1SMvUwBHyps1cGngCt7jmw8u
- h/rOIrZRwuvpMeqBRl4UTcK+Cf6u3XB4JgUJKi3faz1l145A4AKYnxMEVgVIXIpt/wI/fIbmYIV
- Rnem28kq/3C0Xl+JcryYWcaL3rBAhu4UlfhKLc9bQ3rg7SN8np9qjE/Wdre/wzEk+CTl9S5Pk12
- 69u3zE9fFkDv6HshPvU5fz61YkvOUtCq9fV+oeyljhEvhM2oQWrMjdqh3qzfIylSFkANo/iAGvz
- RptvyZfjPqQwtV07wRjrB4TsqKyf7STD7Dusw6EQmmkb0eg0o3udwwFBae3tvqvCbSq00yPsPbR
- V6bZ/dxEjwv4XH6FMVA==
-X-Authority-Analysis: v=2.4 cv=JK42csKb c=1 sm=1 tr=0 ts=69c4229b cx=c_pps
- a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
+X-Proofpoint-ORIG-GUID: tXNFNzbV8tR7jWrQz-aU-46q1AKBFShj
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzI1MDEyOSBTYWx0ZWRfX6Nml7kl5UW/T
+ 0moMqp0cya4NxAdLUXuR7ys47pwG/Fk4ufagHVWlOxUUlSZDFTBXYyOVBVvt4Rll/m+p9xikRL9
+ ga1M9RkNcR1yXa/DA3d7gqvYvZFbAUusKt39z57Q5LMg24pgePDnwpw4QgMxGVf865DVCBkMwOj
+ vp52inxoS+GYpBsjUlk+cF6E04gHlUVF/vtnl4jDnM7xH5/GRsp5IClJTgkGiN3TxKgarYvFRGD
+ vwcZ+Fbrah8ETFp8zQ5TYY9god4k/FamUlbnrCsZx51Gl4JBTuKUlcwmjTOxbz1T0SxGmjkDGcv
+ ju+LjW3ubPqOcGdHp47f8QM5Bnkb0ZSfuSlrYrTalfzycs755OD1AE+x0rjkFUzQPhHC2I5kIy7
+ mK9p8eZAIFy+cw6tYOoY2Z6OSBF6WbTff6jC7LhdVU+Lwz/dtZrxC8TIO1H05K4Iofm+d8Ifd4M
+ Tld/WHroEiiF17v4ZCw==
+X-Proofpoint-GUID: mGswtYATQJH5E5WAhViY3TN8ZWAmv9_W
+X-Authority-Analysis: v=2.4 cv=OsZCCi/t c=1 sm=1 tr=0 ts=69c423ca cx=c_pps
+ a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
  a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=V8glGbnc2Ofi9Qvn3v5h:22 a=ollYYA0SzF1M6iY1_W8A:9
- a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
-X-Proofpoint-ORIG-GUID: ekjZwXEy9GgvTq3WbrXk0jI6skmz2Kuq
-X-Proofpoint-GUID: kM32Gd8ZLGdEom41q2w1sYfJ--8yTsty
+ a=RnoormkPH1_aCDwRdu11:22 a=U7nrCbtTmkRpXpFmAIza:22 a=zd2uoN0lAAAA:8
+ a=VnNF1IyMAAAA:8 a=7Sst9kd9WwLXTlGBOzgA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
  definitions=2026-03-25_05,2026-03-24_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 clxscore=1015 priorityscore=1501 malwarescore=0 adultscore=0
- spamscore=0 suspectscore=0 phishscore=0 lowpriorityscore=0 bulkscore=0
+ impostorscore=0 adultscore=0 clxscore=1015 phishscore=0 suspectscore=0
+ lowpriorityscore=0 priorityscore=1501 bulkscore=0 spamscore=0 malwarescore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603250129
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -125,71 +118,77 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
-On 3/25/26 11:24 PM, Kuehling, Felix wrote:
->
-> On 2026-03-25 06:29, Christian König wrote:
->>> Hi @Christian @Felix
->>>
->>> Thanks for the review.
->>>
->>> I have made the suggested change. I am now reserving 64 KB
->>> in the  address space for the trap, while allocating
->>> only 8 KB for both 4K and 64K page sizes. With this change,
->>> I am no longer seeing crashes on either 4K or 64K systems.
->>>
->>> Does this approach look reasonable to you?
->> Looks correct to me, but Felix clearly has the last word on that.
->
-> That works for me as well.
+On 3/24/26 6:40 PM, Alex Deucher wrote:
+> Applied.  Thanks!
+
+Hi @Alex
+
+Thank you for applying this patch.
 
 
-Thank you , Felix. I will incorporate this change and post an updated 
-version.
+I am planning to send the next version for PATCH 1/6. For the
+other patches that have already received Reviewed-by tags,
+would you prefer to pick them from this series, or should I
+include them again in the next version?
 
 -Donet
 
 
 >
-> Thanks,
->   Felix
+> Alex
 >
->
->>
->> Regards,
->> Christian.
->>
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h 
->>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
->>> index bb276c0ad06d..d5b7061556ba 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
->>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
->>> @@ -173,7 +173,7 @@ struct amdgpu_bo_vm;
->>>   #define AMDGPU_VA_RESERVED_SEQ64_SIZE          (2ULL << 20)
->>>   #define AMDGPU_VA_RESERVED_SEQ64_START(adev) 
->>>  (AMDGPU_VA_RESERVED_CSA_START(adev) \
->>>                                                   - 
->>> AMDGPU_VA_RESERVED_SEQ64_SIZE)
->>> -#define AMDGPU_VA_RESERVED_TRAP_SIZE           (2ULL << 12)
->>> +#define AMDGPU_VA_RESERVED_TRAP_SIZE           (1ULL << 16)
->>>   #define AMDGPU_VA_RESERVED_TRAP_START(adev) 
->>> (AMDGPU_VA_RESERVED_SEQ64_START(adev) \
->>>                                                   - 
->>> AMDGPU_VA_RESERVED_TRAP_SIZE)
->>>   #define AMDGPU_VA_RESERVED_BOTTOM              (1ULL << 16)
->>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h 
->>> b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
->>> index e5b56412931b..035687a17d89 100644
->>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
->>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
->>> @@ -102,8 +102,8 @@
->>>    * The first chunk is the TBA used for the CWSR ISA code. The second
->>>    * chunk is used as TMA for user-mode trap handler setup in 
->>> daisy-chain mode.
->>>    */
->>> -#define KFD_CWSR_TBA_TMA_SIZE (PAGE_SIZE * 2)
->>> -#define KFD_CWSR_TMA_OFFSET (PAGE_SIZE + 2048)
->>> +#define KFD_CWSR_TBA_TMA_SIZE (AMDGPU_GPU_PAGE_SIZE * 2)
->>> +#define KFD_CWSR_TMA_OFFSET (AMDGPU_GPU_PAGE_SIZE + 2048)
+> On Mon, Mar 23, 2026 at 9:04 AM Christian König
+> <christian.koenig@amd.com> wrote:
+>> On 3/23/26 05:28, Donet Tom wrote:
+>>> During a GPU page fault, the driver restores the SVM range and then maps it
+>>> into the GPU page tables. The current implementation passes a GPU-page-size
+>>> (4K-based) PFN to svm_range_restore_pages() to restore the range.
 >>>
->>>   #define KFD_MAX_NUM_OF_QUEUES_PER_DEVICE               \
->>>          (KFD_MAX_NUM_OF_PROCESSES *
+>>> SVM ranges are tracked using system-page-size PFNs. On systems where the
+>>> system page size is larger than 4K, using GPU-page-size PFNs to restore the
+>>> range causes two problems:
+>>>
+>>> Range lookup fails:
+>>> Because the restore function receives PFNs in GPU (4K) units, the SVM
+>>> range lookup does not find the existing range. This will result in a
+>>> duplicate SVM range being created.
+>>>
+>>> VMA lookup failure:
+>>> The restore function also tries to locate the VMA for the faulting address.
+>>> It converts the GPU-page-size PFN into an address using the system page
+>>> size, which results in an incorrect address on non-4K page-size systems.
+>>> As a result, the VMA lookup fails with the message: "address 0xxxx VMA is
+>>> removed".
+>>>
+>>> This patch passes the system-page-size PFN to svm_range_restore_pages() so
+>>> that the SVM range is restored correctly on non-4K page systems.
+>>>
+>>> Signed-off-by: Donet Tom <donettom@linux.ibm.com>
+>> Acked-by: Christian König <christian.koenig@amd.com>
+>>
+>>> ---
+>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 6 +++---
+>>>   1 file changed, 3 insertions(+), 3 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+>>> index 6a2ea200d90c..7a3cb0057ac5 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+>>> @@ -2985,14 +2985,14 @@ bool amdgpu_vm_handle_fault(struct amdgpu_device *adev, u32 pasid,
+>>>        if (!root)
+>>>                return false;
+>>>
+>>> -     addr /= AMDGPU_GPU_PAGE_SIZE;
+>>> -
+>>>        if (is_compute_context && !svm_range_restore_pages(adev, pasid, vmid,
+>>> -         node_id, addr, ts, write_fault)) {
+>>> +         node_id, addr >> PAGE_SHIFT, ts, write_fault)) {
+>>>                amdgpu_bo_unref(&root);
+>>>                return true;
+>>>        }
+>>>
+>>> +     addr /= AMDGPU_GPU_PAGE_SIZE;
+>>> +
+>>>        r = amdgpu_bo_reserve(root, true);
+>>>        if (r)
+>>>                goto error_unref;
