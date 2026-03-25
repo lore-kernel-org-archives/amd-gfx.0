@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 62A2CFEA817
-	for <amd-gfx@archiver.kernel.org>; Wed, 25 Mar 2026 07:08:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 83300FEA817
+	for <amd-gfx@archiver.kernel.org>; Wed, 25 Mar 2026 07:09:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F18C810E798;
-	Wed, 25 Mar 2026 07:08:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2282310E797;
+	Wed, 25 Mar 2026 07:09:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="GstOsPb1";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="D3sXzoDF";
 	dkim-atps=neutral
-Received: from SA9PR02CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11013034.outbound.protection.outlook.com
- [40.93.196.34])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3F26010E797
- for <amd-gfx@lists.freedesktop.org>; Wed, 25 Mar 2026 07:08:52 +0000 (UTC)
+Received: from CH5PR02CU005.outbound.protection.outlook.com
+ (mail-northcentralusazon11012006.outbound.protection.outlook.com
+ [40.107.200.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 250A810E797
+ for <amd-gfx@lists.freedesktop.org>; Wed, 25 Mar 2026 07:08:59 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Uh6S0TOEZX2wnqGmkFb5fI8ayF8G6KxvGZVNdt7O6wQ8Th2UJF+WsGAtyZemt+cVOxbKvIcfcFyve6YXnQRK2wl6CI5Qjkuxv4goXTtCWhkHkDXJhIsfYFwvzgyxGMkCIpanm1dyYJNvGAA8CpmSYdczPs3BQPab258kyjkv/7a1/4ZI8wTnaDYQO4YfPi+tiHQw9CTo4t+zSQXVrP3A3LI4TPmeTpyVpgJKdMsLe2wPtJ2gGY40PxzSXwVnh28SszVqgQy3lqC12fltbVosWhUXWGkmoSmOKiP6QruxkM62k3G5iK+i7h6b3vcTH5PmKIP7DuNajJl1BLJREF+wXw==
+ b=yhGWrZIrxntI9A5YoGtXY/TRQJDZqk+1CdSMQFfuT3UO3AQV/WZmYM6VrDGiudO64EF07QJBYow/VS88y/ArwknRbhGvOHwVLz/RXSM/gMh1d0JurJmztkhRT0CzN+kjn0Fe+T8hBkMDTHtKdpodVuktHjZEYkOBzLgs0auMOtzLcT0ASXS2RPpiTfOx4WJ+zD1CvUr05fagJacvmed/5zGU4ODNzo1+ZES1m8XJE4u5zX1Qj27riaHbNoTRolbh8c6HssrO1zOCJmky9WXJYND21YpXumgB4Z9YkYV6YqIowXQi76FVyZ78Gv38GxW8f2W4jiFooxrmK43d+lWeLg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=l+bOpySWx32EqyxHjYR9J+OSsVQf7X2rl11LbTUg+gE=;
- b=bECODw5PvMRfq59O4fo+SG7zmHY3fJWlOwqt3vRlWLzHrYpl0t9aAnzwYdDHv6jpVFubC8eyXgeT6BO5lRvb9v18GaCb1QYo+/3I6Yw/Zrc9ns518J7Dpzj5zq3wgT9fyU4U0gl0PAZyRY/DcesRD6wFq/2YttXx6FDwWJBpUVScYmlcJ6zC0lsMvSW9Gq60i2Hy+f95eJ3VpW8f1yIi9OXupeqBvwINjeNhQMhpB3JlSXYbGhqGK+ajsYfeqlRKLhYb0yeS02N1oYsfXYMLIi+LY/b2U7dKUbpmTi2/eHPGb8zEl+tt3bJiQmTFQ7Cf9R/S9eS0Mce3Fj95ROk6xw==
+ bh=obOTOCLcJIihvCz7rm4LBX8dSHT+W6OArrBXPIIvqrs=;
+ b=fw9siVaJEcr22Q+UZUMORCONph2OyA7h+kCUvvnMX8sk+AgEy5ZGupwW6DsJlwpHV2TIt0SI5/pBcM/3DSiHB0i+gcogLmapKdXaIecDDoGnanTmMEmbezqJuYKQj55MTpgd9NhAeOWjZGYj5p3y7x7dQvcYEB8GTdyHd1J7sNuMifG3Az78mYE1BKV37HOrcxIw3wEEC12nAHeoq362gAQNv+rBAggSblsOhPPQX9wNhYXbinagKe+yDgVcJUEM5CzmCoxDWJ/pqSEQepAgdUbHVuFwOdIAoLaOkxDCiqMnL+mK5fiEGo/egR8biScFC4QRsBUFkpg72qKKR2ZGZg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=l+bOpySWx32EqyxHjYR9J+OSsVQf7X2rl11LbTUg+gE=;
- b=GstOsPb1vTw6ePae59NOxHN5HpKfVbrQAkbh0lftKirhb9QZlZLzjO3GO4I1N59nOkR+Q5Jy4GqJRuz8xYYk3LwvD7+oQM5tYd477HRixEYEFHKM+zPVzySk6rU3+6RoAX0q8HIBVHyqNc7k+gRmyhceA8dBcpCzbUBjoGdNKb8=
-Received: from BLAPR03CA0061.namprd03.prod.outlook.com (2603:10b6:208:329::6)
- by DM4PR12MB6088.namprd12.prod.outlook.com (2603:10b6:8:af::18) with
+ bh=obOTOCLcJIihvCz7rm4LBX8dSHT+W6OArrBXPIIvqrs=;
+ b=D3sXzoDFcxtLNOTmr0hXC0HyiBw/wfDAUUyynAE65n9Ih6ZY2ZVO3PO8EPaiQ0HNxOq9DrvzXRjM4t7SyxCemwsKFbqWCw2EyxyhNBi5ti8QkXEBe1PuYJE/fMa4duKWu8m+PhXfkDT6wkzVCdNKHe3OolZxbCiRrBg/GSg/574=
+Received: from MN2PR15CA0043.namprd15.prod.outlook.com (2603:10b6:208:237::12)
+ by DS0PR12MB8785.namprd12.prod.outlook.com (2603:10b6:8:14c::18) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.20; Wed, 25 Mar
- 2026 07:08:47 +0000
-Received: from BL02EPF00021F6F.namprd02.prod.outlook.com
- (2603:10b6:208:329:cafe::61) by BLAPR03CA0061.outlook.office365.com
- (2603:10b6:208:329::6) with Microsoft SMTP Server (version=TLS1_3,
+ 2026 07:08:52 +0000
+Received: from BL02EPF00021F6E.namprd02.prod.outlook.com
+ (2603:10b6:208:237:cafe::4) by MN2PR15CA0043.outlook.office365.com
+ (2603:10b6:208:237::12) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.20.9723.31 via Frontend Transport; Wed,
- 25 Mar 2026 07:08:25 +0000
+ 25 Mar 2026 07:08:36 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -49,13 +49,13 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- BL02EPF00021F6F.mail.protection.outlook.com (10.167.249.11) with Microsoft
+ BL02EPF00021F6E.mail.protection.outlook.com (10.167.249.10) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9745.21 via Frontend Transport; Wed, 25 Mar 2026 07:08:47 +0000
+ 15.20.9745.21 via Frontend Transport; Wed, 25 Mar 2026 07:08:50 +0000
 Received: from maxMSI.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Wed, 25 Mar
- 2026 02:08:42 -0500
+ 2026 02:08:46 -0500
 From: ChuanYu Tseng <ChuanYu.Tseng@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -63,13 +63,13 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Wayne Lin <wayne.lin@amd.com>, Tom Chung <chiahsuan.chung@amd.com>, "Fangzhi
  Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
- <alex.hung@amd.com>, Gaghik Khachatrian <gaghik.khachatrian@amd.com>,
- "Clayton King" <clayton.king@amd.com>, Dillon Varone <dillon.varone@amd.com>, 
- "Chuanyu Tseng" <chuanyu.tseng@amd.com>
-Subject: [PATCH 03/29] drm/amd/display: Fix Compiler Warning - unused func
- parameters
-Date: Wed, 25 Mar 2026 15:06:09 +0800
-Message-ID: <20260325071003.4022594-4-ChuanYu.Tseng@amd.com>
+ <alex.hung@amd.com>, Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
+ Dillon Varone <dillon.varone@amd.com>, Charlene Liu <charlene.liu@amd.com>,
+ Chuanyu Tseng <chuanyu.tseng@amd.com>
+Subject: [PATCH 04/29] drm/amd/display: Avoid turning off the PHY when OTG is
+ running for DVI
+Date: Wed, 25 Mar 2026 15:06:10 +0800
+Message-ID: <20260325071003.4022594-5-ChuanYu.Tseng@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260325071003.4022594-1-ChuanYu.Tseng@amd.com>
 References: <20260325071003.4022594-1-ChuanYu.Tseng@amd.com>
@@ -81,29 +81,29 @@ X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF00021F6F:EE_|DM4PR12MB6088:EE_
-X-MS-Office365-Filtering-Correlation-Id: 928a1054-d22d-4043-601a-08de8a3d5bfb
+X-MS-TrafficTypeDiagnostic: BL02EPF00021F6E:EE_|DS0PR12MB8785:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9bca4211-c29a-4f5c-d8ab-08de8a3d5dda
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700016|1800799024|376014|82310400026|56012099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: KubSl4Ak1fWk7+8DkAVd3bzfSFHtrfkrQduPgwPatvWXfkdNumPR5FG6sKXzG0aTnUt9UaL2F9f5UrO0y3lJqjKQsNPvUYPQi4FVZFmDjJNo2qIcB/2qakFAJZ9EXXTr9U3DzDsruooLJrz4nRpnaTfuG6j8nKCeJu3pakUjaZ8p1+YEbMc33HB8lMecC9VEXn3zphTfXMrF9ZNhCth1Txi4aFVZKCVn4rpTIqmJVpFWwvaIbKAN/5SKH+K4DGtQFMAI1UgK6DY78O5FzEAKZPMyVyYwcsAcJASfkc/xBwuZJ8/+VYciDSCgaWeKpvKdZV+IWPiKy6uEzTY9F6UBetu/RYUW24ztZCROcbz4saMBTZwjsQfdmaakXXQCSdM49v260myzjJhKSJrGfdLefrRFZuZ2a+t54Cd04Xi6Mr0d76NGn70e1rQ11U431IAd7Upzmceyfcvt96YCTnznZJFVFZs+r7/VHLfvNIhCB5Ok7xVwXTqxvr175nUDZrNtciO+BJJ3bTDzb6/8/6MFilNPdzVgfiBggn1W+69RnkClx8OKkdHLRkgL5qF413TXjX1bbMxXI7oYV4aBXPJKmaAH1gBiIItyxZEcAkzWdK02jAESa+0xxugmyckm+fDY2WsX6dAr1Qx0WdcBO0ZGo51F14zRM9qNw7Cngn0JJXDiKDFWWgMQn0vXCBJ1hpu2KyjLyPfAVw6fM9LD3BPLL0NWS2qUKamNAavbod7z0l8PxW5fQ3ytPjBl9TzjnI6ojqTDenL5o2TWn9oNBzGxJA==
+ ARA:13230040|376014|36860700016|82310400026|1800799024|56012099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: +7CpQGyKWpW7BN5jfTssLQ8urvBWZEvX/f+6L2Reqf74SpBzwXqNMXPUxz8Jceb4NP5smufR8U0BM+Ul28SaWX4Nsa2Xc3cFhKuEQd5eDl81x4YLffu2Pf+hIeIs1XNsBEU8sXLjr4up8oCNiJg6xh+Bcd8SMv3i3xw3jz52u4WtBefoNBis47SCTJK73oZj6sS1Doi6QWFzvK5Fxc4TLW8y4pbiRgkmJOkLdC2u7iqcUn8A7hi5FBGTyY2awxMeWf0VZb9LHYXYr8wXC23fZpA5hxwKBUyKjvgGj3h5fh8IjTtkT0IXP93KQTC10h5PM0Qx0YdoaJSYMmaH/lA/PlNiQW+BdmjGFZ+GP5/Kbws7NJ4P8k50YFcMr5c66UpCb98om2cgiS6Sfn6/pLIwzuHNrPlEnP13UYT/arQ0tMZhdubAnnVwUc9wl2AZzPxKHWyc1SEzZRI+uFxa1NzpiP665UF9mJsEPG9Ez3mMnwZ02rmP8sr5crFj/uM4yU7s8ZgB0uDivgfQ/OnGFE1XXAU7/c9tDvUEvTvCOeUJKpOVLE16kdMyQmKkUiQM4BdFxJGpyViBJYK+PiFjgmSPRTfey6PYKXkQfyM+I1gOZXCL/mVXwNRYEyjsrLmcbRfrSrEmwR2uqiTQngEDSzlTwOJSO39Vaz+mRXercw7rnVDeqWCNqaZ8EcM6lVY1vruVz7wWb0CFtc1XWKeBuRswJI532wc87o/p76yWLHU+CsAHFyWoypVjQJNTMX3kbYazCzdJPZRx1axwUiFtSujNvg==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700016)(1800799024)(376014)(82310400026)(56012099003)(22082099003)(18002099003);
+ SFS:(13230040)(376014)(36860700016)(82310400026)(1800799024)(56012099003)(18002099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: +xkxEaO5lFZaGATI0Z5X6IlrrgmqE8xJ6PcdMrQpovQB7YD6jFxTDy16OWf5IxmQ01GmhlRF5FwYHGPeCgplPnyfvVhVk4ERuhDHQpV+BxOnY1vYkODnuFa9cO77KnlilLx5UrfbtkFxzAds/eGP8b6o9aoQriN0cXpfq49WbeQ5KPQxGDEjNrewVLknouxnwWStoqWmzn0hZUYx2h+O1MmF7lUfca7MaHjLxakb4p3hP/YM2g4P8DVtG0cCwZHt5Z7Y6WTnr9RgN9Qy2v3YwM3MrWW2pQlnkH/oL3gWJmH5prNgqSuuWePJDrXD18kMZj6ROIfioE0K/pkJ+NEsrkbg36UkO1maV0Oml8r3uGIDQZxUReabhMqhTysRpjpsyiOtma2Ok52iquoEk6gO6+Wn/G6EFUsGkFpgQzP9FZ8mYuliZoAHblajqCbhi39A
+X-MS-Exchange-AntiSpam-MessageData-0: RXOA9unw//flkZmmqIcdO4JrFHkGPhPQqm3A9vt1B0S7iWO17SlGRNX0tTgKaEib9nUGIYUiNB6ipyrPfhvHIt5QMYiKG3Jd9gFza3Hpn5LytvryKI+D+DTAYLhy4uUcGLj3Am9WG0uShM0c2z+4dHH2ODmNr7SYyqizZXNp8MaTIzx1kv6xFND16Ib0jk+LmuIubfcDOcIJotTaEdtLFsrpQ8GIjuK7Smyzpw/zooScuWirDVcxO1QszqNJ8gTRcwy+EdWKJY3azgRp7zZLrHHjCnXS6m8eoqgS7Hr1l5bdeGQaGavrgivpNmEgoB/wn6hAXFJx1iszKF1lMj8Z8cyOKlRRCN7as8iSrMdBzO35kvkeT2t3Ilge6GNDC3l/VHm+apSQ0Srilx9pVOGM+Jo7NuToTNxlO+KrqcrGFaLRFpMfwno1/y7lJjSW3gkE
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Mar 2026 07:08:47.3480 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 928a1054-d22d-4043-601a-08de8a3d5bfb
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Mar 2026 07:08:50.5094 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9bca4211-c29a-4f5c-d8ab-08de8a3d5dda
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL02EPF00021F6F.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BL02EPF00021F6E.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6088
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8785
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -118,32 +118,106 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Gaghik Khachatrian <gaghik.khachatrian@amd.com>
+From: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
 
-Handling unused function parameter due to cause compiler warning
+[Why]
+The OTG's virtual pixel clock source for DVI comes from the PHY.
 
-Reviewed-by: Clayton King <clayton.king@amd.com>
+If the signal type is DVI then the OTG can become stuck on pre DCN401
+ASIC when DPMS off occurs because the OTG remains running but the
+PHY transmitter is disabled.
+
+[How]
+There exists logic to keep track of the OTG running refcount on the
+link to determine if the link needs to go to PLL_EN instead of TX_EN
+but the logic only checks for HDMI TMDS on older ASIC.
+
+DVI is still a TMDS signal type so the constraint should also apply.
+
+Replace the checks for dc_is_hdmi_tmds_signal with dc_is_tmds_signal to
+cover both HDMI and DVI for the symclk refcount workaround.
+
 Reviewed-by: Dillon Varone <dillon.varone@amd.com>
-Signed-off-by: Gaghik Khachatrian <gaghik.khachatrian@amd.com>
+Reviewed-by: Charlene Liu <charlene.liu@amd.com>
+Signed-off-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
 Signed-off-by: Chuanyu Tseng <chuanyu.tseng@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/core/dc.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c | 4 ++--
+ drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c   | 4 ++--
+ drivers/gpu/drm/amd/display/dc/hwss/dcn31/dcn31_hwseq.c   | 2 +-
+ drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c | 2 +-
+ 4 files changed, 6 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
-index 8b21816cf7c8..5d27666bbc7f 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
-@@ -3142,6 +3142,9 @@ static struct surface_update_descriptor check_update_state_and_surfaces_for_stre
- 		const int surface_count,
- 		const struct dc_stream_update *stream_update)
- {
-+	(void)check_config;
-+	(void)stream_update;
-+
- 	const struct dc_state *context = dc->current_state;
+diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
+index 8a17cc036399..d2025779d036 100644
+--- a/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
+@@ -1568,7 +1568,7 @@ static enum dc_status dce110_enable_stream_timing(
+ 			return DC_ERROR_UNEXPECTED;
+ 		}
  
- 	struct surface_update_descriptor overall_type = { UPDATE_TYPE_ADDR_ONLY, LOCK_DESCRIPTOR_NONE};
+-		if (dc_is_hdmi_tmds_signal(stream->signal)) {
++		if (dc_is_tmds_signal(stream->signal)) {
+ 			stream->link->phy_state.symclk_ref_cnts.otg = 1;
+ 			if (stream->link->phy_state.symclk_state == SYMCLK_OFF_TX_OFF)
+ 				stream->link->phy_state.symclk_state = SYMCLK_ON_TX_OFF;
+@@ -2418,7 +2418,7 @@ static void dce110_reset_hw_ctx_wrap(
+ 				BREAK_TO_DEBUGGER();
+ 			}
+ 			pipe_ctx_old->stream_res.tg->funcs->disable_crtc(pipe_ctx_old->stream_res.tg);
+-			if (dc_is_hdmi_tmds_signal(pipe_ctx_old->stream->signal))
++			if (dc_is_tmds_signal(pipe_ctx_old->stream->signal))
+ 				pipe_ctx_old->stream->link->phy_state.symclk_ref_cnts.otg = 0;
+ 			pipe_ctx_old->plane_res.mi->funcs->free_mem_input(
+ 					pipe_ctx_old->plane_res.mi, dc->current_state->stream_count);
+diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c
+index 307e8f8060e6..a673ab0803a8 100644
+--- a/drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c
+@@ -893,7 +893,7 @@ enum dc_status dcn20_enable_stream_timing(
+ 		dccg->funcs->set_dtbclk_dto(dccg, &dto_params);
+ 	}
+ 
+-	if (dc_is_hdmi_tmds_signal(stream->signal)) {
++	if (dc_is_tmds_signal(stream->signal)) {
+ 		stream->link->phy_state.symclk_ref_cnts.otg = 1;
+ 		if (stream->link->phy_state.symclk_state == SYMCLK_OFF_TX_OFF)
+ 			stream->link->phy_state.symclk_state = SYMCLK_ON_TX_OFF;
+@@ -2856,7 +2856,7 @@ void dcn20_reset_back_end_for_pipe(
+ 		 * the case where the same symclk is shared across multiple otg
+ 		 * instances
+ 		 */
+-		if (dc_is_hdmi_tmds_signal(pipe_ctx->stream->signal))
++		if (dc_is_tmds_signal(pipe_ctx->stream->signal))
+ 			link->phy_state.symclk_ref_cnts.otg = 0;
+ 		if (link->phy_state.symclk_state == SYMCLK_ON_TX_OFF) {
+ 			link_hwss->disable_link_output(link,
+diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn31/dcn31_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn31/dcn31_hwseq.c
+index 94f63fd54e3e..1fba44aecdd3 100644
+--- a/drivers/gpu/drm/amd/display/dc/hwss/dcn31/dcn31_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn31/dcn31_hwseq.c
+@@ -548,7 +548,7 @@ static void dcn31_reset_back_end_for_pipe(
+ 	 * the case where the same symclk is shared across multiple otg
+ 	 * instances
+ 	 */
+-	if (dc_is_hdmi_tmds_signal(pipe_ctx->stream->signal))
++	if (dc_is_tmds_signal(pipe_ctx->stream->signal))
+ 		link->phy_state.symclk_ref_cnts.otg = 0;
+ 
+ 	if (pipe_ctx->top_pipe == NULL) {
+diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c
+index a72284c3fa1c..ca611b3c22d3 100644
+--- a/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c
+@@ -1938,7 +1938,7 @@ void dcn401_reset_back_end_for_pipe(
+ 		 * the case where the same symclk is shared across multiple otg
+ 		 * instances
+ 		 */
+-		if (dc_is_hdmi_tmds_signal(pipe_ctx->stream->signal))
++		if (dc_is_tmds_signal(pipe_ctx->stream->signal))
+ 			link->phy_state.symclk_ref_cnts.otg = 0;
+ 		if (link->phy_state.symclk_state == SYMCLK_ON_TX_OFF) {
+ 			link_hwss->disable_link_output(link,
 -- 
 2.43.0
 
