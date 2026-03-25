@@ -4,90 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6C4E0109C058
-	for <amd-gfx@archiver.kernel.org>; Wed, 25 Mar 2026 18:41:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B49C6109C059
+	for <amd-gfx@archiver.kernel.org>; Wed, 25 Mar 2026 18:43:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 04F2B10E905;
-	Wed, 25 Mar 2026 18:41:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1ACC310E903;
+	Wed, 25 Mar 2026 18:43:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="NiHLoqPL";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="hfUF5GAz";
 	dkim-atps=neutral
-Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com
- [74.125.82.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 620A110E905
- for <amd-gfx@lists.freedesktop.org>; Wed, 25 Mar 2026 18:41:15 +0000 (UTC)
-Received: by mail-dy1-f171.google.com with SMTP id
- 5a478bee46e88-2bda3b4318dso21866eec.1
- for <amd-gfx@lists.freedesktop.org>; Wed, 25 Mar 2026 11:41:15 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1774464075; cv=none;
+Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com
+ [74.125.82.169])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3789A10E903
+ for <amd-gfx@lists.freedesktop.org>; Wed, 25 Mar 2026 18:43:06 +0000 (UTC)
+Received: by mail-dy1-f169.google.com with SMTP id
+ 5a478bee46e88-2bd801b40dbso25208eec.0
+ for <amd-gfx@lists.freedesktop.org>; Wed, 25 Mar 2026 11:43:06 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1774464185; cv=none;
  d=google.com; s=arc-20240605;
- b=hvwWK5Nv+O+S59e976nf/Ba4BsGcxt1EkT3mzVJP6X9XuXT1miwxYL4IZNRJqGkIjp
- GYQYiKJqWaYNz+1GqddGmhbZhonivCDSURLK3cYey1DQDV7LwzrFLTbCzo7vW2L8fJPT
- hJmxBVzQB35YSk2qxap2ZBUW0GsPZuaEQeX1tIUgN/7PeZ/Id0k0pLQsrZ7L4YHhnzEX
- BX3E7+9KD4II/shsuOUZeeeoMINgt2k55InpuqzOcI+2Eo/DXLlXjVdqJiASsgQzG+/9
- JHJbBHXMVbBrVsfZTQ0IL9KpkYgS380WxGrZY0Kmt8BrgVk0v8s8OD5iTmiEAUvtOeMc
- l30A==
+ b=c3L9FxDmETzR4QcZM9yepynaNZSAv7eLmUin9EtY3EmsEGW7/hbQvEzg/vZ8a61fRl
+ jwbcwGBeRYxx+sm4T02Mi83NEV+ZHMOwnJA8TUIwf4Ri0qeolVnMss4GiUauYJ3bHBiQ
+ 48bNHpJpv3oFZh8SdsltqoSK1moVfaQXz2phx9eMOMhCJO1+s1sN8tbrWiUICpdScx/W
+ em27WpEukK+Vf8vU/s/VXvwJH2+ECil3w2KG4Ovn6uLzdnYz1dJMHfBLeaV7puR1Q700
+ dlZtnpJpNB8Cx+3PqLHz9cC16h1FJTJtxPQamyztV4mgI7RYT+NiEJxnUUHc+4Igm5Wf
+ If8w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20240605; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=HXGIXx3/DMcopIZZkPlSfT0Eb4kZMukBc/kBlntYhmM=;
- fh=xEBxS2WUXznvMAtVcJ0D6uL4t6y8U/RZh3owsPn03wc=;
- b=UhawubEU+1DWOUKQz/GoIZMYd/iSmTY+5cHGiK410HBt4P13Ac7Jqq6zuqdacglQoG
- WKQ8VAlvTtQ++XNUtwOiYsdn1SI8B4jRmrtlK/Iz5IHJGzO4e6FVS7jHcMlqgiJwWsBe
- Dvixa1mAi/gbhsRyhd6UUuPMjreM74oxTb/IUdIy2LQzvwSOtqD01VohImBWCOGJnACk
- HgPpqt/xBcA+lM8o8irZJ2vXeCWdp7jmbWxCdlBom8vq6zW5v0f4Ic4C+iTz6TFRazWb
- JVSXRJ1UhLN17gl8bbprOAqSWS2xIVH+mpycqzXkOU1Y46VuPvkuY3Dgd8R9JcLoX0I1
- MhrQ==; darn=lists.freedesktop.org
+ bh=LnmWpn003l3P6RzfHJYNcY1C9NMz8mx8GpI96MiRdNg=;
+ fh=kOIX3rdLcletIFyenKiQmNrPe3nO1+ZZ2PL+Cwojm2s=;
+ b=bGpzFmu2KnzrPJdpHtNObGBb2f9r/NjF16GRFQj31UI+ZzaOYVhkA8P3zaCNL6c/gj
+ Lj45A39Sh6ZuvQXrBhuPjtVjbhTWBCYR17ucDriUf9/M29dRbBO2HTMr3h4FjCUFs9/R
+ NYGxJ8P48gPp3Wow6QBBeYwNf/ABejUEK+geeW3GSdjh64c8jyUWoq3yyu7YylSBgoV5
+ oAcGJHqAVCujeapf5JW45Jl8A7JW1tUPvC/IC0KxkLnVhSF0rVY+lr6vwWVaAjnoonpo
+ /yX8jLcAvxkargwSfqPUuYX/ljF4vcH/B7Fy02OnR+LE4sYVLCo1cwtDDEw52Z1InRDX
+ xWSQ==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1774464075; x=1775068875; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1774464185; x=1775068985; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=HXGIXx3/DMcopIZZkPlSfT0Eb4kZMukBc/kBlntYhmM=;
- b=NiHLoqPLX3D+NHNVoEXYvG1pB8NFUotEL4u6T9td5CQH+Txerd/t6Z/iG3Ls31Orml
- t1EJAbRSFlJwGij5opQIbeZHV0L9sMhHEKonZmU/evHKh/ZmGm1qtQ7oAhFjU1qyp2iu
- AMWolnM5Y8wXIZKRiSy6DuhlwnXBAv9+XhAwrzCkNoYRHKR1qgm1cWO0WAFBICuzPI70
- /UgvZIpgfRUY/wMPKtO6KSRYRWG4c4ye2Oty4UCI5NwrW0aEReSGSPlibViFChnDHgZH
- 1/+I8X+KkBRbv47omzf8hFdBVx55ZuUdDqD+RtnB9uEg3fsiOo7v1eDXyTuv0lKq9ZPB
- ZJ/w==
+ bh=LnmWpn003l3P6RzfHJYNcY1C9NMz8mx8GpI96MiRdNg=;
+ b=hfUF5GAzkzTrxnntixUi6wZRx2RHhqq903SBoF/zwz1z/XzFT4AbhcwdYQpygqXa5U
+ 2V4g6GmFpQQaIYe8uMhhjsKPvRJfGQSvD2YKyXKVnwghJbOjE8ar/51tx90TdkkutSTO
+ hLWIoCDmnjmdD9RkpS0zDNEUaw1Fpa5ZKNPUuAsXVXokrhW9BNeAFPrbhDIQGWJB9KnB
+ GzSTQ0oVq1Bi8WuQRK2cMb+cHoSzawivIp5HlLQHu1WHX4rdhM4ytvSBxaPxSiKoZ8wI
+ rGugYzJl52I/x7GYFKmxrYa7gtbYHQAqY//czEiCULJcWd3X8bRC64HgpAJGnvnJCE6T
+ FsSA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774464075; x=1775068875;
+ d=1e100.net; s=20251104; t=1774464185; x=1775068985;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=HXGIXx3/DMcopIZZkPlSfT0Eb4kZMukBc/kBlntYhmM=;
- b=VrJtYVLHBOID158TZoJQyVxNYCAZPF6zqJsOg/FYrw9t/t0jY1/D/cGQXCge5E2GE8
- zhimFe68MWDy27zG0RPk7K1yfB5kpBxleZW4+r2MBwV7LjQejFE1WFIYF6sXPRovnlZw
- ZB0Eqr/hYyv0yqlkaEmc/SNdQY/HJ82taodya8qbgNliOyJTW7wzaN98+fAbAO2ScnIg
- JghCM+IyOmQe7uuFSZwBqZMkzg/tocSIhiWi83q27DH27i5qUhh7qJEkZHaSdcU7GTMH
- pOpech++oq3wnPaftW6ooQnWVAeBFdG5gBEeIpr2OL4dFLsM1QaJ6UvedCHh5CNDvRX6
- JIdQ==
+ bh=LnmWpn003l3P6RzfHJYNcY1C9NMz8mx8GpI96MiRdNg=;
+ b=RxUGMJRrQMdQvjioBJkQ8amwpbM+SZE4j4ejfy+tgVTXcTIJxGWZjy6NpIqE2LBaax
+ bqD3ta6SMnKdfbg1O+M0dzaw5S/fH/StFWSiRc5+/G35SbcpWewueYIY4CsyuW16yQ6F
+ jHGLOQNw/xshTRSudjnmPsucHDppbe/64CFNVtk+ct/YGMKw7SkkAb2LTRzB0ewONRbc
+ Lm1hFDgefjXVVPyd51huJWnqYNKMJxEh90N1kHZpRkEoWa4+b+Evfa0+XDxZsteblxVQ
+ WQi+D6rCAVR4/MNV5C2076IBIVYbNuW9nGsmW6eTnqXtZNpwuqEVpygFSeH0lpyZSwx6
+ REbg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCURQIy16AUaIO4T7FnSEYYBKSjWVDYJqmJox3qt06NpUL6YEHpEpBxozrEZB6/KSw76BmlSCeb+@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzJ42oLjviDZLzeglEneT2KTJlJbF9KL3k2HZb7pfL2lbW6Su9g
- lBpJXWO+0opRrnQLo5kH8i6jaEutolN+3FbhuYcXofONk9uByMu7pK/oropRgWVkSGlurY1N+kz
- Hpr8l6RR07qlCOFovjNpySZPOGUcVbKQ=
-X-Gm-Gg: ATEYQzw4RkjNLt2IVh+ZcoFzVWj7l8SNm8U/DUw9x/4mVe/6JpjKHbBLBk2nQUHGcUv
- TD6LFUdPPboyz1CFLDsSLSGclV6O083j40ohLjRLO5j5qrfvR0eTFKe8l4L7icqtaTDlHsOdfzq
- sjS9v9jl7hZYrhCVS5odvEyecgaJ+O12XcJp3IqsebQdSsPrVMSOCC9g4ueM1v4QtfjPvMe6GaN
- w/r2fl7v3cD/4eMHGisHXVFFppPkFZNI4KdB/IPj5Px6z4HfJHkTuf5FH1eTC2m8FkpmTsB9UHW
- hCyoWJBaCJjxyxJc3s8sLlMbSuPZE7ZtS/dVbh/UP+NCDEc7fU2NeLonjE/oXL+FIAy3qA==
-X-Received: by 2002:a05:7022:628e:b0:128:d590:2947 with SMTP id
- a92af1059eb24-12a96ec2d71mr1065837c88.4.1774464074570; Wed, 25 Mar 2026
- 11:41:14 -0700 (PDT)
+ AJvYcCUvINHj0/Irha7gJLsn5ILvp6TXSV/fYPiOvsO8v435DzwnEe5s8+R3o2DYZ5pwWklFdgSKitUd@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyAuipNqCJuoC4GXQJbN5lIRczzgB28H0jrq5QARThg1VLAfCB8
+ l5MzaWp3zAJE4a/LPExzxXeqYceGigKSTSJuhLv8Qb45kmea1LsQiPMdbeZj//YH9tgq9kf0CMk
+ VuYljgxazsM9JyJvkkXqgE6ChiX7kS2U=
+X-Gm-Gg: ATEYQzzCF9iRfgsOFeYErRWqwJt1nMdJVSrVjRrOskAxvwMEsSsmRaUmmljfz+uoKkZ
+ IGFxh/hbdCBHNC2NjRM5cAz+ZpKmWQ/+x0i12Lt+Kx7Yrj7EpFVcmVs/F2R+7DLXaqmNEMppUnd
+ e+EERNoTB+8Le9l/+tbO3vQHk6wRO75D8NkPfzQhBzHtiY2wa8EObMp0gfAD5O4PTM0WwQta4ee
+ Al0/2hjt+jJiqezUbydtiT/DYIoyugmI3T7K2GIFNNlH3eWSP0drO565p3OlEtyT9NuDhJMFDMY
+ 8iIx8nrv/b0YS+Goc1ajfTT/mHYQyA4TxXehbkgmbp2LQbJZdbu+57OvLB3+igqcRuNgYC7dSJW
+ jiOiQ
+X-Received: by 2002:a05:7022:425:b0:128:d279:b8ea with SMTP id
+ a92af1059eb24-12a96eef505mr965501c88.5.1774464185459; Wed, 25 Mar 2026
+ 11:43:05 -0700 (PDT)
 MIME-Version: 1.0
 References: <cover.1774239489.git.donettom@linux.ibm.com>
- <d4b7297891badff6bc6030c71e51dddc27c54451.1774239489.git.donettom@linux.ibm.com>
- <8f8d5d6b-ce50-42a7-a556-b878ca4a1fc3@amd.com>
-In-Reply-To: <8f8d5d6b-ce50-42a7-a556-b878ca4a1fc3@amd.com>
+ <9b5d3040f6ce7d99be2c656f68055c8c7529b34a.1774239489.git.donettom@linux.ibm.com>
+ <6d7390fb-e609-47f2-a40a-371c15ce54f2@amd.com>
+In-Reply-To: <6d7390fb-e609-47f2-a40a-371c15ce54f2@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 25 Mar 2026 14:41:03 -0400
-X-Gm-Features: AaiRm52wa2Etd7b8JPMB-8zJqYTrkCE3hWgtZ-Y1CVkppT9C3Hy1S-9DtenIS0M
-Message-ID: <CADnq5_OaO-RN1hLhu35x46+xR9w5schA_v+zWuxtjeoKfHwivQ@mail.gmail.com>
-Subject: Re: [RESEND RFC PATCH v3 5/6] drm/amd: Fix MQD and control stack
- alignment for non-4K
+Date: Wed, 25 Mar 2026 14:42:53 -0400
+X-Gm-Features: AaiRm50mgFDu67jYGR6EoY6tzGAqwaKNLV4rPrSGkTHavZYFtgs1CFQBvFh3xjM
+Message-ID: <CADnq5_OB8KksnoJi64iKnBgqGZBbR8EMR3VhdReL4qtoQ5cMeQ@mail.gmail.com>
+Subject: Re: [RESEND RFC PATCH v3 6/6] drm/amdkfd: Fix queue
+ preemption/eviction failures by aligning control stack size to GPU page size
 To: "Kuehling, Felix" <felix.kuehling@amd.com>
 Cc: Donet Tom <donettom@linux.ibm.com>, amd-gfx@lists.freedesktop.org, 
  Alex Deucher <alexander.deucher@amd.com>, christian.koenig@amd.com, 
@@ -114,250 +115,84 @@ Applied.  Thanks!
 
 Alex
 
-On Tue, Mar 24, 2026 at 10:58=E2=80=AFPM Kuehling, Felix <felix.kuehling@am=
+On Tue, Mar 24, 2026 at 11:00=E2=80=AFPM Kuehling, Felix <felix.kuehling@am=
 d.com> wrote:
 >
 >
 > On 2026-03-23 00:28, Donet Tom wrote:
-> > For gfxV9, due to a hardware bug ("based on the comments in the code
-> > here [1]"), the control stack of a user-mode compute queue must be
-> > allocated immediately after the page boundary of its regular MQD buffer=
-.
-> > To handle this, we allocate an enlarged MQD buffer where the first page
-> > is used as the MQD and the remaining pages store the control stack.
-> > Although these regions share the same BO, they require different memory
-> > types: the MQD must be UC (uncached), while the control stack must be
-> > NC (non-coherent), matching the behavior when the control stack is
-> > allocated in user space.
+> > The control stack size is calculated based on the number of CUs and
+> > waves, and is then aligned to PAGE_SIZE. When the resulting control
+> > stack size is aligned to 64 KB, GPU hangs and queue preemption
+> > failures are observed while running RCCL unit tests on systems with
+> > more than two GPUs.
 > >
-> > This logic works correctly on systems where the CPU page size matches
-> > the GPU page size (4K). However, the current implementation aligns both
-> > the MQD and the control stack to the CPU PAGE_SIZE. On systems with a
-> > larger CPU page size, the entire first CPU page is marked UC=E2=80=94ev=
-en though
-> > that page may contain multiple GPU pages. The GPU treats the second 4K
-> > GPU page inside that CPU page as part of the control stack, but it is
-> > incorrectly mapped as UC.
+> > amdgpu 0048:0f:00.0: amdgpu: Queue preemption failed for queue with
+> > doorbell_id: 80030008
+> > amdgpu 0048:0f:00.0: amdgpu: Failed to evict process queues
+> > amdgpu 0048:0f:00.0: amdgpu: GPU reset begin!. Source: 4
+> > amdgpu 0048:0f:00.0: amdgpu: Queue preemption failed for queue with
+> > doorbell_id: 80030008
+> > amdgpu 0048:0f:00.0: amdgpu: Failed to evict process queues
+> > amdgpu 0048:0f:00.0: amdgpu: Failed to restore process queues
 > >
-> > This patch fixes the issue by aligning both the MQD and control stack
-> > sizes to the GPU page size (4K). The first 4K page is correctly marked
-> > as UC for the MQD, and the remaining GPU pages are marked NC for the
-> > control stack. This ensures proper memory type assignment on systems
-> > with larger CPU page sizes.
+> > This issue is observed on both 4 KB and 64 KB system page-size
+> > configurations.
 > >
-> > [1]: https://elixir.bootlin.com/linux/v6.18/source/drivers/gpu/drm/amd/=
-amdkfd/kfd_mqd_manager_v9.c#L118
+> > This patch fixes the issue by aligning the control stack size to
+> > AMDGPU_GPU_PAGE_SIZE instead of PAGE_SIZE, so the control stack size
+> > will not be 64 KB on systems with a 64 KB page size and queue
+> > preemption works correctly.
+> >
+> > Additionally, In the current code, wg_data_size is aligned to PAGE_SIZE=
+,
+> > which can waste memory if the system page size is large. In this patch,
+> > wg_data_size is aligned to AMDGPU_GPU_PAGE_SIZE. The cwsr_size, calcula=
+ted
+> > from wg_data_size and the control stack size, is aligned to PAGE_SIZE.
 > >
 > > Signed-off-by: Donet Tom <donettom@linux.ibm.com>
 >
-> Acked-by: Felix Kuehling <felix.kuehling@amd.com>
+> Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
 >
 >
 > > ---
-> >   drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c      | 44 ++++++++++++++++++=
-+
-> >   drivers/gpu/drm/amd/amdgpu/amdgpu_gart.h      |  2 +
-> >   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c       | 16 ++-----
-> >   .../gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c   | 23 ++++++----
-> >   4 files changed, 64 insertions(+), 21 deletions(-)
+> >   drivers/gpu/drm/amd/amdkfd/kfd_queue.c | 7 ++++---
+> >   1 file changed, 4 insertions(+), 3 deletions(-)
 > >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c b/drivers/gpu/drm=
-/amd/amdgpu/amdgpu_gart.c
-> > index ec911dce345f..4d884180cf61 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c
-> > @@ -403,6 +403,50 @@ void amdgpu_gart_map_vram_range(struct amdgpu_devi=
-ce *adev, uint64_t pa,
-> >       drm_dev_exit(idx);
-> >   }
+> > diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_queue.c b/drivers/gpu/drm/a=
+md/amdkfd/kfd_queue.c
+> > index 572b21e39e83..9d4838461168 100644
+> > --- a/drivers/gpu/drm/amd/amdkfd/kfd_queue.c
+> > +++ b/drivers/gpu/drm/amd/amdkfd/kfd_queue.c
+> > @@ -492,10 +492,11 @@ void kfd_queue_ctx_save_restore_size(struct kfd_t=
+opology_device *dev)
+> >       cu_num =3D props->simd_count / props->simd_per_cu / NUM_XCC(dev->=
+gpu->xcc_mask);
+> >       wave_num =3D get_num_waves(props, gfxv, cu_num);
 > >
-> > +/**
-> > + * amdgpu_gart_map_gfx9_mqd - map mqd and ctrl_stack dma_addresses int=
-o GART entries
-> > + *
-> > + * @adev: amdgpu_device pointer
-> > + * @offset: offset into the GPU's gart aperture
-> > + * @pages: number of pages to bind
-> > + * @dma_addr: DMA addresses of pages
-> > + * @flags: page table entry flags
-> > + *
-> > + * Map the MQD and control stack addresses into GART entries with the =
-correct
-> > + * memory types on gfxv9. The MQD occupies the first 4KB and is follow=
-ed by
-> > + * the control stack. The MQD uses UC (uncached) memory, while the con=
-trol stack
-> > + * uses NC (non-coherent) memory.
-> > + */
-> > +void amdgpu_gart_map_gfx9_mqd(struct amdgpu_device *adev, uint64_t off=
-set,
-> > +                     int pages, dma_addr_t *dma_addr, uint64_t flags)
-> > +{
-> > +     uint64_t page_base;
-> > +     unsigned int i, j, t;
-> > +     int idx;
-> > +     uint64_t ctrl_flags =3D AMDGPU_PTE_MTYPE_VG10(flags, AMDGPU_MTYPE=
-_NC);
-> > +     void *dst;
-> > +
-> > +     if (!adev->gart.ptr)
-> > +             return;
-> > +
-> > +     if (!drm_dev_enter(adev_to_drm(adev), &idx))
-> > +             return;
-> > +
-> > +     t =3D offset / AMDGPU_GPU_PAGE_SIZE;
-> > +     dst =3D adev->gart.ptr;
-> > +     for (i =3D 0; i < pages; i++) {
-> > +             page_base =3D dma_addr[i];
-> > +             for (j =3D 0; j < AMDGPU_GPU_PAGES_IN_CPU_PAGE; j++, t++)=
- {
-> > +                     if ((i =3D=3D 0) && (j =3D=3D 0))
-> > +                             amdgpu_gmc_set_pte_pde(adev, dst, t, page=
-_base, flags);
-> > +                     else
-> > +                             amdgpu_gmc_set_pte_pde(adev, dst, t, page=
-_base, ctrl_flags);
-> > +                     page_base +=3D AMDGPU_GPU_PAGE_SIZE;
-> > +             }
-> > +     }
-> > +     drm_dev_exit(idx);
-> > +}
-> > +
-> >   /**
-> >    * amdgpu_gart_bind - bind pages into the gart page table
-> >    *
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.h b/drivers/gpu/drm=
-/amd/amdgpu/amdgpu_gart.h
-> > index d3118275ddae..6ebd2da32ea6 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.h
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.h
-> > @@ -62,6 +62,8 @@ void amdgpu_gart_unbind(struct amdgpu_device *adev, u=
-int64_t offset,
-> >   void amdgpu_gart_map(struct amdgpu_device *adev, uint64_t offset,
-> >                    int pages, dma_addr_t *dma_addr, uint64_t flags,
-> >                    void *dst);
-> > +void amdgpu_gart_map_gfx9_mqd(struct amdgpu_device *adev, uint64_t off=
-set,
-> > +                     int pages, dma_addr_t *dma_addr, uint64_t flags);
-> >   void amdgpu_gart_bind(struct amdgpu_device *adev, uint64_t offset,
-> >                     int pages, dma_addr_t *dma_addr, uint64_t flags);
-> >   void amdgpu_gart_map_vram_range(struct amdgpu_device *adev, uint64_t =
-pa,
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/=
-amd/amdgpu/amdgpu_ttm.c
-> > index 67983955a124..e086eb1d2b24 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> > @@ -855,25 +855,15 @@ static void amdgpu_ttm_gart_bind_gfx9_mqd(struct =
-amdgpu_device *adev,
-> >       int num_xcc =3D max(1U, adev->gfx.num_xcc_per_xcp);
-> >       uint64_t page_idx, pages_per_xcc;
-> >       int i;
-> > -     uint64_t ctrl_flags =3D AMDGPU_PTE_MTYPE_VG10(flags, AMDGPU_MTYPE=
-_NC);
+> > -     wg_data_size =3D ALIGN(cu_num * WG_CONTEXT_DATA_SIZE_PER_CU(gfxv,=
+ props), PAGE_SIZE);
+> > +     wg_data_size =3D ALIGN(cu_num * WG_CONTEXT_DATA_SIZE_PER_CU(gfxv,=
+ props),
+> > +                             AMDGPU_GPU_PAGE_SIZE);
+> >       ctl_stack_size =3D wave_num * CNTL_STACK_BYTES_PER_WAVE(gfxv) + 8=
+;
+> >       ctl_stack_size =3D ALIGN(SIZEOF_HSA_USER_CONTEXT_SAVE_AREA_HEADER=
+ + ctl_stack_size,
+> > -                            PAGE_SIZE);
+> > +                            AMDGPU_GPU_PAGE_SIZE);
 > >
-> >       pages_per_xcc =3D total_pages;
-> >       do_div(pages_per_xcc, num_xcc);
+> >       if ((gfxv / 10000 * 10000) =3D=3D 100000) {
+> >               /* HW design limits control stack size to 0x7000.
+> > @@ -507,7 +508,7 @@ void kfd_queue_ctx_save_restore_size(struct kfd_top=
+ology_device *dev)
 > >
-> >       for (i =3D 0, page_idx =3D 0; i < num_xcc; i++, page_idx +=3D pag=
-es_per_xcc) {
-> > -             /* MQD page: use default flags */
-> > -             amdgpu_gart_bind(adev,
-> > +             amdgpu_gart_map_gfx9_mqd(adev,
-> >                               gtt->offset + (page_idx << PAGE_SHIFT),
-> > -                             1, &gtt->ttm.dma_address[page_idx], flags=
-);
-> > -             /*
-> > -              * Ctrl pages - modify the memory type to NC (ctrl_flags)=
- from
-> > -              * the second page of the BO onward.
-> > -              */
-> > -             amdgpu_gart_bind(adev,
-> > -                             gtt->offset + ((page_idx + 1) << PAGE_SHI=
-FT),
-> > -                             pages_per_xcc - 1,
-> > -                             &gtt->ttm.dma_address[page_idx + 1],
-> > -                             ctrl_flags);
-> > +                             pages_per_xcc, &gtt->ttm.dma_address[page=
-_idx],
-> > +                             flags);
-> >       }
-> >   }
+> >       props->ctl_stack_size =3D ctl_stack_size;
+> >       props->debug_memory_size =3D ALIGN(wave_num * DEBUGGER_BYTES_PER_=
+WAVE, DEBUGGER_BYTES_ALIGN);
+> > -     props->cwsr_size =3D ctl_stack_size + wg_data_size;
+> > +     props->cwsr_size =3D ALIGN(ctl_stack_size + wg_data_size, PAGE_SI=
+ZE);
 > >
-> > diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c b/drivers/=
-gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
-> > index dcf4bbfa641b..ff0e483514da 100644
-> > --- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
-> > +++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
-> > @@ -42,9 +42,16 @@ static uint64_t mqd_stride_v9(struct mqd_manager *mm=
-,
-> >                               struct queue_properties *q)
-> >   {
-> >       if (mm->dev->kfd->cwsr_enabled &&
-> > -         q->type =3D=3D KFD_QUEUE_TYPE_COMPUTE)
-> > -             return ALIGN(q->ctl_stack_size, PAGE_SIZE) +
-> > -                     ALIGN(sizeof(struct v9_mqd), PAGE_SIZE);
-> > +         q->type =3D=3D KFD_QUEUE_TYPE_COMPUTE) {
-> > +
-> > +             /* On gfxv9, the MQD resides in the first 4K page,
-> > +              * followed by the control stack. Align both to
-> > +              * AMDGPU_GPU_PAGE_SIZE to maintain the required 4K bound=
-ary.
-> > +              */
-> > +
-> > +             return ALIGN(ALIGN(q->ctl_stack_size, AMDGPU_GPU_PAGE_SIZ=
-E) +
-> > +                     ALIGN(sizeof(struct v9_mqd), AMDGPU_GPU_PAGE_SIZE=
-), PAGE_SIZE);
-> > +     }
-> >
-> >       return mm->mqd_size;
-> >   }
-> > @@ -148,8 +155,8 @@ static struct kfd_mem_obj *allocate_mqd(struct mqd_=
-manager *mm,
-> >               if (!mqd_mem_obj)
-> >                       return NULL;
-> >               retval =3D amdgpu_amdkfd_alloc_kernel_mem(node->adev,
-> > -                     (ALIGN(q->ctl_stack_size, PAGE_SIZE) +
-> > -                     ALIGN(sizeof(struct v9_mqd), PAGE_SIZE)) *
-> > +                     (ALIGN(ALIGN(q->ctl_stack_size, AMDGPU_GPU_PAGE_S=
-IZE) +
-> > +                     ALIGN(sizeof(struct v9_mqd), AMDGPU_GPU_PAGE_SIZE=
-), PAGE_SIZE)) *
-> >                       NUM_XCC(node->xcc_mask),
-> >                       mqd_on_vram(node->adev) ? AMDGPU_GEM_DOMAIN_VRAM =
-:
-> >                                                 AMDGPU_GEM_DOMAIN_GTT,
-> > @@ -357,7 +364,7 @@ static int get_wave_state(struct mqd_manager *mm, v=
-oid *mqd,
-> >       struct kfd_context_save_area_header header;
-> >
-> >       /* Control stack is located one page after MQD. */
-> > -     void *mqd_ctl_stack =3D (void *)((uintptr_t)mqd + PAGE_SIZE);
-> > +     void *mqd_ctl_stack =3D (void *)((uintptr_t)mqd + AMDGPU_GPU_PAGE=
-_SIZE);
-> >
-> >       m =3D get_mqd(mqd);
-> >
-> > @@ -394,7 +401,7 @@ static void checkpoint_mqd(struct mqd_manager *mm, =
-void *mqd, void *mqd_dst, voi
-> >   {
-> >       struct v9_mqd *m;
-> >       /* Control stack is located one page after MQD. */
-> > -     void *ctl_stack =3D (void *)((uintptr_t)mqd + PAGE_SIZE);
-> > +     void *ctl_stack =3D (void *)((uintptr_t)mqd + AMDGPU_GPU_PAGE_SIZ=
-E);
-> >
-> >       m =3D get_mqd(mqd);
-> >
-> > @@ -440,7 +447,7 @@ static void restore_mqd(struct mqd_manager *mm, voi=
-d **mqd,
-> >               *gart_addr =3D addr;
-> >
-> >       /* Control stack is located one page after MQD. */
-> > -     ctl_stack =3D (void *)((uintptr_t)*mqd + PAGE_SIZE);
-> > +     ctl_stack =3D (void *)((uintptr_t)*mqd + AMDGPU_GPU_PAGE_SIZE);
-> >       memcpy(ctl_stack, ctl_stack_src, ctl_stack_size);
-> >
-> >       m->cp_hqd_pq_doorbell_control =3D
+> >       if (gfxv =3D=3D 80002)      /* GFX_VERSION_TONGA */
+> >               props->eop_buffer_size =3D 0x8000;
