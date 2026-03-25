@@ -4,121 +4,124 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 81DB8FEA83B
-	for <amd-gfx@archiver.kernel.org>; Wed, 25 Mar 2026 09:44:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B765BFEA83C
+	for <amd-gfx@archiver.kernel.org>; Wed, 25 Mar 2026 09:47:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1F4FA10E6C6;
-	Wed, 25 Mar 2026 09:44:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 52B0210E6FF;
+	Wed, 25 Mar 2026 09:47:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ti4r6yB1";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="HgC8umN9";
 	dkim-atps=neutral
-Received: from BL0PR03CU003.outbound.protection.outlook.com
- (mail-eastusazon11012005.outbound.protection.outlook.com [52.101.53.5])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EC68C10E6C6
- for <amd-gfx@lists.freedesktop.org>; Wed, 25 Mar 2026 09:44:28 +0000 (UTC)
+Received: from PH7PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11010041.outbound.protection.outlook.com [52.101.201.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2105E10E850
+ for <amd-gfx@lists.freedesktop.org>; Wed, 25 Mar 2026 09:47:19 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=beFpikA0L/yZfa/848vfSWkm69RZVwH8F48SfhjJFKVXIYwrVAjyMrM9pd6VGKvs7qHS527qYumP4E8ZIVa2gCggiRS2j3YuztQ/2mOnv20KrHv5EEEREEBsP3jLcaoQ4pSBECuxmXwkTvQVn2cHKBkR4hbo4T6xQOanMjFLZpd5CjIa/jR1BHIryhiaSCz+kcXdiXCDI/Nll4nn07w+seeN+EfRdpoAyPkhiNKWnnWjXTal8hy3oThTTh+hPKo4MNtvERi+y29ZjtU61VKdS1mLHZP2X8BxHWsg5cujuQHTM/U8/0tXjyStV+J36LktJ4u5IMquoIX6/4L1xdNFog==
+ b=XMzWxB4PtaUQnujYtyQeTJ8F1mvvR+84VlQtSlHmmlJFCtft3dC0ZllSHY6aJxTKD4fxFV9qsnFNv0iMS0t2ZCOKDFKpxtNyq58GM8Rav1HIuQhaAI7zEj7HK3GoQkNwNxmaCmuiskf7qfRRHY1TVV4lRwKbJndMyAiacK6yFHtvgpmO/SaDe6ga9a5bphNPhTV6VBWX+GZjfVGz5nEyEe7wTG2Lcz2gVtRDQS05m9gWi/MpTnkVi4v0IP1NgxladwiaDVkfgcifnWFGPu9cD36qTJy6OSMsP+sDPlzhR59kzPTyJds7zrWWLgQ7R16AUseh+wP1t5rpLP0CFRCzQw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=K82qUkLj3LmkihYINSEsmcVDtPUlyC+ep0BeIxF9BV4=;
- b=uoVogtpqLOzwiG331YT3Epat9+8igg71AJk1QB7QEuFKRBsbsSdEQO6AhoSi+Ym2WW+yRlNitfY2aycgOrnY3BRSYt6mIX2VMYI9QvVLUynVAi4Lj9CBvgee6PMVbB5c0MX7OKQOQhGreQMmtB87X2OlQRl6YDMzRYvqeAn6HlEDrOWlFdioTb9PchI4Knr4h/tVkQfg1HkEqn0F48sfRyS8Ai9G8FnbASTJGNVB/TYtlRMhj0DMZ4JqMdqo3ovx4CVDYuk6KmWPCbdCt2oaYKSUcFaquKiqQBP9wLomqZE5GiLlf5DgA2cZC8G//BZ38h7n3jrUNrCz4ykgb05yLw==
+ bh=z5+l5SgmkNdTDOeOky1OEM6uHxUUKqhUPMp9zz56SnE=;
+ b=xGGuATPGRP55Qsm3LjxWcPTuRxE+Cj0ujMxOoepj90GEyhJuz81eZZ3Wr1rW6M8NCgMWPGUQZXnQ1npeNJXbFovvKYMR/rdCU4BC6lOsoPdZ+IskgN2tQAIeZE1khXtfTuq2U1ZWeVFDvSTZto01i8IwDY1Q6lZhL6f0aF/yOPbF3gW2P6asQuZF8+pFO2THTZGlv41t+82zyFwZ+TQuNrRgsHbjRB32mY220zsN4RC36pxGh5Ayv0XotxwcpoQ65/tsQJycnfG7qEOaj4fLMWGbsoEQ5ZbRA9Xn/Kb5jdXqNc1Coka4UUh9Fu4E6Bng/ek2FOzFBhpZPsn30DJjyg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=K82qUkLj3LmkihYINSEsmcVDtPUlyC+ep0BeIxF9BV4=;
- b=ti4r6yB1MCaIRwGJNDZPNdMVmRCF4pPBrkMNZZBAatHv9RBpF2Y2ZPt8rbC6u4gZp6c6Oo8Ffc32NYCxR/DKR9Sn3o45aQzXS/0iglXlkAPFHZqb4+w3Flq9OoZShayjRzuFdc1uuDK3WnBpsf4aOpXN3vfoqYcs+8X5eZnUqrg=
+ bh=z5+l5SgmkNdTDOeOky1OEM6uHxUUKqhUPMp9zz56SnE=;
+ b=HgC8umN9C9dgtBDjhywjcX9AOtaHBd+efAS2hQdGgwe5kC+40J9m8QJlkHaBOqFOMpKYeNJ8/+Vyizi1ZVgrcIbPD8Wr6aC5moNsgwiTun23dNdhzbSc22mX3Enz4PJnH999gt0+TQU/Io03mY0DCvsuaN06NrEctTvqYLR96hY=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
  by SA0PR12MB7004.namprd12.prod.outlook.com (2603:10b6:806:2c0::6)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.6; Wed, 25 Mar
- 2026 09:44:24 +0000
+ 2026 09:47:16 +0000
 Received: from PH7PR12MB5685.namprd12.prod.outlook.com
  ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
  ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.20.9745.019; Wed, 25 Mar 2026
- 09:44:24 +0000
-Message-ID: <c7eef696-7114-4b8c-8b87-7d232bcff570@amd.com>
-Date: Wed, 25 Mar 2026 10:44:19 +0100
+ 09:47:15 +0000
+Message-ID: <bb5bd80d-3a24-4cac-a33f-0aaa781a2780@amd.com>
+Date: Wed, 25 Mar 2026 10:47:10 +0100
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu: fix PTs flush race with pending TLB fence in
- vm_fini
-To: Prike Liang <Prike.Liang@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: Alexander.Deucher@amd.com
-References: <20260325084413.3359504-1-Prike.Liang@amd.com>
+Subject: Re: [PATCH] drm/amdgpu: validate SIGNAL/WAIT ioctl input argument
+To: "Liang, Prike" <Prike.Liang@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>
+References: <20260323033023.3338683-1-Prike.Liang@amd.com>
+ <PH7PR12MB600006CE3FC81B5FF6985A87FB48A@PH7PR12MB6000.namprd12.prod.outlook.com>
+ <a089317c-cf9a-469f-a8d1-2aca8769d56e@amd.com>
+ <PH7PR12MB600043837CC7A1E641E04380FB49A@PH7PR12MB6000.namprd12.prod.outlook.com>
 Content-Language: en-US
 From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260325084413.3359504-1-Prike.Liang@amd.com>
+In-Reply-To: <PH7PR12MB600043837CC7A1E641E04380FB49A@PH7PR12MB6000.namprd12.prod.outlook.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR4P281CA0019.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:c9::16) To PH7PR12MB5685.namprd12.prod.outlook.com
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR4P281CA0098.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:cb::15) To PH7PR12MB5685.namprd12.prod.outlook.com
  (2603:10b6:510:13c::22)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SA0PR12MB7004:EE_
-X-MS-Office365-Filtering-Correlation-Id: eb22c01e-9368-47fe-c5da-08de8a531921
+X-MS-Office365-Filtering-Correlation-Id: d3053d3d-05c7-47a1-72f3-08de8a537f37
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|1800799024|376014|18002099003|56012099003|22082099003; 
-X-Microsoft-Antispam-Message-Info: OVxYysV9wSm/wecyOwKmUZSA73fixfQA1wTzwImJUDZovopqCxAtNEfgpUBzfGvFcCygC3VhO71+BiLHcjYfZE/lDlUrUw7ArtGPc2eT6285HGNEaD7A0LIP2pQ1i0koT4qI3CqWOep0KOh2vD/Ixsfy4hpEkm61V8x9BeKcnmZlC5BaybIzvpxRew3NzUJ6aAhjkGuFvL5bV9WTvs+S1vHCkGGIc9NkclsZOmm+ejegKXeJ8o+sd7um8MRjk6OZI3P1afZp6HIALo1++9Mhs5gcer9g1IpZS5YQhsOAuXef8MDOBgOAeoU9davZVpHu2AX1HBtjJy9I4wQVVir2pB0cP9D+Gfn2ntqAr+DcBdUHTM7pvekJXqpNa1RkQIltvwO0X3PLuWsmbbtG3XdUW38ebqID8IjCsOpojJAqo20wyiPTaWfVUDTDauI9tugujX8YkLX1gNeRKwLYhVmXOsLShM/cNJ2gme1jQwryE4A5Vj2aky3YgIDBgY10+rUM7bDXEBRGfLxB+X62GPMx2/VhjnhTf3RyqnXy+FLCfwOre1jA2PluC037eVnpOSEF/jzUKFiRP0bQcP8uUO2ch01dwyPclZmYMHuoahS2kjzNPjhcYGhjJzMcza6ME6TN6+KXsfvP+DYm0DKtRq9D6ng7aDrMS/LZYRgsaRr8ddZmIHtj7lDI8ODiIWifHoTB7/uflV6Uu/wDjUNtQkh1MVdOEnzQpXjTrFDvbyc3NkA=
+ ARA:13230040|366016|1800799024|376014|18002099003|56012099003|7053199007|22082099003;
+X-Microsoft-Antispam-Message-Info: VgpG1+Ck2gs+KqzaXzE05SGZyJexXKej+FFOEeXsU0MWedaQvVck4JPCko9/nCtrMJ3Ac5PaK4VvHYDE1FRNuhX8PJO+sfrbTx22KAS3Fgd2ybYzaHTtBujuqtbD3DyNNrpOh0noF1NUOVd59lpo2JiFzUj4FJff9BDwxyFJXBFOxz6MQtdMLovIMbEX9ML1Z0+uGiNsom/zIsQhmQdbFkIKhlAfsih7rBM6Wm8/H/TFkEOQxYnfwsZ9AdvuHqOMsSYP33/+vSP7N4TV5o+w/cTjtR0N+IXIcIm19PAbO66S3jMH9Pa9yTCt7+7WIuFutjGhpfzHtDQjUNCgZBFLBYQAgt58kBFdif3NErye1KJcDBjg9OAD3pfKTjh4u85BJ37il2azmnbbdQiPNeXv0ItGXLxFyqtGAiYZCbnEyI5ULHn2K8uvpnkqnzJMtzp5Z/lOT2HYYME2PXW0oaUmtxD8YnIRmmDbxetbrWM3+G9fCvLPkf+MIB550sO0bAFgG35+5ldj82tiRyB7tmsVMRNx+KiCyeHdyrL3upSukXx0v6xqzAuXA5XdIkI7cpn6rApiejfqG0J9ZFE5qyB3AlDUvyo+v1dpDpbo5VmHutgrHrLoGfuOTaRQX/9UZb35SCTUAq8u+FZNT5mxyb6IixdGBUbrdM84hL4fnYfO4d2C327vkts2J+xJzCyHnfX7NRFip7NAecQfZ91ggjB9xZTb92vx4BOtoCpjRosVA/Y=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014)(18002099003)(56012099003)(22082099003);
+ SFS:(13230040)(366016)(1800799024)(376014)(18002099003)(56012099003)(7053199007)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WUVseGFLaXhnZkxHWlVXVzh4SXU2eXF0YnhsdGdKbDcvTTVpT0t4cnY1dW5I?=
- =?utf-8?B?b1FENHR4L09hcUJ0M2VBTzdkUnBqbTZFMXo5WkttMXlSWFdYUWMwTWpreTBE?=
- =?utf-8?B?OUxwM2JHdWwySFZhcUhhVjBUV1dwdTNteVhVRUZVQ244YlEwRTNUTXd3Y1Jz?=
- =?utf-8?B?OVYzVGxibmx6SEdVaWJOUzRML3U1T29oUUZvdzZEZTl0T0ZtdDNlVU40ZnNa?=
- =?utf-8?B?Q1ZCV29uWmo4Y083bFFaMnVvNXhEYlgzSEtjcXZ0QTBtdEdlRjNaM1VVbEJT?=
- =?utf-8?B?SzU0anIxUUoxYndSUEZ5bTZmQU9ha2xLTnRyUS8zWGZwbmtMZjNyRXUzVmVk?=
- =?utf-8?B?NE9iejRkQkxoYVcyN3B3cG9zTFJpVDN4RENqNG1DNkNMcWE4UUNtN0ZpL2Jy?=
- =?utf-8?B?QkVrQmdXNStyd05vd3QvSUsycEhMUTFCOE9LaEJEbzFRQW5tT3lucDkrWVhX?=
- =?utf-8?B?YjdWY0Q2WW8rUVJMSnhXMG80SVNtcFdEMHh1SnJLakc4VmprYStFSEErT0I2?=
- =?utf-8?B?TjZhd1UydkJsbys5WDgvNm90YXVyaVpDV0FmN0M5MXdsZG53Vml6UjhPNThF?=
- =?utf-8?B?MzBQVlNLQjhjS1NzeHk0S2ZybXZuZ3cxOFNwM01RQ1ZGTjhDZUpycEwxM2Q1?=
- =?utf-8?B?TzdaSTdqZTN3a2xkdnNnamdQb1dMTnNEOTBRcmVsdzhteDJIZGViSjFtS0Zx?=
- =?utf-8?B?VmhXUys2NGNVd0JmN0UwVW1NNjVoRlowcy9IOHpNaUxURE1EMVBKaENYME1P?=
- =?utf-8?B?WHpIdTFUby9jTUZDMGlKSDZHa2VnSWg1MDFXUWVWc3RWWVlVckV6Um5IRXN4?=
- =?utf-8?B?OEpJWjh2K1FNdXlaR25CSTNZdGdYK2NadEcyUUVJTElFN3N4R0JBU2NOTU5V?=
- =?utf-8?B?MUZvTDNUS3BLMk9DVm9lNHZPS3pia2FwdjNaWGlJZFYwa1JlWXhqMStDRWNJ?=
- =?utf-8?B?RU1wOW51NHlnemxyeWlwMjBNUFNkblE5elg4STVjREZ6OE91RGtxZitDSExJ?=
- =?utf-8?B?VjdsaFhBd0ZRYzFyaEZkb0pieGdrOEhNbXRTR2tzdTZtU3VpNjlKWFEySHdB?=
- =?utf-8?B?QlZUUjhxOHN0L1kzM0tqWG5Bekx1d2ZlMWZJUEh6MWNQdHFLNzkzWUExMDBm?=
- =?utf-8?B?emRUNHg5RUhGOE1kRXE5RmN5V2c5M29OSGdXTElHWFNxcy9WdlZOeURTeU9z?=
- =?utf-8?B?RjRpNklQbGhIbXZ5Y3JCcFUzL1RMaFp3NmNveWxJS0UzRDZPK3c4S3Awa2ly?=
- =?utf-8?B?QWFvb1pSQnJabVRGMW9iMTNWK2RmazlRVzd5V2J5WUZ0ekltVE5BWjg2L200?=
- =?utf-8?B?VFMzZURoQ3RlL0VXcERtbHh1cC9XZXR0VlErSUxBcGFwWWo1T2hRbzNZVWNz?=
- =?utf-8?B?VkwwMXJkenZSeWVPUFdGSS83ZTdLU2lURWdENEhCQlZRT1hRbldqUkRkYzFO?=
- =?utf-8?B?T1V2dGNHVE1EeVZLN29VYitPSVRPUXNwdEpkN3NtVFFEM3R2dm9Nb1J5Q2xk?=
- =?utf-8?B?YktnWjRzNWlyUXhRNUsxSkptaFRNTG50WHlyMEJZT2w2ZFB4bzlHTjM2cHZD?=
- =?utf-8?B?OVpmMTc2RXI3RkFBK084aC9QS0lnN29VTTIzbkh6d0xZN0tZdkw0Y2gzL1FH?=
- =?utf-8?B?RU1zTDNPRFZJa0MzMlpHcktLUmhERW1hVnF0SWNXUXUzUEYvcW5rMlc0TzQw?=
- =?utf-8?B?TU9HTVMxalAxc0dOTGpINHZPOE1CNjdFWWN0ZjJXbDB1ckh0endIT0RmVWRK?=
- =?utf-8?B?bFJMR3g3dExIZmRFYUZzQkkvMFV1bnFFdnk3cjVXaGUxTjdwYmcwT0tOWkNO?=
- =?utf-8?B?UzREZlRyQXpoZWt3UVByTDhFNU50d1JHT3ZQendYRGRVY2VPR0pJMGpsaklL?=
- =?utf-8?B?S2hVaHhDRm5SQUxFd09MU2lqeS8zZEZCWGpWbEdjZTNlSS9jeHBhVU1STmVa?=
- =?utf-8?B?MG9pMkRRL3MwOWVjeEVwa3FaM2dDcnZkWVNSaUZndTNOT3pVQXRtOGFsN01D?=
- =?utf-8?B?anNkNXdCN0JXUkRhaGNVUVNkTFBSZ2dOL0tuKzRhSDFnVDZBMm1iZEg4bGR5?=
- =?utf-8?B?cHlCZWl3OHI5Ky9wdW5uSGVXbzZZaVlRdTlVOG4vckRXUUZqMS9zb1JZeUtn?=
- =?utf-8?B?dmwrdUpOQ1BidG5nUnJLS2dBYTNpU2tBMi9yVGNyaHZ1SGwrZGRDeXJFUm5U?=
- =?utf-8?B?dUZCbzUwQ0EyaFlpRE9iUXEyZndXNnBDSnZNSHd0c0ZMK0kzYkI2S2pSVzVv?=
- =?utf-8?B?ZGZJVTYwRWVFcHN6cHhGSXdHRDAvaWQyelliM1g3d3ZqaGRicXRWZ3dUcVNx?=
- =?utf-8?Q?kyJYitOVUKyqapcqhy?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cFZVaVNhdjVJQ29xcjNMSlE4V3lvdDNIc2lMOVRTd3BrclE0dDBmTEpaSkU1?=
+ =?utf-8?B?cS9EamJPOFNHc1hZd0RXTXMwaDc5Ykd3RXVXNFlZd1R5U0l1VjhmNGpBdVM5?=
+ =?utf-8?B?Nkh2K0xPc0U0cFJCdnpaZGpCWXpqNVNzZmdoM0FLblpJSngzL2xUSy9wRG5z?=
+ =?utf-8?B?RERUb1pFQnFOREZoYXpHMElDV2JacmNVTHpaeUwrendSUnI2cjV5TE5zQno4?=
+ =?utf-8?B?dTIxSkF6cHZIZlViL284d3ZyaFN1ZElsSHVIV1lwNWNIbFg5d2U1QW5FMlJs?=
+ =?utf-8?B?T1hKYkp3TzFTSmNVSXRoNlJKQ0g3NnIxa1o1bEZQd1VhdXo3eHkyWGhDZm5Q?=
+ =?utf-8?B?V0hMbmI5NjdEMVZtMVdWeTJRQ25xNHJ5V2tJRitsU3dvd1FWWE50YS9PN2h1?=
+ =?utf-8?B?ckxiQStOK1Nwckp5NTd5Qng1aHF5aXdjcDZIdkp5ZytLVFExM1RsZ21DWGl6?=
+ =?utf-8?B?Vzh4U2tPYTVtb0szYnBOVDRleEtIQUpCWVpMTVlLczBjU1NVbHpPczlaUHd4?=
+ =?utf-8?B?N1VtWWhpK3FaUnF5L1M5TnNYZXFEVi9iWmlGZjBac1NHNWNuQlF0Z3h1a1RS?=
+ =?utf-8?B?R25uWlZobWhWcmxiek0yN1FHeXN1bG5yR3M0VE5hNldIcUlGRTNnMTZKVWRM?=
+ =?utf-8?B?RjNXbkFreUFVeWxHWEhxbGRWMnZmU0RiK0h0REFVWStIUlRvWmZ0eENEdjlE?=
+ =?utf-8?B?Ti94b0lWWlQ2VmxlMkM4Q3dqbWdzNGZ3RFNocSs0VndMd3NFS1pwcXdwdy91?=
+ =?utf-8?B?bVNTS2l0SjVuRnNsTzkvaVVMRHZYYXZCTXA0VHFmeDMvSEV4bk0vWWlMMlhD?=
+ =?utf-8?B?alFvK3JBQlNaRGhXemp0SzlnK3doN005cHZKOWhZMW95dGlESlhXeXN5Tmcr?=
+ =?utf-8?B?Ukw2NmxJczVYZ3NwUHp1cDBlOUJYckttbEFkS2lYYlZaeEFFWmR3UHF2cFBK?=
+ =?utf-8?B?VlpjYXJnMUhpaUp0UXBneFJKMXZTaENpUVVCN0NSd3MwSU9WcVkxNHBmT2dM?=
+ =?utf-8?B?THo3N1FheU9XSDhZTnR1U0p6UzdEK0gxZGMyUWR3LzczS1ZaTThuNFNJK2dw?=
+ =?utf-8?B?NEx6Z0VpaTdTUi8vR3Z1T291YkZwSWpOMTlTekVVOXJNSDVrUlZMSDdIZ2kz?=
+ =?utf-8?B?cG1WMnRqZktJbXlLYVhFdU1MWGRMWXpLajRHNU11S2pVblRmMUdMemYya21N?=
+ =?utf-8?B?MWtrWjRWWlhqSVRHVXBMenRFOHVRa2FPRFdKbmNSUzlxOUloaXlUT1I2TFBi?=
+ =?utf-8?B?OW5FVHR4OEdTSWhrdXVhUmdEQUN5S0VaTFN3SS9Oek1sYTFKU05MQjF5NUo0?=
+ =?utf-8?B?VE9ndGMyYUVWYVo4U1p3RFpEcU0xMDA2aDU4dTJqZ1NoeGhSelZyc2xTSHl2?=
+ =?utf-8?B?K2lhSWFSOStiREMrektqMmcxa1VHZDlTL3NwMloxbmhSalZET044eVRqdElq?=
+ =?utf-8?B?OXc5dUxpOWMwYXBkL1NyWmlkeTJydE94dEY4M25xSU5YUmZ6QVc2SktkTFdn?=
+ =?utf-8?B?OEVPYnpoencyY2hTM0NUUzJGNDFIUURlQlVSVjZxd0ZyeFdtSGNOcWhmWjNJ?=
+ =?utf-8?B?NHZ1NWFTQXpocENMUlJmQ1hRL1RBM1FSbS9ILzZXaGx1YXRuWWJEc1Z6Z2Z0?=
+ =?utf-8?B?aFduUkhScDVBTW1Bc2s0TWNkNEpiY3lOTldkUWRYZzBGcDVoQ0tOTHI4bEVl?=
+ =?utf-8?B?VmEvWlNnbElOaTJRNWFuWGVUWnFRL3hibDNTMHVOaHVaT0RvalJvT3R1YjR6?=
+ =?utf-8?B?RDd4eEhtREIvRndKTDlaeko0K1FxSmpQQTBlbHkxdGtGVlh0U3N6eWdpSWo3?=
+ =?utf-8?B?LzExN3A2TCtkTEVqVmFvdDJiVjB0Y0ZYcFUrSW95MXU3ZDVwc2c4NXNtU2xZ?=
+ =?utf-8?B?MGVQU3h2cDJNa0ZycTk0bFY0K0pxOGlxMWh0bGdrNWlDWHB4REVidGo0ZitK?=
+ =?utf-8?B?SElaemJ0U2dCVE81K0pKWXNzaDUwQUYwQ3J1Lzc1K1grOC9RQ250SEVNQUdN?=
+ =?utf-8?B?UGVqV25CbmRJZ0R4Z25ud0F2UXlPL3NGd2J1bU9MaWJvQjFmV1ozbjk0MjA3?=
+ =?utf-8?B?VWQvMitaWXFNaDJ6N1ludXAvZjd0b3B2U2ZrZThrYndsRFFhemVTa0pVbjlw?=
+ =?utf-8?B?MDlia3BYT0tiZUpaTGZheXY3eE9uQ0thaVJRWWhkbVFER0pwZktzSzlkbkg1?=
+ =?utf-8?B?cWdRdWw4YU5xQjlsbERWUG1nYUJUSG5McFEwZWljd0xrTFVGRXowY1JpdTYx?=
+ =?utf-8?B?ejFtYVY1R1NlblNQai94VTlIRW05cmt0TjJBU0RON3RBd2lnei9ZSmhjUTdE?=
+ =?utf-8?Q?4NPoiEjG2uhVIziRLY?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: eb22c01e-9368-47fe-c5da-08de8a531921
+X-MS-Exchange-CrossTenant-Network-Message-Id: d3053d3d-05c7-47a1-72f3-08de8a537f37
 X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Mar 2026 09:44:24.3421 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Mar 2026 09:47:15.7563 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: MCCbQI94yo/v6P4vSJXwiKAqTMDO8Cnd3wxcbxpC3ynP+AQYS/vqKnRrL7jV0hBD
+X-MS-Exchange-CrossTenant-UserPrincipalName: 39zCpDR5Tc4rs4wYWhHKHHFbl2pBgmrrivgjt6ca4H7Ns2iphnUrkGuoIwOOOsUy
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB7004
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -134,46 +137,116 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 3/25/26 09:44, Prike Liang wrote:
-> amdgpu_vm_fini() relies on vm->last_tlb_flush to wait for TLB activity
-> to complete before calling amdgpu_vm_pt_free_root(). Because
-> vm->last_tlb_flush tracks only the vm commit fence and never the TLB
-> fence itself, so fini() may proceed to free page tables while the TLB fence
-> work item is still running amdgpu_gmc_flush_gpu_tlb_pasid().
+Oh, you inverted the check!
 
-That is not correct.
+I haven't seen that, but that isn't necessary and actually messes things up a bit.
 
-The PDs/PTs can be freed without waiting for the TLB flush to complete because dma_resv_add_fence() adds the fence to the PDs/PTs and make sure that their backing store stays around until that is finished.
+A NULL pointer is handled by the copy_from_user() functions and shouldn't be checked here because that results in incorrect return code.
 
-The reason why we have vm->last_tlb_flush is to track the SDMA job which will trigger the TLB flush callback for kernel queues.
-
-And your patch here breaks exactly that, so absolutely clear NAK from my side for this.
+So we clearly don't need that.
 
 Regards,
 Christian.
 
+On 3/25/26 09:56, Liang, Prike wrote:
+> [Public]
 > 
-> Signed-off-by: Prike Liang <Prike.Liang@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 7 +++++++
->  1 file changed, 7 insertions(+)
+> Yes, we still need Mesa to handle the userq sync handle count  (num_syncobj_handles = 0) allocation correctly before the kernel can safely filter out invalid *_number = 0 cases. The change below is aimed at filtering out invalid handle cases on the kernel side, which helps reject bogus handles without breaking the existing userq fence signal/wait IOCTL behavior, as I’ve tested.
 > 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> index 937a6dd3a4b5..53d0ac8bf98f 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> @@ -1093,6 +1093,13 @@ amdgpu_vm_tlb_flush(struct amdgpu_vm_update_params *params,
->  	if (!params->unlocked && vm->need_tlb_fence) {
->  		amdgpu_vm_tlb_fence_create(params->adev, vm, fence);
->  
-> +		/*
-> +		 * Update last_tlb_flush to the TLB fence so that
-> +		 * amdgpu_vm_fini() waits for the actual TLB flush to
-> +		 * complete, not just its commit fence.
-> +		 */
-> +		dma_fence_put(vm->last_tlb_flush);
-> +		vm->last_tlb_flush = dma_fence_get(*fence);
->  		/* Makes sure no PD/PT is freed before the flush */
->  		dma_resv_add_fence(vm->root.bo->tbo.base.resv, *fence,
->  				   DMA_RESV_USAGE_BOOKKEEP);
+> Regards,
+>       Prike
+> 
+>> -----Original Message-----
+>> From: Koenig, Christian <Christian.Koenig@amd.com>
+>> Sent: Tuesday, March 24, 2026 10:10 PM
+>> To: Liang, Prike <Prike.Liang@amd.com>; amd-gfx@lists.freedesktop.org
+>> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>
+>> Subject: Re: [PATCH] drm/amdgpu: validate SIGNAL/WAIT ioctl input argument
+>>
+>> I don't think we can do this right know. Userqueues is still a beta feature, but that
+>> would break existing Mesa releases.
+>>
+>> Regards,
+>> Christian.
+>>
+>> On 3/24/26 14:40, Liang, Prike wrote:
+>>> [Public]
+>>>
+>>> It's not too much change, so ping?
+>>>
+>>> Regards,
+>>>       Prike
+>>>
+>>>> -----Original Message-----
+>>>> From: Liang, Prike <Prike.Liang@amd.com>
+>>>> Sent: Monday, March 23, 2026 11:30 AM
+>>>> To: amd-gfx@lists.freedesktop.org
+>>>> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian
+>>>> <Christian.Koenig@amd.com>; Liang, Prike <Prike.Liang@amd.com>
+>>>> Subject: [PATCH] drm/amdgpu: validate SIGNAL/WAIT ioctl input
+>>>> argument
+>>>>
+>>>> Filter out the invalid userq emit and wait ioctl input arguments.
+>>>>
+>>>> Signed-off-by: Prike Liang <Prike.Liang@amd.com>
+>>>> ---
+>>>>  .../gpu/drm/amd/amdgpu/amdgpu_userq_fence.c   | 27 +++++++++++++++++++
+>>>>  1 file changed, 27 insertions(+)
+>>>>
+>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
+>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
+>>>> index f93da45cfa7e..7b2700a0c0ad 100644
+>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
+>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
+>>>> @@ -483,6 +483,17 @@ int amdgpu_userq_signal_ioctl(struct drm_device
+>>>> *dev, void *data,
+>>>>       if (args->num_bo_write_handles > AMDGPU_USERQ_MAX_HANDLES ||
+>>>>           args->num_bo_read_handles > AMDGPU_USERQ_MAX_HANDLES)
+>>>>               return -EINVAL;
+>>>> +     /* After the mesa allocates the input obj properly, then there
+>>>> +      * also requires filtering out the invalid obj number.
+>>>> +      */
+>>>> +     if (args->num_syncobj_handles && !args->syncobj_handles)
+>>>> +             return -EINVAL;
+>>>> +
+>>>> +     if (args->num_bo_read_handles && !args->bo_read_handles)
+>>>> +             return -EINVAL;
+>>>> +
+>>>> +     if (args->num_bo_write_handles && !args->bo_write_handles)
+>>>> +             return -EINVAL;
+>>>>
+>>>>       num_syncobj_handles = args->num_syncobj_handles;
+>>>>       syncobj_handles = memdup_array_user(u64_to_user_ptr(args-
+>>>>> syncobj_handles),
+>>>> @@ -946,6 +957,22 @@ int amdgpu_userq_wait_ioctl(struct drm_device
+>>>> *dev, void *data,
+>>>>           wait_info->num_bo_read_handles >
+>>>> AMDGPU_USERQ_MAX_HANDLES)
+>>>>               return -EINVAL;
+>>>>
+>>>> +     if (wait_info->num_syncobj_handles && !wait_info->syncobj_handles)
+>>>> +             return -EINVAL;
+>>>> +
+>>>> +     if (wait_info->num_syncobj_timeline_handles &&
+>>>> +         !(wait_info->syncobj_timeline_handles || wait_info-
+>>>>> syncobj_timeline_points))
+>>>> +             return -EINVAL;
+>>>> +
+>>>> +     if (wait_info->num_bo_read_handles && !wait_info->bo_read_handles)
+>>>> +             return -EINVAL;
+>>>> +
+>>>> +     if (wait_info->num_bo_write_handles && !wait_info->bo_write_handles)
+>>>> +             return -EINVAL;
+>>>> +
+>>>> +     if (!wait_info->num_fences && wait_info->out_fences)
+>>>> +             return -EINVAL;
+>>>> +
+>>>>       num_syncobj = wait_info->num_syncobj_handles;
+>>>>       ptr = u64_to_user_ptr(wait_info->syncobj_handles);
+>>>>       syncobj_handles = memdup_array_user(ptr, num_syncobj,
+>>>> sizeof(u32));
+>>>> --
+>>>> 2.34.1
+>>>
+> 
 
