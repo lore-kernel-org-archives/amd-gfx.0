@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6A1AAFEC11B
-	for <amd-gfx@archiver.kernel.org>; Wed, 25 Mar 2026 11:03:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5DFB8103A9AC
+	for <amd-gfx@archiver.kernel.org>; Wed, 25 Mar 2026 11:17:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DF03C10E70A;
-	Wed, 25 Mar 2026 11:03:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 96C1610E6F6;
+	Wed, 25 Mar 2026 11:17:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="QzrVWADz";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Yla9zdcW";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C850110E223;
- Wed, 25 Mar 2026 11:03:32 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4B39910E223;
+ Wed, 25 Mar 2026 11:17:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1774436613; x=1805972613;
+ t=1774437476; x=1805973476;
  h=date:from:to:cc:subject:message-id:references:
  mime-version:content-transfer-encoding:in-reply-to;
- bh=bterWpEmBgkkyTS7H4efC0u7uGIIi8w4Tnviz/GzV6Q=;
- b=QzrVWADzy2IMPWqS5sKWfyMAM9CREuoMhoVNZnM/pTD+fyC7Gzhu3hVu
- jdKzwoxwxfsXADZsUL38/1mSHPiu2zpo1xCbHWOR51Zfrcs2csA5Oh2hz
- R2R853fMg2e7vXDY7J0ZF/zSCiKaWzuYEpscWX/OYlAg6ls2blWbdGeWY
- RFlVujOXDqFUBw1p0WvzQEr2TzGjoE9pwmbzG9dFh+/JHMSju3CYVByMX
- /giFZd6UZZ8vp1NDPernGJkDoUiPr1s8KJtkL4qapKL1R9yeX/GknZzAX
- 7UTei7n8XD7x5yWqaEujCOSujhVXgogjYNFLIyxlkQYY3DhSRVGtVj01z Q==;
-X-CSE-ConnectionGUID: k5R2QQvuScyKC/byNBq++g==
-X-CSE-MsgGUID: 9nRB1PCvSqeoviH2KzUTig==
-X-IronPort-AV: E=McAfee;i="6800,10657,11739"; a="79376298"
-X-IronPort-AV: E=Sophos;i="6.23,140,1770624000"; d="scan'208";a="79376298"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
- by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Mar 2026 04:03:20 -0700
-X-CSE-ConnectionGUID: Ar6fcB3pSfyKZhdtJmvIeQ==
-X-CSE-MsgGUID: SV+2zclvQrGIZTCj+qSR7w==
+ bh=kzuhQRAn6uUGiXGPYc75BqKQ9p/wHs0wNpdD+t4UBMY=;
+ b=Yla9zdcWWHX1HkPgnE4+zQ3gN8PgLC0VclsRBbjBrK3ws5ArBfDQgDJu
+ FEq4DHHY68Ssc53ISiV12/F6VMXu+vBSf0oB0puecZdZTKWdk2S033P3b
+ ECkXc9rGc2P7IothmtlgNs0uUSC3rtffgUPXLiYHMM7cjtuCXbOCqSaYG
+ 3qrdJtFccLb46wNNVi1jP3GsvVdyKGSjl3N//+qNAn9sl/kSZ0aBAHS0d
+ v/11PUzia1NJxVzyTk0HP/wolLsZJcP6i1qz256eYQI4XFiT5uHo+xSJM
+ JnIudgRGzfiFzH3gne6Vbnav8ZzUAAWi70qnaQQ8RffuD2o/W0TmaKX7m A==;
+X-CSE-ConnectionGUID: NVd9XR3iStGn/JspTXh0sw==
+X-CSE-MsgGUID: Pq9ZKxepStyv5AJLxiMrXQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11739"; a="78069095"
+X-IronPort-AV: E=Sophos;i="6.23,140,1770624000"; d="scan'208";a="78069095"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+ by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Mar 2026 04:17:55 -0700
+X-CSE-ConnectionGUID: +or7FRj0Qpuy3B/PzeXj8w==
+X-CSE-MsgGUID: zCxjcdGPTlafOHFSmBgCsg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,140,1770624000"; d="scan'208";a="262569794"
+X-IronPort-AV: E=Sophos;i="6.23,140,1770624000"; d="scan'208";a="226293924"
 Received: from smoticic-mobl1.ger.corp.intel.com (HELO localhost)
  ([10.245.245.117])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Mar 2026 04:03:11 -0700
-Date: Wed, 25 Mar 2026 13:03:07 +0200
+ by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Mar 2026 04:17:46 -0700
+Date: Wed, 25 Mar 2026 13:17:44 +0200
 From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
 To: Maxime Ripard <mripard@kernel.org>
 Cc: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
@@ -74,17 +74,18 @@ Cc: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
  Werner Sembach <wse@tuxedocomputers.com>,
  Andri Yngvason <andri@yngvason.is>, Marius Vlad <marius.vlad@collabora.com>
 Subject: Re: [PATCH v11 03/22] drm: Add new general DRM property "color format"
-Message-ID: <acPA60Ci3n_t__xF@intel.com>
+Message-ID: <acPEWCZ2nvatVh08@intel.com>
 References: <20260324-color-format-v11-0-605559af4fb4@collabora.com>
  <20260324-color-format-v11-3-605559af4fb4@collabora.com>
  <acLDPYuaVI2-12JX@intel.com> <23910073.EfDdHjke4D@workhorse>
  <acLrv5hLyNss-Px5@intel.com>
  <20260325-neat-elegant-raven-ebc9ab@houat>
+ <acPA60Ci3n_t__xF@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260325-neat-elegant-raven-ebc9ab@houat>
+In-Reply-To: <acPA60Ci3n_t__xF@intel.com>
 X-Patchwork-Hint: comment
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
  krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
@@ -102,102 +103,108 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Mar 25, 2026 at 09:24:27AM +0100, Maxime Ripard wrote:
-> On Tue, Mar 24, 2026 at 09:53:35PM +0200, Ville Syrjälä wrote:
-> > On Tue, Mar 24, 2026 at 08:10:11PM +0100, Nicolas Frattaroli wrote:
-> > > On Tuesday, 24 March 2026 18:00:45 Central European Standard Time Ville Syrjälä wrote:
-> > > > On Tue, Mar 24, 2026 at 05:01:07PM +0100, Nicolas Frattaroli wrote:
-> > > > > +enum drm_connector_color_format {
-> > > > > +	/**
-> > > > > +	 * @DRM_CONNECTOR_COLOR_FORMAT_AUTO: The driver or display protocol
-> > > > > +	 * helpers should pick a suitable color format. All implementations of a
-> > > > > +	 * specific display protocol must behave the same way with "AUTO", but
-> > > > > +	 * different display protocols do not necessarily have the same "AUTO"
-> > > > > +	 * semantics.
-> > > > > +	 *
-> > > > > +	 * For HDMI, "AUTO" picks RGB, but falls back to YCbCr 4:2:0 if the
-> > > > > +	 * bandwidth required for full-scale RGB is not available, or the mode
-> > > > > +	 * is YCbCr 4:2:0-only, as long as the mode and output both support
-> > > > > +	 * YCbCr 4:2:0.
-> > > > > +	 *
-> > > > > +	 * For display protocols other than HDMI, the recursive bridge chain
-> > > > > +	 * format selection picks the first chain of bridge formats that works,
-> > > > > +	 * as has already been the case before the introduction of the "color
-> > > > > +	 * format" property. Non-HDMI bridges should therefore either sort their
-> > > > > +	 * bus output formats by preference, or agree on a unified auto format
-> > > > > +	 * selection logic that's implemented in a common state helper (like
-> > > > > +	 * how HDMI does it).
-> > > > > +	 */
-> > > > > +	DRM_CONNECTOR_COLOR_FORMAT_AUTO = 0,
-> > > > > +
-> > > > > +	/**
-> > > > > +	 * @DRM_CONNECTOR_COLOR_FORMAT_RGB444: RGB output format
-> > > > > +	 */
-> > > > > +	DRM_CONNECTOR_COLOR_FORMAT_RGB444,
-> > > > > +
-> > > > > +	/**
-> > > > > +	 * @DRM_CONNECTOR_COLOR_FORMAT_YCBCR444: YCbCr 4:4:4 output format (ie.
-> > > > > +	 * not subsampled)
-> > > > > +	 */
-> > > > > +	DRM_CONNECTOR_COLOR_FORMAT_YCBCR444,
-> > > > > +
-> > > > > +	/**
-> > > > > +	 * @DRM_CONNECTOR_COLOR_FORMAT_YCBCR422: YCbCr 4:2:2 output format (ie.
-> > > > > +	 * with horizontal subsampling)
-> > > > > +	 */
-> > > > > +	DRM_CONNECTOR_COLOR_FORMAT_YCBCR422,
-> > > > > +
-> > > > > +	/**
-> > > > > +	 * @DRM_CONNECTOR_COLOR_FORMAT_YCBCR420: YCbCr 4:2:0 output format (ie.
-> > > > > +	 * with horizontal and vertical subsampling)
-> > > > > +	 */
-> > > > > +	DRM_CONNECTOR_COLOR_FORMAT_YCBCR420,
+On Wed, Mar 25, 2026 at 01:03:07PM +0200, Ville Syrjälä wrote:
+> On Wed, Mar 25, 2026 at 09:24:27AM +0100, Maxime Ripard wrote:
+> > On Tue, Mar 24, 2026 at 09:53:35PM +0200, Ville Syrjälä wrote:
+> > > On Tue, Mar 24, 2026 at 08:10:11PM +0100, Nicolas Frattaroli wrote:
+> > > > On Tuesday, 24 March 2026 18:00:45 Central European Standard Time Ville Syrjälä wrote:
+> > > > > On Tue, Mar 24, 2026 at 05:01:07PM +0100, Nicolas Frattaroli wrote:
+> > > > > > +enum drm_connector_color_format {
+> > > > > > +	/**
+> > > > > > +	 * @DRM_CONNECTOR_COLOR_FORMAT_AUTO: The driver or display protocol
+> > > > > > +	 * helpers should pick a suitable color format. All implementations of a
+> > > > > > +	 * specific display protocol must behave the same way with "AUTO", but
+> > > > > > +	 * different display protocols do not necessarily have the same "AUTO"
+> > > > > > +	 * semantics.
+> > > > > > +	 *
+> > > > > > +	 * For HDMI, "AUTO" picks RGB, but falls back to YCbCr 4:2:0 if the
+> > > > > > +	 * bandwidth required for full-scale RGB is not available, or the mode
+> > > > > > +	 * is YCbCr 4:2:0-only, as long as the mode and output both support
+> > > > > > +	 * YCbCr 4:2:0.
+> > > > > > +	 *
+> > > > > > +	 * For display protocols other than HDMI, the recursive bridge chain
+> > > > > > +	 * format selection picks the first chain of bridge formats that works,
+> > > > > > +	 * as has already been the case before the introduction of the "color
+> > > > > > +	 * format" property. Non-HDMI bridges should therefore either sort their
+> > > > > > +	 * bus output formats by preference, or agree on a unified auto format
+> > > > > > +	 * selection logic that's implemented in a common state helper (like
+> > > > > > +	 * how HDMI does it).
+> > > > > > +	 */
+> > > > > > +	DRM_CONNECTOR_COLOR_FORMAT_AUTO = 0,
+> > > > > > +
+> > > > > > +	/**
+> > > > > > +	 * @DRM_CONNECTOR_COLOR_FORMAT_RGB444: RGB output format
+> > > > > > +	 */
+> > > > > > +	DRM_CONNECTOR_COLOR_FORMAT_RGB444,
+> > > > > > +
+> > > > > > +	/**
+> > > > > > +	 * @DRM_CONNECTOR_COLOR_FORMAT_YCBCR444: YCbCr 4:4:4 output format (ie.
+> > > > > > +	 * not subsampled)
+> > > > > > +	 */
+> > > > > > +	DRM_CONNECTOR_COLOR_FORMAT_YCBCR444,
+> > > > > > +
+> > > > > > +	/**
+> > > > > > +	 * @DRM_CONNECTOR_COLOR_FORMAT_YCBCR422: YCbCr 4:2:2 output format (ie.
+> > > > > > +	 * with horizontal subsampling)
+> > > > > > +	 */
+> > > > > > +	DRM_CONNECTOR_COLOR_FORMAT_YCBCR422,
+> > > > > > +
+> > > > > > +	/**
+> > > > > > +	 * @DRM_CONNECTOR_COLOR_FORMAT_YCBCR420: YCbCr 4:2:0 output format (ie.
+> > > > > > +	 * with horizontal and vertical subsampling)
+> > > > > > +	 */
+> > > > > > +	DRM_CONNECTOR_COLOR_FORMAT_YCBCR420,
+> > > > > 
+> > > > > Seems like this should document what the quantization range
+> > > > > should be for each format.
+> > > > > 
 > > > > 
-> > > > Seems like this should document what the quantization range
-> > > > should be for each format.
+> > > > I don't think so? If you want per-component bit depth values,
+> > > > DRM_FORMAT_* defines would be the appropriate values to use. This
+> > > > enum is more abstract than that, and is there to communicate
+> > > > YUV vs. RGB and chroma subsampling, with bit depth being handled
+> > > > by other properties.
 > > > > 
+> > > > If you mean the factor used for subsampling, then that'd only be
+> > > > relevant if YCBCR410 was supported where one chroma plane isn't
+> > > > halved but quartered in resolution. I suspect 4:1:0 will never
+> > > > be added; no digital display protocol standard supports it to my
+> > > > knowledge, and hopefully none ever will.
 > > > 
-> > > I don't think so? If you want per-component bit depth values,
-> > > DRM_FORMAT_* defines would be the appropriate values to use. This
-> > > enum is more abstract than that, and is there to communicate
-> > > YUV vs. RGB and chroma subsampling, with bit depth being handled
-> > > by other properties.
+> > > No, I mean the quantization range (16-235 vs. 0-255 etc).
 > > > 
-> > > If you mean the factor used for subsampling, then that'd only be
-> > > relevant if YCBCR410 was supported where one chroma plane isn't
-> > > halved but quartered in resolution. I suspect 4:1:0 will never
-> > > be added; no digital display protocol standard supports it to my
-> > > knowledge, and hopefully none ever will.
+> > > The i915 behaviour is that YCbCr is always limited range,
+> > > RGB can either be full or limited range depending on the 
+> > > "Broadcast RGB" property and other related factors.
 > > 
-> > No, I mean the quantization range (16-235 vs. 0-255 etc).
-> > 
-> > The i915 behaviour is that YCbCr is always limited range,
-> > RGB can either be full or limited range depending on the 
-> > "Broadcast RGB" property and other related factors.
+> > So far the HDMI state has both the format and quantization range as
+> > different fields. I'm not sure we need to document the range in the
+> > format field, maybe only mention it's not part of the format but has a
+> > field of its own?
 > 
-> So far the HDMI state has both the format and quantization range as
-> different fields. I'm not sure we need to document the range in the
-> format field, maybe only mention it's not part of the format but has a
-> field of its own?
+> I think we only have it for RGB (on some drivers only?). For YCbCr
+> I think the assumption is limited range everywhere.
+> 
+> But I'm not really concerned about documenting struct members.
+> What I'm talking about is the *uapi* docs. Surely userspace
+> will want to know what the new property actually does so the
+> uapi needs to be documented properly. And down the line some
+> new driver might also implement the wrong behaviour if there
+> is no clear specification.
+> 
+> So I'm thinking (or perhaps hoping) the rule might be something like:
+> - YCbCr limited range 
+> - RGB full range if "Broadcast RGB" property is not present
+> - RGB full or limited range based on the "Broadcast RGB" property
+>   if it's present
+> 
+> I think the "Broadcast RGB" property itself might also be lacking
+> proper uapi docs, so that may need to be remedied as well.
 
-I think we only have it for RGB (on some drivers only?). For YCbCr
-I think the assumption is limited range everywhere.
-
-But I'm not really concerned about documenting struct members.
-What I'm talking about is the *uapi* docs. Surely userspace
-will want to know what the new property actually does so the
-uapi needs to be documented properly. And down the line some
-new driver might also implement the wrong behaviour if there
-is no clear specification.
-
-So I'm thinking (or perhaps hoping) the rule might be something like:
-- YCbCr limited range 
-- RGB full range if "Broadcast RGB" property is not present
-- RGB full or limited range based on the "Broadcast RGB" property
-  if it's present
-
-I think the "Broadcast RGB" property itself might also be lacking
-proper uapi docs, so that may need to be remedied as well.
+Oh, and I think a bunch of infoframe code still needs changes to 
+set up the quantization range properly for YCbCr. i915 does handle
+that part correctly, but eg. hdmi_generate_avi_infoframe() does not.
+I didn't spot any changes to that in the series.
 
 -- 
 Ville Syrjälä
