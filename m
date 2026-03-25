@@ -4,168 +4,133 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4D563FEA837
-	for <amd-gfx@archiver.kernel.org>; Wed, 25 Mar 2026 09:09:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CA517FEA83C
+	for <amd-gfx@archiver.kernel.org>; Wed, 25 Mar 2026 09:34:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B77FF10E836;
-	Wed, 25 Mar 2026 09:09:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5B70610E848;
+	Wed, 25 Mar 2026 09:34:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="RSdQW7c5";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="pR4HB70+";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4FB6310E836;
- Wed, 25 Mar 2026 09:09:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1774429740; x=1805965740;
- h=message-id:date:subject:to:cc:references:from:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=SwavmnmVsIhYzUD4LNC7Y1ZkfxcBsB0q0Vrh9QP+nbY=;
- b=RSdQW7c50sCN7XbvkGNs4LMtf8qZLqpDTP1RFffvDE4sm0ZY3XyDhvh7
- fMo3v43q+dOXJZO7P6wkLR+UyX/eidN2vDw9scrdlJKyA1dWQoElfIRFW
- PicaxlhrTG+SMxrGsJRa2wg+dRNAHxeBANEwyDDU0fH/A5fMlChZa/lwU
- qxYL+PbsW5Drut864jkUw9ngttzFeFPzi0Oi1BDTAAHBxz80bZeL8xJOE
- obeMaXlgIO0YBdtURlbXH4zrIomOmlmSFFBih5c2APlailNIrtpp1Mu6U
- 9fHeyWO+0Wh5cF8U0rDMUOw9Vn/tInFSJBmeLNtNmFG6ZfZERPg2baCHl A==;
-X-CSE-ConnectionGUID: MuWNunkwQ0GnpWf5ytE4Xg==
-X-CSE-MsgGUID: uPRfVwmcS6uVWlLSWDP5Gw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11739"; a="79368175"
-X-IronPort-AV: E=Sophos;i="6.23,139,1770624000"; d="scan'208";a="79368175"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
- by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Mar 2026 02:08:59 -0700
-X-CSE-ConnectionGUID: YjZwZeTWSSu/oyniaBRAew==
-X-CSE-MsgGUID: kn/tDpZiTBGDSNtQ6gVQiw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,139,1770624000"; d="scan'208";a="229087246"
-Received: from orsmsx902.amr.corp.intel.com ([10.22.229.24])
- by orviesa004.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Mar 2026 02:08:59 -0700
-Received: from ORSMSX903.amr.corp.intel.com (10.22.229.25) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Wed, 25 Mar 2026 02:08:58 -0700
-Received: from ORSEDG901.ED.cps.intel.com (10.7.248.11) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37 via Frontend Transport; Wed, 25 Mar 2026 02:08:58 -0700
-Received: from CO1PR03CU002.outbound.protection.outlook.com (52.101.46.8) by
- edgegateway.intel.com (134.134.137.111) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Wed, 25 Mar 2026 02:08:58 -0700
+Received: from BL2PR02CU003.outbound.protection.outlook.com
+ (mail-eastusazon11011036.outbound.protection.outlook.com [52.101.52.36])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5251A10E848
+ for <amd-gfx@lists.freedesktop.org>; Wed, 25 Mar 2026 09:34:16 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=BJ68A6GWLelSYJGsA6JtL5TY60vnC4CS8tU/4+jJ1Z9LXHp4vpsFObuCaSp6OPGetlsOmz4bZEq6LX/fOnPzzZL05R7YBAgJZYGdSYcyh2P3++RL6OYJoEpoGTZtCBbboCFmhkdHnudtH0LKUHKkbe8dFFi3/xHU+F61pXGm/NTmeVkl3ByxhcbwDq8xMURim/CZ7XXZUJADFgu5DaHfymWcWPIudj0p1B0Q6eyOQg0ZRIj/UYp+13V92rKHAUP0jgnIGSvWiIN4n61c0L7Syhq/OLLEV28KBPfizN8+lEl65SMzEqpUsfkADXW3b/RibwPicdlX/fJOdu8Clq3vRA==
+ b=yuhiELh7B0FiiKEQaAlm1FlK2+HDEt5scA498LoIZNYrUuyejGkRA2nbaKEZ141qbrdZdScDZCbjXE3zhXpBYqTzx+zV6HMB8V7jEqOolvnE90FqR/EUfsCvx6TL2/nflB5IdH5pctlINZvT5x/95QOyrC+gH3UqU0bcPXp91uFoDueXrbmawiMbH5bn6xQfxAT0lGs29yiZ76F43gimspYbzAEATZeaxoA0TezcgK0PBPp3MJMlUAguBJvlSo1kFa5GCJTyGIFkkGuuHok7SMBjbrb5oOZhU1he2SbUlzugD+mXP6zwxDcmYu7XueCLbneInkk/PdRa+HV0jsN7oA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=RtX3toKr6M+BI/zKGsPaLRT3pHJYXHAibDqQxongg2o=;
- b=PEQgHpzcVn4V89w37cHslXdARx02wgHjd9lj4hB/+1fppq1F8rANBVuw7XYDcK9Eo3A8ii6W1I+ELqGvayDDA8EOpWPjLFbx3j/TzuBdv+KJy7CVwAvWIn4X0YzJPLwzoGDrKC6Z4RBVcjLTR1z8SbXtvoXQZv70N2Cb7SDGC34fPxZQ8P9D30zvoPOP/z2476JWpqNqrrJ+N+Q8sUJNjhBDgx/ftiaXk6BWcJeaeFXXp4u6QJMDFjZFaqQMDOcNnpAZQ45RUVkgLWRTPtBmsL04Eu5rUmFhHhoPKNVj4IbJ+U6eEnFb5Yt1RvSvGoijXuJ4m0B1F9JIVWpOJaZEdw==
+ bh=t/51blL65All73/FHBwM/fwyg3VPQfZ2jMSXn1ZzfY8=;
+ b=mrdYiDVly5zZDT9Rel4m4fLjzRFany/lyrX+CWvx5oXaHMJF7yRzQx5FiBhsPHpndlDhceKof6aihmJRtOIExfPCgPy6YfjfUnAgprim6Lo7q5t1pdpSmPpXuY4Yp/kHxngfjEZEuDxBU+ZRpuyAapXxmaYFRCF57SvO50lVL4+sS8WFm7CfuDupX9eqAWRZSgiRHUnaX02HSAPbmiXB/3qpmrsgB/Th1dL6ECBfuYeVqgXhqrryVmFYWUIPdWlXab37fHNs/ygPuceNyCCEUeonHp6WK24XtEIId7ebSRDezp4ek/MOqGsTV0oLjTcEEUd4mlIZClTLYCrk77Tz0w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=t/51blL65All73/FHBwM/fwyg3VPQfZ2jMSXn1ZzfY8=;
+ b=pR4HB70+EEh9HImPKW3wmG222hr6NAtGw1HV8zYPaLeOVkdEvT0Zd06nBO76ra22MpE1aaXxi39J7650VMTBb43bBrO28uq2chaw1Su8NKEZ7TAJNHYkWiRXG9getk0y39XW7svr0SPMTAnI4zqjeKm9VnbXpLdw5rADwHBE92A=
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from SJ1PR11MB6129.namprd11.prod.outlook.com (2603:10b6:a03:488::12)
- by SA0PR11MB4557.namprd11.prod.outlook.com (2603:10b6:806:96::7) with
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by CY8PR12MB8315.namprd12.prod.outlook.com (2603:10b6:930:7e::8) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.20; Wed, 25 Mar
- 2026 09:08:56 +0000
-Received: from SJ1PR11MB6129.namprd11.prod.outlook.com
- ([fe80::45f:5907:efdb:cb5b]) by SJ1PR11MB6129.namprd11.prod.outlook.com
- ([fe80::45f:5907:efdb:cb5b%3]) with mapi id 15.20.9745.019; Wed, 25 Mar 2026
- 09:08:55 +0000
-Message-ID: <feea29b7-fb28-4ac1-be74-b42c52173c59@intel.com>
-Date: Wed, 25 Mar 2026 14:38:42 +0530
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.7; Wed, 25 Mar
+ 2026 09:34:12 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.20.9745.019; Wed, 25 Mar 2026
+ 09:34:12 +0000
+Message-ID: <cbbc63ba-0c21-4fd9-b701-d79356b75d12@amd.com>
+Date: Wed, 25 Mar 2026 10:34:08 +0100
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] drm/atomic: track individual colorop updates
-Content-Language: en-GB
-To: Melissa Wen <mwen@igalia.com>, <airlied@gmail.com>,
- <alexander.deucher@amd.com>, <christian.koenig@amd.com>,
- <harry.wentland@amd.com>, <maarten.lankhorst@linux.intel.com>,
- <mripard@kernel.org>, <simona@ffwll.ch>, <siqueira@igalia.com>,
- <sunpeng.li@amd.com>, <tzimmermann@suse.de>
-CC: Alex Hung <alex.hung@amd.com>, Simon Ser <contact@emersion.fr>, "Uma
- Shankar" <uma.shankar@intel.com>, Xaver Hugl <xaver.hugl@kde.org>,
- <amd-gfx@lists.freedesktop.org>, <kernel-dev@igalia.com>, Rob Clark
- <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>, "Abhinav
- Kumar" <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>,
- "Sean Paul" <sean@poorly.run>, Marijn Suijten
- <marijn.suijten@somainline.org>, <linux-arm-msm@vger.kernel.org>,
- <dri-devel@lists.freedesktop.org>, <freedreno@lists.freedesktop.org>
-References: <20260323131942.494217-1-mwen@igalia.com>
- <20260323131942.494217-2-mwen@igalia.com>
-From: "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>
-In-Reply-To: <20260323131942.494217-2-mwen@igalia.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MA5PR01CA0093.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a01:1a8::16) To SJ1PR11MB6129.namprd11.prod.outlook.com
- (2603:10b6:a03:488::12)
+Subject: Re: [RESEND RFC PATCH v3 1/6] drm/amdgpu: Change
+ AMDGPU_VA_RESERVED_TRAP_SIZE to 2 PAGE_SIZE pages
+To: "Kuehling, Felix" <felix.kuehling@amd.com>,
+ Donet Tom <donettom@linux.ibm.com>, amd-gfx@lists.freedesktop.org,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Alex Deucher <alexdeucher@gmail.com>, Philip Yang <yangp@amd.com>
+Cc: David.YatSin@amd.com, Kent.Russell@amd.com,
+ Ritesh Harjani <ritesh.list@gmail.com>,
+ Vaidyanathan Srinivasan <svaidy@linux.ibm.com>, stable@vger.kernel.org
+References: <cover.1774239489.git.donettom@linux.ibm.com>
+ <d3a5bd9b4bcff28c1c43c4c46479cd95d4dcf7f0.1774239489.git.donettom@linux.ibm.com>
+ <65a96159-1266-4b42-91ce-359fcd1a76ea@amd.com>
+ <7beedf3b-99f7-4096-9a49-88f98b9b4eb5@linux.ibm.com>
+ <bf255b34-0def-4a0b-a07d-30b9271b0166@amd.com>
+ <6171f849-4164-4fd5-b31e-79c08df936c2@linux.ibm.com>
+ <6b2d502d-08ef-4008-8399-f5630de2385c@amd.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <6b2d502d-08ef-4008-8399-f5630de2385c@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR4P281CA0147.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:b8::7) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PR11MB6129:EE_|SA0PR11MB4557:EE_
-X-MS-Office365-Filtering-Correlation-Id: 08c0cd56-5247-4165-aecc-08de8a4e2462
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|CY8PR12MB8315:EE_
+X-MS-Office365-Filtering-Correlation-Id: 572dbc0a-3e9c-407d-3211-08de8a51ac78
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|376014|7416014|1800799024|56012099003|18002099003|22082099003|7053199007|921020;
-X-Microsoft-Antispam-Message-Info: au+71t/fzSw8ShwvLisqI2TEpVcSPnT0za/SoSleHQTtnOg/vaceQtnUyIy9wpPFt34bt/6eP1dckDhMEderyqqt3KQcrCIiIsCEYi/Oixwf4kJPOu7V8smDIHJA/uxONHPEAsyuuZeoijECoCa61D8NxOfiwnzXny5lkSzb8SBHDEi5+y+ViJap3tmvSGnzwTK+Eit3Gv3sE8SddR2Pew9YzzIdIYKNa1M7U/E4VlScVtrdpNY+FCvhdBVYIRhT8fthZ0Nfvts9mn3jo3VJy+TBDFBPI8HQZHPkS7uPucFuV49n+yV5kbhiVQ6rFHbckqnr6W6kaUP9ahDUaCGVHswzEReXgWoDodZaWApqJ5zdqbGUfAgPe1HviLknAsBazoNsZqrVbPgeeDFkknwe4XY5m/uf/f0t8Rtpfoe0JbomSMnSwUNQ3Q7aa7BbjrM4Ld4Sj/D1w6n0ZMM4OQk46qxCeXhaysMGGJxHIFgL3IPBkKZWX1GOjIx9Do9DUBAsuDs0OoQIdErmnWd2ZVxSy0IBuqN8ovPeKgKg5M0ESTrQ0vtSRwsHYzAMnTCNtPt+y/EDkmzTPZwQlYV2/x7XEg20x9Uh3OWH5bTBXtEuShUGyXemCFYGyMXGyXK7f7Hjg1sP5GzWarw2YtOqhhokEHGSi33qBFqOZ+iYfN2Gi1XDEjB37oJZYqF9WQ1Ty64QLZxMucROIvspTqxjjda0XFfSKBTseX+p296CYA8E4CZJqCpsUJTaXsnlbSG6V1xRUn2wUsoAAAO78Mon0NIDmA==
+ ARA:13230040|1800799024|376014|366016|56012099003|18002099003|22082099003; 
+X-Microsoft-Antispam-Message-Info: e1jXo1x3D8lDV75yb3/qesDTGhoc/WhnjQ6nP12CWo1VVFY0OhNmtna9KpF1RBsj6U0AsOp+28t7ZQeWdlaolWsRj03NUIPIPt6BSrRS8OlDdpnTAgMNRayvU06o7qDRZPv87Uf8XfJITNlt9Z2Yq1WiKXHLjVttk0RTuzYLowBAqcHy7eOrtCLDP9XCHmrEKqF7+3QKYc+XnjWp5aOjib3THo9TzRIW23UAzC8+phpKJ3VisDUW+knc88YGnAc1+Vh9/2atIE4zFaodqAS0+5+G7+8tuvTwyjG0FkKBaGaYuzNcI077T2Ece71N62k3C4W8yj8sJ5F9MQXfkIdHFWWCZihLaO9YOtAAwUQrurJjwUVhdaeCAaRnc9CD90zH+H3lL7LSVR6WwRMMvPyC+mDAtgfQZSYhAInw2RrW7rKyMw8CngiiuUyb8iKxAadrxtUcGTBl8sMF/m7Ij8/VFv/dGbkYUEo0PILKx+zA9SIw4eg6FaYlYwQP+AWUryzq+0QNtPEoa02gYb0q7nRQ4mGkbtewy62+KYI/T2sJvWVstz+6neM1TlCsP3sApGj2e7AKqUxWSQwG9rq8JnXRYyoYx0pbgwV8ZPCCTn+mUSFrqHtRY1POJof6w44vyInF1XVjVZt+AzTnWSJxHa/I3IhV24S/BEdL3H+rSBY9ckhlIqlWB/bGGDeGSTwnvRx8oDedVUM1VJyCWvL80cCEF1Ku8mlak2/3jzIY/sF2pic=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SJ1PR11MB6129.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(7416014)(1800799024)(56012099003)(18002099003)(22082099003)(7053199007)(921020);
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(366016)(56012099003)(18002099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MlNLdjFGcElqUm1aWDF4V25XV3B4WlFGUldGbFp0T2paSFNGd1dNWWRjQUZt?=
- =?utf-8?B?emw3bzQ3NzRlRWxib0pWTzRnaUdZaUoybllLY2Q2M0lrbVAzVUsyNGVVZDVE?=
- =?utf-8?B?TjI3QlJQNGh4Z25HVWhVSit6MU9jZ0Y1UktVWnBCMVM0N0dqc21WSjZhanZj?=
- =?utf-8?B?ZFhvU0R6dWRDeDhIZnkwWlBGaXVnUVU5ZXE4cGFmRDQ4L2VZb3FGeHU5OEsv?=
- =?utf-8?B?eTUwRGxsRnE1anhXb1R1ZUlndTU5b3NUOERGMXFUOTVSSFVVTk9iU2pFdFgv?=
- =?utf-8?B?QnVxUW0vVUEzdGw0TnJna2dwTkVVcXlWU2pLRW9LdGFKaDUzakR0Yk02Z2FF?=
- =?utf-8?B?NjJza1ZUZGlGc3REZ3F1bTY4SllRSHBqOUpRUUZKWmY3YW1JcndFdWlrekhG?=
- =?utf-8?B?Yng2RHl4OXEzV2kxN2huOHRmQ3Q0ekFvM1p4eHR6WmJIb2F0bktPWWlyYUdy?=
- =?utf-8?B?SFhlOVhSL1RQVGN4YkFITit5U1hiNU9aSnVSODNhWjAzZDJrYU1hTm91aHpM?=
- =?utf-8?B?ajQ2KzV6b0hwc2RvVGdvUkZ0MER6MWFvcXhPRDRiNm9xNlRCS3psbkJsY1dq?=
- =?utf-8?B?dm40M1lOR1o3SythZkZ3dWU0WmY0b1hZdmNZT0JxNFZiRStnMnZzUTNCSkFY?=
- =?utf-8?B?akVnRjlCMmYxSWZBcytPeUp3WjJRVDFJcWE2emhNZVEySVdBU0k0R2VaWEhU?=
- =?utf-8?B?YWFHWDF6bHVMbUY1eXpyL2hJMnJLanBOcmUrL0o3aFFKK0htckRVc1R0bGdo?=
- =?utf-8?B?RHdiRTFsbG5pcS9XK29oMHUzeEhTVHNwWTlLdm1lQ0N6cHp2L3R4Um1WLzEw?=
- =?utf-8?B?RFlxTTNXKzI4bldGS05wSTF5ZmZtMVg3M0JadUVWVkVGNGFXQ3ZiZ2orVGs3?=
- =?utf-8?B?aXpYRW1lL2kvOEt6ckJOaEJ2WFB1WmpMTSsyc2c3cElrTjhCdXFlb0lvSXho?=
- =?utf-8?B?UVNnam9NUnAwWjIwWHJKaHhUM2h1RElYQ1A1WFZHb1E1dURSZGcyMHdiTVBq?=
- =?utf-8?B?Z3daYzJjMGJCRG95aW9KbGRKVXNYT3JZN0UrWjVwdHFnZzRML2JPcHJBOGp5?=
- =?utf-8?B?M29wTlVMUThPYUUwUGR3UVBmUklUNG96KzU1Rk9mNCtxdkJjc0FZTmFSNHJD?=
- =?utf-8?B?N2ZVbVFPT0J0SEFpZW0rSkRrZUdSeW1lOWZoQzQ2ckdJTStMbVcxTkZKdGhu?=
- =?utf-8?B?SDlPck9iL0FIempEbzlZTHk1QjBmRmhzWGZGajNhUmlsbVhTSFB3d0VtTVVm?=
- =?utf-8?B?d1IrN2VlMU9lRU1id0lLUkRXdExNR3Jjdll1OVZEQkozTFlFaEUya0owN2hX?=
- =?utf-8?B?MXdBVkx4cTJEQXRUMXdzT2d3dWVJbGQ2b1BURktrcGFHM0ZoUGoxa0xHZDhw?=
- =?utf-8?B?WHd3VEhRTTd2bFFtRFRTWTVsN3Y3UFJGWC9WWmpDajNGNjNUQ1NnRkZVeWl5?=
- =?utf-8?B?UVlVVFdrVEVSL2txYlRUaDE5aDBIRzRHcHAyOS9IbU1xUnBwZE5WVThwUU1X?=
- =?utf-8?B?cExBSFZNVEdka0xDaFFoWElGRVdQMmtGNU5DOTk5ZC9Nakk1cmVyUS9BVmgr?=
- =?utf-8?B?a0lmN2NBLzlwY2FPMUlRckozRjY1dFY1d2NWMTFpeTVreGM1MEdLVXIxeUN2?=
- =?utf-8?B?aTdIK3d0ekFNSUkxOUhmWXMrTUJ6cnBLZjI5bTIvVkRKZ1h2NkhyVHNiUVZy?=
- =?utf-8?B?a28vaDRtR3M0d2hrd2l1TjI4WDJNSTRtWCsrQ0pqd3JtMWJhcDRGam1TcVJX?=
- =?utf-8?B?YUUxdGw3K3lvcnJaOGFwc0w0N1ZaS3VJdUQzZTd3Tm1oRXNISUdSWWw3Vjlw?=
- =?utf-8?B?c2JreG5qZkE5aWcxamxBRE9UOEpnc1NzWnpxamhzOTNrcTVYR0xMRTdMdVBq?=
- =?utf-8?B?My9SeWhJcHVTVktSL245MzJncXdqL3JmUTVIY3dSeXVUUkNBeE9xQjA3S2FY?=
- =?utf-8?B?NURpWGgyNkRTOHprYmVHOFpaL3JtZkltZEVCa3p5RUN1S1Vkb21oODRxQjNt?=
- =?utf-8?B?RzN6Y2VEbm5vSEZCNTVPSTdIWFlPdnNHNEtEQ3ZoU1NoaHRxS2JhMmErOCtq?=
- =?utf-8?B?SExNclFhZjhZRVM4Ly9MUnhlb1h5TXZ6YVo0U3FLREh1cWFVQ3h2M0FJNnl0?=
- =?utf-8?B?Mm1ORkJEcG1yaFE4R2pmYkpxeXpYRElLb0ErN1lqMndIQmZYYlBNRXNCNVU3?=
- =?utf-8?B?aG1xZVVFQTFyY1Y4WXhXMXhhV2wybi92N3BVWktlcCtYRmFYWnJzNVA1clBz?=
- =?utf-8?B?emNkMVE0Um9BcTYzclhPaDFZMFVJRy9SRUMvRmZFVWQ0VFp3Mll5ZkJVZ2hF?=
- =?utf-8?B?c0ROUWJ0Q21LMEl0L1dwU2k4cng2ZHpNN0F1MEJwbGNXRW9NRTR1SERqL29u?=
- =?utf-8?Q?k2SSqJ166y6EYvQ0=3D?=
-X-Exchange-RoutingPolicyChecked: dnegbix3Qo2XKkf/3xzOPAgL+7ZlpV/GM8t1ALGEt/DBVTIR7ocRBRUf5UH5OaLGpGFE+qiIbOTLfA0Yi6t7CebGKl9f9dUFcPZzmxGwqWvTaj8ATZFBZNSZ1bV4TNTonz6WIGgFPtypY3A4SBLA1PbdSkjNNTa1R+ygtQj2EFSAFMnroGPU+2lQ2r1xY+0JS0kaW76h2zVYgcCqhFNybSJdPEQDDzU5s5+lC9BDhbiRBLtm29xpuXCK401H/WFvVVXUC5YAbM+n3jlo9uNP2bQ3/MDxhcaybAsxYzOuerykbgBFtutnpQhZVj70RkCnIATfKghmUhpwqTTDpdaaIQ==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 08c0cd56-5247-4165-aecc-08de8a4e2462
-X-MS-Exchange-CrossTenant-AuthSource: SJ1PR11MB6129.namprd11.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bXlUd0tSZDYyZ1FYNzZGM25GaCtuY1BaT21WNHBtOWRTR3B3eE90U05iRG9x?=
+ =?utf-8?B?KzFFL1pkRit6eDI5TXZWTXpZYW1vRDQvY3lWeGgwNldscEtFbEVSd2x0Vjcz?=
+ =?utf-8?B?L1FENDFUQUJXRXNMY1hEM0lKTTZsVHZ2dWlVdkorWmxxU2VPOWVjenAwSDNp?=
+ =?utf-8?B?UmUxOVV3TnZYMWNEaUZQb1I0dWtDVTNleHdvbjVGcGJxUzhEUHdBOGt6ajRQ?=
+ =?utf-8?B?TlFaRUVkZ3lEdndKNWdydE9NWnF1V1pVZWZ3dklWQWt2OThaZGI4ZWhocVNQ?=
+ =?utf-8?B?ZmpLd21qVy9IcjhIR3BESkVMN2R0MTM1MStBN05RT3YzL2U0dUtUNThhS09W?=
+ =?utf-8?B?QnhueXl1WXhpR201aS9MWnc4NGUvbDE4ODVsWUgxb0ZlZmEzcHBIMWU5aERt?=
+ =?utf-8?B?MUhhSGlUSmk2MzRHVzhobEU2T2pwcW5DRE94T1BXSEdXU0VkMFkxdlpLZGN3?=
+ =?utf-8?B?K0QwWTh6WE1wRnBNcG1MSzdoZk5zVVJXemt2Sk0zK3F3Y3FjV3c3ZmpHQWFi?=
+ =?utf-8?B?RmVGejcwRWNJOU55RVpiRFVTS050OUgrUUJZUVBHbW4walRMSCs4dTRPd090?=
+ =?utf-8?B?MVRnbkVHY0pEN1o3dElXV0dVSVRTVVcvNDZpeWdOZjNiSWovTGNJeFlmQzdK?=
+ =?utf-8?B?WnF1MXE1RUcxakRLT21wZkNhekY3Y2RvUFd2NDhjRTJYTXVIeUpoVisydDds?=
+ =?utf-8?B?RFIzNHlETGw4Y2luNDVGYjBYczFtMW1xc2h5M2ptQVYvVVRNME5LRGt6bzJW?=
+ =?utf-8?B?Y3MrczNZZkI2S1dyYUlaK2o3TCsxSFdHRi9JRXM4TFM2cXBaeDFHWi9JT0hz?=
+ =?utf-8?B?MlV4ZUtUNUMxZkYwZ3ZEWVFIeTdPNUZPWkxmeTQ4Wk4yUithMVM0MVRZMlRx?=
+ =?utf-8?B?ektGV0NvWnZ3Y1FLWWlDQURESFlxTkFLR3dkSU1SY3lGSGZHL0RFME54ck5r?=
+ =?utf-8?B?dkVjVmNkZy9CakNtbmxpb2ZxT2xRS1ZjRkhUbkx6UTdrbDcrUzRMMGZ2cHg5?=
+ =?utf-8?B?NFg0eUJoc1N2TXFGbUVGNnVjNW1UU2p4MWlNSzNRUGk0bTBSS01Qb3dyeVZM?=
+ =?utf-8?B?NHNRLzdkaVVnK3dHWW01Q3lHTktlOVNaOGlVN2dEWld5eXJOVVZCcGs4TFZj?=
+ =?utf-8?B?UGxWV3lhZzJwN1kvY3I3UjJDbjRxWVJnR0U2MVJEQWQ4aXdUYjJucmphRXha?=
+ =?utf-8?B?ZHk3ck9jeW5VbE9yOCtRUWp2Vk9HWHFNbWtMQ3VESGZKejZFQXJtaW94ZWQw?=
+ =?utf-8?B?MUVLWUhxbzJ5QmQzTDdVVWp0RURBK1FJZjJSWVpjamxMcTN1MVFnVy9XZ2ZM?=
+ =?utf-8?B?RGFHbEFUQkNtYmw1d2RaVjFnNW1yblI2Q0JtUXE0L2oreDc0U2hOZGZyTUxq?=
+ =?utf-8?B?U3VENkltQ1MwOUFsK2VGd0pGblVvSG0rNVdHWktTODdFaGlYWXN6dkxSck91?=
+ =?utf-8?B?QnVEdVFLQXBFZkNDZDl6YXppWkR4Z2Q2Wk51bjdES3ZiWlgyVFc4c2NaemNZ?=
+ =?utf-8?B?ckx4TUtQRVNXbThhYStiOVNvY092b0hZY3ZodFRvU2t5Wm9OWjl5RERBcko1?=
+ =?utf-8?B?aHQ5Q0x0NThxUk5XRFhHK2pOVEI5THRLVi9NME14OGZGNEtqQ2xaUmFXekpE?=
+ =?utf-8?B?OFJaVlJCZ3lyYjArcjRKT05WM0Fya3ZadXd1V0ZFTEJEWTJ0OUNVOHNiQ2VQ?=
+ =?utf-8?B?RXNmdVVLWXNCNkkyVU1qOTBZcGNVVkdIWVFQbDJjL2dwWGErak9CQXI4SXI3?=
+ =?utf-8?B?WUVmNHI5NWtrT2NzdFY4dy9uR0orOGhCcmc2eEJvOTQzbkdLTysxWnlmNjRU?=
+ =?utf-8?B?UHNlSk1mQm5nSjNxaVdHZ3FIMVg4TFllL3IxREJZNVcrclNnU2JpM0lWTFps?=
+ =?utf-8?B?UFJpb2FJbVV6M1pZYWpKRTJhT0FZM1BoRldKR0VTTElHbzF1MGdNYjJhWGFx?=
+ =?utf-8?B?V2ZGNzhnY3JGWEVvYktqa2U3NnJPekQxeWljQlFFakcrRDlHWGEvcCtCYVZ0?=
+ =?utf-8?B?MExyQlkzdWRiRVlyekZyVXJhNUlxRGlwSGNnaElkTUo5aVNYYWZyeXd1bWtU?=
+ =?utf-8?B?c0Z4VDZEM1YweU4yc0RGZGh3RHZJL3EyVDJjeFN4WjNuaGxDa2pIUDhDREdk?=
+ =?utf-8?B?Rnk0dVFySFN5aHQxbHJpN2NNR2d5SWZLMmdINnY1MEl2cmpXTlhtUWxicnNv?=
+ =?utf-8?B?SG9GQnRFMVlCM0FRRTJ4ZVREOWhUbTc0RkdJZ1hMSHo5OTJaNk5odExWSTk5?=
+ =?utf-8?B?NHNZWmU0OWdRREpMem5JZkRwVUVzYTljSTZxcStZUFRPRnp0MGRZNm11Tmk5?=
+ =?utf-8?Q?TohC9AgrW7jw3cbzgB?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 572dbc0a-3e9c-407d-3211-08de8a51ac78
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Mar 2026 09:08:55.9034 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Mar 2026 09:34:12.5305 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: PYCE6G6hv1Cfvvmv25vVCr/9Sm7aNonjfZJNwoGLWbdbKoOs7BQGhgBj8qdVs069RDv6WbXm9jUv5i8qh6g4kRrJ/8G6gBzlSHOkZlaTofk=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR11MB4557
-X-OriginatorOrg: intel.com
+X-MS-Exchange-CrossTenant-UserPrincipalName: HBFABuV7DJdZplHF+nzeG2aiH1qBwnh3UeCApLhwlhTko3iF1/8yEEEP3LGWfslR
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB8315
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -180,194 +145,174 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Melissa,
-
-On 3/23/2026 6:45 PM, Melissa Wen wrote:
-> As we do for CRTC color mgmt properties, use color_mgmt_changed flag to
-> track any value changes in the color pipeline of a given plane, so that
-> drivers can update color blocks as soon as plane color pipeline or
-> individual colorop values change.
+On 3/25/26 03:26, Kuehling, Felix wrote:
 > 
-> Reviewed-by: Harry Wentland <harry.wentland@amd.com> #v1
-> Signed-off-by: Melissa Wen <mwen@igalia.com>
-> ---
+> On 2026-03-24 14:19, Donet Tom wrote:
+>>
+>> On 3/23/26 6:42 PM, Christian König wrote:
+>>> On 3/23/26 12:50, Donet Tom wrote:
+>>>> On 3/23/26 3:41 PM, Christian König wrote:
+>>>>
+>>>> Hi Christian
+>>>>
+>>>>> On 3/23/26 05:28, Donet Tom wrote:
+>>>>>> Currently, AMDGPU_VA_RESERVED_TRAP_SIZE is hardcoded to 8KB, while
+>>>>>> KFD_CWSR_TBA_TMA_SIZE is defined as 2 * PAGE_SIZE. On systems with
+>>>>>> 4K pages, both values match (8KB), so allocation and reserved space
+>>>>>> are consistent.
+>>>>>>
+>>>>>> However, on 64K page-size systems, KFD_CWSR_TBA_TMA_SIZE becomes 128KB,
+>>>>>> while the reserved trap area remains 8KB. This mismatch causes the
+>>>>>> kernel to crash when running rocminfo or rccl unit tests.
+>>>>>>
+>>>>>> Kernel attempted to read user page (2) - exploit attempt? (uid: 1001)
+>>>>>> BUG: Kernel NULL pointer dereference on read at 0x00000002
+>>>>>> Faulting instruction address: 0xc0000000002c8a64
+>>>>>> Oops: Kernel access of bad area, sig: 11 [#1]
+>>>>>> LE PAGE_SIZE=64K MMU=Radix SMP NR_CPUS=2048 NUMA pSeries
+>>>>>> CPU: 34 UID: 1001 PID: 9379 Comm: rocminfo Tainted: G E
+>>>>>> 6.19.0-rc4-amdgpu-00320-gf23176405700 #56 VOLUNTARY
+>>>>>> Tainted: [E]=UNSIGNED_MODULE
+>>>>>> Hardware name: IBM,9105-42A POWER10 (architected) 0x800200 0xf000006
+>>>>>> of:IBM,FW1060.30 (ML1060_896) hv:phyp pSeries
+>>>>>> NIP:  c0000000002c8a64 LR: c00000000125dbc8 CTR: c00000000125e730
+>>>>>> REGS: c0000001e0957580 TRAP: 0300 Tainted: G E
+>>>>>> MSR:  8000000000009033 <SF,EE,ME,IR,DR,RI,LE> CR: 24008268
+>>>>>> XER: 00000036
+>>>>>> CFAR: c00000000125dbc4 DAR: 0000000000000002 DSISR: 40000000
+>>>>>> IRQMASK: 1
+>>>>>> GPR00: c00000000125d908 c0000001e0957820 c0000000016e8100
+>>>>>> c00000013d814540
+>>>>>> GPR04: 0000000000000002 c00000013d814550 0000000000000045
+>>>>>> 0000000000000000
+>>>>>> GPR08: c00000013444d000 c00000013d814538 c00000013d814538
+>>>>>> 0000000084002268
+>>>>>> GPR12: c00000000125e730 c000007e2ffd5f00 ffffffffffffffff
+>>>>>> 0000000000020000
+>>>>>> GPR16: 0000000000000000 0000000000000002 c00000015f653000
+>>>>>> 0000000000000000
+>>>>>> GPR20: c000000138662400 c00000013d814540 0000000000000000
+>>>>>> c00000013d814500
+>>>>>> GPR24: 0000000000000000 0000000000000002 c0000001e0957888
+>>>>>> c0000001e0957878
+>>>>>> GPR28: c00000013d814548 0000000000000000 c00000013d814540
+>>>>>> c0000001e0957888
+>>>>>> NIP [c0000000002c8a64] __mutex_add_waiter+0x24/0xc0
+>>>>>> LR [c00000000125dbc8] __mutex_lock.constprop.0+0x318/0xd00
+>>>>>> Call Trace:
+>>>>>> 0xc0000001e0957890 (unreliable)
+>>>>>> __mutex_lock.constprop.0+0x58/0xd00
+>>>>>> amdgpu_amdkfd_gpuvm_alloc_memory_of_gpu+0x6fc/0xb60 [amdgpu]
+>>>>>> kfd_process_alloc_gpuvm+0x54/0x1f0 [amdgpu]
+>>>>>> kfd_process_device_init_cwsr_dgpu+0xa4/0x1a0 [amdgpu]
+>>>>>> kfd_process_device_init_vm+0xd8/0x2e0 [amdgpu]
+>>>>>> kfd_ioctl_acquire_vm+0xd0/0x130 [amdgpu]
+>>>>>> kfd_ioctl+0x514/0x670 [amdgpu]
+>>>>>> sys_ioctl+0x134/0x180
+>>>>>> system_call_exception+0x114/0x300
+>>>>>> system_call_vectored_common+0x15c/0x2ec
+>>>>>>
+>>>>>> This patch changes AMDGPU_VA_RESERVED_TRAP_SIZE to 2 * PAGE_SIZE,
+>>>>>> ensuring that the reserved trap area matches the allocation size
+>>>>>> across all page sizes.
+>>>>>>
+>>>>>> cc: stable@vger.kernel.org
+>>>>>> Fixes: 34a1de0f7935 ("drm/amdkfd: Relocate TBA/TMA to opposite side of VM hole")
+>>>>>> Reviewed-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
+>>>>>> Signed-off-by: Donet Tom <donettom@linux.ibm.com>
+>>>>>> ---
+>>>>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h | 2 +-
+>>>>>>   1 file changed, 1 insertion(+), 1 deletion(-)
+>>>>>>
+>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+>>>>>> index 139642eacdd0..a5eae49f9471 100644
+>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+>>>>>> @@ -173,7 +173,7 @@ struct amdgpu_bo_vm;
+>>>>>>   #define AMDGPU_VA_RESERVED_SEQ64_SIZE        (2ULL << 20)
+>>>>>>   #define AMDGPU_VA_RESERVED_SEQ64_START(adev) (AMDGPU_VA_RESERVED_CSA_START(adev) \
+>>>>>>                            - AMDGPU_VA_RESERVED_SEQ64_SIZE)
+>>>>>> -#define AMDGPU_VA_RESERVED_TRAP_SIZE        (2ULL << 12)
+>>>>>> +#define AMDGPU_VA_RESERVED_TRAP_SIZE        (2ULL << PAGE_SHIFT)
+>>>>> Well using PAGE_SHIFT in amdgpu_vm.h looks quite broken to me.
+>>>>>
+>>>>> That makes the GPU VA reservation depend on the CPU page size and that is clearly not something we want to have.
+>>>>>
+>>>>> Where is KFD_CWSR_TBA_TMA_SIZE defined?
+>>>>>
+>>>> Thanks Christian for reviewing this patch.
+>>>>
+>>>> It is defined in kfd_priv.h.
+>>>>
+>>>> /*
+>>>>   * Size of the per-process TBA+TMA buffer: 2 pages
+>>>>   *
+>>>>   * The first chunk is the TBA used for the CWSR ISA code. The second
+>>>>   * chunk is used as TMA for user-mode trap handler setup in daisy-chain mode.
+>>>>   */
+>>>> #define KFD_CWSR_TBA_TMA_SIZE (PAGE_SIZE * 2)
+>>>>
+>>>>
+>>>>
+>>>> Could you please suggest the correct way to fix this issue?
+>>> I'm only looking from the POV of the VM code on this, but my educated guess is that KFD_CWSR_TBA_TMA_SIZE should be 8k independent of the CPU page size.
+>>>
+>>> Background is that this is written by the shader trap handler and that byte code doesn't care what CPU architecture you have.
+>>>
+>>> But I think only the engineers working on that trap handler can really answer this. @Felix / @Philip?
+>>
+>>
+>> Hi @christian @Felix @Philip
+>>
+>> To remove the dependency on CPU page size, can we use
+>>
+>> +#define AMDGPU_VA_RESERVED_TRAP_SIZE    (2ULL << 16)
+>>
+>> During reservation, we reserve 128 bytes, but during
+>> allocation, we use 2 * PAGE_SIZE.
 > 
->   v2: add linux types to provide bool for MSM driver (kernel bot)
-> ---
->   drivers/gpu/drm/drm_atomic_uapi.c | 53 ++++++++++++++++++++++++-------
->   include/drm/drm_atomic_uapi.h     |  4 ++-
->   2 files changed, 45 insertions(+), 12 deletions(-)
+> We only need two GPU pages here. I think what Christian is objecting to is, that the GPU VM layout should not depend on the CPU page size.
+
+Yes, exactly that was my concern.
+
+> @Christian, it sounds like the BO allocations happen with 64KB granularity, but the mapping is still using 4KB granularity. Is the right solution to GPU-map only the first 8KB of the trap handler BO to keep the layout the same across CPU architectures?
+
+Well that would work technically, but I agree that it also sounds a bit questionable as well.
+
+> I guess then the "correct" solution would be to change amdgpu_amdkfd_gpuvm_alloc_memory_of_gpu and amdgpu_amdkfd_gpuvm_map_memory_to_gpu to support mapping of the requested size with GPU page size granularity regardless of the CPU page size. But that would increase complexity for a very niche uses case.
 > 
-> diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atomic_uapi.c
-> index 87de41fb4459..713fa9e81732 100644
-> --- a/drivers/gpu/drm/drm_atomic_uapi.c
-> +++ b/drivers/gpu/drm/drm_atomic_uapi.c
-> @@ -265,13 +265,19 @@ EXPORT_SYMBOL(drm_atomic_set_fb_for_plane);
->    *
->    * Helper function to select the color pipeline on a plane by setting
->    * it to the first drm_colorop element of the pipeline.
-> + *
-> + * Return: true if plane color pipeline value changed, false otherwise.
->    */
-> -void
-> +bool
->   drm_atomic_set_colorop_for_plane(struct drm_plane_state *plane_state,
->   				 struct drm_colorop *colorop)
->   {
->   	struct drm_plane *plane = plane_state->plane;
->   
-> +	/* Color pipeline didn't change */
-> +	if (plane_state->color_pipeline == colorop)
-> +		return false;
-> +
->   	if (colorop)
->   		drm_dbg_atomic(plane->dev,
->   			       "Set [COLOROP:%d] for [PLANE:%d:%s] state %p\n",
-> @@ -283,6 +289,8 @@ drm_atomic_set_colorop_for_plane(struct drm_plane_state *plane_state,
->   			       plane->base.id, plane->name, plane_state);
->   
->   	plane_state->color_pipeline = colorop;
-> +
-> +	return true;
->   }
->   EXPORT_SYMBOL(drm_atomic_set_colorop_for_plane);
->   
-> @@ -600,7 +608,7 @@ static int drm_atomic_plane_set_property(struct drm_plane *plane,
->   		if (val && !colorop)
->   			return -EACCES;
->   
-> -		drm_atomic_set_colorop_for_plane(state, colorop);
-> +		state->color_mgmt_changed |= drm_atomic_set_colorop_for_plane(state, colorop);
->   	} else if (property == config->prop_fb_damage_clips) {
->   		ret = drm_property_replace_blob_from_id(dev,
->   					&state->fb_damage_clips,
-> @@ -709,11 +717,11 @@ drm_atomic_plane_get_property(struct drm_plane *plane,
->   static int drm_atomic_color_set_data_property(struct drm_colorop *colorop,
->   					      struct drm_colorop_state *state,
->   					      struct drm_property *property,
-> -					      uint64_t val)
-> +					      uint64_t val,
-> +					      bool *replaced)
->   {
->   	ssize_t elem_size = -1;
->   	ssize_t size = -1;
-> -	bool replaced = false;
->   
->   	switch (colorop->type) {
->   	case DRM_COLOROP_1D_LUT:
-> @@ -735,28 +743,39 @@ static int drm_atomic_color_set_data_property(struct drm_colorop *colorop,
->   						 &state->data,
->   						 val,
->   						 -1, size, elem_size,
-> -						 &replaced);
-> +						 replaced);
->   }
->   
->   static int drm_atomic_colorop_set_property(struct drm_colorop *colorop,
->   					   struct drm_colorop_state *state,
->   					   struct drm_file *file_priv,
->   					   struct drm_property *property,
-> -					   uint64_t val)
-> +					   uint64_t val,
-> +					   bool *replaced)
->   {
->   	if (property == colorop->bypass_property) {
-> -		state->bypass = val;
-> +		if (state->bypass != val) {
-> +			state->bypass = val;
-> +			*replaced = true;
-> +		}
->   	} else if (property == colorop->lut1d_interpolation_property) {
->   		colorop->lut1d_interpolation = val;
->   	} else if (property == colorop->curve_1d_type_property) {
-> -		state->curve_1d_type = val;
-> +		if (state->curve_1d_type != val) {
-> +			state->curve_1d_type = val;
-> +			*replaced = true;
-> +		}
->   	} else if (property == colorop->multiplier_property) {
-> -		state->multiplier = val;
-> +		if (state->multiplier != val) {
-> +			state->multiplier = val;
-> +			*replaced = true;
-> +		}
->   	} else if (property == colorop->lut3d_interpolation_property) {
->   		colorop->lut3d_interpolation = val;
+> An easier solution would be to PAGE_ALIGN 8KB to the system page size. But that results in the virtual address space layout to depend on the system page size.
 
-I think it would be prudent to add this logic for both the 1dlut and 
-3dlut interpolation properties. Even though they have just one value 
-exposed right now, that might change in future.
+Yeah, that dependency is certainly undesirable. We could easily end up with issues which can only be reproduced on systems with 64k page size.
 
->   	} else if (property == colorop->data_property) {
->   		return drm_atomic_color_set_data_property(colorop, state,
-> -							  property, val);
-> +							  property, val,
-> +							  replaced);
->   	} else {
->   		drm_dbg_atomic(colorop->dev,
->   			       "[COLOROP:%d:%d] unknown property [PROP:%d:%s]\n",
-> @@ -1273,6 +1292,8 @@ int drm_atomic_set_property(struct drm_atomic_state *state,
->   	case DRM_MODE_OBJECT_COLOROP: {
->   		struct drm_colorop *colorop = obj_to_colorop(obj);
->   		struct drm_colorop_state *colorop_state;
-> +		struct drm_plane_state *plane_state;
-> +		bool replaced = false;
->   
->   		colorop_state = drm_atomic_get_colorop_state(state, colorop);
->   		if (IS_ERR(colorop_state)) {
-> @@ -1281,7 +1302,17 @@ int drm_atomic_set_property(struct drm_atomic_state *state,
->   		}
->   
->   		ret = drm_atomic_colorop_set_property(colorop, colorop_state,
-> -						      file_priv, prop, prop_value);
-> +						      file_priv, prop, prop_value,
-> +						      &replaced);
-> +		if (ret || !replaced)
-> +			break;
-> +
-> +		plane_state = drm_atomic_get_plane_state(state, colorop->plane);
-> +		if (IS_ERR(plane_state)) {
-> +			ret = PTR_ERR(plane_state);
-> +			break;
-> +		}
-> +		plane_state->color_mgmt_changed = true;
+> If that's objectionable, then the next best solution is to round up the trap handler size to 64KB byte unconditionally, so its the same with 4KB or 64KB system page size. But that would mean unnecessarily wasting a little memory per process/GPU on x86.
 
-I am not sure if it was the intention of the uapi design but as I 
-understand there are no guardrails for setting a colorop in an 
-"inactive" pipeline.
+How about we always reserve 64KiB address space (or maybe even more, if you reserve 2MiB or 64KiB doesn't matter), but only map as large as the allocated buffer actually is?
 
-So, color_mgmt_changed  is set to true even if a colorop from a color 
-pipeline that is not currently selected(or set to Bypass) by the 
-user-space is changed.
-I guess, the driver needs to be intelligent enough to ignore those 
-colorop but should we reject it at drm core?
+I think that this would be my preferred solution.
 
-==
-Chaitanya
+Regards,
+Christian.
 
->   		break;
->   	}
->   	default:
-> diff --git a/include/drm/drm_atomic_uapi.h b/include/drm/drm_atomic_uapi.h
-> index 436315523326..4e7e78f711e2 100644
-> --- a/include/drm/drm_atomic_uapi.h
-> +++ b/include/drm/drm_atomic_uapi.h
-> @@ -29,6 +29,8 @@
->   #ifndef DRM_ATOMIC_UAPI_H_
->   #define DRM_ATOMIC_UAPI_H_
->   
-> +#include <linux/types.h>
-> +
->   struct drm_crtc_state;
->   struct drm_display_mode;
->   struct drm_property_blob;
-> @@ -50,7 +52,7 @@ drm_atomic_set_crtc_for_plane(struct drm_plane_state *plane_state,
->   			      struct drm_crtc *crtc);
->   void drm_atomic_set_fb_for_plane(struct drm_plane_state *plane_state,
->   				 struct drm_framebuffer *fb);
-> -void drm_atomic_set_colorop_for_plane(struct drm_plane_state *plane_state,
-> +bool drm_atomic_set_colorop_for_plane(struct drm_plane_state *plane_state,
->   				      struct drm_colorop *colorop);
->   int __must_check
->   drm_atomic_set_crtc_for_connector(struct drm_connector_state *conn_state,
+> 
+> Regards,
+>   Felix
+> 
+> 
+>>
+>>
+>> -Donet
+>>
+>>>
+>>> Regards,
+>>> Christian.
+>>>
+>>>> -Donet
+>>>>
+>>>>> Regards,
+>>>>> Christian.
+>>>>>
+>>>>>>   #define AMDGPU_VA_RESERVED_TRAP_START(adev) (AMDGPU_VA_RESERVED_SEQ64_START(adev) \
+>>>>>>                            - AMDGPU_VA_RESERVED_TRAP_SIZE)
+>>>>>>   #define AMDGPU_VA_RESERVED_BOTTOM        (1ULL << 16)
 
