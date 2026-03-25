@@ -4,75 +4,98 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EB8D1106B53E
-	for <amd-gfx@archiver.kernel.org>; Wed, 25 Mar 2026 13:44:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A6F60106B53F
+	for <amd-gfx@archiver.kernel.org>; Wed, 25 Mar 2026 14:13:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 778D410E230;
-	Wed, 25 Mar 2026 13:44:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4073110E7F7;
+	Wed, 25 Mar 2026 14:13:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="KAE5zjq0";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ypEvN5Zg";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6442010E1EE;
- Wed, 25 Mar 2026 13:44:24 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 5706260123;
- Wed, 25 Mar 2026 13:44:23 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 83E8EC4CEF7;
- Wed, 25 Mar 2026 13:44:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1774446263;
- bh=R4VEk07h2v3XpY1QKdgb2vlUARw9jfCfolYo6/LkTvs=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=KAE5zjq0k6W6MQSkOk93LdaEMZFdhYeBkdfVVr5L9uBMksZM7Uj+Rg3tJ/F0cDoxQ
- /ZpWod11vMvBRZaWGpklLfxcVY8wnzkhrkpOKxO2ZpzX3i19eYIlo7JmFdPK8EEcbQ
- JBBTabX12+UWJfO1Bq/qIi6F99cuuS6xKFOHX2vMn9kETetBKgbivIuXWwjRZeoc68
- beV0nrCKaz3wo+/gqXJ9gA7YdKNV/Fs1hiFTBtGQQaaXsLS3mioPckoYsTNVOkDbRS
- G2w69gTn1NGrUnTnqKUR8XcjTDmia772g0/pL5mUppzkDufoGI7LB78+c4NUcgi3sA
- 5UJr5EIo2ULvg==
-Date: Wed, 25 Mar 2026 14:44:20 +0100
-From: Maxime Ripard <mripard@kernel.org>
-To: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Cc: Dave Stevenson <dave.stevenson@raspberrypi.com>, 
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
- Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>, 
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Thomas Zimmermann <tzimmermann@suse.de>,
- Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>, Sandy Huang <hjc@rock-chips.com>, 
- Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>,
- Andy Yan <andy.yan@rock-chips.com>, 
- Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, 
- Dmitry Baryshkov <lumag@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>, 
- Rob Herring <robh@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
- Shuah Khan <skhan@linuxfoundation.org>, kernel@collabora.com,
- amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- linux-doc@vger.kernel.org, 
- Werner Sembach <wse@tuxedocomputers.com>, Andri Yngvason <andri@yngvason.is>, 
- Marius Vlad <marius.vlad@collabora.com>
-Subject: Re: [PATCH v11 03/22] drm: Add new general DRM property "color format"
-Message-ID: <20260325-holistic-llama-of-plenty-acbeca@houat>
-References: <20260324-color-format-v11-0-605559af4fb4@collabora.com>
- <CAPY8ntB9f_=f5kru=8w9BpTuqQR+93maGpT61EKU28Uay2vq8Q@mail.gmail.com>
- <20260325-quaint-bull-of-fortitude-dc68da@houat>
- <12425220.nUPlyArG6x@workhorse>
+Received: from BL2PR02CU003.outbound.protection.outlook.com
+ (mail-eastusazon11011006.outbound.protection.outlook.com [52.101.52.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3E98D10E7EE
+ for <amd-gfx@lists.freedesktop.org>; Wed, 25 Mar 2026 14:12:59 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=X8F5THOOXp4PGr2XnjB4Ig1UzOlKwFt29rEERdjWm9sjkTjrd1psnfM27ufZllcqfOs6lN1TkFvWLBT1TeOIMcGfUsFbXdGlTcZz6+Hu0s/ZOiwAAcs4KsbqYjnluh7sfVJy9foXZKgujBl6svDiu70LwrQkkA42ST0/dsyhF06+Pvec6HBDTrACBvpr0muWNhcDrxMMr6wg3mS84U3WSlC4wCacaiEgyB2ZC/gZH10egXvQ0BBxHO/BJEXBGDXYVQi3BGhzVOilg9gdFnfMtmLUxWSI/S/0iovdu/4hJQSUMfwqlsXugcKO1EEtecA/z9MDKkODGUP+nB6odytQ6w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=8iGG/9IKGbQ0E3NH4uH6hm+5gfWhTVpdHM7uGj3VisU=;
+ b=jPzyfejBj6/h71kV/PiqSEyBdLu/HsiQ/eRR3O4mqof8ITbmSYUtAdJWry4EjUWjFL8YX9Lagx6KGEQJHKjBKKVhuSiMXhVLwpAuxFlM67GB/NXgvHvSwT8ExDOrfQkIchHJ8UpZB1kHE04T7Aa3UarZIQLLCKKW14AaWT8kKu6VEwo6oit6VLgca9DM+n5BGVIDnZME8ynRroJGBMSVzrR61ZNxMruJc1Sv3EKum8b2Hl1JAfoC7DaGIwNIDgYWXWKzTWk+Ib+ZIpfSM5DtkKrwuPLB9ulzybZ1fG8yU77XyzBLMETwICY6TH9WT9YjKXuDEspbCk2ZBUVHOSJ+pw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=8iGG/9IKGbQ0E3NH4uH6hm+5gfWhTVpdHM7uGj3VisU=;
+ b=ypEvN5ZgKTSlgnI6/t/6TBa2K50W7uZUB9/9xHmlpbKlSwmd5BOapQPi39fs48+TVrmQiKhUsZwGRWIPT7IHcj+GD3xW50J0KVXYBNhWpzigQQEU2Udseq97YYR+Rxbdx087LHX61OMUcML00Sd/DmhKLuJVBPcZDO0ab7SGQsM=
+Received: from SJ0PR03CA0366.namprd03.prod.outlook.com (2603:10b6:a03:3a1::11)
+ by MN2PR12MB4469.namprd12.prod.outlook.com (2603:10b6:208:268::22)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.20; Wed, 25 Mar
+ 2026 14:12:53 +0000
+Received: from SJ1PEPF00001CDF.namprd05.prod.outlook.com
+ (2603:10b6:a03:3a1:cafe::6e) by SJ0PR03CA0366.outlook.office365.com
+ (2603:10b6:a03:3a1::11) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9723.31 via Frontend Transport; Wed,
+ 25 Mar 2026 14:12:45 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SJ1PEPF00001CDF.mail.protection.outlook.com (10.167.242.7) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9723.19 via Frontend Transport; Wed, 25 Mar 2026 14:12:52 +0000
+Received: from mlse-blrlinux-ll.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Wed, 25 Mar
+ 2026 09:12:49 -0500
+From: Lijo Lazar <lijo.lazar@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <Hawking.Zhang@amd.com>, <Alexander.Deucher@amd.com>,
+ <Asad.Kamal@amd.com>, <Feifei.Xu@amd.com>
+Subject: [PATCH 2/9] drm/amdgpu: Add stolen vga reserve-region
+Date: Wed, 25 Mar 2026 19:42:19 +0530
+Message-ID: <20260325141226.1173216-2-lijo.lazar@amd.com>
+X-Mailer: git-send-email 2.49.0
+In-Reply-To: <20260325141226.1173216-1-lijo.lazar@amd.com>
+References: <20260325141226.1173216-1-lijo.lazar@amd.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha384;
- protocol="application/pgp-signature"; boundary="nu5efgjywb5co2ik"
-Content-Disposition: inline
-In-Reply-To: <12425220.nUPlyArG6x@workhorse>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PEPF00001CDF:EE_|MN2PR12MB4469:EE_
+X-MS-Office365-Filtering-Correlation-Id: 696b3061-b21c-4f35-7627-08de8a789a56
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|36860700016|376014|82310400026|56012099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: 0I8IMzz12qaC7w+MAFcFtZ1B/4Nkp1EbI3ROuOt1pge3tsJwamqHxlT/FH79BvJb4NKCyDVz8IBFSlqI4lQ5NnzH/rOEBRX5cuwDq4qrnCOZt7I1mA/nJAbPZpG2M4N2nzi7LKh8Kj9Z3jYzMH9krLWoFygUweg2tr6JxpUdgjC6Ik7UT4vjxXEZH6eaivzOF969U4qFZuKeagxHjdGj/l9Z4Jp4X+8iJuRdxztFEfPDuOX7In+rBX2VxfJBxLmh/CqHNEreS4F1mLMZIBN7/TvU1f32UxSD6s8NlwSpKdhGCNWuE7Jk7mQVdnLawsynUOYywzxPe+CbDtoXgf2y+CSYox8Wn1Hkij/jagan+5pSV0qOnugFmhGC/886eYVfHdIu5K+EHnaYlvutsZC+n3dHWg8OhB5R7tkf8YnY4bmYxGe1+A4A0j7TLRV1q/mVr/KWsCIXUJi8gK6gQ55j22Y3RHRlSILyH63Nvmrc2Iui9Q3XQYmwx4jMzoipvbHWki0dNgCoJNcMsd6GjIbjUUzlPC4d2dWzmf1sCEA9R/B+hgjpeqPKS7gHOKt8AlWfBix7lcvptpAvzuhFpef9bdqXZqJWrPUhSsOD7becDWog+JyEpXON/XRfa1v4HbWaU9VaWCj0/Z62M9XVBLq4uhOd2ml4H4sin2+YssgC/0LpOPtX9wLrlp2Vv1MXKELmhT7wwcXVcdzT3SSUtuGmVyODZG7VtNLaYvnlLQE+TAvYRCTinF2E51j0Jz+Y3JLvYKs8pytpeTLGKNnLpRPSJg==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(36860700016)(376014)(82310400026)(56012099003)(18002099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: YsfwGAZR9j17QiZWXrL/0V54tS5FPdg/5RvoS6nikCutYJF5CbODZL0zyYlgcq2sLJXyaQE3msWMeVriJ1XtNzZd1NlgvwP1H9ZQYva696qA7J9LtthS8jChdC8ZRpvuJS6NV7HsHUddyZwWxc453qHCtQj7Ozp6jilcJxPQttzbN1YMgfcdf/4qswvSjSOmknXh20RVMOyNvB6K3EOrzkHN0enENg8UJQiHGQBJVJph46Nw1DjhuPvDNYJVn/iJbO+xOCbXtGFLPicQTqM2MYtGV5EPNXuIJgX48MOUxUZv2uiukmdKGRzyx+HzHWeQaiPHemSiGPSshZG8ufrLlA167evNta/4TPEHDxvw4AjO43+DEVMUYPLxpj3ZNa7d/QFKdZOoV3XYT9yc0E42KLKh2yQabSW3jsKb3zRVL0jX1s1KedwQiatV9+9sRstS
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Mar 2026 14:12:52.1812 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 696b3061-b21c-4f35-7627-08de8a789a56
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF00001CDF.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4469
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,104 +110,93 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Use reserve region helpers for initializing/reserving stolen vga region.
 
---nu5efgjywb5co2ik
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v11 03/22] drm: Add new general DRM property "color
- format"
-MIME-Version: 1.0
+Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c           |  8 +++++---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c           | 10 ++++------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h           |  2 --
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  2 +-
+ 4 files changed, 10 insertions(+), 12 deletions(-)
 
-On Wed, Mar 25, 2026 at 02:21:24PM +0100, Nicolas Frattaroli wrote:
-> On Wednesday, 25 March 2026 14:05:25 Central European Standard Time Maxim=
-e Ripard wrote:
-> > Hi Dave,
-> >=20
-> > On Wed, Mar 25, 2026 at 12:49:19PM +0000, Dave Stevenson wrote:
-> > > > diff --git a/include/drm/drm_connector.h b/include/drm/drm_connecto=
-r.h
-> > > > index af8b92d2d5b7..bd549f912b76 100644
-> > > > --- a/include/drm/drm_connector.h
-> > > > +++ b/include/drm/drm_connector.h
-> > > > @@ -571,14 +571,102 @@ enum drm_colorspace {
-> > > >   *   YCbCr 4:2:2 output format (ie. with horizontal subsampling)
-> > > >   * @DRM_OUTPUT_COLOR_FORMAT_YCBCR420:
-> > > >   *   YCbCr 4:2:0 output format (ie. with horizontal and vertical s=
-ubsampling)
-> > > > + * @DRM_OUTPUT_COLOR_FORMAT_COUNT:
-> > > > + *   Number of valid output color format values in this enum
-> > > >   */
-> > > >  enum drm_output_color_format {
-> > > >         DRM_OUTPUT_COLOR_FORMAT_RGB444 =3D 0,
-> > > >         DRM_OUTPUT_COLOR_FORMAT_YCBCR444,
-> > > >         DRM_OUTPUT_COLOR_FORMAT_YCBCR422,
-> > > >         DRM_OUTPUT_COLOR_FORMAT_YCBCR420,
-> > > > +       DRM_OUTPUT_COLOR_FORMAT_COUNT,
-> > > >  };
-> > > >
-> > > > +/**
-> > > > + * enum drm_connector_color_format - Connector Color Format Request
-> > > > + *
-> > > > + * This enum, unlike &enum drm_output_color_format, is used to spe=
-cify requests
-> > > > + * for a specific color format on a connector through the DRM "col=
-or format"
-> > > > + * property. The difference is that it has an "AUTO" value to spec=
-ify that
-> > > > + * no specific choice has been made.
-> > > > + */
-> > > > +enum drm_connector_color_format {
-> > > > +       /**
-> > > > +        * @DRM_CONNECTOR_COLOR_FORMAT_AUTO: The driver or display =
-protocol
-> > > > +        * helpers should pick a suitable color format. All impleme=
-ntations of a
-> > > > +        * specific display protocol must behave the same way with =
-"AUTO", but
-> > > > +        * different display protocols do not necessarily have the =
-same "AUTO"
-> > > > +        * semantics.
-> > > > +        *
-> > > > +        * For HDMI, "AUTO" picks RGB, but falls back to YCbCr 4:2:=
-0 if the
-> > > > +        * bandwidth required for full-scale RGB is not available, =
-or the mode
-> > > > +        * is YCbCr 4:2:0-only, as long as the mode and output both=
- support
-> > > > +        * YCbCr 4:2:0.
-> > >=20
-> > > Is there a reason you propose dropping back to YCbCr 4:2:0 without
-> > > trying YCbCr 4:2:2 first? Minimising the subsampling is surely
-> > > beneficial, and vc4 for one can do 4:2:2 but not 4:2:0.
-> >=20
-> > The "auto" behaviour is strictly identical to the one we have right now,
-> > and this one stems from i915. Back when all that logic was added, it was
-> > decided to align every driver behavior on i915 because that's what most
-> > compositors would expect.
->
-> would it be okay to extend the behavior while we're at it? 4:2:2 does save
-> bandwidth compared to RGB (unlike YCbCr 4:4:4). I do think 4:2:2 instead =
-of
-> 4:2:0 will provide benefits in some cases.
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+index f165d4e401e8..c40ae1073017 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+@@ -1098,10 +1098,12 @@ void amdgpu_gmc_get_vbios_allocations(struct amdgpu_device *adev)
+ 		size = 0;
+ 
+ 	if (size > AMDGPU_VBIOS_VGA_ALLOCATION) {
+-		adev->mman.stolen_vga_size = AMDGPU_VBIOS_VGA_ALLOCATION;
+-		adev->mman.stolen_extended_size = size - adev->mman.stolen_vga_size;
++		amdgpu_ttm_init_vram_resv(adev, AMDGPU_RESV_STOLEN_VGA,
++					  0, AMDGPU_VBIOS_VGA_ALLOCATION, false);
++		adev->mman.stolen_extended_size = size - AMDGPU_VBIOS_VGA_ALLOCATION;
+ 	} else {
+-		adev->mman.stolen_vga_size = size;
++		amdgpu_ttm_init_vram_resv(adev, AMDGPU_RESV_STOLEN_VGA,
++					  0, size, false);
+ 		adev->mman.stolen_extended_size = 0;
+ 	}
+ }
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+index 7f04e53983b5..84c482cc653f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+@@ -2213,14 +2213,12 @@ int amdgpu_ttm_init(struct amdgpu_device *adev)
+ 	 * and driver.
+ 	 */
+ 	if (!adev->gmc.is_app_apu) {
+-		r = amdgpu_bo_create_kernel_at(adev, 0,
+-					       adev->mman.stolen_vga_size,
+-					       &adev->mman.stolen_vga_memory,
+-					       NULL);
++		r = amdgpu_ttm_reserve_vram(adev, AMDGPU_RESV_STOLEN_VGA);
+ 		if (r)
+ 			return r;
+ 
+-		r = amdgpu_bo_create_kernel_at(adev, adev->mman.stolen_vga_size,
++		r = amdgpu_bo_create_kernel_at(adev,
++					       adev->mman.resv_region[AMDGPU_RESV_STOLEN_VGA].size,
+ 					       adev->mman.stolen_extended_size,
+ 					       &adev->mman.stolen_extended_memory,
+ 					       NULL);
+@@ -2349,7 +2347,7 @@ void amdgpu_ttm_fini(struct amdgpu_device *adev)
+ 	amdgpu_ttm_training_reserve_vram_fini(adev);
+ 	/* return the stolen vga memory back to VRAM */
+ 	if (!adev->gmc.is_app_apu) {
+-		amdgpu_bo_free_kernel(&adev->mman.stolen_vga_memory, NULL, NULL);
++		amdgpu_ttm_unreserve_vram(adev, AMDGPU_RESV_STOLEN_VGA);
+ 		amdgpu_bo_free_kernel(&adev->mman.stolen_extended_memory, NULL, NULL);
+ 		/* return the FW reserved memory back to VRAM */
+ 		amdgpu_bo_free_kernel(&adev->mman.fw_reserved_memory, NULL,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
+index b73f65a4bc0d..d973c96f0ebb 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
+@@ -99,8 +99,6 @@ struct amdgpu_mman {
+ 	struct amdgpu_gtt_mgr gtt_mgr;
+ 	struct ttm_resource_manager preempt_mgr;
+ 
+-	uint64_t		stolen_vga_size;
+-	struct amdgpu_bo	*stolen_vga_memory;
+ 	uint64_t		stolen_extended_size;
+ 	struct amdgpu_bo	*stolen_extended_memory;
+ 	bool			keep_stolen_vga_memory;
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index d73095ac3ab1..30521e270d71 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -11153,7 +11153,7 @@ static void amdgpu_dm_atomic_commit_tail(struct drm_atomic_state *state)
+ 	if (!adev->in_suspend) {
+ 		/* return the stolen vga memory back to VRAM */
+ 		if (!adev->mman.keep_stolen_vga_memory)
+-			amdgpu_bo_free_kernel(&adev->mman.stolen_vga_memory, NULL, NULL);
++			amdgpu_ttm_unreserve_vram(adev, AMDGPU_RESV_STOLEN_VGA);
+ 		amdgpu_bo_free_kernel(&adev->mman.stolen_extended_memory, NULL, NULL);
+ 	}
+ 
+-- 
+2.49.0
 
-I don't really know, we would need to ask some Wayland/Weston devs as
-well, but it sure is something worth discussing.
-
-I wouldn't do it in this series but as a follow-up though.
-
-Maxime
-
---nu5efgjywb5co2ik
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCacPmswAKCRAnX84Zoj2+
-dmGlAX0Q9JHOxhbPAWTKWwWdOKb27uv7yw9UktgOGpTC//J0c33s5cWESV5s9FVr
-OXH5nAQBeQGG5UBUfjnKVw2z5/UIP190HSYoXIe99ktfdFWZXL8eG7RH4sRMWGxb
-vSEBp9nfpg==
-=4Hsf
------END PGP SIGNATURE-----
-
---nu5efgjywb5co2ik--
