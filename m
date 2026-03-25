@@ -4,78 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 42B7B10A3D91
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DC86310A3D92
 	for <amd-gfx@archiver.kernel.org>; Thu, 26 Mar 2026 12:50:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DE22110E8EF;
-	Thu, 26 Mar 2026 12:50:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1875B10E90D;
+	Thu, 26 Mar 2026 12:50:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="kMKm63Fg";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="iDhHZYPv";
 	dkim-atps=neutral
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
- [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 26FDA10E1B2;
- Wed, 25 Mar 2026 13:22:09 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1774444903; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=CCtBlCPi3Q2bB+pY52f2jYSHnPdZPKK5c/bNbLVbaqFROouY4wutn/e4U4ddPiCh2dRtIJEa+4sw3eRcgkx5itizWSiHQJ1k5ji2y3TV8Sfd+LOOHE+4eImuNXHyhepL4Y6xZLlucHqh7dhKlIgV597SkxauYwWGp3Mt/qwyCQE=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1774444903;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=4NCts4nAAjmpTTPXyyXJubEwZVKpuACtYHYvuhLjnEg=; 
- b=neSpIpW8c/spyqvAiNwkjoDSOZqyZHnFCRxV+Gi3qYZVjFyK2gFbh4bi4baBjnCEikE9tteSGtcEZu59GjHFByVfFlXSi6+KM02lf2Fn1W/82bQzFgR2uXoK9V23thc386KYuCtfUVJTQ5xbJa49Byx9hCa8SriuTIc37yQPjqA=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
- dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1774444902; 
- s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
- h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:Content-Type:Message-Id:Reply-To;
- bh=4NCts4nAAjmpTTPXyyXJubEwZVKpuACtYHYvuhLjnEg=;
- b=kMKm63FguoGfblCxfxSJ1j3I+F7NdvBi9QkoZ36rRIQm4aQhUxkdXUzXAXW4P2/G
- +iy6N2K0+KnjFKEck7QsfoKxt4RhRphih9F7T8mSCX2RA9nAFsIw2VpoO+K94iKlTUc
- te0syhpVY6coMVnV3Yp8zmz2ebBBxIMveJzQYjMI=
-Received: by mx.zohomail.com with SMTPS id 1774444893218302.43210365950904;
- Wed, 25 Mar 2026 06:21:33 -0700 (PDT)
-From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-To: Dave Stevenson <dave.stevenson@raspberrypi.com>,
- Maxime Ripard <mripard@kernel.org>
-Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Sandy Huang <hjc@rock-chips.com>,
- Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>,
- Andy Yan <andy.yan@rock-chips.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, Dmitry Baryshkov <lumag@kernel.org>,
- Sascha Hauer <s.hauer@pengutronix.de>, Rob Herring <robh@kernel.org>,
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- kernel@collabora.com, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- linux-doc@vger.kernel.org, Werner Sembach <wse@tuxedocomputers.com>,
- Andri Yngvason <andri@yngvason.is>, Marius Vlad <marius.vlad@collabora.com>
-Subject: Re: [PATCH v11 03/22] drm: Add new general DRM property "color format"
-Date: Wed, 25 Mar 2026 14:21:24 +0100
-Message-ID: <12425220.nUPlyArG6x@workhorse>
-In-Reply-To: <20260325-quaint-bull-of-fortitude-dc68da@houat>
-References: <20260324-color-format-v11-0-605559af4fb4@collabora.com>
- <CAPY8ntB9f_=f5kru=8w9BpTuqQR+93maGpT61EKU28Uay2vq8Q@mail.gmail.com>
- <20260325-quaint-bull-of-fortitude-dc68da@houat>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="utf-8"
+Received: from mail-pg1-f182.google.com (mail-pg1-f182.google.com
+ [209.85.215.182])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7354310E24B
+ for <amd-gfx@lists.freedesktop.org>; Wed, 25 Mar 2026 13:17:10 +0000 (UTC)
+Received: by mail-pg1-f182.google.com with SMTP id
+ 41be03b00d2f7-c73e9e4cdf7so2048087a12.2
+ for <amd-gfx@lists.freedesktop.org>; Wed, 25 Mar 2026 06:17:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1774444630; x=1775049430; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:message-id:date
+ :in-reply-to:subject:cc:to:from:from:to:cc:subject:date:message-id
+ :reply-to; bh=ydE77GFQVM2//1TEIJxuqD6vop6Nou0E99kEw1kEoLs=;
+ b=iDhHZYPvXqrFQuTsqBOI0JMbuiq/PNVF3m7TBnMzNG+8M1Zp0vnVXucPc+/FnlD9os
+ NAKzLByZnX3/g0qvhuc3Gy2knaz/8Vfbz8mr773ppm4OOFt4inesyLlzQAv5Qi8WPAG4
+ Oy/zytigEIXMabyKltgTvNwE8L0J0Pq8fIoGmB7K8d2+b45pNhOzXTkvBabqL8Y/eA3/
+ 37Vweaodu15yaO8V1QvFR5fGjjVQHvZ9bdAt8MBK/JxzDTWCVQWHQpIVlFTqe6hav9Dm
+ PKJuYIexHovEHteBs7UQJA+KlqHBf0bGyD3K0RDDOOVr65qQyw+CBS4Iw4y9ql1x4tHx
+ oA2Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1774444630; x=1775049430;
+ h=content-transfer-encoding:mime-version:references:message-id:date
+ :in-reply-to:subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=ydE77GFQVM2//1TEIJxuqD6vop6Nou0E99kEw1kEoLs=;
+ b=elHiaVAeXw8h9bwBPNLHFiFLWMoU9JExjx6P/8rA0wj3+7AFAbwX6vEC6Rg5lfUVKO
+ uqtHNU6JF5fzd3vtTAxP47/a0DtZBtsy3V5UJm5MuMvv56bO+bGlPiRm+qG54kE1Wmeh
+ LMmzyIPfFpm5cIdd5c1L7zoshpdLyUPPwVdVBz753TqiVUcMb4/d5BksrUMEs/djHh78
+ itraMWL+Rk/hXFJtEXd5kzm5AUQgJGcxc2vDfCE+TwjRhCssX6dFaxPGKYIPQpoK/uu/
+ sv2U7c6k2n9VKfODsAy/QZdqLvA540/RI62T+UGjZ6W3epXgon6I2EYnd1xYUcrQ/R2B
+ QryQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVtHOJPM319qGmRb91bTqal1H23YjCIpE0u0DKa7BCkDYC0Qw8pdkjw0ser1EeAbzrAnR9QMdvI@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzJvOR+lfRg/181L8/EP+BZsuRUTZdriZGONjbliZUaipHIOSZx
+ e3Q9/j6xEd0gWfu+WNz1h2J9BXcEgVZGHESDk35RBe5o6F9866ARQW0l
+X-Gm-Gg: ATEYQzzrUtJih+1KEiQMlEze7AIkc83/XVzUskff2TTNY2C6OJEl1MUPLijJqshsMgO
+ i/PuAZXEF5mhDofSacZsoYW1ZSH2HhQ6MpOi8vQIlKOuuk7H1gIt8BHIHc3Aes1AHDi9aEkcq6L
+ l7aaCfcAFKYlrdHUl1AdDuS65Su5XggMamuVviGOIsmtWTxzhPshdl2Bp/5pakN+XueSpGOUI5p
+ YxFA9qfElGm2YOswCAYChrJhGPMK/lEMFcqp1zuiOZeMQnADw9RS6wrpMbxcX9l+g1F9tx/THHE
+ IH0JclSAkA3LcJud58gTzbeSjfr9fecjY2zXr4/FRDRKFB9EG60DWoWc+2FVdKccnRSZE61JXFx
+ 4eKLwAQIL9LmZJl83kKlC6zHLfIKZczaL5Y3xq3b4m9fLXo8Fynt0xLh4JtTcZmQrNllyWHa5T5
+ 3TW2kKE2BJ/7jUUiXgoP76JA==
+X-Received: by 2002:a17:903:3c2b:b0:2ae:c816:ec5d with SMTP id
+ d9443c01a7336-2b0b0a8d27cmr38475585ad.32.1774444629628; 
+ Wed, 25 Mar 2026 06:17:09 -0700 (PDT)
+Received: from pve-server ([49.205.216.49]) by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-2b083655b45sm250598065ad.42.2026.03.25.06.17.05
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 25 Mar 2026 06:17:08 -0700 (PDT)
+From: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
+To: Gaurav Batra <gbatra@linux.ibm.com>, Dan =?utf-8?Q?Hor=C3=A1k?=
+ <dan@danny.cz>
+Cc: linuxppc-dev@lists.ozlabs.org, amd-gfx@lists.freedesktop.org,
+ Donet Tom <donettom@linux.ibm.com>
+Subject: Re: amdgpu driver fails to initialize on ppc64le in 7.0-rc1 and newer
+In-Reply-To: <da93575e-92ad-4a7b-83df-1cb956bd2bc2@linux.ibm.com>
+Date: Wed, 25 Mar 2026 17:42:01 +0530
+Message-ID: <5x6knm5q.ritesh.list@gmail.com>
+References: <20260313142351.609bc4c3efe1184f64ca5f44@danny.cz>
+ <1phlu3bs.ritesh.list@gmail.com>
+ <20260315105021.667e52d4a99b154ef1e6aa34@danny.cz>
+ <da93575e-92ad-4a7b-83df-1cb956bd2bc2@linux.ibm.com>
+MIME-version: 1.0
+Content-type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 26 Mar 2026 12:50:40 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -91,75 +91,131 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wednesday, 25 March 2026 14:05:25 Central European Standard Time Maxime Ripard wrote:
-> Hi Dave,
-> 
-> On Wed, Mar 25, 2026 at 12:49:19PM +0000, Dave Stevenson wrote:
-> > > diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
-> > > index af8b92d2d5b7..bd549f912b76 100644
-> > > --- a/include/drm/drm_connector.h
-> > > +++ b/include/drm/drm_connector.h
-> > > @@ -571,14 +571,102 @@ enum drm_colorspace {
-> > >   *   YCbCr 4:2:2 output format (ie. with horizontal subsampling)
-> > >   * @DRM_OUTPUT_COLOR_FORMAT_YCBCR420:
-> > >   *   YCbCr 4:2:0 output format (ie. with horizontal and vertical subsampling)
-> > > + * @DRM_OUTPUT_COLOR_FORMAT_COUNT:
-> > > + *   Number of valid output color format values in this enum
-> > >   */
-> > >  enum drm_output_color_format {
-> > >         DRM_OUTPUT_COLOR_FORMAT_RGB444 = 0,
-> > >         DRM_OUTPUT_COLOR_FORMAT_YCBCR444,
-> > >         DRM_OUTPUT_COLOR_FORMAT_YCBCR422,
-> > >         DRM_OUTPUT_COLOR_FORMAT_YCBCR420,
-> > > +       DRM_OUTPUT_COLOR_FORMAT_COUNT,
-> > >  };
-> > >
-> > > +/**
-> > > + * enum drm_connector_color_format - Connector Color Format Request
-> > > + *
-> > > + * This enum, unlike &enum drm_output_color_format, is used to specify requests
-> > > + * for a specific color format on a connector through the DRM "color format"
-> > > + * property. The difference is that it has an "AUTO" value to specify that
-> > > + * no specific choice has been made.
-> > > + */
-> > > +enum drm_connector_color_format {
-> > > +       /**
-> > > +        * @DRM_CONNECTOR_COLOR_FORMAT_AUTO: The driver or display protocol
-> > > +        * helpers should pick a suitable color format. All implementations of a
-> > > +        * specific display protocol must behave the same way with "AUTO", but
-> > > +        * different display protocols do not necessarily have the same "AUTO"
-> > > +        * semantics.
-> > > +        *
-> > > +        * For HDMI, "AUTO" picks RGB, but falls back to YCbCr 4:2:0 if the
-> > > +        * bandwidth required for full-scale RGB is not available, or the mode
-> > > +        * is YCbCr 4:2:0-only, as long as the mode and output both support
-> > > +        * YCbCr 4:2:0.
-> > 
-> > Is there a reason you propose dropping back to YCbCr 4:2:0 without
-> > trying YCbCr 4:2:2 first? Minimising the subsampling is surely
-> > beneficial, and vc4 for one can do 4:2:2 but not 4:2:0.
-> 
-> The "auto" behaviour is strictly identical to the one we have right now,
-> and this one stems from i915. Back when all that logic was added, it was
-> decided to align every driver behavior on i915 because that's what most
-> compositors would expect.
+Gaurav Batra <gbatra@linux.ibm.com> writes:
 
-Hi Maxime,
+Hi Gaurav,
 
-would it be okay to extend the behavior while we're at it? 4:2:2 does save
-bandwidth compared to RGB (unlike YCbCr 4:4:4). I do think 4:2:2 instead of
-4:2:0 will provide benefits in some cases. I assume hardware that supports
-4:2:2 only instead of 4:2:0 does so in order to save >= 1 horizontal
-row of local SRAM buffer in the display controller for any downscaling,
-as it'll only need to consider neighbouring pixels on the same row.
+> Hello Ritesh/Dan,
+>
+>
+> Here is the motivation for my patch and thoughts on the issue.
+>
+>
+> Before my patch, there were 2 scenarios to consider where, even when the 
+> memory
+> was pre-mapped for DMA, coherent allocations were getting mapped from 2GB
+> default DMA Window. In case of pre-mapped memory, the allocations should 
+> not be
+> directed towards 2GB default DMA window.
+>
+> 1. AMD GPU which has device DMA mask > 32 bits but less then 64 bits. In 
+> this
+> case the PHB is put into Limited Addressability mode.
+>
+>     This scenario doesn't have vPMEM
+>
+> 2. Device that supports 64-bit DMA mask. The LPAR has vPMEM assigned.
+>
+>
+> In both the above scenarios, IOMMU has pre-mapped RAM from DDW (64-bit 
+> PPC DMA
+> window).
+>
+>
+> Lets consider code paths for both the case, before my patch
+>
+> 1. AMD GPU
+>
+> dev->dma_ops_bypass = true
+>
+> dev->bus_dma_limit = 0
+>
+> - Here the AMD controller shows 3 functions on the PHB.
+>
+> - After the first function is probed, it sees that the memory is pre-mapped
+>    and doesn't direct DMA allocations towards 2GB default window.
+>    So, dma_go_direct() worked as expected.
+>
+> - AMD GPU driver, adds device memory to system pages. The stack is as below
+>
+> add_pages+0x118/0x130 (unreliable)
+> pagemap_range+0x404/0x5e0
+> memremap_pages+0x15c/0x3d0
+> devm_memremap_pages+0x38/0xa0
+> kgd2kfd_init_zone_device+0x110/0x210 [amdgpu]
+> amdgpu_device_ip_init+0x648/0x6d8 [amdgpu]
+> amdgpu_device_init+0xb10/0x10c0 [amdgpu]
+> amdgpu_driver_load_kms+0x2c/0xb0 [amdgpu]
+> amdgpu_pci_probe+0x2e4/0x790 [amdgpu]
+>
+> - This changed max_pfn to some high value beyond max RAM.
+>
+> - Subsequently, for each other functions on the PHB, the call to
+>    dma_go_direct() will return false which will then direct DMA 
+> allocations towards
+>    2GB Default DMA window even if the memory is pre-mapped.
+>
+>     dev->dma_ops_bypass is true, dma_direct_get_required_mask() resulted 
+> in large
+>     value for the mask (due to changed max_pfn) which is beyond AMD GPU 
+> device DMA mask
+>
+>
+> 2. Device supports 64-bit DMA mask. The LPAR has vPMEM assigned
+>
+> dev->dma_ops_bypass = false
+> dev->bus_dma_limit = has some value depending on size of RAM (eg.  
+> 0x0800001000000000)
+>
+> - Here the call to dma_go_direct() returns false since 
+> dev->dma_ops_bypass = false.
+>
+>
+>
+> I crafted the solution to cover both the case. I tested today on an LPAR
+> with 7.0-rc4 and it works with AMDGPU.
+>
+> With my patch, allocations will go towards direct only when 
+> dev->dma_ops_bypass = true,
+> which will be the case for "pre-mapped" RAM.
+>
+> Ritesh mentioned that this is PowerNV. I need to revisit this patch and 
+> see why it is failing on PowerNV.
+> ...
+> From the logs, I do see some issue. The log indicates
+> dev->bus_dma_limit is set to 0. This is incorrect. For pre-mapped RAM, 
+> with my
+> patch, bus_dma_limit should always be set to some value.
+>
 
-Kind regards,
-Nicolas Frattaroli
+In that case, do you think adding an extra check for dev->bus_dma_limit
+would help? I am sure you already would have thought of this and
+probably are still working to find the correct fix?
 
-> 
-> Maxime
-> 
++bool arch_dma_alloc_direct(struct device *dev)
++{
++	if (dev->dma_ops_bypass && dev->bus_dma_limit)
++		return true;
++
++	return false;
++}
++
++bool arch_dma_free_direct(struct device *dev, dma_addr_t dma_handle)
++{
++	if (!dev->dma_ops_bypass || !dev->bus_dma_limit)
++		return false;
++
++	return is_direct_handle(dev, dma_handle);
++}
 
+<snip from Timothy>
 
+> introduced a serious regression into the kernel for a large number of
+> active users of the PowerNV platform, I would kindly ask that it be
+> reverted until it can be reworked not to break PowerNV support.  Bear
+> in mind there are other devices that are 40 bit DMA limited, and they
+> are also likely to break on Linux 7.0.
 
+Looks like more people are facing an issue with this now.
 
+-ritesh
