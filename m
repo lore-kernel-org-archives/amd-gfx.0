@@ -4,96 +4,170 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C9F41093168
-	for <amd-gfx@archiver.kernel.org>; Wed, 25 Mar 2026 21:22:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 852D9109E527
+	for <amd-gfx@archiver.kernel.org>; Wed, 25 Mar 2026 22:24:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3C22410E8AF;
-	Wed, 25 Mar 2026 21:22:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0D2DA10E194;
+	Wed, 25 Mar 2026 22:24:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="xzV7nHDt";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="MlZXFGmv";
 	dkim-atps=neutral
-Received: from MW6PR02CU001.outbound.protection.outlook.com
- (mail-westus2azon11012016.outbound.protection.outlook.com [52.101.48.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 58AEC10E8A6
- for <amd-gfx@lists.freedesktop.org>; Wed, 25 Mar 2026 21:22:40 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7F7FE10E194;
+ Wed, 25 Mar 2026 22:24:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1774477496; x=1806013496;
+ h=date:from:to:cc:subject:message-id:references:
+ content-transfer-encoding:in-reply-to:mime-version;
+ bh=IE3snz99EM36QT5W+rmID6bkI7aHH6Zjd1uNSqNkMv8=;
+ b=MlZXFGmvsVWSivPQXIIQWO36nyjpXtyJXA8jm7Dywe2yc6mOKrg4n9ov
+ BN0DVz6vOk1JKBnV3V3SeJK8iZdwYQSEXh8lv8FnyGI7nAbtoWgNXRdCn
+ m6Eoo7DFNIXCHhekcl/xscK5CAcLuuD8cwdAZdIDjXx9GOEWbokdJ/J5h
+ bVKMh7mnYwPjY83GGCsNPqfId6NC/n+MAYRrGmt0q679EJhCgg69fswyu
+ bTJ6ECkAyz6wLwxoI422FpBV1SKTNZ3LYgvUnmI0AIcoD8oB5lHp0Jyjz
+ G8HrSj/BDQsyHUx5Drct3tJA5Y+cROCp4Q7Y28dLVBCCXkmrQV0DyJelB A==;
+X-CSE-ConnectionGUID: pbmeKMeSRb2EyhFifDLcmA==
+X-CSE-MsgGUID: xNCLTbwsQqy9RtgzOt1SUA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11740"; a="92906698"
+X-IronPort-AV: E=Sophos;i="6.23,140,1770624000"; d="scan'208";a="92906698"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+ by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Mar 2026 15:24:55 -0700
+X-CSE-ConnectionGUID: MgqehFsMQS+pIJ4SDt/kgg==
+X-CSE-MsgGUID: 2g8/Q94qQ6q2vl1WDfbYaQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,140,1770624000"; d="scan'208";a="223869736"
+Received: from fmsmsx901.amr.corp.intel.com ([10.18.126.90])
+ by orviesa006.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Mar 2026 15:24:55 -0700
+Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
+ fmsmsx901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37; Wed, 25 Mar 2026 15:24:54 -0700
+Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
+ FMSMSX901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37 via Frontend Transport; Wed, 25 Mar 2026 15:24:54 -0700
+Received: from BN8PR05CU002.outbound.protection.outlook.com (52.101.57.36) by
+ edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37; Wed, 25 Mar 2026 15:24:53 -0700
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=KNALh4+2VKX1zg3OyGrRej2+JICtSG9iy+nuvocSvnvmiJYsXhzZPwlfzFhv+uoVUrLf6J+WkDdp2ttTwbhb1lPBAILWqOaU4oWqvV0bB+h663Po0r/dOp5eBvNu3mayH4JAykoY8WVOD9YyiKXlHlalSyPb/yTDdkPNKR23ZyIRyxdlGojXC7D36RAhsDLYvFnV2OI6mqjXff2um4Jy3oTHEvSIWT4PbIne+Klvhv2U3qOyxpyMkp76JAifyfT2JbP+5qzLhIuDktYjVpU++WPM3l1I6DJqHnmf4LFheIKnGTV2DK7C8CbwYNNc7Mw55BCPQH2jN0Sf58WzGYPFfw==
+ b=ExHWyRkIJPTB5ntYXBk9zUiuqWsKlVReOC25l3TyH1e2wP1WCp7B1CijTzINlA1RcWgIQBHOiHFltG5nBGbYo8b8wGKU8QghO3YFnBH4yJhzO5OLPIYa4wttvR+4zpHuZjxDZmpU6gN5Lqyy77Se9xU4xhxKSKPUgsxOLLh55Aesjkaz+pfWpclPxBmMLnlbVi60Io//PwEsx6ju2dGQMw15Zli74M8JIpqSzQuHTGyJ7niAd1sQ02oPC+omhv/l/rQhEsw4xWRpnILFy7IL32QfXVpBkz6NN2eyX/Rp6tXJeKJsjRXT9KEKh9jZt46HCP1hS+r9pHkT87Bd8UNSxg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=SRWWo6lMeC4S2YQ+/UkCDS+eZxsnSghu9MbUzrpwaCE=;
- b=D88UYDr8be42g7LdR9cCPb7CV9M/2plRFsFXaSSrZTxe2NJcytV3I+20tAVBuG09eHZy1tJhmLtdwLi5vely0lFJhl2rm2nKSPlsWjqBcQbUEGIcOPOxuOkMezA7/QsaGewnMwXGyCIq4O+yZH2ZcqR5J28cFceXMMBzR2YctsyY2rpBI7oN5Jgorv7lCsY+rmsZwl0gQLfoy+2CafUQsmogx2B2B5yb+eQ+6ANycmYTGKdkEogEjoPPddPXLFFoUjQzPi8zkaer0g7X1Z458oRNZXVMwk8AnZD0o8uIwsjdYLboXUA6w+u8uBAbA52oQmSStbfbY+pYpI/JiE7Mvg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=SRWWo6lMeC4S2YQ+/UkCDS+eZxsnSghu9MbUzrpwaCE=;
- b=xzV7nHDtykulJiHt0EMzdCXptFSzsIc+uPoZPJCMxg5V8vUAi7xq7PDct+idCHm6O2MWvf196ergODybcJPC1UWsWSfbdak2ZtSVMGnsyOo4+mPjBakQgRgdcrJGD+FBMF3btMm9pT+KHIvssRjwsaQCyiNm9e5MVi7GAD9DReg=
-Received: from BN9PR03CA0278.namprd03.prod.outlook.com (2603:10b6:408:f5::13)
- by DS7PR12MB8323.namprd12.prod.outlook.com (2603:10b6:8:da::7) with
+ bh=oAfzS61sJRwjgromoTkMnxHWCtBBvwC/MpgpSAXdx7s=;
+ b=EfgxAwYThsRu8PzLcDvlF4CXsanyj1glpshWqd13ZHPPCtaTYFzuQajY2zVYWX6sSw/34ohZlNjkj0nJVGlZ7t7dMyM9AaS++pGTVIFQ1GeAZJu6NWbr/PUClUxORdYmsW/qqJMOEolTGi9skLOoXfeGdQ4kvhQR76T++MK+hFBWaSBxbHTYyqf8OKdIStUeIMHE1MP8jmbsFqVhOCmu6YXuGEnDz7FIgLOr1R7RkaD0GcUcRdm3aEQJjB0CSxxQUPK3aJQe6pdg1aAxoHDkzyhqHo1qKsZH9HngFZwbhiDcYa+V6JCzdRFESvAxl+RJM4PRqS3j9XdjJjf3H8Cagg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from DS0PR11MB6519.namprd11.prod.outlook.com (2603:10b6:8:d1::5) by
+ DM6PR11MB4705.namprd11.prod.outlook.com (2603:10b6:5:2a9::23) with
  Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9745.20; Wed, 25 Mar 2026 21:22:33 +0000
-Received: from BN2PEPF000044AB.namprd04.prod.outlook.com
- (2603:10b6:408:f5:cafe::3) by BN9PR03CA0278.outlook.office365.com
- (2603:10b6:408:f5::13) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9723.31 via Frontend Transport; Wed,
- 25 Mar 2026 21:22:33 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- BN2PEPF000044AB.mail.protection.outlook.com (10.167.243.106) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9745.21 via Frontend Transport; Wed, 25 Mar 2026 21:22:32 +0000
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Wed, 25 Mar
- 2026 16:22:32 -0500
-Received: from thonkpad.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
- Transport; Wed, 25 Mar 2026 16:22:27 -0500
-From: <sunpeng.li@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <Harry.Wentland@amd.com>, <superm1@kernel.org>, <Ray.Wu@amd.com>, Ray Wu
- <ray.wu@amd.com>, Leo Li <sunpeng.li@amd.com>
-Subject: [PATCH v2] drm/amd/display: Add Idle state manager(ISM)
-Date: Wed, 25 Mar 2026 17:22:02 -0400
-Message-ID: <20260325212202.45824-1-sunpeng.li@amd.com>
-X-Mailer: git-send-email 2.53.0
-MIME-Version: 1.0
+ 15.20.9769.6; Wed, 25 Mar 2026 22:24:50 +0000
+Received: from DS0PR11MB6519.namprd11.prod.outlook.com
+ ([fe80::c336:8ed1:4b09:4414]) by DS0PR11MB6519.namprd11.prod.outlook.com
+ ([fe80::c336:8ed1:4b09:4414%3]) with mapi id 15.20.9745.019; Wed, 25 Mar 2026
+ 22:24:50 +0000
+Date: Wed, 25 Mar 2026 15:24:47 -0700
+From: Matthew Brost <matthew.brost@intel.com>
+To: Honglei Huang <honghuan@amd.com>
+CC: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <Alexander.Deucher@amd.com>, <Felix.Kuehling@amd.com>, Honglei Huang
+ <honglei1.huang@amd.com>, <Oak.Zeng@amd.com>, <Jenny-Jing.Liu@amd.com>,
+ <Philip.Yang@amd.com>, <Xiaogang.Chen@amd.com>, <Ray.Huang@amd.com>,
+ <Lingshan.Zhu@amd.com>, <Junhua.Shen@amd.com>, Thomas
+ =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>, Rodrigo Vivi
+ <rodrigo.vivi@intel.com>, Danilo Krummrich <dakr@kernel.org>, Alice Ryhl
+ <aliceryhl@google.com>
+Subject: Re: [RFC/POC PATCH 00/12] POC SVM implementation in AMDGPU based on
+ drm_gpusvm
+Message-ID: <acRgr7QwdULsn6G2@gsse-cloud1>
+References: <20260317112958.2925370-1-honglei1.huang@amd.com>
+ <e21e8e1a-4d2e-40e9-bbb7-2764cf33e760@amd.com>
+ <ae5fe946-4756-43b4-848f-3b545ac61ba7@amd.com>
+ <abuE0KBPtAZM9Bo0@lstrano-desk.jf.intel.com>
+ <098d5d68-f218-4cee-8b73-201e7012a287@amd.com>
+ <acDeRhCTh/ehOUyu@lstrano-desk.jf.intel.com>
+ <26186168-abff-4ce4-ad93-db9bc2fd68d7@amd.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
+In-Reply-To: <26186168-abff-4ce4-ad93-db9bc2fd68d7@amd.com>
+X-ClientProxiedBy: MW4PR03CA0352.namprd03.prod.outlook.com
+ (2603:10b6:303:dc::27) To DS0PR11MB6519.namprd11.prod.outlook.com
+ (2603:10b6:8:d1::5)
+MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF000044AB:EE_|DS7PR12MB8323:EE_
-X-MS-Office365-Filtering-Correlation-Id: 10d31f52-e42c-4315-3e8f-08de8ab4a0ba
+X-MS-TrafficTypeDiagnostic: DS0PR11MB6519:EE_|DM6PR11MB4705:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3592fa8d-601c-4028-5a48-08de8abd5476
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|82310400026|376014|36860700016|13003099007|18002099003|18092099006|56012099003;
-X-Microsoft-Antispam-Message-Info: hhB+Os8Pq6lqgwDXA0DFT9K+XP5LuR6qgE7dyxH+udLQG0T9zV+skYrU481D/SqsNVqFh6lwt/1/nnXp9o5NscO0nNi7MDEZovNaTIqj7ZWlrXOAmF7SBIPkzzVaOuX8XtkxC1SFvcqNViyq0n7XWObLnZtNgSnov97816EN1IK3LpFsRlchhSBOIzEyBKcu2EbejMEurCjogeLQRKeuteAl9zW6gGhoa64h7ADmxEvJVwWvjWKPKzIczKilUdBL9++GQ94TgiVrOlPJYbF7YQnW67r7p83As+iSI+5KeSS7/eXoxW9Df0n02D4m1KN7A61wzhufzcRHqvZwcxnnJbVxrlpu8af6kv4AOxUdWDdihb2fKPrdBghjfnsT64cBkPj5Dbb6JYXInzfSjQYNwGXb0hdAygSkFf7lOdEl8msJemIsW5R9udxFAU6GCA0fQBkQeFJH898gT2+xWF8nG/WctyFGaXbmIvknOdcJOdG9r6G32CML2V24FZHYVdRtG//HQa2eFFH3QkEoLeKrf/m5ku8jMzh6hEaYfIsq02lHoE06yGEogD5kvq3zaY+ir715kQg0EOyJ7w+fyAz91c30KrL/aKh/d8+6Gy+6oAK8m/VhEdziK3uLm1zQCxwOxceMs1CrmQ5TuIHkpel2JzLCzB/yIuLKOAWdXB6WzAXegwPXn59TdhIesOTTcuaA34qIVrzxRiPY6gRjQ6LCvQajNd2UsDKDHrrCXTapZCg=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(82310400026)(376014)(36860700016)(13003099007)(18002099003)(18092099006)(56012099003);
+ ARA:13230040|366016|1800799024|7416014|376014|18002099003|22082099003|56012099003;
+X-Microsoft-Antispam-Message-Info: 6Mdd0KIDjrYfYDzblgjXkaXmdTFchaXXM4pqWzhn7UkfAYxxDk1CuGFnilt2roYXvaaLroFHDTWHI1N30V6AqoA+F1ISwhxJTJc1hXcGKMlXtzBCcX3BvzW8KisFR99k6Yg/MVPT1nuhruxXAVEW/CIsp61r9fWKUw1BLU4vmtzo1jxWo2A6vQ2AwlYe68xnlwIMB+hyVJWIv+38Lm0QSKvGe7a/Zyv/ztNLdL2jRrichhw9mk+RY8qA0At71h+C93G0GtE7yOQEeeO3rm/0hGdxbqsR7TS01yPdZkCYrnIaN3yIBN8XPaTqqHHY51iQtb/JjPtrKzBmTjHc0+8tzqArLt79SYoytBIWwKuF1uN1ktUjQIWu730JrTAa+hfdc1B/j/sFmvMtonrWckqIRGdFWzQxoOMkruAfDDDpVgEfYhu7hg+Fa+xOrKMZo1geosTIhy/ij+JCwtITDsMn9X+Lt2aAiLdjrCx96ypks0c7mlvAZepZAaZLzbpxthV3FwldMy0fdw8KYGYHUuZyxwfLUDrTdTVyl943SU8BrowZMbYyvZKMRbW6JrArcpgXhQcBgW3aopPL5nkBBqySGKE6u0FdekdAor7h8GWfJZy0xM0DPvK+LjCwjcyOopQ9Hbn7Ycn1sDqFvF2BCx7D6ZGDBKAIWXpl8KIsmxvZmz1VPLjufs8bDBftwc4n3U3I
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS0PR11MB6519.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(7416014)(376014)(18002099003)(22082099003)(56012099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: Lx/B1YrKHJWkhJ6E6z8IAW7K2DdelzjVzwXrGeayI4z8nG4199cpT7N8LBv7XRksN7p3L6yrDzO2SFxBfAcTa9KcdgWEimuFUjA83u/DMVWS5Ra+czj2WqFuGShTTMoyO2EdRQn6rTv8/2Ln0gSiDlEesqKUR/ajykzk3njWbJCCr0Te726S68PMP8C5j9fSylL/UgYEXMlFWJSrOly6Lmo2Hxh4Nn1QavXJGrj+8hRMat1O/5Tp/Fg4mjqInua+cooPkkRnRvfqnWs8YjI/0BbrQEis6yZTiOVOEmePockDoxTWE/6JIfBPIOKNzwV3OHyXVBDIsCUxYjHBs4v1SfAFdQR1PfkCBWcfsZdoh6UTOB+Pn3kGgtCNVLB5dhE9/26Za7T1nJhqUkKYHf9qj6mxO1nTxoe/+KraXobbz5OWP6Zua/34NkccjVUYxIuk
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Mar 2026 21:22:32.8085 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 10d31f52-e42c-4315-3e8f-08de8ab4a0ba
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF000044AB.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB8323
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NmNhRm1XbTZ6NmIvN0dxTmtpZ0JYWENnREs0cUpUVnNUUVkrVEJySXZ1MS84?=
+ =?utf-8?B?aFR4cTJPYmNYQWZvZE1vb1FkVE9tdTc4QUZjbi85Mit0MlFoMmtZOUFyNllz?=
+ =?utf-8?B?RTlvZXVueUtQeWdLdlJWTXZKa3NEeE4yaVArcm1ja1JtV3kwNmU0Yy83WWx3?=
+ =?utf-8?B?VmNxbUU0ZDM2UDBBNXhQbEpmVFZBaDNEa0NZM2dtTnJYa1k1c2tuWkJQL0hQ?=
+ =?utf-8?B?Y3kycysxd3JPWXVXMjFyTGlJVXQ4SlNFblBqMlJRcjBNTjQvdjZGMjJDT3Fq?=
+ =?utf-8?B?d1k3cXpGRTBrdDVZMS8wSHJTZnNuVWUxRzB1N09zSit3azFSaldNdTIwMHV0?=
+ =?utf-8?B?dHNLV05rQlV4K1FDbS8vb09vVy93bXAramlLaE4wTWpyUW9CVllVNDBHNnlH?=
+ =?utf-8?B?aWZWYUZwR3MrSzBidVZDT3p2Y3FuN2xlK2ZCZUl2RFMvMkNUVFVqcG5yZll1?=
+ =?utf-8?B?QTgzUDVLZ3VORkFZaUFzOVBvcTdMa2VzT3BST2ZYc0VZMHhsbnJHMGNPaG5H?=
+ =?utf-8?B?OTJMcVUxY2tSWjNhd0xGZTROSXlpVVR0UVJsb0NTY1VOTDUxQndFS2JGaGFR?=
+ =?utf-8?B?VS9IK3VrMTBvZHRUaldZVTU1L3FqNkoyKzRTbmwrY3Zac21ZakNCN09FYkw1?=
+ =?utf-8?B?c0FtVWMvQSsrL3U4cWZTNi9MRXJKNlFZS2ptVDYzeGVaWnB4TjlHNFVCR0lz?=
+ =?utf-8?B?K2NXblBnYW9pV3ZpSGhrS3hlbFI0QVZxZDA5Y1YzZ3k5cEVpOFJ6MmxhR2FR?=
+ =?utf-8?B?VHo3bzJqSFFFSHkxdEJXcG94MjgyVHRCVjhkZWsrbWpkNzVxeVdPOXJvenpY?=
+ =?utf-8?B?UytYaHhrR3JEVDQ1bDc4T1FKL1c4UWJsWFVTMFVzQXhxZ29JRXU1L1ROSDY2?=
+ =?utf-8?B?RmdDQ3RITDRSc3Y0REZaS2VBMzJiR0FQNFlyOS8ya3N5ZysvVU1GdktZYkRr?=
+ =?utf-8?B?TytubzhhVDZ2bkREcUQvSjNCMU9yQ050VlRvVys5RjR5VE1qQmRYUHJhVzh1?=
+ =?utf-8?B?bUQrMXg2bURhdTBodGlvQVFlTEc5UVU5ZlR6eWxzUmhJL3gwK2d6RS9rOTMx?=
+ =?utf-8?B?QkpvL21QRjRFSUszcHllRWJUTVlRd0x0bWo1WkNNa2VGYlYxM2pLaXNhV2Jv?=
+ =?utf-8?B?RXVERWM3Y3hibUtWcGlZUG1oRzBLZ3hackRza1hLaE9uRHBkTDV3YzVzZlVp?=
+ =?utf-8?B?UW95MzBPbzVTQjNFaTFWT3V5aUZiY0duemJPN0hJTTI3QUU2TlFOLzZWRHQx?=
+ =?utf-8?B?UVI4Sy9STUNxY1N1Zk1BNUpWTVk4YWxIY3VEL2dub1pvZ1lYUmw4ZmZOaVQ3?=
+ =?utf-8?B?ams3c3N5aXZlRU9TNk5TODM3YkFTa1drM1gvS0wzK2FxOGVEUTkvUHUzaWcy?=
+ =?utf-8?B?bHd2WWV5MGhEaUdYNllKUlk3eTdYZGJ6MUdwTWpwV0JqM3k1Q29aMkxuRlFF?=
+ =?utf-8?B?ODJzamhrdTFpM2VYYVBLVFUzTjVMK3NUTFptY08xMnFMNXBpczFvSWVoYnl1?=
+ =?utf-8?B?dnBvajV3NkxDNmxnbEk5TGt1WUkrdmRTMXpuK21Ic0tRbnU3QWRrNWg0OTIv?=
+ =?utf-8?B?ZlZNVmM4aDNpMWQ0bzd2ZTBoS2lITnV2K3diaHhWaGRwMWZjcFNPU0o0NVlE?=
+ =?utf-8?B?VHk0eU1YQXZVdXBWYjFJQklJeUtubVYycjhjSDZId29DQW5oclJIMklyLzZG?=
+ =?utf-8?B?aUZwRzhKdC9SYmYrQ3c0Q1hjRXlCdWYwN2d0enVXYWJhTWFTSm5pVzQwaG9N?=
+ =?utf-8?B?YWZ6WkN0eTg2SUg5N1dmOXlGZWxiWkZreUpJNEVrOEFsaStpOEdpaEVGbFRG?=
+ =?utf-8?B?VnFRQzNla0ZBVnU3ZWYwRVhSWmxIK1BqMG5qdFI3aDRFWFI4M2QvUDU2Mi9s?=
+ =?utf-8?B?aXVmcHQweTJjU2JMUnVTVnBnZlc4a2dSWXVoK0hpaHlqRmtkRnhyaDlTNFNm?=
+ =?utf-8?B?a2NBL1ZxZzg4MUNiWTZ3a0tVV050MkJ3OXcxSGg3RVdtN1FGVDRadEc5d3c5?=
+ =?utf-8?B?eTc2T2gzSXZ0V3RGOWo4WThDcGkwakhyelN4Y2RlZkJ6S3NabTlGbzhzZlRu?=
+ =?utf-8?B?bGZLbTQyYnoxNFpIRFdrQ3ZwclVrcUpGbDgrMjB4OTRpUjhna29Na053aE1P?=
+ =?utf-8?B?QXBFaUYyaHVJVi9DREpybVptbTdLMkdJWDRLT2hoMWJ2NHZrWE9xWVBsaUFN?=
+ =?utf-8?B?bENLekN4WWJJUW9KeTZ5cnFlWmp2YThvUm15SFV5ZHJ0WWZybjFZbWczamNX?=
+ =?utf-8?B?bTNnZHZvWlMxalJjQUhaTnBKM0N4NGdlOE5aaGh1ZkF4VnFxem9VSDRBeDlw?=
+ =?utf-8?B?elJxODdDVE1KWUxsajdtbjBLdFZoNmRQRXdWS1VEMWx6enFXQkF1ekM1ZnIz?=
+ =?utf-8?Q?XI5+CcpMMrauE4wo=3D?=
+X-Exchange-RoutingPolicyChecked: hbB5sh0nDIyT6jNkek+JDoZPDJg6rewD77GnUr4t6oIyoZ2Z1KFW2vCdRN1wF4fWC+CLyPHZA5BKLRHmYc4H6h+rdjmXoi163lJHuvEmiYh4eogDXZfxc8KaV40Szxabn3usafxEaRwIazEXLmQ9FozCpgnrG9eIGhlFz3J1J/Ux2eCPzk2QgsJ+NQDzse6IosM2mEyagz9AXsA9aMXJd4V1S/Ze+Emp2VtH+hdCI+9YOW5Qs9i0icRlhVUo+s0vAWi4Z/wQhZmF0FJ09qfqIt6X2uEuXtv21SeBtU/TnrCEsFl7xPags3Ctb30hgaTYSdA4QVqC3fHGUOaLpMfOag==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3592fa8d-601c-4028-5a48-08de8abd5476
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR11MB6519.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Mar 2026 22:24:50.6697 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ncVrdrEwi0qBXpfJbYYbek7tHmpXeazE60MfDDsLBmjkZfFB0bLem6PG/tGGywEiyn/XlVrUjw9VRQiwkvcYXA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR11MB4705
+X-OriginatorOrg: intel.com
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,1215 +182,749 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Ray Wu <ray.wu@amd.com>
+On Tue, Mar 24, 2026 at 03:24:43PM +0800, Honglei Huang wrote:
+> 
+> 
+> On 3/23/26 14:31, Matthew Brost wrote:
+> > On Thu, Mar 19, 2026 at 10:17:36PM +0800, Honglei Huang wrote:
+> > > 
+> > > 
+> > > On 3/19/26 13:08, Matthew Brost wrote:
+> > > > On Wed, Mar 18, 2026 at 04:59:31PM +0800, Honglei Huang wrote:
+> > > > > 
+> > > > 
+> > > > Disclaimer I haven't look at any code in this series yet.
+> > > > 
+> > > > > 
+> > > > > On 3/17/26 19:48, Christian König wrote:
+> > > > > > Adding a few XE and drm_gpuvm people on TO.
+> > > > > > 
+> > > > > > On 3/17/26 12:29, Honglei Huang wrote:
+> > > > > > > From: Honglei Huang <honghuan@amd.com>
+> > > > > > > 
+> > > > > > > This is a POC/draft patch series of SVM feature in amdgpu based on the
+> > > > > > > drm_gpusvm framework. The primary purpose of this RFC is to validate
+> > > > > > > the framework's applicability, identify implementation challenges,
+> > > > > > > and start discussion on framework evolution. This is not a production
+> > > > 
+> > > > +1. Open to any ideas. Given this was designed originally for Xe we very
+> > > > well could have missed other drivers requirements.
+> > > Hi Matt,
+> > > 
+> > > Thank you for the openness. And thank you so much for the incredibly
+> > > detailed and patient response. I really appreciate you taking the time to
+> > > walk through each point.
+> > > 
+> > 
+> > I'm here to help.
+> > 
+> > > Actually I am still a learner when it comes to the drm_gpusvm framework and
+> > > GPU SVM design in general. Some of my descriptions below may not be entirely
+> > > accurate. But I really want to bring drm_gpusvm into amdgpu and make it work
+> > > well.
+> > 
+> > I appreciate another driver jumping in and using this framework—it
+> > becomes easier to validate as more users adopt it.
+> > 
+> > > 
+> > > > 
+> > > > > > > ready submission.
+> > > > > > > 
+> > > > > > > This patch series implements basic SVM support with the following features:
+> > > > > > > 
+> > > > > > >      1. attributes sepatarated from physical page management:
+> > > > > > > 
+> > > > > > >        - Attribute layer (amdgpu_svm_attr_tree): a driver side interval
+> > > > > > >          tree that stores SVM attributes. Managed through the SET_ATTR,
+> > > > > > >          and mmu notifier callback.
+> > > > 
+> > > > Can you explain the mmu notifier callback interaction here? See below in
+> > > > Xe the attribute tree is existing VMA tree (gpuvm).
+> > > > 
+> > > 
+> > > Let me try to explain, apologies if the description is not fully
+> > > precise.
+> > > 
+> > > In current implementation, the MMU notifier callback interacts with the attr
+> > > tree only in the munmap path remove the corresponding attribute
+> > > entries from the attr tree so that stale attributes do not persist for
+> > > freed address space.
+> > > 
+> > 
+> > Ah, yes. We reset our attributes upon munmap too. We actually don't this
+> > 100% correct quite either and series in flight to fix [1].
+> > 
+> > [1] https://patchwork.freedesktop.org/series/161815/
+> > 
+> 
+> I studied [1]. This draft has a simliar mechanism to handle attributes when
+> munmap. But there are some sligt differences in detail, maybe casued by
+> different UMD runtime behaviors.
+> 
+> 
+> > > > > > > 
+> > > > > > >        - Physical page layer (drm_gpusvm ranges): managed by the
+> > > > > > >          drm_gpusvm framework, representing actual HMM backed DMA
+> > > > > > >          mappings and GPU page table entries.
+> > > > > > > 
+> > > > > > >         This separation is necessary:
+> > > > > > >           -  The framework does not support range splitting, so a partial
+> > > > > > >              munmap destroys the entire overlapping range, including the
+> > > > > > >              still valid parts. If attributes were stored inside drm_gpusvm
+> > > > > > >              ranges, they would be lost on unmapping.
+> > > > > > >              The separate attr tree preserves userspace set attributes
+> > > > > > >              across range operations.
+> > > > 
+> > > > Yes, in Xe the divide is at the VMA level (set by user space) via VM
+> > > > bind (parts of VM may be mappings BOs, parts could be setup for SVM) or
+> > > > madvise IOCTLs which reflect user space attributes on current SVM
+> > > > mappings or future ones.
+> > > > 
+> > > > The SVM range tree reflects mappings that have been faulted into the
+> > > > device and contain pages. This is an intentional choice.
+> > > 
+> > > That makes a lot of sense. Thank you for clarifying the design intent. I
+> > > think the current adopt the same principle: the drm_gpusvm range tree only
+> > > reflect actual faulted in mappings.
+> > > 
+> > > > 
+> > > > > > 
+> > > > > > Isn't that actually intended? When parts of the range unmap then that usually means the whole range isn't valid any more.
+> > > > 
+> > > > 
+> > > > Yes, this was an intentional design choice to not support partial unmap,
+> > > > and instead rely on the driver to recreate a new range.
+> > > > 
+> > > > The reasoning is:
+> > > > 
+> > > > - In practice, this should be rare for well-behaved applications.
+> > > > 
+> > > > - With THP / large device pages, if a sub-range is unmapped, the entire
+> > > > GPU mapping is invalidated anyway due to the page size change. As a
+> > > > result, the cost of creating a new range is minimal, since the device
+> > > > will likely fault again on the remaining pages.
+> > > > 
+> > > > So there is no need to over-engineer the common code.
+> > > > 
+> > > > FWIW, to even test partial unmaps in Xe, I had to do things I doubt
+> > > > anyone would ever do:
+> > > > 
+> > > > ptr = mmap(SZ_2M);
+> > > > /* fault in memory to the device */
+> > > > munmap(ptr, SZ_1M);
+> > > > /* touch memory again on the device */
+> > > > 
+> > > 
+> > > Thank you for this explanation and the concrete example. After further
+> > > discussion internally with Christian, we are now aligned with same position
+> > > partial unmap. Will remove rebuild on partial unmap logic in the next
+> > > version and handle it as only partially backed range.
+> > > 
+> > > > > 
+> > > > > 
+> > > > > It is about partial unmap, some subregion in drm_gpusvm_range is still valid
+> > > > > but some other subregion is invalid, but under drm_gpusvm, need to destroy
+> > > > > the entire range.
+> > > > > 
+> > > > > e.g.:
+> > > > > 
+> > > > >             [---------------unmap region in mmu notifier-----------------]
+> > > > > [0x1000 ------------ 0x9000]
+> > > > > [  valid ][     invalid    ]
+> > > > > 
+> > > > > see deatil in drm_gpusvm.c:110 line
+> > > > > section:Partial Unmapping of Ranges
+> > > > > 
+> > > > > 
+> > > > > > 
+> > > > > > > 
+> > > > > > >           -  drm_gpusvm range boundaries are determined by fault address
+> > > > > > >              and pre setted chunk size, not by userspace attribute boundaries.
+> > > > > > >              Ranges  may be rechunked on memory changes. Embedding
+> > > > > > >              attributes in framework ranges would scatter attr state
+> > > > > > >              across many small ranges and require complex reassemble
+> > > > > > >              logic when operate attrbute.
+> > > > > > 
+> > > > > > Yeah, that makes a lot of sense.
+> > > > > > 
+> > > > > > > 
+> > > > > > >      2) System memory mapping via drm_gpusvm
+> > > > > > > 
+> > > > > > >         The core mapping path uses drm_gpusvm_range_find_or_insert() to
+> > > > > > >         create ranges, drm_gpusvm_range_get_pages() for HMM page fault
+> > > > > > >         and DMA mapping, then updates GPU page tables via
+> > > > > > >         amdgpu_vm_update_range().
+> > > > > > > 
+> > > > > > >      3) IOCTL driven mapping (XNACK off / no GPU fault mode)
+> > > > > > > 
+> > > > > > >         On XNACK off hardware the GPU cannot recover from page faults,
+> > > > > > >         so mappings must be established through ioctl. When
+> > > > > > >         userspace calls SET_ATTR with ACCESS=ENABLE, the driver
+> > > > > > >         walks the attr tree and maps all accessible intervals
+> > > > > > >         to the GPU by amdgpu_svm_range_map_attr_ranges().
+> > > > 
+> > > > Can you expand on XNACK off / GPU no faults? Is this to the share GPU
+> > > > between 3D (dma-fences) and faulting clients? We have something similar
+> > > > in Xe, but it isn't an explicit IOCTL rather we switch between on demand
+> > > > as 3D client submits and then resumes page faults when all dma-fences
+> > > > have signaled.
+> > > > 
+> > > > I see below you mention page tables are modified during quiesce KFD
+> > > > queues? I'm not sure that is required - you just need to guarnette
+> > > > faulting clients won't trigger page faults when dma-fence is in flight.
+> > > > 
+> > > > Maybe give me an explaination of exactly what the requirement from AMD
+> > > > are here so I have better picture.
+> > > 
+> > > Thank you for the patience, let me try to explain our situation, though
+> > > I may not get every detail right.
+> > > 
+> > > XNACK off means hardware that does not have GPU page fault capability (or
+> > > turned off)
+> > > 
+> > > So for these GPUs, ALL page table entries must be fully populated before
+> > > the GPU can access the memory. This is why we need the ioctl driven
+> > > mapping path, when userspace calls SET_ATTR with ACCESS=ENABLE, need
+> > > walk the attribute tree and eagerly map all accessible ranges into the
+> > > GPU page tables. This is functionally similar to what you describe as
+> > > prefetch IOCTLs / VM bind in Xe.
+> > > 
+> > > Regarding queue quiesce during page table modification: on XNACK off
+> > > hardware, because the GPU cannot fault, we must ensure the GPU is
+> > > completely stopped before modifying any PTE it might be accessing.
+> > > Otherwise the GPU could access a partially updated page table and hang.
+> > > The quiesce/resume is the mechanism to guarantee this.
+> > > 
+> > > I hope that helps clarify the picture.
+> > > 
+> > 
+> > This clarifies a lot. This is what we’d call in Xe “preemption fence”
+> > mode for a VM. Anytime memory is moved, we trigger a GPU preemption and
+> > resume. We don’t actually support SVM in this case; instead, we use
+> > “userptr binds,” which are built on gpusvm for page collection. However,
+> > we don’t support migrating memory to the device—though we could.
+> > 
+> > I’d look at how we converted 'userptr' to be based on GPU SVM [2]. In
+> > this case, don’t maintain a range tree, as those—as you suggest—are more
+> > of an on-demand fault driver concern. Instead, just embed 'struct
+> > drm_gpusvm_pages' in the VMA struct defined by the IOCTLs..
+> > 
+> > We could extend this to support migrating 'userptr', but we just haven’t
+> > done that yet—this may be what you want to do in “XNACK off..
+> > 
+> > [2] https://patchwork.freedesktop.org/series/146553/
+> > 
+> 
+> Actually we need to swith the xnack mode between on and off, so in xnack off
+> mode, the driver operats in "implicit  prefetch mode". This may be due to
+> compatibility with older hardware and the need for UMD runtime. We will
+> further discuss the handling method under xnack off internally.
+> 
+> 
+> > > 
+> > > > 
+> > > > > > > 
+> > > > > > >      4) Invalidation, GC worker, and restore worker
+> > > > > > > 
+> > > > > > >         MMU notifier callbacks (amdgpu_svm_range_invalidate) handle
+> > > > > > >         three cases based on event type and hardware mode:
+> > > > > > >           - unmap event: clear GPU PTEs in the notifier context,
+> > > > > > >             unmap DMA pages, mark ranges as unmapped, flush TLB,
+> > > > > > >             and enqueue to the GC worker. On XNACK off, also
+> > > > > > >             quiesce KFD queues and schedule rebuild of the
+> > > > > > >             still valid portions that were destroyed together with
+> > > > > > >             the unmapped subregion.
+> > > > > > > 
+> > > > > > >           - evict on XNACK off:
+> > > > > > >             quiesce KFD queues first, then unmap DMA pages and
+> > > > > > >             enqueue to the restore worker.
+> > > > > > 
+> > > > > > Is that done through the DMA fence or by talking directly to the MES/HWS?
+> > > > > 
+> > > > > Currently KFD queues quiesce/resume API are reused, lookig forward to a
+> > > > > better solution.
+> > > > > 
+> > > > 
+> > > > +1
+> > > > 
+> > > > > Regards,
+> > > > > Honglei
+> > > > > 
+> > > > > > 
+> > > > > > Thanks,
+> > > > > > Christian.
+> > > > > > 
+> > > > > > > 
+> > > > > > >           - evict on XNACK on:
+> > > > > > >             clear GPU PTEs, unmap DMA pages, and flush TLB, but do
+> > > > > > >             not schedule any worker. The GPU will fault on next
+> > > > > > >             access and the fault handler establishes the mapping.
+> > > > > > > 
+> > > > > > > Not supported feature:
+> > > > > > >      - XNACK on GPU page fault mode
+> > > > > > >      - migration and prefetch feature
+> > > > > > >      - Multi GPU support
+> > > > > > > 
+> > > > > > >      XNACK on enablement is ongoing.The GPUs that support XNACK on
+> > > > > > >      are currently only accessible to us via remote lab machines, which slows
+> > > > > > >      down progress.
+> > > > > > > 
+> > > > > > > Patch overview:
+> > > > > > > 
+> > > > > > >      01/12 UAPI definitions: DRM_AMDGPU_GEM_SVM ioctl, SVM flags,
+> > > > > > >            SET_ATTR/GET_ATTR operations, attribute types, and related
+> > > > > > >            structs in amdgpu_drm.h.
+> > > > > > > 
+> > > > > > >      02/12 Core data structures: amdgpu_svm wrapping drm_gpusvm with
+> > > > > > >            refcount, attr_tree, workqueues, locks, and
+> > > > > > >            callbacks (begin/end_restore, flush_tlb).
+> > > > > > > 
+> > > > > > >      03/12 Attribute data structures: amdgpu_svm_attrs, attr_range
+> > > > > > >            (interval tree node), attr_tree, access enum, flag masks,
+> > > > > > >            and change trigger enum.
+> > > > > > > 
+> > > > > > >      04/12 Attribute tree operations: interval tree lookup, insert,
+> > > > > > >            remove, and tree create/destroy lifecycle.
+> > > > > > > 
+> > > > > > >      05/12 Attribute set: validate UAPI attributes, apply to internal
+> > > > > > >            attrs, handle hole/existing range with head/tail splitting,
+> > > > > > >            compute change triggers, and -EAGAIN retry loop.
+> > > > > > >            Implements attr_clear_pages for unmap cleanup and attr_get.
+> > > > > > > 
+> > > > > > >      06/12 Range data structures: amdgpu_svm_range extending
+> > > > > > >            drm_gpusvm_range with gpu_mapped state, pending ops,
+> > > > > > >            pte_flags cache, and GC/restore queue linkage.
+> > > > > > > 
+> > > > > > >      07/12 PTE flags and GPU mapping: simple gpu pte function,
+> > > > > > >            GPU page table update with DMA address, range mapping loop:
+> > > > > > >            find_or_insert -> get_pages -> validate -> update PTE,
+> > > > > > >            and attribute change driven mapping function.
+> > > > > > > 
+> > > > > > >      08/12 Notifier and invalidation: synchronous GPU PTE clear in
+> > > > > > >            notifier context, range removal and overlap cleanup,
+> > > > > > >            rebuild after destroy logic, and MMU event dispatcher
+> > > > > > > 
+> > > > > > >      09/12 Workers: KFD queue quiesce/resume via kgd2kfd APIs, GC
+> > > > > > >            worker for unmap processing and rebuild, ordered restore
+> > > > > > >            worker for mapping evicted ranges, and flush/sync
+> > > > > > >            helpers.
+> > > > > > > 
+> > > > > > >      10/12 Initialization and fini: kmem_cache for range/attr,
+> > > > > > >            drm_gpusvm_init with chunk sizes, XNACK detection, TLB
+> > > > > > >            flush helper, and amdgpu_svm init/close/fini lifecycle.
+> > > > > > > 
+> > > > > > >      11/12 IOCTL and fault handler: PASID based SVM lookup with kref
+> > > > > > >            protection, amdgpu_gem_svm_ioctl dispatcher, and
+> > > > > > >            amdgpu_svm_handle_fault for GPU page fault recovery.
+> > > > > > > 
+> > > > > > >      12/12 Build integration: Kconfig option (CONFIG_DRM_AMDGPU_SVM),
+> > > > > > >            Makefile rules, ioctl table registration, and amdgpu_vm
+> > > > > > >            hooks (init in make_compute, close/fini, fault dispatch).
+> > > > > > > 
+> > > > > > > Test result:
+> > > > > > >      on gfx1100(W7900) and gfx943(MI300x)
+> > > > > > >      kfd test: 95%+ passed, same failed cases with offical relase
+> > > > > > >      rocr test: all passed
+> > > > > > >      hip catch test: 20 cases failed in all 5366 cases, +13 failures vs offical relase
+> > > > > > > 
+> > > > > > > During implementation we identified several challenges / design questions:
+> > > > > > > 
+> > > > > > > 1. No range splitting on partial unmap
+> > > > > > > 
+> > > > > > >      drm_gpusvm explicitly does not support range splitting in drm_gpusvm.c:122.
+> > > > > > >      Partial munmap needs to destroy the entire range including the valid interval.
+> > > > > > >      GPU fault driven hardware can handle this design by extra gpu fault handle,
+> > > > > > >      but AMDGPU needs to support XNACK off hardware, this design requires driver
+> > > > > > >      rebuild the valid part in the removed entire range. Whichs bring a very heavy
+> > > > > > >      restore work in work queue/GC worker: unmap/destroy -> rebuild(insert and map)
+> > > > > > >      this restore work even heavier than kfd_svm. In previous driver work queue
+> > > > > > >      only needs to restore or unmap, but in drm_gpusvm driver needs to unmap and restore.
+> > > > > > >      which brings about more complex logic, heavier worker queue workload, and
+> > > > > > >      synchronization issues.
+> > > > 
+> > > > Is this common in the workload you are running? I'm also wondering if
+> > > > your restore logic / KFDs design is contributing to this actally the
+> > > > problem.
+> > > > 
+> > > 
+> > > Honestly, you raise a fair point.
+> > > 
+> > > We will redesign the logic about the partial munap， which should eliminate
+> > > most of this complexity.
+> > > 
+> > > 
+> > 
+> > +1, yes test but do optimize for.
+> > 
+> > > > > > > 
+> > > > > > > 2. Fault driven vs ioctl driven mapping
+> > > > > > > 
+> > > > > > >      drm_gpusvm is designed around GPU page fault handlers. The primary entry
+> > > > > > >      point drm_gpusvm_range_find_or_insert() takes a fault_addr.
+> > > > > > >      AMDGPU needs to support IOCTL driven mapping cause No XNACK hardware that
+> > > > > > >      GPU cannot fault at all
+> > > > 
+> > > > I think we refer to these as prefetch IOCTLs in Xe. Ideally, user space
+> > > > issues these so the device does not fault (e.g., prefetch creates a set
+> > > > of SVM ranges based on user input). In Xe, prefetch IOCTLs are simply
+> > > > specific VM bind operations.
+> > > > 
+> > > 
+> > > That is a very helpful way to think about it. Yes, our ioctl driven
+> > > mapping(xnack off) is essentially equivalent to a prefetch operation. We are
+> > > trying to improve it.
+> > > 
+> > 
+> > See above wrt 'userptr'.
+> 
+> Got it.
+> 
+> > 
+> > > 
+> > > > > > > 
+> > > > > > >      The ioctl path cannot hold mmap_read_lock across the entire operation
+> > > > > > >      because drm_gpusvm_range_find_or_insert() acquires/releases it
+> > > > > > >      internally. This creates race windows with MMU notifiers / workers.
+> > > > 
+> > > > This is a very intentional choice in the locking design: mmap_read_lock
+> > > > is held only in very specific parts of GPU SVM, and the driver should
+> > > > never need to take this lock.
+> > > > 
+> > > > Yes, notifiers can race, which is why the GPU fault handler and prefetch
+> > > > handler are structured as retry loops when a notifier race is detected.
+> > > > In practice, with well-behaved applications, these races should be
+> > > > rare—but they do occur, and the driver must handle them.
+> > > > 
+> > > > __xe_svm_handle_pagefault implements the page fault retry loop. VM bind
+> > > > prefetch has similar logic, although it is more spread out given that it
+> > > > is part of a deeper software pipeline.
+> > > > 
+> > > > FWIW, holding locks to avoid races was rejected by Sima because we
+> > > > reasoned it is essentially impossible to guarantee the absence of races
+> > > > by holding a lock. CPU page fault handlers are also effectively just
+> > > > large retry loops.
+> > > > 
+> > > > So this is one point I believe you will need to fixup driver side.
+> > > > 
+> > > 
+> > > Understood. Thank you for the detailed explanation and for pointing to
+> > > __xe_svm_handle_pagefault as a reference. We will restructure both our
+> > > fault handler and ioctl path to a betterretry loop pattern with sequence
+> > > number race detection.
+> > > 
+> > 
+> > Yes, the typical pattern is:
+> > 
+> > - Try to migrate once
+> > - If you hit a race, give up, evict all memory back to system memory, and bind it
+> > 
+> > Atomics make this tricky because memory must move, but I’m not sure
+> > “XNACK off” applies here. However, GPU SVM provides a timeslice
+> > mechanism to ensure the CPU can’t move memory while the GPU needs to
+> > execute something.
+> 
+> Understood.
+> 
+> > 
+> > > > > > > 
+> > > > > > > 3. Multi GPU support
+> > > > > > > 
+> > > > > > > drm_gpusvm binds one drm_device to one instance. In multi GPU systems,
+> > > > > > > each GPU gets an independent instance with its own range tree, MMU
+> > > > > > > notifiers, notifier_lock, and DMA mappings.
+> > > > > > > 
+> > > > 
+> > > > This is a part I am absolutely open to fixing. Right now, each
+> > > > drm_gpusvm_range has a single set of drm_gpusvm_pages. I am open to
+> > > > decoupling a GPU SVM instance from a single device, allowing each
+> > > > drm_gpusvm_range to have multiple sets of drm_gpusvm_pages (one per
+> > > > device).
+> > > > 
+> > > > This would give drivers the flexibility to use one GPU SVM instance per
+> > > > VM/device instance (as in Xe), or to maintain a single GPU SVM per CPU
+> > > > MM.
+> > > > 
+> > > 
+> > > That would be wonderful! Looking forward to your patch very much!
+> > > 
+> > 
+> > I can't say I'll code this but we thought about is as options and very
+> > open patches which refactor the object model for multiple use cases.
+> 
+> Understood. I will focus on single GPU first, and once we have a
+> solid v1, we'd be happy to explore contributing patches for the
+> multi-device object model refactoring.
+> 
 
-[Why]
+I think roughly what would need to be done is:
 
-Rapid allow/disallow of idle optimization calls, whether it be IPS or
-self-refresh features, can end up using more power if actual
-time-in-idle is low. It can also spam DMUB command submission in a way
-that prevents it from servicing other requestors.
+- Move struct drm_gpusvm_pages out of struct drm_gpusvm_range.
+- Embed either a struct device or a struct drm_device in struct
+  drm_gpusvm_pages.
+- Drop struct drm_device from struct drm_gpusvm.
+- Have the driver’s range structure embed one or more struct
+  drm_gpusvm_pages in addition to struct drm_gpusvm_range.
+- Refactor a few range-based helpers (drm_gpusvm_range_pages_valid,
+  drm_gpusvm_range_get_pages, drm_gpusvm_range_unmap_pages), or simply
+  drop them entirely and update drivers to use the drm_gpusvm_pages
+  helpers instead.
 
-[How]
+Then it is up to the drivers whether struct drm_gpusvm maps to a single
+device or multiple devices. Either use case seems valid, and giving
+drivers the option appears to be the right approach, rather than having
+the common drm_gpusvm layer impose its own constraints.
 
-Introduce the Idle State Manager (ISM) to amdgpu. It maintains a finite
-state machine that uses a hysteresis to determine if a delay should be
-inserted between a caller allowing idle, and when the actual idle
-optimizations are programmed.
+This type of refactor can be done at any time as an independent patch,
+so feel free to post it whenever and I can verify on the Xe side that
+everything looks good.
 
-A second timer is also introduced to enable static screen optimizations
-(SSO) such as PSR1 and Replay low HZ idle mode. Rapid SSO enable/disable
-can have a negative power impact on some low hz video playback, and can
-introduce user lag for PSR1 (due to up to 3 frames of sync latency).
+Matt
 
-This effectively rate-limits idle optimizations, based on hysteresis.
-
-This also replaces the existing delay logic used for PSR1, allowing
-drm_vblank_crtc_config.disable_immediate = true, and thus allowing
-drm_crtc_vblank_restore().
-
-v2:
-* Loosen criteria for ISM to exit idle optimizations; it failed to exit
-  idle correctly on cursor updates when there are no drm_vblank
-  requestors,
-* Document default_ism_config
-* Convert pr_debug to trace events to reduce overhead on frequent
-  codepaths
-* checkpatch.pl fixes
-
-Link: https://gitlab.freedesktop.org/drm/amd/-/issues/4527
-Link: https://gitlab.freedesktop.org/drm/amd/-/issues/3709
-Signed-off-by: Ray Wu <ray.wu@amd.com>
-Signed-off-by: Leo Li <sunpeng.li@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h      |   5 +
- .../gpu/drm/amd/display/amdgpu_dm/Makefile    |   3 +-
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  34 +-
- .../amd/display/amdgpu_dm/amdgpu_dm_crtc.c    |  90 +--
- .../amd/display/amdgpu_dm/amdgpu_dm_crtc.h    |   6 +
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_ism.c | 598 ++++++++++++++++++
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_ism.h | 151 +++++
- .../amd/display/amdgpu_dm/amdgpu_dm_plane.c   |  16 +
- .../amd/display/amdgpu_dm/amdgpu_dm_trace.h   |  63 ++
- 9 files changed, 903 insertions(+), 63 deletions(-)
- create mode 100644 drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_ism.c
- create mode 100644 drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_ism.h
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
-index 90352284c5ee2..51ab1a3326157 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
-@@ -44,6 +44,7 @@
- #include <drm/display/drm_dp_mst_helper.h>
- #include "modules/inc/mod_freesync.h"
- #include "amdgpu_dm_irq_params.h"
-+#include "amdgpu_dm_ism.h"
- 
- struct amdgpu_bo;
- struct amdgpu_device;
-@@ -486,6 +487,10 @@ struct amdgpu_crtc {
- 	int deferred_flip_completion;
- 	/* parameters access from DM IRQ handler */
- 	struct dm_irq_params dm_irq_params;
-+
-+	/* DM idle state manager */
-+	struct amdgpu_dm_ism ism;
-+
- 	/* pll sharing */
- 	struct amdgpu_atom_ss ss;
- 	bool ss_enabled;
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/Makefile b/drivers/gpu/drm/amd/display/amdgpu_dm/Makefile
-index 8e949fe773129..89350aa9ca7ec 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/Makefile
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/Makefile
-@@ -40,7 +40,8 @@ AMDGPUDM = \
- 	amdgpu_dm_replay.o \
- 	amdgpu_dm_quirks.o \
- 	amdgpu_dm_wb.o \
--	amdgpu_dm_colorop.o
-+	amdgpu_dm_colorop.o \
-+	amdgpu_dm_ism.o
- 
- ifdef CONFIG_DRM_AMD_DC_FP
- AMDGPUDM += dc_fpu.o
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index d73095ac3ab10..bbe0b647325e3 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -3281,6 +3281,7 @@ static int dm_suspend(struct amdgpu_ip_block *ip_block)
- 
- 		mutex_lock(&dm->dc_lock);
- 
-+		amdgpu_dm_ism_disable(dm);
- 		dc_allow_idle_optimizations(adev->dm.dc, false);
- 
- 		dm->cached_dc_state = dc_state_create_copy(dm->dc->current_state);
-@@ -3314,6 +3315,9 @@ static int dm_suspend(struct amdgpu_ip_block *ip_block)
- 
- 	amdgpu_dm_irq_suspend(adev);
- 
-+	scoped_guard(mutex, &dm->dc_lock)
-+		amdgpu_dm_ism_disable(dm);
-+
- 	hpd_rx_irq_work_suspend(dm);
- 
- 	dc_set_power_state(dm->dc, DC_ACPI_CM_POWER_STATE_D3);
-@@ -3604,6 +3608,7 @@ static int dm_resume(struct amdgpu_ip_block *ip_block)
- 
- 		dc_resume(dm->dc);
- 
-+		amdgpu_dm_ism_enable(dm);
- 		amdgpu_dm_irq_resume_early(adev);
- 
- 		for (i = 0; i < dc_state->stream_count; i++) {
-@@ -3664,6 +3669,9 @@ static int dm_resume(struct amdgpu_ip_block *ip_block)
- 	/* program HPD filter */
- 	dc_resume(dm->dc);
- 
-+	scoped_guard(mutex, &dm->dc_lock)
-+		amdgpu_dm_ism_enable(dm);
-+
- 	/*
- 	 * early enable HPD Rx IRQ, should be done before set mode as short
- 	 * pulse interrupts are used for MST
-@@ -9329,31 +9337,7 @@ static void manage_dm_interrupts(struct amdgpu_device *adev,
- 	if (acrtc_state) {
- 		timing = &acrtc_state->stream->timing;
- 
--		/*
--		 * Depending on when the HW latching event of double-buffered
--		 * registers happen relative to the PSR SDP deadline, and how
--		 * bad the Panel clock has drifted since the last ALPM off
--		 * event, there can be up to 3 frames of delay between sending
--		 * the PSR exit cmd to DMUB fw, and when the panel starts
--		 * displaying live frames.
--		 *
--		 * We can set:
--		 *
--		 * 20/100 * offdelay_ms = 3_frames_ms
--		 * => offdelay_ms = 5 * 3_frames_ms
--		 *
--		 * This ensures that `3_frames_ms` will only be experienced as a
--		 * 20% delay on top how long the display has been static, and
--		 * thus make the delay less perceivable.
--		 */
--		if (acrtc_state->stream->link->psr_settings.psr_version <
--		    DC_PSR_VERSION_UNSUPPORTED) {
--			offdelay = DIV64_U64_ROUND_UP((u64)5 * 3 * 10 *
--						      timing->v_total *
--						      timing->h_total,
--						      timing->pix_clk_100hz);
--			config.offdelay_ms = offdelay ?: 30;
--		} else if (amdgpu_ip_version(adev, DCE_HWIP, 0) <
-+		if (amdgpu_ip_version(adev, DCE_HWIP, 0) <
- 			   IP_VERSION(3, 5, 0) ||
- 			   !(adev->flags & AMD_IS_APU)) {
- 			/*
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
-index 50f2fb704539c..7115bdf7e0180 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
-@@ -124,37 +124,37 @@ bool amdgpu_dm_crtc_vrr_active(const struct dm_crtc_state *dm_state)
-  * - Enable condition same as above
-  * - Disable when vblank counter is enabled
-  */
--static void amdgpu_dm_crtc_set_panel_sr_feature(
--	struct vblank_control_work *vblank_work,
-+void amdgpu_dm_crtc_set_panel_sr_feature(
-+	struct amdgpu_display_manager *dm,
-+	struct amdgpu_crtc *acrtc,
-+	struct dc_stream_state *stream,
- 	bool vblank_enabled, bool allow_sr_entry)
- {
--	struct dc_link *link = vblank_work->stream->link;
-+	struct dc_link *link = stream->link;
- 	bool is_sr_active = (link->replay_settings.replay_allow_active ||
- 				 link->psr_settings.psr_allow_active);
- 	bool is_crc_window_active = false;
--	bool vrr_active = amdgpu_dm_crtc_vrr_active_irq(vblank_work->acrtc);
-+	bool vrr_active = amdgpu_dm_crtc_vrr_active_irq(acrtc);
- 
- #ifdef CONFIG_DRM_AMD_SECURE_DISPLAY
- 	is_crc_window_active =
--		amdgpu_dm_crc_window_is_activated(&vblank_work->acrtc->base);
-+		amdgpu_dm_crc_window_is_activated(&acrtc->base);
- #endif
- 
- 	if (link->replay_settings.replay_feature_enabled && !vrr_active &&
- 		allow_sr_entry && !is_sr_active && !is_crc_window_active) {
--		amdgpu_dm_replay_enable(vblank_work->stream, true);
-+		amdgpu_dm_replay_enable(stream, true);
- 	} else if (vblank_enabled) {
- 		if (link->psr_settings.psr_version < DC_PSR_VERSION_SU_1 && is_sr_active)
--			amdgpu_dm_psr_disable(vblank_work->stream, false);
-+			amdgpu_dm_psr_disable(stream, false);
- 	} else if (link->psr_settings.psr_feature_enabled && !vrr_active &&
- 		allow_sr_entry && !is_sr_active && !is_crc_window_active) {
- 
- 		struct amdgpu_dm_connector *aconn =
--			(struct amdgpu_dm_connector *) vblank_work->stream->dm_stream_context;
-+			(struct amdgpu_dm_connector *) stream->dm_stream_context;
- 
- 		if (!aconn->disallow_edp_enter_psr) {
--			struct amdgpu_display_manager *dm = vblank_work->dm;
--
--			amdgpu_dm_psr_enable(vblank_work->stream);
-+			amdgpu_dm_psr_enable(stream);
- 			if (dm->idle_workqueue &&
- 			    (dm->dc->config.disable_ips == DMUB_IPS_ENABLE) &&
- 			    dm->dc->idle_optimizations_allowed &&
-@@ -251,33 +251,15 @@ static void amdgpu_dm_crtc_vblank_control_worker(struct work_struct *work)
- 
- 	mutex_lock(&dm->dc_lock);
- 
--	if (vblank_work->enable)
-+	if (vblank_work->enable) {
- 		dm->active_vblank_irq_count++;
--	else if (dm->active_vblank_irq_count)
--		dm->active_vblank_irq_count--;
--
--	if (dm->active_vblank_irq_count > 0)
--		dc_allow_idle_optimizations(dm->dc, false);
--
--	/*
--	 * Control PSR based on vblank requirements from OS
--	 *
--	 * If panel supports PSR SU, there's no need to disable PSR when OS is
--	 * submitting fast atomic commits (we infer this by whether the OS
--	 * requests vblank events). Fast atomic commits will simply trigger a
--	 * full-frame-update (FFU); a specific case of selective-update (SU)
--	 * where the SU region is the full hactive*vactive region. See
--	 * fill_dc_dirty_rects().
--	 */
--	if (vblank_work->stream && vblank_work->stream->link && vblank_work->acrtc) {
--		amdgpu_dm_crtc_set_panel_sr_feature(
--			vblank_work, vblank_work->enable,
--			vblank_work->acrtc->dm_irq_params.allow_sr_entry);
--	}
--
--	if (dm->active_vblank_irq_count == 0) {
--		dc_post_update_surfaces_to_stream(dm->dc);
--		dc_allow_idle_optimizations(dm->dc, true);
-+		amdgpu_dm_ism_commit_event(&vblank_work->acrtc->ism,
-+				DM_ISM_EVENT_EXIT_IDLE_REQUESTED);
-+	} else {
-+		if (dm->active_vblank_irq_count > 0)
-+			dm->active_vblank_irq_count--;
-+		amdgpu_dm_ism_commit_event(&vblank_work->acrtc->ism,
-+				DM_ISM_EVENT_ENTER_IDLE_REQUESTED);
- 	}
- 
- 	mutex_unlock(&dm->dc_lock);
-@@ -476,6 +458,9 @@ static struct drm_crtc_state *amdgpu_dm_crtc_duplicate_state(struct drm_crtc *cr
- 
- static void amdgpu_dm_crtc_destroy(struct drm_crtc *crtc)
- {
-+	struct amdgpu_crtc *acrtc = to_amdgpu_crtc(crtc);
-+
-+	amdgpu_dm_ism_fini(&acrtc->ism);
- 	drm_crtc_cleanup(crtc);
- 	kfree(crtc);
- }
-@@ -719,6 +704,35 @@ static const struct drm_crtc_helper_funcs amdgpu_dm_crtc_helper_funcs = {
- 	.get_scanout_position = amdgpu_crtc_get_scanout_position,
- };
- 
-+/*
-+ * This hysteresis filter as configured will:
-+ *
-+ * * Search through the latest 8[filter_history_size] entries in history,
-+ *   skipping entries that are older than [filter_old_history_threshold] frames
-+ *   (0 means ignore age)
-+ * * Searches for short-idle-periods that lasted shorter than
-+ *   4[filter_num_frames] frames-times
-+ * * If there is at least 1[filter_entry_count] short-idle-period, then a delay
-+ *   of 4[activation_num_delay_frames] will applied before allowing idle
-+ *   optimizations again.
-+ * * An additional delay of 11[sso_num_frames] is applied before enabling
-+ *   panel-specific optimizations.
-+ *
-+ * The values were determined empirically on another OS, optimizing for Z8
-+ * residency on APUs when running a productivity + web browsing test.
-+ *
-+ * TODO: Run similar tests to determine if these values are also optimal for
-+ * Linux, and if each APU generation benefits differently.
-+ */
-+static struct amdgpu_dm_ism_config default_ism_config = {
-+	.filter_num_frames = 4,
-+	.filter_history_size = 8,
-+	.filter_entry_count = 1,
-+	.activation_num_delay_frames = 4,
-+	.filter_old_history_threshold = 0,
-+	.sso_num_frames = 11,
-+};
-+
- int amdgpu_dm_crtc_init(struct amdgpu_display_manager *dm,
- 			       struct drm_plane *plane,
- 			       uint32_t crtc_index)
-@@ -749,6 +763,8 @@ int amdgpu_dm_crtc_init(struct amdgpu_display_manager *dm,
- 	if (res)
- 		goto fail;
- 
-+	amdgpu_dm_ism_init(&acrtc->ism, &default_ism_config);
-+
- 	drm_crtc_helper_add(&acrtc->base, &amdgpu_dm_crtc_helper_funcs);
- 
- 	/* Create (reset) the plane state */
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.h
-index c1212947a77b8..3a8094013a5d0 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.h
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.h
-@@ -27,6 +27,12 @@
- #ifndef __AMDGPU_DM_CRTC_H__
- #define __AMDGPU_DM_CRTC_H__
- 
-+void amdgpu_dm_crtc_set_panel_sr_feature(
-+	struct amdgpu_display_manager *dm,
-+	struct amdgpu_crtc *acrtc,
-+	struct dc_stream_state *stream,
-+	bool vblank_enabled, bool allow_sr_entry);
-+
- void amdgpu_dm_crtc_handle_vblank(struct amdgpu_crtc *acrtc);
- 
- bool amdgpu_dm_crtc_modeset_required(struct drm_crtc_state *crtc_state,
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_ism.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_ism.c
-new file mode 100644
-index 0000000000000..65a5cfe1e106d
---- /dev/null
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_ism.c
-@@ -0,0 +1,598 @@
-+// SPDX-License-Identifier: MIT
-+/*
-+ * Copyright 2026 Advanced Micro Devices, Inc.
-+ *
-+ * Permission is hereby granted, free of charge, to any person obtaining a
-+ * copy of this software and associated documentation files (the "Software"),
-+ * to deal in the Software without restriction, including without limitation
-+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
-+ * and/or sell copies of the Software, and to permit persons to whom the
-+ * Software is furnished to do so, subject to the following conditions:
-+ *
-+ * The above copyright notice and this permission notice shall be included in
-+ * all copies or substantial portions of the Software.
-+ *
-+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-+ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
-+ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-+ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-+ * OTHER DEALINGS IN THE SOFTWARE.
-+ *
-+ * Authors: AMD
-+ *
-+ */
-+
-+#include <linux/types.h>
-+#include <drm/drm_vblank.h>
-+
-+#include "dc.h"
-+#include "amdgpu.h"
-+#include "amdgpu_dm_ism.h"
-+#include "amdgpu_dm_crtc.h"
-+#include "amdgpu_dm_trace.h"
-+
-+/**
-+ * dm_ism_next_state - Get next state based on current state and event
-+ *
-+ * This function defines the idle state management FSM. Invalid transitions
-+ * are ignored and will not progress the FSM.
-+ */
-+static bool dm_ism_next_state(enum amdgpu_dm_ism_state current_state,
-+			      enum amdgpu_dm_ism_event event,
-+			      enum amdgpu_dm_ism_state *next_state)
-+{
-+	switch (STATE_EVENT(current_state, event)) {
-+	case STATE_EVENT(DM_ISM_STATE_FULL_POWER_RUNNING,
-+			 DM_ISM_EVENT_ENTER_IDLE_REQUESTED):
-+		*next_state = DM_ISM_STATE_HYSTERESIS_WAITING;
-+		break;
-+	case STATE_EVENT(DM_ISM_STATE_FULL_POWER_RUNNING,
-+			 DM_ISM_EVENT_BEGIN_CURSOR_UPDATE):
-+		*next_state = DM_ISM_STATE_FULL_POWER_BUSY;
-+		break;
-+
-+	case STATE_EVENT(DM_ISM_STATE_FULL_POWER_BUSY,
-+			 DM_ISM_EVENT_ENTER_IDLE_REQUESTED):
-+		*next_state = DM_ISM_STATE_HYSTERESIS_BUSY;
-+		break;
-+	case STATE_EVENT(DM_ISM_STATE_FULL_POWER_BUSY,
-+			 DM_ISM_EVENT_END_CURSOR_UPDATE):
-+		*next_state = DM_ISM_STATE_FULL_POWER_RUNNING;
-+		break;
-+
-+	case STATE_EVENT(DM_ISM_STATE_HYSTERESIS_WAITING,
-+			 DM_ISM_EVENT_EXIT_IDLE_REQUESTED):
-+		*next_state = DM_ISM_STATE_TIMER_ABORTED;
-+		break;
-+	case STATE_EVENT(DM_ISM_STATE_HYSTERESIS_WAITING,
-+			 DM_ISM_EVENT_BEGIN_CURSOR_UPDATE):
-+		*next_state = DM_ISM_STATE_HYSTERESIS_BUSY;
-+		break;
-+	case STATE_EVENT(DM_ISM_STATE_HYSTERESIS_WAITING,
-+			 DM_ISM_EVENT_TIMER_ELAPSED):
-+		*next_state = DM_ISM_STATE_OPTIMIZED_IDLE;
-+		break;
-+	case STATE_EVENT(DM_ISM_STATE_HYSTERESIS_WAITING,
-+			 DM_ISM_EVENT_IMMEDIATE):
-+		*next_state = DM_ISM_STATE_OPTIMIZED_IDLE;
-+		break;
-+
-+	case STATE_EVENT(DM_ISM_STATE_HYSTERESIS_BUSY,
-+			 DM_ISM_EVENT_EXIT_IDLE_REQUESTED):
-+		*next_state = DM_ISM_STATE_FULL_POWER_BUSY;
-+		break;
-+	case STATE_EVENT(DM_ISM_STATE_HYSTERESIS_BUSY,
-+			 DM_ISM_EVENT_END_CURSOR_UPDATE):
-+		*next_state = DM_ISM_STATE_HYSTERESIS_WAITING;
-+		break;
-+
-+	case STATE_EVENT(DM_ISM_STATE_OPTIMIZED_IDLE,
-+			 DM_ISM_EVENT_EXIT_IDLE_REQUESTED):
-+		*next_state = DM_ISM_STATE_FULL_POWER_RUNNING;
-+		break;
-+	case STATE_EVENT(DM_ISM_STATE_OPTIMIZED_IDLE,
-+			 DM_ISM_EVENT_BEGIN_CURSOR_UPDATE):
-+		*next_state = DM_ISM_STATE_HYSTERESIS_BUSY;
-+		break;
-+	case STATE_EVENT(DM_ISM_STATE_OPTIMIZED_IDLE,
-+			 DM_ISM_EVENT_SSO_TIMER_ELAPSED):
-+	case STATE_EVENT(DM_ISM_STATE_OPTIMIZED_IDLE,
-+			 DM_ISM_EVENT_IMMEDIATE):
-+		*next_state = DM_ISM_STATE_OPTIMIZED_IDLE_SSO;
-+		break;
-+
-+	case STATE_EVENT(DM_ISM_STATE_OPTIMIZED_IDLE_SSO,
-+			 DM_ISM_EVENT_EXIT_IDLE_REQUESTED):
-+		*next_state = DM_ISM_STATE_FULL_POWER_RUNNING;
-+		break;
-+	case STATE_EVENT(DM_ISM_STATE_OPTIMIZED_IDLE_SSO,
-+			 DM_ISM_EVENT_BEGIN_CURSOR_UPDATE):
-+		*next_state = DM_ISM_STATE_HYSTERESIS_BUSY;
-+		break;
-+
-+	case STATE_EVENT(DM_ISM_STATE_TIMER_ABORTED,
-+			 DM_ISM_EVENT_IMMEDIATE):
-+		*next_state = DM_ISM_STATE_FULL_POWER_RUNNING;
-+		break;
-+
-+	default:
-+		return false;
-+	}
-+	return true;
-+}
-+
-+static uint64_t dm_ism_get_sso_delay(const struct amdgpu_dm_ism *ism,
-+				     const struct dc_stream_state *stream)
-+{
-+	const struct amdgpu_dm_ism_config *config = &ism->config;
-+	uint32_t v_total, h_total;
-+	uint64_t one_frame_ns, sso_delay_ns;
-+
-+	if (!stream)
-+		return 0;
-+
-+	if (!config->sso_num_frames)
-+		return 0;
-+
-+	v_total = stream->timing.v_total;
-+	h_total = stream->timing.h_total;
-+
-+	one_frame_ns = div64_u64(v_total * h_total * 10000000ull,
-+				 stream->timing.pix_clk_100hz);
-+	sso_delay_ns = config->sso_num_frames * one_frame_ns;
-+
-+	return sso_delay_ns;
-+}
-+
-+/**
-+ * dm_ism_get_idle_allow_delay - Calculate hysteresis-based idle allow delay
-+ */
-+static uint64_t dm_ism_get_idle_allow_delay(const struct amdgpu_dm_ism *ism,
-+					    const struct dc_stream_state *stream)
-+{
-+	const struct amdgpu_dm_ism_config *config = &ism->config;
-+	uint32_t v_total, h_total;
-+	uint64_t one_frame_ns, short_idle_ns, old_hist_ns;
-+	uint32_t history_size;
-+	int pos;
-+	uint32_t short_idle_count = 0;
-+	uint64_t ret_ns = 0;
-+
-+	if (!stream)
-+		return 0;
-+
-+	if (!config->filter_num_frames)
-+		return 0;
-+	if (!config->filter_entry_count)
-+		return 0;
-+	if (!config->activation_num_delay_frames)
-+		return 0;
-+
-+	v_total = stream->timing.v_total;
-+	h_total = stream->timing.h_total;
-+
-+	one_frame_ns = div64_u64(v_total * h_total * 10000000ull,
-+				 stream->timing.pix_clk_100hz);
-+
-+	short_idle_ns = config->filter_num_frames * one_frame_ns;
-+	old_hist_ns = config->filter_old_history_threshold * one_frame_ns;
-+
-+	/*
-+	 * Look back into the recent history and count how many times we entered
-+	 * idle power state for a short duration of time
-+	 */
-+	history_size = min(
-+		max(config->filter_history_size, config->filter_entry_count),
-+		AMDGPU_DM_IDLE_HIST_LEN);
-+	pos = ism->next_record_idx;
-+
-+	for (int k = 0; k < history_size; k++) {
-+		if (pos <= 0 || pos > AMDGPU_DM_IDLE_HIST_LEN)
-+			pos = AMDGPU_DM_IDLE_HIST_LEN;
-+		pos -= 1;
-+
-+		if (ism->records[pos].duration_ns <= short_idle_ns)
-+			short_idle_count += 1;
-+
-+		if (short_idle_count >= config->filter_entry_count)
-+			break;
-+
-+		if (old_hist_ns > 0 &&
-+		    ism->last_idle_timestamp_ns - ism->records[pos].timestamp_ns > old_hist_ns)
-+			break;
-+	}
-+
-+	if (short_idle_count >= config->filter_entry_count)
-+		ret_ns = config->activation_num_delay_frames * one_frame_ns;
-+
-+	return ret_ns;
-+}
-+
-+/**
-+ * dm_ism_insert_record - Insert a record into the circular history buffer
-+ */
-+static void dm_ism_insert_record(struct amdgpu_dm_ism *ism)
-+{
-+	struct amdgpu_dm_ism_record *record;
-+
-+	if (ism->next_record_idx < 0 ||
-+	    ism->next_record_idx >= AMDGPU_DM_IDLE_HIST_LEN)
-+		ism->next_record_idx = 0;
-+
-+	record = &ism->records[ism->next_record_idx];
-+	ism->next_record_idx += 1;
-+
-+	record->timestamp_ns = ktime_get_ns();
-+	record->duration_ns =
-+		record->timestamp_ns - ism->last_idle_timestamp_ns;
-+}
-+
-+
-+static void dm_ism_set_last_idle_ts(struct amdgpu_dm_ism *ism)
-+{
-+	ism->last_idle_timestamp_ns = ktime_get_ns();
-+}
-+
-+
-+static bool dm_ism_trigger_event(struct amdgpu_dm_ism *ism,
-+				 enum amdgpu_dm_ism_event event)
-+{
-+	enum amdgpu_dm_ism_state next_state;
-+
-+	bool gotNextState = dm_ism_next_state(ism->current_state, event,
-+					      &next_state);
-+
-+	if (gotNextState) {
-+		ism->previous_state = ism->current_state;
-+		ism->current_state = next_state;
-+	}
-+
-+	return gotNextState;
-+}
-+
-+
-+static void dm_ism_commit_idle_optimization_state(struct amdgpu_dm_ism *ism,
-+					     struct dc_stream_state *stream,
-+					     bool vblank_enabled,
-+					     bool allow_panel_sso)
-+{
-+	struct amdgpu_crtc *acrtc = ism_to_amdgpu_crtc(ism);
-+	struct amdgpu_device *adev = drm_to_adev(acrtc->base.dev);
-+	struct amdgpu_display_manager *dm = &adev->dm;
-+	int r;
-+
-+	trace_amdgpu_dm_ism_commit(dm->active_vblank_irq_count,
-+				   vblank_enabled,
-+				   allow_panel_sso);
-+
-+	/*
-+	 * If there is an active vblank requestor, or if SSO is being engaged,
-+	 * then disallow idle optimizations.
-+	 */
-+	if (vblank_enabled || allow_panel_sso)
-+		dc_allow_idle_optimizations(dm->dc, false);
-+
-+	/*
-+	 * Control PSR based on vblank requirements from OS
-+	 *
-+	 * If panel supports PSR SU/Replay, there's no need to exit self-refresh
-+	 * when OS is submitting fast atomic commits, as they can allow
-+	 * self-refresh during vblank periods.
-+	 */
-+	if (stream && stream->link) {
-+		/*
-+		 * If allow_panel_sso is true when disabling vblank, allow
-+		 * deeper panel sleep states such as PSR1 and Replay static
-+		 * screen optimization.
-+		 */
-+		if (!vblank_enabled && allow_panel_sso) {
-+			amdgpu_dm_crtc_set_panel_sr_feature(
-+				dm, acrtc, stream, false,
-+				acrtc->dm_irq_params.allow_sr_entry);
-+		} else if (vblank_enabled) {
-+			/* Make sure to exit SSO on vblank enable */
-+			amdgpu_dm_crtc_set_panel_sr_feature(
-+				dm, acrtc, stream, true,
-+				acrtc->dm_irq_params.allow_sr_entry);
-+		}
-+		/*
-+		 * Else, vblank_enabled == false and allow_panel_sso == false;
-+		 * do nothing here.
-+		 */
-+	}
-+
-+	/*
-+	 * Check for any active drm vblank requestors on other CRTCs
-+	 * (dm->active_vblank_irq_count) before allowing HW-wide idle
-+	 * optimizations.
-+	 *
-+	 * There's no need to have a "balanced" check when disallowing idle
-+	 * optimizations at the start of this func -- we should disallow
-+	 * whenever there's *an* active CRTC.
-+	 */
-+	if (!vblank_enabled && dm->active_vblank_irq_count == 0) {
-+		dc_post_update_surfaces_to_stream(dm->dc);
-+
-+		r = amdgpu_dpm_pause_power_profile(adev, true);
-+		if (r)
-+			dev_warn(adev->dev, "failed to set default power profile mode\n");
-+
-+		dc_allow_idle_optimizations(dm->dc, true);
-+
-+		r = amdgpu_dpm_pause_power_profile(adev, false);
-+		if (r)
-+			dev_warn(adev->dev, "failed to restore the power profile mode\n");
-+	}
-+}
-+
-+
-+static enum amdgpu_dm_ism_event dm_ism_dispatch_power_state(
-+	struct amdgpu_dm_ism *ism,
-+	struct dm_crtc_state *acrtc_state,
-+	enum amdgpu_dm_ism_event event)
-+{
-+	enum amdgpu_dm_ism_event ret = event;
-+	const struct amdgpu_dm_ism_config *config = &ism->config;
-+	uint64_t delay_ns, sso_delay_ns;
-+
-+	switch (ism->previous_state) {
-+	case DM_ISM_STATE_HYSTERESIS_WAITING:
-+		/*
-+		 * Stop the timer if it was set, and we're not running from the
-+		 * idle allow worker.
-+		 */
-+		if (ism->current_state != DM_ISM_STATE_OPTIMIZED_IDLE &&
-+		    ism->current_state != DM_ISM_STATE_OPTIMIZED_IDLE_SSO)
-+			cancel_delayed_work(&ism->delayed_work);
-+		break;
-+	case DM_ISM_STATE_OPTIMIZED_IDLE:
-+		if (ism->current_state == DM_ISM_STATE_OPTIMIZED_IDLE_SSO)
-+			break;
-+		/* If idle disallow, cancel SSO work and insert record */
-+		cancel_delayed_work(&ism->sso_delayed_work);
-+		dm_ism_insert_record(ism);
-+		dm_ism_commit_idle_optimization_state(ism, acrtc_state->stream,
-+						      true, false);
-+		break;
-+	case DM_ISM_STATE_OPTIMIZED_IDLE_SSO:
-+		/* Disable idle optimization */
-+		dm_ism_insert_record(ism);
-+		dm_ism_commit_idle_optimization_state(ism, acrtc_state->stream,
-+						      true, false);
-+		break;
-+	default:
-+		break;
-+	}
-+
-+	switch (ism->current_state) {
-+	case DM_ISM_STATE_HYSTERESIS_WAITING:
-+		dm_ism_set_last_idle_ts(ism);
-+
-+		/* CRTC can be disabled; allow immediate idle */
-+		if (!acrtc_state->stream) {
-+			ret = DM_ISM_EVENT_IMMEDIATE;
-+			break;
-+		}
-+
-+		delay_ns = dm_ism_get_idle_allow_delay(ism,
-+						       acrtc_state->stream);
-+		if (delay_ns == 0) {
-+			ret = DM_ISM_EVENT_IMMEDIATE;
-+			break;
-+		}
-+
-+		/* Schedule worker */
-+		mod_delayed_work(system_unbound_wq, &ism->delayed_work,
-+				 nsecs_to_jiffies(delay_ns));
-+
-+		break;
-+	case DM_ISM_STATE_OPTIMIZED_IDLE:
-+		sso_delay_ns = dm_ism_get_sso_delay(ism, acrtc_state->stream);
-+		if (sso_delay_ns == 0)
-+			ret = DM_ISM_EVENT_IMMEDIATE;
-+		else if (config->sso_num_frames < config->filter_num_frames) {
-+			/*
-+			 * If sso_num_frames is less than hysteresis frames, it
-+			 * indicates that allowing idle here, then disallowing
-+			 * idle after sso_num_frames has expired, will likely
-+			 * have a negative power impact. Skip idle allow here,
-+			 * and let the sso_delayed_work handle it.
-+			 */
-+			mod_delayed_work(system_unbound_wq,
-+					 &ism->sso_delayed_work,
-+					 nsecs_to_jiffies(sso_delay_ns));
-+		} else {
-+			/* Enable idle optimization without SSO */
-+			dm_ism_commit_idle_optimization_state(
-+				ism, acrtc_state->stream, false, false);
-+			mod_delayed_work(system_unbound_wq,
-+					 &ism->sso_delayed_work,
-+					 nsecs_to_jiffies(sso_delay_ns));
-+		}
-+		break;
-+	case DM_ISM_STATE_OPTIMIZED_IDLE_SSO:
-+		/* Enable static screen optimizations. */
-+		dm_ism_commit_idle_optimization_state(ism, acrtc_state->stream,
-+						      false, true);
-+		break;
-+	case DM_ISM_STATE_TIMER_ABORTED:
-+		dm_ism_insert_record(ism);
-+		dm_ism_commit_idle_optimization_state(ism, acrtc_state->stream,
-+						      true, false);
-+		ret = DM_ISM_EVENT_IMMEDIATE;
-+		break;
-+	default:
-+		break;
-+	}
-+
-+	return ret;
-+}
-+
-+static char *dm_ism_events_str[DM_ISM_NUM_EVENTS] = {
-+	[DM_ISM_EVENT_IMMEDIATE] = "IMMEDIATE",
-+	[DM_ISM_EVENT_ENTER_IDLE_REQUESTED] = "ENTER_IDLE_REQUESTED",
-+	[DM_ISM_EVENT_EXIT_IDLE_REQUESTED] = "EXIT_IDLE_REQUESTED",
-+	[DM_ISM_EVENT_BEGIN_CURSOR_UPDATE] = "BEGIN_CURSOR_UPDATE",
-+	[DM_ISM_EVENT_END_CURSOR_UPDATE] = "END_CURSOR_UPDATE",
-+	[DM_ISM_EVENT_TIMER_ELAPSED] = "TIMER_ELAPSED",
-+	[DM_ISM_EVENT_SSO_TIMER_ELAPSED] = "SSO_TIMER_ELAPSED",
-+};
-+
-+static char *dm_ism_states_str[DM_ISM_NUM_STATES] = {
-+	[DM_ISM_STATE_FULL_POWER_RUNNING] = "FULL_POWER_RUNNING",
-+	[DM_ISM_STATE_FULL_POWER_BUSY] = "FULL_POWER_BUSY",
-+	[DM_ISM_STATE_HYSTERESIS_WAITING] = "HYSTERESIS_WAITING",
-+	[DM_ISM_STATE_HYSTERESIS_BUSY] = "HYSTERESIS_BUSY",
-+	[DM_ISM_STATE_OPTIMIZED_IDLE] = "OPTIMIZED_IDLE",
-+	[DM_ISM_STATE_OPTIMIZED_IDLE_SSO] = "OPTIMIZED_IDLE_SSO",
-+	[DM_ISM_STATE_TIMER_ABORTED] = "TIMER_ABORTED",
-+};
-+
-+
-+void amdgpu_dm_ism_commit_event(struct amdgpu_dm_ism *ism,
-+				enum amdgpu_dm_ism_event event)
-+{
-+	enum amdgpu_dm_ism_event next_event = event;
-+	struct amdgpu_crtc *acrtc = ism_to_amdgpu_crtc(ism);
-+	struct amdgpu_device *adev = drm_to_adev(acrtc->base.dev);
-+	struct amdgpu_display_manager *dm = &adev->dm;
-+	struct dm_crtc_state *acrtc_state = to_dm_crtc_state(acrtc->base.state);
-+
-+	/* ISM transitions must be called with mutex acquired */
-+	ASSERT(mutex_is_locked(&dm->dc_lock));
-+
-+	if (!acrtc_state) {
-+		trace_amdgpu_dm_ism_event(acrtc->crtc_id, "NO_STATE",
-+					  "NO_STATE", "N/A");
-+		return;
-+	}
-+
-+	do {
-+		bool transition = dm_ism_trigger_event(ism, event);
-+
-+		next_event = DM_ISM_NUM_EVENTS;
-+		if (transition) {
-+			trace_amdgpu_dm_ism_event(
-+				acrtc->crtc_id,
-+				dm_ism_states_str[ism->previous_state],
-+				dm_ism_states_str[ism->current_state],
-+				dm_ism_events_str[event]);
-+			next_event = dm_ism_dispatch_power_state(
-+				ism, acrtc_state, next_event);
-+		} else {
-+			trace_amdgpu_dm_ism_event(
-+				acrtc->crtc_id,
-+				dm_ism_states_str[ism->current_state],
-+				dm_ism_states_str[ism->current_state],
-+				dm_ism_events_str[event]);
-+		}
-+
-+		event = next_event;
-+
-+	} while (next_event < DM_ISM_NUM_EVENTS);
-+}
-+
-+
-+static void dm_ism_delayed_work_func(struct work_struct *work)
-+{
-+	struct amdgpu_dm_ism *ism =
-+		container_of(work, struct amdgpu_dm_ism, delayed_work.work);
-+	struct amdgpu_crtc *acrtc = ism_to_amdgpu_crtc(ism);
-+	struct amdgpu_device *adev = drm_to_adev(acrtc->base.dev);
-+	struct amdgpu_display_manager *dm = &adev->dm;
-+
-+	guard(mutex)(&dm->dc_lock);
-+
-+	amdgpu_dm_ism_commit_event(ism, DM_ISM_EVENT_TIMER_ELAPSED);
-+}
-+
-+static void dm_ism_sso_delayed_work_func(struct work_struct *work)
-+{
-+	struct amdgpu_dm_ism *ism =
-+		container_of(work, struct amdgpu_dm_ism, sso_delayed_work.work);
-+	struct amdgpu_crtc *acrtc = ism_to_amdgpu_crtc(ism);
-+	struct amdgpu_device *adev = drm_to_adev(acrtc->base.dev);
-+	struct amdgpu_display_manager *dm = &adev->dm;
-+
-+	guard(mutex)(&dm->dc_lock);
-+
-+	amdgpu_dm_ism_commit_event(ism, DM_ISM_EVENT_SSO_TIMER_ELAPSED);
-+}
-+
-+/**
-+ * amdgpu_dm_ism_disable - Disable the ISM
-+ *
-+ * @dm: The amdgpu display manager
-+ *
-+ * Disable the idle state manager by disabling any ISM work, canceling pending
-+ * work, and waiting for in-progress work to finish. After disabling, the system
-+ * is left in DM_ISM_STATE_FULL_POWER_RUNNING state.
-+ */
-+void amdgpu_dm_ism_disable(struct amdgpu_display_manager *dm)
-+{
-+	struct drm_crtc *crtc;
-+	struct amdgpu_crtc *acrtc;
-+	struct amdgpu_dm_ism *ism;
-+
-+	drm_for_each_crtc(crtc, dm->ddev) {
-+		acrtc = to_amdgpu_crtc(crtc);
-+		ism = &acrtc->ism;
-+
-+		/* Cancel and disable any pending work */
-+		disable_delayed_work_sync(&ism->delayed_work);
-+		disable_delayed_work_sync(&ism->sso_delayed_work);
-+
-+		/*
-+		 * When disabled, leave in FULL_POWER_RUNNING state.
-+		 * EXIT_IDLE will not queue any work
-+		 */
-+		amdgpu_dm_ism_commit_event(ism,
-+					   DM_ISM_EVENT_EXIT_IDLE_REQUESTED);
-+	}
-+}
-+
-+/**
-+ * amdgpu_dm_ism_enable - enable the ISM
-+ *
-+ * @dm: The amdgpu display manager
-+ *
-+ * Re-enable the idle state manager by enabling work that was disabled by
-+ * amdgpu_dm_ism_disable.
-+ */
-+void amdgpu_dm_ism_enable(struct amdgpu_display_manager *dm)
-+{
-+	struct drm_crtc *crtc;
-+	struct amdgpu_crtc *acrtc;
-+	struct amdgpu_dm_ism *ism;
-+
-+	drm_for_each_crtc(crtc, dm->ddev) {
-+		acrtc = to_amdgpu_crtc(crtc);
-+		ism = &acrtc->ism;
-+
-+		enable_delayed_work(&ism->delayed_work);
-+		enable_delayed_work(&ism->sso_delayed_work);
-+	}
-+}
-+
-+void amdgpu_dm_ism_init(struct amdgpu_dm_ism *ism,
-+			struct amdgpu_dm_ism_config *config)
-+{
-+	ism->config = *config;
-+
-+	ism->current_state = DM_ISM_STATE_FULL_POWER_RUNNING;
-+	ism->previous_state = DM_ISM_STATE_FULL_POWER_RUNNING;
-+	ism->next_record_idx = 0;
-+	ism->last_idle_timestamp_ns = 0;
-+
-+	INIT_DELAYED_WORK(&ism->delayed_work, dm_ism_delayed_work_func);
-+	INIT_DELAYED_WORK(&ism->sso_delayed_work, dm_ism_sso_delayed_work_func);
-+}
-+
-+
-+void amdgpu_dm_ism_fini(struct amdgpu_dm_ism *ism)
-+{
-+	cancel_delayed_work_sync(&ism->sso_delayed_work);
-+	cancel_delayed_work_sync(&ism->delayed_work);
-+}
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_ism.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_ism.h
-new file mode 100644
-index 0000000000000..fde0ddc8d4e4b
---- /dev/null
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_ism.h
-@@ -0,0 +1,151 @@
-+/* SPDX-License-Identifier: MIT */
-+/*
-+ * Copyright 2026 Advanced Micro Devices, Inc.
-+ *
-+ * Permission is hereby granted, free of charge, to any person obtaining a
-+ * copy of this software and associated documentation files (the "Software"),
-+ * to deal in the Software without restriction, including without limitation
-+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
-+ * and/or sell copies of the Software, and to permit persons to whom the
-+ * Software is furnished to do so, subject to the following conditions:
-+ *
-+ * The above copyright notice and this permission notice shall be included in
-+ * all copies or substantial portions of the Software.
-+ *
-+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-+ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
-+ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-+ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-+ * OTHER DEALINGS IN THE SOFTWARE.
-+ *
-+ * Authors: AMD
-+ *
-+ */
-+
-+#ifndef __AMDGPU_DM_ISM_H__
-+#define __AMDGPU_DM_ISM_H__
-+
-+#include <linux/workqueue.h>
-+
-+struct amdgpu_crtc;
-+struct amdgpu_display_manager;
-+
-+#define AMDGPU_DM_IDLE_HIST_LEN 16
-+
-+enum amdgpu_dm_ism_state {
-+	DM_ISM_STATE_FULL_POWER_RUNNING,
-+	DM_ISM_STATE_FULL_POWER_BUSY,
-+	DM_ISM_STATE_HYSTERESIS_WAITING,
-+	DM_ISM_STATE_HYSTERESIS_BUSY,
-+	DM_ISM_STATE_OPTIMIZED_IDLE,
-+	DM_ISM_STATE_OPTIMIZED_IDLE_SSO,
-+	DM_ISM_STATE_TIMER_ABORTED,
-+	DM_ISM_NUM_STATES,
-+};
-+
-+enum amdgpu_dm_ism_event {
-+	DM_ISM_EVENT_IMMEDIATE,
-+	DM_ISM_EVENT_ENTER_IDLE_REQUESTED,
-+	DM_ISM_EVENT_EXIT_IDLE_REQUESTED,
-+	DM_ISM_EVENT_BEGIN_CURSOR_UPDATE,
-+	DM_ISM_EVENT_END_CURSOR_UPDATE,
-+	DM_ISM_EVENT_TIMER_ELAPSED,
-+	DM_ISM_EVENT_SSO_TIMER_ELAPSED,
-+	DM_ISM_NUM_EVENTS,
-+};
-+
-+#define STATE_EVENT(state, event) (((state) << 8) | (event))
-+
-+struct amdgpu_dm_ism_config {
-+
-+	/**
-+	 * @filter_num_frames: Idle periods shorter than this number of frames
-+	 * will be considered a "short idle period" for filtering.
-+	 *
-+	 * 0 indicates no filtering (i.e. no idle allow delay will be applied)
-+	 */
-+	unsigned int filter_num_frames;
-+
-+	/**
-+	 * @filter_history_size: Number of recent idle periods to consider when
-+	 * counting the number of short idle periods.
-+	 */
-+	unsigned int filter_history_size;
-+
-+	/**
-+	 * @filter_entry_count: When the number of short idle periods within
-+	 * recent &filter_history_size reaches this count, the idle allow delay
-+	 * will be applied.
-+	 *
-+	 * 0 indicates no filtering (i.e. no idle allow delay will be applied)
-+	 */
-+	unsigned int filter_entry_count;
-+
-+	/**
-+	 * @activation_num_delay_frames: Defines the number of frames to wait
-+	 * for the idle allow delay.
-+	 *
-+	 * 0 indicates no filtering (i.e. no idle allow delay will be applied)
-+	 */
-+	unsigned int activation_num_delay_frames;
-+
-+	/**
-+	 * @filter_old_history_threshold: A time-based restriction on top of
-+	 * &filter_history_size. Idle periods older than this threshold (in
-+	 * number of frames) will be ignored when counting the number of short
-+	 * idle periods.
-+	 *
-+	 * 0 indicates no time-based restriction, i.e. history is limited only
-+	 * by &filter_history_size.
-+	 */
-+	unsigned int filter_old_history_threshold;
-+
-+	/**
-+	 * @sso_num_frames: Number of frames to delay before enabling static
-+	 * screen optimizations, such as PSR1 and Replay low HZ idle mode.
-+	 *
-+	 * 0 indicates immediate SSO enable upon allowing idle.
-+	 */
-+	unsigned int sso_num_frames;
-+};
-+
-+struct amdgpu_dm_ism_record {
-+	/**
-+	 * @timestamp_ns: When idle was allowed
-+	 */
-+	unsigned long long timestamp_ns;
-+
-+	/**
-+	 * @duration_ns: How long idle was allowed
-+	 */
-+	unsigned long long duration_ns;
-+};
-+
-+struct amdgpu_dm_ism {
-+	struct amdgpu_dm_ism_config config;
-+	unsigned long long last_idle_timestamp_ns;
-+
-+	enum amdgpu_dm_ism_state current_state;
-+	enum amdgpu_dm_ism_state previous_state;
-+
-+	struct amdgpu_dm_ism_record records[AMDGPU_DM_IDLE_HIST_LEN];
-+	int next_record_idx;
-+
-+	struct delayed_work delayed_work;
-+	struct delayed_work sso_delayed_work;
-+};
-+
-+#define ism_to_amdgpu_crtc(ism_ptr) \
-+	container_of(ism_ptr, struct amdgpu_crtc, ism)
-+
-+void amdgpu_dm_ism_init(struct amdgpu_dm_ism *ism,
-+			struct amdgpu_dm_ism_config *config);
-+void amdgpu_dm_ism_fini(struct amdgpu_dm_ism *ism);
-+void amdgpu_dm_ism_commit_event(struct amdgpu_dm_ism *ism,
-+				enum amdgpu_dm_ism_event event);
-+void amdgpu_dm_ism_disable(struct amdgpu_display_manager *dm);
-+void amdgpu_dm_ism_enable(struct amdgpu_display_manager *dm);
-+
-+#endif
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-index 812497d428aa0..9ff40f6643ba8 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-@@ -1374,8 +1374,16 @@ void amdgpu_dm_plane_handle_cursor_update(struct drm_plane *plane,
- 		/* turn off cursor */
- 		if (crtc_state && crtc_state->stream) {
- 			mutex_lock(&adev->dm.dc_lock);
-+			amdgpu_dm_ism_commit_event(
-+				&amdgpu_crtc->ism,
-+				DM_ISM_EVENT_BEGIN_CURSOR_UPDATE);
-+
- 			dc_stream_program_cursor_position(crtc_state->stream,
- 						      &position);
-+
-+			amdgpu_dm_ism_commit_event(
-+				&amdgpu_crtc->ism,
-+				DM_ISM_EVENT_END_CURSOR_UPDATE);
- 			mutex_unlock(&adev->dm.dc_lock);
- 		}
- 		return;
-@@ -1405,6 +1413,10 @@ void amdgpu_dm_plane_handle_cursor_update(struct drm_plane *plane,
- 
- 	if (crtc_state->stream) {
- 		mutex_lock(&adev->dm.dc_lock);
-+		amdgpu_dm_ism_commit_event(
-+			&amdgpu_crtc->ism,
-+			DM_ISM_EVENT_BEGIN_CURSOR_UPDATE);
-+
- 		if (!dc_stream_program_cursor_attributes(crtc_state->stream,
- 							 &attributes))
- 			DRM_ERROR("DC failed to set cursor attributes\n");
-@@ -1412,6 +1424,10 @@ void amdgpu_dm_plane_handle_cursor_update(struct drm_plane *plane,
- 		if (!dc_stream_program_cursor_position(crtc_state->stream,
- 						   &position))
- 			DRM_ERROR("DC failed to set cursor position\n");
-+
-+		amdgpu_dm_ism_commit_event(
-+			&amdgpu_crtc->ism,
-+			DM_ISM_EVENT_END_CURSOR_UPDATE);
- 		mutex_unlock(&adev->dm.dc_lock);
- 	}
- }
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_trace.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_trace.h
-index aa56fd6d56c34..e0fab8878d19c 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_trace.h
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_trace.h
-@@ -753,6 +753,69 @@ TRACE_EVENT(amdgpu_dm_brightness,
- 	)
- );
- 
-+TRACE_EVENT(amdgpu_dm_ism_commit,
-+	TP_PROTO(
-+		int active_vblank_irq_count,
-+		bool vblank_enabled,
-+		bool allow_panel_sso
-+	),
-+	TP_ARGS(
-+		active_vblank_irq_count,
-+		vblank_enabled,
-+		allow_panel_sso
-+	),
-+	TP_STRUCT__entry(
-+		__field(int, active_vblank_irq_count)
-+		__field(bool, vblank_enabled)
-+		__field(bool, allow_panel_sso)
-+	),
-+	TP_fast_assign(
-+		__entry->active_vblank_irq_count = active_vblank_irq_count;
-+		__entry->vblank_enabled = vblank_enabled;
-+		__entry->allow_panel_sso = allow_panel_sso;
-+	),
-+	TP_printk(
-+		"active_vblank_irq_count=%d vblank_enabled=%d allow_panel_sso=%d",
-+		__entry->active_vblank_irq_count,
-+		__entry->vblank_enabled,
-+		__entry->allow_panel_sso
-+	)
-+);
-+
-+TRACE_EVENT(amdgpu_dm_ism_event,
-+	TP_PROTO(
-+		int crtc_id,
-+		const char *prev_state,
-+		const char *curr_state,
-+		const char *event
-+	),
-+	TP_ARGS(
-+		crtc_id,
-+		prev_state,
-+		curr_state,
-+		event
-+	),
-+	TP_STRUCT__entry(
-+		__field(int, crtc_id)
-+		__string(prev_state, prev_state)
-+		__string(curr_state, curr_state)
-+		__string(event, event)
-+	),
-+	TP_fast_assign(
-+		__entry->crtc_id = crtc_id;
-+		__assign_str(prev_state);
-+		__assign_str(curr_state);
-+		__assign_str(event);
-+	),
-+	TP_printk(
-+		"[CRTC %d] %s -> %s on event %s",
-+		__entry->crtc_id,
-+		__get_str(prev_state),
-+		__get_str(curr_state),
-+		__get_str(event))
-+);
-+
-+
- #endif /* _AMDGPU_DM_TRACE_H_ */
- 
- #undef TRACE_INCLUDE_PATH
--- 
-2.53.0
-
+> > 
+> > > 
+> > > > > > > This may brings huge overhead:
+> > > > > > >        - N x MMU notifier registrations for the same address range
+> > > > 
+> > > > The notifier overhead is a real concern. We recently introduced two-pass
+> > > > notifiers [1] to speed up multi-device notifiers. At least in Xe, the
+> > > > TLB invalidations—which are the truly expensive part—can be pipelined
+> > > > using the two=pass approach. Currently, [1] only implements two-pass
+> > > > notifiers for userptr, but Xe’s GPU SVM will be updated to use them
+> > > > shortly.
+> > > > 
+> > > > [1] https://patchwork.freedesktop.org/series/153280/
+> > > > 
+> > > 
+> > > Thank you for the pointer to two-pass notifiers. Will study this
+> > > series.
+> > > 
+> > > > > > >        - N x hmm_range_fault() calls for the same page (KFD: 1x)
+> > > > 
+> > > > hmm_range_fault is extremely fast compared to the actual migration.
+> > > > Running hmm_range_fault on a 2MB region using 4KB pages takes less
+> > > > than 1µs. With THP or large device pages [2] (merged last week), it’s
+> > > > around 1/20 of a microsecond. So I wouldn’t be too concerned about this.
+> > > > 
+> > > > [2] https://patchwork.freedesktop.org/series/163141/
+> > > > 
+> > > 
+> > > That is very helpful data. Perhaps worry too much.
+> > > 
+> > > > > > >        - N x DMA mapping memory
+> > > > 
+> > > > You will always have N x DMA mapping memory if the pages are in system
+> > > > memory as the dma-mapping API is per device.
+> > > 
+> > > Totally agreed.
+> > > 
+> > > > 
+> > > > > > >        - N x invalidation + restore worker scheduling per CPU unmap event
+> > > > > > >        - N x GPU page table flush / TLB invalidation
+> > > > 
+> > > > I agree you do not want serialize GPU page table flush / TLB
+> > > > invalidations. Hence two-pass notifiers [1].
+> > > 
+> > > Yes, will learn it.
+> > > 
+> > > > 
+> > > > > > >        - Increased mmap_lock hold time, N callbacks serialize under it
+> > > > > > > 
+> > > > > > > compatibility issues:
+> > > > > > >        - Quiesce/resume scope mismatch: to integrate with KFD compute
+> > > > > > >          queues, the driver reuses kgd2kfd_quiesce_mm()/resume_mm()
+> > > > > > >          which have process level semantics. Under the per GPU
+> > > > > > >          drm_gpusvm model, maybe there are some issues on sync. To properly
+> > > > > > >          integrate with KFD under the per SVM model, a compatibility or
+> > > > > > >          new per VM level queue control APIs maybe need to introduced.
+> > > > > > > 
+> > > > 
+> > > > I thought the idea to get rid of KFD and move over to AMDGPU? I thought
+> > > > Christian mentioned this to me at XDC.
+> > > > 
+> > > 
+> > > > > > > Migration challenges:
+> > > > > > > 
+> > > > > > >      - No global migration decision logic: each per GPU SVM
+> > > > > > >        instance maintains its own attribute tree independently. This
+> > > > > > >        allows conflicting settings (e.g., GPU0's SVM sets
+> > > > > > >        PREFERRED_LOC=GPU0 while GPU1's SVM sets PREFERRED_LOC=GPU1
+> > > > > > >        for the same address range) with no detection or resolution.
+> > > > > > >        A global attribute coordinator or a shared manager is needed to
+> > > > > > >        provide a unified global view for migration decisions
+> > > > 
+> > > > Yes, this is hole in the Xe API too. We have told UMDs if they setup
+> > > > individual VMs with conflict attributes for a single CPU address space
+> > > > the behavior is undefined. Our UMD implement madvise is basically loop
+> > > > over al GPU VMs setting the same attributes.
+> > > 
+> > > Will follow the same approach for now, the UMD is responsible for setting
+> > > consistent attributes across GPU VMs.
+> > > 
+> > 
+> > +1
+> > 
+> > > > 
+> > > > > > > 
+> > > > > > >      - migrate_vma_setup broadcast: one GPU's migration triggers MMU
+> > > > > > >        notifier callbacks in ALL N-1 other drm_gpusvm instances,
+> > > > > > >        causing N-1 unnecessary restore workers to be scheduled. And
+> > > > 
+> > > > My feeling is that you shouldn’t reschedule restore workers unless you
+> > > > actually have to invalidate page tables (i.e., you have a local SVM
+> > > > range within the notifier). So the first migration to an untouched
+> > > > region may trigger notifiers, but they won’t do anything because you
+> > > > don’t have any valid SVM ranges yet. Subsequent mappings of the migrated
+> > > > region won’t trigger a notifier unless the memory is moved again.
+> > > > 
+> > > 
+> > > That is a very good point. We should check whether we actually have
+> > > valid SVM ranges before scheduling restore workers. If there is nothing
+> > > to invalidate, the notifier callback should be a no-op. We will review
+> > > our notifier callback logic to ensure we are not doing unnecessary work
+> > > here. Thank you for pointing this out.
+> > > 
+> > > > > > >        creates races between the initiating migration and the other
+> > > > > > >        instance's restore attempts.
+> > > > 
+> > > > Yes, if multiple devices try to migrate the same CPU pages at the same
+> > > > time, that will race. That’s why in Xe we have a module-level
+> > > > driver_migrate_lock. The first migration runs in read mode; if it
+> > > > detects a race and aborts, it then takes driver_migrate_lock in write
+> > > > mode so it becomes the only device allowed to move memory / CPU pages.
+> > > > See xe_svm_alloc_vram() for how this is used.
+> > > > 
+> > > > I’m not sure this approach will work for you, but I just wanted to point
+> > > > out that we identified this as a potential issue.
+> > > > 
+> > > 
+> > > Thank you for sharing the driver_migrate_lock approach and pointing to
+> > > xe_svm_alloc_vram(). Will explore whether a similar lock pattern can work
+> > > for our case.
+> > > 
+> > > > > > > 
+> > > > > > >      - No cross instance migration serialization: each per GPU
+> > > > > > >        drm_gpusvm instance has independent locking, so two GPUs'
+> > > > > > >        "decide -> migrate -> remap" sequences can interleave. While
+> > > > > > >        the kernel page lock prevents truly simultaneous migration of
+> > > > > > >        the same physical page, the losing side's retry (evict from
+> > > > > > >        other GPU's VRAM -> migrate back) triggers broadcast notifier
+> > > > > > >        invalidations and restore workers, compounding the ping pong
+> > > > > > >        problem above.
+> > > > > > > 
+> > > > 
+> > > > See the driver_migrate_lock above.
+> > > 
+> > > Acknowledged, thank you.
+> > > > 
+> > > > > > >      - No VRAM to VRAM migration: drm_pagemap_migrate_to_devmem()
+> > > > > > >        hardcodes MIGRATE_VMA_SELECT_SYSTEM (drm_pagemap.c:328), meaning
+> > > > > > >        it only selects system memory pages for migration.
+> > > > > > > 
+> > > > 
+> > > > I think this is fixed? We did find some core MM bugs that blocked VRAM
+> > > > to VRAM but those have been worked out.
+> > > > 
+> > > > The code I'm looking at:
+> > > > 
+> > > >    517 int drm_pagemap_migrate_to_devmem(struct drm_pagemap_devmem *devmem_allocation,
+> > > >    518                                   struct mm_struct *mm,
+> > > >    519                                   unsigned long start, unsigned long end,
+> > > >    520                                   const struct drm_pagemap_migrate_details *mdetails)
+> > > >    521 {
+> > > >    522         const struct drm_pagemap_devmem_ops *ops = devmem_allocation->ops;
+> > > >    523         struct drm_pagemap *dpagemap = devmem_allocation->dpagemap;
+> > > >    524         struct dev_pagemap *pagemap = dpagemap->pagemap;
+> > > >    525         struct migrate_vma migrate = {
+> > > >    526                 .start          = start,
+> > > >    527                 .end            = end,
+> > > >    528                 .pgmap_owner    = pagemap->owner,
+> > > >    529                 .flags          = MIGRATE_VMA_SELECT_SYSTEM | MIGRATE_VMA_SELECT_DEVICE_COHERENT |
+> > > >    530                 MIGRATE_VMA_SELECT_DEVICE_PRIVATE | MIGRATE_VMA_SELECT_COMPOUND,
+> > > >    531         };
+> > > > 
+> > > 
+> > > Thank you for checking! I am using v6.18 for this POC, missed the fix, will
+> > > rebase to the latest.
+> > > 
+> > > 
+> > > > > > >      - CPU fault reverse migration race: CPU page fault triggers
+> > > > > > >        migrate_to_ram while GPU instances are concurrently operating.
+> > > > > > >        Per GPU notifier_lock does not protect cross GPU operations.
+> > > > 
+> > > > No, again retry loop as discussed above.
+> > > 
+> > > Understood.
+> > > 
+> > > > 
+> > > > > > > 
+> > > > > > > We believe a strong, well designed solution at the framework level is
+> > > > > > > needed to properly address these problems, and we look forward to
+> > > > > > > discussion and suggestions.
+> > > > 
+> > > > Let's work together to figure out what is missing here.
+> > > 
+> > > Thank you so much, Matt. Your feedback has been incredibly valuable and
+> > > has given us a much clearer picture of the framework's design.
+> > > Ireally appreciate the effort you put into building drm_gpusvm as a
+> > > shared framework. Will incorporate your suggestions into our next
+> > > revision and look forward to continuing the collaboration.
+> > > 
+> > 
+> > No problem. Happy to help.
+> 
+> Thank you again for all the detailed feedback.
+> 
+> Regards,
+> Honglei
+> 
+> > 
+> > Matt
+> > 
+> > > Regards,
+> > > Honglei
+> > > 
+> > > 
+> > > > 
+> > > > Matt
+> > > > 
+> > > > > > > 
+> > > > > > > Honglei Huang (12):
+> > > > > > >      drm/amdgpu: add SVM UAPI definitions
+> > > > > > >      drm/amdgpu: add SVM data structures and header
+> > > > > > >      drm/amdgpu: add SVM attribute data structures
+> > > > > > >      drm/amdgpu: implement SVM attribute tree operations
+> > > > > > >      drm/amdgpu: implement SVM attribute set
+> > > > > > >      drm/amdgpu: add SVM range data structures
+> > > > > > >      drm/amdgpu: implement SVM range PTE flags and GPU mapping
+> > > > > > >      drm/amdgpu: implement SVM range notifier and invalidation
+> > > > > > >      drm/amdgpu: implement SVM range workers
+> > > > > > >      drm/amdgpu: implement SVM core initialization and fini
+> > > > > > >      drm/amdgpu: implement SVM ioctl and fault handler
+> > > > > > >      drm/amdgpu: wire up SVM build system and fault handler
+> > > > > > > 
+> > > > > > >     drivers/gpu/drm/amd/amdgpu/Kconfig            |   11 +
+> > > > > > >     drivers/gpu/drm/amd/amdgpu/Makefile           |   13 +
+> > > > > > >     drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       |    2 +
+> > > > > > >     drivers/gpu/drm/amd/amdgpu/amdgpu_svm.c       |  430 ++++++
+> > > > > > >     drivers/gpu/drm/amd/amdgpu/amdgpu_svm.h       |  147 ++
+> > > > > > >     drivers/gpu/drm/amd/amdgpu/amdgpu_svm_attr.c  |  894 ++++++++++++
+> > > > > > >     drivers/gpu/drm/amd/amdgpu/amdgpu_svm_attr.h  |  110 ++
+> > > > > > >     drivers/gpu/drm/amd/amdgpu/amdgpu_svm_range.c | 1196 +++++++++++++++++
+> > > > > > >     drivers/gpu/drm/amd/amdgpu/amdgpu_svm_range.h |   76 ++
+> > > > > > >     drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c        |   40 +-
+> > > > > > >     drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h        |    4 +
+> > > > > > >     include/uapi/drm/amdgpu_drm.h                 |   39 +
+> > > > > > >     12 files changed, 2958 insertions(+), 4 deletions(-)
+> > > > > > >     create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_svm.c
+> > > > > > >     create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_svm.h
+> > > > > > >     create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_svm_attr.c
+> > > > > > >     create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_svm_attr.h
+> > > > > > >     create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_svm_range.c
+> > > > > > >     create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_svm_range.h
+> > > > > > > 
+> > > > > > > 
+> > > > > > > base-commit: 7d0a66e4bb9081d75c82ec4957c50034cb0ea449
+> > > > > > 
+> > > > > 
+> > > 
+> 
