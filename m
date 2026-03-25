@@ -4,105 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DF803109C04D
-	for <amd-gfx@archiver.kernel.org>; Wed, 25 Mar 2026 18:05:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BC32B109C055
+	for <amd-gfx@archiver.kernel.org>; Wed, 25 Mar 2026 18:27:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 792EF10E827;
-	Wed, 25 Mar 2026 18:05:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5D11910E82B;
+	Wed, 25 Mar 2026 18:27:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.b="LalpDEiV";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="rTq7t7VR";
 	dkim-atps=neutral
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3929010E82B
- for <amd-gfx@lists.freedesktop.org>; Wed, 25 Mar 2026 18:05:00 +0000 (UTC)
-Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 62P6WbTD3448655; Wed, 25 Mar 2026 18:04:58 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
- :content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=pp1; bh=CffkZY
- SLtF7pdkPdtJ8cnop0B6jjmHh/XrdKtHonmzU=; b=LalpDEiVSAVCCItW2Vt3JK
- eU8/jiJQ2NPLpKBPQuo6V9aC8hy1Qry0/tBVDx/937rXR2uEVmT7pvWC2Vm0xiS5
- n7umqLfV4lx01g/j7qOkXnBMcURJZUcFQFWjZsbIn9m9vlShN//m5xac7Tbt0/Vc
- KSTJQ2kN+dZhkRaQ1DL9q+UDOTeCZT+5INHu40D2c9Rpbgic0UhRgvHNTel3k0Dt
- mqHN/kB1YXpDjA8RUKOi1MLd5M4ybz6He5mfYtjnIlCv9HEI5GGSh5MDFokMDrgc
- W/igmlk6LGuQPeAxsRbrSs8vkYX76GmCVLuu4oJWZdZyjRTl82KCiBWda8/weCrw
- ==
-Received: from ppma13.dal12v.mail.ibm.com
- (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
- by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4d1kwa1sr7-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 25 Mar 2026 18:04:58 +0000 (GMT)
-Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
- by ppma13.dal12v.mail.ibm.com (8.18.1.2/8.18.1.2) with ESMTP id 62PG9fC4012213;
- Wed, 25 Mar 2026 18:04:57 GMT
-Received: from smtprelay02.wdc07v.mail.ibm.com ([172.16.1.69])
- by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4d27vk7frx-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 25 Mar 2026 18:04:57 +0000
-Received: from smtpav06.wdc07v.mail.ibm.com (smtpav06.wdc07v.mail.ibm.com
- [10.39.53.233])
- by smtprelay02.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 62PI4u9519595812
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Wed, 25 Mar 2026 18:04:56 GMT
-Received: from smtpav06.wdc07v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 7C8D858056;
- Wed, 25 Mar 2026 18:04:56 +0000 (GMT)
-Received: from smtpav06.wdc07v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id E1FBE5803F;
- Wed, 25 Mar 2026 18:04:52 +0000 (GMT)
-Received: from [9.39.25.125] (unknown [9.39.25.125])
- by smtpav06.wdc07v.mail.ibm.com (Postfix) with ESMTP;
- Wed, 25 Mar 2026 18:04:52 +0000 (GMT)
-Message-ID: <5cad327b-55bd-4cc9-96a4-54318f1b4588@linux.ibm.com>
-Date: Wed, 25 Mar 2026 23:34:51 +0530
+Received: from mail-dl1-f43.google.com (mail-dl1-f43.google.com [74.125.82.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D385210E466
+ for <amd-gfx@lists.freedesktop.org>; Wed, 25 Mar 2026 18:27:38 +0000 (UTC)
+Received: by mail-dl1-f43.google.com with SMTP id
+ a92af1059eb24-128bae6a35aso1066c88.1
+ for <amd-gfx@lists.freedesktop.org>; Wed, 25 Mar 2026 11:27:38 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1774463258; cv=none;
+ d=google.com; s=arc-20240605;
+ b=GjUTlZ0kiTynQ1Od7X/xjKj11f8BtInp81C+GKvNrN5a61SYCeSEeuM4RvCe7WEvWM
+ QXjJ3/XkFaZ/SQDCIcImubQv+uTI9runFeX1nWkrXp+iM3BrGIbPpPmd08KryunK9cB3
+ pQFJp0AlXEbgB3dKy35nVLnotedmmnG12j7EODtUqjc9thnq3ImxSN3RkKlVojgfg4sI
+ +MVVCC6gmaapa9y8k/YPZjKn7yLYdWdnVivAmHWdI31WHQvHLIoO7QK2mOhtCGUlyQKr
+ eokrrEeeCzW+gOi1jb6NcfvXrLSgspbHrSX+IqX9ktkHoasEl52cMSFpxFGNPrsNw/Ek
+ nPQQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=RawWRftt8ySkLlXE5RZuVLLvL0ZTV95YFlRv2xD/ADw=;
+ fh=+jYedTXkJMLCCAigTiD49Kv1g3JhoyfrqkQ39E6EHwU=;
+ b=WEDx8XT0ZRrPyOLBlR3HQ6udsoLLR+Jz8LSWYr/5YqSOhozpJdc/eu/HkPjx1gLRFO
+ 6l5tYlSBsU4B6iYRmKPGdz+/Wy+oWiOoifYgnUbO9oJ7aSV/HtT8EKzt79W80KqQO02O
+ /eUQt24TwNjle7FwqcAgA9afLwLP5Sm6ZNxfXXvJeohL/rK3NQWz7zhQ7F1j6YYCiZ24
+ jZhMfGGo7swVXuTJ7Xjxk1lTf7wUU9q4NXW1bJaWJmP2oJTGR6klpdj9Qo4YzdxvcO1Y
+ eys5Jw5Eo4td9UgY+yjszK/AvCupfMj1Ew+8xAUUC09E7Im138MPkHSexIochNto3o8g
+ 9oMg==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1774463258; x=1775068058; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=RawWRftt8ySkLlXE5RZuVLLvL0ZTV95YFlRv2xD/ADw=;
+ b=rTq7t7VRF5y/oFXqs4RN5cwLXBYtDNtwhv6R5rfpYg3kjDPlKYpxBaAi/U55SlIG7W
+ 3WKei9J859H0h+rxMmVoA00P4o+8hiqVzYHXTclBe0D3+Dfj963SmsV+A6gHnq8D0tOH
+ rOxHinqLTwmZOrbhFXOGMeQJ3SVJjwsM37YyMyGqAWpQn4VATyWnCMISNL0ZlyIQGF/w
+ ORcCRSsaI6eodMEduY72Usibnu/vA3/fLZv7lyJdaUFyFIiGCUppFizbcqfvNzBAanQp
+ jNdT++FZbqnUIAmBXkE6EKgliXWeWTdF2BoY+smeMsPp7fp9RTCSo95zTg64/8yChmqw
+ 8WQw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1774463258; x=1775068058;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=RawWRftt8ySkLlXE5RZuVLLvL0ZTV95YFlRv2xD/ADw=;
+ b=qKfsRoPupt2TDYyjqBfbGk5e/xIwMEVsvwWX67ef6SaQLM5q3LXlSrTAaDPN9rFTOE
+ 7Mmw4YLjf7mZpj2Y/gUCvQObp0OS0qj5LRAN4hYxJgObYzWXJvMwWTXi0BH3A/qvOjXx
+ ZVcfwPVUKiVcae1sG4mBShJdhwW7OcFzfyTnApRkxYibm9VpTIOPhv4OEOuJn0yIJfwb
+ D+rkPKB2PhbmiG1rVZV93VM5XyUlqRGPhOntwRo5MfZ39ezsn6RATpu1rB+vk8mG4Z3H
+ 2c8zgVlfUnoBkToum8Gzjo8zOw1JOzx0PvTgS70uLp0qcltKGtLJAnnIz1vyMByAaVcY
+ K96w==
+X-Gm-Message-State: AOJu0YyCw/tTJC8uQn/mVuhWD35EiQcpDlhm3zIm9CjC7GAj3RUEsC3q
+ d/4EQ8dRtCGSil/hp9bO+wCFA7U+i6qn+EHiyLdq4za9dxSLCtVmyeK38SGJ+3ultZnuPZEEwAS
+ xCZgZ8ToMvAmrITU39fgONCCrNy6fxcc=
+X-Gm-Gg: ATEYQzxwX52S1CkmgS4c1hqdHNj0n0C7aCcY4ONgiLOEmLrq7Duqm8PYFaMjWKUIaKm
+ qb5bqxZ4opjAUEnAkytM4ddbP7AvpyOs6aBY2G9Tf2yC0xm+Ny18Sjo5WFv3bjr60Wi86u369US
+ iwnHNgvvnsH0SiujqZAdPGzGyetcSpveVV4Jr7bea0skUSXpN2Pr5JDjauLDrddU8FGdZmG5ioI
+ THUKQl6g2hNgDFdMRmD87q9Zac5t/1iNLpE9UcqJY3sA2Ld0xB+/hhcOK/U68tMKJOuA3qzaMqp
+ YGmZ7Vyctg5usyZgpefMF5u8/7iHdamLMo7qRRnWus8d7xR7R0JJCoRIz6IZS/kPpx/46Dmo065
+ ola9k
+X-Received: by 2002:a05:7022:628e:b0:128:d590:2947 with SMTP id
+ a92af1059eb24-12a96ec2d71mr1056761c88.4.1774463257948; Wed, 25 Mar 2026
+ 11:27:37 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RESEND RFC PATCH v3 3/6] drm/amdgpu: Handle GPU page faults
- correctly on non-4K page systems
-To: Alex Deucher <alexdeucher@gmail.com>
-Cc: amd-gfx@lists.freedesktop.org, Felix Kuehling <Felix.Kuehling@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, Philip Yang <yangp@amd.com>,
- David.YatSin@amd.com, Kent.Russell@amd.com,
- Ritesh Harjani <ritesh.list@gmail.com>,
- Vaidyanathan Srinivasan <svaidy@linux.ibm.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-References: <cover.1774239489.git.donettom@linux.ibm.com>
- <1e6240945c2fcb53b6703ae62d4b36f5958ca8a6.1774239489.git.donettom@linux.ibm.com>
- <3a5ed765-3a50-446d-bd26-aa09dfe3d6a2@amd.com>
- <CADnq5_Mc5TEBXD+sTLmT2ew6KKH++=8YjN=3N9d_bWUqqKgMRA@mail.gmail.com>
-Content-Language: en-US
-From: Donet Tom <donettom@linux.ibm.com>
-In-Reply-To: <CADnq5_Mc5TEBXD+sTLmT2ew6KKH++=8YjN=3N9d_bWUqqKgMRA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-ORIG-GUID: tXNFNzbV8tR7jWrQz-aU-46q1AKBFShj
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzI1MDEyOSBTYWx0ZWRfX6Nml7kl5UW/T
- 0moMqp0cya4NxAdLUXuR7ys47pwG/Fk4ufagHVWlOxUUlSZDFTBXYyOVBVvt4Rll/m+p9xikRL9
- ga1M9RkNcR1yXa/DA3d7gqvYvZFbAUusKt39z57Q5LMg24pgePDnwpw4QgMxGVf865DVCBkMwOj
- vp52inxoS+GYpBsjUlk+cF6E04gHlUVF/vtnl4jDnM7xH5/GRsp5IClJTgkGiN3TxKgarYvFRGD
- vwcZ+Fbrah8ETFp8zQ5TYY9god4k/FamUlbnrCsZx51Gl4JBTuKUlcwmjTOxbz1T0SxGmjkDGcv
- ju+LjW3ubPqOcGdHp47f8QM5Bnkb0ZSfuSlrYrTalfzycs755OD1AE+x0rjkFUzQPhHC2I5kIy7
- mK9p8eZAIFy+cw6tYOoY2Z6OSBF6WbTff6jC7LhdVU+Lwz/dtZrxC8TIO1H05K4Iofm+d8Ifd4M
- Tld/WHroEiiF17v4ZCw==
-X-Proofpoint-GUID: mGswtYATQJH5E5WAhViY3TN8ZWAmv9_W
-X-Authority-Analysis: v=2.4 cv=OsZCCi/t c=1 sm=1 tr=0 ts=69c423ca cx=c_pps
- a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
- a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=U7nrCbtTmkRpXpFmAIza:22 a=zd2uoN0lAAAA:8
- a=VnNF1IyMAAAA:8 a=7Sst9kd9WwLXTlGBOzgA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-03-25_05,2026-03-24_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 adultscore=0 clxscore=1015 phishscore=0 suspectscore=0
- lowpriorityscore=0 priorityscore=1501 bulkscore=0 spamscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603250129
+References: <20260325141226.1173216-1-lijo.lazar@amd.com>
+In-Reply-To: <20260325141226.1173216-1-lijo.lazar@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Wed, 25 Mar 2026 14:27:26 -0400
+X-Gm-Features: AaiRm50rtz3uWUD2qltMQ9HNCEbh-cF5gmmTQQV7xsebkEmgHxm3ivd80pkfhWI
+Message-ID: <CADnq5_OqAtD9TJH3iHQ+iqRQBS5wi93VeiYodDEJ3Zh5CMgzFQ@mail.gmail.com>
+Subject: Re: [PATCH 1/9] drm/amdgpu: Add reserved region ids
+To: Lijo Lazar <lijo.lazar@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, Hawking.Zhang@amd.com, 
+ Alexander.Deucher@amd.com, Asad.Kamal@amd.com, Feifei.Xu@amd.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,78 +102,161 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-
-On 3/24/26 6:40 PM, Alex Deucher wrote:
-> Applied.  Thanks!
-
-Hi @Alex
-
-Thank you for applying this patch.
-
-
-I am planning to send the next version for PATCH 1/6. For the
-other patches that have already received Reviewed-by tags,
-would you prefer to pick them from this series, or should I
-include them again in the next version?
-
--Donet
-
-
+On Wed, Mar 25, 2026 at 10:24=E2=80=AFAM Lijo Lazar <lijo.lazar@amd.com> wr=
+ote:
 >
-> Alex
+> Add reserved regions and helper functions to memory manager.
 >
-> On Mon, Mar 23, 2026 at 9:04 AM Christian König
-> <christian.koenig@amd.com> wrote:
->> On 3/23/26 05:28, Donet Tom wrote:
->>> During a GPU page fault, the driver restores the SVM range and then maps it
->>> into the GPU page tables. The current implementation passes a GPU-page-size
->>> (4K-based) PFN to svm_range_restore_pages() to restore the range.
->>>
->>> SVM ranges are tracked using system-page-size PFNs. On systems where the
->>> system page size is larger than 4K, using GPU-page-size PFNs to restore the
->>> range causes two problems:
->>>
->>> Range lookup fails:
->>> Because the restore function receives PFNs in GPU (4K) units, the SVM
->>> range lookup does not find the existing range. This will result in a
->>> duplicate SVM range being created.
->>>
->>> VMA lookup failure:
->>> The restore function also tries to locate the VMA for the faulting address.
->>> It converts the GPU-page-size PFN into an address using the system page
->>> size, which results in an incorrect address on non-4K page-size systems.
->>> As a result, the VMA lookup fails with the message: "address 0xxxx VMA is
->>> removed".
->>>
->>> This patch passes the system-page-size PFN to svm_range_restore_pages() so
->>> that the SVM range is restored correctly on non-4K page systems.
->>>
->>> Signed-off-by: Donet Tom <donettom@linux.ibm.com>
->> Acked-by: Christian König <christian.koenig@amd.com>
->>
->>> ---
->>>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 6 +++---
->>>   1 file changed, 3 insertions(+), 3 deletions(-)
->>>
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
->>> index 6a2ea200d90c..7a3cb0057ac5 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
->>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
->>> @@ -2985,14 +2985,14 @@ bool amdgpu_vm_handle_fault(struct amdgpu_device *adev, u32 pasid,
->>>        if (!root)
->>>                return false;
->>>
->>> -     addr /= AMDGPU_GPU_PAGE_SIZE;
->>> -
->>>        if (is_compute_context && !svm_range_restore_pages(adev, pasid, vmid,
->>> -         node_id, addr, ts, write_fault)) {
->>> +         node_id, addr >> PAGE_SHIFT, ts, write_fault)) {
->>>                amdgpu_bo_unref(&root);
->>>                return true;
->>>        }
->>>
->>> +     addr /= AMDGPU_GPU_PAGE_SIZE;
->>> +
->>>        r = amdgpu_bo_reserve(root, true);
->>>        if (r)
->>>                goto error_unref;
+> Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 58 +++++++++++++++++++++++++
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h | 31 +++++++++++++
+>  2 files changed, 89 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_ttm.c
+> index 714fd8d12ca5..7f04e53983b5 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> @@ -1677,6 +1677,64 @@ static struct ttm_device_funcs amdgpu_bo_driver =
+=3D {
+>         .access_memory =3D &amdgpu_ttm_access_memory,
+>  };
+>
+> +void amdgpu_ttm_init_vram_resv(struct amdgpu_device *adev,
+> +                               enum amdgpu_resv_region_id id,
+> +                               uint64_t offset, uint64_t size,
+> +                               bool needs_cpu_map)
+> +{
+> +       struct amdgpu_vram_resv *resv;
+> +
+> +       if (id >=3D AMDGPU_RESV_MAX)
+> +               return;
+> +
+> +       resv =3D &adev->mman.resv_region[id];
+> +       resv->offset =3D offset;
+> +       resv->size =3D size;
+> +       resv->needs_cpu_map =3D needs_cpu_map;
+> +}
+> +
+> +int amdgpu_ttm_reserve_vram(struct amdgpu_device *adev,
+> +                           enum amdgpu_resv_region_id id)
+> +{
+> +       struct amdgpu_vram_resv *resv;
+> +       int ret;
+> +
+> +       if (id >=3D AMDGPU_RESV_MAX)
+> +               return -EINVAL;
+> +
+> +       resv =3D &adev->mman.resv_region[id];
+> +       if (!resv->size)
+> +               return 0;
+> +
+> +       ret =3D amdgpu_bo_create_kernel_at(adev, resv->offset, resv->size=
+,
+> +                                        &resv->bo,
+> +                                        resv->needs_cpu_map ? &resv->cpu=
+_addr : NULL);
+> +       if (ret) {
+> +               dev_dbg(adev->dev, "reserve vram failed: id=3D%d offset=
+=3D0x%llx size=3D0x%llx ret=3D%d\n",
+> +                       id, resv->offset, resv->size, ret);
+> +               memset(resv, 0, sizeof(*resv));
+> +       }
+> +
+> +       return ret;
+> +}
+> +
+> +void amdgpu_ttm_unreserve_vram(struct amdgpu_device *adev,
+
+Maybe use something other than reserve/unreserve in the names?  I feel
+like that might cause confusion with amdgpu_bo_reserve/unreserve().
+
+> +                              enum amdgpu_resv_region_id id)
+> +{
+> +       struct amdgpu_vram_resv *resv;
+> +
+> +       if (id >=3D AMDGPU_RESV_MAX)
+> +               return;
+> +
+> +       resv =3D &adev->mman.resv_region[id];
+> +       if (!resv->bo)
+> +               return;
+> +
+> +       amdgpu_bo_free_kernel(&resv->bo, NULL,
+> +                             resv->needs_cpu_map ? &resv->cpu_addr : NUL=
+L);
+> +       memset(resv, 0, sizeof(*resv));
+> +}
+> +
+>  /*
+>   * Firmware Reservation functions
+>   */
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_ttm.h
+> index bf101215757e..b73f65a4bc0d 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
+> @@ -59,6 +59,26 @@ struct amdgpu_ttm_buffer_entity {
+>         u64                     gart_window_offs[2];
+>  };
+>
+> +enum amdgpu_resv_region_id {
+> +       AMDGPU_RESV_STOLEN_VGA,
+> +       AMDGPU_RESV_STOLEN_EXTENDED,
+> +       AMDGPU_RESV_STOLEN_RESERVED,
+> +       AMDGPU_RESV_FW,
+> +       AMDGPU_RESV_FW_EXTEND,
+> +       AMDGPU_RESV_FW_VRAM_USAGE,
+> +       AMDGPU_RESV_DRV_VRAM_USAGE,
+> +       AMDGPU_RESV_MEM_TRAIN,
+> +       AMDGPU_RESV_MAX
+> +};
+> +
+> +struct amdgpu_vram_resv {
+> +       uint64_t                offset;
+> +       uint64_t                size;
+> +       struct amdgpu_bo        *bo;
+> +       void                    *cpu_addr;
+
+Maybe cpu_ptr?
+
+Other than those comments, the series is:
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+
+
+> +       bool                    needs_cpu_map;
+> +};
+> +
+>  struct amdgpu_mman {
+>         struct ttm_device               bdev;
+>         struct ttm_pool                 *ttm_pools;
+> @@ -105,6 +125,8 @@ struct amdgpu_mman {
+>         struct amdgpu_bo        *drv_vram_usage_reserved_bo;
+>         void            *drv_vram_usage_va;
+>
+> +       struct amdgpu_vram_resv         resv_region[AMDGPU_RESV_MAX];
+> +
+>         /* PAGE_SIZE'd BO for process memory r/w over SDMA. */
+>         struct amdgpu_bo        *sdma_access_bo;
+>         void                    *sdma_access_ptr;
+> @@ -171,6 +193,15 @@ void amdgpu_vram_mgr_clear_reset_blocks(struct amdgp=
+u_device *adev);
+>  bool amdgpu_res_cpu_visible(struct amdgpu_device *adev,
+>                             struct ttm_resource *res);
+>
+> +void amdgpu_ttm_init_vram_resv(struct amdgpu_device *adev,
+> +                               enum amdgpu_resv_region_id id,
+> +                               uint64_t offset, uint64_t size,
+> +                               bool needs_cpu_map);
+> +int amdgpu_ttm_reserve_vram(struct amdgpu_device *adev,
+> +                           enum amdgpu_resv_region_id id);
+> +void amdgpu_ttm_unreserve_vram(struct amdgpu_device *adev,
+> +                              enum amdgpu_resv_region_id id);
+> +
+>  int amdgpu_ttm_init(struct amdgpu_device *adev);
+>  void amdgpu_ttm_fini(struct amdgpu_device *adev);
+>  void amdgpu_ttm_set_buffer_funcs_status(struct amdgpu_device *adev,
+> --
+> 2.49.0
+>
