@@ -4,77 +4,102 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2CBBB109C030
-	for <amd-gfx@archiver.kernel.org>; Wed, 25 Mar 2026 14:57:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 31F22109C02F
+	for <amd-gfx@archiver.kernel.org>; Wed, 25 Mar 2026 15:56:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9C7FB10E21E;
-	Wed, 25 Mar 2026 14:57:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C27F210E7CB;
+	Wed, 25 Mar 2026 15:56:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="lveoloIP";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Y1O8aYdv";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6E20F10E16D;
- Wed, 25 Mar 2026 14:57:01 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 3729A4024F;
- Wed, 25 Mar 2026 14:57:01 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8BAB7C4CEF7;
- Wed, 25 Mar 2026 14:57:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1774450621;
- bh=kODB/4Odan0TLyX1+H2rGTJ1SkOip0pPH/GqtThBgFg=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=lveoloIP8+97OC9m2l5bBmtBw6c3CSQdSICZGVMCZbaVAtz/7499RlssUCIk3l9al
- BWGtZaB/Gwx87SRUYZ4cMxnfQOw/wFD3DxPoaz6ZMwVdXpkyx08nrQ9XGu9iAX/z5D
- dXQvJWfV6yPc172xpKNvXzEkN0NwwG2R1phfqiDxfT8sDpBvBgM+V2xyA1LtHBt10T
- rerF3gSEDkGf6dqX15xt8IzhWyiX9IARja5LRQxUZ3+w4ei87vSIWEb3ti0JiuO53z
- NhJjjPjGV9Y3DR3hKAwYyg+sRfCMTELoq9pie6SsHbeivGmpPiJrLsmd6IyREGDtzg
- sr4f14070acsA==
-Date: Wed, 25 Mar 2026 15:56:58 +0100
-From: Maxime Ripard <mripard@kernel.org>
-To: Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
-Cc: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, 
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
- Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>, 
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Thomas Zimmermann <tzimmermann@suse.de>,
- Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>, Sandy Huang <hjc@rock-chips.com>, 
- Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>,
- Andy Yan <andy.yan@rock-chips.com>, 
- Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, 
- Dmitry Baryshkov <lumag@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>, 
- Rob Herring <robh@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
- Shuah Khan <skhan@linuxfoundation.org>, kernel@collabora.com,
- amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- linux-doc@vger.kernel.org, 
- Werner Sembach <wse@tuxedocomputers.com>, Andri Yngvason <andri@yngvason.is>, 
- Marius Vlad <marius.vlad@collabora.com>
-Subject: Re: [PATCH v11 03/22] drm: Add new general DRM property "color format"
-Message-ID: <20260325-magnificent-ultraviolet-oarfish-baefbc@houat>
-References: <20260324-color-format-v11-0-605559af4fb4@collabora.com>
- <20260324-color-format-v11-3-605559af4fb4@collabora.com>
- <acLDPYuaVI2-12JX@intel.com> <23910073.EfDdHjke4D@workhorse>
- <acLrv5hLyNss-Px5@intel.com>
- <20260325-neat-elegant-raven-ebc9ab@houat>
- <acPA60Ci3n_t__xF@intel.com>
+Received: from BL0PR03CU003.outbound.protection.outlook.com
+ (mail-eastusazon11012017.outbound.protection.outlook.com [52.101.53.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4D0EF10E7CB;
+ Wed, 25 Mar 2026 15:56:16 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=x8e9K520JP7iMkYrmXTdghy9R/qmMHrUdjl0zQDeAb+PvxpCmxfDv527f8LNhKNIIQesZM74L/VxZqlca1MsUwKeg1SU5l3iIXvwPNVOsBSlHfBGhQVXD4A1x6KPzAJHU3zlDB+QKSRRNVV6jb4EAjqysdXa9Q444p11TQJMPuaGHrn0FkRGB90KxwFIFLBF0vGh4Ba403lEHg9K/WlNbERy0csL65AgxXAesKqE9g56KkvMmP6jVdEeE8wxbSRkG9IRDdu5vAJgSzJkITh94Z1tQ6y2wpGkU40//bel/PFDh/BqVYv5X3BgX3reATYRiStI2Q3Ya2kQNZegZfW7Nw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=+OwnTFE3Xg2oELQFhvH+eyiDVxIcTomQ4a6NWIuhIh4=;
+ b=OAbwRx3OeUARfcHQI+FCRL9Gbr+YAb8BKMdCSwlmVLoxU6IcnFfa+4xw3+K2/tCJmq2Mjy+L3RhWjUPtlMV+1VPGQiql02Ne7NPTRc3i0M5kPz4LPo/35xPB7CBL/AZCsnTzUpuKGqwl5oWit2mtvMyVfsHk+LxQj6ly6te3/t17kYngbXihgU1HD9Cdj4JemJcCpko0zgIG+8zYbP4DLvm6bj7JSM9dXFsk+MtpVd9jOvXUCSSjNtPiwsVQWbKFDHZsNpCItfE4QxufzeMfkcjTTmcVN8ZiEW2TIzC8dzoed4BoqnJEKDWdtqCyMYVT3gTHwKNAcTiydlFiVN8IAg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=+OwnTFE3Xg2oELQFhvH+eyiDVxIcTomQ4a6NWIuhIh4=;
+ b=Y1O8aYdvBQED73wxb/o6qy3U8sfQZn+sLZiR/tIHimZHMQ81SqtPHFGqxDy8aru/C8Kv3BNQn5TZSqNSBXpp4SSOv5b3bWTxJkZbeOC6eh6BWuYFGP1zQFP3GzXOsgJzZw1UFmc5LxSQGX0IQ/ehqoTCb76b7fxBNWpY62t6xKQ=
+Received: from DM6PR03CA0064.namprd03.prod.outlook.com (2603:10b6:5:100::41)
+ by MW4PR12MB7032.namprd12.prod.outlook.com (2603:10b6:303:1e9::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.20; Wed, 25 Mar
+ 2026 15:56:09 +0000
+Received: from DS2PEPF00003444.namprd04.prod.outlook.com
+ (2603:10b6:5:100:cafe::1c) by DM6PR03CA0064.outlook.office365.com
+ (2603:10b6:5:100::41) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9723.31 via Frontend Transport; Wed,
+ 25 Mar 2026 15:56:08 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ DS2PEPF00003444.mail.protection.outlook.com (10.167.17.71) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9745.21 via Frontend Transport; Wed, 25 Mar 2026 15:56:08 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.17; Wed, 25 Mar
+ 2026 10:56:08 -0500
+Received: from satlexmb08.amd.com (10.181.42.217) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 25 Mar
+ 2026 10:56:07 -0500
+Received: from p8.amd.com (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
+ Transport; Wed, 25 Mar 2026 10:56:07 -0500
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <airlied@gmail.com>, <simona.vetter@ffwll.ch>
+CC: Alex Deucher <alexander.deucher@amd.com>
+Subject: [pull] amdgpu, amdkfd drm-fixes-7.0
+Date: Wed, 25 Mar 2026 11:56:00 -0400
+Message-ID: <20260325155600.4184877-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha384;
- protocol="application/pgp-signature"; boundary="mhdva7e7vsga4kjf"
-Content-Disposition: inline
-In-Reply-To: <acPA60Ci3n_t__xF@intel.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+Received-SPF: None (SATLEXMB04.amd.com: alexander.deucher@amd.com does not
+ designate permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS2PEPF00003444:EE_|MW4PR12MB7032:EE_
+X-MS-Office365-Filtering-Correlation-Id: 25cb88e6-51ad-4854-bda9-08de8a8707a7
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|82310400026|36860700016|376014|13003099007|18002099003|56012099003;
+X-Microsoft-Antispam-Message-Info: w5GdjPCkYSD0jLUJ+jSKrU7V/OKuTTAaGSpmS8phCVobDWEWZIetWE970qY5s95kwnODbPXl1x6MIqkS4p8+LtRl5hHO78Tt9TdsAnUruG60xAi2AT0mXgwxkUGLn9eZnEwUDS1kWCu3ObZoD/XdX3+7W+gQ/qUpspmTeyIFVZODJLK005/2Vh4TcFdglN8JAoG0raLB/DLhOfnWnmCnH0U8YGcq48qYltmedof9PkT6m8YdY9kU3RRDMX0qLCVaL0FNBgNeLQ83LiU1cRW+lHKDbZV04lTILovZRCXSKqyKjce4FyJKG8QMcBD/mOMuf1eLNeb5ZOqCI4R5DSKcQUZBOHhpf/b2Z57yMBdU1uice2IydVcUjSirx95TXyC7pidf2bLkCFC2ExLfJoBuyA+l9rgLt071SSnSy7ahDDpTWZ7XWtCHdg0QWhyK5YEH/rZbA28+nFG2+Y5qXRBcQMPteOxi0WGrypqhsh608h1asqmS0zL/0tsdTzfVCllhLzoFyTF3nblckjkCrkDaaO++34yHtByobmeWKyNBX64rGoxFrdwwDnT2w4WZDIdMYZbKeFD6nmcqN+7HRfycW5z4qgWOuoXdQA2t7E1/oD0O6akcifiweFvZGBKvxR05YouRhQMfxopnxoIgbmlGNxlmC92Puf7ZwTLz3u/qPN2mYULFQ1Cw27TKmGDSGPfBkRFkIWeTRSFHtLoVXO1qchye4HQq4KQKaI1xSYu4vlI=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(82310400026)(36860700016)(376014)(13003099007)(18002099003)(56012099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: dM9udEKGkrXVI+7vHOwa9VLqxEjNDyqbJoJjne99JveFbsVAu1BM7fce0G7vxezoyPoUPSXTHmTwO6DH0cM7kwnzx1dzNh7thNREp/YoQL89XPtWL75ZZPO/RjDf2GK/fMSSoRFYqNE0nXSwYt9XK1EviQFen9NycyA/jZO1ZoQsrr/woxEUnfkUzlhSZWEm4Jvo14HMVhCfUPq9/Om+B1WVkio+TytP/T36ffN2fSaBnksm1rVyevSF4tLddVdOPJkrGkoeo8DBVgVbd2YxK08/AY+wVS9okbjVQ4I8fGFrbOMWRnA1dprYoNB+yWx/gTPJ1QVMP6JyI8vUa7NRURUnhxYQP8PYStWXOOVGZVxFVq6nDvzSo5X4vd8+j7chbwtj68RUuTOj6grfJLhB8WJQem466c/3Rhlw1KFhslPOGviCZtx2zfyaH619F8lt
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Mar 2026 15:56:08.6028 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 25cb88e6-51ad-4854-bda9-08de8a8707a7
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DS2PEPF00003444.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7032
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,153 +114,88 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Hi Dave, Simona,
 
---mhdva7e7vsga4kjf
-Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v11 03/22] drm: Add new general DRM property "color
- format"
-MIME-Version: 1.0
+Fixes for 7.0.
 
-On Wed, Mar 25, 2026 at 01:03:07PM +0200, Ville Syrj=E4l=E4 wrote:
-> On Wed, Mar 25, 2026 at 09:24:27AM +0100, Maxime Ripard wrote:
-> > On Tue, Mar 24, 2026 at 09:53:35PM +0200, Ville Syrj=E4l=E4 wrote:
-> > > On Tue, Mar 24, 2026 at 08:10:11PM +0100, Nicolas Frattaroli wrote:
-> > > > On Tuesday, 24 March 2026 18:00:45 Central European Standard Time V=
-ille Syrj=E4l=E4 wrote:
-> > > > > On Tue, Mar 24, 2026 at 05:01:07PM +0100, Nicolas Frattaroli wrot=
-e:
-> > > > > > +enum drm_connector_color_format {
-> > > > > > +	/**
-> > > > > > +	 * @DRM_CONNECTOR_COLOR_FORMAT_AUTO: The driver or display pr=
-otocol
-> > > > > > +	 * helpers should pick a suitable color format. All implement=
-ations of a
-> > > > > > +	 * specific display protocol must behave the same way with "A=
-UTO", but
-> > > > > > +	 * different display protocols do not necessarily have the sa=
-me "AUTO"
-> > > > > > +	 * semantics.
-> > > > > > +	 *
-> > > > > > +	 * For HDMI, "AUTO" picks RGB, but falls back to YCbCr 4:2:0 =
-if the
-> > > > > > +	 * bandwidth required for full-scale RGB is not available, or=
- the mode
-> > > > > > +	 * is YCbCr 4:2:0-only, as long as the mode and output both s=
-upport
-> > > > > > +	 * YCbCr 4:2:0.
-> > > > > > +	 *
-> > > > > > +	 * For display protocols other than HDMI, the recursive bridg=
-e chain
-> > > > > > +	 * format selection picks the first chain of bridge formats t=
-hat works,
-> > > > > > +	 * as has already been the case before the introduction of th=
-e "color
-> > > > > > +	 * format" property. Non-HDMI bridges should therefore either=
- sort their
-> > > > > > +	 * bus output formats by preference, or agree on a unified au=
-to format
-> > > > > > +	 * selection logic that's implemented in a common state helpe=
-r (like
-> > > > > > +	 * how HDMI does it).
-> > > > > > +	 */
-> > > > > > +	DRM_CONNECTOR_COLOR_FORMAT_AUTO =3D 0,
-> > > > > > +
-> > > > > > +	/**
-> > > > > > +	 * @DRM_CONNECTOR_COLOR_FORMAT_RGB444: RGB output format
-> > > > > > +	 */
-> > > > > > +	DRM_CONNECTOR_COLOR_FORMAT_RGB444,
-> > > > > > +
-> > > > > > +	/**
-> > > > > > +	 * @DRM_CONNECTOR_COLOR_FORMAT_YCBCR444: YCbCr 4:4:4 output f=
-ormat (ie.
-> > > > > > +	 * not subsampled)
-> > > > > > +	 */
-> > > > > > +	DRM_CONNECTOR_COLOR_FORMAT_YCBCR444,
-> > > > > > +
-> > > > > > +	/**
-> > > > > > +	 * @DRM_CONNECTOR_COLOR_FORMAT_YCBCR422: YCbCr 4:2:2 output f=
-ormat (ie.
-> > > > > > +	 * with horizontal subsampling)
-> > > > > > +	 */
-> > > > > > +	DRM_CONNECTOR_COLOR_FORMAT_YCBCR422,
-> > > > > > +
-> > > > > > +	/**
-> > > > > > +	 * @DRM_CONNECTOR_COLOR_FORMAT_YCBCR420: YCbCr 4:2:0 output f=
-ormat (ie.
-> > > > > > +	 * with horizontal and vertical subsampling)
-> > > > > > +	 */
-> > > > > > +	DRM_CONNECTOR_COLOR_FORMAT_YCBCR420,
-> > > > >=20
-> > > > > Seems like this should document what the quantization range
-> > > > > should be for each format.
-> > > > >=20
-> > > >=20
-> > > > I don't think so? If you want per-component bit depth values,
-> > > > DRM_FORMAT_* defines would be the appropriate values to use. This
-> > > > enum is more abstract than that, and is there to communicate
-> > > > YUV vs. RGB and chroma subsampling, with bit depth being handled
-> > > > by other properties.
-> > > >=20
-> > > > If you mean the factor used for subsampling, then that'd only be
-> > > > relevant if YCBCR410 was supported where one chroma plane isn't
-> > > > halved but quartered in resolution. I suspect 4:1:0 will never
-> > > > be added; no digital display protocol standard supports it to my
-> > > > knowledge, and hopefully none ever will.
-> > >=20
-> > > No, I mean the quantization range (16-235 vs. 0-255 etc).
-> > >=20
-> > > The i915 behaviour is that YCbCr is always limited range,
-> > > RGB can either be full or limited range depending on the=20
-> > > "Broadcast RGB" property and other related factors.
-> >=20
-> > So far the HDMI state has both the format and quantization range as
-> > different fields. I'm not sure we need to document the range in the
-> > format field, maybe only mention it's not part of the format but has a
-> > field of its own?
->=20
-> I think we only have it for RGB (on some drivers only?). For YCbCr
-> I think the assumption is limited range everywhere.
->=20
-> But I'm not really concerned about documenting struct members.
-> What I'm talking about is the *uapi* docs. Surely userspace
-> will want to know what the new property actually does so the
-> uapi needs to be documented properly. And down the line some
-> new driver might also implement the wrong behaviour if there
-> is no clear specification.
+The following changes since commit c369299895a591d96745d6492d4888259b004a9e:
 
-Ack
+  Linux 7.0-rc5 (2026-03-22 14:42:17 -0700)
 
-> So I'm thinking (or perhaps hoping) the rule might be something like:
-> - YCbCr limited range=20
-> - RGB full range if "Broadcast RGB" property is not present
+are available in the Git repository at:
 
-Isn't it much more complicated than that for HDMI though? My
-recollection was that any VIC but VIC1 would be limited range, and
-anything else full range?
+  https://gitlab.freedesktop.org/agd5f/linux.git tags/amd-drm-fixes-7.0-2026-03-25
 
-> - RGB full or limited range based on the "Broadcast RGB" property
->   if it's present
->=20
-> I think the "Broadcast RGB" property itself might also be lacking
-> proper uapi docs, so that may need to be remedied as well.
+for you to fetch changes up to 90d239cc53723c1a3f89ce08eac17bf3a9e9f2d4:
 
-I took care of documenting it when merging the HDMI helpers:
-https://docs.kernel.org/gpu/drm-kms.html#hdmi-specific-connector-properties
+  drm/amd/display: Fix DCE LVDS handling (2026-03-24 13:55:47 -0400)
 
-Maxime
+----------------------------------------------------------------
+amd-drm-fixes-7.0-2026-03-25:
 
---mhdva7e7vsga4kjf
-Content-Type: application/pgp-signature; name="signature.asc"
+amdgpu:
+- DSC fix
+- Module parameter parsing fix
+- PASID reuse fix
+- drm_edid leak fix
+- SMU 13.x fixes
+- SMU 14.x fix
+- Fence fix in amdgpu_amdkfd_submit_ib()
+- LVDS fixes
+- GPU page fault fix for non-4K pages
 
------BEGIN PGP SIGNATURE-----
+amdkfd:
+- Ordering fix in kfd_ioctl_create_process()
 
-iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCacP3tQAKCRAnX84Zoj2+
-dqD6AX9ruA9VQEK32t44/SErwn8ouTAnQA9K9i0WTlcaidv+2oyLtolh4CEvzUcR
-Knh9fq4Bfjj/Wa5dcOSnIESCkqTRH/yo4UCESrmghwhyznX8ffjBrkE/aWSPhI2B
-5bfXV1iang==
-=9m7S
------END PGP SIGNATURE-----
+----------------------------------------------------------------
+Alex Deucher (2):
+      drm/amd/display: check if ext_caps is valid in BL setup
+      drm/amd/display: Fix DCE LVDS handling
 
---mhdva7e7vsga4kjf--
+Alex Hung (1):
+      drm/amd/display: Fix drm_edid leak in amdgpu_dm
+
+Asad Kamal (2):
+      drm/amd/pm: Skip redundant UCLK restore in smu_v13_0_6
+      drm/amd/pm: Return -EOPNOTSUPP for unsupported OD_MCLK on smu_v13_0_6
+
+Donet Tom (1):
+      drm/amdgpu: Handle GPU page faults correctly on non-4K page systems
+
+Eric Huang (1):
+      drm/amdgpu: prevent immediate PASID reuse case
+
+Ruijing Dong (1):
+      drm/amdgpu: fix strsep() corrupting lockup_timeout on multi-GPU (v3)
+
+Srinivasan Shanmugam (2):
+      drm/amdgpu: Fix fence put before wait in amdgpu_amdkfd_submit_ib
+      drm/amdkfd: Fix NULL pointer check order in kfd_ioctl_create_process
+
+Yang Wang (2):
+      drm/amd/pm: disable OD_FAN_CURVE if temp or pwm range invalid for smu v13
+      drm/amd/pm: disable OD_FAN_CURVE if temp or pwm range invalid for smu v14
+
+Yussuf Khalil (1):
+      drm/amd/display: Do not skip unrelated mode changes in DSC validation
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c         |  4 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c         | 13 ++++++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c            | 45 +++++++++++++++-------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ids.h            |  1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c             |  7 ++--
+ drivers/gpu/drm/amd/amdkfd/kfd_chardev.c           |  6 +--
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  | 10 ++++-
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h  |  1 +
+ .../amd/display/amdgpu_dm/amdgpu_dm_mst_types.c    |  4 +-
+ .../display/dc/resource/dce100/dce100_resource.c   |  6 +--
+ .../display/dc/resource/dce110/dce110_resource.c   |  5 ++-
+ .../display/dc/resource/dce112/dce112_resource.c   |  5 ++-
+ .../display/dc/resource/dce120/dce120_resource.c   |  5 ++-
+ .../amd/display/dc/resource/dce60/dce60_resource.c | 14 +++----
+ .../amd/display/dc/resource/dce80/dce80_resource.c |  6 +--
+ .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c   | 33 +++++++++++++++-
+ .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c   | 21 +++++-----
+ .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c   | 33 +++++++++++++++-
+ .../gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c   | 33 +++++++++++++++-
+ 19 files changed, 192 insertions(+), 60 deletions(-)
