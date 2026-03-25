@@ -4,128 +4,96 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 34B7F103A99F
-	for <amd-gfx@archiver.kernel.org>; Wed, 25 Mar 2026 03:00:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D90AAFEA806
+	for <amd-gfx@archiver.kernel.org>; Wed, 25 Mar 2026 04:08:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BBF6D10E6C3;
-	Wed, 25 Mar 2026 03:00:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7D5C610E753;
+	Wed, 25 Mar 2026 04:08:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="B3N7PMTh";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="u3n/mLFC";
 	dkim-atps=neutral
-Received: from PH7PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11010044.outbound.protection.outlook.com [52.101.201.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C29A810E6C3
- for <amd-gfx@lists.freedesktop.org>; Wed, 25 Mar 2026 03:00:44 +0000 (UTC)
+Received: from DM1PR04CU001.outbound.protection.outlook.com
+ (mail-centralusazon11010044.outbound.protection.outlook.com [52.101.61.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D730610E752
+ for <amd-gfx@lists.freedesktop.org>; Wed, 25 Mar 2026 04:08:13 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=PvpaBSAijPjH8JRlzQlKu+autpCvpN6R5zqFX1aijwtOkbA68dPYDibsmDv54pG27mdQVrxsbgU2+h/XSm+krQ10rSlgDmLmAAZoPLZhI16J14h7tkP6gNQoqvh7uEZJ81FJ+D3AuZrV0N20/HQrfWKSZc9o1PRZyG0+yHv2xYWkBhL/oLmGnnWliBImB7GKaTt6TTDZoZqW2NLmZu7FjauY9fkTEZSozBHBaMZAFdHmI6Vd1PjzvX8Peq2jqEkyVbuGlI01+yXkx8WOmwgba9JIXRY2GqfOHnaj2pwf/ueUo8b29ascGR8O1tZ7i95j0cAF4DlmHAkeVmhYp6OZMg==
+ b=E0AHqES0s/YYna/jVLTqJsNEJAJpJcWKTD9xJBPR0Wf6MdeoQ6f5y/c12LRd/ELrC3QQKO8OSP0UyB4dBcoF3hAc+72o3f4oop9Ef885EViI66VPe/bxRUxbohxN5PkgEU+SNgBOszDXIj59IcQObfIeMo1Ea5HtISjVwkVHAc67SGvGi4OpjuB445hT5AflAxxhUWuN0ouw+vWmkdI1xkJx7eUsEEYYv7F50wo/BUieoqQe/nVSsU0P6E/nqKgCJvuMwXoeERQNNID1H9tneRgZo9b9hR1xL3mlKOJAbyj/t2Uxs5xdDxnExwCemsaJ0WVa1iF285QDjnJUWdEfKw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=xOTweHlkTNPuiYVaxovpdH/lUJWqfhr+pyoY+4rDYdY=;
- b=dQHsAEqi+63A8qMOfJK9ecHDXwpIgoYFOsr/9kGgZLLrikG1l357ODbwHWbl9MYpW5tOLl3D+ULutGx5s0MsIZBRUQvBTcGiVHP4Jhhf2rOo0nyzUCULdws5gFT0b2SK4jipSU0ei9cWWSHM0QqJPKoQzjHWzq8Yg98qiTcrPCZRNfKwYeqrcNcXKwU1boZU/Jo8BNS4SBEVcB6rYPsmPhI4502MvU7XyD2+OhSe2t41elQ4pSqwnJbFRUTDeGontuzr+1E96l1R1+YeARyc5CDRw+M4sZvyWAR6KJ2DTx6BQEgtJucdpt/pIwNqyYMm4/QTSORlkrnC46mVfI6b+w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=CwyrcGyysKdfFWtfj2IJa0uedTWX2mNngic3dTWwuX0=;
+ b=kx2mqT+TR+XcqtgwF5tW2ymvzWJE5m7zjJ6R4LRMQC/afLW6w9Mif4XXL9TLtwLfSuzWmiP+8TpliO/v6v8xV9J1jy2skWgPYJ80SlJciowrpyoS30Ky5ab6ybZ2Xy0YmrajYvxx9I+DN5C0DlucJEWvnB3d1APGo+1kwd1eipljzJXr1HrSpIzHUz578pnPuz919itHfckN3MByEgmkQTPb6ByhjNLtwS0di5jNJRhGtvf2HY3fOqZjGRQvQYOVbMWCOmuiCNcuGhkb3qEOVX2DkBMXUnes31rGg71DriRAfiulMv4eedrxioCjsAxsxpYALgZcodQ7aAMTl2+zDA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xOTweHlkTNPuiYVaxovpdH/lUJWqfhr+pyoY+4rDYdY=;
- b=B3N7PMThH1KNAWQVzs11rlP+3hqUXcL2U14qjHYQVa0w2po3EwLwwBnIe6BagMi7SO7G+5zRgsj51uvh1IbSWh/aEnWJUtSBQdEFwF5nBBlvwJ7F8HKBafdzGmeQ3eBLwaG/g/2sBCbj2pu9C4Z72dpwI+hEZxVo7hB0GtvrDAA=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
- by BY5PR12MB4066.namprd12.prod.outlook.com (2603:10b6:a03:207::22)
+ bh=CwyrcGyysKdfFWtfj2IJa0uedTWX2mNngic3dTWwuX0=;
+ b=u3n/mLFCmaLFEIuHupW8uCjbHWcBgtSaZO5AwNg0fo9c7RIuoS/8QV7OBMzdIm0Tb8+8advOS0u/lYDLpJfISNR13kNuxXNCm8I0PuHzUT8flQYDilLTaZr3gSHviGZb4RA0jZm375cqYpa2gB72h86YenVjuuaJ9+/cZsLe5UE=
+Received: from BY3PR03CA0030.namprd03.prod.outlook.com (2603:10b6:a03:39a::35)
+ by IA0PR12MB8694.namprd12.prod.outlook.com (2603:10b6:208:488::15)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.20; Wed, 25 Mar
- 2026 03:00:41 +0000
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::230d:c588:d858:9977]) by BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::230d:c588:d858:9977%6]) with mapi id 15.20.9745.019; Wed, 25 Mar 2026
- 03:00:41 +0000
-Message-ID: <6d7390fb-e609-47f2-a40a-371c15ce54f2@amd.com>
-Date: Tue, 24 Mar 2026 23:00:40 -0400
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RESEND RFC PATCH v3 6/6] drm/amdkfd: Fix queue
- preemption/eviction failures by aligning control stack size to GPU page size
-To: Donet Tom <donettom@linux.ibm.com>, amd-gfx@lists.freedesktop.org,
- Alex Deucher <alexander.deucher@amd.com>,
- Alex Deucher <alexdeucher@gmail.com>, christian.koenig@amd.com,
- Philip Yang <yangp@amd.com>
-Cc: David.YatSin@amd.com, Kent.Russell@amd.com,
- Ritesh Harjani <ritesh.list@gmail.com>,
- Vaidyanathan Srinivasan <svaidy@linux.ibm.com>
-References: <cover.1774239489.git.donettom@linux.ibm.com>
- <9b5d3040f6ce7d99be2c656f68055c8c7529b34a.1774239489.git.donettom@linux.ibm.com>
-Content-Language: en-US
-From: "Kuehling, Felix" <felix.kuehling@amd.com>
-In-Reply-To: <9b5d3040f6ce7d99be2c656f68055c8c7529b34a.1774239489.git.donettom@linux.ibm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YT4PR01CA0154.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:ac::20) To BN9PR12MB5115.namprd12.prod.outlook.com
- (2603:10b6:408:118::14)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.15; Wed, 25 Mar
+ 2026 04:08:08 +0000
+Received: from CO1PEPF000075F3.namprd03.prod.outlook.com
+ (2603:10b6:a03:39a:cafe::23) by BY3PR03CA0030.outlook.office365.com
+ (2603:10b6:a03:39a::35) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9723.31 via Frontend Transport; Wed,
+ 25 Mar 2026 04:08:08 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ CO1PEPF000075F3.mail.protection.outlook.com (10.167.249.42) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9723.19 via Frontend Transport; Wed, 25 Mar 2026 04:08:07 +0000
+Received: from gangliang-mlse-vm.amd.com (10.180.168.240) by
+ satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.17; Tue, 24 Mar 2026 23:07:45 -0500
+From: Gangliang Xie <ganglxie@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <Hawking.Zhang@amd.com>, <tao.zhou1@amd.com>, Gangliang Xie
+ <ganglxie@amd.com>
+Subject: [PATCH V3] drm/amdgpu: add support to query vram info from firmware
+Date: Wed, 25 Mar 2026 12:07:27 +0800
+Message-ID: <20260325040727.2016678-1-ganglxie@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|BY5PR12MB4066:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1b067514-4263-4761-b0f1-08de8a1ab31c
+X-MS-TrafficTypeDiagnostic: CO1PEPF000075F3:EE_|IA0PR12MB8694:EE_
+X-MS-Office365-Filtering-Correlation-Id: 124af201-0582-4bd0-a526-08de8a241f1d
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|366016|1800799024|56012099003|22082099003|7053199007|18002099003;
-X-Microsoft-Antispam-Message-Info: MYaa/4W0zJEF4rn9CVL+cvwhduZyNHiuIFW2+u2lS60P84QOZ+5CMMZv0FgUYOV9dUZvgy+R4ob7Hlog1KAKn355CVsVyywh058oeoN/k7PGe1+g9RuPCMrCq7oXrH80wLjeTR/irfHco2dfSr2VKW5uhD11smTZM+J5sV2NqJKsyyelMZvFCqzS/hpzQlDRYLV880wnZKcVKuy6rr1yLDwiuVVUSK8bce/l6wYF/vStDoCYvxTZy2l2tEc40tSP+tgN1M58xaTW7vSpNGGdsy5kO52SJyezyqED16oPV+U7WBmWfgcihu5mg/BscV/NtNUU5YDkvZ/mZbpyM3+rbiMQRaranugXKLv01geA4Ar8CrUfJ/8TbCG/kuA5cU4RF1fW+i762GHCp/x2rkJjuTSnIPcmBdTXgbdz8TMOyePZqyQSAtGkzR3W3lnIV6Om1GqfQy7JcEUPYF3lJbEsoasQw744k4mKNW+gcJJ5PvkRdR8eCsC+reBSDjFz/EIQoPJdoU2urqyYViDyLRMOGNMYaFLUpyDGx14TcgYTFZ6i23Wu0WtLMAGKKHI+PZVIk6IcDM9CPtViiw6qeB2VzeUZnbWyjaB8KVWhB6OqeEXqKK4PUMij/PzEF92tTNyhxQo3lWt4uMq4zp7kwEez89ZQQkOyWorz7IuVLM/0r4771DVhOHcXLsIv1t8qnLQoKN8vxybrh5NaoyYIUEv2PVxFqSAcG7xGYZ/Ncw9k5Sc=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(1800799024)(56012099003)(22082099003)(7053199007)(18002099003);
+ ARA:13230040|36860700016|376014|1800799024|82310400026|56012099003|18002099003;
+X-Microsoft-Antispam-Message-Info: 6d9xqcV+8DOmTZKbiLGlgFIukCw7F0ZJILNWSD9G9XoWmBo5MPNQikshTOf8+gxGmqFDRJCIwrfWf5Ly3yh0MOOa6sjNlOPIziDvpxChye/DBLhZ+n3zBw65fuyV2qroI+lbm1D+gdkyNLiZ4Shg5V5TxOxzUPQY9alnVlnc7enSmDJePR6CW5olYoYI9Xuz4wnWrlc0Av1XTYlLJJc92zBHLm6MG34wW3WIK7jWkPa91Qm76FDeMS0ESC25eND0f2NdI9HTTXmh581vLG7EIrUbGLAwv9qVIsV4Jrs1P2YgrPIyyPzjpRWMf4qhl48e37Rzhx7A3XU9iTWgu9j4zPNsWF7Pj3pvsiWIwzTqCp2P/je4VDWlw3D8E/FZASOwLc6+Nb+8jYV2UZZU/TD713m801DM7oj8FnqlWEcCkSnwZA/6/DI3gw2m2m2RV8iPF0eYErpI/RPqQrp3ueaSNkh+a1LmsGyVvCTg2y7yxpy+vyLOxT1X2vc0AnggckXxILCEDOcP6PZbebVhpVxUpJbGdo7gbNkHgk1orgwIPGis5sJrml4e1U16HbUpfODkywFR3BBUrRgRjCwlasT3/0wTW5U3OIpMN81HijApb/k/Ti9o809WFEX+QmIinxvDwBhhN/a3hQozsEdLGk8J2oD5d2KRaZTio4gHHK4Y3kunCvAGDtLbVpjTv+pP6pnT2LhCGgLzSHvjzhsitLn0pJBIfxhr2KmS8Qr/XgBxmEy7ltAoqWotngLzu0bre/vFG0sFnH/6iZcUzkzYid7z6Q==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700016)(376014)(1800799024)(82310400026)(56012099003)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MUFUdlJHL1pGZVc1TnVZNDU4L1JpN2ZiQm81MmJhNUpOSC9sL001cDZnMlpF?=
- =?utf-8?B?bU1jaytBSEU3SXFFb3F6aEMwOXhVTlRuYWVnK2dTakFkelFsdUdmMVdCKzdX?=
- =?utf-8?B?dnkrdWZIc0F3K3VLSjl4YUhiYmtxVzRWZXNNSDBSTHNtYnVwdVlFZnR6ODY2?=
- =?utf-8?B?Q2pKZlFlakd4TmZZSE1HUEl0aC91RFY5dU52OXpIRzhnZmhsRFQrSms2TkRK?=
- =?utf-8?B?MmhQWVY0UEVBSDljOEViWXJNekdlNDJOMFVwbWJMUXpBQ3pKbU9xcTR0a0J2?=
- =?utf-8?B?Ym5VclY4OHN1c2gvR2c0QWVHcGFKenUzWm00WmdBREowY0RGWFhZSFE3VmhS?=
- =?utf-8?B?SmNvTisrMXJrZXJGUkFvR2VTUHVqZkJBWXlkNDN5MGl6dm5Td2RNSUhTUVhP?=
- =?utf-8?B?dExqa1NCQkw0U3kzY2hNOW5NOXJwN0Y5RkFYSkRoOVd2UHZ2Zmo3QUhjVml5?=
- =?utf-8?B?ejQ1ZFdpc0lkT2hVTWFpVlVhV1JqOENoYktNczNZdFRtdTJQbHNCQ29aZmt0?=
- =?utf-8?B?REJ6Tkc2VU0ySDRQc01lMEdhTTRLUWFlUGFFeTBmNEQ3dzFJRklDdjlCazF6?=
- =?utf-8?B?NTM1RzIzZkUzeDJGOUtidmJYRnM5N1o1dGx5OUh1QUJBZ1ZweHdhVTBMaUZD?=
- =?utf-8?B?SVF3Z3JPZ0VDSitNdGphRU5KMEhYZG9mU3hoOHZwaFg5R2FkODZzT0ZqT01N?=
- =?utf-8?B?aFp3eXJqMGYxMFliTWFhK1Y2OEl1dCsybmFSWk5BWC9RanFVam1kOVc3clJP?=
- =?utf-8?B?eHlSU0pyZ0lqUXZXaEVXWEMwUXlOUXc3SllWM01jWElGdXQza0krRnZNUWQ3?=
- =?utf-8?B?cDhoazFCenE5MnIyMGdQQ0wveUxYNHEvOXBtN0lUUDVrQThMRkhvQmhqM2pD?=
- =?utf-8?B?dHlXRjBQeTdpWjEvK2J1amZ4OFB4RTNTT2hZOFVjYzk5UGIyVHZvQk9xSE1M?=
- =?utf-8?B?cURQSnFnQjVVbTBqRkpIWnZGLzg2Wm02NUhjTDA5THBqdzdVWG1zemFUOHVC?=
- =?utf-8?B?S0ZoaXJ6a200Y0RBN2ZSUFNPd2c0ZXNUdVVVSklGRVhZdWtpd1RhSTBjd2VQ?=
- =?utf-8?B?QThJNWE3TWxyazVSb2ZNd29PbUpiSEhFcGowYWRLMkxFTXZhWWM1a1FuZ2Rk?=
- =?utf-8?B?MC9iRFRSaTVhTDNDY0JxbDFQbTM4Q21LQlNyMWlZbmtBeTBiUnJ4aVR3T1Ry?=
- =?utf-8?B?SkFrSmpveWJDcCtBRzVOKysvenBaL3pSYlZmd09jK05YZWpsYmRmMkNvUFEz?=
- =?utf-8?B?Yk03dDdvUVRiaG91QU54THM4Uy90aXI4MTRSVkw2SWpWbjNuRlF4VlR1c0ZK?=
- =?utf-8?B?SjVobk1WdzRMSjAvWU5sTWhUaHBSZG9LSlAvZlhCd3poVWZyR1Q0WFRxNUZU?=
- =?utf-8?B?d0E4clRwcENINUI2bW9LbHYweFlqcTRtRjZuQTQ5aWdnSXZsMnFCaWlrdDkw?=
- =?utf-8?B?bm1ab3U5UW0yR3RIYlVCekc5Vi83TDBidjdxQnFYeVVXZVdyeDJnQ2xIM1l3?=
- =?utf-8?B?UUl3TnIrdFRKcXdZSU9jWHpJVyt6Nno2OUlGbXV3Z0ZleHJyTW5ZSC9sTGlU?=
- =?utf-8?B?ZXpCU20rc1pxWklPUnhYWHR0ZFlKRUtTZVkvRFFMT1dNTFNHVTFjUHBxUzRT?=
- =?utf-8?B?YWRTSlhFbjlXR2FNS3FJNCtseUNqaUV0VS9iZDlUdjFNaTlTNU05RnNhbWQ5?=
- =?utf-8?B?NGM0V2JpdFAxRzlUSUdYMUtKWmxreXNxdHZFMmxtWjlkM1lQQUdUS21CNFhJ?=
- =?utf-8?B?S2I4U0lra2h2M280SGFzYldCZEFDQ0phbzBIMzdKTzl5TmR0TU1nK0lZN0Vo?=
- =?utf-8?B?NGxoY1l2NGZ3aXZBVlphNGNYeXBtKzZFcFoxdnZQemJ3YWlkTkNOTUhkZWNp?=
- =?utf-8?B?UXBjR2QxbWhXeW9wWVdkcjU1WFMyVWtlVkxPRnkyK2ZydE1POEpwNUo5dU43?=
- =?utf-8?B?SWlDRXhmTUFwbElLQmJmd0lCNTNvKzMyWDNLVnl2MDRpL0VmU0luazV4aUlG?=
- =?utf-8?B?aTZlTUE3VVZMRW5sc3RxdzFoTXRtdENiVEZuZEU0cktkTlJ0V2F6OG1vTFJ2?=
- =?utf-8?B?VzRqOTRSZ0l0THNTR0dmM0RUQVUvNnNwZ0daQWt1b3BkaTRlRVlyMTlOU01l?=
- =?utf-8?B?LzFTV3o3RFRrY1N5Q3dCTkJ5VXR5c3VuOTNUbHhEaThJc0VOT01VSGtkWVpZ?=
- =?utf-8?B?UHo0WnlwZHFIaUZKTXg3Rk14UkJLZlZ5aWcrRlNKTGJkZjhqVU13NGhmQmlQ?=
- =?utf-8?B?NUNVM2gwUWZsN2loaHNGZGhiNGRObFRTeDU2aFcvcncrMGN2VDdKQ2p1SDlm?=
- =?utf-8?B?YmVaNVhFclN3TWYvRTV6VFVKck5jY29RMmRMVWY0L282N3FERFA1QT09?=
+X-MS-Exchange-AntiSpam-MessageData-0: ZGCmmB5rcgolCqH3O0FfV3rDCU1PT2xf01PspJSbYC2skdax0PNOMTH8kgd6qHRuF+MAS6L+iVp2X+D5w0G4Nbo3rDNJxz02jswG6YNHd6ZjETCIrEIYi2VfJLE4kNsOOYSBGy5pvtYmGLBCs9w6A1pQ1d7NqjPtcwy4vdL2KuNMeLW3uZl31G2qv4FH44R2vg75QVY4aJ8MAuOIS+Y658wLLCtXOpOF2qXm9ASRIUsMmp8Fnr/rJueDTieU1p2zIpmHL2hzv+wYskBUTU3IWk1ZMcG13m84K7aLXcEvCkKXy33zXRzFLTHbljIVPP8XmOqGclep1r73Lr8rUoEzDyC5IOGpjxc2FWT+TB7tsRDIW0cUvNIh93yse1PFxjJ/X+nL7Gtrqqex40jl9u22ili4bmajoRHGEpCG4LXaXQ+2lTDKWMZKzccavabIG0kB
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1b067514-4263-4761-b0f1-08de8a1ab31c
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Mar 2026 03:00:41.3402 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Mar 2026 04:08:07.7068 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 124af201-0582-4bd0-a526-08de8a241f1d
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 6q/nWL+bf+aW1G6o+k2gefjyIK92XnJa1PpLNXpiompy1HNQaB0j9sTyvumLp31B765yNGu/RG/oASUrAI2yjQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4066
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF000075F3.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8694
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -140,69 +108,714 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+add support to query vram info from firmware
 
-On 2026-03-23 00:28, Donet Tom wrote:
-> The control stack size is calculated based on the number of CUs and
-> waves, and is then aligned to PAGE_SIZE. When the resulting control
-> stack size is aligned to 64 KB, GPU hangs and queue preemption
-> failures are observed while running RCCL unit tests on systems with
-> more than two GPUs.
->
-> amdgpu 0048:0f:00.0: amdgpu: Queue preemption failed for queue with
-> doorbell_id: 80030008
-> amdgpu 0048:0f:00.0: amdgpu: Failed to evict process queues
-> amdgpu 0048:0f:00.0: amdgpu: GPU reset begin!. Source: 4
-> amdgpu 0048:0f:00.0: amdgpu: Queue preemption failed for queue with
-> doorbell_id: 80030008
-> amdgpu 0048:0f:00.0: amdgpu: Failed to evict process queues
-> amdgpu 0048:0f:00.0: amdgpu: Failed to restore process queues
->
-> This issue is observed on both 4 KB and 64 KB system page-size
-> configurations.
->
-> This patch fixes the issue by aligning the control stack size to
-> AMDGPU_GPU_PAGE_SIZE instead of PAGE_SIZE, so the control stack size
-> will not be 64 KB on systems with a 64 KB page size and queue
-> preemption works correctly.
->
-> Additionally, In the current code, wg_data_size is aligned to PAGE_SIZE,
-> which can waste memory if the system page size is large. In this patch,
-> wg_data_size is aligned to AMDGPU_GPU_PAGE_SIZE. The cwsr_size, calculated
-> from wg_data_size and the control stack size, is aligned to PAGE_SIZE.
->
-> Signed-off-by: Donet Tom <donettom@linux.ibm.com>
+v2: change APU vram type, add multi-aid check
+v3: seperate vram info query function into 3 parts and
+    call them in a helper func when requirements
+    are met.
 
-Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
+Signed-off-by: Gangliang Xie <ganglxie@amd.com>
+---
+ .../gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c  | 459 ++++++++++--------
+ .../gpu/drm/amd/amdgpu/amdgpu_atomfirmware.h  |   4 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c       |  22 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h       |   2 +
+ drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c        |   2 +-
+ drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c        |   2 +-
+ drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c        |   2 +-
+ drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c         |  58 ++-
+ 8 files changed, 308 insertions(+), 243 deletions(-)
 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c
+index 7f4751e5caaf..cd9aa5b45e94 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c
+@@ -373,249 +373,280 @@ int amdgpu_atomfirmware_get_uma_carveout_info(struct amdgpu_device *adev,
+ 	return -ENODEV;
+ }
+ 
+-int
+-amdgpu_atomfirmware_get_vram_info(struct amdgpu_device *adev,
++int amdgpu_atomfirmware_get_integrated_system_info(struct amdgpu_device *adev,
+ 				  int *vram_width, int *vram_type,
+ 				  int *vram_vendor)
+ {
+ 	struct amdgpu_mode_info *mode_info = &adev->mode_info;
+-	int index, i = 0;
++	int index;
+ 	u16 data_offset, size;
+ 	union igp_info *igp_info;
+-	union vram_info *vram_info;
+-	union umc_info *umc_info;
+-	union vram_module *vram_module;
+ 	u8 frev, crev;
+ 	u8 mem_type;
+-	u8 mem_vendor;
+ 	u32 mem_channel_number;
+ 	u32 mem_channel_width;
+-	u32 module_id;
+ 
+-	if (adev->flags & AMD_IS_APU)
+-		index = get_index_into_master_table(atom_master_list_of_data_tables_v2_1,
++	index = get_index_into_master_table(atom_master_list_of_data_tables_v2_1,
+ 						    integratedsysteminfo);
+-	else {
+-		switch (amdgpu_ip_version(adev, GC_HWIP, 0)) {
+-		case IP_VERSION(12, 0, 0):
+-		case IP_VERSION(12, 0, 1):
+-			index = get_index_into_master_table(atom_master_list_of_data_tables_v2_1, umc_info);
++	if (amdgpu_atom_parse_data_header(mode_info->atom_context,
++					  index, &size,
++					  &frev, &crev, &data_offset)) {
++		igp_info = (union igp_info *)
++			(mode_info->atom_context->bios + data_offset);
++		switch (frev) {
++		case 1:
++			switch (crev) {
++			case 11:
++			case 12:
++				mem_channel_number = igp_info->v11.umachannelnumber;
++				if (!mem_channel_number)
++					mem_channel_number = 1;
++				mem_type = igp_info->v11.memorytype;
++				if (mem_type == LpDdr5MemType)
++					mem_channel_width = 32;
++				else
++					mem_channel_width = 64;
++				if (vram_width)
++					*vram_width = mem_channel_number * mem_channel_width;
++				if (vram_type)
++					*vram_type = convert_atom_mem_type_to_vram_type(adev, mem_type);
++				break;
++			default:
++				return -EINVAL;
++			}
++			break;
++		case 2:
++			switch (crev) {
++			case 1:
++			case 2:
++				mem_channel_number = igp_info->v21.umachannelnumber;
++				if (!mem_channel_number)
++					mem_channel_number = 1;
++				mem_type = igp_info->v21.memorytype;
++				if (mem_type == LpDdr5MemType)
++					mem_channel_width = 32;
++				else
++					mem_channel_width = 64;
++				if (vram_width)
++					*vram_width = mem_channel_number * mem_channel_width;
++				if (vram_type)
++					*vram_type = convert_atom_mem_type_to_vram_type(adev, mem_type);
++				break;
++			case 3:
++				mem_channel_number = igp_info->v23.umachannelnumber;
++				if (!mem_channel_number)
++					mem_channel_number = 1;
++				mem_type = igp_info->v23.memorytype;
++				if (mem_type == LpDdr5MemType)
++					mem_channel_width = 32;
++				else
++					mem_channel_width = 64;
++				if (vram_width)
++					*vram_width = mem_channel_number * mem_channel_width;
++				if (vram_type)
++					*vram_type = convert_atom_mem_type_to_vram_type(adev, mem_type);
++				break;
++			default:
++				return -EINVAL;
++			}
+ 			break;
+ 		default:
+-			index = get_index_into_master_table(atom_master_list_of_data_tables_v2_1, vram_info);
++			return -EINVAL;
+ 		}
++	} else {
++		return -EINVAL;
+ 	}
++	return 0;
++}
++
++int amdgpu_atomfirmware_get_umc_info(struct amdgpu_device *adev,
++				  int *vram_width, int *vram_type,
++				  int *vram_vendor)
++{
++	struct amdgpu_mode_info *mode_info = &adev->mode_info;
++	int index;
++	u16 data_offset, size;
++	union umc_info *umc_info;
++	u8 frev, crev;
++	u8 mem_type;
++	u8 mem_vendor;
++	u32 mem_channel_number;
++	u32 mem_channel_width;
++
++	index = get_index_into_master_table(atom_master_list_of_data_tables_v2_1, umc_info);
++
+ 	if (amdgpu_atom_parse_data_header(mode_info->atom_context,
+ 					  index, &size,
+ 					  &frev, &crev, &data_offset)) {
+-		if (adev->flags & AMD_IS_APU) {
+-			igp_info = (union igp_info *)
+-				(mode_info->atom_context->bios + data_offset);
+-			switch (frev) {
+-			case 1:
+-				switch (crev) {
+-				case 11:
+-				case 12:
+-					mem_channel_number = igp_info->v11.umachannelnumber;
+-					if (!mem_channel_number)
+-						mem_channel_number = 1;
+-					mem_type = igp_info->v11.memorytype;
+-					if (mem_type == LpDdr5MemType)
+-						mem_channel_width = 32;
+-					else
+-						mem_channel_width = 64;
+-					if (vram_width)
+-						*vram_width = mem_channel_number * mem_channel_width;
+-					if (vram_type)
+-						*vram_type = convert_atom_mem_type_to_vram_type(adev, mem_type);
+-					break;
+-				default:
+-					return -EINVAL;
+-				}
+-				break;
+-			case 2:
+-				switch (crev) {
+-				case 1:
+-				case 2:
+-					mem_channel_number = igp_info->v21.umachannelnumber;
+-					if (!mem_channel_number)
+-						mem_channel_number = 1;
+-					mem_type = igp_info->v21.memorytype;
+-					if (mem_type == LpDdr5MemType)
+-						mem_channel_width = 32;
+-					else
+-						mem_channel_width = 64;
+-					if (vram_width)
+-						*vram_width = mem_channel_number * mem_channel_width;
+-					if (vram_type)
+-						*vram_type = convert_atom_mem_type_to_vram_type(adev, mem_type);
+-					break;
+-				case 3:
+-					mem_channel_number = igp_info->v23.umachannelnumber;
+-					if (!mem_channel_number)
+-						mem_channel_number = 1;
+-					mem_type = igp_info->v23.memorytype;
+-					if (mem_type == LpDdr5MemType)
+-						mem_channel_width = 32;
+-					else
+-						mem_channel_width = 64;
+-					if (vram_width)
+-						*vram_width = mem_channel_number * mem_channel_width;
+-					if (vram_type)
+-						*vram_type = convert_atom_mem_type_to_vram_type(adev, mem_type);
+-					break;
+-				default:
+-					return -EINVAL;
+-				}
++		umc_info = (union umc_info *)(mode_info->atom_context->bios + data_offset);
++
++		if (frev == 4) {
++			switch (crev) {
++			case 0:
++				mem_channel_number = le32_to_cpu(umc_info->v40.channel_num);
++				mem_type = le32_to_cpu(umc_info->v40.vram_type);
++				mem_channel_width = le32_to_cpu(umc_info->v40.channel_width);
++				mem_vendor = RREG32(adev->bios_scratch_reg_offset + 4) & 0xF;
++				if (vram_vendor)
++					*vram_vendor = mem_vendor;
++				if (vram_type)
++					*vram_type = convert_atom_mem_type_to_vram_type(adev, mem_type);
++				if (vram_width)
++					*vram_width = mem_channel_number * (1 << mem_channel_width);
+ 				break;
+ 			default:
+ 				return -EINVAL;
+ 			}
+ 		} else {
+-			switch (amdgpu_ip_version(adev, GC_HWIP, 0)) {
+-			case IP_VERSION(12, 0, 0):
+-			case IP_VERSION(12, 0, 1):
+-				umc_info = (union umc_info *)(mode_info->atom_context->bios + data_offset);
+-
+-				if (frev == 4) {
+-					switch (crev) {
+-					case 0:
+-						mem_channel_number = le32_to_cpu(umc_info->v40.channel_num);
+-						mem_type = le32_to_cpu(umc_info->v40.vram_type);
+-						mem_channel_width = le32_to_cpu(umc_info->v40.channel_width);
+-						mem_vendor = RREG32(adev->bios_scratch_reg_offset + 4) & 0xF;
+-						if (vram_vendor)
+-							*vram_vendor = mem_vendor;
+-						if (vram_type)
+-							*vram_type = convert_atom_mem_type_to_vram_type(adev, mem_type);
+-						if (vram_width)
+-							*vram_width = mem_channel_number * (1 << mem_channel_width);
+-						break;
+-					default:
+-						return -EINVAL;
+-					}
+-				} else
+-					return -EINVAL;
++			return -EINVAL;
++		}
++	} else {
++		return -EINVAL;
++	}
++
++	return 0;
++}
++
++int amdgpu_atomfirmware_get_vram_info(struct amdgpu_device *adev,
++				  int *vram_width, int *vram_type,
++				  int *vram_vendor)
++{
++	struct amdgpu_mode_info *mode_info = &adev->mode_info;
++	int index, i = 0;
++	u16 data_offset, size;
++	union vram_info *vram_info;
++	union vram_module *vram_module;
++	u8 frev, crev;
++	u8 mem_type;
++	u8 mem_vendor;
++	u32 mem_channel_number;
++	u32 mem_channel_width;
++	u32 module_id;
++
++	index = get_index_into_master_table(atom_master_list_of_data_tables_v2_1, vram_info);
++
++	if (amdgpu_atom_parse_data_header(mode_info->atom_context,
++					  index, &size,
++					  &frev, &crev, &data_offset)) {
++		vram_info = (union vram_info *)
++			(mode_info->atom_context->bios + data_offset);
++
++		module_id = (RREG32(adev->bios_scratch_reg_offset + 4) & 0x00ff0000) >> 16;
++		if (frev == 3) {
++			switch (crev) {
++			/* v30 */
++			case 0:
++				vram_module = (union vram_module *)vram_info->v30.vram_module;
++				mem_vendor = (vram_module->v30.dram_vendor_id) & 0xF;
++				if (vram_vendor)
++					*vram_vendor = mem_vendor;
++				mem_type = vram_info->v30.memory_type;
++				if (vram_type)
++					*vram_type = convert_atom_mem_type_to_vram_type(adev, mem_type);
++				mem_channel_number = vram_info->v30.channel_num;
++				mem_channel_width = vram_info->v30.channel_width;
++				if (vram_width)
++					*vram_width = mem_channel_number * 16;
+ 				break;
+ 			default:
+-				vram_info = (union vram_info *)
+-					(mode_info->atom_context->bios + data_offset);
+-
+-				module_id = (RREG32(adev->bios_scratch_reg_offset + 4) & 0x00ff0000) >> 16;
+-				if (frev == 3) {
+-					switch (crev) {
+-					/* v30 */
+-					case 0:
+-						vram_module = (union vram_module *)vram_info->v30.vram_module;
+-						mem_vendor = (vram_module->v30.dram_vendor_id) & 0xF;
+-						if (vram_vendor)
+-							*vram_vendor = mem_vendor;
+-						mem_type = vram_info->v30.memory_type;
+-						if (vram_type)
+-							*vram_type = convert_atom_mem_type_to_vram_type(adev, mem_type);
+-						mem_channel_number = vram_info->v30.channel_num;
+-						mem_channel_width = vram_info->v30.channel_width;
+-						if (vram_width)
+-							*vram_width = mem_channel_number * 16;
+-						break;
+-					default:
+-						return -EINVAL;
+-					}
+-				} else if (frev == 2) {
+-					switch (crev) {
+-					/* v23 */
+-					case 3:
+-						if (module_id > vram_info->v23.vram_module_num)
+-							module_id = 0;
+-						vram_module = (union vram_module *)vram_info->v23.vram_module;
+-						while (i < module_id) {
+-							vram_module = (union vram_module *)
+-								((u8 *)vram_module + vram_module->v9.vram_module_size);
+-							i++;
+-						}
+-						mem_type = vram_module->v9.memory_type;
+-						if (vram_type)
+-							*vram_type = convert_atom_mem_type_to_vram_type(adev, mem_type);
+-						mem_channel_number = vram_module->v9.channel_num;
+-						mem_channel_width = vram_module->v9.channel_width;
+-						if (vram_width)
+-							*vram_width = mem_channel_number * (1 << mem_channel_width);
+-						mem_vendor = (vram_module->v9.vender_rev_id) & 0xF;
+-						if (vram_vendor)
+-							*vram_vendor = mem_vendor;
+-						break;
+-					/* v24 */
+-					case 4:
+-						if (module_id > vram_info->v24.vram_module_num)
+-							module_id = 0;
+-						vram_module = (union vram_module *)vram_info->v24.vram_module;
+-						while (i < module_id) {
+-							vram_module = (union vram_module *)
+-								((u8 *)vram_module + vram_module->v10.vram_module_size);
+-							i++;
+-						}
+-						mem_type = vram_module->v10.memory_type;
+-						if (vram_type)
+-							*vram_type = convert_atom_mem_type_to_vram_type(adev, mem_type);
+-						mem_channel_number = vram_module->v10.channel_num;
+-						mem_channel_width = vram_module->v10.channel_width;
+-						if (vram_width)
+-							*vram_width = mem_channel_number * (1 << mem_channel_width);
+-						mem_vendor = (vram_module->v10.vender_rev_id) & 0xF;
+-						if (vram_vendor)
+-							*vram_vendor = mem_vendor;
+-						break;
+-					/* v25 */
+-					case 5:
+-						if (module_id > vram_info->v25.vram_module_num)
+-							module_id = 0;
+-						vram_module = (union vram_module *)vram_info->v25.vram_module;
+-						while (i < module_id) {
+-							vram_module = (union vram_module *)
+-								((u8 *)vram_module + vram_module->v11.vram_module_size);
+-							i++;
+-						}
+-						mem_type = vram_module->v11.memory_type;
+-						if (vram_type)
+-							*vram_type = convert_atom_mem_type_to_vram_type(adev, mem_type);
+-						mem_channel_number = vram_module->v11.channel_num;
+-						mem_channel_width = vram_module->v11.channel_width;
+-						if (vram_width)
+-							*vram_width = mem_channel_number * (1 << mem_channel_width);
+-						mem_vendor = (vram_module->v11.vender_rev_id) & 0xF;
+-						if (vram_vendor)
+-							*vram_vendor = mem_vendor;
+-						break;
+-					/* v26 */
+-					case 6:
+-						if (module_id > vram_info->v26.vram_module_num)
+-							module_id = 0;
+-						vram_module = (union vram_module *)vram_info->v26.vram_module;
+-						while (i < module_id) {
+-							vram_module = (union vram_module *)
+-								((u8 *)vram_module + vram_module->v9.vram_module_size);
+-							i++;
+-						}
+-						mem_type = vram_module->v9.memory_type;
+-						if (vram_type)
+-							*vram_type = convert_atom_mem_type_to_vram_type(adev, mem_type);
+-						mem_channel_number = vram_module->v9.channel_num;
+-						mem_channel_width = vram_module->v9.channel_width;
+-						if (vram_width)
+-							*vram_width = mem_channel_number * (1 << mem_channel_width);
+-						mem_vendor = (vram_module->v9.vender_rev_id) & 0xF;
+-						if (vram_vendor)
+-							*vram_vendor = mem_vendor;
+-						break;
+-					default:
+-						return -EINVAL;
+-					}
+-				} else {
+-					/* invalid frev */
+-					return -EINVAL;
++				return -EINVAL;
++			}
++		} else if (frev == 2) {
++			switch (crev) {
++			/* v23 */
++			case 3:
++				if (module_id > vram_info->v23.vram_module_num)
++					module_id = 0;
++				vram_module = (union vram_module *)vram_info->v23.vram_module;
++				while (i < module_id) {
++					vram_module = (union vram_module *)
++						((u8 *)vram_module + vram_module->v9.vram_module_size);
++					i++;
+ 				}
++				mem_type = vram_module->v9.memory_type;
++				if (vram_type)
++					*vram_type = convert_atom_mem_type_to_vram_type(adev, mem_type);
++				mem_channel_number = vram_module->v9.channel_num;
++				mem_channel_width = vram_module->v9.channel_width;
++				if (vram_width)
++					*vram_width = mem_channel_number * (1 << mem_channel_width);
++				mem_vendor = (vram_module->v9.vender_rev_id) & 0xF;
++				if (vram_vendor)
++					*vram_vendor = mem_vendor;
++				break;
++			/* v24 */
++			case 4:
++				if (module_id > vram_info->v24.vram_module_num)
++					module_id = 0;
++				vram_module = (union vram_module *)vram_info->v24.vram_module;
++				while (i < module_id) {
++					vram_module = (union vram_module *)
++						((u8 *)vram_module + vram_module->v10.vram_module_size);
++					i++;
++				}
++				mem_type = vram_module->v10.memory_type;
++				if (vram_type)
++					*vram_type = convert_atom_mem_type_to_vram_type(adev, mem_type);
++				mem_channel_number = vram_module->v10.channel_num;
++				mem_channel_width = vram_module->v10.channel_width;
++				if (vram_width)
++					*vram_width = mem_channel_number * (1 << mem_channel_width);
++				mem_vendor = (vram_module->v10.vender_rev_id) & 0xF;
++				if (vram_vendor)
++					*vram_vendor = mem_vendor;
++				break;
++			/* v25 */
++			case 5:
++				if (module_id > vram_info->v25.vram_module_num)
++					module_id = 0;
++				vram_module = (union vram_module *)vram_info->v25.vram_module;
++				while (i < module_id) {
++					vram_module = (union vram_module *)
++						((u8 *)vram_module + vram_module->v11.vram_module_size);
++					i++;
++				}
++				mem_type = vram_module->v11.memory_type;
++				if (vram_type)
++					*vram_type = convert_atom_mem_type_to_vram_type(adev, mem_type);
++				mem_channel_number = vram_module->v11.channel_num;
++				mem_channel_width = vram_module->v11.channel_width;
++				if (vram_width)
++					*vram_width = mem_channel_number * (1 << mem_channel_width);
++				mem_vendor = (vram_module->v11.vender_rev_id) & 0xF;
++				if (vram_vendor)
++					*vram_vendor = mem_vendor;
++				break;
++			/* v26 */
++			case 6:
++				if (module_id > vram_info->v26.vram_module_num)
++					module_id = 0;
++				vram_module = (union vram_module *)vram_info->v26.vram_module;
++				while (i < module_id) {
++					vram_module = (union vram_module *)
++						((u8 *)vram_module + vram_module->v9.vram_module_size);
++					i++;
++				}
++				mem_type = vram_module->v9.memory_type;
++				if (vram_type)
++					*vram_type = convert_atom_mem_type_to_vram_type(adev, mem_type);
++				mem_channel_number = vram_module->v9.channel_num;
++				mem_channel_width = vram_module->v9.channel_width;
++				if (vram_width)
++					*vram_width = mem_channel_number * (1 << mem_channel_width);
++				mem_vendor = (vram_module->v9.vender_rev_id) & 0xF;
++				if (vram_vendor)
++					*vram_vendor = mem_vendor;
++				break;
++			default:
++				return -EINVAL;
+ 			}
++		} else {
++			/* invalid frev */
++			return -EINVAL;
+ 		}
++
++	} else {
++		return -EINVAL;
+ 	}
+ 
+ 	return 0;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.h
+index 67c8d105729b..0760e4510513 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.h
+@@ -30,6 +30,10 @@ uint32_t amdgpu_atomfirmware_query_firmware_capability(struct amdgpu_device *ade
+ bool amdgpu_atomfirmware_gpu_virtualization_supported(struct amdgpu_device *adev);
+ void amdgpu_atomfirmware_scratch_regs_init(struct amdgpu_device *adev);
+ int amdgpu_atomfirmware_allocate_fb_scratch(struct amdgpu_device *adev);
++int amdgpu_atomfirmware_get_integrated_system_info(struct amdgpu_device *adev,
++	int *vram_width, int *vram_type, int *vram_vendor);
++int amdgpu_atomfirmware_get_umc_info(struct amdgpu_device *adev,
++	int *vram_width, int *vram_type, int *vram_vendor);
+ int amdgpu_atomfirmware_get_vram_info(struct amdgpu_device *adev,
+ 	int *vram_width, int *vram_type, int *vram_vendor);
+ int amdgpu_atomfirmware_get_uma_carveout_info(struct amdgpu_device *adev,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+index f165d4e401e8..ecb42b304ccc 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+@@ -34,6 +34,7 @@
+ #include "amdgpu_ras.h"
+ #include "amdgpu_reset.h"
+ #include "amdgpu_xgmi.h"
++#include "amdgpu_atomfirmware.h"
+ 
+ #include <drm/drm_drv.h>
+ #include <drm/ttm/ttm_tt.h>
+@@ -1748,3 +1749,24 @@ int amdgpu_gmc_init_mem_ranges(struct amdgpu_device *adev)
+ 
+ 	return 0;
+ }
++
++int amdgpu_gmc_get_vram_info(struct amdgpu_device *adev,
++		int *vram_width, int *vram_type, int *vram_vendor)
++{
++	if (adev->flags & AMD_IS_APU)
++		return amdgpu_atomfirmware_get_integrated_system_info(adev,
++							vram_width, vram_type, vram_vendor);
++	switch (amdgpu_ip_version(adev, GC_HWIP, 0)) {
++	case IP_VERSION(12, 0, 0):
++	case IP_VERSION(12, 0, 1):
++	case IP_VERSION(9, 5, 0):
++	case IP_VERSION(9, 4, 4):
++	case IP_VERSION(9, 4, 3):
++		return amdgpu_atomfirmware_get_umc_info(adev,
++								vram_width, vram_type, vram_vendor);
++	default:
++		return amdgpu_atomfirmware_get_vram_info(adev,
++								vram_width, vram_type, vram_vendor);
++	}
++	return 0;
++}
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
+index b9fdc3276e81..32e73e8ba778 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
+@@ -482,4 +482,6 @@ amdgpu_gmc_query_memory_partition(struct amdgpu_device *adev);
+ int amdgpu_gmc_init_mem_ranges(struct amdgpu_device *adev);
+ void amdgpu_gmc_init_sw_mem_ranges(struct amdgpu_device *adev,
+ 				   struct amdgpu_mem_partition_info *mem_ranges);
++int amdgpu_gmc_get_vram_info(struct amdgpu_device *adev,
++		int *vram_width, int *vram_type, int *vram_vendor);
+ #endif
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+index 2568eeaae945..fd691b2a6e21 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+@@ -767,7 +767,7 @@ static int gmc_v10_0_sw_init(struct amdgpu_ip_block *ip_block)
+ 		adev->gmc.vram_type = AMDGPU_VRAM_TYPE_GDDR6;
+ 		adev->gmc.vram_width = 1 * 128; /* numchan * chansize */
+ 	} else {
+-		r = amdgpu_atomfirmware_get_vram_info(adev,
++		r = amdgpu_gmc_get_vram_info(adev,
+ 				&vram_width, &vram_type, &vram_vendor);
+ 		adev->gmc.vram_width = vram_width;
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
+index 6349e239a367..e6db87b94eb1 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
+@@ -751,7 +751,7 @@ static int gmc_v11_0_sw_init(struct amdgpu_ip_block *ip_block)
+ 
+ 	spin_lock_init(&adev->gmc.invalidate_lock);
+ 
+-	r = amdgpu_atomfirmware_get_vram_info(adev,
++	r = amdgpu_gmc_get_vram_info(adev,
+ 					      &vram_width, &vram_type, &vram_vendor);
+ 	adev->gmc.vram_width = vram_width;
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
+index f1079bd8cf00..6e184ea069ef 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
+@@ -825,7 +825,7 @@ static int gmc_v12_0_sw_init(struct amdgpu_ip_block *ip_block)
+ 	if (amdgpu_ip_version(adev, GC_HWIP, 0) == IP_VERSION(12, 1, 0)) {
+ 		gmc_v12_1_init_vram_info(adev);
+ 	} else {
+-		r = amdgpu_atomfirmware_get_vram_info(adev,
++		r = amdgpu_gmc_get_vram_info(adev,
+ 			      &vram_width, &vram_type, &vram_vendor);
+ 		adev->gmc.vram_width = vram_width;
+ 		adev->gmc.vram_type = vram_type;
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+index 1ca0202cfdea..d865059e884a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+@@ -1823,24 +1823,37 @@ static void gmc_v9_0_save_registers(struct amdgpu_device *adev)
+ 		adev->gmc.sdpif_register = RREG32_SOC15(DCE, 0, mmDCHUBBUB_SDPIF_MMIO_CNTRL_0);
+ }
+ 
+-static void gmc_v9_4_3_init_vram_info(struct amdgpu_device *adev)
++static void gmc_v9_0_init_vram_info(struct amdgpu_device *adev)
+ {
+ 	static const u32 regBIF_BIOS_SCRATCH_4 = 0x50;
++	int dev_var = adev->pdev->device & 0xF;
+ 	u32 vram_info;
+ 
+-	adev->gmc.vram_type = AMDGPU_VRAM_TYPE_HBM;
+-	adev->gmc.vram_width = 128 * 64;
+-
+-	if (amdgpu_ip_version(adev, GC_HWIP, 0) == IP_VERSION(9, 5, 0))
+-		adev->gmc.vram_type = AMDGPU_VRAM_TYPE_HBM3E;
+-
+-	if (amdgpu_ip_version(adev, GC_HWIP, 0) == IP_VERSION(9, 4, 4) &&
+-		adev->rev_id == 0x3)
+-		adev->gmc.vram_type = AMDGPU_VRAM_TYPE_HBM3E;
+-
+-	if (!(adev->flags & AMD_IS_APU) && !amdgpu_sriov_vf(adev)) {
+-		vram_info = RREG32(regBIF_BIOS_SCRATCH_4);
+-		adev->gmc.vram_vendor = vram_info & 0xF;
++	if (adev->gmc.is_app_apu) {
++		adev->gmc.vram_type = AMDGPU_VRAM_TYPE_HBM;
++		adev->gmc.vram_width = 128 * 64;
++	} else if (adev->flags & AMD_IS_APU) {
++		adev->gmc.vram_type = AMDGPU_VRAM_TYPE_DDR4;
++		adev->gmc.vram_width = 64 * 64;
++	} else if (amdgpu_is_multi_aid(adev)) {
++		adev->gmc.vram_type = AMDGPU_VRAM_TYPE_HBM;
++		adev->gmc.vram_width = 128 * 64;
++
++		if (amdgpu_ip_version(adev, GC_HWIP, 0) == IP_VERSION(9, 5, 0))
++			adev->gmc.vram_type = AMDGPU_VRAM_TYPE_HBM3E;
++
++		if (amdgpu_ip_version(adev, GC_HWIP, 0) == IP_VERSION(9, 4, 4) &&
++		    adev->rev_id == 0x3)
++			adev->gmc.vram_type = AMDGPU_VRAM_TYPE_HBM3E;
++
++		if (amdgpu_ip_version(adev, GC_HWIP, 0) == IP_VERSION(9, 4, 3) &&
++		    (dev_var == 0x5))
++			adev->gmc.vram_type = AMDGPU_VRAM_TYPE_HBM3E;
++
++		if (!(adev->flags & AMD_IS_APU) && !amdgpu_sriov_vf(adev)) {
++			vram_info = RREG32(regBIF_BIOS_SCRATCH_4);
++			adev->gmc.vram_vendor = vram_info & 0xF;
++		}
+ 	}
+ }
+ 
+@@ -1856,19 +1869,11 @@ static int gmc_v9_0_sw_init(struct amdgpu_ip_block *ip_block)
+ 
+ 	spin_lock_init(&adev->gmc.invalidate_lock);
+ 
+-	if (amdgpu_is_multi_aid(adev)) {
+-		gmc_v9_4_3_init_vram_info(adev);
+-	} else if (!adev->bios) {
+-		if (adev->flags & AMD_IS_APU) {
+-			adev->gmc.vram_type = AMDGPU_VRAM_TYPE_DDR4;
+-			adev->gmc.vram_width = 64 * 64;
+-		} else {
+-			adev->gmc.vram_type = AMDGPU_VRAM_TYPE_HBM;
+-			adev->gmc.vram_width = 128 * 64;
+-		}
++	if (!adev->bios) {
++		gmc_v9_0_init_vram_info(adev);
+ 	} else {
+-		r = amdgpu_atomfirmware_get_vram_info(adev,
+-			&vram_width, &vram_type, &vram_vendor);
++		r = amdgpu_gmc_get_vram_info(adev,
++				&vram_width, &vram_type, &vram_vendor);
+ 		if (amdgpu_sriov_vf(adev))
+ 			/* For Vega10 SR-IOV, vram_width can't be read from ATOM as RAVEN,
+ 			 * and DF related registers is not readable, seems hardcord is the
+@@ -1896,6 +1901,7 @@ static int gmc_v9_0_sw_init(struct amdgpu_ip_block *ip_block)
+ 		adev->gmc.vram_type = vram_type;
+ 		adev->gmc.vram_vendor = vram_vendor;
+ 	}
++
+ 	switch (amdgpu_ip_version(adev, GC_HWIP, 0)) {
+ 	case IP_VERSION(9, 1, 0):
+ 	case IP_VERSION(9, 2, 2):
+-- 
+2.34.1
 
-> ---
->   drivers/gpu/drm/amd/amdkfd/kfd_queue.c | 7 ++++---
->   1 file changed, 4 insertions(+), 3 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_queue.c b/drivers/gpu/drm/amd/amdkfd/kfd_queue.c
-> index 572b21e39e83..9d4838461168 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_queue.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_queue.c
-> @@ -492,10 +492,11 @@ void kfd_queue_ctx_save_restore_size(struct kfd_topology_device *dev)
->   	cu_num = props->simd_count / props->simd_per_cu / NUM_XCC(dev->gpu->xcc_mask);
->   	wave_num = get_num_waves(props, gfxv, cu_num);
->   
-> -	wg_data_size = ALIGN(cu_num * WG_CONTEXT_DATA_SIZE_PER_CU(gfxv, props), PAGE_SIZE);
-> +	wg_data_size = ALIGN(cu_num * WG_CONTEXT_DATA_SIZE_PER_CU(gfxv, props),
-> +				AMDGPU_GPU_PAGE_SIZE);
->   	ctl_stack_size = wave_num * CNTL_STACK_BYTES_PER_WAVE(gfxv) + 8;
->   	ctl_stack_size = ALIGN(SIZEOF_HSA_USER_CONTEXT_SAVE_AREA_HEADER + ctl_stack_size,
-> -			       PAGE_SIZE);
-> +			       AMDGPU_GPU_PAGE_SIZE);
->   
->   	if ((gfxv / 10000 * 10000) == 100000) {
->   		/* HW design limits control stack size to 0x7000.
-> @@ -507,7 +508,7 @@ void kfd_queue_ctx_save_restore_size(struct kfd_topology_device *dev)
->   
->   	props->ctl_stack_size = ctl_stack_size;
->   	props->debug_memory_size = ALIGN(wave_num * DEBUGGER_BYTES_PER_WAVE, DEBUGGER_BYTES_ALIGN);
-> -	props->cwsr_size = ctl_stack_size + wg_data_size;
-> +	props->cwsr_size = ALIGN(ctl_stack_size + wg_data_size, PAGE_SIZE);
->   
->   	if (gfxv == 80002)	/* GFX_VERSION_TONGA */
->   		props->eop_buffer_size = 0x8000;
