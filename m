@@ -4,97 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 38E2B106B53F
-	for <amd-gfx@archiver.kernel.org>; Wed, 25 Mar 2026 14:14:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2CBBB109C030
+	for <amd-gfx@archiver.kernel.org>; Wed, 25 Mar 2026 14:57:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C47FC10E843;
-	Wed, 25 Mar 2026 14:14:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9C7FB10E21E;
+	Wed, 25 Mar 2026 14:57:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="efIR4tSm";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="lveoloIP";
 	dkim-atps=neutral
-Received: from CY7PR03CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11010062.outbound.protection.outlook.com
- [40.93.198.62])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BEA4510E843
- for <amd-gfx@lists.freedesktop.org>; Wed, 25 Mar 2026 14:14:10 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=n9gyiEG4fqqGStR8iHJbGCBDRcXm8EWbkl1deL4H3axtsjDxMS+4zlFqdom95btGPWCScXrrd/HR85xeANn2onUoi+Bt4LjYJ8xoQ308nCmKKHasAmX3QtXx0GgwZvOT9prQzd0yTWF6VKzTKiHSfrK+WmSHN0SKwZxdXZiSRYVoO0ZfiisYbMo0hcTKeRU8HCXsSl4/AezHWSvwHyK8J0tZNYKTyuYNsvjIBM9rO9Sul2d6erYwNVM/NCg5fSTzjRXI56n9Cnh86it14jvGV0EaaHzQ3FGcnh7I7RdHwRc0mCac07nujkx/ko+AJYlISRtGTSagxJWztASjBmHHNw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=vV+4yKGhJ7MWGgiyvIKvDGV1E5OfTSzaX7PifQEOsPs=;
- b=C6leG82dHi0WenKfjMHrnjOFZWplJMqixSpy5vtQYnyziZcLeQDkDmJANpwYcmq4fvYMowSkc3k65TjYvK/B3bnvsamz+77QBG4DvBPBFEDYarlewhvV+Me19NB3D5QTvMV9ifIXs8lyVRZek84oYfUh5yQYmPipWaZpQUJgDBffMF1UM44CSCSo8CYYP07yhexjXsM6JpyzOBIs0/VJNumtgRZcNvNzvepNJOtlb17IJpq6iChgIswjYqtZAO96ICAaDwTwhwq4N2cSbeItWm+iexnNbaGEUCucLwAYMaLIGWud7i7xm5vgYIO6XqCDOJSEoM+APrfc1R6ddzBrhg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vV+4yKGhJ7MWGgiyvIKvDGV1E5OfTSzaX7PifQEOsPs=;
- b=efIR4tSm0lM/Z8rRgPkIfOuX9HlK5j877w+aVAcpnsgozl8feEJ5ITGD3cqEkSLc2SMpErBquMCIxtdveSfLRKO+evL7QkbaPmxm+FxKMDmQuudvz+WsL1Ns0T2pFk19v3Mwf+Xwof98/kaAmOFMgci0Xli//Z+gE8foGJdzflk=
-Received: from SJ0PR05CA0043.namprd05.prod.outlook.com (2603:10b6:a03:33f::18)
- by BN7PPF39B20C1D8.namprd12.prod.outlook.com
- (2603:10b6:40f:fc02::6cc) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.20; Wed, 25 Mar
- 2026 14:12:50 +0000
-Received: from SJ1PEPF00001CE1.namprd05.prod.outlook.com
- (2603:10b6:a03:33f:cafe::93) by SJ0PR05CA0043.outlook.office365.com
- (2603:10b6:a03:33f::18) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9723.31 via Frontend Transport; Wed,
- 25 Mar 2026 14:12:50 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- SJ1PEPF00001CE1.mail.protection.outlook.com (10.167.242.9) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9723.19 via Frontend Transport; Wed, 25 Mar 2026 14:12:50 +0000
-Received: from mlse-blrlinux-ll.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Wed, 25 Mar
- 2026 09:12:47 -0500
-From: Lijo Lazar <lijo.lazar@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <Hawking.Zhang@amd.com>, <Alexander.Deucher@amd.com>,
- <Asad.Kamal@amd.com>, <Feifei.Xu@amd.com>
-Subject: [PATCH 1/9] drm/amdgpu: Add reserved region ids
-Date: Wed, 25 Mar 2026 19:42:18 +0530
-Message-ID: <20260325141226.1173216-1-lijo.lazar@amd.com>
-X-Mailer: git-send-email 2.49.0
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6E20F10E16D;
+ Wed, 25 Mar 2026 14:57:01 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 3729A4024F;
+ Wed, 25 Mar 2026 14:57:01 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8BAB7C4CEF7;
+ Wed, 25 Mar 2026 14:57:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1774450621;
+ bh=kODB/4Odan0TLyX1+H2rGTJ1SkOip0pPH/GqtThBgFg=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=lveoloIP8+97OC9m2l5bBmtBw6c3CSQdSICZGVMCZbaVAtz/7499RlssUCIk3l9al
+ BWGtZaB/Gwx87SRUYZ4cMxnfQOw/wFD3DxPoaz6ZMwVdXpkyx08nrQ9XGu9iAX/z5D
+ dXQvJWfV6yPc172xpKNvXzEkN0NwwG2R1phfqiDxfT8sDpBvBgM+V2xyA1LtHBt10T
+ rerF3gSEDkGf6dqX15xt8IzhWyiX9IARja5LRQxUZ3+w4ei87vSIWEb3ti0JiuO53z
+ NhJjjPjGV9Y3DR3hKAwYyg+sRfCMTELoq9pie6SsHbeivGmpPiJrLsmd6IyREGDtzg
+ sr4f14070acsA==
+Date: Wed, 25 Mar 2026 15:56:58 +0100
+From: Maxime Ripard <mripard@kernel.org>
+To: Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
+Cc: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, 
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>, 
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>, Sandy Huang <hjc@rock-chips.com>, 
+ Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>,
+ Andy Yan <andy.yan@rock-chips.com>, 
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, 
+ Dmitry Baryshkov <lumag@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>, 
+ Rob Herring <robh@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
+ Shuah Khan <skhan@linuxfoundation.org>, kernel@collabora.com,
+ amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ linux-doc@vger.kernel.org, 
+ Werner Sembach <wse@tuxedocomputers.com>, Andri Yngvason <andri@yngvason.is>, 
+ Marius Vlad <marius.vlad@collabora.com>
+Subject: Re: [PATCH v11 03/22] drm: Add new general DRM property "color format"
+Message-ID: <20260325-magnificent-ultraviolet-oarfish-baefbc@houat>
+References: <20260324-color-format-v11-0-605559af4fb4@collabora.com>
+ <20260324-color-format-v11-3-605559af4fb4@collabora.com>
+ <acLDPYuaVI2-12JX@intel.com> <23910073.EfDdHjke4D@workhorse>
+ <acLrv5hLyNss-Px5@intel.com>
+ <20260325-neat-elegant-raven-ebc9ab@houat>
+ <acPA60Ci3n_t__xF@intel.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF00001CE1:EE_|BN7PPF39B20C1D8:EE_
-X-MS-Office365-Filtering-Correlation-Id: f74c085b-4e7b-4e3e-780a-08de8a78990b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|36860700016|376014|82310400026|56012099003|18002099003;
-X-Microsoft-Antispam-Message-Info: MJFR8YyJduYOOqL+GH/Dm4WXxv5/F2WWEPyoC6pqxtiiLlz8cvNUOphNpmvjF50uUuL/Vhz2fgKWNdMc3HwYsokjaFCR48eGlKONwgDgP/7slUQ4CrdBM+umVQ38KDjqgJIaa3q7Kb1MS0plFrCrkAKYPqGuJYMOwP+b1ADUSIWc4cIYF+3rDwsEqkKxluZejf5pMyg3KhpVxuT19kxbflBIjD709sJ9f1U6NAtnPNL4SXHLQlfqXbocb5z+3kKkvf5LXy6RE86HLgMrsJa3J2nggHlxeuuBAe+5+c31bjX2SDX+7FRw+Mq2IBLKucCP80rr5Qs6dtB9GzWseIydk/GLCGssPTHOy4QqqEq22JmgOJ4cKDcAir58CHYWH3Jxg4alOr1Pn9Qx/MVTUexKpwY3UMPMMnwvyazOHZ3a9pXClKF6E3ehoBxuyRqChK4rloX6KINrDeP/ZHZuSTH1MhIQrFsqT5fbGf+sezUxfpJSoXNdEvnc3dz/0arMrNaqwM58F++bCn4wUmgHKuZpGqKlFPAH0N+njYbzSZLIrr0yleP9/+0ZPbnfi6ia+5ZbkDWRn3XKVR6EKzSbwebhw2a2KIUxg0z3yrfxMKcSiMWk/7D2740wHv5lZlK6FcNeLYaoi59pDrCWflCaPAk1elKBurK/REDHqHkor9XD0moyvM8daQGSWSeTp7HCnLmC0nPRFjKlpPRw6muJTnxOBWK1ARbsOjb0N9QqHVmkbfuneulsVkp2NTRpG1fRzDsM7Lepwwjg9VO9UNyhV1FUTQ==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(36860700016)(376014)(82310400026)(56012099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: PNf9ulFxzsVWdajFJ31A052XtuU6VKJwDeonCSfkKUCRci8/rN/yRL0KDd8/AaqysasImJ8hCLu2Ea2iLZCo1lKoUMz6IVqfofx0BS578bzpdY5lOYqLseEYxaIByQvIPHwoTxbyQiFCTJlBu+LcxTiSP9gBD3i67kPUCqUFOEjYZWavMjpDkWcdxYP3dA5QWojc+5Jd4SvXeQ7x+5dpLCKpqB9RsHvc77EeL3BKiM63xdUlBG7BCxIZ+bS8CieaLCvkWQrTZbDeL70rY0uGg6qoDUG4poETizOueRDm83hojKBeTQP5KouCPfX5gXEs8QoDbExK8tVtShH3wvpdjtB3qgx7AZcRqjlnVgxNcVMsgpkILuddcKPkAvBoirnFlL/gco3fIJPEwuecqDCJVKoeprZUaN+euz4bEk+DgXZyxVzlrSVSKSLBEieehbRV
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Mar 2026 14:12:50.0377 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: f74c085b-4e7b-4e3e-780a-08de8a78990b
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF00001CE1.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN7PPF39B20C1D8
+Content-Type: multipart/signed; micalg=pgp-sha384;
+ protocol="application/pgp-signature"; boundary="mhdva7e7vsga4kjf"
+Content-Disposition: inline
+In-Reply-To: <acPA60Ci3n_t__xF@intel.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,139 +89,153 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add reserved regions and helper functions to memory manager.
 
-Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 58 +++++++++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h | 31 +++++++++++++
- 2 files changed, 89 insertions(+)
+--mhdva7e7vsga4kjf
+Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v11 03/22] drm: Add new general DRM property "color
+ format"
+MIME-Version: 1.0
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-index 714fd8d12ca5..7f04e53983b5 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-@@ -1677,6 +1677,64 @@ static struct ttm_device_funcs amdgpu_bo_driver = {
- 	.access_memory = &amdgpu_ttm_access_memory,
- };
- 
-+void amdgpu_ttm_init_vram_resv(struct amdgpu_device *adev,
-+				enum amdgpu_resv_region_id id,
-+				uint64_t offset, uint64_t size,
-+				bool needs_cpu_map)
-+{
-+	struct amdgpu_vram_resv *resv;
-+
-+	if (id >= AMDGPU_RESV_MAX)
-+		return;
-+
-+	resv = &adev->mman.resv_region[id];
-+	resv->offset = offset;
-+	resv->size = size;
-+	resv->needs_cpu_map = needs_cpu_map;
-+}
-+
-+int amdgpu_ttm_reserve_vram(struct amdgpu_device *adev,
-+			    enum amdgpu_resv_region_id id)
-+{
-+	struct amdgpu_vram_resv *resv;
-+	int ret;
-+
-+	if (id >= AMDGPU_RESV_MAX)
-+		return -EINVAL;
-+
-+	resv = &adev->mman.resv_region[id];
-+	if (!resv->size)
-+		return 0;
-+
-+	ret = amdgpu_bo_create_kernel_at(adev, resv->offset, resv->size,
-+					 &resv->bo,
-+					 resv->needs_cpu_map ? &resv->cpu_addr : NULL);
-+	if (ret) {
-+		dev_dbg(adev->dev, "reserve vram failed: id=%d offset=0x%llx size=0x%llx ret=%d\n",
-+			id, resv->offset, resv->size, ret);
-+		memset(resv, 0, sizeof(*resv));
-+	}
-+
-+	return ret;
-+}
-+
-+void amdgpu_ttm_unreserve_vram(struct amdgpu_device *adev,
-+			       enum amdgpu_resv_region_id id)
-+{
-+	struct amdgpu_vram_resv *resv;
-+
-+	if (id >= AMDGPU_RESV_MAX)
-+		return;
-+
-+	resv = &adev->mman.resv_region[id];
-+	if (!resv->bo)
-+		return;
-+
-+	amdgpu_bo_free_kernel(&resv->bo, NULL,
-+			      resv->needs_cpu_map ? &resv->cpu_addr : NULL);
-+	memset(resv, 0, sizeof(*resv));
-+}
-+
- /*
-  * Firmware Reservation functions
-  */
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-index bf101215757e..b73f65a4bc0d 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-@@ -59,6 +59,26 @@ struct amdgpu_ttm_buffer_entity {
- 	u64			gart_window_offs[2];
- };
- 
-+enum amdgpu_resv_region_id {
-+	AMDGPU_RESV_STOLEN_VGA,
-+	AMDGPU_RESV_STOLEN_EXTENDED,
-+	AMDGPU_RESV_STOLEN_RESERVED,
-+	AMDGPU_RESV_FW,
-+	AMDGPU_RESV_FW_EXTEND,
-+	AMDGPU_RESV_FW_VRAM_USAGE,
-+	AMDGPU_RESV_DRV_VRAM_USAGE,
-+	AMDGPU_RESV_MEM_TRAIN,
-+	AMDGPU_RESV_MAX
-+};
-+
-+struct amdgpu_vram_resv {
-+	uint64_t		offset;
-+	uint64_t		size;
-+	struct amdgpu_bo	*bo;
-+	void			*cpu_addr;
-+	bool			needs_cpu_map;
-+};
-+
- struct amdgpu_mman {
- 	struct ttm_device		bdev;
- 	struct ttm_pool			*ttm_pools;
-@@ -105,6 +125,8 @@ struct amdgpu_mman {
- 	struct amdgpu_bo	*drv_vram_usage_reserved_bo;
- 	void		*drv_vram_usage_va;
- 
-+	struct amdgpu_vram_resv		resv_region[AMDGPU_RESV_MAX];
-+
- 	/* PAGE_SIZE'd BO for process memory r/w over SDMA. */
- 	struct amdgpu_bo	*sdma_access_bo;
- 	void			*sdma_access_ptr;
-@@ -171,6 +193,15 @@ void amdgpu_vram_mgr_clear_reset_blocks(struct amdgpu_device *adev);
- bool amdgpu_res_cpu_visible(struct amdgpu_device *adev,
- 			    struct ttm_resource *res);
- 
-+void amdgpu_ttm_init_vram_resv(struct amdgpu_device *adev,
-+				enum amdgpu_resv_region_id id,
-+				uint64_t offset, uint64_t size,
-+				bool needs_cpu_map);
-+int amdgpu_ttm_reserve_vram(struct amdgpu_device *adev,
-+			    enum amdgpu_resv_region_id id);
-+void amdgpu_ttm_unreserve_vram(struct amdgpu_device *adev,
-+			       enum amdgpu_resv_region_id id);
-+
- int amdgpu_ttm_init(struct amdgpu_device *adev);
- void amdgpu_ttm_fini(struct amdgpu_device *adev);
- void amdgpu_ttm_set_buffer_funcs_status(struct amdgpu_device *adev,
--- 
-2.49.0
+On Wed, Mar 25, 2026 at 01:03:07PM +0200, Ville Syrj=E4l=E4 wrote:
+> On Wed, Mar 25, 2026 at 09:24:27AM +0100, Maxime Ripard wrote:
+> > On Tue, Mar 24, 2026 at 09:53:35PM +0200, Ville Syrj=E4l=E4 wrote:
+> > > On Tue, Mar 24, 2026 at 08:10:11PM +0100, Nicolas Frattaroli wrote:
+> > > > On Tuesday, 24 March 2026 18:00:45 Central European Standard Time V=
+ille Syrj=E4l=E4 wrote:
+> > > > > On Tue, Mar 24, 2026 at 05:01:07PM +0100, Nicolas Frattaroli wrot=
+e:
+> > > > > > +enum drm_connector_color_format {
+> > > > > > +	/**
+> > > > > > +	 * @DRM_CONNECTOR_COLOR_FORMAT_AUTO: The driver or display pr=
+otocol
+> > > > > > +	 * helpers should pick a suitable color format. All implement=
+ations of a
+> > > > > > +	 * specific display protocol must behave the same way with "A=
+UTO", but
+> > > > > > +	 * different display protocols do not necessarily have the sa=
+me "AUTO"
+> > > > > > +	 * semantics.
+> > > > > > +	 *
+> > > > > > +	 * For HDMI, "AUTO" picks RGB, but falls back to YCbCr 4:2:0 =
+if the
+> > > > > > +	 * bandwidth required for full-scale RGB is not available, or=
+ the mode
+> > > > > > +	 * is YCbCr 4:2:0-only, as long as the mode and output both s=
+upport
+> > > > > > +	 * YCbCr 4:2:0.
+> > > > > > +	 *
+> > > > > > +	 * For display protocols other than HDMI, the recursive bridg=
+e chain
+> > > > > > +	 * format selection picks the first chain of bridge formats t=
+hat works,
+> > > > > > +	 * as has already been the case before the introduction of th=
+e "color
+> > > > > > +	 * format" property. Non-HDMI bridges should therefore either=
+ sort their
+> > > > > > +	 * bus output formats by preference, or agree on a unified au=
+to format
+> > > > > > +	 * selection logic that's implemented in a common state helpe=
+r (like
+> > > > > > +	 * how HDMI does it).
+> > > > > > +	 */
+> > > > > > +	DRM_CONNECTOR_COLOR_FORMAT_AUTO =3D 0,
+> > > > > > +
+> > > > > > +	/**
+> > > > > > +	 * @DRM_CONNECTOR_COLOR_FORMAT_RGB444: RGB output format
+> > > > > > +	 */
+> > > > > > +	DRM_CONNECTOR_COLOR_FORMAT_RGB444,
+> > > > > > +
+> > > > > > +	/**
+> > > > > > +	 * @DRM_CONNECTOR_COLOR_FORMAT_YCBCR444: YCbCr 4:4:4 output f=
+ormat (ie.
+> > > > > > +	 * not subsampled)
+> > > > > > +	 */
+> > > > > > +	DRM_CONNECTOR_COLOR_FORMAT_YCBCR444,
+> > > > > > +
+> > > > > > +	/**
+> > > > > > +	 * @DRM_CONNECTOR_COLOR_FORMAT_YCBCR422: YCbCr 4:2:2 output f=
+ormat (ie.
+> > > > > > +	 * with horizontal subsampling)
+> > > > > > +	 */
+> > > > > > +	DRM_CONNECTOR_COLOR_FORMAT_YCBCR422,
+> > > > > > +
+> > > > > > +	/**
+> > > > > > +	 * @DRM_CONNECTOR_COLOR_FORMAT_YCBCR420: YCbCr 4:2:0 output f=
+ormat (ie.
+> > > > > > +	 * with horizontal and vertical subsampling)
+> > > > > > +	 */
+> > > > > > +	DRM_CONNECTOR_COLOR_FORMAT_YCBCR420,
+> > > > >=20
+> > > > > Seems like this should document what the quantization range
+> > > > > should be for each format.
+> > > > >=20
+> > > >=20
+> > > > I don't think so? If you want per-component bit depth values,
+> > > > DRM_FORMAT_* defines would be the appropriate values to use. This
+> > > > enum is more abstract than that, and is there to communicate
+> > > > YUV vs. RGB and chroma subsampling, with bit depth being handled
+> > > > by other properties.
+> > > >=20
+> > > > If you mean the factor used for subsampling, then that'd only be
+> > > > relevant if YCBCR410 was supported where one chroma plane isn't
+> > > > halved but quartered in resolution. I suspect 4:1:0 will never
+> > > > be added; no digital display protocol standard supports it to my
+> > > > knowledge, and hopefully none ever will.
+> > >=20
+> > > No, I mean the quantization range (16-235 vs. 0-255 etc).
+> > >=20
+> > > The i915 behaviour is that YCbCr is always limited range,
+> > > RGB can either be full or limited range depending on the=20
+> > > "Broadcast RGB" property and other related factors.
+> >=20
+> > So far the HDMI state has both the format and quantization range as
+> > different fields. I'm not sure we need to document the range in the
+> > format field, maybe only mention it's not part of the format but has a
+> > field of its own?
+>=20
+> I think we only have it for RGB (on some drivers only?). For YCbCr
+> I think the assumption is limited range everywhere.
+>=20
+> But I'm not really concerned about documenting struct members.
+> What I'm talking about is the *uapi* docs. Surely userspace
+> will want to know what the new property actually does so the
+> uapi needs to be documented properly. And down the line some
+> new driver might also implement the wrong behaviour if there
+> is no clear specification.
 
+Ack
+
+> So I'm thinking (or perhaps hoping) the rule might be something like:
+> - YCbCr limited range=20
+> - RGB full range if "Broadcast RGB" property is not present
+
+Isn't it much more complicated than that for HDMI though? My
+recollection was that any VIC but VIC1 would be limited range, and
+anything else full range?
+
+> - RGB full or limited range based on the "Broadcast RGB" property
+>   if it's present
+>=20
+> I think the "Broadcast RGB" property itself might also be lacking
+> proper uapi docs, so that may need to be remedied as well.
+
+I took care of documenting it when merging the HDMI helpers:
+https://docs.kernel.org/gpu/drm-kms.html#hdmi-specific-connector-properties
+
+Maxime
+
+--mhdva7e7vsga4kjf
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCacP3tQAKCRAnX84Zoj2+
+dqD6AX9ruA9VQEK32t44/SErwn8ouTAnQA9K9i0WTlcaidv+2oyLtolh4CEvzUcR
+Knh9fq4Bfjj/Wa5dcOSnIESCkqTRH/yo4UCESrmghwhyznX8ffjBrkE/aWSPhI2B
+5bfXV1iang==
+=9m7S
+-----END PGP SIGNATURE-----
+
+--mhdva7e7vsga4kjf--
