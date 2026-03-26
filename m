@@ -4,90 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 067F010AB829
-	for <amd-gfx@archiver.kernel.org>; Thu, 26 Mar 2026 21:08:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 101A110AB827
+	for <amd-gfx@archiver.kernel.org>; Thu, 26 Mar 2026 21:33:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9892410EBF7;
-	Thu, 26 Mar 2026 21:08:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 82C0810EC1E;
+	Thu, 26 Mar 2026 21:33:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="hsMJOAsa";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="YcR/Y/fp";
 	dkim-atps=neutral
-Received: from mail-dl1-f46.google.com (mail-dl1-f46.google.com [74.125.82.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D7CF310EBD5
- for <amd-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 21:08:33 +0000 (UTC)
-Received: by mail-dl1-f46.google.com with SMTP id
- a92af1059eb24-1277863a912so206174c88.0
- for <amd-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 14:08:33 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1774559313; cv=none;
+Received: from mail-dl1-f44.google.com (mail-dl1-f44.google.com [74.125.82.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C35F610EC1E
+ for <amd-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 21:33:09 +0000 (UTC)
+Received: by mail-dl1-f44.google.com with SMTP id
+ a92af1059eb24-1277863a912so208911c88.0
+ for <amd-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 14:33:09 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1774560789; cv=none;
  d=google.com; s=arc-20240605;
- b=FIQ39MuAZ97hcZZZVRS8z/4hxgkIX/VqWwkYso1wyLMS+7zaYMIHVXui5xeKQQ3Pk4
- DYtBAEiXIKji99X+vsMqwZizCxIkj44Pm8DdLqnynAASNQeFA1WzkJVqemMtEMH+tzPq
- kkYTDfrTEnvwquE0KtpMB+NFR3aX/9KpE7AntK8UHZ6qyX1fvZFsb6PTLdUoKYDampY/
- +vlMHuogE3q0l3Cbs+QrtqRJqC2ikaantWG3VO5CGxC2LJJUiJ1ruce0dZl/oKcZyxjZ
- Tm6PbESAulandzOhxps2SCGgOiiUl0pVOQ/gVbckiVAsv/j27uSbWpe6id3K7MYmfcxj
- T/7Q==
+ b=YXCQ+tLWqfBQxd2/edH6LOwgKui+jPgxjt5CwuA2K4t871LQ0Dq5IUdOxJAxd0dYYA
+ xybrJ8MXrep0VHrF/eiT7VB6qM0MicxQlusNeJs05LERl2wXR+bPgXNQitUyuPF2JH3o
+ JsjKBCv0XKGq/qZKg0aNH3g7PMV7554WJjoFJ0Y0R7N5jMJCwlrACCYAwgtGg8WP0FhN
+ sBzGkSpBVOULjxxLjCYNYY9P2bEgj01T31ZRcuaa2OIF3jbFntfW3bqr7PLGtt7eKB+u
+ UV4JqYVwfqSp9RSZE5lRkkuOHshBuzyvJAiS/2YoX4X3FJOQH1RijL65TuAZ+JdeZ7d2
+ b49w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20240605; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=VXM5DW1WP5VrRTXLclsTY4eGvvWZXWBNugMBsd3oqK0=;
- fh=OvKzi3YaVdYQcj/ttN/1Uz8prEoy1Xr2B3QHReZfFdY=;
- b=ALDQ7EuDSoAO1cxJ/Cm54i470ksVmJ0TGyAgdjIHvclEcWAF7AxCsJzVfB53ZdRujn
- oaOiJH9zetroNKUAuYS081cIjY/QtcUJa0YopQt5M+GY8GlTcrxA8Cp/TipIxgaX4ekh
- 0Ea6DBB4kyUp5imj5j7gKXgtHm89DZkiGQpzxkyPEGKFjdyvGoE6GurtpWChz8X+eKgN
- AVoXkbPaVuh7y4+7oFNkSgV0o7sPpqbgbM1EiNkUKusnW7EpMGFO/fYEVshR0L457yFt
- Lo/8gFx8xzn3v6WsAs/iFqX9nac/sr1LZKgx4yahcpsdeLlm4fQjO1FuJo9lHSLUKJtW
- htIw==; darn=lists.freedesktop.org
+ bh=wkBp3yqCcEL7QYRuAZHO2ZMU8QoOpQA9ogtRXEC76cw=;
+ fh=nTADSEbj1detMp9dbfRn6y87YUHMr6oPm46+RSV4Wgk=;
+ b=DoOrZBkJ9Pv+hhCFqFhRcsnmjzSasi0/di0QchV09o8jI3ooHSQg3dLPsXO4TkDbfZ
+ +dtBY6fmg0W73rl9SQWEJpA4z8mb+2V7mEy6r1YTBZNoSZ+JNajqk50ZfiLV0yhwBPmX
+ 5QX3gRsjKghdBp8+TWWg8wuw2v1/5GIq+F3yXa/MNy2NTY2/McXfvKp/F4W36IqNcPAL
+ Z2r57RyrDDGRyII6RY6T+Lo4o/mJkeBqCD1FALe1VsCPxDuy1K8PbZHNXuiam73g3jgm
+ fgtol8LpdwD7o8bnZV9OgqXAsEs46y2Wu1JtXNY0xApwgW7Isu/eJUlCigym+azhmo9A
+ psyA==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1774559313; x=1775164113; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1774560789; x=1775165589; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=VXM5DW1WP5VrRTXLclsTY4eGvvWZXWBNugMBsd3oqK0=;
- b=hsMJOAsaNaue6EH7OVfTwSmpIvffzmqQ5GLNAWX2sS4xoVlqTLqF5C7T0eCNMndOBD
- AvwxWzdgiqlCKJFV/eRcCHvvyNPkq5LLd8K6JFi6PBGj0KrYLoRXGn+kZY0v/slZ1dOW
- 29Bx01SA/rrDNePfWC2cwSPkzxdDKZv6mqGTEa21QqxkTDPKGSCqDqvzq7fG3z+M0vm7
- bYVj1xj8kJ/qJ7Eb6aMicCGMpLSIGGXaSVzCOWYdbfG8C+cse833BMerk2ofhnrRWUPd
- wAW72XF9khRqaIRtooik2hhQCyw4KbWDTmTSBUoYE00V+OfpjSZORpSHqCB+EWa3zRXa
- MK4g==
+ bh=wkBp3yqCcEL7QYRuAZHO2ZMU8QoOpQA9ogtRXEC76cw=;
+ b=YcR/Y/fpBBF+FTfZr60KhQvAGsjQGpxpdqVWM2JfHurgGatDPcKz50rmeLVVtovOQ+
+ MPkwyVjF9Vvw3/rWZtL/UcVsloikxVQEZz2eYe4MUea/y9BnGmFvbhfwVnwZzcUlegq6
+ 0yjxIFSO4IlpVuGowD87mOJt39NI8K74LJ038n7d3DcWkGY48u5GYupR5A6WdHHcsPys
+ 7OvRUYtqvPrLnIf9FvvC4fNpckS4LiFlGgaBajcGPI2x4CVe+ay0Gp8GekuJiUl8wo+p
+ TicL4sUpNN7Pd+7hB2CPtk3Zh3W3LCx93z2k7l0C/9tobXrfBwjAAfuhGVLtAFIPsU4n
+ 3yVg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774559313; x=1775164113;
+ d=1e100.net; s=20251104; t=1774560789; x=1775165589;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=VXM5DW1WP5VrRTXLclsTY4eGvvWZXWBNugMBsd3oqK0=;
- b=YKilg0y/kdK8qUUymSPgbC/V/TKpW+Tfke+hnjdNuB5dqxYsBxdUVy9oea2ijEl+dR
- OUcdK3q2/lHA7bP1ZL+Tdo1ins0/eG0ayBExDGAZBhlPa8Hn4BSOVlNhr/uiGinS2vqg
- OtDhjZhwB62NtNBHfMV4ERTrCUj9sj91VS0y/07AJt44oKFswqZrtjHIvVzpYGNEk+B4
- buDlho5U2APi6AfBpwTBEvG3YdMAowdw+T7yQryNURSJB8ORoaCodrwhVsOuhB+ZtKXk
- oROZTuP/Zf0fvTzKkGwYn9AEw81z/BwbO18zsuH8MUrRUFgIQy5VW+eoyN5dQz+xidAw
- dNDA==
-X-Gm-Message-State: AOJu0YyaZOPEodAN4C4ljd/OZDIZ49ia3HD/J6bQqkGRMCEmbQ+HZfoW
- OOrd8s94mk34/9NpDH5o6tRfNYGDhZv3286EWciQPl+GWdJUp/NBcU1MN+YS4wqBmTFOkhSD4d2
- m0XCDpIMMgZvq1w8huUry7BICqP4DE7g=
-X-Gm-Gg: ATEYQzyduUPWF3kp4AvOH1QNIScT2IC2kk7sWUvXcDTSUoo0dHhDv01QtSWUO+Hgfo7
- wd/VwnhioIXLy8ia0Ur1QpuvZV/LThmCwtT0Yyh/IjeAIEV21e58f4mZK1Fi/QMhm8Pn8wmMqQ1
- GRs3qv1hDDJeilzRd40HxJiXPCzdgPw+wF/FAxPMNY2sf+hvf7Z6TLVLYT0mF3fn76c2UhjhEs5
- 7JfhnEuhMNaXMDPccRru7oFxg3srXmQdmi2sTiEqOTWyMpU0f+UDv2omgfMOWDIK1HwWUU6kZoL
- GzvrysqcBUBPL76KDxUl7zSVlPOQTkH6jwhvtWdeQHrz/KUYhDhujpczNZDVvQXmfbCUaQ==
-X-Received: by 2002:a05:693c:3008:b0:2b7:ff3a:af82 with SMTP id
- 5a478bee46e88-2c185cb6ea0mr41311eec.1.1774559312876; Thu, 26 Mar 2026
- 14:08:32 -0700 (PDT)
+ bh=wkBp3yqCcEL7QYRuAZHO2ZMU8QoOpQA9ogtRXEC76cw=;
+ b=Syrd2MpP6Dy94jItAIv4yWsMzHBVxrj5eWjTnTadyma//Mi/VRubflNtzXsfLbY/lH
+ hm6p61FRno0GoqSCjPhiPUP6Ozx+D0FoT+dXw0a0zIziOF3KVjdf1QKtjQ/A2vuZljtp
+ 4HQdppaA+EaAXudm2dwxs66bxLhiLlzVasObkC4Bpid7o1ErWIoSGbLC/JZW8GVUCqid
+ OvyucKjYyfuTyOgT90gnLG+hczBgk4Kf2MyiN0SidhdILnUpua12LYuXQcjc4bhoPZBD
+ ATrsbym+CYKpeymfmZbCKfClMlvnwGj642DF7l1pa7sZEjDVRJ2rskY1dT20lgxMVWoF
+ 5bzw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCX/1+RRg+I+jzW6miMB30Yb8pz3Il0XfN3wlRiA5+NpzeqNscxzipKvTJeFGHqijXBrBKazGP8S@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyhbxdsXv4tmcmrZ4L2qvkzt0ihrjtWjx0fQfyoKR+/K1qA/u42
+ 0kKoipPwzPau/O/C0eL1U0QbQPRVhS54PtGOGbx15lMINkSQHvObNSwsRQDwOogJsDvkNXKcsyq
+ bhtONzchY1PSMfDEhZJdKHU8vmRn1zD0t1Q==
+X-Gm-Gg: ATEYQzxLeXWRKbmAPW7EyJLLms7Er+U/SuRGAD1lSjjkcIT/ws49PEHXLzQdqz/kI3j
+ XFoZgZnUu2JpHbyEOXKOxip4lQ6mGbblS29c6e+aeHOuByUp0rBQLODMPwasZ4ENx0zOncAMZiI
+ yCnuX5DRVu/o/KMtucVgMASlquE0+UbB06rV2KegNL3LdbQRMLx6gCKIBLU3FyX0G9M9SG9tUAq
+ xg7zz3oUjGt746dmk5jVbWiG9pE1q3HZgq/vhMENMLgnJ0tb+H4a8jpWi0uvpccLibe6g3uoMWR
+ Juxl/s5p+PUT3AjgNUOdYclXi3+/e/2QoEPGe8/fw0pnLNHrGDroEl2JGm3PfqE5ZRzzJQ==
+X-Received: by 2002:a05:7022:2209:b0:12a:716c:d29c with SMTP id
+ a92af1059eb24-12ab28fd96fmr31028c88.7.1774560788849; Thu, 26 Mar 2026
+ 14:33:08 -0700 (PDT)
 MIME-Version: 1.0
-References: <20260324175653.1325754-1-Amber.Lin@amd.com>
- <20260324175653.1325754-10-Amber.Lin@amd.com>
- <CADnq5_N87OnPXugvJJhnKuG4O6NZN5PdxBBYJVYA9nRP_msDyg@mail.gmail.com>
- <8aa62deb-df7e-4a3e-8303-67d050495998@amd.com>
-In-Reply-To: <8aa62deb-df7e-4a3e-8303-67d050495998@amd.com>
+References: <20260326020445.1187519-1-kevinyang.wang@amd.com>
+ <a35ca9d5-354f-4b98-a186-3a4797176b55@amd.com>
+In-Reply-To: <a35ca9d5-354f-4b98-a186-3a4797176b55@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 26 Mar 2026 17:08:19 -0400
-X-Gm-Features: AQROBzC1Hptae1rv7cjN9Kbrv-OLIeQQui9y-fTbjKy4w6M6j4e06h2Ra-w-PJ0
-Message-ID: <CADnq5_Ns2JEfdGHtFBzkHp5+01hpM=9SLnwxFz4dpt98DrzdzQ@mail.gmail.com>
-Subject: Re: [PATCH v2 09/10] drm/amdkfd: Reset queue/pipe in MES
-To: Amber Lin <Amber.Lin@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, Shaoyun.Liu@amd.com, Michael.Chen@amd.com, 
- Jesse.Zhang@amd.com, Jonathan Kim <jonathan.kim@amd.com>
+Date: Thu, 26 Mar 2026 17:32:57 -0400
+X-Gm-Features: AQROBzDiK5rS8y7xT03M4Skhri--dAANv-UMNON1TVEvPedb9X6nLy-FlrW-beU
+Message-ID: <CADnq5_PRGtHXruP9Y4UxA9-XmJ6UH=VA3OFfE+qs6tfgz3r1ug@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/pm: correct mem_busy_percent display due to
+ calculation errors
+To: "Lazar, Lijo" <lijo.lazar@amd.com>
+Cc: Yang Wang <kevinyang.wang@amd.com>, amd-gfx@lists.freedesktop.org, 
+ alexander.deucher@amd.com, hawking.zhang@amd.com, kenneth.feng@amd.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -104,370 +105,281 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Mar 26, 2026 at 3:40=E2=80=AFPM Amber Lin <Amber.Lin@amd.com> wrote=
-:
+On Thu, Mar 26, 2026 at 12:37=E2=80=AFAM Lazar, Lijo <lijo.lazar@amd.com> w=
+rote:
 >
 >
-> Regards,
-> Amber
 >
+> On 26-Mar-26 7:34 AM, Yang Wang wrote:
+> > PMFW may return invalid values due to internal calculation errors.
+> > so, the kmd driver must validate and sanitize the returned values to
+> > prevent issues caused by firmware calculation errors.
+> >
+> > For example, values 0xfffe (-2) and 0xffff (-1) are treated
+> > as invalid and clamped to 0.
+> >
 >
-> On 3/26/26 14:51, Alex Deucher wrote:
+> The problem with clamping is that the issue takes a different direction
+> after that.
 >
-> On Tue, Mar 24, 2026 at 1:57=E2=80=AFPM Amber Lin <Amber.Lin@amd.com> wro=
-te:
+> Presently, the issue is reported as garbage values reported in activity.
+> With clamping, the issue could get reported as 100% activity with light
+> load or 0% activity with a heavy load. That will take the debug in a
+> different direction.
 >
-> When removing queues fails, KFD calls amdgpu_mes to detect and reset
-> hung queues, then cleans up those hung queues in KFD.
->
-> Suggested-by: Jonathan Kim <jonathan.kim@amd.com>
-> Signed-off-by: Amber Lin <Amber.Lin@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c       |   6 +
->  drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h       |   1 +
->  .../drm/amd/amdkfd/kfd_device_queue_manager.c | 147 +++++++++++++++++-
->  drivers/gpu/drm/amd/amdkfd/kfd_priv.h         |   1 +
->  4 files changed, 153 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_mes.c
-> index f3a4ae1fd521..7cf4b3d6fc93 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-> @@ -793,6 +793,12 @@ bool amdgpu_mes_suspend_resume_all_supported(struct =
-amdgpu_device *adev)
->                 amdgpu_ip_version(adev, GC_HWIP, 0) >=3D IP_VERSION(12, 0=
-, 0));
->  }
->
-> +bool amdgpu_mes_queue_reset_by_mes_supported(struct amdgpu_device *adev)
-> +{
-> +       return (amdgpu_ip_version(adev, GC_HWIP, 0) =3D=3D IP_VERSION(12,=
- 1, 0) &&
-> +               (adev->mes.sched_version & AMDGPU_MES_VERSION_MASK) >=3D =
-0x73);
-> +}
-> +
->  /* Fix me -- node_id is used to identify the correct MES instances in th=
-e future */
->  static int amdgpu_mes_set_enforce_isolation(struct amdgpu_device *adev,
->                                             uint32_t node_id, bool enable=
-)
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_mes.h
-> index 643b4f8d757a..44fa4d73bce8 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
-> @@ -548,6 +548,7 @@ static inline void amdgpu_mes_unlock(struct amdgpu_me=
-s *mes)
->  }
->
->  bool amdgpu_mes_suspend_resume_all_supported(struct amdgpu_device *adev)=
-;
-> +bool amdgpu_mes_queue_reset_by_mes_supported(struct amdgpu_device *adev)=
-;
->
->  int amdgpu_mes_update_enforce_isolation(struct amdgpu_device *adev);
->
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/driv=
-ers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-> index ec8d7f4be840..1c9c350bfffe 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-> @@ -71,6 +71,12 @@ static int allocate_sdma_queue(struct device_queue_man=
-ager *dqm,
->                                 struct queue *q, const uint32_t *restore_=
-sdma_id);
->
->  static int reset_queues_on_hws_hang(struct device_queue_manager *dqm, bo=
-ol is_sdma);
-> +static int resume_all_queues_mes(struct device_queue_manager *dqm);
-> +static int suspend_all_queues_mes(struct device_queue_manager *dqm);
-> +static struct queue *find_queue_by_doorbell_offset(struct device_queue_m=
-anager *dqm,
-> +                                                  uint32_t doorbell_offs=
-et);
-> +static void set_queue_as_reset(struct device_queue_manager *dqm, struct =
-queue *q,
-> +                              struct qcm_process_device *qpd);
->
->  static inline
->  enum KFD_MQD_TYPE get_mqd_type_from_queue_type(enum kfd_queue_type type)
-> @@ -273,13 +279,19 @@ static int add_queue_mes(struct device_queue_manage=
-r *dqm, struct queue *q,
->         return r;
->  }
->
-> -static int remove_queue_mes(struct device_queue_manager *dqm, struct que=
-ue *q,
-> -                       struct qcm_process_device *qpd)
-> +static int remove_queue_mes_on_reset_option(struct device_queue_manager =
-*dqm, struct queue *q,
-> +                                           struct qcm_process_device *qp=
-d,
-> +                                           bool is_for_reset,
-> +                                           bool flush_mes_queue)
->  {
->         struct amdgpu_device *adev =3D (struct amdgpu_device *)dqm->dev->=
-adev;
->         int r;
->         struct mes_remove_queue_input queue_input;
->
-> +       /* queue was already removed during reset */
-> +       if (q->properties.is_reset)
-> +               return 0;
-> +
->         if (!dqm->sched_running || dqm->sched_halt)
->                 return 0;
->         if (!down_read_trylock(&adev->reset_domain->sem))
-> @@ -288,6 +300,7 @@ static int remove_queue_mes(struct device_queue_manag=
-er *dqm, struct queue *q,
->         memset(&queue_input, 0x0, sizeof(struct mes_remove_queue_input));
->         queue_input.doorbell_offset =3D q->properties.doorbell_off;
->         queue_input.gang_context_addr =3D q->gang_ctx_gpu_addr;
-> +       queue_input.remove_queue_after_reset =3D flush_mes_queue;
->         queue_input.xcc_id =3D ffs(dqm->dev->xcc_mask) - 1;
->
->         amdgpu_mes_lock(&adev->mes);
-> @@ -295,7 +308,13 @@ static int remove_queue_mes(struct device_queue_mana=
-ger *dqm, struct queue *q,
->         amdgpu_mes_unlock(&adev->mes);
->         up_read(&adev->reset_domain->sem);
->
-> +       if (is_for_reset)
-> +               return r;
-> +
->         if (r) {
-> +               if (!suspend_all_queues_mes(dqm))
-> +                       return resume_all_queues_mes(dqm);
-> +
->                 dev_err(adev->dev, "failed to remove hardware queue from =
-MES, doorbell=3D0x%x\n",
->                         q->properties.doorbell_off);
->                 dev_err(adev->dev, "MES might be in unrecoverable state, =
-issue a GPU reset\n");
-> @@ -305,6 +324,12 @@ static int remove_queue_mes(struct device_queue_mana=
-ger *dqm, struct queue *q,
->         return r;
->  }
->
-> +static int remove_queue_mes(struct device_queue_manager *dqm, struct que=
-ue *q,
-> +                           struct qcm_process_device *qpd)
-> +{
-> +       return remove_queue_mes_on_reset_option(dqm, q, qpd, false, false=
-);
-> +}
-> +
->  static int remove_all_kfd_queues_mes(struct device_queue_manager *dqm)
->  {
->         struct device_process_node *cur;
-> @@ -359,6 +384,103 @@ static int add_all_kfd_queues_mes(struct device_que=
-ue_manager *dqm)
->         return retval;
->  }
->
-> +static int reset_queues_mes(struct device_queue_manager *dqm)
-> +{
-> +       struct amdgpu_device *adev =3D (struct amdgpu_device *)dqm->dev->=
-adev;
-> +       struct amdgpu_mes_hung_queue_hqd_info *hqd_info;
-> +       int hqd_info_size =3D adev->mes.hung_queue_hqd_info_offset;
-> +       int num_hung =3D 0, r =3D 0, i, pipe, queue, queue_type;
-> +       uint32_t *hung_array;
-> +       struct kfd_process_device *pdd;
-> +       struct queue *q;
-> +
-> +       if (!amdgpu_mes_queue_reset_by_mes_supported(adev)) {
-> +               r =3D -ENOTRECOVERABLE;
-> +               goto fail;
-> +       }
-> +
-> +       /* reset should be used only in dqm locked queue reset */
-> +       if (WARN_ON(dqm->detect_hang_count > 0))
-> +               return 0;
-> +
-> +       if (!amdgpu_gpu_recovery) {
-> +               r =3D -ENOTRECOVERABLE;
-> +               goto fail;
-> +       }
-> +
-> +       hung_array =3D kzalloc(adev->mes.hung_queue_db_array_size * sizeo=
-f(uint32_t), GFP_KERNEL);
-> +       if (!hung_array) {
-> +               r =3D -ENOMEM;
-> +               goto fail;
-> +       }
-> +
-> +       hqd_info =3D kzalloc(hqd_info_size * sizeof(struct amdgpu_mes_hun=
-g_queue_hqd_info), GFP_KERNEL);
->
-> We should avoid allocating memory in the reset paths as they can
-> deadlock if the kernel is waiting on the reset to get the memory
-> needed for the allocation.  Can you preallocate this somehow?
->
-> Alex
->
-> I probably misunderstood the concern here... When we allocate the needed =
-memory here, reset process hasn't happened until we call amdgpu_mes_detect_=
-and_reset_hung_queues below. amdgpu_mes_detect_and_reset_hung_queues is whe=
-re driver prepares the detect_and_reset input and then submits the RESET pa=
-cket to MES.
+> Instead, isn't it better to keep this as some errata and let user apps
+> filter out garbage values? The previous or next sample could reflect the
+> activity correctly. Later fix can be added to newer firmware, if that is
+> an option.
 
-RIght, but we've detected a problem at this point (failure to remove a
-queue).  Presumably we tried to remove the queue due to some external
-factor such as the kernel asking for memory.  Once that happens the
-kernel may be stuck until we complete the reset and the memory can be
-freed.  If you really need to allocate memory, you need to use
-GFP_ATOMIC.
+What about returning -EBUSY or -EAGAIN if the value is negative?
 
 Alex
 
 >
-> +       if (!hqd_info) {
-> +               r =3D -ENOMEM;
-> +               goto free_hung_array;
-> +       }
-> +
-> +       memset(hqd_info, 0, hqd_info_size * sizeof(struct amdgpu_mes_hung=
-_queue_hqd_info));
-> +
-> +       /*
-> +        * AMDGPU_RING_TYPE_COMPUTE parameter does not matter if called
-> +        * post suspend_all as reset & detect will return all hung queue =
-types.
-> +        *
-> +        * Passed parameter is for targeting queues not scheduled by MES =
-add_queue.
-> +        */
-> +       r =3D  amdgpu_mes_detect_and_reset_hung_queues(adev, AMDGPU_RING_=
-TYPE_COMPUTE,
-> +               false, &num_hung, hung_array, ffs(dqm->dev->xcc_mask) - 1=
-);
+> Thanks,
+> Lijo
 >
-> Here is the amdgpu_mes_detect_and_reset_hung_queues
 >
-> +
-> +       if (!num_hung || r) {
-> +               r =3D -ENOTRECOVERABLE;
-> +               goto free_hqd_info;
-> +       }
-> +
-> +       /* MES reset resets queue/pipe and cleans up internally  */
-> +       for (i =3D 0; i < num_hung; i++) {
-> +               hqd_info[i].bit0_31 =3D hung_array[i + hqd_info_size];
-> +               pipe =3D hqd_info[i].pipe_index;
-> +               queue =3D hqd_info[i].queue_index;
-> +               queue_type =3D hqd_info[i].queue_type;
-> +
-> +               if (queue_type !=3D MES_QUEUE_TYPE_COMPUTE &&
-> +                   queue_type !=3D MES_QUEUE_TYPE_SDMA) {
-> +                       pr_warn("Unsupported hung queue reset type: %d\n"=
-, queue_type);
-> +                       hung_array[i] =3D AMDGPU_MES_INVALID_DB_OFFSET;
-> +                       continue;
-> +               }
-> +
-> +               q =3D find_queue_by_doorbell_offset(dqm, hung_array[i]);
-> +               if (!q) {
-> +                       r =3D -ENOTRECOVERABLE;
-> +                       goto free_hqd_info;
-> +               }
-> +
-> +               pdd =3D kfd_get_process_device_data(q->device, q->process=
-);
-> +               if (!pdd) {
-> +                       r =3D -ENODEV;
-> +                       goto free_hqd_info;
-> +               }
-> +
-> +               pr_warn("Hang detected doorbell %x pipe %d queue %d type =
-%d\n",
-> +                               hung_array[i], pipe, queue, queue_type);
-> +               /* Proceed remove_queue with reset=3Dtrue */
-> +               remove_queue_mes_on_reset_option(dqm, q, &pdd->qpd, true,=
- false);
-> +               set_queue_as_reset(dqm, q, &pdd->qpd);
-> +       }
-> +
-> +       dqm->detect_hang_count =3D num_hung;
-> +       kfd_signal_reset_event(dqm->dev);
-> +
-> +free_hqd_info:
-> +       kfree(hqd_info);
-> +free_hung_array:
-> +       kfree(hung_array);
-> +fail:
-> +       dqm->detect_hang_count =3D 0;
-> +       return r;
-> +}
-> +
->  static int suspend_all_queues_mes(struct device_queue_manager *dqm)
->  {
->         struct amdgpu_device *adev =3D (struct amdgpu_device *)dqm->dev->=
-adev;
-> @@ -371,6 +493,9 @@ static int suspend_all_queues_mes(struct device_queue=
-_manager *dqm)
->         up_read(&adev->reset_domain->sem);
->
->         if (r) {
-> +               if (!reset_queues_mes(dqm))
-> +                       return 0;
-> +
->                 dev_err(adev->dev, "failed to suspend gangs from MES\n");
->                 dev_err(adev->dev, "MES might be in unrecoverable state, =
-issue a GPU reset\n");
->                 kfd_hws_hang(dqm);
-> @@ -2137,6 +2262,7 @@ static void set_queue_as_reset(struct device_queue_=
-manager *dqm, struct queue *q
->                 q->properties.queue_id, pdd->process->lead_thread->pid);
->
->         pdd->has_reset_queue =3D true;
-> +       q->properties.is_reset =3D true;
->         if (q->properties.is_active) {
->                 q->properties.is_active =3D false;
->                 decrement_queue_count(dqm, qpd, q);
-> @@ -2203,6 +2329,23 @@ static struct queue *find_queue_by_address(struct =
-device_queue_manager *dqm, uin
->         return NULL;
->  }
->
-> +static struct queue *find_queue_by_doorbell_offset(struct device_queue_m=
-anager *dqm, uint32_t doorbell_offset)
-> +{
-> +       struct device_process_node *cur;
-> +       struct qcm_process_device *qpd;
-> +       struct queue *q;
-> +
-> +       list_for_each_entry(cur, &dqm->queues, list) {
-> +               qpd =3D cur->qpd;
-> +               list_for_each_entry(q, &qpd->queues_list, list) {
-> +                       if (doorbell_offset =3D=3D q->properties.doorbell=
-_off)
-> +                               return q;
-> +               }
-> +       }
-> +
-> +       return NULL;
-> +}
-> +
->  static int reset_hung_queues(struct device_queue_manager *dqm)
->  {
->         int r =3D 0, reset_count =3D 0, i;
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/=
-amdkfd/kfd_priv.h
-> index 27e4859e4ad7..6cb33f6d71e2 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-> @@ -523,6 +523,7 @@ struct queue_properties {
->         uint32_t pm4_target_xcc;
->         bool is_dbg_wa;
->         bool is_user_cu_masked;
-> +       bool is_reset;
->         /* Not relevant for user mode queues in cp scheduling */
->         unsigned int vmid;
->         /* Relevant only for sdma queues*/
-> --
-> 2.43.0
->
+> > this applies to devices with CAB (Cache As Buffer) functionality.
+> >
+> > Closes: https://gitlab.freedesktop.org/drm/amd/-/work_items/4905
+> >
+> > Signed-off-by: Yang Wang <kevinyang.wang@amd.com>
+> > ---
+> >   drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h   | 17 ++++++++++++++++=
++
+> >   .../drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c    | 10 +++++-----
+> >   .../drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c    | 10 +++++-----
+> >   .../drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c    | 10 +++++-----
+> >   4 files changed, 32 insertions(+), 15 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h b/drivers/gp=
+u/drm/amd/pm/swsmu/inc/amdgpu_smu.h
+> > index 609f5ab07d8a..365946c43e11 100644
+> > --- a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
+> > +++ b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
+> > @@ -2164,4 +2164,21 @@ static inline void smu_feature_init(struct smu_c=
+ontext *smu, int feature_num)
+> >       smu_feature_list_clear_all(smu, SMU_FEATURE_LIST_ALLOWED);
+> >   }
+> >
+> > +/*
+> > + * smu_safe_u16_nn - Make u16 safe by filtering negative overflow erro=
+rs
+> > + * @val: Input u16 value, may contain invalid negative overflows
+> > + *
+> > + * Convert u16 to non-negative value. Cast to s16 to detect negative v=
+alues
+> > + * caused by calculation errors. Return 0 for negative errors, return
+> > + * original value if valid.
+> > + *
+> > + * Return: Valid u16 value or 0
+> > + */
+> > +static inline u16 smu_safe_u16_nn(u16 val)
+> > +{
+> > +    s16 tmp =3D (s16)val;
+> > +
+> > +    return tmp < 0 ? 0 : val;
+> > +}
+> > +
+> >   #endif
+> > diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c b/dri=
+vers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
+> > index 9be7a2af560d..16f69b548ca4 100644
+> > --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
+> > +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
+> > @@ -774,13 +774,13 @@ static int smu_v13_0_0_get_smu_metrics_data(struc=
+t smu_context *smu,
+> >                       *value =3D metrics->AverageGfxclkFrequencyPreDs;
+> >               break;
+> >       case METRICS_AVERAGE_FCLK:
+> > -             if (metrics->AverageUclkActivity <=3D SMU_13_0_0_BUSY_THR=
+ESHOLD)
+> > +             if (smu_safe_u16_nn(metrics->AverageUclkActivity) <=3D SM=
+U_13_0_0_BUSY_THRESHOLD)
+> >                       *value =3D metrics->AverageFclkFrequencyPostDs;
+> >               else
+> >                       *value =3D metrics->AverageFclkFrequencyPreDs;
+> >               break;
+> >       case METRICS_AVERAGE_UCLK:
+> > -             if (metrics->AverageUclkActivity <=3D SMU_13_0_0_BUSY_THR=
+ESHOLD)
+> > +             if (smu_safe_u16_nn(metrics->AverageUclkActivity) <=3D SM=
+U_13_0_0_BUSY_THRESHOLD)
+> >                       *value =3D metrics->AverageMemclkFrequencyPostDs;
+> >               else
+> >                       *value =3D metrics->AverageMemclkFrequencyPreDs;
+> > @@ -801,7 +801,7 @@ static int smu_v13_0_0_get_smu_metrics_data(struct =
+smu_context *smu,
+> >               *value =3D metrics->AverageGfxActivity;
+> >               break;
+> >       case METRICS_AVERAGE_MEMACTIVITY:
+> > -             *value =3D metrics->AverageUclkActivity;
+> > +             *value =3D smu_safe_u16_nn(metrics->AverageUclkActivity);
+> >               break;
+> >       case METRICS_AVERAGE_VCNACTIVITY:
+> >               *value =3D max(metrics->Vcn0ActivityPercentage,
+> > @@ -2086,7 +2086,7 @@ static ssize_t smu_v13_0_0_get_gpu_metrics(struct=
+ smu_context *smu,
+> >                                            metrics->AvgTemperature[TEMP=
+_VR_MEM1]);
+> >
+> >       gpu_metrics->average_gfx_activity =3D metrics->AverageGfxActivity=
+;
+> > -     gpu_metrics->average_umc_activity =3D metrics->AverageUclkActivit=
+y;
+> > +     gpu_metrics->average_umc_activity =3D smu_safe_u16_nn(metrics->Av=
+erageUclkActivity);
+> >       gpu_metrics->average_mm_activity =3D max(metrics->Vcn0ActivityPer=
+centage,
+> >                                              metrics->Vcn1ActivityPerce=
+ntage);
+> >
+> > @@ -2103,7 +2103,7 @@ static ssize_t smu_v13_0_0_get_gpu_metrics(struct=
+ smu_context *smu,
+> >       else
+> >               gpu_metrics->average_gfxclk_frequency =3D metrics->Averag=
+eGfxclkFrequencyPreDs;
+> >
+> > -     if (metrics->AverageUclkActivity <=3D SMU_13_0_0_BUSY_THRESHOLD)
+> > +     if (smu_safe_u16_nn(metrics->AverageUclkActivity) <=3D SMU_13_0_0=
+_BUSY_THRESHOLD)
+> >               gpu_metrics->average_uclk_frequency =3D metrics->AverageM=
+emclkFrequencyPostDs;
+> >       else
+> >               gpu_metrics->average_uclk_frequency =3D metrics->AverageM=
+emclkFrequencyPreDs;
+> > diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c b/dri=
+vers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
+> > index 5cc15545da6e..34a5973b9a06 100644
+> > --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
+> > +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
+> > @@ -784,13 +784,13 @@ static int smu_v13_0_7_get_smu_metrics_data(struc=
+t smu_context *smu,
+> >               *value =3D metrics->AverageGfxclkFrequencyPreDs;
+> >               break;
+> >       case METRICS_AVERAGE_FCLK:
+> > -             if (metrics->AverageUclkActivity <=3D SMU_13_0_7_BUSY_THR=
+ESHOLD)
+> > +             if (smu_safe_u16_nn(metrics->AverageUclkActivity) <=3D SM=
+U_13_0_7_BUSY_THRESHOLD)
+> >                       *value =3D metrics->AverageFclkFrequencyPostDs;
+> >               else
+> >                       *value =3D metrics->AverageFclkFrequencyPreDs;
+> >               break;
+> >       case METRICS_AVERAGE_UCLK:
+> > -             if (metrics->AverageUclkActivity <=3D SMU_13_0_7_BUSY_THR=
+ESHOLD)
+> > +             if (smu_safe_u16_nn(metrics->AverageUclkActivity) <=3D SM=
+U_13_0_7_BUSY_THRESHOLD)
+> >                       *value =3D metrics->AverageMemclkFrequencyPostDs;
+> >               else
+> >                       *value =3D metrics->AverageMemclkFrequencyPreDs;
+> > @@ -815,7 +815,7 @@ static int smu_v13_0_7_get_smu_metrics_data(struct =
+smu_context *smu,
+> >               *value =3D metrics->AverageGfxActivity;
+> >               break;
+> >       case METRICS_AVERAGE_MEMACTIVITY:
+> > -             *value =3D metrics->AverageUclkActivity;
+> > +             *value =3D smu_safe_u16_nn(metrics->AverageUclkActivity);
+> >               break;
+> >       case METRICS_AVERAGE_SOCKETPOWER:
+> >               *value =3D metrics->AverageSocketPower << 8;
+> > @@ -2092,7 +2092,7 @@ static ssize_t smu_v13_0_7_get_gpu_metrics(struct=
+ smu_context *smu,
+> >                                            metrics->AvgTemperature[TEMP=
+_VR_MEM1]);
+> >
+> >       gpu_metrics->average_gfx_activity =3D metrics->AverageGfxActivity=
+;
+> > -     gpu_metrics->average_umc_activity =3D metrics->AverageUclkActivit=
+y;
+> > +     gpu_metrics->average_umc_activity =3D smu_safe_u16_nn(metrics->Av=
+erageUclkActivity);
+> >       gpu_metrics->average_mm_activity =3D max(metrics->Vcn0ActivityPer=
+centage,
+> >                                              metrics->Vcn1ActivityPerce=
+ntage);
+> >
+> > @@ -2105,7 +2105,7 @@ static ssize_t smu_v13_0_7_get_gpu_metrics(struct=
+ smu_context *smu,
+> >       else
+> >               gpu_metrics->average_gfxclk_frequency =3D metrics->Averag=
+eGfxclkFrequencyPreDs;
+> >
+> > -     if (metrics->AverageUclkActivity <=3D SMU_13_0_7_BUSY_THRESHOLD)
+> > +     if (smu_safe_u16_nn(metrics->AverageUclkActivity) <=3D SMU_13_0_7=
+_BUSY_THRESHOLD)
+> >               gpu_metrics->average_uclk_frequency =3D metrics->AverageM=
+emclkFrequencyPostDs;
+> >       else
+> >               gpu_metrics->average_uclk_frequency =3D metrics->AverageM=
+emclkFrequencyPreDs;
+> > diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c b/dri=
+vers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
+> > index 28c1b084fe62..aaec3a251e0f 100644
+> > --- a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
+> > +++ b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
+> > @@ -660,13 +660,13 @@ static int smu_v14_0_2_get_smu_metrics_data(struc=
+t smu_context *smu,
+> >                       *value =3D metrics->AverageGfxclkFrequencyPreDs;
+> >               break;
+> >       case METRICS_AVERAGE_FCLK:
+> > -             if (metrics->AverageUclkActivity <=3D SMU_14_0_2_BUSY_THR=
+ESHOLD)
+> > +             if (smu_safe_u16_nn(metrics->AverageUclkActivity) <=3D SM=
+U_14_0_2_BUSY_THRESHOLD)
+> >                       *value =3D metrics->AverageFclkFrequencyPostDs;
+> >               else
+> >                       *value =3D metrics->AverageFclkFrequencyPreDs;
+> >               break;
+> >       case METRICS_AVERAGE_UCLK:
+> > -             if (metrics->AverageUclkActivity <=3D SMU_14_0_2_BUSY_THR=
+ESHOLD)
+> > +             if (smu_safe_u16_nn(metrics->AverageUclkActivity) <=3D SM=
+U_14_0_2_BUSY_THRESHOLD)
+> >                       *value =3D metrics->AverageMemclkFrequencyPostDs;
+> >               else
+> >                       *value =3D metrics->AverageMemclkFrequencyPreDs;
+> > @@ -687,7 +687,7 @@ static int smu_v14_0_2_get_smu_metrics_data(struct =
+smu_context *smu,
+> >               *value =3D metrics->AverageGfxActivity;
+> >               break;
+> >       case METRICS_AVERAGE_MEMACTIVITY:
+> > -             *value =3D metrics->AverageUclkActivity;
+> > +             *value =3D smu_safe_u16_nn(metrics->AverageUclkActivity);
+> >               break;
+> >       case METRICS_AVERAGE_VCNACTIVITY:
+> >               *value =3D max(metrics->AverageVcn0ActivityPercentage,
+> > @@ -2146,7 +2146,7 @@ static ssize_t smu_v14_0_2_get_gpu_metrics(struct=
+ smu_context *smu,
+> >                                            metrics->AvgTemperature[TEMP=
+_VR_MEM1]);
+> >
+> >       gpu_metrics->average_gfx_activity =3D metrics->AverageGfxActivity=
+;
+> > -     gpu_metrics->average_umc_activity =3D metrics->AverageUclkActivit=
+y;
+> > +     gpu_metrics->average_umc_activity =3D smu_safe_u16_nn(metrics->Av=
+erageUclkActivity);
+> >       gpu_metrics->average_mm_activity =3D max(metrics->AverageVcn0Acti=
+vityPercentage,
+> >                                              metrics->Vcn1ActivityPerce=
+ntage);
+> >
+> > @@ -2158,7 +2158,7 @@ static ssize_t smu_v14_0_2_get_gpu_metrics(struct=
+ smu_context *smu,
+> >       else
+> >               gpu_metrics->average_gfxclk_frequency =3D metrics->Averag=
+eGfxclkFrequencyPreDs;
+> >
+> > -     if (metrics->AverageUclkActivity <=3D SMU_14_0_2_BUSY_THRESHOLD)
+> > +     if (smu_safe_u16_nn(metrics->AverageUclkActivity) <=3D SMU_14_0_2=
+_BUSY_THRESHOLD)
+> >               gpu_metrics->average_uclk_frequency =3D metrics->AverageM=
+emclkFrequencyPostDs;
+> >       else
+> >               gpu_metrics->average_uclk_frequency =3D metrics->AverageM=
+emclkFrequencyPreDs;
 >
