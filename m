@@ -4,124 +4,96 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5313F109E55C
-	for <amd-gfx@archiver.kernel.org>; Thu, 26 Mar 2026 07:06:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BD7C1106F2E7
+	for <amd-gfx@archiver.kernel.org>; Thu, 26 Mar 2026 07:54:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 54BC310E992;
-	Thu, 26 Mar 2026 07:06:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4E23710E169;
+	Thu, 26 Mar 2026 07:54:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="whbfUl2A";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="DGXR3+/3";
 	dkim-atps=neutral
-Received: from SN4PR2101CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11012001.outbound.protection.outlook.com
- [40.93.195.1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0F0D210E992
- for <amd-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 07:06:00 +0000 (UTC)
+Received: from DM1PR04CU001.outbound.protection.outlook.com
+ (mail-centralusazon11010031.outbound.protection.outlook.com [52.101.61.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4194F10E169
+ for <amd-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 07:54:53 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=JS5IpnUb9TXgNiYGq8vn6V3nrW/h2lGh9EGTh4QQEvSnvwgfkGvHoVfl8MOmI/LGVaVIttthPkurdtQol7cksaVoQLbiF5U7Q2FhAVkIOzR2CarVk4EaRsMC6bz4fMFkh66bSfP5DZUQ2GdrHeiWHhvdjh5n4kY18ate+UXnawbvHw4TRGZ9rHc+5uXlElZbmRqT4ZwYwB9YEtNQrvyBngeum9pZ37mKU4y+/cFnpH3vFfj/pBZ239354nN/Fu0TsbFfo4QDIGNgNOrStM4BjZfAbghX4aJRSsNk4sMGlZWEtZa1I060B5Tl8B0i2JWH9Pv9mSXw1jOO09VEXEXbHA==
+ b=ocXSvn56kRGOfSPOoelY+6B2ofc92ZzR7Fv6Xe4AVnQKcpyo/bS5yb/Towp/Paq2C69ynVb9F3y73c8ebfXuNBIPcXbCwmVrdN3OcRoBcBRQAG4khahZDzID52dbXIwn8xAoSiFeueHnXLuc74vvYEWIVHgiEo71tD8rga8YYP8JDEK8BPDxDJ6S8rzD4ne0DU55hiLDKcHXP+w3q0VJ2fKF3cyxnmMVc6izmM9UyteDr3U8y7YGPfq2aX1Kvfg4BxCB7w6AoSEFnvLIEcEyiuKpmr+uIN/p39sVIZ5687+S3NHyGAVaELQAl31gQ8NNZGtksguWUbqGrqnt2b+2RA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=uY63BQzkmKRVlf2v4V9DzaQ9/kPSx/dMHIcd1iRvXYw=;
- b=PxGqCQ/F/ixNOUnzobRjmnY6JH2NywvjQCBgfyVNO0IaNX6KaPE5DTJak8Ow2PJwDa3Kt5N6jHvYkgb5s8bhrmWFQoNykVlO/ub+n5h6cflnlq+2wiYRvWVoPoDYfmGw7vUaaznlnIH98wW99crnN5FVnSjJ3/LAHLlIIbj+RZuRoDjCR7dhMtZv6+WAGAiEQwBMftd83t9R7upBSccD1B8JJaT4hinfYcbrBbtaSxng6mdxotXa3ABFFw0VZfaUhUhjLlmA8zIJMwM8Th+gIeewwu0wtGonNqtV00u90wFtmmkKASO/4R9yK/Twg5t40i6SmjzoBT5Tm7RJrddgZw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=T+m9/Jm8Pac6AuzvRDtSt4anGDQI3sOGAmEgH81fi7o=;
+ b=DBOooW7e9YzZjTt4r/8GPF80bpVb2bigyLS7xWVT3Fzu9gHiOyrblbPuCHpJUckWuE+XbX6MblYtH9HNGOvkS7ZkUC6IqRWn96whr+u+CsJe1SpirSKXyXU+mpGuX80njFgJA4CrOC6XfdwoREdLFJa5MJe0iAkxKPQUYP4z8SrBZCPAwbmCE7Fp4J/znWuCKKDocxrjD33QC1UnCQVV9nr+ftsomjCSAg17C1ON3creThiIJvEH/H12x8Vg7aLaiUD400BzPWPw2zQYsB0uCeq1qBHBwWpzqHPXgY2jW1s2QiI5k/l60PF107tBf0ohCLWNJ7MW+guWk9jzQUpnbw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=uY63BQzkmKRVlf2v4V9DzaQ9/kPSx/dMHIcd1iRvXYw=;
- b=whbfUl2AV2q9JD1rQ/mkAKy7iwqv4k7xnJXu698/MTnM0MOSbWU+FynircyHwUMV8D0zVla1gs5f+eWJQHI5kL9tdPaiObgxmsFFBSQ5ng+ZOmopvTHa9/q8fFc3DZxNBOqlV0l/xAx34Qdc+Kr8Wjm2jWtIuSW5N9BC3rzpsM8=
-Received: from MW4PR12MB6803.namprd12.prod.outlook.com (2603:10b6:303:20e::10)
- by CH2PR12MB4182.namprd12.prod.outlook.com (2603:10b6:610:ae::11)
+ bh=T+m9/Jm8Pac6AuzvRDtSt4anGDQI3sOGAmEgH81fi7o=;
+ b=DGXR3+/3y5sYl+Ndb1WogoIaHjyEkObRrQiM1kO/v9ld4+SjzATzilI1KkRSU3wEDzoUcUO/S+DujfBn3QG4lu86d/nU9ur9f0AVjKjCMICsCdnI26r8rXCnXmjLYKs/skMpMGNN60JkuXKTbUjN+mvQASOTDTh3l7fY8mvNKmE=
+Received: from BL0PR02CA0074.namprd02.prod.outlook.com (2603:10b6:208:51::15)
+ by LV2PR12MB5943.namprd12.prod.outlook.com (2603:10b6:408:170::8)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.7; Thu, 26 Mar
- 2026 07:05:55 +0000
-Received: from MW4PR12MB6803.namprd12.prod.outlook.com
- ([fe80::c193:ef2e:260f:dcfd]) by MW4PR12MB6803.namprd12.prod.outlook.com
- ([fe80::c193:ef2e:260f:dcfd%7]) with mapi id 15.20.9745.019; Thu, 26 Mar 2026
- 07:05:54 +0000
-From: "Feng, Kenneth" <Kenneth.Feng@amd.com>
-To: "Wang, Yang(Kevin)" <KevinYang.Wang@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-CC: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Zhang, Hawking"
- <Hawking.Zhang@amd.com>
-Subject: RE: [PATCH] drm/amd/pm: correct mem_busy_percent display due to
- calculation errors
-Thread-Topic: [PATCH] drm/amd/pm: correct mem_busy_percent display due to
- calculation errors
-Thread-Index: AQHcvMT1czWsDV+qhUiFmdpO70vbSrXAZE/w
-Date: Thu, 26 Mar 2026 07:05:54 +0000
-Message-ID: <MW4PR12MB6803D03DEFBA17D92CF2F8EB8E56A@MW4PR12MB6803.namprd12.prod.outlook.com>
-References: <20260326020445.1187519-1-kevinyang.wang@amd.com>
-In-Reply-To: <20260326020445.1187519-1-kevinyang.wang@amd.com>
-Accept-Language: en-US, zh-CN
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=True;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2026-03-26T07:05:27.0000000Z;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
- Internal Distribution
- Only; MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=3;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: MW4PR12MB6803:EE_|CH2PR12MB4182:EE_
-x-ms-office365-filtering-correlation-id: a7b13f39-7c4a-472e-f239-08de8b061f8b
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|366016|1800799024|376014|38070700021|18002099003|56012099003|22082099003;
-x-microsoft-antispam-message-info: ZIPYRpwGXCyVDFQIUxYygJN+act9Y0I89/nhhimPXOQA8LxzP7DqlWeazUGCaj3Ji/3PzlWzbk8Siky+UHx4efq7yQA5Yt6s/JMM2wTJg3esz4j9YToNZOGHIUDfZMPw58ETjZG59Lt0QiBR7JZfIT/75PjEhNTERDTvOhbcKfuXFqncEUZhvZUCU0gIDVlZWJhkckoTVQ+ctjXp49u7BP+6ki7fo89Y6ChRB1iCt/dctQaz7rIbcogXyaxd+jC1WiLCp2UN1VEMPIbdKpBOary6I74GrPs/mRqpg3ybUYz5GHOSglbtl7pTeKwcW5+tK5sWsfXe9jsIK9iSTIWvdLOrQ4bWbUERkYls4g1hRKpMXeLKIAcphpOLtG/Cxkbeh3tHpLIfqvfVkMuWfz/qrQUjlv0KB6bRpQ7vviCGYMbsHnJ8Aw3YsQFL0qb0FY79Uw6xdfJLOESWHfKg/xkd3I37oZN4uks0QcTVr7hPqQjqQBUTi2MEIC1cvh0eS9qT9p8XYRQ9mRj5x4gxQ51qCCjNlyp8jLpUn9WEmaujp/i4O8jz3+8gviuhu4cAb7Kd116WgJQJ33ruG++ZosdRkjefz1drmPhRfIT5Ja/PIXuSWCYcKYmrFLBs3r6rO/zR2e++81avjmJ9Zt+cdmGS10wNX6BMIdDfHz/MIyjTmq7tqXYZxTotURv1hWHRujM+Z89NdGxqI4e58R7cDtEhxiA9C4z+lVFBMjJIDujS/cnIaN4XaiD6fy9eF4Huwgk3
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MW4PR12MB6803.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014)(38070700021)(18002099003)(56012099003)(22082099003);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?Vptd7eCBVxDRBgydW0nFi/83tT29nlqOMrXschtbed/dAlOv47+/5zcie327?=
- =?us-ascii?Q?hL4DOJHTd63ezif5xgplikKKE1Eq6nmvV86jYo3yyjjPEMx9wGGFz6Cw7Bh5?=
- =?us-ascii?Q?wUiBSxIdCUIWg0QRRe7oNJt96sn98bOtBmNrs72i/7DcNvxVVs//fgH8IvDN?=
- =?us-ascii?Q?IRAvyw0IZXeqrZRcWqtRyhMWM9VCb8JxIkwcYXkoqxYS7hocEuX9J2NF15Ll?=
- =?us-ascii?Q?FDs2KuFUcDeuG9GixEUI2ArrnD3padLoJUClryoq3Nd+foV4MUO7a1PSMrvt?=
- =?us-ascii?Q?MMnU+HDE8f98YPS07TOtO7adNNi10jkwkbmMaNas05feMTQz31Je1DIwdeGN?=
- =?us-ascii?Q?6OBd2vCI/LSX3n5/Ajx8EIz7fzMkVoYTZ7IS8VjXiZr3outDBJVOJ1E3/yCx?=
- =?us-ascii?Q?7jIufn3wdma368Q45+fxH6k702u2h8xndWBlEM/6xG1pWEn96+8YN50smg33?=
- =?us-ascii?Q?dM3Wg/hf2QOldyWPcKiZyy2NquRbSMTkXsnXBPF95kURhhu3iO59R/rVFILm?=
- =?us-ascii?Q?0FIA0piHDdCPzzxpgQSAkMI6JTAccVBnLLM2x9PldnnPp78sriNfRC4mkFoM?=
- =?us-ascii?Q?DIqeMCHZEssYxPemTsCHeRDdmzN29iI2KWfPy6rpLhMCnQTDhqoiIbV8bpNz?=
- =?us-ascii?Q?1vfnw9BHrYshUrEf4AUoohgjuYLgJzc/IAZ1tTNe4WmS2YtWuwQCqtVzDCEI?=
- =?us-ascii?Q?yKEZjbZQ8k0rbcURd+qf5xnjv4hpqLmsE68/UNmD0E4++36yXUP9oicrxhql?=
- =?us-ascii?Q?JcH3itNjGGvuueVzwakkcIKi7YRloR5e+keE0B+TVpAXS/zMCv0M1y0HeJtw?=
- =?us-ascii?Q?x4m6xXo0HqWKW9etSXyZH1mtF5lyOgbEERVqPTszYReDNpEaWLLlcw3Jhewv?=
- =?us-ascii?Q?KvdoPs/o+3KNlTzECVwdYcEUJI2Jm+NNcC2BDCPvyVjtYW2/vt8mIH69gtRw?=
- =?us-ascii?Q?AHObxQywKtaDMHbCwbIGsvrWr+Q4BdrQhfNKUGb3PsS7VLwGPvL/AO+elmMC?=
- =?us-ascii?Q?ITS3DWXnBlQmJO1ox3dUjr8u3kXCK0jJjzJ+NX+YpqNwSEwZmrguBb4Svhf2?=
- =?us-ascii?Q?IiknpmeiS4EclIq698Hhs4aAmM4dLeiMVft77i/LNL/T3vpTwwBrn+8YykuB?=
- =?us-ascii?Q?YerpDpeY9uMC5y/vpehZcqVUIHJQZKV7lKcoCoB48PeHKF38ADJdwyLJ0giA?=
- =?us-ascii?Q?ZfZkJYgP+MYE31EFpMvBpkI6KkKp+A47yLYgKs1wh8P7zifaQv5ffSXxZ/mA?=
- =?us-ascii?Q?v9H21arYeEfBl/FTKd6d6ZTvI8G8YuDLPc9HqmqoobYXlNzYrcIlGR8s65e0?=
- =?us-ascii?Q?uKrqf/U1tsos7CyPYYP0Bl0cRVeXo1UTTfMRPxitLU/yhpH2oaM4fBf4tdxl?=
- =?us-ascii?Q?kkHu4HxwlBZOHVmF7chAZRarBtBmoHXO1IDvVbqPSzkxvcYzY0GoyaLybm2R?=
- =?us-ascii?Q?vaPL7kn2KBkyLCmoXI7DkxM75zfa+jrU6mB2x8JZv+kAi5ZXCffOFDsyWfwj?=
- =?us-ascii?Q?GoX79NKU+a09GtDUARfQyZZGTj73QMUd0oO80oWu820avwGijm7pRK1SWLlh?=
- =?us-ascii?Q?MRf3y7OiQ3zQH3DmuSW9w75ycaDwXANYIA/ucVpvqZZuFbbyLocEvs/jwVCS?=
- =?us-ascii?Q?BBJE5Rcjo6tWK7ddH7xH4+FZ/fb1cLUOpng73/wc5VyW8sPSykDDfMDA/ET6?=
- =?us-ascii?Q?nIakmSsC0+m45U9QXtA1SgLQCxITKsL5JOZsKxoflWqvIWFz?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.20; Thu, 26 Mar
+ 2026 07:54:43 +0000
+Received: from BN1PEPF0000468B.namprd05.prod.outlook.com
+ (2603:10b6:208:51:cafe::9e) by BL0PR02CA0074.outlook.office365.com
+ (2603:10b6:208:51::15) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9723.32 via Frontend Transport; Thu,
+ 26 Mar 2026 07:54:45 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BN1PEPF0000468B.mail.protection.outlook.com (10.167.243.136) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9745.21 via Frontend Transport; Thu, 26 Mar 2026 07:54:42 +0000
+Received: from mlse-blrlinux-ll.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Thu, 26 Mar
+ 2026 02:54:39 -0500
+From: Lijo Lazar <lijo.lazar@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <Hawking.Zhang@amd.com>, <Alexander.Deucher@amd.com>,
+ <Asad.Kamal@amd.com>, <Feifei.Xu@amd.com>
+Subject: [PATCH 00/14] Refactor reserved region allocation
+Date: Thu, 26 Mar 2026 13:15:21 +0530
+Message-ID: <20260326075412.1378411-1-lijo.lazar@amd.com>
+X-Mailer: git-send-email 2.49.0
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN1PEPF0000468B:EE_|LV2PR12MB5943:EE_
+X-MS-Office365-Filtering-Correlation-Id: 29de7080-2258-4573-c203-08de8b0cf04c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|82310400026|36860700016|376014|18002099003|56012099003;
+X-Microsoft-Antispam-Message-Info: IEfIhpLdwBaRn1EmNxKLNDt9H8AhSJyGgHEjOn8zTS6k8IpHE+SKBtXIUxMj1WvnAldSxLDxmAq/bNUe2q5tB0iVhqeVWc8RriGa/pRlCddHRf1u4OCzYPAFmSVZW0dHCyawowaIM2QLY2jof9hHVlz/CB98vT7uBDuKAojN77P2gs0cYkbcLc5AQUbhr8HwTIPK3Hp/3nRBtrO/cxHNriYISSK4M4boKLfWJztVl1IaY0+Ku/6hJy0M/s2m9KOUE8rYatdO3cmMKg7PDrPTdL5Mjj4UExUFaqSk/6Oxton1kkvCOyKwbnPo0OIfo7UuiEcXkLPYPTym7Wup5BSR81EqoQFdr7h8OFjka4jmH2HxovAQCf5kVm85dkQr+rMTzHr2MLQdxjRc1oSlSBlHtgxCOGFsO09+NGU76d+qQydyD5BeG8+5h4GvJ9M/YFsCgh1Cdl8E+A6RUDl4ZGhGsmIodpTsddguOG0pwcd+TmkGfibn1fN+uIBPMWEJy8AF3ThCr1wdQtl50xDIaIQK93qBWszKXgMxdDmiFkoriDRMIGH3TDm+hMh0flGLJ6P0aCxl7NjWjQ+3eFLQTGYQELDx0h24D/xySMAi8svUT4+vVzVp4Cgi7Prg7pMafHhRNUkHJHvXMxZujWMX4dWQEFZOUB3Sz22Og8LraY0OaV+H09gjhTTBZk+rGj/w9sknE6yfm5l/4+06BU6oz6t/mi8VteK/rSK4Z5NscNzzXCsmJFMoJORdWRe/QJogdeUIJo6mFDIJn4DUPnVmR49thA==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(82310400026)(36860700016)(376014)(18002099003)(56012099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: 8pce01lOoVv5aBEjXy30Mq5Jz9F14lHhf4c4zK6mKDdRdUNnuXF5l9T0tTX6zayiRIgGCV5U45JiOrkAbzn/ofad+l9cu65F0aiGT+6v+7yAAfb1qoiifOI9yzacKtvw2adKGnztAjEVove9zqMadVJfg5dW5BdbphC2SOrBpmXy2drgsu6Vg9+hMNKy3nBq5fIx38etHDUzMOYUgPsRpfaC6l2KyOHFURRAKznain+0lqBvLMXhez9KsawbFXDC2GZ79gziAhmS7Ib4+/6e170vG4nwf9pQKvHvIA5Fxkp0E0nClUYx0rhuAVGll7yxQykacc0RaYPT3Wqg9VjLJ6OolLu4EpJ5Uy75oPR4/khP8g+8CJ2CB45ZvX6ImdGNrZqEMrJ5S44yIcBpjz3FiT7ZJzLy7e8cvVFo/V6dP3PbqNx/tyXI08FkoQ1W82ZW
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6803.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a7b13f39-7c4a-472e-f239-08de8b061f8b
-X-MS-Exchange-CrossTenant-originalarrivaltime: 26 Mar 2026 07:05:54.8035 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: j/9IcULJ8rGeHsfEMlwqZ1Q6zTxGbzjBd+wiCrkVTYXilr6c0BDKbV9Qweo0vJ0e
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4182
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Mar 2026 07:54:42.0158 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 29de7080-2258-4573-c203-08de8b0cf04c
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN1PEPF0000468B.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB5943
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,260 +108,63 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only - AMD Internal Distribution Only]
+Currently, multiple variables are maintained in memory manager for various reserved regions in VRAM.
+Such regions should not be allocated to other purposes. Instead of different variables, the series
+assigns unique ids to reserved regions and maintains an array of them inside memory manager.
 
-OK for the CAB case.
-Reviewed-by: Kenneth Feng <kenneth.feng@amd.com>
+Part-1: The first 9 patches of the series assigns unique ids and maintains them as an array of
+reserved regions inside memory manager.
 
+Part-2: The last 5 patches of the series prefills reserve region data upfront in a consolidated
+function and then reserves them together in a simple loop. It doesn't fill info for all regions; the
+data for some regions could be still be filled in a scattered manner like from atom firmware tables
+or host driver tables. Also, there could be some regions like extended firmware regions which gets
+filled later during runtime and allocated later. They don't get allocated in the init stage as their
+size will be 0.
 
+v1:
+	Part-1 
+v2:
+	Part-1 + Part-2
+	Rename functions/variable (Alex)
 
------Original Message-----
-From: Wang, Yang(Kevin) <KevinYang.Wang@amd.com>
-Sent: Thursday, March 26, 2026 10:05 AM
-To: amd-gfx@lists.freedesktop.org
-Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Zhang, Hawking <Hawking=
-.Zhang@amd.com>; Feng, Kenneth <Kenneth.Feng@amd.com>
-Subject: [PATCH] drm/amd/pm: correct mem_busy_percent display due to calcul=
-ation errors
+Lijo Lazar (14):
+  drm/amdgpu: Add reserved region ids
+  drm/amdgpu: Add stolen vga reserve-region
+  drm/amdgpu: Add extended stolen vga reserve-region
+  drm/amdgpu: Add stolen_reserved reserve-region
+  drm/amdgpu: Add fw_reserved reserve-region
+  drm/amdgpu: Add firmware extended reserve-region
+  drm/amdgpu: Add fw vram usage reserve-region
+  drm/amdgpu: Add host driver reserved-region
+  drm/amdgpu: Add memory training reserve-region
+  drm/amdgpu: Group filling reserve region details
+  drm/amdgpu: Add function to fill fw reserve region
+  drm/amdgpu: Add function to fill training region
+  drm/amdgpu: Move validation of reserve region info
+  drm/amdgpu: Consolidate reserve region allocations
 
-PMFW may return invalid values due to internal calculation errors.
-so, the kmd driver must validate and sanitize the returned values to preven=
-t issues caused by firmware calculation errors.
+ drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c  |   6 +-
+ .../gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c  |  18 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c       |  23 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h       |   2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c       |  13 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h       |   1 -
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c       |   2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c       | 362 ++++++++----------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h       |  53 +--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c      |  50 +--
+ drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c        |   2 -
+ drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c        |   2 -
+ drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c        |   2 -
+ drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c         |   2 -
+ drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c         |   2 -
+ drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c         |   2 -
+ drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c         |   2 -
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |   4 +-
+ .../drm/amd/ras/ras_mgr/amdgpu_virt_ras_cmd.c |  16 +-
+ 19 files changed, 256 insertions(+), 308 deletions(-)
 
-For example, values 0xfffe (-2) and 0xffff (-1) are treated as invalid and =
-clamped to 0.
-
-this applies to devices with CAB (Cache As Buffer) functionality.
-
-Closes: https://gitlab.freedesktop.org/drm/amd/-/work_items/4905
-
-Signed-off-by: Yang Wang <kevinyang.wang@amd.com>
----
- drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h   | 17 +++++++++++++++++
- .../drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c    | 10 +++++-----
- .../drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c    | 10 +++++-----
- .../drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c    | 10 +++++-----
- 4 files changed, 32 insertions(+), 15 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h b/drivers/gpu/dr=
-m/amd/pm/swsmu/inc/amdgpu_smu.h
-index 609f5ab07d8a..365946c43e11 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
-+++ b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
-@@ -2164,4 +2164,21 @@ static inline void smu_feature_init(struct smu_conte=
-xt *smu, int feature_num)
-        smu_feature_list_clear_all(smu, SMU_FEATURE_LIST_ALLOWED);  }
-
-+/*
-+ * smu_safe_u16_nn - Make u16 safe by filtering negative overflow
-+errors
-+ * @val: Input u16 value, may contain invalid negative overflows
-+ *
-+ * Convert u16 to non-negative value. Cast to s16 to detect negative
-+values
-+ * caused by calculation errors. Return 0 for negative errors, return
-+ * original value if valid.
-+ *
-+ * Return: Valid u16 value or 0
-+ */
-+static inline u16 smu_safe_u16_nn(u16 val) {
-+    s16 tmp =3D (s16)val;
-+
-+    return tmp < 0 ? 0 : val;
-+}
-+
- #endif
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c b/drivers=
-/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
-index 9be7a2af560d..16f69b548ca4 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
-@@ -774,13 +774,13 @@ static int smu_v13_0_0_get_smu_metrics_data(struct sm=
-u_context *smu,
-                        *value =3D metrics->AverageGfxclkFrequencyPreDs;
-                break;
-        case METRICS_AVERAGE_FCLK:
--               if (metrics->AverageUclkActivity <=3D SMU_13_0_0_BUSY_THRES=
-HOLD)
-+               if (smu_safe_u16_nn(metrics->AverageUclkActivity) <=3D
-+SMU_13_0_0_BUSY_THRESHOLD)
-                        *value =3D metrics->AverageFclkFrequencyPostDs;
-                else
-                        *value =3D metrics->AverageFclkFrequencyPreDs;
-                break;
-        case METRICS_AVERAGE_UCLK:
--               if (metrics->AverageUclkActivity <=3D SMU_13_0_0_BUSY_THRES=
-HOLD)
-+               if (smu_safe_u16_nn(metrics->AverageUclkActivity) <=3D
-+SMU_13_0_0_BUSY_THRESHOLD)
-                        *value =3D metrics->AverageMemclkFrequencyPostDs;
-                else
-                        *value =3D metrics->AverageMemclkFrequencyPreDs;
-@@ -801,7 +801,7 @@ static int smu_v13_0_0_get_smu_metrics_data(struct smu_=
-context *smu,
-                *value =3D metrics->AverageGfxActivity;
-                break;
-        case METRICS_AVERAGE_MEMACTIVITY:
--               *value =3D metrics->AverageUclkActivity;
-+               *value =3D smu_safe_u16_nn(metrics->AverageUclkActivity);
-                break;
-        case METRICS_AVERAGE_VCNACTIVITY:
-                *value =3D max(metrics->Vcn0ActivityPercentage,
-@@ -2086,7 +2086,7 @@ static ssize_t smu_v13_0_0_get_gpu_metrics(struct smu=
-_context *smu,
-                                             metrics->AvgTemperature[TEMP_V=
-R_MEM1]);
-
-        gpu_metrics->average_gfx_activity =3D metrics->AverageGfxActivity;
--       gpu_metrics->average_umc_activity =3D metrics->AverageUclkActivity;
-+       gpu_metrics->average_umc_activity =3D
-+smu_safe_u16_nn(metrics->AverageUclkActivity);
-        gpu_metrics->average_mm_activity =3D max(metrics->Vcn0ActivityPerce=
-ntage,
-                                               metrics->Vcn1ActivityPercent=
-age);
-
-@@ -2103,7 +2103,7 @@ static ssize_t smu_v13_0_0_get_gpu_metrics(struct smu=
-_context *smu,
-        else
-                gpu_metrics->average_gfxclk_frequency =3D metrics->AverageG=
-fxclkFrequencyPreDs;
-
--       if (metrics->AverageUclkActivity <=3D SMU_13_0_0_BUSY_THRESHOLD)
-+       if (smu_safe_u16_nn(metrics->AverageUclkActivity) <=3D
-+SMU_13_0_0_BUSY_THRESHOLD)
-                gpu_metrics->average_uclk_frequency =3D metrics->AverageMem=
-clkFrequencyPostDs;
-        else
-                gpu_metrics->average_uclk_frequency =3D metrics->AverageMem=
-clkFrequencyPreDs;
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c b/drivers=
-/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
-index 5cc15545da6e..34a5973b9a06 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
-@@ -784,13 +784,13 @@ static int smu_v13_0_7_get_smu_metrics_data(struct sm=
-u_context *smu,
-                *value =3D metrics->AverageGfxclkFrequencyPreDs;
-                break;
-        case METRICS_AVERAGE_FCLK:
--               if (metrics->AverageUclkActivity <=3D SMU_13_0_7_BUSY_THRES=
-HOLD)
-+               if (smu_safe_u16_nn(metrics->AverageUclkActivity) <=3D
-+SMU_13_0_7_BUSY_THRESHOLD)
-                        *value =3D metrics->AverageFclkFrequencyPostDs;
-                else
-                        *value =3D metrics->AverageFclkFrequencyPreDs;
-                break;
-        case METRICS_AVERAGE_UCLK:
--               if (metrics->AverageUclkActivity <=3D SMU_13_0_7_BUSY_THRES=
-HOLD)
-+               if (smu_safe_u16_nn(metrics->AverageUclkActivity) <=3D
-+SMU_13_0_7_BUSY_THRESHOLD)
-                        *value =3D metrics->AverageMemclkFrequencyPostDs;
-                else
-                        *value =3D metrics->AverageMemclkFrequencyPreDs;
-@@ -815,7 +815,7 @@ static int smu_v13_0_7_get_smu_metrics_data(struct smu_=
-context *smu,
-                *value =3D metrics->AverageGfxActivity;
-                break;
-        case METRICS_AVERAGE_MEMACTIVITY:
--               *value =3D metrics->AverageUclkActivity;
-+               *value =3D smu_safe_u16_nn(metrics->AverageUclkActivity);
-                break;
-        case METRICS_AVERAGE_SOCKETPOWER:
-                *value =3D metrics->AverageSocketPower << 8; @@ -2092,7 +20=
-92,7 @@ static ssize_t smu_v13_0_7_get_gpu_metrics(struct smu_context *smu,
-                                             metrics->AvgTemperature[TEMP_V=
-R_MEM1]);
-
-        gpu_metrics->average_gfx_activity =3D metrics->AverageGfxActivity;
--       gpu_metrics->average_umc_activity =3D metrics->AverageUclkActivity;
-+       gpu_metrics->average_umc_activity =3D
-+smu_safe_u16_nn(metrics->AverageUclkActivity);
-        gpu_metrics->average_mm_activity =3D max(metrics->Vcn0ActivityPerce=
-ntage,
-                                               metrics->Vcn1ActivityPercent=
-age);
-
-@@ -2105,7 +2105,7 @@ static ssize_t smu_v13_0_7_get_gpu_metrics(struct smu=
-_context *smu,
-        else
-                gpu_metrics->average_gfxclk_frequency =3D metrics->AverageG=
-fxclkFrequencyPreDs;
-
--       if (metrics->AverageUclkActivity <=3D SMU_13_0_7_BUSY_THRESHOLD)
-+       if (smu_safe_u16_nn(metrics->AverageUclkActivity) <=3D
-+SMU_13_0_7_BUSY_THRESHOLD)
-                gpu_metrics->average_uclk_frequency =3D metrics->AverageMem=
-clkFrequencyPostDs;
-        else
-                gpu_metrics->average_uclk_frequency =3D metrics->AverageMem=
-clkFrequencyPreDs;
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c b/drivers=
-/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
-index 28c1b084fe62..aaec3a251e0f 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
-@@ -660,13 +660,13 @@ static int smu_v14_0_2_get_smu_metrics_data(struct sm=
-u_context *smu,
-                        *value =3D metrics->AverageGfxclkFrequencyPreDs;
-                break;
-        case METRICS_AVERAGE_FCLK:
--               if (metrics->AverageUclkActivity <=3D SMU_14_0_2_BUSY_THRES=
-HOLD)
-+               if (smu_safe_u16_nn(metrics->AverageUclkActivity) <=3D
-+SMU_14_0_2_BUSY_THRESHOLD)
-                        *value =3D metrics->AverageFclkFrequencyPostDs;
-                else
-                        *value =3D metrics->AverageFclkFrequencyPreDs;
-                break;
-        case METRICS_AVERAGE_UCLK:
--               if (metrics->AverageUclkActivity <=3D SMU_14_0_2_BUSY_THRES=
-HOLD)
-+               if (smu_safe_u16_nn(metrics->AverageUclkActivity) <=3D
-+SMU_14_0_2_BUSY_THRESHOLD)
-                        *value =3D metrics->AverageMemclkFrequencyPostDs;
-                else
-                        *value =3D metrics->AverageMemclkFrequencyPreDs;
-@@ -687,7 +687,7 @@ static int smu_v14_0_2_get_smu_metrics_data(struct smu_=
-context *smu,
-                *value =3D metrics->AverageGfxActivity;
-                break;
-        case METRICS_AVERAGE_MEMACTIVITY:
--               *value =3D metrics->AverageUclkActivity;
-+               *value =3D smu_safe_u16_nn(metrics->AverageUclkActivity);
-                break;
-        case METRICS_AVERAGE_VCNACTIVITY:
-                *value =3D max(metrics->AverageVcn0ActivityPercentage,
-@@ -2146,7 +2146,7 @@ static ssize_t smu_v14_0_2_get_gpu_metrics(struct smu=
-_context *smu,
-                                             metrics->AvgTemperature[TEMP_V=
-R_MEM1]);
-
-        gpu_metrics->average_gfx_activity =3D metrics->AverageGfxActivity;
--       gpu_metrics->average_umc_activity =3D metrics->AverageUclkActivity;
-+       gpu_metrics->average_umc_activity =3D
-+smu_safe_u16_nn(metrics->AverageUclkActivity);
-        gpu_metrics->average_mm_activity =3D max(metrics->AverageVcn0Activi=
-tyPercentage,
-                                               metrics->Vcn1ActivityPercent=
-age);
-
-@@ -2158,7 +2158,7 @@ static ssize_t smu_v14_0_2_get_gpu_metrics(struct smu=
-_context *smu,
-        else
-                gpu_metrics->average_gfxclk_frequency =3D metrics->AverageG=
-fxclkFrequencyPreDs;
-
--       if (metrics->AverageUclkActivity <=3D SMU_14_0_2_BUSY_THRESHOLD)
-+       if (smu_safe_u16_nn(metrics->AverageUclkActivity) <=3D
-+SMU_14_0_2_BUSY_THRESHOLD)
-                gpu_metrics->average_uclk_frequency =3D metrics->AverageMem=
-clkFrequencyPostDs;
-        else
-                gpu_metrics->average_uclk_frequency =3D metrics->AverageMem=
-clkFrequencyPreDs;
---
-2.47.3
+-- 
+2.49.0
 
