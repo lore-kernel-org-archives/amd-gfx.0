@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 31FA2109E542
-	for <amd-gfx@archiver.kernel.org>; Thu, 26 Mar 2026 03:00:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 33CA1109E542
+	for <amd-gfx@archiver.kernel.org>; Thu, 26 Mar 2026 03:00:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A656C10E91E;
-	Thu, 26 Mar 2026 03:00:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C10E710E931;
+	Thu, 26 Mar 2026 03:00:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Qeq96uV7";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="VxSnjlZS";
 	dkim-atps=neutral
-Received: from BYAPR05CU005.outbound.protection.outlook.com
- (mail-westusazon11010049.outbound.protection.outlook.com [52.101.85.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5271610E918
- for <amd-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 03:00:50 +0000 (UTC)
+Received: from SJ2PR03CU001.outbound.protection.outlook.com
+ (mail-westusazon11012039.outbound.protection.outlook.com [52.101.43.39])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BF85110E919
+ for <amd-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 03:00:56 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=xJjR1pbrDztnbjLqTyeYTeOcv3UtN4DDE1awSWLllsoKHPuJGPt8gRSkcjrrjEEzWxHCuUJLiYSUXn6rhCl6x5+nbPDGDYuW1HBLtktRjs3sT70zBXBSZeDUExxzOB2SAOEEdAPkHjD8OacUOf0zgFFgKtBFhDUa1xCP9ZmE+HOwakt8oVyDX0K8fBTzrTKhSAqECd2iaXOjIlcCf0eZZWvVvuqGVLE9n+9ps46dTn5m+PZDVZ13Oi6B23z22khlsjYRFn8FRD4Xzi31Hgzc2R5b1pwb5tswtww2oBf5Rn+Wtgi9FT6UQuHmNkftH0/GDzqRaVpt2Qg9mOgn66dPAQ==
+ b=xSXJ+ZBtTx6vUbj0pcFVHrb6Ux7TzToGy+ZGPRoPoxEJ13oR3qfspnpSlsq3aVBclyADFpv9rl2DW1m8XnnkI/K767Qxfn4nqBAhqQAxiH1jsurBZg4xaeavm9ospGgriEvHQKtrTzlLhHB5yI3K4prinRnj/A/8bHEvCuO4deIKlJFNKftjz4/draDoIrczyzACkSCXDfhURnNeM/pQg0RIsjVFx+cponIwfyIYUB0Dy3HN4TLEk+qhxPSfUvvD3p8oFP3NYYlGlr5Icn445CqlWYKfkr535nF4fFGyDkbV87dhxUQa/hdrhu254Wds5MGX2VQkB37nuscT3gMq0A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=obOTOCLcJIihvCz7rm4LBX8dSHT+W6OArrBXPIIvqrs=;
- b=L44Q7mLX76NRE8gXGm5m9d8qn36owLmiSxYsxgq++qPbXG2k1tB6Je9xKALSGOG/gEKT30nlSH4C6ZeCSsobQfnT1ePhpYEy8cEpnptb5t8sqCbqB1Rk41KwspqbaUfX897TuQTpxuJYLpzWQa4d6fQ4R/pdhDMX4T3fT2GosCn+I/NPnA6s61EG3koH6GLvCYZGUegxHhzM6y5uJJelAiLnfUYYxat2DIayRsWg+lSWME7ciB4vfsNkfXsWOXlDPWFC8bxYZZ5Gm4DrNlFCzxbXxC1IMUqbhPfE6d6gj6BxscMDUd8Cj9N1WfgrOmjTanjuuNDHk0ROA8x+iT+i3A==
+ bh=pnO9/sRL6yg4D6JjiBzLTr48LlDUHDZIqM9s+7XX0XE=;
+ b=klyl9SfeQqRdUM3lAtT1+JvO4G37ZB+hzy4JnQUVa7jxgN1wjEzs5j40zVg5YwiEs1THUnkGUw0Z2f9VAa6bh2UffYGjCzl6cKbR0BP68QIz/6FAGeyXelYV/BHWdHgPr1U+WuCw+YyR+hnlTa2xteyOTdBZB1Olv/qXSMw/IoAMrJKX9tj57GZLpA56jS9k8S0jDX5hmny2hsIn7aLIAIILB51ONO70fn5kD/FGGidzXpVesjAfD898Lhs70IwNJknpzdYdKi1FSrIxd2XD1x3yELRE090HVg8vPz5nrqQ+sdBzd6zg7BxcdZQST5VaFZOyI5C/Yw+MVsSytxVnZw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=obOTOCLcJIihvCz7rm4LBX8dSHT+W6OArrBXPIIvqrs=;
- b=Qeq96uV7LmSCrVB5IqwbRZCnYYlaH8cpH7HYiynvfFGn1zddQDhit9zrX7mV3P8x57dQjcRzgHa3oO2QunB4suz+iGgG3i/IXQpw1lc45FZG0njV80TcQ3z4YeSBYTXALk0CwAX3Q3HS1tBS60SkAVOPzwIhmJdl9LXaxzcFcfA=
-Received: from BL0PR0102CA0032.prod.exchangelabs.com (2603:10b6:207:18::45) by
- DM4PR12MB5865.namprd12.prod.outlook.com (2603:10b6:8:64::21) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9769.6; Thu, 26 Mar 2026 03:00:44 +0000
+ bh=pnO9/sRL6yg4D6JjiBzLTr48LlDUHDZIqM9s+7XX0XE=;
+ b=VxSnjlZSI/kc4qUUpGKn007Kklr0oNbNPH1l6bXG3eHZrtub3BanrcsMC+Dy6uzX0UtJ0/nYQ+GZcVgreXZq4zJp2o6IWrZrutQ2VER/CUE3RVLYn/J6XQlQGXLpjEF+Q/LKPHm1Zc+92uxZIAPrYvR4409mxpl1/03ja6O1uFo=
+Received: from BL0PR0102CA0024.prod.exchangelabs.com (2603:10b6:207:18::37) by
+ LV3PR12MB9214.namprd12.prod.outlook.com (2603:10b6:408:1a4::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.7; Thu, 26 Mar
+ 2026 03:00:48 +0000
 Received: from MN1PEPF0000ECD5.namprd02.prod.outlook.com
- (2603:10b6:207:18:cafe::a) by BL0PR0102CA0032.outlook.office365.com
- (2603:10b6:207:18::45) with Microsoft SMTP Server (version=TLS1_3,
+ (2603:10b6:207:18:cafe::43) by BL0PR0102CA0024.outlook.office365.com
+ (2603:10b6:207:18::37) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.20.9723.32 via Frontend Transport; Thu,
- 26 Mar 2026 03:00:43 +0000
+ 26 Mar 2026 03:00:46 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -50,11 +50,11 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from satlexmb07.amd.com (165.204.84.17) by
  MN1PEPF0000ECD5.mail.protection.outlook.com (10.167.242.133) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9745.21 via Frontend Transport; Thu, 26 Mar 2026 03:00:44 +0000
+ 15.20.9745.21 via Frontend Transport; Thu, 26 Mar 2026 03:00:48 +0000
 Received: from maxMSI.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Wed, 25 Mar
- 2026 22:00:40 -0500
+ 2026 22:00:44 -0500
 From: ChuanYu Tseng <ChuanYu.Tseng@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -62,47 +62,46 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Wayne Lin <wayne.lin@amd.com>, Tom Chung <chiahsuan.chung@amd.com>, "Fangzhi
  Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
- <alex.hung@amd.com>, Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
- Dillon Varone <dillon.varone@amd.com>, Charlene Liu <charlene.liu@amd.com>,
- Chuanyu Tseng <chuanyu.tseng@amd.com>
-Subject: [PATCH v2 05/30] drm/amd/display: Avoid turning off the PHY when OTG
- is running for DVI
-Date: Thu, 26 Mar 2026 10:56:56 +0800
-Message-ID: <20260326030153.406612-6-ChuanYu.Tseng@amd.com>
+ <alex.hung@amd.com>, Gabe Teeger <gabe.teeger@amd.com>, Dillon Varone
+ <dillon.varone@amd.com>, Chuanyu Tseng <chuanyu.tseng@amd.com>
+Subject: [PATCH v2 06/30] drm/amd/display: Fix bounds checking in dml2_0 clock
+ table array
+Date: Thu, 26 Mar 2026 10:56:57 +0800
+Message-ID: <20260326030153.406612-7-ChuanYu.Tseng@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260326030153.406612-1-ChuanYu.Tseng@amd.com>
 References: <20260326030153.406612-1-ChuanYu.Tseng@amd.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
 X-Originating-IP: [10.180.168.240]
 X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN1PEPF0000ECD5:EE_|DM4PR12MB5865:EE_
-X-MS-Office365-Filtering-Correlation-Id: 19d25bfd-657e-4399-9d1a-08de8ae3df8b
+X-MS-TrafficTypeDiagnostic: MN1PEPF0000ECD5:EE_|LV3PR12MB9214:EE_
+X-MS-Office365-Filtering-Correlation-Id: c7cbf1d3-1f72-40b3-c33a-08de8ae3e1d7
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|82310400026|36860700016|376014|56012099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: V3ccWjZHeC5cYamlaRL6UeUXuWgUxkOrz6TFEFyhVtIj6DSKc7cw+9Fwlu31eyyA3V2Yfuhh4hZdTDPRFpPCf9t0iHtRIRRDXdTCVV+rMDjxpoAH6yBY4FpQogEvJOsLg/h/JnFQB01s2xMIMsyznzjUqo703ks9lUwbQB04xL4jFJ+TI1Lt+OBZbVt1CSCjNehaLiiZnkz7EEZCzmPBR96lfV68bgYKUb5bNAxRteamAfiJYhzHv/BbTVnvIHUPdmUYNil/UgCDrPTeW+KPJsg04f67RDaG31QWt4h1P0emCL/ipwIx6XaphhWWLLrb1SeuOCQ5AQbIabnqIf5BNPFhzCYxR5uHZ8qd1h1RmJ4BIpla4npFKJLpdKwJP+ESBdPOZW7fO5XT09l2XVXLQ5vx++Md51WvipBhqdsUpnVXqJBoUEOOaKCTIrusANJ3e1jR7MXnEefpAzsHg51CE4ojDX1gZV0a2PlaAkc1Lph8U+n9BC6DNaenDk2oscWLvjhll9i1xeVjl4GY1cNaGEOdKaK9ZJFMvdSrNxKux53N0va7Vw6lhhXh+s+GswPeMwFD5k8fAtXfSbLPMHuSWhQ+wpzyqDrK2lIRGS4PJcpYUaVkE2UkNZ8N+TKwPAqVyoN1eTRDsmYuMyKFo6EfDKEpwiY71LJIMW+bEE+0hzSF8NaeEAcBpzuzyBTzqjfFguIFqpfps3AMTJZJR/odL0QlbswfZ9OYQiF/Za9zyZxUFKcv2pIrWM0zLbfCuoWU8EqquYmGbkPWeXWJPIovwA==
+ ARA:13230040|82310400026|1800799024|36860700016|376014|18002099003|56012099003|22082099003;
+X-Microsoft-Antispam-Message-Info: l5prKryskmzYj0uXm7vheMQ9GksPwuZzC8kAPDN4KFOEy4i1Bw0VhQA1xvXZ2vNAnR40fbWQupsWvGDD1QSHJlNKeIwFWJXTeU7U0FpFYYqQ1GAxMDByv+WuE7O1Bpqw66aEY6wtXlI3wa9V93jrOh1APmmSUQTFVEXCZxUeyYb7XqvYyIIDibP5hKa/qunL9oTYak7VyDccx8UIAhuISm/Cjv8E/YqvqNEDeiKp81cTr3etDoU6YI4JnyWoTDHV1Tuyk9FK23Fe7eThXR/M53o1QK7msfgFj7HDYnuCxX+CEZ4B0p/fxjCbJkTPWn3uwAq+LUyCoVqEqi0Ncxzbe1aTFzM/xPRZLP0PQrVHtGgsCFk4kJg3Rbl5dlfUxJM57sp2CjOTXZh2HhspJorwd3XbCG+YVBTAYK+95oPOjbMk5RGjyBnC98p85AuNo0oKFrXme67t53gxzUECoAmX+TqH/cv0ildgRwOcqPZdZZ8LL4eQ1iHq3nAYrzJ50s2lxbeqC92KsSfeWMIWG/TylfGt39jnxOJQDPhXC29VLsfyjIErcJwsF4k4KMELZnUtNR+wmGinKnzk1xY8/is1LdxDI32Y49JOlSmLKrkVHaZYfqWj++/CqH4Up8X6WvERXheElyW7boD9QnzIYQw8VbQ8nPOhVekNARBBvOw+s/MSckAiwzoMwPr/barctW9X7JFiHGlt7QmTDqhdLTm4qPDT7Ue/esoRkudjrdxkY2ggsTSmHPp8Ry6min4bUHV7H2fbcacycragni6nuIc7mg==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(82310400026)(36860700016)(376014)(56012099003)(22082099003)(18002099003);
+ SFS:(13230040)(82310400026)(1800799024)(36860700016)(376014)(18002099003)(56012099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: dfdufA9MBikDofxWTCzMTTMxr2SzXKNtS/czUz2YklxQXYkjvFNqsq9oxmK6OoHmSDeA/+M6MsJqZGUbY7si0e1RHQzLuJ+5vV/qCupZ7YXdS4as4+ZK/pxqTycTi5Z67ORy7W7kBzdi3efOukKQNPDo+/N7zWTAxgiAT4QitcKfCWP+ph3ytIIbHCkzq0smXqG509SCXM2bLGTuyYcydw7qAON2mZ7FZ2klbTLsLRLd9KiYidHh0cTcnsSBT+o91zUIKSe3RQP3Uv8yZn2iyRSOiXHC/0qQGfoti9w99DXjF2o0PUqJe8zFcX66s+GlpLrz7lIq+aFJpSQf+qTiJftB70Z8WSp33yYodLHbdV5vbJ+v0kGM0MmlxoRCu5fzbGZnAKkluib+T1UDJPwdtBlO5rmaDC1M3P2hOuPs+kZry2MojZiVxK8cBiInVJIo
+X-MS-Exchange-AntiSpam-MessageData-0: +SBXCd9WinNJXNxv40Xn48MHEBu337zw34Luvj+S4SKm9V3jhzkPqMwf2XjXWN07UUcU4yYT6Z0rmbxww3KvyOLIP8dW6mFYQRDP8DffjU4GMiQQQ7jmFKKYejRRqlPsRNhJUQVmGie7/NrxMK7CBdrEgPyI/9t5g75C+RdFGSqmdk0WZbv3gXurxekFzznwvI72++y8KjseyuTdMYUGJHzT1/5vRDOUsT2JPb80PCAg69WpFgBXOKgqFwybWofL0ekk9dyaiFD7BrOcvrxAGHRLfDiFNNRA7xj2G06yClmffTDehM7jc6r3xlkppAYxkCU+H9yBljs3IMccpXbAKem53mCDA1yhUJeRtN6xRtPCiCXaRNYFrByz8RAfnZfuAX9208cCtY6foovACMFmd0J38ZvK0+DhUamHBw9yhlTxvYUe6so1yOnXGV5Cb5co
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Mar 2026 03:00:44.5395 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 19d25bfd-657e-4399-9d1a-08de8ae3df8b
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Mar 2026 03:00:48.3959 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: c7cbf1d3-1f72-40b3-c33a-08de8ae3e1d7
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: MN1PEPF0000ECD5.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5865
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR12MB9214
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,106 +116,102 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+From: Gabe Teeger <gabe.teeger@amd.com>
 
 [Why]
-The OTG's virtual pixel clock source for DVI comes from the PHY.
-
-If the signal type is DVI then the OTG can become stuck on pre DCN401
-ASIC when DPMS off occurs because the OTG remains running but the
-PHY transmitter is disabled.
+Multiple locations in dml2_0 used num_clk_values-1 as array index
+without checking if num_clk_values > 0. When num_clk_values is 0,
+this results in accessing array index -1, which wraps to 255 for
+unsigned types, causing out-of-bounds memory access and potential
+crashes.
 
 [How]
-There exists logic to keep track of the OTG running refcount on the
-link to determine if the link needs to go to PLL_EN instead of TX_EN
-but the logic only checks for HDMI TMDS on older ASIC.
-
-DVI is still a TMDS signal type so the constraint should also apply.
-
-Replace the checks for dc_is_hdmi_tmds_signal with dc_is_tmds_signal to
-cover both HDMI and DVI for the symclk refcount workaround.
+Add proper bounds checking using ternary operators to guard all
+num_clk_values-1 array accesses. When num_clk_values is 0, return 0
+as fallback value instead of accessing invalid memory. This prevents
+buffer overflows while maintaining backward compatibility and provides
+sensible default behavior for empty clock tables.
 
 Reviewed-by: Dillon Varone <dillon.varone@amd.com>
-Reviewed-by: Charlene Liu <charlene.liu@amd.com>
-Signed-off-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+Signed-off-by: Gabe Teeger <gabe.teeger@amd.com>
 Signed-off-by: Chuanyu Tseng <chuanyu.tseng@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c | 4 ++--
- drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c   | 4 ++--
- drivers/gpu/drm/amd/display/dc/hwss/dcn31/dcn31_hwseq.c   | 2 +-
- drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c | 2 +-
- 4 files changed, 6 insertions(+), 6 deletions(-)
+ .../dml21/src/dml2_dpmm/dml2_dpmm_dcn4.c      | 20 +++++++++++++++++++
+ .../dml2_0/dml21/src/dml2_mcg/dml2_mcg_dcn4.c |  9 ++++++---
+ .../dml21/src/dml2_mcg/dml2_mcg_dcn42.c       |  9 ++++++---
+ 3 files changed, 32 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
-index 8a17cc036399..d2025779d036 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
-@@ -1568,7 +1568,7 @@ static enum dc_status dce110_enable_stream_timing(
- 			return DC_ERROR_UNEXPECTED;
- 		}
+diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_dpmm/dml2_dpmm_dcn4.c b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_dpmm/dml2_dpmm_dcn4.c
+index d17e59d684fd..ab0b4a4b5d65 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_dpmm/dml2_dpmm_dcn4.c
++++ b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_dpmm/dml2_dpmm_dcn4.c
+@@ -279,6 +279,26 @@ static bool round_up_and_copy_to_next_dpm(unsigned long min_value, unsigned long
+ 	bool result = false;
+ 	int index = 0;
  
--		if (dc_is_hdmi_tmds_signal(stream->signal)) {
-+		if (dc_is_tmds_signal(stream->signal)) {
- 			stream->link->phy_state.symclk_ref_cnts.otg = 1;
- 			if (stream->link->phy_state.symclk_state == SYMCLK_OFF_TX_OFF)
- 				stream->link->phy_state.symclk_state = SYMCLK_ON_TX_OFF;
-@@ -2418,7 +2418,7 @@ static void dce110_reset_hw_ctx_wrap(
- 				BREAK_TO_DEBUGGER();
- 			}
- 			pipe_ctx_old->stream_res.tg->funcs->disable_crtc(pipe_ctx_old->stream_res.tg);
--			if (dc_is_hdmi_tmds_signal(pipe_ctx_old->stream->signal))
-+			if (dc_is_tmds_signal(pipe_ctx_old->stream->signal))
- 				pipe_ctx_old->stream->link->phy_state.symclk_ref_cnts.otg = 0;
- 			pipe_ctx_old->plane_res.mi->funcs->free_mem_input(
- 					pipe_ctx_old->plane_res.mi, dc->current_state->stream_count);
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c
-index 307e8f8060e6..a673ab0803a8 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c
-@@ -893,7 +893,7 @@ enum dc_status dcn20_enable_stream_timing(
- 		dccg->funcs->set_dtbclk_dto(dccg, &dto_params);
- 	}
++	/* Guard against empty clock tables (e.g. DTBCLK on DCN42B where the
++	 * clock is tied off and num_clk_values == 0).  Without this check the
++	 * else-if branch below would evaluate
++	 * clk_values_khz[num_clk_values - 1] with num_clk_values == 0, which
++	 * wraps the unsigned char index to 255 — a 235-element out-of-bounds
++	 * read on an array of DML_MAX_CLK_TABLE_SIZE (20) entries.
++	 *
++	 * Semantic: if the clock doesn't exist on this ASIC but no frequency
++	 * is required (min_value == 0), the request is trivially satisfied.
++	 * If a non-zero frequency is required but the clock is absent, the
++	 * configuration is unsupportable.
++	 */
++	if (clock_table->num_clk_values == 0) {
++		if (min_value == 0) {
++			*rounded_value = 0;
++			return true;
++		}
++		return false;
++	}
++
+ 	if (clock_table->num_clk_values > 2) {
+ 		while (index < clock_table->num_clk_values && clock_table->clk_values_khz[index] < min_value)
+ 			index++;
+diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_mcg/dml2_mcg_dcn4.c b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_mcg/dml2_mcg_dcn4.c
+index a265f254152c..eab13e1c96fd 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_mcg/dml2_mcg_dcn4.c
++++ b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_mcg/dml2_mcg_dcn4.c
+@@ -178,9 +178,12 @@ static bool build_min_clock_table(const struct dml2_soc_bb *soc_bb, struct dml2_
  
--	if (dc_is_hdmi_tmds_signal(stream->signal)) {
-+	if (dc_is_tmds_signal(stream->signal)) {
- 		stream->link->phy_state.symclk_ref_cnts.otg = 1;
- 		if (stream->link->phy_state.symclk_state == SYMCLK_OFF_TX_OFF)
- 			stream->link->phy_state.symclk_state = SYMCLK_ON_TX_OFF;
-@@ -2856,7 +2856,7 @@ void dcn20_reset_back_end_for_pipe(
- 		 * the case where the same symclk is shared across multiple otg
- 		 * instances
- 		 */
--		if (dc_is_hdmi_tmds_signal(pipe_ctx->stream->signal))
-+		if (dc_is_tmds_signal(pipe_ctx->stream->signal))
- 			link->phy_state.symclk_ref_cnts.otg = 0;
- 		if (link->phy_state.symclk_state == SYMCLK_ON_TX_OFF) {
- 			link_hwss->disable_link_output(link,
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn31/dcn31_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn31/dcn31_hwseq.c
-index 94f63fd54e3e..1fba44aecdd3 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn31/dcn31_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn31/dcn31_hwseq.c
-@@ -548,7 +548,7 @@ static void dcn31_reset_back_end_for_pipe(
- 	 * the case where the same symclk is shared across multiple otg
- 	 * instances
- 	 */
--	if (dc_is_hdmi_tmds_signal(pipe_ctx->stream->signal))
-+	if (dc_is_tmds_signal(pipe_ctx->stream->signal))
- 		link->phy_state.symclk_ref_cnts.otg = 0;
+ 	min_table->max_clocks_khz.dispclk = soc_bb->clk_table.dispclk.clk_values_khz[soc_bb->clk_table.dispclk.num_clk_values - 1];
+ 	min_table->max_clocks_khz.dppclk = soc_bb->clk_table.dppclk.clk_values_khz[soc_bb->clk_table.dppclk.num_clk_values - 1];
+-	min_table->max_clocks_khz.dscclk = soc_bb->clk_table.dscclk.clk_values_khz[soc_bb->clk_table.dscclk.num_clk_values - 1];
+-	min_table->max_clocks_khz.dtbclk = soc_bb->clk_table.dtbclk.clk_values_khz[soc_bb->clk_table.dtbclk.num_clk_values - 1];
+-	min_table->max_clocks_khz.phyclk = soc_bb->clk_table.phyclk.clk_values_khz[soc_bb->clk_table.phyclk.num_clk_values - 1];
++	min_table->max_clocks_khz.dscclk = (soc_bb->clk_table.dscclk.num_clk_values > 0) ?
++		soc_bb->clk_table.dscclk.clk_values_khz[soc_bb->clk_table.dscclk.num_clk_values - 1] : 0;
++	min_table->max_clocks_khz.dtbclk = (soc_bb->clk_table.dtbclk.num_clk_values > 0) ?
++		soc_bb->clk_table.dtbclk.clk_values_khz[soc_bb->clk_table.dtbclk.num_clk_values - 1] : 0;
++	min_table->max_clocks_khz.phyclk = (soc_bb->clk_table.phyclk.num_clk_values > 0) ?
++		soc_bb->clk_table.phyclk.clk_values_khz[soc_bb->clk_table.phyclk.num_clk_values - 1] : 0;
  
- 	if (pipe_ctx->top_pipe == NULL) {
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c
-index a72284c3fa1c..ca611b3c22d3 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c
-@@ -1938,7 +1938,7 @@ void dcn401_reset_back_end_for_pipe(
- 		 * the case where the same symclk is shared across multiple otg
- 		 * instances
- 		 */
--		if (dc_is_hdmi_tmds_signal(pipe_ctx->stream->signal))
-+		if (dc_is_tmds_signal(pipe_ctx->stream->signal))
- 			link->phy_state.symclk_ref_cnts.otg = 0;
- 		if (link->phy_state.symclk_state == SYMCLK_ON_TX_OFF) {
- 			link_hwss->disable_link_output(link,
+ 	min_table->max_ss_clocks_khz.dispclk = (unsigned int)((double)min_table->max_clocks_khz.dispclk / (1.0 + soc_bb->dcn_downspread_percent / 100.0));
+ 	min_table->max_ss_clocks_khz.dppclk = (unsigned int)((double)min_table->max_clocks_khz.dppclk / (1.0 + soc_bb->dcn_downspread_percent / 100.0));
+diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_mcg/dml2_mcg_dcn42.c b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_mcg/dml2_mcg_dcn42.c
+index 1f67cbc2c236..3eaeff39ee79 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_mcg/dml2_mcg_dcn42.c
++++ b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_mcg/dml2_mcg_dcn42.c
+@@ -54,9 +54,12 @@ static bool build_min_clock_table(const struct dml2_soc_bb *soc_bb, struct dml2_
+ 
+ 	min_table->max_clocks_khz.dispclk = soc_bb->clk_table.dispclk.clk_values_khz[soc_bb->clk_table.dispclk.num_clk_values - 1];
+ 	min_table->max_clocks_khz.dppclk = soc_bb->clk_table.dppclk.clk_values_khz[soc_bb->clk_table.dppclk.num_clk_values - 1];
+-	min_table->max_clocks_khz.dscclk = soc_bb->clk_table.dscclk.clk_values_khz[soc_bb->clk_table.dscclk.num_clk_values - 1];
+-	min_table->max_clocks_khz.dtbclk = soc_bb->clk_table.dtbclk.clk_values_khz[soc_bb->clk_table.dtbclk.num_clk_values - 1];
+-	min_table->max_clocks_khz.phyclk = soc_bb->clk_table.phyclk.clk_values_khz[soc_bb->clk_table.phyclk.num_clk_values - 1];
++	min_table->max_clocks_khz.dscclk = (soc_bb->clk_table.dscclk.num_clk_values > 0) ?
++		soc_bb->clk_table.dscclk.clk_values_khz[soc_bb->clk_table.dscclk.num_clk_values - 1] : 0;
++	min_table->max_clocks_khz.dtbclk = (soc_bb->clk_table.dtbclk.num_clk_values > 0) ?
++		soc_bb->clk_table.dtbclk.clk_values_khz[soc_bb->clk_table.dtbclk.num_clk_values - 1] : 0;
++	min_table->max_clocks_khz.phyclk = (soc_bb->clk_table.phyclk.num_clk_values > 0) ?
++		soc_bb->clk_table.phyclk.clk_values_khz[soc_bb->clk_table.phyclk.num_clk_values - 1] : 0;
+ 
+ 	min_table->max_ss_clocks_khz.dispclk = (unsigned int)((double)min_table->max_clocks_khz.dispclk / (1.0 + soc_bb->dcn_downspread_percent / 100.0));
+ 	min_table->max_ss_clocks_khz.dppclk = (unsigned int)((double)min_table->max_clocks_khz.dppclk / (1.0 + soc_bb->dcn_downspread_percent / 100.0));
 -- 
 2.43.0
 
