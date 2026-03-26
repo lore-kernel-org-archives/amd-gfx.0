@@ -4,63 +4,92 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D519D10ED66F
-	for <amd-gfx@archiver.kernel.org>; Fri, 27 Mar 2026 12:40:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A3D1910ED664
+	for <amd-gfx@archiver.kernel.org>; Fri, 27 Mar 2026 12:40:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 57BC810EDBE;
+	by gabe.freedesktop.org (Postfix) with ESMTP id F163910EDCB;
 	Fri, 27 Mar 2026 12:40:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="BMw/VYn4";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="fAPm4hFl";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9F35E10E1BC;
- Thu, 26 Mar 2026 13:53:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1774533190;
- bh=yG7YSDPLmI1ryww7nMsH23b6orKyZanWG826+VZw/cE=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=BMw/VYn4oxv3aU6wgZxmHGozzpgi0NrsodhdFLO5uWNDzh+eyrh8G5BE+aDLsxwnk
- H3Rd0mZ2ySLXKPTal8GWWnV9IvzLCVBUDNtfdlfNPI4LgrzqnUBKmP++XW1CgnSZ/w
- lGVXaBl7pAwtwT36tJ160IsaZ8PI6rmNyBVNhjkac8RRtlaAyTfHtNQuYUFGlMzDVm
- RfZyS/58ixjrzWBM4bHyjTR0X34ejynhdmv3NCpm5R/I/4l21tg1TlOiHxIx+vExir
- V3kH5ZLTvc96vwfQhhHQJiObrgq2QGDXDxyOhXz44xLrKjJJ7+ze1JTBFAmNQc28pA
- CdiZBHaAuOt1A==
-Received: from fluorite (unknown [194.136.85.206])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
- server-digest SHA256) (No client certificate requested)
- (Authenticated sender: pq)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 219AB17E609D;
- Thu, 26 Mar 2026 14:53:09 +0100 (CET)
-Date: Thu, 26 Mar 2026 15:53:05 +0200
-From: Pekka Paalanen <pekka.paalanen@collabora.com>
-To: Michel =?UTF-8?B?RMOkbnplcg==?= <michel.daenzer@mailbox.org>
-Cc: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Harry Wentland <harry.wentland@amd.com>,
- Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>, Alex
- Deucher <alexander.deucher@amd.com>, Christian =?UTF-8?B?S8O2bmln?=
- <christian.koenig@amd.com>, Ville =?UTF-8?B?U3lyasOkbMOk?=
- <ville.syrjala@linux.intel.com>, Daniel Stone <daniels@collabora.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, kernel@collabora.com, Derek Foreman
- <derek.foreman@collabora.com>, Marius Vlad <marius.vlad@collabora.com>
-Subject: Re: [PATCH v5 0/3] Add "link bpc" DRM property
-Message-ID: <20260326155305.736b4e64@fluorite>
-In-Reply-To: <254c20a4-cce3-4c8e-9902-514586f3e694@mailbox.org>
-References: <20260319-link-bpc-v5-0-5306cd04a708@collabora.com>
- <8676926.T7Z3S40VBb@workhorse>
- <eff61423-a854-44c1-8634-30e2bd61e005@mailbox.org>
- <4265353.aeNJFYEL58@workhorse>
- <254c20a4-cce3-4c8e-9902-514586f3e694@mailbox.org>
-X-Mailer: Claws Mail 4.3.1 (GTK 3.24.51; x86_64-redhat-linux-gnu)
+Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com
+ [209.85.215.174])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1343010EB28
+ for <amd-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 23:47:40 +0000 (UTC)
+Received: by mail-pg1-f174.google.com with SMTP id
+ 41be03b00d2f7-c741db5d610so783352a12.3
+ for <amd-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 16:47:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1774568859; x=1775173659; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=mqMdpDaaRiGg+2ZN9NqktjEbPVOkWurGFYKafkS7Z0Q=;
+ b=fAPm4hFlTWd+Vmk0N2NAldaV8DjFXR56E12R+GM3VN3pJMh7A3e2Y78m5o4oL0PCyY
+ nneXpxdOuPFpavBIwYBdsg/1ct11PdE2qA3nE3col6WD/ov9/6dMg186tHcht56qgEb6
+ fur2pt60VZ0O2Nif0TGCSeVY09jQbr5kGkHAYEtoT/vw3JLd9w8rIIZFwLnKCg7AsUnl
+ ejReP5IN+s8YuoesfxN+J2YxLwg/JXk5zDkI9HRQWKuCRwMXR4gsVBP5BHVw15xVTXFn
+ Ub0FiP2sbh7gySRYsTa+8HoASRIXalZVEvUOx5hU+QoVFCHE43QYwchz1+tx+h9x0MTp
+ mE3A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1774568859; x=1775173659;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=mqMdpDaaRiGg+2ZN9NqktjEbPVOkWurGFYKafkS7Z0Q=;
+ b=nxrQrAulykU64h0VjmyqphICtVruqEL2c/mQhPY4XRhegvApv85HGeEkzrNZjt3QOc
+ 7eSnScDK41egxUxPg/Gd96koc7kk8VslxfEsUD+VMbbiNSAEcduy6xcqh2girGegupnu
+ pFvfXscEvLEjmJmO/5KfYd0m/si4CIfjKko8wZY3sbTJg52HNtg4Jh4QO4+HAT7MAmIE
+ Met+Vcn1JRoUrPpqTI8GoGsIGUaprKLXkm/qeJL/wmHkEb6VJ+4jtgKyYmOupMx9ymro
+ xRW2NrrXXjl64hpZKWHbH3UkY+M6AJFIaMn7X5eDYaECBcQQr9ku2hs5xzz2GfVW4116
+ w1zg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWjxEYQNES8YQ3mubjDJGhPwoiFb6saNPWvb1aMdmhnIiIk3v5GQCem56XMgZ4n6hHxZrVvTITq@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yy5/usEoyTx4bXoB+ESMqC8o/2PIiOJokyKJkJ+4mFCeFK5V5BW
+ EfYVdQZ+A9FgRuhJVqr2dEM7s3lZo/but1TfQffHBXBYypAqjib8XPLx
+X-Gm-Gg: ATEYQzySAzNjINBH5+miBpfnN6FHy9y0mHIZc5pP9gzLr/epAJvYIkduShVns8/xMHt
+ XaomiadzOxn9X27o0Y6nqeX6B2lCUIFXU7g34o188aZJ9UfJa0ATI/+nvDhQNNEQn5I/HoGtQyU
+ FYgxwTisc7vH/gNYnC+xHi4saT6TgWPXNmolQ5bkHlzeTA/RNActyMO0wflkNyGCa/8obCg4ij+
+ w8R49lOaZMDp3prZCBElZv/Y/pr5g786wUJQG2OggHr+85mz7TEQmQxDlgn4WGjgXezO9eve54W
+ dc4NGBHY1BN/x3GLyEjHRR+Cu1L3cC2HlAS2g4UV8phCkLiCB69XZ5Cl8URrO8nfRpQWeVK0SFG
+ imLyPM+mBZaNQfJAFonLZzi1ggYwPuyakfzsWdNjLb7ui999hI5LYC7W7rPtUlvEOdd4pRYu+sW
+ q4/Kj2DBdupaeAo8e6s7HsOtL8DhnEdQZ1rZoXrn0dt4AaKqYQrvo3pFE=
+X-Received: by 2002:a05:6a21:3287:b0:398:9ae9:7112 with SMTP id
+ adf61e73a8af0-39c8781ff90mr479262637.1.1774568859447; 
+ Thu, 26 Mar 2026 16:47:39 -0700 (PDT)
+Received: from ryzen ([2601:644:8000:5b5d::8bd])
+ by smtp.gmail.com with ESMTPSA id
+ 41be03b00d2f7-c7673933816sm3201162a12.21.2026.03.26.16.47.37
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 26 Mar 2026 16:47:38 -0700 (PDT)
+From: Rosen Penev <rosenp@gmail.com>
+To: stable@vger.kernel.org
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@linux.ie>,
+ Daniel Vetter <daniel@ffwll.ch>, Harry Wentland <harry.wentland@amd.com>,
+ Leo Li <sunpeng.li@amd.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Bin Lan <bin.lan.cn@windriver.com>, He Zhe <zhe.he@windriver.com>,
+ Vitaly Prosyak <vitaly.prosyak@amd.com>, Alex Hung <alex.hung@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>,
+ Mario Limonciello <Mario.Limonciello@amd.com>, Ray Wu <ray.wu@amd.com>,
+ Wayne Lin <wayne.lin@amd.com>, Roman Li <Roman.Li@amd.com>,
+ Eric Yang <Eric.Yang2@amd.com>, Tony Cheng <Tony.Cheng@amd.com>,
+ Mauro Rossi <issor.oruam@gmail.com>,
+ amd-gfx@lists.freedesktop.org (open list:RADEON and AMDGPU DRM DRIVERS),
+ dri-devel@lists.freedesktop.org (open list:DRM DRIVERS),
+ linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH for 6.12 2/9] drm/amd/amdgpu: disable ASPM in some situations
+Date: Thu, 26 Mar 2026 16:47:09 -0700
+Message-ID: <20260326234716.16723-3-rosenp@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260326234716.16723-1-rosenp@gmail.com>
+References: <20260326234716.16723-1-rosenp@gmail.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="Sig_/eXQlGv.+Nh6qks6CpJaig2v";
- protocol="application/pgp-signature"; micalg=pgp-sha256
-X-Mailman-Approved-At: Fri, 27 Mar 2026 12:40:01 +0000
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Fri, 27 Mar 2026 12:40:00 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,104 +104,78 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---Sig_/eXQlGv.+Nh6qks6CpJaig2v
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+From: Kenneth Feng <kenneth.feng@amd.com>
 
-Hi Michel,
+[ Upstream commit c770ef19673fb1defcbde2ee2b91c3c89bfcf164 ]
 
-I have some opinions as well.
+disable ASPM with some ASICs on some specific platforms.
+required from PCIe controller owner.
 
-On Tue, 24 Mar 2026 17:44:21 +0100
-Michel D=C3=A4nzer <michel.daenzer@mailbox.org> wrote:
+Signed-off-by: Kenneth Feng <kenneth.feng@amd.com>
+Reviewed-by: Yang Wang <kevinyang.wang@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 32 ++++++++++++++++++++++
+ 1 file changed, 32 insertions(+)
 
-> Per my previous posts, my concerns are:
->=20
-> * The meaning of the "link bpc" property value isn't defined well
-> enough vs things like dithering or DSC, which will likely result in
-> compositors / users overestimating what value they need / want,
-> resulting in compositors spuriously rejecting configurations which
-> would work perfectly fine, and/or spurious issue reports.
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index dbee43c58741..eb3c6bfe2e6c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -84,6 +84,7 @@
+ 
+ #if IS_ENABLED(CONFIG_X86)
+ #include <asm/intel-family.h>
++#include <asm/cpu_device_id.h>
+ #endif
+ 
+ MODULE_FIRMWARE("amdgpu/vega10_gpu_info.bin");
+@@ -1758,6 +1759,35 @@ static bool amdgpu_device_pcie_dynamic_switching_supported(struct amdgpu_device
+ 	return true;
+ }
+ 
++static bool amdgpu_device_aspm_support_quirk(struct amdgpu_device *adev)
++{
++#if IS_ENABLED(CONFIG_X86)
++	struct cpuinfo_x86 *c = &cpu_data(0);
++
++	if (!(amdgpu_ip_version(adev, GC_HWIP, 0) == IP_VERSION(12, 0, 0) ||
++		  amdgpu_ip_version(adev, GC_HWIP, 0) == IP_VERSION(12, 0, 1)))
++		return false;
++
++	if (c->x86 == 6 &&
++		adev->pm.pcie_gen_mask & CAIL_PCIE_LINK_SPEED_SUPPORT_GEN5) {
++		switch (c->x86_model) {
++		case VFM_MODEL(INTEL_ALDERLAKE):
++		case VFM_MODEL(INTEL_ALDERLAKE_L):
++		case VFM_MODEL(INTEL_RAPTORLAKE):
++		case VFM_MODEL(INTEL_RAPTORLAKE_P):
++		case VFM_MODEL(INTEL_RAPTORLAKE_S):
++			return true;
++		default:
++			return false;
++		}
++	} else {
++		return false;
++	}
++#else
++	return false;
++#endif
++}
++
+ /**
+  * amdgpu_device_should_use_aspm - check if the device should program ASPM
+  *
+@@ -1782,6 +1812,8 @@ bool amdgpu_device_should_use_aspm(struct amdgpu_device *adev)
+ 	}
+ 	if (adev->flags & AMD_IS_APU)
+ 		return false;
++	if (amdgpu_device_aspm_support_quirk(adev))
++		return false;
+ 	return pcie_aspm_enabled(adev->pdev);
+ }
+ 
+-- 
+2.53.0
 
-That is ok. Compositors need to understand what the numbers mean, how
-reliable they are, and act accordingly. Knowing the lower bound for
-link precision is already useful as it guarantees a minimum precision.
-It is up to the compositors to decide how they communicate this.
-
-Or course, assuming lossy compression is not too lossy. Maybe
-lossy compression should be forbidden by default unless explicitly
-enabled by userspace?
-
-> With my compositor developer hat on, what I'd want to know is
-> something like: "How many bits of information can be passed over the
-> link, allowing the display to present it in a way which can be
-> perceived by the user?" With dithering or DSC, that would be a higher
-> value than the physical link bpc.
-
-Sure, but this is not that. This is only a part of that. You would
-also want to know what the monitor does with the signal, the depth of
-the data path to the panel, and so on. I'm sure those are completely
-off-topic for a KMS property.
-
-The kernel driver won't know how acceptable temporal dithering, spatial
-dithering or lossy compression are, so I don't think it should be
-deciding how many bits of precision they add or subtract. Exactly this
-makes the link bpc property a well-defined fact rather than an estimate.
-
-The documentation of 'link bpc' could be more explicit about this.
-
->=20
-> * There's no clear use case.
->=20
-> This is generally a requirement for new KMS UAPI.
->=20
-> The practical usefulness of the corresponding weston MR is dubious
-> per the concern above.
-
-I think the example of RGB 10 bpc to be degraded to YCbCr 10 bpc rather
-than RGB 8 bpc is an excellent use case. I had another use case in
-https://gitlab.freedesktop.org/wayland/weston/-/merge_requests/1850#note_31=
-15686
-
-Mario Kleiner had excellent cases as well.
-
-Maybe these just need to be spelled more clearly in the commit message.
-
-> > That the link-bpc property does not consider DSC and dithering?
-> > Two things which the max-bpc property also does not consider? =20
->=20
-> It's not (as much of) an issue with the "max bpc" property because
-> it's just an upper limit, the driver is free to use a lower effective
-> bpc.
-
-FWIW, 'max bpc' is a workaround for faulty sink devices that claim to
-handle a depth but silently misbehave. This is also why I called for a
-"desired bpc" setting in the Weston MR, to not confuse with the "max
-bpc" setting.
-
-
-Thanks,
-pq
-
---Sig_/eXQlGv.+Nh6qks6CpJaig2v
-Content-Type: application/pgp-signature
-Content-Description: OpenPGP digital signature
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmnFOkEACgkQI1/ltBGq
-qqfIXA//digfbcOx5QZhTww+D1ISYChsBDXUVIx9U+SVRgSPxzltYE3A2e+P9nzq
-RrhWxAQAOy9DtsbeRuxbEx5OtXXAmkVod77y0/wIqUvwbHcxgjXSfixjDm1af8Hy
-oUamdknpQTDHRGgVUwickdaU+rvHf7+Bmru9kBmZ5yN0rQ7Sevq5rwUjygBsWEaH
-HfAsQYew3RXEdCxj36NHXPFVY4DykAea3Llwhl0lhP3yz9T2ooR78D+c0u7hs+pL
-kdad12pYDh4ADQho4Ny/qPyAnce007UZZ9nEHvZTM4ekmZnuiwJCRj8JPumt+wLV
-q73W7gIAb+78Pevf9RP2UFL6Mf02A6l08HJqCW6cH1QzLrtmVGIO6a9rG6pWLEH5
-sbyozItKH0/ZGWtCDz1iDRi9976DysvKt5GDUcZWxa3ZComOvvcau9HmeB9ECqA0
-nend8VFUYp5ZVT7iyS4Srlm21ok57cgGInKtMBSCfdz7/3Lqz9ZOHRBWQZhMSTYU
-8unNVp1U+qBfhaRuHPFDTGkjRRyX/PIHyquNHXAo3fL29DO72xge6vmamQph0Ugd
-SvrkaEYp65BsB6PBZRe5/OifXlP17Br9tvnIwPXnyxhhHzwD2Pqx+/Q4og5fneiO
-tHFt428SwUwVAAyqwVMfJk3iYaIQXyOxWdxx/WwKY9TV1a5TvLs=
-=VXjn
------END PGP SIGNATURE-----
-
---Sig_/eXQlGv.+Nh6qks6CpJaig2v--
