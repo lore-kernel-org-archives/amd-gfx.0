@@ -4,43 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C21C3109E542
-	for <amd-gfx@archiver.kernel.org>; Thu, 26 Mar 2026 03:01:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B14D8109E540
+	for <amd-gfx@archiver.kernel.org>; Thu, 26 Mar 2026 03:01:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5678310E91F;
-	Thu, 26 Mar 2026 03:01:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B07F310E934;
+	Thu, 26 Mar 2026 03:01:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="uZxCrWe2";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="x/jR1/Mc";
 	dkim-atps=neutral
-Received: from PH0PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11011063.outbound.protection.outlook.com [40.107.208.63])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8265410E919
- for <amd-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 03:01:12 +0000 (UTC)
+Received: from SN4PR2101CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11012039.outbound.protection.outlook.com
+ [40.93.195.39])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7359810E933
+ for <amd-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 03:01:15 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=HczBC9x/KcMH2Bgn14Yoh+Tm+o9/3FeGr0MfAqP3v82ND3LaKTf3n8IJgmyWek8C0gZh8BSpXe23ie/na13PVHkU4NfHRrJNrh0m22MbY3V6qXKNw1pIbyb74cuIGTVNaG9q7vkjFqGawljU+uvyG3kXgJClHshEAtPu0UIdTAxmwbhNyu8OzDcIdNyK158jzaf+E5FQXvkBm1HrT/rK6jTOr7RyMNrqMqGqhIoW9IBI4gBEPy6bKvneNMrPqB4b26oiMRrjHx+nO7wum2uoB/oW0wS+THWiYwvngc1W78jolOhHRjqDl2XJNYoosGnn2knfbENvAssmK80PR2zOcA==
+ b=u4qs89PduOKilpvwuxapXtN+Hm47zKqq6tMOLk1h03W4a3c7xa5dsgVr4ZM+pwOa0ELx7C5PROPjoeY1oFiaJZaDjnQInTTFCbvzkV2tCencAvB5JJX83t2k6eY2RRLh0A80pM01qSk5HUPp/pRPShVjrbzb4KRfDXEd00BpCmgrFizLqG8NGtNxOOgSPNnjJBIqbpipDdYWX20xQge8mWGNQM8NvHGDj18uzLC47UCGuiVPthMtPZT5Zx6e2i6FjjrtggbBExdpKR4p/jRqZ7ZuofxGENq3e09BKgjWoB3sMmVerSdgX6h/NfWUH7W0J7bSqq290j4IXJ814xS7BA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=UGayQRv9UslUftf2Z8WAtL8osJXvCFWMHu2bninMHtU=;
- b=G0kHv3e2cvRRUpn7Iiw2W4Sx7+YOyibaloZ7eWlEwiyeIe+lcmpYg6kU+FwrrTBryG3GawhPcGr1Yel2vT1T0d3crmZ37dM/8yWkBCVq0SBpjRMTCoMpKSYB1/nFr+GvWhanEahacrGyabb558eS4f4euTQES2oMK+sWl5+XYfpt9jvhhKEWszBzpDnm5TYlCHaDRhuOklyBEGklb2/1SPbiRZ/bRaAOvcKn6A8dyFoK3XqGaDXkOymgpjKEm6ab0Idbyeo02rL3D9lb4NEzliTCS97fNMUP6HZOJx1Ol69jgC22vft7urRYEJ9iD+A5gqAF6vbtpWIHTXDQDH3+zA==
+ bh=9PtbzIx1WaKAzmxwwF1yokOmxoIPFtGDKThUUfKtK1o=;
+ b=DXKyaY6Y5hOi26sJFrgfYMv9kYF7HILTQiGYAsh3tzE+YKnJtlXq74LPnwGsCIMpEfHVwet0M7X8O+0CCcw8X/ndz+XfhxOpAuWc6fnRIiZCxEz2IrGf8NxpCqWBavKcrjSdmtCIVmJM/fBUNX1Qb+GtqDh/n8DUBdM7Z7NPlkPidpps+6A7JcVyCxgwmtOd0mR7AJOKc99R/UY529K/+/lXRNXRPfD5IGjCvVacZRG8EffQjPMsrx9GR9mB1Vay5ZDW0Wnyg+dSMNsn04szTubnVViyD/M3CxPgbWSK5/N8TKohXALs7OBOj+KVzyrDASibKKysS/LtGkQDHvEopg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=UGayQRv9UslUftf2Z8WAtL8osJXvCFWMHu2bninMHtU=;
- b=uZxCrWe2+iy0LgRkhEUYUoIhPo0KMtmHUHZpdueDS5FW6C2Dj5EQ5i0SEyP3giqEAgAl26PcphNR/NrFB+WCp1SAibJA30D26kMXXnYHaAhiF+7Fs/flqUNMyFJiq6wrUjy9NxfHW/cTKs21j91XJU72gRaamqsWKnTUwvsTQNA=
-Received: from BL1PR13CA0151.namprd13.prod.outlook.com (2603:10b6:208:2bd::6)
- by PH8PR12MB7109.namprd12.prod.outlook.com (2603:10b6:510:22f::16)
+ bh=9PtbzIx1WaKAzmxwwF1yokOmxoIPFtGDKThUUfKtK1o=;
+ b=x/jR1/McmGQ7BkT111Fi9ejiCFjg1LqhDyCMkVtsrdQ1bhX9/78a++xCRnNN4fKbFOqfbpvkVWPg1TzNDnAKUFsTuFSWsYe7TvRhc1nYKtbs7NgzEyQQQz6Qh99aeiiKv+giRe7G7ERUe2LN3wtZwUON5bMJeI7xlOro2/kD51U=
+Received: from BL1PR13CA0165.namprd13.prod.outlook.com (2603:10b6:208:2bd::20)
+ by MN6PR12MB8491.namprd12.prod.outlook.com (2603:10b6:208:46f::22)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.20; Thu, 26 Mar
- 2026 03:01:04 +0000
+ 2026 03:01:06 +0000
 Received: from MN1PEPF0000ECD4.namprd02.prod.outlook.com
- (2603:10b6:208:2bd:cafe::ab) by BL1PR13CA0151.outlook.office365.com
- (2603:10b6:208:2bd::6) with Microsoft SMTP Server (version=TLS1_3,
+ (2603:10b6:208:2bd:cafe::19) by BL1PR13CA0165.outlook.office365.com
+ (2603:10b6:208:2bd::20) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.20.9745.20 via Frontend Transport; Thu,
- 26 Mar 2026 03:01:03 +0000
+ 26 Mar 2026 03:01:05 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -50,11 +51,11 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from satlexmb07.amd.com (165.204.84.17) by
  MN1PEPF0000ECD4.mail.protection.outlook.com (10.167.242.132) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9745.21 via Frontend Transport; Thu, 26 Mar 2026 03:01:03 +0000
+ 15.20.9745.21 via Frontend Transport; Thu, 26 Mar 2026 03:01:05 +0000
 Received: from maxMSI.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Wed, 25 Mar
- 2026 22:00:56 -0500
+ 2026 22:01:00 -0500
 From: ChuanYu Tseng <ChuanYu.Tseng@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -62,12 +63,12 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Wayne Lin <wayne.lin@amd.com>, Tom Chung <chiahsuan.chung@amd.com>, "Fangzhi
  Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
- <alex.hung@amd.com>, Gaghik Khachatrian <gaghik.khachatrian@amd.com>, "Dillon
- Varone" <dillon.varone@amd.com>, Chuanyu Tseng <chuanyu.tseng@amd.com>
-Subject: [PATCH v2 09/30] drm/amd/display: Fix Silence Conversion Warnings in
- Dmub
-Date: Thu, 26 Mar 2026 10:57:00 +0800
-Message-ID: <20260326030153.406612-10-ChuanYu.Tseng@amd.com>
+ <alex.hung@amd.com>, Gabe Teeger <gabe.teeger@amd.com>, Dmytro Laktyushkin
+ <dmytro.laktyushkin@amd.com>, Chuanyu Tseng <chuanyu.tseng@amd.com>
+Subject: [PATCH v2 10/30] drm/amd/display: eliminate clock manager code
+ duplication
+Date: Thu, 26 Mar 2026 10:57:01 +0800
+Message-ID: <20260326030153.406612-11-ChuanYu.Tseng@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260326030153.406612-1-ChuanYu.Tseng@amd.com>
 References: <20260326030153.406612-1-ChuanYu.Tseng@amd.com>
@@ -79,29 +80,29 @@ X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN1PEPF0000ECD4:EE_|PH8PR12MB7109:EE_
-X-MS-Office365-Filtering-Correlation-Id: 74156e13-a83b-4c14-75e3-08de8ae3eb15
+X-MS-TrafficTypeDiagnostic: MN1PEPF0000ECD4:EE_|MN6PR12MB8491:EE_
+X-MS-Office365-Filtering-Correlation-Id: a7ec95c2-4b15-4cf2-169f-08de8ae3ec22
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|36860700016|376014|1800799024|56012099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: TB2vLcy6i+WIk/7W8ydwuPDDlcsNFG/ATcH66PSrNnl3GqMrpcQEmfi/n58Z65aSgJvAGnwJkJrGNCZLjpknxuql8NYnnMRjaIGwCQGJ9EGFWPSBhFdgDRSCaO5aKmHv6DNE5JeBBUPVSpBFA7e0gKzyvdJhQrDjydizipgOjo2IKPc9EgGBNqav1P5dsTrv/aP/9Anr079e8Ymi4eMvvsToaF4oQqWM7NENEOvbF8LhzSYhuGto+otW477u78gLjOenFPMKmwXJu2q4Lkdm+dKyLiku508TnhSwHGeAo4Z7IRXmY2QBStHxbI2lk6Ish5G5NKRS1hhGjhjkvq2pyVZzgf2R1BuBGXytQ3j+gIpGhXKUyu/7gyWo7le/asu8fbyfUHU5ScwYRRuc9xFJ+xgsOTXFKMtoPISBL76KC8L/DF1Wl9i32bwTl8wuMxWO8CcMF0gQ+YpDSAWrDC33n+H3s1CUBgv7U6vW1HLl4xETPyuRezdcbteaS9L+4rxD6ITA+amuIjAi4ZM4CH63Xy1w/Ao8wkMU6XwWVofFDB6/yjdeV6V1CfWVZVvfZUSz1GXNnnADIPLrWSzn2nV8L9xrHkcTh5rq3y2+RkuvcG29D0VcXGGpr6yspENJGwtmdhen3dMfESOPstXPGxpjR1xqmg+vi0oYKnyYQnO/kDke8LV5sODaYLrsUxV4Dtx8UwGIIAR3vbt+RFpAeqB9+6DonGh5QLWe+cRy8u+zKK0OQawm08UFGWIEQj3HAvBBvnbVi6lfP6z3Kq503w0zfw==
+ ARA:13230040|1800799024|82310400026|36860700016|376014|18002099003|22082099003|56012099003;
+X-Microsoft-Antispam-Message-Info: T6Wl0E4x4bwo06Ux9VrkH55U3xZtCjpqpS9/Py+3dbNbFye8B+aRv+0ILTmmTRmj9v2yXYgmx8QSkGiei8t/tVJGBnSzN6hXgduVcXZKq9VoNNkvmJjv0ojXYLy1W7/TUA06Q87ytcyPE8FHeAIOgp+4wGRPdN/eOYOkPnacChODio+Yxw+hw7D5b17uHSCfbWHPVrpztaoIedDBhNNzrHugkJvA0j4m5lqL5oyqxDilFi9pl4c1WoBVs3+DTbRgTpTksAv82ZKvun7EChyplGdlOkiJhjtnpza4y8prY2K36PoWu5GFFeANVLT/9Z59pZX1Xj1z7Vgidi5+KdT5OG+o9xPb3/hy8CX45X5ft/q5QQA8KhDJNOL/5SQs2CEU+bJg++3U1tSH0quMqKjk9GSZ3mldaOq6ox8QGN2BmTi+l0Z2eFQLq5fYfOd+kPqo2Er/OZYSVDGim6/4NczoBd7LqX3WrgkcjtRPrIIsBs/chmBm05OI0a7D91nb2uIWjSu9U+nN6sRIc98rsOaLqcXFsAxYrL7uthbVXbmQ/qyEBcLt+IofYLXIgJmKCP5JWR2+yMrZgfw6pareou2Fr4CevjN5RY3dkuHlsf1IcuiGzI61+Cy666/V/uON2llejKmv9zCEwgjs5BjwEwA36KUkQgDE69LdxUJnV+WaQodoib/xRS64GuWbWPwU0PlV9mbs5ogoDHJyrZ6LSnZPGIzKSQS0RCIetaUV9GAbzz1qz9l5Th+HLc4DjS9pg8O1c/Zn9yvQ1VYy8nG6Z7epfg==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(36860700016)(376014)(1800799024)(56012099003)(22082099003)(18002099003);
+ SFS:(13230040)(1800799024)(82310400026)(36860700016)(376014)(18002099003)(22082099003)(56012099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: LqzQZCx4GjtwHBb5EgWAkijWX1XgivQl+kokF2BGIYtgNUv+Pel6+blqbADblldKmEikHBzLtP+sYwu52GRGRk7AImvkNZH2vKqjlC2FWgiCY8Psfm10SiZQYIDQ/SoOW+sKuVgYr7Id7HM5puh67PVkmzmNGGSsL1WT1tJWVXdSzfHAt3MFlmeUA1I5XxD9yCN58N869UsLaaEPH+5xd67SCS/lbpZcmMwTrphmLEOdOjdyGkxpthTN50RNOHQr2n/T5gxqzfk/n+XzzPIbNvFcUV4TOgihW7KItHPJJ/RW5GkvNJxLRlnMH2HnLqdhHHpAUOVtlwj5QxPgZiLhawPKXVm0I+5um0KaqSeNYRbHhio1q5oVHYy61OyjeShx8coYe+Cs7EWFcQDheE18SJbpsDfzI9gjL+HEkU2wLNEOvqlNa8i9QciRShv0ofjj
+X-MS-Exchange-AntiSpam-MessageData-0: brMdRwWrmMt0QR6oco0h0/rgqGaCVfXzEO6UOzT9kvtNyS9PiuEK9OIjtY8oeCr/mOBinhc2rQoM1YPFullLBndqzC2XiTcBuCMtIIIWdWF5jbttrWsEGmNnSPjA868/w30OoUCMALP/gVNKmnykgb8XajwBaOhFIgYi3ZTxon4/5PstDhCCyXMG7xG20Kfx6bTPOtvBwOhTqXJQ9GUQKt8BhpyFhyflOofDDYxbi9yxPLKldFczck25dgVD6rYu67+TaOUaaw6tnJ9OAvgaNZ8jMvgXypHLOpGqFjN0TMXfc7AddeXd7brsCDyv1IvJOWOvJfOjyBLfmwusTfT5lmLUrS3JFQRc6I4MVni8A8JQBwsVBj5Qa8NvKxKNl6+tnhJtRIwels4UkUv3pH3TLPAKXKmeQS5cuAUUiOtQ/ANcreH4SstpHFUuKnCE2iDA
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Mar 2026 03:01:03.8937 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 74156e13-a83b-4c14-75e3-08de8ae3eb15
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Mar 2026 03:01:05.6674 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a7ec95c2-4b15-4cf2-169f-08de8ae3ec22
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: MN1PEPF0000ECD4.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB7109
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN6PR12MB8491
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,338 +117,145 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Gaghik Khachatrian <gaghik.khachatrian@amd.com>
+From: Gabe Teeger <gabe.teeger@amd.com>
 
-Fix Conversion that might result in a loss of data  warnings in dmub/src/:
+[Why]
+Clock manager contained significant duplicate code between
+variants with identical logic for functions using only SMU
+calls or shared registers. This increases maintenance overhead
+and potential for bugs.
 
-- dmub_dcn20/31/32/35/42/60/401.c: Add ASSERT(value <= 0xFF) and
-  explicit (uint8_t) cast when storing REG_GET results into uint8_t
-  debug struct fields. Add != 0 for bool assignments from uint32_t
-  bitfield reads.
-- dmub_reg.c: Cast va_arg shift value to uint8_t with ASSERT guard
-  before passing to set_reg_field_value_masks().
-- dmub_srv.c: Widen num_pending to uint64_t to match uint64_t
-  arithmetic; use != 0 for bool assignments from unsigned expressions.
+[How]
+Expose clock constants and internal functions in header for
+sharing. Remove duplicate implementations and update function
+pointers to use shared functions. Refactor remaining
+variant-specific functions to use shared constants and helper
+functions. Add compatibility comments for hardware differences.
 
-No functional change intended.
-
-Reviewed-by: Dillon Varone <dillon.varone@amd.com>
-Signed-off-by: Gaghik Khachatrian <gaghik.khachatrian@amd.com>
+Reviewed-by: Dmytro Laktyushkin <dmytro.laktyushkin@amd.com>
+Signed-off-by: Gabe Teeger <gabe.teeger@amd.com>
 Signed-off-by: Chuanyu Tseng <chuanyu.tseng@amd.com>
 ---
- .../gpu/drm/amd/display/dmub/src/dmub_dcn20.c | 18 ++++++++++-----
- .../gpu/drm/amd/display/dmub/src/dmub_dcn31.c | 21 +++++++++++------
- .../gpu/drm/amd/display/dmub/src/dmub_dcn32.c | 15 ++++++++----
- .../gpu/drm/amd/display/dmub/src/dmub_dcn35.c | 17 +++++++++-----
- .../drm/amd/display/dmub/src/dmub_dcn401.c    | 21 +++++++++++------
- .../gpu/drm/amd/display/dmub/src/dmub_dcn42.c | 23 ++++++++++++-------
- .../gpu/drm/amd/display/dmub/src/dmub_reg.c   |  3 ++-
- .../gpu/drm/amd/display/dmub/src/dmub_srv.c   |  8 +++----
- 8 files changed, 82 insertions(+), 44 deletions(-)
+ .../display/dc/clk_mgr/dcn42/dcn42_clk_mgr.c  | 26 ++++++++++---------
+ .../display/dc/clk_mgr/dcn42/dcn42_clk_mgr.h  |  8 +++++-
+ 2 files changed, 21 insertions(+), 13 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn20.c b/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn20.c
-index 54df2147e4dc..73221ca53b7d 100644
---- a/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn20.c
-+++ b/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn20.c
-@@ -460,20 +460,26 @@ void dmub_dcn20_get_diagnostic_data(struct dmub_srv *dmub)
- 	dmub->debug.inbox0_size = REG_READ(DMCUB_INBOX0_SIZE);
+diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn42/dcn42_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn42/dcn42_clk_mgr.c
+index b4c6522e922c..97f182bfc9ca 100644
+--- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn42/dcn42_clk_mgr.c
++++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn42/dcn42_clk_mgr.c
+@@ -43,8 +43,6 @@
+ #define DC_LOGGER_INIT(logger) \
+ 	struct dal_logger *dc_logger = logger
  
- 	REG_GET(DMCUB_CNTL, DMCUB_ENABLE, &is_dmub_enabled);
--	dmub->debug.is_dmcub_enabled = is_dmub_enabled;
-+	ASSERT(is_dmub_enabled <= 0xFF);
-+	dmub->debug.is_dmcub_enabled = (uint8_t)is_dmub_enabled;
+-#define DCN42_CLKIP_REFCLK 48000
+-
+ #undef FN
+ #define FN(reg_name, field_name) \
+ 	clk_mgr->clk_mgr_shift->field_name, clk_mgr->clk_mgr_mask->field_name
+@@ -255,6 +253,10 @@ void dcn42_update_clocks(struct clk_mgr *clk_mgr_base,
+ 			dcn42_smu_set_zstate_support(clk_mgr, DCN_ZSTATE_SUPPORT_DISALLOW);
+ 			clk_mgr_base->clks.zstate_support = new_clocks->zstate_support;
+ 		}
++		/* Only attempt to enable dtbclk if currently disabled AND new state requests it.
++		 * For dcn42b (no dtbclk hardware), init_clk_states sets dtbclk_en=false and
++		 * new_clocks->dtbclk_en should always be false, so this block never executes.
++		 */
+ 		if (!clk_mgr_base->clks.dtbclk_en && new_clocks->dtbclk_en) {
+ 			int actual_dtbclk = 0;
  
- 	REG_GET(DMCUB_CNTL, DMCUB_SOFT_RESET, &is_soft_reset);
--	dmub->debug.is_dmcub_soft_reset = is_soft_reset;
-+	ASSERT(is_soft_reset <= 0xFF);
-+	dmub->debug.is_dmcub_soft_reset = (uint8_t)is_soft_reset;
- 
- 	REG_GET(DMCUB_SEC_CNTL, DMCUB_SEC_RESET_STATUS, &is_sec_reset);
--	dmub->debug.is_dmcub_secure_reset = is_sec_reset;
-+	ASSERT(is_sec_reset <= 0xFF);
-+	dmub->debug.is_dmcub_secure_reset = (uint8_t)is_sec_reset;
- 
- 	REG_GET(DMCUB_CNTL, DMCUB_TRACEPORT_EN, &is_traceport_enabled);
--	dmub->debug.is_traceport_en  = is_traceport_enabled;
-+	ASSERT(is_traceport_enabled <= 0xFF);
-+	dmub->debug.is_traceport_en  = (uint8_t)is_traceport_enabled;
- 
- 	REG_GET(DMCUB_REGION3_CW0_TOP_ADDRESS, DMCUB_REGION3_CW0_ENABLE, &is_cw0_enabled);
--	dmub->debug.is_cw0_enabled = is_cw0_enabled;
-+	ASSERT(is_cw0_enabled <= 0xFF);
-+	dmub->debug.is_cw0_enabled = (uint8_t)is_cw0_enabled;
- 
- 	REG_GET(DMCUB_REGION3_CW6_TOP_ADDRESS, DMCUB_REGION3_CW6_ENABLE, &is_cw6_enabled);
--	dmub->debug.is_cw6_enabled = is_cw6_enabled;
-+	ASSERT(is_cw6_enabled <= 0xFF);
-+	dmub->debug.is_cw6_enabled = (uint8_t)is_cw6_enabled;
- }
-diff --git a/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn31.c b/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn31.c
-index a0cefc03b21d..244244f3df80 100644
---- a/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn31.c
-+++ b/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn31.c
-@@ -466,25 +466,32 @@ void dmub_dcn31_get_diagnostic_data(struct dmub_srv *dmub)
- 	dmub->debug.outbox1_size = REG_READ(DMCUB_OUTBOX1_SIZE);
- 
- 	REG_GET(DMCUB_CNTL, DMCUB_ENABLE, &is_dmub_enabled);
--	dmub->debug.is_dmcub_enabled = is_dmub_enabled;
-+	ASSERT(is_dmub_enabled <= 0xFF);
-+	dmub->debug.is_dmcub_enabled = (uint8_t)is_dmub_enabled;
- 
- 	REG_GET(DMCUB_CNTL, DMCUB_PWAIT_MODE_STATUS, &is_pwait);
--	dmub->debug.is_pwait = is_pwait;
-+	ASSERT(is_pwait <= 0xFF);
-+	dmub->debug.is_pwait = (uint8_t)is_pwait;
- 
- 	REG_GET(DMCUB_CNTL2, DMCUB_SOFT_RESET, &is_soft_reset);
--	dmub->debug.is_dmcub_soft_reset = is_soft_reset;
-+	ASSERT(is_soft_reset <= 0xFF);
-+	dmub->debug.is_dmcub_soft_reset = (uint8_t)is_soft_reset;
- 
- 	REG_GET(DMCUB_SEC_CNTL, DMCUB_SEC_RESET_STATUS, &is_sec_reset);
--	dmub->debug.is_dmcub_secure_reset = is_sec_reset;
-+	ASSERT(is_sec_reset <= 0xFF);
-+	dmub->debug.is_dmcub_secure_reset = (uint8_t)is_sec_reset;
- 
- 	REG_GET(DMCUB_CNTL, DMCUB_TRACEPORT_EN, &is_traceport_enabled);
--	dmub->debug.is_traceport_en  = is_traceport_enabled;
-+	ASSERT(is_traceport_enabled <= 0xFF);
-+	dmub->debug.is_traceport_en  = (uint8_t)is_traceport_enabled;
- 
- 	REG_GET(DMCUB_REGION3_CW0_TOP_ADDRESS, DMCUB_REGION3_CW0_ENABLE, &is_cw0_enabled);
--	dmub->debug.is_cw0_enabled = is_cw0_enabled;
-+	ASSERT(is_cw0_enabled <= 0xFF);
-+	dmub->debug.is_cw0_enabled = (uint8_t)is_cw0_enabled;
- 
- 	REG_GET(DMCUB_REGION3_CW6_TOP_ADDRESS, DMCUB_REGION3_CW6_ENABLE, &is_cw6_enabled);
--	dmub->debug.is_cw6_enabled = is_cw6_enabled;
-+	ASSERT(is_cw6_enabled <= 0xFF);
-+	dmub->debug.is_cw6_enabled = (uint8_t)is_cw6_enabled;
- }
- 
- bool dmub_dcn31_should_detect(struct dmub_srv *dmub)
-diff --git a/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn32.c b/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn32.c
-index 2f99a2772599..5d86f649db4b 100644
---- a/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn32.c
-+++ b/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn32.c
-@@ -486,19 +486,24 @@ void dmub_dcn32_get_diagnostic_data(struct dmub_srv *dmub)
- 	dmub->debug.outbox1_size = REG_READ(DMCUB_OUTBOX1_SIZE);
- 
- 	REG_GET(DMCUB_CNTL, DMCUB_ENABLE, &is_dmub_enabled);
--	dmub->debug.is_dmcub_enabled = is_dmub_enabled;
-+	ASSERT(is_dmub_enabled <= 0xFF);
-+	dmub->debug.is_dmcub_enabled = (uint8_t)is_dmub_enabled;
- 
- 	REG_GET(DMCUB_CNTL, DMCUB_PWAIT_MODE_STATUS, &is_pwait);
--	dmub->debug.is_pwait = is_pwait;
-+	ASSERT(is_pwait <= 0xFF);
-+	dmub->debug.is_pwait = (uint8_t)is_pwait;
- 
- 	REG_GET(DMCUB_CNTL2, DMCUB_SOFT_RESET, &is_soft_reset);
--	dmub->debug.is_dmcub_soft_reset = is_soft_reset;
-+	ASSERT(is_soft_reset <= 0xFF);
-+	dmub->debug.is_dmcub_soft_reset = (uint8_t)is_soft_reset;
- 
- 	REG_GET(DMCUB_CNTL, DMCUB_TRACEPORT_EN, &is_traceport_enabled);
--	dmub->debug.is_traceport_en  = is_traceport_enabled;
-+	ASSERT(is_traceport_enabled <= 0xFF);
-+	dmub->debug.is_traceport_en  = (uint8_t)is_traceport_enabled;
- 
- 	REG_GET(DMCUB_REGION3_CW6_TOP_ADDRESS, DMCUB_REGION3_CW6_ENABLE, &is_cw6_enabled);
--	dmub->debug.is_cw6_enabled = is_cw6_enabled;
-+	ASSERT(is_cw6_enabled <= 0xFF);
-+	dmub->debug.is_cw6_enabled = (uint8_t)is_cw6_enabled;
- 
- 	dmub->debug.gpint_datain0 = REG_READ(DMCUB_GPINT_DATAIN0);
- }
-diff --git a/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn35.c b/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn35.c
-index 639f9835e5e9..f9b16eb8ef8e 100644
---- a/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn35.c
-+++ b/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn35.c
-@@ -402,7 +402,7 @@ void dmub_dcn35_enable_dmub_boot_options(struct dmub_srv *dmub, const struct dmu
- 	union dmub_fw_boot_options boot_options = {0};
- 
- 	if (!dmub->dpia_supported) {
--		dmub->dpia_supported = dmub_dcn35_get_fw_boot_option(dmub).bits.enable_dpia;
-+		dmub->dpia_supported = dmub_dcn35_get_fw_boot_option(dmub).bits.enable_dpia != 0;
+@@ -326,7 +328,7 @@ void dcn42_update_clocks(struct clk_mgr *clk_mgr_base,
  	}
  
- 	boot_options.bits.z10_disable = params->disable_z10;
-@@ -508,19 +508,24 @@ void dmub_dcn35_get_diagnostic_data(struct dmub_srv *dmub)
- 	dmub->debug.outbox1_size = REG_READ(DMCUB_OUTBOX1_SIZE);
- 
- 	REG_GET(DMCUB_CNTL, DMCUB_ENABLE, &is_dmub_enabled);
--	dmub->debug.is_dmcub_enabled = is_dmub_enabled;
-+	ASSERT(is_dmub_enabled <= 0xFF);
-+	dmub->debug.is_dmcub_enabled = (uint8_t)is_dmub_enabled;
- 
- 	REG_GET(DMCUB_CNTL, DMCUB_PWAIT_MODE_STATUS, &is_pwait);
--	dmub->debug.is_pwait = is_pwait;
-+	ASSERT(is_pwait <= 0xFF);
-+	dmub->debug.is_pwait = (uint8_t)is_pwait;
- 
- 	REG_GET(DMCUB_CNTL2, DMCUB_SOFT_RESET, &is_soft_reset);
--	dmub->debug.is_dmcub_soft_reset = is_soft_reset;
-+	ASSERT(is_soft_reset <= 0xFF);
-+	dmub->debug.is_dmcub_soft_reset = (uint8_t)is_soft_reset;
- 
- 	REG_GET(DMCUB_CNTL, DMCUB_TRACEPORT_EN, &is_traceport_enabled);
--	dmub->debug.is_traceport_en  = is_traceport_enabled;
-+	ASSERT(is_traceport_enabled <= 0xFF);
-+	dmub->debug.is_traceport_en  = (uint8_t)is_traceport_enabled;
- 
- 	REG_GET(DMCUB_REGION3_CW6_TOP_ADDRESS, DMCUB_REGION3_CW6_ENABLE, &is_cw6_enabled);
--	dmub->debug.is_cw6_enabled = is_cw6_enabled;
-+	ASSERT(is_cw6_enabled <= 0xFF);
-+	dmub->debug.is_cw6_enabled = (uint8_t)is_cw6_enabled;
- 
- 	dmub->debug.gpint_datain0 = REG_READ(DMCUB_GPINT_DATAIN0);
+ 	/* clock limits are received with MHz precision, divide by 1000 to prevent setting clocks at every call */
+-	if (!dc->debug.disable_dtb_ref_clk_switch &&
++	if (!dc->debug.disable_dtb_ref_clk_switch && new_clocks->dtbclk_en &&
+ 	    should_set_clock(safe_to_lower, new_clocks->ref_dtbclk_khz / 1000,
+ 			     clk_mgr_base->clks.ref_dtbclk_khz / 1000)) {
+ 		dcn42_update_clocks_update_dtb_dto(clk_mgr, context, new_clocks->ref_dtbclk_khz);
+@@ -519,7 +521,7 @@ static void init_clk_states(struct clk_mgr *clk_mgr)
+ 	clk_mgr->clks.zstate_support = DCN_ZSTATE_SUPPORT_UNKNOWN;
  }
-diff --git a/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn401.c b/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn401.c
-index 16ed07f0e96d..3d2307d0ce49 100644
---- a/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn401.c
-+++ b/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn401.c
-@@ -473,25 +473,32 @@ void dmub_dcn401_get_diagnostic_data(struct dmub_srv *dmub)
- 	dmub->debug.outbox1_size = REG_READ(DMCUB_OUTBOX1_SIZE);
  
- 	REG_GET(DMCUB_CNTL, DMCUB_ENABLE, &is_dmub_enabled);
--	dmub->debug.is_dmcub_enabled = is_dmub_enabled;
-+	ASSERT(is_dmub_enabled <= 0xFF);
-+	dmub->debug.is_dmcub_enabled = (uint8_t)is_dmub_enabled;
- 
- 	REG_GET(DMCUB_CNTL, DMCUB_PWAIT_MODE_STATUS, &is_pwait);
--	dmub->debug.is_pwait = is_pwait;
-+	ASSERT(is_pwait <= 0xFF);
-+	dmub->debug.is_pwait = (uint8_t)is_pwait;
- 
- 	REG_GET(DMCUB_CNTL2, DMCUB_SOFT_RESET, &is_soft_reset);
--	dmub->debug.is_dmcub_soft_reset = is_soft_reset;
-+	ASSERT(is_soft_reset <= 0xFF);
-+	dmub->debug.is_dmcub_soft_reset = (uint8_t)is_soft_reset;
- 
- 	REG_GET(DMCUB_SEC_CNTL, DMCUB_SEC_RESET_STATUS, &is_sec_reset);
--	dmub->debug.is_dmcub_secure_reset = is_sec_reset;
-+	ASSERT(is_sec_reset <= 0xFF);
-+	dmub->debug.is_dmcub_secure_reset = (uint8_t)is_sec_reset;
- 
- 	REG_GET(DMCUB_CNTL, DMCUB_TRACEPORT_EN, &is_traceport_enabled);
--	dmub->debug.is_traceport_en  = is_traceport_enabled;
-+	ASSERT(is_traceport_enabled <= 0xFF);
-+	dmub->debug.is_traceport_en  = (uint8_t)is_traceport_enabled;
- 
- 	REG_GET(DMCUB_REGION3_CW0_TOP_ADDRESS, DMCUB_REGION3_CW0_ENABLE, &is_cw0_enabled);
--	dmub->debug.is_cw0_enabled = is_cw0_enabled;
-+	ASSERT(is_cw0_enabled <= 0xFF);
-+	dmub->debug.is_cw0_enabled = (uint8_t)is_cw0_enabled;
- 
- 	REG_GET(DMCUB_REGION3_CW6_TOP_ADDRESS, DMCUB_REGION3_CW6_ENABLE, &is_cw6_enabled);
--	dmub->debug.is_cw6_enabled = is_cw6_enabled;
-+	ASSERT(is_cw6_enabled <= 0xFF);
-+	dmub->debug.is_cw6_enabled = (uint8_t)is_cw6_enabled;
- 
- 	dmub->debug.gpint_datain0 = REG_READ(DMCUB_GPINT_DATAIN0);
- }
-diff --git a/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn42.c b/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn42.c
-index f687359b7d83..7b870b831199 100644
---- a/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn42.c
-+++ b/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn42.c
-@@ -41,7 +41,7 @@ void dmub_dcn42_enable_dmub_boot_options(struct dmub_srv *dmub, const struct dmu
- 	union dmub_fw_boot_options boot_options = {0};
- 
- 	if (!dmub->dpia_supported) {
--		dmub->dpia_supported = dmub_dcn42_get_fw_boot_option(dmub).bits.enable_dpia;
-+		dmub->dpia_supported = dmub_dcn42_get_fw_boot_option(dmub).bits.enable_dpia != 0;
- 	}
- 
- 	boot_options.bits.z10_disable = params->disable_z10;
-@@ -676,25 +676,32 @@ void dmub_dcn42_get_diagnostic_data(struct dmub_srv *dmub)
- 	dmub->debug.outbox1_size = REG_READ(DMCUB_OUTBOX1_SIZE);
- 
- 	REG_GET(DMCUB_CNTL, DMCUB_ENABLE, &is_dmub_enabled);
--	dmub->debug.is_dmcub_enabled = is_dmub_enabled;
-+	ASSERT(is_dmub_enabled <= 0xFF);
-+	dmub->debug.is_dmcub_enabled = (uint8_t)is_dmub_enabled;
- 
- 	REG_GET(DMCUB_CNTL, DMCUB_PWAIT_MODE_STATUS, &is_pwait);
--	dmub->debug.is_pwait = is_pwait;
-+	ASSERT(is_pwait <= 0xFF);
-+	dmub->debug.is_pwait = (uint8_t)is_pwait;
- 
- 	REG_GET(DMCUB_CNTL2, DMCUB_SOFT_RESET, &is_soft_reset);
--	dmub->debug.is_dmcub_soft_reset = is_soft_reset;
-+	ASSERT(is_soft_reset <= 0xFF);
-+	dmub->debug.is_dmcub_soft_reset = (uint8_t)is_soft_reset;
- 
- 	REG_GET(DMCUB_SEC_CNTL, DMCUB_SEC_RESET_STATUS, &is_sec_reset);
--	dmub->debug.is_dmcub_secure_reset = is_sec_reset;
-+	ASSERT(is_sec_reset <= 0xFF);
-+	dmub->debug.is_dmcub_secure_reset = (uint8_t)is_sec_reset;
- 
- 	REG_GET(DMCUB_CNTL, DMCUB_TRACEPORT_EN, &is_traceport_enabled);
--	dmub->debug.is_traceport_en  = is_traceport_enabled;
-+	ASSERT(is_traceport_enabled <= 0xFF);
-+	dmub->debug.is_traceport_en  = (uint8_t)is_traceport_enabled;
- 
- 	REG_GET(DMCUB_REGION3_CW0_TOP_ADDRESS, DMCUB_REGION3_CW0_ENABLE, &is_cw0_enabled);
--	dmub->debug.is_cw0_enabled = is_cw0_enabled;
-+	ASSERT(is_cw0_enabled <= 0xFF);
-+	dmub->debug.is_cw0_enabled = (uint8_t)is_cw0_enabled;
- 
- 	REG_GET(DMCUB_REGION3_CW6_TOP_ADDRESS, DMCUB_REGION3_CW6_ENABLE, &is_cw6_enabled);
--	dmub->debug.is_cw6_enabled = is_cw6_enabled;
-+	ASSERT(is_cw6_enabled <= 0xFF);
-+	dmub->debug.is_cw6_enabled = (uint8_t)is_cw6_enabled;
- 
- 	dmub->debug.gpint_datain0 = REG_READ(DMCUB_GPINT_DATAIN0);
- }
-diff --git a/drivers/gpu/drm/amd/display/dmub/src/dmub_reg.c b/drivers/gpu/drm/amd/display/dmub/src/dmub_reg.c
-index ca0c8a54b635..94f4931d3d44 100644
---- a/drivers/gpu/drm/amd/display/dmub/src/dmub_reg.c
-+++ b/drivers/gpu/drm/amd/display/dmub/src/dmub_reg.c
-@@ -57,8 +57,9 @@ static void set_reg_field_values(struct dmub_reg_value_masks *field_value_mask,
- 		mask = va_arg(ap, uint32_t);
- 		field_value = va_arg(ap, uint32_t);
- 
-+		ASSERT(shift <= 0xFF);
- 		set_reg_field_value_masks(field_value_mask, field_value, mask,
--					  shift);
-+					  (uint8_t)shift);
- 		i++;
- 	}
- }
-diff --git a/drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c b/drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c
-index 3bba256a288d..10d23f5f5d94 100644
---- a/drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c
-+++ b/drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c
-@@ -1034,8 +1034,8 @@ enum dmub_status dmub_srv_wait_for_auto_load(struct dmub_srv *dmub,
- static void dmub_srv_update_reg_inbox0_status(struct dmub_srv *dmub)
+-static void dcn42_get_dpm_table_from_smu(struct clk_mgr_internal *clk_mgr,
++void dcn42_get_dpm_table_from_smu(struct clk_mgr_internal *clk_mgr,
+ 		struct dcn42_smu_dpm_clks *smu_dpm_clks)
  {
- 	if (dmub->reg_inbox0.is_pending) {
--		dmub->reg_inbox0.is_pending = dmub->hw_funcs.read_reg_inbox0_rsp_int_status &&
--				!dmub->hw_funcs.read_reg_inbox0_rsp_int_status(dmub);
-+		dmub->reg_inbox0.is_pending = (dmub->hw_funcs.read_reg_inbox0_rsp_int_status &&
-+				!dmub->hw_funcs.read_reg_inbox0_rsp_int_status(dmub)) != 0;
+ 	DpmClocks_t_dcn42 *table = smu_dpm_clks->dpm_clks;
+@@ -842,7 +844,7 @@ static void dcn42_init_clocks_fpga(struct clk_mgr *clk_mgr)
  
- 		if (!dmub->reg_inbox0.is_pending) {
- 			/* ack the rsp interrupt */
-@@ -1320,7 +1320,7 @@ void dmub_srv_set_power_state(struct dmub_srv *dmub, enum dmub_srv_power_state_t
- 
- enum dmub_status dmub_srv_reg_cmd_execute(struct dmub_srv *dmub, union dmub_rb_cmd *cmd)
- {
--	uint32_t num_pending = 0;
-+	uint64_t num_pending = 0;
- 
- 	if (!dmub->hw_init)
- 		return DMUB_STATUS_INVALID;
-@@ -1348,7 +1348,7 @@ enum dmub_status dmub_srv_reg_cmd_execute(struct dmub_srv *dmub, union dmub_rb_c
- 
- 	dmub->reg_inbox0.num_submitted++;
- 	dmub->reg_inbox0.is_pending = true;
--	dmub->reg_inbox0.is_multi_pending = cmd->cmd_common.header.multi_cmd_pending;
-+	dmub->reg_inbox0.is_multi_pending = cmd->cmd_common.header.multi_cmd_pending != 0;
- 
- 	return DMUB_STATUS_OK;
  }
+ 
+-static void dcn42_update_clocks_fpga(struct clk_mgr *clk_mgr,
++void dcn42_update_clocks_fpga(struct clk_mgr *clk_mgr,
+ 		struct dc_state *context,
+ 		bool safe_to_lower)
+ {
+@@ -895,13 +897,13 @@ static void dcn42_update_clocks_fpga(struct clk_mgr *clk_mgr,
+ 	// Both fclk and ref_dppclk run on the same scemi clock.
+ 	clk_mgr_int->dccg->ref_dppclk = clk_mgr->clks.fclk_khz;
+ 
+-	/* TODO: set dtbclk in correct place */
+-	clk_mgr->clks.dtbclk_en = true;
+-
+ 	dm_set_dcn_clocks(clk_mgr->ctx, &clk_mgr->clks);
++	if (clk_mgr->clks.dtbclk_en) {
++		dcn42_update_clocks_update_dtb_dto(clk_mgr_int, context, clk_mgr->clks.ref_dtbclk_khz);
++	} else {
++		clk_mgr->clks.ref_dtbclk_khz = 0;
++	}
+ 	dcn42_update_clocks_update_dpp_dto(clk_mgr_int, context, safe_to_lower);
+-
+-	dcn42_update_clocks_update_dtb_dto(clk_mgr_int, context, clk_mgr->clks.ref_dtbclk_khz);
+ }
+ 
+ unsigned int dcn42_get_max_clock_khz(struct clk_mgr *clk_mgr_base, enum clk_type clk_type)
+@@ -933,7 +935,7 @@ unsigned int dcn42_get_max_clock_khz(struct clk_mgr *clk_mgr_base, enum clk_type
+ 	return 0;
+ }
+ 
+-static int dcn42_get_dispclk_from_dentist(struct clk_mgr *clk_mgr_base)
++int dcn42_get_dispclk_from_dentist(struct clk_mgr *clk_mgr_base)
+ {
+ 	struct clk_mgr_internal *clk_mgr = TO_CLK_MGR_INTERNAL(clk_mgr_base);
+ 	uint32_t dispclk_wdivider;
+@@ -954,7 +956,7 @@ bool dcn42_is_smu_present(struct clk_mgr *clk_mgr_base)
+ 	return clk_mgr->smu_present;
+ }
+ 
+-static void dcn42_get_smu_clocks(struct clk_mgr_internal *clk_mgr_int)
++void dcn42_get_smu_clocks(struct clk_mgr_internal *clk_mgr_int)
+ {
+ 	struct clk_mgr *clk_mgr_base = &clk_mgr_int->base;
+ 	struct dcn42_smu_dpm_clks smu_dpm_clks = { 0 };
+diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn42/dcn42_clk_mgr.h b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn42/dcn42_clk_mgr.h
+index 5ad027a9edaf..42aea81fb61c 100644
+--- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn42/dcn42_clk_mgr.h
++++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn42/dcn42_clk_mgr.h
+@@ -27,6 +27,7 @@
+ #include "clk_mgr_internal.h"
+ 
+ #define NUM_CLOCK_SOURCES 5
++#define DCN42_CLKIP_REFCLK 48000
+ 
+ struct dcn42_watermarks;
+ 
+@@ -71,9 +72,14 @@ void dcn42_set_low_power_state(struct clk_mgr *clk_mgr_base);
+ void dcn42_exit_low_power_state(struct clk_mgr *clk_mgr_base);
+ unsigned int dcn42_get_max_clock_khz(struct clk_mgr *clk_mgr_base, enum clk_type clk_type);
+ bool dcn42_is_smu_present(struct clk_mgr *clk_mgr_base);
++bool dcn42_has_active_display(struct dc *dc, const struct dc_state *context);
+ int dcn42_get_active_display_cnt_wa(struct dc *dc, struct dc_state *context, int *all_active_disps);
+ void dcn42_update_clocks_update_dpp_dto(struct clk_mgr_internal *clk_mgr, struct dc_state *context, bool safe_to_lower);
+ void dcn42_update_clocks_update_dtb_dto(struct clk_mgr_internal *clk_mgr, struct dc_state *context, int ref_dtbclk_khz);
+ bool dcn42_is_spll_ssc_enabled(struct clk_mgr *clk_mgr_base);
+-bool dcn42_has_active_display(struct dc *dc, const struct dc_state *context);
++struct dcn42_smu_dpm_clks; /* Forward declaration for pointer parameter below */
++void dcn42_get_dpm_table_from_smu(struct clk_mgr_internal *clk_mgr, struct dcn42_smu_dpm_clks *smu_dpm_clks);
++void dcn42_get_smu_clocks(struct clk_mgr_internal *clk_mgr_int);
++void dcn42_update_clocks_fpga(struct clk_mgr *clk_mgr, struct dc_state *context, bool safe_to_lower);
++int dcn42_get_dispclk_from_dentist(struct clk_mgr *clk_mgr_base);
+ #endif //__DCN42_CLK_MGR_H__
 -- 
 2.43.0
 
