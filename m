@@ -4,83 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A4C2210ED66E
-	for <amd-gfx@archiver.kernel.org>; Fri, 27 Mar 2026 12:40:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D519D10ED66F
+	for <amd-gfx@archiver.kernel.org>; Fri, 27 Mar 2026 12:40:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6CBC410EDC0;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 57BC810EDBE;
 	Fri, 27 Mar 2026 12:40:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ZMkGPyal";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="BMw/VYn4";
 	dkim-atps=neutral
-Received: from mail-oa1-f54.google.com (mail-oa1-f54.google.com
- [209.85.160.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6FDDA10EBF0
- for <amd-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 18:55:49 +0000 (UTC)
-Received: by mail-oa1-f54.google.com with SMTP id
- 586e51a60fabf-40ee9b945d5so940657fac.0
- for <amd-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 11:55:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1774551349; x=1775156149; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=6v3HiIDRukL8wqePVR5l3Bo2Gj7Iv9DgR3CyiTeT7DE=;
- b=ZMkGPyalke32jfwoc3i7uNz2Gb4x03y5A0A/4NUvd4qEd/w+Xcs/lw2QiPsBaHEZRU
- PiMFJ757QHujz2cHiVEf0fi2GwZ0pb4DgULx2fG8snpGk62w1R+GLy6oWm2yPiWgy4b7
- eyM3H8fND1ubd9uZmjDiwGEHpR4WdhPXQzJp7X4oAkV2Kyh2J4LfuE4eCcOALxh42Lcd
- 6IBQj90k0/TObRrz/b22rs4xTHG+9NUb8tM7s0XI0vOqurdaBrxY9+Zj0Rm5s+RG6Ldq
- OQewAhcQgPYSpvjo1xc2NPtqL3/u+k07pKLWN3Dq19qm21kbpbeRulikonSVppnA4Ug6
- 5IZQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774551349; x=1775156149;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=6v3HiIDRukL8wqePVR5l3Bo2Gj7Iv9DgR3CyiTeT7DE=;
- b=TMsWoxvLsCwhzHurwpNuDRo9dvVIiDENrT5SOxg+dso6utNecp8mDGXdhakbSwYFfP
- t4zS+nwgw2X6XN11dvMEPxK3lGVK1+4EqZC9Fk58xvHHtz+1i079MW/TTORRDsG1/qUj
- 6v2r8Kk+jp6wGwGr8StyZVLMBx0VVQrXVDNvrw2bJdEvEJInsPmXqcnn3eRyyOHHIH2x
- VSdQ+KLGcz51A2IxfvauSISoZ0oApWDmcqGVuSKvKBFHhQlviQ0HJLjNhXk2FzcJNeSS
- sB1CrX6odUabT7fRgpflnIPqotR5j769osf2y2vtbR8bhAaRPNNRoMBjqOFlvh6lagJQ
- ujYg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUlatm5AAE837x+GmpFSNqzxaJ3Rwx3tpK6dl1d2D5+Jyas6eRzW+gDyT4+LdXGMdsY98I//GP6@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yyw73f4OQWAB/9NIKQRkIBAUKWWrIUj/pUtzEsGtRC0Nm/Rc+AV
- o6QavfXz00dcV5g/LbfK7WXDbcVHeGoHJTvz3+zHSaB7xB1bJTNbDpreqGm2MA==
-X-Gm-Gg: ATEYQzxP8vN7j+2koSHEsaSJ8prX4l9bOy5iQgYxvlcPsRanwONWRM5JJXE+NvLe8Ax
- XwwoMkEZGhpeboTW/dE6uMRaaYCNw8Kln1uV7cqZaTo84GA7QqqRTYuK9KZminWDtNMnEEaW6Xk
- XYq2Zxo59QW7HG2NQ3q0DoRrfSrh89P8igUSXwRkWZ1l8/z+kyS+qwvRNeMplf/qznThXY90LdW
- 8nkRdFLu7Hqn7DssbZKRwafkyr7Ol1x9z/sYkEL6UThbQI1cAp2rX02mCF5xSReNlUH49owOcpA
- ktnzhWk3VUMLaCKCDzhH5GIRnf6dBnqre9guGDQDkYhOKbFnCRIYgAisw4eekCie0rTaFRmDXrS
- da2/H8kOYYNwC+yjvBoxp48Jm5wm/TKTYb9QtvJB+6A6aUt/UsZW063GCvDStMm50IUhzzlUVlo
- kw8EDYiTK3XuAU2pzF/e0W8K0HfdSI31D1Sv4Bo2e/pUxE7F/HQlKppLOIpLY=
-X-Received: by 2002:a05:6870:2f12:b0:417:a36a:6074 with SMTP id
- 586e51a60fabf-41ca71894d8mr4456214fac.51.1774551348686; 
- Thu, 26 Mar 2026 11:55:48 -0700 (PDT)
-Received: from frodo (c-98-38-17-99.hsd1.co.comcast.net. [98.38.17.99])
- by smtp.googlemail.com with ESMTPSA id
- 586e51a60fabf-41cc7760c08sm3075171fac.4.2026.03.26.11.55.47
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 26 Mar 2026 11:55:48 -0700 (PDT)
-From: Jim Cromie <jim.cromie@gmail.com>
-To: linux-kernel@vger.kernel.org, airlied@gmail.com, simona@ffwll.ch,
- jbaron@akamai.com, gregkh@linuxfoundation.org
-Cc: jim.cromie@gmail.com, mripard@kernel.org, tzimmermann@suse.de,
- maarten.lankhorst@linux.intel.com, jani.nikula@intel.com,
- ville.syrjala@linux.intel.com, christian.koenig@amd.com,
- matthew.auld@intel.com, arunpravin.paneerselvam@amd.com,
- louis.chauvet@bootlin.com, skhan@linuxfoundation.org, pmladek@suse.com,
- ukaszb@chromium.org, dri-devel@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-Subject: [PATCH v12 50/69] drm-dyndbg: add DRM_CLASSMAP_USE to Xe driver
-Date: Thu, 26 Mar 2026 12:53:54 -0600
-Message-ID: <20260326185413.1205870-51-jim.cromie@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260326185413.1205870-1-jim.cromie@gmail.com>
-References: <20260326185413.1205870-1-jim.cromie@gmail.com>
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9F35E10E1BC;
+ Thu, 26 Mar 2026 13:53:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1774533190;
+ bh=yG7YSDPLmI1ryww7nMsH23b6orKyZanWG826+VZw/cE=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=BMw/VYn4oxv3aU6wgZxmHGozzpgi0NrsodhdFLO5uWNDzh+eyrh8G5BE+aDLsxwnk
+ H3Rd0mZ2ySLXKPTal8GWWnV9IvzLCVBUDNtfdlfNPI4LgrzqnUBKmP++XW1CgnSZ/w
+ lGVXaBl7pAwtwT36tJ160IsaZ8PI6rmNyBVNhjkac8RRtlaAyTfHtNQuYUFGlMzDVm
+ RfZyS/58ixjrzWBM4bHyjTR0X34ejynhdmv3NCpm5R/I/4l21tg1TlOiHxIx+vExir
+ V3kH5ZLTvc96vwfQhhHQJiObrgq2QGDXDxyOhXz44xLrKjJJ7+ze1JTBFAmNQc28pA
+ CdiZBHaAuOt1A==
+Received: from fluorite (unknown [194.136.85.206])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256) (No client certificate requested)
+ (Authenticated sender: pq)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 219AB17E609D;
+ Thu, 26 Mar 2026 14:53:09 +0100 (CET)
+Date: Thu, 26 Mar 2026 15:53:05 +0200
+From: Pekka Paalanen <pekka.paalanen@collabora.com>
+To: Michel =?UTF-8?B?RMOkbnplcg==?= <michel.daenzer@mailbox.org>
+Cc: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Harry Wentland <harry.wentland@amd.com>,
+ Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>, Alex
+ Deucher <alexander.deucher@amd.com>, Christian =?UTF-8?B?S8O2bmln?=
+ <christian.koenig@amd.com>, Ville =?UTF-8?B?U3lyasOkbMOk?=
+ <ville.syrjala@linux.intel.com>, Daniel Stone <daniels@collabora.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, kernel@collabora.com, Derek Foreman
+ <derek.foreman@collabora.com>, Marius Vlad <marius.vlad@collabora.com>
+Subject: Re: [PATCH v5 0/3] Add "link bpc" DRM property
+Message-ID: <20260326155305.736b4e64@fluorite>
+In-Reply-To: <254c20a4-cce3-4c8e-9902-514586f3e694@mailbox.org>
+References: <20260319-link-bpc-v5-0-5306cd04a708@collabora.com>
+ <8676926.T7Z3S40VBb@workhorse>
+ <eff61423-a854-44c1-8634-30e2bd61e005@mailbox.org>
+ <4265353.aeNJFYEL58@workhorse>
+ <254c20a4-cce3-4c8e-9902-514586f3e694@mailbox.org>
+X-Mailer: Claws Mail 4.3.1 (GTK 3.24.51; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Fri, 27 Mar 2026 12:40:00 +0000
+Content-Type: multipart/signed; boundary="Sig_/eXQlGv.+Nh6qks6CpJaig2v";
+ protocol="application/pgp-signature"; micalg=pgp-sha256
+X-Mailman-Approved-At: Fri, 27 Mar 2026 12:40:01 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,28 +75,104 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Invoke DRM_CLASSMAP_USE from xe_drm_client.c.  When built with
-CONFIG_DRM_USE_DYNAMIC_DEBUG=y, this tells dydnbg that Xe has
-drm.debug callsites.
+--Sig_/eXQlGv.+Nh6qks6CpJaig2v
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
----
- drivers/gpu/drm/xe/xe_drm_client.c | 2 ++
- 1 file changed, 2 insertions(+)
+Hi Michel,
 
-diff --git a/drivers/gpu/drm/xe/xe_drm_client.c b/drivers/gpu/drm/xe/xe_drm_client.c
-index 84b66147bf49..3af476f0449f 100644
---- a/drivers/gpu/drm/xe/xe_drm_client.c
-+++ b/drivers/gpu/drm/xe/xe_drm_client.c
-@@ -21,6 +21,8 @@
- #include "xe_pm.h"
- #include "xe_trace.h"
- 
-+DRM_CLASSMAP_USE(drm_debug_classes);
-+
- /**
-  * DOC: DRM Client usage stats
-  *
--- 
-2.53.0
+I have some opinions as well.
 
+On Tue, 24 Mar 2026 17:44:21 +0100
+Michel D=C3=A4nzer <michel.daenzer@mailbox.org> wrote:
+
+> Per my previous posts, my concerns are:
+>=20
+> * The meaning of the "link bpc" property value isn't defined well
+> enough vs things like dithering or DSC, which will likely result in
+> compositors / users overestimating what value they need / want,
+> resulting in compositors spuriously rejecting configurations which
+> would work perfectly fine, and/or spurious issue reports.
+
+That is ok. Compositors need to understand what the numbers mean, how
+reliable they are, and act accordingly. Knowing the lower bound for
+link precision is already useful as it guarantees a minimum precision.
+It is up to the compositors to decide how they communicate this.
+
+Or course, assuming lossy compression is not too lossy. Maybe
+lossy compression should be forbidden by default unless explicitly
+enabled by userspace?
+
+> With my compositor developer hat on, what I'd want to know is
+> something like: "How many bits of information can be passed over the
+> link, allowing the display to present it in a way which can be
+> perceived by the user?" With dithering or DSC, that would be a higher
+> value than the physical link bpc.
+
+Sure, but this is not that. This is only a part of that. You would
+also want to know what the monitor does with the signal, the depth of
+the data path to the panel, and so on. I'm sure those are completely
+off-topic for a KMS property.
+
+The kernel driver won't know how acceptable temporal dithering, spatial
+dithering or lossy compression are, so I don't think it should be
+deciding how many bits of precision they add or subtract. Exactly this
+makes the link bpc property a well-defined fact rather than an estimate.
+
+The documentation of 'link bpc' could be more explicit about this.
+
+>=20
+> * There's no clear use case.
+>=20
+> This is generally a requirement for new KMS UAPI.
+>=20
+> The practical usefulness of the corresponding weston MR is dubious
+> per the concern above.
+
+I think the example of RGB 10 bpc to be degraded to YCbCr 10 bpc rather
+than RGB 8 bpc is an excellent use case. I had another use case in
+https://gitlab.freedesktop.org/wayland/weston/-/merge_requests/1850#note_31=
+15686
+
+Mario Kleiner had excellent cases as well.
+
+Maybe these just need to be spelled more clearly in the commit message.
+
+> > That the link-bpc property does not consider DSC and dithering?
+> > Two things which the max-bpc property also does not consider? =20
+>=20
+> It's not (as much of) an issue with the "max bpc" property because
+> it's just an upper limit, the driver is free to use a lower effective
+> bpc.
+
+FWIW, 'max bpc' is a workaround for faulty sink devices that claim to
+handle a depth but silently misbehave. This is also why I called for a
+"desired bpc" setting in the Weston MR, to not confuse with the "max
+bpc" setting.
+
+
+Thanks,
+pq
+
+--Sig_/eXQlGv.+Nh6qks6CpJaig2v
+Content-Type: application/pgp-signature
+Content-Description: OpenPGP digital signature
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmnFOkEACgkQI1/ltBGq
+qqfIXA//digfbcOx5QZhTww+D1ISYChsBDXUVIx9U+SVRgSPxzltYE3A2e+P9nzq
+RrhWxAQAOy9DtsbeRuxbEx5OtXXAmkVod77y0/wIqUvwbHcxgjXSfixjDm1af8Hy
+oUamdknpQTDHRGgVUwickdaU+rvHf7+Bmru9kBmZ5yN0rQ7Sevq5rwUjygBsWEaH
+HfAsQYew3RXEdCxj36NHXPFVY4DykAea3Llwhl0lhP3yz9T2ooR78D+c0u7hs+pL
+kdad12pYDh4ADQho4Ny/qPyAnce007UZZ9nEHvZTM4ekmZnuiwJCRj8JPumt+wLV
+q73W7gIAb+78Pevf9RP2UFL6Mf02A6l08HJqCW6cH1QzLrtmVGIO6a9rG6pWLEH5
+sbyozItKH0/ZGWtCDz1iDRi9976DysvKt5GDUcZWxa3ZComOvvcau9HmeB9ECqA0
+nend8VFUYp5ZVT7iyS4Srlm21ok57cgGInKtMBSCfdz7/3Lqz9ZOHRBWQZhMSTYU
+8unNVp1U+qBfhaRuHPFDTGkjRRyX/PIHyquNHXAo3fL29DO72xge6vmamQph0Ugd
+SvrkaEYp65BsB6PBZRe5/OifXlP17Br9tvnIwPXnyxhhHzwD2Pqx+/Q4og5fneiO
+tHFt428SwUwVAAyqwVMfJk3iYaIQXyOxWdxx/WwKY9TV1a5TvLs=
+=VXjn
+-----END PGP SIGNATURE-----
+
+--Sig_/eXQlGv.+Nh6qks6CpJaig2v--
