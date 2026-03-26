@@ -4,101 +4,124 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B91EE10A3D87
-	for <amd-gfx@archiver.kernel.org>; Thu, 26 Mar 2026 12:21:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A7C1910A3D8A
+	for <amd-gfx@archiver.kernel.org>; Thu, 26 Mar 2026 12:26:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 541F610EA7B;
-	Thu, 26 Mar 2026 12:21:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4B31C10E0BB;
+	Thu, 26 Mar 2026 12:26:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.b="Mak8u9aV";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="kvmANENK";
 	dkim-atps=neutral
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 169F810EA7B
- for <amd-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 12:21:53 +0000 (UTC)
-Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 62Q2t1M61172616; Thu, 26 Mar 2026 12:21:51 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
- :content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=pp1; bh=Rc+LqE
- +GwMHrVScGpe3Jau+Wa+j+LhaXQO4EpGgYjrc=; b=Mak8u9aVy58o3z0boxYEx1
- rPxvdAGExxtcfqGPaHcXWSvtEjMxN2n3OyVlpzkm+YxK/L8uYz34yOzxF3G55JS+
- VFFDlwlZ/lwZpuSR75GKdVaWTFjS5KeecfKGiUtzGrN+Nk4j3UMl4/Pvpf8d4JC3
- UO7JxeTw5OTDruKXEQHJjkBWEm9xFvNG0n51K/7Ig0lMHGcsm4i3MArKPC006Mvl
- N6B5Q4JGxGjyTljp5T5g9R6Tm6erGb1mUZHWM4TugHRsSaq5LVwGolsBhDoroiiI
- J7L2qLrcJwmfPzxeeEqrX+/BJxeKmNtcJWbEwXX5h3jLiz7Bmvo2R2NeY8QWKb+A
- ==
-Received: from ppma13.dal12v.mail.ibm.com
- (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
- by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4d1kumv6cy-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 26 Mar 2026 12:21:51 +0000 (GMT)
-Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
- by ppma13.dal12v.mail.ibm.com (8.18.1.2/8.18.1.2) with ESMTP id 62Q7t3ci011789;
- Thu, 26 Mar 2026 12:21:50 GMT
-Received: from smtprelay03.fra02v.mail.ibm.com ([9.218.2.224])
- by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4d27vkap99-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 26 Mar 2026 12:21:50 +0000
-Received: from smtpav05.fra02v.mail.ibm.com (smtpav05.fra02v.mail.ibm.com
- [10.20.54.104])
- by smtprelay03.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 62QCLkFx51118542
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Thu, 26 Mar 2026 12:21:46 GMT
-Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 703B92004B;
- Thu, 26 Mar 2026 12:21:46 +0000 (GMT)
-Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id BB3AE20043;
- Thu, 26 Mar 2026 12:21:43 +0000 (GMT)
-Received: from li-218185cc-29b5-11b2-a85c-9a1300ae2e6e.ibm.com.com (unknown
- [9.39.29.115]) by smtpav05.fra02v.mail.ibm.com (Postfix) with ESMTP;
- Thu, 26 Mar 2026 12:21:43 +0000 (GMT)
-From: Donet Tom <donettom@linux.ibm.com>
-To: amd-gfx@lists.freedesktop.org, Felix Kuehling <Felix.Kuehling@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Alex Deucher <alexdeucher@gmail.com>, christian.koenig@amd.com,
- Philip Yang <yangp@amd.com>
-Cc: David.YatSin@amd.com, Kent.Russell@amd.com,
- Ritesh Harjani <ritesh.list@gmail.com>,
- Vaidyanathan Srinivasan <svaidy@linux.ibm.com>, donettom@linux.ibm.com
-Subject: [PATCH v4 2/2] drm/amdgpu: Fix AMDGPU_GTT_MAX_TRANSFER_SIZE for
- non-4K page size
-Date: Thu, 26 Mar 2026 17:51:29 +0530
-Message-ID: <b68780ba172175c68b313c48076185629fee9b7b.1774521183.git.donettom@linux.ibm.com>
-X-Mailer: git-send-email 2.52.0
-In-Reply-To: <cover.1774521183.git.donettom@linux.ibm.com>
-References: <cover.1774521183.git.donettom@linux.ibm.com>
+Received: from BN1PR04CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11010003.outbound.protection.outlook.com [52.101.56.3])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DC53F10E0BB
+ for <amd-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 12:26:55 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=AbQxU4uRSD03+al/vf468DQ4hU6JyvU9L31Rvgt1MGGRxUj1E7wGX/xMGfOa5XBiLdh20nD4jaPzTD8x7iENaUwN4wt8NvLmp6uMlyMWxAlQidXcpRdWsysQ/Kp6Cm3YvPHNPQFT+aL0HE8/nDxZjsGc2TMSbGYPX8QEf7Ko2owLwbPKiVPB8k2LaXqmgKC62hgtonIX/0UM0hOC6eK9pdWFJPfPT+iK2IlipqKv1Xa7VqbNOzdBMOKJCOCFzPbuEbNS407BIShQ1OG/Jirl6aPkYFweF2aAoI2lkkbMKNCy0GrC2a8wUf3rybw873OzbHlRTRn+ds7DvDUmNw8QxA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=/naeZ4JAD5G4ndNRw2RUzNujRSN3R7EXOBzpEISpbLI=;
+ b=uCW86SJC1cW+F5nhcKe/2ZGqnSkQenvFvoAUK1PekJ0/QNeCoswv2bqJZepIKXaunEy0b0554R1snRnrdn3BgKYmvbcBRLuaeKSbeqLCzVv8dIBD2ID+PpOBHtYNyIE0taYqrAgoUvxfkmvOvt2JUDTi5es/AwZTVRf6pTIFYKHEiZoADm+zR5ZuctXhh1FheWuaWfrPuGLqcTQia2HKfuA2wLsDniUQRx+BzmNxwm1kg8rwAyeirofq5QRHCM+SxuothzAIqyjNXY4G7+bHaw7GMqx0PEsqH8OQgREhNsTvGN1xTbXI/0pJahXISHPVteY8k3RjFU8zXfbuLI8t7A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=/naeZ4JAD5G4ndNRw2RUzNujRSN3R7EXOBzpEISpbLI=;
+ b=kvmANENKVdU650VCSUNl81tMxujvphfYxH0ASE+ubwde8Exelc6eN2KRbi293jlqQmEQslpgaP/Csp/KnNJCLOvnrKImK6VEnJN/5d0cXqWvXGPM7mIQypbegcv8YENOy+4mEZwCvfLmlu0bA2ddQ+ezEQB0k7a6M3GzvGYpWSE=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BL1PR12MB5753.namprd12.prod.outlook.com (2603:10b6:208:390::15)
+ by CH3PR12MB8460.namprd12.prod.outlook.com (2603:10b6:610:156::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.7; Thu, 26 Mar
+ 2026 12:26:44 +0000
+Received: from BL1PR12MB5753.namprd12.prod.outlook.com
+ ([fe80::81e6:908a:a59b:87e2]) by BL1PR12MB5753.namprd12.prod.outlook.com
+ ([fe80::81e6:908a:a59b:87e2%4]) with mapi id 15.20.9769.006; Thu, 26 Mar 2026
+ 12:26:43 +0000
+Content-Type: multipart/alternative;
+ boundary="------------ycJO4Y0yXKgy8NtxyF2emxsy"
+Message-ID: <e477110b-f1c2-4a5b-980c-be2d7e8cd6ae@amd.com>
+Date: Thu, 26 Mar 2026 17:56:38 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [Patch v1 1/4] drm/amdgpu/userq: no need to use local variable ret
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Sunil Khatri <sunil.khatri@amd.com>, Alex Deucher <alexander.deucher@amd.com>
+Cc: amd-gfx@lists.freedesktop.org
+References: <20260326085601.2665215-1-sunil.khatri@amd.com>
+ <20260326085601.2665215-2-sunil.khatri@amd.com>
+ <6bc42907-3370-4c92-94f9-9a873f50ede6@amd.com>
+Content-Language: en-US
+From: "Khatri, Sunil" <sukhatri@amd.com>
+In-Reply-To: <6bc42907-3370-4c92-94f9-9a873f50ede6@amd.com>
+X-ClientProxiedBy: MA0PR01CA0012.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:a01:80::11) To BL1PR12MB5753.namprd12.prod.outlook.com
+ (2603:10b6:208:390::15)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-GUID: G7l0HyERAfILM-gqtv-xSB0P9RnlJ4rW
-X-Proofpoint-ORIG-GUID: 8pV_ZLtf-COyC4H4yx9sqB15TB3PswQF
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzI2MDA4NiBTYWx0ZWRfX/fs3dz3BOXaX
- zgoocsQ0f/IQgwrmhSF1rm2goQokLOOrUWAQskNl+Q4NVCJWe5Smn8YC8YdVqMLoO7NM2gjuUra
- ZoGS3rc6Ci6rQQQRno4yR6Fn1Sex4+feX4tCjZaPO15HyYJcXcsnwhsXyCYepKXXvkdHZB0Bew3
- Xqu6M4jl6kTjQbvM1ugsouSAMhAW1mOMAEwic23hF+jOmGRL02gWO7Qs47LZjd9u3q30k4kaTuY
- 1NQ/nnf5nfAki6+YTpXgXj3ExEszHc1a+0TmLDMjZz5hKKWWHIQ4cUm3XhU68MrLmZRaQVNrt+U
- hmZiMb3O1M8/I8zoTViBSLzwgWVhK7s0XMQ1ijfvyeR7AWrfHKQqKSgQxK+UvR+lg645ZiOpWb6
- qhC0f4xsJj9Gybbvlw6mPFDSok398EwmQwlaBCE5ybu4WxL6dO4tiCEfQgpbYQxzaCxJvcgGrdN
- fMPAX0Fonet0qa/MG5Q==
-X-Authority-Analysis: v=2.4 cv=KbXfcAYD c=1 sm=1 tr=0 ts=69c524df cx=c_pps
- a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
- a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=RzCfie-kr_QcCd8fBx8p:22 a=VnNF1IyMAAAA:8
- a=8OR251-K1x8n-3lZjzsA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-03-26_02,2026-03-24_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 impostorscore=0 malwarescore=0 adultscore=0 clxscore=1015
- priorityscore=1501 bulkscore=0 lowpriorityscore=0 phishscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603260086
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL1PR12MB5753:EE_|CH3PR12MB8460:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2b6e9ff6-d469-4ecd-e5e5-08de8b32f08e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|376014|366016|8096899003|18002099003|22082099003|56012099003;
+X-Microsoft-Antispam-Message-Info: FNt6PoggGk2lBfdPwYCq5Up1oFaYDWagm+d5pUGQRWrilmdno3d4/wYQJ6PaPvMAMDdncpso0Ehfeq/rpqdoaaQM1J3OV/sIti2L19Z6PGNFL19ddD9H5+G6DUVvOfBZaKdIvysgrVDZ7BztgId5pR31dl/H5Zx0wQ8Uy0PFxkbVXtTVjlPMiIqV3FyxESgRMZaZu/ARomFh0jG+tMviIzHA8gQ++pfus57ZOkDjXHwwsOf98eAssUaOiOhxwP30jEv+v78O2aYIXYazuvpmkbdYbDcFA3uGXKZSPsmABH+6n2/9BuBA7A/eT4FoyWimodrA49/GdzgwJ0DameyZ75GdaAeppNFIgEn9xGDDs4HmtPUeS7LarS6B+B8emdXhLMbBxE+5DZRz4NQWCrnatw/pkzXFprchbOh2/0012/mComqf3L0ru4BD8378ml0Td4ocNuhAYnXsLlla8tl58fxxx4BoNYmNHkmsl4NxvJZikblao5Q88okqVKNTqbX5ZwlkcfPXiktN3GhDMBJeaJjeKUusOQzgTvg211+qC4Jn+hXRsbBcfj9Q/BFbAVvYmX/JseUN53K6Y+WzcPwm+5Hhu5z6Ok2z8B4A+5SpDPL7Mx6bPGUH5Dq/+freYudtaSll6NatqZIOv65WPGfL0/f/BfRBTQ8ARjR9dRxWgzn5NgdkaotYG3IU+s2PiVsDMTOtBM1VlIYx3g2o+FH0giv0/ZA+mGvALmflxWn3T9g=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BL1PR12MB5753.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(366016)(8096899003)(18002099003)(22082099003)(56012099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?QWZYMXl6SDNZUDZESnBTQ1JWRlQ3MC9VQXR5NHAvQjEyL1E2UHpvdFlpb1lB?=
+ =?utf-8?B?MC90YXc1bGE3Q2M1V25Bck1LV3Y2djF5MjVFbENoT25wYStiMWp3SjdQV29u?=
+ =?utf-8?B?OUFkZ2kzU1ZrS21yMU9vdER2bkl3Nk5NTmU3RlZNRkNHeW5YbFhXcmZ6QVJC?=
+ =?utf-8?B?a3IwY1plbzNQYWJmNDlCU3BKN2pDRk1GOTNzQlZOeGNVS1ZDNnJsR1lldVFO?=
+ =?utf-8?B?SzZCZEZMSlV1Z08yUDN6S1QrNnEyd2xOY3lab0ZHYkVjZk1yWTJVMGptVWpv?=
+ =?utf-8?B?YW5HeWJsOWhHMkVaa1JhU3dSRkFLbnhxZy9xblcySnNidU9zZFowdThORE1C?=
+ =?utf-8?B?Kzh2YldUeDh1NGZ1bTBqdXhCZFBLVkp0R0Jtd3JONStJUE5NNnQyWkh4MlY2?=
+ =?utf-8?B?N1BpS0UyRUZoOFVDVHBOK3dNMlhiR1pZOG9LUnQ5OVIyaTdGMXJiY2FOWGZv?=
+ =?utf-8?B?R0thQTN4b09kQVdhdlFQd2V2RE0zemdyYWVDUnZRNHJwa3oxRjdpNy9yWnFE?=
+ =?utf-8?B?UkJxTStyYUlVdnV3OGI2TE1Ic0VTYnVzV3pURVE2czUyOVA2ckM5S1FabHBR?=
+ =?utf-8?B?cXZnelZjMXZoUlBGQWpMS053MXFsRVpDU1VIWkFlREZRLy9kaVEvS2dEUytq?=
+ =?utf-8?B?SmdHaEVVYXM0UGk3MEpzbEd3dEE3RmFLbWdwTWhKVzBscTVqREZabTFIa0pv?=
+ =?utf-8?B?YzFqMm9SdGZaaHQvWlpBMWt6aUJBSTZBRHQzTVhzbW1BeTFKL0orWHR5TEwr?=
+ =?utf-8?B?ZzdPZ0lJeVFzaW9yYTBzdVJ0L0JqbjNtekZaMVN6MHVXWEgrM2lkcFU2S0NH?=
+ =?utf-8?B?ekRwejUydFFBVjJpYVJpbC83QWh2WFpzdXNyekZVMW9xbXRwdXYvTlg3Szc1?=
+ =?utf-8?B?MzlXdjkxWGNXLy9kMGNnY2x2NDNTbnZrd3laQTJIWU5lcDMxWjl1blRWZnpx?=
+ =?utf-8?B?U1crckJDNHhnaDgwVVNkT3RBMDJ4Tk5jZU5rWmxWNzJOY0NzUmNmWHpISTZk?=
+ =?utf-8?B?d3dpMDd2c1hpWDgwNFhhVzFjRGNMaGRYUi8zaDRnTEE0SmlxOThLZEJMOWRX?=
+ =?utf-8?B?N3BiYnNjbmUzUWV3ZmtPczh5NlhHOWFhc0hsL3lqekVOZ2lrSGp1a0hTUll6?=
+ =?utf-8?B?WDdwbHR6dEF2OGNUclVwVWJ3SmU3NS9wNkRWUGZHY1UvdDd3a1NWSFBERjlG?=
+ =?utf-8?B?d24xNnJvSDFLN0tyRVBkN0xWZFlMWFdNTTJwb3FuRStkSnh4MEh4Z2wvdDhI?=
+ =?utf-8?B?M0VVSWMyZHVGVTYya3BxMXM0ZWV4Y1R0YVBwRFpiRGk4R3paSXp1dXlKNWt2?=
+ =?utf-8?B?VnRkK1ZnTDJpdSs4ZzNYYlhHa2QvTU94TmROblJVSzRqaldTWFREMk9SMFVa?=
+ =?utf-8?B?VzErdEdnMXM2YWYwYUk1RUpzUEhBMjc4TmRGSFF4d2VDSWFRbDBZZ0kwSzFm?=
+ =?utf-8?B?TWxOS3FBcFdzMWNHbGtNN3NLYjFGYzgybUp4d1BsVWEvYUZTdGdjWU1uQitk?=
+ =?utf-8?B?OXV6SmdzZkJ5bjQ1ZExkUTh1TVR4QXk1ZmxQNGgrY09ITjZZQjVQRFFEU1Zw?=
+ =?utf-8?B?aS8rVktzVWo4MVFPcUVWcEZpRDFsSnZFbzcwSmd0WEhQbXI4bE5BQXNEQTda?=
+ =?utf-8?B?dzRMZlFqNVkyK1dhNUNyUU9mTGF2ZzEyRXAvVXVxdjd2Qk9hZXdTd2QyUndh?=
+ =?utf-8?B?VzErU0ErVERPTGFWemZmczVVckxIbWszYmNNbHVPY3duQjU2eVNsNVFTcjhp?=
+ =?utf-8?B?UUZ2aXc2MnVPcUJuaW1EYXhZYTJUVFpuOEhLdEZOZGlMYmJUVXA2QXNzOHlt?=
+ =?utf-8?B?ZHBKdEZKTjFFZllFTmxsbGcreG5vZW5VOXY0cGRhVnh1SXh0V3lNY2N4UWlC?=
+ =?utf-8?B?VHc3YmhTb0RVN0tTK24wK3hrSTFTZ1RkUytPNDFKdFZ3a2RhYVBXd2JGYTZC?=
+ =?utf-8?B?a2pkem9LMCt0RWhTOWtIZzBRL3hGSjMvYityZjY2b01JT0pXTmp4L3F5cVhF?=
+ =?utf-8?B?QVpMc1FQdmVPNEFua1p1bld6QmhQbW1oR0FFZ09TUXVkWlM1amR6Nzk5UWwy?=
+ =?utf-8?B?ellqRlhvKzlhRzg3SG1ET1BMMEhOOWIyakxJa1BBZm9Sc2k2S2gwOWMvZFhX?=
+ =?utf-8?B?VThlMWRuZTdNdjNmc0cwNzlkSTBhbk9hU1FjeVNRUzc1SDFFbXUrTURSTllP?=
+ =?utf-8?B?cWh6MEw1ZWprbWFyeDF5U0lzVWhNWjNpeTRUY0MwOXFFTFRsZHpJU0l1NXp5?=
+ =?utf-8?B?eWI3ZDVVVDYxWldpOXlsdlM4NDhRQ2gzby9KeFNVREVOV3d5YklSYTROdENx?=
+ =?utf-8?B?ckZIc2s5VG04ZUQwdE03OWFqMWlycldBaUtqNjRUODBiNlFhZjdyZz09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2b6e9ff6-d469-4ecd-e5e5-08de8b32f08e
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5753.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Mar 2026 12:26:43.8422 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: CqO+Eb/fmoZB9Y+Y3b7ICFR/uHTVZqWPa04oWDlPjKD8z3QaxZORtgIsMBMNmeOnvx1d5hYm4SgsOljL8zlTCA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8460
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,113 +136,171 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-AMDGPU_GTT_MAX_TRANSFER_SIZE represented the maximum number of
-system-page-sized pages that could be transferred in a single
-operation. The effective maximum transfer size was intended to be
-one PMD-sized mapping.
+--------------ycJO4Y0yXKgy8NtxyF2emxsy
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-In the existing code, AMDGPU_GTT_MAX_TRANSFER_SIZE was hard-coded
-to 512 pages. This corresponded to 2 MB on 4 KB page-size systems,
-matching the PMD size. However, on systems with a non-4 KB page
-size, this value no longer matched the PMD size.
 
-This patch changed the calculation of AMDGPU_GTT_MAX_TRANSFER_SIZE
-to derive it from PMD_SHIFT and PAGE_SHIFT, ensuring that the
-maximum transfer size remained PMD-sized across all system page
-sizes.
+On 26-03-2026 05:38 pm, Christian König wrote:
+> On 3/26/26 09:55, Sunil Khatri wrote:
+>> In function amdgpu_userq_evict use the function return
+>> value in the if condition instead.
+>>
+>> Signed-off-by: Sunil Khatri<sunil.khatri@amd.com>
+>> ---
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 8 ++------
+>>   1 file changed, 2 insertions(+), 6 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+>> index aa0e6eea9436..2a1832fce6d2 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+>> @@ -1308,17 +1308,13 @@ void
+>>   amdgpu_userq_evict(struct amdgpu_userq_mgr *uq_mgr)
+>>   {
+>>   	struct amdgpu_device *adev = uq_mgr->adev;
+>> -	int ret;
+>>   
+>>   	/* Wait for any pending userqueue fence work to finish */
+>> -	ret = amdgpu_userq_wait_for_signal(uq_mgr);
+>> -	if (ret)
+>> +	if (amdgpu_userq_wait_for_signal(uq_mgr))
+>>   		dev_err(adev->dev, "Not evicting userqueue, timeout waiting for work\n");
+> That actually looks like a pretty bad idea. Instead we should start printing the error code.
+Sure could add an error code in the logging.
+>
+> But before we do that I would rather like to know why amdgpu_userq_wait_for_signal() can fail?
+dma_fence_wait_timeout is what could fail and we are returning 
+-ETIMEDOUT. We could totally avoid checking for the error here 
+completely as we are already printing the error in
+the called function below.
+ret=dma_fence_wait_timeout(f, true, msecs_to_jiffies(100));
+if(ret<=0) {
+drm_file_err(uq_mgr->file, "Timed out waiting for fence=%llu:%llu\n",
+f->context, f->seqno);
+return-ETIMEDOUT;
+                 }
+> That should never happen in the first place.
+>
+> Regards,
+> Christian.
+>
+>>   
+>> -	ret = amdgpu_userq_evict_all(uq_mgr);
+>> -	if (ret)
+>> +	if (amdgpu_userq_evict_all(uq_mgr))
+>>   		dev_err(adev->dev, "Failed to evict userqueue\n");
+Here also the below function returns error and printing error too. We 
+could avoid the return value here too as we are already printing the error.
+amdgpu_userq_preempt_helper(queue);
+if(r)
+ret=r;
 
-Additionally, in some places, AMDGPU_GTT_MAX_TRANSFER_SIZE was
-implicitly assumed to be based on 4 KB pages. This resulted in
-incorrect address offset calculations. This patch updated the
-address calculations to correctly handle non-4 KB system page
-sizes as well.
 
-amdgpu_ttm_map_buffer() can create both GTT GART entries and
-VRAM GART entries. For GTT mappings, amdgpu_gart_map() takes
-system page–sized PFNs, and the mappings are created correctly.
+Regards
+Sunil Khatri
 
-However, for VRAM GART mappings, amdgpu_gart_map_vram_range() expects
-GPU page–sized PFNs, but CPU page–sized PFNs were being passed,
-resulting in incorrect mappings.
+>> -
+>>   }
+>>   
+>>   int amdgpu_userq_mgr_init(struct amdgpu_userq_mgr *userq_mgr, struct drm_file *file_priv,
+--------------ycJO4Y0yXKgy8NtxyF2emxsy
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-This patch updates the code to pass GPU page–sized PFNs to
-amdgpu_gart_map_vram_range(), ensuring that VRAM GART mappings are
-created correctly.
+<!DOCTYPE html><html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 26-03-2026 05:38 pm, Christian König
+      wrote:<br>
+    </div>
+    <blockquote type="cite" cite="mid:6bc42907-3370-4c92-94f9-9a873f50ede6@amd.com">
+      <pre wrap="" class="moz-quote-pre">On 3/26/26 09:55, Sunil Khatri wrote:
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">In function amdgpu_userq_evict use the function return
+value in the if condition instead.
 
-Signed-off-by: Donet Tom <donettom@linux.ibm.com>
+Signed-off-by: Sunil Khatri <a class="moz-txt-link-rfc2396E" href="mailto:sunil.khatri@amd.com">&lt;sunil.khatri@amd.com&gt;</a>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 8 +++++---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h | 2 +-
- drivers/gpu/drm/amd/amdgpu/vce_v1_0.c   | 3 ++-
- 3 files changed, 8 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 8 ++------
+ 1 file changed, 2 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-index 0ccb31788b20..f9f534119cbe 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-@@ -204,7 +204,7 @@ static int amdgpu_ttm_map_buffer(struct amdgpu_ttm_buffer_entity *entity,
- 	int r;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+index aa0e6eea9436..2a1832fce6d2 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+@@ -1308,17 +1308,13 @@ void
+ amdgpu_userq_evict(struct amdgpu_userq_mgr *uq_mgr)
+ {
+ 	struct amdgpu_device *adev = uq_mgr-&gt;adev;
+-	int ret;
  
- 	BUG_ON(adev->mman.buffer_funcs->copy_max_bytes <
--	       AMDGPU_GTT_MAX_TRANSFER_SIZE * 8);
-+	       AMDGPU_GTT_MAX_TRANSFER_SIZE * AMDGPU_GPU_PAGES_IN_CPU_PAGE * 8);
- 
- 	if (WARN_ON(mem->mem_type == AMDGPU_PL_PREEMPT))
- 		return -EINVAL;
-@@ -230,7 +230,7 @@ static int amdgpu_ttm_map_buffer(struct amdgpu_ttm_buffer_entity *entity,
- 
- 	*addr = adev->gmc.gart_start;
- 	*addr += (u64)window * AMDGPU_GTT_MAX_TRANSFER_SIZE *
--		AMDGPU_GPU_PAGE_SIZE;
-+		AMDGPU_GPU_PAGES_IN_CPU_PAGE * AMDGPU_GPU_PAGE_SIZE;
- 	*addr += offset;
- 
- 	num_dw = ALIGN(adev->mman.buffer_funcs->copy_num_dw, 8);
-@@ -248,7 +248,8 @@ static int amdgpu_ttm_map_buffer(struct amdgpu_ttm_buffer_entity *entity,
- 	src_addr += job->ibs[0].gpu_addr;
- 
- 	dst_addr = amdgpu_bo_gpu_offset(adev->gart.bo);
--	dst_addr += window * AMDGPU_GTT_MAX_TRANSFER_SIZE * 8;
-+	dst_addr += window * AMDGPU_GTT_MAX_TRANSFER_SIZE *
-+		AMDGPU_GPU_PAGES_IN_CPU_PAGE * 8;
- 	amdgpu_emit_copy_buffer(adev, &job->ibs[0], src_addr,
- 				dst_addr, num_bytes, 0);
- 
-@@ -266,6 +267,7 @@ static int amdgpu_ttm_map_buffer(struct amdgpu_ttm_buffer_entity *entity,
- 	} else {
- 		u64 pa = mm_cur->start + adev->vm_manager.vram_base_offset;
- 
-+		num_pages *= AMDGPU_GPU_PAGES_IN_CPU_PAGE;
- 		amdgpu_gart_map_vram_range(adev, pa, 0, num_pages, flags, cpu_addr);
- 	}
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-index 143201ecea3f..15aff225af1d 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-@@ -38,7 +38,7 @@
- #define AMDGPU_PL_MMIO_REMAP	(TTM_PL_PRIV + 5)
- #define __AMDGPU_PL_NUM	(TTM_PL_PRIV + 6)
- 
--#define AMDGPU_GTT_MAX_TRANSFER_SIZE	512
-+#define AMDGPU_GTT_MAX_TRANSFER_SIZE	(1 << (PMD_SHIFT - PAGE_SHIFT))
- #define AMDGPU_GTT_NUM_TRANSFER_WINDOWS	2
- 
- extern const struct attribute_group amdgpu_vram_mgr_attr_group;
-diff --git a/drivers/gpu/drm/amd/amdgpu/vce_v1_0.c b/drivers/gpu/drm/amd/amdgpu/vce_v1_0.c
-index 9ae424618556..b2d4114c258c 100644
---- a/drivers/gpu/drm/amd/amdgpu/vce_v1_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vce_v1_0.c
-@@ -48,7 +48,8 @@
- #define VCE_STATUS_VCPU_REPORT_FW_LOADED_MASK	0x02
- 
- #define VCE_V1_0_GART_PAGE_START \
--	(AMDGPU_GTT_MAX_TRANSFER_SIZE * AMDGPU_GTT_NUM_TRANSFER_WINDOWS)
-+	(AMDGPU_GTT_MAX_TRANSFER_SIZE * AMDGPU_GPU_PAGES_IN_CPU_PAGE * \
-+	 AMDGPU_GTT_NUM_TRANSFER_WINDOWS)
- #define VCE_V1_0_GART_ADDR_START \
- 	(VCE_V1_0_GART_PAGE_START * AMDGPU_GPU_PAGE_SIZE)
- 
--- 
-2.52.0
+ 	/* Wait for any pending userqueue fence work to finish */
+-	ret = amdgpu_userq_wait_for_signal(uq_mgr);
+-	if (ret)
++	if (amdgpu_userq_wait_for_signal(uq_mgr))
+ 		dev_err(adev-&gt;dev, &quot;Not evicting userqueue, timeout waiting for work\n&quot;);
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+That actually looks like a pretty bad idea. Instead we should start printing the error code.</pre>
+    </blockquote>
+    Sure could add an error code in the logging.
+    <blockquote type="cite" cite="mid:6bc42907-3370-4c92-94f9-9a873f50ede6@amd.com">
+      <pre wrap="" class="moz-quote-pre">
 
+But before we do that I would rather like to know why amdgpu_userq_wait_for_signal() can fail?</pre>
+    </blockquote>
+    dma_fence_wait_timeout is what could fail and we are returning
+    -ETIMEDOUT. We could totally avoid checking for the error here
+    completely as we are already printing the error in<br>
+    the called function below.
+    <div style="color: #cccccc;background-color: #1f1f1f;font-family: Consolas, 'Courier New', monospace;font-weight: normal;font-size: 14px;line-height: 19px;white-space: pre;"><div><span style="color: #9cdcfe;">ret</span><span style="color: #cccccc;"> </span><span style="color: #d4d4d4;">=</span><span style="color: #cccccc;"> </span><span style="color: #dcdcaa;">dma_fence_wait_timeout</span><span style="color: #cccccc;">(</span><span style="color: #9cdcfe;">f</span><span style="color: #cccccc;">, </span><span style="color: #4fc1ff;">true</span><span style="color: #cccccc;">, </span><span style="color: #dcdcaa;">msecs_to_jiffies</span><span style="color: #cccccc;">(</span><span style="color: #b5cea8;">100</span><span style="color: #cccccc;">));</span></div><div><span style="color: #cccccc;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span style="color: #c586c0;">if</span><span style="color: #cccccc;"> (</span><span style="color: #9cdcfe;">ret</span><span style="c
+ olor: #cccccc;"> </span><span style="color: #d4d4d4;">&lt;=</span><span style="color: #cccccc;"> </span><span style="color: #b5cea8;">0</span><span style="color: #cccccc;">) {</span></div><div><span style="color: #cccccc;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span style="color: #dcdcaa;">drm_file_err</span><span style="color: #cccccc;">(</span><span style="color: #9cdcfe;">uq_mgr</span><span style="color: #cccccc;">-&gt;</span><span style="color: #9cdcfe;">file</span><span style="color: #cccccc;">, </span><span style="color: #ce9178;">&quot;Timed out waiting for fence=</span><span style="color: #9cdcfe;">%llu</span><span style="color: #ce9178;">:</span><span style="color: #9cdcfe;">%llu</span><span style="color: #d7ba7d;">\n</span><span style="color: #ce9178;">&quot;</span><span style="color: #cccccc;">,</span></div><div><span style="color: #cccccc;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &n
+ bsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span><span style="color: #9cdcfe;">f</span><span style="color: #cccccc;">-&gt;</span><span style="color: #9cdcfe;">context</span><span style="color: #cccccc;">, </span><span style="color: #9cdcfe;">f</span><span style="color: #cccccc;">-&gt;</span><span style="color: #9cdcfe;">seqno</span><span style="color: #cccccc;">);</span></div>
+<div style="color: #cccccc;background-color: #1f1f1f;font-family: Consolas, 'Courier New', monospace;font-weight: normal;font-size: 14px;line-height: 19px;white-space: pre;"><div><span style="color: #cccccc;">&nbsp; &nbsp; &nbsp; &nbsp; </span><span style="color: #c586c0;">         return</span><span style="color: #cccccc;"> </span><span style="color: #d4d4d4;">-</span><span style="color: #569cd6;">ETIMEDOUT</span><span style="color: #cccccc;">;</span></div><div><span style="color: #cccccc;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }</span></div></div>
+</div>
+    <blockquote type="cite" cite="mid:6bc42907-3370-4c92-94f9-9a873f50ede6@amd.com">
+      <pre wrap="" class="moz-quote-pre">
+That should never happen in the first place.
+
+Regards,
+Christian.
+
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre"> 
+-	ret = amdgpu_userq_evict_all(uq_mgr);
+-	if (ret)
++	if (amdgpu_userq_evict_all(uq_mgr))
+ 		dev_err(adev-&gt;dev, &quot;Failed to evict userqueue\n&quot;);</pre>
+      </blockquote>
+    </blockquote>
+    Here also the below function returns error and printing error too.
+    We could avoid the return value here too as we are already printing
+    the error.
+    <div style="color: #cccccc;background-color: #1f1f1f;font-family: Consolas, 'Courier New', monospace;font-weight: normal;font-size: 14px;line-height: 19px;white-space: pre;"><div><span style="color: #dcdcaa;">amdgpu_userq_preempt_helper</span><span style="color: #cccccc;">(</span><span style="color: #9cdcfe;">queue</span><span style="color: #cccccc;">);</span></div><div><span style="color: #cccccc;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span style="color: #c586c0;">if</span><span style="color: #cccccc;"> (</span><span style="color: #9cdcfe;">r</span><span style="color: #cccccc;">)</span></div><div><span style="color: #cccccc;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span style="color: #9cdcfe;">ret</span><span style="color: #cccccc;"> </span><span style="color: #d4d4d4;">=</span><span style="color: #cccccc;"> </span><span style="color: #9cdcfe;">r</span><span style="color: #cccccc;">;</span></div></div>
+    <p><br>
+    </p>
+    <p>Regards<br>
+      Sunil Khatri</p>
+    <blockquote type="cite" cite="mid:6bc42907-3370-4c92-94f9-9a873f50ede6@amd.com">
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">
+-
+ }
+ 
+ int amdgpu_userq_mgr_init(struct amdgpu_userq_mgr *userq_mgr, struct drm_file *file_priv,
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+</pre>
+    </blockquote>
+  </body>
+</html>
+
+--------------ycJO4Y0yXKgy8NtxyF2emxsy--
