@@ -4,27 +4,28 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 076A8106F304
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D2BCE106F308
 	for <amd-gfx@archiver.kernel.org>; Thu, 26 Mar 2026 08:56:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6A98B10EA2E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7748E10EA34;
 	Thu, 26 Mar 2026 08:56:21 +0000 (UTC)
 Received: from rtg-sunil-navi33.amd.com (unknown [165.204.156.251])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3464810EA30
- for <amd-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 08:56:18 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 47C4C10EA37
+ for <amd-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 08:56:19 +0000 (UTC)
 Received: from rtg-sunil-navi33.amd.com (localhost [127.0.0.1])
  by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Debian-22ubuntu3) with ESMTP id
- 62Q8u7h12665274; Thu, 26 Mar 2026 14:26:07 +0530
+ 62Q8u7hu2665284; Thu, 26 Mar 2026 14:26:07 +0530
 Received: (from sunil@localhost)
- by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 62Q8u7aP2665273;
+ by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 62Q8u7ZU2665283;
  Thu, 26 Mar 2026 14:26:07 +0530
 From: Sunil Khatri <sunil.khatri@amd.com>
 To: Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Cc: amd-gfx@lists.freedesktop.org, Sunil Khatri <sunil.khatri@amd.com>
-Subject: [Patch v1 1/4] drm/amdgpu/userq: no need to use local variable ret
-Date: Thu, 26 Mar 2026 14:25:58 +0530
-Message-Id: <20260326085601.2665215-2-sunil.khatri@amd.com>
+Subject: [Patch v1 3/4] drm/amdgpu/userq: no need to use local variable here
+ for return
+Date: Thu, 26 Mar 2026 14:26:00 +0530
+Message-Id: <20260326085601.2665215-4-sunil.khatri@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260326085601.2665215-1-sunil.khatri@amd.com>
 References: <20260326085601.2665215-1-sunil.khatri@amd.com>
@@ -44,38 +45,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-In function amdgpu_userq_evict use the function return
-value in the if condition instead.
+In function amdgpu_userq_gem_va_unmap_validate use function
+return value directly in the if condition instead
+of local variable ret.
 
 Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 8 ++------
- 1 file changed, 2 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-index aa0e6eea9436..2a1832fce6d2 100644
+index 2b07c3941927..48cb2e21ce56 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-@@ -1308,17 +1308,13 @@ void
- amdgpu_userq_evict(struct amdgpu_userq_mgr *uq_mgr)
- {
- 	struct amdgpu_device *adev = uq_mgr->adev;
--	int ret;
+@@ -1478,7 +1478,6 @@ int amdgpu_userq_gem_va_unmap_validate(struct amdgpu_device *adev,
+ 	u32 ip_mask = amdgpu_userq_get_supported_ip_mask(adev);
+ 	struct amdgpu_bo_va *bo_va = mapping->bo_va;
+ 	struct dma_resv *resv = bo_va->base.bo->tbo.base.resv;
+-	int ret = 0;
  
- 	/* Wait for any pending userqueue fence work to finish */
--	ret = amdgpu_userq_wait_for_signal(uq_mgr);
--	if (ret)
-+	if (amdgpu_userq_wait_for_signal(uq_mgr))
- 		dev_err(adev->dev, "Not evicting userqueue, timeout waiting for work\n");
+ 	if (!ip_mask)
+ 		return 0;
+@@ -1493,9 +1492,8 @@ int amdgpu_userq_gem_va_unmap_validate(struct amdgpu_device *adev,
+ 	 * the eviction fence is always unsignaled.
+ 	 */
+ 	if (!dma_resv_test_signaled(resv, DMA_RESV_USAGE_BOOKKEEP)) {
+-		ret = dma_resv_wait_timeout(resv, DMA_RESV_USAGE_BOOKKEEP, true,
+-					    MAX_SCHEDULE_TIMEOUT);
+-		if (ret <= 0)
++		if (dma_resv_wait_timeout(resv, DMA_RESV_USAGE_BOOKKEEP, true,
++					    MAX_SCHEDULE_TIMEOUT) <= 0)
+ 			return -EBUSY;
+ 	}
  
--	ret = amdgpu_userq_evict_all(uq_mgr);
--	if (ret)
-+	if (amdgpu_userq_evict_all(uq_mgr))
- 		dev_err(adev->dev, "Failed to evict userqueue\n");
--
- }
- 
- int amdgpu_userq_mgr_init(struct amdgpu_userq_mgr *userq_mgr, struct drm_file *file_priv,
 -- 
 2.34.1
 
