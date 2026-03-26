@@ -4,31 +4,28 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0EBA110A62CE
-	for <amd-gfx@archiver.kernel.org>; Thu, 26 Mar 2026 13:24:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 35FEF10A62CD
+	for <amd-gfx@archiver.kernel.org>; Thu, 26 Mar 2026 13:24:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 97C0910E9E3;
-	Thu, 26 Mar 2026 13:24:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9B8D310E9E0;
+	Thu, 26 Mar 2026 13:24:12 +0000 (UTC)
 Received: from rtg-sunil-navi33.amd.com (unknown [165.204.156.251])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 18F9010E929
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2F9C110E9E3
  for <amd-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 13:24:09 +0000 (UTC)
 Received: from rtg-sunil-navi33.amd.com (localhost [127.0.0.1])
  by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Debian-22ubuntu3) with ESMTP id
- 62QDNuGR2753878; Thu, 26 Mar 2026 18:53:56 +0530
+ 62QDNuMu2753868; Thu, 26 Mar 2026 18:53:56 +0530
 Received: (from sunil@localhost)
- by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 62QDNukW2753877;
+ by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 62QDNuht2753867;
  Thu, 26 Mar 2026 18:53:56 +0530
 From: Sunil Khatri <sunil.khatri@amd.com>
 To: Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Cc: amd-gfx@lists.freedesktop.org, Sunil Khatri <sunil.khatri@amd.com>
-Subject: [Patch v2 2/3] drm/amdgpu/userq: add the return code too in error
- condition
-Date: Thu, 26 Mar 2026 18:53:52 +0530
-Message-Id: <20260326132353.2753833-3-sunil.khatri@amd.com>
+Subject: [Patch v2 0/3] Bunch of patches to do trivial clean up and
+Date: Thu, 26 Mar 2026 18:53:50 +0530
+Message-Id: <20260326132353.2753833-1-sunil.khatri@amd.com>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260326132353.2753833-1-sunil.khatri@amd.com>
-References: <20260326132353.2753833-1-sunil.khatri@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -45,45 +42,17 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-In function amdgpu_userq_restore
-a. amdgpu_userq_vm_validate: add return code in error condition
-b. amdgpu_userq_restore_all: It already prints the error log, just
-   update the erorr log in the function and remove it from caller.
+v2: add more fixes as suggested by christian and update some logging.
 
-Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 8 +++-----
- 1 file changed, 3 insertions(+), 5 deletions(-)
+Sunil Khatri (4):
+  drm/amdgpu/userq: no need to use local variable ret
+  drm/amdgpu/userq: no need to use local variable here for return
+  drm/amdgpu/userq: no need to use local variable here for return
+  drm/amdgpu/userq: Fix the code alignment for readability
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-index 6e6b1cae15ce..d29620d3d0d2 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-@@ -1023,7 +1023,7 @@ amdgpu_userq_restore_all(struct amdgpu_userq_mgr *uq_mgr)
- 	mutex_unlock(&uq_mgr->userq_mutex);
- 
- 	if (ret)
--		drm_file_err(uq_mgr->file, "Failed to map all the queues\n");
-+		drm_file_err(uq_mgr->file, "Failed to map all the queues, restore failed ret=%d\n", ret);
- 	return ret;
- }
- 
-@@ -1230,13 +1230,11 @@ static void amdgpu_userq_restore_worker(struct work_struct *work)
- 
- 	ret = amdgpu_userq_vm_validate(uq_mgr);
- 	if (ret) {
--		drm_file_err(uq_mgr->file, "Failed to validate BOs to restore\n");
-+		drm_file_err(uq_mgr->file, "Failed to validate BOs to restore ret=%d\n", ret);
- 		goto put_fence;
- 	}
- 
--	ret = amdgpu_userq_restore_all(uq_mgr);
--	if (ret)
--		drm_file_err(uq_mgr->file, "Failed to restore all queues\n");
-+	amdgpu_userq_restore_all(uq_mgr);
- 
- put_fence:
- 	dma_fence_put(ev_fence);
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 31 +++++++++--------------
+ 1 file changed, 12 insertions(+), 19 deletions(-)
+
 -- 
 2.34.1
 
