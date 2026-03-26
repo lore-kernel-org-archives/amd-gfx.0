@@ -4,67 +4,84 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9AECF10ED678
-	for <amd-gfx@archiver.kernel.org>; Fri, 27 Mar 2026 12:40:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3037410ED67A
+	for <amd-gfx@archiver.kernel.org>; Fri, 27 Mar 2026 12:40:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1EAF210EE0B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5BE6610EE0E;
 	Fri, 27 Mar 2026 12:40:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Fe4lSNJV";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="JIOIMwNg";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AFD4B10E389;
- Fri, 27 Mar 2026 08:33:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1774600428; x=1806136428;
- h=message-id:subject:from:to:cc:date:in-reply-to:
- references:content-transfer-encoding:mime-version;
- bh=5JnJZVcTjUsDSvNnmfQ12zXxh0K+BGs/g23rZJ9gsDU=;
- b=Fe4lSNJVt8BOc9bYhH2PuH2lb+O1oYl78arGhGAYKlRp8XTDND5cmnSA
- h3vuQK5W8WO0K/nFJYTejuGocg0S6iIpLW65nWpt0zLl/HwUh1np9vMYx
- 2Muv4kJoQ5rbjQ25TDSkqmAHKWZ8sEeGA+35kVhav83bClvex7rJBUuIR
- utU5Pwc/plJz0wNXFAiM/pBb0U5RH6sBj+63E/aoKsLakyh4qIGWnZyhR
- hfPt7hOoHa20jd/yTb4Z2Ywngd4U7t2np4VR1KClH8/B3JM2D+LuClzKU
- Kg5z3ecu2d0e+wiigc0qQmX9pG9Jo3FgjaVONmC6L+S35OGXUGk9BfHAq w==;
-X-CSE-ConnectionGUID: A5fIHw1wSJi+xTLxFgaXbQ==
-X-CSE-MsgGUID: oEgWjM53RF+Vzgzrr7AI2A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11741"; a="75573796"
-X-IronPort-AV: E=Sophos;i="6.23,143,1770624000"; d="scan'208";a="75573796"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
- by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Mar 2026 01:33:47 -0700
-X-CSE-ConnectionGUID: QhWVA9BUQomeBkzKdmxjMw==
-X-CSE-MsgGUID: Qu3pQTu7Q2yL7+QQ6ISDKw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,143,1770624000"; d="scan'208";a="225504790"
-Received: from egrumbac-mobl6.ger.corp.intel.com (HELO [10.245.244.146])
- ([10.245.244.146])
- by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Mar 2026 01:33:43 -0700
-Message-ID: <065a48aa13d94cd52d8df38dabe0d955108a615a.camel@linux.intel.com>
-Subject: Re: [PATCH 0/5] Add reclaim to the dmem cgroup controller
-From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
-To: intel-xe@lists.freedesktop.org
-Cc: Natalie Vock <natalie.vock@gmx.de>, Johannes Weiner
- <hannes@cmpxchg.org>,  Tejun Heo <tj@kernel.org>, Michal
- =?ISO-8859-1?Q?Koutn=FD?= <mkoutny@suse.com>, 	cgroups@vger.kernel.org,
- Huang Rui <ray.huang@amd.com>, Matthew Brost	 <matthew.brost@intel.com>,
- Matthew Auld <matthew.auld@intel.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann	 <tzimmermann@suse.de>, Simona Vetter <simona@ffwll.ch>,
- David Airlie	 <airlied@gmail.com>, Christian =?ISO-8859-1?Q?K=F6nig?=	
- <christian.koenig@amd.com>, Alex Deucher <alexander.deucher@amd.com>, 
- Rodrigo Vivi <rodrigo.vivi@intel.com>, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, 	linux-kernel@vger.kernel.org
-Date: Fri, 27 Mar 2026 09:33:39 +0100
-In-Reply-To: <20260327081600.4885-1-thomas.hellstrom@linux.intel.com>
-References: <20260327081600.4885-1-thomas.hellstrom@linux.intel.com>
-Organization: Intel Sweden AB, Registration Number: 556189-6027
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: base64
-User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
+Received: from mail-oa1-f49.google.com (mail-oa1-f49.google.com
+ [209.85.160.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5A5D510EBBB
+ for <amd-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 18:55:24 +0000 (UTC)
+Received: by mail-oa1-f49.google.com with SMTP id
+ 586e51a60fabf-41576c5c01cso891128fac.3
+ for <amd-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 11:55:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1774551323; x=1775156123; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=PHBDIqz9/qVForB86mGxoTdQjucG23eTecUbThbELwQ=;
+ b=JIOIMwNgut7zpMR8MY6Xy82gDArQYbm9cCsWN0ZFE21J40w277YRUOuNlCPk84KOi9
+ 7/UyDl5h1agq1AtdRFRoCZTktR5iED2zCW0h4qZmkib2+KdNRv5xZh/1a3conav6jqIi
+ dMnBkmeYVVmzgJU+yqntxT4d9oAORE/N13UB3PBW+3px71qTxNCSqoubbPnl4eb24Y+r
+ M8ufdhKwPH/YZMAxfuh/ddMp6Zmq60bdJznVfAEePubGKm0utAzWmsTuq4m8OHetDYTv
+ SPfNL2Jsp17+gOZXY1GnNMHhfp9NvcdoFbNGqa0lKHXEEZ6GUxFU/9CsTHq75m6g+Rkd
+ IZtw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1774551323; x=1775156123;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=PHBDIqz9/qVForB86mGxoTdQjucG23eTecUbThbELwQ=;
+ b=HNZGwIpXEUxHK1PF2RJF3Ond0RAqkK9qgUP8TUh/C7ILM9D7sFZbrsAGlYe25kYh1D
+ Kv52pDWR3AZL+8XAddVYyuKypyOrVrdUf0ISFLav2cEOJ92+76oiZuceNSaOBNLsN3mI
+ VCn2VZ34Qs8xn+wWzjmWPMWYdROTd6S1Hy5YVbMaWO+LqDPBF/iiGzF4N9+utG97yRYc
+ L2kHazdZcAxhyMAruLGymnRlrFKuROwtQ/Ar7UnB4dgBivETg0CC7l40qUr6uGgCHcgQ
+ FWyCWuTUItuZoqjgAN/7CNk0cduSOvQ5bI9xApaHpJdk92IOOhSb8RzkE1Fofkl2numu
+ 8pdw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUqZZfvFjfTxPnf9zIST3VBq+9Ry0iU7fA0E2QgJWrHXxCb6F0UFrnGEJ0L9A8u4Qy6ZDmmAMGU@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwXwCVQJU/YoDlT8YSy8zMo1OhmWHhvOZeOxTbrM3BawCPb2Uzb
+ hLHY3HR/YYFmeRMVnpuXqrjgqK4FogSIdc1L55rXWlvQhIH1P3LqsV4q
+X-Gm-Gg: ATEYQzyAMNjp15G1+muDoOPiGS8ywTkPN3CaIGVxO7vdD8h2ppwWPutBRq2COnFQttq
+ qwM45lb41pmqEobyXDKB7KfqshUerSSKFdfh8HIgHFvH4Uoe0hFm0Ow8lOvnoCdu9r4Vd6rGI8s
+ wsR2oOJqipKrl9PppQlqAdw5HEVO8+bk9YbwEpx7xH7egSLHllrGT2ZcBfDVMb1VSV5cPWZqwtu
+ OEuHvVH2simTjaGNjU8cHpcmxDXNy1WoWCRZYI0y2ssMeug1ROc4++iwa806aTufUxVSze7enpl
+ T3gm3ltIrnn0L/M/Z6rwqVfGG5zdmMJZxEjHqmqjjF3qH2l4WDG08m4Dn7iywJ9zfZgqF0SNGtJ
+ TY4PthfzQZnV7ULodiJFAXHJAheJ3Ya/ZZoDt/0RHqGUN23qrGbFue33HuK0x4oEAihfyHv8tMt
+ ufX3BKWIAMa274I/bbcszWewC0q5zBtM7xO+9Y5QmoNHJ/5Wei
+X-Received: by 2002:a05:6871:520d:b0:417:5970:28ea with SMTP id
+ 586e51a60fabf-41ca715a2acmr4330662fac.51.1774551323554; 
+ Thu, 26 Mar 2026 11:55:23 -0700 (PDT)
+Received: from frodo (c-98-38-17-99.hsd1.co.comcast.net. [98.38.17.99])
+ by smtp.googlemail.com with ESMTPSA id
+ 586e51a60fabf-41cc7760c08sm3075171fac.4.2026.03.26.11.55.22
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 26 Mar 2026 11:55:23 -0700 (PDT)
+From: Jim Cromie <jim.cromie@gmail.com>
+To: linux-kernel@vger.kernel.org, airlied@gmail.com, simona@ffwll.ch,
+ jbaron@akamai.com, gregkh@linuxfoundation.org
+Cc: jim.cromie@gmail.com, mripard@kernel.org, tzimmermann@suse.de,
+ maarten.lankhorst@linux.intel.com, jani.nikula@intel.com,
+ ville.syrjala@linux.intel.com, christian.koenig@amd.com,
+ matthew.auld@intel.com, arunpravin.paneerselvam@amd.com,
+ louis.chauvet@bootlin.com, skhan@linuxfoundation.org, pmladek@suse.com,
+ ukaszb@chromium.org, dri-devel@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ Philipp Hahn <phahn-oss@avm.de>
+Subject: [PATCH v12 36/69] dyndbg: Ignore additional arguments from pr_fmt
+Date: Thu, 26 Mar 2026 12:53:40 -0600
+Message-ID: <20260326185413.1205870-37-jim.cromie@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260326185413.1205870-1-jim.cromie@gmail.com>
+References: <20260326185413.1205870-1-jim.cromie@gmail.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 27 Mar 2026 12:40:00 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -80,39 +97,74 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-T24gRnJpLCAyMDI2LTAzLTI3IGF0IDA5OjE1ICswMTAwLCBUaG9tYXMgSGVsbHN0csO2bSB3cm90
-ZToKPiBXaGVuIHdyaXRpbmcgYSAibWF4IiBsaW1pdCBsb3dlciB0aGFuIHRoZSBjdXJyZW50IHVz
-YWdlLCB0aGUKPiBleGlzdGluZyBjb2RlIHNpbGVudGx5IGZhaWxlZC4gVGhpcyBzZXJpZXMgYWlt
-cyB0byBpbXByb3ZlCj4gb24gdGhhdCBieSByZXR1cm5pbmcgLUVCVVNZIG9uIGZhaWx1cmUgYW5k
-IGFsc28gYXR0ZW1wdAo+IHRvIHN5bmNocm9ub3VzbHkgcmVjbGFpbSBkZXZpY2UgbWVtb3J5IHRv
-IHB1c2ggdGhlIHVzYWdlCj4gdW5kZXIgdGhlIG5ldyBtYXggbGltaXQgdG8gYXZvaWQgdGhlIGVy
-cm9yLgo+IAo+IFBhdGNoIDEgaW1wbGVtZW50cyBlcnJvciBwcm9wYWdhdGlvbi4KPiBQYXRjaCAy
-IGltcGxlbWVudHMgYW5kIGRvY3VtZW50cyBhIHJlY2xhaW0gY2FsbGJhY2sgaW50ZXJmYWNlCj4g
-wqDCoMKgwqDCoCBmb3IgdGhlIGRtZW0gY29udHJvbGxlci4KPiBQYXRjaCAzIGltcGxlbWVudHMg
-YSBUVE0gcmVjbGFpbSBjYWxsYmFjay4KPiBQYXRjaCA0LTUgaG9va3MgdXAgdGhlIHJlY2xhaW0g
-Y2FsbGJhY2sgdG8gdGhlIGRtZW0gY2dyb3Vwcy0KPiDCoMKgwqDCoMKgIGF3YXJlIGRyaXZlcnMg
-eGUgYW5kIGFtZGdwdS4KPiAKPiBUaG9tYXMgSGVsbHN0csO2bSAoNSk6Cj4gwqAgY2dyb3VwL2Rt
-ZW06IFJldHVybiBlcnJvciB3aGVuIHNldHRpbmcgbWF4IGJlbG93IGN1cnJlbnQgdXNhZ2UKPiDC
-oCBjZ3JvdXAvZG1lbTogQWRkIHJlY2xhaW0gY2FsbGJhY2sgZm9yIGxvd2VyaW5nIG1heCBiZWxv
-dyBjdXJyZW50Cj4gdXNhZ2UKPiDCoCBkcm0vdHRtOiBIb29rIHVwIGEgY2dyb3VwLWF3YXJlIHJl
-Y2xhaW0gY2FsbGJhY2sgZm9yIHRoZSBkbWVtCj4gwqDCoMKgIGNvbnRyb2xsZXIKPiDCoCBkcm0v
-eGU6IFdpcmUgdXAgZG1lbSBjZ3JvdXAgcmVjbGFpbSBmb3IgVlJBTSBtYW5hZ2VyCj4gwqAgZHJt
-L2FtZGdwdTogV2lyZSB1cCBkbWVtIGNncm91cCByZWNsYWltIGZvciBWUkFNIG1hbmFnZXIKPiAK
-PiDCoGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90dG0uY8KgwqDCoMKgwqAgfMKg
-wqAgMiArLQo+IMKgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZyYW1fbWdyLmMg
-fMKgIDEwICstCj4gwqBkcml2ZXJzL2dwdS9kcm0vdHRtL3R0bV9iby5jwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqAgfMKgIDk1ICsrKysrKysrKysrKysrKystCj4gwqBkcml2ZXJzL2dw
-dS9kcm0vdHRtL3R0bV9ib191dGlsLmPCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHzCoMKgIDMgKy0K
-PiDCoGRyaXZlcnMvZ3B1L2RybS90dG0vdHRtX3Jlc291cmNlLmPCoMKgwqDCoMKgwqDCoMKgwqDC
-oCB8wqAgMzYgKysrKysrKwo+IMKgZHJpdmVycy9ncHUvZHJtL3hlL3hlX3R0bV92cmFtX21nci5j
-wqDCoMKgwqDCoMKgwqDCoCB8wqAgMTkgKystLQo+IMKgaW5jbHVkZS9kcm0vdHRtL3R0bV9iby5o
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB8wqAgMTAgKysKPiDCoGlu
-Y2x1ZGUvZHJtL3R0bS90dG1fcmVzb3VyY2UuaMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAg
-fMKgwqAgNCArCj4gwqBpbmNsdWRlL2xpbnV4L2Nncm91cF9kbWVtLmjCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgIHzCoCAxMSArKwo+IMKga2VybmVsL2Nncm91cC9kbWVtLmPCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgfCAxMDIgKysrKysr
-KysrKysrKysrKy0KPiAtLQo+IMKgMTAgZmlsZXMgY2hhbmdlZCwgMjY1IGluc2VydGlvbnMoKyks
-IDI3IGRlbGV0aW9ucygtKQoKRm9yIHJlZmVyZW5jZSwgU2VyaWVzIGludHJvZHVjaW5nIGlndCB0
-ZXN0IGlzIGhlcmU6Cmh0dHBzOi8vcGF0Y2h3b3JrLmZyZWVkZXNrdG9wLm9yZy9zZXJpZXMvMTYz
-OTM1LwoKL1Rob21hcwo=
+From: Philipp Hahn <phahn-oss@avm.de>
+
+pr_fmt can be used to add a common prefix to any output from a module:
+	#define pr_fmt(fmt) KBUILD_MODNAME ".%s " fmt, __func__
+
+But adding additional arguments breaks dynamic debug:
+> error: macro "DEFINE_DYNAMIC_DEBUG_METADATA_CLS" passed 4 arguments, but takes just 3
+> |         pr_debug_ratelimited("%s", "Hello world!");
+> |                                                  ^
+> note: macro "DEFINE_DYNAMIC_DEBUG_METADATA_CLS" defined here
+> | #define DEFINE_DYNAMIC_DEBUG_METADATA_CLS(name, cls, fmt)       \
+> |
+> error: ‘DEFINE_DYNAMIC_DEBUG_METADATA_CLS’ undeclared (first use in this function)
+> |         DEFINE_DYNAMIC_DEBUG_METADATA_CLS(name, _DPRINTK_CLASS_DFLT, fmt)
+> |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+> note: in expansion of macro ‘DEFINE_DYNAMIC_DEBUG_METADATA’
+> |         DEFINE_DYNAMIC_DEBUG_METADATA(descriptor, pr_fmt(fmt));         \
+> |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+> note: in expansion of macro ‘pr_debug_ratelimited’
+> |         pr_debug_ratelimited("%s", "Hello world!");
+> |         ^~~~~~~~~~~~~~~~~~~~
+
+Add an additional ', ...' to DEFINE_DYNAMIC_DEBUG_METADATA_CLS to slurp
+any additional argument, which `pr_fmt` might add.
+
+Signed-off-by: Philipp Hahn <phahn-oss@avm.de>
+[pr_fmt change on _submod]
+Reviewed-by: Jim Cromie <jim.cromie@gmail.com>
+---
+ include/linux/dynamic_debug.h | 2 +-
+ lib/test_dynamic_debug.c      | 4 ++--
+ 2 files changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/include/linux/dynamic_debug.h b/include/linux/dynamic_debug.h
+index 1b401f398a3c..49f37d6a4eab 100644
+--- a/include/linux/dynamic_debug.h
++++ b/include/linux/dynamic_debug.h
+@@ -344,7 +344,7 @@ void __dynamic_ibdev_dbg(struct _ddebug *descriptor,
+ 		dump_stack();					\
+ }
+ 
+-#define DEFINE_DYNAMIC_DEBUG_METADATA_CLS(name, cls, fmt)	\
++#define DEFINE_DYNAMIC_DEBUG_METADATA_CLS(name, cls, fmt, ...)	\
+ 	static struct _ddebug  __aligned(8)			\
+ 	__section("__dyndbg_descriptors") name = {		\
+ 		.modname = KBUILD_MODNAME,			\
+diff --git a/lib/test_dynamic_debug.c b/lib/test_dynamic_debug.c
+index db555f5f8ea4..779309898422 100644
+--- a/lib/test_dynamic_debug.c
++++ b/lib/test_dynamic_debug.c
+@@ -23,7 +23,7 @@
+  * the usage clearer.
+  */
+ #if defined(TEST_DYNAMIC_DEBUG_SUBMOD)
+-  #define pr_fmt(fmt) "test_dd_submod: " fmt
++  #define pr_fmt(fmt) "test_dd_submod: %s " fmt, __func__
+ #else
+   #define pr_fmt(fmt) "test_dd: " fmt
+ #endif
+@@ -214,7 +214,7 @@ static int __init test_dynamic_debug_init(void)
+ 
+ static void __exit test_dynamic_debug_exit(void)
+ {
+-	pr_debug("exited\n");
++	pr_debug_ratelimited("exited\n");
+ }
+ 
+ module_init(test_dynamic_debug_init);
+-- 
+2.53.0
 
