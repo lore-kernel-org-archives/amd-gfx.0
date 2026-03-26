@@ -4,64 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7110B10ED66D
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C5F0610ED664
 	for <amd-gfx@archiver.kernel.org>; Fri, 27 Mar 2026 12:42:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0A19210EE2C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4D90B10EE30;
 	Fri, 27 Mar 2026 12:42:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="npMhsj+v";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="izavzM6r";
 	dkim-atps=neutral
-Received: from mail-oa1-f46.google.com (mail-oa1-f46.google.com
- [209.85.160.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4499B10EBE6
- for <amd-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 18:55:35 +0000 (UTC)
-Received: by mail-oa1-f46.google.com with SMTP id
- 586e51a60fabf-417571c6083so746948fac.2
- for <amd-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 11:55:35 -0700 (PDT)
+Received: from mail-oa1-f53.google.com (mail-oa1-f53.google.com
+ [209.85.160.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E060510EBEE
+ for <amd-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 18:55:29 +0000 (UTC)
+Received: by mail-oa1-f53.google.com with SMTP id
+ 586e51a60fabf-41cd9267bbfso533786fac.1
+ for <amd-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 11:55:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1774551334; x=1775156134; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1774551329; x=1775156129; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=bX4ilSonYi7XSfI6S+RBBXv+cAYgjTID5jxcrBPOaxA=;
- b=npMhsj+vJQSGEcd3eMQDjm1OaGuqQRfbpa3rUxpdGZudnHxtVFZrd509LVgS6vcR7N
- 0VrswZVQR/zh121vnZX99qjzdsa/Og/QqLRZbAItJjOfU+8k1aW58yncAktADlDAHiAR
- riCF1ssN6Ij/q7AWwvSFoHnklg6AXDrz4qHpuYvr2lHbvu+wYMXPy7Py+YjkCUAGbqx0
- gZZL51G84iuPztt77NM0rgiVMVY1xSn00yxKX4dklXm7aoqox0iHPsHx4t43d2LeznhP
- PV7VS173350iDmsxe4caj9/4pcwXa3kDUdJqfYd82SvgGGf5Wo0LRYHqSRZ5I/6LY+Ws
- ZMTA==
+ bh=BSisvrIuxABye56v+k4UdRTAwS5HV0U80AJ6AJkDqLc=;
+ b=izavzM6r3fKe0qk3c65nD4xsENxTsjUFoMxZtpFpXily1O4EngvisOya5qKP9bEbEI
+ cjWSv0c12dUI+PnfrcJpwlbl31DV5mSyJcLBlDs9AxaV3B6p/oi7daq0IAanXxq7ciRf
+ wu8ZjgrNwlxqDwd7nmPKa7tdbmBPmMWWN0INk89FLOvy8cmXflAtgBs2eLlY6kZfruQg
+ 8L61MFB/0vIFScrtv45CIH+2IS4r7vOyJF7POwGtdrLa84u647SJZy+RPm9M95TqZ2JS
+ hDIPPGQMra5LvVv+pK905/GdVATufteh9iMvvSUAaw/ek61BNGQA0FVKYHQwmUAwffwH
+ cmuw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774551334; x=1775156134;
+ d=1e100.net; s=20251104; t=1774551329; x=1775156129;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=bX4ilSonYi7XSfI6S+RBBXv+cAYgjTID5jxcrBPOaxA=;
- b=tXCuTFYSm9IvaUlqpYZg65w2YmYmjCSShzrH5ujouNmcxjNq42xI1rXcVIFFSdqfIX
- pLAs3WTsVQcISFrMysv36EVR02it9SAosWmBJ+fyN1MlVoNAN1jYNS7ePO5L6A0VPQas
- z3YHKvZTpCXhrQ6vkOcObHUAwvdBSpqQwOmUAm++zxBhVJlzCTAsl6pZD/TbBHubzUSC
- tSaTrA5+ob+2S5wQcRMpA/IlvHT0Idcn6Bq5M2jlasvRa/BHTG59OBR2KMJmwnbzCWRE
- 1kINVYYqSJKUT9cL/HvxXyWKjEcwISdnQWKDAka3azMqRoCDGME83jdQNQSzERwk8HMz
- IAuQ==
+ bh=BSisvrIuxABye56v+k4UdRTAwS5HV0U80AJ6AJkDqLc=;
+ b=GC6ae219qXOrTNorRcQP72489h5yJD0wFckTGVtkos+KNF2qdGxZBk3aItNWFZE/ed
+ Sea0R9JwVha7MrxwXHnlT8MKFua/0hlLzl8ZJx3Vruw5luiXSkyUyVkH4Cn0xrgawhO2
+ yKFBWNAI5NwjOi4tiSQJy8H2b/9bUOR3HpV/RQ/ydcytG+FP9FzGbrg/gvhha46QtR9Y
+ 7M5S6hbF9/w1cJwe3EgoBYCRptT3o6fdrben8oAUh0k7xpYIKLrnPlB7yieXpmDGc0da
+ 3O2QgMJaLtnbTeRUEEleblUpdRmvgOJOUx37fUxWj5vCWcZkODu7tyX54BFh+DvJgwJJ
+ cNGw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCV3rgToK9Gy4mRiwRzOUp8CVKt6sYaCzKkESUamFuTi9EEYbg6Lg0G18HZLQGUOQ0o19vtoj4Wa@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxIGW2Q3q0C5ATAQ+h1g0NVWst2XCtbUeJnWRwnCwDXb/tIwZQM
- bWeCkxvhRZwyTk0DQW3BLwjhRCqX9GaCb2Dr++VLxAHPZrn67kvSvRlN
-X-Gm-Gg: ATEYQzy3ZDKuD4JhcYUkt1VzQb0ZcPc5ChzRorlAnISy0XwGG9ab+1LoDA4FTvas9nU
- X6oZbkWP87fyTRunvfc7w2NGlOTyRJqO2nQ8nFzRCli3UAprLLk/AEQdEQWPVoO43XFbVl4vWCc
- AWKwySlaDgNTs8aaRjKFoSRcQKXHPzPkcfhD92YypbWkjiyL7SVxiG8Pe6/yRUHmsB0c5MUweYx
- i/cxYkgsiHPYycb0WdHMqz11Fqm1D1ZAvfAf22/HpIfxzVMXUjhK1yT5zrMWgNDEo4Vl5LivbAC
- DC0IC2hg7ns9DNoozVIh4nhC8SV4Bp4v5bnZsj9DulfU0r1TXv0jJBSLk2Yt0dx0TkdDaPpKMMo
- Cw/Rhut/L88hIA+1qI4ZuNWq2KwjMYfm5PLxyElPbv0ohlDBN/OzGHc1yVPK/b55aZgGAo5dlf4
- 0EHdFLgBbHqvTIJgfp0PeFH/eUywb4kieKLlLQ3oTi/3BwLXFP
-X-Received: by 2002:a05:6870:9502:b0:409:5ef5:be0c with SMTP id
- 586e51a60fabf-41ca6de6bcbmr4583508fac.12.1774551334408; 
- Thu, 26 Mar 2026 11:55:34 -0700 (PDT)
+ AJvYcCWfbk1GpOppHA8LczlwXB9vqUSUMb56X9Z1SU9cgjZEzSLvfThQYJSO5mHzg5WW7kz5VfUME446@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxCkpv8T52rYM6cA7jK4lsaJhPR2irwkqnO4SekxGTpd/y47/L8
+ GVwxAG4/ksEUTqeTY7stUMFgDXcGVQgGT8r7VxZwEOM2KlsXTDnR3+sA
+X-Gm-Gg: ATEYQzwoz0nxxMd7MdGvsIVyukfl5snRb70rnaneMNInqqMd751JofOsQGIIAz9vUlV
+ SfuNxwJta5xhxLOs76F1Sse3Cthho+w26aKRcmmpfrTSWsFxpl4LXRyJzA/R8iJXkBTorlby5Lw
+ sJ5G0sgH1DhK3aV8eGqk/AlssGRk9jgj98DJmObU/b80TFjOBK1uzMX3FTXLr2Q+GSZvnvmnzeJ
+ qycDo4+Ze3ifzH4n5QxGK9yHDLfHP5+rlrfTiabSLd/fHZo8U8gIahgkIPN6sQ35oEZlcpTe1W4
+ 7w/ZIJgkbcld01T3oJNDfI9a1NprWiLlxZQGG2xLO9IW1SSkuDR4ib8EuRSSCqfNupwgGSWi0w/
+ OMI11c1X0KLuywWYYvdTkGII8a/QqUa5PyWUQSU9r022bo7zcYXwUayuF/yPqWkNHqbzd9/wpdp
+ Q246ghxlDnW4IzxXNSNQgHHpHDAv1gumi2pAAX4kFAjue0mXX2+9cUogBgzfc=
+X-Received: by 2002:a05:6870:b0e4:b0:40e:a9c5:5c32 with SMTP id
+ 586e51a60fabf-41cd7b187d0mr1250153fac.8.1774551329111; 
+ Thu, 26 Mar 2026 11:55:29 -0700 (PDT)
 Received: from frodo (c-98-38-17-99.hsd1.co.comcast.net. [98.38.17.99])
  by smtp.googlemail.com with ESMTPSA id
- 586e51a60fabf-41cc7760c08sm3075171fac.4.2026.03.26.11.55.32
+ 586e51a60fabf-41cc7760c08sm3075171fac.4.2026.03.26.11.55.26
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 26 Mar 2026 11:55:34 -0700 (PDT)
+ Thu, 26 Mar 2026 11:55:28 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: linux-kernel@vger.kernel.org, airlied@gmail.com, simona@ffwll.ch,
  jbaron@akamai.com, gregkh@linuxfoundation.org
@@ -72,9 +72,9 @@ Cc: jim.cromie@gmail.com, mripard@kernel.org, tzimmermann@suse.de,
  louis.chauvet@bootlin.com, skhan@linuxfoundation.org, pmladek@suse.com,
  ukaszb@chromium.org, dri-devel@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-Subject: [PATCH v12 40/69] drm_print: fix drm_printer dynamic debug bypass
-Date: Thu, 26 Mar 2026 12:53:44 -0600
-Message-ID: <20260326185413.1205870-41-jim.cromie@gmail.com>
+Subject: [PATCH v12 38/69] drm: use correct ccflags-y spelling
+Date: Thu, 26 Mar 2026 12:53:42 -0600
+Message-ID: <20260326185413.1205870-39-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260326185413.1205870-1-jim.cromie@gmail.com>
 References: <20260326185413.1205870-1-jim.cromie@gmail.com>
@@ -95,84 +95,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-drm_debug_enabled() is the canonical bit-test for drm.debug.
+Incorrectly spelled CFLAGS- failed to add -DDYNAMIC_DEBUG_MODULE,
+which disabled dynamic-debug in modules built with:
 
-Commit 6ce6fae84536 ("drm_print: optimize drm_debug_enabled for
-jump-label") renamed the original bit-test to drm_debug_enabled_raw()
-and introduced an internal bypass for dyndbg. When [1]=y, it defined
-__drm_debug_enabled() to evaluate to 'true', allowing dyndbg's
-static-key to handle the filtering at the callsite. It also provided
-drm_debug_enabled() for cases where an explicit bit-mask check is
-still required.
+CONFIG_DYNAMIC_DEBUG=n		# 1
+CONFIG_DYNAMIC_DEBUG_CORE=y	# 2
+CONFIG_DRM_USE_DYNAMIC_DEBUG=y	# 3
 
-Later, commit 9fd6f61a297e ("drm/print: add drm_dbg_printer() for drm
-device specific printer") added __drm_printfn_dbg(), but mistakenly
-used the internal bypass __drm_debug_enabled() instead of the
-canonical drm_debug_enabled(). This went unnoticed because at the
-time, [1]=y was marked BROKEN.
+NB: this adds the flag (when 3) more often than strictly needed;
+modules built with CONFIG_DYNAMIC_DEBUG=y (!1) don't need the flag.
 
-Because __drm_printfn_dbg() is a shared helper where the callsite is
-not directly guarded by dyndbg's static-key, this caused it to hit
-the 'true' bypass and always print, ignoring the drm.debug bit-mask.
-
-This results in a flood of messages in environments with slow serial
-consoles, as seen in DRM-CI on i915 CML devices. When IGT causes a
-mismatch in intel_pipe_config_compare(), the resulting UART storm
-causes a hard timeout after 20 minutes.
-
-To fix this, change __drm_printfn_dbg() to use
-drm_debug_enabled_instrumented() instead.  This ensures the bit-test
-is performed at runtime even when dyndbg is enabled.  It also adds a
-pr_debug(), allowing us to enable it and count the frequency of this
-bit-test.
-
-Note that using drm_debug_enabled() here would also instrument the
-callsite but only when [1]=n.  Since _instrumented() is basically free
-when its off, theres no reason to not have it available where it might
-provide some insight into the performance benefits of [1]=y.
-
-Additionally, update __drm_dev_dbg() to use the canonical
-drm_debug_enabled() instead of the internal __drm_debug_enabled().
-
-- when [1]=y the call to __drm_dev_dbg() is guarded by a static-key,
-  so the bit-test is redundant.
-
-- when [1]=n, we need the bit-test, since drm_dev_dbg() calls
-  __drm_dev_dbg() directly.  Here the pr_debug() can tell us the
-  possible value of further optimization.
-
-[1] CONFIG_DRM_USE_DYNAMIC_DEBUG
-
-Fixes: 9fd6f61a297e ("drm/print: add drm_dbg_printer() for drm device specific printer")
+Fixes: 84ec67288c10 ("drm_print: wrap drm_*_dbg in dyndbg descriptor factory macro")
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
--v12- improve commit-msg explanation of choices re (__)?drm_debug_enabled
----
- drivers/gpu/drm/drm_print.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/Makefile | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/drm_print.c b/drivers/gpu/drm/drm_print.c
-index ded9461df5f2..9b622345e2eb 100644
---- a/drivers/gpu/drm/drm_print.c
-+++ b/drivers/gpu/drm/drm_print.c
-@@ -218,7 +218,7 @@ void __drm_printfn_dbg(struct drm_printer *p, struct va_format *vaf)
- 	const struct device *dev = drm ? drm->dev : NULL;
- 	enum drm_debug_category category = p->category;
+diff --git a/drivers/gpu/drm/Makefile b/drivers/gpu/drm/Makefile
+index ec2c5ff82382..da36a9dbf170 100644
+--- a/drivers/gpu/drm/Makefile
++++ b/drivers/gpu/drm/Makefile
+@@ -3,7 +3,8 @@
+ # Makefile for the drm device driver.  This driver provides support for the
+ # Direct Rendering Infrastructure (DRI) in XFree86 4.1.0 and higher.
  
--	if (!__drm_debug_enabled(category))
-+	if (!drm_debug_enabled_instrumented(category))
- 		return;
+-CFLAGS-$(CONFIG_DRM_USE_DYNAMIC_DEBUG)	+= -DDYNAMIC_DEBUG_MODULE
++ccflags-$(CONFIG_DRM_USE_DYNAMIC_DEBUG)		+= -DDYNAMIC_DEBUG_MODULE
++subdir-ccflags-$(CONFIG_DRM_USE_DYNAMIC_DEBUG)	+= -DDYNAMIC_DEBUG_MODULE
  
- 	__drm_dev_vprintk(dev, KERN_DEBUG, p->origin, p->prefix, vaf);
-@@ -335,7 +335,7 @@ void __drm_dev_dbg(struct _ddebug *desc, const struct device *dev,
- 	struct va_format vaf;
- 	va_list args;
- 
--	if (!__drm_debug_enabled(category))
-+	if (!drm_debug_enabled(category))
- 		return;
- 
- 	/* we know we are printing for either syslog, tracefs, or both */
+ # Unconditionally enable W=1 warnings locally
+ # --- begin copy-paste W=1 warnings from scripts/Makefile.warn
 -- 
 2.53.0
 
