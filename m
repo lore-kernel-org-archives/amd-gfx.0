@@ -4,83 +4,94 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 371B010ED66D
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AC39310ED671
 	for <amd-gfx@archiver.kernel.org>; Fri, 27 Mar 2026 12:41:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AAA8B10EE1A;
-	Fri, 27 Mar 2026 12:41:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 049FC10EE1C;
+	Fri, 27 Mar 2026 12:41:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="RxrCJHfc";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="RBlCoUK5";
 	dkim-atps=neutral
-Received: from mail-ot1-f47.google.com (mail-ot1-f47.google.com
- [209.85.210.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C7DEC10EBF0
- for <amd-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 18:56:00 +0000 (UTC)
-Received: by mail-ot1-f47.google.com with SMTP id
- 46e09a7af769-7d7f09aa39fso1545978a34.0
- for <amd-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 11:56:00 -0700 (PDT)
+Received: from mail-pg1-f178.google.com (mail-pg1-f178.google.com
+ [209.85.215.178])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 923E910EB28
+ for <amd-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 23:47:46 +0000 (UTC)
+Received: by mail-pg1-f178.google.com with SMTP id
+ 41be03b00d2f7-c73c990a96dso798945a12.0
+ for <amd-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 16:47:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1774551360; x=1775156160; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1774568866; x=1775173666; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=0ApYYz6FzGjXUWRVflTKhpBjuKsTkjzi7xxuPDPmj4w=;
- b=RxrCJHfcGn7BTsDUpIIySWAU9b/wzhkFqhtxEDboJ++uqFFv8WNQCwi2NOsTZYa5Uw
- 3e0laRaGDl14DKPrxFmaTUTWNXV7pJOZz3OPgZ2gW2xeO7d1+Gz0Np0YtZueNim0z951
- ggFPCMhQdV3Ik2y01HPHSIIJfk4h0JdAqQGRDGZY3g0mM1UvG09g6FZPGgO7Dz3+d4sJ
- d3APVQcUTTJfszYBpSJ4/lJe1gHEd5Kc86d+hZOY8EfiRyetQDlWSSyOKKFbxdNCU5nz
- bfXdp6pqw7o7wsq0bxuZ14Df/2Gl4H1ZIEzKVxcvuryEtWLN5/DDCQ6LmvIa5OwKzUw3
- BwAA==
+ bh=R5FyONZ8Ftg8PcUrjhCTmSRITsVvMq+p91xq+TbWIsM=;
+ b=RBlCoUK5QVe8RVKoz1rCHG3QX+g6kpL+NVJ896uf3toRqAMMkqHa7LfQtms8jSsHld
+ UiaLs3VfUz7jD38OATTEfoUw6cpHeFSCaSfMcJ/yznDmgWekkf5l5EveZU55e5Hjvv64
+ DNwSYtf9x3JFkU9cuGYZAohz/G5KZOlQy0NGBoO+r/AyDbgPwhqp/rIMA6hi4CRFJ+yK
+ V2xnSVF1bCLplcJlvm+fZ1CKhMUYBNyeIXD3OI2imMCRTsAMWw1NuS+6w+yOTvT22NyF
+ RFNvdY76mwuGJ8jWxrJMvBo5n2e3itxKOjVv+Xbr8CjO8NfdycN1dfqqj43s+tBEmriO
+ Tyfw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774551360; x=1775156160;
+ d=1e100.net; s=20251104; t=1774568866; x=1775173666;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=0ApYYz6FzGjXUWRVflTKhpBjuKsTkjzi7xxuPDPmj4w=;
- b=cedtuow5iJkdZWuGfRvfykERXhvdmyzswYJiygS3E11haCH0dgzQBBY6AhCgZaf/sW
- Upd4AdsFMlylrPO3aabV7Pf7HU/S1CvZbHPE5MFijKsq7sxCcYgeQeUmI9P6HscYmtJm
- JxY4MiVZxa0LFBjRCx896Mw/5rQOMkI2k1i2k9zc2GcGd5ibLuK1qfUEdyFMNRXmfVys
- GL160O/trsbSqUG8E9APmpQCnx/wL3QulHj6wld6Vox3B5omvsOqWbGnwIjT24D0LTd0
- EkgJ/6SEiMqsepJRs5UCGmwbx3cKQ8e3lFyyU2aQWkmLZCtNaJOaVO6hYbmGkCluOSqc
- HUOQ==
+ bh=R5FyONZ8Ftg8PcUrjhCTmSRITsVvMq+p91xq+TbWIsM=;
+ b=iy1XcHAJ1pOPZGCLoV3V4/rQTUJGd/OvdXLJTfQprPL86hLLywL5dmRK7XlYWETXyM
+ Py+OHr1ZW5nSDAQkJZ4UbfLXs5Ozh3wCytvaybjEFjxkwxY43UfCy/E8SKQAkZkotf8c
+ r3oEiGW3tFLptSiGRI+1qtrqmDZlQjxX6FLFGhNIHXjHhDQPMoLdGdCu1s4d0qAYXpJn
+ LNdNUVTBtxDv3mojEOJoM5mXV0wRz2UwSl+Xw9PZgVW741Gp+SS+wpygTRfreSP5Eu4B
+ 3u5Z44OvzIlUtIZRCKsp4no54vzlBM5Be9ekOCAVM/vK/KUMDWvgNPaG4jQRE03o5xjP
+ SgnQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUtmnMCdAjK0Jj89RWoS+jZGgR6ivtaSpsCyUkciv0g5SF1QXDpRFKj/otNOVYMvuob3B7qg63m@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxC3lbFdEPWwotniWoljQCaReXuGm1qPbYLHvdLjH1tTOKURmjN
- GQX0gI+Yzn33r3Phj1pbQZj2qVF5C/18sW2/N5lXY3/iOFI+4mBe2OG5
-X-Gm-Gg: ATEYQzxAgP5drmfI6n0trha9CnJmSPefCCgkicBpiPl48wIilmQbISnyiCygsZVdVWB
- EV6YsY3ZOYiADW5FnkynUQ5OO0A7+6hV7fVQ3ZsStR//tuxxNDKxNb6oO3HZFyQZjhL41bpNorV
- 3esTvFlb0POeDYgAK+QWUmWTGPTCInYlWwqDLeHHF1weoaSozbEvY4D8Jtfb0oo2FcdQE+7Sw91
- HRNDbIKPggDmQ8snzWxeukO4Esw77kSYTch5zfXYssir46yNTynkMCVcLOHhze1heaIQ8YZY03c
- 2V2fPoeG0ECspN4vYprYT/zhCFgNXiW+RvQCOOtEi7t4Y2qa2QirxYPTjqYtUGQ/2GkDdvJQn1Y
- vaCMvRAfD0tO6C7gSDE8yjI1Bem6jmzwfEDKoePU2OZjFcf9v+IzACOMlLnZwt21m9X9eHeMCVS
- 6sWxgitgjkGTWQTuzlFvw68fuFFjJYE3w2zuVBqUZ4tViMdYeG
-X-Received: by 2002:a05:6820:4b08:b0:67d:f840:798f with SMTP id
- 006d021491bc7-67dff5a3b75mr4157635eaf.69.1774551359906; 
- Thu, 26 Mar 2026 11:55:59 -0700 (PDT)
-Received: from frodo (c-98-38-17-99.hsd1.co.comcast.net. [98.38.17.99])
- by smtp.googlemail.com with ESMTPSA id
- 586e51a60fabf-41cc7760c08sm3075171fac.4.2026.03.26.11.55.58
+ AJvYcCU0Zd5h3SLeV6Stw3aT/MPRcAFcx4SalCDngL+zMbQlL5aS3RGl4nLmxulomUboudVtdIhIY/Rs@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyfsEPYavtOG2jqhNvhE98JSMg16v1JyjNXsrhPf68NNy+/xo0T
+ m72qBY72kAH2COFYA4qFQBTVE1TmoM/Qyk2brdJgFnx0z9ruybCCUcU+
+X-Gm-Gg: ATEYQzxzB4TSwHtwfhAWvipbHGhq+G8b0XYeHGZS9umyuAxgfBehTI+y0QDKboncK6g
+ AHMrmABzIMiMH8kmeuVjDrOqnc+zaLwh5hfmXCUQHIndjAwIPaezo8SPh1jjEjN5Gl8OKzTpOGb
+ +suI99rSQdDWSFIU7OEpp/zjLVlNRo6Xj40Cl5/qE+ZAVUcjRGZfHQBrxj2HwMwSWiSNINkTME2
+ rTX3xSgGc84AAAhOympLACeGYsgxsWjaGyBDHZUt/gwlwfpcqbeAfLjEs6hHsNsS+PCm0RKc2gE
+ TxVIz0TCxUqt1t9GJuubL+upF6QpUC47etULcqidsYwd0ZBsWC7BGj7VTUc00jMX9KFJqJUXw1t
+ pQCxY+51i6JO3wMyrJYY1L6mPFX/5tNZllacH2c9F7tHY96ktlzU7FI4p/Yk1e9lUKNMbBtdQGH
+ /A29HBRXIIM69xI89w+AsO52SCb3JEPUZURmQZYupELgXdBkc6Wv2eq9E=
+X-Received: by 2002:a05:6a21:6d97:b0:398:b16f:703e with SMTP id
+ adf61e73a8af0-39c87abf84fmr507549637.40.1774568866039; 
+ Thu, 26 Mar 2026 16:47:46 -0700 (PDT)
+Received: from ryzen ([2601:644:8000:5b5d::8bd])
+ by smtp.gmail.com with ESMTPSA id
+ 41be03b00d2f7-c7673933816sm3201162a12.21.2026.03.26.16.47.44
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 26 Mar 2026 11:55:59 -0700 (PDT)
-From: Jim Cromie <jim.cromie@gmail.com>
-To: linux-kernel@vger.kernel.org, airlied@gmail.com, simona@ffwll.ch,
- jbaron@akamai.com, gregkh@linuxfoundation.org
-Cc: jim.cromie@gmail.com, mripard@kernel.org, tzimmermann@suse.de,
- maarten.lankhorst@linux.intel.com, jani.nikula@intel.com,
- ville.syrjala@linux.intel.com, christian.koenig@amd.com,
- matthew.auld@intel.com, arunpravin.paneerselvam@amd.com,
- louis.chauvet@bootlin.com, skhan@linuxfoundation.org, pmladek@suse.com,
- ukaszb@chromium.org, dri-devel@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-Subject: [PATCH v12 58/69] drm-dyndbg: add DRM_CLASSMAP_USE to vkms driver
-Date: Thu, 26 Mar 2026 12:54:02 -0600
-Message-ID: <20260326185413.1205870-59-jim.cromie@gmail.com>
+ Thu, 26 Mar 2026 16:47:45 -0700 (PDT)
+From: Rosen Penev <rosenp@gmail.com>
+To: stable@vger.kernel.org
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@linux.ie>,
+ Daniel Vetter <daniel@ffwll.ch>, Harry Wentland <harry.wentland@amd.com>,
+ Leo Li <sunpeng.li@amd.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Bin Lan <bin.lan.cn@windriver.com>, He Zhe <zhe.he@windriver.com>,
+ Vitaly Prosyak <vitaly.prosyak@amd.com>, Alex Hung <alex.hung@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>,
+ Mario Limonciello <Mario.Limonciello@amd.com>, Ray Wu <ray.wu@amd.com>,
+ Wayne Lin <wayne.lin@amd.com>, Roman Li <Roman.Li@amd.com>,
+ Eric Yang <Eric.Yang2@amd.com>, Tony Cheng <Tony.Cheng@amd.com>,
+ Mauro Rossi <issor.oruam@gmail.com>,
+ amd-gfx@lists.freedesktop.org (open list:RADEON and AMDGPU DRM DRIVERS),
+ dri-devel@lists.freedesktop.org (open list:DRM DRIVERS),
+ linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH for 6.12 5/9] drm/amd/display: Keep PLL0 running on DCE 6.0
+ and 6.4
+Date: Thu, 26 Mar 2026 16:47:12 -0700
+Message-ID: <20260326234716.16723-6-rosenp@gmail.com>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260326185413.1205870-1-jim.cromie@gmail.com>
-References: <20260326185413.1205870-1-jim.cromie@gmail.com>
+In-Reply-To: <20260326234716.16723-1-rosenp@gmail.com>
+References: <20260326234716.16723-1-rosenp@gmail.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Fri, 27 Mar 2026 12:40:00 +0000
+X-Mailman-Approved-At: Fri, 27 Mar 2026 12:40:01 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,28 +106,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The vkms driver has a number of DRM_UT_* debugs, make them
-controllable when CONFIG_DRM_USE_DYNAMIC_DEBUG=y by telling dyndbg
-that the module uses them.
+From: Timur Kristóf <timur.kristof@gmail.com>
 
-Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+[ Upstream commit 0449726b58ea64ec96b95f95944f0a3650204059 ]
+
+DC can turn off the display clock when no displays are connected
+or when all displays are off, for reference see:
+- dce*_validate_bandwidth
+
+DC also assumes that the DP clock is always on and never powers
+it down, for reference see:
+- dce110_clock_source_power_down
+
+In case of DCE 6.0 and 6.4, PLL0 is the clock source for both
+the engine clock and DP clock, for reference see:
+- radeon_atom_pick_pll
+- atombios_crtc_set_disp_eng_pll
+
+Therefore, PLL0 should be always kept running on DCE 6.0 and 6.4.
+This commit achieves that by ensuring that by setting the display
+clock to the corresponding value in low power state instead of
+zero.
+
+This fixes a page flip timeout on SI with DC which happens when
+all connected displays are blanked.
+
+Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+Reviewed-by: Alex Hung <alex.hung@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
 ---
- drivers/gpu/drm/vkms/vkms_drv.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/gpu/drm/amd/display/dc/dce60/dce60_resource.c | 11 ++++++++++-
+ 1 file changed, 10 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/vkms/vkms_drv.c b/drivers/gpu/drm/vkms/vkms_drv.c
-index 434c295f44ba..02201460859f 100644
---- a/drivers/gpu/drm/vkms/vkms_drv.c
-+++ b/drivers/gpu/drm/vkms/vkms_drv.c
-@@ -40,6 +40,8 @@
- 
- static struct vkms_config *default_config;
- 
-+DRM_CLASSMAP_USE(drm_debug_classes);
+diff --git a/drivers/gpu/drm/amd/display/dc/dce60/dce60_resource.c b/drivers/gpu/drm/amd/display/dc/dce60/dce60_resource.c
+index 7886a2a55caf..c4d7fa60d654 100644
+--- a/drivers/gpu/drm/amd/display/dc/dce60/dce60_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/dce60/dce60_resource.c
+@@ -889,7 +889,16 @@ static bool dce60_validate_bandwidth(
+ 		context->bw_ctx.bw.dce.dispclk_khz = 681000;
+ 		context->bw_ctx.bw.dce.yclk_khz = 250000 * MEMORY_TYPE_MULTIPLIER_CZ;
+ 	} else {
+-		context->bw_ctx.bw.dce.dispclk_khz = 0;
++		/* On DCE 6.0 and 6.4 the PLL0 is both the display engine clock and
++		 * the DP clock, and shouldn't be turned off. Just select the display
++		 * clock value from its low power mode.
++		 */
++		if (dc->ctx->dce_version == DCE_VERSION_6_0 ||
++			dc->ctx->dce_version == DCE_VERSION_6_4)
++			context->bw_ctx.bw.dce.dispclk_khz = 352000;
++		else
++			context->bw_ctx.bw.dce.dispclk_khz = 0;
 +
- static bool enable_cursor = true;
- module_param_named(enable_cursor, enable_cursor, bool, 0444);
- MODULE_PARM_DESC(enable_cursor, "Enable/Disable cursor support");
+ 		context->bw_ctx.bw.dce.yclk_khz = 0;
+ 	}
+ 
 -- 
 2.53.0
 
