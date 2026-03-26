@@ -4,64 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4F1D510ED67D
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9A78510ED664
 	for <amd-gfx@archiver.kernel.org>; Fri, 27 Mar 2026 12:40:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AA98810EE14;
-	Fri, 27 Mar 2026 12:40:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4A5FC10EE20;
+	Fri, 27 Mar 2026 12:40:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ke/ptBKm";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="mJhJjzTm";
 	dkim-atps=neutral
-Received: from mail-oa1-f52.google.com (mail-oa1-f52.google.com
- [209.85.160.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2118D10EB43
- for <amd-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 18:54:44 +0000 (UTC)
-Received: by mail-oa1-f52.google.com with SMTP id
- 586e51a60fabf-4094b31a037so991544fac.1
- for <amd-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 11:54:44 -0700 (PDT)
+Received: from mail-oo1-f52.google.com (mail-oo1-f52.google.com
+ [209.85.161.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 569EA10EBF1
+ for <amd-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 18:55:55 +0000 (UTC)
+Received: by mail-oo1-f52.google.com with SMTP id
+ 006d021491bc7-67de15e8452so1423120eaf.0
+ for <amd-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 11:55:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1774551283; x=1775156083; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1774551354; x=1775156154; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=R/SjSwC+RMF8YRDI51sil3K6xHtCNjZlX0uljPPVd8o=;
- b=ke/ptBKm4p0ve06eSY2eIJ07OdE5RuwqIBhgbMR4ZPd5ufLiLOMoP6E8RP48+FRCKw
- Z1374oLFBknREp1qQUERPM1vKbmu1M/reuJUzE+hzmupgXJF1sQSSjY6ku5H0KBj/Gk8
- wKSL/Yaw0+CZyuSMbvrtYIfj2tmki6g9/HkR1H2yGBlWu+mN7A1wQY8TtoAW7erqxFGy
- awesWNVaGrkUaOgHnfjIi54A2ZhI7YqoAOTSvdl62JQxV0hRzM1gKFwm9vVLjt3eUC8V
- iroybWNjPiKgaRHYlk43naFxGbk+elRtuezp/wapaI9Y8+iL01ZxV/guXxJjlPyBW20m
- WSKg==
+ bh=rnDJitpTduufuEe6X95vH8IiBFUBoxeB6eQQOPNaxFg=;
+ b=mJhJjzTm8qISXbzl5jpQyS4CG7SCSUDLI+0ASdFjNJPf7y4DlBcsex23kVzT8MpSo6
+ HACOvlioMgkFt28hF3c/KTn18MFDVP48YOtG7eu5EAFChuNzUXatsVZQtwf0ud8TSdTO
+ 138YeFE+469ngqVh/LUjLnSkvSvW2apoHUvgGmNebys5QOiv15unTYxhmU0UFda7mfSh
+ G0qioJsLGmUfxRp6nVZFavQgdLnlcJIh1+NfTsUqeA2R6gG40bZezwE33Tzczx3JZpUj
+ YvrXb0d/8zbbBH+ZQEOY+eUXbK1tP3dh/WUEmD+RS5aPDPZqMkLEACukCkkruVG+7xus
+ kKpg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774551283; x=1775156083;
+ d=1e100.net; s=20251104; t=1774551354; x=1775156154;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=R/SjSwC+RMF8YRDI51sil3K6xHtCNjZlX0uljPPVd8o=;
- b=kiehCAgO0tNRtQY7KlqHlQhQ9bvRDJY5VvFMGIgfYjpfDIqxbcodjb2i8E3LcCukwR
- QGIHzhTJGDUnZgaFo5unJAZpqccngoWgCH0q5qxn2v2ZNmgKGkfwgzTFEo+zUxEGyD+A
- 299m9LlczKqVRUxc5kAdNV686+ZV+7JtPHGHgeOEYjiUPa2rbaQh6IkBcy77VFmn64c3
- FLPOfOGmvEJ3TMboeediCq6+ylEVXtAacFZw2an5KKoVP6EgKbtwSMdHf/ClYE4jCRfW
- QKupYRLFWZMrb1FZfbtJJb5/2/N//4hnNOFb8Hpm2GiWRlQ+fVmNUgDq/hQoc9Hk9bOu
- CX4g==
+ bh=rnDJitpTduufuEe6X95vH8IiBFUBoxeB6eQQOPNaxFg=;
+ b=Va0mBNwd7sR6k8MhxBpGCYujMefJ2YivmKhlyCG5dEusaC9QSKrcrEGqenvB18+Jsz
+ bTgBmtO242IpTa1OLkVkOCmF98Rg0kVkA9V/PQV+d4QxeXWmorRLFdJbSkSIooGtcWxM
+ YR9lwAZqbdRyXkv6BHiemdzIGtQA1ND3D3PjU8HvJjYe3OuTvNFH+rJm6lPjjOWrxa5X
+ kSdxfroXSa9u7I0MTK7cu368vwzzHw9c8fmdF+aAcfE8tWunw0ZZp00nCSPe32z3erz3
+ F3B6fCT4CxMMvBAdtjp866f3neKj3gBll+YlyWVvWz2uA986pULqyUqaZPW7Rz65CK/f
+ 787A==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWLQvDEz587N4VmmelzJi1rhpfbzBj4xHd4Qvcsi8iWYXFLZ9y34Q9/CzBslQkfFi22wfY1JUVp@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzYEP8rPvpUAKTEZBKqCKVzRyqna+bCkTPN9MLzBZB7TWn8yAIT
- nXoKhGsFQoUv64P14RBfb7opHuukxUZ9m7CtPgUI9evYQQOvBDREJaZ3
-X-Gm-Gg: ATEYQzz206vxQje+dz9uAEecjkIZHRSOABygEzWdi5RFU3bcf2wtKUgRGByb4Z8uC+O
- ffGP7NrVtn8fDZmRk31S2DJm4+08KuIZWAmJPv2snF05E0fnkJRV0xEE5EoDkmk/1yy6HaV88VX
- GLpMO21otUS137jOYU9pjmg3BTNuktNk4iImRXhjUSjgluAj28VChCs0sJ7U9Q5SPU4WEWF+ylV
- hJzck8VsKkpnsLcrM3Vt9ySAmFK3oyHyPbPZ/r0q+qyEJwrgJw+dlzKELV9HFotr9IPv7YUmsVq
- k5w4SOR79YGai3PAIZoRVMReUPAqWhXq7b+NSbGWRX1rBflrIIpnX2ea1yewcIWV14svqUuMYUw
- 94nTQSw10j4i0OtQIX4wQWjlJmmL6OwF5+OJUj9UcDi4Vw9+ZdQrn+2zacVIp3r5eTuSTH4MBJk
- +vU8x21ulyUompP17Q8BB4FLKAkR0Fbdh0JCVWKDQwKmwgMnxR
-X-Received: by 2002:a05:6870:f28d:b0:417:c2d1:fc2b with SMTP id
- 586e51a60fabf-41ca6e86dcdmr4692709fac.21.1774551283268; 
- Thu, 26 Mar 2026 11:54:43 -0700 (PDT)
+ AJvYcCUkwmsJIimUjVm/x2JUxg/Ye+DyGX3TUKToacRZ0Ta+xPLOSC5fmRhzUJkcUzdqBnsAhmpbFCXN@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyCX4Aw4jPXD2yHHUDOJta6MftGjeZve4wlCCrRLX/UR3oPpfog
+ tr/u1v4kdn5LOumyRx61XfSSdxhMFUnSyiN9zFVIyqza1BonJkKGvE5C
+X-Gm-Gg: ATEYQzxcoMcAOKgGlJtMuOANY20I10ljaIOD6J2gAPgITzNNsSPS6urg9ur1GjI29Mk
+ fl5DJoox/oMJl1YZnG0CsrW8SsszjhljVV92nBOCdWfmnC8vfi7qvgVoPrdFRnxobGWNOQYUGUg
+ fRQa0a6QagePouarulRYlxZF39pc/g/9AP4aM+JwqXDvISvWs8Uqsqok1zhk6pQ7uGkPGvf0OAd
+ fuMtQx1USh01rjV8NGJM5Fd30QBvIKLAvD/E07ImiwrqQGNqlcxZlz8hy4GeY7v9W6nayLoh5rB
+ 9VECJt+Vqf9fKLVHnI+7IfCzEpfd+K8Cvz5Qf1pF6ADLC1JthH3MguE173y1G6vZ6gniTVGbMiG
+ umVuErknQ5SFW+1LFjBuMEzurZ620871an2BbN79cgDJnAvo/7WFbq8sdB2rdlA9Lr3iK2Ar2RD
+ 0coIbrkq4tJqoy20NxDIM0n7bsY5aZO4v7cZOyCruXPgEwqQb5
+X-Received: by 2002:a4a:bb88:0:b0:67c:2bfd:24a3 with SMTP id
+ 006d021491bc7-67e10ce7d8dmr943404eaf.20.1774551354565; 
+ Thu, 26 Mar 2026 11:55:54 -0700 (PDT)
 Received: from frodo (c-98-38-17-99.hsd1.co.comcast.net. [98.38.17.99])
  by smtp.googlemail.com with ESMTPSA id
- 586e51a60fabf-41cc7760c08sm3075171fac.4.2026.03.26.11.54.41
+ 586e51a60fabf-41cc7760c08sm3075171fac.4.2026.03.26.11.55.53
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 26 Mar 2026 11:54:42 -0700 (PDT)
+ Thu, 26 Mar 2026 11:55:54 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: linux-kernel@vger.kernel.org, airlied@gmail.com, simona@ffwll.ch,
  jbaron@akamai.com, gregkh@linuxfoundation.org
@@ -72,9 +72,9 @@ Cc: jim.cromie@gmail.com, mripard@kernel.org, tzimmermann@suse.de,
  louis.chauvet@bootlin.com, skhan@linuxfoundation.org, pmladek@suse.com,
  ukaszb@chromium.org, dri-devel@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-Subject: [PATCH v12 09/69] test-dyndbg: fixup CLASSMAP usage error
-Date: Thu, 26 Mar 2026 12:53:13 -0600
-Message-ID: <20260326185413.1205870-10-jim.cromie@gmail.com>
+Subject: [PATCH v12 54/69] drm-dyndbg: add DRM_CLASSMAP_USE to etnaviv
+Date: Thu, 26 Mar 2026 12:53:58 -0600
+Message-ID: <20260326185413.1205870-55-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260326185413.1205870-1-jim.cromie@gmail.com>
 References: <20260326185413.1205870-1-jim.cromie@gmail.com>
@@ -95,42 +95,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-commit 6ea3bf466ac6 ("dyndbg: test DECLARE_DYNDBG_CLASSMAP, sysfs nodes")
+etnaviv has 5 DRM_UT_CORE debugs, make them controllable when
+CONFIG_DRM_USE_DYNAMIC_DEBUG=y by telling dyndbg that the module has
+class'd debugs as well as plain-old pr_debug()s
 
-A closer look at test_dynamic_debug.ko logging output reveals a macro
-usage error:
-
-lib/test_dynamic_debug.c:105 [test_dynamic_debug]do_cats =p "LOW msg\n" class:MID
-lib/test_dynamic_debug.c:106 [test_dynamic_debug]do_cats =p "MID msg\n" class:HI
-lib/test_dynamic_debug.c:107 [test_dynamic_debug]do_cats =_ "HI msg\n" class unknown, _id:13
-
-107 says: HI is unknown, and 105,106 have a LOW/MID and MID/HI skew.
-
-DECLARE_DYNDBG_CLASSMAP() _base arg must equal the enum's 1st value,
-in this case it was _base + 1.  This leaves HI class un-selectable.
-
-NB: the macro could better validate its arguments.
-
-Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
-Tested-by: Louis Chauvet <louis.chauvet@bootlin.com>
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- lib/test_dynamic_debug.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/etnaviv/etnaviv_drv.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/lib/test_dynamic_debug.c b/lib/test_dynamic_debug.c
-index 77c2a669b6af..396144cf351b 100644
---- a/lib/test_dynamic_debug.c
-+++ b/lib/test_dynamic_debug.c
-@@ -75,7 +75,7 @@ DD_SYS_WRAP(disjoint_bits, p);
- DD_SYS_WRAP(disjoint_bits, T);
+diff --git a/drivers/gpu/drm/etnaviv/etnaviv_drv.c b/drivers/gpu/drm/etnaviv/etnaviv_drv.c
+index 08aca9035fc1..ef4423d4987f 100644
+--- a/drivers/gpu/drm/etnaviv/etnaviv_drv.c
++++ b/drivers/gpu/drm/etnaviv/etnaviv_drv.c
+@@ -26,6 +26,8 @@
+ #include "etnaviv_mmu.h"
+ #include "etnaviv_perfmon.h"
  
- /* symbolic input, independent bits */
--enum cat_disjoint_names { LOW = 11, MID, HI };
-+enum cat_disjoint_names { LOW = 10, MID, HI };
- DECLARE_DYNDBG_CLASSMAP(map_disjoint_names, DD_CLASS_TYPE_DISJOINT_NAMES, 10,
- 			"LOW", "MID", "HI");
- DD_SYS_WRAP(disjoint_names, p);
++DRM_CLASSMAP_USE(drm_debug_classes);
++
+ /*
+  * DRM operations:
+  */
 -- 
 2.53.0
 
