@@ -4,91 +4,94 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BF47A10A88FC
-	for <amd-gfx@archiver.kernel.org>; Thu, 26 Mar 2026 18:01:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7023710A88FB
+	for <amd-gfx@archiver.kernel.org>; Thu, 26 Mar 2026 18:01:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5E08A10EAFB;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9FCCD10EAFC;
 	Thu, 26 Mar 2026 18:01:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="VTSSI0/A";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Gsic5omW";
 	dkim-atps=neutral
-Received: from mail-dl1-f50.google.com (mail-dl1-f50.google.com [74.125.82.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7794D10E066
- for <amd-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 17:57:57 +0000 (UTC)
-Received: by mail-dl1-f50.google.com with SMTP id
- a92af1059eb24-12714f01940so98817c88.0
- for <amd-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 10:57:57 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1774547877; cv=none;
- d=google.com; s=arc-20240605;
- b=gy+kGclhJQFNWtT57r2l1q7JzNpd24bFaINiPWVexDtwx1eehRPbtNVhILU+ts/uFp
- UPIIoqpEZ3ZGtSMry3rQZMpsb5q/fZecxbPL99Xh/FZQdsA8PFxaZiEHBujq8QugXufo
- 4SOb5+2WFWEaSQmDOCbqsat78lGQ9HHts25TsO7zlnJkNgO47ctvKJbJe8jS4/eSEjk6
- Oq4fLHzfUxtcp/na/zeeM7SuxxooUlnz9VzbGSUZLDTB4MskVkeXJaXozU1msswK5DKf
- WUGGIaCLdZ0fZWBaR5O9qCtEUmyljQss3IsTIh0vDodfh/3USa9HwKKgaeRlemIC0iDk
- LVmA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=ztFQ6h83l0AZ98mqhm/2uwSl1/3EyN6LDCHzTVk5oSI=;
- fh=TjSDHDexhxAlozvahAqSjH/1kZYNEUCZM+OUwnm2QTM=;
- b=VKDu70Sr11Owag8d16K0vKAjMWuLm8FXaWsLt5nTKuHVHYWZEZ7HZDnpKexV4GFJ7m
- SxfgnlRvTtkxi1WLm5Dk6kwQWyfA5M+BZ2UYCNp5UXGzjONa2/Dyp0Zk/2bUaB7uWWHA
- 8uBNtoGGUXnJkHJaf8WVvXw2KRbtFWhJQzmuJhLxSXx2z5AbeKZdN/UnP89MnSbadMJm
- 50r4N/F0SQbixqpni+1HkEg9Eq+veKdbAPo1tTm0HGi+tj9UhnLxXH0izLod6Do4OHDA
- rVmkndgBtolldOfA2OgagwIvxaGgOmZ8X6EKuQqywmx0TxFklNbCg8V1sE7HD09dw3ZU
- 9t3w==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1774547877; x=1775152677; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=ztFQ6h83l0AZ98mqhm/2uwSl1/3EyN6LDCHzTVk5oSI=;
- b=VTSSI0/AMarrVtcxLKCFaJI5MWB5dSSHUaNEC8c9LBujRuxlmjfL28wjn0QIrXrpzF
- mQE4hYr8MLCoIXJ3Vak9XiMnE6RdBqb824BWdZjq+dUpbCVE7c9WGtSLJT8tIc2XbRrd
- si1qwGslRgsTp/+mGmuRC7C7tLugHeL310UaPBGDK4LM16Bgcz1UB/zIaVK9w3cv5oe9
- idCmM/ZwdvudTNCRP80zHz3vZXjVVwtRlhXbxSooIXpe6MgpMCcda+n2Ad/zOEx9ZRGK
- Ww60owR9GaH6P1AsLsQ6QvG7S61sZJtpmk77tBIIUeTdH5H/zhrEgerRc7RDhvU1B61B
- j/9A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774547877; x=1775152677;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=ztFQ6h83l0AZ98mqhm/2uwSl1/3EyN6LDCHzTVk5oSI=;
- b=KrYRcR78PiPDAWNwZWY+F1ntZveT2DEJbPwUr0OKTidPPWyIhy6AxWvg5+GHPfwPYi
- K+VxFLn4/s8AMNyJ98dUOGifbWwNTieaNcD6ThnxLwW19QTsQSuyGyUgpBv0sLJMe7TB
- AraHuAXcwxmooKNrbUoho2pqAPbAp8tIq/eTQU5AxyWhHkcKgTyAbZ7za4144MD/lBUa
- P7bmYRv57/AJ/9NpZ4+n+xINmz2gtsimKbXoFuT+IadRbze8JKE8x+oFfqmgVPHPY0xd
- 3iC3DNN3MDFlRIPDZXFraiNHbvdg7DXpaMJNCR3h9PXp71R3NWCFZUIvKR2Jmxae7RPd
- SyHQ==
-X-Gm-Message-State: AOJu0YwnTfJI+dWg4fQYgU2657LfapKvC3fklpoGfgEoyEPKhxFEO2vg
- 7PRpBdcFF8hKK7ya0YqVtL1idqUL0H+mwyQO1fpcHuWoHuwadsZlUmhq/WMIcivwdTEUczd7vV/
- SWNg+jqBqeNGZMfYS0Kdi9uP9x2yWNmg=
-X-Gm-Gg: ATEYQzw9eeZHmocoC/1Ee9xh63VBWNS2zjiDeWWT+kNk1Dftkg7qcNx4ereE9Oa4uav
- v2318YEzRYNEiIzfnXf51DvvbP6Mf1ryk48xTou5uRoEIpYjxTq8CGzkTzj1l8IhL1vSO7ugYZO
- ElyT0tucwjCOaxrGNYy+76J6iW1u3xOTXrl4AJP1YHaJefAZ7KTKi5MhSVRAmwSJpq8E0FMZeNl
- 418sOErlvZ0/ECFZ80Fu8wHIfe0gBPxr5u0UxYrTn9w3IhWc+O3zFLb+qK8WzdAnAN8e0O9Lmyo
- T/nt+DokZipzJ/DEnC1415gioLNiBWj/0nDoGkJnR78lqoUYRz7fw4oikyCQgNpZZjkWtp3DTad
- hlqFY
-X-Received: by 2002:a05:7022:4190:b0:119:e56b:c3f5 with SMTP id
- a92af1059eb24-12a96ed96f1mr2145003c88.5.1774547876667; Thu, 26 Mar 2026
- 10:57:56 -0700 (PDT)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E178D10EBB5;
+ Thu, 26 Mar 2026 17:58:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1774547919; x=1806083919;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=ZN1iuzw8T8W2bRviqNraUbLOrITrSm5KwXD+jmeiWWg=;
+ b=Gsic5omWbfN9vAOnZT90AXlevTB93606VBmep2g4E2lFGHfZJvrJ9BIH
+ VumbUf+2FVnSy5rKOroMaZpWD6p9V+7huAXxwRQ04zTgpDzvopv36cYBG
+ 92uioXz3NAeuJnandfzbx/CYtco4e+DgifWWhzo5vNK+GOxdZtEDKElYn
+ nn3bIubfzCbspkIBPKnce8CJP5yj2nKFuxSPp+nVEu+nNXAvEk7SxTuM/
+ nUCDWHekzUT8jiL4eXDTgTQQ9mRSqk3bhwc/DfnrL+Nf0LtTB67cesI6S
+ bMHu8N/34eeU1QUXO9+EOS7l6/L1IA5XV51U1Ws0cCFjSjxeHIqCXh74/ w==;
+X-CSE-ConnectionGUID: vth1Ic/qQNKy7AzDl/qS6A==
+X-CSE-MsgGUID: 9oJ3lNsJTLabLap7t+5Jng==
+X-IronPort-AV: E=McAfee;i="6800,10657,11741"; a="85923279"
+X-IronPort-AV: E=Sophos;i="6.23,142,1770624000"; d="scan'208";a="85923279"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+ by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Mar 2026 10:58:38 -0700
+X-CSE-ConnectionGUID: QU8QSqOhQfqCPL3kMJ994A==
+X-CSE-MsgGUID: aPEZ8FAXSXOHe3ZqlAl2hA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,142,1770624000"; d="scan'208";a="229145609"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost)
+ ([10.245.244.14])
+ by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Mar 2026 10:58:30 -0700
+Date: Thu, 26 Mar 2026 19:58:25 +0200
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Maxime Ripard <mripard@kernel.org>
+Cc: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
+ Harry Wentland <harry.wentland@amd.com>,
+ Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Sandy Huang <hjc@rock-chips.com>,
+ Heiko =?iso-8859-1?Q?St=FCbner?= <heiko@sntech.de>,
+ Andy Yan <andy.yan@rock-chips.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, Dmitry Baryshkov <lumag@kernel.org>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Rob Herring <robh@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>, kernel@collabora.com,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, linux-doc@vger.kernel.org,
+ Werner Sembach <wse@tuxedocomputers.com>,
+ Andri Yngvason <andri@yngvason.is>, Marius Vlad <marius.vlad@collabora.com>
+Subject: Re: [PATCH v11 03/22] drm: Add new general DRM property "color format"
+Message-ID: <acVzwRyk_J24GrJ4@intel.com>
+References: <20260324-color-format-v11-0-605559af4fb4@collabora.com>
+ <20260324-color-format-v11-3-605559af4fb4@collabora.com>
+ <acLDPYuaVI2-12JX@intel.com> <23910073.EfDdHjke4D@workhorse>
+ <acLrv5hLyNss-Px5@intel.com>
+ <20260325-neat-elegant-raven-ebc9ab@houat>
+ <acPA60Ci3n_t__xF@intel.com>
+ <20260325-magnificent-ultraviolet-oarfish-baefbc@houat>
+ <acQsw3Wi_xVlBZ8d@intel.com>
+ <20260326-pumpkin-goshawk-of-stamina-0ccb84@houat>
 MIME-Version: 1.0
-References: <20260324175653.1325754-1-Amber.Lin@amd.com>
- <20260324175653.1325754-6-Amber.Lin@amd.com>
-In-Reply-To: <20260324175653.1325754-6-Amber.Lin@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 26 Mar 2026 13:57:43 -0400
-X-Gm-Features: AQROBzCo7-EWz4Ey8qlElV_JKhqacgl7i1wXUJJ6K3SdJKpkXX4ZzMcUYEgeO18
-Message-ID: <CADnq5_OA06j6ZRY4RkT4KGLp_XrsdrdwdTxzJTfUwdaekVRJQg@mail.gmail.com>
-Subject: Re: [PATCH v2 05/10] drm/amdgpu: Update mes 12.1's suspend/resume
-To: Amber Lin <Amber.Lin@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, Shaoyun.Liu@amd.com, Michael.Chen@amd.com, 
- Jesse.Zhang@amd.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260326-pumpkin-goshawk-of-stamina-0ccb84@houat>
+X-Patchwork-Hint: comment
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,51 +106,134 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Mar 24, 2026 at 1:57=E2=80=AFPM Amber Lin <Amber.Lin@amd.com> wrote=
-:
->
-> Update mes_v12_1_suspend and mes_v12_1_resume to line up with mes_v12_0.
->
-> Signed-off-by: Amber Lin <Amber.Lin@amd.com>
+On Thu, Mar 26, 2026 at 06:02:47PM +0100, Maxime Ripard wrote:
+> On Wed, Mar 25, 2026 at 08:43:15PM +0200, Ville Syrjälä wrote:
+> > On Wed, Mar 25, 2026 at 03:56:58PM +0100, Maxime Ripard wrote:
+> > > On Wed, Mar 25, 2026 at 01:03:07PM +0200, Ville Syrjälä wrote:
+> > > > On Wed, Mar 25, 2026 at 09:24:27AM +0100, Maxime Ripard wrote:
+> > > > > On Tue, Mar 24, 2026 at 09:53:35PM +0200, Ville Syrjälä wrote:
+> > > > > > On Tue, Mar 24, 2026 at 08:10:11PM +0100, Nicolas Frattaroli wrote:
+> > > > > > > On Tuesday, 24 March 2026 18:00:45 Central European Standard Time Ville Syrjälä wrote:
+> > > > > > > > On Tue, Mar 24, 2026 at 05:01:07PM +0100, Nicolas Frattaroli wrote:
+> > > > > > > > > +enum drm_connector_color_format {
+> > > > > > > > > +	/**
+> > > > > > > > > +	 * @DRM_CONNECTOR_COLOR_FORMAT_AUTO: The driver or display protocol
+> > > > > > > > > +	 * helpers should pick a suitable color format. All implementations of a
+> > > > > > > > > +	 * specific display protocol must behave the same way with "AUTO", but
+> > > > > > > > > +	 * different display protocols do not necessarily have the same "AUTO"
+> > > > > > > > > +	 * semantics.
+> > > > > > > > > +	 *
+> > > > > > > > > +	 * For HDMI, "AUTO" picks RGB, but falls back to YCbCr 4:2:0 if the
+> > > > > > > > > +	 * bandwidth required for full-scale RGB is not available, or the mode
+> > > > > > > > > +	 * is YCbCr 4:2:0-only, as long as the mode and output both support
+> > > > > > > > > +	 * YCbCr 4:2:0.
+> > > > > > > > > +	 *
+> > > > > > > > > +	 * For display protocols other than HDMI, the recursive bridge chain
+> > > > > > > > > +	 * format selection picks the first chain of bridge formats that works,
+> > > > > > > > > +	 * as has already been the case before the introduction of the "color
+> > > > > > > > > +	 * format" property. Non-HDMI bridges should therefore either sort their
+> > > > > > > > > +	 * bus output formats by preference, or agree on a unified auto format
+> > > > > > > > > +	 * selection logic that's implemented in a common state helper (like
+> > > > > > > > > +	 * how HDMI does it).
+> > > > > > > > > +	 */
+> > > > > > > > > +	DRM_CONNECTOR_COLOR_FORMAT_AUTO = 0,
+> > > > > > > > > +
+> > > > > > > > > +	/**
+> > > > > > > > > +	 * @DRM_CONNECTOR_COLOR_FORMAT_RGB444: RGB output format
+> > > > > > > > > +	 */
+> > > > > > > > > +	DRM_CONNECTOR_COLOR_FORMAT_RGB444,
+> > > > > > > > > +
+> > > > > > > > > +	/**
+> > > > > > > > > +	 * @DRM_CONNECTOR_COLOR_FORMAT_YCBCR444: YCbCr 4:4:4 output format (ie.
+> > > > > > > > > +	 * not subsampled)
+> > > > > > > > > +	 */
+> > > > > > > > > +	DRM_CONNECTOR_COLOR_FORMAT_YCBCR444,
+> > > > > > > > > +
+> > > > > > > > > +	/**
+> > > > > > > > > +	 * @DRM_CONNECTOR_COLOR_FORMAT_YCBCR422: YCbCr 4:2:2 output format (ie.
+> > > > > > > > > +	 * with horizontal subsampling)
+> > > > > > > > > +	 */
+> > > > > > > > > +	DRM_CONNECTOR_COLOR_FORMAT_YCBCR422,
+> > > > > > > > > +
+> > > > > > > > > +	/**
+> > > > > > > > > +	 * @DRM_CONNECTOR_COLOR_FORMAT_YCBCR420: YCbCr 4:2:0 output format (ie.
+> > > > > > > > > +	 * with horizontal and vertical subsampling)
+> > > > > > > > > +	 */
+> > > > > > > > > +	DRM_CONNECTOR_COLOR_FORMAT_YCBCR420,
+> > > > > > > > 
+> > > > > > > > Seems like this should document what the quantization range
+> > > > > > > > should be for each format.
+> > > > > > > > 
+> > > > > > > 
+> > > > > > > I don't think so? If you want per-component bit depth values,
+> > > > > > > DRM_FORMAT_* defines would be the appropriate values to use. This
+> > > > > > > enum is more abstract than that, and is there to communicate
+> > > > > > > YUV vs. RGB and chroma subsampling, with bit depth being handled
+> > > > > > > by other properties.
+> > > > > > > 
+> > > > > > > If you mean the factor used for subsampling, then that'd only be
+> > > > > > > relevant if YCBCR410 was supported where one chroma plane isn't
+> > > > > > > halved but quartered in resolution. I suspect 4:1:0 will never
+> > > > > > > be added; no digital display protocol standard supports it to my
+> > > > > > > knowledge, and hopefully none ever will.
+> > > > > > 
+> > > > > > No, I mean the quantization range (16-235 vs. 0-255 etc).
+> > > > > > 
+> > > > > > The i915 behaviour is that YCbCr is always limited range,
+> > > > > > RGB can either be full or limited range depending on the 
+> > > > > > "Broadcast RGB" property and other related factors.
+> > > > > 
+> > > > > So far the HDMI state has both the format and quantization range as
+> > > > > different fields. I'm not sure we need to document the range in the
+> > > > > format field, maybe only mention it's not part of the format but has a
+> > > > > field of its own?
+> > > > 
+> > > > I think we only have it for RGB (on some drivers only?). For YCbCr
+> > > > I think the assumption is limited range everywhere.
+> > > > 
+> > > > But I'm not really concerned about documenting struct members.
+> > > > What I'm talking about is the *uapi* docs. Surely userspace
+> > > > will want to know what the new property actually does so the
+> > > > uapi needs to be documented properly. And down the line some
+> > > > new driver might also implement the wrong behaviour if there
+> > > > is no clear specification.
+> > > 
+> > > Ack
+> > > 
+> > > > So I'm thinking (or perhaps hoping) the rule might be something like:
+> > > > - YCbCr limited range 
+> > > > - RGB full range if "Broadcast RGB" property is not present
+> > > 
+> > > Isn't it much more complicated than that for HDMI though? My
+> > > recollection was that any VIC but VIC1 would be limited range, and
+> > > anything else full range?
+> > 
+> > Do we have some driver that implements the CTA-861 CE vs. IT mode
+> > logic but doesn't expose the "Broadcast RGB" property? I was hoping
+> > those would always go hand in hand now.
+> 
+> I'm not sure. i915 and the HDMI state helpers handle it properly (I
+> think?) but it looks like only vc4 registers the Broadcast RGB property
+> and uses the HDMI state helpers.
+> 
+> And it looks like amdgpu registers Broadcast RGB but doesn't use
+> drm_default_rgb_quant_range() which seems suspicious?
 
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+If they want just manual full vs. limited then they should
+limit the property to not expose the "auto" option at all.
 
-> ---
->  drivers/gpu/drm/amd/amdgpu/mes_v12_1.c | 14 +-------------
->  1 file changed, 1 insertion(+), 13 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v12_1.c b/drivers/gpu/drm/amd=
-/amdgpu/mes_v12_1.c
-> index 70d80c2aed52..4b279259b9d3 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/mes_v12_1.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/mes_v12_1.c
-> @@ -1888,24 +1888,12 @@ static int mes_v12_1_hw_fini(struct amdgpu_ip_blo=
-ck *ip_block)
->
->  static int mes_v12_1_suspend(struct amdgpu_ip_block *ip_block)
->  {
-> -       int r;
-> -
-> -       r =3D amdgpu_mes_suspend(ip_block->adev);
-> -       if (r)
-> -               return r;
-> -
->         return mes_v12_1_hw_fini(ip_block);
->  }
->
->  static int mes_v12_1_resume(struct amdgpu_ip_block *ip_block)
->  {
-> -       int r;
-> -
-> -       r =3D mes_v12_1_hw_init(ip_block);
-> -       if (r)
-> -               return r;
-> -
-> -       return amdgpu_mes_resume(ip_block->adev);
-> +       return mes_v12_1_hw_init(ip_block);
->  }
->
->  static int mes_v12_1_early_init(struct amdgpu_ip_block *ip_block)
-> --
-> 2.43.0
->
+amdgpu also ties this in with the "colorspace" property, which
+originally in i915 only controlled the infoframes/etc. But on
+amdgpu it now controls various aspects of output color
+transformation. The end result is that the property is a complete
+mess with most of the values making no sense. And for whatever
+reason everyone involved refused to remove/deprecate the
+nonsensical values :/
+
+Looks like this series should make sure the documentation for
+the "colorspace" property is in sync with the new property
+as well. Currently now it's giving conflicting information.
+
+-- 
+Ville Syrjälä
+Intel
