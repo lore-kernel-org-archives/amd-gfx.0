@@ -4,81 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 238CE10ED673
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 74FF110ED66D
 	for <amd-gfx@archiver.kernel.org>; Fri, 27 Mar 2026 12:40:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 73E6910EE12;
-	Fri, 27 Mar 2026 12:40:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 03B1610EE10;
+	Fri, 27 Mar 2026 12:40:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="PDmb2Jfr";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Jg3f/ESN";
 	dkim-atps=neutral
-Received: from mail-oi1-f173.google.com (mail-oi1-f173.google.com
- [209.85.167.173])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 33F5210EBF0
- for <amd-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 18:55:48 +0000 (UTC)
-Received: by mail-oi1-f173.google.com with SMTP id
- 5614622812f47-467161c4b89so726586b6e.3
- for <amd-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 11:55:48 -0700 (PDT)
+Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com
+ [209.85.215.180])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 12DFA10EB28
+ for <amd-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 23:47:38 +0000 (UTC)
+Received: by mail-pg1-f180.google.com with SMTP id
+ 41be03b00d2f7-c06cb8004e8so641805a12.0
+ for <amd-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 16:47:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1774551347; x=1775156147; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1774568857; x=1775173657; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=biXThcx+6w3P/qlWl1X8ZrrgjPyfHSHs7iDi6/iglY8=;
- b=PDmb2JfraHW9Il9HUg3usmcYqcvgTW/H3L5S6xblDzgyrM1QLJEeBL6L+G7I52tCzT
- Duey8e14omD7DO4upl9FUjsBc8H4Hww4lXPL0aDzFckBOvDa80Hflbwv7qKIKVO4TeqH
- dRaEWq1wu50sAyQt+A+YuAtBQ3QrpepwYftpibSFMz74MbRCKqzl6M+QFMWlHMflZ9kC
- wNZpPVjsgJstWhgP3lKIetbrtqNX2tgqlQbl12+gU7WUUtdRDnXy3eyTlmRdzdM1rE9S
- TWIYv2zUmtvvbm7LeEGrLmboT966CApc5L+XDf6oAVfW6n4tolH6BbG7RuadWTGFalGz
- ndig==
+ bh=jlXNZ6YErxvr6V0/1Nzao8eMwm0DA+edMLaU07KmQkY=;
+ b=Jg3f/ESNVIajf4EAF6z/Lwq6W5RRa/FNZ56WVBiRRGnFSNHsdsqhFQ/1wgSme8Dp9s
+ goE3MOFHc9RY6UXKGt/G7BmnMH56rEhgWf9aXTenbk/DoyITyon5GRdM8AoGMHBbnQHs
+ /905cmTvQz3e/IOQvZFn0lw3XKrj1+H20J7gaaW2BzK1oM5yo6f2uq/OZQyRVVL4rRTs
+ rgMOrU8m6uiE/ncKB0mOxvJhcZTFxt0/HMAQIlMKj+QbiNncSn3qAPVgDkY+GBNd1iPq
+ VVW2eEZ8pxS/MRNZy1RDDZHPgHYANTihEvXfarADVsIZgbRj2/J7fZdWTCk6HuPTHNgs
+ oN8g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774551347; x=1775156147;
+ d=1e100.net; s=20251104; t=1774568857; x=1775173657;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=biXThcx+6w3P/qlWl1X8ZrrgjPyfHSHs7iDi6/iglY8=;
- b=rAlT362LilJCb7JqGjx482ZNBmi+wrEnGB9Cl1DBIcYGCcMo1WP1wFC7C/OvrB3YLM
- oxhCvOR92MP7y4mVxeBNsH29j5aMhgousWe1xBkoPUkC/sDSd7hgm5KUjXO1c1oOMuCl
- nq+TkD3VOCiU26vJgkkxbtFGqDhG5rVmfGkU/kqofiTVLB8yKnUWsUTjiIayTShXpKpR
- U3NLOUw9OFkhzAE6GzAgfzEUy+XtOSZ8yfwi+gLit5jws3erMHPDo2VBzUDhecVCENRv
- q/rNII09P+d2e9tlFU/xlN1NBZBNoNn98kUcBGNNuPSwUVUI//83P2ItZbP214WsU0+M
- d6sw==
+ bh=jlXNZ6YErxvr6V0/1Nzao8eMwm0DA+edMLaU07KmQkY=;
+ b=AEaUbQ1c7p3d6eBVuYSaJ58upvW7C7a+eKIAMJwA5T+MlxZH4MMtDrrEYWWQCZ7+Re
+ 63nHZgaRwClfmENzZOw89xhExawlRH4Xgxczp91fkYyKhVYjyPbnxAUI7zmAd2fCPD8X
+ 5UcKuK4MGXjtlNBQvH9dJt5QUYUek372DzPM2D7Qh03mKlmDWeFGJn844l+6xSyybAl1
+ Wl9igd+69de0aVmhxZEZ4WHSlxJpMRu+YZd3M/lcowk6vu8v25BI4WKtuKMl33y1LjEi
+ elUpRQ1hH6ZfkwwsGcBi7I781uqhhylOorsiZETSBY9yDP+ymakeIr7yzIku0glARwEd
+ 1U4w==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUv9IIm27MprRKW0XzcZ28opXYeSgxMoVeCkzq344JPQrQe0a9gyY6HQ4ys3JsWSG3eUailldRa@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxCdeU/0csEwRIajtYEyfYbytnac4SHyex/DV9GcZPCY5FVuoBF
- sl+VIyzWDX4FUEWzd1Zb4NI7JVLDjxGWTmPTcW8fnv3yRblvo/nQHA2/
-X-Gm-Gg: ATEYQzxdMh/klHzDLWc513oSBbQwDxQoPRWqkIbiyAScVeFcanwdAk4d8jHw4n47lLi
- JwPuXdF6hSMy0ojfY0caTIwF6hsAC07e2UMJNGTK8fJ8QkpBG1d8Ko+Ug2o8Xpg9UFpJGLmURSx
- 3ZW9KLzxbl8MttQ0nL4Krm/yhGQAIKYt3UR4h21rNYYKhpA7whDShH6B3bHKrlisxwc+knFrjiL
- JlCL/j70hVPC+uca/w826wlK2GI09iNVnCn0E28OFHgnNG2JCCCYrv7SPT/EWxBOV/wtTdNop84
- W82Y74QEh6JmlYuc9q4Qz+wBg9l+4I6tnr2U22VmB8y9cVUzaEFUq47//pwQAwNprkqekOGbV76
- qmy7+VXpPGcPSrWtXZ7AbE8J0nh48IR8vs7nLL73mxN7IvaqYbevELWXYNhHqaQVDL8UFxenWkS
- uXOIZAg1Vv7jSRfCfBJI+YP9IQMjrsZEEpTEnT2YJVlAfy9bjHyYjUoXk7dp0=
-X-Received: by 2002:a05:6808:6714:b0:467:58e:5d6e with SMTP id
- 5614622812f47-46a5c71bc54mr3926380b6e.30.1774551347410; 
- Thu, 26 Mar 2026 11:55:47 -0700 (PDT)
-Received: from frodo (c-98-38-17-99.hsd1.co.comcast.net. [98.38.17.99])
- by smtp.googlemail.com with ESMTPSA id
- 586e51a60fabf-41cc7760c08sm3075171fac.4.2026.03.26.11.55.45
+ AJvYcCW4QXHdo+zyx7GxWJLlV6hb7EYfkDg5yVyXnneSWO+xKLrLLhljmpB+n8+hsbWwc8Domkm23wJU@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzfWYZBahKBWhuheWWLBIGYt6AXs9vvLWakNw1tUdg1eP7CiFlp
+ 3XbiZWat8Bxp1rMD0YRS8E4NTxFfHXO6ub51rpxg05Hiq0TXIQYgjvSX
+X-Gm-Gg: ATEYQzzgm0hnoUQhfJOk2r7tTbNgZlo5oH7z6E45Yn5ayK63JJFH39+lNk8OhpCjDOw
+ I49AGKQPM1RtjOyvwaJPdXyeMbxNQYX86AgAsE968qeIvA/AF0kPHm87NILvFcsL2kZnv+4377z
+ gxB3SNrMW6Ur6pdDFCCYEbquVMveQnJW/hCa0FYQbsAMbkmK/UZ2cCWMvwQnBJd6HdFLYDcy4c3
+ twM/SIbxGmKz83BbZ+4PRr25vHYFSP+5dnTM34+43SnwFKMAXOsvgfkV4g5CpBZ/6JUGUzpyqOt
+ psPCICtD5MFrSdKsoxQIlRWqhgF+uINHoLqVeG0R58Od/4eIGW6kzH4b17VZnfXSmVFOKlJ9Zb3
+ /INOgbWDnAM31Gafbc8fliWiojPhHzawuzdnBMJA155mdoZbgG8BzrUcJEQOw3vQGvJouGPnYB/
+ SIb7r4XqPHW+ibaC3isEbE0/q2ok+nCfdivKjIuaM0n2TSNslXk8qY5Ts=
+X-Received: by 2002:a05:6a20:3d83:b0:398:4bf2:4285 with SMTP id
+ adf61e73a8af0-39c877fe4bamr553257637.16.1774568857439; 
+ Thu, 26 Mar 2026 16:47:37 -0700 (PDT)
+Received: from ryzen ([2601:644:8000:5b5d::8bd])
+ by smtp.gmail.com with ESMTPSA id
+ 41be03b00d2f7-c7673933816sm3201162a12.21.2026.03.26.16.47.35
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 26 Mar 2026 11:55:46 -0700 (PDT)
-From: Jim Cromie <jim.cromie@gmail.com>
-To: linux-kernel@vger.kernel.org, airlied@gmail.com, simona@ffwll.ch,
- jbaron@akamai.com, gregkh@linuxfoundation.org
-Cc: jim.cromie@gmail.com, mripard@kernel.org, tzimmermann@suse.de,
- maarten.lankhorst@linux.intel.com, jani.nikula@intel.com,
- ville.syrjala@linux.intel.com, christian.koenig@amd.com,
- matthew.auld@intel.com, arunpravin.paneerselvam@amd.com,
- louis.chauvet@bootlin.com, skhan@linuxfoundation.org, pmladek@suse.com,
- ukaszb@chromium.org, dri-devel@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- Lyude Paul <lyude@redhat.com>
-Subject: [PATCH v12 49/69] drm-dyndbg: DRM_CLASSMAP_USE in nouveau
-Date: Thu, 26 Mar 2026 12:53:53 -0600
-Message-ID: <20260326185413.1205870-50-jim.cromie@gmail.com>
+ Thu, 26 Mar 2026 16:47:36 -0700 (PDT)
+From: Rosen Penev <rosenp@gmail.com>
+To: stable@vger.kernel.org
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@linux.ie>,
+ Daniel Vetter <daniel@ffwll.ch>, Harry Wentland <harry.wentland@amd.com>,
+ Leo Li <sunpeng.li@amd.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Bin Lan <bin.lan.cn@windriver.com>, He Zhe <zhe.he@windriver.com>,
+ Vitaly Prosyak <vitaly.prosyak@amd.com>, Alex Hung <alex.hung@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>,
+ Mario Limonciello <Mario.Limonciello@amd.com>, Ray Wu <ray.wu@amd.com>,
+ Wayne Lin <wayne.lin@amd.com>, Roman Li <Roman.Li@amd.com>,
+ Eric Yang <Eric.Yang2@amd.com>, Tony Cheng <Tony.Cheng@amd.com>,
+ Mauro Rossi <issor.oruam@gmail.com>,
+ amd-gfx@lists.freedesktop.org (open list:RADEON and AMDGPU DRM DRIVERS),
+ dri-devel@lists.freedesktop.org (open list:DRM DRIVERS),
+ linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH for 6.12 1/9] drm/amd/amdgpu: decouple ASPM with pcie dpm
+Date: Thu, 26 Mar 2026 16:47:08 -0700
+Message-ID: <20260326234716.16723-2-rosenp@gmail.com>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260326185413.1205870-1-jim.cromie@gmail.com>
-References: <20260326185413.1205870-1-jim.cromie@gmail.com>
+In-Reply-To: <20260326234716.16723-1-rosenp@gmail.com>
+References: <20260326234716.16723-1-rosenp@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 27 Mar 2026 12:40:00 +0000
@@ -96,44 +104,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Following the dyndbg-api-fix, replace DECLARE_DYNDBG_CLASSMAP with
-DRM_CLASSMAP_USE.  This refs the defined & exported classmap, rather
-than re-declaring it redundantly, and error-prone-ly.
+From: Kenneth Feng <kenneth.feng@amd.com>
 
-This resolves the appearance of "class:_UNKNOWN_" in the control file
-for the driver's drm_dbg()s.
+[ Upstream commit df0e722fbdbedb6f2b682dc2fad9e0c221e3622d ]
 
-Fixes: f158936b60a7 ("drm: POC drm on dyndbg - use in core, 2 helpers, 3 drivers.")
+ASPM doesn't need to be disabled if pcie dpm is disabled.
+So ASPM can be independantly enabled.
 
-Reviewed-by: Lyude Paul <lyude@redhat.com>
-Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+Signed-off-by: Kenneth Feng <kenneth.feng@amd.com>
+Reviewed-by: Yang Wang <kevinyang.wang@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
 ---
- drivers/gpu/drm/nouveau/nouveau_drm.c | 12 +-----------
- 1 file changed, 1 insertion(+), 11 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 2 --
+ 1 file changed, 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/nouveau/nouveau_drm.c b/drivers/gpu/drm/nouveau/nouveau_drm.c
-index 915f73279302..7f7c0cc1da64 100644
---- a/drivers/gpu/drm/nouveau/nouveau_drm.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_drm.c
-@@ -74,17 +74,7 @@
- #include "nouveau_uvmm.h"
- #include "nouveau_sched.h"
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index d5e6d5ec69c8..dbee43c58741 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -1782,8 +1782,6 @@ bool amdgpu_device_should_use_aspm(struct amdgpu_device *adev)
+ 	}
+ 	if (adev->flags & AMD_IS_APU)
+ 		return false;
+-	if (!(adev->pm.pp_feature & PP_PCIE_DPM_MASK))
+-		return false;
+ 	return pcie_aspm_enabled(adev->pdev);
+ }
  
--DECLARE_DYNDBG_CLASSMAP(drm_debug_classes, DD_CLASS_TYPE_DISJOINT_BITS, 0,
--			"DRM_UT_CORE",
--			"DRM_UT_DRIVER",
--			"DRM_UT_KMS",
--			"DRM_UT_PRIME",
--			"DRM_UT_ATOMIC",
--			"DRM_UT_VBL",
--			"DRM_UT_STATE",
--			"DRM_UT_LEASE",
--			"DRM_UT_DP",
--			"DRM_UT_DRMRES");
-+DRM_CLASSMAP_USE(drm_debug_classes);
- 
- MODULE_PARM_DESC(config, "option string to pass to driver core");
- static char *nouveau_config;
 -- 
 2.53.0
 
