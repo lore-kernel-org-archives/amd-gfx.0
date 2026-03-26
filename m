@@ -4,64 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A143610ED674
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 63AF510ED673
 	for <amd-gfx@archiver.kernel.org>; Fri, 27 Mar 2026 12:41:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AD55010EE28;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A753510EE17;
 	Fri, 27 Mar 2026 12:41:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="a5T1QWkE";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="TG25N/Z3";
 	dkim-atps=neutral
-Received: from mail-oa1-f43.google.com (mail-oa1-f43.google.com
- [209.85.160.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6280710EB43
- for <amd-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 18:54:47 +0000 (UTC)
-Received: by mail-oa1-f43.google.com with SMTP id
- 586e51a60fabf-4043b27ddeaso852207fac.1
- for <amd-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 11:54:47 -0700 (PDT)
+Received: from mail-oo1-f43.google.com (mail-oo1-f43.google.com
+ [209.85.161.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BCF3E10EB43
+ for <amd-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 18:54:42 +0000 (UTC)
+Received: by mail-oo1-f43.google.com with SMTP id
+ 006d021491bc7-67e0d3f288aso621732eaf.0
+ for <amd-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 11:54:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1774551286; x=1775156086; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1774551282; x=1775156082; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=6DJe7q9AzKIA5JE9j9dS7BkLMe6yLjsp/ulkOtgleYM=;
- b=a5T1QWkE1WYGGaGnep2uw4lBcZR5x+eI79MI3AtB/f9cfIs6ZYu69AtXkyYavZcsZW
- oyd5Mqc1mwTU7Hr6yGOt7tGo8HGeeYsS7c+SV4ByBFHni1HRtAMtoc4oLUH9zvTZ6mkd
- yAYaaX44lP+AUbq0w+dAhcqutllk8AKAcfF1IgdznZu+IaF4Tpzek2/Q0JepWJsQuCKO
- RqPrKc02R6fSB0D7bTink3u7Mv5TjCvJvtkvndQsiGxjM1a8nRFfsESjWeHbapClkIcL
- ac7i/oK9w6k1inxCTmNAy+7nkeQ1IyXM0bWRBaRloUWG8inJmDjzWLQO7HD3HDoiulrV
- Qm1w==
+ bh=4wIIBK2xLHmy9ZZczWpP2RzFmOx4bELZz7aMw+RGO2w=;
+ b=TG25N/Z3YTgPWXOmXhWjfDAVnM5B6uECwSBVH/Jwb7R/cwOeUBFflRFIfFwpgz6hk5
+ aG9SGOFnS8nEvkQIeSuO/6t1xRe2TDfpXzuztD8A7oXMCbejTrgkGkVsW9GKizhZcdR2
+ UFWLdT6p40MNOkwM573U3qV/2qzAfs4FviP5SwdAXVSZS2uny7XXGINMT95ZN1aJMhZh
+ ne8k9pVBnY65GsX7R1+fypPJzgZGmUHfkLnIcbAk8WCgMi4ajlR6n000Hw5jA1fpj+I2
+ bLCmFNRi4pm909OaqfQtdnZSJv6zpQo0UDDRlXZTRvHjLMYcZ3p257Lo39PWik60xBgc
+ 35VQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774551286; x=1775156086;
+ d=1e100.net; s=20251104; t=1774551282; x=1775156082;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=6DJe7q9AzKIA5JE9j9dS7BkLMe6yLjsp/ulkOtgleYM=;
- b=m5PLyDJkB2vVSZCsXp6eg3kjA3MhvuRfep1/vKY2CQWmInhzcE9J89gS8sKmRvQTdk
- 26RdLScmti5XTEX6Y1W9VEojrGWMNzefl2d1Z/CjdM1McwMADmE43NypoznC2HkrIquw
- 6sEBEjFeeoyy1MUd66RG0HsLApFgXA9nuKwVjB/j12a3ITkwSMat4vtm4Ww9Z4uK6A0Y
- b0/HQRdOHVEu1oZffF8lCcfHp8Mpz67tpV8KLqCKidhiIoZlfBWF/gIQEACgRkIZZXcr
- 2MhEBg5Af9X3p/FXVKJWpSFnCqJGi0T3/IefFho3iulOVmhYItU6KAHEzC4LjmQ9qJjg
- JPFg==
+ bh=4wIIBK2xLHmy9ZZczWpP2RzFmOx4bELZz7aMw+RGO2w=;
+ b=ZtenEN6nc0/+3Mz435Li2gl6eA/8iGxwkma+CD4HEPrqkpgFB+ODKW1B/jvv41K9rB
+ q/IPsB3Www/ZTgAC5Q9Gigu3qhCLLXkB7ffRXSOaWI90XRiIvPF9OU6Mk2Yz8Dwjss3E
+ SSp93Naf/XiibyM35O6719t3ReTinKcf/2XWK0xMsA44HB78jJOkPlK+hhr8VcmrBcvW
+ DfrPvSRftpPn1XxUn860YAmc7M3cSExIphbbeMiUxejwOP5T6r7weBrb97XGkWtk6ydd
+ VnE16nwQ410XaFC1KoZKlPqSvp2f4w9fUg9FfWuOs2QAoi6VihjX7ZZJ19gaM4DSTZId
+ UMGg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVedwPCuyL8YZKpGuTjYOxYsfxEKKBEcXsvOMJNF+uy4ZEj2Xd5/KMfxjcjdZm11vMdFQP/Fs4k@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yy6EM+7pkrQlh+l/QF7OITQB0FNyUij8AKApLcziuULH74IUKCv
- E5DACHhULpWCX1yX/lJgelRjPbY4a0dh+rZfMZe/KEnT1Q1+3ohhWbtx
-X-Gm-Gg: ATEYQzzmhKxTPBOc16IlprYbr6G71hexxoNaK/dtVfT1uJyfEcaY4paQ++7yTE2m8ug
- onHQfwuUf+uJUuxWDsQTyYQeqqZU6F0RVj5V9AyeFXsHyfhSMy+5GYdUeNu8dz0td2jbn5U4mGt
- H3RiNUzvCXmWA9qG5W2arjO27I8ypRODrGHvyHojWhxxyk7uUudbvytiLzb11aKpZv1uMTskhFQ
- zQYz7msapt2S7cHW1DvP2+NS0vf2/B0iaF3jZNCpEOeeSS03BAUbUkb4jJjbPFQ3hGO8jbsbj0Y
- uQcYsQp951gHJr+sykCsCeevQEDeoXxN1f7bZYQO8uoEUxU/NaIFZP3WkBzy+/eNk+LKnh67K76
- 5lJKKg3iWcQGG9ZCXTOSPGH9FMJa6ZxmfJye4pWUclYzUevNp+lJgtQCzvcYd+qZeDTf1TAS2ZO
- XfeIIid86uM0hB68p3oGFOb5d5f5Xi3uwZbWYG5NGrirF/l/2z
-X-Received: by 2002:a05:6870:458c:b0:417:4c0a:1ff4 with SMTP id
- 586e51a60fabf-41ca6d15f6amr4828699fac.10.1774551286631; 
- Thu, 26 Mar 2026 11:54:46 -0700 (PDT)
+ AJvYcCXZsCSJU4SAi0osjQUyblCRRsPry7SN0TL4RP7Rxs9Hw52camYYxMErfF+50YQYHcbZS+fMzjX1@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzdgBItEQdvnfOCruBd2J7glCYUfVByaffkPQXZvPToDF1mlphd
+ 6sJNAJhEmxGiDycYqXW15F0z3m7SBlUZUEnXB6urnTJCHN/HJ+PhCdmx
+X-Gm-Gg: ATEYQzzxGD24K+ALGH0ckPXbyUObIft2Xx4+rkPibKKE954THKkEqEfyGVBUXLzQ8ZY
+ 0RDmx4VMApvdMGAEuwebFdwYmghKzwR06ub3bHqdIt4TZkBnLbzCqQsR9+5SXSurVzpJ8GQl49/
+ xqTtflB1agaIzmS+vChKmuodqN4cphFoxefI+vkAKgnHPbgGL2XO6Qc67+eCYzVkuRl+nwtegxp
+ CdXll2CzofMQ2bYWwpGLK6X2D0xhLNnMu75zHQXfIb6ulEiYIAgCaEeS3cvEbJOZKti2PYzB05E
+ nVkNDK92l1WKS+EtvAIPDwuiCfhQYaFQTMyUiw4n1m+ygWS5KQ8IMGzeujnEP6zm9/TwnpYkyo/
+ W4PIBfF6osndJpApodxlJHmUYUITVvhMTd6LPHWKzLE4k4NwR0rTCjrlNgDDJTITz8y1USTKxko
+ GdFJQbW2NuwkDHrBMOuO7mEuGuGGNf6yBEbqJo7D43KXAr2XHb
+X-Received: by 2002:a05:6820:174b:b0:67c:2af2:a66a with SMTP id
+ 006d021491bc7-67dff37caf7mr4976746eaf.11.1774551281759; 
+ Thu, 26 Mar 2026 11:54:41 -0700 (PDT)
 Received: from frodo (c-98-38-17-99.hsd1.co.comcast.net. [98.38.17.99])
  by smtp.googlemail.com with ESMTPSA id
- 586e51a60fabf-41cc7760c08sm3075171fac.4.2026.03.26.11.54.45
+ 586e51a60fabf-41cc7760c08sm3075171fac.4.2026.03.26.11.54.40
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 26 Mar 2026 11:54:45 -0700 (PDT)
+ Thu, 26 Mar 2026 11:54:41 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: linux-kernel@vger.kernel.org, airlied@gmail.com, simona@ffwll.ch,
  jbaron@akamai.com, gregkh@linuxfoundation.org
@@ -71,11 +71,11 @@ Cc: jim.cromie@gmail.com, mripard@kernel.org, tzimmermann@suse.de,
  matthew.auld@intel.com, arunpravin.paneerselvam@amd.com,
  louis.chauvet@bootlin.com, skhan@linuxfoundation.org, pmladek@suse.com,
  ukaszb@chromium.org, dri-devel@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-Subject: [PATCH v12 11/69] dyndbg: make ddebug_class_param union members same
- size
-Date: Thu, 26 Mar 2026 12:53:15 -0600
-Message-ID: <20260326185413.1205870-12-jim.cromie@gmail.com>
+ intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ linux-doc@vger.kernel.org
+Subject: [PATCH v12 08/69] docs/dyndbg: explain flags parse 1st
+Date: Thu, 26 Mar 2026 12:53:12 -0600
+Message-ID: <20260326185413.1205870-9-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260326185413.1205870-1-jim.cromie@gmail.com>
 References: <20260326185413.1205870-1-jim.cromie@gmail.com>
@@ -96,46 +96,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-struct ddebug_class_param keeps a ref to the state-storage of the
-param; make both class-types use the same unsigned long storage type.
+When writing queries to >control, flags are parsed 1st, since they are
+the only required field, and they require specific compositions.  So
+if the flags draw an error (on those specifics), then keyword errors
+aren't reported.  This can be mildly confusing/annoying, so explain it
+instead.
 
-ISTM this is simpler and safer; it avoids an irrelevant difference,
-and if 2 users somehow get class-type mixed up (or refer to the wrong
-union member), at least they will both see the same value.
-
+cc: linux-doc@vger.kernel.org
 Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- include/linux/dynamic_debug.h | 2 +-
- lib/dynamic_debug.c           | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+ .../admin-guide/dynamic-debug-howto.rst         | 17 +++++++++++++----
+ 1 file changed, 13 insertions(+), 4 deletions(-)
 
-diff --git a/include/linux/dynamic_debug.h b/include/linux/dynamic_debug.h
-index a10adac8e8f0..441305277914 100644
---- a/include/linux/dynamic_debug.h
-+++ b/include/linux/dynamic_debug.h
-@@ -104,7 +104,7 @@ struct _ddebug_info {
- struct ddebug_class_param {
- 	union {
- 		unsigned long *bits;
--		unsigned int *lvl;
-+		unsigned long *lvl;
- 	};
- 	char flags[8];
- 	const struct ddebug_class_map *map;
-diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-index a9caf84ddb22..ffa1cf7c2c72 100644
---- a/lib/dynamic_debug.c
-+++ b/lib/dynamic_debug.c
-@@ -811,7 +811,7 @@ int param_get_dyndbg_classes(char *buffer, const struct kernel_param *kp)
+diff --git a/Documentation/admin-guide/dynamic-debug-howto.rst b/Documentation/admin-guide/dynamic-debug-howto.rst
+index 4b14d9fd0300..9c2f096ed1d8 100644
+--- a/Documentation/admin-guide/dynamic-debug-howto.rst
++++ b/Documentation/admin-guide/dynamic-debug-howto.rst
+@@ -109,10 +109,19 @@ The match-spec's select *prdbgs* from the catalog, upon which to apply
+ the flags-spec, all constraints are ANDed together.  An absent keyword
+ is the same as keyword "*".
  
- 	case DD_CLASS_TYPE_LEVEL_NAMES:
- 	case DD_CLASS_TYPE_LEVEL_NUM:
--		return scnprintf(buffer, PAGE_SIZE, "%d\n", *dcp->lvl);
-+		return scnprintf(buffer, PAGE_SIZE, "%ld\n", *dcp->lvl);
- 	default:
- 		return -1;
- 	}
+-
+-A match specification is a keyword, which selects the attribute of
+-the callsite to be compared, and a value to compare against.  Possible
+-keywords are:::
++Note that since the match-spec can be empty, the flags are checked 1st,
++then the pairs of keyword and value.  Flag errs will hide keyword errs::
++
++  bash-5.2# ddcmd mod bar +foo
++  dyndbg: read 13 bytes from userspace
++  dyndbg: query 0: "mod bar +foo" mod:*
++  dyndbg: unknown flag 'o'
++  dyndbg: flags parse failed
++  dyndbg: processed 1 queries, with 0 matches, 1 errs
++
++So a match-spec is a keyword, which selects the attribute of the
++callsite to be compared, and a value to compare against.  Possible
++keywords are::
+ 
+   match-spec ::= 'func' string |
+ 		 'file' string |
 -- 
 2.53.0
 
