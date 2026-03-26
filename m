@@ -4,96 +4,93 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B885210ED659
-	for <amd-gfx@archiver.kernel.org>; Fri, 27 Mar 2026 10:40:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D8CA610ED66D
+	for <amd-gfx@archiver.kernel.org>; Fri, 27 Mar 2026 12:40:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3D8BA10EC81;
-	Fri, 27 Mar 2026 10:40:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2610710E27F;
+	Fri, 27 Mar 2026 12:40:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="k17u5sR/";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="UyJbJJe2";
 	dkim-atps=neutral
-Received: from CH4PR04CU002.outbound.protection.outlook.com
- (mail-northcentralusazon11013045.outbound.protection.outlook.com
- [40.107.201.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CBC0810EC81
- for <amd-gfx@lists.freedesktop.org>; Fri, 27 Mar 2026 10:40:09 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=GABDDjL+RZSD2KHU/AW1VoAv0xxuMmL4zBOUi8C7r26XMye+pMn25jiNVae7tE8GGaZ2e5NPT5pW0lIbIZEy9IqM9a9Q49dSCMZXlquoAUtWORcCy/jZSQtVchSp7auairwEj/gS7tpW1cmNx4wBSwOMVFwc1OcuiUzzoXaJ4vQaGuKFmTPVTrrhMchYN+50usbjHOFauwOyW+/0c19HBXhlBrUMsBVpfR46oqTxmiuoPBNnOa6t+I98IT4eqVgOMdjZBP9b/yNPY8MXmhXbz1JyN9ujPccVExsQR+SzDV974Agr9alJwddcevmYW3/1kMGhQ14U54QZfkwxSCpwxg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2DCYU1zyExWhrJ5Ts5lPONsSFuSdv0eVuS4HvXk7vEw=;
- b=qTYQ/RE8hGzm1bC8SlfqEjwWhYrOTuysKw//ptDrBfDeQP5Y4PGsJ30C5Jb+tfdkU/S5mJU0cXs1r7VEbJD+m3/amUITCCN3OR1hbrT8jLx43MN+LSOQKN2wPfQWjCQvzcqoGoyv8ulcBll/S783GWk/ND8MYPtXY/cE171IiEpurazW4w0nKLsFV7UPe5El6sg6Ytu9LGd7ht2R18qnRS6+toXcVAY3lbA2qw/RxcUUSiHu8F6HWnvJzbg5jY/ljqRcIIcCiBpLtek+avCP81FY7JO4jy/zg5S1TJK2ZVdng3BOChidSoINKoSKMwh05D8fBYNAMu7IK2xOdPRhXQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2DCYU1zyExWhrJ5Ts5lPONsSFuSdv0eVuS4HvXk7vEw=;
- b=k17u5sR/sH2q37gqivDUpUeKmGJBNWZfu2e3B5LdR84tXYl3FlcBJ7MieOqNGp3pSfU+36ko3Tw7c47eln0T65yP82+Mf0aodIGrisy3Lye1d3krbY2mI5up2DJCKZptQu1FRq8/1wVHU3aQOSH0xbEYv/QRt4dQHZtai8evLz4=
-Received: from DM6PR01CA0018.prod.exchangelabs.com (2603:10b6:5:296::23) by
- DS4PR12MB999077.namprd12.prod.outlook.com (2603:10b6:8:2f9::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.10; Fri, 27 Mar
- 2026 10:40:05 +0000
-Received: from CY4PEPF0000EE36.namprd05.prod.outlook.com
- (2603:10b6:5:296:cafe::2e) by DM6PR01CA0018.outlook.office365.com
- (2603:10b6:5:296::23) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9745.24 via Frontend Transport; Fri,
- 27 Mar 2026 10:40:04 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- CY4PEPF0000EE36.mail.protection.outlook.com (10.167.242.42) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9745.21 via Frontend Transport; Fri, 27 Mar 2026 10:40:04 +0000
-Received: from mlse-blrlinux-ll.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Fri, 27 Mar
- 2026 05:40:02 -0500
-From: Lijo Lazar <lijo.lazar@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <Hawking.Zhang@amd.com>, <Alexander.Deucher@amd.com>
-Subject: [PATCH] drm/amdgpu: Fix wait after reset sequence in S4
-Date: Fri, 27 Mar 2026 16:09:44 +0530
-Message-ID: <20260327103944.1477094-1-lijo.lazar@amd.com>
-X-Mailer: git-send-email 2.49.0
+Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com
+ [209.85.214.179])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 04B7310EB28
+ for <amd-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 23:47:42 +0000 (UTC)
+Received: by mail-pl1-f179.google.com with SMTP id
+ d9443c01a7336-2b0c30b517aso4850885ad.3
+ for <amd-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 16:47:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1774568861; x=1775173661; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=izF33sGDSHxUIsJEwsnSvCBwPxbglhEjEwQBj49A0mg=;
+ b=UyJbJJe2MugiBjAmpfGO6ZrlT0pHi3vMDOkeDls2jN53XVnUPoEMunfQcH/OKNbcWn
+ wPSTWBbvvTCpptZF1MXh59d2DLItRpqLZZKEALV4x/unCz/p/a7T6/FSOF4MJ3Qtqxbf
+ CqbYux0wRJIUPZQ7rWQYMlv8nDqQI6o6U5qOjl+akLsNIqsCqpMjIiEBxzZnjQRdHbtm
+ 1KcybiUFgItMREjtNu5WsZIPVDSjuTdDG4SoptL3adKmqtxyHnpVVRXPTeFbTNYC0Y4q
+ kU5UtdMCKfGgo+n7viJmYW+dXB0VJvyOhCp7n9wCKVC906jv37CcyzR6zUCAhuiQ73qS
+ 9a4g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1774568861; x=1775173661;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=izF33sGDSHxUIsJEwsnSvCBwPxbglhEjEwQBj49A0mg=;
+ b=UxQPTC0Qk+VYMPqwaZcZ5gEIbAvi5Mfc7YjdtXyambNsA8fxBSY1fZHweGXxRfamVQ
+ lzirm4+JGEiePTpngX+oqMTcRA0NAyMbueY08U6KuHDZ1T95mQKOFj4g8hAuix2z1d3b
+ u2O7p4gzJKPRrHit1ENXpdSBKXFeCbCu2h7kQDMJEHucyTKC+gUTxNbJ7MfL57xRkZfW
+ 69meTmJ9uU+1zArA1AD/axvcwZDX8wkLtMZ5DMfVgv8hNl94K4sFuuagn9cpYcDcuuuQ
+ vlExnjZuyVyjwyRWsx6aLF/3DkPgOippekurT7aeAmduUq/S8NNiAdm1cTArZufO39si
+ WPfQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUdoCk5L24D8oOLgZUSrzFvmpuqgWJJJZ3qsFyvYStZ9cQA9gVnTh9xZAWtyqRlAWVtuJkWCE3d@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxHjs6FATylfL8kJQfx/qsxX5v/TkbfTSNWtgnE0mo+XP4eJICx
+ eKNPi+jCYr96kMlltrmIOSwqhxLsFlZOZhA0mHzHrG9aeNrdQ71K+HHM
+X-Gm-Gg: ATEYQzxS5kMBlfNErodu9jS837dCxuo4Ud3LyTXRDNRXlqPVjYxAthJzG4Dl/qrquqx
+ To0F9IuOaR/xJ6xpeMns3BJg6cZQ4nlt/9IPd9YziZSUpn+N1VdyLlKnRF9Z9Ef0yJ1ug3VipXK
+ AYjJ+rQyRiKfPOaspyBRkYSs11u8qjo+vTbgLTE0Edc9Xi1S3bVbU157fizdPjbRSHtms+0WPf9
+ wT1OgUouTDzC8xUcfSmkNngpnDz750b+tVU9uixjjJ381tg9ln5LWd5O2Iv+m9J+eXad6n852Eh
+ 4dZcMvILV3JF3UveDfqqFgzJG7dbxZT/xlTVN7KaI7DE9lSxnYfl9K3+TjEAV/+k77n4aWST7uM
+ QHJ1suPH6afUmvIJzajgZvDW+L7XcClo0qB0YoFd1GOZgBQR+WT0UxxcTdmvxsFXyRPZnJVTkNi
+ ABWh8owbdmPMYkQHipxbG/W7IMj+5PQ4jKFoJ+UunDEn+OAq4Jp41BlJ8=
+X-Received: by 2002:a17:902:e5cd:b0:2ae:c907:85e6 with SMTP id
+ d9443c01a7336-2b0cddb3827mr4478145ad.50.1774568861439; 
+ Thu, 26 Mar 2026 16:47:41 -0700 (PDT)
+Received: from ryzen ([2601:644:8000:5b5d::8bd])
+ by smtp.gmail.com with ESMTPSA id
+ 41be03b00d2f7-c7673933816sm3201162a12.21.2026.03.26.16.47.39
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 26 Mar 2026 16:47:40 -0700 (PDT)
+From: Rosen Penev <rosenp@gmail.com>
+To: stable@vger.kernel.org
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@linux.ie>,
+ Daniel Vetter <daniel@ffwll.ch>, Harry Wentland <harry.wentland@amd.com>,
+ Leo Li <sunpeng.li@amd.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Bin Lan <bin.lan.cn@windriver.com>, He Zhe <zhe.he@windriver.com>,
+ Vitaly Prosyak <vitaly.prosyak@amd.com>, Alex Hung <alex.hung@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>,
+ Mario Limonciello <Mario.Limonciello@amd.com>, Ray Wu <ray.wu@amd.com>,
+ Wayne Lin <wayne.lin@amd.com>, Roman Li <Roman.Li@amd.com>,
+ Eric Yang <Eric.Yang2@amd.com>, Tony Cheng <Tony.Cheng@amd.com>,
+ Mauro Rossi <issor.oruam@gmail.com>,
+ amd-gfx@lists.freedesktop.org (open list:RADEON and AMDGPU DRM DRIVERS),
+ dri-devel@lists.freedesktop.org (open list:DRM DRIVERS),
+ linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH for 6.12 3/9] drm/amd/display: Disable fastboot on DCE 6 too
+Date: Thu, 26 Mar 2026 16:47:10 -0700
+Message-ID: <20260326234716.16723-4-rosenp@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260326234716.16723-1-rosenp@gmail.com>
+References: <20260326234716.16723-1-rosenp@gmail.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000EE36:EE_|DS4PR12MB999077:EE_
-X-MS-Office365-Filtering-Correlation-Id: 87f44462-0d8b-4b57-3a6c-08de8bed3537
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|36860700016|82310400026|13003099007|56012099003|18002099003;
-X-Microsoft-Antispam-Message-Info: zzfGnMOkIjsZo2wjTCYLQxH+X8G47IOVTdPYeqKeq1Kf2zUFJnH+QqnS5nCjTBiDi0OTcxZ30Xvl8hv3/ikRhCejwmPD0fLj7vVDrkEAdmgLSIswurDH+ByMkARmYacy6dGg6Ks+5PywD3VMoz6xMlrR4ATxakz8BG/1yRAL7cozGbYJbBd4+NjfwE0vo9ZUJm09zP/MQdRL8WoiV23pbCfIWuez7oFtgSdTLIJCOqw8kJ+YxZVcXBr9FZODCUzJBUEx7jEPsZX7mkueOxsUAAEGttcfNapsAmUAUGa1s8Nq+4SYAYXGpOgccr8XbLlvNfYzsdUtZGN7JU7RQddfdMonAisQhTOE1gjgEswdN5yIRvSDdlgK2hXcHd0cyykI0k6lblLfk0idOp8RgOxj0DWdwdF+W4xkv6LeBGu9h4mlQY1SO1zUYk/YfAGJQjZ4gn6PrZzPA2DBfcbNh6kEFcctPV0DB3xCMG77kN+p/jFYlHGdBX/s0IbLTnessIjza6a/IgDFVHYgus0UN1D+enxvsa968tPAhtp4M9WskmMTvdhAaIjgyD/eMroHFOel57rzoiPCHslnG+lhYKG8egpoLuN3xprfvsWnMrhuxDpmlVk/YXeQm2W5PqIDlAC2lgtDwz4MMpzostkPfcj10bWXnko4HPm82fqZWyAwyyGIHE3fq323RpMbqPrCnON8HF2wcm0pqCPocs4cjRbSe9dPMs0+d5by1MK7ZsYzph8=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(36860700016)(82310400026)(13003099007)(56012099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: DxT8mlG+XVR3AcGPGYB2LXCYybpTscxEwv6s8FGjh34PdL+IM5vQvz8Sbi6PvOTH6ch8pvF3DuIAtjLR0obEHD9c29PiPAID0Mer4b9kuK+pgQKfpw5ZtMuISV0Y/Tmx9lVySHLeq6cmW2DJK4woeF+YipB2M51qagaTZom2R6JRUoiblB9fqficyWX2eaJ9F7RDMhqZDuZoHbp598nsC36OonmXtbCeMCKrwLYZ6NLiNTq/wyJZdmChwXSYZ5Fk2zNkfBNvRO/XEgNr1TaJmQnrJ2lqgruSN0NiTVZNPZpBXM0ic9vFt/knWHcuwPke+PWh8Huhi/B/ZTeLDITC9DW47Nws78URVeSAs5rUbgL1+EoGAW+ttyzDGbcy1j+T3cQF0cn9YWRaP+fbegZ1qnoJXt/ltv2+3lVoJ60mgxuOXmGh2L//yygsjM/eILjr
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Mar 2026 10:40:04.8893 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 87f44462-0d8b-4b57-3a6c-08de8bed3537
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000EE36.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS4PR12MB999077
+X-Mailman-Approved-At: Fri, 27 Mar 2026 12:40:00 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,51 +105,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-For a mode-1 reset done at the end of S4 on PSPv11 dGPUs, only check if
-TOS is unloaded.
+From: Timur Kristóf <timur.kristof@gmail.com>
 
-Fixes: 32f73741d6ee ("drm/amdgpu: Wait for bootloader after PSPv11 reset")
-Closes: https://gitlab.freedesktop.org/drm/amd/-/work_items/4853
+[ Upstream commit 7495962cbceb967e095233a5673ea71f3bcdee7e ]
 
-Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
+It already didn't work on DCE 8,
+so there is no reason to assume it would on DCE 6.
+
+Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
+Reviewed-by: Rodrigo Siqueira <siqueira@igalia.com>
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+Reviewed-by: Alex Hung <alex.hung@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 8 ++++++--
- drivers/gpu/drm/amd/amdgpu/psp_v11_0.c  | 3 ++-
- 2 files changed, 8 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-index a44baa9ee78d..8ed637f92322 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-@@ -2683,8 +2683,12 @@ static int amdgpu_pmops_freeze(struct device *dev)
- 	if (r)
- 		return r;
+diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
+index df69e0cebf78..7dc99c85b8ea 100644
+--- a/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
+@@ -1910,10 +1910,8 @@ void dce110_enable_accelerated_mode(struct dc *dc, struct dc_state *context)
  
--	if (amdgpu_acpi_should_gpu_reset(adev))
--		return amdgpu_asic_reset(adev);
-+	if (amdgpu_acpi_should_gpu_reset(adev)) {
-+		amdgpu_device_lock_reset_domain(adev->reset_domain);
-+		r = amdgpu_asic_reset(adev);
-+		amdgpu_device_unlock_reset_domain(adev->reset_domain);
-+		return r;
-+	}
- 	return 0;
- }
+ 	get_edp_streams(context, edp_streams, &edp_stream_num);
  
-diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c b/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
-index 9aa988982304..fb7aaf5ae05c 100644
---- a/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
-@@ -170,7 +170,8 @@ static int psp_v11_0_wait_for_bootloader(struct psp_context *psp)
- 	int retry_loop;
- 
- 	/* For a reset done at the end of S3, only wait for TOS to be unloaded */
--	if (adev->in_s3 && !(adev->flags & AMD_IS_APU) && amdgpu_in_reset(adev))
-+	if ((adev->in_s4 || adev->in_s3) && !(adev->flags & AMD_IS_APU) &&
-+	    amdgpu_in_reset(adev))
- 		return psp_v11_wait_for_tos_unload(psp);
- 
- 	for (retry_loop = 0; retry_loop < 20; retry_loop++) {
+-	// Check fastboot support, disable on DCE8 because of blank screens
+-	if (edp_num && edp_stream_num && dc->ctx->dce_version != DCE_VERSION_8_0 &&
+-		    dc->ctx->dce_version != DCE_VERSION_8_1 &&
+-		    dc->ctx->dce_version != DCE_VERSION_8_3) {
++	/* Check fastboot support, disable on DCE 6-8 because of blank screens */
++	if (edp_num && edp_stream_num && dc->ctx->dce_version < DCE_VERSION_10_0) {
+ 		for (i = 0; i < edp_num; i++) {
+ 			edp_link = edp_links[i];
+ 			if (edp_link != edp_streams[0]->link)
 -- 
-2.49.0
+2.53.0
 
