@@ -4,64 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A7BE410A88E5
-	for <amd-gfx@archiver.kernel.org>; Fri, 27 Mar 2026 12:40:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3756C10ED67E
+	for <amd-gfx@archiver.kernel.org>; Fri, 27 Mar 2026 12:40:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4621310EE1E;
-	Fri, 27 Mar 2026 12:40:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B669510EE16;
+	Fri, 27 Mar 2026 12:40:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="q7SaHxTh";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="iUCWAdEA";
 	dkim-atps=neutral
-Received: from mail-oa1-f46.google.com (mail-oa1-f46.google.com
- [209.85.160.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 604D010EB43
- for <amd-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 18:54:41 +0000 (UTC)
-Received: by mail-oa1-f46.google.com with SMTP id
- 586e51a60fabf-4152698e745so497331fac.1
- for <amd-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 11:54:41 -0700 (PDT)
+Received: from mail-oa1-f44.google.com (mail-oa1-f44.google.com
+ [209.85.160.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 797CD10EBF0
+ for <amd-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 18:55:59 +0000 (UTC)
+Received: by mail-oa1-f44.google.com with SMTP id
+ 586e51a60fabf-41c0aae84e5so971201fac.3
+ for <amd-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 11:55:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1774551280; x=1775156080; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1774551359; x=1775156159; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=vld9IFfyvePqt5M1J9/OwioGOqjnLV2rFk+KzTunpXM=;
- b=q7SaHxTh7CfuOSjmFHrwJ5Ge22mn+MYijaUWx6/lV2YxeJgV4oMzqBBtBokfRKhj3D
- MOL7OHE8gtcvhqxMgowHrB804KrIAO9bZWHRx4voIk5UmQQ3J4MKJvW2FsWD1RqPzEt5
- gPjIsxEh/WSXBr2SoaKMFLL6jBYxeASnYwyTNvMGV3yuQsutLJgFvfggngz8xu+BZ57S
- 4qA0Z15Ujb4AscWPIyGAosoOP2zKNo78P3lrGQglztMKTKjeeYhyx2D4mH6g0dlc8I5A
- JcDIFapbiqfE8ETsV7nKuZQy+ifx7buDPHTQ8FrQ/HKbdf6tMj5AoGjutTl14y2AisiZ
- ouUg==
+ bh=TGwHOHakhEHhnxVqmZq5DXxfR0MylvY9XafKKBqzVj0=;
+ b=iUCWAdEAO1gVfN4+XaMQq4vLDknq2x2vA66IcR8iNK0Etrr5URWKtVnhnhgskqXtJg
+ 6F2kvkc7x9hNhr5hAet7NCQW/3vGIDFZjUrZdYktGDUPy8fHsgEl39P2n2jMWAcal7RJ
+ EPhqh2Ao0R2GwF9m3zOvhw6uOmXhMj/+MbiEFELbVi/KsSpfRt3e8VTdIpJmxdcP4eb9
+ gTWAHEZ+yo+CTj2JbNfVrDx3KZ0XAtzYib8iZQKoWZ8aSyEpZf+iL6swukJ0fu+unndc
+ bYdEYRW0vNlhobK3FQpjL6Tw91GINx7u/ZunMZ8OsRKfgI5uIUoCtCx3ZRe4W/SKiU2b
+ DtZw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774551280; x=1775156080;
+ d=1e100.net; s=20251104; t=1774551359; x=1775156159;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=vld9IFfyvePqt5M1J9/OwioGOqjnLV2rFk+KzTunpXM=;
- b=PeZwIa4OIh0BMHXvBKWAF8Uk8j98iwOlwH4tn4vSfUl1b4cHCtzLDxfcJ4JdtvY6jE
- YMMdMj8miWTGhtimauXhgvz4zCBW6OhN8wf+91Qk/qWdeYRPvCnzGrVj7iFrHRua4eRM
- 2ZMvpsIjtxhwmqrrEDg+CIlP8oAqfykwt6Xz5cm0Ee7ODO4TBdciLD2xuLpZegSNBkXg
- ZPdwzAR6UObDBAMCxOirTA5kl7ezarcME7VwFfeBqcDlYHqbplPrGAdRWcMICZDKCsGK
- yg1F5t+EJF6NibCZmXD6+oLaWaX2WHhj7lbc3osLInfhW0KbuLwatULw10PBNcf5qaKG
- vhlA==
+ bh=TGwHOHakhEHhnxVqmZq5DXxfR0MylvY9XafKKBqzVj0=;
+ b=UP89B0Ye7BBe15uXTkKTgPfDqICWlu57zW5HRj25sDCemKrJVi6hG2fdMwwoEd36We
+ wMxoexKaLTjfdIOODwJdsNAVFfKhmO+Y9DD5v85rACZiDfoBx8RuXZCeK0OAtdnJcRvR
+ /1+OC3K+XmUQD06ycGcPLHN+TKXSNFQ0Bw/3iFwQHbNRif/yCfBv0V/miHtFidjbUXGe
+ LwOGtsiBJDMpSdEzy94LuqU+B4Idq7oKTNpV4ImR/kARE094Y4EW7oFxh0Yqbr9lEB0U
+ jmkBXU/RR+RQ1oBGFQp3oyrGIUHqKamukiXoGVgzZN84JrKCjWYhcfdwA+8vCG0NXgHT
+ oRJg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWZXmPo+I7ygESpjALtHhwALSZ32UWdWbUcOJD3kmUW4jH6WY9lGv7xMghFgvRm7tJ4vAlA2iXJ@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyQEkocoYT1NgkbJxf6OpCIJ27MLdH3gIcCiif+Xv1QwA0izu83
- KN8zAAg7OC/8gTKyUyrSuGllu5zM5PDOMO9IZEC83Aykgfi3JeenOJJI
-X-Gm-Gg: ATEYQzzBbUhkmhrQAmwtNQ/kHQiKGGS/4mGqvgIwkA5VMEUbVteeMk8ZRNi/NbJQyv2
- BmQaFjZAiAog4esBH4mVhgThE3AkSc4AcyiPZniydpkavmYGt+WLniFuqECObq+5wztBhD/g+wy
- FdZiuYMBHhJf58Fze+JJXemkmczTg37MSknKF7JGcm7iRYP9tB4crZyL6ZX8i2yRRNqpor8l9PD
- j5+kMo6CHn+49j3fbSRR39sRT6zHaVOfM553CyIuMpnStvotjQ+9jhGjXjof1ZxzlqdvRKIe8FE
- wPIA3sg8n5mVfjt6cBwyuUXuCV0cxsYjHAgdpJgEnb6A8Fb1/Cq92OIrLdErEiSMnsivxQA2XkS
- U7Q1pS/Qyb3HvIyi/eysZ/9Te8pTgKkK7EaWJTpLD6yroL20JliC/g/ZTZ2/Vn2E2TbB4wMeTEH
- wWX7h7uiPwzViQGQIFdftIuqaPCubQRZg2sVwX+cPH4uUE6AT5
-X-Received: by 2002:a05:6870:2e93:b0:41c:b780:93c with SMTP id
- 586e51a60fabf-41cb780158emr4151613fac.8.1774551280220; 
- Thu, 26 Mar 2026 11:54:40 -0700 (PDT)
+ AJvYcCXtXB6SmklaIl3018gyPLsT3I6yze5Fb1pxTnJzplMF1O+ikDvZKYA2FfOy/B/Yzp1f+qQcMhbu@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxHEceLaInNIc8CqponplDHzW/YOP4TJvzigyY+jrKiDKMjY3+r
+ HnNJ0l+9MnpfbyzNnrkcHg7FLEY96wkqQDBX7sIKrPlcY8RVFLLP9T71
+X-Gm-Gg: ATEYQzywO1QJioLZVvAzowU+FsFQUZMF+NhoohaffupdEzVSg30jN8pz9QLPRGWLILH
+ PedN28rq3i0GS7wz/NRo/92AaR0POdlPdqyLGw9p+s+8yPvzeyY+bOw+dbCFhYngEbzr6rYdRHt
+ VmNpBKY4nGBENd0EE0CdU6UWc9yO7bu8eDxCcmYAToNvwqsRncDm66FgtC0osI1gXQVWCGo0eEL
+ Zcnj2vm0lkdnObCKSPpZs824pTUIq69+1FCigsiHjKKUKy/fujBmn0OEMg7jCfvgsRhw3uLTPhW
+ R//tVIynJGBlnz6Bu8cL4eJDOkC7FQYTCoQa+T3d9eopM/UfVtRgS8x+/4BbTbEXVegUXw8WYxO
+ RgxTquRGYGjnpyZMijnUseh1QpXvOqQ/Al6qhaYH1UZhS1C2Sbxwwu3Nnc53aTInBLLc17H3vaE
+ C88/eWIWUGxQ8tloV0AqEDKc9nqH0ws/+nrJJ8vaegHd80Jkws
+X-Received: by 2002:a05:6870:458c:b0:416:32c1:4276 with SMTP id
+ 586e51a60fabf-41ca7005de9mr4737216fac.28.1774551358609; 
+ Thu, 26 Mar 2026 11:55:58 -0700 (PDT)
 Received: from frodo (c-98-38-17-99.hsd1.co.comcast.net. [98.38.17.99])
  by smtp.googlemail.com with ESMTPSA id
- 586e51a60fabf-41cc7760c08sm3075171fac.4.2026.03.26.11.54.38
+ 586e51a60fabf-41cc7760c08sm3075171fac.4.2026.03.26.11.55.57
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 26 Mar 2026 11:54:39 -0700 (PDT)
+ Thu, 26 Mar 2026 11:55:58 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: linux-kernel@vger.kernel.org, airlied@gmail.com, simona@ffwll.ch,
  jbaron@akamai.com, gregkh@linuxfoundation.org
@@ -72,9 +72,9 @@ Cc: jim.cromie@gmail.com, mripard@kernel.org, tzimmermann@suse.de,
  louis.chauvet@bootlin.com, skhan@linuxfoundation.org, pmladek@suse.com,
  ukaszb@chromium.org, dri-devel@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-Subject: [PATCH v12 07/69] docs/dyndbg: update examples \012 to \n
-Date: Thu, 26 Mar 2026 12:53:11 -0600
-Message-ID: <20260326185413.1205870-8-jim.cromie@gmail.com>
+Subject: [PATCH v12 57/69] drm-dyndbg: add DRM_CLASSMAP_USE to vmwgfx driver
+Date: Thu, 26 Mar 2026 12:54:01 -0600
+Message-ID: <20260326185413.1205870-58-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260326185413.1205870-1-jim.cromie@gmail.com>
 References: <20260326185413.1205870-1-jim.cromie@gmail.com>
@@ -95,55 +95,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-commit 47ea6f99d06e ("dyndbg: use ESCAPE_SPACE for cat control")
-changed the control-file to display format strings with "\n" rather
-than "\012".  Update the docs to match the new reality.
+The vmwgfx driver has a number of DRM_UT_* debugs, make them
+controllable when CONFIG_DRM_USE_DYNAMIC_DEBUG=y by telling dyndbg
+that the module uses them.
 
-Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
-Tested-by: Louis Chauvet <louis.chauvet@bootlin.com>
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- .../admin-guide/dynamic-debug-howto.rst       | 20 +++++++++----------
- 1 file changed, 10 insertions(+), 10 deletions(-)
+ drivers/gpu/drm/vmwgfx/vmwgfx_drv.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/Documentation/admin-guide/dynamic-debug-howto.rst b/Documentation/admin-guide/dynamic-debug-howto.rst
-index 095a63892257..4b14d9fd0300 100644
---- a/Documentation/admin-guide/dynamic-debug-howto.rst
-+++ b/Documentation/admin-guide/dynamic-debug-howto.rst
-@@ -38,12 +38,12 @@ You can view the currently configured behaviour in the *prdbg* catalog::
+diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_drv.c b/drivers/gpu/drm/vmwgfx/vmwgfx_drv.c
+index 0f101aedb49a..d877d0a8c830 100644
+--- a/drivers/gpu/drm/vmwgfx/vmwgfx_drv.c
++++ b/drivers/gpu/drm/vmwgfx/vmwgfx_drv.c
+@@ -259,6 +259,8 @@ static int vmw_probe(struct pci_dev *, const struct pci_device_id *);
+ static int vmwgfx_pm_notifier(struct notifier_block *nb, unsigned long val,
+ 			      void *ptr);
  
-   :#> head -n7 /proc/dynamic_debug/control
-   # filename:lineno [module]function flags format
--  init/main.c:1179 [main]initcall_blacklist =_ "blacklisting initcall %s\012
--  init/main.c:1218 [main]initcall_blacklisted =_ "initcall %s blacklisted\012"
--  init/main.c:1424 [main]run_init_process =_ "  with arguments:\012"
--  init/main.c:1426 [main]run_init_process =_ "    %s\012"
--  init/main.c:1427 [main]run_init_process =_ "  with environment:\012"
--  init/main.c:1429 [main]run_init_process =_ "    %s\012"
-+  init/main.c:1179 [main]initcall_blacklist =_ "blacklisting initcall %s\n"
-+  init/main.c:1218 [main]initcall_blacklisted =_ "initcall %s blacklisted\n"
-+  init/main.c:1424 [main]run_init_process =_ "  with arguments:\n"
-+  init/main.c:1426 [main]run_init_process =_ "    %s\n"
-+  init/main.c:1427 [main]run_init_process =_ "  with environment:\n"
-+  init/main.c:1429 [main]run_init_process =_ "    %s\n"
- 
- The 3rd space-delimited column shows the current flags, preceded by
- a ``=`` for easy use with grep/cut. ``=p`` shows enabled callsites.
-@@ -59,10 +59,10 @@ query/commands to the control file.  Example::
- 
-   :#> ddcmd '-p; module main func run* +p'
-   :#> grep =p /proc/dynamic_debug/control
--  init/main.c:1424 [main]run_init_process =p "  with arguments:\012"
--  init/main.c:1426 [main]run_init_process =p "    %s\012"
--  init/main.c:1427 [main]run_init_process =p "  with environment:\012"
--  init/main.c:1429 [main]run_init_process =p "    %s\012"
-+  init/main.c:1424 [main]run_init_process =p "  with arguments:\n"
-+  init/main.c:1426 [main]run_init_process =p "    %s\n"
-+  init/main.c:1427 [main]run_init_process =p "  with environment:\n"
-+  init/main.c:1429 [main]run_init_process =p "    %s\n"
- 
- Error messages go to console/syslog::
- 
++DRM_CLASSMAP_USE(drm_debug_classes);
++
+ MODULE_PARM_DESC(restrict_iommu, "Try to limit IOMMU usage for TTM pages");
+ module_param_named(restrict_iommu, vmw_restrict_iommu, int, 0600);
+ MODULE_PARM_DESC(force_coherent, "Force coherent TTM pages");
 -- 
 2.53.0
 
