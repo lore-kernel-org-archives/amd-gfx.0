@@ -4,123 +4,170 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AEF7A109E546
-	for <amd-gfx@archiver.kernel.org>; Thu, 26 Mar 2026 04:37:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1338B109E54B
+	for <amd-gfx@archiver.kernel.org>; Thu, 26 Mar 2026 05:51:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4A12C10E94C;
-	Thu, 26 Mar 2026 04:37:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A2C1B10E94B;
+	Thu, 26 Mar 2026 05:51:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="4bW8bBYB";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="T+WIPRxd";
 	dkim-atps=neutral
-Received: from CH4PR04CU002.outbound.protection.outlook.com
- (mail-northcentralusazon11013054.outbound.protection.outlook.com
- [40.107.201.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EE83B10E8FA
- for <amd-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 04:37:11 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3799010E951;
+ Thu, 26 Mar 2026 05:51:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1774504314; x=1806040314;
+ h=message-id:date:subject:to:cc:references:from:
+ in-reply-to:content-transfer-encoding:mime-version;
+ bh=elkcOSlY7KYeLU2UX4Gc56blCttq9Nl7F/mufVaE+/4=;
+ b=T+WIPRxdMr0H3bZ8wDQRfA21I/ro/6EupRqUKlaSTV4/+qkz34y1YghB
+ AgE4VB9mJAv5KB5JSsydPjXyESxO1MRJreVRPzk4ceSZRdPlSsoyiVVSO
+ 1ZB0/FYymODqP7Kf4OrXgPgzeY1ei+LiY2wbDqf79HLLKqjiDZUlrtRqx
+ +oB3KzX7Ne4lZNSz+lMJ4bcEmdwGTwjm+yLfCQlXOaZzBHX7jD29EpzCd
+ BG4ZtyGTQQa0++oYcgnk2MNA/c74LQprZNaATAAWIGsVG1klSNwqi2i31
+ wr2MtWkrFwFW2xpgn4XK3+U/eVS1y/iNkkQsqEe+JyxapJ/M4+Hyi4OH0 Q==;
+X-CSE-ConnectionGUID: WbBH0ECZSc+hFXFtus4x8g==
+X-CSE-MsgGUID: pE1KBvrZRsaJP+3+MawSWA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11740"; a="93133122"
+X-IronPort-AV: E=Sophos;i="6.23,141,1770624000"; d="scan'208";a="93133122"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+ by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Mar 2026 22:51:53 -0700
+X-CSE-ConnectionGUID: W5fLoAElSSikGPoq1w/5FQ==
+X-CSE-MsgGUID: U4re5yk3Ss2Mi+ZciUiGpg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,141,1770624000"; d="scan'208";a="225155427"
+Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
+ by orviesa007.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Mar 2026 22:51:52 -0700
+Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
+ fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37; Wed, 25 Mar 2026 22:51:51 -0700
+Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
+ FMSMSX901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37 via Frontend Transport; Wed, 25 Mar 2026 22:51:51 -0700
+Received: from MW6PR02CU001.outbound.protection.outlook.com (52.101.48.11) by
+ edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37; Wed, 25 Mar 2026 22:51:51 -0700
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=vMH9GQuo6IaDHe71TSIlfwHHga0saZygIfvY305Lu7O14JDDsCe4BL9RIri2bGWNXuw04n+xgU2d7gnnTnmf6vpe0VCKmhCkOk0U0Z/4EyP1UkXjyCrVT69eMgt+DpBbnanKI+mqqsFH0Y4flh/OViNLnhrkzLE5R7q1xJjv1G3xw45T+F4TWBrkPIJRTtD9rKccJYjI6u/wY48fMg0Ia9wtyWrbCm0ZuTza6d2bdQRoGDjobRBqepuqOhcGkRDF9f1LIJR4ZLBLtEN0YWFzerFPj3UcoRXIKvT9o/+fL25cKEBOzPHx2xFZZjHtc1zTqDlhg6D29ixDaC7uUnhLLg==
+ b=IVGGmvmLT9n9BYnHxhgB4TmAbXS3DzWte1K3Zn4+zt03lp3iQ7WLJmh9jp6f/53Z8psXXDFt9n7VSlt44/PUTEJc9d+szHKKAQtDQFpuWhWXqVFdQz8ZTllfLqoJx3o9COELhmdVOn0KoL5z2Hp2yxdup6Ne619ScqbwgwcvCxNlsTr0bZIpui4eV77YItBhwZYaFYLaZ8y7EKbfZFNf5RmQlsVKq4oRKpULIq78SSUJxXgCa2cXbqWH1J6XmI0+hYimMbTPVQ4RP8U8ClKRFPqM3lo8AWZAKchMAqJ6udllQjO6ku04EHuMHUSZG2i6gZY9/tA0ee+SeaooDdAeSw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+CTn7v1JjdHHKOxgpno2s/pG0ITQCqapjzKaENgA2iY=;
- b=mAItUO2T8A8Td/3pTgeg37rQIidNreqVP3OTmyq5wuG+Twr4p88Jkj29yJASg0whrUmiTMKjrqjujiWBNvD2pz57MlygfcYJEd/9R1VJyKMqalV3ZMTdeNKndboeTNgJHgHxnSjUb/CdnKJVaNV391e/5BX1fKCsUoblrVd5L0pZPOHqrtqckvlRLFLp7vyeaFJfLqFioHZGJHcHX+nW9xZ1Px053qcJ4ejt4ea1FO/ZnhhtIrcowmqj9W0h64Ni8S7mygFYoaBeZSo+jcI1ku/BVxnREeHuwVZ1fBf7cvdNwiRTltH6n8wZZ+0srAEWQYOYRw2UXZKs5SAcz8p2Ng==
+ bh=WJDBXPmHAKpfx4pd/SJU9KK5+fJu3pCIzrDCiak13Q0=;
+ b=FZhUIR3l59fS0suxMGH/UIXYDwJKrGXJ5gD4mfAM/4b9nVNP3rTVvokBxdZGc4wc/xhhvYpHU/H7rxFsQTNBIc2t/XFIP1Z3JRmhKYNMvDcz1gXC7flBomFjv3xYEhhpRvD2pgP6jACgnCQ5oAY5tHHses3j4Fgf/kL5GvI6/M3pYCgHukVAhxxIdcQI16TpekPBIrOJot1+Zz45ZWErbjrp/g3c2v+CMyuMvlW3rYEj8aQaWrETZcYoN+EhCwp2A2Cn/kxObovl6lRQosN+1wMPjGY+QUL1ZY1FkuAsYvHVgP9YQDmztndrRh2hxQRv8V2b7dapywTQxiuPW0AnFA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+CTn7v1JjdHHKOxgpno2s/pG0ITQCqapjzKaENgA2iY=;
- b=4bW8bBYB6cQqQztF2h7NNe80ODPQiul6/FRIdlIUgP3/7vuGlHHlLowH6esOnHIhUZMkcb4Y8OMB6rcUmllFoY19PLP70pTfRlQ/JayS4BnIBkzULShBBOeka1Io7UGX/oD2QDPLTEcN+L/TES2AcUpLP0xWS6xz7UKOdW4/m2E=
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from SA0PR12MB7091.namprd12.prod.outlook.com (2603:10b6:806:2d5::17)
- by IA4PR12MB9788.namprd12.prod.outlook.com (2603:10b6:208:5d5::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.15; Thu, 26 Mar
- 2026 04:37:07 +0000
-Received: from SA0PR12MB7091.namprd12.prod.outlook.com
- ([fe80::ec33:1213:cfd8:63bc]) by SA0PR12MB7091.namprd12.prod.outlook.com
- ([fe80::ec33:1213:cfd8:63bc%6]) with mapi id 15.20.9769.006; Thu, 26 Mar 2026
- 04:37:07 +0000
-Message-ID: <a35ca9d5-354f-4b98-a186-3a4797176b55@amd.com>
-Date: Thu, 26 Mar 2026 10:07:01 +0530
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from SJ1PR11MB6129.namprd11.prod.outlook.com (2603:10b6:a03:488::12)
+ by DM4PR11MB6478.namprd11.prod.outlook.com (2603:10b6:8:89::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.20; Thu, 26 Mar
+ 2026 05:51:43 +0000
+Received: from SJ1PR11MB6129.namprd11.prod.outlook.com
+ ([fe80::45f:5907:efdb:cb5b]) by SJ1PR11MB6129.namprd11.prod.outlook.com
+ ([fe80::45f:5907:efdb:cb5b%3]) with mapi id 15.20.9745.019; Thu, 26 Mar 2026
+ 05:51:43 +0000
+Message-ID: <dbb27ec4-cdc6-4ead-9daf-664d97e86cd0@intel.com>
+Date: Thu, 26 Mar 2026 11:21:32 +0530
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amd/pm: correct mem_busy_percent display due to
- calculation errors
-To: Yang Wang <kevinyang.wang@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: alexander.deucher@amd.com, hawking.zhang@amd.com, kenneth.feng@amd.com
-References: <20260326020445.1187519-1-kevinyang.wang@amd.com>
-Content-Language: en-US
-From: "Lazar, Lijo" <lijo.lazar@amd.com>
-In-Reply-To: <20260326020445.1187519-1-kevinyang.wang@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MA1PR01CA0175.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a01:d::10) To SA0PR12MB7091.namprd12.prod.outlook.com
- (2603:10b6:806:2d5::17)
+Subject: Re: [PATCH v2 1/2] drm/atomic: track individual colorop updates
+To: Alex Hung <alex.hung@amd.com>, Melissa Wen <mwen@igalia.com>,
+ <airlied@gmail.com>, <alexander.deucher@amd.com>, <christian.koenig@amd.com>, 
+ <harry.wentland@amd.com>, <maarten.lankhorst@linux.intel.com>,
+ <mripard@kernel.org>, <simona@ffwll.ch>, <siqueira@igalia.com>,
+ <sunpeng.li@amd.com>, <tzimmermann@suse.de>
+CC: Simon Ser <contact@emersion.fr>, Uma Shankar <uma.shankar@intel.com>,
+ Xaver Hugl <xaver.hugl@kde.org>, <amd-gfx@lists.freedesktop.org>,
+ <kernel-dev@igalia.com>, Rob Clark <robin.clark@oss.qualcomm.com>, "Dmitry
+ Baryshkov" <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, "Marijn
+ Suijten" <marijn.suijten@somainline.org>, <linux-arm-msm@vger.kernel.org>,
+ <dri-devel@lists.freedesktop.org>, <freedreno@lists.freedesktop.org>
+References: <20260323131942.494217-1-mwen@igalia.com>
+ <20260323131942.494217-2-mwen@igalia.com>
+ <feea29b7-fb28-4ac1-be74-b42c52173c59@intel.com>
+ <197d2909-8644-4380-b752-ffef6f300faa@igalia.com>
+ <70d47573-a0cb-4f65-8838-1956f8a672fa@amd.com>
+Content-Language: en-GB
+From: "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>
+In-Reply-To: <70d47573-a0cb-4f65-8838-1956f8a672fa@amd.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: MA5PR01CA0134.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:a01:1d5::11) To SJ1PR11MB6129.namprd11.prod.outlook.com
+ (2603:10b6:a03:488::12)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA0PR12MB7091:EE_|IA4PR12MB9788:EE_
-X-MS-Office365-Filtering-Correlation-Id: feea7e1b-c2b9-4352-3294-08de8af155df
+X-MS-TrafficTypeDiagnostic: SJ1PR11MB6129:EE_|DM4PR11MB6478:EE_
+X-MS-Office365-Filtering-Correlation-Id: a11fbae3-d13b-4438-e984-08de8afbc218
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|376014|1800799024|18002099003|56012099003|22082099003; 
-X-Microsoft-Antispam-Message-Info: OrDgDkBdMkeBOkiTz81/yToO6zaceqse6nhZWUSwc5s/7J7iZ+vMewVYVSzDaJSB0Treu1aQqIZZA3imDNNdo+C6AcykINREAAJHZXzIs2Vso2UydURhT3Du6ovgy4aR20LrVlXLHQDNdD9flQfqFgUjwV3vi3qV5IbK7c1Gnv7kJRMqrHqRqnIFY8b7Ad1bWSxOdkDOCwgv+VtRnowtXAlLAEGQ2O9BGmuuzAGdKGu4jEEHtyr68n8WXwhVa+bF0wk6K56C3Vf9kOCv3mM2tOS1StEg9Ry26tO0DztPkdfsgAOIZBKdcMKCpj7u3DqFKafvIchOMWL9bJxzlVtC3J7VwV67m9Pok4Z9GpBx8gWXGT+GD7otUNcvp4ej1PUzVyXhrHX28+wNwN56w+hbGl+zh0/e6T+I3n+vh8CyEGP4b/YtEkyMK83U4ra2yRyn/KMzqhVdRYWrY5EELoNyyCxbBbk6TsJrWjDgcb3CGlg0D0FxeUjkIIPc9cM9cnjDOVfZJDSGfrnWgUFP02GpuZSiGWRuwT8U07Eey3xQE2dcIkqSCuffnwJyn8R+eFHaaq65eaXXnMbmtrj+5WGy6xgzOiKcNqLKX0zhZqmTHjktC9iFTSkrqeFq+Vgbohs20ezhTtFgLE7GNRl/mY8QGcWukITOJ4rc/VEDqWCpztHbBx5SXiN6jzjF8KjEXoi4
+ ARA:13230040|1800799024|366016|376014|7416014|921020|56012099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: mXr0dCyZAAnTdzczJtHYGkSE6X0Vo+UYK8iWD4sk1J9JuYIwmYNbJxKW55h+/+OpRJ1wrF78IuiePHyTKyQnHa1rw2QvUNkrWA1uoLHfJjvUf2n0f1FJgIpcxOrLRzk0//R1Rge6hT66DrM9ch3bMyLawnqu6H72A5y6xFVJlDmn1UcdC7qk+mDHK62GqqDggCTk2Y5cDRwRrpoLiVO2TXqjl74Kf5JzfztkBhcW5H5UJXAfq1wZsWNOOBsKFMpH5zfxsuDQUdp/UNnIykzWkO8CGJU/TRYQcWkZym75XPdYAumOaTtr4WEnTletyxTBQm0yK9fHp/IcqNgZ46iKiciQkYvbu0jlPA7jcmmfXCcAxpFOz8GVbZmIr/t5oYv5KnaxY+7d7AIBFWIqyjVjTt7U3teUTJrfHj1RU+FtoOpwgfjM++HdDoaEE0obDnWAz9/Bqf/np0eEenQaNYUUE2E7BXH1O+76OmKIReeMgtm18jSc4NlMb+Fn0xSc5QAfdkizFLjNmrqPYK4gm0qBQ0mECR08jck7OJZtzUUJjPb1TVIumtKGHF0QsQiPcNvc+9fBGeeLIXnSBjpNq2h/s2WMNCuHE3ujWb81mgVKobLx5UY2n4tS5l6NwnV8mAgmRSZMcg0oux23QnP1uBPSJtpsQXjEnpJXYvc7/P3hZ9whwKcJsX6SWtwQ/fMe+etDt9SDNMF6cde4sd/G74W+4lMFyXTKkfM7HAsfoSksPuYCeu1hxplN+a1yBXw8IxFhyPq/m7j9dpoLIEXMPkwC0w==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SA0PR12MB7091.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(1800799024)(18002099003)(56012099003)(22082099003);
+ IPV:NLI; SFV:NSPM; H:SJ1PR11MB6129.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(376014)(7416014)(921020)(56012099003)(22082099003)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NEtESnJFaUlteCtTYTV1WElmbVVuOE1BZ1dLMVllUS9VbmF4ZW5rcUdIK1VW?=
- =?utf-8?B?UEdhaTBhOWJ1VmlCSHJWOEUvKzNMdXNXcEVBc2hQVmxsRzdOTDM4L3NPZFl4?=
- =?utf-8?B?aFRFSVRBQlpVcC9PY0RMakFBb2RLajhxYVBCN2ZEN1E5MFo3ancraXF0b3R1?=
- =?utf-8?B?MEhDaFM5dDVwa01Zc2k2NDh3YVJKSDQzWHZ1UEVxK2o3Wk1oeUF4NFFuSWx5?=
- =?utf-8?B?aFR4YTEwbU4rRWs5ZmNOQUIxeXFKNElKVVpGZ25rQnZiU0VnVTZOcUl2S254?=
- =?utf-8?B?RDlEZWhxNzNxL1EwRjliWG0ySytWeWxhQWR5alRIb1BpN3IxSi9BQktmVlk3?=
- =?utf-8?B?c1JGTDdJaE85UDlaTHEvT3JZTWRuQ1VhRXJVUEdwdVdFOTZZcDdHcUJ5a29m?=
- =?utf-8?B?UlhsMUcyaVpOdkQrNTNqZmlseDVmL2FBbkJuWFQwRm9QUEZKOXo5bitPYUlW?=
- =?utf-8?B?VDF5N0k3VjNjUzlXb1FvU3Ewa1lKMFRuM1FNY21iQXFrTjRzK3RiTW1tWDBX?=
- =?utf-8?B?YTNkSVdObkdtSnMyUUxNQm9oRWZWbUtNUlZvNWM2SDQwY3lCZTVldXcxK2RF?=
- =?utf-8?B?RlE3WTNqN2hMQ1BTTkkvZWR0a1R4VVdsZWF4U09YOWVranU3czIwWGt2dTJ2?=
- =?utf-8?B?ZVcxNjJLU0VLQ0FtU3NBeUR6R09rWDhjSVF1clVHNGlRYjNyK3JxOVhYMFRD?=
- =?utf-8?B?MkpGZlpuT2pzZVBhWjVBVGZOMEVjZTk4KzBlQ0tlWmRkVDBQZEgzTnJqLzg5?=
- =?utf-8?B?RExsUE4wNTNKUzF2ZmlzWnF4T1ZBQ2hDRWZHK3pVNVVkckxkWTZqMUVPTW9q?=
- =?utf-8?B?ZFdwZVlIbnErN3ljMGdkRk85elgvYkI1MlFwRDU3Y0VsUm5qaks1azUyRkpY?=
- =?utf-8?B?MmRaNzErc3VjN3BaeE1NeGFzVE9aVUJocWRHT2RtRGR0Z1BwZFNqZnBTa2o5?=
- =?utf-8?B?eUFVMmgzazQwRXdlZmowMTl5T1NwdXgxa3pNSzkrRmNnSFhENENsTGdIdGNm?=
- =?utf-8?B?aFFOeHhTeFNTR2FFTE1wV2k2SnpKaTBNbTFpV25OZGo2N2NLWmp4SEF6Q1Ra?=
- =?utf-8?B?TkJHb0taanUybk5IenRLY0k2aFZycGFtTEhpeTM1b0M3VTQwMUl4WG9wSlQ4?=
- =?utf-8?B?ZDNCRXk1eXBUUzYwWncxRXYrSFc3anRXTkNrR0owMkNUSHJFdVVRWWlvLzNI?=
- =?utf-8?B?V093MHNJampWTUNTRnpaYVFDcUFCZUhJSnF4dHo4OVQ0d1owMCtwZWZwK0hk?=
- =?utf-8?B?SGw5bnQ4UUR0QmZHWW9MSmZaQmhzR3l2eXBpalRRVEhFd2pqdzlHdi9CY2c5?=
- =?utf-8?B?dU8raVFMeVIwVmY3NUxXOHVVRkdOQi83U1UrOTBFLzFTR1lPNlI4SllESHVS?=
- =?utf-8?B?dVFONEIyT2xNTlNqejNieEplNW1CT2Jad1JQTDJuYThoMnJpdHM4Y0o4dk5R?=
- =?utf-8?B?dW9Makt1ZWNVRjBLeitTajVMT2NuZ3g2ZlI4TTYrcUpPTnBkRG1URmZxNU9E?=
- =?utf-8?B?eHlTWE1WS1RBcWNiZ01GeEZYNER3TjRUM2dra0NXMEpsa0lya1N4MXJIVDFW?=
- =?utf-8?B?TnZLUnExblNsdi9kdDllOU9tQWpWZlU0TVh0dmJzUzRYRzg3Qml2Vmh0S2xG?=
- =?utf-8?B?N25pQjF6NklKd0htZ0VwWExpSkFTOUZYV3Q1RDlLazBUMEg5ZFY5VUlKb1BM?=
- =?utf-8?B?Y1BjNWNaR042V093YkR6eXRzdDV2S1l3aTJ3ZmQ3Tk5OZE5SUmxRWiswWVd3?=
- =?utf-8?B?WDA5TXEvOFdLRlBUQlBFbVBXMjFkY3htMkpEU3ZSYXhaWWFHdmVDaGoyZFRL?=
- =?utf-8?B?TUVmSFlFWmM3UUYvTVM1SEhQeTNxUXBXbDRBVTRGY0VFci9PS2VaWXBycDBq?=
- =?utf-8?B?cWpjZk5VZGU3NWtTSEl3WWhQSS9XdE9jYzNTMzRxMEo2TEp5YXFWZmZneWtx?=
- =?utf-8?B?QjVGNEE3eWFKTlhWK1RwZVdTUktOM05CMm1ZNS9hRUttekhHU1V2d2x3N1Zz?=
- =?utf-8?B?WHYrZGUzMmErNFF0SnA5SnNXbldvM2pqN2JmT21VWTR4Y0t6RjFSbDk2QUpj?=
- =?utf-8?B?a3VnK1RtajEwZHMzUjljdSs2T3VsV2ZYY2lTcFZaVnJBeVF5L2JoeW9mSDRS?=
- =?utf-8?B?clVYZFpGSCtxOE1GM05HSFF5MTAwTy94dWUvZ05uSGtTNHZ5ekRtTGpRQUFN?=
- =?utf-8?B?VkdoY09qWjlqcXNDcG1WRFd1dmhGZ0F3VGUveSs4VGZXK1NUYkhML1pCRXdy?=
- =?utf-8?B?dlo1bHZxSkFONHM0YlZ6aklObXMxYzhmTjk2dGNxcXdBWkdxZVZmTnE2S0tS?=
- =?utf-8?B?VFBCOTFWdXpxWDhUeWVTc0VaZU5sYnR4OUVKeVEyU0RZdmhlczFBdz09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: feea7e1b-c2b9-4352-3294-08de8af155df
-X-MS-Exchange-CrossTenant-AuthSource: SA0PR12MB7091.namprd12.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Z2dtZUUvek5WajF1dU1uWVhTdm1qdXdLRVVCb0I4bzYzSWZJUnI0dkJGYW1G?=
+ =?utf-8?B?WW1YVW4zTjEzMFpKT2dwRm9sZzExRnkzZnFIZXB3RTdWYnpDYWNHNWtCbTRv?=
+ =?utf-8?B?NGJGcTFWbXZGUitpOHQyU2w2TDJEMmFxUmxRek8vbU52WDFLTnNHcGtRU3J0?=
+ =?utf-8?B?MXlmSHh3amErMkkvR0dxbGpKTTRzU1V5Wk1mTStrSEo0YWdYVFZNd1M1Qkc3?=
+ =?utf-8?B?MlhZTEErbk40d2lqNVErb2wzU0NYNmYxOFlqcHE4UG1tOWowY2FHRiswd0F1?=
+ =?utf-8?B?UnRrQUhKVFkwdGlFSFpIYnRaZlFyTFUwS1JkYVVCRG5HWXRJV1RyUFVLZzVF?=
+ =?utf-8?B?NTg1NU1yRVNxait5TUFzSVhPMUU0M0Y3S1lUMkYzTHpLdjR0cEJjRlhQRTUw?=
+ =?utf-8?B?QTVhWWROajlNME10VVd3MFY3RWpxRDdEdEIxY285eHUxSjBJQ3h3cWpOVjIy?=
+ =?utf-8?B?Ujd4c0wxN0d4TVIvSy9aT0RjQVJxWXZ6RndJWWxqRUJnbUYvSEZiRTcyU0NY?=
+ =?utf-8?B?OVlrRFIxV29TRmtyaFBPNzlvK2ZnQ3lIemZrdWFVV2tqc3dRd1Vha2hRMlgr?=
+ =?utf-8?B?SmoySXdUV1I3TGoyNHFUTzRsRmcvempuc1Q0WDBwdmowbDMvbTl5WjVGR1Zt?=
+ =?utf-8?B?YWt2TFExcG9NUDAxYndBY25Ca2FKSUFaeGJ1eXFQaW9ldTYyUTcydXo3bVRl?=
+ =?utf-8?B?Sk43NzQ0cU55SGRSeFpzTzdHRnRCV0ZyY1pWNjI0RUtnN1FvY3hXNXhZYkkz?=
+ =?utf-8?B?VE5LNnorK0RJbTU5RmtSdEVCTUtpWG4xcFFqWi9aUWVoRDNoSEVDUXZpUzhI?=
+ =?utf-8?B?elBCTkxrNjNsdW5jVzFKU2FIQXlXNUt2dTBrc1J0QTBWSnBOQTdtcEZPbTlT?=
+ =?utf-8?B?dmFqTlhOclZ6aXRVS25DdlVZaHlkVWtINzNaRFZxK0U2R3VYdEwvcTNtb2Ns?=
+ =?utf-8?B?UzJVb3Jmb1g2eURiZStJb3BocU5DaU55Y01tb1JsaGZIQ1VqT3FTaWlIRW54?=
+ =?utf-8?B?MXhQc0k5aWFHMFRDVWk1WVBmeVZSeG5XMUl6SHlHbDVJTFBzR1pDN3ZhQThL?=
+ =?utf-8?B?QUgwdjN2amVGS0htRUJhb28yc2xObTZ1S3d4ZUxHc3M4eTBnaC9OWDNoVUxK?=
+ =?utf-8?B?VS9rU3lKZnI3QU9hSWJwckd1ZmxKdUlpRmYzQVdDQUVUUVlxaHlIMUptR3JO?=
+ =?utf-8?B?M3Zadi9odUkvdHk3OGJuTmlSaHdzcFRiQnYxWGt0c2p0R29CdjVFNWc0Wmlq?=
+ =?utf-8?B?cjNTb3RpeUVDaWxPcVc4blQyLzBrVys4VEtvUHREWnV2NzUzbTByT0VaNy9u?=
+ =?utf-8?B?dTMxL0Eva05jVGVQTW5jNW4vY2dmVVVLMkUrUTQ4a2gwQjU4SjlwWUlQcGFR?=
+ =?utf-8?B?REE0V3ZOUSt1MWRObnErbURrOHJkTHJoRm41Qnlsekp5ZUtNMFQ1M3Y2eTdh?=
+ =?utf-8?B?TnNGM1pmcURJZ0c3aGlUU1VoUmxQNVcyNU5Ub3prZ21XSzhkbitVem5IZDlS?=
+ =?utf-8?B?ZmxHbmhPcG05ZFFJdWh5emw4UjJpWmllbVllK2VKLy95MjEzRVZkSHhTM1Nh?=
+ =?utf-8?B?MHNxUEJFOFV3QmdDYTEyZEh0eE1JWHVBYVdXVE5rL0dZdVIwcmppZUtDQXlV?=
+ =?utf-8?B?TUZ1eUVLS24vN1hUWXVMYjRQQ0ZrUVdDbUswb09PNC9rem5Xc0lOdWE0bThW?=
+ =?utf-8?B?dVhBaG1UbjZ6V2VCelhDSWpDZ2tCcXZkRzlnRjgzVS9SdG1wTGt2ckFwdVdW?=
+ =?utf-8?B?ODlBV04wR2RMbEQwZS9nbEVVVjFNeGZlbXFFdWNlUmhranZwN1RHb3czZ0hC?=
+ =?utf-8?B?WUFYZ0tJY3Y5K0VvS05uNVI1cEQ0RjdhY0VwK2dVeXhWR1ZUbjlaYjlyQ1BE?=
+ =?utf-8?B?bW1SbGNKS2J0MmViRk5Ub1lVQzJWNnhjdkE3bm5LczBpSkdJcGJ2WmVCSDFy?=
+ =?utf-8?B?MmJsYkltc2JJMElzRm5XK21aVTJReGoxR0c1QlFqWWFVSjBOQVUwbXVPZ3dZ?=
+ =?utf-8?B?UXJ4OHJqZGpVQXdMejAyWmNzc0ptWWlPUDFhWERjanVNTDBPN0ZJWnRFSVhh?=
+ =?utf-8?B?SnptY0NsTnFlQksrRmhBaVA5eFZTZ1VjRlpxNE9STGloUCtGU0pJUmRYczFP?=
+ =?utf-8?B?MXFWMHRoM1FDMzlYQUVUUkdZVis5QnJrck1qUmUvRmhkQlhmNlJ1enR6Z1Q1?=
+ =?utf-8?B?d0EvcWF4QkZwRlgyZjdOeTFVemVuam1BKy8xTW16d3JLTUJMbmt4c3VOeFZT?=
+ =?utf-8?B?cUk3ejdMN2x2eTgrcXphajVIVGdOemhIclJkZ3IwZmxTQm5zbzMrSXpkcWFQ?=
+ =?utf-8?B?cDUrT01lWjZOaUhWR01XNnY1UHg3b0tKT2FITGVSTFl5SU5jS3BuVms5TFhX?=
+ =?utf-8?Q?ibOuX9rwshiJeXtI=3D?=
+X-Exchange-RoutingPolicyChecked: lIKSZGjPtfAcGTpmKlkaJmddO1TUkGv8ZCHDm1fFwO3xbvvpwilAJyuB2+cR+uk+UGUzXNUfqWubbbYvnn1taorIvPnL9X2AFHHfgIOhAwJr1ad2ttSeoVN8V1kTSKbJQqUxHRbR1Czu9W6qz9MsD5v4PVj3v8h36mXdoM+L70FSXjrWsGYxGfNTsrrmte3UYiYT+T2XMNirqw3FeHfGLS0tkVL2sT3l5gTfhEb32QFV0IKX1WWWSwZ8Ay4PRZgI2sEJlJlO49JYlkiperd6PrGzWFe4d6WbdU8qfu5axoXGt+F2VAIdNuXxqFgS5lAUEQFVCjdVFv4SAehAaetFqQ==
+X-MS-Exchange-CrossTenant-Network-Message-Id: a11fbae3-d13b-4438-e984-08de8afbc218
+X-MS-Exchange-CrossTenant-AuthSource: SJ1PR11MB6129.namprd11.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Mar 2026 04:37:06.9773 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Mar 2026 05:51:43.3996 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 5zrUDRBee45jvKCjLJD6uC7tLSS5w/fVMt4XblIdQ7KA+WUYtqq2njYtY3eaEKlQ
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA4PR12MB9788
+X-MS-Exchange-CrossTenant-UserPrincipalName: Aw0fQ2yksXKGCeQUi+pNVAkxLfmmz5INyOyVrC74vuYtwG+/wlSutya9Edi5FakceuY3CBi8g9Vd8iNoc36aN/C1pI/yayltSCcUcGwQkF4=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR11MB6478
+X-OriginatorOrg: intel.com
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,209 +184,247 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
 
-On 26-Mar-26 7:34 AM, Yang Wang wrote:
-> PMFW may return invalid values due to internal calculation errors.
-> so, the kmd driver must validate and sanitize the returned values to
-> prevent issues caused by firmware calculation errors.
+On 3/26/2026 8:38 AM, Alex Hung wrote:
 > 
-> For example, values 0xfffe (-2) and 0xffff (-1) are treated
-> as invalid and clamped to 0.
+> 
+> On 3/25/26 20:13, Melissa Wen wrote:
+>>
+>>
+>> On 25/03/2026 06:08, Borah, Chaitanya Kumar wrote:
+>>> Hi Melissa,
+>>>
+>>> On 3/23/2026 6:45 PM, Melissa Wen wrote:
+>>>> As we do for CRTC color mgmt properties, use color_mgmt_changed flag to
+>>>> track any value changes in the color pipeline of a given plane, so that
+>>>> drivers can update color blocks as soon as plane color pipeline or
+>>>> individual colorop values change.
+>>>>
+>>>> Reviewed-by: Harry Wentland <harry.wentland@amd.com> #v1
+>>>> Signed-off-by: Melissa Wen <mwen@igalia.com>
+>>>> ---
+>>>>
+>>>>   v2: add linux types to provide bool for MSM driver (kernel bot)
+>>>> ---
+>>>>   drivers/gpu/drm/drm_atomic_uapi.c | 53 +++++++++++++++++++++++ 
+>>>> +-------
+>>>>   include/drm/drm_atomic_uapi.h     |  4 ++-
+>>>>   2 files changed, 45 insertions(+), 12 deletions(-)
+>>>>
+>>>> diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/ 
+>>>> drm_atomic_uapi.c
+>>>> index 87de41fb4459..713fa9e81732 100644
+>>>> --- a/drivers/gpu/drm/drm_atomic_uapi.c
+>>>> +++ b/drivers/gpu/drm/drm_atomic_uapi.c
+>>>> @@ -265,13 +265,19 @@ EXPORT_SYMBOL(drm_atomic_set_fb_for_plane);
+>>>>    *
+>>>>    * Helper function to select the color pipeline on a plane by setting
+>>>>    * it to the first drm_colorop element of the pipeline.
+>>>> + *
+>>>> + * Return: true if plane color pipeline value changed, false 
+>>>> otherwise.
+>>>>    */
+>>>> -void
+>>>> +bool
+>>>>   drm_atomic_set_colorop_for_plane(struct drm_plane_state *plane_state,
+>>>>                    struct drm_colorop *colorop)
+>>>>   {
+>>>>       struct drm_plane *plane = plane_state->plane;
+>>>>   +    /* Color pipeline didn't change */
+>>>> +    if (plane_state->color_pipeline == colorop)
+>>>> +        return false;
+>>>> +
+>>>>       if (colorop)
+>>>>           drm_dbg_atomic(plane->dev,
+>>>>                      "Set [COLOROP:%d] for [PLANE:%d:%s] state %p\n",
+>>>> @@ -283,6 +289,8 @@ drm_atomic_set_colorop_for_plane(struct 
+>>>> drm_plane_state *plane_state,
+>>>>                      plane->base.id, plane->name, plane_state);
+>>>>         plane_state->color_pipeline = colorop;
+>>>> +
+>>>> +    return true;
+>>>>   }
+>>>>   EXPORT_SYMBOL(drm_atomic_set_colorop_for_plane);
+>>>>   @@ -600,7 +608,7 @@ static int 
+>>>> drm_atomic_plane_set_property(struct drm_plane *plane,
+>>>>           if (val && !colorop)
+>>>>               return -EACCES;
+>>>>   -        drm_atomic_set_colorop_for_plane(state, colorop);
+>>>> +        state->color_mgmt_changed |= 
+>>>> drm_atomic_set_colorop_for_plane(state, colorop);
+>>>>       } else if (property == config->prop_fb_damage_clips) {
+>>>>           ret = drm_property_replace_blob_from_id(dev,
+>>>>                       &state->fb_damage_clips,
+>>>> @@ -709,11 +717,11 @@ drm_atomic_plane_get_property(struct drm_plane 
+>>>> *plane,
+>>>>   static int drm_atomic_color_set_data_property(struct drm_colorop 
+>>>> *colorop,
+>>>>                             struct drm_colorop_state *state,
+>>>>                             struct drm_property *property,
+>>>> -                          uint64_t val)
+>>>> +                          uint64_t val,
+>>>> +                          bool *replaced)
+>>>>   {
+>>>>       ssize_t elem_size = -1;
+>>>>       ssize_t size = -1;
+>>>> -    bool replaced = false;
+>>>>         switch (colorop->type) {
+>>>>       case DRM_COLOROP_1D_LUT:
+>>>> @@ -735,28 +743,39 @@ static int 
+>>>> drm_atomic_color_set_data_property(struct drm_colorop *colorop,
+>>>>                            &state->data,
+>>>>                            val,
+>>>>                            -1, size, elem_size,
+>>>> -                         &replaced);
+>>>> +                         replaced);
+>>>>   }
+>>>>     static int drm_atomic_colorop_set_property(struct drm_colorop 
+>>>> *colorop,
+>>>>                          struct drm_colorop_state *state,
+>>>>                          struct drm_file *file_priv,
+>>>>                          struct drm_property *property,
+>>>> -                       uint64_t val)
+>>>> +                       uint64_t val,
+>>>> +                       bool *replaced)
+>>>>   {
+>>>>       if (property == colorop->bypass_property) {
+>>>> -        state->bypass = val;
+>>>> +        if (state->bypass != val) {
+>>>> +            state->bypass = val;
+>>>> +            *replaced = true;
+>>>> +        }
+>>>>       } else if (property == colorop->lut1d_interpolation_property) {
+>>>>           colorop->lut1d_interpolation = val;
+>>>>       } else if (property == colorop->curve_1d_type_property) {
+>>>> -        state->curve_1d_type = val;
+>>>> +        if (state->curve_1d_type != val) {
+>>>> +            state->curve_1d_type = val;
+>>>> +            *replaced = true;
+>>>> +        }
+>>>>       } else if (property == colorop->multiplier_property) {
+>>>> -        state->multiplier = val;
+>>>> +        if (state->multiplier != val) {
+>>>> +            state->multiplier = val;
+>>>> +            *replaced = true;
+>>>> +        }
+>>>>       } else if (property == colorop->lut3d_interpolation_property) {
+>>>>           colorop->lut3d_interpolation = val;
+>>>
+>>> I think it would be prudent to add this logic for both the 1dlut and 
+>>> 3dlut interpolation properties. Even though they have just one value 
+>>> exposed right now, that might change in future.
+>>
+>> I didn't include interpolations in the color_mgmt_changed logic 
+>> because there is a comment in `include/drm/drm_colorop.h` saying that 
+>> they are read-only.
+>> But thinking better about it, and I think we should not allow 
+>> `drm_atomic_colorop_set_property()` calls to change values of these 
+>> properties if they are read-only.
+>> I didn't track the discussions about what are the plans for these 
+>> properties, how the userspace knows they are read-only properties and 
+>> shouldn't set any value?
+> 
+> It has been a while but I don't remember that userspace needs to set 
+> this value, so this can be a mistake. Device driver just need to give a 
+> supported interpolation that best describes the hardware.
+> 
+> We can remove setting them in drm_atomic_colorop_set_property if 
+> everybody agrees.
 > 
 
-The problem with clamping is that the issue takes a different direction 
-after that.
+In that case, they need to be marked DRM_MODE_PROP_IMMUTABLE at creation.
 
-Presently, the issue is reported as garbage values reported in activity. 
-With clamping, the issue could get reported as 100% activity with light 
-load or 0% activity with a heavy load. That will take the debug in a 
-different direction.
+==
+Chaitanya
 
-Instead, isn't it better to keep this as some errata and let user apps 
-filter out garbage values? The previous or next sample could reflect the 
-activity correctly. Later fix can be added to newer firmware, if that is 
-an option.
-
-Thanks,
-Lijo
-
-
-> this applies to devices with CAB (Cache As Buffer) functionality.
+>>
+>>>
+>>>>       } else if (property == colorop->data_property) {
+>>>>           return drm_atomic_color_set_data_property(colorop, state,
+>>>> -                              property, val);
+>>>> +                              property, val,
+>>>> +                              replaced);
+>>>>       } else {
+>>>>           drm_dbg_atomic(colorop->dev,
+>>>>                      "[COLOROP:%d:%d] unknown property [PROP:%d:%s]\n",
+>>>> @@ -1273,6 +1292,8 @@ int drm_atomic_set_property(struct 
+>>>> drm_atomic_state *state,
+>>>>       case DRM_MODE_OBJECT_COLOROP: {
+>>>>           struct drm_colorop *colorop = obj_to_colorop(obj);
+>>>>           struct drm_colorop_state *colorop_state;
+>>>> +        struct drm_plane_state *plane_state;
+>>>> +        bool replaced = false;
+>>>>             colorop_state = drm_atomic_get_colorop_state(state, 
+>>>> colorop);
+>>>>           if (IS_ERR(colorop_state)) {
+>>>> @@ -1281,7 +1302,17 @@ int drm_atomic_set_property(struct 
+>>>> drm_atomic_state *state,
+>>>>           }
+>>>>             ret = drm_atomic_colorop_set_property(colorop, 
+>>>> colorop_state,
+>>>> -                              file_priv, prop, prop_value);
+>>>> +                              file_priv, prop, prop_value,
+>>>> +                              &replaced);
+>>>> +        if (ret || !replaced)
+>>>> +            break;
+>>>> +
+>>>> +        plane_state = drm_atomic_get_plane_state(state, colorop- 
+>>>> >plane);
+>>>> +        if (IS_ERR(plane_state)) {
+>>>> +            ret = PTR_ERR(plane_state);
+>>>> +            break;
+>>>> +        }
+>>>> +        plane_state->color_mgmt_changed = true;
+>>>
+>>> I am not sure if it was the intention of the uapi design but as I 
+>>> understand there are no guardrails for setting a colorop in an 
+>>> "inactive" pipeline.
+>>>
+>>> So, color_mgmt_changed  is set to true even if a colorop from a color 
+>>> pipeline that is not currently selected(or set to Bypass) by the 
+>>> user- space is changed.
+>>> I guess, the driver needs to be intelligent enough to ignore those 
+>>> colorop but should we reject it at drm core?
+>>>
+>>
+>> Thanks for pointing it out, makes sense!
+>> I agree that drm core should reject changes in inactive pipelines.
+>>
+>> Melissa
+>>
+>>
+>>> ==
+>>> Chaitanya
+>>>
+>>>>           break;
+>>>>       }
+>>>>       default:
+>>>> diff --git a/include/drm/drm_atomic_uapi.h b/include/drm/ 
+>>>> drm_atomic_uapi.h
+>>>> index 436315523326..4e7e78f711e2 100644
+>>>> --- a/include/drm/drm_atomic_uapi.h
+>>>> +++ b/include/drm/drm_atomic_uapi.h
+>>>> @@ -29,6 +29,8 @@
+>>>>   #ifndef DRM_ATOMIC_UAPI_H_
+>>>>   #define DRM_ATOMIC_UAPI_H_
+>>>>   +#include <linux/types.h>
+>>>> +
+>>>>   struct drm_crtc_state;
+>>>>   struct drm_display_mode;
+>>>>   struct drm_property_blob;
+>>>> @@ -50,7 +52,7 @@ drm_atomic_set_crtc_for_plane(struct 
+>>>> drm_plane_state *plane_state,
+>>>>                     struct drm_crtc *crtc);
+>>>>   void drm_atomic_set_fb_for_plane(struct drm_plane_state *plane_state,
+>>>>                    struct drm_framebuffer *fb);
+>>>> -void drm_atomic_set_colorop_for_plane(struct drm_plane_state 
+>>>> *plane_state,
+>>>> +bool drm_atomic_set_colorop_for_plane(struct drm_plane_state 
+>>>> *plane_state,
+>>>>                         struct drm_colorop *colorop);
+>>>>   int __must_check
+>>>>   drm_atomic_set_crtc_for_connector(struct drm_connector_state 
+>>>> *conn_state,
+>>>
+>>
 > 
-> Closes: https://gitlab.freedesktop.org/drm/amd/-/work_items/4905
-> 
-> Signed-off-by: Yang Wang <kevinyang.wang@amd.com>
-> ---
->   drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h   | 17 +++++++++++++++++
->   .../drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c    | 10 +++++-----
->   .../drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c    | 10 +++++-----
->   .../drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c    | 10 +++++-----
->   4 files changed, 32 insertions(+), 15 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
-> index 609f5ab07d8a..365946c43e11 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
-> @@ -2164,4 +2164,21 @@ static inline void smu_feature_init(struct smu_context *smu, int feature_num)
->   	smu_feature_list_clear_all(smu, SMU_FEATURE_LIST_ALLOWED);
->   }
->   
-> +/*
-> + * smu_safe_u16_nn - Make u16 safe by filtering negative overflow errors
-> + * @val: Input u16 value, may contain invalid negative overflows
-> + *
-> + * Convert u16 to non-negative value. Cast to s16 to detect negative values
-> + * caused by calculation errors. Return 0 for negative errors, return
-> + * original value if valid.
-> + *
-> + * Return: Valid u16 value or 0
-> + */
-> +static inline u16 smu_safe_u16_nn(u16 val)
-> +{
-> +    s16 tmp = (s16)val;
-> +
-> +    return tmp < 0 ? 0 : val;
-> +}
-> +
->   #endif
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
-> index 9be7a2af560d..16f69b548ca4 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
-> @@ -774,13 +774,13 @@ static int smu_v13_0_0_get_smu_metrics_data(struct smu_context *smu,
->   			*value = metrics->AverageGfxclkFrequencyPreDs;
->   		break;
->   	case METRICS_AVERAGE_FCLK:
-> -		if (metrics->AverageUclkActivity <= SMU_13_0_0_BUSY_THRESHOLD)
-> +		if (smu_safe_u16_nn(metrics->AverageUclkActivity) <= SMU_13_0_0_BUSY_THRESHOLD)
->   			*value = metrics->AverageFclkFrequencyPostDs;
->   		else
->   			*value = metrics->AverageFclkFrequencyPreDs;
->   		break;
->   	case METRICS_AVERAGE_UCLK:
-> -		if (metrics->AverageUclkActivity <= SMU_13_0_0_BUSY_THRESHOLD)
-> +		if (smu_safe_u16_nn(metrics->AverageUclkActivity) <= SMU_13_0_0_BUSY_THRESHOLD)
->   			*value = metrics->AverageMemclkFrequencyPostDs;
->   		else
->   			*value = metrics->AverageMemclkFrequencyPreDs;
-> @@ -801,7 +801,7 @@ static int smu_v13_0_0_get_smu_metrics_data(struct smu_context *smu,
->   		*value = metrics->AverageGfxActivity;
->   		break;
->   	case METRICS_AVERAGE_MEMACTIVITY:
-> -		*value = metrics->AverageUclkActivity;
-> +		*value = smu_safe_u16_nn(metrics->AverageUclkActivity);
->   		break;
->   	case METRICS_AVERAGE_VCNACTIVITY:
->   		*value = max(metrics->Vcn0ActivityPercentage,
-> @@ -2086,7 +2086,7 @@ static ssize_t smu_v13_0_0_get_gpu_metrics(struct smu_context *smu,
->   					     metrics->AvgTemperature[TEMP_VR_MEM1]);
->   
->   	gpu_metrics->average_gfx_activity = metrics->AverageGfxActivity;
-> -	gpu_metrics->average_umc_activity = metrics->AverageUclkActivity;
-> +	gpu_metrics->average_umc_activity = smu_safe_u16_nn(metrics->AverageUclkActivity);
->   	gpu_metrics->average_mm_activity = max(metrics->Vcn0ActivityPercentage,
->   					       metrics->Vcn1ActivityPercentage);
->   
-> @@ -2103,7 +2103,7 @@ static ssize_t smu_v13_0_0_get_gpu_metrics(struct smu_context *smu,
->   	else
->   		gpu_metrics->average_gfxclk_frequency = metrics->AverageGfxclkFrequencyPreDs;
->   
-> -	if (metrics->AverageUclkActivity <= SMU_13_0_0_BUSY_THRESHOLD)
-> +	if (smu_safe_u16_nn(metrics->AverageUclkActivity) <= SMU_13_0_0_BUSY_THRESHOLD)
->   		gpu_metrics->average_uclk_frequency = metrics->AverageMemclkFrequencyPostDs;
->   	else
->   		gpu_metrics->average_uclk_frequency = metrics->AverageMemclkFrequencyPreDs;
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
-> index 5cc15545da6e..34a5973b9a06 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
-> @@ -784,13 +784,13 @@ static int smu_v13_0_7_get_smu_metrics_data(struct smu_context *smu,
->   		*value = metrics->AverageGfxclkFrequencyPreDs;
->   		break;
->   	case METRICS_AVERAGE_FCLK:
-> -		if (metrics->AverageUclkActivity <= SMU_13_0_7_BUSY_THRESHOLD)
-> +		if (smu_safe_u16_nn(metrics->AverageUclkActivity) <= SMU_13_0_7_BUSY_THRESHOLD)
->   			*value = metrics->AverageFclkFrequencyPostDs;
->   		else
->   			*value = metrics->AverageFclkFrequencyPreDs;
->   		break;
->   	case METRICS_AVERAGE_UCLK:
-> -		if (metrics->AverageUclkActivity <= SMU_13_0_7_BUSY_THRESHOLD)
-> +		if (smu_safe_u16_nn(metrics->AverageUclkActivity) <= SMU_13_0_7_BUSY_THRESHOLD)
->   			*value = metrics->AverageMemclkFrequencyPostDs;
->   		else
->   			*value = metrics->AverageMemclkFrequencyPreDs;
-> @@ -815,7 +815,7 @@ static int smu_v13_0_7_get_smu_metrics_data(struct smu_context *smu,
->   		*value = metrics->AverageGfxActivity;
->   		break;
->   	case METRICS_AVERAGE_MEMACTIVITY:
-> -		*value = metrics->AverageUclkActivity;
-> +		*value = smu_safe_u16_nn(metrics->AverageUclkActivity);
->   		break;
->   	case METRICS_AVERAGE_SOCKETPOWER:
->   		*value = metrics->AverageSocketPower << 8;
-> @@ -2092,7 +2092,7 @@ static ssize_t smu_v13_0_7_get_gpu_metrics(struct smu_context *smu,
->   					     metrics->AvgTemperature[TEMP_VR_MEM1]);
->   
->   	gpu_metrics->average_gfx_activity = metrics->AverageGfxActivity;
-> -	gpu_metrics->average_umc_activity = metrics->AverageUclkActivity;
-> +	gpu_metrics->average_umc_activity = smu_safe_u16_nn(metrics->AverageUclkActivity);
->   	gpu_metrics->average_mm_activity = max(metrics->Vcn0ActivityPercentage,
->   					       metrics->Vcn1ActivityPercentage);
->   
-> @@ -2105,7 +2105,7 @@ static ssize_t smu_v13_0_7_get_gpu_metrics(struct smu_context *smu,
->   	else
->   		gpu_metrics->average_gfxclk_frequency = metrics->AverageGfxclkFrequencyPreDs;
->   
-> -	if (metrics->AverageUclkActivity <= SMU_13_0_7_BUSY_THRESHOLD)
-> +	if (smu_safe_u16_nn(metrics->AverageUclkActivity) <= SMU_13_0_7_BUSY_THRESHOLD)
->   		gpu_metrics->average_uclk_frequency = metrics->AverageMemclkFrequencyPostDs;
->   	else
->   		gpu_metrics->average_uclk_frequency = metrics->AverageMemclkFrequencyPreDs;
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
-> index 28c1b084fe62..aaec3a251e0f 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
-> @@ -660,13 +660,13 @@ static int smu_v14_0_2_get_smu_metrics_data(struct smu_context *smu,
->   			*value = metrics->AverageGfxclkFrequencyPreDs;
->   		break;
->   	case METRICS_AVERAGE_FCLK:
-> -		if (metrics->AverageUclkActivity <= SMU_14_0_2_BUSY_THRESHOLD)
-> +		if (smu_safe_u16_nn(metrics->AverageUclkActivity) <= SMU_14_0_2_BUSY_THRESHOLD)
->   			*value = metrics->AverageFclkFrequencyPostDs;
->   		else
->   			*value = metrics->AverageFclkFrequencyPreDs;
->   		break;
->   	case METRICS_AVERAGE_UCLK:
-> -		if (metrics->AverageUclkActivity <= SMU_14_0_2_BUSY_THRESHOLD)
-> +		if (smu_safe_u16_nn(metrics->AverageUclkActivity) <= SMU_14_0_2_BUSY_THRESHOLD)
->   			*value = metrics->AverageMemclkFrequencyPostDs;
->   		else
->   			*value = metrics->AverageMemclkFrequencyPreDs;
-> @@ -687,7 +687,7 @@ static int smu_v14_0_2_get_smu_metrics_data(struct smu_context *smu,
->   		*value = metrics->AverageGfxActivity;
->   		break;
->   	case METRICS_AVERAGE_MEMACTIVITY:
-> -		*value = metrics->AverageUclkActivity;
-> +		*value = smu_safe_u16_nn(metrics->AverageUclkActivity);
->   		break;
->   	case METRICS_AVERAGE_VCNACTIVITY:
->   		*value = max(metrics->AverageVcn0ActivityPercentage,
-> @@ -2146,7 +2146,7 @@ static ssize_t smu_v14_0_2_get_gpu_metrics(struct smu_context *smu,
->   					     metrics->AvgTemperature[TEMP_VR_MEM1]);
->   
->   	gpu_metrics->average_gfx_activity = metrics->AverageGfxActivity;
-> -	gpu_metrics->average_umc_activity = metrics->AverageUclkActivity;
-> +	gpu_metrics->average_umc_activity = smu_safe_u16_nn(metrics->AverageUclkActivity);
->   	gpu_metrics->average_mm_activity = max(metrics->AverageVcn0ActivityPercentage,
->   					       metrics->Vcn1ActivityPercentage);
->   
-> @@ -2158,7 +2158,7 @@ static ssize_t smu_v14_0_2_get_gpu_metrics(struct smu_context *smu,
->   	else
->   		gpu_metrics->average_gfxclk_frequency = metrics->AverageGfxclkFrequencyPreDs;
->   
-> -	if (metrics->AverageUclkActivity <= SMU_14_0_2_BUSY_THRESHOLD)
-> +	if (smu_safe_u16_nn(metrics->AverageUclkActivity) <= SMU_14_0_2_BUSY_THRESHOLD)
->   		gpu_metrics->average_uclk_frequency = metrics->AverageMemclkFrequencyPostDs;
->   	else
->   		gpu_metrics->average_uclk_frequency = metrics->AverageMemclkFrequencyPreDs;
 
