@@ -4,78 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DC86310A3D92
-	for <amd-gfx@archiver.kernel.org>; Thu, 26 Mar 2026 12:50:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 68F4210A3D90
+	for <amd-gfx@archiver.kernel.org>; Thu, 26 Mar 2026 12:50:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1875B10E90D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 041EB10E902;
 	Thu, 26 Mar 2026 12:50:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="iDhHZYPv";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="KYPriEpn";
 	dkim-atps=neutral
-Received: from mail-pg1-f182.google.com (mail-pg1-f182.google.com
- [209.85.215.182])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7354310E24B
- for <amd-gfx@lists.freedesktop.org>; Wed, 25 Mar 2026 13:17:10 +0000 (UTC)
-Received: by mail-pg1-f182.google.com with SMTP id
- 41be03b00d2f7-c73e9e4cdf7so2048087a12.2
- for <amd-gfx@lists.freedesktop.org>; Wed, 25 Mar 2026 06:17:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1774444630; x=1775049430; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:message-id:date
- :in-reply-to:subject:cc:to:from:from:to:cc:subject:date:message-id
- :reply-to; bh=ydE77GFQVM2//1TEIJxuqD6vop6Nou0E99kEw1kEoLs=;
- b=iDhHZYPvXqrFQuTsqBOI0JMbuiq/PNVF3m7TBnMzNG+8M1Zp0vnVXucPc+/FnlD9os
- NAKzLByZnX3/g0qvhuc3Gy2knaz/8Vfbz8mr773ppm4OOFt4inesyLlzQAv5Qi8WPAG4
- Oy/zytigEIXMabyKltgTvNwE8L0J0Pq8fIoGmB7K8d2+b45pNhOzXTkvBabqL8Y/eA3/
- 37Vweaodu15yaO8V1QvFR5fGjjVQHvZ9bdAt8MBK/JxzDTWCVQWHQpIVlFTqe6hav9Dm
- PKJuYIexHovEHteBs7UQJA+KlqHBf0bGyD3K0RDDOOVr65qQyw+CBS4Iw4y9ql1x4tHx
- oA2Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774444630; x=1775049430;
- h=content-transfer-encoding:mime-version:references:message-id:date
- :in-reply-to:subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to;
- bh=ydE77GFQVM2//1TEIJxuqD6vop6Nou0E99kEw1kEoLs=;
- b=elHiaVAeXw8h9bwBPNLHFiFLWMoU9JExjx6P/8rA0wj3+7AFAbwX6vEC6Rg5lfUVKO
- uqtHNU6JF5fzd3vtTAxP47/a0DtZBtsy3V5UJm5MuMvv56bO+bGlPiRm+qG54kE1Wmeh
- LMmzyIPfFpm5cIdd5c1L7zoshpdLyUPPwVdVBz753TqiVUcMb4/d5BksrUMEs/djHh78
- itraMWL+Rk/hXFJtEXd5kzm5AUQgJGcxc2vDfCE+TwjRhCssX6dFaxPGKYIPQpoK/uu/
- sv2U7c6k2n9VKfODsAy/QZdqLvA540/RI62T+UGjZ6W3epXgon6I2EYnd1xYUcrQ/R2B
- QryQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVtHOJPM319qGmRb91bTqal1H23YjCIpE0u0DKa7BCkDYC0Qw8pdkjw0ser1EeAbzrAnR9QMdvI@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzJvOR+lfRg/181L8/EP+BZsuRUTZdriZGONjbliZUaipHIOSZx
- e3Q9/j6xEd0gWfu+WNz1h2J9BXcEgVZGHESDk35RBe5o6F9866ARQW0l
-X-Gm-Gg: ATEYQzzrUtJih+1KEiQMlEze7AIkc83/XVzUskff2TTNY2C6OJEl1MUPLijJqshsMgO
- i/PuAZXEF5mhDofSacZsoYW1ZSH2HhQ6MpOi8vQIlKOuuk7H1gIt8BHIHc3Aes1AHDi9aEkcq6L
- l7aaCfcAFKYlrdHUl1AdDuS65Su5XggMamuVviGOIsmtWTxzhPshdl2Bp/5pakN+XueSpGOUI5p
- YxFA9qfElGm2YOswCAYChrJhGPMK/lEMFcqp1zuiOZeMQnADw9RS6wrpMbxcX9l+g1F9tx/THHE
- IH0JclSAkA3LcJud58gTzbeSjfr9fecjY2zXr4/FRDRKFB9EG60DWoWc+2FVdKccnRSZE61JXFx
- 4eKLwAQIL9LmZJl83kKlC6zHLfIKZczaL5Y3xq3b4m9fLXo8Fynt0xLh4JtTcZmQrNllyWHa5T5
- 3TW2kKE2BJ/7jUUiXgoP76JA==
-X-Received: by 2002:a17:903:3c2b:b0:2ae:c816:ec5d with SMTP id
- d9443c01a7336-2b0b0a8d27cmr38475585ad.32.1774444629628; 
- Wed, 25 Mar 2026 06:17:09 -0700 (PDT)
-Received: from pve-server ([49.205.216.49]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2b083655b45sm250598065ad.42.2026.03.25.06.17.05
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 25 Mar 2026 06:17:08 -0700 (PDT)
-From: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
-To: Gaurav Batra <gbatra@linux.ibm.com>, Dan =?utf-8?Q?Hor=C3=A1k?=
- <dan@danny.cz>
-Cc: linuxppc-dev@lists.ozlabs.org, amd-gfx@lists.freedesktop.org,
- Donet Tom <donettom@linux.ibm.com>
-Subject: Re: amdgpu driver fails to initialize on ppc64le in 7.0-rc1 and newer
-In-Reply-To: <da93575e-92ad-4a7b-83df-1cb956bd2bc2@linux.ibm.com>
-Date: Wed, 25 Mar 2026 17:42:01 +0530
-Message-ID: <5x6knm5q.ritesh.list@gmail.com>
-References: <20260313142351.609bc4c3efe1184f64ca5f44@danny.cz>
- <1phlu3bs.ritesh.list@gmail.com>
- <20260315105021.667e52d4a99b154ef1e6aa34@danny.cz>
- <da93575e-92ad-4a7b-83df-1cb956bd2bc2@linux.ibm.com>
-MIME-version: 1.0
-Content-type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8bit
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
+ [136.143.188.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BF87010EA70;
+ Thu, 26 Mar 2026 12:17:39 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1774527444; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=IEcxPQklvirq1vTTgeXJ61rcLF6brb5Sq8KjrmbQPpL1C1UNbpgD7jYgaL/TQvLdC4cZkK9ihGs8J1lnKPZ8s8BtfTowQ06LY4mlFuu1c1d0avhxrRJSSYlP052YYjXf8y8QjUFrI+D8jAHTO/zh2GUP4MBxp9979wtWIAUVfZA=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1774527444;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=Tirp7UAELP3uffwBowPhBSfOvBKTMCo+3Ho7dI9AS4A=; 
+ b=UHhNaac37CoMBkCutYt/hxP7SSW07STddoEfZ7PhAmw2oRWggWdKpuhNyzalQkabLR1vA5ayg0SQUC3v2vgkffQPNLjZ8eThzUfij9ctDfRg8vkCxiPKUBlqeLXBfK3kJneXxfh2pPk2UkQ9ch5bpr2sZ/jN7ux7eXoYdTU9PMY=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
+ dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1774527444; 
+ s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
+ h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:Content-Type:Message-Id:Reply-To;
+ bh=Tirp7UAELP3uffwBowPhBSfOvBKTMCo+3Ho7dI9AS4A=;
+ b=KYPriEpn4YIB4eoHua3fr+3hZ0eN+pNCMKPciEFrIFM/BEV4doaWGf2Qxokn3QMU
+ RQkVb7bwKsr30MCxpr1K0qFkg30knMH3TAXw5AyCLA9lxJx9wGVIsbmsZOC4HD1ds+z
+ Cav7qumtZ6ZJexyE/EIZ5D1wiDeybm2tfQlh26Bw=
+Received: by mx.zohomail.com with SMTPS id 1774527443168557.1035634875152;
+ Thu, 26 Mar 2026 05:17:23 -0700 (PDT)
+From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ Ville =?UTF-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
+ Daniel Stone <daniels@collabora.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Michel =?UTF-8?B?RMOkbnplcg==?= <michel.daenzer@mailbox.org>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, kernel@collabora.com,
+ Derek Foreman <derek.foreman@collabora.com>,
+ Marius Vlad <marius.vlad@collabora.com>
+Subject: Re: [PATCH v5 0/3] Add "link bpc" DRM property
+Date: Thu, 26 Mar 2026 13:17:17 +0100
+Message-ID: <5416161.aeNJFYEL58@workhorse>
+In-Reply-To: <254c20a4-cce3-4c8e-9902-514586f3e694@mailbox.org>
+References: <20260319-link-bpc-v5-0-5306cd04a708@collabora.com>
+ <4265353.aeNJFYEL58@workhorse>
+ <254c20a4-cce3-4c8e-9902-514586f3e694@mailbox.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 X-Mailman-Approved-At: Thu, 26 Mar 2026 12:50:40 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -91,131 +78,107 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Gaurav Batra <gbatra@linux.ibm.com> writes:
+On Tuesday, 24 March 2026 17:44:21 Central European Standard Time you wrote:
+> On 3/24/26 16:25, Nicolas Frattaroli wrote:
+> > On Monday, 23 March 2026 18:27:41 Central European Standard Time Michel=
+ D=C3=A4nzer wrote:
+> >> On 3/23/26 17:55, Nicolas Frattaroli wrote:
+> >>>
+> >>> "Someone might not understand its purpose" is, in my eyes, not a vali=
+d reason to
+> >>> not have this property, [...]
+> >> Per my previous posts, that's not my concern.
+> >=20
+> > Then what is your concern?
+>=20
+> Per my previous posts, my concerns are:
+>=20
+> * The meaning of the "link bpc" property value isn't defined well
+> enough vs things like dithering or DSC, which will likely result in
+> compositors / users overestimating what value they need / want,
+> resulting in compositors spuriously rejecting configurations which=20
+> would work perfectly fine, and/or spurious issue reports.
 
-Hi Gaurav,
+Dithering and DSC are supposed to be transparent, no? Or else why is
+amdgpu forcing DSC on for everyone? This doesn't make sense. If a
+link bpc is 10 but DSC is on so it's 9 on the wire, it's still 10 bits.
+No compositor would care about the compressed-to actual bit depth on
+the wire being 9 bits on the intake of a DSC decoder, it's not relevant
+for their use case, they're not decoding DSC.
 
-> Hello Ritesh/Dan,
->
->
-> Here is the motivation for my patch and thoughts on the issue.
->
->
-> Before my patch, there were 2 scenarios to consider where, even when the 
-> memory
-> was pre-mapped for DMA, coherent allocations were getting mapped from 2GB
-> default DMA Window. In case of pre-mapped memory, the allocations should 
-> not be
-> directed towards 2GB default DMA window.
->
-> 1. AMD GPU which has device DMA mask > 32 bits but less then 64 bits. In 
-> this
-> case the PHB is put into Limited Addressability mode.
->
->     This scenario doesn't have vPMEM
->
-> 2. Device that supports 64-bit DMA mask. The LPAR has vPMEM assigned.
->
->
-> In both the above scenarios, IOMMU has pre-mapped RAM from DDW (64-bit 
-> PPC DMA
-> window).
->
->
-> Lets consider code paths for both the case, before my patch
->
-> 1. AMD GPU
->
-> dev->dma_ops_bypass = true
->
-> dev->bus_dma_limit = 0
->
-> - Here the AMD controller shows 3 functions on the PHB.
->
-> - After the first function is probed, it sees that the memory is pre-mapped
->    and doesn't direct DMA allocations towards 2GB default window.
->    So, dma_go_direct() worked as expected.
->
-> - AMD GPU driver, adds device memory to system pages. The stack is as below
->
-> add_pages+0x118/0x130 (unreliable)
-> pagemap_range+0x404/0x5e0
-> memremap_pages+0x15c/0x3d0
-> devm_memremap_pages+0x38/0xa0
-> kgd2kfd_init_zone_device+0x110/0x210 [amdgpu]
-> amdgpu_device_ip_init+0x648/0x6d8 [amdgpu]
-> amdgpu_device_init+0xb10/0x10c0 [amdgpu]
-> amdgpu_driver_load_kms+0x2c/0xb0 [amdgpu]
-> amdgpu_pci_probe+0x2e4/0x790 [amdgpu]
->
-> - This changed max_pfn to some high value beyond max RAM.
->
-> - Subsequently, for each other functions on the PHB, the call to
->    dma_go_direct() will return false which will then direct DMA 
-> allocations towards
->    2GB Default DMA window even if the memory is pre-mapped.
->
->     dev->dma_ops_bypass is true, dma_direct_get_required_mask() resulted 
-> in large
->     value for the mask (due to changed max_pfn) which is beyond AMD GPU 
-> device DMA mask
->
->
-> 2. Device supports 64-bit DMA mask. The LPAR has vPMEM assigned
->
-> dev->dma_ops_bypass = false
-> dev->bus_dma_limit = has some value depending on size of RAM (eg.  
-> 0x0800001000000000)
->
-> - Here the call to dma_go_direct() returns false since 
-> dev->dma_ops_bypass = false.
->
->
->
-> I crafted the solution to cover both the case. I tested today on an LPAR
-> with 7.0-rc4 and it works with AMDGPU.
->
-> With my patch, allocations will go towards direct only when 
-> dev->dma_ops_bypass = true,
-> which will be the case for "pre-mapped" RAM.
->
-> Ritesh mentioned that this is PowerNV. I need to revisit this patch and 
-> see why it is failing on PowerNV.
-> ...
-> From the logs, I do see some issue. The log indicates
-> dev->bus_dma_limit is set to 0. This is incorrect. For pre-mapped RAM, 
-> with my
-> patch, bus_dma_limit should always be set to some value.
->
+Making it consider DSC as part of the link bpc would lead to what you
+describe, since now compositors would need to know the compression
+algorithms of every single display protocol to correctly determine
+whether unintended degradation has happened. Ignoring DSC, which is
+what I am doing, would not do that.
+=20
+> With my compositor developer hat on, what I'd want to know is something
+> like: "How many bits of information can be passed over the link, allowing
+> the display to present it in a way which can be perceived by the user?"
+> With dithering or DSC, that would be a higher value than the physical
+> link bpc.
 
-In that case, do you think adding an extra check for dev->bus_dma_limit
-would help? I am sure you already would have thought of this and
-probably are still working to find the correct fix?
+You're assuming link-bpc isn't precisely that. It is precisely that. It's
+not the wire format. Nobody cares about how many bits are on the wire, they
+care about the bit depth on the protocol level, that is, whether 10->8 bit
+degradation has happened, not whether 10 bits have DSC applied to be actual=
+ly
+9 bits on the wire but it's not the same as uncompressed 9 bits would be
+because compression doesn't work like that.
 
-+bool arch_dma_alloc_direct(struct device *dev)
-+{
-+	if (dev->dma_ops_bypass && dev->bus_dma_limit)
-+		return true;
-+
-+	return false;
-+}
-+
-+bool arch_dma_free_direct(struct device *dev, dma_addr_t dma_handle)
-+{
-+	if (!dev->dma_ops_bypass || !dev->bus_dma_limit)
-+		return false;
-+
-+	return is_direct_handle(dev, dma_handle);
-+}
+> * There's no clear use case.
+>=20
+> This is generally a requirement for new KMS UAPI.
+>=20
+> The practical usefulness of the corresponding weston MR is dubious
+> per the concern above.
 
-<snip from Timothy>
+As per my previous responses, I outlined you the use case. However, you
+seem to be obsessed with the weston MR that adds a warning. This is not
+the use case. I will copy-paste my explanation of the use case again, for
+your benefit:
 
-> introduced a serious regression into the kernel for a large number of
-> active users of the PowerNV platform, I would kindly ask that it be
-> reverted until it can be reworked not to break PowerNV support.  Bear
-> in mind there are other devices that are 40 bit DMA limited, and they
-> are also likely to break on Linux 7.0.
+A particular real-world use case is for playback of video content.
+When playing back YUV 4:2:0 10-bit video content in a full-screen
+setting, having RGB 10-bit degrade to YUV 4:2:0 10-bit rather than
+RGB 8-bit is more desirable. However, this is a tradeoff only
+userspace knows to make; the kernel doesn't necessarily know that
+the framebuffer it has been handed as RGB 10-bit is secretly just
+a video player's playback of YUV 4:2:0 10-bit content. As for
+the property that let's userspace actually set the output color
+format, that's a separate series of mine.
 
-Looks like more people are facing an issue with this now.
+> > That the link-bpc property does not consider DSC and dithering?
+> > Two things which the max-bpc property also does not consider?
+>=20
+> It's not (as much of) an issue with the "max bpc" property because
+> it's just an upper limit, the driver is free to use a lower effective bpc=
+=2E=20
 
--ritesh
+Yes it is. If I request 10 bpc but I'm somehow convinced that this means
+"whatever bpc compresses to 10bpc with DSC" then it's not working as this
+flawed interpretation would convince me. However, thankfully, nobody thinks
+this.
+
+> > If all you want is a clearer description of the property in the comment=
+ that
+> > accompanies it, then I can do that, and I said I agree with this point.
+>=20
+> Patch 3 would need to take dithering & DSC into account as well.
+
+There is no patch 3, and I will not break the feedback loop semantics of th=
+is
+property to please you. It ruins the actual intended use case, so I won't d=
+o it.
+
+> > But you seem to be arguing from a position of not wanting the property =
+to
+> > exist at all, [...]
+>=20
+> I'm not. However, per the first concern above, a not-well-defined
+> property could be worse than none.
+
+So should I remove max-bpc as well? It's not well defined after all.
+
+
+
