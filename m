@@ -4,94 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7023710A88FB
-	for <amd-gfx@archiver.kernel.org>; Thu, 26 Mar 2026 18:01:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DD74F10A88FB
+	for <amd-gfx@archiver.kernel.org>; Thu, 26 Mar 2026 18:03:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9FCCD10EAFC;
-	Thu, 26 Mar 2026 18:01:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 809EF10EA39;
+	Thu, 26 Mar 2026 18:03:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Gsic5omW";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="jfx5EZRv";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E178D10EBB5;
- Thu, 26 Mar 2026 17:58:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1774547919; x=1806083919;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=ZN1iuzw8T8W2bRviqNraUbLOrITrSm5KwXD+jmeiWWg=;
- b=Gsic5omWbfN9vAOnZT90AXlevTB93606VBmep2g4E2lFGHfZJvrJ9BIH
- VumbUf+2FVnSy5rKOroMaZpWD6p9V+7huAXxwRQ04zTgpDzvopv36cYBG
- 92uioXz3NAeuJnandfzbx/CYtco4e+DgifWWhzo5vNK+GOxdZtEDKElYn
- nn3bIubfzCbspkIBPKnce8CJP5yj2nKFuxSPp+nVEu+nNXAvEk7SxTuM/
- nUCDWHekzUT8jiL4eXDTgTQQ9mRSqk3bhwc/DfnrL+Nf0LtTB67cesI6S
- bMHu8N/34eeU1QUXO9+EOS7l6/L1IA5XV51U1Ws0cCFjSjxeHIqCXh74/ w==;
-X-CSE-ConnectionGUID: vth1Ic/qQNKy7AzDl/qS6A==
-X-CSE-MsgGUID: 9oJ3lNsJTLabLap7t+5Jng==
-X-IronPort-AV: E=McAfee;i="6800,10657,11741"; a="85923279"
-X-IronPort-AV: E=Sophos;i="6.23,142,1770624000"; d="scan'208";a="85923279"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
- by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Mar 2026 10:58:38 -0700
-X-CSE-ConnectionGUID: QU8QSqOhQfqCPL3kMJ994A==
-X-CSE-MsgGUID: aPEZ8FAXSXOHe3ZqlAl2hA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,142,1770624000"; d="scan'208";a="229145609"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost)
- ([10.245.244.14])
- by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Mar 2026 10:58:30 -0700
-Date: Thu, 26 Mar 2026 19:58:25 +0200
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Maxime Ripard <mripard@kernel.org>
-Cc: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
- Harry Wentland <harry.wentland@amd.com>,
- Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Sandy Huang <hjc@rock-chips.com>,
- Heiko =?iso-8859-1?Q?St=FCbner?= <heiko@sntech.de>,
- Andy Yan <andy.yan@rock-chips.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, Dmitry Baryshkov <lumag@kernel.org>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Rob Herring <robh@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>, kernel@collabora.com,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-rockchip@lists.infradead.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, linux-doc@vger.kernel.org,
- Werner Sembach <wse@tuxedocomputers.com>,
- Andri Yngvason <andri@yngvason.is>, Marius Vlad <marius.vlad@collabora.com>
-Subject: Re: [PATCH v11 03/22] drm: Add new general DRM property "color format"
-Message-ID: <acVzwRyk_J24GrJ4@intel.com>
-References: <20260324-color-format-v11-0-605559af4fb4@collabora.com>
- <20260324-color-format-v11-3-605559af4fb4@collabora.com>
- <acLDPYuaVI2-12JX@intel.com> <23910073.EfDdHjke4D@workhorse>
- <acLrv5hLyNss-Px5@intel.com>
- <20260325-neat-elegant-raven-ebc9ab@houat>
- <acPA60Ci3n_t__xF@intel.com>
- <20260325-magnificent-ultraviolet-oarfish-baefbc@houat>
- <acQsw3Wi_xVlBZ8d@intel.com>
- <20260326-pumpkin-goshawk-of-stamina-0ccb84@houat>
+Received: from mail-dl1-f48.google.com (mail-dl1-f48.google.com [74.125.82.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A77FF10EA39
+ for <amd-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 18:03:01 +0000 (UTC)
+Received: by mail-dl1-f48.google.com with SMTP id
+ a92af1059eb24-12a77005d69so120592c88.1
+ for <amd-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 11:03:01 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1774548181; cv=none;
+ d=google.com; s=arc-20240605;
+ b=a45+yY3PPPxei8OlCoptBeKv9Bopg+uNsGPesJ8owNllhDXanhiZwa72+KWsGdgusq
+ EVepJXgmsOfRYMnKuRXsM79IyeLcqs5XVDRq0aQnsFGRckkpty/9dsRYoVTXVo8Y9jmZ
+ dvmGPpovzSpVGitkb5htvlaR56WF51qh1B7+1p/l2TWvqBVO9WBJzomMo+UIUswzTXcS
+ PBh8M7FGVEMbEcE+H9gl5hUayywpQcRDVmHnEjSg28ERF3AY1h0xPdCMDnOacOGl7m1Z
+ CvUsubZaI6BD49r+iMeh+bwE9kUb5i8Iy5x5kX4pqXp6NWlEzh5cyhvs/q3ZrC+tNywy
+ 1Ecw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=fHWiGNdgXUxhB3BDvLxfM4sjGalFSynDwmqqtq1k1oA=;
+ fh=TjSDHDexhxAlozvahAqSjH/1kZYNEUCZM+OUwnm2QTM=;
+ b=eVTfF3A4y85ToO+y8SLRXNZvCX9VwtWYOUBYSbwdqcG6MgBXHjYaQAMqLiIw3LiKwA
+ Ot3P4Ti4JNIGBQXvClrIxB1cTZrjKjaNPlfhcDJCG9nPSP2SvCT79R8jEK7T+l6TXIOf
+ KWZPQpembrY99t0X3e2bgK6zPAwyxj2Bjx2c3+R2NZAPoixDoUzZVRzCm2xPJB1Bwpl1
+ 3lmeawAsIeFwsuyrxHCtL16CyvLEPihkHQvjy4Lvw+rQAgIV47a2NvQzHx6QS7AhXifL
+ J3XQ5HYQz904Fu06LRrp33pRdX5c/eFD3k8T/8PqSlX/SkFROIWGTxGN7BHy50Z/ETR/
+ fXNg==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1774548181; x=1775152981; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=fHWiGNdgXUxhB3BDvLxfM4sjGalFSynDwmqqtq1k1oA=;
+ b=jfx5EZRvY2MAI1ewjQf2bN6oZ/TDA+llfzv9eNjJBzmVho/A9H0LathwcH7Y3Kh9IU
+ FxwQwtA90Qp9ue3J6NuEidGB0Mb5zELnZT1bJ0HzZeKVYhz98Iq2Na0yXuRU2wWLiryc
+ WzClG4SObwhspbA9UsGdmpT2TXopAOs0DnVDO3WtEfK8TrVq1VZ4SaQZggCH2WPj21bj
+ AUyqtlr9RiBEG/HGW/KxPiWZiSMupBbdZxUDWDs1naJA7sUzGnuJaett2O4+SZEGTvUb
+ +jFy2UWH/coaG69pqSJZo8CuqupQaD5KrdBnZc8gO2suoj4vzDfGTouTMSUbzIaCINxt
+ VuOA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1774548181; x=1775152981;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=fHWiGNdgXUxhB3BDvLxfM4sjGalFSynDwmqqtq1k1oA=;
+ b=EVlM2hIiYAECrODYDGWkHLJFCD4kGUuOVsPkDvTadUz1Kvsz4JjWWdOOCAyeSEygYV
+ MGkpRziFzXOyaQxCqMC6BasQzB+xvj6qOwSp+0mAzCEXyFCzop27DdgqDmURG4KD/5ME
+ bQfkCTNR10nf0Pavvi1mMOglFkT0ZefwyVRv907OT4mV3Pjoi4xaBm6A2M4m9lh0t0+o
+ xVmaWfJQoT6XOlUfDymCna1YNkvxKsx6q8FTYYQ1PWv9Xvj4gdr7+SKcHq8lmKxhF8sH
+ cMv9I77fira9Z97zgGEhpGkAwp+SiAl5FzvcM7P4p2Dbyz6sJU9hpOXMnKFpYSg9fP38
+ HpPg==
+X-Gm-Message-State: AOJu0YyckI8Gdb5uiNqziKooU/nO7Z6s2p/17EwYDVQjoGu5xJT4JPtj
+ Rv0EQ83KpaaDuWxvHIwP3bvxl7Yq4g8ZEIHg9/VuBBVIQSKD2J6hPFAjgTDoiPF8mzMajwQh+/4
+ /lcKiSOC1h2ux4Ne5C5b/5nnUXklG0pU=
+X-Gm-Gg: ATEYQzxt+p1+NnLl9E/zueGxA4WDOD0xLUIFW2M6zRrEf5y0n/Ob1GJkQJga99O8+Sp
+ /Md1kg5b5euRYhW2fPWZ2LwGIdhzL2Jel+qsDS8RMRL4oi++XZdhwrvvDYvlv2Hd+/vC/D+81ak
+ n9UgR3DJhiyx3yAbAkA4J0u8odMGj2ItWJ543C7F1s42aGloa3CYtxAPPakUoSAsa4H59HAL0kT
+ nFVkK7tK+ScEzyoVhbIvBYj6XCIz9XJK+T7lx6gTzoMUra13lsk7w9uxmqgRZc6BNFl68MIloW5
+ 4SlvWFyZS6bFb+8Ja+P/L5CeDLw5f+F/LDDjJczmtcW7sQG7Sr45JlUItD0QcCkCj8ITLw==
+X-Received: by 2002:a05:7022:69a7:b0:128:d7b3:6c52 with SMTP id
+ a92af1059eb24-12a96ebe2d2mr2093176c88.4.1774548180502; Thu, 26 Mar 2026
+ 11:03:00 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260326-pumpkin-goshawk-of-stamina-0ccb84@houat>
-X-Patchwork-Hint: comment
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <20260324175653.1325754-1-Amber.Lin@amd.com>
+ <20260324175653.1325754-7-Amber.Lin@amd.com>
+In-Reply-To: <20260324175653.1325754-7-Amber.Lin@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Thu, 26 Mar 2026 14:02:48 -0400
+X-Gm-Features: AQROBzAsAJnvXdOvs-jbdtSzqGW9WYIS1zG9vN-q0BUtq_EB1IaW0JqSCDa971M
+Message-ID: <CADnq5_OJnsfu_T+ax0-CseEx-mF9JhN=wwh4AHo9zF5dJuro=w@mail.gmail.com>
+Subject: Re: [PATCH v2 06/10] drm/amdgpu: Missing multi-XCC support in MES
+To: Amber Lin <Amber.Lin@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, Shaoyun.Liu@amd.com, Michael.Chen@amd.com, 
+ Jesse.Zhang@amd.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,134 +102,162 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Mar 26, 2026 at 06:02:47PM +0100, Maxime Ripard wrote:
-> On Wed, Mar 25, 2026 at 08:43:15PM +0200, Ville Syrjälä wrote:
-> > On Wed, Mar 25, 2026 at 03:56:58PM +0100, Maxime Ripard wrote:
-> > > On Wed, Mar 25, 2026 at 01:03:07PM +0200, Ville Syrjälä wrote:
-> > > > On Wed, Mar 25, 2026 at 09:24:27AM +0100, Maxime Ripard wrote:
-> > > > > On Tue, Mar 24, 2026 at 09:53:35PM +0200, Ville Syrjälä wrote:
-> > > > > > On Tue, Mar 24, 2026 at 08:10:11PM +0100, Nicolas Frattaroli wrote:
-> > > > > > > On Tuesday, 24 March 2026 18:00:45 Central European Standard Time Ville Syrjälä wrote:
-> > > > > > > > On Tue, Mar 24, 2026 at 05:01:07PM +0100, Nicolas Frattaroli wrote:
-> > > > > > > > > +enum drm_connector_color_format {
-> > > > > > > > > +	/**
-> > > > > > > > > +	 * @DRM_CONNECTOR_COLOR_FORMAT_AUTO: The driver or display protocol
-> > > > > > > > > +	 * helpers should pick a suitable color format. All implementations of a
-> > > > > > > > > +	 * specific display protocol must behave the same way with "AUTO", but
-> > > > > > > > > +	 * different display protocols do not necessarily have the same "AUTO"
-> > > > > > > > > +	 * semantics.
-> > > > > > > > > +	 *
-> > > > > > > > > +	 * For HDMI, "AUTO" picks RGB, but falls back to YCbCr 4:2:0 if the
-> > > > > > > > > +	 * bandwidth required for full-scale RGB is not available, or the mode
-> > > > > > > > > +	 * is YCbCr 4:2:0-only, as long as the mode and output both support
-> > > > > > > > > +	 * YCbCr 4:2:0.
-> > > > > > > > > +	 *
-> > > > > > > > > +	 * For display protocols other than HDMI, the recursive bridge chain
-> > > > > > > > > +	 * format selection picks the first chain of bridge formats that works,
-> > > > > > > > > +	 * as has already been the case before the introduction of the "color
-> > > > > > > > > +	 * format" property. Non-HDMI bridges should therefore either sort their
-> > > > > > > > > +	 * bus output formats by preference, or agree on a unified auto format
-> > > > > > > > > +	 * selection logic that's implemented in a common state helper (like
-> > > > > > > > > +	 * how HDMI does it).
-> > > > > > > > > +	 */
-> > > > > > > > > +	DRM_CONNECTOR_COLOR_FORMAT_AUTO = 0,
-> > > > > > > > > +
-> > > > > > > > > +	/**
-> > > > > > > > > +	 * @DRM_CONNECTOR_COLOR_FORMAT_RGB444: RGB output format
-> > > > > > > > > +	 */
-> > > > > > > > > +	DRM_CONNECTOR_COLOR_FORMAT_RGB444,
-> > > > > > > > > +
-> > > > > > > > > +	/**
-> > > > > > > > > +	 * @DRM_CONNECTOR_COLOR_FORMAT_YCBCR444: YCbCr 4:4:4 output format (ie.
-> > > > > > > > > +	 * not subsampled)
-> > > > > > > > > +	 */
-> > > > > > > > > +	DRM_CONNECTOR_COLOR_FORMAT_YCBCR444,
-> > > > > > > > > +
-> > > > > > > > > +	/**
-> > > > > > > > > +	 * @DRM_CONNECTOR_COLOR_FORMAT_YCBCR422: YCbCr 4:2:2 output format (ie.
-> > > > > > > > > +	 * with horizontal subsampling)
-> > > > > > > > > +	 */
-> > > > > > > > > +	DRM_CONNECTOR_COLOR_FORMAT_YCBCR422,
-> > > > > > > > > +
-> > > > > > > > > +	/**
-> > > > > > > > > +	 * @DRM_CONNECTOR_COLOR_FORMAT_YCBCR420: YCbCr 4:2:0 output format (ie.
-> > > > > > > > > +	 * with horizontal and vertical subsampling)
-> > > > > > > > > +	 */
-> > > > > > > > > +	DRM_CONNECTOR_COLOR_FORMAT_YCBCR420,
-> > > > > > > > 
-> > > > > > > > Seems like this should document what the quantization range
-> > > > > > > > should be for each format.
-> > > > > > > > 
-> > > > > > > 
-> > > > > > > I don't think so? If you want per-component bit depth values,
-> > > > > > > DRM_FORMAT_* defines would be the appropriate values to use. This
-> > > > > > > enum is more abstract than that, and is there to communicate
-> > > > > > > YUV vs. RGB and chroma subsampling, with bit depth being handled
-> > > > > > > by other properties.
-> > > > > > > 
-> > > > > > > If you mean the factor used for subsampling, then that'd only be
-> > > > > > > relevant if YCBCR410 was supported where one chroma plane isn't
-> > > > > > > halved but quartered in resolution. I suspect 4:1:0 will never
-> > > > > > > be added; no digital display protocol standard supports it to my
-> > > > > > > knowledge, and hopefully none ever will.
-> > > > > > 
-> > > > > > No, I mean the quantization range (16-235 vs. 0-255 etc).
-> > > > > > 
-> > > > > > The i915 behaviour is that YCbCr is always limited range,
-> > > > > > RGB can either be full or limited range depending on the 
-> > > > > > "Broadcast RGB" property and other related factors.
-> > > > > 
-> > > > > So far the HDMI state has both the format and quantization range as
-> > > > > different fields. I'm not sure we need to document the range in the
-> > > > > format field, maybe only mention it's not part of the format but has a
-> > > > > field of its own?
-> > > > 
-> > > > I think we only have it for RGB (on some drivers only?). For YCbCr
-> > > > I think the assumption is limited range everywhere.
-> > > > 
-> > > > But I'm not really concerned about documenting struct members.
-> > > > What I'm talking about is the *uapi* docs. Surely userspace
-> > > > will want to know what the new property actually does so the
-> > > > uapi needs to be documented properly. And down the line some
-> > > > new driver might also implement the wrong behaviour if there
-> > > > is no clear specification.
-> > > 
-> > > Ack
-> > > 
-> > > > So I'm thinking (or perhaps hoping) the rule might be something like:
-> > > > - YCbCr limited range 
-> > > > - RGB full range if "Broadcast RGB" property is not present
-> > > 
-> > > Isn't it much more complicated than that for HDMI though? My
-> > > recollection was that any VIC but VIC1 would be limited range, and
-> > > anything else full range?
-> > 
-> > Do we have some driver that implements the CTA-861 CE vs. IT mode
-> > logic but doesn't expose the "Broadcast RGB" property? I was hoping
-> > those would always go hand in hand now.
-> 
-> I'm not sure. i915 and the HDMI state helpers handle it properly (I
-> think?) but it looks like only vc4 registers the Broadcast RGB property
-> and uses the HDMI state helpers.
-> 
-> And it looks like amdgpu registers Broadcast RGB but doesn't use
-> drm_default_rgb_quant_range() which seems suspicious?
+On Tue, Mar 24, 2026 at 1:57=E2=80=AFPM Amber Lin <Amber.Lin@amd.com> wrote=
+:
+>
+> In a multi-XCC GPU, pass the master XCC's ID to amdgpu_mes_suspend,
+> amdgpu_mes_resume, and detect_and_reset_hung_queues so the command will b=
+e
+> sent to the matching master MES when the compute partition mode is not
+> SPX.
+>
+> Signed-off-by: Amber Lin <Amber.Lin@amd.com>
 
-If they want just manual full vs. limited then they should
-limit the property to not expose the "auto" option at all.
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
-amdgpu also ties this in with the "colorspace" property, which
-originally in i915 only controlled the infoframes/etc. But on
-amdgpu it now controls various aspects of output color
-transformation. The end result is that the property is a complete
-mess with most of the values making no sense. And for whatever
-reason everyone involved refused to remove/deprecate the
-nonsensical values :/
-
-Looks like this series should make sure the documentation for
-the "colorspace" property is in sync with the new property
-as well. Currently now it's giving conflicting information.
-
--- 
-Ville Syrjälä
-Intel
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c               | 7 +++++--
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h               | 9 +++++----
+>  drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c                | 2 +-
+>  drivers/gpu/drm/amd/amdgpu/mes_userqueue.c            | 2 +-
+>  drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c | 4 ++--
+>  5 files changed, 14 insertions(+), 10 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_mes.c
+> index d778c3da8203..f3a4ae1fd521 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
+> @@ -300,7 +300,7 @@ void amdgpu_mes_fini(struct amdgpu_device *adev)
+>         mutex_destroy(&adev->mes.mutex_hidden);
+>  }
+>
+> -int amdgpu_mes_suspend(struct amdgpu_device *adev)
+> +int amdgpu_mes_suspend(struct amdgpu_device *adev, uint32_t xcc_id)
+>  {
+>         struct mes_suspend_gang_input input;
+>         int r;
+> @@ -310,6 +310,7 @@ int amdgpu_mes_suspend(struct amdgpu_device *adev)
+>
+>         memset(&input, 0x0, sizeof(struct mes_suspend_gang_input));
+>         input.suspend_all_gangs =3D 1;
+> +       input.xcc_id =3D xcc_id;
+>
+>         /*
+>          * Avoid taking any other locks under MES lock to avoid circular
+> @@ -324,7 +325,7 @@ int amdgpu_mes_suspend(struct amdgpu_device *adev)
+>         return r;
+>  }
+>
+> -int amdgpu_mes_resume(struct amdgpu_device *adev)
+> +int amdgpu_mes_resume(struct amdgpu_device *adev, uint32_t xcc_id)
+>  {
+>         struct mes_resume_gang_input input;
+>         int r;
+> @@ -334,6 +335,7 @@ int amdgpu_mes_resume(struct amdgpu_device *adev)
+>
+>         memset(&input, 0x0, sizeof(struct mes_resume_gang_input));
+>         input.resume_all_gangs =3D 1;
+> +       input.xcc_id =3D xcc_id;
+>
+>         /*
+>          * Avoid taking any other locks under MES lock to avoid circular
+> @@ -462,6 +464,7 @@ int amdgpu_mes_detect_and_reset_hung_queues(struct am=
+dgpu_device *adev,
+>                 adev->mes.hung_queue_db_array_size * sizeof(u32));
+>         input.queue_type =3D queue_type;
+>         input.detect_only =3D detect_only;
+> +       input.xcc_id =3D xcc_id;
+>
+>         r =3D adev->mes.funcs->detect_and_reset_hung_queues(&adev->mes,
+>                                                           &input);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_mes.h
+> index 2e6ae9f84db0..643b4f8d757a 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
+> @@ -325,8 +325,9 @@ struct mes_reset_queue_input {
+>  };
+>
+>  struct mes_detect_and_reset_queue_input {
+> -       uint32_t                           queue_type;
+> -       bool                               detect_only;
+> +       uint32_t        queue_type;
+> +       bool            detect_only;
+> +       uint32_t        xcc_id;
+>  };
+>
+>  struct mes_inv_tlbs_pasid_input {
+> @@ -442,8 +443,8 @@ int amdgpu_mes_init_microcode(struct amdgpu_device *a=
+dev, int pipe);
+>  int amdgpu_mes_init(struct amdgpu_device *adev);
+>  void amdgpu_mes_fini(struct amdgpu_device *adev);
+>
+> -int amdgpu_mes_suspend(struct amdgpu_device *adev);
+> -int amdgpu_mes_resume(struct amdgpu_device *adev);
+> +int amdgpu_mes_suspend(struct amdgpu_device *adev, uint32_t xcc_id);
+> +int amdgpu_mes_resume(struct amdgpu_device *adev, uint32_t xcc_id);
+>
+>  int amdgpu_mes_map_legacy_queue(struct amdgpu_device *adev,
+>                                 struct amdgpu_ring *ring, uint32_t xcc_id=
+);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd=
+/amdgpu/gfx_v11_0.c
+> index 78d1f3eb522e..35734d34763a 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+> @@ -5200,7 +5200,7 @@ static int gfx_v11_0_post_soft_reset(struct amdgpu_=
+ip_block *ip_block)
+>         /**
+>          * GFX soft reset will impact MES, need resume MES when do GFX so=
+ft reset
+>          */
+> -       return amdgpu_mes_resume(adev);
+> +       return amdgpu_mes_resume(adev, 0);
+>  }
+>
+>  static uint64_t gfx_v11_0_get_gpu_clock_counter(struct amdgpu_device *ad=
+ev)
+> diff --git a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c b/drivers/gpu/drm=
+/amd/amdgpu/mes_userqueue.c
+> index 9508709abd49..d02a84711394 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
+> @@ -266,7 +266,7 @@ static int mes_userq_detect_and_reset(struct amdgpu_d=
+evice *adev,
+>
+>         if (found_hung_queue) {
+>                 /* Resume scheduling after hang recovery */
+> -               r =3D amdgpu_mes_resume(adev);
+> +               r =3D amdgpu_mes_resume(adev, input.xcc_id);
+>         }
+>
+>         return r;
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/driv=
+ers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+> index 18bc5ba25f8f..ec8d7f4be840 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+> @@ -367,7 +367,7 @@ static int suspend_all_queues_mes(struct device_queue=
+_manager *dqm)
+>         if (!down_read_trylock(&adev->reset_domain->sem))
+>                 return -EIO;
+>
+> -       r =3D amdgpu_mes_suspend(adev);
+> +       r =3D amdgpu_mes_suspend(adev, ffs(dqm->dev->xcc_mask) - 1);
+>         up_read(&adev->reset_domain->sem);
+>
+>         if (r) {
+> @@ -387,7 +387,7 @@ static int resume_all_queues_mes(struct device_queue_=
+manager *dqm)
+>         if (!down_read_trylock(&adev->reset_domain->sem))
+>                 return -EIO;
+>
+> -       r =3D amdgpu_mes_resume(adev);
+> +       r =3D amdgpu_mes_resume(adev, ffs(dqm->dev->xcc_mask) - 1);
+>         up_read(&adev->reset_domain->sem);
+>
+>         if (r) {
+> --
+> 2.43.0
+>
