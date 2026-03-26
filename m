@@ -4,64 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 76CD510ED66E
-	for <amd-gfx@archiver.kernel.org>; Fri, 27 Mar 2026 12:40:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5D38E10ED677
+	for <amd-gfx@archiver.kernel.org>; Fri, 27 Mar 2026 12:40:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EFC0F10EE09;
-	Fri, 27 Mar 2026 12:40:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0C72010EE0A;
+	Fri, 27 Mar 2026 12:40:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="D823dePZ";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="kecb9Wbb";
 	dkim-atps=neutral
-Received: from mail-oi1-f179.google.com (mail-oi1-f179.google.com
- [209.85.167.179])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E29DD10EBAC
- for <amd-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 18:54:57 +0000 (UTC)
-Received: by mail-oi1-f179.google.com with SMTP id
- 5614622812f47-464bba3a9easo828030b6e.0
- for <amd-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 11:54:57 -0700 (PDT)
+Received: from mail-oa1-f43.google.com (mail-oa1-f43.google.com
+ [209.85.160.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 42AFE10EBE6
+ for <amd-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 18:55:42 +0000 (UTC)
+Received: by mail-oa1-f43.google.com with SMTP id
+ 586e51a60fabf-40f1a1f77a6so940058fac.2
+ for <amd-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 11:55:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1774551297; x=1775156097; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1774551341; x=1775156141; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=R72DzlYh9MokOK1r/XXtR9MDuFmHujj2u63MvUuPRVY=;
- b=D823dePZIphZsWPbz5YiznN5vUvSMv0PzCya4dx7BvEc+rCuKXVkL/FmfGwjhowdgf
- MiuJobxdEveUXOQBkXgFpDn4aTW1+eiresqzwASNU00HOCsEDQgVPJCdEHOW0GKHnTm3
- IwvNtng8nz/gsfQ/DlESflAu7s987H/5zA3+Ci8a7jfG56nQ51QBMKo/KhIs1XepX3jw
- iHB3/U4pNEhkC90DfFoSkOlZldRryCypeXJ79yS7TtpgLZwnIA3eQTTmmF0XhTcyv5wx
- +yBmnsWO3gD3VyUuHddOkqr6FM7V/qTfAXmOJ5VCNZ5hTR6eueLAjxwLm95Kjrddkikf
- SLDw==
+ bh=93dR2Z7/f38EiX2nhH8I335LY48jx/pTe8LM2CbujQc=;
+ b=kecb9WbbHe0WJPkkW9xYW6t8hBEBq8OQ23n7G6ZP/lhh1HqeogNq1ZB6UvbGmz58hm
+ C83d+dGlcAkdgECZaJ/pVD9jhxO6y7YndsV6f6BCjzGNoG+lE8fMM0PQ4nEejwja3FAL
+ QFz1a2I92n7i3cikCYwCCc9p54GKPqh38mWdZEFnTpDIupMbLHXT7Vug1Y4tSkzZMNkR
+ SUWeCxlKMXYV4Wba9wfSudsrQ0SZQ9W6G27WEsNhcFNigAE2sXKpFZBrvq37ujajJfKu
+ 55ImOKrPurq+HkBX1qqg1GRcgrc04p93W/rtanU/0o8wBmC+tFoZfcixbAwc08S2ej8b
+ lg8g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774551297; x=1775156097;
+ d=1e100.net; s=20251104; t=1774551341; x=1775156141;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=R72DzlYh9MokOK1r/XXtR9MDuFmHujj2u63MvUuPRVY=;
- b=OESfiNPVXj1EiID4GFX37ex6878t9b6tWRdql1rKrR/a76U4h1AKhZQkWQ6lajjRX5
- X8FLEFeHCr02Zu+b1C5VGcXgSV291dAmHlStj0OrAVryLPFaIB0GRcc+G6LojWAHOrDp
- zkZ48K6bLMclr3gYkb4A8EFxRBtXpXByYZUdSMuk2doD0mhlTJIpnAHodKwttI2XLPn5
- 0TofUtLxPAAilBo9g+7zGzHukQXc+wZtjJ64C1oNPXfpkdnDuIEhQg76hJbPEN9wic5J
- 7THUIKQFS2Cofj49masTCOExbvs0+Yq9VzCe4wwDM4Vo49fyywJQVpv9YKLZeaVfvEle
- jrmA==
+ bh=93dR2Z7/f38EiX2nhH8I335LY48jx/pTe8LM2CbujQc=;
+ b=B7W1Mx2ebv0iUMteJhtAgr1rEWftSL3MsyPbHPaWTjbu26sdc/eKCUh04m88OTT/WA
+ yBELSZF6NqyvZzR53Kxy7pjH3gnxGcPbPbEzfQ24QMS6TL/1EON8cpw2Oc32aO6402Uz
+ fLGZ+qlNCU+MDac+WZSv0jaaQ7q4RX+LRLVcolFZChXh1DF0SpOkMvQfA2G7UvYaQTNY
+ 3P62a90QEZOwBqxOgT+YY/ZkB4PYpMMj+iA2eEAoY4fZZjf3Zuu0fQiOj16icKy/yoj0
+ 56w/oHEbawvVuYoEQVZqYNh6sy0lmYaAwu3kQv//0muBN6TbmXnXU/1QvH0cenr+5w2M
+ R6jQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCW34yCFdAw/aafSerDpda8ueVABntRBeTXDk/gQDZVUsmLkpodmTROzYSxlu2g8CDWlQPQLKZTU@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YznSNB9h1c19Pgq2K/lgFuOSw9HYyONGqTZu6jhilqKRQ0KDS3U
- SCw88Sg1ujixZjS6X1kwVU/Q64AjjyX4uMvvxY6PSDmKqsZZeqc+zma4
-X-Gm-Gg: ATEYQzyN/zFCRPggcKTVR2Uvi91m0t8fH50BBaVZw8scbsLvqJDEghON6Qw+cDpn8vB
- J3lDxQDIENITQlfFliS7czAkzB5vhxLL6ApB/rRy0K5rzcXO/DacjBrg/siRYphlABtk11U6KNf
- qoJTuLLdNaFaqamx5RbYLt09Bca1uTLTRo6laNNxqxf9Io4ldlKnarWl9FkkSvZIyU8Cug9Obsc
- E+zOoEqcACC23bLh+2Di0RQ/3oPetXwE5AqF+q3OgcGX5z9cKKhHJk8tzSHxCUghAML6BDeRZ7f
- Rm41tiMTpHa4TaH7V6pY/oXl/8flemlOfZVpF9coqBorUHgJto5kztRTjorH5v7VHe43ZhRTE//
- tGLTvMG1BejsEc+UaNFbGeTr4V6m73I06SJKuSNThVvzorV44vsa2EiKIPGGUFzhqCs9DLv54n9
- aHCHT5gz8efHq7xSZkW6HsVe5rlce6Ds3Q1k6HYCJcQ/CI0xyc
-X-Received: by 2002:a05:6808:c299:b0:467:14c7:a8ae with SMTP id
- 5614622812f47-46a5c5f7c5cmr3888707b6e.21.1774551297062; 
- Thu, 26 Mar 2026 11:54:57 -0700 (PDT)
+ AJvYcCXOzyXybv3Yj2ft5VVW4tFsyj3yHwDNPoCFAQfSAUFPsl2A89aDoyA386i9etvTOFHcpUYg+Qht@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YweQgJe0abJuPun8/+0+eVJmM3+8zRY9Vg41zIJjhv+lV+IO6iW
+ 2wiMB8dW9P+baGcivY82QebZ9esUJMZhjIlzJKEUA12nXXjmli3uHMf2
+X-Gm-Gg: ATEYQzwe2ImzFfwS5fcaLGtr6qzS2CcU+JOCKVJIrkI6FeCw4yTIJPw/MosTIk82EkX
+ JSj/Sa0gErmKv6WdpjDLU0TXeXT3L1y73Kuc2WduYwsQTvDGzWcglXazlpqlE1ZeIPmgtgaTXFX
+ M2qkQGHROk2Oc66AQv4MzkVA06+D2VfJLVWO7qrrr5Ldz7JiwPEAHe7rCJPgOcKk0WNEzlfssH6
+ WztEbJclgR5UcssJdwqbZOKiOd7t7NY+GWFiU1sOGHGXx4T3r5vGNJNam+96lopM9qhrID7f+Vc
+ MVIo+5iIj9pCIigFag45HmJfyGcHpeujUEuqGLa75ubBz1CR+/uc+dt+ZHxZKZsaxBJACGpsvQp
+ R/inseTvq7Bn/YufwkWPpKNXmbZs925lIaoqrkorvhTESyMuoq6zsQlXt7MLRWQffRVjhFsKfXs
+ M/k76Ku2pmT4xXL6O7vI5A0JJwPPT3Farfj8tBx3GbQxAD8BXY
+X-Received: by 2002:a05:6870:209:b0:417:2b13:f2cd with SMTP id
+ 586e51a60fabf-41ca6d734dcmr4697103fac.10.1774551341455; 
+ Thu, 26 Mar 2026 11:55:41 -0700 (PDT)
 Received: from frodo (c-98-38-17-99.hsd1.co.comcast.net. [98.38.17.99])
  by smtp.googlemail.com with ESMTPSA id
- 586e51a60fabf-41cc7760c08sm3075171fac.4.2026.03.26.11.54.55
+ 586e51a60fabf-41cc7760c08sm3075171fac.4.2026.03.26.11.55.39
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 26 Mar 2026 11:54:56 -0700 (PDT)
+ Thu, 26 Mar 2026 11:55:40 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: linux-kernel@vger.kernel.org, airlied@gmail.com, simona@ffwll.ch,
  jbaron@akamai.com, gregkh@linuxfoundation.org
@@ -72,9 +72,9 @@ Cc: jim.cromie@gmail.com, mripard@kernel.org, tzimmermann@suse.de,
  louis.chauvet@bootlin.com, skhan@linuxfoundation.org, pmladek@suse.com,
  ukaszb@chromium.org, dri-devel@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-Subject: [PATCH v12 18/69] dyndbg: macrofy a 2-index for-loop pattern
-Date: Thu, 26 Mar 2026 12:53:22 -0600
-Message-ID: <20260326185413.1205870-19-jim.cromie@gmail.com>
+Subject: [PATCH v12 45/69] drm-dyndbg: DRM_CLASSMAP_USE in amdgpu driver
+Date: Thu, 26 Mar 2026 12:53:49 -0600
+Message-ID: <20260326185413.1205870-46-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260326185413.1205870-1-jim.cromie@gmail.com>
 References: <20260326185413.1205870-1-jim.cromie@gmail.com>
@@ -95,94 +95,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-dynamic-debug currently has 2 __sections (__dyndbg, __dyndb_classes),
-struct _ddebug_info keeps track of them both, with 2 members each:
-_vec and _vec#_len.
+Following the dyndbg-api-fix, replace DECLARE_DYNDBG_CLASSMAP with
+DRM_CLASSMAP_USE.  This refs the defined & exported classmap, rather
+than re-declaring it redundantly, and error-prone-ly.
 
-We need to loop over these sections, with index and record pointer,
-making ref to both _vec and _vec_len.  This is already fiddly and
-error-prone, and will get worse as we add a 3rd section.
+This resolves the appearance of "class:_UNKNOWN_" in the control file
+for the driver's drm_dbg()s.
 
-Lets instead embed/abstract the fiddly-ness in the `for_subvec()`
-macro, and avoid repeating it going forward.
+Fixes: f158936b60a7 ("drm: POC drm on dyndbg - use in core, 2 helpers, 3 drivers.")
 
-This is a for-loop macro expander, so it syntactically expects to
-precede either a single statement or a { block } of them, and the
-usual typeof or do-while-0 tricks are unavailable to fix the
-multiple-expansion warning.
-
-The macro needs a lot from its caller: it needs 2 local vars, 1 of
-which is a ref to a contained struct with named members.  To support
-these requirements, add:
-
-1. __ASSERT_IS_LVALUE(_X):
-   ie: ((void)sizeof((void)0, &(x)))
-
-2. __ASSERT_HAS_VEC_MEMBERS(_X, _Y):
-   compile-time check that the _Y "vector" exists
-   ie: _X->_Y and _X->num_##_Y are lvalues.
-
-The for_subvec() macro then invokes these in the initialization of the
-for-loop; they disappear at runtime.
-
-Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
 ---
- lib/dynamic_debug.c | 27 ++++++++++++++++++++++++---
- 1 file changed, 24 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 12 +-----------
+ 1 file changed, 1 insertion(+), 11 deletions(-)
 
-diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-index 94a66c8537ab..8f614eba8ace 100644
---- a/lib/dynamic_debug.c
-+++ b/lib/dynamic_debug.c
-@@ -129,6 +129,28 @@ do {								\
- #define v3pr_info(fmt, ...)	vnpr_info(3, fmt, ##__VA_ARGS__)
- #define v4pr_info(fmt, ...)	vnpr_info(4, fmt, ##__VA_ARGS__)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+index 95d26f086d54..e5dd051eeba9 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+@@ -249,17 +249,7 @@ int amdgpu_rebar = -1; /* auto */
+ int amdgpu_user_queue = -1;
+ uint amdgpu_hdmi_hpd_debounce_delay_ms;
  
-+/*
-+ * simplify a repeated for-loop pattern walking N steps in a T _vec
-+ * member inside a struct _box.  It expects int i and T *_sp to be
-+ * declared in the caller.
-+ * @_i:  caller provided counter.
-+ * @_sp: cursor into _vec, to examine each item.
-+ * @_box: ptr to a struct containing @_vec member
-+ * @_vec: name of a member in @_box
-+ */
-+#define __ASSERT_IS_LVALUE(x) ((void)sizeof((void)0, &(x)))
-+#define __ASSERT_HAS_VEC_MEMBER(_box, _vec) \
-+	(void)sizeof((_box)->_vec + (_box)->num_##_vec)
-+
-+#define for_subvec(_i, _sp, _box, _vec)			\
-+	for (__ASSERT_IS_LVALUE(_i),			\
-+		__ASSERT_IS_LVALUE(_sp),		\
-+		__ASSERT_HAS_VEC_MEMBER(_box, _vec),	\
-+		(_i) = 0,				\
-+		(_sp) = (_box)->_vec;			\
-+	     (_i) < (_box)->num_##_vec;			\
-+	     (_i)++, (_sp)++)		/* { block } */
-+
- static void vpr_info_dq(const struct ddebug_query *query, const char *msg)
- {
- 	/* trim any trailing newlines */
-@@ -156,7 +178,7 @@ static struct ddebug_class_map *ddebug_find_valid_class(struct ddebug_table cons
- 	struct ddebug_class_map *map;
- 	int i, idx;
+-DECLARE_DYNDBG_CLASSMAP(drm_debug_classes, DD_CLASS_TYPE_DISJOINT_BITS, 0,
+-			"DRM_UT_CORE",
+-			"DRM_UT_DRIVER",
+-			"DRM_UT_KMS",
+-			"DRM_UT_PRIME",
+-			"DRM_UT_ATOMIC",
+-			"DRM_UT_VBL",
+-			"DRM_UT_STATE",
+-			"DRM_UT_LEASE",
+-			"DRM_UT_DP",
+-			"DRM_UT_DRMRES");
++DRM_CLASSMAP_USE(drm_debug_classes);
  
--	for (map = dt->classes, i = 0; i < dt->num_classes; i++, map++) {
-+	for_subvec(i, map, dt, classes) {
- 		idx = match_string(map->class_names, map->length, class_string);
- 		if (idx >= 0) {
- 			*class_id = idx + map->base;
-@@ -1232,8 +1254,7 @@ static void ddebug_attach_module_classes(struct ddebug_table *dt, struct _ddebug
- 	 * the builtin/modular classmap vector/section.  Save the start
- 	 * and length of the subrange at its edges.
- 	 */
--	for (cm = di->classes, i = 0; i < di->num_classes; i++, cm++) {
--
-+	for_subvec(i, cm, di, classes) {
- 		if (!strcmp(cm->mod_name, dt->mod_name)) {
- 			if (!nc) {
- 				v2pr_info("start subrange, class[%d]: module:%s base:%d len:%d ty:%d\n",
+ struct amdgpu_mgpu_info mgpu_info = {
+ 	.mutex = __MUTEX_INITIALIZER(mgpu_info.mutex),
 -- 
 2.53.0
 
