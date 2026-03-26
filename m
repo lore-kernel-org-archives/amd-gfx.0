@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0BF4D106F2E7
-	for <amd-gfx@archiver.kernel.org>; Thu, 26 Mar 2026 07:54:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E283E106F2E8
+	for <amd-gfx@archiver.kernel.org>; Thu, 26 Mar 2026 07:55:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 96E6810E2E1;
-	Thu, 26 Mar 2026 07:54:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6D1C610E2EA;
+	Thu, 26 Mar 2026 07:55:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="xqn5Kfn1";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="3mE6zcHg";
 	dkim-atps=neutral
-Received: from DM1PR04CU001.outbound.protection.outlook.com
- (mail-centralusazon11010033.outbound.protection.outlook.com [52.101.61.33])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 95D6A10E169
- for <amd-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 07:54:53 +0000 (UTC)
+Received: from BN1PR04CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11010070.outbound.protection.outlook.com [52.101.56.70])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F33A810E2EA
+ for <amd-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 07:55:04 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=MGBb+6TON3xO+DofWQjT3v26NQSAnBhUG/ORhtMn16VcLVoPT9H8lQ742ty/qwt/bw/M7D/gcZLC3vcoEBD9ZBCyhYmC+Yt34d4jULD+oOvkWBIXfzXZCP6j5bEf/uPJMtffwNUBXATUVkc6cyXSgvRzLEKfjvsIh5jUlknw5ERuogiS7qM0DiMQt0yLCwZKdwkI9/+lXFyWROXnaOhAaA38wDbspoQZS6AQe7UHlUIB3W8l6wiiqK1IWt6rY5bm6MU/SThHb++H/5a/8/r/j/KFXizCzLap6N9Bf01+gFKYEKfgEAICf9LHN9YJLr7Sd+6/t3ybq/Ocs5GBP/S5DA==
+ b=oDtGMRM6w+JEicvJ5bx71YINfPGWidMr66KGfnvV8q0BmsvZzgKowtmlP+Gl6y40a9zwZVjaFBXR6SaIMghSLL39RkhL1bqOi2dJYxuu3M+17KzywGXRyHIQQh3WUYHts8V3U6y/xPVhglzb+l7gUmGLelZ8ouSGMBClogGlBCxuYWr1BrVogB5wAMou8hTWOgvWHeRoxwh7lTOZGJjEqcej6VlWBzmUwE0XvmbC7YviYHwUdrgsiCXP49RAVdQkvc3QZ8vJlmKL1kPq8bGaGCrmzqrOL72skMN6S/zSLUOfD70E8ohEnZDQZ6ueXOWpq9VIar5G8qnFymntBp7gPQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=wELNS4u1c+POZRam1bYJqc5Zvf+WuCBg6HMA3pUczI0=;
- b=b8LisAhRil8dDV4IsUfroddcgL5IPRu0MvgmZVRzxAJeDspgqvWt1T8mhgY6hCiNLStH1re4U7yDZVq2MOzWX+TAKOCnFe1ksdfeqf21ooMT+tWjQ+9X1+FfHD57s4U81lQJp480NN6RliQAX1KBuzUnDFswFbwEhL2sNNaDoufMWmWbdKJ5TZ5rrNTsdNNmLvV1Vi6IP/lEn12qPEz+sEm3P+Yx7j5Prg9z8/q2AtLxrHASSd/kQdX+KgmhI4L9trvjmUn7IwnhFlMbevMr2VD9u9I+glBzzuS6g0EqWYU0j3nS5duM5ez7cnC+bq8zmOkLsXnO+U8VsdOsDEMfsg==
+ bh=cJ4LLXO5tiBHkBCRyqjkG1xlygL8ZKTs6ypv+eSg9+o=;
+ b=UH/7lJsxgpPG7YputOlmEVh5Z3ryIcIOxonnfmSdQSJG4mFlXDeI8F7L8S/nx0GqXr8k8JZTPnLNd1dkWsMYzpdOKEMPK0grJiF4uFNyjrQtASh9K/0ybX68dsf6b47zG9p4aRTL0Y0Ic7WSikuwVm9XjN9wLUBWNntcfP6jjtb5iXW2eiquRpKm++g0Ndq65ToEgSX9APm5AmEltnLuNlA4MWwfYIx8G+lmEDPW4+8SeF/7ntOnS4tOuMc8HrRr0g4J+j1wDPtrEZwVc8hTH7HhANxcs6Or3s2TrV0bx/97Z53Wz5A1Bb0YzoCBxTmGTGZdJrUa/jnWk3zPnG43vQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=wELNS4u1c+POZRam1bYJqc5Zvf+WuCBg6HMA3pUczI0=;
- b=xqn5Kfn1ORt+pKpVtS+mHdbEHYx6flBkQGBDHctsypqsCQC5aJTq5PZy5CZcA27BT0RJyplcmgXRlJyp4mvVWj4LPc+bVVejzCJCR1CgjN3o1IJW3z8emezHXNQYuKynmRMF7SaqdzUwZBuIUPtfw0Ua89sqJKci5TnEbgNgq8o=
-Received: from IA1P220CA0023.NAMP220.PROD.OUTLOOK.COM (2603:10b6:208:464::7)
- by PH7PR12MB6657.namprd12.prod.outlook.com (2603:10b6:510:1fe::7) with
+ bh=cJ4LLXO5tiBHkBCRyqjkG1xlygL8ZKTs6ypv+eSg9+o=;
+ b=3mE6zcHg4vDKw5IdiOOSDHsFuEmB7shCLgNyi1nPV4WOZ/5cQ9J/pmTO4N/kr3SveNGn2VY0Vs5QtYJFZuUH7OAVoV2q+cd+j8+d44LvLZ07pPewTysZMh+84NP/MXDl9i2pqlWFs94Qee7tgtWRAnKgByrcJJaPjQImfyDftmI=
+Received: from CH5P223CA0013.NAMP223.PROD.OUTLOOK.COM (2603:10b6:610:1f3::8)
+ by DM4PR12MB7574.namprd12.prod.outlook.com (2603:10b6:8:10e::9) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.20; Thu, 26 Mar
- 2026 07:54:45 +0000
-Received: from BN1PEPF0000468C.namprd05.prod.outlook.com
- (2603:10b6:208:464:cafe::bd) by IA1P220CA0023.outlook.office365.com
- (2603:10b6:208:464::7) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9745.22 via Frontend Transport; Thu,
- 26 Mar 2026 07:54:46 +0000
+ 2026 07:55:00 +0000
+Received: from CH3PEPF00000012.namprd21.prod.outlook.com
+ (2603:10b6:610:1f3:cafe::dd) by CH5P223CA0013.outlook.office365.com
+ (2603:10b6:610:1f3::8) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9723.33 via Frontend Transport; Thu,
+ 26 Mar 2026 07:55:00 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,21 +48,21 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- BN1PEPF0000468C.mail.protection.outlook.com (10.167.243.137) with Microsoft
+ CH3PEPF00000012.mail.protection.outlook.com (10.167.244.117) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9745.21 via Frontend Transport; Thu, 26 Mar 2026 07:54:44 +0000
+ 15.20.9769.0 via Frontend Transport; Thu, 26 Mar 2026 07:55:00 +0000
 Received: from mlse-blrlinux-ll.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Thu, 26 Mar
- 2026 02:54:42 -0500
+ 2026 02:54:44 -0500
 From: Lijo Lazar <lijo.lazar@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <Hawking.Zhang@amd.com>, <Alexander.Deucher@amd.com>,
  <Asad.Kamal@amd.com>, <Feifei.Xu@amd.com>, Alex Deucher
  <alexander.deucher@amd.com>
-Subject: [PATCH 01/14] drm/amdgpu: Add reserved region ids
-Date: Thu, 26 Mar 2026 13:15:22 +0530
-Message-ID: <20260326075412.1378411-2-lijo.lazar@amd.com>
+Subject: [PATCH 02/14] drm/amdgpu: Add stolen vga reserve-region
+Date: Thu, 26 Mar 2026 13:15:23 +0530
+Message-ID: <20260326075412.1378411-3-lijo.lazar@amd.com>
 X-Mailer: git-send-email 2.49.0
 In-Reply-To: <20260326075412.1378411-1-lijo.lazar@amd.com>
 References: <20260326075412.1378411-1-lijo.lazar@amd.com>
@@ -74,29 +74,29 @@ X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN1PEPF0000468C:EE_|PH7PR12MB6657:EE_
-X-MS-Office365-Filtering-Correlation-Id: 77044db4-0850-48a4-3173-08de8b0cf1b7
+X-MS-TrafficTypeDiagnostic: CH3PEPF00000012:EE_|DM4PR12MB7574:EE_
+X-MS-Office365-Filtering-Correlation-Id: e77a5b1c-c8b1-4d64-9ac8-08de8b0cfb26
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|82310400026|36860700016|376014|18002099003|22082099003|56012099003;
-X-Microsoft-Antispam-Message-Info: QBpMi1Q/WQxj8431eZC2v6F56Z4ggNBLmADItYZXoT+DEmuCmvNiT6xVMBpDk1vDXMpjwV+rMtOkeCEwPFy0IrkzSJBGbO+x8OuU+f5/MRkmmVqGz87lxBTCRMktVqhwmNTeUyeObFTOicWYTJEDfxw36PUK+8L82b7py3kcWGohJHEZKLJfQwyLZQg81OQQnmJWXdWNMZlmH3cxG8ERT9NZ+NjiJyYbSyluTdZAs0vrxKK5KXGh4etwxrnqfo4zcsyFac8ytW4N6w7wA360oIqz8KlhOddBZvdzQiBC2jkpn/1kxekBGhTGJaR+F3cAwVtHhSuUdjTR4S/GQMO1AGMkD3XlsVUTs0m7hbimnr49+wMuV8Anlkb0EKjbzeWTs+6QCYJ4iuiUf3Y9KDB8ytXqyiWtafUGDltbBfWTVzQukkLRBdFZuzsJxh43ok41W1xv7MqITNi5rnX+sm1ovvCjR01BU3g+fJdCCklN7mBBTJYiodxswTSdS0JKA5E/dkcqExMtRUVHQPX/87JugwV9FFD2iB4MWhBomyOoZE76vACGRUHMbwOzrG9IlFVOGXe7TWtzKhD3D/dBHaV404XRR+WtsVzyv5vhuNyXPpT8mtbxQXG7Itb1roDrT6ksY8am4v5n2lx1I0u5vWNe6H++goVIuMt1Kim2iWXNzd5E/gxmSkfiRW+XgITerJwvGptd6LRMnOxoTNc0/ai0NAAyNt3uKt4iUokT/BiBoff3I+RdUugj0vNRo9NUH6vFW68RucmytAlHqWbvvz4HmQ==
+ ARA:13230040|82310400026|1800799024|36860700016|376014|18002099003|56012099003|22082099003;
+X-Microsoft-Antispam-Message-Info: fHTgML/HgaKy10wfFIStewxG6n/ENiqurpUxSdoB+Bq/WPo07oqrPXMmRRD8g6WOTs5nDpJvktL5OFsvfJWO/PjEyTzgtlYaPLQKBCOe2EeFILXsMEsCcQs3lYn4fVKOLZk8e6XZom3Ck4RlLWT5gLSQPl9+q64I+L7yagWs7uQmwgeVovI8x5yudFEsfNkEwcvvbHG5dwvOwDFIFiTpy35lmX4O5IVYpZIrZV5PQoydK3TvgGcTdJVnssQbec8WsM92XhkSHm5cCoWIws7NQXnW24/87FYEK15wVQ9xqFvuRgny+pd4KmA80uapKqkIgXMWQKz8xydzqQW6qmNXNwxNZ2gvxmQUA7xN30OqP/I3flUOgzaX3cYtYtfLcphHd2yfR/ddglH7239dUhHkjOwVUJGDmVD6ZSCIdJd57I6l5afoQzhBOHtdgHr1HFH+Dbv5GIcpFrmftmqhcVtQJQxNdKJCoIIA9JdxaVTzbhWFd9YbjOYvaLf0wl5ODcZEWdaY+z6nDDGRayY00Jl5qzYlFDYYGpWUQAh2KSTybnmoEYPKH4xNJ7swh9YujqA5S9oMuYhJJzypZwVlpjrTq9uP+0H3uTJ1aNA8HNMDSIg3mLE3riJCjoa5jVMC0wJ1umBKyNexaPFBby0JusfjkVjN5sVeAnjbqSNq5kPsLIy8b21UJdH5MQAV5csColeuHNp/ES5Le9VfoV/G3tjtfCOq1+mXh7LW3XA/00qJk8scaLq4jRakb6Jh/q/+F8NO4uzRvnD/JHQO8Bt9lkTTmw==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(82310400026)(36860700016)(376014)(18002099003)(22082099003)(56012099003);
+ SFS:(13230040)(82310400026)(1800799024)(36860700016)(376014)(18002099003)(56012099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: uMhIG6jgNiGovmmuUhAVoqx16EeBbXGYicS/9S87FoniCRUMtYMYw/Ipv7dErUEI8wGxLtSPFVwUICMODs++fhz4xYUKileyG4Y+mExhKF8KVvLBp+BtROwnqlXOEEm+HHFi7T2RAs3/IP98bY8TYriWdPIrIQ0s55O6JhyoiKS6nYe/Zrwc9CSmc1tfW894bdg3tSueOhBrJg+DCbjvazDm309g/CJtNi4c2n0gBtHQp6ops74vDhiKReeF+jAdNCLuqd+mV8iftBe6OYEEjMkCq36fTUubRGgFe3zGi9uDG0scCYLWnEtYIfIjBvDNnMo03BZxWTjFWg5M9dYQoY+bbUlTH0CnzpV5P5qr/1W6Mgs2+8TkxZv1WBUaD6pstNj5Wn8QpCDiQIzvDxbhhvd0/gNsAfb+aZ8Gfbg5fJ2qfUe/bgjSppTGEzdqbHAq
+X-MS-Exchange-AntiSpam-MessageData-0: uAHElOt0/gshD/HeAmPhgaxaLRxgybleJR6doh3evXSXDaCs0FQjkjYF5p1AKlq8h+2HhXCQ7B59JdniRS/lxfj99q0D0SmCVWF79jt2RAQD8dJM5ZcShhUvAaKsJLw9PY3XDJQVgJPkFBXWvmUKmYCAeaOCuN7lRsjiXByeYtZmHGuemky4Dc8vzequ0Ectm3mxubKJXc2cuZaQOhlMwVqTaGA4XQq/npFMW/HDtE2OKZJeCXihY5KCF1XY7oWy17TwCWmaD7a8V9GzRdF8xXDvJYKeIedbEm5atYriRa39ou4o+XuC9s/GQ4xv2+tOJbsTr9kqpsXzBfwCiIel2voz+glaJE3/GUoqxvpKsCoYnSrDzk8MBX8cPuxiqHZ+BULRoTSx69dSRjMgyjY3oI5jfxIOMEPEq4seRZKoVVdAGmEBr/ykif9gagpVthzH
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Mar 2026 07:54:44.3939 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 77044db4-0850-48a4-3173-08de8b0cf1b7
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Mar 2026 07:55:00.2378 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e77a5b1c-c8b1-4d64-9ac8-08de8b0cfb26
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN1PEPF0000468C.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CH3PEPF00000012.namprd21.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6657
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB7574
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,140 +111,94 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add reserved regions and helper functions to memory manager.
+Use reserve region helpers for initializing/reserving stolen vga region.
 
 Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
 Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 58 +++++++++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h | 31 +++++++++++++
- 2 files changed, 89 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c           |  8 +++++---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c           | 10 ++++------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h           |  2 --
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  2 +-
+ 4 files changed, 10 insertions(+), 12 deletions(-)
 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+index f165d4e401e8..c40ae1073017 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+@@ -1098,10 +1098,12 @@ void amdgpu_gmc_get_vbios_allocations(struct amdgpu_device *adev)
+ 		size = 0;
+ 
+ 	if (size > AMDGPU_VBIOS_VGA_ALLOCATION) {
+-		adev->mman.stolen_vga_size = AMDGPU_VBIOS_VGA_ALLOCATION;
+-		adev->mman.stolen_extended_size = size - adev->mman.stolen_vga_size;
++		amdgpu_ttm_init_vram_resv(adev, AMDGPU_RESV_STOLEN_VGA,
++					  0, AMDGPU_VBIOS_VGA_ALLOCATION, false);
++		adev->mman.stolen_extended_size = size - AMDGPU_VBIOS_VGA_ALLOCATION;
+ 	} else {
+-		adev->mman.stolen_vga_size = size;
++		amdgpu_ttm_init_vram_resv(adev, AMDGPU_RESV_STOLEN_VGA,
++					  0, size, false);
+ 		adev->mman.stolen_extended_size = 0;
+ 	}
+ }
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-index 714fd8d12ca5..45011176d4cf 100644
+index 45011176d4cf..4d344f6bb812 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-@@ -1677,6 +1677,64 @@ static struct ttm_device_funcs amdgpu_bo_driver = {
- 	.access_memory = &amdgpu_ttm_access_memory,
- };
+@@ -2213,14 +2213,12 @@ int amdgpu_ttm_init(struct amdgpu_device *adev)
+ 	 * and driver.
+ 	 */
+ 	if (!adev->gmc.is_app_apu) {
+-		r = amdgpu_bo_create_kernel_at(adev, 0,
+-					       adev->mman.stolen_vga_size,
+-					       &adev->mman.stolen_vga_memory,
+-					       NULL);
++		r = amdgpu_ttm_mark_vram_reserved(adev, AMDGPU_RESV_STOLEN_VGA);
+ 		if (r)
+ 			return r;
  
-+void amdgpu_ttm_init_vram_resv(struct amdgpu_device *adev,
-+				enum amdgpu_resv_region_id id,
-+				uint64_t offset, uint64_t size,
-+				bool needs_cpu_map)
-+{
-+	struct amdgpu_vram_resv *resv;
-+
-+	if (id >= AMDGPU_RESV_MAX)
-+		return;
-+
-+	resv = &adev->mman.resv_region[id];
-+	resv->offset = offset;
-+	resv->size = size;
-+	resv->needs_cpu_map = needs_cpu_map;
-+}
-+
-+int amdgpu_ttm_mark_vram_reserved(struct amdgpu_device *adev,
-+				  enum amdgpu_resv_region_id id)
-+{
-+	struct amdgpu_vram_resv *resv;
-+	int ret;
-+
-+	if (id >= AMDGPU_RESV_MAX)
-+		return -EINVAL;
-+
-+	resv = &adev->mman.resv_region[id];
-+	if (!resv->size)
-+		return 0;
-+
-+	ret = amdgpu_bo_create_kernel_at(adev, resv->offset, resv->size,
-+					 &resv->bo,
-+					 resv->needs_cpu_map ? &resv->cpu_ptr : NULL);
-+	if (ret) {
-+		dev_dbg(adev->dev, "reserve vram failed: id=%d offset=0x%llx size=0x%llx ret=%d\n",
-+			id, resv->offset, resv->size, ret);
-+		memset(resv, 0, sizeof(*resv));
-+	}
-+
-+	return ret;
-+}
-+
-+void amdgpu_ttm_unmark_vram_reserved(struct amdgpu_device *adev,
-+				     enum amdgpu_resv_region_id id)
-+{
-+	struct amdgpu_vram_resv *resv;
-+
-+	if (id >= AMDGPU_RESV_MAX)
-+		return;
-+
-+	resv = &adev->mman.resv_region[id];
-+	if (!resv->bo)
-+		return;
-+
-+	amdgpu_bo_free_kernel(&resv->bo, NULL,
-+			      resv->needs_cpu_map ? &resv->cpu_ptr : NULL);
-+	memset(resv, 0, sizeof(*resv));
-+}
-+
- /*
-  * Firmware Reservation functions
-  */
+-		r = amdgpu_bo_create_kernel_at(adev, adev->mman.stolen_vga_size,
++		r = amdgpu_bo_create_kernel_at(adev,
++					       adev->mman.resv_region[AMDGPU_RESV_STOLEN_VGA].size,
+ 					       adev->mman.stolen_extended_size,
+ 					       &adev->mman.stolen_extended_memory,
+ 					       NULL);
+@@ -2349,7 +2347,7 @@ void amdgpu_ttm_fini(struct amdgpu_device *adev)
+ 	amdgpu_ttm_training_reserve_vram_fini(adev);
+ 	/* return the stolen vga memory back to VRAM */
+ 	if (!adev->gmc.is_app_apu) {
+-		amdgpu_bo_free_kernel(&adev->mman.stolen_vga_memory, NULL, NULL);
++		amdgpu_ttm_unmark_vram_reserved(adev, AMDGPU_RESV_STOLEN_VGA);
+ 		amdgpu_bo_free_kernel(&adev->mman.stolen_extended_memory, NULL, NULL);
+ 		/* return the FW reserved memory back to VRAM */
+ 		amdgpu_bo_free_kernel(&adev->mman.fw_reserved_memory, NULL,
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-index bf101215757e..e8fe34751bbd 100644
+index e8fe34751bbd..639daed8c984 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-@@ -59,6 +59,26 @@ struct amdgpu_ttm_buffer_entity {
- 	u64			gart_window_offs[2];
- };
+@@ -99,8 +99,6 @@ struct amdgpu_mman {
+ 	struct amdgpu_gtt_mgr gtt_mgr;
+ 	struct ttm_resource_manager preempt_mgr;
  
-+enum amdgpu_resv_region_id {
-+	AMDGPU_RESV_STOLEN_VGA,
-+	AMDGPU_RESV_STOLEN_EXTENDED,
-+	AMDGPU_RESV_STOLEN_RESERVED,
-+	AMDGPU_RESV_FW,
-+	AMDGPU_RESV_FW_EXTEND,
-+	AMDGPU_RESV_FW_VRAM_USAGE,
-+	AMDGPU_RESV_DRV_VRAM_USAGE,
-+	AMDGPU_RESV_MEM_TRAIN,
-+	AMDGPU_RESV_MAX
-+};
-+
-+struct amdgpu_vram_resv {
-+	uint64_t		offset;
-+	uint64_t		size;
-+	struct amdgpu_bo	*bo;
-+	void			*cpu_ptr;
-+	bool			needs_cpu_map;
-+};
-+
- struct amdgpu_mman {
- 	struct ttm_device		bdev;
- 	struct ttm_pool			*ttm_pools;
-@@ -105,6 +125,8 @@ struct amdgpu_mman {
- 	struct amdgpu_bo	*drv_vram_usage_reserved_bo;
- 	void		*drv_vram_usage_va;
+-	uint64_t		stolen_vga_size;
+-	struct amdgpu_bo	*stolen_vga_memory;
+ 	uint64_t		stolen_extended_size;
+ 	struct amdgpu_bo	*stolen_extended_memory;
+ 	bool			keep_stolen_vga_memory;
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index d73095ac3ab1..a56d612da7e1 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -11153,7 +11153,7 @@ static void amdgpu_dm_atomic_commit_tail(struct drm_atomic_state *state)
+ 	if (!adev->in_suspend) {
+ 		/* return the stolen vga memory back to VRAM */
+ 		if (!adev->mman.keep_stolen_vga_memory)
+-			amdgpu_bo_free_kernel(&adev->mman.stolen_vga_memory, NULL, NULL);
++			amdgpu_ttm_unmark_vram_reserved(adev, AMDGPU_RESV_STOLEN_VGA);
+ 		amdgpu_bo_free_kernel(&adev->mman.stolen_extended_memory, NULL, NULL);
+ 	}
  
-+	struct amdgpu_vram_resv		resv_region[AMDGPU_RESV_MAX];
-+
- 	/* PAGE_SIZE'd BO for process memory r/w over SDMA. */
- 	struct amdgpu_bo	*sdma_access_bo;
- 	void			*sdma_access_ptr;
-@@ -171,6 +193,15 @@ void amdgpu_vram_mgr_clear_reset_blocks(struct amdgpu_device *adev);
- bool amdgpu_res_cpu_visible(struct amdgpu_device *adev,
- 			    struct ttm_resource *res);
- 
-+void amdgpu_ttm_init_vram_resv(struct amdgpu_device *adev,
-+				enum amdgpu_resv_region_id id,
-+				uint64_t offset, uint64_t size,
-+				bool needs_cpu_map);
-+int amdgpu_ttm_mark_vram_reserved(struct amdgpu_device *adev,
-+				  enum amdgpu_resv_region_id id);
-+void amdgpu_ttm_unmark_vram_reserved(struct amdgpu_device *adev,
-+				     enum amdgpu_resv_region_id id);
-+
- int amdgpu_ttm_init(struct amdgpu_device *adev);
- void amdgpu_ttm_fini(struct amdgpu_device *adev);
- void amdgpu_ttm_set_buffer_funcs_status(struct amdgpu_device *adev,
 -- 
 2.49.0
 
