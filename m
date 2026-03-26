@@ -4,84 +4,93 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 63AF510ED673
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 00D5D10ED677
 	for <amd-gfx@archiver.kernel.org>; Fri, 27 Mar 2026 12:41:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A753510EE17;
-	Fri, 27 Mar 2026 12:41:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0671A10EE31;
+	Fri, 27 Mar 2026 12:41:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="TG25N/Z3";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="AnOsvsYf";
 	dkim-atps=neutral
-Received: from mail-oo1-f43.google.com (mail-oo1-f43.google.com
- [209.85.161.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BCF3E10EB43
- for <amd-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 18:54:42 +0000 (UTC)
-Received: by mail-oo1-f43.google.com with SMTP id
- 006d021491bc7-67e0d3f288aso621732eaf.0
- for <amd-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 11:54:42 -0700 (PDT)
+Received: from mail-pf1-f171.google.com (mail-pf1-f171.google.com
+ [209.85.210.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A669C10EB50
+ for <amd-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 23:47:52 +0000 (UTC)
+Received: by mail-pf1-f171.google.com with SMTP id
+ d2e1a72fcca58-829a9d08644so798396b3a.1
+ for <amd-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 16:47:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1774551282; x=1775156082; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1774568872; x=1775173672; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=4wIIBK2xLHmy9ZZczWpP2RzFmOx4bELZz7aMw+RGO2w=;
- b=TG25N/Z3YTgPWXOmXhWjfDAVnM5B6uECwSBVH/Jwb7R/cwOeUBFflRFIfFwpgz6hk5
- aG9SGOFnS8nEvkQIeSuO/6t1xRe2TDfpXzuztD8A7oXMCbejTrgkGkVsW9GKizhZcdR2
- UFWLdT6p40MNOkwM573U3qV/2qzAfs4FviP5SwdAXVSZS2uny7XXGINMT95ZN1aJMhZh
- ne8k9pVBnY65GsX7R1+fypPJzgZGmUHfkLnIcbAk8WCgMi4ajlR6n000Hw5jA1fpj+I2
- bLCmFNRi4pm909OaqfQtdnZSJv6zpQo0UDDRlXZTRvHjLMYcZ3p257Lo39PWik60xBgc
- 35VQ==
+ bh=0/3ZOVQYuvF8/v5An1EVVsLN1VlAxvgYs14Kv3HQDNc=;
+ b=AnOsvsYfGdiwZwIyFsATjP6aX8tBDr0C0D+mKuhld+vnmBjc81fvCJ1frxgGcQMeyw
+ P2VRM06UWBbuIXqoVeh19pLhR6kcf9UT79RHzSwDGepsqSmixpbl9XCcKObVqHMSu1Kp
+ VxXgASAZwwMgRNxAjB3eXheMcK8nopYmsz5pQFyMZHhgN0veHACP9PgvAbU7S2XWfVW6
+ qFQ3TVhd0RpSWnWBAkdGvePriTjwTzzy92HmJ5ebxPAuMqS8qnrQM6d1sk1OgLtwUucm
+ dkUyCzWXcq7p/YzybzzrDuIGbuQtL1H1H7RTHAyhTdwPuTqGTSLfQZemdLU3RSimxUeV
+ dr1Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774551282; x=1775156082;
+ d=1e100.net; s=20251104; t=1774568872; x=1775173672;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=4wIIBK2xLHmy9ZZczWpP2RzFmOx4bELZz7aMw+RGO2w=;
- b=ZtenEN6nc0/+3Mz435Li2gl6eA/8iGxwkma+CD4HEPrqkpgFB+ODKW1B/jvv41K9rB
- q/IPsB3Www/ZTgAC5Q9Gigu3qhCLLXkB7ffRXSOaWI90XRiIvPF9OU6Mk2Yz8Dwjss3E
- SSp93Naf/XiibyM35O6719t3ReTinKcf/2XWK0xMsA44HB78jJOkPlK+hhr8VcmrBcvW
- DfrPvSRftpPn1XxUn860YAmc7M3cSExIphbbeMiUxejwOP5T6r7weBrb97XGkWtk6ydd
- VnE16nwQ410XaFC1KoZKlPqSvp2f4w9fUg9FfWuOs2QAoi6VihjX7ZZJ19gaM4DSTZId
- UMGg==
+ bh=0/3ZOVQYuvF8/v5An1EVVsLN1VlAxvgYs14Kv3HQDNc=;
+ b=BUDhC80wgPe8jvxycKMe7UzXRnhJccXKy7peKyU9Da9xgKESHisyWnVsfGRNKdTxJm
+ CRlwLU+/9F3H7krxCmRTeXDm01Qzjh2X6ylGSTTVsKNLqEWYpcFZWmHJBcLQvyIeKvSx
+ dJZCZZBV4ypkO/dmfR6xetOiNrNSSSWrHg/ol61g/2K2jbucqbPDOhEYdVikYZ45qUVO
+ /XvsjV5tjYY/ZzD2S790EQkw53s7pjWi/OQua4GX8g5Eg/WSa4sSqv3km9gZwQKKfQ5O
+ 3MTHAiC2gsNtkvPAdrM4NQV+t6orlHiUg2Dob+EZig7WtMAIsJshVhTjK679+CI+ioo+
+ O6Dw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXZsCSJU4SAi0osjQUyblCRRsPry7SN0TL4RP7Rxs9Hw52camYYxMErfF+50YQYHcbZS+fMzjX1@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzdgBItEQdvnfOCruBd2J7glCYUfVByaffkPQXZvPToDF1mlphd
- 6sJNAJhEmxGiDycYqXW15F0z3m7SBlUZUEnXB6urnTJCHN/HJ+PhCdmx
-X-Gm-Gg: ATEYQzzxGD24K+ALGH0ckPXbyUObIft2Xx4+rkPibKKE954THKkEqEfyGVBUXLzQ8ZY
- 0RDmx4VMApvdMGAEuwebFdwYmghKzwR06ub3bHqdIt4TZkBnLbzCqQsR9+5SXSurVzpJ8GQl49/
- xqTtflB1agaIzmS+vChKmuodqN4cphFoxefI+vkAKgnHPbgGL2XO6Qc67+eCYzVkuRl+nwtegxp
- CdXll2CzofMQ2bYWwpGLK6X2D0xhLNnMu75zHQXfIb6ulEiYIAgCaEeS3cvEbJOZKti2PYzB05E
- nVkNDK92l1WKS+EtvAIPDwuiCfhQYaFQTMyUiw4n1m+ygWS5KQ8IMGzeujnEP6zm9/TwnpYkyo/
- W4PIBfF6osndJpApodxlJHmUYUITVvhMTd6LPHWKzLE4k4NwR0rTCjrlNgDDJTITz8y1USTKxko
- GdFJQbW2NuwkDHrBMOuO7mEuGuGGNf6yBEbqJo7D43KXAr2XHb
-X-Received: by 2002:a05:6820:174b:b0:67c:2af2:a66a with SMTP id
- 006d021491bc7-67dff37caf7mr4976746eaf.11.1774551281759; 
- Thu, 26 Mar 2026 11:54:41 -0700 (PDT)
-Received: from frodo (c-98-38-17-99.hsd1.co.comcast.net. [98.38.17.99])
- by smtp.googlemail.com with ESMTPSA id
- 586e51a60fabf-41cc7760c08sm3075171fac.4.2026.03.26.11.54.40
+ AJvYcCXTQzobDuDkZe2ZKPiHjmTdtMViFwZT5YUgq5CBqGjXx1aJT1xGcBljLtb197uAwuekvduaaLzd@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxK9JQpyoCWMn1t+B5HW8MxJ7MEwKXJuRoqv1DWuHSmQqpZmf6M
+ J5wgQE1e94VmAuYktsC0li1PLALsPj7BmzSBkhi15Lh9LGS3fSbLCBirQq0UXKng
+X-Gm-Gg: ATEYQzzKIUR/u8KZAfUtDFR3PHLaOF6MSG8UZbcXLmAqPv8B+us0x5IknSrbxv1NoVb
+ 8HtJMiFTBB2WStf3h86zxq78obP5a4AKjsJGCeLtVRjBQAXMmzmnFiezcsW2m9WF8hyqmSyrrqa
+ WyzPJPz68LWWZngEUGjUW3ndwZvh4kz73JgVcw7zbd3rgcJ8CcJcW9x+o3rkv2LU9dgvsVWKG/v
+ ia/NvtbGFV/KLrvFcc2F5zUDYrHzUp4qsNFdnlkKR7nukVr/hBQNHxqt5uGd5yqEcuRPiT++pIf
+ z7R84dqC9HA95Bc4CzEag5hp8H9HqSB3Z9Pz3UYVR5dl0JA6Ta8suD2Ylev9+9OrWzoE2Wcl54g
+ CYWzsFnfK2pUEdSKnYXJ9dPjarA4aCIc219VYediszZMka9YupCAyeDlslxb1f+LEZR/VeXsdZV
+ EotpWOyfqTxxv4tBxDkRh9oXC7ZIrr2NrvSwOCGTuSSM65oxM0/SnUofU=
+X-Received: by 2002:a05:6a20:3ca3:b0:398:a060:a97b with SMTP id
+ adf61e73a8af0-39c877b2c2fmr512115637.1.1774568872136; 
+ Thu, 26 Mar 2026 16:47:52 -0700 (PDT)
+Received: from ryzen ([2601:644:8000:5b5d::8bd])
+ by smtp.gmail.com with ESMTPSA id
+ 41be03b00d2f7-c7673933816sm3201162a12.21.2026.03.26.16.47.50
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 26 Mar 2026 11:54:41 -0700 (PDT)
-From: Jim Cromie <jim.cromie@gmail.com>
-To: linux-kernel@vger.kernel.org, airlied@gmail.com, simona@ffwll.ch,
- jbaron@akamai.com, gregkh@linuxfoundation.org
-Cc: jim.cromie@gmail.com, mripard@kernel.org, tzimmermann@suse.de,
- maarten.lankhorst@linux.intel.com, jani.nikula@intel.com,
- ville.syrjala@linux.intel.com, christian.koenig@amd.com,
- matthew.auld@intel.com, arunpravin.paneerselvam@amd.com,
- louis.chauvet@bootlin.com, skhan@linuxfoundation.org, pmladek@suse.com,
- ukaszb@chromium.org, dri-devel@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- linux-doc@vger.kernel.org
-Subject: [PATCH v12 08/69] docs/dyndbg: explain flags parse 1st
-Date: Thu, 26 Mar 2026 12:53:12 -0600
-Message-ID: <20260326185413.1205870-9-jim.cromie@gmail.com>
+ Thu, 26 Mar 2026 16:47:51 -0700 (PDT)
+From: Rosen Penev <rosenp@gmail.com>
+To: stable@vger.kernel.org
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@linux.ie>,
+ Daniel Vetter <daniel@ffwll.ch>, Harry Wentland <harry.wentland@amd.com>,
+ Leo Li <sunpeng.li@amd.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Bin Lan <bin.lan.cn@windriver.com>, He Zhe <zhe.he@windriver.com>,
+ Vitaly Prosyak <vitaly.prosyak@amd.com>, Alex Hung <alex.hung@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>,
+ Mario Limonciello <Mario.Limonciello@amd.com>, Ray Wu <ray.wu@amd.com>,
+ Wayne Lin <wayne.lin@amd.com>, Roman Li <Roman.Li@amd.com>,
+ Eric Yang <Eric.Yang2@amd.com>, Tony Cheng <Tony.Cheng@amd.com>,
+ Mauro Rossi <issor.oruam@gmail.com>,
+ amd-gfx@lists.freedesktop.org (open list:RADEON and AMDGPU DRM DRIVERS),
+ dri-devel@lists.freedesktop.org (open list:DRM DRIVERS),
+ linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH for 6.12 8/9] drm/amd/display: Disable scaling on DCE6 for now
+Date: Thu, 26 Mar 2026 16:47:15 -0700
+Message-ID: <20260326234716.16723-9-rosenp@gmail.com>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260326185413.1205870-1-jim.cromie@gmail.com>
-References: <20260326185413.1205870-1-jim.cromie@gmail.com>
+In-Reply-To: <20260326234716.16723-1-rosenp@gmail.com>
+References: <20260326234716.16723-1-rosenp@gmail.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Fri, 27 Mar 2026 12:40:00 +0000
+X-Mailman-Approved-At: Fri, 27 Mar 2026 12:40:01 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,47 +105,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-When writing queries to >control, flags are parsed 1st, since they are
-the only required field, and they require specific compositions.  So
-if the flags draw an error (on those specifics), then keyword errors
-aren't reported.  This can be mildly confusing/annoying, so explain it
-instead.
+From: Timur Kristóf <timur.kristof@gmail.com>
 
-cc: linux-doc@vger.kernel.org
-Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
-Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+[ Upstream commit 0e190a0446ec517666dab4691b296a9b758e590f ]
+
+Scaling doesn't work on DCE6 at the moment, the current
+register programming produces incorrect output when using
+fractional scaling (between 100-200%) on resolutions higher
+than 1080p.
+
+Disable it until we figure out how to program it properly.
+
+Fixes: 7c15fd86aaec ("drm/amd/display: dc/dce: add initial DCE6 support (v10)")
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
 ---
- .../admin-guide/dynamic-debug-howto.rst         | 17 +++++++++++++----
- 1 file changed, 13 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/amd/display/dc/dce60/dce60_resource.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/Documentation/admin-guide/dynamic-debug-howto.rst b/Documentation/admin-guide/dynamic-debug-howto.rst
-index 4b14d9fd0300..9c2f096ed1d8 100644
---- a/Documentation/admin-guide/dynamic-debug-howto.rst
-+++ b/Documentation/admin-guide/dynamic-debug-howto.rst
-@@ -109,10 +109,19 @@ The match-spec's select *prdbgs* from the catalog, upon which to apply
- the flags-spec, all constraints are ANDed together.  An absent keyword
- is the same as keyword "*".
+diff --git a/drivers/gpu/drm/amd/display/dc/dce60/dce60_resource.c b/drivers/gpu/drm/amd/display/dc/dce60/dce60_resource.c
+index 978c024c97ba..3f9ea4fdc7d8 100644
+--- a/drivers/gpu/drm/amd/display/dc/dce60/dce60_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/dce60/dce60_resource.c
+@@ -404,13 +404,13 @@ static const struct dc_plane_cap plane_cap = {
+ 	},
  
--
--A match specification is a keyword, which selects the attribute of
--the callsite to be compared, and a value to compare against.  Possible
--keywords are:::
-+Note that since the match-spec can be empty, the flags are checked 1st,
-+then the pairs of keyword and value.  Flag errs will hide keyword errs::
-+
-+  bash-5.2# ddcmd mod bar +foo
-+  dyndbg: read 13 bytes from userspace
-+  dyndbg: query 0: "mod bar +foo" mod:*
-+  dyndbg: unknown flag 'o'
-+  dyndbg: flags parse failed
-+  dyndbg: processed 1 queries, with 0 matches, 1 errs
-+
-+So a match-spec is a keyword, which selects the attribute of the
-+callsite to be compared, and a value to compare against.  Possible
-+keywords are::
+ 	.max_upscale_factor = {
+-			.argb8888 = 16000,
++			.argb8888 = 1,
+ 			.nv12 = 1,
+ 			.fp16 = 1
+ 	},
  
-   match-spec ::= 'func' string |
- 		 'file' string |
+ 	.max_downscale_factor = {
+-			.argb8888 = 250,
++			.argb8888 = 1,
+ 			.nv12 = 1,
+ 			.fp16 = 1
+ 	}
 -- 
 2.53.0
 
