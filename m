@@ -4,90 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 74FF110ED66D
-	for <amd-gfx@archiver.kernel.org>; Fri, 27 Mar 2026 12:40:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CDF7310ED67C
+	for <amd-gfx@archiver.kernel.org>; Fri, 27 Mar 2026 12:40:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 03B1610EE10;
-	Fri, 27 Mar 2026 12:40:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BD25310EE18;
+	Fri, 27 Mar 2026 12:40:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Jg3f/ESN";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="FveDn4J6";
 	dkim-atps=neutral
-Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com
- [209.85.215.180])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 12DFA10EB28
- for <amd-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 23:47:38 +0000 (UTC)
-Received: by mail-pg1-f180.google.com with SMTP id
- 41be03b00d2f7-c06cb8004e8so641805a12.0
- for <amd-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 16:47:38 -0700 (PDT)
+Received: from mail-oa1-f41.google.com (mail-oa1-f41.google.com
+ [209.85.160.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9A4D710EB20
+ for <amd-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 18:54:30 +0000 (UTC)
+Received: by mail-oa1-f41.google.com with SMTP id
+ 586e51a60fabf-41708f6c3feso860821fac.3
+ for <amd-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 11:54:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1774568857; x=1775173657; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=jlXNZ6YErxvr6V0/1Nzao8eMwm0DA+edMLaU07KmQkY=;
- b=Jg3f/ESNVIajf4EAF6z/Lwq6W5RRa/FNZ56WVBiRRGnFSNHsdsqhFQ/1wgSme8Dp9s
- goE3MOFHc9RY6UXKGt/G7BmnMH56rEhgWf9aXTenbk/DoyITyon5GRdM8AoGMHBbnQHs
- /905cmTvQz3e/IOQvZFn0lw3XKrj1+H20J7gaaW2BzK1oM5yo6f2uq/OZQyRVVL4rRTs
- rgMOrU8m6uiE/ncKB0mOxvJhcZTFxt0/HMAQIlMKj+QbiNncSn3qAPVgDkY+GBNd1iPq
- VVW2eEZ8pxS/MRNZy1RDDZHPgHYANTihEvXfarADVsIZgbRj2/J7fZdWTCk6HuPTHNgs
- oN8g==
+ d=gmail.com; s=20251104; t=1774551270; x=1775156070; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=20j/tkgEdgd9CCuui6wAsvaKhO91qX8t/1cdIGjfW6Q=;
+ b=FveDn4J6vUpR213Hd8Bu4Cgr8uTtmA1h6ZSKpOG/oILgsxSZc6DnJGb7GBAC0KAsEJ
+ JfYcNTZDL/ae+0l+UuHz3VC854fhQ1jeBe2mMXIweXw6SPQc+VFhGUgoQ8p8ErJhbkNQ
+ 07OiWDcz53eNQ7Q49Xd0FybuQbiZYGLc2fLnZHou5/f6Wf4BSWZeQ2yieKOrZQbjiszy
+ x9KmMEKly6IkEI0I01wEZYZM38ICCAoTT5VeLzwU+2lNw9ZGIr/p9TAKXtosqb0eXRTV
+ YsXlYkkJsBOBgdipsZneWiqNF4nB691+EDPvQTut6ZyUMFhQdOAiQiS1WhkuRGkqEuSv
+ oTtA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774568857; x=1775173657;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=jlXNZ6YErxvr6V0/1Nzao8eMwm0DA+edMLaU07KmQkY=;
- b=AEaUbQ1c7p3d6eBVuYSaJ58upvW7C7a+eKIAMJwA5T+MlxZH4MMtDrrEYWWQCZ7+Re
- 63nHZgaRwClfmENzZOw89xhExawlRH4Xgxczp91fkYyKhVYjyPbnxAUI7zmAd2fCPD8X
- 5UcKuK4MGXjtlNBQvH9dJt5QUYUek372DzPM2D7Qh03mKlmDWeFGJn844l+6xSyybAl1
- Wl9igd+69de0aVmhxZEZ4WHSlxJpMRu+YZd3M/lcowk6vu8v25BI4WKtuKMl33y1LjEi
- elUpRQ1hH6ZfkwwsGcBi7I781uqhhylOorsiZETSBY9yDP+ymakeIr7yzIku0glARwEd
- 1U4w==
+ d=1e100.net; s=20251104; t=1774551270; x=1775156070;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=20j/tkgEdgd9CCuui6wAsvaKhO91qX8t/1cdIGjfW6Q=;
+ b=W1VPcn+57vRh9mJ+offsuLvRqdOAjz6s5HGP5sbcEpGn47O1GmZjD9bg8bzQnIi/N/
+ JO+cSH4RxshA+p6FIdnEzpa0NYNEwW2Tt5FA8XsZCP2nTU4I7hzGvzV6oPzkQhSKqoUI
+ +7hsFCHZZiY3OUeBJAxXHKzm7Hc7BfZpX39zLfz7iqkJxb9Q3jhznk4YYxwFM6+uECtm
+ OU2V0Lokk2sCa57iS3p45XAJTCLeBKnc3pQ8dTq5DuxgXJkVOWp2RvckVyYvSVOBWcIB
+ FWHFbEQ7Ptxtm338Utts9mI1yST/i2Zm2vgh73UbRPjompvHW+dnt3yl5sjCNKEAzLYr
+ VYjA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCW4QXHdo+zyx7GxWJLlV6hb7EYfkDg5yVyXnneSWO+xKLrLLhljmpB+n8+hsbWwc8Domkm23wJU@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzfWYZBahKBWhuheWWLBIGYt6AXs9vvLWakNw1tUdg1eP7CiFlp
- 3XbiZWat8Bxp1rMD0YRS8E4NTxFfHXO6ub51rpxg05Hiq0TXIQYgjvSX
-X-Gm-Gg: ATEYQzzgm0hnoUQhfJOk2r7tTbNgZlo5oH7z6E45Yn5ayK63JJFH39+lNk8OhpCjDOw
- I49AGKQPM1RtjOyvwaJPdXyeMbxNQYX86AgAsE968qeIvA/AF0kPHm87NILvFcsL2kZnv+4377z
- gxB3SNrMW6Ur6pdDFCCYEbquVMveQnJW/hCa0FYQbsAMbkmK/UZ2cCWMvwQnBJd6HdFLYDcy4c3
- twM/SIbxGmKz83BbZ+4PRr25vHYFSP+5dnTM34+43SnwFKMAXOsvgfkV4g5CpBZ/6JUGUzpyqOt
- psPCICtD5MFrSdKsoxQIlRWqhgF+uINHoLqVeG0R58Od/4eIGW6kzH4b17VZnfXSmVFOKlJ9Zb3
- /INOgbWDnAM31Gafbc8fliWiojPhHzawuzdnBMJA155mdoZbgG8BzrUcJEQOw3vQGvJouGPnYB/
- SIb7r4XqPHW+ibaC3isEbE0/q2ok+nCfdivKjIuaM0n2TSNslXk8qY5Ts=
-X-Received: by 2002:a05:6a20:3d83:b0:398:4bf2:4285 with SMTP id
- adf61e73a8af0-39c877fe4bamr553257637.16.1774568857439; 
- Thu, 26 Mar 2026 16:47:37 -0700 (PDT)
-Received: from ryzen ([2601:644:8000:5b5d::8bd])
- by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-c7673933816sm3201162a12.21.2026.03.26.16.47.35
+ AJvYcCUfKNgZKnaib9cpXWVdiAqKRtO2MpVN18i/oWelZViroG/wP+ExtT9w2+9dPohVdeo2P/HKh5ap@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxOmJQXks4+8FNkDN/4/CILfsXEagBGL/Bki8IH6PgWLA8xiYUW
+ dkcQa6B8BArMVm9L9GDEPz/mYolFY48u75e3UX3uNXr+N/iwLDmQyFx9
+X-Gm-Gg: ATEYQzxjIUYEuc25Qx3ORk4Q0rmh4yx+4eIbyxwRBxRhHlQnY2ZuhHLIfHCdaPkDrHF
+ nqFoWF/JtzMWrt3n3WFCMTeEjTNhtf4mBisXWupPm6NRM264SorUAQsT67QgenyflU8Klaw8d0x
+ 7JWAsF/INkQXLQOXjZpJpvpXJRtCbUa1/D136WN2q0b8iC8utg6oQAorhPerWOb+Ma58Y2X+UUV
+ ifVrUV2Ya9X2XqJBID5HTOaWPOVpM9iVXfiJeX1VJ9IXEVEeQYH45vcXh34C9b1jUELy3fPrvNI
+ OmrSik80d3Hcgo75MwG5bxndGwYWhIMGCY5+RgZ2JMkY/2Dk0nzPOc0XH9ntL5ItSSXRNHWWi3G
+ LnGUXo39MJZhSmYReHArmIzCMfZxRo8Hsb1N4BfCFeconhFO6Z9lHankTG3CnzLPOh52XXL1raL
+ 8hJZXoqLQ3p4GROp1sbz2rbJYeO2U2aSfAfeD7NhkemiuCLdL9gka8Jl2KIcY=
+X-Received: by 2002:a05:6870:194b:b0:409:9a0b:b733 with SMTP id
+ 586e51a60fabf-41ca6d6a50emr4660671fac.10.1774551269559; 
+ Thu, 26 Mar 2026 11:54:29 -0700 (PDT)
+Received: from frodo (c-98-38-17-99.hsd1.co.comcast.net. [98.38.17.99])
+ by smtp.googlemail.com with ESMTPSA id
+ 586e51a60fabf-41cc7760c08sm3075171fac.4.2026.03.26.11.54.28
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 26 Mar 2026 16:47:36 -0700 (PDT)
-From: Rosen Penev <rosenp@gmail.com>
-To: stable@vger.kernel.org
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@linux.ie>,
- Daniel Vetter <daniel@ffwll.ch>, Harry Wentland <harry.wentland@amd.com>,
- Leo Li <sunpeng.li@amd.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Bin Lan <bin.lan.cn@windriver.com>, He Zhe <zhe.he@windriver.com>,
- Vitaly Prosyak <vitaly.prosyak@amd.com>, Alex Hung <alex.hung@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>,
- Mario Limonciello <Mario.Limonciello@amd.com>, Ray Wu <ray.wu@amd.com>,
- Wayne Lin <wayne.lin@amd.com>, Roman Li <Roman.Li@amd.com>,
- Eric Yang <Eric.Yang2@amd.com>, Tony Cheng <Tony.Cheng@amd.com>,
- Mauro Rossi <issor.oruam@gmail.com>,
- amd-gfx@lists.freedesktop.org (open list:RADEON and AMDGPU DRM DRIVERS),
- dri-devel@lists.freedesktop.org (open list:DRM DRIVERS),
- linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH for 6.12 1/9] drm/amd/amdgpu: decouple ASPM with pcie dpm
-Date: Thu, 26 Mar 2026 16:47:08 -0700
-Message-ID: <20260326234716.16723-2-rosenp@gmail.com>
+ Thu, 26 Mar 2026 11:54:29 -0700 (PDT)
+From: Jim Cromie <jim.cromie@gmail.com>
+To: linux-kernel@vger.kernel.org, airlied@gmail.com, simona@ffwll.ch,
+ jbaron@akamai.com, gregkh@linuxfoundation.org
+Cc: jim.cromie@gmail.com, mripard@kernel.org, tzimmermann@suse.de,
+ maarten.lankhorst@linux.intel.com, jani.nikula@intel.com,
+ ville.syrjala@linux.intel.com, christian.koenig@amd.com,
+ matthew.auld@intel.com, arunpravin.paneerselvam@amd.com,
+ louis.chauvet@bootlin.com, skhan@linuxfoundation.org, pmladek@suse.com,
+ ukaszb@chromium.org, dri-devel@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+Subject: [PATCH v12 00/69] Fix CONFIG_DRM_USE_DYNAMIC_DEBUG=y
+Date: Thu, 26 Mar 2026 12:53:04 -0600
+Message-ID: <20260326185413.1205870-1-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260326234716.16723-1-rosenp@gmail.com>
-References: <20260326234716.16723-1-rosenp@gmail.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 27 Mar 2026 12:40:00 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -104,34 +93,169 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Kenneth Feng <kenneth.feng@amd.com>
 
-[ Upstream commit df0e722fbdbedb6f2b682dc2fad9e0c221e3622d ]
+-v11 is here
+https://lore.kernel.org/lkml/20260313132103.2529746-1-jim.cromie@gmail.com/
 
-ASPM doesn't need to be disabled if pcie dpm is disabled.
-So ASPM can be independantly enabled.
+-v12 has a few changes:
 
-Signed-off-by: Kenneth Feng <kenneth.feng@amd.com>
-Reviewed-by: Yang Wang <kevinyang.wang@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Rosen Penev <rosenp@gmail.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 2 --
- 1 file changed, 2 deletions(-)
+vmlinux.lds.h is refactored:
+- BOUNDED_SECTION* macros are pulled into bounded_section.lds.h
+- dynamic-debug sections are factored into dyndbg.lds.h,
+  which reuses bounded_section.lds.h
+- scripts/module.lds.S gets proper output sections for dyndbg
+  this fixes lost sections seen in some setups
+- based upon codetag.lds.h
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index d5e6d5ec69c8..dbee43c58741 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -1782,8 +1782,6 @@ bool amdgpu_device_should_use_aspm(struct amdgpu_device *adev)
- 	}
- 	if (adev->flags & AMD_IS_APU)
- 		return false;
--	if (!(adev->pm.pp_feature & PP_PCIE_DPM_MASK))
--		return false;
- 	return pcie_aspm_enabled(adev->pdev);
- }
- 
+DYNAMIC_DEBUG_CLASSMAP_USE*() is refined:
+- previous had static class-map decl and unique names
+- now have extern'd <classname>-<usermod> names, matching 1-per-module model
+- now with compile-time offset check
+- _USE/_USE_ together allows more squashing
+
+better modprobe-time classmap definition error detection:
+- test descriptors for unknown class-names
+- more complete class-map/user conflict detection
+
+rebased onto -rc5
+- applies cleanly to drm-misc-fixes
+- passes a few more tests on DRM-CI
+
+include patch from Philipp Hahn <phahn-oss@avm.de>
+
+clean subsystem chunks
+- dyndbg 1st
+- drm - fixes for DRM-CI, adapt,use new API, un-BROKEN
+- drm/accel - least mature, I have no HW
+
+Jim Cromie (68):
+  dyndbg: fix NULL ptr on i386 due to section mis-alignment
+  vmlinux.lds.h: move BOUNDED_SECTION_* macros to reuse later
+  dyndbg.lds.S: fix lost dyndbg sections in modules
+  vmlinux.lds.h: drop unused HEADERED_SECTION* macros
+  dyndbg: factor ddebug_match_desc out from ddebug_change
+  dyndbg: add stub macro for DECLARE_DYNDBG_CLASSMAP
+  docs/dyndbg: update examples \012 to \n
+  docs/dyndbg: explain flags parse 1st
+  test-dyndbg: fixup CLASSMAP usage error
+  dyndbg: reword "class unknown," to "class:_UNKNOWN_"
+  dyndbg: make ddebug_class_param union members same size
+  dyndbg: drop NUM_TYPE_ARRAY
+  dyndbg: tweak pr_fmt to avoid expansion conflicts
+  dyndbg: reduce verbose/debug clutter
+  dyndbg: refactor param_set_dyndbg_classes and below
+  dyndbg: tighten fn-sig of ddebug_apply_class_bitmap
+  dyndbg: replace classmap list with a vector
+  dyndbg: macrofy a 2-index for-loop pattern
+  dyndbg,module: make proper substructs in _ddebug_info
+  dyndbg: move mod_name down from struct ddebug_table to _ddebug_info
+  dyndbg: hoist classmap-filter-by-modname up to ddebug_add_module
+  dyndbg-API: remove DD_CLASS_TYPE_(DISJOINT|LEVEL)_NAMES and code
+  selftests-dyndbg: add a dynamic_debug run_tests target
+  dyndbg: change __dynamic_func_call_cls* macros into expressions
+  dyndbg-API: replace DECLARE_DYNDBG_CLASSMAP
+  dyndbg: detect class_id reservation conflicts
+  dyndbg: check DYNAMIC_DEBUG_CLASSMAP_DEFINE args at compile-time
+  dyndbg-test: change do_prints testpoint to accept a loopct
+  dyndbg-API: promote DYNAMIC_DEBUG_CLASSMAP_PARAM to API
+  dyndbg: treat comma as a token separator
+  dyndbg: split multi-query strings with %
+  selftests-dyndbg: add test_mod_submod
+  dyndbg: resolve "protection" of class'd pr_debug
+  dyndbg: harden classmap and descriptor validation
+  docs/dyndbg: add classmap info to howto
+  dyndbg-test: verify DYNAMIC_DEBUG_CLASSMAP_USE_() compile-time CHECK
+  drm: use correct ccflags-y spelling
+  drm_buddy: fix power-of-2 rounding errs
+  drm_print: fix drm_printer dynamic debug bypass
+  drm_vblank: avoid bit-test when DRM_USE_DYNAMIC_DEBUG=y
+  drm-dyndbg: adapt drm core to use dyndbg classmaps-v2
+  drm-dyndbg: adapt DRM to invoke DYNAMIC_DEBUG_CLASSMAP_PARAM
+  drm_print: modernize an archaic comment
+  drm-dyndbg: DRM_CLASSMAP_USE in amdgpu driver
+  drm-dyndbg: DRM_CLASSMAP_USE in i915 driver
+  drm-dyndbg: DRM_CLASSMAP_USE in drm_crtc_helper
+  drm-dyndbg: DRM_CLASSMAP_USE in drm_dp_helper
+  drm-dyndbg: DRM_CLASSMAP_USE in nouveau
+  drm-dyndbg: add DRM_CLASSMAP_USE to Xe driver
+  drm-dyndbg: add DRM_CLASSMAP_USE to virtio_gpu
+  drm-dyndbg: add DRM_CLASSMAP_USE to simpledrm
+  drm-dyndbg: add DRM_CLASSMAP_USE to bochs
+  drm-dyndbg: add DRM_CLASSMAP_USE to etnaviv
+  drm-dyndbg: add DRM_CLASSMAP_USE to gma500 driver
+  drm-dyndbg: add DRM_CLASSMAP_USE to radeon
+  drm-dyndbg: add DRM_CLASSMAP_USE to vmwgfx driver
+  drm-dyndbg: add DRM_CLASSMAP_USE to vkms driver
+  drm-dyndbg: add DRM_CLASSMAP_USE to udl driver
+  drm-dyndbg: add DRM_CLASSMAP_USE to mgag200 driver
+  drm-dyndbg: add DRM_CLASSMAP_USE to the gud driver
+  drm-dyndbg: add DRM_CLASSMAP_USE to the qxl driver
+  drm-dyndbg: add DRM_CLASSMAP_USE to the drm_gem_shmem_helper driver
+  drm-dyndbg: restore CONFIG_DRM_USE_DYNAMIC_DEBUG un-BROKEN
+  drm-dyndbg: set CONFIG_DRM_USE_DYNAMIC_DEBUG=y
+  accel: add -DDYNAMIC_DEBUG_MODULE to subdir-ccflags
+  accel/ivpu: implement IVPU_DBG_* as a dyndbg classmap
+  accel/ethosu: call DRM_CLASSMAP_USE
+  accel/rocket: call DRM_CLASSMAP_USE
+
+Philipp Hahn (1):
+  dyndbg: Ignore additional arguments from pr_fmt
+
+ .../admin-guide/dynamic-debug-howto.rst       | 184 +++-
+ MAINTAINERS                                   |   3 +-
+ drivers/accel/Makefile                        |   7 +-
+ drivers/accel/ethosu/ethosu_drv.c             |   3 +
+ drivers/accel/ivpu/ivpu_drv.c                 |  27 +-
+ drivers/accel/ivpu/ivpu_drv.h                 |  45 +-
+ drivers/accel/rocket/rocket_gem.c             |   2 +
+ drivers/gpu/drm/Kconfig.debug                 |   3 +-
+ drivers/gpu/drm/Makefile                      |   3 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       |  12 +-
+ drivers/gpu/drm/display/drm_dp_helper.c       |  12 +-
+ drivers/gpu/drm/drm_buddy.c                   |   4 +-
+ drivers/gpu/drm/drm_crtc_helper.c             |  12 +-
+ drivers/gpu/drm/drm_gem_shmem_helper.c        |   1 +
+ drivers/gpu/drm/drm_print.c                   |  39 +-
+ drivers/gpu/drm/drm_vblank.c                  |   9 +-
+ drivers/gpu/drm/etnaviv/etnaviv_drv.c         |   2 +
+ drivers/gpu/drm/gma500/psb_drv.c              |   2 +
+ drivers/gpu/drm/gud/gud_drv.c                 |   2 +
+ drivers/gpu/drm/i915/i915_params.c            |  12 +-
+ drivers/gpu/drm/mgag200/mgag200_drv.c         |   2 +
+ drivers/gpu/drm/nouveau/nouveau_drm.c         |  12 +-
+ drivers/gpu/drm/qxl/qxl_drv.c                 |   2 +
+ drivers/gpu/drm/radeon/radeon_drv.c           |   2 +
+ drivers/gpu/drm/sysfb/simpledrm.c             |   2 +
+ drivers/gpu/drm/tiny/bochs.c                  |   2 +
+ drivers/gpu/drm/udl/udl_main.c                |   2 +
+ drivers/gpu/drm/virtio/virtgpu_drv.c          |   2 +
+ drivers/gpu/drm/vkms/vkms_drv.c               |   2 +
+ drivers/gpu/drm/vmwgfx/vmwgfx_drv.c           |   2 +
+ drivers/gpu/drm/xe/xe_drm_client.c            |   2 +
+ include/asm-generic/bounded_sections.lds.h    |  21 +
+ include/asm-generic/dyndbg.lds.h              |  26 +
+ include/asm-generic/vmlinux.lds.h             |  48 +-
+ include/drm/drm_print.h                       |  22 +-
+ include/linux/dynamic_debug.h                 | 309 +++++--
+ kernel/module/main.c                          |  15 +-
+ lib/Kconfig.debug                             |  24 +-
+ lib/Makefile                                  |   5 +
+ lib/dynamic_debug.c                           | 831 ++++++++++++------
+ lib/test_dynamic_debug.c                      | 211 +++--
+ lib/test_dynamic_debug_submod.c               |  21 +
+ scripts/module.lds.S                          |   2 +
+ tools/testing/selftests/Makefile              |   1 +
+ .../testing/selftests/dynamic_debug/Makefile  |   9 +
+ tools/testing/selftests/dynamic_debug/config  |   7 +
+ .../dynamic_debug/dyndbg_selftest.sh          | 373 ++++++++
+ 47 files changed, 1747 insertions(+), 594 deletions(-)
+ create mode 100644 include/asm-generic/bounded_sections.lds.h
+ create mode 100644 include/asm-generic/dyndbg.lds.h
+ create mode 100644 lib/test_dynamic_debug_submod.c
+ create mode 100644 tools/testing/selftests/dynamic_debug/Makefile
+ create mode 100644 tools/testing/selftests/dynamic_debug/config
+ create mode 100755 tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
+
 -- 
 2.53.0
 
