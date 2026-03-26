@@ -4,93 +4,83 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 12E2610A62E8
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 508E510ED66E
 	for <amd-gfx@archiver.kernel.org>; Fri, 27 Mar 2026 12:40:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A261110EE29;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 60B5410EE22;
 	Fri, 27 Mar 2026 12:40:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ja+uFaDi";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="lZw+P64i";
 	dkim-atps=neutral
-Received: from mail-pg1-f179.google.com (mail-pg1-f179.google.com
- [209.85.215.179])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ACAB410EB69
- for <amd-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 23:47:54 +0000 (UTC)
-Received: by mail-pg1-f179.google.com with SMTP id
- 41be03b00d2f7-c736261ee8dso606176a12.1
- for <amd-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 16:47:54 -0700 (PDT)
+Received: from mail-oa1-f44.google.com (mail-oa1-f44.google.com
+ [209.85.160.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B071B10EBE6
+ for <amd-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 18:55:43 +0000 (UTC)
+Received: by mail-oa1-f44.google.com with SMTP id
+ 586e51a60fabf-404254ffe8aso774943fac.0
+ for <amd-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 11:55:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1774568874; x=1775173674; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1774551343; x=1775156143; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=xynl6l4IZX6SF8kreSc2FtsN0XosoMomLgf109DsfAw=;
- b=ja+uFaDiGS6mu5o+Y5ueUGQ3shfHUXLDKYRJNB8nL9ZDHiY7clOflC4fkB3KNjVApu
- 09KRGqpHKTQNmujjYsTPF+QMv4mivAPmvvA7Q3QY5WUqOM5GPeJFqpOFBDPpSBLw13aB
- s6bZY9Ni2M0wgwgxRX485vaCYBItg2IFXYijOrE17i2R9h6Ww9o+P0vrZsrgcp9yv1sd
- g/8kl4YPb4tMoZKJJ8ajM7I+GGPSSI9ur7xUHHOB8/vr4PCahY0RAbpQbL9s/lflBBAP
- iClfG/iap66u4RyrfTTlQozMkuBpKmFf1uba27SbVyqJfBdceZMYTxCgAdPu1ZiGVbu2
- QNbw==
+ bh=irTrrnawNz+DXC6VSfC9mZGBC+I85t9C/e5XGxZ5eAQ=;
+ b=lZw+P64iBfRYIMX/W9pc5CyUElmM4XV3yAGWsoA9zbyXdLBb1E3Tx11ju5j8nA8rUx
+ T1zZFzpcqDzLLZPeeIGjsZu2S5DX6M+vzPJdJzfLzY1cohVK4urBaP8XalH/3tzugn3R
+ 9UVtUzjWZv/+9WcKephlNOlMnfv3HXi6aNMlUCdMzpX9CmOFCfSXTSUnxV7biEobJFLb
+ OBmiSs3rD3+04LjownyUEf1aPPm6St/71MD2MQVgGbWQ/DkWWhRjI5ovDO1YXqlk3clv
+ FRfBakrBgw/bQuIbNZ9cFSV2GCiz1ZwdKHA5CktqDsmd5TbKfZU9cSYwtjleNzeFpm/k
+ hwOg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774568874; x=1775173674;
+ d=1e100.net; s=20251104; t=1774551343; x=1775156143;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=xynl6l4IZX6SF8kreSc2FtsN0XosoMomLgf109DsfAw=;
- b=GQcz9KSCLFiOqhtSU+lpCWeO3Ho8L1wI11kYEOLzQb0yPBlCbSKaLLpFWOKIKR4+qR
- GRfSA9bYSEiU2qJiT0O9qX3nuCgY/EaJi+zL7X1IHKFFztlRe91cEGYT7H6gSid+fSbh
- KZq/eEQOcGxHVwLofag4rRqzBYiZXgvAXimWtCu0LVpJ39CHf/3ktKiYezs++WIhvJW+
- a7Iwj06ZxnGipfdtUyz5/hb+j1d4loRO09/p6J+VOXxxTlYzdksG99lK8PaF9qG8sPol
- 6Qjxd0pcFlBDrfM4Rdol8Zm+7orZMZeViP5dsVGV1T3oOc1MvUI6cEmx3eIe0q+7/WAI
- Ntzw==
+ bh=irTrrnawNz+DXC6VSfC9mZGBC+I85t9C/e5XGxZ5eAQ=;
+ b=jHp6Czn1Hft4meEKm+FJJK1UMA++qya0nzLlE+vhcVrSqKERR68J/Po0QopcaJ7gpl
+ X04pWyCYslrqucwPEJK2GL2unNfXAu03cW47OlbyhJxNkmIkr33phTU7aoqvJi3oa9lM
+ n3HkTnzdwIu42jq/pn8KyKxP4bPHJD69kwwP6EKgBDB4PbaFjWuTI9oskO1LD84a/ihw
+ zZjU7kRQIPH9pBNrg5ruKFjyjge0gknyBTC10qkJEW+TAqlf5z9Aw9ArxZ65QgdOhRbZ
+ kz91JlmRugeXXsRPiuygWNoG1XUG5GaKS4trdDqmocdbfP56+YImGNm020U68P0IxuGF
+ AIdg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWxUd4hVn/0/0qQ8DAkd/+Ku9/9f4RxGv7X6cd/zbK5MzGWIYF1aZN40eNsqO56drwZ7uFqepH9@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yy2e8CnEklYHqlAUch8W8jVbp2M7SCjm8FSHM9HsgP6ToDdLoXQ
- 54/bg4OXXHH4NsZXfQ/+IQ2K6EAogbA9sJdhzvQSrkuu2KUlzPBldQSu
-X-Gm-Gg: ATEYQzxEiWPP4ArsGuHE59dpMFv/a8YE7SEgj2jOsYYZR2w+bcNpDKftNFpMryDCD7P
- NX7uVXCt9vsEeihH+SiSGO+oWKBgon1XNuHYMkI34RhfdMpLowwQELg2VGg2m9Nay3abOTl4Ws/
- lUJZTZfe/qLvkKl0RHtOM4+o3K36d2zYFlcvG2yq+LSsRHkOWiSsrluV+hepNPfewIlJA3H4NcZ
- 09CcgJfqtXI1e/gIwWHN4aCZdVhyqU14uUaYSKY/FE/Z9qKxbYlPz8aW8tromNFDSx8ZiS8dYXd
- xwX/sQz6O2/OiJT5iUs1Jfd35bUBxu8LOpOjodG5uQai6I0bkPpYmQ0O7WLKh+dL9wvo6X9Zv9Y
- k4PEIwm16vY3GznJFQGRjGmdzCGcj2BmdA3mrBJr6neRuGLT9/bCbksVpklDwTaxWNZ7S29+Jhn
- Vo4IFmwMCwILVifQC9gGPcB1XdPJyivpFuNpmz+TqftbX5BZ5z7FY/jw8=
-X-Received: by 2002:a05:6a20:94cb:b0:398:9820:f6cc with SMTP id
- adf61e73a8af0-39c87bcf3e0mr492459637.55.1774568874123; 
- Thu, 26 Mar 2026 16:47:54 -0700 (PDT)
-Received: from ryzen ([2601:644:8000:5b5d::8bd])
- by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-c7673933816sm3201162a12.21.2026.03.26.16.47.52
+ AJvYcCV+D43/odlNLCHvZNKSZ5g6vRT8zzbfmJ1xK/Okrz4UAUEQOEf2Gk/TuzeYUOgZXJVy2ARFFC93@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yynt5S221hpF+zfpYT4gbBiim5M1xxRQMMJz309vCvBteIaP/MZ
+ gMShheFlhLQwc4N4C7Dk12NiPNGTfluqw5BoHl4dXYggoGoNBTarBNRV
+X-Gm-Gg: ATEYQzxJzT+Miiv85GlZeLlrGsce1chz5CF1hvCbIrcanEXPC8MXQ9cGObQquKBRsC3
+ jxjxXNNzP77Iy6k8pZlR1VhlaDFieHt4SZ9ZXOjmpS8r76ulF8illS/i26302V/X747BMiocyHM
+ rkYWfsTNJTD9MxqShdz40gJuWgvaM99tsw1CAqGYyIxUNNXeahdY1o0hj6iOEnTJGAHi8GOp6zk
+ b+esojWY85ysPyoSWVRLB74k4z6VL8FxMp4pMGLBvgwchx/IXG+0mcknV5jxI3+zK0RibuXAGvB
+ M2RrFV7ejKmy0A5AteCkxivI1mXfVJUIAd86Jg6jr4gEHgGWU9Ljfnvqt/SeoRN0i1OZH77gS/a
+ ZMxz4aEbLU1L7LCI7kogf/BNY3hmbVHywGjKFURq8i7KdlOw3D2CuyUDOCb2qJQpUxP5IlZgQEY
+ 15oav7hpBjh3d6pjX78ZuapbSUNK6a13ngD0/hsxTCUszpOtA0
+X-Received: by 2002:a05:6871:e488:b0:41c:6bae:2307 with SMTP id
+ 586e51a60fabf-41cd7b9c264mr1725197fac.12.1774551342859; 
+ Thu, 26 Mar 2026 11:55:42 -0700 (PDT)
+Received: from frodo (c-98-38-17-99.hsd1.co.comcast.net. [98.38.17.99])
+ by smtp.googlemail.com with ESMTPSA id
+ 586e51a60fabf-41cc7760c08sm3075171fac.4.2026.03.26.11.55.41
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 26 Mar 2026 16:47:53 -0700 (PDT)
-From: Rosen Penev <rosenp@gmail.com>
-To: stable@vger.kernel.org
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@linux.ie>,
- Daniel Vetter <daniel@ffwll.ch>, Harry Wentland <harry.wentland@amd.com>,
- Leo Li <sunpeng.li@amd.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Bin Lan <bin.lan.cn@windriver.com>, He Zhe <zhe.he@windriver.com>,
- Vitaly Prosyak <vitaly.prosyak@amd.com>, Alex Hung <alex.hung@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>,
- Mario Limonciello <Mario.Limonciello@amd.com>, Ray Wu <ray.wu@amd.com>,
- Wayne Lin <wayne.lin@amd.com>, Roman Li <Roman.Li@amd.com>,
- Eric Yang <Eric.Yang2@amd.com>, Tony Cheng <Tony.Cheng@amd.com>,
- Mauro Rossi <issor.oruam@gmail.com>,
- amd-gfx@lists.freedesktop.org (open list:RADEON and AMDGPU DRM DRIVERS),
- dri-devel@lists.freedesktop.org (open list:DRM DRIVERS),
- linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH for 6.12 9/9] drm/amd: Disable ASPM on SI
-Date: Thu, 26 Mar 2026 16:47:16 -0700
-Message-ID: <20260326234716.16723-10-rosenp@gmail.com>
+ Thu, 26 Mar 2026 11:55:42 -0700 (PDT)
+From: Jim Cromie <jim.cromie@gmail.com>
+To: linux-kernel@vger.kernel.org, airlied@gmail.com, simona@ffwll.ch,
+ jbaron@akamai.com, gregkh@linuxfoundation.org
+Cc: jim.cromie@gmail.com, mripard@kernel.org, tzimmermann@suse.de,
+ maarten.lankhorst@linux.intel.com, jani.nikula@intel.com,
+ ville.syrjala@linux.intel.com, christian.koenig@amd.com,
+ matthew.auld@intel.com, arunpravin.paneerselvam@amd.com,
+ louis.chauvet@bootlin.com, skhan@linuxfoundation.org, pmladek@suse.com,
+ ukaszb@chromium.org, dri-devel@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+Subject: [PATCH v12 46/69] drm-dyndbg: DRM_CLASSMAP_USE in i915 driver
+Date: Thu, 26 Mar 2026 12:53:50 -0600
+Message-ID: <20260326185413.1205870-47-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260326234716.16723-1-rosenp@gmail.com>
-References: <20260326234716.16723-1-rosenp@gmail.com>
+In-Reply-To: <20260326185413.1205870-1-jim.cromie@gmail.com>
+References: <20260326185413.1205870-1-jim.cromie@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Fri, 27 Mar 2026 12:40:01 +0000
+X-Mailman-Approved-At: Fri, 27 Mar 2026 12:40:00 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,40 +95,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Timur Kristóf <timur.kristof@gmail.com>
+Following the dyndbg-api-fix, replace DECLARE_DYNDBG_CLASSMAP with
+DRM_CLASSMAP_USE.  This refs the defined & exported classmap, rather
+than re-declaring it redundantly, and error-prone-ly.
 
-[ Upstream commit 7bdd91abf0cb3ea78160e2e78fb58b12f6a38d55 ]
+This resolves the appearance of "class:_UNKNOWN_" in the control file
+for the driver's drm_dbg()s.
 
-Enabling ASPM causes randoms hangs on Tahiti and Oland on Zen4.
-It's unclear if this is a platform-specific or GPU-specific issue.
-Disable ASPM on SI for the time being.
+Fixes: f158936b60a7 ("drm: POC drm on dyndbg - use in core, 2 helpers, 3 drivers.")
 
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Rosen Penev <rosenp@gmail.com>
+Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+ drivers/gpu/drm/i915/i915_params.c | 12 +-----------
+ 1 file changed, 1 insertion(+), 11 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index eb3c6bfe2e6c..12d7e45a4245 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -1761,6 +1761,13 @@ static bool amdgpu_device_pcie_dynamic_switching_supported(struct amdgpu_device
+diff --git a/drivers/gpu/drm/i915/i915_params.c b/drivers/gpu/drm/i915/i915_params.c
+index 34ed82bb1b1a..40c5e0014686 100644
+--- a/drivers/gpu/drm/i915/i915_params.c
++++ b/drivers/gpu/drm/i915/i915_params.c
+@@ -29,17 +29,7 @@
+ #include "i915_params.h"
+ #include "i915_drv.h"
  
- static bool amdgpu_device_aspm_support_quirk(struct amdgpu_device *adev)
- {
-+	/* Enabling ASPM causes randoms hangs on Tahiti and Oland on Zen4.
-+	 * It's unclear if this is a platform-specific or GPU-specific issue.
-+	 * Disable ASPM on SI for the time being.
-+	 */
-+	if (adev->family == AMDGPU_FAMILY_SI)
-+		return true;
-+
- #if IS_ENABLED(CONFIG_X86)
- 	struct cpuinfo_x86 *c = &cpu_data(0);
+-DECLARE_DYNDBG_CLASSMAP(drm_debug_classes, DD_CLASS_TYPE_DISJOINT_BITS, 0,
+-			"DRM_UT_CORE",
+-			"DRM_UT_DRIVER",
+-			"DRM_UT_KMS",
+-			"DRM_UT_PRIME",
+-			"DRM_UT_ATOMIC",
+-			"DRM_UT_VBL",
+-			"DRM_UT_STATE",
+-			"DRM_UT_LEASE",
+-			"DRM_UT_DP",
+-			"DRM_UT_DRMRES");
++DRM_CLASSMAP_USE(drm_debug_classes);
  
+ #define i915_param_named(name, T, perm, desc) \
+ 	module_param_named(name, i915_modparams.name, T, perm); \
 -- 
 2.53.0
 
