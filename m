@@ -4,93 +4,83 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 00D5D10ED677
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AB47110ED676
 	for <amd-gfx@archiver.kernel.org>; Fri, 27 Mar 2026 12:41:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0671A10EE31;
-	Fri, 27 Mar 2026 12:41:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B47AD10EE2A;
+	Fri, 27 Mar 2026 12:41:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="AnOsvsYf";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="WpID93gh";
 	dkim-atps=neutral
-Received: from mail-pf1-f171.google.com (mail-pf1-f171.google.com
- [209.85.210.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A669C10EB50
- for <amd-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 23:47:52 +0000 (UTC)
-Received: by mail-pf1-f171.google.com with SMTP id
- d2e1a72fcca58-829a9d08644so798396b3a.1
- for <amd-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 16:47:52 -0700 (PDT)
+Received: from mail-ot1-f42.google.com (mail-ot1-f42.google.com
+ [209.85.210.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0AFD710EBB3
+ for <amd-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 18:54:50 +0000 (UTC)
+Received: by mail-ot1-f42.google.com with SMTP id
+ 46e09a7af769-7d74dbfe84cso856509a34.1
+ for <amd-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 11:54:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1774568872; x=1775173672; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1774551288; x=1775156088; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=0/3ZOVQYuvF8/v5An1EVVsLN1VlAxvgYs14Kv3HQDNc=;
- b=AnOsvsYfGdiwZwIyFsATjP6aX8tBDr0C0D+mKuhld+vnmBjc81fvCJ1frxgGcQMeyw
- P2VRM06UWBbuIXqoVeh19pLhR6kcf9UT79RHzSwDGepsqSmixpbl9XCcKObVqHMSu1Kp
- VxXgASAZwwMgRNxAjB3eXheMcK8nopYmsz5pQFyMZHhgN0veHACP9PgvAbU7S2XWfVW6
- qFQ3TVhd0RpSWnWBAkdGvePriTjwTzzy92HmJ5ebxPAuMqS8qnrQM6d1sk1OgLtwUucm
- dkUyCzWXcq7p/YzybzzrDuIGbuQtL1H1H7RTHAyhTdwPuTqGTSLfQZemdLU3RSimxUeV
- dr1Q==
+ bh=q4prZoq+o67W5OQsgLrKexlAzQC80y9w+24uEfnXM5Y=;
+ b=WpID93ghVpitifRDUJcKgOvdzsq91/FZOXI6zs/WW14ShmaWjwlQ8stnpHC1XrkDpv
+ Gb9ChAY3hOu+4kfF4Er6HsQ/1V6iowLKwXo9xLSRIXm4aumvsoKntGCKTwoA9REc2s6P
+ I/tqJN7Qb2SNBmRlKK4cXFoYiWIEicnRl85iRqt2M8l1WrMudzRnbpk0d//P7vRr9E00
+ j0i1oS35jKjbOuWfgb1z4ViS/zmmyJG9hcw2Nw2maDRyGWDJljcZWepH48Pz6eudF5xZ
+ wioUqrK+9uLrMQRghCS4oOReQagv7LTAIUr2HWrOMsPb8IyZmhrs73yWj6qF8CluBUJV
+ JlAw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774568872; x=1775173672;
+ d=1e100.net; s=20251104; t=1774551288; x=1775156088;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=0/3ZOVQYuvF8/v5An1EVVsLN1VlAxvgYs14Kv3HQDNc=;
- b=BUDhC80wgPe8jvxycKMe7UzXRnhJccXKy7peKyU9Da9xgKESHisyWnVsfGRNKdTxJm
- CRlwLU+/9F3H7krxCmRTeXDm01Qzjh2X6ylGSTTVsKNLqEWYpcFZWmHJBcLQvyIeKvSx
- dJZCZZBV4ypkO/dmfR6xetOiNrNSSSWrHg/ol61g/2K2jbucqbPDOhEYdVikYZ45qUVO
- /XvsjV5tjYY/ZzD2S790EQkw53s7pjWi/OQua4GX8g5Eg/WSa4sSqv3km9gZwQKKfQ5O
- 3MTHAiC2gsNtkvPAdrM4NQV+t6orlHiUg2Dob+EZig7WtMAIsJshVhTjK679+CI+ioo+
- O6Dw==
+ bh=q4prZoq+o67W5OQsgLrKexlAzQC80y9w+24uEfnXM5Y=;
+ b=iae/CMDotVx0iDN6l4bC28VdA1EDYRgAVHkcF8vzGHlcCZWGlSHVbow1x9MIPE6OaN
+ dGKT7KHFNBeVlahnCWeJ4RzKsrbxwnHBtmwaUVRpE1B7PqOIiDNdvaR5YF2mlf+MZ6Lp
+ KRE0q0nlduX4ZLZdWiDJH/jF8QuI301WB8eJMUvthgxoe6/vNd8tjEQnB2FzugUvAgr8
+ rlLbG9LA3BrAsKo/1vdAo/uXAfa3mv25KSjZw5pJ1BN0FHLWSduHOLhkdL/o0e/PVfwL
+ q59p6y44rHYFwmYqyd8V5cdv9cKwm9+ET37XwcP1UpehbMXyoOkPfObWBazdSmO/RaCC
+ 4cmw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXTQzobDuDkZe2ZKPiHjmTdtMViFwZT5YUgq5CBqGjXx1aJT1xGcBljLtb197uAwuekvduaaLzd@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxK9JQpyoCWMn1t+B5HW8MxJ7MEwKXJuRoqv1DWuHSmQqpZmf6M
- J5wgQE1e94VmAuYktsC0li1PLALsPj7BmzSBkhi15Lh9LGS3fSbLCBirQq0UXKng
-X-Gm-Gg: ATEYQzzKIUR/u8KZAfUtDFR3PHLaOF6MSG8UZbcXLmAqPv8B+us0x5IknSrbxv1NoVb
- 8HtJMiFTBB2WStf3h86zxq78obP5a4AKjsJGCeLtVRjBQAXMmzmnFiezcsW2m9WF8hyqmSyrrqa
- WyzPJPz68LWWZngEUGjUW3ndwZvh4kz73JgVcw7zbd3rgcJ8CcJcW9x+o3rkv2LU9dgvsVWKG/v
- ia/NvtbGFV/KLrvFcc2F5zUDYrHzUp4qsNFdnlkKR7nukVr/hBQNHxqt5uGd5yqEcuRPiT++pIf
- z7R84dqC9HA95Bc4CzEag5hp8H9HqSB3Z9Pz3UYVR5dl0JA6Ta8suD2Ylev9+9OrWzoE2Wcl54g
- CYWzsFnfK2pUEdSKnYXJ9dPjarA4aCIc219VYediszZMka9YupCAyeDlslxb1f+LEZR/VeXsdZV
- EotpWOyfqTxxv4tBxDkRh9oXC7ZIrr2NrvSwOCGTuSSM65oxM0/SnUofU=
-X-Received: by 2002:a05:6a20:3ca3:b0:398:a060:a97b with SMTP id
- adf61e73a8af0-39c877b2c2fmr512115637.1.1774568872136; 
- Thu, 26 Mar 2026 16:47:52 -0700 (PDT)
-Received: from ryzen ([2601:644:8000:5b5d::8bd])
- by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-c7673933816sm3201162a12.21.2026.03.26.16.47.50
+ AJvYcCV0S6tsh/1PvNhTCkx4t3V9vgrKxXkNULVOEPVabgK4JXiE09Iz4O/PZCu0Ts4Vjv96G3JCfF5A@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yyehv//d3mRGnPa8dF+7R8pmlQYg7PKu4vi+mlrBE7o8Srg/cbC
+ XrIM9cvR9rG5LsG51pMvC9M+mdGMDCtM6s3BY5W2XqWvFb1qypPl3v92
+X-Gm-Gg: ATEYQzzU+12BxFyliXY20lPWKhGjIWLcJh8Mi8lbqUQmGtuvYMCmz4XR+CS06IkGVoy
+ +1fKpbhr78Ky/9j1bjM6Rl6DWFG1M09JJz1/wAmmqCeOYaeO86PY5BPmrjc96DJvi+Do4VWPROl
+ MSf92YAx9xJEXKZhvZnWRWLB4O3aJecSFCmkZdYF8uDo/I01yESxr2nezCWbC468lyZiKXc4h3N
+ qUVDGA5XjxcUAjS8OHgmoI6bk1FL94KsLljZM17twighR/HTIr1lXKMcs5o65zX9QJc91tABPiQ
+ AsLP0oN+ln1FFQ7tDaHok0Fs8hjBLzT8iO4e56VikS+kHckzeqAYexN2Ins1oT/F7XKJmen/c0C
+ WQGuZKm5g6oSEP9GbA0oxFznBO1xDl5inV84AaXn4xW9ng/ni+ed4X/Rn7yFp04brmqtr5cgf9k
+ Ly7axDVg7Y5OJfFQDtyMDlrvlLDdoNNdYkRzOb0Zq432v92gsV
+X-Received: by 2002:a05:6820:1893:b0:67d:b2f2:6e72 with SMTP id
+ 006d021491bc7-67dff3ce6efmr4416641eaf.13.1774551288030; 
+ Thu, 26 Mar 2026 11:54:48 -0700 (PDT)
+Received: from frodo (c-98-38-17-99.hsd1.co.comcast.net. [98.38.17.99])
+ by smtp.googlemail.com with ESMTPSA id
+ 586e51a60fabf-41cc7760c08sm3075171fac.4.2026.03.26.11.54.46
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 26 Mar 2026 16:47:51 -0700 (PDT)
-From: Rosen Penev <rosenp@gmail.com>
-To: stable@vger.kernel.org
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@linux.ie>,
- Daniel Vetter <daniel@ffwll.ch>, Harry Wentland <harry.wentland@amd.com>,
- Leo Li <sunpeng.li@amd.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Bin Lan <bin.lan.cn@windriver.com>, He Zhe <zhe.he@windriver.com>,
- Vitaly Prosyak <vitaly.prosyak@amd.com>, Alex Hung <alex.hung@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>,
- Mario Limonciello <Mario.Limonciello@amd.com>, Ray Wu <ray.wu@amd.com>,
- Wayne Lin <wayne.lin@amd.com>, Roman Li <Roman.Li@amd.com>,
- Eric Yang <Eric.Yang2@amd.com>, Tony Cheng <Tony.Cheng@amd.com>,
- Mauro Rossi <issor.oruam@gmail.com>,
- amd-gfx@lists.freedesktop.org (open list:RADEON and AMDGPU DRM DRIVERS),
- dri-devel@lists.freedesktop.org (open list:DRM DRIVERS),
- linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH for 6.12 8/9] drm/amd/display: Disable scaling on DCE6 for now
-Date: Thu, 26 Mar 2026 16:47:15 -0700
-Message-ID: <20260326234716.16723-9-rosenp@gmail.com>
+ Thu, 26 Mar 2026 11:54:47 -0700 (PDT)
+From: Jim Cromie <jim.cromie@gmail.com>
+To: linux-kernel@vger.kernel.org, airlied@gmail.com, simona@ffwll.ch,
+ jbaron@akamai.com, gregkh@linuxfoundation.org
+Cc: jim.cromie@gmail.com, mripard@kernel.org, tzimmermann@suse.de,
+ maarten.lankhorst@linux.intel.com, jani.nikula@intel.com,
+ ville.syrjala@linux.intel.com, christian.koenig@amd.com,
+ matthew.auld@intel.com, arunpravin.paneerselvam@amd.com,
+ louis.chauvet@bootlin.com, skhan@linuxfoundation.org, pmladek@suse.com,
+ ukaszb@chromium.org, dri-devel@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+Subject: [PATCH v12 12/69] dyndbg: drop NUM_TYPE_ARRAY
+Date: Thu, 26 Mar 2026 12:53:16 -0600
+Message-ID: <20260326185413.1205870-13-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260326234716.16723-1-rosenp@gmail.com>
-References: <20260326234716.16723-1-rosenp@gmail.com>
+In-Reply-To: <20260326185413.1205870-1-jim.cromie@gmail.com>
+References: <20260326185413.1205870-1-jim.cromie@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Fri, 27 Mar 2026 12:40:01 +0000
+X-Mailman-Approved-At: Fri, 27 Mar 2026 12:40:00 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,46 +95,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Timur Kristóf <timur.kristof@gmail.com>
+ARRAY_SIZE works here, since array decl is complete.
 
-[ Upstream commit 0e190a0446ec517666dab4691b296a9b758e590f ]
+no functional change
 
-Scaling doesn't work on DCE6 at the moment, the current
-register programming produces incorrect output when using
-fractional scaling (between 100-200%) on resolutions higher
-than 1080p.
-
-Disable it until we figure out how to program it properly.
-
-Fixes: 7c15fd86aaec ("drm/amd/display: dc/dce: add initial DCE6 support (v10)")
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Rosen Penev <rosenp@gmail.com>
+Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
+Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- drivers/gpu/drm/amd/display/dc/dce60/dce60_resource.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ include/linux/dynamic_debug.h | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dce60/dce60_resource.c b/drivers/gpu/drm/amd/display/dc/dce60/dce60_resource.c
-index 978c024c97ba..3f9ea4fdc7d8 100644
---- a/drivers/gpu/drm/amd/display/dc/dce60/dce60_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/dce60/dce60_resource.c
-@@ -404,13 +404,13 @@ static const struct dc_plane_cap plane_cap = {
- 	},
- 
- 	.max_upscale_factor = {
--			.argb8888 = 16000,
-+			.argb8888 = 1,
- 			.nv12 = 1,
- 			.fp16 = 1
- 	},
- 
- 	.max_downscale_factor = {
--			.argb8888 = 250,
-+			.argb8888 = 1,
- 			.nv12 = 1,
- 			.fp16 = 1
+diff --git a/include/linux/dynamic_debug.h b/include/linux/dynamic_debug.h
+index 441305277914..92627a03b4d1 100644
+--- a/include/linux/dynamic_debug.h
++++ b/include/linux/dynamic_debug.h
+@@ -132,11 +132,9 @@ struct ddebug_class_param {
+ 		.mod_name = KBUILD_MODNAME,				\
+ 		.base = _base,						\
+ 		.map_type = _maptype,					\
+-		.length = NUM_TYPE_ARGS(char*, __VA_ARGS__),		\
++		.length = ARRAY_SIZE(_var##_classnames),		\
+ 		.class_names = _var##_classnames,			\
  	}
+-#define NUM_TYPE_ARGS(eltype, ...)				\
+-	(sizeof((eltype[]) {__VA_ARGS__}) / sizeof(eltype))
+ 
+ extern __printf(2, 3)
+ void __dynamic_pr_debug(struct _ddebug *descriptor, const char *fmt, ...);
 -- 
 2.53.0
 
