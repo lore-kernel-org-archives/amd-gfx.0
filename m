@@ -4,81 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E625A10ED678
-	for <amd-gfx@archiver.kernel.org>; Fri, 27 Mar 2026 12:41:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9978210ED671
+	for <amd-gfx@archiver.kernel.org>; Fri, 27 Mar 2026 12:41:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 755E710EE34;
-	Fri, 27 Mar 2026 12:41:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0856710EE3B;
+	Fri, 27 Mar 2026 12:41:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="rfoyGiBK";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="eY+9MLoE";
 	dkim-atps=neutral
-Received: from mail-oa1-f43.google.com (mail-oa1-f43.google.com
- [209.85.160.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AE40F10EBF0
- for <amd-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 18:55:56 +0000 (UTC)
-Received: by mail-oa1-f43.google.com with SMTP id
- 586e51a60fabf-40ee9b945d5so940744fac.0
- for <amd-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 11:55:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1774551356; x=1775156156; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=iu46xPMmyhe3j2aI3EiB0/ULgdgDrucXaD4Bb/DoM7A=;
- b=rfoyGiBKRbBFMB4GkjT8P5AzCsXt/oknR+wndkEGafObPWpQ+eSMRfBFIHx0po5dj4
- Eg9giTXlAaAt99nCFLDJMEDMKyshDmABf25O6RmEuy6j2KXTbI8R/Da8KtLJ87lR0LTT
- 0uMSFSN3oCzWZlSdLgz4nRXbj1ODdpMPGFvkXzb4wtfimla7WHkJL1Q0EvShPa/6XUp2
- tNKC19LavNFbTNWg8hCIfkvW56vL3vPPIsAE7qW6d3sprvtNc7SkGX6Xu67RO5M6exwA
- bWqa8DgExc8DuFHoYdmdMZLw6YPRK5/PmTDBZtvv2JpXeTyJgnHCXHaQsnTwrUT/il3i
- FKDw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774551356; x=1775156156;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=iu46xPMmyhe3j2aI3EiB0/ULgdgDrucXaD4Bb/DoM7A=;
- b=J6SjGY8n+g/e/9Gw7wtmx1y6ryC8T9oQ0P2ML0U8ZYbjJc0gwh6AfFCW+JrVL9TuG6
- RS3V9iCvafJoxtteNJHDT+CJxqN+Gwx28vW/fQPFhkUyxcihJEeHqEuiv2QcKMSUVInZ
- 9hJO7vLH5A6nsPoVS6ULG76qFEYitQyWAELgRzjraR/twYAtrtaMZKwwqIdaHHR7SsG0
- hNLoK9xrRdoV9bqc9mAmWte7AinOvx6sgkTSkFu7zUWfBmPzSxWTUwW6lBqSSh0JGRaS
- FrViv5ElUAuwOSBA1gKChJaClq0SlY3rGP0ZaI25SEaa0nquQYqOauuV+yM8t/4Asmj6
- t6cQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUkr5MqaYhAm44caCzIese2T6QyF5g3BmOZO0AdydxCwguDaViVw451OsmR68bHdTIr603q7uJL@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzUTDftVX3GYO3Avst4OeGVRfdqqmOoBBGkcgw6ymaMm+0vbuJV
- Jl70Zgf+hm3HtI2o/TQUSUVxEyidh0f0k/WKAf2KPyF4i0vSkp/xCfj0
-X-Gm-Gg: ATEYQzwbd5kwNNOUaRHeVpZyKaAtpg53BaSHNc9/dIiSAT6mvLzGx4YApdXqhfDgTby
- 2xaGCmkY/Ypj0tCLX3mEyAWA1AmbiOQ/7CVgrOnFxltiQiuzWm4qsQUBwRHZP276cW71LFZNim5
- F86cjio50C3gME3DYZDNReBaqoscbqDwvhvkxO0g9YeRtnuLvpgyOLzgdzoYwa5j1bRYyUb+PF7
- WPy8WUxW3jxEwzubPRIiCA8In528AOMIeBxIB9ao4vKdVCZtWcDMTqySy3wXSIfyGWQNohhq8js
- aFo5TuEr/1TvcUCnO5GzAzQyZYEcA4h2wZH1Rbx1WaOn6j+Xr5iF4ns9Ste/xvIJXutl28T69vH
- xV0aIObFyeOOvRC5fvJdQmz2IKvNRuRxUMZCUfuXZSGl7KDZeAnQvYzyck/YL/iPsmM/8YfhWct
- vkIoKEiow5O/mEkUOFFi5rxgPb9KYjAuc3pNuOSkKX6xz2TQT9
-X-Received: by 2002:a05:6871:728:b0:3f4:fed5:d88b with SMTP id
- 586e51a60fabf-41ca7078b7dmr4565478fac.35.1774551355832; 
- Thu, 26 Mar 2026 11:55:55 -0700 (PDT)
-Received: from frodo (c-98-38-17-99.hsd1.co.comcast.net. [98.38.17.99])
- by smtp.googlemail.com with ESMTPSA id
- 586e51a60fabf-41cc7760c08sm3075171fac.4.2026.03.26.11.55.54
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 26 Mar 2026 11:55:55 -0700 (PDT)
-From: Jim Cromie <jim.cromie@gmail.com>
-To: linux-kernel@vger.kernel.org, airlied@gmail.com, simona@ffwll.ch,
- jbaron@akamai.com, gregkh@linuxfoundation.org
-Cc: jim.cromie@gmail.com, mripard@kernel.org, tzimmermann@suse.de,
- maarten.lankhorst@linux.intel.com, jani.nikula@intel.com,
- ville.syrjala@linux.intel.com, christian.koenig@amd.com,
- matthew.auld@intel.com, arunpravin.paneerselvam@amd.com,
- louis.chauvet@bootlin.com, skhan@linuxfoundation.org, pmladek@suse.com,
- ukaszb@chromium.org, dri-devel@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-Subject: [PATCH v12 55/69] drm-dyndbg: add DRM_CLASSMAP_USE to gma500 driver
-Date: Thu, 26 Mar 2026 12:53:59 -0600
-Message-ID: <20260326185413.1205870-56-jim.cromie@gmail.com>
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CF2E410ECE3;
+ Fri, 27 Mar 2026 08:16:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1774599400; x=1806135400;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=qeVWa8r7f4q+L+gXinu2pi9ngSyC1Swgdgb8weA16QE=;
+ b=eY+9MLoEt7lonn2S0RKrSwDKQHlrVNSfz1jSuRZ5yfkJO6jxqdGJqXIO
+ hU4Mjghm0UnRJmgVTV2RJbOylg2JNOOYfKGUTjOEeYFVm2e2aT9Adt5GY
+ v/+b/40BbMLmLC8INFxEMeuziwWBnd6GscIBV+aK0yBWDzRty+cwCIDCL
+ oMoeL+DfqJOQeBXbaTg2cYF0TpsCpByob290y4Gvhey/oIqshcMk1b6xB
+ pfcZVCOEqeC8Uk3e1+IqoMbQJKoDEG8m/71T2v6sh033MNkFpuW1timlA
+ Mf7c3ZA2OdC+HpHjJRyIljoC0eKGbCwk7OaHZT6rVQLHPu07ExFLlUZee Q==;
+X-CSE-ConnectionGUID: asW3QI8HRLeNeA1KNnmVMw==
+X-CSE-MsgGUID: DedQVC0JSCmI+xsEH/qSyA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11741"; a="75784039"
+X-IronPort-AV: E=Sophos;i="6.23,143,1770624000"; d="scan'208";a="75784039"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+ by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Mar 2026 01:16:39 -0700
+X-CSE-ConnectionGUID: GKBuzr8rT1imynU1RhvNpw==
+X-CSE-MsgGUID: dir45kgJQ6GnreQLIax5Cg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,143,1770624000"; d="scan'208";a="255747888"
+Received: from egrumbac-mobl6.ger.corp.intel.com (HELO fedora)
+ ([10.245.244.146])
+ by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Mar 2026 01:16:34 -0700
+From: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
+To: intel-xe@lists.freedesktop.org
+Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Natalie Vock <natalie.vock@gmx.de>, Johannes Weiner <hannes@cmpxchg.org>,
+ Tejun Heo <tj@kernel.org>,
+ =?UTF-8?q?Michal=20Koutn=C3=BD?= <mkoutny@suse.com>,
+ cgroups@vger.kernel.org, Huang Rui <ray.huang@amd.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Matthew Auld <matthew.auld@intel.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Simona Vetter <simona@ffwll.ch>,
+ David Airlie <airlied@gmail.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [PATCH 1/5] cgroup/dmem: Return error when setting max below current
+ usage
+Date: Fri, 27 Mar 2026 09:15:56 +0100
+Message-ID: <20260327081600.4885-2-thomas.hellstrom@linux.intel.com>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260326185413.1205870-1-jim.cromie@gmail.com>
-References: <20260326185413.1205870-1-jim.cromie@gmail.com>
+In-Reply-To: <20260327081600.4885-1-thomas.hellstrom@linux.intel.com>
+References: <20260327081600.4885-1-thomas.hellstrom@linux.intel.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 27 Mar 2026 12:40:00 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -95,28 +84,67 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The gma500 has 126 DRM_UT_* debugs, make them controllable when
-CONFIG_DRM_USE_DYNAMIC_DEBUG=y by telling dyndbg that the module has
-class'd debugs.
+Return -EBUSY to userspace when writing dmem.max below the cgroup's
+current device memory usage, rather than silently leaving the limit
+unchanged.
 
-Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+Assisted-by: GitHub Copilot:claude-sonnet-4.6
+Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
 ---
- drivers/gpu/drm/gma500/psb_drv.c | 2 ++
- 1 file changed, 2 insertions(+)
+ kernel/cgroup/dmem.c | 14 ++++++++------
+ 1 file changed, 8 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/gma500/psb_drv.c b/drivers/gpu/drm/gma500/psb_drv.c
-index 005ab7f5355f..92b18c76b44e 100644
---- a/drivers/gpu/drm/gma500/psb_drv.c
-+++ b/drivers/gpu/drm/gma500/psb_drv.c
-@@ -41,6 +41,8 @@
- static const struct drm_driver driver;
- static int psb_pci_probe(struct pci_dev *pdev, const struct pci_device_id *ent);
+diff --git a/kernel/cgroup/dmem.c b/kernel/cgroup/dmem.c
+index 9d95824dc6fa..3e6d4c0b26a1 100644
+--- a/kernel/cgroup/dmem.c
++++ b/kernel/cgroup/dmem.c
+@@ -144,22 +144,24 @@ static void free_cg_pool(struct dmem_cgroup_pool_state *pool)
+ 	dmemcg_pool_put(pool);
+ }
  
-+DRM_CLASSMAP_USE(drm_debug_classes);
-+
- /*
-  * The table below contains a mapping of the PCI vendor ID and the PCI Device ID
-  * to the different groups of PowerVR 5-series chip designs
+-static void
++static int
+ set_resource_min(struct dmem_cgroup_pool_state *pool, u64 val)
+ {
+ 	page_counter_set_min(&pool->cnt, val);
++	return 0;
+ }
+ 
+-static void
++static int
+ set_resource_low(struct dmem_cgroup_pool_state *pool, u64 val)
+ {
+ 	page_counter_set_low(&pool->cnt, val);
++	return 0;
+ }
+ 
+-static void
++static int
+ set_resource_max(struct dmem_cgroup_pool_state *pool, u64 val)
+ {
+-	page_counter_set_max(&pool->cnt, val);
++	return page_counter_set_max(&pool->cnt, val);
+ }
+ 
+ static u64 get_resource_low(struct dmem_cgroup_pool_state *pool)
+@@ -726,7 +728,7 @@ static int dmemcg_parse_limit(char *options, struct dmem_cgroup_region *region,
+ 
+ static ssize_t dmemcg_limit_write(struct kernfs_open_file *of,
+ 				 char *buf, size_t nbytes, loff_t off,
+-				 void (*apply)(struct dmem_cgroup_pool_state *, u64))
++				 int (*apply)(struct dmem_cgroup_pool_state *, u64))
+ {
+ 	struct dmemcg_state *dmemcs = css_to_dmemcs(of_css(of));
+ 	int err = 0;
+@@ -773,7 +775,7 @@ static ssize_t dmemcg_limit_write(struct kernfs_open_file *of,
+ 		}
+ 
+ 		/* And commit */
+-		apply(pool, new_limit);
++		err = apply(pool, new_limit);
+ 		dmemcg_pool_put(pool);
+ 
+ out_put:
 -- 
 2.53.0
 
