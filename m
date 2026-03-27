@@ -4,94 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CDCBF10ED671
-	for <amd-gfx@archiver.kernel.org>; Fri, 27 Mar 2026 12:40:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5808F10ED678
+	for <amd-gfx@archiver.kernel.org>; Fri, 27 Mar 2026 12:40:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B7AB910EDD5;
-	Fri, 27 Mar 2026 12:40:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 318B810EDF1;
+	Fri, 27 Mar 2026 12:40:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="YxVCSMAM";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="KcyZAVsc";
 	dkim-atps=neutral
-Received: from mail-pg1-f170.google.com (mail-pg1-f170.google.com
- [209.85.215.170])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AC5F910EB50
- for <amd-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 23:47:50 +0000 (UTC)
-Received: by mail-pg1-f170.google.com with SMTP id
- 41be03b00d2f7-c648bc907ebso1077640a12.3
- for <amd-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 16:47:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1774568870; x=1775173670; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=9pCNIYnvbijot8BuXxZwdBSIjs5gTuAaUWfD7Zd1qpw=;
- b=YxVCSMAMa5WpEsxTFYENjZ6HjUu4wwKmjr8Z3h2S8sGC+mJUa3v0b82kgIXG0bEJHw
- HD/vAad5TLX2ZoFLZsf+SkGPvRZMcWzT2o7iO9GTvog9vFK9cUs1jJEmSjI+FDVNpGnK
- FNWMqIlcSidMY31aCpwAR+EC7PNuO2BvD7W1bnIVDh/hSUx4byw7uWlLSuZgGpCYv1t7
- TA0duyrHXngVaTMoXNf/wcpuc3INcyHaMkIixRokSUybtE1wUlvo9t0+FeAWxk029C9j
- cFNVQNeudehg/iVcgHUAI0nHx9Z3nfOIIq8Ntn9AFpJ/MI6AdhSPPkNk3Rx7XAId2w4A
- Awdg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774568870; x=1775173670;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=9pCNIYnvbijot8BuXxZwdBSIjs5gTuAaUWfD7Zd1qpw=;
- b=Clhu4+ugCqsdcW910/00YgiPi48rLz8ilZ6J7Qt3yLwvGojcmkpexJ/haBM7WCNkut
- y3QwgWHOUZXwBKzx2IWyynDxhB/rjeh7wtzSE71fD3oVHBzxr2JhAAUVPW3uCX74xkjD
- h1GA68I3eKVtwXv63WKcX1sidQCKW778ME88X4frQU/ibYi3idIfFbgeGX4Ymo+sE4F0
- lVh9Urh1TN/gWFfO+us0xnMeMgcvxoCoZcMLsrTwaOi8fXNoyqJfgIXmgJNdTUX7fzr8
- dOIp0bpwjEVqTke/lqNdOdKPD4ShImEPwF5zcwtaEI/4eddTWcm5cjdSMxbvpZ+hwCSI
- m9ig==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXO44xjleX1KQ5aymvftvWzkeK8NTQ74VFtwnSiFYXvF+NDkxj2rMWk6g4FQbZDWklc2Eiwl5hp@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yyiro6fES5e/iCN4ODg4N9aVn7hcF2fIZIOe6q1WCcZ6bJ43v2F
- EKXe3K4l0UrmrbHawBgPdh8drBOmR4RAlePztaTZvZ5ttjzmFBO8MzCz
-X-Gm-Gg: ATEYQzzn88+ynnjyA9kDJJuTK+OdgRCWiY/GAWxsW4ZGEpeFfw75iT3odQ/bR0NS9rh
- BvvDn/LgdD7U25nwETbSI5YflE8BIQIH8SAwoZMECEU+LxcZsPFK9ey7m1wd1aMscPps9KG4Zjz
- RsestbD0a/WZa0IY5MP/cXI5JKYlPCCtaPacxpkN3D51nqX/ZhBZBazwud4h4dJ4tcNodkfHfSn
- eJlaFYUG0ljcuIjLfCjKid1HqX1QCeF0QBe6dUzgTtxW9h/5whcQAv53obj7u9w1QjEJPzjyfF9
- hT0PaDg4ZlkqEmAbzSzEsOzISfWoSZyahDd0TCifuiTy2Cs+9Esvp0NzwuPA73YjcpG84vctQWX
- OEoRUaiOa0My6r7B43H6ukZLQMx41jS3Lek4op3n0WKziVBD8rl2WN4uYA/EJPQo8VGVDMG3SId
- RCmK9QUCk/KNyZAW/kAGu+re0flWriXIy8C/cEnZPltROcnCTHLJROrEPuQSEweqES6w==
-X-Received: by 2002:a05:6300:210e:b0:398:919a:ddf5 with SMTP id
- adf61e73a8af0-39c878d5394mr525263637.24.1774568870090; 
- Thu, 26 Mar 2026 16:47:50 -0700 (PDT)
-Received: from ryzen ([2601:644:8000:5b5d::8bd])
- by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-c7673933816sm3201162a12.21.2026.03.26.16.47.48
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 26 Mar 2026 16:47:49 -0700 (PDT)
-From: Rosen Penev <rosenp@gmail.com>
-To: stable@vger.kernel.org
-Cc: Alex Deucher <alexander.deucher@amd.com>,
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4D36C10ECEB;
+ Fri, 27 Mar 2026 08:16:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1774599410; x=1806135410;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=ytyzwX3feuwVR1dvurybDs4E55hpyZh2Q7G3QI5sDxQ=;
+ b=KcyZAVscGy0JlyYKUs/jgXzvLA4EO7fhhZ6iXFL7QP85u7kkIwaxa/av
+ uAZDf6ylwr87HEui72rHo3CkP9UZnr7x7oYEdGh1yddM5f2nN/hdtkVkp
+ TQP2xfo0cWPU3pfPm+NdmGLDBDO2DdlpTxVj7NmQKXyeLXnJzSrNiDoD+
+ NcqDvowSdiEuIkzC+o2wito7xriaSqNIuqtgXh+80DZnn2GJ/CSIu/rAE
+ UGp3Mbq3Jt3c42CKwwXYbTSD3tAOtRFbXt+jeOJO+yY5pEq9vxzjVDnfd
+ WBbFDKuO2ztEQqs9DUgAHeDSkLRPUZESxeaW4aVRvetmXv5D25oqGpgYa A==;
+X-CSE-ConnectionGUID: rtREtoPRQcqZOw1WvXoJ8Q==
+X-CSE-MsgGUID: LcWjmo98TCGDpgwCjsce4g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11741"; a="75784072"
+X-IronPort-AV: E=Sophos;i="6.23,143,1770624000"; d="scan'208";a="75784072"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+ by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Mar 2026 01:16:50 -0700
+X-CSE-ConnectionGUID: DAY5HA6ESSeo1zkIKjs1rw==
+X-CSE-MsgGUID: juWInWz4S3aW1Mlq9cn8aQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,143,1770624000"; d="scan'208";a="255747922"
+Received: from egrumbac-mobl6.ger.corp.intel.com (HELO fedora)
+ ([10.245.244.146])
+ by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Mar 2026 01:16:45 -0700
+From: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
+To: intel-xe@lists.freedesktop.org
+Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Natalie Vock <natalie.vock@gmx.de>, Johannes Weiner <hannes@cmpxchg.org>,
+ Tejun Heo <tj@kernel.org>,
+ =?UTF-8?q?Michal=20Koutn=C3=BD?= <mkoutny@suse.com>,
+ cgroups@vger.kernel.org, Huang Rui <ray.huang@amd.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Matthew Auld <matthew.auld@intel.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Simona Vetter <simona@ffwll.ch>,
+ David Airlie <airlied@gmail.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@linux.ie>,
- Daniel Vetter <daniel@ffwll.ch>, Harry Wentland <harry.wentland@amd.com>,
- Leo Li <sunpeng.li@amd.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Bin Lan <bin.lan.cn@windriver.com>, He Zhe <zhe.he@windriver.com>,
- Vitaly Prosyak <vitaly.prosyak@amd.com>, Alex Hung <alex.hung@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>,
- Mario Limonciello <Mario.Limonciello@amd.com>, Ray Wu <ray.wu@amd.com>,
- Wayne Lin <wayne.lin@amd.com>, Roman Li <Roman.Li@amd.com>,
- Eric Yang <Eric.Yang2@amd.com>, Tony Cheng <Tony.Cheng@amd.com>,
- Mauro Rossi <issor.oruam@gmail.com>,
- amd-gfx@lists.freedesktop.org (open list:RADEON and AMDGPU DRM DRIVERS),
- dri-devel@lists.freedesktop.org (open list:DRM DRIVERS),
- linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH for 6.12 7/9] drm/amd/display: Adjust DCE 8-10 clock,
- don't overclock by 15%
-Date: Thu, 26 Mar 2026 16:47:14 -0700
-Message-ID: <20260326234716.16723-8-rosenp@gmail.com>
+ Alex Deucher <alexander.deucher@amd.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [PATCH 3/5] drm/ttm: Hook up a cgroup-aware reclaim callback for the
+ dmem controller
+Date: Fri, 27 Mar 2026 09:15:58 +0100
+Message-ID: <20260327081600.4885-4-thomas.hellstrom@linux.intel.com>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260326234716.16723-1-rosenp@gmail.com>
-References: <20260326234716.16723-1-rosenp@gmail.com>
+In-Reply-To: <20260327081600.4885-1-thomas.hellstrom@linux.intel.com>
+References: <20260327081600.4885-1-thomas.hellstrom@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Fri, 27 Mar 2026 12:40:01 +0000
+X-Mailman-Approved-At: Fri, 27 Mar 2026 12:40:00 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,69 +84,268 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Timur Kristóf <timur.kristof@gmail.com>
+Add ttm_bo_evict_cgroup() to evict buffer objects charged to a specific
+dmem cgroup pool from a resource manager's LRU until a byte target is
+met.  Add ttm_resource_manager_set_dmem_region() to register the TTM
+eviction path as the reclaim callback for a dmem cgroup region.
 
-[ Upstream commit 1ae45b5d4f371af8ae51a3827d0ec9fe27eeb867 ]
+The eviction context is interruptible; signals abort the operation and
+propagate back through the write() syscall.
 
-Adjust the nominal (and performance) clocks for DCE 8-10,
-and set them to 625 MHz, which is the value used by the legacy
-display code in amdgpu_atombios_get_clock_info.
+Introduce a new mode for the bo LRU walker so that sleeping locks
+can be taken. This can be used when the caller doesn't hold any
+previous dma_resv locks, and where it intends to hold at most
+one lock at a time.
 
-This was tested with Hawaii, Tonga and Fiji.
-These GPUs can output 4K 60Hz (10-bit depth) at 625 MHz.
+Like the rest of the TTM eviction this should sooner than later
+be converted to full WW transactions.
 
-The extra 15% clock was added as a workaround for a Polaris issue
-which uses DCE 11, and should not have been used on DCE 8-10 which
-are already hardcoded to the highest possible display clock.
-Unfortunately, the extra 15% was mistakenly copied and kept
-even on code paths which don't affect Polaris.
-
-This commit fixes that and also	adds a check to	make sure
-not to exceed the maximum DCE 8-10 display clock.
-
-Fixes: 8cd61c313d8b ("drm/amd/display: Raise dispclk value for Polaris")
-Fixes: dc88b4a684d2 ("drm/amd/display: make clk mgr soc specific")
-Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
-Reviewed-by: Rodrigo Siqueira <siqueira@igalia.com>
-Reviewed-by: Alex Hung <alex.hung@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Rosen Penev <rosenp@gmail.com>
+Assisted-by: GitHub Copilot:claude-sonnet-4.6
+Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
 ---
- .../drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c  | 12 +++++-------
- 1 file changed, 5 insertions(+), 7 deletions(-)
+ drivers/gpu/drm/ttm/ttm_bo.c       | 95 +++++++++++++++++++++++++++++-
+ drivers/gpu/drm/ttm/ttm_bo_util.c  |  3 +-
+ drivers/gpu/drm/ttm/ttm_resource.c | 36 +++++++++++
+ include/drm/ttm/ttm_bo.h           | 10 ++++
+ include/drm/ttm/ttm_resource.h     |  4 ++
+ 5 files changed, 144 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c
-index 5dbe89d9b72d..6131ede2db7a 100644
---- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c
-+++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c
-@@ -72,9 +72,9 @@ static const struct state_dependent_clocks dce80_max_clks_by_state[] = {
- /* ClocksStateLow */
- { .display_clk_khz = 352000, .pixel_clk_khz = 330000},
- /* ClocksStateNominal */
--{ .display_clk_khz = 600000, .pixel_clk_khz = 400000 },
-+{ .display_clk_khz = 625000, .pixel_clk_khz = 400000 },
- /* ClocksStatePerformance */
--{ .display_clk_khz = 600000, .pixel_clk_khz = 400000 } };
-+{ .display_clk_khz = 625000, .pixel_clk_khz = 400000 } };
- 
- int dentist_get_divider_from_did(int did)
+diff --git a/drivers/gpu/drm/ttm/ttm_bo.c b/drivers/gpu/drm/ttm/ttm_bo.c
+index d85f0a37ac35..1745557c184c 100644
+--- a/drivers/gpu/drm/ttm/ttm_bo.c
++++ b/drivers/gpu/drm/ttm/ttm_bo.c
+@@ -515,12 +515,20 @@ static s64 ttm_bo_evict_cb(struct ttm_lru_walk *walk, struct ttm_buffer_object *
  {
-@@ -403,11 +403,9 @@ static void dce_update_clocks(struct clk_mgr *clk_mgr_base,
- {
- 	struct clk_mgr_internal *clk_mgr_dce = TO_CLK_MGR_INTERNAL(clk_mgr_base);
- 	struct dm_pp_power_level_change_request level_change_req;
--	int patched_disp_clk = context->bw_ctx.bw.dce.dispclk_khz;
--
--	/*TODO: W/A for dal3 linux, investigate why this works */
--	if (!clk_mgr_dce->dfs_bypass_active)
--		patched_disp_clk = patched_disp_clk * 115 / 100;
-+	const int max_disp_clk =
-+		clk_mgr_dce->max_clks_by_state[DM_PP_CLOCKS_STATE_PERFORMANCE].display_clk_khz;
-+	int patched_disp_clk = MIN(max_disp_clk, context->bw_ctx.bw.dce.dispclk_khz);
+ 	struct ttm_bo_evict_walk *evict_walk =
+ 		container_of(walk, typeof(*evict_walk), walk);
++	/* Capture size before eviction in case res is cleared. */
++	s64 bo_size = bo->base.size;
+ 	s64 lret;
  
- 	level_change_req.power_level = dce_get_required_clocks_state(clk_mgr_base, context);
- 	/* get max clock state from PPLIB */
+ 	if (!dmem_cgroup_state_evict_valuable(evict_walk->limit_pool, bo->resource->css,
+ 					      evict_walk->try_low, &evict_walk->hit_low))
+ 		return 0;
+ 
++	/*
++	 * evict_walk->place is NULL in cgroup drain mode.  Drivers'
++	 * eviction_valuable() callbacks must handle a NULL place, treating it
++	 * as "any placement": the TTM base implementation already does so via
++	 * ttm_resource_intersects().
++	 */
+ 	if (bo->pin_count || !bo->bdev->funcs->eviction_valuable(bo, evict_walk->place))
+ 		return 0;
+ 
+@@ -536,11 +544,15 @@ static s64 ttm_bo_evict_cb(struct ttm_lru_walk *walk, struct ttm_buffer_object *
+ 		goto out;
+ 
+ 	evict_walk->evicted++;
+-	if (evict_walk->res)
++	if (evict_walk->res) {
+ 		lret = ttm_resource_alloc(evict_walk->evictor, evict_walk->place,
+ 					  evict_walk->res, NULL);
+-	if (lret == 0)
+-		return 1;
++		if (lret == 0)
++			return 1;
++	} else {
++		/* Cgroup drain: return bytes freed for byte-denominated progress. */
++		return bo_size;
++	}
+ out:
+ 	/* Errors that should terminate the walk. */
+ 	if (lret == -ENOSPC)
+@@ -614,6 +626,83 @@ static int ttm_bo_evict_alloc(struct ttm_device *bdev,
+ 	return 0;
+ }
+ 
++/**
++ * ttm_bo_evict_cgroup - Evict buffer objects charged to a specific cgroup.
++ * @bdev: The TTM device.
++ * @man: The resource manager whose LRU to walk.
++ * @limit_pool: The cgroup pool state whose members should be evicted.
++ * @target_bytes: Number of bytes to free.
++ * @ctx: The TTM operation context.
++ *
++ * Walk the LRU of @man and evict buffer objects that are charged to the
++ * cgroup identified by @limit_pool, until at least @target_bytes have been
++ * freed.  Mirrors the two-pass (trylock -> sleeping-lock, low-watermark)
++ * strategy used by ttm_bo_evict_alloc().
++ *
++ * Return: >= @target_bytes on full success, 0..target_bytes-1 if partial,
++ *         negative error code on fatal error.
++ */
++s64 ttm_bo_evict_cgroup(struct ttm_device *bdev,
++			struct ttm_resource_manager *man,
++			struct dmem_cgroup_pool_state *limit_pool,
++			s64 target_bytes,
++			struct ttm_operation_ctx *ctx)
++{
++	struct ttm_bo_evict_walk evict_walk = {
++		.walk = {
++			.ops = &ttm_evict_walk_ops,
++			.arg = { .ctx = ctx },
++		},
++		.limit_pool = limit_pool,
++		/* place, evictor, res left NULL: selects cgroup drain mode */
++	};
++	s64 lret, pass;
++
++	evict_walk.walk.arg.trylock_only = true;
++	lret = ttm_lru_walk_for_evict(&evict_walk.walk, bdev, man, target_bytes);
++	if (lret < 0 || lret >= target_bytes)
++		return lret;
++
++	/* Second pass: also evict BOs at the low watermark. */
++	if (evict_walk.hit_low) {
++		evict_walk.try_low = true;
++		pass = ttm_lru_walk_for_evict(&evict_walk.walk, bdev, man,
++					      target_bytes - lret);
++		if (pass < 0)
++			return pass;
++		lret += pass;
++		if (lret >= target_bytes)
++			return lret;
++	}
++
++	/* Full sleeping-lock pass for remaining target. */
++	evict_walk.try_low = evict_walk.hit_low = false;
++	evict_walk.walk.arg.trylock_only = false;
++
++retry:
++	evict_walk.walk.arg.sleeping_lock = true;
++	do {
++		evict_walk.evicted = 0;
++		pass = ttm_lru_walk_for_evict(&evict_walk.walk, bdev, man,
++					      target_bytes - lret);
++		if (pass < 0) {
++			lret = pass;
++			goto out;
++		}
++		lret += pass;
++	} while (lret < target_bytes && evict_walk.evicted);
++
++	/* One more attempt if we hit the low limit during sleeping-lock pass. */
++	if (lret < target_bytes && evict_walk.hit_low && !evict_walk.try_low) {
++		evict_walk.try_low = true;
++		goto retry;
++	}
++
++out:
++	return lret;
++}
++EXPORT_SYMBOL(ttm_bo_evict_cgroup);
++
+ /**
+  * ttm_bo_pin - Pin the buffer object.
+  * @bo: The buffer object to pin
+diff --git a/drivers/gpu/drm/ttm/ttm_bo_util.c b/drivers/gpu/drm/ttm/ttm_bo_util.c
+index f83b7d5ec6c6..81c6a674c462 100644
+--- a/drivers/gpu/drm/ttm/ttm_bo_util.c
++++ b/drivers/gpu/drm/ttm/ttm_bo_util.c
+@@ -999,7 +999,8 @@ __ttm_bo_lru_cursor_next(struct ttm_bo_lru_cursor *curs)
+ 		bo = res->bo;
+ 		if (ttm_lru_walk_trylock(curs, bo))
+ 			bo_locked = true;
+-		else if (!arg->ticket || arg->ctx->no_wait_gpu || arg->trylock_only)
++		else if ((!arg->ticket && !arg->sleeping_lock) || arg->ctx->no_wait_gpu ||
++			 arg->trylock_only)
+ 			continue;
+ 
+ 		if (!ttm_bo_get_unless_zero(bo)) {
+diff --git a/drivers/gpu/drm/ttm/ttm_resource.c b/drivers/gpu/drm/ttm/ttm_resource.c
+index 9f36631d48b6..936552f426a7 100644
+--- a/drivers/gpu/drm/ttm/ttm_resource.c
++++ b/drivers/gpu/drm/ttm/ttm_resource.c
+@@ -937,3 +937,39 @@ void ttm_resource_manager_create_debugfs(struct ttm_resource_manager *man,
+ #endif
+ }
+ EXPORT_SYMBOL(ttm_resource_manager_create_debugfs);
++
++static int ttm_resource_manager_dmem_reclaim(struct dmem_cgroup_pool_state *pool,
++					     u64 target_bytes, void *priv)
++{
++	struct ttm_resource_manager *man = priv;
++	struct ttm_operation_ctx ctx = { .interruptible = true };
++	s64 freed;
++
++	freed = ttm_bo_evict_cgroup(man->bdev, man, pool, target_bytes, &ctx);
++	if (freed < 0)
++		return freed;
++
++	return freed >= (s64)target_bytes ? 0 : -ENOSPC;
++}
++
++/**
++ * ttm_resource_manager_set_dmem_region - Associate a dmem cgroup region with a
++ *                                        resource manager and register a reclaim
++ *                                        callback.
++ * @man: The resource manager.
++ * @region: The dmem cgroup region to associate, may be NULL or IS_ERR().
++ *
++ * Sets @man->cg and registers ttm_resource_manager_dmem_reclaim() so that
++ * writing to dmem.max below current usage triggers TTM eviction rather than
++ * returning -EBUSY to userspace.
++ */
++void ttm_resource_manager_set_dmem_region(struct ttm_resource_manager *man,
++					  struct dmem_cgroup_region *region)
++{
++	man->cg = region;
++	if (!IS_ERR_OR_NULL(region))
++		dmem_cgroup_region_set_reclaim(region,
++					       ttm_resource_manager_dmem_reclaim,
++					       man);
++}
++EXPORT_SYMBOL(ttm_resource_manager_set_dmem_region);
+diff --git a/include/drm/ttm/ttm_bo.h b/include/drm/ttm/ttm_bo.h
+index 8310bc3d55f9..32791c4db2a9 100644
+--- a/include/drm/ttm/ttm_bo.h
++++ b/include/drm/ttm/ttm_bo.h
+@@ -226,6 +226,11 @@ struct ttm_lru_walk_arg {
+ 	struct ww_acquire_ctx *ticket;
+ 	/** @trylock_only: Only use trylock for locking. */
+ 	bool trylock_only;
++	/**
++	 * @sleeping_lock: Use sleeping locks even with %NULL @ticket.
++	 * @trylock_only has precedence over this field.
++	 */
++	bool sleeping_lock;
+ };
+ 
+ /**
+@@ -431,6 +436,11 @@ void ttm_bo_unpin(struct ttm_buffer_object *bo);
+ int ttm_bo_evict_first(struct ttm_device *bdev,
+ 		       struct ttm_resource_manager *man,
+ 		       struct ttm_operation_ctx *ctx);
++s64 ttm_bo_evict_cgroup(struct ttm_device *bdev,
++			struct ttm_resource_manager *man,
++			struct dmem_cgroup_pool_state *limit_pool,
++			s64 target_bytes,
++			struct ttm_operation_ctx *ctx);
+ int ttm_bo_access(struct ttm_buffer_object *bo, unsigned long offset,
+ 		  void *buf, int len, int write);
+ vm_fault_t ttm_bo_vm_reserve(struct ttm_buffer_object *bo,
+diff --git a/include/drm/ttm/ttm_resource.h b/include/drm/ttm/ttm_resource.h
+index 33e80f30b8b8..c187e6c8b871 100644
+--- a/include/drm/ttm/ttm_resource.h
++++ b/include/drm/ttm/ttm_resource.h
+@@ -39,6 +39,7 @@
+ 
+ struct dentry;
+ struct dmem_cgroup_device;
++struct dmem_cgroup_region;
+ struct drm_printer;
+ struct ttm_device;
+ struct ttm_resource_manager;
+@@ -475,6 +476,9 @@ void ttm_resource_manager_init(struct ttm_resource_manager *man,
+ 			       struct ttm_device *bdev,
+ 			       uint64_t size);
+ 
++void ttm_resource_manager_set_dmem_region(struct ttm_resource_manager *man,
++					  struct dmem_cgroup_region *region);
++
+ int ttm_resource_manager_evict_all(struct ttm_device *bdev,
+ 				   struct ttm_resource_manager *man);
+ 
 -- 
 2.53.0
 
