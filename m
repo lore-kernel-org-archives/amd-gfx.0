@@ -4,90 +4,98 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 27F3E10ED664
-	for <amd-gfx@archiver.kernel.org>; Fri, 27 Mar 2026 12:43:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6A29C10ED66E
+	for <amd-gfx@archiver.kernel.org>; Fri, 27 Mar 2026 12:56:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A8EE510EE37;
-	Fri, 27 Mar 2026 12:43:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1526B10E390;
+	Fri, 27 Mar 2026 12:56:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="n4jzjz9+";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="GZYPLUK0";
 	dkim-atps=neutral
-Received: from mail-dl1-f51.google.com (mail-dl1-f51.google.com [74.125.82.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4219110EE37
- for <amd-gfx@lists.freedesktop.org>; Fri, 27 Mar 2026 12:43:33 +0000 (UTC)
-Received: by mail-dl1-f51.google.com with SMTP id
- a92af1059eb24-128eb45835cso118336c88.1
- for <amd-gfx@lists.freedesktop.org>; Fri, 27 Mar 2026 05:43:33 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1774615412; cv=none;
- d=google.com; s=arc-20240605;
- b=ax5lMdH5yWfMaaQq923BFJT9oHJ85h1GYD/m6a5zhqpXKjixDpdVMp+gw5/8kRj3ww
- 5B6zu8RyIM7owhgmRGMBGPBLl+hpj2ZshO4Qsj/ZL226C/OjYTwev+mfdn2nsntt8p/a
- BsVs8YsoGZeFWxinrPIKXNH0jt5NK2721M61xQDHN/dJcR59Txr3xwZ1bzqm6Rrgz8BS
- ZgCY7DZa7r4x3gMIjb9eQae3dLXivuqWPyVk6NIL2SU3ujgOji5PI8ZL3x7YIQVZRERc
- Rk2ODHzNh2EnHG01zd1SXVobOhXXkQX3+swBUcARDyIDJfgTd7UqZ1xAvuOzWQuMp6DH
- E/Tw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=gzOwetipCPpHGQyeHR8z+heZBtVz0pSl1aGCS8rwr1Y=;
- fh=sN9lHjfQgBY6fORl+AnBCHZUFbjxtDik1bv+B/xT3Eg=;
- b=PglGj9wvFcqI7stJSkIGu7g5NMg4wDtS0rE1jnLiRwmqPnJLorKfICsD/iMjov8LJb
- xnOZfTqZMlI59GiOMX2FRKYObKF1ctyXGaiaQshMDQxfxKcslSkOxNuyWoy2t9fCdwu6
- XafReVjHFo7LN9Tk6cAAP31mE4FBtcxr7ZhTiz1ksKHsAPPhQbRaAVxeDZP+AnHBMLqO
- JnkMjoMn3lz3+QoYHaCK5DhhucooiUAvVZAEwIYPktRRpYv+P4DE/2pbPaAMX/W8cGxj
- x2IwFqh/YOY2uyU+VvbVqYL6J17TsIZLcw8nHd0X9owlx1/WsGcQwa7R2JqsfpSf8jf6
- Lrfw==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1774615412; x=1775220212; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=gzOwetipCPpHGQyeHR8z+heZBtVz0pSl1aGCS8rwr1Y=;
- b=n4jzjz9+LFCNgMjE7gkXWKk4Aus0JfLHi6JOlBD0K6Fpjusw3RPXGvNmJ1JvRyPfQk
- mpFWG2w0NfUbxOwPx0ygofCCEKPg0VZV15JfwLX2hrgdO7JVp0LMG+hZquTXwHm3crGz
- Om28mqYd4qGEuKOOYkgreaGfDhCMmvUe18Gs1aonIKS29aFluUmSiLx+HY33Cb7RhYl4
- nxre1srW8sIngpnTQqkaP+ZyE3DYlSmUCy7mknJ0qfW5sT8JI50SxRXdZJK1r0oej3/c
- OTvSJgAQdnEncSjd94HeI4u78L7rQB2qQNuM7Bg/ZUBeYFkfM5zr1pumXSZ+gJJdWDXo
- 5bBA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774615412; x=1775220212;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=gzOwetipCPpHGQyeHR8z+heZBtVz0pSl1aGCS8rwr1Y=;
- b=fwQCYY/3w/AW5raxxgjPDstSj3zTJZTeYDMZ2qZVGuuvWtHENDK3aR1dRYZLz/3uac
- T4sltO+YQTYFmJeRO+D9Ipdd37jtbLFc9XnmB8Edet0wNHQ2yXmpNnh5o6dqH5F8L00e
- C2upqScOgQgcbrSri+Qvq+YkqgUlgI2sE+/AS5VqHx3RKzHff9w0R0Yy9mjDGv3D2Wbh
- +Qf2HMonD31U54OfHgv53ydQ98WPsJkTXSIam+b69N4sIvVzTCAQrgwGJLBeaQZZcnwk
- IfSvptmFZMUT4iJWaB8Uhd8wfgm0SRlRFop4izpNsRl5Y7uqkbtOrMLZYLJ5LnTtqkny
- AaLw==
-X-Gm-Message-State: AOJu0YxP6J/RssqdZde8dqU1e6RPsUoXBsldrh3xdrLuLkUljaZ1cHlw
- rextHcPVl3H3Q18VL9hKC2LeOqaWMyvzsLtYK8hGZNTqERijiJAl+pjg23z1Bzv9aUOc4limnnU
- IZ1y4Rcv3iVDVggw4pHD3Cen32r2E1Bc0OA==
-X-Gm-Gg: ATEYQzwAzTUNoDuHsbih8X3Agqk2eYDJb+cl8OOM5Afjs564o1rvbTnMseqy7+Cq+4A
- aGGP4qFO9u2cLyW5ZdOPKxxH3P/6YLtvf5P3VfHHvujzaXmt2vSt/AtC6k98H5a05fQjUCLWBpF
- Q1ksDW6mlzwWZ0LU+SaolzDF/4fynuRBx8gmYUxn/36V5OekUVxz4R4Gj0ybaGER6QrvdNEcibO
- 3PxqrOrcTjU7MzLBUzoOSuq+VqUorTbix9Re22nn+b9tQ11It7D/6zlQjMEETH9bi0WoHB1kHoG
- pZtIdUCjczxk+URz1wC21m7ZpX9BEf0OTplV1bXTVtAWcLedluZXAfvgcsXoUzRKLZs70vQjT0a
- SMcNk
-X-Received: by 2002:a05:7022:698c:b0:123:2d38:929b with SMTP id
- a92af1059eb24-12ab28f8b88mr633249c88.6.1774615412450; Fri, 27 Mar 2026
- 05:43:32 -0700 (PDT)
+Received: from PH7PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11010046.outbound.protection.outlook.com [52.101.201.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DE9F210E1F7
+ for <amd-gfx@lists.freedesktop.org>; Fri, 27 Mar 2026 12:56:46 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ppbh2JHkx3knIgq54x0QAvE5GGGw7VQ2NHaeM4/N1NA+Z7oCm5jM2D0fOMBRl9L37QgW4Ckk1znJPg8XGOoHXt+7L0vON4gsSDFL18FeXBi4TIVIOkrlQ+IOyBGw3tpkCrrjJenE5rSEHv5iR5qGpBw/cy7GXNCTiw/p3YD8w0dOUHsUvRkTV3AYrSQWVuJ7DXMGgk+KRd+Jrnq2G4eWo8LyH/srJaGAd5OWD2x76pUlo5UvIc2xVReSqZ+F5LqnOztI8kIbhvUrhcFUq/1jwfMaZ0HaV5JAvEI5G3SPzbj857BBCnx9x6/givbqLsQK4AoCkUb+KMZ+1CnM2p0bnw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=E2vc3+ovt9At1IdErIup87DWZqTs1MYY9nNmd77iN2o=;
+ b=EFBPYQqtUZ1GCf/io3evyFIEimAA7iNlpnzV9QwTQH/1mVdfTC4h/w0aSnIqM+XKsI9vWCESbrGMwd4nDnY0kGb9lX9u3p1jiSq/s+XK7qTsHCcSKfUNdQZMWVa7ArbSsH8BuUl3rs8qvz35H5MJP8axiSFZrJoTDJeymf7Lex/OV/U1mGgEr4j2Akk1VMAbsAitCLNZEzxkTiS2ya59adagTcLP4YSboapcsdnSxuywJVrxW0wBvXXfeXs1X+ixbQrYPLRIwIf2y0NEOyVKfZFp8v2Rl19zxed++7Yf/KBBLXwfXKrujJ4OyRaRdn+T6Uk8H7Hx8rtOcR+mD1G63A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=E2vc3+ovt9At1IdErIup87DWZqTs1MYY9nNmd77iN2o=;
+ b=GZYPLUK0YoY/jodRy9WRtX2jDeGES8/wcgL+uE0U/a63M7ZBNWtt6y16wBicTIUzdLUibBtJT2HH46dphHx0mSbR9cCZxQA5oaQoOu8PYNRahyY07uMdsp3Wc2kD3jVEfxOL+7wyChZw6nk+V+hP5sdqQ7UYCN8CXMbjmgkW0Ng=
+Received: from LV3P220CA0028.NAMP220.PROD.OUTLOOK.COM (2603:10b6:408:234::21)
+ by IA1PR12MB8336.namprd12.prod.outlook.com (2603:10b6:208:3fc::22)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.7; Fri, 27 Mar
+ 2026 12:56:39 +0000
+Received: from BN3PEPF0000B078.namprd04.prod.outlook.com
+ (2603:10b6:408:234:cafe::ea) by LV3P220CA0028.outlook.office365.com
+ (2603:10b6:408:234::21) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9745.24 via Frontend Transport; Fri,
+ 27 Mar 2026 12:56:37 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BN3PEPF0000B078.mail.protection.outlook.com (10.167.243.123) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9745.21 via Frontend Transport; Fri, 27 Mar 2026 12:56:39 +0000
+Received: from srishanm-Cloudripper.amd.com (10.180.168.240) by
+ satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.17; Fri, 27 Mar 2026 07:56:37 -0500
+From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+To: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "Alex
+ Deucher" <alexander.deucher@amd.com>
+CC: <amd-gfx@lists.freedesktop.org>, Srinivasan Shanmugam
+ <srinivasan.shanmugam@amd.com>, Muhammad Adam <muhammad.adam@amd.com>, "Mario
+ Sopena-Novales" <mario.novales@amd.com>, Tom Wu <Tom.Wu@amd.com>
+Subject: [PATCH] drm/amdgpu/gfx11: Add Cleaner Shader Support for GFX11.5.4
+Date: Fri, 27 Mar 2026 18:26:23 +0530
+Message-ID: <20260327125623.2114029-1-srinivasan.shanmugam@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-References: <20260327103944.1477094-1-lijo.lazar@amd.com>
-In-Reply-To: <20260327103944.1477094-1-lijo.lazar@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 27 Mar 2026 08:43:21 -0400
-X-Gm-Features: AQROBzDq5jCOdtqd83s1RybVrjjdbX7NbBLEXsEW9Iq3LlzCoyt6Be_tLrIIAZU
-Message-ID: <CADnq5_M4G9gJ8f4WFFnxirY6idnKZDi1LyJR00A6Y2OYjaMAUQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: Fix wait after reset sequence in S4
-To: Lijo Lazar <lijo.lazar@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, Hawking.Zhang@amd.com, 
- Alexander.Deucher@amd.com
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN3PEPF0000B078:EE_|IA1PR12MB8336:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3d2ec024-5178-4808-bb71-08de8c004990
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|36860700016|82310400026|1800799024|56012099003|18002099003;
+X-Microsoft-Antispam-Message-Info: ztOsxIfAWUzz2tSylcXp1LaXPGvfWmqkjwATk8Ej44+l6Yqo+vX1ZQ6X9EEtzuG9RV2GY/m3xQ18mjIJ7S04h6s2cAzvXD2vIsbGdJMAvs2Rn5sNKrf/kzyjo+ALeLufThX0Ku4QtcTOhjVZ7Odx2IjNJLPNOEB1Kw4l3hjHYYBQU2aCD1VTwJJEIabtdCp82fvFbysO7qPSsfgwdYWD8kSw4bes/siSzU+eBKRe1i/kTAAwCXelQgzUG2g3zjR++7QdB0CdqT3JL5FhhXjbfs2wE606zCknVfyfE1IfoI2jf9KrWS9VNeKC39wCPF9FgcgpGYP2Ay50LKISdOtzK7cvz1gxNfs7txri1mhyxUPF7amak+PmDlavRQwHC7BY1E/4sJC50Kl4gf82qxWKj+tCe4X2Vjqt4Jq6iqUUJyEWO6cmbCyfCiN1gvjieDoTTPo7xnMQOo0dy/oncVf3qhGGZjpSERDdk11fJbjN7LIDLCrj+TAtsZ13rCxWrxDuh3HWHv2NPfJgwi/g3HtrAMR/BiiXdkX63f15zyke+IjsvkjaxeS2EaZo7MidAk2fGim6hbesRIiWy1qI5jzOx0cdZFP6yjHIkdpqfwoCh4Zt1v+RY1ynw7jnVYk5CQ7cprR0Cpw+7pJQuhpIeXb7STGIbfjjEU/yAd2quFiQEz7VTVOOLbFLOF6YzAUK7ulzGBhM0JMORipNCqahz90gnnUmmrKyT4Y0zADHaV70MbCkRLcaOdRMpy0ER/Y+281MPixAAR+m/XC3OD23Nap50g==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(36860700016)(82310400026)(1800799024)(56012099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: ySmQiFjk0pVByvA8h8gctrtO1a8U8VB+hRqvsn2LlGu5433ic59MCKIfwor4GKF7ry6KY1o6jzp4Zp2ig2Q8XxXDC8pHHBSRPxpFuP+WyVhR7C0igDKEGn7ds5Bx97N148tz11OAqya3QPoOUy8W4+jFSgS9lkekcoi1ohtxlzISmy+UPAEdWJuYfmHVpx8/dKfUkgubUR11memAGafJUXjy3rMJLyMMbBsHTHjy13xuXcTs39PE9gqC6otnV9P3WUpPSxGa+IDjUexCM1Y6v50YkwOgGyGdQaq2SfgCPWpZsEf2D2rhgKGkeQ9tlxGx1O5cRaiMDf43ODBVa5X5fp4Eb5WT57VVr76BdQ1BABbdywdMPRTzPf4xaFqGg5TH0vIsaHwuEfLtgLT3uh7Y575ucf96zDbOj3fYKJCbTVfada0MxlLMAz2eu7s/dw3+
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Mar 2026 12:56:39.4872 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3d2ec024-5178-4808-bb71-08de8c004990
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN3PEPF0000B078.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8336
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,64 +110,52 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Mar 27, 2026 at 6:40=E2=80=AFAM Lijo Lazar <lijo.lazar@amd.com> wro=
-te:
->
-> For a mode-1 reset done at the end of S4 on PSPv11 dGPUs, only check if
-> TOS is unloaded.
->
-> Fixes: 32f73741d6ee ("drm/amdgpu: Wait for bootloader after PSPv11 reset"=
-)
-> Closes: https://gitlab.freedesktop.org/drm/amd/-/work_items/4853
->
-> Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
+The Cleaner Shader is responsible for clearing LDS, VGPRs and SGPRs
+between GPU workloads to enforce process isolation and avoid data
+leakage.
 
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+The cleaner shader clears per-wave GPU state (LDS, VGPRs and SGPRs)
+between workloads, improving process isolation and preventing stale data
+from being observed by subsequent tasks.
 
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 8 ++++++--
->  drivers/gpu/drm/amd/amdgpu/psp_v11_0.c  | 3 ++-
->  2 files changed, 8 insertions(+), 3 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_drv.c
-> index a44baa9ee78d..8ed637f92322 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> @@ -2683,8 +2683,12 @@ static int amdgpu_pmops_freeze(struct device *dev)
->         if (r)
->                 return r;
->
-> -       if (amdgpu_acpi_should_gpu_reset(adev))
-> -               return amdgpu_asic_reset(adev);
-> +       if (amdgpu_acpi_should_gpu_reset(adev)) {
-> +               amdgpu_device_lock_reset_domain(adev->reset_domain);
-> +               r =3D amdgpu_asic_reset(adev);
-> +               amdgpu_device_unlock_reset_domain(adev->reset_domain);
-> +               return r;
-> +       }
->         return 0;
->  }
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c b/drivers/gpu/drm/amd=
-/amdgpu/psp_v11_0.c
-> index 9aa988982304..fb7aaf5ae05c 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
-> @@ -170,7 +170,8 @@ static int psp_v11_0_wait_for_bootloader(struct psp_c=
-ontext *psp)
->         int retry_loop;
->
->         /* For a reset done at the end of S3, only wait for TOS to be unl=
-oaded */
-> -       if (adev->in_s3 && !(adev->flags & AMD_IS_APU) && amdgpu_in_reset=
-(adev))
-> +       if ((adev->in_s4 || adev->in_s3) && !(adev->flags & AMD_IS_APU) &=
-&
-> +           amdgpu_in_reset(adev))
->                 return psp_v11_wait_for_tos_unload(psp);
->
->         for (retry_loop =3D 0; retry_loop < 20; retry_loop++) {
-> --
-> 2.49.0
->
+This reuses the existing cleaner shader used on GFX11.0.3 and enables it
+for GFX11.5.4 GPUs when firmware requirements are met.
+
+Cc: Muhammad Adam <muhammad.adam@amd.com>
+Cc: Mario Sopena-Novales <mario.novales@amd.com>
+Cc: Tom Wu <Tom.Wu@amd.com>
+Cc: Christian König <christian.koenig@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+index 78d1f3eb522e..ae39b9e1f7d6 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+@@ -1722,6 +1722,20 @@ static int gfx_v11_0_sw_init(struct amdgpu_ip_block *ip_block)
+ 			}
+ 		}
+ 		break;
++	case IP_VERSION(11, 5, 4):
++		adev->gfx.cleaner_shader_ptr = gfx_11_0_3_cleaner_shader_hex;
++		adev->gfx.cleaner_shader_size = sizeof(gfx_11_0_3_cleaner_shader_hex);
++		if (adev->gfx.me_fw_version  >= 4 &&
++		    adev->gfx.pfp_fw_version >= 7 &&
++		    adev->gfx.mec_fw_version >= 5) {
++			adev->gfx.enable_cleaner_shader = true;
++			r = amdgpu_gfx_cleaner_shader_sw_init(adev, adev->gfx.cleaner_shader_size);
++			if (r) {
++				adev->gfx.enable_cleaner_shader = false;
++				dev_err(adev->dev, "Failed to initialize cleaner shader\n");
++			}
++		}
++		break;
+ 	default:
+ 		adev->gfx.enable_cleaner_shader = false;
+ 		break;
+-- 
+2.34.1
+
