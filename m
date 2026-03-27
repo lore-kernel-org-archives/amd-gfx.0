@@ -4,72 +4,95 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 79C3910ED671
-	for <amd-gfx@archiver.kernel.org>; Fri, 27 Mar 2026 12:42:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 37F8410ED664
+	for <amd-gfx@archiver.kernel.org>; Fri, 27 Mar 2026 12:42:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C46C910EE39;
-	Fri, 27 Mar 2026 12:42:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C25BB10EE35;
+	Fri, 27 Mar 2026 12:42:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="EEvE81ep";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Tvp6jQTg";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 644C210ECEB;
- Fri, 27 Mar 2026 08:16:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1774599405; x=1806135405;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=8Sffc1FnB7aLC90BrXNdUZA1BmIxr98g2Izx7ogRry0=;
- b=EEvE81epPJS+S1Q7dA5jLkiomh51vsxq3unZLbup5UpxpfdStOzeqrS2
- SNgsQpMAlKH0u+str/nih28hYF1Kd5uW6l2SP5Ztz8ZrFAzshSrSy4Hem
- Gy1g9ZVVAsWjVNw6WrQ1zzh6YWswnReP3U/302WjsYAvLJ6ycvSw8wV4K
- 85YlHp2lJ9f2CqVDFTOKMPgALAgE8XiBLD76qdB3qlNTl/YgIos4n6y9D
- 1Y/d2DhDh8KhHhml9iPuLKXx548uUF3ZZNkJs4ez4fdEhA2edNsX+NUr5
- /3Rx92Ihr3GINgxzA/laBTbCP8HFqnMmoeHwAsUKp5BP/HhrydFp2E6nD w==;
-X-CSE-ConnectionGUID: cw8r5HxgQU64vrFJLaAEew==
-X-CSE-MsgGUID: 9TmHSyp5TAmHYmZdePd8RA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11741"; a="75784054"
-X-IronPort-AV: E=Sophos;i="6.23,143,1770624000"; d="scan'208";a="75784054"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
- by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Mar 2026 01:16:45 -0700
-X-CSE-ConnectionGUID: z9ayDlz1Qce3tvLAo25+iw==
-X-CSE-MsgGUID: +20jAXVHSBWHzwq2DEln3Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,143,1770624000"; d="scan'208";a="255747905"
-Received: from egrumbac-mobl6.ger.corp.intel.com (HELO fedora)
- ([10.245.244.146])
- by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Mar 2026 01:16:39 -0700
-From: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-To: intel-xe@lists.freedesktop.org
-Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Natalie Vock <natalie.vock@gmx.de>, Johannes Weiner <hannes@cmpxchg.org>,
- Tejun Heo <tj@kernel.org>,
- =?UTF-8?q?Michal=20Koutn=C3=BD?= <mkoutny@suse.com>,
- cgroups@vger.kernel.org, Huang Rui <ray.huang@amd.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Matthew Auld <matthew.auld@intel.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Simona Vetter <simona@ffwll.ch>,
- David Airlie <airlied@gmail.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH 2/5] cgroup/dmem: Add reclaim callback for lowering max below
- current usage
-Date: Fri, 27 Mar 2026 09:15:57 +0100
-Message-ID: <20260327081600.4885-3-thomas.hellstrom@linux.intel.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260327081600.4885-1-thomas.hellstrom@linux.intel.com>
-References: <20260327081600.4885-1-thomas.hellstrom@linux.intel.com>
+Received: from mail-dl1-f46.google.com (mail-dl1-f46.google.com [74.125.82.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8CE0510EE37
+ for <amd-gfx@lists.freedesktop.org>; Fri, 27 Mar 2026 12:42:12 +0000 (UTC)
+Received: by mail-dl1-f46.google.com with SMTP id
+ a92af1059eb24-127337e3870so144732c88.2
+ for <amd-gfx@lists.freedesktop.org>; Fri, 27 Mar 2026 05:42:12 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1774615332; cv=none;
+ d=google.com; s=arc-20240605;
+ b=Kj/SQxgxxqSIfUeYHQAVHtw2P5FsUmw6N6yqTG8xJdPW8RmrKPwcOIIVGSMk9WNfF/
+ Yu+3NlcTFdPFiCcgX480kueFiEWkLZYpcmkOtdhR6QUMSbhO6mSaBVjonxq6VD47Gl5J
+ 5RhKrmmyXmfaSCpl1ZwpiUDrhEirzItuSIUts+kp6wDrdrFXNbhW1TyGpUHreVIsoHaO
+ U9shq/gu7K0OhoK5LCJHl/ynIBs4MfTle5BEV1jsp8zEDIgBTF70nPepxLLCQIVdWS7N
+ dJZ2iCH1+8IUbVV6iMmVn35IoPNNajHmTFrcFymBxmIQ3BYWNYCq9SZkXlH5Z+QU3QUB
+ kZSQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=0Sq/Qtz6+u5veUEQh7t7gc8Ia7s1I7ZECBNvi0zrGTg=;
+ fh=71VkXJtsWnrS0YqLNTqW148VSsoh0S3c+hQD0YDWlqM=;
+ b=H3W1JtIXJ86EG43wsB9gLJQY6uX7pI55UoImlAz9ano6zTOcWokS/v5VTG6HG25Bk9
+ TnoD8baLIPyFJM4Thi/6x0WlBP16s2pWbPBPDenZlai474o2QbU9DaHXJEpE6IEDkjGx
+ zbotcwY07dwPXFVgqPwnJniOBtrPKvf0aTwLYzqcnV854PinybeygafqP+c528UCqiqr
+ oyI76j7NxWJ8XoVcaZlNjhSqDZ5molWWsIfKRO1hJLgXkRY6Moq0se17NV7xUm03+Z79
+ KHyp+huM/F+WBFfTRp+EZEPLyiNyHTqe5qpthC3MXOAc1itMigt/7Rh5szQH3F5sPX0l
+ I4wA==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1774615332; x=1775220132; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=0Sq/Qtz6+u5veUEQh7t7gc8Ia7s1I7ZECBNvi0zrGTg=;
+ b=Tvp6jQTgzH9TwkGZjN3DqT7nRnCPOPS6WWzVI1AN3vHxskYw/n4i+2f9w+RcipuG8u
+ +nR7Py6zvSOFB4ALfTOhJqz9+IFbM99IEBeAGzhLsYDcUzNgnD/MX+w/eID8l/KXQ53L
+ Qo1rTEZmKaRztsQ7IhsCauR6zydF+UMaZtonkyMSgUq783Z3HIUSxqDM/1V2zjQVKSmh
+ SrT2F/JENBJaXHRf7O/yNbrGsFoPvEgy70+xdj5pPAihyISPukK/42PGTnqvGQhiOL5R
+ TBBpsRYH8gYZ2neZea3gtul4X+nKLTK0pzJD48fyuql/WDTT3c+kT8FFVob8QapbKOQz
+ zj9Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1774615332; x=1775220132;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=0Sq/Qtz6+u5veUEQh7t7gc8Ia7s1I7ZECBNvi0zrGTg=;
+ b=pOcACR0ArcZNPU6dUkLL2XZ0q2mX90s8w37jMyssIw/fNmsEe7sZR34w/gIjio3rYa
+ rq+XPj1pkKUQlbIl20MWPjcGJkQUIddxM1pNgK4h4Ppq/d1OyZk2jeJbkWrB30C8LsYv
+ OfSeTsjMvhjYFLBvnbJTqfLJjxy51kiidL35YKRZvp3A1MTb+13nMadso14tyHdLf8GT
+ BeuNcQT9qmN85fBkA04ORreEFCjFtFP0mFhhh6Dn25I5Q90xf4jF0mlPi5tiliJy+pVp
+ 8cXKVxPACpJbhVERVrB1aWXRTqy+3WfcGoiCvE7MXdOpoAmczt2ldawuKc+gc0V821o2
+ e3hw==
+X-Gm-Message-State: AOJu0YxJxe/8YYLZfCMh6h2KGH/YcFnd1LFXQZFnAFQ/K2ZPP+qnnedE
+ vql5oev8sc4Wx452qRtMINdA6tgeu3BG56RGPxFVlmBkmvDZKxgUcr4kf306igRaRXJPDhq/0ii
+ o3qzqj9p0GtT8c7N+a28NGSznKY/ZDr7m4w==
+X-Gm-Gg: ATEYQzyJtlA9orcfzFdY4tUYfGiOmPUY1vhbSe1R8EuhIBYsBkTjJh7t7N1xKMQVf+A
+ sx1rgoQpDzcyXAX2uzRk44l5HW6RpM1JdMW9nrJBqyPkYV2Uh5l4nYJk2HHQM70j/a/0E6G+sZE
+ SiCMW5l/JS6Y0/KueaY4gvKOeL4YBW1pd6YTKu8mct8RUv+i3bGVrrT7/0Ztv+jPZfLkbFCiKq+
+ HIbl7TXP2oLdRVSq00aktoWGJE2do+IWdMHTIWgiGZBkcO8eacdiU2Hyi5XRq3AHHoF081hpv46
+ JmK2Q+elDHhqfeDVAAXuQGj4NaCjP5n7gbZgPB1U+Js0tjyVwlW8ogHDdyE096lVGlTaIQ==
+X-Received: by 2002:a05:7022:628f:b0:127:332d:63e with SMTP id
+ a92af1059eb24-12ab29307c2mr619378c88.5.1774615331511; Fri, 27 Mar 2026
+ 05:42:11 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Fri, 27 Mar 2026 12:40:00 +0000
+References: <20260326020445.1187519-1-kevinyang.wang@amd.com>
+ <a35ca9d5-354f-4b98-a186-3a4797176b55@amd.com>
+ <CADnq5_PRGtHXruP9Y4UxA9-XmJ6UH=VA3OFfE+qs6tfgz3r1ug@mail.gmail.com>
+ <DM6PR12MB2972A6DE7761B40B1733A0818256A@DM6PR12MB2972.namprd12.prod.outlook.com>
+ <DM6PR12MB2972D38A0949301AA988BFC08256A@DM6PR12MB2972.namprd12.prod.outlook.com>
+In-Reply-To: <DM6PR12MB2972D38A0949301AA988BFC08256A@DM6PR12MB2972.namprd12.prod.outlook.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Fri, 27 Mar 2026 08:42:00 -0400
+X-Gm-Features: AQROBzBgoMB3hGjWNrhScEchi7E6XG_lNLjArUW2V-kISGmuWNg4RgObZhYab5E
+Message-ID: <CADnq5_N_Mckv4NkZhLxBhscftg7XM8B3a=ZuJvYwiQjuyO_GOg@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/pm: correct mem_busy_percent display due to
+ calculation errors
+To: "Wang, Yang(Kevin)" <KevinYang.Wang@amd.com>
+Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, 
+ "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Zhang,
+ Hawking" <Hawking.Zhang@amd.com>, "Feng, Kenneth" <Kenneth.Feng@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,206 +107,353 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add an optional reclaim callback to struct dmem_cgroup_region.  When
-dmem.max is set below current usage, invoke the callback to evict memory
-and retry setting the limit rather than failing immediately.  Signal
-interruptions propagate back to the write() caller.
+On Thu, Mar 26, 2026 at 7:15=E2=80=AFPM Wang, Yang(Kevin)
+<KevinYang.Wang@amd.com> wrote:
+>
+> [AMD Official Use Only - AMD Internal Distribution Only]
+>
+> >> However, this wrong value will still affect how 'pp_dpm_uclk' and 'gpu=
+_metrics' show their results.
+> change to
+> However, this wrong value will still affect how 'pp_dpm_uclk','pp_dpm_fcl=
+k' and 'gpu_metrics' show their results.
+>
+> Best Regards,
+> Kevin
+>
+> -----Original Message-----
+> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Wang, =
+Yang(Kevin)
+> Sent: Friday, March 27, 2026 7:10 AM
+> To: Alex Deucher <alexdeucher@gmail.com>
+> Cc: amd-gfx@lists.freedesktop.org; Deucher, Alexander <Alexander.Deucher@=
+amd.com>; Zhang, Hawking <Hawking.Zhang@amd.com>; Feng, Kenneth <Kenneth.Fe=
+ng@amd.com>
+> Subject: RE: [PATCH] drm/amd/pm: correct mem_busy_percent display due to =
+calculation errors
+>
+> [AMD Official Use Only - AMD Internal Distribution Only]
+>
+> >> What about returning -EBUSY or -EAGAIN if the value is negative?
+>
+> However, this wrong value will still affect how 'pp_dpm_uclk' and 'gpu_me=
+trics' show their results.
+> While the 'mem_busy_percent' sysfs node is fine as it is, the KMD still n=
+eeds a special code path to handle it properly.
+> Also, for 'gpu_metrics', the driver must return some value to fill the bu=
+ffer no matter what to avoid breaking node function.
+>
+> For "activity" variables, we can safely assume they should only be betwee=
+n 0 and 100.
+> Besides, PMFW uses a similar method internally, So, I think limiting the =
+value to 0 is a reasonable fix.
 
-RFC:
-Due to us updating the max limit _after_ the usage has been
-sufficiently lowered, this should be prone to failures if there are
-aggressive allocators running in parallel to the reclaim.
-So can we somehow enforce the new limit while the eviction is
-happening?
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
 
-Assisted-by: GitHub Copilot:claude-sonnet-4.6
-Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
----
- include/linux/cgroup_dmem.h | 11 +++++
- kernel/cgroup/dmem.c        | 94 +++++++++++++++++++++++++++++++++----
- 2 files changed, 96 insertions(+), 9 deletions(-)
-
-diff --git a/include/linux/cgroup_dmem.h b/include/linux/cgroup_dmem.h
-index dd4869f1d736..61520a431740 100644
---- a/include/linux/cgroup_dmem.h
-+++ b/include/linux/cgroup_dmem.h
-@@ -26,6 +26,10 @@ bool dmem_cgroup_state_evict_valuable(struct dmem_cgroup_pool_state *limit_pool,
- 				      bool ignore_low, bool *ret_hit_low);
- 
- void dmem_cgroup_pool_state_put(struct dmem_cgroup_pool_state *pool);
-+void dmem_cgroup_region_set_reclaim(struct dmem_cgroup_region *region,
-+				    int (*reclaim)(struct dmem_cgroup_pool_state *pool,
-+						   u64 target_bytes, void *priv),
-+				    void *priv);
- #else
- static inline __printf(2,3) struct dmem_cgroup_region *
- dmem_cgroup_register_region(u64 size, const char *name_fmt, ...)
-@@ -62,5 +66,12 @@ bool dmem_cgroup_state_evict_valuable(struct dmem_cgroup_pool_state *limit_pool,
- static inline void dmem_cgroup_pool_state_put(struct dmem_cgroup_pool_state *pool)
- { }
- 
-+static inline void
-+dmem_cgroup_region_set_reclaim(struct dmem_cgroup_region *region,
-+			       int (*reclaim)(struct dmem_cgroup_pool_state *pool,
-+					      u64 target_bytes, void *priv),
-+			       void *priv)
-+{ }
-+
- #endif
- #endif	/* _CGROUP_DMEM_H */
-diff --git a/kernel/cgroup/dmem.c b/kernel/cgroup/dmem.c
-index 3e6d4c0b26a1..f993fb058b74 100644
---- a/kernel/cgroup/dmem.c
-+++ b/kernel/cgroup/dmem.c
-@@ -51,6 +51,18 @@ struct dmem_cgroup_region {
- 	 * No new pools should be added to the region afterwards.
- 	 */
- 	bool unregistered;
-+
-+	/**
-+	 * @reclaim: Optional callback invoked when dmem.max is set below the
-+	 * current usage of a pool. The driver should attempt to free at least
-+	 * @target_bytes from @pool. May be called multiple times if usage
-+	 * remains above the limit after returning.
-+	 */
-+	int (*reclaim)(struct dmem_cgroup_pool_state *pool, u64 target_bytes,
-+		       void *priv);
-+
-+	/** @reclaim_priv: Private data passed to @reclaim. */
-+	void *reclaim_priv;
- };
- 
- struct dmemcg_state {
-@@ -145,23 +157,59 @@ static void free_cg_pool(struct dmem_cgroup_pool_state *pool)
- }
- 
- static int
--set_resource_min(struct dmem_cgroup_pool_state *pool, u64 val)
-+set_resource_min(struct dmem_cgroup_pool_state *pool, u64 val,
-+		 struct dmem_cgroup_region *region)
- {
- 	page_counter_set_min(&pool->cnt, val);
- 	return 0;
- }
- 
- static int
--set_resource_low(struct dmem_cgroup_pool_state *pool, u64 val)
-+set_resource_low(struct dmem_cgroup_pool_state *pool, u64 val,
-+		 struct dmem_cgroup_region *region)
- {
- 	page_counter_set_low(&pool->cnt, val);
- 	return 0;
- }
- 
- static int
--set_resource_max(struct dmem_cgroup_pool_state *pool, u64 val)
-+set_resource_max(struct dmem_cgroup_pool_state *pool, u64 val,
-+		 struct dmem_cgroup_region *region)
- {
--	return page_counter_set_max(&pool->cnt, val);
-+	int err = page_counter_set_max(&pool->cnt, val);
-+
-+	if (err != -EBUSY || !region || !region->reclaim)
-+		return err;
-+
-+	/*
-+	 * The new max is below current usage.  Ask the driver to evict memory
-+	 * and retry, up to a bounded number of times.  Signal interruptions are
-+	 * propagated back to the write() caller; other reclaim failures leave
-+	 * -EBUSY as the result.
-+	 */
-+	for (int retries = 5; retries > 0; retries--) {
-+		u64 usage = page_counter_read(&pool->cnt);
-+		u64 target = usage > val ? usage - val : 0;
-+		int reclaim_err;
-+
-+		if (!target) {
-+			err = page_counter_set_max(&pool->cnt, val);
-+			break;
-+		}
-+
-+		reclaim_err = region->reclaim(pool, target, region->reclaim_priv);
-+		if (reclaim_err) {
-+			if (reclaim_err == -EINTR || reclaim_err == -ERESTARTSYS)
-+				err = reclaim_err;
-+			break;
-+		}
-+
-+		err = page_counter_set_max(&pool->cnt, val);
-+		if (err != -EBUSY)
-+			break;
-+	}
-+
-+	return err;
- }
- 
- static u64 get_resource_low(struct dmem_cgroup_pool_state *pool)
-@@ -186,9 +234,9 @@ static u64 get_resource_current(struct dmem_cgroup_pool_state *pool)
- 
- static void reset_all_resource_limits(struct dmem_cgroup_pool_state *rpool)
- {
--	set_resource_min(rpool, 0);
--	set_resource_low(rpool, 0);
--	set_resource_max(rpool, PAGE_COUNTER_MAX);
-+	set_resource_min(rpool, 0, NULL);
-+	set_resource_low(rpool, 0, NULL);
-+	set_resource_max(rpool, PAGE_COUNTER_MAX, NULL);
- }
- 
- static void dmemcs_offline(struct cgroup_subsys_state *css)
-@@ -570,6 +618,32 @@ void dmem_cgroup_pool_state_put(struct dmem_cgroup_pool_state *pool)
- }
- EXPORT_SYMBOL_GPL(dmem_cgroup_pool_state_put);
- 
-+/**
-+ * dmem_cgroup_region_set_reclaim - Register a reclaim callback on a region.
-+ * @region: The region to register the callback for.
-+ * @reclaim: Callback to invoke when dmem.max is set below current usage.
-+ *           Called with the pool that needs reclaiming and the number of
-+ *           bytes to free. Returns 0 on progress, negative on failure.
-+ * @priv: Opaque pointer passed back to @reclaim.
-+ *
-+ * When dmem.max is lowered below the current usage of a cgroup pool, the
-+ * dmem controller will call @reclaim with a target number of bytes to free.
-+ * After @reclaim returns the controller retries setting the limit; if usage
-+ * is still too high it calls @reclaim again, up to a bounded retry count.
-+ */
-+void dmem_cgroup_region_set_reclaim(struct dmem_cgroup_region *region,
-+				    int (*reclaim)(struct dmem_cgroup_pool_state *pool,
-+						   u64 target_bytes, void *priv),
-+				    void *priv)
-+{
-+	if (!region)
-+		return;
-+
-+	region->reclaim = reclaim;
-+	region->reclaim_priv = priv;
-+}
-+EXPORT_SYMBOL_GPL(dmem_cgroup_region_set_reclaim);
-+
- static struct dmem_cgroup_pool_state *
- get_cg_pool_unlocked(struct dmemcg_state *cg, struct dmem_cgroup_region *region)
- {
-@@ -728,7 +802,8 @@ static int dmemcg_parse_limit(char *options, struct dmem_cgroup_region *region,
- 
- static ssize_t dmemcg_limit_write(struct kernfs_open_file *of,
- 				 char *buf, size_t nbytes, loff_t off,
--				 int (*apply)(struct dmem_cgroup_pool_state *, u64))
-+				 int (*apply)(struct dmem_cgroup_pool_state *, u64,
-+					      struct dmem_cgroup_region *))
- {
- 	struct dmemcg_state *dmemcs = css_to_dmemcs(of_css(of));
- 	int err = 0;
-@@ -775,7 +850,8 @@ static ssize_t dmemcg_limit_write(struct kernfs_open_file *of,
- 		}
- 
- 		/* And commit */
--		err = apply(pool, new_limit);
-+		err = apply(pool, new_limit, region);
-+
- 		dmemcg_pool_put(pool);
- 
- out_put:
--- 
-2.53.0
-
+>
+> Best Regards,
+> Kevin
+>
+> -----Original Message-----
+> From: Alex Deucher <alexdeucher@gmail.com>
+> Sent: Friday, March 27, 2026 5:33 AM
+> To: Lazar, Lijo <Lijo.Lazar@amd.com>
+> Cc: Wang, Yang(Kevin) <KevinYang.Wang@amd.com>; amd-gfx@lists.freedesktop=
+.org; Deucher, Alexander <Alexander.Deucher@amd.com>; Zhang, Hawking <Hawki=
+ng.Zhang@amd.com>; Feng, Kenneth <Kenneth.Feng@amd.com>
+> Subject: Re: [PATCH] drm/amd/pm: correct mem_busy_percent display due to =
+calculation errors
+>
+> On Thu, Mar 26, 2026 at 12:37=E2=80=AFAM Lazar, Lijo <lijo.lazar@amd.com>=
+ wrote:
+> >
+> >
+> >
+> > On 26-Mar-26 7:34 AM, Yang Wang wrote:
+> > > PMFW may return invalid values due to internal calculation errors.
+> > > so, the kmd driver must validate and sanitize the returned values to
+> > > prevent issues caused by firmware calculation errors.
+> > >
+> > > For example, values 0xfffe (-2) and 0xffff (-1) are treated as
+> > > invalid and clamped to 0.
+> > >
+> >
+> > The problem with clamping is that the issue takes a different
+> > direction after that.
+> >
+> > Presently, the issue is reported as garbage values reported in activity=
+.
+> > With clamping, the issue could get reported as 100% activity with
+> > light load or 0% activity with a heavy load. That will take the debug
+> > in a different direction.
+> >
+> > Instead, isn't it better to keep this as some errata and let user apps
+> > filter out garbage values? The previous or next sample could reflect
+> > the activity correctly. Later fix can be added to newer firmware, if
+> > that is an option.
+>
+> What about returning -EBUSY or -EAGAIN if the value is negative?
+>
+> Alex
+>
+> >
+> > Thanks,
+> > Lijo
+> >
+> >
+> > > this applies to devices with CAB (Cache As Buffer) functionality.
+> > >
+> > > Closes: https://gitlab.freedesktop.org/drm/amd/-/work_items/4905
+> > >
+> > > Signed-off-by: Yang Wang <kevinyang.wang@amd.com>
+> > > ---
+> > >   drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h   | 17 ++++++++++++++=
++++
+> > >   .../drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c    | 10 +++++-----
+> > >   .../drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c    | 10 +++++-----
+> > >   .../drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c    | 10 +++++-----
+> > >   4 files changed, 32 insertions(+), 15 deletions(-)
+> > >
+> > > diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
+> > > b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
+> > > index 609f5ab07d8a..365946c43e11 100644
+> > > --- a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
+> > > +++ b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
+> > > @@ -2164,4 +2164,21 @@ static inline void smu_feature_init(struct smu=
+_context *smu, int feature_num)
+> > >       smu_feature_list_clear_all(smu, SMU_FEATURE_LIST_ALLOWED);
+> > >   }
+> > >
+> > > +/*
+> > > + * smu_safe_u16_nn - Make u16 safe by filtering negative overflow
+> > > +errors
+> > > + * @val: Input u16 value, may contain invalid negative overflows
+> > > + *
+> > > + * Convert u16 to non-negative value. Cast to s16 to detect
+> > > +negative values
+> > > + * caused by calculation errors. Return 0 for negative errors,
+> > > +return
+> > > + * original value if valid.
+> > > + *
+> > > + * Return: Valid u16 value or 0
+> > > + */
+> > > +static inline u16 smu_safe_u16_nn(u16 val) {
+> > > +    s16 tmp =3D (s16)val;
+> > > +
+> > > +    return tmp < 0 ? 0 : val;
+> > > +}
+> > > +
+> > >   #endif
+> > > diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
+> > > b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
+> > > index 9be7a2af560d..16f69b548ca4 100644
+> > > --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
+> > > +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
+> > > @@ -774,13 +774,13 @@ static int smu_v13_0_0_get_smu_metrics_data(str=
+uct smu_context *smu,
+> > >                       *value =3D metrics->AverageGfxclkFrequencyPreDs=
+;
+> > >               break;
+> > >       case METRICS_AVERAGE_FCLK:
+> > > -             if (metrics->AverageUclkActivity <=3D SMU_13_0_0_BUSY_T=
+HRESHOLD)
+> > > +             if (smu_safe_u16_nn(metrics->AverageUclkActivity) <=3D
+> > > + SMU_13_0_0_BUSY_THRESHOLD)
+> > >                       *value =3D metrics->AverageFclkFrequencyPostDs;
+> > >               else
+> > >                       *value =3D metrics->AverageFclkFrequencyPreDs;
+> > >               break;
+> > >       case METRICS_AVERAGE_UCLK:
+> > > -             if (metrics->AverageUclkActivity <=3D SMU_13_0_0_BUSY_T=
+HRESHOLD)
+> > > +             if (smu_safe_u16_nn(metrics->AverageUclkActivity) <=3D
+> > > + SMU_13_0_0_BUSY_THRESHOLD)
+> > >                       *value =3D metrics->AverageMemclkFrequencyPostD=
+s;
+> > >               else
+> > >                       *value =3D metrics->AverageMemclkFrequencyPreDs=
+;
+> > > @@ -801,7 +801,7 @@ static int smu_v13_0_0_get_smu_metrics_data(struc=
+t smu_context *smu,
+> > >               *value =3D metrics->AverageGfxActivity;
+> > >               break;
+> > >       case METRICS_AVERAGE_MEMACTIVITY:
+> > > -             *value =3D metrics->AverageUclkActivity;
+> > > +             *value =3D
+> > > + smu_safe_u16_nn(metrics->AverageUclkActivity);
+> > >               break;
+> > >       case METRICS_AVERAGE_VCNACTIVITY:
+> > >               *value =3D max(metrics->Vcn0ActivityPercentage,
+> > > @@ -2086,7 +2086,7 @@ static ssize_t
+> > > smu_v13_0_0_get_gpu_metrics(struct smu_context *smu,
+> > >
+> > > metrics->AvgTemperature[TEMP_VR_MEM1]);
+> > >
+> > >       gpu_metrics->average_gfx_activity =3D metrics->AverageGfxActivi=
+ty;
+> > > -     gpu_metrics->average_umc_activity =3D metrics->AverageUclkActiv=
+ity;
+> > > +     gpu_metrics->average_umc_activity =3D
+> > > + smu_safe_u16_nn(metrics->AverageUclkActivity);
+> > >       gpu_metrics->average_mm_activity =3D
+> > > max(metrics->Vcn0ActivityPercentage,
+> > >
+> > > metrics->Vcn1ActivityPercentage);
+> > >
+> > > @@ -2103,7 +2103,7 @@ static ssize_t smu_v13_0_0_get_gpu_metrics(stru=
+ct smu_context *smu,
+> > >       else
+> > >               gpu_metrics->average_gfxclk_frequency =3D
+> > > metrics->AverageGfxclkFrequencyPreDs;
+> > >
+> > > -     if (metrics->AverageUclkActivity <=3D SMU_13_0_0_BUSY_THRESHOLD=
+)
+> > > +     if (smu_safe_u16_nn(metrics->AverageUclkActivity) <=3D
+> > > + SMU_13_0_0_BUSY_THRESHOLD)
+> > >               gpu_metrics->average_uclk_frequency =3D metrics->Averag=
+eMemclkFrequencyPostDs;
+> > >       else
+> > >               gpu_metrics->average_uclk_frequency =3D
+> > > metrics->AverageMemclkFrequencyPreDs;
+> > > diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
+> > > b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
+> > > index 5cc15545da6e..34a5973b9a06 100644
+> > > --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
+> > > +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
+> > > @@ -784,13 +784,13 @@ static int smu_v13_0_7_get_smu_metrics_data(str=
+uct smu_context *smu,
+> > >               *value =3D metrics->AverageGfxclkFrequencyPreDs;
+> > >               break;
+> > >       case METRICS_AVERAGE_FCLK:
+> > > -             if (metrics->AverageUclkActivity <=3D SMU_13_0_7_BUSY_T=
+HRESHOLD)
+> > > +             if (smu_safe_u16_nn(metrics->AverageUclkActivity) <=3D
+> > > + SMU_13_0_7_BUSY_THRESHOLD)
+> > >                       *value =3D metrics->AverageFclkFrequencyPostDs;
+> > >               else
+> > >                       *value =3D metrics->AverageFclkFrequencyPreDs;
+> > >               break;
+> > >       case METRICS_AVERAGE_UCLK:
+> > > -             if (metrics->AverageUclkActivity <=3D SMU_13_0_7_BUSY_T=
+HRESHOLD)
+> > > +             if (smu_safe_u16_nn(metrics->AverageUclkActivity) <=3D
+> > > + SMU_13_0_7_BUSY_THRESHOLD)
+> > >                       *value =3D metrics->AverageMemclkFrequencyPostD=
+s;
+> > >               else
+> > >                       *value =3D metrics->AverageMemclkFrequencyPreDs=
+;
+> > > @@ -815,7 +815,7 @@ static int smu_v13_0_7_get_smu_metrics_data(struc=
+t smu_context *smu,
+> > >               *value =3D metrics->AverageGfxActivity;
+> > >               break;
+> > >       case METRICS_AVERAGE_MEMACTIVITY:
+> > > -             *value =3D metrics->AverageUclkActivity;
+> > > +             *value =3D
+> > > + smu_safe_u16_nn(metrics->AverageUclkActivity);
+> > >               break;
+> > >       case METRICS_AVERAGE_SOCKETPOWER:
+> > >               *value =3D metrics->AverageSocketPower << 8; @@ -2092,7
+> > > +2092,7 @@ static ssize_t smu_v13_0_7_get_gpu_metrics(struct
+> > > +smu_context *smu,
+> > >
+> > > metrics->AvgTemperature[TEMP_VR_MEM1]);
+> > >
+> > >       gpu_metrics->average_gfx_activity =3D metrics->AverageGfxActivi=
+ty;
+> > > -     gpu_metrics->average_umc_activity =3D metrics->AverageUclkActiv=
+ity;
+> > > +     gpu_metrics->average_umc_activity =3D
+> > > + smu_safe_u16_nn(metrics->AverageUclkActivity);
+> > >       gpu_metrics->average_mm_activity =3D
+> > > max(metrics->Vcn0ActivityPercentage,
+> > >
+> > > metrics->Vcn1ActivityPercentage);
+> > >
+> > > @@ -2105,7 +2105,7 @@ static ssize_t smu_v13_0_7_get_gpu_metrics(stru=
+ct smu_context *smu,
+> > >       else
+> > >               gpu_metrics->average_gfxclk_frequency =3D
+> > > metrics->AverageGfxclkFrequencyPreDs;
+> > >
+> > > -     if (metrics->AverageUclkActivity <=3D SMU_13_0_7_BUSY_THRESHOLD=
+)
+> > > +     if (smu_safe_u16_nn(metrics->AverageUclkActivity) <=3D
+> > > + SMU_13_0_7_BUSY_THRESHOLD)
+> > >               gpu_metrics->average_uclk_frequency =3D metrics->Averag=
+eMemclkFrequencyPostDs;
+> > >       else
+> > >               gpu_metrics->average_uclk_frequency =3D
+> > > metrics->AverageMemclkFrequencyPreDs;
+> > > diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
+> > > b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
+> > > index 28c1b084fe62..aaec3a251e0f 100644
+> > > --- a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
+> > > +++ b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
+> > > @@ -660,13 +660,13 @@ static int smu_v14_0_2_get_smu_metrics_data(str=
+uct smu_context *smu,
+> > >                       *value =3D metrics->AverageGfxclkFrequencyPreDs=
+;
+> > >               break;
+> > >       case METRICS_AVERAGE_FCLK:
+> > > -             if (metrics->AverageUclkActivity <=3D SMU_14_0_2_BUSY_T=
+HRESHOLD)
+> > > +             if (smu_safe_u16_nn(metrics->AverageUclkActivity) <=3D
+> > > + SMU_14_0_2_BUSY_THRESHOLD)
+> > >                       *value =3D metrics->AverageFclkFrequencyPostDs;
+> > >               else
+> > >                       *value =3D metrics->AverageFclkFrequencyPreDs;
+> > >               break;
+> > >       case METRICS_AVERAGE_UCLK:
+> > > -             if (metrics->AverageUclkActivity <=3D SMU_14_0_2_BUSY_T=
+HRESHOLD)
+> > > +             if (smu_safe_u16_nn(metrics->AverageUclkActivity) <=3D
+> > > + SMU_14_0_2_BUSY_THRESHOLD)
+> > >                       *value =3D metrics->AverageMemclkFrequencyPostD=
+s;
+> > >               else
+> > >                       *value =3D metrics->AverageMemclkFrequencyPreDs=
+;
+> > > @@ -687,7 +687,7 @@ static int smu_v14_0_2_get_smu_metrics_data(struc=
+t smu_context *smu,
+> > >               *value =3D metrics->AverageGfxActivity;
+> > >               break;
+> > >       case METRICS_AVERAGE_MEMACTIVITY:
+> > > -             *value =3D metrics->AverageUclkActivity;
+> > > +             *value =3D
+> > > + smu_safe_u16_nn(metrics->AverageUclkActivity);
+> > >               break;
+> > >       case METRICS_AVERAGE_VCNACTIVITY:
+> > >               *value =3D max(metrics->AverageVcn0ActivityPercentage,
+> > > @@ -2146,7 +2146,7 @@ static ssize_t
+> > > smu_v14_0_2_get_gpu_metrics(struct smu_context *smu,
+> > >
+> > > metrics->AvgTemperature[TEMP_VR_MEM1]);
+> > >
+> > >       gpu_metrics->average_gfx_activity =3D metrics->AverageGfxActivi=
+ty;
+> > > -     gpu_metrics->average_umc_activity =3D metrics->AverageUclkActiv=
+ity;
+> > > +     gpu_metrics->average_umc_activity =3D
+> > > + smu_safe_u16_nn(metrics->AverageUclkActivity);
+> > >       gpu_metrics->average_mm_activity =3D
+> > > max(metrics->AverageVcn0ActivityPercentage,
+> > >
+> > > metrics->Vcn1ActivityPercentage);
+> > >
+> > > @@ -2158,7 +2158,7 @@ static ssize_t smu_v14_0_2_get_gpu_metrics(stru=
+ct smu_context *smu,
+> > >       else
+> > >               gpu_metrics->average_gfxclk_frequency =3D
+> > > metrics->AverageGfxclkFrequencyPreDs;
+> > >
+> > > -     if (metrics->AverageUclkActivity <=3D SMU_14_0_2_BUSY_THRESHOLD=
+)
+> > > +     if (smu_safe_u16_nn(metrics->AverageUclkActivity) <=3D
+> > > + SMU_14_0_2_BUSY_THRESHOLD)
+> > >               gpu_metrics->average_uclk_frequency =3D metrics->Averag=
+eMemclkFrequencyPostDs;
+> > >       else
+> > >               gpu_metrics->average_uclk_frequency =3D
+> > > metrics->AverageMemclkFrequencyPreDs;
+> >
