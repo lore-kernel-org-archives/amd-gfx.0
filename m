@@ -4,96 +4,127 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 51D3010AB836
-	for <amd-gfx@archiver.kernel.org>; Fri, 27 Mar 2026 01:04:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C57D910AB83A
+	for <amd-gfx@archiver.kernel.org>; Fri, 27 Mar 2026 01:04:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DDBEE10EC34;
-	Fri, 27 Mar 2026 01:04:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6981610EC38;
+	Fri, 27 Mar 2026 01:04:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Mj+u/eqL";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="jIwLsOg3";
 	dkim-atps=neutral
-Received: from BN1PR04CU002.outbound.protection.outlook.com
- (mail-eastus2azon11010061.outbound.protection.outlook.com [52.101.56.61])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B7FAC10EC34
- for <amd-gfx@lists.freedesktop.org>; Fri, 27 Mar 2026 01:04:09 +0000 (UTC)
+Received: from BL2PR02CU003.outbound.protection.outlook.com
+ (mail-eastusazon11011052.outbound.protection.outlook.com [52.101.52.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C767D10EC38
+ for <amd-gfx@lists.freedesktop.org>; Fri, 27 Mar 2026 01:04:56 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=EIcW00nNtxMd5Wootxw4Y+3ngCA/EJa+fW2Vc8ndUKz2nbiRYepzW0G53rIQNuCEcsjRj0bWVx6JuLamd0IkPqkrA2qEzW3FHyCfsEQ1Kdim6XgsAxv+EccgELAE5Ho4sBLYZLAUDxffVFdXlj6zNl4DXNo5tUPtGY8MVl5BXZ2s6W5zjHO0KS8ZPrkuEfjddoVeCgMm1fm54EeXKIOj3AyUzXbpfLHcie4Typ4wP7n8ZHTX7Ya7lDQS5RcyzBxmIlUYEchi6ELKYePU8S1N+VCQ1lhpj9HkpuKdF8JQKe19Qc3zkUZgNL20KF7F9dS2f6SuW83Q0vVkSLKA5xgGdg==
+ b=KhQYtddqRDG1/8K+LWUx1tisKTtwaKdCzJ8iUA9KKV3qnO/bC2Yus8+FgHli3IYLWE/MobWL31ZExCU6+WJ4e7TJ5T3GgMg04utKLvLS1/ilqC5uT43Hqq7a8TDVAiuWhHwTbyJ2r57W/QJ/W80NXTWikKb6zXEZk5pU30hfVMRN/5rBYJyPEMbhiAdEksiYky+UxEWqgV46iYelPenpNi7tczksb+Avn6iZCnKyxKzLbQFxlU3mDn8YsStyCFQreRItMKetfxlANoEK+l/o3rFM19b82xqHfgRbQ9A0HKrB2QYANPruUwbJyFVh8ZSH2qVhdL/UOXLQPr0XT29VEw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=++p7/7rJVSVejCh/w45d7AXCJi63Jdi4JCJlUlQviJs=;
- b=WpPWZpyr5zdNxDo9Ic4cfc+wcLyQdP6d0RvcFuGPQjLwlEYAfyoFS+Dsmt+tZHoajIIuVNdA96mKRFdVJLOIGH3goP8O0zOeM8+KMl98fB+gBXCEERkExLG0zM7B4an22mKWehrbgnMxP/eim99TdZ0gZaOMKJR8v5gacSYzVYrTF8g9b/4HQoveayi7L++935EAAWiXUuQCL10xiDzADbBrbwMEPz2ctf4plcoqRy+hTZkL15DkfptaOyF/M9RXE25+QWY3OvjgATG48B3Y7GcLTJqtLCEtFZHFJAdYpfn1R4el9QJnzFTurK8OcYPBn2AR8rEfxbj/YG5KLk162A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
+ bh=ToX59+ol5fESIPXEmIMGOHHlDvUVR8BoHLvkdEK+BAE=;
+ b=eA2WV88aESu19qJcRIwZoXczuu6x7w659VOBbBGyD94AZ+uXT4hAmtHpUyeken6FI+5AqZrtRgUmIrZeJvGEdze4afH4hkTb2xZOf3E2uw//fpDsZjLY0Mtj3/UEjU4y1inrVGLP5+KjFJQ6TnRlcPvnfzEPf3Mg1nqHrIKUpmgSHph2v3b5u80TagCJoMJjPvrD44WQ09i1ls/ZMQO8pnFuZ3xhmC0b2LmGJJf8zUyAFNnR5/oTDB8WZ6xRjwFYIoLRhuUERa4B2S6NbaRjPzGt1hFC1tswOZQ1KaIQ07x1L9mH58FWCJaTtljOuo5UjRXiXbOr4LwlHE1wn5l67Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=++p7/7rJVSVejCh/w45d7AXCJi63Jdi4JCJlUlQviJs=;
- b=Mj+u/eqLpmwGwtxG3Jo+gxkwM+KLvM4bgN2XEKiScNH6vMgo99OrXGPifJv+oXbH7kBcYHz6Wa6mxVhNhBUzvm+jiIVXxvFuhu+Day06T2o+pp/usl3sWVrzeb/wsRxZ94b+85EQEO379SLSGkJwrqit5mK+t4xYCqnTWXTiOmg=
-Received: from SJ0PR03CA0096.namprd03.prod.outlook.com (2603:10b6:a03:333::11)
- by DM6PR12MB4267.namprd12.prod.outlook.com (2603:10b6:5:21e::16) with
+ bh=ToX59+ol5fESIPXEmIMGOHHlDvUVR8BoHLvkdEK+BAE=;
+ b=jIwLsOg3W3qH1fyyHqf+kE+v505KN9lNAqKSmnTGPUrBJpMMJ6BDCysWjLgTcfsnXUrFH7OgLFkZvYSmTJiBOpK3fy5Gxmd3izNMC/tYZFUrK7JxWV6yipxypZ4BhJUnV9kmFFhiX8nl9lnJQukwVFZuCOmnRXvMQiH1ry21i/Q=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DM4PR12MB8476.namprd12.prod.outlook.com (2603:10b6:8:17e::15)
+ by PH8PR12MB7423.namprd12.prod.outlook.com (2603:10b6:510:229::17) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.7; Fri, 27 Mar
- 2026 01:04:05 +0000
-Received: from BY1PEPF0001AE18.namprd04.prod.outlook.com
- (2603:10b6:a03:333:cafe::74) by SJ0PR03CA0096.outlook.office365.com
- (2603:10b6:a03:333::11) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9723.32 via Frontend Transport; Fri,
- 27 Mar 2026 01:03:55 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BY1PEPF0001AE18.mail.protection.outlook.com (10.167.242.100) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9745.21 via Frontend Transport; Fri, 27 Mar 2026 01:04:04 +0000
-Received: from lang-cezanne.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Thu, 26 Mar
- 2026 20:04:03 -0500
-From: Lang Yu <lang.yu@amd.com>
-To: <amd-gfx@lists.freedesktop.org>, Mukul Joshi <mukul.joshi@amd.com>
-CC: Hawking Zhang <Hawking.Zhang@amd.com>, Lang Yu <lang.yu@amd.com>
-Subject: [PATCH] drm/amdkfd: Switch to dev_* printk stuff in
- kfd_int_process_v12_1.c
-Date: Fri, 27 Mar 2026 09:03:48 +0800
-Message-ID: <20260327010348.38134-1-lang.yu@amd.com>
-X-Mailer: git-send-email 2.34.1
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.8; Fri, 27 Mar
+ 2026 01:04:47 +0000
+Received: from DM4PR12MB8476.namprd12.prod.outlook.com
+ ([fe80::2d79:122f:c62b:1cd8]) by DM4PR12MB8476.namprd12.prod.outlook.com
+ ([fe80::2d79:122f:c62b:1cd8%7]) with mapi id 15.20.9769.009; Fri, 27 Mar 2026
+ 01:04:47 +0000
+Message-ID: <589bb7c5-3efa-4e37-99db-685fbf1b8d12@amd.com>
+Date: Thu, 26 Mar 2026 19:04:45 -0600
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] drm/amd/display: Add update_descriptor param info in
+ 'update_planes_and_stream_state'
+To: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
+ Aurabindo Pillai <aurabindo.pillai@amd.com>
+Cc: amd-gfx@lists.freedesktop.org,
+ Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
+ Dillon Varone <Dillon.Varone@amd.com>, Chuanyu Tseng
+ <chuanyu.tseng@amd.com>, Roman Li <roman.li@amd.com>,
+ Tom Chung <chiahsuan.chung@amd.com>, Dan Carpenter <dan.carpenter@linaro.org>
+References: <20260323043857.2043958-1-srinivasan.shanmugam@amd.com>
+Content-Language: en-US
+From: Alex Hung <alex.hung@amd.com>
+In-Reply-To: <20260323043857.2043958-1-srinivasan.shanmugam@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MW4PR03CA0125.namprd03.prod.outlook.com
+ (2603:10b6:303:8c::10) To DM4PR12MB8476.namprd12.prod.outlook.com
+ (2603:10b6:8:17e::15)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BY1PEPF0001AE18:EE_|DM6PR12MB4267:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7c3c77ca-05e1-4ae9-11d4-08de8b9cbdb9
+X-MS-TrafficTypeDiagnostic: DM4PR12MB8476:EE_|PH8PR12MB7423:EE_
+X-MS-Office365-Filtering-Correlation-Id: a3e8b4ec-b19b-43e8-941c-08de8b9cd71d
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|1800799024|36860700016|376014|18002099003|56012099003;
-X-Microsoft-Antispam-Message-Info: 0XAjQyWUVNMe96VLr/pv5j4PVjBXeD0tj3xr44lsDAM2DezHVPYFTJ6+owOT80yi1DMTm13D64FQbtLArEpcsvQGcZdNu4bqgn+RkmebSpXkDELyQRAGFU5cSL2ejEtnh5rs/s3VHMkQv9hS8z1coKndrlVBCOkUAtYJrcGzodF5yYeXYDaFwv4ClQujLqRUmYAPhQRkeVqiPO/287VHDXT4DGOhiHH/NwBHFZM/erNTfFN2XFYmecIu6hqyemtzDXAYp6McUb1T6NWM+s1x9vQeAGbJBMFM0VZZB2mIHTXV9AJOx3YEwuiWZHqi7PIo2vUjtFwOoK/yTNUj3bD41gSS+Xy8pzOfydgQTg7zwY8sCFm5GH81vIg4h0FjyNnvetutn6O5nqO+iZoIsvh2sxCVyF7619PSi9PdEwm8/GY0m8VutD9VHspqErUqYxLQ7AZwEL7EiQNxjIHrSwT2A74lwroW0zMSJR8o1G3NdtzYtm8c36EvFmRLLW/F4Q7hqS8xzZlHQnff6ypqJ5vjPDrc9MkBMvn7+zEuVjH/RnDgM2p0OWQgGioVEO1wLdTxvi66tzqXoc0ROg8tTVHz50ekAloi0lncVxSW0td9WFwVvW3SBLGs5VaLnj7tWCkyuICpNXw15XeJSiZurfACTfvaXERh5Qk/Elepx984FrKXcathOkBBPZiUBhNZutwL7JAyI/Lud7K2rlO3axQLBm653ZUenYyEhX2foBl2r9sNk8xe1i1+O1mM8YsLO1bihq59hbL6tXpiuVVjRDFH0A==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(1800799024)(36860700016)(376014)(18002099003)(56012099003);
+ ARA:13230040|1800799024|366016|376014|22082099003|56012099003|18002099003; 
+X-Microsoft-Antispam-Message-Info: cSWIuFxCkCFky9rkeN+lz9XHpB/1voTIx3bp1Bmnr8Qc1OyY2h+CgiylV9P8DK26fmw/6FkPFhIDnKpsGEKW4Yy5C/Lq68svBUimidrP0LCk2xw1tAQgLLFs31BB/K07HvW0ocnb0Q+BBCVry5PFguhN44Ehms1+9Vkf3T3mqkZZfnJaG1dL/eyXBy4wdv5jqhCqMcln5uevrPWrx5ojdBf+JUFfer7LKAykRwXPyIBA4CYnn59Bq5spcYesV9r1FTitxbo9qqsWYoFSYTdd5GjmPxDZ30ZIfnm7RBQRwWaVHIobP6PYBKL8VS/3ayhlPiUPKjNZGLMBX5/tgZru1I2r1D7zGBW9e+X6IUkSQjN9S7OcS9EdgNuM0Yga577KhJU4ftpe1x0zX4LXzwLzCqpqalFIWOz6q9g/XcK9YmQc+q+HK9VZ2q0ZKlSJ7hghAvUIfyUm+si9djxnxpt2Cpren6Sf7M7PLf5Dd32vKJ/+O/p9mqppeW0+1dwJuK4dytcgixui3yZDX5ziPM625c7ADjPZbkjCs9Na/RdU1AiqbcJxbvpPRYf23HWBVDQUTXJ3mpY3htaPoKma0cz2/Itd6L4nOC/hQciNsfTyPHlhSoCFzrnIBTyzFcEeENanencrYgARsNFMWT0GlsUvi+/JBeBu51AnvbyCXBE36SgLBrOABzopRcHyb0BT4vx1Ry3j3jR/4POL0oOdQMBDq69InrAWI1Lt6LWf25jG/Gw=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB8476.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(376014)(22082099003)(56012099003)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: OyHI+AgRU3667EiG7P4bmzvuwehIwd6dxm9eZ2S7rt2uZrwvkAIkRtpSzdzV/Uq237wKH2MYlIAMyArjmUTEIgFQr/0CnSjqzwddDqYVVscsKdfAnVPpZAbJ7Vis5MQKaVfxkgmSP0wBXrlMIIeDQXuC5+bkm2LeZnIj3wwGjTXjM7jq/W898i0IR89r6+Xa3qZrjOnxAosU8mGGNvbxUTfwV71itfe0gtxnKeAjT4d0zXHmQHzoxodgXZwZw2sk6ReuIgIGT4qUk9XT6dcELUFWTOk3no8VZe5CsbxUf1Ho97Y6Gc/Shu0/jUsGhcRmpg9f21ZphohnjUbgg/+29NLbe+jHEvJPtspOMLfkz11hwBDn8dmfee5vEVfarceoDxYbsGiV4kzKRZ8APstz2r8TmwPAYoovqSGpvlrULn8I276QXJr7oGoYRmyH78QP
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TkxuWVNpUnQ0Wk5rSnJwUGMwRmUyVVlZdUp3YWtDdXJKQzRzNjkwV0ZuMkY3?=
+ =?utf-8?B?b1VXQU15bzNad2ZSaEtFTkx3Um1PUnBDL3RIRUNuNEMzeTJwV2ZJdlZkMVcy?=
+ =?utf-8?B?WXJpMjVlMnFIdWZuUmZsUjlaY2daMUNxZVNnK1NSYlZuY3hDaVBjdkZBcytW?=
+ =?utf-8?B?eCs3TEhSMFF3Ny9KUGczbFJRM0NmZGRyc1VBRm9weXQzOVFwUFFIblFUemlN?=
+ =?utf-8?B?TmFBMmRxV2x4bkhvV2FpWXA2c0JnTGl6bks3a1lmUUJiMWRIUzB0cUVobWhr?=
+ =?utf-8?B?Z0VDNHJhWU5vdzV0cHF1ZStPOW1iWkVSM0dsL3JUODlHWERENmgrUnF3Rkhl?=
+ =?utf-8?B?UmJrcUtKVU1vRzRmYzhKclVKWVhMT3FyVXNjdXY3dzJUcGQwT1pab2Y4d0pH?=
+ =?utf-8?B?V3VZQ0VnTFRTekRkandQSnEzdlBrc0h3WHNHQmdRYnFYZzhZRnNmc3Mzajd6?=
+ =?utf-8?B?b2laeElUU0VLd0szczlZWFJMeFhQYklHNmJOMjNLMDhxRlh3UHRadk9DWkxW?=
+ =?utf-8?B?T21XMUYxUlN1dXRzZWlTTy9qV2RYdGw5am5JeHB4TENhSDExd0VlWkNuNG5l?=
+ =?utf-8?B?SXB0YnMxTXRMOWpqQzkvLzM0S2hvTkxlZWE4NWhzUHdhamx6NDltYTQ2YVhv?=
+ =?utf-8?B?SG5KRG9HZEVpQ25GMzR0VHFwdWVpYm4rQ1RqWTJ3dVZzYW9GNVhRa0p6cDQr?=
+ =?utf-8?B?cEZBTW5uNno4NjZTc3BVY1BwS1pTQk9KWk9GazhydW5VTTZuVjNUeUtGRGYr?=
+ =?utf-8?B?RG1XSE9RT2kvdjJhNmRNcEhMSnNoM2dLa1F3NENRQlJnVGZKWlNLczJwTk44?=
+ =?utf-8?B?ZkcvNUtlV2dib3RKaDQ0SUNmcUJJdU9CTWtuTlB5TG1JWGMyb3ZuRzI2UzdM?=
+ =?utf-8?B?NllHUkE2Q3IwM0xPS1JHajhpenNaRjk2NHRwR2NobmQ3L3F1NU5wekRCNUYy?=
+ =?utf-8?B?Tm9sQS9XT29KazJBbC8yZUxFalZsVFNmcXp3RzRnYVBHcEs1cjB5MGJta0Fl?=
+ =?utf-8?B?WkRuaHB5UkhQYlY4TjdWVjFhUTFjN0F3RTlST2lqcEw4ZnhUR0MwSjBLSzlC?=
+ =?utf-8?B?c2FnYWhTTDdISkRiK0N4YlV1OE0xd3RoOWVMbi9taWhiOFBtL25qcEw5RnF2?=
+ =?utf-8?B?V3grcXB0bTZOMithMzhXSVd2NWtpdmg4cjlSK0xGN2hSeTk1MHpJRjJtcENs?=
+ =?utf-8?B?aXBGY1AwaWJkYUhHc2ZRVm5lQ1o2TnUwS0ZMUkdWNUs0WllWcXdPZGZhckkw?=
+ =?utf-8?B?ZkIxOFpRRUJSdWhqQVh3cEZrMXRNb2dGWGk5T1YwTnhjZkVLOVhFeWZYRnNH?=
+ =?utf-8?B?YTVIT3dUOVlGR2U2U2huRnVkNzdBakZBa3FWV1JQaytCVUxUMmV5ak93WTZ6?=
+ =?utf-8?B?Y0lZRFNRU0NPeEZyUHZGT0xWMSsrY05Sczg1STZDWUZVM2diU29FZEZFS0tV?=
+ =?utf-8?B?WWZnK0cveGxzOG5KQ1MxdHRWOGZFZGw3djlIRmZ0WjBlNFE4UllZSmk1eXBN?=
+ =?utf-8?B?S0ppLzA5TGtYblB1b20zY05XRmJ2THY3bG8zTTFrQUxQdTIxM25GbHp1ai9E?=
+ =?utf-8?B?MGZMZlBSak9VT0prMmVsQ0xYd1Njb0x1UEVkaDNweGJVeUh5MFFCcjg0MWQy?=
+ =?utf-8?B?bkp0N3FIbjFUWWEvWS93eWp5djhtblpWK2RjSUJad1JFcG9qL2RxTXA1VDdp?=
+ =?utf-8?B?aG1tU3U5T3UrdVRKNFhSZWhLV2I3WHNRQ2swZmtBdUtsRHRXMHF2VmcyaFNL?=
+ =?utf-8?B?WTdtWU1YQy80MFdxQm5tN1BLSUQ1YzR4NVJ4UG9oaXpES29uYUhkb3VjRURn?=
+ =?utf-8?B?ZDZQbmhneitORE1Ia2svemxrZ3JtVDQrQ0J0SmcxZEVST2ROMWs3WFpsR0lM?=
+ =?utf-8?B?V1EzQll0K1JYMHM4OXVDWjNPeStJc0ovNnA2aUZrcjVuazh6YUdJY0ZtSC8w?=
+ =?utf-8?B?QS9MdTd3czBCNmtod2JMVW15UjZjRFZHaDJzUTY3MGY1WTBNL3JoQmwvMFFV?=
+ =?utf-8?B?UTZyTUw3TWRpWVBSQUVWd2kzaldVVGl2VVJ3SmtGWXNHejNVWHdTK3Q3ZXhR?=
+ =?utf-8?B?VGtBSVRla3E2RmpENk9YT3RxMjFHTXlLSnZSbXJXS0w2UUd6TlYyVEdjOHFx?=
+ =?utf-8?B?V3NXM0MvejNzNUhDOXFKa3VjRllabER5OERiTTJQWnBhcDFob3dpZlZUVE1v?=
+ =?utf-8?B?V2hIditOTFZaamdWcTlqUSt6REpjWmFxNUt5eVBZZnJTN2R6YWVtci9aQ0RP?=
+ =?utf-8?B?ZnZxTGVBcEk2eElxTVNob1RJTFZFcnNBTys5WkhiaGJWWVd1cENjdWlsaWdO?=
+ =?utf-8?B?MG4rTUh4bjVzd0tpTEljWWR6L3NSSDd5SDd1c2tsTWVaUUdLVTI1QT09?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Mar 2026 01:04:04.6546 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7c3c77ca-05e1-4ae9-11d4-08de8b9cbdb9
+X-MS-Exchange-CrossTenant-Network-Message-Id: a3e8b4ec-b19b-43e8-941c-08de8b9cd71d
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB8476.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Mar 2026 01:04:47.5001 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BY1PEPF0001AE18.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4267
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 3l5hyEAUPYmkXN3EmywlgTL681e/Ce/0nOv/mDif3OjHh/IHMgVtPTKkFMsJ5meLIAvcsW4y0xrxLV4fb6nRlg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB7423
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,106 +139,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-dev_* printk stuff is multi-GPU friendly.
+Reviewed-by: Alex Hung <alex.hung@amd.com>
 
-Use dev_warn_ratelimited() for print_sq_intr_info_error() which is
-consistent with previous IPs.
-
-Use dev_dbg_ratelimited() for irrelevant node interrupt print to
-avoid too much noise.
-
-Signed-off-by: Lang Yu <lang.yu@amd.com>
----
- .../drm/amd/amdkfd/kfd_int_process_v12_1.c    | 28 +++++++++++--------
- 1 file changed, 16 insertions(+), 12 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v12_1.c b/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v12_1.c
-index 47947b94926b..0da7e1db55c9 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v12_1.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v12_1.c
-@@ -144,9 +144,10 @@ enum SQ_INTERRUPT_ERROR_TYPE {
- #define KFD_CTXID0_DOORBELL_ID(ctxid0)		((ctxid0) & \
- 				KFD_CTXID0_DOORBELL_ID_MASK)
- 
--static void print_sq_intr_info_auto(uint32_t context_id0, uint32_t context_id1)
-+static void print_sq_intr_info_auto(struct kfd_node *dev, uint32_t context_id0, uint32_t context_id1)
- {
--	pr_debug_ratelimited(
-+	dev_dbg_ratelimited(
-+		dev->adev->dev,
- 		"sq_intr: auto, ttrace %d, wlt %d, ttrace_buf0_full %d, ttrace_buf1_full %d ttrace_utc_err %d\n",
- 		REG_GET_FIELD(context_id0, SQ_INTERRUPT_WORD_AUTO_CTXID0, THREAD_TRACE),
- 		REG_GET_FIELD(context_id0, SQ_INTERRUPT_WORD_AUTO_CTXID0, WLT),
-@@ -155,9 +156,10 @@ static void print_sq_intr_info_auto(uint32_t context_id0, uint32_t context_id1)
- 		REG_GET_FIELD(context_id0, SQ_INTERRUPT_WORD_AUTO_CTXID0, THREAD_TRACE_UTC_ERROR));
- }
- 
--static void print_sq_intr_info_inst(uint32_t context_id0, uint32_t context_id1)
-+static void print_sq_intr_info_inst(struct kfd_node *dev, uint32_t context_id0, uint32_t context_id1)
- {
--	pr_debug_ratelimited(
-+	dev_dbg_ratelimited(
-+		dev->adev->dev,
- 		"sq_intr: inst, data 0x%08x, sh %d, priv %d, wave_id %d, simd_id %d, wgp_id %d\n",
- 		REG_GET_FIELD(context_id0, SQ_INTERRUPT_WORD_WAVE_CTXID0, DATA),
- 		REG_GET_FIELD(context_id0, SQ_INTERRUPT_WORD_WAVE_CTXID0, SA_ID),
-@@ -167,9 +169,10 @@ static void print_sq_intr_info_inst(uint32_t context_id0, uint32_t context_id1)
- 		REG_GET_FIELD(context_id1, SQ_INTERRUPT_WORD_WAVE_CTXID1, WGP_ID));
- }
- 
--static void print_sq_intr_info_error(uint32_t context_id0, uint32_t context_id1)
-+static void print_sq_intr_info_error(struct kfd_node *dev, uint32_t context_id0, uint32_t context_id1)
- {
--	pr_debug_ratelimited(
-+	dev_warn_ratelimited(
-+		dev->adev->dev,
- 		"sq_intr: error, detail 0x%08x, type %d, sh %d, priv %d, wave_id %d, simd_id %d, wgp_id %d\n",
- 		REG_GET_FIELD(context_id0, SQ_INTERRUPT_WORD_ERROR_CTXID0, DETAIL),
- 		REG_GET_FIELD(context_id0, SQ_INTERRUPT_WORD_ERROR_CTXID0, TYPE),
-@@ -246,7 +249,8 @@ static bool event_interrupt_isr_v12_1(struct kfd_node *node,
- 	vmid = SOC15_VMID_FROM_IH_ENTRY(ih_ring_entry);
- 
- 	if (!kfd_irq_is_from_node(node, node_id, vmid)) {
--		pr_debug("Interrupt not for Node, node_id: %d, vmid: %d\n", node_id, vmid);
-+		dev_dbg_ratelimited(node->adev->dev,
-+			"Interrupt not for Node, node_id: %d, vmid: %d\n", node_id, vmid);
- 		return false;
- 	}
- 
-@@ -266,9 +270,9 @@ static bool event_interrupt_isr_v12_1(struct kfd_node *node,
- 	    (context_id0 & AMDGPU_FENCE_MES_QUEUE_FLAG))
- 		return false;
- 
--	pr_debug("client id 0x%x, source id %d, vmid %d, pasid 0x%x. raw data:\n",
-+	dev_dbg(node->adev->dev, "client id 0x%x, source id %d, vmid %d, pasid 0x%x. raw data:\n",
- 		 client_id, source_id, vmid, pasid);
--	pr_debug("%8X, %8X, %8X, %8X, %8X, %8X, %8X, %8X.\n",
-+	dev_dbg(node->adev->dev, "%8X, %8X, %8X, %8X, %8X, %8X, %8X, %8X.\n",
- 		 data[0], data[1], data[2], data[3],
- 		 data[4], data[5], data[6], data[7]);
- 
-@@ -361,10 +365,10 @@ static void event_interrupt_wq_v12_1(struct kfd_node *node,
- 					SQ_INTERRUPT_WORD_WAVE_CTXID1, ENCODING);
- 			switch (sq_int_enc) {
- 			case SQ_INTERRUPT_WORD_ENCODING_AUTO:
--				print_sq_intr_info_auto(context_id0, context_id1);
-+				print_sq_intr_info_auto(node, context_id0, context_id1);
- 				break;
- 			case SQ_INTERRUPT_WORD_ENCODING_INST:
--				print_sq_intr_info_inst(context_id0, context_id1);
-+				print_sq_intr_info_inst(node, context_id0, context_id1);
- 				sq_int_priv = REG_GET_FIELD(context_id0,
- 						SQ_INTERRUPT_WORD_WAVE_CTXID0, PRIV);
- 				if (sq_int_priv && (kfd_set_dbg_ev_from_interrupt(node, pasid,
-@@ -374,7 +378,7 @@ static void event_interrupt_wq_v12_1(struct kfd_node *node,
- 					return;
- 				break;
- 			case SQ_INTERRUPT_WORD_ENCODING_ERROR:
--				print_sq_intr_info_error(context_id0, context_id1);
-+				print_sq_intr_info_error(node, context_id0, context_id1);
- 				sq_int_errtype = REG_GET_FIELD(context_id0,
- 						SQ_INTERRUPT_WORD_ERROR_CTXID0, TYPE);
- 				if (sq_int_errtype != SQ_INTERRUPT_ERROR_TYPE_ILLEGAL_INST &&
--- 
-2.34.1
+On 3/22/26 22:38, Srinivasan Shanmugam wrote:
+> Add missing info for the update_descriptor parameter in
+> update_planes_and_stream_state().
+> 
+> Fixes the below with gcc W=1:
+> ../display/dc/core/dc.c:3630 function parameter 'update_descriptor' not described in 'update_planes_and_stream_state'
+> 
+> Fixes: 90fe5f44136d ("drm/amd/display: Refactor DC update checks")
+> Cc: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+> Cc: Dillon Varone <Dillon.Varone@amd.com>
+> Cc: Chuanyu Tseng <chuanyu.tseng@amd.com>
+> Cc: Roman Li <roman.li@amd.com>
+> Cc: Alex Hung <alex.hung@amd.com>
+> Cc: Tom Chung <chiahsuan.chung@amd.com>
+> Cc: Dan Carpenter <dan.carpenter@linaro.org>
+> Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>
+> Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+> ---
+>   drivers/gpu/drm/amd/display/dc/core/dc.c | 1 +
+>   1 file changed, 1 insertion(+)
+> 
+> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
+> index 8b21816cf7c8..e3992ca43c8d 100644
+> --- a/drivers/gpu/drm/amd/display/dc/core/dc.c
+> +++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
+> @@ -3615,6 +3615,7 @@ static void restore_minimal_pipe_split_policy(struct dc *dc,
+>    * @surface_count: surface update count
+>    * @stream: Corresponding stream to be updated
+>    * @stream_update: stream update
+> + * @update_descriptor: describes what plane and stream changes to apply
+>    * @new_update_type: [out] determined update type by the function
+>    * @new_context: [out] new context allocated and validated if update type is
+>    * FULL, reference to current context if update type is less than FULL.
 
