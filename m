@@ -4,124 +4,96 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0596610AB836
-	for <amd-gfx@archiver.kernel.org>; Fri, 27 Mar 2026 01:02:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 51D3010AB836
+	for <amd-gfx@archiver.kernel.org>; Fri, 27 Mar 2026 01:04:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8412510E328;
-	Fri, 27 Mar 2026 01:02:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DDBEE10EC34;
+	Fri, 27 Mar 2026 01:04:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="GGHy/Lu9";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Mj+u/eqL";
 	dkim-atps=neutral
-Received: from PH8PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11012065.outbound.protection.outlook.com [40.107.209.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1C35710E328
- for <amd-gfx@lists.freedesktop.org>; Fri, 27 Mar 2026 01:02:01 +0000 (UTC)
+Received: from BN1PR04CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11010061.outbound.protection.outlook.com [52.101.56.61])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B7FAC10EC34
+ for <amd-gfx@lists.freedesktop.org>; Fri, 27 Mar 2026 01:04:09 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=LpJMUwNvbuycnNt5b2mtgHQXsSC/HkqxowtC5J2M454LxVWbBrw9o5gnPSiN+4pQtLXIDpwMi+SWRcyv3fqZHl/nG3JK6OIK5ZCGrKqmsbjQCYW1e3BbrhKhVvkYoTtRONyd/KgjOWqrOXTR+efpmrIzj0z4piI7ZNCKjYApHBBXVCwNCaFPxpRFkliy6VvVh2WNbH8JsbiJlytS2QS2v7OViviXnko4n/TtAluRzWIijdUSutRf9khd71M6Aiw66IUpJqys1vaC3zoqoRk42Zt9chgSIygZPI18pggQ9dmJUNAH6HKNWef5qsIsYexlFKc/UVCZXHP7NrqPM7oE4w==
+ b=EIcW00nNtxMd5Wootxw4Y+3ngCA/EJa+fW2Vc8ndUKz2nbiRYepzW0G53rIQNuCEcsjRj0bWVx6JuLamd0IkPqkrA2qEzW3FHyCfsEQ1Kdim6XgsAxv+EccgELAE5Ho4sBLYZLAUDxffVFdXlj6zNl4DXNo5tUPtGY8MVl5BXZ2s6W5zjHO0KS8ZPrkuEfjddoVeCgMm1fm54EeXKIOj3AyUzXbpfLHcie4Typ4wP7n8ZHTX7Ya7lDQS5RcyzBxmIlUYEchi6ELKYePU8S1N+VCQ1lhpj9HkpuKdF8JQKe19Qc3zkUZgNL20KF7F9dS2f6SuW83Q0vVkSLKA5xgGdg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5cI/6QslcT/MmSoCjRW10I0lMdyZZxi+twMO2/S5vLA=;
- b=GbireyWHGDny69OskwfsGk/HhQGKVpt+Ha72EdHc/DkmOCwH7Hn6BeHyzaUxCjcsMdEeJvFqeMQQbinCTNVSfhUz+GLBQ0SuQ5bbnnyIQ2nA3b4+BbebRe3D8qLgnbKXRShwGknBzv2SMFeBul6fPuadW+CYkF96CfhOBIIEM/z9reOjLYxG984N2pdwbHWK56XxQPo7A++rnWcbN23TWdMwR7lH/72FKlvq7QxDKT1TK4vMDVQUttl921k0LljCa6cH40ERK3jWj4HGJa5xAy4RR6/gs6dMWrHri+/NRXH0pUmQUFHu1Lkr2UKKCe2KWcJGEf8mXjZ2WERvgN486w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=++p7/7rJVSVejCh/w45d7AXCJi63Jdi4JCJlUlQviJs=;
+ b=WpPWZpyr5zdNxDo9Ic4cfc+wcLyQdP6d0RvcFuGPQjLwlEYAfyoFS+Dsmt+tZHoajIIuVNdA96mKRFdVJLOIGH3goP8O0zOeM8+KMl98fB+gBXCEERkExLG0zM7B4an22mKWehrbgnMxP/eim99TdZ0gZaOMKJR8v5gacSYzVYrTF8g9b/4HQoveayi7L++935EAAWiXUuQCL10xiDzADbBrbwMEPz2ctf4plcoqRy+hTZkL15DkfptaOyF/M9RXE25+QWY3OvjgATG48B3Y7GcLTJqtLCEtFZHFJAdYpfn1R4el9QJnzFTurK8OcYPBn2AR8rEfxbj/YG5KLk162A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5cI/6QslcT/MmSoCjRW10I0lMdyZZxi+twMO2/S5vLA=;
- b=GGHy/Lu9n0FfTXAb4JiAjLOCgWLQ4OzBPBtcf+OP40snbKbzpDnk0LJ2d49gmm/dZe9TxP3b4UwjXd/j1MEFL+e/basbIxR09/ZMxOJJmUZ68pjfHaIp9ZEbUvLf6NV5SWTJeuv0poefJvkfFNx7sdd+VC3N1hrKCpt4gg0SKjk=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB8476.namprd12.prod.outlook.com (2603:10b6:8:17e::15)
- by DS5PPF8B1E59479.namprd12.prod.outlook.com (2603:10b6:f:fc00::659) with
+ bh=++p7/7rJVSVejCh/w45d7AXCJi63Jdi4JCJlUlQviJs=;
+ b=Mj+u/eqLpmwGwtxG3Jo+gxkwM+KLvM4bgN2XEKiScNH6vMgo99OrXGPifJv+oXbH7kBcYHz6Wa6mxVhNhBUzvm+jiIVXxvFuhu+Day06T2o+pp/usl3sWVrzeb/wsRxZ94b+85EQEO379SLSGkJwrqit5mK+t4xYCqnTWXTiOmg=
+Received: from SJ0PR03CA0096.namprd03.prod.outlook.com (2603:10b6:a03:333::11)
+ by DM6PR12MB4267.namprd12.prod.outlook.com (2603:10b6:5:21e::16) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.15; Fri, 27 Mar
- 2026 01:01:58 +0000
-Received: from DM4PR12MB8476.namprd12.prod.outlook.com
- ([fe80::2d79:122f:c62b:1cd8]) by DM4PR12MB8476.namprd12.prod.outlook.com
- ([fe80::2d79:122f:c62b:1cd8%7]) with mapi id 15.20.9769.009; Fri, 27 Mar 2026
- 01:01:58 +0000
-Message-ID: <d4bc649a-126d-4e5a-8c2c-0f1eb1eda45a@amd.com>
-Date: Thu, 26 Mar 2026 19:01:56 -0600
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] drm/amd/display: Add NULL check for integrated_info in
- clk_mgr_construct
-To: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
- Aurabindo Pillai <aurabindo.pillai@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, Roman Li <roman.li@amd.com>,
- Tom Chung <chiahsuan.chung@amd.com>, Dan Carpenter <dan.carpenter@linaro.org>
-References: <20260323045415.2044583-1-srinivasan.shanmugam@amd.com>
-Content-Language: en-US
-From: Alex Hung <alex.hung@amd.com>
-In-Reply-To: <20260323045415.2044583-1-srinivasan.shanmugam@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MW3PR06CA0022.namprd06.prod.outlook.com
- (2603:10b6:303:2a::27) To DM4PR12MB8476.namprd12.prod.outlook.com
- (2603:10b6:8:17e::15)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.7; Fri, 27 Mar
+ 2026 01:04:05 +0000
+Received: from BY1PEPF0001AE18.namprd04.prod.outlook.com
+ (2603:10b6:a03:333:cafe::74) by SJ0PR03CA0096.outlook.office365.com
+ (2603:10b6:a03:333::11) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9723.32 via Frontend Transport; Fri,
+ 27 Mar 2026 01:03:55 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BY1PEPF0001AE18.mail.protection.outlook.com (10.167.242.100) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9745.21 via Frontend Transport; Fri, 27 Mar 2026 01:04:04 +0000
+Received: from lang-cezanne.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Thu, 26 Mar
+ 2026 20:04:03 -0500
+From: Lang Yu <lang.yu@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, Mukul Joshi <mukul.joshi@amd.com>
+CC: Hawking Zhang <Hawking.Zhang@amd.com>, Lang Yu <lang.yu@amd.com>
+Subject: [PATCH] drm/amdkfd: Switch to dev_* printk stuff in
+ kfd_int_process_v12_1.c
+Date: Fri, 27 Mar 2026 09:03:48 +0800
+Message-ID: <20260327010348.38134-1-lang.yu@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB8476:EE_|DS5PPF8B1E59479:EE_
-X-MS-Office365-Filtering-Correlation-Id: a3010fcc-cb63-4e1e-a942-08de8b9c7231
+X-MS-TrafficTypeDiagnostic: BY1PEPF0001AE18:EE_|DM6PR12MB4267:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7c3c77ca-05e1-4ae9-11d4-08de8b9cbdb9
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|366016|1800799024|22082099003|56012099003|18002099003; 
-X-Microsoft-Antispam-Message-Info: PXufNTAPJ7kNSpPexQV3Xuyftb8NwGoZXmkajIvA+A73MSaJwewJ/CUyqbJRuLE3+5vmF1Dzw8EwivK6uDS1Cx2kqhsjJjM9GqCCM2yrKlbQX606HaK0MZudU93wIqeYX90Mf/H1f1geTpI2VOc3Z8Oi6Bs6hu3Z6JAy1iniEzGxdfx8tKrAQawJet4bNTrfzfxQa8XP/9cbQw01KV0Fj6PRJI3faw0hueHRK86jlUqnyGRONXTKOuuG0lzkiXwQOHafwch5EUnoQAZ5qJIkvXX1BAY4qPPFSF6q2kgI17F6ih/dIeq3uiryqC0fFSB0XjjtLyGQOJI2w0pfEZP/tk2hP4xrK4VIgF0KvmnDIEJ7KM5DLOrkmYZM/MEJtLNvxMu4gUr6ZyKlJAeogrW16+sy4208F4N2EmA0d0IaJd+7LpZWXwBn8R5HpoyNyuC5AqOBUVUmRGbaVABzsy+L6TU4JvoWcReknb76bfs1WmPP5gNZP3g/pVcI/soDKTWOD1jT62QVMvL8ROpsjQw9CR3+VvWbblRx+I1Yl4hP1NSX2JSmrPmEe5JzcoJ3xedG1cV1R+zKbFae+K7t1awtvYM9UUnS4AmgQ5avkMbLW8fhai5QtYoav7hM29Qk+PM8C5MFe5n3r71WRTjbmYxhPy5D94nWfi+JS47LBAal3n/On08BoK/IHs+UlxOFpHDNl2I/Tdx8Cet5S2mvkTtBWphwY28k/ZxUbOmdCj/Q62M=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB8476.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(1800799024)(22082099003)(56012099003)(18002099003);
+ ARA:13230040|82310400026|1800799024|36860700016|376014|18002099003|56012099003;
+X-Microsoft-Antispam-Message-Info: 0XAjQyWUVNMe96VLr/pv5j4PVjBXeD0tj3xr44lsDAM2DezHVPYFTJ6+owOT80yi1DMTm13D64FQbtLArEpcsvQGcZdNu4bqgn+RkmebSpXkDELyQRAGFU5cSL2ejEtnh5rs/s3VHMkQv9hS8z1coKndrlVBCOkUAtYJrcGzodF5yYeXYDaFwv4ClQujLqRUmYAPhQRkeVqiPO/287VHDXT4DGOhiHH/NwBHFZM/erNTfFN2XFYmecIu6hqyemtzDXAYp6McUb1T6NWM+s1x9vQeAGbJBMFM0VZZB2mIHTXV9AJOx3YEwuiWZHqi7PIo2vUjtFwOoK/yTNUj3bD41gSS+Xy8pzOfydgQTg7zwY8sCFm5GH81vIg4h0FjyNnvetutn6O5nqO+iZoIsvh2sxCVyF7619PSi9PdEwm8/GY0m8VutD9VHspqErUqYxLQ7AZwEL7EiQNxjIHrSwT2A74lwroW0zMSJR8o1G3NdtzYtm8c36EvFmRLLW/F4Q7hqS8xzZlHQnff6ypqJ5vjPDrc9MkBMvn7+zEuVjH/RnDgM2p0OWQgGioVEO1wLdTxvi66tzqXoc0ROg8tTVHz50ekAloi0lncVxSW0td9WFwVvW3SBLGs5VaLnj7tWCkyuICpNXw15XeJSiZurfACTfvaXERh5Qk/Elepx984FrKXcathOkBBPZiUBhNZutwL7JAyI/Lud7K2rlO3axQLBm653ZUenYyEhX2foBl2r9sNk8xe1i1+O1mM8YsLO1bihq59hbL6tXpiuVVjRDFH0A==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(1800799024)(36860700016)(376014)(18002099003)(56012099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dnhsOGdPUmRDbkVnQUlrYkNaWlBCQXlsSXlYK2ZFcXAyWS95ZENTK0ZlMkRU?=
- =?utf-8?B?N1RRY1hFSWNhWjdmeTViR3puTS81WVoxOEg1bWFaSlpXOWJ2djlUNjg2dFow?=
- =?utf-8?B?K2c1Zit6VkdRRWgzdWtTa0ptdGs0THcwSkZQd1J4UU9Ec1NKdHM1K005WVp4?=
- =?utf-8?B?ZGdVaHBjUnVnaXZMR2dIdHE4SHFpRzFoVzFnTFQycW82TUZIMWRUOHJLUCth?=
- =?utf-8?B?WjFGaGs0QklkQ0NRME5rVGg2MkhhZFNKeXZoZzNhMGlpcVB5V3hLSjM0K3ZH?=
- =?utf-8?B?bnBMZTRtTm1KT3N3SHdPNHQ3Wk9OM25zWFlyUlhTVDRFRDlZbGlRS1VoVXJO?=
- =?utf-8?B?bEoySi91VElTVlhSbHhaY1JGcHYzK05qc1JYYlJKV0tQMGs4b2RqaEZIYm1P?=
- =?utf-8?B?ZlAxbmp1dmRHVmlVOEV1TVMvejNZdHYrVWdpYnpWc213NHRqRUdRMSsrVkhu?=
- =?utf-8?B?MWtIL29GdXl2c293a1BCVUF1U2tUQlV0NGx2OU1FK0VBVHZLNUNMeWVac1g4?=
- =?utf-8?B?Yk1lTkVXZW96WjlDWEo0ZnJnY003UUpaNHZtVzdtTTdVTHpUeHc3a241Y0h3?=
- =?utf-8?B?ZUN0MXJOQVBTZDZPVkVMM0F2dGt5UFJoT1RWbWF4UGUycHAzeEgwY3JFMTE5?=
- =?utf-8?B?anJ2WWFpZG1wcGJxRnVzbHdIem9QbEVKUE5Nb3NBQ053SXdsREJCVnFLUENF?=
- =?utf-8?B?WU1FZmpNZnpoU2ZubFZNVDYrcHFtNitxVWNtQTVoYVB5cXgydXJHMFdvTXVx?=
- =?utf-8?B?TnRVRnQ2SXRnMFo3SVIwQ08rdlAzMlpCZXJWU3JLbjBtbDFaRGdhd0JoaC8z?=
- =?utf-8?B?Qm0yQ05WVkQ4bFdWbnBmaFRUemxaSEl5cGNtelJRNGt4bkRMa00rMVdzbXQ1?=
- =?utf-8?B?SDRzNXovNk1IMzhKU3lKU1B6WkNlcXU4b1pBYW9YZDdWNy9xcnhlOVBIMDRO?=
- =?utf-8?B?MDdIWHpTQjNsd2djdjh4WTVrcVJiTHhwWVRvVGdBM2psTHhvWGRNUnlYZkRm?=
- =?utf-8?B?YUovaGhQUkJ4WHZmTi9PUkFGcFdxcWFQeWdkdG9MUTdPOTZMR0ZDVVhIOWFm?=
- =?utf-8?B?Y2RlWkJxTXhORlJDTmVpQk1ReEh5dmE3SjVoc2UxbktEb0duV3BieFBvdisz?=
- =?utf-8?B?OUtybFU2dmVJcUl3a2VxOGRXelpQRGF2dE5zU01paEZtTlhSZm9tMTJtMU4x?=
- =?utf-8?B?MWdvUFdhb0g3WmttTmpOR1FZNmJNWEtScDZCb2ZMVnVtY2lEYWdjdEN1MXhJ?=
- =?utf-8?B?NG5MMVBLc2Y0UmRzcWpPZk9pSW1NYTUrMytBRVdsVzZySnY3K0xDei80Q2VL?=
- =?utf-8?B?QURoQ0Y1RHA0N2xtcGs4azJ2Sm1SVFNwTkNUU2RnSElzVEhCdXVFQlBTVnpl?=
- =?utf-8?B?d014aGhxZ2ROWVFhazB3bjR2WlpObU1KNVF3cEVJWXNKL0xsTFlNRDNjK2gv?=
- =?utf-8?B?VVNIMjRiOFc5SG02NC9kUDRmMVVHTTFBNFgyYzVCOHRSNUZiZkRIY05lV3B3?=
- =?utf-8?B?Y1MyTmlOVndRU3hPaVpIT1IxUHpxWExWeUhkZnBrb0hsRUxJdWlEaDBmeWdp?=
- =?utf-8?B?T3pPSmlVQWtKMkdqeWVNYTlHbXlOQmpCM1B4OUlKOHJHenFKTTRGM1FzNFg2?=
- =?utf-8?B?YTd6KzNyQ2hnUzhuMkNZUURZTm9wUEJJaFRDRjJ0RjBzNFhBS1FFSE1neGVZ?=
- =?utf-8?B?Nlh3YlZMM3N4b1lsZkhzMzRrTVhidWUrWXJhTVlIdndFRXMwNml4ZktWUm1S?=
- =?utf-8?B?bHBpM0VZM2hnbVVHQ2pHM1lQQURPcHBiU2NVaDhhZGxpRXIvaEp5aVJyYlc5?=
- =?utf-8?B?UldvdG12M3BuNWplc2Q3VUU2S0xXeGdzUlZmM2FYSEU0VVczQ3Y1V1pmVDNZ?=
- =?utf-8?B?c1FHeEM5ZU5JNllHWXNQdFIyVVhXK0dvaDA2aGliQUdtK2dTVjFnaTliSEJS?=
- =?utf-8?B?dGZOM3dyUTJHOFNxcER3cVlCQWU3QW5sRmVxY0FFcjQwekJMd3hKSDJESzZZ?=
- =?utf-8?B?MVZxcHhjY3RyMHJDWkNxSUFIVU9nemVQYTZTRzdlem5Mak9xdGIwYyt5RTBL?=
- =?utf-8?B?dTEwdXVhaWxUT2hrTUpheisySmVFN2ZHWkl3dHZJcW1STThxemVmMmFxR2M1?=
- =?utf-8?B?VERtNEFhYXVqMDBHajMrMUY0ZjFNZUdpenZQQ3RCVVAyb0UyNVdYVWE2RXpi?=
- =?utf-8?B?VVpTRkVNTkUzNVpJTGNidTBNazdEMnYreCsrRzRDdk94b2xKaStMUk1QOE9H?=
- =?utf-8?B?TXlVRGtnMkpRN0xEdDh6Y0RRb3Y4QzJXL20rMmoyanlOSC9XR1RtN0hHa3h5?=
- =?utf-8?B?aEFiTmk3RkxhNzBoUHl5YXlTaUtWR2ZsaVJEdzZlTkl6ZTQwelgwZz09?=
+X-MS-Exchange-AntiSpam-MessageData-0: OyHI+AgRU3667EiG7P4bmzvuwehIwd6dxm9eZ2S7rt2uZrwvkAIkRtpSzdzV/Uq237wKH2MYlIAMyArjmUTEIgFQr/0CnSjqzwddDqYVVscsKdfAnVPpZAbJ7Vis5MQKaVfxkgmSP0wBXrlMIIeDQXuC5+bkm2LeZnIj3wwGjTXjM7jq/W898i0IR89r6+Xa3qZrjOnxAosU8mGGNvbxUTfwV71itfe0gtxnKeAjT4d0zXHmQHzoxodgXZwZw2sk6ReuIgIGT4qUk9XT6dcELUFWTOk3no8VZe5CsbxUf1Ho97Y6Gc/Shu0/jUsGhcRmpg9f21ZphohnjUbgg/+29NLbe+jHEvJPtspOMLfkz11hwBDn8dmfee5vEVfarceoDxYbsGiV4kzKRZ8APstz2r8TmwPAYoovqSGpvlrULn8I276QXJr7oGoYRmyH78QP
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a3010fcc-cb63-4e1e-a942-08de8b9c7231
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB8476.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Mar 2026 01:01:58.2247 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Mar 2026 01:04:04.6546 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7c3c77ca-05e1-4ae9-11d4-08de8b9cbdb9
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: qrWTpokpNoDZBxcqFj2dFsAEYn24MoH73qxNxcqHlvfUKFKFpz4dQ9lhdli+L+ATm74MthzeLawvp1JeTNG8Gg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS5PPF8B1E59479
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BY1PEPF0001AE18.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4267
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,187 +108,106 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Reviewed-by: Alex Hung <alex.hung@amd.com>
+dev_* printk stuff is multi-GPU friendly.
 
-On 3/22/26 22:54, Srinivasan Shanmugam wrote:
-> clk_mgr_construct() initializes display clock and memory bandwidth
-> settings during driver bring-up.
-> 
-> As part of this, the driver selects a watermark table based on the
-> memory type (DDR4, LPDDR4, LPDDR5) from ctx->dc_bios->integrated_info.
-> 
-> The display pipeline continuously reads pixel data from memory,
-> processes it (such as scaling, color conversion, and blending), and
-> sends it to the screen. To keep this pipeline running smoothly, the
-> driver must ensure there is enough memory bandwidth and that clocks are
-> increased when needed.
-> 
-> Watermark tables define when the GPU should increase clocks to ensure
-> there is enough bandwidth to feed pixel data without underflow.
-> 
-> However, ctx->dc_bios->integrated_info is dereferenced without checking
-> for NULL in multiple clk_mgr_construct() implementations. On some
-> platforms, BIOS may not provide this information, and accessing it
-> directly can cause a NULL pointer dereference during initialization.
-> 
-> Fix this by adding a NULL check before accessing integrated_info.
-> 
-> If integrated_info is not available, the driver safely falls back to
-> default watermark tables.
-> 
-> Fixes:
-> ../dcn21/rn_clk_mgr.c:775 rn_clk_mgr_construct() warn: variable dereferenced before check 'ctx->dc_bios->integrated_info' (see line 743)
-> ../dcn301/vg_clk_mgr.c:750 vg_clk_mgr_construct() warn: variable dereferenced before check 'ctx->dc_bios->integrated_info' (see line 736)
-> ../dcn31/dcn31_clk_mgr.c:789 dcn31_clk_mgr_construct() warn: variable dereferenced before check 'ctx->dc_bios->integrated_info' (see line 728)
-> ../dcn314/dcn314_clk_mgr.c:906 dcn314_clk_mgr_construct() warn: variable dereferenced before check 'ctx->dc_bios->integrated_info' (see line 845)
-> ../dcn315/dcn315_clk_mgr.c:716 dcn315_clk_mgr_construct() warn: variable dereferenced before check 'ctx->dc_bios->integrated_info' (see line 655)
-> ../dcn316/dcn316_clk_mgr.c:660 dcn316_clk_mgr_construct() warn: variable dereferenced before check 'ctx->dc_bios->integrated_info' (see line 639)
-> ../dcn35/dcn35_clk_mgr.c:1540 dcn35_clk_mgr_construct() warn: variable dereferenced before check 'ctx->dc_bios->integrated_info' (see line 1467)
-> 
-> Fixes: 25879d7b4986 ("drm/amd/display: Clean FPGA code in dc")
-> Cc: Roman Li <roman.li@amd.com>
-> Cc: Alex Hung <alex.hung@amd.com>
-> Cc: Tom Chung <chiahsuan.chung@amd.com>
-> Cc: Dan Carpenter <dan.carpenter@linaro.org>
-> Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>
-> Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-> Change-Id: I972e6837222f0181bc2c44ca1e31abaf8c64a088
-> ---
->   drivers/gpu/drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr.c  | 3 ++-
->   drivers/gpu/drm/amd/display/dc/clk_mgr/dcn301/vg_clk_mgr.c | 7 ++++---
->   .../gpu/drm/amd/display/dc/clk_mgr/dcn31/dcn31_clk_mgr.c   | 7 ++++---
->   .../gpu/drm/amd/display/dc/clk_mgr/dcn314/dcn314_clk_mgr.c | 3 ++-
->   .../gpu/drm/amd/display/dc/clk_mgr/dcn315/dcn315_clk_mgr.c | 7 ++++---
->   .../gpu/drm/amd/display/dc/clk_mgr/dcn316/dcn316_clk_mgr.c | 7 ++++---
->   .../gpu/drm/amd/display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c   | 7 ++++---
->   7 files changed, 24 insertions(+), 17 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr.c
-> index e18097f82091..09e83097a623 100644
-> --- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr.c
-> +++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr.c
-> @@ -740,7 +740,8 @@ void rn_clk_mgr_construct(
->   	if (clk_mgr->base.dentist_vco_freq_khz == 0)
->   		clk_mgr->base.dentist_vco_freq_khz = 3600000;
->   
-> -	if (ctx->dc_bios->integrated_info->memory_type == LpDdr4MemType) {
-> +	if (ctx->dc_bios->integrated_info &&
-> +	    ctx->dc_bios->integrated_info->memory_type == LpDdr4MemType) {
->   		if (clk_mgr->periodic_retraining_disabled) {
->   			rn_bw_params.wm_table = lpddr4_wm_table_with_disabled_ppt;
->   		} else {
-> diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn301/vg_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn301/vg_clk_mgr.c
-> index 7aee02d56292..57ba7bc4d16e 100644
-> --- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn301/vg_clk_mgr.c
-> +++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn301/vg_clk_mgr.c
-> @@ -733,11 +733,12 @@ void vg_clk_mgr_construct(
->   	if (clk_mgr->base.base.dentist_vco_freq_khz == 0)
->   		clk_mgr->base.base.dentist_vco_freq_khz = 3600000;
->   
-> -	if (ctx->dc_bios->integrated_info->memory_type == LpDdr5MemType) {
-> +	if (ctx->dc_bios->integrated_info &&
-> +	    ctx->dc_bios->integrated_info->memory_type == LpDdr5MemType)
->   		vg_bw_params.wm_table = lpddr5_wm_table;
-> -	} else {
-> +	else
->   		vg_bw_params.wm_table = ddr4_wm_table;
-> -	}
-> +
->   	/* Saved clocks configured at boot for debug purposes */
->   	vg_dump_clk_registers(&clk_mgr->base.base.boot_snapshot, &clk_mgr->base.base, &log_info);
->   
-> diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn31/dcn31_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn31/dcn31_clk_mgr.c
-> index 051052bd10c9..44bf48f96183 100644
-> --- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn31/dcn31_clk_mgr.c
-> +++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn31/dcn31_clk_mgr.c
-> @@ -725,11 +725,12 @@ void dcn31_clk_mgr_construct(
->   	/* TODO: Check we get what we expect during bringup */
->   	clk_mgr->base.base.dentist_vco_freq_khz = get_vco_frequency_from_reg(&clk_mgr->base);
->   
-> -	if (ctx->dc_bios->integrated_info->memory_type == LpDdr5MemType) {
-> +	if (ctx->dc_bios->integrated_info &&
-> +	    ctx->dc_bios->integrated_info->memory_type == LpDdr5MemType)
->   		dcn31_bw_params.wm_table = lpddr5_wm_table;
-> -	} else {
-> +	else
->   		dcn31_bw_params.wm_table = ddr5_wm_table;
-> -	}
-> +
->   	/* Saved clocks configured at boot for debug purposes */
->   	dcn31_dump_clk_registers(&clk_mgr->base.base.boot_snapshot,
->   				 &clk_mgr->base.base, &log_info);
-> diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn314/dcn314_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn314/dcn314_clk_mgr.c
-> index 0cb37827a62b..c69ec7a0e0ae 100644
-> --- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn314/dcn314_clk_mgr.c
-> +++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn314/dcn314_clk_mgr.c
-> @@ -842,7 +842,8 @@ void dcn314_clk_mgr_construct(
->   	/* TODO: Check we get what we expect during bringup */
->   	clk_mgr->base.base.dentist_vco_freq_khz = get_vco_frequency_from_reg(&clk_mgr->base);
->   
-> -	if (ctx->dc_bios->integrated_info->memory_type == LpDdr5MemType)
-> +	if (ctx->dc_bios->integrated_info &&
-> +	    ctx->dc_bios->integrated_info->memory_type == LpDdr5MemType)
->   		dcn314_bw_params.wm_table = lpddr5_wm_table;
->   	else
->   		dcn314_bw_params.wm_table = ddr5_wm_table;
-> diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn315/dcn315_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn315/dcn315_clk_mgr.c
-> index c49268db85f6..8d6949ad700d 100644
-> --- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn315/dcn315_clk_mgr.c
-> +++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn315/dcn315_clk_mgr.c
-> @@ -652,11 +652,12 @@ void dcn315_clk_mgr_construct(
->   	if (clk_mgr->base.smu_ver > 0)
->   		clk_mgr->base.smu_present = true;
->   
-> -	if (ctx->dc_bios->integrated_info->memory_type == LpDdr5MemType) {
-> +	if (ctx->dc_bios->integrated_info &&
-> +	    ctx->dc_bios->integrated_info->memory_type == LpDdr5MemType)
->   		dcn315_bw_params.wm_table = lpddr5_wm_table;
-> -	} else {
-> +	else
->   		dcn315_bw_params.wm_table = ddr5_wm_table;
-> -	}
-> +
->   	/* Saved clocks configured at boot for debug purposes */
->   	dcn315_dump_clk_registers(&clk_mgr->base.base.boot_snapshot,
->   				  &clk_mgr->base.base, &log_info);
-> diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn316/dcn316_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn316/dcn316_clk_mgr.c
-> index 1769b1f26e75..b858e21ca070 100644
-> --- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn316/dcn316_clk_mgr.c
-> +++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn316/dcn316_clk_mgr.c
-> @@ -636,11 +636,12 @@ void dcn316_clk_mgr_construct(
->   		clk_mgr->base.base.dentist_vco_freq_khz = 2500000; /* 2400MHz */
->   
->   
-> -	if (ctx->dc_bios->integrated_info->memory_type == LpDdr5MemType) {
-> +	if (ctx->dc_bios->integrated_info &&
-> +	    ctx->dc_bios->integrated_info->memory_type == LpDdr5MemType)
->   		dcn316_bw_params.wm_table = lpddr5_wm_table;
-> -	} else {
-> +	else
->   		dcn316_bw_params.wm_table = ddr4_wm_table;
-> -	}
-> +
->   	/* Saved clocks configured at boot for debug purposes */
->   	dcn316_dump_clk_registers(&clk_mgr->base.base.boot_snapshot,
->   				  &clk_mgr->base.base, &log_info);
-> diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c
-> index 6fc524752613..2798088842f4 100644
-> --- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c
-> +++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c
-> @@ -1464,11 +1464,12 @@ void dcn35_clk_mgr_construct(
->   	/* TODO: Check we get what we expect during bringup */
->   	clk_mgr->base.base.dentist_vco_freq_khz = get_vco_frequency_from_reg(&clk_mgr->base);
->   
-> -	if (ctx->dc_bios->integrated_info->memory_type == LpDdr5MemType) {
-> +	if (ctx->dc_bios->integrated_info &&
-> +	    ctx->dc_bios->integrated_info->memory_type == LpDdr5MemType)
->   		dcn35_bw_params.wm_table = lpddr5_wm_table;
-> -	} else {
-> +	else
->   		dcn35_bw_params.wm_table = ddr5_wm_table;
-> -	}
-> +
->   	/* Saved clocks configured at boot for debug purposes */
->   	dcn35_save_clk_registers(&clk_mgr->base.base.boot_snapshot, clk_mgr);
->   
+Use dev_warn_ratelimited() for print_sq_intr_info_error() which is
+consistent with previous IPs.
+
+Use dev_dbg_ratelimited() for irrelevant node interrupt print to
+avoid too much noise.
+
+Signed-off-by: Lang Yu <lang.yu@amd.com>
+---
+ .../drm/amd/amdkfd/kfd_int_process_v12_1.c    | 28 +++++++++++--------
+ 1 file changed, 16 insertions(+), 12 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v12_1.c b/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v12_1.c
+index 47947b94926b..0da7e1db55c9 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v12_1.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v12_1.c
+@@ -144,9 +144,10 @@ enum SQ_INTERRUPT_ERROR_TYPE {
+ #define KFD_CTXID0_DOORBELL_ID(ctxid0)		((ctxid0) & \
+ 				KFD_CTXID0_DOORBELL_ID_MASK)
+ 
+-static void print_sq_intr_info_auto(uint32_t context_id0, uint32_t context_id1)
++static void print_sq_intr_info_auto(struct kfd_node *dev, uint32_t context_id0, uint32_t context_id1)
+ {
+-	pr_debug_ratelimited(
++	dev_dbg_ratelimited(
++		dev->adev->dev,
+ 		"sq_intr: auto, ttrace %d, wlt %d, ttrace_buf0_full %d, ttrace_buf1_full %d ttrace_utc_err %d\n",
+ 		REG_GET_FIELD(context_id0, SQ_INTERRUPT_WORD_AUTO_CTXID0, THREAD_TRACE),
+ 		REG_GET_FIELD(context_id0, SQ_INTERRUPT_WORD_AUTO_CTXID0, WLT),
+@@ -155,9 +156,10 @@ static void print_sq_intr_info_auto(uint32_t context_id0, uint32_t context_id1)
+ 		REG_GET_FIELD(context_id0, SQ_INTERRUPT_WORD_AUTO_CTXID0, THREAD_TRACE_UTC_ERROR));
+ }
+ 
+-static void print_sq_intr_info_inst(uint32_t context_id0, uint32_t context_id1)
++static void print_sq_intr_info_inst(struct kfd_node *dev, uint32_t context_id0, uint32_t context_id1)
+ {
+-	pr_debug_ratelimited(
++	dev_dbg_ratelimited(
++		dev->adev->dev,
+ 		"sq_intr: inst, data 0x%08x, sh %d, priv %d, wave_id %d, simd_id %d, wgp_id %d\n",
+ 		REG_GET_FIELD(context_id0, SQ_INTERRUPT_WORD_WAVE_CTXID0, DATA),
+ 		REG_GET_FIELD(context_id0, SQ_INTERRUPT_WORD_WAVE_CTXID0, SA_ID),
+@@ -167,9 +169,10 @@ static void print_sq_intr_info_inst(uint32_t context_id0, uint32_t context_id1)
+ 		REG_GET_FIELD(context_id1, SQ_INTERRUPT_WORD_WAVE_CTXID1, WGP_ID));
+ }
+ 
+-static void print_sq_intr_info_error(uint32_t context_id0, uint32_t context_id1)
++static void print_sq_intr_info_error(struct kfd_node *dev, uint32_t context_id0, uint32_t context_id1)
+ {
+-	pr_debug_ratelimited(
++	dev_warn_ratelimited(
++		dev->adev->dev,
+ 		"sq_intr: error, detail 0x%08x, type %d, sh %d, priv %d, wave_id %d, simd_id %d, wgp_id %d\n",
+ 		REG_GET_FIELD(context_id0, SQ_INTERRUPT_WORD_ERROR_CTXID0, DETAIL),
+ 		REG_GET_FIELD(context_id0, SQ_INTERRUPT_WORD_ERROR_CTXID0, TYPE),
+@@ -246,7 +249,8 @@ static bool event_interrupt_isr_v12_1(struct kfd_node *node,
+ 	vmid = SOC15_VMID_FROM_IH_ENTRY(ih_ring_entry);
+ 
+ 	if (!kfd_irq_is_from_node(node, node_id, vmid)) {
+-		pr_debug("Interrupt not for Node, node_id: %d, vmid: %d\n", node_id, vmid);
++		dev_dbg_ratelimited(node->adev->dev,
++			"Interrupt not for Node, node_id: %d, vmid: %d\n", node_id, vmid);
+ 		return false;
+ 	}
+ 
+@@ -266,9 +270,9 @@ static bool event_interrupt_isr_v12_1(struct kfd_node *node,
+ 	    (context_id0 & AMDGPU_FENCE_MES_QUEUE_FLAG))
+ 		return false;
+ 
+-	pr_debug("client id 0x%x, source id %d, vmid %d, pasid 0x%x. raw data:\n",
++	dev_dbg(node->adev->dev, "client id 0x%x, source id %d, vmid %d, pasid 0x%x. raw data:\n",
+ 		 client_id, source_id, vmid, pasid);
+-	pr_debug("%8X, %8X, %8X, %8X, %8X, %8X, %8X, %8X.\n",
++	dev_dbg(node->adev->dev, "%8X, %8X, %8X, %8X, %8X, %8X, %8X, %8X.\n",
+ 		 data[0], data[1], data[2], data[3],
+ 		 data[4], data[5], data[6], data[7]);
+ 
+@@ -361,10 +365,10 @@ static void event_interrupt_wq_v12_1(struct kfd_node *node,
+ 					SQ_INTERRUPT_WORD_WAVE_CTXID1, ENCODING);
+ 			switch (sq_int_enc) {
+ 			case SQ_INTERRUPT_WORD_ENCODING_AUTO:
+-				print_sq_intr_info_auto(context_id0, context_id1);
++				print_sq_intr_info_auto(node, context_id0, context_id1);
+ 				break;
+ 			case SQ_INTERRUPT_WORD_ENCODING_INST:
+-				print_sq_intr_info_inst(context_id0, context_id1);
++				print_sq_intr_info_inst(node, context_id0, context_id1);
+ 				sq_int_priv = REG_GET_FIELD(context_id0,
+ 						SQ_INTERRUPT_WORD_WAVE_CTXID0, PRIV);
+ 				if (sq_int_priv && (kfd_set_dbg_ev_from_interrupt(node, pasid,
+@@ -374,7 +378,7 @@ static void event_interrupt_wq_v12_1(struct kfd_node *node,
+ 					return;
+ 				break;
+ 			case SQ_INTERRUPT_WORD_ENCODING_ERROR:
+-				print_sq_intr_info_error(context_id0, context_id1);
++				print_sq_intr_info_error(node, context_id0, context_id1);
+ 				sq_int_errtype = REG_GET_FIELD(context_id0,
+ 						SQ_INTERRUPT_WORD_ERROR_CTXID0, TYPE);
+ 				if (sq_int_errtype != SQ_INTERRUPT_ERROR_TYPE_ILLEGAL_INST &&
+-- 
+2.34.1
 
