@@ -4,81 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6144D10ED66F
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 79C3910ED671
 	for <amd-gfx@archiver.kernel.org>; Fri, 27 Mar 2026 12:42:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D239810EE3C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C46C910EE39;
 	Fri, 27 Mar 2026 12:42:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="pcfIllgo";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="EEvE81ep";
 	dkim-atps=neutral
-Received: from mail-oa1-f48.google.com (mail-oa1-f48.google.com
- [209.85.160.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8C6D010EBF0
- for <amd-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 18:55:46 +0000 (UTC)
-Received: by mail-oa1-f48.google.com with SMTP id
- 586e51a60fabf-40423dbe98bso539853fac.2
- for <amd-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 11:55:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1774551346; x=1775156146; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=QuXW2pVB+6BOeyoEL7PCyteLSTsnkRNE1etSyCy+RQQ=;
- b=pcfIllgorXhiBb3aPESWJRL7y1GQUgFiOm5kjwHDtiJgv7b8WvqlPgaZxhSRFOjUuQ
- ZcdcjVMrnSMvcdVFTQVEDV5lSsab3RbI5A6t+ePjpv0BG18b/Hrtx7EjTUfry7wQl3UZ
- xKvFA0im0WiA405UPU7AYbFC2tztvpZO48Fbv4ENlWo5Cv54I3+DK99mVwLpiVl+usBj
- qtA4u6WZZTpnFJQSuPiEPL6yv/mEZ4iUTKhVo/44RWxaWLtn9/f4RS/DHXunGJEIJcKR
- CzBODzxfAYlS7QmLc9h6uj66oHPaNnagi3qO/Q7twukre6WrLBpP7YvRg68Jj324qUwL
- WJIw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774551346; x=1775156146;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=QuXW2pVB+6BOeyoEL7PCyteLSTsnkRNE1etSyCy+RQQ=;
- b=YD6rufz2m2bty56LYuReeu/Ekqp0TWJr7synv6KcsFwZsmRdgN0lrawbn4fDudLJVQ
- xJwUBvW32dXxXYjpfcwiqSJnqF+kSg9gMA4wZAbBrkETvaYyIALq9yXhEIwQDkmzX2iq
- CsDv6qZB651HGoHVkSBuwO4VvAZZ0sKfJPMRpPav7TJvZ60zbk7g+6Z6QUUby6aGZ+Q5
- qf3/sVte1YW0tq/Nm5RmuWsZMG0urWqLh8ubZ9V7G5UaWILu26ubD3XFtpEDUnLH5qeb
- GvVpOOAgAjVbcg1zjZGyH8jLxKDnYjIo5sHBh84jtWOFMD8/nHOfXmIXiWmRjv5dsHlw
- 5Z0A==
-X-Forwarded-Encrypted: i=1;
- AJvYcCX6JnFpRYpr7n1fUkj+FqdCfbBsfPVx4aMPpjp5P7qm/pOc2ksYYZby8qk9eyje/+xBdcZvsaeX@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzbirKANKo/HdyC/Q42818b1iwy+Mt5lBNNrjWRDHgCS+t3wUU6
- AU8EHxbta1bzvUCxdrBm6NfC+8oKUjx+nGtyeoHmGiI6yejwUhs/MXhu
-X-Gm-Gg: ATEYQzynfgK8U3o0B918DgjvqSzuB3NxBXSXJdwq5tn870H6b5lqZ6mHg08+YpEWWVi
- w9z0zxdV9tf09xc4w6EphrpX0sfNPNZ/Gs5aY7Ql2cbEUzwuoARxHGd3GXFdO0LlxSBFl1E3xow
- 4kfghSU5Lmcm2YjNNibriaO2VtR9/Rv/VF9AV2eaUWKL8mXe49rfvjflBd0l9s2wseN8nmxQCdz
- JDKvDr1lCD2jSZGrnfeLxuaHCqQ3KtDPwztcSptZAJQSDV6BdxQl7YIuDhN4ZcZTVUJvIc3vD7S
- hty81CYuUWuiyHzfIGfbV8OXhye08rKPVWpOcG91BQOK0Y8lHAg/20yLEY2Ks199lEWc1vrqteF
- yPSAqP0uBOwkxuMNqx8oX4zU4oj7fJeHZLYok8fNdLE7PeMvSoYIdce3M0plbcrLneTIumagK69
- vOVgzwVEWfAvGfuJgmqT4w8QfCjPsuJp1nTuzpQCe8wMe4CpIe
-X-Received: by 2002:a05:6870:2e93:b0:41c:b780:93c with SMTP id
- 586e51a60fabf-41cb780158emr4153585fac.8.1774551345778; 
- Thu, 26 Mar 2026 11:55:45 -0700 (PDT)
-Received: from frodo (c-98-38-17-99.hsd1.co.comcast.net. [98.38.17.99])
- by smtp.googlemail.com with ESMTPSA id
- 586e51a60fabf-41cc7760c08sm3075171fac.4.2026.03.26.11.55.44
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 26 Mar 2026 11:55:45 -0700 (PDT)
-From: Jim Cromie <jim.cromie@gmail.com>
-To: linux-kernel@vger.kernel.org, airlied@gmail.com, simona@ffwll.ch,
- jbaron@akamai.com, gregkh@linuxfoundation.org
-Cc: jim.cromie@gmail.com, mripard@kernel.org, tzimmermann@suse.de,
- maarten.lankhorst@linux.intel.com, jani.nikula@intel.com,
- ville.syrjala@linux.intel.com, christian.koenig@amd.com,
- matthew.auld@intel.com, arunpravin.paneerselvam@amd.com,
- louis.chauvet@bootlin.com, skhan@linuxfoundation.org, pmladek@suse.com,
- ukaszb@chromium.org, dri-devel@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-Subject: [PATCH v12 48/69] drm-dyndbg: DRM_CLASSMAP_USE in drm_dp_helper
-Date: Thu, 26 Mar 2026 12:53:52 -0600
-Message-ID: <20260326185413.1205870-49-jim.cromie@gmail.com>
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 644C210ECEB;
+ Fri, 27 Mar 2026 08:16:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1774599405; x=1806135405;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=8Sffc1FnB7aLC90BrXNdUZA1BmIxr98g2Izx7ogRry0=;
+ b=EEvE81epPJS+S1Q7dA5jLkiomh51vsxq3unZLbup5UpxpfdStOzeqrS2
+ SNgsQpMAlKH0u+str/nih28hYF1Kd5uW6l2SP5Ztz8ZrFAzshSrSy4Hem
+ Gy1g9ZVVAsWjVNw6WrQ1zzh6YWswnReP3U/302WjsYAvLJ6ycvSw8wV4K
+ 85YlHp2lJ9f2CqVDFTOKMPgALAgE8XiBLD76qdB3qlNTl/YgIos4n6y9D
+ 1Y/d2DhDh8KhHhml9iPuLKXx548uUF3ZZNkJs4ez4fdEhA2edNsX+NUr5
+ /3Rx92Ihr3GINgxzA/laBTbCP8HFqnMmoeHwAsUKp5BP/HhrydFp2E6nD w==;
+X-CSE-ConnectionGUID: cw8r5HxgQU64vrFJLaAEew==
+X-CSE-MsgGUID: 9TmHSyp5TAmHYmZdePd8RA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11741"; a="75784054"
+X-IronPort-AV: E=Sophos;i="6.23,143,1770624000"; d="scan'208";a="75784054"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+ by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Mar 2026 01:16:45 -0700
+X-CSE-ConnectionGUID: z9ayDlz1Qce3tvLAo25+iw==
+X-CSE-MsgGUID: +20jAXVHSBWHzwq2DEln3Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,143,1770624000"; d="scan'208";a="255747905"
+Received: from egrumbac-mobl6.ger.corp.intel.com (HELO fedora)
+ ([10.245.244.146])
+ by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Mar 2026 01:16:39 -0700
+From: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
+To: intel-xe@lists.freedesktop.org
+Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Natalie Vock <natalie.vock@gmx.de>, Johannes Weiner <hannes@cmpxchg.org>,
+ Tejun Heo <tj@kernel.org>,
+ =?UTF-8?q?Michal=20Koutn=C3=BD?= <mkoutny@suse.com>,
+ cgroups@vger.kernel.org, Huang Rui <ray.huang@amd.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Matthew Auld <matthew.auld@intel.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Simona Vetter <simona@ffwll.ch>,
+ David Airlie <airlied@gmail.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [PATCH 2/5] cgroup/dmem: Add reclaim callback for lowering max below
+ current usage
+Date: Fri, 27 Mar 2026 09:15:57 +0100
+Message-ID: <20260327081600.4885-3-thomas.hellstrom@linux.intel.com>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260326185413.1205870-1-jim.cromie@gmail.com>
-References: <20260326185413.1205870-1-jim.cromie@gmail.com>
+In-Reply-To: <20260327081600.4885-1-thomas.hellstrom@linux.intel.com>
+References: <20260327081600.4885-1-thomas.hellstrom@linux.intel.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 27 Mar 2026 12:40:00 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -95,44 +84,206 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Following the dyndbg-api-fix, replace DECLARE_DYNDBG_CLASSMAP with
-DRM_CLASSMAP_USE.  This refs the defined & exported classmap, rather
-than re-declaring it redundantly, and error-prone-ly.
+Add an optional reclaim callback to struct dmem_cgroup_region.  When
+dmem.max is set below current usage, invoke the callback to evict memory
+and retry setting the limit rather than failing immediately.  Signal
+interruptions propagate back to the write() caller.
 
-This resolves the appearance of "class:_UNKNOWN_" in the control file
-for the driver's drm_dbg()s.
+RFC:
+Due to us updating the max limit _after_ the usage has been
+sufficiently lowered, this should be prone to failures if there are
+aggressive allocators running in parallel to the reclaim.
+So can we somehow enforce the new limit while the eviction is
+happening?
 
-Fixes: f158936b60a7 ("drm: POC drm on dyndbg - use in core, 2 helpers, 3 drivers.")
-
-Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
-Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
+Assisted-by: GitHub Copilot:claude-sonnet-4.6
+Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
 ---
- drivers/gpu/drm/display/drm_dp_helper.c | 12 +-----------
- 1 file changed, 1 insertion(+), 11 deletions(-)
+ include/linux/cgroup_dmem.h | 11 +++++
+ kernel/cgroup/dmem.c        | 94 +++++++++++++++++++++++++++++++++----
+ 2 files changed, 96 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/gpu/drm/display/drm_dp_helper.c b/drivers/gpu/drm/display/drm_dp_helper.c
-index a697cc227e28..308083e244d4 100644
---- a/drivers/gpu/drm/display/drm_dp_helper.c
-+++ b/drivers/gpu/drm/display/drm_dp_helper.c
-@@ -45,17 +45,7 @@
+diff --git a/include/linux/cgroup_dmem.h b/include/linux/cgroup_dmem.h
+index dd4869f1d736..61520a431740 100644
+--- a/include/linux/cgroup_dmem.h
++++ b/include/linux/cgroup_dmem.h
+@@ -26,6 +26,10 @@ bool dmem_cgroup_state_evict_valuable(struct dmem_cgroup_pool_state *limit_pool,
+ 				      bool ignore_low, bool *ret_hit_low);
  
- #include "drm_dp_helper_internal.h"
+ void dmem_cgroup_pool_state_put(struct dmem_cgroup_pool_state *pool);
++void dmem_cgroup_region_set_reclaim(struct dmem_cgroup_region *region,
++				    int (*reclaim)(struct dmem_cgroup_pool_state *pool,
++						   u64 target_bytes, void *priv),
++				    void *priv);
+ #else
+ static inline __printf(2,3) struct dmem_cgroup_region *
+ dmem_cgroup_register_region(u64 size, const char *name_fmt, ...)
+@@ -62,5 +66,12 @@ bool dmem_cgroup_state_evict_valuable(struct dmem_cgroup_pool_state *limit_pool,
+ static inline void dmem_cgroup_pool_state_put(struct dmem_cgroup_pool_state *pool)
+ { }
  
--DECLARE_DYNDBG_CLASSMAP(drm_debug_classes, DD_CLASS_TYPE_DISJOINT_BITS, 0,
--			"DRM_UT_CORE",
--			"DRM_UT_DRIVER",
--			"DRM_UT_KMS",
--			"DRM_UT_PRIME",
--			"DRM_UT_ATOMIC",
--			"DRM_UT_VBL",
--			"DRM_UT_STATE",
--			"DRM_UT_LEASE",
--			"DRM_UT_DP",
--			"DRM_UT_DRMRES");
-+DRM_CLASSMAP_USE(drm_debug_classes);
++static inline void
++dmem_cgroup_region_set_reclaim(struct dmem_cgroup_region *region,
++			       int (*reclaim)(struct dmem_cgroup_pool_state *pool,
++					      u64 target_bytes, void *priv),
++			       void *priv)
++{ }
++
+ #endif
+ #endif	/* _CGROUP_DMEM_H */
+diff --git a/kernel/cgroup/dmem.c b/kernel/cgroup/dmem.c
+index 3e6d4c0b26a1..f993fb058b74 100644
+--- a/kernel/cgroup/dmem.c
++++ b/kernel/cgroup/dmem.c
+@@ -51,6 +51,18 @@ struct dmem_cgroup_region {
+ 	 * No new pools should be added to the region afterwards.
+ 	 */
+ 	bool unregistered;
++
++	/**
++	 * @reclaim: Optional callback invoked when dmem.max is set below the
++	 * current usage of a pool. The driver should attempt to free at least
++	 * @target_bytes from @pool. May be called multiple times if usage
++	 * remains above the limit after returning.
++	 */
++	int (*reclaim)(struct dmem_cgroup_pool_state *pool, u64 target_bytes,
++		       void *priv);
++
++	/** @reclaim_priv: Private data passed to @reclaim. */
++	void *reclaim_priv;
+ };
  
- struct dp_aux_backlight {
- 	struct backlight_device *base;
+ struct dmemcg_state {
+@@ -145,23 +157,59 @@ static void free_cg_pool(struct dmem_cgroup_pool_state *pool)
+ }
+ 
+ static int
+-set_resource_min(struct dmem_cgroup_pool_state *pool, u64 val)
++set_resource_min(struct dmem_cgroup_pool_state *pool, u64 val,
++		 struct dmem_cgroup_region *region)
+ {
+ 	page_counter_set_min(&pool->cnt, val);
+ 	return 0;
+ }
+ 
+ static int
+-set_resource_low(struct dmem_cgroup_pool_state *pool, u64 val)
++set_resource_low(struct dmem_cgroup_pool_state *pool, u64 val,
++		 struct dmem_cgroup_region *region)
+ {
+ 	page_counter_set_low(&pool->cnt, val);
+ 	return 0;
+ }
+ 
+ static int
+-set_resource_max(struct dmem_cgroup_pool_state *pool, u64 val)
++set_resource_max(struct dmem_cgroup_pool_state *pool, u64 val,
++		 struct dmem_cgroup_region *region)
+ {
+-	return page_counter_set_max(&pool->cnt, val);
++	int err = page_counter_set_max(&pool->cnt, val);
++
++	if (err != -EBUSY || !region || !region->reclaim)
++		return err;
++
++	/*
++	 * The new max is below current usage.  Ask the driver to evict memory
++	 * and retry, up to a bounded number of times.  Signal interruptions are
++	 * propagated back to the write() caller; other reclaim failures leave
++	 * -EBUSY as the result.
++	 */
++	for (int retries = 5; retries > 0; retries--) {
++		u64 usage = page_counter_read(&pool->cnt);
++		u64 target = usage > val ? usage - val : 0;
++		int reclaim_err;
++
++		if (!target) {
++			err = page_counter_set_max(&pool->cnt, val);
++			break;
++		}
++
++		reclaim_err = region->reclaim(pool, target, region->reclaim_priv);
++		if (reclaim_err) {
++			if (reclaim_err == -EINTR || reclaim_err == -ERESTARTSYS)
++				err = reclaim_err;
++			break;
++		}
++
++		err = page_counter_set_max(&pool->cnt, val);
++		if (err != -EBUSY)
++			break;
++	}
++
++	return err;
+ }
+ 
+ static u64 get_resource_low(struct dmem_cgroup_pool_state *pool)
+@@ -186,9 +234,9 @@ static u64 get_resource_current(struct dmem_cgroup_pool_state *pool)
+ 
+ static void reset_all_resource_limits(struct dmem_cgroup_pool_state *rpool)
+ {
+-	set_resource_min(rpool, 0);
+-	set_resource_low(rpool, 0);
+-	set_resource_max(rpool, PAGE_COUNTER_MAX);
++	set_resource_min(rpool, 0, NULL);
++	set_resource_low(rpool, 0, NULL);
++	set_resource_max(rpool, PAGE_COUNTER_MAX, NULL);
+ }
+ 
+ static void dmemcs_offline(struct cgroup_subsys_state *css)
+@@ -570,6 +618,32 @@ void dmem_cgroup_pool_state_put(struct dmem_cgroup_pool_state *pool)
+ }
+ EXPORT_SYMBOL_GPL(dmem_cgroup_pool_state_put);
+ 
++/**
++ * dmem_cgroup_region_set_reclaim - Register a reclaim callback on a region.
++ * @region: The region to register the callback for.
++ * @reclaim: Callback to invoke when dmem.max is set below current usage.
++ *           Called with the pool that needs reclaiming and the number of
++ *           bytes to free. Returns 0 on progress, negative on failure.
++ * @priv: Opaque pointer passed back to @reclaim.
++ *
++ * When dmem.max is lowered below the current usage of a cgroup pool, the
++ * dmem controller will call @reclaim with a target number of bytes to free.
++ * After @reclaim returns the controller retries setting the limit; if usage
++ * is still too high it calls @reclaim again, up to a bounded retry count.
++ */
++void dmem_cgroup_region_set_reclaim(struct dmem_cgroup_region *region,
++				    int (*reclaim)(struct dmem_cgroup_pool_state *pool,
++						   u64 target_bytes, void *priv),
++				    void *priv)
++{
++	if (!region)
++		return;
++
++	region->reclaim = reclaim;
++	region->reclaim_priv = priv;
++}
++EXPORT_SYMBOL_GPL(dmem_cgroup_region_set_reclaim);
++
+ static struct dmem_cgroup_pool_state *
+ get_cg_pool_unlocked(struct dmemcg_state *cg, struct dmem_cgroup_region *region)
+ {
+@@ -728,7 +802,8 @@ static int dmemcg_parse_limit(char *options, struct dmem_cgroup_region *region,
+ 
+ static ssize_t dmemcg_limit_write(struct kernfs_open_file *of,
+ 				 char *buf, size_t nbytes, loff_t off,
+-				 int (*apply)(struct dmem_cgroup_pool_state *, u64))
++				 int (*apply)(struct dmem_cgroup_pool_state *, u64,
++					      struct dmem_cgroup_region *))
+ {
+ 	struct dmemcg_state *dmemcs = css_to_dmemcs(of_css(of));
+ 	int err = 0;
+@@ -775,7 +850,8 @@ static ssize_t dmemcg_limit_write(struct kernfs_open_file *of,
+ 		}
+ 
+ 		/* And commit */
+-		err = apply(pool, new_limit);
++		err = apply(pool, new_limit, region);
++
+ 		dmemcg_pool_put(pool);
+ 
+ out_put:
 -- 
 2.53.0
 
