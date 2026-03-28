@@ -4,88 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ED8F610F3DC1
-	for <amd-gfx@archiver.kernel.org>; Sat, 28 Mar 2026 00:49:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A189410F3DE2
+	for <amd-gfx@archiver.kernel.org>; Sat, 28 Mar 2026 10:22:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6849410EFE9;
-	Sat, 28 Mar 2026 00:49:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0022910E370;
+	Sat, 28 Mar 2026 10:22:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ne9SwXO6";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ghY0j63F";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DCF2010EFE3;
- Sat, 28 Mar 2026 00:49:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1774658957; x=1806194957;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=spBRyUWWoNS2Cx1CYULWATwx80zhbnXsfwLRPIEYCuI=;
- b=ne9SwXO6l+Ig3wjHqPsE892kfcj2u4KG+ggyqE5pubWoYoK4zz36rUxe
- 2FQiDOgq3YZ5UuNZ4TUTI+Aqvoh2EjvlHhfqH/DqYDwUR26z0ho2U41At
- d4xFtsiNYmy5Hj0owdKDDzy4jYMislgQo9p79Mt+haQdwEf2/SZD0ZE8A
- Gw98aLHsCNFPfKqIKgv3JyviAyXQ4Cp2NNH9NnsRx1LscKAvMc/DEv+e2
- y6R7mwBRH7e11Q/vF7oZ/sB3V36yosHTC3ZwpxDZyxl8u+mPjXWp+1jAy
- 3UtwRUUaEKbUwJY3wjUgyD6c0Jev7YcxkFXO3CqgiNfl5NXkyDOrpPva6 Q==;
-X-CSE-ConnectionGUID: dxlG9aMpQAm/hd+xF3AraQ==
-X-CSE-MsgGUID: M2RvYMhXT2WkDBhFKRX/vg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11742"; a="79345751"
-X-IronPort-AV: E=Sophos;i="6.23,145,1770624000"; d="scan'208";a="79345751"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
- by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Mar 2026 17:49:16 -0700
-X-CSE-ConnectionGUID: ViZQzStoQxSHGMjM9s43nA==
-X-CSE-MsgGUID: XSnK+Jz1Qd+SfVvK0wZw8A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,145,1770624000"; d="scan'208";a="230246594"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.245.244.188])
- by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Mar 2026 17:49:07 -0700
-Date: Sat, 28 Mar 2026 02:49:04 +0200
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Cc: Maxime Ripard <mripard@kernel.org>,
- Harry Wentland <harry.wentland@amd.com>,
- Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Sandy Huang <hjc@rock-chips.com>,
- Heiko =?iso-8859-1?Q?St=FCbner?= <heiko@sntech.de>,
- Andy Yan <andy.yan@rock-chips.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, Dmitry Baryshkov <lumag@kernel.org>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Rob Herring <robh@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>, kernel@collabora.com,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-rockchip@lists.infradead.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, linux-doc@vger.kernel.org,
- Werner Sembach <wse@tuxedocomputers.com>,
- Andri Yngvason <andri@yngvason.is>, Marius Vlad <marius.vlad@collabora.com>
-Subject: Re: [PATCH v11 03/22] drm: Add new general DRM property "color format"
-Message-ID: <acclgID7lSVNten2@intel.com>
-References: <20260324-color-format-v11-0-605559af4fb4@collabora.com>
- <20260326-pumpkin-goshawk-of-stamina-0ccb84@houat>
- <acVzwRyk_J24GrJ4@intel.com> <4153041.tdWV9SEqCh@workhorse>
+Received: from mail-ot1-f45.google.com (mail-ot1-f45.google.com
+ [209.85.210.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 77E8410E074
+ for <amd-gfx@lists.freedesktop.org>; Sat, 28 Mar 2026 02:16:20 +0000 (UTC)
+Received: by mail-ot1-f45.google.com with SMTP id
+ 46e09a7af769-7d86eb7c854so1503729a34.3
+ for <amd-gfx@lists.freedesktop.org>; Fri, 27 Mar 2026 19:16:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1774664178; x=1775268978; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=ApsvoKgQ/+ecwFQ1dbi7zrc8rrPgaJdlpz0Z2+3q9AE=;
+ b=ghY0j63F/Fy21eyxTKcTrhUK2EXcQLEsa0pVK4SSFKKTOD41ClhsC898UtJOuNfxIt
+ VtiD5Miv+2mSXBoJDu5L0Z6pBA7UvqXWnbElJ258y8n746YJgjb28BDGZUOrjS4aZJ2X
+ f7x6tdbsjB/XWgtwpcpY95cDE25/FusQ/qoYr1nn/B9jdnXJ62JLUX0dSHr6nu5pRpnT
+ 4hf5/y2ZKIovFA1ijqLNYv/flR6ovNIkL7vl/qiDyvj2cq5X5f8SWy9RQDuNTH31CAAY
+ sSingn0tJdAvzKPr4EHJnA2VcuyeP4zclAsg2zkwASgiGNft1bFbr0RWvWC5rPCRv3R9
+ iJJw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1774664178; x=1775268978;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=ApsvoKgQ/+ecwFQ1dbi7zrc8rrPgaJdlpz0Z2+3q9AE=;
+ b=jx6tsWYSiVeHoPKZ058OK1PwW5XIAkh0vGPpO5HNQMZ5LXSKns94bqHsczhUABcFUh
+ trVCNFuk474rmKbO7Y6uWf7g4H6RN3g6Q5UIiNdnY1dsno6ReZf7WK6WmZ7MGdG8UywK
+ l3pYzhncmarViSYg5rkzetyM8tMRu/NXNC3c6Qt7mSFelGvu9uLtKAUKWDLYgSwzQPoJ
+ bXPbyAnGk4YO/iK0GtDs7jUgeKHz9yoEUrSS0F+j4nYNqX0rIEKDSejaUvJBl+IEXKJS
+ wZjhj2CPrvXksJZlptmYrB/x60QYFrqr1rhlTdI67JjWg42ZY7EmbD0lV84g5ufCpQDH
+ 4/LQ==
+X-Gm-Message-State: AOJu0YzBd2j70HJ7g+3uCbpefTBhgiei8iGoxoty4BY1vi+CM6pJMijg
+ cApXr+dA5V9VaZVg3HrHg0Yn9k5dp+Z2FuoYClgjGbPAkXAi9jwAY2A/
+X-Gm-Gg: ATEYQzxOuk4kzVZMz43SvTi0+uuTZfJxwZ0Q0RSu0z+FTzWdKS14HwWSJZZaYE0KvMJ
+ vwuG20uAd9IuSdjKsKWO7jeXcunwZpnn+FOmbEd4jN2Sf6VEtUfL036a3eS5Oyaa6I3XmWjS70o
+ BlPRES+gZPWMXBUFi5Tm4RBeBb3IK74KmssNINpVSHvuZ5nELw2cO/L9z3Lvd0qWfRFJ1zZkdbU
+ QBCE8BT3pHoqEpUinMoHYRz74MVoB3kHwwZfMUmLynWt/B0ge7QUqnNXr87G+8t2d2eebO3iIgI
+ l0K9gtimiivNF9CkUUDfik0Dgd9YHuasU0SWr9W9v3E1vyi0EkFHumNR7WGH4anLTs4pt44+14L
+ TuUQTVsUYRvvlxgWAk3o+k6/WGGZJtQ/s7P4r9x5iUMo4DtGq3MU9SJ1yTXNZRhmTkHbJ4vWEYI
+ XpRSy8SKYb/GsjV8q0K3JIvrRobvmHrYnINDceCWF7lsHwxPWE9K6vfj4ZONnCSyRu8FS6
+X-Received: by 2002:a05:6830:6a11:b0:7d7:d702:401c with SMTP id
+ 46e09a7af769-7d9faf5af44mr2814201a34.32.1774664178252; 
+ Fri, 27 Mar 2026 19:16:18 -0700 (PDT)
+Received: from Mac (c-76-107-126-43.hsd1.tn.comcast.net. [76.107.126.43])
+ by smtp.gmail.com with ESMTPSA id
+ 46e09a7af769-7da0a87de2esm683700a34.27.2026.03.27.19.16.17
+ (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+ Fri, 27 Mar 2026 19:16:17 -0700 (PDT)
+From: David Baum <davidbaum461@gmail.com>
+To: alexdeucher@gmail.com,
+	christian.koenig@amd.com
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ David Baum <davidbaum461@gmail.com>
+Subject: [PATCH] drm/amdgpu: fix resource leaks in userqueue creation error
+ paths
+Date: Fri, 27 Mar 2026 21:16:14 -0500
+Message-ID: <20260328021614.20100-1-davidbaum461@gmail.com>
+X-Mailer: git-send-email 2.50.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <4153041.tdWV9SEqCh@workhorse>
-X-Patchwork-Hint: comment
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+X-Mailman-Approved-At: Sat, 28 Mar 2026 10:22:39 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,199 +86,132 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Mar 27, 2026 at 01:56:06PM +0100, Nicolas Frattaroli wrote:
-> On Thursday, 26 March 2026 18:58:25 Central European Standard Time Ville Syrjälä wrote:
-> > On Thu, Mar 26, 2026 at 06:02:47PM +0100, Maxime Ripard wrote:
-> > > On Wed, Mar 25, 2026 at 08:43:15PM +0200, Ville Syrjälä wrote:
-> > > > On Wed, Mar 25, 2026 at 03:56:58PM +0100, Maxime Ripard wrote:
-> > > > > On Wed, Mar 25, 2026 at 01:03:07PM +0200, Ville Syrjälä wrote:
-> > > > > > On Wed, Mar 25, 2026 at 09:24:27AM +0100, Maxime Ripard wrote:
-> > > > > > > On Tue, Mar 24, 2026 at 09:53:35PM +0200, Ville Syrjälä wrote:
-> > > > > > > > On Tue, Mar 24, 2026 at 08:10:11PM +0100, Nicolas Frattaroli wrote:
-> > > > > > > > > On Tuesday, 24 March 2026 18:00:45 Central European Standard Time Ville Syrjälä wrote:
-> > > > > > > > > > On Tue, Mar 24, 2026 at 05:01:07PM +0100, Nicolas Frattaroli wrote:
-> > > > > > > > > > > +enum drm_connector_color_format {
-> > > > > > > > > > > +	/**
-> > > > > > > > > > > +	 * @DRM_CONNECTOR_COLOR_FORMAT_AUTO: The driver or display protocol
-> > > > > > > > > > > +	 * helpers should pick a suitable color format. All implementations of a
-> > > > > > > > > > > +	 * specific display protocol must behave the same way with "AUTO", but
-> > > > > > > > > > > +	 * different display protocols do not necessarily have the same "AUTO"
-> > > > > > > > > > > +	 * semantics.
-> > > > > > > > > > > +	 *
-> > > > > > > > > > > +	 * For HDMI, "AUTO" picks RGB, but falls back to YCbCr 4:2:0 if the
-> > > > > > > > > > > +	 * bandwidth required for full-scale RGB is not available, or the mode
-> > > > > > > > > > > +	 * is YCbCr 4:2:0-only, as long as the mode and output both support
-> > > > > > > > > > > +	 * YCbCr 4:2:0.
-> > > > > > > > > > > +	 *
-> > > > > > > > > > > +	 * For display protocols other than HDMI, the recursive bridge chain
-> > > > > > > > > > > +	 * format selection picks the first chain of bridge formats that works,
-> > > > > > > > > > > +	 * as has already been the case before the introduction of the "color
-> > > > > > > > > > > +	 * format" property. Non-HDMI bridges should therefore either sort their
-> > > > > > > > > > > +	 * bus output formats by preference, or agree on a unified auto format
-> > > > > > > > > > > +	 * selection logic that's implemented in a common state helper (like
-> > > > > > > > > > > +	 * how HDMI does it).
-> > > > > > > > > > > +	 */
-> > > > > > > > > > > +	DRM_CONNECTOR_COLOR_FORMAT_AUTO = 0,
-> > > > > > > > > > > +
-> > > > > > > > > > > +	/**
-> > > > > > > > > > > +	 * @DRM_CONNECTOR_COLOR_FORMAT_RGB444: RGB output format
-> > > > > > > > > > > +	 */
-> > > > > > > > > > > +	DRM_CONNECTOR_COLOR_FORMAT_RGB444,
-> > > > > > > > > > > +
-> > > > > > > > > > > +	/**
-> > > > > > > > > > > +	 * @DRM_CONNECTOR_COLOR_FORMAT_YCBCR444: YCbCr 4:4:4 output format (ie.
-> > > > > > > > > > > +	 * not subsampled)
-> > > > > > > > > > > +	 */
-> > > > > > > > > > > +	DRM_CONNECTOR_COLOR_FORMAT_YCBCR444,
-> > > > > > > > > > > +
-> > > > > > > > > > > +	/**
-> > > > > > > > > > > +	 * @DRM_CONNECTOR_COLOR_FORMAT_YCBCR422: YCbCr 4:2:2 output format (ie.
-> > > > > > > > > > > +	 * with horizontal subsampling)
-> > > > > > > > > > > +	 */
-> > > > > > > > > > > +	DRM_CONNECTOR_COLOR_FORMAT_YCBCR422,
-> > > > > > > > > > > +
-> > > > > > > > > > > +	/**
-> > > > > > > > > > > +	 * @DRM_CONNECTOR_COLOR_FORMAT_YCBCR420: YCbCr 4:2:0 output format (ie.
-> > > > > > > > > > > +	 * with horizontal and vertical subsampling)
-> > > > > > > > > > > +	 */
-> > > > > > > > > > > +	DRM_CONNECTOR_COLOR_FORMAT_YCBCR420,
-> > > > > > > > > > 
-> > > > > > > > > > Seems like this should document what the quantization range
-> > > > > > > > > > should be for each format.
-> > > > > > > > > > 
-> > > > > > > > > 
-> > > > > > > > > I don't think so? If you want per-component bit depth values,
-> > > > > > > > > DRM_FORMAT_* defines would be the appropriate values to use. This
-> > > > > > > > > enum is more abstract than that, and is there to communicate
-> > > > > > > > > YUV vs. RGB and chroma subsampling, with bit depth being handled
-> > > > > > > > > by other properties.
-> > > > > > > > > 
-> > > > > > > > > If you mean the factor used for subsampling, then that'd only be
-> > > > > > > > > relevant if YCBCR410 was supported where one chroma plane isn't
-> > > > > > > > > halved but quartered in resolution. I suspect 4:1:0 will never
-> > > > > > > > > be added; no digital display protocol standard supports it to my
-> > > > > > > > > knowledge, and hopefully none ever will.
-> > > > > > > > 
-> > > > > > > > No, I mean the quantization range (16-235 vs. 0-255 etc).
-> > > > > > > > 
-> > > > > > > > The i915 behaviour is that YCbCr is always limited range,
-> > > > > > > > RGB can either be full or limited range depending on the 
-> > > > > > > > "Broadcast RGB" property and other related factors.
-> > > > > > > 
-> > > > > > > So far the HDMI state has both the format and quantization range as
-> > > > > > > different fields. I'm not sure we need to document the range in the
-> > > > > > > format field, maybe only mention it's not part of the format but has a
-> > > > > > > field of its own?
-> > > > > > 
-> > > > > > I think we only have it for RGB (on some drivers only?). For YCbCr
-> > > > > > I think the assumption is limited range everywhere.
-> > > > > > 
-> > > > > > But I'm not really concerned about documenting struct members.
-> > > > > > What I'm talking about is the *uapi* docs. Surely userspace
-> > > > > > will want to know what the new property actually does so the
-> > > > > > uapi needs to be documented properly. And down the line some
-> > > > > > new driver might also implement the wrong behaviour if there
-> > > > > > is no clear specification.
-> > > > > 
-> > > > > Ack
-> > > > > 
-> > > > > > So I'm thinking (or perhaps hoping) the rule might be something like:
-> > > > > > - YCbCr limited range 
-> > > > > > - RGB full range if "Broadcast RGB" property is not present
-> > > > > 
-> > > > > Isn't it much more complicated than that for HDMI though? My
-> > > > > recollection was that any VIC but VIC1 would be limited range, and
-> > > > > anything else full range?
-> > > > 
-> > > > Do we have some driver that implements the CTA-861 CE vs. IT mode
-> > > > logic but doesn't expose the "Broadcast RGB" property? I was hoping
-> > > > those would always go hand in hand now.
-> > > 
-> > > I'm not sure. i915 and the HDMI state helpers handle it properly (I
-> > > think?) but it looks like only vc4 registers the Broadcast RGB property
-> > > and uses the HDMI state helpers.
-> > > 
-> > > And it looks like amdgpu registers Broadcast RGB but doesn't use
-> > > drm_default_rgb_quant_range() which seems suspicious?
-> > 
-> > If they want just manual full vs. limited then they should
-> > limit the property to not expose the "auto" option at all.
-> > 
-> > amdgpu also ties this in with the "colorspace" property, which
-> > originally in i915 only controlled the infoframes/etc. But on
-> > amdgpu it now controls various aspects of output color
-> > transformation. The end result is that the property is a complete
-> > mess with most of the values making no sense. And for whatever
-> > reason everyone involved refused to remove/deprecate the
-> > nonsensical values :/
-> > 
-> > Looks like this series should make sure the documentation for
-> > the "colorspace" property is in sync with the new property
-> > as well. Currently now it's giving conflicting information.
-> > 
-> 
-> I take it the problematic information is in
-> 
->     * DOC: standard connector properties
->     *
->     * Colorspace:
-> 
-> and probably specifically BT2020_YCC's (and BT2020_RGB's?) insistence
-> that they "produce RGB content".
-> 
-> I think we probably just have to change the statement "The variants
-> BT2020_RGB and BT2020_YCC are equivalent and the driver chooses between
-> RGB and YCbCr on its own."
-> 
-> The "on its own" here would get turned into "based on the color format
-> property".
-> 
-> Speaking of i915, that patch is one of the very few (5) patches in
-> this series still lacking a review (hint hint nudge nudge). I'd like
-> to get some more feedback on the remaining patches before I send out
-> another revision, so that it's hopefully not just docs changes (I
-> know better than to think those patches must be perfect and won't
-> need revision.)
+amdgpu_userq_create() has multiple error paths that jump directly to the
+'unlock' label, which only releases the mutex. This leaks resources that
+were allocated earlier in the function:
 
-The i915 code around this is already a big mess, and I don't really
-adding to that mess. So I think we'll need to do some refactoring before
-we add anything there. I already started typing something and so far
-it looks fairly straightforward, so I should have something soon.
+- When amdgpu_userq_fence_driver_alloc() fails, the queue struct,
+  doorbell BO, and VA list entries are leaked.
+- When xa_store_irq() fails, the MQD and fence driver are leaked
+  in addition to the queue struct.
+- When kasprintf() fails for the queue debug name, the entire queue
+  with all its resources (xa entry, MQD, fence driver, queue struct)
+  is leaked.
 
-While doing that several questions came to my mind though:
+Fix this by adding cleanup labels in reverse allocation order
+(erase_xa, destroy_mqd, free_fence_driver, free_queue) before the
+existing unlock label, and routing each error path to the correct
+label that matches the resources allocated up to that point.
 
-* More interactions with the colorspace property, but I sent
-  a separate mail already about that
+Signed-off-by: David Baum <davidbaum461@gmail.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 37 +++++++++++------------
+ 1 file changed, 17 insertions(+), 20 deletions(-)
 
-* Which conversion matrix to use, and the answer I suspect
-  should be "ask the colorspace property", as mentioned in the
-  other mail
-
-* Should we flat out reject color formats (and I suppose also
-  colorspace prop values) the sink doesn't claim to support?
-
-  If yes, then I think we'll have to forget about adding anything 
-  to i915 MST code. The way the MST stuff works is that if one
-  stream needs a modeset then all the related streams get modeset
-  as well. Thus if the user replaces a monitor getting fed with a
-  YCbCr stream just as another stream is being modeset, then the
-  entire atomic commit could fail due to the YCbCr stream getting
-  rejected.
-
-  I think eventually we might have to invent some mechanism where
-  all the input into the modeset computation is cached somehow,
-  and said cache updated only on explicit userspace modesets.
-  Either that or we have to come up  with a way to skip some of
-  the calculations that depend on external factors. Either way
-  it's going to be a pain.
-
-  OTOH if we don't mind feeding the sink with stuff it can't
-  understand, then I suppose we might add YCbCr 4:4:4 support
-  for MST. It shouldn't be any different from RGB apart from
-  the RGB->YCbCr conversion, which is handled elsewhere. But
-  YCbCr 4:2:0 is definitely out either way, the MST code has
-  no support for that currently.
-
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+index 7c4503508..93c44798c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+@@ -819,17 +819,15 @@ amdgpu_userq_create(struct drm_file *filp, union drm_amdgpu_userq *args)
+ 	    amdgpu_userq_input_va_validate(adev, queue, args->in.rptr_va, AMDGPU_GPU_PAGE_SIZE) ||
+ 	    amdgpu_userq_input_va_validate(adev, queue, args->in.wptr_va, AMDGPU_GPU_PAGE_SIZE)) {
+ 		r = -EINVAL;
+-		kfree(queue);
+-		goto unlock;
++		goto free_queue;
+ 	}
+ 
+ 	/* Convert relative doorbell offset into absolute doorbell index */
+ 	index = amdgpu_userq_get_doorbell_index(uq_mgr, &db_info, filp);
+ 	if (index == (uint64_t)-EINVAL) {
+ 		drm_file_err(uq_mgr->file, "Failed to get doorbell for queue\n");
+-		kfree(queue);
+ 		r = -EINVAL;
+-		goto unlock;
++		goto free_queue;
+ 	}
+ 
+ 	queue->doorbell_index = index;
+@@ -837,15 +835,13 @@ amdgpu_userq_create(struct drm_file *filp, union drm_amdgpu_userq *args)
+ 	r = amdgpu_userq_fence_driver_alloc(adev, queue);
+ 	if (r) {
+ 		drm_file_err(uq_mgr->file, "Failed to alloc fence driver\n");
+-		goto unlock;
++		goto free_queue;
+ 	}
+ 
+ 	r = uq_funcs->mqd_create(queue, &args->in);
+ 	if (r) {
+ 		drm_file_err(uq_mgr->file, "Failed to create Queue\n");
+-		amdgpu_userq_fence_driver_free(queue);
+-		kfree(queue);
+-		goto unlock;
++		goto free_fence_driver;
+ 	}
+ 
+ 	/* drop this refcount during queue destroy */
+@@ -855,21 +851,17 @@ amdgpu_userq_create(struct drm_file *filp, union drm_amdgpu_userq *args)
+ 	down_read(&adev->reset_domain->sem);
+ 	r = xa_err(xa_store_irq(&adev->userq_doorbell_xa, index, queue, GFP_KERNEL));
+ 	if (r) {
+-		kfree(queue);
+ 		up_read(&adev->reset_domain->sem);
+-		goto unlock;
++		goto destroy_mqd;
+ 	}
+ 
+ 	r = xa_alloc(&uq_mgr->userq_xa, &qid, queue,
+ 		     XA_LIMIT(1, AMDGPU_MAX_USERQ_COUNT), GFP_KERNEL);
+ 	if (r) {
+ 		drm_file_err(uq_mgr->file, "Failed to allocate a queue id\n");
+-		amdgpu_userq_fence_driver_free(queue);
+-		uq_funcs->mqd_destroy(queue);
+-		kfree(queue);
+ 		r = -ENOMEM;
+ 		up_read(&adev->reset_domain->sem);
+-		goto unlock;
++		goto destroy_mqd;
+ 	}
+ 	up_read(&adev->reset_domain->sem);
+ 
+@@ -884,18 +876,14 @@ amdgpu_userq_create(struct drm_file *filp, union drm_amdgpu_userq *args)
+ 		r = amdgpu_userq_map_helper(queue);
+ 		if (r) {
+ 			drm_file_err(uq_mgr->file, "Failed to map Queue\n");
+-			xa_erase(&uq_mgr->userq_xa, qid);
+-			amdgpu_userq_fence_driver_free(queue);
+-			uq_funcs->mqd_destroy(queue);
+-			kfree(queue);
+-			goto unlock;
++			goto erase_xa;
+ 		}
+ 	}
+ 
+ 	queue_name = kasprintf(GFP_KERNEL, "queue-%d", qid);
+ 	if (!queue_name) {
+ 		r = -ENOMEM;
+-		goto unlock;
++		goto erase_xa;
+ 	}
+ 
+ #if defined(CONFIG_DEBUG_FS)
+@@ -908,7 +896,16 @@ amdgpu_userq_create(struct drm_file *filp, union drm_amdgpu_userq *args)
+ 
+ 	args->out.queue_id = qid;
+ 	atomic_inc(&uq_mgr->userq_count[queue->queue_type]);
++	goto unlock;
+ 
++erase_xa:
++	xa_erase_irq(&uq_mgr->userq_xa, qid);
++destroy_mqd:
++	uq_funcs->mqd_destroy(queue);
++free_fence_driver:
++	amdgpu_userq_fence_driver_free(queue);
++free_queue:
++	kfree(queue);
+ unlock:
+ 	mutex_unlock(&uq_mgr->userq_mutex);
+ 
 -- 
-Ville Syrjälä
-Intel
+2.50.1 (Apple Git-155)
+
