@@ -4,97 +4,94 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3905B10F2867
-	for <amd-gfx@archiver.kernel.org>; Fri, 27 Mar 2026 20:32:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5C58B10BA45E
+	for <amd-gfx@archiver.kernel.org>; Sat, 28 Mar 2026 00:22:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D3A1510EECB;
-	Fri, 27 Mar 2026 20:32:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9F91910EFA2;
+	Sat, 28 Mar 2026 00:22:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="UabhB9Uj";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="aYWa1uQO";
 	dkim-atps=neutral
-Received: from PH0PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11011018.outbound.protection.outlook.com [40.107.208.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4DC6310E2D8
- for <amd-gfx@lists.freedesktop.org>; Fri, 27 Mar 2026 20:32:55 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=BtWJ6Rd5P8z97QVw82xihUzJzdK9/5EpR8AO/h418cEM+ozFYbvNILwmbfGAdFxEVeUwBokZM+wsyh9fvn0FqxgRCq2h07ugv2INXwE3CQcBz8hxS4ajgndBaBs0i0n9kLduh1GnGtrnaeimCMiWB9YEB0mByHfDVKhT2uTXAGW/IfJw6iJ2nFGFNgf3LpLFqzCjW9NfuqOtgms1GF/Co+KwFyjVX/M3qdmj83vv24R2zKbOJTtsBduEQSSvbt8nVa6vKd2I25PLVDQ7kE2E1yKcgEm2wwUylUH+Pih87+rukFBS13HpWkNwBZ+v2Bf+0ahB5jJiv+9zY3vxabvygw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5E8s+SA8FbooveZ80gei16UgovoMm+6R/OEsljsWaMw=;
- b=O8G9jbQfNU3HUjtY+PETuMvdO6yC3RGOBMJ/BqWc4RIuhOuhQesCS+Z0tnuw1SCjMEOksZDDyeHVofPMJ7KwmgAkaDuvVtf7+/U5co1S0bfEGgbmZ1MZZBbYiPtG31QwPXfriFLvAN8KS8HvQX+SVM6MH8r9T6buliLseroi5+CVOBavGFfmfjwjuvm/+Vyd2SzHzs3hH4laCUi46VeDHSUJamJoso72UXDnJPle07K8mz4uS3Adl3vc9+3OQPbVJl3GV2HzdnhRz7NSDaHTLTlYhPYyy0+k7wmKQJzfcqS/03y0KkZyGGFL18Zg7WvV8D/HcF5jxllCOTG83PHwUQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5E8s+SA8FbooveZ80gei16UgovoMm+6R/OEsljsWaMw=;
- b=UabhB9UjIUZqYvi86/reBl2ivyhNpu9+jgZ5V2nT3TAUlD/qD4+3L/W8Cg/3CY43PDFAhLFWH4pEGg/BEISuBwk9/WvzcjKuAS8R/H9G8fxdvumOlpiHtf7wmnlANriZN3xTPoD77FhnXHJFwrGNbz/mn3sm75EiYD+siD3vmNM=
-Received: from SJ0PR13CA0183.namprd13.prod.outlook.com (2603:10b6:a03:2c3::8)
- by DS7PR12MB5982.namprd12.prod.outlook.com (2603:10b6:8:7d::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.10; Fri, 27 Mar
- 2026 20:32:48 +0000
-Received: from BY1PEPF0001AE17.namprd04.prod.outlook.com
- (2603:10b6:a03:2c3:cafe::e2) by SJ0PR13CA0183.outlook.office365.com
- (2603:10b6:a03:2c3::8) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9745.21 via Frontend Transport; Fri,
- 27 Mar 2026 20:32:48 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BY1PEPF0001AE17.mail.protection.outlook.com (10.167.242.107) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9745.21 via Frontend Transport; Fri, 27 Mar 2026 20:32:48 +0000
-Received: from amberlin-dev.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Fri, 27 Mar
- 2026 15:32:47 -0500
-From: Amber Lin <Amber.Lin@amd.com>
-To: <amd-gfx@lists.freedesktop.org>, <alexdeucher@gmail.com>
-CC: Amber Lin <Amber.Lin@amd.com>, Jonathan Kim <jonathan.kim@amd.com>
-Subject: [PATCH v3 09/10] drm/amdkfd: Reset queue/pipe in MES
-Date: Fri, 27 Mar 2026 16:31:52 -0400
-Message-ID: <20260327203152.1578828-2-Amber.Lin@amd.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260327203152.1578828-1-Amber.Lin@amd.com>
-References: <20260327203152.1578828-1-Amber.Lin@amd.com>
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B48DB10EF89;
+ Sat, 28 Mar 2026 00:22:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1774657334; x=1806193334;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=hKLpvsNSY5f61dkDuhlSS6zsyLleYaRSx9gGzSTHTmo=;
+ b=aYWa1uQO7AOBnxiYG5bVageob9xCXyWF8MbdTBgTBAghXYOi5dn12AWj
+ BQGQoAPhGtAtY/c4HAqeC2EucJiTdoBsieLvm230G2p2arSncWp1q3pN8
+ oaZ/sUz813/fcgOOaOeDlma1+vkNGsX5wjKMRr2CLoe5TK24a0Zm0R4cC
+ Xwi59OiosYGE8fKAlBWp3SCqwvbDPgMzHIYCHfVQd3QEcTc+4jMowjXCW
+ kHq4H+BXKM+MXHqv+BiCPe9QIfpED8uSG7AEzqqu0XJgJawLQiOkH/f08
+ Zo6BIE3f88HVq4iGexx1BA7wXLfEBu1xSI/LP0l3Ehn5yUB+fhWk9zykJ Q==;
+X-CSE-ConnectionGUID: PiiLCk4mTYa9RHD6pQxqPQ==
+X-CSE-MsgGUID: UMx5dL9aR1emM5mcLe3uFA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11742"; a="74768559"
+X-IronPort-AV: E=Sophos;i="6.23,145,1770624000"; d="scan'208";a="74768559"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+ by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Mar 2026 17:22:13 -0700
+X-CSE-ConnectionGUID: mSyIvSuCRBKSEXuAKNOjtQ==
+X-CSE-MsgGUID: SWzO0wyVQ2SyujTRwk21xw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,145,1770624000"; d="scan'208";a="224498686"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.245.244.188])
+ by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Mar 2026 17:22:04 -0700
+Date: Sat, 28 Mar 2026 02:22:01 +0200
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Maxime Ripard <mripard@kernel.org>
+Cc: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
+ Harry Wentland <harry.wentland@amd.com>,
+ Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Sandy Huang <hjc@rock-chips.com>,
+ Heiko =?iso-8859-1?Q?St=FCbner?= <heiko@sntech.de>,
+ Andy Yan <andy.yan@rock-chips.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, Dmitry Baryshkov <lumag@kernel.org>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Rob Herring <robh@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>, kernel@collabora.com,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, linux-doc@vger.kernel.org,
+ Werner Sembach <wse@tuxedocomputers.com>,
+ Andri Yngvason <andri@yngvason.is>, Marius Vlad <marius.vlad@collabora.com>
+Subject: Re: [PATCH v11 03/22] drm: Add new general DRM property "color format"
+Message-ID: <accfKbYPbH7EgAMc@intel.com>
+References: <20260324-color-format-v11-3-605559af4fb4@collabora.com>
+ <acLDPYuaVI2-12JX@intel.com> <23910073.EfDdHjke4D@workhorse>
+ <acLrv5hLyNss-Px5@intel.com>
+ <20260325-neat-elegant-raven-ebc9ab@houat>
+ <acPA60Ci3n_t__xF@intel.com>
+ <20260325-magnificent-ultraviolet-oarfish-baefbc@houat>
+ <acQsw3Wi_xVlBZ8d@intel.com>
+ <20260326-pumpkin-goshawk-of-stamina-0ccb84@houat>
+ <acVzwRyk_J24GrJ4@intel.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BY1PEPF0001AE17:EE_|DS7PR12MB5982:EE_
-X-MS-Office365-Filtering-Correlation-Id: 24d4fd9c-4dbf-4764-959f-08de8c400297
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700016|1800799024|376014|82310400026|56012099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: VxuziQP5ThStT34CtFaO1EdQFjY0LGO24nuYnPrnPpllkCLvvZxUrIn5iL1n+r1vgOVyYxncLEjRs1vGwRMEHIzmzwn5adU9ic2Zj/0MdF8UWbOL2GqOMY/QCyDUYcnSrLxGWQugXoqvuBoYIZQ6euuLXfBv3r2m+QKjhNnr3xwbo1gh1GzN2O1XmLrhFW/2PL5O7Er8ECTv43ntr40HFj7mjwYZ7sjLbbmtXqjk8n9WFgHqdfbrBs3rIAp4Dcc4PYLdhCRGRFHQucwRIMWmArP+pFE2CvL6InC0ThamU2BZc/ZTROQ0uv7yAIZWNrcUMi0YQmZgam1nkAzRg1Pi8l4Z0DC0QSb5+bPOXwQClADIfuOzrM/6UarFoCXfUTikJ1/sKA8pefTofY51VzlZt9XpF57+GFZV8hsMKnawMQLnFM+Nap3JvLF4BsbNx+5gydrud5uRSqOO/4kTG3Fx6jD78hgIrWsEtQPcB5Q/iMayZGi9s3Il0DlUc2FJnHHj+CpRFUHOxtUUQBvv01VizMiZi5RO/BHmq3k6AYrrVzycaM6aDE9OLjNoT2IAWwsYuLUk5NWt4K6bmHJUXipPH6UgGfNsJNIwRLwZK5+gwiPmjzzkfinj0TjLnlp/XYv/b5VoewsiK9Irww1fOqq5NcE8qEaWAw41B3kNC4dL4N5H+i2zLxsTRBnvE0dly8MtJMbo8YCNOhGKclL8WXuAhLsQbxjJeHfkmFY86SEZuDnfL0ya404XMF/3r3ItL8vPWUBet0Q3c5BUBeqWEX//XQ==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700016)(1800799024)(376014)(82310400026)(56012099003)(18002099003)(22082099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: /nFTaWKG1ekgs4z9VLENAB89EU0RSMP66+Czzn6SiG1IDcDBnMh9U4if/u7Nn4iXHNqqRHIUIcpZDiKPmcjPH9S74HqaSNR8hBk72DxywqJKfPR6MagBtaXHqbYcMU6mP1MtiixJXVjIonpGbMVSGYRBwbbqSs0KRaUIHHJQoKNUY8WEMOBqDFK8ghlIeqOaiOE5veKimtTsgLOZeXRry07Apv6tFAr6a9C4FC4Tvd4DnHYg14yM5rN3JYvbGClLGhmPio/w0cbH/aM9G2A5qkmGHDelRupvVp1PpqNBbeaXL19M9/GXLpDs+8twGt/0DG7Mf27KqNb2xDI4EJglfyUkuwzkodRebQAO7emwLjqzxOUJZrde6GPqo97vRjsOJ/lqevoz40m+JlTlumjHZ4Pakl4gu8YaInESk65S9R9a6HEdmJ3VMvndBPZIWmXa
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Mar 2026 20:32:48.1672 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 24d4fd9c-4dbf-4764-959f-08de8c400297
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BY1PEPF0001AE17.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB5982
+In-Reply-To: <acVzwRyk_J24GrJ4@intel.com>
+X-Patchwork-Hint: comment
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,323 +106,224 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-When removing queues fails, KFD calls amdgpu_mes to detect and reset
-hung queues, then cleans up those hung queues in KFD.
+On Thu, Mar 26, 2026 at 07:58:25PM +0200, Ville Syrjälä wrote:
+> On Thu, Mar 26, 2026 at 06:02:47PM +0100, Maxime Ripard wrote:
+> > On Wed, Mar 25, 2026 at 08:43:15PM +0200, Ville Syrjälä wrote:
+> > > On Wed, Mar 25, 2026 at 03:56:58PM +0100, Maxime Ripard wrote:
+> > > > On Wed, Mar 25, 2026 at 01:03:07PM +0200, Ville Syrjälä wrote:
+> > > > > On Wed, Mar 25, 2026 at 09:24:27AM +0100, Maxime Ripard wrote:
+> > > > > > On Tue, Mar 24, 2026 at 09:53:35PM +0200, Ville Syrjälä wrote:
+> > > > > > > On Tue, Mar 24, 2026 at 08:10:11PM +0100, Nicolas Frattaroli wrote:
+> > > > > > > > On Tuesday, 24 March 2026 18:00:45 Central European Standard Time Ville Syrjälä wrote:
+> > > > > > > > > On Tue, Mar 24, 2026 at 05:01:07PM +0100, Nicolas Frattaroli wrote:
+> > > > > > > > > > +enum drm_connector_color_format {
+> > > > > > > > > > +	/**
+> > > > > > > > > > +	 * @DRM_CONNECTOR_COLOR_FORMAT_AUTO: The driver or display protocol
+> > > > > > > > > > +	 * helpers should pick a suitable color format. All implementations of a
+> > > > > > > > > > +	 * specific display protocol must behave the same way with "AUTO", but
+> > > > > > > > > > +	 * different display protocols do not necessarily have the same "AUTO"
+> > > > > > > > > > +	 * semantics.
+> > > > > > > > > > +	 *
+> > > > > > > > > > +	 * For HDMI, "AUTO" picks RGB, but falls back to YCbCr 4:2:0 if the
+> > > > > > > > > > +	 * bandwidth required for full-scale RGB is not available, or the mode
+> > > > > > > > > > +	 * is YCbCr 4:2:0-only, as long as the mode and output both support
+> > > > > > > > > > +	 * YCbCr 4:2:0.
+> > > > > > > > > > +	 *
+> > > > > > > > > > +	 * For display protocols other than HDMI, the recursive bridge chain
+> > > > > > > > > > +	 * format selection picks the first chain of bridge formats that works,
+> > > > > > > > > > +	 * as has already been the case before the introduction of the "color
+> > > > > > > > > > +	 * format" property. Non-HDMI bridges should therefore either sort their
+> > > > > > > > > > +	 * bus output formats by preference, or agree on a unified auto format
+> > > > > > > > > > +	 * selection logic that's implemented in a common state helper (like
+> > > > > > > > > > +	 * how HDMI does it).
+> > > > > > > > > > +	 */
+> > > > > > > > > > +	DRM_CONNECTOR_COLOR_FORMAT_AUTO = 0,
+> > > > > > > > > > +
+> > > > > > > > > > +	/**
+> > > > > > > > > > +	 * @DRM_CONNECTOR_COLOR_FORMAT_RGB444: RGB output format
+> > > > > > > > > > +	 */
+> > > > > > > > > > +	DRM_CONNECTOR_COLOR_FORMAT_RGB444,
+> > > > > > > > > > +
+> > > > > > > > > > +	/**
+> > > > > > > > > > +	 * @DRM_CONNECTOR_COLOR_FORMAT_YCBCR444: YCbCr 4:4:4 output format (ie.
+> > > > > > > > > > +	 * not subsampled)
+> > > > > > > > > > +	 */
+> > > > > > > > > > +	DRM_CONNECTOR_COLOR_FORMAT_YCBCR444,
+> > > > > > > > > > +
+> > > > > > > > > > +	/**
+> > > > > > > > > > +	 * @DRM_CONNECTOR_COLOR_FORMAT_YCBCR422: YCbCr 4:2:2 output format (ie.
+> > > > > > > > > > +	 * with horizontal subsampling)
+> > > > > > > > > > +	 */
+> > > > > > > > > > +	DRM_CONNECTOR_COLOR_FORMAT_YCBCR422,
+> > > > > > > > > > +
+> > > > > > > > > > +	/**
+> > > > > > > > > > +	 * @DRM_CONNECTOR_COLOR_FORMAT_YCBCR420: YCbCr 4:2:0 output format (ie.
+> > > > > > > > > > +	 * with horizontal and vertical subsampling)
+> > > > > > > > > > +	 */
+> > > > > > > > > > +	DRM_CONNECTOR_COLOR_FORMAT_YCBCR420,
+> > > > > > > > > 
+> > > > > > > > > Seems like this should document what the quantization range
+> > > > > > > > > should be for each format.
+> > > > > > > > > 
+> > > > > > > > 
+> > > > > > > > I don't think so? If you want per-component bit depth values,
+> > > > > > > > DRM_FORMAT_* defines would be the appropriate values to use. This
+> > > > > > > > enum is more abstract than that, and is there to communicate
+> > > > > > > > YUV vs. RGB and chroma subsampling, with bit depth being handled
+> > > > > > > > by other properties.
+> > > > > > > > 
+> > > > > > > > If you mean the factor used for subsampling, then that'd only be
+> > > > > > > > relevant if YCBCR410 was supported where one chroma plane isn't
+> > > > > > > > halved but quartered in resolution. I suspect 4:1:0 will never
+> > > > > > > > be added; no digital display protocol standard supports it to my
+> > > > > > > > knowledge, and hopefully none ever will.
+> > > > > > > 
+> > > > > > > No, I mean the quantization range (16-235 vs. 0-255 etc).
+> > > > > > > 
+> > > > > > > The i915 behaviour is that YCbCr is always limited range,
+> > > > > > > RGB can either be full or limited range depending on the 
+> > > > > > > "Broadcast RGB" property and other related factors.
+> > > > > > 
+> > > > > > So far the HDMI state has both the format and quantization range as
+> > > > > > different fields. I'm not sure we need to document the range in the
+> > > > > > format field, maybe only mention it's not part of the format but has a
+> > > > > > field of its own?
+> > > > > 
+> > > > > I think we only have it for RGB (on some drivers only?). For YCbCr
+> > > > > I think the assumption is limited range everywhere.
+> > > > > 
+> > > > > But I'm not really concerned about documenting struct members.
+> > > > > What I'm talking about is the *uapi* docs. Surely userspace
+> > > > > will want to know what the new property actually does so the
+> > > > > uapi needs to be documented properly. And down the line some
+> > > > > new driver might also implement the wrong behaviour if there
+> > > > > is no clear specification.
+> > > > 
+> > > > Ack
+> > > > 
+> > > > > So I'm thinking (or perhaps hoping) the rule might be something like:
+> > > > > - YCbCr limited range 
+> > > > > - RGB full range if "Broadcast RGB" property is not present
+> > > > 
+> > > > Isn't it much more complicated than that for HDMI though? My
+> > > > recollection was that any VIC but VIC1 would be limited range, and
+> > > > anything else full range?
+> > > 
+> > > Do we have some driver that implements the CTA-861 CE vs. IT mode
+> > > logic but doesn't expose the "Broadcast RGB" property? I was hoping
+> > > those would always go hand in hand now.
+> > 
+> > I'm not sure. i915 and the HDMI state helpers handle it properly (I
+> > think?) but it looks like only vc4 registers the Broadcast RGB property
+> > and uses the HDMI state helpers.
+> > 
+> > And it looks like amdgpu registers Broadcast RGB but doesn't use
+> > drm_default_rgb_quant_range() which seems suspicious?
+> 
+> If they want just manual full vs. limited then they should
+> limit the property to not expose the "auto" option at all.
+> 
+> amdgpu also ties this in with the "colorspace" property, which
+> originally in i915 only controlled the infoframes/etc. But on
+> amdgpu it now controls various aspects of output color
+> transformation. The end result is that the property is a complete
+> mess with most of the values making no sense. And for whatever
+> reason everyone involved refused to remove/deprecate the
+> nonsensical values :/
+> 
+> Looks like this series should make sure the documentation for
+> the "colorspace" property is in sync with the new property
+> as well. Currently now it's giving conflicting information.
 
-Suggested-by: Jonathan Kim <jonathan.kim@amd.com>
-Signed-off-by: Amber Lin <Amber.Lin@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c       |   6 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h       |   1 +
- .../drm/amd/amdkfd/kfd_device_queue_manager.c | 147 +++++++++++++++++-
- .../drm/amd/amdkfd/kfd_device_queue_manager.h |   4 +-
- drivers/gpu/drm/amd/amdkfd/kfd_priv.h         |   1 +
- 5 files changed, 156 insertions(+), 3 deletions(-)
+After pondering about this a bit more I guess we could actually
+use this to make all the values of the colorspace property make
+some sense.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-index fb7fdf5d0973..75720d247b4a 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-@@ -793,6 +793,12 @@ bool amdgpu_mes_suspend_resume_all_supported(struct amdgpu_device *adev)
- 		amdgpu_ip_version(adev, GC_HWIP, 0) >= IP_VERSION(12, 0, 0));
- }
- 
-+bool amdgpu_mes_queue_reset_by_mes_supported(struct amdgpu_device *adev)
-+{
-+	return (amdgpu_ip_version(adev, GC_HWIP, 0) == IP_VERSION(12, 1, 0) &&
-+		(adev->mes.sched_version & AMDGPU_MES_VERSION_MASK) >= 0x73);
-+}
-+
- /* Fix me -- node_id is used to identify the correct MES instances in the future */
- static int amdgpu_mes_set_enforce_isolation(struct amdgpu_device *adev,
- 					    uint32_t node_id, bool enable)
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
-index 643b4f8d757a..44fa4d73bce8 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
-@@ -548,6 +548,7 @@ static inline void amdgpu_mes_unlock(struct amdgpu_mes *mes)
- }
- 
- bool amdgpu_mes_suspend_resume_all_supported(struct amdgpu_device *adev);
-+bool amdgpu_mes_queue_reset_by_mes_supported(struct amdgpu_device *adev);
- 
- int amdgpu_mes_update_enforce_isolation(struct amdgpu_device *adev);
- 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-index ec8d7f4be840..2670741f3e53 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-@@ -71,6 +71,12 @@ static int allocate_sdma_queue(struct device_queue_manager *dqm,
- 				struct queue *q, const uint32_t *restore_sdma_id);
- 
- static int reset_queues_on_hws_hang(struct device_queue_manager *dqm, bool is_sdma);
-+static int resume_all_queues_mes(struct device_queue_manager *dqm);
-+static int suspend_all_queues_mes(struct device_queue_manager *dqm);
-+static struct queue *find_queue_by_doorbell_offset(struct device_queue_manager *dqm,
-+						   uint32_t doorbell_offset);
-+static void set_queue_as_reset(struct device_queue_manager *dqm, struct queue *q,
-+			       struct qcm_process_device *qpd);
- 
- static inline
- enum KFD_MQD_TYPE get_mqd_type_from_queue_type(enum kfd_queue_type type)
-@@ -273,13 +279,19 @@ static int add_queue_mes(struct device_queue_manager *dqm, struct queue *q,
- 	return r;
- }
- 
--static int remove_queue_mes(struct device_queue_manager *dqm, struct queue *q,
--			struct qcm_process_device *qpd)
-+static int remove_queue_mes_on_reset_option(struct device_queue_manager *dqm, struct queue *q,
-+					    struct qcm_process_device *qpd,
-+					    bool is_for_reset,
-+					    bool flush_mes_queue)
- {
- 	struct amdgpu_device *adev = (struct amdgpu_device *)dqm->dev->adev;
- 	int r;
- 	struct mes_remove_queue_input queue_input;
- 
-+	/* queue was already removed during reset */
-+	if (q->properties.is_reset)
-+		return 0;
-+
- 	if (!dqm->sched_running || dqm->sched_halt)
- 		return 0;
- 	if (!down_read_trylock(&adev->reset_domain->sem))
-@@ -288,6 +300,7 @@ static int remove_queue_mes(struct device_queue_manager *dqm, struct queue *q,
- 	memset(&queue_input, 0x0, sizeof(struct mes_remove_queue_input));
- 	queue_input.doorbell_offset = q->properties.doorbell_off;
- 	queue_input.gang_context_addr = q->gang_ctx_gpu_addr;
-+	queue_input.remove_queue_after_reset = flush_mes_queue;
- 	queue_input.xcc_id = ffs(dqm->dev->xcc_mask) - 1;
- 
- 	amdgpu_mes_lock(&adev->mes);
-@@ -295,7 +308,13 @@ static int remove_queue_mes(struct device_queue_manager *dqm, struct queue *q,
- 	amdgpu_mes_unlock(&adev->mes);
- 	up_read(&adev->reset_domain->sem);
- 
-+	if (is_for_reset)
-+		return r;
-+
- 	if (r) {
-+		if (!suspend_all_queues_mes(dqm))
-+			return resume_all_queues_mes(dqm);
-+
- 		dev_err(adev->dev, "failed to remove hardware queue from MES, doorbell=0x%x\n",
- 			q->properties.doorbell_off);
- 		dev_err(adev->dev, "MES might be in unrecoverable state, issue a GPU reset\n");
-@@ -305,6 +324,12 @@ static int remove_queue_mes(struct device_queue_manager *dqm, struct queue *q,
- 	return r;
- }
- 
-+static int remove_queue_mes(struct device_queue_manager *dqm, struct queue *q,
-+			    struct qcm_process_device *qpd)
-+{
-+	return remove_queue_mes_on_reset_option(dqm, q, qpd, false, false);
-+}
-+
- static int remove_all_kfd_queues_mes(struct device_queue_manager *dqm)
- {
- 	struct device_process_node *cur;
-@@ -359,6 +384,92 @@ static int add_all_kfd_queues_mes(struct device_queue_manager *dqm)
- 	return retval;
- }
- 
-+static int reset_queues_mes(struct device_queue_manager *dqm)
-+{
-+	struct amdgpu_device *adev = (struct amdgpu_device *)dqm->dev->adev;
-+	int hqd_info_size = adev->mes.hung_queue_hqd_info_offset;
-+	int num_hung = 0, r = 0, i, pipe, queue, queue_type;
-+	uint32_t *hung_array = dqm->hung_db_array;
-+	struct amdgpu_mes_hung_queue_hqd_info *hqd_info = dqm->hqd_info;
-+	struct kfd_process_device *pdd;
-+	struct queue *q;
-+
-+	if (!amdgpu_mes_queue_reset_by_mes_supported(adev)) {
-+		r = -ENOTRECOVERABLE;
-+		goto fail;
-+	}
-+
-+	/* reset should be used only in dqm locked queue reset */
-+	if (WARN_ON(dqm->detect_hang_count > 0))
-+		return 0;
-+
-+	if (!amdgpu_gpu_recovery) {
-+		r = -ENOTRECOVERABLE;
-+		goto fail;
-+	}
-+
-+	if (!hung_array || !hqd_info) {
-+		r = -ENOMEM;
-+		goto fail;
-+	}
-+
-+	memset(hqd_info, 0, hqd_info_size * sizeof(struct amdgpu_mes_hung_queue_hqd_info));
-+
-+	/*
-+	 * AMDGPU_RING_TYPE_COMPUTE parameter does not matter if called
-+	 * post suspend_all as reset & detect will return all hung queue types.
-+	 *
-+	 * Passed parameter is for targeting queues not scheduled by MES add_queue.
-+	 */
-+	r =  amdgpu_mes_detect_and_reset_hung_queues(adev, AMDGPU_RING_TYPE_COMPUTE,
-+		false, &num_hung, hung_array, ffs(dqm->dev->xcc_mask) - 1);
-+
-+	if (!num_hung || r) {
-+		r = -ENOTRECOVERABLE;
-+		goto fail;
-+	}
-+
-+	/* MES resets queue/pipe and cleans up internally */
-+	for (i = 0; i < num_hung; i++) {
-+		hqd_info[i].bit0_31 = hung_array[i + hqd_info_size];
-+		pipe = hqd_info[i].pipe_index;
-+		queue = hqd_info[i].queue_index;
-+		queue_type = hqd_info[i].queue_type;
-+
-+		if (queue_type != MES_QUEUE_TYPE_COMPUTE &&
-+		    queue_type != MES_QUEUE_TYPE_SDMA) {
-+			pr_warn("Unsupported hung queue reset type: %d\n", queue_type);
-+			hung_array[i] = AMDGPU_MES_INVALID_DB_OFFSET;
-+			continue;
-+		}
-+
-+		q = find_queue_by_doorbell_offset(dqm, hung_array[i]);
-+		if (!q) {
-+			r = -ENOTRECOVERABLE;
-+			goto fail;
-+		}
-+
-+		pdd = kfd_get_process_device_data(q->device, q->process);
-+		if (!pdd) {
-+			r = -ENODEV;
-+			goto fail;
-+		}
-+
-+		pr_warn("Hang detected doorbell %x pipe %d queue %d type %d\n",
-+				hung_array[i], pipe, queue, queue_type);
-+		/* Proceed remove_queue with reset=true */
-+		remove_queue_mes_on_reset_option(dqm, q, &pdd->qpd, true, false);
-+		set_queue_as_reset(dqm, q, &pdd->qpd);
-+	}
-+
-+	dqm->detect_hang_count = num_hung;
-+	kfd_signal_reset_event(dqm->dev);
-+
-+fail:
-+	dqm->detect_hang_count = 0;
-+	return r;
-+}
-+
- static int suspend_all_queues_mes(struct device_queue_manager *dqm)
- {
- 	struct amdgpu_device *adev = (struct amdgpu_device *)dqm->dev->adev;
-@@ -371,6 +482,9 @@ static int suspend_all_queues_mes(struct device_queue_manager *dqm)
- 	up_read(&adev->reset_domain->sem);
- 
- 	if (r) {
-+		if (!reset_queues_mes(dqm))
-+			return 0;
-+
- 		dev_err(adev->dev, "failed to suspend gangs from MES\n");
- 		dev_err(adev->dev, "MES might be in unrecoverable state, issue a GPU reset\n");
- 		kfd_hws_hang(dqm);
-@@ -1821,6 +1935,9 @@ static int start_cpsch(struct device_queue_manager *dqm)
- {
- 	struct device *dev = dqm->dev->adev->dev;
- 	int retval, num_hw_queue_slots;
-+	struct amdgpu_device *adev = (struct amdgpu_device *)dqm->dev->adev;
-+	int hung_array_size = amdgpu_mes_get_hung_queue_db_array_size(adev);
-+	int hqd_info_size = adev->mes.hung_queue_hqd_info_offset;
- 
- 	dqm_lock(dqm);
- 
-@@ -1870,6 +1987,11 @@ static int start_cpsch(struct device_queue_manager *dqm)
- 		goto fail_detect_hang_buffer;
- 	}
- 
-+	dqm->hung_db_array = kzalloc(hung_array_size * sizeof(uint32_t), GFP_KERNEL);
-+	dqm->hqd_info = kzalloc(
-+		hqd_info_size * sizeof(struct amdgpu_mes_hung_queue_hqd_info),
-+		GFP_KERNEL);
-+
- 	dqm_unlock(dqm);
- 
- 	return 0;
-@@ -1910,6 +2032,9 @@ static int stop_cpsch(struct device_queue_manager *dqm)
- 		pm_uninit(&dqm->packet_mgr);
- 	kfree(dqm->detect_hang_info);
- 	dqm->detect_hang_info = NULL;
-+	kfree(dqm->hung_db_array);
-+	kfree(dqm->hqd_info);
-+
- 	dqm_unlock(dqm);
- 
- 	return ret;
-@@ -2137,6 +2262,7 @@ static void set_queue_as_reset(struct device_queue_manager *dqm, struct queue *q
- 		q->properties.queue_id, pdd->process->lead_thread->pid);
- 
- 	pdd->has_reset_queue = true;
-+	q->properties.is_reset = true;
- 	if (q->properties.is_active) {
- 		q->properties.is_active = false;
- 		decrement_queue_count(dqm, qpd, q);
-@@ -2203,6 +2329,23 @@ static struct queue *find_queue_by_address(struct device_queue_manager *dqm, uin
- 	return NULL;
- }
- 
-+static struct queue *find_queue_by_doorbell_offset(struct device_queue_manager *dqm, uint32_t doorbell_offset)
-+{
-+	struct device_process_node *cur;
-+	struct qcm_process_device *qpd;
-+	struct queue *q;
-+
-+	list_for_each_entry(cur, &dqm->queues, list) {
-+		qpd = cur->qpd;
-+		list_for_each_entry(q, &qpd->queues_list, list) {
-+			if (doorbell_offset == q->properties.doorbell_off)
-+				return q;
-+		}
-+	}
-+
-+	return NULL;
-+}
-+
- static int reset_hung_queues(struct device_queue_manager *dqm)
- {
- 	int r = 0, reset_count = 0, i;
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h
-index 3272328da11f..e6eca38cae4e 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h
-@@ -32,7 +32,6 @@
- #include "kfd_priv.h"
- #include "kfd_mqd_manager.h"
- 
--
- #define VMID_NUM 16
- 
- #define KFD_MES_PROCESS_QUANTUM		100000
-@@ -285,6 +284,9 @@ struct device_queue_manager {
- 	struct dqm_detect_hang_info *detect_hang_info;
- 	size_t detect_hang_info_size;
- 	int detect_hang_count;
-+	/* for per-queue reset with mes */
-+	uint32_t *hung_db_array;
-+	struct amdgpu_mes_hung_queue_hqd_info *hqd_info;
- };
- 
- void device_queue_manager_init_cik(
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-index 27e4859e4ad7..6cb33f6d71e2 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-@@ -523,6 +523,7 @@ struct queue_properties {
- 	uint32_t pm4_target_xcc;
- 	bool is_dbg_wa;
- 	bool is_user_cu_masked;
-+	bool is_reset;
- 	/* Not relevant for user mode queues in cp scheduling */
- 	unsigned int vmid;
- 	/* Relevant only for sdma queues*/
+Since we won't have to worry about that RGB->YCbCr 4:2:0
+fallback when using and explicit color format, all we'd have
+to do is explicitly reject the nonsensical combinations:
+
+color_format_and_colorspace_ok()
+{
+	switch (color_format) {
+	case DRM_CONNECTOR_COLOR_FORMAT_YCBCR444:
+	case DRM_CONNECTOR_COLOR_FORMAT_YCBCR422:
+	case DRM_CONNECTOR_COLOR_FORMAT_YCBCR420:
+		switch (colorspace) {
+		case DRM_MODE_COLORIMETRY_NO_DATA:
+		case DRM_MODE_COLORIMETRY_SMPTE_170M_YCC:
+		case DRM_MODE_COLORIMETRY_BT601_YCC:
+		case DRM_MODE_COLORIMETRY_BT709_YCC:
+		case DRM_MODE_COLORIMETRY_XVYCC_601:
+		case DRM_MODE_COLORIMETRY_XVYCC_709:
+		case DRM_MODE_COLORIMETRY_SYCC_601:
+		case DRM_MODE_COLORIMETRY_OPYCC_601:
+		case DRM_MODE_COLORIMETRY_BT2020_CYCC:
+		case DRM_MODE_COLORIMETRY_BT2020_YCC:
+		case DRM_MODE_COLORIMETRY_BT709_YCC:
+			return true;
+		default:
+			return false;
+		}
+		break;
+	case DRM_CONNECTOR_COLOR_FORMAT_RGB444:
+		switch (colorspace) {
+		case DRM_MODE_COLORIMETRY_NO_DATA:
+		case DRM_MODE_COLORIMETRY_OPRGB:
+		case DRM_MODE_COLORIMETRY_BT2020_RGB:
+		case DRM_MODE_COLORIMETRY_DCI_P3_RGB_D65:
+		case DRM_MODE_COLORIMETRY_DCI_P3_RGB_THEATER:
+		case DRM_MODE_COLORIMETRY_RGB_WIDE_FIXED:
+		case DRM_MODE_COLORIMETRY_RGB_WIDE_FLOAT:
+		case DRM_MODE_COLORIMETRY_OPRGB:
+		case DRM_MODE_COLORIMETRY_DCI_P3_RGB_D65:
+		case DRM_MODE_COLORIMETRY_BT2020_RGB:
+			return true;
+		default
+			return false;
+		}
+		break;
+	case DRM_CONNECTOR_COLOR_FORMAT_AUTO:
+		switch (colorspace) {
+		case DRM_MODE_COLORIMETRY_NO_DATA:
+		case DRM_MODE_COLORIMETRY_BT2020_RGB:
+		case DRM_MODE_COLORIMETRY_BT2020_YCC:
+			return true;
+		default:
+			return false;
+		}
+	default:
+		bad;
+	}
+}
+
+And then presumably the colorspace property is the thing that should
+dictate which conversion matrix to use. So something like this:
+
+csc_matrix()
+{
+	switch (colorspace) {
+	case DRM_MODE_COLORIMETRY_SMPTE_170M_YCC:
+	case DRM_MODE_COLORIMETRY_BT601_YCC:
+	case DRM_MODE_COLORIMETRY_XVYCC_601:
+	case DRM_MODE_COLORIMETRY_SYCC_601:
+	case DRM_MODE_COLORIMETRY_OPYCC_601:
+		return 601;
+	case DRM_MODE_COLORIMETRY_BT709_YCC:
+	case DRM_MODE_COLORIMETRY_XVYCC_709:
+		return 709;
+	case DRM_MODE_COLORIMETRY_BT2020_YCC:
+	case DRM_MODE_COLORIMETRY_BT2020_RGB:
+		return 2020;
+	case DRM_MODE_COLORIMETRY_BT2020_CYCC:
+		return 2020_const;
+	case DRM_MODE_COLORIMETRY_NO_DATA:
+		return vdisplay >= 720 ? 709 : 601;
+	default:
+		bad;
+	}
+}
+
 -- 
-2.43.0
-
+Ville Syrjälä
+Intel
