@@ -4,75 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A0D19F3D5FF
-	for <amd-gfx@archiver.kernel.org>; Sun, 29 Mar 2026 09:57:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 587DEF3D5FE
+	for <amd-gfx@archiver.kernel.org>; Sun, 29 Mar 2026 09:57:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C6ED710E314;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C4C7310E2F8;
 	Sun, 29 Mar 2026 09:57:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="jumdBk95";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="rMzqlMDu";
 	dkim-atps=neutral
-Received: from mail-lf1-f48.google.com (mail-lf1-f48.google.com
- [209.85.167.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BF99410E0C2
- for <amd-gfx@lists.freedesktop.org>; Sun, 29 Mar 2026 04:40:26 +0000 (UTC)
-Received: by mail-lf1-f48.google.com with SMTP id
- 2adb3069b0e04-5a2a70bb69eso3341541e87.2
- for <amd-gfx@lists.freedesktop.org>; Sat, 28 Mar 2026 21:40:26 -0700 (PDT)
+Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com
+ [209.85.208.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2056110E083
+ for <amd-gfx@lists.freedesktop.org>; Sat, 28 Mar 2026 21:39:07 +0000 (UTC)
+Received: by mail-ed1-f45.google.com with SMTP id
+ 4fb4d7f45d1cf-66b957dd76dso684415a12.3
+ for <amd-gfx@lists.freedesktop.org>; Sat, 28 Mar 2026 14:39:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1774759225; x=1775364025; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=reR9BnQPkWjZy1ztn6tX7OBCu0iHKhMxp0dC8tGeiNU=;
- b=jumdBk95ipOYr1tR2n4dq+3v6GTkmBbjfAzEjoYGKzC4fCuqLa5nK0zDg+rIb+J34+
- /7uMpRWBL9PuVbT+Gej25I9UtbC5Lo2CdVsBIGPp403wQnlAgWszP7Rlr+1gkSnj38/K
- P3n5TPv5sGiGEKxcCLysMAPNCgxRDMewg5NvPLNGUYTLMYblvdE2lfxOvcWP2K/YPXOM
- zmpAEK/nZxCTDOaPVeEt3vNb2AdgO/A3o18SzYeBHeaxdQNuCbMOFi8h5omB8ydVQzOR
- z1H4+ZfVM5wtimvFbQOftxSukK0qrB/YzeoF/+K8EgEsnVN5WzouLIncHup6L30v9j/l
- UjHg==
+ d=gmail.com; s=20251104; t=1774733945; x=1775338745; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=kXnSrL1nik3JfElYjJrrOZj+38qywDMZ4t7LJjjm5fU=;
+ b=rMzqlMDufg8m8KuP4UKMMCdVpUqWT3ToeqnVoR72vQEIrD2JGArek3zpOEq2eIQ/B6
+ 9yBVzMb/zABJ6JTCIKRmKvIIrXKEUroCB9gXe1R3hF2A3URY3tRlEZnlQD6IhZ66SGiy
+ tlvCRdLSM7RQJMNBF0GqlRsT8HeHC5T+pyU7ZQMf28HvHDAF7QO8glokwpqbSB/JVxLx
+ XqXmSJQs4KI+oZGGRVEeTHz4FPICL8BssBA9BVZN05tEy0+Ct4xVJcBUf6Xa1fMFgfPx
+ N+CtLvKSiACePgKRtBZpCEyWY8LD1nRYZILR8FEq+fcZehNjlncGPwPRONGVz44Gr6q7
+ seCw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774759225; x=1775364025;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=reR9BnQPkWjZy1ztn6tX7OBCu0iHKhMxp0dC8tGeiNU=;
- b=ipsKVsJFr5jOxqs/Srv3cDBAGZkZLc7FH6BSjI8OnLmnQVcJ8icFDtk4bqWsSCakgq
- vjkUW9ZCMjnu6wvDSzXso+nZ6+g/Kur/Nr3DHvKKpG+PLRGX/chH/fUa1Nh4D+maRtif
- pI9u1pqjXN6o/Ycqnt4/64K/VGnsqVqEIDFJZKUnnVXWnqhvA4fqdUmozHaFE5JIzTPH
- ivToG/gB1GYAwLZr9OvzOdo8LzdhuoCzvidEylH8eR95pgD592Ko4rHs/N3sJ+fRp1q9
- hP3xh6tVNYVW9TD2HInOri7jwUlN7O6C6/lTcSVAu/dto2lvOpIB/G5N9WZcqUIKlLQL
- q/hA==
-X-Gm-Message-State: AOJu0Yycf1of5frlwahFtFbpTbTBmR6VxWqpovP33u2XqOI+KPLKu0U+
- kXian2eRYAez/AGttrYLthqJLieqy8m7YCs9vifhLgHQo4N1q1wGkfP8E1VETIY=
-X-Gm-Gg: ATEYQzykS79OfTGGzABBgWPoSOyQuV2aE4iJLBvH4ywpb9gO4wTpiJXzy1yuLu7YE6V
- 6+mUL7h8gIqIA3tV84RpsdciZR9L4yx+GF+MoRSzR+w8G2BFxNEforj05ZULhWonTJKO4wLCdPl
- e97J/J7TAIkyCfD5jTMdKDMcHSB1mlZimn1pLibRniOnf3OoXhuO2CpIzAvYtGd9V6hgKH7YYG+
- 91Pa9/Qoddh2VMCD/wSp97LHNtKH6dJ51J2hivIZnh0O84e3bdiJ5z3E6pcgtaGXMuYv42+V++o
- fGWs43/GhyPmYFVUS9KvPyWax1k0GEmKADk7bATWoXuwt2qCYgHgJzzC2fADH72JpSpewwY/yjP
- 8iS67WVO3ianDO2lG1xtuO4Mnf97d8hnga4Oo2j5Spxwy1N3KR5DffQ8rZI0t7ELVafkDfwKO8W
- OIOMaol2OBoFWxMD68IkXiqMrC7FCuUHJydEA1hA==
-X-Received: by 2002:a05:6512:118e:b0:5a1:53d1:d741 with SMTP id
- 2adb3069b0e04-5a2ab7e8ddfmr2791606e87.4.1774759224666; 
- Sat, 28 Mar 2026 21:40:24 -0700 (PDT)
-Received: from fedora.localdomain ([2a11:3805:0:93::1])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5a2b145772fsm836212e87.71.2026.03.28.21.40.23
+ d=1e100.net; s=20251104; t=1774733945; x=1775338745;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=kXnSrL1nik3JfElYjJrrOZj+38qywDMZ4t7LJjjm5fU=;
+ b=QAxnkAGiY+OOmFFUX7o1BQRFeplhukE2qBIeNj4Wjm3196GbOkA2cqDDp/4KwwugBh
+ se6W1hkFXslUVGa65iLQQP0DD1CC7Ig/jClHYYWequzSPpINNSyNJl6x/cXlXGeBJkRb
+ /UJIhmw9+hINkwqL1xiz++qXQjNY153jGFpy8Ddt9a97JGGJqV3mEUK0zsafUSxaXzGr
+ 2WjXVx88f/bdLWt1tvnYhIunBRuG78nLB38nKa+DudrKDL3TqdkjyVGZXTUFAPurabgu
+ f7EgdnMZ7iXGjb/XuRGAEk/cVyK+VZwZdpBdFwDkE3V60TgKhqnW9GhJ3EXE9GXUcUew
+ WFFg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVLSTiBfXV9bZhTkQ1yOztYfxgVDeabjRqcRpeoBHBjPBfpRLBytBw4G0HjO3Jji5YZ2TxjS5/t@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyamEn1agA5LN31DQlAoux+jw3fVTAEoDGDXSdwrBIqh8lyR+cE
+ 8iGS4ZL0lDK2SfECTZJEpGNSY+SZ5aCsx/GxLBnnWcwC8SI1kzfeiwfT
+X-Gm-Gg: ATEYQzyAyRniWVV7cJpdCY0eaKpS2it5HvALA5OSCh5Cv9TlwTIGYLOqjox/HHmzf2O
+ 6gL9JQWmgb+bma1pHi6qfP0dtC9M7EgChUnVPvtyjWHQKuC+JLrfy8JBzU6wD+K78c0kes9r49r
+ 5WA+F0inuRw9LI5f1tMmOJkua1v79f0w/cK/Lrkr/qOq4CdzJAGzZp8Nna9GaYs8vqit35tfMQt
+ fVfj6OYDanv9zjrb6D/xws8oQWg/hUf86fiuCaT+MP+AIM4+OzESy8F9qmamZFWqH1DGSJXINSV
+ 9Zu5IQMi6QLyTqyrWhBstsFfuALae8icPKj8VjMCGP1/xwpeAVF7zkyK6Id3TTNO5G+KYyfxuSW
+ 8cYXj2cwta4xffNF9bA7JyeAUpRXieJE3oNYObEKoPpXP4J+AIw8YmZ0/xwrYo6k++Nd2cQ5o9d
+ 7AhK2i7xOS0b/6gr2aO6scV2UzoTGQJJxd
+X-Received: by 2002:a05:6402:4618:b0:665:e9f:9021 with SMTP id
+ 4fb4d7f45d1cf-66b2855f8d5mr3612343a12.9.1774733945154; 
+ Sat, 28 Mar 2026 14:39:05 -0700 (PDT)
+Received: from localhost ([178.214.243.78]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-66b75f84708sm909093a12.21.2026.03.28.14.39.03
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 28 Mar 2026 21:40:24 -0700 (PDT)
-From: Sbenazar <voroninan95ton@gmail.com>
-To: amd-gfx@lists.freedesktop.org
-Cc: harry.wentland@amd.com, Sbenazar <voroninan95ton@gmail.com>,
- stable@vger.kernel.org
-Subject: [PATCH v3 4/4] drm/amd/display: add timestamp guard to
- vblank_control_worker for Replay
-Date: Sun, 29 Mar 2026 07:40:08 +0300
-Message-ID: <20260329044014.30276-5-voroninan95ton@gmail.com>
+ Sat, 28 Mar 2026 14:39:04 -0700 (PDT)
+From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+To: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Eric Huang <jinhuieric.huang@amd.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, stable@vger.kernel.org,
+ Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+Subject: [PATCH] drm/amdgpu: fix sleeping allocation under spinlock in PASID
+ IDR
+Date: Sun, 29 Mar 2026 02:39:00 +0500
+Message-ID: <20260328213900.19255-1-mikhail.v.gavrilov@gmail.com>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260329035830.21953-1-voroninan95ton@gmail.com>
-References: <20260329035830.21953-1-voroninan95ton@gmail.com>
- <20260329044014.30276-1-voroninan95ton@gmail.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Sun, 29 Mar 2026 09:57:18 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -89,46 +90,60 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-amdgpu_dm_crtc_set_panel_sr_feature() in the vblank_control_worker path
-can re-enable Panel Replay as soon as vblank is disabled and
-allow_sr_entry is true. Unlike amdgpu_dm_enable_self_refresh() in the
-commit_planes path, there is no 500ms timestamp guard here to prevent
-premature re-activation during ongoing animations.
+Commit 14b81abe7bdc ("drm/amdgpu: prevent immediate PASID reuse case")
+switched from ida to idr_alloc_cyclic() protected by a spinlock, but
+passes GFP_KERNEL to the allocator.  idr_alloc_cyclic() may need to
+allocate radix-tree nodes, which with GFP_KERNEL can sleep — illegal
+under a spinlock that disables preemption.  With CONFIG_PREEMPT or
+lockdep enabled this triggers:
 
-This is a problem because the vblank worker runs asynchronously: a
-compositor may disable vblank events while a workspace animation is still
-producing commits, causing Replay to be re-enabled mid-animation and
-triggering the DMCUB firmware artifacts on affected hardware.
+  BUG: sleeping function called from invalid context at
+       ./include/linux/sched/mm.h:323
+  in_atomic(): 1, irqs_disabled(): 0, non_block: 0, pid: 570
+  ...
+  #1: ffffffffc2cd24f8 (amdgpu_pasid_idr_lock){+.+.}-{3:3},
+      at: amdgpu_pasid_alloc+0x24/0x210 [amdgpu]
+  ...
+  kmem_cache_alloc_noprof+0x41d/0x780
+  radix_tree_node_alloc.constprop.0+0x56/0x3a0
+  idr_get_free+0x330/0x830
+  idr_alloc_u32+0x14a/0x2e0
+  idr_alloc_cyclic+0xd3/0x1d0
+  amdgpu_pasid_alloc+0x51/0x210 [amdgpu]
 
-Fix this by adding a 500ms guard using replay_disabled_timestamp_ns
-(introduced in patch 2) before re-enabling Replay in the vblank worker
-path. This ensures both re-enable paths have consistent timing
-protection.
+A mutex is not an option because amdgpu_pasid_free() is reachable from
+dma-fence callbacks (amdgpu_pasid_free_cb) which may run in IRQ context.
 
+Use idr_preload(GFP_KERNEL) before taking the spinlock to pre-allocate
+radix-tree nodes, then pass GFP_NOWAIT inside the critical section so
+the allocator draws from the preloaded pool and never sleeps.  This is
+the standard kernel pattern for IDR allocation under a spinlock.
+
+Fixes: 14b81abe7bdc ("drm/amdgpu: prevent immediate PASID reuse case")
 Cc: stable@vger.kernel.org
-Signed-off-by: Sbenazar <voroninan95ton@gmail.com>
+Signed-off-by: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
 ---
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
-index XXXXXXX..XXXXXXX 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
-@@ -142,6 +142,14 @@ static void amdgpu_dm_crtc_set_panel_sr_feature(
- 	if (link->replay_settings.replay_feature_enabled && !vrr_active &&
- 		allow_sr_entry && !is_sr_active && !is_crc_window_active) {
-+		/*
-+		 * Enforce 500ms delay after replay was last disabled to prevent
-+		 * re-enabling during ongoing animations (e.g., workspace switch).
-+		 * Mirrors the guard in amdgpu_dm_enable_self_refresh().
-+		 */
-+		if ((ktime_get_ns() - link->replay_settings.replay_disabled_timestamp_ns)
-+		    <= 500000000)
-+			return;
- 		amdgpu_dm_replay_enable(vblank_work->stream, true);
- 	} else if (vblank_enabled) {
- 		if (link->psr_settings.psr_version < DC_PSR_VERSION_SU_1 && is_sr_active)
---
-2.48.1
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
+index d88523568b62..515775eab2ef 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
+@@ -67,10 +67,12 @@ int amdgpu_pasid_alloc(unsigned int bits)
+ 	if (bits == 0)
+ 		return -EINVAL;
+ 
++	idr_preload(GFP_KERNEL);
+ 	spin_lock(&amdgpu_pasid_idr_lock);
+ 	pasid = idr_alloc_cyclic(&amdgpu_pasid_idr, NULL, 1,
+-				 1U << bits, GFP_KERNEL);
++				 1U << bits, GFP_NOWAIT);
+ 	spin_unlock(&amdgpu_pasid_idr_lock);
++	idr_preload_end();
+ 
+ 	if (pasid >= 0)
+ 		trace_amdgpu_pasid_allocated(pasid);
+-- 
+2.53.0
 
