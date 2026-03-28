@@ -4,79 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7C27A10F3DD9
-	for <amd-gfx@archiver.kernel.org>; Sat, 28 Mar 2026 10:22:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 838D910F3DEC
+	for <amd-gfx@archiver.kernel.org>; Sat, 28 Mar 2026 16:37:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 71BD110E415;
-	Sat, 28 Mar 2026 10:22:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BBEA010E027;
+	Sat, 28 Mar 2026 16:37:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="hYU4MBjk";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="JmpsrmG9";
 	dkim-atps=neutral
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
- [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0567110E1C5;
- Fri, 27 Mar 2026 12:56:34 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1774616179; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=nrhJQcNU2St85zr7KW0VW77O0rvjPuIFsgi0f3RHLuq01R3pXJEeYUsQDtcuvZr/SlAD7bJYG7OMKTL4t3i+m69bvvJ0u6NAKpW5UThs9vJTi8fkJXOVZL+Ksgw1SoeMmFgLMRKb+jM0TiSiMgaEhVZ76X0O23g+O5H3UxXtIHA=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1774616179;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=9rZk3O9XtcgvBcy00N+ORbUqxZBMTrdkFnBuRIM06bI=; 
- b=RiLu1f6xF46lhFrMPIJ8+LCZP1DjvY7YUR7IZQhn/d4AGGFfV/BeaO9+hlrlA4IkTc8AXYUHbrQKNC7Y9aWT+WS2A7rYiZO9tL/y7PLslKQJjeerZf3m4BARf7anBe/OG+EWt9IstJe+QY9KexW0GVTgr0q/bvBYlCGzHE58fpA=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
- dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1774616179; 
- s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
- h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:Content-Type:Message-Id:Reply-To;
- bh=9rZk3O9XtcgvBcy00N+ORbUqxZBMTrdkFnBuRIM06bI=;
- b=hYU4MBjkdSfxJmH/kKO/j7MNFTk9XtBpm41ookcZAIDnG353SOU0DAWhw/FagFR0
- AmxyXQ1E79tKhpvXNtkgVz3GMmzGSc6UZOkL0HpMdPVL9MIhCTOB6f/U1SJ+liOwLpg
- 72BpbX2lR1jnhNBoBY+RhPXNy5J6gyEHCB9y3feQ=
-Received: by mx.zohomail.com with SMTPS id 17746161764209.309822167866628;
- Fri, 27 Mar 2026 05:56:16 -0700 (PDT)
-From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-To: Maxime Ripard <mripard@kernel.org>,
- Ville =?UTF-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
-Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Sandy Huang <hjc@rock-chips.com>,
- Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>,
- Andy Yan <andy.yan@rock-chips.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, Dmitry Baryshkov <lumag@kernel.org>,
- Sascha Hauer <s.hauer@pengutronix.de>, Rob Herring <robh@kernel.org>,
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- kernel@collabora.com, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- linux-doc@vger.kernel.org, Werner Sembach <wse@tuxedocomputers.com>,
- Andri Yngvason <andri@yngvason.is>, Marius Vlad <marius.vlad@collabora.com>
-Subject: Re: [PATCH v11 03/22] drm: Add new general DRM property "color format"
-Date: Fri, 27 Mar 2026 13:56:06 +0100
-Message-ID: <4153041.tdWV9SEqCh@workhorse>
-In-Reply-To: <acVzwRyk_J24GrJ4@intel.com>
-References: <20260324-color-format-v11-0-605559af4fb4@collabora.com>
- <20260326-pumpkin-goshawk-of-stamina-0ccb84@houat>
- <acVzwRyk_J24GrJ4@intel.com>
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com
+ [209.85.128.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B49BA10E004
+ for <amd-gfx@lists.freedesktop.org>; Sat, 28 Mar 2026 14:14:39 +0000 (UTC)
+Received: by mail-wm1-f43.google.com with SMTP id
+ 5b1f17b1804b1-486ff201041so28818535e9.1
+ for <amd-gfx@lists.freedesktop.org>; Sat, 28 Mar 2026 07:14:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1774707278; x=1775312078; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=t4vlVVvxWEWO2r6arzInv5eisxXfXrLq1ekNSjOyYGg=;
+ b=JmpsrmG9AiUz1NeObMZGxW5oAfNw/xMQDMHyU+rBq9twuVZzw8gc3kpC9hTD9Q+GRF
+ Mx0HFwo/nmFkT9TEcX7nYFONuOAPqM6snEzhVnXkbA54sJ8fpl9nPHgjMBFbIsij1k8W
+ Pqn1Z6SStxHz8JemmhVt1v+oMOsMMqcq2QtU4HmmUxi/5m3SOm+pXZ/aJEcP3N9QVUYM
+ xTwhRU02S9R0fJQB9EOGje5lC1zYKfKw0uMu4ERvcP2kXCbrBJBg/kP+eR549HI/73Wh
+ 33+Vm+XWlY31QKUVfB3LkfBwWnah7QOQOgpYw37xnrSl4YQarJSyZnRzfxtZvXehDvpE
+ W0Sw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1774707278; x=1775312078;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=t4vlVVvxWEWO2r6arzInv5eisxXfXrLq1ekNSjOyYGg=;
+ b=knbHPTROeeBqAlEyLum8TxF3JYc+ZmdwImo6blBAw+xxmb6BpiQixa2hyPn3JzbWfg
+ hn96wwWE9bmqZOwrEdhWyCgTCVp18JfN88XbyaJiJftTmAP7KiS040tjRq3P17p+VfN+
+ pt4kwVFK9eBVDEqYLtE0o4okBXXMrjbBBWh+Gzh8WRmmeXv7DY+8K7awbivu6etqSswI
+ YhIvLpRVcQoLEAceDeGcp7HK2dWG8ir345jtgZC0Xn4gTHU+Nk5yUkaPG0sYkt011LL0
+ 9p2sczCf6aafJvc263XtRNpMQ59tY3+cvror1OhVctnPHewm/X2bRT9mTyjZz313F2kk
+ KItA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCU4jXGpuyUJU+njo/teM2I4m2D+/Y8n0pAWqA30fl4KMKeNp0n4v8ptvC2VmJ3J9eICQCVq/R5C@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwLBITrcHdeonLhqI2CRTLZyKiSheGhD244s06f2qUFEP87LPJL
+ rXCpB4Oncwz5vWNM6AGx0uEnreO5xOQ6w8pUEsHN8PtDq7eVR50Qi6aT
+X-Gm-Gg: ATEYQzy0hJSn7JfAqB5mLKQf3N6frCaE8+MpESKk8rBUMCoh18KNSFlGKJg+yI2wQnX
+ JQV9HUxojMZF71s5BJ4qIW8/HuCFJUzPGwBi35Qlfv0adyAh0MbyOvpUNSgh8zX2cM5hfYGDoU8
+ VYWXG57OOa2vXhTIgT1lOzccmPMDvVmbRqg03UOw8A1fmujn9t0UmZ/vmJPZFHP7+ulvv02BQjY
+ 9ihRyj7qTCGIYc0qGL9Hw42lUlGHtAFZtH1V0jG84GBlium9oMZZjSsPmb1a6BsiUForu/hff64
+ cQ0SGhjhz2w5CXf2aMPeYTsmd6KN/N69XjS+acTTn0/12OBMn85pmn/W7m64bF+QoJTHuWLG3Iw
+ ckWqJ1OhK4mDg1Th2AM95FAWOmrhtzL/CjqcHjaNxiPgJ2f3JQY5QeUYHljHRqpUqTYK8Rzgnpv
+ wALtpAZiJ/vBsOFuNemkYkMIjJvrOHvBkyvKrlL9z2xq/3oRbPl3m1pvuUTQ==
+X-Received: by 2002:a05:600c:41c4:b0:486:fc5f:1ab9 with SMTP id
+ 5b1f17b1804b1-48727d8410cmr71470085e9.14.1774707277993; 
+ Sat, 28 Mar 2026 07:14:37 -0700 (PDT)
+Received: from rhel.homenet.telecomitalia.it ([87.13.132.253])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-48730628efasm80210335e9.5.2026.03.28.07.14.37
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 28 Mar 2026 07:14:37 -0700 (PDT)
+From: Adriano Vero <litaliano00.contact@gmail.com>
+To: dri-devel@lists.freedesktop.org
+Cc: jani.nikula@linux.intel.com, alexander.deucher@amd.com,
+ harry.wentland@amd.com, sunpeng.li@amd.com, siqueira@igalia.com,
+ christian.koenig@amd.com, amd-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Adriano Vero <litaliano00.contact@gmail.com>,
+ Rodrigo.Siqueira@amd.com
+Subject: [PATCH 2/2] drm/amd/display: remove manual DisplayID VRR parsing from
+ freesync caps
+Date: Sat, 28 Mar 2026 14:20:27 +0100
+Message-ID: <20260328132027.22383-2-litaliano00.contact@gmail.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260328132027.22383-1-litaliano00.contact@gmail.com>
+References: <20260328132027.22383-1-litaliano00.contact@gmail.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
-X-Mailman-Approved-At: Sat, 28 Mar 2026 10:22:39 +0000
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Sat, 28 Mar 2026 16:37:25 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,201 +93,106 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thursday, 26 March 2026 18:58:25 Central European Standard Time Ville Sy=
-rj=C3=A4l=C3=A4 wrote:
-> On Thu, Mar 26, 2026 at 06:02:47PM +0100, Maxime Ripard wrote:
-> > On Wed, Mar 25, 2026 at 08:43:15PM +0200, Ville Syrj=C3=A4l=C3=A4 wrote:
-> > > On Wed, Mar 25, 2026 at 03:56:58PM +0100, Maxime Ripard wrote:
-> > > > On Wed, Mar 25, 2026 at 01:03:07PM +0200, Ville Syrj=C3=A4l=C3=A4 w=
-rote:
-> > > > > On Wed, Mar 25, 2026 at 09:24:27AM +0100, Maxime Ripard wrote:
-> > > > > > On Tue, Mar 24, 2026 at 09:53:35PM +0200, Ville Syrj=C3=A4l=C3=
-=A4 wrote:
-> > > > > > > On Tue, Mar 24, 2026 at 08:10:11PM +0100, Nicolas Frattaroli =
-wrote:
-> > > > > > > > On Tuesday, 24 March 2026 18:00:45 Central European Standar=
-d Time Ville Syrj=C3=A4l=C3=A4 wrote:
-> > > > > > > > > On Tue, Mar 24, 2026 at 05:01:07PM +0100, Nicolas Frattar=
-oli wrote:
-> > > > > > > > > > +enum drm_connector_color_format {
-> > > > > > > > > > +	/**
-> > > > > > > > > > +	 * @DRM_CONNECTOR_COLOR_FORMAT_AUTO: The driver or di=
-splay protocol
-> > > > > > > > > > +	 * helpers should pick a suitable color format. All i=
-mplementations of a
-> > > > > > > > > > +	 * specific display protocol must behave the same way=
- with "AUTO", but
-> > > > > > > > > > +	 * different display protocols do not necessarily hav=
-e the same "AUTO"
-> > > > > > > > > > +	 * semantics.
-> > > > > > > > > > +	 *
-> > > > > > > > > > +	 * For HDMI, "AUTO" picks RGB, but falls back to YCbC=
-r 4:2:0 if the
-> > > > > > > > > > +	 * bandwidth required for full-scale RGB is not avail=
-able, or the mode
-> > > > > > > > > > +	 * is YCbCr 4:2:0-only, as long as the mode and outpu=
-t both support
-> > > > > > > > > > +	 * YCbCr 4:2:0.
-> > > > > > > > > > +	 *
-> > > > > > > > > > +	 * For display protocols other than HDMI, the recursi=
-ve bridge chain
-> > > > > > > > > > +	 * format selection picks the first chain of bridge f=
-ormats that works,
-> > > > > > > > > > +	 * as has already been the case before the introducti=
-on of the "color
-> > > > > > > > > > +	 * format" property. Non-HDMI bridges should therefor=
-e either sort their
-> > > > > > > > > > +	 * bus output formats by preference, or agree on a un=
-ified auto format
-> > > > > > > > > > +	 * selection logic that's implemented in a common sta=
-te helper (like
-> > > > > > > > > > +	 * how HDMI does it).
-> > > > > > > > > > +	 */
-> > > > > > > > > > +	DRM_CONNECTOR_COLOR_FORMAT_AUTO =3D 0,
-> > > > > > > > > > +
-> > > > > > > > > > +	/**
-> > > > > > > > > > +	 * @DRM_CONNECTOR_COLOR_FORMAT_RGB444: RGB output for=
-mat
-> > > > > > > > > > +	 */
-> > > > > > > > > > +	DRM_CONNECTOR_COLOR_FORMAT_RGB444,
-> > > > > > > > > > +
-> > > > > > > > > > +	/**
-> > > > > > > > > > +	 * @DRM_CONNECTOR_COLOR_FORMAT_YCBCR444: YCbCr 4:4:4 =
-output format (ie.
-> > > > > > > > > > +	 * not subsampled)
-> > > > > > > > > > +	 */
-> > > > > > > > > > +	DRM_CONNECTOR_COLOR_FORMAT_YCBCR444,
-> > > > > > > > > > +
-> > > > > > > > > > +	/**
-> > > > > > > > > > +	 * @DRM_CONNECTOR_COLOR_FORMAT_YCBCR422: YCbCr 4:2:2 =
-output format (ie.
-> > > > > > > > > > +	 * with horizontal subsampling)
-> > > > > > > > > > +	 */
-> > > > > > > > > > +	DRM_CONNECTOR_COLOR_FORMAT_YCBCR422,
-> > > > > > > > > > +
-> > > > > > > > > > +	/**
-> > > > > > > > > > +	 * @DRM_CONNECTOR_COLOR_FORMAT_YCBCR420: YCbCr 4:2:0 =
-output format (ie.
-> > > > > > > > > > +	 * with horizontal and vertical subsampling)
-> > > > > > > > > > +	 */
-> > > > > > > > > > +	DRM_CONNECTOR_COLOR_FORMAT_YCBCR420,
-> > > > > > > > >=20
-> > > > > > > > > Seems like this should document what the quantization ran=
-ge
-> > > > > > > > > should be for each format.
-> > > > > > > > >=20
-> > > > > > > >=20
-> > > > > > > > I don't think so? If you want per-component bit depth value=
-s,
-> > > > > > > > DRM_FORMAT_* defines would be the appropriate values to use=
-=2E This
-> > > > > > > > enum is more abstract than that, and is there to communicate
-> > > > > > > > YUV vs. RGB and chroma subsampling, with bit depth being ha=
-ndled
-> > > > > > > > by other properties.
-> > > > > > > >=20
-> > > > > > > > If you mean the factor used for subsampling, then that'd on=
-ly be
-> > > > > > > > relevant if YCBCR410 was supported where one chroma plane i=
-sn't
-> > > > > > > > halved but quartered in resolution. I suspect 4:1:0 will ne=
-ver
-> > > > > > > > be added; no digital display protocol standard supports it =
-to my
-> > > > > > > > knowledge, and hopefully none ever will.
-> > > > > > >=20
-> > > > > > > No, I mean the quantization range (16-235 vs. 0-255 etc).
-> > > > > > >=20
-> > > > > > > The i915 behaviour is that YCbCr is always limited range,
-> > > > > > > RGB can either be full or limited range depending on the=20
-> > > > > > > "Broadcast RGB" property and other related factors.
-> > > > > >=20
-> > > > > > So far the HDMI state has both the format and quantization rang=
-e as
-> > > > > > different fields. I'm not sure we need to document the range in=
- the
-> > > > > > format field, maybe only mention it's not part of the format bu=
-t has a
-> > > > > > field of its own?
-> > > > >=20
-> > > > > I think we only have it for RGB (on some drivers only?). For YCbCr
-> > > > > I think the assumption is limited range everywhere.
-> > > > >=20
-> > > > > But I'm not really concerned about documenting struct members.
-> > > > > What I'm talking about is the *uapi* docs. Surely userspace
-> > > > > will want to know what the new property actually does so the
-> > > > > uapi needs to be documented properly. And down the line some
-> > > > > new driver might also implement the wrong behaviour if there
-> > > > > is no clear specification.
-> > > >=20
-> > > > Ack
-> > > >=20
-> > > > > So I'm thinking (or perhaps hoping) the rule might be something l=
-ike:
-> > > > > - YCbCr limited range=20
-> > > > > - RGB full range if "Broadcast RGB" property is not present
-> > > >=20
-> > > > Isn't it much more complicated than that for HDMI though? My
-> > > > recollection was that any VIC but VIC1 would be limited range, and
-> > > > anything else full range?
-> > >=20
-> > > Do we have some driver that implements the CTA-861 CE vs. IT mode
-> > > logic but doesn't expose the "Broadcast RGB" property? I was hoping
-> > > those would always go hand in hand now.
-> >=20
-> > I'm not sure. i915 and the HDMI state helpers handle it properly (I
-> > think?) but it looks like only vc4 registers the Broadcast RGB property
-> > and uses the HDMI state helpers.
-> >=20
-> > And it looks like amdgpu registers Broadcast RGB but doesn't use
-> > drm_default_rgb_quant_range() which seems suspicious?
->=20
-> If they want just manual full vs. limited then they should
-> limit the property to not expose the "auto" option at all.
->=20
-> amdgpu also ties this in with the "colorspace" property, which
-> originally in i915 only controlled the infoframes/etc. But on
-> amdgpu it now controls various aspects of output color
-> transformation. The end result is that the property is a complete
-> mess with most of the values making no sense. And for whatever
-> reason everyone involved refused to remove/deprecate the
-> nonsensical values :/
->=20
-> Looks like this series should make sure the documentation for
-> the "colorspace" property is in sync with the new property
-> as well. Currently now it's giving conflicting information.
->=20
+parse_edid_displayid_vrr() walked raw DisplayID bytes via struct edid*
+to find Dynamic Video Timing Range Limits blocks when monitor_range
+was zeroed. This is a layering violation.
 
-I take it the problematic information is in
+Now that drm_get_monitor_range_displayid() in the DRM core fills
+monitor_range from DisplayID Dynamic Video Timing blocks via the
+proper displayid_iter infrastructure, parse_edid_displayid_vrr() is
+redundant. Remove it and its drm_edid_raw() call from the VRR path.
 
-    * DOC: standard connector properties
-    *
-    * Colorspace:
+drm_edid_raw() remains for parse_amd_vsdb() and parse_hdmi_amd_vsdb()
+which read AMD vendor-specific CEA data blocks; those are tracked
+separately.
 
-and probably specifically BT2020_YCC's (and BT2020_RGB's?) insistence
-that they "produce RGB content".
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: Harry Wentland <harry.wentland@amd.com>
+Cc: Rodrigo.Siqueira@amd.com
+Signed-off-by: Adriano Vero <litaliano00.contact@gmail.com>
+---
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 61 ++++---------------
+ 1 file changed, 11 insertions(+), 50 deletions(-)
 
-I think we probably just have to change the statement "The variants
-BT2020_RGB and BT2020_YCC are equivalent and the driver chooses between
-RGB and YCbCr on its own."
-
-The "on its own" here would get turned into "based on the color format
-property".
-
-Speaking of i915, that patch is one of the very few (5) patches in
-this series still lacking a review (hint hint nudge nudge). I'd like
-to get some more feedback on the remaining patches before I send out
-another revision, so that it's hopefully not just docs changes (I
-know better than to think those patches must be perfect and won't
-need revision.)
-
-If `drm/bridge: Act on the DRM color format property` and
-`drm/atomic-helper: Add HDMI bridge output bus formats helper` get a
-reviewed-by/acked-by and it's still crickets on the amdgpu and i915
-front, then I will just drop the amdgpu/i915 implementations so that
-they don't block this from landing.
-
-Kind regards,
-Nicolas Frattaroli
-
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 085cc98bd..c61d6e1fe 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -13110,49 +13110,6 @@ static bool parse_edid_cea(struct amdgpu_dm_connector *aconnector,
+ 	return ret;
+ }
+ 
+-static void parse_edid_displayid_vrr(struct drm_connector *connector,
+-				     const struct edid *edid)
+-{
+-	u8 *edid_ext = NULL;
+-	int i;
+-	int j = 0;
+-	u16 min_vfreq;
+-	u16 max_vfreq;
+-
+-	if (!edid || !edid->extensions)
+-		return;
+-
+-	/* Find DisplayID extension */
+-	for (i = 0; i < edid->extensions; i++) {
+-		edid_ext = (void *)(edid + (i + 1));
+-		if (edid_ext[0] == DISPLAYID_EXT)
+-			break;
+-	}
+-
+-	if (i == edid->extensions)
+-		return;
+-
+-	while (j < EDID_LENGTH) {
+-		/* Get dynamic video timing range from DisplayID if available */
+-		if (EDID_LENGTH - j > 13 && edid_ext[j] == 0x25	&&
+-		    (edid_ext[j+1] & 0xFE) == 0 && (edid_ext[j+2] == 9)) {
+-			min_vfreq = edid_ext[j+9];
+-			if (edid_ext[j+1] & 7)
+-				max_vfreq = edid_ext[j+10] + ((edid_ext[j+11] & 3) << 8);
+-			else
+-				max_vfreq = edid_ext[j+10];
+-
+-			if (max_vfreq && min_vfreq) {
+-				connector->display_info.monitor_range.max_vfreq = max_vfreq;
+-				connector->display_info.monitor_range.min_vfreq = min_vfreq;
+-
+-				return;
+-			}
+-		}
+-		j++;
+-	}
+-}
+-
+ static int parse_amd_vsdb(struct amdgpu_dm_connector *aconnector,
+ 			  const struct edid *edid, struct amdgpu_hdmi_vsdb_info *vsdb_info)
+ {
+@@ -13288,13 +13245,17 @@ void amdgpu_dm_update_freesync_caps(struct drm_connector *connector,
+ 	if (!adev->dm.freesync_module || !dc_supports_vrr(sink->ctx->dce_version))
+ 		goto update;
+ 
+-	edid = drm_edid_raw(drm_edid); // FIXME: Get rid of drm_edid_raw()
+-
+-	/* Some eDP panels only have the refresh rate range info in DisplayID */
+-	if ((connector->display_info.monitor_range.min_vfreq == 0 ||
+-	     connector->display_info.monitor_range.max_vfreq == 0))
+-		parse_edid_displayid_vrr(connector, edid);
+-
++	/**
++	 * monitor_range is now populated by the DRM core from both classic
++	 * EDID Monitor Range Limits descriptors and DisplayID Dynamic Video
++	 * Timing blocks (tag 0x25) via drm_get_monitor_range_displayid().
++	 * parse_edid_displayid_vrr() has been removed.
++	 *
++	 * drm_edid_raw() is retained only for parse_amd_vsdb() and
++	 * parse_hdmi_amd_vsdb() which read AMD vendor-specific CEA blocks.
++	 * Removing those raw accesses is tracked separately.
++	 */
++	edid = drm_edid_raw(drm_edid); /* TODO: amd/hdmi vsdb refactor */
+ 	if (edid && (sink->sink_signal == SIGNAL_TYPE_DISPLAY_PORT ||
+ 		     sink->sink_signal == SIGNAL_TYPE_EDP)) {
+ 		if (amdgpu_dm_connector->dc_link &&
+-- 
+2.47.3
 
