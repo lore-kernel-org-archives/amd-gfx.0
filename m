@@ -4,69 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 14468F3D60A
-	for <amd-gfx@archiver.kernel.org>; Sun, 29 Mar 2026 16:03:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F2E74F3D60A
+	for <amd-gfx@archiver.kernel.org>; Sun, 29 Mar 2026 16:03:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7FB9610E0CF;
-	Sun, 29 Mar 2026 16:03:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 86F3510E0DB;
+	Sun, 29 Mar 2026 16:03:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="UDsVa5FW";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Qusw+/PW";
 	dkim-atps=neutral
 Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com
  [209.85.128.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 09BC910E0CF
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B268F10E0DB
  for <amd-gfx@lists.freedesktop.org>; Sun, 29 Mar 2026 16:03:11 +0000 (UTC)
 Received: by mail-wm1-f47.google.com with SMTP id
- 5b1f17b1804b1-486fb14227cso48316775e9.3
- for <amd-gfx@lists.freedesktop.org>; Sun, 29 Mar 2026 09:03:10 -0700 (PDT)
+ 5b1f17b1804b1-486fe2024a9so26015675e9.0
+ for <amd-gfx@lists.freedesktop.org>; Sun, 29 Mar 2026 09:03:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1774800189; x=1775404989; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=xUgJd9OOqV3kcgGZAQ87UdDecn/5pfBPuvfbIlhey4Y=;
- b=UDsVa5FWKD4c4mvg97yzdhccOmlue1p+PKQDXdYQuHwt9MPzIR414zJK6ao/elJ6uO
- wmWfp5flEy308VYl+W10ZLPwJKrNMRxHIl9v96Cf4dd5k15A+uSZ3Gqd8mWMNuN0Ug/s
- Eho1rPNnjX/hPg2HBd8MaXP0Eivcff5He63AVLs9gHC7kYjAsbyai23/oUxbquVkLocJ
- 2gpO25EM1W0oOzWbPJLbvxqsga2w07SmsKeo8ZgSYO7Pu+hGjj0lHL3/IWxyI4Z8TmyN
- Hb2G/RJ/BkhqcCfNhcIzdr3LWnp/v+0MSLQUxaHxnllF3g9DN93qRdqoz/D3zqnzmaWD
- 3oqw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774800189; x=1775404989;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=gmail.com; s=20251104; t=1774800190; x=1775404990; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=xUgJd9OOqV3kcgGZAQ87UdDecn/5pfBPuvfbIlhey4Y=;
- b=Xodf6XitZXxp8x/J6d9+W0bUP+oo7e3oBeNyczsQf6aa1rQjhSrpMLBsVmsW/3x4nN
- WFSMhKadt95xZntYlcC2Q7AAtmqcoUd/eH9MQ4RAU9JysMQmcyU65Nt5x6Dt2wWys50t
- i61MnlHRJ9HcTOBlp49fKM+0pyd7G80c5cDPyBIZh4Wgy1GgNKgPamZl+z3U+yGn78sC
- S9aBHrlbkfSu0jzTY6ICtIwDRurPNLjPljGlrG0qElMlF8HhRcr1a7VMB4COPcbOHzb5
- LxJee9va6al6rAjpT2ZBj/D9s4wIuqvcGFLK53hgMj/0+OKRgSNq5eF7yGuJQYPRSFut
- ZMzg==
-X-Gm-Message-State: AOJu0Yx+dINzql15QON4Sd6nJGqu7JNpPxAlv1QBbJfmYAXI2tSDVehu
- d/lIVYaLkp6DbrnAlzZnpNpEZ+1vmHZFOMExKwszoFSBS+Fzo/Ph0zyi4di3Hg==
-X-Gm-Gg: ATEYQzxwvvT3XSfc5GqD05fvorrs6AWWHFIZtD+wrYYY4ecfDRIzOqTsvkJeYsgOqk8
- 6/0sZpPrUDwu320V7JbZQMbRQzj9gXqgC/38donsSPkpS5uY2AyWFaY8VkYy03c6At0eBn8s0hy
- nbL1s1XvyTfEhqAV3rRR9qm/4aPy8DsWuNDVu7Ho5ZJAGi8lWNaynzcnuSJBUxdKjA5yEjKR/8b
- W46uw7wkfjqL0E10Y8k9TqJA6b1m3Xvq0/eR619Vfe8zTUaVm+fG/EVKv3WNPCO80NBzZAcVBFg
- Se9DNwrCfRD/WzCmEMtJkyvbaUtqTL5ppC21DIr7O0WQr0TtMCRgeEd3/GuxaBU7NLDHXyU0Mxb
- L3Q5gvS/9l6x59ITtlCwOMtwI9Ts+jmTkWEZfGHZzaQcZGDGwvePTvNPjGRLLuDkiMcvYyN8RXw
- BG+fBkAsvhZ6c+xaiWL7xOV40xSa4bIkZ/1OlE3gexT7NvoXB69HsqcJ8GKeI386GeBPs=
-X-Received: by 2002:a05:600c:6819:b0:485:40fd:8390 with SMTP id
- 5b1f17b1804b1-48727f238d9mr168430935e9.26.1774800189302; 
- Sun, 29 Mar 2026 09:03:09 -0700 (PDT)
+ bh=g5YxyZX+ZQH3uTx9eO+hVr1f6zQnbPrR/m207Wzy/FA=;
+ b=Qusw+/PWXInTdpAA1Sk75XmpXx3FKlyjEeHdDOgFHyFtLIX4SpGLlLSL4HUAPRb3CQ
+ TkhoW5wG1M1wo7Q7Muy8eUqaqO0OUgVBvaWsZ/weeCnUTnk5Vdsc3aKN/1Mu8ucWWiEv
+ CQW5LZZiQQUpSsXEoMHCE8VVByn+lcpNO39OTybjd0pAGBEyt2sfergDbHdF8XtVxFdm
+ fajGP8esjrNj7u4m1F71jDQWG/NkQhLzd85UTW5No6oApPg3ms/UZJ2kMtjpN+rhkAy6
+ YNL+NpMReUtlST9ajGVC6putCR8osuzsi2YVeM5Eaw4BHmXr2Hvrd7zRPP2B7SYqushM
+ i1OA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1774800190; x=1775404990;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=g5YxyZX+ZQH3uTx9eO+hVr1f6zQnbPrR/m207Wzy/FA=;
+ b=F69kmddBt53g2tpE0JZV4qGsig/gXzGlJ2d9AXvJzWgBn5Rdg+Ld7oiqdPw/wDUYPU
+ OClzIH6mwGajV43S3ypty5/RAdgd0j0MYqsQxlTrGteWQcBwRwba6qERIiwA+RaBnAz7
+ 0eOfU67a3NM3Fo4cDQxnNxzGWxses0UckGOrMQBrtR2tVf1xdWJ5SxvyaIKEL2FiHIe9
+ HgyrQttAmrAaC66TY8KOVK/iBUVczeTPBLhSGivel6WSCKBACjl/JxcRrpmPeGyVq9pH
+ t/v5TLIKFYHy1GpR9Xh1AgUB/ADpekckZxuXXiprjaPf08RZGeD7EpfmgVIoypf28Utq
+ GYLw==
+X-Gm-Message-State: AOJu0YzhWwRftHmRZ51eaWYWMCJ/oslh0sL5RVuLOKNUmmnLOZE9gCd0
+ jdyYMFlkh5QMV8hpCa9W4AM7HsfzEKIKqO1g5KtX7X3ka0J7/KB99WjlWik6cA==
+X-Gm-Gg: ATEYQzxNXohresz01sJw0z5PyVBqkJnkBDZBL6pVTDGxPdSBHWs2bdKm34vZceVGIe/
+ uGCWRyv8yaez2iC/hWFv/NOxDhcSeTCPSJMJWY0RQ5wDl8wcZP2Or7WSEXRz5leL7z29BhU+cZm
+ J9tcXDLbis4Krj8jLT2V4YReKTp/FN4c5Rlj0NsObKqBWhdBvqFS09wPDXoGdFhxCp4uy8jS2tT
+ 2soXU35vurJPO1UI6RnplnIL6BLbKveBbe4KnJtNoBLY1chpHL5OJ0ANhAQTrChOb1YLy4lYTjX
+ Mn7xO5U+qCgltB9H2iON0XxNChxMP9mxPcsEN2bGfgUAPhKPbuaodOpluKI25Kp5FpNaKAkHqHD
+ 5mTv8iNlEF2DQbzzKJ8AetmGs/l/BUU1V78L3ZlLzURBM1WbBYg5zXzeEcGELZ5T/vzua0fL9oW
+ BcLjruq0QLMF1QMKimSiB2OkZI8ik+GkL20Kq0tu+yVtqtoAqYJKPaLK47xsfzJLdpXXw=
+X-Received: by 2002:a05:600c:a106:b0:485:4394:b0e with SMTP id
+ 5b1f17b1804b1-48727d882bamr118059675e9.12.1774800190145; 
+ Sun, 29 Mar 2026 09:03:10 -0700 (PDT)
 Received: from Timur-Hyperion.home (5E1BC26F.dsl.pool.telekom.hu.
  [94.27.194.111]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-48722d38a5fsm217428915e9.12.2026.03.29.09.03.08
+ 5b1f17b1804b1-48722d38a5fsm217428915e9.12.2026.03.29.09.03.09
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 29 Mar 2026 09:03:08 -0700 (PDT)
+ Sun, 29 Mar 2026 09:03:09 -0700 (PDT)
 From: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
 To: amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com,
  christian.koenig@amd.com, harry.wentland@amd.com
 Cc: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
-Subject: [PATCH 0/9] Various SMU7 power management fixes
-Date: Sun, 29 Mar 2026 18:02:57 +0200
-Message-ID: <20260329160306.3417458-1-timur.kristof@gmail.com>
+Subject: [PATCH 1/9] drm/amd/pm/ci: Use highest MCLK on CI when MCLK DPM is
+ disabled
+Date: Sun, 29 Mar 2026 18:02:58 +0200
+Message-ID: <20260329160306.3417458-2-timur.kristof@gmail.com>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260329160306.3417458-1-timur.kristof@gmail.com>
+References: <20260329160306.3417458-1-timur.kristof@gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -84,43 +88,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This series fixes various issues that I found on two GPUs:
+When MCLK DPM is disabled for any reason, populate the MCLK
+table with the highest MCLK DPM level, so that the ASIC can
+use the highest possible memory clock to get good performance
+even when MCLK DPM is disabled.
 
-R9 390X (Hawaii, Asus ROG branded):
-Add SCLK cap to fix stability issues, fix PCI ID typo.
-And a few minor fixes affecting CI GPUs.
+Fixes: 9f4b35411cfe ("drm/amd/powerplay: add CI asics support to smumgr (v3)")
+Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
+---
+ drivers/gpu/drm/amd/pm/powerplay/smumgr/ci_smumgr.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-R9 M380 (Bonaire, found in an iMac from 2015):
-Disable MCLK switching, use highest MCLK.
-
-Additionally, fix possible black screen on boot caused by
-a non-functional implementation of the voltage dependency on
-the display clock. The fix affects all GPUs with SMU7,
-hopefully improving stability for CI, VI and Polaris GPUs.
-
-Looking forward to reviews and feedback!
-
-Timur Kristóf (9):
-  drm/amd/pm/ci: Use highest MCLK on CI when MCLK DPM is disabled
-  drm/amd/pm/ci: Disable MCLK DPM on problematic CI ASICs
-  drm/amd/pm/smu7: Fix SMU7 voltage dependency on display clock
-  drm/amd/pm/smu7: Remove non-functional SMU7 voltage dependency on DAL
-  drm/amd/pm/ci: Fix powertune defaults for Hawaii 0x67B0
-  drm/amd/pm/ci: Clear EnabledForActivity field for memory levels
-  drm/amd/pm/ci: Fill DW8 fields from SMC
-  drm/amd/pm/smu7: Add SCLK cap for quirky Hawaii board
-  drm/amdgpu/uvd4.2: Don't initialize UVD 4.2 when DPM is disabled
-
- drivers/gpu/drm/amd/amdgpu/uvd_v4_2.c         |   5 +
- .../gpu/drm/amd/pm/powerplay/hwmgr/hwmgr.c    |  15 +++
- .../drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c   | 123 ++++++++++++++++--
- .../drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.h   |   1 +
- .../drm/amd/pm/powerplay/hwmgr/smu_helper.c   |  84 ------------
- .../drm/amd/pm/powerplay/hwmgr/smu_helper.h   |   2 -
- drivers/gpu/drm/amd/pm/powerplay/inc/hwmgr.h  |   2 +-
- .../drm/amd/pm/powerplay/smumgr/ci_smumgr.c   |  15 ++-
- 8 files changed, 142 insertions(+), 105 deletions(-)
-
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/smumgr/ci_smumgr.c b/drivers/gpu/drm/amd/pm/powerplay/smumgr/ci_smumgr.c
+index ad1fd3150d03e..858f118130452 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/smumgr/ci_smumgr.c
++++ b/drivers/gpu/drm/amd/pm/powerplay/smumgr/ci_smumgr.c
+@@ -1322,6 +1322,14 @@ static int ci_populate_all_memory_levels(struct pp_hwmgr *hwmgr)
+ 			return result;
+ 	}
+ 
++	if (data->mclk_dpm_key_disabled && dpm_table->mclk_table.count) {
++		/* Populate the table with the highest MCLK level when MCLK DPM is disabled */
++		for (i = 0; i < dpm_table->mclk_table.count - 1; i++) {
++			levels[i] = levels[dpm_table->mclk_table.count - 1];
++			levels[i].DisplayWatermark = PPSMC_DISPLAY_WATERMARK_HIGH;
++		}
++	}
++
+ 	smu_data->smc_state_table.MemoryLevel[0].EnabledForActivity = 1;
+ 
+ 	dev_id = adev->pdev->device;
 -- 
 2.53.0
 
