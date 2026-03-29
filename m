@@ -4,70 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F2E74F3D60A
-	for <amd-gfx@archiver.kernel.org>; Sun, 29 Mar 2026 16:03:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8DB41F3D605
+	for <amd-gfx@archiver.kernel.org>; Sun, 29 Mar 2026 16:03:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 86F3510E0DB;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8759010E12E;
 	Sun, 29 Mar 2026 16:03:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Qusw+/PW";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="P6jMeCWV";
 	dkim-atps=neutral
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com
- [209.85.128.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B268F10E0DB
- for <amd-gfx@lists.freedesktop.org>; Sun, 29 Mar 2026 16:03:11 +0000 (UTC)
-Received: by mail-wm1-f47.google.com with SMTP id
- 5b1f17b1804b1-486fe2024a9so26015675e9.0
- for <amd-gfx@lists.freedesktop.org>; Sun, 29 Mar 2026 09:03:11 -0700 (PDT)
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com
+ [209.85.128.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C3C0910E0DB
+ for <amd-gfx@lists.freedesktop.org>; Sun, 29 Mar 2026 16:03:12 +0000 (UTC)
+Received: by mail-wm1-f43.google.com with SMTP id
+ 5b1f17b1804b1-486fb439299so33256565e9.0
+ for <amd-gfx@lists.freedesktop.org>; Sun, 29 Mar 2026 09:03:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1774800190; x=1775404990; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1774800191; x=1775404991; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=g5YxyZX+ZQH3uTx9eO+hVr1f6zQnbPrR/m207Wzy/FA=;
- b=Qusw+/PWXInTdpAA1Sk75XmpXx3FKlyjEeHdDOgFHyFtLIX4SpGLlLSL4HUAPRb3CQ
- TkhoW5wG1M1wo7Q7Muy8eUqaqO0OUgVBvaWsZ/weeCnUTnk5Vdsc3aKN/1Mu8ucWWiEv
- CQW5LZZiQQUpSsXEoMHCE8VVByn+lcpNO39OTybjd0pAGBEyt2sfergDbHdF8XtVxFdm
- fajGP8esjrNj7u4m1F71jDQWG/NkQhLzd85UTW5No6oApPg3ms/UZJ2kMtjpN+rhkAy6
- YNL+NpMReUtlST9ajGVC6putCR8osuzsi2YVeM5Eaw4BHmXr2Hvrd7zRPP2B7SYqushM
- i1OA==
+ bh=L9gt4xHpf7P721YJMl1Y/s6e7LnOaa7T+QnU2bO/nPg=;
+ b=P6jMeCWVQ81DCpP/H8b3KTdKRRSYRt5CZpjtrd9eJnms7x1GDyz21LZkCcXlh3Lu/v
+ hBCiMsd/SBzXxrKzK1GJA+swtGPKqQcjstz8vQJiZUCLp89344MjWVsrtYWnd8c5TcQp
+ lQ8XlefMsNtocaKJ5IW64AuVqRwqemReg4eDo6E5TlDQaDGLoszhr7K1VDRi7XYzc4wo
+ r/bb0jXCCpRJQeWCenK5JwKeVnkBZ2xXJMx59e//SzjdVM8l70HwGZ7nN6TjVhCwqg4S
+ iT1AbWNkL7op55O/k2ShC5mDLnnRTKGnF/eMadgsQS69B/McIbJMyGzqmpQ08DVh7w/Y
+ Pd0w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774800190; x=1775404990;
+ d=1e100.net; s=20251104; t=1774800191; x=1775404991;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=g5YxyZX+ZQH3uTx9eO+hVr1f6zQnbPrR/m207Wzy/FA=;
- b=F69kmddBt53g2tpE0JZV4qGsig/gXzGlJ2d9AXvJzWgBn5Rdg+Ld7oiqdPw/wDUYPU
- OClzIH6mwGajV43S3ypty5/RAdgd0j0MYqsQxlTrGteWQcBwRwba6qERIiwA+RaBnAz7
- 0eOfU67a3NM3Fo4cDQxnNxzGWxses0UckGOrMQBrtR2tVf1xdWJ5SxvyaIKEL2FiHIe9
- HgyrQttAmrAaC66TY8KOVK/iBUVczeTPBLhSGivel6WSCKBACjl/JxcRrpmPeGyVq9pH
- t/v5TLIKFYHy1GpR9Xh1AgUB/ADpekckZxuXXiprjaPf08RZGeD7EpfmgVIoypf28Utq
- GYLw==
-X-Gm-Message-State: AOJu0YzhWwRftHmRZ51eaWYWMCJ/oslh0sL5RVuLOKNUmmnLOZE9gCd0
- jdyYMFlkh5QMV8hpCa9W4AM7HsfzEKIKqO1g5KtX7X3ka0J7/KB99WjlWik6cA==
-X-Gm-Gg: ATEYQzxNXohresz01sJw0z5PyVBqkJnkBDZBL6pVTDGxPdSBHWs2bdKm34vZceVGIe/
- uGCWRyv8yaez2iC/hWFv/NOxDhcSeTCPSJMJWY0RQ5wDl8wcZP2Or7WSEXRz5leL7z29BhU+cZm
- J9tcXDLbis4Krj8jLT2V4YReKTp/FN4c5Rlj0NsObKqBWhdBvqFS09wPDXoGdFhxCp4uy8jS2tT
- 2soXU35vurJPO1UI6RnplnIL6BLbKveBbe4KnJtNoBLY1chpHL5OJ0ANhAQTrChOb1YLy4lYTjX
- Mn7xO5U+qCgltB9H2iON0XxNChxMP9mxPcsEN2bGfgUAPhKPbuaodOpluKI25Kp5FpNaKAkHqHD
- 5mTv8iNlEF2DQbzzKJ8AetmGs/l/BUU1V78L3ZlLzURBM1WbBYg5zXzeEcGELZ5T/vzua0fL9oW
- BcLjruq0QLMF1QMKimSiB2OkZI8ik+GkL20Kq0tu+yVtqtoAqYJKPaLK47xsfzJLdpXXw=
-X-Received: by 2002:a05:600c:a106:b0:485:4394:b0e with SMTP id
- 5b1f17b1804b1-48727d882bamr118059675e9.12.1774800190145; 
+ bh=L9gt4xHpf7P721YJMl1Y/s6e7LnOaa7T+QnU2bO/nPg=;
+ b=fAetDKQ96lnbKNTTnZqBKaUs7ZceByTHtUMgSSk7OzSRSMTOVJoyLXEY1k+9VgIv5L
+ W5/LExfA7HBZx21YQk8HhnZ+/oZudpjxDSdeYP5ZGQDynfwTyedTeBjwS1zEtGdCQNPp
+ vgkCfTP11RzX+uGQX82gyIRD/o+1uMYDDFc+0QadOI/54HiL9mm/MykEYD7P4bqhHLzW
+ VYVMDfnrPhKAO+G/4g8O9u+mQPDPXelO8cOB95OUVRbcQzTFZWka53Sngu+sghuvXPDp
+ bbwmiv9AA6UW4Y2x0RLkVSk4Q7o3Y/j4+ONXGTziuvswUY/+odIpwtR+pWi/UQOz+X/T
+ V9Pw==
+X-Gm-Message-State: AOJu0YxYq1UWv+uPe32+kHi8fehfWxVpCtHLFrgh1lzjC4WqS93lpNJx
+ FPkQvBpmVtPVuLtywx4RyiLVHeKOnwZ+2gKxZG8x5dLWOkq4ByZ21jzF92hwGg==
+X-Gm-Gg: ATEYQzyTuA30cOtTEIPcPxjcNiAyHcE52vGpcanRr/a4sfJ257qvseLal82JhV3L3fP
+ cHSISZ5S38fkLmFnlGRWCgfdgPJ3/DutED/rystgbQ2J6IdD9YlIElivegEf20KT5CgW5Z42zZx
+ p6GZc+4+4+6tRuwQWN178I8BLOHDqLVUwdhgweY5d8I0xmdbsdkQfipG6bvZzt2lqt3VLEEclpN
+ RAxU9A6UUmmZOF7begKwqnmzVLAb/Rp6Tabk1hXtkaYxgWaRX9c/xU6uOsRHEjEnCFc+ePyjNxk
+ 74CT19r93oroU0HxxcUtYNEJjJ49tjKPNEKL6kT8dOSlMdlsmWS7TePAbfX5ufPWmVwFKy6n5br
+ pC8vgzjrkHJ6VvkHZMg1up4eXhbEXdBgOOJBD9ecmgpTbb9XbowLiKDcGXxzB+t//F5GYEm2WyF
+ ewRFWOagZIEvOwPmCOJEoXGMDz1K0yKPn0jQ2DFikEniIR/iQbQUew2WASKiulG9b7TaE=
+X-Received: by 2002:a05:600c:c493:b0:486:fd3a:fd22 with SMTP id
+ 5b1f17b1804b1-48727ef163bmr150966955e9.4.1774800190945; 
  Sun, 29 Mar 2026 09:03:10 -0700 (PDT)
 Received: from Timur-Hyperion.home (5E1BC26F.dsl.pool.telekom.hu.
  [94.27.194.111]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-48722d38a5fsm217428915e9.12.2026.03.29.09.03.09
+ 5b1f17b1804b1-48722d38a5fsm217428915e9.12.2026.03.29.09.03.10
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 29 Mar 2026 09:03:09 -0700 (PDT)
+ Sun, 29 Mar 2026 09:03:10 -0700 (PDT)
 From: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
 To: amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com,
  christian.koenig@amd.com, harry.wentland@amd.com
 Cc: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
-Subject: [PATCH 1/9] drm/amd/pm/ci: Use highest MCLK on CI when MCLK DPM is
- disabled
-Date: Sun, 29 Mar 2026 18:02:58 +0200
-Message-ID: <20260329160306.3417458-2-timur.kristof@gmail.com>
+Subject: [PATCH 2/9] drm/amd/pm/ci: Disable MCLK DPM on problematic CI ASICs
+Date: Sun, 29 Mar 2026 18:02:59 +0200
+Message-ID: <20260329160306.3417458-3-timur.kristof@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260329160306.3417458-1-timur.kristof@gmail.com>
 References: <20260329160306.3417458-1-timur.kristof@gmail.com>
@@ -88,36 +87,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-When MCLK DPM is disabled for any reason, populate the MCLK
-table with the highest MCLK DPM level, so that the ASIC can
-use the highest possible memory clock to get good performance
-even when MCLK DPM is disabled.
+There are two known cases where MCLK DPM can causes issues:
 
-Fixes: 9f4b35411cfe ("drm/amd/powerplay: add CI asics support to smumgr (v3)")
+Radeon R9 M380 found in iMac computers from 2015.
+The SMU in this GPU just hangs as soon as we send it the
+PPSMC_MSG_MCLKDPM_Enable command, even when MCLK switching is
+disabled, and even when we only populate one MCLK DPM level.
+Apply workaround to all devices with the same subsystem ID.
+
+Radeon R7 260X due to old memory controller microcode.
+We only flash the MC ucode when it isn't set up by the VBIOS,
+therefore there is no way to make sure that it has the correct
+ucode version.
+
+I verified that this patch fixes the SMU hang on the R9 M380
+which would previously fail to boot. This also fixes the UVD
+initialization error on that GPU which happened because the
+SMU couldn't ungate the UVD after it hung.
+
+Fixes: 86457c3b21cb ("drm/amd/powerplay: Add support for CI asics to hwmgr")
 Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
 ---
- drivers/gpu/drm/amd/pm/powerplay/smumgr/ci_smumgr.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ drivers/gpu/drm/amd/pm/powerplay/hwmgr/hwmgr.c | 15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/smumgr/ci_smumgr.c b/drivers/gpu/drm/amd/pm/powerplay/smumgr/ci_smumgr.c
-index ad1fd3150d03e..858f118130452 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/smumgr/ci_smumgr.c
-+++ b/drivers/gpu/drm/amd/pm/powerplay/smumgr/ci_smumgr.c
-@@ -1322,6 +1322,14 @@ static int ci_populate_all_memory_levels(struct pp_hwmgr *hwmgr)
- 			return result;
- 	}
- 
-+	if (data->mclk_dpm_key_disabled && dpm_table->mclk_table.count) {
-+		/* Populate the table with the highest MCLK level when MCLK DPM is disabled */
-+		for (i = 0; i < dpm_table->mclk_table.count - 1; i++) {
-+			levels[i] = levels[dpm_table->mclk_table.count - 1];
-+			levels[i].DisplayWatermark = PPSMC_DISPLAY_WATERMARK_HIGH;
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/hwmgr.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/hwmgr.c
+index 2b5ac21fee399..1d6e30269d567 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/hwmgr.c
++++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/hwmgr.c
+@@ -104,6 +104,21 @@ int hwmgr_early_init(struct pp_hwmgr *hwmgr)
+ 					 PP_GFXOFF_MASK);
+ 		hwmgr->pp_table_version = PP_TABLE_V0;
+ 		hwmgr->od_enabled = false;
++		switch (hwmgr->chip_id) {
++		case CHIP_BONAIRE:
++			/* R9 M380 in iMac 2015: SMU hangs when enabling MCLK DPM
++			 * R7 260X cards with old MC ucode: MCLK DPM is unstable
++			 */
++			if (adev->pdev->subsystem_vendor == 0x106B ||
++			    adev->pdev->device == 0x6658) {
++				dev_info(adev->dev, "disabling MCLK DPM on quirky ASIC");
++				adev->pm.pp_feature &= ~PP_MCLK_DPM_MASK;
++				hwmgr->feature_mask &= ~PP_MCLK_DPM_MASK;
++			}
++			break;
++		default:
++			break;
 +		}
-+	}
-+
- 	smu_data->smc_state_table.MemoryLevel[0].EnabledForActivity = 1;
- 
- 	dev_id = adev->pdev->device;
+ 		smu7_init_function_pointers(hwmgr);
+ 		break;
+ 	case AMDGPU_FAMILY_CZ:
 -- 
 2.53.0
 
