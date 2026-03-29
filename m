@@ -4,74 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DBCD3F3D5FE
-	for <amd-gfx@archiver.kernel.org>; Sun, 29 Mar 2026 09:57:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9B52CF3D604
+	for <amd-gfx@archiver.kernel.org>; Sun, 29 Mar 2026 09:57:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1C79010E347;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9BB1910E3DE;
 	Sun, 29 Mar 2026 09:57:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="UqKG1dTM";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="nxqNex+R";
 	dkim-atps=neutral
-Received: from mail-lf1-f52.google.com (mail-lf1-f52.google.com
- [209.85.167.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EC61510E087
- for <amd-gfx@lists.freedesktop.org>; Sun, 29 Mar 2026 03:58:38 +0000 (UTC)
-Received: by mail-lf1-f52.google.com with SMTP id
- 2adb3069b0e04-5a12c19affeso5752910e87.1
- for <amd-gfx@lists.freedesktop.org>; Sat, 28 Mar 2026 20:58:38 -0700 (PDT)
+Received: from mail-lf1-f47.google.com (mail-lf1-f47.google.com
+ [209.85.167.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7896A10E087
+ for <amd-gfx@lists.freedesktop.org>; Sun, 29 Mar 2026 03:58:36 +0000 (UTC)
+Received: by mail-lf1-f47.google.com with SMTP id
+ 2adb3069b0e04-5a10d130b37so3254831e87.0
+ for <amd-gfx@lists.freedesktop.org>; Sat, 28 Mar 2026 20:58:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1774756717; x=1775361517; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1774756714; x=1775361514; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=9tCXEdj2YgaEL32qjVel/tUPs3C0C+6eC3HnQoDVSqc=;
- b=UqKG1dTMLTfs+1UzN/nt286mETbedgk95VGROF85XHwCVbhSceZhDOAU2HkVcvPziV
- +Vy3hrEzFlRnB4zRLGffss1wGjS73FyWEJbeABKAqNjZBxxga7tVNXPqbd0njLBeKwY1
- hytdTQkrkjuaRAc5AOEPmJGHag17NrzBXOCq7eWUyjueEmRelQix85mJizjLJylAC/Ci
- MML4tH/chL9qXZNiB93VNy3IUVZUjtjlUYUgmRdmQHwNyOLwT8WvNhI1rUvMiKUw1IJP
- 95gY9IlYbuqZ4oRS2nsA5k4TH+AUOfvFPtuLgk6Hz5jRKT5lXfzsURuTu5hffh+r8N22
- lXJQ==
+ bh=/ZjD1xkwL8SGkzTUDkV4tP8IGubH08Om/grBGg4rNaE=;
+ b=nxqNex+RZ1PpmbUGyf4IiH9NDwqq7afn2dlzG2Iktoo4gukw3hMic198X8kpZTCx6x
+ wPfSg3SvcSvLbblvldh2fNqMisGCMM9ZuGCLzUhUNlDj02g/9WLzFudFnS8d7o5zVrOx
+ G8583d9DUuZ/Kvb6BD6u/L8hxSe41U3j1TlJbxpJ6cCu4/sEJDJz9xi/X+qU4mOwQpIS
+ aNLY6U1lJ4J9glFKgKVPJlRdEfTvsE/eHgonIwwc6cMzzf++cvviZS/3MZArOSzTi1GV
+ BGXamSRcpMIoOMVkKsba8IHieTZ4j/2iFJT6HHA4WU3qbqFllK8KcoLZMoFXJyoErzTL
+ lYSA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774756717; x=1775361517;
+ d=1e100.net; s=20251104; t=1774756714; x=1775361514;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=9tCXEdj2YgaEL32qjVel/tUPs3C0C+6eC3HnQoDVSqc=;
- b=snBRdcBaK6ru0ihL/zoL4wD9IujMwTl61gd4G5w6VpqaAcjzMYET7IKHhORAiOtb0H
- 07CR6GbBkZOC+aREzWvH7jz9cgAbsnCKzUr4aKDYGgKSdroy8FED/cQMD4OE7a0NuO7/
- ylVDzIoPbQwP4EebOu/aFWxnQLFqmAPx2V+i8cWb1cZIjfPWu53DIkSDcsh5WUVbEwbE
- sDSeZEIaQppIoU7KrlFqB/qJA9+f61JfVOB7eALD1ae6KV0rFEj6JEf0pAeLBCzK1bO+
- tRzcicWnDaRlVXOTCCWfnKBHdRrFVpr21LNoaihm9ctZtYmrxJ9GifxiZp2g2UZ2fL7n
- vmXg==
-X-Gm-Message-State: AOJu0YxSTsaDgjL3UBW3/v+LrMjHE0wUmY1hGWlHrkeRzAASt6bm9cCZ
- c5eDDSO5IRFpXCwoMq3zrnDW8FXwvyolomV/rp/mWjgJaRVc1IaktOUb7A1dVX4mzA==
-X-Gm-Gg: ATEYQzyqKJiddVC/v2+z1z2p26FqsUxjxBgliP4e6pqW4tJfRPCehWhkN933+KH/dzU
- UdHMqDNK5Nm9/xzOBv97uwUAW2qwAvP1yY7mz0Fj9VNSYsGHyLufG1fj2OfYoOZ+I8rXp7B/9+B
- kpaydDefkK1qize6TFV2dYXKdAcNDua/16mVQGG9NXN+wBxzp4xSLroxi1MhULeCOHjq1vF2vMm
- r0MK7LvrKNqTwr5a5nk34y1t9tkn2WNCXN+YirDfKS9P2wAJJjJBvoQ3JxSDebMYijJNxRgZ3iw
- j4C6+lVV4EiCD7hi8yCtyjzJm5bmIYtSUvSxXdayhmBkcujxE8b8vkkX98G45oYMcPLfNE3DqbR
- BSqTrNhCJ9erRzauLon2BlFXyo3taejE8xpTFmgSF+m6v7NmhSJI4GIXYG0Hp3WF2WgdiS7UlOW
- Lj4uxRU/Zn/Xyvm2zx0Dqn0F2BW4E=
-X-Received: by 2002:a05:6512:a85:b0:5a2:7cde:3438 with SMTP id
- 2adb3069b0e04-5a2a508cfddmr4020108e87.22.1774756715989; 
- Sat, 28 Mar 2026 20:58:35 -0700 (PDT)
+ bh=/ZjD1xkwL8SGkzTUDkV4tP8IGubH08Om/grBGg4rNaE=;
+ b=Ec4cF7CLthlIBMyNDMwSvG7gUSSE0Fua+5JAc05dM4r4k0962t/zxYzlwe9oEPRRYD
+ NZlS/0W1W31bklHDO1xVsqlGVZztBp/tCEh9Tw691CZgPbxAOV5nimeLFS0xqNsSSACd
+ xAHWTya6nizQ7UE9cK3T8pSKBb2XOLRX1eoxrWoW2wNMVdbiIoZQpGVLR+47Hr6K1dlO
+ ZQU+hbBVonzKaOzKNHH5kSpNAGZIiBJoescy180lThLGDuQpY2lWw0EYhXeFthi0D67l
+ QJWuRKpNWI1379+ZnHcQlDBJ6sRtLtrdcpcnR9eNckr3CnQwQfBRUDT1aPYDGyy3CoEd
+ aHRA==
+X-Gm-Message-State: AOJu0YzO6/6qyB1DZYyTdbTB40EJsF6P0NJo+QRT5YVTueZ/A11uFMWx
+ sBavOJWXSObza4ZCr7BBgU3KOt5CPdbFeIWIEOgXHZzcnAftmgRzfVn5bhrxate4SQ==
+X-Gm-Gg: ATEYQzxKrhA0Yjpk6o6tx/B8VzJ64vnlMCqd58HbiEV3/8d6eNItREnPuIt8NCLL9v9
+ Lq5Ar+g9YAWT6+gCaq5yeTqK0biSvUUA8kYVBxIRlQvP5Cj/+ZVH99RJXApYKKdlb/MusTc6uoV
+ nju8bT7UgO/wtjI+XPm7yZXYIB2+RyozuZ2ClUfwZ13Hr+bWCcwk0b0nuXBOKTEYrRw8zqYzoA8
+ IWh0z0mb1TirYYAt+ErOGWZwCtU32U9bWWZI1nD13Pp3b11F72xMs1RRK20vuTaxZEFgbJUGEMo
+ QQ6t1HXdQhzGCSBoO0RTUtfO3MsEQRiFH5T7SO71rQeBpOTPHGUVnc2bKNkNcn5/w8z+KkC0IdF
+ mF53rr/o6xtBt1tiQKFFOoOwfk803GLHiGKtcY54SEz/OxqCqHzmyOPuFKLqMqyPOyc6SqeP8PR
+ HerYXlF3Ym2ek7xsGSIYbsXM50S80=
+X-Received: by 2002:a05:6512:10cf:b0:5a1:56e4:1c80 with SMTP id
+ 2adb3069b0e04-5a2a504a61fmr4593860e87.4.1774756714319; 
+ Sat, 28 Mar 2026 20:58:34 -0700 (PDT)
 Received: from fedora.localdomain ([2a11:3805:0:93::1])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5a2b13f41f4sm806136e87.13.2026.03.28.20.58.34
+ 2adb3069b0e04-5a2b13f41f4sm806136e87.13.2026.03.28.20.58.33
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 28 Mar 2026 20:58:35 -0700 (PDT)
+ Sat, 28 Mar 2026 20:58:34 -0700 (PDT)
 From: Sbenazar <voroninan95ton@gmail.com>
 To: amd-gfx@lists.freedesktop.org
 Cc: harry.wentland@amd.com, alex.deucher@amd.com, tom.chung@amd.com,
  Sbenazar <voroninan95ton@gmail.com>, stable@vger.kernel.org
-Subject: [PATCH 2/3] drm/amd/display: fix Panel Replay using stale PSR
- timestamp for re-enable guard
-Date: Sun, 29 Mar 2026 06:58:28 +0300
-Message-ID: <20260329035830.21953-3-voroninan95ton@gmail.com>
+Subject: [PATCH 1/3] drm/amd/display: reset sr_skip_count on non-fast updates
+Date: Sun, 29 Mar 2026 06:58:27 +0300
+Message-ID: <20260329035830.21953-2-voroninan95ton@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260329035830.21953-1-voroninan95ton@gmail.com>
 References: <20260329035830.21953-1-voroninan95ton@gmail.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Sun, 29 Mar 2026 09:57:18 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -88,48 +88,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-amdgpu_dm_enable_self_refresh() uses psr_dirty_rects_change_timestamp_ns
-as a 500ms guard to prevent premature re-enabling of self-refresh
-features after screen updates. However, this timestamp is only updated
-in the PSR-SU dirty rects path (when psr_version >= DC_PSR_VERSION_SU_1
-and dirty_rects_changed). For Panel Replay, this timestamp is never
-updated, so the guard check:
+sr_skip_count is initialized to AMDGPU_DM_PSR_ENTRY_DELAY (5) at stream
+creation time but is never reset when a non-fast (MEDIUM/FULL) update
+occurs. After the first 5 fast commits following stream creation, the
+counter permanently stays at 0.
 
-    (current_ts - psr->psr_dirty_rects_change_timestamp_ns) > 500000000
+This means that after any full-frame update that disables Panel Replay
+(e.g., a workspace switch), the very next fast update will set
+allow_sr_entry = true (because !0 == true), allowing Panel Replay to be
+re-enabled immediately — potentially in the middle of an ongoing
+animation.
 
-always evaluates to true (since the timestamp is 0 or stale), rendering
-the 500ms delay ineffective for Panel Replay.
-
-Fix this by updating the timestamp when Panel Replay is disabled during
-non-fast updates. This ensures the 500ms guard correctly prevents
-re-enabling Replay during animations that generate a mix of full and
-fast commits (e.g., GNOME workspace switch animations).
+Fix this by resetting sr_skip_count to AMDGPU_DM_PSR_ENTRY_DELAY
+whenever a non-fast update occurs, ensuring that at least 5 fast commits
+must happen before self-refresh features are re-enabled.
 
 Cc: stable@vger.kernel.org
 Signed-off-by: Sbenazar <voroninan95ton@gmail.com>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
 index XXXXXXX..XXXXXXX 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -10225,8 +10225,14 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_state *state,
- 		mutex_lock(&dm->dc_lock);
- 		if ((acrtc_state->update_type > UPDATE_TYPE_FAST) || vrr_active) {
--			if (acrtc_state->stream->link->replay_settings.replay_allow_active)
-+			if (acrtc_state->stream->link->replay_settings.replay_allow_active) {
- 				amdgpu_dm_replay_disable(acrtc_state->stream);
-+				/*
-+				 * Update timestamp so the 500ms re-enable guard in
-+				 * amdgpu_dm_enable_self_refresh() works for Replay too.
-+				 */
-+				acrtc_state->stream->link->psr_settings.psr_dirty_rects_change_timestamp_ns = ktime_get_ns();
-+			}
- 			if (acrtc_state->stream->link->psr_settings.psr_allow_active)
- 				amdgpu_dm_psr_disable(acrtc_state->stream, true);
- 		}
+@@ -9854,6 +9854,12 @@ static void amdgpu_dm_enable_self_refresh(struct amdgpu_crtc *acrtc_attach,
+ 	bool vrr_active = amdgpu_dm_crtc_vrr_active(acrtc_state);
+
+ 	if (acrtc_state->update_type > UPDATE_TYPE_FAST) {
++		/*
++		 * Reset skip count after non-fast updates to prevent
++		 * self-refresh from being re-enabled too soon during
++		 * ongoing animations (e.g., workspace switch).
++		 */
++		aconn->sr_skip_count = AMDGPU_DM_PSR_ENTRY_DELAY;
+ 		if (pr->config.replay_supported && !pr->replay_feature_enabled)
+ 			amdgpu_dm_link_setup_replay(acrtc_state->stream->link, aconn);
+ 		else if (psr->psr_version != DC_PSR_VERSION_UNSUPPORTED &&
 --
 2.48.1
 
