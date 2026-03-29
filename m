@@ -4,70 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 18833F3D605
-	for <amd-gfx@archiver.kernel.org>; Sun, 29 Mar 2026 16:03:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3BEEBF3D613
+	for <amd-gfx@archiver.kernel.org>; Sun, 29 Mar 2026 16:03:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A06E110E15B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E72D410E17C;
 	Sun, 29 Mar 2026 16:03:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ZMebswyD";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="IV5d+7aC";
 	dkim-atps=neutral
 Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com
  [209.85.128.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 57CB710E0DB
- for <amd-gfx@lists.freedesktop.org>; Sun, 29 Mar 2026 16:03:13 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4645310E13D
+ for <amd-gfx@lists.freedesktop.org>; Sun, 29 Mar 2026 16:03:18 +0000 (UTC)
 Received: by mail-wm1-f47.google.com with SMTP id
- 5b1f17b1804b1-486fb439299so33256615e9.0
- for <amd-gfx@lists.freedesktop.org>; Sun, 29 Mar 2026 09:03:13 -0700 (PDT)
+ 5b1f17b1804b1-4852a9c6309so30874115e9.0
+ for <amd-gfx@lists.freedesktop.org>; Sun, 29 Mar 2026 09:03:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1774800192; x=1775404992; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1774800197; x=1775404997; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=A77HKSyVEvzIhfDcYJuYg2owQlydsunwVbhThmPmy6s=;
- b=ZMebswyDQO6fG8bgtALuc9qeRH11gFwv9Fwp5uXBuXcVW32vQWNgGMErFMyjWdozVb
- brouS2jJhxfxV4mAKMRmUhi5BzzKjUnqgwsi3xxb2bOs/ASKLQhzPVxEOVoBWT++G7Uv
- D58ddpZV4r0BQPcuw76fGGImTjw/CQlT9e9QWrJ9R/hml5gJnhegGN55PBBfw2Ba8DkE
- d4YEa29Ow0auJ86b/Zk0EEF+Jt4rG9m/u+YfyPUHckqhQ5D4D6rYluSk+CnL7FB7DFxl
- jJSGJy9oHXH2rAoJG2gSFkm5R49ZrjO31G1rz/O1cPfEUk4qxTpTYy3ROIigk09EkfP5
- hrmA==
+ bh=jJfZ7CCE5q2iTAhjxTP/T/7dBRGKxuiOWwq/v7Zqd2Y=;
+ b=IV5d+7aCuvij4JmriLPVwqYgkOc0CVhOfmHxF2BRkzE2XXRr/kOMbX0PYCbglByHqT
+ A4s79vuP1O7Pc0Pbn3O9xaP0uKsVEZ3Zv+Vylj7ZCY2v2Zsy0goFMRrw/H2zsHl/oOWv
+ SOa9aqywbamnwhRiKP6gVkAblkR5H0oqd/jisa/XehkOJJCjZJ9enS8FHovShOrTSVYq
+ WARoc5GB9fseKxDrGL9dkf8P8H9Ds0KJs7dQAt7mhMjPjO+QBwGTIuDdEOgfLdhpDQk2
+ /n9ONmx3n7s2ytyG6gfgLvqatqsMhIU1iyI9q+N1DzMrPl/PaSCaKV/a3mIlWwJ7OFWJ
+ OB8A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774800192; x=1775404992;
+ d=1e100.net; s=20251104; t=1774800197; x=1775404997;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=A77HKSyVEvzIhfDcYJuYg2owQlydsunwVbhThmPmy6s=;
- b=s0uuc4E3R/9WB03UX5HcokscXeFs8FvCOs9NZGIJelPaS6Z9tWjKRjfk4idYsen9wW
- pS/cjVpJocQ/wztm0bX0/Un35x8Yl/Hn6nz8NztwPsW9Y5iWpb+z5WyS5C+BnZrQVn6d
- QCwpTxwvFMmO2ezQHXr0q2z0z7w+QVTy1VEmrqRCr8wkAdrV9fkwnDi+XGPUx+s3yJuH
- lMwxwBx4Y5SdpHdfM7rAAdG3lrIr3mJUlcavUZRTzPYsy7JaDXAOdttIyvJ03pOSQsIV
- ZOaJab3QKBxj8IkwkqN/KKwt+dMD8tu9l/VpZG1kX2pd33iiS0M447BDmlW5CB1zwyTN
- sCjQ==
-X-Gm-Message-State: AOJu0YzMgj7ZInwgC0O7i8AJ+4YNUX9Lz+sS8xvzXotGBNQ0ujsHuded
- hxZVFIGntQ4iNkIyJkSJe6rBNY6QpYGSvTS9ql3tmEUjEGrSxvhcqQWsQIdj0g==
-X-Gm-Gg: ATEYQzyg2fLGb1e6gHx5daSJOQNDtvte1Hkbw9P+WSd0UAVWbfHTNsko0Cm44XWVMO0
- NEBiAgNz5wml0QLEzeKZF8tIEUZxn55koS+FWKxlGKD1qqvkdeW0UpHgxveo592lGsnslLmUtlu
- D73v5P3V14U5HMkQI4hnysKRiFtL3IiKf01j5XdeoeP2OxYnbmpDHMVF6vD4rZzzg6fCdP6iihW
- q4lej7CZ4+AJFtgPlGO5+3J4K7SqzC15tKAEZ+RWbDPC3Ka7UReNacLdEMj9dYRplOECAwGEtV9
- SVGPFcRGA+HrL22pczUJzvxGHm2Y8ShyCfIjKAXxRYdQCv3QL5aHQVZ2SS0zbJewR942MnX5mAU
- sC5I08S+1GJEMmhgGvOOaFSEvUdx0uNHFBdTv1Ur4wphkKvVD0U2uqlOyGXDZmJOknuD2LuKj7E
- wJHX3XVqogoQRT8U4OjEtOaE2HToMjAzu47LZanaiFxZ7Q9tfVqUoBUJzcYepQN6ed48c=
-X-Received: by 2002:a05:600c:1d1e:b0:486:fc95:1a91 with SMTP id
- 5b1f17b1804b1-48727f2373dmr158005365e9.12.1774800191753; 
- Sun, 29 Mar 2026 09:03:11 -0700 (PDT)
+ bh=jJfZ7CCE5q2iTAhjxTP/T/7dBRGKxuiOWwq/v7Zqd2Y=;
+ b=NczEF+hWbZv1nxW9uTZOh+IVIErjB5kExO61VhOln9UAVnuSK9pMVDoWl9jGh92PMU
+ +FDRF6TraQ9DLRhnMz7pgYN48EWBmn/tUYo+29SaA76ghBNScGjp1jBclkl9aSXDYs2E
+ eg1hePnChE2Jb8JxumgrcSSaSDTroiH0UvJ210O/RmOeJq/yIJbtYFSI+GuvKuZi+56A
+ O77uGriWYNsTmUTW+KxWeIPWELDD57vLpU79OW/xm6zy18/6YRuDGXnWQpwYN9VKn2zS
+ M1y9tW4bxRORJz7VptY+6pKsbpEOMpaxhg/sL0hCso851T0X4x9FWw7Jn9lya3fFaSS/
+ WhGw==
+X-Gm-Message-State: AOJu0YxF5QLEyZGenA1c7e1RoUUjQdMxf2GjhpWza39Pq4nCgHOl1WrB
+ qXLY2n8LerCQVNyszdFnHoS/etFK/KtsccgC2UTxVPVLZaF9ly59d069ccdD7g==
+X-Gm-Gg: ATEYQzztIXlXKUP7JjjvGoYZ//3PdzYdrI3R4fvtvefIXXRjn7DQWpVRia6ID9KUhDI
+ d5HNaIYvyPkn/3nMFoaI/20oaa0GkuiO9Mhy/EbN5unkZamyesSCVwdF4QpetjEXhfynbATM3Lo
+ s+Yi+Lo8lUs/x/fsGJhYo0SLIirKCf293wtP9EErIkAzTWWdSrsGFIFSzRi9LGpTvB18EC377fd
+ YoJkpbbA0pheDzZO7fWl2jOWI9U6t5M/k9ibpwbE7mA6tQ9LplVexJ/s6kYazK5I7Y8bJeYByo7
+ sJ+bZEfJ3fqMnfsURXV6+6jf1a1ZV042EuwKafppNDVLcTvraDph2LSfB0WD0w+GP73urkj1N4U
+ K8ejE5YIb2Dzef4A/RaHDgR5IGVPkqfDmEezLbLdr01MAEd+46p6djSXbl3MIjcmS6juX1I5dbb
+ ssZ1tQ7DucAUyT5Ri1WdU8TCU3EHVHXGHkGO45GOT3A6y0SaRvmDx2wmxWTa6jnLoMmQE=
+X-Received: by 2002:a05:600d:7:b0:485:439b:683f with SMTP id
+ 5b1f17b1804b1-48727f5fe73mr126077325e9.20.1774800196500; 
+ Sun, 29 Mar 2026 09:03:16 -0700 (PDT)
 Received: from Timur-Hyperion.home (5E1BC26F.dsl.pool.telekom.hu.
  [94.27.194.111]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-48722d38a5fsm217428915e9.12.2026.03.29.09.03.11
+ 5b1f17b1804b1-48722d38a5fsm217428915e9.12.2026.03.29.09.03.15
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 29 Mar 2026 09:03:11 -0700 (PDT)
+ Sun, 29 Mar 2026 09:03:16 -0700 (PDT)
 From: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
 To: amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com,
  christian.koenig@amd.com, harry.wentland@amd.com
 Cc: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
-Subject: [PATCH 3/9] drm/amd/pm/smu7: Fix SMU7 voltage dependency on display
- clock
-Date: Sun, 29 Mar 2026 18:03:00 +0200
-Message-ID: <20260329160306.3417458-4-timur.kristof@gmail.com>
+Subject: [PATCH 8/9] drm/amd/pm/smu7: Add SCLK cap for quirky Hawaii board
+Date: Sun, 29 Mar 2026 18:03:05 +0200
+Message-ID: <20260329160306.3417458-9-timur.kristof@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260329160306.3417458-1-timur.kristof@gmail.com>
 References: <20260329160306.3417458-1-timur.kristof@gmail.com>
@@ -88,181 +87,118 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The DCE (display controller engine) requires a minimum voltage
-in order to function correctly, depending on which clock level
-it currently uses.
+On a specific Radeon R9 390X board, the GPU can "randomly" hang
+while gaming. Initially I thought this was a RADV bug and tried
+to work around this in Mesa:
+commit 8ea08747b86b ("radv: Mitigate GPU hang on Hawaii in Dota 2 and RotTR")
 
-Add a new table that contains display clock frequency levels
-and the corresponding required voltages. The clock frequency
-levels are taken from DC (and the old radeon driver's voltage
-dependency table for CI in cases where its values were lower).
-The voltage levels are taken from the following function:
-phm_initializa_dynamic_state_adjustment_rule_settings().
-Furthermore, in case of CI, call smu7_patch_vddc() on the new
-table to account for leakage voltage (like in radeon).
+However, I got some feedback from other users who are reporting
+that the above mitigation causes a significant performance
+regression for them, and they didn't experience the hang on their
+GPU in the first place.
 
-Use the display clock value from amd_pp_display_configuration
-to look up the voltage level needed by the DCE. Send the
-voltage to the SMU via the PPSMC_MSG_VddC_Request command.
+After some further investigation, it turns out that the problem
+is that the highest SCLK DPM level on this board isn't stable.
+Lowering SCLK to 1040 MHz (from 1070 MHz) works around the issue,
+and has a negligible impact on performance compared to the Mesa
+patch. (Note that increasing the voltage can also work around it,
+but we felt that lowering the SCLK is the safer option.)
 
-The previous implementation of this feature was non-functional
-because it relied on a "dal_power_level" field which was never
-assigned; and it was not at all implemented for CI ASICs.
+To solve the above issue, add an "sclk_cap" field to smu7_hwmgr
+and set this field for the affected board. The capped SCLK value
+correctly appears on the sysfs interface and shows up in GUI
+tools such as LACT.
 
-I verified this on a Radeon R9 M380 which previously booted to
-a black screen with DC enabled (default since Linux 6.19), but
-now works correctly.
-
-Fixes: 599a7e9fe1b6 ("drm/amd/powerplay: implement smu7 hwmgr to manager asics with smu ip version 7.")
+Fixes: 9f4b35411cfe ("drm/amd/powerplay: add CI asics support to smumgr (v3)")
 Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
 ---
- .../drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c   | 88 ++++++++++++++++++-
- drivers/gpu/drm/amd/pm/powerplay/inc/hwmgr.h  |  1 +
- 2 files changed, 86 insertions(+), 3 deletions(-)
+ .../drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c   | 30 ++++++++++++++++---
+ .../drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.h   |  1 +
+ 2 files changed, 27 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
-index 2be584aefd0ad..338d651bca4dd 100644
+index c357b1f638cfb..1381902547b8e 100644
 --- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
 +++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
-@@ -2802,6 +2802,10 @@ static int smu7_patch_dependency_tables_with_leakage(struct pp_hwmgr *hwmgr)
- 	if (tmp)
- 		return -EINVAL;
+@@ -787,7 +787,7 @@ static int smu7_setup_dpm_tables_v0(struct pp_hwmgr *hwmgr)
+ 		hwmgr->dyn_state.vddc_dependency_on_mclk;
+ 	struct phm_cac_leakage_table *std_voltage_table =
+ 		hwmgr->dyn_state.cac_leakage_table;
+-	uint32_t i;
++	uint32_t i, clk;
  
-+	tmp = smu7_patch_vddc(hwmgr, hwmgr->dyn_state.vddc_dependency_on_display_clock);
-+	if (tmp)
-+		return -EINVAL;
+ 	PP_ASSERT_WITH_CODE(allowed_vdd_sclk_table != NULL,
+ 		"SCLK dependency table is missing. This table is mandatory", return -EINVAL);
+@@ -804,10 +804,12 @@ static int smu7_setup_dpm_tables_v0(struct pp_hwmgr *hwmgr)
+ 	data->dpm_table.sclk_table.count = 0;
+ 
+ 	for (i = 0; i < allowed_vdd_sclk_table->count; i++) {
++		clk = min(allowed_vdd_sclk_table->entries[i].clk, data->sclk_cap);
 +
- 	tmp = smu7_patch_vce_vddc(hwmgr, hwmgr->dyn_state.vce_clock_voltage_dependency_table);
- 	if (tmp)
- 		return -EINVAL;
-@@ -2885,6 +2889,8 @@ static int smu7_hwmgr_backend_fini(struct pp_hwmgr *hwmgr)
- {
- 	kfree(hwmgr->dyn_state.vddc_dep_on_dal_pwrl);
- 	hwmgr->dyn_state.vddc_dep_on_dal_pwrl = NULL;
-+	kfree(hwmgr->dyn_state.vddc_dependency_on_display_clock);
-+	hwmgr->dyn_state.vddc_dependency_on_display_clock = NULL;
- 	kfree(hwmgr->backend);
- 	hwmgr->backend = NULL;
- 
-@@ -2955,6 +2961,51 @@ static int smu7_update_edc_leakage_table(struct pp_hwmgr *hwmgr)
- 	return ret;
+ 		if (i == 0 || data->dpm_table.sclk_table.dpm_levels[data->dpm_table.sclk_table.count-1].value !=
+-				allowed_vdd_sclk_table->entries[i].clk) {
++				clk) {
+ 			data->dpm_table.sclk_table.dpm_levels[data->dpm_table.sclk_table.count].value =
+-				allowed_vdd_sclk_table->entries[i].clk;
++				clk;
+ 			data->dpm_table.sclk_table.dpm_levels[data->dpm_table.sclk_table.count].enabled = (i == 0) ? 1 : 0;
+ 			data->dpm_table.sclk_table.count++;
+ 		}
+@@ -3000,6 +3002,25 @@ static int smu7_init_voltage_dependency_on_display_clock_table(struct pp_hwmgr *
+ 	return 0;
  }
  
-+static int smu7_init_voltage_dependency_on_display_clock_table(struct pp_hwmgr *hwmgr)
++static void smu7_set_sclk_cap(struct pp_hwmgr *hwmgr)
 +{
-+	struct phm_clock_voltage_dependency_table *table;
++	struct amdgpu_device *adev = hwmgr->adev;
++	struct smu7_hwmgr *data = (struct smu7_hwmgr *)(hwmgr->backend);
 +
-+	if (!amdgpu_device_ip_get_ip_block(hwmgr->adev, AMD_IP_BLOCK_TYPE_DCE))
-+		return 0;
++	data->sclk_cap = 0xffffffff;
 +
-+	table = kzalloc(struct_size(table, entries, 4), GFP_KERNEL);
-+	if (!table)
-+		return -ENOMEM;
++	if (hwmgr->od_enabled)
++		return;
 +
-+	if (hwmgr->chip_id >= CHIP_POLARIS10) {
-+		table->entries[0].clk = 38918;
-+		table->entries[1].clk = 45900;
-+		table->entries[2].clk = 66700;
-+		table->entries[3].clk = 113200;
++	/* R9 390X board: last sclk dpm level is unstable, use lower sclk */
++	if (adev->pdev->device == 0x67B0 &&
++	    adev->pdev->subsystem_vendor == 0x1043)
++		data->sclk_cap = 104000; /* 1040 MHz */
 +
-+		table->entries[0].v = 700;
-+		table->entries[1].v = 740;
-+		table->entries[2].v = 800;
-+		table->entries[3].v = 900;
-+	} else {
-+		if (hwmgr->chip_family == AMDGPU_FAMILY_CZ) {
-+			table->entries[0].clk = 35200;
-+			table->entries[1].clk = 35200;
-+			table->entries[2].clk = 46700;
-+			table->entries[3].clk = 64300;
-+		} else {
-+			table->entries[0].clk = 0;
-+			table->entries[1].clk = 35200;
-+			table->entries[2].clk = 54000;
-+			table->entries[3].clk = 62500;
-+		}
-+
-+		table->entries[0].v = 0;
-+		table->entries[1].v = 720;
-+		table->entries[2].v = 810;
-+		table->entries[3].v = 900;
-+	}
-+
-+	table->count = 4;
-+	hwmgr->dyn_state.vddc_dependency_on_display_clock = table;
-+	return 0;
++	if (data->sclk_cap != 0xffffffff)
++		dev_info(adev->dev, "sclk cap: %u kHz on quirky ASIC\n", data->sclk_cap * 10);
 +}
 +
  static int smu7_hwmgr_backend_init(struct pp_hwmgr *hwmgr)
  {
  	struct amdgpu_device *adev = hwmgr->adev;
-@@ -2983,6 +3034,10 @@ static int smu7_hwmgr_backend_init(struct pp_hwmgr *hwmgr)
- 		smu7_get_elb_voltages(hwmgr);
- 	}
+@@ -3011,6 +3032,7 @@ static int smu7_hwmgr_backend_init(struct pp_hwmgr *hwmgr)
+ 		return -ENOMEM;
  
-+	result = smu7_init_voltage_dependency_on_display_clock_table(hwmgr);
-+	if (result)
-+		goto fail;
-+
- 	if (hwmgr->pp_table_version == PP_TABLE_V1) {
- 		smu7_complete_dependency_tables(hwmgr);
- 		smu7_set_private_data_based_on_pptable_v1(hwmgr);
-@@ -3079,13 +3134,40 @@ static int smu7_force_dpm_highest(struct pp_hwmgr *hwmgr)
- 	return 0;
- }
+ 	hwmgr->backend = data;
++	smu7_set_sclk_cap(hwmgr);
+ 	smu7_patch_voltage_workaround(hwmgr);
+ 	smu7_init_dpm_defaults(hwmgr);
  
-+static uint32_t smu7_lookup_vddc_from_dispclk(struct pp_hwmgr *hwmgr)
-+{
-+	const struct amd_pp_display_configuration *cfg = hwmgr->display_config;
-+	const struct phm_clock_voltage_dependency_table *vddc_dep_on_dispclk =
-+			hwmgr->dyn_state.vddc_dependency_on_display_clock;
-+	uint32_t i;
-+
-+	if (!vddc_dep_on_dispclk || !vddc_dep_on_dispclk->count ||
-+	    !cfg || !cfg->num_display || !cfg->display_clk)
-+		return 0;
-+
-+	/* Start from 1 because ClocksStateUltraLow should not be used according to DC. */
-+	for (i = 1; i < vddc_dep_on_dispclk->count; ++i)
-+		if (vddc_dep_on_dispclk->entries[i].clk >= cfg->display_clk)
-+			return vddc_dep_on_dispclk->entries[i].v;
-+
-+	return vddc_dep_on_dispclk->entries[vddc_dep_on_dispclk->count - 1].v;
-+}
-+
-+static void smu7_apply_minimum_dce_voltage_request(struct pp_hwmgr *hwmgr)
-+{
-+	uint32_t req_vddc = smu7_lookup_vddc_from_dispclk(hwmgr);
-+
-+	smum_send_msg_to_smc_with_parameter(hwmgr,
-+			PPSMC_MSG_VddC_Request,
-+			req_vddc * VOLTAGE_SCALE,
-+			NULL);
-+}
-+
- static int smu7_upload_dpm_level_enable_mask(struct pp_hwmgr *hwmgr)
- {
- 	struct smu7_hwmgr *data = (struct smu7_hwmgr *)(hwmgr->backend);
+@@ -3894,7 +3916,7 @@ static int smu7_get_pp_table_entry_callback_func_v0(struct pp_hwmgr *hwmgr,
  
--	if (hwmgr->pp_table_version == PP_TABLE_V1)
--		phm_apply_dal_min_voltage_request(hwmgr);
--/* TO DO  for v0 iceland and Ci*/
-+	smu7_apply_minimum_dce_voltage_request(hwmgr);
+ 	/* Performance levels are arranged from low to high. */
+ 	performance_level->memory_clock = memory_clock;
+-	performance_level->engine_clock = engine_clock;
++	performance_level->engine_clock = min(engine_clock, data->sclk_cap);
  
- 	if (!data->sclk_dpm_key_disabled) {
- 		if (data->dpm_level_enable_mask.sclk_dpm_enable_mask)
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/inc/hwmgr.h b/drivers/gpu/drm/amd/pm/powerplay/inc/hwmgr.h
-index c661185753b42..2f49c95342a14 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/inc/hwmgr.h
-+++ b/drivers/gpu/drm/amd/pm/powerplay/inc/hwmgr.h
-@@ -631,6 +631,7 @@ struct phm_dynamic_state_info {
- 	struct phm_clock_voltage_dependency_table *vddci_dependency_on_mclk;
- 	struct phm_clock_voltage_dependency_table *vddc_dependency_on_mclk;
- 	struct phm_clock_voltage_dependency_table *mvdd_dependency_on_mclk;
-+	struct phm_clock_voltage_dependency_table *vddc_dependency_on_display_clock;
- 	struct phm_clock_voltage_dependency_table *vddc_dep_on_dal_pwrl;
- 	struct phm_clock_array                    *valid_sclk_values;
- 	struct phm_clock_array                    *valid_mclk_values;
+ 	pcie_gen_from_bios = visland_clk_info->ucPCIEGen;
+ 
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.h b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.h
+index d9e8b386bd4d3..66adabeab6a3a 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.h
++++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.h
+@@ -234,6 +234,7 @@ struct smu7_hwmgr {
+ 	uint32_t                       pcie_gen_cap;
+ 	uint32_t                       pcie_lane_cap;
+ 	uint32_t                       pcie_spc_cap;
++	uint32_t                       sclk_cap;
+ 	struct smu7_leakage_voltage          vddc_leakage;
+ 	struct smu7_leakage_voltage          vddci_leakage;
+ 	struct smu7_leakage_voltage          vddcgfx_leakage;
 -- 
 2.53.0
 
