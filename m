@@ -4,119 +4,126 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7BDF31061B1F
-	for <amd-gfx@archiver.kernel.org>; Mon, 30 Mar 2026 20:48:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C82861061B08
+	for <amd-gfx@archiver.kernel.org>; Mon, 30 Mar 2026 21:19:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1ACFA10E60E;
-	Mon, 30 Mar 2026 20:48:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5C58B10E801;
+	Mon, 30 Mar 2026 21:19:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="0ThbpmRK";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="j96iyUy8";
 	dkim-atps=neutral
-Received: from PH7PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11010022.outbound.protection.outlook.com [52.101.201.22])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A59CE10E60E
- for <amd-gfx@lists.freedesktop.org>; Mon, 30 Mar 2026 20:48:28 +0000 (UTC)
+Received: from SN4PR2101CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11012051.outbound.protection.outlook.com
+ [40.93.195.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6D53910E801;
+ Mon, 30 Mar 2026 21:19:03 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=GqIHXlEiXoAmHE0NKeKe77BoCcRXxIJp+qY9VCiDOZysOITV2ueQoXiNcw+8TLnyMcX0JqYhmOkpJyJdSPglmcMq22ibr+iV48auZuPCsBkPccdq0zhiKvicvvSbNjWZTk47KMW+yIWUQFL0KHhunw0jDYdq/UdO/loFEpj4cTtP895Jzcn0OqJ9dWNimGlAk7oaeXWOS81EjVj6pjIzqqnWqpmCoI5ODIy4vrEk+8e+evQPDOhMSDYTV2946D0LkdSNXnvpSnZBV+Ob/nWOS+ApMgi/12jRPCSXlY6eSEk1vzDY05VCdKe86swYzJDI33IkU6vtOZ6ZE2CXvNxKlQ==
+ b=INq3BO8chEWycvo0TJ6TFVdTYXgZSsvlgN9KmYod4t3FuiPtiVH5F+8Rrdn2vIGnybVtUEvqIkH2qWVwS611xS6/Y3WJzIljlIkcK+oY7lCgHPRkMLqRoDC7/dWdrkrZ5Kv4ghOwsANfEN7xWB/OeelHrAr5OJPP2ljLcG2wDNyIDwJzUUJWZ5GpuGXEOTjhmeMgXsTD6Zp5E+7EaAsg0JBvqTukHW3Zpj4xKElFGxdg3OyrBV5xoQNiHuPmxlrMOFNUjRyaALPNg2Ul9oKincADgQmLVNprXuDlXw+UkL6Af0idJBiFevrqMjkuA3DCkwemVwj7B7wvkExMcqob9A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=hHg9SjzT8pQdcE/hpsACSndVsKS3o4vXv1jwJRNeShI=;
- b=JOzh4kadLJIWQtUFeuc3l+07JlHggIiqdtq71/qP53dPy1agFbfGxJR2jCLV7lUwi4bd9Jl+kxrkVrdqgh/pHFeW5RCA5S+WrmP5C5jBuEl2NIhe+B43jxfEgyr6hdzh2lWftMTpzpRP4GYEABretTPdBly5uGgN+YeFpMJmn/tWhzfBxlm+Wh0q76vABsILty4Df1LyXpaLVVhnKpJXEhx1IM7s77A/pcGMcENFoIG887kvcLKhiggBC7j2cH4bFCir8O5aKAv3hjc7WYg6bn3vGpSfEL7zzN9Z5X1TG1Fm9fgtVTAf+jvihrUDOBXYFay4cDAL50sFCV1MLl4TjQ==
+ bh=mjO2lJ1+PRACXBie1SG6fBKqHejn1lDB5xytOPX39Vw=;
+ b=PDZkDjwiVSFzrdWjV2OhavLpaslqxHgrxt/yPKYHzmzyo+IyPK514Ddjwkq1+DWZULPip8hJ6DM+xZHB7mbgdkDP3P763o6P2A8xzbakGnFW7D9G8eFO5t3MdhrWBSJFil/gAVelTCJfqNxvebtpgsGcaP3PWhQ4vclcmjiPfXqHMnPLcYJQxY11gGCoO7i7LQJI/zT1S4nk0oetzKXN0W6anDFi4vxll6vsRzWtqP+W+QuUI313kfRaC6oXARY63X3wc70HC8z6SBbbX7J97VuOpm/D1O3Usmm57mpFXvAYT53izqB0a7r0vLBYAbSLBGdMcNJoECmQXbxEKCtW8A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hHg9SjzT8pQdcE/hpsACSndVsKS3o4vXv1jwJRNeShI=;
- b=0ThbpmRKC2K3S438+j3PrurOsnfbHF76Ci6NGE3B+hbafk2lKv1TObtzFRVQxAaVABpUDhkxyGrXmtQjUK9bYmzSLnHVW7BgnOMgnCIvDbQOSlXI/y21JnnsbtHDwGdrxctYKN+g1cokkQ+B9yL6ovkXRDy3W9BkdABHYFshejI=
-Received: from SJ2PR12MB8650.namprd12.prod.outlook.com (2603:10b6:a03:544::13)
- by CYYPR12MB8992.namprd12.prod.outlook.com (2603:10b6:930:bc::21)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.7; Mon, 30 Mar
- 2026 20:48:25 +0000
-Received: from SJ2PR12MB8650.namprd12.prod.outlook.com
- ([fe80::574c:e97b:b0d8:3957]) by SJ2PR12MB8650.namprd12.prod.outlook.com
- ([fe80::574c:e97b:b0d8:3957%6]) with mapi id 15.20.9723.018; Mon, 30 Mar 2026
- 20:48:25 +0000
-From: "Kasiviswanathan, Harish" <Harish.Kasiviswanathan@amd.com>
-To: "Liu, Alysa" <Alysa.Liu@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: Re: [PATCH v2] drm/amdkfd: Add upper bound check for num_of_nodes
-Thread-Topic: [PATCH v2] drm/amdkfd: Add upper bound check for num_of_nodes
-Thread-Index: AQHcwHQneeeA70cvY0yrdaXCqAhkJrXHi1xC
-Date: Mon, 30 Mar 2026 20:48:25 +0000
-Message-ID: <SJ2PR12MB86505F7DE924916903BD8FA68C52A@SJ2PR12MB8650.namprd12.prod.outlook.com>
-References: <20260330183616.5280-1-Alysa.Liu@amd.com>
-In-Reply-To: <20260330183616.5280-1-Alysa.Liu@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=True;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2026-03-30T20:48:25.264Z;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
- Internal Distribution
- Only; MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=1;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard; 
-authentication-results: dkim=none (message not signed)
+ bh=mjO2lJ1+PRACXBie1SG6fBKqHejn1lDB5xytOPX39Vw=;
+ b=j96iyUy8mMMg8zXnxc7+6dihvroMCj6GojGRiRBbreI9ExB1WKx9wCM6MefNju+I7BxpsARxMr6mzosLXbOdcH8u2QwJbSg95RF7UXWVIMzA8vwtfjET7GUgveWYkuhlmUVC/bPeu3jJcNjETs3fFGpHIcLyMjgtZV8jPSMtTvA=
+Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SJ2PR12MB8650:EE_|CYYPR12MB8992:EE_
-x-ms-office365-filtering-correlation-id: a0c2cad3-7e01-4406-52c1-08de8e9db06e
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|376014|1800799024|366016|8096899003|38070700021|18002099003|22082099003|56012099003;
-x-microsoft-antispam-message-info: MKkds8Xc2zymyWyqeEN1E53B5tL2Zuk1sZj8cVY486KOFU9WvkNeUCDGrvpF/L8149tiSguKek1qeSILGxwUWaq7+E2gp0K05V5zPfnP/uT3Bw8NP5CCvY/4Nw9DDo0gEDDXfQh2vW5PyDyh/wMgtcwdTeZm0YcXBipfiUtSHwkkkFRAoJ4//4s0pzRo7cSnIWQaOLNLac357qM91h1/z57mSmyCi5+D9FsMFFdaWBjabC9fUrt/zV9PLmwnYqNMvqu+sEd1NTPTYUX/VweBhBLOmOjhPc2AzuD2WfUpkJ4IatxIpOrliwA3WtQZsCYF7/0RCh9xKxmdp8xneVqzdif42QrtrwY2pVeHOTC1wd/MU0KgYh0TgM/NHD1A8Xd59UWiKfAhuXVrE2aouO6QAGQ5LxgwxFjf/E36d7sKtl3ZnfkorfnunGs8jF0fcEdFijXQNiQEHns9eIFO729e5Cvvrc2aiT5aTsdOcc6cUAkXoreiBwSMnnZMJGUZd41xedaMdMGTGyShN3w0JD0/Y1tp8aDyWBJ6TR2QHcJuFU2w5zkquBATFzy0xZFHySgbRU3BomeV8B263erC6zTYpEbCdZd16865n+9LAwUkDvvVeklzrdIKE9iGw7WfPoqGOCKi/wEl7LbzuXHXCnwaGr/potoTvRs/tThrwJTyvALct9jIMvNfZjn4GFHJdRhjqmmbWnqHUmvAZRwgJruKZ948+Xtsz3WXDWMq9u+UlUD07+pO1lH/6YE7vzZEM0EeX/ELbK6FB/qqJrIrIkDdFKqYbwDlJ3quz/mt/jYktPY=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SJ2PR12MB8650.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(366016)(8096899003)(38070700021)(18002099003)(22082099003)(56012099003);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?S+sqhK+lpoGBBJxG7ZsaU1qTr5KSs2s5KFoNgvFD69R6ypT38nmpLPoTwj/X?=
- =?us-ascii?Q?3t3TCsvkTOAH3D0eRDnBN8PLBsiIjpNWl0Jzhqg2YT89UlZK3lUokNVTZnE3?=
- =?us-ascii?Q?flyrJT4y+19CwPIlvzClypo3dZw9pMviX1rvdYtfqxraUgdtR1W7Z3ewOfYX?=
- =?us-ascii?Q?MSuQ0IxUApOCSQHrHkMQXfuxWq4hZHI+dWXTGagYBk4lFQO1IBbZbDtnTy73?=
- =?us-ascii?Q?BtaBnenxJgPq0bM+67Z6naJKPmOAsbYnbbmrcHX1E4soUjQm30+vJlMRSOKg?=
- =?us-ascii?Q?XLYr8llCUNjkXuQ+PjCJNyd0lKxHlZdrG3rJHH8JRb0X1KKudevDo0Zv1KGv?=
- =?us-ascii?Q?l+T9HBsoeC+3oM02s7zxaRoUYqcE5WSiFuKlDwmdCENuiHcnZSIXB3j3riGs?=
- =?us-ascii?Q?RGtc+/1MJAYXUv4sQJBoTo+DWU9HKHj8WvY7AnU22rXUWcl6scr/U4g578lU?=
- =?us-ascii?Q?C4o0yWZ5ChRiYWgMRsdd0Gz+uMYIueaT7sq2vr3DGc00xqRGuTWp85OuCE+e?=
- =?us-ascii?Q?1VB9m4xZQg68xo9KvZMdEdhW3AfEMULsi8kN2+dDutVEyZcs9MGOsxEI8TYR?=
- =?us-ascii?Q?Iuft6PfJZhnNzLCoSSquay1wI46ReCdZ7+MiO9nSnJsluD5QgIyxDdSNPrKO?=
- =?us-ascii?Q?S3H98feRVZYlboMFeBUHEXrbP/Fog7O3EQxLbEF3bJG37AOJfZDQIYvaB4sv?=
- =?us-ascii?Q?WKiidra6Qnp0s3CKdbJsnRjdtb6jHxAGgG+kk/wBByYe2j21d7VyJ6/PVI4i?=
- =?us-ascii?Q?hN5PJOs1iktPhhunkEr90nto2CLZveITyhdJMaOLRq25TiBd7OZoRvQF+4aJ?=
- =?us-ascii?Q?djZxDbmOJsso+4hgNKpXQNQdHBdcQAniOmFl0Df08RRRtpT89ORcAoxrL3An?=
- =?us-ascii?Q?B7q0wbkThnnUB/9BcP/eP/lf4AbUgJpds8u82oZVyWtNebAT7Lr6NEsezDEx?=
- =?us-ascii?Q?LsRpd5rIWEWULxYbiHmeguQQbHAJ33f7mme+3fmNogLexYX8xN0BwBFKpcNY?=
- =?us-ascii?Q?KzrE5WP/hq99uWexKOMxtolwk0MeaoOFYjzkFegAve9jIgaPv7D/+133RLFy?=
- =?us-ascii?Q?YtPnCn8G82K51AEqHOyYx8GLbYRg2YPf+Q5CEMHFD9PXrRbx+p07y6URtXCR?=
- =?us-ascii?Q?uZPP73FkWV4FA0pgO0+k/uXpTj+WjUgnf/IaN/klqqYtq4KY+4mHceaV3FQ/?=
- =?us-ascii?Q?Ucssh3K9D+M0bJ1ya9U8E/jZ2oYOpEbz6tEPowvV710wwQuWx9sTCSQWaDCH?=
- =?us-ascii?Q?Dqa3Sha4ogXNlzqlrPnUkn+0vNelvMT96E4gi8/7hsib0QksF2lD85klKLkM?=
- =?us-ascii?Q?Fp946vuDBctZxTUWMomwLskmtu487USVuzrwYfXUQBsCD5/uInBwsJmVniSP?=
- =?us-ascii?Q?Q4zVkRrans0Mso1cnaaNiC873U8h+tppX6kf8RBjgcVAn6zg24S7+yqeLLye?=
- =?us-ascii?Q?AAgWPgNd7qmLnSLNukP0M821wSBKjmn10x9v0LNDTksM2iAUDQWaywwL4r3Z?=
- =?us-ascii?Q?H/lBJL4tgaM7vX28VWRQf7Uedse5lPjecuj0JHhh6pMvhJ0peYAWDDj2CEAI?=
- =?us-ascii?Q?lZKB9PpouAXzyZZiBaIMmdB6EarD1kk5C411jpCj4jnVkvDljSfkamvbHn/I?=
- =?us-ascii?Q?CfYUfVh+/AKy19hNPNOIPBEcO2sthsQOZmaVRSgksqz//Xqxd0Oea8nLIpta?=
- =?us-ascii?Q?Q+9Bzn11lIlkze9jIWRYA1QPgZvuXqoNT5YA79c+aWvgaHW4?=
-Content-Type: multipart/alternative;
- boundary="_000_SJ2PR12MB86505F7DE924916903BD8FA68C52ASJ2PR12MB8650namp_"
+Received: from BL1PR12MB5336.namprd12.prod.outlook.com (2603:10b6:208:314::8)
+ by CYXPR12MB9340.namprd12.prod.outlook.com (2603:10b6:930:e4::20)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.15; Mon, 30 Mar
+ 2026 21:19:00 +0000
+Received: from BL1PR12MB5336.namprd12.prod.outlook.com
+ ([fe80::576a:69b5:929c:8640]) by BL1PR12MB5336.namprd12.prod.outlook.com
+ ([fe80::576a:69b5:929c:8640%6]) with mapi id 15.20.9769.014; Mon, 30 Mar 2026
+ 21:19:00 +0000
+Message-ID: <27e6fb48-51c0-4e47-ad91-c6c3092dfd09@amd.com>
+Date: Mon, 30 Mar 2026 17:18:56 -0400
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5] drm/amdgpu: replace PASID IDR with XArray
+To: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: lijo.lazar@amd.com, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, stable@vger.kernel.org
+References: <20260330191120.105065-1-mikhail.v.gavrilov@gmail.com>
+Content-Language: en-US
+From: Eric Huang <jinhuieric.huang@amd.com>
+In-Reply-To: <20260330191120.105065-1-mikhail.v.gavrilov@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: CH0PR03CA0356.namprd03.prod.outlook.com
+ (2603:10b6:610:11a::34) To BL1PR12MB5336.namprd12.prod.outlook.com
+ (2603:10b6:208:314::8)
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL1PR12MB5336:EE_|CYXPR12MB9340:EE_
+X-MS-Office365-Filtering-Correlation-Id: 65786270-0a30-4702-9b1f-08de8ea1f627
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|1800799024|376014|56012099003|22082099003|18002099003; 
+X-Microsoft-Antispam-Message-Info: f9Y8+XNJOpl/A9JkQOGJ8z1t/dwz3nXpr8cTPlzHYG521oxeaFH2h09cGmSzxQ86e2RfGljsLWrCqddS2YhjDd52exNlHFBhHNSAk8n7wq5YfCbuJbQA5EMp6BqYjkaaBs46I4ofzPEZz06OdpgXjvmc4okLDK+9KgBvLkmeAWMlZno+Qcof0TUWLbn3VjzsPjy/t4CsYDtP38hDJpXuZ9PcL/geo8E4Zveva5R7XxlXOMzr5vbYZQWmvz28rLXsraIpSceviGJkaFeS8L8epBrlIlKbqaLWPCpYJpLsxHIhULgbvPman9sBO5RYlD6ghqlYDn+MuoYOtUMV93DtiNw1VipacX6dMEyimJBV87Mm5F3OTjapRfnGyMSmFjg/8UYOEBRbbps4rL+ku9De88047pASdPJ1fwksha8AaJja21BM2LaAwhqMWma1bUW/QBew3qID7w7MTh6YVTzopck3IZbvYgwbKQ8wd2bmr4D4AxJEdHSWBx1h/onD5pa7S+tfyDftXLxt85tEZFa5xLk1vPel1MfsmYlT5HahRwZ/JiyHMYsapkvL37tbFbtH+uX9KBUTkIuTVmtuB33e3S/uIX/k6KDfySCY339IsP+ORaKyvmBJgTKVu1LykeTuYGJm8VvCg8Gs1V2KLxEDpbBMRHvdgKMtRHCMzoMaVPPwR6ibJptc2LFY71en8HGPGTPG1ZKaz1+AUuROkOY4ybZyTAljaUUGTBG4JyZW+U5VNRl9+MB5L1nahbSWi1n2
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BL1PR12MB5336.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(376014)(56012099003)(22082099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cFVvVUhYSWRSdnVCTkpOZjYwM0hXS1RGMDhGK3ZtY2RzR2xSSVZta1dHdU9o?=
+ =?utf-8?B?UGZtZWs5Z0Vzcm41QUNxUWpENFBTc3g5WVhNVzAxMldQV3M5QjI2SWJvazk4?=
+ =?utf-8?B?SC9nV282eXgxN1A3Y0ZhdmhPRTNiSnBVZTBPYzA5bjZ0YnJubzVVSUlYdURa?=
+ =?utf-8?B?MnFLZ0plWVhHZXBYSjhKR0xvWU8yb1k5OUFneVVKKzRYN0V0ejlPVWZCU3JW?=
+ =?utf-8?B?bVhidkZ6UURDbE9SdEQ4SFRwVm02Sm1KcldZNEtQMGxsMENaU0ZlbzdYek9v?=
+ =?utf-8?B?YUhxeVlSTFZ4L2VSQ044Sks2dFZqVE1iRk42VDBvelI4eXNlV1VUK0Yyb201?=
+ =?utf-8?B?MkFqZCtZMHNvRTFaYVl0MzlRUjFwMDJhUER5NXdnQXJBcEtYVVVKRE43cU1V?=
+ =?utf-8?B?Y0wwbktSdGJRbXZwOVZMVWFNbDI0VnJWM0EvcFYvcXZuL3NoREhYUEdvSTZl?=
+ =?utf-8?B?dkRWTVE2R2VaRDhYMW8rMFllWldRSHJwWVFZdEZ1ME9VV0UxUU9SbDBMVnpa?=
+ =?utf-8?B?UnZScHQ1R0Iwa3gvZXl1UUJhYi84aWdzM0Y1VHliTVcrNDMyMllLTk9EclRU?=
+ =?utf-8?B?SU5SeVc1ZGR1RElVWERTRThQT1h4dXhRakRJdVhWdk9Tam9rVWxvVWdudjU3?=
+ =?utf-8?B?QUtiM2V5Yi9IWFR0V0ptMmJrdDRuazdDa3VXTjVZS0ZYYmFMSGpIRHVUWnBa?=
+ =?utf-8?B?MzVPdWJERHNzSXNrb2dEa3VpRjJEM0s5YTdKYS9LWDY0MFh0Qnc1VnpyWFkr?=
+ =?utf-8?B?a0gzbzB4TmpXRFdFMlZ3WCs3a3FDbzZkT2ZDMWxXZTZUVHJCRHhpZllrVFRH?=
+ =?utf-8?B?OXh3bHlsUVJUWWNyZXhZZkVXTnRkNWJNZVZJbWZWdzEyeTVpdlhGWGtYOVhQ?=
+ =?utf-8?B?QjRWRGhpSThhK2FMWkQ1RWR4KzhZVzRidVE4c2xIRDVmTndMbkd0eDhZbDlr?=
+ =?utf-8?B?VzRlSTFRY2tDWGpRSFMwMno4dDZIQm4rcWJFSi9BWnQyMkRuRzFOQlFVbGVL?=
+ =?utf-8?B?NEhsL2dPZ0Fvb0ZBT2hMQ0prenpQVkdNdGJRMHNPMG92YkE3UG5KcnZWYTVw?=
+ =?utf-8?B?amZnK01vUHFNakZMODFIT0FuTDQvMWVUZXF1Z2cxdVJLMW4xaFZLSzRLeUVP?=
+ =?utf-8?B?RnNoL0Y4N25aWWFqTE1nNjh4N0JpKyszZWRTMXdvSit6VzdHMXFBNmIyRzJp?=
+ =?utf-8?B?VDhQOEJPYndMUkk4RGhreDUyd2l4MHpSMDkvTk8yb1F1WHVRN0xKWUowVjdB?=
+ =?utf-8?B?emRCejdJTTNCUGxkUUZnaHRISG1Sa1hpWkhmR282VHpSd3ZLQjBMRTJvRDVJ?=
+ =?utf-8?B?dDlZTmFTbThFSWwyQ2lFL2Y3SWxYaGp0akthbVNqdWdLVVRjdzFtZThuNTNI?=
+ =?utf-8?B?R0htdC9HbnN6SCs4WkYwN3I5RkJXSXhoSU9oS0wweU9Qa0Y1dk96dzc4cTIv?=
+ =?utf-8?B?bWYrYWxPcWNyTTdLWkhFakxlMVZzVzAzc2gxZFkvZ2xjSmNRd0IwOVRUa2FE?=
+ =?utf-8?B?WnVZV1NvUjliODkyVGtBVzQ1Z2hqRnlCMnNTQXh5eUU3VTU4c0Q2RlJBM3F2?=
+ =?utf-8?B?NUsyL2RzMDlEQ3JkT2JVaDJrOG9CTnU4Z2JaZGVnMzVlL2NIVUk5YlZYWjFu?=
+ =?utf-8?B?ZjBvQ2poWlFTWTZJTysvanhxMGNNRlk5TEV4R1JWTEVZMDZOcXJscWlrMnJQ?=
+ =?utf-8?B?bXZEQ3hGaUlWNy9Ua3JDdGJrRXlUTmRBSEVRSmp5cFo1OHpXbldkUWxvUnRR?=
+ =?utf-8?B?eTJrV0syOEdydFVJdGtaei90VlFnYzRxTFNZeUJTZFc1d2N1S3Rsa1djVWhD?=
+ =?utf-8?B?MW9COEh5Z2txekNXMm92M2Y3anZNMU5rVHBLdHpsalNaYmM2NFQvUnJUeXR6?=
+ =?utf-8?B?TGlRMFVpV3RuUlRnS1JTaHdNODVxMlRLakhkTHJSaXJ5d0hrZGNUYXpyN05p?=
+ =?utf-8?B?aDVqcnZNcUNEc3l5TUtmZVB0ZDJaMVB0UEIybGFRdlFFdUIybUFiK3d5K3hB?=
+ =?utf-8?B?Y1RwNFdhY0xPNWNZRXRJZjZsY3R0dDNxOEE3TjZRbUdoNWo3RXBnbk84OUs2?=
+ =?utf-8?B?Q3FRY2d0ajZ4dmFlT3lneUlNVUU0RnFuLzlmWkkyVkxRRGo3TWVVU1VnRTls?=
+ =?utf-8?B?SHc3NU9IbitDYURtdFJjejFYZ0xmVkRMVEFqNldRRDB6S0JMT05UM2lDc3du?=
+ =?utf-8?B?bGY3M3hMcTRKS05nSGpBc0dvMmRNT2xUd2xMamRyWlhPRHk4MHVKT1hTak0v?=
+ =?utf-8?B?Uk5VSll0ck5Say93cDVmbTdxaEt4Wit6Tm9Sci82QnlQOFNzb0VFSU1QbFdt?=
+ =?utf-8?B?VG1KQkxtZWVTU3A5bjFMditjTjQ1ZEFQSVpWZUtEYzdSL0NmQ2V5Zz09?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 65786270-0a30-4702-9b1f-08de8ea1f627
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5336.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SJ2PR12MB8650.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a0c2cad3-7e01-4406-52c1-08de8e9db06e
-X-MS-Exchange-CrossTenant-originalarrivaltime: 30 Mar 2026 20:48:25.4187 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 7w6RrPN0mo5MrzBSSgpoRg6T97jEi9JjtQ9N8GuxX5Y6V67Fb6R2G15BbMxQBVP610IW/GOnqFBo735STCmiuw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYYPR12MB8992
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Mar 2026 21:19:00.6866 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 2rwKAfBx4/ScI9jjBIP7ZTTqEK1JAjmJYpUuqSUJPnHC2r5xWdJHbu9PKIY7CsaSUJHPz9MvRnS+B3wESck1zg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYXPR12MB9340
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -131,144 +138,179 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_SJ2PR12MB86505F7DE924916903BD8FA68C52ASJ2PR12MB8650namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+It looks good to me.
 
-[AMD Official Use Only - AMD Internal Distribution Only]
+Reviewed-by: Eric Huang <jinhuieric.huang@amd.com>
 
-Looked into this bit more. We need support max_nodes which includes CPU and=
- GPU agents. P->n_pdds only include GPU agents. You need to add CPU agents =
-also.
-
-Best Regards,
-Harish
-________________________________
-From: Liu, Alysa <Alysa.Liu@amd.com>
-Sent: Monday, March 30, 2026 2:36 PM
-To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
-Cc: Kasiviswanathan, Harish <Harish.Kasiviswanathan@amd.com>; Liu, Alysa <A=
-lysa.Liu@amd.com>
-Subject: [PATCH v2] drm/amdkfd: Add upper bound check for num_of_nodes
-
-drm/amdkfd: Add upper bound check for num_of_nodes
-in kfd_ioctl_get_process_apertures_new.
-
-Signed-off-by: Alysa Liu <Alysa.Liu@amd.com>
----
- drivers/gpu/drm/amd/amdkfd/kfd_chardev.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd=
-/amdkfd/kfd_chardev.c
-index 1db565442c48..91f807c9e553 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-@@ -776,6 +776,9 @@ static int kfd_ioctl_get_process_apertures_new(struct f=
-ile *filp,
-                 goto out_unlock;
-         }
-
-+       if (args->num_of_nodes > p->n_pdds)
-+               return -EINVAL;
-+
-         /* Fill in process-aperture information for all available
-          * nodes, but not more than args->num_of_nodes as that is
-          * the amount of memory allocated by user
---
-2.34.1
-
-
---_000_SJ2PR12MB86505F7DE924916903BD8FA68C52ASJ2PR12MB8650namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+On 2026-03-30 15:11, Mikhail Gavrilov wrote:
+> Commit 8f1de51f49be ("drm/amdgpu: prevent immediate PASID reuse case")
+> converted the global PASID allocator from IDA to IDR with a spinlock
+> for cyclic allocation, but introduced two locking bugs:
 >
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<div>
-<div style=3D"font-family: Calibri; text-align: left; color: rgb(0, 0, 255)=
-; margin-left: 5pt; font-size: 10pt;">
-[AMD Official Use Only - AMD Internal Distribution Only]</div>
-<br>
-</div>
-<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
-Calibri, Helvetica, sans-serif; font-size: 11pt; color: rgb(0, 0, 0);" clas=
-s=3D"elementToProof">
-Looked into this bit more. We need support max_nodes which includes CPU and=
- GPU agents. P-&gt;n_pdds only include GPU agents. You need to add CPU agen=
-ts also.</div>
-<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
-Calibri, Helvetica, sans-serif; font-size: 11pt; color: rgb(0, 0, 0);" clas=
-s=3D"elementToProof">
-<br>
-</div>
-<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
-Calibri, Helvetica, sans-serif; font-size: 11pt; color: rgb(0, 0, 0);" clas=
-s=3D"elementToProof">
-Best Regards,</div>
-<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
-Calibri, Helvetica, sans-serif; font-size: 11pt; color: rgb(0, 0, 0);" clas=
-s=3D"elementToProof">
-Harish</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Liu, Alysa &lt;Alysa.=
-Liu@amd.com&gt;<br>
-<b>Sent:</b> Monday, March 30, 2026 2:36 PM<br>
-<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
-gt;<br>
-<b>Cc:</b> Kasiviswanathan, Harish &lt;Harish.Kasiviswanathan@amd.com&gt;; =
-Liu, Alysa &lt;Alysa.Liu@amd.com&gt;<br>
-<b>Subject:</b> [PATCH v2] drm/amdkfd: Add upper bound check for num_of_nod=
-es</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">drm/amdkfd: Add upper bound check for num_of_nodes=
-<br>
-in kfd_ioctl_get_process_apertures_new.<br>
-<br>
-Signed-off-by: Alysa Liu &lt;Alysa.Liu@amd.com&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdkfd/kfd_chardev.c | 3 +++<br>
-&nbsp;1 file changed, 3 insertions(+)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd=
-/amdkfd/kfd_chardev.c<br>
-index 1db565442c48..91f807c9e553 100644<br>
---- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c<br>
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c<br>
-@@ -776,6 +776,9 @@ static int kfd_ioctl_get_process_apertures_new(struct f=
-ile *filp,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; goto out_unlock;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (args-&gt;num_of_nodes &gt; p-&gt;=
-n_pdds)<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; return -EINVAL;<br>
-+<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Fill in process-apertur=
-e information for all available<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * nodes, but not mor=
-e than args-&gt;num_of_nodes as that is<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * the amount of memo=
-ry allocated by user<br>
--- <br>
-2.34.1<br>
-<br>
-</div>
-</span></font></div>
-</body>
-</html>
+> 1) idr_alloc_cyclic() is called with GFP_KERNEL under spin_lock(),
+>     which can sleep.
+>
+> 2) amdgpu_pasid_free() can be called from hardirq context via the
+>     fence signal path (amdgpu_pasid_free_cb), but the lock is taken
+>     with plain spin_lock() in process context, creating a potential
+>     deadlock:
+>
+>       CPU0
+>       ----
+>       spin_lock(&amdgpu_pasid_idr_lock)   // process context, IRQs on
+>       <Interrupt>
+>         spin_lock(&amdgpu_pasid_idr_lock) // deadlock
+>
+>     The hardirq call chain is:
+>
+>       sdma_v6_0_process_trap_irq
+>        -> amdgpu_fence_process
+>         -> dma_fence_signal
+>          -> drm_sched_job_done
+>           -> dma_fence_signal
+>            -> amdgpu_pasid_free_cb
+>             -> amdgpu_pasid_free
+>
+>     This was observed on an RX 7900 XTX when exiting a Vulkan game
+>     running under Proton/Wine, which triggers the fence callback path
+>     during VM teardown.
+>
+> Replace the IDR + spinlock with XArray.  xa_alloc_cyclic() handles
+> GFP_KERNEL pre-allocation and IRQ-safe locking internally, so it is
+> used directly in amdgpu_pasid_alloc().  For amdgpu_pasid_free(), which
+> can be called from hardirq context, use explicit xa_lock_irqsave()
+> with __xa_erase() since xa_erase() only uses plain xa_lock() which
+> is not IRQ-safe.
+>
+> Suggested-by: Lijo Lazar <lijo.lazar@amd.com>
+> Fixes: 8f1de51f49be ("drm/amdgpu: prevent immediate PASID reuse case")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+> ---
+>
+> v5: Use explicit xa_lock_irqsave/__xa_erase for amdgpu_pasid_free()
+>      since xa_erase() only uses plain xa_lock() which is not safe from
+>      hardirq context. Keep xa_alloc_cyclic() for amdgpu_pasid_alloc()
+>      as it handles locking internally. (Lijo Lazar)
+> v4: Use xa_alloc_cyclic/xa_erase directly instead of explicit
+>      xa_lock_irqsave, as suggested by Lijo Lazar.
+>      https://lore.kernel.org/all/20260330162038.25073-1-mikhail.v.gavrilov@gmail.com/
+> v3: Replace IDR with XArray instead of fixing the spinlock, as
+>      suggested by Lijo Lazar.
+>      https://lore.kernel.org/all/20260330110346.16548-1-mikhail.v.gavrilov@gmail.com/
+> v2: Added second patch fixing the {HARDIRQ-ON-W} -> {IN-HARDIRQ-W}
+>      lock inconsistency (spin_lock -> spin_lock_irqsave).
+>      https://lore.kernel.org/all/20260330053025.19203-1-mikhail.v.gavrilov@gmail.com/
+> v1: Fixed sleeping-under-spinlock (idr_alloc_cyclic with GFP_KERNEL)
+>      using idr_preload/GFP_NOWAIT.
+>      https://lore.kernel.org/all/20260328213900.19255-1-mikhail.v.gavrilov@gmail.com/
+>
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c | 47 ++++++++++++-------------
+>   1 file changed, 23 insertions(+), 24 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
+> index d88523568b62..3fbf631e67c7 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
+> @@ -22,7 +22,7 @@
+>    */
+>   #include "amdgpu_ids.h"
+>   
+> -#include <linux/idr.h>
+> +#include <linux/xarray.h>
+>   #include <linux/dma-fence-array.h>
+>   
+>   
+> @@ -35,13 +35,13 @@
+>    * PASIDs are global address space identifiers that can be shared
+>    * between the GPU, an IOMMU and the driver. VMs on different devices
+>    * may use the same PASID if they share the same address
+> - * space. Therefore PASIDs are allocated using IDR cyclic allocator
+> - * (similar to kernel PID allocation) which naturally delays reuse.
+> - * VMs are looked up from the PASID per amdgpu_device.
+> + * space. Therefore PASIDs are allocated using an XArray cyclic
+> + * allocator (similar to kernel PID allocation) which naturally delays
+> + * reuse. VMs are looked up from the PASID per amdgpu_device.
+>    */
+>   
+> -static DEFINE_IDR(amdgpu_pasid_idr);
+> -static DEFINE_SPINLOCK(amdgpu_pasid_idr_lock);
+> +static DEFINE_XARRAY_ALLOC(amdgpu_pasid_xa);
+> +static u32 amdgpu_pasid_xa_next;
+>   
+>   /* Helper to free pasid from a fence callback */
+>   struct amdgpu_pasid_cb {
+> @@ -53,8 +53,7 @@ struct amdgpu_pasid_cb {
+>    * amdgpu_pasid_alloc - Allocate a PASID
+>    * @bits: Maximum width of the PASID in bits, must be at least 1
+>    *
+> - * Uses kernel's IDR cyclic allocator (same as PID allocation).
+> - * Allocates sequentially with automatic wrap-around.
+> + * Uses XArray cyclic allocator for sequential allocation with wrap-around.
+>    *
+>    * Returns a positive integer on success. Returns %-EINVAL if bits==0.
+>    * Returns %-ENOSPC if no PASID was available. Returns %-ENOMEM on
+> @@ -62,20 +61,22 @@ struct amdgpu_pasid_cb {
+>    */
+>   int amdgpu_pasid_alloc(unsigned int bits)
+>   {
+> -	int pasid;
+> +	u32 pasid;
+> +	int r;
+>   
+>   	if (bits == 0)
+>   		return -EINVAL;
+>   
+> -	spin_lock(&amdgpu_pasid_idr_lock);
+> -	pasid = idr_alloc_cyclic(&amdgpu_pasid_idr, NULL, 1,
+> -				 1U << bits, GFP_KERNEL);
+> -	spin_unlock(&amdgpu_pasid_idr_lock);
+> +	r = xa_alloc_cyclic(&amdgpu_pasid_xa, &pasid, xa_mk_value(0),
+> +			    XA_LIMIT(1, (1U << bits) - 1),
+> +			    &amdgpu_pasid_xa_next, GFP_KERNEL);
+>   
+> -	if (pasid >= 0)
+> +	if (r >= 0) {
+>   		trace_amdgpu_pasid_allocated(pasid);
+> +		return pasid;
+> +	}
+>   
+> -	return pasid;
+> +	return r;
+>   }
+>   
+>   /**
+> @@ -84,11 +85,13 @@ int amdgpu_pasid_alloc(unsigned int bits)
+>    */
+>   void amdgpu_pasid_free(u32 pasid)
+>   {
+> +	unsigned long flags;
+> +
+>   	trace_amdgpu_pasid_freed(pasid);
+>   
+> -	spin_lock(&amdgpu_pasid_idr_lock);
+> -	idr_remove(&amdgpu_pasid_idr, pasid);
+> -	spin_unlock(&amdgpu_pasid_idr_lock);
+> +	xa_lock_irqsave(&amdgpu_pasid_xa, flags);
+> +	__xa_erase(&amdgpu_pasid_xa, pasid);
+> +	xa_unlock_irqrestore(&amdgpu_pasid_xa, flags);
+>   }
+>   
+>   static void amdgpu_pasid_free_cb(struct dma_fence *fence,
+> @@ -625,13 +628,9 @@ void amdgpu_vmid_mgr_fini(struct amdgpu_device *adev)
+>   }
+>   
+>   /**
+> - * amdgpu_pasid_mgr_cleanup - cleanup PASID manager
+> - *
+> - * Cleanup the IDR allocator.
+> + * amdgpu_pasid_mgr_cleanup - Cleanup PASID manager
+>    */
+>   void amdgpu_pasid_mgr_cleanup(void)
+>   {
+> -	spin_lock(&amdgpu_pasid_idr_lock);
+> -	idr_destroy(&amdgpu_pasid_idr);
+> -	spin_unlock(&amdgpu_pasid_idr_lock);
+> +	xa_destroy(&amdgpu_pasid_xa);
+>   }
 
---_000_SJ2PR12MB86505F7DE924916903BD8FA68C52ASJ2PR12MB8650namp_--
