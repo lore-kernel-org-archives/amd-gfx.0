@@ -4,89 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2069BFF495E
-	for <amd-gfx@archiver.kernel.org>; Mon, 30 Mar 2026 14:21:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DE8011061B00
+	for <amd-gfx@archiver.kernel.org>; Mon, 30 Mar 2026 14:34:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B2C1C10E769;
-	Mon, 30 Mar 2026 14:21:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0023C10E817;
+	Mon, 30 Mar 2026 14:34:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="hqcLGkoz";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="rl6Iw13O";
 	dkim-atps=neutral
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com
- [209.85.221.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 76A3910E770
- for <amd-gfx@lists.freedesktop.org>; Mon, 30 Mar 2026 14:21:50 +0000 (UTC)
-Received: by mail-wr1-f54.google.com with SMTP id
- ffacd0b85a97d-43b949bf4easo2639051f8f.0
- for <amd-gfx@lists.freedesktop.org>; Mon, 30 Mar 2026 07:21:50 -0700 (PDT)
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com
+ [209.85.221.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9909010E815
+ for <amd-gfx@lists.freedesktop.org>; Mon, 30 Mar 2026 14:34:22 +0000 (UTC)
+Received: by mail-wr1-f48.google.com with SMTP id
+ ffacd0b85a97d-43cfde3c3f3so920393f8f.3
+ for <amd-gfx@lists.freedesktop.org>; Mon, 30 Mar 2026 07:34:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1774880509; x=1775485309; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1774881261; x=1775486061; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=3gI1060qWAxguxfqLo7d74lXelCuf/bPUdPr59uzbe0=;
- b=hqcLGkozQlB0S5ZKiHvp66/WcZBWeK8LFa2e1tQ5pigfAkIznS5687VOzpaAoBigfj
- jw25qaGrFunzDYjv87CJOdxIA0QiGW+4qw/FZLG1bndohIdk/EZvKPjK43trLYRiCcrV
- AtuLauuJimBeaZximH2gNwUehph1pAeIRVvgcAyIQTcvR/GxRvv8r+Pjy/6LTuDhFTqZ
- tqRgPWjITZZfFmqjhIDecIfZ+1WvlQwZd1Q/WGbYKabfDVIKbZDRUItW728gdO7Dvk0k
- KL3Tqeo6pHeDSkOWgjn1iIAL6AbaVbrlRu6zsGJYwOab1zCim9V3/yV7LQWkJECcRSEo
- JLOw==
+ bh=82enXGmzdL38myUs9CoXr/paEg33ghGzuXyVpsOhERs=;
+ b=rl6Iw13Ojglp0kj+7DI94DAKtoOvGjObYCvjni3tHSo+B1swfYA9dlknzAL/qoxzMY
+ nHETULfWxpzY5wU0Zmf7rHKWBP4LqrDcuH8T9aUpWO++W1TrlEtxAQMBowGd9cD+hDZb
+ oiGPLaF7t8hTjMgf3oXXzdxCSnFD2QNyh+9Ytli+GLM2G//KEtrDVCL5r3bNGI8cUsXC
+ 5pDshCEoBiTf4VWCMHDgp0OlL9z12luRxdu/Vik2zvKrOfHWwJ6ujY2AF7wqon0myfju
+ vhZbaNjJ9ZwdEz9k2Sp+ZzTm0loJCgDB379x0A9wO19FuwlhjPQjOlqTN4W36sx0y/Gh
+ S/jQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774880509; x=1775485309;
+ d=1e100.net; s=20251104; t=1774881261; x=1775486061;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=3gI1060qWAxguxfqLo7d74lXelCuf/bPUdPr59uzbe0=;
- b=VcI47sOUz9BblWE0OhSliIiZqzXyDGkjF7LPXKImw1wfnhwphkSmDAnSr6mlMiyaTJ
- df9CMOLTjOE7o8LOI4jlJ4ARg2NgHAf6qlMT0WRpWf4CbCou8PznVvh/MItTDTcRgDk8
- IMEYNQFCr02yzkE8wnisxG/Sd3zqzD2a898mds/gUyUiAI++0dpnWIZDXoH5vEW/Z0X8
- AYKeX6X4vH0iNxNJEQMdlC/i+JP7I7rIaPJAefflIJ4shJXGxioNdklv9+NYhufNcI4J
- fGSEMBbaSgwGKZEH4/qMVj5+4Lj5HneVUd3Mn3pRmrtLx8z6Ds7F5yPkshJIDtRf6fQA
- xFjw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWfk8e7SIOXmb2J47VNOWDOA1xsBJk4suzETreN+emmiWDBlbShh/JEQvJqvp5pVDi+kn9I+M81@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzBMe/rnCYOhMpSw7on+03zHXmOtgX+TnGYZF6ddkWaSL/giOGH
- P27P6DrPSBfB6c4sqLOgMgLYo+HtUQx6509HYJAkj0JoFms2KS17Vy3+
-X-Gm-Gg: ATEYQzzfbogE7LVgCMARV5wvP04W+ZnuL1GOEcMOoHHLJvubg+SpQrkM/CHI6mxRVYz
- b6q3SVLF/3x5fEkOWgKntITV93h4vESBJe/I6HjfU4aMHP0hrgddAsc/b0sP+O5/whAmz5NYQwA
- TGCwz3uke0M1lQHyVL7RKz4e0MMhpC6aluh4Cw83cDPRC7yHRQgYupOeH5bj1By++jAoW7etx3C
- IHbIbzf55SDHaXmJGYDq2zjQ/QhwKDFM6ZvoZ5WZXtTQGYCkEEJF+uiwh/uTg0gUsZqdlr/xtOh
- bQsQvEYPvEfdYNQY3gxgTovO97BGDNceM6P9yMxq9HlvY7P6clYwf3ztrnTlldcnYgOnzQTHZdF
- YbnxRdcJmmvq586KXkqYub9lVH65yYJJlYkh4JzDKo5iOO0tKnmxOuSqWx7/TPC+rl7IwDBL5Au
- WFR0EsoK4RuaF8XAFdCox4t8krKSI/YYqJMFXDOdaPcWMzUI2cTlQApIoeg5WszFcd78IRXFe5
-X-Received: by 2002:a05:6000:22c9:b0:43c:f1da:487d with SMTP id
- ffacd0b85a97d-43cf1da48c5mr16375164f8f.2.1774880508452; 
- Mon, 30 Mar 2026 07:21:48 -0700 (PDT)
+ bh=82enXGmzdL38myUs9CoXr/paEg33ghGzuXyVpsOhERs=;
+ b=GAAinNZp9+kZGqsL0Toi5kxoXbRWzfHbggjks3prj25qzSRcs1R2jW7gjwzSvNP1zM
+ baHsu8hIyNSVgUTxXW12cF9stKn82gotPrRa6+p/Em+Ek3/3JWE0dwcapP+ndrPKl8+E
+ RadKEpduGr2ZwSN/G7aLsLST2PHIGezGI6n61prwzpWSmfxshl/hWm3O5Lxcx1naPkrC
+ 0T9QwXRQKxpzbE018EE04hfJXnIju+lFcNIXyh7qex8UxF9imivoNBSt++0kJDAn65Lx
+ 3fFBr9VfJ6nMIqqcX0NmAkHi8ML83MN1xu1GFW/Ng31jaUmjBlqH1A7K+6zYCxj2ih6t
+ E2Bw==
+X-Gm-Message-State: AOJu0YyuKPZzsQds+2J6Fut0TWTXNitOjfXAnXEzvLQ/NobRMoKKLffr
+ 9rgUVOonqG5kNcWpRKHbHy52GrjwJDndN3rXIs1Hw3n7/5DKsRtrFoMmDTJIMw06
+X-Gm-Gg: ATEYQzzCmg4HS+ZsGrfp9d46J91yvesM+jIvWdUOaVkgDnwhmOi03ayOsZ+1dQ9lJD5
+ tdjrayvN3HFauyYcd/bUBCa9aQUx7gTCFHmZoFEaQg5pmifqeKlTPWzk+WpSlq6CD9Yi+tRmow7
+ vdgLeucRhPqkzI7UcyrsR8MCTLbQh4evRkJU3BBbA+GTK9792uMBVRtRNpk6SBmvcdiMZxJW74K
+ gjAZ9yVK+YukUO9SXZ+e0i19qZuy2VLRqzvigud3HP6lW1MjxrOittGLrZUlqYScx+K3vGVPD5l
+ YnLvyAkYjk1o0JBnHa7g5NI4Y1vbX+FjjYs+OPb9sREK8oApOP7eKaU5vL3iJ4izqAdvMckcXQ4
+ oSVzPxB5SIerxzUGIVon+OWC4ad2SVokx4NemsxmPclsauFj7tBa+aRQn+7VtaNaPHUpMphtjII
+ 1usEEllexbZHN2pESng2PqnVHlz0GQmI5Lx8MgmEtHKAaXfeyONOdnfcrzfciyltAlEYNlvpxs
+X-Received: by 2002:a05:6000:2f87:b0:43c:faee:86b with SMTP id
+ ffacd0b85a97d-43cfaee09a6mr8949016f8f.48.1774881260842; 
+ Mon, 30 Mar 2026 07:34:20 -0700 (PDT)
 Received: from timur-hyperion.localnet (5E1BC26F.dsl.pool.telekom.hu.
  [94.27.194.111]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-43cf245ebafsm18062796f8f.21.2026.03.30.07.21.47
+ ffacd0b85a97d-43cf21e2628sm21411631f8f.6.2026.03.30.07.34.20
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 30 Mar 2026 07:21:48 -0700 (PDT)
+ Mon, 30 Mar 2026 07:34:20 -0700 (PDT)
 From: Timur =?UTF-8?B?S3Jpc3TDs2Y=?= <timur.kristof@gmail.com>
-To: stable@vger.kernel.org, Rosen Penev <rosenp@gmail.com>,
- Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@linux.ie>,
- Daniel Vetter <daniel@ffwll.ch>, Harry Wentland <harry.wentland@amd.com>,
- Leo Li <sunpeng.li@amd.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Bin Lan <bin.lan.cn@windriver.com>, He Zhe <zhe.he@windriver.com>,
- Vitaly Prosyak <vitaly.prosyak@amd.com>, Alex Hung <alex.hung@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Mario Limonciello <Mario.Limonciello@amd.com>, Ray Wu <ray.wu@amd.com>,
- Wayne Lin <wayne.lin@amd.com>, Roman Li <Roman.Li@amd.com>,
- Eric Yang <Eric.Yang2@amd.com>, Tony Cheng <Tony.Cheng@amd.com>,
- Mauro Rossi <issor.oruam@gmail.com>,
- "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>,
- "open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>,
- open list <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH for 6.12 3/9] drm/amd/display: Disable fastboot on DCE 6
- too
-Date: Mon, 30 Mar 2026 16:21:46 +0200
-Message-ID: <7351746.9J7NaK4W3v@timur-hyperion>
-In-Reply-To: <6b15401c-1fdf-4d3b-84aa-dfc47f430895@amd.com>
-References: <20260326234716.16723-1-rosenp@gmail.com>
- <2312151.9o76ZdvQCi@timur-hyperion>
- <6b15401c-1fdf-4d3b-84aa-dfc47f430895@amd.com>
+To: amd-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org, alexdeucher@gmail.com,
+ Danilo Machado <danilomachado2002@gmail.com>
+Subject: Re: [REGRESSION][bisected] amdgpu/tonga: HDMI no signal after
+ suspend/resume
+Date: Mon, 30 Mar 2026 16:34:19 +0200
+Message-ID: <22574187.4csPzL39Zc@timur-hyperion>
+In-Reply-To: <CAJ9xWrJaN80e1jzieNBCZ35BRrBNDg53L+jE-z6Zh6tPbDTNTw@mail.gmail.com>
+References: <CAJ9xWrKayFgruqhU8bs-2E2g52sed6VjOhNoq8aqhw+uxfSGVg@mail.gmail.com>
+ <CAJ9xWrL79F7bt+=Nbohp-pwDaOOWE8Cazah7kvtOdk5mutAG3Q@mail.gmail.com>
+ <CAJ9xWrJaN80e1jzieNBCZ35BRrBNDg53L+jE-z6Zh6tPbDTNTw@mail.gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset="utf-8"
@@ -104,88 +89,539 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Monday, March 30, 2026 3:55:55=E2=80=AFPM Central European Summer Time C=
-hristian=20
-K=C3=B6nig wrote:
-> On 3/30/26 15:16, Timur Krist=C3=B3f wrote:
-> > On Friday, March 27, 2026 12:47:10=E2=80=AFAM Central European Summer T=
-ime Rosen
-> > Penev>=20
-> > wrote:
-> >> From: Timur Krist=C3=B3f <timur.kristof@gmail.com>
-> >>=20
-> >> [ Upstream commit 7495962cbceb967e095233a5673ea71f3bcdee7e ]
-> >>=20
-> >> It already didn't work on DCE 8,
-> >> so there is no reason to assume it would on DCE 6.
-> >>=20
-> >> Signed-off-by: Timur Krist=C3=B3f <timur.kristof@gmail.com>
-> >> Reviewed-by: Rodrigo Siqueira <siqueira@igalia.com>
-> >> Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-> >> Reviewed-by: Alex Hung <alex.hung@amd.com>
-> >> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> >> Signed-off-by: Rosen Penev <rosenp@gmail.com>
-> >=20
-> > This patch is incorrect and should not be backported.
-> >=20
-> > (Note that the error is already fixed upstream. For stable kernels IMO
-> > it's
-> > best to drop this one.)
+On Sunday, March 29, 2026 11:36:19=E2=80=AFPM Central European Summer Time =
+Danilo=20
+Machado wrote:
+> Hi all,
 >=20
-> Is there some alternative which needs to be backported or should the old
-> kernel just work out of the box because we never enabled some feature
-> there?
+> I would like to share an important update based on further testing.
 >=20
-> Apart from that the patch set looks good to me.
->=20
+> After implementing a temporary workaround, I noticed that the issue is not
+> limited to suspend/resume. There is a second trigger that seems to affect
+> the same underlying problem.
 
-This patch had a typo and does the opposite of what it should, ie. it disab=
-les=20
-eDP fastboot on DCE10 and newer instead of disabling it on DCE8 and older.
+Hi Danilo,
 
-The upstream fix is here:
-https://lists.freedesktop.org/archives/amd-gfx/2026-February/138577.html
-which disables eDP fastboot on DCE10 and older.
+I responded on the GitLab issue.
+I recommend to continue the conversation there.
 
+Best regards,
+Timur
+
+
+> =F0=9F=94=8D Additional trigger identified (DPMS / screen off)
 >=20
-> >> ---
+> Sequence:
+>=20
+>    1.
+>=20
+>    System resumes from suspend =E2=86=92 works correctly (login screen ap=
+pears)
+>    2.
+>=20
+>    System becomes idle =E2=86=92 screen turns off (DPMS)
+>    3.
+>=20
+>    Upon user interaction (keyboard/mouse), the display fails to wake
+>    properly
+>=20
+> Observed behavior:
+>=20
+>    -
+>=20
+>    Black screen or no signal
+>    -
+>=20
+>    System remains responsive (can sometimes type blindly)
+>    -
+>=20
+>    In some cases, session becomes partially corrupted
+>=20
+> Important detail:
+>=20
+> This behavior is very similar to what happens after suspend/resume:
+>=20
+>    -
+>=20
+>    HDMI link is not properly restored
+>    -
+>=20
+>    Monitor may be misdetected or not reinitialized correctly
+>=20
+> ------------------------------
+> =F0=9F=A7=AA Workaround behavior
+>=20
+>    -
+>=20
+>    Disabling the phantom output (DVI-D-1) restores the display immediately
+>    -
+>=20
+>    Forcing HDMI-A-0 as primary also helps reinitialize the session
+>    -
+>=20
+>    Disabling automatic screen-off (DPMS) avoids the issue entirely
+>=20
+> ------------------------------
+> =F0=9F=A7=A0 Interpretation
+>=20
+> This suggests the problem is not strictly related to suspend, but more
+> generally to *display reinitialization after power state transitions*,
+> including:
+>=20
+>    -
+>=20
+>    suspend/resume (deep)
+>    -
+>=20
+>    screen power off/on (DPMS)
+>=20
+> Given that both paths trigger similar failures, this may point to issues =
+in:
+>=20
+>    -
+>=20
+>    EDID re-read after power events
+>    -
+>=20
+>    HDMI link training
+>    -
+>=20
+>    atomic modeset state reconstruction
+>    -
+>=20
+>    DC state restore
+>=20
+> ------------------------------
+> =F0=9F=92=A1 Conclusion
+>=20
+> The bisected commit may still represent a valid trigger point, but the ro=
+ot
+> cause appears to be related to how display state is restored after power
+> transitions, rather than suspend alone.
+> ------------------------------
+> =F0=9F=93=8E Additional notes
+>=20
+>    -
+>=20
+>    Wayland still does not show the same hard failure
+>    -
+>=20
+>    Issue remains reproducible
+>    -
+>=20
+>    Workarounds are consistent
+>=20
+> ------------------------------
+>=20
+> I hope this additional information helps narrow down the issue further.
+>=20
+> Please let me know if I can assist with more testing.
+>=20
+> Thanks again for your time and your work.
+>=20
+> Best regards,
+> Danilo
+>=20
+>=20
+> Em dom., 29 de mar. de 2026 =C3=A0s 13:34, Danilo Machado <
+>=20
+> danilomachado2002@gmail.com> escreveu:
+> > Hi all,
+> >=20
+> > I=E2=80=99d like to provide a final update on this regression affecting=
+ AMD Radeon
+> > R9 380 (Tonga), which I bisected earlier between Linux 6.3 (good) and 6=
+=2E4
+> > (bad).
+> >=20
+> > After further investigation, I was able to isolate the issue more
+> > precisely and identify a reliable workaround.
+> >=20
+> > =F0=9F=94=8D Summary:
+> >=20
+> > After suspend/resume under X11:
+> >    -
+> >   =20
+> >    HDMI monitor is physically connected and EDID is valid
+> >    -
+> >   =20
+> >    Kernel (DRM) correctly detects the HDMI connector
+> >    -
+> >   =20
+> >    However, X11 ends up with an inconsistent display state
+> >=20
+> > Observed behavior:
+> >    -
+> >   =20
+> >    HDMI-A-0 is active at correct resolution (1920x1080)
+> >    -
+> >   =20
+> >    A phantom output (DVI-D-1) appears as connected
+> >    -
+> >   =20
+> >    DVI-D-1 is incorrectly set as primary at 640x480
+> >    -
+> >   =20
+> >    Desktop becomes corrupted (missing panels, apps failing, incorrect
+> >    layout)
+> >=20
+> > xrandr example after resume:
+> >=20
+> > HDMI-A-0 connected 1920x1080+0+0
+> > DVI-D-1 connected primary 640x480+1920+116
+> >=20
+> > =F0=9F=A7=A0 Key finding:
+> >=20
+> > The issue is not EDID or link training. EDID is readable and valid.
+> >=20
+> > This appears to be a failure in atomic modeset / connector-to-CRTC mapp=
+ing
+> > during resume, leading to an incorrect fallback output being selected as
+> > primary.
+> >=20
+> > =F0=9F=92=A1 Workaround (100% reproducible fix):
+> >=20
+> > Running the following immediately restores the system:
+> >=20
+> > xrandr --output DVI-D-1 --off
+> > xrandr --output HDMI-A-0 --primary --mode 1920x1080
+> >=20
+> > This strongly suggests that the correct state exists but is not applied
+> > automatically after resume.
+> >=20
+> > =E2=9A=99=EF=B8=8F Additional observations:
+> >    -
+> >   =20
+> >    Wayland does not exhibit the same failure (likely due to dynamic sta=
+te
+> >    handling)
+> >    -
+> >   =20
+> >    Issue reproducible only on 6.4+
+> >    -
+> >   =20
+> >    s2idle reduces severity but does not fix the issue
+> >    -
+> >   =20
+> >    amdgpu.dc=3D0 makes the system fully unusable after resume
+> >=20
+> > =F0=9F=A7=AA Bisect:
+> >=20
+> > First bad commit:
+> > b3c98052d46948a8d65d2778c7f306ff38366aac (KVM merge)
+> >=20
+> > This likely indicates an indirect trigger (timing/order change during
+> > resume), not a direct amdgpu change.
+> >=20
+> > =F0=9F=93=8E Logs and details available upon request.
+> >=20
+> > =F0=9F=99=8F I=E2=80=99m happy to test patches or provide additional de=
+bug information.
+> >=20
+> > Thanks for your time and for maintaining amdgpu.
+> >=20
+> > Best regards,
+> > Danilo
+> >=20
+> > Em dom., 29 de mar. de 2026 =C3=A0s 10:35, Danilo Machado <
+> >=20
+> > danilomachado2002@gmail.com> escreveu:
+> >> Also reported on GitLab:
+> >> https://gitlab.freedesktop.org/drm/amd/-/work_items/5123
 > >>=20
-> >>  drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c | 6 ++----
-> >>  1 file changed, 2 insertions(+), 4 deletions(-)
+> >> Em dom., 29 de mar. de 2026 =C3=A0s 09:47, Danilo Machado <
 > >>=20
-> >> diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
-> >> b/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c index
-> >> df69e0cebf78..7dc99c85b8ea 100644
-> >> --- a/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
-> >> +++ b/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
-> >> @@ -1910,10 +1910,8 @@ void dce110_enable_accelerated_mode(struct dc *=
-dc,
-> >> struct dc_state *context)
+> >> danilomachado2002@gmail.com> escreveu:
+> >>> Additional testing:
+> >>>=20
+> >>> I tested with amdgpu.dc=3D0 to disable Display Core.
+> >>>=20
+> >>> Result:
+> >>> - system becomes completely unresponsive after resume
+> >>> - black screen, no input response
+> >>>=20
+> >>> This suggests the issue is not limited to Display Core (DC),
+> >>> but likely affects the core GPU resume path.
+> >>>=20
+> >>> With DC enabled:
+> >>> - partial recovery (corrupted display, EDID failure)
+> >>>=20
+> >>> With DC disabled:
+> >>> - complete failure
+> >>>=20
+> >>> This reinforces that the regression is deeper in the amdgpu resume
+> >>> sequence.
+> >>>=20
+> >>> Em sex., 27 de mar. de 2026 =C3=A0s 21:14, Danilo Machado <
+> >>>=20
+> >>> danilomachado2002@gmail.com> escreveu:
+> >>>> Additional data (resume failure analysis)
+> >>>>=20
+> >>>> Hardware:
+> >>>> - GPU: AMD Radeon R9 380 (Tonga, GCN 3)
+> >>>> - CPU: AMD Ryzen 5 5500
+> >>>> - RAM: 16 GB
+> >>>> - Display: HDMI
+> >>>>=20
+> >>>> Software:
+> >>>> - Kernel: 6.8.0-106-generic
+> >>>> - Driver: amdgpu
+> >>>> - Display server: X11 (issue reproducible), Wayland (no hard failure)
+> >>>>=20
+> >>>> ---
+> >>>>=20
+> >>>> Summary:
+> >>>>=20
+> >>>> After suspend/resume, HDMI output is not restored and the system may
+> >>>> freeze under X11.
+> >>>>=20
+> >>>> The issue is reproducible and was not present in Linux 6.3.
+> >>>>=20
+> >>>> ---
+> >>>>=20
+> >>>> Key observation:
+> >>>>=20
+> >>>> During resume, the driver fails to read EDID:
+> >>>>     amdgpu 0000:01:00.0: [drm] *ERROR* No EDID read.
+> >>>>=20
+> >>>> This appears to explain why HDMI output is not restored.
+> >>>>=20
+> >>>> ---
+> >>>>=20
+> >>>> Relevant DRM / AMDGPU log excerpt:
+> >>>>=20
+> >>>> [drm] Display Core v3.2.266 initialized on DCE 10.0
+> >>>> amdgpu 0000:01:00.0: [drm] *ERROR* No EDID read.
+> >>>> [drm] Initialized amdgpu 3.57.0 20150101 for 0000:01:00.0
+> >>>>=20
+> >>>> ---
+> >>>>=20
+> >>>> Analysis:
+> >>>>=20
+> >>>> - The failure occurs during display reinitialization after resume
+> >>>> - EDID read failure prevents proper HDMI modeset
+> >>>> - This aligns with the observed "no signal" condition
+> >>>>=20
+> >>>> Behavior differences:
+> >>>>=20
+> >>>> - deep sleep:
+> >>>>   - full GPU/display reinitialization
+> >>>>   - leads to EDID failure and system instability
+> >>>>=20
+> >>>> - s2idle:
+> >>>>   - partial resume
+> >>>>   - avoids full lockup but display may still be inconsistent
+> >>>>=20
+> >>>> This suggests the issue is in the display resume path, possibly
+> >>>> involving:
+> >>>>=20
+> >>>> - DC state restore
+> >>>> - HDMI link training
+> >>>> - DDC/EDID communication
+> >>>> - atomic modeset reconstruction
+> >>>>=20
+> >>>> ---
+> >>>>=20
+> >>>> Conclusion:
+> >>>>=20
+> >>>> This is likely a regression in the AMDGPU display resume path, where
+> >>>> EDID read fails after resume, preventing HDMI output from being
+> >>>> restored.
+> >>>>=20
+> >>>> ---
+> >>>>=20
+> >>>> Additional notes:
+> >>>>=20
+> >>>> This issue was bisected between Linux 6.3 (good) and 6.4 (bad), with
+> >>>> the transition point identified as a KVM merge commit. While not
+> >>>> directly
+> >>>> related to AMDGPU, it may have indirectly exposed this issue via
+> >>>> timing/order changes.
+> >>>>=20
+> >>>> ---
+> >>>>=20
+> >>>> If needed, I can provide:
+> >>>>=20
+> >>>> - full journalctl logs
+> >>>> - full bisect log
+> >>>> - additional testing (kernel params, debug options)
+> >>>> ------------------------------
+> >>>> *De:* Danilo Machado <danilomachado2002@hotmail.com>
+> >>>> *Enviado:* quinta-feira, 26 de mar=C3=A7o de 2026 20:38
+> >>>> *Para:* amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
+> >>>> *Cc:* Alex Deucher <alexdeucher@gmail.com>;
+> >>>> dri-devel@lists.freedesktop.org <dri-devel@lists.freedesktop.org>
+> >>>> *Assunto:* [REGRESSION][bisected] amdgpu/tonga: HDMI no signal after
+> >>>> suspend/resume
+> >>>>=20
+> >>>>=20
+> >>>> Hi all,
+> >>>>=20
+> >>>> Thanks again for your feedback.
+> >>>>=20
+> >>>> I took a closer look at the bisect results and system behavior, and =
+I=E2=80=99d
+> >>>> like to provide a more complete and consolidated report.
+> >>>> ------------------------------
+> >>>>=20
+> >>>> Hardware:
+> >>>>    -
+> >>>>   =20
+> >>>>    GPU: AMD Radeon R9 380 (Tonga, GCN 3)
+> >>>>    -
+> >>>>   =20
+> >>>>    CPU: AMD Ryzen 5 5500
+> >>>>    -
+> >>>>   =20
+> >>>>    RAM: 16 GB
+> >>>>    -
+> >>>>   =20
+> >>>>    Display: HDMI
+> >>>>=20
+> >>>> Software:
+> >>>>    -
+> >>>>   =20
+> >>>>    Driver: amdgpu
+> >>>>    -
+> >>>>   =20
+> >>>>    Kernel range tested: 6.3 (good) =E2=86=92 6.4 (bad)
+> >>>>=20
+> >>>> ------------------------------
+> >>>>=20
+> >>>> Summary:
+> >>>>=20
+> >>>> This is a reproducible suspend/resume regression affecting HDMI outp=
+ut.
+> >>>>=20
+> >>>>    -
+> >>>>   =20
+> >>>>    Linux 6.3 =E2=86=92 working correctly
+> >>>>    -
+> >>>>   =20
+> >>>>    Linux 6.4+ =E2=86=92 regression present
+> >>>>=20
+> >>>> ------------------------------
+> >>>>=20
+> >>>> Behavior:
+> >>>>=20
+> >>>> After suspend/resume:
+> >>>>    -
+> >>>>   =20
+> >>>>    HDMI output does not recover ("no signal")
+> >>>>    -
+> >>>>   =20
+> >>>>    System may freeze under X11
+> >>>>    -
+> >>>>   =20
+> >>>>    Wayland does not show the same hard failure
+> >>>>=20
+> >>>> Additionally:
+> >>>>    -
+> >>>>   =20
+> >>>>    Using "deep" sleep:
+> >>>>    -
+> >>>>   =20
+> >>>>       full system lockup after resume
+> >>>>       -
+> >>>>   =20
+> >>>>    Using "s2idle":
+> >>>>    -
+> >>>>   =20
+> >>>>       system resumes without hard lock
+> >>>>       -
+> >>>>      =20
+> >>>>       however, graphical session may return in a partially broken st=
+ate
+> >>>>=20
+> >>>> ------------------------------
+> >>>>=20
+> >>>> Bisect result:
+> >>>>=20
+> >>>> A full git bisect was performed between Linux 6.3 and 6.4.
+> >>>>=20
+> >>>> First bad commit:
+> >>>> b3c98052d46948a8d65d2778c7f306ff38366aac
+> >>>> ("Merge tag 'kvm-x86-vmx-6.4'")
+> >>>>=20
+> >>>> All intermediate commits in that range were consistently tested as
+> >>>> GOOD.
+> >>>> ------------------------------
+> >>>>=20
+> >>>> Analysis:
+> >>>>=20
+> >>>> Although the bisected commit is in KVM and unlikely to directly affe=
+ct
+> >>>> AMDGPU, the transition point is consistent and reproducible.
+> >>>>=20
+> >>>> This suggests the regression may be indirectly triggered (e.g. timing
+> >>>> or ordering changes during resume), rather than caused directly by t=
+hat
+> >>>> merge.
+> >>>>=20
+> >>>> Based on observed behavior, this appears related to the display resu=
+me
+> >>>>=20
+> >>>> path, possibly involving:
+> >>>>    -
+> >>>>   =20
+> >>>>    DC state restore after resume
+> >>>>    -
+> >>>>   =20
+> >>>>    HDMI link training
+> >>>>    -
+> >>>>   =20
+> >>>>    EDID re-read
+> >>>>    -
+> >>>>   =20
+> >>>>    atomic modeset state reconstruction
+> >>>>=20
+> >>>> The difference between "deep" and "s2idle" also suggests a failure
+> >>>> during full GPU/display reinitialization.
+> >>>> ------------------------------
+> >>>>=20
+> >>>> Conclusion:
+> >>>>=20
+> >>>> This appears to be a latent issue exposed by changes introduced duri=
+ng
+> >>>> the 6.4 merge window, rather than a direct regression in the bisected
+> >>>> commit itself.
+> >>>> ------------------------------
+> >>>>=20
+> >>>> If helpful, I can assist further by:
+> >>>>    -
+> >>>>   =20
+> >>>>    providing full bisect logs
+> >>>>    -
+> >>>>   =20
+> >>>>    capturing detailed dmesg/journalctl before and after resume
+> >>>>    -
+> >>>>   =20
+> >>>>    testing patches or debug options
+> >>>>    -
+> >>>>   =20
+> >>>>    narrowing the range further if needed
+> >>>>=20
+> >>>> I really appreciate the work on AMDGPU and would be glad to help wit=
+hin
+> >>>> my limits to investigate this further.
+> >>>>=20
+> >>>> Thanks again for your time.
+> >>>>=20
+> >>>> Best regards,
+> >>>> Danilo
+> >>>> Note: I had some email client configuration issues earlier, which may
+> >>>> have caused duplicate messages or formatting problems. These have now
+> >>>> been
+> >>>> resolved =E2=80=94 apologies for any inconvenience.
+> >>>=20
+> >>> --
+> >>> *Danilo Machado*
 > >>=20
-> >>  	get_edp_streams(context, edp_streams, &edp_stream_num);
-> >>=20
-> >> -	// Check fastboot support, disable on DCE8 because of blank
+> >> --
+> >> *Danilo Machado*
 > >=20
-> > screens
-> >=20
-> >> -	if (edp_num && edp_stream_num && dc->ctx->dce_version !=3D
-> >=20
-> > DCE_VERSION_8_0
-> >=20
-> >> && -		    dc->ctx->dce_version !=3D DCE_VERSION_8_1 &&
-> >> -		    dc->ctx->dce_version !=3D DCE_VERSION_8_3) {
-> >> +	/* Check fastboot support, disable on DCE 6-8 because of blank
-> >=20
-> > screens */
-> >=20
-> >> +	if (edp_num && edp_stream_num && dc->ctx->dce_version <
-> >=20
-> > DCE_VERSION_10_0)
-> >=20
-> >> { for (i =3D 0; i < edp_num; i++) {
-> >>=20
-> >>  			edp_link =3D edp_links[i];
-> >>  			if (edp_link !=3D edp_streams[0]->link)
+> > --
+> > *Danilo Machado*
 
 
 
