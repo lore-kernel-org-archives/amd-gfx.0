@@ -4,53 +4,124 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A8871FF494F
-	for <amd-gfx@archiver.kernel.org>; Mon, 30 Mar 2026 12:39:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E2C9AFF494F
+	for <amd-gfx@archiver.kernel.org>; Mon, 30 Mar 2026 12:40:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 42BA310E498;
-	Mon, 30 Mar 2026 12:39:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6A43E10E170;
+	Mon, 30 Mar 2026 12:40:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Z7AzdZfu";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="RE/D48dt";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3878B10E498;
- Mon, 30 Mar 2026 12:38:59 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id E4A094454C;
- Mon, 30 Mar 2026 12:38:58 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B1524C2BCB1;
- Mon, 30 Mar 2026 12:38:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1774874338;
- bh=tESJMBX27oDt5eJWNgWE3wG/L/mnZJEOjFSFMeL4a98=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=Z7AzdZfuQmDknOzoc4x1z6C3t6dWPdWV4BgGSEnF7kXZBcB8pCuqKjuw8WarYXK19
- OJUKYmQHTxrpaUURWYuW1VQ5duoqD9urK847adXfti5F+x5bM2hNfhUTJ9XQI6/Jcp
- jgR512qMN1PRISgl4UQkOuFnFCAr3awLqsRfO7rVeAMffeGs7244BgSZYQitI6HhFh
- lnebSu2036NBmix2BEIxuehrkqv05Cdr9tueAzWssLk0s/LaWIFBKb0AHytscX/YKC
- wShFzdbWk6h+lKTHBcN56tcyTm42Ql9CT4pGMEMH3Dm27f8XDYW+b/tjjIXjFR1hB9
- 2G1hx0edkb3Hg==
-From: Sasha Levin <sashal@kernel.org>
-To: patches@lists.linux.dev,
-	stable@vger.kernel.org
-Cc: Donet Tom <donettom@linux.ibm.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
- airlied@gmail.com, simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.19-6.12] drm/amdgpu: Handle GPU page faults
- correctly on non-4K page systems
-Date: Mon, 30 Mar 2026 08:38:24 -0400
-Message-ID: <20260330123842.756154-11-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260330123842.756154-1-sashal@kernel.org>
-References: <20260330123842.756154-1-sashal@kernel.org>
-MIME-Version: 1.0
+Received: from MW6PR02CU001.outbound.protection.outlook.com
+ (mail-westus2azon11012069.outbound.protection.outlook.com [52.101.48.69])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1FB0C10E170
+ for <amd-gfx@lists.freedesktop.org>; Mon, 30 Mar 2026 12:40:30 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=wy5dSMR3m3UoivoIT6xDSJiEjx91qx6v7CZOvbD//ufqK0JkP9iYQcGj0ZvxhIu7nehQ6lXhQIa1JVcQQHNyPJZOhtU9FMuvp94qsyBoCgVkqwIhF/owtgKALnY0vY2Z9hdqNfqnOY1ryknMZQ7Lgli/q0/LEXlOHwrMfbpIV9ec9EnXnZNyXbYUmhrCr3RqdJeAOSNuN9CVU5oYF1ArnTcx/3jUlDaXOwQo5yek7Th/26QoHl4txDozigp3lJBzd921FWaiEfNUgtadyIYl778P3rUm7NCXpZ67j/Z0RNnm2Hh1pX8YiSE1XfYB/i3+O7E2Skvw2kdyRPYFCMSmSQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Ww2adsMqn4E3XajoToJHu4s/J9F3sCR0vmqG63XpmG4=;
+ b=iGRO0gAymN1I2nj1LuuV7Ul7mE2iwr7ORBqjN9YAidUbFLAaGzyG5ebxFDfY0qum3ZgSD3QqjUwQv6h8/JTvROoF/X7Nf3BmsrJfHxHbNRKDjfllHB4Ld1SYd45lDKGqwkINF815wXjL3o+Tq1gO3qY5k57RvDYyNY2yaVSE8hjsKb9TPc//Q6GqV0DFe5JJGYnH7NIEwHXHSB0+pua9eZQ3CfRQzKAdRpoaEeVDxpX1K/ZEXUBLJxowcqugs7F4yDG8Rn60lcuwfGdDSgtbq8j8IeR+V8Z8o9QUK9yJ3/Hv4bKi0hEjqiKJxI1o7BCARFXYlM7KkZUf7i5uMwwA7Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Ww2adsMqn4E3XajoToJHu4s/J9F3sCR0vmqG63XpmG4=;
+ b=RE/D48dtFh75dyu6DGg9Z6lodX/kXGciH+8651yn+gaqjGE2AWn8XQ1aIy8JMp+ft8bjtKYTPE6sXo+RHMO2QH9jKkNABcEQuqcWdGKu2drdP7v+2HzwxsIX62tJ7ZCYyXBUBidv+5Or3hOlNjO4IDog7eJd3U1iA8l/XDaiNs4=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by EAYPR12MB999157.namprd12.prod.outlook.com (2603:10b6:303:2bf::20)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.15; Mon, 30 Mar
+ 2026 12:40:27 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.20.9769.014; Mon, 30 Mar 2026
+ 12:40:27 +0000
+Message-ID: <a1195a6c-af89-4e28-b4b3-984a8a57853b@amd.com>
+Date: Mon, 30 Mar 2026 14:40:23 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [Patch v2 1/3] drm/amdgpu/userq: dont check return value in
+ amdgpu_userq_evict
+To: Sunil Khatri <sunil.khatri@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>
+Cc: amd-gfx@lists.freedesktop.org
+References: <20260326132353.2753833-1-sunil.khatri@amd.com>
+ <20260326132353.2753833-2-sunil.khatri@amd.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20260326132353.2753833-2-sunil.khatri@amd.com>
 Content-Type: text/plain; charset=UTF-8
-X-stable: review
-X-Patchwork-Hint: Ignore
-X-stable-base: Linux 6.19.10
 Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR4P281CA0225.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:e4::17) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|EAYPR12MB999157:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1926c626-b385-421a-7144-08de8e598503
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|376014|366016|56012099003|22082099003|18002099003; 
+X-Microsoft-Antispam-Message-Info: lxjRVut766o/f7sHnOhrARKYKiExazuTBZE+H9YiAfKkChYaS4HDU3+gmOlD7lrKtTLTsI2Jb5I9s+JzhqUoUynwSCo2XhgCijb0jITjjQzTrKILAIFXb4NVbLBzZRm+ZNsY96Is5a+mzfGgLkKQcVBCKm/2G8NgNdaMw4u2sVyPnZ6wNipV/4rbxUO9+hjAW/ruU0M0zazlj77Pcy6lmnAiIad9LVlTV2xJ8F5RB1FjcSvNeSMCWvOMQVDjd51N3bQ9yRYfh6MOe5nSYBo/2Dz/TRviQ5ZT8RMED/PMSAWW86irj4320mL3WcaoQMkIKXOfCCAjGSAohixGm0RfqZqfKz5ctVDVk5qSj1oIJs16CLvG9guAywdG9CeGcybhEpPhQoYyyhu8623Dr3XIN0pdt2rTQG7UvVR5OzaFTmJ5HS0glFQTUYACEUtNIcSKKhCYl71NB16qDL2NbqwsjncAzimnBsG/gbfMG8AqKYPvNAsQsuW0SLNtcfczkC+aNrVS1KVJ38Jp2sDweJcavPTE0hqyMjxj0rmHndPjkNSLEZR4+UHXhcZa4kYtH0K0waHB9BNY9kV2+UUgYnC5lKCCPs29Ni78wSaUUGxdJWLjchdLrXk1XNEkWzP+mH/pK6LGnH9+gT0YdOLqc6g/VaJuhUU3URBtMFNdcxgsPVkYrigHDgyubnEyyFBNswZ03esl6APMfEue/DMZtjprH4StJT6ujO75dGDN/TNQFik=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(366016)(56012099003)(22082099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VGtCVzM5QUlZRHRPMzVmR043Tnk4SzZSdnhsYnBYZXhnQlB3YXpZa3RBdk5U?=
+ =?utf-8?B?VG5JSDhvSytZNGNuQnZiaUp2SWRZSWlCc004bE1qRWZOUmFXb3lKL1NBWkVM?=
+ =?utf-8?B?eHVESTNhTXBaUFhsV0RMRXRxaW9WVWZoVVhEcVJpTk9DdWNKanFwWml1dlRy?=
+ =?utf-8?B?azN3UjJabmFHVXczeTJ5ZEJURXN6dVZ5N1dXekV0dzhJck9BQnEzcDcyMS96?=
+ =?utf-8?B?aDMxUGw4RHBPcHhXL0Vvb214a3llVUFkTGNBN3VLWGZObC8rS2tzS0lLWjMy?=
+ =?utf-8?B?ZTdlbG9hMXB2VHJzaFRhYkRkUmgxRmtBVVF1dlZSTVFxNmNkaFR1NEJzeDRq?=
+ =?utf-8?B?dDR1cENZOTh1ZXFjTzNvQ2s2dTBtZmtWd0pEcUJCWWQ3d0dxZmRFaVg5MWNV?=
+ =?utf-8?B?OXVzMW9ydGVqODZ0WW1DRElnaDIwOVFIZUxkUWtwTERpTmUrVXE4THBDV21D?=
+ =?utf-8?B?NVV5VHNNV0JXTmVDM0ZhbEowenVTSk40VmNyWmVPbFpvU3U0Z1NVSlZzZVpk?=
+ =?utf-8?B?eHNkSHdqeUpNbFlrRkw0NHJhRit5MERIWEkzM052ZG8xTC9ZWWxuZ3BneUxj?=
+ =?utf-8?B?V1ZXaUx2VGxYcnRjYmI4M2FoOVI2TjgxU0xweEdjakJrR2o3WFdXUlBocTJu?=
+ =?utf-8?B?UFI4STJ5Tk9sb0RuWHc0ZmdJNHlsb2tqS2dHVnZtbi8xQ1MxSzZkeG12cWtT?=
+ =?utf-8?B?dXY5NGl6MzB3a1ViV091ZWI3SDZDRWJ4MDhqOFBkRjJWSzBoN3BmTmxIbmRo?=
+ =?utf-8?B?cm9scnhMTUdLdzRvMXhkVWdXQi91NkJFMlJGQlZzRmJiSjlMM3N6TDQ2UEFh?=
+ =?utf-8?B?SStjZjBLZ01aaXlqN3FkWXdNSTBOR3RhNHNtY3NaSGxtWFlmaUtINlVUUDEw?=
+ =?utf-8?B?OTY2dXJEWTZUN0xsRUxrQUdwaW9ZOGZLNlFMUkRjWnhzUEFZVHZXaGZkOWF0?=
+ =?utf-8?B?YzNlZ2s0SkU2aCtBK3Z1RHVpN0xwMGp5Z0V6MzlhNDZYeHpDZjJSL015cDNH?=
+ =?utf-8?B?K3VWZnlNbjJwNHIvUWtTZjV6WnRyeUE0S0dGQ3lHZjg0U25FbkxwN2dqb0xh?=
+ =?utf-8?B?S3pkbzVESkhEaFRHRUFPRXNjd0dFVGFrL2JrUDIzMUVMdDVjQy8zS2xvRk1i?=
+ =?utf-8?B?Vm5oVTJFM3J0MmYrN2hwMzE5bGh1MDFSWktLZk5NVHFkTGxnT3lDSzd3a3pq?=
+ =?utf-8?B?THVBdUx6QjVRZFpGUUNzR05HK1VGclk0Z1ZaT3NzVjlsZVFTakZDaWFvK0Fz?=
+ =?utf-8?B?L1o1dWRLcmtHYjJkU0JPSWNwVXlYczRTa3JTcEd3dTR6ZEVzOXdjSDRqWnVO?=
+ =?utf-8?B?cVR5NWFpeUFBSGFEWWoraG5hMjZSbWhJVFlUMDJhT0hQemFOekozRm05KzNW?=
+ =?utf-8?B?Yy90cGdNVkcwK0wwVitEbUlhQjRtZVJuUDBncUV0NTlET29YQ1M2NU9VM1pB?=
+ =?utf-8?B?VEJYTDZFR01LZ1REeHNFaWZKQkRsKy9YL0VkTWNCbGN4T3ZxTHZDOTZUUFdB?=
+ =?utf-8?B?VjRXT3Q2SVEwRldGUm5BdHgzSXlqUnNuYjJDYmJCRFJyTDlSSlNoYjRKYnYw?=
+ =?utf-8?B?MGpUdlduczc0NEt1enk3RGVqVmYxeUI2dFRoYnM5U2E0clpCWlRwNFBmaTB2?=
+ =?utf-8?B?S2NRSm44L1BjQU9IMFVmQVNhcDVEcWtURHRrUEpDNk1OUTJtdjFhL01kOEhP?=
+ =?utf-8?B?RERiakVKWFV4aGVETmJxa1dSVjFRTFV1dVd1OWNXQXE3KytIN2NiM3lFVnVh?=
+ =?utf-8?B?cTk3ZnpmbkZVZmE4SkROTENjMEdySnpVZkUxUDgvdjA2TnhyTEpUTkZKQ3or?=
+ =?utf-8?B?ajdaRW1hV0JraHllb0tXM0l2dmZUZWNKQ0ZXZEI2V0dnU0hlaEExbU16TWIx?=
+ =?utf-8?B?T1dCRjJraEUrd1B0UUJMc1lnS2tITDQrcVMzZm1MT0tLeVBJMTk5K0c1ZC9B?=
+ =?utf-8?B?YWxBWkNLbWdPRjJEaTE4OHc1VUlVV1BUNHhTa2YwaXVmWUxhUmtsRFF4bUcv?=
+ =?utf-8?B?Zm1OZk80M3RvQ3N1TDg0ZEZINE45dGVLRHErY0h3WmI0RE1UZThoem1KclZH?=
+ =?utf-8?B?bExIN1F2WmcrU0VoNG9yaGRDbXZzbXFJdWpTcWRoVUljRnk1ZldYK2ozUDdB?=
+ =?utf-8?B?LzdWZzRTZnk1MWlIRVp0RGpUQkp6SGliaUNWd2s0eW02WDF3UkdRbDdTV0l3?=
+ =?utf-8?B?RGRvZzdhaExKSzlxa214MXhEdGNxV0wwWVVtSVFJSnlkeTQ1QkxtVnRyT1hQ?=
+ =?utf-8?B?Mnh0SzRXN2dSYjg3Tm1LQzlsM2xnZXZyRWNvNXU1bHFVZEFWQ2J4OGFUZzZo?=
+ =?utf-8?Q?SajajHe7aV28JKFpdv?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1926c626-b385-421a-7144-08de8e598503
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Mar 2026 12:40:27.0762 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 8MYp9KHXaCP3Yan1oVodty/5buZZlNDE9s2Gn8WCrV4qNiN6I/SYwc+yYEWf6uXo
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: EAYPR12MB999157
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,442 +136,78 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Donet Tom <donettom@linux.ibm.com>
-
-[ Upstream commit 4e9597f22a3cb8600c72fc266eaac57981d834c8 ]
-
-During a GPU page fault, the driver restores the SVM range and then maps it
-into the GPU page tables. The current implementation passes a GPU-page-size
-(4K-based) PFN to svm_range_restore_pages() to restore the range.
-
-SVM ranges are tracked using system-page-size PFNs. On systems where the
-system page size is larger than 4K, using GPU-page-size PFNs to restore the
-range causes two problems:
-
-Range lookup fails:
-Because the restore function receives PFNs in GPU (4K) units, the SVM
-range lookup does not find the existing range. This will result in a
-duplicate SVM range being created.
-
-VMA lookup failure:
-The restore function also tries to locate the VMA for the faulting address.
-It converts the GPU-page-size PFN into an address using the system page
-size, which results in an incorrect address on non-4K page-size systems.
-As a result, the VMA lookup fails with the message: "address 0xxxx VMA is
-removed".
-
-This patch passes the system-page-size PFN to svm_range_restore_pages() so
-that the SVM range is restored correctly on non-4K page systems.
-
-Acked-by: Christian König <christian.koenig@amd.com>
-Signed-off-by: Donet Tom <donettom@linux.ibm.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit 074fe395fb13247b057f60004c7ebcca9f38ef46)
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
-
-LLM Generated explanations, may be completely bogus:
-
-All key facts verified. Here is the complete analysis.
-
----
-
-## PHASE 1: COMMIT MESSAGE FORENSICS
-
-**Step 1.1: Subject Line**
-Record: [drm/amdgpu] [Handle correctly] [Fix PFN unit conversion for SVM
-range restore on non-4K page systems]
-
-**Step 1.2: Tags**
-- Acked-by: Christian König (verified AMDGPU co-maintainer via
-  MAINTAINERS)
-- Signed-off-by: Donet Tom <donettom@linux.ibm.com> (author, IBM — Power
-  systems with 64K pages)
-- Signed-off-by: Alex Deucher (verified AMDGPU co-maintainer via
-  MAINTAINERS)
-- Cherry-picked from: 074fe395fb13247b057f60004c7ebcca9f38ef46 (pipeline
-  marker, ignored)
-- No Fixes:, Reported-by:, Link:, Cc: stable, Tested-by: tags (expected
-  for candidates)
-
-Record: [Acked-by from subsystem co-maintainer; author from IBM; merged
-by subsystem co-maintainer. No reporter or explicit stable nomination.]
-
-**Step 1.3: Commit Body**
-Two concrete bugs described:
-1. **SVM Range lookup failure**: `svm_range_restore_pages()` receives
-   PFNs in GPU (4K) units, but the SVM interval tree is indexed by
-   system-page PFNs. On non-4K systems, the lookup fails and a
-   **duplicate SVM range** is created.
-2. **VMA lookup failure**: The restore function does `vma_lookup(mm,
-   addr << PAGE_SHIFT)`, which reconstructs the byte address from a
-   system-page PFN. When given a GPU-page PFN instead, the computed
-   address is wrong, producing `"address 0xxxx VMA is removed"`.
-
-Record: [Bug: wrong PFN unit passed to SVM restore] [Symptoms: duplicate
-SVM range + false VMA removal] [Root cause: addr /= AMDGPU_GPU_PAGE_SIZE
-gives GPU-page PFN where system-page PFN is expected] [No version info
-in message]
-
-**Step 1.4: Hidden Bug Fix Detection**
-Record: [Explicit bug fix — "Handle ... correctly" is standard bug-fix
-language with concrete failure modes described]
-
----
-
-## PHASE 2: DIFF ANALYSIS
-
-**Step 2.1: Inventory**
-Record: [1 file: `amdgpu_vm.c`, ~3 logical lines changed] [Function:
-`amdgpu_vm_handle_fault()`] [Scope: single-file, single-function
-surgical fix]
-
-**Step 2.2: Code Flow Change**
-
-Before:
-
-```2976:2982:drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-        addr /= AMDGPU_GPU_PAGE_SIZE;
-
-        if (is_compute_context && !svm_range_restore_pages(adev, pasid,
-vmid,
-            node_id, addr, ts, write_fault)) {
-                amdgpu_bo_unref(&root);
-                return true;
-        }
-```
-
-After (from the diff): `addr >> PAGE_SHIFT` is passed to
-`svm_range_restore_pages()`, and `addr /= AMDGPU_GPU_PAGE_SIZE` is moved
-to after the SVM call for the GPU page-table update path.
-
-Record: [Before: one conversion (GPU-page PFN) was reused for both SVM
-restore and GPU PTE update. After: SVM restore gets system-page PFN; GPU
-PTE path still gets GPU-page PFN.]
-
-**Step 2.3: Bug Mechanism**
-Category: Logic/correctness — address unit mismatch.
-
-Verified from `kfd_svm.c`:
-- `svm_range_from_addr()` documentation says `@addr: address to search
-  range interval tree, in pages` (system pages)
-- `vma_lookup(mm, addr << PAGE_SHIFT)` at line 3136 converts back to
-  byte address using system page shift
-
-`AMDGPU_GPU_PAGE_SIZE` is confirmed as `4096` in `amdgpu_gart.h:35`.
-
-On 4K systems: `addr >> PAGE_SHIFT == addr / 4096` — identical, bug
-invisible.
-On 64K systems: `addr / 4096` gives a value 16x too large compared to
-`addr >> 16`.
-
-Record: [Logic/correctness bug. GPU-page PFN vs system-page PFN mismatch
-breaks SVM range and VMA lookups on non-4K systems.]
-
-**Step 2.4: Fix Quality**
-Record: [Obviously correct — callee contract verified in code. Minimal —
-~3 lines. No regression risk on 4K systems (mathematically identical).
-Very low risk overall.]
-
----
-
-## PHASE 3: GIT HISTORY INVESTIGATION
-
-**Step 3.1: Blame**
-Verified via `git blame`: The buggy `addr /= AMDGPU_GPU_PAGE_SIZE`
-before the SVM call was introduced by `ea53af8a59c89b` ("drm/amdkfd: SVM
-API call to restore page tables") by Alex Sierra (2020-05-11). First
-appeared in `v5.14-rc1`.
-
-Record: [Buggy code introduced in ea53af8a59c89b, first in v5.14-rc1.
-Present in all stable trees 5.15+.]
-
-**Step 3.2: Fixes Tag**
-Record: [No Fixes: tag — expected for candidates under review.]
-
-**Step 3.3: File History**
-Verified via `git log -20`: Recent `amdgpu_vm.c` changes are TLB/VM
-maintenance and unrelated. No conflicting fix for this PFN issue exists.
-
-Record: [No related prior fix found. Standalone change.]
-
-**Step 3.4: Author**
-Donet Tom (IBM) has 2 AMD-tree commits in local history, including
-`daea2e81c1804` ("drm/amdkfd: Fix GART PTE for non-4K pagesize in
-svm_migrate_gart_map()") — a closely related non-4K fix. Acked by
-Christian König and merged by Alex Deucher, both confirmed as listed
-AMDGPU maintainers in `MAINTAINERS`.
-
-Record: [Author is domain expert for non-4K page issues. Fix endorsed by
-both subsystem maintainers.]
-
-**Step 3.5: Dependencies**
-Record: [No dependencies. Only reorders unit conversions within one
-function. Standalone fix.]
-
----
-
-## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
-
-**Step 4.1-4.4**: Lore.kernel.org was inaccessible due to Anubis bot
-protection. The commit has strong maintainer endorsement (Acked-by +
-Signed-off-by from both AMDGPU co-maintainers). The related patch series
-context (non-4K page support for AMDGPU on Power10/MI210 platforms) is
-documented in public archives.
-
-Record: [Lore inaccessible. Maintainer ack and signoff confirmed from
-tags. UNVERIFIED: detailed reply-thread discussion on lore.]
-
----
-
-## PHASE 5: CODE SEMANTIC ANALYSIS
-
-**Step 5.1: Functions Modified**
-Record: [`amdgpu_vm_handle_fault()`]
-
-**Step 5.2: Callers**
-Verified callers in: `gmc_v9_0.c`, `gmc_v10_0.c`, `gmc_v11_0.c`,
-`gmc_v12_0.c` — GPU page fault interrupt handlers for all AMD GPU
-generations 9+.
-
-Confirmed in `gmc_v10_0.c:114`: `addr = (u64)entry->src_data[0] << 12` —
-the fault address is constructed as a **byte address** from hardware
-interrupt data.
-
-Record: [Called from GPU page fault interrupt handlers. addr is byte
-address from hardware.]
-
-**Step 5.3: Callees**
-`svm_range_restore_pages()` (verified at `kfd_svm.c:3000`) calls:
-- `svm_range_from_addr()` — interval tree lookup using system-page PFN
-- `vma_lookup(mm, addr << PAGE_SHIFT)` at line 3136 — reconstructs byte
-  address from system-page PFN
-
-Record: [Both callees confirmed to expect system-page PFNs.]
-
-**Step 5.4: Call Chain**
-GPU fault interrupt → `gmc_v*_process_interrupt()` →
-`amdgpu_vm_handle_fault()` → `svm_range_restore_pages()`. Triggered by
-any GPU memory access fault in compute contexts (ROCm/HSA workloads).
-
-Record: [Reachable from normal GPU compute workloads. Not theoretical —
-triggered by SVM retry faults.]
-
-**Step 5.5: Similar Patterns**
-Record: [Related non-4K fix exists: `daea2e81c1804` by the same author.
-No duplicate of this exact wrong-unit call found.]
-
----
-
-## PHASE 6: STABLE TREE ANALYSIS
-
-**Step 6.1: Bug Existence in Stable Trees**
-Verified the identical bug pattern (`addr /= AMDGPU_GPU_PAGE_SIZE`
-before `svm_range_restore_pages()`) exists in:
-- **v5.15**: line 3376 (`svm_range_restore_pages(adev, pasid, addr,
-  write_fault)`)
-- **v6.1**: line 2476 (same pattern, 4-param signature)
-- **v6.6**: line 2574 (`svm_range_restore_pages(adev, pasid, vmid,
-  node_id, addr, write_fault)`)
-
-Record: [Bug confirmed in v5.15, v6.1, v6.6 stable trees. All share the
-same `addr /= AMDGPU_GPU_PAGE_SIZE` before SVM call.]
-
-**Step 6.2: Backport Complications**
-Function signatures differ across versions:
-- v5.15/v6.1: `svm_range_restore_pages(adev, pasid, addr, write_fault)`
-  — 4 params
-- v6.6: `svm_range_restore_pages(adev, pasid, vmid, node_id, addr,
-  write_fault)` — 6 params
-- v6.12+: `svm_range_restore_pages(adev, pasid, vmid, node_id, addr, ts,
-  write_fault)` — 7 params
-
-The core fix (move `addr /= AMDGPU_GPU_PAGE_SIZE` after SVM call, pass
-`addr >> PAGE_SHIFT`) applies identically, but the SVM call arguments
-differ.
-
-Record: [Clean apply on v6.12+. Minor trivial context adaptation needed
-for v6.6 and v5.15/v6.1. Fix concept is identical across all versions.]
-
-**Step 6.3: Related Fixes in Stable**
-Record: [No alternative fix for this specific issue found in any stable
-tree.]
-
----
-
-## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
-
-**Step 7.1: Subsystem**
-Record: [`drivers/gpu/drm/amd/amdgpu` — AMD GPU VM fault handling / KFD
-SVM. Criticality: IMPORTANT (common GPU driver, compute/AI workloads)]
-
-**Step 7.2: Activity**
-Record: [Highly active subsystem with 20+ recent commits.]
-
----
-
-## PHASE 8: IMPACT AND RISK ASSESSMENT
-
-**Step 8.1: Affected Users**
-Users of AMD GPUs on systems with non-4K page sizes:
-- Power (ppc64le) with 64K pages — common in HPC/AI (IBM systems with
-  AMD Instinct GPUs)
-- ARM64 systems configured with 16K or 64K pages
-- Not x86_64 (always 4K pages)
-
-Record: [Platform-specific: Power and ARM64 with non-4K pages using
-AMDGPU compute (SVM/XNACK)]
-
-**Step 8.2: Trigger Conditions**
-Any GPU page fault during compute (ROCm/KFD) workloads on non-4K page
-systems.
-
-Record: [Triggered during normal GPU compute workloads on affected
-platforms. Common for those users.]
-
-**Step 8.3: Failure Mode Severity**
-- SVM range lookup fails → duplicate range created (memory
-  corruption/inconsistency in GPU VM state)
-- VMA lookup fails → fault recovery does not happen, workload broken
-  with "VMA is removed" error
-- This is functional breakage: GPU compute workloads are broken on
-  affected platforms
-
-Record: [Severity: HIGH — GPU compute fault recovery is broken on non-4K
-page systems, leading to functional failure]
-
-**Step 8.4: Risk-Benefit Ratio**
-- **Benefit**: HIGH for affected platforms — fixes completely broken SVM
-  fault recovery
-- **Risk**: VERY LOW — ~3 lines, no behavior change on 4K systems
-  (mathematically identical), obviously correct unit conversion
-- **Ratio**: Extremely favorable
-
-Record: [Benefit: HIGH. Risk: VERY LOW. Extremely favorable.]
-
----
-
-## PHASE 9: FINAL SYNTHESIS
-
-**Step 9.1: Evidence Compilation**
-
-FOR backporting:
-- Verified wrong-unit bug in code: `svm_range_from_addr` expects system-
-  page PFN ("in pages" in documentation), `vma_lookup(mm, addr <<
-  PAGE_SHIFT)` expects system-page PFN
-- Callers pass byte addresses from hardware; fix correctly separates
-  system-page and GPU-page conversions
-- Small, surgical fix (~3 lines in 1 file, 1 function)
-- On 4K systems behavior is mathematically identical (no regression
-  risk)
-- Acked by Christian König, merged by Alex Deucher (both verified AMDGPU
-  maintainers)
-- Bug introduced in v5.14-rc1, confirmed present in v5.15, v6.1, v6.6
-- Related non-4K fix by same author already in tree
-- No dependencies; standalone fix
-
-AGAINST backporting:
-- Affects only non-4K page platforms (niche but real user base: Power +
-  ARM64 with non-4K pages)
-- Minor signature adaptation needed for older stable trees
-- No Reported-by or syzbot report (expected; this is platform-specific,
-  not fuzzable)
-
-UNRESOLVED:
-- Could not access lore.kernel.org discussion threads
-
-**Step 9.2: Stable Rules Checklist**
-1. Obviously correct and tested? **YES** — verified by code inspection;
-   Acked by subsystem maintainer
-2. Fixes a real bug? **YES** — SVM fault recovery broken on non-4K
-   systems
-3. Important issue? **YES** — functional failure (GPU compute broken) on
-   affected platforms
-4. Small and contained? **YES** — ~3 lines in 1 file
-5. No new features or APIs? **YES** — pure correctness fix
-6. Can apply to stable? **YES** — with trivial adaptation for older call
-   signatures
-
-**Step 9.3: Exception Categories**
-Record: [Not applicable — standard bug fix]
-
-**Step 9.4: Decision**
-This is a clear, small, obviously correct bug fix that resolves a real
-functional failure on non-4K page systems. The fix gives
-`svm_range_restore_pages()` a system-page PFN (which it expects) instead
-of a GPU-page PFN (which it cannot use correctly on non-4K page
-systems). It has no behavior change on the dominant 4K-page x86_64
-platforms, and is endorsed by both AMDGPU subsystem maintainers. The bug
-exists in all active stable trees from v5.15 onward. This meets all
-stable kernel criteria with an extremely favorable risk-benefit ratio.
-
----
-
-## Verification
-
-- [Phase 1] Parsed tags from supplied commit: Acked-by Christian König,
-  SOB Donet Tom (IBM), SOB Alex Deucher
-- [Phase 2] Read current `amdgpu_vm.c` lines 2976-2982: confirmed `addr
-  /= AMDGPU_GPU_PAGE_SIZE` before `svm_range_restore_pages()` (pre-fix
-  code)
-- [Phase 2] Read `kfd_svm.c` line 2657: confirmed `svm_range_from_addr`
-  documents `@addr` as "in pages" (system pages)
-- [Phase 2] Grep on `kfd_svm.c`: confirmed `vma_lookup(mm, addr <<
-  PAGE_SHIFT)` at line 3136
-- [Phase 2] Grep on `amdgpu_gart.h:35`: confirmed `AMDGPU_GPU_PAGE_SIZE`
-  is `4096`
-- [Phase 3] `git blame -L 2976,2982`: confirmed buggy conversion
-  introduced by `ea53af8a59c89b` (Alex Sierra, 2020-05-11)
-- [Phase 3] `git describe --contains ea53af8a59c89b`: confirmed first in
-  `v5.14-rc1`
-- [Phase 3] `git log --author='Donet Tom' -- drivers/gpu/drm/amd/`:
-  found related `daea2e81c1804` non-4K fix
-- [Phase 3] Verified Christian König and Alex Deucher are listed AMDGPU
-  maintainers in `MAINTAINERS`
-- [Phase 5] Grep confirmed callers in `gmc_v9_0.c`, `gmc_v10_0.c`,
-  `gmc_v11_0.c`, `gmc_v12_0.c`
-- [Phase 5] Grep on `gmc_v10_0.c:114`: confirmed `addr =
-  (u64)entry->src_data[0] << 12` (byte address from HW)
-- [Phase 5] Read `kfd_svm.c:3000-3003`: confirmed
-  `svm_range_restore_pages()` signature with `uint64_t addr`
-- [Phase 6] `git show v5.15:amdgpu_vm.c`: confirmed same `addr /=
-  AMDGPU_GPU_PAGE_SIZE` before SVM call at line 3376
-- [Phase 6] `git show v6.1:amdgpu_vm.c`: confirmed same bug pattern at
-  line 2476
-- [Phase 6] `git show v6.6:amdgpu_vm.c`: confirmed same bug pattern at
-  lines 2574-2577 (with 6-param signature)
-- [Phase 6] Confirmed function signatures differ: v5.15/v6.1 use 4
-  params, v6.6 uses 6 params, mainline uses 7 params
-- UNVERIFIED: Could not access lore.kernel.org mailing list discussion
-  (Anubis bot protection)
-
-**YES**
-
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-index da25ba1578b4a..1194326e66f5d 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-@@ -2973,14 +2973,14 @@ bool amdgpu_vm_handle_fault(struct amdgpu_device *adev, u32 pasid,
- 	if (!root)
- 		return false;
- 
--	addr /= AMDGPU_GPU_PAGE_SIZE;
--
- 	if (is_compute_context && !svm_range_restore_pages(adev, pasid, vmid,
--	    node_id, addr, ts, write_fault)) {
-+	    node_id, addr >> PAGE_SHIFT, ts, write_fault)) {
- 		amdgpu_bo_unref(&root);
- 		return true;
- 	}
- 
-+	addr /= AMDGPU_GPU_PAGE_SIZE;
-+
- 	r = amdgpu_bo_reserve(root, true);
- 	if (r)
- 		goto error_unref;
--- 
-2.53.0
+On 3/26/26 14:23, Sunil Khatri wrote:
+> In function amdgpu_userq_evict we do not need to check
+> for return values and print errors as we are already
+> print error in all the functions of amdgpu_userq_evict.
+> 
+> a. amdgpu_userq_wait_for_signal: Could timeout and we print
+>    error message in the function already
+> b. amdgpu_userq_evict_all: We unmap all the queues here and
+>    in case of unmap failure we already print unmap error.
+> 
+> Suggested-by: Christian König <christian.koenig@amd.com>
+> Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 18 ++++++------------
+>  1 file changed, 6 insertions(+), 12 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+> index aa0e6eea9436..6e6b1cae15ce 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+> @@ -1258,7 +1258,7 @@ amdgpu_userq_evict_all(struct amdgpu_userq_mgr *uq_mgr)
+>  	}
+>  
+>  	if (ret)
+> -		drm_file_err(uq_mgr->file, "Couldn't unmap all the queues\n");
+> +		drm_file_err(uq_mgr->file, "Couldn't unmap all the queue, eviction failed\n");
+
+I think it would be good to include ret in the error message.
+
+>  	return ret;
+>  }
+>  
+> @@ -1289,10 +1289,10 @@ amdgpu_userq_wait_for_signal(struct amdgpu_userq_mgr *uq_mgr)
+>  	xa_for_each(&uq_mgr->userq_xa, queue_id, queue) {
+>  		struct dma_fence *f = queue->last_fence;
+>  
+> -		if (!f || dma_fence_is_signaled(f))
+> +		if (!f)
+>  			continue;
+>  
+> -		ret = dma_fence_wait_timeout(f, true, msecs_to_jiffies(100));
+> +		ret = dma_fence_wait_timeout(f, false, MAX_SCHEDULE_TIMEOUT);
+
+With those parameters dma_fence_wait_timeout() can't fail any more, so you don't really need to handle the return value.
+
+There is also the dma_fence_wait() function as shortcut for that.
+
+Regards,
+Christian.
+
+>  		if (ret <= 0) {
+>  			drm_file_err(uq_mgr->file, "Timed out waiting for fence=%llu:%llu\n",
+>  				     f->context, f->seqno);
+> @@ -1308,17 +1308,11 @@ void
+>  amdgpu_userq_evict(struct amdgpu_userq_mgr *uq_mgr)
+>  {
+>  	struct amdgpu_device *adev = uq_mgr->adev;
+> -	int ret;
+>  
+>  	/* Wait for any pending userqueue fence work to finish */
+> -	ret = amdgpu_userq_wait_for_signal(uq_mgr);
+> -	if (ret)
+> -		dev_err(adev->dev, "Not evicting userqueue, timeout waiting for work\n");
+> -
+> -	ret = amdgpu_userq_evict_all(uq_mgr);
+> -	if (ret)
+> -		dev_err(adev->dev, "Failed to evict userqueue\n");
+> -
+> +	amdgpu_userq_wait_for_signal(uq_mgr);
+> +	/* unmaps all the queues */
+> +	amdgpu_userq_evict_all(uq_mgr);
+>  }
+>  
+>  int amdgpu_userq_mgr_init(struct amdgpu_userq_mgr *userq_mgr, struct drm_file *file_priv,
 
