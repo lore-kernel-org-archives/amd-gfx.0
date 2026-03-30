@@ -4,96 +4,106 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B3101061B1F
-	for <amd-gfx@archiver.kernel.org>; Mon, 30 Mar 2026 19:40:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BA6111061B1F
+	for <amd-gfx@archiver.kernel.org>; Mon, 30 Mar 2026 19:58:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0986210E64B;
-	Mon, 30 Mar 2026 19:40:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5C0F110E6D0;
+	Mon, 30 Mar 2026 19:58:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="AT+gYGKr";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ia++fHYg";
 	dkim-atps=neutral
-Received: from mail-ot1-f46.google.com (mail-ot1-f46.google.com
- [209.85.210.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0BF7210E64B
- for <amd-gfx@lists.freedesktop.org>; Mon, 30 Mar 2026 19:40:51 +0000 (UTC)
-Received: by mail-ot1-f46.google.com with SMTP id
- 46e09a7af769-7d750eeaec3so2187786a34.0
- for <amd-gfx@lists.freedesktop.org>; Mon, 30 Mar 2026 12:40:51 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1774899650; cv=none;
- d=google.com; s=arc-20240605;
- b=gDS+/kU8RKU+fczRqIi6Uu3p2vFOItSG1Pc/ujA13O4qv+KSFGwMDZ4Xi402O62TIF
- 41EJGMDYCgeVMMWJnK4KfWEgQt6yuF8p/TnICL7NeiTg+ACQl2BcAosRn3cLehic9GiW
- ksq0CYeH7TlLDDjfmEH+586QUM3DMoM5KCB4QIjhoywkz7BLwRAae5SqKjHzlOXkpU6+
- aL7mrYf7Efdf+IGrNSzkIt4YrtOlfbH3NJzIwP2qR+7sGYAVGX23Uy+yaDP0T4RagOWE
- Q7MDjwaQNbPG1iZJN4r83Gk0HEjMhIlGB5HJvikiw47ewFPGsTCGbjjX1XxiWNPC/RcQ
- /GJw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=MgOLE8rNdBeVw50FL1H/Cs48AXcvUXmUqQIxBQAsmUE=;
- fh=N21XzIw5LJAs+TWnmFpQeP2hygEi0JSUfTMs9naUTOw=;
- b=X3r064Ha4//6a17ipPbLSv0lCMJbJ8VJfStPkOimnj3KKUK2jLSFSJiY+o1ywIImBJ
- CqmZ0OHRvWXfw+NLB5U9k0szM7ZFHeaN+aM4eaCGdIraFYeE0WuAMea6OtZzQkZYZRVT
- SaVLXou9bmU2jvom8zoaU1HcOPl3cyKX+lGoHsyy6F+SdgfXLPd/O07wjKFHa/NwKASS
- qBIntz/WYz/tpprdcwqMGlm4NbqI92j2d22JtkQGOuZEI1tAzQ30bspQAPZeie0Xuizn
- wHus8MgcrVKGI4fJwIGNkNtIdtQFsOqnHOnbJT17JGeBEEuoYXXKcbYRVxsOjqQDUXLj
- waWQ==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1774899650; x=1775504450; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=MgOLE8rNdBeVw50FL1H/Cs48AXcvUXmUqQIxBQAsmUE=;
- b=AT+gYGKrWkuJtvN+YwbqbfsiBs4uollLLa/XqfWrHQfoX/9fPavDF8PzaOn9lKp/IM
- 0CLfWUkLnN0n0FXui43XPkgCgv0ioB7g/E19XglTcQl0Db1CqjYsLOnY868jxIMdCpMA
- TSQ6Ml5mCF7g3n+EzOb6JV5mFb7zaqEtipPpiYzMi6nBPF2pfBHCQAORarg/kp7PRy8U
- 5oC0KYxHaJ+5gnHJ/cVFeTqZ4sUubUC1vTUpaTYlVyztIxCVGIP7bF3N31cvQYxodjNY
- PDcSZTqP5QXPLjLoVQi7184RQ5JKsQK5vDCtEurtX2rS8+PgQQFEkCD17zu/W+5Do8px
- z9KA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774899650; x=1775504450;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=MgOLE8rNdBeVw50FL1H/Cs48AXcvUXmUqQIxBQAsmUE=;
- b=K1uYzeV0dAG2o3THTdrVcrtjRZMMMQGXpnfexjrVpqTfMpRi5/BmJRcgCfe+iUk7EI
- nEc0Qw5C0BOH38n199DxpRZB3slFX1DnYREDi40oB68QUNEJzz3RtJA3u7hk/xu3fOQ1
- t58CW7s7UUj1r2HJqcpDOLoc0In8W+gw5Rpjlv9L0hggQ5/y5ZEkFWZU0UaH+0II2gd7
- gsk1CUfam0VTOAspM60UcU3bHQUYS1YwlSvABOg8BJU9i91EdUFagEucinBZjW9oMB1k
- gWQkAn6o8JG5gpIRIzIyoJm6uMj+2GeM2QrZn5D654bJ/x6KaeJiVHDtWgmj480RoZWv
- CSDw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWOSl5ycAp/a6hvFyy6vwwxiI4dglUl6jgMTVs3VugYr0aO4RDSoCZL7MoE9gBYTl5uOFZbmbT7@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yx7g4LLMH2Ms92wSFYjQHZfzapNd51QAFMfZylwV4VtckKvZjZF
- wgoavrP91Wn8Vwo1fw/+fKjVDGA0s/SXM9WRVLrlDGyiV3GlbogvY8gvqLY1tBVeGI//oZ2pufN
- Hv5ORcx62WdUN1zvAY/CkRW7jhtB3f7Q=
-X-Gm-Gg: ATEYQzxXXGWRDJVY1E9kq5FXBDE6pcOzv81gD+Rjb6/nQRgfHOjDyePlNFMJU7RlABH
- /+NzlEWTyWfIO6fM1hu80fxMWpzjXPBH0jD0L7pCUhiyhVlHSgvcEV2UrsvSz4GEc1Q7226NHXk
- H55Dleloq8SL2/BzUIbJT9EkyKE1Oh8zQzJSx0ISJ4cgoAEzZrMJjANbrT6hiZPGltAvtY6ctE+
- YneM8m07UoquSVYNCkxkZE9QdyT6RNVt/XRmDgcetYIv9ccvCZpXZbD+9lClYxSqGveUdy/rTyd
- iOPQUhcnBA==
-X-Received: by 2002:a05:6830:67d8:b0:7d7:cc53:623c with SMTP id
- 46e09a7af769-7d9fad8747fmr8039420a34.7.1774899649966; Mon, 30 Mar 2026
- 12:40:49 -0700 (PDT)
+Received: from CO1PR03CU002.outbound.protection.outlook.com
+ (mail-westus2azon11010065.outbound.protection.outlook.com [52.101.46.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D60F910E6D0
+ for <amd-gfx@lists.freedesktop.org>; Mon, 30 Mar 2026 19:58:41 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=viAfAwQdZ34sN4Fum9+F5H8e6jYpiuYutCnE6xt85pLZM6L6eRDlqUzpEpVz1jeJ3r1zoSJvOwAMqZd37ty7KShxvTBU5jzrAzbamKHd8qKTOuihldMRRu4IoVXXCZ9WOXsg0qmJmwxRkIvrggYTZvNLIEx3aql6p8h679v6xVSfmEbYDz+vVmKKE7YpI+wfW4zplYAVfLE4g1EPZfePP39Lf2HhUz3QVMYjcUleSAxN0DFagIZRag58Ts/a5ZKCrwTIn9q7ftln7QrgUqN6gjXgGk9a9x4XePcAOWPBjW5A/MX+48fctjYkVnDZ0RUIGioh8F/WRdbfpPBXjViM2g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=i7Hot+6Z5+Nn75kWY7IlHGu8wrgyDTNWiWqWq+c5Nfc=;
+ b=MCjD5d8WGUrLOkVVS56pUAVfKOKul3GXrxF3t2jEncAlIex0DOggWOVTOdXzsfddckZUlFAx5d0pG66aMUV8Ag/PdxmsDD4aO08sZiF9Og/8rGJbUxPV8cDhuB7GycH+3XaKZrS1SrV0YQMduB+QKitpOCeGHND3uYvk34ENtfSWaTM1Pw/W0Dux3aYiHbUzCyyfH4I9vXbcgbX9SQj5Q75i9kzVOYeMRc1SRok63uvYjjuJJ0bcXMfAIM8MFfdhSNmtGj7ImuQKAmcJq6LyJh+xkTkXaaOcQMoSJOF0jdivu32z082J4jo9e+5tDFwv1cByym+HoaNyAFxouTdppg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=i7Hot+6Z5+Nn75kWY7IlHGu8wrgyDTNWiWqWq+c5Nfc=;
+ b=ia++fHYgAujah618ilPTLOOvqgB3D5KR7F3xGy3yeUMcAs8IjPojnv+iUsvGCz/x3jrwCpJ0T+7O7m/tcKWMg8+K3X0Tl7AVKchCviK1Y9iFGvd57RULw/2n5PW49XpsZYXM/wNtg+LLUrPTKwTCPuorr38d3EvO9nCm77CwUBA=
+Received: from BL1PR13CA0433.namprd13.prod.outlook.com (2603:10b6:208:2c3::18)
+ by SJ2PR12MB8980.namprd12.prod.outlook.com (2603:10b6:a03:542::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.8; Mon, 30 Mar
+ 2026 19:58:38 +0000
+Received: from BL6PEPF0001AB72.namprd02.prod.outlook.com
+ (2603:10b6:208:2c3:cafe::67) by BL1PR13CA0433.outlook.office365.com
+ (2603:10b6:208:2c3::18) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9745.28 via Frontend Transport; Mon,
+ 30 Mar 2026 19:58:38 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BL6PEPF0001AB72.mail.protection.outlook.com (10.167.242.165) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9745.21 via Frontend Transport; Mon, 30 Mar 2026 19:58:37 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.17; Mon, 30 Mar
+ 2026 14:58:37 -0500
+Received: from satlexmb08.amd.com (10.181.42.217) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 30 Mar
+ 2026 14:58:37 -0500
+Received: from bencheng-dev (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
+ Transport; Mon, 30 Mar 2026 14:58:36 -0500
+From: Benjamin Cheng <benjamin.cheng@amd.com>
+To: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "David (Ming
+ Qiang) Wu" <David.Wu3@amd.com>, <amd-gfx@lists.freedesktop.org>
+CC: Leo Liu <leo.liu@amd.com>, Ruijing Dong <ruijing.dong@amd.com>, "Benjamin
+ Cheng" <benjamin.cheng@amd.com>
+Subject: [PATCH v4 4/5] drm/amdgpu/vcn4: Prevent OOB reads when parsing dec msg
+Date: Mon, 30 Mar 2026 15:57:56 -0400
+Message-ID: <20260330195757.901509-4-benjamin.cheng@amd.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260330195757.901509-1-benjamin.cheng@amd.com>
+References: <20260330195757.901509-1-benjamin.cheng@amd.com>
 MIME-Version: 1.0
-References: <20260330145049.21936-1-mikhail.v.gavrilov@gmail.com>
- <d05a9c56-5248-462f-96b5-44ad167f284a@amd.com>
-In-Reply-To: <d05a9c56-5248-462f-96b5-44ad167f284a@amd.com>
-From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
-Date: Tue, 31 Mar 2026 00:40:37 +0500
-X-Gm-Features: AQROBzCNLSSWm2n2ptMDD0gOB6l-aEGg2SU0scPbi356emx3GUuYWX7qeZGkREs
-Message-ID: <CABXGCsOguZU1k2zS7ngbAMYU10A-sWtoQLQ7P+ThiXR-7e_Crg@mail.gmail.com>
-Subject: Re: [PATCH v4] drm/amdgpu: replace PASID IDR with XArray
-To: "Lazar, Lijo" <lijo.lazar@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Eric Huang <jinhuieric.huang@amd.com>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, stable@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Received-SPF: None (SATLEXMB04.amd.com: benjamin.cheng@amd.com does not
+ designate permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB72:EE_|SJ2PR12MB8980:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1fa2f761-f326-408b-fcce-08de8e96bbae
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|1800799024|82310400026|36860700016|18002099003|56012099003|22082099003;
+X-Microsoft-Antispam-Message-Info: hwiSoP+J4NRfyM644wvs8Zxyms/WdGss2Vj3IfZiYlJDVSxivXDExPq9UcIDNbrmPz3dedYKbqV5eIP4SokfeB9AAyLa9vss6TChuPazaGWXEspd49W4HCkPM4ytj9cPrdtg9z/vj8s65FaIxpXDzJc3I70A5VIA2sn/VRGzk6VV9Rn5c/tkI89GiYFqA4kNbt2PzuEfi45GZKxDyw8QzkxH6Yi+oc/yVc5TV0Bk6kTcxgfLLgixDhFtDCqgPpNemsYoyd23H+c6v5RSoFojYf1GIO3yguAMfBkb1YoezQe1WbxFHjlSrIsO2POUFlbJnvNTPN9UY0hWiZquS+eZ6ZL/zl4IcQGThawqx9mjm96FU9RMe+dsHbA/92wUoc3G7dQSw525NpNwajowspCUPC2UhtOG1OE8kCBZCPKI5bbtmoxajflpCoxgMyqvv4ySOsoyvHTaksBMyBMzVsXrBWBYTz0Gt93bHyj7njz+2splKEtqf2Z5wUyKwzkkVY88X1ROdW1hNZamUCZWZvZ6wx4pk1LQIz19a8y6O351MHXU/Xpvy8i4VhDzowABoJznVUPslRyv2R7HUtzLBSkAaaK40iAe6NKJMDjIsjqhA6na7TMMXSG+1WOh5/ZBhgtOOGcvvZdJ5vMapW9K3WyWBroMQgCEj3TYUgfmPSJ4Lw4p5feqxDidWH0eJ2q3uazHJsnPApDdNH8yRQ/ei6X6T3/fLAdbRQzBh0LMYEn5gqtmeRfvZqaB5YyGcUoO2bDzOGxlbsJSD6kosWzoeYmIlw==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(82310400026)(36860700016)(18002099003)(56012099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: 4VA0zF14vLf4610BFkR3ef6WtL0RdYF7MJ2vjEgU6nV5KkE9SSwo9A8eQw2zbsaGGCFjRvOTk2VcEfNPAo5h6PbELyPNJ7f38s6c6yEm0dtPZFDw8dUTT55XAAf9CZe1TcYrd1iRN7YF8K5H9Peo/jsEsOdXGmHBBCok9RsQlPLdfY5xBHn+miuBw75I1Ak+sFqshLr3/EFkzQD7vv8MEH7W4NKDAu6wYuNGzUIjnG+hSUV0lYStny3uhn5ySot66WqGwWTbYCiMQFL/c3LXOZYXpKV8XxeaBOQ+LpT4itG86Ko20Fl9lvpWQFPDjqs97cfPD+8qg5372pKtWj7CTAZyaPDKvSA8iJLXVKeYzTnItfiChh/MV72r6hbiG2L45fjttBQTk0uc8goz1rgiOPUfr3O6VjcV3NKIzOJUN6Wt0ZG8s+usNHSccVvx/1iL
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Mar 2026 19:58:37.7792 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1fa2f761-f326-408b-fcce-08de8e96bbae
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF0001AB72.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8980
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,31 +118,77 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Mar 30, 2026 at 10:33=E2=80=AFPM Lazar, Lijo <lijo.lazar@amd.com> w=
-rote:
->
-> Sorry, I didn't mean to confuse. In v3, was only talking about
-> alloc_cyclic call.
->
-> As per the call trace posted, amdgpu_pasid_free() has a chance to be
-> called from irq context and that may still use irq save/restore
-> approach. Eric/Christian, could you confirm?
+Check bounds against the end of the BO whenever we access the msg.
 
-Hi Lijo,
+Signed-off-by: Benjamin Cheng <benjamin.cheng@amd.com>
+Reviewed-by: Christian König <christian.koenig@amd.com>
+Reviewed-by: Ruijing Dong <ruijing.dong@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c | 21 ++++++++++++++++++---
+ 1 file changed, 18 insertions(+), 3 deletions(-)
 
-You're right, xa_erase() uses plain xa_lock() without irqsave =E2=80=94
-I verified in lib/xarray.c.
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
+index d17219be50f3..1a1cdc14841a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
+@@ -1826,7 +1826,7 @@ static int vcn_v4_0_dec_msg(struct amdgpu_cs_parser *p, struct amdgpu_job *job,
+ 	struct ttm_operation_ctx ctx = { false, false };
+ 	struct amdgpu_device *adev = p->adev;
+ 	struct amdgpu_bo_va_mapping *map;
+-	uint32_t *msg, num_buffers;
++	uint32_t *msg, num_buffers, len_dw;
+ 	struct amdgpu_bo *bo;
+ 	uint64_t start, end;
+ 	unsigned int i;
+@@ -1847,6 +1847,11 @@ static int vcn_v4_0_dec_msg(struct amdgpu_cs_parser *p, struct amdgpu_job *job,
+ 		return -EINVAL;
+ 	}
+ 
++	if (end - addr < 16) {
++		DRM_ERROR("VCN messages must be at least 4 DWORDs!\n");
++		return -EINVAL;
++	}
++
+ 	bo->flags |= AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED;
+ 	amdgpu_bo_placement_from_domain(bo, bo->allowed_domains);
+ 	r = ttm_bo_validate(&bo->tbo, &bo->placement, &ctx);
+@@ -1863,8 +1868,8 @@ static int vcn_v4_0_dec_msg(struct amdgpu_cs_parser *p, struct amdgpu_job *job,
+ 
+ 	msg = ptr + addr - start;
+ 
+-	/* Check length */
+ 	if (msg[1] > end - addr) {
++		DRM_ERROR("VCN message header does not fit in BO!\n");
+ 		r = -EINVAL;
+ 		goto out;
+ 	}
+@@ -1872,7 +1877,16 @@ static int vcn_v4_0_dec_msg(struct amdgpu_cs_parser *p, struct amdgpu_job *job,
+ 	if (msg[3] != RDECODE_MSG_CREATE)
+ 		goto out;
+ 
++	len_dw = msg[1] / 4;
+ 	num_buffers = msg[2];
++
++	/* Verify that all indices fit within the claimed length. Each index is 4 DWORDs */
++	if (num_buffers > len_dw || 6 + num_buffers * 4 > len_dw) {
++		DRM_ERROR("VCN message has too many buffers!\n");
++		r = -EINVAL;
++		goto out;
++	}
++
+ 	for (i = 0, msg = &msg[6]; i < num_buffers; ++i, msg += 4) {
+ 		uint32_t offset, size, *create;
+ 
+@@ -1882,7 +1896,8 @@ static int vcn_v4_0_dec_msg(struct amdgpu_cs_parser *p, struct amdgpu_job *job,
+ 		offset = msg[1];
+ 		size = msg[2];
+ 
+-		if (offset + size > end) {
++		if (size < 4 || offset + size > end - addr) {
++			DRM_ERROR("VCN message buffer exceeds BO bounds!\n");
+ 			r = -EINVAL;
+ 			goto out;
+ 		}
+-- 
+2.53.0
 
-I've sent v5 which uses xa_lock_irqsave/__xa_erase for
-amdgpu_pasid_free() since it can be called from hardirq via
-amdgpu_pasid_free_cb.  xa_alloc_cyclic() in amdgpu_pasid_alloc()
-is kept as-is since it handles irq-safe locking internally.
-
-https://lore.kernel.org/all/20260330191120.105065-1-mikhail.v.gavrilov@gmai=
-l.com/
-
-Thanks for catching this.
-
---=20
-Best Regards,
-Mike Gavrilov.
