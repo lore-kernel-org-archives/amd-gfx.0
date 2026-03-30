@@ -4,59 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D044DFF60D8
-	for <amd-gfx@archiver.kernel.org>; Tue, 31 Mar 2026 07:16:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9D9EAFF60DB
+	for <amd-gfx@archiver.kernel.org>; Tue, 31 Mar 2026 07:26:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6E5BE10E299;
-	Tue, 31 Mar 2026 07:16:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 38D7710E8B1;
+	Tue, 31 Mar 2026 07:26:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="RiiAezvp";
+	dkim=pass (4096-bit key; unprotected) header.d=alien8.de header.i=@alien8.de header.b="fiw8TMjt";
 	dkim-atps=neutral
-Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BFC9310E299;
- Tue, 31 Mar 2026 07:16:38 +0000 (UTC)
-Received: from smtp102.mailbox.org (smtp102.mailbox.org [10.196.197.102])
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4B4FD10E792;
+ Mon, 30 Mar 2026 19:57:15 +0000 (UTC)
+Received: from localhost (localhost.localdomain [127.0.0.1])
+ by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id B305840E015B; 
+ Mon, 30 Mar 2026 19:57:13 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
+ header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+ by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+ with ESMTP id PkiD68faWknn; Mon, 30 Mar 2026 19:57:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+ t=1774900628; bh=05cgH8e7z9VyRU1oNe/6JFJYrO6kARIEvJ9rEv3XzTE=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=fiw8TMjtOef4iZDsbI+JLE2WoWWt4Ghl4ROIa3E6+GyVfsfPa1SxqC1fUfcenKVfO
+ OydrCktpqDvMIWPlsqX95puhDfF6q3m/a5doymwrtANnn3/gV+JTUrHRs0PuYeI8Cp
+ LRsaHu2NravLVV0UNgqZgfEawwnnO/xsMWlw53u3jH9sPrtD3q9oHX2wUajQrgkftE
+ KpgewwbccWoDBeL68W769XLyDq5gHOlLX/36f5KGun6r6pKQEP28kQAPzREZdgp4P2
+ V4QBarpQUEVwcMcyUvdW+zJEVhzLrqcSWG8cuLniWKbzjmNqvIjOfeBYFHCmdROHVH
+ +xSMMQE8F2LPPxOgDEo/9bcwsOkeMZxtfrUku/AH0cCVJU/QBYBzErFo3Dcp/5DFaY
+ Fr+LMZtwyivdi++GGfRkqOSgLi5b00PvrhgQitEi9Tv7xwaSqOVvXNTwTwSaFvqLE/
+ w74bB0fDmkMmBTF4lDxH6w8Q+0o8F+3scoo8m28XpwBfNKTcgV/rDW/a7SmoajNARg
+ iT/CvN3NiiQCEf/iXzpJ4rcKRbFnVlnCFxgvKE0mB5mH5RMBNzN3+4WMtn808OjHDz
+ zr1CcmJSI5Bff1lASOASmPHsyeAgD8M5owKEZ3InP6++D2qpFrua6xgAhIF67y7Zph
+ +4DlipwOHEVFfDwrty0UN10c=
+Received: from zn.tnic (p5de8e020.dip0.t-ipconnect.de [93.232.224.32])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4flKDM0Xqmz9v4f;
- Tue, 31 Mar 2026 09:16:35 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; t=1774941395;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=xvC+CsSMbExfTRMwx7RmIJy6/op2wIthssAv6cZymtM=;
- b=RiiAezvpav4X/NYmrRKseFfTuHNDoyHzbrHfi6ic85ffEzmkAxIZTco5BYFpC9GLy3yjcS
- womqK611ReNnPa8I71SWp3o592eRKGwH2fjfTtzLRtLGI1to1CupR0enq44mub2sJKNLn6
- kLl1C05kKWE4Fgk+LvWNcdKXOqLxOop93qYOczlGxU8iHORZmy4zsPVNG7TCukFr7pNBz2
- yoeojerX9io/+B4MMHeIZENrYz7g+VDXCtlLX2eCnY8AqvwXOk4KCKORxQAh3W0aeAOdYr
- /ORzqMXjdNWCL39G2EpYs/GupjNLHKxjMLbDNtFcA6yEyAZnzpCB08tc1pTGnQ==
-Message-ID: <3d669989-fcb2-44b4-9c17-9ae3db0b6f14@mailbox.org>
-Date: Tue, 31 Mar 2026 09:16:31 +0200
+ key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest
+ SHA256) (No client certificate requested)
+ by mail.alien8.de (SuperMail on ZX Spectrum 128k) with UTF8SMTPSA id
+ 5892540E016E; Mon, 30 Mar 2026 19:57:00 +0000 (UTC)
+Date: Mon, 30 Mar 2026 21:56:54 +0200
+From: Borislav Petkov <bp@alien8.de>
+To: Alex Deucher <alexdeucher@gmail.com>
+Cc: amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ Eric Huang <jinhuieric.huang@amd.com>, Arvind Yadav <Arvind.Yadav@amd.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: 7.0-rc6: amdgpu: BUG: sleeping function called from invalid
+ context at ./include/linux/sched/mm.h:323
+Message-ID: <20260330195654.GFacrVhlD8v7nqFir0@fat_crate.local>
+References: <20260330134700.GBacp-1CFyWlXo7LcZ@fat_crate.local>
+ <CADnq5_N+PSqi7Lf2Y1ZnKvWyy8jST4RZkCYAjFB7tdUc-ZkswA@mail.gmail.com>
 MIME-Version: 1.0
-Subject: Re: [PATCH] drm/amd/display: Change dither policy for 10 bpc output
- back to dithering
-To: Harry Wentland <harry.wentland@amd.com>,
- Mario Kleiner <mario.kleiner.de@gmail.com>,
- "Kovac, Krunoslav" <Krunoslav.Kovac@amd.com>
-Cc: "Cyr, Aric" <Aric.Cyr@amd.com>, "Koo, Anthony" <Anthony.Koo@amd.com>,
- "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- dri-devel <dri-devel@lists.freedesktop.org>
-References: <20260321052033.23472-1-mario.kleiner.de@gmail.com>
- <DM4PR12MB521342239D4CF694B4A68E0AE64AA@DM4PR12MB5213.namprd12.prod.outlook.com>
- <CAEsyxyiCN6KmyDBGZBJYKv+wt6w6j5QdUfTa1zJojAQ20V84xg@mail.gmail.com>
- <d6e190eb-4843-43ab-9706-fadabde9cbce@mailbox.org>
- <78da9dfc-561f-487c-8b68-0ea408819225@amd.com>
-From: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>
-Content-Language: en-CA
-In-Reply-To: <78da9dfc-561f-487c-8b68-0ea408819225@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-MBO-RS-META: 9tu3zgte6bd5jhpq5j9gjygkd7mwdgep
-X-MBO-RS-ID: 3d785c0d06e1d4171cd
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <CADnq5_N+PSqi7Lf2Y1ZnKvWyy8jST4RZkCYAjFB7tdUc-ZkswA@mail.gmail.com>
+X-Mailman-Approved-At: Tue, 31 Mar 2026 07:26:04 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,27 +75,16 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 3/30/26 19:36, Harry Wentland wrote:
-> On 2026-03-30 12:20, Michel Dänzer wrote:
->> On 3/24/26 20:20, Mario Kleiner wrote:
->>> On Sun, Mar 22, 2026 at 7:11 PM Kovac, Krunoslav <Krunoslav.Kovac@amd.com <mailto:Krunoslav.Kovac@amd.com>> wrote:
-> 
->>>>     I believe we don't have surface info in that code, but one way to work around it would be to use spatial dithering for FP16/ARGB16 and rounding for 10 bits. But if we just switch to spatial, some of the earlier complaints about 10-bit output having one-off bit errors will be coming back.
->>>
->>> Looking at all callers of resource_build_bit_depth_reduction_params(), they all have access to the associated "struct pipe_ctx", which should give access to pipe_ctx ->plane_state->format of an associated display plane. I could prepare a patch that passes the pipe_ctx from each caller into resource_build_bit_depth_reduction_params() and that function could check if a 16 bpc framebuffer is in use and switch to spatial dithering down-to-10-bpc in this case, and leave the rounding/truncation to 10 bpc otherwise.
->>
->> That doesn't really make sense, the output of the display HW colour pipeline has more than 10 bpc regardless of framebuffer format.
->>
-> 
-> The output will be determined by the link bandwidth, display-advertised supported bpc, and userspace-selected "max bpc" on a drm_connector. This could very well be 10 bpc, 8 bpc, even 6 bpc. Or are you referring to the internal DCN HW representation of the values?
+On Mon, Mar 30, 2026 at 02:18:13PM -0400, Alex Deucher wrote:
+> Should be fixed with:
+> https://patchwork.freedesktop.org/patch/713383/
 
-I am indeed.
+Tested-by: Borislav Petkov (AMD) <bp@alien8.de>
 
-> They're higher, but that's somewhat irrelevant.
-
-How so? Surely dithering is applied to those values, not to the original values sampled from the framebuffer.
-
+Thx.
 
 -- 
-Earthling Michel Dänzer       \        GNOME / Xwayland / Mesa developer
-https://redhat.com             \               Libre software enthusiast
+Regards/Gruss,
+    Boris.
+
+https://people.kernel.org/tglx/notes-about-netiquette
