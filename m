@@ -4,50 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DB7F41061B18
-	for <amd-gfx@archiver.kernel.org>; Mon, 30 Mar 2026 18:52:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D683C1061B1B
+	for <amd-gfx@archiver.kernel.org>; Mon, 30 Mar 2026 19:01:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7C97410E6BE;
-	Mon, 30 Mar 2026 18:52:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7672510E653;
+	Mon, 30 Mar 2026 19:01:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="aglVrzdS";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="WZZGOEVF";
 	dkim-atps=neutral
-Received: from CH5PR02CU005.outbound.protection.outlook.com
- (mail-northcentralusazon11012058.outbound.protection.outlook.com
- [40.107.200.58])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1DB0A10E297;
- Mon, 30 Mar 2026 18:52:34 +0000 (UTC)
+Received: from BL0PR03CU003.outbound.protection.outlook.com
+ (mail-eastusazon11012009.outbound.protection.outlook.com [52.101.53.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 32F8710E653;
+ Mon, 30 Mar 2026 19:01:48 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=LpOjRr6zDqYpqHAm9YgktHnFAiSFcDW537sMvsCiTDBbalWkS39C6eskD4qj5Z6Vx27ktzjPOZCqjVwgABWFphVmqdXKUZ7vzURoJmn5bLJ5Wd1CiMvw/0KVzgIpqIhtM+UO3Pt/rYNpSofHHPfP3OLtg6aXmQexnjuhuLlYJoEw58W3173Egx1E1InB2ozaTqTkP9AU44qbelngWm8d/SkPcVvU1YYzPSl0mMVGWItH+FsHrOZTy93lzmHk18h4hs3JnoPNRtJFEgW47ksxoZ/n1THHQ/noqs1CBmyv7YXhxvKZxgzfiut8PwDZ9x+QuKMNmk4KvDHOk62V8kocYg==
+ b=nPhrOLCyq1eAk1TtJGrc5BCRN5yuZRXFgJW6uGaixT9jU1V3MIoHm2jA7tI8h+6NFfNfMsYV9MS5LdXCuDw67z53cm2rK5pE7hrayFUSoP8rKD9A9RE6qE56YB7hT1QkcZ3CMjWYWEoxP/LhXEqm6gS8dQvcJLj24zexAou728/OgRbsL8UCz5nwaadh1L10mAVk6NblyKhcAYeEOdk/CqQDh8+mzp8jW514kMjybfAWEBap8mPCOIgt50oBeeiALkVsBF/thA82L0I61bNxqThEeKoQeiSugJ1b2mT3N2xnsSQAl/ngZZcD0Zr13wSCVxm0EJ+DmXz7aGszZ40JVQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=PXlDmDYULqxa3iKTJsb6NyxNHxuaRgpQcqlCf3WLeJo=;
- b=qDKESkgpONtlajcpk5Tu71hffzS1xo6ndkJooSiWmcOhsvvOLUzpGUEEIrQjS7v0s60+jxRzqQCJsjjaanxwTbUOrbPas+tVTdKk0ykE3msZNFRdI4KSGtlb78zxxGCb4FiCLhbDs1jEK7yUr8ztRa02kQnSxLpHycplQ3VZlJYwHHTWshIx5cyBg7rrxrywEa1BgY9zagBaOGPxRbKJuuTKMmuTUFhGXFNieL1EKL8HXNKxfDMwJfH5M6nwnfBSHVA41Tj5zt/d2Isr2eBfekijMEjyGMuZcpkzC9qbugZ2NisHVISnvWZ42rit72k+E7xXN0ZoSoWGWaz7/ErofQ==
+ bh=/dN1fC1/tBnzAkXcN4UCYZt1aGqwlgOuCQbU/frxNFY=;
+ b=orJvWYDBHUxEJ74j1kB93GuYzrc0fM8ABFh44B4z46mmqCzNN2d5/qRT1n0oWABoLOzjVn7Ha/V7bnCaTlnO20DFwJTFOvBvQ5Sk0AWxmdrQoWqG+6YYJOk19jJNaAJIpzP0/4D2m7/gVM5IM50y7Ts+uEnEIHTLlosK5Gg6uA229PGJ5FzCAR2+w1vKmX86Z7kz162oR9TtIxgUbnunGpFxf/it1PGZrJhB/vmeVRUXdhUlP34XpQHuCkBf6/mJdBWQwc/VOl5T3voSdxQRSy2qog5qDBPrd5Sn1bLFlwtYFw1taANd7R5OTqItiytZpJ5mPeOCHlXUzzz/ko00+g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PXlDmDYULqxa3iKTJsb6NyxNHxuaRgpQcqlCf3WLeJo=;
- b=aglVrzdSUgtuxMJkeoz+RZjWhaBCQo1867DUSB7E7FZYDJ0vMdko6gTou5zR6evhOZ3KD7q+TXgOkmW95YZkuVTV/j8R97UZPQMhQj0gGqFACJv2rPIDN5PizymA5THWWuMZYAGeTNiZeLqQb9eCNPKQ+1RZn+TWxXKbHQvb8Ew=
+ bh=/dN1fC1/tBnzAkXcN4UCYZt1aGqwlgOuCQbU/frxNFY=;
+ b=WZZGOEVFDNJ/UzgyydwPQ9FjCBlqgsxBkJZucq5rAAz2cOzuiPGTQ1sJT4Kbid03iPwQlqjB4Xrm33ux+ZDyt2P6qW8blkSNDAI9DDlA17s7hY2NGWcgi/TR1qslR7fsn9Yiov6dyn4iwkD27mjRt1hX88ty/WDi+ckeOET5et8=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from BL1PR12MB5126.namprd12.prod.outlook.com (2603:10b6:208:312::8)
- by SJ2PR12MB9243.namprd12.prod.outlook.com (2603:10b6:a03:578::7)
- with Microsoft SMTP Server (version=TLS1_2,
+ by CY8PR12MB8265.namprd12.prod.outlook.com (2603:10b6:930:72::8) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.15; Mon, 30 Mar
- 2026 18:52:29 +0000
+ 2026 19:01:42 +0000
 Received: from BL1PR12MB5126.namprd12.prod.outlook.com
  ([fe80::c3e7:1bc5:2b91:1cfe]) by BL1PR12MB5126.namprd12.prod.outlook.com
  ([fe80::c3e7:1bc5:2b91:1cfe%6]) with mapi id 15.20.9769.014; Mon, 30 Mar 2026
- 18:52:28 +0000
-Message-ID: <9d525fe4-b091-4cd9-b977-de19ffe4b957@amd.com>
-Date: Mon, 30 Mar 2026 14:52:23 -0400
+ 19:01:41 +0000
+Message-ID: <7461820c-e3ab-40f5-98d2-9878e60ba2ad@amd.com>
+Date: Mon, 30 Mar 2026 15:01:33 -0400
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v5 0/3] Add "link bpc" DRM property
-To: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>,
- Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
+To: Pekka Paalanen <pekka.paalanen@collabora.com>,
+ =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>
+Cc: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
@@ -56,87 +56,88 @@ To: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>,
  =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
  =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
  Daniel Stone <daniels@collabora.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  amd-gfx@lists.freedesktop.org, kernel@collabora.com,
  Derek Foreman <derek.foreman@collabora.com>,
  Marius Vlad <marius.vlad@collabora.com>
 References: <20260319-link-bpc-v5-0-5306cd04a708@collabora.com>
+ <8676926.T7Z3S40VBb@workhorse>
+ <eff61423-a854-44c1-8634-30e2bd61e005@mailbox.org>
  <4265353.aeNJFYEL58@workhorse>
  <254c20a4-cce3-4c8e-9902-514586f3e694@mailbox.org>
- <5416161.aeNJFYEL58@workhorse>
- <792c4540-d690-4453-a32e-62e23e78d628@mailbox.org>
+ <20260326155305.736b4e64@fluorite>
 Content-Language: en-US
 From: Harry Wentland <harry.wentland@amd.com>
-In-Reply-To: <792c4540-d690-4453-a32e-62e23e78d628@mailbox.org>
+In-Reply-To: <20260326155305.736b4e64@fluorite>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YT4P288CA0026.CANP288.PROD.OUTLOOK.COM
- (2603:10b6:b01:d3::8) To BL1PR12MB5126.namprd12.prod.outlook.com
+X-ClientProxiedBy: YT4P288CA0025.CANP288.PROD.OUTLOOK.COM
+ (2603:10b6:b01:d3::10) To BL1PR12MB5126.namprd12.prod.outlook.com
  (2603:10b6:208:312::8)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL1PR12MB5126:EE_|SJ2PR12MB9243:EE_
-X-MS-Office365-Filtering-Correlation-Id: 07a8277f-cef3-4e53-0a5f-08de8e8d7d61
+X-MS-TrafficTypeDiagnostic: BL1PR12MB5126:EE_|CY8PR12MB8265:EE_
+X-MS-Office365-Filtering-Correlation-Id: 86a442ae-5c1d-493a-c11f-08de8e8ec78a
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|7416014|376014|1800799024|921020|22082099003|18002099003|56012099003;
-X-Microsoft-Antispam-Message-Info: gNvsVXPguJWGpSqplzAluoklxIFwfbuCiU9+c9V0lSKSm11WuZklq/Zkl/0pCVAxWFFaKwPbHNIhebXhYvvOL4ZtRtdsPinf6Oix860LJswJbeW4cTXKxbfh3y5yR/INMEroxune9e1+F6f/hluQMQC2bc5sqzvCY3p8es8nzc9ctPUmmZXcmkXX7xwXYcM3RlfxFQWR+IN5EQHHdwxXLd8WwOgm3AJeqVwHXMi69jEmje7CxkAgttQmzevLlPzD6/M2Rn0xSXTma5QLTCQVt5QGfP+jkbNsvaOcuJpNS9vk7D4eMUE314lcVJKuaUjzQRoVK76iuQ7rkxyQLsKXzQx3NHHuRH/Q/COMtzna41/1D982O9bR8I6IWOxncNNiwcUIirIAXORm5CYIQMmW3hbS3n9kYAALJPxods+5xZV4BaCvGKAf5SSeFSLbUh6vnyDrpStgIOf1wcqQbZWMec6RR+Q0/s1ulpCvdHyi1jb6JlrXnBCrqrM3Vd6wgGAWUIQz2IuxodqPqwfpewFV6xYwa8GRLMjnTw30YYwpnTf5Ho/cAIIPlNJ9CqsWZQuPobiZ438ZjEmkbyZipYJwMaCcbriHEg7SveBZOgfsLnyxxqHo1bqtd3UOWhn/KHAqLexb+BPsriTEClypbX77GsJIStfC+q8sJXvEzMq2RhpftKG2eA3tpWluQ33Tql+2RYAfQ4JjSfq7JuBubJn7XHyyT14fjdBFYatTnvY8Tt7IHWsWUd1938f0q4ChJPpG1KYpWr9UE5Jbosc2CKMJEA==
+ ARA:13230040|1800799024|366016|7416014|376014|22082099003|18002099003|56012099003;
+X-Microsoft-Antispam-Message-Info: V6hknlNg598xTMf80R9iWWYVaJ3R4HgJL4zrUwRziI6BUOm2vHJcejZWskIBCsePa70uiKuMfR5v6I9lFR8v4EnSiihSHbRyRhYPL70bKaqmdCBRKLPZ8E1yo3jtWQpYp3izpE8wiLMW0sFPRHkO+3BxIQP1LjRnvMDNs47knLvekVq6MQasUJhHFL/+3upwh6gwffZUO0H1iSFplZ7/bJkV/TlVZlxX2t6UDTLic74bMAyMJ5T4APjc8r7T6qwaAdcAZkqifXpgGYzfL8Y0dUPKZ3dvUBy8zQmmtlHjQYYhrQqdqNyR4BHoTuc2oiWLbhwqq8tYZpMzUBrfEUQUdufnTBPnCk7rEzDs2BkoT9Y1iHmV8DAfWm26eWY1RsLb6JsX/gKUGBjcwVM4Brgu0bmSKZH6ymCRECXfzR1rIIGVRR5tklYR7sDVS/TMN+0h03Smt59i3pn7DimR9OuJ0QVAiCiU/fhT/OvWPUTlWYNLfNFy/LeshlccyS1rWWb2v0+ezbVKRlSiI5g66OQCvMp7u0MIENDW/35o25ca4Oxdjzo77p3ONJAe+DjK5IDP9Oomv6Q/v3y+QVW/7FqT6CtPO3Q4ALG7qpQDQRZRYXAhjxw/fQLoM4r/KPJ3iHfeBDP8W0xWpYzrkmlHspfQHaitbuM3ftdoyZkvi/IYCcMMp5p9XBDXwpCcF+v7Tie7
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:BL1PR12MB5126.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(7416014)(376014)(1800799024)(921020)(22082099003)(18002099003)(56012099003);
+ SFS:(13230040)(1800799024)(366016)(7416014)(376014)(22082099003)(18002099003)(56012099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UklQa1BHbEZGbmFITzFwMmo5LytFVCtISnM1eTdTVVgxYk9SeUYvY2tpRzhM?=
- =?utf-8?B?S1VYckkyc1Y3RDdOY0Zqa01LQnFzK29SNVBzUnk5K1ZOcjFLSTFka2YyWTlj?=
- =?utf-8?B?SGpsUXVQQThNVzZVNU9LaithMng0SUFDM25nMUZhRjEzSC9acmtsZ2txaXFv?=
- =?utf-8?B?alFnNjVlWDFVVC80MjFDbjhPRTA3MzEvQnVYd0JycGxQeVdUT1p2bkxwNkpD?=
- =?utf-8?B?N1RyVkVjb0JyYzFsSDBQYTRQbVdCTWVpMFRNa1J1TXZTQlRWSGJBOWZJQVZS?=
- =?utf-8?B?NU1TK1ZYbEorallZRFRMdklJd2RYa21xZGdOdXFNejZqNDBPMCsyVjBHWFlP?=
- =?utf-8?B?M2dyK2lHTHByVVFWS0RZSGNyeUU4OUZ2ZThIeHBnaWtMRGUvdWVsZHg0Vzlh?=
- =?utf-8?B?UU0zeWxCbmlFSzd6L2JzYTZWb2FIWFNRNnJzLzE2OHFuU0VtQURIUjM0Wlgx?=
- =?utf-8?B?ek4wRGNQQ2xPTHFGNmJ6bFRuSE16NkpOa0ZzS1FmbFNpS3VvYzdud05pRnFN?=
- =?utf-8?B?YVEwQ1luNlZjZUFlTnozNHAxMU9Bb3R5VERVcVdjZy9UbldWejJBUDRYQWth?=
- =?utf-8?B?QnZsNGltMW01R3R2ZkNFYkROMTNXM2k5TDBYZGdFaHNiUXJwNHpBQkJNZ0RT?=
- =?utf-8?B?NGF4R09kWWVidStidUFTMmp1WFU3MU10bk1QaVJzSUJ0U2d6b21WbXRVclBC?=
- =?utf-8?B?MUFqRElWOWlDQ0tVOHFwKy9XM3c1YmgwRmh5MlpwNERVMWhWY1hiRmMzOUMr?=
- =?utf-8?B?a1hUbUh6c1pid2N4SFl6WXVDYUFoRUo1cXRCM2ZTS3IvekpCdDFNL01GKzhT?=
- =?utf-8?B?d0Q3WCtua0pYaUpFQzZhZ05ZeDNENzg4ODVLL3ZjSUd5U2xyWWN4Ui9YWjN5?=
- =?utf-8?B?R0t6NG1iWFhibTVxeDgwQVZUWURuN1NGOXV0MWMwVnZFWVNwcVFZQ3ZNRElU?=
- =?utf-8?B?bXNTRkhadk5McWQwVGlac0hyYWhQc0VqcWlteU1zSEh5ZjNBRXhsTnR5cUlh?=
- =?utf-8?B?MzRydmQ1TUJKeFVyUzl6a1hEY2dUTE9vbHBqYllnZGtCeE9zRUNNZGZaZzBR?=
- =?utf-8?B?YmhIWkQ1ZnBlOVZiSUJ1Qy9GWHUzcERxUUsyaXJPYVlhZXpEckt4RVIwdG9Q?=
- =?utf-8?B?UFM3UnBVeVo5cTA0Ymx5M1d3OS9kWXlDZTF1alQyRy9yRjUvVzZQc1FlYUNN?=
- =?utf-8?B?L0JpRlFYZllLekIrZWdRYXVZK2RNelhkUlNKSXlLNTZ1SFdsSjVua0ZWTnRV?=
- =?utf-8?B?M0dXQUJVelZmWFhxUEJPdDkrSlJUZnI5SXZaSGJlQXBLS2hjVzlaS1NSNnI5?=
- =?utf-8?B?cU40cTZON1NqU040Ym40WkUyVndEdFpTaWp3ZXlBRUJYanpFMVRKU2toZ3ho?=
- =?utf-8?B?TmlvdTZGaGI4RVRuaElCanJTWXRhd0pTT0I1RHh0WmZrUi9YcDliNit1am1Q?=
- =?utf-8?B?bVFsb1VFTDdpTXVDSUJ3UlJrVWgvaFlLeklIYlVyajdVdFJFeEVTRzhsKzJu?=
- =?utf-8?B?bXA2L3NvZFhqRlZWNG5kbkh4b0pRSDJFSDdXSkpybHBOVzBEeGlRQThiT2NB?=
- =?utf-8?B?OXVFVjJFV05WUWhleXgxVy9GZ1BtZzRsWURsWXFIT25ieU0rNE0yU01Rb1dS?=
- =?utf-8?B?aG9BRFF0eGl2bU82eERidmphYTRhd1dBVmdsSlZ1Q1RmNDY1cW1XVUN4U2gx?=
- =?utf-8?B?NmhIa0ErS2dQL3FOOTk4WXpobHFNWmNOcy9DRzFkT1NwUm9vY2VFT0NRalIr?=
- =?utf-8?B?QnVJUTRDL1FGVW1DMEZZNWw1c3BNdkFuTE1Cd3JkRXdwVkV6KytxRTJoU21S?=
- =?utf-8?B?T0FzOVNzNXNBNUZ0YmJvSFNVenNZbm9RaDlxYi9GVFEybUdPWU4wdm1wZnVM?=
- =?utf-8?B?Y09sWER2T1UybUlGbnc0UXZXT2JmUDYrRlpKWEpCKytQd2dwYkljc09DdFpK?=
- =?utf-8?B?M3hJaEtHRXlrWU5mWDVOb25ub3FwUTNWS3diNmgwMVJlYlVUakVQVFpiaVdv?=
- =?utf-8?B?eEVKdzQ4SHpUUHJ6MytCbUJhaDNocEFkZzhwSm15M1ZPQmFiWGFiaFBLcFdy?=
- =?utf-8?B?WURJWjN5QXMzK2lLcUxRa1hNWjZ6Q09WUkNNN243bmIvWElrRDR3OVN2SGY2?=
- =?utf-8?B?cStqb09tVkVNZzdsMWwxcVRrSkJlbk1XclhPaGFsZldsQWgyRTZ2RGh5RlhB?=
- =?utf-8?B?TXdBNm5kZG5DS1BON3ZjWXgvRW9yeXlRQTZrMTlqL0Qvb0ZzcGFsVDFUaGdj?=
- =?utf-8?B?bm9QWlRubVhTS0FTVTRsNDRmVVorZlVkUkZOM2p2Yys3SExmamhIVTFPNzRa?=
- =?utf-8?B?a2FER2RKdlpoejJxbHJZRXZ4dkp0UkRVdS9aYVZYb3JLSGdlWFFiZz09?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?S2tQR1ViTzB5b29CY3YvbDY4c2l2aHpxU1VTcHU3ZmliYlpKTlRWY29IZlJv?=
+ =?utf-8?B?aGV3TGtIRkdEc1hsVDZ4akNzSFVoa1VuVkRtTEZrcmxEZmRGOEZ0K203RzZt?=
+ =?utf-8?B?LzNObS9WaE1POXQ5N3ZNTE9rUHg0enFoR2lob0JGZ0ErMzNNWEtpNnB1azlJ?=
+ =?utf-8?B?YmFSK2p2M1d4WmkyVWJXOGdKaUdzS2JDMlJqTkZ5QWZmRWFOcng2c0h0WER3?=
+ =?utf-8?B?YllSbVZKV3ZqTFVDdXpEcGRvK05MN3hEZ1lORUxaRUtVNHdtLzZYZjBVUFhy?=
+ =?utf-8?B?ay9lYnc5TVZMRFZmblZCd29SVzF6QUxRZnd0TWh2dnpqL0EvZ1hYR2xaVUxw?=
+ =?utf-8?B?M1JZSjFSejRmbGJjbW9rWEpwaDczRWhVWTlKOHRJSXZVMFF3ZFpmS05ycE9B?=
+ =?utf-8?B?QmRCNDRFc0FqSUFzYkpGaHFUVmxaTldhUCtZNnBlWlZrY0JnWFVaVm5TWFIy?=
+ =?utf-8?B?YlBsWUhHbTgvZXdZTGtTSWFLc1BaT3RoQm1zcFYyUnMvQk1FTkRTc1RNZTdw?=
+ =?utf-8?B?cklud0JKVnhkaXJNKzNOMklRYWdZVG5rNk9zWk5OcFZ1MFVRMEw5b09EUkNm?=
+ =?utf-8?B?dEhwZ20zMUtrZGRYMkQzRWJJSjhjZXZDdEdtREUxbkVPZUR6THQ3TzFFVkVT?=
+ =?utf-8?B?UzZKSXp2NkJsRWd1Z0NjVk9LbVVVV083RUt2bExIMkdwWndwNWRwUndnNWVM?=
+ =?utf-8?B?QnNTNHlkWjY5THhwTDQ3clRrN3JHTGxNUGtRdk52dUhhZTFZY0xYbm1JMlhn?=
+ =?utf-8?B?YnEwUVFnRWVlL0hwcnh4dk44cGIxSTZHKzJDL2JpV3p4L2w0cmZmTHJBK2VP?=
+ =?utf-8?B?V3BFVVRCYTNFQVUralZpUUVuVjNuclIzYStLWlJuVHhqSnl2VnZiNXVBRXRs?=
+ =?utf-8?B?MDI4SU00YnJZdElzMXdPelNEQnd3SkR4SzZSWUkvVmNrb0k1OW4vSU43RVY5?=
+ =?utf-8?B?d1gwY3RGb1JpSkdCaTB3WEkrR1c1c3FMRjZrUndDb254a3ExQUFwVDhMSFFz?=
+ =?utf-8?B?NVJQQ01QNXcrNHpuNThvVVhaZGlodTVxSForaGtwM3BFc2tDZmtYeGRMbWt0?=
+ =?utf-8?B?MjZSYURXRzJCbk9SenBIa2tvdUhTWG4wckhmNkViVHZXMTU4dkNabjNHZ0Jx?=
+ =?utf-8?B?MGlIMVFnUHczNWlXV1Q5ZXJYL3BjQ2tvcjlhSzI4TnR0YjVjTmVRSk5aa2JC?=
+ =?utf-8?B?UFRlYzQ3WEI4RFllMVBBbTZIelFSSVZXSnJvTFJJSTNNYTRFMURDY1d4NVRX?=
+ =?utf-8?B?V2g5R2JiQnFoS3pIZmFOUXBVQmJiMkxja29DdlQ4VUZXWTNuaWQzVzdVNW5L?=
+ =?utf-8?B?S2dRakg5U1VXekVaRW44MURKSUgwbU4wUWVQY3lmOW5yQytoamZOaWFhbm9S?=
+ =?utf-8?B?VTZsTlZZNGttT1g1am1ZUGZjMUVaYWkzWFRZeTA3YXV6bGhueHE5TFhHZDMr?=
+ =?utf-8?B?K2dVa2MxMFRBdE5NU0dNdXAydHFWWGlLTVRPQjk0Tk5EbldrY0JzNStyNUxS?=
+ =?utf-8?B?K3JycG9WNkUyKzQyRVVDQ2hNYjYvMnVWUlBiSjFib1kzVHV6b0t5dFczQ2dV?=
+ =?utf-8?B?VEg4SXcyQlgrVXIrRlF3MktzVlUrZEVWOXNEQzhiWUR0TEQ0M3BFWWtpT2hB?=
+ =?utf-8?B?QW1iT1lDYk5teis3S2xtcnNOQ2J3Z0pjZEoyaUFoWTN0cGdPekNkOUc2VDBO?=
+ =?utf-8?B?TDV2Ni9ETFBUSERxdU9YanlpdmdQbDZGWE42anl6bGkzdUJCUmFzeG80aVVI?=
+ =?utf-8?B?UTdkYjQ2UXFuM0UyNGQ0ZkQ3cXo4cExsK0o2WUJXRkpYeXhpUlZ3TlBjWDM0?=
+ =?utf-8?B?cXFhZGVleEJqeUNkUlUrSlpsaWJLWUJpS0UzV3o4cXAzZ0hWemdlSFplZDdH?=
+ =?utf-8?B?enkwV3ViaUlobHlMVFk1Q0xhNFlnQXlzNHpSYXBQQkdlcytaSWZTays2SVBZ?=
+ =?utf-8?B?NDgyRG5UQzhnY2QzdWswZXVJd3N3Q0tXcy9uczY4Y1IrbEpMVGFqMVB2ampu?=
+ =?utf-8?B?YWMwRkxhM05zeWd4M2tVRE1YMDJuRTJQNGxQamVvalloRG9GZEI5M0ZTUm96?=
+ =?utf-8?B?ZVJQRFY3aW1kMitBSXFpUkRBZE0vSkJKREtKVmNxT211MDlqNnVHVzBsbU9r?=
+ =?utf-8?B?bGs5V2c3S1FVZ2lISnRRcGtTbUtWaHg5YThIWG55SnJkSm9CaC9kNGszN3l2?=
+ =?utf-8?B?bHNidHpvVGRoQVF4dzJnWGorRk9wTkw0dkFVenNiYkRqNW1QNUg3czVrWmJS?=
+ =?utf-8?B?MDVNZVl6c1hkeGxkanA4Y0p3b2NTeE00QkdTb2RUTlFxNUl2YjZVTnl4UVNa?=
+ =?utf-8?B?dUhHdGFjeG9DeFR5Wk83TVBtWmM4MWQ0NEtQWjArbkNDZ1E4MDB2QT09?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 07a8277f-cef3-4e53-0a5f-08de8e8d7d61
+X-MS-Exchange-CrossTenant-Network-Message-Id: 86a442ae-5c1d-493a-c11f-08de8e8ec78a
 X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5126.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Mar 2026 18:52:27.9423 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Mar 2026 19:01:41.8636 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: o0EYfK01DUkw7inz4Nxl/iWQa66P9CmdlkrSHX/7vn4MSUH3RE9MPKBnQ75yjvexcOyHdBmslAgUaon7Yn/ptw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB9243
+X-MS-Exchange-CrossTenant-UserPrincipalName: qe4k1XDiJJsLoVCwYmxGBZ/0ySG9zmHkB34gQS17MOxxvRGe6khEWP9uDO+ORH/wqvdGU76e7n6U2UGe62prwQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB8265
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -153,111 +154,99 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
 
-On 2026-03-30 12:57, Michel Dänzer wrote:
-> On 3/26/26 13:17, Nicolas Frattaroli wrote:
->> On Tuesday, 24 March 2026 17:44:21 Central European Standard Time you wrote:
->>> On 3/24/26 16:25, Nicolas Frattaroli wrote:
->>>> On Monday, 23 March 2026 18:27:41 Central European Standard Time Michel Dänzer wrote:
->>>>> On 3/23/26 17:55, Nicolas Frattaroli wrote:
->>>>>>
->>>>>> "Someone might not understand its purpose" is, in my eyes, not a valid reason to
->>>>>> not have this property, [...]
->>>>> Per my previous posts, that's not my concern.
->>>>
->>>> Then what is your concern?
->>>
->>> Per my previous posts, my concerns are:
->>>
->>> * The meaning of the "link bpc" property value isn't defined well
->>> enough vs things like dithering or DSC, which will likely result in
->>> compositors / users overestimating what value they need / want,
->>> resulting in compositors spuriously rejecting configurations which 
->>> would work perfectly fine, and/or spurious issue reports.
+On 2026-03-26 09:53, Pekka Paalanen wrote:
+> Hi Michel,
+> 
+> I have some opinions as well.
+> 
+> On Tue, 24 Mar 2026 17:44:21 +0100
+> Michel Dänzer <michel.daenzer@mailbox.org> wrote:
+> 
+>> Per my previous posts, my concerns are:
 >>
->> Dithering and DSC are supposed to be transparent, no?
+>> * The meaning of the "link bpc" property value isn't defined well
+>> enough vs things like dithering or DSC, which will likely result in
+>> compositors / users overestimating what value they need / want,
+>> resulting in compositors spuriously rejecting configurations which
+>> would work perfectly fine, and/or spurious issue reports.
 > 
-> Not really, no. They achieve higher "effective" (as perceived by the user) bpc using a lower physical bpc.
+> That is ok. Compositors need to understand what the numbers mean, how
+> reliable they are, and act accordingly. Knowing the lower bound for
+> link precision is already useful as it guarantees a minimum precision.
+> It is up to the compositors to decide how they communicate this.
 > 
-> 
->> If a link bpc is 10 but DSC is on so it's 9 on the wire, it's still 10 bits.
-> 
-> If DSC encodes user-perceived 10 bpc at a lower physical bpc, and the "link bpc" property reports 10, that would satisfy my concern for DSC.
+> Or course, assuming lossy compression is not too lossy. Maybe
+> lossy compression should be forbidden by default unless explicitly
+> enabled by userspace?
 > 
 
-Conceptually I would understand DSC to not effect the reported bpc, so
-a 10bpc output bpc would be reported as 10bpc via the property, but
-DSC would compress that down to a lower value on the wire.
+I disagree. While technically lossy, DSC is perceptually lossless, at
+least according to the designers of DSC. If I'm not mistaken this is
+all based on extensive studies.
 
-Dithering wouldn't do that. An 8bpc output would be reported as 8bpc
-even if dithering makes it perceptually look like 10bpc.
+The decision to enable DSC or not has an impact on the power consumption
+of the HW, in ways that are often nuanced. Userspace has no way to know
+or understand these nuances. This should be in control of the driver.
 
-I can understand the challenge of how to intelligently use it to
-report anything back to users. I could see some compositors being happy
-to use the bpc alone, while others might want to know dithering and/or
-DSC state (compression ratio?) as well.
+At most I could see a "never do DSC or dither" toggle, if one is really
+concerned about this, but I don't realistically see use-cases where this
+would improve user experience, even for users that care about color work
+and correctness.
+
+The YCbCr420 case is different. We probably want a way for userspace to
+understand that half 3/4 of chroma values are being tossed out. This
+would be significant for RGB content but insignificant for YCbCr420
+content.
 
 Harry
 
-> Are you sure that's the case though?
+>> With my compositor developer hat on, what I'd want to know is
+>> something like: "How many bits of information can be passed over the
+>> link, allowing the display to present it in a way which can be
+>> perceived by the user?" With dithering or DSC, that would be a higher
+>> value than the physical link bpc.
 > 
-> I would be quite surprised if this was correspondingly the case for dithering.
+> Sure, but this is not that. This is only a part of that. You would
+> also want to know what the monitor does with the signal, the depth of
+> the data path to the panel, and so on. I'm sure those are completely
+> off-topic for a KMS property.
 > 
-> Either way, the "link bpc" semantics regarding these should be explicitly documented.
+> The kernel driver won't know how acceptable temporal dithering, spatial
+> dithering or lossy compression are, so I don't think it should be
+> deciding how many bits of precision they add or subtract. Exactly this
+> makes the link bpc property a well-defined fact rather than an estimate.
 > 
+> The documentation of 'link bpc' could be more explicit about this.
 > 
->> No compositor would care about the compressed-to actual bit depth on
->> the wire being 9 bits on the intake of a DSC decoder, it's not relevant
->> for their use case, they're not decoding DSC.
 >>
->> Making it consider DSC as part of the link bpc would lead to what you
->> describe, since now compositors would need to know the compression
->> algorithms of every single display protocol to correctly determine
->> whether unintended degradation has happened. Ignoring DSC, which is
->> what I am doing, would not do that.
-> 
-> Sounds like you misunderstood my concern.
-> 
-> 
->>> With my compositor developer hat on, what I'd want to know is something
->>> like: "How many bits of information can be passed over the link, allowing
->>> the display to present it in a way which can be perceived by the user?"
->>> With dithering or DSC, that would be a higher value than the physical
->>> link bpc.
+>> * There's no clear use case.
 >>
->> You're assuming link-bpc isn't precisely that.
-> 
-> I'm not assuming, I'm asking for this to be clarified.
-> 
-> 
->> [...], you seem to be obsessed [...]
-> 
-> Not sure why you keep attacking me personally. I'm not trying to shoot down your proposal, I'm trying to prevent potential flaws I see with it. A bit more cooperative attitude would be nice.
-> 
-> 
->>>> If all you want is a clearer description of the property in the comment that
->>>> accompanies it, then I can do that, and I said I agree with this point.
->>>
->>> Patch 3 would need to take dithering & DSC into account as well.
+>> This is generally a requirement for new KMS UAPI.
 >>
->> There is no patch 3,
+>> The practical usefulness of the corresponding weston MR is dubious
+>> per the concern above.
 > 
-> The start of this thread is the cover letter of a 3-patch series.
+> I think the example of RGB 10 bpc to be degraded to YCbCr 10 bpc rather
+> than RGB 8 bpc is an excellent use case. I had another use case in
+> https://gitlab.freedesktop.org/wayland/weston/-/merge_requests/1850#note_3115686
 > 
+> Mario Kleiner had excellent cases as well.
 > 
->> and I will not break the feedback loop semantics of this property to please you.
+> Maybe these just need to be spelled more clearly in the commit message.
 > 
-> More ad hominem.
-> 
-> 
->>>> But you seem to be arguing from a position of not wanting the property to
->>>> exist at all, [...]
->>>
->>> I'm not. However, per the first concern above, a not-well-defined
->>> property could be worse than none.
+>>> That the link-bpc property does not consider DSC and dithering?
+>>> Two things which the max-bpc property also does not consider?  
 >>
->> So should I remove max-bpc as well? It's not well defined after all.
+>> It's not (as much of) an issue with the "max bpc" property because
+>> it's just an upper limit, the driver is free to use a lower effective
+>> bpc.
 > 
-> This isn't a good-faith argument either. Nobody asked for that.
+> FWIW, 'max bpc' is a workaround for faulty sink devices that claim to
+> handle a depth but silently misbehave. This is also why I called for a
+> "desired bpc" setting in the Weston MR, to not confuse with the "max
+> bpc" setting.
 > 
 > 
+> Thanks,
+> pq
 
