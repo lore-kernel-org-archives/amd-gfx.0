@@ -4,123 +4,92 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D9567FF495E
-	for <amd-gfx@archiver.kernel.org>; Mon, 30 Mar 2026 14:14:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2069BFF495E
+	for <amd-gfx@archiver.kernel.org>; Mon, 30 Mar 2026 14:21:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5497F10E7AE;
-	Mon, 30 Mar 2026 14:14:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B2C1C10E769;
+	Mon, 30 Mar 2026 14:21:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Tr/qXhSP";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="hqcLGkoz";
 	dkim-atps=neutral
-Received: from BL2PR02CU003.outbound.protection.outlook.com
- (mail-eastusazon11011019.outbound.protection.outlook.com [52.101.52.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1405210E5FD
- for <amd-gfx@lists.freedesktop.org>; Mon, 30 Mar 2026 14:14:23 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=LzSv3DZyt1hK9HQtl5KU7mYaMpljbqtdCxtykWgduEVJ+5FbRnRli7W/8Mw7YyoQ5yLt6QvyzB5enHFtnZ4ToxByDX6URAmtEoTtPCpPr0QyciZO6D4kLTZro0LOPGviyy4CxEBfo3PqSdCCk9iVcVZq/5QuGwMn9VhyxiBTOEGuMaR4HpJjlH0EfFQAkJ4FFO1g4aSEjBj9qd2eLiLkcgaUX56+EQliE6tS9Ru1DnpnQTrnwyUldnnRzEnziAL0q9alWWVmW0G6IL086WOwqcqrv/rjBD52oPQ5dT2EAgkm96C5kiavXXETl5dbeTOTsWLqBnXpcSh8qh5rZ6eVUQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=qA7sjT9fJErMebj7moq3kRYQFwct4WgI0TLKfnPhW1M=;
- b=LsGWCvXE9kE0UohEE4FLCbyc6S3coU3EsqnqJ71zVLF9hTCn3w6LALVqe4CkfFWbawHxD8nSXpmbmk7FBOCCV4oIG8wbP23GG+KSfZZ2iymzObz1oJYDeV/AyPaVmavOweBj9Gjw+Q+3K2B5EN5sPO66OeIvQdlui/8GNkPBhfI3XKOVFkmPiL41KmOz5wYsOenkGfM/oKKowf7YmBBSupoItMr6ZneGriZo/MSdawIT3u03DJClsciaMDeEcgaKJbHjSdRREu2g57EWM9TPYRyUUxagqB5GwsTle5sEspoPKomDkD0Y151yr4Lw2EnuccYK2XEyxr3JoH1t95IcLA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qA7sjT9fJErMebj7moq3kRYQFwct4WgI0TLKfnPhW1M=;
- b=Tr/qXhSP6ilmQnhymgv5ZkU1NMJ53IMfpkndgfV4ms/4XQHlhAAurb0lNGz6gCMy5/01fpsbtknfeUIcJEivTKnOAE8Zo4/TxuOiAYPGrGwIAyLmM6GrMxm99qEs1lcR9O8efsM7uI9LJ5AGPCIVLNw1KouSYManzU9WVOH4ilI=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by PH0PR12MB7815.namprd12.prod.outlook.com (2603:10b6:510:28a::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.15; Mon, 30 Mar
- 2026 14:14:19 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.20.9769.014; Mon, 30 Mar 2026
- 14:14:19 +0000
-Message-ID: <3cac3a26-e947-493c-ae33-0adf6032fdba@amd.com>
-Date: Mon, 30 Mar 2026 16:14:16 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] drm/amdgpu: make userq fence_drv drop explicit in
- queue destroy
-To: Prike Liang <Prike.Liang@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: Alexander.Deucher@amd.com
-References: <20260327103621.3374979-1-Prike.Liang@amd.com>
- <20260327103621.3374979-2-Prike.Liang@amd.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260327103621.3374979-2-Prike.Liang@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: BLAPR03CA0144.namprd03.prod.outlook.com
- (2603:10b6:208:32e::29) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com
+ [209.85.221.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 76A3910E770
+ for <amd-gfx@lists.freedesktop.org>; Mon, 30 Mar 2026 14:21:50 +0000 (UTC)
+Received: by mail-wr1-f54.google.com with SMTP id
+ ffacd0b85a97d-43b949bf4easo2639051f8f.0
+ for <amd-gfx@lists.freedesktop.org>; Mon, 30 Mar 2026 07:21:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1774880509; x=1775485309; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=3gI1060qWAxguxfqLo7d74lXelCuf/bPUdPr59uzbe0=;
+ b=hqcLGkozQlB0S5ZKiHvp66/WcZBWeK8LFa2e1tQ5pigfAkIznS5687VOzpaAoBigfj
+ jw25qaGrFunzDYjv87CJOdxIA0QiGW+4qw/FZLG1bndohIdk/EZvKPjK43trLYRiCcrV
+ AtuLauuJimBeaZximH2gNwUehph1pAeIRVvgcAyIQTcvR/GxRvv8r+Pjy/6LTuDhFTqZ
+ tqRgPWjITZZfFmqjhIDecIfZ+1WvlQwZd1Q/WGbYKabfDVIKbZDRUItW728gdO7Dvk0k
+ KL3Tqeo6pHeDSkOWgjn1iIAL6AbaVbrlRu6zsGJYwOab1zCim9V3/yV7LQWkJECcRSEo
+ JLOw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1774880509; x=1775485309;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=3gI1060qWAxguxfqLo7d74lXelCuf/bPUdPr59uzbe0=;
+ b=VcI47sOUz9BblWE0OhSliIiZqzXyDGkjF7LPXKImw1wfnhwphkSmDAnSr6mlMiyaTJ
+ df9CMOLTjOE7o8LOI4jlJ4ARg2NgHAf6qlMT0WRpWf4CbCou8PznVvh/MItTDTcRgDk8
+ IMEYNQFCr02yzkE8wnisxG/Sd3zqzD2a898mds/gUyUiAI++0dpnWIZDXoH5vEW/Z0X8
+ AYKeX6X4vH0iNxNJEQMdlC/i+JP7I7rIaPJAefflIJ4shJXGxioNdklv9+NYhufNcI4J
+ fGSEMBbaSgwGKZEH4/qMVj5+4Lj5HneVUd3Mn3pRmrtLx8z6Ds7F5yPkshJIDtRf6fQA
+ xFjw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWfk8e7SIOXmb2J47VNOWDOA1xsBJk4suzETreN+emmiWDBlbShh/JEQvJqvp5pVDi+kn9I+M81@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzBMe/rnCYOhMpSw7on+03zHXmOtgX+TnGYZF6ddkWaSL/giOGH
+ P27P6DrPSBfB6c4sqLOgMgLYo+HtUQx6509HYJAkj0JoFms2KS17Vy3+
+X-Gm-Gg: ATEYQzzfbogE7LVgCMARV5wvP04W+ZnuL1GOEcMOoHHLJvubg+SpQrkM/CHI6mxRVYz
+ b6q3SVLF/3x5fEkOWgKntITV93h4vESBJe/I6HjfU4aMHP0hrgddAsc/b0sP+O5/whAmz5NYQwA
+ TGCwz3uke0M1lQHyVL7RKz4e0MMhpC6aluh4Cw83cDPRC7yHRQgYupOeH5bj1By++jAoW7etx3C
+ IHbIbzf55SDHaXmJGYDq2zjQ/QhwKDFM6ZvoZ5WZXtTQGYCkEEJF+uiwh/uTg0gUsZqdlr/xtOh
+ bQsQvEYPvEfdYNQY3gxgTovO97BGDNceM6P9yMxq9HlvY7P6clYwf3ztrnTlldcnYgOnzQTHZdF
+ YbnxRdcJmmvq586KXkqYub9lVH65yYJJlYkh4JzDKo5iOO0tKnmxOuSqWx7/TPC+rl7IwDBL5Au
+ WFR0EsoK4RuaF8XAFdCox4t8krKSI/YYqJMFXDOdaPcWMzUI2cTlQApIoeg5WszFcd78IRXFe5
+X-Received: by 2002:a05:6000:22c9:b0:43c:f1da:487d with SMTP id
+ ffacd0b85a97d-43cf1da48c5mr16375164f8f.2.1774880508452; 
+ Mon, 30 Mar 2026 07:21:48 -0700 (PDT)
+Received: from timur-hyperion.localnet (5E1BC26F.dsl.pool.telekom.hu.
+ [94.27.194.111]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-43cf245ebafsm18062796f8f.21.2026.03.30.07.21.47
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 30 Mar 2026 07:21:48 -0700 (PDT)
+From: Timur =?UTF-8?B?S3Jpc3TDs2Y=?= <timur.kristof@gmail.com>
+To: stable@vger.kernel.org, Rosen Penev <rosenp@gmail.com>,
+ Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@linux.ie>,
+ Daniel Vetter <daniel@ffwll.ch>, Harry Wentland <harry.wentland@amd.com>,
+ Leo Li <sunpeng.li@amd.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Bin Lan <bin.lan.cn@windriver.com>, He Zhe <zhe.he@windriver.com>,
+ Vitaly Prosyak <vitaly.prosyak@amd.com>, Alex Hung <alex.hung@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Mario Limonciello <Mario.Limonciello@amd.com>, Ray Wu <ray.wu@amd.com>,
+ Wayne Lin <wayne.lin@amd.com>, Roman Li <Roman.Li@amd.com>,
+ Eric Yang <Eric.Yang2@amd.com>, Tony Cheng <Tony.Cheng@amd.com>,
+ Mauro Rossi <issor.oruam@gmail.com>,
+ "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>,
+ "open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>,
+ open list <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH for 6.12 3/9] drm/amd/display: Disable fastboot on DCE 6
+ too
+Date: Mon, 30 Mar 2026 16:21:46 +0200
+Message-ID: <7351746.9J7NaK4W3v@timur-hyperion>
+In-Reply-To: <6b15401c-1fdf-4d3b-84aa-dfc47f430895@amd.com>
+References: <20260326234716.16723-1-rosenp@gmail.com>
+ <2312151.9o76ZdvQCi@timur-hyperion>
+ <6b15401c-1fdf-4d3b-84aa-dfc47f430895@amd.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|PH0PR12MB7815:EE_
-X-MS-Office365-Filtering-Correlation-Id: 21037971-c3d7-4afd-b3fa-08de8e66a223
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|1800799024|376014|56012099003|18002099003|22082099003; 
-X-Microsoft-Antispam-Message-Info: y+I0MoFfAoANNSMzMI2RsTKC4Y7iOPPNOjCUnh2QkS+4ngjwBGWi4qs+Ln6toRmwyczD+9ZAleq4fohSb522FwMXrIUQSgFt04/rhe3zvOsw1v+RIfJIb/mhD1nv2FtJXAnRURSa3ksG7nNgBGNBRz3i3q+yChn4eYOIzkTUm1bp+5LarDU/yXPYNz6+OytXqFJJWpV+V4OYHGHoboAmIdnT8Vg5C5sQ+vGn2mPEFXucgY8p40V7fuzgdjWl0aPkfCYOpAdgMt8z28chsv7X/7a0JtA3gUSJ0wrFY+l0AziS+idNiURC+3awRxp0vjvWhiatCibeP9PoJEWoQ49bFD7UkK54jRkLDcFShT2tFXkocxjCATlpd8Ze9LnSCDll9ITX/aYRZQJ/Dsw9WnByfqEuF9ILUdSf9QFpJCyamZV3afBWN1C1pq6PupV8fKvLpSiRIyIkehApBo3MHZSYxRVITxWRDdTXlAxnKfBofbg6HdqberarrkqcKjy9zWTbu6Au6seu8VqXry/Nr4MjySsbALyXSwIztVgXDoLleZgYC5VGJvzCuLWcycJq4wpDtcCJTjlUSUUmzcUyur6dqOeIKbVrJN1hb2CGb8VdPBRIpaZohHG84vpFhqiZaoXwiDRTsE5Q7btFxYoOnhcIhPCEPznD10tM5YvKlAu0/OmYBw33qPkjtP9nRu1YxTe30yskdYn125S/aQ9XeQJcBBR2a7cFGdCSn8rDzdd82Zc=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014)(56012099003)(18002099003)(22082099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cGJNcTBFUTBiZThwQkNpVTg2V2llblk4Rzl6WER2dURWUExzdXJIM25abXNj?=
- =?utf-8?B?VjN2VlV5MzU2dUt4NG0rSDlXNXJKdDdaa1VjM04zMHY2cGw3VjZUaW9hcGp6?=
- =?utf-8?B?SFdyeENVeWpmVzdOS2RzdHZwRUU0WDBQM3hNUloyQzlZVGVONzJCMWZEU2hI?=
- =?utf-8?B?azY4dmRPUE5POFVOeGFlMjI4U295WUhCTld1b2NCMHc4QkZmemNVb1FhbG5H?=
- =?utf-8?B?VnN5eWo2WjRlNzh1ai84bzQ3NGcyWTNVajBuZE1YL2srb2E3RUVaam93cDFn?=
- =?utf-8?B?QVlLNUE1MjFRdnZuMkQzb1dyN2VhenN4VGwyVnorUXRTODh6WUN3ckhkbitx?=
- =?utf-8?B?N0ljSGJmMFk1RTYwcnNyOXdGMy9TaTRPSEhpZFM3bXJsY2c5VFVLTWVmUStM?=
- =?utf-8?B?NG0vTVFqZTN2dXhmb1BzTk9PKzRYTEc3bmg1a0psQzArWk93WVIvUStoVXRp?=
- =?utf-8?B?bW00R3MwM2hZaHpNZmcrcmc5VW5ORE1zcmxnVmRMQVd4eGxvOVo2MnkweGI4?=
- =?utf-8?B?d2hudjJoWlJtd2hCems1K2J2bE42T2kzSitPWGJxUjE3QTlCTk9zZHpzWkxk?=
- =?utf-8?B?S0pBMjhQY08ycjViOENDdnYwN21EdURqYXd4MytqWXJLRkVtMjRUYndXTmsr?=
- =?utf-8?B?NGdvMUlIK1lTaFo5QTk3TkNJTTNTdTBMTUNvbVpWd1ZnSGhFZloyTmh2NHVk?=
- =?utf-8?B?ci9DUU13SVJrZnRnVHc2WHlkaGdXRllKZmhaNmNQRUdKYWhQblpiT1Fqc1lH?=
- =?utf-8?B?dHV4bjRhcUFmODdwejBzUFMxVGUyQWxDVE45OEVIVkhhOFJQL3pweFdYOTMw?=
- =?utf-8?B?djQ0MHZkT0w0Z3B0TkR4TjNOb0xTeG5BeGZGT29mTzM3QTNTbTB4RW5mdFpP?=
- =?utf-8?B?VWlaMFBnNlRlMkJnaCtpelB0b2dTWjJWdkgxZkJBOHdZZmNMak8yK2lJZ0dn?=
- =?utf-8?B?SFl2M0ZxcTdOdEg1L3hKd0ZjSUoyNTZrM0ZkYXRuTlJzeWZsUDhlWisxZW9n?=
- =?utf-8?B?TjNWU3YvVVBLdnBuK0kzNXFBdFVRSERlWGNySjdicHBVdDZQRVpNSC80NEo2?=
- =?utf-8?B?M2U1a1ZBQktzeE43VEwzYzhubEFzaGprR29GaktMSk5sQVU4UnJEbVArMTV0?=
- =?utf-8?B?TDdDODVpRGRSMmo5OEw1L0tIMk1wUGpJNGh4dHlEaVd4UzAyL2QxVDUwRHVJ?=
- =?utf-8?B?NFg4aGZlRjVXYWlKWkhaME9iWDJlUVM1Y2x3K2N6YlU5YVBCYkw2VzZaMWJ5?=
- =?utf-8?B?dDl3QWVhS3RoaUtEazRrczZwNG1zcXpjcWRRbnlETENvL0pjL1BMNXlHeW5S?=
- =?utf-8?B?VWhVRnhCckNJdVR5SXd2UUw0WkFkYmR5UFMxT25VVWZMYXlmZytMS3YrK1E1?=
- =?utf-8?B?YXZGTzFKUUIrVlZFRTE4WVRhUzA3ZHc4MzUxYXR2eThSTFY0N0NBTDlDZnJZ?=
- =?utf-8?B?SUp6TjlsS2dQK1R3amF1NjErNzJ2c2c1WGVCbUVabHhJa3l0eXJqclk1Qnkz?=
- =?utf-8?B?aUkvU1B1RXZ6RDNxT2Z4ZDYwL05HNmNwczlCa3o1NFhjZlFlSlhlcHFSVEg3?=
- =?utf-8?B?cnF2RW95Z3lmQ2h5dU1nOHJseDM3bENGUU9lVTVkOEQ2cFBhTXc2Rm9iUEV6?=
- =?utf-8?B?Vm4vMFRsbVJnUkF3ZTdBYmZZaTNSRHVxbGtaSDYweTFiZUlkL1VyWGRSeGxm?=
- =?utf-8?B?K1J5bGVOV0l0aHZURVN3VTZPU3BlYWQ1S1FCZTFGMjdWVWxqSUo1dFZhbGdO?=
- =?utf-8?B?SDZBVmtQaDFRWHJ0amJMMmhIejFqQjlVT1BkL3FDYUg1bUZ0N3dob2NrMG9O?=
- =?utf-8?B?d0pOVHpjd2FVSEdmemNuMVo0MTZBQjhHNWpBVWx5OWJxRTdUT0xOOEN2UFhi?=
- =?utf-8?B?TnJnRDRMMlpRems3ZkorNDV5elIyQzg1bTNCQTdJd3lpbFpUUmZ3RTFlS3dW?=
- =?utf-8?B?TmdJeWxQNG51WXMrUjV4S280S20vMjg4QmFoOG9Mdys2SVZUWHB3THlCRzcz?=
- =?utf-8?B?Z1psajh4WmdVaWFrdE5tUm05akE1OElBeUk0cjdQVW9oQTd4S1pFSDl6VkJ5?=
- =?utf-8?B?aEZNdUJ4ZzA4OUpZcStSamF5c3p1UkFGWmd2QkNHNUdibVBPSEJTeFhWeGlP?=
- =?utf-8?B?SmxVUS9BVFZ2cEJ5TnZzOSsxbERsTEJKL08rQWdMQ21GSWV2eFV2cDN2WHpV?=
- =?utf-8?B?eDJpMDhUci9IdXZlTU5kVlJvZi9aWjlPOTdCQ0Z2alhHQklYU0tDZTBhZFRv?=
- =?utf-8?B?VmJZKzh6VUJuMTA3T1RqZ003MFdSMXhVRnN1cHRwNnJ5Q1R2Q0JoaHpJL21p?=
- =?utf-8?Q?/TGu4waS2R1MyYvGZb?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 21037971-c3d7-4afd-b3fa-08de8e66a223
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Mar 2026 14:14:19.3375 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: WY5/kmecyDaX8JE79pyOmG6C0+BQroeSt4gmB8EdxFd5byFHE1GfdKoH7JizUYAb
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB7815
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,74 +104,89 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+On Monday, March 30, 2026 3:55:55=E2=80=AFPM Central European Summer Time C=
+hristian=20
+K=C3=B6nig wrote:
+> On 3/30/26 15:16, Timur Krist=C3=B3f wrote:
+> > On Friday, March 27, 2026 12:47:10=E2=80=AFAM Central European Summer T=
+ime Rosen
+> > Penev>=20
+> > wrote:
+> >> From: Timur Krist=C3=B3f <timur.kristof@gmail.com>
+> >>=20
+> >> [ Upstream commit 7495962cbceb967e095233a5673ea71f3bcdee7e ]
+> >>=20
+> >> It already didn't work on DCE 8,
+> >> so there is no reason to assume it would on DCE 6.
+> >>=20
+> >> Signed-off-by: Timur Krist=C3=B3f <timur.kristof@gmail.com>
+> >> Reviewed-by: Rodrigo Siqueira <siqueira@igalia.com>
+> >> Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+> >> Reviewed-by: Alex Hung <alex.hung@amd.com>
+> >> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> >> Signed-off-by: Rosen Penev <rosenp@gmail.com>
+> >=20
+> > This patch is incorrect and should not be backported.
+> >=20
+> > (Note that the error is already fixed upstream. For stable kernels IMO
+> > it's
+> > best to drop this one.)
+>=20
+> Is there some alternative which needs to be backported or should the old
+> kernel just work out of the box because we never enabled some feature
+> there?
+>=20
+> Apart from that the patch set looks good to me.
+>=20
+
+This patch had a typo and does the opposite of what it should, ie. it disab=
+les=20
+eDP fastboot on DCE10 and newer instead of disabling it on DCE8 and older.
+
+The upstream fix is here:
+https://lists.freedesktop.org/archives/amd-gfx/2026-February/138577.html
+which disables eDP fastboot on DCE10 and older.
+
+>=20
+> >> ---
+> >>=20
+> >>  drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c | 6 ++----
+> >>  1 file changed, 2 insertions(+), 4 deletions(-)
+> >>=20
+> >> diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
+> >> b/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c index
+> >> df69e0cebf78..7dc99c85b8ea 100644
+> >> --- a/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
+> >> +++ b/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
+> >> @@ -1910,10 +1910,8 @@ void dce110_enable_accelerated_mode(struct dc *=
+dc,
+> >> struct dc_state *context)
+> >>=20
+> >>  	get_edp_streams(context, edp_streams, &edp_stream_num);
+> >>=20
+> >> -	// Check fastboot support, disable on DCE8 because of blank
+> >=20
+> > screens
+> >=20
+> >> -	if (edp_num && edp_stream_num && dc->ctx->dce_version !=3D
+> >=20
+> > DCE_VERSION_8_0
+> >=20
+> >> && -		    dc->ctx->dce_version !=3D DCE_VERSION_8_1 &&
+> >> -		    dc->ctx->dce_version !=3D DCE_VERSION_8_3) {
+> >> +	/* Check fastboot support, disable on DCE 6-8 because of blank
+> >=20
+> > screens */
+> >=20
+> >> +	if (edp_num && edp_stream_num && dc->ctx->dce_version <
+> >=20
+> > DCE_VERSION_10_0)
+> >=20
+> >> { for (i =3D 0; i < edp_num; i++) {
+> >>=20
+> >>  			edp_link =3D edp_links[i];
+> >>  			if (edp_link !=3D edp_streams[0]->link)
 
 
-On 3/27/26 11:36, Prike Liang wrote:
-> amdgpu_userq_fence_driver_free() is now responsible only for releasing
-> per-queue ancillary state (last_fence, fence_drv_xa) and no longer
-> touches the ownership reference, making each function's contract clear.
-> 
-> Signed-off-by: Prike Liang <Prike.Liang@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c       | 5 +++++
->  drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c | 3 ---
->  2 files changed, 5 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-> index c4841df80bf8..d676f2709a0c 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-> @@ -459,6 +459,9 @@ static void amdgpu_userq_cleanup(struct amdgpu_usermode_queue *queue)
->  	amdgpu_userq_buffer_vas_list_cleanup(adev, queue);
->  	uq_funcs->mqd_destroy(queue);
->  	amdgpu_userq_fence_driver_free(queue);
-> +	/* Drop the queue's ownership reference to fence_drv explicitly */
-> +	amdgpu_userq_fence_driver_put(queue->fence_drv);
-> +	queue->fence_drv = NULL;
->  	/* Use interrupt-safe locking since IRQ handlers may access these XArrays */
->  	xa_erase_irq(&adev->userq_doorbell_xa, queue->doorbell_index);
 
-The xa_erase_irq() call must come first and then dropping the fence_drv reference.
-
->  	queue->userq_mgr = NULL;
-> @@ -866,6 +869,8 @@ amdgpu_userq_create(struct drm_file *filp, union drm_amdgpu_userq *args)
->  	up_read(&adev->reset_domain->sem);
->  clean_fence_driver:
->  	amdgpu_userq_fence_driver_free(queue);
-> +	/* Pair with kref_init in amdgpu_userq_fence_driver_alloc */
-
-It would be much cleaner if we would modify amdgpu_userq_fence_driver_alloc() to get struct amdgpu_userq_fence_driver **out as parameter and then call it like this:
-
-ret = amdgpu_userq_fence_driver_alloc(adev, &userq->fence_drv);
-
-This would make it absolutely clear what happens here and why we have to drop the queue->fence_drv reference in case of an error.
-
-> +	amdgpu_userq_fence_driver_put(queue->fence_drv);
->  free_queue:
->  	kfree(queue);
->  unlock:
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
-> index 87560c1251d8..a392ef9ba5aa 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
-> @@ -134,11 +134,8 @@ void
->  amdgpu_userq_fence_driver_free(struct amdgpu_usermode_queue *userq)
->  {
->  	dma_fence_put(userq->last_fence);
-> -
->  	amdgpu_userq_walk_and_drop_fence_drv(&userq->fence_drv_xa);
->  	xa_destroy(&userq->fence_drv_xa);
-> -	/* Drop the fence_drv reference held by user queue */
-> -	amdgpu_userq_fence_driver_put(userq->fence_drv);
-
-I would keep that inside here, it already looks like the right place to have it.
-
-We just need to make sure that amdgpu_userq_fence_driver_free() is called *after* xa_erase_irq().
-
-Regards,
-Christian.
-
->  }
->  
->  void amdgpu_userq_fence_driver_process(struct amdgpu_userq_fence_driver *fence_drv)
 
