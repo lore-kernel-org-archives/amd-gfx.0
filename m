@@ -4,95 +4,103 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8B4C61061B07
-	for <amd-gfx@archiver.kernel.org>; Mon, 30 Mar 2026 14:57:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B084C1061B13
+	for <amd-gfx@archiver.kernel.org>; Mon, 30 Mar 2026 15:35:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 28A1A10E1B2;
-	Mon, 30 Mar 2026 14:57:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4D0C610E237;
+	Mon, 30 Mar 2026 15:35:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="M3lMwn4m";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="JcpfgSqh";
 	dkim-atps=neutral
-Received: from PH7PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11010000.outbound.protection.outlook.com [52.101.201.0])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 483CE10E1B2
- for <amd-gfx@lists.freedesktop.org>; Mon, 30 Mar 2026 14:57:40 +0000 (UTC)
+Received: from CO1PR03CU002.outbound.protection.outlook.com
+ (mail-westus2azon11010053.outbound.protection.outlook.com [52.101.46.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 511FA10E21E;
+ Mon, 30 Mar 2026 15:35:00 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=lLgMPbMojXJOnZv3HiMfvlH3N2m1s7HZDrxSyksF5jJClkNBgKVn8v0bpAt/OfbauWgl1ePjfUK10h/WOlDNNHClT5KAUkdjVwdrQZ+U7Lt6k9B/g8DQGsVmK+Qq/k92/4yhGm2S/KfanW71sIce8F6tLKEPFWyE/FWcMXAZCWdGmNB5p9+7cEcKtd1rkcPDsSbnoRvZwHZuwHQAIOWUSeAEpcWF/9fZRTngrRlu6b3nEaO3vSXrS0QkcBzRJl2nT/4rEe4nO4cZLU6qOFbxAVNmUwGsCAD1SyzPWTuHyjUpf40xt3z5gz4bRKOENacVg8WhXOoaFqaRYL9Dnsk1DA==
+ b=SVhOf79oHJdC1c5cQBNL3V6kQDYy9HM71HQh5WnMn8dpxmyBg3gWlS1Yxrf9xmMBLQLy7fuucNIe5OJaktc9w39c9Lsfm+nRsNciWBeo6rn0q0IhjxmTITwRhwNmwhdec9wZS27GJA/H6NZLnL/iOOz5oXpf7HrrdTVEE8muCMCTxFWOxPaloRR7I8hPw4tvuevihl2vjuWo+WT2NNK2v/BUPVmztdSNhVZONUwWd4PcSVacZSICMpQzBHYY19PfKGX09piRFfkdnjjWV+O0+RWyPY8M7CDd7jkGdSTYIhIeoNqCn+zL69aUokOEjOVtxaMA2CjYrP8m6qTVU4W2vA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=6R33iQKJPMHGFKdpR30xwLviIKY6tlARd08Cgc8BgNE=;
- b=v7+9AWrWpFezmKe7Yef+HT3twBD9iUYweve1UzHUifR2QN5sffmQ7B7bLF5Hbw5gTljMJz+gyt8bq4IRzY3AIrE2uwB4s2IHJrPLu4RP9ngyvLQSMP6nlk62qlWmcFTAyp5CN2Zb5tTNHXqunXA0umyOcHCuURESC5iLxDkYxlmQOgM0rCOXlu2yOWax/gat3os32S7BT46q5BeogcspG1d75nhgnG6cOX8+sfjDZcLKu32XLgRH/iBaOa9ssYHbAjP9up1NOPbOp91u2rMBa6rkxWrDGF6H+qrzNDvubWZ2rrFfkUnjfq/UJng+dANK+oBMKB79gtRc/Rc3O7ZNeg==
+ bh=QZGzcnkgeqP2d/67VSSoQ1bKYmfUOtPMbdKZAlT5zH8=;
+ b=lTUduFYXi7Ni0WZd9V4vEt1/X4W5lRXBl55fSI6rlc9k23tWgC2453AMZhJkzIJ5z9gz4H5TA4WIjqq+7vjHefGF0ukrRvPrFpfh+kSpID6rPYgt0p0l5+bwMXQrmCPakgGZbJZd2FuNtfmFZgZnGcNUnsfduqqKDGrJ6cTPrVoWSa7rp5G/U1Rbyw01h1DU0Y3H/izFXgsxW8iehvpnNHNSsQPbfSlegqlr44V/8tbxmV+Y6KK+pKK/5u/ylefihstjLH6FowCU42XS+QPqGwzaYSb4Q5MSS3oQehhcSOmg67So8cVeXB6OsitVbGC6NQ5kEsF6fra3tWSWLgGcvw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6R33iQKJPMHGFKdpR30xwLviIKY6tlARd08Cgc8BgNE=;
- b=M3lMwn4mQ0wH28SB1yfnhmwMcWn3rtbMaA7iV5iyWa2J8jiEN6lwVMKzgiLLfmhfYbCdwXpOvdFtfvbN28xWFU3KwXWsTJkIyOZAY0AQmzitX3QGlSgJl0eQLdToXGhdW1wfOOkaJxxmhXOGnAWxwdc/ZZjidar7Fb8mtCSEZP0=
-Received: from SJ0PR03CA0339.namprd03.prod.outlook.com (2603:10b6:a03:39c::14)
- by CY5PR12MB6371.namprd12.prod.outlook.com (2603:10b6:930:f::14) with
- Microsoft SMTP Server (version=TLS1_2,
+ bh=QZGzcnkgeqP2d/67VSSoQ1bKYmfUOtPMbdKZAlT5zH8=;
+ b=JcpfgSqhPzXqFYbcUbajOGTqT5fk3CmT8L+ktc0e3/9wrSgd/kQ4wAMkZ12QXZbTjbdVtwzA8Eo4l44ROCymmlNcwoaXO5Rwi5XCLz90iRaeM8/56jlKBx8gDfDLw98BAk41MRuD8D+SSJGliq/0ntmyeOh2xhCzg/fOP2QsvIM=
+Received: from SJ0PR03CA0026.namprd03.prod.outlook.com (2603:10b6:a03:33a::31)
+ by CH2PR12MB4055.namprd12.prod.outlook.com (2603:10b6:610:78::15)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.15; Mon, 30 Mar
- 2026 14:57:36 +0000
-Received: from BY1PEPF0001AE19.namprd04.prod.outlook.com
- (2603:10b6:a03:39c:cafe::ca) by SJ0PR03CA0339.outlook.office365.com
- (2603:10b6:a03:39c::14) with Microsoft SMTP Server (version=TLS1_3,
+ 2026 15:34:56 +0000
+Received: from SJ5PEPF000001EB.namprd05.prod.outlook.com
+ (2603:10b6:a03:33a:cafe::d2) by SJ0PR03CA0026.outlook.office365.com
+ (2603:10b6:a03:33a::31) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.20.9745.28 via Frontend Transport; Mon,
- 30 Mar 2026 14:57:35 +0000
+ 30 Mar 2026 15:34:56 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BY1PEPF0001AE19.mail.protection.outlook.com (10.167.242.101) with Microsoft
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ SJ5PEPF000001EB.mail.protection.outlook.com (10.167.242.199) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9745.21 via Frontend Transport; Mon, 30 Mar 2026 14:57:35 +0000
-Received: from test-X10DRi.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.9745.21 via Frontend Transport; Mon, 30 Mar 2026 15:34:56 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Mon, 30 Mar
- 2026 09:57:35 -0500
-From: Alysa Liu <Alysa.Liu@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <Harish.Kasiviswanathan@amd.com>, Alysa Liu <Alysa.Liu@amd.com>
-Subject: [PATCH] drm/amdkfd: Add upper bound check for num_of_nodes
-Date: Mon, 30 Mar 2026 10:57:17 -0400
-Message-ID: <20260330145717.63832-1-Alysa.Liu@amd.com>
-X-Mailer: git-send-email 2.34.1
+ 2026 10:34:55 -0500
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Mon, 30 Mar
+ 2026 10:34:55 -0500
+Received: from hwentlanryzen (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
+ Transport; Mon, 30 Mar 2026 10:34:54 -0500
+From: Harry Wentland <harry.wentland@amd.com>
+To: <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>
+CC: Harry Wentland <harry.wentland@amd.com>, Alex Hung <alex.hung@amd.com>,
+ Daniel Stone <daniels@collabora.com>, Chaitanya Kumar Borah
+ <chaitanya.kumar.borah@intel.com>, Uma Shankar <uma.shankar@intel.com>, Louis
+ Chauvet <louis.chauvet@bootlin.com>, Melissa Wen <mwen@igalia.com>, Simon Ser
+ <contact@emersion.fr>
+Subject: [RFC PATCH v2 0/9] YUV conversion colorop with amdgpu and VKMS
+Date: Mon, 30 Mar 2026 11:34:42 -0400
+Message-ID: <20260330153451.99472-1-harry.wentland@amd.com>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BY1PEPF0001AE19:EE_|CY5PR12MB6371:EE_
-X-MS-Office365-Filtering-Correlation-Id: 59619c5b-cf83-4af3-d398-08de8e6cadf0
+X-MS-TrafficTypeDiagnostic: SJ5PEPF000001EB:EE_|CH2PR12MB4055:EE_
+X-MS-Office365-Filtering-Correlation-Id: c2e1c3a5-0eed-4fdb-a513-08de8e71e548
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|82310400026|36860700016|376014|56012099003|18002099003;
-X-Microsoft-Antispam-Message-Info: K8uYSqtbIIcvp3IX1Pno2KvEDDgfKS9SidGqDleFPlMRdUk+LKmqI48sTncPbHi3Nn590dUBV+fnElxZ/k/xoFdDbQhMK3aMOLlNUFhBOui2EZIcWi3J8gWKeoZQ57t041tRZytu66tZHRuUkWmb0o4rgIO0VqEFH3glHVL5nuKzNCK6v4vZEGU/AokGptzl8AiKMJ89zL3DvtuLAVwwDGazK6sr0YAiYLRcDeio3O1ZrSMuTSahFXFZ19/xuG/iqSRekEhmItlY4rwCBUCNZq9pm/82zEUABdgjeR+YwiywFrmkI7MsOvH1dy5oWfZZFCLQ/vH5oUGHAIgNH33sySy9YE6qhZVREsyFSzcbV6UpWYpBadohLZ7275c46BZVJwIk9z2ZwHLmK2+JRr+zreJtFUvKFop8foiyoBCYw+qo3VbtXYk0qV35oRLcZ7fJ8+EUJMB5MDv7B6v/5FO0h32hzCokixmU1CBkjL+mEOWcDP99B9CIt3g3rKgtWV1IaXtzGaQleOCPLhWTtciWxzGyDi+Tlm4d4OXtEs+5+9V5gkyTj0j0MGf8HeeCd0LVfCtr8DjpG4BQfsa/QstEw05mDIkXs9Q/8ccslYiTuOJPHEExOf0uqCv2ThmWR0VdHjPWjEu35kK8vsFuQwpYTb+bOpTKIiD4EYg76nJFLHBQxFtmri4qAeo/mvJ4BuoBNH2VUR/O3qx6E1lkrJ0qZ5BB9KQPbfq3zCw24LDoiUaFCZZ1IOLYyfhumEKGAxlwyVQGL/Xqt6HghvW0ISIWRg==
+ ARA:13230040|36860700016|376014|82310400026|1800799024|56012099003|18002099003;
+X-Microsoft-Antispam-Message-Info: DQC4/6yE/wy1jY2kURCr/uExEjFi7UrQkTkRZx5N3mHCen48+5zvhKLxUhZA5ToX6gzPplpPdGyIe0NYss4eukSQxIOUdLHxBBDIWWr5WITfKugyCSWcc7qE9Pkz79XrlC0S6itKJuT1R9lUyhhwO6q34Qn35EzErZe83YtVhWdYfVmr1Sf4BWZgOtzbeMvOPRVtQ678ZIFcbFLR+aG+aTmjy3r4oA9QYmxy/z8YVo8nc4/syAlS50FAtAcAwYI/UJWgr7tQDVOxrgRe4esstplyZaujpetXeI18LDmY61WnqfqCM9VVVfQSYxwVoHadDLNpSXyCBkRMfUVNay3vMCmga0jX32WH14UaSCKdjOOaZsqYzh6pILkw2f8+NYKaS0nTQYfgmRCJ//hhB+/oCI6EovVcNxR+zVvSghOL9hs4OFrLemKJVXwkjpDblpfmV3S02/aNo0HKb7NbNETGQR/lme3LUPjiN5viCANf9Hs4lrM4AKIHyWt/j5FifHqexIbj75CMxfwRNRKV2a1KUbl1b3cWV7RAvcQT7tPASWsT/cNZj2qNvvtFEbiYnCkzCWnYYI6cegt1X15bYhxSzejoqpA8YGRHoy8bL1CDl2ijFOGuz3FCmpjGF01tobIlu6SwuuGpJTsRJTr2SsOcWZP47ovZCYFc3R0B97i1i18YnA0PDVRTS7ieD/LJUaLgjGezgwY7T48RTWyNYODA/TwzxE+aYIjGZhiO7W5us5M=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(82310400026)(36860700016)(376014)(56012099003)(18002099003);
+ IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700016)(376014)(82310400026)(1800799024)(56012099003)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: vJpjosW4aaHXXzgqhMAwWwv0Ra4LnY1VVm1E+Hu+HWao4TGRokZw6b0lkbw01VR9fHqdnYiTgeUGD1x9TTWGKVdzXrqbHT1GS44hxkhLbxDo5JJ+GSC+QfzEPu+qY+Kg6wdKWKXM2+a55FXHp7EWn8CsZL2T5ib+Q/tdn2kJzPop2rE+ObpWx7M3WrG4IGolPFwYp7LMIg+2HGIB1r3ox0zL0B3MjZB2vAU/tHJdWV7uP0/L+tOOqcJgYE035L43RL4DeXqo564wuvNFP15SLQX8AvIF530W/SY0cguwCc4zOs6mIi8/iMSF9LxU6gfrQC1AEM71+9kZkcJnNhG2H6cRinIs73x270c591dc7ibNjg1qlWbxd2KgtN5Cq4qCWW1iMUFj7unWZozArYZ/l9mmbzeyl4Qb391M+fsv5CfYrNo5q+1zmL+YUvJAKDmP
+X-MS-Exchange-AntiSpam-MessageData-0: 6aEGDO50/oCvxbhDBjHHktZFERj9vKzmfbX+xcx3z8/zgdhOkpl9nQo5eDq++Iw8SSc6EzpHSYZv4MpgSjCPZjWQRW2JqP0obUqisLnaacwvgycpGETPq/YnElqUUrGWvUkDJXot0S9Xagxb65aXX4TTsNsHX8wVY0GiA69MdI8l3L58+EhoLUYMKYVNbT5vTTD1aCC+83qYzISOG0fees06UjyxXfTSITzsOfA6TcpnrahoUdONm8/U+IXreyX5YtbN+D0yxG0VkvUSgqwagIkqdchh9f+xmVecqteYPrA+a3S4DjPR1SciNiftO+3r5QYIj5Zs67VeGDxRHrAREFxptPmLw3MMqtnmXUmbSHJb0Q92nWCZCDChujJJ9jw1DRPZb1s9gWz2wTVoqJUVd+IrUWhtSEP6geWbx1s+hvSUDldSuxMgE4GxSaynOZ/4
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Mar 2026 14:57:35.8205 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 59619c5b-cf83-4af3-d398-08de8e6cadf0
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Mar 2026 15:34:56.1029 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: c2e1c3a5-0eed-4fdb-a513-08de8e71e548
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BY1PEPF0001AE19.namprd04.prod.outlook.com
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF000001EB.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6371
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4055
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,28 +115,78 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-drm/amdkfd: Add upper bound check for num_of_nodes
-in kfd_ioctl_get_process_apertures_new.
+When we merged the drm_plane color pipeline API the major gap
+that existed was the lack of a YUV to RGB conversion colorop.
+We deprecated any legacy drm_plane color properties, which
+means that the COLOR_RANGE and COLOR_ENCODING properties can't
+be used with the COLOR_PIPELINE property on a drm_plane. In
+practice this means that we can't use a COLOR_PIPELINE on
+YCbCr encoded framebuffers.
 
-Signed-off-by: Alysa Liu <Alysa.Liu@amd.com>
----
- drivers/gpu/drm/amd/amdkfd/kfd_chardev.c | 3 +++
- 1 file changed, 3 insertions(+)
+This patchset expands on the CSC_FF colorop proposed by Chaitanya
+and adds limited range variants of the YCbCr to RGB conversions.
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-index 1db565442c48..9e37c2709083 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-@@ -776,6 +776,9 @@ static int kfd_ioctl_get_process_apertures_new(struct file *filp,
- 		goto out_unlock;
- 	}
- 
-+	if (args->num_of_nodes > NUM_OF_SUPPORTED_GPUS)
-+		return -EINVAL;
-+
- 	/* Fill in process-aperture information for all available
- 	 * nodes, but not more than args->num_of_nodes as that is
- 	 * the amount of memory allocated by user
--- 
-2.34.1
+His full patchset can be found at
+https://patchwork.freedesktop.org/patch/709860
+
+This code has been tested with IGT and an experimental KWin branch.
+
+IGT branch:
+https://gitlab.freedesktop.org/hwentland/igt-gpu-tools/-/tree/csc-ff-colorop
+
+KWin branch:
+https://invent.kde.org/hwentlan/kwin/-/tree/csc-3dlut
+
+The kernel branch containing these changes, based on drm-misc-next
+can be found at:
+https://gitlab.freedesktop.org/hwentland/linux/-/tree/csc-ff-colorop
+
+In order to successfully use this branch you might need a few
+bugfixes. The kernel tree containing those fixes plus these patches
+can be found at:
+https://gitlab.freedesktop.org/hwentland/linux/-/tree/csc-ff-colorop-all
+
+Further background on this work can be found at:
+https://hwentland.github.io/2026/03/10/plane-color-pipeline-csc-3d-lut-kwin.html
+
+v2:
+- use Chaitanya's CSC_FF block for named matrices
+
+Cc: Alex Hung <alex.hung@amd.com>
+Cc: Daniel Stone <daniels@collabora.com>
+Cc: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
+Cc: Uma Shankar <uma.shankar@intel.com>
+Cc: Louis Chauvet <louis.chauvet@bootlin.com>
+Cc: Melissa Wen <mwen@igalia.com>
+Cc: Simon Ser <contact@emersion.fr>
+
+Chaitanya Kumar Borah (1):
+  drm/colorop: Add DRM_COLOROP_CSC_FF
+
+Harry Wentland (8):
+  drm/colorop: Add limited-range YUV-to-RGB CSC FF enum values
+  drm/vkms: Add CSC FF colorop to color pipeline
+  drm/vkms: Add atomic check and matrix handling for CSC FF colorop
+  drm/amd/display: Add CSC FF colorop to color pipeline
+  drm/amd/display: Implement CSC FF colorop color space mapping
+  drm/amd/display: Use GAMCOR for first TF if CSC is used
+  drm/amd/display: Check actual state during commit_tail
+  drm/amd/display: Set color_space to plane_infos
+
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  14 ++-
+ .../amd/display/amdgpu_dm/amdgpu_dm_color.c   | 102 ++++++++++++++++-
+ .../amd/display/amdgpu_dm/amdgpu_dm_colorop.c |  27 ++++-
+ .../amd/display/amdgpu_dm/amdgpu_dm_colorop.h |   1 +
+ drivers/gpu/drm/drm_atomic.c                  |   4 +
+ drivers/gpu/drm/drm_atomic_uapi.c             |   4 +
+ drivers/gpu/drm/drm_colorop.c                 | 108 ++++++++++++++++++
+ drivers/gpu/drm/vkms/vkms_colorop.c           |  66 +++++++----
+ drivers/gpu/drm/vkms/vkms_composer.c          |   6 +
+ drivers/gpu/drm/vkms/vkms_plane.c             |  70 +++++++++++-
+ include/drm/drm_colorop.h                     | 102 +++++++++++++++++
+ include/uapi/drm/drm_mode.h                   |  13 +++
+ 12 files changed, 487 insertions(+), 30 deletions(-)
+
+--
+2.53.0
 
