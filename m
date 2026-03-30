@@ -4,58 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 88FCB1061B13
-	for <amd-gfx@archiver.kernel.org>; Mon, 30 Mar 2026 16:20:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E9C261061B15
+	for <amd-gfx@archiver.kernel.org>; Mon, 30 Mar 2026 16:57:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8A0C710E58A;
-	Mon, 30 Mar 2026 16:20:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7FDC110E3C1;
+	Mon, 30 Mar 2026 16:57:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="kZQHSbzM";
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="fKoGHyUj";
 	dkim-atps=neutral
-Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CDFA010E551;
- Mon, 30 Mar 2026 16:20:31 +0000 (UTC)
-Received: from smtp202.mailbox.org (smtp202.mailbox.org
- [IPv6:2001:67c:2050:b231:465::202])
+Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 205B910E1EE;
+ Mon, 30 Mar 2026 16:57:41 +0000 (UTC)
+Received: from smtp102.mailbox.org (smtp102.mailbox.org [10.196.197.102])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4fkxLN5X6cz9tWZ;
- Mon, 30 Mar 2026 18:20:28 +0200 (CEST)
+ by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4fky9G1sKzz9vH3;
+ Mon, 30 Mar 2026 18:57:38 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; t=1774887628;
+ s=mail20150812; t=1774889858;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=FGHWTp8Y8n5iIuBQWmeBw2WomMZFnpot7EGjAbvxZZg=;
- b=kZQHSbzMxcZEBVraC7wNyeGyvGMH0CKq+HR88FO2PPeNyzOrG1RDi5CEZ6D57JkJ6m//nf
- 89T85qMXvDtztRstwZJgZG0fCMLh8vb5+0hmH++Nw7dNaSVzrF6CanVnENU9+mCPR4hMCb
- MCDE+NCW43vlLDspIbcpFk3ZxWTPL2XoVCXGFBCx6UmAg31CYgBsz2DSxK04In85KeZUMM
- 5iMdhl8JQRLRY5HVl4DiEzr7m+1TbrGw3rpYqUK15Vox39XBhhz+9tef6vjoJktL2Z0Lim
- 5uayT0qEmY/m2yL1OTZ+5U0PZtVofZJQ4WGjtY/HWcNdUIp4xNm/yEQFWEn1zw==
-Message-ID: <d6e190eb-4843-43ab-9706-fadabde9cbce@mailbox.org>
-Date: Mon, 30 Mar 2026 18:20:25 +0200
+ bh=EWOzSBjurlqM57m3TNOGkoci9H4/VpgtQt5dVwkP0+0=;
+ b=fKoGHyUjtFKycqppdgl8bq27qwY3aR/E7AgkC0dFqtxmxwvWjoKn069jUss56NLHq9jcyy
+ Rv8KIMQT2LS0nsLuDUocMluPrQMwiZe/WPfczypwCsREck3g9SUxatIxU6qD4ThJqXSbVj
+ xBJvx4R49Ie+XjTGlNYId8RYIgZDD48y1tl9NEmT3JOQtGvGT0f+mBQfB3m2CVT0nJ5bVP
+ oYKyhYZ+cPP2T6k5Zn3y3+ITFe3DOhRsXRsaQt+2u0os0u1dooe1z5gIQO9CNjt5Sy7EVy
+ zkDEgtl9BAWrWq9fnp2X9oLHd6RRMr5g9pB+FeDsM4IocBcPVQC2r+cICZ3WHg==
+Message-ID: <792c4540-d690-4453-a32e-62e23e78d628@mailbox.org>
+Date: Mon, 30 Mar 2026 18:57:32 +0200
 MIME-Version: 1.0
-Subject: Re: [PATCH] drm/amd/display: Change dither policy for 10 bpc output
- back to dithering
-To: Mario Kleiner <mario.kleiner.de@gmail.com>,
- "Kovac, Krunoslav" <Krunoslav.Kovac@amd.com>
-Cc: "Cyr, Aric" <Aric.Cyr@amd.com>, "Koo, Anthony" <Anthony.Koo@amd.com>,
- "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Harry Wentland <Harry.Wentland@amd.com>
-References: <20260321052033.23472-1-mario.kleiner.de@gmail.com>
- <DM4PR12MB521342239D4CF694B4A68E0AE64AA@DM4PR12MB5213.namprd12.prod.outlook.com>
- <CAEsyxyiCN6KmyDBGZBJYKv+wt6w6j5QdUfTa1zJojAQ20V84xg@mail.gmail.com>
+Subject: Re: [PATCH v5 0/3] Add "link bpc" DRM property
+To: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
+ Daniel Stone <daniels@collabora.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, kernel@collabora.com,
+ Derek Foreman <derek.foreman@collabora.com>,
+ Marius Vlad <marius.vlad@collabora.com>
+References: <20260319-link-bpc-v5-0-5306cd04a708@collabora.com>
+ <4265353.aeNJFYEL58@workhorse>
+ <254c20a4-cce3-4c8e-9902-514586f3e694@mailbox.org>
+ <5416161.aeNJFYEL58@workhorse>
 From: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>
 Content-Language: en-CA
-In-Reply-To: <CAEsyxyiCN6KmyDBGZBJYKv+wt6w6j5QdUfTa1zJojAQ20V84xg@mail.gmail.com>
+In-Reply-To: <5416161.aeNJFYEL58@workhorse>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-X-MBO-RS-META: yssdoj7ukujx6kfpaee7bstmr3ibqofa
-X-MBO-RS-ID: 892335e59719b1c4ce2
+Content-Transfer-Encoding: 8bit
+X-MBO-RS-ID: 3da1573029725bafc90
+X-MBO-RS-META: 51py31jnqr3rhanwy3kyte6i8y775ekt
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,80 +77,97 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 3/24/26 20:20, Mario Kleiner wrote:
-> On Sun, Mar 22, 2026 at 7:11=E2=80=AFPM Kovac, Krunoslav <Krunoslav.Kov=
-ac@amd.com <mailto:Krunoslav.Kovac@amd.com>> wrote:
->=20
->>     There is a reason for the change that is alluded in the commit, bu=
-t perhaps I should've been clearer.
->>     If you have an ARGB2101010 surface and monitor is 10bpc, one of th=
-e HW design goals is that we can output this in a bit-perfect way, i.e., =
-for every surface pixel value K=3D0..1023, monitor will receive K at its =
-end. It's also one of the things some customers have checked for and comp=
-lained about historically. This is very hard to see visually or even with=
- a colorimeter but is readily apparent with a HW capture card.
->>=20
->>     Our HW can accomplish this 10-bit perfect requirement if set up co=
-rrectly, however, it can only do so if we use rounding, not dithering.
->>     For example, say you have a 10-bit code 200, our pipeline precisio=
-n and error accumulation may result with 200.15, which in 12bpc before di=
-thering would be 801 and the nature of the spatial dithering is that now =
-and then RNG result will push that to 201 output, it's just the way it wo=
-rks. Rounding is several times less sensitive to this, and without this r=
-andomness component, we can verify we're always accurate enough at 10bpc =
-level.
->=20
-> Ok, that makes a lot more sense. I can understand that. My own software=
- and users have the same critical requirement for some use cases, of bein=
-g able to pass through ARGB8888 surfaces to 8 bpc video sinks. They conne=
-ct special neuroscience display equipment that parses special binary cont=
-rol information out of false-color coded framebuffer images, or implement=
-s very high color precision display up to 16 bpc per color channel on top=
- of 8 bpc framebuffers and some shader magic. Luckily, using a standard 8=
- bpc framebuffer under the native X-Server, a 8 bpc DVI-D or DP video sin=
-k, and loading a specifically crafted gamma table achieved this for our c=
-ase, despite the spatial dithering-down-to-8bpc being active. DC has some=
- special detection function (__is_lut_linear() in amdgpu_dm_color.c) that=
- detects if a user provided gamma lut is essentially meant to be a linear=
- identity mapping lut, and if so, enables lut bypass or identity mapping =
-iirc, and that does the trick well enough for us atm.
+On 3/26/26 13:17, Nicolas Frattaroli wrote:
+> On Tuesday, 24 March 2026 17:44:21 Central European Standard Time you wrote:
+>> On 3/24/26 16:25, Nicolas Frattaroli wrote:
+>>> On Monday, 23 March 2026 18:27:41 Central European Standard Time Michel Dänzer wrote:
+>>>> On 3/23/26 17:55, Nicolas Frattaroli wrote:
+>>>>>
+>>>>> "Someone might not understand its purpose" is, in my eyes, not a valid reason to
+>>>>> not have this property, [...]
+>>>> Per my previous posts, that's not my concern.
+>>>
+>>> Then what is your concern?
+>>
+>> Per my previous posts, my concerns are:
+>>
+>> * The meaning of the "link bpc" property value isn't defined well
+>> enough vs things like dithering or DSC, which will likely result in
+>> compositors / users overestimating what value they need / want,
+>> resulting in compositors spuriously rejecting configurations which 
+>> would work perfectly fine, and/or spurious issue reports.
+> 
+> Dithering and DSC are supposed to be transparent, no?
 
-Sounds like passthrough of 10 bpc values should work fine with your patch=
- thanks to this bypass / identity mapping, doesn't it?
+Not really, no. They achieve higher "effective" (as perceived by the user) bpc using a lower physical bpc.
 
 
-> I haven't tested this yet under Wayland, as the Wayland eco system=C2=A0=
-is not ready for the more demanding use cases, [...]
+> If a link bpc is 10 but DSC is on so it's 9 on the wire, it's still 10 bits.
 
-Are there issues describing those use cases?
+If DSC encodes user-perceived 10 bpc at a lower physical bpc, and the "link bpc" property reports 10, that would satisfy my concern for DSC.
 
+Are you sure that's the case though?
 
->>     I believe we don't have surface info in that code, but one way to =
-work around it would be to use spatial dithering for FP16/ARGB16 and roun=
-ding for 10 bits. But if we just switch to spatial, some of the earlier c=
-omplaints about 10-bit output having one-off bit errors will be coming ba=
-ck.
->=20
-> Looking at all callers of=C2=A0resource_build_bit_depth_reduction_param=
-s(), they all have access to the associated "struct pipe_ctx", which shou=
-ld give access to pipe_ctx ->plane_state->format of an associated display=
- plane. I could prepare a patch that passes the pipe_ctx from each caller=
- into=C2=A0resource_build_bit_depth_reduction_params() and that function =
-could check if a 16 bpc framebuffer is in use and switch to spatial dithe=
-ring down-to-10-bpc in this case, and leave the rounding/truncation to 10=
- bpc otherwise.
+I would be quite surprised if this was correspondingly the case for dithering.
 
-That doesn't really make sense, the output of the display HW colour pipel=
-ine has more than 10 bpc regardless of framebuffer format.
+Either way, the "link bpc" semantics regarding these should be explicitly documented.
 
 
-> This workaround, that you also propose, would be the least bad of all b=
-ad solutions.
+> No compositor would care about the compressed-to actual bit depth on
+> the wire being 9 bits on the intake of a DSC decoder, it's not relevant
+> for their use case, they're not decoding DSC.
+> 
+> Making it consider DSC as part of the link bpc would lead to what you
+> describe, since now compositors would need to know the compression
+> algorithms of every single display protocol to correctly determine
+> whether unintended degradation has happened. Ignoring DSC, which is
+> what I am doing, would not do that.
 
-Seems pretty bad to me, mixing up things which aren't directly related.
+Sounds like you misunderstood my concern.
 
 
---=20
-Earthling Michel D=C3=A4nzer       \        GNOME / Xwayland / Mesa devel=
-oper
+>> With my compositor developer hat on, what I'd want to know is something
+>> like: "How many bits of information can be passed over the link, allowing
+>> the display to present it in a way which can be perceived by the user?"
+>> With dithering or DSC, that would be a higher value than the physical
+>> link bpc.
+> 
+> You're assuming link-bpc isn't precisely that.
+
+I'm not assuming, I'm asking for this to be clarified.
+
+
+> [...], you seem to be obsessed [...]
+
+Not sure why you keep attacking me personally. I'm not trying to shoot down your proposal, I'm trying to prevent potential flaws I see with it. A bit more cooperative attitude would be nice.
+
+
+>>> If all you want is a clearer description of the property in the comment that
+>>> accompanies it, then I can do that, and I said I agree with this point.
+>>
+>> Patch 3 would need to take dithering & DSC into account as well.
+> 
+> There is no patch 3,
+
+The start of this thread is the cover letter of a 3-patch series.
+
+
+> and I will not break the feedback loop semantics of this property to please you.
+
+More ad hominem.
+
+
+>>> But you seem to be arguing from a position of not wanting the property to
+>>> exist at all, [...]
+>>
+>> I'm not. However, per the first concern above, a not-well-defined
+>> property could be worse than none.
+> 
+> So should I remove max-bpc as well? It's not well defined after all.
+
+This isn't a good-faith argument either. Nobody asked for that.
+
+
+-- 
+Earthling Michel Dänzer       \        GNOME / Xwayland / Mesa developer
 https://redhat.com             \               Libre software enthusiast
