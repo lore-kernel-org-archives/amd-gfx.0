@@ -4,125 +4,122 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6101E1061B2F
-	for <amd-gfx@archiver.kernel.org>; Tue, 31 Mar 2026 03:32:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4FD971061B30
+	for <amd-gfx@archiver.kernel.org>; Tue, 31 Mar 2026 03:46:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E08A010E697;
-	Tue, 31 Mar 2026 03:32:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C066710E247;
+	Tue, 31 Mar 2026 03:46:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="kC91+TF4";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="kyTrzKgr";
 	dkim-atps=neutral
-Received: from BL2PR02CU003.outbound.protection.outlook.com
- (mail-eastusazon11011010.outbound.protection.outlook.com [52.101.52.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0E8F310E697;
- Tue, 31 Mar 2026 03:32:30 +0000 (UTC)
+Received: from CH5PR02CU005.outbound.protection.outlook.com
+ (mail-northcentralusazon11012022.outbound.protection.outlook.com
+ [40.107.200.22])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 20E6B10E247
+ for <amd-gfx@lists.freedesktop.org>; Tue, 31 Mar 2026 03:46:47 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=qlHl/uhV3uPb8zPcw+UshCuygR9ofS0xlqcL8qvT/t1ri0C+JsAV4jlQRjwdXAurZ3VHrRn+HbWKvLa4nnXFtnSLtcR07h77X/1lILGudCHudXWWkNt6S/rHMD6kL72SBNG087PuuLIqe2gyO81rzFLJPxpfiBXGSUv9Fzq/BWycJ3i61ol6lo48lAmOvp92P5IgNhnRmmrMzek9vWQnXvnOKosSrBt76HcwKrRtgW/RhFT1PUkeykaD5HtgNEHbe7WTXRg56C/342Nb0yAdrkBg8Vdx8jIm2SMY5o3VPHtvnuWyKawRQb+eUVryF+ZkGtSfh/lKpTTG/TJb2d3ARg==
+ b=C3hsJZyOlrHlSOiOlCZAL9FWQCvKPVwnuI9RBLdp7ZWHzJjNcfA0nkRI8iossmULcoaIn+KnocUkJdZrHb0lz3VlpOEqp7B4+OJiagDxVKo5IVkUKOT6IFvJOW1Jie/nXd0ztgdVF7kXlAD8RQ6as3qwypsrRGP6u/15kKCvBOTNmns4f1D7+jsIPD7Uc6NCu+TQjmXcMtilWBEc0HUiu39vJZhO/FFdQYNgiN4aFD5hQVj7UOFsjlXktLcHw3+Gb7mEGoq28Br8ez0ESQ/TTFd/d3WaSGzVqy/5Z2eGo2m8G/FRI21SW/FhVQA7uDx4x5uZrWPQaJhOHpy03w/a7Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=N98xGPFa74qbzJPXC+bxihMdJphkItKY7Wy1qG7uhBg=;
- b=gB1EEq3hXSltj2D53chY+Dbf18AOIjuO9h6DBjOKWmJ8MRE08H6V2M2QCBQzcxwNI/5qW4t+eWOhhrfQ0TBmvgLWTL9ccyefJ/Qr0cgZ80urOKiVJaAi7fIZmZq19CkS6kdWro2xjSLrs62gwmTv/7J2df0UQzMKhbs2i3RcklJ0V7H2G7xVdTRz3hNkMEN4MUi7i4A2neqcYP/VCKSJOBUrVuYmLbOVfYQrr9BdgXcZ+T4hZtZRStn6qlL1mJKarKvYEXUn+B9XaeVKJCb02fysRWa3GfMIzXfg8ZnjE/4BK2Sth616VeUorqtqFgn02S77Rp2HH/kn+ho2Dh9lgQ==
+ bh=HyhWjJzjTcrDqSNDXc996szy0dYrNXT1ugZk87GGuj0=;
+ b=egfSqUYebmN7VF2QQxx8jWXUbbOmAl6A4I5/Rr8/mf+o3NXKE+ZFpPtdi1dldNX7pEWrjTRoIAtDWZQIASK3uKq89GMlUlOeQJ0iZafkHkd2uUt24yz4swrTIqOnDKZJQ5wHeYZ485oSyv5SQ8YoXTB0N7vFLVJQyko7LkG0NlvV+FnQlLoT8WrFtNvoPsOZH4tfNjaqCz/5tR8UHZTJrqnxEFHchJWFvs0opxyepZbuiNooxjGRgRbZuw7n4jr9EPUDUuE5B3ofRuDZ44KwA1AILf21tJNiE4Y/MlCem+58nyCoEVQwK/7rPROC/VPMMjMW4Ze4c60gDeYlblWGSQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=N98xGPFa74qbzJPXC+bxihMdJphkItKY7Wy1qG7uhBg=;
- b=kC91+TF4vyKIBVBeQNW3UEFNfwqm1OPKokQm065573MzWCMPUIooPVKBbU6H9v6dXVRYULgO3h9/jExRkisjgoUKHpu2HHy/fHpnqwPWJAMEqdhn5iuXSlDBIikUYMa0oEXwydmMRmSvlO/AiQ7bXoEKvKn5U4rmgJpZBIROp7k=
+ bh=HyhWjJzjTcrDqSNDXc996szy0dYrNXT1ugZk87GGuj0=;
+ b=kyTrzKgrzbO0/aWdzAbkwRoqB2CVsnBI8AwZt77AJkBTBou8PSWHquU57mAieGZbE/Nb2toC0HW7LW+w7dKLRx5X7p8isNbpIA7OMk7/9ho1IPp8XawfKI3S+xi52NDMXcEBWRuHl60IMGf/ksmOGa89trcbD7aGAbOp6EOAJ/4=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from SA0PR12MB7091.namprd12.prod.outlook.com (2603:10b6:806:2d5::17)
- by SJ2PR12MB8943.namprd12.prod.outlook.com (2603:10b6:a03:547::17)
+ by MW4PR12MB7481.namprd12.prod.outlook.com (2603:10b6:303:212::12)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.15; Tue, 31 Mar
- 2026 03:32:26 +0000
+ 2026 03:46:43 +0000
 Received: from SA0PR12MB7091.namprd12.prod.outlook.com
  ([fe80::ec33:1213:cfd8:63bc]) by SA0PR12MB7091.namprd12.prod.outlook.com
  ([fe80::ec33:1213:cfd8:63bc%6]) with mapi id 15.20.9769.014; Tue, 31 Mar 2026
- 03:32:26 +0000
-Message-ID: <a6c89ad6-66f2-405a-8ab5-5b50ff609657@amd.com>
-Date: Tue, 31 Mar 2026 09:02:19 +0530
+ 03:46:42 +0000
+Message-ID: <684bf2f1-6e1b-42aa-9a83-73be3cbcbd82@amd.com>
+Date: Tue, 31 Mar 2026 09:16:37 +0530
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5] drm/amdgpu: replace PASID IDR with XArray
-To: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: Eric Huang <jinhuieric.huang@amd.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, stable@vger.kernel.org
-References: <20260330191120.105065-1-mikhail.v.gavrilov@gmail.com>
+Subject: Re: [PATCH 1/2] drm/amdgpu: use the xarrary for managing the pasid
+To: Prike Liang <Prike.Liang@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: Alexander.Deucher@amd.com, Christian.Koenig@amd.com
+References: <20260331025904.3387764-1-Prike.Liang@amd.com>
 Content-Language: en-US
 From: "Lazar, Lijo" <lijo.lazar@amd.com>
-In-Reply-To: <20260330191120.105065-1-mikhail.v.gavrilov@gmail.com>
+In-Reply-To: <20260331025904.3387764-1-Prike.Liang@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MA5P287CA0022.INDP287.PROD.OUTLOOK.COM
- (2603:1096:a01:179::12) To SA0PR12MB7091.namprd12.prod.outlook.com
+X-ClientProxiedBy: MA5P287CA0214.INDP287.PROD.OUTLOOK.COM
+ (2603:1096:a01:1ab::10) To SA0PR12MB7091.namprd12.prod.outlook.com
  (2603:10b6:806:2d5::17)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA0PR12MB7091:EE_|SJ2PR12MB8943:EE_
-X-MS-Office365-Filtering-Correlation-Id: fc66f690-1cea-4c8e-51a6-08de8ed620f2
+X-MS-TrafficTypeDiagnostic: SA0PR12MB7091:EE_|MW4PR12MB7481:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2e63db6e-4107-4299-af2c-08de8ed81f8b
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|376014|1800799024|56012099003|22082099003|18002099003; 
-X-Microsoft-Antispam-Message-Info: 00mQd91Vu1zEUVUgJXOU0q/qI7Bx16OvLYnWCQorcAwYpLaITOdS6njhI6Tw2cMGM5Jlcl84Dtl3KzLH81UVw+XbrlPlTKYfbGaqeu9qW1oj7wAHbnRxIOe6yCGYzuCGcc4Ak4fnuL9t3qrY2NV78P9+VfgDKX8iXba3eT+GGN8pfD0Ipo0bJmw7SPbFQnr/H7JIEESFLoFRaXWDOnSQ6opLkaZj3KYDi1bJYrh6fma5Ai2SDwDfNc6yT2/3phErz2ym5DQ/93n7VSxndXbxGxzuwAb+ClYT1U9/nrhiLftHhudX0jQiPf6Ct8zoPh+zfqzfTG7XArk/7qYmCS4uS4YTNpBRJg6Re2A+0xcwZVHdcsOjRrj+ZWwjN/Nsg7N9DgYkN64QEEFTglddpNxU5LWeo1dF8+kVmvZga2Yy/sFdL3Nu/8JiqmsJzb/06+61jop9DKY/jl0TQB8S+KIMj3PVYwN+xzq8xsEgQXvV+sYPHWl9vxCISqqKhE5IdByOoGV6Jt/cestkt3eLieR/Xxo1H66N+3sbktQJ70bgdgBhO+rKy2rAzYa+ntMKAmkxwTF7bhdZCURuyBluNAttES/DBuCMtoxDwHPhhR4LZLKSl13NAc0pCUKC4bwTYlcSFpmyR0yeuMvVqWIIIBragB6hS1U/ozIEukd6og/Diwnx4Fzi9LuRFuny5OJv+y9hVzY7vx4l/k5cY4DQDLLZYjS2jYqPONh+LXZq0sjOmDoZQ4f6krLbd2eicDuob/63
+ ARA:13230040|1800799024|376014|366016|56012099003|18002099003|22082099003; 
+X-Microsoft-Antispam-Message-Info: 2f1GzgAiH2fSxGA/ms9xd2GEAxSpAbVSXB+plPZPj2fiSfDWHzRu9WV/bbLl9hpbx8VcQb84TdbDdaoA/QWzZcT5exbiLuJcs09brfC6LFqK/VKXXVwtOqnKsfOiDmdzyXWpXcC+DEGB52knxWOuq1WFSZNQmj7LyTbUMzVyftextpAFXhkEDiOMic97RrmOBBzCLB1+y5PgDeAG5y5KieNbyY4xQ4tAamW0QINj7+PffCAUx8fF6msP74BzHQm14ezGyIUZK4ba4wqfs4Wu9bzWkcM19mqpcmPb6v/dceIQo6j3Bg2PPbM+bpJ0xwt6mO0mCmZ7/DBCfPXY6w4qLOK9dJnYqHQ0msuNQQPIIXjZH967zMm9wrNyn4owom90P1IqlxAyhC++h/0ZQ0tPybXHFmvcyt6h2CPJPOiwu6oGAHscAr2+D+akKmBc96/kcF+vX8ueVqg3Fsdc0l0vaqZMYm7RHBWc87A8a7TWxlMkrX8BTujHGuGZ8iDfEYhiAFJrA/KMoga2TkmIi2u7euqeY1nI7T7KVChE629X8pYNKbHa+HtkgsM7rMHXHlEuoDEmnVuYAQW70ZohQAtkpAod73ZjR3iBIjuQNzoUemj7o/c2K62qamQViGsFX5g3urIJ76D1plKBdR8P8iOJD4wWu/E4kOsAiMPb1gkDt8VykRONYYdf+dqYqiX/qHZj
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:SA0PR12MB7091.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(1800799024)(56012099003)(22082099003)(18002099003);
+ SFS:(13230040)(1800799024)(376014)(366016)(56012099003)(18002099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dVNKbm5DQ2FzYVA1MFN6OEhpMUwwbXN0ellycUllemQxbFdGbFZ1bUpRWXFr?=
- =?utf-8?B?RGhVN1JMbUovRURrbW45RUtnYk5pbmZHMjZiVVRNeC9MQWtzbFVCNzFqS00r?=
- =?utf-8?B?Z0NBa2szcklFZU1wU2VWWTNycFNqblJVSDRDTFA4Z0ZSUnVGaDFkblBWUHhD?=
- =?utf-8?B?czYzeVhFWGxBeVFVTkVUSnRiUDhhanpjc0VXRU1lL3Q0UGVRWm1ic0JlaENO?=
- =?utf-8?B?TDVSWWl5RTF1bXkyS1I0Nkd4Q24yT1lDY2VtUGFJTnUwSU5mRVYvSlc1NnR5?=
- =?utf-8?B?NVF3emM4SmdBYm1sc21sdFlCMU9WZmpQQlFOMHZlT05VRDdlYml6SHJ6MHFB?=
- =?utf-8?B?aHlLd0JVbkE0ZEFIU2Y0S0M3a3NjajdWYVBvTTEraVJLL3JRclJtWThlRTAv?=
- =?utf-8?B?bHBBb216SmF0M1ZHRk01WGJHQmRxMXFKM1prVWlCM1NXOG9BM0ZsbG9hUzI5?=
- =?utf-8?B?cE5xaUFaUW5YNlJnNHZWT0dqbm80REFuT3lvTlFWK1RySWhIM2Rva2lGNDZ3?=
- =?utf-8?B?Z2w1MCtpQ2gzSmtQMEg4YTJkYUdMUzJhS2o1S1ZId3p4Z0VhME14ZnQzNkNl?=
- =?utf-8?B?WGg0SUtTc1VPbktJSEVZVDk0ZWNORmFUdDR2WkhvVmNLZDlxTlkrd1J4WHJw?=
- =?utf-8?B?WkEwUHk3ZDE5M2NTNTRXa1NES3dMVGRkN2lzYWtIeEtVeXBVcmk0NmExZ3Zi?=
- =?utf-8?B?d1dDQnZYYkRGdGFxN2xJKzNhNWFEVWJhRnBXSjFGeUpMMTB5aUgrLzZQUDNL?=
- =?utf-8?B?MmwxTFExcHQySjRQODFJU2NRVmlMUmRVcjUxNytRMlFwNGhRMEFOMkprbXly?=
- =?utf-8?B?dnBwSDdRZUZ5bi9IeitybUt6UnJVazZJRGlNcGdldHp1b1VjQjN4eG1zeTdr?=
- =?utf-8?B?RmVwcFNRMmVQdEhQZDFjVlFIV21lL1NDenIvM09wYzVLbkVBdFFKeWJjUFBN?=
- =?utf-8?B?dlZ3Y0lzWEt2RnZrelFBV0ZwM2FOZERURmhpZmU0V3ZIOW1jSkpFdFM2S2hi?=
- =?utf-8?B?Q0ZBNGVTZ3FSbkRFUm9sYVNiYW9SenNLcXN4eWZESGZPMGNPdDlSVjZOR0ZV?=
- =?utf-8?B?V2xXQU12V1lINCt2dlRUTjBDT1owTHRvWmlETkFTZ1ZoZmVES2VMMmliMUV4?=
- =?utf-8?B?NHFyU3pQMExoVWdHUmJMSUNZb3V0M1dsRDc0bUhVR2JXMWFEdDZ0WTdDd0Zi?=
- =?utf-8?B?L2lmM2gwWC9zbC83YnZjSUFtdzFJY2tFc2JtM3hYT2NYOWFjeGpkcUswa0Q2?=
- =?utf-8?B?ZE1CelpGQktWRmRXbkgyODNqZ0dLa3lROVdpUzc5MUVkYU9uazZMOGZ5c253?=
- =?utf-8?B?WTZEREI5STRLazRJSFVQOTRvdTdpeFlIYkJTUUpoK0lEWGZhUzFZckpKcG9L?=
- =?utf-8?B?MHQ4Ulhzc1F6RkU5S0lLaTd0T3J5UVQ4N0FmbHN2NEpkTEt4cHdyb2pYRGdx?=
- =?utf-8?B?K2x4RFQzNTNzSk01OHl0ZndHc3IzSmJ3d2IwZkVQMnVXblplaE90Rmp1QmFu?=
- =?utf-8?B?R21xNnpUQ1dqMmR5RmEzK1lFZm5BNGpKWS9nb2pqaTJsT28zMEFMYmNLbkEz?=
- =?utf-8?B?TlVZZ3FNemg5MFF1Uld1OFNmSksxVDQyZ3JKODhiaFlLTmNWc2hqbktxa3c5?=
- =?utf-8?B?d3RYM2YyeGdXZ1VET1JtOFUwZnZXcVFNQUdoOURRams0dTkrTnFFMDd5OEVr?=
- =?utf-8?B?bjFvMElUT1V6bHcrZDZLQTZ5NnozRFVlMHU4YVdXN3Q2UTNTdHNsMlFQUU5m?=
- =?utf-8?B?Vm9raG9WNDExbVJTd0l6K1kyRGlyQU9sNUNTSGNBblpUWDl4Nld5L0VZOURC?=
- =?utf-8?B?ZTBCMTZRQ3pHaGRGVU9aTGJ3SWJlSGhxTVQ4Y2xTZ2VWYitYeXEwUHFPZlJs?=
- =?utf-8?B?MlhnSWlDb1BHeG45c0ZQMHk2QUJkRkM5NjNHS1lXaHlrMWd6S0ZqV3ZZVnBY?=
- =?utf-8?B?ZEhvZFpFa3c5S0RQNDNFWFVyU0N0RzFwdkpZUXgwSTNqOHRQbkJ3OEI1WUJl?=
- =?utf-8?B?eFA2TmlvMHZvZkVzOEpGMzN5cVJsY1lGQ3BVRE1Tb1RJeitJSTNMZGUvRVhy?=
- =?utf-8?B?Q0VnZnZuOWJMdUg1SG9xbzNOWDFwNmdWNlEvN0g0N1hIS3MzOXN0cUtkMkp0?=
- =?utf-8?B?b3EwbUUwdjhaeGlGdmVTKytlUVBtUGowK2NLSkRGQmxFSUVRa2p5VU1NVGxm?=
- =?utf-8?B?NHlHWjk5VERPMVVMNURBbmdVdExmUE1iamk2MHNsWDVIN0p0Ym5lRTQwNzlC?=
- =?utf-8?B?M3pERjUvWWZydllxb3VaUjNLamphUk5lWkJFTDhhMlkwWmZqdTBnZEsvTlhF?=
- =?utf-8?B?bEtKQkhQbkQ3UmZTNjBkN2NZUkRpSW5uOUc5ZXdSRXZkQlhVUW1GUT09?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dEF2V2lBUnNnOGpRRUJBU1BSOWwwWVZ4MDhyb2JoK3QrOFltOVhlK3R6STN4?=
+ =?utf-8?B?VjJFTTBHbzlEUnBtdVUzQXQ5UmtqSWRuT29paDA2T1U3SktDS2orcUM4cmVr?=
+ =?utf-8?B?UUVCNDAxVGR5aURvRGNYY0tlZUR2aGE5bldQSVFleTBEbkU0Nmp6M3lxSEFq?=
+ =?utf-8?B?RmNmV1NvYlFnNFdxOHcydHVwRlpBRmhsYk9iYUJrK3kvNzNKUm8xeGFEcFFB?=
+ =?utf-8?B?Skd6MHBKbVR0dzgwdCtiSUVTMTJTdnl6TmpWMmlJSEhJbFlmeGRMOXBrTUY4?=
+ =?utf-8?B?OC9Jd09rUzdwQlQ4akxUYXRnTm5aTWp6Q2xKbkd6ZWszL3pTbnhZM0F5d1Fh?=
+ =?utf-8?B?NVQ1Ulp6TUNPNVZZdGVrZzhpN05oeHJkT21nci82eG9KT3M5TzhuMzd6UGxB?=
+ =?utf-8?B?WGVhNmcxeGRGcVhvUVFNMW1TdjJ4NkJPdkgrMGpXU1RESWtBU1RCeHpQSWNj?=
+ =?utf-8?B?ZDBSbi9oOGg1UVo1S2ZSMW1GQlRMU2JuUXNBaU1nbEx1UStJVnluOWw1K3VG?=
+ =?utf-8?B?WUtwRGlkNzM5cUxmWnlzd0dKSGhzclVCdVNTWlhBanVaVVRPM29QaHhQdVpu?=
+ =?utf-8?B?QnZwVmp2WWx2N1FjT3BNQXZHdm1YaUdXeDZJV3hxMldxZVVNTWxva2JtRHh0?=
+ =?utf-8?B?cndmYjhPUEIxczBCdUVCNGVlTjY5K2JGNXkxZyt1OHQ5UlVRRXF4TENwV2Ey?=
+ =?utf-8?B?M0dOQ0tsOGNSV0MxSEg0OVBNUE5uU1QvZldoMzY5aWR1K0J3anpMMzd2K0Er?=
+ =?utf-8?B?cmlXeXdJeU1YSExCZDdxdDJEbktkTWIxQVk2RkJPR0tDUkV0bnJKZmJPc1B6?=
+ =?utf-8?B?MUJmNVZkSDdQTXZKYlA5cktROXdpUzdKckpDQXFPWWM5NEFQM1BqRThGRU9H?=
+ =?utf-8?B?R05Sd3lIMXNCOGkwUHM0VXRHZU5jV3d0aExKanQ2TU5LWEg4dTc4bGpQQzJX?=
+ =?utf-8?B?OUdrRzFpNExNOE9kR0ttdjlrbC9PS21CbHRTQllseEY3blc0V3NBTTYvSmQv?=
+ =?utf-8?B?NXNSMzkzWjBvMDdEMzdDaE5oTmhhcEYvajRCZHNrdUY0RFJJeGRDK3NnUks2?=
+ =?utf-8?B?RVJVc2tKbXpIdUVYMUZleW1yK1IxbFB3VmZMNEp0WTlqQTd4ZURyMmxUVTVk?=
+ =?utf-8?B?NzBTeTVDdnc1Y2NKb3JqZjkwVTlaVnRqNDdmNTNDV0dBMVZiMnUwRmxIZlB5?=
+ =?utf-8?B?dUhxQ1dJQm4yNkpOWTl3OE96L2V3WjcvZXRDUkNGVGEzZXFLcnJrdlUvbXBK?=
+ =?utf-8?B?cUFkT1A0UkJTRWpYbVlRb3ZHVUpzRWx6a0hvYWJWc0RKT1BOM3dxRmZ5aVp6?=
+ =?utf-8?B?T0VobzlLSHVOanZnUFd3Y3IwVlhhZWx5UFg4K1pKYUw0dW5Hbm81ZTFiMEx2?=
+ =?utf-8?B?M3ppKytQRVdFTG14Y0NrOGxXU21mczhhU3BZckVTZlR5SXI2R3NkQi9LRXJu?=
+ =?utf-8?B?b2xIT2VDekNTbWliZ3FWTXZlOVZuVmF1WjBUa0M3WDlaajlaUGVqT3kySkts?=
+ =?utf-8?B?WGtZa0NKTk5yb2hwZS9HMWlwM3NBd1JMb0YyWkdKdzZ5ZE9ERStVYktraTh5?=
+ =?utf-8?B?NXAzdEY3dFBmbkh3bGNPUnl2SkJIT0hjeTZCNTQ0QWl6YnkzWUZQblZwODlT?=
+ =?utf-8?B?N0Y0bkFZQUQ1dVBsZlh2TDB6UE1rRzBzYXlUTVdTQmlFQy9WZE4rZmxqM0lB?=
+ =?utf-8?B?elNmVXRVUXhXZ2FWYnpNb29xbXU5c2VSZlVMNXV0UWFEWmJTUDV4QnZYQUVC?=
+ =?utf-8?B?R2pnek1NTzhkeEpqaVl5cmhEM0tBcnlvaEd6d2RmcEpvdlhBTFh2TDR6UWhJ?=
+ =?utf-8?B?LzJyU1Vjb3hCMkg3dGdsMDEvY1pRa1RPaUk2T0tSby8rV2RESkNWUG1RL2Vp?=
+ =?utf-8?B?d201RW1vSnZMcnpuMkhwckNMY2ZuWFFiTWQ4MnZJYm00MXYzZXVZeEpURkNW?=
+ =?utf-8?B?U0VtbFd5TG0ycjFlUUsxemhjeXR1VHNocHZ5b1JseHd1WS8zTFdnb1FLbEVm?=
+ =?utf-8?B?VFdHdXZJbSt4NXhoOFRuQ2pGa0tGS0dJTW5za21hMFNGa0UzS2EzdUZQTmoy?=
+ =?utf-8?B?YWpORXdGSTVYVVpickdEY1h1Rm0xWEFaNlJ6YVk3bm9hdTVvU1NzK3loM0Vp?=
+ =?utf-8?B?VmxDbjU5L3liZndlTzJ4eHo1ckZEaC9oa2YwZCtOYlg5TFgyeDVjZ25DVzdV?=
+ =?utf-8?B?S29Oc1AwRS9zdUVUSFpkc0dDaFFBcXB3UmoyNHNtS3N5R3hoVm02ME5lVkRr?=
+ =?utf-8?B?RmRTbEF6b2VvbFBmYVVmR2tyL0EwbWV0ZzUwcld5Q3BzUWhSQndRa3VlVFQ0?=
+ =?utf-8?B?dEd4UTJ3WTlBaWVrYWRMMUFlM0UvZlpvZzlNTDBxQjJyRTltRXo2dz09?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: fc66f690-1cea-4c8e-51a6-08de8ed620f2
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2e63db6e-4107-4299-af2c-08de8ed81f8b
 X-MS-Exchange-CrossTenant-AuthSource: SA0PR12MB7091.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Mar 2026 03:32:26.4511 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Mar 2026 03:46:42.8196 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: /TVDMiAYnrmwNaDzxr1Kb9mzP5v5I66cEQeQwXENSI6cQbixTAhLsQ0sUYOz5HLs
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8943
+X-MS-Exchange-CrossTenant-UserPrincipalName: yzNQgh1z2JKkz0HCGYSex1Vzkq2gx+Jsa5PDPA4G/+SF0g7O3Y6CVS/9IOaw3gt/
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7481
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -139,80 +136,25 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
 
-On 31-Mar-26 12:41 AM, Mikhail Gavrilov wrote:
-> Commit 8f1de51f49be ("drm/amdgpu: prevent immediate PASID reuse case")
-> converted the global PASID allocator from IDA to IDR with a spinlock
-> for cyclic allocation, but introduced two locking bugs:
+On 31-Mar-26 8:29 AM, Prike Liang wrote:
+> Replace the IDR based allocator with XArray and XArray's
+> internal state machine can handle memory allocation correctly.
 > 
-> 1) idr_alloc_cyclic() is called with GFP_KERNEL under spin_lock(),
->     which can sleep.
-> 
-> 2) amdgpu_pasid_free() can be called from hardirq context via the
->     fence signal path (amdgpu_pasid_free_cb), but the lock is taken
->     with plain spin_lock() in process context, creating a potential
->     deadlock:
-> 
->       CPU0
->       ----
->       spin_lock(&amdgpu_pasid_idr_lock)   // process context, IRQs on
->       <Interrupt>
->         spin_lock(&amdgpu_pasid_idr_lock) // deadlock
-> 
->     The hardirq call chain is:
-> 
->       sdma_v6_0_process_trap_irq
->        -> amdgpu_fence_process
->         -> dma_fence_signal
->          -> drm_sched_job_done
->           -> dma_fence_signal
->            -> amdgpu_pasid_free_cb
->             -> amdgpu_pasid_free
-> 
->     This was observed on an RX 7900 XTX when exiting a Vulkan game
->     running under Proton/Wine, which triggers the fence callback path
->     during VM teardown.
-> 
-> Replace the IDR + spinlock with XArray.  xa_alloc_cyclic() handles
-> GFP_KERNEL pre-allocation and IRQ-safe locking internally, so it is
-> used directly in amdgpu_pasid_alloc().  For amdgpu_pasid_free(), which
-> can be called from hardirq context, use explicit xa_lock_irqsave()
-> with __xa_erase() since xa_erase() only uses plain xa_lock() which
-> is not IRQ-safe.
-> 
-> Suggested-by: Lijo Lazar <lijo.lazar@amd.com>
-> Fixes: 8f1de51f49be ("drm/amdgpu: prevent immediate PASID reuse case")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
 
-Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
+There is already another one -
+
+https://patchwork.freedesktop.org/patch/715381/?series=164079&rev=3
 
 Thanks,
 Lijo
 
+> Signed-off-by: Prike Liang <Prike.Liang@amd.com>
 > ---
-> 
-> v5: Use explicit xa_lock_irqsave/__xa_erase for amdgpu_pasid_free()
->      since xa_erase() only uses plain xa_lock() which is not safe from
->      hardirq context. Keep xa_alloc_cyclic() for amdgpu_pasid_alloc()
->      as it handles locking internally. (Lijo Lazar)
-> v4: Use xa_alloc_cyclic/xa_erase directly instead of explicit
->      xa_lock_irqsave, as suggested by Lijo Lazar.
->      https://lore.kernel.org/all/20260330162038.25073-1-mikhail.v.gavrilov@gmail.com/
-> v3: Replace IDR with XArray instead of fixing the spinlock, as
->      suggested by Lijo Lazar.
->      https://lore.kernel.org/all/20260330110346.16548-1-mikhail.v.gavrilov@gmail.com/
-> v2: Added second patch fixing the {HARDIRQ-ON-W} -> {IN-HARDIRQ-W}
->      lock inconsistency (spin_lock -> spin_lock_irqsave).
->      https://lore.kernel.org/all/20260330053025.19203-1-mikhail.v.gavrilov@gmail.com/
-> v1: Fixed sleeping-under-spinlock (idr_alloc_cyclic with GFP_KERNEL)
->      using idr_preload/GFP_NOWAIT.
->      https://lore.kernel.org/all/20260328213900.19255-1-mikhail.v.gavrilov@gmail.com/
-> 
->   drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c | 47 ++++++++++++-------------
->   1 file changed, 23 insertions(+), 24 deletions(-)
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c | 49 +++++++++++--------------
+>   1 file changed, 21 insertions(+), 28 deletions(-)
 > 
 > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
-> index d88523568b62..3fbf631e67c7 100644
+> index e495a8fa13fd..7b0afeddbb05 100644
 > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
 > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
 > @@ -22,7 +22,7 @@
@@ -224,36 +166,39 @@ Lijo
 >   #include <linux/dma-fence-array.h>
 >   
 >   
-> @@ -35,13 +35,13 @@
+> @@ -35,13 +35,12 @@
 >    * PASIDs are global address space identifiers that can be shared
 >    * between the GPU, an IOMMU and the driver. VMs on different devices
 >    * may use the same PASID if they share the same address
 > - * space. Therefore PASIDs are allocated using IDR cyclic allocator
 > - * (similar to kernel PID allocation) which naturally delays reuse.
 > - * VMs are looked up from the PASID per amdgpu_device.
-> + * space. Therefore PASIDs are allocated using an XArray cyclic
-> + * allocator (similar to kernel PID allocation) which naturally delays
-> + * reuse. VMs are looked up from the PASID per amdgpu_device.
+> + * space. Therefore PASIDs are allocated using XArray cyclic allocation
+> + * which naturally delays reuse. VMs are looked up from the PASID per amdgpu_device.
 >    */
 >   
 > -static DEFINE_IDR(amdgpu_pasid_idr);
 > -static DEFINE_SPINLOCK(amdgpu_pasid_idr_lock);
 > +static DEFINE_XARRAY_ALLOC(amdgpu_pasid_xa);
-> +static u32 amdgpu_pasid_xa_next;
+> +static u32 amdgpu_pasid_next;
 >   
 >   /* Helper to free pasid from a fence callback */
 >   struct amdgpu_pasid_cb {
-> @@ -53,8 +53,7 @@ struct amdgpu_pasid_cb {
+> @@ -52,33 +51,31 @@ struct amdgpu_pasid_cb {
+>   /**
 >    * amdgpu_pasid_alloc - Allocate a PASID
 >    * @bits: Maximum width of the PASID in bits, must be at least 1
->    *
+> - *
 > - * Uses kernel's IDR cyclic allocator (same as PID allocation).
 > - * Allocates sequentially with automatic wrap-around.
-> + * Uses XArray cyclic allocator for sequential allocation with wrap-around.
->    *
+> - *
+> +
+> + * Uses XArray cyclic allocator. Allocates sequentially with automatic
+> + * wrap-around, delaying PASID reuse naturally.
+> +
 >    * Returns a positive integer on success. Returns %-EINVAL if bits==0.
 >    * Returns %-ENOSPC if no PASID was available. Returns %-ENOMEM on
-> @@ -62,20 +61,22 @@ struct amdgpu_pasid_cb {
+>    * memory allocation failure.
 >    */
 >   int amdgpu_pasid_alloc(unsigned int bits)
 >   {
@@ -265,49 +210,44 @@ Lijo
 >   		return -EINVAL;
 >   
 > -	spin_lock(&amdgpu_pasid_idr_lock);
+> -	/* TODO: Need to replace the idr with an xarry, and then
+> -	 * handle the internal locking with ATOMIC safe paths.
+> -	 */
 > -	pasid = idr_alloc_cyclic(&amdgpu_pasid_idr, NULL, 1,
-> -				 1U << bits, GFP_KERNEL);
+> -				 1U << bits, GFP_ATOMIC);
 > -	spin_unlock(&amdgpu_pasid_idr_lock);
-> +	r = xa_alloc_cyclic(&amdgpu_pasid_xa, &pasid, xa_mk_value(0),
-> +			    XA_LIMIT(1, (1U << bits) - 1),
-> +			    &amdgpu_pasid_xa_next, GFP_KERNEL);
->   
+> -
 > -	if (pasid >= 0)
-> +	if (r >= 0) {
->   		trace_amdgpu_pasid_allocated(pasid);
-> +		return pasid;
-> +	}
+> -		trace_amdgpu_pasid_allocated(pasid);
+> +	r = xa_alloc_cyclic(&amdgpu_pasid_xa, &pasid, NULL,
+> +			    XA_LIMIT(1, (1U << bits) - 1),
+> +			    &amdgpu_pasid_next, GFP_KERNEL);
+> +	if (r < 0)
+> +		return r;
 >   
-> -	return pasid;
-> +	return r;
+> +	trace_amdgpu_pasid_allocated(pasid);
+>   	return pasid;
+> +
 >   }
 >   
 >   /**
-> @@ -84,11 +85,13 @@ int amdgpu_pasid_alloc(unsigned int bits)
->    */
->   void amdgpu_pasid_free(u32 pasid)
+> @@ -89,9 +86,7 @@ void amdgpu_pasid_free(u32 pasid)
 >   {
-> +	unsigned long flags;
-> +
 >   	trace_amdgpu_pasid_freed(pasid);
 >   
 > -	spin_lock(&amdgpu_pasid_idr_lock);
 > -	idr_remove(&amdgpu_pasid_idr, pasid);
 > -	spin_unlock(&amdgpu_pasid_idr_lock);
-> +	xa_lock_irqsave(&amdgpu_pasid_xa, flags);
-> +	__xa_erase(&amdgpu_pasid_xa, pasid);
-> +	xa_unlock_irqrestore(&amdgpu_pasid_xa, flags);
+> +	xa_erase(&amdgpu_pasid_xa, pasid);
 >   }
 >   
 >   static void amdgpu_pasid_free_cb(struct dma_fence *fence,
-> @@ -625,13 +628,9 @@ void amdgpu_vmid_mgr_fini(struct amdgpu_device *adev)
->   }
->   
+> @@ -630,11 +625,9 @@ void amdgpu_vmid_mgr_fini(struct amdgpu_device *adev)
 >   /**
-> - * amdgpu_pasid_mgr_cleanup - cleanup PASID manager
-> - *
+>    * amdgpu_pasid_mgr_cleanup - cleanup PASID manager
+>    *
 > - * Cleanup the IDR allocator.
-> + * amdgpu_pasid_mgr_cleanup - Cleanup PASID manager
+> + * Cleanup the XArray allocator.
 >    */
 >   void amdgpu_pasid_mgr_cleanup(void)
 >   {
