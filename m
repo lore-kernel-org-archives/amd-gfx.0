@@ -4,123 +4,124 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 84DB2109B474
-	for <amd-gfx@archiver.kernel.org>; Tue, 31 Mar 2026 14:27:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 37694109B478
+	for <amd-gfx@archiver.kernel.org>; Tue, 31 Mar 2026 14:29:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1DEDF10E383;
-	Tue, 31 Mar 2026 14:27:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E7C6610E0D1;
+	Tue, 31 Mar 2026 14:29:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="V4lB6tie";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="D6fqzgfa";
 	dkim-atps=neutral
-Received: from CH5PR02CU005.outbound.protection.outlook.com
- (mail-northcentralusazon11012024.outbound.protection.outlook.com
- [40.107.200.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 27D9B10E383
- for <amd-gfx@lists.freedesktop.org>; Tue, 31 Mar 2026 14:27:45 +0000 (UTC)
+Received: from MW6PR02CU001.outbound.protection.outlook.com
+ (mail-westus2azon11012030.outbound.protection.outlook.com [52.101.48.30])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1628010E0A8;
+ Tue, 31 Mar 2026 14:29:36 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=xzHRBSGfsZ7tGSHSX8tYZUrWPX1DypNRwA28lyOut5EQYYcxABNaD7wr+n8oKb9PzeZ3Wdj7M9PmyL6HT7zZcYRLPpnpRcVCXnexI1odVO4Ga9tTpImhLyzMh5xIU1YhRwpF6Kyn+DyE7itD5yT4wWNJx253xJ4fA6JQEQSO4K8hpK/nwbdA0AqQhhdRPv+TU+ngwRheaFxAZeACnftCfbe+05Qrc74A2gZgYUyR4tK4XWTwk8tX0e3doTNbEBA1G2v0lotPybIcP4FU+e6Q3FkunecYcZeW/oWrkw3E1QShzKYa2yBiqOtZ/Oeq4FR3WZSVAKczXZ9QLwunz8bmIQ==
+ b=ys69eMdORgmVd8PZGfkgzEzyVtN4PcyQnhfLuxmYp2vRwaAlARvGO4m/8x6uNQ6PtR0r0CzV7HHyULGf3Qvx2ox3WXg8Gk9lIxLOIuqw3EKtDLShqVYQQ8BW/oZHciwao4q27yaFeJZuORMAzM/OfPft3OhLwOVbyfbDkhAsatNQ98ZV/J1D6RiGIPe4IHP509hjgkOQFM3AYgDkpHxB38HAvqNqR4wCv7cYynkzPB49cBcKCtWtmUdrxBskvIrMuLHZnTqIg2IvK7IbCRPbEwEZeFkK1PnPENEbVyLVi7/qCq/oGTDezweQDZYYN0V43mbsf7LssdmdI+VFXutYNA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=pTdcL6uWoaeWblRlMNwsoNlA1KpFpobKLhScQwz9oNA=;
- b=nToxUdx1khWGg6Z2WqmYzG6aYuSyAIKd5dzNY5Vu7gI9Mr4X82+WYQKh3wYt4AUo9wlXnePXJYd96Ij8f6sevO9VPxwoQI3Ms0slJXG2Ho3sDGVrw7XTvi9sYAUd5tFKc5ZqFFIbzJLHsHg31aOWWkiYzHkJwHNVHG/jBtCO4yzeyrwvzSMhSSgzmPoJX3mpHvJjsTn+YAHYHIYMGEbGlBUiQ11WZaKGt6qroIub8kOhN35BD5AXeLnc/TQki/DMtPQhzoXRbcloe78NQGJovTZwu607YOpLLpafkm4fQg2P90xQppqF+nwYZiA3Cw20DGgJJCf+MnFCPof5aw0GIA==
+ bh=huekssA1ReKPh9XrQqGNECX6rAcR8T5VCJou/SkB03Y=;
+ b=jxEpTRGXKf1sxcncH+q1z3f5gMZma45aJrshEHJFKRZm1C93+DuolX7ZDz+A7ctfbyBlPiiUl6cvOw/WxTNkFCy8bBT8YQ5wifYyqCRQupbbfD5T+6yrGFfuWOMlNMU4Y6LIsVJVJLLLSx1R0fG9WnmErDhmCnIHjG6D56IHv32nmvtxs69IEPm1ZTbeeL/ldL1W9hfxDNJWwACAv+Vu2iYdTcUOOe6dX+i3rRiolSLYt0W4bK9baOF7LlAtdADnVirwShCKaO//GmpsDmm9jWxijgXkOFfPnMAJF/ffb4Rm8mEbvkfcHybS3yi4VHEgLvYIO6J7Xv7UHBlfch9Bog==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=pTdcL6uWoaeWblRlMNwsoNlA1KpFpobKLhScQwz9oNA=;
- b=V4lB6tieOcvuHxJQc7+xxOYqs+6whdzZ7DtnaAbX3tJUNCiRm1hPx4j3gt1BU+MiWSu2eDlpTXlQNr31KYyeRympbUCttTWJ2Vmfz6fhNBGX1CFoCC2JKUKyf5dK3VTqqo8BxnW2ZrO9xAl7dIgxXM2p7QsatQ2mmUkhnZ2dZ38=
+ bh=huekssA1ReKPh9XrQqGNECX6rAcR8T5VCJou/SkB03Y=;
+ b=D6fqzgfazvuLj13yRP9Dfp7imuwW+APrQNNPthljZnEeGML/NK8beYYT7K9MQHpQZhTdSFRbK14kafcaVXnxYGPunQ9bXzrXYVudDBn2vU8Ljm3LzpMDtnZiNTHgx7B/SAIh9tyR8x2TTPbAT8LA4W/ZoyNR441xNwHdLwBfwT0=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from CH0PR12MB8464.namprd12.prod.outlook.com (2603:10b6:610:184::11)
- by DS2PR12MB9568.namprd12.prod.outlook.com (2603:10b6:8:27c::20) with
- Microsoft SMTP Server (version=TLS1_2,
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by MW6PR12MB8916.namprd12.prod.outlook.com (2603:10b6:303:24b::14)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.16; Tue, 31 Mar
- 2026 14:27:41 +0000
-Received: from CH0PR12MB8464.namprd12.prod.outlook.com
- ([fe80::a45b:9b43:1014:eaf2]) by CH0PR12MB8464.namprd12.prod.outlook.com
- ([fe80::a45b:9b43:1014:eaf2%4]) with mapi id 15.20.9769.016; Tue, 31 Mar 2026
- 14:27:41 +0000
-Message-ID: <9d95d727-3e5b-4084-9bdb-c7b213849d97@amd.com>
-Date: Tue, 31 Mar 2026 10:27:38 -0400
+ 2026 14:29:33 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.20.9769.014; Tue, 31 Mar 2026
+ 14:29:33 +0000
+Message-ID: <845af7e1-3ca7-483b-a3b1-0840d9c98596@amd.com>
+Date: Tue, 31 Mar 2026 16:29:26 +0200
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 09/10] drm/amdkfd: Reset queue/pipe in MES
-To: amd-gfx@lists.freedesktop.org, alexdeucher@gmail.com
-Cc: Jonathan Kim <jonathan.kim@amd.com>
-References: <20260327203152.1578828-1-Amber.Lin@amd.com>
- <20260327203152.1578828-2-Amber.Lin@amd.com>
+Subject: Re: [PATCH v7] drm/amdgpu: replace PASID IDR with XArray
+To: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>,
+ Alex Deucher <alexander.deucher@amd.com>
+Cc: lijo.lazar@amd.com, Eric Huang <jinhuieric.huang@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+References: <20260331142127.52796-1-mikhail.v.gavrilov@gmail.com>
 Content-Language: en-US
-From: Amber Lin <Amber.Lin@amd.com>
-In-Reply-To: <20260327203152.1578828-2-Amber.Lin@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YQZPR01CA0119.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:83::13) To CH0PR12MB8464.namprd12.prod.outlook.com
- (2603:10b6:610:184::11)
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20260331142127.52796-1-mikhail.v.gavrilov@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: MN0PR05CA0006.namprd05.prod.outlook.com
+ (2603:10b6:208:52c::31) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH0PR12MB8464:EE_|DS2PR12MB9568:EE_
-X-MS-Office365-Filtering-Correlation-Id: f65cfacf-953d-4e64-9a39-08de8f31aa93
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|MW6PR12MB8916:EE_
+X-MS-Office365-Filtering-Correlation-Id: 596e98e2-686a-472a-4cef-08de8f31ed47
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|376014|1800799024|22082099003|56012099003|18002099003; 
-X-Microsoft-Antispam-Message-Info: cYMEEX6rkLit5TQ7gxb2xklUiNS9jSVYdnrsZJd0GEx68lHQzrmARjY+OPaVLsO0UdPZT5j4eu+XUOvzgk9gZJEXkOJ6hyjmAb0GsDwvAPuSxTIVkv1cxkGYh+jPRplTHYFCVMa3b4XLOLFCucOLdSlWZgCjeJkNygUagjqdwONBtm+lM+DCpHbR/Y3LHuVkB0Z1NeNYMrfv8newY7NeIRSRqiqc3OGUrdaeJYKlcaFayiQRA3rsAUhhcl/ep+d4UMjsbIgfv8RoQllgJaZw/GhlzHhuWoiphSpOMPIb+FwfTvyP0tUfITXveu8OZHP2oHWMIwPuwzUKine+pHkf1uxYl6K0UCssDWX81o0kKI/TgFVug/hlzEfCNqyxLgeg9/+PZehEgqzjkq6XOpiX4dQ26vlddtdhPD0LMmD9fa9JzWFij+aHTk0KVLx0MskLJnBPRt6iyzXghuDgJTPCRfbpkh7wzP08hQDY25QkF8CdYV2Ve53qz0isrZpIwhrEWjIatm27+Z80rExtmlpfkOfpkH4k/j8xROcKVx0oqRqiJ5IzhLwacz3sJhG8Bio4VyhubDBIHXIutUwLawWoH17zr/tnJGfluwX3MauWt72wu85vuhJ68cT84tXkZmV+uzwbOLE5abRVp4hftJ0/SnyAjZtIoH1l7dJtIJXJ7vaGzzVN7wnn7dPRLw8MmNBJn795k2uCNZml49x3eDil4BzRXd1KRSmpkcSqc3Pj0AQ=
+ ARA:13230040|366016|376014|1800799024|56012099003|18002099003|22082099003; 
+X-Microsoft-Antispam-Message-Info: 6Z7TaAfNUJNo/Ezv863lFwnn7ajqcKeSSiaE/msHIthfowos4RZClM1Adiee05TFE3mAwCofew5CRgYQKWN8+uG1WIf/nWF50ass1woYwHEf3bIMVdiXzRk4XcR0/uwglFkETFrhMwq+zgnWTSMhtBg5tQ+MxlEpA3aqmtGxoNmhqluMpN+VZpnBSrXuORXU4cSw/VKHwXuZxKdaYX7U5aA0vbV7EPikGGQA+cN0NPMhZHBCnTJ9xmJDmG6ugbe+Lj0z7mjiOLHUWXa5MaUvULY3VcVEV/N77jQIzGw1OFWOO2qkSTFFirzPek9Xa0zpqq1lP8YeacPmvavk4hwWUFRqI17gNEKOJrP8CwRSJ7d3ZWPsWvmMVYd+ZHjPAPik1+4DeWH8div2un8DT6nmM+hj23f5bu7YQhR48LiaSfLpc0HNLvU9ZYmATGH9okotUbsbth2vPMJU6VaudBRw037r8xyVYPMiFU0m7gKNWu3yomt9x4JA59Y4J8PuMhzRcG1VAwi/6n7i/03cECvAgSH+XOXhCBIntqaCIrbRxk/fyPjujLbH/disLXd3ilGLAoAB4UirUNReNuOZYyEkUcVarpPMoX4dZuqVBdyVw0pe9Z6L1x0qUidvsqOs88rFtO61omZ4haLnTeZne/5eX6fDIeJXpV5y/Aa+o+yQO5x0lC2rqqLP9NQRlFUAeZuISPD44gXwRyDKWo0AeMXApcWFiWBtJnz67F3njDTA5CSELBIUv/u1eiMiCxJT60DF
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CH0PR12MB8464.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(1800799024)(22082099003)(56012099003)(18002099003);
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(376014)(1800799024)(56012099003)(18002099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?OFVDbUN2c2VZdHpGd2h5TkF6aHRVNFFUY1VCQ29GVW1pOE96WTFleHN2WjNE?=
- =?utf-8?B?WjhVSGg1VUxnMU9zMVU3Z3NZTFBSeDBBYXZ6dlE3WUpBWDZGVjRiVFZmWHNj?=
- =?utf-8?B?SHNOZkt1MVptU0EwMTlwMmFCSTRscWIzdjFCallBb0I1OW1QQ2FPMW00RWZp?=
- =?utf-8?B?ZGVIbVJ3Q3AzL1NWQkRYQXpWM0ZNdzhYa2EvWEhQWEg4dlJpeFZPZDBjREZG?=
- =?utf-8?B?KzFlSGlLdDNINlZTMjB5MUhmRGpqM3M4Vm1Vdmd3U1V3emVpZURGWUNTdmZE?=
- =?utf-8?B?ZUFSN0piLytlTmNmVFZESk04SEdMOVIxQ3A1QWRzQUcvbHpXNlFQQW5PWkxB?=
- =?utf-8?B?eXlSWFdWWG00OXkzV2FjSFV0Q2dCNUxUY2NRaWNrR3cxQ1BQZ3c1ZDZ1TFo1?=
- =?utf-8?B?NFVEMFgzWkNmQ1V3Y3o0V1dtbHhjb1pQbG5meS9mV2kzN1RkdU1JSFc0MnBz?=
- =?utf-8?B?WmpRemJsNGxJQWtLaldlaTVVQXR4STAwajkvamw5Q21tbnR3M1BnSklaVnBJ?=
- =?utf-8?B?MnZOY2g2aG1MMlRIdFZGMERNOHVHVGIzQXdQYVhFSTFXRTNHbnAzNzgrbFVz?=
- =?utf-8?B?aDRwT3UxMXRXTVV3YkgwejF5Mk4ycFBwWjFjUklpbC9saHlsd2xMYk55dWxo?=
- =?utf-8?B?TThGUlZEK01RditGWU54d2tsbm9KSE1aR1F4UERhUms1TjFnK2lTS2FraEdS?=
- =?utf-8?B?eFhzZTFoTXhKbXBETGY3bU1hV2NhWXBYbGMyRFcrKzZVWjU2Y3BrYjdrQlgz?=
- =?utf-8?B?S1J5U2J1dTY3RUoyTXBHTXpib25Fc0ViUjNnc1RmVUtPdXk0cTk0Q3JSUStE?=
- =?utf-8?B?T1VFWXExQkdOS1lQTEk3QUUxeU93QnVJalVhV3F0SDhrTW9kcDJ4YXZnRDJo?=
- =?utf-8?B?cGNhVyttN0pUK2N1LzQ2Tm5Ba2w3WDR3elFhSlp4V2k2U2hjMHRpSC9STGlX?=
- =?utf-8?B?SzVreTZ1dDIvTjV5UUNRemc2M0F4d2c4aTl5dmJEZjZDZTQyYzdnYllFZHMz?=
- =?utf-8?B?dm9kNVJOdVN4OW5nNmw2anFDK2dmWmJtdTduVTMzZTlNVjB6SzRVN1NnU1lG?=
- =?utf-8?B?S3RJcS9NTENWZDR3SEQ1YkxpZnZNQ1JJandFRk5XdzQvOGo5U01LamR5cGI5?=
- =?utf-8?B?OFVUNWoveUcvYks0WHdqSjMxMnRwemxUZFFFdXRvdWtvdTNmcEtaMC9iN2wy?=
- =?utf-8?B?VGV6OFQwOUg3bWRWbHIxa0FqeUJDU2o2TXdRV1lqcFphaEZmVkZHWDBDWCtO?=
- =?utf-8?B?OTFLN3ZScG1JYWUyTkFHWmUvdXZEYmhPbzBKWVp2T3NEYm1pME50WGs1QlJD?=
- =?utf-8?B?UU5QTlhaZGVWUUJpQldTUHBRQWY0a3cvTWlsRGNwUlk1bW1EWW9xemVGUHht?=
- =?utf-8?B?RUtxSEhBWFRRd2ZrZjNNNkdzL292UHNncnlocjhXaENYRFQrMHNHdVM5OGYw?=
- =?utf-8?B?bnRCbEdBbmFQc3owYVBhSSt0bklaL2c1d0ZmczA0a0ZvUHRYQzVvOXpoZmlP?=
- =?utf-8?B?M2ZqTUR2Umw3WGRQU3UvNndNTDJEaHgrY21mUWt0WldLclI5OWR5TjlyVDc5?=
- =?utf-8?B?ZmZTMThKRklHREFEL3ZnNnlWZDE5eVh3YzdVYlc3Zkd6MjBJbDJuTkFlWjZP?=
- =?utf-8?B?VzFXVWN3T2lnQVBzRlhTbE1QdEFkemNXWFJwUDRJSE1DZG9tVldjWjlocG1n?=
- =?utf-8?B?MkRia1ZNaXorVGlXdEpDajlRUm9ETXV3aFBzbi90RWJpU1lLcFRTWlZ1VEJa?=
- =?utf-8?B?UTRINGxpWHpJWVpPSk1MejYyTzIzVUpNcmFBMlNkVllIb05KM3pha3NKelMr?=
- =?utf-8?B?VVdnbTRiUE5mS1B2dlhxSjRXNDQ4M3QrWW9JSlBobWNCcmVnSFdNSlcyTHY0?=
- =?utf-8?B?U3lNbXVXaEJ1S0x2MGpFblR3emRjRk43Rk5pTDhxRkNvdHZ6OHBRSHZhTVZY?=
- =?utf-8?B?bElYc25Yc2p5NTFPR0tUMm9MYVJGbmlsWE1qTUFUT0R5NVh0Q0o1d1Z5Vnpz?=
- =?utf-8?B?MUQxODg3T0pWTDhDM2dSU1h2V29Qd0dsSlAva2JGdHBzNjJFNlBtQXhFZXd3?=
- =?utf-8?B?OE1JQXZHSzl4VzRQRUJZUkJ3Q2dISkhqUk95R2V6ZzI2MFdSN3ZBSURzTGNr?=
- =?utf-8?B?NkovbkR3Y2VNK0xPKzBKRDIzMEtHbTAvSnQ0YVBDQ2tVVFA2djBCMm5rUm1G?=
- =?utf-8?B?WjFOZkcrMmdEVm4wa0xla01VSDZLVU1KbDVnVUhTZTBEMFZnbzVhbU5rVXRZ?=
- =?utf-8?B?YTNOLzlPVFlmSGtaTytmVUVLdE9kem5PazhwcVplRlM4cEZ3RG1xNFhWTHM4?=
- =?utf-8?Q?hRWrnSohMlnIO6twMe?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Q2ZBbkJ2U3JZY3NJTUJOellaT1F3S29DMGdkNEowZVJzMkxwVWZOekdFSFMx?=
+ =?utf-8?B?Zm5NQjBWMjM1ZU0zaXRoaEtDUWNIcVVjT05DU2VHMFlvVWlOL0gyUU9mREJt?=
+ =?utf-8?B?dlBzd1RZZUc4ZlFKRHZ1aUdxWXZqWkd3VGFTYmI5ek85MlBodGlkY2J1aGFa?=
+ =?utf-8?B?NjNybi9RaDgvTC9nQVdxcFJyNFlPU3lxOU4rYVNoQ3hPMDJNRkRlaTVyUnJO?=
+ =?utf-8?B?Sk1TK2lWa0twdlYxRzJPV1Vzei9wR0lBY0xpK2FxSVNvajJBKzZWMGZKNjNK?=
+ =?utf-8?B?cGJ5YVRkNiszRVlHdkFBZ2c3Tk9LT0ZmOUhhK1diOW15eEtMczZaV3R4cDgz?=
+ =?utf-8?B?S3lhOFFZczgvYXgyaThhczJzSEUxcWVsMWhjYmZHUERBQ0NkWXdwdGgvZUdm?=
+ =?utf-8?B?ajFvTlNzUkZkTkdxLzVoYUsyaVpjdzIzc2FkZThCYTdodlFIZjJZL1VvcmFD?=
+ =?utf-8?B?WThLNEovV2g2TzBkSEhIdDBBa2kyWERLbzhnYXRFSnN1c3FDNkcxcDJLUVNL?=
+ =?utf-8?B?cFFyVzN4ZlNYdzFvcjV4Ui90OVNUMXhTcmhpbnhNLzltY0VneCtQVkRsWURE?=
+ =?utf-8?B?REM0cTQ5UkIwaGdWVkxraVNDMmtpVUc0Y2hOc0p4a01MS1VaaGQxQmU3bEov?=
+ =?utf-8?B?bCtKTHpmak4yVkljUitCcVVkOVgwalZPYXBlNDVkcDJqQXJvc2VuWGFrZURD?=
+ =?utf-8?B?WURjYXVJN2Rwc0xaV2tVajhLRFNqMHA5VkRlem1qMmFrVWVhUnZuUXMweWp6?=
+ =?utf-8?B?eTh2L0M3L2VpL0hSeUFYUW1HRjJ2L3cveW94MG9aaWk1SzBld2FPSGQzQUNM?=
+ =?utf-8?B?TjNaTVFxWHByeGI4d3I3dnNLREpHNGs4VDloYmRPcUl0cm9pUGdLeStrWUw3?=
+ =?utf-8?B?b2c4OHFSSmk4b09yd1YzMXg1Y2FNczFyRkZhL3hmKzFwRnlYcXJhclR2VEVW?=
+ =?utf-8?B?dlROUEl3eE9vVkxLeWl5ZUhmZFJZbGRlVm5henQ5UDZoWVV2Qm0xYnNOcUNq?=
+ =?utf-8?B?M0ROL05FWXRxTTZWT283SVByUm5GYmVTcmpCYjlsNDc3Vk1UbDJsQmxmZlVw?=
+ =?utf-8?B?M3E4WmdIVFN2TGxUVnE5dGtPQzRhMFVZbEVxT29uMUV3VjZCaVhSSllxYVJC?=
+ =?utf-8?B?MituMXFmN3J1R2hxZktpMTNGVkR3SzhxOVQ3N2MzUDhlaHlxSU40SUZ0WWFI?=
+ =?utf-8?B?UFNQWStUQjlQbmx0ODFvS0RjOXhvZ29WNk44NzNRVWthSlNSTU5kc0d5TVY1?=
+ =?utf-8?B?SUY1aitYeGk0SE9CdWp3S3lPdnZWbGZpUkRzQWJHQ3VvdlAwZzhLSVBIQ0VZ?=
+ =?utf-8?B?SlJYYkxDNDF0L2Jvb0FUNWo1N1NweUY1NzlYS1JObFdjOWhoRW9wRmJrREdp?=
+ =?utf-8?B?NDUzSmd4OHVvMDB1aGVDR3lndVZZVTdteXlFSDdDR21FNUVjUU1mOVNXY0tD?=
+ =?utf-8?B?TXlUdmlvbjlLc2pGbnJkMVhCNjI1SkhJVXdWVTRnLzVrU25TSitsUDIxa2hU?=
+ =?utf-8?B?YWE1YlhadEw5OUgvaTRzYWtTdHlDeXVrVXhwelYvZ1NsMFpaa1lrT1VXcVRJ?=
+ =?utf-8?B?Ni81ZU1XMHl6NHVGSFhkdEovZTZsK0RLclNQMUNzd2huYjU2Y1h2djlrMzEr?=
+ =?utf-8?B?RGNlUVNIL1FKdjMrcDE1cmdvbjd0TFpqV2d6YWEvNVV3Y2ZIVlVLd3VYTUdj?=
+ =?utf-8?B?WnJkYlJmdHVrS0lVUGdrTUphVisxbE8rRTRWdlhIWTc4bzJpWk5nN3c4bWda?=
+ =?utf-8?B?Vi9nLzdqQXppSG00K1QyWHRZSERvZ0J4Q3hTK2ZubkZLN1luZHZEU0V5cm9H?=
+ =?utf-8?B?Sm4vMnVFb3QxUDA3NU5ocUp1Sk9UWDl2ZEtYZ3hLc3RCeVlBdXR4NFVOdFRn?=
+ =?utf-8?B?c2EwUlNKWWx1YS9MY2VEbXJNL09aRmZEeUFlRVhPcjJSeTRXK1BUbmtIMXJr?=
+ =?utf-8?B?d3VNeDhQTlJBS2hwSTh4djVOcGFOMTF3Sm5sNmdTaG9GMXFNNUlEOTNtRFZr?=
+ =?utf-8?B?ai80WG9YTjFrVGpNNjd6RlB2dTMzbk93bTNoL2VDcDZLbGRHK1VjcmVVeDdB?=
+ =?utf-8?B?b25WVTNvMUEyVSsvSlN5bytzeTMwaS94a1VQRncxcllQZXdaVkVkQmRNaDlw?=
+ =?utf-8?B?QWZ5UWFUbUtaZWFPWFhseU8ySWR1Sm9hVmRsVVlTRHVoTW1VdzVHS2t4cjJP?=
+ =?utf-8?B?UlBkYndqdng5ckJ6V2ZVNWxzZE9ZN1NCMXNSMkpNaHZHeW90NnRZeFBMbWdU?=
+ =?utf-8?B?Y0xBUGVqam50OW8wTzVtaitMc0psZVVIR00yc1dLUVhMRitXK1RuUGlodW9M?=
+ =?utf-8?Q?ld+f0o+4daHMvhGmYn?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f65cfacf-953d-4e64-9a39-08de8f31aa93
-X-MS-Exchange-CrossTenant-AuthSource: CH0PR12MB8464.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 596e98e2-686a-472a-4cef-08de8f31ed47
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Mar 2026 14:27:41.3058 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Mar 2026 14:29:33.1936 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 6mYDFJEEj+2U65j7bUfCX9sgupv1NVr3ZVZQZtDpUF3xSQe5eQTQvTUvvjOckAAT
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS2PR12MB9568
+X-MS-Exchange-CrossTenant-UserPrincipalName: 2OILA2w4K5Yap9QSZPGEOTqtpuTIYye/g5cdEGLzHoYWhUpywmU1+aRrePoyWAk6
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR12MB8916
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,331 +136,153 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-ping.
-
-Please let me know if re-sending the whole series is preferred instead 
-of only sending review pending patches. Thanks.
-
-Regards,
-Amber
 
 
-On 3/27/26 16:31, Amber Lin wrote:
-> When removing queues fails, KFD calls amdgpu_mes to detect and reset
-> hung queues, then cleans up those hung queues in KFD.
->
-> Suggested-by: Jonathan Kim <jonathan.kim@amd.com>
-> Signed-off-by: Amber Lin <Amber.Lin@amd.com>
+On 3/31/26 16:21, Mikhail Gavrilov wrote:
+> Replace the PASID IDR + spinlock with XArray as noted in the TODO
+> left by commit dccd79bb1c7f ("drm/amdgpu: fix the idr allocation
+> flags").
+> 
+> The IDR conversion still has an IRQ safety issue:
+> amdgpu_pasid_free() can be called from hardirq context via the fence
+> signal path, but amdgpu_pasid_idr_lock is taken with plain spin_lock()
+> in process context, creating a potential deadlock:
+> 
+>      CPU0
+>      ----
+>      spin_lock(&amdgpu_pasid_idr_lock)   // process context, IRQs on
+>      <Interrupt>
+>        spin_lock(&amdgpu_pasid_idr_lock) // deadlock
+> 
+>    The hardirq call chain is:
+> 
+>      sdma_v6_0_process_trap_irq
+>       -> amdgpu_fence_process
+>        -> dma_fence_signal
+>         -> drm_sched_job_done
+>          -> dma_fence_signal
+>           -> amdgpu_pasid_free_cb
+>            -> amdgpu_pasid_free
+> 
+> Use XArray with XA_FLAGS_LOCK_IRQ (all xa operations use IRQ-safe
+> locking internally) and XA_FLAGS_ALLOC1 (zero is not a valid PASID).
+> Both xa_alloc_cyclic() and xa_erase() then handle locking
+> consistently, fixing the IRQ safety issue and removing the need for
+> an explicit spinlock.
+> 
+> Suggested-by: Lijo Lazar <lijo.lazar@amd.com>
+> Fixes: e6d765de3d6b ("drm/amdgpu: prevent immediate PASID reuse case")
+> Signed-off-by: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+
+Reviewed-by: Christian König <christian.koenig@amd.com>
+
 > ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c       |   6 +
->   drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h       |   1 +
->   .../drm/amd/amdkfd/kfd_device_queue_manager.c | 147 +++++++++++++++++-
->   .../drm/amd/amdkfd/kfd_device_queue_manager.h |   4 +-
->   drivers/gpu/drm/amd/amdkfd/kfd_priv.h         |   1 +
->   5 files changed, 156 insertions(+), 3 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-> index fb7fdf5d0973..75720d247b4a 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-> @@ -793,6 +793,12 @@ bool amdgpu_mes_suspend_resume_all_supported(struct amdgpu_device *adev)
->   		amdgpu_ip_version(adev, GC_HWIP, 0) >= IP_VERSION(12, 0, 0));
->   }
->   
-> +bool amdgpu_mes_queue_reset_by_mes_supported(struct amdgpu_device *adev)
-> +{
-> +	return (amdgpu_ip_version(adev, GC_HWIP, 0) == IP_VERSION(12, 1, 0) &&
-> +		(adev->mes.sched_version & AMDGPU_MES_VERSION_MASK) >= 0x73);
-> +}
-> +
->   /* Fix me -- node_id is used to identify the correct MES instances in the future */
->   static int amdgpu_mes_set_enforce_isolation(struct amdgpu_device *adev,
->   					    uint32_t node_id, bool enable)
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
-> index 643b4f8d757a..44fa4d73bce8 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
-> @@ -548,6 +548,7 @@ static inline void amdgpu_mes_unlock(struct amdgpu_mes *mes)
->   }
->   
->   bool amdgpu_mes_suspend_resume_all_supported(struct amdgpu_device *adev);
-> +bool amdgpu_mes_queue_reset_by_mes_supported(struct amdgpu_device *adev);
->   
->   int amdgpu_mes_update_enforce_isolation(struct amdgpu_device *adev);
->   
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-> index ec8d7f4be840..2670741f3e53 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-> @@ -71,6 +71,12 @@ static int allocate_sdma_queue(struct device_queue_manager *dqm,
->   				struct queue *q, const uint32_t *restore_sdma_id);
->   
->   static int reset_queues_on_hws_hang(struct device_queue_manager *dqm, bool is_sdma);
-> +static int resume_all_queues_mes(struct device_queue_manager *dqm);
-> +static int suspend_all_queues_mes(struct device_queue_manager *dqm);
-> +static struct queue *find_queue_by_doorbell_offset(struct device_queue_manager *dqm,
-> +						   uint32_t doorbell_offset);
-> +static void set_queue_as_reset(struct device_queue_manager *dqm, struct queue *q,
-> +			       struct qcm_process_device *qpd);
->   
->   static inline
->   enum KFD_MQD_TYPE get_mqd_type_from_queue_type(enum kfd_queue_type type)
-> @@ -273,13 +279,19 @@ static int add_queue_mes(struct device_queue_manager *dqm, struct queue *q,
->   	return r;
->   }
->   
-> -static int remove_queue_mes(struct device_queue_manager *dqm, struct queue *q,
-> -			struct qcm_process_device *qpd)
-> +static int remove_queue_mes_on_reset_option(struct device_queue_manager *dqm, struct queue *q,
-> +					    struct qcm_process_device *qpd,
-> +					    bool is_for_reset,
-> +					    bool flush_mes_queue)
->   {
->   	struct amdgpu_device *adev = (struct amdgpu_device *)dqm->dev->adev;
->   	int r;
->   	struct mes_remove_queue_input queue_input;
->   
-> +	/* queue was already removed during reset */
-> +	if (q->properties.is_reset)
-> +		return 0;
-> +
->   	if (!dqm->sched_running || dqm->sched_halt)
->   		return 0;
->   	if (!down_read_trylock(&adev->reset_domain->sem))
-> @@ -288,6 +300,7 @@ static int remove_queue_mes(struct device_queue_manager *dqm, struct queue *q,
->   	memset(&queue_input, 0x0, sizeof(struct mes_remove_queue_input));
->   	queue_input.doorbell_offset = q->properties.doorbell_off;
->   	queue_input.gang_context_addr = q->gang_ctx_gpu_addr;
-> +	queue_input.remove_queue_after_reset = flush_mes_queue;
->   	queue_input.xcc_id = ffs(dqm->dev->xcc_mask) - 1;
->   
->   	amdgpu_mes_lock(&adev->mes);
-> @@ -295,7 +308,13 @@ static int remove_queue_mes(struct device_queue_manager *dqm, struct queue *q,
->   	amdgpu_mes_unlock(&adev->mes);
->   	up_read(&adev->reset_domain->sem);
->   
-> +	if (is_for_reset)
-> +		return r;
-> +
->   	if (r) {
-> +		if (!suspend_all_queues_mes(dqm))
-> +			return resume_all_queues_mes(dqm);
-> +
->   		dev_err(adev->dev, "failed to remove hardware queue from MES, doorbell=0x%x\n",
->   			q->properties.doorbell_off);
->   		dev_err(adev->dev, "MES might be in unrecoverable state, issue a GPU reset\n");
-> @@ -305,6 +324,12 @@ static int remove_queue_mes(struct device_queue_manager *dqm, struct queue *q,
->   	return r;
->   }
->   
-> +static int remove_queue_mes(struct device_queue_manager *dqm, struct queue *q,
-> +			    struct qcm_process_device *qpd)
-> +{
-> +	return remove_queue_mes_on_reset_option(dqm, q, qpd, false, false);
-> +}
-> +
->   static int remove_all_kfd_queues_mes(struct device_queue_manager *dqm)
->   {
->   	struct device_process_node *cur;
-> @@ -359,6 +384,92 @@ static int add_all_kfd_queues_mes(struct device_queue_manager *dqm)
->   	return retval;
->   }
->   
-> +static int reset_queues_mes(struct device_queue_manager *dqm)
-> +{
-> +	struct amdgpu_device *adev = (struct amdgpu_device *)dqm->dev->adev;
-> +	int hqd_info_size = adev->mes.hung_queue_hqd_info_offset;
-> +	int num_hung = 0, r = 0, i, pipe, queue, queue_type;
-> +	uint32_t *hung_array = dqm->hung_db_array;
-> +	struct amdgpu_mes_hung_queue_hqd_info *hqd_info = dqm->hqd_info;
-> +	struct kfd_process_device *pdd;
-> +	struct queue *q;
-> +
-> +	if (!amdgpu_mes_queue_reset_by_mes_supported(adev)) {
-> +		r = -ENOTRECOVERABLE;
-> +		goto fail;
-> +	}
-> +
-> +	/* reset should be used only in dqm locked queue reset */
-> +	if (WARN_ON(dqm->detect_hang_count > 0))
-> +		return 0;
-> +
-> +	if (!amdgpu_gpu_recovery) {
-> +		r = -ENOTRECOVERABLE;
-> +		goto fail;
-> +	}
-> +
-> +	if (!hung_array || !hqd_info) {
-> +		r = -ENOMEM;
-> +		goto fail;
-> +	}
-> +
-> +	memset(hqd_info, 0, hqd_info_size * sizeof(struct amdgpu_mes_hung_queue_hqd_info));
-> +
-> +	/*
-> +	 * AMDGPU_RING_TYPE_COMPUTE parameter does not matter if called
-> +	 * post suspend_all as reset & detect will return all hung queue types.
-> +	 *
-> +	 * Passed parameter is for targeting queues not scheduled by MES add_queue.
-> +	 */
-> +	r =  amdgpu_mes_detect_and_reset_hung_queues(adev, AMDGPU_RING_TYPE_COMPUTE,
-> +		false, &num_hung, hung_array, ffs(dqm->dev->xcc_mask) - 1);
-> +
-> +	if (!num_hung || r) {
-> +		r = -ENOTRECOVERABLE;
-> +		goto fail;
-> +	}
-> +
-> +	/* MES resets queue/pipe and cleans up internally */
-> +	for (i = 0; i < num_hung; i++) {
-> +		hqd_info[i].bit0_31 = hung_array[i + hqd_info_size];
-> +		pipe = hqd_info[i].pipe_index;
-> +		queue = hqd_info[i].queue_index;
-> +		queue_type = hqd_info[i].queue_type;
-> +
-> +		if (queue_type != MES_QUEUE_TYPE_COMPUTE &&
-> +		    queue_type != MES_QUEUE_TYPE_SDMA) {
-> +			pr_warn("Unsupported hung queue reset type: %d\n", queue_type);
-> +			hung_array[i] = AMDGPU_MES_INVALID_DB_OFFSET;
-> +			continue;
-> +		}
-> +
-> +		q = find_queue_by_doorbell_offset(dqm, hung_array[i]);
-> +		if (!q) {
-> +			r = -ENOTRECOVERABLE;
-> +			goto fail;
-> +		}
-> +
-> +		pdd = kfd_get_process_device_data(q->device, q->process);
-> +		if (!pdd) {
-> +			r = -ENODEV;
-> +			goto fail;
-> +		}
-> +
-> +		pr_warn("Hang detected doorbell %x pipe %d queue %d type %d\n",
-> +				hung_array[i], pipe, queue, queue_type);
-> +		/* Proceed remove_queue with reset=true */
-> +		remove_queue_mes_on_reset_option(dqm, q, &pdd->qpd, true, false);
-> +		set_queue_as_reset(dqm, q, &pdd->qpd);
-> +	}
-> +
-> +	dqm->detect_hang_count = num_hung;
-> +	kfd_signal_reset_event(dqm->dev);
-> +
-> +fail:
-> +	dqm->detect_hang_count = 0;
-> +	return r;
-> +}
-> +
->   static int suspend_all_queues_mes(struct device_queue_manager *dqm)
->   {
->   	struct amdgpu_device *adev = (struct amdgpu_device *)dqm->dev->adev;
-> @@ -371,6 +482,9 @@ static int suspend_all_queues_mes(struct device_queue_manager *dqm)
->   	up_read(&adev->reset_domain->sem);
->   
->   	if (r) {
-> +		if (!reset_queues_mes(dqm))
-> +			return 0;
-> +
->   		dev_err(adev->dev, "failed to suspend gangs from MES\n");
->   		dev_err(adev->dev, "MES might be in unrecoverable state, issue a GPU reset\n");
->   		kfd_hws_hang(dqm);
-> @@ -1821,6 +1935,9 @@ static int start_cpsch(struct device_queue_manager *dqm)
->   {
->   	struct device *dev = dqm->dev->adev->dev;
->   	int retval, num_hw_queue_slots;
-> +	struct amdgpu_device *adev = (struct amdgpu_device *)dqm->dev->adev;
-> +	int hung_array_size = amdgpu_mes_get_hung_queue_db_array_size(adev);
-> +	int hqd_info_size = adev->mes.hung_queue_hqd_info_offset;
->   
->   	dqm_lock(dqm);
->   
-> @@ -1870,6 +1987,11 @@ static int start_cpsch(struct device_queue_manager *dqm)
->   		goto fail_detect_hang_buffer;
->   	}
->   
-> +	dqm->hung_db_array = kzalloc(hung_array_size * sizeof(uint32_t), GFP_KERNEL);
-> +	dqm->hqd_info = kzalloc(
-> +		hqd_info_size * sizeof(struct amdgpu_mes_hung_queue_hqd_info),
-> +		GFP_KERNEL);
-> +
->   	dqm_unlock(dqm);
->   
->   	return 0;
-> @@ -1910,6 +2032,9 @@ static int stop_cpsch(struct device_queue_manager *dqm)
->   		pm_uninit(&dqm->packet_mgr);
->   	kfree(dqm->detect_hang_info);
->   	dqm->detect_hang_info = NULL;
-> +	kfree(dqm->hung_db_array);
-> +	kfree(dqm->hqd_info);
-> +
->   	dqm_unlock(dqm);
->   
->   	return ret;
-> @@ -2137,6 +2262,7 @@ static void set_queue_as_reset(struct device_queue_manager *dqm, struct queue *q
->   		q->properties.queue_id, pdd->process->lead_thread->pid);
->   
->   	pdd->has_reset_queue = true;
-> +	q->properties.is_reset = true;
->   	if (q->properties.is_active) {
->   		q->properties.is_active = false;
->   		decrement_queue_count(dqm, qpd, q);
-> @@ -2203,6 +2329,23 @@ static struct queue *find_queue_by_address(struct device_queue_manager *dqm, uin
->   	return NULL;
->   }
->   
-> +static struct queue *find_queue_by_doorbell_offset(struct device_queue_manager *dqm, uint32_t doorbell_offset)
-> +{
-> +	struct device_process_node *cur;
-> +	struct qcm_process_device *qpd;
-> +	struct queue *q;
-> +
-> +	list_for_each_entry(cur, &dqm->queues, list) {
-> +		qpd = cur->qpd;
-> +		list_for_each_entry(q, &qpd->queues_list, list) {
-> +			if (doorbell_offset == q->properties.doorbell_off)
-> +				return q;
-> +		}
-> +	}
-> +
-> +	return NULL;
-> +}
-> +
->   static int reset_hung_queues(struct device_queue_manager *dqm)
->   {
->   	int r = 0, reset_count = 0, i;
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h
-> index 3272328da11f..e6eca38cae4e 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h
-> @@ -32,7 +32,6 @@
->   #include "kfd_priv.h"
->   #include "kfd_mqd_manager.h"
->   
+> 
+> v7: Rebased on amd-staging-drm-next which already includes
+>     dccd79bb1c7f ("drm/amdgpu: fix the idr allocation flags").
+>     Updated commit message to reflect that sleeping-under-spinlock
+>     is already fixed and the xarray conversion now addresses the
+>     remaining IRQ safety issue.  Inverted error check to
+>     if (r < 0) return r; per Christian König.
+> v6: Use DEFINE_XARRAY_FLAGS with XA_FLAGS_LOCK_IRQ | XA_FLAGS_ALLOC1
+>     so all xa operations use IRQ-safe locking internally.  Drop
+>     Cc: stable since the regression was never released to any stable
+>     kernel. (Christian König)
+>     https://lore.kernel.org/all/20260331111733.118553-1-mikhail.v.gavrilov@gmail.com/
+> v5: Use explicit xa_lock_irqsave/__xa_erase for amdgpu_pasid_free()
+>     since xa_erase() only uses plain xa_lock() which is not safe from
+>     hardirq context.
+>     https://lore.kernel.org/all/20260330191120.105065-1-mikhail.v.gavrilov@gmail.com/
+> v4: Use xa_alloc_cyclic/xa_erase directly instead of explicit
+>     xa_lock_irqsave, as suggested by Lijo Lazar.
+>     https://lore.kernel.org/all/20260330162038.25073-1-mikhail.v.gavrilov@gmail.com/
+> v3: Replace IDR with XArray instead of fixing the spinlock, as
+>     suggested by Lijo Lazar.
+>     https://lore.kernel.org/all/20260330110346.16548-1-mikhail.v.gavrilov@gmail.com/
+> v2: Added second patch fixing the {HARDIRQ-ON-W} -> {IN-HARDIRQ-W}
+>     lock inconsistency (spin_lock -> spin_lock_irqsave).
+>     https://lore.kernel.org/all/20260330053025.19203-1-mikhail.v.gavrilov@gmail.com/
+> v1: Fixed sleeping-under-spinlock (idr_alloc_cyclic with GFP_KERNEL)
+>     using idr_preload/GFP_NOWAIT.
+>     https://lore.kernel.org/all/20260328213900.19255-1-mikhail.v.gavrilov@gmail.com/
+> 
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c | 34 ++++++++++---------------
+>  1 file changed, 13 insertions(+), 21 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
+> index e495a8fa13fd..a6ac3b4ce0df 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
+> @@ -22,7 +22,7 @@
+>   */
+>  #include "amdgpu_ids.h"
+>  
+> -#include <linux/idr.h>
+> +#include <linux/xarray.h>
+>  #include <linux/dma-fence-array.h>
+>  
+>  
+> @@ -40,8 +40,8 @@
+>   * VMs are looked up from the PASID per amdgpu_device.
+>   */
+>  
+> -static DEFINE_IDR(amdgpu_pasid_idr);
+> -static DEFINE_SPINLOCK(amdgpu_pasid_idr_lock);
+> +static DEFINE_XARRAY_FLAGS(amdgpu_pasid_xa, XA_FLAGS_LOCK_IRQ | XA_FLAGS_ALLOC1);
+> +static u32 amdgpu_pasid_xa_next;
+>  
+>  /* Helper to free pasid from a fence callback */
+>  struct amdgpu_pasid_cb {
+> @@ -62,22 +62,19 @@ struct amdgpu_pasid_cb {
+>   */
+>  int amdgpu_pasid_alloc(unsigned int bits)
+>  {
+> -	int pasid;
+> +	u32 pasid;
+> +	int r;
+>  
+>  	if (bits == 0)
+>  		return -EINVAL;
+>  
+> -	spin_lock(&amdgpu_pasid_idr_lock);
+> -	/* TODO: Need to replace the idr with an xarry, and then
+> -	 * handle the internal locking with ATOMIC safe paths.
+> -	 */
+> -	pasid = idr_alloc_cyclic(&amdgpu_pasid_idr, NULL, 1,
+> -				 1U << bits, GFP_ATOMIC);
+> -	spin_unlock(&amdgpu_pasid_idr_lock);
 > -
->   #define VMID_NUM 16
->   
->   #define KFD_MES_PROCESS_QUANTUM		100000
-> @@ -285,6 +284,9 @@ struct device_queue_manager {
->   	struct dqm_detect_hang_info *detect_hang_info;
->   	size_t detect_hang_info_size;
->   	int detect_hang_count;
-> +	/* for per-queue reset with mes */
-> +	uint32_t *hung_db_array;
-> +	struct amdgpu_mes_hung_queue_hqd_info *hqd_info;
->   };
->   
->   void device_queue_manager_init_cik(
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-> index 27e4859e4ad7..6cb33f6d71e2 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-> @@ -523,6 +523,7 @@ struct queue_properties {
->   	uint32_t pm4_target_xcc;
->   	bool is_dbg_wa;
->   	bool is_user_cu_masked;
-> +	bool is_reset;
->   	/* Not relevant for user mode queues in cp scheduling */
->   	unsigned int vmid;
->   	/* Relevant only for sdma queues*/
+> -	if (pasid >= 0)
+> -		trace_amdgpu_pasid_allocated(pasid);
+> +	r = xa_alloc_cyclic(&amdgpu_pasid_xa, &pasid, xa_mk_value(0),
+> +			    XA_LIMIT(1, (1U << bits) - 1),
+> +			    &amdgpu_pasid_xa_next, GFP_KERNEL);
+> +	if (r < 0)
+> +		return r;
+>  
+> +	trace_amdgpu_pasid_allocated(pasid);
+>  	return pasid;
+>  }
+>  
+> @@ -88,10 +85,7 @@ int amdgpu_pasid_alloc(unsigned int bits)
+>  void amdgpu_pasid_free(u32 pasid)
+>  {
+>  	trace_amdgpu_pasid_freed(pasid);
+> -
+> -	spin_lock(&amdgpu_pasid_idr_lock);
+> -	idr_remove(&amdgpu_pasid_idr, pasid);
+> -	spin_unlock(&amdgpu_pasid_idr_lock);
+> +	xa_erase(&amdgpu_pasid_xa, pasid);
+>  }
+>  
+>  static void amdgpu_pasid_free_cb(struct dma_fence *fence,
+> @@ -634,7 +628,5 @@ void amdgpu_vmid_mgr_fini(struct amdgpu_device *adev)
+>   */
+>  void amdgpu_pasid_mgr_cleanup(void)
+>  {
+> -	spin_lock(&amdgpu_pasid_idr_lock);
+> -	idr_destroy(&amdgpu_pasid_idr);
+> -	spin_unlock(&amdgpu_pasid_idr_lock);
+> +	xa_destroy(&amdgpu_pasid_xa);
+>  }
 
