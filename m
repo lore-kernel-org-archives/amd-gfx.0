@@ -4,78 +4,145 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6FB7410FCACC
-	for <amd-gfx@archiver.kernel.org>; Wed,  1 Apr 2026 18:19:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 51F0010FCAE2
+	for <amd-gfx@archiver.kernel.org>; Wed,  1 Apr 2026 18:19:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A9E5910EE44;
-	Wed,  1 Apr 2026 18:19:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 84C4C10EED7;
+	Wed,  1 Apr 2026 18:19:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="bi248at1";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="PUhP+3uE";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 37FE310E380;
- Tue, 31 Mar 2026 13:52:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1774965152;
- bh=XYVYqXCJ1Dbzl2BCR+UrXAQuUmvTJy7A7k5GRda7KSQ=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=bi248at1IoRZHdobgE2WSIfEdpEIUeKp+Na1jam/dN396FtSE2ArsaVfESWD4/PAu
- P47X23Smqlq6HwJVki39PTlIeiJsUes7lLrLJG1wmY7ZJ9cEMA2zGLkgzYNuk/ctn4
- 8lY3GQSXAIyuRbO5tpGxDAXV76mHZSqLx5+Pgm3htfQETE/4cNh0KzQ113O8CCqgbQ
- oiCdMoUHLs7UPYajkvuMQmNnwPmeFxx+AyuxgzMtIGWHz/vTpDyOccC7K8P04YrvKz
- GTcvPpW59SvHCZCTJHPSEigYt7d6yHb8YJsk3tfZe41qqe//54qDVxuF9WHm0aPsCk
- cAeBPbFaVqFKg==
-Received: from fluorite (unknown [194.136.85.206])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
- server-digest SHA256) (No client certificate requested)
- (Authenticated sender: pq)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 607AE17E64CE;
- Tue, 31 Mar 2026 15:52:30 +0200 (CEST)
-Date: Tue, 31 Mar 2026 16:52:24 +0300
-From: Pekka Paalanen <pekka.paalanen@collabora.com>
-To: Ville =?UTF-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
-Cc: Maxime Ripard <mripard@kernel.org>, Nicolas Frattaroli
- <nicolas.frattaroli@collabora.com>, Harry Wentland
- <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira
- <siqueira@igalia.com>, Alex Deucher <alexander.deucher@amd.com>, Christian
- =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Thomas Zimmermann
- <tzimmermann@suse.de>, Andrzej Hajda <andrzej.hajda@intel.com>, Neil
- Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman
- <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, Sandy Huang
- <hjc@rock-chips.com>, Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>,
- Andy Yan <andy.yan@rock-chips.com>, Jani Nikula
- <jani.nikula@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, Tvrtko Ursulin
- <tursulin@ursulin.net>, Dmitry Baryshkov <lumag@kernel.org>, Sascha Hauer
- <s.hauer@pengutronix.de>, Rob Herring <robh@kernel.org>, Jonathan Corbet
- <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- kernel@collabora.com, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
+Received: from BN8PR05CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11011046.outbound.protection.outlook.com [52.101.57.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F072810E25E;
+ Tue, 31 Mar 2026 21:21:07 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=VLGO0+lxgEkJo7mHdMEKMGQ4CoeqiZmvJfYVNdcmLm8j98BYY5ID/Ui10dlcfdVYXEpwas5nu5JL4VxpDKW1EmuYNxSpMcmO4aiLNnjEus5XRAvP0tSpt0HORu2kG+iBRs1cAWjawFEKNDowisdVgP8cKUAEM2kkLb6ku9D0xL2nVuRdqC88ZFJtka0eapG4FdWjY9haPsWhr5WdpShOA66SmERuVCvJ2/QSHN+fLmtHsxXxKEZVYUlLpLGZdGLz0gR9lC4tL3a6Zg+eA/XKPuyDc3RWCFjJlItGqaP91owwLHut/4UpzRu3exeo5izbKv/sF4CDh7vdquhvIDnWjg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=/4Ewwtq1i0RH2pVXx0MBFLaxvDIV74lF3X4sQRMdsBQ=;
+ b=GYKPTHWgCncj5HAzx5zYQ7Fti/OawSkpYyrspKaWDUwzD8Smj2hU0NZbIND03wbL5YujyCN6vFlmZM8729uDk+9g+sfneECs1abtd9amUMcSbrSf22p2V4vB5dzvr41/1eUaRjyyMJ8s0vZUTKCw52S/zKmlzFtiGOraTm6ZtjUIFtYjql/yho8+XDZvsHG90QxfrLKDN8AAIvckf5PNtvxn710FhLyZy0wZJvXjrSCHaYep2w3RXPueiR/1WkV1QF4IyyN5v90UhC8yToNDWJgdjiZc3rgua+8jkmMBGpAdhEC/DgBxs7eB6IS3oZeztq/Unf9Blx5sWPnQCXVOBg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=/4Ewwtq1i0RH2pVXx0MBFLaxvDIV74lF3X4sQRMdsBQ=;
+ b=PUhP+3uEOEjPYQIq9O4jXgeoIY3Duj3SXqqO1wXN2Yxm6nTbEBXEIl9Q00D79y1ioC6cZTmuMcgiHnzQqbEfMatAlZ/RGTRJ9Y28pgu3KCDuqIi9re3fT+oz9LS+84seFc+yp5CK7F2tYZ7mg7ioS21BApepWTfbC7s7C2vHfrDGbckMgybByhGO34kqzDfGmj/bj2L6HA/jYS5CUun7yYfwcNzzJzKJDc4xL2oI3geY2LaKIwW1apnwxUwEHCdR/4ooZE08SyuR+/EgZ4TtdUKAFMD1NaYxOVYskRVUWknl1734B5jsD9032982Eze/7qV6S1BRxcwEYM682dSq8Q==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DS0PR12MB6486.namprd12.prod.outlook.com (2603:10b6:8:c5::21) by
+ BL1PR12MB5849.namprd12.prod.outlook.com (2603:10b6:208:384::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.8; Tue, 31 Mar
+ 2026 21:21:02 +0000
+Received: from DS0PR12MB6486.namprd12.prod.outlook.com
+ ([fe80::88a9:f314:c95f:8b33]) by DS0PR12MB6486.namprd12.prod.outlook.com
+ ([fe80::88a9:f314:c95f:8b33%4]) with mapi id 15.20.9769.014; Tue, 31 Mar 2026
+ 21:21:02 +0000
+From: Joel Fernandes <joelagnelf@nvidia.com>
+To: linux-kernel@vger.kernel.org
+Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
+ Gary Guo <gary@garyguo.net>, Bjorn Roy Baron <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
+ Danilo Krummrich <dakr@kernel.org>, Dave Airlie <airlied@redhat.com>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Koen Koning <koen.koning@linux.intel.com>, dri-devel@lists.freedesktop.org,
+ rust-for-linux@vger.kernel.org, Nikola Djukic <ndjukic@nvidia.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Jonathan Corbet <corbet@lwn.net>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Christian Koenig <christian.koenig@amd.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, Huang Rui <ray.huang@amd.com>,
+ Matthew Auld <matthew.auld@intel.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Lucas De Marchi <lucas.demarchi@intel.com>,
+ Thomas Hellstrom <thomas.hellstrom@linux.intel.com>,
+ Helge Deller <deller@gmx.de>, Alex Gaynor <alex.gaynor@gmail.com>,
+ Boqun Feng <boqun.feng@gmail.com>, John Hubbard <jhubbard@nvidia.com>,
+ Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
+ Edwin Peer <epeer@nvidia.com>, Alexandre Courbot <acourbot@nvidia.com>,
+ Andrea Righi <arighi@nvidia.com>, Andy Ritger <aritger@nvidia.com>,
+ Zhi Wang <zhiw@nvidia.com>, Balbir Singh <balbirs@nvidia.com>,
+ Philipp Stanner <phasta@kernel.org>,
+ Elle Rhumsaa <elle@weathered-steel.dev>, alexeyi@nvidia.com,
+ Eliot Courtney <ecourtney@nvidia.com>, joel@joelfernandes.org,
+ linux-doc@vger.kernel.org, amd-gfx@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- linux-doc@vger.kernel.org, Werner Sembach <wse@tuxedocomputers.com>, Andri
- Yngvason <andri@yngvason.is>, Marius Vlad <marius.vlad@collabora.com>
-Subject: Re: [PATCH v11 03/22] drm: Add new general DRM property "color format"
-Message-ID: <20260331165224.602f840f@fluorite>
-In-Reply-To: <accfKbYPbH7EgAMc@intel.com>
-References: <20260324-color-format-v11-3-605559af4fb4@collabora.com>
- <acLDPYuaVI2-12JX@intel.com> <23910073.EfDdHjke4D@workhorse>
- <acLrv5hLyNss-Px5@intel.com>
- <20260325-neat-elegant-raven-ebc9ab@houat>
- <acPA60Ci3n_t__xF@intel.com>
- <20260325-magnificent-ultraviolet-oarfish-baefbc@houat>
- <acQsw3Wi_xVlBZ8d@intel.com>
- <20260326-pumpkin-goshawk-of-stamina-0ccb84@houat>
- <acVzwRyk_J24GrJ4@intel.com> <accfKbYPbH7EgAMc@intel.com>
-X-Mailer: Claws Mail 4.3.1 (GTK 3.24.51; x86_64-redhat-linux-gnu)
+ linux-fbdev@vger.kernel.org, Joel Fernandes <joelagnelf@nvidia.com>
+Subject: [PATCH v10 00/21] gpu: nova-core: Add memory management support
+Date: Tue, 31 Mar 2026 17:20:27 -0400
+Message-Id: <20260331212048.2229260-1-joelagnelf@nvidia.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260311004008.2208806-1-joelagnelf@nvidia.com>
+References: <20260311004008.2208806-1-joelagnelf@nvidia.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: MN2PR15CA0056.namprd15.prod.outlook.com
+ (2603:10b6:208:237::25) To DS0PR12MB6486.namprd12.prod.outlook.com
+ (2603:10b6:8:c5::21)
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="Sig_/Z9vd7qNP90QhQD=w6cW_nRl";
- protocol="application/pgp-signature"; micalg=pgp-sha256
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS0PR12MB6486:EE_|BL1PR12MB5849:EE_
+X-MS-Office365-Filtering-Correlation-Id: c61c8a9b-95a0-4114-33bf-08de8f6b6924
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|7416014|376014|366016|22082099003|18002099003|56012099003;
+X-Microsoft-Antispam-Message-Info: l26iC7kUBWbAKYzDHcz1EdZOtjO0woVDZLZ/VsyLkIJEK2YAugtxvfgV1z8t76WnOgjp7najQ1j+9D4Zm5xSVHJ3iK4IiEztdZ8+FVN6SLjLaLZaByxrZTGXr1BKlAcnGI9Jcfb4V3DfHmFl6KNXD0V9qTGNLZ2wZnJFfFU2tY9XGX1Fbe+10mIvSCyY8r0du7pynUy+GzPyLgyzJlDHKj57m4w0IjoDuKt4L4Wg3FZFhogkVsAR205IbpnJAf+RsTH8ypQakbXAkXmZCFaW3QTbl59KSdeB9JdeEWMTl8655NP1092Hqys2PXs1raUUGZRQ/3mfgdRNzlFaBAkj7wlBz2v0Xk4eB//DrQChWBK0dICd4inS/zETPz+iuFamTttjbGCT65UYRXVda86rSSbHiyhGW0U4FQOAKszsNn1RkngHQbLFgNkklTaiAjPIM9NPW5LIuH9XfEH5uvrnTkX36aYbf5pDaqKBmCDLTIekFuEVBf+ABO7YjnsC+UvSRYVX3JsFzNrN60Lk81FPwWN8n7h1Mjg7D8HLqzXd64imjcy9Ts6Rng1diU1imzwUivJZgNVpE8ZzG+qwcg3dhzWMQ6PzlZe4ZL7ocjvctc48ra//6EHRoS3KMQuyXCCaQYKK/Y21b0mblp4FAItc+Wl/Ty9GJRv4TISyYuOp8iSlC6cQK20rQmAB9aE4s5YQPrfQqGAsgzWXR6Gd8At0ptczqpbi0ZJEPEnAYAU8YFQ=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS0PR12MB6486.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(7416014)(376014)(366016)(22082099003)(18002099003)(56012099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?idrftnFxfpj+ycGoW/ToTfHESrR8jV3RyEzy40A6O9ZZuMBR7YvPt/G7jAOI?=
+ =?us-ascii?Q?Y6D+py1p2zkPRq52aZk8rYFBxDfLKDuAdvliuu0upY6OaSeGiVhDzwDgqmb3?=
+ =?us-ascii?Q?yXodBkIDqZiszylrZtrwp2bJn1ROwYuLy3xIKH+cyyPvEH0/Tak+nxhMoVca?=
+ =?us-ascii?Q?XyRUxZ5yLycKbnhd11LtogMToKr9ENIbVKYI3FzozI6uobDX0YaKjTGIwFXb?=
+ =?us-ascii?Q?47/rRngVAyXb/Eeke2irgj1eXEzPsPFA3E+pafvk3KvJHaLhzBYVTQQhk6m0?=
+ =?us-ascii?Q?X/EdQKtICxPuoQOV05afPYo1vV3ScVN7GcLKSXxm54IURm8DVcl5pmr70YmS?=
+ =?us-ascii?Q?ZEZfh4loDG8olkOxQKPTWW3EsSzxUFU1IbgR/uJEnWwZnD01mn/fzBF60YOR?=
+ =?us-ascii?Q?phkCHbc8zmMIH0oGJn9i72q2y4xIYK2hZCkSm8rdOJZjN6AEtSw1hyGqk3NO?=
+ =?us-ascii?Q?R42WqEgndp7NaX+Ot0GbYsE7KNZR13/y7q16emGc3eEv8zUM7hoT9DyhSZVt?=
+ =?us-ascii?Q?qORSA0wxYJLB3KH3pwCySthRgjO3Gq4iKZI5KXemjrQHQ9cYR5xveYkAw3xR?=
+ =?us-ascii?Q?ui9uZMOXkJ9MT14/4sb5ZTPCK3gX7dvbEpvVUN2C7g+cfhdSogN7PbmstGal?=
+ =?us-ascii?Q?1nXOioVwTNs70raeA93A1hZksXGIRrB6UwhJc5AKoQyl+D6Kio78lwOyNeGB?=
+ =?us-ascii?Q?LF2Zr72D2KJa1/zPHRRGkWXHIWvSaB1wmZRveGaSEDSik+g38ocL9uvsouWb?=
+ =?us-ascii?Q?0IOP4eNArgzi+gFiAY4VEZkC8Tcxr7bK9myk04keanBHhGWEPm+Bqn29uyPu?=
+ =?us-ascii?Q?j2bktj1ZmDI896KhyJjVniV+gxfVUwjeAjf+ZMabG85CUxEel9rGZRLtHr3h?=
+ =?us-ascii?Q?84sW8+bYjDYcqt3GdJLgrcb8GQfXiM/kJk33Fu+Avg4NMQTgoSsdr62q4DgG?=
+ =?us-ascii?Q?6VXhULEGmFch28zkKehEz9836u4sTjtdihZRGcX2cCMlI4MFPU6CgL+OtPQk?=
+ =?us-ascii?Q?m97Bewt/UKw981dXkbo05s/k43sqVKwpHiWQSgCez9ddTJxtT6NmX9L0kMpS?=
+ =?us-ascii?Q?HI848IQDs4zQjEBPrZ9+K0DeqxNOGXzMZs3nhHbdk/LjjPu7O0Rk4TUd8Bhs?=
+ =?us-ascii?Q?g27zYeznR0kLTIor7Arl7uKfiu6jFrqgRc6Gyna0uma2WEGjVi8dMCESq04a?=
+ =?us-ascii?Q?fJKcDumKxZHWV3VaNW6+PV0l2WmTlAKu46RJyxWriTcXiY2ODJZFPXvw51qA?=
+ =?us-ascii?Q?6MzaZMZtKMKJrzVnS0mSzYR1aZd/9T2upBdAXe8F4Fz4tTAPGn1d/LphTIxC?=
+ =?us-ascii?Q?YG7LhIG2wHlqTa0j8KzPJs/eayHRHnH7Wj88KGXuANOKjtYliV7bKrckHJ/M?=
+ =?us-ascii?Q?CBF6ETBE5oSzsiL7hCfn/zmlIFNgsd+obDNFYJVJzm4jR0k+q9U4+Qn8VLfS?=
+ =?us-ascii?Q?nqkTiZtsz6pNQU9xCZDosuQjqPEFkspSGfEZxgsAG70KxrgsaB2I1JXBQyTN?=
+ =?us-ascii?Q?1Xbmbiefwd331Ym3RAzXQ+LfDawPJoL72dbVeX6tFZE59lpoWnyjBVo7w0LQ?=
+ =?us-ascii?Q?cGtPodw54MZMNVuE3NXiqRrEZ/EXj4eZX+MFcKKcnDKk4w+SyE65ASZWa8Nj?=
+ =?us-ascii?Q?weC7wKOAE2oZ6m/YCMNaXgcwGz4VbRakSmcbmsppHfzXgOzVR2wSy6eiFv/H?=
+ =?us-ascii?Q?hKkanJyoILGfM8OtMdx7mbmzwFL0HrTdhqmifd7IYQXHlBtiHKStbGL1MCJw?=
+ =?us-ascii?Q?eCePT4KXzQ=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c61c8a9b-95a0-4114-33bf-08de8f6b6924
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6486.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Mar 2026 21:21:02.2923 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: CYjk+sDQLty4LFVdE8PP80kKlvt1EUwzhHZ6NZYew3pgCgwNYRqONCzVnJ3gWxW2QMD38qoQOLOPq9drIARZag==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5849
 X-Mailman-Approved-At: Wed, 01 Apr 2026 18:19:20 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -91,309 +158,116 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---Sig_/Z9vd7qNP90QhQD=w6cW_nRl
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+This series adds support for nova-core memory management, including VRAM
+allocation, PRAMIN, VMM, page table walking, and BAR 1 read/writes.
+These are critical for channel management, vGPU, and all other memory
+management uses of nova-core.
 
-On Sat, 28 Mar 2026 02:22:01 +0200
-Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com> wrote:
+The patches are based on drm-rust-next and work on Ampere, and should "just
+work on Blackwell" once John's Blackwell patches are merged, however it does
+not depend on those patches and can independently go in.
 
-> On Thu, Mar 26, 2026 at 07:58:25PM +0200, Ville Syrj=C3=A4l=C3=A4 wrote:
-> > On Thu, Mar 26, 2026 at 06:02:47PM +0100, Maxime Ripard wrote: =20
-> > > On Wed, Mar 25, 2026 at 08:43:15PM +0200, Ville Syrj=C3=A4l=C3=A4 wro=
-te: =20
-> > > > On Wed, Mar 25, 2026 at 03:56:58PM +0100, Maxime Ripard wrote: =20
-> > > > > On Wed, Mar 25, 2026 at 01:03:07PM +0200, Ville Syrj=C3=A4l=C3=A4=
- wrote: =20
-> > > > > > On Wed, Mar 25, 2026 at 09:24:27AM +0100, Maxime Ripard wrote: =
-=20
-> > > > > > > On Tue, Mar 24, 2026 at 09:53:35PM +0200, Ville Syrj=C3=A4l=
-=C3=A4 wrote: =20
-> > > > > > > > On Tue, Mar 24, 2026 at 08:10:11PM +0100, Nicolas Frattarol=
-i wrote: =20
-> > > > > > > > > On Tuesday, 24 March 2026 18:00:45 Central European Stand=
-ard Time Ville Syrj=C3=A4l=C3=A4 wrote: =20
-> > > > > > > > > > On Tue, Mar 24, 2026 at 05:01:07PM +0100, Nicolas Fratt=
-aroli wrote: =20
-> > > > > > > > > > > +enum drm_connector_color_format {
-> > > > > > > > > > > +	/**
-> > > > > > > > > > > +	 * @DRM_CONNECTOR_COLOR_FORMAT_AUTO: The driver or =
-display protocol
-> > > > > > > > > > > +	 * helpers should pick a suitable color format. All=
- implementations of a
-> > > > > > > > > > > +	 * specific display protocol must behave the same w=
-ay with "AUTO", but
-> > > > > > > > > > > +	 * different display protocols do not necessarily h=
-ave the same "AUTO"
-> > > > > > > > > > > +	 * semantics.
-> > > > > > > > > > > +	 *
-> > > > > > > > > > > +	 * For HDMI, "AUTO" picks RGB, but falls back to YC=
-bCr 4:2:0 if the
-> > > > > > > > > > > +	 * bandwidth required for full-scale RGB is not ava=
-ilable, or the mode
-> > > > > > > > > > > +	 * is YCbCr 4:2:0-only, as long as the mode and out=
-put both support
-> > > > > > > > > > > +	 * YCbCr 4:2:0.
-> > > > > > > > > > > +	 *
-> > > > > > > > > > > +	 * For display protocols other than HDMI, the recur=
-sive bridge chain
-> > > > > > > > > > > +	 * format selection picks the first chain of bridge=
- formats that works,
-> > > > > > > > > > > +	 * as has already been the case before the introduc=
-tion of the "color
-> > > > > > > > > > > +	 * format" property. Non-HDMI bridges should theref=
-ore either sort their
-> > > > > > > > > > > +	 * bus output formats by preference, or agree on a =
-unified auto format
-> > > > > > > > > > > +	 * selection logic that's implemented in a common s=
-tate helper (like
-> > > > > > > > > > > +	 * how HDMI does it).
-> > > > > > > > > > > +	 */
-> > > > > > > > > > > +	DRM_CONNECTOR_COLOR_FORMAT_AUTO =3D 0,
-> > > > > > > > > > > +
-> > > > > > > > > > > +	/**
-> > > > > > > > > > > +	 * @DRM_CONNECTOR_COLOR_FORMAT_RGB444: RGB output f=
-ormat
-> > > > > > > > > > > +	 */
-> > > > > > > > > > > +	DRM_CONNECTOR_COLOR_FORMAT_RGB444,
-> > > > > > > > > > > +
-> > > > > > > > > > > +	/**
-> > > > > > > > > > > +	 * @DRM_CONNECTOR_COLOR_FORMAT_YCBCR444: YCbCr 4:4:=
-4 output format (ie.
-> > > > > > > > > > > +	 * not subsampled)
-> > > > > > > > > > > +	 */
-> > > > > > > > > > > +	DRM_CONNECTOR_COLOR_FORMAT_YCBCR444,
-> > > > > > > > > > > +
-> > > > > > > > > > > +	/**
-> > > > > > > > > > > +	 * @DRM_CONNECTOR_COLOR_FORMAT_YCBCR422: YCbCr 4:2:=
-2 output format (ie.
-> > > > > > > > > > > +	 * with horizontal subsampling)
-> > > > > > > > > > > +	 */
-> > > > > > > > > > > +	DRM_CONNECTOR_COLOR_FORMAT_YCBCR422,
-> > > > > > > > > > > +
-> > > > > > > > > > > +	/**
-> > > > > > > > > > > +	 * @DRM_CONNECTOR_COLOR_FORMAT_YCBCR420: YCbCr 4:2:=
-0 output format (ie.
-> > > > > > > > > > > +	 * with horizontal and vertical subsampling)
-> > > > > > > > > > > +	 */
-> > > > > > > > > > > +	DRM_CONNECTOR_COLOR_FORMAT_YCBCR420, =20
-> > > > > > > > > >=20
-> > > > > > > > > > Seems like this should document what the quantization r=
-ange
-> > > > > > > > > > should be for each format.
-> > > > > > > > > >  =20
-> > > > > > > > >=20
-> > > > > > > > > I don't think so? If you want per-component bit depth val=
-ues,
-> > > > > > > > > DRM_FORMAT_* defines would be the appropriate values to u=
-se. This
-> > > > > > > > > enum is more abstract than that, and is there to communic=
-ate
-> > > > > > > > > YUV vs. RGB and chroma subsampling, with bit depth being =
-handled
-> > > > > > > > > by other properties.
-> > > > > > > > >=20
-> > > > > > > > > If you mean the factor used for subsampling, then that'd =
-only be
-> > > > > > > > > relevant if YCBCR410 was supported where one chroma plane=
- isn't
-> > > > > > > > > halved but quartered in resolution. I suspect 4:1:0 will =
-never
-> > > > > > > > > be added; no digital display protocol standard supports i=
-t to my
-> > > > > > > > > knowledge, and hopefully none ever will. =20
-> > > > > > > >=20
-> > > > > > > > No, I mean the quantization range (16-235 vs. 0-255 etc).
-> > > > > > > >=20
-> > > > > > > > The i915 behaviour is that YCbCr is always limited range,
-> > > > > > > > RGB can either be full or limited range depending on the=20
-> > > > > > > > "Broadcast RGB" property and other related factors. =20
-> > > > > > >=20
-> > > > > > > So far the HDMI state has both the format and quantization ra=
-nge as
-> > > > > > > different fields. I'm not sure we need to document the range =
-in the
-> > > > > > > format field, maybe only mention it's not part of the format =
-but has a
-> > > > > > > field of its own? =20
-> > > > > >=20
-> > > > > > I think we only have it for RGB (on some drivers only?). For YC=
-bCr
-> > > > > > I think the assumption is limited range everywhere.
-> > > > > >=20
-> > > > > > But I'm not really concerned about documenting struct members.
-> > > > > > What I'm talking about is the *uapi* docs. Surely userspace
-> > > > > > will want to know what the new property actually does so the
-> > > > > > uapi needs to be documented properly. And down the line some
-> > > > > > new driver might also implement the wrong behaviour if there
-> > > > > > is no clear specification. =20
-> > > > >=20
-> > > > > Ack
-> > > > >  =20
-> > > > > > So I'm thinking (or perhaps hoping) the rule might be something=
- like:
-> > > > > > - YCbCr limited range=20
-> > > > > > - RGB full range if "Broadcast RGB" property is not present =20
-> > > > >=20
-> > > > > Isn't it much more complicated than that for HDMI though? My
-> > > > > recollection was that any VIC but VIC1 would be limited range, and
-> > > > > anything else full range? =20
-> > > >=20
-> > > > Do we have some driver that implements the CTA-861 CE vs. IT mode
-> > > > logic but doesn't expose the "Broadcast RGB" property? I was hoping
-> > > > those would always go hand in hand now. =20
-> > >=20
-> > > I'm not sure. i915 and the HDMI state helpers handle it properly (I
-> > > think?) but it looks like only vc4 registers the Broadcast RGB proper=
-ty
-> > > and uses the HDMI state helpers.
-> > >=20
-> > > And it looks like amdgpu registers Broadcast RGB but doesn't use
-> > > drm_default_rgb_quant_range() which seems suspicious? =20
-> >=20
-> > If they want just manual full vs. limited then they should
-> > limit the property to not expose the "auto" option at all.
-> >=20
-> > amdgpu also ties this in with the "colorspace" property, which
-> > originally in i915 only controlled the infoframes/etc. But on
-> > amdgpu it now controls various aspects of output color
-> > transformation. The end result is that the property is a complete
-> > mess with most of the values making no sense. And for whatever
-> > reason everyone involved refused to remove/deprecate the
-> > nonsensical values :/
-> >=20
-> > Looks like this series should make sure the documentation for
-> > the "colorspace" property is in sync with the new property
-> > as well. Currently now it's giving conflicting information. =20
->=20
-> After pondering about this a bit more I guess we could actually
-> use this to make all the values of the colorspace property make
-> some sense.
->=20
-> Since we won't have to worry about that RGB->YCbCr 4:2:0
-> fallback when using and explicit color format, all we'd have
-> to do is explicitly reject the nonsensical combinations:
->=20
-> color_format_and_colorspace_ok()
-> {
-> 	switch (color_format) {
-> 	case DRM_CONNECTOR_COLOR_FORMAT_YCBCR444:
-> 	case DRM_CONNECTOR_COLOR_FORMAT_YCBCR422:
-> 	case DRM_CONNECTOR_COLOR_FORMAT_YCBCR420:
-> 		switch (colorspace) {
-> 		case DRM_MODE_COLORIMETRY_NO_DATA:
-> 		case DRM_MODE_COLORIMETRY_SMPTE_170M_YCC:
-> 		case DRM_MODE_COLORIMETRY_BT601_YCC:
-> 		case DRM_MODE_COLORIMETRY_BT709_YCC:
-> 		case DRM_MODE_COLORIMETRY_XVYCC_601:
-> 		case DRM_MODE_COLORIMETRY_XVYCC_709:
-> 		case DRM_MODE_COLORIMETRY_SYCC_601:
-> 		case DRM_MODE_COLORIMETRY_OPYCC_601:
-> 		case DRM_MODE_COLORIMETRY_BT2020_CYCC:
-> 		case DRM_MODE_COLORIMETRY_BT2020_YCC:
-> 		case DRM_MODE_COLORIMETRY_BT709_YCC:
-> 			return true;
-> 		default:
-> 			return false;
-> 		}
-> 		break;
-> 	case DRM_CONNECTOR_COLOR_FORMAT_RGB444:
-> 		switch (colorspace) {
-> 		case DRM_MODE_COLORIMETRY_NO_DATA:
-> 		case DRM_MODE_COLORIMETRY_OPRGB:
-> 		case DRM_MODE_COLORIMETRY_BT2020_RGB:
-> 		case DRM_MODE_COLORIMETRY_DCI_P3_RGB_D65:
-> 		case DRM_MODE_COLORIMETRY_DCI_P3_RGB_THEATER:
-> 		case DRM_MODE_COLORIMETRY_RGB_WIDE_FIXED:
-> 		case DRM_MODE_COLORIMETRY_RGB_WIDE_FLOAT:
-> 		case DRM_MODE_COLORIMETRY_OPRGB:
-> 		case DRM_MODE_COLORIMETRY_DCI_P3_RGB_D65:
-> 		case DRM_MODE_COLORIMETRY_BT2020_RGB:
-> 			return true;
-> 		default
-> 			return false;
-> 		}
-> 		break;
-> 	case DRM_CONNECTOR_COLOR_FORMAT_AUTO:
-> 		switch (colorspace) {
-> 		case DRM_MODE_COLORIMETRY_NO_DATA:
-> 		case DRM_MODE_COLORIMETRY_BT2020_RGB:
-> 		case DRM_MODE_COLORIMETRY_BT2020_YCC:
-> 			return true;
-> 		default:
-> 			return false;
-> 		}
-> 	default:
-> 		bad;
-> 	}
-> }
->=20
-> And then presumably the colorspace property is the thing that should
-> dictate which conversion matrix to use. So something like this:
->=20
-> csc_matrix()
-> {
-> 	switch (colorspace) {
-> 	case DRM_MODE_COLORIMETRY_SMPTE_170M_YCC:
-> 	case DRM_MODE_COLORIMETRY_BT601_YCC:
-> 	case DRM_MODE_COLORIMETRY_XVYCC_601:
-> 	case DRM_MODE_COLORIMETRY_SYCC_601:
-> 	case DRM_MODE_COLORIMETRY_OPYCC_601:
-> 		return 601;
-> 	case DRM_MODE_COLORIMETRY_BT709_YCC:
-> 	case DRM_MODE_COLORIMETRY_XVYCC_709:
-> 		return 709;
-> 	case DRM_MODE_COLORIMETRY_BT2020_YCC:
-> 	case DRM_MODE_COLORIMETRY_BT2020_RGB:
-> 		return 2020;
-> 	case DRM_MODE_COLORIMETRY_BT2020_CYCC:
-> 		return 2020_const;
-> 	case DRM_MODE_COLORIMETRY_NO_DATA:
-> 		return vdisplay >=3D 720 ? 709 : 601;
-> 	default:
-> 		bad;
-> 	}
-> }
->=20
+Change log:
 
-Hi Ville,
+Changes from v9 to v10:
+- Rebased and dropped patches already merged in to drm-rust-next.
+- GPU_BUDDY select folded into GpuMm patch.
+- updated code with new register macro API.
+- Refactored fb_regions() to use iterator (Alex Courbot).
+- Renamed Pramin::window() to get_window() to make it more clear it is 'acquiring a resource'.
+- Converted Bar0WindowTarget to bounded_enum! macro, replacing TryFrom. Allows to use `with_*`
+  instead of `try_with_*`.
 
-I believe the RGB-to-YCbCr matrix choice belongs in a colorop in the
-CRTC color pipeline. It would be really nice to let go of the
-requirement that the KMS color pipeline can be only in full-range RGB.
+Changes from v8 to v9:
+- Added fixes from Zhi Wang for bitfield position changes in virtual address
+  and larger BAR1 size on some platforms. Tested and working for vGPU usecase!
+- Refactored gsp: boot() to return only GspStaticInfo, removing FbLayout (Alex).
+- bar1_pde_base and bar2_pde_base are now accessed via GspStaticInfo directly (Alex).
+- Added new patch "gsp: Expose total physical VRAM end from FB region info"
+  introducing total_fb_end() to expose VRAM extent (Alex).
+- Consolidated usable VRAM and BarUser setup; removed dedicated
+  "fb: Add usable_vram field to FbLayout", "mm: Use usable VRAM region for
+  buddy allocator", and "mm: Add BarUser to struct Gpu and create at boot".
 
-I imagine being able to scan out a YCbCr limited range buffer as-is
-would be really useful for professional broadcasting industry and
-particularly PLUGE testing which relies on being able to send the
-sub-black and super-white YCbCr values for monitor calibration.
+Changes from v7 to v8:
+- Incorporated "Select GPU_BUDDY for VRAM allocation" patch from the
+  dependency series (Alex).
+- Significant patch reordering for better logical flow (GSP/FB patches
+  moved earlier, page table patches, Vmm, Bar1, tests) (Alex).
+- Replaced several 'as' usages with into_safe_cast() (Danilo, Alex).
+- Updated BAR 1 test cases to include exercising the block size API (Eliot, Danilo).
 
-However, if there is an "auto" value in the colorop (implies the
-input to the colorop must be full-range RGB) or the colorop is missing,
-then your proposal could be used there.
+Changes from v6 to v7:
+- Addressed DMA fence signalling usecase per Danilo's feedback.
 
+Pre v6:
+- Simplified PRAMIN code (John Hubbard, Alex Courbot).
+- Handled different MMU versions: ver2 versus ver3 (John Hubbard).
+- Added BAR1 usecase so we have user of DRM Buddy / VMM (John Hubbard).
+- Iterating over clist/buddy bindings.
 
-Thanks,
-pq
+Link to v9: https://lore.kernel.org/all/20260311004008.2208806-1-joelagnelf@nvidia.com/
+Link to v8: https://lore.kernel.org/all/20260224225323.3312204-1-joelagnelf@nvidia.com/
+Link to v7: https://lore.kernel.org/all/20260218212020.800836-1-joelagnelf@nvidia.com/
 
---Sig_/Z9vd7qNP90QhQD=w6cW_nRl
-Content-Type: application/pgp-signature
-Content-Description: OpenPGP digital signature
+Joel Fernandes (20):
+  gpu: nova-core: gsp: Return GspStaticInfo from boot()
+  gpu: nova-core: gsp: Extract usable FB region from GSP
+  gpu: nova-core: gsp: Expose total physical VRAM end from FB region
+    info
+  gpu: nova-core: mm: Add support to use PRAMIN windows to write to VRAM
+  docs: gpu: nova-core: Document the PRAMIN aperture mechanism
+  gpu: nova-core: mm: Add common memory management types
+  gpu: nova-core: mm: Add TLB flush support
+  gpu: nova-core: mm: Add GpuMm centralized memory manager
+  gpu: nova-core: mm: Add common types for all page table formats
+  gpu: nova-core: mm: Add MMU v2 page table types
+  gpu: nova-core: mm: Add MMU v3 page table types
+  gpu: nova-core: mm: Add unified page table entry wrapper enums
+  gpu: nova-core: mm: Add page table walker for MMU v2/v3
+  gpu: nova-core: mm: Add Virtual Memory Manager
+  gpu: nova-core: mm: Add virtual address range tracking to VMM
+  gpu: nova-core: mm: Add multi-page mapping API to VMM
+  gpu: nova-core: Add BAR1 aperture type and size constant
+  gpu: nova-core: mm: Add BAR1 user interface
+  gpu: nova-core: mm: Add BAR1 memory management self-tests
+  gpu: nova-core: mm: Add PRAMIN aperture self-tests
 
------BEGIN PGP SIGNATURE-----
+Zhi Wang (1):
+  gpu: nova-core: Use runtime BAR1 size instead of hardcoded 256MB
 
-iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmnL0ZgACgkQI1/ltBGq
-qqcQXRAAk537VpzaLk6JptQFZZC+yWq3R7PPR4QT9azf+7XBONUhkwSc+GHslxaY
-G/GN1Yp+ULNnLZs2CYuJEHXbL0Sb8LI/kMdxvMgWpkQsL3eZL6QdpQUxD5+mMvMi
-hboB2wCy+i/nSdHx9TekifPgKPSxtypqlOaJcnYJnPouAJ631ukaezrIe4x4/d7+
-e8qrkNq/sekMkwKdMpnbu9srnQ+mvWG9mZAhWfG5GfUdNNYP6tZ55BAjMBrqAdzo
-ln8JlhSTwh8J/qxPNfhotQkDSm4aoMxoUQBE08aqdQX5VJuWcESgVy9NQiI624nv
-g62s5wyxPf5VOKLfRAW11oAgSXwJKoNNxozVaQqFFWDfs/AmFjs2Y1hU5k0MWpkK
-8sD30brwIwpYNVcSQJ+E5cx5iD5NvAd0vQgp2GhOrOn9tOoAz2OjiT6Le6JNe6Rs
-uFtt0Wr6uL5/AsBw+Bg3SjtwXDHHTY/Vgd3jSEm0LXSkD3n3PJL2bqkuuZdpT9Wx
-S2LrtYrru10WUpC18YynXLi8Nt2Sqot4R++V6DhyQfnDhFoLsiIs7RU+nsKKFCVB
-uFybvcs51NyZI/Q3Kf5YGREmh20K4XS1NzY5dASlGgZSdyyMcxooGCihm1YLZTwC
-CbTrUxRsPu5uS8GdkVxwn25+ezSTBChxUXU33ZEkxltq0eJT0Po=
-=g/43
------END PGP SIGNATURE-----
+ Documentation/gpu/nova/core/pramin.rst     | 123 +++++
+ Documentation/gpu/nova/index.rst           |   1 +
+ drivers/gpu/nova-core/Kconfig              |  11 +
+ drivers/gpu/nova-core/driver.rs            |   3 +
+ drivers/gpu/nova-core/gpu.rs               |  94 +++-
+ drivers/gpu/nova-core/gsp/boot.rs          |   9 +-
+ drivers/gpu/nova-core/gsp/commands.rs      |  18 +-
+ drivers/gpu/nova-core/gsp/fw/commands.rs   |  59 ++-
+ drivers/gpu/nova-core/mm.rs                | 234 ++++++++++
+ drivers/gpu/nova-core/mm/bar_user.rs       | 388 ++++++++++++++++
+ drivers/gpu/nova-core/mm/pagetable.rs      | 489 ++++++++++++++++++++
+ drivers/gpu/nova-core/mm/pagetable/ver2.rs | 232 ++++++++++
+ drivers/gpu/nova-core/mm/pagetable/ver3.rs | 337 ++++++++++++++
+ drivers/gpu/nova-core/mm/pagetable/walk.rs | 218 +++++++++
+ drivers/gpu/nova-core/mm/pramin.rs         | 489 ++++++++++++++++++++
+ drivers/gpu/nova-core/mm/tlb.rs            |  95 ++++
+ drivers/gpu/nova-core/mm/vmm.rs            | 499 +++++++++++++++++++++
+ drivers/gpu/nova-core/nova_core.rs         |   1 +
+ drivers/gpu/nova-core/regs.rs              |  52 +++
+ 19 files changed, 3344 insertions(+), 8 deletions(-)
+ create mode 100644 Documentation/gpu/nova/core/pramin.rst
+ create mode 100644 drivers/gpu/nova-core/mm.rs
+ create mode 100644 drivers/gpu/nova-core/mm/bar_user.rs
+ create mode 100644 drivers/gpu/nova-core/mm/pagetable.rs
+ create mode 100644 drivers/gpu/nova-core/mm/pagetable/ver2.rs
+ create mode 100644 drivers/gpu/nova-core/mm/pagetable/ver3.rs
+ create mode 100644 drivers/gpu/nova-core/mm/pagetable/walk.rs
+ create mode 100644 drivers/gpu/nova-core/mm/pramin.rs
+ create mode 100644 drivers/gpu/nova-core/mm/tlb.rs
+ create mode 100644 drivers/gpu/nova-core/mm/vmm.rs
 
---Sig_/Z9vd7qNP90QhQD=w6cW_nRl--
+base-commit: 76bce7ac51673640a4a46236ea723cf5543268d7
+-- 
+2.34.1
+
