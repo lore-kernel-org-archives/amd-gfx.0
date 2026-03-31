@@ -4,33 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 57BD7FF60DE
-	for <amd-gfx@archiver.kernel.org>; Tue, 31 Mar 2026 07:49:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6D37EFF60DF
+	for <amd-gfx@archiver.kernel.org>; Tue, 31 Mar 2026 07:49:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BE44710E8BB;
-	Tue, 31 Mar 2026 07:49:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BE6B610E8D1;
+	Tue, 31 Mar 2026 07:49:53 +0000 (UTC)
 Received: from rtg-sunil-navi33.amd.com (unknown [165.204.156.251])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C2A7910E8BB
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EDE8A10E8D1
  for <amd-gfx@lists.freedesktop.org>; Tue, 31 Mar 2026 07:49:51 +0000 (UTC)
 Received: from rtg-sunil-navi33.amd.com (localhost [127.0.0.1])
  by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Debian-22ubuntu3) with ESMTP id
- 62V7nlap2510993; Tue, 31 Mar 2026 13:19:47 +0530
+ 62V7nlXw2511003; Tue, 31 Mar 2026 13:19:47 +0530
 Received: (from sunil@localhost)
- by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 62V7nlO72510992;
+ by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 62V7nlLr2511002;
  Tue, 31 Mar 2026 13:19:47 +0530
 From: Sunil Khatri <sunil.khatri@amd.com>
 To: Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Cc: amd-gfx@lists.freedesktop.org, Sunil Khatri <sunil.khatri@amd.com>
-Subject: [Patch v4 2/4] drm/amdgpu/userq: add the return code too in error
- condition
-Date: Tue, 31 Mar 2026 13:19:41 +0530
-Message-Id: <20260331074943.2510941-3-sunil.khatri@amd.com>
+Subject: [Patch v4 4/4] drm/amdgpu/userq: use dma_fence_wait_timeout without
+ test for signalled
+Date: Tue, 31 Mar 2026 13:19:43 +0530
+Message-Id: <20260331074943.2510941-5-sunil.khatri@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260331074943.2510941-1-sunil.khatri@amd.com>
 References: <20260331074943.2510941-1-sunil.khatri@amd.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -46,47 +45,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-In function amdgpu_userq_restore
-a. amdgpu_userq_vm_validate: add return code in error condition
-b. amdgpu_userq_restore_all: It already prints the error log, just
-   update the erorr log in the function and remove it from caller.
+In function amdgpu_userq_wait_for_last_fence use
+dma_fence_wait_timeout directly instead of checking
+for signalled fence first.
+
+Return dma_fence_wait_timeout return value. Also update
+the fence timeout log to differentiate where fence timedout.
 
 Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
-Reviewed-by: Christian König <christian.koenig@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 9 ++++-----
- 1 file changed, 4 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 18 ++++++++++--------
+ 1 file changed, 10 insertions(+), 8 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-index 79ee2f6e09da..c85a4f4eefcf 100644
+index 0ef829065403..002162dcbd3f 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-@@ -1023,7 +1023,8 @@ amdgpu_userq_restore_all(struct amdgpu_userq_mgr *uq_mgr)
- 	mutex_unlock(&uq_mgr->userq_mutex);
+@@ -433,14 +433,16 @@ static int amdgpu_userq_wait_for_last_fence(struct amdgpu_usermode_queue *queue)
+ 	struct dma_fence *f = queue->last_fence;
+ 	int ret = 0;
  
- 	if (ret)
--		drm_file_err(uq_mgr->file, "Failed to map all the queues\n");
+-	if (f && !dma_fence_is_signaled(f)) {
+-		ret = dma_fence_wait_timeout(f, true, MAX_SCHEDULE_TIMEOUT);
+-		if (ret <= 0) {
+-			drm_file_err(uq_mgr->file, "Timed out waiting for fence=%llu:%llu\n",
+-				     f->context, f->seqno);
+-			queue->state = AMDGPU_USERQ_STATE_HUNG;
+-			return -ETIME;
+-		}
++	if (!f)
++		return 0;
++
++	ret = dma_fence_wait(f, true);
++	if (ret <= 0) {
 +		drm_file_err(uq_mgr->file,
-+			     "Failed to map all the queues, restore failed ret=%d\n", ret);
- 	return ret;
- }
- 
-@@ -1230,13 +1231,11 @@ static void amdgpu_userq_restore_worker(struct work_struct *work)
- 
- 	ret = amdgpu_userq_vm_validate(uq_mgr);
- 	if (ret) {
--		drm_file_err(uq_mgr->file, "Failed to validate BOs to restore\n");
-+		drm_file_err(uq_mgr->file, "Failed to validate BOs to restore ret=%d\n", ret);
- 		goto put_fence;
++			     "Timed out in wait_for_last_fence fence=%llu:%llu\n",
++			     f->context, f->seqno);
++		queue->state = AMDGPU_USERQ_STATE_HUNG;
++		return -ETIMEDOUT;
  	}
  
--	ret = amdgpu_userq_restore_all(uq_mgr);
--	if (ret)
--		drm_file_err(uq_mgr->file, "Failed to restore all queues\n");
-+	amdgpu_userq_restore_all(uq_mgr);
- 
- put_fence:
- 	dma_fence_put(ev_fence);
+ 	return ret;
 -- 
 2.34.1
 
