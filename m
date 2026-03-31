@@ -4,94 +4,98 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2FD6E109B46F
-	for <amd-gfx@archiver.kernel.org>; Tue, 31 Mar 2026 14:39:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 80668109B47C
+	for <amd-gfx@archiver.kernel.org>; Tue, 31 Mar 2026 14:50:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BA87010E196;
-	Tue, 31 Mar 2026 14:39:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2A82110E1AD;
+	Tue, 31 Mar 2026 14:50:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="f+KGRUk6";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="OCENolOC";
 	dkim-atps=neutral
-Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com
- [74.125.82.175])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1DD4110E196
- for <amd-gfx@lists.freedesktop.org>; Tue, 31 Mar 2026 14:39:00 +0000 (UTC)
-Received: by mail-dy1-f175.google.com with SMTP id
- 5a478bee46e88-2c4ae0b1992so204012eec.2
- for <amd-gfx@lists.freedesktop.org>; Tue, 31 Mar 2026 07:39:00 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1774967939; cv=none;
+Received: from mail-vs1-f41.google.com (mail-vs1-f41.google.com
+ [209.85.217.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2C39410E1AD
+ for <amd-gfx@lists.freedesktop.org>; Tue, 31 Mar 2026 14:49:59 +0000 (UTC)
+Received: by mail-vs1-f41.google.com with SMTP id
+ ada2fe7eead31-604ea0b7789so258685137.1
+ for <amd-gfx@lists.freedesktop.org>; Tue, 31 Mar 2026 07:49:59 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1774968598; cv=none;
  d=google.com; s=arc-20240605;
- b=Yit+O50Zgs6YdD8YQKmTtXcNLdD+yvjnpl5D6kWv2woMi7bKj4IIZA5KTg18KXpPPK
- ogZPDKzz/v0xP8vAy3VmzFMOkAQtGV7zrtri03A2j+E7PPJ6df/rB4G5SO7JR2FS8NoI
- UmyrWDxOa8aMkDc1AkdOJ+a2QjDy37xWMhXs5hlPKRwRLT/bJHSmz+jOrGo9IHs24s26
- vnrMjmcx6uHkm7gj9uWN7tmMrjVkja+9He91ZhdE2l7m5Sn//X7KExCWvbDATNTgCdzU
- xlb55tmXa2FUxFOsFmdPL8d4paDOhqFwOte0DGk3xQ/D9d22rHEnC05UbvMYVBdYZnm1
- vEkw==
+ b=bFfN6jqE+D4niX5dwTzG+G+bgKu7aMlHWOEducPN/fa2zuwmbH1LmvfWcjrQqRkhpv
+ kfVgo8M4BDmzOuNmImVAx5xkYXtP7vmz1bmX2lVhRT5xd3JPo7GktAC59dRy9CJFudMV
+ 4THFsnkzaAQS+PcreAcw9l7aq20EUB1lVe8m8piEnltOCB0L8RFP6U5D9rguroRuMKaj
+ ky/t/VJbr9B1xqwh5zm7euiAd2Hx6Vy7+v3fYZ7exhexS/VoJJd6DwGMwXh5zNqU6sdh
+ JnkJHUBU+UfrR5UQ/cyVMwmngKrYnVAdGsOfDnnz1rG/09/ADf4LJww3ud1yZMN4Yjv2
+ e2cg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20240605; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=o65bcTJODSw4Zi0qmE/uFJ8m6kOI2qoRoMdNBPsW6xg=;
- fh=gVQrHxK/wjeWc+MQb7ZWakrYEL4hLlJo7ZStDi1BM7I=;
- b=TR9CSbEJgFqk6brNNywXNdDcRenItVcUl1OdHisP6P4lTzNqwr9VotbsbfxRgAicjW
- 33R7UTz5cHFqp79YbqhRHqzBqcJ0biKehXIZTSq+5hiAamqg5m1rMJGHcBTbLGth2gcy
- 41HJ9CwBASPD4imgIf4M4UikDrFvdPSzE9JF16MvUDO8TKGaOOKN/deXuvenW1L4N9PQ
- gQnYuQ8hzsmbls/D71nX8Rmk9t+9/oSbrhWmhw12T4mF3DKSGGKZ+2bBKkbYGYFJIklz
- s/QBOJxyqR/QHaOb7v1hBJrfTrX6RDWYXU9RXk0uTCEvYZZIYt3gD2r/XSqKJuqGTn3j
- /khA==; darn=lists.freedesktop.org
+ bh=Mkf0OB5moQvG4GasAeHoQXSqm+bAnxXSlhG9Kzvrg38=;
+ fh=3ulBHqEiiILYHrupCCAz1owodLTh03pFYL7GUH8qNzM=;
+ b=cOaMIt+afLBoy0GzJnSikEpJF/5NyMHgRXfMs99n8eb03tpu8Rx+DD1YYh0oG2p0Gr
+ Ojm3oNp7ArwwzuzmnSk+j+AXxI1Ej9KR5ji6L7Ly2Jj9p+X5XTxRNI+tQEGo0hurIqMQ
+ d31ybu14HoMEQJ/vFx5ObIxgnePHacXOMZaEXtkwyYZBogUIflRtposcSQiyImA3rGGm
+ b6NypMdtPVZFilnJKIRbGXbIEryZrPIIuRG0K/BpdBIePsgKnLGyOstBJA40XDFJZ25Q
+ k0ILeKQRspnLn1sgeQ/Yxvp1szORU2GJCPNC5kjzrwZV/NCVAHZDmT/uqjSw5fhK9jKr
+ lBsg==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1774967939; x=1775572739; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1774968598; x=1775573398; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=o65bcTJODSw4Zi0qmE/uFJ8m6kOI2qoRoMdNBPsW6xg=;
- b=f+KGRUk6/+XMJClNPtK0cdELKzrekGZHw7N1YDGrLCQiL7C2F7v4jZmH8mtEXZhq6/
- rF3kKP3219HeK9xrPvF0QB/xrl9qH4qGC5HVQI8go3TPqOqb3Vb2LFnY911Gx/Fvm7fo
- ztl7nOoDC0/T42L4KMtcE1iEvQjDWpMHa2Cvdn3cw1LenEuo+tMguC2UeKMx/9iodcpB
- IT4XlwQwLOmHFYOnHgzLBt1JppRm+TN71JaMtpjzDCRLNeD10sJH6M/AHZ1Ucb51OTY0
- xCXfAgivgNLesxE3zQT7RWqyejfrZ06cPC8n+v9bD3y8a2aTmX01Q8Pr6W97g2/6ejHl
- Q2Tw==
+ bh=Mkf0OB5moQvG4GasAeHoQXSqm+bAnxXSlhG9Kzvrg38=;
+ b=OCENolOC1qkuPXCbKr16/Pq86HcJe9udimBfAC3OFEA0OjTgnEPh3teI2hSXEraYTU
+ X9yWnV9N8r4hRfq8gEpzyHxwvvSWjCDUb7QHxy37hYzdUEDYVpsKXZ+vRKdz7IaGSYLG
+ 0MN6nHkzkvfdr1dnWb7TrkcJk2Y6nkTHM29K/ddLTzKsf/W4PkKOykpagIEbH36TjVsD
+ 6GKV8M5Eqt3746huvXEFSqIJziVLiIKBAj59f5Yo9zxcKSn/bSYgSLD5jOBWMLQ9uT8/
+ 0KTZQX9oxOQCNMdUU3rDP9yA9IwByD1ca0sk1bP5/wGsGTQuSSyuAHOONO+chYEZWtm1
+ cqGg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774967939; x=1775572739;
+ d=1e100.net; s=20251104; t=1774968598; x=1775573398;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=o65bcTJODSw4Zi0qmE/uFJ8m6kOI2qoRoMdNBPsW6xg=;
- b=iCKZ+KhB2Z5HUkn37pWXnfRy3OyH6GGHTUCh9FTC4LqULFtrlrpm7i/AO2ceNtjX5K
- Ck+3vHY9NqOGt6c9ichRJACwKblctQ+/Wk+Fv/LKIwfahz4UCNSOEdwoiM8FsYdU38Bv
- 1biHp0urQ58wi6tJmyYSEwuUujCMnfwY/OFMolM1ndApLkElPJgDdqMrCs/9Zg7uuBqG
- fd0gWzzhD+RPxpfG+G7jx9JWcvEDZuCeVr1FCqwv8cKn974LTCOrTbzfAiLxmR7V0hxr
- 43jcW4d66TFVquSWSfRK5CuPRH//SqarxhSJNU2THWj5MpO0jARR4AOaqZ3YlIS0rl6g
- M2qw==
+ bh=Mkf0OB5moQvG4GasAeHoQXSqm+bAnxXSlhG9Kzvrg38=;
+ b=ou/fwjGe6Ti4kqR936QJ6DwlB64dK7FQiSPoAtWjMV+Yehh7zWpDjpAptKYU8seYy/
+ nnhBmA2XDsbeETaR/vfiilvqP6JziTehp3Nxr+jOZy3CMWet9zIKvtA1VP6XJogg14ty
+ r5gsT+Ioc70QRH4l8bGGWbjS6OuPJjAdXzwCijGogHwFLvT9W79IH6mM1jsRd6rfNE+1
+ U6duO/QdO9vcGrdawp8KVHpj1OS+GQUb4dKqYBX3NJPFpJtsl8lqT5T6YTd4x9LmAFj6
+ x/5y0iCBWhzSxtYffB/fql+1OoCYXPGcCSb7zyrV7627JBaWbtFfZvOjPjzpk9LocwoP
+ fRAQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWS1+b0T/LEmhiZokLSqdKPfcdSg1NkAWjUUfoVnnG3fnfY6cEj42gLQmAtp8fzJwFUXq0nAe3s@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxMaHV8CGFvQXiP7qrnBFUJODNLX/IYo++nwLuPJsfX1csWnW/+
- JcHhh5cQDoI/V4SdmWFepsLZXN2erIcsLmIaLp77xRPF9aV3d8tGcm7J2hT8mQ1RcG0dEsPc+qj
- P3Pxsm07hjDEnqaqAqt6xrMPeUaV7bTE=
-X-Gm-Gg: ATEYQzzOeJfFnfCWRvfa7NkawopLAeDs1ckRvjmHBiBxUQKb74gVUlUQMJww5dff/i3
- 8fMFFnzc1ivTXI5B871vGhhbnvlEYZGxilaJ2UmNF95jc5NB5Ve4dzFivaLR1ph2G+EmjlGdvu2
- jjVZKWkWhsX5z7gcVp3DJMe1y1t8jd5yyqsvBlcDWc8RZ/yPZQVNffVDpy/rpjU2YR7x4uN8YIV
- xNF378tDULw/YYlLsaI11gIJ2Jc38cN97JmNt53EDzIXa5loTkwjO196XsVMmwZNHjIoo17GuKq
- i8ROEW5u51qoLB0d8uGNXOO4aHXllKzqzAZYHQt5xllEDM70ff+Crp5VngC2c2jOioiLSA==
-X-Received: by 2002:a05:7022:48f:b0:128:d590:2947 with SMTP id
- a92af1059eb24-12ab28da1bamr4261874c88.4.1774967939156; Tue, 31 Mar 2026
- 07:38:59 -0700 (PDT)
+ AJvYcCUCghyTO/R9ERVyFvS1gbg/x36HoIng56Gp4HcQgDNOpJBA6IgS932S/wjE71+q3ZeeYSgkjIFb@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YznYcfC3lUL1p+9TM6unkjaK2qYmYMyqIuXGQgCFfKrvb86dNkU
+ GmqM9g1r5mdt5D2bvqMpG43hdR7zxq1TUIfsImKVHEOKXu9wqTFTXFxN3EVRo3uxNF6mpLZlxZZ
+ odn1jRtbPrAvVuyNCfj9RSzSUZXUlYu8=
+X-Gm-Gg: ATEYQzyEQNQDtdX60I8eHbvAYlphs4hUclaEBZWD1IyzQsLSqXdsdma/P9IUMELV9Hk
+ vN+kyVb+RyIUn7M/PiaNP4PWxk8eyE4tEIOKw1g4XmQJOomUPqWJLojKLxhfYXe2TXHcbUszwxF
+ aNUL7WCcfAIX3MiyVLiBDbVwRRLsfB5sFoq1ENe7O+isn8NcVUUp6hNOEOW+M2sIU6xJXKa7pwx
+ fzyFNjGbGwaE8BQmpAtWtTjP8fRRED+98HJ0kmIPXSCMyHH7oNyxhZAlybeezSdSAl1tNGUNIjI
+ TNtw3t52jvtLsLn5BYMCqHjBYzrv6xe4CRzehVpP66Zgi7jd2kFJ5sJIwhVJjM6mZk17IA==
+X-Received: by 2002:a05:6102:21b2:b0:5e4:9fd:5a3 with SMTP id
+ ada2fe7eead31-604f9296099mr2321940137.6.1774968597941; Tue, 31 Mar 2026
+ 07:49:57 -0700 (PDT)
 MIME-Version: 1.0
-References: <20260331142127.52796-1-mikhail.v.gavrilov@gmail.com>
- <845af7e1-3ca7-483b-a3b1-0840d9c98596@amd.com>
-In-Reply-To: <845af7e1-3ca7-483b-a3b1-0840d9c98596@amd.com>
+References: <20251224144708.61167-1-marco.crivellari@suse.com>
+ <20251224144708.61167-5-marco.crivellari@suse.com>
+In-Reply-To: <20251224144708.61167-5-marco.crivellari@suse.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 31 Mar 2026 10:38:47 -0400
-X-Gm-Features: AQROBzCP4hgUobb8FSouN55pHu2w5WfheoFQp7RyRUobCzfUlEJJglP9scfcXHw
-Message-ID: <CADnq5_M-iwCHKJ+cnU1TQSc-aGJC465dwzWGQkhaZoSPz7Wu5g@mail.gmail.com>
-Subject: Re: [PATCH v7] drm/amdgpu: replace PASID IDR with XArray
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>,
- Alex Deucher <alexander.deucher@amd.com>, 
- lijo.lazar@amd.com, Eric Huang <jinhuieric.huang@amd.com>, 
+Date: Tue, 31 Mar 2026 10:49:45 -0400
+X-Gm-Features: AQROBzDb5lfPIwy7SKyX75mQJqwLgD-PcWyA8-4y-kCD_P3pLCRi3gfxi94tegc
+Message-ID: <CADnq5_P3ogoLiFumJieeLBQ6zktLO37=EwOaNtc=ROEK6Bt05w@mail.gmail.com>
+Subject: Re: [PATCH v3 4/4] drm/radeon: add WQ_PERCPU to alloc_workqueue users
+To: Marco Crivellari <marco.crivellari@suse.com>
+Cc: linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, Tejun Heo <tj@kernel.org>, 
+ Lai Jiangshan <jiangshanlai@gmail.com>,
+ Frederic Weisbecker <frederic@kernel.org>, 
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+ Michal Hocko <mhocko@suse.com>, Alex Deucher <alexander.deucher@amd.com>,
+ Christian Konig <christian.koenig@amd.com>, 
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+ Philip Yang <yangp@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -112,165 +116,51 @@ Applied.  Thanks!
 
 Alex
 
-On Tue, Mar 31, 2026 at 10:29=E2=80=AFAM Christian K=C3=B6nig
-<christian.koenig@amd.com> wrote:
+On Wed, Dec 24, 2025 at 10:26=E2=80=AFAM Marco Crivellari
+<marco.crivellari@suse.com> wrote:
 >
+> This continues the effort to refactor workqueue APIs, which began with
+> the introduction of new workqueues and a new alloc_workqueue flag in:
 >
+>    commit 128ea9f6ccfb ("workqueue: Add system_percpu_wq and system_dfl_w=
+q")
+>    commit 930c2ea566af ("workqueue: Add new WQ_PERCPU flag")
 >
-> On 3/31/26 16:21, Mikhail Gavrilov wrote:
-> > Replace the PASID IDR + spinlock with XArray as noted in the TODO
-> > left by commit dccd79bb1c7f ("drm/amdgpu: fix the idr allocation
-> > flags").
-> >
-> > The IDR conversion still has an IRQ safety issue:
-> > amdgpu_pasid_free() can be called from hardirq context via the fence
-> > signal path, but amdgpu_pasid_idr_lock is taken with plain spin_lock()
-> > in process context, creating a potential deadlock:
-> >
-> >      CPU0
-> >      ----
-> >      spin_lock(&amdgpu_pasid_idr_lock)   // process context, IRQs on
-> >      <Interrupt>
-> >        spin_lock(&amdgpu_pasid_idr_lock) // deadlock
-> >
-> >    The hardirq call chain is:
-> >
-> >      sdma_v6_0_process_trap_irq
-> >       -> amdgpu_fence_process
-> >        -> dma_fence_signal
-> >         -> drm_sched_job_done
-> >          -> dma_fence_signal
-> >           -> amdgpu_pasid_free_cb
-> >            -> amdgpu_pasid_free
-> >
-> > Use XArray with XA_FLAGS_LOCK_IRQ (all xa operations use IRQ-safe
-> > locking internally) and XA_FLAGS_ALLOC1 (zero is not a valid PASID).
-> > Both xa_alloc_cyclic() and xa_erase() then handle locking
-> > consistently, fixing the IRQ safety issue and removing the need for
-> > an explicit spinlock.
-> >
-> > Suggested-by: Lijo Lazar <lijo.lazar@amd.com>
-> > Fixes: e6d765de3d6b ("drm/amdgpu: prevent immediate PASID reuse case")
-> > Signed-off-by: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+> The refactoring is going to alter the default behavior of
+> alloc_workqueue() to be unbound by default.
 >
-> Reviewed-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+> With the introduction of the WQ_PERCPU flag (equivalent to !WQ_UNBOUND),
+> any alloc_workqueue() caller that doesn=E2=80=99t explicitly specify WQ_U=
+NBOUND
+> must now use WQ_PERCPU. For more details see the Link tag below.
 >
-> > ---
-> >
-> > v7: Rebased on amd-staging-drm-next which already includes
-> >     dccd79bb1c7f ("drm/amdgpu: fix the idr allocation flags").
-> >     Updated commit message to reflect that sleeping-under-spinlock
-> >     is already fixed and the xarray conversion now addresses the
-> >     remaining IRQ safety issue.  Inverted error check to
-> >     if (r < 0) return r; per Christian K=C3=B6nig.
-> > v6: Use DEFINE_XARRAY_FLAGS with XA_FLAGS_LOCK_IRQ | XA_FLAGS_ALLOC1
-> >     so all xa operations use IRQ-safe locking internally.  Drop
-> >     Cc: stable since the regression was never released to any stable
-> >     kernel. (Christian K=C3=B6nig)
-> >     https://lore.kernel.org/all/20260331111733.118553-1-mikhail.v.gavri=
-lov@gmail.com/
-> > v5: Use explicit xa_lock_irqsave/__xa_erase for amdgpu_pasid_free()
-> >     since xa_erase() only uses plain xa_lock() which is not safe from
-> >     hardirq context.
-> >     https://lore.kernel.org/all/20260330191120.105065-1-mikhail.v.gavri=
-lov@gmail.com/
-> > v4: Use xa_alloc_cyclic/xa_erase directly instead of explicit
-> >     xa_lock_irqsave, as suggested by Lijo Lazar.
-> >     https://lore.kernel.org/all/20260330162038.25073-1-mikhail.v.gavril=
-ov@gmail.com/
-> > v3: Replace IDR with XArray instead of fixing the spinlock, as
-> >     suggested by Lijo Lazar.
-> >     https://lore.kernel.org/all/20260330110346.16548-1-mikhail.v.gavril=
-ov@gmail.com/
-> > v2: Added second patch fixing the {HARDIRQ-ON-W} -> {IN-HARDIRQ-W}
-> >     lock inconsistency (spin_lock -> spin_lock_irqsave).
-> >     https://lore.kernel.org/all/20260330053025.19203-1-mikhail.v.gavril=
-ov@gmail.com/
-> > v1: Fixed sleeping-under-spinlock (idr_alloc_cyclic with GFP_KERNEL)
-> >     using idr_preload/GFP_NOWAIT.
-> >     https://lore.kernel.org/all/20260328213900.19255-1-mikhail.v.gavril=
-ov@gmail.com/
-> >
-> >  drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c | 34 ++++++++++---------------
-> >  1 file changed, 13 insertions(+), 21 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c b/drivers/gpu/drm/=
-amd/amdgpu/amdgpu_ids.c
-> > index e495a8fa13fd..a6ac3b4ce0df 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
-> > @@ -22,7 +22,7 @@
-> >   */
-> >  #include "amdgpu_ids.h"
-> >
-> > -#include <linux/idr.h>
-> > +#include <linux/xarray.h>
-> >  #include <linux/dma-fence-array.h>
-> >
-> >
-> > @@ -40,8 +40,8 @@
-> >   * VMs are looked up from the PASID per amdgpu_device.
-> >   */
-> >
-> > -static DEFINE_IDR(amdgpu_pasid_idr);
-> > -static DEFINE_SPINLOCK(amdgpu_pasid_idr_lock);
-> > +static DEFINE_XARRAY_FLAGS(amdgpu_pasid_xa, XA_FLAGS_LOCK_IRQ | XA_FLA=
-GS_ALLOC1);
-> > +static u32 amdgpu_pasid_xa_next;
-> >
-> >  /* Helper to free pasid from a fence callback */
-> >  struct amdgpu_pasid_cb {
-> > @@ -62,22 +62,19 @@ struct amdgpu_pasid_cb {
-> >   */
-> >  int amdgpu_pasid_alloc(unsigned int bits)
-> >  {
-> > -     int pasid;
-> > +     u32 pasid;
-> > +     int r;
-> >
-> >       if (bits =3D=3D 0)
-> >               return -EINVAL;
-> >
-> > -     spin_lock(&amdgpu_pasid_idr_lock);
-> > -     /* TODO: Need to replace the idr with an xarry, and then
-> > -      * handle the internal locking with ATOMIC safe paths.
-> > -      */
-> > -     pasid =3D idr_alloc_cyclic(&amdgpu_pasid_idr, NULL, 1,
-> > -                              1U << bits, GFP_ATOMIC);
-> > -     spin_unlock(&amdgpu_pasid_idr_lock);
-> > -
-> > -     if (pasid >=3D 0)
-> > -             trace_amdgpu_pasid_allocated(pasid);
-> > +     r =3D xa_alloc_cyclic(&amdgpu_pasid_xa, &pasid, xa_mk_value(0),
-> > +                         XA_LIMIT(1, (1U << bits) - 1),
-> > +                         &amdgpu_pasid_xa_next, GFP_KERNEL);
-> > +     if (r < 0)
-> > +             return r;
-> >
-> > +     trace_amdgpu_pasid_allocated(pasid);
-> >       return pasid;
-> >  }
-> >
-> > @@ -88,10 +85,7 @@ int amdgpu_pasid_alloc(unsigned int bits)
-> >  void amdgpu_pasid_free(u32 pasid)
-> >  {
-> >       trace_amdgpu_pasid_freed(pasid);
-> > -
-> > -     spin_lock(&amdgpu_pasid_idr_lock);
-> > -     idr_remove(&amdgpu_pasid_idr, pasid);
-> > -     spin_unlock(&amdgpu_pasid_idr_lock);
-> > +     xa_erase(&amdgpu_pasid_xa, pasid);
-> >  }
-> >
-> >  static void amdgpu_pasid_free_cb(struct dma_fence *fence,
-> > @@ -634,7 +628,5 @@ void amdgpu_vmid_mgr_fini(struct amdgpu_device *ade=
-v)
-> >   */
-> >  void amdgpu_pasid_mgr_cleanup(void)
-> >  {
-> > -     spin_lock(&amdgpu_pasid_idr_lock);
-> > -     idr_destroy(&amdgpu_pasid_idr);
-> > -     spin_unlock(&amdgpu_pasid_idr_lock);
-> > +     xa_destroy(&amdgpu_pasid_xa);
-> >  }
+> In order to keep alloc_workqueue() behavior identical, explicitly request
+> WQ_PERCPU.
+>
+> Suggested-by: Tejun Heo <tj@kernel.org>
+> Signed-off-by: Marco Crivellari <marco.crivellari@suse.com>
+> ---
+>  drivers/gpu/drm/radeon/radeon_display.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/radeon/radeon_display.c b/drivers/gpu/drm/ra=
+deon/radeon_display.c
+> index 35fb99bcd9a7..99a3e4c480c1 100644
+> --- a/drivers/gpu/drm/radeon/radeon_display.c
+> +++ b/drivers/gpu/drm/radeon/radeon_display.c
+> @@ -685,7 +685,8 @@ static void radeon_crtc_init(struct drm_device *dev, =
+int index)
+>         if (radeon_crtc =3D=3D NULL)
+>                 return;
+>
+> -       radeon_crtc->flip_queue =3D alloc_workqueue("radeon-crtc", WQ_HIG=
+HPRI, 0);
+> +       radeon_crtc->flip_queue =3D alloc_workqueue("radeon-crtc",
+> +                                                 WQ_HIGHPRI | WQ_PERCPU,=
+ 0);
+>         if (!radeon_crtc->flip_queue) {
+>                 kfree(radeon_crtc);
+>                 return;
+> --
+> 2.52.0
 >
