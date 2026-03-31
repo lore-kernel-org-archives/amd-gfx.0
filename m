@@ -4,60 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 403A7109B462
-	for <amd-gfx@archiver.kernel.org>; Tue, 31 Mar 2026 12:57:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A5050109B462
+	for <amd-gfx@archiver.kernel.org>; Tue, 31 Mar 2026 13:20:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C2FFB10EC62;
-	Tue, 31 Mar 2026 12:57:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3365A10E381;
+	Tue, 31 Mar 2026 13:20:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=m1k.cloud header.i=@m1k.cloud header.b="BwAdwI3x";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="eGeuifHe";
 	dkim-atps=neutral
-Received: from mail.m1k.cloud (mail.m1k.cloud [195.231.66.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 32D3A10EC62
- for <amd-gfx@lists.freedesktop.org>; Tue, 31 Mar 2026 12:57:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=m1k.cloud; s=mail;
- t=1774961870; bh=ldemznRE07JnuYVczlnXIDVYoB0oR7L6KmGV+PQwsyk=;
- h=Subject:From:To:Cc:References:In-Reply-To;
- b=BwAdwI3xMVR6nbmfYlseRsnaJ0r/yGMEGyfm8lnW2/B1G2HJ84CUjQV14qDxlxzUo
- WwXtWE0E2XoxknvCLktSKzY96jSxtO7TRSI02UG9iO/K9hUmYUWIP/73IXG/Gzs4OA
- aZw2WL53SAjjLXse5q6PU3qa+q9sc3FLAp+jMr5J7SBKhfDee3x5vRl9Lnvsdb652A
- 2Pr9SOfPsLhf8RKTrSrGst9As8ZOfVaz05i2WMOlLLC5I1WmFUVRKD9tpuRGdUzbya
- InEk0DIevmIwdUzq//nvhl+GMIZBVagMiKkLnT/OhE50BWa35oLgfncArRzRlaSafN
- YWG3Hx6LL6kjg==
-Message-ID: <e415c38b-4102-40e4-a195-0256caf34802@m1k.cloud>
-Date: Tue, 31 Mar 2026 14:57:50 +0200
+Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com
+ [74.125.82.169])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1284A10E393
+ for <amd-gfx@lists.freedesktop.org>; Tue, 31 Mar 2026 13:20:29 +0000 (UTC)
+Received: by mail-dy1-f169.google.com with SMTP id
+ 5a478bee46e88-2bd801b40dbso400742eec.0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 31 Mar 2026 06:20:28 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1774963228; cv=none;
+ d=google.com; s=arc-20240605;
+ b=KhONK4YvWVTPc1kQTW/mFFNigwEYDshm6KOKFsV04GaCegSsMtaQ2Y+zhjuBlvInzj
+ otFVdAoU3+c2YwEvBz7rmUZ7wPBcKjKc3b/cJcIeIw5jYs7RDzFQbzj32sGMnDgy+FDj
+ RkskqG9ZpQaOR77ib+hsnlSlXFi1izyINy6wQs91AC6Ms17+XmcpTumcS+8OtAMPfLVw
+ CXJe98hO4RSkBvZuOJRLHLM1cWPyi4oBUYyBe0DkrST7XutQKBpvqrXFLDXNYj+g79vk
+ KdkvAa79DdBiBPmP8y0ufj6UyQQsYQwoDim526i/Ho9cH9ncIpX7qVis7wb9+a69p5FL
+ 0Srw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=TBHcm+J+3TovwH7cWbqMLHI6dZy4DsmX740rY0qpt18=;
+ fh=3Po+/RvD/5iFkIE0rqicnBb8D6OFtLYbkec0Nt4W/BI=;
+ b=CHDqyfKD1v25KRC15BIYW9Fyw8Mqdwb7z2mHHu9YWO8lgMvS1+1985FqtYoTVz37Ol
+ usLOpS0gynVn/7lfcqy2Xl8R21qo6UXWnNb9v5xQULeo2vN4M+ZSFK84jkRh2+g/v3As
+ nBWkeIdUv9C7oT4PKySgCrS/V9HMYAH+kEkenkTLTbHjg2IBcaWG69gKznW0sD+eBnOU
+ l5L5gCgHQXJDI5vYHfaW18pPZPVgeWAz5z9GuGBlTIgSo7uEz3QWRPF/nErEsrjDe397
+ i/E8Xl1YK8rOQJXFKRnTV6+JT7/TdsL7UAPrzzFy7iwmp/ZxClnK/x7e4+W871u+c9p0
+ bYMA==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1774963228; x=1775568028; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=TBHcm+J+3TovwH7cWbqMLHI6dZy4DsmX740rY0qpt18=;
+ b=eGeuifHeQ5e0LAzZOsVJ8hyRAv9mzpYHs29diVVj6zL1pnXKbu7a7v83lwz2DaZZ3E
+ PBi6NkMCCBOOjpZZWckSpkFtGy/epRa6UvXxyI4vADAurampQi6rzyHgHLRkmYb6TWFI
+ ueX7lWqC8uAIRSihmAh/9HLf3u8PzvZ2ey06F5E1ehaZlX1tvLyzvNw83vWRDccOrhO2
+ YnsLzt6zpro12el+zZW/V785N/aQEf5/YErC+0A8jyS94E7vE7xh3SoWwa/VJ0iQb1Yt
+ EugUn7x+tJ79xEHn+9nscveZeVvxwhI7FG7LCw9ZjPzdaOxp9ufVZz6sOsOLIkN0R7D+
+ Josg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1774963228; x=1775568028;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=TBHcm+J+3TovwH7cWbqMLHI6dZy4DsmX740rY0qpt18=;
+ b=qOs6q3+6tY8DyscVVC8rKtTyWDgsdj9jgPgjHnd4J8ziWz+K+Yi6GT9OPhTmCNisCN
+ fNmkcV5LZcspaz2GiHGR61GERXlE1/Ea47QnIVoQurtKuTLVvdRiVT7QP4PbTMUdVhOm
+ s6+87ANzGbjxJGIUTXHIy+1J2+HnFkRrWznDIVvMfuuPIGNstF0har4O8KtZvEIklJ6l
+ NUV8cWpp2rdBXEtACOPJ52EhGbfJpySuGaUSz7ZjW6b+wEKWG913hFw1T7o1LyKXiDC7
+ KeoV+OlUmKFNYkyfxXPoC3gkfBf7qseAB/q+LY8Zi7qZWhFYNPAcEhzVXRulSd7PeDst
+ Fjfw==
+X-Gm-Message-State: AOJu0YwueDoBopzqQQKDeZwkkPX2hDUfQLzzK9bnkLeagJimVYjhupp0
+ m3IiM42WjhtIgMB+v1XKSY/ieJViHljYF2cn5O6BnQ9/dUlDSWxpk8whh2110J295ZwfPEVlBA2
+ 2Q2ajT2fAk4CCFjSMICviXaY+Kqob9fo=
+X-Gm-Gg: ATEYQzxghuaoRfI6KXl+M0hPurKPASTY1zIS4CuS+hChGhQOd2tZjmH7KW6cA8IjwJ2
+ by0TQa2Q8pp+XHEynDvB8DQ7VauXPR0u8isa6+Krvv+qvMcIb4gzgK+P1uwRpwXFQLMeldFchPV
+ xpFdaYdyMyLcKKK3/R8FmbJst8/305JtC2nK08YkvU5Ztzhk5vM4EwEVnB91FivOo/bF7RoOSYL
+ fA/SKuaz4xWQkj4lepOYKMO2Z0HISkTAKTUkU8rmP7Dtm6j2MEDO0zJFJnNHWSNEJZK+KJf/Zt1
+ VYcWgxIvcOReIXma1amzo7zPGHmtWK5gbDgtxbCyAefENgyhEZRydaOQQlcHy+WTMRUOxQ==
+X-Received: by 2002:a05:7022:2209:b0:128:d4d5:93b9 with SMTP id
+ a92af1059eb24-12ab290a664mr3940968c88.7.1774963228169; Tue, 31 Mar 2026
+ 06:20:28 -0700 (PDT)
 MIME-Version: 1.0
-Subject: Re: [PATCH 1/1] drm/amd/display: complete cursor vblank events
- immediately
-From: Michele Palazzi <sysdadmin@m1k.cloud>
-To: Leo Li <sunpeng.li@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, harry.wentland@amd.com,
- alexander.deucher@amd.com, christian.koenig@amd.com, siqueira@igalia.com,
- =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>,
- Shengyu Qu <wiagn233@outlook.com>
-References: <20260217191632.1243826-1-sysdadmin@m1k.cloud>
- <2be6dc58-e2dc-4733-aa25-26329cd1d2d3@amd.com>
- <TY4PR01MB14432450DA5BDEFA272476A2F987FA@TY4PR01MB14432.jpnprd01.prod.outlook.com>
- <49434297-d6e8-4eaf-b4c7-ce14134d7869@amd.com>
- <96f4df42-2675-4bda-b0f2-753b09f7a80d@m1k.cloud>
- <ca869a77-4bdc-47b7-a8f3-788224be48be@amd.com>
- <fdb2d4ad-10e5-43ca-92db-f1dad48b7890@amd.com>
- <c4cae811-e3a4-4aae-8501-6de0977566a5@m1k.cloud>
- <6e1f5a30-82c3-4872-add3-7d46a266c37c@m1k.cloud>
- <6ac9fc7f-0493-446f-97e8-760a54e209d8@amd.com>
- <7fdc3c4f-c321-48f5-93f9-17a1a8ded9f8@m1k.cloud>
- <1356e93b-af76-47f3-afc5-29535a9518bb@amd.com>
- <aa3891fb-ed89-48e6-bfb8-86e704447a2e@m1k.cloud>
- <51219a7b-eeec-43f2-a335-06710809415c@m1k.cloud>
- <7a148774-3364-4ce2-9f55-2e77889bfb53@amd.com>
- <a8a3d8d1-ee55-4fc0-ac98-45d70ad0bd6a@amd.com>
- <deb792f8-70a5-41f9-bcf8-1425994aad14@m1k.cloud>
- <4e48ec7b-ac73-4637-9e42-9c328067ed72@amd.com>
- <fe88c29c-3fc3-48b5-b6a2-ee4c210e7a83@m1k.cloud>
-Content-Language: en-US
-In-Reply-To: <fe88c29c-3fc3-48b5-b6a2-ee4c210e7a83@m1k.cloud>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20260331024705.1361626-1-kevinyang.wang@amd.com>
+In-Reply-To: <20260331024705.1361626-1-kevinyang.wang@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 31 Mar 2026 09:20:16 -0400
+X-Gm-Features: AQROBzA0nct8ZbdcqRSyQHYKpcdbVuSaSFYMThkBh8bqXpe7uDGv3eXzGPYJ6Rc
+Message-ID: <CADnq5_NxOp5Xqk1kb9Gkq5q2MDwghdJ=2__XR40e+4YkmfbEag@mail.gmail.com>
+Subject: Re: [PATCH 1/3] drm/amd/pm: fix memleak issue in
+ smu_v15_0_8_get_gpu_metrics()
+To: Yang Wang <kevinyang.wang@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com, 
+ hawking.zhang@amd.com, lijo.lazar@amd.com, Asad.Kamal@amd.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,15 +103,38 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-> On 3/20/26 01:52, Leo Li wrote:
+On Mon, Mar 30, 2026 at 11:09=E2=80=AFPM Yang Wang <kevinyang.wang@amd.com>=
+ wrote:
+>
+> remove unsued code to avoid memleak issue.
+> (NOTE: This bug occurs during internal branch switching)
+>
+> Fixes: 60c033841eb9 ("drm/amd/pm: add get_gpu_metrics support for 15.0.8"=
+)
+>
+> Signed-off-by: Yang Wang <kevinyang.wang@amd.com>
 
->> Did you happen to try disabling some idle optimization features 
->> mentioned in a previous reply?
->> https://lore.kernel.org/amd-gfx/1356e93b-af76-47f3- 
->> afc5-29535a9518bb@amd.com/
-> 
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
 
-
-Sorry for the delay i have been away due to business travel, anyway 
-since resuming testing i can't seem to reproduce the timeout with idle 
-optimization features disabled.
+> ---
+>  drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_8_ppt.c | 2 --
+>  1 file changed, 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_8_ppt.c b/drive=
+rs/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_8_ppt.c
+> index 89a44b456e8a..b158be7cd7bc 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_8_ppt.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_8_ppt.c
+> @@ -1601,8 +1601,6 @@ static ssize_t smu_v15_0_8_get_gpu_metrics(struct s=
+mu_context *smu, void **table
+>         uint32_t mid_mask =3D adev->aid_mask;
+>         MetricsTable_t *metrics;
+>
+> -       metrics =3D kzalloc(sizeof(MetricsTable_t), GFP_KERNEL);
+> -
+>         ret =3D smu_v15_0_8_get_metrics_table_internal(smu, 1, NULL);
+>         if (ret)
+>                 return ret;
+> --
+> 2.47.3
+>
