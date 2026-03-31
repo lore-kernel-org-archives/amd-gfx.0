@@ -4,128 +4,120 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B21310F92E9
-	for <amd-gfx@archiver.kernel.org>; Tue, 31 Mar 2026 17:50:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A4D7D10F92E9
+	for <amd-gfx@archiver.kernel.org>; Tue, 31 Mar 2026 18:18:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 194D510E2B3;
-	Tue, 31 Mar 2026 17:50:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 445B410E9D9;
+	Tue, 31 Mar 2026 18:18:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="p9M69+N1";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="azGJSOrr";
 	dkim-atps=neutral
-Received: from PH0PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11011001.outbound.protection.outlook.com [40.107.208.1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7911410E127;
- Tue, 31 Mar 2026 17:50:35 +0000 (UTC)
+Received: from SA9PR02CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11013046.outbound.protection.outlook.com
+ [40.93.196.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B6F5810E9CB
+ for <amd-gfx@lists.freedesktop.org>; Tue, 31 Mar 2026 18:18:25 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=rNZISi5AF1HelT7pIkw85yDYy810LOl4ma8Vc7pEIHoFYoqitG0d5/fyRCvVoVVYWzlwnAYg9hXd33ieXglhX2c9UIDPxPCWKbBEs1ZGN0ARatCWulRS/NrMcwvJD44xPFdROsD0qSclxNAk2FX/CSIGcPlq8Ksg/kuxCnGIulOj8cWn8AhYkEPDY5sdnB2gFR/KNaaozGpEVQI9e77ewatYfJqF5jeZLCTtNtXo4Nage3OvWXHXXFPOpqTfk7TIodpf0i1ZbAKNbp47OyUzbetVOdRccJixRUA9n1hUzWYVSBkqZBYo3hvzwKc7TSak+dXCrj19M8I4xKMkNKHUWA==
+ b=HMot2nTxdJP6gOHWpCPm4crCHdOzofo+2oe8zq4y/5nyjP0SDJiRa78t5pYdGHpxEsuxdvuKoOnIcIYtixGMkaj9JVrTaRst6y13m0TDz4IGXaR5lfb2Cf5W8Rb4FbUKNJBl3rxRXVZjiOBsxM/Zg/EIGuzyGpFEib48kND+x+EaQDqeWfHpVnoHTEz0kIsrfSajD41b2tZSuqJFmhzEPFhrpq+15PMyyVS+N9UTrMRJKFm6yap5aYyWqKTirZuV+nzT3/uJ2/FZy+o33zTxZfNaMSuSaZlL7OyBKZVscEPvTtE9PHUJDwUrhvPdWucwxggCxUb8ywp8ImO+orj6YA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=WhHOuKJe5cBUtABQGGvSmxfaX/HP3dV+/apY2K7zv8c=;
- b=pFOLuMgBrQuK2Wi0hwwc47X2FJo5DEpT6FHR8L/TS9sb5L4VuJB9pi9OtY2XlALXJxHO5OIAf5MJ+3jvrMW+Ztq0i4diBpZn2D/SlRXZ/lanNEQlRhAdSQq0DaMbp9y0KQT2wf8XVLSH12aJJoEwa6hjgi+Wp6UKeoK/MgH34MA7F0JhPnSJUkbqsBS9i09wey3vhjTk6w4D8zbbdjrSrVxTy48es0DpZ+kELPBdb6tbuht3CKYS90+ZzsIanFgQSyCcg0E/FTCR+dOy0EI0ZOoWfYC6Pd4Cw86Girx8BkHL1wwClt/6uI5c02h46l2QAMrl6OGIiLy7iASElLfIqQ==
+ bh=qZm0b5ll+yvOhuieXMzg5RzpvXJ/8dZ2ONQTBgGWlqc=;
+ b=DuBvBxC34jSheEQ2tbX4fxn6Tl9QOw2+ey+P15JtRrrky8kTmprjVVc9tcx9UgtY9mGXzNVo92d8bXkb8hvLn+lLx54uAagBODkYG+AnkpthUhbjoZV7ANX14aJX2j8j12MhJwRBlqJ+pCqzTRnIa+4vSMgB/K/GQUoDl3cAup7JRhiP/utXdAKqsPY8zGcWEO8COTm2LnMKB8UkLBHZllHL33Mo3FR32J8x3SfoGXLmamQy9Jodw3XebCQFTerP5f7m+wpK3aCRvEza6qcqRt33GQlSmQMYU95uLFAb4VxWQxm2haX4Jzj5EE/IDyS1gB7cK+ZkasNlIzpYasOM5w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WhHOuKJe5cBUtABQGGvSmxfaX/HP3dV+/apY2K7zv8c=;
- b=p9M69+N1Y9lzjZpPYEdwUmJBL3ts1gh3S4444YfidzdFzSvTn3j01aB2e6PUwbVfqYds392/6si2UX5kilfxOgzZECfc9Ys4YLXwxwLIEWprplx1AwhUpcFmd3NTP/Zw+xKUaEb9Wpn33eWNCip3G+RVO1AcNBZ1B/E3OxC/yaI=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BL1PR12MB5126.namprd12.prod.outlook.com (2603:10b6:208:312::8)
- by CY8PR12MB8067.namprd12.prod.outlook.com (2603:10b6:930:74::16)
+ bh=qZm0b5ll+yvOhuieXMzg5RzpvXJ/8dZ2ONQTBgGWlqc=;
+ b=azGJSOrrNDx0QNEZWKPQ4yNLDzS5z4eXv1QHO84Frvd3brsxLvj3jGSaKOSq0zxeWFAt+kcC6N2tihAqH7ZaPv29gu0drOs837jrjI/p/mVU5iPYqSIQSZ4JzKAkCYau5xftBxe0T8wW1+AhmbGegEL4t+S/QvlfLZkqpUzpiuM=
+Received: from SJ2PR12MB8650.namprd12.prod.outlook.com (2603:10b6:a03:544::13)
+ by BL3PR12MB6620.namprd12.prod.outlook.com (2603:10b6:208:38f::21)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.17; Tue, 31 Mar
- 2026 17:50:28 +0000
-Received: from BL1PR12MB5126.namprd12.prod.outlook.com
- ([fe80::c3e7:1bc5:2b91:1cfe]) by BL1PR12MB5126.namprd12.prod.outlook.com
- ([fe80::c3e7:1bc5:2b91:1cfe%6]) with mapi id 15.20.9769.015; Tue, 31 Mar 2026
- 17:50:28 +0000
-Message-ID: <7ae16b6d-5502-4f3f-9b2a-18189166650b@amd.com>
-Date: Tue, 31 Mar 2026 13:50:24 -0400
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 00/10] CSC Colorop with COLOR_RANGE and COLOR_ENCODING
-To: "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-Cc: Alex Hung <alex.hung@amd.com>, Daniel Stone <daniels@collabora.com>,
- Uma Shankar <uma.shankar@intel.com>,
- Louis Chauvet <louis.chauvet@bootlin.com>, Melissa Wen <mwen@igalia.com>,
- Simon Ser <contact@emersion.fr>
-References: <20260317160350.229028-1-harry.wentland@amd.com>
- <9fbdff81-f909-4baf-9560-1104acf36ff0@intel.com>
- <968daa97-55cb-4cc4-b6da-def2376ef57e@amd.com>
- <aaedf481-9e32-4061-b7c7-8d5425f20526@intel.com>
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.15; Tue, 31 Mar
+ 2026 18:18:21 +0000
+Received: from SJ2PR12MB8650.namprd12.prod.outlook.com
+ ([fe80::574c:e97b:b0d8:3957]) by SJ2PR12MB8650.namprd12.prod.outlook.com
+ ([fe80::574c:e97b:b0d8:3957%6]) with mapi id 15.20.9723.018; Tue, 31 Mar 2026
+ 18:18:20 +0000
+From: "Kasiviswanathan, Harish" <Harish.Kasiviswanathan@amd.com>
+To: "Liu, Alysa" <Alysa.Liu@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: Re: [PATCH v3] drm/amdkfd: Add upper bound check for num_of_nodes
+Thread-Topic: [PATCH v3] drm/amdkfd: Add upper bound check for num_of_nodes
+Thread-Index: AQHcwR3VaAkdBr9NMkyO55Qvg8+tzrXI8sJV
+Date: Tue, 31 Mar 2026 18:18:20 +0000
+Message-ID: <SJ2PR12MB86500FB6C585E8C81238B9FE8C53A@SJ2PR12MB8650.namprd12.prod.outlook.com>
+References: <20260331145106.10925-1-Alysa.Liu@amd.com>
+In-Reply-To: <20260331145106.10925-1-Alysa.Liu@amd.com>
+Accept-Language: en-US
 Content-Language: en-US
-From: Harry Wentland <harry.wentland@amd.com>
-In-Reply-To: <aaedf481-9e32-4061-b7c7-8d5425f20526@intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YQ1P288CA0021.CANP288.PROD.OUTLOOK.COM
- (2603:10b6:c01:9e::27) To BL1PR12MB5126.namprd12.prod.outlook.com
- (2603:10b6:208:312::8)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL1PR12MB5126:EE_|CY8PR12MB8067:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0e117689-0357-415b-c0ae-08de8f4dfe9c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|366016|376014|22082099003|56012099003|18002099003; 
-X-Microsoft-Antispam-Message-Info: 2HlA8eL24JU6E810ofntNBks0cvcGn4mud7XyIAqh/0Bb1XYFdIfXSHl8KFC/xmwVesBwV/SK0LXezvCdZI+f51b/slZD82Aw+CFhxB0lyz5tL189BYXCe3ucM/H2gc4WXkSixzTsActDcuiJThBM7KpmTOCInWIG/G1yzB+CEOkQ3x4rtG+SsqvBK8Y1tv8eb07k11IvKUzdxXQvLNUr5QuYS6M4TCuec2X4Csw21m17c7ZJ9RYj61g+kMihNOYluODg93QE17kvPEFrEXcbigNZ+0izDW5nwQN4e1dviWOywgWMQABPXdQ2U9egqcvCcnrW1Ge2CdquHsuglsZ8oVXWTSRuLL6uBkhLil4r2Sc5LDVX4RHerOje4KnO1ex/qo0uEOPZm+VusncZ3zEAC6nV5CMQViGQERlZQFutnIngB1mj0HD7PcscIOoLa0TuqiuJuzsUDuBiuEfztYBAINV8QUzzfUPhPC6eFzG8Ktdt4bB6kP7/m7Dkz41eKWlf7uwKIxOZv6450S1sDXtDV6u2y8KYxCJLsFzklHqnQHp67kJF5b/DLzQqLdCF/cUY8ql++8dWW54EDnw9zT+DkLVMMDYFQg1B+51DF0Y8k0kjOKLmVqZqBVVk+DpLQz9+feOUYiqUxABSvjM85ObSdLQDfHmW9vKoF4C7VoJIxCQlAnOjeuF13T00uIp87we
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BL1PR12MB5126.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014)(22082099003)(56012099003)(18002099003);
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Enabled=True;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SetDate=2026-03-31T18:18:20.050Z;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Name=Open
+ Source; MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_ContentBits=1;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Method=Privileged; 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: SJ2PR12MB8650:EE_|BL3PR12MB6620:EE_
+x-ms-office365-filtering-correlation-id: 270eed58-cdc9-437d-f78d-08de8f51e34e
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|376014|1800799024|366016|8096899003|38070700021|18002099003|22082099003|56012099003;
+x-microsoft-antispam-message-info: vjMyMnkDHYJN/PJXpVs42S3GpIe2QEdcw23gZEB8ohqyjsIUENzzuY/FpAPivzuvlT6kWCoBYjhmBTDZtllKvfJD5u9dBdzegsyHM7T6Qyd1TdRmU/6SXWH083FDj2v79CE4TMPiJmIO8G8UAjDpBxtY+UnlNEwLSYwy54GDCi5AVxQGIrC4M23ta6hyrLOulNnSRkQ3y71tPfS1NN27KB2DdFAxNsngJqxw6xVt1CAIvLoBh7nD+xBl8AtY2+OQsjzeMUjSVhrQlXfP2k33vPhtEcGTi5JJyCSNEWGAOMAQF4jw+ZPGQnkBJtsnJgdI+QniJJEKedu+01Kns6GMPRXIsi/WBaTTml5nfBsW0hFusDaZZISPSGBvwEWh435/so3iUqfstFOY1TsomZCxbopO05xTnkulzFXSXhFRfeljxaScya++AHhQK89bXrCpQMbtohwlLTuS96B5ieOB3eHjsSd+f10MnNu9U85EfB4nhDo2TWc3th3gBfQoU1bINxVsvdSjABoCKw5fdAvKPfy1di4t8VM9DdB4jUfWZxe7BMaPD3kPsN9/KPIvamf6tRTWL6neUQGxfKlg0Rnm+BlgSvYemxTSUSapFE8Vw0C2tmVXJJ17ImSTuJJoY/FgnI+viHMzzmg2HdGUhW0qwmoeS/VsRsAfQQqgdOaJmTI0YzKm2BuGxVLyaHgIvNOjV8MErOkWv0H9685+oSjTsX8TA4mAQ6IKOm7wf16aNaI7CW2XLXi47w/5HUbTAwJHjvq1Kump98LGOkWBqQ1W/lcz5LOtwUA7zqxRmJqpl1Y=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SJ2PR12MB8650.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(366016)(8096899003)(38070700021)(18002099003)(22082099003)(56012099003);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?a2ptd3N0S0dZSnpKTmxqbVRHTFFQaDJuUHErWkh2WXBaNHdpQkhWZEZGVFh4?=
- =?utf-8?B?RE9kbk51MUhwUmUrOFVtZ09WVUI4a3dQOEhxNjJLR3FrMXhHclFPekRQNjgz?=
- =?utf-8?B?SnJPMG1iQ0ZWY1lGYWN3Wmh3NkhsdVY3OGJ2SWVPaXN2MkptbEN5cnErejl1?=
- =?utf-8?B?SFoweVpyaGNub3pTbUFvb1h1V3RsM00zdTlEbWdmZEFjMHROcXJBYkZWRzNV?=
- =?utf-8?B?MFZtZU42aDQzQVVtbUhRK2Y1aGlxbVRMRGxSc2FXdFdNc08waDY5ZWxFRC9x?=
- =?utf-8?B?bTZZVzFzZGVtcVNGdEQ5Rk1RYmc4TTRna09SeWtGNVZTbFhDYkNuWVUyaVda?=
- =?utf-8?B?S0l2R3pwdVBTWTQrMTVRekxHQmZhZkFJdkx1bzJ6dmttSHl4Um56ZDQyQXFB?=
- =?utf-8?B?QnZ5WmtRU2lTTUtWVEJaRUZaNDdxQW5hQ0RJQUJPakttNEhTZnVJMFVoa3NK?=
- =?utf-8?B?SHlDNTAzZzZleHJVUGU1VjdMdjMvVkVHdC9VZjZuM0N1MlNLYXhxSzhGTkwz?=
- =?utf-8?B?bkthU2NrRVFLSjFRVHhudW85RlNzL3A1VjMxY3BSZGFueDYvVytNdEEvUG4x?=
- =?utf-8?B?VXA0ZUl3dmpkZThrWGcycjRIUWk3N3BVMUllN01ybklOVVVHVHBEWmRyNlRm?=
- =?utf-8?B?elhCbVFXaHRTeEZNaVlnNlJKb2hwZXkrL3hOWEVqTTY4NFhvUVNlcm1CY0sw?=
- =?utf-8?B?dHBycHY1d05UQ3ZBOTJxb3JCaXFiQUJ1a0xHMnZtS3FUazBwa3g0SFR6Wll6?=
- =?utf-8?B?Rll1Y2JqMytJZkphKzBNb01MWks1VGZ5T3ZwTm8yUUdUZHRzSytHa0pQa0Y0?=
- =?utf-8?B?RlNqSjhRZ2VIY205SzArbWM3VVFDWnd3NWRqajFKYUVDby9sZXRic3plcXY4?=
- =?utf-8?B?TGF0SU81aTFwSFVJbmRXUkZCSWhJbnNpN0Q4d1hHS1hpNEkvaGtINVg5dG4w?=
- =?utf-8?B?NGtqVEU3NUo3RkpySHkreFBxRmFFT2dmbDhLL2lsWlJzVGVUNG9ZVmxDemdp?=
- =?utf-8?B?em03VHVUMjE3WjQ4UFJoWi9uL2o3WnpJUnBCcllmckFaZmhrTUN0aDFidG1o?=
- =?utf-8?B?THZLN1NjcURvbm5sVVc0MngrYk1qNy9IZElVckNOcTZxNzI1ZnlRWDdOV0Zt?=
- =?utf-8?B?MWJ6a1lLUitqTTQ2UUdON0NRN01keUxEZnVkZTRSVUZBK0hjT3R2U3UrS2ZE?=
- =?utf-8?B?azFoaitZZXJmekdVN3Y3Q0todVNRbHVZQ3VJK1hJdUxQTnJZUTREM0xxU1Ra?=
- =?utf-8?B?UGZwUmhEMDlZQnlNVjZMQTNUYTcrS1o1cjBVSnBtSjBUdjZTR0VUeU0rd3B0?=
- =?utf-8?B?Qi96YllvL3NtbytlTk1SNFB6SGFpbDBRZm11elJ1Uk5WRzhWeEVIZzIwSWpq?=
- =?utf-8?B?bWw3OVljbHhUdmZFT05XY1R2bk1CYW1jdlZtaHdyTURmbTlSTVRjU1R4N0tx?=
- =?utf-8?B?eHdlcDB5UitzMkE4R0w2RlcwRWYvNEdQNzdjVEtwd050QWt4NFk2OExJZGt4?=
- =?utf-8?B?Mng0eGpDbm52SmJZZkNmbEtva3BuVU5QNGdzMjJnQ0xvUkRtckNrSDF1NWg5?=
- =?utf-8?B?WDB2VTZIN3I2NkM3SjIwM21RQ0tXQWhpa2I2S0txRGFQaGpBaHBKclphVVc5?=
- =?utf-8?B?NTNzWDF3dG1JbVBka3pHRUVWZjdyNWQ0N256K0UrektpMU14VnozL3c5NHQ0?=
- =?utf-8?B?VmlYaGhUNUhxaVhHODRPajE2aVplOGdrQXlsQjNHdGo3Mld4YVkrVDFtck42?=
- =?utf-8?B?Mk5EWU5XUDI5b0tYdVJwN0NRYTl4K2lTUjk2L2tEeUFJOHNnS0Q4MEIvUENN?=
- =?utf-8?B?ME5wYlNBRzlYOXF0amtQUmcxZEFuZlh4NlNjVjZKNmpSSHBwRWZScE1JUUZk?=
- =?utf-8?B?MjNmek5BSVJoanZVZEhFMGhWek5Ja1B2Q2ZKaVkzamIvQlBLUlpMQ2pQa09D?=
- =?utf-8?B?SVhvUXYwWVJOdjdIZzBUN1p4MmExL2VlaSs2L1NsTU0vMzE1RmZoVXBDSTNP?=
- =?utf-8?B?RnBEMytjMWlxbFRQZldOSy9TeVRaNytOUS8rN1VRK0tvK3Z3aElNSG1nL21p?=
- =?utf-8?B?MXFzeWxKQmtkMllYUGRleUtVMlN3WkVjcW9wZmljSnF2bXB3U3JxMVJnT3Yz?=
- =?utf-8?B?S2Y3ZjF1My96YkM3MWl4WXUyaXZQNWtRRlZYNFdHQ0gxSjVCTmtHMi8vZGY4?=
- =?utf-8?B?dGQ5UTBYakEvdzc1cUZVQ3dxSThubjlnQ1hLS2x2S1FyRUY2aGZHMFJ2SU5w?=
- =?utf-8?B?UjBBL0pkN1grQ2syd2d0U3lwVVVPYVVxMlhtVGF6S0FJVzltSFBzVGFFQVBl?=
- =?utf-8?B?eGY3TnJ3L1FMWkJPVGtjd3NnU3lHaUVDTmNtUWZralE0ZnFVK20vZz09?=
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?g/ux0QAfsRN31oRbTL9AGk9s+7cT7Kfpp9WFMD3hoYHy4ysbHqeHPCWinu?=
+ =?iso-8859-1?Q?aFRgmAY41HTb1i4l+nVOANI73sF+vdD5as5SMOAKLK5tHp77rAG8aKuLIz?=
+ =?iso-8859-1?Q?C5zLqGk2wjlv8E0lsfwZrd+IrQ/PLDgvxXN93M2CTBipwS+Wc3EI3nfPsJ?=
+ =?iso-8859-1?Q?nd0A/cZoCYA9FeDC75d/Mqh7FzAC6GNEeGW4vQk37wnR/ziBJH/Rxugjfx?=
+ =?iso-8859-1?Q?6X44sA1aK+EKTcTFkrBkx7O506iQJEP7QUOpjDU6XXFp9rYEhOQuNPDxxB?=
+ =?iso-8859-1?Q?6QfVBpFPM80fBnhP/fqWDrIWGdo+7vqbWpPF7Bgfp4gUMKfm1shkapJ7Qz?=
+ =?iso-8859-1?Q?R9DFGT4xwyK9qWVH1Xnbvny6AMpGH3dLE8S6YcecvDGMgUrGNKLXywkxGm?=
+ =?iso-8859-1?Q?GXi0l6nkY0TiWwlRbiJXczu8ZlCTa8bFj7Qt/N36N84242pvUJDbo6/vMr?=
+ =?iso-8859-1?Q?fowf42CIqf5A6hsK/KA/4AQ5/hsWBqFBkmM0qKjvOvjtN/X53RYgU9iQTl?=
+ =?iso-8859-1?Q?UY4TlJzoQvby6IGmFaIJUIXR/xZWih5DIQYaxIv0e/Sb154wq1nI4IzmcR?=
+ =?iso-8859-1?Q?GsdXjlAPRGblJNFkDsazWyfYNjS3IrBOyE2IvVpBYOqyPM1drS/k9beyxM?=
+ =?iso-8859-1?Q?OgLdRGZlA9qVaW0csC2GDzb0pGPQHU9tDiAXCqRa0yG3jFIKz6Ah9i2wkN?=
+ =?iso-8859-1?Q?aG5txegjE2RJwsp4RGpwvR9fgv/lHsts+REm3J03AjcKurmR6G+izb7Xdq?=
+ =?iso-8859-1?Q?B96B+vSL7xj95DDQEazB3Linvnp9tGoVZcMSJvNVGO7DPPs57yZfXjSQsE?=
+ =?iso-8859-1?Q?VwnhL8EZY/oz7+KOlk93vHtFPkP2maEX1f2+X0HaVVoX/ogH0qW4W93sca?=
+ =?iso-8859-1?Q?4rkIlY0gClAb6VuXDDqxLhUbqigbESNnZB+08vwGFKAMcFV7RDVPy2of68?=
+ =?iso-8859-1?Q?itBSPJWRR4pmfMAKy+lsDnWb1j10Fhj9JZ6MPBwQbbm1dPYHSPUsoc7jgb?=
+ =?iso-8859-1?Q?NkFrJErt8EyCDQpW7NPEh95GV9VNOMXJBZTz/jvhqbz0QC102G+U8A1aou?=
+ =?iso-8859-1?Q?kDtyZogI33OMX2Y33xfpstsZE3Zltu8FHrlcdj3YKoemPEx3wyQaL5OQzQ?=
+ =?iso-8859-1?Q?jwl0G4m9vzUG4qeyx3YrwzU322EDlss3PMN+6184V/13dOBF+4hkh6hVxv?=
+ =?iso-8859-1?Q?Mm51POoLMbvpXBuYFT9L9ODafuVBcyiRIKudv4BBnHZNWvj8sDoNyMjbVr?=
+ =?iso-8859-1?Q?bG4GTgmrh/rSW/ALcN3vVQ+n/+QE3rKVRsnS3snWtkJvb3pmP96M0KmASn?=
+ =?iso-8859-1?Q?TagHXB2iaMFPSDHkK5WaYs31ErMDtj3FBsAJ/Ko0v5xxLyOZcfzK52twdv?=
+ =?iso-8859-1?Q?uucUtc0zC2Hevw5wuOAZz+pHLoIQM5F65OmBXValmE9G4cJFif2ZnOskh+?=
+ =?iso-8859-1?Q?POPGGyg+jnNFzx+Ua0PfIF/P6xMq0vd0oBTECoYU81O9gK3qat3r0OljW8?=
+ =?iso-8859-1?Q?/OD8T9PRTJV6pKCROgBYsbeqbISCTnOxsRw3hqENp00sMASZcn4rCjgEkI?=
+ =?iso-8859-1?Q?KvY2ESMcr3GuEcXLj/EHRGjxqYlEs+HVkr6ocQv456eSbqxNMUYrgm64Gw?=
+ =?iso-8859-1?Q?yVcGE/5sqkM5PB2tZXkcYKNsfbPWTenQ2KaMBOEHOqK5bMs6YzZ7y5T60i?=
+ =?iso-8859-1?Q?ah5nN6XAi6NJ/SnlQ4/r9pP+plapZW17Wifj21qUvxvE/ZJYYzmrFHrwhg?=
+ =?iso-8859-1?Q?bV+Xxmu0+7XjoRGgmMe0dFTP0+y+8UKc+QvW15Hoiy+gkI?=
+Content-Type: multipart/alternative;
+ boundary="_000_SJ2PR12MB86500FB6C585E8C81238B9FE8C53ASJ2PR12MB8650namp_"
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0e117689-0357-415b-c0ae-08de8f4dfe9c
-X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5126.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Mar 2026 17:50:28.1520 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 0DhAEh/Q+XDZC3Aep+imCzWJpRRjde03bj4P5yp+NmTkNYnCJ68yzOfeg/HmbyW6ZzSkByIRwlQ/PNUkequA3w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB8067
+X-MS-Exchange-CrossTenant-AuthSource: SJ2PR12MB8650.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 270eed58-cdc9-437d-f78d-08de8f51e34e
+X-MS-Exchange-CrossTenant-originalarrivaltime: 31 Mar 2026 18:18:20.1409 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: End9uBJyQFi4JcZxjNccBIsoPpVpFpIrGc0+qBOJZLzoOYxSMEXbcBLBSTHFNELet5yJw5/gta/Dhb9ffskjNw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL3PR12MB6620
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -140,154 +132,242 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2026-03-31 13:31, Borah, Chaitanya Kumar wrote:
-> 
-> 
-> On 3/25/2026 10:28 PM, Harry Wentland wrote:
->>
->>
->> On 2026-03-24 13:01, Borah, Chaitanya Kumar wrote:
->>> Hello Harry,
->>>
->>> Few thoughts on the series from Intel perspective.
->>>
->>> On 3/17/2026 9:33 PM, Harry Wentland wrote:
->>>> When we merged the drm_plane color pipeline API the major gap
->>>> that existed was the lack of a color-space conversion colorop.
->>>> We deprecated any legacy drm_plane color properties, which
->>>> means that the COLOR_RANGE and COLOR_ENCODING properties can't
->>>> be used with the COLOR_PIPELINE property on a drm_plane. In
->>>> practice this means that we can't use a COLOR_PIPELINE on
->>>> YCbCr encoded framebuffers.
->>>>
->>>> This patchset adds a CSC colorop with the COLOR_RANGE and
->>>> COLOR_ENCODING properties and implements support in VKMS and
->>>> amdgpu.
->>>>
->>>
->>> AFAIU, while COLOR_RANGE and COLOR_ENCODING were plane properties, they were more representative of how the framebuffer provided to the plane should be interpreted, rather than selecting a transformation. So using them to define CSC behavior is bit of a semantic drift.
->>>
->>
->> I guess CSC is misleading for this colorop. YUV conversion would
->> describe it better.
->>
->>> From, Intel's HW perspective we could re-use this CSC colorop but it would be
->>> preferable to introduce new enums like "YCbCr709 to RGB", "YCbCr601 to RGB" as discussed in [1]. That way we can still represent the "RGB709 to RGB2020" conversion that Intel's fixed matrix CSC supports (instead of inventing a new colorop). We might need to change the name of colorop to something like Fixed Matrix to be inclusive of both YCbCr to RGB conversion and Primary conversion.
->>>
->>
->> At the core your CSC FF colorop and the one I'm trying to introduce are
->> both backed by a fixed matrix. We could even express the range via the
->> CSC FF colorop by introducing full and limited matrix variants for
->> YCbCr to RGB conversion, like "YCbCr709 limited to RGB" (which is
->> probably the norm for SDR/sRGB) and "YCbCr709 full to RGB" for full
->> range YCbCr content.
->>
->> For BT.601, BT.709, BT.2020 and full and limited range that would give
->> us 6 enum entries, which is quite manageable.
->>
->> Intel would then only advertise the full-range enums, plus the RGB-to-RGB
->> CSC enums (like RGB709 to RGB2020) while AMD would advertise full and
->> limited range YCbCr to RGB enums only, no RGB-to-RGB variants.
->>
->> If this makes sense to you I'll be happy to rework my YUV conversion
->> patches based on that. I think that'll work fine.
->>
-> 
-> I see you already have floated a new version of the series with this change. It should work in principle, I will have a look. Thank you for the changes.
-> 
+--_000_SJ2PR12MB86500FB6C585E8C81238B9FE8C53ASJ2PR12MB8650namp_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 
-Thanks. Looking forward to feedback.
+[Public]
 
->>> Regarding the range property, we could re-use the COLOR_RANGE property as you have done. In the case of Intel, we would only expose DRM_COLOR_YCBCR_FULL_RANGE as supported for this CSC, and use a separate colorop to perform YUV range correction. This allows userspace to still pass limited-range framebuffers. I am assuming here that it matters for user-space if the conversion was done in limited or full range.
->>>
->>
->> It sounds like you'd need another colorop for range conversion. I wonder if
->> it makes sense to also use the CSC FF block for that and introduce a
->> "YUV limited to YUV full" range conversion enum. In that case naming the
->> op named_matrix, might work better, as it can express range conversion,
->> YUV conversion, and color space conversions.
->>
-> 
-> Even though limited to full conversion is not strictly a matrix operation, I guess it can be re-presented as one.
-> 
+One comment is below.
+With that fixed, this patch is Reviewed-by: Harish Kasiviswanathan <Harish.=
+Kasiviswanathan@amd.com
 
-True. If you have a proposal for enabling range conversion
-on Intel HW I'll be happy to have a look. At this point I
-don't have a strong opinion on it.
 
-Harry
 
-> ==
-> Chaitanya
-> 
->> Harry
->>
->>> [1] https://lore.kernel.org/dri-devel/20260306165307.3233194-2-chaitanya.kumar.borah@intel.com/
->>>
->>> ==
->>> Chaitanya
->>>
->>>> An alternate way of possibly representing this has been proposed
->>>> here:
->>>> https://patchwork.freedesktop.org/patch/709860
->>>>
->>>> This code has been tested with IGT and an experimental KWin branch.
->>>>
->>>> IGT branch:
->>>> https://gitlab.freedesktop.org/hwentland/igt-gpu-tools/-/tree/csc-colorop
->>>>
->>>> KWin branch:
->>>> https://invent.kde.org/hwentlan/kwin/-/tree/csc-3dlut
->>>>
->>>> The kernel branch containing these changes, based on drm-misc-next
->>>> can be found at:
->>>> https://gitlab.freedesktop.org/hwentland/linux/-/tree/csc-colorop
->>>>
->>>> In order to successfully use this branch you might need a few
->>>> bugfixes. The kernel tree containing those fixes plus these patches
->>>> can be found at:
->>>> https://gitlab.freedesktop.org/hwentland/linux/-/tree/csc-colorop-all
->>>>
->>>> Further background on this work can be found at:
->>>> https://hwentland.github.io/2026/03/10/plane-color-pipeline-csc-3d-lut-kwin.html
->>>>
->>>> Cc: Alex Hung <alex.hung@amd.com>
->>>> Cc: Daniel Stone <daniels@collabora.com>
->>>> Cc: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
->>>> Cc: Uma Shankar <uma.shankar@intel.com>
->>>> Cc: Louis Chauvet <louis.chauvet@bootlin.com>
->>>> Cc: Melissa Wen <mwen@igalia.com>
->>>> Cc: Simon Ser <contact@emersion.fr>
->>>>
->>>> Harry Wentland (10):
->>>>     drm/colorop: Add CSC colorop type
->>>>     drm/colorop: Add CSC colorop initialization helper
->>>>     drm/atomic: Add CSC colorop state handling
->>>>     drm/vkms: Add CSC colorop support
->>>>     drm/vkms: Add atomic check and matrix handling for CSC colorop
->>>>     drm/amd/display: Implement CSC colorop support
->>>>     drm/amd/display: Use GAMCOR for first TF if CSC is used
->>>>     drm/amd/display: Check CSC colorop bypass before programming
->>>>     drm/amd/display: Check actual state during commit_tail
->>>>     drm/amd/display: Set color_space to plane_infos
->>>>
->>>>    .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  14 ++-
->>>>    .../amd/display/amdgpu_dm/amdgpu_dm_color.c   | 115 +++++++++++++++++-
->>>>    .../amd/display/amdgpu_dm/amdgpu_dm_colorop.c |  25 +++-
->>>>    drivers/gpu/drm/drm_atomic.c                  |   6 +
->>>>    drivers/gpu/drm/drm_atomic_uapi.c             |   8 ++
->>>>    drivers/gpu/drm/drm_colorop.c                 |  91 ++++++++++++++
->>>>    drivers/gpu/drm/vkms/vkms_colorop.c           |  64 +++++++---
->>>>    drivers/gpu/drm/vkms/vkms_composer.c          |   5 +
->>>>    drivers/gpu/drm/vkms/vkms_plane.c             |  50 +++++++-
->>>>    include/drm/drm_colorop.h                     |  39 ++++++
->>>>    include/uapi/drm/drm_mode.h                   |   1 +
->>>>    11 files changed, 388 insertions(+), 30 deletions(-)
->>>>
->>>> -- 
->>>> 2.53.0
->>>>
->>>
->>
-> 
+________________________________
+From: Liu, Alysa <Alysa.Liu@amd.com>
+Sent: Tuesday, March 31, 2026 10:51 AM
+To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
+Cc: Kasiviswanathan, Harish <Harish.Kasiviswanathan@amd.com>; Liu, Alysa <A=
+lysa.Liu@amd.com>
+Subject: [PATCH v3] drm/amdkfd: Add upper bound check for num_of_nodes
 
+drm/amdkfd: Add upper bound check for num_of_nodes
+in kfd_ioctl_get_process_apertures_new.
+
+Signed-off-by: Alysa Liu <Alysa.Liu@amd.com>
+---
+ drivers/gpu/drm/amd/amdkfd/kfd_chardev.c  | 3 +++
+ drivers/gpu/drm/amd/amdkfd/kfd_priv.h     | 1 +
+ drivers/gpu/drm/amd/amdkfd/kfd_topology.c | 5 +++++
+ 3 files changed, 9 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd=
+/amdkfd/kfd_chardev.c
+index 1db565442c48..5435419a7bd9 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+@@ -776,6 +776,9 @@ static int kfd_ioctl_get_process_apertures_new(struct f=
+ile *filp,
+                 goto out_unlock;
+         }
+
++       if (args->num_of_nodes > kfd_topology_get_num_devices())
++               return -EINVAL;
++
+         /* Fill in process-aperture information for all available
+          * nodes, but not more than args->num_of_nodes as that is
+          * the amount of memory allocated by user
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/am=
+dkfd/kfd_priv.h
+index e7a8f3e17872..af7b687d729c 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+@@ -1191,6 +1191,7 @@ static inline struct kfd_node *kfd_node_by_irq_ids(st=
+ruct amdgpu_device *adev,
+         return NULL;
+ }
+ int kfd_topology_enum_kfd_devices(uint8_t idx, struct kfd_node **kdev);
++uint32_t kfd_topology_get_num_devices(void);
+ int kfd_numa_node_to_apic_id(int numa_node_id);
+ uint32_t kfd_gpu_node_num(void);
+
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c b/drivers/gpu/drm/am=
+d/amdkfd/kfd_topology.c
+index 1ccd4514d3ee..453b3577ea0e 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+@@ -2297,6 +2297,11 @@ int kfd_topology_remove_device(struct kfd_node *gpu)
+         return res;
+ }
+
++uint32_t kfd_topology_get_num_devices(void)
++{
+
+It is safer to have a read lock here
+
+down_read(&topology_lock);
+
++       return sys_props.num_devices;
+
+up_read(&topology_lock);
+
++}
++
+ /* kfd_topology_enum_kfd_devices - Enumerate through all devices in KFD
+  *     topology. If GPU device is found @idx, then valid kfd_dev pointer i=
+s
+  *     returned through @kdev
+--
+2.34.1
+
+
+--_000_SJ2PR12MB86500FB6C585E8C81238B9FE8C53ASJ2PR12MB8650namp_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<div>
+<div style=3D"font-family: Calibri; text-align: left; color: rgb(0, 128, 0)=
+; margin-left: 5pt; font-size: 10pt;">
+[Public]</div>
+<br>
+</div>
+<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
+Calibri, Helvetica, sans-serif; font-size: 11pt; color: rgb(0, 0, 0);" clas=
+s=3D"elementToProof">
+One comment is below.</div>
+<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
+Calibri, Helvetica, sans-serif; font-size: 11pt; color: rgb(0, 0, 0);" clas=
+s=3D"elementToProof">
+With that fixed, this patch is Reviewed-by: Harish Kasiviswanathan &lt;Hari=
+sh.Kasiviswanathan@amd.com</div>
+<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
+Calibri, Helvetica, sans-serif; font-size: 11pt; color: rgb(0, 0, 0);" clas=
+s=3D"elementToProof">
+<br>
+</div>
+<div id=3D"appendonsend"></div>
+<div><br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<hr style=3D"display: inline-block; width: 98%;">
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<b>From:</b>&nbsp;Liu, Alysa &lt;Alysa.Liu@amd.com&gt;<br>
+<b>Sent:</b>&nbsp;Tuesday, March 31, 2026 10:51 AM<br>
+<b>To:</b>&nbsp;amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop=
+.org&gt;<br>
+<b>Cc:</b>&nbsp;Kasiviswanathan, Harish &lt;Harish.Kasiviswanathan@amd.com&=
+gt;; Liu, Alysa &lt;Alysa.Liu@amd.com&gt;<br>
+<b>Subject:</b>&nbsp;[PATCH v3] drm/amdkfd: Add upper bound check for num_o=
+f_nodes </div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div style=3D"font-size: 11pt;">drm/amdkfd: Add upper bound check for num_o=
+f_nodes<br>
+in kfd_ioctl_get_process_apertures_new.<br>
+<br>
+Signed-off-by: Alysa Liu &lt;Alysa.Liu@amd.com&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/amdkfd/kfd_chardev.c&nbsp; | 3 +++<br>
+&nbsp;drivers/gpu/drm/amd/amdkfd/kfd_priv.h&nbsp;&nbsp;&nbsp;&nbsp; | 1 +<b=
+r>
+&nbsp;drivers/gpu/drm/amd/amdkfd/kfd_topology.c | 5 +++++<br>
+&nbsp;3 files changed, 9 insertions(+)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd=
+/amdkfd/kfd_chardev.c<br>
+index 1db565442c48..5435419a7bd9 100644<br>
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c<br>
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c<br>
+@@ -776,6 +776,9 @@ static int kfd_ioctl_get_process_apertures_new(struct f=
+ile *filp,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; goto out_unlock;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (args-&gt;num_of_nodes &gt; kfd_to=
+pology_get_num_devices())<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; return -EINVAL;<br>
++<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Fill in process-apertur=
+e information for all available<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * nodes, but not mor=
+e than args-&gt;num_of_nodes as that is<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * the amount of memo=
+ry allocated by user<br>
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/am=
+dkfd/kfd_priv.h<br>
+index e7a8f3e17872..af7b687d729c 100644<br>
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h<br>
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h<br>
+@@ -1191,6 +1191,7 @@ static inline struct kfd_node *kfd_node_by_irq_ids(st=
+ruct amdgpu_device *adev,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return NULL;<br>
+&nbsp;}<br>
+&nbsp;int kfd_topology_enum_kfd_devices(uint8_t idx, struct kfd_node **kdev=
+);<br>
++uint32_t kfd_topology_get_num_devices(void);<br>
+&nbsp;int kfd_numa_node_to_apic_id(int numa_node_id);<br>
+&nbsp;uint32_t kfd_gpu_node_num(void);<br>
+&nbsp;<br>
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c b/drivers/gpu/drm/am=
+d/amdkfd/kfd_topology.c<br>
+index 1ccd4514d3ee..453b3577ea0e 100644<br>
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c<br>
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c<br>
+@@ -2297,6 +2297,11 @@ int kfd_topology_remove_device(struct kfd_node *gpu)=
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return res;<br>
+&nbsp;}<br>
+&nbsp;<br>
++uint32_t kfd_topology_get_num_devices(void)<br>
++{</div>
+<div style=3D"font-size: 11pt;"><br>
+</div>
+<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
+Calibri, Helvetica, sans-serif; font-size: 11pt; color: rgb(0, 0, 0);" clas=
+s=3D"elementToProof">
+It is safer to have a read lock here</div>
+<div style=3D"font-size: 11pt;"><br>
+</div>
+<div style=3D"font-size: 11pt; color: rgb(0, 0, 0);">down_read(&amp;topolog=
+y_lock);</div>
+<div style=3D"font-size: 11pt;"><br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return sys_props.num_devices;</div>
+<div style=3D"font-size: 11pt;"><br>
+</div>
+<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
+Calibri, Helvetica, sans-serif; font-size: 11pt; color: rgb(0, 0, 0);" clas=
+s=3D"elementToProof">
+up_read(&amp;topology_lock);</div>
+<div style=3D"font-size: 11pt;"><br>
++}<br>
++<br>
+&nbsp;/* kfd_topology_enum_kfd_devices - Enumerate through all devices in K=
+FD<br>
+&nbsp; *&nbsp;&nbsp;&nbsp;&nbsp; topology. If GPU device is found @idx, the=
+n valid kfd_dev pointer is<br>
+&nbsp; *&nbsp;&nbsp;&nbsp;&nbsp; returned through @kdev<br>
+--<br>
+2.34.1<br>
+<br>
+</div>
+</body>
+</html>
+
+--_000_SJ2PR12MB86500FB6C585E8C81238B9FE8C53ASJ2PR12MB8650namp_--
