@@ -4,73 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6058B10FCACA
-	for <amd-gfx@archiver.kernel.org>; Wed,  1 Apr 2026 18:19:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3F0CC10FCAD0
+	for <amd-gfx@archiver.kernel.org>; Wed,  1 Apr 2026 18:19:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A997110EE37;
-	Wed,  1 Apr 2026 18:19:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0680010EE7F;
+	Wed,  1 Apr 2026 18:19:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="WdhsvwTb";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="KA1Q0myu";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9334010EA2C;
- Tue, 31 Mar 2026 09:21:17 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0F19710EAF3;
+ Tue, 31 Mar 2026 19:52:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1774948877; x=1806484877;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=qQlncALkzb9hdidzpyd2vqbLcbjLAlRji3MajrtLd6I=;
- b=WdhsvwTb3ZLjUwiagkKb9rl9PiqgQzyp9TsBmHOwhTz5uaDWaCvZXfSp
- goF8YwTD/pmnMpORVMsBofptQhsfO/z3k/q0SR8JaRcdnMMl9cOaifTR7
- U4RbnppDR95+MhKhAOYocClO0mnoZldRskQGO52xtfHpIOIAqqT5K7awn
- vgaHEEoBCIpgcqSAxTs68bMbm0oKj9jBh+5PwZlctfMJevZ38o93F3yuz
- SvTky1TkQr5eqaDdwrJYT8ofdzCtOWrGB0H836xOLOe1My81v3qk1rOVr
- vKpQ6uTDTiJyst3X/I2xW+YQXL9+goQDNN01mLFT5j4TxMgS2fXqR6eXW A==;
-X-CSE-ConnectionGUID: p4A8vpPiSGaEiZkF3hbK8Q==
-X-CSE-MsgGUID: bB1dG7unSCiquhjhX5CYJA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11744"; a="74988595"
-X-IronPort-AV: E=Sophos;i="6.23,151,1770624000"; d="scan'208";a="74988595"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
- by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Mar 2026 02:21:17 -0700
-X-CSE-ConnectionGUID: 4aXApRE2RuqMO7aAOXtf/Q==
-X-CSE-MsgGUID: T+/83HPoRtiqbj1k5yJRgg==
+ t=1774986771; x=1806522771;
+ h=message-id:subject:from:to:cc:date:in-reply-to:
+ references:content-transfer-encoding:mime-version;
+ bh=nbUNWnhxtD9uSl+kq+z3SJo1UKV3e6wBk/X6kxEHQeI=;
+ b=KA1Q0myuVimi2olWP8/6kDwP2AyjZf8QSDPgan3uH3eSwS2JW8U7+vWA
+ DozGbRn8mnixKlhaMFfXm3Qjw586O2wWZz9QHfOriYnKmJzaOie1q136S
+ xSP/Vewrz5FoFPlmMpws/9UE+qYynsiym0QAGihYjVj/DRp7Df4PHsZXP
+ IdLUnlp22s9zDjfrx01zYbz6Ob4q6otAP1eWiiR369cg84Vl8Rw1C2ly2
+ U7MnQ5y5lyek7CT9aEZUfVS/WXOQ1XWu7vfrR5B5mV8o+hH/lbfqOwGYx
+ NbscFBc9NCPs0zwzXBsO6DlT9pxTBW85iPwPetXr5iVch8h5FH3iqS+TF w==;
+X-CSE-ConnectionGUID: Qwy2Py7XRKWmhOgohICkkw==
+X-CSE-MsgGUID: dDf2B6muS3mSPRFUzjOERw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11745"; a="86627320"
+X-IronPort-AV: E=Sophos;i="6.23,152,1770624000"; d="scan'208";a="86627320"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+ by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 31 Mar 2026 12:52:51 -0700
+X-CSE-ConnectionGUID: 4wP6lwCxTUSbpUETu8DyVg==
+X-CSE-MsgGUID: /K6c4WzVTHGmpaA0jZ9tfA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,151,1770624000"; d="scan'208";a="226288688"
-Received: from smoticic-mobl1.ger.corp.intel.com (HELO fedora)
+X-IronPort-AV: E=Sophos;i="6.23,152,1770624000"; d="scan'208";a="225461106"
+Received: from smoticic-mobl1.ger.corp.intel.com (HELO [10.245.244.28])
  ([10.245.244.28])
- by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Mar 2026 02:21:11 -0700
-From: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-To: intel-xe@lists.freedesktop.org
-Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Felix Kuehling <Felix.Kuehling@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Danilo Krummrich <dakr@kernel.org>,
- Matthew Brost <matthew.brost@intel.com>, Alice Ryhl <aliceryhl@google.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 31 Mar 2026 12:52:46 -0700
+Message-ID: <bd45632be1a5bcd2ce34834b45a35254e23f7679.camel@linux.intel.com>
+Subject: Re: [PATCH 2/5] drm/msm: Remove abuse of drm_exec internals
+From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
+To: rob.clark@oss.qualcomm.com
+Cc: intel-xe@lists.freedesktop.org, Felix Kuehling <Felix.Kuehling@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, Christian
+ =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,  David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Maarten Lankhorst	
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, Danilo Krummrich
+ <dakr@kernel.org>, Matthew Brost <matthew.brost@intel.com>,  Alice Ryhl
+ <aliceryhl@google.com>, Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar	
+ <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>, Sean
+ Paul	 <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
  linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
-Subject: [PATCH 5/5] drm/exec, drm/xe,
- drm/amdgpu: Add an accessor for struct drm_exec::ticket
-Date: Tue, 31 Mar 2026 11:20:23 +0200
-Message-ID: <20260331092023.81616-6-thomas.hellstrom@linux.intel.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260331092023.81616-1-thomas.hellstrom@linux.intel.com>
+Date: Tue, 31 Mar 2026 21:52:43 +0200
+In-Reply-To: <CACSVV03FFvi0c4XMEShmH5ou4OKKZcvvni2j=0DBoYnuT55ecQ@mail.gmail.com>
 References: <20260331092023.81616-1-thomas.hellstrom@linux.intel.com>
+ <20260331092023.81616-3-thomas.hellstrom@linux.intel.com>
+ <CACSVV03FFvi0c4XMEShmH5ou4OKKZcvvni2j=0DBoYnuT55ecQ@mail.gmail.com>
+Organization: Intel Sweden AB, Registration Number: 556189-6027
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 01 Apr 2026 18:19:20 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -86,108 +83,103 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Drivers were accessing this drm_exec member directly.
-Provide an accessor, drm_exec_ticket() to avoid that.
+On Tue, 2026-03-31 at 12:08 -0700, Rob Clark wrote:
+> On Tue, Mar 31, 2026 at 2:21=E2=80=AFAM Thomas Hellstr=C3=B6m
+> <thomas.hellstrom@linux.intel.com> wrote:
+> >=20
+> > The code was reading drm_exec internal state to determine whether
+> > the drm_exec structure had been initialized or not, and therefore
+> > needed cleaning up, relying on undocumented behaviour.
+> >=20
+> > Instead add a bool to struct msm_gem_submit to indicate whether
+> > drm_exec cleaning up is needed.
+> >=20
+> > Signed-off-by: Thomas Hellstr=C3=B6m <thomas.hellstrom@linux.intel.com>
+>=20
+> Reviewed-by: Rob Clark <rob.clark@oss.qualcomm.com>
+>=20
+> This is pretty stand-alone, so I can pick it up for v7.1.=C2=A0 Or ack fo=
+r
+> landing it via drm-misc with the rest of the series if that is easier
+> for you.=C2=A0 It shouldn't conflict with anything in flight.
 
-Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c | 4 ++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c           | 6 +++---
- drivers/gpu/drm/xe/xe_validation.c               | 4 ++--
- include/drm/drm_exec.h                           | 5 +++++
- 4 files changed, 12 insertions(+), 7 deletions(-)
+Thanks Rob. Please pick it up and I'll exclude it from the next
+iteration of the series.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-index 29b400cdd6d5..8a4fb9a62485 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-@@ -2998,7 +2998,7 @@ int amdgpu_amdkfd_gpuvm_restore_process_bos(void *info, struct dma_fence __rcu *
- 	/* Validate PDs, PTs and evicted DMABuf imports last. Otherwise BO
- 	 * validations above would invalidate DMABuf imports again.
- 	 */
--	ret = process_validate_vms(process_info, &exec.ticket);
-+	ret = process_validate_vms(process_info, drm_exec_ticket(exec));
- 	if (ret) {
- 		pr_debug("Validating VMs failed, ret: %d\n", ret);
- 		goto validate_map_fail;
-@@ -3039,7 +3039,7 @@ int amdgpu_amdkfd_gpuvm_restore_process_bos(void *info, struct dma_fence __rcu *
- 			goto validate_map_fail;
- 		}
- 
--		ret = amdgpu_vm_handle_moved(adev, peer_vm, &exec.ticket);
-+		ret = amdgpu_vm_handle_moved(adev, peer_vm, drm_exec_ticket(exec));
- 		if (ret) {
- 			dev_dbg(adev->dev,
- 				"Memory eviction: handle moved failed, pid %8d. Try again.\n",
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-index c4ee19603460..c725a7976c63 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-@@ -1157,7 +1157,7 @@ static int amdgpu_cs_vm_handling(struct amdgpu_cs_parser *p)
- 			return r;
- 	}
- 
--	r = amdgpu_vm_handle_moved(adev, vm, &p->exec.ticket);
-+	r = amdgpu_vm_handle_moved(adev, vm, drm_exec_ticket(&p->exec));
- 	if (r)
- 		return r;
- 
-@@ -1358,7 +1358,7 @@ static int amdgpu_cs_submit(struct amdgpu_cs_parser *p,
- 	cs->out.handle = seq;
- 	leader->uf_sequence = seq;
- 
--	amdgpu_vm_bo_trace_cs(&fpriv->vm, &p->exec.ticket);
-+	amdgpu_vm_bo_trace_cs(&fpriv->vm, drm_exec_ticket(&p->exec));
- 	for (i = 0; i < p->gang_size; ++i) {
- 		amdgpu_job_free_resources(p->jobs[i]);
- 		trace_amdgpu_cs_ioctl(p->jobs[i]);
-@@ -1793,7 +1793,7 @@ int amdgpu_cs_find_mapping(struct amdgpu_cs_parser *parser,
- 	*map = mapping;
- 
- 	/* Double check that the BO is reserved by this CS */
--	if (dma_resv_locking_ctx((*bo)->tbo.base.resv) != &parser->exec.ticket)
-+	if (dma_resv_locking_ctx((*bo)->tbo.base.resv) != drm_exec_ticket(&parser->exec))
- 		return -EINVAL;
- 
- 	/* Make sure VRAM is allocated contigiously */
-diff --git a/drivers/gpu/drm/xe/xe_validation.c b/drivers/gpu/drm/xe/xe_validation.c
-index a611438eaafe..8dff4d0ec895 100644
---- a/drivers/gpu/drm/xe/xe_validation.c
-+++ b/drivers/gpu/drm/xe/xe_validation.c
-@@ -156,7 +156,7 @@ int xe_validation_ctx_init(struct xe_validation_ctx *ctx, struct xe_validation_d
- 
- #ifdef CONFIG_DEBUG_WW_MUTEX_SLOWPATH
- /*
-- * This abuses both drm_exec and ww_mutex internals and should be
-+ * This abuses ww_mutex internals and should be
-  * replaced by checking for -EDEADLK when we can make TTM
-  * stop converting -EDEADLK to -ENOMEM.
-  * An alternative is to not have exhaustive eviction with
-@@ -164,7 +164,7 @@ int xe_validation_ctx_init(struct xe_validation_ctx *ctx, struct xe_validation_d
-  */
- static bool xe_validation_contention_injected(struct drm_exec *exec)
- {
--	return !!exec->ticket.contending_lock;
-+	return !!drm_exec_ticket(exec)->contending_lock;
- }
- 
- #else
-diff --git a/include/drm/drm_exec.h b/include/drm/drm_exec.h
-index 5ed5be1f8244..50d056a87de0 100644
---- a/include/drm/drm_exec.h
-+++ b/include/drm/drm_exec.h
-@@ -151,6 +151,11 @@ static inline bool drm_exec_is_contended(struct drm_exec *exec)
- 		goto *__drm_exec_retry_ptr;		\
- 	} while (0)
- 
-+static inline struct ww_acquire_ctx *drm_exec_ticket(struct drm_exec *exec)
-+{
-+	return &exec->ticket;
-+}
-+
- void drm_exec_init(struct drm_exec *exec, u32 flags, unsigned nr);
- void drm_exec_fini(struct drm_exec *exec);
- bool drm_exec_cleanup(struct drm_exec *exec);
--- 
-2.53.0
+Thanks,
+Thomas
 
+>=20
+> BR,
+> -R
+>=20
+> > ---
+> > =C2=A0drivers/gpu/drm/msm/msm_gem.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0 | 1 +
+> > =C2=A0drivers/gpu/drm/msm/msm_gem_submit.c | 4 +++-
+> > =C2=A02 files changed, 4 insertions(+), 1 deletion(-)
+> >=20
+> > diff --git a/drivers/gpu/drm/msm/msm_gem.h
+> > b/drivers/gpu/drm/msm/msm_gem.h
+> > index cb32093fda47..762e546d25ef 100644
+> > --- a/drivers/gpu/drm/msm/msm_gem.h
+> > +++ b/drivers/gpu/drm/msm/msm_gem.h
+> > @@ -452,6 +452,7 @@ struct msm_gem_submit {
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 bool bos_pinned : 1;
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 bool fault_dumped:1;/* Limit=
+ devcoredump dumping to one per
+> > submit */
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 bool in_rb : 1;=C2=A0=C2=A0=
+=C2=A0=C2=A0 /* "sudo" mode, copy cmds into RB */
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 bool has_exec : 1;=C2=A0 /* @exec=
+ is initialized. */
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct msm_ringbuffer *ring;
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 unsigned int nr_cmds;
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 unsigned int nr_bos;
+> > diff --git a/drivers/gpu/drm/msm/msm_gem_submit.c
+> > b/drivers/gpu/drm/msm/msm_gem_submit.c
+> > index 75d9f3574370..26ea8a28be47 100644
+> > --- a/drivers/gpu/drm/msm/msm_gem_submit.c
+> > +++ b/drivers/gpu/drm/msm/msm_gem_submit.c
+> > @@ -278,6 +278,7 @@ static int submit_lock_objects_vmbind(struct
+> > msm_gem_submit *submit)
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 int ret =3D 0;
+> >=20
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm_exec_init(&submit->exec,=
+ flags, submit->nr_bos);
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 submit->has_exec =3D true;
+> >=20
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm_exec_until_all_locked (&=
+submit->exec) {
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0 ret =3D drm_gpuvm_prepare_vm(submit->vm, exec, 1);
+> > @@ -304,6 +305,7 @@ static int submit_lock_objects(struct
+> > msm_gem_submit *submit)
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0 return submit_lock_objects_vmbind(submit);
+> >=20
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm_exec_init(&submit->exec,=
+ flags, submit->nr_bos);
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 submit->has_exec =3D true;
+> >=20
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm_exec_until_all_locked (&=
+submit->exec) {
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0 ret =3D drm_exec_lock_obj(&submit->exec,
+> > @@ -523,7 +525,7 @@ static void submit_cleanup(struct
+> > msm_gem_submit *submit, bool error)
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (error)
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0 submit_unpin_objects(submit);
+> >=20
+> > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (submit->exec.objects)
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (submit->has_exec)
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0 drm_exec_fini(&submit->exec);
+> >=20
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /* if job wasn't enqueued to=
+ scheduler, early retirement:
+> > */
+> > --
+> > 2.53.0
+> >=20
