@@ -4,102 +4,109 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 54934109B487
-	for <amd-gfx@archiver.kernel.org>; Tue, 31 Mar 2026 14:55:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D80FF109B492
+	for <amd-gfx@archiver.kernel.org>; Tue, 31 Mar 2026 15:45:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4335E10E942;
-	Tue, 31 Mar 2026 14:55:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7293710E2B1;
+	Tue, 31 Mar 2026 15:45:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="nfwrA9fI";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="foj5kiFu";
 	dkim-atps=neutral
-Received: from mail-vk1-f176.google.com (mail-vk1-f176.google.com
- [209.85.221.176])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A166810E942
- for <amd-gfx@lists.freedesktop.org>; Tue, 31 Mar 2026 14:55:33 +0000 (UTC)
-Received: by mail-vk1-f176.google.com with SMTP id
- 71dfb90a1353d-56ba10b5f70so291431e0c.3
- for <amd-gfx@lists.freedesktop.org>; Tue, 31 Mar 2026 07:55:33 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1774968932; cv=none;
- d=google.com; s=arc-20240605;
- b=gN+UUXGLAWMeV/hJN2lJiXI/eTZNW3uNUiugYBpkBBv0Toq0NTir9CEzkabYJAPgAw
- l2J94Tww5mu4UsYpCfsP/7VEb0ZD0wKA3aXPjdyoo98XVAJ/tjQWIhfNh99inN641PCK
- wj8Jn086VQYI4X9g0JWvctY3fbxbXAzxs/vTFtywmJP2+VYrp/FvbhOBce3vKO2YTnGx
- lVnUBwLr2CGbMN9fpQ3bQXAdxdvJfmCNBvYci7IMYxQBPx8lCxclbEgs/MKIQIkIHrHd
- Xa4zKYHK/qGV6SqM35AFIQk5jqJqYd7R0DXekERYaoLENZredEOifv7o5urs4+lNY/ju
- z7gA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=iw+4CAwzc9WeJr+OGofkDsKUrB1nWPaURjPoaaX0QUk=;
- fh=tH37BvykxlL/eqQ1ODqKhiCVU6G9fzfOPXP76UFeWlE=;
- b=GPLvBlop5lgiRG/n32IQjpxxGmbRcglD6m/Q8hECgWE/oA+2VERuxBjkF/2uGqxouC
- 4opciUCWK4kq60T0MnIxGSQmA5+9AxGOnpfjYcPzhu9HosfD3lYkN/qH0FI9N63b1siW
- dFrk6pQH4j3GKpkd4kyrOY1aDqpNliNovia3ix+eyHpys9FkBv/MazRbp7u6iY7hDcw0
- 2hodr6/i4EzE8jiyDTRNCWz+Nffy2gsogfsbEuGDZriuN12W4wk1IMSmtP6tPohVV9TH
- ACF6BxqPZmgdv0w1lk6cBwbtWeLeX3/X4RVkHfXOyv0BWu04y6vaQzQiOdDojOf0RpVu
- 0BWw==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1774968932; x=1775573732; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=iw+4CAwzc9WeJr+OGofkDsKUrB1nWPaURjPoaaX0QUk=;
- b=nfwrA9fIlGFs28aFdVXr7U+FF7AOvfbOT18eb8nxjLmf+znRX2YY4leXqsXEqQmcs1
- uoNoO45YqYd/6PV6M+Ziled4iCIDWPfJVTQxpvEtjzwHipmNyF6jH1JFshfoLQhPb0ZB
- zSloQTblht7MZDFecAyHB5GnU5ACUn6XsuW4WyZEyx8N5HEBjGUcAZ7iTHpNVrz6y1n2
- sN5ZuUCWPk/icpFT4buOu/fSsMurfngzO6uJ5EbXVUwzaXPA/2v6HEk4FJzruMoXkG2/
- /wXKUWOotvdM2rBezdLe3EZ53YRV1Y4pNf+qj73rqTnpChCusiWlUUvoNJmPQFb/WnTz
- ZOEw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774968932; x=1775573732;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=iw+4CAwzc9WeJr+OGofkDsKUrB1nWPaURjPoaaX0QUk=;
- b=nMkOdH4/fFmirx2+Oyml9q8e2Rmed+w4WDUvrrGL7ED/IVezdPNpJr5dntpJOUiO9l
- 29oq3n2H0tNn35VETLUkiq4Fzdo2d4rym6I+sHuoi7iRZeuxmH+U3xjfWvWU7pDNtrfa
- e0+o/u4ztlHEE6Jt8zkl9mcxPre56p7xvVGA3ax15SmkSFvCaL26fPGQRv5YqmU2+gM5
- C+pSrXmEhnSriqQ5H7BUeaaUZG3MZg3rHgqsVzfluuhGku/m8P/7/E4KGbJSP+vKlfOu
- bkU5qVOFYCUT8PjzAIYvcZl7gsZePrS4wTDn8SLdDF1BD69EQA1QyMY/ngOonJSbKRUb
- Modw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWynipSppc7r7HIKnRE64TYikHvxA4e4JjfL/y0y9ChitMKPRWN7P6Ta+3Blpd6H4tpORGdGc4Y@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwOWH7Dps4LIiMfjPuDlUziVF5puYBkvcMiTuS7Z8dA746zSngT
- CmC5o50PNo2n5ZLfBuFqBXZss+cVi5nFCdyqvQ+IL++6kSbqoT1z0ZhK8+lWMli0zENeTf0jtm0
- mhtE9bZeyFAwm1Asfb1BGfwET2F5/h7w=
-X-Gm-Gg: ATEYQzyhrTHKqwz2WsWQxmSsKgA4Whgkgdxo1v6Ljyq3YqyE0k7oCbkFpv1skhhxbIB
- 0kIH+1MvwUoK1vg8FMyct+/fW0Jq8gyK9jBNWP29la61bRr6n8b8y3QYuu2aSEDQjjzQQ82gCZF
- fU/L/teicsEkPzqN6+PITXXt5GiPWlTZgR4yS74AmFCN3K7OpkW9MTMUBfYVlCeIj8+zbgRj0mK
- TUyNkbv9FHhAxfHv27AWTpBUbwOOZjc0/hA1cApk+ltQhh9O/WxfT0jj7xE8czJdh4peNKdn+IH
- M9Lci9rM80VGZxlnl0rLp0VyaZn0pmK5RILTULaIcKhooXUVFXRj0EXd1aFlWnmlDeJU7wwfztq
- pbyz7
-X-Received: by 2002:a05:6102:21ba:b0:602:7589:6536 with SMTP id
- ada2fe7eead31-604f8fd7c24mr2235805137.2.1774968932353; Tue, 31 Mar 2026
- 07:55:32 -0700 (PDT)
+Received: from DM1PR04CU001.outbound.protection.outlook.com
+ (mail-centralusazon11010024.outbound.protection.outlook.com [52.101.61.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1C40910E2B1;
+ Tue, 31 Mar 2026 15:45:59 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=zOPBtkgbPe5NW4ZMU5F2B9atYAWSSXtnyaqWzbxUUCezMjKhxsib9OVbvyEbmHy0/4H/+3Qztn/Ffw82nUE7bZsAejMtaB66QsthS6itDwFhiLnvP6VgECB+4ESsNilTcqOZoq848CHFAdUn+G8r5kdgWlXgsJ921qfTkaoj5IcSj5EB+ARsrBOGr+J80IIGlFedr9cT9A+Mc9OvPVb+Y8LuTZUjjN1ydzvZSfFA1fSlVaRTsgXS3kf7EShM4/dgC1cyU/HKHP66a1kcIuHLkd7+nS0yKCk1HveUhXJi2Uej8320dnF6JQmxjj34/GVLHKQQp6dxMGW+hw1mjPqO7Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=9DaoARQpeI5cJKYRJGALOOBxT8lCEO910+g9swoxUZw=;
+ b=xN0CAgIVlhCFBn324oDmWIbHrWKQw2V6cq+ZudY6oNNYFJRwBARqxplHIG0q/HVQ2ct34FAl+PywoaaLpJpd6dS3iMdLfyVQEeesMhFiQ0Yv6GMvP/mbPjiAamI6S+XoQAlrtQyigCGF/Cyszr7rtVjDfnUmv9dd4d+fw8x1eGjvPP64YLuo9NWm/LCF5WWfGr7ga4NOX+lwfihcdUz6H1szbZyo9UgVii0vZPMkQpE78ocYZvC2cC5MIf5pyQ8Acx9+m9Prc6tINIOgw3nDvw3mXahGEmsPEzZIK0FZSYqMNFAHJmkgcqbRKyJG7gdhTxSjMr4xbB13nYly197xzA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=gmail.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=9DaoARQpeI5cJKYRJGALOOBxT8lCEO910+g9swoxUZw=;
+ b=foj5kiFuixY5s3DeuK+K3pL85VJBhf4reDAq+4dwUZVGKuZ7XCSzxDvA8oIaSlVN6Bo2yfVj7AuQ/kfWStACQSIXFphuyYGXm0jTliH0wV6Qd8Lgb/UzC1C2Y+EC3gP6wgVNjFJB/eMsLygiTq15RCmuxi6FPe8aw7hV276WZ6U=
+Received: from MN2PR14CA0007.namprd14.prod.outlook.com (2603:10b6:208:23e::12)
+ by CH3PR12MB8185.namprd12.prod.outlook.com (2603:10b6:610:123::17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.15; Tue, 31 Mar
+ 2026 15:45:55 +0000
+Received: from BN1PEPF00006000.namprd05.prod.outlook.com
+ (2603:10b6:208:23e:cafe::a) by MN2PR14CA0007.outlook.office365.com
+ (2603:10b6:208:23e::12) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9745.29 via Frontend Transport; Tue,
+ 31 Mar 2026 15:45:49 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ BN1PEPF00006000.mail.protection.outlook.com (10.167.243.232) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9745.21 via Frontend Transport; Tue, 31 Mar 2026 15:45:55 +0000
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Tue, 31 Mar
+ 2026 10:45:53 -0500
+Received: from [10.254.93.25] (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
+ Transport; Tue, 31 Mar 2026 10:45:52 -0500
+Message-ID: <3d928ea8-dee9-40cc-9fcc-af063b67138a@amd.com>
+Date: Tue, 31 Mar 2026 11:45:52 -0400
 MIME-Version: 1.0
-References: <20251224144708.61167-1-marco.crivellari@suse.com>
- <20251224144708.61167-2-marco.crivellari@suse.com>
-In-Reply-To: <20251224144708.61167-2-marco.crivellari@suse.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 31 Mar 2026 10:55:20 -0400
-X-Gm-Features: AQROBzAlliLpxduaovQB73KEGle6JGM5wuLvaBXl7gbMww3qmuvTovlmipmFmVE
-Message-ID: <CADnq5_NJFv=xEyN+VQOvt=7QifK2rFUcKru92YAeX+2m-9PSNw@mail.gmail.com>
-Subject: Re: [PATCH v3 1/4] drm/amdgpu: replace use of system_unbound_wq with
- system_dfl_wq
-To: Marco Crivellari <marco.crivellari@suse.com>
-Cc: linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, Tejun Heo <tj@kernel.org>, 
- Lai Jiangshan <jiangshanlai@gmail.com>,
- Frederic Weisbecker <frederic@kernel.org>, 
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
- Michal Hocko <mhocko@suse.com>, Alex Deucher <alexander.deucher@amd.com>,
- Christian Konig <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Philip Yang <yangp@amd.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v8 0/8] drm/amd/display: more drm_edid to AMD display
+ driver (partial)
+To: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>,
+ <airlied@gmail.com>, <alexander.deucher@amd.com>, <alex.hung@amd.com>,
+ <andrzej.hajda@intel.com>, <christian.koenig@amd.com>,
+ <harry.wentland@amd.com>, <jernej.skrabec@gmail.com>, <jonas@kwiboo.se>,
+ <Laurent.pinchart@ideasonboard.com>, <maarten.lankhorst@linux.intel.com>,
+ <mario.limonciello@amd.com>, <mripard@kernel.org>, <mwen@igalia.com>,
+ <neil.armstrong@linaro.org>, <rfoss@kernel.org>, <simona@ffwll.ch>,
+ <siqueira@igalia.com>, <tzimmermann@suse.de>
+CC: Jani Nikula <jani.nikula@linux.intel.com>, Michel Daenzer
+ <michel.daenzer@mailbox.org>, <amd-gfx@lists.freedesktop.org>,
+ <dri-devel@lists.freedesktop.org>, <kernel-dev@igalia.com>
+References: <20260225121903.236115-1-mwen@igalia.com>
+ <3856874.aCxCBeP46V@timur-hyperion>
+Content-Language: en-US
+From: Leo Li <sunpeng.li@amd.com>
+In-Reply-To: <3856874.aCxCBeP46V@timur-hyperion>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN1PEPF00006000:EE_|CH3PR12MB8185:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4acd0c7c-191f-4077-68bf-08de8f3c9898
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|7416014|36860700016|1800799024|42112799006|82310400026|921020|56012099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: icqQpR5nAJuOYnU96KnNb4WrtlGL+BRauPwpgL+YnjMokddxzJOaQa+HW24gBD2USdSrV+VxOwS5pYxSyC4mOMxeh3ZarV9z6ZfmvRqUxFcpISv7dOO9yszLZEJHZyReD3IO3g5MfYzjHwyJV7F7+fwbi3vth6PXia7Mes3trZwC3Mfwhs9lVQmhgolPa4Kw2f/WZXtE4pfNekIX4ls2Rok49B/S6+NPvabhdCZn5bkigmDIJhu4skF/yqooXYW2UumwJWh8MBX1NMVS3OF86+E/pze5pEkrLxOgE98ib/OIBP+PMVyZkk63sc0z1Tismallnxwq+aOj8i7sWWq1vGRSXncseJDr5LrCE9SttDCUnEt0TR0HwiGIlQc4XxFllCDVgMqvE3yBIq1/aDkjJWwRQpUu4ApvBZZWxWNCbl70FP7AWrywB80Kn8bRzaVaqmvuT5SwK9YikCym52vrZZiDojUeQYZYIbAYXVOeIwKJitPwfuY1WKqPuvOftGpAxWdEgVPWe2blFN4poeAhG6qaAjnZ3OloCjxdaPKItdeGyhWZ4NGoOnVI4uVQiIVOcZm80uZlSanI8cwAVFfYkuNpY6bK5BibpSUnnInmyNfdsw3z+Hg1LmlbSpWfumOK2ATNwaoLPctaY4won6aGKjjN7vouixhqaLcm1L6oIEwt267FT0oXrN6pWZK3ZTWkjDLG41aVFv48bJD1PHsA2oiGX+8sps0XrBXp7jjhUMA3kH6t/VOcQXz8EIMbOTI2Lj8VfX1olds3HNdREi/R/+xcAZLn7Ob1CUz97owS/Ea45AG9TiD7o5Iqsto3DhNs
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(7416014)(36860700016)(1800799024)(42112799006)(82310400026)(921020)(56012099003)(18002099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: i+bOPnapl1pAfjW7oqfAfeC0X78y2gJ5xdKKjuWNVJ3ua6M6pPuw7QtWP7e/QOUDMUn3ukxCQMdJBakeDHxFLDsLniVUL7xy5ypKrdv3t8Ehy9WOo31VRn+vluek1xTP71P+1Mjy1Lj5LI7KMT8alKFWaIYjv+0QM+bms2hUneCsBjbDu8WZNxxST38+NV3AL/FKj4wv40EaMizIoL1pyUnijFNsBQXACD8J4o3y/Q1ksAFzgNBCSlxLhHGpSRr6CJYvAO3cCMQnUG+VpkFU2U9dRRm9h1Iqnz2BxdGwubbiCzEQ1HGX23XlZMfeQb7ETRlcnm4H0bPAHRm8mkN+hah8/hfAiX395ulSkZqL47Kj1u90tq0S+jhlK6uiETOKtubPxgF/lysrMH0p5ZfEiHOcQIjwocVZzYCjAFL30PmzSghUGDGjcLm/0KPkH50N
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Mar 2026 15:45:55.3690 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4acd0c7c-191f-4077-68bf-08de8f3c9898
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN1PEPF00006000.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8185
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,102 +121,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied the series.  Thanks!
 
-Alex
 
-On Wed, Dec 24, 2025 at 10:06=E2=80=AFAM Marco Crivellari
-<marco.crivellari@suse.com> wrote:
->
-> This patch continues the effort to refactor workqueue APIs, which has beg=
-un
-> with the changes introducing new workqueues and a new alloc_workqueue fla=
-g:
->
->    commit 128ea9f6ccfb ("workqueue: Add system_percpu_wq and system_dfl_w=
-q")
->    commit 930c2ea566af ("workqueue: Add new WQ_PERCPU flag")
->
-> The point of the refactoring is to eventually alter the default behavior =
-of
-> workqueues to become unbound by default so that their workload placement =
-is
-> optimized by the scheduler.
->
-> Before that to happen after a careful review and conversion of each indiv=
-idual
-> case, workqueue users must be converted to the better named new workqueue=
-s with
-> no intended behaviour changes:
->
->    system_wq -> system_percpu_wq
->    system_unbound_wq -> system_dfl_wq
->
-> This way the old obsolete workqueues (system_wq, system_unbound_wq) can b=
-e
-> removed in the future.
->
-> Suggested-by: Tejun Heo <tj@kernel.org>
-> Signed-off-by: Marco Crivellari <marco.crivellari@suse.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/aldebaran.c     | 2 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 2 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c  | 2 +-
->  3 files changed, 3 insertions(+), 3 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/aldebaran.c b/drivers/gpu/drm/amd=
-/amdgpu/aldebaran.c
-> index daa7b23bc775..a7bc65099755 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/aldebaran.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/aldebaran.c
-> @@ -179,7 +179,7 @@ aldebaran_mode2_perform_reset(struct amdgpu_reset_con=
-trol *reset_ctl,
->         list_for_each_entry(tmp_adev, reset_device_list, reset_list) {
->                 /* For XGMI run all resets in parallel to speed up the pr=
-ocess */
->                 if (tmp_adev->gmc.xgmi.num_physical_nodes > 1) {
-> -                       if (!queue_work(system_unbound_wq,
-> +                       if (!queue_work(system_dfl_wq,
->                                         &tmp_adev->reset_cntl->reset_work=
-))
->                                 r =3D -EALREADY;
->                 } else
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm=
-/amd/amdgpu/amdgpu_device.c
-> index 12201b8e99b3..2ee416c36ca3 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -6173,7 +6173,7 @@ int amdgpu_do_asic_reset(struct list_head *device_l=
-ist_handle,
->                 list_for_each_entry(tmp_adev, device_list_handle, reset_l=
-ist) {
->                         /* For XGMI run all resets in parallel to speed u=
-p the process */
->                         if (tmp_adev->gmc.xgmi.num_physical_nodes > 1) {
-> -                               if (!queue_work(system_unbound_wq,
-> +                               if (!queue_work(system_dfl_wq,
->                                                 &tmp_adev->xgmi_reset_wor=
-k))
->                                         r =3D -EALREADY;
->                         } else
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c b/drivers/gpu/drm/=
-amd/amdgpu/amdgpu_reset.c
-> index 28c4ad62f50e..9c4631608526 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c
-> @@ -116,7 +116,7 @@ static int amdgpu_reset_xgmi_reset_on_init_perform_re=
-set(
->         /* Mode1 reset needs to be triggered on all devices together */
->         list_for_each_entry(tmp_adev, reset_device_list, reset_list) {
->                 /* For XGMI run all resets in parallel to speed up the pr=
-ocess */
-> -               if (!queue_work(system_unbound_wq, &tmp_adev->xgmi_reset_=
-work))
-> +               if (!queue_work(system_dfl_wq, &tmp_adev->xgmi_reset_work=
-))
->                         r =3D -EALREADY;
->                 if (r) {
->                         dev_err(tmp_adev->dev,
-> --
-> 2.52.0
->
+On 2026-02-27 03:52, Timur Kristóf wrote:
+> On Wednesday, February 25, 2026 1:04:29 PM Central European Standard Time 
+> Melissa Wen wrote:
+>> Hi,
+>>
+>> This is a reduced version of `drm/amd/display: more drm_edid to AMD
+>> display driver` [1] sent a few months ago only with the less invasive
+>> changes, i.e., those changes that don't affect DC. This partial focus on
+>> using more drm_edid helpers instead of raw EDID helpers. Most patches
+>> here are already reviewed by someone and I think they can be merged
+>> without major concerns. They can also prevent new initiatives of keeping
+>> parsing raw EDID as driver specific code, which can make harder for us
+>> to remove `drm_edid_raw()`. They should focus on moving raw EDID
+>> handling to the DRM common code instead.
+>>
+>> Regarding code changes from previous version, here I added some r-b tags
+>> (from Mario and Timur), fixed commit message syntax (Mario) and
+>> centralized error handling (Timur). I'll follow up the changes in DC to
+>> accept the Linux/DRM opaque object in a separate series since those look
+>> more sensitive.
+>>
+>> [1] https://lore.kernel.org/amd-gfx/20251106165536.161662-1-mwen@igalia.com/
+>>
+>> BR,
+>>
+>> Melissa
+>>
+> 
+> Nice work, Melissa.
+> 
+> Reviewed-by: Timur Kristóf <timur.kristof@gmail.com>
+> For this series.
+
+Thanks for your patience Melissa, series is also
+Reviewed-by: Leo Li <sunpeng.li@amd.com>
+
+We'll include it in this week's testing.
+
+- Leo
+> 
+> 
+
