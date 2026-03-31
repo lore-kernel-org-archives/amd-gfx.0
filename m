@@ -4,46 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 49DD2FF60F4
-	for <amd-gfx@archiver.kernel.org>; Tue, 31 Mar 2026 17:38:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AC0EEFF60F4
+	for <amd-gfx@archiver.kernel.org>; Tue, 31 Mar 2026 17:47:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DAB9010EBB8;
-	Tue, 31 Mar 2026 17:38:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 48EBC10E1D5;
+	Tue, 31 Mar 2026 17:47:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="GiCJjpE/";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="EmsPiYRg";
 	dkim-atps=neutral
-Received: from CY3PR05CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11013033.outbound.protection.outlook.com
- [40.93.201.33])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 517D110EAB4;
- Tue, 31 Mar 2026 17:38:05 +0000 (UTC)
+Received: from PH0PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11011007.outbound.protection.outlook.com [40.107.208.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B84FB10E1D5;
+ Tue, 31 Mar 2026 17:47:36 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=q5OAq/bngF0f4eBET5FP11+utW/tfn60BFNx/yRlcSRICXC+dppE1Cfrjmkz7IMdMwgu1nlpOMJEazyNzAwil0RWH/m088sUShcfPUmgtWBQP5ouzh9SDPFxc2D8WgfqcMF9TNi+KYss9LmuXHWVU3vD/g9xHwrlGQTkTSU8qcQ3gAqIAAvcKIl1gJ/4y7J4G0GqNxo1rWQbo01yIeLdgbhFT3tLT2lkR4We0BQ73A8CzhVEMzrVIL12RUiSLcVNc7mzJE6Bgzy4ngJzm8BLNHusHWfciTLpmi9DMPshgNHhP3yCWt5Xo0azx2YIoQDOZhtHOrk/N5y6Apz0T08oRw==
+ b=NLkPS6Nx/3toaOltWmXE4Rbg6hz+astOBIBNdzsbzddMQ2mnkB76VDgdVsMuA0cxAzTpBFDXcsPYd1kshSQ1yIOdxnQmkQH6FhWmY6jwSCtQFTCOoJ1OEWPcSFYOQDwdVT2bSs0JjRGy31w3ZZNmlAzYXuQZhDxw44m8MsytkUU+ebaJR0PDq2ZRvODu17LZTl+TkHhfs8mKWmkYX6uMeK0ERhIdyXbdup6Ch1hXVL1/WjVwyGG5zaADvHXzMhkoO/3HHb04Y0y6/DUqGg+JNnL9NLsS1yGZVoNFCo3rXKI0f6PXvGOrMacKZ/Uj8v7HJeV+O1t+FfrUmePtmgvCPQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=RGwsU0MMe38vlWll4YzG1aMyykRkWQRX2OSgmEqlFrM=;
- b=FN46klQNF1ANl49DM3Z6cXZIfa9AgTvWi3IU0W59enmE2ifkJCb17SebDBZb0KW6DE+RcSjeK3IYmwiM2uh5GR8UUwk/oUOTNXRAPmETpfopqgz41R0/uU1yLQDPlIhhfn+su8UZ5wtnxYDEkgqvYK+HiP3sbnaOGR9xvl3ynKZtfGTGa4TxF/Vp+uXygRHkyH9DFOjMkX/pMnHeGU6aUYkWQgEABVCuktUO9c7gpt/lx3FmAbNolrQ/zRxT1Ccg8OVRm4I9zS5eGxhfyljO2O4hCv2rqUPmQRh5URD6wOATSLWva+Ie6kgaMczRryh2K2dXEdbTLCHmAFJR8NggQg==
+ bh=h0NJ4DI84zx+2pOiaXzEieaMR6WRjvfD75KZR1+0sdQ=;
+ b=JtR+dMNPT0Bh7AUHZFcvdJH6dQ7TkQJ95MgipEH6R9nu0/YQC+FeE2/ogm8wBiY7hIOHCElMuGPAv0qYYyP8HVGc8t0nKxJMuIvLKcK1QAJqfsU0onpjBBxKWnFV6Pku0SL1qyLFEk5HwqC6MdNQzHNIfuCBoRsTfOjIZ6GO/NUNLIpKLQJnySaawusew9AGXfz9QBPw+9MAUzXhTUjgYgXzQmxJdDsP3NUxcayXnVG1FWn7LeYe1MatgHMDCVlSMK/Vcdwx11NQ2ndYhJbYwrPMutaWw8C/sdWsQs07M5V0l1AymNIVYOQX/LYzGivj93+06UtMSFksdN9Haw3hHQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=RGwsU0MMe38vlWll4YzG1aMyykRkWQRX2OSgmEqlFrM=;
- b=GiCJjpE/4u9kFenyKomh0XtspBwLWEjxvlTlAoIZFY74YsjUbR6JPqSfpDL6SOfYSuVTe1P5B8QbX/cKmUWDwEbsUBjd/vcDTfMTCxUTj6mQ5bJvDkg4/gHkMlVeSurnIf0BWafZKc5D7h/nYr1kvJBsTHEXAaxXhasANBKj41o=
+ bh=h0NJ4DI84zx+2pOiaXzEieaMR6WRjvfD75KZR1+0sdQ=;
+ b=EmsPiYRgNkiE50BouqkLGeyWYkoK/oXFNmlsic4QaJKxKqcIi+/zXJo/03ykcZsgDYycjJE3o/K1IW2oSUwwXNL3zCA/QURLeAgEFMD71PI8RzKXONChsmZlbzn9qcxUo63t/spPgBHd80qi8MTpXUcucNh/MBxh+8G8dAaXPt4=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from BL1PR12MB5126.namprd12.prod.outlook.com (2603:10b6:208:312::8)
- by DM4PR12MB7622.namprd12.prod.outlook.com (2603:10b6:8:109::18) with
+ by CH2PR12MB4088.namprd12.prod.outlook.com (2603:10b6:610:a5::8) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.16; Tue, 31 Mar
- 2026 17:38:00 +0000
+ 2026 17:47:33 +0000
 Received: from BL1PR12MB5126.namprd12.prod.outlook.com
  ([fe80::c3e7:1bc5:2b91:1cfe]) by BL1PR12MB5126.namprd12.prod.outlook.com
  ([fe80::c3e7:1bc5:2b91:1cfe%6]) with mapi id 15.20.9769.015; Tue, 31 Mar 2026
- 17:38:00 +0000
-Message-ID: <eb9b60f8-4eac-46e4-be9f-8ba1973c24ae@amd.com>
-Date: Tue, 31 Mar 2026 13:37:53 -0400
+ 17:47:33 +0000
+Message-ID: <dc7f59af-05d0-4942-b21b-b85289f7eee1@amd.com>
+Date: Tue, 31 Mar 2026 13:47:27 -0400
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v5 0/3] Add "link bpc" DRM property
 To: Pekka Paalanen <pekka.paalanen@collabora.com>
@@ -63,84 +62,83 @@ Cc: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>,
  Derek Foreman <derek.foreman@collabora.com>,
  Marius Vlad <marius.vlad@collabora.com>
 References: <20260319-link-bpc-v5-0-5306cd04a708@collabora.com>
- <8676926.T7Z3S40VBb@workhorse>
- <eff61423-a854-44c1-8634-30e2bd61e005@mailbox.org>
  <4265353.aeNJFYEL58@workhorse>
  <254c20a4-cce3-4c8e-9902-514586f3e694@mailbox.org>
- <20260326155305.736b4e64@fluorite>
- <7461820c-e3ab-40f5-98d2-9878e60ba2ad@amd.com>
- <20260331132822.5ac57253@fluorite>
+ <5416161.aeNJFYEL58@workhorse>
+ <792c4540-d690-4453-a32e-62e23e78d628@mailbox.org>
+ <9d525fe4-b091-4cd9-b977-de19ffe4b957@amd.com>
+ <20260331155028.71246d7a@fluorite>
 Content-Language: en-US
 From: Harry Wentland <harry.wentland@amd.com>
-In-Reply-To: <20260331132822.5ac57253@fluorite>
+In-Reply-To: <20260331155028.71246d7a@fluorite>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YQ1P288CA0013.CANP288.PROD.OUTLOOK.COM
- (2603:10b6:c01:9e::9) To BL1PR12MB5126.namprd12.prod.outlook.com
+X-ClientProxiedBy: YQ1P288CA0007.CANP288.PROD.OUTLOOK.COM
+ (2603:10b6:c01:9e::12) To BL1PR12MB5126.namprd12.prod.outlook.com
  (2603:10b6:208:312::8)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL1PR12MB5126:EE_|DM4PR12MB7622:EE_
-X-MS-Office365-Filtering-Correlation-Id: 85b384ad-9ada-442b-2b27-08de8f4c40f0
+X-MS-TrafficTypeDiagnostic: BL1PR12MB5126:EE_|CH2PR12MB4088:EE_
+X-MS-Office365-Filtering-Correlation-Id: a91d8968-8914-4cd9-a07f-08de8f4d9684
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|366016|376014|7416014|22082099003|56012099003|18002099003;
-X-Microsoft-Antispam-Message-Info: RWDgVFEBrGGJe0iw4SguAqdVix+C+FAi+sHGtmvyoUZCbSTEkAdg+xCCvXaS4ejE+hJzcXRByBBwlnHaLaR84A1qd2AShehG+dGdkcaX4FmHD9ghjmV60YU3H8H8vrMINfxmxDF+TbmLOcvzUu7kZG7OmtLOv64iOMu47kJQvjWQGBzqmGsy7lSRnH8A7nuW+jwGQmN+mGl+Yonx7oS0HXFbV5QYgz05uiicP1bQAfULrct9VbqZHwXZNEIiP3bAFdn49j1ThilVQKJLKR1YqxR8NAPBmVKj4uf1DCQSh6xNuUUNh8g1AFdy9fcWStDw/ElGc22YoGWSwYMtVUHBhOcisxZiK1jZKLNacUE6Nu9foaLd7Zw0Nu3qgdqmFsaXPuPOR1VJxO3ceja8v5t/kOf3GnnObDU195aFxNJLmUrQF0jKswMQ4CqMqZZQ5vbQlVA85k/L3gWnK4SkW2XpeFlQ4jdq/XINgZmsn3+LSLVMADXPJlbgSI2rVJz1oP9xuMqA+VWe1HbdBQWF8zNzlMTrtR9DvOzoWxDZltPhGlsTUAMxSWs9m3PbdZ6JxLVJXjj4CC7zx/Cdv4F17sPv0rehLOfa31AVdkKyvSYj+aeVLrfIIXXdWwaLTMCgxqdKpM6yZ0V3xvKFT5VGBcfMLVuvRUiKWx+0L697+YjGPQDDwcQ95EdDnCK+DM0SjITh05MaBWhCPp72sNfEoKbuEdfe89K5980bzmtZcVZ6isc=
+ ARA:13230040|366016|1800799024|376014|7416014|18002099003|22082099003|56012099003;
+X-Microsoft-Antispam-Message-Info: tu8gbklVsGkCmjsrqAy/8YmTCy/fOOVt/EjcJRzrASmKlgXnaByUFzLL8K2kZyr2RtxS1tsiTsqFf64TT9sdOM2+mdQp9mwNZ6NdBB7IgYp69gVX24YVPLjbfgzcG6azh3zcCrnV/YV/wFZnvarXH/NEN1JBPN1/ms/iAUkN67bM9pdjfAN6VsU8S75+6fFE52/QZjPEqPUSllU/VBGCtWpweFMF9oEiaRHrKZtgLKNe2WqxQsSQjkqy4JNWJWsu2K2eOMOs3r/iH7aKK8cKKDHKWgQqtz4S1gXrXDVR8o/okz0XiUNNEWF1rbssKsVuwGr8UnPcax0eHPeyWnYl7kpARgZelXDH5anXNthErPXpRdkLiu2Ttysw4oTM9zpcbx0r6GPGQEfjde7IPBs0cRj2wd7pZMqdOINPyeCFMlSMPGujYHxIEyzckkSfh/X4EMtTnAC1n4hNfBFG14k9eMnH/prwcBfCfLKLQWxCU58M8Hh5BwdU3smXHuax8QPqM+Suw5x56wUR/PBIWYvOhWhzx5g2Pf+cf05i7fwRYMvN5mCpy7NMnRhkHEoZbShde27Dez75jfbe7G5kw+EKUUPDu4Ac0ixKfS2YW5m9zN7A6LklXAFl1obRSlmVlAEyaSvEf8+iOqHlpFeb+Lpvc6SdwOb9o9uXZF/4WnlQBMBWyzO+oltnqECqP9D5W59+nElHk2wEnMtg5G9rcrb+d5UvoZC88JLxS8S/3bBnXLs=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:BL1PR12MB5126.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014)(7416014)(22082099003)(56012099003)(18002099003);
+ SFS:(13230040)(366016)(1800799024)(376014)(7416014)(18002099003)(22082099003)(56012099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WDN2Mk5TUGxhSHNQa2xEL3EyNmVkR0k5eWU4ZWNBck1ZMWpsTkx1RGRSblp5?=
- =?utf-8?B?eXorSVBmRmlzSjdtVHVld05ER3ZyZi9CZmVsUVhXVWV5SU9RZGVDbytGWVo3?=
- =?utf-8?B?ZU5ZSnhrSWR3cG1SbGRubXcrdHVTcGZtUHJXRThwUlJaaU44SWUwSXhVMUZH?=
- =?utf-8?B?T0xlMDVZSEhkWDAwcURPV2hxbEhGbXVWKzNvUDE5NmZMTDRrTURmakZFTkNu?=
- =?utf-8?B?enc2RW5tY0VUellUd01uUVllZHlPRStvQzIxK29KdXo5N0dEeTZuRkRqQ3R0?=
- =?utf-8?B?bTg5aTFQdzA0bENrL3VGZERCb2M4cUJGbjRLNG1ScGo1alM1MGtIRTE3Szk3?=
- =?utf-8?B?WUJWbmtPSWVaSlRHUlZaN3BqdjA3RGgyeWdSa0MzK2hRZHhzemR1S3pMYjlY?=
- =?utf-8?B?NitGNHNxbGpIM2V6dmNKNHZlemoxcUNFZk9ZVHh5bGNZY3JkVmRDZTVicmM2?=
- =?utf-8?B?czVSaDlidEl5WGs1NEZIdlZ6QVdXQ1B6VzNveVl0Z2FySXB5RTA0YVFYZlJE?=
- =?utf-8?B?Q21UR0VCNVY5dTcvOGYvT1Ruc0l6NWtXekxETUdSejBtTGhBRDlXdGZXLzIw?=
- =?utf-8?B?QkVZSStXZFFpVm80aFEvSnM4WEE3NU9mQmRKc3J0MkpUTjVSYWtnVk8vYVA4?=
- =?utf-8?B?aHZYV2xJV09wMmRoWSt0SGhuRDdKckJrZ0JqMytOYks3Tm5xMHErR0JNQnVh?=
- =?utf-8?B?SWJZL1NoT295RXhISDM5aE84dytRaEw2MFRZa2R3S1RLeEgxTWFWZGM4S1dM?=
- =?utf-8?B?UlBwQVNPV3lWKzloeVd4ajMyNUlyM0dUUXhhKzNzV25FbmU3Sjl4ZVBNM0Zr?=
- =?utf-8?B?Rm90cGQ4cCs4aTg2VGpVLzAxbkdrdkVwekJIbG9uWFg3TFNVUi9oUUxCbTFE?=
- =?utf-8?B?VWtjTXBZcEZyNGFRdklDblUwL3p0b1JIaU95V0xEUWl5MUdqRUtXSGRmREtV?=
- =?utf-8?B?aUFoNFBzYUZsS2tVMTNsTlpoREkyem5OVTlKWjhQN3E0ejFSMVlqNkdJUUw1?=
- =?utf-8?B?UnJEWGY4c25ISk1IaFNGT1ZSby9NZXc3ZHBEanZtV0FRQXFwLzFRelJlSGpY?=
- =?utf-8?B?bkFGcEN5VGVGQlVvNHVsd1Q1WGVKYnZ1LzhKQ0ZuMExDTzNTUXhxdDNCbXdS?=
- =?utf-8?B?V1RhaDlycThCV0VXNTIrOCtTQm45T2xKSEZ1aFlrS2U3VW8wQmJTcmNMeEQ4?=
- =?utf-8?B?SFFIQW9MK2RiV25hUHU4bjFFbWdKMytPc2tvc25SamlhYUNDM1hvVGF1WURX?=
- =?utf-8?B?NUpTai9qSnZuWVFDVU0zTFZiOHFPZmFMUjlucmtUUUVrRkhEaUVGQ1VpVENs?=
- =?utf-8?B?VE1SNHdndWRwcURKbHZpZ3lTSDRWWU9USmpvZ2V6ZXlBUEYxSnVEdVNqcUVD?=
- =?utf-8?B?TmlPcnpiVGxtMDY5UmlaL1lsOHNpVU1rMjZzSVpwM3FJdFZhekZ5MmsraVgw?=
- =?utf-8?B?N2ZrS0I1Rks1dWVwZk9jNk9lSm9YMDhxOTdBTTF5enJOS2o5TWdTVFgvQ0ZV?=
- =?utf-8?B?VmxnMmx0ZUNJMS9PQ2hqcUVKM0tyS1dHdGtJYzFpL2J3VFE3eTUyNlRYeWVN?=
- =?utf-8?B?bHorb3V0d3ZyQWtWVWowNzNrZmllcGh6ZHgvTnNjMWd1SlNVRWdRa2NFdTZr?=
- =?utf-8?B?RkpMUUppVS9yUEpJaTdzdzZLS3NHc1V5L0w5ZTZ1a0dOb0VxNWRCWStBQVlK?=
- =?utf-8?B?eGRCdmFRSmxpZFcvckNCLy9TS1QxOTVQaDlWeGxwaGVzU1kwZ3lMWC95dHJW?=
- =?utf-8?B?Z0VKUDBGbW9kdTQ0Q0pKbXU4Y2NMOTh6VUw2WVVsbHI1V0pGU0I3MFNXUlFq?=
- =?utf-8?B?QUx4cjN0a2hlSS91ajFBbzAyRFI1aWs2bElnb2NhZExZaFNPKzFrZTZsYVh2?=
- =?utf-8?B?NUN4NGxqYk1EWUxPekIwT1BrY1YrYWlZNWxUclozZkV0RnZjNkRpUzRNN0Fl?=
- =?utf-8?B?THZFcDBQQkFSbGl6ZVNGbCt5ZnptcjdjQUZZd1J1WEJrbVFWK3dvbkpXN2lD?=
- =?utf-8?B?T2FHZm9ieU1zcU1qWDNkOERMaHljczhOQU5TMVZhelNWWW9EaDRRVDBEWWpR?=
- =?utf-8?B?ZnlDSE4zSXhFNmxHU1dFN0N3K2pDcWRQZldmOU9BRVErWHpLb3NCVVhicWR1?=
- =?utf-8?B?MEQ3Ujl4Z3A2Nmw0aXFMc1ZLenczWGppUGw1aGc3NlM2UGpwT2g5emdPZy9D?=
- =?utf-8?B?RGtWaXhJdlhkY1pFSmdMY2JKaDMvRlQ0V2pjWHVOWU9Hb28wM0szeHVkT2RQ?=
- =?utf-8?B?Z0dYVjY5QXRuLzIvd0gwVDdjOTc4Zzg0Vnl5UmVLRDJEVFFpSTVOTGFoQStl?=
- =?utf-8?B?eGxEdlcvN2xlRmQvekJEWmZ1R3hSWUw3UU5VTHlLaEVLNStXYUJVUT09?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WDEvWWNyM3dzaFk2S0hYalIxRHUyeUpHdkZwRVNNaXFxaUZiZWlDY3IzK2NT?=
+ =?utf-8?B?NTJsdTZ0QXFscU5QYklVTjIzbFVKVnJxdElkQlYwWlBIbDBMMS91aHlsZWpF?=
+ =?utf-8?B?WDd3cUdueVl1RTk5RFBHcXRINy84amk5ek13b2x2OUNaVUNMTXhPNFRVTnk5?=
+ =?utf-8?B?RHN1dk9VeVZOQmRhbGxUdS82aktGcHJWSUpHaVJRTWkreWdOaS9NcUU4ZGZX?=
+ =?utf-8?B?Tm5tbGYzMjJBVHlhTHQzRkw5RFNBZEhLVU1OTjRoQ1B0YmxQL3kzZW5ZZzIr?=
+ =?utf-8?B?UXpOTEJRSHFBcHUzOFNZdWlIZmh3b2Q2NkNPNmFmOU8raGFmYWpuRXI1NitQ?=
+ =?utf-8?B?bWlkV09haDFDRCtZUml5a1hDOHlIbzRnSlBQT1VtM0V0TGd5RGRsbjR2OXlh?=
+ =?utf-8?B?VHlnTDJjeFZyM0J0UnI2L0lYZTlYZ2FQVk1oVTdoYzgwSHIzMWJMRFBGTEt4?=
+ =?utf-8?B?ZllVUjlZUmhSbjBoUFlkTzhVNTNTWGxKcFMzRmJSdUxOWkhiNEJBZGF2MlMw?=
+ =?utf-8?B?cm9JenVaT0YvSno2Sit4c1hScDQzT0lGNU05WFZuUXRsTkF5NkZMV1V4Mllt?=
+ =?utf-8?B?dnRrTlFpcWhTTW5FZWZSYlBaY20xcnBNcjAyTDZuenRCQktoNUNocUVYMGZx?=
+ =?utf-8?B?cFFBSDZ2WFhHZ0dtRGw3OFU1cjc1TkZZcHBjVkozaG5tVHJpUlhMRjQyL0c2?=
+ =?utf-8?B?czRmaEcwWWxwOW9NMWd4WFlNWjkyTDNJTEtyMDFBZnpQYjd1STBGYWFNVUJ6?=
+ =?utf-8?B?Wkg2QU0rSHBMRGY4WFFzRm1YbXFUTENVei8rb1RYNm1tRm1EemN6UEtMbWdE?=
+ =?utf-8?B?VzNqbUJoanJ2NkE0MjBHUjRwajlnczljQk5IcEpwYU94N2g2R1dxcmE3SXpk?=
+ =?utf-8?B?cmNQUWJROTZVYjNvS1g4OVcvQnZZamZOWlNQT21oZ3JHZ2hVaExDTmRXOW85?=
+ =?utf-8?B?VWlMZkFCeUovL04xSnVIVXZFK3l0U0hrRDVLR2xlVndWdXlRYTFNWlpvVmlt?=
+ =?utf-8?B?QytWT09RZkVSN2VYbEwyajg0NWIrSzczWlFBMXVXa0VBMFdQdWN5dlk2RUxX?=
+ =?utf-8?B?RFVja3Fhc3VKcmVKWkFHVVpuWEJBTWQyZHVTS2xla3RYS1A1T2NVcHFFdlFz?=
+ =?utf-8?B?VGVPanNvM2t0QW1PdkFLcFhNbDc4MjRtN1ZrdUNvUXpyZCtFa3dybHhnOHQw?=
+ =?utf-8?B?SEZsVnlFTTYwTTlhdFZ2N3JoSm9RRWFKZ1M5R2toMmRoME1uWTNsVkg2V0pK?=
+ =?utf-8?B?bmJpUys1UytxYmdFeU5hd2VZL0xKdUZKdVcxcUwzYW5OamdIZkFiMVZITzZp?=
+ =?utf-8?B?d2hhTU0rSkRyY3NGTlI3bHNRaEZuNUNJb2FBcDlNU0tCRW9RaVlOR1hQekxZ?=
+ =?utf-8?B?YnBrc29xcnBpb1hrNjZRcHUzT200NE5DR1MrVGJVSDdLdjFUQzlneVEyd0U0?=
+ =?utf-8?B?azRjeTZKT2RWNDcyblY3UkhoVzh3eTI2K1lKZlNXWnlzU1Z6YjY1YkNSU2pJ?=
+ =?utf-8?B?VS9EWEw1d3A5VDlVcEJOd1puTlN0ZFprRnJ3dlQxQUF6amxCN3VaekkySGpw?=
+ =?utf-8?B?MkZPYVhJTy9LVXlCemo5TmxGWSsvUllmM0hTbk1tTUp2a2RYRWpYbzZrSHh4?=
+ =?utf-8?B?ZXhjYzcyRWRZSVNSZGlGbUdGZU9pSWVGTHU2dlUxdG9lb3hhUm1vMytySjQ1?=
+ =?utf-8?B?MVhWd2ozQklRc2VyRzRDMi92TDdKZXFqOTdLSURRQ0hjVndCeWovbThDdUpU?=
+ =?utf-8?B?bXZUL1lKcmNSUnArd3YwRkc1aU1kVW5MYWJCU3dtaG9LeTBuTCtQOGExVmU0?=
+ =?utf-8?B?QWNTT29rNnJkS0UrOFlvbGtKUlNJTGFabUdvYkZaRTQzRXVHRUJsOTBLQnc0?=
+ =?utf-8?B?bkZIRGYxaGprSXpqRndpeUszeWUrL29OZEt2eGlZeDFGZnh2ekdBdGI4NTln?=
+ =?utf-8?B?VC9iSVNUTVNqK1ZtMkhZSWZ1cFFnNmFFUW01akt3ZDF6T28xcmUvalFBTnlM?=
+ =?utf-8?B?TUg2aWJyNUo5QVgrVi9NUXNzZGRpRVN5aUJSS1E3NFJXNjM5V2tNMDhqYmlW?=
+ =?utf-8?B?YkV2STArcGZuNlVaendzWlRoRVIySUNQSHNENDdwcXFSUCtBZUZOT3BUWXY4?=
+ =?utf-8?B?WlA5R3FkRW80cnZCL2VIZ1FDZm1EVUpQcVFlVWJXK0laYnVKQXRUREkyN3pO?=
+ =?utf-8?B?QjBWaHl1TWJkVjBMYUdReVdpVDhYbVlYYTNEUHprNldrY1FoNFdkY0dubTRJ?=
+ =?utf-8?B?MXIyL2ppSEg5bDRVby9TNUg2ek40M05xUC8wWis4QjZnWTNtd1BFR2xodzZM?=
+ =?utf-8?B?V1IzQkR2TWJOdkMvQkVJM2ZpYTl6SVJCdlJzcGxKVFV6UFM1bDJSdz09?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 85b384ad-9ada-442b-2b27-08de8f4c40f0
+X-MS-Exchange-CrossTenant-Network-Message-Id: a91d8968-8914-4cd9-a07f-08de8f4d9684
 X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5126.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Mar 2026 17:38:00.4616 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Mar 2026 17:47:33.5101 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: +iuGsEQvCXkdEVeHGyhE+5wlLklBdDtOq+d6JIr5zcimm6574/Fscrr4gn3nh2n3i8dZ6G0xr1DypQqkM+I+xg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB7622
+X-MS-Exchange-CrossTenant-UserPrincipalName: RnhFqADfVz4UTHXcL8V+NnUWJWRW/ru1Nv9mOHAVE16nzCKq/d7Ti0HC/U+ynNtrZBZ+6y8LCdXjHPS4gO0xNw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4088
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -157,101 +155,79 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
 
-On 2026-03-31 06:28, Pekka Paalanen wrote:
-> On Mon, 30 Mar 2026 15:01:33 -0400
+On 2026-03-31 08:50, Pekka Paalanen wrote:
+> On Mon, 30 Mar 2026 14:52:23 -0400
 > Harry Wentland <harry.wentland@amd.com> wrote:
 > 
->> On 2026-03-26 09:53, Pekka Paalanen wrote:
->>> Hi Michel,
->>>
->>> I have some opinions as well.
->>>
->>> On Tue, 24 Mar 2026 17:44:21 +0100
->>> Michel Dänzer <michel.daenzer@mailbox.org> wrote:
->>>   
->>>> Per my previous posts, my concerns are:
+>> On 2026-03-30 12:57, Michel Dänzer wrote:
+>>> On 3/26/26 13:17, Nicolas Frattaroli wrote:  
+>>>> On Tuesday, 24 March 2026 17:44:21 Central European Standard Time you wrote:  
+>>>>> On 3/24/26 16:25, Nicolas Frattaroli wrote:  
+>>>>>> On Monday, 23 March 2026 18:27:41 Central European Standard Time Michel Dänzer wrote:  
+>>>>>>> On 3/23/26 17:55, Nicolas Frattaroli wrote:  
+>>>>>>>>
+>>>>>>>> "Someone might not understand its purpose" is, in my eyes, not a valid reason to
+>>>>>>>> not have this property, [...]  
+>>>>>>> Per my previous posts, that's not my concern.  
+>>>>>>
+>>>>>> Then what is your concern?  
+>>>>>
+>>>>> Per my previous posts, my concerns are:
+>>>>>
+>>>>> * The meaning of the "link bpc" property value isn't defined well
+>>>>> enough vs things like dithering or DSC, which will likely result in
+>>>>> compositors / users overestimating what value they need / want,
+>>>>> resulting in compositors spuriously rejecting configurations which 
+>>>>> would work perfectly fine, and/or spurious issue reports.  
 >>>>
->>>> * The meaning of the "link bpc" property value isn't defined well
->>>> enough vs things like dithering or DSC, which will likely result in
->>>> compositors / users overestimating what value they need / want,
->>>> resulting in compositors spuriously rejecting configurations which
->>>> would work perfectly fine, and/or spurious issue reports.  
+>>>> Dithering and DSC are supposed to be transparent, no?  
 >>>
->>> That is ok. Compositors need to understand what the numbers mean, how
->>> reliable they are, and act accordingly. Knowing the lower bound for
->>> link precision is already useful as it guarantees a minimum precision.
->>> It is up to the compositors to decide how they communicate this.
+>>> Not really, no. They achieve higher "effective" (as perceived by
+>>> the user) bpc using a lower physical bpc.
 >>>
->>> Or course, assuming lossy compression is not too lossy. Maybe
->>> lossy compression should be forbidden by default unless explicitly
->>> enabled by userspace?
 >>>   
+>>>> If a link bpc is 10 but DSC is on so it's 9 on the wire, it's
+>>>> still 10 bits.  
+>>>
+>>> If DSC encodes user-perceived 10 bpc at a lower physical bpc, and
+>>> the "link bpc" property reports 10, that would satisfy my concern
+>>> for DSC. 
 >>
->> I disagree. While technically lossy, DSC is perceptually lossless, at
->> least according to the designers of DSC. If I'm not mistaken this is
->> all based on extensive studies.
+>> Conceptually I would understand DSC to not effect the reported bpc, so
+>> a 10bpc output bpc would be reported as 10bpc via the property, but
+>> DSC would compress that down to a lower value on the wire.
 >>
->> The decision to enable DSC or not has an impact on the power consumption
->> of the HW, in ways that are often nuanced. Userspace has no way to know
->> or understand these nuances. This should be in control of the driver.
+>> Dithering wouldn't do that. An 8bpc output would be reported as 8bpc
+>> even if dithering makes it perceptually look like 10bpc.
 > 
-> I guess time will tell.
+> That seems quite arbitrary, but ok, that could work.
 > 
-> Are you saying that enabling DSC might have disadvantages aside from
-> image quality?
+>> I can understand the challenge of how to intelligently use it to
+>> report anything back to users. I could see some compositors being happy
+>> to use the bpc alone, while others might want to know dithering and/or
+>> DSC state (compression ratio?) as well.
 > 
-
-The opposite; enabling DSC might have advantages, in particular in power
-efficiency. And image quality impacts are negligible or (perceptually)
-non-existant, from my understanding. Afaik, Apple, which prides itself
-on image quality and being a platform for content producers, enables DSC
-by default on their systems.
-
->> At most I could see a "never do DSC or dither" toggle, if one is really
->> concerned about this, but I don't realistically see use-cases where this
->> would improve user experience, even for users that care about color work
->> and correctness.
+> People who care about the picture quality down to these levels will
+> likely want to know and learn about these techniques. They may also
+> want to explicitly control them.
 > 
-> I'm not familiar with DSC, so I cannot criticise it. Dithering OTOH
-> seems to be obviously suspect though.
+> In time, when these have been used enough in the wild, compositor
+> developers will learn what makes a difference and what does not, so
+> they will adjust their reporting to end users. The most important thing
+> for the kernel is it offer an unambiguous and stable UAPI for these.
 > 
-> Temporal dithering - what if your refresh rate is 30 Hz for some movie
-> playback?
-> 
-> Spatial dithering - what if you have a low-resolution screen?
-> 
-> I would not assume that dithering is always ok, and always achieves its
-> theoretical results.
+> Policy belongs in userspace.
 > 
 
-Quite possibly, but we haven't really seen complaints about dither other
-than in scenarios where people explictly test that input pixels equal
-output pixels exactly.
+I don't like this as a blanket statement. There is a lot of policy that
+intersects with HW nuances, whether it comes to power or otherwise.
+Taking away driver vendor's abilities to optimize will hurt the Linux
+ecosystem in the long run.
 
->> The YCbCr420 case is different. We probably want a way for userspace to
->> understand that half 3/4 of chroma values are being tossed out. This
->> would be significant for RGB content but insignificant for YCbCr420
->> content.
-> 
-> Do you mean full resolution vs. chroma sub-sampled to 2x2 blocks? I
-> would again not assume "insignificant", because it depends on the
-> picture content and angular pixel density (can you see individual
-> pixels at your viewing distance). Gray-scale text will be fine, but
-> colored text is another question.
-> 
-
-Yes. I think downgrading an output to YCbCr420 (chroma sub-sampled to
-2x2 blocks) is a significant image quality impact.
-
-> I'm fine with proceeding with these assumptions, as long as it is
-> acknowledged that these assumptions might turn out false later and have
-> a contingency plan.
-> 
-
-I guess that goes to Michel's question about what's expected of
-compositors here and whether there is clarity... I'm not sure
-I really have an answer on that other than documenting our
-expectations.
+IMO this needs to be evaluated on a case by case basis. There are
+many places where it does make sense to give userspace a greater
+say on policy, but we don't want to push driver (HW specific) logic
+up into userspace.
 
 Harry
 
