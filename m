@@ -4,147 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 810AC10FCACC
-	for <amd-gfx@archiver.kernel.org>; Wed,  1 Apr 2026 18:19:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8746710FCAD2
+	for <amd-gfx@archiver.kernel.org>; Wed,  1 Apr 2026 18:19:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B178A10EE4F;
-	Wed,  1 Apr 2026 18:19:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0ABD610EE8D;
+	Wed,  1 Apr 2026 18:19:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="Odq6RBep";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="V3L9lwL5";
 	dkim-atps=neutral
-Received: from BN8PR05CU002.outbound.protection.outlook.com
- (mail-eastus2azon11011027.outbound.protection.outlook.com [52.101.57.27])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8E8B310EB80;
- Tue, 31 Mar 2026 21:21:19 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Z32cwQEQ7hTS3cJmIjLjLeK2tjBP+nI/9IydaMg+fJmB5AOCj/qxFoJlGiA0ZJkoaj1pMH6ZdOHgBoal03najwSQeQLf9eOXL2hSxbDhlBkuxzbEGZZYQZjjoQCCY8E2mOSamoAtZV7axmY+iXJ1cxJomF6qudeSTd5vdAgOIECBbIRlt/Jy1+P04p0tARvqgc8nrDVbj+749C3R0mFtxff4uQ8of9BEiGkzuI6cIKJu7ojVqwu4LvDenBfhT47a4jvRgnlq4k4c6npjffdEisYTXpBHsT13/7bf0DJxaw1Um7T59roPs28HxEkxQrW9CO/tp7Nz4yXcwwOo5Q/H9w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=H33nm66InsEMrisLhY04OyeLYVU6n0M/5qc1OO9Emgk=;
- b=Q34UPw0EHoVp50cfxbRxbS3jmxJh+xCkm3zXGIh4X0ho/fQzW4mInEQSwiQSQGApgVzwuUQWjyr1wwUmdKSvOzSykY9o5ZDqss3JkXTnGYElpS0PGQtJT1fPMqynSOtQiZHcSs6t9lN2WpVVrp1TH6QgHNN7r2w25qorFi0nuhHG5PhsL1tLNAm0EMrP5JLldliqgKGETB/f2q/IUbvzi6EZFLdFsMSVI62uIHLqwEnNwAh+jDSpl4PjH9+8NsYskXlG8fhBPc5/94jhkNSU3IVMnr0DVVPzTnrzjm8eYIEqnTevep+PgjEbz1AzirlNPuov1N7NUObaM4ooxmoQeQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=H33nm66InsEMrisLhY04OyeLYVU6n0M/5qc1OO9Emgk=;
- b=Odq6RBep/YiZaOTanNlwAP+9QM5XzSSjEhONZ+KMhTi6zIJ/J+r2DRaaxWs8k/9Jef28oJlRcIVXY3HE8j+NQonFLFErMTX0ZjKoXKOzAvXVKwfXCbTNgmgpct1xDcmn5UGxcEDNXDPBdaneeot4Lr8w8cq3MEGkGv6d5TaCco5F4fFbwOHqMHERSR9koh5yn5OPqrg6RBJIfYviWYMmPgZ8s+vyLIwEo6hvIgwtJmQKE8uUEL7IC3D3THv0csPwnIeewjBipnjG/hh6h2FF/3Wux9hY9cAq6snubtQjzaI4FA00XuIzOCyAwdtTX9YWRo+sgBwItJr1kkYE1hIaAA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DS0PR12MB6486.namprd12.prod.outlook.com (2603:10b6:8:c5::21) by
- BL1PR12MB5849.namprd12.prod.outlook.com (2603:10b6:208:384::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.8; Tue, 31 Mar
- 2026 21:21:13 +0000
-Received: from DS0PR12MB6486.namprd12.prod.outlook.com
- ([fe80::88a9:f314:c95f:8b33]) by DS0PR12MB6486.namprd12.prod.outlook.com
- ([fe80::88a9:f314:c95f:8b33%4]) with mapi id 15.20.9769.014; Tue, 31 Mar 2026
- 21:21:13 +0000
-From: Joel Fernandes <joelagnelf@nvidia.com>
-To: linux-kernel@vger.kernel.org
-Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
- Gary Guo <gary@garyguo.net>, Bjorn Roy Baron <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
- Danilo Krummrich <dakr@kernel.org>, Dave Airlie <airlied@redhat.com>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Koen Koning <koen.koning@linux.intel.com>, dri-devel@lists.freedesktop.org,
- rust-for-linux@vger.kernel.org, Nikola Djukic <ndjukic@nvidia.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Jonathan Corbet <corbet@lwn.net>,
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
+ [136.143.188.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 585BC10EA22;
+ Tue, 31 Mar 2026 10:33:30 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1774953194; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=iq7d+EpWYAvrctcfxZoQjNJuhB62URk7xlbwaLsDMTNXTWCyQ4LwDyZ6I27wYYHAMP4YPM0hYR/rK8AWX1jqBcjhxQf8J51b99OQ+VF9yVDhEqMQMfzMcWZJUV2pGlG6D+JYKcdc63sYSJlX24pWsFdQZX2jKMN+WnVHhppSgRQ=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1774953194;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=WONs+triHAG3oxKIDY5u6sC91+pizMI0mnGHgeGpMWA=; 
+ b=Vh9zaiChMYD6vskfjYkgIBkCpQIQmnxaqlBcmk8+El0hVORrkZFIntq9a8X6fTa7guKBYxcQC8K42tY0FIF9ir+fsdg58kFS9D0UjA9+cfr6iNC4IkwitdRA9MKj5MscyrlksfUfeV18AJAKMPFxt2cNzDqpvvQDy/G0UyUF4yQ=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
+ dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1774953194; 
+ s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
+ h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:Content-Type:Message-Id:Reply-To;
+ bh=WONs+triHAG3oxKIDY5u6sC91+pizMI0mnGHgeGpMWA=;
+ b=V3L9lwL5t+B5HbtOLDaYfqYdeaZCN8rQT1mGU46AB79OOrvLI8lwlaGUlxYG0lKq
+ G6V26eWcMkIy5x3/sgiT2LdI+GDuyPfzNDQ6VB5oOYteJoe+EnPXzgWeohswEwhMpkq
+ 0cS3rPBVWJ25PctJ4X+Zp9Z74BEt6x2M/ZP7K/Yo=
+Received: by mx.zohomail.com with SMTPS id 1774953193153170.1511210439279;
+ Tue, 31 Mar 2026 03:33:13 -0700 (PDT)
+From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+To: Ville =?UTF-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
+Cc: Maxime Ripard <mripard@kernel.org>,
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
  Alex Deucher <alexander.deucher@amd.com>,
- Christian Koenig <christian.koenig@amd.com>,
+ Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Sandy Huang <hjc@rock-chips.com>,
+ Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>,
+ Andy Yan <andy.yan@rock-chips.com>,
  Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
  Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, Huang Rui <ray.huang@amd.com>,
- Matthew Auld <matthew.auld@intel.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Lucas De Marchi <lucas.demarchi@intel.com>,
- Thomas Hellstrom <thomas.hellstrom@linux.intel.com>,
- Helge Deller <deller@gmx.de>, Alex Gaynor <alex.gaynor@gmail.com>,
- Boqun Feng <boqun.feng@gmail.com>, John Hubbard <jhubbard@nvidia.com>,
- Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
- Edwin Peer <epeer@nvidia.com>, Alexandre Courbot <acourbot@nvidia.com>,
- Andrea Righi <arighi@nvidia.com>, Andy Ritger <aritger@nvidia.com>,
- Zhi Wang <zhiw@nvidia.com>, Balbir Singh <balbirs@nvidia.com>,
- Philipp Stanner <phasta@kernel.org>,
- Elle Rhumsaa <elle@weathered-steel.dev>, alexeyi@nvidia.com,
- Eliot Courtney <ecourtney@nvidia.com>, joel@joelfernandes.org,
- linux-doc@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, Dmitry Baryshkov <lumag@kernel.org>,
+ Sascha Hauer <s.hauer@pengutronix.de>, Rob Herring <robh@kernel.org>,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ kernel@collabora.com, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
  intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- linux-fbdev@vger.kernel.org, Joel Fernandes <joelagnelf@nvidia.com>
-Subject: [PATCH v10 05/21] docs: gpu: nova-core: Document the PRAMIN aperture
- mechanism
-Date: Tue, 31 Mar 2026 17:20:32 -0400
-Message-Id: <20260331212048.2229260-6-joelagnelf@nvidia.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260331212048.2229260-1-joelagnelf@nvidia.com>
-References: <20260311004008.2208806-1-joelagnelf@nvidia.com>
- <20260331212048.2229260-1-joelagnelf@nvidia.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: MN0PR05CA0002.namprd05.prod.outlook.com
- (2603:10b6:208:52c::11) To DS0PR12MB6486.namprd12.prod.outlook.com
- (2603:10b6:8:c5::21)
+ linux-doc@vger.kernel.org, Werner Sembach <wse@tuxedocomputers.com>,
+ Andri Yngvason <andri@yngvason.is>, Marius Vlad <marius.vlad@collabora.com>
+Subject: Re: [PATCH v11 03/22] drm: Add new general DRM property "color format"
+Date: Tue, 31 Mar 2026 12:33:00 +0200
+Message-ID: <5583906.GXAFRqVoOG@workhorse>
+In-Reply-To: <acsNoCDsPtEhtkRn@intel.com>
+References: <20260324-color-format-v11-0-605559af4fb4@collabora.com>
+ <acclgID7lSVNten2@intel.com> <acsNoCDsPtEhtkRn@intel.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB6486:EE_|BL1PR12MB5849:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0e4397e4-ece1-4ad5-7b12-08de8f6b6f73
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|7416014|376014|366016|22082099003|18002099003|56012099003;
-X-Microsoft-Antispam-Message-Info: ueJve5RZ2mn2pCQF7F855S68xPTAZV9jb6EHmEnH8TPdubZUSgMi5OhiLT5bnalUELNcryJXKLFVs8jiZ+aBTAfCWd8mSXuehgSmYpYhKp+XUlqRq4PE4PaSZveHl4GIDrnex77/2K+8ng4hb9EwKuJrfQ+CoiX6w+78wKgUyYjporCho293H/6iBAzm9vZQ5HgJR2HeIfMrBBKkyzqrtroZ+B8eQD1NquznGOj//B/CH2XuErbLc3AyDGbQbZREBUsIUQOZgzCMG723XREPP5ZkIngC3B9mDAvvRXQa8o6avX3rzHHo2B8sjmcGCPEQZyK7r8BWhA8MshtYUEgSpb5/db6hYq74QHRnh/QYPdb5HBIGIsrb/30zO4wTKnURBkKWfPFlvElxBK1vFYf2ocXXrz9bkeASKmUW3LQavxUJm+JnoSsBHKE5Jga5/lZJ4vsRIB/+4Xqk6Zfxbn/m3yg7Sg2n/D1BXf6Edp8JIinUekVr8htlZb+njPp0A924eB00It2AxHLHVBtN2K5I9H2QAEu88GpNZQzpc/QakzX6I3U6OfZ35oLP0iaSoDjXk7Fvi3LY6Q69O7jFzoHBDCq/jWrlB4o30j3Ab6/iuM58JTsw224k6WNy4cLeu+n9St8Ba9uULd191sWr0BmLr2iumua11vhsi29sWaJ/7a2u5wxHgCHxA/Sox5wPFc3dMWHP9ZFX3MRps1nvvRQBRVa4dQNkWyrHIE0GkuBz/Qc=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS0PR12MB6486.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(7416014)(376014)(366016)(22082099003)(18002099003)(56012099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?cQIrrTSqkkLtHIlP369ubS1rv8OEw9o/MgJpP57wyvzE/ZbSWBCTnGeJM8q0?=
- =?us-ascii?Q?cTdhFY7/BWnpRjsirk4BS4MEI3rOsSjCyrqFFc/9p/79Xk+qtDi9CA+PfRbN?=
- =?us-ascii?Q?BqY9VEkavu69f/+qpPyJCzPauvkcR5Awx7kMMADyps2ZyDGDvtoIkRvMVB55?=
- =?us-ascii?Q?WRt3gLf3GGaSWKZAwmfMM8W1BnULx3paWETWr3VKKHiB4rlZZtZP9O8uIIqy?=
- =?us-ascii?Q?mKmigyTrjsKsLUFsFHtpmi30ugkhpXnMHlukZEDu7Dn0eI74rikh8+tjSsGd?=
- =?us-ascii?Q?5aCxEenYOt4uCuqaBdNEQobnYoXW6E8RDMQLsf/5KI9BWjnyrRiJAVHQU+BO?=
- =?us-ascii?Q?FtAIiuBg93XMNtbXMofkelW4pciXRztR1R95tEhY4jbuwQ5ZRu7tgao3zNN6?=
- =?us-ascii?Q?uqDO/dMWsW4Zgg3NvT9TcJLb5E3Ev1a7WXvD9LtdtloKQZNVVCiJAFTA8APx?=
- =?us-ascii?Q?coFTu1DxdtNDi7LynGbAkIgXQyxy4MAf28COGE5bWjC5c0Rw9WEjy8Nh94MS?=
- =?us-ascii?Q?gDgkPEjmhxH5yo0RBKTzhRndiO5Nf/P1VHhEyUgj5KbI1yG16WmieQp/qErH?=
- =?us-ascii?Q?pNQYNsPj1pMZZz9jDers53gMj5JW811DRi12tb/lRehqF+SHOxZ/5o/SffWx?=
- =?us-ascii?Q?u38td7d34j0nmt0uc3z/gZbm0r83/w2vE/0r/ddNmqXflQJs6s7UjFvVZUvd?=
- =?us-ascii?Q?Gxgr8cX04DHHby0ocJq7Am4LgU8pruPx8OZUZjDh1v4IBZ9XWmEKVo6jTyNf?=
- =?us-ascii?Q?pCJYepylS8Yen2UYXJs3dB1uH3ahNEjlucgQGaZkM35uYQo2lC4xJ2fUT0hT?=
- =?us-ascii?Q?Z3bKJqxOnG3rkGtjDdOaO8kDMZd3mN+xT1jLRS8jsRR6Xd5sRBUWov6UnF9D?=
- =?us-ascii?Q?mEZ1S4Wp0KGPPl5qGiL5RZkXLvYUbx/kX9HtZMGHMkEqK4bsNGIBkYY3XmAe?=
- =?us-ascii?Q?z6cqRSoeA3D7SFBPQPrai1NWJshsm7hZJ9fdp6rZBdQGRHt8rGdDQMauVTvt?=
- =?us-ascii?Q?KwBLug8gyXhI/L+V3zRX0vZHub378JLAeYdnyiO5QyKOiC+bYgPB4Geq7ibF?=
- =?us-ascii?Q?SxQ3fkf/3KDWyETu6HG+LZanzyKfzQbskivPvfXyku53HqaUcw676GbhTv6j?=
- =?us-ascii?Q?OZO0OixdAWEs1fwzmRNzAKaVlFk3TdiIiwaASf6p7+qvH3BZ5ucxwrZ5zkT9?=
- =?us-ascii?Q?AgdoI4pewKIm9C8t0SEdHUa+XI/ubQ6dHstV+SbOouoBsDIBdqXDeFrup4tc?=
- =?us-ascii?Q?HJibYZv5Yn0KAsJvadvFkxqT2SMlKssg0y5t/4rM2lLScK1kTLYowh0KdUs+?=
- =?us-ascii?Q?zixxeIelmS4WTgzJ3r2XWYwyc3LKUXkB9yo/i2Y7Wd9JhpOiudlxGV8pPpva?=
- =?us-ascii?Q?ixYpkZIMyQUxQMAG9mS0Qtp9vATo3nkpWex3aDGrcVdEh3BfKGevV5wWNOIv?=
- =?us-ascii?Q?o1/9J7/LDbWSVOZyg0eOuokwUlaw6DF8aqnJg7UWkaROW2Et00WDa6j6Griu?=
- =?us-ascii?Q?TemjSwCXEGtBGm90UCtOD97/KIiVo6Yk3T9lU4ikWGuyCYKnwjiIZ33GKwCs?=
- =?us-ascii?Q?9pXyueX2FKW8PG9ao2NqL4LTcrg196/9JSRBGzXp2tSVZJ/kE5+f9Oz+wp50?=
- =?us-ascii?Q?ehryaGe9zOcPjXn2TlQ/mYH2yGrVeidxb9JpHSXJIS20E15yTpSKTHeRtT4E?=
- =?us-ascii?Q?P0NZ6NDFJuNjcMYWF1uA3Jy9q/veE/3YDbSV8qRgm7fOPBT12/Ilam+W0YkZ?=
- =?us-ascii?Q?860T0+GFHg=3D=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0e4397e4-ece1-4ad5-7b12-08de8f6b6f73
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6486.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Mar 2026 21:21:12.9364 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: +kDhjKQ8wBF5Vgt3XX2BydCDD9Kl8CvaSxbgq5UuSn5lLmIcmKbheHemXS22IrBuyvTqYYi9wJMYrXZ3HUWoog==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5849
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 X-Mailman-Approved-At: Wed, 01 Apr 2026 18:19:20 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -160,158 +90,287 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add documentation for the PRAMIN aperture mechanism used by nova-core
-for direct VRAM access.
+On Tuesday, 31 March 2026 01:56:16 Central European Summer Time Ville Syrj=
+=C3=A4l=C3=A4 wrote:
+> On Sat, Mar 28, 2026 at 02:49:04AM +0200, Ville Syrj=C3=A4l=C3=A4 wrote:
+> > On Fri, Mar 27, 2026 at 01:56:06PM +0100, Nicolas Frattaroli wrote:
+> > > On Thursday, 26 March 2026 18:58:25 Central European Standard Time Vi=
+lle Syrj=C3=A4l=C3=A4 wrote:
+> > > > On Thu, Mar 26, 2026 at 06:02:47PM +0100, Maxime Ripard wrote:
+> > > > > On Wed, Mar 25, 2026 at 08:43:15PM +0200, Ville Syrj=C3=A4l=C3=A4=
+ wrote:
+> > > > > > On Wed, Mar 25, 2026 at 03:56:58PM +0100, Maxime Ripard wrote:
+> > > > > > > On Wed, Mar 25, 2026 at 01:03:07PM +0200, Ville Syrj=C3=A4l=
+=C3=A4 wrote:
+> > > > > > > > On Wed, Mar 25, 2026 at 09:24:27AM +0100, Maxime Ripard wro=
+te:
+> > > > > > > > > On Tue, Mar 24, 2026 at 09:53:35PM +0200, Ville Syrj=C3=
+=A4l=C3=A4 wrote:
+> > > > > > > > > > On Tue, Mar 24, 2026 at 08:10:11PM +0100, Nicolas Fratt=
+aroli wrote:
+> > > > > > > > > > > On Tuesday, 24 March 2026 18:00:45 Central European S=
+tandard Time Ville Syrj=C3=A4l=C3=A4 wrote:
+> > > > > > > > > > > > On Tue, Mar 24, 2026 at 05:01:07PM +0100, Nicolas F=
+rattaroli wrote:
+> > > > > > > > > > > > > +enum drm_connector_color_format {
+> > > > > > > > > > > > > +	/**
+> > > > > > > > > > > > > +	 * @DRM_CONNECTOR_COLOR_FORMAT_AUTO: The driver=
+ or display protocol
+> > > > > > > > > > > > > +	 * helpers should pick a suitable color format.=
+ All implementations of a
+> > > > > > > > > > > > > +	 * specific display protocol must behave the sa=
+me way with "AUTO", but
+> > > > > > > > > > > > > +	 * different display protocols do not necessari=
+ly have the same "AUTO"
+> > > > > > > > > > > > > +	 * semantics.
+> > > > > > > > > > > > > +	 *
+> > > > > > > > > > > > > +	 * For HDMI, "AUTO" picks RGB, but falls back t=
+o YCbCr 4:2:0 if the
+> > > > > > > > > > > > > +	 * bandwidth required for full-scale RGB is not=
+ available, or the mode
+> > > > > > > > > > > > > +	 * is YCbCr 4:2:0-only, as long as the mode and=
+ output both support
+> > > > > > > > > > > > > +	 * YCbCr 4:2:0.
+> > > > > > > > > > > > > +	 *
+> > > > > > > > > > > > > +	 * For display protocols other than HDMI, the r=
+ecursive bridge chain
+> > > > > > > > > > > > > +	 * format selection picks the first chain of br=
+idge formats that works,
+> > > > > > > > > > > > > +	 * as has already been the case before the intr=
+oduction of the "color
+> > > > > > > > > > > > > +	 * format" property. Non-HDMI bridges should th=
+erefore either sort their
+> > > > > > > > > > > > > +	 * bus output formats by preference, or agree o=
+n a unified auto format
+> > > > > > > > > > > > > +	 * selection logic that's implemented in a comm=
+on state helper (like
+> > > > > > > > > > > > > +	 * how HDMI does it).
+> > > > > > > > > > > > > +	 */
+> > > > > > > > > > > > > +	DRM_CONNECTOR_COLOR_FORMAT_AUTO =3D 0,
+> > > > > > > > > > > > > +
+> > > > > > > > > > > > > +	/**
+> > > > > > > > > > > > > +	 * @DRM_CONNECTOR_COLOR_FORMAT_RGB444: RGB outp=
+ut format
+> > > > > > > > > > > > > +	 */
+> > > > > > > > > > > > > +	DRM_CONNECTOR_COLOR_FORMAT_RGB444,
+> > > > > > > > > > > > > +
+> > > > > > > > > > > > > +	/**
+> > > > > > > > > > > > > +	 * @DRM_CONNECTOR_COLOR_FORMAT_YCBCR444: YCbCr =
+4:4:4 output format (ie.
+> > > > > > > > > > > > > +	 * not subsampled)
+> > > > > > > > > > > > > +	 */
+> > > > > > > > > > > > > +	DRM_CONNECTOR_COLOR_FORMAT_YCBCR444,
+> > > > > > > > > > > > > +
+> > > > > > > > > > > > > +	/**
+> > > > > > > > > > > > > +	 * @DRM_CONNECTOR_COLOR_FORMAT_YCBCR422: YCbCr =
+4:2:2 output format (ie.
+> > > > > > > > > > > > > +	 * with horizontal subsampling)
+> > > > > > > > > > > > > +	 */
+> > > > > > > > > > > > > +	DRM_CONNECTOR_COLOR_FORMAT_YCBCR422,
+> > > > > > > > > > > > > +
+> > > > > > > > > > > > > +	/**
+> > > > > > > > > > > > > +	 * @DRM_CONNECTOR_COLOR_FORMAT_YCBCR420: YCbCr =
+4:2:0 output format (ie.
+> > > > > > > > > > > > > +	 * with horizontal and vertical subsampling)
+> > > > > > > > > > > > > +	 */
+> > > > > > > > > > > > > +	DRM_CONNECTOR_COLOR_FORMAT_YCBCR420,
+> > > > > > > > > > > >=20
+> > > > > > > > > > > > Seems like this should document what the quantizati=
+on range
+> > > > > > > > > > > > should be for each format.
+> > > > > > > > > > > >=20
+> > > > > > > > > > >=20
+> > > > > > > > > > > I don't think so? If you want per-component bit depth=
+ values,
+> > > > > > > > > > > DRM_FORMAT_* defines would be the appropriate values =
+to use. This
+> > > > > > > > > > > enum is more abstract than that, and is there to comm=
+unicate
+> > > > > > > > > > > YUV vs. RGB and chroma subsampling, with bit depth be=
+ing handled
+> > > > > > > > > > > by other properties.
+> > > > > > > > > > >=20
+> > > > > > > > > > > If you mean the factor used for subsampling, then tha=
+t'd only be
+> > > > > > > > > > > relevant if YCBCR410 was supported where one chroma p=
+lane isn't
+> > > > > > > > > > > halved but quartered in resolution. I suspect 4:1:0 w=
+ill never
+> > > > > > > > > > > be added; no digital display protocol standard suppor=
+ts it to my
+> > > > > > > > > > > knowledge, and hopefully none ever will.
+> > > > > > > > > >=20
+> > > > > > > > > > No, I mean the quantization range (16-235 vs. 0-255 etc=
+).
+> > > > > > > > > >=20
+> > > > > > > > > > The i915 behaviour is that YCbCr is always limited rang=
+e,
+> > > > > > > > > > RGB can either be full or limited range depending on th=
+e=20
+> > > > > > > > > > "Broadcast RGB" property and other related factors.
+> > > > > > > > >=20
+> > > > > > > > > So far the HDMI state has both the format and quantizatio=
+n range as
+> > > > > > > > > different fields. I'm not sure we need to document the ra=
+nge in the
+> > > > > > > > > format field, maybe only mention it's not part of the for=
+mat but has a
+> > > > > > > > > field of its own?
+> > > > > > > >=20
+> > > > > > > > I think we only have it for RGB (on some drivers only?). Fo=
+r YCbCr
+> > > > > > > > I think the assumption is limited range everywhere.
+> > > > > > > >=20
+> > > > > > > > But I'm not really concerned about documenting struct membe=
+rs.
+> > > > > > > > What I'm talking about is the *uapi* docs. Surely userspace
+> > > > > > > > will want to know what the new property actually does so the
+> > > > > > > > uapi needs to be documented properly. And down the line some
+> > > > > > > > new driver might also implement the wrong behaviour if there
+> > > > > > > > is no clear specification.
+> > > > > > >=20
+> > > > > > > Ack
+> > > > > > >=20
+> > > > > > > > So I'm thinking (or perhaps hoping) the rule might be somet=
+hing like:
+> > > > > > > > - YCbCr limited range=20
+> > > > > > > > - RGB full range if "Broadcast RGB" property is not present
+> > > > > > >=20
+> > > > > > > Isn't it much more complicated than that for HDMI though? My
+> > > > > > > recollection was that any VIC but VIC1 would be limited range=
+, and
+> > > > > > > anything else full range?
+> > > > > >=20
+> > > > > > Do we have some driver that implements the CTA-861 CE vs. IT mo=
+de
+> > > > > > logic but doesn't expose the "Broadcast RGB" property? I was ho=
+ping
+> > > > > > those would always go hand in hand now.
+> > > > >=20
+> > > > > I'm not sure. i915 and the HDMI state helpers handle it properly =
+(I
+> > > > > think?) but it looks like only vc4 registers the Broadcast RGB pr=
+operty
+> > > > > and uses the HDMI state helpers.
+> > > > >=20
+> > > > > And it looks like amdgpu registers Broadcast RGB but doesn't use
+> > > > > drm_default_rgb_quant_range() which seems suspicious?
+> > > >=20
+> > > > If they want just manual full vs. limited then they should
+> > > > limit the property to not expose the "auto" option at all.
+> > > >=20
+> > > > amdgpu also ties this in with the "colorspace" property, which
+> > > > originally in i915 only controlled the infoframes/etc. But on
+> > > > amdgpu it now controls various aspects of output color
+> > > > transformation. The end result is that the property is a complete
+> > > > mess with most of the values making no sense. And for whatever
+> > > > reason everyone involved refused to remove/deprecate the
+> > > > nonsensical values :/
+> > > >=20
+> > > > Looks like this series should make sure the documentation for
+> > > > the "colorspace" property is in sync with the new property
+> > > > as well. Currently now it's giving conflicting information.
+> > > >=20
+> > >=20
+> > > I take it the problematic information is in
+> > >=20
+> > >     * DOC: standard connector properties
+> > >     *
+> > >     * Colorspace:
+> > >=20
+> > > and probably specifically BT2020_YCC's (and BT2020_RGB's?) insistence
+> > > that they "produce RGB content".
+> > >=20
+> > > I think we probably just have to change the statement "The variants
+> > > BT2020_RGB and BT2020_YCC are equivalent and the driver chooses betwe=
+en
+> > > RGB and YCbCr on its own."
+> > >=20
+> > > The "on its own" here would get turned into "based on the color format
+> > > property".
+> > >=20
+> > > Speaking of i915, that patch is one of the very few (5) patches in
+> > > this series still lacking a review (hint hint nudge nudge). I'd like
+> > > to get some more feedback on the remaining patches before I send out
+> > > another revision, so that it's hopefully not just docs changes (I
+> > > know better than to think those patches must be perfect and won't
+> > > need revision.)
+> >=20
+> > The i915 code around this is already a big mess, and I don't really
+> > adding to that mess. So I think we'll need to do some refactoring before
+> > we add anything there. I already started typing something and so far
+> > it looks fairly straightforward, so I should have something soon.
+>=20
+> OK, posted something
+> https://lore.kernel.org/intel-gfx/20260330235339.29479-1-ville.syrjala@li=
+nux.intel.com/T/#m7c349478ca6c856fbc68d5e2178f1aa31678a05f
 
-Nova only uses TARGET=VRAM for VRAM access. The SYS_MEM target values
-are documented for completeness but not used by the driver.
+Thanks! I'll take a look at this today to get a more solid idea of
+where the pain points you highlighted are.
 
-Cc: Nikola Djukic <ndjukic@nvidia.com>
-Signed-off-by: Joel Fernandes <joelagnelf@nvidia.com>
----
- Documentation/gpu/nova/core/pramin.rst | 123 +++++++++++++++++++++++++
- Documentation/gpu/nova/index.rst       |   1 +
- 2 files changed, 124 insertions(+)
- create mode 100644 Documentation/gpu/nova/core/pramin.rst
+I'll also rebase/reimplement my i915 color format implementation
+(sans the DP-MST part, as discussed) on top of this on the next
+revision. I was never fully happy with the current one due to the
+logic being shoehorned into the already existing i915 fallback
+format logic, so I'm quite happy to have another opportunity to
+implement it with less historic baggage.
 
-diff --git a/Documentation/gpu/nova/core/pramin.rst b/Documentation/gpu/nova/core/pramin.rst
-new file mode 100644
-index 000000000000..bcedb6e06d33
---- /dev/null
-+++ b/Documentation/gpu/nova/core/pramin.rst
-@@ -0,0 +1,123 @@
-+.. SPDX-License-Identifier: GPL-2.0
-+
-+=========================
-+PRAMIN aperture mechanism
-+=========================
-+
-+.. note::
-+   The following description is approximate and current as of the Ampere family.
-+   It may change for future generations and is intended to assist in understanding
-+   the driver code.
-+
-+Introduction
-+============
-+
-+PRAMIN is a hardware aperture mechanism that provides CPU access to GPU Video RAM (VRAM) before
-+the GPU's Memory Management Unit (MMU) and page tables are initialized. This 1MB sliding window,
-+located at a fixed offset within BAR0, is essential for setting up page tables and other critical
-+GPU data structures without relying on the GPU's MMU.
-+
-+Architecture Overview
-+=====================
-+
-+The PRAMIN aperture mechanism is logically implemented by the GPU's PBUS (PCIe Bus Controller Unit)
-+and provides a CPU-accessible window into VRAM through the PCIe interface::
-+
-+    +-----------------+    PCIe     +------------------------------+
-+    |      CPU        |<----------->|           GPU                |
-+    +-----------------+             |                              |
-+                                    |  +----------------------+    |
-+                                    |  |       PBUS           |    |
-+                                    |  |  (Bus Controller)    |    |
-+                                    |  |                      |    |
-+                                    |  |  +--------------+<------------ (window starts at
-+                                    |  |  |   PRAMIN     |    |    |     BAR0 + 0x700000)
-+                                    |  |  |   Window     |    |    |
-+                                    |  |  |   (1MB)      |    |    |
-+                                    |  |  +--------------+    |    |
-+                                    |  |         |            |    |
-+                                    |  +---------|------------+    |
-+                                    |            |                 |
-+                                    |            v                 |
-+                                    |  +----------------------+<------------ (Program PRAMIN to any
-+                                    |  |       VRAM           |    |    64KB-aligned VRAM boundary)
-+                                    |  |    (Several GBs)     |    |
-+                                    |  |                      |    |
-+                                    |  |  FB[0x000000000000]  |    |
-+                                    |  |          ...         |    |
-+                                    |  |  FB[0x7FFFFFFFFFF]   |    |
-+                                    |  +----------------------+    |
-+                                    +------------------------------+
-+
-+PBUS (PCIe Bus Controller) is responsible for, among other things, handling MMIO
-+accesses to the BAR registers.
-+
-+PRAMIN Window Operation
-+=======================
-+
-+The PRAMIN window provides a 1MB sliding aperture that can be repositioned over
-+the entire VRAM address space using the ``NV_PBUS_BAR0_WINDOW`` register.
-+
-+Window Control Mechanism
-+-------------------------
-+
-+::
-+
-+    NV_PBUS_BAR0_WINDOW Register (0x1700):
-+    +-------+--------+--------------------------------------+
-+    | 31:26 | 25:24  |               23:0                   |
-+    | RSVD  | TARGET |            BASE_ADDR                 |
-+    |       |        |        (bits 39:16 of VRAM address)  |
-+    +-------+--------+--------------------------------------+
-+
-+    The 24-bit BASE_ADDR field encodes bits [39:16] of the target VRAM address,
-+    providing 40-bit (1TB) address space coverage with 64KB alignment.
-+
-+    TARGET field (bits 25:24):
-+    - 0x0: VRAM (Video Memory)
-+    - 0x1: SYS_MEM_COH (Coherent System Memory)
-+    - 0x2: SYS_MEM_NONCOH (Non-coherent System Memory)
-+    - 0x3: Reserved
-+
-+    .. note::
-+       Nova only uses TARGET=VRAM (0x0) for video memory access. The SYS_MEM
-+       target values are documented here for hardware completeness but are
-+       not used by the driver.
-+
-+64KB Alignment Requirement
-+---------------------------
-+
-+The PRAMIN window must be aligned to 64KB boundaries in VRAM. This is enforced
-+by the ``BASE_ADDR`` field representing bits [39:16] of the target address::
-+
-+    VRAM Address Calculation:
-+    actual_vram_addr = (BASE_ADDR << 16) + pramin_offset
-+    Where:
-+    - BASE_ADDR: 24-bit value from NV_PBUS_BAR0_WINDOW[23:0]
-+    - pramin_offset: 20-bit offset within the PRAMIN window [0x00000-0xFFFFF]
-+
-+    Example Window Positioning:
-+    +---------------------------------------------------------+
-+    |                    VRAM Space                           |
-+    |                                                         |
-+    |  0x000000000  +-----------------+ <-- 64KB aligned      |
-+    |               | PRAMIN Window   |                       |
-+    |               |    (1MB)        |                       |
-+    |  0x0000FFFFF  +-----------------+                       |
-+    |                                                         |
-+    |       |              ^                                  |
-+    |       |              | Window can slide                 |
-+    |       v              | to any 64KB-aligned boundary     |
-+    |                                                         |
-+    |  0x123400000  +-----------------+ <-- 64KB aligned      |
-+    |               | PRAMIN Window   |                       |
-+    |               |    (1MB)        |                       |
-+    |  0x1234FFFFF  +-----------------+                       |
-+    |                                                         |
-+    |                       ...                               |
-+    |                                                         |
-+    |  0x7FFFF0000  +-----------------+ <-- 64KB aligned      |
-+    |               | PRAMIN Window   |                       |
-+    |               |    (1MB)        |                       |
-+    |  0x7FFFFFFFF  +-----------------+                       |
-+    +---------------------------------------------------------+
-diff --git a/Documentation/gpu/nova/index.rst b/Documentation/gpu/nova/index.rst
-index e39cb3163581..b8254b1ffe2a 100644
---- a/Documentation/gpu/nova/index.rst
-+++ b/Documentation/gpu/nova/index.rst
-@@ -32,3 +32,4 @@ vGPU manager VFIO driver and the nova-drm driver.
-    core/devinit
-    core/fwsec
-    core/falcon
-+   core/pramin
--- 
-2.34.1
+> Are the wayland/compositor/color management folks on board with
+> these new properties? I don't think I see the usual suspects on
+> the cc list.
+
+I don't know which precise group of people you refer to, but at
+least from the Collabora side of things, the userspace Wayland
+people are on board with these new properties. In Weston, we use
+it to implement the Weston frontend's "color-format" option in a
+WIP branch at
+
+https://gitlab.freedesktop.org/wayland/weston/-/merge_requests/1859
+
+I've also been made aware that LibreELEC is aware, and will look
+into making use of it rather than their own kernel patches.
+
+Kind regards,
+Nicolas Frattaroli
+
+> >=20
+> > While doing that several questions came to my mind though:
+> >=20
+> > * More interactions with the colorspace property, but I sent
+> >   a separate mail already about that
+> >=20
+> > * Which conversion matrix to use, and the answer I suspect
+> >   should be "ask the colorspace property", as mentioned in the
+> >   other mail
+> >=20
+> > * Should we flat out reject color formats (and I suppose also
+> >   colorspace prop values) the sink doesn't claim to support?
+> >=20
+> >   If yes, then I think we'll have to forget about adding anything=20
+> >   to i915 MST code. The way the MST stuff works is that if one
+> >   stream needs a modeset then all the related streams get modeset
+> >   as well. Thus if the user replaces a monitor getting fed with a
+> >   YCbCr stream just as another stream is being modeset, then the
+> >   entire atomic commit could fail due to the YCbCr stream getting
+> >   rejected.
+> >=20
+> >   I think eventually we might have to invent some mechanism where
+> >   all the input into the modeset computation is cached somehow,
+> >   and said cache updated only on explicit userspace modesets.
+> >   Either that or we have to come up  with a way to skip some of
+> >   the calculations that depend on external factors. Either way
+> >   it's going to be a pain.
+> >=20
+> >   OTOH if we don't mind feeding the sink with stuff it can't
+> >   understand, then I suppose we might add YCbCr 4:4:4 support
+> >   for MST. It shouldn't be any different from RGB apart from
+> >   the RGB->YCbCr conversion, which is handled elsewhere. But
+> >   YCbCr 4:2:0 is definitely out either way, the MST code has
+> >   no support for that currently.
+> >=20
+>=20
+>=20
+
+
+
 
