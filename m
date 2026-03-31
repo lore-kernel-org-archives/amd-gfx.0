@@ -4,70 +4,147 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C245D10FCACE
-	for <amd-gfx@archiver.kernel.org>; Wed,  1 Apr 2026 18:19:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 44B7910FCACA
+	for <amd-gfx@archiver.kernel.org>; Wed,  1 Apr 2026 18:19:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E5ECD10EE6F;
-	Wed,  1 Apr 2026 18:19:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 61DBB10EE7D;
+	Wed,  1 Apr 2026 18:19:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="LSqVvFyE";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="gZL2OqXP";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 319DF10EA21;
- Tue, 31 Mar 2026 09:20:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1774948850; x=1806484850;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=VZ6UZpRCisDZ0WrxY1YID/gtq9IPO92Nbhk/YRRgjAE=;
- b=LSqVvFyETniaQUyeV4ES8EEqh+7uPh0cJX1d4ZLKOYGsA9jix8eYYuv9
- DnClljOCY/nELcuWQuMqZ+h4Tu/TbF+RzXpayjEzQDoa9/k28ZfpPt2zF
- I18jONDpwDKKM7OdQ09pCY90QlYuRVPgsDcJDAR0KXch/i9mH5utPKJQx
- 8tRi6+iGxejZaiXYOtUFBsaaIFLgnwP4nwIsFsDS7weIL/WURukZ1gEPt
- 5zGtHIK92eWX/4laWI+nN7udmpXPH/w+wlMkaKiupR1nZR/kQY8+9euX0
- ja1mThD7+EptkZRiJeACPqryK0KTf7VlNHd7hIYGF9dFELr76frzyIuSA w==;
-X-CSE-ConnectionGUID: vkT3vER2RaW3jJpCEwxi5Q==
-X-CSE-MsgGUID: Zup7A+0tRVGhkWTf/oKdCQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11744"; a="74988488"
-X-IronPort-AV: E=Sophos;i="6.23,151,1770624000"; d="scan'208";a="74988488"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
- by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Mar 2026 02:20:49 -0700
-X-CSE-ConnectionGUID: Q+og3cpcR76uQamTbuu8iQ==
-X-CSE-MsgGUID: FjVXI9zhQQ2Rk63Ki5ODOQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,151,1770624000"; d="scan'208";a="226288492"
-Received: from smoticic-mobl1.ger.corp.intel.com (HELO fedora)
- ([10.245.244.28])
- by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Mar 2026 02:20:45 -0700
-From: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-To: intel-xe@lists.freedesktop.org
-Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Felix Kuehling <Felix.Kuehling@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+Received: from BN8PR05CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11011053.outbound.protection.outlook.com [52.101.57.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E5A2B10E311;
+ Tue, 31 Mar 2026 21:21:09 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=zSN56u6HSXjz7AeDUzB5tVXdJrsdS/3v6OwvGqnvDdtXorQ24zo+1nsolfgaN8DZ7L+/7J2knhMHA37J1RQTb3+Bm/xd/oKIMX/p6+R+/OnvAqK9CdXc8DFb9g20p8OCBLPcGvBzzTTppeAnsAMhpse+dMZdUHEy95+pWQw5MetoeCAgPAvimEG9gYBTxbP7ZmzSc5e05xonxXopXggAF4VC8T6gYjuRwEwvtqyiO7+FIkggPMaI8w4JeZjcHJ1DnAnAHBi5DzAHgMVrmv+bQeP1f8nVV2VgcS9Y8Klql4MlHaXzoyXLlHOdPfv6Tc642FogR7+7YfY1JLK4HubITA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ksNMVdt86VxK9lxFgVYp9e/n7k0l7TcBrWVDAQlt+Ws=;
+ b=cbjNLQ9i2HGZBjmrruIQ4WePFojNRpWyV2Uz9YoLsH1pwxJk6j0NRjN44Tz7u8nfmgHjtAmS6+FiaqEoq9vZe3i9o20xiw2CBNJWheYmvbycBuaceEFLgl+GI1dFhykwpDfyySvVq5wYXF8QqaSbqpS7QyRzg6+/ywzO/HGzXhcFbjkrG/5jDFxMCjkue/JIHSLu+5fXd+uer/W7eeWPB6mwzMGARWpYm7oSug0RP9RiLOWJVvJvjmOMOm4Cjas2qBrEADrtN49dm8IA9z8+81ozleLCMl/GHYkpMHqhElNFt4pGr/NqFBUKQXXA66pbE6S8oNUiBh03//4o6XoEtg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ksNMVdt86VxK9lxFgVYp9e/n7k0l7TcBrWVDAQlt+Ws=;
+ b=gZL2OqXP/cPAhlPrODrdPB5sUUnF32Dz8YKpZdtX3uiOIUJoYHVv1k54g37ZaCkbtRwrGLQBKwSnANfPxwDjOeL/lfhsx5ZSRXSoLGrhKxBbKuTKrcaL1I1IKTGaknuErCaC3wYBwYEofW/PPA62ZwUniQxae40/YbnK1SOLcEG1m0aKytUAw8FFQLDZdwBz/TzqStboDs+iiJKfNdikojWmx6d0eu8zK/MIHxJ+4kYcjsAPm3xh62MXX7KmkB1eaz5f0GtoHZPJYjnaIyDnWKvJMYvFgtDqNOy0A1w6s+NdWjB53yPAhD1oPQzKOXRJQNf/S2VkkcA5p5Y3S6maDQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DS0PR12MB6486.namprd12.prod.outlook.com (2603:10b6:8:c5::21) by
+ BL1PR12MB5849.namprd12.prod.outlook.com (2603:10b6:208:384::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.8; Tue, 31 Mar
+ 2026 21:21:04 +0000
+Received: from DS0PR12MB6486.namprd12.prod.outlook.com
+ ([fe80::88a9:f314:c95f:8b33]) by DS0PR12MB6486.namprd12.prod.outlook.com
+ ([fe80::88a9:f314:c95f:8b33%4]) with mapi id 15.20.9769.014; Tue, 31 Mar 2026
+ 21:21:04 +0000
+From: Joel Fernandes <joelagnelf@nvidia.com>
+To: linux-kernel@vger.kernel.org
+Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
+ Gary Guo <gary@garyguo.net>, Bjorn Roy Baron <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
+ Danilo Krummrich <dakr@kernel.org>, Dave Airlie <airlied@redhat.com>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Koen Koning <koen.koning@linux.intel.com>, dri-devel@lists.freedesktop.org,
+ rust-for-linux@vger.kernel.org, Nikola Djukic <ndjukic@nvidia.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Danilo Krummrich <dakr@kernel.org>,
- Matthew Brost <matthew.brost@intel.com>, Alice Ryhl <aliceryhl@google.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
-Subject: [PATCH 0/5] drm/exec: drm_exec polishing
-Date: Tue, 31 Mar 2026 11:20:18 +0200
-Message-ID: <20260331092023.81616-1-thomas.hellstrom@linux.intel.com>
-X-Mailer: git-send-email 2.53.0
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Jonathan Corbet <corbet@lwn.net>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Christian Koenig <christian.koenig@amd.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, Huang Rui <ray.huang@amd.com>,
+ Matthew Auld <matthew.auld@intel.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Lucas De Marchi <lucas.demarchi@intel.com>,
+ Thomas Hellstrom <thomas.hellstrom@linux.intel.com>,
+ Helge Deller <deller@gmx.de>, Alex Gaynor <alex.gaynor@gmail.com>,
+ Boqun Feng <boqun.feng@gmail.com>, John Hubbard <jhubbard@nvidia.com>,
+ Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
+ Edwin Peer <epeer@nvidia.com>, Alexandre Courbot <acourbot@nvidia.com>,
+ Andrea Righi <arighi@nvidia.com>, Andy Ritger <aritger@nvidia.com>,
+ Zhi Wang <zhiw@nvidia.com>, Balbir Singh <balbirs@nvidia.com>,
+ Philipp Stanner <phasta@kernel.org>,
+ Elle Rhumsaa <elle@weathered-steel.dev>, alexeyi@nvidia.com,
+ Eliot Courtney <ecourtney@nvidia.com>, joel@joelfernandes.org,
+ linux-doc@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ linux-fbdev@vger.kernel.org, Joel Fernandes <joelagnelf@nvidia.com>
+Subject: [PATCH v10 01/21] gpu: nova-core: gsp: Return GspStaticInfo from
+ boot()
+Date: Tue, 31 Mar 2026 17:20:28 -0400
+Message-Id: <20260331212048.2229260-2-joelagnelf@nvidia.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260331212048.2229260-1-joelagnelf@nvidia.com>
+References: <20260311004008.2208806-1-joelagnelf@nvidia.com>
+ <20260331212048.2229260-1-joelagnelf@nvidia.com>
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: BLAPR05CA0040.namprd05.prod.outlook.com
+ (2603:10b6:208:335::21) To DS0PR12MB6486.namprd12.prod.outlook.com
+ (2603:10b6:8:c5::21)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS0PR12MB6486:EE_|BL1PR12MB5849:EE_
+X-MS-Office365-Filtering-Correlation-Id: 440df9ad-ab7e-4f60-bab5-08de8f6b6a5a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|7416014|376014|366016|22082099003|18002099003|56012099003;
+X-Microsoft-Antispam-Message-Info: +esCYq0VyXIXAN6TzPyXUVMrXjAv7h9WMntentE1f9/yrYmh2w14/hjsAoMOC1CDd2ETgbFJynlJDIV2z2BtfXLSx39qpezxL96IbNMxoaNHjL3H8oB0dIWuvb4B1MNb2a6Kj/qJXbnk3x2//nXSVpignu5SKtcvRwgrOBNGRcMosZplmC5C760mXJMN/ybUsNcSUQx0m072hJ6zoB73fy11hBjGiLfO58YytMnORYwUJQPUj/oph2REN4OciqjjfP1btr+qb8eDTYUdTscGZsheu3sKI/e/WO6RLk7/0/B+P5N7P1pVEavH+wuVOLWyJWGWgTOcpwjpKYifVLbXM70eTsGkNCARdf6Vi0eM+rImZpN2A7TqGmnwUvAT1+AMvqC499Oa/BL2BWc5GzdOFqdcJvqnxeU4mHaAt063YxpzDyBretedXnhKVhIKkSDqpwH0a65qXfiN05E9NljIIXej9ncdVA+3ZEJVz+jh/IcwOhaCrG07MEWA7/l31USI/PZNbNHGNyZcR6IxuW39N+Fde1qD39P5Sm770OsN93j/6IBLeRom18iN72jx+mittD5v0M3CrCChUNGvkVHIQnhglbpJ9HF6zpXtgBRDMA772A6NdQS1Y7fh/kd9VGaasK0rqCBZkCliK0qaDrrFpaJkyq0+F8Ab18yxe1X+QD8BErzCFhNoDyJ+axgxnIA296Wq/jmhjEgPZm3njSN77XTaLx48BwPye/HSmU0/Cqg=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS0PR12MB6486.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(7416014)(376014)(366016)(22082099003)(18002099003)(56012099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?C4zR5/4p4ue72unctLslcuYuuQkM0TqIpFJrZLtKc49ULggN0Fj+yMwrHYec?=
+ =?us-ascii?Q?rKa9WXX+y2MHxxhwxFOpam+ybSx2h1SECBPyANludm3kU6kUzvF0uhonl8B1?=
+ =?us-ascii?Q?mayWJiJVbyqBYwt1l4EUADihUlPxLLbHlTYjESst9O8hhtCnOtshdE+CIDb+?=
+ =?us-ascii?Q?mu+UUAIWSEsI1Z5BbsaCQOS0/YIFSVOdzjbj1TF/aeR5ajvkO4TNeO83QXEr?=
+ =?us-ascii?Q?hA0IHmX4lkblEbAcvut13iUj5UtwZE5yVoV5HWREWLL72IOTjHYbkeWXb73I?=
+ =?us-ascii?Q?GldqAt5mIxBkkcxXF1d3957kYpPkEJyh9v0bTr5KcKxVWUya8Ue0P8KsYx1T?=
+ =?us-ascii?Q?AWmusTbnkJZHXHX5Nn/2fuSeI+Iy2Gkx8VJm9DCqMUN9IcheMooAVmnG1MZk?=
+ =?us-ascii?Q?fq1xUaDHP0LrpQ392pIWcxp+C1XWlaB4aUSpGem3mAWrIbcq623n7Nsb5zEo?=
+ =?us-ascii?Q?3wh8i9Cpl4ozCH+H5uIX6IWHSUuRtWTbUS5qBZSHkyZbKSiwvT9Y1G6vEZ28?=
+ =?us-ascii?Q?Qx0eTzve+L8jcvePH0K2gO7EBpcjLsxCMfec8BPWsJM8KajOKkqD+mdDXzec?=
+ =?us-ascii?Q?/6PBx2Q8eW8YdR7RByJ7HBufIOxJZzRL/4+FsnEs9O3mA9hjcGYvoxQI8nE8?=
+ =?us-ascii?Q?MjkWD2RR4nWgdR5VesZmhpZPkAr/vutsq/UCOFctJJqY3RXNWVjxN+8Fihk2?=
+ =?us-ascii?Q?68Wa+AcmyNoyN5OA5BWcmb35UYpYYz5fVP/xm1cBwpH7Rng8jyy6k8hsq/rc?=
+ =?us-ascii?Q?9vWvG3soNjHPCC8FS2oG/+ofMVyJT+/Wb+T8d0WuPxzxoVDFtuhKSyM8UqkJ?=
+ =?us-ascii?Q?pdTWDG+vSxFhzC9y0TMIxj3r7BsBwvLisM5TSaYj5dG6zRsgo/Qu01Vassw6?=
+ =?us-ascii?Q?73zUkmG22QNJTnIRS/j+G1Elg5hwjDbhzZXsMAy+1w8lr7vJmyg3kD+eE+oV?=
+ =?us-ascii?Q?x2fjIAp2oQlazL1lgsrlyXGvuz9wvg35DCxNW9nK3FXhCeUN6NrET3KRVfNb?=
+ =?us-ascii?Q?S5XIDSRkVOnQuGBKVNjCNCfDtmaRgVhtu5olnJL/55wRPqtOh7strIpEqKmQ?=
+ =?us-ascii?Q?tEFn8Q4plaqJwvC8E5oSU9e7I/AP1Qj6OuFxmSKJ2V2GjuJoAHoo9AhEOTPH?=
+ =?us-ascii?Q?vNDorpLo+RevJcxfoT834NEapmzk09fnXXfaC+cKp0Og/eEoMTTJGOiVv4bn?=
+ =?us-ascii?Q?HK2ivjEzSZphMZdimZ2Tiag4gAXoYsLCRiByv+u0fxjJFeOPaxZ/q7ElqdsX?=
+ =?us-ascii?Q?p0JpDhT4R/i39kmrO06+YQxi4dt5X6FrgSWAqZFrPPqrLcPQtrPEo6eMDSAt?=
+ =?us-ascii?Q?KvYtlF6cg6w9JajbMTmcKRMgEqEViSnjWfYAFeaHFc1Qfo9VLDHV03PxmcCU?=
+ =?us-ascii?Q?yW1OigO1zy9x3j6oZ844jNfdsEqVcGRrB7cJzPb5lfG2AvbxSH5EAnXsVPIf?=
+ =?us-ascii?Q?ZQ6lsXqKtDcKTi9HpiX0HXL3FLGql9QjHkqofYiHrZcmJWeoChBcVSLN4Vyo?=
+ =?us-ascii?Q?lCHTtOcybDI3DwPxzfC0u8MNJ7OM3cs7iZTsJhqESrT5Xy+EnOuumghmyL2K?=
+ =?us-ascii?Q?Bve4jJui6q7yxBfboXYagZCEsT0H2dIGYZLwOjQU3bCBgJBujkgAXEg5jT1H?=
+ =?us-ascii?Q?QeGPrs/HE10s70io72qB620LOfcWpscFd1FijniUn3z45dmI6q2r0qqLVeDW?=
+ =?us-ascii?Q?x4cBHj1I+xQ7NTPrnuFbxUUmMPGtxVabaQUj3HmgekA0LQ/VOLVTs/uvW6NI?=
+ =?us-ascii?Q?PB12zzREjA=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 440df9ad-ab7e-4f60-bab5-08de8f6b6a5a
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6486.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Mar 2026 21:21:04.3550 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ndZqa/dF3uMCx/IAAF7y4XX7DrDsmBDmVEN5Yue4prth5Pv20artcs1PAyQ/FIYwdd7wkkNcgSRkbsx2y8CJHQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5849
 X-Mailman-Approved-At: Wed, 01 Apr 2026 18:19:20 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -83,45 +160,88 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-During the work towards enabling exhaustive eviction using full
-ww locking in TTM, Christian indicated that the path for the
-drm_exec moving forward was to be a full drm_exec helper with
-things like userptr validation rather than a WW transaction
-abstraction. The idea was then briefly discussed to craft a
-WW transaction helper and then subclass that with drm_exec
-with the idea that the WW transaction helper could be used in
-TTM for eviction and for other uses that didn't mandate a full
-exec sequence.
+Refactor the GSP boot function to return only the GspStaticInfo,
+removing the FbLayout from the return tuple.
 
-Regardless whether that actually happens or not, this series
-aims to clean up abuses of drm_exec internals in drivers
-so that future development of drm_exec isn't blocked by
-such driver usage.
+This enables access required for memory management initialization to:
+- bar1_pde_base: BAR1 page directory base.
+- bar2_pde_base: BAR2 page directory base.
+- usable memory regions in vidmem.
 
-Except for patch 3 which is a small cleanup only.
+Cc: Nikola Djukic <ndjukic@nvidia.com>
+Signed-off-by: Joel Fernandes <joelagnelf@nvidia.com>
+---
+ drivers/gpu/nova-core/gpu.rs      | 9 +++++++--
+ drivers/gpu/nova-core/gsp/boot.rs | 9 ++++++---
+ 2 files changed, 13 insertions(+), 5 deletions(-)
 
-Thomas Hellström (5):
-  drm/exec: Remove the index parameter from
-    drm_exec_for_each_locked_obj[_reverse]
-  drm/msm: Remove abuse of drm_exec internals
-  drm/exec: Make the drm_exec_until_all_locked() macro more readable
-  drm/exec, drm/xe: Avoid abusing the drm_exec retry pointer
-  drm/exec, drm/xe, drm/amdgpu: Add an accessor for struct
-    drm_exec::ticket
-
- .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  |  4 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c        | 15 ++---
- .../drm/amd/amdgpu/amdgpu_eviction_fence.c    |  3 +-
- drivers/gpu/drm/drm_exec.c                    |  6 +-
- drivers/gpu/drm/drm_gpuvm.c                   |  3 +-
- drivers/gpu/drm/msm/msm_gem.h                 |  1 +
- drivers/gpu/drm/msm/msm_gem_submit.c          |  4 +-
- drivers/gpu/drm/xe/xe_validation.c            |  4 +-
- drivers/gpu/drm/xe/xe_validation.h            |  2 +-
- drivers/gpu/drm/xe/xe_vm.c                    |  3 +-
- include/drm/drm_exec.h                        | 55 +++++++++++++------
- 11 files changed, 58 insertions(+), 42 deletions(-)
-
+diff --git a/drivers/gpu/nova-core/gpu.rs b/drivers/gpu/nova-core/gpu.rs
+index 0f6fe9a1b955..b4da4a1ae156 100644
+--- a/drivers/gpu/nova-core/gpu.rs
++++ b/drivers/gpu/nova-core/gpu.rs
+@@ -21,7 +21,10 @@
+     },
+     fb::SysmemFlush,
+     gfw,
+-    gsp::Gsp,
++    gsp::{
++        commands::GetGspStaticInfoReply,
++        Gsp, //
++    },
+     regs,
+ };
+ 
+@@ -238,6 +241,8 @@ pub(crate) struct Gpu {
+     /// GSP runtime data. Temporarily an empty placeholder.
+     #[pin]
+     gsp: Gsp,
++    /// Static GPU information from GSP.
++    gsp_static_info: GetGspStaticInfoReply,
+ }
+ 
+ impl Gpu {
+@@ -269,7 +274,7 @@ pub(crate) fn new<'a>(
+ 
+             gsp <- Gsp::new(pdev),
+ 
+-            _: { gsp.boot(pdev, bar, spec.chipset, gsp_falcon, sec2_falcon)? },
++            gsp_static_info: { gsp.boot(pdev, bar, spec.chipset, gsp_falcon, sec2_falcon)? },
+ 
+             bar: devres_bar,
+         })
+diff --git a/drivers/gpu/nova-core/gsp/boot.rs b/drivers/gpu/nova-core/gsp/boot.rs
+index 6f707b3d1a54..d42637db06dd 100644
+--- a/drivers/gpu/nova-core/gsp/boot.rs
++++ b/drivers/gpu/nova-core/gsp/boot.rs
+@@ -33,7 +33,10 @@
+     },
+     gpu::Chipset,
+     gsp::{
+-        commands,
++        commands::{
++            self,
++            GetGspStaticInfoReply, //
++        },
+         sequencer::{
+             GspSequencer,
+             GspSequencerParams, //
+@@ -145,7 +148,7 @@ pub(crate) fn boot(
+         chipset: Chipset,
+         gsp_falcon: &Falcon<Gsp>,
+         sec2_falcon: &Falcon<Sec2>,
+-    ) -> Result {
++    ) -> Result<GetGspStaticInfoReply> {
+         let dev = pdev.as_ref();
+ 
+         let bios = Vbios::new(dev, bar)?;
+@@ -235,6 +238,6 @@ pub(crate) fn boot(
+             Err(e) => dev_warn!(pdev, "GPU name unavailable: {:?}\n", e),
+         }
+ 
+-        Ok(())
++        Ok(info)
+     }
+ }
 -- 
-2.53.0
+2.34.1
 
