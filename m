@@ -4,31 +4,28 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6D37EFF60DF
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E1423FF60E0
 	for <amd-gfx@archiver.kernel.org>; Tue, 31 Mar 2026 07:49:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BE6B610E8D1;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C374F10E8D6;
 	Tue, 31 Mar 2026 07:49:53 +0000 (UTC)
 Received: from rtg-sunil-navi33.amd.com (unknown [165.204.156.251])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EDE8A10E8D1
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D436410E8C1
  for <amd-gfx@lists.freedesktop.org>; Tue, 31 Mar 2026 07:49:51 +0000 (UTC)
 Received: from rtg-sunil-navi33.amd.com (localhost [127.0.0.1])
  by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Debian-22ubuntu3) with ESMTP id
- 62V7nlXw2511003; Tue, 31 Mar 2026 13:19:47 +0530
+ 62V7nkhK2510983; Tue, 31 Mar 2026 13:19:46 +0530
 Received: (from sunil@localhost)
- by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 62V7nlLr2511002;
- Tue, 31 Mar 2026 13:19:47 +0530
+ by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 62V7nkK32510982;
+ Tue, 31 Mar 2026 13:19:46 +0530
 From: Sunil Khatri <sunil.khatri@amd.com>
 To: Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Cc: amd-gfx@lists.freedesktop.org, Sunil Khatri <sunil.khatri@amd.com>
-Subject: [Patch v4 4/4] drm/amdgpu/userq: use dma_fence_wait_timeout without
- test for signalled
-Date: Tue, 31 Mar 2026 13:19:43 +0530
-Message-Id: <20260331074943.2510941-5-sunil.khatri@amd.com>
+Subject: [Patch v4 0/4] Bunch of patches to fix fence timeout cleanup
+Date: Tue, 31 Mar 2026 13:19:39 +0530
+Message-Id: <20260331074943.2510941-1-sunil.khatri@amd.com>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260331074943.2510941-1-sunil.khatri@amd.com>
-References: <20260331074943.2510941-1-sunil.khatri@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -45,47 +42,26 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-In function amdgpu_userq_wait_for_last_fence use
-dma_fence_wait_timeout directly instead of checking
-for signalled fence first.
+v2: add more fixes as suggested by christian and update some logging.
 
-Return dma_fence_wait_timeout return value. Also update
-the fence timeout log to differentiate where fence timedout.
+v3: patch no 4 in amdgpu_userq_wait_for_last_fence to remove signalled
+check.
 
-Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 18 ++++++++++--------
- 1 file changed, 10 insertions(+), 8 deletions(-)
+v4: update dma_fence_wait_timeout to dma_fence_wait since its infinite
+wait.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-index 0ef829065403..002162dcbd3f 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-@@ -433,14 +433,16 @@ static int amdgpu_userq_wait_for_last_fence(struct amdgpu_usermode_queue *queue)
- 	struct dma_fence *f = queue->last_fence;
- 	int ret = 0;
- 
--	if (f && !dma_fence_is_signaled(f)) {
--		ret = dma_fence_wait_timeout(f, true, MAX_SCHEDULE_TIMEOUT);
--		if (ret <= 0) {
--			drm_file_err(uq_mgr->file, "Timed out waiting for fence=%llu:%llu\n",
--				     f->context, f->seqno);
--			queue->state = AMDGPU_USERQ_STATE_HUNG;
--			return -ETIME;
--		}
-+	if (!f)
-+		return 0;
-+
-+	ret = dma_fence_wait(f, true);
-+	if (ret <= 0) {
-+		drm_file_err(uq_mgr->file,
-+			     "Timed out in wait_for_last_fence fence=%llu:%llu\n",
-+			     f->context, f->seqno);
-+		queue->state = AMDGPU_USERQ_STATE_HUNG;
-+		return -ETIMEDOUT;
- 	}
- 
- 	return ret;
+Sunil Khatri (4):
+  drm/amdgpu/userq: dont check return value in amdgpu_userq_evict
+  drm/amdgpu/userq: add the return code too in error condition
+  drm/amdgpu/userq: call dma_resv_wait_timeout without test for
+    signalled
+  drm/amdgpu/userq: use dma_fence_wait_timeout without test for
+    signalled
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 63 +++++++++--------------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c    |  4 +-
+ 2 files changed, 27 insertions(+), 40 deletions(-)
+
 -- 
 2.34.1
 
