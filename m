@@ -4,48 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 72B82FF60F7
-	for <amd-gfx@archiver.kernel.org>; Tue, 31 Mar 2026 09:29:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AC0A6FF60EF
+	for <amd-gfx@archiver.kernel.org>; Tue, 31 Mar 2026 09:30:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D766A10E74C;
-	Tue, 31 Mar 2026 09:29:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 458D410E8D9;
+	Tue, 31 Mar 2026 09:30:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="bmBHtqyc";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="QMtI/Uoo";
 	dkim-atps=neutral
 Received: from PH0PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11011065.outbound.protection.outlook.com [40.107.208.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0E8C510E18B;
- Tue, 31 Mar 2026 09:29:49 +0000 (UTC)
+ (mail-westus3azon11011012.outbound.protection.outlook.com [40.107.208.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EC1BD10E825;
+ Tue, 31 Mar 2026 09:30:26 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=wMypwDWZRDbuPIS26TSdDL56V9eDHVT23g3pUtpxRg4GlM5O4GTIKX05wNc1w2EfKeCACUGOSJ8kPiaUNfpeFIOLIsXL2t7JguDy7kTTh+n7II308Cfka/XpG9K2KXYFNBMBr3/DQCGNU+CCNOnatQdV97fdv9bZ25mtRvaID/xBxon3VO3gcJHgI6wqU2gDfAtMiqI41wx2Wva8m5ZPAfGjPZl++mZsTZxeGNWpqAIquGBsFzQ5kws3D2bji8FXgz+zT/NkRn+r9QcaBGpuICGWzs/nh8Tx15epm4M/jZTMNi6ax4gDdZ8Mpz+nQNcI5tSOXjUlSI9w080DKO9g4w==
+ b=shvPUxTnAQpkAOs3LBGt+zXGy+E9ukWXACPgVrcVN0HiMKTpLqXUS3PY+0LryCa+v7Mp0SiMaIR0C/8KdNwlR3MJnLSjJLjfoqXqlIPV0fzND0fx212VRbweu5c+s1x3frHfEpsVn2z9iwOl0/H8s1inroYo8DPoHCZg+71uczE9Xi+8N3Nvp1nhCl3/CUathzMtUlokXDg5qlfMWbAS9mDfrHlXvbirqA3AMRVgHOqI7uieZyeTDGctOmORkxX+FzDO1juS1FM24o0BEhWSI/43+rqSinxjLsJ7ex0BuqULcZHqcewB4Nik7JaOCEG6p59xcwcN0TXkyObu9fK0qw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Zsqee0vn3ZKJJGR6xae3nweLN/kfzd6gldxOQuTLMr0=;
- b=vUoVfnWWyFagvU73IYmrNL0oXqpc+HVx2opucQmNkb+M4225TeoP2Kit/o99fIOg1k9a/2BUkn3fvFrHSUgCFqPJbGhtLC/Nz9Z/JXIrxum6sO0XN035Dnu4woK8TRZtW36k9BTdOJfPIutgy//p3sGhTSls1eQrrOeFRnPdjmA67QTlwrFzMEicD3ovuoYunsBnn9boS6OZlR/3CufelNIH6smNHXdd9ZC01TaNKy1x9QT7tumuuHkYaBy3WwkfMa4P1vy+/HyvwQCYXmmtjc/HZvEV8sjtGNAKYx/ShVB5Mh3pPg/2NdQQfS8D63mlJd21qO63rprnV0WvSYCWGQ==
+ bh=oWsiqcjc2b7vHJHt6TQdpGCSlxffbfJX7tcsRyDo3qw=;
+ b=HsnRJbNKVK77kuYmY/HkZHaCBsit1a1Y0GyddMK6BBGw/F5tg7K7HR7yGEob2PpEV9rbvagmI3aOJf4YLYbdh1m9ULSUdURa9i+dk15stzRHdHuL4OQ0ALunjD7G99FHcb5s9ZRd//FTxK1fZ7SVuWSfVLAAtVaU0IdTYvE0h73HPkXLg4iIvqhDbPFF7HLB0xc1glS9zuLSX4/JK84s0e/uxzGZD3gAVGGpKok62POif+pgoypijCPTSN0WbUj56lZM3A31I24poh6MoRqHxigIt7AWjc1EpRUYwh718dBlUGp453t5nJ8XC+n9sh0V8WxJwyQUuBuwILcU+DDn8g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Zsqee0vn3ZKJJGR6xae3nweLN/kfzd6gldxOQuTLMr0=;
- b=bmBHtqyc6JforFe+dqCA6pgAKf//fTf+aRLOE+M4joR6TS11uEoU3E/PBz4G2zUzQd3e24NDGsAb1gfRWcrYK11MOiEkQ5BnpvkXI/5ymwmcXHc2PfwKEL78u5F2lBivQF25httFs3cfpk+T0DIIjqe0PdIrHzuDeYAOEy5rj14=
+ bh=oWsiqcjc2b7vHJHt6TQdpGCSlxffbfJX7tcsRyDo3qw=;
+ b=QMtI/Uooy/Vrvu2lWyTkUOy9yb1jbQO1CTzp2OutXJzgsaBTOXyLFXCWMoq8mb8gZBDwf4sIeQd1oltdCf2+olL+ADLRYDpC10VcqQW3MzBoAnHuuETzQ9/VjUheY2DNnSbcmeHAR0H3jGI2AD+zdsvqQYGjW5K+DRvi4LC0eRY=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
  by SN7PR12MB7420.namprd12.prod.outlook.com (2603:10b6:806:2a7::7)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.16; Tue, 31 Mar
- 2026 09:29:45 +0000
+ 2026 09:30:24 +0000
 Received: from PH7PR12MB5685.namprd12.prod.outlook.com
  ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
  ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.20.9769.014; Tue, 31 Mar 2026
- 09:29:45 +0000
-Message-ID: <b36e387b-1399-485e-a56a-2d971328e27a@amd.com>
-Date: Tue, 31 Mar 2026 11:29:36 +0200
+ 09:30:24 +0000
+Message-ID: <9ce0007d-73a7-49cf-a6fc-0c47da7522cc@amd.com>
+Date: Tue, 31 Mar 2026 11:30:17 +0200
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/5] drm/exec: Remove the index parameter from
- drm_exec_for_each_locked_obj[_reverse]
+Subject: Re: [PATCH 2/5] drm/msm: Remove abuse of drm_exec internals
 To: =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
  intel-xe@lists.freedesktop.org
 Cc: Felix Kuehling <Felix.Kuehling@amd.com>,
@@ -61,77 +60,77 @@ Cc: Felix Kuehling <Felix.Kuehling@amd.com>,
  amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
 References: <20260331092023.81616-1-thomas.hellstrom@linux.intel.com>
- <20260331092023.81616-2-thomas.hellstrom@linux.intel.com>
+ <20260331092023.81616-3-thomas.hellstrom@linux.intel.com>
 Content-Language: en-US
 From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260331092023.81616-2-thomas.hellstrom@linux.intel.com>
+In-Reply-To: <20260331092023.81616-3-thomas.hellstrom@linux.intel.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR4P281CA0450.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:c6::11) To PH7PR12MB5685.namprd12.prod.outlook.com
+X-ClientProxiedBy: FR4P281CA0447.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:c6::13) To PH7PR12MB5685.namprd12.prod.outlook.com
  (2603:10b6:510:13c::22)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SN7PR12MB7420:EE_
-X-MS-Office365-Filtering-Correlation-Id: d3b39f6c-6560-4499-f1bf-08de8f080b86
+X-MS-Office365-Filtering-Correlation-Id: 0d59641d-84a1-430e-a2d5-08de8f082320
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
  ARA:13230040|1800799024|366016|7416014|376014|18002099003|56012099003|22082099003;
-X-Microsoft-Antispam-Message-Info: f2HYJxI+zE/YnMPJcUgz/p6I8Z0V0Y+yvyvJnXiVLlRA0GXe9OPpPPxodAoyo08/JxpmW/jUBprp63+MpmrhElq/hUhUP4cNOYPQsX/ryhQD/U1HWNCsNWLW9VCB+Og4f7JUlNSYNf0NKEE+Yec5+UuyuUcGfWcrtfX847/NoR08yWsuUh5CZhFREPu/XaL+rsXTta7CKCZnLNMRs298qxaBls1Q2y7eg8zse1qJBKnNiCU93V7hJqTgkFAoIf4CpFV3oFriOdnVVuROnEOuSuoNZ1v1vv+TPm2ADhqKEckUNI/SzJpvVpRvEZ3Eh/+T5m3zgukFT6GN8vBgaMNfvzJI7BDewEA/YEVYJFog3TnJHuNOSRBa7CZ2fMXVr6yKJrn5fdp68xh/sQS2giW4Y5HvJzugf8H33F4OU9YxbLJyzqYbTFWc5kN4oWTW1SfbvlQB22Twp5mt7Y3qzlmtSTc9j/aXLNoGD0s4rIbXnbDyxu9qouYqkYnox/LK1lT8f3j4v0fwIfLhgx9kkFT3WHZhY/A9jvSqsDv8sOzkUg+hXIbVTebWx9hjuQ5a/GtjFFMbwQ/3YJ8dMonKEH1ZKWJqq5OcWxrtT0mF7R7TM3RdVPrIwoq85njrxbdZtHKkaUqEILLgB7hqSTq0OZdMPVpVLPMLVoEx1xun7a35Fh3TK1D5u15hIe9lm5i5VHnvmlQhkMOBayIT5BzvuaQacdirbCSQ1DnXn8LzPAPdDVM=
+X-Microsoft-Antispam-Message-Info: yzD0sZZ5ySsnssXbP9qUEQYJ0VIfw1W7MihrwUvKGuoSi6o7bn/8+B3S9MdPOf2ay0iSqr5CZyRrv9H9R8cklP5EcaozJtYJXh3+Hg+sYhVeOTQiO+tGzbBXfROkfiGPJVApevjGKzlN58uCFgblc12C0chUrKC5D+8Ycfe2dy8ISOelYicjBhEioKfSn6L6pIb+RPXtJkJRI/r7He298b48HCUTu771kHrS9ydHtnqgH4CDnZs+rLvedyp6kcXUU4Ai7iR7ZpZ3J6MPbPIW/5MobrQR5OtYGdmOHlmD37zUZWI7AGj+IM7RaOKqvIkekzVnqoHO4PfmKIgaiT24x0vuzppbLWYQq3BJFlPP5FY0QgzZYkY8wadEDG/CJi4jw7K/MRs3DME0W21cq4p44dQzOPYAZwpQ1+4dHuclGOkANRLZ4tXtDp5E/+/5YZLl9DDqpnpI4NdRJ+bpdd/kca6X9RH8TBgn5gTtqirjPiU3N2S/26L+gRzFySDTUIYzZvuTnaC9KH5XdJ0xBezGg4ULNz3HpMhUToQSnsr8RY0o/gjkZVPi6SLnIYftgeqnmflr8dNeUghfdQp6idiUGyHa4lw42RVYNo7CRSHrjYdu5jdP6gQORrlV7Gnh9GIt2f/7qo74VcRhNjjOGtBE1/p+Lcax2zPXW9ignudCsQg6QSlZEUI8e1/dT5d2zrojR2kztQo8FXVEKN2eC+/ub6caZgYiYNHhX2XzMYOHc24=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFS:(13230040)(1800799024)(366016)(7416014)(376014)(18002099003)(56012099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?U1JMS2p5bFdieGwzNmZqWE1VTTRjMTR6RXJaczhJS2tld0M2MDJGNWZ4UEtv?=
- =?utf-8?B?LzhldXNUUzhWa2I5Vzh4UERiZjBJc0Vqdi93QTRMZDlLSHpCU3ZrMThza2J3?=
- =?utf-8?B?L1h5VEV2WG1aQmRLZDJQdzcrZ0g3Z0JQYXA5VkdidjBBQW5uZzFPZGtzaTNN?=
- =?utf-8?B?MFdpYVpOUU5wK05ta0tFZVM0RjFsSmcxT2xSL0F6b2dWODNLbHdrK1JTYUdv?=
- =?utf-8?B?aExjM2RmN1FQNDQzekx2YlJZSWFCRmpEU0lwWVM1Y3BmUVE0Vjd1ZTE2VmlO?=
- =?utf-8?B?QXRkejdHNnlUTU1VbFFaQjRIcUprRWhaeEdia3lJQTZwSHNKMG4ySk9QNDA4?=
- =?utf-8?B?UGRMSS9ydVc1MkF2R2JHQTF0aGlEejBEUVdqZnZNb0V5YzFzR1N4R3BjTjBB?=
- =?utf-8?B?QXplTTIyWkMvc2lNeUhqd2NYZlZTdTViVlQ3R3dSVzlTME5KSURwV1gwVnBk?=
- =?utf-8?B?YURjbHNzTTFtd1BUQWdOSjhJamxIRnhXSlVLUlFPMTdKamQrcHUraFZ4Mkc1?=
- =?utf-8?B?UitSVmFySG1VOWplWEtOdUpwMS9nUHBsbU16V1BJbE1pT1BvKzVETC93T1dz?=
- =?utf-8?B?akIyNEJLbDdRdmVBY3E3VDNlSVRDM1RiSFJuYkVqczBsOTNmVzNwbE9NL2Y0?=
- =?utf-8?B?VW5tZHZxaUpweGRJcjU2VlpQYkhSbUpsUW0wVlRqOTdycmsxU3dhQXlDSnE3?=
- =?utf-8?B?YmF2L3NwU0gzayt2TDNobGVDNHY2akV2VlkzQkYvdElldyt1ZUxqdG5HWEdi?=
- =?utf-8?B?eURDbjh6REpSWHdBNXdTOUZOc2t1ZVU2d1BuN1YyYUZXYU5BMkQ0RVRNcWFZ?=
- =?utf-8?B?SEpNOUVyQUZIRVBmQ0FOVElSbEhsYUdQMDB1cVhuUWpRbzBHd0JRM3VnNSs2?=
- =?utf-8?B?b0NyMExmVytiVWFaaThaeC9Qdkd1SnFzckJOeGY5ZzRQVFVFU1F3TksweHU4?=
- =?utf-8?B?eWNnMVF3cHZqZDE5WlJJY2ltSTRGOEszTTUvbEZ0M2UwTmNUMFFnOUFESHla?=
- =?utf-8?B?VklpZWsveXJML3d3cUV1dnFhUXFVRUEvRlZwWUNFekpPcldxRmdkUndQd2pq?=
- =?utf-8?B?dWcyOUhaTkhsRS9rbmlrdEdNNlB5K1NQd255MENWNEZ5Ymx5YnJnbmlkV2F0?=
- =?utf-8?B?KzIwZ09BWXNIOTBHYXRWR092UlZMV2dOV0twUEpBNkZVTHdxbm5aWllHWFgz?=
- =?utf-8?B?clFQZTV6TThMVFM0MnZGM0dxZ1N6Rlh0RThCMnkvWXBFZE1WMlB1OHBXK2g1?=
- =?utf-8?B?ZWpBMk8wODlwNytuVHZwYWluZUJZeSswVzl0YnpYdGlmL0Z0ZTlZUGplWHZv?=
- =?utf-8?B?RnVZRGoyQnI0OWxUakNPa3JTaWFwUlFONmNPMEltdnRlQTFkdWpVU0Zld0JH?=
- =?utf-8?B?cVl2WEgvTTllWit5bU1ZeXFYcmdjM21NYkhzRmdUUnJpVCt4WG1UQko0d2lE?=
- =?utf-8?B?enk0RGpaemRReTNwMThvQnE5NVRVZnZFUC8wa1luUk1Zc2M5bk1Ed21KUlRx?=
- =?utf-8?B?YWR2bWlxKzQ1azJia2Vma1lOV2FRamJwakRzc1YyZlVQblBQcWFrbDg5NHNm?=
- =?utf-8?B?K1kwRXpQa3hyczZIUG14eSsrU0JudWZBQkxQYjdRSzR5cllXendXM3dySUdu?=
- =?utf-8?B?bjBjZHc5d3dJaGFzNlMvNnlLTzFlWkZJUHhGQ2ZVUk5KSzZiN3pmUjVlalFx?=
- =?utf-8?B?eWJzcTdQdlFHOFpUVHU1dW9OS2xLWkVHRUt5RnBUSStGN1I3blNOVFVaTVZ3?=
- =?utf-8?B?RG5YWE5SUmZNeC8xOTk3MlA2ZXlKRDVJTTJXRUQ4Yk5ZMFptalkvN1paMmxk?=
- =?utf-8?B?dEoyL0M4VGExRTk2Q3FSOVpzZTdqSjhRQXRYcHVUZHd3UnFkbXk4WkdXUWpV?=
- =?utf-8?B?M3FWcUxDNXZMbkQxYjJZaTFFcnNMT0hMelh4NjJyam8xVmJHZ0d5ZkpQY1pp?=
- =?utf-8?B?OVFiMWtWRHpwTDZzbkJNWTVBemJlRy82R3k3MHdVcjlMeWZheThkdE9vT01G?=
- =?utf-8?B?RzcwQmkzTUlWWHh3eEJIdUtYVlA2Ky95cVM1bk9TbDc2SlBlVlZybjdLa3JY?=
- =?utf-8?B?cGlLdDBCYldlampJTTRHRkRVNXpUbHlTOEJRUVBERFpmNk9Ga01hNFJEbkJL?=
- =?utf-8?B?eStnVzhzaFRUMmVFY0dTeW15Uk9LYlB4aHBRdzRxOFJYMHhFVWlld1VOVHA3?=
- =?utf-8?B?NWsvRGZLUDMvQ3laM3E1VG04ZUJqT0ZOdGpLNFdsc0Y4ZXJnSENIUnBVLy85?=
- =?utf-8?B?WG5MWEFKbmNIZDdZWEJKTUFFMmpvWUt5N2phdUxrdEFOQVdGQWtkVUs5VHpL?=
- =?utf-8?Q?wmXMLXDVkk1LZtQzEW?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?elhUZmVoSVhxZTJyUFUvS0FGdTdyVnRwczIra2tWRlJHKzQ4WWw1cExjTm93?=
+ =?utf-8?B?eUEvdU56WGFSRDQrOTlPaHliejVaSVMyMzIxVjJsMGpCdWliL05MeFFpQlVJ?=
+ =?utf-8?B?NlFTN2xEMElwT0N2MEoveW9lc3dNejRaemRPUWJuTzhjV3U5V3drbFM2WFZs?=
+ =?utf-8?B?UGlkMzcramVRRThDSUxlcjlEdGJZOCtaMHY5TmNmNUpzNVdUcEVxSFRROWwv?=
+ =?utf-8?B?R0U3VnhXMjZid2JBY3k3RUtzejkxeVNjR0lWTlRCKzlqdGI0cnhva2N4Rm45?=
+ =?utf-8?B?QndiREtDTmlnUEJZNjFYN2ZDeXlXeVk3WnJhQStlNkgzM20wVVVTZ3ZLT01Y?=
+ =?utf-8?B?Qm5hQW1kd3BXRXE2VVREcDQ3OCttSHRjTHdockxENGR6WTBndTVQaEVreGFQ?=
+ =?utf-8?B?ZHR6VTE1blh1NjZ3SzQxci8rUzBEdWoxQUpUUWNlWTdRU1k1alVodzF3UTZV?=
+ =?utf-8?B?S01TRFpxejJlcE80ckJzOWxLREIyY0NSejJLdDBjQXJ4bmQxaXhjWVV1ZkRB?=
+ =?utf-8?B?OFNqU1Z6NmdhRVk3b3B2ZzJZNVdORVhoQS9sbXNPWHR1aW5PV1I1Y3lid29N?=
+ =?utf-8?B?MGJmWCtJVFRXb0ZBbXdPRTFJbXBGcThQSmpzdDMzRlNYZG9zR1poVGtxMHZ4?=
+ =?utf-8?B?ZUtZVkVjUDVjcnpDc2JyM3d1SnVKRmtPV3VKOTl4cjVGcGZrYmVLMzdXYlhB?=
+ =?utf-8?B?S3BnZC9nTUV0bzhzTjM2blo5QUdTRkhKL2llQjlXWkhSdlpvWGREd0E2RDZ6?=
+ =?utf-8?B?QmV3blEvbmhOYU9MNFVZeUNhNTZFMjE1bitTSlhNMjZ5cmdieHpxUk5uVG5F?=
+ =?utf-8?B?TDdIS1p2ajN2a2c0WDIyYXJKVzRnUVFpQkdmQzB0YW1xcDF4WXVaQ2doRXZk?=
+ =?utf-8?B?Y1dqaEFySDdNSmZBTVBFUkdHZjV0Wk9jSSsxZ0dHeTZUd05wazlJLzNuK2I1?=
+ =?utf-8?B?QjdCSklnQzJCSkVuZ29KSnlONS9Hb3FSTDJaTVM2bXMvREpXZGNQMzNJTXVL?=
+ =?utf-8?B?RFI4bml4am9pOVhUbDFLQlo0NnNvKzdyNUxwTUpDNE9ZMWVieFRpUmZIa3kx?=
+ =?utf-8?B?ZFJ6QXhOWlhUa29DNyszRG1rU3pvYS9PdzFJbHZ0dGxiTGMrbGpyM0swNjBK?=
+ =?utf-8?B?ems5eDBGbmRZSDRTQ1crb2hKbDg5Rkc0M0FucVVSUndaa3ViNmVWbXJKMHox?=
+ =?utf-8?B?ZFdGOWlKVlM0REhLMm52TmduTkNFa0NMSmxoUysxM0JNbGFWVWtFOG5JUVR5?=
+ =?utf-8?B?SVBvT3BMVGxMUkh2eW1MQmdWTFNkdm5sTlFUMWhzRFFOOVNKMjNuenovM0hq?=
+ =?utf-8?B?S3g5ajNybzRYZWxmQmZtQkRRTks0NCtzK1BQcERmTGw1ZjRQTFp4dUZmRXpn?=
+ =?utf-8?B?eU01RHFmT3FPcXB2R2duZWxYeEZ3UWZTbUtOZ002NXNvcWQ3aE1wazV2cG9n?=
+ =?utf-8?B?S0FjcEl3anVBMEhGcWR3OVZicjk3NnFhSFcxdktyU0cxTHBlTnhSN2EvSlBk?=
+ =?utf-8?B?azQ1YkJqemdDYW83SCtrYjJNUFpmNWRWTXlqcU42bkZodGxMM1R4OVJyMFp5?=
+ =?utf-8?B?dy9aUkg2L2Y4M3QzYi9DWnZYeS9ZUFRaMWRKWFM1bW93ZXFZVTVvWmhWZm5o?=
+ =?utf-8?B?KzF2WUEzWEhhT1ZGVTVJM2hxYkcxQmxqcStkaG5YK2R1OElpYm1tMGFLb3Az?=
+ =?utf-8?B?aFlnbEpCTjBKbVIybGpZRVJKYndHOU5yWFlOblJHM1AwVFNYOUpZWVB0VzBu?=
+ =?utf-8?B?Qkd1bjdQNGtVcmQ5M2ZVbkI0RTRSVWV0N2h3c0kwK2tuNmpPS0lVbTRraVNm?=
+ =?utf-8?B?eTk0ZWlZcS9VYklud09iOWs2MThvS1BEa1VjZmhjM1ZjeEM2SFlKWXRTNmQ1?=
+ =?utf-8?B?SkR0bCs5ZllUaXFOVGl6cSthdU5pN05oVVAyNmpEeWNNbGhwVlJPVEF6VEJ6?=
+ =?utf-8?B?R0tRckZEZkU3WGMyaHBzY2kwenIzcHRxTm0yNzF1WGRFZXVqWmdQcVdlNzR6?=
+ =?utf-8?B?TndSYS9ncTd1MFFXQXJjbno2RDBBUlhIa3ZCZ0VBeXNHS3RiemxEL0VObnpp?=
+ =?utf-8?B?NFJWWDI3eTVFUXJLVEdTZnNvQUhOUEVrd2N5aGtGSHlTZjkxOWViaE1KcTdy?=
+ =?utf-8?B?TlprWFJWQXlOTjZTcWRvRWZ3UFkyd2U3K0F5aTdzNFAxNC9XbloyWUpkc3g4?=
+ =?utf-8?B?T2RnTDB2OThZd0JUYnZ5WjhhSXNPTG1wNThEdUtPcVpnU0xTMDV6clFBRDYz?=
+ =?utf-8?B?Z2o3NnVjMk5aVzBqNDRaL0FzZ1RuRHRydWhIWGI3Q3FJcVpycUo5SkI4eTNC?=
+ =?utf-8?Q?8zsw2evqZNphNDnySR?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d3b39f6c-6560-4499-f1bf-08de8f080b86
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0d59641d-84a1-430e-a2d5-08de8f082320
 X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Mar 2026 09:29:45.1476 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Mar 2026 09:30:24.6209 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: gw6LVNnG7a8HFtOQ3MfprRJH1McDarOh5qxdYHudnEGL9rW+BwKkDtobFHJoqq6X
+X-MS-Exchange-CrossTenant-UserPrincipalName: mMPgYn/tQs2jsydrhcjK/SjDHRG+Uu+tXsDeorWiUpazk6T6RdeTBlwZkFEF10D1
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7420
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -148,213 +147,61 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 On 3/31/26 11:20, Thomas Hellström wrote:
-> Nobody makes any use of it. Possible internal future users can
-> instead use the _index variable. External users shouldn't use
-> it since the array it's pointing into is internal drm_exec state.
-
-Yeah that was on my TODO list as well, just one more comment below.
-
+> The code was reading drm_exec internal state to determine whether
+> the drm_exec structure had been initialized or not, and therefore
+> needed cleaning up, relying on undocumented behaviour.
 > 
-> Assisted-by: GitHub Copilot:claude-sonnet-4.6
+> Instead add a bool to struct msm_gem_submit to indicate whether
+> drm_exec cleaning up is needed.
+> 
 > Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+
+Acked-by: Christian König <christian.koenig@amd.com>
+
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c             |  9 +++------
->  drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.c |  3 +--
->  drivers/gpu/drm/drm_exec.c                         |  6 ++----
->  drivers/gpu/drm/drm_gpuvm.c                        |  3 +--
->  drivers/gpu/drm/xe/xe_vm.c                         |  3 +--
->  include/drm/drm_exec.h                             | 14 ++++++--------
->  6 files changed, 14 insertions(+), 24 deletions(-)
+>  drivers/gpu/drm/msm/msm_gem.h        | 1 +
+>  drivers/gpu/drm/msm/msm_gem_submit.c | 4 +++-
+>  2 files changed, 4 insertions(+), 1 deletion(-)
 > 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-> index c048217615c1..c4ee19603460 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-> @@ -850,7 +850,6 @@ static int amdgpu_cs_parser_bos(struct amdgpu_cs_parser *p,
->  	struct amdgpu_vm *vm = &fpriv->vm;
->  	struct amdgpu_bo_list_entry *e;
->  	struct drm_gem_object *obj;
-> -	unsigned long index;
->  	unsigned int i;
->  	int r;
+> diff --git a/drivers/gpu/drm/msm/msm_gem.h b/drivers/gpu/drm/msm/msm_gem.h
+> index cb32093fda47..762e546d25ef 100644
+> --- a/drivers/gpu/drm/msm/msm_gem.h
+> +++ b/drivers/gpu/drm/msm/msm_gem.h
+> @@ -452,6 +452,7 @@ struct msm_gem_submit {
+>  	bool bos_pinned : 1;
+>  	bool fault_dumped:1;/* Limit devcoredump dumping to one per submit */
+>  	bool in_rb : 1;     /* "sudo" mode, copy cmds into RB */
+> +	bool has_exec : 1;  /* @exec is initialized. */
+>  	struct msm_ringbuffer *ring;
+>  	unsigned int nr_cmds;
+>  	unsigned int nr_bos;
+> diff --git a/drivers/gpu/drm/msm/msm_gem_submit.c b/drivers/gpu/drm/msm/msm_gem_submit.c
+> index 75d9f3574370..26ea8a28be47 100644
+> --- a/drivers/gpu/drm/msm/msm_gem_submit.c
+> +++ b/drivers/gpu/drm/msm/msm_gem_submit.c
+> @@ -278,6 +278,7 @@ static int submit_lock_objects_vmbind(struct msm_gem_submit *submit)
+>  	int ret = 0;
 >  
-> @@ -962,7 +961,7 @@ static int amdgpu_cs_parser_bos(struct amdgpu_cs_parser *p,
->  		goto out_free_user_pages;
->  	}
+>  	drm_exec_init(&submit->exec, flags, submit->nr_bos);
+> +	submit->has_exec = true;
 >  
-> -	drm_exec_for_each_locked_object(&p->exec, index, obj) {
-> +	drm_exec_for_each_locked_object(&p->exec, obj) {
->  		r = amdgpu_cs_bo_validate(p, gem_to_amdgpu_bo(obj));
->  		if (unlikely(r))
->  			goto out_free_user_pages;
-> @@ -1201,7 +1200,6 @@ static int amdgpu_cs_sync_rings(struct amdgpu_cs_parser *p)
->  	struct drm_gpu_scheduler *sched;
->  	struct drm_gem_object *obj;
->  	struct dma_fence *fence;
-> -	unsigned long index;
->  	unsigned int i;
->  	int r;
+>  	drm_exec_until_all_locked (&submit->exec) {
+>  		ret = drm_gpuvm_prepare_vm(submit->vm, exec, 1);
+> @@ -304,6 +305,7 @@ static int submit_lock_objects(struct msm_gem_submit *submit)
+>  		return submit_lock_objects_vmbind(submit);
 >  
-> @@ -1212,7 +1210,7 @@ static int amdgpu_cs_sync_rings(struct amdgpu_cs_parser *p)
->  		return r;
->  	}
+>  	drm_exec_init(&submit->exec, flags, submit->nr_bos);
+> +	submit->has_exec = true;
 >  
-> -	drm_exec_for_each_locked_object(&p->exec, index, obj) {
-> +	drm_exec_for_each_locked_object(&p->exec, obj) {
->  		struct amdgpu_bo *bo = gem_to_amdgpu_bo(obj);
+>  	drm_exec_until_all_locked (&submit->exec) {
+>  		ret = drm_exec_lock_obj(&submit->exec,
+> @@ -523,7 +525,7 @@ static void submit_cleanup(struct msm_gem_submit *submit, bool error)
+>  	if (error)
+>  		submit_unpin_objects(submit);
 >  
->  		struct dma_resv *resv = bo->tbo.base.resv;
-> @@ -1280,7 +1278,6 @@ static int amdgpu_cs_submit(struct amdgpu_cs_parser *p,
->  	struct amdgpu_job *leader = p->gang_leader;
->  	struct amdgpu_bo_list_entry *e;
->  	struct drm_gem_object *gobj;
-> -	unsigned long index;
->  	unsigned int i;
->  	uint64_t seq;
->  	int r;
-> @@ -1330,7 +1327,7 @@ static int amdgpu_cs_submit(struct amdgpu_cs_parser *p,
->  	}
+> -	if (submit->exec.objects)
+> +	if (submit->has_exec)
+>  		drm_exec_fini(&submit->exec);
 >  
->  	p->fence = dma_fence_get(&leader->base.s_fence->finished);
-> -	drm_exec_for_each_locked_object(&p->exec, index, gobj) {
-> +	drm_exec_for_each_locked_object(&p->exec, gobj) {
->  
->  		ttm_bo_move_to_lru_tail_unlocked(&gem_to_amdgpu_bo(gobj)->tbo);
->  
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.c
-> index 4c5e38dea4c2..f6b7522c3c82 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.c
-> @@ -121,7 +121,6 @@ int amdgpu_evf_mgr_rearm(struct amdgpu_eviction_fence_mgr *evf_mgr,
->  {
->  	struct amdgpu_eviction_fence *ev_fence;
->  	struct drm_gem_object *obj;
-> -	unsigned long index;
->  
->  	/* Create and initialize a new eviction fence */
->  	ev_fence = kzalloc_obj(*ev_fence);
-> @@ -140,7 +139,7 @@ int amdgpu_evf_mgr_rearm(struct amdgpu_eviction_fence_mgr *evf_mgr,
->  	evf_mgr->ev_fence = &ev_fence->base;
->  
->  	/* And add it to all existing BOs */
-> -	drm_exec_for_each_locked_object(exec, index, obj) {
-> +	drm_exec_for_each_locked_object(exec, obj) {
->  		struct amdgpu_bo *bo = gem_to_amdgpu_bo(obj);
->  
->  		amdgpu_evf_mgr_attach_fence(evf_mgr, bo);
-> diff --git a/drivers/gpu/drm/drm_exec.c b/drivers/gpu/drm/drm_exec.c
-> index 8d0601400182..746210f3f6c2 100644
-> --- a/drivers/gpu/drm/drm_exec.c
-> +++ b/drivers/gpu/drm/drm_exec.c
-> @@ -24,7 +24,6 @@
->   *
->   *	struct drm_gem_object *obj;
->   *	struct drm_exec exec;
-> - *	unsigned long index;
->   *	int ret;
->   *
->   *	drm_exec_init(&exec, DRM_EXEC_INTERRUPTIBLE_WAIT);
-> @@ -40,7 +39,7 @@
->   *			goto error;
->   *	}
->   *
-> - *	drm_exec_for_each_locked_object(&exec, index, obj) {
-> + *	drm_exec_for_each_locked_object(&exec, obj) {
->   *		dma_resv_add_fence(obj->resv, fence, DMA_RESV_USAGE_READ);
->   *		...
->   *	}
-> @@ -56,9 +55,8 @@
->  static void drm_exec_unlock_all(struct drm_exec *exec)
->  {
->  	struct drm_gem_object *obj;
-> -	unsigned long index;
->  
-> -	drm_exec_for_each_locked_object_reverse(exec, index, obj) {
-> +	drm_exec_for_each_locked_object_reverse(exec, obj) {
->  		dma_resv_unlock(obj->resv);
->  		drm_gem_object_put(obj);
->  	}
-> diff --git a/drivers/gpu/drm/drm_gpuvm.c b/drivers/gpu/drm/drm_gpuvm.c
-> index 44acfe4120d2..2e44671e05b1 100644
-> --- a/drivers/gpu/drm/drm_gpuvm.c
-> +++ b/drivers/gpu/drm/drm_gpuvm.c
-> @@ -1550,9 +1550,8 @@ drm_gpuvm_resv_add_fence(struct drm_gpuvm *gpuvm,
->  			 enum dma_resv_usage extobj_usage)
->  {
->  	struct drm_gem_object *obj;
-> -	unsigned long index;
->  
-> -	drm_exec_for_each_locked_object(exec, index, obj) {
-> +	drm_exec_for_each_locked_object(exec, obj) {
->  		dma_resv_assert_held(obj->resv);
->  		dma_resv_add_fence(obj->resv, fence,
->  				   drm_gpuvm_is_extobj(gpuvm, obj) ?
-> diff --git a/drivers/gpu/drm/xe/xe_vm.c b/drivers/gpu/drm/xe/xe_vm.c
-> index 56e2db50bb36..30efd6721da1 100644
-> --- a/drivers/gpu/drm/xe/xe_vm.c
-> +++ b/drivers/gpu/drm/xe/xe_vm.c
-> @@ -373,7 +373,6 @@ int xe_vm_validate_rebind(struct xe_vm *vm, struct drm_exec *exec,
->  			  unsigned int num_fences)
->  {
->  	struct drm_gem_object *obj;
-> -	unsigned long index;
->  	int ret;
->  
->  	do {
-> @@ -386,7 +385,7 @@ int xe_vm_validate_rebind(struct xe_vm *vm, struct drm_exec *exec,
->  			return ret;
->  	} while (!list_empty(&vm->gpuvm.evict.list));
->  
-> -	drm_exec_for_each_locked_object(exec, index, obj) {
-> +	drm_exec_for_each_locked_object(exec, obj) {
->  		ret = dma_resv_reserve_fences(obj->resv, num_fences);
->  		if (ret)
->  			return ret;
-> diff --git a/include/drm/drm_exec.h b/include/drm/drm_exec.h
-> index aa786b828a0a..25db52dd2af0 100644
-> --- a/include/drm/drm_exec.h
-> +++ b/include/drm/drm_exec.h
-> @@ -68,28 +68,26 @@ drm_exec_obj(struct drm_exec *exec, unsigned long index)
->  /**
->   * drm_exec_for_each_locked_object - iterate over all the locked objects
->   * @exec: drm_exec object
-> - * @index: unsigned long index for the iteration
->   * @obj: the current GEM object
->   *
->   * Iterate over all the locked GEM objects inside the drm_exec object.
->   */
-> -#define drm_exec_for_each_locked_object(exec, index, obj)		\
-> -	for ((index) = 0; ((obj) = drm_exec_obj(exec, index)); ++(index))
-> +#define drm_exec_for_each_locked_object(exec, obj)		\
-> +	for (unsigned long _index = 0; ((obj) = drm_exec_obj(exec, _index)); ++_index)
-
-I'm not sure if _index is unique enough here, would use something like __PASTE(_drm_exec_index, __LINE__) instead.
-
-Apart from that looks good to me.
-
-Regards,
-Christian.
-
->  
->  /**
->   * drm_exec_for_each_locked_object_reverse - iterate over all the locked
->   * objects in reverse locking order
->   * @exec: drm_exec object
-> - * @index: unsigned long index for the iteration
->   * @obj: the current GEM object
->   *
->   * Iterate over all the locked GEM objects inside the drm_exec object in
-> - * reverse locking order. Note that @index may go below zero and wrap,
-> + * reverse locking order. Note that the internal index may wrap around,
->   * but that will be caught by drm_exec_obj(), returning a NULL object.
->   */
-> -#define drm_exec_for_each_locked_object_reverse(exec, index, obj)	\
-> -	for ((index) = (exec)->num_objects - 1;				\
-> -	     ((obj) = drm_exec_obj(exec, index)); --(index))
-> +#define drm_exec_for_each_locked_object_reverse(exec, obj)	\
-> +	for (unsigned long _index = (exec)->num_objects - 1;				\
-> +	     ((obj) = drm_exec_obj(exec, _index)); --_index)
->  
->  /**
->   * drm_exec_until_all_locked - loop until all GEM objects are locked
+>  	/* if job wasn't enqueued to scheduler, early retirement: */
 
