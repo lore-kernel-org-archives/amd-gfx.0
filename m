@@ -4,70 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 62DDE109B463
-	for <amd-gfx@archiver.kernel.org>; Tue, 31 Mar 2026 12:56:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 403A7109B462
+	for <amd-gfx@archiver.kernel.org>; Tue, 31 Mar 2026 12:57:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F095210EC4E;
-	Tue, 31 Mar 2026 12:56:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C2FFB10EC62;
+	Tue, 31 Mar 2026 12:57:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="gg70urw6";
+	dkim=pass (2048-bit key; unprotected) header.d=m1k.cloud header.i=@m1k.cloud header.b="BwAdwI3x";
 	dkim-atps=neutral
-Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1DE1710EC4A;
- Tue, 31 Mar 2026 12:56:34 +0000 (UTC)
-Received: from smtp2.mailbox.org (smtp2.mailbox.org [10.196.197.2])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4flSmY5yvWz9txF;
- Tue, 31 Mar 2026 14:56:29 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; t=1774961789;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=fR4tNqzFAaNjfM1ALkgthuV0izYT7IoG9clnVyc5I2Y=;
- b=gg70urw6KJnGO60ZcSCVK5vpTyL8rdBLOZc/+S7EZ2NQ83hfI5P4Zo6kfr7gUgQu5X/0/7
- 5eGZIQKSzvEKUIuCtG8AsDN2t5ktDffSmyGeBQ1ZsbU48iS7Lz53bgBCbm2CmuE+4+qZDt
- 4kazYhJxV+Ryl60Dcxelngt6izjc5bTbN3NtgjfAAsg0JUsaxD0TMsSnNgVk8tQxg++j1R
- 2PgT1hF0DcPrbg9dTIfte2wWzde53GyqpmskFWpD+CXu7h4zWNFpIhEd6oJIfVJSFGeI2n
- tG8zPxG/IvHOUUgVIAFHPQUTwZYvudawTaIiNzlhR7CImGycEecNJCgono8Law==
-Message-ID: <d9abba15-382d-4bc1-a58a-71bb8413eeac@mailbox.org>
-Date: Tue, 31 Mar 2026 14:56:22 +0200
+Received: from mail.m1k.cloud (mail.m1k.cloud [195.231.66.115])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 32D3A10EC62
+ for <amd-gfx@lists.freedesktop.org>; Tue, 31 Mar 2026 12:57:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=m1k.cloud; s=mail;
+ t=1774961870; bh=ldemznRE07JnuYVczlnXIDVYoB0oR7L6KmGV+PQwsyk=;
+ h=Subject:From:To:Cc:References:In-Reply-To;
+ b=BwAdwI3xMVR6nbmfYlseRsnaJ0r/yGMEGyfm8lnW2/B1G2HJ84CUjQV14qDxlxzUo
+ WwXtWE0E2XoxknvCLktSKzY96jSxtO7TRSI02UG9iO/K9hUmYUWIP/73IXG/Gzs4OA
+ aZw2WL53SAjjLXse5q6PU3qa+q9sc3FLAp+jMr5J7SBKhfDee3x5vRl9Lnvsdb652A
+ 2Pr9SOfPsLhf8RKTrSrGst9As8ZOfVaz05i2WMOlLLC5I1WmFUVRKD9tpuRGdUzbya
+ InEk0DIevmIwdUzq//nvhl+GMIZBVagMiKkLnT/OhE50BWa35oLgfncArRzRlaSafN
+ YWG3Hx6LL6kjg==
+Message-ID: <e415c38b-4102-40e4-a195-0256caf34802@m1k.cloud>
+Date: Tue, 31 Mar 2026 14:57:50 +0200
 MIME-Version: 1.0
-Subject: Re: [PATCH v5 0/3] Add "link bpc" DRM property
-To: Pekka Paalanen <pekka.paalanen@collabora.com>
-Cc: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
- Daniel Stone <daniels@collabora.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, kernel@collabora.com,
- Derek Foreman <derek.foreman@collabora.com>,
- Marius Vlad <marius.vlad@collabora.com>
-References: <20260319-link-bpc-v5-0-5306cd04a708@collabora.com>
- <8676926.T7Z3S40VBb@workhorse>
- <eff61423-a854-44c1-8634-30e2bd61e005@mailbox.org>
- <4265353.aeNJFYEL58@workhorse>
- <254c20a4-cce3-4c8e-9902-514586f3e694@mailbox.org>
- <20260326155305.736b4e64@fluorite>
- <47325395-3790-4cb4-8efd-84a3d8ddb80c@mailbox.org>
- <20260331153805.376486e2@fluorite>
-From: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>
-Content-Language: en-CA
-In-Reply-To: <20260331153805.376486e2@fluorite>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-MBO-RS-ID: 3ea22b55c6cef5a3c0b
-X-MBO-RS-META: ru88ojqwgmnp6kdirxom5z1d59n5o6gg
+Subject: Re: [PATCH 1/1] drm/amd/display: complete cursor vblank events
+ immediately
+From: Michele Palazzi <sysdadmin@m1k.cloud>
+To: Leo Li <sunpeng.li@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, harry.wentland@amd.com,
+ alexander.deucher@amd.com, christian.koenig@amd.com, siqueira@igalia.com,
+ =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>,
+ Shengyu Qu <wiagn233@outlook.com>
+References: <20260217191632.1243826-1-sysdadmin@m1k.cloud>
+ <2be6dc58-e2dc-4733-aa25-26329cd1d2d3@amd.com>
+ <TY4PR01MB14432450DA5BDEFA272476A2F987FA@TY4PR01MB14432.jpnprd01.prod.outlook.com>
+ <49434297-d6e8-4eaf-b4c7-ce14134d7869@amd.com>
+ <96f4df42-2675-4bda-b0f2-753b09f7a80d@m1k.cloud>
+ <ca869a77-4bdc-47b7-a8f3-788224be48be@amd.com>
+ <fdb2d4ad-10e5-43ca-92db-f1dad48b7890@amd.com>
+ <c4cae811-e3a4-4aae-8501-6de0977566a5@m1k.cloud>
+ <6e1f5a30-82c3-4872-add3-7d46a266c37c@m1k.cloud>
+ <6ac9fc7f-0493-446f-97e8-760a54e209d8@amd.com>
+ <7fdc3c4f-c321-48f5-93f9-17a1a8ded9f8@m1k.cloud>
+ <1356e93b-af76-47f3-afc5-29535a9518bb@amd.com>
+ <aa3891fb-ed89-48e6-bfb8-86e704447a2e@m1k.cloud>
+ <51219a7b-eeec-43f2-a335-06710809415c@m1k.cloud>
+ <7a148774-3364-4ce2-9f55-2e77889bfb53@amd.com>
+ <a8a3d8d1-ee55-4fc0-ac98-45d70ad0bd6a@amd.com>
+ <deb792f8-70a5-41f9-bcf8-1425994aad14@m1k.cloud>
+ <4e48ec7b-ac73-4637-9e42-9c328067ed72@amd.com>
+ <fe88c29c-3fc3-48b5-b6a2-ee4c210e7a83@m1k.cloud>
+Content-Language: en-US
+In-Reply-To: <fe88c29c-3fc3-48b5-b6a2-ee4c210e7a83@m1k.cloud>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,54 +72,15 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 3/31/26 14:38, Pekka Paalanen wrote:
-> On Tue, 31 Mar 2026 10:01:59 +0200
-> Michel Dänzer <michel.daenzer@mailbox.org> wrote:
->> On 3/26/26 14:53, Pekka Paalanen wrote:
->>> On Tue, 24 Mar 2026 17:44:21 +0100
->>> Michel Dänzer <michel.daenzer@mailbox.org> wrote:
->>>   
->>>> * There's no clear use case.
->>>>
->>>> This is generally a requirement for new KMS UAPI.
->>>>
->>>> The practical usefulness of the corresponding weston MR is dubious
->>>> per the concern above.  
->>>
->>> I think the example of RGB 10 bpc to be degraded to YCbCr 10 bpc
->>> rather than RGB 8 bpc is an excellent use case.  
->>
->> This series and the corresponding Weston MR aren't enough to address
->> that use case though, are they? All they achieve is logging a
->> potentially misleading warning.
->>
->> It might make sense to combine this series and the Weston MR with
->> whatever else is needed for that use case.
+> On 3/20/26 01:52, Leo Li wrote:
+
+>> Did you happen to try disabling some idle optimization features 
+>> mentioned in a previous reply?
+>> https://lore.kernel.org/amd-gfx/1356e93b-af76-47f3- 
+>> afc5-29535a9518bb@amd.com/
 > 
-> What do you believe is missing?
-
-For the stated use case, e.g. a mechanism to control RGB vs YCbCr?
 
 
-> Informing the user that the display quality may not be as expected is
-> the point.
-
-The warning implies that the "link bpc" value is expected to match the "max bpc" value, which generally isn't the case.
-
-
->>> I had another use case in
->>> https://gitlab.freedesktop.org/wayland/weston/-/merge_requests/1850#note_3115686  
->>
->> That would need to take dithering into account as well?
-> 
-> Yes, dithering could be an adverse effect or not sufficient. Hence the
-> 'link bpc' property should not consider any kind of dithering, to be on
-> the safe side. I fully expect dithering to become explicitly
-> controllable, as policy belongs in userspace.
-
-I agree that would be ideal, alas it's not current reality.
-
-
--- 
-Earthling Michel Dänzer       \        GNOME / Xwayland / Mesa developer
-https://redhat.com             \               Libre software enthusiast
+Sorry for the delay i have been away due to business travel, anyway 
+since resuming testing i can't seem to reproduce the timeout with idle 
+optimization features disabled.
