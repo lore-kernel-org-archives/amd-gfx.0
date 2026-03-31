@@ -4,147 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 44B7910FCACA
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C6C7A10FCAC9
 	for <amd-gfx@archiver.kernel.org>; Wed,  1 Apr 2026 18:19:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 61DBB10EE7D;
-	Wed,  1 Apr 2026 18:19:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D525F10EE69;
+	Wed,  1 Apr 2026 18:19:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="gZL2OqXP";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="qNeGW2RE";
 	dkim-atps=neutral
-Received: from BN8PR05CU002.outbound.protection.outlook.com
- (mail-eastus2azon11011053.outbound.protection.outlook.com [52.101.57.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E5A2B10E311;
- Tue, 31 Mar 2026 21:21:09 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=zSN56u6HSXjz7AeDUzB5tVXdJrsdS/3v6OwvGqnvDdtXorQ24zo+1nsolfgaN8DZ7L+/7J2knhMHA37J1RQTb3+Bm/xd/oKIMX/p6+R+/OnvAqK9CdXc8DFb9g20p8OCBLPcGvBzzTTppeAnsAMhpse+dMZdUHEy95+pWQw5MetoeCAgPAvimEG9gYBTxbP7ZmzSc5e05xonxXopXggAF4VC8T6gYjuRwEwvtqyiO7+FIkggPMaI8w4JeZjcHJ1DnAnAHBi5DzAHgMVrmv+bQeP1f8nVV2VgcS9Y8Klql4MlHaXzoyXLlHOdPfv6Tc642FogR7+7YfY1JLK4HubITA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ksNMVdt86VxK9lxFgVYp9e/n7k0l7TcBrWVDAQlt+Ws=;
- b=cbjNLQ9i2HGZBjmrruIQ4WePFojNRpWyV2Uz9YoLsH1pwxJk6j0NRjN44Tz7u8nfmgHjtAmS6+FiaqEoq9vZe3i9o20xiw2CBNJWheYmvbycBuaceEFLgl+GI1dFhykwpDfyySvVq5wYXF8QqaSbqpS7QyRzg6+/ywzO/HGzXhcFbjkrG/5jDFxMCjkue/JIHSLu+5fXd+uer/W7eeWPB6mwzMGARWpYm7oSug0RP9RiLOWJVvJvjmOMOm4Cjas2qBrEADrtN49dm8IA9z8+81ozleLCMl/GHYkpMHqhElNFt4pGr/NqFBUKQXXA66pbE6S8oNUiBh03//4o6XoEtg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ksNMVdt86VxK9lxFgVYp9e/n7k0l7TcBrWVDAQlt+Ws=;
- b=gZL2OqXP/cPAhlPrODrdPB5sUUnF32Dz8YKpZdtX3uiOIUJoYHVv1k54g37ZaCkbtRwrGLQBKwSnANfPxwDjOeL/lfhsx5ZSRXSoLGrhKxBbKuTKrcaL1I1IKTGaknuErCaC3wYBwYEofW/PPA62ZwUniQxae40/YbnK1SOLcEG1m0aKytUAw8FFQLDZdwBz/TzqStboDs+iiJKfNdikojWmx6d0eu8zK/MIHxJ+4kYcjsAPm3xh62MXX7KmkB1eaz5f0GtoHZPJYjnaIyDnWKvJMYvFgtDqNOy0A1w6s+NdWjB53yPAhD1oPQzKOXRJQNf/S2VkkcA5p5Y3S6maDQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DS0PR12MB6486.namprd12.prod.outlook.com (2603:10b6:8:c5::21) by
- BL1PR12MB5849.namprd12.prod.outlook.com (2603:10b6:208:384::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.8; Tue, 31 Mar
- 2026 21:21:04 +0000
-Received: from DS0PR12MB6486.namprd12.prod.outlook.com
- ([fe80::88a9:f314:c95f:8b33]) by DS0PR12MB6486.namprd12.prod.outlook.com
- ([fe80::88a9:f314:c95f:8b33%4]) with mapi id 15.20.9769.014; Tue, 31 Mar 2026
- 21:21:04 +0000
-From: Joel Fernandes <joelagnelf@nvidia.com>
-To: linux-kernel@vger.kernel.org
-Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
- Gary Guo <gary@garyguo.net>, Bjorn Roy Baron <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
- Danilo Krummrich <dakr@kernel.org>, Dave Airlie <airlied@redhat.com>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Koen Koning <koen.koning@linux.intel.com>, dri-devel@lists.freedesktop.org,
- rust-for-linux@vger.kernel.org, Nikola Djukic <ndjukic@nvidia.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B7A7410E9EF;
+ Tue, 31 Mar 2026 10:28:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1774952915;
+ bh=aOnw8uG1bF/umdq2HHno0LlsuApV4JZmSR7Oe9w5svA=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=qNeGW2RErsqXeMjsQ3E8PrMQRzMa+Yp76N5P1LLboHDi6Zpd2W/+DGRsCZ3OtmOPK
+ LToNk635P9lUBJOMTXVUfvgm0+e9jqIlgwrw9h+j2b74h+YPpH1ClalH5yxB04yPEc
+ HBMzebO1ft3z1BphfVDTvctmXwwUaTWmGq1HKEZanMzt1ss9MEZXGpfe07oLeAbEpa
+ 3ml7WQRAHjX6lS71doegTKYUTLsgSGFxgl9N/wNYdAQA+Ngcygg+wFQkH4hJYmWP1z
+ yMG+tEoV1OUFFDSuvihVCVeoUhJuEj5JLLW7+9OeiBaFSIaAEKLfM7XRgOx17Mdc0i
+ Tv0PTBZRI6g7A==
+Received: from fluorite (unknown [194.136.85.206])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256) (No client certificate requested)
+ (Authenticated sender: pq)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 7E1C117E5F0E;
+ Tue, 31 Mar 2026 12:28:34 +0200 (CEST)
+Date: Tue, 31 Mar 2026 13:28:22 +0300
+From: Pekka Paalanen <pekka.paalanen@collabora.com>
+To: Harry Wentland <harry.wentland@amd.com>
+Cc: Michel =?UTF-8?B?RMOkbnplcg==?= <michel.daenzer@mailbox.org>, Nicolas
+ Frattaroli <nicolas.frattaroli@collabora.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Jonathan Corbet <corbet@lwn.net>,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian Koenig <christian.koenig@amd.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, Huang Rui <ray.huang@amd.com>,
- Matthew Auld <matthew.auld@intel.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Lucas De Marchi <lucas.demarchi@intel.com>,
- Thomas Hellstrom <thomas.hellstrom@linux.intel.com>,
- Helge Deller <deller@gmx.de>, Alex Gaynor <alex.gaynor@gmail.com>,
- Boqun Feng <boqun.feng@gmail.com>, John Hubbard <jhubbard@nvidia.com>,
- Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
- Edwin Peer <epeer@nvidia.com>, Alexandre Courbot <acourbot@nvidia.com>,
- Andrea Righi <arighi@nvidia.com>, Andy Ritger <aritger@nvidia.com>,
- Zhi Wang <zhiw@nvidia.com>, Balbir Singh <balbirs@nvidia.com>,
- Philipp Stanner <phasta@kernel.org>,
- Elle Rhumsaa <elle@weathered-steel.dev>, alexeyi@nvidia.com,
- Eliot Courtney <ecourtney@nvidia.com>, joel@joelfernandes.org,
- linux-doc@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- linux-fbdev@vger.kernel.org, Joel Fernandes <joelagnelf@nvidia.com>
-Subject: [PATCH v10 01/21] gpu: nova-core: gsp: Return GspStaticInfo from
- boot()
-Date: Tue, 31 Mar 2026 17:20:28 -0400
-Message-Id: <20260331212048.2229260-2-joelagnelf@nvidia.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260331212048.2229260-1-joelagnelf@nvidia.com>
-References: <20260311004008.2208806-1-joelagnelf@nvidia.com>
- <20260331212048.2229260-1-joelagnelf@nvidia.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: BLAPR05CA0040.namprd05.prod.outlook.com
- (2603:10b6:208:335::21) To DS0PR12MB6486.namprd12.prod.outlook.com
- (2603:10b6:8:c5::21)
+ Simona Vetter <simona@ffwll.ch>, Leo Li <sunpeng.li@amd.com>, Rodrigo
+ Siqueira <siqueira@igalia.com>, Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>, Ville
+ =?UTF-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>, Daniel Stone
+ <daniels@collabora.com>, Dmitry Baryshkov
+ <dmitry.baryshkov@oss.qualcomm.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ kernel@collabora.com, Derek Foreman <derek.foreman@collabora.com>, Marius
+ Vlad <marius.vlad@collabora.com>
+Subject: Re: [PATCH v5 0/3] Add "link bpc" DRM property
+Message-ID: <20260331132822.5ac57253@fluorite>
+In-Reply-To: <7461820c-e3ab-40f5-98d2-9878e60ba2ad@amd.com>
+References: <20260319-link-bpc-v5-0-5306cd04a708@collabora.com>
+ <8676926.T7Z3S40VBb@workhorse>
+ <eff61423-a854-44c1-8634-30e2bd61e005@mailbox.org>
+ <4265353.aeNJFYEL58@workhorse>
+ <254c20a4-cce3-4c8e-9902-514586f3e694@mailbox.org>
+ <20260326155305.736b4e64@fluorite>
+ <7461820c-e3ab-40f5-98d2-9878e60ba2ad@amd.com>
+X-Mailer: Claws Mail 4.3.1 (GTK 3.24.51; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB6486:EE_|BL1PR12MB5849:EE_
-X-MS-Office365-Filtering-Correlation-Id: 440df9ad-ab7e-4f60-bab5-08de8f6b6a5a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|7416014|376014|366016|22082099003|18002099003|56012099003;
-X-Microsoft-Antispam-Message-Info: +esCYq0VyXIXAN6TzPyXUVMrXjAv7h9WMntentE1f9/yrYmh2w14/hjsAoMOC1CDd2ETgbFJynlJDIV2z2BtfXLSx39qpezxL96IbNMxoaNHjL3H8oB0dIWuvb4B1MNb2a6Kj/qJXbnk3x2//nXSVpignu5SKtcvRwgrOBNGRcMosZplmC5C760mXJMN/ybUsNcSUQx0m072hJ6zoB73fy11hBjGiLfO58YytMnORYwUJQPUj/oph2REN4OciqjjfP1btr+qb8eDTYUdTscGZsheu3sKI/e/WO6RLk7/0/B+P5N7P1pVEavH+wuVOLWyJWGWgTOcpwjpKYifVLbXM70eTsGkNCARdf6Vi0eM+rImZpN2A7TqGmnwUvAT1+AMvqC499Oa/BL2BWc5GzdOFqdcJvqnxeU4mHaAt063YxpzDyBretedXnhKVhIKkSDqpwH0a65qXfiN05E9NljIIXej9ncdVA+3ZEJVz+jh/IcwOhaCrG07MEWA7/l31USI/PZNbNHGNyZcR6IxuW39N+Fde1qD39P5Sm770OsN93j/6IBLeRom18iN72jx+mittD5v0M3CrCChUNGvkVHIQnhglbpJ9HF6zpXtgBRDMA772A6NdQS1Y7fh/kd9VGaasK0rqCBZkCliK0qaDrrFpaJkyq0+F8Ab18yxe1X+QD8BErzCFhNoDyJ+axgxnIA296Wq/jmhjEgPZm3njSN77XTaLx48BwPye/HSmU0/Cqg=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS0PR12MB6486.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(7416014)(376014)(366016)(22082099003)(18002099003)(56012099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?C4zR5/4p4ue72unctLslcuYuuQkM0TqIpFJrZLtKc49ULggN0Fj+yMwrHYec?=
- =?us-ascii?Q?rKa9WXX+y2MHxxhwxFOpam+ybSx2h1SECBPyANludm3kU6kUzvF0uhonl8B1?=
- =?us-ascii?Q?mayWJiJVbyqBYwt1l4EUADihUlPxLLbHlTYjESst9O8hhtCnOtshdE+CIDb+?=
- =?us-ascii?Q?mu+UUAIWSEsI1Z5BbsaCQOS0/YIFSVOdzjbj1TF/aeR5ajvkO4TNeO83QXEr?=
- =?us-ascii?Q?hA0IHmX4lkblEbAcvut13iUj5UtwZE5yVoV5HWREWLL72IOTjHYbkeWXb73I?=
- =?us-ascii?Q?GldqAt5mIxBkkcxXF1d3957kYpPkEJyh9v0bTr5KcKxVWUya8Ue0P8KsYx1T?=
- =?us-ascii?Q?AWmusTbnkJZHXHX5Nn/2fuSeI+Iy2Gkx8VJm9DCqMUN9IcheMooAVmnG1MZk?=
- =?us-ascii?Q?fq1xUaDHP0LrpQ392pIWcxp+C1XWlaB4aUSpGem3mAWrIbcq623n7Nsb5zEo?=
- =?us-ascii?Q?3wh8i9Cpl4ozCH+H5uIX6IWHSUuRtWTbUS5qBZSHkyZbKSiwvT9Y1G6vEZ28?=
- =?us-ascii?Q?Qx0eTzve+L8jcvePH0K2gO7EBpcjLsxCMfec8BPWsJM8KajOKkqD+mdDXzec?=
- =?us-ascii?Q?/6PBx2Q8eW8YdR7RByJ7HBufIOxJZzRL/4+FsnEs9O3mA9hjcGYvoxQI8nE8?=
- =?us-ascii?Q?MjkWD2RR4nWgdR5VesZmhpZPkAr/vutsq/UCOFctJJqY3RXNWVjxN+8Fihk2?=
- =?us-ascii?Q?68Wa+AcmyNoyN5OA5BWcmb35UYpYYz5fVP/xm1cBwpH7Rng8jyy6k8hsq/rc?=
- =?us-ascii?Q?9vWvG3soNjHPCC8FS2oG/+ofMVyJT+/Wb+T8d0WuPxzxoVDFtuhKSyM8UqkJ?=
- =?us-ascii?Q?pdTWDG+vSxFhzC9y0TMIxj3r7BsBwvLisM5TSaYj5dG6zRsgo/Qu01Vassw6?=
- =?us-ascii?Q?73zUkmG22QNJTnIRS/j+G1Elg5hwjDbhzZXsMAy+1w8lr7vJmyg3kD+eE+oV?=
- =?us-ascii?Q?x2fjIAp2oQlazL1lgsrlyXGvuz9wvg35DCxNW9nK3FXhCeUN6NrET3KRVfNb?=
- =?us-ascii?Q?S5XIDSRkVOnQuGBKVNjCNCfDtmaRgVhtu5olnJL/55wRPqtOh7strIpEqKmQ?=
- =?us-ascii?Q?tEFn8Q4plaqJwvC8E5oSU9e7I/AP1Qj6OuFxmSKJ2V2GjuJoAHoo9AhEOTPH?=
- =?us-ascii?Q?vNDorpLo+RevJcxfoT834NEapmzk09fnXXfaC+cKp0Og/eEoMTTJGOiVv4bn?=
- =?us-ascii?Q?HK2ivjEzSZphMZdimZ2Tiag4gAXoYsLCRiByv+u0fxjJFeOPaxZ/q7ElqdsX?=
- =?us-ascii?Q?p0JpDhT4R/i39kmrO06+YQxi4dt5X6FrgSWAqZFrPPqrLcPQtrPEo6eMDSAt?=
- =?us-ascii?Q?KvYtlF6cg6w9JajbMTmcKRMgEqEViSnjWfYAFeaHFc1Qfo9VLDHV03PxmcCU?=
- =?us-ascii?Q?yW1OigO1zy9x3j6oZ844jNfdsEqVcGRrB7cJzPb5lfG2AvbxSH5EAnXsVPIf?=
- =?us-ascii?Q?ZQ6lsXqKtDcKTi9HpiX0HXL3FLGql9QjHkqofYiHrZcmJWeoChBcVSLN4Vyo?=
- =?us-ascii?Q?lCHTtOcybDI3DwPxzfC0u8MNJ7OM3cs7iZTsJhqESrT5Xy+EnOuumghmyL2K?=
- =?us-ascii?Q?Bve4jJui6q7yxBfboXYagZCEsT0H2dIGYZLwOjQU3bCBgJBujkgAXEg5jT1H?=
- =?us-ascii?Q?QeGPrs/HE10s70io72qB620LOfcWpscFd1FijniUn3z45dmI6q2r0qqLVeDW?=
- =?us-ascii?Q?x4cBHj1I+xQ7NTPrnuFbxUUmMPGtxVabaQUj3HmgekA0LQ/VOLVTs/uvW6NI?=
- =?us-ascii?Q?PB12zzREjA=3D=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 440df9ad-ab7e-4f60-bab5-08de8f6b6a5a
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6486.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Mar 2026 21:21:04.3550 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ndZqa/dF3uMCx/IAAF7y4XX7DrDsmBDmVEN5Yue4prth5Pv20artcs1PAyQ/FIYwdd7wkkNcgSRkbsx2y8CJHQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5849
+Content-Type: multipart/signed; boundary="Sig_/MQ0.wLD4iLWOheFBMvZLWA3";
+ protocol="application/pgp-signature"; micalg=pgp-sha256
 X-Mailman-Approved-At: Wed, 01 Apr 2026 18:19:20 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -160,88 +78,106 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Refactor the GSP boot function to return only the GspStaticInfo,
-removing the FbLayout from the return tuple.
+--Sig_/MQ0.wLD4iLWOheFBMvZLWA3
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-This enables access required for memory management initialization to:
-- bar1_pde_base: BAR1 page directory base.
-- bar2_pde_base: BAR2 page directory base.
-- usable memory regions in vidmem.
+On Mon, 30 Mar 2026 15:01:33 -0400
+Harry Wentland <harry.wentland@amd.com> wrote:
 
-Cc: Nikola Djukic <ndjukic@nvidia.com>
-Signed-off-by: Joel Fernandes <joelagnelf@nvidia.com>
----
- drivers/gpu/nova-core/gpu.rs      | 9 +++++++--
- drivers/gpu/nova-core/gsp/boot.rs | 9 ++++++---
- 2 files changed, 13 insertions(+), 5 deletions(-)
+> On 2026-03-26 09:53, Pekka Paalanen wrote:
+> > Hi Michel,
+> >=20
+> > I have some opinions as well.
+> >=20
+> > On Tue, 24 Mar 2026 17:44:21 +0100
+> > Michel D=C3=A4nzer <michel.daenzer@mailbox.org> wrote:
+> >  =20
+> >> Per my previous posts, my concerns are:
+> >>
+> >> * The meaning of the "link bpc" property value isn't defined well
+> >> enough vs things like dithering or DSC, which will likely result in
+> >> compositors / users overestimating what value they need / want,
+> >> resulting in compositors spuriously rejecting configurations which
+> >> would work perfectly fine, and/or spurious issue reports. =20
+> >=20
+> > That is ok. Compositors need to understand what the numbers mean, how
+> > reliable they are, and act accordingly. Knowing the lower bound for
+> > link precision is already useful as it guarantees a minimum precision.
+> > It is up to the compositors to decide how they communicate this.
+> >=20
+> > Or course, assuming lossy compression is not too lossy. Maybe
+> > lossy compression should be forbidden by default unless explicitly
+> > enabled by userspace?
+> >  =20
+>=20
+> I disagree. While technically lossy, DSC is perceptually lossless, at
+> least according to the designers of DSC. If I'm not mistaken this is
+> all based on extensive studies.
+>=20
+> The decision to enable DSC or not has an impact on the power consumption
+> of the HW, in ways that are often nuanced. Userspace has no way to know
+> or understand these nuances. This should be in control of the driver.
 
-diff --git a/drivers/gpu/nova-core/gpu.rs b/drivers/gpu/nova-core/gpu.rs
-index 0f6fe9a1b955..b4da4a1ae156 100644
---- a/drivers/gpu/nova-core/gpu.rs
-+++ b/drivers/gpu/nova-core/gpu.rs
-@@ -21,7 +21,10 @@
-     },
-     fb::SysmemFlush,
-     gfw,
--    gsp::Gsp,
-+    gsp::{
-+        commands::GetGspStaticInfoReply,
-+        Gsp, //
-+    },
-     regs,
- };
- 
-@@ -238,6 +241,8 @@ pub(crate) struct Gpu {
-     /// GSP runtime data. Temporarily an empty placeholder.
-     #[pin]
-     gsp: Gsp,
-+    /// Static GPU information from GSP.
-+    gsp_static_info: GetGspStaticInfoReply,
- }
- 
- impl Gpu {
-@@ -269,7 +274,7 @@ pub(crate) fn new<'a>(
- 
-             gsp <- Gsp::new(pdev),
- 
--            _: { gsp.boot(pdev, bar, spec.chipset, gsp_falcon, sec2_falcon)? },
-+            gsp_static_info: { gsp.boot(pdev, bar, spec.chipset, gsp_falcon, sec2_falcon)? },
- 
-             bar: devres_bar,
-         })
-diff --git a/drivers/gpu/nova-core/gsp/boot.rs b/drivers/gpu/nova-core/gsp/boot.rs
-index 6f707b3d1a54..d42637db06dd 100644
---- a/drivers/gpu/nova-core/gsp/boot.rs
-+++ b/drivers/gpu/nova-core/gsp/boot.rs
-@@ -33,7 +33,10 @@
-     },
-     gpu::Chipset,
-     gsp::{
--        commands,
-+        commands::{
-+            self,
-+            GetGspStaticInfoReply, //
-+        },
-         sequencer::{
-             GspSequencer,
-             GspSequencerParams, //
-@@ -145,7 +148,7 @@ pub(crate) fn boot(
-         chipset: Chipset,
-         gsp_falcon: &Falcon<Gsp>,
-         sec2_falcon: &Falcon<Sec2>,
--    ) -> Result {
-+    ) -> Result<GetGspStaticInfoReply> {
-         let dev = pdev.as_ref();
- 
-         let bios = Vbios::new(dev, bar)?;
-@@ -235,6 +238,6 @@ pub(crate) fn boot(
-             Err(e) => dev_warn!(pdev, "GPU name unavailable: {:?}\n", e),
-         }
- 
--        Ok(())
-+        Ok(info)
-     }
- }
--- 
-2.34.1
+I guess time will tell.
 
+Are you saying that enabling DSC might have disadvantages aside from
+image quality?
+
+> At most I could see a "never do DSC or dither" toggle, if one is really
+> concerned about this, but I don't realistically see use-cases where this
+> would improve user experience, even for users that care about color work
+> and correctness.
+
+I'm not familiar with DSC, so I cannot criticise it. Dithering OTOH
+seems to be obviously suspect though.
+
+Temporal dithering - what if your refresh rate is 30 Hz for some movie
+playback?
+
+Spatial dithering - what if you have a low-resolution screen?
+
+I would not assume that dithering is always ok, and always achieves its
+theoretical results.
+
+> The YCbCr420 case is different. We probably want a way for userspace to
+> understand that half 3/4 of chroma values are being tossed out. This
+> would be significant for RGB content but insignificant for YCbCr420
+> content.
+
+Do you mean full resolution vs. chroma sub-sampled to 2x2 blocks? I
+would again not assume "insignificant", because it depends on the
+picture content and angular pixel density (can you see individual
+pixels at your viewing distance). Gray-scale text will be fine, but
+colored text is another question.
+
+I'm fine with proceeding with these assumptions, as long as it is
+acknowledged that these assumptions might turn out false later and have
+a contingency plan.
+
+
+Thanks,
+pq
+
+--Sig_/MQ0.wLD4iLWOheFBMvZLWA3
+Content-Type: application/pgp-signature
+Content-Description: OpenPGP digital signature
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmnLocYACgkQI1/ltBGq
+qqfF3A//fu8zKlepmLlixQNDwd9W3lIa3DZF6Upro7OFw4TcpYJLyh/3g6aDXwo4
+TftqKM0s6MHZXjqSE6+2YCoMD6a/QGi0TFL0nRRwk3RbZHENIbHjmxyBhAXewRIJ
+he55NjcSzxq8C+FXB7yllHu/G6rUX0arA+QVC9nkv4aztAe2A3DyzpRGtnVluIWQ
+P//C7WT8aiTmSuMjjs6ptSyX/cC7jIkHBKy8F0TZgSyYfvMMbWdDT/N95ZcyaaNc
+z2lmCNmBW1+Z6UtfhfN11vsbBNadGMJREeqVoYDuU5rloF2+XONS6jOiNZR8+jse
+ooCvIZbjV9sjd+uvCUkogdK379m6nmuA0ggxfvrbPsckTwxf0hffo0OCSGKpsbe+
+pXzJlldGQqk+66Q44XMWEogPcfiDSo7r5Cy081+o35ncViC58J2Jox4rWcl2OZFa
+xKK/fBJB4pFc4aY5HxDq5hsFHjtHnsvwCB10APWHch/TGATjAWaK7r0vZRUPq9X6
+p9wul7w6Fmge5eWga+tKi2HYQK83FsUNqhw9s432V67F17HMnFNqxxi4ZjOoyY1d
+yeTr22/UH6vqHiDOH8Q+WElU2aRdxX7tGg+H841l+N0dwh9PeoXsXx8N0fD+ufax
+PPfSqvXlkNrqc/0r2wS4k1SQzhdStg1kctT2p/35z4LwJsAdBPw=
+=qMax
+-----END PGP SIGNATURE-----
+
+--Sig_/MQ0.wLD4iLWOheFBMvZLWA3--
