@@ -4,124 +4,123 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C4901061B29
-	for <amd-gfx@archiver.kernel.org>; Tue, 31 Mar 2026 00:08:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 20AE21061B28
+	for <amd-gfx@archiver.kernel.org>; Tue, 31 Mar 2026 00:09:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 435AF10E6DE;
-	Tue, 31 Mar 2026 00:08:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B86BE10E7E0;
+	Tue, 31 Mar 2026 00:09:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="VjLyBTFR";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="awTkIlv4";
 	dkim-atps=neutral
-Received: from DM5PR21CU001.outbound.protection.outlook.com
- (mail-centralusazon11011028.outbound.protection.outlook.com [52.101.62.28])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C35B610E6DE
- for <amd-gfx@lists.freedesktop.org>; Tue, 31 Mar 2026 00:08:41 +0000 (UTC)
+Received: from PH7PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11010031.outbound.protection.outlook.com [52.101.201.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1DC0910E7E0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 31 Mar 2026 00:09:20 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Eq6LzimmERz7Pe7wRRanVVMARwSst2UlKJJ4SuFwMi/9Fr5gBqVpdSZrX2dKdY6l3Qi3DELRnlxDnUt9NUMP+tSXTyYyMyt9a2HxlY+KOzDeCQVWMkxzQYOyeYXH61CptQyS5k8ZDHBPdpfyy1B4jOXnYTI5VYxmvbpxsgJ8N164wGDY/pJqTpOcfMe/HeQUpEHAfLhTqbZViCaD9Q6Sk25mP8T/7nS6xDGMoh9cnpiaD3+I7tge+gVZXN5o9ylinGzPKKbFlRVCrT77LLiEFk01MZNL2fI41cOvqqVjji3fEJ5EgwC3/yZNvmLlrYXN+SQ7hgGB5t4CSzdzMGqomQ==
+ b=Up6cYoE/GTn0WTIUXHzo7kOruRTkx0sV9FFH/WBxqW30sC36ifdc1ENPPpLphGwK6kd+fPZZR/JVyfXCmWDmzgsYa+cCoYt0ygjuUNK8A09GQYKk6Nu/a/kE/7hShQoPrtCF01gKhL4jGx0U/jWlGm+AdQfxWjDWxiFo8JrwT4Zi4vTjtAKkZrg47oTIitSo0N5VeWoD1hSRg6aR4D0FaLasXP/FPkZR3cZG2VCfcd4mCKrx7aCoa+5WSySp4uE43CKJQ5FWBSg2wW/fYhvrYPzZPuLJ2fgaL3Mq26WkuSoNyJrBXsdAiKQoItNMmkthbvDJi2jGDHKh6UdK7vxqtw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Wx/j9zI5BZAM785lmXIvZdbp6eZEpH2kOMAe8AEJmCM=;
- b=yg6C6DOBwm8bRlvhpzwTHx66iWeUjnMrSZbdr9Oh06VW5RPcq0QOUvtwzMKpPt4FONhUFtGAl+1gUvKOimJLVPaTNuZWBeJJDnNhUtaJKMFJHoEZrecdPNLpmERp4fCA8oJ3KY0d7LbfENg49omEM3wdTEkR0iIjvrck3NmffFC8LLPCkcAnOgVoGSJFnHnf/YX9EY8Il6ZL+S/OMBk6W/eUajI5BRVe7c6wDnC3RiVSoKV3ndhKwdKTZS75w1p+eVNbfCniZPhd7IuIDNP5j6ULTK0pNJOvadTNugytmEjFH1d68dbjXlS76EN5nHigiWXHZ9xG0FgHpyhnjlJ68A==
+ bh=a1D3ghBS9GkYlzg5IyGzVtVKOXiT/KktnNOAugLQlus=;
+ b=Qq/9te5VLaUwcPYudvSBll5f0GX12BSbE69m91El8L2gBJk78Oa0HDsPo2uXZRQYrKaAHmM1YJQ1NQPYKBElCojE67rjYh0vaGtdElA+NtW/CMx8qisBewKcfdzXCIQBhpCUCnscludB717pDOQ3gIYge4SCVqxE6Z8gRieSIbbYJmYyQK5D6xiDxJgRL0xLJQF+xqXE+/pW2te3y4+vzK85O2PfgcPui6wY7kQMCB6uqyMm8cty9buouo/molSdtugmQq+aLhafvPcUPB+MiWKsikNvUifBzKKMuMsL28dcaMv8p3q4PfXmk0V2BqLhq8aiM/MOCovDtnX2eWzXIA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Wx/j9zI5BZAM785lmXIvZdbp6eZEpH2kOMAe8AEJmCM=;
- b=VjLyBTFRNBNkO5uRYLvepLFtRNlRs2l+hg7W1BGW8weXUpVGVGicCjgNET4G0z48EzDfiJbhBp36nVRVIhMHGIJe+BUUKJ9bwDKCmXdRDcKpdtvhVWAaY2nVXuEZao3ZewRQy6o11bRH4HAnirGobrVo79Xg4Odzv0JwWXJziNk=
+ bh=a1D3ghBS9GkYlzg5IyGzVtVKOXiT/KktnNOAugLQlus=;
+ b=awTkIlv40Uu9cZnGlmMewHWf8/ivHwiTiQm82aRZfhLQ6uSRUsN+6mEqLbddwe0PocA/QPwLpgDsFCcZVBoA36s44vTLMznNjZP/9baGthmhVU0I2b00r+Zn8MRf1Fr1eX6EAeU66KnUs3zlbKf4Mrk+AG9JDvembGg3bm0RGEQ=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from DM4PR12MB8476.namprd12.prod.outlook.com (2603:10b6:8:17e::15)
  by IA0PR12MB8840.namprd12.prod.outlook.com (2603:10b6:208:490::13) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.15; Tue, 31 Mar
- 2026 00:08:36 +0000
+ 2026 00:09:17 +0000
 Received: from DM4PR12MB8476.namprd12.prod.outlook.com
  ([fe80::2d79:122f:c62b:1cd8]) by DM4PR12MB8476.namprd12.prod.outlook.com
  ([fe80::2d79:122f:c62b:1cd8%7]) with mapi id 15.20.9769.014; Tue, 31 Mar 2026
- 00:08:36 +0000
-Message-ID: <553fe6a6-050f-49cb-bf56-d628b4afaddb@amd.com>
-Date: Mon, 30 Mar 2026 18:08:34 -0600
+ 00:09:17 +0000
+Message-ID: <201d3393-33f4-4fa9-a12f-1952c85092d3@amd.com>
+Date: Mon, 30 Mar 2026 18:09:15 -0600
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amd/display: Fix parameter mismatch in panel
- self-refresh helper
+Subject: Re: [PATCH] drm/amd/display: Fix dc_is_fp_enabled name mismatch
 To: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
  Aurabindo Pillai <aurabindo.pillai@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, Ray Wu <ray.wu@amd.com>,
- Leo Li <sunpeng.li@amd.com>, Roman Li <roman.li@amd.com>,
- Tom Chung <chiahsuan.chung@amd.com>, Mario Limonciello <superm1@kernel.org>
-References: <20260330031229.2157972-1-srinivasan.shanmugam@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, Roman Li <roman.li@amd.com>,
+ Tom Chung <chiahsuan.chung@amd.com>, Dillon Varone <dillon.varone@amd.com>,
+ Rafal Ostrowski <rafal.ostrowski@amd.com>
+References: <20260330025603.2145115-1-srinivasan.shanmugam@amd.com>
 Content-Language: en-US
 From: Alex Hung <alex.hung@amd.com>
-In-Reply-To: <20260330031229.2157972-1-srinivasan.shanmugam@amd.com>
+In-Reply-To: <20260330025603.2145115-1-srinivasan.shanmugam@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MW4PR04CA0050.namprd04.prod.outlook.com
- (2603:10b6:303:6a::25) To DM4PR12MB8476.namprd12.prod.outlook.com
+X-ClientProxiedBy: MW4PR04CA0034.namprd04.prod.outlook.com
+ (2603:10b6:303:6a::9) To DM4PR12MB8476.namprd12.prod.outlook.com
  (2603:10b6:8:17e::15)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: DM4PR12MB8476:EE_|IA0PR12MB8840:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5b7fd375-889b-4a51-bbb3-08de8eb9a78d
+X-MS-Office365-Filtering-Correlation-Id: a89ef3d7-ebfb-4439-9912-08de8eb9bfd4
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
  ARA:13230040|1800799024|376014|366016|18002099003|22082099003|56012099003; 
-X-Microsoft-Antispam-Message-Info: 0Tzwu8q6otLw9iDgOkNvzT3UYRTMDdh9xjDCNGGvJvLSVWgTAvgkQdbKhfSmNQEfvdoaQRyP60NeJWUSB8i+yyzaqImsr1xUW7yM2JI3B8XxgPgNEtWGb6V6rcbi89SqF8ulCLpDUCnrxctuzQOEud0bMQEkOwrl7fRXXYW+2cj07msge2xqJy4lPu9wqvx5R34GJtg8c2UCngHNX+H4BtNVSuBug3UZfoyN6363dAAWwa4RcISu6WcdpAroRSmiRHlri3BqPkyC5O4XoxNbdr1E+qifaQchCYyEUQtLfqnCO6S+ekx5UlX6CPe4q8rQky7hkR6M8rFOw8XNMXCRFct8BSGhzkJq8jfNS5/FGzuv3xjC6SPPY//M6ZK1yqzr2YFgkfRYwP2AulG3/ZSPAEtuzMDwOjh/EKgk3Q2HhXSGyppzv2wlGegmRQDs/2OteovHJp/4+1N/EDkx2kIrxIhvMlCiJDhEivHOr/MpsXlZF4WfG72HzmjkRauCRi4FZfeOruA5SFoQ94si+YxHGeo6U08Q6nvdECTzhlrFqMNJuii5TWG/3ERf0ll07NATjF0sxabKdEDHJdSJ+QAODs6Oz9IsOZEFv+Lk0NsIaCC41JMCPaLlU6hf3dHWqbT7p9gMw2aGyNJgz9KLt5Vl+7pjTEczpAAPM8Rqyssh5MGa6JA6ByfyDERoElAGi7fS9k0gZKgIGachQuGA7yGwAjOPQ1XuUj/DbE7K1S+q0c4=
+X-Microsoft-Antispam-Message-Info: V2pSjN91etxaNbWoCfS2QwG7KgHPOsfYElOBWIQp++6MEk3AAVpt054aLr3ejfOylff59H+20dNGTja53RRSU0sFOotAImMRJ9cbWWv02nMVBiLHgq8MruNUny1weWPfQvyBPBjUn+yvHY/01MztrxgT1XcEAcicjaOLLnoVlRvrLqs4LZiR7znzSPzezKFhlzKJZhAMpoTMJDWEWW1bg2vWLEhana4CAEUBpYKNituFHZJa3/0FAeja3oWbMF5h+LOTWHqdRQo1TJK/Cm2koej6sD0RFKhQZoX9X9X9LUuUJ+ZE1fQi3E9EmZNz3kGRPyE673D8zmP5xpgQjC07868BCjCZXxMOWqPUSe3+YoqWihauAEL1ovlfGxEsJjcmbuTfO1YsyWNyIcyszBpJh9yKk8dTiC47k8Hyl2difKNkTPysiBfI6W23GIfndpTtc1NjZywp26gl7SJYo0iuvmzyKEEmuWXBVc1bkCx/mYFZkyGVq5vf8mUZXZ3xpNO6w+G45KgGLJmwnv4/p+GQ5hqMQjuJ+82einUzY6meeh6hNvyx2cRxYHB2e+6tDwTBD8v9p8HVgtKuaTZ8ohCjy8k4YkIq2Cuc+T8w4U9O/LuZmhMMtnteuILd9GF2tKSFi33MUL1R4YF26xPfcfySShTbHRsX1D11KmyiHunDdpsB/HUfhdUwfv9BZJqgN27XAaRv/r8VBaDBo7l1tsQ/KERdPTvGiaT6lIoyHKpHZnY=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DM4PR12MB8476.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFS:(13230040)(1800799024)(376014)(366016)(18002099003)(22082099003)(56012099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UEpiVmFJUlUzRDg1Tm9IT1BhQ2pQTDBBNkxkbEszWWd1R3BOc2UySE14cW05?=
- =?utf-8?B?Q2ZJRGZkWWcvcWc2WjEvZ0N6WkhIV20xZzVtdnhkQWMrcmdHY1RPaWgrdWtm?=
- =?utf-8?B?SjJUMnl4MEhKRmc2Z2UwaUo3dWtzbWtZSHI3MDZWNitsSUpvV3hwSEtQZXZW?=
- =?utf-8?B?ZDdXV2wycnI1MGs2ajg4LzBEZ1prQ090RWdDbitwcXJSVU9jQVkrUER4RndB?=
- =?utf-8?B?OVVUZm5TNFBXTmdTdExmemMvUUVYNTVYVXN4dUw5QTMrRzN1azdjbXZqWEl2?=
- =?utf-8?B?YjBla2lQdHZBalZ3MVY1bXhhNFZwU0VMQkJqQTBFY0dFb2hhdFhhckJKeTFU?=
- =?utf-8?B?cm9uSlRVclJoR1phcExVWXNPbzN2QjNBZDV5NTFRT3dBbVpyWXpyejhhd2Vt?=
- =?utf-8?B?RmhsN01oRkJQcDNqcUZ3aHVWQ3NXRlVVTnJ6MGJtMkNjT2hobmRsZVZNRk1G?=
- =?utf-8?B?eUJsMVZWWEZFYXpWcXN5ODA3endhZTR1ZmJ5bVhYQkxpSTZZTDdWc3dMS25H?=
- =?utf-8?B?L1ZBRWE4QTRTRHVwNWQvZ3pGQjZBVmxMZWdDZnYvWGxMVFBuZWZEMEN6MXFU?=
- =?utf-8?B?SFE2QWFjMFU5aEdtbjVQcFFCenlzZnVNejRtMkh0RW91RFZNOElNM1d5Mmpu?=
- =?utf-8?B?TWZ1QWZHTkI3dXpJTG1EQ0tnZnR6b3E5OUpOOU0xUHBFUk5SMVhOcEpVWS91?=
- =?utf-8?B?ODVOSXNLZHFoc1lFM0FEMWdVQVczcXdmTE5NZW1lb2hmNmxWKzJKWmRiRkwv?=
- =?utf-8?B?VC9rRmJYNitzcEZ4YmE3YjdWS1AxUHlVbkx1R3h4YmlzRlhmdnhoeFVKLytJ?=
- =?utf-8?B?bnJaaGE3bHlQeDVSTWpDYnhYalhaQTNGSVduNGNUK1U0M1BZSlA0dmozNTkw?=
- =?utf-8?B?SExaaGppRy9ZSE8xbWw3STZya1pmTEsydmpuVHVuNXprM2dQeGJWZXJXeFJw?=
- =?utf-8?B?N0puZGVRNDNXeGlCWWdEZ3JnTlcvazRtYWh3UGRWdzBKQ3ZNL1BVcmtwTDRq?=
- =?utf-8?B?NlBWQTZOd0QvTnBjZzVFN1BjVnlaVGttRmtjNmxGWU1iZWtqYkY2ZE5UNWFp?=
- =?utf-8?B?aTVMWHEwbXRtaFNvV2lORDFUcG12QURUTkxlcFBSV3hDZmJFVENVYWRnRzN6?=
- =?utf-8?B?S3lDdFE2cVd4b3UrV0FVN29rOEkrN28xVGVoYjRyNnVtekJ3aG1LenhmN1JM?=
- =?utf-8?B?bDV1K2VrOGZwMXpyRC9ORm1iS1d2bjgrdDB6NEZ6OE5IMlhtZ3Y3WDg4aU9O?=
- =?utf-8?B?akVLSlBHODZlWVpiakdNQUVCcnFOMjRqbEUrTkJNMFlaWEtqVFAvTnRwSTFa?=
- =?utf-8?B?WTBUM2pZa3RyUk1CMWVGOU5BM2hnczJoR3FySWI4WHpmQTdPbDU5MkZNUUhv?=
- =?utf-8?B?QmxZQy9NNHpyTU9uY2l1UWVKV2R6TGVTVncvTExPUTFJeHJRTWc5REU5YU5Y?=
- =?utf-8?B?YVZObXZiay82cGovR2dGR08rNGFrRTJVUFNCRlBKbFE2ZlJtS2dtOFkvMkVX?=
- =?utf-8?B?aEZGN2lITER5N0dQQ2lBWlFLZlliVDhEMWdzTHUyRU42NHMvTFgwRlgwanJC?=
- =?utf-8?B?R2l2L3FKN25VUDBkN0dPanhNa21lUUMzRjZmclBkK003bjJwRGoxUlNRc3ph?=
- =?utf-8?B?RFdUQmU2Y2JMNWhpREpXK3EzYzNBMmZScXd5N1RxMGt6MGg1Rm9SeSt6d1NL?=
- =?utf-8?B?LzVRd0huWnk5RXJUNEN6WjFZU3ZYWGovUFVabFVGeDZ0aENjUWYrc25CSWM4?=
- =?utf-8?B?bmJxSkt0WTVTbmlXNGljWXFxVVczaDNaUkxVeDhwZHJ6Wlc3MzliWDg1cXZF?=
- =?utf-8?B?SU5pcU1kd290TERTc3ozZUhRUXgzL0VjaXkrUmRrQnNCRFEwcmN5UElJaE9M?=
- =?utf-8?B?bU1HU1dvM2gwWlM0cVFaS1ZBaGhzV0lxTWFselpnR0sxQ2RxMkV2cjVWZmo1?=
- =?utf-8?B?bkRvUzBlZWZrY04wUlRJYnYrT2llZXlIb1VKaWFkTStibklHN0dxbGkxRW1l?=
- =?utf-8?B?QkNwSEl4SU1pTWllL0xGcjJvanhwT1h6T1g3UzliYURJbHNQRGlRWWZWVHpy?=
- =?utf-8?B?c0gyeDM5b3BjOGRxaVo4dVhndG5TQzBiK0RiYjM2TEIzaVdXNXRkVnRkZlp1?=
- =?utf-8?B?VEVpZWZtWUovMFZGUDhFUWM5bWJhRkttd0hXYS9TdUlXN3o2QnlTUFl4Unc1?=
- =?utf-8?B?Z01xd1RwSXJQL2J5S0FMQTJ3b2FPc0R6SmlvU1V2T3o5cmp6aDBIaWx3Vk5R?=
- =?utf-8?B?UFNNeUNvcmlQUkx2NVh4MWZvbEIxWnE1MlFRUG5jMHRIUklEMGJCUXkzUkV0?=
- =?utf-8?B?azJvdGFXdHIzUUlUWEo1eHIydWpKM1BRVE8xRXJTZUxvQ3Q2M0hyUT09?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NE9zQ1AxSjFCc0lob1BVU0dFbElEbUVoUnZ6Qzl4MjEyMjIxNjQ1bkYyWHVP?=
+ =?utf-8?B?d3FadThYQWxPdHhHSWxmcG9zOU1RdzBxcnE0UzRQK00zZk1LTWFjQ05va09z?=
+ =?utf-8?B?MXJjNmhOSjlqQnZCcTl5d0ZLTVNaSG5QcmNaVng2NXRJRk9oUWJ3LzYzVGdX?=
+ =?utf-8?B?a2Ztbm5EQ09zRk9GWmpkamtncDFGNDgrb1AvTE1DWmt1Y0JYdk4xakl2Q3A5?=
+ =?utf-8?B?RlhoSGl5VnlhNTZyQythM0cwYTlaSW5nNXBVdzQ2U1UrTS91NGZYVG1IeEdB?=
+ =?utf-8?B?Wmlaby94SVVIYmJxbmNzOUxlYzBwSUNYK0tDMk42eVlwMXdjbjlwTytYVndJ?=
+ =?utf-8?B?eWVaeFVCRjExZk13ZFZWUFVmbm8yK0J1S0pwY2ljdFJXTzBwbEdDZGxRT1FD?=
+ =?utf-8?B?R1daQ2xEOXp2TkgrUHVZVlprSXcyZlRKVTV4UGhBaDk5VU5HMlpkZFZnWlZ1?=
+ =?utf-8?B?V1ZIV2dtN09sTmNIdzRHbEptYjMyTVNiRHhaekltd3BFRXBRTm1KNi81YVV6?=
+ =?utf-8?B?UWd2S3ljN1g2NnV0QUVKdkxteVhEQXlWNHN4M0VzaWpHV1EwR0p2MjZUM2ZO?=
+ =?utf-8?B?UmRJeGJpbEVic2MrdWhKeHc1UFJ5T01aeTBhMHNYa3Btb3NPeFliTzBwdHlu?=
+ =?utf-8?B?bGUrZVhab1BSWlJLaWpDTitnMEJHSEFFT3Z3WHZMZklHcUtzbmg5MHdyRjZ0?=
+ =?utf-8?B?MENWdmh6TFBaTkxHRVJhcWJLKzhhczB1ZnlrUlVMQ0Q4azBJYVJORHF4MUZM?=
+ =?utf-8?B?aXlaTGd3bzJqTTN0VFEzclFIdzU5WnhFNjlqSlZZYmFUeTduU081blJDVjQv?=
+ =?utf-8?B?UzMyRFo0WFN3R0k4R1Y4emtVNG9KSU9GcmV2UlZ4enlrZkd3d0VxUkJGQWEy?=
+ =?utf-8?B?eW8vbFdWaFNKT2JhZHNTeXloeHlrQm9TbitKUmdpczlhRUFGRmN2bnpmbkdB?=
+ =?utf-8?B?M2xUZ2VoRUx4cExVNnNrQVRIZTZ6cFZLaHczTlRMSHhBNWRSWkdSbzNZVVlz?=
+ =?utf-8?B?cDVCaS93V1FqOGhRQUlJZkZtaTdKUFFtVWJ2Tm83RjNJL3cyZjJjdUk5OXZN?=
+ =?utf-8?B?VWRYS3VMUmh3MTBKMUY3b3pSY2RHdXBaR0R5SEVGd1d3MGU2ZGkwYTZoazZU?=
+ =?utf-8?B?U2l5YWk0QlNxRFgvT3pTeERSeTdaalgySUJHNmQ1L0E2dW9Ga0tiRXZPSUhF?=
+ =?utf-8?B?Z0tWc24zMFlJdTBTeSszYkxRWE1PVGhMR3JVZjA5YkJZcnp5UDloRHg5U3Yy?=
+ =?utf-8?B?b0pDL3U3aE44SXFTcGRqRi9oUUFoRHgvS3dlUm9lQTlwMW4wUkFFWEQ2K2pR?=
+ =?utf-8?B?U3QrSVgrSW45U2IvVXRrMytWVTdlQ1RnTkpJS05hOWpXVHlyNEcycDZGUmc2?=
+ =?utf-8?B?ME1QWmhYRlc5aHk1ODFMMkM3THQxeFBzQnd6VXZPOXJRUHJVakFSN2RXM091?=
+ =?utf-8?B?cEFTVEtpWGQzN21FbUdzU3I0MDI1Z1VBL0VicUZEeW5acHZ4NjU5V054YWdz?=
+ =?utf-8?B?WGhoWG1oNWZsb2p4M1BtaGx6bWYvWmlUTDFUcFlvY2dpZ3R5RzFxTS9Ham5L?=
+ =?utf-8?B?dUFCT3BpUkREcUdwSUFpT0luS3QxcXNQYmNTN1hHc1ZYbmt2ano4dENVQkZH?=
+ =?utf-8?B?WFM2MXNpN0JSNFlsYWJNWk9wcWI0Uk9DNzVVM1NiSXdnZEZNVDFUS0pKUmYz?=
+ =?utf-8?B?bFJXNnJJQlNPSGhmQzRaeUpsbmtLcFUzMjBZNlVWRC9QT3dMWGk2UmFzL1RO?=
+ =?utf-8?B?N29hY2c5SlMvYStmaDJiMC9rOTdJOW5SSU4xTG9Ncy85b2U4bTlRTzM5Mkw1?=
+ =?utf-8?B?ZGUvTTBCZy9IK0NOWlhwMTh3MDludVVtNGhNT016OVhsVjVxa29zNjJjUlBY?=
+ =?utf-8?B?SUZsMi9USjdQMkVDZm1jRzlqQzJLY2h5L2R1a1pNQWxXQzExUTFpYTJRK1ho?=
+ =?utf-8?B?YWh1L3UrZ0pBWUx1OGJVaytGck5tRzd2aWJXZW9WY2R2SWlPOWhQb3NRbnlw?=
+ =?utf-8?B?VUxxbG5zdUl1T0o0emFmVjB3eGhabGJqdEJ5NTZPSEpVcjdFRWtoa1BwZ2x6?=
+ =?utf-8?B?Y0JrV2VXVGQ1N2lqczlaUktINzI4OFNFR1hUaGErenVtWnZoSXlXbTdWTVVs?=
+ =?utf-8?B?WDJqMmVYRjFrSjd5d0V0VDlzVGlZQWkxM0hvRHZJMHFOYWs3SnpXa2EvL3Rj?=
+ =?utf-8?B?ZGNHT3gwMGR2OWlKajNJalFwYnR0K09LKys3SjdvcXg3bGUxUEpzWG9pcDNG?=
+ =?utf-8?B?WmxyRXNuSU03UFk3eXJKdFpsOXVQYTUxbXpoMVVDdTFxdU0rUWRaQUhKQVY1?=
+ =?utf-8?B?dEl0RGxadGdycU1xcE5ualptWDBkdHZ4eTkwQTJ3UWtTS1dGN05yQT09?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5b7fd375-889b-4a51-bbb3-08de8eb9a78d
+X-MS-Exchange-CrossTenant-Network-Message-Id: a89ef3d7-ebfb-4439-9912-08de8eb9bfd4
 X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB8476.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Mar 2026 00:08:36.5846 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Mar 2026 00:09:17.3430 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 9A8aG08gx2b65hhSl6Omj+0T1Z9ufFJmvZGjw4wqz+5FrF7HGiGRNyXnQn7siU+6ZR+8hapcF0GHErGt679QJw==
+X-MS-Exchange-CrossTenant-UserPrincipalName: icWSL4yrMOQ7GCvLAR6bRJrYfrNIK1ZMjWk5gSa01jcVHDGLZDfFyTGFjqQ6HyAEzoW7mKlWrUvFLnu583rdiA==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8840
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -139,69 +138,36 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Reviewed-by: Alex Hung <alex.hung@amd.com>
 
-On 3/29/26 21:12, Srinivasan Shanmugam wrote:
-> Align parameter names with function arguments.
+On 3/29/26 20:56, Srinivasan Shanmugam wrote:
+> Fix incorrect function name in comment to match dc_is_fp_enabled.
 > 
-> The function controls panel self-refresh enable/disable based on vblank
-> and VRR state.
+> This function checks if FPU is currently active by reading a counter.
+> The FPU helpers manage safe usage of FPU in the kernel by tracking when
+> it starts and stops, avoiding misuse or crashes.
 > 
-> Fixes the below with gcc W=1:
-> ../display/amdgpu_dm/amdgpu_dm_crtc.c:131 function parameter 'dm' not described in 'amdgpu_dm_crtc_set_panel_sr_feature'
-> ../display/amdgpu_dm/amdgpu_dm_crtc.c:131 function parameter 'acrtc' not described in 'amdgpu_dm_crtc_set_panel_sr_feature'
-> ../display/amdgpu_dm/amdgpu_dm_crtc.c:131 function parameter 'stream' not described in 'amdgpu_dm_crtc_set_panel_sr_feature'
-> ../display/amdgpu_dm/amdgpu_dm_crtc.c:131 function parameter 'dm' not described in 'amdgpu_dm_crtc_set_panel_sr_feature'
-> ../display/amdgpu_dm/amdgpu_dm_crtc.c:131 function parameter 'acrtc' not described in 'amdgpu_dm_crtc_set_panel_sr_feature'
-> ../display/amdgpu_dm/amdgpu_dm_crtc.c:131 function parameter 'stream' not described in 'amdgpu_dm_crtc_set_panel_sr_feature'
-> 
-> Fixes: 0b572a6bf04a6 ("drm/amd/display: Add Idle state manager(ISM)")
-> Cc: Ray Wu <ray.wu@amd.com>
-> Cc: Leo Li <sunpeng.li@amd.com>
+> Fixes: 1489d86d9ac9 ("drm/amd/display: Move FPU Guards From DML To DC - Part 1")
 > Cc: Roman Li <roman.li@amd.com>
 > Cc: Alex Hung <alex.hung@amd.com>
 > Cc: Tom Chung <chiahsuan.chung@amd.com>
+> Cc: Dillon Varone <dillon.varone@amd.com>
+> Cc: Rafal Ostrowski <rafal.ostrowski@amd.com>
 > Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>
-> Cc: Mario Limonciello (AMD) <superm1@kernel.org>
 > Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
 > ---
->   .../amd/display/amdgpu_dm/amdgpu_dm_crtc.c    | 21 +++++++++----------
->   1 file changed, 10 insertions(+), 11 deletions(-)
+>   drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
-> index 08f06342b01e..26f3d513576b 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
-> @@ -101,23 +101,22 @@ bool amdgpu_dm_crtc_vrr_active(const struct dm_crtc_state *dm_state)
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.c b/drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.c
+> index 8ba9b4f56f87..172999cc84e5 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.c
+> @@ -59,7 +59,7 @@ inline void dc_assert_fp_enabled(void)
+>   }
 >   
 >   /**
->    * amdgpu_dm_crtc_set_panel_sr_feature() - Manage panel self-refresh features.
-> - *
-> - * @vblank_work:    is a pointer to a struct vblank_control_work object.
-> - * @vblank_enabled: indicates whether the DRM vblank counter is currently
-> - *                  enabled (true) or disabled (false).
-> - * @allow_sr_entry: represents whether entry into the self-refresh mode is
-> - *                  allowed (true) or not allowed (false).
-> + * @dm: amdgpu display manager instance.
-> + * @acrtc: CRTC whose panel self-refresh state is being updated.
-> + * @stream: DC stream associated with @acrtc.
-> + * @vblank_enabled: Whether the DRM vblank counter is currently enabled.
-> + * @allow_sr_entry: Whether entry into self-refresh mode is allowed.
+> - * dc_assert_fp_enabled - Check if FPU protection is enabled
+> + * dc_is_fp_enabled - Check if FPU protection is enabled
 >    *
->    * The DRM vblank counter enable/disable action is used as the trigger to enable
->    * or disable various panel self-refresh features:
->    *
->    * Panel Replay and PSR SU
->    * - Enable when:
-> - *      - VRR is disabled
-> - *      - vblank counter is disabled
-> - *      - entry is allowed: usermode demonstrates an adequate number of fast
-> - *        commits)
-> - *     - CRC capture window isn't active
-> + *   - VRR is disabled
-> + *   - vblank counter is disabled
-> + *   - entry is allowed: usermode demonstrates an adequate number of fast
-> + *     commits
-> + *   - CRC capture window isn't active
->    * - Keep enabled even when vblank counter gets enabled
->    *
->    * PSR1
+>    * This function tells if the code is already under FPU protection or not. A
+>    * function that works as an API for a set of FPU operations can use this
 
