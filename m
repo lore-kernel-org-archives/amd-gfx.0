@@ -4,122 +4,121 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 123ACFF60C2
-	for <amd-gfx@archiver.kernel.org>; Tue, 31 Mar 2026 04:52:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E4943FF60CE
+	for <amd-gfx@archiver.kernel.org>; Tue, 31 Mar 2026 06:26:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5B91010E861;
-	Tue, 31 Mar 2026 04:52:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 667F810E86C;
+	Tue, 31 Mar 2026 06:26:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="jTVS1Of+";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="nzVunjM8";
 	dkim-atps=neutral
-Received: from SN4PR0501CU005.outbound.protection.outlook.com
- (mail-southcentralusazon11011026.outbound.protection.outlook.com
- [40.93.194.26])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 360E210E85C
- for <amd-gfx@lists.freedesktop.org>; Tue, 31 Mar 2026 04:51:59 +0000 (UTC)
+Received: from SJ2PR03CU001.outbound.protection.outlook.com
+ (mail-westusazon11012002.outbound.protection.outlook.com [52.101.43.2])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B49EE10E86C
+ for <amd-gfx@lists.freedesktop.org>; Tue, 31 Mar 2026 06:26:25 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=KW+J/EZii5yONqHxzPiWFaSWgMym8IjRxTe6L9IeWLmqk7XpE3Gtp4+6cFsxUubCums/aVJK5ggDTBQBE+W41NAHjwiNxCK8C12U6nsyqSD9kycH4iqVPqFEtKOzj98wlzi231v5UgdGfOfngXFihNSQI1HQzLoFinOiNnesVl17X0OpyeBis3kLD3+26Nbgp0oiUm9PcZcDIq9BV6h5gTsNSZOakTJLOB1d/F5pz37K64FYQ0Y/KOB3ISN6aySdOGd42FNqjTlTSylJCMnfQHRB0drZ4qeJT6MBjvTM4GvDs3A7/1PPjeJvMAHA8xV0Bet9JzW9Xfq1ClO5bwkM7g==
+ b=qeSuYuBBHgAlFTTbo3wPoftyH8GvORSLlQZtwbP3iAqk7FSDDtf+n7R+kqgvDUAoauMCURZYfqlJseicpsXiwGLLRTNddsrnRvBhkAx15mF3xiC4GU0nZu46CW3Kb+zeY8j7L0VaKlnl+N3NPi+FPu3Oj4MggC7sB4JMATU3UoSAkAqRYv2FQAfuZMq2OQGDehNx4R3qC8eaWVy9PF5nadDVrmgEimY7fjFkYu5NWa0Ek6Q+vARlFhJ5KmWOQsfTgc11iufXqNasfvdAnLWn8XQjUrzPEVNUL31sh3QWhUATwGLp/yRFSETzarBegGF0rd8p6r8fPc834tzS+dVmOQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=3bfsJpOwd5ceUAoW6T2H5C8HaHq7MNoO0SEDmQZIF1k=;
- b=sxmiCwp5NPli4avNS3HbIBTYWrUCx+uhi/7p1m5t2ibVMMveATOKd3YTFyTe/3N+IqiX/2911I8mmO89iWznimUxHHfXjnc5igUz30OrLuqr4VouPTl/C7yGND5Ato8ZomEvBOb3EX4cvTukY+tIN+dxvbya9GnSp5LgttI63Z6UuLLOvXZlQUZjco0UEmNTKMckIthUojYvHaylXkPzn9ky+7Uqg2iyg428/5Y1+WSlNJYWSLHu0EtJQo7oQV5s1cbpfazta+hvSKlq7BCse+kztgsrE1U93pmkEqRHxI7WMMIzxvtacch9nCTYM9Dk3xUZu+WSBxFpgrM8XtCEhw==
+ bh=vnypG+hdrjERhVQ1ZeRxC1hFpyPVTW1noAGjV0ZN75Y=;
+ b=KsyVXDX7aN7qF67GN2rVYrUruJNClf1oLH0o1ZYExy6yEfXr1SvjWTg1TW2KyVw4461Ci/NdX51NNrnqj0chRtkbdhal0EErbDoGTJ5pqVGZhet0I/yxr3Sacg9Divx19G6dw1C772jcX2Ao2YQJy7GW3me6q2KL0hTNcFJUEXF6iZa1CpYc9nmP3CHCUIUm5MbBYKydKgGXAp9c+lDfYZZ33J59AdxkT4AbDwhrQXAuQDa/0/eTMIhw5y60nob1S7FmrSHDfBw+CoyEzn0mGeD130QRwR6nWlZ9G4hiTAts5ks/eKu4EF4cIIHdcXs2HT+6yuCDAS+Md4l8zNPd1Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3bfsJpOwd5ceUAoW6T2H5C8HaHq7MNoO0SEDmQZIF1k=;
- b=jTVS1Of+Xkh722R67MEpVSA2gJ+COrXzcDYZS0c7lkJ/JuACi3ZeBsP2aS8iFZ1Dq0vbOXbNilyZLKiPJ+pe+0ypBpo001HQLznb8jl6r9xjMuR1A6N9fZdRgA3LwboBKYUehs3TpOs3mnrEXN2pAATVWs9oEz1JghWQ9VWIvYE=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from SA0PR12MB7091.namprd12.prod.outlook.com (2603:10b6:806:2d5::17)
- by DS0PR12MB8527.namprd12.prod.outlook.com (2603:10b6:8:161::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.15; Tue, 31 Mar
- 2026 04:51:54 +0000
-Received: from SA0PR12MB7091.namprd12.prod.outlook.com
- ([fe80::ec33:1213:cfd8:63bc]) by SA0PR12MB7091.namprd12.prod.outlook.com
- ([fe80::ec33:1213:cfd8:63bc%6]) with mapi id 15.20.9769.014; Tue, 31 Mar 2026
- 04:51:54 +0000
-Message-ID: <26555f66-5679-44b1-aa12-482272b5d6d0@amd.com>
-Date: Tue, 31 Mar 2026 10:21:47 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] drm/amd/pm: Add smu vram copy function
-From: "Lazar, Lijo" <lijo.lazar@amd.com>
-To: amd-gfx@lists.freedesktop.org
-Cc: Hawking.Zhang@amd.com, Alexander.Deucher@amd.com, Asad.Kamal@amd.com
+ bh=vnypG+hdrjERhVQ1ZeRxC1hFpyPVTW1noAGjV0ZN75Y=;
+ b=nzVunjM80rk0p3xlJn908l4kb07cUHj2M3iNeSrIp7AFwcqsVXXI4Odk46MKFCJnRTdNSIp77FQblgeAAM8sWfzK3Mz/Sj7DMjdgeYQlN+5Be5UmPVawFMe6CGGYGVW+uMgDQZTmUbcDKSH+oniEsFOz6F1aKTEn+QQL1hLs0fw=
+Received: from DS7PR12MB6071.namprd12.prod.outlook.com (2603:10b6:8:9d::11) by
+ SJ0PR12MB6990.namprd12.prod.outlook.com (2603:10b6:a03:449::9) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9769.15; Tue, 31 Mar 2026 06:26:18 +0000
+Received: from DS7PR12MB6071.namprd12.prod.outlook.com
+ ([fe80::6f14:4646:fb11:829]) by DS7PR12MB6071.namprd12.prod.outlook.com
+ ([fe80::6f14:4646:fb11:829%3]) with mapi id 15.20.9769.014; Tue, 31 Mar 2026
+ 06:26:18 +0000
+From: "Kamal, Asad" <Asad.Kamal@amd.com>
+To: "Lazar, Lijo" <Lijo.Lazar@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+CC: "Zhang, Hawking" <Hawking.Zhang@amd.com>, "Deucher, Alexander"
+ <Alexander.Deucher@amd.com>
+Subject: RE: [PATCH 1/3] drm/amd/pm: Add smu vram copy function
+Thread-Topic: [PATCH 1/3] drm/amd/pm: Add smu vram copy function
+Thread-Index: AQHcvb62088LfMKKxUmY9fowW++f87XIMsSw
+Date: Tue, 31 Mar 2026 06:26:18 +0000
+Message-ID: <DS7PR12MB60716E86B9BD960BB26874FA8E53A@DS7PR12MB6071.namprd12.prod.outlook.com>
 References: <20260327075231.1413092-1-lijo.lazar@amd.com>
-Content-Language: en-US
 In-Reply-To: <20260327075231.1413092-1-lijo.lazar@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PN4PR01CA0125.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:275::6) To SA0PR12MB7091.namprd12.prod.outlook.com
- (2603:10b6:806:2d5::17)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA0PR12MB7091:EE_|DS0PR12MB8527:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7b82c54e-6789-4a57-771b-08de8ee13ab3
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|366016|1800799024|56012099003|18002099003|22082099003; 
-X-Microsoft-Antispam-Message-Info: 8xQDNz+JRSVxt/cmbDf43dyLpydp1P3Gyu7N2nw3LtIobiylHk1vsyKwCP6Rj7J4602aqqPJaIiYAifYpvPM2i1G+fxd3KuUHl1q4ABk2wm8xHy54mkwPMbg5pw9kftze3RDtQo0I0jGLCUfMhUqfVGFBeRPeuTSW37we1WcEYf6GxHcY+yWMMmvL89S9udDs1w3MGj8iLqHKNHnAQZi4qDjSPd+SlP4ZTZT8kiNKJtXbZzB7nJV+Qs7K0eVo0BpLlbs+TF/dqV7VkbAvrPzZiD13prrak356PaTk2laAYU6yAI9hbs6hOMVVn1YCZKzPt5NBVbll3mG/XIEgIMdmlGuD3wZc58PBIbHw9KOONUNXrB1yMGh1hMLPSCy+aCJ6g4FXm8U7ryB7VhbknifmIslxyMgjJsgOhL4/j/9wvIBF0y6P15NaCYyDYq99w8YFmC8l6SZ0jWNAjvgNXP1MT3dCwpQL/lU37yEwnVHkvuYqKdqGIEJmLQnZSe5o50Y/1w11+JNSlsorvhRlF0UhuLwJG9p9sJwJFN1CMOh/cUU6F2MGvSYlKSxOCUgma5BoKwrZ3yoIgkPkEIqlJbARPBQs7ZgvitFPUj7HeG9T12P6DS5hKqjOw4deLy/bwO/x8t833GdFCoAe6dPaH+3vD/l95bDZZOAjT0GnKXj4UTD8JkQ/ieoR4L8SAnE9np+AiLvXOT9yza/jiEwJ1h4Vx2HCGh/cqmIQre3nKSVsig=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SA0PR12MB7091.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(1800799024)(56012099003)(18002099003)(22082099003);
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=True;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2026-03-31T06:25:12.0000000Z;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
+ Internal Distribution
+ Only; MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=3;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DS7PR12MB6071:EE_|SJ0PR12MB6990:EE_
+x-ms-office365-filtering-correlation-id: 96cb529e-feb4-42f1-1f05-08de8eee6afe
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|376014|1800799024|366016|38070700021|18002099003|22082099003|56012099003;
+x-microsoft-antispam-message-info: 2cYNL5BwkliV/GY5tEEABq9qCURKL25iF58cMao6rLdWV6M8ESgzl5cEGNTMfT/iPOLexpjZsKlHHgyPlaIXcJqbzxE9eJ5VqLX/8cxwTWpXDkMJaxrGoAHVuXJuyUPQ8FGV+/B7toyz7kiTyhdMcyrgbDam+aQ04isS8icjScdophGOIZ4qrzT6+pBk6oZLDwLKTlfl2tb8Vz1tZ2Z8cKnoPn47Rgt4XteyucpuAbKAGDhf0dZrKPzsTpwM7ou6L+lk0kpYAnzQ5dsGk4VMYTMeX+bvjr1L0KwBnkBTUWuDZl6AVpSf6saelLZnGDiTL3VSd11XpL2TnaaZc0ulcK1nxiyjuZuHk8bPosGSc8JvXdWa5gup+9kF2UOlhaFVLjSp3hI1LHhjZp8SeaecZHP1laslRUS788hFker9C0RXqZIwqt1IwdUmK1bK/G5h7CSlXhK5skqH5WDXj6gZ9U3vJCY9ygHUQ34XHvmhfR6ZKwL3q+iMy0kJrAnR3ubtfcy8Rwi6ws+4JyTzXS0SQxLSY3xNHyq0ZfbfqxfhmFYT/Y7vzMfDH6AbFvcHg2UOOeVKjA94PmoCOUxN+k75r5C6OZewW235BGVwskP2lOyPwz2Rz7kstoTCL4pmxf8dG+hx1f9aPlklHsYNU/EKbly3cNzUniE5bB13iL5IzOr/yRQbB7yaQ/n4lwl7YhEc7MtGKrg/geB+uapVxT0BMnUNIqNmYbVccn3dVL1s+diT0DIFAl86WQlVGjO2wqHrbSJtw3Z+4ff2RhUvd9W1EcWgDnfH2bqvk4qbQPC1cFA=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS7PR12MB6071.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(366016)(38070700021)(18002099003)(22082099003)(56012099003);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TG1zN1RLMCt2djJwOElTVEsrSG4wM2thUW5BQ1ZERWN5MzJqMmpWb1kyZHpD?=
- =?utf-8?B?dVVRbzl1UmNxZ0QvdGtXSWpBVDZRaE9SNVBNdGtWalFSdkxXTTA4VzZXUVE3?=
- =?utf-8?B?MlR3cGJVNmxpeFNySDJIOVVHTU15ejJmTk9MYUlwOWtBQ2lvWm91U25PYUxh?=
- =?utf-8?B?cHNOaWpkY0c1Q1R2Rmw5MU5MTVJPV0xKakh2a0xYRnpnL2s4aGNyZUZ4eUph?=
- =?utf-8?B?L1JRQUxGdURuUVpWUjlJMHQyYVZOa1pkTHFtQ2llYUZXRmlSUUU0TllSMjdU?=
- =?utf-8?B?YkpEbkZONUVCeWlLOTZscGpiQWQwN3JxRWUxZXVCQUxQa095cWRkeVE0MjY5?=
- =?utf-8?B?Zm0xYTE3VmdnQTRPMW9mVWFobDJsZmg3L2RzQWRzYm0zeHZZb2RTdUVyTDU2?=
- =?utf-8?B?OXZGcFZYbDBCdlBNeUZhbUxHMmZzSUljY0pNZ1hDbnNFdGJmcnZXb1NpSld1?=
- =?utf-8?B?WGMrZ0lYaVF5MmRIZlVBdklleXc5ekdKR1N2U1pUWmpySEhKZ0pEeCs2ZmhU?=
- =?utf-8?B?dGNtaVBMK2UzYzFsS3ZvYVhwSVpnRmQ4OVczR3p6bmRWczdrTXdWQmFWaXdP?=
- =?utf-8?B?bHNPR0lYRitaUXJWblovd041ajh3VGlMMW11b2x1N3lpNXl5US9nV0U3Umtq?=
- =?utf-8?B?NStYMWFKQnVaWUF6bGNCcHRpSDlRNlpPeVdnbXRLNWY1RUlBelV3T1FqVThE?=
- =?utf-8?B?cjlaVDZxVFptckpIYStQcW5IVS95V0JKbmZHYlZKSjdKczhrUGtZZTlLdTVs?=
- =?utf-8?B?c09oTWhhZ0lhd3NPRTVZYzM3OGpBRUhpdXpFODYzek9ESXBHT25CV1VRYWJh?=
- =?utf-8?B?RS91S2IxcHM5cGluMlFYTUhxMVkzWkJ6cUx1QW1HZWh4aDIxbW1LUzdsdE5v?=
- =?utf-8?B?ZUcxU01sUnlYWXpBajh0bmhkN1lYenZkaHdXY0s1WXFleUhaWk8zTlBoYWhX?=
- =?utf-8?B?N28zWXJkaGR2bys5NXkrcTdWSng3UkZFSGp4K09KNzJSREZyR3JSK2xaN0RH?=
- =?utf-8?B?K3B6Myt6Q0xwNDM3WThiZUJQZ1VKaXRnaHloWjRwK0pWeVBPL3BKOUcrS0o2?=
- =?utf-8?B?blBjcmJLTkxqcy9mR2E1R2UyeFRXMzVnNG5CZW9tZWhRYTZhM2k2bmtwaXZZ?=
- =?utf-8?B?UlRIaElXc1JKeFJYRDhVLzYzYWg2S0J3elN1UTU4RzNjekxhc1FiY0F0T2JZ?=
- =?utf-8?B?NW5ncTlsY25sQ3ZjdlMrVWxJQXpuTzVWWnBZbHVYZERKOStOdXZxT1c5OFJJ?=
- =?utf-8?B?aGlQRmk3SFFnNThLdzVDRzlCWjVZYWplTmd0ZDFUTzFvbm1VTWZGRVdwdXpv?=
- =?utf-8?B?bm0wdW5CcFJUK0xiYld1QlVhcFZlWi9KSkt0REtjY1JJclN5dE91amJCRWtN?=
- =?utf-8?B?R05SYTA1U3F0ekFyNTNxZDAyYXFTU1R1T3hOTDF1S2tvU01GTXpuR0RVajlj?=
- =?utf-8?B?ODNZbDU2a2hIejltUFM2VE0zYjQvODJZSkowNWFXVHY2RU9CZTMrYXRsLzBh?=
- =?utf-8?B?R2Z6bkRtdjUzbmpLaU81TEFMbStwaG5NSVRJS2lzT0ZCTVA1NzUyZXkxSUZT?=
- =?utf-8?B?YmNlOURlUkFJWnh1K0NGaC9SVWJKLzhoTmk5Tmkrb3VFenR6YXVDMEl0NHBv?=
- =?utf-8?B?Wk9BVTRaTEF6M2VmQlQ2MytDbHo0dzBtWSs1eXdpeUlnaWtaVzBHOFFjdnBN?=
- =?utf-8?B?TGVFeXQzVlRWNXRkK1I0c1hYcVlSV25CTElBQ21CSS9LN3RTRXlwWk15d1Fy?=
- =?utf-8?B?d2tia0ZBSXVPWDh2dTN1MG9GQSswM1kwK1RKSkRNalkrdEdjN1lLa0VvdGtx?=
- =?utf-8?B?RGM2Zm52YytJSTIyRjhDWjdZSVUzK3RKYUhSN2hxNGFEZGtwNmNEYmpoVTc0?=
- =?utf-8?B?QnZNWUhlSDNwMllkdGlmWC81NmljY1hXSVlRVGFmV3dhSURJb0IwcGk1VzRW?=
- =?utf-8?B?MlEvZFZ5ZnE4Q0lRUnRNaDhVRlRta2NOcm51aVJnNFNvanNpcm1XRklGZkd6?=
- =?utf-8?B?S01GVDdpTlQrNGVkbi9JUHA2Y0ZRSHY4K1hKblRzT0tmVTJmS2Vhei9VRGdj?=
- =?utf-8?B?eEpLaWhUdHI5aDRLVHdnRDB1WUM5WWZETHZoYkJjZk41QkRBN3dCZEIzSlk2?=
- =?utf-8?B?RkRQR1dwakFlanRqTmdYUWhkLzVYWCtSYlB1RWd0cFZuVWZ1aS9ZakRsSjRF?=
- =?utf-8?B?QUxTWDB1ZytQZDIyVk9MdHRHUytxM05ud2lXSlRlang0NExoTzEvcDlrenhw?=
- =?utf-8?B?UkUyUWlkUWlxL0FHZHpmMkRFQ0RDbGwzaGJreDd1Q1lIWUdsazJ1Zk15cCtQ?=
- =?utf-8?B?K2o1ZFVrdmpyTjVZaFNyOEFIUHNxNUV2UVhYaTJYcVdRbldnNURxQT09?=
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?TY3/78QTFlLJ8SoUVQN5YYidrSPHEUeMKioyIOTHZZm0190n/hEH+jMh6bFh?=
+ =?us-ascii?Q?uAzfYYXYcwGqFekS4R4CYDouDyJdo5+U+DoOH5nG99m2elATiITYHFFUz6AS?=
+ =?us-ascii?Q?ZJOljcPSiTh6N+ga1aBUyR/hckz55pts3kWLK4u+EeloJAowdkvpHNsOrNMA?=
+ =?us-ascii?Q?7SoS8UhfCAaD2Ml67LOiAn7/vZDM+W36BH4abOzt6MLJJGE9J7wKMQDBDv61?=
+ =?us-ascii?Q?spCAiY/60p0DjQZXPuMaqTHfPHXpa39geRIovMqu9QZWwlU0F2sb0Sm/wF1Y?=
+ =?us-ascii?Q?eeMBMpDNCt/zK6PqQ5zawDLTbdrjZE36NcVTm5FRJcGFhEufwAz/Bk1ANkEj?=
+ =?us-ascii?Q?QXk/hvy4ERfalYoQITDE44hd7/W1oD9cUL/52nAJqf52HKX/pu+FTwWxDBrW?=
+ =?us-ascii?Q?9cPfRlZYwD0dQ2KRP77onaWmlHW8OIDweqBunN2ziwqQsLuXeJ3gHR8BKnbb?=
+ =?us-ascii?Q?xRKxRbKpPnRZRCvwSAnSnthW+vURoG7TrySLwCCdGpELh3QYVFj+sAAevNZT?=
+ =?us-ascii?Q?jSwz6pErLqOErWvLQxy43pL3L+eVFqLnSqnnrhkYj9r65EayR+dQACOiuk1S?=
+ =?us-ascii?Q?XDtlTxVJ7H8M+fMwcMzu7Gr68rNp0s+XqW3uNXWyfee/48vvU4ML30Wjh3mc?=
+ =?us-ascii?Q?yCKAZf+Vlj6HmBoSRsk+yCzIy2RQEZ4fUWp/fucS3ezEa4djmdFgp6clt3R/?=
+ =?us-ascii?Q?6UHUcmETUAhbl+7zpZjmqGMsClIoxAyC5mBUgjN7nEaLCEbjUvoFOp1gj9fr?=
+ =?us-ascii?Q?bOmE0ae2XKQGQ9A4mLMlhecET9IkO0FEfD+44L1WNeZP53XBMbNVi4QHvgS+?=
+ =?us-ascii?Q?nDNiqK6QJgnrjYSWMYIw9PYEmgG7jtxxQyeayqi61B+Okch9eV7SytU2WGGv?=
+ =?us-ascii?Q?4qPqUiF/sRH/RzgxY1PcP4JTmWgxRC1W4QEZIPla5eNp1uwXvd6voEQsVEfX?=
+ =?us-ascii?Q?3ERLfNye6u0FNbvCb+zjl8E/kvmNxW6nC5riHF+I9qlKB86ljUyW8bfKRfkM?=
+ =?us-ascii?Q?zQO8xFMb/lftofkcCmRKJXgJacUdOX5zRuFz7RN9qXo6pC79fvGV9ZwG4vUz?=
+ =?us-ascii?Q?zo0LpmzifVE66xgR1JczHF2BcIWeYQrtpUB7ZGcIzset206MrC/aiDa1jFuh?=
+ =?us-ascii?Q?RUAXKnUyR18mQBzLaYoUSGgepAqmQzvLbhh8Fv8gJN7DiJfM1Ps9qgITsXom?=
+ =?us-ascii?Q?qN0HsVNb49HNU+FppKPw9H0dIqNEfUW6xkcuRdRE2jR/BANJ9RJlC8IyPIYA?=
+ =?us-ascii?Q?0ejHi5BND8W1SNaoBl3f4+7DaVbSZpKrTvmHaJ9RRR9H61wgzTs8C6cj5S/i?=
+ =?us-ascii?Q?mW7bClqZDIzi3BwmKHxYByX5XdpeyckfyNcVwV+5ZHIOURIyn8+uD8fNY7hW?=
+ =?us-ascii?Q?nON5bN9ITBeA7qG+J5HzvF4hP5wEZdzAnyoxVx8CHe2/dnS1f0hQ0dja2hlH?=
+ =?us-ascii?Q?oDUWOzTzbHcK8dDtZ7MABINi5Kk5R/cSXn0aTITPCm3TOp61jgrxbA4kBGHB?=
+ =?us-ascii?Q?9/UL21lkbbcCLztozK9QtVbLaGJe630nEe6Jc4y0fDMQe+6XWFaeU5RkWOy/?=
+ =?us-ascii?Q?+gCi+47fp+DWvq7MlnDEPV21n7V7+mO6MKfB+gPRFrXAG0wPgeRehVLA50Hi?=
+ =?us-ascii?Q?ix+lsCJcy/r36ybX+clWgwDPJYFBgKrOIP+0pLZe5sAxiyZvX1YKtat7pniW?=
+ =?us-ascii?Q?zc9dZzQ1TYnYG/sLoRwse8C2MKzmo2mfWxg/39FDIxgb8yOc?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7b82c54e-6789-4a57-771b-08de8ee13ab3
-X-MS-Exchange-CrossTenant-AuthSource: SA0PR12MB7091.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Mar 2026 04:51:54.0951 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 1HbjzKJsS6oOZQGFy8BDJuPufPGqMv+3n7Vqrvl1virbbSUVKa470XP4SXxE5s2N
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8527
+X-MS-Exchange-CrossTenant-AuthSource: DS7PR12MB6071.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 96cb529e-feb4-42f1-1f05-08de8eee6afe
+X-MS-Exchange-CrossTenant-originalarrivaltime: 31 Mar 2026 06:26:18.1230 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: cZys0O2AX4mI36lcUUcitnCMJG5wwZ+oEXXVN7AyF9Gyo0483R4roWiON30EIfOIiI8ZgDRG34uKpNQ19ULf5w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB6990
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,54 +133,76 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-<ping>
+[AMD Official Use Only - AMD Internal Distribution Only]
 
-On 27-Mar-26 1:22 PM, Lijo Lazar wrote:
-> Add a wrapper functions for copying data/to from vram. This additionally
-> checks for any RAS fatal error. Copy cannot be trusted if any RAS fatal
-> error happened as VRAM becomes inaccessible.
-> 
-> Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
-> ---
->   drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c | 12 ++++++++++++
->   drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h |  3 +++
->   2 files changed, 15 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
-> index 7bd8c435466a..006ef585a377 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
-> @@ -1104,6 +1104,18 @@ int smu_cmn_update_table(struct smu_context *smu,
->   	return 0;
->   }
->   
-> +int smu_cmn_vram_cpy(struct smu_context *smu, void *dst, const void *src,
-> +		     size_t len)
-> +{
-> +	memcpy(dst, src, len);
-> +
-> +	/* Don't trust the copy operation if RAS fatal error happened. */
-> +	if (amdgpu_ras_get_fed_status(smu->adev))
-> +		return -EHWPOISON;
-> +
-> +	return 0;
-> +}
-> +
->   int smu_cmn_write_watermarks_table(struct smu_context *smu)
->   {
->   	void *watermarks_table = smu->smu_table.watermarks_table;
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h
-> index b76e86df5da7..d129907535bd 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h
-> @@ -174,6 +174,9 @@ int smu_cmn_update_table(struct smu_context *smu,
->   			 void *table_data,
->   			 bool drv2smu);
->   
-> +int smu_cmn_vram_cpy(struct smu_context *smu, void *dst,
-> +		     const void *src, size_t len);
-> +
->   int smu_cmn_write_watermarks_table(struct smu_context *smu);
->   
->   int smu_cmn_write_pptable(struct smu_context *smu);
+Just a typo in patch description
+
+Add a wrapper functions->function
+
+
+Series is
+
+Reviewed-by: Asad Kamal <asad.kamal@amd.com>
+
+Thanks & Regards
+Asad
+
+-----Original Message-----
+From: Lazar, Lijo <Lijo.Lazar@amd.com>
+Sent: Friday, March 27, 2026 1:22 PM
+To: amd-gfx@lists.freedesktop.org
+Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Deucher, Alexander <Alexander.D=
+eucher@amd.com>; Kamal, Asad <Asad.Kamal@amd.com>
+Subject: [PATCH 1/3] drm/amd/pm: Add smu vram copy function
+
+Add a wrapper functions for copying data/to from vram. This additionally ch=
+ecks for any RAS fatal error. Copy cannot be trusted if any RAS fatal error=
+ happened as VRAM becomes inaccessible.
+
+Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
+---
+ drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c | 12 ++++++++++++  drivers/gpu/drm/=
+amd/pm/swsmu/smu_cmn.h |  3 +++
+ 2 files changed, 15 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c b/drivers/gpu/drm/amd/p=
+m/swsmu/smu_cmn.c
+index 7bd8c435466a..006ef585a377 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
+@@ -1104,6 +1104,18 @@ int smu_cmn_update_table(struct smu_context *smu,
+        return 0;
+ }
+
++int smu_cmn_vram_cpy(struct smu_context *smu, void *dst, const void *src,
++                    size_t len)
++{
++       memcpy(dst, src, len);
++
++       /* Don't trust the copy operation if RAS fatal error happened. */
++       if (amdgpu_ras_get_fed_status(smu->adev))
++               return -EHWPOISON;
++
++       return 0;
++}
++
+ int smu_cmn_write_watermarks_table(struct smu_context *smu)  {
+        void *watermarks_table =3D smu->smu_table.watermarks_table; diff --=
+git a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h b/drivers/gpu/drm/amd/pm/swsmu=
+/smu_cmn.h
+index b76e86df5da7..d129907535bd 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h
+@@ -174,6 +174,9 @@ int smu_cmn_update_table(struct smu_context *smu,
+                         void *table_data,
+                         bool drv2smu);
+
++int smu_cmn_vram_cpy(struct smu_context *smu, void *dst,
++                    const void *src, size_t len);
++
+ int smu_cmn_write_watermarks_table(struct smu_context *smu);
+
+ int smu_cmn_write_pptable(struct smu_context *smu);
+--
+2.49.0
 
