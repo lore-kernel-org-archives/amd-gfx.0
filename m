@@ -4,99 +4,102 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 69FAF10F9304
-	for <amd-gfx@archiver.kernel.org>; Tue, 31 Mar 2026 21:21:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 80FE210F9302
+	for <amd-gfx@archiver.kernel.org>; Tue, 31 Mar 2026 21:25:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4731610EBEE;
-	Tue, 31 Mar 2026 21:21:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1917410EC11;
+	Tue, 31 Mar 2026 21:25:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="NXN73vRP";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="GM7fl7IF";
 	dkim-atps=neutral
-Received: from mail-ua1-f42.google.com (mail-ua1-f42.google.com
- [209.85.222.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3B93210EBD6
- for <amd-gfx@lists.freedesktop.org>; Tue, 31 Mar 2026 21:21:46 +0000 (UTC)
-Received: by mail-ua1-f42.google.com with SMTP id
- a1e0cc1a2514c-953b312770aso111515241.0
- for <amd-gfx@lists.freedesktop.org>; Tue, 31 Mar 2026 14:21:46 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1774992105; cv=none;
+Received: from mail-dl1-f42.google.com (mail-dl1-f42.google.com [74.125.82.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DB70E10EC11
+ for <amd-gfx@lists.freedesktop.org>; Tue, 31 Mar 2026 21:25:27 +0000 (UTC)
+Received: by mail-dl1-f42.google.com with SMTP id
+ a92af1059eb24-1271257ae53so6314081c88.1
+ for <amd-gfx@lists.freedesktop.org>; Tue, 31 Mar 2026 14:25:27 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1774992327; cv=none;
  d=google.com; s=arc-20240605;
- b=Jp1rMyn0bE7iIN86VLAvVDa//BuS5OG79AutlrXovBxY5EVDyJEMUK8JpAEfFVHN+a
- 5HHjyKUfzr113l4xvTFcPti6eZbbk4q2ZtUtL63PHVl73QI1JBS4Rse+GgYalGcTAJIY
- ++8EYgdKGxfuAc9cuzwNb2Z5xKijqG72VKNE0yr/FyqDLIgdqLNgQX1vCdYvoUqH1KGg
- GA5xK4iG3SEBv1+qdK5CVhbUSyEAZ88GlAu2ymcKcSujBVxyHz2JQCzBFaRd+YucNWeF
- 2YBw/itARAgUHR+MpzzqdlESC80E51dsWWxNM/K0GrvJ+9XT35AIHj+YqY/NGhbTwXSK
- WdSg==
+ b=FK2MO0u40/fq6N5NoCfKyMNx+Spb44zpItKqhGmeQTVCgI+GY7l9Ix+G4J3LBOhR82
+ mcfb7/dLWiktZXU5JvKK8r1duj0cdN3UVqTQiZLwE4J+9RIiMV429RpSIiUHqjNARJzN
+ DqkM0HMet2GzlGOljNXYR5XiWsXbg2zCvRTSoQkxUiIbbma9JaW1UMVeHBltNOIRwpNx
+ 6OAxNz0TUWDud20MJBTZY3Qrbws7KsmVhWrMP/cNXFYNL0tSuh5FyvrEcslML9jNHMVD
+ YdcNZbQdgjvbKeRgjoFV0zh8fVqnKcvLyeMJGpvYfvr/6KjO2he0N74oDPUnOIqZddsx
+ uqPA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=Ndd9Z34WEZDYMcbXqD8LvOCpynn9LLCRPEd7kPtLwxA=;
- fh=geCjZpHnCGTZ844i3DmZHm8x6iElZddKM/v93jbU188=;
- b=gq7COZX37lvJRB8hFCPjB1jtlYCtHxy+yzGrAMHDaZArIyeVPsWMkiMq9SkRX0DfOp
- wEc3i0rx/Dv4iR3L6TxonSp2sSWN+8WxwG1FMA1cbF2NxnnzRjaAbUYaIijvBgPNMcXe
- dXQHtkadwjJ0Hkl0E2LJzY6/+XnNZTEkDEfqP0Y4r7NzuX/QyuDEeNfhgeDrvC2AgZmi
- 2TVILbwqYv0VO9rO6CGWautvvC0vqEwTgr6oXkHIFIPtKeuk/btApeZTjpI6YF9HSwoO
- T9tGdDYB8QkUQQbDYu5kLgaenAA7dp8VEURZhsnuIHHiq99nPDoZUfe9iwjIHfON9+X8
- OYfA==; darn=lists.freedesktop.org
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:dkim-signature;
+ bh=PJtc7MyBAFI3tK7+cZOuROzeutpIe2Qst2X4qNqsY80=;
+ fh=TG+crBq6IIzueMVosAUojqXRiAPe47fobpOLiQ8eMvE=;
+ b=SGLmZQNfUPhVsRZIIZy2UAImcpkxfb5k4foY9FUQ5gl1bA0gfipeJGtEw7PJh4MmDk
+ neieWA7Z7WXYzjGYMidTmRFvmTInlE9zs8BWDm/mBpk6xtJ3PW4r4Qpu2Nsy17MBYaSI
+ ovi6duuPW4FfnjG3IeYBSzhXtJ+xsHf2PYOiSKTYhBbLO0h6u6i6EvQs7CMLUttPEnXJ
+ pKM8jwHMzbxbMGlM80JEMJQNKA9ZzZKZ25X2Dc3WxqtPglukB/MHqh40Z0nPDx9yTaEX
+ ATl0HC0kKnc3jxtrzp6BcCggt7YgYpyfkdDR4fhkTNB1dzSVnWnvEGp+gKU5VjypaXcI
+ wxyg==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1774992105; x=1775596905; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=Ndd9Z34WEZDYMcbXqD8LvOCpynn9LLCRPEd7kPtLwxA=;
- b=NXN73vRPzd29RVeY5IvfMygI37KzITu+HveksAowUoQgCrQGM2gWYDkmjorywJCZQa
- Yfo/D0NmI5bWyb88pPiNMLbDiCRCrmUy1LmDYUGgnEi+IWGeW/d83ErdscZNh4ASHRPR
- 75cRHdQn6voFXqfMT4FV5kNFJOUP+vCWtda/ACJBKKxaXFks60G5Yty46bwHMr9NszIB
- hsm8q5FwJIquGX8Sxs4d2fZ8wBFeVD9hOi8AJCHTC/plvKsJEyoW3oSHsVRu8XipS7CC
- iMZtBgSZp3zhyjHfjVh+CnelW2ff2JIQXrK2/ocFLW8OmMxF4eZyG/D/TmMKQDr06bq/
- PNZg==
+ d=gmail.com; s=20251104; t=1774992327; x=1775597127; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=PJtc7MyBAFI3tK7+cZOuROzeutpIe2Qst2X4qNqsY80=;
+ b=GM7fl7IFQmKbF8Q36R0LBFhMJCOW22OY5w1BICkQnTmCPj+y3WFIQLOH5FPEmLVVru
+ B6Pyb1lsNDhxzEcCUISlN1mK/OLYjcXp9wvhf7wCRiNPGAwlS2x3kuSzyApRLpJUL7ug
+ lq2+vgP0D53Xbc5lrz3TAHCbQLJ5Q+Jq2TpipRwEPhNCAgNYsY0b2GnY7fofXSIUapQ0
+ DFx9qji38bp9f8yzi6X9MuhOLJbdrYOORSCLQQS7F3x1t4zzT/513qHmMqBaah2KE3/N
+ Wv+nXgTlMhghQRSr0hUrgDRnxBohwuftmPkRJWqtLFsWBwC8ajRvowR/TuJC3WilNaT+
+ Lkuw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774992105; x=1775596905;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=Ndd9Z34WEZDYMcbXqD8LvOCpynn9LLCRPEd7kPtLwxA=;
- b=EyihoyxKcfiEttbBz+lMMxHuQd8/XUJkryPBCiJKlbRiB675+TOY9S1wZx+tBKmgg9
- yn2iLA4Vg2dtfWnRCc2idqA9QAgpvkHg2uMTZxO6hWT/qolVLgk9pnDte2bscQ8UhNEV
- 11+zWuhKnchKVevPeRXLt3X1dfvqvDt8UmH7PlvFyfUxP8OLC8b2KFLoHxdvMylz6LCV
- tfCKDzUXLrAK372QEDJZGs47taWaJDxeMwyznwBXNWbPjmi0Cf2yXGFAIYp9yAF9LXBj
- MUlA3ErN+/WvzzuxJ4I6FXxTCbSxVjU1gioZwtGmpmQ6ljopsAOUi3FRF3/yF8ojqskM
- vUrA==
+ d=1e100.net; s=20251104; t=1774992327; x=1775597127;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=PJtc7MyBAFI3tK7+cZOuROzeutpIe2Qst2X4qNqsY80=;
+ b=Hf4JJ7C4Lsep7MWNHJVY9qMmmr0ocuOMePYzRd+qiX9NQm22lpK94KeONM/sfM7P4O
+ P2f3uQkdqaTU457Py5VHlPv2Pi50Li1asA4Eunst3o3vhjaBiGVoT2SMeQo2+sT3hoFR
+ iwyNHceqdN34vLz9YR5SuNvZk+P8S02juybYpA7/e7CmDDzmtJvLVxDrqhU+JTjhxDO5
+ +UeA1yXexXabHZQJPB/AaHtq+2CVAg6N/Ye8LTf/TomApkMrV+2iNNCipn0qhhrgKZo4
+ 9pK1tdg29nxui4+rdipcF6gfxNv7LyniI54z8EA8IB/D+BGlKN/9g/lfXWEKqrC384vL
+ edjw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCV6NF5uRrxiJ/newZcGSYcAhdWCK/C6THUGJazCLiKqmG9tHVhyHMiUtLuwN2n1HSF07QStUn0y@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwbYG482+DYRlBO+uEDAW6Nlne58dAEAUWGXeHJAqiniprLg4mO
- IAsJagNPpziCxVb/fx1ckIn75wZdQNOIMnmSNJJL+mLeNZET4AjrRX439IuTJor/BLMoNLF3Ziu
- Lq9LhvI+ptiZvU2tcu+RAbxvS/R7j7r8=
-X-Gm-Gg: ATEYQzxJL+KgJ8pkJf6ZnsqH1YSQDcUxCRnGTJRbTjVehvXfKEuMayekZcrLIOKoN6c
- OkwtxtTI8lnMgpY1IQ/gBIl5XDOhCjZV7pNxXT+2aYeoa9TDRbBck+cyyoa7GDa0NNzdADYwJp3
- PADTtjMkPhyNtbpJO986D7rMf7hWwGiMbJzOoH9nLLLilSnNYLXqyZS4p8bje5TAHaOC7kdG/HR
- 47KkIWZy4eU4li4CDU48c5cRG4SiblDtD3UMEylz/qhQdUZrxMhQ/WZSrcN+kyOwZD43BQTdLOV
- n/ZUBqQ9vExWjYlnDcT3D3eYIn7WOXF7kh2RHFYJFpkXXYQQhhGiWlLVHCdosjpOgPUcx05VMrk
- Q3Xrf
-X-Received: by 2002:a05:6102:3124:b0:602:b87a:3524 with SMTP id
- ada2fe7eead31-605681d3b8bmr124908137.8.1774992104828; Tue, 31 Mar 2026
- 14:21:44 -0700 (PDT)
+ AJvYcCWGlc4vUnbYsR0osdHuPiGSrz5GwsUotWxqlb5BNFNlzhTE+P6aaw5dK1vH67SexK8hY41pYof+@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwJOS1+kqV8e39RtQiszRk57ETr254eEsFf38+M7GrVcoP1lri4
+ vuMEa6c0k5nb/NCYVBAIX3Y8IZ6+U7p9ToswfPbK9HcOqZRYivNc2sH4Bi04Yqgnwh0iS4NMxk0
+ ROrpYg4AjUXx4MCNDalhGuWyevQLsE5o=
+X-Gm-Gg: ATEYQzzleRjsV5L0rGDLNjeMpeguCNiQJ7LYxTE+TX3QwNTxLvel4N+SEiebqtVrZl6
+ rdWNkuj8rC2n+ceYyZBuy2hUd+0XcobcLOKwLERsyJzgWhjwsT2Zi83RnvpF+IqGVZTr0bVAIPd
+ BArE0l8o9kZsZCchtkaJX2ZjD9nBCk9mCZmLSIJtnWv8UqkdplXNB3ebMH/rzKkaVRkarnDPXG5
+ gowaTmmhTf5/zqe9eVYbkkrkBIRVfDFNvxEg1vrDtNZXKCu/2IVUo042DoyGgrg7+x/b5s8HNUT
+ uxU3iBlEjha0yajUcmNEeqx2IsdJG+/58p9EjqYJ
+X-Received: by 2002:a05:7022:6987:b0:128:ca83:5aa1 with SMTP id
+ a92af1059eb24-12be649ca84mr651704c88.16.1774992326852; Tue, 31 Mar 2026
+ 14:25:26 -0700 (PDT)
 MIME-Version: 1.0
-References: <20260330224503.548284-1-gabrielsousa230@gmail.com>
- <01989c65-1e1e-4f78-ac88-a1c76961b3c3@amd.com>
- <CADnq5_N6bzHTQJjS6__-Fmp15fASUw3C5DG1uNvZgkxCRtFkcw@mail.gmail.com>
- <CALsHKmUeB3=H9=Nq=+jOvtmwXxSg=wtHrASZNvVVPQwpyem2ug@mail.gmail.com>
-In-Reply-To: <CALsHKmUeB3=H9=Nq=+jOvtmwXxSg=wtHrASZNvVVPQwpyem2ug@mail.gmail.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 31 Mar 2026 17:21:31 -0400
-X-Gm-Features: AQROBzD1UR-7HftbCZHmPUQD-2oJPdvHQjuh-tpBm0G09Ba9mWs_j3BjfoLD1VQ
-Message-ID: <CADnq5_Pf841oeJAwhLp=1Y_tOWmEX+gyhDW06Z=qr+FR4x4JEw@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: deduplicate register access and helper
- routines
-To: Gabriel Almeida <gabrielsousa230@gmail.com>
-Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- alexander.deucher@amd.com, airlied@gmail.com, simona@ffwll.ch, 
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+References: <20260321052033.23472-1-mario.kleiner.de@gmail.com>
+ <DM4PR12MB521342239D4CF694B4A68E0AE64AA@DM4PR12MB5213.namprd12.prod.outlook.com>
+ <CAEsyxyiCN6KmyDBGZBJYKv+wt6w6j5QdUfTa1zJojAQ20V84xg@mail.gmail.com>
+ <d6e190eb-4843-43ab-9706-fadabde9cbce@mailbox.org>
+ <78da9dfc-561f-487c-8b68-0ea408819225@amd.com>
+ <3d669989-fcb2-44b4-9c17-9ae3db0b6f14@mailbox.org>
+ <CAEsyxyie_2Tr9_3vqz3N=_9u=Z1b4SqBGMcptKW454XH5ZEsQw@mail.gmail.com>
+ <220ec077-3187-457e-b42a-7b2bd87528f6@amd.com>
+In-Reply-To: <220ec077-3187-457e-b42a-7b2bd87528f6@amd.com>
+From: Mario Kleiner <mario.kleiner.de@gmail.com>
+Date: Tue, 31 Mar 2026 23:24:49 +0200
+X-Gm-Features: AQROBzBHWVFUsPLoXaBf7RRWqL7r70mbphe3rcN6urpAHwoTn5UJxbjgRylS-48
+Message-ID: <CAEsyxyiuzpd3Ykd7YFGiBDNJ8oFmSTHLXOSs1EqQOsVTn5a7bA@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/display: Change dither policy for 10 bpc output
+ back to dithering
+To: "Kovac, Krunoslav" <kkovac@amd.com>
+Cc: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>, 
+ Harry Wentland <harry.wentland@amd.com>, "Kovac,
+ Krunoslav" <Krunoslav.Kovac@amd.com>, 
+ "Cyr, Aric" <Aric.Cyr@amd.com>, "Koo, Anthony" <Anthony.Koo@amd.com>, 
+ "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>, 
+ dri-devel <dri-devel@lists.freedesktop.org>
+Content-Type: multipart/alternative; boundary="0000000000001f0373064e589be7"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,616 +114,579 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Mar 31, 2026 at 5:07=E2=80=AFPM Gabriel Almeida
-<gabrielsousa230@gmail.com> wrote:
->
-> Hi Christian and Alex,
->
-> Thank you both for your feedback.
->
-> I understand that there can be differences between these functions due to
-> different macro values across hardware generations. I admit that I didn=
-=E2=80=99t
-> fully take that into account in this patch.
->
-> Among the functions I modified, `program_aspm` and `common_sw_init` seem
-> to have identical behavior regardless of those macros, so I thought they
-> could be good candidates for shared helper functions. That said,
-> `common_sw_init` is currently only identical across NV, SOC21 and SOC24,
-> so I=E2=80=99m not sure if you would consider it generic enough for such =
-use.
->
-> Regarding `read_indexed_register`, I=E2=80=99m still uncertain due to the=
- use of
-> the `RREG32` macro. From what I=E2=80=99ve seen so far, it appears to beh=
-ave
-> consistently across these implementations, but I may be missing some
-> subtleties.
+--0000000000001f0373064e589be7
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-You are correct.  the RREG32 and WREG32 macros are the same on all chips.
+On Tue, Mar 31, 2026 at 11:06=E2=80=AFPM Kovac, Krunoslav <kkovac@amd.com> =
+wrote:
+
+> On 3/31/2026 16:13, Mario Kleiner wrote:
+> > To clarify: I do agree with Michel and Kruno that in most typical use
+> cases
+> > you'd probably want to get all or as much of the internal HW pipelines
+> > precision as possible to the Eyes of the person in front of the display=
+,
+> or
+> > at least an approximation of it. My understanding of current AMD hardwa=
+re
+> > is that you can have an up to 16 bpc framebuffer, which gets
+> > truncated/rounded down to 12 bpc somewhere in the pipeline (gamma table=
+s,
+> > color transformation matrices, etc.) and then retained at 12 bpc until
+> > shortly before the actual output, which can be 6, 8, 10 or 12 bpc
+> depending
+> > on connection type, bandwidth, "max bpc" etc.
+>
+> At the start of the pipeline we immediately go into a 19bpc space. Except
+> around 3DLUT, all color processing happens at this precision.
+> It's near the end of the color pipeline that we go from 19 to 12 in a
+> block called DENORM. Other than some specialized ABM block, we then go in=
+to
+> FMT that does 12 -> monitor bpc.
+>
+
+Interesting new info, good to know.
+
+
+> I didn't see any difference with my capture HW for 8bpc->8bpc either, so =
+I
+> left spatial dithering as default. There's enough extra precision that
+> apparently it doesn't matter here.
+>
+
+Yes, that satisfies both the high precision and identity passthrough use
+cases.
+
 
 >
-> Also, when Christian mentioned =E2=80=9Cmove them a layer up=E2=80=9D, do=
- you mean moving
-> these helpers into an existing common file such as `amdgpu_device.c`
-> instead of introducing a new file like `amdgpu_common.c/h`? I can rework
-> the patch accordingly and drop the new files if that is the preferred
-> approach.
+> Maybe your case always has an FP16 plane, say compositing space?
+>
 
-I think something like  amdgpu_common_helpers.c is fine, although
-thinking about it more, I think the program_aspm() function should
-probably end up in amdgpu_nbio.c as something like
-amdgpu_nbio_program_aspm().  read_indexed_register() could probably go
-in amdgpu_device.c as amdgpu_device_read_indexed_register_helper().
-And finally I'm not sure it's worth breaking out common_sw_init() as a
-separate function.  Maybe drop that change.
+It all depends on the application. My software is not a single purpose
+self-contained app, but a toolkit - a set of extensions for
+Matlab/Octave/Python with many wildly different use cases and requirements.
+Think of it as SDL, but tailored to neuroscience research and related
+bio-medical research, and for scientists with usually only basic
+programming skills (Matlab scripting language or Python). Can be 8 bpc SDR,
+10 bpc SDR or HDR, effective ~11 bpc unorm SDR (hw that can do fp16
+surfaces but not rgba16 unorm) 12 bpc (AMD hw with rgba16unorm framebuffer
+-> native 12 bpc or dithered 12 bpc) SDR/HDR, 14 bpc or 16 bpc SDR on
+special (and very expensive) neuroscience display equipment. For high
+precision modes, the software often uses fp32 "framebuffers" and its own
+composition pipeline with various GLSL shader plugins for post-processing,
+then outputting to the actual 8/10/fp16/16bpc framebuffer via OpenGL or
+Vulkan or OpenXR for VR applications. So it's difficult to explain the
+specific use case, because there isn't a specific use case.
 
-Alex
 
+> > If the final output depth is lower than 12 bpc one would usually still
+> want
+> > an approximation of 12 bpc reaching the "eyes" of the person
+> > (/animal/retina in some of the use cases of my research users) in front
+> of
+> > the display, and spatial dithering down from 12 bpc -> 10/8/6 bpc is th=
+e
+> > way to go. That's also true for most of my users use cases, and
+> especially
+> > for the use cases involving 16 bpc framebuffers/surfaces.
+> >
+> > Some more special use cases will require an absolutely perfect identity
+> > passthrough of pixel color values, where any kind of transformation in
+> the
+> > pipeline, including spatial dithering, would be bad. Some of your
+> customers
+> > seem to require this for 10 bpc output. Some of my users require this
+> for 8
+> > bpc output of a 8 bpc framebuffer. Specifically, some neuroscience
+> research
+> > requires up to 16 bpc color or luminance precision, but all graphics
+> cards
+> > and normal displays max out at 12 bpc. There exist special display
+> devices
+> > and converters that can do up to 16 bpc precision (native or via some
+> form
+> > of spatial or temporal dithering), e.g., the Bits# or Display++ from
+> > Cambridge Research Systems (UK) and Datapixx, ViewPixx and ProPixx
+> devices
+> > from VPixx in Canada. These are essentially active DVI-D or DisplayPort=
+ 8
+> > bpc to 14 bpc or 16 bpc VGA analog converters with 14 or 16 DAC's, or
+> > special purpose LCD panels or DLP video projectors which can do 14/16 b=
+pc
+> > precision. Because commercially available gpu's and PHY's do not suppor=
+t
+> > true 16 bpc output (the DP and HDMI standards specify such signal
+> formats,
+> > but no actual transmitter hardware afaik), these devices encode 16 bpc
+> > color content on top of a 8 bpc framebuffer and link: The software
+> renders
+> > 16 bpc unorm/fp or 32 bpc float content and then uses GLSL shaders to
+> split
+> > up 16 bpc into 8 MSB and 8 LSB and puts the 8 MSB into the 8 bpc red
+> > channel and 8 LSB into the 8 bpc blue channel (and 8 bpc color index
+> > overlay into the 8 bpc blue channel) to false-color encode a pure
+> grayscale
+> > image + some 256 color index palette overlay. Or for true color images,
+> it
+> > sacrifices half the horizontal resolution by putting 8 MSB of each colo=
+r
+> > channel into the even pixel columns, and the 8 LSB into the odd pixel
+> > columns. So a false color 8 rgb8 framebuffer -> pixel identity
+> passthrough
+> > -> 8 bpc link output via DVI-D or DP, and the video sink then decodes a=
+nd
+> > reassembles again into 16 bpc color/luminance content and uses special
+> > display hardware to these 16 bpc into the eyes of the being in front of
+> the
+> > display. Some medical imaging displays, e.g., for Radiology use (e.g.,
+> > cancer screening) in hospitals or at eye doctors, also use such special
+> > framebuffer encodings to get > 12 bpc content out of the gpu Siemens
+> > Medical and similar companies sell these for research and medical use.
+> >
+> > Another use case of my users requiring perfect pixel identity passthrou=
+gh
+> > is to encode side-band signals into the scanlines of the vactive area o=
+f
+> an
+> > image, encoding binary control data and packets as false color pixel
+> > values, similar to the various info packets transmitted inside vblank.
+> This
+> > for control data that is very custom and not standardized in any Vesa o=
+r
+> > HDMI standard, e.g., in my case to control special neuroscience hardwar=
+e,
+> > e.g., sound microsecond synchronized to pictures, sending various analo=
+g
+> > waveforms to electrophysiology equipment or haptic stimulation, or
+> digital
+> > trigger signals to transmagnetic stimulators (magnetic pulses to brain
+> > regions), or start/stop/synchronize various recording equipment (fMRI a=
+nd
+> > MEG scanners, electrophysiological recordings, video capture etc.)
+> >
+> > For the pixel identity passthrough, the difference is that I only need =
+it
+> > for 8 bpc framebuffers to 8 bpc (DVI-D or DP) outputs atm., and that
+> works
+> > fine under OpenGL with an identity gamma table loaded, despite spatial
+> > dithering down to 8 bpc active. Right now, I neither have the need nor
+> the
+> > equipment to verify 10 bpc identity passthrough, as my capture hw can
+> only
+> > process 8 bpc signals.
+> >
+> > I don't think there is an automated way for the driver to guess the
+> proper
+> > configuration in all cases. The proper solution would be a drm connecto=
+r
+> > property that can be queried/set to control dithering
+> on/off/method/target
+> > depth, and plumb that through. Or maybe something that could be derived
+> > from existing connector properties? E.g., if a content property has
+> > something standardized that essentially requires identity passthrough? =
+In
+> > my case, it is important that such settings still fully work under nati=
+ve
+> > X11 via RandR properties. Something that is only realistically accessib=
+le
+> > via an atomic client or Wayland server is insufficient for me.
+> >
+> > So yes, as Michel points out, there is a disconnect between the
+> framebuffer
+> > color depth and hw pipeline depth and what dither settings should be
+> used.
+> > But Harry's patch, if it worked, would be at least a good enough
+> > guess-o-matic or heuristic to make the situation better in the short
+> > term, even if it is not optimal. Or at least for my users use cases it
+> > would make it better, as for my use cases the framebuffer color depth
+> > usually corresponds to what my users need as effective output precision=
+.
+> > For me there is also the urgency of wanting to have a not broken
+> situation
+> > for Linux 7.0 and upcoming Ubuntu 26.04-LTS / Fedora Core 44. If I have
+> the
+> > choice of having the current state, or this patch, I'd gladly have this
+> > patch as a step up.
+> >
+> > I hoped this patch would be still simple and contained and early enough=
+,
+> to
+> > make it into drm-fixes for Linux 7.0, and maybe be backportable to olde=
+r
+> > kernels, as all kernels since late 2023 are impaired from my use cases
+> > point of view. But as I said, my testing didn't confirm the patch is
+> > actually working - it always ends up enabling dithering. Which, to be
+> > sneaky, would also be a step up for me, as that "only" breaks use cases
+> > that don't affect my users specifically :/
+> >
+> > On Tue, Mar 31, 2026 at 9:16=E2=80=AFAM Michel D=C3=A4nzer <
+> michel.daenzer@mailbox.org>
+> > wrote:
+> >
+> >> On 3/30/26 19:36, Harry Wentland wrote:
+> >>> On 2026-03-30 12:20, Michel D=C3=A4nzer wrote:
+> >>>> On 3/24/26 20:20, Mario Kleiner wrote:
+> >>>>> On Sun, Mar 22, 2026 at 7:11=E2=80=AFPM Kovac, Krunoslav <
+> >> Krunoslav.Kovac@amd.com <mailto:Krunoslav.Kovac@amd.com>> wrote:
+> >>>
+> >>>>>>      I believe we don't have surface info in that code, but one wa=
+y
+> to
+> >> work around it would be to use spatial dithering for FP16/ARGB16 and
+> >> rounding for 10 bits. But if we just switch to spatial, some of the
+> earlier
+> >> complaints about 10-bit output having one-off bit errors will be comin=
+g
+> >> back.
+> >>>>>
+> >>>>> Looking at all callers of
+> resource_build_bit_depth_reduction_params(),
+> >> they all have access to the associated "struct pipe_ctx", which should
+> give
+> >> access to pipe_ctx ->plane_state->format of an associated display
+> plane. I
+> >> could prepare a patch that passes the pipe_ctx from each caller
+> >> into resource_build_bit_depth_reduction_params() and that function cou=
+ld
+> >> check if a 16 bpc framebuffer is in use and switch to spatial ditherin=
+g
+> >> down-to-10-bpc in this case, and leave the rounding/truncation to 10 b=
+pc
+> >> otherwise.
+> >>>>
+> >>>> That doesn't really make sense, the output of the display HW colour
+> >> pipeline has more than 10 bpc regardless of framebuffer format.
+> >>>>
+> >>>
+> >>> The output will be determined by the link bandwidth, display-advertis=
+ed
+> >> supported bpc, and userspace-selected "max bpc" on a drm_connector. Th=
+is
+> >> could very well be 10 bpc, 8 bpc, even 6 bpc. Or are you referring to
+> the
+> >> internal DCN HW representation of the values?
+> >>
+> >> I am indeed.
+> >>
+> >>> They're higher, but that's somewhat irrelevant.
+> >>
+> >> How so? Surely dithering is applied to those values, not to the origin=
+al
+> >> values sampled from the framebuffer.
+> >>
+> >>
+> >> --
+> >> Earthling Michel D=C3=A4nzer       \        GNOME / Xwayland / Mesa de=
+veloper
+> >> https://redhat.com             \               Libre software
+> enthusiast
+> >>
+> >
 >
-> I can also incorporate Alex=E2=80=99s suggestions regarding naming and li=
-censing.
 >
-> Given these points, I=E2=80=99d like to better understand which direction=
- you
-> would prefer for this change.
+
+--0000000000001f0373064e589be7
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"><br></div><br><div class=3D"gmail_quote g=
+mail_quote_container"><div dir=3D"ltr" class=3D"gmail_attr">On Tue, Mar 31,=
+ 2026 at 11:06=E2=80=AFPM Kovac, Krunoslav &lt;<a href=3D"mailto:kkovac@amd=
+.com">kkovac@amd.com</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quo=
+te" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204=
+);padding-left:1ex">On 3/31/2026 16:13, Mario Kleiner wrote:<br>
+&gt; To clarify: I do agree with Michel and Kruno that in most typical use =
+cases<br>
+&gt; you&#39;d probably want to get all or as much of the internal HW pipel=
+ines<br>
+&gt; precision as possible to the Eyes of the person in front of the displa=
+y, or<br>
+&gt; at least an approximation of it. My understanding of current AMD hardw=
+are<br>
+&gt; is that you can have an up to 16 bpc framebuffer, which gets<br>
+&gt; truncated/rounded down to 12 bpc somewhere in the pipeline (gamma tabl=
+es,<br>
+&gt; color transformation matrices, etc.) and then retained at 12 bpc until=
+<br>
+&gt; shortly before the actual output, which can be 6, 8, 10 or 12 bpc depe=
+nding<br>
+&gt; on connection type, bandwidth, &quot;max bpc&quot; etc.<br>
+<br>
+At the start of the pipeline we immediately go into a 19bpc space. Except a=
+round 3DLUT, all color processing happens at this precision.<br>
+It&#39;s near the end of the color pipeline that we go from 19 to 12 in a b=
+lock called DENORM. Other than some specialized ABM block, we then go into =
+FMT that does 12 -&gt; monitor bpc.<br></blockquote><div><br></div><div>Int=
+eresting new info, good to know.</div><div><br></div><blockquote class=3D"g=
+mail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204=
+,204,204);padding-left:1ex">
+<br>
+I didn&#39;t see any difference with my capture HW for 8bpc-&gt;8bpc either=
+, so I left spatial dithering as default. There&#39;s enough extra precisio=
+n that apparently it doesn&#39;t matter here.<br></blockquote><div><br></di=
+v><div>Yes, that satisfies both the high precision and identity passthrough=
+ use cases.</div><div>=C2=A0</div><blockquote class=3D"gmail_quote" style=
+=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding=
+-left:1ex">
+<br>
+Maybe your case always has an FP16 plane, say compositing space?<br></block=
+quote><div><br></div><div>It all depends on the application. My software is=
+ not a single purpose self-contained app, but a toolkit - a set of extensio=
+ns for Matlab/Octave/Python with many wildly different use cases and requir=
+ements. Think of it as SDL, but tailored to neuroscience research and relat=
+ed bio-medical research, and for scientists with usually only basic program=
+ming skills (Matlab scripting language or Python). Can be 8 bpc SDR, 10 bpc=
+ SDR or HDR, effective ~11 bpc unorm SDR (hw that can do fp16 surfaces but =
+not rgba16 unorm) 12 bpc (AMD hw with rgba16unorm framebuffer -&gt; native =
+12 bpc or dithered 12 bpc) SDR/HDR, 14 bpc or 16 bpc SDR on special (and ve=
+ry expensive) neuroscience display equipment. For high precision modes, the=
+ software often uses fp32 &quot;framebuffers&quot; and its own composition =
+pipeline with various GLSL shader plugins for post-processing, then outputt=
+ing to the actual 8/10/fp16/16bpc framebuffer via OpenGL or Vulkan or OpenX=
+R for VR applications. So it&#39;s difficult to explain the specific use ca=
+se, because there isn&#39;t a specific use case.</div><div><br></div><block=
+quote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1=
+px solid rgb(204,204,204);padding-left:1ex">
+<br>
+&gt; If the final output depth is lower than 12 bpc one would usually still=
+ want<br>
+&gt; an approximation of 12 bpc reaching the &quot;eyes&quot; of the person=
+<br>
+&gt; (/animal/retina in some of the use cases of my research users) in fron=
+t of<br>
+&gt; the display, and spatial dithering down from 12 bpc -&gt; 10/8/6 bpc i=
+s the<br>
+&gt; way to go. That&#39;s also true for most of my users use cases, and es=
+pecially<br>
+&gt; for the use cases involving 16 bpc framebuffers/surfaces.<br>
+&gt; <br>
+&gt; Some more special use cases will require an absolutely perfect identit=
+y<br>
+&gt; passthrough of pixel color values, where any kind of transformation in=
+ the<br>
+&gt; pipeline, including spatial dithering, would be bad. Some of your cust=
+omers<br>
+&gt; seem to require this for 10 bpc output. Some of my users require this =
+for 8<br>
+&gt; bpc output of a 8 bpc framebuffer. Specifically, some neuroscience res=
+earch<br>
+&gt; requires up to 16 bpc color or luminance precision, but all graphics c=
+ards<br>
+&gt; and normal displays max out at 12 bpc. There exist special display dev=
+ices<br>
+&gt; and converters that can do up to 16 bpc precision (native or via some =
+form<br>
+&gt; of spatial or temporal dithering), e.g., the Bits# or Display++ from<b=
+r>
+&gt; Cambridge Research Systems (UK) and Datapixx, ViewPixx and ProPixx dev=
+ices<br>
+&gt; from VPixx in Canada. These are essentially active DVI-D or DisplayPor=
+t 8<br>
+&gt; bpc to 14 bpc or 16 bpc VGA analog converters with 14 or 16 DAC&#39;s,=
+ or<br>
+&gt; special purpose LCD panels or DLP video projectors which can do 14/16 =
+bpc<br>
+&gt; precision. Because commercially available gpu&#39;s and PHY&#39;s do n=
+ot support<br>
+&gt; true 16 bpc output (the DP and HDMI standards specify such signal form=
+ats,<br>
+&gt; but no actual transmitter hardware afaik), these devices encode 16 bpc=
+<br>
+&gt; color content on top of a 8 bpc framebuffer and link: The software ren=
+ders<br>
+&gt; 16 bpc unorm/fp or 32 bpc float content and then uses GLSL shaders to =
+split<br>
+&gt; up 16 bpc into 8 MSB and 8 LSB and puts the 8 MSB into the 8 bpc red<b=
+r>
+&gt; channel and 8 LSB into the 8 bpc blue channel (and 8 bpc color index<b=
+r>
+&gt; overlay into the 8 bpc blue channel) to false-color encode a pure gray=
+scale<br>
+&gt; image + some 256 color index palette overlay. Or for true color images=
+, it<br>
+&gt; sacrifices half the horizontal resolution by putting 8 MSB of each col=
+or<br>
+&gt; channel into the even pixel columns, and the 8 LSB into the odd pixel<=
+br>
+&gt; columns. So a false color 8 rgb8 framebuffer -&gt; pixel identity pass=
+through<br>
+&gt; -&gt; 8 bpc link output via DVI-D or DP, and the video sink then decod=
+es and<br>
+&gt; reassembles again into 16 bpc color/luminance content and uses special=
+<br>
+&gt; display hardware to these 16 bpc into the eyes of the being in front o=
+f the<br>
+&gt; display. Some medical imaging displays, e.g., for Radiology use (e.g.,=
+<br>
+&gt; cancer screening) in hospitals or at eye doctors, also use such specia=
+l<br>
+&gt; framebuffer encodings to get &gt; 12 bpc content out of the gpu Siemen=
+s<br>
+&gt; Medical and similar companies sell these for research and medical use.=
+<br>
+&gt; <br>
+&gt; Another use case of my users requiring perfect pixel identity passthro=
+ugh<br>
+&gt; is to encode side-band signals into the scanlines of the vactive area =
+of an<br>
+&gt; image, encoding binary control data and packets as false color pixel<b=
+r>
+&gt; values, similar to the various info packets transmitted inside vblank.=
+ This<br>
+&gt; for control data that is very custom and not standardized in any Vesa =
+or<br>
+&gt; HDMI standard, e.g., in my case to control special neuroscience hardwa=
+re,<br>
+&gt; e.g., sound microsecond synchronized to pictures, sending various anal=
+og<br>
+&gt; waveforms to electrophysiology equipment or haptic stimulation, or dig=
+ital<br>
+&gt; trigger signals to transmagnetic stimulators (magnetic pulses to brain=
+<br>
+&gt; regions), or start/stop/synchronize various recording equipment (fMRI =
+and<br>
+&gt; MEG scanners, electrophysiological recordings, video capture etc.)<br>
+&gt; <br>
+&gt; For the pixel identity passthrough, the difference is that I only need=
+ it<br>
+&gt; for 8 bpc framebuffers to 8 bpc (DVI-D or DP) outputs atm., and that w=
+orks<br>
+&gt; fine under OpenGL with an identity gamma table loaded, despite spatial=
+<br>
+&gt; dithering down to 8 bpc active. Right now, I neither have the need nor=
+ the<br>
+&gt; equipment to verify 10 bpc identity passthrough, as my capture hw can =
+only<br>
+&gt; process 8 bpc signals.<br>
+&gt; <br>
+&gt; I don&#39;t think there is an automated way for the driver to guess th=
+e proper<br>
+&gt; configuration in all cases. The proper solution would be a drm connect=
+or<br>
+&gt; property that can be queried/set to control dithering on/off/method/ta=
+rget<br>
+&gt; depth, and plumb that through. Or maybe something that could be derive=
+d<br>
+&gt; from existing connector properties? E.g., if a content property has<br=
 >
-> Thanks again for your time and guidance.
+&gt; something standardized that essentially requires identity passthrough?=
+ In<br>
+&gt; my case, it is important that such settings still fully work under nat=
+ive<br>
+&gt; X11 via RandR properties. Something that is only realistically accessi=
+ble<br>
+&gt; via an atomic client or Wayland server is insufficient for me.<br>
+&gt; <br>
+&gt; So yes, as Michel points out, there is a disconnect between the frameb=
+uffer<br>
+&gt; color depth and hw pipeline depth and what dither settings should be u=
+sed.<br>
+&gt; But Harry&#39;s patch, if it worked, would be at least a good enough<b=
+r>
+&gt; guess-o-matic or heuristic to make the situation better in the short<b=
+r>
+&gt; term, even if it is not optimal. Or at least for my users use cases it=
+<br>
+&gt; would make it better, as for my use cases the framebuffer color depth<=
+br>
+&gt; usually corresponds to what my users need as effective output precisio=
+n.<br>
+&gt; For me there is also the urgency of wanting to have a not broken situa=
+tion<br>
+&gt; for Linux 7.0 and upcoming Ubuntu 26.04-LTS / Fedora Core 44. If I hav=
+e the<br>
+&gt; choice of having the current state, or this patch, I&#39;d gladly have=
+ this<br>
+&gt; patch as a step up.<br>
+&gt; <br>
+&gt; I hoped this patch would be still simple and contained and early enoug=
+h, to<br>
+&gt; make it into drm-fixes for Linux 7.0, and maybe be backportable to old=
+er<br>
+&gt; kernels, as all kernels since late 2023 are impaired from my use cases=
+<br>
+&gt; point of view. But as I said, my testing didn&#39;t confirm the patch =
+is<br>
+&gt; actually working - it always ends up enabling dithering. Which, to be<=
+br>
+&gt; sneaky, would also be a step up for me, as that &quot;only&quot; break=
+s use cases<br>
+&gt; that don&#39;t affect my users specifically :/<br>
+&gt; <br>
+&gt; On Tue, Mar 31, 2026 at 9:16=E2=80=AFAM Michel D=C3=A4nzer &lt;<a href=
+=3D"mailto:michel.daenzer@mailbox.org" target=3D"_blank">michel.daenzer@mai=
+lbox.org</a>&gt;<br>
+&gt; wrote:<br>
+&gt; <br>
+&gt;&gt; On 3/30/26 19:36, Harry Wentland wrote:<br>
+&gt;&gt;&gt; On 2026-03-30 12:20, Michel D=C3=A4nzer wrote:<br>
+&gt;&gt;&gt;&gt; On 3/24/26 20:20, Mario Kleiner wrote:<br>
+&gt;&gt;&gt;&gt;&gt; On Sun, Mar 22, 2026 at 7:11=E2=80=AFPM Kovac, Krunosl=
+av &lt;<br>
+&gt;&gt; <a href=3D"mailto:Krunoslav.Kovac@amd.com" target=3D"_blank">Kruno=
+slav.Kovac@amd.com</a> &lt;mailto:<a href=3D"mailto:Krunoslav.Kovac@amd.com=
+" target=3D"_blank">Krunoslav.Kovac@amd.com</a>&gt;&gt; wrote:<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt;&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 I believe we don&#39;t have su=
+rface info in that code, but one way to<br>
+&gt;&gt; work around it would be to use spatial dithering for FP16/ARGB16 a=
+nd<br>
+&gt;&gt; rounding for 10 bits. But if we just switch to spatial, some of th=
+e earlier<br>
+&gt;&gt; complaints about 10-bit output having one-off bit errors will be c=
+oming<br>
+&gt;&gt; back.<br>
+&gt;&gt;&gt;&gt;&gt;<br>
+&gt;&gt;&gt;&gt;&gt; Looking at all callers of resource_build_bit_depth_red=
+uction_params(),<br>
+&gt;&gt; they all have access to the associated &quot;struct pipe_ctx&quot;=
+, which should give<br>
+&gt;&gt; access to pipe_ctx -&gt;plane_state-&gt;format of an associated di=
+splay plane. I<br>
+&gt;&gt; could prepare a patch that passes the pipe_ctx from each caller<br=
 >
-> Best regards,
-> Gabriel Almeida
+&gt;&gt; into resource_build_bit_depth_reduction_params() and that function=
+ could<br>
+&gt;&gt; check if a 16 bpc framebuffer is in use and switch to spatial dith=
+ering<br>
+&gt;&gt; down-to-10-bpc in this case, and leave the rounding/truncation to =
+10 bpc<br>
+&gt;&gt; otherwise.<br>
+&gt;&gt;&gt;&gt;<br>
+&gt;&gt;&gt;&gt; That doesn&#39;t really make sense, the output of the disp=
+lay HW colour<br>
+&gt;&gt; pipeline has more than 10 bpc regardless of framebuffer format.<br=
 >
->
-> Em ter., 31 de mar. de 2026 =C3=A0s 10:31, Alex Deucher
-> <alexdeucher@gmail.com> escreveu:
-> >
-> > On Tue, Mar 31, 2026 at 7:34=E2=80=AFAM Christian K=C3=B6nig
-> > <christian.koenig@amd.com> wrote:
-> > >
-> > > On 3/31/26 00:45, Gabriel Almeida wrote:
-> > > > Some helper functions are implemented multiple times with identical
-> > > > logic across different source files.
-> > >
-> > > And that is at least sometimes completely intentional.
-> > >
-> > > Background is that different headers are included which define macros=
- with different values for each HW generation.
-> > >
-> > > >
-> > > > Extract these implementations into a shared helper file
-> > > > (amdgpu_common.c) and update existing code to reuse them.
-> > >
-> > > Please don't when they are functional identical then move them a laye=
-r up instead of messing up the backends.
-> > >
-> > > Regards,
-> > > Christian.
-> > >
-> > > >
-> > > > This simplifies the codebase and avoids duplication without
-> > > > changing behavior.
-> > > >
-> > > > No functional changes intended.
-> > > >
-> > > > Signed-off-by: Gabriel Almeida <gabrielsousa230@gmail.com>
-> > > > ---
-> > > >  drivers/gpu/drm/amd/amdgpu/Makefile        |  2 ++
-> > > >  drivers/gpu/drm/amd/amdgpu/amdgpu_common.c | 42 ++++++++++++++++++=
-++++
-> > > >  drivers/gpu/drm/amd/amdgpu/amdgpu_common.h | 12 +++++++
-> >
-> > I think amdgpu_common_helper.c/h would be better.
-> >
-> > > >  drivers/gpu/drm/amd/amdgpu/nv.c            | 38 +++---------------=
---
-> > > >  drivers/gpu/drm/amd/amdgpu/soc15.c         | 31 ++--------------
-> > > >  drivers/gpu/drm/amd/amdgpu/soc21.c         | 38 +++---------------=
---
-> > > >  drivers/gpu/drm/amd/amdgpu/soc24.c         | 29 ++-------------
-> > > >  drivers/gpu/drm/amd/amdgpu/soc_v1_0.c      | 21 ++---------
-> > > >  8 files changed, 72 insertions(+), 141 deletions(-)
-> > > >  create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_common.c
-> > > >  create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_common.h
-> > > >
-> > > > diff --git a/drivers/gpu/drm/amd/amdgpu/Makefile b/drivers/gpu/drm/=
-amd/amdgpu/Makefile
-> > > > index 6a7e9bfec..84cce03d7 100644
-> > > > --- a/drivers/gpu/drm/amd/amdgpu/Makefile
-> > > > +++ b/drivers/gpu/drm/amd/amdgpu/Makefile
-> > > > @@ -69,6 +69,8 @@ amdgpu-y +=3D amdgpu_device.o amdgpu_reg_access.o=
- amdgpu_doorbell_mgr.o amdgpu_kms
-> > > >         amdgpu_ring_mux.o amdgpu_xcp.o amdgpu_seq64.o amdgpu_aca.o =
-amdgpu_dev_coredump.o \
-> > > >         amdgpu_cper.o amdgpu_userq_fence.o amdgpu_eviction_fence.o =
-amdgpu_ip.o
-> > > >
-> > > > +amdgpu-y +=3D amdgpu_common.o
-> > > > +
-> > > >  amdgpu-$(CONFIG_PROC_FS) +=3D amdgpu_fdinfo.o
-> > > >
-> > > >  amdgpu-$(CONFIG_PERF_EVENTS) +=3D amdgpu_pmu.o
-> > > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_common.c b/drivers/g=
-pu/drm/amd/amdgpu/amdgpu_common.c
-> > > > new file mode 100644
-> > > > index 000000000..34ade6f63
-> > > > --- /dev/null
-> > > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_common.c
-> > > > @@ -0,0 +1,42 @@
-> > > > +// SPDX-License-Identifier: GPL-2.0
-> >
-> > This should be MIT
-> >
-> > > > +#include <linux/module.h>
-> > > > +
-> > > > +#include "amdgpu.h"
-> > > > +#include "amdgpu_common.h"
-> > > > +#include "mxgpu_nv.h"
-> > > > +
-> > > > +uint32_t read_indexed_register(struct amdgpu_device *adev,
-> > > > +                              u32 se_num, u32 sh_num, u32 reg_offs=
-et)
-> > > > +{
-> > > > +       uint32_t val;
-> > > > +
-> > > > +       mutex_lock(&adev->grbm_idx_mutex);
-> > > > +       if (se_num !=3D 0xffffffff || sh_num !=3D 0xffffffff)
-> > > > +               amdgpu_gfx_select_se_sh(adev, se_num, sh_num, 0xfff=
-fffff, 0);
-> > > > +
-> > > > +       val =3D RREG32(reg_offset);
-> > > > +
-> > > > +       if (se_num !=3D 0xffffffff || sh_num !=3D 0xffffffff)
-> > > > +               amdgpu_gfx_select_se_sh(adev, 0xffffffff, 0xfffffff=
-f, 0xffffffff, 0);
-> > > > +       mutex_unlock(&adev->grbm_idx_mutex);
-> > > > +       return val;
-> > > > +}
-> > > > +
-> > > > +void program_aspm(struct amdgpu_device *adev)
-> > > > +{
-> > > > +       if (!amdgpu_device_should_use_aspm(adev))
-> > > > +               return;
-> > > > +
-> > > > +       if (adev->nbio.funcs->program_aspm)
-> > > > +               adev->nbio.funcs->program_aspm(adev);
-> > > > +}
-> > > > +
-> > > > +int common_sw_init(struct amdgpu_ip_block *ip_block)
-> >
-> > Please prefix each of these functions with amdgpu_common_helper_
-> >
-> > > > +{
-> > > > +       struct amdgpu_device *adev =3D ip_block->adev;
-> > > > +
-> > > > +       if (amdgpu_sriov_vf(adev))
-> > > > +               xgpu_nv_mailbox_add_irq_id(adev);
-> > > > +
-> > > > +       return 0;
-> > > > +}
-> > > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_common.h b/drivers/g=
-pu/drm/amd/amdgpu/amdgpu_common.h
-> > > > new file mode 100644
-> > > > index 000000000..314b3506b
-> > > > --- /dev/null
-> > > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_common.h
-> > > > @@ -0,0 +1,12 @@
-> > > > +/* SPDX-License-Identifier: GPL-2.0 */
-> >
-> > This should be MIT
-> >
-> > Alex
-> >
-> > > > +#ifndef __AMDGPU_COMMON_H__
-> > > > +#define __AMDGPU_COMMON_H__
-> > > > +
-> > > > +uint32_t read_indexed_register(struct amdgpu_device *adev,
-> > > > +                              u32 se_num, u32 sh_num, u32 reg_offs=
-et);
-> > > > +
-> > > > +void program_aspm(struct amdgpu_device *adev);
-> > > > +
-> > > > +int common_sw_init(struct amdgpu_ip_block *ip_block);
-> > > > +
-> > > > +#endif
-> > > > diff --git a/drivers/gpu/drm/amd/amdgpu/nv.c b/drivers/gpu/drm/amd/=
-amdgpu/nv.c
-> > > > index 7ce1a1b95..cf8052c73 100644
-> > > > --- a/drivers/gpu/drm/amd/amdgpu/nv.c
-> > > > +++ b/drivers/gpu/drm/amd/amdgpu/nv.c
-> > > > @@ -29,6 +29,7 @@
-> > > >
-> > > >  #include "amdgpu.h"
-> > > >  #include "amdgpu_atombios.h"
-> > > > +#include "amdgpu_common.h"
-> > > >  #include "amdgpu_ih.h"
-> > > >  #include "amdgpu_uvd.h"
-> > > >  #include "amdgpu_vce.h"
-> > > > @@ -354,29 +355,13 @@ static struct soc15_allowed_register_entry nv=
-_allowed_read_registers[] =3D {
-> > > >         { SOC15_REG_ENTRY(GC, 0, mmGB_ADDR_CONFIG)},
-> > > >  };
-> > > >
-> > > > -static uint32_t nv_read_indexed_register(struct amdgpu_device *ade=
-v, u32 se_num,
-> > > > -                                        u32 sh_num, u32 reg_offset=
-)
-> > > > -{
-> > > > -       uint32_t val;
-> > > > -
-> > > > -       mutex_lock(&adev->grbm_idx_mutex);
-> > > > -       if (se_num !=3D 0xffffffff || sh_num !=3D 0xffffffff)
-> > > > -               amdgpu_gfx_select_se_sh(adev, se_num, sh_num, 0xfff=
-fffff, 0);
-> > > > -
-> > > > -       val =3D RREG32(reg_offset);
-> > > > -
-> > > > -       if (se_num !=3D 0xffffffff || sh_num !=3D 0xffffffff)
-> > > > -               amdgpu_gfx_select_se_sh(adev, 0xffffffff, 0xfffffff=
-f, 0xffffffff, 0);
-> > > > -       mutex_unlock(&adev->grbm_idx_mutex);
-> > > > -       return val;
-> > > > -}
-> > > >
-> > > >  static uint32_t nv_get_register_value(struct amdgpu_device *adev,
-> > > >                                       bool indexed, u32 se_num,
-> > > >                                       u32 sh_num, u32 reg_offset)
-> > > >  {
-> > > >         if (indexed) {
-> > > > -               return nv_read_indexed_register(adev, se_num, sh_nu=
-m, reg_offset);
-> > > > +               return read_indexed_register(adev, se_num, sh_num, =
-reg_offset);
-> > > >         } else {
-> > > >                 if (reg_offset =3D=3D SOC15_REG_OFFSET(GC, 0, mmGB_=
-ADDR_CONFIG))
-> > > >                         return adev->gfx.config.gb_addr_config;
-> > > > @@ -511,16 +496,6 @@ static int nv_set_vce_clocks(struct amdgpu_dev=
-ice *adev, u32 evclk, u32 ecclk)
-> > > >         return 0;
-> > > >  }
-> > > >
-> > > > -static void nv_program_aspm(struct amdgpu_device *adev)
-> > > > -{
-> > > > -       if (!amdgpu_device_should_use_aspm(adev))
-> > > > -               return;
-> > > > -
-> > > > -       if (adev->nbio.funcs->program_aspm)
-> > > > -               adev->nbio.funcs->program_aspm(adev);
-> > > > -
-> > > > -}
-> > > > -
-> > > >  const struct amdgpu_ip_block_version nv_common_ip_block =3D {
-> > > >         .type =3D AMD_IP_BLOCK_TYPE_COMMON,
-> > > >         .major =3D 1,
-> > > > @@ -965,12 +940,7 @@ static int nv_common_late_init(struct amdgpu_i=
-p_block *ip_block)
-> > > >
-> > > >  static int nv_common_sw_init(struct amdgpu_ip_block *ip_block)
-> > > >  {
-> > > > -       struct amdgpu_device *adev =3D ip_block->adev;
-> > > > -
-> > > > -       if (amdgpu_sriov_vf(adev))
-> > > > -               xgpu_nv_mailbox_add_irq_id(adev);
-> > > > -
-> > > > -       return 0;
-> > > > +       return common_sw_init(ip_block);
-> > > >  }
-> > > >
-> > > >  static int nv_common_hw_init(struct amdgpu_ip_block *ip_block)
-> > > > @@ -984,7 +954,7 @@ static int nv_common_hw_init(struct amdgpu_ip_b=
-lock *ip_block)
-> > > >                 adev->nbio.funcs->apply_l1_link_width_reconfig_wa(a=
-dev);
-> > > >
-> > > >         /* enable aspm */
-> > > > -       nv_program_aspm(adev);
-> > > > +       program_aspm(adev);
-> > > >         /* setup nbio registers */
-> > > >         adev->nbio.funcs->init_registers(adev);
-> > > >         /* remap HDP registers to a hole in mmio space,
-> > > > diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c b/drivers/gpu/drm/a=
-md/amdgpu/soc15.c
-> > > > index b456e4541..a6b91363d 100644
-> > > > --- a/drivers/gpu/drm/amd/amdgpu/soc15.c
-> > > > +++ b/drivers/gpu/drm/amd/amdgpu/soc15.c
-> > > > @@ -28,6 +28,7 @@
-> > > >  #include <drm/amdgpu_drm.h>
-> > > >
-> > > >  #include "amdgpu.h"
-> > > > +#include "amdgpu_common.h"
-> > > >  #include "amdgpu_ih.h"
-> > > >  #include "amdgpu_uvd.h"
-> > > >  #include "amdgpu_vce.h"
-> > > > @@ -401,29 +402,12 @@ static struct soc15_allowed_register_entry so=
-c15_allowed_read_registers[] =3D {
-> > > >         { SOC15_REG_ENTRY(GC, 0, mmDB_DEBUG2)},
-> > > >  };
-> > > >
-> > > > -static uint32_t soc15_read_indexed_register(struct amdgpu_device *=
-adev, u32 se_num,
-> > > > -                                        u32 sh_num, u32 reg_offset=
-)
-> > > > -{
-> > > > -       uint32_t val;
-> > > > -
-> > > > -       mutex_lock(&adev->grbm_idx_mutex);
-> > > > -       if (se_num !=3D 0xffffffff || sh_num !=3D 0xffffffff)
-> > > > -               amdgpu_gfx_select_se_sh(adev, se_num, sh_num, 0xfff=
-fffff, 0);
-> > > > -
-> > > > -       val =3D RREG32(reg_offset);
-> > > > -
-> > > > -       if (se_num !=3D 0xffffffff || sh_num !=3D 0xffffffff)
-> > > > -               amdgpu_gfx_select_se_sh(adev, 0xffffffff, 0xfffffff=
-f, 0xffffffff, 0);
-> > > > -       mutex_unlock(&adev->grbm_idx_mutex);
-> > > > -       return val;
-> > > > -}
-> > > > -
-> > > >  static uint32_t soc15_get_register_value(struct amdgpu_device *ade=
-v,
-> > > >                                          bool indexed, u32 se_num,
-> > > >                                          u32 sh_num, u32 reg_offset=
-)
-> > > >  {
-> > > >         if (indexed) {
-> > > > -               return soc15_read_indexed_register(adev, se_num, sh=
-_num, reg_offset);
-> > > > +               return read_indexed_register(adev, se_num, sh_num, =
-reg_offset);
-> > > >         } else {
-> > > >                 if (reg_offset =3D=3D SOC15_REG_OFFSET(GC, 0, mmGB_=
-ADDR_CONFIG))
-> > > >                         return adev->gfx.config.gb_addr_config;
-> > > > @@ -695,15 +679,6 @@ static int soc15_set_vce_clocks(struct amdgpu_=
-device *adev, u32 evclk, u32 ecclk
-> > > >         return 0;
-> > > >  }
-> > > >
-> > > > -static void soc15_program_aspm(struct amdgpu_device *adev)
-> > > > -{
-> > > > -       if (!amdgpu_device_should_use_aspm(adev))
-> > > > -               return;
-> > > > -
-> > > > -       if (adev->nbio.funcs->program_aspm)
-> > > > -               adev->nbio.funcs->program_aspm(adev);
-> > > > -}
-> > > > -
-> > > >  const struct amdgpu_ip_block_version vega10_common_ip_block =3D
-> > > >  {
-> > > >         .type =3D AMD_IP_BLOCK_TYPE_COMMON,
-> > > > @@ -1284,7 +1259,7 @@ static int soc15_common_hw_init(struct amdgpu=
-_ip_block *ip_block)
-> > > >         struct amdgpu_device *adev =3D ip_block->adev;
-> > > >
-> > > >         /* enable aspm */
-> > > > -       soc15_program_aspm(adev);
-> > > > +       program_aspm(adev);
-> > > >         /* setup nbio registers */
-> > > >         adev->nbio.funcs->init_registers(adev);
-> > > >         /* remap HDP registers to a hole in mmio space,
-> > > > diff --git a/drivers/gpu/drm/amd/amdgpu/soc21.c b/drivers/gpu/drm/a=
-md/amdgpu/soc21.c
-> > > > index fbd1d97f3..586d62202 100644
-> > > > --- a/drivers/gpu/drm/amd/amdgpu/soc21.c
-> > > > +++ b/drivers/gpu/drm/amd/amdgpu/soc21.c
-> > > > @@ -27,6 +27,7 @@
-> > > >
-> > > >  #include "amdgpu.h"
-> > > >  #include "amdgpu_atombios.h"
-> > > > +#include "amdgpu_common.h"
-> > > >  #include "amdgpu_ih.h"
-> > > >  #include "amdgpu_uvd.h"
-> > > >  #include "amdgpu_vce.h"
-> > > > @@ -306,29 +307,12 @@ static struct soc15_allowed_register_entry so=
-c21_allowed_read_registers[] =3D {
-> > > >         { SOC15_REG_ENTRY(GC, 0, regGB_ADDR_CONFIG)},
-> > > >  };
-> > > >
-> > > > -static uint32_t soc21_read_indexed_register(struct amdgpu_device *=
-adev, u32 se_num,
-> > > > -                                        u32 sh_num, u32 reg_offset=
-)
-> > > > -{
-> > > > -       uint32_t val;
-> > > > -
-> > > > -       mutex_lock(&adev->grbm_idx_mutex);
-> > > > -       if (se_num !=3D 0xffffffff || sh_num !=3D 0xffffffff)
-> > > > -               amdgpu_gfx_select_se_sh(adev, se_num, sh_num, 0xfff=
-fffff, 0);
-> > > > -
-> > > > -       val =3D RREG32(reg_offset);
-> > > > -
-> > > > -       if (se_num !=3D 0xffffffff || sh_num !=3D 0xffffffff)
-> > > > -               amdgpu_gfx_select_se_sh(adev, 0xffffffff, 0xfffffff=
-f, 0xffffffff, 0);
-> > > > -       mutex_unlock(&adev->grbm_idx_mutex);
-> > > > -       return val;
-> > > > -}
-> > > > -
-> > > >  static uint32_t soc21_get_register_value(struct amdgpu_device *ade=
-v,
-> > > >                                       bool indexed, u32 se_num,
-> > > >                                       u32 sh_num, u32 reg_offset)
-> > > >  {
-> > > >         if (indexed) {
-> > > > -               return soc21_read_indexed_register(adev, se_num, sh=
-_num, reg_offset);
-> > > > +               return read_indexed_register(adev, se_num, sh_num, =
-reg_offset);
-> > > >         } else {
-> > > >                 if (reg_offset =3D=3D SOC15_REG_OFFSET(GC, 0, regGB=
-_ADDR_CONFIG) && adev->gfx.config.gb_addr_config)
-> > > >                         return adev->gfx.config.gb_addr_config;
-> > > > @@ -470,15 +454,6 @@ static int soc21_set_vce_clocks(struct amdgpu_=
-device *adev, u32 evclk, u32 ecclk
-> > > >         return 0;
-> > > >  }
-> > > >
-> > > > -static void soc21_program_aspm(struct amdgpu_device *adev)
-> > > > -{
-> > > > -       if (!amdgpu_device_should_use_aspm(adev))
-> > > > -               return;
-> > > > -
-> > > > -       if (adev->nbio.funcs->program_aspm)
-> > > > -               adev->nbio.funcs->program_aspm(adev);
-> > > > -}
-> > > > -
-> > > >  const struct amdgpu_ip_block_version soc21_common_ip_block =3D {
-> > > >         .type =3D AMD_IP_BLOCK_TYPE_COMMON,
-> > > >         .major =3D 1,
-> > > > @@ -912,12 +887,7 @@ static int soc21_common_late_init(struct amdgp=
-u_ip_block *ip_block)
-> > > >
-> > > >  static int soc21_common_sw_init(struct amdgpu_ip_block *ip_block)
-> > > >  {
-> > > > -       struct amdgpu_device *adev =3D ip_block->adev;
-> > > > -
-> > > > -       if (amdgpu_sriov_vf(adev))
-> > > > -               xgpu_nv_mailbox_add_irq_id(adev);
-> > > > -
-> > > > -       return 0;
-> > > > +       return common_sw_init(ip_block);
-> > > >  }
-> > > >
-> > > >  static int soc21_common_hw_init(struct amdgpu_ip_block *ip_block)
-> > > > @@ -925,7 +895,7 @@ static int soc21_common_hw_init(struct amdgpu_i=
-p_block *ip_block)
-> > > >         struct amdgpu_device *adev =3D ip_block->adev;
-> > > >
-> > > >         /* enable aspm */
-> > > > -       soc21_program_aspm(adev);
-> > > > +       program_aspm(adev);
-> > > >         /* setup nbio registers */
-> > > >         adev->nbio.funcs->init_registers(adev);
-> > > >         /* remap HDP registers to a hole in mmio space,
-> > > > diff --git a/drivers/gpu/drm/amd/amdgpu/soc24.c b/drivers/gpu/drm/a=
-md/amdgpu/soc24.c
-> > > > index d1adf19a5..f9341c0e4 100644
-> > > > --- a/drivers/gpu/drm/amd/amdgpu/soc24.c
-> > > > +++ b/drivers/gpu/drm/amd/amdgpu/soc24.c
-> > > > @@ -26,6 +26,7 @@
-> > > >  #include <linux/pci.h>
-> > > >
-> > > >  #include "amdgpu.h"
-> > > > +#include "amdgpu_common.h"
-> > > >  #include "amdgpu_ih.h"
-> > > >  #include "amdgpu_uvd.h"
-> > > >  #include "amdgpu_vce.h"
-> > > > @@ -132,31 +133,12 @@ static struct soc15_allowed_register_entry so=
-c24_allowed_read_registers[] =3D {
-> > > >         { SOC15_REG_ENTRY(GC, 0, regGB_ADDR_CONFIG)},
-> > > >  };
-> > > >
-> > > > -static uint32_t soc24_read_indexed_register(struct amdgpu_device *=
-adev,
-> > > > -                                           u32 se_num,
-> > > > -                                           u32 sh_num,
-> > > > -                                           u32 reg_offset)
-> > > > -{
-> > > > -       uint32_t val;
-> > > > -
-> > > > -       mutex_lock(&adev->grbm_idx_mutex);
-> > > > -       if (se_num !=3D 0xffffffff || sh_num !=3D 0xffffffff)
-> > > > -               amdgpu_gfx_select_se_sh(adev, se_num, sh_num, 0xfff=
-fffff, 0);
-> > > > -
-> > > > -       val =3D RREG32(reg_offset);
-> > > > -
-> > > > -       if (se_num !=3D 0xffffffff || sh_num !=3D 0xffffffff)
-> > > > -               amdgpu_gfx_select_se_sh(adev, 0xffffffff, 0xfffffff=
-f, 0xffffffff, 0);
-> > > > -       mutex_unlock(&adev->grbm_idx_mutex);
-> > > > -       return val;
-> > > > -}
-> > > > -
-> > > >  static uint32_t soc24_get_register_value(struct amdgpu_device *ade=
-v,
-> > > >                                          bool indexed, u32 se_num,
-> > > >                                          u32 sh_num, u32 reg_offset=
-)
-> > > >  {
-> > > >         if (indexed) {
-> > > > -               return soc24_read_indexed_register(adev, se_num, sh=
-_num, reg_offset);
-> > > > +               return read_indexed_register(adev, se_num, sh_num, =
-reg_offset);
-> > > >         } else {
-> > > >                 if (reg_offset =3D=3D SOC15_REG_OFFSET(GC, 0, regGB=
-_ADDR_CONFIG) &&
-> > > >                     adev->gfx.config.gb_addr_config)
-> > > > @@ -455,12 +437,7 @@ static int soc24_common_late_init(struct amdgp=
-u_ip_block *ip_block)
-> > > >
-> > > >  static int soc24_common_sw_init(struct amdgpu_ip_block *ip_block)
-> > > >  {
-> > > > -       struct amdgpu_device *adev =3D ip_block->adev;
-> > > > -
-> > > > -       if (amdgpu_sriov_vf(adev))
-> > > > -               xgpu_nv_mailbox_add_irq_id(adev);
-> > > > -
-> > > > -       return 0;
-> > > > +       return common_sw_init(ip_block);
-> > > >  }
-> > > >
-> > > >  static int soc24_common_hw_init(struct amdgpu_ip_block *ip_block)
-> > > > diff --git a/drivers/gpu/drm/amd/amdgpu/soc_v1_0.c b/drivers/gpu/dr=
-m/amd/amdgpu/soc_v1_0.c
-> > > > index 709b1669b..2f77fb0b6 100644
-> > > > --- a/drivers/gpu/drm/amd/amdgpu/soc_v1_0.c
-> > > > +++ b/drivers/gpu/drm/amd/amdgpu/soc_v1_0.c
-> > > > @@ -21,6 +21,7 @@
-> > > >   *
-> > > >   */
-> > > >  #include "amdgpu.h"
-> > > > +#include "amdgpu_common.h"
-> > > >  #include "soc15.h"
-> > > >  #include "soc15_common.h"
-> > > >  #include "soc_v1_0.h"
-> > > > @@ -184,31 +185,13 @@ static struct soc15_allowed_register_entry so=
-c_v1_0_allowed_read_registers[] =3D {
-> > > >         { SOC15_REG_ENTRY(GC, 0, regGB_ADDR_CONFIG_1) },
-> > > >  };
-> > > >
-> > > > -static uint32_t soc_v1_0_read_indexed_register(struct amdgpu_devic=
-e *adev,
-> > > > -                                              u32 se_num,
-> > > > -                                              u32 sh_num,
-> > > > -                                              u32 reg_offset)
-> > > > -{
-> > > > -       uint32_t val;
-> > > > -
-> > > > -       mutex_lock(&adev->grbm_idx_mutex);
-> > > > -       if (se_num !=3D 0xffffffff || sh_num !=3D 0xffffffff)
-> > > > -               amdgpu_gfx_select_se_sh(adev, se_num, sh_num, 0xfff=
-fffff, 0);
-> > > > -
-> > > > -       val =3D RREG32(reg_offset);
-> > > > -
-> > > > -       if (se_num !=3D 0xffffffff || sh_num !=3D 0xffffffff)
-> > > > -               amdgpu_gfx_select_se_sh(adev, 0xffffffff, 0xfffffff=
-f, 0xffffffff, 0);
-> > > > -       mutex_unlock(&adev->grbm_idx_mutex);
-> > > > -       return val;
-> > > > -}
-> > > >
-> > > >  static uint32_t soc_v1_0_get_register_value(struct amdgpu_device *=
-adev,
-> > > >                                             bool indexed, u32 se_nu=
-m,
-> > > >                                             u32 sh_num, u32 reg_off=
-set)
-> > > >  {
-> > > >         if (indexed) {
-> > > > -               return soc_v1_0_read_indexed_register(adev, se_num,=
- sh_num, reg_offset);
-> > > > +               return read_indexed_register(adev, se_num, sh_num, =
-reg_offset);
-> > > >         } else {
-> > > >                 if (reg_offset =3D=3D SOC15_REG_OFFSET(GC, 0, regGB=
-_ADDR_CONFIG_1) &&
-> > > >                     adev->gfx.config.gb_addr_config)
-> > > > --
-> > > > 2.43.0
-> > > >
-> > >
+&gt;&gt;&gt;&gt;<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt; The output will be determined by the link bandwidth, display-a=
+dvertised<br>
+&gt;&gt; supported bpc, and userspace-selected &quot;max bpc&quot; on a drm=
+_connector. This<br>
+&gt;&gt; could very well be 10 bpc, 8 bpc, even 6 bpc. Or are you referring=
+ to the<br>
+&gt;&gt; internal DCN HW representation of the values?<br>
+&gt;&gt;<br>
+&gt;&gt; I am indeed.<br>
+&gt;&gt;<br>
+&gt;&gt;&gt; They&#39;re higher, but that&#39;s somewhat irrelevant.<br>
+&gt;&gt;<br>
+&gt;&gt; How so? Surely dithering is applied to those values, not to the or=
+iginal<br>
+&gt;&gt; values sampled from the framebuffer.<br>
+&gt;&gt;<br>
+&gt;&gt;<br>
+&gt;&gt; --<br>
+&gt;&gt; Earthling Michel D=C3=A4nzer=C2=A0 =C2=A0 =C2=A0 =C2=A0\=C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 GNOME / Xwayland / Mesa developer<br>
+&gt;&gt; <a href=3D"https://redhat.com" rel=3D"noreferrer" target=3D"_blank=
+">https://redhat.com</a>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0\=
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0Libre software enthu=
+siast<br>
+&gt;&gt;<br>
+&gt; <br>
+<br>
+</blockquote></div></div>
+
+--0000000000001f0373064e589be7--
