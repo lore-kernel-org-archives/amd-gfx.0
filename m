@@ -4,87 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 74A801061B3C
-	for <amd-gfx@archiver.kernel.org>; Tue, 31 Mar 2026 12:37:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E68441061B3F
+	for <amd-gfx@archiver.kernel.org>; Tue, 31 Mar 2026 12:40:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1C69810EB42;
-	Tue, 31 Mar 2026 12:37:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7D12710E9A0;
+	Tue, 31 Mar 2026 12:40:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="W6R/F94M";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="AZihj9R+";
 	dkim-atps=neutral
-Received: from mail-dl1-f46.google.com (mail-dl1-f46.google.com [74.125.82.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2C73810EB42
- for <amd-gfx@lists.freedesktop.org>; Tue, 31 Mar 2026 12:37:38 +0000 (UTC)
-Received: by mail-dl1-f46.google.com with SMTP id
- a92af1059eb24-124b07e5fe4so225153c88.3
- for <amd-gfx@lists.freedesktop.org>; Tue, 31 Mar 2026 05:37:38 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1774960657; cv=none;
+Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com
+ [74.125.82.177])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EA95F10E9A0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 31 Mar 2026 12:40:04 +0000 (UTC)
+Received: by mail-dy1-f177.google.com with SMTP id
+ 5a478bee46e88-2c16cdf31cdso272980eec.3
+ for <amd-gfx@lists.freedesktop.org>; Tue, 31 Mar 2026 05:40:04 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1774960804; cv=none;
  d=google.com; s=arc-20240605;
- b=bMjwwbnBWDXK0XPJG3z5po81esMFaXE40lBglxKHYHIGN5dNTvLWE+TsSn7IYuN3Ek
- 70RAcXpO6oAL+CO0InVA7kl/9qUjxkHpX74r9NbcutPM3wpedhr2Y4ebdxZp2a0HmIJU
- VJDQSXkjma41nVc9Ku9UK/cUnanCKf3pBItwCydgqdsl7EQ9c9FxOdoy+PaCf88Frm69
- UU+zsBzdu1nwbZqka1f5jjnWEWkhR+z3L8NXbBeKV4Vy5f8a+nTYVcHjGngUsH5nNuDI
- tQF7kPDOldzxaKg/qSCbO8vTTGKBIXbaLzoMg8WPeYp7zBNuHtz2q5zAk/MaSW7y+8MW
- /D9w==
+ b=CbQZ9FkcbdK2/MZAHqim2loDyGpD9Ej8dbv5c5VCOfQtQDdkXYIyEAG9XYJFK27WjP
+ LHw9LM0c7QV2Bt/0p7VNztB2cGZADAF9arLtLznZzOPTr5kcMHnULtB15tQijGT/yYyu
+ 54RrwqAaurK96sn+Ezxj2Ve7vxjnNovSWnUU05XYUScVww/0OgQPtvD0yVuhmrpHKXYc
+ U45veFT0NJiMLPet1TdBzFfgbM1AsGk23JZeNK0mBcayLjmLKzjYDiGEsbIrZ7rmo05v
+ WkNxHQXlZmTJunV1t2KZeepRdwPwWsxaYsDusTDXQkyX+FRR/QFg87Asc3NOXK7unq+J
+ koVQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20240605; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=4C+Ul1GqSNalNB48YgTTF7tXu4Vu4jEdzLR3XqrukB4=;
- fh=UXReYgOH978Q8YRGufbWWMgVMgvD+MB3VBXBHmVssj8=;
- b=X3kMZaS+X0+4wJM/ljsI5jzK0s1+V/Y9FHV0RKKB5N4SRqY8rY8d0eNUSHA4DKuMi9
- pi5CFRFHGWYBOXFAdaqpjhFniGu6cCGRTFBAzAdfOzBy+Qs+8+p9Nf29rvqwwqUltvvl
- Q7Isx9fqUW0VEbRPfwxFU4q2zb9i62SMa2CFO1t90BjLWHRH/pL+X1QmihoCDcw2FHbp
- psozu8DNMvtpPnmt7ZQvF/KQ2+zigIXo7PugpUTjMD2eEy+YI5FgRHqcESGTHoJyzMRf
- PHQsJsREmYz71peHSiuhwKbQL4XLPKzD93mKMNxcc//SaCFs296BFlWDw4TSJScY1mad
- bUqg==; darn=lists.freedesktop.org
+ bh=VNsJQ0GRFHHy1GGhfQvGM8i595DBBTL6sH/+Ub/sdjc=;
+ fh=sEMd3FpKKna/lfzTGdLllHN8Y5csUeypNnntGll0Pag=;
+ b=i/4EnQ3kJL7kdAw6C/26SW7z9c116X4HF9X+2lzry2RYbqs5rd+ZLh+Emj8msrFnLQ
+ hDHFYkKGqCJXI5lqduG8rIhZLonP5eovalm9Y4RsyW4LUpoR/MmyEBDJp5ceuL5uSOIq
+ bKg9/CRQ9CctiHkIlXNoOVS4Jf/sphJ/bl3ZlDjkez0y41q03tU8nVYDtScVPUrkdd0p
+ ISt31nq9x7jPJi8DDFema1DyoE2l9AX1v0mhJzycpvrv95G4OxdOcoapNsJzevbKECMv
+ zewkpo7KtX/g8gF9RffGVVzysTK7Nobc/VlwrLj6cLFKNw0UBA27J7+dTkmubcR9QCRI
+ 4Pqw==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1774960657; x=1775565457; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1774960804; x=1775565604; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=4C+Ul1GqSNalNB48YgTTF7tXu4Vu4jEdzLR3XqrukB4=;
- b=W6R/F94MpyudPlfMNIOclxnfEfnjOM8PVntvNMmV2GFY+Q0Wg6NxiHs+XcyhQ1quvY
- JLFPw0KE6Ig9Oo4gfDDup3YQHuZ9LfMb8LuiAY66iVBWEs4Ma0ReG7Vgb8ZRAfzZdYdT
- zA6ilPyzVq6wmJaxsrQhYrMNObPjs4VqAk4g4GVcE0PhccFyGQlFPEwwem5IKc+0pS4r
- 0/Bgq4gn8p3Yb3BCke2Qo+EjI23WUg0BLgwhRe16J9isVwaX7ZKb9wsakZ46GP5sR0QY
- ml4WE3Pz50Va9WhX9SROTCz6Z9uwqusm2z4AGpxeEg0/CQeg9Z9OG07xFK1cETGZwyWf
- wXGg==
+ bh=VNsJQ0GRFHHy1GGhfQvGM8i595DBBTL6sH/+Ub/sdjc=;
+ b=AZihj9R+5RYJUoCRXIuQJK86mycq5pWKd7UE1wWBmtS0H0R4UyKWg1a+oryTrrPGqx
+ W4WpRCngqsxyVUdztpPu++XlQJRJWkqkUGAtzkm3Z83579QiNSwDH73TgwzV3zDe6/9/
+ pY7ELVaUfl1be+Q+3lAaqPTmNLXdVpxQub/Rx6IXQXXRUa4SFcNBcSPW+JJMgor1ANHz
+ Neigjupv/67be1nFUe82nDJJDuMPRKuj0idGE0GmIaqX9G8w8gwUM1psSD1h8xeImQ0V
+ /MS9tiJh+Lskbd00mzZ9s0H7vEiJFfAERWxfgRUfaz15bgeHzy0MlQ1Nn+/Y0qNB+xlF
+ 0XWg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774960657; x=1775565457;
+ d=1e100.net; s=20251104; t=1774960804; x=1775565604;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=4C+Ul1GqSNalNB48YgTTF7tXu4Vu4jEdzLR3XqrukB4=;
- b=cfb+PwpX4ee0gIH34130Qse5B/KewcLlTWu91LVxZormDfAEZysJjXj7D8Z7Wf6s9+
- Kj5gB/8yMpM4BdFT3MNnOqOJe1hzfoEkiLbUn/VZGmujmkMQjV1EDviTMgCS7c2dVdAk
- Kty9a5+JxHQMRj9z4ZwwpYrcwpX5PDTiSbhT4tBP00ledeveF7hqIaXepS5GE3+Tatl7
- lSuyBX58UZSIFKX9LXyCzkA6K6hdxhGAglXRM5NlNeVKGd5IBUfok2bM3qfctZThi08T
- Rhzy4YQappXmT32dt+At4pPg130Es1Tweks1iSuit2QkUKL5byRNXjqTH7wQ0jHpZnbM
- xPbA==
-X-Gm-Message-State: AOJu0YwDLgFIzcEhitzqSDiFz68wwqvRHGjevyYgk4eGUnFYhAkvtpS9
- WQMPP1UgiomOBVlyYzK+CTkhCbVcUtvQ5Ra6yIYa9Z8tAcikw33j88rcwXc6xjnUfCqJFc8fzjy
- WZtHSNO0/O1CVjz7p8f0Ym4L+9qls1rs=
-X-Gm-Gg: ATEYQzwh5zpF1s/MK4DPL/mjr2SC87Sxn28YpN76jKAwPESqg9HFaq3Lq9NNk4ykWy5
- HV5/aEW+KY5NmhP4SqKq8CSpz/iyMorsFCUwmri+6BlRtyergXvLaYESnILb9hW5W4FvciKFybJ
- RX2/wDTwm6O2xSmU1k35/PTqTrdmIUhkA8EzaycnmwZuWLyXiidzC0Vmos1jEIzS0HSVmB6+gPx
- Borj+dOxqvcs7ifBW8PqVtSXmbaRDyhOt6N28vl1z8NT0xlefp5ZKpV/Dr7k/w/4Y9X66KvyN6n
- OqMbuwZdc7wl4iu3eBZEVMG3WRzfvooASDFo7NozWOjZ7LikaTqxcB1lUo7vxzEv8kBgBQ==
-X-Received: by 2002:a05:7022:eacd:b0:122:8d:39d8 with SMTP id
- a92af1059eb24-12ab28fa252mr4008495c88.6.1774960657194; Tue, 31 Mar 2026
- 05:37:37 -0700 (PDT)
+ bh=VNsJQ0GRFHHy1GGhfQvGM8i595DBBTL6sH/+Ub/sdjc=;
+ b=EBQKk7rxrM8jaZifbu+WwcAV0mRYJoU3xpAVNtOsJrSmYnpy4Wm2gaO6hkJJoCyotZ
+ ybUzZLq0uwbFundsUlbJ93AyxNo86WM4brzuItBHYHJaBJgu1Wrz2IWmADUeAv5JA9Wd
+ ew2d7WY9D5uTacHtXJV+ar4Ej3jYQX/5swrKn/Lb+Hdnl3Mjdlp2+/NjMcj+RrjVZIey
+ 3UO2nkUS8kx1f1ZZ7EM68YD4scGQ/imKomV8RhxPdMTgi/sx/lFU8/B1QNSwiWsmz2xZ
+ qbxDBXV1rKiQ1Mgd1VXAiTt7PT3pH+Tap00Ab85veLFptnMA5okvp8zqXjKB/uVWwHx4
+ STpg==
+X-Gm-Message-State: AOJu0YwNwh8AE5HCYFWLiVWFzvbIjBai5bHwNdjfMN5ZGsCixOA/vyLZ
+ 9Pejowr/5hd9ZUxMDf8MAGpILdRxPA/KNMS4BR3Lry9SblbNTbUk6QaL7Xkj2MOCvq/doWWNRqL
+ UczgYuy9GOUKytME5cWrBpYFgJLGbXaA=
+X-Gm-Gg: ATEYQzz6Fm5HXl77Es3TiU44aYr+BkN88ISKyFfG9CVODkmE9RGXw2273XOBpajUCRy
+ MAirtFPdnfs91wAJcCRHsoZkx/5JjH7wr4o2djtJ8IrYJezn9WspxowIjhpxX33cq9ezN1ofe24
+ eVZZSZuXx9I6sMwBFuGfdOFZo1ZvXrWPztDqS4zXU1hxFoW5QzEiamICYSOTnsnkAxFM1zYTBQ9
+ fcXLbJUD+ee+g+XLj5IQwkh28FILh6kQDYt6RTuDNRSNzqn47nJ/KbKn6gzCW0uwMWDGUgdvOA6
+ 3SNh6JlxOvtwiKOS/D13jUNL/hfJfASkcpqLp8vf7S7WZYyYrZ/V57ZAIo7CGECO5YPcJQ==
+X-Received: by 2002:a05:7022:305:b0:119:e56b:c3f1 with SMTP id
+ a92af1059eb24-12ab2850cffmr4539106c88.1.1774960804004; Tue, 31 Mar 2026
+ 05:40:04 -0700 (PDT)
 MIME-Version: 1.0
-References: <20260330222414.219436-1-David.Wu3@amd.com>
-In-Reply-To: <20260330222414.219436-1-David.Wu3@amd.com>
+References: <20260326213751.5741-1-vitaly.prosyak@amd.com>
+In-Reply-To: <20260326213751.5741-1-vitaly.prosyak@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 31 Mar 2026 08:37:25 -0400
-X-Gm-Features: AQROBzB_d4G58mD7MA8yr8-juQsMW-81aHNZ_k0Ykufq8LeAResar2oBlq29Or8
-Message-ID: <CADnq5_MOaa72pyhwKBPQgp4F+Ld9HjpGgxgTLKX5cdjzRWvk7Q@mail.gmail.com>
-Subject: Re: [PATCH] amdgpu/jpeg: fix deepsleep register for jpeg 5_0_0 and
- 5_0_2
-To: "David (Ming Qiang) Wu" <David.Wu3@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com, leo.liu@amd.com
+Date: Tue, 31 Mar 2026 08:39:51 -0400
+X-Gm-Features: AQROBzD4ykCYbuGdU9DDPdme5T1lBET4cIHiQ8MXBsOzVv_DK1tw3XFqWtG0yn8
+Message-ID: <CADnq5_OKmos-sR=S-52eV_cRh8ECX3NvNVzHTCtryu-TC44ndA@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: add CONFIG_GCOV_PROFILE_AMDGPU Kconfig option
+To: vitaly.prosyak@amd.com
+Cc: amd-gfx@lists.freedesktop.org, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Alex Deucher <alexander.deucher@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -101,91 +103,77 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Mar 30, 2026 at 7:34=E2=80=AFPM David (Ming Qiang) Wu <David.Wu3@am=
-d.com> wrote:
+On Thu, Mar 26, 2026 at 5:44=E2=80=AFPM <vitaly.prosyak@amd.com> wrote:
 >
-> PCTL0__MMHUB_DEEPSLEEP_IB is 0x69004 on MMHUB 4,1,0 and
-> and 0x60804 on MMHUB 4,2,0. 0x62a04 is on MMHUB 1,8,0/1.
+> From: Vitaly Prosyak <vitaly.prosyak@amd.com>
 >
-> If deepsleep is working then the MMHUB clock will run slower
-> while idle but speed up once anything happens, so some operations
-> might take a little longer to get started.
+> Add a Kconfig option to enable GCOV code coverage profiling for the
+> amdgpu driver, following the established upstream pattern used by
+> CONFIG_GCOV_PROFILE_FTRACE (kernel/trace), CONFIG_GCOV_PROFILE_RDS
+> (net/rds), and CONFIG_GCOV_PROFILE_URING (io_uring).
 >
-> Based on the logic above and tested on RX9070.
-> 1 with 0x69004 set 0x80004000 at start, 0x4000 at end
-> 2 with 0x69004 set 0x4000 always at start and end
-> 3 with 0x62a04 in case 1
+> This allows CI systems to enable amdgpu code coverage entirely via
+> .config (e.g., scripts/config --enable GCOV_PROFILE_AMDGPU) without
+> manually editing the amdgpu Makefile. The option depends on both
+> DRM_AMDGPU and GCOV_KERNEL, defaults to n, and is therefore never
+> enabled in production or distro builds.
 >
-> results:
->  - case 1 shows the best startup performance. speed=3D9.8x
->  - case 2 shows the worst startup performance. speed=3D7.5x
->  - case 3 is a little bit better than case 2 at startup. speed=3D7.7x
-> This clearly indicates the case 1 is correct.
->
-> Signed-off-by: David (Ming Qiang) Wu <David.Wu3@amd.com>
+> Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
+> Cc: Alex Deucher <alexander.deucher@amd.com>
+> Signed-off-by: Vitaly Prosyak <vitaly.prosyak@amd.com>
 
 Acked-by: Alex Deucher <alexander.deucher@amd.com>
 
 > ---
->  drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c | 28 ++++++++++++++++++++++--
->  1 file changed, 26 insertions(+), 2 deletions(-)
+>  drivers/gpu/drm/amd/amdgpu/Kconfig  | 17 +++++++++++++++++
+>  drivers/gpu/drm/amd/amdgpu/Makefile |  4 ++++
+>  2 files changed, 21 insertions(+)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c b/drivers/gpu/drm/a=
-md/amdgpu/jpeg_v4_0_3.c
-> index 4b4aa9553624..03883b3b5670 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c
-> @@ -739,7 +739,19 @@ void jpeg_v4_0_3_dec_ring_insert_start(struct amdgpu=
-_ring *ring)
->         if (!amdgpu_sriov_vf(ring->adev)) {
->                 amdgpu_ring_write(ring, PACKETJ(regUVD_JRBC_EXTERNAL_REG_=
-INTERNAL_OFFSET,
->                         0, 0, PACKETJ_TYPE0));
-> -               amdgpu_ring_write(ring, 0x62a04); /* PCTL0_MMHUB_DEEPSLEE=
-P_IB */
+> diff --git a/drivers/gpu/drm/amd/amdgpu/Kconfig b/drivers/gpu/drm/amd/amd=
+gpu/Kconfig
+> index 7f515be5185d..7fb0b93bc1ca 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/Kconfig
+> +++ b/drivers/gpu/drm/amd/amdgpu/Kconfig
+> @@ -103,6 +103,23 @@ config DRM_AMDGPU_WERROR
+>           Add -Werror to the build flags for amdgpu.ko.
+>           Only enable this if you are warning code for amdgpu.ko.
+>
 > +
-> +               /* PCTL0__MMHUB_DEEPSLEEP_IB could be different on differ=
-ent mmhub version */
-> +               switch (amdgpu_ip_version(ring->adev, MMHUB_HWIP, 0)) {
-> +               case IP_VERSION(4, 1, 0):
-> +                       amdgpu_ring_write(ring, 0x69004);
-> +                       break;
-> +               case IP_VERSION(4, 2, 0):
-> +                       amdgpu_ring_write(ring, 0x60804);
-> +                       break;
-> +               default:
-> +                       amdgpu_ring_write(ring, 0x62a04);
-> +                       break;
-> +               }
->
->                 amdgpu_ring_write(ring,
->                                   PACKETJ(JRBC_DEC_EXTERNAL_REG_WRITE_ADD=
-R, 0,
-> @@ -760,7 +772,19 @@ void jpeg_v4_0_3_dec_ring_insert_end(struct amdgpu_r=
-ing *ring)
->         if (!amdgpu_sriov_vf(ring->adev)) {
->                 amdgpu_ring_write(ring, PACKETJ(regUVD_JRBC_EXTERNAL_REG_=
-INTERNAL_OFFSET,
->                         0, 0, PACKETJ_TYPE0));
-> -               amdgpu_ring_write(ring, 0x62a04);
+> +config GCOV_PROFILE_AMDGPU
+> +       bool "Enable GCOV profiling on amdgpu"
+> +       depends on DRM_AMDGPU
+> +       depends on GCOV_KERNEL
+> +       default n
+> +       help
+> +         Enable GCOV profiling on the amdgpu driver for checking which
+> +         functions/lines are executed during testing. This adds compiler
+> +         instrumentation flags to all amdgpu source files, producing
+> +         .gcda/.gcno coverage data accessible via debugfs.
 > +
-> +               /* PCTL0__MMHUB_DEEPSLEEP_IB could be different on differ=
-ent mmhub version */
-> +               switch (amdgpu_ip_version(ring->adev, MMHUB_HWIP, 0)) {
-> +               case IP_VERSION(4, 1, 0):
-> +                       amdgpu_ring_write(ring, 0x69004);
-> +                       break;
-> +               case IP_VERSION(4, 2, 0):
-> +                       amdgpu_ring_write(ring, 0x60804);
-> +                       break;
-> +               default:
-> +                       amdgpu_ring_write(ring, 0x62a04);
-> +                       break;
-> +               }
+> +         This increases the amdgpu module size by ~50% and adds ~2-5%
+> +         runtime overhead on GPU submission paths.
+> +
+> +         If unsure, say N.
+> +
+>  source "drivers/gpu/drm/amd/acp/Kconfig"
+>  source "drivers/gpu/drm/amd/display/Kconfig"
+>  source "drivers/gpu/drm/amd/amdkfd/Kconfig"
+> diff --git a/drivers/gpu/drm/amd/amdgpu/Makefile b/drivers/gpu/drm/amd/am=
+dgpu/Makefile
+> index 6a7e9bfec59e..db66c6372199 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/Makefile
+> +++ b/drivers/gpu/drm/amd/amdgpu/Makefile
+> @@ -27,6 +27,10 @@ FULL_AMD_PATH=3D$(src)/..
+>  DISPLAY_FOLDER_NAME=3Ddisplay
+>  FULL_AMD_DISPLAY_PATH =3D $(FULL_AMD_PATH)/$(DISPLAY_FOLDER_NAME)
 >
->                 amdgpu_ring_write(ring,
->                                   PACKETJ(JRBC_DEC_EXTERNAL_REG_WRITE_ADD=
-R, 0,
+> +ifdef CONFIG_GCOV_PROFILE_AMDGPU
+> +GCOV_PROFILE :=3D y
+> +endif
+> +
+>  ccflags-y :=3D -I$(FULL_AMD_PATH)/include/asic_reg \
+>         -I$(FULL_AMD_PATH)/include \
+>         -I$(FULL_AMD_PATH)/amdgpu \
 > --
 > 2.43.0
 >
