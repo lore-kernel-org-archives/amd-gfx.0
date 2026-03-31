@@ -4,146 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E0C2D10FCAE4
-	for <amd-gfx@archiver.kernel.org>; Wed,  1 Apr 2026 18:19:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 95FCE10FCACA
+	for <amd-gfx@archiver.kernel.org>; Wed,  1 Apr 2026 18:19:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AA83810EEDF;
-	Wed,  1 Apr 2026 18:19:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A445B10E292;
+	Wed,  1 Apr 2026 18:19:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="V6whOd3l";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="emxMwI0+";
 	dkim-atps=neutral
-Received: from DM1PR04CU001.outbound.protection.outlook.com
- (mail-centralusazon11010046.outbound.protection.outlook.com [52.101.61.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7F67F10EBC6;
- Tue, 31 Mar 2026 21:21:36 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=yG/2G/FmG6tDPcvYIHTV0N0SvZFb9vYOv0aot6HLKrxGTzPQDfj3nUIUFmu1G24+YT/udDRNrsw4ilYJCTp8TnDSgzFQ4/SCXHmmhTIg1ICgKl7LTRZei1RHuxAXzF1RyYCOmLmgZyi6lA+e/Qu0AM+wvehMzvd9RcpoLbEu4EK/aLDmy9T0CHiSvmBoYg+JRzp9ldAy2nUyz1vis6/aJG+U1Tfi8SJMZ53vwNh9DXNUQuyb6OpaWHQ+71x/4M2gOwDEnkfbQeqFk812O98W5ZbaE2fb7p5t+GU6YfxvFFwC4DQ7EWgz4NQdP7Le0wsiHa0wAhdJ4IakX8fCQmXhdw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=s7oMyTv2thW5qZDQHheeqtiDjvwyPdCdvGO9nUOoIm4=;
- b=w3JB3jdXASH1SrVaFoD3XAEP6a25nde+31luVoEc1Ne/E4asoviI973wsZVAlbh5YrmFEBX2mV0As7U5EwIFePnM3y8Km0tkmEn2CfP8V9Cap2mC+dAoPJebvP6agAtwINsRZT8TScO8YEAPunZWjiLLWpfmPeea+6/aeNZzzYsSGf6ieFm8y2xvBaeSu7y8KFjMv/VCrfnyXvm0CZFwKJly/XxlCi4G4PvTj7KSBSQwFQCNzLEuu3J53QgTSLAFDlqoHrdQO0E6jUl41sDQdPk7BUev+jTwniW+XQ8b2+EUaF1ZsKMuf47JqTTl/OtQUruJSAwEhCEQRa/AdXZOhQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=s7oMyTv2thW5qZDQHheeqtiDjvwyPdCdvGO9nUOoIm4=;
- b=V6whOd3l8yJvhPcj2/MfzSoCJnW45WK3cmCgJmShNmynqst2/ysC0+ORZ+LKMH8FZd0yR6ekhgyOfjOBl5vkf6O3GL0U5PdXqMiSASxCq6Feq+LD74bQ4doCTBsxynbx6dD/3AN89bhUh26kKXbenkZrmR4WJHJtIPhWRcFjMXhjJDo7F5yw+F8NnUmOeKS/mh3qPiIDoFQnvJqhWd95NDvjXLUDFa66MuHdU1Qyp6V7EtG8pYg0szF703wZOz1L+ClvWai36YLpDVDZzx4HuAGhiC75JPXEoPNEX7WyIcZ4RsvoPEVq7CfyPRxWriJZVUW2M4JMmr1bwCXfudFSBA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DS0PR12MB6486.namprd12.prod.outlook.com (2603:10b6:8:c5::21) by
- SA3PR12MB8809.namprd12.prod.outlook.com (2603:10b6:806:31f::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.16; Tue, 31 Mar
- 2026 21:21:32 +0000
-Received: from DS0PR12MB6486.namprd12.prod.outlook.com
- ([fe80::88a9:f314:c95f:8b33]) by DS0PR12MB6486.namprd12.prod.outlook.com
- ([fe80::88a9:f314:c95f:8b33%4]) with mapi id 15.20.9769.014; Tue, 31 Mar 2026
- 21:21:32 +0000
-From: Joel Fernandes <joelagnelf@nvidia.com>
-To: linux-kernel@vger.kernel.org
-Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
- Gary Guo <gary@garyguo.net>, Bjorn Roy Baron <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
- Danilo Krummrich <dakr@kernel.org>, Dave Airlie <airlied@redhat.com>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Koen Koning <koen.koning@linux.intel.com>, dri-devel@lists.freedesktop.org,
- rust-for-linux@vger.kernel.org, Nikola Djukic <ndjukic@nvidia.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AA84A10ECEB;
+ Tue, 31 Mar 2026 12:50:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1774961434;
+ bh=oREllgdlfbfpIp5Y6YnMV05PtOcfTYZL5LRm1aMZnDI=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=emxMwI0+fcT/y4EZFCnPVGCvj1eja+fzxtpN7sCK6gRQgj1QV+kXGbGiWJU3w34En
+ XkRFvh5o6YbR7RxW8rMsjcbiLBvtgaRAKlZlvOLG4pHBzrD6L02ct3YHeSoWdCxpb4
+ WebuUHRdetYu7PPqUneG6zbHf2flzW9e2pagywC7VDU3klWxnBUk2kkszHXYMJw45T
+ vGTaxLdG9yo0JgnQr6oaM0L3x3lBD+8OkyMSui5IVLC6WMQ+i6A9WRrC+ZWHy83hBT
+ riS8HysVwVjTtvZaCLj+jJt35Dp9WhXwH3FS2oYs1GBDMusygnD566PeGJ2OeZwW/x
+ eOBbmRZWOPvkQ==
+Received: from fluorite (unknown [194.136.85.206])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256) (No client certificate requested)
+ (Authenticated sender: pq)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 9009717E635E;
+ Tue, 31 Mar 2026 14:50:33 +0200 (CEST)
+Date: Tue, 31 Mar 2026 15:50:28 +0300
+From: Pekka Paalanen <pekka.paalanen@collabora.com>
+To: Harry Wentland <harry.wentland@amd.com>
+Cc: Michel =?UTF-8?B?RMOkbnplcg==?= <michel.daenzer@mailbox.org>, Nicolas
+ Frattaroli <nicolas.frattaroli@collabora.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Jonathan Corbet <corbet@lwn.net>,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian Koenig <christian.koenig@amd.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, Huang Rui <ray.huang@amd.com>,
- Matthew Auld <matthew.auld@intel.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Lucas De Marchi <lucas.demarchi@intel.com>,
- Thomas Hellstrom <thomas.hellstrom@linux.intel.com>,
- Helge Deller <deller@gmx.de>, Alex Gaynor <alex.gaynor@gmail.com>,
- Boqun Feng <boqun.feng@gmail.com>, John Hubbard <jhubbard@nvidia.com>,
- Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
- Edwin Peer <epeer@nvidia.com>, Alexandre Courbot <acourbot@nvidia.com>,
- Andrea Righi <arighi@nvidia.com>, Andy Ritger <aritger@nvidia.com>,
- Zhi Wang <zhiw@nvidia.com>, Balbir Singh <balbirs@nvidia.com>,
- Philipp Stanner <phasta@kernel.org>,
- Elle Rhumsaa <elle@weathered-steel.dev>, alexeyi@nvidia.com,
- Eliot Courtney <ecourtney@nvidia.com>, joel@joelfernandes.org,
- linux-doc@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- linux-fbdev@vger.kernel.org, Joel Fernandes <joelagnelf@nvidia.com>
-Subject: [PATCH v10 14/21] gpu: nova-core: mm: Add Virtual Memory Manager
-Date: Tue, 31 Mar 2026 17:20:41 -0400
-Message-Id: <20260331212048.2229260-15-joelagnelf@nvidia.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260331212048.2229260-1-joelagnelf@nvidia.com>
-References: <20260311004008.2208806-1-joelagnelf@nvidia.com>
- <20260331212048.2229260-1-joelagnelf@nvidia.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: BL1PR13CA0176.namprd13.prod.outlook.com
- (2603:10b6:208:2bd::31) To DS0PR12MB6486.namprd12.prod.outlook.com
- (2603:10b6:8:c5::21)
+ Simona Vetter <simona@ffwll.ch>, Leo Li <sunpeng.li@amd.com>, Rodrigo
+ Siqueira <siqueira@igalia.com>, Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>, Ville
+ =?UTF-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>, Daniel Stone
+ <daniels@collabora.com>, Dmitry Baryshkov
+ <dmitry.baryshkov@oss.qualcomm.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ kernel@collabora.com, Derek Foreman <derek.foreman@collabora.com>, Marius
+ Vlad <marius.vlad@collabora.com>
+Subject: Re: [PATCH v5 0/3] Add "link bpc" DRM property
+Message-ID: <20260331155028.71246d7a@fluorite>
+In-Reply-To: <9d525fe4-b091-4cd9-b977-de19ffe4b957@amd.com>
+References: <20260319-link-bpc-v5-0-5306cd04a708@collabora.com>
+ <4265353.aeNJFYEL58@workhorse>
+ <254c20a4-cce3-4c8e-9902-514586f3e694@mailbox.org>
+ <5416161.aeNJFYEL58@workhorse>
+ <792c4540-d690-4453-a32e-62e23e78d628@mailbox.org>
+ <9d525fe4-b091-4cd9-b977-de19ffe4b957@amd.com>
+X-Mailer: Claws Mail 4.3.1 (GTK 3.24.51; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB6486:EE_|SA3PR12MB8809:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0134912d-79d8-432f-2829-08de8f6b7b13
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|366016|7416014|1800799024|22082099003|56012099003|18002099003;
-X-Microsoft-Antispam-Message-Info: VxSYZuC45k69Sy0AJjKcOaWBCW2ZjtZYE4cDkyyJPOd277B3jami9j6iZMl2YjbgFTUtCSqWC/NI2azASbezZ+yHomERhhCYDY0uvpctdCpB7XpV0xHLWPdHJBrYST2hj37d8d+nkYRUmsRgK5/3FHHY4zCtwgqkq+fafQw/DnKEvUtFGRam4kQbQ+VzeWXY5WTxgfy/mzT4h5YVUP1zlPb/WD8FvqoybmNxcDZwA80y9WeLU7P/vuCYkzQ++z+hx7Ec2pivO7vUJ2uBxnB9hJwzPfMiw3kvUjmh9i4I6fhj/8/NaZUt0gyysbdQ2YRDnaRK0V/TjRTecc8tjUc9F56wXNsuULQj+L/VjZ4RECwfT7ms83XxAqpiefv80lFB3nv22aVBAQDGd7Usq9qNJJwOl5Bllc/VSIGCMiCezdOAp1TGcIOQcM2d3a3X4dsFPnUpW1JaJgg/L8MWDUXMtSFQmBbraFRhLCYgfnn9KMrjmRaEkGkTKy/azXSS11o75chO0Xlg60VYIwkRJ7p0044CIPM3jvrglF00/Y9RU1ULWNyYp4la+yrAzZapo/+/I4Mv8Kf41fiOZ/3QxB+APBpcfNUN8apMjXEkE5XRWUKfLqCZV2v8BXvqBSv4RB/E6Dx9KH0lzepmSdRxNXvJKj9A9kvPrrodfk5NEwdN07/JhzF3VECOt0kSrGp/Hztgv9mh5UD89aC2gXLQnEMyvZ967i2wGYD8UDwdVQefLAg=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS0PR12MB6486.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(7416014)(1800799024)(22082099003)(56012099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?gD4HuxMADtSgf+NX/IENaIPNt+TSwL2BVuKoyt+Wzur091ji5XoYY3AF6JBy?=
- =?us-ascii?Q?kaG932Nd98080FMH+UYB5U+SQP+wyFi2MLvsPnTb1ErtlJItVDuo5w253p8a?=
- =?us-ascii?Q?ZyyDjL2n4B1khdTnAw3iPCwuVkvtgdjEuV3lL2eZ9aN8A3TKed6nr6aaIK8q?=
- =?us-ascii?Q?69bJGhedQbhnXCn3+TbfYCmgDvYydWjOUigOEbAOvPAhBvCZUuDKctq20jum?=
- =?us-ascii?Q?dOxqyHTEjwOjgIfvgaTIRrHGRZoT4FTXIc/3mzhiaRORs8f6eNMKB9zQ0mEb?=
- =?us-ascii?Q?FTDyc+eLes/jpfH88vLRde3ry7/kU9iTg1ANSlFbXpZ6W3ZtSkKFLliTQJ84?=
- =?us-ascii?Q?Ps40uAG0FFGKIQk7/rgD3bQ2VZzB0L9J1RWY2a99wJBEr/t/Tj/kQtWD0r4q?=
- =?us-ascii?Q?OeI5oTfI7aJJSMKJYdApajXkNU88QqZyanYHMOXXHizHgcCC2eR2k9sYfivc?=
- =?us-ascii?Q?jwGlPo7IOb6bkm4LHfD4YqiTY8voPneIWQCHFx52HuXZxLrL3C9YeS/j0xHj?=
- =?us-ascii?Q?Scn6WYuL4J/PsZIqup1UHMUAECHjoqR1Ls4hTmtKSuWEjVNfIRiSvh0c5Hxl?=
- =?us-ascii?Q?0vJ++f+1G8vhRDvt4nlUNKQL4CZweUpaZyNF5ECKsuzBMf/0J5dp8pSbYsoJ?=
- =?us-ascii?Q?/LEOPYhU/nSxj49fgK2LsNQuVmWSOIpGh0sdFGnMwlcPn3bQRBQqhJUyn4as?=
- =?us-ascii?Q?Y+4s3TupBxDaqCXVcZrfw9PfWft5+wBDdl1kXgk0NLvhMYD4MRn7e2IuxEcD?=
- =?us-ascii?Q?5qpSNRLZfuvNWRGnTz7TImAVxZDBEgl/6uDQRWTF1ijuK/XHBiqoYRRcN+2W?=
- =?us-ascii?Q?suF0V231u2/hCBGo+FVae+0Pn5bRKeNOkEoGXjrmGj95tnSBw/uu/INYFioJ?=
- =?us-ascii?Q?Tyb4jmUvZO/RZR26J1KTVsKzEJJmqNkCKCUsWMrXjML10ANjVjp4F5tNnvbR?=
- =?us-ascii?Q?Tu1tbFfPl8hfYL8933LGo1tPYNn7ol7fE/UfyxWAit53RY88Ocl+8M7+f1ub?=
- =?us-ascii?Q?mT6Uneg3BpEx922zHtEHOHQYiFuWjYteLWAeFjFLJ5wSUXFwtPM8JtANKwF6?=
- =?us-ascii?Q?4X7oR2Bk8aVLHxwjw4q6BUx2ENnOqWLxls+J3LPbyWX8Yphhk98YDnKxlTAO?=
- =?us-ascii?Q?GfzRJeJRKVKktCs0yheGLeX0axftXgYehgQRWngBnfEnO2hEpfLKQXUyF5N2?=
- =?us-ascii?Q?O7SZ1TdaAZONV8Kgjq+ee8pbexXiD2dgO1BrPNuTTC6cjhD2K6WRRPy7rvrp?=
- =?us-ascii?Q?7dxAvkkrDHg5i1FQJA82H5UiP788K4SOhlaU2ivNqCy49/g4xCcefGNW7ju3?=
- =?us-ascii?Q?MwCZiIsOxq/DUAepVIyxBN3Mzk4TncDbiJDyDjZOKbTpbtPK64YCFtdNSWjm?=
- =?us-ascii?Q?OtVwe+ZLKz9AkU0OAI+se5TrgpRF+/tU2QvKr+hLSYsw434q4qALJyg7fQwC?=
- =?us-ascii?Q?laAUYA3CPL+5r1IDKd8ybu0tg0HDfwVyZ3UCMuc5dJBobIgZ7I47vf89a0+9?=
- =?us-ascii?Q?JpvIzx5YU82Ri7+kqnG1E96gnRziRYdh9/RP+mJIfTjumuIUONJA/roPYB38?=
- =?us-ascii?Q?jk05bBHKzWBapeycEt1Er1l1+llxcf7MbHf020RYrb2db87JqTH68T4PYZja?=
- =?us-ascii?Q?TuOPZiRJ0ldvzcTZjpUFzonPTamHj6mf3fCwC1fk5W5PuFqqfVRak85ORii6?=
- =?us-ascii?Q?WJsxzuG2T6zick2PYacrRP+OIA62HeFmKZi1JC+5kL1nBf5eGDQozemofdqu?=
- =?us-ascii?Q?cIz7Q2XgrQ=3D=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0134912d-79d8-432f-2829-08de8f6b7b13
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6486.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Mar 2026 21:21:32.3988 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: mWbIRY/niyzwfH5ZPiMsp80TSyLZG13NAHvn+zT6+Cr+PBXEIJp3AcoHjxilgEeMXnt4exk9Z+CWPKBb/Z/JMg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB8809
+Content-Type: multipart/signed; boundary="Sig_/_ERm8b1qVzt21ZDPt=dxNzl";
+ protocol="application/pgp-signature"; micalg=pgp-sha256
 X-Mailman-Approved-At: Wed, 01 Apr 2026 18:19:20 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -159,103 +77,98 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add the Virtual Memory Manager (VMM) infrastructure for GPU address
-space management. Each Vmm instance manages a single address space
-identified by its Page Directory Base (PDB) address, used for Channel,
-BAR1 and BAR2 mappings.
+--Sig_/_ERm8b1qVzt21ZDPt=dxNzl
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-Mapping APIs and virtual address range tracking are added in later
-commits.
+On Mon, 30 Mar 2026 14:52:23 -0400
+Harry Wentland <harry.wentland@amd.com> wrote:
 
-Cc: Nikola Djukic <ndjukic@nvidia.com>
-Signed-off-by: Joel Fernandes <joelagnelf@nvidia.com>
----
- drivers/gpu/nova-core/mm.rs     |  1 +
- drivers/gpu/nova-core/mm/vmm.rs | 63 +++++++++++++++++++++++++++++++++
- 2 files changed, 64 insertions(+)
- create mode 100644 drivers/gpu/nova-core/mm/vmm.rs
+> On 2026-03-30 12:57, Michel D=C3=A4nzer wrote:
+> > On 3/26/26 13:17, Nicolas Frattaroli wrote: =20
+> >> On Tuesday, 24 March 2026 17:44:21 Central European Standard Time you =
+wrote: =20
+> >>> On 3/24/26 16:25, Nicolas Frattaroli wrote: =20
+> >>>> On Monday, 23 March 2026 18:27:41 Central European Standard Time Mic=
+hel D=C3=A4nzer wrote: =20
+> >>>>> On 3/23/26 17:55, Nicolas Frattaroli wrote: =20
+> >>>>>>
+> >>>>>> "Someone might not understand its purpose" is, in my eyes, not a v=
+alid reason to
+> >>>>>> not have this property, [...] =20
+> >>>>> Per my previous posts, that's not my concern. =20
+> >>>>
+> >>>> Then what is your concern? =20
+> >>>
+> >>> Per my previous posts, my concerns are:
+> >>>
+> >>> * The meaning of the "link bpc" property value isn't defined well
+> >>> enough vs things like dithering or DSC, which will likely result in
+> >>> compositors / users overestimating what value they need / want,
+> >>> resulting in compositors spuriously rejecting configurations which=20
+> >>> would work perfectly fine, and/or spurious issue reports. =20
+> >>
+> >> Dithering and DSC are supposed to be transparent, no? =20
+> >=20
+> > Not really, no. They achieve higher "effective" (as perceived by
+> > the user) bpc using a lower physical bpc.
+> >=20
+> >  =20
+> >> If a link bpc is 10 but DSC is on so it's 9 on the wire, it's
+> >> still 10 bits. =20
+> >=20
+> > If DSC encodes user-perceived 10 bpc at a lower physical bpc, and
+> > the "link bpc" property reports 10, that would satisfy my concern
+> > for DSC.=20
+>=20
+> Conceptually I would understand DSC to not effect the reported bpc, so
+> a 10bpc output bpc would be reported as 10bpc via the property, but
+> DSC would compress that down to a lower value on the wire.
+>=20
+> Dithering wouldn't do that. An 8bpc output would be reported as 8bpc
+> even if dithering makes it perceptually look like 10bpc.
 
-diff --git a/drivers/gpu/nova-core/mm.rs b/drivers/gpu/nova-core/mm.rs
-index 151b9add67d8..1594279dea20 100644
---- a/drivers/gpu/nova-core/mm.rs
-+++ b/drivers/gpu/nova-core/mm.rs
-@@ -7,6 +7,7 @@
- pub(crate) mod pagetable;
- pub(crate) mod pramin;
- pub(crate) mod tlb;
-+pub(crate) mod vmm;
- 
- use kernel::{
-     devres::Devres,
-diff --git a/drivers/gpu/nova-core/mm/vmm.rs b/drivers/gpu/nova-core/mm/vmm.rs
-new file mode 100644
-index 000000000000..a22d4c506ea6
---- /dev/null
-+++ b/drivers/gpu/nova-core/mm/vmm.rs
-@@ -0,0 +1,63 @@
-+// SPDX-License-Identifier: GPL-2.0
-+
-+//! Virtual Memory Manager for NVIDIA GPU page table management.
-+//!
-+//! The [`Vmm`] provides high-level page mapping and unmapping operations for GPU
-+//! virtual address spaces (Channels, BAR1, BAR2). It wraps the page table walker
-+//! and handles TLB flushing after modifications.
-+
-+use kernel::{
-+    gpu::buddy::AllocatedBlocks,
-+    prelude::*, //
-+};
-+
-+use crate::mm::{
-+    pagetable::{
-+        walk::{PtWalk, WalkResult},
-+        MmuVersion, //
-+    },
-+    GpuMm,
-+    Pfn,
-+    Vfn,
-+    VramAddress, //
-+};
-+
-+/// Virtual Memory Manager for a GPU address space.
-+///
-+/// Each [`Vmm`] instance manages a single address space identified by its Page
-+/// Directory Base (`PDB`) address. The [`Vmm`] is used for Channel, BAR1 and
-+/// BAR2 mappings.
-+pub(crate) struct Vmm {
-+    /// Page Directory Base address for this address space.
-+    pub(crate) pdb_addr: VramAddress,
-+    /// MMU version used for page table layout.
-+    pub(crate) mmu_version: MmuVersion,
-+    /// Page table allocations required for mappings.
-+    page_table_allocs: KVec<Pin<KBox<AllocatedBlocks>>>,
-+}
-+
-+impl Vmm {
-+    /// Create a new [`Vmm`] for the given Page Directory Base address.
-+    pub(crate) fn new(pdb_addr: VramAddress, mmu_version: MmuVersion) -> Result<Self> {
-+        // Only MMU v2 is supported for now.
-+        if mmu_version != MmuVersion::V2 {
-+            return Err(ENOTSUPP);
-+        }
-+
-+        Ok(Self {
-+            pdb_addr,
-+            mmu_version,
-+            page_table_allocs: KVec::new(),
-+        })
-+    }
-+
-+    /// Read the [`Pfn`] for a mapped [`Vfn`] if one is mapped.
-+    pub(crate) fn read_mapping(&self, mm: &GpuMm, vfn: Vfn) -> Result<Option<Pfn>> {
-+        let walker = PtWalk::new(self.pdb_addr, self.mmu_version);
-+
-+        match walker.walk_to_pte_lookup(mm, vfn)? {
-+            WalkResult::Mapped { pfn, .. } => Ok(Some(pfn)),
-+            WalkResult::Unmapped { .. } | WalkResult::PageTableMissing => Ok(None),
-+        }
-+    }
-+}
--- 
-2.34.1
+That seems quite arbitrary, but ok, that could work.
 
+> I can understand the challenge of how to intelligently use it to
+> report anything back to users. I could see some compositors being happy
+> to use the bpc alone, while others might want to know dithering and/or
+> DSC state (compression ratio?) as well.
+
+People who care about the picture quality down to these levels will
+likely want to know and learn about these techniques. They may also
+want to explicitly control them.
+
+In time, when these have been used enough in the wild, compositor
+developers will learn what makes a difference and what does not, so
+they will adjust their reporting to end users. The most important thing
+for the kernel is it offer an unambiguous and stable UAPI for these.
+
+Policy belongs in userspace.
+
+
+Thanks,
+pq
+
+--Sig_/_ERm8b1qVzt21ZDPt=dxNzl
+Content-Type: application/pgp-signature
+Content-Description: OpenPGP digital signature
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmnLwxQACgkQI1/ltBGq
+qqcVpQ/9EzCUUVoXzoqtv0Te7DymPfdrQ3EYXhTMNbi+Gqgg0X9Q2C4HKh4Gtf9B
+kcKNHHycOOevHJ0tx5mJtWavaIAx/T6T/AozxoJVTLix9iXskVTsvECMzZfkFqdT
+lp6rNk6Tu7qwCk3R2fdO0IF2+YvFo5aMOyrsd3Pp/3QOCJTDUTdY/6Tnpe8xguCV
+0qePOlftVd7nreh0XnxyizcWLfFuCBl7NuiiV2nrdiDyQjXNBNB9V/CQFFrZ61Wu
+tjBXbNH2GZY46pXPKtYNragKtZiKqYVo3Lh8xwMoy6Bu6ZlmcCxPJhEDFiDxnwpS
+oW66reFady2GyaTUaTE6N6Y05YvS0/ncOiP9cnuQCPq0gw92w8p6FH1ZNeg1iZ1Q
+hRfwvNeuFfZQPPhRl72bHOR7zmvIaOSfzOPrhlUz/A3Z6AXmGxgEqqF1AOhg2a5H
+wJ+ZzWdEzNUeYaC81TZZtEY5GpEyj2tMqb3Rqa6QnLHvzjxptTLXq7aQDw1Z2sEI
+OIUdQP2l2l+Q6xY4e5r0sCvqq9WxXGYBzvuQ7/iaBsDzu819LLwcsfDNbL348DiW
+CyHFF3lNyqJczs0hfMnTp1vOQtAfIAjyEuUBGG0I1iZgUg5KnT8ymRdd4yY3TlvE
+1ExoqtbXj9qNMKE6P20XZ4alkDdSoGTxLRBVpQ6JMM+JVbYEjr4=
+=Ijsv
+-----END PGP SIGNATURE-----
+
+--Sig_/_ERm8b1qVzt21ZDPt=dxNzl--
