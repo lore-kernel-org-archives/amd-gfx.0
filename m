@@ -4,76 +4,117 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9CAD4D35176
-	for <amd-gfx@archiver.kernel.org>; Wed,  1 Apr 2026 11:39:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EAF17D35162
+	for <amd-gfx@archiver.kernel.org>; Wed,  1 Apr 2026 11:43:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3CE7F10ED94;
-	Wed,  1 Apr 2026 11:39:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 934A510EF37;
+	Wed,  1 Apr 2026 11:43:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="DKnzZlOO";
+	dkim=pass (2048-bit key; secure) header.d=fooishbar.org header.i=@fooishbar.org header.b="DUoZlh8z";
 	dkim-atps=neutral
-Received: from mail-lf1-f42.google.com (mail-lf1-f42.google.com
- [209.85.167.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 165C310ED94
- for <amd-gfx@lists.freedesktop.org>; Wed,  1 Apr 2026 11:39:17 +0000 (UTC)
-Received: by mail-lf1-f42.google.com with SMTP id
- 2adb3069b0e04-5a1307438ddso7446736e87.1
- for <amd-gfx@lists.freedesktop.org>; Wed, 01 Apr 2026 04:39:16 -0700 (PDT)
+Received: from mail-qv1-f53.google.com (mail-qv1-f53.google.com
+ [209.85.219.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DE9AB10EF37
+ for <amd-gfx@lists.freedesktop.org>; Wed,  1 Apr 2026 11:43:54 +0000 (UTC)
+Received: by mail-qv1-f53.google.com with SMTP id
+ 6a1803df08f44-89fc4147f2eso75554646d6.3
+ for <amd-gfx@lists.freedesktop.org>; Wed, 01 Apr 2026 04:43:54 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1775043834; cv=none;
+ d=google.com; s=arc-20240605;
+ b=EQ8uDPoe7HtjGhn7OnK+icJe6xdq2jEl0C6UvNuzreiTHSHbap5N/bVUaR9YMvKi2L
+ TpIW9Gwpc7Og+aTrZ2yqFP3lD4qT0JzXk8khdRGdJlBg8wcDfjjjoXKtMTRnEjNQX232
+ dfTb+5pqxi6Q3Amyr7sj+7E/iEe+npQAvG2i0/+mUR77pniRW4TofdE4Va/W6gSJU5bZ
+ gTn/BPsbFGGvhryR4wo5qDhoEPvm8fvwhzlWJ/GTH0JnB0mg2SP70UPye+s4Q4zAA9o6
+ aTMGQG8F+oJILEQr/upfLGrAbp3xie3/cUaT3zYUIXEpY/x4szSWFtlwBAuAJqAI280C
+ eDPQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=mSr4C1kBGr9jdXVtih2R82H4XWKW+kzt2DSLVfDJkzU=;
+ fh=KphiYKAwjL0crdr3g0Pt/UY8LOoBi1CO6ZN2t6dsy5w=;
+ b=OWojPLv5BSWKDfcRaJNzvQKdckcoT+oLgmXMEpCMrlOnWN2dB4xYs2KdSeIXVtjeYQ
+ 9it1DUG/yzSDOurrs5OMhUhBLtNucde5lXDOJ9QdC1bjxQKhla1EOvgwwf3jw/aGo0Sb
+ SBlZOCaccp1PylTJ04gqwotZKOjeuOWN6IdGnq1chVtnbgC8N66FYFjnuIIkqp87vYn0
+ HHFQbvrOsTASLMDTJ3y6o4HDawtRCFTsODi9axUOVc3uJlR1ueAK3ymrQLXyuRJiReq8
+ DlPL74wbVtyOITr8M7fZvuMHF0gLL/erAiJUjy64EM2qPZJ/TKfAnhJrJJpngPcrBR1z
+ Pv2A==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1775043555; x=1775648355; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=0KWyoy8ApK6QZuS34HPMQzVVH9UD7v2GU+JsVx6bs/I=;
- b=DKnzZlOOc2rpKdfRS7D0YFdFGEzZYqhLWaCNV+/alu//HACk3P/HpytVtl9JMZR6Ku
- OJtcKCpZPYXewcnYfJQCfC3lMU9YzC905pycLFWuDG+OpJy9cpCZKlwo/h+kscwXWBd3
- 6/anA/ai+3uNC1Uo2BBCjrUWfMa57owaPe2zlnl00huSx4f/aPra6O4dEh6WNCML82B2
- OoixDeY/QwcnP1Wn3b4Q+ObQbzlUMSDaojOkxsxVFz2E6gsc2l1P5u0chXUCYHsClENx
- vmheo7IPl+o4U2EqGp+eWUYAshE3R7ydsbNghzuhFK3u9LraUvNMzupOKmRjPCII3zim
- F8eg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1775043555; x=1775648355;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=fooishbar.org; s=google; t=1775043834; x=1775648634;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=0KWyoy8ApK6QZuS34HPMQzVVH9UD7v2GU+JsVx6bs/I=;
- b=hg3WJi01TcRwIsRXbdoeOUTBe6QHaYm4jN7srCSJdl3356aCVKXaPSdDOUnR9131Ig
- JfK3D90h+3vieKL6NWbsB/f/gRZrefLZwf+VTLrcfmbnUBuHUUKdrcpRNWIfwsFs+miw
- mw0CEAiYmyfqqwGCKBzWDF5tLqpjGvIqeNzO80+I8TvXdumZw6+K7T00u/3ZXK6utFId
- XjjpxohuNH4JOlYCw3ymaxL33pncFluhXNcfkOGxNXDYy7dDMpqFOJOoKg0hifTFLJNW
- 6mXtDcOZQE6ZgkttvtDFWEwN5ulPsXRqKLbSeTROCY9Q7+4D/IUp6A8BbIzDqCwOqq9F
- PZBQ==
+ bh=mSr4C1kBGr9jdXVtih2R82H4XWKW+kzt2DSLVfDJkzU=;
+ b=DUoZlh8zCUx2NTth54uUu3vi0uGOax58ZQg+0GvfyrB7ZZWzWJ/IgCSwkQE7ww4k9T
+ a1r0ACN1Y/eewhJ6qOk0Yhwx20GIIkLoXv6/Z3VMvxw+UHnhqB8oBQuOJ0ypIs2QpTKo
+ /OR6A2mqi3fh64YYPwWkdoSkZZLRznRn+srrxlMpLpU8zyluJmM07OKwdzDunjis0eT0
+ wQQ21XrYEjbPM6XKTXxjAig7Km63GGukIaxzjE6bqr89IQFewddXlBMoRMPgaxMfFTub
+ I/eGIm7HxSESv9Xd/AN/b44KKmo/qOsFdk396S8h06o3gIo/BJx83Zgpb67X0eNZ66qD
+ PSQQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1775043834; x=1775648634;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=mSr4C1kBGr9jdXVtih2R82H4XWKW+kzt2DSLVfDJkzU=;
+ b=cDE1qc3VSUbhA2a0WYC06J3g70+t19qbrCV3HevUEsL5jXllEJCSWDIs0AJLbU/qCA
+ aCOZwQupyorCSxwxwx0iYlfxkkiB6Jzlj5i1rEWxNT4rQA0rkRKuYYO29XWHmdZNfLHv
+ XLI1OqqS4wi8ficzvUfwu2C4Tkbf2ijMxMl0wrY8s2naM+DEQMSR0KDmg6TB/yc+4DH/
+ 9UKCAbqbkHslENT0YfsbU9aWODx9JbpSamwX9aaxkGXg/AwK49pWaW3hMG+LGDqseVlL
+ Mgnnro9QPxGbGM6d32PscjzJINQ02i471TFIPw3xYwZi8393u5G1zQIhq0CHf4w+vmHh
+ TKJg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUla435plyJl70px11JgcXEIuN2d6OqhRl/7LTJGKUnjgOmhIwc7hGxz0K+EfkmP+Tzi84WlFKt@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxY2R4wHpvBQ9WxinFemqtJG5jGCSPMMVmz0Dr5CNw6w73AAzr8
- 4LJ6uaC0snqHf+8QquXnYI/z9RzgLnc9lcLKQWs/GZ84ukwLG1Yrsce6
-X-Gm-Gg: ATEYQzxuGTqOnXWeezWEhn0OBLevEMMpxjHw4nro5m1dCWoFJ9MDjkxSDOCBcUUN9HG
- C8Scxa630PSD5J/XtfokS+1CbdjzGROhgtAkcBziO2gPbVHeT0LhdX/l3QWVI3CBelNufOXSu79
- 02XD2QcFajjz/NJxvzu86A/8riTsviBD+CgOh6SC0bfRQI9guRuxQ7IafIGx5cirymxV4xPh/6P
- zYPpK8M4GXYCs9BoefvVoT3Sos1GurNz8S4tYq8J06scH+L6geWb1HDpkFB8ydbUDJit/h/Ps0P
- zVw5vfZGwJTmf+1SHRJZC/OaF5xbD4m5tmRu/LtVYbWRNLAuRmDvleRf9kTMW0Tqk7E8szzjK6t
- eT6Zu9GuqDjTdmhalnh/U29xq/DSsW3I4UpvB+fFFdcaaNqLpcKmyvIrAOufdZuctyESjUQfoVV
- adKfVs80sN2oNE0u7+SBgr5wDg9aERInxgSzDldFz92eRN
-X-Received: by 2002:a05:6512:1592:b0:5a2:abbb:e1d with SMTP id
- 2adb3069b0e04-5a2c1ee1943mr1414992e87.6.1775043555012; 
- Wed, 01 Apr 2026 04:39:15 -0700 (PDT)
-Received: from localhost ([188.234.148.119]) by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5a2b13f4373sm3374990e87.6.2026.04.01.04.39.13
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 01 Apr 2026 04:39:14 -0700 (PDT)
-From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
-To: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: lijo.lazar@amd.com, Eric Huang <jinhuieric.huang@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
-Subject: [PATCH v4] drm/amdgpu: use IRQ-safe xarray API for PASID management
-Date: Wed,  1 Apr 2026 16:39:11 +0500
-Message-ID: <20260401113911.593661-1-mikhail.v.gavrilov@gmail.com>
-X-Mailer: git-send-email 2.53.0
+ AJvYcCUap6/Ducrg3zC7V5RDMEuaxOPwyPrdPGOI/KWWBKcWgAfJQrbKe115mZTiSiFV88kVDzug12ct@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxlrTB9X6YwDOxLsGyyWdt9N3gIl2lqmi55/SU3wl6pGSAPNjQ/
+ RJvVa4OWNE7uytmhRf30qUoOOpJe9CAHDlqwYfLNW6889gH05au66v5iqI7jxph48Ngtg0dInFm
+ QF8XUMX9aGiRrjVZd+4GyVIEjhzi78KMYXtDdTpoc+w==
+X-Gm-Gg: ATEYQzyBDvgsKg4uCMTRA60SaIW+N3D1vDle7RnxagqkGP44wJjvnhYaGIgriztM3dZ
+ l+Q7LD/fQ4xgNkx485d/L7f1c0UlkWP1o8YFMFEOjHHUveGn/QcxIvyYbEY5gGEkft2EgrP/65Y
+ e0hPx0p41IpJDntvSG2WgpYv85Rnbq31ldgzmmpQRTGOfNId0mk4rt7yOwZyka9DuDKT0241V/1
+ RQq1rY6UzTvesm7Q9sM99ZdC0kwji+7EbZjWYQeD18ECLbf5HHtroOSqFDKBTsqqwjL8rNV/Pk0
+ UN1GrbJI+jeKHoi1/LTqotExnH3PCGomr6AhrCqelA==
+X-Received: by 2002:a05:6214:6017:b0:89c:e38f:6b6c with SMTP id
+ 6a1803df08f44-8a436a1fcd9mr47907356d6.3.1775043833750; Wed, 01 Apr 2026
+ 04:43:53 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20260319-link-bpc-v5-0-5306cd04a708@collabora.com>
+ <4265353.aeNJFYEL58@workhorse>
+ <254c20a4-cce3-4c8e-9902-514586f3e694@mailbox.org>
+ <5416161.aeNJFYEL58@workhorse>
+ <792c4540-d690-4453-a32e-62e23e78d628@mailbox.org>
+ <9d525fe4-b091-4cd9-b977-de19ffe4b957@amd.com>
+ <20260331155028.71246d7a@fluorite>
+ <dc7f59af-05d0-4942-b21b-b85289f7eee1@amd.com>
+ <CAPj87rOz=QvQE1CqshspTPkC5nSXW_WAxUf1rwa=w4zmPdgtQQ@mail.gmail.com>
+ <acz9H5RtaGUUx6Cl@intel.com>
+In-Reply-To: <acz9H5RtaGUUx6Cl@intel.com>
+From: Daniel Stone <daniel@fooishbar.org>
+Date: Wed, 1 Apr 2026 12:43:42 +0100
+X-Gm-Features: AQROBzCdXxrvf8UgyLJsezxbKvCf1uhBJ-Iz0urPdALgrRljTD4OL7pKkrh1Hr8
+Message-ID: <CAPj87rNTNT9227TjrqmDOY6-TNjvuGJTDgjBXF3467Ea8vwzYg@mail.gmail.com>
+Subject: Re: [PATCH v5 0/3] Add "link bpc" DRM property
+To: =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
+Cc: Harry Wentland <harry.wentland@amd.com>,
+ Pekka Paalanen <pekka.paalanen@collabora.com>, 
+ =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>, 
+ Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, 
+ Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>, 
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Daniel Stone <daniels@collabora.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, 
+ kernel@collabora.com, Derek Foreman <derek.foreman@collabora.com>, 
+ Marius Vlad <marius.vlad@collabora.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,67 +129,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-xa_alloc_cyclic() and xa_erase() use plain xa_lock()/xa_unlock()
-regardless of XA_FLAGS_LOCK_IRQ — the flag only affects lockdep
-annotations, not runtime locking.
+Hi,
 
-Switch amdgpu_pasid_alloc() to xa_alloc_cyclic_irq() which uses
-xa_lock_irq/xa_unlock_irq internally.
+On Wed, 1 Apr 2026 at 12:10, Ville Syrj=C3=A4l=C3=A4
+<ville.syrjala@linux.intel.com> wrote:
+> On Wed, Apr 01, 2026 at 09:40:15AM +0100, Daniel Stone wrote:
+> > The end game of this isn't Weston logging something to stdout, it's to
+> > surface things to userspace so it can guide the kernel into making a
+> > good decision for usecases that may not be ones the silicon vendor
+> > decided was 'probably the best thing' however many years ago.
+>
+> I think the problem here is that no one even tried to make a
+> real userspace implementation. So it's very hard to judge if this
+> new property is actually usable in the end, or if it will just end
+> up as historical baggage that we have to carry around forever.
+>
+> IMO just having userspace log what the kernel said does not fulfill
+> the "userspace implementation must be ready before new drm uapi is
+> merged" requirement.
 
-For amdgpu_pasid_free(), use explicit xa_lock_irqsave/__xa_erase/
-xa_unlock_irqrestore since this function can be called from hardirq
-context via amdgpu_pasid_free_cb, where xa_erase_irq()'s
-xa_lock_irq/xa_unlock_irq would prematurely re-enable interrupts.
+Sure. To be honest it seemed pretty obviously reflective of 'max bpc'.
+Derek is working on a Weston implementation which uses 'link bpc' as
+part of a control loop with 'max bpc' now, which should hopefully
+satisfy that.
 
-Fixes: a3c0ee978e16 ("drm/amdgpu: replace PASID IDR with XArray")
-Reviewed-by: Christian König <christian.koenig@amd.com>
-Signed-off-by: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
----
-
-v4: Move comment to kerneldoc, add Reviewed-by. (Christian König)
-v3: Shortened comment per Christian König.
-    https://lore.kernel.org/all/20260401120055.46498-1-mikhail.v.gavrilov@gmail.com/
-v2: Use xa_lock_irqsave/__xa_erase/xa_unlock_irqrestore for
-    amdgpu_pasid_free() instead of xa_erase_irq(). (Christian König)
-    https://lore.kernel.org/all/20260401104859.36990-1-mikhail.v.gavrilov@gmail.com/
-v1: https://lore.kernel.org/all/20260401073632.101796-1-mikhail.v.gavrilov@gmail.com/
-
- drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c | 11 +++++++++--
- 1 file changed, 9 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
-index a6ac3b4ce0df..684f40fce73f 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
-@@ -68,7 +68,7 @@ int amdgpu_pasid_alloc(unsigned int bits)
- 	if (bits == 0)
- 		return -EINVAL;
- 
--	r = xa_alloc_cyclic(&amdgpu_pasid_xa, &pasid, xa_mk_value(0),
-+	r = xa_alloc_cyclic_irq(&amdgpu_pasid_xa, &pasid, xa_mk_value(0),
- 			    XA_LIMIT(1, (1U << bits) - 1),
- 			    &amdgpu_pasid_xa_next, GFP_KERNEL);
- 	if (r < 0)
-@@ -81,11 +81,18 @@ int amdgpu_pasid_alloc(unsigned int bits)
- /**
-  * amdgpu_pasid_free - Free a PASID
-  * @pasid: PASID to free
-+ *
-+ * Called in IRQ context.
-  */
- void amdgpu_pasid_free(u32 pasid)
- {
-+	unsigned long flags;
-+
- 	trace_amdgpu_pasid_freed(pasid);
--	xa_erase(&amdgpu_pasid_xa, pasid);
-+
-+	xa_lock_irqsave(&amdgpu_pasid_xa, flags);
-+	__xa_erase(&amdgpu_pasid_xa, pasid);
-+	xa_unlock_irqrestore(&amdgpu_pasid_xa, flags);
- }
- 
- static void amdgpu_pasid_free_cb(struct dma_fence *fence,
--- 
-2.53.0
-
+Cheers,
+Daniel
