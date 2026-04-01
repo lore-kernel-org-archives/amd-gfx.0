@@ -4,130 +4,133 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 32B4DD35146
-	for <amd-gfx@archiver.kernel.org>; Wed,  1 Apr 2026 06:58:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE8ECD35144
+	for <amd-gfx@archiver.kernel.org>; Wed,  1 Apr 2026 06:59:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BC53910EC4C;
-	Wed,  1 Apr 2026 06:58:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5D3C710E240;
+	Wed,  1 Apr 2026 06:59:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="aCST89Q0";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="zhzYxSFt";
 	dkim-atps=neutral
-Received: from PH7PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11010059.outbound.protection.outlook.com [52.101.201.59])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0C87410EC45;
- Wed,  1 Apr 2026 06:58:20 +0000 (UTC)
+Received: from CY3PR05CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11013024.outbound.protection.outlook.com
+ [40.93.201.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0BAFA10E240
+ for <amd-gfx@lists.freedesktop.org>; Wed,  1 Apr 2026 06:59:33 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=cERja+nDBbLAT8Omg0I4v62s9shOG3Pq0DeAzVqdTekh1vTZOSRba6nuLZymldPmhszZrBsW6cJhMUfLGH6mB6iEjZbZFXv2yGId/XDE2Y6RY6Zd1wwwTV5YWndjoUmc+Wa5nndD9XqJaVa9xpChP8lAJ2XrIiCcz5ZcwyFK8s/dJhV++3tIJ/V8JmuvyLsuN3D4Hs9crP7aXnm8Y2sxGOM8fWuvyE28Ur9BgcEqAgJruBbvjt3HMsbKqDXbeAH+SWFNIuQbbVmK2tTMycyr1oTCa8rv7xSls6pxihc/S37d10S7sPNnvfZuESv7MpKv+3P6/iWOpJ8zFwAKG4uVeQ==
+ b=c3Ke8pGwfYrbBJ4pgaAUqTuopprGYcTzPwGv2vhXQLcOn+bhZdR6O18jMXt3LOrp0llK9bnyVeZEVeZBrznfC2yAtkXtjrklQN6OY/e2LB8MqpyU8qmdYVtHnjje8ak9pwW9UQscx5/8uUf/Qi9+/IFxrmGrZrjzcfiMtbYRScEw7xi79WyygMJ68bB6jMK4sx7+6W41gBJT/LGD9M9tUu+oRq+K+W74H1gTlze9RqM2DEsM7d6wbVDb2rtF9pgmphEp/h2bx3nh2bUWrGobTsoBQQAGqIu0pMxP1QVn6E34POzJ/oGvX5fahsUJK6NpLry55oaY7xa4ik3yXEluGg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=xQTw2PINn5BlyXaIFgRSway5r0aHy1OSYZYRYdiT5Hs=;
- b=mWfmgS0Vh9lT7914VHHc7oiCHeSySWm+r/lGwjv6BdBRwW5FVBtQeQO8SQPhoSZEzW11kJoq9Eruola01NeouyrmT+rJmd9X4g7IaKjHz6H/mbB202lXqj5LERVdUZyBWx6XT3qAdJfRwJxXJcu1h1jrZikloCJYxorsm1sZIHQH87xDBuWMK3uiD/4uC9D2bW4LwGcMBv9gFAMI238dAL3Ce37NMS7Dxvwg41zNaQBj5u7XXG1YeRudDU8FLrnNUita9ITrEiNaxi5jHm8mHQd5tVtvVnFWYrWnZp5cwmPrUG56hNcpP7CrBoOEQ824ftI5tA8zqRyUYMwK/Wp6yQ==
+ bh=7bP0JmKBtcCnpjFXbJQjCrsWR0u+ScikNFXaBAhB3wo=;
+ b=Ed7cIMWxBU1UmuomFcBOJFFNP7fGuB4YYEWPWwTV6dT2RREaVLXsSdNj2XkDvdABHFXwEEsOnM0Cr4/2A2rJI1AFDPRd+ECEcbUua7vMrzL9zUlX5hGjUPUV8DiTCg7ctNPP5jVSokMXkZOUGiWHLql0YUk04OW4NkINNyCdqXe6IutiScDo5DuVx+V38DWqUwdEb0n6St1tuYZVF7fVA4788wjZNMPNaLPTo5qVMt+sTKkL58aHopdM6CWb5Q/MH9ErDgupzp3NEjKE1hWP8joYOLjwElNPQ6W+gyqPbvSMx0xB3TAJtNmbXNZU4lyi8DZcRRWySTUXOj0R788eXw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xQTw2PINn5BlyXaIFgRSway5r0aHy1OSYZYRYdiT5Hs=;
- b=aCST89Q0wwZINbE2gt1BGc8UCLdjKXYdPwF5mKbObYeKbX7kP/c0KXao7jVrVc3pHTvw3Ck4U4WZl8ZPTrZPbOoiL8+fzUIsnOR/EQXgi3m4cRIwbWnnNZzCL9Oto9sioMN01oYd4cggx9HqzSKBsq87eTVv8r+zPSy0paDP6J0=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from SA0PR12MB7091.namprd12.prod.outlook.com (2603:10b6:806:2d5::17)
- by IA0PR12MB8931.namprd12.prod.outlook.com (2603:10b6:208:48a::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.14; Wed, 1 Apr
- 2026 06:58:17 +0000
-Received: from SA0PR12MB7091.namprd12.prod.outlook.com
- ([fe80::ec33:1213:cfd8:63bc]) by SA0PR12MB7091.namprd12.prod.outlook.com
- ([fe80::ec33:1213:cfd8:63bc%6]) with mapi id 15.20.9769.016; Wed, 1 Apr 2026
- 06:58:17 +0000
-Message-ID: <11e4daaa-0f1e-4fd4-b435-d2fa9d058869@amd.com>
-Date: Wed, 1 Apr 2026 12:28:09 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu: deduplicate register access and helper
- routines
-To: Alex Deucher <alexdeucher@gmail.com>,
- Gabriel Almeida <gabrielsousa230@gmail.com>
-Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- alexander.deucher@amd.com, airlied@gmail.com, simona@ffwll.ch,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-References: <20260330224503.548284-1-gabrielsousa230@gmail.com>
- <01989c65-1e1e-4f78-ac88-a1c76961b3c3@amd.com>
- <CADnq5_N6bzHTQJjS6__-Fmp15fASUw3C5DG1uNvZgkxCRtFkcw@mail.gmail.com>
- <CALsHKmUeB3=H9=Nq=+jOvtmwXxSg=wtHrASZNvVVPQwpyem2ug@mail.gmail.com>
- <CADnq5_Pf841oeJAwhLp=1Y_tOWmEX+gyhDW06Z=qr+FR4x4JEw@mail.gmail.com>
+ bh=7bP0JmKBtcCnpjFXbJQjCrsWR0u+ScikNFXaBAhB3wo=;
+ b=zhzYxSFtBhDbXFItM5Y5hcDzMIgoIjPADGvgQ8SE5RM6Xhe5WSyNdSKETOmJvC/qa0xO+s7KN0gadORHNfv//yqN4w74VLnwBOubQXFFERr+QHl09181MgeknF/Mc5yxNBi+dqwHUH8eoDnYEvR34nAhGH8PqShh5sTtFEsLUEc=
+Received: from DM4PR12MB5152.namprd12.prod.outlook.com (2603:10b6:5:393::16)
+ by DS7PR12MB6120.namprd12.prod.outlook.com (2603:10b6:8:98::5) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9769.17; Wed, 1 Apr 2026 06:59:29 +0000
+Received: from DM4PR12MB5152.namprd12.prod.outlook.com
+ ([fe80::8874:ea43:ba4a:e73d]) by DM4PR12MB5152.namprd12.prod.outlook.com
+ ([fe80::8874:ea43:ba4a:e73d%3]) with mapi id 15.20.9769.016; Wed, 1 Apr 2026
+ 06:59:28 +0000
+From: "Zhang, Jesse(Jie)" <Jesse.Zhang@amd.com>
+To: "Koenig, Christian" <Christian.Koenig@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+CC: "Deucher, Alexander" <Alexander.Deucher@amd.com>
+Subject: RE: [PATCH 1/2] drm/amdgpu/sdma_v6.0: enable WPTR polling for UMQ
+ SDMA MQD
+Thread-Topic: [PATCH 1/2] drm/amdgpu/sdma_v6.0: enable WPTR polling for UMQ
+ SDMA MQD
+Thread-Index: AQHcwPRM42s84xt1YEmOxurgBKDob7XIiR4AgAE+6aA=
+Date: Wed, 1 Apr 2026 06:59:28 +0000
+Message-ID: <DM4PR12MB5152D39FF0D9571E3D4B88F9E350A@DM4PR12MB5152.namprd12.prod.outlook.com>
+References: <20260331095346.1331511-1-Jesse.Zhang@amd.com>
+ <4bb97e2d-b654-42fe-b680-03989960c2e0@amd.com>
+In-Reply-To: <4bb97e2d-b654-42fe-b680-03989960c2e0@amd.com>
+Accept-Language: en-US
 Content-Language: en-US
-From: "Lazar, Lijo" <lijo.lazar@amd.com>
-In-Reply-To: <CADnq5_Pf841oeJAwhLp=1Y_tOWmEX+gyhDW06Z=qr+FR4x4JEw@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: MA1PR01CA0174.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a01:d::12) To SA0PR12MB7091.namprd12.prod.outlook.com
- (2603:10b6:806:2d5::17)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA0PR12MB7091:EE_|IA0PR12MB8931:EE_
-X-MS-Office365-Filtering-Correlation-Id: d6fffe23-d40a-4f29-3b9f-08de8fbc0cdf
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|1800799024|366016|22082099003|18002099003|56012099003; 
-X-Microsoft-Antispam-Message-Info: CtN2Md/Ur7C+tfrmA2SXNJ2SXY4tPAqWO6+vSAZ9eapUEdVXqWn3UAxIBgBK58ZzXYRJX7wYtVn82IpuJ+ID9Qsc3RvM7chwRe/MtyUFfA2zzyOSu1mqYZRigqQxkz7jfVf4pMUJqYBU8xO+CesY6eUMHVtZnw3gXnn43f5aTOdGXRNEtvvMaXQikX83Uvh2S7OK9IDk9YgN8MZlNZTNw7f3Hxo5p6GJNA026WlGVLxnbWDBP0bVAamEEcHRVzKxJHAIZf5kHibQ0GUIXupUYRCjnOUlcLc5krfjx0J4sS8yEJsS1Symd/aP6/jVD7cBjQowHuS74iFXF93TNPmlSaesDN6c+XqxglfvrmnC2014nWWIofVGWB+tQmcrXvpudTkYoyrIybGrgTOR5FfJ+bUvSdxGtDHRNU8H5sVGW7aRWIhszZCZIr5gOlnDOPM4zEkxEBnOHNhseXPo0CrbsfrYuQ6a/EldWfw76wtIDBsgYJAeUgF8Okf0rrTlpiv+MomSDJWlXGTalJuIfVnbcw4q4lIWMKTiqJPoQc7/GBWypqyMHSKCqL0qFFt411Vndu0whrY4T9ZgZDIKkAAAeJUlxCJ48XDLfguy/q5qISd+iF157UwXA8WGMj6FOWb5PzN8i8r3xkYdhfQip4zzj2vj+zp0ny//ACZ8Y4PBwhzrco9Ght540HyGMDIRwpvt7V03SubRgAKs4BSY2AezMC6mDMSG/Zt1G9IyHXnK0nc=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SA0PR12MB7091.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(366016)(22082099003)(18002099003)(56012099003);
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=True;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2026-04-01T06:58:39.0000000Z;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
+ Internal Distribution
+ Only; MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=3;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DM4PR12MB5152:EE_|DS7PR12MB6120:EE_
+x-ms-office365-filtering-correlation-id: ea5f8954-40c7-4e10-7228-08de8fbc37ec
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|376014|1800799024|366016|38070700021|18002099003|22082099003|56012099003;
+x-microsoft-antispam-message-info: AQm258Nbf6SNw7EgzJNjxZN+cmKOjzaFc4uY4p89VNhcTEoSFROye50LRTGK5CsN8yzlRF2ZVGQ31LGT9DTpOgxRtm+lqOAwSASsECrXDrUZqwx16SbG1sCNcrCMM7QeMt/UkziXlzs3MR/lTG15eZF7Vob0I2iVy9L2Fq/JLbDKgW1H569IJ5D6a/vQNEo/75e22rKmZ+Nv4B4q879ownqaRXvg3L7dPc7ZDA+vRbeJRfzBdhafzUCISlQDSTbUVA2xoiz83JsaU5LZuxTQ/KDWvdASzRuTyj+2xQZrWLOeQJh66I4RA5qeutr8enN7K4g+BjF0o0OnoevfgsQAeq6aK6iwp9SH2Oc6KhzzAV3yXZILlvf2jW5Rch+N//nAGMsr7pu8sYHEaMLYJaOBcqZg9GZ7ut08qgkzqLxwOOCFfaEeI/BJqmdXznV9T3ShBiy5QxC9s7hOuWNeRLzzJfY5zFD0r5H6t5PnX9K47LrjVubVDy6t+/DgJFiMNNZRVgs3B+qT8WCx/Vs5SUySIEbOMmoFtKadgq/ZQ+1rqtJClAvAzt+4dvfNNjjbps3SnvXyls8OkMq3ZCqcMQ4v5UwOLJX/K2Edsd+KKQVjDS+wpfU4fJbsXGOCbRRKDF5ZlP3UvQBD0Sf3DbA8WwStDfBh6nG/LeVOROgFUSUosU2IMBrzOYgeBWgYohkojpaXnO2O6C4eTj1aeFDbA4CcYiOiQs3EyaXZb+pdLTcSfyD8LFgC3tzCENCedXaD9I3tMV6YHplzR7M3TkXQ2Qxx3lxHo2TSeZU2th08AZtDxDA=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB5152.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(366016)(38070700021)(18002099003)(22082099003)(56012099003);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TUdkNGtGZjlrNnpBRFIycVZJVlpReFJ2Y3ErOS9mb2QwR2dvT011YzNTU3dP?=
- =?utf-8?B?NmNkbG1vRncrbXlHZjVZUFo3b2pMZWMzbHY0UlJCbTR3V29GVFA3N0VSYml1?=
- =?utf-8?B?eDhXZmRpWFUrc0drbDg5aEYzODNRaHh0aGM1YTQzMkxWYzhUWW1paEJzZ2Ir?=
- =?utf-8?B?eEVhN1ZlQ1dHam5RRzZVUWZpZUdOdzlSaXQ4eWRKOVFoZWJSRWJwbDNUVTVG?=
- =?utf-8?B?WlpCOG9HbWc1MU0wR0NtdUsrS3AvN0JzL1d3MHQvOEo4THIxVGQwRXA3ZVhm?=
- =?utf-8?B?QUs0MXl3OSs0UVFxeE1GMlZYMlUyMzN0NlFvK1grQWt5RmtvbXZabDJYSUNn?=
- =?utf-8?B?eTZtMmZCSFBkRE15UXVyNXNQdFg2a3RzMFAzNHV2MkR5Z3BCNEN6bzBpNklr?=
- =?utf-8?B?N1YxUkdLVWlNaHVJL2VoMVpubzhuZjNLQXU5WFg0ZVhZaGJGTGpWdk1DMFRF?=
- =?utf-8?B?TzBuRDIyZDdtR20yWHM0T01jTGNsYVIvNUNuZDFwL2s0WjZlWGJLZ0lpMGM3?=
- =?utf-8?B?bjNjc3BtUzdvSDBqRHg3c1BTam1mM2RsQW43UXVjdUdZb3M5emNHeTVxL0lu?=
- =?utf-8?B?SUFWMmxsYUxSVjI2Q0hYYWZjMTFKbFVrMlNRVXBkR2UxZUJrQmJEVkdzdmdq?=
- =?utf-8?B?VzM5Z0l5aFZybWZnY3pXUDRnbnNML0htWFdvc0pjVW5ldnZXL0FETUtPSkZT?=
- =?utf-8?B?Nkt6RG5jY1Izd3k5NWZXZGI4czJsTkVpN3I1TUNzMllWanJOcU8zNWJXNkts?=
- =?utf-8?B?V3g0WlBsUWllK3RpSmZGK1lrbnAvSUdveDZmWk4zU2I5NWhhdEl6VTNiMUFa?=
- =?utf-8?B?UDVaenVTY1h1bWF6ZjR2b2pvY2VIRk15WHdBd1FtVVlwWWM5MTZkUzVJZHZ0?=
- =?utf-8?B?UFBJaVZsdDVGcDFHWXVOQk45dUZSa1lPc2oydEFKM1dOOXo2MHdjTVl4TE9p?=
- =?utf-8?B?bUpGZTk2Q3VyN3p4SlNXcUNEUEtlUXlqVHY4UDlSaGNOSkMxejFlQ3E2eWpL?=
- =?utf-8?B?b0J2dVp5b08reDhZSjZFME9lM0tyQ3llTDg1bklCRmt5eWNCTVp1VjVacnJN?=
- =?utf-8?B?dmlHNzNuQ0syU05jRTNxRVloa0FUYWp0RUJ0bGorOE5tQXNnZ0VoYXNmNFdG?=
- =?utf-8?B?b1JZdzZaTWo5VXg5QnE1K0FkY2dTK3ZFaWdSa2MwSE9PMndXSnNFTm5XbW5h?=
- =?utf-8?B?eFltWXJoRDJFYzVTSmhRbE1MRXN4ekliN2E3a1F5OXEwUHRJYnErSDYvRGVS?=
- =?utf-8?B?cERHeTh5ZWpJWDVwMUlnbmtMbFFFYTNoeExnWGFQdmxBckc5ejQvNEtZU2N3?=
- =?utf-8?B?QXdlTFhjTWxQZGVrQzNmcDZpeUIrNktKckxnVVRoYXNFYjhkMWpSVCt6SXBk?=
- =?utf-8?B?Y3lyNHBxVGNqYXovS1c4WVVGT1JJUlhGS3FBTzRjNmw2UkZjYnEvbmdYQUVt?=
- =?utf-8?B?YTZwQ2xjMVhpZndVSGNoUTVmeXNPOXF5eTBPRFdHMlpoQnNNQnExb2ZzNkNm?=
- =?utf-8?B?NHI4ditXVjh6cDJ5eGdEcmVuR1U4eHptU3NiN2xJNDRpOTFiSEJOWTRsZDA4?=
- =?utf-8?B?dWRtNXpjblJEcUhBYmhGbUxQNHFWeDRvWU8rZW9GZldRdndxcldwUE5ZZW8z?=
- =?utf-8?B?MUFlbW9JdjMyQzlOY1luYVlUV21qb2wwNENFMXBkWGRTb2hjMHhQWXpmS2JF?=
- =?utf-8?B?dE91TXp0WDhWVkMzZUFhRUNRUDlMaUdjbkJQRXViNUlQVUZDYlFNQlJTdG9D?=
- =?utf-8?B?MXdFcWZ6K2xXM1FGcXNkVXJmZWhLTjNWdFoxVW0xcnJwYzJFd0RyMDl4RytD?=
- =?utf-8?B?Z3dqbXBNU0dmc3hRaDZMWCthNUNGdkFWT0JRYjA1MFVObGpIZXNNK0dmdWRM?=
- =?utf-8?B?Nzh4alVaWkVoemo5WFpvTHYrZExRQnFVNHN6NFpLeU44d0NFV09NaUM3dFZh?=
- =?utf-8?B?Q0NRQSt3bFhSWXFvNmlnTHlDYk1jUVZlcFdnSEUvemJ6RFliM1kya0hNRlNT?=
- =?utf-8?B?ZjVhNXFyQStwcmZYaW0wWk0wL3lkUjNCMG5YbXEyR0J5NlYvWTFrWTNFdU0x?=
- =?utf-8?B?RkZCY2NXSkNsR256ODZxSDRXQlF3S1pHU0l2aUQyK05CRlZJT2ZoL0cwQ082?=
- =?utf-8?B?R3owUnpHQUtnYnZKYk92ellMMHFKQWZTM3MvUXJ2L2xQU240cXpqdVlGU3Uv?=
- =?utf-8?B?alIvUnlWL0dNNGdXdHd2eHVrd1M3VEFvWGFrSnF0R1lUdU11Mm9OOVltdG51?=
- =?utf-8?B?YmxzclNldkhVNWVkOXBETHdPNjZiTldLRSsyVDAvRi9aSE51V2JIWmxtR1Uv?=
- =?utf-8?B?MEJvRTJkREtpMGhMbk5USzEwd1BLdFV3RkZDVGdvVSttdWxGQ1Z5UT09?=
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?akxzZHZkTjB6Z29IcCt3OWc2YTZBM0xsbTF1MEpMeGF4WGh2R0FNSXhTUmIy?=
+ =?utf-8?B?NzlHZnV2bFJueGgrSW92dGQrUFU5YWVSS1g2VzRLWTlWMUJ0NzlNT3dPcFVE?=
+ =?utf-8?B?QmdCdFF3T2hQemFpWnFVTVRib1JxZi82ZlFlWG8vOEZ6dDFCcjNwRjZtRXFY?=
+ =?utf-8?B?SUpsR0lWSFRvejJ5b0FiRTJLVHY4dEVRTTl1UmY3cTFwVDNnNklVSi8wdkVo?=
+ =?utf-8?B?ZUZtd2RXRUNMN1pvYkZjMXhYYzZnWHVGWkNIczJSOEtZY1A0NnpoVU90QTFR?=
+ =?utf-8?B?M0hVaW80SjRSVmxnWkRBUSsySjRYYk1FN29CQzgra3ZFeU9BWmR6a2EwcVN2?=
+ =?utf-8?B?VlhGdHU2OHdORXJxaUZ0Nm10Q0ltQ0JsckNFNFhQb2pBbElRbDJRVjAyWndk?=
+ =?utf-8?B?ZU9GRERZZTJaZ1lLc2xHQlhMbmxDeWwwY2lIT2MvVHNjdUJXV0ZNV1VkYThr?=
+ =?utf-8?B?cnoyYWt0bk91cEdESmZZS0dlaWJyRGs4d3BJTU1ReXFQa3ErWUtscnExWCt6?=
+ =?utf-8?B?TDEveDJPelY0WElodUZXSWUvcXUwWUtGbTdMQ3c0d3RKWW55bEJ0b1NwbUNZ?=
+ =?utf-8?B?Q0ZlZTJsaFJKRnBSalVtVVJ6TkZuTGVjbWJmLzZsSndCU0lLampLb2gxd2pv?=
+ =?utf-8?B?TFFrSE9rSVRHemZSWDhrVlZUbVBGcXNzdzllemcwVGxWSUZQeE5rUnN2bWdM?=
+ =?utf-8?B?RE84ME1ZWVBqQnF1Ukc5enh5Z2RSTEsxcFZreE96aXVMMXNhb2pNRncxQlRZ?=
+ =?utf-8?B?RDJrNnZrWjZRTTFnbDJrelloS2VGeHVoYm91QzljaWRrQUZkOWRYNGFpVmhS?=
+ =?utf-8?B?VjhxVHhUV1k3VWtMQk9kdXFFN1JpVndvUG16N1RYYzRsNVBMKzJaOFIyNmRC?=
+ =?utf-8?B?SE9QL2JqRnBYd0JSY3lPRTBzczRzd2FYb2gwVXJCTzZzZi9NYVVMemFlWUxO?=
+ =?utf-8?B?Smt4WDg4R1doZTBRNUxCM2txVXdqeDB4K25peXV3STg4dEZBbXBVVzBsdE9k?=
+ =?utf-8?B?WExPUmhsYmgrUmZSMlVUME9rZ0FnQjdIT010bUJrcWlRYTBOZ3Q0Mk43K3h4?=
+ =?utf-8?B?TjRRWWV1UVNuK0o4K2RaS24wOHlGb2g5Z1lvQXRYNDVhQnBzdWdYRHhFM1pt?=
+ =?utf-8?B?YVc1MnRUWWR4U3k1SUwzRFVtQlg0Zk9ETEdHOG1SdGNpSUR1NnZ4bWxkVU9s?=
+ =?utf-8?B?TXlvMlN4T0NDZElYNG45ZnI5MUZmUnZXM2ovaDMyUzZ0K2dQSFRaNmF2OGhV?=
+ =?utf-8?B?aUdsbVpGR3Z2ZmQ1Q1kvMnFUb1Z1QnRmbDhzR0xSLzRHSWhBSjNvMFFSWjk3?=
+ =?utf-8?B?U3l3L2hodkU4NzZpa2gyL0dPVlBkUTZwZVREN3dPSnhNenpsd00xQ1Nic3B0?=
+ =?utf-8?B?NGxkUnFUL2RhM0UveHEzOU10aGNJSTFLWEFBYnVTUzZ0VWFLNm94ZEJWS25r?=
+ =?utf-8?B?TnQ0TTJaVlh2bTBTRVA4OEVPWHRYcjBzTDBwa3cwSG44RllZeTFJSkZMSGkr?=
+ =?utf-8?B?TFRIaWl3V0tQbHdRK3pyTS81OUE0UTBKRzhvb29TeGJiN0c2R2Y5b3ExZUxU?=
+ =?utf-8?B?ZGZYK2hSaEJMTUdOUlR0UVJMS1FmKyt4Mkx0cERRWlV1aVJvMFc3dG12YUov?=
+ =?utf-8?B?Rk00bEJsR0N5TUt6SXJmSWVqa2dEeGhyejVoWDlxL1RmR3ZVMDcwYkZkWEJl?=
+ =?utf-8?B?YnlIdTFMb29qT01NUTYxWGhIc1psZG5YQnpXK2g2S1Q5WTdma1gwUXNYREpw?=
+ =?utf-8?B?ZWtnUzk4VkN3WkFtVngwN3FMa3ZQL3NQQzllUXMrdjllZHA1TnRzRzhXQnZ5?=
+ =?utf-8?B?a2psbzZOMm5RaWc4K2RrcFJ6WXVxaTQ0T1RXOVFUNVJDQ2NYTGlYQmdhOFJU?=
+ =?utf-8?B?V0p5UkNoSmZIaHk0ZkxSYk1iRTB0TENBb01Qbk5IcGNUWENadnhUdW4rTEtX?=
+ =?utf-8?B?ckM5WEFzaGFKS2ZrbjI0YklaME5ETStEVVlOcE8wR0lwNFdiVVNhTFpsL3Jq?=
+ =?utf-8?B?RWRNbWpDMks4Q1pOelJac0FPeGFsRi93d1prSHZXZHUxdmtsNTh0QjdIYXJ4?=
+ =?utf-8?B?S3RMdG93TEszdEg4b29peEN0bllQVmwwK1VEdUdIMFJPM3hXNVd6RDhCTGVQ?=
+ =?utf-8?B?Vi81bmNrYTkvR0tCQmZ6NWdUVXA4V05HR2h5VHdveko0NnlFS0N3elFVejZT?=
+ =?utf-8?B?K0hmTXFPTGVyU1VXUmo2N2lHWGlidXByVnk2aDgvNHRBNzBvUjQ1VjZQbjRo?=
+ =?utf-8?B?Y3dzQWpjL2ZRcFRZdlZsVU5JOWc0RmprcGNOUVAzTnlIUEpuamtMT3ovV0xj?=
+ =?utf-8?Q?EJTw+HJL6gBw7zJu1m?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d6fffe23-d40a-4f29-3b9f-08de8fbc0cdf
-X-MS-Exchange-CrossTenant-AuthSource: SA0PR12MB7091.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Apr 2026 06:58:16.8932 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 7WdyLxIl7Mg8+RdIiDD5PI+YSxAhWtdAzeR6576lzWSLnaCqCT4L/4TIHsbKiI1L
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8931
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5152.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ea5f8954-40c7-4e10-7228-08de8fbc37ec
+X-MS-Exchange-CrossTenant-originalarrivaltime: 01 Apr 2026 06:59:28.8005 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 5t0EMWP2xDu3UcOEz4LmYfzgcazBqZHSu76XgM2XhQcl2okUxNZMWQ2fD6+kdtcDhEdpKBK+PLH1HlncPoY3cg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6120
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -142,543 +145,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-
-
-On 01-Apr-26 2:51 AM, Alex Deucher wrote:
-> On Tue, Mar 31, 2026 at 5:07 PM Gabriel Almeida
-> <gabrielsousa230@gmail.com> wrote:
->>
->> Hi Christian and Alex,
->>
->> Thank you both for your feedback.
->>
->> I understand that there can be differences between these functions due to
->> different macro values across hardware generations. I admit that I didn’t
->> fully take that into account in this patch.
->>
->> Among the functions I modified, `program_aspm` and `common_sw_init` seem
->> to have identical behavior regardless of those macros, so I thought they
->> could be good candidates for shared helper functions. That said,
->> `common_sw_init` is currently only identical across NV, SOC21 and SOC24,
->> so I’m not sure if you would consider it generic enough for such use.
->>
->> Regarding `read_indexed_register`, I’m still uncertain due to the use of
->> the `RREG32` macro. From what I’ve seen so far, it appears to behave
->> consistently across these implementations, but I may be missing some
->> subtleties.
-> 
-> You are correct.  the RREG32 and WREG32 macros are the same on all chips.
-> 
->>
->> Also, when Christian mentioned “move them a layer up”, do you mean moving
->> these helpers into an existing common file such as `amdgpu_device.c`
->> instead of introducing a new file like `amdgpu_common.c/h`? I can rework
->> the patch accordingly and drop the new files if that is the preferred
->> approach.
-> 
-> I think something like  amdgpu_common_helpers.c is fine, although
-> thinking about it more, I think the program_aspm() function should
-> probably end up in amdgpu_nbio.c as something like
-> amdgpu_nbio_program_aspm().  read_indexed_register() could probably go
-> in amdgpu_device.c as amdgpu_device_read_indexed_register_helper().
-
-For the grbm register access one, consider keeping it in amdgpu_reg_access.c
-
-Thanks,
-Lijo
-
-> And finally I'm not sure it's worth breaking out common_sw_init() as a
-> separate function.  Maybe drop that change.
-> 
-> Alex
-> 
->>
->> I can also incorporate Alex’s suggestions regarding naming and licensing.
->>
->> Given these points, I’d like to better understand which direction you
->> would prefer for this change.
->>
->> Thanks again for your time and guidance.
->>
->> Best regards,
->> Gabriel Almeida
->>
->>
->> Em ter., 31 de mar. de 2026 às 10:31, Alex Deucher
->> <alexdeucher@gmail.com> escreveu:
->>>
->>> On Tue, Mar 31, 2026 at 7:34 AM Christian König
->>> <christian.koenig@amd.com> wrote:
->>>>
->>>> On 3/31/26 00:45, Gabriel Almeida wrote:
->>>>> Some helper functions are implemented multiple times with identical
->>>>> logic across different source files.
->>>>
->>>> And that is at least sometimes completely intentional.
->>>>
->>>> Background is that different headers are included which define macros with different values for each HW generation.
->>>>
->>>>>
->>>>> Extract these implementations into a shared helper file
->>>>> (amdgpu_common.c) and update existing code to reuse them.
->>>>
->>>> Please don't when they are functional identical then move them a layer up instead of messing up the backends.
->>>>
->>>> Regards,
->>>> Christian.
->>>>
->>>>>
->>>>> This simplifies the codebase and avoids duplication without
->>>>> changing behavior.
->>>>>
->>>>> No functional changes intended.
->>>>>
->>>>> Signed-off-by: Gabriel Almeida <gabrielsousa230@gmail.com>
->>>>> ---
->>>>>   drivers/gpu/drm/amd/amdgpu/Makefile        |  2 ++
->>>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_common.c | 42 ++++++++++++++++++++++
->>>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_common.h | 12 +++++++
->>>
->>> I think amdgpu_common_helper.c/h would be better.
->>>
->>>>>   drivers/gpu/drm/amd/amdgpu/nv.c            | 38 +++-----------------
->>>>>   drivers/gpu/drm/amd/amdgpu/soc15.c         | 31 ++--------------
->>>>>   drivers/gpu/drm/amd/amdgpu/soc21.c         | 38 +++-----------------
->>>>>   drivers/gpu/drm/amd/amdgpu/soc24.c         | 29 ++-------------
->>>>>   drivers/gpu/drm/amd/amdgpu/soc_v1_0.c      | 21 ++---------
->>>>>   8 files changed, 72 insertions(+), 141 deletions(-)
->>>>>   create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_common.c
->>>>>   create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_common.h
->>>>>
->>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/Makefile b/drivers/gpu/drm/amd/amdgpu/Makefile
->>>>> index 6a7e9bfec..84cce03d7 100644
->>>>> --- a/drivers/gpu/drm/amd/amdgpu/Makefile
->>>>> +++ b/drivers/gpu/drm/amd/amdgpu/Makefile
->>>>> @@ -69,6 +69,8 @@ amdgpu-y += amdgpu_device.o amdgpu_reg_access.o amdgpu_doorbell_mgr.o amdgpu_kms
->>>>>          amdgpu_ring_mux.o amdgpu_xcp.o amdgpu_seq64.o amdgpu_aca.o amdgpu_dev_coredump.o \
->>>>>          amdgpu_cper.o amdgpu_userq_fence.o amdgpu_eviction_fence.o amdgpu_ip.o
->>>>>
->>>>> +amdgpu-y += amdgpu_common.o
->>>>> +
->>>>>   amdgpu-$(CONFIG_PROC_FS) += amdgpu_fdinfo.o
->>>>>
->>>>>   amdgpu-$(CONFIG_PERF_EVENTS) += amdgpu_pmu.o
->>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_common.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_common.c
->>>>> new file mode 100644
->>>>> index 000000000..34ade6f63
->>>>> --- /dev/null
->>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_common.c
->>>>> @@ -0,0 +1,42 @@
->>>>> +// SPDX-License-Identifier: GPL-2.0
->>>
->>> This should be MIT
->>>
->>>>> +#include <linux/module.h>
->>>>> +
->>>>> +#include "amdgpu.h"
->>>>> +#include "amdgpu_common.h"
->>>>> +#include "mxgpu_nv.h"
->>>>> +
->>>>> +uint32_t read_indexed_register(struct amdgpu_device *adev,
->>>>> +                              u32 se_num, u32 sh_num, u32 reg_offset)
->>>>> +{
->>>>> +       uint32_t val;
->>>>> +
->>>>> +       mutex_lock(&adev->grbm_idx_mutex);
->>>>> +       if (se_num != 0xffffffff || sh_num != 0xffffffff)
->>>>> +               amdgpu_gfx_select_se_sh(adev, se_num, sh_num, 0xffffffff, 0);
->>>>> +
->>>>> +       val = RREG32(reg_offset);
->>>>> +
->>>>> +       if (se_num != 0xffffffff || sh_num != 0xffffffff)
->>>>> +               amdgpu_gfx_select_se_sh(adev, 0xffffffff, 0xffffffff, 0xffffffff, 0);
->>>>> +       mutex_unlock(&adev->grbm_idx_mutex);
->>>>> +       return val;
->>>>> +}
->>>>> +
->>>>> +void program_aspm(struct amdgpu_device *adev)
->>>>> +{
->>>>> +       if (!amdgpu_device_should_use_aspm(adev))
->>>>> +               return;
->>>>> +
->>>>> +       if (adev->nbio.funcs->program_aspm)
->>>>> +               adev->nbio.funcs->program_aspm(adev);
->>>>> +}
->>>>> +
->>>>> +int common_sw_init(struct amdgpu_ip_block *ip_block)
->>>
->>> Please prefix each of these functions with amdgpu_common_helper_
->>>
->>>>> +{
->>>>> +       struct amdgpu_device *adev = ip_block->adev;
->>>>> +
->>>>> +       if (amdgpu_sriov_vf(adev))
->>>>> +               xgpu_nv_mailbox_add_irq_id(adev);
->>>>> +
->>>>> +       return 0;
->>>>> +}
->>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_common.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_common.h
->>>>> new file mode 100644
->>>>> index 000000000..314b3506b
->>>>> --- /dev/null
->>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_common.h
->>>>> @@ -0,0 +1,12 @@
->>>>> +/* SPDX-License-Identifier: GPL-2.0 */
->>>
->>> This should be MIT
->>>
->>> Alex
->>>
->>>>> +#ifndef __AMDGPU_COMMON_H__
->>>>> +#define __AMDGPU_COMMON_H__
->>>>> +
->>>>> +uint32_t read_indexed_register(struct amdgpu_device *adev,
->>>>> +                              u32 se_num, u32 sh_num, u32 reg_offset);
->>>>> +
->>>>> +void program_aspm(struct amdgpu_device *adev);
->>>>> +
->>>>> +int common_sw_init(struct amdgpu_ip_block *ip_block);
->>>>> +
->>>>> +#endif
->>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/nv.c b/drivers/gpu/drm/amd/amdgpu/nv.c
->>>>> index 7ce1a1b95..cf8052c73 100644
->>>>> --- a/drivers/gpu/drm/amd/amdgpu/nv.c
->>>>> +++ b/drivers/gpu/drm/amd/amdgpu/nv.c
->>>>> @@ -29,6 +29,7 @@
->>>>>
->>>>>   #include "amdgpu.h"
->>>>>   #include "amdgpu_atombios.h"
->>>>> +#include "amdgpu_common.h"
->>>>>   #include "amdgpu_ih.h"
->>>>>   #include "amdgpu_uvd.h"
->>>>>   #include "amdgpu_vce.h"
->>>>> @@ -354,29 +355,13 @@ static struct soc15_allowed_register_entry nv_allowed_read_registers[] = {
->>>>>          { SOC15_REG_ENTRY(GC, 0, mmGB_ADDR_CONFIG)},
->>>>>   };
->>>>>
->>>>> -static uint32_t nv_read_indexed_register(struct amdgpu_device *adev, u32 se_num,
->>>>> -                                        u32 sh_num, u32 reg_offset)
->>>>> -{
->>>>> -       uint32_t val;
->>>>> -
->>>>> -       mutex_lock(&adev->grbm_idx_mutex);
->>>>> -       if (se_num != 0xffffffff || sh_num != 0xffffffff)
->>>>> -               amdgpu_gfx_select_se_sh(adev, se_num, sh_num, 0xffffffff, 0);
->>>>> -
->>>>> -       val = RREG32(reg_offset);
->>>>> -
->>>>> -       if (se_num != 0xffffffff || sh_num != 0xffffffff)
->>>>> -               amdgpu_gfx_select_se_sh(adev, 0xffffffff, 0xffffffff, 0xffffffff, 0);
->>>>> -       mutex_unlock(&adev->grbm_idx_mutex);
->>>>> -       return val;
->>>>> -}
->>>>>
->>>>>   static uint32_t nv_get_register_value(struct amdgpu_device *adev,
->>>>>                                        bool indexed, u32 se_num,
->>>>>                                        u32 sh_num, u32 reg_offset)
->>>>>   {
->>>>>          if (indexed) {
->>>>> -               return nv_read_indexed_register(adev, se_num, sh_num, reg_offset);
->>>>> +               return read_indexed_register(adev, se_num, sh_num, reg_offset);
->>>>>          } else {
->>>>>                  if (reg_offset == SOC15_REG_OFFSET(GC, 0, mmGB_ADDR_CONFIG))
->>>>>                          return adev->gfx.config.gb_addr_config;
->>>>> @@ -511,16 +496,6 @@ static int nv_set_vce_clocks(struct amdgpu_device *adev, u32 evclk, u32 ecclk)
->>>>>          return 0;
->>>>>   }
->>>>>
->>>>> -static void nv_program_aspm(struct amdgpu_device *adev)
->>>>> -{
->>>>> -       if (!amdgpu_device_should_use_aspm(adev))
->>>>> -               return;
->>>>> -
->>>>> -       if (adev->nbio.funcs->program_aspm)
->>>>> -               adev->nbio.funcs->program_aspm(adev);
->>>>> -
->>>>> -}
->>>>> -
->>>>>   const struct amdgpu_ip_block_version nv_common_ip_block = {
->>>>>          .type = AMD_IP_BLOCK_TYPE_COMMON,
->>>>>          .major = 1,
->>>>> @@ -965,12 +940,7 @@ static int nv_common_late_init(struct amdgpu_ip_block *ip_block)
->>>>>
->>>>>   static int nv_common_sw_init(struct amdgpu_ip_block *ip_block)
->>>>>   {
->>>>> -       struct amdgpu_device *adev = ip_block->adev;
->>>>> -
->>>>> -       if (amdgpu_sriov_vf(adev))
->>>>> -               xgpu_nv_mailbox_add_irq_id(adev);
->>>>> -
->>>>> -       return 0;
->>>>> +       return common_sw_init(ip_block);
->>>>>   }
->>>>>
->>>>>   static int nv_common_hw_init(struct amdgpu_ip_block *ip_block)
->>>>> @@ -984,7 +954,7 @@ static int nv_common_hw_init(struct amdgpu_ip_block *ip_block)
->>>>>                  adev->nbio.funcs->apply_l1_link_width_reconfig_wa(adev);
->>>>>
->>>>>          /* enable aspm */
->>>>> -       nv_program_aspm(adev);
->>>>> +       program_aspm(adev);
->>>>>          /* setup nbio registers */
->>>>>          adev->nbio.funcs->init_registers(adev);
->>>>>          /* remap HDP registers to a hole in mmio space,
->>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c b/drivers/gpu/drm/amd/amdgpu/soc15.c
->>>>> index b456e4541..a6b91363d 100644
->>>>> --- a/drivers/gpu/drm/amd/amdgpu/soc15.c
->>>>> +++ b/drivers/gpu/drm/amd/amdgpu/soc15.c
->>>>> @@ -28,6 +28,7 @@
->>>>>   #include <drm/amdgpu_drm.h>
->>>>>
->>>>>   #include "amdgpu.h"
->>>>> +#include "amdgpu_common.h"
->>>>>   #include "amdgpu_ih.h"
->>>>>   #include "amdgpu_uvd.h"
->>>>>   #include "amdgpu_vce.h"
->>>>> @@ -401,29 +402,12 @@ static struct soc15_allowed_register_entry soc15_allowed_read_registers[] = {
->>>>>          { SOC15_REG_ENTRY(GC, 0, mmDB_DEBUG2)},
->>>>>   };
->>>>>
->>>>> -static uint32_t soc15_read_indexed_register(struct amdgpu_device *adev, u32 se_num,
->>>>> -                                        u32 sh_num, u32 reg_offset)
->>>>> -{
->>>>> -       uint32_t val;
->>>>> -
->>>>> -       mutex_lock(&adev->grbm_idx_mutex);
->>>>> -       if (se_num != 0xffffffff || sh_num != 0xffffffff)
->>>>> -               amdgpu_gfx_select_se_sh(adev, se_num, sh_num, 0xffffffff, 0);
->>>>> -
->>>>> -       val = RREG32(reg_offset);
->>>>> -
->>>>> -       if (se_num != 0xffffffff || sh_num != 0xffffffff)
->>>>> -               amdgpu_gfx_select_se_sh(adev, 0xffffffff, 0xffffffff, 0xffffffff, 0);
->>>>> -       mutex_unlock(&adev->grbm_idx_mutex);
->>>>> -       return val;
->>>>> -}
->>>>> -
->>>>>   static uint32_t soc15_get_register_value(struct amdgpu_device *adev,
->>>>>                                           bool indexed, u32 se_num,
->>>>>                                           u32 sh_num, u32 reg_offset)
->>>>>   {
->>>>>          if (indexed) {
->>>>> -               return soc15_read_indexed_register(adev, se_num, sh_num, reg_offset);
->>>>> +               return read_indexed_register(adev, se_num, sh_num, reg_offset);
->>>>>          } else {
->>>>>                  if (reg_offset == SOC15_REG_OFFSET(GC, 0, mmGB_ADDR_CONFIG))
->>>>>                          return adev->gfx.config.gb_addr_config;
->>>>> @@ -695,15 +679,6 @@ static int soc15_set_vce_clocks(struct amdgpu_device *adev, u32 evclk, u32 ecclk
->>>>>          return 0;
->>>>>   }
->>>>>
->>>>> -static void soc15_program_aspm(struct amdgpu_device *adev)
->>>>> -{
->>>>> -       if (!amdgpu_device_should_use_aspm(adev))
->>>>> -               return;
->>>>> -
->>>>> -       if (adev->nbio.funcs->program_aspm)
->>>>> -               adev->nbio.funcs->program_aspm(adev);
->>>>> -}
->>>>> -
->>>>>   const struct amdgpu_ip_block_version vega10_common_ip_block =
->>>>>   {
->>>>>          .type = AMD_IP_BLOCK_TYPE_COMMON,
->>>>> @@ -1284,7 +1259,7 @@ static int soc15_common_hw_init(struct amdgpu_ip_block *ip_block)
->>>>>          struct amdgpu_device *adev = ip_block->adev;
->>>>>
->>>>>          /* enable aspm */
->>>>> -       soc15_program_aspm(adev);
->>>>> +       program_aspm(adev);
->>>>>          /* setup nbio registers */
->>>>>          adev->nbio.funcs->init_registers(adev);
->>>>>          /* remap HDP registers to a hole in mmio space,
->>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/soc21.c b/drivers/gpu/drm/amd/amdgpu/soc21.c
->>>>> index fbd1d97f3..586d62202 100644
->>>>> --- a/drivers/gpu/drm/amd/amdgpu/soc21.c
->>>>> +++ b/drivers/gpu/drm/amd/amdgpu/soc21.c
->>>>> @@ -27,6 +27,7 @@
->>>>>
->>>>>   #include "amdgpu.h"
->>>>>   #include "amdgpu_atombios.h"
->>>>> +#include "amdgpu_common.h"
->>>>>   #include "amdgpu_ih.h"
->>>>>   #include "amdgpu_uvd.h"
->>>>>   #include "amdgpu_vce.h"
->>>>> @@ -306,29 +307,12 @@ static struct soc15_allowed_register_entry soc21_allowed_read_registers[] = {
->>>>>          { SOC15_REG_ENTRY(GC, 0, regGB_ADDR_CONFIG)},
->>>>>   };
->>>>>
->>>>> -static uint32_t soc21_read_indexed_register(struct amdgpu_device *adev, u32 se_num,
->>>>> -                                        u32 sh_num, u32 reg_offset)
->>>>> -{
->>>>> -       uint32_t val;
->>>>> -
->>>>> -       mutex_lock(&adev->grbm_idx_mutex);
->>>>> -       if (se_num != 0xffffffff || sh_num != 0xffffffff)
->>>>> -               amdgpu_gfx_select_se_sh(adev, se_num, sh_num, 0xffffffff, 0);
->>>>> -
->>>>> -       val = RREG32(reg_offset);
->>>>> -
->>>>> -       if (se_num != 0xffffffff || sh_num != 0xffffffff)
->>>>> -               amdgpu_gfx_select_se_sh(adev, 0xffffffff, 0xffffffff, 0xffffffff, 0);
->>>>> -       mutex_unlock(&adev->grbm_idx_mutex);
->>>>> -       return val;
->>>>> -}
->>>>> -
->>>>>   static uint32_t soc21_get_register_value(struct amdgpu_device *adev,
->>>>>                                        bool indexed, u32 se_num,
->>>>>                                        u32 sh_num, u32 reg_offset)
->>>>>   {
->>>>>          if (indexed) {
->>>>> -               return soc21_read_indexed_register(adev, se_num, sh_num, reg_offset);
->>>>> +               return read_indexed_register(adev, se_num, sh_num, reg_offset);
->>>>>          } else {
->>>>>                  if (reg_offset == SOC15_REG_OFFSET(GC, 0, regGB_ADDR_CONFIG) && adev->gfx.config.gb_addr_config)
->>>>>                          return adev->gfx.config.gb_addr_config;
->>>>> @@ -470,15 +454,6 @@ static int soc21_set_vce_clocks(struct amdgpu_device *adev, u32 evclk, u32 ecclk
->>>>>          return 0;
->>>>>   }
->>>>>
->>>>> -static void soc21_program_aspm(struct amdgpu_device *adev)
->>>>> -{
->>>>> -       if (!amdgpu_device_should_use_aspm(adev))
->>>>> -               return;
->>>>> -
->>>>> -       if (adev->nbio.funcs->program_aspm)
->>>>> -               adev->nbio.funcs->program_aspm(adev);
->>>>> -}
->>>>> -
->>>>>   const struct amdgpu_ip_block_version soc21_common_ip_block = {
->>>>>          .type = AMD_IP_BLOCK_TYPE_COMMON,
->>>>>          .major = 1,
->>>>> @@ -912,12 +887,7 @@ static int soc21_common_late_init(struct amdgpu_ip_block *ip_block)
->>>>>
->>>>>   static int soc21_common_sw_init(struct amdgpu_ip_block *ip_block)
->>>>>   {
->>>>> -       struct amdgpu_device *adev = ip_block->adev;
->>>>> -
->>>>> -       if (amdgpu_sriov_vf(adev))
->>>>> -               xgpu_nv_mailbox_add_irq_id(adev);
->>>>> -
->>>>> -       return 0;
->>>>> +       return common_sw_init(ip_block);
->>>>>   }
->>>>>
->>>>>   static int soc21_common_hw_init(struct amdgpu_ip_block *ip_block)
->>>>> @@ -925,7 +895,7 @@ static int soc21_common_hw_init(struct amdgpu_ip_block *ip_block)
->>>>>          struct amdgpu_device *adev = ip_block->adev;
->>>>>
->>>>>          /* enable aspm */
->>>>> -       soc21_program_aspm(adev);
->>>>> +       program_aspm(adev);
->>>>>          /* setup nbio registers */
->>>>>          adev->nbio.funcs->init_registers(adev);
->>>>>          /* remap HDP registers to a hole in mmio space,
->>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/soc24.c b/drivers/gpu/drm/amd/amdgpu/soc24.c
->>>>> index d1adf19a5..f9341c0e4 100644
->>>>> --- a/drivers/gpu/drm/amd/amdgpu/soc24.c
->>>>> +++ b/drivers/gpu/drm/amd/amdgpu/soc24.c
->>>>> @@ -26,6 +26,7 @@
->>>>>   #include <linux/pci.h>
->>>>>
->>>>>   #include "amdgpu.h"
->>>>> +#include "amdgpu_common.h"
->>>>>   #include "amdgpu_ih.h"
->>>>>   #include "amdgpu_uvd.h"
->>>>>   #include "amdgpu_vce.h"
->>>>> @@ -132,31 +133,12 @@ static struct soc15_allowed_register_entry soc24_allowed_read_registers[] = {
->>>>>          { SOC15_REG_ENTRY(GC, 0, regGB_ADDR_CONFIG)},
->>>>>   };
->>>>>
->>>>> -static uint32_t soc24_read_indexed_register(struct amdgpu_device *adev,
->>>>> -                                           u32 se_num,
->>>>> -                                           u32 sh_num,
->>>>> -                                           u32 reg_offset)
->>>>> -{
->>>>> -       uint32_t val;
->>>>> -
->>>>> -       mutex_lock(&adev->grbm_idx_mutex);
->>>>> -       if (se_num != 0xffffffff || sh_num != 0xffffffff)
->>>>> -               amdgpu_gfx_select_se_sh(adev, se_num, sh_num, 0xffffffff, 0);
->>>>> -
->>>>> -       val = RREG32(reg_offset);
->>>>> -
->>>>> -       if (se_num != 0xffffffff || sh_num != 0xffffffff)
->>>>> -               amdgpu_gfx_select_se_sh(adev, 0xffffffff, 0xffffffff, 0xffffffff, 0);
->>>>> -       mutex_unlock(&adev->grbm_idx_mutex);
->>>>> -       return val;
->>>>> -}
->>>>> -
->>>>>   static uint32_t soc24_get_register_value(struct amdgpu_device *adev,
->>>>>                                           bool indexed, u32 se_num,
->>>>>                                           u32 sh_num, u32 reg_offset)
->>>>>   {
->>>>>          if (indexed) {
->>>>> -               return soc24_read_indexed_register(adev, se_num, sh_num, reg_offset);
->>>>> +               return read_indexed_register(adev, se_num, sh_num, reg_offset);
->>>>>          } else {
->>>>>                  if (reg_offset == SOC15_REG_OFFSET(GC, 0, regGB_ADDR_CONFIG) &&
->>>>>                      adev->gfx.config.gb_addr_config)
->>>>> @@ -455,12 +437,7 @@ static int soc24_common_late_init(struct amdgpu_ip_block *ip_block)
->>>>>
->>>>>   static int soc24_common_sw_init(struct amdgpu_ip_block *ip_block)
->>>>>   {
->>>>> -       struct amdgpu_device *adev = ip_block->adev;
->>>>> -
->>>>> -       if (amdgpu_sriov_vf(adev))
->>>>> -               xgpu_nv_mailbox_add_irq_id(adev);
->>>>> -
->>>>> -       return 0;
->>>>> +       return common_sw_init(ip_block);
->>>>>   }
->>>>>
->>>>>   static int soc24_common_hw_init(struct amdgpu_ip_block *ip_block)
->>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/soc_v1_0.c b/drivers/gpu/drm/amd/amdgpu/soc_v1_0.c
->>>>> index 709b1669b..2f77fb0b6 100644
->>>>> --- a/drivers/gpu/drm/amd/amdgpu/soc_v1_0.c
->>>>> +++ b/drivers/gpu/drm/amd/amdgpu/soc_v1_0.c
->>>>> @@ -21,6 +21,7 @@
->>>>>    *
->>>>>    */
->>>>>   #include "amdgpu.h"
->>>>> +#include "amdgpu_common.h"
->>>>>   #include "soc15.h"
->>>>>   #include "soc15_common.h"
->>>>>   #include "soc_v1_0.h"
->>>>> @@ -184,31 +185,13 @@ static struct soc15_allowed_register_entry soc_v1_0_allowed_read_registers[] = {
->>>>>          { SOC15_REG_ENTRY(GC, 0, regGB_ADDR_CONFIG_1) },
->>>>>   };
->>>>>
->>>>> -static uint32_t soc_v1_0_read_indexed_register(struct amdgpu_device *adev,
->>>>> -                                              u32 se_num,
->>>>> -                                              u32 sh_num,
->>>>> -                                              u32 reg_offset)
->>>>> -{
->>>>> -       uint32_t val;
->>>>> -
->>>>> -       mutex_lock(&adev->grbm_idx_mutex);
->>>>> -       if (se_num != 0xffffffff || sh_num != 0xffffffff)
->>>>> -               amdgpu_gfx_select_se_sh(adev, se_num, sh_num, 0xffffffff, 0);
->>>>> -
->>>>> -       val = RREG32(reg_offset);
->>>>> -
->>>>> -       if (se_num != 0xffffffff || sh_num != 0xffffffff)
->>>>> -               amdgpu_gfx_select_se_sh(adev, 0xffffffff, 0xffffffff, 0xffffffff, 0);
->>>>> -       mutex_unlock(&adev->grbm_idx_mutex);
->>>>> -       return val;
->>>>> -}
->>>>>
->>>>>   static uint32_t soc_v1_0_get_register_value(struct amdgpu_device *adev,
->>>>>                                              bool indexed, u32 se_num,
->>>>>                                              u32 sh_num, u32 reg_offset)
->>>>>   {
->>>>>          if (indexed) {
->>>>> -               return soc_v1_0_read_indexed_register(adev, se_num, sh_num, reg_offset);
->>>>> +               return read_indexed_register(adev, se_num, sh_num, reg_offset);
->>>>>          } else {
->>>>>                  if (reg_offset == SOC15_REG_OFFSET(GC, 0, regGB_ADDR_CONFIG_1) &&
->>>>>                      adev->gfx.config.gb_addr_config)
->>>>> --
->>>>> 2.43.0
->>>>>
->>>>
-
+W0FNRCBPZmZpY2lhbCBVc2UgT25seSAtIEFNRCBJbnRlcm5hbCBEaXN0cmlidXRpb24gT25seV0N
+Cg0KPiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBLb2VuaWcsIENocmlzdGlh
+biA8Q2hyaXN0aWFuLktvZW5pZ0BhbWQuY29tPg0KPiBTZW50OiBUdWVzZGF5LCBNYXJjaCAzMSwg
+MjAyNiA3OjU3IFBNDQo+IFRvOiBaaGFuZywgSmVzc2UoSmllKSA8SmVzc2UuWmhhbmdAYW1kLmNv
+bT47IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnDQo+IENjOiBEZXVjaGVyLCBBbGV4YW5k
+ZXIgPEFsZXhhbmRlci5EZXVjaGVyQGFtZC5jb20+DQo+IFN1YmplY3Q6IFJlOiBbUEFUQ0ggMS8y
+XSBkcm0vYW1kZ3B1L3NkbWFfdjYuMDogZW5hYmxlIFdQVFIgcG9sbGluZyBmb3IgVU1RDQo+IFNE
+TUEgTVFEDQo+DQo+DQo+DQo+IE9uIDMvMzEvMjYgMTE6NTMsIEplc3NlIFpoYW5nIHdyb3RlOg0K
+PiA+IFVNUSBTRE1BIHF1ZXVlcyBjYW4gc3RhbGwgd2hlbiBvbmx5IEYzMi9NQ1UgV1BUUiBwb2xs
+aW5nIGlzIGVuYWJsZWQgaW4gdGhlDQo+IE1RRCBSQiBjb250cm9sIGNvbmZpZ3VyYXRpb24uDQo+
+ID4gRW5hYmxlIFdQVFJfUE9MTF9FTkFCTEUgaW4gc2RtYV92Nl8wIGluaXQgc28gaGFyZHdhcmUg
+Y2FuIHJlbGlhYmx5DQo+ID4gb2JzZXJ2ZSBXQiB3cml0ZSBwb2ludGVyIHVwZGF0ZXMgd2hpbGUg
+a2VlcGluZyB0aGUgZXhpc3RpbmcgZG9vcmJlbGwgcGF0aA0KPiBlbmFibGVkLg0KPiA+DQo+ID4g
+VGhpcyBmaXhlcyBVTVEgU0RNQSBzdWJtaXNzaW9ucyB0aW1pbmcgb3V0IG9uIHN1YnNlcXVlbnQg
+cGFja2V0cyB3aGVyZQ0KPiB3cHRyL3JwdHIgbm8gbG9uZ2VyIGFkdmFuY2UuDQo+ID4NCj4gPiBT
+aWduZWQtb2ZmLWJ5OiBKZXNzZSBaaGFuZyA8amVzc2UuemhhbmdAYW1kLmNvbT4NCj4gPiAtLS0N
+Cj4gPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvc2RtYV92Nl8wLmMgfCAxICsNCj4gPiAg
+MSBmaWxlIGNoYW5nZWQsIDEgaW5zZXJ0aW9uKCspDQo+ID4NCj4gPiBkaWZmIC0tZ2l0IGEvZHJp
+dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvc2RtYV92Nl8wLmMNCj4gPiBiL2RyaXZlcnMvZ3B1L2Ry
+bS9hbWQvYW1kZ3B1L3NkbWFfdjZfMC5jDQo+ID4gaW5kZXggYjAwNTY3MmYyZjk2Li42MjI1MTg0
+ODNjNmUgMTAwNjQ0DQo+ID4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvc2RtYV92
+Nl8wLmMNCj4gPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9zZG1hX3Y2XzAuYw0K
+PiA+IEBAIC04NjMsNiArODYzLDcgQEAgc3RhdGljIGludCBzZG1hX3Y2XzBfbXFkX2luaXQoc3Ry
+dWN0IGFtZGdwdV9kZXZpY2UNCj4gKmFkZXYsIHZvaWQgKm1xZCwNCj4gPiAgICAgICAgICAgICBv
+cmRlcl9iYXNlXzIocHJvcC0+cXVldWVfc2l6ZSAvIDQpIDw8DQo+IFNETUEwX1FVRVVFMF9SQl9D
+TlRMX19SQl9TSVpFX19TSElGVCB8DQo+ID4gICAgICAgICAgICAgMSA8PA0KPiBTRE1BMF9RVUVV
+RTBfUkJfQ05UTF9fUlBUUl9XUklURUJBQ0tfRU5BQkxFX19TSElGVCB8DQo+ID4gICAgICAgICAg
+ICAgNCA8PA0KPiBTRE1BMF9RVUVVRTBfUkJfQ05UTF9fUlBUUl9XUklURUJBQ0tfVElNRVJfX1NI
+SUZUIHwNCj4gPiArICAgICAgICAgICAxIDw8DQo+IFNETUEwX1FVRVVFMF9SQl9DTlRMX19XUFRS
+X1BPTExfRU5BQkxFX19TSElGVCB8DQo+DQo+IFRoaXMgZW5hYmxlZCBXUFRSIHBvbGxpbmcgZm9y
+IHRoZSBrZXJuZWwgcXVldWUgd2hpY2ggaXMgY2xlYXJseSBub3QgY29ycmVjdC4NClRoaXMgcGF0
+Y2ggd2lsbCBub3QgYWZmZWN0IHRoZSBTRE1BIGtlcm5lbCBxdWV1ZS4NCnRoZSBrZXJuZWwgcmlu
+ZyBwYXRoIGNvbmZpZ3VyZXMgU0RNQSBxdWV1ZXMgdmlhIHJlZ2lzdGVyIHdyaXRlczsgdGhlIFVN
+USBwYXRoIHN1cHBsaWVzIGEgZmlybXdhcmUtZmFjaW5nIE1RRCBidWlsdCBieSBzZG1hXypfbXFk
+X2luaXQoKS4NCg0KVGhhbmtzDQpKZXNzZQ0KPg0KPiBNeSBlZHVjYXRlZCBndWVzcyBpcyB0aGF0
+IHRoaXMgb25seSB3b3JrcyBhcm91bmQgdGhlIHByb2JsZW0gYmVjYXVzZSBpdCBrZWVwcyB0aGUN
+Cj4gU0RNQSBhd2FrZS4NCj4NCj4gUmVnYXJkcywNCj4gQ2hyaXN0aWFuLg0KPg0KPiA+ICAgICAg
+ICAgICAgIDEgPDwNCj4gU0RNQTBfUVVFVUUwX1JCX0NOVExfX0YzMl9XUFRSX1BPTExfRU5BQkxF
+X19TSElGVDsNCj4gPg0KPiA+ICAgICBtLT5zZG1heF9ybGN4X3JiX2Jhc2UgPSBsb3dlcl8zMl9i
+aXRzKHByb3AtPmhxZF9iYXNlX2dwdV9hZGRyID4+IDgpOw0KDQo=
