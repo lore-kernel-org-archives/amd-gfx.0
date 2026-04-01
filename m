@@ -4,76 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3B791D3514E
-	for <amd-gfx@archiver.kernel.org>; Wed,  1 Apr 2026 07:36:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9D778D35155
+	for <amd-gfx@archiver.kernel.org>; Wed,  1 Apr 2026 07:46:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C1EF810EE9A;
-	Wed,  1 Apr 2026 07:36:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 023EA10ED85;
+	Wed,  1 Apr 2026 07:46:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="bXNn8vX/";
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="EIwv3Mfh";
 	dkim-atps=neutral
-Received: from mail-lf1-f49.google.com (mail-lf1-f49.google.com
- [209.85.167.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6E2A710EDD4
- for <amd-gfx@lists.freedesktop.org>; Wed,  1 Apr 2026 07:36:45 +0000 (UTC)
-Received: by mail-lf1-f49.google.com with SMTP id
- 2adb3069b0e04-5a1307438ddso7189686e87.1
- for <amd-gfx@lists.freedesktop.org>; Wed, 01 Apr 2026 00:36:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1775029004; x=1775633804; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=QcdqkcoFWcnZRoFYPOodBex3IYIVOtQ1sm2KoOI9YB0=;
- b=bXNn8vX/xmaS2XLddn+JuqGbwsjANMBJ1KjF4q2LUvi4ANsfqAshYz0CVAxaMDNDM9
- 6YikUGH2spl5oBhQvPK2vdP92PTAf/4nElanpalFzCTpdMrr/eVrl4Kdf7JCts5FhiSa
- j75e6p95RizKQPvZ8Skhp96oJCcoF7hiMdikulKPN6W3tawosijyZz+OgVvC2x7alHgF
- wdYq4KKfBxufoAuATE/oDSlm5UACKBmLqW+j4dMdcOyMP4R3ExZ79HHyr3VwxMlXhCJX
- VPZ+w+iAlF+OxIwG+Pg7nfqoh7vF+IJA5pYQ4jR3V+sQYcn+ao1rGExotFPauNEDxd4y
- J1LQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1775029004; x=1775633804;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=QcdqkcoFWcnZRoFYPOodBex3IYIVOtQ1sm2KoOI9YB0=;
- b=VyeJacJe1jcMvUfUIk2gqYcrDnx6a+yp6rms0xxSDEzsuzaj2h/v1QA0ccognkcboh
- /ikTbr5KjUOamnprwtL75vfHO3Z2UPm35abawypfkZSECLwOrcsEyoYL7pXfl4g3X7BU
- avurR1wp58rBRRprzZVjIdr3yYSQb4uNwnv0IdcZQUiCY96G9ZPAVMoyIvitoEdcRZjK
- VEB8F7Z8jfQ8MsMc1igZQO6sVjkyK0HMpDof3d2ODMw80qItPHUjFYBV8ZGoqZp2kMo0
- 105eMgUApS0D+CCVTvVWXULKknl/4p/TXnb6kPt27j5yp7ojmfFoQvIGJAi6I9vAIvso
- jyJw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVsnjXUjIeLd3uF/oQ48Y8zZhV6THb0jMtIPAINhPs2EVusvhNOnOrFKYJJJ7d/egvbM5oKXakX@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yx4YYXrKG7EVcq7O1r0iUpp7DyPSbh/NhlhL7lHKBo1GtWKsvIF
- F6XPBhJG8/EGaCprJ8IHmnwSgmn1R/hUt3XmoCq259XxtQTu7SPDIOYJ
-X-Gm-Gg: ATEYQzy/UcnCng1llGCbypDUpJxrkRDQOlycO+35nBoQk+2449hmDR9NBPL/ytm99pb
- wHPPmJgdLs3srikzi5VzxoeSOkcO7JGJkW7DttSpCOimladDvNqToy2K8jVGt3QL2UeRf12Bo0h
- rlEgFAeI3RXaT62Lu1fvCGlaKsEuGl+igyPHXGzFyqYECEneZETMZwuQzf5w+pT2/SxCKqOtF9K
- lGXGByRzQo6pvW4w1vEePxHJjG9nydp9G4s0W/nSCwd1HA+Be5qev5VziWXjU+dagopi18ynjVP
- joIiQkOHCL85WIeOKC3yETg+ZVcgo4XEWRwkWCi6jL9OLX3/MlpGuFWuyy1UBdNxCdfrIg0yfqV
- NZ9615Gb/aINvibX1P+UuZKPPPOebViWjHeUhvOzXY4wHutUY7esXMQojFAFxPSOPSkvsgZ1yVE
- rCGkP2Wx0HXiuANfGYBLG7baKpIZzpS6l21w==
-X-Received: by 2002:a05:6512:1152:b0:5a2:7d1a:4043 with SMTP id
- 2adb3069b0e04-5a2c1f1972amr911388e87.20.1775029003339; 
- Wed, 01 Apr 2026 00:36:43 -0700 (PDT)
-Received: from localhost ([188.234.148.119]) by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5a2b1443f23sm3230048e87.42.2026.04.01.00.36.41
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 01 Apr 2026 00:36:42 -0700 (PDT)
-From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
-To: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: lijo.lazar@amd.com, Eric Huang <jinhuieric.huang@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
-Subject: [PATCH] drm/amdgpu: use IRQ-safe xarray API for PASID management
-Date: Wed,  1 Apr 2026 12:36:32 +0500
-Message-ID: <20260401073632.101796-1-mikhail.v.gavrilov@gmail.com>
-X-Mailer: git-send-email 2.53.0
+Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 60E4C10EC3B;
+ Wed,  1 Apr 2026 07:46:20 +0000 (UTC)
+Received: from smtp102.mailbox.org (smtp102.mailbox.org [10.196.197.102])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4flxr86687z9tjF;
+ Wed,  1 Apr 2026 09:46:16 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; t=1775029576;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=T/lKwjgSR9B7dpqAx3+zN6wocdRLjAthcFiDFA3urfI=;
+ b=EIwv3MfhmcHe7xoCqFeKAzhpbqzv9Au9KKVBYV0H/shF8oR03CWEkv3/x7ApqnmFO59ce0
+ 2t4Mvsv3ZoDZ8V5mLDFbvtKWAXoUTa/kM63gcT9tsPElAFRGR6o63WxcxZBDHMOOTuS8ar
+ thvvU0091gP8H2cb+kQAZBtV1hjQHlmZg5FeFFJ44eJeX6zOfIjKyweC4QlzCJfW3Uv4eT
+ jQ/dhVBo9mB+EIfm1ayFWAGsEZ8X1sFDTFXpXSKl9raJaau7B/ivK73bP8oaUmWPPGfKuD
+ dlstygGbIg8U3KJCpnkWEP0WiwJH3OgupdBhBpZdQYZqhw+NEHgZPoqRxxQqkw==
+Message-ID: <7ad74724-9233-44ed-9b54-4c88a6a4f255@mailbox.org>
+Date: Wed, 1 Apr 2026 09:46:08 +0200
 MIME-Version: 1.0
+Subject: Re: [PATCH v5 0/3] Add "link bpc" DRM property
+To: Pekka Paalanen <pekka.paalanen@collabora.com>
+Cc: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
+ Daniel Stone <daniels@collabora.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, kernel@collabora.com,
+ Derek Foreman <derek.foreman@collabora.com>,
+ Marius Vlad <marius.vlad@collabora.com>
+References: <20260319-link-bpc-v5-0-5306cd04a708@collabora.com>
+ <8676926.T7Z3S40VBb@workhorse>
+ <eff61423-a854-44c1-8634-30e2bd61e005@mailbox.org>
+ <4265353.aeNJFYEL58@workhorse>
+ <254c20a4-cce3-4c8e-9902-514586f3e694@mailbox.org>
+ <20260326155305.736b4e64@fluorite>
+ <47325395-3790-4cb4-8efd-84a3d8ddb80c@mailbox.org>
+ <20260331153805.376486e2@fluorite>
+ <d9abba15-382d-4bc1-a58a-71bb8413eeac@mailbox.org>
+ <20260331172105.271c677c@fluorite>
+From: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>
+Content-Language: en-CA
+In-Reply-To: <20260331172105.271c677c@fluorite>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-MBO-RS-ID: e7243fd9641255444cd
+X-MBO-RS-META: d8jt3igqahjq1xf3shwfnyhz7qfjhouj
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,42 +84,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-xa_alloc_cyclic() and xa_erase() use plain xa_lock()/xa_unlock()
-regardless of XA_FLAGS_LOCK_IRQ — the flag only affects lockdep
-annotations, not runtime locking.
+On 3/31/26 16:21, Pekka Paalanen wrote:
+> On Tue, 31 Mar 2026 14:56:22 +0200
+> Michel Dänzer <michel.daenzer@mailbox.org> wrote:
+>> On 3/31/26 14:38, Pekka Paalanen wrote:
+>>> On Tue, 31 Mar 2026 10:01:59 +0200
+>>> Michel Dänzer <michel.daenzer@mailbox.org> wrote:  
+>>>> On 3/26/26 14:53, Pekka Paalanen wrote:  
+>>>>> On Tue, 24 Mar 2026 17:44:21 +0100
+>>>>> Michel Dänzer <michel.daenzer@mailbox.org> wrote:
+>>>>>     
+>>>>>> * There's no clear use case.
+>>>>>>
+>>>>>> This is generally a requirement for new KMS UAPI.
+>>>>>>
+>>>>>> The practical usefulness of the corresponding weston MR is dubious
+>>>>>> per the concern above.    
+>>>>>
+>>>>> I think the example of RGB 10 bpc to be degraded to YCbCr 10 bpc
+>>>>> rather than RGB 8 bpc is an excellent use case.    
+>>>>
+>>>> This series and the corresponding Weston MR aren't enough to address
+>>>> that use case though, are they? All they achieve is logging a
+>>>> potentially misleading warning.
+>>>>
+>>>> It might make sense to combine this series and the Weston MR with
+>>>> whatever else is needed for that use case.  
+>>>
+>>> What do you believe is missing?  
+>>
+>> For the stated use case, e.g. a mechanism to control RGB vs YCbCr?
+> 
+> There is no need for that. Currently the driver chooses the color model
+> and depth on its own. We just want to make sure it's not too low.
 
-Switch to xa_alloc_cyclic_irq() and xa_erase_irq() which use
-xa_lock_irq/xa_unlock_irq internally, fixing the IRQ safety issue
-for amdgpu_pasid_free() called from hardirq via fence callbacks.
+What can be done when it's too low though? The only thing I can see is setting a higher "max bpc" value. If that's acceptable and helps though, why was the lower value set in the first place? (Otherwise the weston MR doesn't log the warning)
 
-Fixes: a3c0ee978e16 ("drm/amdgpu: replace PASID IDR with XArray")
-Signed-off-by: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
-index a6ac3b4ce0df..64d0da28441f 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
-@@ -68,7 +68,7 @@ int amdgpu_pasid_alloc(unsigned int bits)
- 	if (bits == 0)
- 		return -EINVAL;
- 
--	r = xa_alloc_cyclic(&amdgpu_pasid_xa, &pasid, xa_mk_value(0),
-+	r = xa_alloc_cyclic_irq(&amdgpu_pasid_xa, &pasid, xa_mk_value(0),
- 			    XA_LIMIT(1, (1U << bits) - 1),
- 			    &amdgpu_pasid_xa_next, GFP_KERNEL);
- 	if (r < 0)
-@@ -85,7 +85,7 @@ int amdgpu_pasid_alloc(unsigned int bits)
- void amdgpu_pasid_free(u32 pasid)
- {
- 	trace_amdgpu_pasid_freed(pasid);
--	xa_erase(&amdgpu_pasid_xa, pasid);
-+	xa_erase_irq(&amdgpu_pasid_xa, pasid);
- }
- 
- static void amdgpu_pasid_free_cb(struct dma_fence *fence,
+I feel like I'm still missing a piece of the picture for the practical use.
+
+
 -- 
-2.53.0
-
+Earthling Michel Dänzer       \        GNOME / Xwayland / Mesa developer
+https://redhat.com             \               Libre software enthusiast
