@@ -4,117 +4,99 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5B028107637F
-	for <amd-gfx@archiver.kernel.org>; Wed,  1 Apr 2026 14:18:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1F01610F6FDC
+	for <amd-gfx@archiver.kernel.org>; Wed,  1 Apr 2026 16:37:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EC7E510EDC0;
-	Wed,  1 Apr 2026 14:18:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ABDD710ED0A;
+	Wed,  1 Apr 2026 16:37:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=fooishbar.org header.i=@fooishbar.org header.b="J4Ev+OP0";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="j5trTI0A";
 	dkim-atps=neutral
-Received: from mail-yx1-f43.google.com (mail-yx1-f43.google.com
- [74.125.224.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5E03C10EDB1
- for <amd-gfx@lists.freedesktop.org>; Wed,  1 Apr 2026 14:18:11 +0000 (UTC)
-Received: by mail-yx1-f43.google.com with SMTP id
- 956f58d0204a3-64edf260b49so1962178d50.0
- for <amd-gfx@lists.freedesktop.org>; Wed, 01 Apr 2026 07:18:11 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1775053090; cv=none;
- d=google.com; s=arc-20240605;
- b=YBR2Uiw8Xlk5b9aYFPvPAh9UNH+xQSaSiOJ4b6aGinYG7xBkpgGfOyBqkjzDzs2bBN
- b89SIeZ/jRWDw8PYRuZhZIwOMFD0heuNd64C27mZWXvRMmbHfV2QGt9M/jXITgFCEcVE
- 4sgZUVDw8veOQJCQ1kNbPkrIaJM9TZOse7X1FpjmgwXw8KQLLGyLxXmBaPB45WmF0vFX
- cpxDaSIJnz+4Jlp2XmVH/mYjrgVMpQGEkIijtXZImgJoBvpbuWhP5dayc+JT1kd6jCql
- XgLt0AsP800+jm2jmI2TR3CC7GBsLEWFQ4e/D9DsoCmxsByecTq2aDcFz7Ub1DUWaCTE
- NUIw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=S8Tzy9p65X+mMpYvFYQPPcRz7RB7Jp7ad2p90YGsMbw=;
- fh=aPkDINnudaIKf5FURVQDCrDgr63BeNc12UU+6tZ13aM=;
- b=aH9wpI+3vIVdQwk7dgIKYux1u9bnO1JhOVOPUWnWnhSiZr9TC8465k9Oa6BOul06Kz
- zPUgo9LWYZ9lSobKo1WMR61QQv8IlkiLCk8BHcWggQ0640KVTCuy7NeGjdqx3mt6ei6T
- m4WTHVOYyYH7lv6ZG/cgmHnfh2x2pGVCBRznWjje74GPV4ZQuzs56B21F+k51eYMOuLL
- D3xZrfxuRw+1U1IrVbq7OtNJHdeAzgBL2OCjqgza0HwBCYfkxwPcAyLV1jlw/scbBNsK
- Lz+eTKWi41FJ2Vu/9oIdoLsEq6jEaRTvbazyH/wtmp5PaemAatJ/cwlc4SDHh6BAbEMK
- j3/w==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=fooishbar.org; s=google; t=1775053090; x=1775657890;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=S8Tzy9p65X+mMpYvFYQPPcRz7RB7Jp7ad2p90YGsMbw=;
- b=J4Ev+OP0vQD5sQTHTbC7JDxR/qgDIb7I+jHaq42sgAr3GHwwBPzufJM7id8MiNecDi
- 61D1/up/BltwTGsvUOUTffRWIhXGWbgaTGkpUS5Fd7cb9ywfTgsVG2WbU1oAVg77zhvJ
- PuRyvyNrrYnYP8W4CR3my9OkrhbuTQ5pS5A5RuoLc9nhMkN/kzCwaXJ71raRAkessgoE
- 8YZ1iuqSKjV3dvBY6yUCINX/TjXdKmF24WuBqDBBUvzXGjQIN7aLSEoq5XaQbwZYCCou
- /GDnYNUfFInj2Fdz6wzBzj1i1bIUz93e3hH7Kbhvt8m/QxBNHkKj7O1pol+hd0FfpLiq
- oCSw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1775053090; x=1775657890;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=S8Tzy9p65X+mMpYvFYQPPcRz7RB7Jp7ad2p90YGsMbw=;
- b=lrOmIdPm6Tu7FxiFyH69Id90VlCffNWFbTkIkQcwWLK/RE13H+4Pylc6OB9fE+T/3P
- ONh6tQfU1fngPqFy0kRuFbQqR0LiCUHxW65wceZBdGJ6P23voQp23GxSP7/ik48Ykf2r
- jdkGxZYLVgpdLZenSM0W2+TR82sPJLrSy39MI86HO/mV2jUFtQXqd++7hO1g7rEvRLuk
- luiW/jDd2jWSov1BgiYHjGKTMl0K6lxeHdCInHDNWbFwoir4dPTbJNCQNXQfG9KuuLBq
- hyxTsC/PtpPTk2ZldpvkexGhQI8t2304B7WRaSSKlcgc1tZ79r/bOwdhVZWJkhLImUwx
- aSig==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXena6RJL/j/M1Iqihl3FE0CFTYCSkZDs1js2qzCgbPUDYFg2qaTNEjVW0DanTqr6AWvVYNmD4g@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwfoMLgBVpNArl2B2S4i7QvT3Taj6lkyuBngEya3LlHGeFgjimW
- VqRNKHwxqPshsdhHcynLUkWoogltLWArc7vjzbVPfEw0Dp56JJqwfKFiFLVC8q2qoUArkPjrLtZ
- VQBmDyFOM8lTD+L5sQdtIEh6Juh0z5EKbc1xoc0JC9g==
-X-Gm-Gg: ATEYQzy1yqb+jNQfJv6hEyrOBRkzIhuhKC3XTOpVVPnp2QYKUTDYxYiHYzsPiQe4UqV
- YKLO9mAKAtL4ChrO6YnDz2Vtso8Qu3qdJXsshQkCqQjrw84e9S2Rhqa2cuYTPSZi710QRelxLxg
- SKazdAxhmxNvfPhYPZZ1SwtiiZQMZbf5BLkgPPfxTGgwaqNFrfZj5NlWp49OAFXUN5LmlzfJ2rH
- p18FhClXx039vst09tBh3OVi7leUkT+hHGXFenfJlvQIF93Ex/TI/hpSqu4fw+8C0rIDTl5fGFR
- 2jxEp95S5ImkwtU=
-X-Received: by 2002:a53:e312:0:b0:64e:ef3b:3bd8 with SMTP id
- 956f58d0204a3-65026785cffmr6540304d50.25.1775053090128; Wed, 01 Apr 2026
- 07:18:10 -0700 (PDT)
+Received: from CY7PR03CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11010002.outbound.protection.outlook.com
+ [40.93.198.2])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CE06B10ED0A
+ for <amd-gfx@lists.freedesktop.org>; Wed,  1 Apr 2026 16:37:52 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=L53OjFpmlgLAvGty6mPckkfJxe95nJLyEfWPSVCqOSl3jktWK84OxDk6KyaID6G8W/ZgCj7avL8kN/w6Q+ArbuiiJd0nNaDOlpX1CpHcJcZw6ubTYkel8RJR1dIQQ/9w2eSXMFl++cmj6wxTZciJBqCl950ER1ETebDTb3imBWF/4Yp7CQBxTMA5YOB0lVzZIw36OW9CGy+yQwNQDoVeV5J24LZ3mgPOF/aTZ7lM/LZAsn2UhG06kKaGKmBBL8er0t2IqLOn11A7/700c5ChzYoYg9jUeqGitDQsX3Kknep99/HYvlI6nR0GjqAV3+pKNnInOsJ+k11eDrXTjsJasw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=vrRiWDkcLA5jVz87kjbm1k2OCm7slw0uz7rtYheuknU=;
+ b=QZOrzDHi8VpdAwjnZj1YIXyjX/THGCxr+7kdNOL0JncESf7352xKhgKLjgi+LST7/IEnoQGFZWn0xp5qvYp1GHtejoR9XBR8iUZFQete2k8xB9twmJqznas85tLoz70Klkl4teWq7UAg00ewvFwLYI9zhq4bycj3BGtUWFWKQ2MSDYovjZPFhSXOLCgjU+po7BIVrurQK9CsUudJOKdjNk1dbXx/pLGQJ4DeSNbZgyD3T8bW81s4d86ogeFhsdutjXzUm31IzVpAzW6WvDJ6Q+uFJ5bSR8p3uZtO7eu7WHCmXyjYR0OL05piT+6BXVPA4roOuuHFwpYaTl6ur0RLGA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=vrRiWDkcLA5jVz87kjbm1k2OCm7slw0uz7rtYheuknU=;
+ b=j5trTI0A6awdgwFh70FUsNDKaSfqi++l0ReW3Im55/UDX62EinY+yW8R7vSCcT2Ij3YNf9MSEdcG/EtKu5UCgCjwr46Fy/Nl5l4jDMh/inlgEwyuppKrnhYFUGdBhG0pilpO8Cs1oouT/0MorIkzH4YaNf3blPytuGbpR9N1X5A=
+Received: from BN9PR03CA0318.namprd03.prod.outlook.com (2603:10b6:408:112::23)
+ by DM4PR12MB6327.namprd12.prod.outlook.com (2603:10b6:8:a2::9) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9769.17; Wed, 1 Apr 2026 16:37:47 +0000
+Received: from BN1PEPF00004680.namprd03.prod.outlook.com
+ (2603:10b6:408:112:cafe::a2) by BN9PR03CA0318.outlook.office365.com
+ (2603:10b6:408:112::23) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9745.30 via Frontend Transport; Wed,
+ 1 Apr 2026 16:37:47 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BN1PEPF00004680.mail.protection.outlook.com (10.167.243.85) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9769.17 via Frontend Transport; Wed, 1 Apr 2026 16:37:46 +0000
+Received: from asad-mlse-vm.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Wed, 1 Apr
+ 2026 11:37:44 -0500
+From: Asad Kamal <asad.kamal@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <lijo.lazar@amd.com>, <hawking.zhang@amd.com>, <le.ma@amd.com>,
+ <shiwu.zhang@amd.com>, <alexander.deucher@amd.com>, <kevinyang.wang@amd.com>, 
+ <asad.kamal@amd.com>
+Subject: [PATCH] drm/amd/pm: Restrict NPM data to primary socket for
+ smu_v15_0_8
+Date: Thu, 2 Apr 2026 00:37:26 +0800
+Message-ID: <20260401163726.3811578-1-asad.kamal@amd.com>
+X-Mailer: git-send-email 2.46.0
 MIME-Version: 1.0
-References: <20260319-link-bpc-v5-0-5306cd04a708@collabora.com>
- <4265353.aeNJFYEL58@workhorse>
- <254c20a4-cce3-4c8e-9902-514586f3e694@mailbox.org>
- <5416161.aeNJFYEL58@workhorse>
- <792c4540-d690-4453-a32e-62e23e78d628@mailbox.org>
- <9d525fe4-b091-4cd9-b977-de19ffe4b957@amd.com>
- <20260331155028.71246d7a@fluorite>
- <dc7f59af-05d0-4942-b21b-b85289f7eee1@amd.com>
- <CAPj87rOz=QvQE1CqshspTPkC5nSXW_WAxUf1rwa=w4zmPdgtQQ@mail.gmail.com>
- <ac0kP-SWXrBwrN5C@intel.com>
-In-Reply-To: <ac0kP-SWXrBwrN5C@intel.com>
-From: Daniel Stone <daniel@fooishbar.org>
-Date: Wed, 1 Apr 2026 15:17:57 +0100
-X-Gm-Features: AQROBzD4B_Lr6xyBp4FYMWC4emgyzUnkdo4rM9x9i8ve778cUGxmkNRuKAQF9Bo
-Message-ID: <CAPj87rNfJCCUFYqD+p6OM5XDE8CA75anmA7+ezrCTSZXBSDgTQ@mail.gmail.com>
-Subject: Re: [PATCH v5 0/3] Add "link bpc" DRM property
-To: =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
-Cc: Harry Wentland <harry.wentland@amd.com>,
- Pekka Paalanen <pekka.paalanen@collabora.com>, 
- =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>, 
- Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, 
- Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>, 
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Daniel Stone <daniels@collabora.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, 
- kernel@collabora.com, Derek Foreman <derek.foreman@collabora.com>, 
- Marius Vlad <marius.vlad@collabora.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN1PEPF00004680:EE_|DM4PR12MB6327:EE_
+X-MS-Office365-Filtering-Correlation-Id: 74c63d9a-ba4d-436e-3045-08de900d019d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|82310400026|376014|1800799024|36860700016|56012099003|18002099003;
+X-Microsoft-Antispam-Message-Info: CaMtU77VWwgl3J79X/OGhbQEb6gx4r0S7ovdU9jBztpMc5o2EJ/6EANkQ4I4ckYjg4VOsI1cSK4qkZ4B4P3LRjBEz4frUQtRDiSdjhw7phP0AXkHfT1HZ9puMkHVzcoljo5YXbitTL3NnX3Vuo4Vll/4n0T5gnyJawumz7hw9EK6wFB8CaU/CFGwoWyu3zuQlsbyHRrfv+thTyOWw1LSTtST+pxrFvZPcOW/FvxBmc/4NNBdSciRyJhDo/60VzbGdTct9EzyJsR4ar5V+af5xhFhRJyMDDdUJgpX6AYZjgjAwxMggedcQqPPrw91uaPxcUqDFpshgsz8RUMPG/b6h99UJc9OY8RAlr8U2MvJbAAbwrtnZ0fUGv1ZxLrWEfE8Jsk7Bvd/elwOuRsbEUUNGArResyeiEWL0NbH9tPaj2UQUIsvjXJkwjDAK1m+bBg5mLh8QCmOVUpqZeMP5rZTfkRF1eR+x+P7fRzpENcGLTOr2DdWAtckAeAfpVCQs3cH2orOPclqBSb43REm20pneq1xTEFHqLthYz/W+zttu6LOgeC/KPhGaIaoslMLB36mZEuSpm0L4Rcrq+1MQyGQoDGk6cr0ooE4hoX6CkOxc0MqVbEZm4zJf3sGhQeucIqQoVzU/r7F2LFrW+41teGFnkoG6Je3p+uj/tPVtVOdrzObchBJchtse7TkAGowxouCHyFvq+q3fRxX6r1FOh+Lq2HkKbUmhJ+mpGk62ar0yCM6tor/KS4JdKpj9SJSVZW0027HoIXe07/tvelIYIITsA==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(376014)(1800799024)(36860700016)(56012099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: 4w1HdilG+j0pz1OtrjKtZtBg8gjO8aG6z7qUSuuypgikZnoUF5scXm0tmAS18O907sXdQr4QY8DZKdAfmyz8sR7HSFf93WIOAO2BWx3/Ns5v4bjHa+/fPUcFYTFS42+rqUYY19wjrkZ22EkOlWQ6IM8YvSAmoW76iLPM9d/Qx31oyd8Y2v1JtzpBFaPm51V/Ef/jdBuSmxwRHSjjQ+7jG53kLMh8pkSMeUs7OoLUXmQ7hU37zPEtkG/xDJCboGdWpOt5dCaBvvff6s673S0V+7G3+8aOUir3ycoHZPc75uRPOMLLj1eCt8lMfTiTWplFt2hKT5ppkWo6MjVdimS6QpKAgFteZDs20Icg5uJ4jraUXT5JTaSYcXuoHuIqTuUYfxamv1NmyxkhJpQhrXmMaB17eo6evb2NLiyWUws8b+3aGR9fE9l5TCvPriHEWBOe
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Apr 2026 16:37:46.8851 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 74c63d9a-ba4d-436e-3045-08de900d019d
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN1PEPF00004680.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6327
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -129,47 +111,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, 1 Apr 2026 at 14:58, Ville Syrj=C3=A4l=C3=A4
-<ville.syrjala@linux.intel.com> wrote:
-> I've been musing about userspace being able to provide some kind of
-> relative quality weights for each output. The driver could then use
-> those to figure out how to balance the final bpc and compression
-> between the outputs. Something like this would let userspace express
-> its preference while still allowing the driver to decide how to
-> actually get there.
->
-> Simple 'desired bpc' seem somewhat insufficient because I would
-> imagine userspace just sets that to max for everything at the start,
-> so the driver might not be able to tell which outputs can be degraded
-> harder than others.
->
-> I suppose a desired+min bpc might work, but would potentially force
-> userspace to tweak the parameters in some semi random fashion and
-> try again if the end result isn't appealing. And exactly what to
-> tweak is really hard for userspace to figure out since it has no
-> idea of the possibly complex internal/tbt/mst topologies, power
-> costs, etc.
+NPM data is only defined for primary socket. On secondary nodes, return
+-EOPNOTSUPP instead of continuing, thereby exposing npm node
+only for master socket.
 
-I agree with everything you've written, apart from 'I would imagine
-userspace just sets that to max for everything at the start'.
+Signed-off-by: Asad Kamal <asad.kamal@amd.com>
+---
+ drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_8_ppt.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-I've taken it as axiomatic that all of these things should have an
-'auto' value, and have it as their default setting. Userspace _may_
-know better than the IHV, but it's only going to know on a situational
-basis.
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_8_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_8_ppt.c
+index 756cf4ac00fa..b0faf57b0655 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_8_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_8_ppt.c
+@@ -578,6 +578,9 @@ static int smu_v15_0_8_get_npm_data(struct smu_context *smu,
+ 	struct smu_table *sys_table;
+ 	int ret;
+ 
++	if (smu->adev->gmc.xgmi.physical_node_id != 0)
++		return -EOPNOTSUPP;
++
+ 	if (sensor == AMDGPU_PP_SENSOR_MAXNODEPOWERLIMIT) {
+ 		/*TBD as of now put 0 */
+ 		*value = 0;
+-- 
+2.46.0
 
-Compositors blindly setting random tuneables to MAX_AWESOME_POWER
-would be just as stupid as distros shipping ye olde Option
-"AGPFastWrite" and Option "AGPMode" "8" by default. I'd expect any
-userspace which blindly did that to immediately get as many bug
-reports as they have users, and for them to fix it accordingly.
-
-By analogy, we allow userspace to ignore EDID and set whatever cool
-awesome mode it wants to. But it doesn't do that unless it has a very
-very good reason to override the driver, and 99 times out of 100, that
-reason is 'the user has figured out that this is required'.
-
-Does that help?
-
-Cheers,
-Daniel
