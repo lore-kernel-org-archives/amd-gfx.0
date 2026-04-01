@@ -4,75 +4,109 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 20540D3517A
-	for <amd-gfx@archiver.kernel.org>; Wed,  1 Apr 2026 12:11:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 14FAAD3517B
+	for <amd-gfx@archiver.kernel.org>; Wed,  1 Apr 2026 12:25:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 307E810ED61;
-	Wed,  1 Apr 2026 12:11:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8B94D10ED26;
+	Wed,  1 Apr 2026 12:25:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="X6rJpvZI";
+	dkim=pass (2048-bit key; secure) header.d=fooishbar.org header.i=@fooishbar.org header.b="DCGm6z+t";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8449310ECB9;
- Wed,  1 Apr 2026 12:11:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1775045484; x=1806581484;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=LtRf7ZPQ2KP/yLd6h4tuXhNMx+utLON+zyadehE9NWs=;
- b=X6rJpvZIN6WeVE5Iucn4B1k5HInlWx6dm7BDPK/rKdunPke8K+/+x/Zr
- MBC54p+dqmrwNqYPW5x5vxHgQmszWiYHkLmJyKnu+KtWgOtuak4P6f5V+
- 4Hn/X4AFzPzi51k4V8oH9FthloINnxh6HUCsNM5StYRbjOWbvowY4BqRV
- N+5vBiEJEoOL6z/1hjAfqYecxrSMNauvXJCnQI6XVi/PnsktA3Pz5Edyf
- 1s1YrnZu59/n6fYNtgYDk1P2TyrFFxRoDg86EeLv/LK+J5aBdLa8ToQnO
- za2Y0Q9fuKRt5442acwE3NUCbJkwZg9JhamYm2/DufdrLTLRvm+xJuh5l A==;
-X-CSE-ConnectionGUID: QkfwQgSuRbOKpfVwNr/Vhw==
-X-CSE-MsgGUID: QMj7VqjGSdi1IfUj608Fhw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11745"; a="76268725"
-X-IronPort-AV: E=Sophos;i="6.23,153,1770624000"; d="scan'208";a="76268725"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
- by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Apr 2026 05:11:23 -0700
-X-CSE-ConnectionGUID: EnIUM/blQZOH4k+QMBCR9Q==
-X-CSE-MsgGUID: LVUKNrBhS52fHw78/muo5Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,153,1770624000"; d="scan'208";a="231071665"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost)
- ([10.245.244.199])
- by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Apr 2026 05:11:17 -0700
-Date: Wed, 1 Apr 2026 15:11:14 +0300
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Xaver Hugl <xaver.hugl@kde.org>
-Cc: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Harry Wentland <harry.wentland@amd.com>,
- Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- Daniel Stone <daniels@collabora.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, kernel@collabora.com,
- Derek Foreman <derek.foreman@collabora.com>,
- Marius Vlad <marius.vlad@collabora.com>,
- wayland-devel@lists.freedesktop.org
-Subject: Re: [PATCH v5 0/3] Add "link bpc" DRM property
-Message-ID: <ac0LYoemprz5-dDq@intel.com>
+Received: from mail-qv1-f51.google.com (mail-qv1-f51.google.com
+ [209.85.219.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0C4BB10ED26
+ for <amd-gfx@lists.freedesktop.org>; Wed,  1 Apr 2026 12:25:45 +0000 (UTC)
+Received: by mail-qv1-f51.google.com with SMTP id
+ 6a1803df08f44-89fc349b5c2so43049676d6.0
+ for <amd-gfx@lists.freedesktop.org>; Wed, 01 Apr 2026 05:25:45 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1775046344; cv=none;
+ d=google.com; s=arc-20240605;
+ b=PISBk9Bt5gI/cmsffgI+rkOnvrNRRF3e2JLkEM7Swv1hWGH9tU8HETQHNAFc+AaJMN
+ KfGi4Xetsbq2p0XvbLIhdrd3ru6w9oNbf8ymHKi/0Msqa2DBD/4LyvSpGRkCGiVMuXQf
+ I2AHykFr+IeY32f+OLzGZunJTFhPBEsq+x45kvfScDBY0eCbAJ6S90fSgMuJigXlCIuu
+ GUQWnlZwVf1YTJSX/V8Et33p4K3kCMw+wlFFMchviP76n8LFYVZYB5U98la9XAski4+w
+ TuSl/V8ngH1t9CNboLSdo4/ZVPeRcJEyhvwxFGCCEE9AedOSTv94M64SH5ZK5UMWjvjk
+ dbCQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=eU+zz3OLuWk12Q4NR58R8+sU9sxDECloo/YZ57DpO3s=;
+ fh=lZQWq4IPsDGYapFOeADhcF5FJP9/fzJJd0wnCtCuZbo=;
+ b=HrXCiOwBA+Ez03bspOx2DxdmbkgE3s5oO3phvFwWgAvlfB4pePP1cnAN3Ctu00cc0w
+ TG04SlhQDJOqJAOXObi54fdKhiQh0aSXdSacKmaVA8P+7NyLdrTnAHICTX84GJwba18K
+ HFtQnwvM+gDWwO0TwJlImWxM0ZAWjVEfuvkQB85MCKHaeN1wS/Asu2ChbIbqx6ahhEil
+ 1ovIh8N4pgQAgVyVCpPyDzJHKeSiWusNpDFJdUFYcSNHKKVGrwS7M6QU9RmrgTcJqrbD
+ noWZjUxSpxtRRX9u5YxR/WmIa1etJ+MfMLQgmsKwz9YJUzB5Voul0a+OTHDxrmgfYJH7
+ JUWw==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=fooishbar.org; s=google; t=1775046344; x=1775651144;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=eU+zz3OLuWk12Q4NR58R8+sU9sxDECloo/YZ57DpO3s=;
+ b=DCGm6z+tWZ0eKNsiMDB79pgYQYgh2/2vdLsDddGBiUsoLSbtPrWlcMaWxqCQZgYxDd
+ e/EFxocRise1qVgiGowofwd+xifsP0QTYJypEJeGUEt1r6Phqin5HRN2+gH+Ai8o238/
+ 5NvU32BjaElWeYKEilDNLTshhSys+K18KFwuhIGS6MZf7RnksCBAKDH5q4ZHGG1aeBkF
+ 0QWMybdQG0eo7H+ZrpIQ6UZ08ifgbaXBqfh/Mcy05fUzywU4V0JTaKQDwkACw9iljdFk
+ kUFJz8SmpcA1cj9zA4Qt/TRn3AeV2eNCGs/xntM6ycuseeUS8YszTwz9F7vbSKmFJPax
+ qcWw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1775046344; x=1775651144;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=eU+zz3OLuWk12Q4NR58R8+sU9sxDECloo/YZ57DpO3s=;
+ b=VzkHq2lXCTUCfvD2+TXQ2LcMzpObNRWMvyRYlArwE1X6ttDUbUR2Y7T+bFOmwySfbN
+ vEe8N7HBigYxqGyHYlE+qg7Df9JH3714QPVzFGCpbLsOX4Im/WG13lu6l5iQZpLQ/yDQ
+ 9DTndN97PgES9Z+HFup9lTB6aGZrSRWX2iFtIwv2uw/mNmbO1soDXPLr4IcMjYV9Xw5a
+ e942Hzd4XH1T87PbvxCx2urn218V7D5gCCloPij6PLFzPKyRe6V49oJAoZCSiykx+NVT
+ 6sCwHr+uwgS1/1hD36pyYx6jnYsv7c9NA41Crgg76ZgdIWxt1K2P5QnwlNH/6XPz78/n
+ ZojQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUjnjBjEyg4VTy05ppLagipVWKeZ4PEDp0W3YBkx24CUCwL4mpF+SgJU2t6nm5BF0X1evK+EeNa@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yx+2PS8jfDKRaIv2Fh3Rk2kNnmXA5d2W/0RkRfATUhAg8nQbs3F
+ HifDQHoPQ3zpogEzdeYRV3lrsQxA8yez4mRj+tOeWtvMCp9KvjV5AJK/3OgqvhVKgEL398v6Bo5
+ 4oiE56MLj7YzcOS8iL+VszIJiBFDj94epQvVK8ODUvA==
+X-Gm-Gg: ATEYQzyE7vksXuScvj0MJwQ6CFbMy+jFSYhnpRvt/rsJahOxhzk96EbG4AqOTxelU6E
+ bhxxwBVpnRXsvb4/Eh/yNguKtbvOxoC0J/lr8+PAXlp+p+il7qV7f2BoSINktogAy4viRgqulWw
+ oce03WQTgoQBAu82K46hmwIH3wHfhkgTlP5nCEzxZJCL1qEtJxzuw1Wg3XEDyLGFunmxMPT5C1u
+ ko7GoeKMBwhQCz9gJB1IPlbo3vRipUJ3W62nsPyI7N3FECioh4PY6p/olVj7AT1TNg6lnNOBI7X
+ Vij7uCoXAajqrWyazE/BFoabdbl3XNh+ZxyueiKQbQ==
+X-Received: by 2002:a05:6214:dac:b0:89c:e7d8:989a with SMTP id
+ 6a1803df08f44-8a43a27285emr46661276d6.35.1775046343938; Wed, 01 Apr 2026
+ 05:25:43 -0700 (PDT)
+MIME-Version: 1.0
 References: <20260319-link-bpc-v5-0-5306cd04a708@collabora.com>
  <CAFZQkGzxfGP4E18owJf5d6L4n25-nvYn0TG=rTLCzjpj1Hk23w@mail.gmail.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAFZQkGzxfGP4E18owJf5d6L4n25-nvYn0TG=rTLCzjpj1Hk23w@mail.gmail.com>
-X-Patchwork-Hint: comment
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+ <ac0LYoemprz5-dDq@intel.com>
+In-Reply-To: <ac0LYoemprz5-dDq@intel.com>
+From: Daniel Stone <daniel@fooishbar.org>
+Date: Wed, 1 Apr 2026 13:25:31 +0100
+X-Gm-Features: AQROBzCCN0NAl8sVFUTNdPlCD4ae-2ORt2gK2m_u_f-UZ_1uO6MvhoYtxuTB6QM
+Message-ID: <CAPj87rN6v8qsdRkALZXjxj+zSXdo-BnFcX8tM2M4-xawkn=Xyw@mail.gmail.com>
+Subject: Re: [PATCH v5 0/3] Add "link bpc" DRM property
+To: =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
+Cc: Xaver Hugl <xaver.hugl@kde.org>, 
+ Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, 
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Daniel Stone <daniels@collabora.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, 
+ kernel@collabora.com, Derek Foreman <derek.foreman@collabora.com>, 
+ Marius Vlad <marius.vlad@collabora.com>, wayland-devel@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,40 +121,18 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Apr 01, 2026 at 01:57:08PM +0200, Xaver Hugl wrote:
-> Am Do., 19. März 2026 um 13:28 Uhr schrieb Nicolas Frattaroli
-> <nicolas.frattaroli@collabora.com>:
-> >
-> > This series adds a new "link bpc" DRM property. It reflects the display
-> > link's actual achieved output bits per component, considering any
-> > degradation of the bit depth done by drivers for bandwidth or other
-> > reasons. The property's value is updated during an atomic commit, which
-> > is also when it fires an uevent if it changed to let userspace know.
-> 
-> Hi,
-> I think it's a really good idea to have a property for knowing the
-> actual bpc of the link... however, I do have one big concern with this
-> API specifically: It only gives me this information after a modeset.
-> 
-> With this limitation, I can at most show the user which bpc was chosen
-> after the apply display settings and have the end user manually test
-> and figure things out, but I cannot show in the UI which bpc will be
-> chosen with some configuration before they apply it, and I cannot do
-> atomic tests to find a desired tradeoff automatically on the
-> compositor side.
+On Wed, 1 Apr 2026 at 13:11, Ville Syrj=C3=A4l=C3=A4
+<ville.syrjala@linux.intel.com> wrote:
+> I think the idea of some kind of feedback properties in the atomic
+> commit has come up before, but no one has ever tried to implement them.
 
-I think the idea of some kind of feedback properties in the atomic
-commit has come up before, but no one has ever tried to implement them.
+Yeah, if you're looking for context on these, the last place I
+remember it coming up was wanting to know which other objects would
+potentially be dragged into a commit. For example, on ye olde (?)
+Intel platforms, if programming a different mode is actually
+stop-the-world where all other CRTCs get affected by a CDCLK change,
+being able to know that those other CRTCs would be affected before it
+happens, rather than random -EBUSY after the fact.
 
-> 
-> As a side note, for future patches relevant for compositors, please cc
-> wayland-devel. It really shouldn't be up to chance whether or not
-> compositor developers that would later use the API find out about it
-> before it's merged, and keeping track of all of dri-devel is way too
-> much to ask from userspace developers.
-> 
-> - Xaver
-
--- 
-Ville Syrjälä
-Intel
+Cheers,
+Daniel
