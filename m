@@ -4,77 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8746710FCAD2
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 92E1010FCAD4
 	for <amd-gfx@archiver.kernel.org>; Wed,  1 Apr 2026 18:19:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0ABD610EE8D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 017F210EE6A;
 	Wed,  1 Apr 2026 18:19:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="V3L9lwL5";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="huSUokih";
 	dkim-atps=neutral
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
- [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 585BC10EA22;
- Tue, 31 Mar 2026 10:33:30 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1774953194; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=iq7d+EpWYAvrctcfxZoQjNJuhB62URk7xlbwaLsDMTNXTWCyQ4LwDyZ6I27wYYHAMP4YPM0hYR/rK8AWX1jqBcjhxQf8J51b99OQ+VF9yVDhEqMQMfzMcWZJUV2pGlG6D+JYKcdc63sYSJlX24pWsFdQZX2jKMN+WnVHhppSgRQ=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1774953194;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=WONs+triHAG3oxKIDY5u6sC91+pizMI0mnGHgeGpMWA=; 
- b=Vh9zaiChMYD6vskfjYkgIBkCpQIQmnxaqlBcmk8+El0hVORrkZFIntq9a8X6fTa7guKBYxcQC8K42tY0FIF9ir+fsdg58kFS9D0UjA9+cfr6iNC4IkwitdRA9MKj5MscyrlksfUfeV18AJAKMPFxt2cNzDqpvvQDy/G0UyUF4yQ=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
- dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1774953194; 
- s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
- h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:Content-Type:Message-Id:Reply-To;
- bh=WONs+triHAG3oxKIDY5u6sC91+pizMI0mnGHgeGpMWA=;
- b=V3L9lwL5t+B5HbtOLDaYfqYdeaZCN8rQT1mGU46AB79OOrvLI8lwlaGUlxYG0lKq
- G6V26eWcMkIy5x3/sgiT2LdI+GDuyPfzNDQ6VB5oOYteJoe+EnPXzgWeohswEwhMpkq
- 0cS3rPBVWJ25PctJ4X+Zp9Z74BEt6x2M/ZP7K/Yo=
-Received: by mx.zohomail.com with SMTPS id 1774953193153170.1511210439279;
- Tue, 31 Mar 2026 03:33:13 -0700 (PDT)
-From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-To: Ville =?UTF-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
-Cc: Maxime Ripard <mripard@kernel.org>,
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Sandy Huang <hjc@rock-chips.com>,
- Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>,
- Andy Yan <andy.yan@rock-chips.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, Dmitry Baryshkov <lumag@kernel.org>,
- Sascha Hauer <s.hauer@pengutronix.de>, Rob Herring <robh@kernel.org>,
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- kernel@collabora.com, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- linux-doc@vger.kernel.org, Werner Sembach <wse@tuxedocomputers.com>,
- Andri Yngvason <andri@yngvason.is>, Marius Vlad <marius.vlad@collabora.com>
-Subject: Re: [PATCH v11 03/22] drm: Add new general DRM property "color format"
-Date: Tue, 31 Mar 2026 12:33:00 +0200
-Message-ID: <5583906.GXAFRqVoOG@workhorse>
-In-Reply-To: <acsNoCDsPtEhtkRn@intel.com>
-References: <20260324-color-format-v11-0-605559af4fb4@collabora.com>
- <acclgID7lSVNten2@intel.com> <acsNoCDsPtEhtkRn@intel.com>
+Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com
+ [74.125.82.182])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ED19410EB69
+ for <amd-gfx@lists.freedesktop.org>; Wed,  1 Apr 2026 00:39:41 +0000 (UTC)
+Received: by mail-dy1-f182.google.com with SMTP id
+ 5a478bee46e88-2c88992d77dso238192eec.1
+ for <amd-gfx@lists.freedesktop.org>; Tue, 31 Mar 2026 17:39:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1775003981; x=1775608781; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=9pCNIYnvbijot8BuXxZwdBSIjs5gTuAaUWfD7Zd1qpw=;
+ b=huSUokihWpPlBubc/oPgD6pTy9A/7F7r6t0n5xpCYlVpoptH+E2MvyJwZjBR0PDJ7z
+ rxj1n7JSfaTuXAmeZ4110aNsHWKa2iwHCW4DlFiw4mMG6waS/LFiRD9LlOlS3gaxFrTn
+ hwhbtopLI7h9lD22ohTxRX+lBiJDFVeO/Xt4cE3Pq0OGvrAPqfr8dbfRTibe4wxIwOHT
+ Uwefornr/ZgWUlbD07inAXArWcATb2r0VMD9pNIePs/rWVIkY5x4VY7lDBjaEj9n0NPO
+ jK0bBPLl2Opq1Tl07lkG4fog8VMZmH3i4ngdSlIPTMb7HkvcEm1MUS7KlMJHY2/TA4xB
+ UX6A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1775003981; x=1775608781;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=9pCNIYnvbijot8BuXxZwdBSIjs5gTuAaUWfD7Zd1qpw=;
+ b=YuHzVBGNU2VknlRCUI6zXgAXYzcSND+aTZbbKoGSHExQMGaaU2j52Ajex6fi4oMhRA
+ o+TfGqKrpM68aw68LZ88fEFtRKOZp8/fT6rakIck1A+nM3Q4CP1sCXloQ/beXIlIMr1U
+ bEbrne8RG64+w8jMgQ6NckcGwAhlWZ+QDZGSpTbAn5gmk66SVpHpbHuH7Y3HbF8vPwdU
+ Ibsph9it9L27wK3MlM7uWwVwE+14Iqe3GHMvplQSeCscEbB5TujDPb4o20IWcAWAlJTv
+ LsoFR3CmumZfcMYTlPxByLY70QH0F+dn/vI5z1NclrOvMoGDeKQtcze1k4beq4xK8udQ
+ QZ7g==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWubtV4dpZtFtRCkSC5PV64urGxrc6l4bGU1/hQbevByYmcOGohUcA6BRgGeqzSM+xvaRBpdHM8@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxBSIk6WmeTw+4/CXbrJ0bITpYJfm4fmieGugWMkPPUE9CB86At
+ EWBLZiVkmoIs41WHBaAuCU8yw7rAkBTlGm+rQNzde2EViS7t7Rwc3EZR
+X-Gm-Gg: ATEYQzxA7gAKjZE3360woc4s5mlzxuwuA7ghypgtWlLnpVw+zm0nIZgYixcFJi+0dCd
+ YWH8p/rzslRjHK3AsjYIvpzv1n4v7cOfh6QrR9ZC7TZmiBs9ZGYT9ilXS5Kbw2NdzgW8Vs1avAb
+ ZgGlmShEHI8VYEQog2nP5C+tzdhS231sYBjShf25CTjZYLimBT7L5RgAOKSGjw6TOKNogL5U19N
+ hxv3UZ00Vm79TJJzNi1rPGxu6iTG295S8MRGsMRgfIG0e6UfQMIeIkuPwtu97IR5631AzBRXI2F
+ eQubZqUu4gKq3qSLxEsp9iSjoRwPXJGhcQRXAWSI8TPcgk7PuG9RvkOSP/cWjVeFoYYNK2kv4d4
+ ZDQwIQHcG8EoM9HL8/F4O/j9uVF/pwCtV+G89Ooyp+AcOIrxMFe7SypqqmhkGrZAwS3qqHsl14g
+ yguQ8nel/HGE4YNo5UKCnFNg1KI5O/Ram2GMse+jo1Iu6/Ot+9vn+9dqw=
+X-Received: by 2002:a05:7301:fa0a:b0:2be:17b1:e49f with SMTP id
+ 5a478bee46e88-2c7baf442a2mr2983559eec.4.1775003981000; 
+ Tue, 31 Mar 2026 17:39:41 -0700 (PDT)
+Received: from ryzen ([2601:644:8000:5b5d::8bd])
+ by smtp.gmail.com with ESMTPSA id
+ 5a478bee46e88-2c3c3bd9894sm11543019eec.4.2026.03.31.17.39.39
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 31 Mar 2026 17:39:40 -0700 (PDT)
+From: Rosen Penev <rosenp@gmail.com>
+To: stable@vger.kernel.org
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Xinhui Pan <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Harry Wentland <harry.wentland@amd.com>,
+ Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ Ray Wu <ray.wu@amd.com>, Wayne Lin <wayne.lin@amd.com>,
+ Mario Limonciello <Mario.Limonciello@amd.com>, Roman Li <Roman.Li@amd.com>,
+ Eric Yang <Eric.Yang2@amd.com>, Tony Cheng <Tony.Cheng@amd.com>,
+ Mauro Rossi <issor.oruam@gmail.com>,
+ =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>,
+ Alex Hung <alex.hung@amd.com>,
+ amd-gfx@lists.freedesktop.org (open list:RADEON and AMDGPU DRM DRIVERS),
+ dri-devel@lists.freedesktop.org (open list:DRM DRIVERS),
+ linux-kernel@vger.kernel.org (open list)
+Subject: [PATCHv2 for 6.12 07/10] drm/amd/display: Adjust DCE 8-10 clock,
+ don't overclock by 15%
+Date: Tue, 31 Mar 2026 17:39:05 -0700
+Message-ID: <20260401003908.3438-8-rosenp@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260401003908.3438-1-rosenp@gmail.com>
+References: <20260401003908.3438-1-rosenp@gmail.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 01 Apr 2026 18:19:20 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -90,287 +103,69 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tuesday, 31 March 2026 01:56:16 Central European Summer Time Ville Syrj=
-=C3=A4l=C3=A4 wrote:
-> On Sat, Mar 28, 2026 at 02:49:04AM +0200, Ville Syrj=C3=A4l=C3=A4 wrote:
-> > On Fri, Mar 27, 2026 at 01:56:06PM +0100, Nicolas Frattaroli wrote:
-> > > On Thursday, 26 March 2026 18:58:25 Central European Standard Time Vi=
-lle Syrj=C3=A4l=C3=A4 wrote:
-> > > > On Thu, Mar 26, 2026 at 06:02:47PM +0100, Maxime Ripard wrote:
-> > > > > On Wed, Mar 25, 2026 at 08:43:15PM +0200, Ville Syrj=C3=A4l=C3=A4=
- wrote:
-> > > > > > On Wed, Mar 25, 2026 at 03:56:58PM +0100, Maxime Ripard wrote:
-> > > > > > > On Wed, Mar 25, 2026 at 01:03:07PM +0200, Ville Syrj=C3=A4l=
-=C3=A4 wrote:
-> > > > > > > > On Wed, Mar 25, 2026 at 09:24:27AM +0100, Maxime Ripard wro=
-te:
-> > > > > > > > > On Tue, Mar 24, 2026 at 09:53:35PM +0200, Ville Syrj=C3=
-=A4l=C3=A4 wrote:
-> > > > > > > > > > On Tue, Mar 24, 2026 at 08:10:11PM +0100, Nicolas Fratt=
-aroli wrote:
-> > > > > > > > > > > On Tuesday, 24 March 2026 18:00:45 Central European S=
-tandard Time Ville Syrj=C3=A4l=C3=A4 wrote:
-> > > > > > > > > > > > On Tue, Mar 24, 2026 at 05:01:07PM +0100, Nicolas F=
-rattaroli wrote:
-> > > > > > > > > > > > > +enum drm_connector_color_format {
-> > > > > > > > > > > > > +	/**
-> > > > > > > > > > > > > +	 * @DRM_CONNECTOR_COLOR_FORMAT_AUTO: The driver=
- or display protocol
-> > > > > > > > > > > > > +	 * helpers should pick a suitable color format.=
- All implementations of a
-> > > > > > > > > > > > > +	 * specific display protocol must behave the sa=
-me way with "AUTO", but
-> > > > > > > > > > > > > +	 * different display protocols do not necessari=
-ly have the same "AUTO"
-> > > > > > > > > > > > > +	 * semantics.
-> > > > > > > > > > > > > +	 *
-> > > > > > > > > > > > > +	 * For HDMI, "AUTO" picks RGB, but falls back t=
-o YCbCr 4:2:0 if the
-> > > > > > > > > > > > > +	 * bandwidth required for full-scale RGB is not=
- available, or the mode
-> > > > > > > > > > > > > +	 * is YCbCr 4:2:0-only, as long as the mode and=
- output both support
-> > > > > > > > > > > > > +	 * YCbCr 4:2:0.
-> > > > > > > > > > > > > +	 *
-> > > > > > > > > > > > > +	 * For display protocols other than HDMI, the r=
-ecursive bridge chain
-> > > > > > > > > > > > > +	 * format selection picks the first chain of br=
-idge formats that works,
-> > > > > > > > > > > > > +	 * as has already been the case before the intr=
-oduction of the "color
-> > > > > > > > > > > > > +	 * format" property. Non-HDMI bridges should th=
-erefore either sort their
-> > > > > > > > > > > > > +	 * bus output formats by preference, or agree o=
-n a unified auto format
-> > > > > > > > > > > > > +	 * selection logic that's implemented in a comm=
-on state helper (like
-> > > > > > > > > > > > > +	 * how HDMI does it).
-> > > > > > > > > > > > > +	 */
-> > > > > > > > > > > > > +	DRM_CONNECTOR_COLOR_FORMAT_AUTO =3D 0,
-> > > > > > > > > > > > > +
-> > > > > > > > > > > > > +	/**
-> > > > > > > > > > > > > +	 * @DRM_CONNECTOR_COLOR_FORMAT_RGB444: RGB outp=
-ut format
-> > > > > > > > > > > > > +	 */
-> > > > > > > > > > > > > +	DRM_CONNECTOR_COLOR_FORMAT_RGB444,
-> > > > > > > > > > > > > +
-> > > > > > > > > > > > > +	/**
-> > > > > > > > > > > > > +	 * @DRM_CONNECTOR_COLOR_FORMAT_YCBCR444: YCbCr =
-4:4:4 output format (ie.
-> > > > > > > > > > > > > +	 * not subsampled)
-> > > > > > > > > > > > > +	 */
-> > > > > > > > > > > > > +	DRM_CONNECTOR_COLOR_FORMAT_YCBCR444,
-> > > > > > > > > > > > > +
-> > > > > > > > > > > > > +	/**
-> > > > > > > > > > > > > +	 * @DRM_CONNECTOR_COLOR_FORMAT_YCBCR422: YCbCr =
-4:2:2 output format (ie.
-> > > > > > > > > > > > > +	 * with horizontal subsampling)
-> > > > > > > > > > > > > +	 */
-> > > > > > > > > > > > > +	DRM_CONNECTOR_COLOR_FORMAT_YCBCR422,
-> > > > > > > > > > > > > +
-> > > > > > > > > > > > > +	/**
-> > > > > > > > > > > > > +	 * @DRM_CONNECTOR_COLOR_FORMAT_YCBCR420: YCbCr =
-4:2:0 output format (ie.
-> > > > > > > > > > > > > +	 * with horizontal and vertical subsampling)
-> > > > > > > > > > > > > +	 */
-> > > > > > > > > > > > > +	DRM_CONNECTOR_COLOR_FORMAT_YCBCR420,
-> > > > > > > > > > > >=20
-> > > > > > > > > > > > Seems like this should document what the quantizati=
-on range
-> > > > > > > > > > > > should be for each format.
-> > > > > > > > > > > >=20
-> > > > > > > > > > >=20
-> > > > > > > > > > > I don't think so? If you want per-component bit depth=
- values,
-> > > > > > > > > > > DRM_FORMAT_* defines would be the appropriate values =
-to use. This
-> > > > > > > > > > > enum is more abstract than that, and is there to comm=
-unicate
-> > > > > > > > > > > YUV vs. RGB and chroma subsampling, with bit depth be=
-ing handled
-> > > > > > > > > > > by other properties.
-> > > > > > > > > > >=20
-> > > > > > > > > > > If you mean the factor used for subsampling, then tha=
-t'd only be
-> > > > > > > > > > > relevant if YCBCR410 was supported where one chroma p=
-lane isn't
-> > > > > > > > > > > halved but quartered in resolution. I suspect 4:1:0 w=
-ill never
-> > > > > > > > > > > be added; no digital display protocol standard suppor=
-ts it to my
-> > > > > > > > > > > knowledge, and hopefully none ever will.
-> > > > > > > > > >=20
-> > > > > > > > > > No, I mean the quantization range (16-235 vs. 0-255 etc=
-).
-> > > > > > > > > >=20
-> > > > > > > > > > The i915 behaviour is that YCbCr is always limited rang=
-e,
-> > > > > > > > > > RGB can either be full or limited range depending on th=
-e=20
-> > > > > > > > > > "Broadcast RGB" property and other related factors.
-> > > > > > > > >=20
-> > > > > > > > > So far the HDMI state has both the format and quantizatio=
-n range as
-> > > > > > > > > different fields. I'm not sure we need to document the ra=
-nge in the
-> > > > > > > > > format field, maybe only mention it's not part of the for=
-mat but has a
-> > > > > > > > > field of its own?
-> > > > > > > >=20
-> > > > > > > > I think we only have it for RGB (on some drivers only?). Fo=
-r YCbCr
-> > > > > > > > I think the assumption is limited range everywhere.
-> > > > > > > >=20
-> > > > > > > > But I'm not really concerned about documenting struct membe=
-rs.
-> > > > > > > > What I'm talking about is the *uapi* docs. Surely userspace
-> > > > > > > > will want to know what the new property actually does so the
-> > > > > > > > uapi needs to be documented properly. And down the line some
-> > > > > > > > new driver might also implement the wrong behaviour if there
-> > > > > > > > is no clear specification.
-> > > > > > >=20
-> > > > > > > Ack
-> > > > > > >=20
-> > > > > > > > So I'm thinking (or perhaps hoping) the rule might be somet=
-hing like:
-> > > > > > > > - YCbCr limited range=20
-> > > > > > > > - RGB full range if "Broadcast RGB" property is not present
-> > > > > > >=20
-> > > > > > > Isn't it much more complicated than that for HDMI though? My
-> > > > > > > recollection was that any VIC but VIC1 would be limited range=
-, and
-> > > > > > > anything else full range?
-> > > > > >=20
-> > > > > > Do we have some driver that implements the CTA-861 CE vs. IT mo=
-de
-> > > > > > logic but doesn't expose the "Broadcast RGB" property? I was ho=
-ping
-> > > > > > those would always go hand in hand now.
-> > > > >=20
-> > > > > I'm not sure. i915 and the HDMI state helpers handle it properly =
-(I
-> > > > > think?) but it looks like only vc4 registers the Broadcast RGB pr=
-operty
-> > > > > and uses the HDMI state helpers.
-> > > > >=20
-> > > > > And it looks like amdgpu registers Broadcast RGB but doesn't use
-> > > > > drm_default_rgb_quant_range() which seems suspicious?
-> > > >=20
-> > > > If they want just manual full vs. limited then they should
-> > > > limit the property to not expose the "auto" option at all.
-> > > >=20
-> > > > amdgpu also ties this in with the "colorspace" property, which
-> > > > originally in i915 only controlled the infoframes/etc. But on
-> > > > amdgpu it now controls various aspects of output color
-> > > > transformation. The end result is that the property is a complete
-> > > > mess with most of the values making no sense. And for whatever
-> > > > reason everyone involved refused to remove/deprecate the
-> > > > nonsensical values :/
-> > > >=20
-> > > > Looks like this series should make sure the documentation for
-> > > > the "colorspace" property is in sync with the new property
-> > > > as well. Currently now it's giving conflicting information.
-> > > >=20
-> > >=20
-> > > I take it the problematic information is in
-> > >=20
-> > >     * DOC: standard connector properties
-> > >     *
-> > >     * Colorspace:
-> > >=20
-> > > and probably specifically BT2020_YCC's (and BT2020_RGB's?) insistence
-> > > that they "produce RGB content".
-> > >=20
-> > > I think we probably just have to change the statement "The variants
-> > > BT2020_RGB and BT2020_YCC are equivalent and the driver chooses betwe=
-en
-> > > RGB and YCbCr on its own."
-> > >=20
-> > > The "on its own" here would get turned into "based on the color format
-> > > property".
-> > >=20
-> > > Speaking of i915, that patch is one of the very few (5) patches in
-> > > this series still lacking a review (hint hint nudge nudge). I'd like
-> > > to get some more feedback on the remaining patches before I send out
-> > > another revision, so that it's hopefully not just docs changes (I
-> > > know better than to think those patches must be perfect and won't
-> > > need revision.)
-> >=20
-> > The i915 code around this is already a big mess, and I don't really
-> > adding to that mess. So I think we'll need to do some refactoring before
-> > we add anything there. I already started typing something and so far
-> > it looks fairly straightforward, so I should have something soon.
->=20
-> OK, posted something
-> https://lore.kernel.org/intel-gfx/20260330235339.29479-1-ville.syrjala@li=
-nux.intel.com/T/#m7c349478ca6c856fbc68d5e2178f1aa31678a05f
+From: Timur Kristóf <timur.kristof@gmail.com>
 
-Thanks! I'll take a look at this today to get a more solid idea of
-where the pain points you highlighted are.
+[ Upstream commit 1ae45b5d4f371af8ae51a3827d0ec9fe27eeb867 ]
 
-I'll also rebase/reimplement my i915 color format implementation
-(sans the DP-MST part, as discussed) on top of this on the next
-revision. I was never fully happy with the current one due to the
-logic being shoehorned into the already existing i915 fallback
-format logic, so I'm quite happy to have another opportunity to
-implement it with less historic baggage.
+Adjust the nominal (and performance) clocks for DCE 8-10,
+and set them to 625 MHz, which is the value used by the legacy
+display code in amdgpu_atombios_get_clock_info.
 
-> Are the wayland/compositor/color management folks on board with
-> these new properties? I don't think I see the usual suspects on
-> the cc list.
+This was tested with Hawaii, Tonga and Fiji.
+These GPUs can output 4K 60Hz (10-bit depth) at 625 MHz.
 
-I don't know which precise group of people you refer to, but at
-least from the Collabora side of things, the userspace Wayland
-people are on board with these new properties. In Weston, we use
-it to implement the Weston frontend's "color-format" option in a
-WIP branch at
+The extra 15% clock was added as a workaround for a Polaris issue
+which uses DCE 11, and should not have been used on DCE 8-10 which
+are already hardcoded to the highest possible display clock.
+Unfortunately, the extra 15% was mistakenly copied and kept
+even on code paths which don't affect Polaris.
 
-https://gitlab.freedesktop.org/wayland/weston/-/merge_requests/1859
+This commit fixes that and also	adds a check to	make sure
+not to exceed the maximum DCE 8-10 display clock.
 
-I've also been made aware that LibreELEC is aware, and will look
-into making use of it rather than their own kernel patches.
+Fixes: 8cd61c313d8b ("drm/amd/display: Raise dispclk value for Polaris")
+Fixes: dc88b4a684d2 ("drm/amd/display: make clk mgr soc specific")
+Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
+Reviewed-by: Rodrigo Siqueira <siqueira@igalia.com>
+Reviewed-by: Alex Hung <alex.hung@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
+---
+ .../drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c  | 12 +++++-------
+ 1 file changed, 5 insertions(+), 7 deletions(-)
 
-Kind regards,
-Nicolas Frattaroli
-
-> >=20
-> > While doing that several questions came to my mind though:
-> >=20
-> > * More interactions with the colorspace property, but I sent
-> >   a separate mail already about that
-> >=20
-> > * Which conversion matrix to use, and the answer I suspect
-> >   should be "ask the colorspace property", as mentioned in the
-> >   other mail
-> >=20
-> > * Should we flat out reject color formats (and I suppose also
-> >   colorspace prop values) the sink doesn't claim to support?
-> >=20
-> >   If yes, then I think we'll have to forget about adding anything=20
-> >   to i915 MST code. The way the MST stuff works is that if one
-> >   stream needs a modeset then all the related streams get modeset
-> >   as well. Thus if the user replaces a monitor getting fed with a
-> >   YCbCr stream just as another stream is being modeset, then the
-> >   entire atomic commit could fail due to the YCbCr stream getting
-> >   rejected.
-> >=20
-> >   I think eventually we might have to invent some mechanism where
-> >   all the input into the modeset computation is cached somehow,
-> >   and said cache updated only on explicit userspace modesets.
-> >   Either that or we have to come up  with a way to skip some of
-> >   the calculations that depend on external factors. Either way
-> >   it's going to be a pain.
-> >=20
-> >   OTOH if we don't mind feeding the sink with stuff it can't
-> >   understand, then I suppose we might add YCbCr 4:4:4 support
-> >   for MST. It shouldn't be any different from RGB apart from
-> >   the RGB->YCbCr conversion, which is handled elsewhere. But
-> >   YCbCr 4:2:0 is definitely out either way, the MST code has
-> >   no support for that currently.
-> >=20
->=20
->=20
-
-
-
+diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c
+index 5dbe89d9b72d..6131ede2db7a 100644
+--- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c
++++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c
+@@ -72,9 +72,9 @@ static const struct state_dependent_clocks dce80_max_clks_by_state[] = {
+ /* ClocksStateLow */
+ { .display_clk_khz = 352000, .pixel_clk_khz = 330000},
+ /* ClocksStateNominal */
+-{ .display_clk_khz = 600000, .pixel_clk_khz = 400000 },
++{ .display_clk_khz = 625000, .pixel_clk_khz = 400000 },
+ /* ClocksStatePerformance */
+-{ .display_clk_khz = 600000, .pixel_clk_khz = 400000 } };
++{ .display_clk_khz = 625000, .pixel_clk_khz = 400000 } };
+ 
+ int dentist_get_divider_from_did(int did)
+ {
+@@ -403,11 +403,9 @@ static void dce_update_clocks(struct clk_mgr *clk_mgr_base,
+ {
+ 	struct clk_mgr_internal *clk_mgr_dce = TO_CLK_MGR_INTERNAL(clk_mgr_base);
+ 	struct dm_pp_power_level_change_request level_change_req;
+-	int patched_disp_clk = context->bw_ctx.bw.dce.dispclk_khz;
+-
+-	/*TODO: W/A for dal3 linux, investigate why this works */
+-	if (!clk_mgr_dce->dfs_bypass_active)
+-		patched_disp_clk = patched_disp_clk * 115 / 100;
++	const int max_disp_clk =
++		clk_mgr_dce->max_clks_by_state[DM_PP_CLOCKS_STATE_PERFORMANCE].display_clk_khz;
++	int patched_disp_clk = MIN(max_disp_clk, context->bw_ctx.bw.dce.dispclk_khz);
+ 
+ 	level_change_req.power_level = dce_get_required_clocks_state(clk_mgr_base, context);
+ 	/* get max clock state from PPLIB */
+-- 
+2.53.0
 
