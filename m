@@ -4,147 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CE17710FCAC9
-	for <amd-gfx@archiver.kernel.org>; Wed,  1 Apr 2026 18:19:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A3B1110FCAC0
+	for <amd-gfx@archiver.kernel.org>; Wed,  1 Apr 2026 18:19:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 900EF10E08F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 96F3E10EDCC;
 	Wed,  1 Apr 2026 18:19:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="SrX9DxR4";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="MEytsV6W";
 	dkim-atps=neutral
-Received: from SN4PR2101CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11012031.outbound.protection.outlook.com
- [40.93.195.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 684FC10EB9E;
- Tue, 31 Mar 2026 21:21:24 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=lN1GMNXUkQuG+qL+NZs6vkW8LdCV2s0hk9F/XTiM/dMp46Khl9DgutO7Ml22/dtjaUBIgmSG1pgelQfTrc/O6A0dgCgArPb+nOsgvjA47pxCzCSR3ygrTB/4fpq2t2kej186jkKYaTtX9dGJMDXVDUW16XbAW0KRxFUD29fyIXYitOW/fPjDSsncg8JtiI2a1ZSYvVV6icysFyAl21FJ2pnDsRly2JbHsp47bXJLnKageXtM4vnpYiKl5uCZnfRVNIJmiBCjuU5vz5Pj6h4+pb1er7E872+LmbVb7w8sP26hbu/zXOoZhupn+fS6WBhw6j79rVAompgJ1aN6uuQYyQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=GtosooqljZKLDQaVIhWoLVYqKr6QkTg1lcEVcJHlVGw=;
- b=Kvl4wfJyxIPjoaD1deWDjLs+hiWG4wTr87MtbqFxcUjF2qGejXy0BCDH4QGNy8emiXOZhOsjmt2rEryV2SomJ4246AJCzplA7CtiFIezWoABl3TtEhYsroVrneg+wyrsdNyuPckZzWZpazc/t4sNX6klVknS+SURLQrV79ehZSCE+bSL9XrLK9f6cPdzwwFgZXsdsPz2CC1SSHpB5Hk2WrNyJcVM3BDUhA/meWImnJhubPK4uaqtxNnUB5vXP5Pb1mNKGXkA+ex21twwwx6QMVn9pleEDmZtuMqClKpywXfzJC76izpd3dICwhQ4sibg9vW+lfdL1Q1sPoYTFJrC0Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=GtosooqljZKLDQaVIhWoLVYqKr6QkTg1lcEVcJHlVGw=;
- b=SrX9DxR4t/mt4BvbunkS5a5fj04jNRMrbNbl7DwFLmmmDObYrSUkArQS3bHgycACXWuKpeRkHcztSMHmKR3XiUSu0AuHGQqXKylFX3ExgHE945esx3NYh/N+BRFpKjm4D/8MO5Fspr8KuPSZIwqkCkegwe8GvDRheoAXzb5Ea0tQSWQUkgOy/ejLBETethzSN/9talAzjK1ZHXF7HM1DnHLWsvOLiuzUOMXdnXSEavJcPOAU5AugMshDVXeRezpxUmCXQ5GDLw2jgG5qi2M5X4y/+WUxDI3JFF/C9tnBB4ow50pdUibRG2AFOVswBrFSwihnaxmqk2v03yqSpe+9fw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DS0PR12MB6486.namprd12.prod.outlook.com (2603:10b6:8:c5::21) by
- SA3PR12MB8809.namprd12.prod.outlook.com (2603:10b6:806:31f::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.16; Tue, 31 Mar
- 2026 21:21:19 +0000
-Received: from DS0PR12MB6486.namprd12.prod.outlook.com
- ([fe80::88a9:f314:c95f:8b33]) by DS0PR12MB6486.namprd12.prod.outlook.com
- ([fe80::88a9:f314:c95f:8b33%4]) with mapi id 15.20.9769.014; Tue, 31 Mar 2026
- 21:21:17 +0000
-From: Joel Fernandes <joelagnelf@nvidia.com>
-To: linux-kernel@vger.kernel.org
-Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
- Gary Guo <gary@garyguo.net>, Bjorn Roy Baron <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
- Danilo Krummrich <dakr@kernel.org>, Dave Airlie <airlied@redhat.com>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Koen Koning <koen.koning@linux.intel.com>, dri-devel@lists.freedesktop.org,
- rust-for-linux@vger.kernel.org, Nikola Djukic <ndjukic@nvidia.com>,
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
+ [136.143.188.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8E2AF10E369;
+ Wed,  1 Apr 2026 12:47:08 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1775047612; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=NwgxV7ZEU3rTZiYNghBaKYx5J3p9YX1wpd1MRjNlxeEux1mZ51AQGjVAzG4XyIjv+QWnaHLd0W+HE9V7IHDslZyZbDNSQ6JN98uOdU5JJwVsv7imD3hwPA7NNMJIXlia0v2wmpiCfu2yjNU7iLcBnn5kd5hxtv5asUPcrVU/m04=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1775047612;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=NsFt+AILWBuq0W7EGHKX+hyGDBm3/rgVEH4vBuyAXsI=; 
+ b=PetM8G3nQbnadjrxg6bqY+PhTXKVSIp5rQZTblbenmBwrPYpCKizmF4Ajarkoc/toQ3SL8hdQrRTfH80aOd0tWhP1AZPJfaUF6/EZuKuZS7vEvb6IXgLxGlXpIqy92cAPdayppXuD30QKEjoOf/YDn3Wf9fd4jZQm1Y++GlIHm4=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
+ dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1775047612; 
+ s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
+ h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:Content-Type:Message-Id:Reply-To;
+ bh=NsFt+AILWBuq0W7EGHKX+hyGDBm3/rgVEH4vBuyAXsI=;
+ b=MEytsV6WCPOWif0BQN26ZZrq50GsIwwfHeNIm7wGUoa6C3YlhwPl+v8kSB0aOey6
+ jQ63ZJ4q75l6az3bGVgihRTM8I3noVwSLf6rKCey21aL9UYu7VxUTsbYM2gjaILM0UE
+ PKl2q1p4gW8voW5UXndfko/XdyTp/c3JgiHfuqQA=
+Received: by mx.zohomail.com with SMTPS id 177504760955815.618442996613794;
+ Wed, 1 Apr 2026 05:46:49 -0700 (PDT)
+From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+To: Harry Wentland <harry.wentland@amd.com>,
+ Daniel Stone <daniel@fooishbar.org>
+Cc: Pekka Paalanen <pekka.paalanen@collabora.com>,
+ Michel =?UTF-8?B?RMOkbnplcg==?= <michel.daenzer@mailbox.org>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Jonathan Corbet <corbet@lwn.net>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
  Alex Deucher <alexander.deucher@amd.com>,
- Christian Koenig <christian.koenig@amd.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, Huang Rui <ray.huang@amd.com>,
- Matthew Auld <matthew.auld@intel.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Lucas De Marchi <lucas.demarchi@intel.com>,
- Thomas Hellstrom <thomas.hellstrom@linux.intel.com>,
- Helge Deller <deller@gmx.de>, Alex Gaynor <alex.gaynor@gmail.com>,
- Boqun Feng <boqun.feng@gmail.com>, John Hubbard <jhubbard@nvidia.com>,
- Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
- Edwin Peer <epeer@nvidia.com>, Alexandre Courbot <acourbot@nvidia.com>,
- Andrea Righi <arighi@nvidia.com>, Andy Ritger <aritger@nvidia.com>,
- Zhi Wang <zhiw@nvidia.com>, Balbir Singh <balbirs@nvidia.com>,
- Philipp Stanner <phasta@kernel.org>,
- Elle Rhumsaa <elle@weathered-steel.dev>, alexeyi@nvidia.com,
- Eliot Courtney <ecourtney@nvidia.com>, joel@joelfernandes.org,
- linux-doc@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- linux-fbdev@vger.kernel.org, Joel Fernandes <joelagnelf@nvidia.com>
-Subject: [PATCH v10 07/21] gpu: nova-core: mm: Add TLB flush support
-Date: Tue, 31 Mar 2026 17:20:34 -0400
-Message-Id: <20260331212048.2229260-8-joelagnelf@nvidia.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260331212048.2229260-1-joelagnelf@nvidia.com>
-References: <20260311004008.2208806-1-joelagnelf@nvidia.com>
- <20260331212048.2229260-1-joelagnelf@nvidia.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: BLAPR03CA0077.namprd03.prod.outlook.com
- (2603:10b6:208:329::22) To DS0PR12MB6486.namprd12.prod.outlook.com
- (2603:10b6:8:c5::21)
+ Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ Ville =?UTF-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
+ Daniel Stone <daniels@collabora.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, kernel@collabora.com,
+ Derek Foreman <derek.foreman@collabora.com>,
+ Marius Vlad <marius.vlad@collabora.com>
+Subject: Re: [PATCH v5 0/3] Add "link bpc" DRM property
+Date: Wed, 01 Apr 2026 14:46:42 +0200
+Message-ID: <6251230.iIbC2pHGDl@workhorse>
+In-Reply-To: <CAPj87rOz=QvQE1CqshspTPkC5nSXW_WAxUf1rwa=w4zmPdgtQQ@mail.gmail.com>
+References: <20260319-link-bpc-v5-0-5306cd04a708@collabora.com>
+ <dc7f59af-05d0-4942-b21b-b85289f7eee1@amd.com>
+ <CAPj87rOz=QvQE1CqshspTPkC5nSXW_WAxUf1rwa=w4zmPdgtQQ@mail.gmail.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB6486:EE_|SA3PR12MB8809:EE_
-X-MS-Office365-Filtering-Correlation-Id: 51a2589a-93a6-48fc-27f8-08de8f6b71cb
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|366016|7416014|1800799024|22082099003|56012099003|18002099003;
-X-Microsoft-Antispam-Message-Info: nDus8K5mhooyzqkbYmIa1I2phFfs7yvn1uuoLwuS/6CdBdUFCjPnRoDO39ARvUCJBoAi2Oc6sBs5fMb3h3vZZHi+mkvSQ0BDbK08WDZdLNJQoJYE11SiTS/Hi3rAlXZmA1CzoFgMahFEy/ajo7ZS8Sxqk2Bf7tjA4+6AcOb/ymLNd2h9W/70QLtJMm+3yBH0H1kjsElIHyWR1AcGKsfeKVfzUQ/4IpPgf9bwcSrvDLX96lOgCFu9CJVEywnhhC5J/8uItZ+ac+6xhwwa2BLHV3pFyPqCxkiY8V10QjbJIKMKw28lGXFHzZHVZ+JuJtqgVkdeBrxCiJQUWb0ai128XqLgIZgKFWGKgBV0csSlhbAREGzaLTqUndylCkeqIeBU3mqNToDeZJb9qKgK+KbmVX7xjo88KyNZZpI7aug+3Enywwxskt3MkT4NIxxJjE2eLWJyKGoSN81V6FL6voP8pLrjmZl8izJgPysAKWIxA2MMW3ilTX2zQvQ+WQ5f5aO6o9iPgDa1jR1N7ktUpPDDcfa0+Ip/S0mvW1bhwrEYN3Rwc1e4QW9s8eDsXOSBXenI9hq5cFFX4JXwJkaBYFAW4OKagqqiW1GAevJvjTA4dy9sPXdJnmtDbK3dql9urzonp/U6DZTNHykxfCuySaVzay0UnF8Cbs55nFh3E7wpEzjW0IOicsjo/shIys/QalhoT7NVHHuPgRTbIFoCgXV6dvrLXrlVJuZtwyYDgC5lxow=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS0PR12MB6486.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(7416014)(1800799024)(22082099003)(56012099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?WA6cg5qMNkwGEwLB4pQyw/xDKtQCIjT7NnLaT/hs4cMWEQGH19x+OKhk+BZY?=
- =?us-ascii?Q?zt+3ebu/8G1VJYS3K66gLe+M85/zKbuguk96xBUYCgLAVMA2NwxC4IiKAXh6?=
- =?us-ascii?Q?oe9E6NLB4+AGweUxHfjh+Hro8JqTWdsXW2SKli8XDc7+XzAUNTAfuUhOcZX9?=
- =?us-ascii?Q?XIaphEjLrUwlWib0axoF8aWfAsqyRtRPETI2w8st7xO08obFHWgXGiVuFSSf?=
- =?us-ascii?Q?tUlirgPzvs2ONC2boRj/NAZP4ccVFhz590zyfEmlUJuPMEoDYqrwZATwP5O7?=
- =?us-ascii?Q?ENcOj/LfS0hACiMMPcOhG4CKtvWKr2UqwtMsIC/nRfrNw+FWy5wBcWJg5mj/?=
- =?us-ascii?Q?FtRpA/Dl8llpLASuUSF1eweGHGEXkGmr/yfvj0KsQPI2A41sk3kMWOuvNo4a?=
- =?us-ascii?Q?nyVgF76+ES3Ye4h931IXg5OC2O5pcXxMQW57bIL+9QOGQIGMzBI6LyJLt90h?=
- =?us-ascii?Q?z4uS4OxYnxeHQnkk+6lLOiSg4EOwPRjI2WRqceicMuY4qScArtPLff/q1HCB?=
- =?us-ascii?Q?pek/tuBqRoct73BhS7KS5qIX8XGmYmQm71hHXdcQtNxz2hIaaHqAdW3MjEP6?=
- =?us-ascii?Q?i86Nyq+3pdM74K3SdtrjhyXkmxnM01ADWonqhIQPDiIASMOhGeJR8kElazZH?=
- =?us-ascii?Q?VagvZOaE8y3mTwY82mK6nuf4hEHUQbVhEGzq1qlsIjSPgtifsQxrGUhQZblE?=
- =?us-ascii?Q?M+hLIArZ2EbbmFlLfOhDZtKIUGIkyVnCt6GnTakkf+QdErjpcObSkYgfp1bh?=
- =?us-ascii?Q?sU7xvH0gMHcVC5zkiA/pdrdQ+uYVUA5gu/lACP/NGNnfwQBa/0GZOggKba5/?=
- =?us-ascii?Q?emdmkU4Qo9XeajurCEOyoqONryLsWBjgrGu9hMU2HlzXbJc/wTA16RDfNX8Q?=
- =?us-ascii?Q?r2THwvHnwzFLHsG75VCIYe0TONDb/KOH2SFCquRVT4MXTV5Eqy91e/Mfb/dj?=
- =?us-ascii?Q?nGbqDXOVuKR94b79jtyqltJvoBEtuhrxqtGLy1GYiv9TaqDYgHOsPjr+T4B0?=
- =?us-ascii?Q?7w/Z2r/PtbG/UUFd0itsdmAD6ICYUqaHrg1HiA+ILNwD+pYeLas51DMfgq/W?=
- =?us-ascii?Q?YXm0oyyc8jeSaP1EpSKIOv9aluy9+05iMVT/O7jjGN0/g32qX42pAFYU8Ga0?=
- =?us-ascii?Q?+R4mCcFT92XQFzsMBuUNd1/Yz+Gac6jzH8EkirKxGfNjpgR1Ai22NKRPQX7K?=
- =?us-ascii?Q?7PLOK9UXnAD9X6WSKdLCwuwdrwb0cfcET8uLbkaiHD250kxa6YYPrMBaah76?=
- =?us-ascii?Q?Ri1HXUBpJd3dysGsamJ/tEwGSdpsOSGZopzlgWBOOmaV+Dn+XyOMwtzn837f?=
- =?us-ascii?Q?KtIFLBoO9/MkSyB9lyTvyVAtAZszyVRUJClzkDr6OVxoNvuLcrTff2kHOlkT?=
- =?us-ascii?Q?4+hrHLcwUu4neoT+mdw7PUwxbN9BmD3JetprcL/CuQf/7yqknp7ePABzVssG?=
- =?us-ascii?Q?b6Y5J1RN2DjPaLPUZty9Y5qF5JdHaoQxEKwA6c5BdtkV3ZFT7fWIr/p83M+1?=
- =?us-ascii?Q?jhgDT1ZRww2w75Ji2ga4HOAtpR26wrJZm1XQjIxe7LR1KhD2DgZTnhJWm/hy?=
- =?us-ascii?Q?0k4cV0gXe52olv7Mu8dscq6ZuY7oaAzcyFB3vXCBQOnuhHExgsdzhMtJhp5E?=
- =?us-ascii?Q?iHqE5Eqyqp8JTVMVpT3zYLYOsoDaKkPa9JWxpCSEGD2EMLyhTwRfZBJjY38b?=
- =?us-ascii?Q?niIczYV5/Owf8ADejWxXwGTl2/CnqdptDnidqZDF7K33OISI5BXMSq1Kxcre?=
- =?us-ascii?Q?M8IQjLmWwA=3D=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 51a2589a-93a6-48fc-27f8-08de8f6b71cb
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6486.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Mar 2026 21:21:16.9098 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: eRqbXsYNCROYC+7NT/oQRoVvMRKZwFXF/hzsAG2CQ+C3MoinYSJJE5bsFCt6CrIRXVBBmNwuGR706u1MJisAUw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB8809
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="utf-8"
 X-Mailman-Approved-At: Wed, 01 Apr 2026 18:19:20 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -160,188 +80,107 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add TLB (Translation Lookaside Buffer) flush support for GPU MMU.
+Chiming in here to basically agree with Daniel and underline his point with
+some evidence.
 
-After modifying page table entries, the GPU's TLB must be invalidated
-to ensure the new mappings take effect. The Tlb struct provides flush
-functionality through BAR0 registers.
+On Wednesday, 1 April 2026 10:40:15 Central European Summer Time Daniel Stone wrote:
+> Hi Harry,
+> 
+> On Tue, 31 Mar 2026 at 18:47, Harry Wentland <harry.wentland@amd.com> wrote:
+> > On 2026-03-31 08:50, Pekka Paalanen wrote:
+> > > People who care about the picture quality down to these levels will
+> > > likely want to know and learn about these techniques. They may also
+> > > want to explicitly control them.
+> > >
+> > > In time, when these have been used enough in the wild, compositor
+> > > developers will learn what makes a difference and what does not, so
+> > > they will adjust their reporting to end users. The most important thing
+> > > for the kernel is it offer an unambiguous and stable UAPI for these.
+> > >
+> > > Policy belongs in userspace.
+> >
+> > I don't like this as a blanket statement. There is a lot of policy that
+> > intersects with HW nuances, whether it comes to power or otherwise.
+> > Taking away driver vendor's abilities to optimize will hurt the Linux
+> > ecosystem in the long run.
+> >
+> > IMO this needs to be evaluated on a case by case basis. There are
+> > many places where it does make sense to give userspace a greater
+> > say on policy, but we don't want to push driver (HW specific) logic
+> > up into userspace.
+> 
+> It's not something that's _just_ specific to a particular
+> display-controller manufacturer or a particular IP generation though.
+> It very much depends on the usecase.
+> 
+> If you have a laptop and you're trying to give a presentation,
+> applying dithering and/or DSC makes a lot of sense: you don't want
+> your battery to die, and the projector's probably going to obliterate
+> half the colour anyway, so might as well as go for the most efficient
+> thing.
+> 
+> If your laptop is plugged into your big display at home to write code,
+> applying DSC to cram the highest possible resolution + refresh in
+> would make sense. But if dithering only results in a marginal power
+> saving, and your laptop is charging anyway - why bother degrading
+> visual acuity?
 
-The flush operation writes the page directory base address and triggers
-an invalidation, polling for completion with a 2 second timeout matching
-the Nouveau driver.
+This kind of encourages me to say that the meaning of "bpc" here should
+either be reduced by all compression (of which I see dithering as a
+primitive variant of) or left at the uncompressed bpc for all compression.
 
-Cc: Nikola Djukic <ndjukic@nvidia.com>
-Signed-off-by: Joel Fernandes <joelagnelf@nvidia.com>
----
- drivers/gpu/nova-core/mm.rs     |  1 +
- drivers/gpu/nova-core/mm/tlb.rs | 95 +++++++++++++++++++++++++++++++++
- drivers/gpu/nova-core/regs.rs   | 42 +++++++++++++++
- 3 files changed, 138 insertions(+)
- create mode 100644 drivers/gpu/nova-core/mm/tlb.rs
+I'm leaning towards the latter. 10bpc lossily compressed to 8bpc is likely
+a better choice than plain 8bpc for visual clarity, so making them look the
+same to userspace would result in some odd choices. At the same time, having
+a separate way for userspace to know of any compression techniques applied
+on the output would disambiguate that for those compositors that really care,
+and would also mean we don't have to make subjective judgement calls for
+anyone.
 
-diff --git a/drivers/gpu/nova-core/mm.rs b/drivers/gpu/nova-core/mm.rs
-index 8f3089a5fa88..cfe9cbe11d57 100644
---- a/drivers/gpu/nova-core/mm.rs
-+++ b/drivers/gpu/nova-core/mm.rs
-@@ -5,6 +5,7 @@
- #![expect(dead_code)]
- 
- pub(crate) mod pramin;
-+pub(crate) mod tlb;
- 
- use kernel::sizes::SZ_4K;
- 
-diff --git a/drivers/gpu/nova-core/mm/tlb.rs b/drivers/gpu/nova-core/mm/tlb.rs
-new file mode 100644
-index 000000000000..cd3cbcf4c739
---- /dev/null
-+++ b/drivers/gpu/nova-core/mm/tlb.rs
-@@ -0,0 +1,95 @@
-+// SPDX-License-Identifier: GPL-2.0
-+
-+//! TLB (Translation Lookaside Buffer) flush support for GPU MMU.
-+//!
-+//! After modifying page table entries, the GPU's TLB must be flushed to
-+//! ensure the new mappings take effect. This module provides TLB flush
-+//! functionality for virtual memory managers.
-+//!
-+//! # Example
-+//!
-+//! ```ignore
-+//! use crate::mm::tlb::Tlb;
-+//!
-+//! fn page_table_update(tlb: &Tlb, pdb_addr: VramAddress) -> Result<()> {
-+//!     // ... modify page tables ...
-+//!
-+//!     // Flush TLB to make changes visible (polls for completion).
-+//!     tlb.flush(pdb_addr)?;
-+//!
-+//!     Ok(())
-+//! }
-+//! ```
-+
-+use kernel::{
-+    devres::Devres,
-+    io::poll::read_poll_timeout,
-+    io::Io,
-+    new_mutex,
-+    prelude::*,
-+    sync::{
-+        Arc,
-+        Mutex, //
-+    },
-+    time::Delta, //
-+};
-+
-+use crate::{
-+    driver::Bar0,
-+    mm::VramAddress,
-+    regs, //
-+};
-+
-+/// TLB manager for GPU translation buffer operations.
-+#[pin_data]
-+pub(crate) struct Tlb {
-+    bar: Arc<Devres<Bar0>>,
-+    /// TLB flush serialization lock: This lock is acquired during the
-+    /// DMA fence signalling critical path. It must NEVER be held across any
-+    /// reclaimable CPU memory allocations because the memory reclaim path can
-+    /// call `dma_fence_wait()`, which would deadlock with this lock held.
-+    #[pin]
-+    lock: Mutex<()>,
-+}
-+
-+impl Tlb {
-+    /// Create a new TLB manager.
-+    pub(super) fn new(bar: Arc<Devres<Bar0>>) -> impl PinInit<Self> {
-+        pin_init!(Self {
-+            bar,
-+            lock <- new_mutex!((), "tlb_flush"),
-+        })
-+    }
-+
-+    /// Flush the GPU TLB for a specific page directory base.
-+    ///
-+    /// This invalidates all TLB entries associated with the given PDB address.
-+    /// Must be called after modifying page table entries to ensure the GPU sees
-+    /// the updated mappings.
-+    pub(crate) fn flush(&self, pdb_addr: VramAddress) -> Result {
-+        let _guard = self.lock.lock();
-+
-+        let bar = self.bar.try_access().ok_or(ENODEV)?;
-+
-+        // Write PDB address.
-+        bar.write_reg(regs::NV_TLB_FLUSH_PDB_LO::from_pdb_addr(pdb_addr.raw_u64()));
-+        bar.write_reg(regs::NV_TLB_FLUSH_PDB_HI::from_pdb_addr(pdb_addr.raw_u64()));
-+
-+        // Trigger flush: invalidate all pages and enable.
-+        bar.write_reg(
-+            regs::NV_TLB_FLUSH_CTRL::zeroed()
-+                .with_page_all(true)
-+                .with_enable(true),
-+        );
-+
-+        // Poll for completion - enable bit clears when flush is done.
-+        read_poll_timeout(
-+            || Ok(bar.read(regs::NV_TLB_FLUSH_CTRL)),
-+            |ctrl: &regs::NV_TLB_FLUSH_CTRL| !ctrl.enable(),
-+            Delta::ZERO,
-+            Delta::from_secs(2),
-+        )?;
-+
-+        Ok(())
-+    }
-+}
-diff --git a/drivers/gpu/nova-core/regs.rs b/drivers/gpu/nova-core/regs.rs
-index a3ca02345e20..5e3f5933a55c 100644
---- a/drivers/gpu/nova-core/regs.rs
-+++ b/drivers/gpu/nova-core/regs.rs
-@@ -548,3 +548,45 @@ pub(crate) mod ga100 {
-         }
-     }
- }
-+
-+// MMU TLB
-+
-+register! {
-+    /// TLB flush register: PDB address bits [39:8].
-+    pub(crate) NV_TLB_FLUSH_PDB_LO(u32) @ 0x00b830a0 {
-+        /// PDB address bits [39:8].
-+        31:0    pdb_lo => u32;
-+    }
-+
-+    /// TLB flush register: PDB address bits [47:40].
-+    pub(crate) NV_TLB_FLUSH_PDB_HI(u32) @ 0x00b830a4 {
-+        /// PDB address bits [47:40].
-+        7:0     pdb_hi => u8;
-+    }
-+
-+    /// TLB flush control register.
-+    pub(crate) NV_TLB_FLUSH_CTRL(u32) @ 0x00b830b0 {
-+        /// Invalidate all pages.
-+        0:0     page_all => bool;
-+        /// Enable/trigger flush (clears when flush completes).
-+        31:31   enable => bool;
-+    }
-+}
-+
-+impl NV_TLB_FLUSH_PDB_LO {
-+    /// Create a register value from a PDB address.
-+    ///
-+    /// Extracts bits [39:8] of the address and shifts it right by 8 bits.
-+    pub(crate) fn from_pdb_addr(addr: u64) -> Self {
-+        Self::zeroed().with_pdb_lo(((addr >> 8) & 0xFFFF_FFFF) as u32)
-+    }
-+}
-+
-+impl NV_TLB_FLUSH_PDB_HI {
-+    /// Create a register value from a PDB address.
-+    ///
-+    /// Extracts bits [47:40] of the address and shifts it right by 40 bits.
-+    pub(crate) fn from_pdb_addr(addr: u64) -> Self {
-+        Self::zeroed().with_pdb_hi(((addr >> 40) & 0xFF) as u8)
-+    }
-+}
--- 
-2.34.1
+With regards to DSC for example, any vendor's decision to enable it by
+default does not necessarily give us a good precedent for what side to
+err on. amdgpu flips on DSC when it doesn't have to, and this has rubbed
+some people wrong: https://gitlab.freedesktop.org/drm/amd/-/work_items/2043
+
+The goal isn't so much to push driver logic into userspace, but to give
+userspace a view into what the driver did, so that it can decide whether
+it's happy or wants to try again differently. This means userspace isn't
+ossifying on a set of parameters that made sense a decade ago; drivers can
+still modify their decisions as they develop and hardware gains new
+techniques.
+
+> 
+> If you're a media player, then you're in a good position to know what
+> would be good to go over the wire, because you know (& are possibly in
+> control of) the format over what comes in in the first place.
+> 
+> But everyone's tradeoffs are different, which is why sometimes the
+> best choice is to ultimately leave it up to the user. If you dig into
+> any media playback device (STBs running Android TV, Apple TV, Fire TV,
+> et al), you'll see that all of them ultimately allow overrides for bpc
+> / colour model / subsampling / etc. Those aren't just there for fun,
+> but because they are usable to real people, and it's not possible for
+> Amlogic or MediaTek or Rockchip or whoever to statically decide that a
+> certain configuration is going to be best everywhere.
+> 
+> Right now we have drivers making magic per-vendor/SKU decisions,
+> without even so much as a feedback mechanism to userspace (unless you
+> count debugfs, maybe) so it can even figure out what's going on, let
+> alone control it. To properly support some of those usecases,
+> userspace needs to be able to control what goes out on the wire, but
+> as a first step, it just wants to be informed of what the driver even
+> did with the properties we gave it.
+> 
+> The end game of this isn't Weston logging something to stdout, it's to
+> surface things to userspace so it can guide the kernel into making a
+> good decision for usecases that may not be ones the silicon vendor
+> decided was 'probably the best thing' however many years ago.
+> 
+> Cheers,
+> Daniel
+> 
+
+Kind regards,
+Nicolas Frattaroli
+
 
