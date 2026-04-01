@@ -4,90 +4,96 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 708DC1076389
-	for <amd-gfx@archiver.kernel.org>; Wed,  1 Apr 2026 17:26:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 47EC510F6FDC
+	for <amd-gfx@archiver.kernel.org>; Wed,  1 Apr 2026 17:47:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0EB8910EDCD;
-	Wed,  1 Apr 2026 17:26:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DBA0E10E355;
+	Wed,  1 Apr 2026 17:47:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="kUKahqDa";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="hVvk6adK";
 	dkim-atps=neutral
-Received: from mail-dl1-f52.google.com (mail-dl1-f52.google.com [74.125.82.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 50E1610EDCD
- for <amd-gfx@lists.freedesktop.org>; Wed,  1 Apr 2026 17:26:39 +0000 (UTC)
-Received: by mail-dl1-f52.google.com with SMTP id
- a92af1059eb24-124a7216c9cso4840c88.0
- for <amd-gfx@lists.freedesktop.org>; Wed, 01 Apr 2026 10:26:39 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1775064398; cv=none;
- d=google.com; s=arc-20240605;
- b=E5m0H6Zwbgr3udyjbsST4O64wzBCZIfFJgwavsxymgCpphQpTy11IIEjhJrkelU5A0
- 477OdwIBuHLDHIOdfU0pkNVWcPz3iGUp/zR/a4l0uYRBoTfc7aU2x+Y7ewpASbSwmD7T
- vcyKtBzmGEXsWtuoCRrdPcAXfdbaOExhngSipnEaTyE10lXHts6XU3KiDIS8+ABTjUWr
- ju1LryYYdF4Rr9+zT2UcXY6C6hUJSoH2q1Y0T8VXyJt5I7ZZzOWsTBB/8K1VReemhX1L
- OM2rPA4lVupPfwfHfpGazI49qsR7kU0SsClCQ9U2g0rfUI62+gmalwUTY4LizgCiPdDG
- mTlg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=mKiVoIEsRrzbt0in9YOYLz29z184YceU00yHVJgwhtg=;
- fh=oTojQkW1miF/NJeYaA/yxnBVyxkt9aKiOEfAQyM8dPk=;
- b=YFux8xLDph+cMlBln+YZAqcCtV1+EhlHWLt6oZek0O1pLBKnSMZ21pQ0KZvkYOnK7u
- YW3GoaoSXisLLMagw8j49Cnl2HQozqZ2hW2pF75E2vQ0WU10MU2b7ZCYblJRJxVrtEKh
- eBCi0HvM9BOnrTSoOea5ISUHfHil9olG9AKXuaXm/C8n3Is7DYAFLVxokAkAMv5RANfI
- 8CoRgRjzjhoHX2BRKhA/JVTsP+wSnNEKZFlDkCrkzbgv2KbR5eNMel2MeWDMs1Xr+snr
- U00OFhCW4vI5LdLypEIK3cakMkqtnMJ26bWJV90Sl6YZcgm5RhGkE3dhPEVgjY6/3Xcq
- HrHQ==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1775064398; x=1775669198; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=mKiVoIEsRrzbt0in9YOYLz29z184YceU00yHVJgwhtg=;
- b=kUKahqDaL19Z8r+YlyCVU9BnBZ5ozFgDErH6FbO9aR0PtoCkr6HmlCfhbFZtfYJcPI
- /FJBKBytRGYyB4mwv4qMNCr6ZPQfEqqxJHeALHQGHEww8iATdcXKtjIzrl81Sn+2Ett/
- 1/jk023oddyXVT4z2IKRdDjALfKgHIVN9niMtMGfi+Am0Qd8Z822Xp0SEwOrn5K5Vza4
- 3rctIQMdr5mAQCRz4WIR6/JGs0QNBm13R8sgd/WDJFquaqOzsaC0bQHawe1h8X1YCAGP
- fHjCQ3H/K5uxO8crLDLeCrt7T95OiXweqWcOYI4DE/dcDR9qcyQS8RjWlwqex87xJ4i7
- fAjA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1775064398; x=1775669198;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=mKiVoIEsRrzbt0in9YOYLz29z184YceU00yHVJgwhtg=;
- b=Ub6pQDXXRSnIUE18AaSmqglR22b2QoPcj980yP05IMTKw9CEw37ytJFwtZtNjWkzu/
- zdjHDgS5utLNvcRFalb4u1IlzFiVTWI7BP4+oa2ZfPnF4CQRAa0DCOu6EqHDw4ihX6Gc
- mNDUc9rjKdOBEgvigNgzvwCqTi2/psRt4cc8HMVKdT15e7WwTa59YRlFyMuJvguf3gG6
- gnb21PvqQEDLhmrbouA6qGXkOxCVF7/zKM8s9WUKVUI85VquxyR46He+jX4t6twrQVVe
- lrekYeSUPlW27o0LMn1VAa5tphx2t8zP20YtEdy/e1klafJIc8Aq8dIDHWTZMP3FpnPY
- /j3A==
-X-Gm-Message-State: AOJu0YxCCS1wFJaBDQaZZxbweEl6AvVeR9v63Dpd0Qu1Xjp5GbDWcjLO
- nTkVbXoYlFPwKjZzOt2++OoFStL1L7tHZmCUagVzgIba6MB4LSe9g5IsOCWslp+qkg4m7adFYS+
- 0odZz3LyCylDWPWGGJt/o6CkSVr74Gv0=
-X-Gm-Gg: ATEYQzzRbyqnuLD3ajAESsc7X2nEHbFyG5y95fd+Py/zhGw3mLaBe1rBioFua2Tcap1
- 28Gc9e9d1LxzcR2+q5+41n/33PUEVHfJ/mfnOrqYIAS+snbPVJTy6BhNHxR1L/5674NfV4CAz+H
- lLn5F5x/Fqoba+N74FzY3o5FGjXwfRX1yUi0z4eobpHFcZsCKF6niDgFMeQy785WPhmV55vh3xH
- I7Q52u6LyjrLRjdUIV57u3RE/u7w2Ryaecnx8MedZGPuFFPPixjiSl5PrZGuVsYuUo62Iwc5Qrq
- bz8MuaJMsXi6ufqceRH42/bZjxtq4rG9hunnPbx95ueM9todbbJhCqSF6uM44maPDlPrOQ==
-X-Received: by 2002:a05:7022:698d:b0:12a:7181:2f12 with SMTP id
- a92af1059eb24-12be6551a54mr1024628c88.3.1775064398278; Wed, 01 Apr 2026
- 10:26:38 -0700 (PDT)
+Received: from PH8PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11012070.outbound.protection.outlook.com [40.107.209.70])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 02E5E10E355;
+ Wed,  1 Apr 2026 17:47:50 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=YHx1Iidsk9ScRiqSqMNMIeSMZmptkZi/5Ay9WDOb8WbpHAqqURNWjSAK1wv1YdO58pHa6osbPJeK1WTnINJukJy6K7yb4xgkhaXt240VEQo83AJU1FnyqZAbdPM04jl5Gwsj4WkdCUFemBO0GwT16zzYPyRmEE7R9/wafVpZpiga2mD3u2u0LaxoFSjuBZiZLVMqjxnVDum7j8qN79PzZZSy4TlaNvLSbfBsOeRyWUTy1OUb6esxp+K9a07jpoclp3LQy4aErPDCgJbdp67mQ1UPvGjwzMXiGb2AWu27Ny1A0ydCOUTEwBqxfhD+e+9CO9TanUfi/rwTg6ZaLwbong==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=wqEepFIHhIFFnHk7ivnDPYSOHT/0yzuzBHv+S/KsR/8=;
+ b=FH72Tg+Oih9Z8Y7h6+XarJOm3KtuhtD3bRvgLB5bA1J4KTiEkxuSQqPGkWRnLYLz9259jgBtbIjJZpsksd9svioqmVknPrTeEkKL7ZjD4++yyctDePfvPsJK5kPtvPZ0yP7v8zSbOFzQNuz0Dqm3weGf/pKX4vz5LolGYIayI4zIIkC7LYmpjxEC4Ozg0isuZWIkeELgNwkkvD7qIpfuUQ554NlaQGBDYyzWkKrt96i9K0xNcZ7F2QP6JXYB96mEJA1Yj6x3ybBDRaADasz8QI+jzO8X3ogKWS1RHW3QFzDmtrZ0yScB5B9uWrFKaKfpOBOSVH55RhhxxVxTMIZQwQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=wqEepFIHhIFFnHk7ivnDPYSOHT/0yzuzBHv+S/KsR/8=;
+ b=hVvk6adKLXmJHGKGByKgn9Q6I8T7tR7LeS8OieiQTkuYQmW1SVPKscq4N4pYF9LJIyXFqTtqkxyHAstFCPhpYQYs3TqZ7IMpnDLUc+aATxwn3Mpg1n5IIu5vk8LFhqHyqfq2Ms0qQHKKwei71PB3YhJCkJ6oyZt6ZxGv2vNgMB8=
+Received: from BN9PR03CA0089.namprd03.prod.outlook.com (2603:10b6:408:fc::34)
+ by DM4PR12MB5796.namprd12.prod.outlook.com (2603:10b6:8:63::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.17; Wed, 1 Apr
+ 2026 17:47:45 +0000
+Received: from BN1PEPF00004684.namprd03.prod.outlook.com
+ (2603:10b6:408:fc:cafe::99) by BN9PR03CA0089.outlook.office365.com
+ (2603:10b6:408:fc::34) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9745.30 via Frontend Transport; Wed,
+ 1 Apr 2026 17:47:45 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BN1PEPF00004684.mail.protection.outlook.com (10.167.243.90) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9769.17 via Frontend Transport; Wed, 1 Apr 2026 17:47:45 +0000
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Wed, 1 Apr
+ 2026 12:47:44 -0500
+Received: from p8.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
+ Transport; Wed, 1 Apr 2026 12:47:44 -0500
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <airlied@gmail.com>, <simona.vetter@ffwll.ch>
+CC: Alex Deucher <alexander.deucher@amd.com>
+Subject: [pull] amdgpu, amdkfd drm-fixes-7.0
+Date: Wed, 1 Apr 2026 13:47:31 -0400
+Message-ID: <20260401174731.3576021-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
-References: <20260401135322.541198-1-tom.stdenis@amd.com>
-In-Reply-To: <20260401135322.541198-1-tom.stdenis@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 1 Apr 2026 13:26:26 -0400
-X-Gm-Features: AQROBzD8GYJ87Cn29KHpFO7AfqBCj6zXDdIqC2aZJTP_X8-E4LAVuLJrxzzsyG4
-Message-ID: <CADnq5_NH4Q=Hn+-grvn503ydFXUi5qaVknkNjWD+wU_Csjhokw@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/pm: Change gpu_metrics over to binary
-To: Tom St Denis <tom.stdenis@amd.com>, "Kamal, Asad" <Asad.Kamal@amd.com>, 
- "Wang, Yang(Kevin)" <KevinYang.Wang@amd.com>, "Lazar,
- Lijo" <Lijo.Lazar@amd.com>
-Cc: amd-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN1PEPF00004684:EE_|DM4PR12MB5796:EE_
+X-MS-Office365-Filtering-Correlation-Id: f5df1562-a9d5-4dbe-4018-08de9016c802
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|36860700016|82310400026|1800799024|56012099003|18002099003;
+X-Microsoft-Antispam-Message-Info: PtB+feVPf0Ji0jy9Cs5wxwSWLMXHYQBQHCuOArl/xkk0KWN61sEZv0BaQjRBK6pWAuHF0Mdm2jZw/LL5fMWEyy/Ilj+qRuYg+Sow9ROLfn8S4guTwCjX1UTNPYXL1hwIpO08Jex7tc1hLqyLVcJTD/rl4FXZg8iroqVCWJx7UfBzgBfrFkvy6OoRfYhyeZNdwYNBaZjytm30lAV2BvT3W1a2HyiM0A6qNvVVn7ivA00g2X7UUgDfELTtJQdcKcEfh1GmM9kY8agxRxvrO9GPGqAKZUMve9yiw5YorE8SwZAsD2DR3DMaSjal+aOMnLHPomCBkHrpeLZrLAax9iaqSof5gRPl2DuSKKPgfZk+1/hXnpUyDLrYaIhp0XDzJuA5HqYb3kAT/NZsbbznL8+OX5yoWovz3hIWYdM3O+Dh0WgtZikJLIvCz2bcRuzrbWYwabWC6pZvba9CLcAqp67LHCM+Gc9NIoHtIO0yjmOP/JgynFamN3ySHHlainEF7Xtq8Kl3OrI6G+AgbLi9+rQrN5oSBoIPQe1om5N4OfLWJ/lSC/15FE3zUlIh1n900R/VBTPpbSCf/ZZcRaJe4nxmUxQXSqkvhcrGqk7I4xCAMCjhASn9Bxi0yOOAlj5YOFcYVeGNFLLp737AyREkGdu8azolykfxxZ2arFfBX6rJdwrrsH19WT1cGBXz1X2OEPb/5J/GAYO5XTJQa90Nz+/VNqnVrBcFdU0mY755SBj5kN4=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(36860700016)(82310400026)(1800799024)(56012099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: QZ9pQcWTD8IBEowl1DabVe99FjyPBK/vmeLKkqtZy4ofxXNMxOZvbW8a+zGbGfPAdn0+4XbGu3d6c1GnBkR0NUHc1gXpteWZ7nB1W85PE/aZw7+lD5+QLxcDILJOyItF48iUAToEfu+95XY9x9fl/w5sZvB1Xvh3iDzttk/1zTUu0rleh3CkEDWfLacHFXEVOPpf5oPNTT/zocdyb/e88OnvTR1jdYCzm8KxXP9JgdPYMpV9WrawWE7emddwFiqGSsQgfpvR8IzCZnHrVTU2W91/ScHCK6RBukgzw/13UagfKRmmQZTQCb8VX1QE1kd0Kwck5XTI+yk0OyXrxrxhpAuaQEjMvPI3Twwtz7j1i0tJAmzwVe2ZAxaUN4uy9z45Q6t1Ow47HClAMOfOjs+DoFoqFI2YZi+fRNMK40oFxKfI905SfSKdGg/wr46trGLH
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Apr 2026 17:47:45.2032 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f5df1562-a9d5-4dbe-4018-08de9016c802
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN1PEPF00004684.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5796
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,266 +108,71 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-+ a few more people
+Hi Dave, Simona,
 
-On Wed, Apr 1, 2026 at 9:53=E2=80=AFAM Tom St Denis <tom.stdenis@amd.com> w=
-rote:
->
-> The file is binary anyways but also because it reported previously
-> as a static 4KB block it made correctly reading it hard since
-> you can't error check on if your read succeeded or not.
->
-> Tested on my Navi48.
->
-> Signed-off-by: Tom St Denis <tom.stdenis@amd.com>
-> ---
->  drivers/gpu/drm/amd/pm/amdgpu_pm.c      | 106 +++++++++++++++++++-----
->  drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h |   1 +
->  drivers/gpu/drm/amd/pm/inc/amdgpu_pm.h  |   1 -
->  3 files changed, 88 insertions(+), 20 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/=
-amdgpu_pm.c
-> index a4d8e667eafb..7139983705bc 100644
-> --- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-> +++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-> @@ -34,8 +34,17 @@
->  #include <linux/nospec.h>
->  #include <linux/pm_runtime.h>
->  #include <linux/string_choices.h>
-> +#include <linux/sysfs.h>
-> +#include <linux/sizes.h>
->  #include <asm/processor.h>
->
-> +/*
-> + * Sysfs reports this as the file size (stat/ls); kernfs also uses it to=
- cap
-> + * read offsets. Actual payload length is the return value of
-> + * amdgpu_dpm_get_gpu_metrics() and must not exceed this.
-> + */
-> +#define AMDGPU_GPU_METRICS_BIN_ATTR_MAX_SZ     SZ_128K
-> +
->  #define MAX_NUM_OF_FEATURES_PER_SUBSET         8
->  #define MAX_NUM_OF_SUBSETS                     8
->
-> @@ -1734,43 +1743,86 @@ static ssize_t amdgpu_get_pm_metrics(struct devic=
-e *dev,
->   * DOC: gpu_metrics
->   *
->   * The amdgpu driver provides a sysfs API for retrieving current gpu
-> - * metrics data. The file gpu_metrics is used for this. Reading the
-> - * file will dump all the current gpu metrics data.
-> + * metrics data. The binary sysfs file gpu_metrics is used for this.
-> + * Reading the file returns the raw metrics blob; reads may be shorter
-> + * than the full structure, so userspace should use read() until EOF
-> + * when the buffer may exceed one page. The sysfs file size is an upper
-> + * bound for inode metadata; the real length is the amount returned
-> + * before EOF on sequential reads.
-> + *
-> + * Do not use stdio fread(3) as fread(buf, 128*1024, 1, fp): that asks f=
-or
-> + * one object of 128KiB and returns 0 if the payload is shorter (even wh=
-en
-> + * data was read). Use read(2), or fread(buf, 1, sizeof(buf), fp), or lo=
-op
-> + * until feof/short read.
->   *
->   * These data include temperature, frequency, engines utilization,
->   * power consume, throttler status, fan speed and cpu core statistics(
->   * available for APU only). That's it will give a snapshot of all sensor=
-s
->   * at the same time.
->   */
-> -static ssize_t amdgpu_get_gpu_metrics(struct device *dev,
-> -                                     struct device_attribute *attr,
-> -                                     char *buf)
-> +static bool amdgpu_pm_gpu_metrics_bin_visible(struct amdgpu_device *adev=
-,
-> +                                             uint32_t mask)
-> +{
-> +       uint32_t gc_ver =3D amdgpu_ip_version(adev, GC_HWIP, 0);
-> +
-> +       if (!((ATTR_FLAG_BASIC | ATTR_FLAG_ONEVF) & mask))
-> +               return false;
-> +
-> +       return gc_ver >=3D IP_VERSION(9, 1, 0);
-> +}
-> +
-> +static ssize_t amdgpu_sysfs_gpu_metrics_read(struct file *f, struct kobj=
-ect *kobj,
-> +                                            const struct bin_attribute *=
-attr,
-> +                                            char *buf, loff_t off, size_=
-t count)
->  {
-> +       struct device *dev =3D kobj_to_dev(kobj);
->         struct drm_device *ddev =3D dev_get_drvdata(dev);
->         struct amdgpu_device *adev =3D drm_to_adev(ddev);
->         void *gpu_metrics;
-> -       ssize_t size =3D 0;
-> +       int len;
->         int ret;
->
-> -       ret =3D amdgpu_pm_get_access_if_active(adev);
-> +       (void)f;
-> +       (void)attr;
-> +
-> +       /*
-> +        * Kernfs invokes this once per chunk (at most PAGE_SIZE bytes pe=
-r call)
-> +        * for a single userspace read(). Use pm_runtime_resume_and_get v=
-ia
-> +        * amdgpu_pm_get_access so later chunks still succeed after the p=
-rior
-> +        * chunk's put_autosuspend =E2=80=94 get_if_active would return -=
-EPERM once the
-> +        * GPU had gone idle between chunks.
-> +        */
-> +       ret =3D amdgpu_pm_get_access(adev);
->         if (ret)
->                 return ret;
->
-> -       size =3D amdgpu_dpm_get_gpu_metrics(adev, &gpu_metrics);
-> -       if (size <=3D 0)
-> -               goto out;
-> +       len =3D amdgpu_dpm_get_gpu_metrics(adev, &gpu_metrics);
-> +       if (len < 0) {
-> +               amdgpu_pm_put_access(adev);
-> +               return len;
-> +       }
-> +       if (len =3D=3D 0) {
-> +               amdgpu_pm_put_access(adev);
-> +               return 0;
-> +       }
->
-> -       if (size >=3D PAGE_SIZE)
-> -               size =3D PAGE_SIZE - 1;
-> +       if (off >=3D len) {
-> +               amdgpu_pm_put_access(adev);
-> +               return 0;
-> +       }
->
-> -       memcpy(buf, gpu_metrics, size);
-> +       if (count > (size_t)(len - off))
-> +               count =3D len - off;
->
-> -out:
-> +       memcpy(buf, (u8 *)gpu_metrics + off, count);
->         amdgpu_pm_put_access(adev);
->
-> -       return size;
-> +       return count;
->  }
->
-> +static const BIN_ATTR(gpu_metrics, 0444, amdgpu_sysfs_gpu_metrics_read, =
-NULL,
-> +                     AMDGPU_GPU_METRICS_BIN_ATTR_MAX_SZ);
-> +
->  static int amdgpu_show_powershift_percent(struct device *dev,
->                                         char *buf, enum amd_pp_sensors se=
-nsor)
->  {
-> @@ -2579,7 +2631,6 @@ static struct amdgpu_device_attr amdgpu_device_attr=
-s[] =3D {
->         AMDGPU_DEVICE_ATTR_RO(unique_id,                                A=
-TTR_FLAG_BASIC|ATTR_FLAG_ONEVF),
->         AMDGPU_DEVICE_ATTR_RW(thermal_throttling_logging,               A=
-TTR_FLAG_BASIC|ATTR_FLAG_ONEVF),
->         AMDGPU_DEVICE_ATTR_RW(apu_thermal_cap,                          A=
-TTR_FLAG_BASIC|ATTR_FLAG_ONEVF),
-> -       AMDGPU_DEVICE_ATTR_RO(gpu_metrics,                              A=
-TTR_FLAG_BASIC|ATTR_FLAG_ONEVF),
->         AMDGPU_DEVICE_ATTR_RO(smartshift_apu_power,                     A=
-TTR_FLAG_BASIC,
->                               .attr_update =3D ss_power_attr_update),
->         AMDGPU_DEVICE_ATTR_RO(smartshift_dgpu_power,                    A=
-TTR_FLAG_BASIC,
-> @@ -2657,9 +2708,6 @@ static int default_attr_update(struct amdgpu_device=
- *adev, struct amdgpu_device_
->                      gc_ver !=3D IP_VERSION(9, 4, 3)) ||
->                     gc_ver < IP_VERSION(9, 0, 0))
->                         *states =3D ATTR_STATE_UNSUPPORTED;
-> -       } else if (DEVICE_ATTR_IS(gpu_metrics)) {
-> -               if (gc_ver < IP_VERSION(9, 1, 0))
-> -                       *states =3D ATTR_STATE_UNSUPPORTED;
->         } else if (DEVICE_ATTR_IS(pp_power_profile_mode)) {
->                 if (amdgpu_dpm_get_power_profile_mode(adev, NULL) =3D=3D =
--EOPNOTSUPP)
->                         *states =3D ATTR_STATE_UNSUPPORTED;
-> @@ -4755,6 +4803,17 @@ int amdgpu_pm_sysfs_init(struct amdgpu_device *ade=
-v)
->         if (ret)
->                 goto err_out0;
->
-> +       if (amdgpu_pm_gpu_metrics_bin_visible(adev, mask)) {
-> +               ret =3D sysfs_create_bin_file(&adev->dev->kobj, &bin_attr=
-_gpu_metrics);
-> +               if (ret) {
-> +                       dev_err(adev->dev,
-> +                               "failed to create gpu_metrics sysfs bin f=
-ile, ret =3D %d\n",
-> +                               ret);
-> +                       goto err_out1;
-> +               }
-> +               adev->pm.gpu_metrics_bin_registered =3D true;
-> +       }
-> +
->         if (amdgpu_dpm_is_overdrive_supported(adev)) {
->                 ret =3D amdgpu_od_set_init(adev);
->                 if (ret)
-> @@ -4806,6 +4865,10 @@ int amdgpu_pm_sysfs_init(struct amdgpu_device *ade=
-v)
->         return 0;
->
->  err_out1:
-> +       if (adev->pm.gpu_metrics_bin_registered) {
-> +               sysfs_remove_bin_file(&adev->dev->kobj, &bin_attr_gpu_met=
-rics);
-> +               adev->pm.gpu_metrics_bin_registered =3D false;
-> +       }
->         amdgpu_device_attr_remove_groups(adev, &adev->pm.pm_attr_list);
->  err_out0:
->         if (adev->pm.int_hwmon_dev)
-> @@ -4821,6 +4884,11 @@ void amdgpu_pm_sysfs_fini(struct amdgpu_device *ad=
-ev)
->         if (adev->pm.int_hwmon_dev)
->                 hwmon_device_unregister(adev->pm.int_hwmon_dev);
->
-> +       if (adev->pm.gpu_metrics_bin_registered) {
-> +               sysfs_remove_bin_file(&adev->dev->kobj, &bin_attr_gpu_met=
-rics);
-> +               adev->pm.gpu_metrics_bin_registered =3D false;
-> +       }
-> +
->         amdgpu_device_attr_remove_groups(adev, &adev->pm.pm_attr_list);
->  }
->
-> diff --git a/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h b/drivers/gpu/drm/am=
-d/pm/inc/amdgpu_dpm.h
-> index aa3f427819a0..67ff83b2134c 100644
-> --- a/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
-> +++ b/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
-> @@ -349,6 +349,7 @@ struct amdgpu_pm {
->         /* dpm */
->         bool                    dpm_enabled;
->         bool                    sysfs_initialized;
-> +       bool                    gpu_metrics_bin_registered;
->         struct amdgpu_dpm       dpm;
->         const struct firmware   *fw;    /* SMC firmware */
->         uint32_t                fw_version;
-> diff --git a/drivers/gpu/drm/amd/pm/inc/amdgpu_pm.h b/drivers/gpu/drm/amd=
-/pm/inc/amdgpu_pm.h
-> index c12ced32f780..dc6875871f1d 100644
-> --- a/drivers/gpu/drm/amd/pm/inc/amdgpu_pm.h
-> +++ b/drivers/gpu/drm/amd/pm/inc/amdgpu_pm.h
-> @@ -73,7 +73,6 @@ enum amdgpu_device_attr_id {
->         device_attr_id__unique_id,
->         device_attr_id__thermal_throttling_logging,
->         device_attr_id__apu_thermal_cap,
-> -       device_attr_id__gpu_metrics,
->         device_attr_id__smartshift_apu_power,
->         device_attr_id__smartshift_dgpu_power,
->         device_attr_id__smartshift_bias,
-> --
-> 2.51.0
->
+Fixes for 7.0.
+
+The following changes since commit 7aaa8047eafd0bd628065b15757d9b48c5f9c07d:
+
+  Linux 7.0-rc6 (2026-03-29 15:40:00 -0700)
+
+are available in the Git repository at:
+
+  https://gitlab.freedesktop.org/agd5f/linux.git tags/amd-drm-fixes-7.0-2026-04-01
+
+for you to fetch changes up to 78746a474e92fc7aaed12219bec7c78ae1bd6156:
+
+  drm/amdkfd: Fix queue preemption/eviction failures by aligning control stack size to GPU page size (2026-03-30 16:22:44 -0400)
+
+----------------------------------------------------------------
+amd-drm-fixes-7.0-2026-04-01:
+
+amdgpu:
+- UserQ fixes
+- PASID handling fix
+- S4 fix for smu11 chips
+- Misc small fixes
+
+amdkfd:
+- Non-4K page fixes
+
+----------------------------------------------------------------
+Alex Deucher (1):
+      drm/amdgpu/pm: drop SMU driver if version not matched messages
+
+Donet Tom (4):
+      drm/amdkfd: Align expected_queue_size to PAGE_SIZE
+      drm/amd: Fix MQD and control stack alignment for non-4K
+      drm/amdgpu: Change AMDGPU_VA_RESERVED_TRAP_SIZE to 64KB
+      drm/amdkfd: Fix queue preemption/eviction failures by aligning control stack size to GPU page size
+
+Junrui Luo (2):
+      drm/amdgpu: validate doorbell_offset in user queue creation
+      drm/amdgpu/userq: fix memory leak in MQD creation error paths
+
+Lijo Lazar (1):
+      drm/amdgpu: Fix wait after reset sequence in S4
+
+Prike Liang (1):
+      drm/amdgpu: fix the idr allocation flags
+
+Srinivasan Shanmugam (1):
+      drm/amd/display: Fix NULL pointer dereference in dcn401_init_hw()
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c            |  8 +++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c           | 44 ++++++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gart.h           |  2 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c            |  5 ++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c            | 16 ++------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c          |  7 ++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h             |  2 +-
+ drivers/gpu/drm/amd/amdgpu/mes_userqueue.c         | 16 ++++++--
+ drivers/gpu/drm/amd/amdgpu/psp_v11_0.c             |  3 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c    | 23 +++++++----
+ drivers/gpu/drm/amd/amdkfd/kfd_priv.h              |  4 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_queue.c             | 11 +++---
+ .../drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c  | 17 ++++++---
+ drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c     |  1 -
+ drivers/gpu/drm/amd/pm/swsmu/smu12/smu_v12_0.c     |  1 -
+ drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0.c     |  1 -
+ 16 files changed, 115 insertions(+), 46 deletions(-)
