@@ -4,81 +4,158 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6DFDDD39421
-	for <amd-gfx@archiver.kernel.org>; Thu,  2 Apr 2026 12:27:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1F779D39422
+	for <amd-gfx@archiver.kernel.org>; Thu,  2 Apr 2026 12:27:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B7C1510F06A;
-	Thu,  2 Apr 2026 12:27:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 213D410EFBE;
+	Thu,  2 Apr 2026 12:27:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="SICPlP6L";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="ODN6v2d/";
 	dkim-atps=neutral
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com
- [209.85.128.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 523A310E154
- for <amd-gfx@lists.freedesktop.org>; Wed,  1 Apr 2026 23:07:42 +0000 (UTC)
-Received: by mail-wm1-f46.google.com with SMTP id
- 5b1f17b1804b1-486fe36cfabso9283875e9.1
- for <amd-gfx@lists.freedesktop.org>; Wed, 01 Apr 2026 16:07:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1775084861; x=1775689661; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=t4vlVVvxWEWO2r6arzInv5eisxXfXrLq1ekNSjOyYGg=;
- b=SICPlP6LrMcX7I8Woje6nwADPWegQ+NO/eHLIuWRY5kmjn+JZ59HPHURRM8kbzJcAN
- Mp24hFmqBECizd88J4JK++d6CPDWHexdthEtzr8uOAr0ufYTkINNClLP3h6dW2vmUief
- L1pW72COMA4sEGHZBLwfxMThuhd78wj3BKEYqbKv2EVG5eyQ91acffSY3dmilYY/EUbl
- CmMX6cKZbTpURGRrWLI6e93rwlACp2uH4ZHL0yadncHP3aLxF8HFAidA7AbS7pRAjTRO
- /UkwdF32IYL9mv3xEEo/dKp1HE+vOHBTs95lBp8KHnsRBInsqlnnPTH5plHDXYiAohA1
- QoeQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1775084861; x=1775689661;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=t4vlVVvxWEWO2r6arzInv5eisxXfXrLq1ekNSjOyYGg=;
- b=ZnKa/8kJMoBHVXixlnLfmUKknKfbC/FRS8ssgk27POp8bODzmrIoac36BtE5niik+r
- fRJ8vDWTcxIKC/OyxLh5FFeJqiZzl/HdwIijONdjtzVKn22PHfxNX27tAVEYWCynbadp
- jECwwWt97OI7K2vhyt/OoW8VOTo3Vf+NB5OKpJMy9sQ6lh2S649Y2u2N8jIwCrEcZEy6
- 9v8YKVr9sHZWj/fr2fbqM4aNMS8l5m1RqGfs/irOYRpeu96i53Oe9SkcCe3Zu99SE2uT
- 3KKZDOWbAadvpdHjewK6XqPlAvb6Di/1xqv3qHntaLB9Yj5VkwM4xOp7maj6CFqctmlf
- 1yhg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWRJqnMgWh/2aubzfUc3cI6fbMjNEL/hkTFpkobgZEukiGkgpkf8FETE0H20Ij/wjR3Yb9EX35o@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwRrvYoURAOLeRElCQV/DwA3Rmc4Lh7anhxfQ66QlGE7TmNWKDo
- hl9/rD/Ha0NcieE2pIW/fwGZjLVk+bV2C5DBbgBYnuGvdVdWM683hDqF
-X-Gm-Gg: ATEYQzxVDgGS/7opkuCtycIjtPpY/07+NNmVcAEbND+yscymQOQrtM3A8DUw+qbapBH
- G3eOdxKH+6jRHk38anP7BW9vR5xVsLi0rpq5vxjAP1l6zvRzGfn6u52AL+1yhMfFWuzWx4+Y56J
- Z5918j6PVmP6ZxSvBOy/MSxyVYQf7TcyV1lyhbWsnV3G40KVJ/tCHr5MmIHXVBK2pu0UKf5fafQ
- lf/2Hu5iQsDBboT4oF4Cm/HiZM43g0EAiVUC86zHHg9kIpE/FF1qgkIq4j1uqXFR0ZUEWCgEA0l
- 57ve0qyhEcMINtoe5qWZa4zUtrGX64TgKPp5BdGS9UrcPULx+dADpMAnY+6XGBYdz9ineH1n20C
- QJT/79DwoAF02reHlvXTtt7DlTF4kTdXA0OXHklJmSWBAaFrx8v46R29fgMdkWf+uGMusEJC38r
- QjhPQc7lsN8j96TZSJ2roXmjOqpD+Pb2TTEAFeAq/PE99hx3aXty+6/WV9oz+as34LfRvK
-X-Received: by 2002:a05:600c:a405:b0:47e:e59c:67c5 with SMTP id
- 5b1f17b1804b1-4888e078f42mr2697135e9.8.1775084860569; 
- Wed, 01 Apr 2026 16:07:40 -0700 (PDT)
-Received: from rhel.homenet.telecomitalia.it ([87.13.132.253])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4887ad1cd86sm53682845e9.5.2026.04.01.16.07.39
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 01 Apr 2026 16:07:40 -0700 (PDT)
-From: Adriano Vero <litaliano00.contact@gmail.com>
-To: dri-devel@lists.freedesktop.org
-Cc: jani.nikula@linux.intel.com, alexander.deucher@amd.com,
- harry.wentland@amd.com, sunpeng.li@amd.com, siqueira@igalia.com,
- christian.koenig@amd.com, amd-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Adriano Vero <litaliano00.contact@gmail.com>,
- Rodrigo.Siqueira@amd.com
-Subject: [PATCH v2 2/2] drm/amd/display: remove manual DisplayID VRR parsing
- from freesync caps
-Date: Thu,  2 Apr 2026 01:07:25 +0200
-Message-ID: <20260401230735.4866-2-litaliano00.contact@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260401230735.4866-1-litaliano00.contact@gmail.com>
-References: <20260328132027.22383-1-litaliano00.contact@gmail.com>
- <20260401230735.4866-1-litaliano00.contact@gmail.com>
+Received: from CH5PR02CU005.outbound.protection.outlook.com
+ (mail-northcentralusazon11012018.outbound.protection.outlook.com
+ [40.107.200.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B3D6B10EDDB;
+ Wed,  1 Apr 2026 23:24:41 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=VWUFHmgspyaorXoGI/AiCrAmLxeYSl6Orcn5iAQH1dD6jZfKEz3XaLn62TgBZq7EpwiCjLDVlwss7A8yrcglh6Zys82qVOlWrnEPdknXVEXIySsdxyP3GOXJ5hwdW7qHgQouoVAfVNn1zthK7hfXT2290KtZFXUn3OY2dgH0gCRY/duhRHgTjE1TdsMYF3KA2hpkb6kYfpunIjXMsetUkHL6ozKTZTt+0tjIjOZjVsFbG9mab3JA2TytDmnB3mbvdBDtuJQHmce83Xmr4+5YdJsjYPGqlMrWw1Cg9Cd5bj/WNnBXh5K5hMt0mPaQDyZfgn0xuYGBUavmHTbVyiS+Vg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=KviBdLr6uPK4mR7oLnNU9oLA8ivdB/r7nCije5j1nSA=;
+ b=dxv7fvrHlllCDsqccDYRBfuBS0ux4WVflOrbZQzwQ71tlISn4149LGATfBuzn7yJcxVsdnfS0T1dx+YRFQ8pUWiEo0rKvVNejlj6Nq8g2H0aLVFzHo7HduZ5VjtsTNIdGbKUNqbtC7jVNimnPFPQo6I02X7m7iWb/0ztKeQxhg0SkGgvMVg3gZmbfcoQhpNEQvlxfAPOV9dn60tTgGJKkDwU5b/kT/fzbiWJ2rIYZ9CkRyAhmxT/42z/uR+Dw1za0KAKc5nB0eGnE5KLtYe279OMy8O2RJoQ5xLx5/d1o3cPNEptbSHC03Ykh6aDA4Id9zNtqFNmhNhnWrUdrGUXXw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=KviBdLr6uPK4mR7oLnNU9oLA8ivdB/r7nCije5j1nSA=;
+ b=ODN6v2d/0b6JCChXQP6S5Wqx7xCfxJP5qZmd79MIHn+3VKuqZkEMFMs6lSgbK1JOFlYtJUv7DYItibMttCYxJAAR7HfZGTVCNFOEqfNHFoY6NBj0tBEoqpXr6hNe4BqHJSLyZ2oAlF9yQ9BFdlJYsXceSD5NLEsBomBKjjlk1Lq7MO8r1eE9nWxzuXCSgzLbenIXD2Sw/KbpXz7Znb9AQryu+Ml9quNW7jD6+ux2kTDNUQd73G9C8R8pR/TwBDyzZ5m2IhDDXjkBCi9UsU3TEQEbP0llGy55v+qBg9QsYnH75cFpLc93O31YCL6USz0bxhIKGa4bwxpdDExYpCptNA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DS0PR12MB6486.namprd12.prod.outlook.com (2603:10b6:8:c5::21) by
+ IA0PR12MB7530.namprd12.prod.outlook.com (2603:10b6:208:440::5) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9769.18; Wed, 1 Apr 2026 23:24:36 +0000
+Received: from DS0PR12MB6486.namprd12.prod.outlook.com
+ ([fe80::88a9:f314:c95f:8b33]) by DS0PR12MB6486.namprd12.prod.outlook.com
+ ([fe80::88a9:f314:c95f:8b33%4]) with mapi id 15.20.9769.014; Wed, 1 Apr 2026
+ 23:24:36 +0000
+Message-ID: <d6fe3e40-0310-4b90-ac8c-8beeec886f90@nvidia.com>
+Date: Wed, 1 Apr 2026 19:24:28 -0400
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v10 02/21] gpu: nova-core: gsp: Extract usable FB region
+ from GSP
+To: Eliot Courtney <ecourtney@nvidia.com>, linux-kernel@vger.kernel.org
+Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
+ Gary Guo <gary@garyguo.net>, Bjorn Roy Baron <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
+ Danilo Krummrich <dakr@kernel.org>, Dave Airlie <airlied@redhat.com>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Koen Koning <koen.koning@linux.intel.com>, dri-devel@lists.freedesktop.org,
+ rust-for-linux@vger.kernel.org, Nikola Djukic <ndjukic@nvidia.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Jonathan Corbet <corbet@lwn.net>, Alex Deucher <alexander.deucher@amd.com>,
+ Christian Koenig <christian.koenig@amd.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
+ <tursulin@ursulin.net>, Huang Rui <ray.huang@amd.com>,
+ Matthew Auld <matthew.auld@intel.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Lucas De Marchi <lucas.demarchi@intel.com>,
+ Thomas Hellstrom <thomas.hellstrom@linux.intel.com>,
+ Helge Deller <deller@gmx.de>, Alex Gaynor <alex.gaynor@gmail.com>,
+ Boqun Feng <boqun.feng@gmail.com>, John Hubbard <jhubbard@nvidia.com>,
+ Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
+ Edwin Peer <epeer@nvidia.com>, Alexandre Courbot <acourbot@nvidia.com>,
+ Andrea Righi <arighi@nvidia.com>, Andy Ritger <aritger@nvidia.com>,
+ Zhi Wang <zhiw@nvidia.com>, Balbir Singh <balbirs@nvidia.com>,
+ Philipp Stanner <phasta@kernel.org>, Elle Rhumsaa
+ <elle@weathered-steel.dev>, alexeyi@nvidia.com, joel@joelfernandes.org,
+ linux-doc@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ linux-fbdev@vger.kernel.org
+References: <20260311004008.2208806-1-joelagnelf@nvidia.com>
+ <20260331212048.2229260-1-joelagnelf@nvidia.com>
+ <20260331212048.2229260-3-joelagnelf@nvidia.com>
+ <DHHOCGNIYDW3.1P7YIMVLW93IY@nvidia.com>
+Content-Language: en-US
+From: Joel Fernandes <joelagnelf@nvidia.com>
+In-Reply-To: <DHHOCGNIYDW3.1P7YIMVLW93IY@nvidia.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: BL1P223CA0031.NAMP223.PROD.OUTLOOK.COM
+ (2603:10b6:208:5b6::6) To DS0PR12MB6486.namprd12.prod.outlook.com
+ (2603:10b6:8:c5::21)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS0PR12MB6486:EE_|IA0PR12MB7530:EE_
+X-MS-Office365-Filtering-Correlation-Id: fcd178d0-207e-42e1-65ba-08de9045d663
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|366016|7416014|376014|56012099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: PHa8x363CByz+bVKQX1UlhNnpH13FJA4BFEhChwEAAzh4zHIC9hm3F0nO0zaqsYMXYB0yIBDEKKlBq7iYZefTWRBUk6oLfS/E2c7lhqixurEPKkwPHiALJcZNKL1RPrxYFX7wVrX8JDVbdbpWvFmuhPM2IEtCYnBUSEJwXSr5robqPSoHGP93za8ne+lYUnskPJafDtdNtSDKvsXAddnXD36lb0eJwhFcY7ZmGxQZWquxGe3F4wAUEGtWkFUSOURgB9SxDyBvvKwh38Wp9XZhlz/lrO0dL7iEcV2is9o0rNtpmF+CZghgWktV/QDn/cSNFobaKo6CmW+kZ9d86MZ9Uror291zYOua98DpC8ME08SCtARa0xfPJUzcfBnh/9StJ5Hj/fnVVKj71WxgBgDxUDg+FKBQAbEgjkbxYEQstKpnM1KsvDcffV6i8g40RBOZJtgh16BPX7pg55nl3VRWDqw0uG34segta6kc4HlI5dKcilJBItDXLhIGFEZWUpd5R9vMus85i0zwdPGotQ/b9lOUEZFqa1ri4UBvRpr1SSEnoPz6KFTFoqsfIcU+Kq1g/Nfav7tC1CTSE7glp5X27fNZ9nKpFjsOysoYD9pR2Tjh+nrcu/yTPvMCRS4Op0L8BNUZoh40ZP/9A+NACzOB7wLt/jSH5j6OoHpnZEykMex0th9FJqHMnUHlRacMsXOrnOL2ax67dnvpxGS96CXVL6G9mBSXGes0nw/lFiILqQ=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS0PR12MB6486.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(7416014)(376014)(56012099003)(22082099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WTZ4ZDhFSkh1VU9YT3JWNFVqL092TzIxcHhqUVN5SXRwNmJmdURzeXdpZjZl?=
+ =?utf-8?B?Q2luTWx0ekV4KzJDTXJIYVg3blU3aURmM1dXTExwZXJRckJhUzJIaXFCM2tO?=
+ =?utf-8?B?MDMwN3VneUE3SXRWWGlYSWkvT2Z0VlQzWHlKNEZkMVRZQUEzMno0NURWTE90?=
+ =?utf-8?B?M1p3elFpK1VacVNGTjdVbmxmaUtLQnpneTQyWXNRRmtBR2RIdWwxN0JnMEk0?=
+ =?utf-8?B?YTFybkZuaEcrNytldGdTekM4ckduNkxZYkQyb1JwbWJuZUNKOHk0L2tUZ1Ju?=
+ =?utf-8?B?YWQzYWNxUG1RZk9Kdlc5VHpuazNIZmd1N2hiNXpwRzFMTDhTM2NmeUFKaEtC?=
+ =?utf-8?B?dmRBTHBsTmthbW5sNGFVelF6MkwzeGNZMEdRWkZWcFdkZjhUL2JTSU5UOVhH?=
+ =?utf-8?B?OFQ2Yi83L3ZaSjFTZDN6VnluRDhMZzJUaXVmN2l4OU5Mb0drUW1kOTVQRnRI?=
+ =?utf-8?B?aXhvMW0ra3VZSG4wYzl3b1NFN0tyT3EyQWxmU0l0NjREd3loOWJHOVc1cm05?=
+ =?utf-8?B?RVZMbTlGc0x5YytXVEN5NkttR0FWK2lxdXFsZVlmaktYTXpCcTVzRDRqTGZM?=
+ =?utf-8?B?NXNsNlo2N1E5OWhFbFRBcVRsRmtzTmpiVkQwbmV4VXNJSUh1bjVIK1RaNjg5?=
+ =?utf-8?B?cjNzRVU4ZW1sbWhrTmlxZDNVYStTbGQ5MTNFSmZ2ZmxaTGNQQmg3VnBOUGZD?=
+ =?utf-8?B?aFBiYjIxTitKOXk3QytIdWViUzBacEVJY2hjUmNpWGI2TERsSzZ2czZUSCtL?=
+ =?utf-8?B?WW83M00xWVA2Ykl3SWJSaWxyMENaYzExMFU0K1hTWm5pUk55WVp2ZXorcVQv?=
+ =?utf-8?B?RkMwdmVzK2wxU0hZK2FXLzdaRmJwamVNbTZYRk1reFdPOG94Y1pJNGFTRUtM?=
+ =?utf-8?B?UXNFYlk4NlRJaW9ZQTk5NCtvSTNEOFd4QkNoOHhBOUZUNDZCOEtqbklzYmpB?=
+ =?utf-8?B?YmNzaHZnVWFnRUVJNXhTTE9SOXM1ajk2bWlyR0hBYlY3eWtNSlZxOXdpZmFv?=
+ =?utf-8?B?U2s1RG1DRFViRmZKaG8rMC9Tbjhaa2RQVkNDbWtXUTFxS044Ri9SL0dFUzBJ?=
+ =?utf-8?B?UmNLa3pyQ3c2VGtEVnhyZzA3ZCtRUmMwZlo3RTNNMlZSS3QvZUNSN09ONEFB?=
+ =?utf-8?B?YVNacXE2QVUwS2hxbDduL3VMZi9hRnlqR3AwVHlWN0RKSUlFYW5xcmNpQzU3?=
+ =?utf-8?B?MlFjZ1RsNkh6ZHBlYTNuMUllTVA4a25lWHhMemNzQk5adW5XcVVlc3VZekl0?=
+ =?utf-8?B?bTd5TzgzcGRnZjZ6akNMRCsyc1U1a3Q0YW1CVmF2Rnh0VUh6ajR0Wlo3ZHhp?=
+ =?utf-8?B?L0ZiNzlxQXFXNWJRRm1tMXlTRVE4Rzc1ZDhUNDYyZHRWM1ZUWkYxWitlYWkr?=
+ =?utf-8?B?QU5XOXBvUW5ub1hyNUhXOFIwTmlyakdweFRwd3NPZU93RFhCVUxkTlBaOWl6?=
+ =?utf-8?B?S2tsTjdsQkZ6UFV6R0g1MTZ2NW1KZXNKT2o1bFFGdmZZbE9BZDhDT1UvM0dw?=
+ =?utf-8?B?SWwwUGhkR200bkg4Q1plM1VteXNkVGpxWjhrZERBN1hQU0ZWTGNraE5xZjdi?=
+ =?utf-8?B?cVZ4NU92Q0E2UkRqNTQ3OTBveGZiSHBwRmpvQ3RKTXJLT2owenNzQXBSRGdR?=
+ =?utf-8?B?SGVQdWQ0VEE4M3VzVFl3Q2pzSjJWZ2JIWkJtaCt4U0R6SU9mWUcyWGN3UW9R?=
+ =?utf-8?B?TnVSV29TWENWakNoZGdjYm1PaFhFcWNQdGJ6UkFxMC9YQWZnQUtZUGhKUS9I?=
+ =?utf-8?B?VTFUTEFIUFFMam9DTDJoTjNTS04zQW1XcmNYdlhLMisxN0ViWmdycFNzeVJx?=
+ =?utf-8?B?QUpmc1JvRkpIZVdicnFOdVVlVXNSZmY4ek5aME1lQnlpQlF0ZjJCYXhPYnZP?=
+ =?utf-8?B?NDRZdkNXOGNwdGZjQ2FvS3l0cTR3SVUyWXNRcms2UWJ6aEgyeGFRWGVoY3NV?=
+ =?utf-8?B?UGNUVEZCeDVGbmVDaSsyeEd3QWpVUWNIM3JQcE54UXhFdTMySzgyQ2Fpcmlx?=
+ =?utf-8?B?ZW8wY05FS3duelRaU3EwL2VJZXQ3TmJ0ZTdwVXVwaG1ta2FEUnVWRTBDZkRq?=
+ =?utf-8?B?REYrZk5vSVhlWjM1Z1BrQzRzTy93cGppVHhucThuODA1NG9BUmJCN0ErNFJN?=
+ =?utf-8?B?bG9GZE9ZakZjVjUvKzFVRzJZcXJ4KzRnOVdmS2lZcjdEb0tnWXpUd0dsL3FW?=
+ =?utf-8?B?Si9QTEJLYmdnaklhc3oycEhyYUR0V3FBTFA3c2ZXNXpsY0Y2N24vMEtPQ2hO?=
+ =?utf-8?B?OUNoQVQvcGF0cHdzSzFtOVl6TVNaNHhML01idkdKMzZiSEdaVzRvdUlkNWpt?=
+ =?utf-8?B?cjNPbThaOWJPamk1cUgxalluQVVzYldTUzAyTnIwS21MQkVHSmdjQT09?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: fcd178d0-207e-42e1-65ba-08de9045d663
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6486.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Apr 2026 23:24:35.9722 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: AK0OLhWC/KtQAxBuhg/Gt2zzV0hvhdFdnUH6xz4A4zFbs3OhHKZWpv8k6J3HWVYP8SbBr75FExyjsZrKfonz8g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB7530
 X-Mailman-Approved-At: Thu, 02 Apr 2026 12:27:01 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -94,106 +171,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-parse_edid_displayid_vrr() walked raw DisplayID bytes via struct edid*
-to find Dynamic Video Timing Range Limits blocks when monitor_range
-was zeroed. This is a layering violation.
 
-Now that drm_get_monitor_range_displayid() in the DRM core fills
-monitor_range from DisplayID Dynamic Video Timing blocks via the
-proper displayid_iter infrastructure, parse_edid_displayid_vrr() is
-redundant. Remove it and its drm_edid_raw() call from the VRR path.
 
-drm_edid_raw() remains for parse_amd_vsdb() and parse_hdmi_amd_vsdb()
-which read AMD vendor-specific CEA data blocks; those are tracked
-separately.
+On 4/1/2026 4:27 AM, Eliot Courtney wrote:
+> On Wed Apr 1, 2026 at 6:20 AM JST, Joel Fernandes wrote:
+>> Add first_usable_fb_region() to GspStaticConfigInfo to extract the first
+>> usable FB region from GSP's fbRegionInfoParams. Usable regions are those
+>> that are not reserved or protected.
+>>
+>> The extracted region is stored in GetGspStaticInfoReply and exposed as
+>> usable_fb_region field for use by the memory subsystem.
+>>
+>> Cc: Nikola Djukic <ndjukic@nvidia.com>
+>> Signed-off-by: Joel Fernandes <joelagnelf@nvidia.com>
+>> ---
+> 
+> Please see my feedback from v9[1] which still applies.
+> 
+> [1]: https://lore.kernel.org/all/DH1GK30TUB4V.2GR6ANXIZDFFQ@nvidia.com/
 
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: Harry Wentland <harry.wentland@amd.com>
-Cc: Rodrigo.Siqueira@amd.com
-Signed-off-by: Adriano Vero <litaliano00.contact@gmail.com>
----
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 61 ++++---------------
- 1 file changed, 11 insertions(+), 50 deletions(-)
+Yeah, I am seeing it now. Amidst making the earlier 7.1 merge window for
+the DRM buddy and earlier patches in the series, I missed this. They seem
+to be simple nits and I will address them in the next revision. thanks,
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 085cc98bd..c61d6e1fe 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -13110,49 +13110,6 @@ static bool parse_edid_cea(struct amdgpu_dm_connector *aconnector,
- 	return ret;
- }
- 
--static void parse_edid_displayid_vrr(struct drm_connector *connector,
--				     const struct edid *edid)
--{
--	u8 *edid_ext = NULL;
--	int i;
--	int j = 0;
--	u16 min_vfreq;
--	u16 max_vfreq;
--
--	if (!edid || !edid->extensions)
--		return;
--
--	/* Find DisplayID extension */
--	for (i = 0; i < edid->extensions; i++) {
--		edid_ext = (void *)(edid + (i + 1));
--		if (edid_ext[0] == DISPLAYID_EXT)
--			break;
--	}
--
--	if (i == edid->extensions)
--		return;
--
--	while (j < EDID_LENGTH) {
--		/* Get dynamic video timing range from DisplayID if available */
--		if (EDID_LENGTH - j > 13 && edid_ext[j] == 0x25	&&
--		    (edid_ext[j+1] & 0xFE) == 0 && (edid_ext[j+2] == 9)) {
--			min_vfreq = edid_ext[j+9];
--			if (edid_ext[j+1] & 7)
--				max_vfreq = edid_ext[j+10] + ((edid_ext[j+11] & 3) << 8);
--			else
--				max_vfreq = edid_ext[j+10];
--
--			if (max_vfreq && min_vfreq) {
--				connector->display_info.monitor_range.max_vfreq = max_vfreq;
--				connector->display_info.monitor_range.min_vfreq = min_vfreq;
--
--				return;
--			}
--		}
--		j++;
--	}
--}
--
- static int parse_amd_vsdb(struct amdgpu_dm_connector *aconnector,
- 			  const struct edid *edid, struct amdgpu_hdmi_vsdb_info *vsdb_info)
- {
-@@ -13288,13 +13245,17 @@ void amdgpu_dm_update_freesync_caps(struct drm_connector *connector,
- 	if (!adev->dm.freesync_module || !dc_supports_vrr(sink->ctx->dce_version))
- 		goto update;
- 
--	edid = drm_edid_raw(drm_edid); // FIXME: Get rid of drm_edid_raw()
--
--	/* Some eDP panels only have the refresh rate range info in DisplayID */
--	if ((connector->display_info.monitor_range.min_vfreq == 0 ||
--	     connector->display_info.monitor_range.max_vfreq == 0))
--		parse_edid_displayid_vrr(connector, edid);
--
-+	/**
-+	 * monitor_range is now populated by the DRM core from both classic
-+	 * EDID Monitor Range Limits descriptors and DisplayID Dynamic Video
-+	 * Timing blocks (tag 0x25) via drm_get_monitor_range_displayid().
-+	 * parse_edid_displayid_vrr() has been removed.
-+	 *
-+	 * drm_edid_raw() is retained only for parse_amd_vsdb() and
-+	 * parse_hdmi_amd_vsdb() which read AMD vendor-specific CEA blocks.
-+	 * Removing those raw accesses is tracked separately.
-+	 */
-+	edid = drm_edid_raw(drm_edid); /* TODO: amd/hdmi vsdb refactor */
- 	if (edid && (sink->sink_signal == SIGNAL_TYPE_DISPLAY_PORT ||
- 		     sink->sink_signal == SIGNAL_TYPE_EDP)) {
- 		if (amdgpu_dm_connector->dc_link &&
--- 
-2.47.3
+--
+Joel Fernandes
 
