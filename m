@@ -4,64 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C67FD10FCAE6
-	for <amd-gfx@archiver.kernel.org>; Wed,  1 Apr 2026 18:19:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6A23C10FCAC0
+	for <amd-gfx@archiver.kernel.org>; Wed,  1 Apr 2026 18:19:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 159CE10EEE4;
-	Wed,  1 Apr 2026 18:19:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9839410E1A4;
+	Wed,  1 Apr 2026 18:19:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="DmCgzbl8";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="lVz8z4zj";
 	dkim-atps=neutral
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
- [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0A74E10F0CE;
- Wed,  1 Apr 2026 12:15:06 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1775045689; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=KaAXEGGMiKIIaIoGgo79W+We9AmkrITz7h8K2gQHnYE5PSRD8SkbD32hovXZqEosucv41LEvyuFdWIONCB8GuFNqs8N/eU8wUYQ1Vf0GbM2cEolVUfe4LHhYVcS5oywOPey+PURdt1c/W/lJOO6ef9aGvmeKU91j4E3GOTuonX0=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1775045689;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=XiDS3s5yYlqvswVEQyjuSwI4C0tCZYmt0PdRdLxftNM=; 
- b=nPFKV49BNf5LI78APcB/aVM/iKiUbTWTrwOIfbJfmZhLUgvC5l4wPSgQ8Rt8VUlcl7TuDeYsHT4kKOj8KfgILYPfwz3Nhm3IpUVLqQALIjDCUIn2X20uH7ZWEA4sGNozGImXIjI+rBK+lNS/8Xnbp/wHLFFpnnarkqyiwSS6qcE=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
- dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1775045689; 
- s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
- h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:Content-Type:Message-Id:Reply-To;
- bh=XiDS3s5yYlqvswVEQyjuSwI4C0tCZYmt0PdRdLxftNM=;
- b=DmCgzbl85uJWWVum+9TY6Tiv0DFvjwetvPyuGR2b8cs+2nIGw/Oc6KgF+TFd7dyY
- h8iPOp1UOFjl0BpG/ytlRy55cZHYDXns+qa5NL3uAMOX33AOe1XtqgjI+qCiVmaACmV
- jF4DTekNocBKVbFcHLsdCYEJh5Nx7yEzxuTSQJyU=
-Received: by mx.zohomail.com with SMTPS id 1775045687069364.77452819437485;
- Wed, 1 Apr 2026 05:14:47 -0700 (PDT)
-From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-To: Xaver Hugl <xaver.hugl@kde.org>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- Ville =?UTF-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
- Daniel Stone <daniels@collabora.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, kernel@collabora.com,
- Derek Foreman <derek.foreman@collabora.com>,
- Marius Vlad <marius.vlad@collabora.com>, wayland-devel@lists.freedesktop.org
-Subject: Re: [PATCH v5 0/3] Add "link bpc" DRM property
-Date: Wed, 01 Apr 2026 14:14:40 +0200
-Message-ID: <4970515.ElGaqSPkdT@workhorse>
-In-Reply-To: <CAFZQkGzxfGP4E18owJf5d6L4n25-nvYn0TG=rTLCzjpj1Hk23w@mail.gmail.com>
-References: <20260319-link-bpc-v5-0-5306cd04a708@collabora.com>
- <CAFZQkGzxfGP4E18owJf5d6L4n25-nvYn0TG=rTLCzjpj1Hk23w@mail.gmail.com>
+Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com
+ [74.125.82.179])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0670510EA1C
+ for <amd-gfx@lists.freedesktop.org>; Wed,  1 Apr 2026 00:39:33 +0000 (UTC)
+Received: by mail-dy1-f179.google.com with SMTP id
+ 5a478bee46e88-2c56aa62931so3207548eec.0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 31 Mar 2026 17:39:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1775003972; x=1775608772; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=mqMdpDaaRiGg+2ZN9NqktjEbPVOkWurGFYKafkS7Z0Q=;
+ b=lVz8z4zjjB+ZcYb+2Vn1OzHNGdN6rWjMUC1A2iZRmFSEcGH6UsLWpqJbXIY4eD7E56
+ D5afH6XDH4rVrTd4e2Rd91BBVakYA6jTTVa15dBnCbiiACTZHlnXWCOZ1ePzd3jBNKGh
+ rLlsto09d+Tpy2hceki4Su2mheaiqrqVVc0W4HJBVDrEMpdxUGx/tPWW+d32LsgfRABx
+ PFwNHmebC/AADeD6RC6g6NAYV4Gzh4qBY3xd/fwOCczrPMi/IJXlH3LNzzhMGJPnYd9h
+ z9TDv8TqJp9LGOQy/2Ej1kR0MOygV/sUWKQ3FZJBfVtpdZ9nma2SijYVFCiHCDBfq4pf
+ zdtQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1775003972; x=1775608772;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=mqMdpDaaRiGg+2ZN9NqktjEbPVOkWurGFYKafkS7Z0Q=;
+ b=s3zq4tQK4pqpiKA3ekMGMIBTfDr7EdzJJNjLj2UODHIxym+8R3YrQrVcbjtmNfDGKq
+ AE/+F7zDesBVR6VPSwi1SYTwT6ZCmpmZYLCSynyQM6gRCgsebYbo9+sY9TokAP9Q3oEK
+ tvLFoHuT4t/Y4UAHUbvPV6h3rsUG0qKuccmz9uXNCLsMYnSQRy2Vivw+xQBdl21uiZwT
+ 5UsoD+1TG/1QC3eK+hVMKypm7bARroInhUDHlnYNTnp/7zAmqYKpu3D08JzqRrIn2Wmp
+ +UTVW46P9OizauUqPQE1C4ZxZn5faUjVtVxBYxtsbToBqmg7drqPnHOJlTwfP9tDqmjR
+ 94HA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVV6PvJI+ZFtocNsHBfGzXV/Fe1vXxJxHHQ0PK8/SM3uRPJSoXspq/745VrPM8JjVICjDeeW+Ay@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Ywkv+GbO/8KhVmVsYBzdzF5fMQAczCOrGg0qqrLkaSA5MuLdEXd
+ BH6oxNtgyRX0rAB1Ss+LXtx/bkBJJ92sYzAY57Y8TYtP+uoau68BXPYf
+X-Gm-Gg: ATEYQzw/gZ5WGjOD4vK8Z8792j7uTFldz8/r7rZn22664TejMNEx3yGyBxVZjnnVHy6
+ zFop8zPteS9D8sB+cq7yS1HT4eaCpWk/544GqQPrujBBOOkoGWV99VXP9j//Vu5hkCUnnoW0zqX
+ 0f3P3fY86gpR6hc1jpZM+Wj6S444dW0TaVjjUHn3KTldU4+fKRaOzkmTef4gvqsp1EFYH6gZ6hb
+ 5pQs5eMnTt9Gfh6oeEe3CNuzz69rwLhjSmEyb54+dPVlWSbYoibQAeDOCZbSKMRkhN4KvHh7sfv
+ Qc9hNHbDWRUcKp88hnjkpcqffjFnOHioCaQskzOktUXVZt7xq+JPpy0NC3mmJFZFEnL1xnW+R/2
+ PgaYNYuZHq3eTAo5Ya3TM0lzeDNlkrk5R3I0MmZFnfZpLhEcYi7/lOo/MUSF/8EeDEfxehfvs9I
+ XeVELSBJUJkR8ogLm+vtoz9pbCcBVxyRYVDAzwSJl5x1rIglz8nuXFzFc=
+X-Received: by 2002:a05:7300:3205:b0:2be:837d:cc4d with SMTP id
+ 5a478bee46e88-2c9309851dfmr1044767eec.5.1775003972186; 
+ Tue, 31 Mar 2026 17:39:32 -0700 (PDT)
+Received: from ryzen ([2601:644:8000:5b5d::8bd])
+ by smtp.gmail.com with ESMTPSA id
+ 5a478bee46e88-2c3c3bd9894sm11543019eec.4.2026.03.31.17.39.30
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 31 Mar 2026 17:39:31 -0700 (PDT)
+From: Rosen Penev <rosenp@gmail.com>
+To: stable@vger.kernel.org
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Xinhui Pan <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Harry Wentland <harry.wentland@amd.com>,
+ Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ Ray Wu <ray.wu@amd.com>, Wayne Lin <wayne.lin@amd.com>,
+ Mario Limonciello <Mario.Limonciello@amd.com>, Roman Li <Roman.Li@amd.com>,
+ Eric Yang <Eric.Yang2@amd.com>, Tony Cheng <Tony.Cheng@amd.com>,
+ Mauro Rossi <issor.oruam@gmail.com>,
+ =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>,
+ Alex Hung <alex.hung@amd.com>,
+ amd-gfx@lists.freedesktop.org (open list:RADEON and AMDGPU DRM DRIVERS),
+ dri-devel@lists.freedesktop.org (open list:DRM DRIVERS),
+ linux-kernel@vger.kernel.org (open list)
+Subject: [PATCHv2 for 6.12 02/10] drm/amd/amdgpu: disable ASPM in some
+ situations
+Date: Tue, 31 Mar 2026 17:39:00 -0700
+Message-ID: <20260401003908.3438-3-rosenp@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260401003908.3438-1-rosenp@gmail.com>
+References: <20260401003908.3438-1-rosenp@gmail.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 01 Apr 2026 18:19:20 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -77,63 +102,78 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wednesday, 1 April 2026 13:57:08 Central European Summer Time Xaver Hugl=
- wrote:
-> Am Do., 19. M=C3=A4rz 2026 um 13:28 Uhr schrieb Nicolas Frattaroli
-> <nicolas.frattaroli@collabora.com>:
-> >
-> > This series adds a new "link bpc" DRM property. It reflects the display
-> > link's actual achieved output bits per component, considering any
-> > degradation of the bit depth done by drivers for bandwidth or other
-> > reasons. The property's value is updated during an atomic commit, which
-> > is also when it fires an uevent if it changed to let userspace know.
->=20
-> Hi,
-> I think it's a really good idea to have a property for knowing the
-> actual bpc of the link... however, I do have one big concern with this
-> API specifically: It only gives me this information after a modeset.
->=20
-> With this limitation, I can at most show the user which bpc was chosen
-> after the apply display settings and have the end user manually test
-> and figure things out, but I cannot show in the UI which bpc will be
-> chosen with some configuration before they apply it, and I cannot do
-> atomic tests to find a desired tradeoff automatically on the
-> compositor side.
+From: Kenneth Feng <kenneth.feng@amd.com>
 
-To do this I'd need to see if there's some feedback mechanism for
-the output configuration chosen by the atomic check phase, so that
-userspace can then run a DRM_MODE_ATOMIC_TEST_ONLY and get the value
-back somehow.
+[ Upstream commit c770ef19673fb1defcbde2ee2b91c3c89bfcf164 ]
 
-The current implementation wouldn't be able to do this since it
-updates the property on commit_tail. I'll need to look into whether
-drivers already have everything figured out with regards to link bpc
-in the check phase, and how that would best be communicated to
-userspace.
+disable ASPM with some ASICs on some specific platforms.
+required from PCIe controller owner.
 
-> As a side note, for future patches relevant for compositors, please cc
-> wayland-devel. It really shouldn't be up to chance whether or not
-> compositor developers that would later use the API find out about it
-> before it's merged, and keeping track of all of dri-devel is way too
-> much to ask from userspace developers.
+Signed-off-by: Kenneth Feng <kenneth.feng@amd.com>
+Reviewed-by: Yang Wang <kevinyang.wang@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 32 ++++++++++++++++++++++
+ 1 file changed, 32 insertions(+)
 
-I'll do that, but consider using lei[1] to have saved searches on lore
-delivered to a local Mailbox, a suitable query here may be
-
-    dfb:drm_property
-
-which will return all e-mails with diffs matching added lines with
-"drm_property" in them, from which lei can then fetch the full
-threads.
-
->=20
-> - Xaver
->=20
-
-Kind regards,
-Nicolas Frattaroli
-
-https://people.kernel.org/monsieuricon/lore-lei-part-1-getting-started [1]
-
-
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index dbee43c58741..eb3c6bfe2e6c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -84,6 +84,7 @@
+ 
+ #if IS_ENABLED(CONFIG_X86)
+ #include <asm/intel-family.h>
++#include <asm/cpu_device_id.h>
+ #endif
+ 
+ MODULE_FIRMWARE("amdgpu/vega10_gpu_info.bin");
+@@ -1758,6 +1759,35 @@ static bool amdgpu_device_pcie_dynamic_switching_supported(struct amdgpu_device
+ 	return true;
+ }
+ 
++static bool amdgpu_device_aspm_support_quirk(struct amdgpu_device *adev)
++{
++#if IS_ENABLED(CONFIG_X86)
++	struct cpuinfo_x86 *c = &cpu_data(0);
++
++	if (!(amdgpu_ip_version(adev, GC_HWIP, 0) == IP_VERSION(12, 0, 0) ||
++		  amdgpu_ip_version(adev, GC_HWIP, 0) == IP_VERSION(12, 0, 1)))
++		return false;
++
++	if (c->x86 == 6 &&
++		adev->pm.pcie_gen_mask & CAIL_PCIE_LINK_SPEED_SUPPORT_GEN5) {
++		switch (c->x86_model) {
++		case VFM_MODEL(INTEL_ALDERLAKE):
++		case VFM_MODEL(INTEL_ALDERLAKE_L):
++		case VFM_MODEL(INTEL_RAPTORLAKE):
++		case VFM_MODEL(INTEL_RAPTORLAKE_P):
++		case VFM_MODEL(INTEL_RAPTORLAKE_S):
++			return true;
++		default:
++			return false;
++		}
++	} else {
++		return false;
++	}
++#else
++	return false;
++#endif
++}
++
+ /**
+  * amdgpu_device_should_use_aspm - check if the device should program ASPM
+  *
+@@ -1782,6 +1812,8 @@ bool amdgpu_device_should_use_aspm(struct amdgpu_device *adev)
+ 	}
+ 	if (adev->flags & AMD_IS_APU)
+ 		return false;
++	if (amdgpu_device_aspm_support_quirk(adev))
++		return false;
+ 	return pcie_aspm_enabled(adev->pdev);
+ }
+ 
+-- 
+2.53.0
 
