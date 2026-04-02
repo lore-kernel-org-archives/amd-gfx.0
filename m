@@ -4,115 +4,185 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8791E111227A
-	for <amd-gfx@archiver.kernel.org>; Thu,  2 Apr 2026 02:55:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0AEC8CC6B03
+	for <amd-gfx@archiver.kernel.org>; Thu,  2 Apr 2026 05:59:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1018110F001;
-	Thu,  2 Apr 2026 02:55:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 25B7510F0BE;
+	Thu,  2 Apr 2026 05:59:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Ua8I5YjT";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="oImtpc0b";
 	dkim-atps=neutral
-Received: from mail-dl1-f53.google.com (mail-dl1-f53.google.com [74.125.82.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4AC7F10F001
- for <amd-gfx@lists.freedesktop.org>; Thu,  2 Apr 2026 02:55:55 +0000 (UTC)
-Received: by mail-dl1-f53.google.com with SMTP id
- a92af1059eb24-12a80c36350so566216c88.1
- for <amd-gfx@lists.freedesktop.org>; Wed, 01 Apr 2026 19:55:55 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1775098554; cv=none;
- d=google.com; s=arc-20240605;
- b=d1ACw8B+bwotc/CWV7m+NWPiQgQgDevWZ1GckleSLsNefgxfgeyfGZrUgJvn+RivqL
- iimy7v34lg3fVmWYYl/fK9tqz9G+VAq2DOlB6b/dOGaW3wzh7MdrYzgBMvQYEzLaf8eE
- qPX0C1a2XnLzZLGPvZAtuUC2cbgxItAJtyrQdTUKTj7aZWSaYWuo6LDfET2rofGQJhKi
- +bogv3NBBMuj4RzV7RC1AgVrFytaL2yrXacC+fOAUeA+e5Qc1SunuODpRYNcmv2zygHF
- hpJ6gzPphNcyfFZYqlOdw/0Dzlwnw6ewTIJSCRgZdJv6qwIhSUxvhbY6qT3lke+9SSZX
- /riA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:dkim-signature;
- bh=myKP12FYjYg5SJEqXwe/Zdu/pWJlwOhfip/f5yBVUPc=;
- fh=39JTcKtYQ2EiPiwzCOADxwPRhCLvXYXe5Fq3u/emyE0=;
- b=Oveiq4n6tI6L1FTXPtpGdi6xCk+qQTMCfDxJ8Od3crqln2Hmr6O3gmIWR8BoHFfPRn
- YyiYSuF5LtFlN4mGuXH7nPJRlijB1TmiVGVCDxGZx4U5w26XOMCUI4TOcL7aamTXPPIs
- nGXCxCehDWCXUG9NqWbVk5yIqVdwgaDwwwnL02JPzGJZeCbaux1+iWsSWOW0zR7gp6EF
- IhJ/g5CJCO3Rei7ne5NkNPAGJ06yvjF8JMjc/IYWJPKYVs0Qxj/QMGcS8pmVNNBjN/nc
- wU8e7pdxaurkfbP7EYOwklrIQwh2UFPShn8WVNg5dlhLDqQFo1kEXUN43VZ1J99/3DCm
- +MRw==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1775098554; x=1775703354; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=myKP12FYjYg5SJEqXwe/Zdu/pWJlwOhfip/f5yBVUPc=;
- b=Ua8I5YjTdKfIyMOAWsD+/l53If1OspwRNc/qe8AQlKjO5bV8ts2Su9WXHpitiWjAUp
- wkbj2FBNL4abgRahF4n4syvRpWED39jJQQ9by/ugrDqe3TOpGP0XQRjAxAumkfk3aCvG
- 15tqvoyFe/LJR0QItGQKu1cqo8O3ejOl/6TDvNAcvOn0LhsuV7nSiF3w0xkBrEGUtEaC
- hL1C4K7VKGxyh4Rrw5EDDoHVCeAy3Bxb95b7uvIdckdUy5zG8pERd5TOllEbiPcPUSWY
- en17ZztNnTJKtcNDS7Xs93dpbX9R49depPRHK49BhK3LEKA7l76VhBe6o3KzFRPHZzTd
- ctOA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1775098554; x=1775703354;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=myKP12FYjYg5SJEqXwe/Zdu/pWJlwOhfip/f5yBVUPc=;
- b=Hm9typpref47uGJhimuk2sOZyGNN2ZGFXoZdY/ZNSH0B4kg4dpWp80Qm7hppFL0zzT
- Z6mJi5AsCisgAd5xoBu4fqv5O9mu6yfg2kRtuq7NbAQGVOulU1htqg6KHFR5hxhZDXoj
- DUL3CIpPy1DljrzTqt9FUgKXRASC5lgoaRUba7bymieEmwdeqVzmmtgvmgRlQJqJdyE2
- ffDQ5h/60pLRz7hNZCTci0vnLmPlqT/tsePYoj1VtKh6rRNILEW7sadIe3liySgPXPgb
- kX+TUoGVR7jXF/vHGR1On/aTRpsvanF6dDzDYTWMYvHIqNp0Ubxp9fd8UqztL0BIb5eW
- rv9w==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUNMR82scyqTDHIluANnoXsXwlSNXPnVlakCX/S1osjtidWLk8fB5vLYlbBv3UIwhU5Gv6sngap@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwOUr3l7QZCAootm5WervGpYJBBEZwdoSijPd8axOhkaWd9jEHm
- Vt6IkyVQf6Lw9sVT9spViRFJNKgnq1yqWGHWOaiKko1RzRVRWZxDUS+OO405hRVu7Wq6FC+jdGs
- UJJXNVML0H+UVArVCqgwHj6+wMHGARrI=
-X-Gm-Gg: ATEYQzz+sWioJDOiqpFlKiBX0c6dpOfQih/UahiT0Q5GdKUGg6KHprZgYF43gyqghEN
- GvIdPFVowmhkWra8ARlyBWS9BnsLHezcdNqjDOE17hhUpKstovXrIH27vrjARuf7HAHiutYUHm2
- OyDwxp+b3Jk2PO1qhj4IVKcg+diduaLTf2VCWPg78wkq6XD2Us6ebtVlDugP2XmrXo1cRs6Trfc
- GmNlSp3oDWjmo7nz8keG9f8Lg4AKjI67HeEhBrjl1McE2KvjUGv/9JpnPAcf5SGpQsdGSBg0q84
- TpyELAHRCLrZ0/i2hSOyTc95pd4USzPobe07kbA0
-X-Received: by 2002:a05:7022:e1b:b0:128:ceac:6db1 with SMTP id
- a92af1059eb24-12be64fcd2fmr3041032c88.28.1775098554282; Wed, 01 Apr 2026
- 19:55:54 -0700 (PDT)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 72E5810EFE3;
+ Thu,  2 Apr 2026 05:59:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1775109558; x=1806645558;
+ h=date:from:to:cc:subject:message-id:references:
+ content-transfer-encoding:in-reply-to:mime-version;
+ bh=dEThQg5mmheujRXE5wNCpxhqC7aYOFTXuNR39ImfS/U=;
+ b=oImtpc0bqnr3XYr/1teCfzwhf68l2S4t4BzEWUM46zHa9ZuU50rTBSc6
+ VFNP1yqnLNkDKyOMagBHL556pdQAdg4FcSjUH91xTa3fRI2iheiWnw7zA
+ mThQ8Z9o0tw6KeByeCFNQ7+lmvMdcRxqNeq21Wuk521mCNMZCn5qulk8T
+ Kf5qX6X1HnSMsr5xY5lZn3Qb74ukXHw+C2lFp+cBbaOOe1loC/3iftgwN
+ XfpOverQL5dIpKxJVvDlQYqmBOkSgOG2yhrhmXkaUY8FLASLXshJfS2iF
+ 3IrlwcZEz9g2JYuHO7wSMCOFU4kbY5bbHA3gc0dAOpa5cVMV/bCLbKzWu w==;
+X-CSE-ConnectionGUID: eeleyxaARviD7EMpb+xARw==
+X-CSE-MsgGUID: brEn4O57S1yXF8sZzgWXPw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11746"; a="76277501"
+X-IronPort-AV: E=Sophos;i="6.23,155,1770624000"; d="scan'208";a="76277501"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+ by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Apr 2026 22:59:17 -0700
+X-CSE-ConnectionGUID: +l38FrejSb+xSrj8ANVkhw==
+X-CSE-MsgGUID: I9SBv+38QmmWI/hZrhoncQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,155,1770624000"; d="scan'208";a="231833403"
+Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
+ by orviesa005.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Apr 2026 22:59:17 -0700
+Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
+ ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37; Wed, 1 Apr 2026 22:59:16 -0700
+Received: from ORSEDG902.ED.cps.intel.com (10.7.248.12) by
+ ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37 via Frontend Transport; Wed, 1 Apr 2026 22:59:16 -0700
+Received: from CY3PR05CU001.outbound.protection.outlook.com (40.93.201.44) by
+ edgegateway.intel.com (134.134.137.112) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37; Wed, 1 Apr 2026 22:59:12 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=dRmREUnwqIXmNNXJA6D1PiY5YZ0W3zSKqR6fQ70F01kLGJ9u7Wq2WTN4kOKWRQ0pzC4eGcGsg3IiYEaor63EMJTQRnNCBBOSS2gZI3mUA3WY39actE/byxFsi1nSbJeYIjP84hseexHz/yUCKiRk6byWX6FxRFkad3KE+gf9KZ5MosPL8Fsb2QX2Qf73JfKYqG7gzzw1BQ3kq8LP6ddbNR8gUCMODBw5Q0LW4NwcW6HMc5zJIzq7djNEEtYQxsXYjM8RCTCC867anpPX3YIyC0Q4DsB+Zs52iGqNeQPPKkWteUufYwfVw8Xm/uEIDOIMCxdqYUAgLP3KmAaqhUtt1Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=/5x47shNdkVNVC8TKZfTfxNXXuOrxJd1gKTq5Tt8vOk=;
+ b=H1LB0Rbtf+0XwtsISAQuJhEa/h/1z9LCXLFuhPDekJp7W1Gb+w1Llnhb25hj2KTmSxDDoIZRUlLU2VerMdawEOAj165UgWFMKax2UETrm2d5v3WsS1WMjW2iZtmd1mWJoLMKSGm3XPd6ygqSab3wslt2X4/wpON+YDPQqCinU6nJ2Oilzd9PUn8yj3jSfBW6JvNbqD75+hI9C7AA1xOJy6YIj+WCykAJyhzCHYySnncgFaSDhCf1BrCOdVWZUS1nP3TgSZ7cvtMuqfsRBR9UfXRvlwyQbyFCeMtrjbHctIqPeCyqpvRXGZrio1prEQoHv8FyfBHST4DoeGcVTD9PIw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from BL3PR11MB6508.namprd11.prod.outlook.com (2603:10b6:208:38f::5)
+ by PH3PPF6E8D29981.namprd11.prod.outlook.com (2603:10b6:518:1::d2d)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.20; Thu, 2 Apr
+ 2026 05:59:09 +0000
+Received: from BL3PR11MB6508.namprd11.prod.outlook.com
+ ([fe80::53c9:f6c2:ffa5:3cb5]) by BL3PR11MB6508.namprd11.prod.outlook.com
+ ([fe80::53c9:f6c2:ffa5:3cb5%7]) with mapi id 15.20.9769.016; Thu, 2 Apr 2026
+ 05:59:09 +0000
+Date: Wed, 1 Apr 2026 22:59:01 -0700
+From: Matthew Brost <matthew.brost@intel.com>
+To: Joel Fernandes <joelagnelf@nvidia.com>
+CC: <linux-kernel@vger.kernel.org>, Miguel Ojeda <ojeda@kernel.org>, "Boqun
+ Feng" <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, Bjorn Roy Baron
+ <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, "Andreas
+ Hindborg" <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>, "Trevor
+ Gross" <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, Dave Airlie
+ <airlied@redhat.com>, Daniel Almeida <daniel.almeida@collabora.com>, "Koen
+ Koning" <koen.koning@linux.intel.com>, <dri-devel@lists.freedesktop.org>,
+ <rust-for-linux@vger.kernel.org>, Nikola Djukic <ndjukic@nvidia.com>,
+ "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Jonathan Corbet
+ <corbet@lwn.net>, Alex Deucher <alexander.deucher@amd.com>, Christian Koenig
+ <christian.koenig@amd.com>, Jani Nikula <jani.nikula@linux.intel.com>,
+ "Joonas Lahtinen" <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi
+ <rodrigo.vivi@intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>, Huang Rui
+ <ray.huang@amd.com>, Matthew Auld <matthew.auld@intel.com>, Lucas De Marchi
+ <lucas.demarchi@intel.com>, Thomas Hellstrom
+ <thomas.hellstrom@linux.intel.com>, Helge Deller <deller@gmx.de>, Alex Gaynor
+ <alex.gaynor@gmail.com>, Boqun Feng <boqun.feng@gmail.com>, John Hubbard
+ <jhubbard@nvidia.com>, Alistair Popple <apopple@nvidia.com>, Timur Tabi
+ <ttabi@nvidia.com>, Edwin Peer <epeer@nvidia.com>, Alexandre Courbot
+ <acourbot@nvidia.com>, Andrea Righi <arighi@nvidia.com>, Andy Ritger
+ <aritger@nvidia.com>, Zhi Wang <zhiw@nvidia.com>, Balbir Singh
+ <balbirs@nvidia.com>, Philipp Stanner <phasta@kernel.org>, Elle Rhumsaa
+ <elle@weathered-steel.dev>, <alexeyi@nvidia.com>, Eliot Courtney
+ <ecourtney@nvidia.com>, <joel@joelfernandes.org>,
+ <linux-doc@vger.kernel.org>, <amd-gfx@lists.freedesktop.org>,
+ <intel-gfx@lists.freedesktop.org>, <intel-xe@lists.freedesktop.org>,
+ <linux-fbdev@vger.kernel.org>
+Subject: Re: [PATCH v10 07/21] gpu: nova-core: mm: Add TLB flush support
+Message-ID: <ac4FpcD29XnbbsdD@gsse-cloud1.jf.intel.com>
+References: <20260311004008.2208806-1-joelagnelf@nvidia.com>
+ <20260331212048.2229260-1-joelagnelf@nvidia.com>
+ <20260331212048.2229260-8-joelagnelf@nvidia.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260331212048.2229260-8-joelagnelf@nvidia.com>
+X-ClientProxiedBy: MW4PR03CA0028.namprd03.prod.outlook.com
+ (2603:10b6:303:8f::33) To BL3PR11MB6508.namprd11.prod.outlook.com
+ (2603:10b6:208:38f::5)
 MIME-Version: 1.0
-References: <20260319-link-bpc-v5-0-5306cd04a708@collabora.com>
- <4265353.aeNJFYEL58@workhorse>
- <254c20a4-cce3-4c8e-9902-514586f3e694@mailbox.org>
- <5416161.aeNJFYEL58@workhorse>
- <792c4540-d690-4453-a32e-62e23e78d628@mailbox.org>
- <9d525fe4-b091-4cd9-b977-de19ffe4b957@amd.com>
- <20260331155028.71246d7a@fluorite>
- <dc7f59af-05d0-4942-b21b-b85289f7eee1@amd.com>
- <CAPj87rOz=QvQE1CqshspTPkC5nSXW_WAxUf1rwa=w4zmPdgtQQ@mail.gmail.com>
- <ac0kP-SWXrBwrN5C@intel.com>
- <CAPj87rNfJCCUFYqD+p6OM5XDE8CA75anmA7+ezrCTSZXBSDgTQ@mail.gmail.com>
-In-Reply-To: <CAPj87rNfJCCUFYqD+p6OM5XDE8CA75anmA7+ezrCTSZXBSDgTQ@mail.gmail.com>
-From: Mario Kleiner <mario.kleiner.de@gmail.com>
-Date: Thu, 2 Apr 2026 04:55:17 +0200
-X-Gm-Features: AQROBzAZp5-pueOOVH3WV_oDtNe79EY4T-CZTzxbgg0zQENktD0wJ_6phHreu7Q
-Message-ID: <CAEsyxyjzi7sddNhtd5wX-HB4B0WSyHz+x83YXT08mvzHiHXv1A@mail.gmail.com>
-Subject: Re: [PATCH v5 0/3] Add "link bpc" DRM property
-To: Daniel Stone <daniel@fooishbar.org>
-Cc: =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>, 
- Harry Wentland <harry.wentland@amd.com>,
- Pekka Paalanen <pekka.paalanen@collabora.com>, 
- =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>, 
- Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, 
- Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>, 
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Daniel Stone <daniels@collabora.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, 
- kernel@collabora.com, Derek Foreman <derek.foreman@collabora.com>, 
- Marius Vlad <marius.vlad@collabora.com>
-Content-Type: multipart/alternative; boundary="000000000000c4f5a7064e715604"
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL3PR11MB6508:EE_|PH3PPF6E8D29981:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9e9cbddd-3c90-4e0d-2081-08de907cf4f9
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|1800799024|7416014|376014|18002099003|56012099003|22082099003;
+X-Microsoft-Antispam-Message-Info: xOpxodA7nlGsTu1GBpLhmjG+1aEw8tWu3lW5GeB0mbR/pMn/BixWdREvgqOl2uDn8yVhnTJs1MSuOhQyBdmuvcO3cwEOFoENTMyXrzAeYKd+8lFjsfcLMHpP8q2BtMOtZkwaBFNoCBVB6c8RQB/J85kU12RDdpxFR7BRk+gBfBcDNNlT4XpCdEqzDrteHINEj02feVnVsBW0Chpqe/W+LdxM/gSAD7QU5Y5fx6Tqk/W8kH9wtyTzgfNmj8T7j6N6WXHrBp3bo2l+Nsae+EiCfS3l0y4xLhnC8vfnS6535+p1wzMEog2qvSbVkOT4Oh1s7gF93nj8rR4JMMmI9y6q1d8dZQXr5QP0ARSgouYN8pLc5Vwiud+9RDYEC4e2Bm4g8eB3yEM1CBxuLcU/ovr5gLOv5mkPtjn9l7csaaIeVaGJmH6KelnB4k/1Fv2N+zswsSaog5zYvYn76DQDckHoaiQa/L90xjS6n6vb8ZZI40x5w4RA1+PeW9OQKgCc9BPw2wQVQZCAG5oTnVN/rwMw1rvc4iKL11Y89zE6R40WWu3k5CpExJ5Xm+ilI65weurby0vUbIITbgmRUW9RwCqGdcNmkfVD/7o/vUeiw7amtTJ76Jgrl7vn2OT9tHhKQeDzGeMEr+FcSl8ZwFm/J6+4KaqlPnRZh9tIg2uCRAn0jBh60KSyTpi8TaXpkduEqVTgbM9+xS9u+oAIYN5C5Tr3hQxxXKrsKsUVJZtuX+fHYX8=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BL3PR11MB6508.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(7416014)(376014)(18002099003)(56012099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?OUNnemQ0MTZPZmRIVE9BWmlCQ1R0bFNPL0MwQVdybFhHUDVSRDFhNkFJZ1ZK?=
+ =?utf-8?B?ekFoSnV6ck83Y0I3WHQ5MXYzeWdidVBsUXJhLzkxMkkzZmVRQUFwcFNFVGxw?=
+ =?utf-8?B?S0duVzBua1pURzZjU0RydVJkZUhKcHkwajVNZnNUeTZtNmFNNUlQVlZzUGdt?=
+ =?utf-8?B?MFFTTEtMRjFyTXpHc3JYNCtFeVNaSTRUL2JPUGxPQk94RHZXY2U1ZTVhWEpY?=
+ =?utf-8?B?MFdwMjhhZEJOd3ZnSEZ3d29tWnR6REFjdmpSOFFPeHBscXI4ZmRyVUZZQTcz?=
+ =?utf-8?B?dEI2cE9BMDd4S3RXMTUyTjd3QU5vT3FpZWpuR0FIaEZkRlVhYmlFMFdEODRy?=
+ =?utf-8?B?Z0RRU0RpaStRbzN2VU9VSUZ4VW5oZFJ2eXlSZlN3aTZ6dkt0bkV2UGlIVjl2?=
+ =?utf-8?B?TWt6REhwUjBBcjMyYUM3MVNOMjE1dWNGV1BNQ3NNNTdSOEFNa3FlWkkxTVFp?=
+ =?utf-8?B?d0tpTDNTdnFWTytyZmRnSUdhd0ZlYjJXRDZQYjBIQVlKS3NhMlIzemkwanM3?=
+ =?utf-8?B?T05xS0gwMzhucEhmL3dXbGovbzhHdGpMeDlOK2xqWmg3aHR4VmhtWkwvS0ZO?=
+ =?utf-8?B?a1RIQko1VlFuSnVWdzlmNjQwVUFZcDdkZUk3dTRrUFdqVVA1SnJUQTg5YUxD?=
+ =?utf-8?B?N0FZdVgvc2Y1Mm1MbkR6d3ZFdFp4cERHM1ozOE4rVGtBMkN1V2RpK2VQR3Rj?=
+ =?utf-8?B?cU9hdGhmWFZ2amNDWm4vNGhpb0d0OTVzSlVkeHV2N1ljczVac2Ztcmw4d2NN?=
+ =?utf-8?B?NllYaC9GQ3JsY3VFWlVYUVhaZjhuYXZRem1wN2NNdFhHSXhRU1BqK1dEVEwr?=
+ =?utf-8?B?eDZ1eEZXa1phOVUvYldJUi9wRjBydFFJSTN4UElaQkFLUXRTNWMwWjJZdFBZ?=
+ =?utf-8?B?K0NESUI1dTh1T2NvZ00zaWhuRWV5ZjV4VjVDVzVRdWxWUytCUHBsSUI4ckJQ?=
+ =?utf-8?B?TCtnRzNzQnNSbWRJeTFZSlFuNFErYTJpMjhXb0lZT285Ri9UNWNIdWdhWGVC?=
+ =?utf-8?B?N2sxRGl0UDlKRTRMUnhsdmNqcHEvV3dQeUE0MGhSNDRyU0FEN3NkenVCNnRH?=
+ =?utf-8?B?YmNGWDZXbDUwNlp5bGRCSkNWYlVMaHAxSEgvSzMwN2FhWHUreFlKeEZYQnFn?=
+ =?utf-8?B?TGdQWjRZUmNwaWlib2Z6cTBzUHVlTGlLWndRQ002SDE1dVhPN2RmamNBaFg4?=
+ =?utf-8?B?em4ybG91dUhFZmk4WElpTmQzOFJPdDdndmZHN1JwWU1wNTdILzV0U01tTE9M?=
+ =?utf-8?B?ZnFUMWtjdnMrSDhaNitpdnBiaDZLaWNmQ0ZOV25ldjcxSFoyMEdIZk1KZUJN?=
+ =?utf-8?B?QlBQVEMyUFNnNHJMbGRVN0R5Y0IxUVBHN2htanYwUFVGelNVUjBpQzdBOXBl?=
+ =?utf-8?B?MFFvWE05OVBDanl2Si9wVERvOEtnNTZKbVJmcHVaeG1QRElvV1NhQnptMkMv?=
+ =?utf-8?B?cHE2UU1pVlpMMVVmYy9FQWdkLzdaRFpmSzd0R3dNUDhIUUwya3JRZVZtYnUz?=
+ =?utf-8?B?VzBkQUVnNmhoNnN3OFVxSVhrNUJSMjZnczg3ZCtUM3VtZnlPLzd6Nkcwb0Q4?=
+ =?utf-8?B?dDQxSlVQNHlldUIzZEtaY0YwWDdJYW55c2Zla3JpSzdJTnNORmc1UlZLOHZY?=
+ =?utf-8?B?emVUazlzU0NydXZSdHNNWm90US9DL3FFeEFHRFhwV0I2YjlGVGZydnJ5QWoy?=
+ =?utf-8?B?bXFjRFdGRVVYNFRFOHVVM0pDTEF5RTZvb1pIYjBhaHNxT2Zzb2t1SmVPZ1Za?=
+ =?utf-8?B?TEdEcVBDcXhYVmR2U3Y1NXpuMHBmNDdQdDNPRGJENGpQcEJnY3I1Nkp6cDI5?=
+ =?utf-8?B?aHVma2I4OVkwaTRhSGJCZjI4eC9lVGszRC9DSlByRm1TNEc2dEFWRC96ZFR4?=
+ =?utf-8?B?UzhlaUgzclZlVm16ZStlOEoxb3IzUG9ZZlBQMU1XbHNEdDU5YWtIL3FZMVN3?=
+ =?utf-8?B?QTlJUGhsUTZKTVFVRG5tSW52ZUVxbjZ5S3JLZ01wcVRGeTNvRHRBcDl3NUxs?=
+ =?utf-8?B?ZlhheDQ0ODA2WVlCZmxsaDdtVkpJZkVDVDFyR3hQb0JUWjhUR2JXemVTQTJx?=
+ =?utf-8?B?L3lSL29hekp5VVdIbFRTTEVOVTRsUVVsZTNmd0E1TnBCUC80K2lOV2JlMVdj?=
+ =?utf-8?B?V2dHdnhDVjlPN1gyeFBZZWV6TzlsWnhBcCttc1d0VE9iYXUwK0VwUjRNVWc2?=
+ =?utf-8?B?Ukl5a1dzMms0b2FDaHViOW1mcm5rUWVPZlloblNEUXN3d1pNdGJzc0dTZGJU?=
+ =?utf-8?B?bFFjaUVrcFVpdG1kTFdBRVF1eHZ4T3Z2Slhrc1JvQytTdzRiRU0vRGlMTVUx?=
+ =?utf-8?B?eDFaK2ltQ0ZXV2JETUhYbWVRTmxXUkZrQk1qNGd2RzlCYzBONFhKaVJ2OWRw?=
+ =?utf-8?Q?eNWtQbteiPeSayxA=3D?=
+X-Exchange-RoutingPolicyChecked: QFZrfHCTTB+t2IuMt2TYF4XlH0NJ3/H8/AUPf6hi8Ah9LF7emq/rroechEJbfyk69/Zf+Bif/tROh37tvK/VfFws1Z75HJXdKbrRVYujxpewMKzSV0IxEPugSZRRlaUZSGagk+CiHRJY3hAXdqi0vEyCzEd/qOdewz8vtEs3K8AsBUzG+l8Lli7le8sdV2YGhLX5Guz6x/EhzKtjvlm92KVe3loLOosrfSL4aNVtZ+0JpMxlAqPwX5WfVVeRveaj35HWu57r4rgBpy7hCbRTfJUCso/T+QeD9aRzrZyApPtLHoMEKJNSOBRgE343YjlJuovflRYZMgjo63mZ4LVoXg==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9e9cbddd-3c90-4e0d-2081-08de907cf4f9
+X-MS-Exchange-CrossTenant-AuthSource: BL3PR11MB6508.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Apr 2026 05:59:09.4712 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: cdoTGzorVfux/lARXkmM5ygx3EY8wltPkEEu4jkTSmyk8KTV9cqNnAimxRbqxOO63bhORT6vC5t7uSemtZgZZQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH3PPF6E8D29981
+X-OriginatorOrg: intel.com
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,374 +197,202 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---000000000000c4f5a7064e715604
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+On Tue, Mar 31, 2026 at 05:20:34PM -0400, Joel Fernandes wrote:
+> Add TLB (Translation Lookaside Buffer) flush support for GPU MMU.
+> 
+> After modifying page table entries, the GPU's TLB must be invalidated
+> to ensure the new mappings take effect. The Tlb struct provides flush
+> functionality through BAR0 registers.
+> 
+> The flush operation writes the page directory base address and triggers
+> an invalidation, polling for completion with a 2 second timeout matching
+> the Nouveau driver.
+> 
+> Cc: Nikola Djukic <ndjukic@nvidia.com>
+> Signed-off-by: Joel Fernandes <joelagnelf@nvidia.com>
+> ---
+>  drivers/gpu/nova-core/mm.rs     |  1 +
+>  drivers/gpu/nova-core/mm/tlb.rs | 95 +++++++++++++++++++++++++++++++++
+>  drivers/gpu/nova-core/regs.rs   | 42 +++++++++++++++
+>  3 files changed, 138 insertions(+)
+>  create mode 100644 drivers/gpu/nova-core/mm/tlb.rs
+> 
+> diff --git a/drivers/gpu/nova-core/mm.rs b/drivers/gpu/nova-core/mm.rs
+> index 8f3089a5fa88..cfe9cbe11d57 100644
+> --- a/drivers/gpu/nova-core/mm.rs
+> +++ b/drivers/gpu/nova-core/mm.rs
+> @@ -5,6 +5,7 @@
+>  #![expect(dead_code)]
+>  
+>  pub(crate) mod pramin;
+> +pub(crate) mod tlb;
+>  
+>  use kernel::sizes::SZ_4K;
+>  
+> diff --git a/drivers/gpu/nova-core/mm/tlb.rs b/drivers/gpu/nova-core/mm/tlb.rs
+> new file mode 100644
+> index 000000000000..cd3cbcf4c739
+> --- /dev/null
+> +++ b/drivers/gpu/nova-core/mm/tlb.rs
+> @@ -0,0 +1,95 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +
+> +//! TLB (Translation Lookaside Buffer) flush support for GPU MMU.
+> +//!
+> +//! After modifying page table entries, the GPU's TLB must be flushed to
+> +//! ensure the new mappings take effect. This module provides TLB flush
+> +//! functionality for virtual memory managers.
+> +//!
+> +//! # Example
+> +//!
+> +//! ```ignore
+> +//! use crate::mm::tlb::Tlb;
+> +//!
+> +//! fn page_table_update(tlb: &Tlb, pdb_addr: VramAddress) -> Result<()> {
+> +//!     // ... modify page tables ...
+> +//!
+> +//!     // Flush TLB to make changes visible (polls for completion).
+> +//!     tlb.flush(pdb_addr)?;
+> +//!
+> +//!     Ok(())
+> +//! }
+> +//! ```
+> +
+> +use kernel::{
+> +    devres::Devres,
+> +    io::poll::read_poll_timeout,
+> +    io::Io,
+> +    new_mutex,
+> +    prelude::*,
+> +    sync::{
+> +        Arc,
+> +        Mutex, //
+> +    },
+> +    time::Delta, //
+> +};
+> +
+> +use crate::{
+> +    driver::Bar0,
+> +    mm::VramAddress,
+> +    regs, //
+> +};
+> +
+> +/// TLB manager for GPU translation buffer operations.
+> +#[pin_data]
+> +pub(crate) struct Tlb {
+> +    bar: Arc<Devres<Bar0>>,
+> +    /// TLB flush serialization lock: This lock is acquired during the
+> +    /// DMA fence signalling critical path. It must NEVER be held across any
+> +    /// reclaimable CPU memory allocations because the memory reclaim path can
+> +    /// call `dma_fence_wait()`, which would deadlock with this lock held.
+> +    #[pin]
+> +    lock: Mutex<()>,
+> +}
+> +
+> +impl Tlb {
+> +    /// Create a new TLB manager.
+> +    pub(super) fn new(bar: Arc<Devres<Bar0>>) -> impl PinInit<Self> {
+> +        pin_init!(Self {
+> +            bar,
+> +            lock <- new_mutex!((), "tlb_flush"),
+> +        })
+> +    }
+> +
+> +    /// Flush the GPU TLB for a specific page directory base.
+> +    ///
+> +    /// This invalidates all TLB entries associated with the given PDB address.
+> +    /// Must be called after modifying page table entries to ensure the GPU sees
+> +    /// the updated mappings.
+> +    pub(crate) fn flush(&self, pdb_addr: VramAddress) -> Result {
 
-Fwiw, I think Daniel and Pekka's statements well summarize my
-opinions/wishes on this, from the application niche of research software.
+This landed on my list randomly, so I took a look.
 
-In general, for the specific use case of scientific neuroscience /
-bio-medical research, it would be great to have as many properties as
-possible controllable by a userspace app, with a default "auto" setting
-that lets drivers optimize for the "common case" - whatever that means
-(e.g., optimize for low power consumption on battery or on low battery,
-optimize for quality on regular power supply).
+Wouldn’t you want to virtualize the invalidation based on your device?
 
-And as a first step, as much well defined feedback as possible, so software
-can at least know if some settings are troublesome for specific use cases.
+For example, what if you need to register interface changes on future hardware?
 
-It would be *very* useful to be able to override dithering settings (target
-dithering depth and strategy, or at least an on/off switch). The last few
-days I was involved in some email thread with Harry and others from AMD,
-and also Michel, related to dithering on AMD hw, which gives a bit of
-context why my application cases need this. No size fits all, and any
-automatic setting will do the wrong thing for some subset of legitimate use
-cases. A change of default settings in AMD's drivers late 2023, to make
-some previously unhappy AMD customers happy for some special use cases,
-silently broke use cases of mine. A manual control over dithering would
-solve these problems for everybody that cares about it, and at least a
-feedback property would have prevented some mayhem for me, instead of me
-missing the brokenness on recent hw for over 2 years. Right now,
-Psychtoolbox on Linux goes as far as mmap()'ing the MMIO hardware registers
-of some generations of display hardware, reading and decoding them, to find
-out what kind of dither settings are active, if they are compatible with
-the needs of the specific task, and sometimes reprogramming the hw behind
-the back of the driver to force the hw behaviour it needs. While this
-worked well enough for over a decade (all DCE display hardware and
-pre-DCE), it has become impractical / impossible for modern presentation
-models and with modern display hw of the last few years. At least NVidia's
-proprietary drivers allow user control over such settings under native
-X-Server and on MS-Windows, as do AMD's proprietary MS-Windows drivers and
-as did past proprietary AMD "fglrx / Catalyst" drivers for Linux. Some of
-the open-source kms + XOrg ddx drivers also used to have that in the past,
-e.g., nouveau iirc.
+Or, if you’re a VF, can you even do MMIO?
 
-It would be very useful to have at least a general on/off switch for DSC
-and at least feedback of when it is active. My knowledge of how DSC works
-is so far limited to skimming Wikipedia and a tiny bit of conversation with
-some customers from VESA multiple years ago, and I don't have any practical
-first hand experience with it, as all my hardware is too old to support it
-afaik. I'm pretty sure though that "perceptually lossless" is probably a
-charitable description of what it really is for various types of visual
-stimuli under various conditions that deviate from the specific conditions
-used during the user evaluation studies. And given that my software is used
-for visual perception research, there are various scenarios where
-researchers want to be as certain as possible that each pixel really emits
-the color they programmed in their scripts, and no unknown proprietary DSC
-algorithm introduces low level artifacts. E.g., I know from conversations
-with VESA members that my software is used, among other things, for the
-perceptual research and evaluation involved in development and improvement
-of DSC methods and HDR display technology, so control and reporting of when
-such a feature is active can be essential.
+I’d relayer this.
 
-While techniques like dithering and DSC can be perfectly fine and even
-helpful or necessary for many use cases of my users, there are also various
-common use cases where they'd be what the iceberg was to the titanic.
+Matt
 
-And because methods like dithering and DSC are perceptual techniques for
-boosting apparent color/luminance precision for certain types of visual
-stimuli under certain viewing conditions, it would be imho very difficult
-to have an accurate way to define what the true perceived "effective bpc"
-after dithering/DSC etc. is, once light hits the retina of the human (or
-animal, or cell culture in a petri-dish in some research use cases). So the
-best one can probably do is to report 'link bpc' without taking dithering
-or DSC into account. And at least for software like mine, 'link bpc' would
-be useful info, especially if combined with knowledge about the enablement
-state of dithering and DSC. It would give some reasonable feedback about
-the minimum bpc achievable, so the software could try to warn the user if
-the expected minimum bpc can't be achieved, or try to do something about
-it, depending on the situation and requirements of the task at hand.
-
-On Wed, Apr 1, 2026 at 4:24=E2=80=AFPM Daniel Stone <daniel@fooishbar.org> =
-wrote:
-
-> On Wed, 1 Apr 2026 at 14:58, Ville Syrj=C3=A4l=C3=A4
-> <ville.syrjala@linux.intel.com> wrote:
-> > I've been musing about userspace being able to provide some kind of
-> > relative quality weights for each output. The driver could then use
-> > those to figure out how to balance the final bpc and compression
-> > between the outputs. Something like this would let userspace express
-> > its preference while still allowing the driver to decide how to
-> > actually get there.
-> >
-> > Simple 'desired bpc' seem somewhat insufficient because I would
-> > imagine userspace just sets that to max for everything at the start,
-> > so the driver might not be able to tell which outputs can be degraded
-> > harder than others.
-> >
-> > I suppose a desired+min bpc might work, but would potentially force
-> > userspace to tweak the parameters in some semi random fashion and
-> > try again if the end result isn't appealing. And exactly what to
-> > tweak is really hard for userspace to figure out since it has no
-> > idea of the possibly complex internal/tbt/mst topologies, power
-> > costs, etc.
->
-> I agree with everything you've written, apart from 'I would imagine
-> userspace just sets that to max for everything at the start'.
->
-> I've taken it as axiomatic that all of these things should have an
-> 'auto' value, and have it as their default setting. Userspace _may_
-> know better than the IHV, but it's only going to know on a situational
-> basis.
->
-
-Another example from Psychtoolbox wrt. use of the 'max bpc' property: Some
-use cases need to squeeze out as much effective color or luminance
-precision from standard consumer display monitors as possible. Right now
-that means use of RGBA16 unorm framebuffers with 16 bpc precision on Linux,
-and video output at 12 bpc link depth on Displayport and HDMI monitors that
-support this, with gpu's that support this - essentially AMD hardware of
-the last ~10 years or so, iirc since the "Sea Islands" gpu family and ~
-DCE-8 display engines. Afaik DisplayPort video sinks will usually report
-the highest really supported bit depth that they can meaningfully process
-and display (possibly also by employing some form of dithering). But afaik
-the HDMI standard requires any HDMI monitor that does support *any* > 8 bpc
-"deep color" mode to also always report support for 12 bpc deep color. That
-means there are HDMI displays that can only truly handle and display 10
-bpc, but they report 12 bpc capability, as mandated by the spec. If the
-driver selects 12 bpc output without dithering on such a display, then the
-display will internally truncate the true 12 bpc input to 10 bpc and one
-ends with effective 10 bpc. For this case, users of Psychtoolbox can tell
-the software that it is dealing with such a "fake 12 bpc" display. In this
-case, Psychtoolbox will use the 'max bpc' connector property to enforce a
-max 10 bpc output, to try to force the kms driver to enable spatial
-dithering down to 10 bpc on the gpu side, so the effective bpc will be 12
-bpc via dithering. And on older AMD hw generations with DCE display engines
-will then use MMIO register reads and writes to make sure the dither
-settings are what it needs.
-
-I've also seen bad cabling or similar hardware fragility causing trouble,
-where setting 'max bpc' to a lower value helped to get a workable picture.
-
-It may also have helped in the past to achieve higher refresh rate +
-resolution combos by sacrificing output bpc on some gpu's? Atm. at least
-amdgpu prunes video modes prioritizing resolution and refresh rate by first
-lowering link bpc to fit a resolution + refresh rate combo into the hw
-limits.
-
-
-> Compositors blindly setting random tuneables to MAX_AWESOME_POWER
-> would be just as stupid as distros shipping ye olde Option
-> "AGPFastWrite" and Option "AGPMode" "8" by default. I'd expect any
-> userspace which blindly did that to immediately get as many bug
-> reports as they have users, and for them to fix it accordingly.
->
-> By analogy, we allow userspace to ignore EDID and set whatever cool
-> awesome mode it wants to. But it doesn't do that unless it has a very
-> very good reason to override the driver, and 99 times out of 100, that
-> reason is 'the user has figured out that this is required'.
->
-
-Indeed. Another unusual Psychtoolbox use case under native X11 + AMD +
-Freesync/G-Sync/Adaptive sync: Using a special freesync_video mode of
-amdgpu that allows to create custom modes with arbitrary video refresh
-rates, implemented on top of VRR / FreeSync. PTB can auto-generate and add
-potentially dozens or hundreds of modelines via X11 RandR that only differ
-in refresh rate, e.g., in steps of 0.1 Hz, and then switch rather fast
-between different refresh rates, as "modesets" between these "FRR on top of
-VRR" modes are much faster than regular modesets. Some experimental
-paradigms benefit greatly from the ability to switch very quickly between
-different refresh rates at small deltas.
-
-All this is highly situational of course. But I'd assume my software is not
-the only odd non-standard use case that would benefit from various such
-feedback mechanisms or manually controllable settings.
-
--mario
-
-
-> Does that help?
->
-> Cheers,
-> Daniel
->
-
---000000000000c4f5a7064e715604
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><div>Fwiw, I think Daniel and Pekka&#39;s=
- statements well summarize my opinions/wishes on this, from the application=
- niche of research software.</div><div><br></div></div><div>In general, for=
- the specific use case of scientific neuroscience / bio-medical research, i=
-t would be great to have as many properties as possible controllable by a u=
-serspace app, with a default &quot;auto&quot; setting that lets drivers opt=
-imize for the &quot;common case&quot; - whatever that=C2=A0means (e.g., opt=
-imize for low power consumption on battery or on low battery, optimize for =
-quality on regular power supply).</div><div><br></div><div>And as a first s=
-tep, as much well defined feedback as possible, so software can at least kn=
-ow if some settings are troublesome for specific use cases.</div><div><br><=
-/div><div>It would be *very* useful to be able to override dithering settin=
-gs (target dithering depth and strategy, or at least an on/off switch). The=
- last few days I was involved in some email thread with Harry and others fr=
-om AMD, and also Michel, related to dithering on=C2=A0AMD hw,=C2=A0which gi=
-ves a bit of context why my=C2=A0application cases need this. No size fits =
-all, and any automatic setting will do the wrong thing for some subset of l=
-egitimate use cases. A change of default settings in AMD&#39;s drivers late=
- 2023, to make some previously unhappy AMD customers happy for some special=
- use cases, silently broke use cases of mine. A manual control over ditheri=
-ng would solve these problems for everybody that cares about it, and at lea=
-st a feedback property would have prevented some mayhem for me, instead of =
-me missing the brokenness on recent hw for over 2 years. Right now, Psychto=
-olbox on Linux goes as far as mmap()&#39;ing the MMIO hardware registers of=
- some generations of display hardware, reading and decoding them, to find o=
-ut what kind of dither settings are active, if they are compatible with the=
- needs of the specific task, and sometimes reprogramming the hw behind the =
-back of the driver to force the hw behaviour it needs. While this worked we=
-ll enough for over a decade (all DCE display hardware and pre-DCE), it has =
-become impractical / impossible for modern presentation models and with mod=
-ern display hw of the last few years. At least NVidia&#39;s proprietary dri=
-vers allow user control over such settings under native X-Server and on MS-=
-Windows, as do AMD&#39;s proprietary MS-Windows drivers and as did past pro=
-prietary AMD &quot;fglrx / Catalyst&quot; drivers for Linux. Some of the op=
-en-source kms + XOrg ddx drivers also used to have that in the past, e.g., =
-nouveau iirc.</div><div><br></div><div>It would be very useful to have at l=
-east a general on/off switch for DSC and at least feedback of when it is ac=
-tive. My knowledge of how DSC works is so far limited to skimming Wikipedia=
- and a tiny bit of conversation with some customers from VESA multiple year=
-s ago, and I don&#39;t have any practical first hand experience with it, as=
- all my hardware is too old to support it afaik. I&#39;m pretty sure though=
- that &quot;perceptually lossless&quot; is probably a charitable descriptio=
-n of what it really is for various types of visual stimuli under various co=
-nditions that=C2=A0deviate from the specific conditions used during the use=
-r evaluation studies. And given that my software is used for visual percept=
-ion research, there are various scenarios where researchers want to be as c=
-ertain as possible that each pixel really emits the color they programmed i=
-n their scripts, and no unknown proprietary DSC algorithm introduces low le=
-vel artifacts. E.g., I know from conversations with VESA members that my so=
-ftware is used, among other things, for the perceptual research and evaluat=
-ion involved in development and improvement of DSC methods and HDR display =
-technology, so control and reporting of when such a feature is active can b=
-e essential.</div><div><br></div><div>While techniques like dithering and D=
-SC can be perfectly fine and even helpful or necessary for many use cases o=
-f my users, there are also various common use cases where they&#39;d be wha=
-t the iceberg was to the titanic.</div><div><br></div><div>And because meth=
-ods like dithering and DSC are perceptual techniques for boosting apparent =
-color/luminance precision for certain types of visual stimuli under certain=
- viewing conditions, it would be imho very difficult to have an accurate wa=
-y to define what the true perceived &quot;effective bpc&quot; after ditheri=
-ng/DSC etc. is, once light hits the retina of the human (or animal, or cell=
- culture in a petri-dish in some research use cases). So the best one can p=
-robably do is to report &#39;link bpc&#39; without taking dithering or DSC =
-into=C2=A0account. And at least for software like mine, &#39;link bpc&#39; =
-would be useful info, especially if combined with knowledge about the enabl=
-ement state of dithering and DSC. It would give some reasonable feedback ab=
-out the minimum bpc achievable, so the software could try to warn the user =
-if the expected minimum bpc can&#39;t be achieved, or try to do something a=
-bout it, depending on the situation and requirements of the task at hand.</=
-div><div><br></div><div class=3D"gmail_quote gmail_quote_container"><div di=
-r=3D"ltr" class=3D"gmail_attr">On Wed, Apr 1, 2026 at 4:24=E2=80=AFPM Danie=
-l Stone &lt;<a href=3D"mailto:daniel@fooishbar.org">daniel@fooishbar.org</a=
->&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px=
- 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">On =
-Wed, 1 Apr 2026 at 14:58, Ville Syrj=C3=A4l=C3=A4<br>
-&lt;<a href=3D"mailto:ville.syrjala@linux.intel.com" target=3D"_blank">vill=
-e.syrjala@linux.intel.com</a>&gt; wrote:<br>
-&gt; I&#39;ve been musing about userspace being able to provide some kind o=
-f<br>
-&gt; relative quality weights for each output. The driver could then use<br=
->
-&gt; those to figure out how to balance the final bpc and compression<br>
-&gt; between the outputs. Something like this would let userspace express<b=
-r>
-&gt; its preference while still allowing the driver to decide how to<br>
-&gt; actually get there.<br>
-&gt;<br>
-&gt; Simple &#39;desired bpc&#39; seem somewhat insufficient because I woul=
-d<br>
-&gt; imagine userspace just sets that to max for everything at the start,<b=
-r>
-&gt; so the driver might not be able to tell which outputs can be degraded<=
-br>
-&gt; harder than others.<br>
-&gt;<br>
-&gt; I suppose a desired+min bpc might work, but would potentially force<br=
->
-&gt; userspace to tweak the parameters in some semi random fashion and<br>
-&gt; try again if the end result isn&#39;t appealing. And exactly what to<b=
-r>
-&gt; tweak is really hard for userspace to figure out since it has no<br>
-&gt; idea of the possibly complex internal/tbt/mst topologies, power<br>
-&gt; costs, etc.<br>
-<br>
-I agree with everything you&#39;ve written, apart from &#39;I would imagine=
-<br>
-userspace just sets that to max for everything at the start&#39;.<br>
-<br>
-I&#39;ve taken it as axiomatic that all of these things should have an<br>
-&#39;auto&#39; value, and have it as their default setting. Userspace _may_=
-<br>
-know better than the IHV, but it&#39;s only going to know on a situational<=
-br>
-basis.<br></blockquote><div><br></div><div>Another example from Psychtoolbo=
-x wrt. use of the &#39;max bpc&#39; property: Some use cases need to squeez=
-e out as much effective color or luminance precision from standard consumer=
- display monitors as possible. Right now that means use of RGBA16 unorm fra=
-mebuffers with 16 bpc precision on Linux, and video output at 12 bpc link d=
-epth on Displayport and HDMI monitors that support this, with gpu&#39;s tha=
-t support this - essentially AMD hardware of the last ~10 years or so, iirc=
- since the &quot;Sea Islands&quot; gpu family and ~ DCE-8 display engines. =
-Afaik DisplayPort video sinks will usually report the highest really suppor=
-ted bit depth that they can meaningfully process and display (possibly also=
- by employing some form of dithering). But afaik the HDMI standard requires=
- any HDMI monitor that does support *any* &gt; 8 bpc &quot;deep color&quot;=
- mode to also always report support for 12 bpc deep color. That means there=
- are HDMI displays that can only truly handle and display 10 bpc, but they =
-report 12 bpc capability, as mandated by the spec. If the driver selects 12=
- bpc output without dithering on such a display, then the display will inte=
-rnally truncate the true 12 bpc input to 10 bpc and one ends with effective=
- 10 bpc. For this case, users of Psychtoolbox can tell the software that it=
- is dealing with such a &quot;fake 12 bpc&quot; display. In this case, Psyc=
-htoolbox will use the &#39;max bpc&#39; connector property to enforce a max=
- 10 bpc output, to try to force the kms driver to enable spatial dithering =
-down to 10 bpc on the gpu side, so the effective bpc will be 12 bpc via dit=
-hering. And on older AMD hw generations with=C2=A0DCE display engines will =
-then use MMIO register reads and writes to make sure the dither settings ar=
-e what it needs.</div><div><br></div><div>I&#39;ve also seen bad cabling or=
- similar hardware fragility causing trouble, where setting &#39;max bpc&#39=
-; to a lower value helped to get a workable picture.</div><div><br></div><d=
-iv>It may also have helped in the past to achieve higher refresh rate=C2=A0=
-+ resolution combos by sacrificing output bpc on some gpu&#39;s? Atm. at le=
-ast amdgpu prunes video modes prioritizing resolution and refresh rate by f=
-irst lowering link bpc to fit a resolution=C2=A0+ refresh rate combo into t=
-he hw limits.</div><div><br></div><blockquote class=3D"gmail_quote" style=
-=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding=
--left:1ex">
-<br>
-Compositors blindly setting random tuneables to MAX_AWESOME_POWER<br>
-would be just as stupid as distros shipping ye olde Option<br>
-&quot;AGPFastWrite&quot; and Option &quot;AGPMode&quot; &quot;8&quot; by de=
-fault. I&#39;d expect any<br>
-userspace which blindly did that to immediately get as many bug<br>
-reports as they have users, and for them to fix it accordingly.<br>
-<br>
-By analogy, we allow userspace to ignore EDID and set whatever cool<br>
-awesome mode it wants to. But it doesn&#39;t do that unless it has a very<b=
-r>
-very good reason to override the driver, and 99 times out of 100, that<br>
-reason is &#39;the user has figured out that this is required&#39;.<br></bl=
-ockquote><div><br></div><div>Indeed. Another unusual Psychtoolbox use case =
-under native X11=C2=A0+ AMD + Freesync/G-Sync/Adaptive sync: Using a specia=
-l freesync_video mode of amdgpu that allows to create custom modes with arb=
-itrary video refresh rates, implemented on top of VRR / FreeSync. PTB can a=
-uto-generate and add potentially dozens or hundreds of modelines via X11 Ra=
-ndR that only differ in refresh rate, e.g., in steps of 0.1 Hz, and then sw=
-itch rather fast between different refresh rates, as &quot;modesets&quot; b=
-etween these &quot;FRR on top of VRR&quot; modes are much faster than regul=
-ar modesets. Some experimental paradigms benefit greatly from the ability t=
-o switch very quickly between different refresh rates at small deltas.</div=
-><div><br></div><div>All this is highly situational of course. But I&#39;d =
-assume my software is not the only odd non-standard use case that would ben=
-efit from various such feedback mechanisms or manually controllable setting=
-s.</div><div><br></div><div>-mario</div><div><br></div><blockquote class=3D=
-"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(2=
-04,204,204);padding-left:1ex">
-<br>
-Does that help?<br>
-<br>
-Cheers,<br>
-Daniel<br>
-</blockquote></div></div>
-
---000000000000c4f5a7064e715604--
+> +        let _guard = self.lock.lock();
+> +
+> +        let bar = self.bar.try_access().ok_or(ENODEV)?;
+> +
+> +        // Write PDB address.
+> +        bar.write_reg(regs::NV_TLB_FLUSH_PDB_LO::from_pdb_addr(pdb_addr.raw_u64()));
+> +        bar.write_reg(regs::NV_TLB_FLUSH_PDB_HI::from_pdb_addr(pdb_addr.raw_u64()));
+> +
+> +        // Trigger flush: invalidate all pages and enable.
+> +        bar.write_reg(
+> +            regs::NV_TLB_FLUSH_CTRL::zeroed()
+> +                .with_page_all(true)
+> +                .with_enable(true),
+> +        );
+> +
+> +        // Poll for completion - enable bit clears when flush is done.
+> +        read_poll_timeout(
+> +            || Ok(bar.read(regs::NV_TLB_FLUSH_CTRL)),
+> +            |ctrl: &regs::NV_TLB_FLUSH_CTRL| !ctrl.enable(),
+> +            Delta::ZERO,
+> +            Delta::from_secs(2),
+> +        )?;
+> +
+> +        Ok(())
+> +    }
+> +}
+> diff --git a/drivers/gpu/nova-core/regs.rs b/drivers/gpu/nova-core/regs.rs
+> index a3ca02345e20..5e3f5933a55c 100644
+> --- a/drivers/gpu/nova-core/regs.rs
+> +++ b/drivers/gpu/nova-core/regs.rs
+> @@ -548,3 +548,45 @@ pub(crate) mod ga100 {
+>          }
+>      }
+>  }
+> +
+> +// MMU TLB
+> +
+> +register! {
+> +    /// TLB flush register: PDB address bits [39:8].
+> +    pub(crate) NV_TLB_FLUSH_PDB_LO(u32) @ 0x00b830a0 {
+> +        /// PDB address bits [39:8].
+> +        31:0    pdb_lo => u32;
+> +    }
+> +
+> +    /// TLB flush register: PDB address bits [47:40].
+> +    pub(crate) NV_TLB_FLUSH_PDB_HI(u32) @ 0x00b830a4 {
+> +        /// PDB address bits [47:40].
+> +        7:0     pdb_hi => u8;
+> +    }
+> +
+> +    /// TLB flush control register.
+> +    pub(crate) NV_TLB_FLUSH_CTRL(u32) @ 0x00b830b0 {
+> +        /// Invalidate all pages.
+> +        0:0     page_all => bool;
+> +        /// Enable/trigger flush (clears when flush completes).
+> +        31:31   enable => bool;
+> +    }
+> +}
+> +
+> +impl NV_TLB_FLUSH_PDB_LO {
+> +    /// Create a register value from a PDB address.
+> +    ///
+> +    /// Extracts bits [39:8] of the address and shifts it right by 8 bits.
+> +    pub(crate) fn from_pdb_addr(addr: u64) -> Self {
+> +        Self::zeroed().with_pdb_lo(((addr >> 8) & 0xFFFF_FFFF) as u32)
+> +    }
+> +}
+> +
+> +impl NV_TLB_FLUSH_PDB_HI {
+> +    /// Create a register value from a PDB address.
+> +    ///
+> +    /// Extracts bits [47:40] of the address and shifts it right by 40 bits.
+> +    pub(crate) fn from_pdb_addr(addr: u64) -> Self {
+> +        Self::zeroed().with_pdb_hi(((addr >> 40) & 0xFF) as u8)
+> +    }
+> +}
+> -- 
+> 2.34.1
+> 
