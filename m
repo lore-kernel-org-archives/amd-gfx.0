@@ -4,128 +4,98 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5853DD6AAFE
-	for <amd-gfx@archiver.kernel.org>; Thu,  2 Apr 2026 19:10:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A83E5D6AAFE
+	for <amd-gfx@archiver.kernel.org>; Thu,  2 Apr 2026 19:34:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D7A2F10E120;
-	Thu,  2 Apr 2026 19:10:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3E90710F297;
+	Thu,  2 Apr 2026 19:34:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="zzlGFnqM";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="niJI/PvC";
 	dkim-atps=neutral
-Received: from MW6PR02CU001.outbound.protection.outlook.com
- (mail-westus2azon11012068.outbound.protection.outlook.com [52.101.48.68])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9F32910E10B;
- Thu,  2 Apr 2026 19:10:38 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=hPKKVwTkmvnqPI7BozvcEQ1Rb210DUn5/HQlj2cod6D/Zgtkw2U/UyQsveXTeGTOcfaBJLj8nMnt9wZ1r1pa5t+VYpIn/WASrm6nexqcpObEVIEeHQl6ZrDxQkoAR+53hP8i4HuG9gjIFqZ267j4aKUTsDcg1MFj9cDapDQe3YzN5GvAGdLavkZZlw90EEUML6WxseHPSKAtJntuCdRkBqCosrP3GU9Ihk4DTUh4UGNegNqQdEWVjNXr+UscXW0wZdkc4v13j2wboppfuz7xCbz52RFLLtYOb1H+ZFLNAaVv3Y9awdKEdjSixNOHKHilTmxH6I+fxZI31XAqR7fuqQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=hXWp+OGMB7Njzqq08rgnSr+SNOfGBGtnwouQaw+mz0M=;
- b=WosOp1+4xkUrAD/HIWbB5IT1fJ8cyVAjDhz06zcArLtFsKWfVlqXjWw0I4yHjl2fvsJqmp3IgvXQ0WWoN52ZHXxqhNpvLuBjYVjg865FYg6M7tgZsWoHtJZYaA3homohnWaWTxuDj6IFUvhIM2EL/LKKSp1UtN3+E6FYPvncs6t5xToe7WwHxWSWj2eHDS6Ojp52WPz/5AbwrppiYK2Rxj9ok60c9NmmVxM9fdd67eHKPc2Eg58eytRqTxSS4eyP/vWWwpXKZCQ5lr00Cscfz7VvSj6/e2jWjAixU79l9GOYCxCfaaGh8tzwt97n/ufPsIwOWl2adfCAgUWtCApqxg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hXWp+OGMB7Njzqq08rgnSr+SNOfGBGtnwouQaw+mz0M=;
- b=zzlGFnqMgMQe5NnqQgwEcNC9RfytYUY2ufbUppxGScLMQcRPI+cb2rgyk500SdiPNh76Mndz1FXu6jRgGAxG1JR26Oe5QrePfMVmE4MiWDmy+VEvbVSQ6KFAS2ailhstLVnpBvEoyyNow2eQTbaPzV2LW5+yR/UkPuaZwjUpHZE=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from SA0PR12MB4384.namprd12.prod.outlook.com (2603:10b6:806:9f::22)
- by SJ2PR12MB7822.namprd12.prod.outlook.com (2603:10b6:a03:4ca::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.17; Thu, 2 Apr
- 2026 19:10:34 +0000
-Received: from SA0PR12MB4384.namprd12.prod.outlook.com
- ([fe80::e7e1:4bbc:b573:74b5]) by SA0PR12MB4384.namprd12.prod.outlook.com
- ([fe80::e7e1:4bbc:b573:74b5%5]) with mapi id 15.20.9769.016; Thu, 2 Apr 2026
- 19:10:34 +0000
-Message-ID: <7b522135-570b-4c99-ad4a-0d6060a85a8c@amd.com>
-Date: Thu, 2 Apr 2026 15:10:31 -0400
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amd/display: Wire up dcn10_dio_construct() for all
- pre-DCN401 generations
-To: "Ionut Nechita (Sunlight Linux)" <sunlightlinux@gmail.com>
-Cc: IVAN.LIPSKI@amd.com, airlied@gmail.com, alexander.deucher@amd.com,
- alexdeucher@gmail.com, amd-gfx@lists.freedesktop.org,
- christian.koenig@amd.com, dri-devel@lists.freedesktop.org,
- harry.wentland@amd.com, ionut_n2001@yahoo.com, simona@ffwll.ch,
- siqueira@igalia.com, sunpeng.li@amd.com
-References: <22eb66d8-b74a-4e0a-9851-7e39c7f950cd@amd.com>
- <20260401071446.91826-1-sunlightlinux@gmail.com>
-Content-Language: en-US
-From: "LIPSKI, IVAN" <ivlipski@amd.com>
-Organization: AMD Inc.
-In-Reply-To: <20260401071446.91826-1-sunlightlinux@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YQZPR01CA0123.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:87::28) To SA0PR12MB4384.namprd12.prod.outlook.com
- (2603:10b6:806:9f::22)
+Received: from mail-dl1-f45.google.com (mail-dl1-f45.google.com [74.125.82.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7EC3A10E047
+ for <amd-gfx@lists.freedesktop.org>; Thu,  2 Apr 2026 19:34:45 +0000 (UTC)
+Received: by mail-dl1-f45.google.com with SMTP id
+ a92af1059eb24-1277863a912so134642c88.0
+ for <amd-gfx@lists.freedesktop.org>; Thu, 02 Apr 2026 12:34:45 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1775158485; cv=none;
+ d=google.com; s=arc-20240605;
+ b=QDO6wOEYLtOSucHj2Y8oZdQLstbUau0XshbB7GsCCRL3EU70BZcyNWqm3Nebm0zfGq
+ rcppuNrVsL4NTSzRCNAK/mMKgMZ+QcL/7YlOlVL/xo1sGs7fxzZEWEA9y88VlAQwxucn
+ 7mZUsZxNgI3j0DIg0+Bmvpu95sZlhJu8mM7AKnbIICSnAZWwekvwsFAHzRUVlWt9ofEN
+ 0IU1pdAkQy/bBjVKKbPmGIHt3bDYxgchtT6tqLAwvjRmLuGW+Ij9OnNPl6o+3CkGDJj3
+ /IRDBB9flxUcg5blEIqNz18J3EUMgCmG6PNrd+84R3kvw9zm/akKOXRV8c3E60Zg1udv
+ CLqQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=z6paV10TjiBBQpUTwHKDd5p6LgrjhSvi+dQvAUrRBGg=;
+ fh=KF1ILXc3aFqcYCrwZWxozYCLY7iRCxTq6kWmGXBtHV0=;
+ b=dOTlZ6Ku4Qt7SSy5Yub4oLyjoa9BRz9Q5owDDCG52PhBfYrHbarQu0HGLAuFrLAZvd
+ O3kxTCsyl1NzovfsZEpIMphPTxrCAth1K4D9Fy32s7drf9jGa0VQmi+ZhdPdhXw8Mvwx
+ LQAplH34GOMQcyjowHgT8quScj5dBt+hB98pRexOk8pq4n7QmJS3ufYmf47x2hrCMtBY
+ y+Zaa8tkaiv3BNfPV3vO6zUlGaTHXatkHgnpboYcIwf4ubBrPQeVdrxc2XTP/SgBU/ia
+ BV8JdQ5es75YiefasDowOE02Q6zD6Pu7G2aJlFbptSj79mXAvj9EicG9Rgtt9TMWdVUu
+ z++w==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1775158485; x=1775763285; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=z6paV10TjiBBQpUTwHKDd5p6LgrjhSvi+dQvAUrRBGg=;
+ b=niJI/PvCdyMF/n8p1oOXgapxTqvdc19ChPcyDpBw/qW1FN9iVzFoc0vZ5X3X4sudww
+ GW0h+aiBR4dfvBbN9RKknJ2e24DTAfMrRXmwx3k5HbAjBnrzu1vHGPV3Z/Kxd7buC6ds
+ gTCP2OdaSLmMN8BS2x3aVJD7tTr0uU+Y9jrydqnU22jEHvq3N/dkIdTMkKiVYNMwtE27
+ 6+TsjrbyaY8MnANSQjbAtohTFh9d47YJF/0UEBRPlPQ86/aiXHI32WENdsboCH5gWS+p
+ 5DmvYiU0H8HTs1rGlt6vIFs/50i6iGn5a+J1zAjhPhgrXbL6jHB7h3ekHldJ2Ok+LdIP
+ y9fA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1775158485; x=1775763285;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=z6paV10TjiBBQpUTwHKDd5p6LgrjhSvi+dQvAUrRBGg=;
+ b=hql9zjNlX1SeQ6ZqqhHdlu7zvE+pFBoBuDSAp2y5tnjTFGDSVwBVj05kY85hMirKVx
+ QCwO7ReuEMXJmJ0V8NkGAkCKpgXGdlDjsvbjUTOftr3mO4KiK1ICy5qxisyjHXoRBygV
+ W0gzhKZj9SGoUl99HwuGojayZrYwsrjsV9NtEUahSE9WApWtHZNu21pk14iRheEhZFYK
+ uF/ibk+ePrKjR1AG/p7893InNds6yA1lO2rCX2Lklocp+h8/Y5ZQHmoROyGM17eDIFzD
+ zS2DcTAcZ6SeCAdb/6JQpB9Zk9treYQRPxGy2vi8DX58p/H7j9y+D0ZcaG0UC5Tgx0Bc
+ H0ZQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCU7E+ajpe8pHJqlqoRtp3o08zkCk0tcTCdDjzLAwD3cR0SWTFd5rQtDESUpQXeHHL/GubG0f9Mr@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzaSGSgy8pzPIdQd2JMXb9jcKbaYATmkFRRC7JQJIFcFI80C1p4
+ /A+wiqmcNrQiqx7UO0dY+9zG3sYhJIHjK1OFk89ETmWzGg/gIT4tpPpvLu/mr5n+nw1ewkCNYUq
+ nwHQdO4Ww3W3NKq6XGfPAKSg4J1BH/Ps=
+X-Gm-Gg: ATEYQzyyaD89/MdFM69hEZ7OSVJds+nlniOYHz88Bi9O0QYKSmNVMgoVxDDsnKpsa7D
+ N7Oigebo8Nov2Zj3LM6OJxsQObfucL1TSPOezcHmfPUeeCwZjMH1A2/Ovc6iZaOn8xhs/RkJdYW
+ So7JCDKiRT8XCqBz/dWnHJWpNwZg/ox05bLArn1Mh7PAGAWp5JabM64eiq0zeYZJ5KXOxCAbTUG
+ 0axxl6COze+3ZS8Pl/zPlQSr0m9bnAbA/N7uVY+TULXSjBmrJEKFL4Cvy5cqxzH/K57iICduwwb
+ ziJqodMW54pf4Zw55h53n4PrDzJ2TB0bkYLO+H/DkGFWqfVxW8cu31ZgFnTS/K3plEzBQw==
+X-Received: by 2002:a05:7022:4396:b0:119:e56b:46b7 with SMTP id
+ a92af1059eb24-12bfb6f27dcmr67982c88.1.1775158484591; Thu, 02 Apr 2026
+ 12:34:44 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA0PR12MB4384:EE_|SJ2PR12MB7822:EE_
-X-MS-Office365-Filtering-Correlation-Id: b4e5b9b6-3ae6-4bb1-93e8-08de90eb843c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|1800799024|366016|18002099003|22082099003|56012099003; 
-X-Microsoft-Antispam-Message-Info: EjqTA/2hHk9wc1QjOFOsxrkyDYRQXm0sczFTJpBQsFerd42BmDiCd/ddj6ojiDbYXc3dL+Tp249x9FiKb93CYRl7XqoDXp6XKANGygh/7wJV1UwCyy20fW2jFCkb5CX6nO4aXiVQX+/K0NimraGWoLB3AdY1DN6CkgVi5cgx96PYE9DzaszpnFijmaMvc89Y8prWdZQC0KGCpLOnZH8GzODau+AsncAbFYcc1VJG7kAWdF+u07ym+CAKHNRyaHud8tVLsEmjeanBN3NbeIsv84vPqh05tXUMnBa25lykbiEncEf7DAiKyWvn1CuQobCDuuKXshinbEciB1A43qaSpJwEzF2U05/eTFwYccvJI5mzP4GwlL1pflIqs3WDMm25ohXeQfLLbASuGPvsCE1Ob6c5f1aJuVMtXoLJHbJZzX3fCw0uOv1j95NTr+fRZyzZj+dKWy8goGA5QiefeWwG0cjDAVMYITyev3GsbB5bdtXsMEdS9bhe57hRwmcy8IHabi/YHSqDrGqBMxNTe/zJ1ZgthdjhUE/QU7lPF3X0n/r8umTqp6GJJfoNXffee+W10qyUfwjjeAgKlYVw6le8q/ur3iDU+C5gpTOFQu6iJgakoPVo0v6LUBEe95hBxaN0SG/x2pww8uSZpue7UUrkPWeDPYtipwmSfix2rw2gXt9dZRUOEi6mssbRB6fayrxIChC6LWORKfHAP+BjMUDezNyjsxQ+uxbvBvGQQb2Jbpc=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SA0PR12MB4384.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(366016)(18002099003)(22082099003)(56012099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Q1FDUUViMTlqTHBvUmc1WkxpcmkxcDVFUlovU1NkenErUC9OUFpTZHlSR04w?=
- =?utf-8?B?cVBCMmREU1ZScFNkYVFMMlI2alFDQ3F0N01YMnFnVVBlVFlXT3RSNklEMVRS?=
- =?utf-8?B?QlJZUGNtU041ekhEbEd1RU0vMUVUN3dmbTc1RkRBcERkMGxqMUIvRERGcm5U?=
- =?utf-8?B?UDhFaWl4UXZKcGN4d3FZYXAxZFJvY25pdld5RGY0VmFDa2ZZR3NTaTZRYXNQ?=
- =?utf-8?B?SjB0cmdQdnZLRHUrTHdjQ2pZY3gzQ0Z0RlhwWkJ4c3NyOUVDQjA1L2w2RGZi?=
- =?utf-8?B?OXhRZkJhbWdnN2FjbnJwMnk0U2F3ZG5SMXVPRDhvN0xhT0hwZmhtVzZkQzdL?=
- =?utf-8?B?YTZyMVdnYUZkSHN0YVRhemNscWJzNTBrMnV5K1p5YnluS3M3RFdYemtGUlc5?=
- =?utf-8?B?ZGx3eU5HRHgzRlB5NnMyUS9XcDFJcmIxNFhlVDJUcVdZMlJNejhOd2trS20z?=
- =?utf-8?B?RUV5THp6d1IvYU5OZ0psNmNLWVVCRmxKWUx1dE03OE10dyt3aU5sdXRzbmIw?=
- =?utf-8?B?SU84TGJrMTVkWndpems4ZjdrV0ZGWTVkRFZXaVpEa0V4THFDOXNyM1Z3Nzla?=
- =?utf-8?B?SGZJaHJJL0UvK25DRDQ4Vko2NkxVVDBsaWluamh1L1hDQzE1SExTN2hMTFJ5?=
- =?utf-8?B?YVZkNlVIeDU5Y25zSVBLK3U2bEY1UlVMQWs5SEtOd0hTbS9hMzhwZGhzU3Vj?=
- =?utf-8?B?MDBjL2QwNEdqRjFSZk90Qyt1NU9WMzY0MXN0RThrR2k5V2tJcFlGRm0wYjZ6?=
- =?utf-8?B?ekJLL256bTExb0hhRFY0a0pzbzdNYWMwTmVGZm9jdVh2czJvWGMzRVBkTkVj?=
- =?utf-8?B?Y2RZVm9mNnZMdDBnM0k4L1I3RVVjNEF4azhFT0VXa0pKSXJsMFAzSzZZWFRP?=
- =?utf-8?B?Ym90U0c1NTRoQ2l5aWJxVTFHOTRRYnBRbFhMWFQ5akxJNzZoVnppYnNVbkhF?=
- =?utf-8?B?bHA3VG9jdTZaRUhuMm12RDJ3UVNJUUEzQ2tjdDJYQ2Y4SDJzeDRrb2RZQ2tE?=
- =?utf-8?B?dEZTdnlST3l5dGVQR2hmWHlaT1d2bmR3NXVHa1Q4ZEZMVmFuYURZdXdubkpl?=
- =?utf-8?B?R1RiYkR0OFlpVGlXcVJqNVFwSlg4N3Q0Smx3ZjVlUHJjWW92c0liWXFSWDdZ?=
- =?utf-8?B?aEs3U0JNdkJjOW5tYjl2enRWak9ST3VNQlRMaElYV0NEZGY0OVpRQWZvOXli?=
- =?utf-8?B?U1RtdEJsdTEyTjhpTExDem1QREVRYW9mSytqOFZDZnk1Wk43eCt0QmhacUgr?=
- =?utf-8?B?OGVvaTQ3dWRrMkc5a01UMldBQmpyMXN4T1ZWRUtuMTVCelZVM1VlUDR4eUpz?=
- =?utf-8?B?V2ZVbmt0QmNmWnZqR0hzcDJoWVNOUkhjdWZhYThiS0Z1QTcwTElNRzB4dnBo?=
- =?utf-8?B?aFhUcXdrQW80aTVHU2ROM2dWemEzZ1pCcFQ5SVNWQkFxMnp3dzlWbmQwS0pV?=
- =?utf-8?B?VHBZTXdCdDhCaVRZOWhIWG85R3BQMS8yZVRndS84MkhTWGFwWUwzM0tUb0dD?=
- =?utf-8?B?S2RQaUJtT2JLbWIxZlVZWGlhTTVDNG55dXo4UDFCeHZ4YmFyTzlMNzRUbHJt?=
- =?utf-8?B?SHZiMldmRjFCUmpkRllzd0I2Z2t2N3VoTHBIT3NVb1VFTml0Mi84Smx0QnRv?=
- =?utf-8?B?dTU2anlrWWxSOEJEeEdMM0xQQmxkTjhYQVZRNWVFM2R4UXBuL1N5SWVzODMw?=
- =?utf-8?B?RDltOGlQRFcxQ0FsV2JPcGdhaWs4emlPUmVIWWNIYmU0bEs1RmVTSnR3RVlt?=
- =?utf-8?B?YWpOdk1DUlVmMG45QVNDREFnWVh1MHlxUW00Q1FmOGVQcjFqU2pkU0RaMENE?=
- =?utf-8?B?YWtWVnJmRjRLbUZvM2NweHVxa0prdnlwUnQwM3NVK29HTzFXLzVLNWI5MGV5?=
- =?utf-8?B?VTk5T3JzODRzaVVzK3hQT0dXRmJVc3NUQ0QvcWF3WWFkTUhhN3p0VkU2OHVw?=
- =?utf-8?B?OFV3NFgvRDJJSUhia3QvNjdtQy9NckhMMlJuM0xTOUtPSnhSdjZTbUdEOE9k?=
- =?utf-8?B?WU1jYXZLaDkyWU9WcHVVSnFvVERjL2pJVTYzZnBSRjF4T3k0MDAvd2paR0tr?=
- =?utf-8?B?U0tGT0RwZ1Z5b25pbThhMUpCSGNzTmUvWHp1VVVZbXYxb002NHNTRGlKanlN?=
- =?utf-8?B?aGlHbzRHR0JXSTJ4T1RGT1MvMC95bGlOLzBUdWs4NTl6UDd6RnRjNTJXa3BX?=
- =?utf-8?B?VzJES1Q2SUQxcS80NDIvTEpnZHE5d3NWam5VVUFPRUVhNFF0QUxEN2V6Z2pD?=
- =?utf-8?B?K2pVa2NrbkFWZE42bDY3Q05URWk4THprRmdsRWhETnJpWnNhVlh3UFV6VEwx?=
- =?utf-8?B?L01XblNLK1lrODFWV1VlTXhGUFJ0K0NHdGJpTzNaN25vc0Y5Uzl5dz09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b4e5b9b6-3ae6-4bb1-93e8-08de90eb843c
-X-MS-Exchange-CrossTenant-AuthSource: SA0PR12MB4384.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Apr 2026 19:10:34.6236 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: EGZGjJe7YQN5t8aE0vXHB9Qx7cjkvJp7yLptyOBtKSF3ZcU8Nr0TBAvWLrYrEWC+KuFz3eLV4weJGZiEoiMR7A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB7822
+References: <20260401184456.3576660-1-alexander.deucher@amd.com>
+ <47c508c3-3424-4e8a-a63c-1f29d13b6ebe@leemhuis.info>
+ <CADnq5_MiFOYLP9aUnYw4HFb-xWLZdq245ZB3e6iGn09ywOsY2w@mail.gmail.com>
+ <CAHk-=wiNdTNNxzRuxXYq1Ebpiv6YF4UMZApoQGnktbMjKFYP+w@mail.gmail.com>
+In-Reply-To: <CAHk-=wiNdTNNxzRuxXYq1Ebpiv6YF4UMZApoQGnktbMjKFYP+w@mail.gmail.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Thu, 2 Apr 2026 15:34:31 -0400
+X-Gm-Features: AQROBzDmFsLYBUfG_KyTv2yWvRF9jyysl3p7CylmtFmeiPAhvDxo-SPdx5QhP6o
+Message-ID: <CADnq5_Ns+NEm3eNJjs+7HG8qBnX8OX6TMsj444B4xFW7=z7P8A@mail.gmail.com>
+Subject: Re: Regression fix for audio issues with pre-DCN401 chips (was: Re:
+ [pull] amdgpu, amdkfd drm-next-7.1)
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: Thorsten Leemhuis <regressions@leemhuis.info>,
+ Alex Deucher <alexander.deucher@amd.com>, 
+ amd-gfx@lists.freedesktop.org, airlied@gmail.com, simona.vetter@ffwll.ch, 
+ Linux kernel regressions list <regressions@lists.linux.dev>,
+ dri-devel@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -140,31 +110,86 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hey Ionut,
+On Thu, Apr 2, 2026 at 3:02=E2=80=AFPM Linus Torvalds
+<torvalds@linux-foundation.org> wrote:
+>
+> On Thu, 2 Apr 2026 at 11:27, Alex Deucher <alexdeucher@gmail.com> wrote:
+> >
+> > There are always new fixes.  Worse case it ends up in 7.0.1.  If it
+> > causes other regressions, then we end up introducing a new regression
+> > in rc7.
+>
+> This was a regression in rc1, that was reported several weeks ago.
+> Anything that gets reported that early in the release cycle is bound
+> to hit lots of people, because the number of people testing early rc
+> kernels is relatively small.
+>
+> So why pointlessly delay *known* regressions for fear of a potential new =
+one?
+>
+> And why point out rc7, when dammit, this could have been fixed long
+> before and *not* be that late in the release?
+>
+> The bug was reported a month ago. The patch was posted  ten days ago.
+>
+> It could have been in rc6 and gotten a bit more testing, but was
+> delayed for unknown reasons, and now the argument is that we should
+> avoid the testing in rc7 and just put it in a stable release instead?
+>
+> What's the advantage of releasing 7.0 with a known problem, and delay
+> any potential reports of whatever new regressions in 7.0.1 instead?
+>
+> What is the logic here? Really?
+>
+> As you say, there are always new fixes. But how exactly does that
+> change anything?
+>
+> The fact that there will be new fixes just means that delaying known
+> fixes will only result in all those fixes just piling up.
+>
+> Or worse yet, all those known *problems* piling up, where known
+> problems may then end up hiding even more problems that people don't
+> even see because they hit the first issue.
+>
+> So what is the point? Why are things delayed?
+>
+> The whole reason we have rc release candidates is (a) finding bugs and
+> (b) GETTING THEM FIXED BEFORE THE ACTUAL RELEASE.
+>
+> What did you think a "release candidate" was all about if that's not
+> your reading of the issue?
+>
+> And if fixes look too scary or uncertain, we *revert* the change that
+> caused a regression. We don't go "fixing it is too scary".
+>
+> And yes, we have more timely releases than pretty much any other
+> software project has, and that is partly exactly so that things don't
+> build up over time.
+>
+> We don't want new features to build up over time - long long ago we
+> had long release cycles that then dragged out even *more* because
+> there just was too many changes and they all had issues that needed
+> fixing.
+>
+> But we also don't want the known problems to build up over time.
+>
+> One of the points of of "release early, release often" is to find bugs
+> quickly - and then *fix* them quickly so that we can leave the issue
+> behind instead of letting it fester and cause longer-term issues.
+>
+> This "drag your feet because there will always be other fixes" makes
+> absolutely no sense to me, and it's not how we work.
+>
+> So  honestly, there are exactly two choices: apply the fix, or just
+> revert the commit that caused the problem in the first place.
+>
+> Because no, "let's just have a known regression" is not how we roll.
 
-There was a compilation error, so we changed kzalloc_obj instead of 
-kzalloc for dio_create() in dcn10-36_resource.c, same as dcn401, ie
+My point was just that I wanted to wait for our testing cycle to
+complete before I pushed the fix.  In the past I've pushed fixes near
+the end of a kernel cycle without waiting for the testing to complete
+which ended causing more problems than they fixed.  The testing has
+completed and the patch is good.  I'll send Dave and Simona a PR
+momentarily.
 
-struct dcn10_dio *dio10 = kzalloc(sizeof(struct dcn10_dio), GFP_KERNEL);
-
-With this fix, the patch passed the promotion testing.
-
-Thank you again
-
-On 4/1/2026 3:14 AM, Ionut Nechita (Sunlight Linux) wrote:
-> [You don't often get email from sunlightlinux@gmail.com. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
-> 
-> From: Ionut Nechita <ionut_n2001@yahoo.com>
-> 
-> Thank you, Ivan, for picking up this patch and for the review.
-> 
-> If any issues come up during the promotion cycle testing, I'll be
-> around to address them.
-> 
-> Best regards,
-> Ionut
-
--- 
-Thanks,
-Ivan Lipski
-
+Alex
