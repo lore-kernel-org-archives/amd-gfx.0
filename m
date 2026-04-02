@@ -4,98 +4,101 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A83E5D6AAFE
-	for <amd-gfx@archiver.kernel.org>; Thu,  2 Apr 2026 19:34:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DAB18D6AB00
+	for <amd-gfx@archiver.kernel.org>; Thu,  2 Apr 2026 19:44:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3E90710F297;
-	Thu,  2 Apr 2026 19:34:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7DEE489AAE;
+	Thu,  2 Apr 2026 19:44:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="niJI/PvC";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="2IXzqTIb";
 	dkim-atps=neutral
-Received: from mail-dl1-f45.google.com (mail-dl1-f45.google.com [74.125.82.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7EC3A10E047
- for <amd-gfx@lists.freedesktop.org>; Thu,  2 Apr 2026 19:34:45 +0000 (UTC)
-Received: by mail-dl1-f45.google.com with SMTP id
- a92af1059eb24-1277863a912so134642c88.0
- for <amd-gfx@lists.freedesktop.org>; Thu, 02 Apr 2026 12:34:45 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1775158485; cv=none;
- d=google.com; s=arc-20240605;
- b=QDO6wOEYLtOSucHj2Y8oZdQLstbUau0XshbB7GsCCRL3EU70BZcyNWqm3Nebm0zfGq
- rcppuNrVsL4NTSzRCNAK/mMKgMZ+QcL/7YlOlVL/xo1sGs7fxzZEWEA9y88VlAQwxucn
- 7mZUsZxNgI3j0DIg0+Bmvpu95sZlhJu8mM7AKnbIICSnAZWwekvwsFAHzRUVlWt9ofEN
- 0IU1pdAkQy/bBjVKKbPmGIHt3bDYxgchtT6tqLAwvjRmLuGW+Ij9OnNPl6o+3CkGDJj3
- /IRDBB9flxUcg5blEIqNz18J3EUMgCmG6PNrd+84R3kvw9zm/akKOXRV8c3E60Zg1udv
- CLqQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=z6paV10TjiBBQpUTwHKDd5p6LgrjhSvi+dQvAUrRBGg=;
- fh=KF1ILXc3aFqcYCrwZWxozYCLY7iRCxTq6kWmGXBtHV0=;
- b=dOTlZ6Ku4Qt7SSy5Yub4oLyjoa9BRz9Q5owDDCG52PhBfYrHbarQu0HGLAuFrLAZvd
- O3kxTCsyl1NzovfsZEpIMphPTxrCAth1K4D9Fy32s7drf9jGa0VQmi+ZhdPdhXw8Mvwx
- LQAplH34GOMQcyjowHgT8quScj5dBt+hB98pRexOk8pq4n7QmJS3ufYmf47x2hrCMtBY
- y+Zaa8tkaiv3BNfPV3vO6zUlGaTHXatkHgnpboYcIwf4ubBrPQeVdrxc2XTP/SgBU/ia
- BV8JdQ5es75YiefasDowOE02Q6zD6Pu7G2aJlFbptSj79mXAvj9EicG9Rgtt9TMWdVUu
- z++w==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1775158485; x=1775763285; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=z6paV10TjiBBQpUTwHKDd5p6LgrjhSvi+dQvAUrRBGg=;
- b=niJI/PvCdyMF/n8p1oOXgapxTqvdc19ChPcyDpBw/qW1FN9iVzFoc0vZ5X3X4sudww
- GW0h+aiBR4dfvBbN9RKknJ2e24DTAfMrRXmwx3k5HbAjBnrzu1vHGPV3Z/Kxd7buC6ds
- gTCP2OdaSLmMN8BS2x3aVJD7tTr0uU+Y9jrydqnU22jEHvq3N/dkIdTMkKiVYNMwtE27
- 6+TsjrbyaY8MnANSQjbAtohTFh9d47YJF/0UEBRPlPQ86/aiXHI32WENdsboCH5gWS+p
- 5DmvYiU0H8HTs1rGlt6vIFs/50i6iGn5a+J1zAjhPhgrXbL6jHB7h3ekHldJ2Ok+LdIP
- y9fA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1775158485; x=1775763285;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=z6paV10TjiBBQpUTwHKDd5p6LgrjhSvi+dQvAUrRBGg=;
- b=hql9zjNlX1SeQ6ZqqhHdlu7zvE+pFBoBuDSAp2y5tnjTFGDSVwBVj05kY85hMirKVx
- QCwO7ReuEMXJmJ0V8NkGAkCKpgXGdlDjsvbjUTOftr3mO4KiK1ICy5qxisyjHXoRBygV
- W0gzhKZj9SGoUl99HwuGojayZrYwsrjsV9NtEUahSE9WApWtHZNu21pk14iRheEhZFYK
- uF/ibk+ePrKjR1AG/p7893InNds6yA1lO2rCX2Lklocp+h8/Y5ZQHmoROyGM17eDIFzD
- zS2DcTAcZ6SeCAdb/6JQpB9Zk9treYQRPxGy2vi8DX58p/H7j9y+D0ZcaG0UC5Tgx0Bc
- H0ZQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCU7E+ajpe8pHJqlqoRtp3o08zkCk0tcTCdDjzLAwD3cR0SWTFd5rQtDESUpQXeHHL/GubG0f9Mr@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzaSGSgy8pzPIdQd2JMXb9jcKbaYATmkFRRC7JQJIFcFI80C1p4
- /A+wiqmcNrQiqx7UO0dY+9zG3sYhJIHjK1OFk89ETmWzGg/gIT4tpPpvLu/mr5n+nw1ewkCNYUq
- nwHQdO4Ww3W3NKq6XGfPAKSg4J1BH/Ps=
-X-Gm-Gg: ATEYQzyyaD89/MdFM69hEZ7OSVJds+nlniOYHz88Bi9O0QYKSmNVMgoVxDDsnKpsa7D
- N7Oigebo8Nov2Zj3LM6OJxsQObfucL1TSPOezcHmfPUeeCwZjMH1A2/Ovc6iZaOn8xhs/RkJdYW
- So7JCDKiRT8XCqBz/dWnHJWpNwZg/ox05bLArn1Mh7PAGAWp5JabM64eiq0zeYZJ5KXOxCAbTUG
- 0axxl6COze+3ZS8Pl/zPlQSr0m9bnAbA/N7uVY+TULXSjBmrJEKFL4Cvy5cqxzH/K57iICduwwb
- ziJqodMW54pf4Zw55h53n4PrDzJ2TB0bkYLO+H/DkGFWqfVxW8cu31ZgFnTS/K3plEzBQw==
-X-Received: by 2002:a05:7022:4396:b0:119:e56b:46b7 with SMTP id
- a92af1059eb24-12bfb6f27dcmr67982c88.1.1775158484591; Thu, 02 Apr 2026
- 12:34:44 -0700 (PDT)
+Received: from CH1PR05CU001.outbound.protection.outlook.com
+ (mail-northcentralusazon11010046.outbound.protection.outlook.com
+ [52.101.193.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B9B2189289;
+ Thu,  2 Apr 2026 19:44:33 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Dmy+HiBd8dnL7rwKwf8mA92ysTbryQk10J/mTOdYyGUJXJ7isqs8+pb8h7WaAXKNLOJfUuMPiODAWirrakmEQRKxt5GOVgPhIzxb0zvMFuPtm+PBv1cbaARlxJGZ5E6MQJc/6NysvR85TkTXJJ45giUgj+Az9OraAVW9Tu8dnDNRer0nKzNzbjwkO9YzGKca6iZ9tro6lf7l6U99f46xJwdEIrV2t8YdFG2ZCmZ742UyNOjeAGD7YvESUhgBQhGH73VFnRueHjwLFjvWSnAtqyUD/4zhtUUxCWmnpcU5HnnkJQSFAp7aPGN5ztKWFpz/xeD8VmGzClG2h0m62Ib+Pw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=C77S1bJJY0iW9wnA9Pn8GPS9eCE2EzROM21refEQOQI=;
+ b=urzhzv/T0Hh/MR18TjcouQPEhMetIKr5dwPzi10WSA3pcTkHZcmZ2DJyeuYCcOupv76TExcHCOgBtTrOWdxM4IHAxHTuAF6mFtazgO6sLyCcXpXBzlFAL/a3Bc4tz603tgwqfIJAdEubAV0t1O3F09mrzPbD43VCLEGyuwX8g/oX1pVD6BVDwNudDIsAb4osWsVp6OwqEHb6UrYmhQ+4En3ktDa+m5s6VeP7uYxsn8RpbTkPBYXiS7XmlERkh3AJbN/VsfSuVhcg6qg6xEXvp7qbLJR1spNF1LNqkn4ZieMXLDKyDyEEGWwVB0k0V8HoxPKV/fZTin1KZO+HJ3ajjQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=C77S1bJJY0iW9wnA9Pn8GPS9eCE2EzROM21refEQOQI=;
+ b=2IXzqTIbtfM4IFm/+7DQ4bvy+xDsyJMcmOTBlG+VxdCUpFZVYlGvOdcIcXaykaQMsroe0TSu5TSWU8jgUz3AzqrLA/QIccCCXc02/GIaWzMEnF3/6X5LQALDN21jwRbhzOgz6sRPPsNOgPo81ihg2jm/x2hJlqhwq/8Snpr74WQ=
+Received: from BYAPR11CA0041.namprd11.prod.outlook.com (2603:10b6:a03:80::18)
+ by LV8PR12MB9715.namprd12.prod.outlook.com (2603:10b6:408:2a0::7)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.21; Thu, 2 Apr
+ 2026 19:44:25 +0000
+Received: from SJ5PEPF000001CC.namprd05.prod.outlook.com
+ (2603:10b6:a03:80:cafe::6) by BYAPR11CA0041.outlook.office365.com
+ (2603:10b6:a03:80::18) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9745.30 via Frontend Transport; Thu,
+ 2 Apr 2026 19:44:25 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ SJ5PEPF000001CC.mail.protection.outlook.com (10.167.242.41) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9769.17 via Frontend Transport; Thu, 2 Apr 2026 19:44:25 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Thu, 2 Apr
+ 2026 14:44:23 -0500
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Thu, 2 Apr
+ 2026 14:44:23 -0500
+Received: from p8.amd.com (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
+ Transport; Thu, 2 Apr 2026 14:44:22 -0500
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <airlied@gmail.com>, <simona.vetter@ffwll.ch>
+CC: Alex Deucher <alexander.deucher@amd.com>
+Subject: [pull] amdgpu drm-fixes-7.0
+Date: Thu, 2 Apr 2026 15:44:09 -0400
+Message-ID: <20260402194409.914769-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
-References: <20260401184456.3576660-1-alexander.deucher@amd.com>
- <47c508c3-3424-4e8a-a63c-1f29d13b6ebe@leemhuis.info>
- <CADnq5_MiFOYLP9aUnYw4HFb-xWLZdq245ZB3e6iGn09ywOsY2w@mail.gmail.com>
- <CAHk-=wiNdTNNxzRuxXYq1Ebpiv6YF4UMZApoQGnktbMjKFYP+w@mail.gmail.com>
-In-Reply-To: <CAHk-=wiNdTNNxzRuxXYq1Ebpiv6YF4UMZApoQGnktbMjKFYP+w@mail.gmail.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 2 Apr 2026 15:34:31 -0400
-X-Gm-Features: AQROBzDmFsLYBUfG_KyTv2yWvRF9jyysl3p7CylmtFmeiPAhvDxo-SPdx5QhP6o
-Message-ID: <CADnq5_Ns+NEm3eNJjs+7HG8qBnX8OX6TMsj444B4xFW7=z7P8A@mail.gmail.com>
-Subject: Re: Regression fix for audio issues with pre-DCN401 chips (was: Re:
- [pull] amdgpu, amdkfd drm-next-7.1)
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: Thorsten Leemhuis <regressions@leemhuis.info>,
- Alex Deucher <alexander.deucher@amd.com>, 
- amd-gfx@lists.freedesktop.org, airlied@gmail.com, simona.vetter@ffwll.ch, 
- Linux kernel regressions list <regressions@lists.linux.dev>,
- dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ5PEPF000001CC:EE_|LV8PR12MB9715:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8c8dc91d-ccaa-4f1c-678f-08de90f03ed1
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|82310400026|1800799024|376014|36860700016|13003099007|18002099003|56012099003;
+X-Microsoft-Antispam-Message-Info: 62XRyBplzKQQk6civ2HXBnXMHO1n/3X5Z+VchTcXztgPd9wsFgf2Laz5y7saFht578Worirz6F+0A5q1xDUkVB9ozVHyGQb5F2VwCdYDUPXmCzfb9xdZ/Z4YlckD1tlM0EXKIFQnE8xaC0rkMsuMgj5hTSt5pSIMari7H6YmAC4aHrhze59mjIH6JJUXwG2T/M5mC6C7LyN7ynqWhPR9WhpvYyX8c1Vde3OdXnKe1F6Du0kTe8HwO2ZbwMZIEc2fRQQLvA8nh4T8XRPiQ0TsP5j3nm4sR5WHJDbRC5pLSPrkOqRlI6Kb1SbntWbwOhvvG6s2bQmwAIX7EOuUgisSkITqTN9ONJ/I/bZ7JOAJenydSjhN8VE17DLYX7IZo7zrr5eC+x6TO7tDY1R+je4egp9hk42RNH5snIEHsRuwRHWFd8Wgl8zKEkKVslN89njU/pNfeyYaAQXynAjKvoLDcTNffqBvAFl4MQUB0o1NQ6gP9NNkq1oFoKjFF8mPpO0mAedcZEocMo4JpjPyR/FahjxwD+Py0OjbnHqHrPeK5+KdO7WhtMjCdCMJo9/ONKWy1gmb9iIZiIUp7+1fc9Ld3CKNlbmTC0DXse1/+1bIpTNZCgiysFlDG1N4XOlWhg6e+f7NJhA3ws2GDrPREW87Zo736IRl2zwRCWsEHqAP74Bi9MjgTqZa/8UMF5q5hvSsdhXfpOy/s3wFXvkZxYg3JpLZJMVXdaya1TEUty/gRi0=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(1800799024)(376014)(36860700016)(13003099007)(18002099003)(56012099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: kyqKOhDuV/874Q9q9M6If966eVk+/lFXhkyBCTe68EPBA+xtUIfi0J19XuHcif79LJ5AApWqZ9GodPJcm0FVDDqITtUh1OOK4d7WAVozD5l2mcnioaOAA13RidPtHma7zX4B6cNe58bXUOX5bqG7OlvpqPfvIXvLvfdYS5CaPE+wGusOV31F19/iNm/1vYWfpHgckh8Yooh2BhI56LV9YFjcm8GR38yMKgTKgdSQTm+trwtCSIJwQSF4/ZfP3HL7DBLLYeA2sk0bU2LIKyPXOyuCmXfBUQK5+7/jYishqBEtGKvBIu6p5ahIDT5nGwJKwKY8a7YTs7kkcxt8mSogvAPIbFf+JZpxnNWQ4WDxND6L/WkpmaQUVh4HYeaxojvcklgMkWXvOVF18dWvmI+Thf2SaxVHI3QPZaUJPbjwMqeB+auXS37ES3V3lOGCm8+1
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Apr 2026 19:44:25.2303 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8c8dc91d-ccaa-4f1c-678f-08de90f03ed1
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF000001CC.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9715
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,86 +113,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Apr 2, 2026 at 3:02=E2=80=AFPM Linus Torvalds
-<torvalds@linux-foundation.org> wrote:
->
-> On Thu, 2 Apr 2026 at 11:27, Alex Deucher <alexdeucher@gmail.com> wrote:
-> >
-> > There are always new fixes.  Worse case it ends up in 7.0.1.  If it
-> > causes other regressions, then we end up introducing a new regression
-> > in rc7.
->
-> This was a regression in rc1, that was reported several weeks ago.
-> Anything that gets reported that early in the release cycle is bound
-> to hit lots of people, because the number of people testing early rc
-> kernels is relatively small.
->
-> So why pointlessly delay *known* regressions for fear of a potential new =
-one?
->
-> And why point out rc7, when dammit, this could have been fixed long
-> before and *not* be that late in the release?
->
-> The bug was reported a month ago. The patch was posted  ten days ago.
->
-> It could have been in rc6 and gotten a bit more testing, but was
-> delayed for unknown reasons, and now the argument is that we should
-> avoid the testing in rc7 and just put it in a stable release instead?
->
-> What's the advantage of releasing 7.0 with a known problem, and delay
-> any potential reports of whatever new regressions in 7.0.1 instead?
->
-> What is the logic here? Really?
->
-> As you say, there are always new fixes. But how exactly does that
-> change anything?
->
-> The fact that there will be new fixes just means that delaying known
-> fixes will only result in all those fixes just piling up.
->
-> Or worse yet, all those known *problems* piling up, where known
-> problems may then end up hiding even more problems that people don't
-> even see because they hit the first issue.
->
-> So what is the point? Why are things delayed?
->
-> The whole reason we have rc release candidates is (a) finding bugs and
-> (b) GETTING THEM FIXED BEFORE THE ACTUAL RELEASE.
->
-> What did you think a "release candidate" was all about if that's not
-> your reading of the issue?
->
-> And if fixes look too scary or uncertain, we *revert* the change that
-> caused a regression. We don't go "fixing it is too scary".
->
-> And yes, we have more timely releases than pretty much any other
-> software project has, and that is partly exactly so that things don't
-> build up over time.
->
-> We don't want new features to build up over time - long long ago we
-> had long release cycles that then dragged out even *more* because
-> there just was too many changes and they all had issues that needed
-> fixing.
->
-> But we also don't want the known problems to build up over time.
->
-> One of the points of of "release early, release often" is to find bugs
-> quickly - and then *fix* them quickly so that we can leave the issue
-> behind instead of letting it fester and cause longer-term issues.
->
-> This "drag your feet because there will always be other fixes" makes
-> absolutely no sense to me, and it's not how we work.
->
-> So  honestly, there are exactly two choices: apply the fix, or just
-> revert the commit that caused the problem in the first place.
->
-> Because no, "let's just have a known regression" is not how we roll.
+Hi Dave, Simona,
 
-My point was just that I wanted to wait for our testing cycle to
-complete before I pushed the fix.  In the past I've pushed fixes near
-the end of a kernel cycle without waiting for the testing to complete
-which ended causing more problems than they fixed.  The testing has
-completed and the patch is good.  I'll send Dave and Simona a PR
-momentarily.
+Regression fix for 7.0.
 
-Alex
+The following changes since commit 78746a474e92fc7aaed12219bec7c78ae1bd6156:
+
+  drm/amdkfd: Fix queue preemption/eviction failures by aligning control stack size to GPU page size (2026-03-30 16:22:44 -0400)
+
+are available in the Git repository at:
+
+  https://gitlab.freedesktop.org/agd5f/linux.git tags/amd-drm-fixes-7.0-2026-04-02
+
+for you to fetch changes up to a4983968fa5b3179ab090407d325a71cdc96874e:
+
+  drm/amd/display: Wire up dcn10_dio_construct() for all pre-DCN401 generations (2026-04-02 15:24:13 -0400)
+
+----------------------------------------------------------------
+amd-drm-fixes-7.0-2026-04-02:
+
+amdgpu:
+- Fix audio regression on renoir
+
+----------------------------------------------------------------
+Ionut Nechita (1):
+      drm/amd/display: Wire up dcn10_dio_construct() for all pre-DCN401 generations
+
+ .../amd/display/dc/resource/dcn10/dcn10_resource.c | 41 +++++++++++++++++++++
+ .../amd/display/dc/resource/dcn20/dcn20_resource.c | 42 +++++++++++++++++++++
+ .../display/dc/resource/dcn201/dcn201_resource.c   | 41 +++++++++++++++++++++
+ .../amd/display/dc/resource/dcn21/dcn21_resource.c | 34 +++++++++++++++++
+ .../amd/display/dc/resource/dcn30/dcn30_resource.c | 42 +++++++++++++++++++++
+ .../display/dc/resource/dcn301/dcn301_resource.c   | 42 +++++++++++++++++++++
+ .../display/dc/resource/dcn302/dcn302_resource.c   | 41 +++++++++++++++++++++
+ .../display/dc/resource/dcn303/dcn303_resource.c   | 41 +++++++++++++++++++++
+ .../amd/display/dc/resource/dcn31/dcn31_resource.c | 40 ++++++++++++++++++++
+ .../display/dc/resource/dcn314/dcn314_resource.c   | 40 ++++++++++++++++++++
+ .../display/dc/resource/dcn315/dcn315_resource.c   | 40 ++++++++++++++++++++
+ .../display/dc/resource/dcn316/dcn316_resource.c   | 40 ++++++++++++++++++++
+ .../amd/display/dc/resource/dcn32/dcn32_resource.c | 43 ++++++++++++++++++++++
+ .../display/dc/resource/dcn321/dcn321_resource.c   | 43 ++++++++++++++++++++++
+ .../amd/display/dc/resource/dcn35/dcn35_resource.c | 43 ++++++++++++++++++++++
+ .../display/dc/resource/dcn351/dcn351_resource.c   | 43 ++++++++++++++++++++++
+ .../amd/display/dc/resource/dcn36/dcn36_resource.c | 43 ++++++++++++++++++++++
+ 17 files changed, 699 insertions(+)
