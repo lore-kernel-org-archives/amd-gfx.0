@@ -4,100 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2E51DE8536E
-	for <amd-gfx@archiver.kernel.org>; Fri,  3 Apr 2026 13:58:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 97503E8536F
+	for <amd-gfx@archiver.kernel.org>; Fri,  3 Apr 2026 14:00:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9C23B10E4C0;
-	Fri,  3 Apr 2026 13:58:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3234510E4D2;
+	Fri,  3 Apr 2026 14:00:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="eA0faHic";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="lE4nEs7D";
 	dkim-atps=neutral
-Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com
- [74.125.82.181])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 87DD810E336
- for <amd-gfx@lists.freedesktop.org>; Fri,  3 Apr 2026 13:58:39 +0000 (UTC)
-Received: by mail-dy1-f181.google.com with SMTP id
- 5a478bee46e88-2cb19ddda43so144259eec.3
- for <amd-gfx@lists.freedesktop.org>; Fri, 03 Apr 2026 06:58:39 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1775224719; cv=none;
- d=google.com; s=arc-20240605;
- b=Bz0Hsi/3BHQjxJWTfuht4+TxpzmBV/wbEq1zRZgkvws+o0cmRobFoYK2H4DXKrVPvN
- jSF2j4HxW8NuydhqCelDkt0OHGIxvEVujUUh9w7nHGta6Aq8HR0H2uzbulPM+RIxur77
- 4iCeY4Bn2338pC5E42ZEvX1a5OvbOG9y7MVUsgmDou4wP+9QfhgneofIJWTuf1ca2T3H
- D7I9JFs3RJ0yX8Rgb1xM6aXSnYrxCP9RyOiXp6pRlxs4liPZ1S5Gx3WnlXU0WCIWawXZ
- Yq4vG+FZpPwnNNC4IbA8QjAyugNmOl5hPvDjQv5cXdLNIk+CAq/0/E59hWsCMYHSWifa
- Kmwg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=E/8MLjB597InPhhmW9JbLbwR8LfCAxtR7ZWCpA3gxaY=;
- fh=s222Lb767PwB4WWFm8MmZPwm2fNuW2emQPOz3qHIGAc=;
- b=FI/7wMeBuW86g7Hk5Q32Dd2Wm6kONfM//kIh7ivEvMbDUEQEwGGG0oAMO0AVsVLnwi
- 7l3BCL2/0b4+8XZ36lg+Pyzt2pRkrTlarB0iOxj88m3mJHwbz/KtIKQEilSedSckpGAz
- aJFMjjf5Dn/YqzHbG6izGNiEX8lriGGkNq6fXavGnvwC9HBMG8vRTp1OflEVXV8e2l6u
- RyJIhMgVrUewvArOKrP2JKKUScWOUDF0oy0XTXe1ABIsMVQRmhZRrYcx5NcnT8rb31Wq
- ndnzrfSI9fp89SYoZyyf40ZwdD1nA6lzbgaqGulmhtC4fQKEDQYT9ZTNj9qen0LxXkVU
- J/iQ==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1775224719; x=1775829519; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=E/8MLjB597InPhhmW9JbLbwR8LfCAxtR7ZWCpA3gxaY=;
- b=eA0faHic0JBL4DRSNvoHSXH2r7SgPznK7xa3bW7pDy6Vi8lqm4yHlYIgroTYuXVZ4L
- 580FvF8EyVShq08W06okh4l5jdYabSlmEqCSJFoU3fieP/I4XfV8t3bEIidFW6NholpP
- NvbBYzOS1VozbHpzZim/Xqms/fGYv3D2ePlxzro0M94Unu0hQ0KtECjTfVgw+5dxX3gz
- H4I4CbQngcw9ISIHnmaVSDMU2vZwKC5hdN+zYYNCJi/iBMxlMYOr756pFPu+Xf9Siypd
- OfxGLZMDUF2yw+bDvfZwrRT5/E92kFVM21SeOYDeWMkIqQbMMDiBe1e92RpwKIsgeJ/A
- 6P4A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1775224719; x=1775829519;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=E/8MLjB597InPhhmW9JbLbwR8LfCAxtR7ZWCpA3gxaY=;
- b=MnENviHpClAJmicAVQskdbQxI0vsBSdAnx4SN6aIs84AxsbycAEmOv1Ksx3hdmWDxn
- 0UkPbv44prYoOqV2SX6u3dhxXl6Z8elMAFK16Rf2BI2NR/nKoWBKmsIvPexv76cYE/GM
- vN+BfFg0IMmv08oQcBj2IzXvZa0iOW5+oEkzdLlPRIM/4J8nmzkOrI9hFH8NOxQkEAaM
- EIRPnY69yUgZmuMZtB2htgHmxD5bvKkrPTJkHu7TElhCwzptG0kD7kkOJq0DS8DjT6pk
- TiZNTvSPDB4SQoqCR578PHgu+tC0jRilg9t8HPSDzALJkJbIEHG6n3BPwgv6WjFh2rgq
- 3Pxw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWFx7Q006g6oO6ZV+jOyxApG/T40gO8J4izbRY3dsUT/k8w0hRFxOkaMJ1hkty9mQaTqU+8Qr73@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yz2FucUTb3Fq2c5C+L2qkWrPkheUOX3qduaDh5e9XDrLsF34tph
- PKuBtuaLe+9D+DKxOhqzGwXYgNE3nxztWb7hqpjErpCG4a5MN4egj9I2u9/cASqtBv8QxmRQThY
- 6pbAaOrhBugXfM1iH9/hrCwBUXGx/Or8=
-X-Gm-Gg: ATEYQzwdJ11HqVNPzen36mUw0iI+/bW6/jn42wyBuSkEJJFwQ1IOMQfkKInpUQ58WZu
- DTMN/ELwjk0q2ASnbvDoDKcCV3w24LBeiiGBprIaS7Ai22jEvcc9DPUOiskmjVYudFZyjljYHdd
- T2/aHjnUkc13+HwgmTCIv4eSlhKnu4fekmGgSnJkGhnYxdyWj4+bSVqqdSxVIqLb/r131fBwKbD
- 8W0uwMFYWCsf/TIiX4Z5JqiAlKZAa4tmbUVz2T/A4h2iG8JIMIkANCKZ2qGPQrmnrMPCT4t38tG
- fnDBFWBQy22+/5patSuH5wA9oaB5pSDQ6P8KYa/WbjXFVVcPswTDYyFeHj4KzjWUAw4uTwBqZxl
- 0O+Tq
-X-Received: by 2002:a05:7022:90e:b0:119:e56b:c3f1 with SMTP id
- a92af1059eb24-12bfb6e47a0mr628241c88.1.1775224718662; Fri, 03 Apr 2026
- 06:58:38 -0700 (PDT)
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1347410E4D2;
+ Fri,  3 Apr 2026 14:00:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:
+ Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:Content-Description:
+ Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
+ In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=EqpU1dDfv52luCeshlsbukA0ydZPINR/isA921H1mmQ=; b=lE4nEs7DWW1SvEG7svM57AkYrG
+ 6LEFNuH44KDqZjiXJfs+Of/0k+ZyyiwpWwjMB0eigVMG2XCrgsreS0/uPaeaYUgnYlEHJTyrzzrqc
+ UVKzO55B5udp0mwunEy0x/XfmXSm6DCpAgZbUcIjFn7ucwNWH3WwTtM9lUKqWy6zRHoIXavRwVW14
+ szio9fCGSVupPPd9vL09/TrCV1naVBveecCMqNNBaEcDAa+wFY6BudJ1td/tu1w9oylFz7kjb2K25
+ RtRGnmK/uDZ+BNErS+fWmjQDgkNpIYi1elZZl9PQ869MKSTJQCsjrsyaAIuctNKiUx3tVNRJQN9IO
+ W+pf47EQ==;
+Received: from [189.89.58.26] (helo=killbill.home)
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1w8f3W-00AtJL-6g; Fri, 03 Apr 2026 15:59:26 +0200
+From: Melissa Wen <mwen@igalia.com>
+To: airlied@gmail.com, alexander.deucher@amd.com, christian.koenig@amd.com,
+ harry.wentland@amd.com, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, simona@ffwll.ch, siqueira@igalia.com,
+ sunpeng.li@amd.com, tzimmermann@suse.de
+Cc: Alex Hung <alex.hung@amd.com>, Simon Ser <contact@emersion.fr>,
+ Uma Shankar <uma.shankar@intel.com>, Xaver Hugl <xaver.hugl@kde.org>,
+ Pekka Paalanen <pekka.paalanen@collabora.com>,
+ amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Subject: [PATCH v3 0/6] drm/atomic: track colorop changes of a given plane
+Date: Fri,  3 Apr 2026 10:58:24 -0300
+Message-ID: <20260403135909.214378-1-mwen@igalia.com>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
-References: <20260403082207.1533450-1-linus.probert@gmail.com>
- <20260403082207.1533450-3-linus.probert@gmail.com>
-In-Reply-To: <20260403082207.1533450-3-linus.probert@gmail.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 3 Apr 2026 09:58:25 -0400
-X-Gm-Features: AQROBzD4l2RuNXAWnyj10hqszozqRGOPyGhrLSo3OBrCysDjTXcQaYtTn5jK3PM
-Message-ID: <CADnq5_NQPhgfuuawBQ+ZQY-aFxx7jFu16szgNE50+bbKHNx+bA@mail.gmail.com>
-Subject: Re: [PATCH 2/2] drm/amd/display: Remove unused NUM_ELEMENTS macros
-To: Linus Probert <linus.probert@gmail.com>
-Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
- Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- "Robert P. J. Day" <rpjday@crashcourse.ca>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,84 +68,60 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied the series.  Thanks!
+Similar to what is done for tracking CRTC color mgmt property changes
+with CRTC `color_mgmt_changed` flag, track colorop updates of a given
+plane color pipeline by setting plane `color_mgmt_changed` flag. Also
+true if setting a different color pipeline to a given plane. That way,
+the driver can react accordingly and update their color blocks.
 
-On Fri, Apr 3, 2026 at 5:29=E2=80=AFAM Linus Probert <linus.probert@gmail.c=
-om> wrote:
->
-> Removes unused NUM_ELEMENTS macros. Discovered while removing cases
-> where ARRAY_SIZE from the header <linus/array_size.h> can be used.
-> This also aligns with the array_size.cocci coccinelle check.
->
-> Suggested-by: Robert P. J. Day <rpjday@crashcourse.ca>
-> Signed-off-by: Linus Probert <linus.probert@gmail.com>
-> ---
->  drivers/gpu/drm/amd/display/dc/dpp/dcn10/dcn10_dpp_cm.c   | 3 ---
->  drivers/gpu/drm/amd/display/dc/dpp/dcn401/dcn401_dpp_cm.c | 3 ---
->  drivers/gpu/drm/amd/display/dc/mpc/dcn20/dcn20_mpc.c      | 2 --
->  drivers/gpu/drm/amd/display/dc/mpc/dcn30/dcn30_mpc.c      | 4 ----
->  4 files changed, 12 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/display/dc/dpp/dcn10/dcn10_dpp_cm.c b/dr=
-ivers/gpu/drm/amd/display/dc/dpp/dcn10/dcn10_dpp_cm.c
-> index f8f6019d8304..2bdd063cc1e1 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dpp/dcn10/dcn10_dpp_cm.c
-> +++ b/drivers/gpu/drm/amd/display/dc/dpp/dcn10/dcn10_dpp_cm.c
-> @@ -49,9 +49,6 @@
->  #define FN(reg_name, field_name) \
->         dpp->tf_shift->field_name, dpp->tf_mask->field_name
->
-> -#define NUM_ELEMENTS(a) (sizeof(a) / sizeof((a)[0]))
-> -
-> -
->  enum dcn10_coef_filter_type_sel {
->         SCL_COEF_LUMA_VERT_FILTER =3D 0,
->         SCL_COEF_LUMA_HORZ_FILTER =3D 1,
-> diff --git a/drivers/gpu/drm/amd/display/dc/dpp/dcn401/dcn401_dpp_cm.c b/=
-drivers/gpu/drm/amd/display/dc/dpp/dcn401/dcn401_dpp_cm.c
-> index 62bf7cea21d8..7b7a0c660d47 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dpp/dcn401/dcn401_dpp_cm.c
-> +++ b/drivers/gpu/drm/amd/display/dc/dpp/dcn401/dcn401_dpp_cm.c
-> @@ -49,9 +49,6 @@
->  #define FN(reg_name, field_name) \
->         dpp->tf_shift->field_name, dpp->tf_mask->field_name
->
-> -#define NUM_ELEMENTS(a) (sizeof(a) / sizeof((a)[0]))
-> -
-> -
->  enum dcn401_coef_filter_type_sel {
->         SCL_COEF_LUMA_VERT_FILTER =3D 0,
->         SCL_COEF_LUMA_HORZ_FILTER =3D 1,
-> diff --git a/drivers/gpu/drm/amd/display/dc/mpc/dcn20/dcn20_mpc.c b/drive=
-rs/gpu/drm/amd/display/dc/mpc/dcn20/dcn20_mpc.c
-> index ea73473b970a..fa600593f4c1 100644
-> --- a/drivers/gpu/drm/amd/display/dc/mpc/dcn20/dcn20_mpc.c
-> +++ b/drivers/gpu/drm/amd/display/dc/mpc/dcn20/dcn20_mpc.c
-> @@ -43,8 +43,6 @@
->  #define FN(reg_name, field_name) \
->         mpc20->mpc_shift->field_name, mpc20->mpc_mask->field_name
->
-> -#define NUM_ELEMENTS(a) (sizeof(a) / sizeof((a)[0]))
-> -
->  void mpc2_update_blending(
->         struct mpc *mpc,
->         struct mpcc_blnd_cfg *blnd_cfg,
-> diff --git a/drivers/gpu/drm/amd/display/dc/mpc/dcn30/dcn30_mpc.c b/drive=
-rs/gpu/drm/amd/display/dc/mpc/dcn30/dcn30_mpc.c
-> index 6bfd2c1294e5..ec2181d9f20b 100644
-> --- a/drivers/gpu/drm/amd/display/dc/mpc/dcn30/dcn30_mpc.c
-> +++ b/drivers/gpu/drm/amd/display/dc/mpc/dcn30/dcn30_mpc.c
-> @@ -40,10 +40,6 @@
->  #define FN(reg_name, field_name) \
->         mpc30->mpc_shift->field_name, mpc30->mpc_mask->field_name
->
-> -
-> -#define NUM_ELEMENTS(a) (sizeof(a) / sizeof((a)[0]))
-> -
-> -
->  void mpc3_mpc_init(struct mpc *mpc)
->  {
->         struct dcn30_mpc *mpc30 =3D TO_DCN30_MPC(mpc);
-> --
-> 2.53.0
->
+This small series fix shaper/3D LUT updates when changing night mode
+settings on gamescope with a custom branch that supports
+`COLOR_PIPELINE`[1].
+
+This series doesn't cover 1D/3D LUT interpolation, since it's documented
+as read-only properties.
+
+v1: https://lore.kernel.org/dri-devel/20260318162348.299807-1-mwen@igalia.com/
+Changes:
+- include linux types for function's bool return type (kernel bot on MSM
+  driver)
+- add Harry's r-b tags
+
+v2: https://lore.kernel.org/dri-devel/20260323131942.494217-1-mwen@igalia.com/
+Changes:
+- [NEW] two patches to only consider colorop updates from active color
+  pipelines (Chaitanya)
+- [NEW] make lut interpolation properties mutable + Alex H patch for
+  kernel docs
+- track lut(1/3)d_interpolation updates (Chaitanya)
+- rebase changes according to new patches
+
+Let me know your thoughts!
+
+[1] https://github.com/ValveSoftware/gamescope/pull/2113
+
+Melissa Wen
+
+Alex Hung (1):
+  drm/colorop: Remove read-only comments from interpolation fields
+
+Melissa Wen (5):
+  drm/atomic: only add colorop state from active color pipeline
+  drm/atomic: don't set colorop properties of inactive color pipelines
+  drm/colorop: make lut(1/3)d_interpolation mutable
+  drm/atomic: track individual colorop updates
+  drm/amd/display: use plane color_mgmt_changed to track colorop changes
+
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  6 +-
+ drivers/gpu/drm/drm_atomic.c                  | 43 +++++----
+ drivers/gpu/drm/drm_atomic_helper.c           |  9 +-
+ drivers/gpu/drm/drm_atomic_uapi.c             | 93 +++++++++++++++----
+ drivers/gpu/drm/drm_colorop.c                 | 16 +++-
+ include/drm/drm_atomic.h                      |  2 +-
+ include/drm/drm_atomic_uapi.h                 |  4 +-
+ include/drm/drm_colorop.h                     | 34 ++++---
+ 8 files changed, 136 insertions(+), 71 deletions(-)
+
+-- 
+2.53.0
+
