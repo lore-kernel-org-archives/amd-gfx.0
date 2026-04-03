@@ -4,92 +4,104 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6CCCAE8536F
-	for <amd-gfx@archiver.kernel.org>; Fri,  3 Apr 2026 13:33:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F1BF5E85367
+	for <amd-gfx@archiver.kernel.org>; Fri,  3 Apr 2026 13:43:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 438BC10E0E6;
-	Fri,  3 Apr 2026 13:33:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8E90810E14A;
+	Fri,  3 Apr 2026 13:43:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ULfyptV9";
+	dkim=pass (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.b="IZcKXniS";
 	dkim-atps=neutral
-Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com
- [74.125.82.169])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9583710E0E6
- for <amd-gfx@lists.freedesktop.org>; Fri,  3 Apr 2026 13:33:16 +0000 (UTC)
-Received: by mail-dy1-f169.google.com with SMTP id
- 5a478bee46e88-2b8095668ebso127127eec.2
- for <amd-gfx@lists.freedesktop.org>; Fri, 03 Apr 2026 06:33:16 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1775223196; cv=none;
- d=google.com; s=arc-20240605;
- b=dG20d+21Sp6iKDGVN6oIARABsoZOR2kLHqF2pLVvautXwAA99ornJ52WoAF46/ZBs5
- 5vwfJGsWamr6Sf+o6oa/UjhoaKcQIIhSHCUqN24XKU5AzPi3Dh3fy7Wcapy5z4uCfvHQ
- HDaEavNoW3/T3198iJ23prTNA5yhxG5MDwLBUHFmjGO126FJKEe0VDK1SzsZsuUrTzqV
- DRiuaUwwBjZeGeqgUg5Q59prUEN06YPlGDj99bzwxwe690YNzCG3cSw7oFe+qIajPNbg
- Q8+dAP6+LpENP+V+UEHfODLIyp2IWD5sL3kpoCz9y4cxOXGX8f9wqD0WNpvUQLaqNens
- Coyw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=zSVFOmfn0yRRNnlr190AdFFzpQOfVN52Oc/+S5Vku7Q=;
- fh=KtpR5ErRGqziWZWxHPmcomH2RtmV3SeZmbeCdv2Ys/E=;
- b=bmSX1QNr3cXtPobM33nxmoEmRlBqsZGbcTinT8uomfmqMDTKsMhz6vkCHyU03jMPOv
- O/pU7AYa1wJGVu4rVylJF6ltE58kTylTEikDxU95I88jVSXqPR/tmWTw6B0x80od/P5G
- UZAjt4zObI0/pvhL++5ruHHfcAu+H32yDP7f+eoIUe9EnHWW39sT+W6NLIZVMtPHsIuS
- g089MzHFQzkMtxMsga22TdfLUXnQJeZUikZs+aBaYsoiCsxqNzHCNWU41KFGaF3HClk+
- ak35k/rvJpqyL9qePXBGs/n9qHTuzYCU58xq9sYe7FT855d00owNQ+mAVIMCS+x7L61o
- 1D7Q==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1775223196; x=1775827996; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=zSVFOmfn0yRRNnlr190AdFFzpQOfVN52Oc/+S5Vku7Q=;
- b=ULfyptV9PhhasOMxVC+l46Qi1kCS/r+z6fs8In4GdIm2wYNbugAGG9zbOO0blrDjsL
- zBC7FEkq/OB56/zrd1/bypK7QYjAmrTX8/UuGnQN9IglemqO9TnX4Fyv17005Dpwwo8X
- 9Em2J4F/Iz8a6Hwvo9AnJfT2r23F+of8CwvedT+gicz+JfEnuki2xHxxYnWBL1wvNymH
- +ziugAhvPSzQavCnUDz0AgxAT4Oneqr74Q8h7S1yGUZk1P26DtF2aRhVVch6GTrIRMi3
- VKMt5MLNK9X9VseNZvcp24IdtYdn6357iyJAq62k+XWsCwapZTBVqlZP/9oRX4Gp62lr
- 8gkA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1775223196; x=1775827996;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=zSVFOmfn0yRRNnlr190AdFFzpQOfVN52Oc/+S5Vku7Q=;
- b=SeQ9lhUIOmYO7FqExp5+gRwxEPNop28DJDFhqCBcs8d/anUklKP5aiw+VeqoV6e02Z
- bO32Ef2NJS7Fo9N2Ajb/yT66c8oV5TuEwbN+s+Fbap3z9XQTyqQESBHq2RMuLJmDzqKS
- q6etpQVew6o/1P2dFbooJZ62H5dPQHd+BRDHvyOeYjI8R8BcpHEosJVHxMAt+rMePt3u
- OezHH3ok/I/n5m5NwgOUuKJpGDOzybrGhEwBkDSp6he1JqhQ38XEA3XixkJVOZOWvlje
- x9jR95oFramHkoMMXkL+HQ5Gm581yg/R8hiJxuA9EX8WIBvTIZtSEbcMHN+O0m4okcy0
- 23dQ==
-X-Gm-Message-State: AOJu0Yy5JBmoE89BF0VOeQoZsyc4v/+2dHDcWzcqrN3bEAfr7PCN3e4J
- gcTxBi8G92JOWvYMf5hu3pyEV3bjD4XgHMDpnlQzz+PDaMOMnLn9eHjmM4H+bY2/DtsIZa+ujhl
- 7PO8rQF4gsudhrKPJcSfJXO5M5O1IZUM=
-X-Gm-Gg: AeBDiet6unf6XSjVGwXzIw+QF/aSKdLEL+vPwuMp+LigKLjw3SlS+9O/4AZaMQbfJzo
- YPrqaTxFhIyGHtSy3csBimQs6Zg3jJOtVje1UwTz1HL3eth4AizrHkqJkJpfgaUmgDjYL5xVl3R
- lBN24kWwTqNymhDI2+JyJ6rpOii5KclavQbXKIEgp/NAFfkBk6Fo7dPKJLdDhiysIzrFqiPh9lg
- hRSn7/d8vZRvS8KF+xe4dJJiJUxGFTOqd0N9gFGT+i6vCYSgyL0Tfs2jAy8PpniqqRULwd9dfKD
- WW29Lj3nTGKkOhFBioM1l5jHVw1ku6KWxf7dPLc/L3E26/C2BLFrLeBhvFTG/YgK3mPHvw==
-X-Received: by 2002:a05:7301:d1b:b0:2bd:db75:c28b with SMTP id
- 5a478bee46e88-2cbfcd54f9bmr755552eec.7.1775223195594; Fri, 03 Apr 2026
- 06:33:15 -0700 (PDT)
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A483010E14A
+ for <amd-gfx@lists.freedesktop.org>; Fri,  3 Apr 2026 13:43:57 +0000 (UTC)
+Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 6339bDSR270868; Fri, 3 Apr 2026 13:43:55 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+ :content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=pp1; bh=BAPJo9
+ o55+bE8EGVX3xBVoIwgeOs3BJTux1NhSslC/E=; b=IZcKXniSZmS1LWEKUstfpB
+ 6eU83ZfSu01buRt/SvMCmlYtkOQGm1E7Qu6Q9bJaAFEfkBvLVa0Z/tz31+HZpaL9
+ 7QVKJAdxvsNVh19WVh0biv8egmBcYrVkF4OouvUfH1HWfrfULcz75BYXb2+GOkXa
+ tD24RlccRB9VBTod3Wgp3ELSXRyMoaMe0kNkmMTLinU5UIKD15LUwAqN2yQp9+rx
+ qenIrK92X8iRqWc7PgdkwAzXF2yq03eUwqEUzCOptSyRLNMnBX5FjnHS383vTRpB
+ eo0/6bao1IrlfsdGq+GiKdf8dauUZe0BUsiA8MQxtymOPW1yV5eP3KvdEU4efZFQ
+ ==
+Received: from ppma21.wdc07v.mail.ibm.com
+ (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
+ by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4d65dcqymn-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 03 Apr 2026 13:43:54 +0000 (GMT)
+Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
+ by ppma21.wdc07v.mail.ibm.com (8.18.1.2/8.18.1.2) with ESMTP id 633DC5j8022227;
+ Fri, 3 Apr 2026 13:43:53 GMT
+Received: from smtprelay02.dal12v.mail.ibm.com ([172.16.1.4])
+ by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4d6tane86y-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 03 Apr 2026 13:43:53 +0000
+Received: from smtpav06.wdc07v.mail.ibm.com (smtpav06.wdc07v.mail.ibm.com
+ [10.39.53.233])
+ by smtprelay02.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 633DhqAW19989056
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Fri, 3 Apr 2026 13:43:53 GMT
+Received: from smtpav06.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id C365E58055;
+ Fri,  3 Apr 2026 13:43:52 +0000 (GMT)
+Received: from smtpav06.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 06F985803F;
+ Fri,  3 Apr 2026 13:43:48 +0000 (GMT)
+Received: from [9.39.20.61] (unknown [9.39.20.61])
+ by smtpav06.wdc07v.mail.ibm.com (Postfix) with ESMTP;
+ Fri,  3 Apr 2026 13:43:47 +0000 (GMT)
+Message-ID: <a77c81c0-f78b-4b63-8a0e-49251353e5f6@linux.ibm.com>
+Date: Fri, 3 Apr 2026 19:13:45 +0530
 MIME-Version: 1.0
-References: <20260403092529.2238333-1-Jesse.Zhang@amd.com>
-In-Reply-To: <20260403092529.2238333-1-Jesse.Zhang@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 3 Apr 2026 09:33:02 -0400
-X-Gm-Features: AQROBzC-PyrI3UkiH3Gn1YeXCCNFiU0qxWebppZrL3PNI29mCN95LiJyrX_I8jY
-Message-ID: <CADnq5_OH-pBn_+NTA=dFOM57vi2YLkntit27VpCsKoMOgTbvPA@mail.gmail.com>
-Subject: Re: [PATCH 1/5] drm/amdgpu/gfx_v11_0: fix GFX11 MEC pipe reset
- ordering
-To: Jesse Zhang <Jesse.Zhang@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com, 
- Christian Koenig <christian.koenig@amd.com>, Prike Liang <Prike.Liang@amd.com>,
- Manu Rastogi <manu.rastogi@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 2/2] drm/amdgpu: Fix AMDGPU_GTT_MAX_TRANSFER_SIZE for
+ non-4K page size
+To: amd-gfx@lists.freedesktop.org, Felix Kuehling <Felix.Kuehling@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Alex Deucher <alexdeucher@gmail.com>, christian.koenig@amd.com,
+ Philip Yang <yangp@amd.com>
+Cc: David.YatSin@amd.com, Kent.Russell@amd.com,
+ Ritesh Harjani <ritesh.list@gmail.com>,
+ Vaidyanathan Srinivasan <svaidy@linux.ibm.com>
+References: <cover.1774521183.git.donettom@linux.ibm.com>
+ <b68780ba172175c68b313c48076185629fee9b7b.1774521183.git.donettom@linux.ibm.com>
+Content-Language: en-US
+From: Donet Tom <donettom@linux.ibm.com>
+In-Reply-To: <b68780ba172175c68b313c48076185629fee9b7b.1774521183.git.donettom@linux.ibm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Authority-Analysis: v=2.4 cv=RsjI7SmK c=1 sm=1 tr=0 ts=69cfc41a cx=c_pps
+ a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
+ a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=V8glGbnc2Ofi9Qvn3v5h:22 a=VnNF1IyMAAAA:8
+ a=vnVUVj9hlqEGorVS3iYA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+X-Proofpoint-GUID: DD9iI2aldXmgTdofdFGhhgAdiADdossD
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDAzMDExOCBTYWx0ZWRfXwl5v6ZLjbC1L
+ Qo/ZsdLCrLXU+z6W5ousZPOWo283pMoAbgUTYUQgM6mq/cW8Tpk8eBKBoR6XWEXC6OVNfZ6D4A8
+ 6FEaO/hRH8F0mZDTzTddV52pHS2L8I179/YSGGgUaNjHE3VDqOVrvUurD1XVlS3/mqeU3cgUHME
+ 0Vs2NBbY9wdMYA4+IpgqzQtiDIV3kw37V4/WrxH5pa6ydAdypnZ1SLkeEzwzzq5/yc1jrfqVoXi
+ /GiXy87iac85D7Z7IQQfzHLL8HzuZdiqUE46x0OSiFqaNdjvXDw+L/v5cUECG6G58NmuTYS+op3
+ SsCabCV24cO+lF7Mh5CLcWrjV9O/0T0Xs/FYBxDxNMdnKyPehFLMytxfmvO8d+mX0zbaz0WYtXZ
+ agbiwI3uN71CA8xW53uTJk61SoMbSTNuwamxuwXJgHjEPX8r/KoAkaWAxLcYFBD/uXkrmWs9G6o
+ 4mhFA/TJEGCSEo1+BpQ==
+X-Proofpoint-ORIG-GUID: oAhVVwdWLO7xIW3ybjY9giz18Zn1XVL3
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-03_04,2026-04-03_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 bulkscore=0 priorityscore=1501 lowpriorityscore=0
+ suspectscore=0 malwarescore=0 spamscore=0 clxscore=1015 phishscore=0
+ adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2603050001
+ definitions=main-2604030118
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,369 +116,120 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Apr 3, 2026 at 5:49=E2=80=AFAM Jesse Zhang <Jesse.Zhang@amd.com> wr=
-ote:
+
+Hi @christian @Felix @Alex
+
+Thank you for your help in reviewing this series. All the patches except 
+this one have been picked up. Could you please share your thoughts on 
+this patch?
+
+-Donet
+
+On 3/26/26 5:51 PM, Donet Tom wrote:
+> AMDGPU_GTT_MAX_TRANSFER_SIZE represented the maximum number of
+> system-page-sized pages that could be transferred in a single
+> operation. The effective maximum transfer size was intended to be
+> one PMD-sized mapping.
 >
-> Hold MEC pipe reset asserted, walk every queue on that (me, pipe) and tea=
-r
-> down CP_HQD_ACTIVE / CP_HQD_DEQUEUE_REQUEST via gfx_v11_0_clear_hqds_on_m=
-ec_pipe(),
-> then deassert reset. Avoids releasing pipe reset while HQDs may still be
-> active.
+> In the existing code, AMDGPU_GTT_MAX_TRANSFER_SIZE was hard-coded
+> to 512 pages. This corresponded to 2 MB on 4 KB page-size systems,
+> matching the PMD size. However, on systems with a non-4 KB page
+> size, this value no longer matched the PMD size.
 >
-> Legacy (non-RS64) path: read CP_MEC_CNTL for the reset mask instead of
-> reusing CP_MEC_RS64_CNTL state.
+> This patch changed the calculation of AMDGPU_GTT_MAX_TRANSFER_SIZE
+> to derive it from PMD_SHIFT and PAGE_SHIFT, ensuring that the
+> maximum transfer size remained PMD-sized across all system page
+> sizes.
 >
-> Suggested-by:  Manu Rastogi <manu.rastogi@amd.com>
-> Signed-off-by: Jesse Zhang <jesse.zhang@amd.com>
+> Additionally, in some places, AMDGPU_GTT_MAX_TRANSFER_SIZE was
+> implicitly assumed to be based on 4 KB pages. This resulted in
+> incorrect address offset calculations. This patch updated the
+> address calculations to correctly handle non-4 KB system page
+> sizes as well.
+>
+> amdgpu_ttm_map_buffer() can create both GTT GART entries and
+> VRAM GART entries. For GTT mappings, amdgpu_gart_map() takes
+> system page–sized PFNs, and the mappings are created correctly.
+>
+> However, for VRAM GART mappings, amdgpu_gart_map_vram_range() expects
+> GPU page–sized PFNs, but CPU page–sized PFNs were being passed,
+> resulting in incorrect mappings.
+>
+> This patch updates the code to pass GPU page–sized PFNs to
+> amdgpu_gart_map_vram_range(), ensuring that VRAM GART mappings are
+> created correctly.
+>
+> Signed-off-by: Donet Tom <donettom@linux.ibm.com>
 > ---
->  drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c | 148 +++++++++++++++----------
->  1 file changed, 91 insertions(+), 57 deletions(-)
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 8 +++++---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h | 2 +-
+>   drivers/gpu/drm/amd/amdgpu/vce_v1_0.c   | 3 ++-
+>   3 files changed, 8 insertions(+), 5 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd=
-/amdgpu/gfx_v11_0.c
-> index ae39b9e1f7d6..18b92990179d 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> @@ -6906,11 +6906,39 @@ static int gfx_v11_0_reset_kgq(struct amdgpu_ring=
- *ring,
->         return amdgpu_ring_reset_helper_end(ring, timedout_fence);
->  }
->
-> +/*
-> + * With MEC pipe reset asserted, clear CP_HQD_ACTIVE / CP_HQD_DEQUEUE_RE=
-QUEST for
-> + * every queue on (me, pipe). HQDs must be torn down while pipe reset st=
-ays
-> + * asserted; only then clear the pipe reset bit.
-> + * Caller must hold adev->srbm_mutex.
-> + */
-> +static void gfx_v11_0_clear_hqds_on_mec_pipe(struct amdgpu_device *adev,=
- u32 me,
-> +                                            u32 pipe)
-> +{
-> +       unsigned int q;
-> +       int j;
-> +
-> +       for (q =3D 0; q < adev->gfx.mec.num_queue_per_pipe; q++) {
-> +               soc21_grbm_select(adev, me, pipe, q, 0);
-> +               /* Start from a clean HQD dequeue state before forcing HQ=
-D inactive. */
-> +               WREG32_SOC15(GC, 0, regCP_HQD_ACTIVE, 0);
-> +               if (RREG32_SOC15(GC, 0, regCP_HQD_ACTIVE) & 1) {
-> +                       WREG32_SOC15(GC, 0, regCP_HQD_DEQUEUE_REQUEST, 1)=
-;
-> +                       for (j =3D 0; j < adev->usec_timeout; j++) {
-> +                               if (!(RREG32_SOC15(GC, 0, regCP_HQD_ACTIV=
-E) & 1))
-> +                                       break;
-> +                               udelay(1);
-> +                       }
-> +               }
-> +               WREG32_SOC15(GC, 0, regCP_HQD_DEQUEUE_REQUEST, 0);
-> +       }
-> +}
-
-Do we have a way to look up which queue was actually on the pipe?
-This will lead to all queues on this pipe ultimately timing out the
-next time they are used since we never re-enable the queues after the
-reset.  I think we need something like amdgpu_vcn_reset_engine() for
-each compute or gfx pipe.  We need to stop the schedulers for all
-queues on the pipe and then mark the fences with an error and then
-make sure to re-enable and test all of the queues after the reset.
-Ideally, we could resume any queues that weren't on the pipe after the
-reset non-destructively, but I'm not sure if that is possible or not.
-If the pipe reset doesn't affect any queues which were not on the pipe
-at the time, then we can just loop over all of the queues on the pipe,
-and for the non-guilty ones (i.e., the ones not on the pipe), we can
-save their entire unprocessed ring state and reemit it.  For the
-guilty one, we we already save it's non-guilty state and restore it
-after the reset.  We also need to handle KFD queues.  I think we need
-to preempt the KFD queues at the start of this function and then
-restore them at the end to make sure they are properly handled as
-well.
-
-Alex
-
-> +
->  static int gfx_v11_0_reset_compute_pipe(struct amdgpu_ring *ring)
->  {
->
->         struct amdgpu_device *adev =3D ring->adev;
-> -       uint32_t reset_pipe =3D 0, clean_pipe =3D 0;
-> +       uint32_t reset_val, clean_val;
->         int r;
->
->         if (!gfx_v11_pipe_reset_support(adev))
-> @@ -6920,69 +6948,73 @@ static int gfx_v11_0_reset_compute_pipe(struct am=
-dgpu_ring *ring)
->         mutex_lock(&adev->srbm_mutex);
->         soc21_grbm_select(adev, ring->me, ring->pipe, ring->queue, 0);
->
-> -       reset_pipe =3D RREG32_SOC15(GC, 0, regCP_MEC_RS64_CNTL);
-> -       clean_pipe =3D reset_pipe;
-> -
->         if (adev->gfx.rs64_enable) {
-> +               reset_val =3D RREG32_SOC15(GC, 0, regCP_MEC_RS64_CNTL);
-> +               clean_val =3D reset_val;
->
->                 switch (ring->pipe) {
->                 case 0:
-> -                       reset_pipe =3D REG_SET_FIELD(reset_pipe, CP_MEC_R=
-S64_CNTL,
-> -                                                  MEC_PIPE0_RESET, 1);
-> -                       clean_pipe =3D REG_SET_FIELD(clean_pipe, CP_MEC_R=
-S64_CNTL,
-> -                                                  MEC_PIPE0_RESET, 0);
-> +                       reset_val =3D REG_SET_FIELD(reset_val, CP_MEC_RS6=
-4_CNTL,
-> +                                                 MEC_PIPE0_RESET, 1);
-> +                       clean_val =3D REG_SET_FIELD(clean_val, CP_MEC_RS6=
-4_CNTL,
-> +                                                 MEC_PIPE0_RESET, 0);
->                         break;
->                 case 1:
-> -                       reset_pipe =3D REG_SET_FIELD(reset_pipe, CP_MEC_R=
-S64_CNTL,
-> -                                                  MEC_PIPE1_RESET, 1);
-> -                       clean_pipe =3D REG_SET_FIELD(clean_pipe, CP_MEC_R=
-S64_CNTL,
-> -                                                  MEC_PIPE1_RESET, 0);
-> +                       reset_val =3D REG_SET_FIELD(reset_val, CP_MEC_RS6=
-4_CNTL,
-> +                                                 MEC_PIPE1_RESET, 1);
-> +                       clean_val =3D REG_SET_FIELD(clean_val, CP_MEC_RS6=
-4_CNTL,
-> +                                                 MEC_PIPE1_RESET, 0);
->                         break;
->                 case 2:
-> -                       reset_pipe =3D REG_SET_FIELD(reset_pipe, CP_MEC_R=
-S64_CNTL,
-> -                                                  MEC_PIPE2_RESET, 1);
-> -                       clean_pipe =3D REG_SET_FIELD(clean_pipe, CP_MEC_R=
-S64_CNTL,
-> -                                                  MEC_PIPE2_RESET, 0);
-> +                       reset_val =3D REG_SET_FIELD(reset_val, CP_MEC_RS6=
-4_CNTL,
-> +                                                 MEC_PIPE2_RESET, 1);
-> +                       clean_val =3D REG_SET_FIELD(clean_val, CP_MEC_RS6=
-4_CNTL,
-> +                                                 MEC_PIPE2_RESET, 0);
->                         break;
->                 case 3:
-> -                       reset_pipe =3D REG_SET_FIELD(reset_pipe, CP_MEC_R=
-S64_CNTL,
-> -                                                  MEC_PIPE3_RESET, 1);
-> -                       clean_pipe =3D REG_SET_FIELD(clean_pipe, CP_MEC_R=
-S64_CNTL,
-> -                                                  MEC_PIPE3_RESET, 0);
-> +                       reset_val =3D REG_SET_FIELD(reset_val, CP_MEC_RS6=
-4_CNTL,
-> +                                                 MEC_PIPE3_RESET, 1);
-> +                       clean_val =3D REG_SET_FIELD(clean_val, CP_MEC_RS6=
-4_CNTL,
-> +                                                 MEC_PIPE3_RESET, 0);
->                         break;
->                 default:
->                         break;
->                 }
-> -               WREG32_SOC15(GC, 0, regCP_MEC_RS64_CNTL, reset_pipe);
-> -               WREG32_SOC15(GC, 0, regCP_MEC_RS64_CNTL, clean_pipe);
-> +               WREG32_SOC15(GC, 0, regCP_MEC_RS64_CNTL, reset_val);
-> +               gfx_v11_0_clear_hqds_on_mec_pipe(adev, ring->me, ring->pi=
-pe);
-> +               soc21_grbm_select(adev, ring->me, ring->pipe, ring->queue=
-, 0);
-> +               WREG32_SOC15(GC, 0, regCP_MEC_RS64_CNTL, clean_val);
->                 r =3D (RREG32_SOC15(GC, 0, regCP_MEC_RS64_INSTR_PNTR) << =
-2) -
->                                         RS64_FW_UC_START_ADDR_LO;
->         } else {
-> +               reset_val =3D RREG32_SOC15(GC, 0, regCP_MEC_CNTL);
-> +               clean_val =3D reset_val;
-> +
->                 if (ring->me =3D=3D 1) {
->                         switch (ring->pipe) {
->                         case 0:
-> -                               reset_pipe =3D REG_SET_FIELD(reset_pipe, =
-CP_MEC_CNTL,
-> -                                                          MEC_ME1_PIPE0_=
-RESET, 1);
-> -                               clean_pipe =3D REG_SET_FIELD(clean_pipe, =
-CP_MEC_CNTL,
-> -                                                          MEC_ME1_PIPE0_=
-RESET, 0);
-> +                               reset_val =3D REG_SET_FIELD(reset_val, CP=
-_MEC_CNTL,
-> +                                                         MEC_ME1_PIPE0_R=
-ESET, 1);
-> +                               clean_val =3D REG_SET_FIELD(clean_val, CP=
-_MEC_CNTL,
-> +                                                         MEC_ME1_PIPE0_R=
-ESET, 0);
->                                 break;
->                         case 1:
-> -                               reset_pipe =3D REG_SET_FIELD(reset_pipe, =
-CP_MEC_CNTL,
-> -                                                          MEC_ME1_PIPE1_=
-RESET, 1);
-> -                               clean_pipe =3D REG_SET_FIELD(clean_pipe, =
-CP_MEC_CNTL,
-> -                                                          MEC_ME1_PIPE1_=
-RESET, 0);
-> +                               reset_val =3D REG_SET_FIELD(reset_val, CP=
-_MEC_CNTL,
-> +                                                         MEC_ME1_PIPE1_R=
-ESET, 1);
-> +                               clean_val =3D REG_SET_FIELD(clean_val, CP=
-_MEC_CNTL,
-> +                                                         MEC_ME1_PIPE1_R=
-ESET, 0);
->                                 break;
->                         case 2:
-> -                               reset_pipe =3D REG_SET_FIELD(reset_pipe, =
-CP_MEC_CNTL,
-> -                                                          MEC_ME1_PIPE2_=
-RESET, 1);
-> -                               clean_pipe =3D REG_SET_FIELD(clean_pipe, =
-CP_MEC_CNTL,
-> -                                                          MEC_ME1_PIPE2_=
-RESET, 0);
-> +                               reset_val =3D REG_SET_FIELD(reset_val, CP=
-_MEC_CNTL,
-> +                                                         MEC_ME1_PIPE2_R=
-ESET, 1);
-> +                               clean_val =3D REG_SET_FIELD(clean_val, CP=
-_MEC_CNTL,
-> +                                                         MEC_ME1_PIPE2_R=
-ESET, 0);
->                                 break;
->                         case 3:
-> -                               reset_pipe =3D REG_SET_FIELD(reset_pipe, =
-CP_MEC_CNTL,
-> -                                                          MEC_ME1_PIPE3_=
-RESET, 1);
-> -                               clean_pipe =3D REG_SET_FIELD(clean_pipe, =
-CP_MEC_CNTL,
-> -                                                          MEC_ME1_PIPE3_=
-RESET, 0);
-> +                               reset_val =3D REG_SET_FIELD(reset_val, CP=
-_MEC_CNTL,
-> +                                                         MEC_ME1_PIPE3_R=
-ESET, 1);
-> +                               clean_val =3D REG_SET_FIELD(clean_val, CP=
-_MEC_CNTL,
-> +                                                         MEC_ME1_PIPE3_R=
-ESET, 0);
->                                 break;
->                         default:
->                                 break;
-> @@ -6991,36 +7023,38 @@ static int gfx_v11_0_reset_compute_pipe(struct am=
-dgpu_ring *ring)
->                 } else {
->                         switch (ring->pipe) {
->                         case 0:
-> -                               reset_pipe =3D REG_SET_FIELD(reset_pipe, =
-CP_MEC_CNTL,
-> -                                                          MEC_ME2_PIPE0_=
-RESET, 1);
-> -                               clean_pipe =3D REG_SET_FIELD(clean_pipe, =
-CP_MEC_CNTL,
-> -                                                          MEC_ME2_PIPE0_=
-RESET, 0);
-> +                               reset_val =3D REG_SET_FIELD(reset_val, CP=
-_MEC_CNTL,
-> +                                                         MEC_ME2_PIPE0_R=
-ESET, 1);
-> +                               clean_val =3D REG_SET_FIELD(clean_val, CP=
-_MEC_CNTL,
-> +                                                         MEC_ME2_PIPE0_R=
-ESET, 0);
->                                 break;
->                         case 1:
-> -                               reset_pipe =3D REG_SET_FIELD(reset_pipe, =
-CP_MEC_CNTL,
-> -                                                          MEC_ME2_PIPE1_=
-RESET, 1);
-> -                               clean_pipe =3D REG_SET_FIELD(clean_pipe, =
-CP_MEC_CNTL,
-> -                                                          MEC_ME2_PIPE1_=
-RESET, 0);
-> +                               reset_val =3D REG_SET_FIELD(reset_val, CP=
-_MEC_CNTL,
-> +                                                         MEC_ME2_PIPE1_R=
-ESET, 1);
-> +                               clean_val =3D REG_SET_FIELD(clean_val, CP=
-_MEC_CNTL,
-> +                                                         MEC_ME2_PIPE1_R=
-ESET, 0);
->                                 break;
->                         case 2:
-> -                               reset_pipe =3D REG_SET_FIELD(reset_pipe, =
-CP_MEC_CNTL,
-> -                                                          MEC_ME2_PIPE2_=
-RESET, 1);
-> -                               clean_pipe =3D REG_SET_FIELD(clean_pipe, =
-CP_MEC_CNTL,
-> -                                                          MEC_ME2_PIPE2_=
-RESET, 0);
-> +                               reset_val =3D REG_SET_FIELD(reset_val, CP=
-_MEC_CNTL,
-> +                                                         MEC_ME2_PIPE2_R=
-ESET, 1);
-> +                               clean_val =3D REG_SET_FIELD(clean_val, CP=
-_MEC_CNTL,
-> +                                                         MEC_ME2_PIPE2_R=
-ESET, 0);
->                                 break;
->                         case 3:
-> -                               reset_pipe =3D REG_SET_FIELD(reset_pipe, =
-CP_MEC_CNTL,
-> -                                                          MEC_ME2_PIPE3_=
-RESET, 1);
-> -                               clean_pipe =3D REG_SET_FIELD(clean_pipe, =
-CP_MEC_CNTL,
-> -                                                          MEC_ME2_PIPE3_=
-RESET, 0);
-> +                               reset_val =3D REG_SET_FIELD(reset_val, CP=
-_MEC_CNTL,
-> +                                                         MEC_ME2_PIPE3_R=
-ESET, 1);
-> +                               clean_val =3D REG_SET_FIELD(clean_val, CP=
-_MEC_CNTL,
-> +                                                         MEC_ME2_PIPE3_R=
-ESET, 0);
->                                 break;
->                         default:
->                                 break;
->                         }
->                         /* mec2 fw pc: CP:CP_MEC2_INSTR_PNTR */
->                 }
-> -               WREG32_SOC15(GC, 0, regCP_MEC_CNTL, reset_pipe);
-> -               WREG32_SOC15(GC, 0, regCP_MEC_CNTL, clean_pipe);
-> +               WREG32_SOC15(GC, 0, regCP_MEC_CNTL, reset_val);
-> +               gfx_v11_0_clear_hqds_on_mec_pipe(adev, ring->me, ring->pi=
-pe);
-> +               soc21_grbm_select(adev, ring->me, ring->pipe, ring->queue=
-, 0);
-> +               WREG32_SOC15(GC, 0, regCP_MEC_CNTL, clean_val);
->                 r =3D RREG32(SOC15_REG_OFFSET(GC, 0, regCP_MEC1_INSTR_PNT=
-R));
->         }
->
-> @@ -7028,7 +7062,7 @@ static int gfx_v11_0_reset_compute_pipe(struct amdg=
-pu_ring *ring)
->         mutex_unlock(&adev->srbm_mutex);
->         gfx_v11_0_unset_safe_mode(adev, 0);
->
-> -       dev_info(adev->dev, "The ring %s pipe resets to MEC FW start PC: =
-%s\n", ring->name,
-> +       dev_dbg(adev->dev, "The ring %s pipe resets to MEC FW start PC: %=
-s\n", ring->name,
->                         r =3D=3D 0 ? "successfully" : "failed");
->         /*FIXME:Sometimes driver can't cache the MEC firmware start PC co=
-rrectly, so the pipe
->          * reset status relies on the compute ring test result.
-> --
-> 2.49.0
->
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> index 0ccb31788b20..f9f534119cbe 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> @@ -204,7 +204,7 @@ static int amdgpu_ttm_map_buffer(struct amdgpu_ttm_buffer_entity *entity,
+>   	int r;
+>   
+>   	BUG_ON(adev->mman.buffer_funcs->copy_max_bytes <
+> -	       AMDGPU_GTT_MAX_TRANSFER_SIZE * 8);
+> +	       AMDGPU_GTT_MAX_TRANSFER_SIZE * AMDGPU_GPU_PAGES_IN_CPU_PAGE * 8);
+>   
+>   	if (WARN_ON(mem->mem_type == AMDGPU_PL_PREEMPT))
+>   		return -EINVAL;
+> @@ -230,7 +230,7 @@ static int amdgpu_ttm_map_buffer(struct amdgpu_ttm_buffer_entity *entity,
+>   
+>   	*addr = adev->gmc.gart_start;
+>   	*addr += (u64)window * AMDGPU_GTT_MAX_TRANSFER_SIZE *
+> -		AMDGPU_GPU_PAGE_SIZE;
+> +		AMDGPU_GPU_PAGES_IN_CPU_PAGE * AMDGPU_GPU_PAGE_SIZE;
+>   	*addr += offset;
+>   
+>   	num_dw = ALIGN(adev->mman.buffer_funcs->copy_num_dw, 8);
+> @@ -248,7 +248,8 @@ static int amdgpu_ttm_map_buffer(struct amdgpu_ttm_buffer_entity *entity,
+>   	src_addr += job->ibs[0].gpu_addr;
+>   
+>   	dst_addr = amdgpu_bo_gpu_offset(adev->gart.bo);
+> -	dst_addr += window * AMDGPU_GTT_MAX_TRANSFER_SIZE * 8;
+> +	dst_addr += window * AMDGPU_GTT_MAX_TRANSFER_SIZE *
+> +		AMDGPU_GPU_PAGES_IN_CPU_PAGE * 8;
+>   	amdgpu_emit_copy_buffer(adev, &job->ibs[0], src_addr,
+>   				dst_addr, num_bytes, 0);
+>   
+> @@ -266,6 +267,7 @@ static int amdgpu_ttm_map_buffer(struct amdgpu_ttm_buffer_entity *entity,
+>   	} else {
+>   		u64 pa = mm_cur->start + adev->vm_manager.vram_base_offset;
+>   
+> +		num_pages *= AMDGPU_GPU_PAGES_IN_CPU_PAGE;
+>   		amdgpu_gart_map_vram_range(adev, pa, 0, num_pages, flags, cpu_addr);
+>   	}
+>   
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
+> index 143201ecea3f..15aff225af1d 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
+> @@ -38,7 +38,7 @@
+>   #define AMDGPU_PL_MMIO_REMAP	(TTM_PL_PRIV + 5)
+>   #define __AMDGPU_PL_NUM	(TTM_PL_PRIV + 6)
+>   
+> -#define AMDGPU_GTT_MAX_TRANSFER_SIZE	512
+> +#define AMDGPU_GTT_MAX_TRANSFER_SIZE	(1 << (PMD_SHIFT - PAGE_SHIFT))
+>   #define AMDGPU_GTT_NUM_TRANSFER_WINDOWS	2
+>   
+>   extern const struct attribute_group amdgpu_vram_mgr_attr_group;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/vce_v1_0.c b/drivers/gpu/drm/amd/amdgpu/vce_v1_0.c
+> index 9ae424618556..b2d4114c258c 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/vce_v1_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/vce_v1_0.c
+> @@ -48,7 +48,8 @@
+>   #define VCE_STATUS_VCPU_REPORT_FW_LOADED_MASK	0x02
+>   
+>   #define VCE_V1_0_GART_PAGE_START \
+> -	(AMDGPU_GTT_MAX_TRANSFER_SIZE * AMDGPU_GTT_NUM_TRANSFER_WINDOWS)
+> +	(AMDGPU_GTT_MAX_TRANSFER_SIZE * AMDGPU_GPU_PAGES_IN_CPU_PAGE * \
+> +	 AMDGPU_GTT_NUM_TRANSFER_WINDOWS)
+>   #define VCE_V1_0_GART_ADDR_START \
+>   	(VCE_V1_0_GART_PAGE_START * AMDGPU_GPU_PAGE_SIZE)
+>   
