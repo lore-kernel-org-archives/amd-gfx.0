@@ -4,122 +4,92 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6387FD6AB10
-	for <amd-gfx@archiver.kernel.org>; Thu,  2 Apr 2026 21:46:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 49AF2CC6B1D
+	for <amd-gfx@archiver.kernel.org>; Fri,  3 Apr 2026 02:07:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E550F10F52A;
-	Thu,  2 Apr 2026 21:46:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B538710E36C;
+	Fri,  3 Apr 2026 02:07:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="HY8KgAa2";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="gFCbe7Dm";
 	dkim-atps=neutral
-Received: from SN4PR0501CU005.outbound.protection.outlook.com
- (mail-southcentralusazon11011008.outbound.protection.outlook.com
- [40.93.194.8])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EC58010F52A
- for <amd-gfx@lists.freedesktop.org>; Thu,  2 Apr 2026 21:46:37 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=rgiSSfv0L3n7sW/Qq7Z9fnFU8qnwcwLe+B20lYPttQoZH8XkMWJ1+dGlvNGC3+YwJnTS+kPOYwIW/BMM0gbt8cTpZp1194A9BA68+E+bDvOgDB+uRjJ3aQgCDXozRz6Mv6mKNR3jx1YYtJ8HLiiV31xvju5H3st39mehqoLlDfGh2pB4PloDTulKNiQ11pLmXShXWlb+PzpJlxXkQIS59buww0PJZ2FSfhwfF+H3bl+JVobBbb71ox4YdygjwZCZp3xCWI8BQzHw0G/yTEiMZ/6sFtd8BfGnKem11BapqIK3Y2UkCc3egWBIyGhhXrZcZsZnIQz2YAPvizTkTUKs4g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+44C7Uxul378NlPu4PCRnhE3FcpQ8dqF3JEIPYPYtjw=;
- b=f+H014mly9Ygb1GbFCBZ/0jbpI550EWRdQaJnsGoWXd2d2hBZCW78Gqbvou6WXZvF84NJhAHv6YnTtxene3P+FvIs1397Dv520530JJg211rtSDm6VFl/ptLsSrzimgSBHFp7PEURx7LWgReFz6Caj7rmnOl6itjEIEWVQWz5qOm/7sc7mmEQXLvAWiHkx+o0DLPMfoCTOO3CfOKPiyLcM3XPmE1/f3iHPxZHTAdOihBPuFkRu1JKv7pANYiY7VEf0tl5qqgM/NCgxiOi/vy3GWif2n8EHRtm/OfJmCslzyfK9c6iykuXPFowyGbxgujijYG4aLiuJEN6OCmmdBCCQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+44C7Uxul378NlPu4PCRnhE3FcpQ8dqF3JEIPYPYtjw=;
- b=HY8KgAa2CI1cxVz5IY2KW4Lu273PPhlCte4GjE7brH+TXkwVWHZ2fMWs5zBkYw4ji64bx32/UiyHr3wH66VM2SBEfMG5u0RA9EiIVGkoOL5WnD4HkjYkJqTf8hf/s7QoH536ZgbQ4TTAmNY0vdkQO5eI7rOUO6VOibqxPf9oZ5E=
-Received: from BL1PR12MB5144.namprd12.prod.outlook.com (2603:10b6:208:316::6)
- by IA1PR12MB6385.namprd12.prod.outlook.com (2603:10b6:208:38b::6)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.20; Thu, 2 Apr
- 2026 21:46:34 +0000
-Received: from BL1PR12MB5144.namprd12.prod.outlook.com
- ([fe80::699b:1fb2:73:6a33]) by BL1PR12MB5144.namprd12.prod.outlook.com
- ([fe80::699b:1fb2:73:6a33%4]) with mapi id 15.20.9769.018; Thu, 2 Apr 2026
- 21:46:33 +0000
-From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-To: "Wu, David" <David.Wu3@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>, "Lazar, Lijo" <Lijo.Lazar@amd.com>
-CC: "Liu, Leo" <Leo.Liu@amd.com>
-Subject: RE: [PATCH V4] amdgpu/jpeg: fix deepsleep register for jpeg 5_0_0 and
- 5_0_2
-Thread-Topic: [PATCH V4] amdgpu/jpeg: fix deepsleep register for jpeg 5_0_0
- and 5_0_2
-Thread-Index: AQHcwunJXa8s9ssvmEqPw2psWsEJZrXMTljQ
-Date: Thu, 2 Apr 2026 21:46:33 +0000
-Message-ID: <BL1PR12MB514490363CC91149D7526E51F751A@BL1PR12MB5144.namprd12.prod.outlook.com>
-References: <20260402214331.2430926-1-David.Wu3@amd.com>
-In-Reply-To: <20260402214331.2430926-1-David.Wu3@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Enabled=True;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SetDate=2026-04-02T21:46:05.0000000Z;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Name=Open
- Source; MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_ContentBits=3;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Method=Privileged
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BL1PR12MB5144:EE_|IA1PR12MB6385:EE_
-x-ms-office365-filtering-correlation-id: 6976ec28-87b3-4de2-d44d-08de91014eee
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|366016|1800799024|376014|38070700021|22082099003|18002099003|56012099003;
-x-microsoft-antispam-message-info: GAwEpS63FA8GgT8k10YcmAKaDM662GB7bBgVNHBJfvKcNNx2bbtN1fRGVuM40FMIIGLxaAjci72yRC1IXcXPd1HpqJbx0TcQom5rv8G8vyNbne8nPI3xAkpUrnD157RKr4gFWXw/EOOzHqhvTysY2+JdFSu08w50BdloczdX6R/Az+V+X8Kxs9waiwAnx0mxo6MnQH5AFMIyhmtThRp0dy3azLlqPUFosl865z4jD93yoVpSrTYnbLVuoLvQPKFyTPlXS6VGjloTnhMCFKmTayF9bUrut2Ht8Lxq03dwl65J5LxlnVUw6UkRWv07XYdXwomz9cEP3B83e0qzJICrSsBU4gikFxwwTqMcyHa9AfM0K2EfqNAroxCXwx9mqhFENKBvy+IXlEGd/Ul02HqUGWRHEFY/MOHdAXKJJzeEmcH8aOAGPz4lCfMrs4bbe0Ftj45FhzfBarXXJgSpsXOjJ35YpzJDoIdpLw+X4UNKC9IhbRmyiHKlnbUr94gJJtq9fC5j/6RDjNPvzKMSvL5MKuoVP1/ybyg+WEk1Pd/K9lnrij4RcmLnHUlUSYRWWEM5CGPal4tQmoIhMNzrhwPXwKM3tk/c4Ml79H1WwUHfp+yVR4SR9mWTkHqXCSbxtfUfoSELwJJ2waobd5I3q6hiufzYNI8O6eB5ZWvupU36urto4HgHc49FUx07aI5crTI6pCnbrbxJVtKdWlPXJDewgvexYv2yJPlvVxQfriF9eH8/kbA/s2BYRk62mJqh5aAG4m723NM18UBhfJ7N1tQhFGuirIj+no3iTFGYKseT3dI=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BL1PR12MB5144.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014)(38070700021)(22082099003)(18002099003)(56012099003);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?i3xl5o4caZHAU7oGPJ7denxusL8Y4XGzb8AIiT2G8f1d917P57tDotWm3la+?=
- =?us-ascii?Q?sPBhHVgq3mNVLqqYroFpRFM6hi4B3geGDrjfxQJVyIMKdTaN+9cOQfC/kJAj?=
- =?us-ascii?Q?soYhld28Ic6OXbbBLH2yDpcfz3GunsYlM6A05Lf4q/qudliVHEDAni+v1xS9?=
- =?us-ascii?Q?VTp/C27jzGOdHPGYwIvTgMlrtghsHIZ1wWbGwxXXM5jrZQS5Kviwz/LSQ/G9?=
- =?us-ascii?Q?WkcQYYdbn2HHBGEfz9IMImsfFjHaOAx57OJg8n5Xa11FYeVaHNJ8JYYXf2QR?=
- =?us-ascii?Q?2Me3nSySfxtdemHVXWwujb3sNIh4TRTZhEaOv00z2UXzuwvSBqpK+Yndpsm7?=
- =?us-ascii?Q?Awa+MouzYFT/qwbCin9rsWuUlE5asX0pBlUf1ADAvy50QRaAKMxUmemJvbP7?=
- =?us-ascii?Q?3iHaQFyxw255v+T3+/4Y1ZgzIfiGsxOQX5XDj6rnp2rJI64mgJvAuT6LwmBX?=
- =?us-ascii?Q?YVreVhDLmF7KmiR0mgoQS5gggNwR5QMGjBIQxACnTJ70XpPE6IvGXvDueKfG?=
- =?us-ascii?Q?Sd9MeYx7y9/bBQKQdf3S+KnVj/hGXTGeUmQPfGfT69ZeWS5ZGUdsDq4j1shE?=
- =?us-ascii?Q?sNhcosuByJE7Wait5+IRKmjz/SUVcENI+iTs7B6vsAV+J2KRRJlB6kNacbow?=
- =?us-ascii?Q?GNdAMrz6I1l6bfq8b30njGd/45dfn8vWS7aJ+15G56eubjdHxr0LN6zfn8+h?=
- =?us-ascii?Q?Wur0ksE9oeg1cyzmchDglwG5oiXKagHIFro4Y7e2Edm0bq565taao0Ee3qAv?=
- =?us-ascii?Q?yNtlng7HSofQ7KlhFo4kuIW327AtI+KqrhagcjIyISyUKHoU2rthkZps4UXK?=
- =?us-ascii?Q?GqQ44boZyJAbDwHm+GbLynSDW2SDFwmOokohkwIKIWeZa8TdWBYukNai+eap?=
- =?us-ascii?Q?T7DG8FNyG/NMsbJeBfv3/qk9q7LD60W2vlIdfOsjZJ1nITEz0YJcOH454Ebd?=
- =?us-ascii?Q?wMIUgE6XyP3lrmquRJiYVYrIW5f8rlg7LtBlH5IIaz9siRp9no3yzVt3uajQ?=
- =?us-ascii?Q?8Mx2jitBpa4asb9teTiVXc6CSETSn5zydczzkuPagr8QgheXdmDBu7/AcX/2?=
- =?us-ascii?Q?N+/fylOjlXmzG7fdk3i/t/BKCl84d/WzxxJKFATaiidCIauduzd+uYIZb83n?=
- =?us-ascii?Q?/lVne/WYwhcWej+EaVdeDAyap8vw/d3D37WrEmcxlDb7WDpekokgQDgSgJHT?=
- =?us-ascii?Q?SvRe2k4dC+HzoTFyQv81TfsPNJzjZUWm15DH1lJqhB4amS2iUns1yTUnDnHF?=
- =?us-ascii?Q?2FelwlUEuoUedV+akJ8Ix2uNt6nvLPi/f0m7qSg/ElxZKUWk7aNzLdgjIdn7?=
- =?us-ascii?Q?JrEWI3FTL5iuKVyulnztAL6v8FrsQy8iGdxIY7epXdwYLhwr1kL0eVgW8opw?=
- =?us-ascii?Q?gRCm10LmEQHsTrbsb9QWvw+/D7p/zYvaVBtvOnU3FP1Nzbojgsfow6LE6CSw?=
- =?us-ascii?Q?SFHFqqTI4Iy8V0P5aHZ5wtQp1+t0AmaiqiLHYPhVhIMp24KQsxoS9nexh1ju?=
- =?us-ascii?Q?J2ukcORwMTt0Tb7zCz8YiumL+UyFitJwVnrHmE8zzXiwrSaQFpdgAodZD7w9?=
- =?us-ascii?Q?3CjprP8wX1OoRSOqBA52ZLA9B3eR6PdAHV4o+8p/IxWBOkif/KMV7pHWo+z3?=
- =?us-ascii?Q?PxBCLKpMAtYTMeRRJ9KsXZ0spT95/1nh/whDcuVxtfCwUt+IklvJXR/NcmZ5?=
- =?us-ascii?Q?94dsVt4EXTmmNZcXNiuvnD2ks/nHYcfiQHjwJMXMZB5zRid7?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Received: from mail-dl1-f44.google.com (mail-dl1-f44.google.com [74.125.82.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 398A510E43B
+ for <amd-gfx@lists.freedesktop.org>; Fri,  3 Apr 2026 02:07:28 +0000 (UTC)
+Received: by mail-dl1-f44.google.com with SMTP id
+ a92af1059eb24-12776bebe9fso3657168c88.1
+ for <amd-gfx@lists.freedesktop.org>; Thu, 02 Apr 2026 19:07:28 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1775182047; cv=none;
+ d=google.com; s=arc-20240605;
+ b=aBI9dIG3IiQ7v4VMIIGP+2bQI3iG8fm+heA3iwOluhCrSIxQbtVtiNEAflfwyBL8++
+ BmwFGumi09RcBjKlqu35kalUYtosy76XnbrLMW2AIf2tD746t4eEmCcJqSpRfD0Fohgc
+ d5o5WSo0jqbL1Zs5egJPsysoHCCfKWO5xDeX2t20pb9CbaHFNEKfbD1jC+lXkGwKzP/n
+ zlCp49wMNKGK+/0XAT+X1BTLA5v9eP9SpLgpK4omqMV4CDkMXtG7X7sD8H8vasqLxul9
+ t69sq/L8SQZ5it+08trg1gk+NPuvzfCx0QUzi+RQdUAY2NoC8Y+IB01zhfVaxsmCBDe3
+ vkAw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:dkim-signature;
+ bh=6bdlFMjKwX6jg6vEgqWB3zFv/fhyRvvRLyn/3ttJYok=;
+ fh=f8RDCCwf1SEj3PjZgU9FdXV9mJLwrU5R2kbPTHsrV2s=;
+ b=c5oFpksFUgmS+5tVG0K94wFlWSkWnK1K0qukscuV/pOxo5AH5SdsxnZuaTDBvFEnCN
+ OtW7oXZc0GgjIZIEtag/tJxAQP2fUin+luZHTr/hw7oyX+y7yhYv/gXoCU7EOt7z1fT1
+ 9o5OA1IUZALkvh+oonc6tQEvVD5eFxhsIs0lJSJJkBzcqZUA741cfvyWuRCuaUtcZ9BG
+ 0EqVEXHRbzZVZzT0+yxtQ968T1+MJw3YaUOP0K0KwCXszZ8h80Gt9/9oGrVCQrJbLDPF
+ ClaIedhfwRYhK4nCqckxaa2i6jszIie612HTmeVmYOd9vxSKUjUgY3th+8ew2NkFIpgz
+ zySw==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1775182047; x=1775786847; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=6bdlFMjKwX6jg6vEgqWB3zFv/fhyRvvRLyn/3ttJYok=;
+ b=gFCbe7DmVN4Xi1xdbq3LjLZYhavFicbXHMJYXbGBUxliE0KASQZsq05vqP3smJHtOr
+ uinALXkTqneUoehCdxA9HiHGY1bvUc3/f8ztlIdUHJR6J4BMpHhg6vCbLuIS4uREPmVs
+ /9aorn4cb7wJWnj3OhjGSfO3MBeuis4O2b57LIsLNrPEhG49ZBSyqCEDKDrc+eBxmjIY
+ 9hON6hdhFimba82F0uAFpdUYxenU2lWJIoj9U5fJVfG1F3dY1dM3QetWhgQOOM8f5Ekf
+ k7i3NIrPykLMV/N3wv19eVcxzNr99zIxyyq7XRrQY0ZGO3W6yOucPYoPIN2o44hwEL4Y
+ VTVg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1775182047; x=1775786847;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=6bdlFMjKwX6jg6vEgqWB3zFv/fhyRvvRLyn/3ttJYok=;
+ b=NivwIwMUOiZbQJwK1fPbG71jpVZEr2y/LeqyA2CN0Kk3llUNvaBweZqU3VyPg+T9JG
+ yLsvhBEOcHDm+XNwaO8wFJZzsbqJaaR/vje2t99vTtlpKoTx97iyxDtvwqMuWhE3hwv0
+ IRzu5+evToLj2Q1Lv8fucdSepNDomAnJhOe+kktY/McgrhGsDhpfGFXEQGN5w/JPhuKD
+ aN0DWUrxKB0aQXtCwuidrp2Nk0NQOO6yO/GeHrKGb4FAgHmJCvE3mJOWLq/BEykKHBjK
+ Lr1IRVBxyYPUaMckYZ8RPR9OAZG/7VSvXe11+EZeIBYHK0cNqzjJd/zKaJl48YtSkuTl
+ e09g==
+X-Gm-Message-State: AOJu0Yz/DMR0VVqXFb09VBdu/OjVYHKBm/otuOzI65I7K4iLugAofInb
+ kNjHmisC08h0He9E1KjX2H8vzc2RwsSidwJIEuHjOcHBZ5QivJIFAYD6y4qtewk5+0924fAavO0
+ PDm3qqUC2E+JE2SaaRFjXNPbeoBC6gF0=
+X-Gm-Gg: ATEYQzyhu/BH+Chal/14Gn7qbJ1kikjk0Lz3M1NkLtj63SiNRsm2HtmLPCVh6PDBAno
+ iVLRWjoA+RD81nnG4yAG30B8Bb9KZfeYIfgWalTYLOcc17NEnafEwqscXzMPdfymWsEgiP5bCnE
+ 4TmMGe3Eh3QT8v72PCu5MbaX93fCdqJ1UkydcOKag3p6ozVEQPWZNS4fxs4O0hUz43jKhfeKOR8
+ oOVdFKJ5IKVb6iaRBjkVCr40qp2tlSxUuZQSAiPohQj4Cu0wpouX3ttbpXUvCRjLY9vfW+jXc5B
+ KFgHq1HO3CJCbaPSMhkUZjy8mTLRzU3Wzk9vhl9e0A==
+X-Received: by 2002:a05:7022:b9c:b0:128:cf86:d1cb with SMTP id
+ a92af1059eb24-12bfb76b78amr632139c88.31.1775182047343; Thu, 02 Apr 2026
+ 19:07:27 -0700 (PDT)
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5144.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6976ec28-87b3-4de2-d44d-08de91014eee
-X-MS-Exchange-CrossTenant-originalarrivaltime: 02 Apr 2026 21:46:33.8326 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: xkmQw9poStH2wwveyL6asnrzClFWO3yecpPQWeZ5gmsZX4BOZRBZGFoiSBlyzPpfpRStpliuBhMLMPw+1Jb//Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6385
+References: <20260321052033.23472-1-mario.kleiner.de@gmail.com>
+ <f4861fc9-a602-44b9-b5c3-6b9c7f233b15@amd.com>
+In-Reply-To: <f4861fc9-a602-44b9-b5c3-6b9c7f233b15@amd.com>
+From: Mario Kleiner <mario.kleiner.de@gmail.com>
+Date: Fri, 3 Apr 2026 04:06:50 +0200
+X-Gm-Features: AQROBzBYKvLcn-fpWdDlHhBv6oqIOkFDp46xmMBpkM_oFXmS8VBAM6auqfiTp6Y
+Message-ID: <CAEsyxyidQQMYH5TZt9D-4iGSmhPRp-iQ7meqer-YdJ9FPc6cZw@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/display: Change dither policy for 10 bpc output
+ back to dithering
+To: Harry Wentland <harry.wentland@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ stable@vger.kernel.org, Aric Cyr <aric.cyr@amd.com>, 
+ Anthony Koo <anthony.koo@amd.com>, Rodrigo Siqueira <rodrigo.siqueira@amd.com>,
+ Krunoslav Kovac <krunoslav.kovac@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>
+Content-Type: multipart/alternative; boundary="00000000000057fa0b064e84c7cc"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,122 +104,289 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[Public]
+--00000000000057fa0b064e84c7cc
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-> -----Original Message-----
-> From: Wu, David <David.Wu3@amd.com>
-> Sent: Thursday, April 2, 2026 5:44 PM
-> To: amd-gfx@lists.freedesktop.org; Deucher, Alexander
-> <Alexander.Deucher@amd.com>; Lazar, Lijo <Lijo.Lazar@amd.com>
-> Cc: Liu, Leo <Leo.Liu@amd.com>
-> Subject: [PATCH V4] amdgpu/jpeg: fix deepsleep register for jpeg 5_0_0 an=
+That's great to hear! Maybe still a happy end for my users and Ubuntu
+26.04-LTS.
+
+Thanks Harry!
+
+On Wed, Apr 1, 2026 at 9:32=E2=80=AFPM Harry Wentland <harry.wentland@amd.c=
+om>
+wrote:
+
+>
+>
+> On 2026-03-21 01:20, Mario Kleiner wrote:
+> > Commit d5df648ec830 ("drm/amd/display: Change dither policy for 10bpc t=
+o
+> > round") degraded display of 12 bpc color precision output to 10 bpc sin=
+ks
+> > by switching 10 bpc output from dithering to "truncate to 10 bpc".
+> >
+> > I don't find the argumentation in that commit convincing, but the
+> > consequences highly unfortunate, especially for applications that
+> > require effective > 10 bpc precision output of > 10 bpc framebuffers.
+> >
+> > The argument wasn't something strong like "there are hardware design
+> > defects or limitations which require us to work around broken dithering
+> > to 10 bpc", or "there are some special use cases which do require
+> > truncation to 10 bpc", but essentially "at some point in the past we
+> > used truncation in Polaris/Vega times and it looks like it got
+> > inadvertently changed for Navi, so let's do that again". I couldn't fin=
 d
-> 5_0_2
+> > evidence for that in the git commit logs for this. The commit message
+> also
+> > acknowledges that using dithering "...makes some sense for FP16...
+> > ...but not for ARGB2101010 surfaces..."
+> >
+> > The problem with this is that it makes fp16 surfaces, and especially
+> > rgba16 fixed point surfaces, less useful. These are now well
+> > supported by Mesa 25.3 and later via OpenGL + EGL, Vulkan/WSI, and by
+> > OSS AMDVLK Vulkan/WSI/display, and also by GNOME 50 mutter under Waylan=
+d,
+> > and they used to provide more than 10 bpc effective precision at the
+> > output.
+> >
+> > Even for 8 or 10 bpc surfaces, the color pipeline behind the framebuffe=
+r,
+> > e.g., gamma tables, CTM, can be used for color correction and will
+> > benefit from an effective > 10 bpc output precision via dithering,
+> > retaining some precision that would get lost on the way through the
+> > pipeline, e.g., due to non-linear gamma functions.
+> >
+> > Scientific apps rely on this for > 10 bpc display precision. Truncating
+> > to 10 bpc, instead of dithering the pipeline internal 12 bpc precision
+> > down to 10 bpc, causes a serious loss of precision. This also creates t=
+he
+> > undesirable and slightly absurd situation that using a cheap monitor
+> > with only 8 bpc input and display panel will yield roughly 12 bpc
+> > precision via dithering from 12 -> 8 bpc, whereas investment into a
+> > more expensive monitor with 10 bpc input and native 10 bpc display will
+> > only yield 10 bpc, even if a fp16 or rgb16 framebuffer and/or a properl=
+y
+> > set up color pipeline (gamma tables, CTM's etc. with more than 10 bpc o=
+ut
+> > precision) would allow effective 12 bpc precision output.
+> >
+> > Therefore this patch proposes reverting that commit and going back to
+> > dithering down to 10 bpc, consistent with the behaviour for 6 bpc or 8
+> bpc
+> > output.
+> >
+> > Successfully tested on AMD Polaris DCE 11.2 and Raven Ridge DCN 1.0 wit=
+h
+> > a native 10 bpc capable monitor, outputting a RGBA16 unorm framebuffer
+> and
+> > measuring resulting color precision with a photometer. No apparent visu=
+al
+> > artifacts or problems were observed, and effective precision was measur=
+ed
+> > to be 12 bpc again, as expected.
+> >
+> > Fixes: d5df648ec830 ("drm/amd/display: Change dither policy for 10bpc t=
+o
+> round")
+> > Signed-off-by: Mario Kleiner <mario.kleiner.de@gmail.com>
+> > Tested-by: Mario Kleiner <mario.kleiner.de@gmail.com>
+> > Cc: stable@vger.kernel.org
+> > Cc: Aric Cyr <aric.cyr@amd.com>
+> > Cc: Anthony Koo <anthony.koo@amd.com>
+> > Cc: Rodrigo Siqueira <rodrigo.siqueira@amd.com>
+> > Cc: Krunoslav Kovac <krunoslav.kovac@amd.com>
+> > Cc: Alex Deucher <alexander.deucher@amd.com>
 >
-> PCTL0__MMHUB_DEEPSLEEP_IB is 0x69004 on MMHUB 4,1,0 and and
-> 0x60804 on MMHUB 4,2,0. 0x62a04 is on MMHUB 1,8,0/1.
+> Kruno and I chatted a bit more about this and the best way forward
+> seems to be to re-enable SPATIAL10 dither and then override that
+> when needed in our Windows driver.
 >
-> The DS bits are adjusted to cover more JPEG engines and MMHUB version.
+> Patches is
+> Reviewed-by: Harry Wentland <harry.wentland@amd.com>
 >
-> Signed-off-by: David (Ming Qiang) Wu <David.Wu3@amd.com>
+> Will pull it in today.
+>
+> Harry
+>
+> > ---
+> >  drivers/gpu/drm/amd/display/dc/core/dc_resource.c | 2 +-
+> >  1 file changed, 1 insertion(+), 1 deletion(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
+> b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
+> > index c9fbb64d706a..29db5404c4a0 100644
+> > --- a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
+> > +++ b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
+> > @@ -5056,7 +5056,7 @@ void
+> resource_build_bit_depth_reduction_params(struct dc_stream_state *stream,
+> >                       option =3D DITHER_OPTION_SPATIAL8;
+> >                       break;
+> >               case COLOR_DEPTH_101010:
+> > -                     option =3D DITHER_OPTION_TRUN10;
+> > +                     option =3D DITHER_OPTION_SPATIAL10;
+> >                       break;
+> >               default:
+> >                       option =3D DITHER_OPTION_DISABLE;
+>
+>
 
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+--00000000000057fa0b064e84c7cc
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-> ---
->  drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c | 52
-> +++++++++++++++++++++---
->  1 file changed, 46 insertions(+), 6 deletions(-)
+<div dir=3D"ltr"><div>That&#39;s great to hear! Maybe still a happy end for=
+ my users and Ubuntu 26.04-LTS.</div><div><br></div><div>Thanks Harry!</div=
+></div><br><div class=3D"gmail_quote gmail_quote_container"><div dir=3D"ltr=
+" class=3D"gmail_attr">On Wed, Apr 1, 2026 at 9:32=E2=80=AFPM Harry Wentlan=
+d &lt;<a href=3D"mailto:harry.wentland@amd.com">harry.wentland@amd.com</a>&=
+gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0=
+px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex"><br>
+<br>
+On 2026-03-21 01:20, Mario Kleiner wrote:<br>
+&gt; Commit d5df648ec830 (&quot;drm/amd/display: Change dither policy for 1=
+0bpc to<br>
+&gt; round&quot;) degraded display of 12 bpc color precision output to 10 b=
+pc sinks<br>
+&gt; by switching 10 bpc output from dithering to &quot;truncate to 10 bpc&=
+quot;.<br>
+&gt; <br>
+&gt; I don&#39;t find the argumentation in that commit convincing, but the<=
+br>
+&gt; consequences highly unfortunate, especially for applications that<br>
+&gt; require effective &gt; 10 bpc precision output of &gt; 10 bpc framebuf=
+fers.<br>
+&gt; <br>
+&gt; The argument wasn&#39;t something strong like &quot;there are hardware=
+ design<br>
+&gt; defects or limitations which require us to work around broken ditherin=
+g<br>
+&gt; to 10 bpc&quot;, or &quot;there are some special use cases which do re=
+quire<br>
+&gt; truncation to 10 bpc&quot;, but essentially &quot;at some point in the=
+ past we<br>
+&gt; used truncation in Polaris/Vega times and it looks like it got<br>
+&gt; inadvertently changed for Navi, so let&#39;s do that again&quot;. I co=
+uldn&#39;t find<br>
+&gt; evidence for that in the git commit logs for this. The commit message =
+also<br>
+&gt; acknowledges that using dithering &quot;...makes some sense for FP16..=
+.<br>
+&gt; ...but not for ARGB2101010 surfaces...&quot;<br>
+&gt; <br>
+&gt; The problem with this is that it makes fp16 surfaces, and especially<b=
+r>
+&gt; rgba16 fixed point surfaces, less useful. These are now well<br>
+&gt; supported by Mesa 25.3 and later via OpenGL + EGL, Vulkan/WSI, and by<=
+br>
+&gt; OSS AMDVLK Vulkan/WSI/display, and also by GNOME 50 mutter under Wayla=
+nd,<br>
+&gt; and they used to provide more than 10 bpc effective precision at the<b=
+r>
+&gt; output.<br>
+&gt; <br>
+&gt; Even for 8 or 10 bpc surfaces, the color pipeline behind the framebuff=
+er,<br>
+&gt; e.g., gamma tables, CTM, can be used for color correction and will<br>
+&gt; benefit from an effective &gt; 10 bpc output precision via dithering,<=
+br>
+&gt; retaining some precision that would get lost on the way through the<br=
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c
-> b/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c
-> index 4b4aa9553624..82abe181c730 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c
-> @@ -736,15 +736,35 @@ static void jpeg_v4_0_3_dec_ring_set_wptr(struct
-> amdgpu_ring *ring)
->   */
->  void jpeg_v4_0_3_dec_ring_insert_start(struct amdgpu_ring *ring)  {
-> -     if (!amdgpu_sriov_vf(ring->adev)) {
-> +     struct amdgpu_device *adev =3D ring->adev;
-> +
-> +     if (!amdgpu_sriov_vf(adev)) {
-> +             int jpeg_inst =3D GET_INST(JPEG, ring->me);
-> +             uint32_t value =3D 0x80004000; /* default DS14 */
-> +
->               amdgpu_ring_write(ring,
-> PACKETJ(regUVD_JRBC_EXTERNAL_REG_INTERNAL_OFFSET,
->                       0, 0, PACKETJ_TYPE0));
-> -             amdgpu_ring_write(ring, 0x62a04); /*
-> PCTL0_MMHUB_DEEPSLEEP_IB */
-> +
-> +             /* PCTL0__MMHUB_DEEPSLEEP_IB could be different on
-> different mmhub version */
-> +             switch (amdgpu_ip_version(adev, MMHUB_HWIP, 0)) {
-> +             case IP_VERSION(4, 1, 0):
-> +                     amdgpu_ring_write(ring, 0x69004);
-> +                     value =3D 0x80010000;
-> +                     break;
-> +             case IP_VERSION(4, 2, 0):
-> +                     amdgpu_ring_write(ring, 0x60804);
-> +                     if (jpeg_inst & 1)
-> +                             value =3D 0x80010000;
-> +                     break;
-> +             default:
-> +                     amdgpu_ring_write(ring, 0x62a04);
-> +                     break;
-> +             }
->
->               amdgpu_ring_write(ring,
->
-> PACKETJ(JRBC_DEC_EXTERNAL_REG_WRITE_ADDR, 0,
->                                         0, PACKETJ_TYPE0));
-> -             amdgpu_ring_write(ring, 0x80004000);
-> +             amdgpu_ring_write(ring, value);
->       }
->  }
->
-> @@ -757,15 +777,35 @@ void jpeg_v4_0_3_dec_ring_insert_start(struct
-> amdgpu_ring *ring)
->   */
->  void jpeg_v4_0_3_dec_ring_insert_end(struct amdgpu_ring *ring)  {
-> -     if (!amdgpu_sriov_vf(ring->adev)) {
-> +     struct amdgpu_device *adev =3D ring->adev;
-> +
-> +     if (!amdgpu_sriov_vf(adev)) {
-> +             int jpeg_inst =3D GET_INST(JPEG, ring->me);
-> +             uint32_t value =3D 0x00004000; /* default DS14 */
-> +
->               amdgpu_ring_write(ring,
-> PACKETJ(regUVD_JRBC_EXTERNAL_REG_INTERNAL_OFFSET,
->                       0, 0, PACKETJ_TYPE0));
-> -             amdgpu_ring_write(ring, 0x62a04);
-> +
-> +             /* PCTL0__MMHUB_DEEPSLEEP_IB could be different on
-> different mmhub version */
-> +             switch (amdgpu_ip_version(adev, MMHUB_HWIP, 0)) {
-> +             case IP_VERSION(4, 1, 0):
-> +                     amdgpu_ring_write(ring, 0x69004);
-> +                     value =3D 0x00010000;
-> +                     break;
-> +             case IP_VERSION(4, 2, 0):
-> +                     amdgpu_ring_write(ring, 0x60804);
-> +                     if (jpeg_inst & 1)
-> +                             value =3D 0x00010000;
-> +                     break;
-> +             default:
-> +                     amdgpu_ring_write(ring, 0x62a04);
-> +                     break;
-> +             }
->
->               amdgpu_ring_write(ring,
->
-> PACKETJ(JRBC_DEC_EXTERNAL_REG_WRITE_ADDR, 0,
->                                         0, PACKETJ_TYPE0));
-> -             amdgpu_ring_write(ring, 0x00004000);
-> +             amdgpu_ring_write(ring, value);
->       }
->  }
->
-> --
-> 2.43.0
+&gt; pipeline, e.g., due to non-linear gamma functions.<br>
+&gt; <br>
+&gt; Scientific apps rely on this for &gt; 10 bpc display precision. Trunca=
+ting<br>
+&gt; to 10 bpc, instead of dithering the pipeline internal 12 bpc precision=
+<br>
+&gt; down to 10 bpc, causes a serious loss of precision. This also creates =
+the<br>
+&gt; undesirable and slightly absurd situation that using a cheap monitor<b=
+r>
+&gt; with only 8 bpc input and display panel will yield roughly 12 bpc<br>
+&gt; precision via dithering from 12 -&gt; 8 bpc, whereas investment into a=
+<br>
+&gt; more expensive monitor with 10 bpc input and native 10 bpc display wil=
+l<br>
+&gt; only yield 10 bpc, even if a fp16 or rgb16 framebuffer and/or a proper=
+ly<br>
+&gt; set up color pipeline (gamma tables, CTM&#39;s etc. with more than 10 =
+bpc out<br>
+&gt; precision) would allow effective 12 bpc precision output.<br>
+&gt; <br>
+&gt; Therefore this patch proposes reverting that commit and going back to<=
+br>
+&gt; dithering down to 10 bpc, consistent with the behaviour for 6 bpc or 8=
+ bpc<br>
+&gt; output.<br>
+&gt; <br>
+&gt; Successfully tested on AMD Polaris DCE 11.2 and Raven Ridge DCN 1.0 wi=
+th<br>
+&gt; a native 10 bpc capable monitor, outputting a RGBA16 unorm framebuffer=
+ and<br>
+&gt; measuring resulting color precision with a photometer. No apparent vis=
+ual<br>
+&gt; artifacts or problems were observed, and effective precision was measu=
+red<br>
+&gt; to be 12 bpc again, as expected.<br>
+&gt; <br>
+&gt; Fixes: d5df648ec830 (&quot;drm/amd/display: Change dither policy for 1=
+0bpc to round&quot;)<br>
+&gt; Signed-off-by: Mario Kleiner &lt;<a href=3D"mailto:mario.kleiner.de@gm=
+ail.com" target=3D"_blank">mario.kleiner.de@gmail.com</a>&gt;<br>
+&gt; Tested-by: Mario Kleiner &lt;<a href=3D"mailto:mario.kleiner.de@gmail.=
+com" target=3D"_blank">mario.kleiner.de@gmail.com</a>&gt;<br>
+&gt; Cc: <a href=3D"mailto:stable@vger.kernel.org" target=3D"_blank">stable=
+@vger.kernel.org</a><br>
+&gt; Cc: Aric Cyr &lt;<a href=3D"mailto:aric.cyr@amd.com" target=3D"_blank"=
+>aric.cyr@amd.com</a>&gt;<br>
+&gt; Cc: Anthony Koo &lt;<a href=3D"mailto:anthony.koo@amd.com" target=3D"_=
+blank">anthony.koo@amd.com</a>&gt;<br>
+&gt; Cc: Rodrigo Siqueira &lt;<a href=3D"mailto:rodrigo.siqueira@amd.com" t=
+arget=3D"_blank">rodrigo.siqueira@amd.com</a>&gt;<br>
+&gt; Cc: Krunoslav Kovac &lt;<a href=3D"mailto:krunoslav.kovac@amd.com" tar=
+get=3D"_blank">krunoslav.kovac@amd.com</a>&gt;<br>
+&gt; Cc: Alex Deucher &lt;<a href=3D"mailto:alexander.deucher@amd.com" targ=
+et=3D"_blank">alexander.deucher@amd.com</a>&gt;<br>
+<br>
+Kruno and I chatted a bit more about this and the best way forward<br>
+seems to be to re-enable SPATIAL10 dither and then override that<br>
+when needed in our Windows driver.<br>
+<br>
+Patches is<br>
+Reviewed-by: Harry Wentland &lt;<a href=3D"mailto:harry.wentland@amd.com" t=
+arget=3D"_blank">harry.wentland@amd.com</a>&gt;<br>
+<br>
+Will pull it in today.<br>
+<br>
+Harry<br>
+<br>
+&gt; ---<br>
+&gt;=C2=A0 drivers/gpu/drm/amd/display/dc/core/dc_resource.c | 2 +-<br>
+&gt;=C2=A0 1 file changed, 1 insertion(+), 1 deletion(-)<br>
+&gt; <br>
+&gt; diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c b/drive=
+rs/gpu/drm/amd/display/dc/core/dc_resource.c<br>
+&gt; index c9fbb64d706a..29db5404c4a0 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c<br>
+&gt; +++ b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c<br>
+&gt; @@ -5056,7 +5056,7 @@ void resource_build_bit_depth_reduction_params(s=
+truct dc_stream_state *stream,<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0option =3D DITHER_OPTION_SPATIAL8;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0break;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0case COLOR_DEPTH=
+_101010:<br>
+&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0option =3D DITHER_OPTION_TRUN10;<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0option =3D DITHER_OPTION_SPATIAL10;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0break;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0default:<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0option =3D DITHER_OPTION_DISABLE;<br>
+<br>
+</blockquote></div>
 
+--00000000000057fa0b064e84c7cc--
