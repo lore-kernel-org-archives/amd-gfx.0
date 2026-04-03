@@ -4,61 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F0414E7E358
-	for <amd-gfx@archiver.kernel.org>; Fri,  3 Apr 2026 09:29:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 070E5E7E35C
+	for <amd-gfx@archiver.kernel.org>; Fri,  3 Apr 2026 09:29:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8EC3F10F480;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9078010F483;
 	Fri,  3 Apr 2026 09:29:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ATwxNbYL";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="c6oJoali";
 	dkim-atps=neutral
-Received: from mail-lf1-f49.google.com (mail-lf1-f49.google.com
- [209.85.167.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 49CE410E4EE
- for <amd-gfx@lists.freedesktop.org>; Fri,  3 Apr 2026 08:22:25 +0000 (UTC)
-Received: by mail-lf1-f49.google.com with SMTP id
- 2adb3069b0e04-5a10d130b37so1556981e87.0
- for <amd-gfx@lists.freedesktop.org>; Fri, 03 Apr 2026 01:22:25 -0700 (PDT)
+Received: from mail-lf1-f52.google.com (mail-lf1-f52.google.com
+ [209.85.167.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1F9F110F3C9
+ for <amd-gfx@lists.freedesktop.org>; Fri,  3 Apr 2026 08:22:28 +0000 (UTC)
+Received: by mail-lf1-f52.google.com with SMTP id
+ 2adb3069b0e04-5a0faa0d15cso2001786e87.0
+ for <amd-gfx@lists.freedesktop.org>; Fri, 03 Apr 2026 01:22:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1775204544; x=1775809344; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=iX2gAg3Cvwni3EvZpLj5YxG0NykzLvzc2v6h1lU8a+w=;
- b=ATwxNbYLOgTADG1UFmDs6slDzP46h9MdfxSgavLA4us275F09WJgKcCheqJUaohR3s
- UInlOigRAHdis8KS9ClPvVqCwGNyHkAP6IKNbfRbKPC8aJlH14NTwysxnoY/zgwVXiDi
- sUxXa2IglfD6PYeW9I+yl4ewJnsxzRgmfPpy4fAh+RniKi7wNQh2SvtR7lLlFTPhjSsZ
- /CHSNddeevkR1v/9jW5sp8tdJrbeFJCp7p68ahixRjr1e8SWYrDga4xh6Kg36P53pJT5
- KG7aaDBvWCpgPLSqFMRYGsxnrpwItpe8yiMGGQXm4Rv0fYRxaD3nwXKlPGhSpSu5madf
- YFQg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1775204544; x=1775809344;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=gmail.com; s=20251104; t=1775204546; x=1775809346; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=iX2gAg3Cvwni3EvZpLj5YxG0NykzLvzc2v6h1lU8a+w=;
- b=rIXq1yD/HYuy+CXUM4flAdBSZho5mvkuV7ZmEJjoROVIhQEhp1LdKHZH4rWgWui1v0
- TaRIGPnrJCZcvgz+rbeyADT4EOLBKTLBHXFTQpfrdMeEnjDnXJqQcJmLPV6QCXwO07cO
- 0GjpR+DKMRI1GPQ5k/fEIAXO6VMT0aE7w+i4bcjQCuTKDsFEqjft+VAprBn7GkuG02Xu
- 3NF4Bp1BGYZ3527uHE3h+s5KHLFkiCKVgOtZy4TZ6X0DbgU0b4JByaH93SC4wfTEQXFr
- 1JYp6h0mfaiottdg+nL+RX7aOLsGFKPhO7TSeTVi+5Ng1oobgXBB/BoKwuXyfIadW8iN
- uuZQ==
-X-Gm-Message-State: AOJu0YxgrnZPwuujYTT4JuCvPlAN/8E1DHfKgkM5Tjd/QqQMwbbTXdDt
- nAJ0Expoa5Q2OXOTUMj63dSqDUEIWU+QA8JMSvqj4U69maYQhtNUo//V
-X-Gm-Gg: AeBDiet38ACqKjc2LxfYSSMynGiVKcg/Id+iNmWoWPpwwLg2dXjh6tDbZHWYh1I2AtB
- zE4l1nIXZOE3/bloiJhACck8MBgtPKo3VLB5htXLB5VmSj9OEnAdW10ZdImuJ6ONbndRoMjEzFC
- NoDtyiczpoUvRCJp6bSDIfmUyPu+x6JGBzHHuOrJ+PTYKIvg8hZkYbGOtzlGhhNvddqLC/gMt+I
- lE+biWLLD18Ay1NK/nuch3qzTL7N8lhe9e4WLa6zQycxXqw6QDu6kqS691k42X2gfhAISfgfrR6
- g9ZR/+708DzbPv1nYfSXsdQW1jSA6nYFKmIvMKwqWMUxlw9XpwxO2C8cpySHNx5cNq4IzBH4DET
- c1T/gXiweJFCnVvg1tJG0kH9mX15/MAuLf/1WVUTDuBqo70ZxRBsLkyd3ubTN6UtE9HW5eyPocv
- yWq9WMBUXCXNK0EFAWDR9uFRa6ia/97esbGzxN0UVB1gJPTRk8gK/S
-X-Received: by 2002:a05:6512:3d9e:b0:5a2:c0b8:271 with SMTP id
- 2adb3069b0e04-5a2c8d97952mr1848851e87.17.1775204543248; 
- Fri, 03 Apr 2026 01:22:23 -0700 (PDT)
+ bh=YpDlKi8KTsQjgbsGCm7tac5gEEEqVyIzql0pN8aHQYU=;
+ b=c6oJoaliBbjU/A1Mu5ObDa83jgCd4LESl6BvrjrJSoFAA7E3MNBmusKP6gHq+toQcW
+ p3qHKPW2kThfKNThOzcTAeFqEg054jfM7VKTZoKex1SHXkNW5vqm4IXGVKK2xnyg4UG/
+ 3XtAqjM4sk+Wo2TuN97LvuVZGkCwkJnRU3Ca+pZ3AvEdDAQU4Jd+714wBfwZfW3c53bI
+ +a8KQtL3mVWfVmHvRnSFeoxw5Cnq8ctaf/zXJr8/Cxs+rg96XnThc/0QR2URNR6u2n10
+ KfKRKQjbAMFfwoQY/RP+7y3ZrQ9/dXlHar4Ru0eppCmZn5oYTf5Ypb80dYdH6SLajRwi
+ BddQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1775204546; x=1775809346;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=YpDlKi8KTsQjgbsGCm7tac5gEEEqVyIzql0pN8aHQYU=;
+ b=f3HMKY+jeWTZCyD6wPI1c+zMRCWpa57dpREl3MHYX0LouIJpYSs9wPJ1X8mBk4gr3X
+ TcJExX1No6uDyLIY6UO070+uiyPJDssHNquDTTs0yz+wBt2UC64ZPb7FO516ikmdSrFJ
+ rsW3YPsghR5zfSBB+Q0VboXHWsUbBXzUT19pqiNVMhhUDEz704qS/C6dPeKMJ4TAfupY
+ GZV/UogmLSftoh1TdDG3q97rzOTj00QjW3qTgGqeBLy39agCFf2Op/VOKLi66e+jKUgo
+ KvnfL85bB5qwXWQyisuAtUWDHw+BFQiDfEJoFVMs8zDTKg4L3VwonztJVgl2DyFKNjYE
+ LBEw==
+X-Gm-Message-State: AOJu0YxcP43vTxJKUhuwZz4hsLRZcCf73LTVXJDtxdxjBcK10ito3Q6I
+ RNvMvgrv1bVF1pEnL2KVqvYglYKy92trWXX+VdQcy21tqayAtbAF/xMR
+X-Gm-Gg: AeBDiesLmead/vCam+lhXR71zJO7JQLr8NMuUdmDBMlxO/FTe5kqxMj/pDd+Mtop9Mb
+ olUuxXf9xIKA0tAJ6+4gNVFfSgbm2iVxCqZ9LyfnmngFNvM7gFIgdLAKhgn2M7lodIFE9lgsZsq
+ 9pjDeHNkbuzX/GfHL6mAijwps06Pm44WAR6rijZhfA1rwR0gbpDuXe2j5Ox4MzLUEpW+2X8mOVr
+ 6yfbOcuLQM2RGqTX1VSPzHfMgrhndQ5gMX5MM1hrFRE+iEfku/GvpgsS/JX70pPXaDgLOQJ3LtE
+ d9mwQAOzLlF+pmor8mPYbDiS95TNDaCu1fKuDy/cc8quD6+cFYRKUoRUtLLBjtVtyizXBKAu9Nz
+ qcR9vl/fQU0W62vU/tZeLrQkqe9o+niwZKAGNOtxl4u3zPfEllF6kbGzgOWkClZgx+Y7tf3ll39
+ EKmQcr3mw9y2Qg8dsorJ29qzQ0woQGlARVYkes3527Sepwqmg/Z9R4jKug60BdmHc=
+X-Received: by 2002:a05:6512:3981:b0:5a2:bedb:2119 with SMTP id
+ 2adb3069b0e04-5a337580564mr673418e87.26.1775204546098; 
+ Fri, 03 Apr 2026 01:22:26 -0700 (PDT)
 Received: from localhost (94.191.136.33.mobile.tre.se. [94.191.136.33])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5a2c6ccca2dsm1274752e87.60.2026.04.03.01.22.22
+ 2adb3069b0e04-5a2c6c957dbsm1266019e87.1.2026.04.03.01.22.25
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 03 Apr 2026 01:22:22 -0700 (PDT)
+ Fri, 03 Apr 2026 01:22:25 -0700 (PDT)
 From: Linus Probert <linus.probert@gmail.com>
 To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Rodrigo Siqueira <siqueira@igalia.com>,
@@ -66,11 +67,14 @@ To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
 Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Linus Probert <linus.probert@gmail.com>
-Subject: [PATCH 0/2] drm/amd/display: Replace NUM_ELEMENTS -> ARRAY_SIZE
-Date: Fri,  3 Apr 2026 10:22:05 +0200
-Message-ID: <20260403082207.1533450-1-linus.probert@gmail.com>
+ linux-kernel@vger.kernel.org, Linus Probert <linus.probert@gmail.com>,
+ "Robert P. J. Day" <rpjday@crashcourse.ca>
+Subject: [PATCH 2/2] drm/amd/display: Remove unused NUM_ELEMENTS macros
+Date: Fri,  3 Apr 2026 10:22:07 +0200
+Message-ID: <20260403082207.1533450-3-linus.probert@gmail.com>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260403082207.1533450-1-linus.probert@gmail.com>
+References: <20260403082207.1533450-1-linus.probert@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 03 Apr 2026 09:29:14 +0000
@@ -88,32 +92,75 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-There's a coccinelle script which attempts to replace cases where sizeof
-array is divided by sizeof an element. Most of these occurences have
-been handled but a few remained in this driver in the shape of the
-NUM_ELEMENTS macro.
+Removes unused NUM_ELEMENTS macros. Discovered while removing cases
+where ARRAY_SIZE from the header <linus/array_size.h> can be used.
+This also aligns with the array_size.cocci coccinelle check.
 
-In two cases the NUM_ELEMENTS macro has been removed and its use has
-been replaced by ARRAY_SIZE. (1)
-In 4 files the NUM_ELEMENTS macro existed but was never used so it has
-just been removed. (2)
-
-I couldn't trace why these cases hadn't been picked up by the coccinelle
-check. Just NAK this if there's a reason for NUM_ELEMENTS to be kept as
-is. Thanks.
-
-Linus Probert (2):
-  drm/amd/display: Replace inline NUM_ELEMENTS macro with ARRAY_SIZE
-  drm/amd/display: Remove unused NUM_ELEMENTS macros
-
- drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c     | 5 +++--
- drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c     | 6 +++---
+Suggested-by: Robert P. J. Day <rpjday@crashcourse.ca>
+Signed-off-by: Linus Probert <linus.probert@gmail.com>
+---
  drivers/gpu/drm/amd/display/dc/dpp/dcn10/dcn10_dpp_cm.c   | 3 ---
  drivers/gpu/drm/amd/display/dc/dpp/dcn401/dcn401_dpp_cm.c | 3 ---
  drivers/gpu/drm/amd/display/dc/mpc/dcn20/dcn20_mpc.c      | 2 --
  drivers/gpu/drm/amd/display/dc/mpc/dcn30/dcn30_mpc.c      | 4 ----
- 6 files changed, 6 insertions(+), 17 deletions(-)
+ 4 files changed, 12 deletions(-)
 
+diff --git a/drivers/gpu/drm/amd/display/dc/dpp/dcn10/dcn10_dpp_cm.c b/drivers/gpu/drm/amd/display/dc/dpp/dcn10/dcn10_dpp_cm.c
+index f8f6019d8304..2bdd063cc1e1 100644
+--- a/drivers/gpu/drm/amd/display/dc/dpp/dcn10/dcn10_dpp_cm.c
++++ b/drivers/gpu/drm/amd/display/dc/dpp/dcn10/dcn10_dpp_cm.c
+@@ -49,9 +49,6 @@
+ #define FN(reg_name, field_name) \
+ 	dpp->tf_shift->field_name, dpp->tf_mask->field_name
+ 
+-#define NUM_ELEMENTS(a) (sizeof(a) / sizeof((a)[0]))
+-
+-
+ enum dcn10_coef_filter_type_sel {
+ 	SCL_COEF_LUMA_VERT_FILTER = 0,
+ 	SCL_COEF_LUMA_HORZ_FILTER = 1,
+diff --git a/drivers/gpu/drm/amd/display/dc/dpp/dcn401/dcn401_dpp_cm.c b/drivers/gpu/drm/amd/display/dc/dpp/dcn401/dcn401_dpp_cm.c
+index 62bf7cea21d8..7b7a0c660d47 100644
+--- a/drivers/gpu/drm/amd/display/dc/dpp/dcn401/dcn401_dpp_cm.c
++++ b/drivers/gpu/drm/amd/display/dc/dpp/dcn401/dcn401_dpp_cm.c
+@@ -49,9 +49,6 @@
+ #define FN(reg_name, field_name) \
+ 	dpp->tf_shift->field_name, dpp->tf_mask->field_name
+ 
+-#define NUM_ELEMENTS(a) (sizeof(a) / sizeof((a)[0]))
+-
+-
+ enum dcn401_coef_filter_type_sel {
+ 	SCL_COEF_LUMA_VERT_FILTER = 0,
+ 	SCL_COEF_LUMA_HORZ_FILTER = 1,
+diff --git a/drivers/gpu/drm/amd/display/dc/mpc/dcn20/dcn20_mpc.c b/drivers/gpu/drm/amd/display/dc/mpc/dcn20/dcn20_mpc.c
+index ea73473b970a..fa600593f4c1 100644
+--- a/drivers/gpu/drm/amd/display/dc/mpc/dcn20/dcn20_mpc.c
++++ b/drivers/gpu/drm/amd/display/dc/mpc/dcn20/dcn20_mpc.c
+@@ -43,8 +43,6 @@
+ #define FN(reg_name, field_name) \
+ 	mpc20->mpc_shift->field_name, mpc20->mpc_mask->field_name
+ 
+-#define NUM_ELEMENTS(a) (sizeof(a) / sizeof((a)[0]))
+-
+ void mpc2_update_blending(
+ 	struct mpc *mpc,
+ 	struct mpcc_blnd_cfg *blnd_cfg,
+diff --git a/drivers/gpu/drm/amd/display/dc/mpc/dcn30/dcn30_mpc.c b/drivers/gpu/drm/amd/display/dc/mpc/dcn30/dcn30_mpc.c
+index 6bfd2c1294e5..ec2181d9f20b 100644
+--- a/drivers/gpu/drm/amd/display/dc/mpc/dcn30/dcn30_mpc.c
++++ b/drivers/gpu/drm/amd/display/dc/mpc/dcn30/dcn30_mpc.c
+@@ -40,10 +40,6 @@
+ #define FN(reg_name, field_name) \
+ 	mpc30->mpc_shift->field_name, mpc30->mpc_mask->field_name
+ 
+-
+-#define NUM_ELEMENTS(a) (sizeof(a) / sizeof((a)[0]))
+-
+-
+ void mpc3_mpc_init(struct mpc *mpc)
+ {
+ 	struct dcn30_mpc *mpc30 = TO_DCN30_MPC(mpc);
 -- 
 2.53.0
 
