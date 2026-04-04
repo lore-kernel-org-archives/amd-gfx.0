@@ -4,100 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 484F1E63FE8
-	for <amd-gfx@archiver.kernel.org>; Sun,  5 Apr 2026 12:09:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 57388E6401C
+	for <amd-gfx@archiver.kernel.org>; Sun,  5 Apr 2026 12:10:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A35FD10E130;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B2A9A10E226;
 	Sun,  5 Apr 2026 12:09:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="DCmQcBFa";
+	dkim=pass (2048-bit key; secure) header.d=usp.br header.i=@usp.br header.b="Ud3T62Pv";
 	dkim-atps=neutral
-Received: from mail-vk1-f178.google.com (mail-vk1-f178.google.com
- [209.85.221.178])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DA28510E483
- for <amd-gfx@lists.freedesktop.org>; Sat,  4 Apr 2026 13:10:49 +0000 (UTC)
-Received: by mail-vk1-f178.google.com with SMTP id
- 71dfb90a1353d-56d9c4f7f0bso1893817e0c.2
- for <amd-gfx@lists.freedesktop.org>; Sat, 04 Apr 2026 06:10:49 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1775308249; cv=none;
- d=google.com; s=arc-20240605;
- b=NYVF90tFXGYkbbMYHLxOd+IzJ51Ko7hrWSY4IRC3PJENjPTZ+Q051l7fbEmojHYo4f
- FOmPSx8YHGt4U/XB7AEucVYI/PG6yCwaK0QRIJP4eHe3V6bE8jcwvrj7zA17cqMH8BvD
- etlxfziX86YZFbNb5Jd479mqQ9cDmm0vW09keMbhYGQHFSVpBEUIdZjCq2Lsc1UQmfI+
- 4bOWdo9LNF2YpY/dpvDOLu8B/lTz16cR1+DWc9+qD/aRvvZ3btQEVIU5fHgf2wjGmQ86
- 8OclzNs870k13VZgrQUtKlEyal5/+eWLv4LwQSgYbxu27Likm9nrulvPsYoY6sAWjC0K
- zc7Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=8HyqRbvBObQZXtQPHYrpXqo29d4/ZY4OJj9xIWAPpRo=;
- fh=Eo7g14YphFwQDLTfEofxpskiApUgAKGyDWQEQwifwAc=;
- b=VueAMuzmHy6spXCwvAYm1pDnoiYTXzCNKz6jymqBIv3DyYH1Re/cjYQ9OMsbgt0KoI
- IUnuoFUNuS4U3bblpWVO+t1OKCELJmpfWwP3rbd8HStkrVUMxww9nJxH0U1TTo+vckoj
- aJPZ0wKC5gwhEHzssqRBl5Nvs1did4VSk2uMW2ZeEmWOK2vJLVWN8fO14Ihn5NEGJrgW
- 0RXqHEUManf8HPIgKS6SaVUAtR9fe19D0nW0QTucGC3UO2TnYvsmq7iJ1+VhybKI3QEK
- 8GoHRoLb+f2kfYDDkRHAf1Eg5skV337J9jgwzItFKy1TNhpbe5spI9Hp/7hkx3fYKAZ1
- 8AeA==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mail-vk1-f179.google.com (mail-vk1-f179.google.com
+ [209.85.221.179])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1AA1910E2C4
+ for <amd-gfx@lists.freedesktop.org>; Sat,  4 Apr 2026 06:40:21 +0000 (UTC)
+Received: by mail-vk1-f179.google.com with SMTP id
+ 71dfb90a1353d-56a86f0a23bso2437392e0c.0
+ for <amd-gfx@lists.freedesktop.org>; Fri, 03 Apr 2026 23:40:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1775308249; x=1775913049; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=8HyqRbvBObQZXtQPHYrpXqo29d4/ZY4OJj9xIWAPpRo=;
- b=DCmQcBFavWP9iDUJG1o0NetQwtS6f0VkfABXLfifzRt6dSnQaPZgBEtfRZY+ONfrfs
- HRX9bWxYroiTMncFrKlmPTKyDn6JlTBo9tHTmJOzWhZVgsOhelYnnVtDn77X6HsFlZOD
- Fsd90iLXHl3V+kmcX6El/g+Pzt6mw2FxMSqifxD06ysvcFQT7lxX4uXWTRFqTdvutYIx
- 83pSKTy+IiMID54+YSvnrD+bwvuRPRy3hJX9G15dRcfQDYF1biWJ9/jWQCAKrVkDNTFm
- qnBN7xoAPBTHL3F5QlOcXzNu9ou0keIpU5yYdDw9pfE3x65cKO8NcoKoqNRQ4KmSE+Uh
- j/2A==
+ d=usp.br; s=usp-google; t=1775284820; x=1775889620; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=NM+YgMZ3VPSp8HAw6BysCZ3QXJispP0X2NnMfKbHGEw=;
+ b=Ud3T62Pvx7Jp92tXbcLRxU1Mr/dmUGN78hMcfUytV6udlU/6bhgbuS9jtiF89mzTDU
+ xk7EFyzc/MOnjmvivev1YrC6snpgVRcePuEYfkMs4Pc+MMYIE4rRmVNBTqRzpbbpnNWd
+ t7uDnbgbtMixh6A5S4KrO+Ykf6ukRGJ857PbVit/6oNK0fVlmq4dEuqHVWLmL15acaHQ
+ el6pDEJTiXzRs72Hwn8Qho0eT1RsFA2W2gxZo7lV4i3Muz2lvbWG0Cy1gZCDhaRCu2oT
+ A35Bdf0OinJXnnQTfaommZA50YjuR9F/8sEdzEZg7CYkgbOw+RLSqu0b+k6nTpA1yhhu
+ aU+g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1775308249; x=1775913049;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=8HyqRbvBObQZXtQPHYrpXqo29d4/ZY4OJj9xIWAPpRo=;
- b=OYiImWAv63EDdxMD45fNIo92F5jFaYjLLjT+HSkXTErwUvldJxgs593oUXnqpbUlsv
- b3qDlO1sHSGijBzSMR6zaNtw+at9jAlw/jzT5duZzZzR58vxBBvJ/GImAEqy51Pvn14G
- z/hZgV0SFh+MiV6bhd0JDnvfF5CGMuMqfL24blVAq+Z6YPQDy2KwEY89zuM652kXkbke
- hMY35WiIlvvWIwLrgQ5E+rAMAEgUtyNpA9AGoMKXKWnrayiTgQyAf33asQjz/yYs5SRD
- 7qixzdzcVB20vvHJiIeK6g+zXVilN2FffNvbfuzvse5n3PsPoPTJAO92EzAjGpEOzmAz
- I/NQ==
+ d=1e100.net; s=20251104; t=1775284820; x=1775889620;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=NM+YgMZ3VPSp8HAw6BysCZ3QXJispP0X2NnMfKbHGEw=;
+ b=EPufajIZ0KJAHytwTL8SM1O6zLBxTW3N1ajhA+W6s+U8T7JS24U4imv11IQoMShlo8
+ 43VtT3mitSBJtF751itGeIMNAnOF2Ds+2FVLEp3FGYxRsg3TfplmV7X/iq/kEt0tDtmU
+ mn4LooxIe//xSMc903NAmQc73ckxijulIx2iQsj+U4+dcgNy6Z09pEriZwTGiQ17eEti
+ SmJEXkPcGJa0iRhCcGQzHLOMc5RKQBmzC/H/7YcXHDNAWviGoPJW/KwAEUuTD7IYhbVU
+ Z7lpzVk/NXWQIpoRsIw1Q1pTtpL0/dFYRFPTbkm1SbYM3DoDymdAHS9beRxWGtyQbrIT
+ z2wA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUaXUxInaFTe7pcUpuJklaTQYMzbMivOBQ7dWo4fb+t2lqSSGlNAS6HiPdheDVBH3acBYrrSEgM@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwrBeklmB/DoT+PC8983u6s0yu4vwpWIeRiCpckdchJKQF0Wr/D
- CY3dAYtF7y2GVmMh7VOwy19vLSiwJRdUrLaUPhDk6WxFGu648E7AD9arM21X/9E+VguD/JHd3UR
- 8GpDd1qhg4/+G3/8PoF9ycOcx5pJ1HnA=
-X-Gm-Gg: AeBDietkQr2d/b4QEnmv/fIjWbToyd/XtOYXhCjloTQZDHS1rQb7wWDxi4Q6LfEw57m
- tA86MOew2mol+h5oW73pv9W8Yq33cMN8ifu/1K/mP+KWyli5dody2Bneu0eiiO14RMN57JVW1fT
- O2cbrMVTY/Him/cpj95GqDd9GFWAbzYMpyjEdsBOkcIY8qMV4vPp4zJCNgji+rFpmsO4TPYeZup
- eWUAdxvlVKhEwQI3iR815EnCUAc2mvztsdvNd5EpBtxmZeuqBg0XnV7Fbyxi32dWIlLJ4KBxqd3
- 8Yt0
-X-Received: by 2002:a05:6122:3117:b0:56c:d862:37dd with SMTP id
- 71dfb90a1353d-56daba00310mr2416475e0c.14.1775308248826; Sat, 04 Apr 2026
- 06:10:48 -0700 (PDT)
+ AJvYcCXHDMiL6jc2q3UqL7U7A16xTmFRz+YNdpvsJtQzkWmuvP4q4nhw60o/uMu0TzWmjtJX+MYYQh8S@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyMauUKhlIJFta2vgi+2AuG8+oWsdz9BWtdLPrUE4twnMDQm/9A
+ moxTwEa/kBi2dDbmGxnhW23ogRsHI77sD+E3PKM55UJSfetgCZsz7iQSf07IJr5xWaI=
+X-Gm-Gg: AeBDiettXeWugQ4J1crNCcK+RnLbHyvuoPjPpnVktoQgAVogIy1cZuiuhTYQPd4SNf2
+ Quo9v3i+gVg2jXh5FnUi5XeJq3JekVhZJMygkp+JQgSs8p2SaZk5D7G9uF3dHvfin5oMaUAD8cz
+ W6OWW+U/o0ukHIVcEjcvqsw3AhQAD1S4INz9v5NP7FbWR/CtUpWXHhrZz/nBiA39B95XqOsS4O7
+ nt2iWRCntUfw1IQAQ77ivCeHotRdix29Xrb9qRgXSCtgc8z8PV7WGPdMG24dNALCIa8j7egdiD2
+ EqN2rxYtXp44Rzmqgf/50iWSmx4zt2nGtGB3gjc7c41O3vFWUk4FIzr6iOzU7MuqvHpUlDA6uEC
+ p4vR4dLFS0l3sYIP9MxcDiHJzB4/Hleu6EyANvhXEqDCrIdXkei4BO4aLHLcuWCWh9rOjEuwgAa
+ sEVDPvqd/36qJ6QBnknturojhZcSAlP/QKZlvtjYPI05xdx3/5C+iC+zkjjr+GY6aj9dZVL4ITx
+ Fj99HzB/jpVtz23YvPBcqORJaym2oN1QQmkSIo5bFkR2PcO8g==
+X-Received: by 2002:a05:6122:7c8:b0:567:433b:e903 with SMTP id
+ 71dfb90a1353d-56dab87fccbmr2066447e0c.6.1775284820640; 
+ Fri, 03 Apr 2026 23:40:20 -0700 (PDT)
+Received: from gui-host.Dlink ([177.33.104.190])
+ by smtp.gmail.com with ESMTPSA id
+ 71dfb90a1353d-56d9bd2106csm8843708e0c.18.2026.04.03.23.40.17
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 03 Apr 2026 23:40:20 -0700 (PDT)
+From: Guilherme Ivo Bozi <guilherme.bozi@usp.br>
+To: alexander.deucher@amd.com,
+	christian.koenig@amd.com
+Cc: airlied@gmail.com, simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, guilherme.bozi@usp.br
+Subject: [PATCH] drm/amdgpu: use named SRCID for JPEG decode in VCN 1.0
+Date: Sat,  4 Apr 2026 03:40:03 -0300
+Message-ID: <20260404064003.94877-1-guilherme.bozi@usp.br>
+X-Mailer: git-send-email 2.47.3
 MIME-Version: 1.0
-References: <20260326185413.1205870-1-jim.cromie@gmail.com>
- <20260326185413.1205870-69-jim.cromie@gmail.com>
- <20260402201450.GA966967-robh@kernel.org>
-In-Reply-To: <20260402201450.GA966967-robh@kernel.org>
-From: jim.cromie@gmail.com
-Date: Sat, 4 Apr 2026 07:10:22 -0600
-X-Gm-Features: AQROBzDRTOzUzM599gp-nqIHu_gVlpR5oj_SwsKJNy6Z4X8KHhBApGeW-pcrUKU
-Message-ID: <CAJfuBxwRst2GGZmFW6Lx1jb4CMNEsutvQoRfVg2RBSJCtVikoA@mail.gmail.com>
-Subject: Re: [PATCH v12 68/69] accel/ethosu: call DRM_CLASSMAP_USE
-To: Rob Herring <robh@kernel.org>
-Cc: linux-kernel@vger.kernel.org, airlied@gmail.com, simona@ffwll.ch, 
- jbaron@akamai.com, gregkh@linuxfoundation.org, mripard@kernel.org, 
- tzimmermann@suse.de, maarten.lankhorst@linux.intel.com, jani.nikula@intel.com, 
- ville.syrjala@linux.intel.com, christian.koenig@amd.com, 
- matthew.auld@intel.com, arunpravin.paneerselvam@amd.com, 
- louis.chauvet@bootlin.com, skhan@linuxfoundation.org, pmladek@suse.com, 
- ukaszb@chromium.org, dri-devel@lists.freedesktop.org, 
- intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Sun, 05 Apr 2026 12:09:57 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -113,50 +88,64 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Apr 2, 2026 at 2:14=E2=80=AFPM Rob Herring <robh@kernel.org> wrote:
->
-> On Thu, Mar 26, 2026 at 12:54:12PM -0600, Jim Cromie wrote:
-> > ethosu.ko has several drm*dbg() calls, it must call DRM_CLASSMAP_USE
-> > to tell dynamic-debug what classmap enables them.
-> > Also include drm/drm_print.h explicitly.
-> >
-> > Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
-> > ---
->
-> Didn't I ack this already? It is up to you to add tags when you send a
-> new version.
->
-> Or did it change? I can't tell as there is no changelog here.
->
+Replace the hard-coded value 126 with the constant
+VCN_1_0__SRCID__JPEG_DECODE in jpeg_v1_0.c.
 
-Sorry, I missed that one.  (no changes)
-and thanks.
+This improves code readability and maintainability by centralizing
+the SRCID definitions in ivsrcid/vcn/irqsrcs_vcn_1_0.h.
 
+Also fixes potential confusion when handling JPEG decode interrupts
+in the VCN 1.0 hardware block.
 
-> >  drivers/accel/ethosu/ethosu_drv.c | 3 +++
-> >  1 file changed, 3 insertions(+)
-> >
-> > diff --git a/drivers/accel/ethosu/ethosu_drv.c b/drivers/accel/ethosu/e=
-thosu_drv.c
-> > index 9992193d7338..a0b8cb81a359 100644
-> > --- a/drivers/accel/ethosu/ethosu_drv.c
-> > +++ b/drivers/accel/ethosu/ethosu_drv.c
-> > @@ -17,12 +17,15 @@
-> >  #include <drm/drm_gem.h>
-> >  #include <drm/drm_accel.h>
-> >  #include <drm/ethosu_accel.h>
-> > +#include <drm/drm_print.h>
-> >
-> >  #include "ethosu_drv.h"
-> >  #include "ethosu_device.h"
-> >  #include "ethosu_gem.h"
-> >  #include "ethosu_job.h"
-> >
-> > +DRM_CLASSMAP_USE(drm_debug_classes);
-> > +
-> >  static int ethosu_ioctl_dev_query(struct drm_device *ddev, void *data,
-> >                                 struct drm_file *file)
-> >  {
-> > --
-> > 2.53.0
-> >
+Signed-off-by: Guilherme Ivo Bozi <guilherme.bozi@usp.br>
+---
+ drivers/gpu/drm/amd/amdgpu/jpeg_v1_0.c                    | 6 ++++--
+ drivers/gpu/drm/amd/include/ivsrcid/vcn/irqsrcs_vcn_1_0.h | 1 +
+ 2 files changed, 5 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v1_0.c b/drivers/gpu/drm/amd/amdgpu/jpeg_v1_0.c
+index b5bb7f4d607c..52a329773467 100644
+--- a/drivers/gpu/drm/amd/amdgpu/jpeg_v1_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v1_0.c
+@@ -31,6 +31,7 @@
+ 
+ #include "vcn/vcn_1_0_offset.h"
+ #include "vcn/vcn_1_0_sh_mask.h"
++#include "ivsrcid/vcn/irqsrcs_vcn_1_0.h"
+ 
+ static void jpeg_v1_0_set_dec_ring_funcs(struct amdgpu_device *adev);
+ static void jpeg_v1_0_set_irq_funcs(struct amdgpu_device *adev);
+@@ -443,7 +444,7 @@ static int jpeg_v1_0_process_interrupt(struct amdgpu_device *adev,
+ 	DRM_DEBUG("IH: JPEG decode TRAP\n");
+ 
+ 	switch (entry->src_id) {
+-	case 126:
++	case VCN_1_0__SRCID__JPEG_DECODE:
+ 		amdgpu_fence_process(adev->jpeg.inst->ring_dec);
+ 		break;
+ 	default:
+@@ -488,7 +489,8 @@ int jpeg_v1_0_sw_init(struct amdgpu_ip_block *ip_block)
+ 	int r;
+ 
+ 	/* JPEG TRAP */
+-	r = amdgpu_irq_add_id(adev, SOC15_IH_CLIENTID_VCN, 126, &adev->jpeg.inst->irq);
++	r = amdgpu_irq_add_id(adev, SOC15_IH_CLIENTID_VCN,
++		VCN_1_0__SRCID__JPEG_DECODE, &adev->jpeg.inst->irq);
+ 	if (r)
+ 		return r;
+ 
+diff --git a/drivers/gpu/drm/amd/include/ivsrcid/vcn/irqsrcs_vcn_1_0.h b/drivers/gpu/drm/amd/include/ivsrcid/vcn/irqsrcs_vcn_1_0.h
+index e5951709bfc3..d97883a88b0e 100644
+--- a/drivers/gpu/drm/amd/include/ivsrcid/vcn/irqsrcs_vcn_1_0.h
++++ b/drivers/gpu/drm/amd/include/ivsrcid/vcn/irqsrcs_vcn_1_0.h
+@@ -29,6 +29,7 @@
+ #define VCN_1_0__SRCID__UVD_ENC_GENERAL_PURPOSE                 119     /* 0x77 Encoder General Purpose  */
+ #define VCN_1_0__SRCID__UVD_ENC_LOW_LATENCY                     120     /* 0x78 Encoder Low Latency  */
+ #define VCN_1_0__SRCID__UVD_SYSTEM_MESSAGE_INTERRUPT	        124		/* 0x7c UVD system message interrupt  */
++#define VCN_1_0__SRCID__JPEG_DECODE                             126     /* 0x7e JRBC Decode interrupt */
+ 
+ #endif /* __IRQSRCS_VCN_1_0_H__ */
+ 
+-- 
+2.47.3
+
