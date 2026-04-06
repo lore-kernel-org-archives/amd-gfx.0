@@ -4,54 +4,125 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 21F68EF4ECA
-	for <amd-gfx@archiver.kernel.org>; Mon,  6 Apr 2026 11:06:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6CF78F46C4D
+	for <amd-gfx@archiver.kernel.org>; Mon,  6 Apr 2026 15:45:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 96F2710E1EC;
-	Mon,  6 Apr 2026 11:06:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DCC4910E269;
+	Mon,  6 Apr 2026 15:45:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="uDSX8ZYT";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="CnbumQLY";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2351510E1EC;
- Mon,  6 Apr 2026 11:06:00 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 9F2A944514;
- Mon,  6 Apr 2026 11:05:59 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 43E82C19425;
- Mon,  6 Apr 2026 11:05:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1775473559;
- bh=jWeUY2y70ibESK6vxa61BStZDdMuUDNZRSOnfa8Ra98=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=uDSX8ZYTkh/NlJxxoGAd0cWMtzMGomo6b9LgNVmwu1mjYMTwy3jN1igt9EZHSX0Pe
- nyUYkJgLG/jm++5bhOnPxBxKS7i0w79JbVBJtudVzDHyEh7HM+sqg4kxsSsIIzw3Fe
- xn9sv32X9w1nvkWaRfS2BGv/lbL5tQZXgre8vkcZRUqdNmyFQUFDwkBzWUwIz3N1qi
- rXCW33txp62kPI+QMWImMxKmF3qQkNW8rYypFHiBtn1+c0VwFz4IAVFb5piR9CwZGK
- B7VFCsGCUxbvH5+hxgGKJcOUHqzm4DnK39PoYVvfnGrqLo2DNW7O4qSPhPjEMH8FRk
- 3nJWONlYUOjtw==
-From: Sasha Levin <sashal@kernel.org>
-To: patches@lists.linux.dev,
-	stable@vger.kernel.org
-Cc: Donet Tom <donettom@linux.ibm.com>,
- Felix Kuehling <felix.kuehling@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
- Felix.Kuehling@amd.com, christian.koenig@amd.com, airlied@gmail.com,
- simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.19-6.18] drm/amdkfd: Fix queue preemption/eviction
- failures by aligning control stack size to GPU page size
-Date: Mon,  6 Apr 2026 07:05:38 -0400
-Message-ID: <20260406110553.3783076-4-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260406110553.3783076-1-sashal@kernel.org>
-References: <20260406110553.3783076-1-sashal@kernel.org>
+Received: from BL2PR02CU003.outbound.protection.outlook.com
+ (mail-eastusazon11011014.outbound.protection.outlook.com [52.101.52.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 295DA10E269
+ for <amd-gfx@lists.freedesktop.org>; Mon,  6 Apr 2026 15:45:31 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=NODdwDoiwsyPoZ2Qieu2IzoZqxGSBR1XQnaMcSftBwZ/0n5ibsvwJdAzIbo8p7QFfyAMakaWpgJVeNdesWmQDYTsBbdJy0s3PiuRmgIE7i7vyEYQsmCU1PeWGiePe/szOgvT+9kNHBgraqKdxVQeSBY2BVOJXuPtc38GGeaufEiJHnwRtmA3/Gdw2gzRgmSQNg36JaoVtEGE/N1gCio4Kv32jkRVBYILydlj0yZRNYEHJxa+oX6Xc2UWc9aEzFitDtnn6KGjxY2sRNxhY8/Yvq5WxVv/6lqJJi7FGTRHhGvaLByxdBNRFvy3RIbesDzIFHcZfHPAh3CdVqs2ogXfTw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=I6Fp1udnNJQiQOMzzm4On1X73d/vl1bQGUcrRsGV4vI=;
+ b=OUiDxSpm9NpB8KUwBUdUL3ZQatXGlrQPitQhIMn+cE3/sU/51Iei9Tlid56pw6PIGldMWF2d1aVRGvAWbnXm2RdWIF5eyAwwXPnClsDe9uzXCxNr1sKueLT8ykxnmzB699bDLF9zw6YVr52B9MvwZSzeA4wRGJWC1pkYdUb3cIFeNQ+TqhLS5BzBT+tJLE/WZw78XVkJ+UBQx/9lUd4ccMqZwTt/uoAHX19fXmvzVf6oqQdBSE71jU4G4FEFBY6+PvTYEr0o/LMKTj0k5GARMDjY6PG40QkiqmwdsJKZteXjl1HuVfyD5HFduDzAE9/bT/e37oImdghZOgtT8QRFjQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=I6Fp1udnNJQiQOMzzm4On1X73d/vl1bQGUcrRsGV4vI=;
+ b=CnbumQLYnMGTJw0rH6IAG2QhBnMDW1QXZdvCRhI0jFNhbwfin+beGNqcWz3d+J4QhG2rcOTDgIwV5Hq2HwVvSp3GmDLYJqmhtowOeaotzkO5qG4Y2DuaB4YFWfPE3KC9fqaIpqNq2N7f0yUnC8lx5o/VokfeIRKbLIKS6pcVVBY=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DM4PR12MB8476.namprd12.prod.outlook.com (2603:10b6:8:17e::15)
+ by DS0PR12MB7629.namprd12.prod.outlook.com (2603:10b6:8:13e::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.17; Mon, 6 Apr
+ 2026 15:45:28 +0000
+Received: from DM4PR12MB8476.namprd12.prod.outlook.com
+ ([fe80::2d79:122f:c62b:1cd8]) by DM4PR12MB8476.namprd12.prod.outlook.com
+ ([fe80::2d79:122f:c62b:1cd8%7]) with mapi id 15.20.9769.018; Mon, 6 Apr 2026
+ 15:45:28 +0000
+Message-ID: <3cb0ba02-90f7-4b32-86be-ad991e8a397b@amd.com>
+Date: Mon, 6 Apr 2026 09:45:26 -0600
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amd/display: Fix do_mccs handling (MCCS/DDC) in
+ amdgpu_dm_update_freesync_caps
+To: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
+ Aurabindo Pillai <aurabindo.pillai@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, Harry Wentland <harry.wentland@amd.com>,
+ Wayne Lin <Wayne.Lin@amd.com>, Roman Li <roman.li@amd.com>,
+ Tom Chung <chiahsuan.chung@amd.com>
+References: <20260405023145.2259115-1-srinivasan.shanmugam@amd.com>
+Content-Language: en-US
+From: Alex Hung <alex.hung@amd.com>
+In-Reply-To: <20260405023145.2259115-1-srinivasan.shanmugam@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MW4PR03CA0255.namprd03.prod.outlook.com
+ (2603:10b6:303:b4::20) To DM4PR12MB8476.namprd12.prod.outlook.com
+ (2603:10b6:8:17e::15)
 MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
-X-stable-base: Linux 6.19.11
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM4PR12MB8476:EE_|DS0PR12MB7629:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9f408caa-35e8-465d-3974-08de93f386a2
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|376014|1800799024|22082099003|18002099003|56012099003; 
+X-Microsoft-Antispam-Message-Info: /eNw87t5hwXo7nbJK1I/+bN4FagxyKaKExhS182pzsbJyxuOEXNrd6Y8ffnuTPCNELZyovXKFtSaoXxly8GIQUIIgoPr8BewlshI+ojPm19zFZIupT6isBeB8k5ZyvLglbacr9wUBsfJo4PxpakXY+gNplmThpuCeoR4sYMpWvdS68GIoTeFD1QpSN/w02fkyXdcC3n2lrmC34KTlAr3xNy82eK1e3A/FGQtanOcdG66qu2808keKXTToUjkRsfq7iPtRQNJdLYJMSkRfVkOne8pGmw1vvOEGIYJDiTZl8nbMUJpyoU2A8Q32gaJtnhczMcsEObyzaV0tqMhlA3uGx21b0pj+P4no9F+jBYj9+PrfF/2SxCJFqNs9Bh4iTx2j6lR5HZR8YpD0zPSq2ME6SLBVP3XESy/ar4cE+WKxAAt3UMATyFR42eUcOZkfK556uNrrKTydLJoj4Ry/sbkJAahhwWJPSj/6Tjf2atOVFC34xLvd5/C6jdOsso4TWNVAnlaPGu7clRO/MEHrYsRysXNthXZOyOwRwGb25cL8cZbIpVy9G/Lk2wyviPWk3RacDssR63UtrcZiuLDmyIT/g+IpIWgF/JdGiSnjBAp4qBapaskX55uIH78+jNyrxstfUUlyglOgJBioh7yUH1knMC0vuebTeyg0JCEwxm/WlJi5XB2FYYDwJNL1m4OWGgk9cTkaDnhWsqJmtvXoO9BL9C58ybwvggMpkqF3oO/E0g=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB8476.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(376014)(1800799024)(22082099003)(18002099003)(56012099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TkRGQmVXR0lFR0ZaZFdpVWdDMUZVSkIycFVaZU8wejBld2pqZDM4ZWljdEtZ?=
+ =?utf-8?B?YStGMTc4dFZxMThXbEVGNHh6Z3BKM0orTG5SdTNKWEhjbU43emJxWFBzWnJ4?=
+ =?utf-8?B?d3RVVTZJbFlwY05PaW4wbFRYMmozSE1zdW5haC9RM05McDBQNEk2SVE2cTRZ?=
+ =?utf-8?B?VE9kRStZZHY1dVRjMXdQV1MvNUxtNWFJTXJqSlBoampSYmN5M0JlUXRSY05a?=
+ =?utf-8?B?L1NCbmtoWC9nbmxvbHpWYmt4Ym1URVkwOExIcWtvRTVqNTYwNDc3c0Mzemk3?=
+ =?utf-8?B?dkc0QlRHQ2dtcGtCdkZkK2pkdkMwT29TR1R2Y09ycU1HblM3TFE5Vm9lZ01o?=
+ =?utf-8?B?bm0zUzc0eEdBRm52bDdzRjdWNVlVWjRqOGZDUTZzWk56azZReEhwSWdsSzRN?=
+ =?utf-8?B?bTkvRXJMUnVLZXRTalpRQUFBSjFOUjJHdkc1NUF0K2FwTXAvYXYwQ3pWQmx3?=
+ =?utf-8?B?SHVENWRUWElhWjkzYWdUdnRMS0J3S2pWMmJZZ3gwVnhhd3RWeTNNdU0zSWh0?=
+ =?utf-8?B?Wm9qTVlmcXFUeDluemUyd2dQNnNaYVJwREc0T09sOElXaEpzMVFYRHljY01Y?=
+ =?utf-8?B?SmE1TVF6dVdXSy9qMGtBaXhOOTBjUytTZGRkRUZGR1dOYXN0T3RvUU5rOEFz?=
+ =?utf-8?B?SGhXRysyRmxPb2Q4cHNURTRsSDdsR0J6UFFCNU9nS1JlYTc3UXY4dm82R2NX?=
+ =?utf-8?B?aDBlTm9zYUtuaWloTjdpdENDQXhNcXQrTm9zd0VrODhGTmhQa1JkSlhka2lN?=
+ =?utf-8?B?WXFDY3ZtTXZKQkxURjhSbGdYa0Jsbkk3YnFmZ0xWOTN2b2NYNlQwcWkxd0sv?=
+ =?utf-8?B?YW1aNjhtQWphSXFwRGxON2VQYTJOMTRBcVF5M1dXREVBN20zNkJQY2pBR0pn?=
+ =?utf-8?B?S3JlN3dRMzNmWUhoV0xrV3NVSXpLaElweXd1S1VuUXJXM3NPeFZPYU5qOFpS?=
+ =?utf-8?B?dmZKVXlyNWV0ditPREEzZU9aS2c4SWRWU2IyeFEwdlJ5eXNGdkFTWHdTZzZL?=
+ =?utf-8?B?ZHZxd0dwaUdKTWt1eVpmeVVZcCtZNURPN1FYT2poQU5aUERUcjRxZGpFRzdN?=
+ =?utf-8?B?a3ZTay9QcUhmTHdrTDg2alltY2dQOWV4WFZ6NENNWklNUmUwQ0Nna3R2R3l5?=
+ =?utf-8?B?WG44L0JxMm9QVE9WMzVwOVlkdnBOeW5UbFo3dFFzeVI5TTF0UWlsQmZPaHVl?=
+ =?utf-8?B?WnRBSUw5cXdOYjFXWVhKQ1RzazRtaDJrRDcxUWxKOC90NHI4eWRmU0JpamJh?=
+ =?utf-8?B?N1RRS3Z3UU5nb08rMDJ1VTBZc1dnOW92ZGZhcjVXYXhqL2ZmTGlHSFRFRUNw?=
+ =?utf-8?B?cEg0L1F0dGxMQ0Y0QXU4cUVpYkU0RmpQRVJFS212bmQwQk1icDhVRTMwLzJr?=
+ =?utf-8?B?TDNLTUJweit2M01WZE04N1VocjRIR3dqZEs4MVBRVEdTTXRjSWJPK2QxaVhB?=
+ =?utf-8?B?Qnh6c2kzNlhmVFZ4M2ZZOVpyMk5PYXZpMnVodU04ZTlURE43a3B6ZEpOOWpx?=
+ =?utf-8?B?R050Wi9TVENESC9KVkgwbkk0MjdDTGo2amo3WVl5U01CbTVBNllENDVpaW56?=
+ =?utf-8?B?WlducllIaEtoNGpSYUdsdkE4TlpaOW4rSVRxK3lLaUtSakwzS1p4TXg3RVhI?=
+ =?utf-8?B?UDB1YmxpWVluK2VjTk93S3pQVmY2b1NrdnlhSUw5b2dhWUt6Z1ZSSitSUXVr?=
+ =?utf-8?B?d0ozTGt0Ly9QbDZ3TE5xd1NaYXFrRVVQSFh1N3cvWGhxOU5KRG1uQnMxdW9Y?=
+ =?utf-8?B?NWQzUmdFNUJvRUsxMGxoNmF4SFpZeXY2T3VMNVlZendmNWlLK0lzREwrRnky?=
+ =?utf-8?B?aEE5UnhvNGo0N0dsRmR5SEhKS25GT3VaSmdsdmd2cmhOZ0lWNmVtbWFidDVj?=
+ =?utf-8?B?ZlNVcnNSOUV5R1Z3Znk2Um4zQlJZeVc4NDlqWEMxQ3c2OGF2N3hKdlZHYXRy?=
+ =?utf-8?B?Z1ZBelZqVlpnZ2RDVkw3Vy9ndlVCN1AzbC9iNHdlWHpJbDJpb1ZyYUdWNjYy?=
+ =?utf-8?B?QzdhRmk3bDZ0SFNjUzZCRS96cE5la1VJY25DcFJ1UHJPZDhEbnBuUHpjNytT?=
+ =?utf-8?B?U0lEZXkrQ1JlV2ptQkEvdFFCeHNYTWtHWHFkNFF6aGs0bDJENmRZdnRpaDNJ?=
+ =?utf-8?B?cnpBdHhkU1JnbkhkNHBQSnN5OTk1NEVSdEpxYkZtUkR1ZzBqQ1VWZGk1T1RK?=
+ =?utf-8?B?aGpKQjkrbU8yVmV0WE5jN09xUEpyUE1sK2hhR25hYWliSitFa1JaaWFZeGVv?=
+ =?utf-8?B?Um55M3psUngwS1hKOW5WV3RQMnY2Tk9YNjBJaXB1TGl4eXVQR0ttY3ZURFYr?=
+ =?utf-8?B?RFBQNE5QeFdIdWFFa292MWVURnFoMTlWQml3a3BLZmhxS3RKNmF5UT09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9f408caa-35e8-465d-3974-08de93f386a2
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB8476.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Apr 2026 15:45:28.1042 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: t8FJY3x0yqYJ8xR3N+HHh68pX3MOJqWa+Gy5QKVhiUUupi8J/cblH87m/0lV0dyYAeFiYG3kZRFLZPXuGmxHxg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7629
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,460 +137,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Donet Tom <donettom@linux.ibm.com>
 
-[ Upstream commit 78746a474e92fc7aaed12219bec7c78ae1bd6156 ]
-
-The control stack size is calculated based on the number of CUs and
-waves, and is then aligned to PAGE_SIZE. When the resulting control
-stack size is aligned to 64 KB, GPU hangs and queue preemption
-failures are observed while running RCCL unit tests on systems with
-more than two GPUs.
-
-amdgpu 0048:0f:00.0: amdgpu: Queue preemption failed for queue with
-doorbell_id: 80030008
-amdgpu 0048:0f:00.0: amdgpu: Failed to evict process queues
-amdgpu 0048:0f:00.0: amdgpu: GPU reset begin!. Source: 4
-amdgpu 0048:0f:00.0: amdgpu: Queue preemption failed for queue with
-doorbell_id: 80030008
-amdgpu 0048:0f:00.0: amdgpu: Failed to evict process queues
-amdgpu 0048:0f:00.0: amdgpu: Failed to restore process queues
-
-This issue is observed on both 4 KB and 64 KB system page-size
-configurations.
-
-This patch fixes the issue by aligning the control stack size to
-AMDGPU_GPU_PAGE_SIZE instead of PAGE_SIZE, so the control stack size
-will not be 64 KB on systems with a 64 KB page size and queue
-preemption works correctly.
-
-Additionally, In the current code, wg_data_size is aligned to PAGE_SIZE,
-which can waste memory if the system page size is large. In this patch,
-wg_data_size is aligned to AMDGPU_GPU_PAGE_SIZE. The cwsr_size, calculated
-from wg_data_size and the control stack size, is aligned to PAGE_SIZE.
-
-Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
-Signed-off-by: Donet Tom <donettom@linux.ibm.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit a3e14436304392fbada359edd0f1d1659850c9b7)
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
-
-LLM Generated explanations, may be completely bogus:
-
-Now I have all the information needed for a thorough analysis.
-
----
-
-## PHASE 1: COMMIT MESSAGE FORENSICS
-
-### Step 1.1: Subject Line Analysis
-- **Subsystem**: drm/amdkfd (AMD KFD - Kernel Fusion Driver for GPU
-  compute)
-- **Action verb**: "Fix" - explicitly a bug fix
-- **Summary**: Fixes GPU queue preemption/eviction failures by aligning
-  control stack size to GPU page size instead of system page size
-
-Record: [drm/amdkfd] [Fix] [Queue preemption/eviction failures from
-incorrect alignment to CPU page size]
-
-### Step 1.2: Tags
-- **Reviewed-by**: Felix Kuehling <felix.kuehling@amd.com> (AMD KFD
-  subsystem maintainer)
-- **Signed-off-by**: Donet Tom <donettom@linux.ibm.com> (author, IBM)
-- **Signed-off-by**: Alex Deucher <alexander.deucher@amd.com> (AMD GPU
-  maintainer)
-- **Cherry-picked from**: a3e14436304392fbada359edd0f1d1659850c9b7
-- No Fixes: tag (expected for manual review candidates)
-- No Cc: stable (expected)
-
-Record: Reviewed by AMD KFD maintainer. Author is from IBM (Power
-systems, which commonly use 64KB page sizes). Maintainer signoff from
-Alex Deucher.
-
-### Step 1.3: Commit Body Text
-The commit describes a clear, reproducible bug:
-- **Bug**: When control stack size aligns to 64 KB (on systems with
-  PAGE_SIZE=64KB), GPU hangs and queue preemption failures occur
-- **Symptom**: Real error messages included: "Queue preemption failed",
-  "Failed to evict process queues", "GPU reset begin!"
-- **Trigger**: Running RCCL unit tests on systems with more than two
-  GPUs
-- **Root cause**: Control stack size aligned to CPU PAGE_SIZE (which can
-  be 64KB) instead of AMDGPU_GPU_PAGE_SIZE (always 4KB)
-- **Affected configurations**: Both 4KB and 64KB system page-size
-  configurations (but the bug only manifests on 64KB page systems)
-
-Record: GPU hang, queue preemption failures, GPU resets. Clearly
-documented with error messages. IBM Power10 with AMD Instinct GPUs is
-the main platform affected.
-
-### Step 1.4: Hidden Bug Fix Detection
-This is not hidden - it is explicitly labeled as a fix with clear error
-messages and reproduction scenario.
-
-Record: Not a hidden fix; explicitly a bug fix with documented failure
-mode.
-
----
-
-## PHASE 2: DIFF ANALYSIS
-
-### Step 2.1: Inventory of Changes
-- **Files changed**: 1 (drivers/gpu/drm/amd/amdkfd/kfd_queue.c)
-- **Lines changed**: ~5 lines modified in one function
-- **Functions modified**: `kfd_queue_ctx_save_restore_size()`
-- **Scope**: Single-file surgical fix
-
-Record: 1 file, ~5 lines, 1 function. Very small, very contained.
-
-### Step 2.2: Code Flow Changes
-
-**Hunk 1**: `wg_data_size` alignment changed from `PAGE_SIZE` to
-`AMDGPU_GPU_PAGE_SIZE`
-- Before: `ALIGN(..., PAGE_SIZE)` → on 64KB page systems, aligns to 64KB
-- After: `ALIGN(..., AMDGPU_GPU_PAGE_SIZE)` → always aligns to 4KB (GPU
-  page size)
-
-**Hunk 2**: `ctl_stack_size` alignment changed from `PAGE_SIZE` to
-`AMDGPU_GPU_PAGE_SIZE`
-- Before: `ALIGN(..., PAGE_SIZE)` → on 64KB page systems, could produce
-  64KB
-- After: `ALIGN(..., AMDGPU_GPU_PAGE_SIZE)` → always aligns to 4KB
-
-**Hunk 3**: `cwsr_size` now aligned to `PAGE_SIZE` for final system
-memory allocation
-- Before: `cwsr_size = ctl_stack_size + wg_data_size` (no final
-  alignment)
-- After: `cwsr_size = ALIGN(ctl_stack_size + wg_data_size, PAGE_SIZE)`
-  (ensures system page alignment for memory allocation)
-
-Record: Intermediate GPU-internal sizes align to GPU page (4KB), final
-allocation size aligns to CPU page. This is the correct design pattern.
-
-### Step 2.3: Bug Mechanism
-Category: **Logic/correctness fix** - wrong alignment boundary causes
-hardware-incompatible control stack sizes.
-
-On 64KB page systems, the control stack was being padded to 64KB, which
-is incompatible with the GPU hardware's expectations. The GPU hardware
-operates with 4KB pages, so GPU-internal structures should be aligned to
-GPU page boundaries (4KB), not CPU page boundaries.
-
-Record: Logic/correctness bug. Wrong alignment boundary (CPU vs GPU page
-size) causes GPU hardware to fail during queue preemption.
-
-### Step 2.4: Fix Quality
-- **Obviously correct**: Yes. GPU internal structures should align to
-  GPU page size, not CPU page size. The final allocation aligns to CPU
-  page size for system memory.
-- **Minimal/surgical**: Yes. Only 3 alignment changes in one function.
-- **Regression risk**: Very low. On 4KB page systems (majority), this is
-  a no-op since `AMDGPU_GPU_PAGE_SIZE == PAGE_SIZE == 4096`. The
-  `ALIGN(cwsr_size, PAGE_SIZE)` addition only rounds up, never down.
-- **Red flags**: None.
-
-Record: Obviously correct, minimal, very low regression risk. No-op on
-4KB page systems.
-
----
-
-## PHASE 3: GIT HISTORY INVESTIGATION
-
-### Step 3.1: Blame the Changed Lines
-The buggy code was introduced in commit `517fff221c1e6` ("drm/amdkfd:
-Store queue cwsr area size to node properties") by Philip Yang, which
-first appeared in v6.12.
-
-Record: Buggy code introduced in v6.12 (commit 517fff221c1e6). Present
-in stable trees v6.12.y and later.
-
-### Step 3.2: Fixes Tag
-No explicit Fixes: tag present. However, the buggy commit is clearly
-`517fff221c1e6` which introduced this function with PAGE_SIZE alignment.
-
-Record: No Fixes: tag, but root cause commit identified as 517fff221c1e6
-(v6.12).
-
-### Step 3.3: File History
-Recent changes to kfd_queue.c include relaxing size checks, bumping vgpr
-sizes, and GFX7/8 queue validation fixes. Several changes have occurred
-since v6.12 (7 commits) that modified the function and surrounding code.
-
-Record: 7 commits changed this file since v6.12. The function has had
-some macro changes (WG_CONTEXT_DATA_SIZE_PER_CU now takes props
-parameter). Minor backport adjustment may be needed.
-
-### Step 3.4: Author's Commits
-Donet Tom from IBM has authored related non-4K page size fixes:
-- "Fix GART PTE for non-4K pagesize in svm_migrate_gart_map()"
-- "Relax size checking during queue buffer get"
-- Companion patch: "drm/amd: Fix MQD and control stack alignment for
-  non-4K"
-
-Record: Author is actively fixing non-4K page size issues in AMD GPU
-drivers. Specialized domain knowledge from IBM Power platform.
-
-### Step 3.5: Dependencies
-The companion MQD alignment patch (`6caeace0d1471`) touches different
-files (amdgpu_gart.c, amdgpu_ttm.c, kfd_mqd_manager_v9.c) and is NOT in
-HEAD. It addresses a separate issue (memory type assignment for MQD vs
-control stack on gfx9). The commit under review is self-contained - it
-only changes size calculations.
-
-On stable 6.12.y, the `WG_CONTEXT_DATA_SIZE_PER_CU` macro takes only
-`(gfxv)` not `(gfxv, props)`. This means the patch will need a trivial
-context adjustment for clean application to 6.12.y.
-
-Record: Self-contained fix. Minor context adjustment needed for 6.12.y
-due to macro signature difference. Companion MQD patch is independent.
-
----
-
-## PHASE 4: MAILING LIST RESEARCH
-
-### Step 4.1: Patch Discussion
-The patch went through three RFC versions and a final PATCH v2:
-- **Christian König** initially raised concerns about debugger CPU-side
-  alignment, but later gave **Acked-by** after the fix was demonstrated
-  to resolve GPU hangs
-- **Felix Kuehling** gave formal **Reviewed-by** and stated "The series
-  looks good to me"
-- **Alex Deucher** confirmed inclusion for mainline
-- No NAKs
-- No explicit stable nomination found in discussion
-
-Record: Positive review from two AMD maintainers. Initial concern from
-König was addressed and resolved.
-
-### Step 4.2: Bug Report
-The bug was found during RCCL (AMD's collective communications library)
-unit testing on Power10 systems with multiple AMD GPUs. Real error
-messages in the commit show reproducible GPU hangs.
-
-Record: Real, reproducible bug found in multi-GPU compute testing on IBM
-Power systems.
-
----
-
-## PHASE 5: CODE SEMANTIC ANALYSIS
-
-### Step 5.1: Key Functions
-Modified function: `kfd_queue_ctx_save_restore_size()`
-
-### Step 5.2: Callers
-Called from `kfd_topology.c:2193` during topology device initialization.
-This runs during GPU driver initialization for every AMD GPU, affecting
-all KFD-capable AMD GPU users.
-
-### Step 5.3-5.4: Call Chain
-The computed values (`ctl_stack_size`, `cwsr_size`) are stored in node
-properties and used during queue creation/validation in
-`kfd_queue_acquire_buffers()`. This is a critical path for any GPU
-compute workload.
-
-Record: Called during GPU initialization. Values used for all compute
-queue operations. High impact surface.
-
-### Step 5.5: Similar Patterns
-The companion MQD fix addresses the same root cause (CPU vs GPU page
-alignment mismatch) in different code paths, confirming this is a
-systematic issue for non-4K page systems.
-
----
-
-## PHASE 6: STABLE TREE ANALYSIS
-
-### Step 6.1: Buggy Code in Stable Trees
-The function `kfd_queue_ctx_save_restore_size` was introduced in v6.12
-(commit 517fff221c1e6). It exists in stable trees v6.12.y and later.
-
-Record: Bug exists in v6.12.y, v6.13.y, v6.14.y stable trees.
-
-### Step 6.2: Backport Complications
-The `WG_CONTEXT_DATA_SIZE_PER_CU` macro signature changed (added `props`
-parameter) since v6.12. The patch will need a trivial context adjustment
-for 6.12.y (use `WG_CONTEXT_DATA_SIZE_PER_CU(gfxv)` instead of
-`WG_CONTEXT_DATA_SIZE_PER_CU(gfxv, props)`).
-
-Record: Minor context adjustment needed for 6.12.y. Should apply more
-cleanly to 6.13.y+.
-
-### Step 6.3: Related Fixes in Stable
-No related fix for this specific issue found in stable trees.
-
----
-
-## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
-
-### Step 7.1: Subsystem Criticality
-- **Subsystem**: drm/amdkfd (GPU compute driver)
-- **Criticality**: IMPORTANT - affects users of AMD GPUs for compute
-  workloads (HPC, AI/ML, scientific computing)
-
-### Step 7.2: Subsystem Activity
-Very active subsystem with frequent commits (20+ in recent history on
-kfd_queue.c alone).
-
-Record: Active, important subsystem for GPU compute users.
-
----
-
-## PHASE 8: IMPACT AND RISK ASSESSMENT
-
-### Step 8.1: Affected Population
-Systems with non-4K CPU page sizes using AMD GPUs for compute.
-Primarily:
-- IBM Power systems (ppc64le, 64KB page size) with AMD Instinct GPUs
-- ARM64 systems with 64KB page configurations
-- Any system where PAGE_SIZE > 4096
-
-Record: Platform-specific but affects all GPU compute workloads on those
-platforms.
-
-### Step 8.2: Trigger Conditions
-- Multi-GPU compute workloads (RCCL unit tests with >2 GPUs)
-- Queue preemption/eviction (normal GPU scheduling operations)
-- Trigger is common during real compute workloads
-
-Record: Common trigger during normal GPU compute operations on affected
-platforms.
-
-### Step 8.3: Failure Mode Severity
-- **GPU hang** → CRITICAL
-- **Queue preemption failure** → CRITICAL (GPU becomes unusable)
-- **GPU reset** → CRITICAL (interrupts all GPU work)
-- **Failed to restore process queues** → Data loss for running GPU
-  workloads
-
-Record: CRITICAL severity - GPU hangs, forced resets, compute workload
-failures.
-
-### Step 8.4: Risk-Benefit Ratio
-- **Benefit**: HIGH - prevents GPU hangs and resets on non-4K page
-  systems
-- **Risk**: VERY LOW -
-  - Only 3 alignment changes in one function
-  - No-op on 4KB page systems (the majority)
-  - Obviously correct - GPU internal structures should use GPU page
-    alignment
-  - Reviewed by AMD KFD maintainer
-
-Record: HIGH benefit, VERY LOW risk. Excellent ratio.
-
----
-
-## PHASE 9: FINAL SYNTHESIS
-
-### Step 9.1: Evidence Compilation
-
-**FOR backporting:**
-- Fixes GPU hangs and forced GPU resets (CRITICAL severity)
-- Small, surgical fix (3 alignment changes in 1 function)
-- Obviously correct (GPU structures align to GPU page size)
-- Reviewed by AMD KFD maintainer (Felix Kuehling)
-- Acked by Christian König after initial concerns resolved
-- Real, reproducible bug with documented error messages
-- Self-contained - no dependencies on other patches
-- No-op on 4KB page systems - zero regression risk for majority of users
-
-**AGAINST backporting:**
-- No Fixes: tag or Cc: stable (expected for manual review candidates)
-- Minor context adjustment needed for 6.12.y backport
-- Affects only non-4K page size systems (smaller population)
-
-**UNRESOLVED:**
-- Exact impact on ARM64 with 64KB pages (only documented on Power10)
-
-### Step 9.2: Stable Rules Checklist
-1. **Obviously correct and tested?** YES - Reviewed by maintainer,
-   tested on real hardware
-2. **Fixes a real bug?** YES - GPU hangs, queue preemption failures, GPU
-   resets
-3. **Important issue?** YES - GPU hangs are CRITICAL
-4. **Small and contained?** YES - 3 lines in 1 function
-5. **No new features or APIs?** YES - pure bugfix
-6. **Can apply to stable trees?** YES with minor context adjustment for
-   6.12.y
-
-### Step 9.3: Exception Categories
-Not an exception category - this is a straightforward bug fix that
-qualifies on its own merit.
-
-### Step 9.4: Decision
-The evidence overwhelmingly supports backporting. This is a small,
-obviously correct fix for a CRITICAL GPU hang issue. The fix is self-
-contained, reviewed by the subsystem maintainer, and carries effectively
-zero regression risk for the majority of systems.
-
----
-
-## Verification
-
-- [Phase 1] Parsed tags: Reviewed-by Felix Kuehling (AMD KFD
-  maintainer), SOB from Alex Deucher (AMD GPU maintainer), author from
-  IBM
-- [Phase 2] Diff analysis: 3 alignment changes in
-  kfd_queue_ctx_save_restore_size(): wg_data_size and ctl_stack_size
-  changed from PAGE_SIZE to AMDGPU_GPU_PAGE_SIZE alignment, cwsr_size
-  gets ALIGN(PAGE_SIZE)
-- [Phase 2] Verified AMDGPU_GPU_PAGE_SIZE = 4096 (constant) defined in
-  amdgpu_gart.h:35
-- [Phase 3] git log: function introduced in commit 517fff221c1e6 ("Store
-  queue cwsr area size to node properties"), first in v6.12
-- [Phase 3] git merge-base: confirmed code is in v6.12 but NOT in v6.11
-- [Phase 3] git diff v6.12..HEAD: confirmed 7 commits changed the file
-  since v6.12, including macro signature change for
-  WG_CONTEXT_DATA_SIZE_PER_CU
-- [Phase 3] git log --author="Donet Tom": confirmed 2 other AMD non-4K
-  page fixes
-- [Phase 3] Confirmed companion MQD patch (6caeace0d) is NOT in HEAD and
-  touches different files (independent)
-- [Phase 4] Lore/mailing list research: patch went through RFC v1-v3 and
-  PATCH v2, received Reviewed-by and Acked-by, no NAKs
-- [Phase 5] Grep callers: kfd_queue_ctx_save_restore_size called from
-  kfd_topology.c during device init
-- [Phase 5] Grep cwsr_size: used in kfd_queue_acquire_buffers for queue
-  validation and allocation
-- [Phase 6] Confirmed buggy code exists in v6.12.y stable tree
-- [Phase 6] Minor context adjustment needed for v6.12.y (macro signature
-  difference)
-- [Phase 8] Failure mode: GPU hang, forced GPU reset → CRITICAL severity
-- [Phase 8] On 4KB page systems: AMDGPU_GPU_PAGE_SIZE == PAGE_SIZE ==
-  4096, so fix is a no-op → zero regression risk
-
-**YES**
-
- drivers/gpu/drm/amd/amdkfd/kfd_queue.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_queue.c b/drivers/gpu/drm/amd/amdkfd/kfd_queue.c
-index 2822c90bd7be4..b97f4a51db6e3 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_queue.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_queue.c
-@@ -444,10 +444,11 @@ void kfd_queue_ctx_save_restore_size(struct kfd_topology_device *dev)
- 		    min(cu_num * 40, props->array_count / props->simd_arrays_per_engine * 512)
- 		    : cu_num * 32;
- 
--	wg_data_size = ALIGN(cu_num * WG_CONTEXT_DATA_SIZE_PER_CU(gfxv, props), PAGE_SIZE);
-+	wg_data_size = ALIGN(cu_num * WG_CONTEXT_DATA_SIZE_PER_CU(gfxv, props),
-+				AMDGPU_GPU_PAGE_SIZE);
- 	ctl_stack_size = wave_num * CNTL_STACK_BYTES_PER_WAVE(gfxv) + 8;
- 	ctl_stack_size = ALIGN(SIZEOF_HSA_USER_CONTEXT_SAVE_AREA_HEADER + ctl_stack_size,
--			       PAGE_SIZE);
-+			       AMDGPU_GPU_PAGE_SIZE);
- 
- 	if ((gfxv / 10000 * 10000) == 100000) {
- 		/* HW design limits control stack size to 0x7000.
-@@ -459,7 +460,7 @@ void kfd_queue_ctx_save_restore_size(struct kfd_topology_device *dev)
- 
- 	props->ctl_stack_size = ctl_stack_size;
- 	props->debug_memory_size = ALIGN(wave_num * DEBUGGER_BYTES_PER_WAVE, DEBUGGER_BYTES_ALIGN);
--	props->cwsr_size = ctl_stack_size + wg_data_size;
-+	props->cwsr_size = ALIGN(ctl_stack_size + wg_data_size, PAGE_SIZE);
- 
- 	if (gfxv == 80002)	/* GFX_VERSION_TONGA */
- 		props->eop_buffer_size = 0x8000;
--- 
-2.53.0
+On 4/4/26 20:31, Srinivasan Shanmugam wrote:
+> Fix do_mccs parameter usage in amdgpu_dm_update_freesync_caps.
+> 
+> This function checks FreeSync support from the display and updates
+> driver state.  MCCS (Monitor Control Command Set) over DDC (Display Data
+> Channel) is used for communication between GPU and monitor.
+
+This changes comments but the title and the commit descriptions sound 
+like changing the code. Can you clarify them?
+
+> 
+> Fixes: 980a8981351a ("drm/amd/display: Avoid to do MCCS transaction if unnecessary")
+> Cc: Harry Wentland <harry.wentland@amd.com>
+> Cc: Wayne Lin <Wayne.Lin@amd.com>
+> Cc: Roman Li <roman.li@amd.com>
+> Cc: Alex Hung <alex.hung@amd.com>
+> Cc: Tom Chung <chiahsuan.chung@amd.com>
+> Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>
+> Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+> ---
+>   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 1 +
+>   1 file changed, 1 insertion(+)
+> 
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index bac02ea15b8a..4b6a1c62bfa8 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -13259,6 +13259,7 @@ static int parse_hdmi_amd_vsdb(struct amdgpu_dm_connector *aconnector,
+>    *
+>    * @connector: Connector to query.
+>    * @drm_edid: DRM EDID from monitor
+> + * @do_mccs: Whether to query/update MCCS-based FreeSync capability handling.
+>    *
+>    * Amdgpu supports Freesync in DP and HDMI displays, and it is required to keep
+>    * track of some of the display information in the internal data struct used by
 
