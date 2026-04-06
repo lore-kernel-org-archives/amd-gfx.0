@@ -4,157 +4,125 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 52FDAEDB7CC
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 93B4CEDB7DC
 	for <amd-gfx@archiver.kernel.org>; Tue,  7 Apr 2026 07:44:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 449BE10E35C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 61C2E10E35D;
 	Tue,  7 Apr 2026 07:44:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="ogDpDsLP";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=verivus.ai header.i=@verivus.ai header.b="KMTDBZ2+";
 	dkim-atps=neutral
-Received: from BL0PR03CU003.outbound.protection.outlook.com
- (mail-eastusazon11012037.outbound.protection.outlook.com [52.101.53.37])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3015610E0D0;
- Mon,  6 Apr 2026 21:24:53 +0000 (UTC)
+Received: from SY2PR01CU004.outbound.protection.outlook.com
+ (mail-australiaeastazon11021074.outbound.protection.outlook.com
+ [40.107.39.74])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B83C610E2EC;
+ Mon,  6 Apr 2026 22:50:17 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=s5z7iiyHQxhayEjH12F/WiwwOpX6VfebdbCtg9kk9VazEyURYrDAnYJFXN66Smktywq199dxztF8p8chIGhspbKhh66oIdlLqmWes1FOoZ6alPcjPEmjtUfGltd9sOTfChjkQs2F014U689Noi+q2X+mhJ3T0rOME3yFXi1EfytFxRArc2ItgnyGImzBe5XQJkQejipYQTTa8z6RUneihpiQq95/r+ZQv3TuwfkUenmi2effRkisH6FZF0bgxnQ89kMCIDHPQ3bxR0T2OHhLkIxxtzLWa1ztd4+p2GiPH0wr5Pyj/8ubCmtq5uhUVU4tj5l2SDn2W9OL2xGGRChRzQ==
+ b=B9vzYbTAMJVK9OdJx28jsiilUR3CPILG3x89ikhzpb8Pmqr5FA8MdmSEBIznacyj4Mxxl4SgTMGSNiDioMx2T5Vjmb4fGD8JQsJu4FPLZV1lG4rudRiF4+ArZPSZwHc1x8HLIWHkT42/kBZCcx5qBRC8b+RhBuHSxkKpPtk97MXH+IJ1PcsrewnvnU8p9eqDbJgMp4b5TYMgdIdDGTq2gwJ4ES+kUChrU8jx33Go32q/XDKfUxd54NsL94s8+wQ1LLmc3W2hWS5fE/mrn0oHZWhPqe9/qZpjibzt86BBEJ54flqFz9wm5uMqVzQwGYi4ykro0ZQzFTGIATLGikJQZw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8RKdaN1OTKaadjanldjMUs4a0AeoXHERaQ0SRSR4hB4=;
- b=L0RRWkeKS2FhgaRkfj186vyS2hN4oJ78ghp0l07wiIlxQZiK3rqVp9R4Pb6oFZ8aDHa/M+Bv8dGo27n+L61osIz18wgkTaCovvJI0tiuByuL/5CRdktrcOt0CJoXgeam5ORoonKgsC5FCeM6+/3E6yfAATcN4lVJSx4oaXCsdYsBu23egMBe6sXXqnkGRGf2IVK7yXqTMMXSvpgYtkiqH+kYoYY/52wE3NQZHV1ayknxc7s2mOiLbk0SopVdqr0/MsmDFhCC34dEfIOTIg4OmMKrp2S9yoMDDtVdxEXaxzfFitYg4+CFBhJVgTe+Ybyg0JCqZmedUvndtEW4xqCNJQ==
+ bh=0vY2M/BwX84PgH4VQS6sFL4OoLnUpIx9SLELGPeLbSs=;
+ b=bPHmSorqds4WqJaLYynhtZ+i7cPa8toFvm4eAARkXCSeOhLAdGera+6wJ4LOrUXTlCfL4l75ruWjuUzC/TE8mTymI6CMYaME+jYoo23PCJpGO+7rXx/EHRS10qrKXplvhPcPLN1Aaaec/BSJ2Tc6Bi9qRMhTGXAH0JI0Nu5i3gdyfEchawih5uSVGv3DB3X8boV6iAkcxbru+wHwXnzBz0hmcbsEfctLimTbe6esXNs5092XwnK5m8Yl8lZdH5LtawNg2W/6nw5HduuQa65DdzOIzTsZb0rDTKhOAthhIGQqbHn8qiQHlh8QIWd2+5KbNXCzCFGXEto5AUrr+ZLbfQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
+ smtp.mailfrom=verivus.ai; dmarc=pass action=none header.from=verivus.ai;
+ dkim=pass header.d=verivus.ai; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=verivus.ai;
+ s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8RKdaN1OTKaadjanldjMUs4a0AeoXHERaQ0SRSR4hB4=;
- b=ogDpDsLP4FDY+6lGdBz2Y8djJnDO98D+nDrECMXOs10hjkMyemHr04nCpJYl8NwQLLhU/MvK6TOZbPCSX3pEEuyxSHx0boos13rBbevW0JCul7foNPTo5rbV76lEknyNUyP5nehhd+moHn/aO08bZkcazq9J4Xtpx23y+8ff1bLVrP3ANTggA5mAhAjLybkwMm6IYIisWq5MStMxmXctD7evFD5mfLDDOzw7IAVM9nbfMYMJoq5EVAKw511DpDLsyiOT8TOlck1WwWRE930oMrm1kZDELobzzeVdIr3WGdLcg2gzsbgsJc3Vyxal9qhky1tn8WdTb908abAnVxP3dA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DS0PR12MB6486.namprd12.prod.outlook.com (2603:10b6:8:c5::21) by
- SJ1PR12MB6242.namprd12.prod.outlook.com (2603:10b6:a03:457::6) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9769.20; Mon, 6 Apr 2026 21:24:45 +0000
-Received: from DS0PR12MB6486.namprd12.prod.outlook.com
- ([fe80::88a9:f314:c95f:8b33]) by DS0PR12MB6486.namprd12.prod.outlook.com
- ([fe80::88a9:f314:c95f:8b33%4]) with mapi id 15.20.9769.014; Mon, 6 Apr 2026
- 21:24:45 +0000
-Message-ID: <0f5605c1-32e8-4a62-b852-b1db01e42817@nvidia.com>
-Date: Mon, 6 Apr 2026 17:24:42 -0400
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v10 07/21] gpu: nova-core: mm: Add TLB flush support
-To: Matthew Brost <matthew.brost@intel.com>
-Cc: linux-kernel@vger.kernel.org, Miguel Ojeda <ojeda@kernel.org>,
- Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
- Bjorn Roy Baron <bjorn3_gh@protonmail.com>, Benno Lossin
- <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
- Danilo Krummrich <dakr@kernel.org>, Dave Airlie <airlied@redhat.com>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Koen Koning <koen.koning@linux.intel.com>, dri-devel@lists.freedesktop.org,
- rust-for-linux@vger.kernel.org, Nikola Djukic <ndjukic@nvidia.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Jonathan Corbet <corbet@lwn.net>, Alex Deucher <alexander.deucher@amd.com>,
- Christian Koenig <christian.koenig@amd.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
- <tursulin@ursulin.net>, Huang Rui <ray.huang@amd.com>,
- Matthew Auld <matthew.auld@intel.com>,
- Lucas De Marchi <lucas.demarchi@intel.com>,
- Thomas Hellstrom <thomas.hellstrom@linux.intel.com>,
- Helge Deller <deller@gmx.de>, Alex Gaynor <alex.gaynor@gmail.com>,
- Boqun Feng <boqun.feng@gmail.com>, John Hubbard <jhubbard@nvidia.com>,
- Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
- Edwin Peer <epeer@nvidia.com>, Alexandre Courbot <acourbot@nvidia.com>,
- Andrea Righi <arighi@nvidia.com>, Andy Ritger <aritger@nvidia.com>,
- Zhi Wang <zhiw@nvidia.com>, Balbir Singh <balbirs@nvidia.com>,
- Philipp Stanner <phasta@kernel.org>, Elle Rhumsaa
- <elle@weathered-steel.dev>, alexeyi@nvidia.com,
- Eliot Courtney <ecourtney@nvidia.com>, joel@joelfernandes.org,
- linux-doc@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- linux-fbdev@vger.kernel.org
-References: <20260311004008.2208806-1-joelagnelf@nvidia.com>
- <20260331212048.2229260-1-joelagnelf@nvidia.com>
- <20260331212048.2229260-8-joelagnelf@nvidia.com>
- <ac4FpcD29XnbbsdD@gsse-cloud1.jf.intel.com>
+ bh=0vY2M/BwX84PgH4VQS6sFL4OoLnUpIx9SLELGPeLbSs=;
+ b=KMTDBZ2+UUphcnNzXUtxVb30YsmUkUUHYn5UnRSQuzWcdqJQey7ctnYRP78iF7yMC8ChgFmseBzKzQ8lIPIhFwVNG/g6tbxXphtY44SUQL2jOi4/G9UpS3CAsUyn21YtDMAJu5ct8FGXMDEcHaXEfWqA5ZtQkpttdBz1vyy7mi8+CiaTM5orK2yI5r1egmeVwoNewgRFdaRZ+K6oUHVQ31LlKEir4Qe/v3PcHN3F6kvHtUSRXv4toXKMRKbyhsSKK+zOEnuxtja5RYxFsXzAy0lpiILrQVVrHqEeCGmIzN4kfvn7LFLIOTTzNQPUrF9a76RFoQltmHF8JR/eu3KC5g==
+Received: from ME0P300MB0853.AUSP300.PROD.OUTLOOK.COM (2603:10c6:220:22a::5)
+ by SY9P300MB1529.AUSP300.PROD.OUTLOOK.COM (2603:10c6:10:2d6::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.17; Mon, 6 Apr
+ 2026 22:50:11 +0000
+Received: from ME0P300MB0853.AUSP300.PROD.OUTLOOK.COM
+ ([fe80::1e3f:9cb9:4a95:b5a2]) by ME0P300MB0853.AUSP300.PROD.OUTLOOK.COM
+ ([fe80::1e3f:9cb9:4a95:b5a2%5]) with mapi id 15.20.9791.012; Mon, 6 Apr 2026
+ 22:50:11 +0000
+From: Werner Kasselman <werner@verivus.ai>
+To: Alex Deucher <alexander.deucher@amd.com>,
+ =?iso-8859-1?Q?Christian_K=F6nig?= <christian.koenig@amd.com>
+CC: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Thomas
+ Zimmermann <tzimmermann@suse.de>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org"
+ <dri-devel@lists.freedesktop.org>, "linux-kernel@vger.kernel.org"
+ <linux-kernel@vger.kernel.org>, "stable@vger.kernel.org"
+ <stable@vger.kernel.org>
+Subject: [PATCH 1/2] drm/amdgpu: fix integer overflow in
+ amdgpu_gem_align_pitch()
+Thread-Topic: [PATCH 1/2] drm/amdgpu: fix integer overflow in
+ amdgpu_gem_align_pitch()
+Thread-Index: AQHcxhe5Art/gXsGGUOIk5VGpX9Reg==
+Date: Mon, 6 Apr 2026 22:50:11 +0000
+Message-ID: <20260406225008.2787532-2-werner@verivus.com>
+References: <20260406225008.2787532-1-werner@verivus.com>
+In-Reply-To: <20260406225008.2787532-1-werner@verivus.com>
+Accept-Language: en-AU, en-AT, en-GB, en-US
 Content-Language: en-US
-From: Joel Fernandes <joelagnelf@nvidia.com>
-In-Reply-To: <ac4FpcD29XnbbsdD@gsse-cloud1.jf.intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: MN0PR04CA0027.namprd04.prod.outlook.com
- (2603:10b6:208:52d::16) To DS0PR12MB6486.namprd12.prod.outlook.com
- (2603:10b6:8:c5::21)
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-mailer: git-send-email 2.43.0
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=verivus.ai;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: ME0P300MB0853:EE_|SY9P300MB1529:EE_
+x-ms-office365-filtering-correlation-id: 1ce11d30-fa47-45ec-78f0-08de942edc4c
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|376014|1800799024|366016|38070700021|18002099003|22082099003|56012099003;
+x-microsoft-antispam-message-info: oiukZNUK1PIXB7OzVOBKTLavDseeZGxkL5sPdz0YYVxWD+uhhGjKzMErDNvz7YdMGFXjgoFv9TUq32nkDNMMLZGQj6D6H3T/NS/PYATiYdds4BbCC2+epUXHnOdQkhgAUnNxjHPk0EnWJroVLW3CDqzDHpzz08oo0rESgr8RIks2cJMj3zuLKsCzgFmJPVS/nKXI/Sc/gI1c/rq2q6BpLYWB6KEExhoCPeIHZG05zax4KWoXkP17nuCqKE1VBJE+oloa1nHhewB3ZYtsmILwjZtqPM8EJOfhBM0HwCySO6A3pnc6gzMclKDQ/RkoeIE7W9f1Mnc3bqxX2CXakNpG+B3gl+hH3dPqf3N8CBHtn8uwpjHhgNaIlBs+LdRgKOy6Ns9Vjtfet64G/88vVf6WWTY5LljoTum8KwAachG8JtrhWUd304COgDIDiPwdUddaDW6/MksM+SYcOs9Ij2C9Eny31mqX4HCfcSu0yI+IZo0iwN5oTYU1K3eXW8W10LFFrnMLowPoJBFhfTstOuxQnlLQi7p9EUbkIhQRh7AxW840feP5sJq0EK3HqyrSmHfg78x3oOJXSSHeSzyhlKss5y1BpvQuF4JPxUwP93UOlSKnYg+2UOqJCTz0BFzsVisto2auNLu8ggos8H9SR3ygaSzBSvrrq+P9QpE35AY4163+7gV7xOi9H1hWeaEfybJZ/G+wgiOBEDZ5evzAB7RB/AI2VN6U2vySaMYbTFLTeScgHF5HUJYKox1QHJsxkpv8aTHKILmsRpMm7iS48cD1J3/uzdM3M81OTfimq+eSmoA=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:ME0P300MB0853.AUSP300.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(366016)(38070700021)(18002099003)(22082099003)(56012099003);
+ DIR:OUT; SFP:1102; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?4le0RZTIsoYQNRjwb4UzrA/OC8m+9/EtPqHLK91ZDLEuG0B9growufDaUN?=
+ =?iso-8859-1?Q?9CJqvifntt0Qehspmjzi1zxbAQvWl4OACFaIOScgecLSllxM66cBRKM7Td?=
+ =?iso-8859-1?Q?4a1J1D2I+rlsDRWd+PE0F/vvCyS8KI93sOBkEAbDOdXSiWJYONLYfXlo3O?=
+ =?iso-8859-1?Q?xnLnxPCv0/Ljx/I8e4EJrPy7NjmPxfaC+IuvLuF8SYf8U5cSb3KOQRWM4p?=
+ =?iso-8859-1?Q?RH9A1jzlVEsHLGKzSokjJokKeU2sgIHZ0TrAU0zmjHj2mBdu3ZxsvqwIfP?=
+ =?iso-8859-1?Q?r1f63Q+lQGdAKekBMitH7cape6UcnnXsMQEZIy9We2nEXvG4izT6YQSuN3?=
+ =?iso-8859-1?Q?CdR3nQk7BIgAyUTSvAsYYToec1+4KZQaanCNDNDJYCNXMI6wVydywRJEYa?=
+ =?iso-8859-1?Q?fvk3+pr7BmPZNIAqGKvUd0o3DXZN7Rn2goyaZ/w/D65r2rVXlPmzgW16zw?=
+ =?iso-8859-1?Q?nlAWzZXlve0GiKAqdSkMw1BaIO51+MTlX+aJiE9wEnebZZs5N5m28kTzhH?=
+ =?iso-8859-1?Q?nBOVlyOXk8KOS8jE5qxSgZay1V/B06K/dT+913EaSiCBfedlsXJEBt6EbG?=
+ =?iso-8859-1?Q?3oGPG387tcCm76F3ecF/EzVU2RvVw79hIssRvVX17rGal/R6+Vki4r2wGs?=
+ =?iso-8859-1?Q?9wjP4aYZaJw1u2FYhevER+3dEAN7pCM9E1b4QZ8YUp08x0m5QJuEPeAM6j?=
+ =?iso-8859-1?Q?A1llylmznBkuoBD3gCEHXfH1DQJwJfCZOPX7+F+Rhy9P+RSc+X+PsEwUuw?=
+ =?iso-8859-1?Q?PLjwdxkH7PshOfOnkMnVTGQzFF32AVGD2iTpzHkDpRnaUdzWeUzdYA9/Bt?=
+ =?iso-8859-1?Q?LgdQ+9Qoz5GTdaw3dgjyfigBOIIQUEjmufXFdhmHrzfw92efhug0KzA2Iy?=
+ =?iso-8859-1?Q?IjTah0GRBducMwi5gtKoZqusn3JFot+jjtVF3j+dA3kDmKBAWF6OTqa7R/?=
+ =?iso-8859-1?Q?AZZnWyWGPicxG0pnYuyGOVwpn0JnfOJhQzSP1Zi0eTYu6iJM8oTmutmRbh?=
+ =?iso-8859-1?Q?VlV2x92g5lkAQ0RiYfqB4muCrV8hZURU9NqRGrmhviv0wkPj0CqrgnUd6U?=
+ =?iso-8859-1?Q?7LGoyoPz3kDrA0QIAPMqUrNpE+93pvFZ4KsQvxBot2hRAKNFcCYBXZqoIS?=
+ =?iso-8859-1?Q?93DpM6NWF7o6zuFAEs1HRJmWkGJMMTXNJOB4KPE2GkFUoAWe6Mc7ek8RRi?=
+ =?iso-8859-1?Q?oHHcB5d0MO87EA1ci2iYTxkFUoqfI7Mh6bIrI/rcvDzJEdOku8vAo7LoT2?=
+ =?iso-8859-1?Q?Va825aEf6i4VA3k+YkADYQralV5UmnuLqJQm2dpDT3nnImAZRl6fLqb+H0?=
+ =?iso-8859-1?Q?57JlRLRpppGy5jNcuz1/0RtycLPSV2Fsrc+H0170l6mxcqh30uJznwtgtf?=
+ =?iso-8859-1?Q?sxF3H1g6F/QEguAw8olse4JWMP9ITae3KiP3ucdrpmYZY9cZoVlu6BnWLe?=
+ =?iso-8859-1?Q?7OhWleovElICHo0vuOnpn6Xzr/EftcIAGf52D+s+o5mbfGxrKFcs+FiMJv?=
+ =?iso-8859-1?Q?tVhnoeI9DspomSwjPVONGyIZrAr66byTbdzy9kAXhoSAUDt/wxV7Enw8Lq?=
+ =?iso-8859-1?Q?P0/LKFVDQyWb4uqp6VWTKsVSAJVB84DMSv2n2PPyLLWq4j6sfdrG+Du9PC?=
+ =?iso-8859-1?Q?j7Dtwkq5qRn9WV71ChxqGQ35PYyQk2Tc5KR/KhC9EpowNb4OwqF5ea5hwx?=
+ =?iso-8859-1?Q?qTRslhYxzygrLmWk2TJslk7zEaVs/xsRwDzNwxRY3p+HTZ61gV/tqgyZJv?=
+ =?iso-8859-1?Q?HzV3XYKDwyOsFDYDNhcX4MkaJB5FSudX+ia3rnvnlFrIuheLkp+9ysHDfx?=
+ =?iso-8859-1?Q?KA84jd8GpQ=3D=3D?=
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB6486:EE_|SJ1PR12MB6242:EE_
-X-MS-Office365-Filtering-Correlation-Id: ae91472f-993d-40bb-712d-08de9422eca5
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|7416014|376014|366016|18002099003|22082099003|56012099003;
-X-Microsoft-Antispam-Message-Info: S0EBmMA50OaC+PIxnOtDsXK4ANZONwyayP38F/HA0c3oKQ+saC+BZKGW5Pqh/2Hvjg1rYaP3OQaSFtdO20gUAPFU7GcVI9elW/Nj+fVkvU8YHErpQ18qaWN+l9bEJsC/hV9E3CxjrmG4XZLHK61VJCZaclWMn68U+y2Me8Iu5bVAdwVF9EgPvasUvLHSIWLf+svcOOBk2agWmcHQ4gM+3jpoJc+fDd4xDn0p5w+Ti/Tlo9BBgprllx3D+L/aaA8L/0eHIK3j4q9IZAAQdXQfZ6otcoa721vVzWH0OWFP2faDIQ60eZsDyK+lGfDveDa7QvyiyjsxxqaFg3b3ODJppcFhemDzs+AMMph82Lv1oTgnrcoznPXZojEeCHLfDxmwSGbaQmN1nI8mfOjouB+us5mF2aRNaTB4ShsiSsukatDKDtGwI6s0+n08LGPDBAQmUZbzIyzhqFyP6TkXNnraw4kCT3fdx0Z7UIa7Taz1SaNiWo5qq2RZ1ory1NnuZwKDch7GdBUXoqPVUG7M8tGzYhxCvS9T1QulhSMBUfym/T5baKy5o/5MvROhQV+3v1xWILsnK8noAKthSZ3ql5aqngiH/1AcCPHl7XomeL9pklC18gEEsQFLAkJMJoxVGOpAaI7pOnwwiAEWOawT5c7KCXkRrFM/93Z+xL5agNYgXFnDnJ31zbH/MyjzYw0Pc2p7YAgwbvqMw3X6VHW9uL6czDuGhhdFTOPdZ4OH9HhWtqU=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS0PR12MB6486.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(7416014)(376014)(366016)(18002099003)(22082099003)(56012099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bU1iZEZxS2l5VzVabEVRcWZyZzJBUmNtcTUzMGVkYTdBVmczR0JSTGtVTnhB?=
- =?utf-8?B?VnhYL0FKdWVENnFCT1hDV3QrYUdJY2pSOFd0OGlIRkQrU1ZkblJrZjNQd1gv?=
- =?utf-8?B?bFZITEl0Y3B0elBWRjdNOTB3VUpWNjh3QlhHWHB4V3YzbnBMYUlOb1psS1VV?=
- =?utf-8?B?a0tzSUN4cHR6SmpMaGszdW4zVmUrR01RQ0hrMzNjWEFFSHZxRVh5RFB2M0dO?=
- =?utf-8?B?Sm5QUU9Va3Rjc1lxQUlObG8wQ3doV2NaTTF0bURUeElWWHNIb2ZIYnZmUjAy?=
- =?utf-8?B?aDgyWkQrb3hKQ2l6T2RKZjZKNTh1MTRRYUE2cHIvMjhKWTN5V0p0WFFhRlV2?=
- =?utf-8?B?UzRoeWQ4dU9pYUZFbUpIZlRodzZTb1F0Z0ljeWtEa3hiajNQNWN0RUhERXRZ?=
- =?utf-8?B?a0hIdm1Mak9DS1g4c25ybzZHaUVnUVR3RERsaWpvY3czWTBMS0pKekp5aGEz?=
- =?utf-8?B?dGM1T2pRa2dZSi9iOW1aVEl1dkxSYk54WWpPWWJ1dEU0aHgwRE85YldWQnM2?=
- =?utf-8?B?bjR2SVFhbWZiQVpPbTBmejk4YXFBbU5QUGNBekI0NkY4dkZ3WFEwZDBLSkpn?=
- =?utf-8?B?Rk5ObXBPREdEdW0yTlVGYzZFNkJYRWtXVXNBYnp5Q3NGQlM0YXp5M2xPQ2Zh?=
- =?utf-8?B?cHA0YUJDL3l3bGNmR3dpTTNrSXJqdE9uWjdrNnV5SDNUb3l4K1JyMW1EbXJT?=
- =?utf-8?B?ZXVBTnJJa3I2NGxaNnpBSnp1aE9WTzdBNnE5c2QybVdxTzNNcHFBMGhFZ3Rk?=
- =?utf-8?B?TmZITnhCakozWnQ2djRoQjVza2wrYXlKSkVrelgzMi9JaGhFM2Evbndmb0xH?=
- =?utf-8?B?T1JyQi9TWjZMd1c5ZlRIZUtyYU5qTUo4NUN0eEVZWmRnQUNyQWdFb0dMN2tD?=
- =?utf-8?B?blR6a0llSTdnQmJhOFFkNmNqdGZSSEErV1BtMmlta0pUQ0NmZWY3N0pFZCtB?=
- =?utf-8?B?aENQbzAyWFIxUmpuYzBFWVIxcW4yZW5XcUdwS0w2UWVZdDh0THJmcUZidUx3?=
- =?utf-8?B?YzhpSFprUlpObzZCZGFBRlJjWUhiNi9wUHFDTGYzR3ZFMVd3YXhHRXRZaWhO?=
- =?utf-8?B?Nnk2MlFFY21rRGRHUWxUL01vUE1rYkJkdUl3anN1TmFDVkZrRVVBSzdKTHJn?=
- =?utf-8?B?c2RSREpLZGhoMG4xVUtyNWk5ekZtOFk0V29rb1phcXQ3WityeXA4RVp3MDN2?=
- =?utf-8?B?VjRIU2RWUWRtVm8zdWRDSXJMSjFYZ0NzNDRtUis0THVjMUt3d0FPYkx1ems3?=
- =?utf-8?B?d3B2OVJWb1lEVThOTDBBa0ErRWF4RWxTQVJrZENRODZlQ0ZRVk9leG96eEJa?=
- =?utf-8?B?TDlNNFhPNWtMR1Z5SXVzVVJOSmVqTG40YnFTRGZ3aDNoNitUODE3V2hIZGg5?=
- =?utf-8?B?alRGd3VmRHBRYzI3dy9pN2VNVklOcDhPTGZGVFdTNFRvU2dlWXA4YmVjUjdl?=
- =?utf-8?B?K09vRUgxTDRtYzQyeGMzUXZHV2Uvc2lvNitHV3JaSUtidFU4L1pBWFdWclNY?=
- =?utf-8?B?WklUS21jNm5LakpaVVRyTU5tWlVEcVFhcjgwek5UaVgvODBOOGtoYWcwOGxG?=
- =?utf-8?B?WTB0L0YxMGlrais4M3NrUUxnQ3R1dTNHaCtpVHBNNDhyMmRJcVhmMVRYY2h4?=
- =?utf-8?B?TDZYcnlrUGJMZHdwYitxMGdKZlZlc3A0Um5DWk5GZmIrUm53SUZ6TzRoL3Ix?=
- =?utf-8?B?RlBURVVpamsrQlBDN1JEVjJxZ01wYVU3dkZGRnN0aUQycjUwYWVnL3FFYWJq?=
- =?utf-8?B?cGxaY2pucjVyeWZ5ZXJoK1ZaUmVEQ0pnclhUM0haa0tsQkFKV2lOYU9VeUd4?=
- =?utf-8?B?cHVGUFMzZVlWR3pQWlZqR0I4UE9SK3RCOSt0MCtaeVpqQm1BVGZybnJHOUFQ?=
- =?utf-8?B?aG5QNThIYmQyQURWdlppMXVzNXZVRWQwR2JINSsyNXVkK0tRbEtVTTlRaXdF?=
- =?utf-8?B?amtuNVl5enhSdzBpMm4zWWlXZXZVWW5nVTE4eG5oYTZSakp3WkhYTERMZEFh?=
- =?utf-8?B?WXZCYkVPRGRmeEFURzZsMEtyOW0zOTRLVFlCeWdSaFNOdWJ4ZUJjUXZ2S2RN?=
- =?utf-8?B?S0NOd09UOEs1azV4S2p6ckdNblV2Wk5CZTBCQTFqUFFicjBHQzlxSVp2SVpR?=
- =?utf-8?B?UVVZTHlmUzZuSEdyZW1hL2FQdVRMdCtsMzN6cTArQXpuellCVjJwd25ldGcw?=
- =?utf-8?B?VFpremF1S2FsOFcra1lTUHVBd01WalNBT01KOWNWVWlnRG02bzdJWm5obitJ?=
- =?utf-8?B?b1A5ZllFTXArck1ZVzlxdVNTdTJBOVBmNGpsUkV3eW82dm9ZWW56TUh4OEpN?=
- =?utf-8?B?b1dJZk9YR1N2MlhFS2lUM2VhUHZCK3dONVdVMVFhazR6OTZWV0Z4QT09?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ae91472f-993d-40bb-712d-08de9422eca5
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6486.namprd12.prod.outlook.com
+X-OriginatorOrg: verivus.ai
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Apr 2026 21:24:45.4831 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: xIYEay9EQcQIL0OfKhsWq92f2cGLAtCQOJYSZs4FOs16NZGPLSjiqCWqjGPs2MZMnz8ngxu6G38HoEnB/qaibA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR12MB6242
+X-MS-Exchange-CrossTenant-AuthSource: ME0P300MB0853.AUSP300.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1ce11d30-fa47-45ec-78f0-08de942edc4c
+X-MS-Exchange-CrossTenant-originalarrivaltime: 06 Apr 2026 22:50:11.8558 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: ccdcedb0-4edc-4cc8-9791-c44ee6610030
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: z0VQ2kTeRZOQ+AvH+TFZyrgDeZjocdaE+yt8JKxn3OFuF2/9C6l5Mueoeq6au9shPB2s6NKWxqTFEZOaRakegg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SY9P300MB1529
 X-Mailman-Approved-At: Tue, 07 Apr 2026 07:44:50 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -170,132 +138,83 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-
-
-On 4/2/2026 1:59 AM, Matthew Brost wrote:
-> On Tue, Mar 31, 2026 at 05:20:34PM -0400, Joel Fernandes wrote:
->> Add TLB (Translation Lookaside Buffer) flush support for GPU MMU.
->>
->> After modifying page table entries, the GPU's TLB must be invalidated
->> to ensure the new mappings take effect. The Tlb struct provides flush
->> functionality through BAR0 registers.
->>
->> The flush operation writes the page directory base address and triggers
->> an invalidation, polling for completion with a 2 second timeout matching
->> the Nouveau driver.
->>
->> Cc: Nikola Djukic <ndjukic@nvidia.com>
->> Signed-off-by: Joel Fernandes <joelagnelf@nvidia.com>
->> ---
->>  drivers/gpu/nova-core/mm.rs     |  1 +
->>  drivers/gpu/nova-core/mm/tlb.rs | 95 +++++++++++++++++++++++++++++++++
->>  drivers/gpu/nova-core/regs.rs   | 42 +++++++++++++++
->>  3 files changed, 138 insertions(+)
->>  create mode 100644 drivers/gpu/nova-core/mm/tlb.rs
->>
->> diff --git a/drivers/gpu/nova-core/mm.rs b/drivers/gpu/nova-core/mm.rs
->> index 8f3089a5fa88..cfe9cbe11d57 100644
->> --- a/drivers/gpu/nova-core/mm.rs
->> +++ b/drivers/gpu/nova-core/mm.rs
->> @@ -5,6 +5,7 @@
->>  #![expect(dead_code)]
->>  
->>  pub(crate) mod pramin;
->> +pub(crate) mod tlb;
->>  
->>  use kernel::sizes::SZ_4K;
->>  
->> diff --git a/drivers/gpu/nova-core/mm/tlb.rs b/drivers/gpu/nova-core/mm/tlb.rs
->> new file mode 100644
->> index 000000000000..cd3cbcf4c739
->> --- /dev/null
->> +++ b/drivers/gpu/nova-core/mm/tlb.rs
->> @@ -0,0 +1,95 @@
->> +// SPDX-License-Identifier: GPL-2.0
->> +
->> +//! TLB (Translation Lookaside Buffer) flush support for GPU MMU.
->> +//!
->> +//! After modifying page table entries, the GPU's TLB must be flushed to
->> +//! ensure the new mappings take effect. This module provides TLB flush
->> +//! functionality for virtual memory managers.
->> +//!
->> +//! # Example
->> +//!
->> +//! ```ignore
->> +//! use crate::mm::tlb::Tlb;
->> +//!
->> +//! fn page_table_update(tlb: &Tlb, pdb_addr: VramAddress) -> Result<()> {
->> +//!     // ... modify page tables ...
->> +//!
->> +//!     // Flush TLB to make changes visible (polls for completion).
->> +//!     tlb.flush(pdb_addr)?;
->> +//!
->> +//!     Ok(())
->> +//! }
->> +//! ```
->> +
->> +use kernel::{
->> +    devres::Devres,
->> +    io::poll::read_poll_timeout,
->> +    io::Io,
->> +    new_mutex,
->> +    prelude::*,
->> +    sync::{
->> +        Arc,
->> +        Mutex, //
->> +    },
->> +    time::Delta, //
->> +};
->> +
->> +use crate::{
->> +    driver::Bar0,
->> +    mm::VramAddress,
->> +    regs, //
->> +};
->> +
->> +/// TLB manager for GPU translation buffer operations.
->> +#[pin_data]
->> +pub(crate) struct Tlb {
->> +    bar: Arc<Devres<Bar0>>,
->> +    /// TLB flush serialization lock: This lock is acquired during the
->> +    /// DMA fence signalling critical path. It must NEVER be held across any
->> +    /// reclaimable CPU memory allocations because the memory reclaim path can
->> +    /// call `dma_fence_wait()`, which would deadlock with this lock held.
->> +    #[pin]
->> +    lock: Mutex<()>,
->> +}
->> +
->> +impl Tlb {
->> +    /// Create a new TLB manager.
->> +    pub(super) fn new(bar: Arc<Devres<Bar0>>) -> impl PinInit<Self> {
->> +        pin_init!(Self {
->> +            bar,
->> +            lock <- new_mutex!((), "tlb_flush"),
->> +        })
->> +    }
->> +
->> +    /// Flush the GPU TLB for a specific page directory base.
->> +    ///
->> +    /// This invalidates all TLB entries associated with the given PDB address.
->> +    /// Must be called after modifying page table entries to ensure the GPU sees
->> +    /// the updated mappings.
->> +    pub(crate) fn flush(&self, pdb_addr: VramAddress) -> Result {
-> 
-> This landed on my list randomly, so I took a look.
-> 
-> Wouldn’t you want to virtualize the invalidation based on your device?
-> For example, what if you need to register interface changes on future hardware?
-
-Good point, for future hardware it indeed makes sense. I will do that.
-> Or, if you’re a VF, can you even do MMIO?
-
-For VFs, TLB flush is typically done directly via VF's BAR0 MMIO. If there is
-VF-specific handling for any reason, that should probably be a different
-interface than a per-chip interface (more specifically, checking if Nova is
-booted on a VF).
-
-thanks,
-
---
-Joel Fernandes
-
+amdgpu_gem_align_pitch() uses signed int for the pitch calculation.=0A=
+When alignment rounding pushes the width to a boundary value (e.g.,=0A=
+2^30 for cpp=3D4), the multiplication 'aligned * cpp' overflows signed=0A=
+32-bit int, producing 0 or a negative value.=0A=
+=0A=
+The overflow guard in drm_mode_create_dumb() validates width * cpp=0A=
+BEFORE the driver callback, but amdgpu_mode_dumb_create() bypasses the=0A=
+generic drm_mode_size_dumb() helper and performs its own alignment=0A=
+rounding, which can push the pitch past the pre-validated range.=0A=
+=0A=
+A zero pitch propagates to a zero-size GEM object allocation via=0A=
+amdgpu_gem_object_create(). The 0-byte BO passes=0A=
+amdgpu_bo_validate_size() (since 0 < man->size) and is returned to=0A=
+userspace with a valid handle. This object can then be mmap'd or=0A=
+referenced in GPU command submissions, potentially causing out-of-bounds=0A=
+access to adjacent slab memory.=0A=
+=0A=
+DRM_IOCTL_MODE_CREATE_DUMB requires no DRM authentication, so any local=0A=
+user with access to /dev/dri/renderD* can trigger this with e.g.=0A=
+width=3D1073741760, bpp=3D32, height=3D1.=0A=
+=0A=
+Add an overflow check in amdgpu_gem_align_pitch() to detect when=0A=
+'aligned * cpp' would exceed INT_MAX, returning 0 in that case. Add=0A=
+corresponding checks in amdgpu_mode_dumb_create() to reject pitch=3D0=0A=
+and size=3D0 with -EINVAL.=0A=
+=0A=
+The proper long-term fix is to convert amdgpu to use=0A=
+drm_mode_size_dumb() which centralizes pitch/size calculation with=0A=
+proper overflow guards, as is being done for other drivers in Thomas=0A=
+Zimmermann's dumb-buffer series.=0A=
+=0A=
+Found via AST-based call-graph analysis using sqry.=0A=
+=0A=
+Fixes: 087451f372bf ("drm/amdgpu: use generic fb helpers instead of setting=
+ up AMD own's.")=0A=
+Cc: stable@vger.kernel.org=0A=
+Signed-off-by: Werner Kasselman <werner@verivus.com>=0A=
+---=0A=
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c | 13 +++++++++++++=0A=
+ 1 file changed, 13 insertions(+)=0A=
+=0A=
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_gem.c=0A=
+index a6107109a2b8..b4341abba20c 100644=0A=
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c=0A=
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c=0A=
+@@ -1246,6 +1246,15 @@ static int amdgpu_gem_align_pitch(struct amdgpu_devi=
+ce *adev,=0A=
+ =0A=
+ 	aligned +=3D pitch_mask;=0A=
+ 	aligned &=3D ~pitch_mask;=0A=
++=0A=
++	/* Sanity check to avoid integer overflow in aligned * cpp.=0A=
++	 * The caller (drm_mode_create_dumb) validates width * cpp fits=0A=
++	 * in u32 before alignment, but rounding up can push aligned=0A=
++	 * past INT_MAX / cpp, causing signed overflow to 0 or negative.=0A=
++	 */=0A=
++	if (aligned > INT_MAX / (cpp ? cpp : 1) || aligned <=3D 0)=0A=
++		return 0;=0A=
++=0A=
+ 	return aligned * cpp;=0A=
+ }=0A=
+ =0A=
+@@ -1273,8 +1282,12 @@ int amdgpu_mode_dumb_create(struct drm_file *file_pr=
+iv,=0A=
+ =0A=
+ 	args->pitch =3D amdgpu_gem_align_pitch(adev, args->width,=0A=
+ 					     DIV_ROUND_UP(args->bpp, 8), 0);=0A=
++	if (!args->pitch)=0A=
++		return -EINVAL;=0A=
+ 	args->size =3D (u64)args->pitch * args->height;=0A=
+ 	args->size =3D ALIGN(args->size, PAGE_SIZE);=0A=
++	if (!args->size)=0A=
++		return -EINVAL;=0A=
+ 	domain =3D amdgpu_bo_get_preferred_domain(adev,=0A=
+ 				amdgpu_display_supported_domains(adev, flags));=0A=
+ 	r =3D amdgpu_gem_object_create(adev, args->size, 0, domain, flags,=0A=
+-- =0A=
+2.43.0=0A=
+=0A=
