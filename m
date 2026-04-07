@@ -4,123 +4,98 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 345D8FF5136
-	for <amd-gfx@archiver.kernel.org>; Tue,  7 Apr 2026 19:41:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 91402FF5136
+	for <amd-gfx@archiver.kernel.org>; Tue,  7 Apr 2026 20:05:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C2A6810E4BB;
-	Tue,  7 Apr 2026 19:40:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2657D10E4A7;
+	Tue,  7 Apr 2026 20:05:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Fov/fOE5";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Qd0hN6Fs";
 	dkim-atps=neutral
-Received: from SN4PR2101CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11012006.outbound.protection.outlook.com
- [40.93.195.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7ACB810E4BB
- for <amd-gfx@lists.freedesktop.org>; Tue,  7 Apr 2026 19:40:58 +0000 (UTC)
+Received: from PH0PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11011014.outbound.protection.outlook.com [40.107.208.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 91BD010E4A7
+ for <amd-gfx@lists.freedesktop.org>; Tue,  7 Apr 2026 20:05:38 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=pzYlwt1UfUEX7gBDfS9n+MFViJXXI4uZdJnEKCrbmivkQl0n8s/MSKLvm6ze8zMcFQluq0sAaA88UJ31yEZUzOx92ixUQ0LjBUk4Sf5N8WSgtEpndD3HShnXcuf7mp5czSH5x2fkqiC0vPBx+Aa6AD5NcrvaVQz+voAvNH7msmYUmoiDb9EzftZrQINJsIYUw9VVRZ5lJArcLvuB5FNtacVjOqBGZrHzwQcjyVBeWFeJ92wIv8gIWHVPPGwWtQQBUN22r5Vg17pSeNAFdUENwBIvpFiE4PHlxRmTNYxe+NgQ1zCsDbG4fOWNMQ9F8s3jX+A8ITYIGlZ8wSppGSgAGg==
+ b=knPg1ZoPMJQGcQ8gthcH/d0FQiNOHUPmqdfk7++tC/SMGT+CJ+GxHQJn08kA+lMO21TyLZzOMXuBbUPfFkiOy87UBnJx3rngOiPY3uAHVfCVEDpomt8hISJ+VR+LF1J+HRVuPR/LJJRahuGVAAU1MuaEpffwpKHDZmUsEiBDuKk6VZy1FE9du7KqLR4rA1biWnprlSrDN+bbdp31EK1n/2xx4SsTDXbQPcU12M5nhG4oqZSr00OpLuVHzZwTX/+Wux3yuZIZoWC6+Docg4kjPj0t6o1TmNlaE8lONXojRYQO7gpbciUmyxc8mBVLxBFjzttayOiFEX1kke8PPh3pmQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=RJV6UJ0MRmtDsZR+Rf6uOfS48/X33zCtgMMZJyJuSAM=;
- b=uV7zG1ElShvlVGcZktZBavEac0j8D6HB6NYMVAJz0XpWMP6u9U0QtJMCZXk4c2GghS+0feX0QYGaDjacESGg1uFFzYRdLA7Oa/+pd3fRJwNSdbbCW5tWrT8EqjUI+ILJDWsx5okUa87mRxYvZLavAG58wr8LraJy02Jb/B6DXQ3VBRZ5vaqAiiRHlARylvBEv8d2V3ktVSdTPG6j5B8NUUSxetrtnQpR3amwNHgNFSd6s0qEuG9LBg1ZYr9p0zdZtadrmTemF/+tIQcxSRcpUPRDoWyqSibE7sRnRNoQWCtGTGnOFtdeNkEfepF50chhj1B0WufaTm8XbzkORaaBDA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=6VdUSNx/z1m0o4wQEk/Il1ASFwSKBUM5WRDXDaGdSUc=;
+ b=vg+2Wjc4JDxuv8zzAIdciqUK0v0S4Y48KxKGmLlA57xpJFreL8W+9xlaGwH2TFofbby82AJnFjHnEUF0+HQXO5lgbYMyJ/5EwXwTZFAMQwPpD1b/CWizKulzi0tuUFqWkp4iq2+Aa6smS1S11dzFCtJVD+rBydjbg00EK9nD2y5lzEqUp5jNmIOzhdpr63AV+Cs7Z4AHtQpjAlL7XvLoAfxA9vgvhAqv1E5p+R6DtvLR14IpyKHe+Npj3UOKedRy1T2fCfrC9/Ic+WTWrJpTnEXtR7aTz9fersrz09uD5sVQKEAJczRtrrv/eeHPmcm/XqWBoxNAAV/ayImx09Buew==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=RJV6UJ0MRmtDsZR+Rf6uOfS48/X33zCtgMMZJyJuSAM=;
- b=Fov/fOE56GUHkoL77rrW599HvFw5IqXP9Amjr5MLqQyFS5GvQaRr587mcPlGIhWrOIu2XnWqblITtoVsvDXtuzDrwvO0WiE8O6uooRt8YRf/o+CsRPamWiX8EEEG5S6ba/vhQlqK2UfFZFYA6iZPFqxfkipVwWPTBU8xXmOkaGQ=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM6PR12MB4401.namprd12.prod.outlook.com (2603:10b6:5:2a9::15)
- by SJ0PR12MB6687.namprd12.prod.outlook.com (2603:10b6:a03:47a::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.18; Tue, 7 Apr
- 2026 19:40:55 +0000
-Received: from DM6PR12MB4401.namprd12.prod.outlook.com
- ([fe80::795e:4056:1c5f:6b33]) by DM6PR12MB4401.namprd12.prod.outlook.com
- ([fe80::795e:4056:1c5f:6b33%5]) with mapi id 15.20.9769.020; Tue, 7 Apr 2026
- 19:40:55 +0000
-Content-Type: multipart/alternative;
- boundary="------------F3XcVrZJw1zyX0A2dTWLf8bw"
-Message-ID: <55d2743f-9585-4e79-a153-b403a9781aa4@amd.com>
-Date: Tue, 7 Apr 2026 14:40:53 -0500
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu: extend mtype override to non-contiguous pages
-To: Philip Yang <Philip.Yang@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: Felix.Kuehling@amd.com, christian.koenig@amd.com, Kent.Russell@amd.com,
- Andrew.Martin@amd.com
-References: <20260407133833.463741-1-Philip.Yang@amd.com>
-Content-Language: en-US
-From: "Chen, Xiaogang" <xiaogang.chen@amd.com>
-In-Reply-To: <20260407133833.463741-1-Philip.Yang@amd.com>
-X-ClientProxiedBy: DS7PR03CA0006.namprd03.prod.outlook.com
- (2603:10b6:5:3b8::11) To DM6PR12MB4401.namprd12.prod.outlook.com
- (2603:10b6:5:2a9::15)
+ bh=6VdUSNx/z1m0o4wQEk/Il1ASFwSKBUM5WRDXDaGdSUc=;
+ b=Qd0hN6FsHDnnp4DJ7/ClZW6OgNEDtXqFvCU/epyzjPaj6ZTi6NknTMiUAeUFoZgFC/HAlAnXzUO/yxaQGnCl9pVmKOvwPqMPHlbvUnEJ5dy1JyMhfDlPMpUkfBg/Az8hdzsV/sieVqu0sKFu5kvlDWPk6eAifKe+sRfbafZb6a0=
+Received: from BY3PR05CA0059.namprd05.prod.outlook.com (2603:10b6:a03:39b::34)
+ by MN2PR12MB4470.namprd12.prod.outlook.com (2603:10b6:208:260::19)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.20; Tue, 7 Apr
+ 2026 20:05:33 +0000
+Received: from SJ1PEPF000023D1.namprd02.prod.outlook.com
+ (2603:10b6:a03:39b:cafe::30) by BY3PR05CA0059.outlook.office365.com
+ (2603:10b6:a03:39b::34) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9769.33 via Frontend Transport; Tue,
+ 7 Apr 2026 20:05:33 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ SJ1PEPF000023D1.mail.protection.outlook.com (10.167.244.7) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9769.17 via Frontend Transport; Tue, 7 Apr 2026 20:05:33 +0000
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Tue, 7 Apr
+ 2026 15:05:32 -0500
+Received: from bencheng-dev (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
+ Transport; Tue, 7 Apr 2026 15:05:31 -0500
+From: Benjamin Cheng <benjamin.cheng@amd.com>
+To: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, Leo Liu
+ <leo.liu@amd.com>, <amd-gfx@lists.freedesktop.org>
+CC: "David (Ming Qiang) Wu" <David.Wu3@amd.com>, Ruijing Dong
+ <ruijing.dong@amd.com>, Benjamin Cheng <benjamin.cheng@amd.com>
+Subject: [PATCH] drm/amdgpu/vcn: Factor out vcn_v{3,4}_0_dec_msg
+Date: Tue, 7 Apr 2026 16:05:18 -0400
+Message-ID: <20260407200518.911117-1-benjamin.cheng@amd.com>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6PR12MB4401:EE_|SJ0PR12MB6687:EE_
-X-MS-Office365-Filtering-Correlation-Id: 43dd76f9-fd56-422a-dc8b-08de94dd9573
+X-MS-TrafficTypeDiagnostic: SJ1PEPF000023D1:EE_|MN2PR12MB4470:EE_
+X-MS-Office365-Filtering-Correlation-Id: 025f4fef-7fa5-4406-eec1-08de94e106a5
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|1800799024|376014|8096899003|56012099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: uIHJ0invn9rfd0agZ8qTOGyFp599yL48uuh3CT9tDzSC7CJa0A1yY+GiioSSxceaHTUt8l52NKeH4fFNpgCaDhDK+nRKbQRC8xMsV9CQ4RHCBsRPLlSeVPB9YafLcQvbfl2FXntTOVrYI2wXqlnnRkHf4x6IAGjivgpxanttaikCzRAlHvsTdPFBa3JIqtRnPLLUH0MrnI3OG4ShcsTtEBjwUk7SHiVBRFIJfRYdcZnBdXTqy674ixl6ciwuv/CwDbLOTaVZOjMrdEAj9lPrzSaI9aUnVkvIHOCNYWhnhmvgZZ3uupYtdAdhP4DzSeI8VmDhtxOZHqQU5EAIie3pV1FiaWxa1RORkZUBSFtacAUMxB9FOfm/cf4D1KNWIw5oyXBDTB9ZIEg8a0I2JHxz6Do3jQff8upobZijNaevaUsjJtKtTc5F+hYKUHwg6gndry7TvpagdR+BojTr3B58F53ceFJDjW4HghAqm0VMigvQPyqxdy0gqW19DveJCjVSs6LbNNSJsR4i3bMnDpoVeNYJ5iK+QsJBJWjTm2gUIosvPbTg6rq4YZgbqcQgKlXdwR4LucF+W3GsbB/jw8E97CaveMMyZZOfIIfqwFqMCtr2yP/jvjySlHMEk55tOqJxeZBY4eZChqdTlu6ncWVO5ml+XnfwwFcAn0suZBkEYUop4lCb9ddlCTOvH7Kli7XI4Hg8L5DzhFeFTz+yaku7pptG4r1++ctpzkATOsdfFFw=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB4401.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014)(8096899003)(56012099003)(22082099003)(18002099003);
+ ARA:13230040|1800799024|36860700016|376014|82310400026|56012099003|18002099003;
+X-Microsoft-Antispam-Message-Info: EWU1Mqgn+/TjXj14BHfFEK6DBiJcxnacKcy12RtlVfDxfrIXpAgXDFwcHeuz9K2EuLrL/dOQ2JWQek/SrwFua8GD7qvJjAD0BVyraVurBz3ULiBiUNteTU3Y4YNcwcJULV9gF4tIooDwqO/buy2Ho5Y/fNVaXwAgh71d2P/cYIDJ0icaQJB86ZJL9CQ5KGb/dK89m868VQZwsfM4REeevbECXW2/XfH7dzGM6ETNE9tUhBKm5GyWCFlDHBF/cz0gkVgiY3mnjpqIKjUsJ1dlfJ3AoQs83fVXAAV6810SSiMkQ6ijIBY8pD6gOA4VgqNmqoCQG45w5rONqQzJrHkpUa/9ukIAy1cNs4OkFdE/A53Lb+mYelCzYMXA6G7PQRktdCm3b/p02B5nVod4WsgVT94U/+DMLLZorJQoQFmJuCePSHDWSNrNrwYvaWdHtNGlkOooi1UXv8BB9VcNatqNaIQ4wKoK5XKUBR3xoB34zPjjL7S2fbynaBMc9VjcXbsrrqjWdq1FB59XR8hbDMnXW+3xXgPDRlBHcYuCHNWe7uqqkkhbCPfVm7GPyDMNkMzTzG7L3Fvn6FG0G9uCZF1HEkOZOvHjahjIb5u9n88vxjVlWC7IX/nVrn2+z2mZax6oBsuZcMswWcXDnTA7r8TZXNYhZSdnUSy+vDRavzS9ORYXlBZGKEsvTUD7trnNC8VGyZbYGzJp/i72AZBG4PSJP/LE2dsS5JgdhcMJ6ziIm1b5ghUsaIq7ejYcnJyWlEvoVka5Hjk7UyMtlcnijfP1gg==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(36860700016)(376014)(82310400026)(56012099003)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aFRnN3dqdldCZHVNM1BNbjd6czB3Z3ozQzJ2VlViSmZKWDhJbjczZDNSNnNY?=
- =?utf-8?B?SVA1ZnljUXQ4TXdnY2Fwd29ZNVE5NlpsYk1vMjdGSGdYczhyRy9oaG5CWm14?=
- =?utf-8?B?NkovME40Si85YUtOV0taRzVxOS9SdEswN2duMHVtYmQ1TkQ2eW9Qa21QaHNl?=
- =?utf-8?B?R3FscHZLa2ZMWUlraS9jdVRYTElZV2NNR1RKUi85VW9ScHpRcTI2aGRrL0dL?=
- =?utf-8?B?d2k3OXcrV2pacVhMUDRSUGhEZnRnVTJ0ZTJRSDZWRktWT1dPK01NNDZ2eHht?=
- =?utf-8?B?Y0doTzB6WVNocTZ4Sk1rTzhOdHJzbnpPTmFHa2tzSjQyRG5LQnNkY1NQQnFz?=
- =?utf-8?B?ckNkTFZzNVdlaDU5eEdmbEdJbElubmowNjE0WU1jQkNJcTRSakw4VG4wRW1x?=
- =?utf-8?B?RFo5dHA4emE0eEQvSXY5cGFBOVRrSDBHUDk5Z1loeVdWbVJvZUlub3lCNU02?=
- =?utf-8?B?VEQ5OThZZXVYZzZCc1MrWWk3Q1QvT3BPNVozZE9Pdmc0YnUyeStSemN4YllB?=
- =?utf-8?B?WDB0SWlBUDhVbmFaV2JLOUZ5bWpZdlhQemhmbElwR1UxaHlKbUVUaGpkK1JB?=
- =?utf-8?B?ekh0U29tYXNlWm40OUU1cXNJcFQzajcyTFFRellsb0RMR2JRdUNIUC85S3hI?=
- =?utf-8?B?dTlsQ3ZScmNmTUExQ1c2SmJLRlRFWEcxeTgzMjF2a3NDTktXNDI1YkJVckRm?=
- =?utf-8?B?aDc2NnNteEpTOHNpNm0vVVlJZWxJMDRIUCs2bElveGttZzlnNkhsaWJaK295?=
- =?utf-8?B?NTgrcmJlV2ZZS2w3VUd4YzZIbk5ZOFQveW9OT1RHQzFmcGxjQkI2a2d5YjBs?=
- =?utf-8?B?U3h5QzFaU2hPOE9aa3lhVlhESGZPaUVvVzBiN2o3Z2k2WU9xNk43ZUEwTTZK?=
- =?utf-8?B?aFh5TXY4aG1TS2N5WEpDejVwMTlidlRtNHNhYzBIR3Z3eDBFNHNSNXZSKzhm?=
- =?utf-8?B?QzZjNlhFZzNMWWtLdWVTZjFSejkwNGJPa2RHS01rQTY0OEorZ2lHL3VTSFgz?=
- =?utf-8?B?bmV1YWNzMHhpNEZaS1lYUUpwaEZwU3d5WTdUOHRQQXhnd1MzSC96ZDFKb1RV?=
- =?utf-8?B?Z1F4NzRtRXNrQm5VYzRTZ2ZoNWVnRmcwRGdkSHhFajB3MWI4ZlFPd3pwaGJG?=
- =?utf-8?B?TitHWXFsUFRDT083d0ZZTDhUYkl3K3hGUzRtaytjaW53SmlaZlp5TFB6ZHV5?=
- =?utf-8?B?MFFqclNMLzFsY29RV3BvclBrRGFWdVZrc3NpblpBcUo2eE5xbVFwQTdKVXV5?=
- =?utf-8?B?U1ZDbVMwdCtUVHpIaU1nK0N1MVc3QVJnTWN0dm56MTd6SUZoekw5SlM1MFI3?=
- =?utf-8?B?SzFCcHB2WExsVkpjay9NOEI5K1Q1QlNkaWUwV1BrdHVDUndtZzBrVnVIbzcz?=
- =?utf-8?B?RGVmWWtlVFE3cGR5OG1hb0VyTGExMExEL3JYNllOU29KSERPSDJOd3RqaWda?=
- =?utf-8?B?U1oyZHJWQ1V4MC85dVk1NFFpRnVwd2FZZVIwaWRBQnBjOU9hbWxzVER2ZEQw?=
- =?utf-8?B?SDkwZmp1dEE4RFNRS2FXejB0RXBpUlZTTlJxakRKdVJkY1dFcXZFWmsyUnlR?=
- =?utf-8?B?R2F4K0hMNW9JZzY4NElEdDROWVZyM1I2ZytuT00rcHFwVldhSTkwZEd3Wjla?=
- =?utf-8?B?VS9TMjN0NWRFY2w2aXF0c0k0Tk96R2hkeHVYNnJkRmdHeHI3dGxNM3RocWhT?=
- =?utf-8?B?L00yYVFJWFRsVkF4a2x1S1Y3NmU4THNUbm1VUzVRQ2h2MWt4M2J5NXFScHp3?=
- =?utf-8?B?YmVZTlhCQ1daYWlqUUtQbmdxRllqMUsrYmdnVHo1eXJoQlNrMiszOFNMM0J5?=
- =?utf-8?B?ZkZvZzlTZmhPbEt4RjNWdXZ4djF6cWNGazlDcERRRDQ3RE1ZN2F3V2p0SXB5?=
- =?utf-8?B?a3YxL25Qa1JkT1REWG5pcFNJK1pyakNhM0ZYNzJPOFphTHpzZTZTdVg2aVhF?=
- =?utf-8?B?WEY1VHZPZldVZVo5aXJPVURkMG5ZUkkzUFhsMEx5c25tMDkrdGRCQXJ2blRM?=
- =?utf-8?B?cjdZSUl6M2lPU2doSVpXL0xwdDNkK251R0lBci91Ry93dHdQRlhTNW9URVdP?=
- =?utf-8?B?bHhIaTY5Z1BrdlJRbkFLSWNzUnhaTFM0MndYWk5Vb09MNlkveHFJREpFcFNE?=
- =?utf-8?B?d0lxK1VFTlY5dzFEN29TbWI3UDJNUEtNV2tHUU9GNDZWR2NYVm1QakpPZkgy?=
- =?utf-8?B?NU9ob0hLaXAxbVMzZkp0MFd4cUxNOWF2M0orU1pmYlFrc2p3Q1EybHE0a2NG?=
- =?utf-8?B?SnJhRWFST1FDK3R0SGJiU3dUcGNTcjRXbFk1MXBJM1pndVordkhzWGhZTURr?=
- =?utf-8?Q?jvysTBYUTxpQVFggKp?=
+X-MS-Exchange-AntiSpam-MessageData-0: Dj2Dh0RWU/kjG0e2nk4iIHkg9dakk8pobnGjD2n6/qxcBANeHmN7Tyl3VB9kR8w21v5EX6me68VETbkgUxEHkmNXJ7RvVCRl5Du7HaacxobIJbXOUjHmvXMtkgkXsVMrsk5p8EH2yPnKOf8O64dbgpdMJdOgDqV0Z0rArxgANiDLk/lYGcxGe2r70GM530ktXAa2CY1D25Pnya/PfVn0WjEzAjUlpt6rvi6cHUBeMf3DloZs0L8FokftJv9wa/qZHUTmK+4jwuaMccN9vxwLZdeyRuzwTv3oqlQ0CwjoAB8p5WrK7xu5GLqMHN13hAJpyIy2zBcFyG2DFPKYZTDhFAgF4V9d8L5wmrXfvKgm3UwywriBwbVTXeDVbEOuPglSMmY4HXOED+sXbfIr48wJMLlhQ+fKAQiEFOOFT8wwd0cL5pda/CjooIM2T3RfU5ef
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 43dd76f9-fd56-422a-dc8b-08de94dd9573
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4401.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Apr 2026 19:40:55.1014 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Apr 2026 20:05:33.1761 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 025f4fef-7fa5-4406-eec1-08de94e106a5
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 0luJuSyl5XnKBaKPIcV66xg4lFCDhejAIEZg7tc7WjHkBi2WWbrVdFxQ1+ilhNYs
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB6687
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF000023D1.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4470
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,307 +110,407 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---------------F3XcVrZJw1zyX0A2dTWLf8bw
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Both vcn_v3_0 and vcn_v4_0 use the same interface, so unify the code.
 
-
-On 4/7/2026 8:38 AM, Philip Yang wrote:
-> On multi-socket MI300A APU systems, system memory pages mapped to the
-> closest GPU must use MTYPE_RW instead of MTYPE_NC to maintain correct
-> cache coherence. The existing mtype override in amdgpu_vm_pte_update_flags()
-> excluded non-contiguous page mappings from the override. This caused
-> incorrect MTYPE_NC for scattered local pages, leading to cache coherence
-> issues.
->
-> The override applies to both contiguous and non-contiguous mappings.
-> When pages_addr is set, resolve the physical address via
-> pages_addr[addr >> PAGE_SHIFT] before passing it to the override
-> callback for NUMA node lookup.
->
-> Introduce amdgpu_vm_addr_contiguous() helper that, on MI300A, treats
-> pages on different NUMA nodes as non-contiguous even if their DMA
-> addresses are adjacent. This ensures amdgpu_vm_update_range() splits
-> page table updates at NUMA node boundaries so each batch gets the
-> correct mtype override.
->
-> Signed-off-by: Philip Yang<Philip.Yang@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c    | 48 +++++++++++++++++++----
->   drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c | 14 +++++--
->   2 files changed, 50 insertions(+), 12 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> index 63156289ae7f..f8fcbf079bf4 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> @@ -1099,6 +1099,34 @@ amdgpu_vm_tlb_flush(struct amdgpu_vm_update_params *params,
->   	}
->   }
->   
-> +/**
-> + * amdgpu_vm_addr_contiguous - check if two DMA addresses are contiguous
-> + *
-> + * @adev: amdgpu_device pointer
-> + * @addr: current DMA address
-> + * @addr_next: next DMA address to check against
-> + * @contiguous: current contiguity state of the range being built
-> + *
-> + * Check whether @addr and @addr_next are physically contiguous. On APU
-> + * platforms with multiple NUMA nodes (e.g. MI300A), a NUMA node boundary
-> + * also breaks contiguity so that each contiguous batch stays within a
-> + * single NUMA node for correct MTYPE override selection.
-> + *
-> + * Returns:
-> + * true if @addr_next continues the current contiguous range, false otherwise.
-> + */
-
-We can use pfn_to_nid or page_to_nid to get which noma(id) the backing 
-memory is at. pfn_to_nid uses pfn from physical address. You use 
-dma_addr_t that is device dependent. It is not always same as physical 
-address of RAM.
-
-ttm_tt also has
-
-/** @pages: Array of pages backing the data. */ struct page **pages;
-
-I think using the pages to get numa id by page_to_nid is more appropriate.
-
-Regards
-
-Xiaogang
-
-> +static inline bool amdgpu_vm_addr_contiguous(struct amdgpu_device *adev, dma_addr_t addr,
-> +					     dma_addr_t addr_next, bool contiguous)
-> +{
-> +	if (!adev->gmc.is_app_apu || !page_is_ram(addr >> PAGE_SHIFT))
-> +		return (addr + PAGE_SIZE) == addr_next;
-> +
-> +	if (pfn_to_nid(addr >> PAGE_SHIFT) != pfn_to_nid(addr_next >> PAGE_SHIFT))
-> +		return !contiguous;
-> +
-> +	return (addr + PAGE_SIZE) == addr_next;
-> +}
-> +
->   /**
->    * amdgpu_vm_update_range - update a range in the vm page table
->    *
-> @@ -1198,22 +1226,26 @@ int amdgpu_vm_update_range(struct amdgpu_device *adev, struct amdgpu_vm *vm,
->   				uint64_t pfn = cursor.start >> PAGE_SHIFT;
->   				uint64_t count;
->   
-> -				contiguous = pages_addr[pfn + 1] ==
-> -					pages_addr[pfn] + PAGE_SIZE;
-> +				contiguous = amdgpu_vm_addr_contiguous(adev,
-> +								       pages_addr[pfn],
-> +								       pages_addr[pfn + 1],
-> +								       contiguous);
->   
-> -				tmp = num_entries /
-> -					AMDGPU_GPU_PAGES_IN_CPU_PAGE;
-> +				tmp = num_entries / AMDGPU_GPU_PAGES_IN_CPU_PAGE;
->   				for (count = 2; count < tmp; ++count) {
->   					uint64_t idx = pfn + count;
->   
-> -					if (contiguous != (pages_addr[idx] ==
-> -					    pages_addr[idx - 1] + PAGE_SIZE))
-> +					if (contiguous != amdgpu_vm_addr_contiguous(adev,
-> +									pages_addr[idx - 1],
-> +									pages_addr[idx],
-> +									contiguous))
->   						break;
->   				}
-> +
->   				if (!contiguous)
->   					count--;
-> -				num_entries = count *
-> -					AMDGPU_GPU_PAGES_IN_CPU_PAGE;
-> +
-> +				num_entries = count * AMDGPU_GPU_PAGES_IN_CPU_PAGE;
->   			}
->   
->   			if (!contiguous) {
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
-> index 31a437ce9570..9e1607fb3b2e 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
-> @@ -708,13 +708,19 @@ static void amdgpu_vm_pte_update_flags(struct amdgpu_vm_update_params *params,
->   		amdgpu_vm_pte_update_noretry_flags(adev, &flags);
->   
->   	/* APUs mapping system memory may need different MTYPEs on different
-> -	 * NUMA nodes. Only do this for contiguous ranges that can be assumed
-> -	 * to be on the same NUMA node.
-> +	 * NUMA nodes. Both contiguous and non-contiguous ranges are handled
-> +	 * since amdgpu_vm_update_range ensures updates don't span NUMA
-> +	 * node boundaries.
->   	 */
->   	if ((flags & AMDGPU_PTE_SYSTEM) && (adev->flags & AMD_IS_APU) &&
->   	    adev->gmc.gmc_funcs->override_vm_pte_flags &&
-> -	    num_possible_nodes() > 1 && !params->pages_addr && params->allow_override)
-> -		amdgpu_gmc_override_vm_pte_flags(adev, params->vm, addr, &flags);
-> +	    num_possible_nodes() > 1 && params->allow_override) {
-> +		if (params->pages_addr)
-> +			amdgpu_gmc_override_vm_pte_flags(adev, params->vm,
-> +					params->pages_addr[addr >> PAGE_SHIFT], &flags);
-> +		else
-> +			amdgpu_gmc_override_vm_pte_flags(adev, params->vm, addr, &flags);
-> +	}
->   
->   	params->vm->update_funcs->update(params, pt, pe, addr, count, incr,
->   					 flags);
---------------F3XcVrZJw1zyX0A2dTWLf8bw
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-<!DOCTYPE html><html><head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body>
-    <p><br>
-    </p>
-    <div class="moz-cite-prefix">On 4/7/2026 8:38 AM, Philip Yang wrote:<br>
-    </div>
-    <blockquote type="cite" cite="mid:20260407133833.463741-1-Philip.Yang@amd.com">
-      <pre wrap="" class="moz-quote-pre">On multi-socket MI300A APU systems, system memory pages mapped to the
-closest GPU must use MTYPE_RW instead of MTYPE_NC to maintain correct
-cache coherence. The existing mtype override in amdgpu_vm_pte_update_flags()
-excluded non-contiguous page mappings from the override. This caused
-incorrect MTYPE_NC for scattered local pages, leading to cache coherence
-issues.
-
-The override applies to both contiguous and non-contiguous mappings.
-When pages_addr is set, resolve the physical address via
-pages_addr[addr &gt;&gt; PAGE_SHIFT] before passing it to the override
-callback for NUMA node lookup.
-
-Introduce amdgpu_vm_addr_contiguous() helper that, on MI300A, treats
-pages on different NUMA nodes as non-contiguous even if their DMA
-addresses are adjacent. This ensures amdgpu_vm_update_range() splits
-page table updates at NUMA node boundaries so each batch gets the
-correct mtype override.
-
-Signed-off-by: Philip Yang <a class="moz-txt-link-rfc2396E" href="mailto:Philip.Yang@amd.com">&lt;Philip.Yang@amd.com&gt;</a>
+Signed-off-by: Benjamin Cheng <benjamin.cheng@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c    | 48 +++++++++++++++++++----
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c | 14 +++++--
- 2 files changed, 50 insertions(+), 12 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c | 103 +++++++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h |   5 ++
+ drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c   | 105 +-----------------------
+ drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c   | 104 +----------------------
+ 4 files changed, 112 insertions(+), 205 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-index 63156289ae7f..f8fcbf079bf4 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-@@ -1099,6 +1099,34 @@ amdgpu_vm_tlb_flush(struct amdgpu_vm_update_params *params,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
+index 03d95dca93d7..910dd5bd1ab6 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
+@@ -36,6 +36,9 @@
+ #include "amdgpu_vcn.h"
+ #include "soc15d.h"
+ 
++#define RDECODE_MSG_CREATE		0x00000000
++#define RDECODE_MESSAGE_CREATE		0x00000001
++
+ /* Firmware Names */
+ #define FIRMWARE_RAVEN			"amdgpu/raven_vcn.bin"
+ #define FIRMWARE_PICASSO		"amdgpu/picasso_vcn.bin"
+@@ -1641,3 +1644,103 @@ void amdgpu_vcn_print_ip_state(struct amdgpu_ip_block *ip_block, struct drm_prin
+ 		}
  	}
  }
- 
-+/**
-+ * amdgpu_vm_addr_contiguous - check if two DMA addresses are contiguous
-+ *
-+ * @adev: amdgpu_device pointer
-+ * @addr: current DMA address
-+ * @addr_next: next DMA address to check against
-+ * @contiguous: current contiguity state of the range being built
-+ *
-+ * Check whether @addr and @addr_next are physically contiguous. On APU
-+ * platforms with multiple NUMA nodes (e.g. MI300A), a NUMA node boundary
-+ * also breaks contiguity so that each contiguous batch stays within a
-+ * single NUMA node for correct MTYPE override selection.
-+ *
-+ * Returns:
-+ * true if @addr_next continues the current contiguous range, false otherwise.
-+ */</pre>
-    </blockquote>
-    <p>We can use <span style="white-space: pre-wrap">pfn_to_nid </span>or
-      page_to_nid to get which noma(id) the backing memory is at.&nbsp;<span style="white-space: pre-wrap">pfn_to_nid uses pfn from physical address. You use dma_addr_t that is device dependent. It is not always same as physical address of RAM.</span></p>
-    <p><span style="white-space: pre-wrap">ttm_tt also has </span></p>
-    <p><span style="white-space: pre-wrap">	/** @pages: Array of pages backing the data. */
-	struct page **pages; </span></p>
-    <p><span style="white-space: pre-wrap">I think using the pages to get numa id by </span>page_to_nid&nbsp;<span style="white-space: pre-wrap">is more appropriate.</span></p>
-    <p><span style="white-space: pre-wrap">Regards</span></p>
-    <p><span style="white-space: pre-wrap">Xiaogang</span></p>
-    <blockquote type="cite" cite="mid:20260407133833.463741-1-Philip.Yang@amd.com">
-      <pre wrap="" class="moz-quote-pre">
-+static inline bool amdgpu_vm_addr_contiguous(struct amdgpu_device *adev, dma_addr_t addr,
-+					     dma_addr_t addr_next, bool contiguous)
++
++int amdgpu_vcn_dec_msg_limit_sched(struct amdgpu_cs_parser *p,
++				   struct amdgpu_job *job, uint64_t addr,
++				   int (*limit_sched)(struct amdgpu_cs_parser *,
++						      struct amdgpu_job *))
 +{
-+	if (!adev-&gt;gmc.is_app_apu || !page_is_ram(addr &gt;&gt; PAGE_SHIFT))
-+		return (addr + PAGE_SIZE) == addr_next;
++	struct ttm_operation_ctx ctx = { false, false };
++	struct amdgpu_device *adev = p->adev;
++	struct amdgpu_bo_va_mapping *map;
++	uint32_t *msg, num_buffers, len_dw;
++	struct amdgpu_bo *bo;
++	uint64_t start, end;
++	unsigned int i;
++	void *ptr;
++	int r;
 +
-+	if (pfn_to_nid(addr &gt;&gt; PAGE_SHIFT) != pfn_to_nid(addr_next &gt;&gt; PAGE_SHIFT))
-+		return !contiguous;
-+
-+	return (addr + PAGE_SIZE) == addr_next;
-+}
-+
- /**
-  * amdgpu_vm_update_range - update a range in the vm page table
-  *
-@@ -1198,22 +1226,26 @@ int amdgpu_vm_update_range(struct amdgpu_device *adev, struct amdgpu_vm *vm,
- 				uint64_t pfn = cursor.start &gt;&gt; PAGE_SHIFT;
- 				uint64_t count;
- 
--				contiguous = pages_addr[pfn + 1] ==
--					pages_addr[pfn] + PAGE_SIZE;
-+				contiguous = amdgpu_vm_addr_contiguous(adev,
-+								       pages_addr[pfn],
-+								       pages_addr[pfn + 1],
-+								       contiguous);
- 
--				tmp = num_entries /
--					AMDGPU_GPU_PAGES_IN_CPU_PAGE;
-+				tmp = num_entries / AMDGPU_GPU_PAGES_IN_CPU_PAGE;
- 				for (count = 2; count &lt; tmp; ++count) {
- 					uint64_t idx = pfn + count;
- 
--					if (contiguous != (pages_addr[idx] ==
--					    pages_addr[idx - 1] + PAGE_SIZE))
-+					if (contiguous != amdgpu_vm_addr_contiguous(adev,
-+									pages_addr[idx - 1],
-+									pages_addr[idx],
-+									contiguous))
- 						break;
- 				}
-+
- 				if (!contiguous)
- 					count--;
--				num_entries = count *
--					AMDGPU_GPU_PAGES_IN_CPU_PAGE;
-+
-+				num_entries = count * AMDGPU_GPU_PAGES_IN_CPU_PAGE;
- 			}
- 
- 			if (!contiguous) {
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
-index 31a437ce9570..9e1607fb3b2e 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
-@@ -708,13 +708,19 @@ static void amdgpu_vm_pte_update_flags(struct amdgpu_vm_update_params *params,
- 		amdgpu_vm_pte_update_noretry_flags(adev, &amp;flags);
- 
- 	/* APUs mapping system memory may need different MTYPEs on different
--	 * NUMA nodes. Only do this for contiguous ranges that can be assumed
--	 * to be on the same NUMA node.
-+	 * NUMA nodes. Both contiguous and non-contiguous ranges are handled
-+	 * since amdgpu_vm_update_range ensures updates don't span NUMA
-+	 * node boundaries.
- 	 */
- 	if ((flags &amp; AMDGPU_PTE_SYSTEM) &amp;&amp; (adev-&gt;flags &amp; AMD_IS_APU) &amp;&amp;
- 	    adev-&gt;gmc.gmc_funcs-&gt;override_vm_pte_flags &amp;&amp;
--	    num_possible_nodes() &gt; 1 &amp;&amp; !params-&gt;pages_addr &amp;&amp; params-&gt;allow_override)
--		amdgpu_gmc_override_vm_pte_flags(adev, params-&gt;vm, addr, &amp;flags);
-+	    num_possible_nodes() &gt; 1 &amp;&amp; params-&gt;allow_override) {
-+		if (params-&gt;pages_addr)
-+			amdgpu_gmc_override_vm_pte_flags(adev, params-&gt;vm,
-+					params-&gt;pages_addr[addr &gt;&gt; PAGE_SHIFT], &amp;flags);
-+		else
-+			amdgpu_gmc_override_vm_pte_flags(adev, params-&gt;vm, addr, &amp;flags);
++	addr &= AMDGPU_GMC_HOLE_MASK;
++	r = amdgpu_cs_find_mapping(p, addr, &bo, &map);
++	if (r) {
++		DRM_ERROR("Can't find BO for addr 0x%08llx\n", addr);
++		return r;
 +	}
++
++	start = map->start * AMDGPU_GPU_PAGE_SIZE;
++	end = (map->last + 1) * AMDGPU_GPU_PAGE_SIZE;
++	if (addr & 0x7) {
++		DRM_ERROR("VCN messages must be 8 byte aligned!\n");
++		return -EINVAL;
++	}
++
++	if (end - addr < 16) {
++		DRM_ERROR("VCN messages must be at least 4 DWORDs!\n");
++		return -EINVAL;
++	}
++
++	bo->flags |= AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED;
++	amdgpu_bo_placement_from_domain(bo, bo->allowed_domains);
++	r = ttm_bo_validate(&bo->tbo, &bo->placement, &ctx);
++	if (r) {
++		DRM_ERROR("Failed validating the VCN message BO (%d)!\n", r);
++		return r;
++	}
++
++	r = amdgpu_bo_kmap(bo, &ptr);
++	if (r) {
++		DRM_ERROR("Failed mapping the VCN message (%d)!\n", r);
++		return r;
++	}
++
++	msg = ptr + addr - start;
++
++	if (msg[1] > end - addr) {
++		DRM_ERROR("VCN message header does not fit in BO!\n");
++		r = -EINVAL;
++		goto out;
++	}
++
++	if (msg[3] != RDECODE_MSG_CREATE)
++		goto out;
++
++	len_dw = msg[1] / 4;
++	num_buffers = msg[2];
++
++	/* Verify that all indices fit within the claimed length. Each index is 4 DWORDs */
++	if (num_buffers > len_dw || 6 + num_buffers * 4 > len_dw) {
++		DRM_ERROR("VCN message has too many buffers!\n");
++		r = -EINVAL;
++		goto out;
++	}
++
++	for (i = 0, msg = &msg[6]; i < num_buffers; ++i, msg += 4) {
++		uint32_t offset, size, *create;
++
++		if (msg[0] != RDECODE_MESSAGE_CREATE)
++			continue;
++
++		offset = msg[1];
++		size = msg[2];
++
++		if (size < 4 || offset + size > end - addr) {
++			DRM_ERROR("VCN message buffer exceeds BO bounds!\n");
++			r = -EINVAL;
++			goto out;
++		}
++
++		create = ptr + addr + offset - start;
++
++		/* H264, HEVC and VP9 can run on any instance */
++		if (create[0] == 0x7 || create[0] == 0x10 || create[0] == 0x11)
++			continue;
++
++		r = limit_sched(p, job);
++		if (r)
++			goto out;
++	}
++
++out:
++	amdgpu_bo_kunmap(bo);
++	return r;
++}
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h
+index 82624b44e661..64f27de1a6f0 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h
+@@ -570,4 +570,9 @@ void amdgpu_vcn_print_ip_state(struct amdgpu_ip_block *ip_block, struct drm_prin
+ void amdgpu_vcn_get_profile(struct amdgpu_device *adev);
+ void amdgpu_vcn_put_profile(struct amdgpu_device *adev);
  
- 	params-&gt;vm-&gt;update_funcs-&gt;update(params, pt, pe, addr, count, incr,
- 					 flags);
-</pre>
-    </blockquote>
-  </body>
-</html>
++int amdgpu_vcn_dec_msg_limit_sched(struct amdgpu_cs_parser *p, struct amdgpu_job *job,
++				   uint64_t addr,
++				   int (*limit_sched)(struct amdgpu_cs_parser *,
++						      struct amdgpu_job *));
++
+ #endif
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
+index 6fb4fcdbba4f..38a4fcf5872e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
+@@ -58,9 +58,6 @@
+ #define VCN_INSTANCES_SIENNA_CICHLID				2
+ #define DEC_SW_RING_ENABLED					FALSE
+ 
+-#define RDECODE_MSG_CREATE					0x00000000
+-#define RDECODE_MESSAGE_CREATE					0x00000001
+-
+ static const struct amdgpu_hwip_reg_entry vcn_reg_list_3_0[] = {
+ 	SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_POWER_STATUS),
+ 	SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_STATUS),
+@@ -1903,104 +1900,6 @@ static int vcn_v3_0_limit_sched(struct amdgpu_cs_parser *p,
+ 	return 0;
+ }
+ 
+-static int vcn_v3_0_dec_msg(struct amdgpu_cs_parser *p, struct amdgpu_job *job,
+-			    uint64_t addr)
+-{
+-	struct ttm_operation_ctx ctx = { false, false };
+-	struct amdgpu_device *adev = p->adev;
+-	struct amdgpu_bo_va_mapping *map;
+-	uint32_t *msg, num_buffers, len_dw;
+-	struct amdgpu_bo *bo;
+-	uint64_t start, end;
+-	unsigned int i;
+-	void *ptr;
+-	int r;
+-
+-	addr &= AMDGPU_GMC_HOLE_MASK;
+-	r = amdgpu_cs_find_mapping(p, addr, &bo, &map);
+-	if (r) {
+-		DRM_ERROR("Can't find BO for addr 0x%08Lx\n", addr);
+-		return r;
+-	}
+-
+-	start = map->start * AMDGPU_GPU_PAGE_SIZE;
+-	end = (map->last + 1) * AMDGPU_GPU_PAGE_SIZE;
+-	if (addr & 0x7) {
+-		DRM_ERROR("VCN messages must be 8 byte aligned!\n");
+-		return -EINVAL;
+-	}
+-
+-	if (end - addr < 16) {
+-		DRM_ERROR("VCN messages must be at least 4 DWORDs!\n");
+-		return -EINVAL;
+-	}
+-
+-	bo->flags |= AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED;
+-	amdgpu_bo_placement_from_domain(bo, bo->allowed_domains);
+-	r = ttm_bo_validate(&bo->tbo, &bo->placement, &ctx);
+-	if (r) {
+-		DRM_ERROR("Failed validating the VCN message BO (%d)!\n", r);
+-		return r;
+-	}
+-
+-	r = amdgpu_bo_kmap(bo, &ptr);
+-	if (r) {
+-		DRM_ERROR("Failed mapping the VCN message (%d)!\n", r);
+-		return r;
+-	}
+-
+-	msg = ptr + addr - start;
+-
+-	if (msg[1] > end - addr) {
+-		DRM_ERROR("VCN message header does not fit in BO!\n");
+-		r = -EINVAL;
+-		goto out;
+-	}
+-
+-	if (msg[3] != RDECODE_MSG_CREATE)
+-		goto out;
+-
+-	len_dw = msg[1] / 4;
+-	num_buffers = msg[2];
+-
+-	/* Verify that all indices fit within the claimed length. Each index is 4 DWORDs */
+-	if (num_buffers > len_dw || 6 + num_buffers * 4 > len_dw) {
+-		DRM_ERROR("VCN message has too many buffers!\n");
+-		r = -EINVAL;
+-		goto out;
+-	}
+-
+-	for (i = 0, msg = &msg[6]; i < num_buffers; ++i, msg += 4) {
+-		uint32_t offset, size, *create;
+-
+-		if (msg[0] != RDECODE_MESSAGE_CREATE)
+-			continue;
+-
+-		offset = msg[1];
+-		size = msg[2];
+-
+-		if (size < 4 || offset + size > end - addr) {
+-			DRM_ERROR("VCN message buffer exceeds BO bounds!\n");
+-			r = -EINVAL;
+-			goto out;
+-		}
+-
+-		create = ptr + addr + offset - start;
+-
+-		/* H264, HEVC and VP9 can run on any instance */
+-		if (create[0] == 0x7 || create[0] == 0x10 || create[0] == 0x11)
+-			continue;
+-
+-		r = vcn_v3_0_limit_sched(p, job);
+-		if (r)
+-			goto out;
+-	}
+-
+-out:
+-	amdgpu_bo_kunmap(bo);
+-	return r;
+-}
+-
+ static int vcn_v3_0_ring_patch_cs_in_place(struct amdgpu_cs_parser *p,
+ 					   struct amdgpu_job *job,
+ 					   struct amdgpu_ib *ib)
+@@ -2024,8 +1923,8 @@ static int vcn_v3_0_ring_patch_cs_in_place(struct amdgpu_cs_parser *p,
+ 			msg_hi = val;
+ 		} else if (reg == PACKET0(p->adev->vcn.inst[ring->me].internal.cmd, 0) &&
+ 			   val == 0) {
+-			r = vcn_v3_0_dec_msg(p, job,
+-					     ((u64)msg_hi) << 32 | msg_lo);
++			r = amdgpu_vcn_dec_msg_limit_sched(p, job, ((u64)msg_hi) << 32 | msg_lo,
++							   vcn_v3_0_limit_sched);
+ 			if (r)
+ 				return r;
+ 		}
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
+index 5dec92691f73..41215ad7dfac 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
+@@ -50,9 +50,6 @@
+ 
+ #define VCN_HARVEST_MMSCH								0
+ 
+-#define RDECODE_MSG_CREATE							0x00000000
+-#define RDECODE_MESSAGE_CREATE							0x00000001
+-
+ static const struct amdgpu_hwip_reg_entry vcn_reg_list_4_0[] = {
+ 	SOC15_REG_ENTRY_STR(VCN, 0, regUVD_POWER_STATUS),
+ 	SOC15_REG_ENTRY_STR(VCN, 0, regUVD_STATUS),
+@@ -1820,104 +1817,6 @@ static int vcn_v4_0_limit_sched(struct amdgpu_cs_parser *p,
+ 	return 0;
+ }
+ 
+-static int vcn_v4_0_dec_msg(struct amdgpu_cs_parser *p, struct amdgpu_job *job,
+-			    uint64_t addr)
+-{
+-	struct ttm_operation_ctx ctx = { false, false };
+-	struct amdgpu_device *adev = p->adev;
+-	struct amdgpu_bo_va_mapping *map;
+-	uint32_t *msg, num_buffers, len_dw;
+-	struct amdgpu_bo *bo;
+-	uint64_t start, end;
+-	unsigned int i;
+-	void *ptr;
+-	int r;
+-
+-	addr &= AMDGPU_GMC_HOLE_MASK;
+-	r = amdgpu_cs_find_mapping(p, addr, &bo, &map);
+-	if (r) {
+-		DRM_ERROR("Can't find BO for addr 0x%08llx\n", addr);
+-		return r;
+-	}
+-
+-	start = map->start * AMDGPU_GPU_PAGE_SIZE;
+-	end = (map->last + 1) * AMDGPU_GPU_PAGE_SIZE;
+-	if (addr & 0x7) {
+-		DRM_ERROR("VCN messages must be 8 byte aligned!\n");
+-		return -EINVAL;
+-	}
+-
+-	if (end - addr < 16) {
+-		DRM_ERROR("VCN messages must be at least 4 DWORDs!\n");
+-		return -EINVAL;
+-	}
+-
+-	bo->flags |= AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED;
+-	amdgpu_bo_placement_from_domain(bo, bo->allowed_domains);
+-	r = ttm_bo_validate(&bo->tbo, &bo->placement, &ctx);
+-	if (r) {
+-		DRM_ERROR("Failed validating the VCN message BO (%d)!\n", r);
+-		return r;
+-	}
+-
+-	r = amdgpu_bo_kmap(bo, &ptr);
+-	if (r) {
+-		DRM_ERROR("Failed mapping the VCN message (%d)!\n", r);
+-		return r;
+-	}
+-
+-	msg = ptr + addr - start;
+-
+-	if (msg[1] > end - addr) {
+-		DRM_ERROR("VCN message header does not fit in BO!\n");
+-		r = -EINVAL;
+-		goto out;
+-	}
+-
+-	if (msg[3] != RDECODE_MSG_CREATE)
+-		goto out;
+-
+-	len_dw = msg[1] / 4;
+-	num_buffers = msg[2];
+-
+-	/* Verify that all indices fit within the claimed length. Each index is 4 DWORDs */
+-	if (num_buffers > len_dw || 6 + num_buffers * 4 > len_dw) {
+-		DRM_ERROR("VCN message has too many buffers!\n");
+-		r = -EINVAL;
+-		goto out;
+-	}
+-
+-	for (i = 0, msg = &msg[6]; i < num_buffers; ++i, msg += 4) {
+-		uint32_t offset, size, *create;
+-
+-		if (msg[0] != RDECODE_MESSAGE_CREATE)
+-			continue;
+-
+-		offset = msg[1];
+-		size = msg[2];
+-
+-		if (size < 4 || offset + size > end - addr) {
+-			DRM_ERROR("VCN message buffer exceeds BO bounds!\n");
+-			r = -EINVAL;
+-			goto out;
+-		}
+-
+-		create = ptr + addr + offset - start;
+-
+-		/* H264, HEVC and VP9 can run on any instance */
+-		if (create[0] == 0x7 || create[0] == 0x10 || create[0] == 0x11)
+-			continue;
+-
+-		r = vcn_v4_0_limit_sched(p, job);
+-		if (r)
+-			goto out;
+-	}
+-
+-out:
+-	amdgpu_bo_kunmap(bo);
+-	return r;
+-}
+-
+ #define RADEON_VCN_ENGINE_TYPE_ENCODE			(0x00000002)
+ #define RADEON_VCN_ENGINE_TYPE_DECODE			(0x00000003)
+ #define RADEON_VCN_ENGINE_INFO				(0x30000001)
+@@ -1960,7 +1859,8 @@ static int vcn_v4_0_ring_patch_cs_in_place(struct amdgpu_cs_parser *p,
+ 
+ 			msg_buffer_addr = ((u64)amdgpu_ib_get_value(ib, idx + 7)) << 32 |
+ 				amdgpu_ib_get_value(ib, idx + 8);
+-			return vcn_v4_0_dec_msg(p, job, msg_buffer_addr);
++			return amdgpu_vcn_dec_msg_limit_sched(p, job, msg_buffer_addr,
++							      vcn_v4_0_limit_sched);
+ 		} else if (val == RADEON_VCN_ENGINE_TYPE_ENCODE) {
+ 			sidx = vcn_v4_0_enc_find_ib_param(ib, RENCODE_IB_PARAM_SESSION_INIT, idx);
+ 			if (sidx >= 0 &&
+-- 
+2.53.0
 
---------------F3XcVrZJw1zyX0A2dTWLf8bw--
