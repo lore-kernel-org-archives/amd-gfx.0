@@ -4,97 +4,123 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BBC6BFEEF46
-	for <amd-gfx@archiver.kernel.org>; Tue,  7 Apr 2026 13:39:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9379AFEEF51
+	for <amd-gfx@archiver.kernel.org>; Tue,  7 Apr 2026 14:40:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5F4FF88697;
-	Tue,  7 Apr 2026 13:39:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1170C10E421;
+	Tue,  7 Apr 2026 14:40:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="mW07yjst";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="KNag3Z6h";
 	dkim-atps=neutral
-Received: from BN8PR05CU002.outbound.protection.outlook.com
- (mail-eastus2azon11011043.outbound.protection.outlook.com [52.101.57.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B02CB88697
- for <amd-gfx@lists.freedesktop.org>; Tue,  7 Apr 2026 13:39:34 +0000 (UTC)
+Received: from PH0PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11011064.outbound.protection.outlook.com [40.107.208.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4F6F010E421
+ for <amd-gfx@lists.freedesktop.org>; Tue,  7 Apr 2026 14:40:11 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=C8nhLLxPJZGtTITfej0pchHiVYFwdc36HAs8+AE3x4AcC1WnmrRB4YLCGY+ha+GZMQOhfQC/ic1Gz0PDNOrw8iZN8E3yKHME4zQM8XnoGP2MWe3dwxMklL5McRZzssJY0KmQJuQqP5uDc25umkxWyCH96ZsA/KMqXUskCupsUNhtCJy7oBkTIS3j5CSm0MPh/2dwKl8QgiAQ8mwTiyDF47xN+dF4FlyPOSOF38cLPv7a0Czi5cZ3RatCpoeFyCfheTJ27NyNJT68wBH14x9bJnx/PsXiueKmf70JrzO2fqPl+/Fu4dNEqNQFne4tyw+WaSCd20jaBNoUHAHaxcXatA==
+ b=VgCfxCA3MYd+Uc5BYTQq7sQFrbS/GZTftIjkQm9EEIcl3LXYnVFd5BX2FvSM00yLQzqd/zH/IinSPNyQzUf6ODVBFHSCjXAGLzBrtHP7UQ4bZUGJobINXmoqUuHNZyYKWR0VvFFD9eM8CiMrLvEcIfsyLDdqAnTykkfjNi2pwyzIaiHd7Z+hL4CJRGQmKJ0kxY5q8zhvblml9SxvbkhSAL6ovEgu67bPDFyc4WIN6MVSPU7bZdwHWeWAe9qvm9hnOzfjvMVbQSYRXnez3pNnRSofdrocfgElNTKCuBZeaPLv1MXR82e8hT4G1HY8oas4HkPE2V26ZBqb1CXa7vE6GQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=YBp9zMY62GptV4UN/zut2b2QqTAIhdkiedItPranvJc=;
- b=LiJiJONt4Ov9DHkh4OPpKH+pcM62T6r6ey0AugqW9jGnlOpJce0DOAOTNAgXvH4q7JhDET3FTCfiinwgTbsxUIXv7Bg8Nm0l5yObbVcWgEFgbUhWsM5o9dJxmrZHqzVfWNiDemd/oufX4iWkQog9UlfuuMCS4YUb5l9CK5EXEKWqOojhweuxJqCpH/TMuH5tHy0ZW+44YA2/wYvIS3BI9HidMrpYeEvt1KTA2euFfPeVjft5qAdvRYDr28v6LSeVX9RRlq2JaEYjxzt5rrPYBR1GtTu9sbeBOqugVtxolbz6Cjl8wdJ0QF8SYH4xbwtXf6nN59Zn8ZwswTQ4Lv3DOQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
+ bh=dycbaUt3+qhyt285f17HFbOueTIqV+Ql0RAPbsYDeFQ=;
+ b=ZS5e0AdwJCVt1l9gy70rTuX9MB/G6GsEid1F1HjOwdOq/mxYE+dfw/xv9qj4PwchalANjDtaAg8P/4TJEn26YRuF1Q+ELgVvJ3x1LCwOQ0wWBhecy9b0caahYdXTJ5q9Q8HGmCbwMCsJREsP6dY/Ol48LxzDzv5bC8Tk0A9VKCr/MCYSKY6GejVY6osF8KS4citkWby6ZEPxYfV2u7llsqnKjTBGjpClxHKJVQhWh9P9EVL2OvtrFHoyIlT9NX2uWFg6YI73s+zxz3l9UmWpWH3DHgSE6NP4Evf0LfB6N3iIiKMXSSVpSH1l7FbLjpFB/HXsKrKSfm6rv9R2XZUC7w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=YBp9zMY62GptV4UN/zut2b2QqTAIhdkiedItPranvJc=;
- b=mW07yjstS3yBcd/hGlagjGlBH1ZEIJdUffEraCPhULvE5f29uLugTBBQ4GrsZhiOW/qwCIYbmk58gH5XW5bkao+jW+JCO0t427ku08ajxZvATiUhHJW9/THoLRtroE18sOTwSqwwDzi3v8NRn8DDgPwNGd4gtT7Q0w/SWnZmYps=
-Received: from CH0PR04CA0116.namprd04.prod.outlook.com (2603:10b6:610:75::31)
- by DS0PR12MB6608.namprd12.prod.outlook.com (2603:10b6:8:d0::10) with
+ bh=dycbaUt3+qhyt285f17HFbOueTIqV+Ql0RAPbsYDeFQ=;
+ b=KNag3Z6heCUPaDB2/FGFkM7WY3jXBRk0tkBUfsX5F3Nez4tuCwzPyu3nwLs3s09wO205k0ZWhbw4BUPE564Us+ZkOEbM6LlkXKGjLkSZQD4wDGwVVBKVJA8Lc/Q5YOBtWY5OATYXATJyAmnx6ztGUDmE/z4Fr/0JmM21GHfrJUM=
+Received: from DM4PR12MB6279.namprd12.prod.outlook.com (2603:10b6:8:a3::11) by
+ SN7PR12MB7450.namprd12.prod.outlook.com (2603:10b6:806:29a::13) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.17; Tue, 7 Apr
- 2026 13:39:29 +0000
-Received: from CH2PEPF00000141.namprd02.prod.outlook.com
- (2603:10b6:610:75:cafe::54) by CH0PR04CA0116.outlook.office365.com
- (2603:10b6:610:75::31) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9769.33 via Frontend Transport; Tue,
- 7 Apr 2026 13:39:28 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- CH2PEPF00000141.mail.protection.outlook.com (10.167.244.74) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9769.17 via Frontend Transport; Tue, 7 Apr 2026 13:39:27 +0000
-Received: from Philip-Dev.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Tue, 7 Apr
- 2026 08:39:26 -0500
-From: Philip Yang <Philip.Yang@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <Felix.Kuehling@amd.com>, <christian.koenig@amd.com>,
- <Kent.Russell@amd.com>, <Andrew.Martin@amd.com>, Philip Yang
- <Philip.Yang@amd.com>
-Subject: [PATCH] drm/amdgpu: extend mtype override to non-contiguous pages
-Date: Tue, 7 Apr 2026 09:38:33 -0400
-Message-ID: <20260407133833.463741-1-Philip.Yang@amd.com>
-X-Mailer: git-send-email 2.50.1
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PEPF00000141:EE_|DS0PR12MB6608:EE_
-X-MS-Office365-Filtering-Correlation-Id: c9579e78-b868-4dac-8c3f-08de94ab16a7
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700016|376014|1800799024|82310400026|18002099003|56012099003;
-X-Microsoft-Antispam-Message-Info: NJZyi05Azrsd5mUmnMMuuGSCeQD6/RnBexPKZBCTrDotSrVGMXpki2XvCZg73wcfS9cngkqs8dfGk/qBx56gNjucyQ8syraMs4nqOSkcgY6SCjLdm53dk1ZQIsGsd4YGIPgHWGrAYobZOr5+EDOg1aqlkYwMmxq/KTy7P82YR6ndpaIxHFV4mo/MUq0yrnoVAfOBNZEnjH5q/UHy3wVKoBS89RncWZ8eA4V0au1ZMYJXZ7D9UokhrHENlkFv2lwm7T0Z483uKYAwp4XqDEC9BKq3OqAIPIsaiQfr54q+tlUGk4UlhblG7j6xI+mRsHveW8Xcu4jERsWofVatYpv+zqR+ZK2MlIR7b05o+jwo1wOYnFJuw5CeQnYxuWar1tUi4fTX63VFRks+LpRwK6XvaMs8dc9jMjmlw2MYM86tOwxDwZm7nfRf0yG87sjOAubYxZ9ppd3POu7TqPbwgbd7xK3OwXynYfJOd/f/l3UWBrYY2+5ojZ4wdO8R+2MbbJeSmvscsle0JYesdh5JKB0gIf4OTX7/9eVFnNcvwIqMat6d3ja59AHQIrj5cNnnUMArOR/URj4xsPnBFJ+Ru6XkWFSVl/0nBi7LHret7bCj/5kzvEw9u+1Su2N8Z57JVe64YpYScR1EtrHHFEpgn9LXOPpDygraqjCild5vV6gvAjBOzqAmQzrl7wBaRU4pukyTqQfgBN91Qr6QDOidDw5dT0olhKJBz6kR1oUu53w2l8u5XPbmf0ZRLtj/k2XYzHq6/57NJOiqO8aqML0AP3PjeA==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700016)(376014)(1800799024)(82310400026)(18002099003)(56012099003);
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.20; Tue, 7 Apr
+ 2026 14:40:07 +0000
+Received: from DM4PR12MB6279.namprd12.prod.outlook.com
+ ([fe80::ae9d:2bb9:f737:5c02]) by DM4PR12MB6279.namprd12.prod.outlook.com
+ ([fe80::ae9d:2bb9:f737:5c02%2]) with mapi id 15.20.9769.017; Tue, 7 Apr 2026
+ 14:40:06 +0000
+From: "Chen, Michael" <Michael.Chen@amd.com>
+To: "Zhang, Jesse(Jie)" <Jesse.Zhang@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+CC: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Koenig, Christian"
+ <Christian.Koenig@amd.com>, "Liu, Shaoyun" <Shaoyun.Liu@amd.com>
+Subject: Re: [PATCH v3 1/2] drm/amdgpu/mes_v12_0: use mes schedule pipe for
+ legacy queues on unified MES
+Thread-Topic: [PATCH v3 1/2] drm/amdgpu/mes_v12_0: use mes schedule pipe for
+ legacy queues on unified MES
+Thread-Index: AQHcv+VLI+gkd5lmJ0S/ICsCMkPfFLXTuP+5
+Date: Tue, 7 Apr 2026 14:40:06 +0000
+Message-ID: <DM4PR12MB62793B6B50FA340D23A916E3945AA@DM4PR12MB6279.namprd12.prod.outlook.com>
+References: <20260330013346.1054624-1-Jesse.Zhang@amd.com>
+In-Reply-To: <20260330013346.1054624-1-Jesse.Zhang@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=True;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2026-04-07T14:40:06.216Z;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
+ Internal Distribution
+ Only; MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=1;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard; 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DM4PR12MB6279:EE_|SN7PR12MB7450:EE_
+x-ms-office365-filtering-correlation-id: b5af05ea-b916-4b05-ebe2-08de94b39000
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|366016|1800799024|376014|38070700021|56012099003|22082099003|18002099003|8096899003;
+x-microsoft-antispam-message-info: 2n2iyyyvCr5khp6y2X5lQnlzJ9rsn3PIno2bWsF8XMW8gNuwQL9yItEX3SGLHEna1RSEMvgtv9ihrtHLgLUHxbBli78yLIGmIBq2qg671fmWK3l9Wn7dWW88ZpQtejU8ekhG8f4jFoozi62DGW+5TNmybTdFYUCO6tkoygAwpiPUS/RuwggDt17RWqa04jloQaaR2hHzJxEOkmxU4j4WBcmTr/0j93H3R7FewgetcWhzlb2Xbc79tlYb70P4j/zoDJZnhbcQXYLSa7Pn8XxL0skOJCrKFIBlX8FvVJuRvtbiJqfMKfDtz2oqm9d7HJbmJVUgOvGod1i98uTl9Ei1n2CBF2Arv/Mw5xZoLofRSbQK+TDvFsovJ+mNkP/JKna7cIjy4dvLcnG0BKX0JkH5YcGLkhq9pNqQ8qsG1DJPCBxhMHKIqthfltZbXS+oyqXqQPETYSYq4+qD5KJQmpQE2SPxRxtMzrlvU7If6zo/3k/+qUyCn2IMHe4eeJ0lJojBu9SFObtpiItTrNM+wFqvgxG5+rdlJTK0SvpX98dOTw7EMb9g8y26tr4YURfSL6UKM53fwMsu9rgvWzbrtwgCORvYWg7gvvXdgze9/Dz2LfP8fLOCcaH9k3YwFXkhCCYZYC3eoEYxjknk83ZhsAiCJApUsB1d/AHBZiXcfpFNYc8ndGLX3SuXVmZzhjYkvbMFnk8Lk3CXGR7mOKRsKnowaNpjNqMibMZQRl0okF/jdybovlaJ4Zzc/ACvxfmgqQRs1fD9yWdrFrsjPN4hR7rvNM9SRe037LvqTckRfGPj1Ww=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB6279.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(376014)(38070700021)(56012099003)(22082099003)(18002099003)(8096899003);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: LP3PAn6NV/vPOLQ9T/wZGE9tRLHf43PKWhSofeFV7zdjElHB0TChfVdIOTKJyT4d2QxsIaAu8vpZ1hrPxMH0iiVoXjGo7czfQAmnp5FERUX7nyAcI6N/kdD+fkjV2HYTB7hg9M+g87Yui9Xru4n/cI/Wrp19HQgzJV37Fy9WcSVsIQuQ8L0jVh50PtK/Qrxw1Y+0eCdbPxox5vj0Sm5ccCq8j66O1EwEo6SVtJBvQjssCA/6Uhp/F2Ilf3fNFpqRiC6xg7O7ivZ17NUKBGxjVpIQiBhhVtbbKX4iLgdZna0EvpvR3Ah+xyvPVBYzl7RQ/WoRZGIej6qsrLQornBosIVdHs7wod9FVCLHOcqPggDJTkiXIk41gSUwx53ZIQxZqaSreG2TCKg1b5O4VwCcaGFncfsqjRm4iwEHFOozc7Mg9Q1l10XWu0oP73C/5p+J
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?AvWObYP3K3TrfGow3flwHxLUtfheKAglV2XYPwof47SrYgb1oHY8qlOThfuy?=
+ =?us-ascii?Q?vrVy8GEmwknt7QTxzp6/Kza6YvGSmutOmW4hvOQwSnmWy2X+23aKGLIZgG3v?=
+ =?us-ascii?Q?nHb6gxItuRBwmcIJz2XVw0ZfkI7aZxS1hfg9FLT3D96IkoAl+wvgGZ1XiVdI?=
+ =?us-ascii?Q?Un09xOFbBmqVuCFUnuBhQmI+dR5OiM4qKNxE3E+Bs5BWozgC2tZYVFDg1/05?=
+ =?us-ascii?Q?kG7CIA0oIMa5pKv63uuIJR51dXV6T516HHLVlrnUoewRM/QDltcbeh8HiQxb?=
+ =?us-ascii?Q?hza/fRXq8N/GgbMzpXe2IS+8TdD999b+mmL6mbES/G2AiqUGT0nV1qVDmvJ0?=
+ =?us-ascii?Q?8iJVVmdjC0xBJVrVxnyKNvM3brdD3YMihSUKQNQZ2TtVOjf0BnPtSggLfnGJ?=
+ =?us-ascii?Q?OP5BCt4aFze5nzKKA4grqRJdlxE4g480YA8XFAI5P6UpUEdvlFfxmpmTAvaa?=
+ =?us-ascii?Q?BuAfDYYyudpV/yOYNsGT+ieOrzgqXQhw61kdk2lGxl+7rc+wGLSnrZvs64it?=
+ =?us-ascii?Q?h4h+/drA+hHkmwrNSjACfZ+c/rcqOBT6D2STu1nn4CsrRwJMtdxSTdk0oWCn?=
+ =?us-ascii?Q?/hb5j4yR+qiGbBG0U8/VO8rQ/wN9dY4S69creclIaUVtekzOGosKSBQApqWy?=
+ =?us-ascii?Q?RUV59SS8zHjXnpsuiy6BbHilqXkZgNC8dXlT6jq/Dmjn9zHRPkk+co3DFrgN?=
+ =?us-ascii?Q?a4zfTpyQrAsFCUtFcvEiDR5gj8THH2juG7sOX8KIlXJczpOyKCj56czftKFS?=
+ =?us-ascii?Q?KZJLf6Q0v9KH5aS7v5TWWYb3ljqZwEhrFe5Z0WqoCAk91ikpQCf/zH8+Oqqb?=
+ =?us-ascii?Q?z7++KWkmQT9cFn3AK05qsOFUrKrCOmhyBar4rC9Hn/nhVGa8p3WXjHMoTz2o?=
+ =?us-ascii?Q?5+QrGpD13/E2vuQfGt1a7bEykQt8pdNmZsWb9MKDV3Mem3sL+uGTRj2opRvr?=
+ =?us-ascii?Q?KlhkrVUFlAw0Y+BFrh0o7Zli7RgkdUXu/b8L0JaK4dslyOXiziiEhvvln+Ne?=
+ =?us-ascii?Q?hK1Kiv28r9Uu3P735VoAewHSoZZIAg6cHQboIOWriUgZPMIxD1HFPzVNqoEo?=
+ =?us-ascii?Q?tTICrfauGIzoAn5Zyl3KUNKrvjXGhavIViiKP9Db6lWVWdo7GqemJ5cse6pj?=
+ =?us-ascii?Q?F4K1xh327KUbTLmBR53p89uqPD8jRUqIyshhfyYKUCFUkqQMM0LNmJiSMmb1?=
+ =?us-ascii?Q?oo4fIP5LuUzyMMAHlz3f5CIR20KN/1/aIDZJPu1Q06mmuQEloGkJ+Bid9ZFv?=
+ =?us-ascii?Q?SI8BzwbjC//nNUHQy2zoch0OnK3Fnmapa7akLYq60f8eOJ4XB4vKGyjjmlEa?=
+ =?us-ascii?Q?HJkpo6Jf+wBi3NFPJM8CfTXnWe4CkauWtgErFZt3Wv+BRIUjMKHNhd4Q124G?=
+ =?us-ascii?Q?RRAxJMawznEycQcxYaW0TDX72DdAl5YPKk55s2ectIFbyvx9Himyp+jAF6Eb?=
+ =?us-ascii?Q?1au3DtEdPnPtaSiclAlkW6jAklp5OkxkDN59NPLaC0aL3iTCbXzxGRsZ/2wI?=
+ =?us-ascii?Q?bx4w6VRhe2c+L7yZM6+nq76p2oNrCTqeO7Gr79l2TtCDqNzvZnRUUQCX69rs?=
+ =?us-ascii?Q?o+Sz4jt7qfEzVU/YwDZmFiY3e2cRRm8e3+qlF+Y3gZzETweO/UEpUlyfvM+D?=
+ =?us-ascii?Q?izYa98IEb8Zyy5Xhk1jB21RXTwWgcbKg1dzoOGk6S42denh0YaM7PetZXnLa?=
+ =?us-ascii?Q?qS85SCZA3f4SeZQF1yZQ1JrdwGUINU5a18yVqrKhSrCW7BGD?=
+Content-Type: multipart/alternative;
+ boundary="_000_DM4PR12MB62793B6B50FA340D23A916E3945AADM4PR12MB6279namp_"
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Apr 2026 13:39:27.3042 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c9579e78-b868-4dac-8c3f-08de94ab16a7
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CH2PEPF00000141.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB6608
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB6279.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b5af05ea-b916-4b05-ebe2-08de94b39000
+X-MS-Exchange-CrossTenant-originalarrivaltime: 07 Apr 2026 14:40:06.8791 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: UVOBjyb12O67RneJqyNBssGu5KE8S6e69MF0g7iDgypHz23p1U2cryyaIIS09ep2dU3VGXHHIIWdC0xCtZ7xgw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7450
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,132 +135,235 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On multi-socket MI300A APU systems, system memory pages mapped to the
-closest GPU must use MTYPE_RW instead of MTYPE_NC to maintain correct
-cache coherence. The existing mtype override in amdgpu_vm_pte_update_flags()
-excluded non-contiguous page mappings from the override. This caused
-incorrect MTYPE_NC for scattered local pages, leading to cache coherence
-issues.
+--_000_DM4PR12MB62793B6B50FA340D23A916E3945AADM4PR12MB6279namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-The override applies to both contiguous and non-contiguous mappings.
-When pages_addr is set, resolve the physical address via
-pages_addr[addr >> PAGE_SHIFT] before passing it to the override
-callback for NUMA node lookup.
+[AMD Official Use Only - AMD Internal Distribution Only]
 
-Introduce amdgpu_vm_addr_contiguous() helper that, on MI300A, treats
-pages on different NUMA nodes as non-contiguous even if their DMA
-addresses are adjacent. This ensures amdgpu_vm_update_range() splits
-page table updates at NUMA node boundaries so each batch gets the
-correct mtype override.
+Reviewed-by: Michael Chen <michael.chen@amd.com>
+________________________________
+From: Jesse Zhang <Jesse.Zhang@amd.com>
+Sent: Sunday, March 29, 2026 9:33 PM
+To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
+Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian <Chri=
+stian.Koenig@amd.com>; Liu, Shaoyun <Shaoyun.Liu@amd.com>; Chen, Michael <M=
+ichael.Chen@amd.com>; Zhang, Jesse(Jie) <Jesse.Zhang@amd.com>; Deucher, Ale=
+xander <Alexander.Deucher@amd.com>; Zhang, Jesse(Jie) <Jesse.Zhang@amd.com>
+Subject: [PATCH v3 1/2] drm/amdgpu/mes_v12_0: use mes schedule pipe for leg=
+acy queues on unified MES
 
-Signed-off-by: Philip Yang <Philip.Yang@amd.com>
+when suspend_all_gangs is issued to pipe0 MES during system suspend or runt=
+ime PM, pipe0 can only suspend and resume queues it has tracked.
+KCQs registered with a non-zero pipe slot may not be correctly handled, lea=
+ving them in an inconsistent state after resume.
+
+v3: fix the schedule pipe issue
+
+Suggested-by: Michael Chen <michael.chen@amd.com>
+Suggested-by: Alex Deucher <alexander.deucher@amd.com>
+Suggested-by: Shaoyun Liu <shaoyun.liu@amd.com>
+Signed-off-by: Jesse Zhang <jesse.zhang@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c    | 48 +++++++++++++++++++----
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c | 14 +++++--
- 2 files changed, 50 insertions(+), 12 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/mes_v12_0.c | 22 ++++++++++++++++------
+ 1 file changed, 16 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-index 63156289ae7f..f8fcbf079bf4 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-@@ -1099,6 +1099,34 @@ amdgpu_vm_tlb_flush(struct amdgpu_vm_update_params *params,
- 	}
- }
- 
-+/**
-+ * amdgpu_vm_addr_contiguous - check if two DMA addresses are contiguous
-+ *
-+ * @adev: amdgpu_device pointer
-+ * @addr: current DMA address
-+ * @addr_next: next DMA address to check against
-+ * @contiguous: current contiguity state of the range being built
-+ *
-+ * Check whether @addr and @addr_next are physically contiguous. On APU
-+ * platforms with multiple NUMA nodes (e.g. MI300A), a NUMA node boundary
-+ * also breaks contiguity so that each contiguous batch stays within a
-+ * single NUMA node for correct MTYPE override selection.
-+ *
-+ * Returns:
-+ * true if @addr_next continues the current contiguous range, false otherwise.
-+ */
-+static inline bool amdgpu_vm_addr_contiguous(struct amdgpu_device *adev, dma_addr_t addr,
-+					     dma_addr_t addr_next, bool contiguous)
-+{
-+	if (!adev->gmc.is_app_apu || !page_is_ram(addr >> PAGE_SHIFT))
-+		return (addr + PAGE_SIZE) == addr_next;
-+
-+	if (pfn_to_nid(addr >> PAGE_SHIFT) != pfn_to_nid(addr_next >> PAGE_SHIFT))
-+		return !contiguous;
-+
-+	return (addr + PAGE_SIZE) == addr_next;
-+}
-+
- /**
-  * amdgpu_vm_update_range - update a range in the vm page table
-  *
-@@ -1198,22 +1226,26 @@ int amdgpu_vm_update_range(struct amdgpu_device *adev, struct amdgpu_vm *vm,
- 				uint64_t pfn = cursor.start >> PAGE_SHIFT;
- 				uint64_t count;
- 
--				contiguous = pages_addr[pfn + 1] ==
--					pages_addr[pfn] + PAGE_SIZE;
-+				contiguous = amdgpu_vm_addr_contiguous(adev,
-+								       pages_addr[pfn],
-+								       pages_addr[pfn + 1],
-+								       contiguous);
- 
--				tmp = num_entries /
--					AMDGPU_GPU_PAGES_IN_CPU_PAGE;
-+				tmp = num_entries / AMDGPU_GPU_PAGES_IN_CPU_PAGE;
- 				for (count = 2; count < tmp; ++count) {
- 					uint64_t idx = pfn + count;
- 
--					if (contiguous != (pages_addr[idx] ==
--					    pages_addr[idx - 1] + PAGE_SIZE))
-+					if (contiguous != amdgpu_vm_addr_contiguous(adev,
-+									pages_addr[idx - 1],
-+									pages_addr[idx],
-+									contiguous))
- 						break;
- 				}
-+
- 				if (!contiguous)
- 					count--;
--				num_entries = count *
--					AMDGPU_GPU_PAGES_IN_CPU_PAGE;
-+
-+				num_entries = count * AMDGPU_GPU_PAGES_IN_CPU_PAGE;
- 			}
- 
- 			if (!contiguous) {
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
-index 31a437ce9570..9e1607fb3b2e 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
-@@ -708,13 +708,19 @@ static void amdgpu_vm_pte_update_flags(struct amdgpu_vm_update_params *params,
- 		amdgpu_vm_pte_update_noretry_flags(adev, &flags);
- 
- 	/* APUs mapping system memory may need different MTYPEs on different
--	 * NUMA nodes. Only do this for contiguous ranges that can be assumed
--	 * to be on the same NUMA node.
-+	 * NUMA nodes. Both contiguous and non-contiguous ranges are handled
-+	 * since amdgpu_vm_update_range ensures updates don't span NUMA
-+	 * node boundaries.
- 	 */
- 	if ((flags & AMDGPU_PTE_SYSTEM) && (adev->flags & AMD_IS_APU) &&
- 	    adev->gmc.gmc_funcs->override_vm_pte_flags &&
--	    num_possible_nodes() > 1 && !params->pages_addr && params->allow_override)
--		amdgpu_gmc_override_vm_pte_flags(adev, params->vm, addr, &flags);
-+	    num_possible_nodes() > 1 && params->allow_override) {
-+		if (params->pages_addr)
-+			amdgpu_gmc_override_vm_pte_flags(adev, params->vm,
-+					params->pages_addr[addr >> PAGE_SHIFT], &flags);
-+		else
-+			amdgpu_gmc_override_vm_pte_flags(adev, params->vm, addr, &flags);
-+	}
- 
- 	params->vm->update_funcs->update(params, pt, pe, addr, count, incr,
- 					 flags);
--- 
-2.50.1
+diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c b/drivers/gpu/drm/amd/a=
+mdgpu/mes_v12_0.c
+index 023c7345ea54..67fb5161c0e5 100644
+--- a/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
+@@ -528,10 +528,15 @@ static int mes_v12_0_map_legacy_queue(struct amdgpu_m=
+es *mes,
+                 convert_to_mes_queue_type(input->queue_type);
+         mes_add_queue_pkt.map_legacy_kq =3D 1;
 
+-       if (mes->adev->enable_uni_mes)
+-               pipe =3D AMDGPU_MES_KIQ_PIPE;
+-       else
++       if (mes->adev->enable_uni_mes) {
++               /* Keep scheduler queue on KIQ pipe; map all other kernel q=
+ueues on sched pipe. */
++               if (input->queue_type =3D=3D AMDGPU_RING_TYPE_MES)
++                       pipe =3D AMDGPU_MES_KIQ_PIPE;
++               else
++                       pipe =3D AMDGPU_MES_SCHED_PIPE;
++       } else {
+                 pipe =3D AMDGPU_MES_SCHED_PIPE;
++       }
+
+         return mes_v12_0_submit_pkt_and_poll_completion(mes, pipe,
+                         &mes_add_queue_pkt, sizeof(mes_add_queue_pkt),
+@@ -567,10 +572,15 @@ static int mes_v12_0_unmap_legacy_queue(struct amdgpu=
+_mes *mes,
+                         convert_to_mes_queue_type(input->queue_type);
+         }
+
+-       if (mes->adev->enable_uni_mes)
+-               pipe =3D AMDGPU_MES_KIQ_PIPE;
+-       else
++       if (mes->adev->enable_uni_mes) {
++               /* Keep scheduler queue on KIQ pipe; unmap all other kernel=
+ queues on sched pipe. */
++               if (input->queue_type =3D=3D AMDGPU_RING_TYPE_MES)
++                       pipe =3D AMDGPU_MES_KIQ_PIPE;
++               else
++                       pipe =3D AMDGPU_MES_SCHED_PIPE;
++       } else {
+                 pipe =3D AMDGPU_MES_SCHED_PIPE;
++       }
+
+         return mes_v12_0_submit_pkt_and_poll_completion(mes, pipe,
+                         &mes_remove_queue_pkt, sizeof(mes_remove_queue_pkt=
+),
+--
+2.49.0
+
+
+--_000_DM4PR12MB62793B6B50FA340D23A916E3945AADM4PR12MB6279namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
+nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
+olor: black;">
+<div>
+<div style=3D"font-family: Calibri; text-align: left; color: rgb(0, 0, 255)=
+; margin-left: 5pt; font-size: 10pt;">
+[AMD Official Use Only - AMD Internal Distribution Only]</div>
+<br>
+</div>
+Reviewed-by: Michael Chen &lt;michael.chen@amd.com&gt;</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Jesse Zhang &lt;Jesse=
+.Zhang@amd.com&gt;<br>
+<b>Sent:</b> Sunday, March 29, 2026 9:33 PM<br>
+<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
+gt;<br>
+<b>Cc:</b> Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;; Koenig, Ch=
+ristian &lt;Christian.Koenig@amd.com&gt;; Liu, Shaoyun &lt;Shaoyun.Liu@amd.=
+com&gt;; Chen, Michael &lt;Michael.Chen@amd.com&gt;; Zhang, Jesse(Jie) &lt;=
+Jesse.Zhang@amd.com&gt;; Deucher, Alexander &lt;Alexander.Deucher@amd.com&g=
+t;;
+ Zhang, Jesse(Jie) &lt;Jesse.Zhang@amd.com&gt;<br>
+<b>Subject:</b> [PATCH v3 1/2] drm/amdgpu/mes_v12_0: use mes schedule pipe =
+for legacy queues on unified MES</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">when suspend_all_gangs is issued to pipe0 MES duri=
+ng system suspend or runtime PM, pipe0 can only suspend and resume queues i=
+t has tracked.<br>
+KCQs registered with a non-zero pipe slot may not be correctly handled, lea=
+ving them in an inconsistent state after resume.<br>
+<br>
+v3: fix the schedule pipe issue<br>
+<br>
+Suggested-by: Michael Chen &lt;michael.chen@amd.com&gt;<br>
+Suggested-by: Alex Deucher &lt;alexander.deucher@amd.com&gt;<br>
+Suggested-by: Shaoyun Liu &lt;shaoyun.liu@amd.com&gt;<br>
+Signed-off-by: Jesse Zhang &lt;jesse.zhang@amd.com&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/mes_v12_0.c | 22 ++++++++++++++++------<br=
+>
+&nbsp;1 file changed, 16 insertions(+), 6 deletions(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c b/drivers/gpu/drm/amd/a=
+mdgpu/mes_v12_0.c<br>
+index 023c7345ea54..67fb5161c0e5 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c<br>
++++ b/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c<br>
+@@ -528,10 +528,15 @@ static int mes_v12_0_map_legacy_queue(struct amdgpu_m=
+es *mes,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; convert_to_mes_queue_type(input-&gt;queue_type);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mes_add_queue_pkt.map_lega=
+cy_kq =3D 1;<br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (mes-&gt;adev-&gt;enable_uni_mes)<=
+br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; pipe =3D AMDGPU_MES_KIQ_PIPE;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (mes-&gt;adev-&gt;enable_uni_mes) =
+{<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; /* Keep scheduler queue on KIQ pipe; map all other kernel queues=
+ on sched pipe. */<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; if (input-&gt;queue_type =3D=3D AMDGPU_RING_TYPE_MES)<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pipe =3D AMDGPU_=
+MES_KIQ_PIPE;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; else<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pipe =3D AMDGPU_=
+MES_SCHED_PIPE;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; pipe =3D AMDGPU_MES_SCHED_PIPE;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return mes_v12_0_submit_pk=
+t_and_poll_completion(mes, pipe,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp;=
+mes_add_queue_pkt, sizeof(mes_add_queue_pkt),<br>
+@@ -567,10 +572,15 @@ static int mes_v12_0_unmap_legacy_queue(struct amdgpu=
+_mes *mes,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; conve=
+rt_to_mes_queue_type(input-&gt;queue_type);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (mes-&gt;adev-&gt;enable_uni_mes)<=
+br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; pipe =3D AMDGPU_MES_KIQ_PIPE;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (mes-&gt;adev-&gt;enable_uni_mes) =
+{<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; /* Keep scheduler queue on KIQ pipe; unmap all other kernel queu=
+es on sched pipe. */<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; if (input-&gt;queue_type =3D=3D AMDGPU_RING_TYPE_MES)<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pipe =3D AMDGPU_=
+MES_KIQ_PIPE;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; else<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pipe =3D AMDGPU_=
+MES_SCHED_PIPE;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; pipe =3D AMDGPU_MES_SCHED_PIPE;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return mes_v12_0_submit_pk=
+t_and_poll_completion(mes, pipe,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp;=
+mes_remove_queue_pkt, sizeof(mes_remove_queue_pkt),<br>
+-- <br>
+2.49.0<br>
+<br>
+</div>
+</span></font></div>
+</body>
+</html>
+
+--_000_DM4PR12MB62793B6B50FA340D23A916E3945AADM4PR12MB6279namp_--
