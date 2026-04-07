@@ -4,125 +4,99 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 59BFDFB5188
-	for <amd-gfx@archiver.kernel.org>; Tue,  7 Apr 2026 02:57:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CA472FB5189
+	for <amd-gfx@archiver.kernel.org>; Tue,  7 Apr 2026 03:09:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CC85010E311;
-	Tue,  7 Apr 2026 02:57:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6590C10E318;
+	Tue,  7 Apr 2026 03:09:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="yvVyr9Ci";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="NHK5tkmm";
 	dkim-atps=neutral
-Received: from PH8PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11012064.outbound.protection.outlook.com [40.107.209.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 13F8C10E311
- for <amd-gfx@lists.freedesktop.org>; Tue,  7 Apr 2026 02:57:14 +0000 (UTC)
+Received: from CO1PR03CU002.outbound.protection.outlook.com
+ (mail-westus2azon11010047.outbound.protection.outlook.com [52.101.46.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B747F10E318
+ for <amd-gfx@lists.freedesktop.org>; Tue,  7 Apr 2026 03:09:52 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=fPWkrP02HsfOs/ps/PlvFvq6PnaCHgZEBjv3FBUH0aaSBLAT/YJ7CuOk+mh5gwHXrqa5Q9ly4CA4B09puQPPVk+34RHmncbMmbOWcplljZZS5n12LGM3pFhdtjLzalx7e1dScEuB96xxSAxByaXFKS6tBWJJd6xJ18KHRYkwmKWp+GkgumxbMiinQ3w5+uTHCZe3q1K7IoyduDVu2/kiBctgQG4e9P5H0RNLq5NLgufQ0lwGnKA4UDQ5Im5wh1ttGm79jSEC7gqEZTBVGDz0eWOu6XBtV/kZxn2ZP/ZVtZavNMxM5CC8ZQ3WRN4nsQV9Hra5a6rV/T5DAoT47TqAWw==
+ b=DTLL6ieTL5Oh/62TV4flnBGcIDokWsA19dOnj3m/X8vNIrmvHFdAnbHBIs3PwqcQh/qhoiKSS6bJ+QZoowyPGbtP65FNSuZBt4eK3jsWe2LQZYyrBkdN0CVRh/uZWcVwmwJqfFfE79aABzwVHiFXR6OZvN0wzYlaxR7X8MS4cU6yBDqOKGNG6oe5zeagRAPk0t5W1qmaRPRV7alLIPL7JZLK07Du5TZI0po2GqBcSDtvYqvZre0Y5OYhNPmH6tHplIuiEI5VJZL4XNlRZJwD+kXjBJZbV1wi8Op8ZHgSHCui78TjGQGXVWE6RhLVhYw+lgDD8EEplRJanFYT36HibA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=buJXyQrgilaS1uyE6YEJLJKE8rYkb09uAuH5VSsVXO0=;
- b=K0nrK1xjZf34VcyPjnaH6nB3AVyn5rUD5I7Qeg+HDPgGYl3Zwzc/i9Vpbww/yaaEz0kcbXc6H99EgQOPKcj4QuM+03/2opOAsmqV0i+jZjunlxqw5no3jH05HKaLKiLLLjOTchVy2BkivX5W9v9U3X6AhrREf5orZ8TAnyHjVzq9nY3XT1q2ALjwrK+xa1Mnp7ViaCiaPiXZrHF89TNlS/4TxXcSkKKPWUawSwWNYlg1DZQizr21uKL/59mL2Sczmtg7ZNTUxLMfHVSnCipcSdP9z44mxksO7ghHNJe+FXvy8cyJoJbNprtD5BTmZpMW47hkor0Ut80PTG1RzruU1w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=8J82bod82knbDGfsCevqOa5JFw4+I4SMak0YqSZPLVY=;
+ b=kt3fsa8NxiaXJyLNBdNOlYIJ5cDBUzt+L09aAvYzR5pE7bY1KCTgQFFJeUFoWt5YOwg1Lrc//ImaBUP/e8Gm5ymm/2TvcIrGWYDud+Km604lq6DOWSiJe5pQG00S/LNR+1b1OeTcHX9eimCl4/tWfok+eJs4g+BC6izURNo8qBVaNkHIsQHRkv/De7YXga7/6hfZwqEDBuzJQBHsCugH9xoOUSjVImDkMXTMfDgh3Ot3+HezNOEbX/LVmHCS/obEMRFfyznc2aSz/PRDC60dnbvliSW5ofoxRDhDMTbi3w5BR7ywXEfb8OVqxH1G2M4DVVvySe9o4C2eoF8QKzsW0Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=buJXyQrgilaS1uyE6YEJLJKE8rYkb09uAuH5VSsVXO0=;
- b=yvVyr9CiJOzAfc8tyixn3x1qjTnu6q5JOD0LrTebZIVrp2OKhuwwDx3Jjwwjqmc6hhHVUfl+cDUKC/TvcGC9T4/mD2JHFd5s7m4fUH/hS8wB3QHt/K6uSR048XvCabEHEtN41OULnqe8AEB0YuHPeUg+b/3IM7VxlzNaC5sB5Io=
-Received: from DM4PR12MB5152.namprd12.prod.outlook.com (2603:10b6:5:393::16)
- by PH7PR12MB5618.namprd12.prod.outlook.com (2603:10b6:510:134::14) with
+ bh=8J82bod82knbDGfsCevqOa5JFw4+I4SMak0YqSZPLVY=;
+ b=NHK5tkmmv+K+voTfjAeNDzaK8rRdJ2OM+SykES3N5G6yUMC9GOJX7wksvrKP9EFMMzFncBP93fsM0KqOW9fbF9q5tjc+6hWYK7RegfvzhYuYxxgt8kt8mIWsSO9Ql1uCR+Jo2rZ6RDqmDOTRNkZDUSqX0Jc3NKDFs9etMqAwguo=
+Received: from DM6PR06CA0085.namprd06.prod.outlook.com (2603:10b6:5:336::18)
+ by DS0PR12MB6606.namprd12.prod.outlook.com (2603:10b6:8:d2::20) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.17; Tue, 7 Apr
- 2026 02:57:10 +0000
-Received: from DM4PR12MB5152.namprd12.prod.outlook.com
- ([fe80::8874:ea43:ba4a:e73d]) by DM4PR12MB5152.namprd12.prod.outlook.com
- ([fe80::8874:ea43:ba4a:e73d%3]) with mapi id 15.20.9769.018; Tue, 7 Apr 2026
- 02:57:09 +0000
-From: "Zhang, Jesse(Jie)" <Jesse.Zhang@amd.com>
-To: "Zhang, Jesse(Jie)" <Jesse.Zhang@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-CC: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Koenig, Christian"
- <Christian.Koenig@amd.com>, "Liu, Shaoyun" <Shaoyun.Liu@amd.com>, "Chen,
- Michael" <Michael.Chen@amd.com>, "Deucher, Alexander"
- <Alexander.Deucher@amd.com>
-Subject: RE: [PATCH v3 1/2] drm/amdgpu/mes_v12_0: use mes schedule pipe for
- legacy queues on unified MES
-Thread-Topic: [PATCH v3 1/2] drm/amdgpu/mes_v12_0: use mes schedule pipe for
- legacy queues on unified MES
-Thread-Index: AQHcv+VL9F8pgEPomUy19UUG7YaikLXS9J3w
-Date: Tue, 7 Apr 2026 02:57:09 +0000
-Message-ID: <DM4PR12MB51522665F8E22A61237330B7E35AA@DM4PR12MB5152.namprd12.prod.outlook.com>
-References: <20260330013346.1054624-1-Jesse.Zhang@amd.com>
-In-Reply-To: <20260330013346.1054624-1-Jesse.Zhang@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=True;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2026-04-07T02:56:59.0000000Z;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
- Internal Distribution
- Only; MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=3;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DM4PR12MB5152:EE_|PH7PR12MB5618:EE_
-x-ms-office365-filtering-correlation-id: ef66c156-7295-44db-193c-08de94515c5c
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|1800799024|366016|376014|38070700021|56012099003|18002099003|22082099003;
-x-microsoft-antispam-message-info: b+2XxpQn6il0MC+ubYOTmclnyQVi7H8XQ5rkVHeaTND7lLxufGrvyayX8Q3wTxeipQtuqcKz6ex0tdiYrr8Miugr1+IPhTeMpt2GeniWTgcz1x52+sX6C5fU/Y4TMzEizaSVtR5kuwgslbVrzSmWXEiBlKuW4eUXSPnQrNkec47PFhfAV/BlIGmYjb1rEwhMdF98w/0f+TylvIBfqpTnzd1QEK//0MGQ1DMf/fJZRT9zyRxiswLmNgLw+YLzLHMs30GzkYkfnhfWt8r+BRnKdpIXqAZHpuUBA66yeWdfXaX8r6bu6tHilcubgwdFn6ZuBOtIPTs/1KWSbaOWjGDvxOPsHUDSbRRPEhImjLKLHy5gr30EkplMWPEixLc6siBYMMbVzQEgqmCg7cfU0ycyGxCZ+qjmtlrV/ZKX8qQlhIKy68JHlKcVsnNnelxP0gqI74NIlwhpvyhf73rlmGMpvQ3d/A75Y8VFQnovKAHuZ/RHTWO0OrnOj2Sf0C7+bE9URyEhZhm3Thkr80fc8K3s2IaEenUDTLKaHO4CuflwAqxafwyZEAW/bBlQkPwLaZw1fVK1ePg3YFNJUJlQJBfC58dBlRhHzzU7UzJ7GIWHLrCk7qcymU/w+1B7pGPBY2LYQV6RDnCPl0gwPGOU4clJsfQj0blFbxJI5LfG/Rw4Isa+se0uAfSW/5DIWf5kbN5z/agjSkSAMgyCDN5H4UGzluYcbiZ7sVdW/fwX6BBCCkHl3qZea6U7GrWkF28I4GpY2NVnl4TJcpwZwXQSpD74p1yflrM4AvsLYgjkXNr7Rj0=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB5152.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014)(38070700021)(56012099003)(18002099003)(22082099003);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?tqugeywfKBrzlhZqCsj5RReHfRghazG9WFaTNiXIqM5E7bqnYau8QSnim6Ek?=
- =?us-ascii?Q?pY1KjDuYs6S7z1QKjh5Z2o9QujnIIyzjB4p/tpa1+1/tS4epdL1nYjwB33TM?=
- =?us-ascii?Q?YbAMBmMomcM/QY/XLASHaiOTXzoCMXwbKSGusC/xaZ5AInJvXUS7dqeuC0/Y?=
- =?us-ascii?Q?qHZtP4ulFs4OwCHFm6LyLPRf414ojlH57S0twmmP7SCHxopErcWwXo1WaQqk?=
- =?us-ascii?Q?ijdzW20VDGeC2xTfJwi0xFY7MM2sgqoFjz5+E8zwiYrOp1DSxhMY/a2maD0b?=
- =?us-ascii?Q?bzbPD+iIyYbZWKVYeNpC3hW/VxvQ5Fj7KZhQrp45oN28n1VLShNQ9gyU6jaq?=
- =?us-ascii?Q?+KaKkHJxyrd/twA9PuiXGdQvZltEaZgaHTtZ734LAUwVXYXyQ1gr2O7Sxz9P?=
- =?us-ascii?Q?CIKwI08kOuIEWLADLoSLpJe0vbLvSiMgkn+Syb6g3XvQpBDHnXGsJAdbwJlX?=
- =?us-ascii?Q?7Fz8b5oSui62l1p+PPAebVHxEQYLRRbAu7NrOiUnNFvpDMnlLDwlnnGaf2XJ?=
- =?us-ascii?Q?HggUG0HB1a5Dv91/q3HcG7xE/x5YhonPE/97wDtZ+uUHdwa/IgHwPMNCC09p?=
- =?us-ascii?Q?sWkYzvvzKI1efEduyVGnGdb2Jr6wj2R6cc4KaxIA4aCqTEiM9STajYJE+ZzV?=
- =?us-ascii?Q?+f6TwWClSKGS/viRr+ImeBEAGYWfWyicasCQjtuvXf6fuQem+r4tC3iFJLw2?=
- =?us-ascii?Q?Wl4KB87ieoo3QKbDoSuJBB+gEWFJvwa0hm1gPI9N7Nx+gvYwLNAAIcdFnmLd?=
- =?us-ascii?Q?Kj3lX+2emE031ZPgr8WQOerKH/+d6r/QvFgpa3/jj+d3SzvL3iReZhOWcyBj?=
- =?us-ascii?Q?tz5GiSll0El/dy9igfaE0j362if6xDN1VaSo7a9/HZZWTjAdRC3ckhzg6NW0?=
- =?us-ascii?Q?Qb755DW51YDC6rLreMNgpd2gDVek2JcawNYQGsPZzdTM+x/EXMPakEQeL8jh?=
- =?us-ascii?Q?kRiNL0IxOnAyFLq6xKywl4XRMp/SGyxvVi74RY11rlLshv5Gmxnc7mVY46Ya?=
- =?us-ascii?Q?UUQoIRZGrtqb53GEVzGqWsFgPh+H2Wsor5VnxW21UeMcHWYAodGt31cjk9PM?=
- =?us-ascii?Q?/CB1ZpbfkbGMjORu2TL1tc7X+jimE4t8zjRgr1LvPoUow7beE9kYdxNcr/HA?=
- =?us-ascii?Q?adMiC4io8zgwC6qbJHGwIfvwLhhSYLrMqWjbcMaQiTZ+FR0MbMRdIS4Q/Z4+?=
- =?us-ascii?Q?nl1n0mWevIgCOEH/7M6PZ+vupirZcuKXtT9pB1nyaoPvq2o7dmE62VkkHuW9?=
- =?us-ascii?Q?wd+Es2ERoLNmz3ICpRBcG6ws/R5dyjZLMixnNSG6JKjJLYvd+hOIJZrvgnBS?=
- =?us-ascii?Q?yLE+BdFVzGmmsiqq3J/z1QRIfWH7fAjt9736Qo0zXa0XVsmYxJoUXP7OOKS1?=
- =?us-ascii?Q?wjtVqlImpwUB7F1J3ZzV6bcAF1JXHU3gLd+ZmtcXhI5CGdw3hdfZRzDKXBYf?=
- =?us-ascii?Q?JEgiOz16wxD7hCaQ/o4/v3o2J952BI5GTnXaHuzEQ07zaIIoKMWKWwg9Xk32?=
- =?us-ascii?Q?SNWugbUkZB4jvoKTgB1OnM5uKGUP3aDJ0LYiP6ycrDLQ3Ngi3Qeg2Txuy5AT?=
- =?us-ascii?Q?621RPI+NZ7g2GxuS640DyERfmYHWoXvrC/CaHgUI2Bn3akP6rHsOM5AzU80X?=
- =?us-ascii?Q?MxvSZ+5XqP/OsEPglZ6+8zVsLFLELLL1MfA9hHJ+VovkLHSOuFbdTuGXoDcw?=
- =?us-ascii?Q?39Th8WbmC6QA9RfwSpA1iJkoZLtSOTcG/5UxqhPRbJ5PG7cc?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+ 2026 03:09:49 +0000
+Received: from DS3PEPF000099E2.namprd04.prod.outlook.com
+ (2603:10b6:5:336:cafe::52) by DM6PR06CA0085.outlook.office365.com
+ (2603:10b6:5:336::18) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9769.32 via Frontend Transport; Tue,
+ 7 Apr 2026 03:09:48 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ DS3PEPF000099E2.mail.protection.outlook.com (10.167.17.201) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9769.17 via Frontend Transport; Tue, 7 Apr 2026 03:09:48 +0000
+Received: from kevin-mlse-vm.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Mon, 6 Apr
+ 2026 22:09:47 -0500
+From: Yang Wang <kevinyang.wang@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <alexander.deucher@amd.com>, <hawking.zhang@amd.com>,
+ <kenneth.feng@amd.com>
+Subject: [PATCH 2/2] drm/amd/pm: add od table upload error message parsing for
+ smu v14.0.x
+Date: Mon, 6 Apr 2026 23:09:31 -0400
+Message-ID: <20260407030931.2024335-2-kevinyang.wang@amd.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260407030931.2024335-1-kevinyang.wang@amd.com>
+References: <20260407030931.2024335-1-kevinyang.wang@amd.com>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS3PEPF000099E2:EE_|DS0PR12MB6606:EE_
+X-MS-Office365-Filtering-Correlation-Id: 34375aac-197a-449f-2c8c-08de945320fd
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|82310400026|376014|36860700016|56012099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: QR7KOzZbLOd3cKAvLplY5C6Vxb1U5qlAnR3XmuZNZT8NZrlmZaGTuJO77x2cV3qTlBVBEWv45zx4lOFcAyUxDR870x0pOva1NBRmtPiBjs48OD0SbcFwvg38jSKkN+klFTBaI9Y1ZnMXt/uIqO/3KBZx7u25wCPoFMHvPNs5rIBdzJYk6TYH887AzAuw7HqmOwL8pmxVbLaZVbu6nXlVCSdZb2DKpgmBG+YGAw7f/9FHFRlC4Pr0KBcoOUmFJiQ7ZeE/GmfqUjhzmcqPRm1eKXRXcUrmmKzJG4qRY+nJfxwXCcxFTS7uFYcRwhh4kfaUo5Z3Q3PTCCNri3l+vbFeUtrqhjQkh/Pflee48IwZjVoQnHCFl4ctP5tecTwHVV9GfZcTUvOimn8UiG6fmT4XrmJiDIEDhS2bRgxG7DjM3/L6ARwZZitlEAj0YodywPe2X56WzGE/yqGKBel5My154OaFoD1LKYwQ84vRP0M42Odo5mRP/3D90k778Vp8LbL6KkFBagKlgSGJl+GEg6T2iiiEhs3Qu7BnE1TzNnRGo6EZpdCY9T1UrwWDAO3ruUBm8U4QcD6v5vtXu95B8P5wrxJhLS+p1+4JLM+TgDAMRPqioCJhZ8oiLbfGXX0QAqWi86LFNNasC5ZnhO/2SYUqmLdn9B09Qim+2hIwG3QeqAJ+JZlPn8izoRaZDffqUFfi+TolT4u1zOmdXpJ5HyPxDWEkmBNNmEt2PxogP5rzh1OP5qE+0n+HqMWcI6xf8XCwSggGQNFjTkDmMRRfAVg5ig==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(82310400026)(376014)(36860700016)(56012099003)(18002099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: htMjjR5RKzodPN13WfilXO92VhabrwAoXAOQyQH8QeywDOJSc1D6dR7/ZnQ56ToSPxnYpo/TPkgIeFZg0s0nM7h7xJltU/0GRtUq2iqoNo4sODG+/wyOti/kszC1YhXl4M1WV7Ax9w/ABESt7Aqy1RT26Cz/AsOZwkiNy8m1dwOMEEyPlJCz73aijeoZLbfsLBjDAl1TYAF+PibCClzunD3ga/vSnHVKOMElAhOX6rhr3kqD5iRFQLpFgbYU/7cggJ58HYPNdjeMxKYcH+R9ZwoceRqcmVkre198XqNT0Uu0ZO1x09ejowYum7O/Mi0QHNA9102oz9n708rjeh5olwu7LBv/oFqArMb/aZk+u3LyYRdh1bmI2/sL086gJ79P4jGxp5+WSc5B7lATDCwmuQEwO6WfBsdhNl/7aEQDccbXzM6vxTUMcoUk0J623EWs
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5152.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ef66c156-7295-44db-193c-08de94515c5c
-X-MS-Exchange-CrossTenant-originalarrivaltime: 07 Apr 2026 02:57:09.5416 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 8taxmcEO3Y/11vFtDj2HzLUJPOUIQ3drWTDFN3Q/O6uY+8dhE7NwPOiqQFrd3Bg7Yun2vGzvzFlf74KuUkaZ1w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5618
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Apr 2026 03:09:48.9336 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 34375aac-197a-449f-2c8c-08de945320fd
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DS3PEPF000099E2.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB6606
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,89 +111,98 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only - AMD Internal Distribution Only]
+parse and print detailed reasons for od table upload failures to
+help users understand error causes.
 
-Ping ...
+example:
+$ echo "0 30 40" | sudo tee fan_curve
+$ echo "1 40 30" | sudo tee fan_curve
+$ echo "c" | sudo tee fan_curve
 
-> -----Original Message-----
-> From: Jesse Zhang <Jesse.Zhang@amd.com>
-> Sent: Monday, March 30, 2026 9:33 AM
-> To: amd-gfx@lists.freedesktop.org
-> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian
-> <Christian.Koenig@amd.com>; Liu, Shaoyun <Shaoyun.Liu@amd.com>; Chen,
-> Michael <Michael.Chen@amd.com>; Zhang, Jesse(Jie)
-> <Jesse.Zhang@amd.com>; Deucher, Alexander <Alexander.Deucher@amd.com>;
-> Zhang, Jesse(Jie) <Jesse.Zhang@amd.com>
-> Subject: [PATCH v3 1/2] drm/amdgpu/mes_v12_0: use mes schedule pipe for
-> legacy queues on unified MES
->
-> when suspend_all_gangs is issued to pipe0 MES during system suspend or ru=
-ntime
-> PM, pipe0 can only suspend and resume queues it has tracked.
-> KCQs registered with a non-zero pipe slot may not be correctly handled, l=
-eaving
-> them in an inconsistent state after resume.
->
-> v3: fix the schedule pipe issue
->
-> Suggested-by: Michael Chen <michael.chen@amd.com>
-> Suggested-by: Alex Deucher <alexander.deucher@amd.com>
-> Suggested-by: Shaoyun Liu <shaoyun.liu@amd.com>
-> Signed-off-by: Jesse Zhang <jesse.zhang@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/mes_v12_0.c | 22 ++++++++++++++++------
->  1 file changed, 16 insertions(+), 6 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
-> b/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
-> index 023c7345ea54..67fb5161c0e5 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
-> @@ -528,10 +528,15 @@ static int mes_v12_0_map_legacy_queue(struct
-> amdgpu_mes *mes,
->               convert_to_mes_queue_type(input->queue_type);
->       mes_add_queue_pkt.map_legacy_kq =3D 1;
->
-> -     if (mes->adev->enable_uni_mes)
-> -             pipe =3D AMDGPU_MES_KIQ_PIPE;
-> -     else
-> +     if (mes->adev->enable_uni_mes) {
-> +             /* Keep scheduler queue on KIQ pipe; map all other kernel q=
-ueues
-> on sched pipe. */
-> +             if (input->queue_type =3D=3D AMDGPU_RING_TYPE_MES)
-> +                     pipe =3D AMDGPU_MES_KIQ_PIPE;
-> +             else
-> +                     pipe =3D AMDGPU_MES_SCHED_PIPE;
-> +     } else {
->               pipe =3D AMDGPU_MES_SCHED_PIPE;
-> +     }
->
->       return mes_v12_0_submit_pkt_and_poll_completion(mes, pipe,
->                       &mes_add_queue_pkt, sizeof(mes_add_queue_pkt), @@ -
-> 567,10 +572,15 @@ static int mes_v12_0_unmap_legacy_queue(struct
-> amdgpu_mes *mes,
->                       convert_to_mes_queue_type(input->queue_type);
->       }
->
-> -     if (mes->adev->enable_uni_mes)
-> -             pipe =3D AMDGPU_MES_KIQ_PIPE;
-> -     else
-> +     if (mes->adev->enable_uni_mes) {
-> +             /* Keep scheduler queue on KIQ pipe; unmap all other kernel=
- queues
-> on sched pipe. */
-> +             if (input->queue_type =3D=3D AMDGPU_RING_TYPE_MES)
-> +                     pipe =3D AMDGPU_MES_KIQ_PIPE;
-> +             else
-> +                     pipe =3D AMDGPU_MES_SCHED_PIPE;
-> +     } else {
->               pipe =3D AMDGPU_MES_SCHED_PIPE;
-> +     }
->
->       return mes_v12_0_submit_pkt_and_poll_completion(mes, pipe,
->                       &mes_remove_queue_pkt, sizeof(mes_remove_queue_pkt)=
-,
-> --
-> 2.49.0
+kernel log:
+[   75.040174] amdgpu 0000:0a:00.0: Failed to upload overdrive table, ret:-5
+[   75.040178] amdgpu 0000:0a:00.0: Invalid overdrive table content: OD_FAN_CURVE_PWM_ERROR (13)
+[   75.040181] amdgpu 0000:0a:00.0: Failed to upload overdrive table!
+
+Signed-off-by: Yang Wang <kevinyang.wang@amd.com>
+---
+ .../drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c  | 60 ++++++++++++++++---
+ 1 file changed, 52 insertions(+), 8 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
+index 0bad56a44f5c..0ccad0b48c09 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
+@@ -2230,17 +2230,61 @@ static void smu_v14_0_2_dump_od_table(struct smu_context *smu,
+ 		 od_table->OverDriveTable.FanMode);
+ }
+ 
++#define OD_ERROR_MSG_MAP(msg) \
++	[msg] = #msg
++
++static const char *od_error_message[] = {
++	OD_ERROR_MSG_MAP(OD_REQUEST_ADVANCED_NOT_SUPPORTED),
++	OD_ERROR_MSG_MAP(OD_UNSUPPORTED_FEATURE),
++	OD_ERROR_MSG_MAP(OD_INVALID_FEATURE_COMBO_ERROR),
++	OD_ERROR_MSG_MAP(OD_GFXCLK_VF_CURVE_OFFSET_ERROR),
++	OD_ERROR_MSG_MAP(OD_VDD_GFX_VMAX_ERROR),
++	OD_ERROR_MSG_MAP(OD_VDD_SOC_VMAX_ERROR),
++	OD_ERROR_MSG_MAP(OD_PPT_ERROR),
++	OD_ERROR_MSG_MAP(OD_FAN_MIN_PWM_ERROR),
++	OD_ERROR_MSG_MAP(OD_FAN_ACOUSTIC_TARGET_ERROR),
++	OD_ERROR_MSG_MAP(OD_FAN_ACOUSTIC_LIMIT_ERROR),
++	OD_ERROR_MSG_MAP(OD_FAN_TARGET_TEMP_ERROR),
++	OD_ERROR_MSG_MAP(OD_FAN_ZERO_RPM_STOP_TEMP_ERROR),
++	OD_ERROR_MSG_MAP(OD_FAN_CURVE_PWM_ERROR),
++	OD_ERROR_MSG_MAP(OD_FAN_CURVE_TEMP_ERROR),
++	OD_ERROR_MSG_MAP(OD_FULL_CTRL_GFXCLK_ERROR),
++	OD_ERROR_MSG_MAP(OD_FULL_CTRL_UCLK_ERROR),
++	OD_ERROR_MSG_MAP(OD_FULL_CTRL_FCLK_ERROR),
++	OD_ERROR_MSG_MAP(OD_FULL_CTRL_VDD_GFX_ERROR),
++	OD_ERROR_MSG_MAP(OD_FULL_CTRL_VDD_SOC_ERROR),
++	OD_ERROR_MSG_MAP(OD_TDC_ERROR),
++	OD_ERROR_MSG_MAP(OD_GFXCLK_ERROR),
++	OD_ERROR_MSG_MAP(OD_UCLK_ERROR),
++	OD_ERROR_MSG_MAP(OD_FCLK_ERROR),
++	OD_ERROR_MSG_MAP(OD_OP_TEMP_ERROR),
++	OD_ERROR_MSG_MAP(OD_OP_GFX_EDC_ERROR),
++	OD_ERROR_MSG_MAP(OD_OP_GFX_PCC_ERROR),
++	OD_ERROR_MSG_MAP(OD_POWER_FEATURE_CTRL_ERROR),
++};
++
+ static int smu_v14_0_2_upload_overdrive_table(struct smu_context *smu,
+ 					      OverDriveTableExternal_t *od_table)
+ {
+-	int ret;
+-	ret = smu_cmn_update_table(smu,
+-				   SMU_TABLE_OVERDRIVE,
+-				   0,
+-				   (void *)od_table,
+-				   true);
+-	if (ret)
+-		dev_err(smu->adev->dev, "Failed to upload overdrive table!\n");
++	uint32_t read_arg = 0;
++	int ret, od_error_type;
++
++	ret = smu_cmn_update_table_read_arg(smu,
++					    SMU_TABLE_OVERDRIVE,
++					    0,
++					    (void *)od_table,
++					    &read_arg,
++					    true);
++	if (ret) {
++		dev_err(smu->adev->dev, "Failed to upload overdrive table, ret:%d\n", ret);
++		if ((read_arg & 0xff) == TABLE_TRANSFER_FAILED) {
++			od_error_type = read_arg >> 16;
++			dev_err(smu->adev->dev, "Invalid overdrive table content: %s (%d)\n",
++				od_error_type < ARRAY_SIZE(od_error_message) ?
++				od_error_message[od_error_type] : "unknown",
++				od_error_type);
++		}
++	}
+ 
+ 	return ret;
+ }
+-- 
+2.47.3
 
