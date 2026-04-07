@@ -4,58 +4,125 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 69268FB5178
-	for <amd-gfx@archiver.kernel.org>; Tue,  7 Apr 2026 00:56:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 59BFDFB5188
+	for <amd-gfx@archiver.kernel.org>; Tue,  7 Apr 2026 02:57:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DD8D110E2F9;
-	Tue,  7 Apr 2026 00:56:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CC85010E311;
+	Tue,  7 Apr 2026 02:57:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="hBljbSm3";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="yvVyr9Ci";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B8FAA10E2F9
- for <amd-gfx@lists.freedesktop.org>; Tue,  7 Apr 2026 00:56:34 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 9618760180;
- Tue,  7 Apr 2026 00:49:21 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E3FB7C4CEF7;
- Tue,  7 Apr 2026 00:49:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1775522961;
- bh=XmGhm0tvIfgLvqP5Iv0OjVZ+bxUm/Xf/rXubccaqgrU=;
- h=From:Date:Subject:To:Cc:From;
- b=hBljbSm381tbmlVVp5EDa8lJAHQsAoxLbpIlGJx4q7dyBbPg1sibAS7GMTnXWkySa
- faT7UXPZVb830/6oehZ0YS559Vt+1upYFg3REq56FWH8BAn4xqQskuk3SmIXCWhNdi
- pgGduUHlmfQR5D+w5TwJb3VyFt7LIIxCXQKaq5QrO/O8FI8oU6S7EQNyOG8TsE1Hpd
- e7xkVZOd0Eq/R8CF6UyZT2wH7wajJPxw3swlOSMUa5DI+ZANPoAQWuhos3yzG6DNYT
- wGhuCbEE/HKcSBSoJyfOdq12NYEoinab8AwIjVZVk6FwZfbqc9ZEala355lIGPuWis
- XuNn/6MB5Gxqw==
-From: Nathan Chancellor <nathan@kernel.org>
-Date: Mon, 06 Apr 2026 17:49:08 -0700
-Subject: [PATCH linux-5.10.y] drm/amd/display: Do not add '-mhard-float' to
- calcs, dsc, and dcn30 FP files for clang
+Received: from PH8PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11012064.outbound.protection.outlook.com [40.107.209.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 13F8C10E311
+ for <amd-gfx@lists.freedesktop.org>; Tue,  7 Apr 2026 02:57:14 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=fPWkrP02HsfOs/ps/PlvFvq6PnaCHgZEBjv3FBUH0aaSBLAT/YJ7CuOk+mh5gwHXrqa5Q9ly4CA4B09puQPPVk+34RHmncbMmbOWcplljZZS5n12LGM3pFhdtjLzalx7e1dScEuB96xxSAxByaXFKS6tBWJJd6xJ18KHRYkwmKWp+GkgumxbMiinQ3w5+uTHCZe3q1K7IoyduDVu2/kiBctgQG4e9P5H0RNLq5NLgufQ0lwGnKA4UDQ5Im5wh1ttGm79jSEC7gqEZTBVGDz0eWOu6XBtV/kZxn2ZP/ZVtZavNMxM5CC8ZQ3WRN4nsQV9Hra5a6rV/T5DAoT47TqAWw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=buJXyQrgilaS1uyE6YEJLJKE8rYkb09uAuH5VSsVXO0=;
+ b=K0nrK1xjZf34VcyPjnaH6nB3AVyn5rUD5I7Qeg+HDPgGYl3Zwzc/i9Vpbww/yaaEz0kcbXc6H99EgQOPKcj4QuM+03/2opOAsmqV0i+jZjunlxqw5no3jH05HKaLKiLLLjOTchVy2BkivX5W9v9U3X6AhrREf5orZ8TAnyHjVzq9nY3XT1q2ALjwrK+xa1Mnp7ViaCiaPiXZrHF89TNlS/4TxXcSkKKPWUawSwWNYlg1DZQizr21uKL/59mL2Sczmtg7ZNTUxLMfHVSnCipcSdP9z44mxksO7ghHNJe+FXvy8cyJoJbNprtD5BTmZpMW47hkor0Ut80PTG1RzruU1w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=buJXyQrgilaS1uyE6YEJLJKE8rYkb09uAuH5VSsVXO0=;
+ b=yvVyr9CiJOzAfc8tyixn3x1qjTnu6q5JOD0LrTebZIVrp2OKhuwwDx3Jjwwjqmc6hhHVUfl+cDUKC/TvcGC9T4/mD2JHFd5s7m4fUH/hS8wB3QHt/K6uSR048XvCabEHEtN41OULnqe8AEB0YuHPeUg+b/3IM7VxlzNaC5sB5Io=
+Received: from DM4PR12MB5152.namprd12.prod.outlook.com (2603:10b6:5:393::16)
+ by PH7PR12MB5618.namprd12.prod.outlook.com (2603:10b6:510:134::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.17; Tue, 7 Apr
+ 2026 02:57:10 +0000
+Received: from DM4PR12MB5152.namprd12.prod.outlook.com
+ ([fe80::8874:ea43:ba4a:e73d]) by DM4PR12MB5152.namprd12.prod.outlook.com
+ ([fe80::8874:ea43:ba4a:e73d%3]) with mapi id 15.20.9769.018; Tue, 7 Apr 2026
+ 02:57:09 +0000
+From: "Zhang, Jesse(Jie)" <Jesse.Zhang@amd.com>
+To: "Zhang, Jesse(Jie)" <Jesse.Zhang@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+CC: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Koenig, Christian"
+ <Christian.Koenig@amd.com>, "Liu, Shaoyun" <Shaoyun.Liu@amd.com>, "Chen,
+ Michael" <Michael.Chen@amd.com>, "Deucher, Alexander"
+ <Alexander.Deucher@amd.com>
+Subject: RE: [PATCH v3 1/2] drm/amdgpu/mes_v12_0: use mes schedule pipe for
+ legacy queues on unified MES
+Thread-Topic: [PATCH v3 1/2] drm/amdgpu/mes_v12_0: use mes schedule pipe for
+ legacy queues on unified MES
+Thread-Index: AQHcv+VL9F8pgEPomUy19UUG7YaikLXS9J3w
+Date: Tue, 7 Apr 2026 02:57:09 +0000
+Message-ID: <DM4PR12MB51522665F8E22A61237330B7E35AA@DM4PR12MB5152.namprd12.prod.outlook.com>
+References: <20260330013346.1054624-1-Jesse.Zhang@amd.com>
+In-Reply-To: <20260330013346.1054624-1-Jesse.Zhang@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=True;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2026-04-07T02:56:59.0000000Z;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
+ Internal Distribution
+ Only; MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=3;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DM4PR12MB5152:EE_|PH7PR12MB5618:EE_
+x-ms-office365-filtering-correlation-id: ef66c156-7295-44db-193c-08de94515c5c
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|1800799024|366016|376014|38070700021|56012099003|18002099003|22082099003;
+x-microsoft-antispam-message-info: b+2XxpQn6il0MC+ubYOTmclnyQVi7H8XQ5rkVHeaTND7lLxufGrvyayX8Q3wTxeipQtuqcKz6ex0tdiYrr8Miugr1+IPhTeMpt2GeniWTgcz1x52+sX6C5fU/Y4TMzEizaSVtR5kuwgslbVrzSmWXEiBlKuW4eUXSPnQrNkec47PFhfAV/BlIGmYjb1rEwhMdF98w/0f+TylvIBfqpTnzd1QEK//0MGQ1DMf/fJZRT9zyRxiswLmNgLw+YLzLHMs30GzkYkfnhfWt8r+BRnKdpIXqAZHpuUBA66yeWdfXaX8r6bu6tHilcubgwdFn6ZuBOtIPTs/1KWSbaOWjGDvxOPsHUDSbRRPEhImjLKLHy5gr30EkplMWPEixLc6siBYMMbVzQEgqmCg7cfU0ycyGxCZ+qjmtlrV/ZKX8qQlhIKy68JHlKcVsnNnelxP0gqI74NIlwhpvyhf73rlmGMpvQ3d/A75Y8VFQnovKAHuZ/RHTWO0OrnOj2Sf0C7+bE9URyEhZhm3Thkr80fc8K3s2IaEenUDTLKaHO4CuflwAqxafwyZEAW/bBlQkPwLaZw1fVK1ePg3YFNJUJlQJBfC58dBlRhHzzU7UzJ7GIWHLrCk7qcymU/w+1B7pGPBY2LYQV6RDnCPl0gwPGOU4clJsfQj0blFbxJI5LfG/Rw4Isa+se0uAfSW/5DIWf5kbN5z/agjSkSAMgyCDN5H4UGzluYcbiZ7sVdW/fwX6BBCCkHl3qZea6U7GrWkF28I4GpY2NVnl4TJcpwZwXQSpD74p1yflrM4AvsLYgjkXNr7Rj0=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB5152.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(376014)(38070700021)(56012099003)(18002099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?tqugeywfKBrzlhZqCsj5RReHfRghazG9WFaTNiXIqM5E7bqnYau8QSnim6Ek?=
+ =?us-ascii?Q?pY1KjDuYs6S7z1QKjh5Z2o9QujnIIyzjB4p/tpa1+1/tS4epdL1nYjwB33TM?=
+ =?us-ascii?Q?YbAMBmMomcM/QY/XLASHaiOTXzoCMXwbKSGusC/xaZ5AInJvXUS7dqeuC0/Y?=
+ =?us-ascii?Q?qHZtP4ulFs4OwCHFm6LyLPRf414ojlH57S0twmmP7SCHxopErcWwXo1WaQqk?=
+ =?us-ascii?Q?ijdzW20VDGeC2xTfJwi0xFY7MM2sgqoFjz5+E8zwiYrOp1DSxhMY/a2maD0b?=
+ =?us-ascii?Q?bzbPD+iIyYbZWKVYeNpC3hW/VxvQ5Fj7KZhQrp45oN28n1VLShNQ9gyU6jaq?=
+ =?us-ascii?Q?+KaKkHJxyrd/twA9PuiXGdQvZltEaZgaHTtZ734LAUwVXYXyQ1gr2O7Sxz9P?=
+ =?us-ascii?Q?CIKwI08kOuIEWLADLoSLpJe0vbLvSiMgkn+Syb6g3XvQpBDHnXGsJAdbwJlX?=
+ =?us-ascii?Q?7Fz8b5oSui62l1p+PPAebVHxEQYLRRbAu7NrOiUnNFvpDMnlLDwlnnGaf2XJ?=
+ =?us-ascii?Q?HggUG0HB1a5Dv91/q3HcG7xE/x5YhonPE/97wDtZ+uUHdwa/IgHwPMNCC09p?=
+ =?us-ascii?Q?sWkYzvvzKI1efEduyVGnGdb2Jr6wj2R6cc4KaxIA4aCqTEiM9STajYJE+ZzV?=
+ =?us-ascii?Q?+f6TwWClSKGS/viRr+ImeBEAGYWfWyicasCQjtuvXf6fuQem+r4tC3iFJLw2?=
+ =?us-ascii?Q?Wl4KB87ieoo3QKbDoSuJBB+gEWFJvwa0hm1gPI9N7Nx+gvYwLNAAIcdFnmLd?=
+ =?us-ascii?Q?Kj3lX+2emE031ZPgr8WQOerKH/+d6r/QvFgpa3/jj+d3SzvL3iReZhOWcyBj?=
+ =?us-ascii?Q?tz5GiSll0El/dy9igfaE0j362if6xDN1VaSo7a9/HZZWTjAdRC3ckhzg6NW0?=
+ =?us-ascii?Q?Qb755DW51YDC6rLreMNgpd2gDVek2JcawNYQGsPZzdTM+x/EXMPakEQeL8jh?=
+ =?us-ascii?Q?kRiNL0IxOnAyFLq6xKywl4XRMp/SGyxvVi74RY11rlLshv5Gmxnc7mVY46Ya?=
+ =?us-ascii?Q?UUQoIRZGrtqb53GEVzGqWsFgPh+H2Wsor5VnxW21UeMcHWYAodGt31cjk9PM?=
+ =?us-ascii?Q?/CB1ZpbfkbGMjORu2TL1tc7X+jimE4t8zjRgr1LvPoUow7beE9kYdxNcr/HA?=
+ =?us-ascii?Q?adMiC4io8zgwC6qbJHGwIfvwLhhSYLrMqWjbcMaQiTZ+FR0MbMRdIS4Q/Z4+?=
+ =?us-ascii?Q?nl1n0mWevIgCOEH/7M6PZ+vupirZcuKXtT9pB1nyaoPvq2o7dmE62VkkHuW9?=
+ =?us-ascii?Q?wd+Es2ERoLNmz3ICpRBcG6ws/R5dyjZLMixnNSG6JKjJLYvd+hOIJZrvgnBS?=
+ =?us-ascii?Q?yLE+BdFVzGmmsiqq3J/z1QRIfWH7fAjt9736Qo0zXa0XVsmYxJoUXP7OOKS1?=
+ =?us-ascii?Q?wjtVqlImpwUB7F1J3ZzV6bcAF1JXHU3gLd+ZmtcXhI5CGdw3hdfZRzDKXBYf?=
+ =?us-ascii?Q?JEgiOz16wxD7hCaQ/o4/v3o2J952BI5GTnXaHuzEQ07zaIIoKMWKWwg9Xk32?=
+ =?us-ascii?Q?SNWugbUkZB4jvoKTgB1OnM5uKGUP3aDJ0LYiP6ycrDLQ3Ngi3Qeg2Txuy5AT?=
+ =?us-ascii?Q?621RPI+NZ7g2GxuS640DyERfmYHWoXvrC/CaHgUI2Bn3akP6rHsOM5AzU80X?=
+ =?us-ascii?Q?MxvSZ+5XqP/OsEPglZ6+8zVsLFLELLL1MfA9hHJ+VovkLHSOuFbdTuGXoDcw?=
+ =?us-ascii?Q?39Th8WbmC6QA9RfwSpA1iJkoZLtSOTcG/5UxqhPRbJ5PG7cc?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260406-5-10-clang-amdgpu-hard-float-errors-v1-1-09c4c045f848@kernel.org>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWNQQ6DIBAAv2L23DVgFEy/0nigsCgNVbNIY2P8e
- 2l7nEwyc0AiDpTgWh3A9AopLHMBeanATmYeCYMrDI1olGiFwg6lQBuLQvN045pxMuzQx8VsSMw
- LJ2xb02svjdaqh1JamXzYf5cbxDDnHbtaivoNw9+mfH+Q3b4jOM8PQm084JUAAAA=
-X-Change-ID: 20260406-5-10-clang-amdgpu-hard-float-errors-44a87f1a7768
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Sasha Levin <sashal@kernel.org>
-Cc: stable@vger.kernel.org, Nick Desaulniers <ndesaulniers@google.com>, 
- amd-gfx@lists.freedesktop.org, llvm@lists.linux.dev, 
- Nathan Chancellor <nathan@kernel.org>
-X-Mailer: b4 0.16-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5282; i=nathan@kernel.org;
- h=from:subject:message-id; bh=XmGhm0tvIfgLvqP5Iv0OjVZ+bxUm/Xf/rXubccaqgrU=;
- b=owGbwMvMwCUmm602sfCA1DTG02pJDJlXQvrnlm9w/vXBc6KnDH+K4p1wbZ4VsSvzjiekvRB6c
- 8dCLZOno5SFQYyLQVZMkaX6sepxQ8M5ZxlvnJoEM4eVCWQIAxenAEyEI4KRYf27DVsTHj/TfnTn
- V83qr8dX2zGe3HOO5Z/mzibRVzcarqkxMvR9LDgUKWffMrmh4MaVSSmzneYEbmTJm1C2/NkftYM
- 78tgA
-X-Developer-Key: i=nathan@kernel.org; a=openpgp;
- fpr=2437CB76E544CB6AB3D9DFD399739260CB6CB716
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5152.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ef66c156-7295-44db-193c-08de94515c5c
+X-MS-Exchange-CrossTenant-originalarrivaltime: 07 Apr 2026 02:57:09.5416 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 8taxmcEO3Y/11vFtDj2HzLUJPOUIQ3drWTDFN3Q/O6uY+8dhE7NwPOiqQFrd3Bg7Yun2vGzvzFlf74KuUkaZ1w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5618
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,118 +137,89 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This patch is for linux-5.10.y only. It is functionally equivalent to
-upstream commit 7db038d9790e ("drm/amd/display: Do not add
-'-mhard-float' to dml_ccflags for clang"), which was created after all
-files that require '-mhard-float' were moved under the dml folder. In
-linux-5.10.y, which does not contain upstream commits
+[AMD Official Use Only - AMD Internal Distribution Only]
 
-  b4bab46400a0 ("drm/amd/display: move calcs folder into DML")
-  27e01f10d183 ("drm/amd/display: move FPU associated DSC code to DML folder")
-  40b31e5355ba ("drm/amd/display: Remove FPU flags from DCN30 Makefile")
+Ping ...
 
-clang-21 or newer errors with
-
-  clang: error: unsupported option '-mhard-float' for target 'x86_64-pc-linux-gnu'
-  make[6]: *** [scripts/Makefile.build:286: drivers/gpu/drm/amd/amdgpu/../display/dc/calcs/dcn_calc_math.o] Error 1
-  clang: error: unsupported option '-mhard-float' for target 'x86_64-pc-linux-gnu'
-  make[6]: *** [scripts/Makefile.build:286: drivers/gpu/drm/amd/amdgpu/../display/dc/calcs/dcn_calcs.o] Error 1
-  clang: error: unsupported option '-mhard-float' for target 'x86_64-pc-linux-gnu'
-  make[6]: *** [scripts/Makefile.build:286: drivers/gpu/drm/amd/amdgpu/../display/dc/calcs/dcn_calc_auto.o] Error 1
-  clang: error: unsupported option '-mhard-float' for target 'x86_64-pc-linux-gnu'
-  make[6]: *** [scripts/Makefile.build:286: drivers/gpu/drm/amd/amdgpu/../display/dc/dsc/rc_calc.o] Error 1
-  clang: error: unsupported option '-mhard-float' for target 'x86_64-pc-linux-gnu'
-  make[6]: *** [scripts/Makefile.build:286: drivers/gpu/drm/amd/amdgpu/../display/dc/dcn30/dcn30_optc.o] Error 1
-  clang: error: unsupported option '-mhard-float' for target 'x86_64-pc-linux-gnu'
-  make[6]: *** [scripts/Makefile.build:286: drivers/gpu/drm/amd/amdgpu/../display/dc/dcn30/dcn30_resource.o] Error 1
-
-Apply a functionally equivalent change to prevent adding '-mhard-float'
-with clang for these files.
-
-Closes: https://github.com/ClangBuiltLinux/linux/issues/2156
-Signed-off-by: Nathan Chancellor <nathan@kernel.org>
----
-Hi stable folks,
-
-The ChromeOS folks raised an issue due to build failures in linux-5.10.y
-when building with clang-21 or newer:
-
-  https://github.com/ClangBuiltLinux/linux/issues/2156
-
-I thought I previously addressed this in all stable trees:
-
-  https://lore.kernel.org/20250604233141.GA2374479@ax162/
-
-But our build coverage in 5.10 missed these files because allmodconfig
-enables KCOV, which was incompatible with these files until upstream
-commit 3876a8b5e241 ("drm/amd/display: Enable building new display
-engine with KCOV enabled").
-
-This change addresses the remaining errors in a functionally equivalent
-manner as my original upstream commit 7db038d9790e ("drm/amd/display: Do
-not add '-mhard-float' to dml_ccflags for clang"), similar to what I did
-before in 5.10 commit 0c3939b00253 ("drm/amd/display: Do not add
-'-mhard-float' to dcn2{1,0}_resource.o for clang"). There is technically
-an upstream change that addresses the dcn30 error but it was done after
-aarch64 support was dropped from the new display engine code, so I
-preferred to do this to minimize potential regressions.
-
-If there are any issues, please let me know.
----
- drivers/gpu/drm/amd/display/dc/calcs/Makefile | 3 ++-
- drivers/gpu/drm/amd/display/dc/dcn30/Makefile | 4 ++--
- drivers/gpu/drm/amd/display/dc/dsc/Makefile   | 3 ++-
- 3 files changed, 6 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/dc/calcs/Makefile b/drivers/gpu/drm/amd/display/dc/calcs/Makefile
-index cb7c37ef8735..1b3e3926b706 100644
---- a/drivers/gpu/drm/amd/display/dc/calcs/Makefile
-+++ b/drivers/gpu/drm/amd/display/dc/calcs/Makefile
-@@ -26,7 +26,8 @@
- #
- 
- ifdef CONFIG_X86
--calcs_ccflags := -mhard-float -msse
-+calcs_ccflags-$(CONFIG_CC_IS_GCC) := -mhard-float
-+calcs_ccflags := $(calcs_ccflags-y) -msse
- endif
- 
- ifdef CONFIG_PPC64
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/Makefile b/drivers/gpu/drm/amd/display/dc/dcn30/Makefile
-index a71c0f298380..52d5826b2970 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn30/Makefile
-+++ b/drivers/gpu/drm/amd/display/dc/dcn30/Makefile
-@@ -32,8 +32,8 @@ DCN30 = dcn30_init.o dcn30_hubbub.o dcn30_hubp.o dcn30_dpp.o dcn30_optc.o \
- 
- 
- ifdef CONFIG_X86
--CFLAGS_$(AMDDALPATH)/dc/dcn30/dcn30_resource.o := -mhard-float -msse
--CFLAGS_$(AMDDALPATH)/dc/dcn30/dcn30_optc.o := -mhard-float -msse
-+CFLAGS_$(AMDDALPATH)/dc/dcn30/dcn30_resource.o := $(if $(CONFIG_CC_IS_GCC),-mhard-float) -msse
-+CFLAGS_$(AMDDALPATH)/dc/dcn30/dcn30_optc.o := $(if $(CONFIG_CC_IS_GCC),-mhard-float) -msse
- endif
- 
- ifdef CONFIG_PPC64
-diff --git a/drivers/gpu/drm/amd/display/dc/dsc/Makefile b/drivers/gpu/drm/amd/display/dc/dsc/Makefile
-index 6207809f293b..4fc6d9c32d16 100644
---- a/drivers/gpu/drm/amd/display/dc/dsc/Makefile
-+++ b/drivers/gpu/drm/amd/display/dc/dsc/Makefile
-@@ -3,7 +3,8 @@
- # Makefile for the 'dsc' sub-component of DAL.
- 
- ifdef CONFIG_X86
--dsc_ccflags := -mhard-float -msse
-+dsc_ccflags-$(CONFIG_CC_IS_GCC) := -mhard-float
-+dsc_ccflags := $(dsc_ccflags-y) -msse
- endif
- 
- ifdef CONFIG_PPC64
-
----
-base-commit: aed5c3b77cd53ba74f66767b03bfb9177662af4b
-change-id: 20260406-5-10-clang-amdgpu-hard-float-errors-44a87f1a7768
-
-Best regards,
---  
-Nathan Chancellor <nathan@kernel.org>
+> -----Original Message-----
+> From: Jesse Zhang <Jesse.Zhang@amd.com>
+> Sent: Monday, March 30, 2026 9:33 AM
+> To: amd-gfx@lists.freedesktop.org
+> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian
+> <Christian.Koenig@amd.com>; Liu, Shaoyun <Shaoyun.Liu@amd.com>; Chen,
+> Michael <Michael.Chen@amd.com>; Zhang, Jesse(Jie)
+> <Jesse.Zhang@amd.com>; Deucher, Alexander <Alexander.Deucher@amd.com>;
+> Zhang, Jesse(Jie) <Jesse.Zhang@amd.com>
+> Subject: [PATCH v3 1/2] drm/amdgpu/mes_v12_0: use mes schedule pipe for
+> legacy queues on unified MES
+>
+> when suspend_all_gangs is issued to pipe0 MES during system suspend or ru=
+ntime
+> PM, pipe0 can only suspend and resume queues it has tracked.
+> KCQs registered with a non-zero pipe slot may not be correctly handled, l=
+eaving
+> them in an inconsistent state after resume.
+>
+> v3: fix the schedule pipe issue
+>
+> Suggested-by: Michael Chen <michael.chen@amd.com>
+> Suggested-by: Alex Deucher <alexander.deucher@amd.com>
+> Suggested-by: Shaoyun Liu <shaoyun.liu@amd.com>
+> Signed-off-by: Jesse Zhang <jesse.zhang@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/mes_v12_0.c | 22 ++++++++++++++++------
+>  1 file changed, 16 insertions(+), 6 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
+> b/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
+> index 023c7345ea54..67fb5161c0e5 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
+> @@ -528,10 +528,15 @@ static int mes_v12_0_map_legacy_queue(struct
+> amdgpu_mes *mes,
+>               convert_to_mes_queue_type(input->queue_type);
+>       mes_add_queue_pkt.map_legacy_kq =3D 1;
+>
+> -     if (mes->adev->enable_uni_mes)
+> -             pipe =3D AMDGPU_MES_KIQ_PIPE;
+> -     else
+> +     if (mes->adev->enable_uni_mes) {
+> +             /* Keep scheduler queue on KIQ pipe; map all other kernel q=
+ueues
+> on sched pipe. */
+> +             if (input->queue_type =3D=3D AMDGPU_RING_TYPE_MES)
+> +                     pipe =3D AMDGPU_MES_KIQ_PIPE;
+> +             else
+> +                     pipe =3D AMDGPU_MES_SCHED_PIPE;
+> +     } else {
+>               pipe =3D AMDGPU_MES_SCHED_PIPE;
+> +     }
+>
+>       return mes_v12_0_submit_pkt_and_poll_completion(mes, pipe,
+>                       &mes_add_queue_pkt, sizeof(mes_add_queue_pkt), @@ -
+> 567,10 +572,15 @@ static int mes_v12_0_unmap_legacy_queue(struct
+> amdgpu_mes *mes,
+>                       convert_to_mes_queue_type(input->queue_type);
+>       }
+>
+> -     if (mes->adev->enable_uni_mes)
+> -             pipe =3D AMDGPU_MES_KIQ_PIPE;
+> -     else
+> +     if (mes->adev->enable_uni_mes) {
+> +             /* Keep scheduler queue on KIQ pipe; unmap all other kernel=
+ queues
+> on sched pipe. */
+> +             if (input->queue_type =3D=3D AMDGPU_RING_TYPE_MES)
+> +                     pipe =3D AMDGPU_MES_KIQ_PIPE;
+> +             else
+> +                     pipe =3D AMDGPU_MES_SCHED_PIPE;
+> +     } else {
+>               pipe =3D AMDGPU_MES_SCHED_PIPE;
+> +     }
+>
+>       return mes_v12_0_submit_pkt_and_poll_completion(mes, pipe,
+>                       &mes_remove_queue_pkt, sizeof(mes_remove_queue_pkt)=
+,
+> --
+> 2.49.0
 
