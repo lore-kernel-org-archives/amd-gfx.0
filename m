@@ -4,122 +4,123 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6E043FB519E
-	for <amd-gfx@archiver.kernel.org>; Tue,  7 Apr 2026 06:38:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3ED8DFB519E
+	for <amd-gfx@archiver.kernel.org>; Tue,  7 Apr 2026 07:05:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F0EF610E22B;
-	Tue,  7 Apr 2026 06:38:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C8B4710E335;
+	Tue,  7 Apr 2026 07:05:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="cYpjrsX0";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="MSO7dgMA";
 	dkim-atps=neutral
-Received: from DM5PR21CU001.outbound.protection.outlook.com
- (mail-centralusazon11011011.outbound.protection.outlook.com [52.101.62.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9C6FB10E22B
- for <amd-gfx@lists.freedesktop.org>; Tue,  7 Apr 2026 06:38:14 +0000 (UTC)
+Received: from BL0PR03CU003.outbound.protection.outlook.com
+ (mail-eastusazon11012017.outbound.protection.outlook.com [52.101.53.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 809C110E335
+ for <amd-gfx@lists.freedesktop.org>; Tue,  7 Apr 2026 07:05:29 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=nFLovKW+Q2HDV1fXhFdA22m7PJYsYRKzaR64GoPMX6VC8qEXHIEyVxgxjyYSFe/AbqnERZkdsGztTL+sv5kCilfi4TdxlFg7AMsgsTfEFkY/P18yTTrpjdWmTY/HqG7v1L2JgX1rKIe9MCZgQ0jgPPvDEqs6KEdvUSMEEsUoK+amuCcCJ4yHI4m2Jg/H8ZGMXWf2b5cAv5yLOhHIZUZhWjPj/1wMzJjilEBT2+ZNLIrmFJFJIaQjBqZYpsK1EePX1n7Kp3Pn0du9I4DJkFz0qYFfHCCXJF9O2PHUIk0zj3hWs9a4sfLuRbe4dW0nhwEjd/wmNnxBmQYO/uwKEeAcKA==
+ b=aipohSP+qCZ5P0G54Xwh8WgRJpuC9R8kJoghW452rBbofS63Ljg93TMADGThM4FPTFszQIQtXWOjVBSbt/xeXu36t8CVCq+v5gmbdo7l00iDnGDbCkF+SofPVyeIX4OOR1oHtgSLjd8LQ3HifGGAHb6DAxyKWrEf0whiPR3Wg7wp4qa1BUHC9ofWr4n2nFzPLdbeqkh0SzMpHTpxwcIhoX4vQywaJ4U1eBHvSZeqkblz6DJUvtjGCJtULXK1rIrDjQiAAOvZCWZSyxi4cg1JxxunZ/mgyHRkUjD7+rGCZX7eplmrL53lcz6XWwnx7l78KM19J8/C0tTOewBVTA911Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=xoIB8dlxNuSiHys2Y5S/B70HC1VGcS6fEZuEmK2Cyz0=;
- b=W6lqBiVqq+8Et7T4yYYGwNrjVmMjH2el219z4GFza8NZaq2q7avXvbN4aPCqBkgXdP5xOxiKRGXkisDsV7NFSXmQW3/nAj0mHJeuqpooFEftKQy3fgHqWIdWn2RkqLGPjavm6NZDFGOdSqgmOWwZDSmNkx1/EcsH3m3VLLYGGttsDQUfvwoiwIr3o5S8lgwKRrEyN00FzCHjagsCim4J2U8TfdwvASLawJqVWPVSdAVrfWmWzzLCBbyrjAG6X2izRPf8XAwsc0qkhWimwKSDikILSda4dMLyn97u6fu9nsl8rEs693mSBVhoVEaRcYYfjoP5aLbAZKrVNOSFYFrrCw==
+ bh=UzzfOCiVry77zGfP1qmY7mC2CcoKCi9bz4+7q75gRqY=;
+ b=ExvM+bPLquyyDm6HK/wUq/Qz3kewNPtz2kBHKhxiNSIf/lkrix7DyLmZgTMncFFMBl6EBtL6vpTTaO3aI8HsdXU+t/5CTjUbGfswvgswiIYFgNEqGnDHV8rHJM8I6WNeKhvOsbZr4pBdF2XQX6EGCPEjGM57WPmKnob1ZIiFTq5WXhnzvyN7ch9SvZI3wI1fVVVWA6jK/lJ/PM4YAXrF9WiEyY6MVSoeoUPn6YEVz3J/bXGhH0B0yZEd3tr4FmQ6sXlubiCqyv8I4kaa537EJqBoVRqkX2vCXpcDwyAlccW9QbKea9VqwdQv1Ecnyb9oh/lYrv0cs3mraD/h0w9e6Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xoIB8dlxNuSiHys2Y5S/B70HC1VGcS6fEZuEmK2Cyz0=;
- b=cYpjrsX0JSRCya2qO+FysnKKr3R8n7ZImgma7t+FLuzaVF9ShSlly7t/uDN+jwVL97e17hZ0tHLaOAfNdSom7/hvXv8uVIuUdLwd03UZHFI2YYL5/rcMp3UdvbyFQhnInje7n6yZ8Z7wUIP/B/4HwJzH2oZYMW6OeMJbZT+hQEE=
+ bh=UzzfOCiVry77zGfP1qmY7mC2CcoKCi9bz4+7q75gRqY=;
+ b=MSO7dgMA58/nmQwOQ/AFh1MIf0LmDmUW86MQzKA+6fZWGUxC4uxe4fXcpexb3NpA1eSkcJoKU8pA7QsTOwk0bn3hHObjXCt3Wa1kiJTiPdpcNU2fr6oZrwWqXRuqUV+k6WQvi57wUmIBjWRcdu39It6A9zItTl3aC3XtqDAOn3o=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from SA0PR12MB7091.namprd12.prod.outlook.com (2603:10b6:806:2d5::17)
- by DS0PR12MB8070.namprd12.prod.outlook.com (2603:10b6:8:dc::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.20; Tue, 7 Apr
- 2026 06:38:10 +0000
+ by PH7PR12MB6420.namprd12.prod.outlook.com (2603:10b6:510:1fc::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.17; Tue, 7 Apr
+ 2026 07:05:26 +0000
 Received: from SA0PR12MB7091.namprd12.prod.outlook.com
  ([fe80::ec33:1213:cfd8:63bc]) by SA0PR12MB7091.namprd12.prod.outlook.com
  ([fe80::ec33:1213:cfd8:63bc%6]) with mapi id 15.20.9769.016; Tue, 7 Apr 2026
- 06:38:09 +0000
-Message-ID: <89e0dd8b-f7f5-4c84-98a8-2b867709db03@amd.com>
-Date: Tue, 7 Apr 2026 12:08:01 +0530
+ 07:05:26 +0000
+Message-ID: <9d6d4d1c-7653-40bc-8b3d-151d0f969d88@amd.com>
+Date: Tue, 7 Apr 2026 12:35:19 +0530
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] drm/amd/pm: add read arg support to
- smu_cmn_update_table
+Subject: Re: [PATCH 2/2] drm/amd/pm: add od table upload error message parsing
+ for smu v14.0.x
 To: Yang Wang <kevinyang.wang@amd.com>, amd-gfx@lists.freedesktop.org
 Cc: alexander.deucher@amd.com, hawking.zhang@amd.com, kenneth.feng@amd.com
 References: <20260407030931.2024335-1-kevinyang.wang@amd.com>
+ <20260407030931.2024335-2-kevinyang.wang@amd.com>
 Content-Language: en-US
 From: "Lazar, Lijo" <lijo.lazar@amd.com>
-In-Reply-To: <20260407030931.2024335-1-kevinyang.wang@amd.com>
+In-Reply-To: <20260407030931.2024335-2-kevinyang.wang@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MA5P287CA0096.INDP287.PROD.OUTLOOK.COM
- (2603:1096:a01:1d4::11) To SA0PR12MB7091.namprd12.prod.outlook.com
+X-ClientProxiedBy: PN2PR01CA0254.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:21a::20) To SA0PR12MB7091.namprd12.prod.outlook.com
  (2603:10b6:806:2d5::17)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA0PR12MB7091:EE_|DS0PR12MB8070:EE_
-X-MS-Office365-Filtering-Correlation-Id: ac6040c8-c426-401c-9281-08de94703bc4
+X-MS-TrafficTypeDiagnostic: SA0PR12MB7091:EE_|PH7PR12MB6420:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8398d806-3482-4998-48ea-08de94740b04
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|376014|1800799024|56012099003|18002099003|22082099003; 
-X-Microsoft-Antispam-Message-Info: eRw96XBXjeCEnVWA64bJiuDsl7Lj03Trp46GoCf0wQVA0ZtnX5uf8lEG+2AckynkrTH3wl8DShLJ9eDcw8JrC+cNDCPv+UvU91myRYQsSaQolMNq3UgI9CfcpDCS1L0TS3wW/i5KNEwVE0QA1dB+TS7jdeGa5o2KZwT1hPsuOQQ5Hi8Ss8opCYkkzkBbNuwtCqAL7Xac7UTIQc9TF7aEssqiUfQV7TlictwOkc83s4k0USwV9cp/R7VzwmWtiGKRe/sXKFLs6KYHhl08JItdKQO5D91NwIwb0uHn2Q5WTeHf+UE0zcQ21TdHOQELo30FQAn2KjLDF8HtuUkPRdCev3faiXf/dzThE9ft8tfF7Te7NYJIr2qhYFLSfAFwGfbLUvCSxTmxjULtuxdmAdi82mzdpCPqsvNjk1yaH4ZWqnaVpzbCHtErg1GYGNYBMdqXyDJz+5Ink3tkq3fN3y/FvqX2vZN3annhuU00AsN0KxEW/s4qoiVG+I22vD0VCUDOZVc2+KAShDTdo9v3LELej9Hpe90njBdBZYAsEx8AfxJRrGKpv4b2CI9LdHe+uC2Rh5cR4DBT+m2agrF4URaDt2d6p2pDVIL07KuEKPPmvQAyr090DStOYfuTcVyCUFd9myWFsFD3ceBc13KTd67lR+c/WiiB4SKzkofnRUX3LiaTOVA4b6B5W++2LtRdBIMkwT8bfC+AbPHJswoTRJhn66+lH7T8/5hDmnuYDx5azcM=
+ ARA:13230040|1800799024|376014|366016|56012099003|18002099003|22082099003; 
+X-Microsoft-Antispam-Message-Info: uj089mVE5EPVXOc+K63Cm81c1KJBrYzGVpAmhsnA0ZoQzNwtygoiz9CNLp5mD4R+ZTPgd7nuEMigIPYsrufdtt1aXiHsQ8/a6HI//lHMScR6fZT7Yq3bKDgbB3UEhKnw4MkKV42I+TviM40IrO8zqpiqazQkwaay+VhvrCRuSvp5mAZUNOipJSEXkGR2jNUn44oacgeNbCgmEtXtvUjOinHdeBL7tClLOoASb9ze0yDQI2R3145xYQeL1M2uYtmSEy53rxh+PZjEbI9ctq0iU0Wl8SSQoUZ+kjTcXCD8CyzydiFLnqKrzCqh16tdh6H2QRMxN1qH81hd9zlt8ZMFeJfV5dkQ1BZNFXJ/8KLrgRwvXjcKryy9P09rxi+e12zUV0Dtg340N/stjtN6gGnARSPSfIqXtsI2ddEmohwEKmZEi2srHFvJy72SmLZeZNfXBT4vpGrJwvcBe/SsF0D/aChbaY8nKwe/mwbzs/e+QjcglD3LIsUBra/wPU1fl16Hpsv3Gd+SgO8m2vYu5vHMtF+P3tsL4VB+AdYeUen0dqgltkGKlGzrgDO9sDvweoNQrRgaVJ/jRq2P18dUvZGPtRm4NcZtkme783xT1dvrQCsrZicW95KXxjPFMmA0HkdDASK8CpU7CVQV2v7NQs9Izf7JqsFX8I3scLCx0/MauZHGCWJh5ZIN70SwJdkJKnLpLiBVBSWvWGkNpco28aVULxtIBq3r0/cOS4emn6dlHz4=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:SA0PR12MB7091.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(1800799024)(56012099003)(18002099003)(22082099003);
+ SFS:(13230040)(1800799024)(376014)(366016)(56012099003)(18002099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Y0gxRWNRN0JCblNSZVFzaW45bVN5SU1BSURWRW9BbnYxYkVXem5Kc1lCcFpt?=
- =?utf-8?B?K1JEZ29VQzJsdXdBSSt5dFdIM2FOWEhnTTYvVDdrQWhXUUF5M1ptcDN6bTVx?=
- =?utf-8?B?bG1TTWJQbGh5eEU4R0VCeTNobW5oK0tvTTV5UTNCS1BUTzkxbjh0MTFvcTd6?=
- =?utf-8?B?dzM1em1jVE1iNmxHVGNsdzU0cjB0eWQybWtOd2dYR0lPNllHVnBmeDhpNjMr?=
- =?utf-8?B?SkV1SEpvSHordnBWL3p0ZmNSYXZ0MXpRQ1pEOTI2SU1iUjFqZzlWTWVLS3Bu?=
- =?utf-8?B?TXM4dWJhSDJBa0QydUI2R29Zb2cwTXVlWHllUHc2QzhMSnVZUnhsU3B1QTls?=
- =?utf-8?B?UFg3dWJXNXVpN0JIM2JqYktuakplejl2bzAzTXdYRzMvZWJFeXllVjlzWm1F?=
- =?utf-8?B?c1hzSE9Tc1JKaTAwUkNHTG5RcjQvYnRLaVRCaTZDWXNZVnAwYU9obGh3aW5L?=
- =?utf-8?B?c1M1NmVkbm8yclhOTld5MnJneG53SWoxekFrdjRQeStGKytsWm1rRmhqTHhx?=
- =?utf-8?B?Zm5WVTJFeXpWZ1pNbWNva2VhSG9ibTBYNUsxWmxGUjBMaWpiem1WWlIrVTJ4?=
- =?utf-8?B?b1lZU0FUZmpDVEZ3RHdEOEdSQ0lUakVYcjhsb1lLZnpKTkR2MjNkblFvNDFn?=
- =?utf-8?B?eXNKemdSLzhZQVY1WC9ZaGVjcDJQWU1XV3dSN0pHcUc1Zy83MG9Ka2V4T3g5?=
- =?utf-8?B?ZjZrb3NRcDFVNUE0a2dkSXlBR0Q4SHdtK2ppS29RQWcvL3Y3elFTMnJWVWJk?=
- =?utf-8?B?UDNwWEowS29vdXhOaDI2L0pzOTZsNGRZZFNrTXBwZWdSODV6VytIMkRUbml5?=
- =?utf-8?B?L1plWmtnakxQZnUyMVl4MkxNOHRFQ3VKNlcwNi8rOWVkK2VzaWVTZW81TEJF?=
- =?utf-8?B?eXY0Rlh0MVFJQWVvVDdHL1hvSDNVWjZrVHpwcjl3dlhWbEVsZGt2RlVBUDJ1?=
- =?utf-8?B?VGZ1eFlYZzZGU3I3dElIVFllNGpNUXZUaHNIMXVuWEwzd09KOC9YMlpMUGxL?=
- =?utf-8?B?M2R5TVRiY2RxQ1Bud0w3VVhDMW9YT1RGVERlYXN3UUUyUGdzNnJhcExlR0xq?=
- =?utf-8?B?NXFvWGI4VEp1ejRUR0ZYUC8veEZkVjZ2UTdtdjVwUXVXbVVvVVpJL0lIN0J5?=
- =?utf-8?B?UmpkOXRUUHlKNWtyalFYYU5DekkwR2VzMzl4TCt0dHI5SG8vNHZFNXZOVmJE?=
- =?utf-8?B?anNyYVlxMUxqUHFOV0x5aEFFZmdma0xwVEFoRHlKU285VmJncU9obUZnR001?=
- =?utf-8?B?TmtGQTE5TjhYYmozdXlpSTZNMFF5aitkMFBuclhmMU83RG1zMWVGWXV1SWty?=
- =?utf-8?B?azdpRXljc0lDbFV4T3JMbDNFTUpHd2U5VEVWdE9wekVrbWhVenJFUzV6VTRp?=
- =?utf-8?B?QTZaVVF1UmRHbDV5ZXJQakJyREl2VXFKblBKUXM2dnN0OTRBSkswRmlRZUg0?=
- =?utf-8?B?YzZ3a3JMN2h1OHBtNVJ0QjFtdkFpY2FGRllaWlEzWGg5b0xtajRQTEpnUDk3?=
- =?utf-8?B?M0lKWGxEVW9XQU5hZldac0E1WkMzdWxGZWFwcWJIY0ZXQkoyd3lKTmdmVHpM?=
- =?utf-8?B?QzdYYmkrV09DVnI2WlMwaHRwbHJOenFKSEZNd3IrT3dFaUtLRWEzQjArL2Uw?=
- =?utf-8?B?YzJRRllNTjZYalpQbFg0VUhPM01nOTZITXZOMTl3eEViTnZUaWNUVXpNemlX?=
- =?utf-8?B?S1g5NGk4TUlCRFJTWnp0TTBUMS9yMFdXZzk4aFZRVGc2WW5hTm1vc2Q2bndt?=
- =?utf-8?B?a1dhdllDb3pQOWpoS1NtMDdZcnNIK1VKU2lJaWw5N2pjcHh5NTAzWXZMREEv?=
- =?utf-8?B?K1VGbkphWHI1REREMmgwUkVqQTY0MlZ6eVAwMlNDVkxoYTZPV0pGY01JTFNN?=
- =?utf-8?B?b2pub1l5aFFRSGtKQ2ljY0N4Z2N4R1VYNWJJRnB1ZjlTclZmMUFyaDVpWlNa?=
- =?utf-8?B?TkJvTDI1V3U5Nk1zVGhUa2lLUFBWK0pXQSt2UlVzWHJ2aHZLWE12U3d6KzFw?=
- =?utf-8?B?d0wxYkU1bW8yUGFIMXhBZ2FzRUhaQXV1VHg4cUNzcTJ2RlJRUG1KYnduWnJ2?=
- =?utf-8?B?cVMrYytETVlZQUxNK1E1elBGY3M5aXpHeXVtLzd0OU11RHZNcC80N2ZyZGRT?=
- =?utf-8?B?dkpXM1JHNXpERS82VUt1MWczNXMrR3NPd1RCVXNDZVcrVWhBbEJwbUxQZGVr?=
- =?utf-8?B?T1J1WlJ0Um1LWmlUSytNK2MvRmp3MER1MUJGaTNHWGZOTU5JTEJydE9pZ2lS?=
- =?utf-8?B?RFBERzNXMEVEYVRMbmxUWFpwYzd3NE9nSjQ4bmk0aFE2dVptUWhCbnJpaUhJ?=
- =?utf-8?Q?4lEaDnX6lwPLLSy0wS?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MUMxTW1Mb2FwNHE1QUdSL1oxS3crNEFMS05VR3ZIbWRoQ0NaWCs5VnlmMVIv?=
+ =?utf-8?B?b3NIVTRKS1lFSmtSdXd1dXYvaWtuWVhxQk9YaHIrNld1S1BIZWVoN3lFbHRo?=
+ =?utf-8?B?SXE0TmdRRDB2eDBid0Q0Z3B5eHVobkxtOTNYV0ViTzJXRVMrMkhieGVuYW94?=
+ =?utf-8?B?NzVQZnBuZklmTVowdnFiUWZTejdkaGh3M3FtWkR0c1FnS25INC9iQ2UxSkRl?=
+ =?utf-8?B?aHV2OVd4aEJ6ZkJIOXV4SXFBb3RmU1J1c3QyditVOHlMdVIzZjc1Sm95TXpD?=
+ =?utf-8?B?eUFzMmRNMnFvVlNQcWpiaXlVMVNBWnZGcEVkQndaa2lHU2k4OXE2VWhFUDVv?=
+ =?utf-8?B?MTJBUDd6T3ZCWXNkaUNkVmJteW1JUnBNTzl6QStTTXhNRGlWcFB4dFd0aXJv?=
+ =?utf-8?B?dXVjZnVkTW1EMGM5Ly9uZWtEQlQzUVN0RGxUQldTR3lXbHZlRWV5Zm12Mkg4?=
+ =?utf-8?B?WXlLbUlJbUl0eWdPZG44UVVIeitNdHNYS3NwY21XZXFndnFNT0tIajE0anZz?=
+ =?utf-8?B?ZkxKblIvRXpWOWpLOWxxcG5UUmJPaUd3TFVWcm85S0svNms2U0hzUXhnbk9O?=
+ =?utf-8?B?Nnd5VFdMd2ZEWmdPQnNjR3hsT2xJQzVSRzRDWmVXSm5QcCtUWUt1MWpOY3RK?=
+ =?utf-8?B?dCt5aFZPN29aemRPTVJnN2hCWldQdkVOZTFrYWhKWldNOTRhL3RlcnRydTdJ?=
+ =?utf-8?B?WkplK3pkZmxsbzFmeVArTWlIQWFRM25PVFN0MEw4SE5qczI0WGlKbDY5NGFi?=
+ =?utf-8?B?ZCtmM2pOc2tjODhsWVVabjliMXpPQk5qNnBtSnVGM0tDVVlHaGJJNWlzTlla?=
+ =?utf-8?B?THNiY05wYkFxN0RLMTVLKzExREc1aW42MTJ1Ti9SaUo0S1lZYnZNVmtVYlMw?=
+ =?utf-8?B?MkI1aWRzZGRXWFlNV2I4WHVKb3NjNnRYMlp4aVJRQ2orZFQ1eXJOVUMzQ2VQ?=
+ =?utf-8?B?cVFsbk5sdFBiZGlEeU9WNWczUWhSMnEzL2Y4VEFCY0dyMWRTSERwR0dvMTZG?=
+ =?utf-8?B?cjRneTNZdG4wWFVzYmFyUXhMOTRGUkl5c1JReDRvVHhMZG5nSWwycUVFQkMr?=
+ =?utf-8?B?WVJzM3F6VVoyYWR4Ymw2Skcyc2xpT2dJUUQ5L25mRCtpMFpKdkk0NmpvaGYx?=
+ =?utf-8?B?a1VQdE5DdnhTN2tiWUcrdFlNY0d2V1FiMVBKN3RjM3VTZXZ6VlFoMndoMVNE?=
+ =?utf-8?B?N3JwYmdNVElvdDAvdEhYajRqU3plM2lPTVhpVUVxemoyMGZSb20zVmtPcnRY?=
+ =?utf-8?B?UTJpTkNjbkpxdGpSNy9ralNWRDRlMnJnYkVndldJczVGQ0o1Rm5aU2UvbkNJ?=
+ =?utf-8?B?NXBnc1doVTFpRVVPdy9tb01NL3orMDJPaGx0WExLOXQrbjEyUEZic3VWUW84?=
+ =?utf-8?B?ejdPQWRkUmp4RFJlRTRvRUF6WjRMZDlRZ3o1bGtKVmlvOHRwNEswMnVuNGxT?=
+ =?utf-8?B?SUFZdG95UW8rZVF4OGNyajBOS3dmZU1WS3JUOFJURTVpRkpLT3NLSGdKRUZE?=
+ =?utf-8?B?SmxjZURSN3F3UGxUS1NZU1N4S0dXRi9tVU1HdjhMRkRaeWdTNTdsUWZDc3Np?=
+ =?utf-8?B?aDFVOFlUMTRQME5oU3VqLzNkZm1TZ0ViT3IwKzVNTkljVk5xbFoxMHprbzNB?=
+ =?utf-8?B?YUFBb2hKVVgzazBLQW1hU2FrRmkxeUNFN0pkenZUSzdDc2doMFNPUWVteTha?=
+ =?utf-8?B?aGRjVTRQaUMxU2dCRzhFbkNYbkV6U3FHVnBwaUI5eHgwajh4OEMyWWJxL29Y?=
+ =?utf-8?B?SDFvK29mNGNOaU8wK3NacGwxUTJmeUV3Z3hOZ01IK0pZemtJVi9rT041UFZU?=
+ =?utf-8?B?TmpZQ1FHVEZlVWlVMEVmRnNQVGx1cndDdTIvTkJvRDNkMCtoeVRaRlM4ejAr?=
+ =?utf-8?B?cEkxSHdUbVlsSmtPUmtROUxGTXk5Q2tFNzFGb3BwclQvNTlkZHZnNkNqU3pQ?=
+ =?utf-8?B?NEV0M1BOL2xaemFSUlkxQ2Q5VDlrNEVMRU1UanR1dWJPNVowdVc2aXE3V0Zl?=
+ =?utf-8?B?djVKOE5IdHpjWXRKcGFtcjhjbTVVREZ4RHdWUmV5Z2xyY2R5K3dpMllvaGFH?=
+ =?utf-8?B?SzBMQXY1U2dyK2xuakRPcHBybFoyaWluYjlSeDlFL0p3ZDEzekJxL3lyOTV1?=
+ =?utf-8?B?a2JDZ25pbTlTbjIwTlJUc1ZkdEUxYmVDaG9BVDFmcGR0bGZxZUZadTZKcVNK?=
+ =?utf-8?B?T3FvR0RJTlB3TzJXNTdUUU4ySWJjMVZEWjRLY0drL2VlbTFPZTVZSFV2emF0?=
+ =?utf-8?B?c1BHWTdzVjhad1dqMkVkV2Vld1NWWUk1QUU2UzJ2WjV2S0RjeTBUTFV0TlhW?=
+ =?utf-8?Q?ljieJZ3wAqWbXy4BFK?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ac6040c8-c426-401c-9281-08de94703bc4
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8398d806-3482-4998-48ea-08de94740b04
 X-MS-Exchange-CrossTenant-AuthSource: SA0PR12MB7091.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Apr 2026 06:38:09.7035 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Apr 2026 07:05:25.9139 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: J+aZiKZt/KbL8Kic027iBKg2tzaEWisW/qXeUpYtMd0QqfNzFYaGSHHOlP9ZabV+
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8070
+X-MS-Exchange-CrossTenant-UserPrincipalName: NL6qN/YXnh3rU67seGqJptVWha/w+CXx75y/6V3O5bg78dkwwF2vgdeMQIZQxZaG
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6420
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,147 +138,102 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
 On 07-Apr-26 8:39 AM, Yang Wang wrote:
-> Extend the smu_cmn_update_table function to support reading a 32-bit return
-> argument from the SMU firmware during table transfer operations.
+> parse and print detailed reasons for od table upload failures to
+> help users understand error causes.
 > 
-> - Rename the original function to smu_cmn_update_table_read_arg
-> - Add a uint32_t *read_arg output parameter to capture firmware response
-> - Pass the read_arg pointer to the SMU message command
-> - Keep full backward compatibility using a macro wrapper for the old API
+> example:
+> $ echo "0 30 40" | sudo tee fan_curve
+> $ echo "1 40 30" | sudo tee fan_curve
+> $ echo "c" | sudo tee fan_curve
 > 
-> This allows the driver to retrieve status codes, results, or configuration
-> feedback from the SMU firmware after table data transfer.
-> 
-> No functional changes for existing users of the original smu_cmn_update_table()
-> API.
+> kernel log:
+> [   75.040174] amdgpu 0000:0a:00.0: Failed to upload overdrive table, ret:-5
+> [   75.040178] amdgpu 0000:0a:00.0: Invalid overdrive table content: OD_FAN_CURVE_PWM_ERROR (13)
+> [   75.040181] amdgpu 0000:0a:00.0: Failed to upload overdrive table!
 > 
 > Signed-off-by: Yang Wang <kevinyang.wang@amd.com>
 
-Minor nits below -
-
 Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
-
-
-> ---
->   drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h |  1 +
->   drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c        | 37 +++++++++++++------
->   drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h        | 14 ++++---
->   3 files changed, 35 insertions(+), 17 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
-> index 126fc54cb511..d76e0b005308 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
-> @@ -584,6 +584,7 @@ struct cmn2asic_mapping {
->   /* Message flags for smu_msg_args */
->   #define SMU_MSG_FLAG_ASYNC	BIT(0) /* Async send - skip post-poll */
->   #define SMU_MSG_FLAG_LOCK_HELD	BIT(1) /* Caller holds ctl->lock */
-> +#define SMU_MSG_FLAG_FORCE_READ_ARG	BIT(2)	/* force read smu arg from pmfw */
->   
->   /* smu_msg_ctl flags */
->   #define SMU_MSG_CTL_DEBUG_MAILBOX	BIT(0) /* Debug mailbox supported */
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
-> index 006ef585a377..3d49e58794d2 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
-> @@ -496,7 +496,8 @@ static int smu_msg_v1_send_msg(struct smu_msg_ctl *ctl,
->   	}
->   
->   	/* Read output args */
-> -	if (ret == 0 && args->num_out_args > 0) {
-> +	if ((ret == 0 || (args->flags & SMU_MSG_FLAG_FORCE_READ_ARG)) &&
-> +	    args->num_out_args > 0) {
->   		__smu_msg_v1_read_out_args(ctl, args);
->   		dev_dbg(adev->dev, "smu send message: %s(%d) resp : 0x%08x",
->   			smu_get_message_name(smu, args->msg), index, reg);
-> @@ -1060,20 +1061,24 @@ int smu_cmn_check_fw_version(struct smu_context *smu)
->   	return 0;
->   }
->   
-> -int smu_cmn_update_table(struct smu_context *smu,
-> -			 enum smu_table_id table_index,
-> -			 int argument,
-> -			 void *table_data,
-> -			 bool drv2smu)
-> +int smu_cmn_update_table_read_arg(struct smu_context *smu,
-> +				    enum smu_table_id table_index,
-> +				    int argument,
-> +				    void *table_data,
-> +				    uint32_t *read_arg,
-> +				    bool drv2smu)
->   {
-> -	struct smu_table_context *smu_table = &smu->smu_table;
->   	struct amdgpu_device *adev = smu->adev;
-
-May move this down to follow reverse christmas tree declaration style.
-
-> +	struct smu_table_context *smu_table = &smu->smu_table;
->   	struct smu_table *table = &smu_table->driver_table;
-> +	struct smu_msg_ctl *ctl = &smu->msg_ctl;
-> +	struct smu_msg_args args;
->   	int table_id = smu_cmn_to_asic_specific_index(smu,
->   						      CMN2ASIC_MAPPING_TABLE,
->   						      table_index);
->   	uint32_t table_size;
->   	int ret = 0;
-> +
->   	if (!table_data || table_index >= SMU_TABLE_COUNT || table_id < 0)
->   		return -EINVAL;
->   
-> @@ -1088,11 +1093,19 @@ int smu_cmn_update_table(struct smu_context *smu,
->   		amdgpu_hdp_flush(adev, NULL);
->   	}
->   
-> -	ret = smu_cmn_send_smc_msg_with_param(smu, drv2smu ?
-> -					  SMU_MSG_TransferTableDram2Smu :
-> -					  SMU_MSG_TransferTableSmu2Dram,
-> -					  table_id | ((argument & 0xFFFF) << 16),
-> -					  NULL);
-> +	args.msg = drv2smu ? SMU_MSG_TransferTableDram2Smu : SMU_MSG_TransferTableSmu2Dram;
-> +	args.args[0] = ((argument & 0xFFFF) << 16) | (table_id  & 0xffff);
-> +	args.num_args = 1;
-> +	args.out_args[0] = 0;
-> +	args.num_out_args = read_arg ? 1 : 0;
-> +	args.flags = read_arg ? SMU_MSG_FLAG_FORCE_READ_ARG : 0;
-> +	args.timeout = 0;
-> +
-> +	ret = ctl->ops->send_msg(ctl, &args);
-> +
-> +	if (read_arg)
-> +		*read_arg = args.out_args[0];
-> +
->   	if (ret)
->   		return ret;
->   
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h
-> index d129907535bd..1cd2ccb11b29 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h
-> @@ -168,11 +168,15 @@ int smu_cmn_get_smc_version(struct smu_context *smu,
->   			    uint32_t *if_version,
->   			    uint32_t *smu_version);
->   
-> -int smu_cmn_update_table(struct smu_context *smu,
-> -			 enum smu_table_id table_index,
-> -			 int argument,
-> -			 void *table_data,
-> -			 bool drv2smu);
-> +#define smu_cmn_update_table(smu, table_index, argument, table_data, drv2smu) \
-> +	smu_cmn_update_table_read_arg((smu), (table_index), (argument), (table_data), NULL, (drv2smu))
-> +
-
-May move this down after function declaration.
 
 Thanks,
 Lijo
 
-> +int smu_cmn_update_table_read_arg(struct smu_context *smu,
-> +				  enum smu_table_id table_index,
-> +				  int argument,
-> +				  void *table_data,
-> +				  uint32_t *read_arg,
-> +				  bool drv2smu);
+> ---
+>   .../drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c  | 60 ++++++++++++++++---
+>   1 file changed, 52 insertions(+), 8 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
+> index 0bad56a44f5c..0ccad0b48c09 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
+> @@ -2230,17 +2230,61 @@ static void smu_v14_0_2_dump_od_table(struct smu_context *smu,
+>   		 od_table->OverDriveTable.FanMode);
+>   }
 >   
->   int smu_cmn_vram_cpy(struct smu_context *smu, void *dst,
->   		     const void *src, size_t len);
+> +#define OD_ERROR_MSG_MAP(msg) \
+> +	[msg] = #msg
+> +
+> +static const char *od_error_message[] = {
+> +	OD_ERROR_MSG_MAP(OD_REQUEST_ADVANCED_NOT_SUPPORTED),
+> +	OD_ERROR_MSG_MAP(OD_UNSUPPORTED_FEATURE),
+> +	OD_ERROR_MSG_MAP(OD_INVALID_FEATURE_COMBO_ERROR),
+> +	OD_ERROR_MSG_MAP(OD_GFXCLK_VF_CURVE_OFFSET_ERROR),
+> +	OD_ERROR_MSG_MAP(OD_VDD_GFX_VMAX_ERROR),
+> +	OD_ERROR_MSG_MAP(OD_VDD_SOC_VMAX_ERROR),
+> +	OD_ERROR_MSG_MAP(OD_PPT_ERROR),
+> +	OD_ERROR_MSG_MAP(OD_FAN_MIN_PWM_ERROR),
+> +	OD_ERROR_MSG_MAP(OD_FAN_ACOUSTIC_TARGET_ERROR),
+> +	OD_ERROR_MSG_MAP(OD_FAN_ACOUSTIC_LIMIT_ERROR),
+> +	OD_ERROR_MSG_MAP(OD_FAN_TARGET_TEMP_ERROR),
+> +	OD_ERROR_MSG_MAP(OD_FAN_ZERO_RPM_STOP_TEMP_ERROR),
+> +	OD_ERROR_MSG_MAP(OD_FAN_CURVE_PWM_ERROR),
+> +	OD_ERROR_MSG_MAP(OD_FAN_CURVE_TEMP_ERROR),
+> +	OD_ERROR_MSG_MAP(OD_FULL_CTRL_GFXCLK_ERROR),
+> +	OD_ERROR_MSG_MAP(OD_FULL_CTRL_UCLK_ERROR),
+> +	OD_ERROR_MSG_MAP(OD_FULL_CTRL_FCLK_ERROR),
+> +	OD_ERROR_MSG_MAP(OD_FULL_CTRL_VDD_GFX_ERROR),
+> +	OD_ERROR_MSG_MAP(OD_FULL_CTRL_VDD_SOC_ERROR),
+> +	OD_ERROR_MSG_MAP(OD_TDC_ERROR),
+> +	OD_ERROR_MSG_MAP(OD_GFXCLK_ERROR),
+> +	OD_ERROR_MSG_MAP(OD_UCLK_ERROR),
+> +	OD_ERROR_MSG_MAP(OD_FCLK_ERROR),
+> +	OD_ERROR_MSG_MAP(OD_OP_TEMP_ERROR),
+> +	OD_ERROR_MSG_MAP(OD_OP_GFX_EDC_ERROR),
+> +	OD_ERROR_MSG_MAP(OD_OP_GFX_PCC_ERROR),
+> +	OD_ERROR_MSG_MAP(OD_POWER_FEATURE_CTRL_ERROR),
+> +};
+> +
+>   static int smu_v14_0_2_upload_overdrive_table(struct smu_context *smu,
+>   					      OverDriveTableExternal_t *od_table)
+>   {
+> -	int ret;
+> -	ret = smu_cmn_update_table(smu,
+> -				   SMU_TABLE_OVERDRIVE,
+> -				   0,
+> -				   (void *)od_table,
+> -				   true);
+> -	if (ret)
+> -		dev_err(smu->adev->dev, "Failed to upload overdrive table!\n");
+> +	uint32_t read_arg = 0;
+> +	int ret, od_error_type;
+> +
+> +	ret = smu_cmn_update_table_read_arg(smu,
+> +					    SMU_TABLE_OVERDRIVE,
+> +					    0,
+> +					    (void *)od_table,
+> +					    &read_arg,
+> +					    true);
+> +	if (ret) {
+> +		dev_err(smu->adev->dev, "Failed to upload overdrive table, ret:%d\n", ret);
+> +		if ((read_arg & 0xff) == TABLE_TRANSFER_FAILED) {
+> +			od_error_type = read_arg >> 16;
+> +			dev_err(smu->adev->dev, "Invalid overdrive table content: %s (%d)\n",
+> +				od_error_type < ARRAY_SIZE(od_error_message) ?
+> +				od_error_message[od_error_type] : "unknown",
+> +				od_error_type);
+> +		}
+> +	}
+>   
+>   	return ret;
+>   }
 
