@@ -4,188 +4,122 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2B845FB5191
-	for <amd-gfx@archiver.kernel.org>; Tue,  7 Apr 2026 05:14:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6E043FB519E
+	for <amd-gfx@archiver.kernel.org>; Tue,  7 Apr 2026 06:38:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B428310E323;
-	Tue,  7 Apr 2026 05:14:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F0EF610E22B;
+	Tue,  7 Apr 2026 06:38:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="lI7cGzcL";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="cYpjrsX0";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2600210E222;
- Tue,  7 Apr 2026 05:14:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1775538874; x=1807074874;
- h=date:from:to:cc:subject:message-id:references:
- content-transfer-encoding:in-reply-to:mime-version;
- bh=BQYulf5GtIbuxct6lVW8qNPjTSDptcpDshOyEiEr1Lg=;
- b=lI7cGzcL8KTn3lko/SMvPeNpr68XiKQi3zlU+zZIathRleQ+9vmtnfSx
- EDubN8zoe2eIQAqVBeCgq3vJ/ALXdrxiyOs/wpgxXc/MEmQrcPwpb3MWn
- 0tExoyROimofv6M3M1sInLa8MmBKjjuTB3leZOnAJjc7ISCmqj5fckTOI
- ixzrrW9ZUsDUCyQADLVbdSBLDBxdkqlqLQDIjjoY1cpNVzvEDLxwR2uGl
- jkcU98XyJGkzFxY5pCNEdZoQ1xsFcZ7Hp9S34Ubrloa/DTEZJfrVJpzvt
- 0zzAbg2g1bvfofLd0oNo4Q4//DRHZWFPxcmFc5Wdn3b5HQWtkJYeZLEzG w==;
-X-CSE-ConnectionGUID: 30VgKWGhQOqxk28IUbDcyg==
-X-CSE-MsgGUID: j+etyaFwRoW3F+f1C6EYeg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11751"; a="93883719"
-X-IronPort-AV: E=Sophos;i="6.23,165,1770624000"; d="scan'208";a="93883719"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
- by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Apr 2026 22:14:33 -0700
-X-CSE-ConnectionGUID: 1WT9Qqq0T7qeDD2vn34LVA==
-X-CSE-MsgGUID: 2Bg4IszlT+mLDKNI5D5+yA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,165,1770624000"; d="scan'208";a="227971087"
-Received: from fmsmsx901.amr.corp.intel.com ([10.18.126.90])
- by orviesa009.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Apr 2026 22:14:33 -0700
-Received: from FMSMSX903.amr.corp.intel.com (10.18.126.92) by
- fmsmsx901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Mon, 6 Apr 2026 22:14:31 -0700
-Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
- FMSMSX903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37 via Frontend Transport; Mon, 6 Apr 2026 22:14:31 -0700
-Received: from PH8PR06CU001.outbound.protection.outlook.com (40.107.209.59) by
- edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Mon, 6 Apr 2026 22:14:31 -0700
+Received: from DM5PR21CU001.outbound.protection.outlook.com
+ (mail-centralusazon11011011.outbound.protection.outlook.com [52.101.62.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9C6FB10E22B
+ for <amd-gfx@lists.freedesktop.org>; Tue,  7 Apr 2026 06:38:14 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=kDn921XdBwdRH1dseYW9vRrAk89yBiDTrIdo11oOnl8i/ozXqEFxWFxl7wB67KXLUYCywrKLws9t7bfWODTVkXQQnb9k4d39D1md7KMS936y6rtlrObCFUr3PzmdJFXfcjgcWFmdYohu9TZEtjqZX0NB4eE4nX5NlFU7NwpwwrBXmBwXux/tDSGel5pPluO4Wxxr1nlxIEuGTLBsH0dirPeTeatGjjRCntWi6Opnb8q7kq8MI+9ZU1FIE1LMiNypdr/JACHQ8HYqCT75s7YNb/YuopLmmPiaXcG3GOc1HNXCdabakLDxpf6Q1gKSEaWlZvUk/bTuE5Q8+y3V4uImsA==
+ b=nFLovKW+Q2HDV1fXhFdA22m7PJYsYRKzaR64GoPMX6VC8qEXHIEyVxgxjyYSFe/AbqnERZkdsGztTL+sv5kCilfi4TdxlFg7AMsgsTfEFkY/P18yTTrpjdWmTY/HqG7v1L2JgX1rKIe9MCZgQ0jgPPvDEqs6KEdvUSMEEsUoK+amuCcCJ4yHI4m2Jg/H8ZGMXWf2b5cAv5yLOhHIZUZhWjPj/1wMzJjilEBT2+ZNLIrmFJFJIaQjBqZYpsK1EePX1n7Kp3Pn0du9I4DJkFz0qYFfHCCXJF9O2PHUIk0zj3hWs9a4sfLuRbe4dW0nhwEjd/wmNnxBmQYO/uwKEeAcKA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=r1RW+tWce/wOGZbNz6J0eGGNzIUBGcePzLpp3Pir9R0=;
- b=YPVTN5+hL9GR7jUb2kEwxJKlcTfe9cs7zULzLwHJvaWKCM6fCtjVLRV578Qi0ZDXOHlN9rDJmnUtSOCP9IDDVMBaieXpbWUJKd3nsEY1T27O3+aqazy8pAZlYP9C2J5G1CU0HAgdFLn+icCJIKsDj27k/QHke+TdHl3BxxqAF7Xxgv2ZtP9YNbORG7jyWCEwsLCGMIZox+O5EeKynuv6YD5id5AZHlcD0e/PALYbFJT4bnof8sfWRWSZ0VdlxG3PgrvNJjvL1Xhx7I3p8plQ2sOMbYIqLCQhBRZkLlja37tzlQElW9cenpNccamV2znMMOXDo+3HFKIVtF40/BruiA==
+ bh=xoIB8dlxNuSiHys2Y5S/B70HC1VGcS6fEZuEmK2Cyz0=;
+ b=W6lqBiVqq+8Et7T4yYYGwNrjVmMjH2el219z4GFza8NZaq2q7avXvbN4aPCqBkgXdP5xOxiKRGXkisDsV7NFSXmQW3/nAj0mHJeuqpooFEftKQy3fgHqWIdWn2RkqLGPjavm6NZDFGOdSqgmOWwZDSmNkx1/EcsH3m3VLLYGGttsDQUfvwoiwIr3o5S8lgwKRrEyN00FzCHjagsCim4J2U8TfdwvASLawJqVWPVSdAVrfWmWzzLCBbyrjAG6X2izRPf8XAwsc0qkhWimwKSDikILSda4dMLyn97u6fu9nsl8rEs693mSBVhoVEaRcYYfjoP5aLbAZKrVNOSFYFrrCw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=xoIB8dlxNuSiHys2Y5S/B70HC1VGcS6fEZuEmK2Cyz0=;
+ b=cYpjrsX0JSRCya2qO+FysnKKr3R8n7ZImgma7t+FLuzaVF9ShSlly7t/uDN+jwVL97e17hZ0tHLaOAfNdSom7/hvXv8uVIuUdLwd03UZHFI2YYL5/rcMp3UdvbyFQhnInje7n6yZ8Z7wUIP/B/4HwJzH2oZYMW6OeMJbZT+hQEE=
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from BL3PR11MB6508.namprd11.prod.outlook.com (2603:10b6:208:38f::5)
- by MW4PR11MB6911.namprd11.prod.outlook.com (2603:10b6:303:22d::20)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.17; Tue, 7 Apr
- 2026 05:14:28 +0000
-Received: from BL3PR11MB6508.namprd11.prod.outlook.com
- ([fe80::53c9:f6c2:ffa5:3cb5]) by BL3PR11MB6508.namprd11.prod.outlook.com
- ([fe80::53c9:f6c2:ffa5:3cb5%7]) with mapi id 15.20.9769.016; Tue, 7 Apr 2026
- 05:14:28 +0000
-Date: Mon, 6 Apr 2026 22:14:21 -0700
-From: Matthew Brost <matthew.brost@intel.com>
-To: Joel Fernandes <joelagnelf@nvidia.com>
-CC: <linux-kernel@vger.kernel.org>, Miguel Ojeda <ojeda@kernel.org>, "Boqun
- Feng" <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, Bjorn Roy Baron
- <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, "Andreas
- Hindborg" <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>, "Trevor
- Gross" <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, Dave Airlie
- <airlied@redhat.com>, Daniel Almeida <daniel.almeida@collabora.com>, "Koen
- Koning" <koen.koning@linux.intel.com>, <dri-devel@lists.freedesktop.org>,
- <rust-for-linux@vger.kernel.org>, Nikola Djukic <ndjukic@nvidia.com>,
- "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Jonathan Corbet
- <corbet@lwn.net>, Alex Deucher <alexander.deucher@amd.com>, Christian Koenig
- <christian.koenig@amd.com>, Jani Nikula <jani.nikula@linux.intel.com>,
- "Joonas Lahtinen" <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi
- <rodrigo.vivi@intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>, Huang Rui
- <ray.huang@amd.com>, Matthew Auld <matthew.auld@intel.com>, Lucas De Marchi
- <lucas.demarchi@intel.com>, Thomas Hellstrom
- <thomas.hellstrom@linux.intel.com>, Helge Deller <deller@gmx.de>, Alex Gaynor
- <alex.gaynor@gmail.com>, Boqun Feng <boqun.feng@gmail.com>, John Hubbard
- <jhubbard@nvidia.com>, Alistair Popple <apopple@nvidia.com>, Timur Tabi
- <ttabi@nvidia.com>, Edwin Peer <epeer@nvidia.com>, Alexandre Courbot
- <acourbot@nvidia.com>, Andrea Righi <arighi@nvidia.com>, Andy Ritger
- <aritger@nvidia.com>, Zhi Wang <zhiw@nvidia.com>, Balbir Singh
- <balbirs@nvidia.com>, Philipp Stanner <phasta@kernel.org>, Elle Rhumsaa
- <elle@weathered-steel.dev>, <alexeyi@nvidia.com>, Eliot Courtney
- <ecourtney@nvidia.com>, <joel@joelfernandes.org>,
- <linux-doc@vger.kernel.org>, <amd-gfx@lists.freedesktop.org>,
- <intel-gfx@lists.freedesktop.org>, <intel-xe@lists.freedesktop.org>,
- <linux-fbdev@vger.kernel.org>
-Subject: Re: [PATCH v10 07/21] gpu: nova-core: mm: Add TLB flush support
-Message-ID: <adSSrZp6a551xNTu@gsse-cloud1.jf.intel.com>
-References: <20260311004008.2208806-1-joelagnelf@nvidia.com>
- <20260331212048.2229260-1-joelagnelf@nvidia.com>
- <20260331212048.2229260-8-joelagnelf@nvidia.com>
- <ac4FpcD29XnbbsdD@gsse-cloud1.jf.intel.com>
- <0f5605c1-32e8-4a62-b852-b1db01e42817@nvidia.com>
- <39a476f4-ecac-4313-a59f-e00e72d2b426@nvidia.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <39a476f4-ecac-4313-a59f-e00e72d2b426@nvidia.com>
-X-ClientProxiedBy: BYAPR02CA0002.namprd02.prod.outlook.com
- (2603:10b6:a02:ee::15) To BL3PR11MB6508.namprd11.prod.outlook.com
- (2603:10b6:208:38f::5)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from SA0PR12MB7091.namprd12.prod.outlook.com (2603:10b6:806:2d5::17)
+ by DS0PR12MB8070.namprd12.prod.outlook.com (2603:10b6:8:dc::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.20; Tue, 7 Apr
+ 2026 06:38:10 +0000
+Received: from SA0PR12MB7091.namprd12.prod.outlook.com
+ ([fe80::ec33:1213:cfd8:63bc]) by SA0PR12MB7091.namprd12.prod.outlook.com
+ ([fe80::ec33:1213:cfd8:63bc%6]) with mapi id 15.20.9769.016; Tue, 7 Apr 2026
+ 06:38:09 +0000
+Message-ID: <89e0dd8b-f7f5-4c84-98a8-2b867709db03@amd.com>
+Date: Tue, 7 Apr 2026 12:08:01 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] drm/amd/pm: add read arg support to
+ smu_cmn_update_table
+To: Yang Wang <kevinyang.wang@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: alexander.deucher@amd.com, hawking.zhang@amd.com, kenneth.feng@amd.com
+References: <20260407030931.2024335-1-kevinyang.wang@amd.com>
+Content-Language: en-US
+From: "Lazar, Lijo" <lijo.lazar@amd.com>
+In-Reply-To: <20260407030931.2024335-1-kevinyang.wang@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MA5P287CA0096.INDP287.PROD.OUTLOOK.COM
+ (2603:1096:a01:1d4::11) To SA0PR12MB7091.namprd12.prod.outlook.com
+ (2603:10b6:806:2d5::17)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL3PR11MB6508:EE_|MW4PR11MB6911:EE_
-X-MS-Office365-Filtering-Correlation-Id: 71b2228d-12b6-405e-5d70-08de94648ade
+X-MS-TrafficTypeDiagnostic: SA0PR12MB7091:EE_|DS0PR12MB8070:EE_
+X-MS-Office365-Filtering-Correlation-Id: ac6040c8-c426-401c-9281-08de94703bc4
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|7416014|366016|1800799024|18002099003|22082099003|56012099003;
-X-Microsoft-Antispam-Message-Info: DvMUvnt6BSMB7qFeEXMicandRBF/yy/TcS6Qftrs5SVyvcsrv8CwFJeLnea9/hy4TyLpmr1FJ0UC4xMJddlLxoGpaGMIbts0W5BQ54EKZKcbivsXEle49Rf/KAqDwtW/8vAkm+F448ZMvDv0bwKOFN712osPLnG0GGTVrOA3q6HDbbqRjwCIAaQJcTTf5bsdJzilDa4+S08kFE1hZgfex2Jm6XLu4WHayUwWUwMhZ/CdCQ/ymAXP7CkSq3e3NACITHhbaxTx67mZ0NvmKAixCzc/6OtwpqF2jAWBlcdn4on6/mHpBk9nWXmm6aH05fyvwm+6MO1Vh7N14t8+tCZveQwdPaQClMz1xFuvIidUvAzvVOivl7uwzhY4gXlSmoZtW63LTUcEnBWqcsFjczTVojrUSpiEuQ5KTD2OpxClRESqSCwQr5FEjTPY5jv7hfShduzrHLqKFfeR2QDIcTgjGQraQkHqC4n+CaO6n6zS+Kc2NRetclNnmKaEfV1t58oeFIBOTd5eRpkMxGeAk6ru8YLfmJrNteTRqELeHm6w9Zb/8YLoPfmI8TD53d7KxdJPCh6UUDXMhHvT5vvSSBndUO0zMYsktNr7x5FDUoGAydFB9ZMYwmVMwEGN2NLYs/CgCBeYw7oq62qJ2MUbqtvStpRzuQ1FTAgHTvDJhd34xnKr3dXdRL5M64/qsgejFM6dn3gSy9wWvLe11ZZNlKTRDk0xxwPe9wmu4Bj5ICW+j50=
+ ARA:13230040|366016|376014|1800799024|56012099003|18002099003|22082099003; 
+X-Microsoft-Antispam-Message-Info: eRw96XBXjeCEnVWA64bJiuDsl7Lj03Trp46GoCf0wQVA0ZtnX5uf8lEG+2AckynkrTH3wl8DShLJ9eDcw8JrC+cNDCPv+UvU91myRYQsSaQolMNq3UgI9CfcpDCS1L0TS3wW/i5KNEwVE0QA1dB+TS7jdeGa5o2KZwT1hPsuOQQ5Hi8Ss8opCYkkzkBbNuwtCqAL7Xac7UTIQc9TF7aEssqiUfQV7TlictwOkc83s4k0USwV9cp/R7VzwmWtiGKRe/sXKFLs6KYHhl08JItdKQO5D91NwIwb0uHn2Q5WTeHf+UE0zcQ21TdHOQELo30FQAn2KjLDF8HtuUkPRdCev3faiXf/dzThE9ft8tfF7Te7NYJIr2qhYFLSfAFwGfbLUvCSxTmxjULtuxdmAdi82mzdpCPqsvNjk1yaH4ZWqnaVpzbCHtErg1GYGNYBMdqXyDJz+5Ink3tkq3fN3y/FvqX2vZN3annhuU00AsN0KxEW/s4qoiVG+I22vD0VCUDOZVc2+KAShDTdo9v3LELej9Hpe90njBdBZYAsEx8AfxJRrGKpv4b2CI9LdHe+uC2Rh5cR4DBT+m2agrF4URaDt2d6p2pDVIL07KuEKPPmvQAyr090DStOYfuTcVyCUFd9myWFsFD3ceBc13KTd67lR+c/WiiB4SKzkofnRUX3LiaTOVA4b6B5W++2LtRdBIMkwT8bfC+AbPHJswoTRJhn66+lH7T8/5hDmnuYDx5azcM=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BL3PR11MB6508.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(7416014)(366016)(1800799024)(18002099003)(22082099003)(56012099003);
+ IPV:NLI; SFV:NSPM; H:SA0PR12MB7091.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(376014)(1800799024)(56012099003)(18002099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cjQzb0RRcG5zdFZhdkJ1R3RUTkxrV0JiK2Nqa1UraEtFQ2JLK1l4MTM3OXhT?=
- =?utf-8?B?WUhRM21SbzJ2QzNjSmo2SmlQakdmSEFBbW13Mm10akRtYnFqa1FVVHBNdUYz?=
- =?utf-8?B?Wlk5dElPemFOWXdhckxMUW1JNGkvRytFRGxnQXJmNGRVMnBJTlJnaVJ1dEMx?=
- =?utf-8?B?TDYzTFRqVU5IOXROSjBGcHZPQ1hKU3ZCdlBKLzB4TzJremY5UlF2NDFjK1Y2?=
- =?utf-8?B?akNRRFNiYngvQUVnVTF3VXlQZ2VHNEQ2WlJkcDFPbjVXclZEZk5FMlhyRWRU?=
- =?utf-8?B?ejVvNHpaNlM0YjJVdDJTaHNLWmxvdXRXTEFXb1lmcGRqRHVwV2VuYklJU0pu?=
- =?utf-8?B?blNPUytZRTE1T0xkdGhqOW5FMjVJdHhXeW5MR1RCRytYTFEwcTg3UjBVMzhv?=
- =?utf-8?B?WWZMb3Zldi80TEIvSVFvaVpkSURzOEdmVDMvUUJkVnM1Mmlzemw3SDlYYk8r?=
- =?utf-8?B?ZDY5Z2xYZ3NjNnJpcVJBOWg0bEliU0JiOWsySGVCdndKZWFISnUzTGQ5SVVj?=
- =?utf-8?B?VmVSc0d1RWtDcndQTWdnZEdqUUZQT2RPc2dEc0VwNDZ4ZUxvVmxWeXowaWRL?=
- =?utf-8?B?Z0t0bm1pOWVwcEdQK2U1d2dFdjJLMmIwMDdQU1BKVTAzS21Mdk4zdVFZUzFL?=
- =?utf-8?B?bVpHTXR0ekQ2eUpDZWk0WUFrRC9IbnpXUDVNOS91UVFUeVZFQ1RFUXVpeDkr?=
- =?utf-8?B?cmUxYkwzbEExM0N1V2cxRkVBMzBoOWh5QWtZZ01aczJNMUNnMGZRbUZydnB2?=
- =?utf-8?B?ckpid29uMGpPUzRVckVRY0Y1dEJkdzFqVnhxMWhmUW9sMUZnVklHTXloM1Yy?=
- =?utf-8?B?aWYwSEZLN0NJeXZ0L3JYVmJIc0JZTEQvOC9rUHNPaTYya2l4anl5UWkvcis1?=
- =?utf-8?B?d21mK2IwK244VmxCTXhKbUFGSDlqVWMzdEpOQWlhMW1vNDlsdis3cTRUSE5C?=
- =?utf-8?B?ejQwaDgzN2I4MUFSVlVMZXc0Q3NRc21kTkdLS2pPY2FWQkthWHRjMDlTdUpR?=
- =?utf-8?B?d3duNEZqNHZKTXNsU2tjU1ZkYm5zOUM4b3dydEVGRkNXcFdpQndvN0FtZFpN?=
- =?utf-8?B?RE5mb2RHNUVxU0hlY212L05RbzNEY2lSU3czbGVxZGdZdHRLY2pST3ovSDcy?=
- =?utf-8?B?cDVvQUkrZVQ2aFZmMURTNjMwckIrMUxIR0hyaVZIcmxCS21sOWlscVVjSm84?=
- =?utf-8?B?REhDZng5SUFYWXl6cEQyWmFYSVI1L0k3NnRFblRkcXZFK1p0UGc1UkhuWUJz?=
- =?utf-8?B?YUQ1SzNHWnkxR2hSUGgweXV6TVhNTi9DNGtsYU4ybUx0QlF1ZHo3VStUUnE2?=
- =?utf-8?B?cERJZGFFQ29UVTF4NjZEZ3NxcThKUlNSS3lpZVJ1ZUZRNkNxZlJoUCtHQ0hn?=
- =?utf-8?B?NUExdDJkSDJvNjNUb0VPTEtLWWVNbUhuZHdZU2JaeFRURGZOeWxYQTVVdUth?=
- =?utf-8?B?MmxSeFJMcnhaYmFlamtPUWViRG55OHlYeFRvR0FDY0dYTHJuSkhnU1k0U2Mx?=
- =?utf-8?B?cXV4alNHa2hjYm5ZOW5ITndOSW5jM0IraUc1dmhrRWhOWnBselFISjNJZlQx?=
- =?utf-8?B?d1llZm9IRXBYNDZEd0NKd1BUdFFyMG5mWmNDSkQ3eld6dm8wQzRLNWJ3TzYy?=
- =?utf-8?B?U0JQa2JXY25oZWxOeFpodURKODN0ZklvNTFGa1c1U0N4NjluZU5URVZhY2dE?=
- =?utf-8?B?eTlPVWNoSks1QU4vMGZnRG1EUUx3Qi9PeEVxU3lsdXAyNndvRXdZTGhzRHFV?=
- =?utf-8?B?eExFZFRwdlNXbitFd0dJbWdPeFdjM2wrRXR2NGpiTk0xYnIyd2FyZXNhWmlq?=
- =?utf-8?B?V3VUZU9LOHVRekZtSmZQVCtZMzh3TXV3NUJwd0VxN3U5b3VJUVFTdW1LYXpx?=
- =?utf-8?B?dnQxQlZPMEpleHFLUzJXZUdCWEw4d3NUK3ZUUEk3Mi9XVVk2eG1GOG5USnQ4?=
- =?utf-8?B?Z0pyY3A2QnM1YVZ3UWJjeEIwOW8yTUp0c2M3ODhvM3gvZlQ4WHJSZ29jUnUv?=
- =?utf-8?B?aXJGbGt0UWdvVE8xSTI3OFdFTUtxZXQ3MUdKZEVNWHBUaVhEZWwzSEc0Z2pI?=
- =?utf-8?B?TmVpV0paSmU2ZWdabVJzRUtjWk5BeEJUT01NTjByeVlwZGVMaXBkWkdvZWhG?=
- =?utf-8?B?Q2FoYnlwMHd2QzlRR2hhcEtIWW9CQktGbk1Jc3FwTEF4Q0ppVDdpdVNpZnBM?=
- =?utf-8?B?MXltRFJxejlKWFhleDQwVGtCZkNWcVJZN0VybHBsQnNBNWtVaWU1cndBYXdR?=
- =?utf-8?B?Q0ExTmhNWHJPeGFKN3BJR1NBTzkyMmxOSDI2V3lGQzY4ZWVqWFNIMUx3OFRH?=
- =?utf-8?B?UGlYZE85cEZ6S3ltOE1jMDF2dGlzTmcwM2FVMFp2Unpad0w4Mml0NG54Z25z?=
- =?utf-8?Q?i9/fWs2cB2Y+5RuU=3D?=
-X-Exchange-RoutingPolicyChecked: FByy2fYMlHjg0GUULLaRqklBy4Aqcbg3mJZpTQ8UAgc1Xev9ZnbJBpFjWZ0cMbvN0VD30OF/MSMyeeV9fla9iXN/0sqK4gBN3tpQ7MRixRnpvyBLA9UUCqLNePd2BWq+b15hgJExR1umd5Qa7wrpRhPob2g+L7Z1nT76kxoTs0KayqyuWtLXBSpP3lzr24Z/e3OmMVlLDep83uIdQR4XQ+LUrjU25oli7Z0G55sATovz4MuFi1jeoImh1ehBI3f1/3kIIq+t47/zxPa3s3sQy1f1a+B1L3foUj4wTRcYOxGMUGrfrCyNVpFY0RSkx0JQ+HInVLL91FwpVmoaOVx44Q==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 71b2228d-12b6-405e-5d70-08de94648ade
-X-MS-Exchange-CrossTenant-AuthSource: BL3PR11MB6508.namprd11.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Y0gxRWNRN0JCblNSZVFzaW45bVN5SU1BSURWRW9BbnYxYkVXem5Kc1lCcFpt?=
+ =?utf-8?B?K1JEZ29VQzJsdXdBSSt5dFdIM2FOWEhnTTYvVDdrQWhXUUF5M1ptcDN6bTVx?=
+ =?utf-8?B?bG1TTWJQbGh5eEU4R0VCeTNobW5oK0tvTTV5UTNCS1BUTzkxbjh0MTFvcTd6?=
+ =?utf-8?B?dzM1em1jVE1iNmxHVGNsdzU0cjB0eWQybWtOd2dYR0lPNllHVnBmeDhpNjMr?=
+ =?utf-8?B?SkV1SEpvSHordnBWL3p0ZmNSYXZ0MXpRQ1pEOTI2SU1iUjFqZzlWTWVLS3Bu?=
+ =?utf-8?B?TXM4dWJhSDJBa0QydUI2R29Zb2cwTXVlWHllUHc2QzhMSnVZUnhsU3B1QTls?=
+ =?utf-8?B?UFg3dWJXNXVpN0JIM2JqYktuakplejl2bzAzTXdYRzMvZWJFeXllVjlzWm1F?=
+ =?utf-8?B?c1hzSE9Tc1JKaTAwUkNHTG5RcjQvYnRLaVRCaTZDWXNZVnAwYU9obGh3aW5L?=
+ =?utf-8?B?c1M1NmVkbm8yclhOTld5MnJneG53SWoxekFrdjRQeStGKytsWm1rRmhqTHhx?=
+ =?utf-8?B?Zm5WVTJFeXpWZ1pNbWNva2VhSG9ibTBYNUsxWmxGUjBMaWpiem1WWlIrVTJ4?=
+ =?utf-8?B?b1lZU0FUZmpDVEZ3RHdEOEdSQ0lUakVYcjhsb1lLZnpKTkR2MjNkblFvNDFn?=
+ =?utf-8?B?eXNKemdSLzhZQVY1WC9ZaGVjcDJQWU1XV3dSN0pHcUc1Zy83MG9Ka2V4T3g5?=
+ =?utf-8?B?ZjZrb3NRcDFVNUE0a2dkSXlBR0Q4SHdtK2ppS29RQWcvL3Y3elFTMnJWVWJk?=
+ =?utf-8?B?UDNwWEowS29vdXhOaDI2L0pzOTZsNGRZZFNrTXBwZWdSODV6VytIMkRUbml5?=
+ =?utf-8?B?L1plWmtnakxQZnUyMVl4MkxNOHRFQ3VKNlcwNi8rOWVkK2VzaWVTZW81TEJF?=
+ =?utf-8?B?eXY0Rlh0MVFJQWVvVDdHL1hvSDNVWjZrVHpwcjl3dlhWbEVsZGt2RlVBUDJ1?=
+ =?utf-8?B?VGZ1eFlYZzZGU3I3dElIVFllNGpNUXZUaHNIMXVuWEwzd09KOC9YMlpMUGxL?=
+ =?utf-8?B?M2R5TVRiY2RxQ1Bud0w3VVhDMW9YT1RGVERlYXN3UUUyUGdzNnJhcExlR0xq?=
+ =?utf-8?B?NXFvWGI4VEp1ejRUR0ZYUC8veEZkVjZ2UTdtdjVwUXVXbVVvVVpJL0lIN0J5?=
+ =?utf-8?B?UmpkOXRUUHlKNWtyalFYYU5DekkwR2VzMzl4TCt0dHI5SG8vNHZFNXZOVmJE?=
+ =?utf-8?B?anNyYVlxMUxqUHFOV0x5aEFFZmdma0xwVEFoRHlKU285VmJncU9obUZnR001?=
+ =?utf-8?B?TmtGQTE5TjhYYmozdXlpSTZNMFF5aitkMFBuclhmMU83RG1zMWVGWXV1SWty?=
+ =?utf-8?B?azdpRXljc0lDbFV4T3JMbDNFTUpHd2U5VEVWdE9wekVrbWhVenJFUzV6VTRp?=
+ =?utf-8?B?QTZaVVF1UmRHbDV5ZXJQakJyREl2VXFKblBKUXM2dnN0OTRBSkswRmlRZUg0?=
+ =?utf-8?B?YzZ3a3JMN2h1OHBtNVJ0QjFtdkFpY2FGRllaWlEzWGg5b0xtajRQTEpnUDk3?=
+ =?utf-8?B?M0lKWGxEVW9XQU5hZldac0E1WkMzdWxGZWFwcWJIY0ZXQkoyd3lKTmdmVHpM?=
+ =?utf-8?B?QzdYYmkrV09DVnI2WlMwaHRwbHJOenFKSEZNd3IrT3dFaUtLRWEzQjArL2Uw?=
+ =?utf-8?B?YzJRRllNTjZYalpQbFg0VUhPM01nOTZITXZOMTl3eEViTnZUaWNUVXpNemlX?=
+ =?utf-8?B?S1g5NGk4TUlCRFJTWnp0TTBUMS9yMFdXZzk4aFZRVGc2WW5hTm1vc2Q2bndt?=
+ =?utf-8?B?a1dhdllDb3pQOWpoS1NtMDdZcnNIK1VKU2lJaWw5N2pjcHh5NTAzWXZMREEv?=
+ =?utf-8?B?K1VGbkphWHI1REREMmgwUkVqQTY0MlZ6eVAwMlNDVkxoYTZPV0pGY01JTFNN?=
+ =?utf-8?B?b2pub1l5aFFRSGtKQ2ljY0N4Z2N4R1VYNWJJRnB1ZjlTclZmMUFyaDVpWlNa?=
+ =?utf-8?B?TkJvTDI1V3U5Nk1zVGhUa2lLUFBWK0pXQSt2UlVzWHJ2aHZLWE12U3d6KzFw?=
+ =?utf-8?B?d0wxYkU1bW8yUGFIMXhBZ2FzRUhaQXV1VHg4cUNzcTJ2RlJRUG1KYnduWnJ2?=
+ =?utf-8?B?cVMrYytETVlZQUxNK1E1elBGY3M5aXpHeXVtLzd0OU11RHZNcC80N2ZyZGRT?=
+ =?utf-8?B?dkpXM1JHNXpERS82VUt1MWczNXMrR3NPd1RCVXNDZVcrVWhBbEJwbUxQZGVr?=
+ =?utf-8?B?T1J1WlJ0Um1LWmlUSytNK2MvRmp3MER1MUJGaTNHWGZOTU5JTEJydE9pZ2lS?=
+ =?utf-8?B?RFBERzNXMEVEYVRMbmxUWFpwYzd3NE9nSjQ4bmk0aFE2dVptUWhCbnJpaUhJ?=
+ =?utf-8?Q?4lEaDnX6lwPLLSy0wS?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ac6040c8-c426-401c-9281-08de94703bc4
+X-MS-Exchange-CrossTenant-AuthSource: SA0PR12MB7091.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Apr 2026 05:14:28.2608 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Apr 2026 06:38:09.7035 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: LVCGib3JF2YeW9B9kaCnETJEFWKdN2GkiRUKEusIUgtl9wK81LNjJ6LLYbwGExDbSmbg4NdPdg2KWmmtFFz1nA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR11MB6911
-X-OriginatorOrg: intel.com
+X-MS-Exchange-CrossTenant-UserPrincipalName: J+aZiKZt/KbL8Kic027iBKg2tzaEWisW/qXeUpYtMd0QqfNzFYaGSHHOlP9ZabV+
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8070
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -200,143 +134,150 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Apr 06, 2026 at 06:10:07PM -0400, Joel Fernandes wrote:
-> 
-> 
-> On 4/6/2026 5:24 PM, Joel Fernandes wrote:
-> > 
-> > 
-> > On 4/2/2026 1:59 AM, Matthew Brost wrote:
-> >> On Tue, Mar 31, 2026 at 05:20:34PM -0400, Joel Fernandes wrote:
-> >>> Add TLB (Translation Lookaside Buffer) flush support for GPU MMU.
-> >>>
-> >>> After modifying page table entries, the GPU's TLB must be invalidated
-> >>> to ensure the new mappings take effect. The Tlb struct provides flush
-> >>> functionality through BAR0 registers.
-> >>>
-> >>> The flush operation writes the page directory base address and triggers
-> >>> an invalidation, polling for completion with a 2 second timeout matching
-> >>> the Nouveau driver.
-> >>>
-> >>> Cc: Nikola Djukic <ndjukic@nvidia.com>
-> >>> Signed-off-by: Joel Fernandes <joelagnelf@nvidia.com>
-> >>> ---
-> >>>  drivers/gpu/nova-core/mm.rs     |  1 +
-> >>>  drivers/gpu/nova-core/mm/tlb.rs | 95 +++++++++++++++++++++++++++++++++
-> >>>  drivers/gpu/nova-core/regs.rs   | 42 +++++++++++++++
-> >>>  3 files changed, 138 insertions(+)
-> >>>  create mode 100644 drivers/gpu/nova-core/mm/tlb.rs
-> >>>
-> >>> diff --git a/drivers/gpu/nova-core/mm.rs b/drivers/gpu/nova-core/mm.rs
-> >>> index 8f3089a5fa88..cfe9cbe11d57 100644
-> >>> --- a/drivers/gpu/nova-core/mm.rs
-> >>> +++ b/drivers/gpu/nova-core/mm.rs
-> >>> @@ -5,6 +5,7 @@
-> >>>  #![expect(dead_code)]
-> >>>  
-> >>>  pub(crate) mod pramin;
-> >>> +pub(crate) mod tlb;
-> >>>  
-> >>>  use kernel::sizes::SZ_4K;
-> >>>  
-> >>> diff --git a/drivers/gpu/nova-core/mm/tlb.rs b/drivers/gpu/nova-core/mm/tlb.rs
-> >>> new file mode 100644
-> >>> index 000000000000..cd3cbcf4c739
-> >>> --- /dev/null
-> >>> +++ b/drivers/gpu/nova-core/mm/tlb.rs
-> >>> @@ -0,0 +1,95 @@
-> >>> +// SPDX-License-Identifier: GPL-2.0
-> >>> +
-> >>> +//! TLB (Translation Lookaside Buffer) flush support for GPU MMU.
-> >>> +//!
-> >>> +//! After modifying page table entries, the GPU's TLB must be flushed to
-> >>> +//! ensure the new mappings take effect. This module provides TLB flush
-> >>> +//! functionality for virtual memory managers.
-> >>> +//!
-> >>> +//! # Example
-> >>> +//!
-> >>> +//! ```ignore
-> >>> +//! use crate::mm::tlb::Tlb;
-> >>> +//!
-> >>> +//! fn page_table_update(tlb: &Tlb, pdb_addr: VramAddress) -> Result<()> {
-> >>> +//!     // ... modify page tables ...
-> >>> +//!
-> >>> +//!     // Flush TLB to make changes visible (polls for completion).
-> >>> +//!     tlb.flush(pdb_addr)?;
-> >>> +//!
-> >>> +//!     Ok(())
-> >>> +//! }
-> >>> +//! ```
-> >>> +
-> >>> +use kernel::{
-> >>> +    devres::Devres,
-> >>> +    io::poll::read_poll_timeout,
-> >>> +    io::Io,
-> >>> +    new_mutex,
-> >>> +    prelude::*,
-> >>> +    sync::{
-> >>> +        Arc,
-> >>> +        Mutex, //
-> >>> +    },
-> >>> +    time::Delta, //
-> >>> +};
-> >>> +
-> >>> +use crate::{
-> >>> +    driver::Bar0,
-> >>> +    mm::VramAddress,
-> >>> +    regs, //
-> >>> +};
-> >>> +
-> >>> +/// TLB manager for GPU translation buffer operations.
-> >>> +#[pin_data]
-> >>> +pub(crate) struct Tlb {
-> >>> +    bar: Arc<Devres<Bar0>>,
-> >>> +    /// TLB flush serialization lock: This lock is acquired during the
-> >>> +    /// DMA fence signalling critical path. It must NEVER be held across any
-> >>> +    /// reclaimable CPU memory allocations because the memory reclaim path can
-> >>> +    /// call `dma_fence_wait()`, which would deadlock with this lock held.
-> >>> +    #[pin]
-> >>> +    lock: Mutex<()>,
-> >>> +}
-> >>> +
-> >>> +impl Tlb {
-> >>> +    /// Create a new TLB manager.
-> >>> +    pub(super) fn new(bar: Arc<Devres<Bar0>>) -> impl PinInit<Self> {
-> >>> +        pin_init!(Self {
-> >>> +            bar,
-> >>> +            lock <- new_mutex!((), "tlb_flush"),
-> >>> +        })
-> >>> +    }
-> >>> +
-> >>> +    /// Flush the GPU TLB for a specific page directory base.
-> >>> +    ///
-> >>> +    /// This invalidates all TLB entries associated with the given PDB address.
-> >>> +    /// Must be called after modifying page table entries to ensure the GPU sees
-> >>> +    /// the updated mappings.
-> >>> +    pub(crate) fn flush(&self, pdb_addr: VramAddress) -> Result {
-> >>
-> >> This landed on my list randomly, so I took a look.
-> >>
-> >> Wouldn’t you want to virtualize the invalidation based on your device?
-> >> For example, what if you need to register interface changes on future hardware?
-> > 
-> > Good point, for future hardware it indeed makes sense. I will do that.
-> Actually, at least in the future as far as I can see, the register definitions
-> are the same for TLB invalidation are the same, so we are good and I will not be
-> making any change in this regard.
-> 
-> But, thanks for raising the point and forcing me to double check!
-> 
 
-Not my driver, but this looks like a classic “works now” change that may
-not hold up later, which is why I replied to something that isn’t really
-my business.
 
-Again, not my area, but I’ve been through this before. Generally,
-getting the abstractions right up front pays off.
-
-Matt
-
-> --
-> Joel Fernandes
+On 07-Apr-26 8:39 AM, Yang Wang wrote:
+> Extend the smu_cmn_update_table function to support reading a 32-bit return
+> argument from the SMU firmware during table transfer operations.
 > 
+> - Rename the original function to smu_cmn_update_table_read_arg
+> - Add a uint32_t *read_arg output parameter to capture firmware response
+> - Pass the read_arg pointer to the SMU message command
+> - Keep full backward compatibility using a macro wrapper for the old API
+> 
+> This allows the driver to retrieve status codes, results, or configuration
+> feedback from the SMU firmware after table data transfer.
+> 
+> No functional changes for existing users of the original smu_cmn_update_table()
+> API.
+> 
+> Signed-off-by: Yang Wang <kevinyang.wang@amd.com>
+
+Minor nits below -
+
+Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
+
+
+> ---
+>   drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h |  1 +
+>   drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c        | 37 +++++++++++++------
+>   drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h        | 14 ++++---
+>   3 files changed, 35 insertions(+), 17 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
+> index 126fc54cb511..d76e0b005308 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
+> @@ -584,6 +584,7 @@ struct cmn2asic_mapping {
+>   /* Message flags for smu_msg_args */
+>   #define SMU_MSG_FLAG_ASYNC	BIT(0) /* Async send - skip post-poll */
+>   #define SMU_MSG_FLAG_LOCK_HELD	BIT(1) /* Caller holds ctl->lock */
+> +#define SMU_MSG_FLAG_FORCE_READ_ARG	BIT(2)	/* force read smu arg from pmfw */
+>   
+>   /* smu_msg_ctl flags */
+>   #define SMU_MSG_CTL_DEBUG_MAILBOX	BIT(0) /* Debug mailbox supported */
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
+> index 006ef585a377..3d49e58794d2 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
+> @@ -496,7 +496,8 @@ static int smu_msg_v1_send_msg(struct smu_msg_ctl *ctl,
+>   	}
+>   
+>   	/* Read output args */
+> -	if (ret == 0 && args->num_out_args > 0) {
+> +	if ((ret == 0 || (args->flags & SMU_MSG_FLAG_FORCE_READ_ARG)) &&
+> +	    args->num_out_args > 0) {
+>   		__smu_msg_v1_read_out_args(ctl, args);
+>   		dev_dbg(adev->dev, "smu send message: %s(%d) resp : 0x%08x",
+>   			smu_get_message_name(smu, args->msg), index, reg);
+> @@ -1060,20 +1061,24 @@ int smu_cmn_check_fw_version(struct smu_context *smu)
+>   	return 0;
+>   }
+>   
+> -int smu_cmn_update_table(struct smu_context *smu,
+> -			 enum smu_table_id table_index,
+> -			 int argument,
+> -			 void *table_data,
+> -			 bool drv2smu)
+> +int smu_cmn_update_table_read_arg(struct smu_context *smu,
+> +				    enum smu_table_id table_index,
+> +				    int argument,
+> +				    void *table_data,
+> +				    uint32_t *read_arg,
+> +				    bool drv2smu)
+>   {
+> -	struct smu_table_context *smu_table = &smu->smu_table;
+>   	struct amdgpu_device *adev = smu->adev;
+
+May move this down to follow reverse christmas tree declaration style.
+
+> +	struct smu_table_context *smu_table = &smu->smu_table;
+>   	struct smu_table *table = &smu_table->driver_table;
+> +	struct smu_msg_ctl *ctl = &smu->msg_ctl;
+> +	struct smu_msg_args args;
+>   	int table_id = smu_cmn_to_asic_specific_index(smu,
+>   						      CMN2ASIC_MAPPING_TABLE,
+>   						      table_index);
+>   	uint32_t table_size;
+>   	int ret = 0;
+> +
+>   	if (!table_data || table_index >= SMU_TABLE_COUNT || table_id < 0)
+>   		return -EINVAL;
+>   
+> @@ -1088,11 +1093,19 @@ int smu_cmn_update_table(struct smu_context *smu,
+>   		amdgpu_hdp_flush(adev, NULL);
+>   	}
+>   
+> -	ret = smu_cmn_send_smc_msg_with_param(smu, drv2smu ?
+> -					  SMU_MSG_TransferTableDram2Smu :
+> -					  SMU_MSG_TransferTableSmu2Dram,
+> -					  table_id | ((argument & 0xFFFF) << 16),
+> -					  NULL);
+> +	args.msg = drv2smu ? SMU_MSG_TransferTableDram2Smu : SMU_MSG_TransferTableSmu2Dram;
+> +	args.args[0] = ((argument & 0xFFFF) << 16) | (table_id  & 0xffff);
+> +	args.num_args = 1;
+> +	args.out_args[0] = 0;
+> +	args.num_out_args = read_arg ? 1 : 0;
+> +	args.flags = read_arg ? SMU_MSG_FLAG_FORCE_READ_ARG : 0;
+> +	args.timeout = 0;
+> +
+> +	ret = ctl->ops->send_msg(ctl, &args);
+> +
+> +	if (read_arg)
+> +		*read_arg = args.out_args[0];
+> +
+>   	if (ret)
+>   		return ret;
+>   
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h
+> index d129907535bd..1cd2ccb11b29 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h
+> @@ -168,11 +168,15 @@ int smu_cmn_get_smc_version(struct smu_context *smu,
+>   			    uint32_t *if_version,
+>   			    uint32_t *smu_version);
+>   
+> -int smu_cmn_update_table(struct smu_context *smu,
+> -			 enum smu_table_id table_index,
+> -			 int argument,
+> -			 void *table_data,
+> -			 bool drv2smu);
+> +#define smu_cmn_update_table(smu, table_index, argument, table_data, drv2smu) \
+> +	smu_cmn_update_table_read_arg((smu), (table_index), (argument), (table_data), NULL, (drv2smu))
+> +
+
+May move this down after function declaration.
+
+Thanks,
+Lijo
+
+> +int smu_cmn_update_table_read_arg(struct smu_context *smu,
+> +				  enum smu_table_id table_index,
+> +				  int argument,
+> +				  void *table_data,
+> +				  uint32_t *read_arg,
+> +				  bool drv2smu);
+>   
+>   int smu_cmn_vram_cpy(struct smu_context *smu, void *dst,
+>   		     const void *src, size_t len);
+
