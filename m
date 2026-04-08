@@ -4,124 +4,98 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 480011073CA8
-	for <amd-gfx@archiver.kernel.org>; Wed,  8 Apr 2026 12:38:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 471B51073CA6
+	for <amd-gfx@archiver.kernel.org>; Wed,  8 Apr 2026 12:54:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CD05110E631;
-	Wed,  8 Apr 2026 12:38:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8797F10E63E;
+	Wed,  8 Apr 2026 12:54:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="AyWtk86U";
+	dkim=pass (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.b="ayZ41nN1";
 	dkim-atps=neutral
-Received: from CO1PR03CU002.outbound.protection.outlook.com
- (mail-westus2azon11010008.outbound.protection.outlook.com [52.101.46.8])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4E54B10E631
- for <amd-gfx@lists.freedesktop.org>; Wed,  8 Apr 2026 12:38:38 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=v56ICkTkNtzONF88rupNHhMqwbynTK4uPPbM1uS6bdoZuTh2S3ep+dD0Z7B8ule/qyKSx6TUpZ2wqkmy9kxz+q8MQzgf1UgGWhAF6u20W9rIEemcH9Iteraxi4WhAnF2m63LGFrHKdGKq+GG7JkZ0RaP+t2V4JKX5SKEjSwcUREtsPLZj5bXuWD6Nn2AppRrfql2iXHVBVQBTUDd34sQVM3hbwNvWnvcn5lAKhYhBr0BNf+aPijYknU2PFMdtcntHTODCuZnKv09+eD9qUFYuxtXxzrgZuggru2Mr+9razMUpHnR/YtPrKsBQUpx0rsNd/JkajPDoUDqLWjuV7BkWg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=KnEDewpD47zXBmKh1Ymht3cNTQImFqSYL8WXVIO2CVM=;
- b=vlWybrry85zDxdHwjMtJBP0h7CsF/bO12NJyJfd5ZRrRu0efUmn/PHmKJxSPtHH0Tlx+JAjY8boYAa+A8RkDuFcjxlgPRGo1Y/hGzCduBiA73QhFjJzT3o7bywIv1ozutTrxtIq4f4GPeWNqDvKT17Q99rskSNBM/MDUEw6ypNcRbzj/7QGUjQIPG8eGlbjdVD2SBmJrJrDGuYlRuh34LzL7ctIcMXUCbhyUamIj878qN77l6cthK9SzXhhtTv0Zrhvqx6lw4rmVX7YV0hrrHgp8Jf9n780I9jgNhOHkIaVJSUcgPKA/3Dor9Pz3yJDgafv31vXHhqYWpdBHQEqqaQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=KnEDewpD47zXBmKh1Ymht3cNTQImFqSYL8WXVIO2CVM=;
- b=AyWtk86UrjUBcnW3acC14IaY9vkNIgJlCTHS+AyQjOf9QJ+QHFrBruFP5G2RWtYbfSw/lJzhOPOHJFQXGOuPuyiQH+Ca8cycTQDzCFvcFCBwQaqGVvvQ5xoqD+U+QtUvWO+kjwrmlDlfHpFOnEtt0DJ646hYY8m4cUrNNLRdJ18=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BL1PR12MB5753.namprd12.prod.outlook.com (2603:10b6:208:390::15)
- by IA0PPF8FC6E1236.namprd12.prod.outlook.com
- (2603:10b6:20f:fc04::bda) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.17; Wed, 8 Apr
- 2026 12:38:33 +0000
-Received: from BL1PR12MB5753.namprd12.prod.outlook.com
- ([fe80::81e6:908a:a59b:87e2]) by BL1PR12MB5753.namprd12.prod.outlook.com
- ([fe80::81e6:908a:a59b:87e2%4]) with mapi id 15.20.9769.015; Wed, 8 Apr 2026
- 12:38:33 +0000
-Message-ID: <64e17b2a-e2d2-4d9a-8179-827886ac918f@amd.com>
-Date: Wed, 8 Apr 2026 18:08:28 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1] drm/amdgpu/userq: move comment to definition for
- amdgpu_userq_ensure_ev_fence
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Sunil Khatri <sunil.khatri@amd.com>, Alex Deucher <alexander.deucher@amd.com>
-Cc: amd-gfx@lists.freedesktop.org
-References: <20260408094254.3535048-1-sunil.khatri@amd.com>
- <7bddfdd2-8a7d-4f56-99b7-a491113e3836@amd.com>
-Content-Language: en-US
-From: "Khatri, Sunil" <sukhatri@amd.com>
-In-Reply-To: <7bddfdd2-8a7d-4f56-99b7-a491113e3836@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: MA5P287CA0181.INDP287.PROD.OUTLOOK.COM
- (2603:1096:a01:1b6::8) To BL1PR12MB5753.namprd12.prod.outlook.com
- (2603:10b6:208:390::15)
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F19A510E63E
+ for <amd-gfx@lists.freedesktop.org>; Wed,  8 Apr 2026 12:54:05 +0000 (UTC)
+Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 63841DJ42302396; Wed, 8 Apr 2026 12:54:03 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+ :content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=pp1; bh=/9lmjYribINghMTpISk5zLmyzb1A
+ XeJHRSat1KEbG4Y=; b=ayZ41nN1Duen0lwc0XtSqMnRwtBOiZMM7hVNWjfR3DMt
+ 3FQxA1fCl9NS6m+VfNMBJu03QUVd6DVlyCTwJh6dBLuuSUsBSfVE/wSwgUZiM9Uh
+ Mmu3B2lfViWBbhlOesW/S8hVI+XQQPzJgDSujhwXdusETEUXiJ9YMPTawLu/BkvT
+ AM3FPbs/iyZEHZ00TiCS2rWyIHV16a0BzYDHmxWu09+IcV4c4vje2GV/myW4dYCK
+ pkAqJviQVuVMOHIL0wA3oxvACwvYgv1dbmZ0lowG+2SrDOYq2zzDWrUWjezIhB8L
+ Yei/PH15Yb9GEKOfCIR6810O981khI0D/c0Hg+fs9Q==
+Received: from ppma13.dal12v.mail.ibm.com
+ (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
+ by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4dcn2fg1dt-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 08 Apr 2026 12:54:02 +0000 (GMT)
+Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
+ by ppma13.dal12v.mail.ibm.com (8.18.1.2/8.18.1.2) with ESMTP id 638BJiMR018987;
+ Wed, 8 Apr 2026 12:54:01 GMT
+Received: from smtprelay04.fra02v.mail.ibm.com ([9.218.2.228])
+ by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4dcme9ff25-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 08 Apr 2026 12:54:01 +0000
+Received: from smtpav04.fra02v.mail.ibm.com (smtpav04.fra02v.mail.ibm.com
+ [10.20.54.103])
+ by smtprelay04.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 638CrwRk28312132
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Wed, 8 Apr 2026 12:53:58 GMT
+Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id EC49C20043;
+ Wed,  8 Apr 2026 12:53:57 +0000 (GMT)
+Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 2C05A20040;
+ Wed,  8 Apr 2026 12:53:55 +0000 (GMT)
+Received: from li-218185cc-29b5-11b2-a85c-9a1300ae2e6e.bl1-in.ibm.com (unknown
+ [9.123.6.34]) by smtpav04.fra02v.mail.ibm.com (Postfix) with ESMTP;
+ Wed,  8 Apr 2026 12:53:54 +0000 (GMT)
+From: Donet Tom <donettom@linux.ibm.com>
+To: amd-gfx@lists.freedesktop.org, Felix Kuehling <Felix.Kuehling@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Alex Deucher <alexdeucher@gmail.com>, christian.koenig@amd.com,
+ Philip Yang <yangp@amd.com>
+Cc: David.YatSin@amd.com, Kent.Russell@amd.com,
+ Ritesh Harjani <ritesh.list@gmail.com>,
+ Vaidyanathan Srinivasan <svaidy@linux.ibm.com>, donettom@linux.ibm.com
+Subject: [PATCH v6] drm/amdgpu: Fix AMDGPU_GTT_MAX_TRANSFER_SIZE for non-4K
+ page size
+Date: Wed,  8 Apr 2026 18:23:52 +0530
+Message-ID: <20260408125352.716899-1-donettom@linux.ibm.com>
+X-Mailer: git-send-email 2.52.0
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL1PR12MB5753:EE_|IA0PPF8FC6E1236:EE_
-X-MS-Office365-Filtering-Correlation-Id: ee1be158-f8b9-472a-2a5f-08de956bbf24
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|1800799024|376014|22082099003|56012099003|18002099003; 
-X-Microsoft-Antispam-Message-Info: XxKeZY2AIamzSclvtfxkg2ODBpFSpi+XkZjMm3qL3oo+NuS6upEhVWlq13My9PfVxTcuWyQeyx5/7tiSRdmiNpNtRMeUMxga2X45MC8IWgldW4SJ9UpBvEJ8L1VQtGwLlpFULNi97tw91acXnBNqcNE2lRM7/nu44rEpIgW0Qhsc693sXCfLTF+sWyEFzwN+qWIrKsvw1rM4J+0yQ0X34D0Wif271ruxQC/ECHM0U64B8WlvUTs1YVC9hp7HgcFIUx8MDbfyi7Ubfr9kZSseQk38bim1gha591ZeIZU1IeH5mnfN758vmS+xR/HJUUil3fsqwReX9dXNAAMYBT4p+PoJnZzkP9SyAAagFj6jlO470aBd+ler9XbNECOGyXfex8B8n/zI2LYlPmj09rsbDOyEhT/ZBPwbqzJnHjrZT1dTtNsie4aacnD7fcabmkZwV1Va5evNtGPxJ15cH+saZwMjh7CH2U4VNsSveNgqRy5X9TWkzU37PAQl2kmtCW9csM7ke+18EFu1nrGJJQEdVk8VT6uZptl3z1lss/9MYYT7kWrEODOvCYVJUrvP6en5AJRLvcVBu1D2syRnVANUuYiqQwbf7jhp8lm60+Et3f0fjrTOh92wgFHLHCM/NL0GLZjjBfNFG5uYd/JKbzY2JNEMT3QPqcexTjKfr4Z/9SAgebQp7IUt2CJNIGHuMdhiRfahvjbKlhdlq+NV7lfbm1i/jGUM8iTktkKThOxClo8=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BL1PR12MB5753.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014)(22082099003)(56012099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MGQyN2MzR2g5QVBwdDNxK2RiTm5KNjJWWkFoRmZyb2xHWkMxeFZtMGUwSzls?=
- =?utf-8?B?MnhtdjQ5d0hLQURPTTYxWnRkM1BlbHdIOEM1ZUhtaVhDbURubjB5bDRSeGd1?=
- =?utf-8?B?VEh6bVdHR2EweVlqMmROdXJiVE4yanF5TElaTTBEWHErYkxYTU1vbWl6SVhP?=
- =?utf-8?B?QlBmaWRLRUFFeXgrNDN4cTljZ0RZS29iOFVnSTFzYnBOb0l6d01KMXg0VUVC?=
- =?utf-8?B?S1lVQ1p3c1ZFdXFOTEQwaW5ENVZaTjZMckRUcEMySTlQZ253aVV6bXdkcGs2?=
- =?utf-8?B?QzN0TVdUSkl3NDR4cGwxSG1NNkZmQkhCY1VMK3hUTkdqaHowazdLeE8xMEhv?=
- =?utf-8?B?TGJXenIxcVBwMXVZd0lxK3l1MHlJRVoyRmluK1dINHpnTVZLZFZDVHc4cmhN?=
- =?utf-8?B?UzRlTnBwUzNhbWxVVlJoYVpHVjZnOUk0V2x0UUt0UG1FRm5DSGZFUmk1WjhJ?=
- =?utf-8?B?VTJzdGhvdHk1b0JObkxidUNMRFk0RWs3QnE3Y3d0OTFhM2dwWURyRzJwRjkx?=
- =?utf-8?B?L0YwcWVXTTc4KzNjYmdXU2orQXplcTZUY3QrZWdpVVUvVXZSQzFLeGxIRlZh?=
- =?utf-8?B?RjhDbTNTWThSaUVnNGdvbjUzMlEwK0RPUURZUkg2TmJ3MzVFMU5kNUgvR0Yv?=
- =?utf-8?B?SitFcVhKaGhuRHhRbzhOYXpaUVM2K0JpME90S3ozaEs1R2wydnprbUc1OXJV?=
- =?utf-8?B?WHZpU3BCTTJBQTZxcjZ5bWNaUVFXZERXR253TDJPN01aSngxcmx1RktJV3ds?=
- =?utf-8?B?MEdBcHVMSGU5OXJxbStGQm04a1pOeE5BOWNGd09ua0J5Wi9CQm5YaGhkQnNL?=
- =?utf-8?B?KzVYLzZqSXp3VEpnQUdTcTJCdFNxV3QyVysvZGhoYU5WV1IzelJQcjhGMWZC?=
- =?utf-8?B?bGJTcHNYZ0JsUHpDWnJpZ2k3bUYwemw0NmUrc016Mzc1RFMxVTEzOElINi9n?=
- =?utf-8?B?SVZPblBvcEhlL2ZjTCszbmxmWDY3NHp5aDNLRWRxaFFJY3hSelJDUVY0OEVv?=
- =?utf-8?B?OTFCVEovUnVWdmVBQjJ2VFZJL3k0VmQvSjExOC8xZkRoelRKR3U2RkpPYnJZ?=
- =?utf-8?B?UHRGUzMydGlrakM3aUc2UGN0aTBUSkcwYjFYSThBcjhXZE1IZWRqZkVNb3Zo?=
- =?utf-8?B?MEJCcHNLMk9KSkZWMjc2dHBJbVFCZVU0QkVJZnNTbzN3dm5heHpaN2lpTEVM?=
- =?utf-8?B?Rm13a0l6eGdSek1KNHRUdzFLWWF5bndhNE0yYmV2RktycjVxVW5jSCtXVndS?=
- =?utf-8?B?TU5ZSEY3RlZ3S2JvTS83RC81c0NzcElhemVxcjNRL0pidGZUVkZwVHFQc3Iz?=
- =?utf-8?B?UzJaSWJTUmVsTTRlTWoxZjh5L3hGaVl0dFRQd1R1RlhjTm5RNkk0REFpT0Nq?=
- =?utf-8?B?Zlo4TnZPT012NFFFRXdMY3FFUUI1VWxZQXh5cEVzVzdoMnMvYnBtVktxWE1R?=
- =?utf-8?B?cFJEQzgxM3VFUWZMSjBWWjRSUU0wVncvdmxWZzBtYVdiNzBGN3dRZ1pGYkhj?=
- =?utf-8?B?Uy9HNTB0cFhBOVJmK0dOY09JMVNzbXlZeVFRSnpQVkU3SXNzU2xFVlp1Snpj?=
- =?utf-8?B?Mktqc0dUd2hqZmZwU1JkRFBzWitlMTJRTnVmWjU5b2tibnVWRDJ3Mzg3OTQ3?=
- =?utf-8?B?a3I2bnlwT0tKL2VhSzFaallJM2NhR1RiUXZTVXJuTEdzalRpckROZnJBMWcy?=
- =?utf-8?B?UTNSeGpxYno5QWJjczR4WHkyNGN1emUwanF0Z2dtWVl6QUhmSCs2Z2IyNEo4?=
- =?utf-8?B?SjRqbW9TSTh6Skg2QitCYktoSStFc1BTSi8wNHkzYVhNbU84Nkx5TloyNUE0?=
- =?utf-8?B?a0Vxa082NCsvbUhTcEROK3p4QTBhanRPWTQ0d1U4NUNTV1o4R3RGZ0lqV09G?=
- =?utf-8?B?SlRSVGROQ08zRk1LVVdGOHplS0ZnNzZHV1c0L1ZFQkF3dy9pUVF6VDdKZ2JT?=
- =?utf-8?B?V3M3SGZlTyt1bjZYSnJuTkcvQmQ3ckIxVzY1T1MwYzVPUElFSTlyNjM2TjRh?=
- =?utf-8?B?MVlSdnhyY3Z4VjRXRmZNU3A0VFlzV1BSV3JESzlzUkd4WHk4dVFGN0F3Y2hW?=
- =?utf-8?B?T1drczIyWXJYa3ZnQzNTZkxWMFV3anhaa3p5aUdMZnJGZ0NONmR5YjllWU9m?=
- =?utf-8?B?bXpWcXNRK2d4S2FYYXFndlExWGdLdXZjZWptZTVTQ0ZQckIwcFd3RHNsbE9H?=
- =?utf-8?B?aUN4bHl0WlhVVzZxV0dNYWVscW45ZHJIclYwc0ttV0RvVGhKT3Y1bkhFZm9s?=
- =?utf-8?B?aEROQ285N051K3JFdUVvd3pNU3FKaExxL3J2Vm1GV0RFR2RzeEdldU02Sks3?=
- =?utf-8?B?d214bTNvZ2RoYnJ0NlErNzBDWVczRVBwQXdpWGkyWG8vM1MyamVKUT09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ee1be158-f8b9-472a-2a5f-08de956bbf24
-X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5753.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Apr 2026 12:38:33.5728 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Lkdpoe/jOdtJrZa0lJGahmXdxfByYyh4yD70C5s0Ec4l8+Th/ACYcaSNHoW8eAm+z0Whwsmx0vG8+wRt2jNJRA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PPF8FC6E1236
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDA4MDExOCBTYWx0ZWRfXwiVxtbXABLMH
+ nfv765CE61+gl2mJGhbnpgzj187LIR4VRCjwpXTlwo/skmQh9VVsQWSpBpcJUXwvyU5bcP5FiiD
+ sIiLMrjO8B8tCp/+u7krGUVs5dtkNMW0eBX5B+7zW4TOc6wqXbzTbpjV8AD6sAuzMcIVytj3g4Q
+ XfIYusk8c/DV6MCn8hlA/hFyJZ161nZR19UHJfT9WRCccTDCVWsNiqCEsN1f4gRX+pOJPFQmS8i
+ VYOMDE09iAXorktEDFLfSxReiwqniIzlbSQroAgaO6M260gwPLYQPxJaGrazAjMyaUB0fIqrG97
+ 91t4U6zSitNAp8g5ROJqcQJ5+W/pBNGkZYPHpeJ2/WaGiP9KCBVT2K7qpP0udGLoTCqDHgQq+wT
+ elvwNI/XTe9jzbqs/AqF4RpaMlgDO7NSmbMw2UiYqQ+2wMn3IqHSd4oBnhPS/h55RUIDsTj0SOy
+ BOvmZFAf08EJs0xEQ5w==
+X-Authority-Analysis: v=2.4 cv=FsY1OWrq c=1 sm=1 tr=0 ts=69d64feb cx=c_pps
+ a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
+ a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=U7nrCbtTmkRpXpFmAIza:22 a=VnNF1IyMAAAA:8
+ a=d1KpeahhGMAa521JEmEA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+X-Proofpoint-ORIG-GUID: R_I6qbJTBzx8mpCb3vA6PrDiTNyVQ-df
+X-Proofpoint-GUID: YH_kv1a7A30eyw1Jx1diqmegv2wNSrCY
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-08_04,2026-04-08_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 priorityscore=1501 impostorscore=0 spamscore=0 phishscore=0
+ lowpriorityscore=0 clxscore=1015 adultscore=0 malwarescore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2604010000 definitions=main-2604080118
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,62 +110,121 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+AMDGPU_GTT_MAX_TRANSFER_SIZE represented the maximum number of
+system-page-sized pages that could be transferred in a single
+operation. The effective maximum transfer size was intended to be
+one PMD-sized mapping.
 
-On 08-04-2026 05:43 pm, Christian König wrote:
->
-> On 4/8/26 11:42, Sunil Khatri wrote:
->> Move the comment for the caller to the definition for
->> amdgpu_userq_ensure_ev_fence.
->>
->> Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
->> ---
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 14 +++++++-------
->>   1 file changed, 7 insertions(+), 7 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
->> index ae973c611972..b921346faa99 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
->> @@ -460,6 +460,13 @@ static void amdgpu_userq_cleanup(struct amdgpu_usermode_queue *queue)
->>   	up_read(&adev->reset_domain->sem);
->>   }
->>   
->> +/*
->> + * There could be a situation that we are creating a new queue while
->> + * the other queues under this UQ_mgr are suspended. So if there is any
->> + * resume work pending, wait for it to get done.
-> This is actually not necessary here.
->
->> + *
->> + * This will also make sure we have a valid eviction fence ready to be used.
->> + */
-> That's the important part, maybe even extend that a bit:
->
-> /* This will make sure that we have a valid and not signaled eviction fence and user queues are ready to be used. */
->
-> Then using kerneldoc format would be even better then just a comment.
-Sure, will do that way.
+In the existing code, AMDGPU_GTT_MAX_TRANSFER_SIZE was hard-coded
+to 512 pages. This corresponded to 2 MB on 4 KB page-size systems,
+matching the PMD size. However, on systems with a non-4 KB page
+size, this value no longer matched the PMD size.
 
-Regards
-Sunil khatri
->
-> Thanks,
-> Christian.
->
->>   void
->>   amdgpu_userq_ensure_ev_fence(struct amdgpu_userq_mgr *uq_mgr,
->>   			     struct amdgpu_eviction_fence_mgr *evf_mgr)
->> @@ -786,13 +793,6 @@ amdgpu_userq_create(struct drm_file *filp, union drm_amdgpu_userq *args)
->>   		goto clean_mapping;
->>   	}
->>   
->> -	/*
->> -	 * There could be a situation that we are creating a new queue while
->> -	 * the other queues under this UQ_mgr are suspended. So if there is any
->> -	 * resume work pending, wait for it to get done.
->> -	 *
->> -	 * This will also make sure we have a valid eviction fence ready to be used.
->> -	 */
->>   	amdgpu_userq_ensure_ev_fence(&fpriv->userq_mgr, &fpriv->evf_mgr);
->>   
->>   	r = uq_funcs->mqd_create(queue, &args->in);
+This patch changed the calculation of AMDGPU_GTT_MAX_TRANSFER_SIZE
+to derive it from PMD_SHIFT and PAGE_SHIFT, ensuring that the
+maximum transfer size remained PMD-sized across all system page
+sizes.
+
+Additionally, in some places, AMDGPU_GTT_MAX_TRANSFER_SIZE was
+implicitly assumed to be based on 4 KB pages. This resulted in
+incorrect address offset calculations. This patch updated the
+address calculations to correctly handle non-4 KB system page
+sizes as well.
+
+amdgpu_ttm_map_buffer() can create both GTT GART entries and
+VRAM GART entries. For GTT mappings, amdgpu_gart_map() takes
+system page–sized PFNs, and the mappings are created correctly.
+
+However, for VRAM GART mappings, amdgpu_gart_map_vram_range() expects
+GPU page–sized PFNs, but CPU page–sized PFNs were being passed,
+resulting in incorrect mappings.
+
+This patch updates the code to pass GPU page–sized PFNs to
+amdgpu_gart_map_vram_range(), ensuring that VRAM GART mappings are
+created correctly.
+
+Signed-off-by: Donet Tom <donettom@linux.ibm.com>
+---
+
+This patch is necessary, as it ensures the correct window is used
+while mapping the buffer. Without this fix, amdgpu_gart_map_vram_range()
+does not create all the required mappings when the page size is not 4K.
+Since this is also an important fix for enabling non-4K page size support,
+I would be grateful if you could take a look and share your feedback.
+
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 8 +++++---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h | 2 +-
+ drivers/gpu/drm/amd/amdgpu/vce_v1_0.c   | 3 ++-
+ 3 files changed, 8 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+index 0ccb31788b20..f9f534119cbe 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+@@ -204,7 +204,7 @@ static int amdgpu_ttm_map_buffer(struct amdgpu_ttm_buffer_entity *entity,
+ 	int r;
+ 
+ 	BUG_ON(adev->mman.buffer_funcs->copy_max_bytes <
+-	       AMDGPU_GTT_MAX_TRANSFER_SIZE * 8);
++	       AMDGPU_GTT_MAX_TRANSFER_SIZE * AMDGPU_GPU_PAGES_IN_CPU_PAGE * 8);
+ 
+ 	if (WARN_ON(mem->mem_type == AMDGPU_PL_PREEMPT))
+ 		return -EINVAL;
+@@ -230,7 +230,7 @@ static int amdgpu_ttm_map_buffer(struct amdgpu_ttm_buffer_entity *entity,
+ 
+ 	*addr = adev->gmc.gart_start;
+ 	*addr += (u64)window * AMDGPU_GTT_MAX_TRANSFER_SIZE *
+-		AMDGPU_GPU_PAGE_SIZE;
++		AMDGPU_GPU_PAGES_IN_CPU_PAGE * AMDGPU_GPU_PAGE_SIZE;
+ 	*addr += offset;
+ 
+ 	num_dw = ALIGN(adev->mman.buffer_funcs->copy_num_dw, 8);
+@@ -248,7 +248,8 @@ static int amdgpu_ttm_map_buffer(struct amdgpu_ttm_buffer_entity *entity,
+ 	src_addr += job->ibs[0].gpu_addr;
+ 
+ 	dst_addr = amdgpu_bo_gpu_offset(adev->gart.bo);
+-	dst_addr += window * AMDGPU_GTT_MAX_TRANSFER_SIZE * 8;
++	dst_addr += window * AMDGPU_GTT_MAX_TRANSFER_SIZE *
++		AMDGPU_GPU_PAGES_IN_CPU_PAGE * 8;
+ 	amdgpu_emit_copy_buffer(adev, &job->ibs[0], src_addr,
+ 				dst_addr, num_bytes, 0);
+ 
+@@ -266,6 +267,7 @@ static int amdgpu_ttm_map_buffer(struct amdgpu_ttm_buffer_entity *entity,
+ 	} else {
+ 		u64 pa = mm_cur->start + adev->vm_manager.vram_base_offset;
+ 
++		num_pages *= AMDGPU_GPU_PAGES_IN_CPU_PAGE;
+ 		amdgpu_gart_map_vram_range(adev, pa, 0, num_pages, flags, cpu_addr);
+ 	}
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
+index 143201ecea3f..15aff225af1d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
+@@ -38,7 +38,7 @@
+ #define AMDGPU_PL_MMIO_REMAP	(TTM_PL_PRIV + 5)
+ #define __AMDGPU_PL_NUM	(TTM_PL_PRIV + 6)
+ 
+-#define AMDGPU_GTT_MAX_TRANSFER_SIZE	512
++#define AMDGPU_GTT_MAX_TRANSFER_SIZE	(1 << (PMD_SHIFT - PAGE_SHIFT))
+ #define AMDGPU_GTT_NUM_TRANSFER_WINDOWS	2
+ 
+ extern const struct attribute_group amdgpu_vram_mgr_attr_group;
+diff --git a/drivers/gpu/drm/amd/amdgpu/vce_v1_0.c b/drivers/gpu/drm/amd/amdgpu/vce_v1_0.c
+index 9ae424618556..b2d4114c258c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vce_v1_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/vce_v1_0.c
+@@ -48,7 +48,8 @@
+ #define VCE_STATUS_VCPU_REPORT_FW_LOADED_MASK	0x02
+ 
+ #define VCE_V1_0_GART_PAGE_START \
+-	(AMDGPU_GTT_MAX_TRANSFER_SIZE * AMDGPU_GTT_NUM_TRANSFER_WINDOWS)
++	(AMDGPU_GTT_MAX_TRANSFER_SIZE * AMDGPU_GPU_PAGES_IN_CPU_PAGE * \
++	 AMDGPU_GTT_NUM_TRANSFER_WINDOWS)
+ #define VCE_V1_0_GART_ADDR_START \
+ 	(VCE_V1_0_GART_PAGE_START * AMDGPU_GPU_PAGE_SIZE)
+ 
+-- 
+2.52.0
+
