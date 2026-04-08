@@ -4,83 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E462CE9DE71
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2F996E9DE70
 	for <amd-gfx@archiver.kernel.org>; Thu,  9 Apr 2026 08:45:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BB48110E7AE;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7B4BD10E7A9;
 	Thu,  9 Apr 2026 08:45:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Rjckayqb";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Ad/8ZIKJ";
 	dkim-atps=neutral
-Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com
- [209.85.208.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DCD068826D
- for <amd-gfx@lists.freedesktop.org>; Wed,  8 Apr 2026 15:34:34 +0000 (UTC)
-Received: by mail-ed1-f44.google.com with SMTP id
- 4fb4d7f45d1cf-66bd3d05e03so6832206a12.2
- for <amd-gfx@lists.freedesktop.org>; Wed, 08 Apr 2026 08:34:34 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1775662473; cv=none;
- d=google.com; s=arc-20240605;
- b=GjN2fvIQqRSA5R4tEzUGNCB35Eu0DqL8MXdS8T/GXyDn81ia5Cqpk4wFNuEWUqG4Ox
- qNZwlN6dkdAQdSyAc0yWLrPUE10Ca0NPM++gkL2+DnBHd2IN2fgIEJtpaknYq0fCyrMl
- wLstSk+K4ugnZopBLO83qsIpVTK6rxwZfFkkURB3LgMVUJ2ZOtdPPRPgCpFJ9Wc0VIk5
- BeTmH0+UwfeM06QWaC41IXkAMVoAXXaOHSaC0g8sXs2Zf4cTmp9al/7qoIUmVw4Q0gRV
- OMRvZ33p4rwNFrwaSqSLPV+ZL6G7Lbv/f7uLLmjoleU9vAN21cohcJ6F1905MGHvsGRe
- /Qvw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=to:subject:message-id:date:from:mime-version:dkim-signature;
- bh=TOnsDS86e7FMFQFGNsfI+h1ps03DMdtx2CCKyEj/qy8=;
- fh=hs9oynQb3YjZT40omR8IZyt+l0QN8nu4Bye5abBVWug=;
- b=XGQbk7fHcjN4qz+OpeCcZl2bvyfaeQSeSVAmmM8iEZkPxlNx1o741GG4YKo4HtJNnz
- DGqA3orz1k4tdAMRxO+LpZLdOcSJdR71MIY3kGJl/08pvquhLANt9XXiPgYNQJ4dbJlK
- IFOGjDGTRlimHmjHr7d9v/JX4XZqT0CmhCsX2lyAmOM1QVQaw5Yz6eqrFoLjJ4/KD45Y
- s/JiLIba2pHaYnOGHOZ6+8F3tU6ImVsaFitjqezEOlCJglarylptjR29/XPaTT9Lxd0v
- 6mO3+sKn13dqLuAA9Obrjofgv08F+BIkLMSvKRsltkTXOlqIbJmu87aDv+QZ/QJu/9oq
- uvpQ==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1775662473; x=1776267273; darn=lists.freedesktop.org;
- h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
- :date:message-id:reply-to;
- bh=TOnsDS86e7FMFQFGNsfI+h1ps03DMdtx2CCKyEj/qy8=;
- b=RjckayqbrD8SU5WEVPcGajAZqEEBCgDehfy7MB67Yr8MHYecrqDIqgKbIJUXUNeWJ+
- KGeF3x07ChLsJWmlTj5dld5lr2/6bMRhc1eHR8q19dG9EcmGVudsYCdV6pVo06oDsfY4
- dg9H8YRvHX3qgaA0UEID7Y4WsM9svqEo1IX4FSyCs4KWge2uH5aNb9mjHUVbeHESNaFL
- daTXXlMpoDB2be3q8rQhozDXZrg6my/CBsE0ddrITsepPGATaaDRH6k8k5ERBifUHoj+
- 5533L9q90pDQyEFaqGGapuoZNTO05yhIDA04ZEUiQRkYtHb3GewrE0aPWhvvC0hhNNsU
- bgFw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1775662473; x=1776267273;
- h=to:subject:message-id:date:from:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=TOnsDS86e7FMFQFGNsfI+h1ps03DMdtx2CCKyEj/qy8=;
- b=DpxHrDSMs9NWagJFr45loCDhFnrbER8muGBlRSw7c8n1zs/4jzit7BAnXpZAZoA0Sp
- smfEzWopUw3NJGQga2DIVz4cmYyidL4cKCsCQwkhWmZ0I7365OCUORP0GWKkvQAuQIXS
- 8OagKQVMITZ+5kfGDUMTTIUZyA3wix9ugz5Kr1I3BY38WQLDq88XT5Gh3AA9mr5jCQ1g
- h9WRRzoDtMQzk0qPCx8q4MkO5luhSVF8HFDaOYsNVZ6Fp8+0QgCzfO+p8lRgrKW/8IKU
- V7JZ9xByvLHGb3wCafGNA5EWOM5DKxslDH2urjHq3sZnVV3BuPqxv/6/fDqVVZd48JXQ
- fVzA==
-X-Gm-Message-State: AOJu0YxWBZVLjV+PngI83lXvAfsHwnevhEatjaFZ0tnln4oVw23++D92
- ItDysVfGTqdJZ+pzUww9F0V/PWdkFghH7vhVzAcRj0e//YMFLyw1Bix8mAgk2kj+ig/C3puAbW4
- tu/jZuTNNMHg2iJfdn/vI/534RoDLSPGPdw==
-X-Gm-Gg: AeBDievxiZhJTW9MhjViDsq6otjtDbjcnFEvNdcqb8OETY9nCvt27miykT/1JW/MR5v
- /QSLpI0r+5sRgi4fuOXQXXz+RVixkHCVGD7aedpa69SKas75XkK16iqrkqHdx2SqtJZRX/H1/Kb
- 2FZsZhwa7jq5ZWns+jtg8Iv48Mi/XnVU28aZIKb9G9dM1Qfgx4vESBN1h+Kt8VTOOQOLrZnaa2f
- WshUAziXCaYLd0nslQ5kYVd2qSCUNcTPQ4Y+lIwXfZwh6cg9TNTN57/qsDBTY4+lDezpM4KZnNh
- Zu/PToOz3QMTj8CH3icc5qPg2iFPmdyWZ1t8ayY=
-X-Received: by 2002:a17:906:5182:20b0:b96:996c:8605 with SMTP id
- a640c23a62f3a-b9c67450e29mr857344766b.23.1775662472551; Wed, 08 Apr 2026
- 08:34:32 -0700 (PDT)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 003D710E656;
+ Wed,  8 Apr 2026 13:08:03 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id D6F9340295;
+ Wed,  8 Apr 2026 13:08:03 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 69F8AC19421;
+ Wed,  8 Apr 2026 13:08:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+ s=korg; t=1775653683;
+ bh=tboaPTB7rSn2D7fzsYWWM7ybxzEObwYovXT4VessUvI=;
+ h=Subject:To:Cc:From:Date:In-Reply-To:From;
+ b=Ad/8ZIKJbmZxoEWdEuVm20Z7xe6ZILwRvv5neEUVaJ31H+MH0uetIxCzpW+arsRP0
+ rwfB6kWewrpfkaQS2uG04buc2jFgOvlfoR5nQ3L8m9iPhHKMMpnqQp4rYKExn0vnB2
+ jvJ2MWbDFe3mariXviyCzsCT0felHAXtfXBXOcXg=
+Subject: Patch "drm/amd/display: Fix DCE 6.0 and 6.4 PLL programming." has
+ been added to the 6.12-stable tree
+To: Eric.Yang2@amd.com, Mario.Limonciello@amd.com, Rodrigo.Siqueira@amd.com,
+ Roman.Li@amd.com, Tony.Cheng@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
+ alex.hung@amd.com, alexander.deucher@amd.com, amd-gfx@lists.freedesktop.org,
+ christian.koenig@amd.com, dri-devel@lists.freedesktop.org,
+ gregkh@linuxfoundation.org, harry.wentland@amd.com, issor.oruam@gmail.com,
+ ray.wu@amd.com, rosenp@gmail.com, simona@ffwll.ch, siqueira@igalia.com,
+ sunpeng.li@amd.com, timur.kristof@gmail.com, wayne.lin@amd.com
+Cc: <stable-commits@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Wed, 08 Apr 2026 15:07:40 +0200
+In-Reply-To: <20260401003908.3438-7-rosenp@gmail.com>
+Message-ID: <2026040840-handgrip-prayer-9b0f@gregkh>
 MIME-Version: 1.0
-From: Kailash Chauhan <kc2264147@gmail.com>
-Date: Wed, 8 Apr 2026 21:04:18 +0530
-X-Gm-Features: AQROBzCSkhw3S_3mdrfnB9BHVXWHIOiuoNn-aoNSD_F6fc532EL3wWKMx1FwcWY
-Message-ID: <CAMvG8quu3ka7a4a5V3A8gBBx6P9knRej6s4raRPd5wO4TVU4qg@mail.gmail.com>
-Subject: Re: [PATCH umr] Add the ability to update the register/bitfield
- database at runtime. (v2)
-To: amd-gfx@lists.freedesktop.org
-Content-Type: multipart/alternative; boundary="000000000000eae0d6064ef4a22b"
+Content-Type: text/plain; charset=ISO-8859-1
+Content-Transfer-Encoding: 8bit
+X-stable: commit
+X-Patchwork-Hint: ignore 
 X-Mailman-Approved-At: Thu, 09 Apr 2026 08:45:39 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -96,14 +61,165 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---000000000000eae0d6064ef4a22b
-Content-Type: text/plain; charset="UTF-8"
+
+This is a note to let you know that I've just added the patch titled
+
+    drm/amd/display: Fix DCE 6.0 and 6.4 PLL programming.
+
+to the 6.12-stable tree which can be found at:
+    http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
+
+The filename of the patch is:
+     drm-amd-display-fix-dce-6.0-and-6.4-pll-programming.patch
+and it can be found in the queue-6.12 subdirectory.
+
+If you, or anyone else, feels it should not be added to the stable tree,
+please let <stable@vger.kernel.org> know about it.
 
 
+From stable+bounces-232625-greg=kroah.com@vger.kernel.org Wed Apr  1 02:44:20 2026
+From: Rosen Penev <rosenp@gmail.com>
+Date: Tue, 31 Mar 2026 17:39:04 -0700
+Subject: drm/amd/display: Fix DCE 6.0 and 6.4 PLL programming.
+To: stable@vger.kernel.org
+Cc: "Alex Deucher" <alexander.deucher@amd.com>, "Christian König" <christian.koenig@amd.com>, "Xinhui Pan" <Xinhui.Pan@amd.com>, "David Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Harry Wentland" <harry.wentland@amd.com>, "Leo Li" <sunpeng.li@amd.com>, "Rodrigo Siqueira" <Rodrigo.Siqueira@amd.com>, "Ray Wu" <ray.wu@amd.com>, "Wayne Lin" <wayne.lin@amd.com>, "Mario Limonciello" <Mario.Limonciello@amd.com>, "Roman Li" <Roman.Li@amd.com>, "Eric Yang" <Eric.Yang2@amd.com>, "Tony Cheng" <Tony.Cheng@amd.com>, "Mauro Rossi" <issor.oruam@gmail.com>, "Timur Kristóf" <timur.kristof@gmail.com>, "Alex Hung" <alex.hung@amd.com>, amd-gfx@lists.freedesktop.org (open list:RADEON and AMDGPU DRM DRIVERS), dri-devel@lists.freedesktop.org (open list:DRM DRIVERS), linux-kernel@vger.kernel.org (open list)
+Message-ID: <20260401003908.3438-7-rosenp@gmail.com>
 
---000000000000eae0d6064ef4a22b
-Content-Type: text/html; charset="UTF-8"
+From: Timur KristÃ³f <timur.kristof@gmail.com>
 
-<div dir="auto"></div>
+[ Upstream commit 35222b5934ec8d762473592ece98659baf6bc48e ]
 
---000000000000eae0d6064ef4a22b--
+Apparently, both DCE 6.0 and 6.4 have 3 PLLs, but PLL0 can only
+be used for DP. Make sure to initialize the correct amount of PLLs
+in DC for these DCE versions and use PLL0 only for DP.
+
+Also, on DCE 6.0 and 6.4, the PLL0 needs to be powered on at
+initialization as opposed to DCE 6.1 and 7.x which use a different
+clock source for DFS.
+
+The following functions were used as reference from the	old
+radeon driver implementation of	DCE 6.x:
+- radeon_atom_pick_pll
+- atombios_crtc_set_disp_eng_pll
+
+Reviewed-by: Rodrigo Siqueira <siqueira@igalia.com>
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Timur KristÃ³f <timur.kristof@gmail.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+---
+ drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c |    5 +
+ drivers/gpu/drm/amd/display/dc/dce60/dce60_resource.c       |   34 +++++++-----
+ 2 files changed, 25 insertions(+), 14 deletions(-)
+
+--- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c
++++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c
+@@ -245,6 +245,11 @@ int dce_set_clock(
+ 	pxl_clk_params.target_pixel_clock_100hz = requested_clk_khz * 10;
+ 	pxl_clk_params.pll_id = CLOCK_SOURCE_ID_DFS;
+ 
++	/* DCE 6.0, DCE 6.4: engine clock is the same as PLL0 */
++	if (clk_mgr_base->ctx->dce_version == DCE_VERSION_6_0 ||
++	    clk_mgr_base->ctx->dce_version == DCE_VERSION_6_4)
++		pxl_clk_params.pll_id = CLOCK_SOURCE_ID_PLL0;
++
+ 	if (clk_mgr_dce->dfs_bypass_active)
+ 		pxl_clk_params.flags.SET_DISPCLK_DFS_BYPASS = true;
+ 
+--- a/drivers/gpu/drm/amd/display/dc/dce60/dce60_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/dce60/dce60_resource.c
+@@ -374,7 +374,7 @@ static const struct resource_caps res_ca
+ 		.num_timing_generator = 6,
+ 		.num_audio = 6,
+ 		.num_stream_encoder = 6,
+-		.num_pll = 2,
++		.num_pll = 3,
+ 		.num_ddc = 6,
+ };
+ 
+@@ -390,7 +390,7 @@ static const struct resource_caps res_ca
+ 		.num_timing_generator = 2,
+ 		.num_audio = 2,
+ 		.num_stream_encoder = 2,
+-		.num_pll = 2,
++		.num_pll = 3,
+ 		.num_ddc = 2,
+ };
+ 
+@@ -990,21 +990,24 @@ static bool dce60_construct(
+ 
+ 	if (bp->fw_info_valid && bp->fw_info.external_clock_source_frequency_for_dp != 0) {
+ 		pool->base.dp_clock_source =
+-				dce60_clock_source_create(ctx, bp, CLOCK_SOURCE_ID_EXTERNAL, NULL, true);
++			dce60_clock_source_create(ctx, bp, CLOCK_SOURCE_ID_EXTERNAL, NULL, true);
+ 
++		/* DCE 6.0 and 6.4: PLL0 can only be used with DP. Don't initialize it here. */
+ 		pool->base.clock_sources[0] =
+-				dce60_clock_source_create(ctx, bp, CLOCK_SOURCE_ID_PLL0, &clk_src_regs[0], false);
++			dce60_clock_source_create(ctx, bp, CLOCK_SOURCE_ID_PLL1, &clk_src_regs[1], false);
+ 		pool->base.clock_sources[1] =
+-				dce60_clock_source_create(ctx, bp, CLOCK_SOURCE_ID_PLL1, &clk_src_regs[1], false);
++			dce60_clock_source_create(ctx, bp, CLOCK_SOURCE_ID_PLL2, &clk_src_regs[2], false);
+ 		pool->base.clk_src_count = 2;
+ 
+ 	} else {
+ 		pool->base.dp_clock_source =
+-				dce60_clock_source_create(ctx, bp, CLOCK_SOURCE_ID_PLL0, &clk_src_regs[0], true);
++			dce60_clock_source_create(ctx, bp, CLOCK_SOURCE_ID_PLL0, &clk_src_regs[0], true);
+ 
+ 		pool->base.clock_sources[0] =
+-				dce60_clock_source_create(ctx, bp, CLOCK_SOURCE_ID_PLL1, &clk_src_regs[1], false);
+-		pool->base.clk_src_count = 1;
++			dce60_clock_source_create(ctx, bp, CLOCK_SOURCE_ID_PLL1, &clk_src_regs[1], false);
++		pool->base.clock_sources[1] =
++			dce60_clock_source_create(ctx, bp, CLOCK_SOURCE_ID_PLL2, &clk_src_regs[2], false);
++		pool->base.clk_src_count = 2;
+ 	}
+ 
+ 	if (pool->base.dp_clock_source == NULL) {
+@@ -1382,21 +1385,24 @@ static bool dce64_construct(
+ 
+ 	if (bp->fw_info_valid && bp->fw_info.external_clock_source_frequency_for_dp != 0) {
+ 		pool->base.dp_clock_source =
+-				dce60_clock_source_create(ctx, bp, CLOCK_SOURCE_ID_EXTERNAL, NULL, true);
++			dce60_clock_source_create(ctx, bp, CLOCK_SOURCE_ID_EXTERNAL, NULL, true);
+ 
++		/* DCE 6.0 and 6.4: PLL0 can only be used with DP. Don't initialize it here. */
+ 		pool->base.clock_sources[0] =
+-				dce60_clock_source_create(ctx, bp, CLOCK_SOURCE_ID_PLL1, &clk_src_regs[0], false);
++			dce60_clock_source_create(ctx, bp, CLOCK_SOURCE_ID_PLL1, &clk_src_regs[1], false);
+ 		pool->base.clock_sources[1] =
+-				dce60_clock_source_create(ctx, bp, CLOCK_SOURCE_ID_PLL2, &clk_src_regs[1], false);
++			dce60_clock_source_create(ctx, bp, CLOCK_SOURCE_ID_PLL2, &clk_src_regs[2], false);
+ 		pool->base.clk_src_count = 2;
+ 
+ 	} else {
+ 		pool->base.dp_clock_source =
+-				dce60_clock_source_create(ctx, bp, CLOCK_SOURCE_ID_PLL1, &clk_src_regs[0], true);
++			dce60_clock_source_create(ctx, bp, CLOCK_SOURCE_ID_PLL0, &clk_src_regs[0], true);
+ 
+ 		pool->base.clock_sources[0] =
+-				dce60_clock_source_create(ctx, bp, CLOCK_SOURCE_ID_PLL2, &clk_src_regs[1], false);
+-		pool->base.clk_src_count = 1;
++			dce60_clock_source_create(ctx, bp, CLOCK_SOURCE_ID_PLL1, &clk_src_regs[1], false);
++		pool->base.clock_sources[1] =
++			dce60_clock_source_create(ctx, bp, CLOCK_SOURCE_ID_PLL2, &clk_src_regs[2], false);
++		pool->base.clk_src_count = 2;
+ 	}
+ 
+ 	if (pool->base.dp_clock_source == NULL) {
+
+
+Patches currently in stable-queue which might be from rosenp@gmail.com are
+
+queue-6.12/drm-amd-amdgpu-decouple-aspm-with-pcie-dpm.patch
+queue-6.12/drm-amd-display-reject-modes-with-too-high-pixel-clock-on-dce6-10.patch
+queue-6.12/drm-amd-display-fix-dce-6.0-and-6.4-pll-programming.patch
+queue-6.12/drm-amd-display-disable-scaling-on-dce6-for-now.patch
+queue-6.12/drm-amd-display-disable-fastboot-on-dce-6-too.patch
+queue-6.12/drm-amd-display-correct-logic-check-error-for-fastboot.patch
+queue-6.12/drm-amd-amdgpu-disable-aspm-in-some-situations.patch
+queue-6.12/drm-amd-display-keep-pll0-running-on-dce-6.0-and-6.4.patch
+queue-6.12/drm-amd-display-adjust-dce-8-10-clock-don-t-overclock-by-15.patch
+queue-6.12/drm-amd-disable-aspm-on-si.patch
