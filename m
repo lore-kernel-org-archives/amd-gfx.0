@@ -4,122 +4,124 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DA7E6FD5F97
-	for <amd-gfx@archiver.kernel.org>; Wed,  8 Apr 2026 08:33:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 04473FD5F99
+	for <amd-gfx@archiver.kernel.org>; Wed,  8 Apr 2026 08:36:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7CBBD10E584;
-	Wed,  8 Apr 2026 08:33:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9443D10E58A;
+	Wed,  8 Apr 2026 08:36:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="YZemLWvB";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="pqb1HNlG";
 	dkim-atps=neutral
-Received: from MW6PR02CU001.outbound.protection.outlook.com
- (mail-westus2azon11012023.outbound.protection.outlook.com [52.101.48.23])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5710B10E589
- for <amd-gfx@lists.freedesktop.org>; Wed,  8 Apr 2026 08:33:06 +0000 (UTC)
+Received: from PH7PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11010025.outbound.protection.outlook.com [52.101.201.25])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 494FE10E58A
+ for <amd-gfx@lists.freedesktop.org>; Wed,  8 Apr 2026 08:36:52 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=bPf4doa8FPcnXobUH8+gnHPJZFI1trkaFPMkJcy3nG772MRtT92U7c9kNKrnjt6tK12uNR/cETIHwOvGu5TrWoMKCRcIzobCXbfE/IIDxsv7LzfZLyFKoSd4rN70vuArjXDXzqnpiaKo+48MeeueLo5xn7E22tRdNtxnsFuJpf7EYUeZYDl40oeoV2uiGEd/QYIt2Kqj9RuR5Rm7BBJD/heIsa6Yzg+hSLV/7WgvV5flh5ivtKOHANRjjyEBQWiB6hQAhSR5eJcXYafcxp/INz+M3+gy10IT2YFj+m36JsaBOfZFtVtjXdXJMujMO7hN4oOM6uuflJ3XnXFKf+Nd6g==
+ b=fyWjfQ5PM5+pj1M+o+9Rp+yO5Uq8XOumIC/m0ohobj1zWaOUre79u9PpzbPM+W8HM/nM1OWSulz1r4RZSbHMB9AuVJNPQ4pnhol6mKLbOjbZKrlaUpFFsaLqbP0vq9L/ALU8+dZ2ZxACS8h2qHkqkXsEdFlAMfp7iTfNdnGjk/4CT8a73dKSVfIG7Zn5Zv64q2ETe2o7oinr4w1h4ccX2wxmzM6T2LWuQe65VLV3S7ECraPKiISe7ENEqlQfHt4wtF94Ie5dhvL7hguFURgTuhaUiUJTqUFZ7hjEm0b9VU9KVpzGUDCO8KjPRZIZgOpVLKYiFtng5tK8RhOz1Ru/rw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=6gVUEdjgnI/52LAxl5vSRYPDH735b5CtmbzrEEBsTaw=;
- b=H8ac+3okThBjzck1Uw0NziaBW9ryvgYM+VElfUvFlzUBv03WQ4Ptr9ASc7rccxk2qWBWnWlAzgHp0LL7W00E0nfAsJjqn6Go7kjzSb0wwWlCyUBtcdK1TkitQAXttOEThnk8Qi6h2ORgtVgNMO4FIdXFJNBFb7rhDsh71fPrx4lNJ3tn117hubuqujlxtuqhEhJFexeY/Xzq7Vpd3QFKwW5teDD5JUmXXnDP9FIYaYihK83La6tlPKc+FG1iEHEmUZlPD+7cpGS35dIHNpuNgBbReTxLml0qwguSmdtsD9ElQPbIRt1MYqlr6bFJXKXWjAAzO44M7VU3wVEtj/vrxg==
+ bh=uo4/0g3+KVJVQEH9CcNyIVU5eRgxu1Z5eGGzc2MSfwM=;
+ b=b0KWujL7O2J2yKrg85+T0zvdvHriok0wTeD8jwADoj5COlhzh1/v4+OPDY0jT7FWQmSZU1S3gQdf2u6Na5PzZE5U/WLcUB/z2d2CVtfjFVPHcdJ15EsCOk7+tsxZEtg3xGnZoESz/pIEoSqe4NRvCokItqns64H7s2yk4ffhs15w5ZNn6y8xAdzaWAnt5osXgjqgoZISD6vD69dFWan4inbOI1cVMtMqnojrxk2OWq3lMk7MWbQP4Q3gvgbrNMxq52ybdIXtVIzfCzR1RBXAqiFZSZwaQaNtMbuCJunx+UZMB91kekh03sD3sskfwdVdJQIYmPdiXdgXwqcBKuGERQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6gVUEdjgnI/52LAxl5vSRYPDH735b5CtmbzrEEBsTaw=;
- b=YZemLWvBgBsDnpw2vb0GhgdWRMitd65LBNHnEnASJjUo5dF9eIqTuFeQVGZ6maXvMN2dvbbbPF7Uor7SOIXxD1+aKsNRqUC+Iwh8xsQhzQxyv1CA69wIcO2jtQM7tVqB8SQWe/yfwuFPbGlbGTX3fmO3I5d5BNDm029vSnjRJ/c=
+ bh=uo4/0g3+KVJVQEH9CcNyIVU5eRgxu1Z5eGGzc2MSfwM=;
+ b=pqb1HNlGlhcudLLKOtF7//ncmgXiYjjlTqxmemCJm7gz27UP8PzJqm+S74IwETx0/ZPHHKhZfqzJVGkMRwNxdIvNmzbdkPQ1WxbXdmsfcwLNw4iqPtNVWOIAel5VG7wU0u5W0fo4OhPcPiVHVZp3Qk8ifkHKb7fIwB8BHa/oPwE=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by SA0PR12MB7479.namprd12.prod.outlook.com (2603:10b6:806:24b::19)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.17; Wed, 8 Apr
- 2026 08:33:04 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.20.9769.016; Wed, 8 Apr 2026
- 08:33:04 +0000
-Message-ID: <003d5670-0e77-4f09-8784-45511dfbd5a3@amd.com>
-Date: Wed, 8 Apr 2026 10:32:59 +0200
+Received: from BL1PR12MB5753.namprd12.prod.outlook.com (2603:10b6:208:390::15)
+ by SJ5PPF3487F9737.namprd12.prod.outlook.com
+ (2603:10b6:a0f:fc02::990) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.20; Wed, 8 Apr
+ 2026 08:36:46 +0000
+Received: from BL1PR12MB5753.namprd12.prod.outlook.com
+ ([fe80::81e6:908a:a59b:87e2]) by BL1PR12MB5753.namprd12.prod.outlook.com
+ ([fe80::81e6:908a:a59b:87e2%4]) with mapi id 15.20.9769.015; Wed, 8 Apr 2026
+ 08:36:46 +0000
+Content-Type: multipart/alternative;
+ boundary="------------zxZJM0iv0rnFTGzcjAsBGrOb"
+Message-ID: <560b9f8d-aa19-4122-9b3d-2319e7ece628@amd.com>
+Date: Wed, 8 Apr 2026 14:06:34 +0530
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH V1] drm/amdgpu/userq: unblock signal ioctl from userq_mutex
-To: Sunil Khatri <sunil.khatri@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>
+Subject: Re: [PATCH V1 1/2] drm/amdgpu/userq: avoid uneccessary locking in
+ amdgpu_userq_create
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Sunil Khatri <sunil.khatri@amd.com>, Alex Deucher <alexander.deucher@amd.com>
 Cc: amd-gfx@lists.freedesktop.org
-References: <20260408083009.3328380-1-sunil.khatri@amd.com>
+References: <20260408053603.2894742-1-sunil.khatri@amd.com>
+ <6e31b77d-a465-46d8-a299-1dd10c88334c@amd.com>
 Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260408083009.3328380-1-sunil.khatri@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR4P281CA0380.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:f7::8) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+From: "Khatri, Sunil" <sukhatri@amd.com>
+In-Reply-To: <6e31b77d-a465-46d8-a299-1dd10c88334c@amd.com>
+X-ClientProxiedBy: PN2P287CA0013.INDP287.PROD.OUTLOOK.COM
+ (2603:1096:c01:21b::15) To BL1PR12MB5753.namprd12.prod.outlook.com
+ (2603:10b6:208:390::15)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SA0PR12MB7479:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0d36ad5f-26dc-4874-91d5-08de954973bc
+X-MS-TrafficTypeDiagnostic: BL1PR12MB5753:EE_|SJ5PPF3487F9737:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9f4cad28-163a-4216-d156-08de9549f7f0
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|366016|1800799024|18002099003|56012099003|22082099003; 
-X-Microsoft-Antispam-Message-Info: D3QNMo3nYIwQJQfPmPJK5OB8CmFB+2piuBsU6zXVyDBtGO6QRTndlMyg+JcpGmIX0Pds3LqFVqmfhTGYleBB3MWfj4eMxbkzUr+3mwwhD0ZXXFUjqkE8fDvgLaNQUJ4v5o6ukBFjzoYr6G456Z6aupsiJ9wkGABG/rF5IDor3ZnRoWw+9gkSI7k8OUVftNmLDYl17cfWcVWHizLFXHN/NnA6pIPfrsUWk0bvqh56GW2BdUqey6AYs3ZuSBgH/fSTD2XKqmOjiuDPKVovR+xTKE0PXM+h0IoidqwzxlsecLjBnbNZ8ZPv9RVtfenk6VhSbmiOdaSdRi8/y0WcOEzzXdQHyPufEfTz7wHBRG4cNgl09L0G3Gg+uxqkU7/Rc1dBHP41kxB74suL3LuyKuT6PzPTZvp3KA9PHC25trCntaYV0aukKp7Hl3uWH78KJtX148oqkQFLyEBnyPtqNkGO+jtnsCOB4lAgOjKSi07e5LviyRwRwYwiA8MJpfzepGQn4GCrmJrgPNHtzfzVqU3j9U3/E6iSm5vVSxIdhzN4jOtrDzREJLr1JytKULGAI9L55AOo6r4MqemFmoEZ/P5X8ka67M9HZCYhfkHxsmHcWDz96fPC28VZjc/tpU3PWNWf6xf7hsQrL1dcj+F2F5WeRb4fZpMAWmJjrBLgSKN+4ktAYdiblKKnQye1DzaqaviDkc2t1YUDsRJxOmL5xjBaDx4e7rQmDEZvm0xb0qHPuXY=
+ ARA:13230040|376014|366016|1800799024|22082099003|56012099003|18002099003|8096899003;
+X-Microsoft-Antispam-Message-Info: DSbM+hSB0ddb3QY3a7Wbmb+np9utyRO+5Va5g4rmS3lMczbySwoVI7aSP47QTSfdALTtDslfSH74XWyhzXLeWKunNgR4dYmK8rMj0OLFdYzJpHRM4a0cGN41bcNQdWlDibJ2NHbnST+J4SJoo0bKex+lIMYLR/QEDvwijdnNX4dGdgS7Vl3IbZZjJMV8Q5SFjLVlm/Ze71l2K3BbXU9zY2v5pYb/N0raTKlUiUVBeHUubmd024aorLaNrEcv09HpdRSkCR77xCYPMmBejSwQmAdl/3W9OmpeKAXXAg9ND9FMIizArLQVorDMWCzvGeBfCziHFHgXERfmCaa1750FpY3CEFkYdW60U49XCfvsDLJpDi5PXtB972+mwYDKT1bCfyZT9jeoUY2CweL0J8ykoC+sbwu6PmA6XvEUJtqY11Q+6vy+GMn2v4vb8IrL8/KADZOVPIqgcrexfhgfKTSG9fYrQ+Bw78xzu50RraufDb56JW1h5UMJ7TqTwfd0OMhTlzY7V0P789jmDGtbYyiNRTNEFIhzDfam4eU+66u4ceiNXq5nBk+LN/G1M6n4VGAHrLCpl5hzG8uQNhyCjQe3AUuvsz7/XUYAa7x6oTe4EA/eOwzSNUA9mgIl4fc85Aqxa+aydogpetilC9MRijZzyVQ43ur3XTcU9W42VxPTQpr/5HACeBV3cjaDABUoPI5XvUbqdcNbB0Gl2iS8+/0EkgXYG3YoiIwNxDpSjr5W35I=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(1800799024)(18002099003)(56012099003)(22082099003);
+ IPV:NLI; SFV:NSPM; H:BL1PR12MB5753.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(366016)(1800799024)(22082099003)(56012099003)(18002099003)(8096899003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?REU2cjgxQXVpNE1ER08yazFzRFVBVVV2aDhCbENRUmFzZlRmd0N5a0lrM0o4?=
- =?utf-8?B?M3RlbWlKVndXY2d5T3czUE82NUY1SlA2VWN6S3NYdGgyUkQ2Y0ZTZUt0ZjBU?=
- =?utf-8?B?M1dUV1FDYzgwWXo0UFlDS1pwL0dWRTFxU1pZVWZnTXBnbU41c3F2aUMzcmlO?=
- =?utf-8?B?TFdqNHAvanZTWlp6OEE2Vno0YStaMnFYSnk0ZGx3Y3hWdGlwak4wWGFadGNv?=
- =?utf-8?B?aDZNbnF4YXk4MlUzUkpRT0MwTFFuL2tqNTZqdEVkN1doaks3M2JrSlBKaStZ?=
- =?utf-8?B?ektVTXZoMDRMS0dUSk5CRUtPSEo3WVFWdEswd29qbnBtZ0VVZzNETzc5WVVp?=
- =?utf-8?B?SkxLekxNa3BBZlFrd2QrQjJ5YVlwMnNLTC9rNUZxWjM5eE4yTHlpMURuV1l3?=
- =?utf-8?B?UEVMRFJPL1FVMjkxd2F1Sjhlb3FYbEh5VFlCbU1KRFExaXNUVmd6WHFwcDZ5?=
- =?utf-8?B?dHlqa3hSZm9kMFZvemZzeWZ1YnRFTndWMzZUTUF4MnhsWVdLQndpN0ZHdGZq?=
- =?utf-8?B?Tml0OWVyMW11djJiaW5KT1FFWEhneEZWMVZvNEQ5ck5GMGtySnlXdGJsVE5V?=
- =?utf-8?B?cHBLejFDcFlzN3gyc3phZ3BTWEc0cDE5NDFVaUc3ZkFHREZYR2tsZ2NCa3I0?=
- =?utf-8?B?V0FvRitzZFViSGNyRGdGTWRRRXZqRmRTa2plOHU0MHlOYjJrZXp4TDVpQXEx?=
- =?utf-8?B?ZEJNUmNaZXg4SXZvTEZLZmhnSVN1bCtkamp6TWlJMHF1eGcrQjFxQ2tkTnlu?=
- =?utf-8?B?V3kvaGM2NEFQTVhtbkRBcEw3RlFZeUtHcDNiTUUrR3Vpc1pHdjlJMkFMajNj?=
- =?utf-8?B?eUlHWjRudC9kR1d2RXZsRnB6TWZnUXhDQzZ4RmNQcWFjR2ZjMFVMRFFQZVI2?=
- =?utf-8?B?N0o3d2lnYkZsbXFvSnc3dkJ0Y0JvWjNtalZKTjZDRU9ZcjVRKzAxR2NibjRM?=
- =?utf-8?B?TjNURmpUckpaQ2ZhSDJkS1N1Z2V1c1V2UEpWTmYxaGZkZUFkdDhkZEhkZ1RW?=
- =?utf-8?B?bGQ2MWtCK3AvaVEycEY3emtMY1lXYmIvb1Fqd1lTcXArQmJFV21SaDBIRGNn?=
- =?utf-8?B?QWo4eUp2djlLZyt5SWc0Zk9aOTQrSUFDNkVvZjlZdWdNMmJvamJTZERDM2cy?=
- =?utf-8?B?Nit4cjZFTHdQdmdUalNycUdQZnhMVzl5UGo2MlN4RGZBY3RjVEFuSUViSkdN?=
- =?utf-8?B?MVZHN052dWlzTGdxbnpGVDNDNWM1S3BRVVpiVWMyV0dSVGIxTGoybVhWTm5i?=
- =?utf-8?B?WnNYcEt0UytMZlRlYlhYRHp6Q2JLNFd4YTJMWEpXSlRJOVlmUUpyemFTK1Nh?=
- =?utf-8?B?UDlKYU9STFhXM01PUkJWSU1namdmVi9OdEZFZjZVNGdtVFFLN2NuOTN4bG0v?=
- =?utf-8?B?bThLTEVvUDkvejZsc1dWWlUrcmdFYncrNjN3VFM2cjFqTVo1UWZia1JSb2o3?=
- =?utf-8?B?UU9GU0ZiVTNZazRKSXUrbjJvVXNZTGI1ZzZmeWw2UjZ3anBuVXVDNDNJQlQ1?=
- =?utf-8?B?WXRiMmd5b3N4ZG5IQk11Z2kzblJCNktPS0dQTEN6Q3I2bGpmcmt5RXFXWkNU?=
- =?utf-8?B?KzYwQWVML0hGSk4yZkdqeCtpYTRDMHV2Z1MrYkxCcjg0a2p2dlRSakk0b0JE?=
- =?utf-8?B?Mk9wUGMzSmoyWW1oUUszcnNXK25PTENtZXduRzdTYlFOL2ZuSWVpKzMvNkJl?=
- =?utf-8?B?N0VCeGdsMGhiZEJnTXZMUVFHczhaVUthWjBwaitDVkEwYjRxa2pDaXZ3MU1o?=
- =?utf-8?B?WUFIU3VGS2RTL0FwY0NDTGl5bURWQlZzUXlYQzFJS3lhLzNyZVljdkZrT2Ri?=
- =?utf-8?B?dWM0UU9QZUxBcnpEbmRmRk5iREd2VDFtbFVpRGtNN3lQanR1UHJodEZ3bURP?=
- =?utf-8?B?YzVyR1dRQzF0emtaaXh1VmNpc1ZLZk91bjBxRi9qS1k5bENKNWF0eXpBWHpt?=
- =?utf-8?B?M3ZTc2JwOU54TEdGOUtORnV0QW84bXI3TmhXUERlLzJBeStPclY5czk5b0V1?=
- =?utf-8?B?TlJLN0lOYzJzTStSWHhFazJYNFl2V05seWdTQ2REL3JIUmtObHBNaTQyWE9v?=
- =?utf-8?B?UzF6Y2RtV1FOWGJFOHJmKzQwOVBVZlUwRXRnaTM3SFFabGdHYjE0aHkrZWZw?=
- =?utf-8?B?c3p5M29lRnlPVENIYk5YM2hvN1BjdTVkZ3Y4Z2VpN2swbGpSMWNlVzdJdTNo?=
- =?utf-8?B?blF5YzhuR0tTK0hmd29YYVQ4cHQvWGxLS1dOZTVrYTRyTU81Ymx1Ynoya2JJ?=
- =?utf-8?B?NWFVTkhyZDdHSnV2clg1eWNGelZFa2VVYW4rOFZCY2MvYWJzYS9sNXU0U1FP?=
- =?utf-8?Q?BwhHFoMxOAU27rhf4D?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?QzI1a1hEc0NveWQzUlVTY2ZINlZUY1pidG5EZGtMMllpUlp6dnh6VVpjOVFo?=
+ =?utf-8?B?STBIV3dWR0d6WG41SjBwWkxjRUNTU3dkbWhBMWplNzFkNWlkQWhZUFJoTnJi?=
+ =?utf-8?B?dVg1YjNsbmRXU3ovc1lnOTBubVZrUWVXc2wvc1NDd25ELzRyNENmY2V2TUZC?=
+ =?utf-8?B?eU82K2Y5eWd0UkcxUytvRldPMmhiV0oyemdsOHdEVHgwQUd6L0JOeWRta0p3?=
+ =?utf-8?B?N0xqaEpJNWlUVDI2V0NNY2RLUytnb0dRY0l4aGRKejB2UXZmcDZ5dXBJYWNS?=
+ =?utf-8?B?U21nTkNTVGxkRUViMnkrSWk2OUZYb2QvdEJLUlp3Tkt3cXkxcEI3VU5GeWZD?=
+ =?utf-8?B?YlYranoxSEZYdVJpWTZkR0l2OUxiNy94akd0aTBKbFBPeDhBbHN0WllCUzYw?=
+ =?utf-8?B?SG1HWFgyS3BiUUtUaHVjeitZOGFSRFFPdzFDQkxRSFkrNXUvM2VrWUE5c1do?=
+ =?utf-8?B?TSswdVFUQTcrYVpWK1pEMVBEOUJFYXQvcUVQaS94MXdCa2JTN1J3aGhwRDBO?=
+ =?utf-8?B?SzlycUsvMDZRLzJ6WVBabm4yYkVPMm5PQTZ3MXZMRFA4ZVczTldGL0NjblVZ?=
+ =?utf-8?B?cEEyN2wyREtxb0VaRHJOSFdud1cvZXBuUkx6VnZZS3g3N3ZZUWZMci9LZG5G?=
+ =?utf-8?B?K3ZzUVlxNlB5WWp1ZGZQWnBCMnZla3N6ZUVSdWU5cnVYd0hScFRXNDY4QzJN?=
+ =?utf-8?B?QklIUzVpSXhPYmx5SmdFdlF4NHNOTTZUZGJ4MnBsVU1EbU02SHUyZUlOdGdC?=
+ =?utf-8?B?S2gxY0JraFpWbmJrdmFJL2pMN1JiZFI2eWt4dncxQ2RjMXMvcm9nMXJiYXdx?=
+ =?utf-8?B?c2xleXFYWjd4ZzhtRjVVMU5rUHhnci9jR2Z6T2wwd0drelZPb2JFRklnVnpU?=
+ =?utf-8?B?UVE4d204OGhtRjkvaVp2Rk9aN2poRjZ0ZmhDbFh0bDR1dE5Yc3V0ZHE2d0lT?=
+ =?utf-8?B?SUFzY29qR1AyaUxVZ1hsQjBpcjkrYUN0U0t2czJUOUNQMWwwS3NTWmtJRDJo?=
+ =?utf-8?B?d1ErVmZ5YlI3ZTVVTENjbzRWajQ2emhTRFlEM1M0UE1rT0FCWnVSSXg3eUJv?=
+ =?utf-8?B?aWJLYW5mbjBvSmZIblQ3cm9kY3NIVUZ4TVpCaSt4N0Q3QXE1dGlJeHU2UDJ1?=
+ =?utf-8?B?RWw3eC9ndkE4S294dXRSanU2eTVHaSsyNU1NUWMwMEd5KzBvTUFZRGllRXNa?=
+ =?utf-8?B?d1pnaUdpNC9nL1VtQ3N4bE9aOTU5eGx6WnhNUEZVRUhUTmlNaUxFSlVCcXpW?=
+ =?utf-8?B?NWdnclRYbENqSXpiUzRUbHgrN3o1ZW5WYm9XbFEzN0h2Z3lIb2lIOXJnQ0NN?=
+ =?utf-8?B?WWdvWnd2dER3TFRNTURHSjByZ2tYSUE3NnduUy9ES1ltajlvV3V4TVdQbnFz?=
+ =?utf-8?B?TUlGYXVwaEhoK04rcUQ2MTB3VUpvdGNVRGlDMlRFYWNxMmxYWHVCMWIvN0o0?=
+ =?utf-8?B?MUFNRTZwaUYwVm8vZDZ3VzVZWHM1QjNLL0ljZVRiaGR2cjdvdDNIajljNkY3?=
+ =?utf-8?B?RGtqZ3pCYXhrNUx2Y1VmOG9xaWRTamxGcWhBUUVyc0xYckFLZmJyVFZmaGRO?=
+ =?utf-8?B?WThhd2cwbUlGSkdaUHhMZHFqb3BaZ2VST0ZmMWh1Z3hLb2NhTndLWVpqRE90?=
+ =?utf-8?B?R2w4V20vQThuL0tCMjFEN0c1L1pYR2k5dEZlMytRT1ZBUUwyRTB1RjMyK1ZU?=
+ =?utf-8?B?ZG9kQnpoMTBjZ2ZXekR3YXFLUFc0VlZvKzFZZUNIR2RGSFM0Ry84eE1RMlRK?=
+ =?utf-8?B?UVNEMzYzdXdwb1hSMUdDM3R2QlRSWlRJbW5qL1VlNDBpZ08xaVNmMzFaYUlI?=
+ =?utf-8?B?WEg0bVJWTUVNekMvYy9oamZQdU1lUmpJR2VOWE1KdnN5cUljM29QVm5NUkl1?=
+ =?utf-8?B?emxiWUpxSlNkbXVBaHJsajRqSDhUZjFjREw2Q3NNY005bkdGUDFkTmhxTFdo?=
+ =?utf-8?B?U2pOQmphQXJXaFNWVW5mWkFCVXUrSm5neGdqL3pweDYxU0JxK2FXT3N3UGlL?=
+ =?utf-8?B?Tno0R0FZQ3dTYzMyWmkyM1pVaFBRanVweTRVYmV1enNoOUt3SWhMTTVGOFZx?=
+ =?utf-8?B?aHRGL0Q0QmxqNXFsaE5VRzA4bGtOUFowaVlOdmRnMktVZEw4bGpNTnd1WlJP?=
+ =?utf-8?B?aTB4YU1lN0xYeDZsbER0ZHZlRUluQlQwbzdmNG1oOHpoWFdWT0QvcENvdmE2?=
+ =?utf-8?B?NE1xcTJtaG8vdi90UnpBcWsrVk9FZzBxN0hGcFNEc3lCdGpSWnNQbzh1WU5J?=
+ =?utf-8?B?Z1VWKytnbzdOUjJPMmJVUkZpbG1PeWpTd2NvVitldkxCQ3RiaVpCRUQrZlU0?=
+ =?utf-8?B?N2xXUXRRVE9LRGJXRk80N0pwc0huUmpPMlBoNHRvN3gwcDFTWSt1Zz09?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0d36ad5f-26dc-4874-91d5-08de954973bc
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9f4cad28-163a-4216-d156-08de9549f7f0
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5753.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Apr 2026 08:33:04.1110 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Apr 2026 08:36:46.0068 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: kO+5/qVjzBl3E/0Zk8ZP7nmNFBGtNcubFkRtxmp8Va+EpSqLYNHmM4sOg+XVtwYk
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB7479
+X-MS-Exchange-CrossTenant-UserPrincipalName: VL5UoVopsh0KnSBoNwVY8lc6NJRO2rDXpqTLIUKvuFGJbgQESBFsXFaocaFmsRAGS7yGqiAk+l6zh7saC6vn9Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ5PPF3487F9737
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,115 +136,250 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 4/8/26 10:30, Sunil Khatri wrote:
-> Signal ioctl does not depend on eviction fence and neither it
-> needs to hold userq_mutex as we just wait for userq fences
-> to be signalled before we go to suspend state in hardware
-> and we prempt and unmap the queues.
-> 
-> This unblocks other thread which hold userq_mutex to go on
-> without breaking the code.
-> 
-> Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
-> ---
->  .../drm/amd/amdgpu/amdgpu_eviction_fence.c    | 38 +++++++++++++++++++
->  drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c     | 18 ---------
->  2 files changed, 38 insertions(+), 18 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.c
-> index 5ae477c49a53..53f0bf6b3ca0 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.c
-> @@ -54,6 +54,41 @@ static const struct dma_fence_ops amdgpu_eviction_fence_ops = {
->  	.enable_signaling = amdgpu_eviction_fence_enable_signaling,
->  };
->  
-> +static void
-> +amdgpu_userq_wait_for_signal(struct amdgpu_userq_mgr *uq_mgr)
-> +{
-> +	struct amdgpu_usermode_queue *queue;
-> +	unsigned long queue_id = 0;
-> +	struct dma_fence *f;
-> +
-> +	for (;;) {
-> +		xa_lock(&uq_mgr->userq_xa);
-> +		queue = xa_find(&uq_mgr->userq_xa, &queue_id, ULONG_MAX,
-> +				XA_PRESENT);
-> +		if (!queue) {
-> +			xa_unlock(&uq_mgr->userq_xa);
-> +			break;
-> +		}
-> +
-> +		kref_get(&queue->refcount);
-> +		xa_unlock(&uq_mgr->userq_xa);
-> +
-> +		mutex_lock(&uq_mgr->userq_mutex);
-> +		f = dma_fence_get(queue->last_fence);
-> +		mutex_unlock(&uq_mgr->userq_mutex);
-> +		if (!f) {
-> +			amdgpu_userq_put(queue);
-> +			queue_id++;
-> +			continue;
-> +		}
-> +
-> +		dma_fence_wait(f, false);
+--------------zxZJM0iv0rnFTGzcjAsBGrOb
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-That doesn't looks correct to me. We need to hold the userq_mutex while waiting for this fence to make sure that userspace doesn't installs a new one.
 
-I've already pointed that out on teams.
+On 08-04-2026 01:53 pm, Christian König wrote:
+> On 4/8/26 07:36, Sunil Khatri wrote:
+>> Reorganise code to avoid holding mutex userq_mutex while
+>> also trying to grab exec lock ww_mutex where its not needed
+>> for function amdgpu_userq_input_va_validate
+>>
+>> Signed-off-by: Sunil Khatri<sunil.khatri@amd.com>
+>> ---
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 33 +++++++++++------------
+>>   1 file changed, 15 insertions(+), 18 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+>> index 3a6e7a569c78..3f502c18879a 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+>> @@ -737,28 +737,17 @@ amdgpu_userq_create(struct drm_file *filp, union drm_amdgpu_userq *args)
+>>   		return r;
+>>   	}
+>>   
+>> -	/*
+>> -	 * There could be a situation that we are creating a new queue while
+>> -	 * the other queues under this UQ_mgr are suspended. So if there is any
+>> -	 * resume work pending, wait for it to get done.
+>> -	 *
+>> -	 * This will also make sure we have a valid eviction fence ready to be used.
+>> -	 */
+>> -	amdgpu_userq_ensure_ev_fence(&fpriv->userq_mgr, &fpriv->evf_mgr);
+>> -
+>>   	uq_funcs = adev->userq_funcs[args->in.ip_type];
+>>   	if (!uq_funcs) {
+>>   		drm_file_err(uq_mgr->file, "Usermode queue is not supported for this IP (%u)\n",
+>>   			     args->in.ip_type);
+>> -		r = -EINVAL;
+>> -		goto unlock;
+>> +		return -EINVAL;
+>>   	}
+>>   
+>>   	queue = kzalloc(sizeof(struct amdgpu_usermode_queue), GFP_KERNEL);
+>>   	if (!queue) {
+>>   		drm_file_err(uq_mgr->file, "Failed to allocate memory for queue\n");
+>> -		r = -ENOMEM;
+>> -		goto unlock;
+>> +		return -ENOMEM;
+>>   	}
+>>   
+>>   	INIT_LIST_HEAD(&queue->userq_va_list);
+>> @@ -781,12 +770,21 @@ amdgpu_userq_create(struct drm_file *filp, union drm_amdgpu_userq *args)
+>>   		goto free_queue;
+>>   	}
+>>   
+>> +	/*
+>> +	 * There could be a situation that we are creating a new queue while
+>> +	 * the other queues under this UQ_mgr are suspended. So if there is any
+>> +	 * resume work pending, wait for it to get done.
+>> +	 *
+>> +	 * This will also make sure we have a valid eviction fence ready to be used.
+>> +	 */
+>> +	amdgpu_userq_ensure_ev_fence(&fpriv->userq_mgr, &fpriv->evf_mgr);
+> Even that position is not correct. After grabbing the userq_mutex we can't allocate memory any more.
+>
+>> +
+>>   	/* Convert relative doorbell offset into absolute doorbell index */
+>>   	index = amdgpu_userq_get_doorbell_index(uq_mgr, &db_info, filp);
+>>   	if (index == (uint64_t)-EINVAL) {
+>>   		drm_file_err(uq_mgr->file, "Failed to get doorbell for queue\n");
+>>   		r = -EINVAL;
+>> -		goto free_queue;
+>> +		goto unlock;
+>>   	}
+>>   
+>>   	queue->doorbell_index = index;
+>> @@ -794,7 +792,7 @@ amdgpu_userq_create(struct drm_file *filp, union drm_amdgpu_userq *args)
+>>   	r = amdgpu_userq_fence_driver_alloc(adev, &queue->fence_drv);
+> So doing that here is also forbidden.
+If i am not wrong we could move this whole code including 
+amdgpu_userq_fence_driver_alloc and above out of mutex. Does that sounds 
+correct ? Regards Sunil khatri
+>
+> Regards,
+> Christian.
+>
+>>   	if (r) {
+>>   		drm_file_err(uq_mgr->file, "Failed to alloc fence driver\n");
+>> -		goto free_queue;
+>> +		goto unlock;
+>>   	}
+>>   
+>>   	r = uq_funcs->mqd_create(queue, &args->in);
+>> @@ -858,11 +856,10 @@ amdgpu_userq_create(struct drm_file *filp, union drm_amdgpu_userq *args)
+>>   	up_read(&adev->reset_domain->sem);
+>>   clean_fence_driver:
+>>   	amdgpu_userq_fence_driver_free(queue);
+>> -free_queue:
+>> -	kfree(queue);
+>>   unlock:
+>>   	mutex_unlock(&uq_mgr->userq_mutex);
+>> -
+>> +free_queue:
+>> +	kfree(queue);
+>>   	return r;
+>>   }
+>>   
+--------------zxZJM0iv0rnFTGzcjAsBGrOb
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+<!DOCTYPE html><html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 08-04-2026 01:53 pm, Christian König
+      wrote:<br>
+    </div>
+    <blockquote type="cite" cite="mid:6e31b77d-a465-46d8-a299-1dd10c88334c@amd.com">
+      <pre wrap="" class="moz-quote-pre">On 4/8/26 07:36, Sunil Khatri wrote:
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">Reorganise code to avoid holding mutex userq_mutex while
+also trying to grab exec lock ww_mutex where its not needed
+for function amdgpu_userq_input_va_validate
+
+Signed-off-by: Sunil Khatri <a class="moz-txt-link-rfc2396E" href="mailto:sunil.khatri@amd.com">&lt;sunil.khatri@amd.com&gt;</a>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 33 +++++++++++------------
+ 1 file changed, 15 insertions(+), 18 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+index 3a6e7a569c78..3f502c18879a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+@@ -737,28 +737,17 @@ amdgpu_userq_create(struct drm_file *filp, union drm_amdgpu_userq *args)
+ 		return r;
+ 	}
+ 
+-	/*
+-	 * There could be a situation that we are creating a new queue while
+-	 * the other queues under this UQ_mgr are suspended. So if there is any
+-	 * resume work pending, wait for it to get done.
+-	 *
+-	 * This will also make sure we have a valid eviction fence ready to be used.
+-	 */
+-	amdgpu_userq_ensure_ev_fence(&amp;fpriv-&gt;userq_mgr, &amp;fpriv-&gt;evf_mgr);
+-
+ 	uq_funcs = adev-&gt;userq_funcs[args-&gt;in.ip_type];
+ 	if (!uq_funcs) {
+ 		drm_file_err(uq_mgr-&gt;file, &quot;Usermode queue is not supported for this IP (%u)\n&quot;,
+ 			     args-&gt;in.ip_type);
+-		r = -EINVAL;
+-		goto unlock;
++		return -EINVAL;
+ 	}
+ 
+ 	queue = kzalloc(sizeof(struct amdgpu_usermode_queue), GFP_KERNEL);
+ 	if (!queue) {
+ 		drm_file_err(uq_mgr-&gt;file, &quot;Failed to allocate memory for queue\n&quot;);
+-		r = -ENOMEM;
+-		goto unlock;
++		return -ENOMEM;
+ 	}
+ 
+ 	INIT_LIST_HEAD(&amp;queue-&gt;userq_va_list);
+@@ -781,12 +770,21 @@ amdgpu_userq_create(struct drm_file *filp, union drm_amdgpu_userq *args)
+ 		goto free_queue;
+ 	}
+ 
++	/*
++	 * There could be a situation that we are creating a new queue while
++	 * the other queues under this UQ_mgr are suspended. So if there is any
++	 * resume work pending, wait for it to get done.
++	 *
++	 * This will also make sure we have a valid eviction fence ready to be used.
++	 */
++	amdgpu_userq_ensure_ev_fence(&amp;fpriv-&gt;userq_mgr, &amp;fpriv-&gt;evf_mgr);
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+Even that position is not correct. After grabbing the userq_mutex we can't allocate memory any more.
+
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">+
+ 	/* Convert relative doorbell offset into absolute doorbell index */
+ 	index = amdgpu_userq_get_doorbell_index(uq_mgr, &amp;db_info, filp);
+ 	if (index == (uint64_t)-EINVAL) {
+ 		drm_file_err(uq_mgr-&gt;file, &quot;Failed to get doorbell for queue\n&quot;);
+ 		r = -EINVAL;
+-		goto free_queue;
++		goto unlock;
+ 	}
+ 
+ 	queue-&gt;doorbell_index = index;
+@@ -794,7 +792,7 @@ amdgpu_userq_create(struct drm_file *filp, union drm_amdgpu_userq *args)
+ 	r = amdgpu_userq_fence_driver_alloc(adev, &amp;queue-&gt;fence_drv);
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+So doing that here is also forbidden.</pre>
+    </blockquote>
+    If i am not wrong we could move this whole code including&nbsp;<span style="white-space: pre-wrap">amdgpu_userq_fence_driver_alloc and above out of mutex. Does that sounds correct ? 
+
+Regards
+Sunil khatri</span>
+    <blockquote type="cite" cite="mid:6e31b77d-a465-46d8-a299-1dd10c88334c@amd.com">
+      <pre wrap="" class="moz-quote-pre">
 
 Regards,
 Christian.
 
-> +		dma_fence_put(f);
-> +		amdgpu_userq_put(queue);
-> +		queue_id++;
-> +	}
-> +}
-> +
->  static void
->  amdgpu_eviction_fence_suspend_worker(struct work_struct *work)
->  {
-> @@ -66,6 +101,9 @@ amdgpu_eviction_fence_suspend_worker(struct work_struct *work)
->  	struct dma_fence *ev_fence;
->  	bool cookie;
->  
-> +	/* Wait for any pending userqueue fence work to finish */
-> +	amdgpu_userq_wait_for_signal(uq_mgr);
-> +
->  	mutex_lock(&uq_mgr->userq_mutex);
->  
->  	/*
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-> index c4e92113b557..1e8c08b63f65 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-> @@ -1269,27 +1269,9 @@ void amdgpu_userq_reset_work(struct work_struct *work)
->  	amdgpu_device_gpu_recover(adev, NULL, &reset_context);
->  }
->  
-> -static void
-> -amdgpu_userq_wait_for_signal(struct amdgpu_userq_mgr *uq_mgr)
-> -{
-> -	struct amdgpu_usermode_queue *queue;
-> -	unsigned long queue_id;
-> -
-> -	xa_for_each(&uq_mgr->userq_xa, queue_id, queue) {
-> -		struct dma_fence *f = queue->last_fence;
-> -
-> -		if (!f)
-> -			continue;
-> -
-> -		dma_fence_wait(f, false);
-> -	}
-> -}
-> -
->  void
->  amdgpu_userq_evict(struct amdgpu_userq_mgr *uq_mgr)
->  {
-> -	/* Wait for any pending userqueue fence work to finish */
-> -	amdgpu_userq_wait_for_signal(uq_mgr);
->  	amdgpu_userq_evict_all(uq_mgr);
->  }
->  
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre"> 	if (r) {
+ 		drm_file_err(uq_mgr-&gt;file, &quot;Failed to alloc fence driver\n&quot;);
+-		goto free_queue;
++		goto unlock;
+ 	}
+ 
+ 	r = uq_funcs-&gt;mqd_create(queue, &amp;args-&gt;in);
+@@ -858,11 +856,10 @@ amdgpu_userq_create(struct drm_file *filp, union drm_amdgpu_userq *args)
+ 	up_read(&amp;adev-&gt;reset_domain-&gt;sem);
+ clean_fence_driver:
+ 	amdgpu_userq_fence_driver_free(queue);
+-free_queue:
+-	kfree(queue);
+ unlock:
+ 	mutex_unlock(&amp;uq_mgr-&gt;userq_mutex);
+-
++free_queue:
++	kfree(queue);
+ 	return r;
+ }
+ 
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+</pre>
+    </blockquote>
+  </body>
+</html>
 
+--------------zxZJM0iv0rnFTGzcjAsBGrOb--
