@@ -4,98 +4,97 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F1D79FD5F8E
-	for <amd-gfx@archiver.kernel.org>; Wed,  8 Apr 2026 07:11:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2A627FD5F8F
+	for <amd-gfx@archiver.kernel.org>; Wed,  8 Apr 2026 07:45:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6106510E544;
-	Wed,  8 Apr 2026 07:11:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AE4EE10E552;
+	Wed,  8 Apr 2026 07:45:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=usp.br header.i=@usp.br header.b="dgeGbjWo";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="pW31Bowe";
 	dkim-atps=neutral
-Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com
- [209.85.208.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DBB8310E0F9
- for <amd-gfx@lists.freedesktop.org>; Tue,  7 Apr 2026 13:00:05 +0000 (UTC)
-Received: by mail-ed1-f45.google.com with SMTP id
- 4fb4d7f45d1cf-65c0891f4e9so4465787a12.1
- for <amd-gfx@lists.freedesktop.org>; Tue, 07 Apr 2026 06:00:05 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1775566804; cv=none;
- d=google.com; s=arc-20240605;
- b=c9TOMKkqo1ZRJISCEBaXqPKb1s2hwBXCK4kmeXT93hnpJIczY65bHVRVHCj27quCZ5
- /C+1fmV4B/ZoCeK/Dko3xvSH5T0xFK62NmQ2FhAHAyxYJTtZMx48vw7PVFtWTrBmT1To
- FPid98j+xUJBoELg7ZvYJrWYO4QcyUIsYbi0M8XtJkBOr044QHG0M1dFKNHcCNOfhA2y
- 9pdnMpYgIH2jsqRMuBUXbfFzgrJDHBAhyi94lSndbHQd7DQ0kncIbZJPjbneDvwpIeCA
- 6YByFtrzjupswLCXJsYnC5Cl0wjfGv7z0+lq1BSmV8RPAoZUtGB2ao60jIZDEXGno1Qx
- b/Zg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=kL2sSGAkL4PZPcVc5FJ4HxqW1Olr8C1QXuJ6qTxnTUE=;
- fh=S0Ot3F/q2aBowlmfrD4JD/IJ9XTvkQMJpekIXoNKGhE=;
- b=CVv5xTdq52Z7Vgi+zdMydwg5hlLXvpEXmf/NCBk3xwLGsl+vmcCmvKL7EVhglQQtim
- Hxbv4KurHAs81vcLfrszM9S7CM77Qz+JvjkyT59WNlkBunkJalInG1XGBQ7zvxI0Eo9Q
- fcHpO5ledABPRiKTj0lEB+3pkun56lOXEp6j4dlysUY0CncEByBajnnv/oMtlHQfOUNp
- LOXd+CvbKNES2bMA3KKPSdFT+HweaXwl4qqEc+BNRItdal8Vsr6Gmd7q4qDofeqRudZw
- 06UkQ8t8G5jvCgM+/ymgMiA3OLIFh9SkeCostgtLX0hRF2OTPzHhTocesMMIC348iS40
- Vt+Q==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=usp.br; s=usp-google; t=1775566804; x=1776171604; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=kL2sSGAkL4PZPcVc5FJ4HxqW1Olr8C1QXuJ6qTxnTUE=;
- b=dgeGbjWoS4oAQo0gcd4WP1DtkcGR2Ou2o4+qPUjCDGig3AP5FQFI304iRA8uKFRHAU
- H1VeUi4bMWBDGOdQ5AcEUgkreWcei2hZn/CeYVWcEBYjTTVk1Q5AbapfTRqSxA8teS5y
- 5YDbNA4OcN47QOcZ6h42IWgxy/PNZn2uIFz3LyEheJIHJhmSbi5ZRPHys9j+nGIVXdPR
- FMIN9v9cpbHn7oTzxK1QBiXG+TEPnUXBIHhk22WbKDfVmc84NpaaAW5y8WCYqb+O2d/t
- Y6eHVNamNeQsSI6dNKii9PZ2gyz0sKu0Ka+CpS7ghjGQxK521Aw2tRhB9qw7g4ONkr5Q
- /9gw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1775566804; x=1776171604;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=kL2sSGAkL4PZPcVc5FJ4HxqW1Olr8C1QXuJ6qTxnTUE=;
- b=mHB0cA8PkbCtvcv3almQCXei3OKfevfX14oFhZzfDq005iURHJSiBA+5e66T1Buyp8
- aGrbFBPxPVz6O5TAl4SewMoy1g7wwYQ/iyyDRBABFJnMPYLwV9UljkcGBLySHrUvzlVO
- Kgulxe7sMg6ycjTQS5gIk4bTT9RHxAnOFtdy5GW7rt/ww2CRbRdGTyrYdMDUH76VXmOF
- yw95CjwoRt/Mdq06Ymiso4XsoLRcAQmqLka1ehuIVfXP4cS+lFnrGhRdyIqpyzybNE+S
- enLYE/+G5dm4cyd9YLgVCrANlGYlgylF9PU72YI3A0OdHSudXyoCnmKq1zI9oneCSCfE
- uM6A==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXUFWdMxr8yTaH7wWy7erAao9Y6mSh4dhHNfNb4WSYDdJW81VOrubeOhGpOjwdJjubvGZpJIom5@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxsmLp0zlxRhAbTyzhYcgtxY0xZVoetEg4jCK5rrfkBjcBmzLtj
- +HDtmGuLg/+IhjuS3OGRr3GVUMkWQymNQ+1kjvCYEb68SHCfeZetFvAJcOIfkIA7z2R0LUUPltK
- r80Z2aeFYzH5smYCTqU3xmW0kq1UtfpDBOVnTQ9r5fA==
-X-Gm-Gg: AeBDiev9gyBIfbRvMrwweI00dRhC6RomxMCGBcEX3csbHXg51Fdd5vFDjwa+r/CQV5W
- zcQLuq+mHsnd+/m/l7tusNQgYjSptvOzmHJqKqy1lxpU2vNl1kdJNLIhGT1LQohk6D0KzxR5O3A
- Lj0y22BbFzSl7zVVI4/By1o7vI7ig4oi4rozu7U3bZoaRi8MeyESr1WIngUVDqNY+upDhnsXBt8
- uOxBRGJ7/VG763/H2rzclLrw/9E1KkEhFqIO69CIgg+3CKi3567jknBjo7qseE/R/zbm9mAOUWM
- +ltM7eqjqPKu605tBvZZdleVByeHobtyVwi7A2+JyvludTL4QSih6JYoqxISenjminfVYX2qn12
- 17Gb4HAhx+PvK4vJzVN/QAeZJRQ==
-X-Received: by 2002:a05:6402:324c:b0:66e:df62:8826 with SMTP id
- 4fb4d7f45d1cf-66edf6288a7mr2661001a12.8.1775566803791; Tue, 07 Apr 2026
- 06:00:03 -0700 (PDT)
+Received: from SN4PR0501CU005.outbound.protection.outlook.com
+ (mail-southcentralusazon11011037.outbound.protection.outlook.com
+ [40.93.194.37])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8933B10E552
+ for <amd-gfx@lists.freedesktop.org>; Wed,  8 Apr 2026 07:45:53 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=S7VmdQX3wVFz9DvYiuHOoRU+68CUfqJN3fPKCM3MJnI0Dz0k5bsuIo90myE0UbNMcfLp67PTE3VEP4w8yFQbh0kFu1IJsi0pzJSz4Q6nyK0l/9NHKLXRHsK07y8mrKLvyrmyYmuI/RT//6Qx5DVDNM14CD4N9HOjx6N2/25l1slMmnWh7+jHsufvLXlNjRS0xhiG0ZI9kM8ZjZaxGUYjYwIPJFC8jv3OYan2sKtn2SG98q5tYHBBvMj+lnTv0o3mkv/QTHKUa5uTkcs5tl/xqr8GLXocSivquLnjf4ShVQDbzc/hRaWM5qS9sX0y3Poo3A4l1GwKK4bJVJ6ENG2cLw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=/EFoiqWsNt3dgk3ZfXRGZ7FiBNjVRGILLAiN3gb80Wk=;
+ b=qFsJfhWu8UrFguohqq8GIK8NvjcboC9OZp5icvD4aEAfqMgPPFrr/rO5d73/0A6345br22bL0KcRQL0M7EmaTj6594xuvDtTZLRCyk7GJAdnWxIbl7Iva9pMy1x71DhN10iLTfwpgo9hqfIgWvhjGy+PFamCtP7q2mkRbP2m/23HX/0LX80FBNdxCu2SeB54XStiGPzTZGlVnELtWbG7sWM9Fp70KVrTWUHpH48P8kK/b61tVtTMZcgf1NciT2Q5/Ce8JtldZMZb/xiDi8O9oCUhpb6jiV0VUfCAeD3mOE3xLJj3e3fQ8ExwYs9eUzqe8/yx4xk5h2D3UtClx4NhzQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=/EFoiqWsNt3dgk3ZfXRGZ7FiBNjVRGILLAiN3gb80Wk=;
+ b=pW31BowetE5/F9L9b5G/MHfC0cHKtBscwJofATqCEFrCi1wIsoSwV/Ie4oSy7icYUmBdm7RpKY8v4L1UeuIF9h0qSxjs3mhvEuZu0YrJnj71nwcg04EOz4q7M3OQElRG2vYISGtpyvfUlZhTTN17LLwdtOOYhob2licY3xAMvyo=
+Received: from CH5PR05CA0010.namprd05.prod.outlook.com (2603:10b6:610:1f0::22)
+ by MN0PR12MB6004.namprd12.prod.outlook.com (2603:10b6:208:380::17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.20; Wed, 8 Apr
+ 2026 07:45:49 +0000
+Received: from CH1PEPF0000A347.namprd04.prod.outlook.com
+ (2603:10b6:610:1f0:cafe::4c) by CH5PR05CA0010.outlook.office365.com
+ (2603:10b6:610:1f0::22) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9769.37 via Frontend Transport; Wed,
+ 8 Apr 2026 07:45:49 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ CH1PEPF0000A347.mail.protection.outlook.com (10.167.244.7) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9769.17 via Frontend Transport; Wed, 8 Apr 2026 07:45:48 +0000
+Received: from prike-code-pc.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Wed, 8 Apr
+ 2026 02:45:46 -0500
+From: Prike Liang <Prike.Liang@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <Alexander.Deucher@amd.com>, <Christian.Koenig@amd.com>, Prike Liang
+ <Prike.Liang@amd.com>
+Subject: [PATCH] drm/amdgpu: drop userq fence driver refs on fence release
+Date: Wed, 8 Apr 2026 15:45:37 +0800
+Message-ID: <20260408074537.3439191-1-Prike.Liang@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-References: <CAJgF-xs=3fbKQO5Mj=coPMXq0ecWmV0bJDNFN44coEHV3WS=wg@mail.gmail.com>
- <20260331015202.51017-1-guilherme.bozi@usp.br>
-In-Reply-To: <20260331015202.51017-1-guilherme.bozi@usp.br>
-From: Guilherme Ivo Bozi <guilherme.bozi@usp.br>
-Date: Tue, 7 Apr 2026 10:00:00 -0300
-X-Gm-Features: AQROBzCMYxUk4VwRBwx6RguB_k0T4nYWVxTkeiFno4LHqPyS6xqSNyRshlEpVPo
-Message-ID: <CAJgF-xswWgRGJGUDFRw+q4YOz1cVc5fqXumHBGxpLE_4736FQg@mail.gmail.com>
-Subject: Re: [PATCH v3] drm/amd/display: Deduplicate DCN DDC register
- assignment
-To: harry.wentland@amd.com, sunpeng.li@amd.com, siqueira@igalia.com, 
- alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com, 
- simona@ffwll.ch
-Cc: linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Mailman-Approved-At: Wed, 08 Apr 2026 07:11:07 +0000
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH1PEPF0000A347:EE_|MN0PR12MB6004:EE_
+X-MS-Office365-Filtering-Correlation-Id: 485ce049-96db-43a1-5127-08de9542d9d8
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|36860700016|82310400026|376014|1800799024|56012099003|18002099003;
+X-Microsoft-Antispam-Message-Info: j0Zq8iZ7+UguWCIk+rfsTpwN2JP7HvjwqelH5nfdbzbWkjWJhmCEo3uusqPP68DrmaoT7lSWgLfULKq2VVYkzPRIlNWyUa7A4Ej9XaKABU2T/t+P6SQ6L6/T3U9yWLitAozrgDb36rqEONAd+pXs7IGdW2uWplI3qgj4szV3MKDMl/iVnpegvHTd6/5S/wD/RZO2fE4fgrKQMw2vehOFlwtnNOpToYFM/0CvruLG55wv3SNFKVcKb0JxiqQ7o3GRBNzNmUajjyoOvHV/flLZ9uoqPBh8JcYizGOspdUtgLkmhev0xoYcaAplm/Aw7LhdfCehwD+itylKf3UXTw4Ht6rOlmu7MAfYaVr8vcmYSVXJ+O1FbRWoxJx2ETDTzGBoNmX+2kI4bHrESO5OxnmdL3PNODHUlB0yfi0+k4nzzX03PboTTkiCN7cZFVZhDvlS/XW3fkSr1rMY/s5m8MEbirWom2eYJvMwC/VDlyu1YsHQXGeutV+j9D2VQKHfdEa2i86v6xeDiCW1rcODc6NKZtq0LOg9o4LtYhDySZsmuqN1E2Z+54mE/5C6rX4X3jI9zQXeUxIyDnSFj+y3qUYWBmZW/DqLkoGzFG51DoUuxDQcqAz6NL9f48ZCT9SWqdfyvz/cqFCX0kXSIzs01JGI/EznWQrTx/nKK+6abMHzaUQZKIFrZXUQqjddVV3ya7qFbeAHZmp+mesgwygL2dV6OOEw0j8HvsNumUd9rCqy/YdTsBt2NahecCgHE0AH0hT2Iicm0/XS8dqYPiAwwTXkEQ==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700016)(82310400026)(376014)(1800799024)(56012099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: /YZF7Rzii0ZKGBvs12TvP++QggkXN0A4yxjBrhUr6BTMm42Njd2L//T56sVfM0PK+ZOtemABCXSlIaQdMiYHSGlJmFAFpn2/RX11hSzcL70Oes5f1HPpLrpyv7+msWcaDalO/29HP3/9XESb3O6/v/pQG3ZXxewhocjlrhGpsv2gJZ7azhzqsvsBVMXXnHmMa9pirbPRojALrWLqwJpt0a1Q+qYyVwoCzZleftVm2orvXcW1BvgkDXc4j/MvRPBCsjdofPFfGXaHM4ndVroq4A4Y0ZAPZr6njK7jAnmAkAAAovTg+APItDpoeaba0feQwBSD9GGRcgDvmXBzfb0V1Ob0lRJdLD1DUan+I76I97GB3vZ8Lhd/pCIWuy592rVvAelr6m4zEBnFNePMUwtri/taJ4ow3h+aoPHDIvODLcMkWtDA5DR/0QTlnVzvTu22
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Apr 2026 07:45:48.7810 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 485ce049-96db-43a1-5127-08de9542d9d8
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CH1PEPF0000A347.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6004
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,372 +109,72 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi,
+amdgpu_userq_wait_ioctl() takes extra references on waited-on fence
+drivers and stores them in waitq->fence_drv_xa. When a new userq fence is
+created, those references are transferred into userq_fence->fence_drv_array
+so they can be released when the fence completes.
 
-Just a gentle ping on this.
-Any feedback on v3 would be appreciated.
+However, those inherited references are currently only dropped from
+amdgpu_userq_fence_driver_process(). If a fence never reaches that path,
+such as it is already signaled when created or it is dropped through
+an error/cleanup path, amdgpu_userq_fence_free() frees fence_drv_array
+without putting the referenced fence drivers.
 
-Thanks.
+Signed-off-by: Prike Liang <Prike.Liang@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c | 17 +++++++++++------
+ 1 file changed, 11 insertions(+), 6 deletions(-)
 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
+index 3be80a82788a..bd196599d3d6 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
+@@ -145,13 +145,21 @@ amdgpu_userq_fence_driver_free(struct amdgpu_usermode_queue *userq)
+ 	amdgpu_userq_fence_driver_put(userq->fence_drv);
+ }
+ 
++static void
++amdgpu_userq_fence_put_fence_drv_array(struct amdgpu_userq_fence *userq_fence)
++{
++	unsigned long i;
++	for (i = 0; i < userq_fence->fence_drv_array_count; i++)
++		amdgpu_userq_fence_driver_put(userq_fence->fence_drv_array[i]);
++	userq_fence->fence_drv_array_count = 0;
++}
++
+ void amdgpu_userq_fence_driver_process(struct amdgpu_userq_fence_driver *fence_drv)
+ {
+ 	struct amdgpu_userq_fence *userq_fence, *tmp;
+ 	struct dma_fence *fence;
+ 	unsigned long flags;
+ 	u64 rptr;
+-	int i;
+ 
+ 	if (!fence_drv)
+ 		return;
+@@ -166,10 +174,7 @@ void amdgpu_userq_fence_driver_process(struct amdgpu_userq_fence_driver *fence_d
+ 			break;
+ 
+ 		dma_fence_signal(fence);
+-
+-		for (i = 0; i < userq_fence->fence_drv_array_count; i++)
+-			amdgpu_userq_fence_driver_put(userq_fence->fence_drv_array[i]);
+-
++		amdgpu_userq_fence_put_fence_drv_array(userq_fence);
+ 		list_del(&userq_fence->link);
+ 		dma_fence_put(fence);
+ 	}
+@@ -320,9 +325,9 @@ static void amdgpu_userq_fence_free(struct rcu_head *rcu)
+ 	struct amdgpu_userq_fence *userq_fence = to_amdgpu_userq_fence(fence);
+ 	struct amdgpu_userq_fence_driver *fence_drv = userq_fence->fence_drv;
+ 
++	amdgpu_userq_fence_put_fence_drv_array(userq_fence);
+ 	/* Release the fence driver reference */
+ 	amdgpu_userq_fence_driver_put(fence_drv);
+-
+ 	kvfree(userq_fence->fence_drv_array);
+ 	kmem_cache_free(amdgpu_userq_fence_slab, userq_fence);
+ }
+-- 
+2.34.1
 
-On Mon, Mar 30, 2026 at 10:52=E2=80=AFPM Guilherme Ivo Bozi
-<guilherme.bozi@usp.br> wrote:
->
-> Several DCN generations implement identical define_ddc_registers()
-> functions to assign DDC register, shift and mask pointers based on
-> GPIO ID.
->
-> Introduce a shared inline helper,
-> dcn_define_ddc_registers_common(), and convert all DCN
-> implementations to use it.
->
-> This reduces duplication and improves maintainability without
-> changing behavior.
->
-> No functional changes intended.
->
-> Signed-off-by: Guilherme Ivo Bozi <guilherme.bozi@usp.br>
-> ---
->
-> v2:
->         - Corrected type mismatch (ddc_shift - ddc_sh_mask)
->
-> v3:
->         - Fix threading (previous version was not sent as reply)
->         - Squashed fix to avoid build breakage
->
->  .../display/dc/gpio/dcn20/hw_factory_dcn20.c  | 27 ++++---------
->  .../display/dc/gpio/dcn21/hw_factory_dcn21.c  | 27 ++++---------
->  .../display/dc/gpio/dcn30/hw_factory_dcn30.c  | 27 ++++---------
->  .../dc/gpio/dcn315/hw_factory_dcn315.c        | 27 ++++---------
->  .../display/dc/gpio/dcn32/hw_factory_dcn32.c  | 27 ++++---------
->  .../dc/gpio/dcn401/hw_factory_dcn401.c        | 26 ++++---------
->  .../amd/display/dc/gpio/hw_factory_dcn_ddc.h  | 39 +++++++++++++++++++
->  7 files changed, 86 insertions(+), 114 deletions(-)
->  create mode 100644 drivers/gpu/drm/amd/display/dc/gpio/hw_factory_dcn_dd=
-c.h
->
-> diff --git a/drivers/gpu/drm/amd/display/dc/gpio/dcn20/hw_factory_dcn20.c=
- b/drivers/gpu/drm/amd/display/dc/gpio/dcn20/hw_factory_dcn20.c
-> index e0bd0c722e00..905d14079b91 100644
-> --- a/drivers/gpu/drm/amd/display/dc/gpio/dcn20/hw_factory_dcn20.c
-> +++ b/drivers/gpu/drm/amd/display/dc/gpio/dcn20/hw_factory_dcn20.c
-> @@ -32,6 +32,8 @@
->  #include "../hw_hpd.h"
->  #include "../hw_generic.h"
->
-> +#include "../hw_factory_dcn_ddc.h"
-> +
->  #include "hw_factory_dcn20.h"
->
->
-> @@ -182,25 +184,12 @@ static void define_ddc_registers(
->                 struct hw_gpio_pin *pin,
->                 uint32_t en)
->  {
-> -       struct hw_ddc *ddc =3D HW_DDC_FROM_BASE(pin);
-> -
-> -       switch (pin->id) {
-> -       case GPIO_ID_DDC_DATA:
-> -               ddc->regs =3D &ddc_data_regs_dcn[en];
-> -               ddc->base.regs =3D &ddc_data_regs_dcn[en].gpio;
-> -               break;
-> -       case GPIO_ID_DDC_CLOCK:
-> -               ddc->regs =3D &ddc_clk_regs_dcn[en];
-> -               ddc->base.regs =3D &ddc_clk_regs_dcn[en].gpio;
-> -               break;
-> -       default:
-> -               ASSERT_CRITICAL(false);
-> -               return;
-> -       }
-> -
-> -       ddc->shifts =3D &ddc_shift[en];
-> -       ddc->masks =3D &ddc_mask[en];
-> -
-> +       dcn_define_ddc_registers_common(
-> +               pin, en,
-> +               ddc_data_regs_dcn,
-> +               ddc_clk_regs_dcn,
-> +               ddc_shift,
-> +               ddc_mask);
->  }
->
->  static void define_hpd_registers(struct hw_gpio_pin *pin, uint32_t en)
-> diff --git a/drivers/gpu/drm/amd/display/dc/gpio/dcn21/hw_factory_dcn21.c=
- b/drivers/gpu/drm/amd/display/dc/gpio/dcn21/hw_factory_dcn21.c
-> index 2f57ee6deabc..f347b8c7e2b6 100644
-> --- a/drivers/gpu/drm/amd/display/dc/gpio/dcn21/hw_factory_dcn21.c
-> +++ b/drivers/gpu/drm/amd/display/dc/gpio/dcn21/hw_factory_dcn21.c
-> @@ -32,6 +32,8 @@
->  #include "../hw_hpd.h"
->  #include "../hw_generic.h"
->
-> +#include "../hw_factory_dcn_ddc.h"
-> +
->  #include "hw_factory_dcn21.h"
->
->  #include "dcn/dcn_2_1_0_offset.h"
-> @@ -170,25 +172,12 @@ static void define_ddc_registers(
->                 struct hw_gpio_pin *pin,
->                 uint32_t en)
->  {
-> -       struct hw_ddc *ddc =3D HW_DDC_FROM_BASE(pin);
-> -
-> -       switch (pin->id) {
-> -       case GPIO_ID_DDC_DATA:
-> -               ddc->regs =3D &ddc_data_regs_dcn[en];
-> -               ddc->base.regs =3D &ddc_data_regs_dcn[en].gpio;
-> -               break;
-> -       case GPIO_ID_DDC_CLOCK:
-> -               ddc->regs =3D &ddc_clk_regs_dcn[en];
-> -               ddc->base.regs =3D &ddc_clk_regs_dcn[en].gpio;
-> -               break;
-> -       default:
-> -               ASSERT_CRITICAL(false);
-> -               return;
-> -       }
-> -
-> -       ddc->shifts =3D &ddc_shift[en];
-> -       ddc->masks =3D &ddc_mask[en];
-> -
-> +       dcn_define_ddc_registers_common(
-> +               pin, en,
-> +               ddc_data_regs_dcn,
-> +               ddc_clk_regs_dcn,
-> +               ddc_shift,
-> +               ddc_mask);
->  }
->
->  static void define_hpd_registers(struct hw_gpio_pin *pin, uint32_t en)
-> diff --git a/drivers/gpu/drm/amd/display/dc/gpio/dcn30/hw_factory_dcn30.c=
- b/drivers/gpu/drm/amd/display/dc/gpio/dcn30/hw_factory_dcn30.c
-> index 36a5736c58c9..25eef1ee10fe 100644
-> --- a/drivers/gpu/drm/amd/display/dc/gpio/dcn30/hw_factory_dcn30.c
-> +++ b/drivers/gpu/drm/amd/display/dc/gpio/dcn30/hw_factory_dcn30.c
-> @@ -32,6 +32,8 @@
->  #include "../hw_hpd.h"
->  #include "../hw_generic.h"
->
-> +#include "../hw_factory_dcn_ddc.h"
-> +
->  #include "hw_factory_dcn30.h"
->
->
-> @@ -199,25 +201,12 @@ static void define_ddc_registers(
->                 struct hw_gpio_pin *pin,
->                 uint32_t en)
->  {
-> -       struct hw_ddc *ddc =3D HW_DDC_FROM_BASE(pin);
-> -
-> -       switch (pin->id) {
-> -       case GPIO_ID_DDC_DATA:
-> -               ddc->regs =3D &ddc_data_regs_dcn[en];
-> -               ddc->base.regs =3D &ddc_data_regs_dcn[en].gpio;
-> -               break;
-> -       case GPIO_ID_DDC_CLOCK:
-> -               ddc->regs =3D &ddc_clk_regs_dcn[en];
-> -               ddc->base.regs =3D &ddc_clk_regs_dcn[en].gpio;
-> -               break;
-> -       default:
-> -               ASSERT_CRITICAL(false);
-> -               return;
-> -       }
-> -
-> -       ddc->shifts =3D &ddc_shift[en];
-> -       ddc->masks =3D &ddc_mask[en];
-> -
-> +       dcn_define_ddc_registers_common(
-> +               pin, en,
-> +               ddc_data_regs_dcn,
-> +               ddc_clk_regs_dcn,
-> +               ddc_shift,
-> +               ddc_mask);
->  }
->
->  static void define_hpd_registers(struct hw_gpio_pin *pin, uint32_t en)
-> diff --git a/drivers/gpu/drm/amd/display/dc/gpio/dcn315/hw_factory_dcn315=
-.c b/drivers/gpu/drm/amd/display/dc/gpio/dcn315/hw_factory_dcn315.c
-> index 5feebb3b95ca..571a6f1b0cf9 100644
-> --- a/drivers/gpu/drm/amd/display/dc/gpio/dcn315/hw_factory_dcn315.c
-> +++ b/drivers/gpu/drm/amd/display/dc/gpio/dcn315/hw_factory_dcn315.c
-> @@ -32,6 +32,8 @@
->  #include "../hw_hpd.h"
->  #include "../hw_generic.h"
->
-> +#include "../hw_factory_dcn_ddc.h"
-> +
->  #include "hw_factory_dcn315.h"
->
->  #include "dcn/dcn_3_1_5_offset.h"
-> @@ -191,25 +193,12 @@ static void define_ddc_registers(
->                 struct hw_gpio_pin *pin,
->                 uint32_t en)
->  {
-> -       struct hw_ddc *ddc =3D HW_DDC_FROM_BASE(pin);
-> -
-> -       switch (pin->id) {
-> -       case GPIO_ID_DDC_DATA:
-> -               ddc->regs =3D &ddc_data_regs_dcn[en];
-> -               ddc->base.regs =3D &ddc_data_regs_dcn[en].gpio;
-> -               break;
-> -       case GPIO_ID_DDC_CLOCK:
-> -               ddc->regs =3D &ddc_clk_regs_dcn[en];
-> -               ddc->base.regs =3D &ddc_clk_regs_dcn[en].gpio;
-> -               break;
-> -       default:
-> -               ASSERT_CRITICAL(false);
-> -               return;
-> -       }
-> -
-> -       ddc->shifts =3D &ddc_shift[en];
-> -       ddc->masks =3D &ddc_mask[en];
-> -
-> +       dcn_define_ddc_registers_common(
-> +               pin, en,
-> +               ddc_data_regs_dcn,
-> +               ddc_clk_regs_dcn,
-> +               ddc_shift,
-> +               ddc_mask);
->  }
->
->  static void define_hpd_registers(struct hw_gpio_pin *pin, uint32_t en)
-> diff --git a/drivers/gpu/drm/amd/display/dc/gpio/dcn32/hw_factory_dcn32.c=
- b/drivers/gpu/drm/amd/display/dc/gpio/dcn32/hw_factory_dcn32.c
-> index 985f10b39750..d6e97b246bae 100644
-> --- a/drivers/gpu/drm/amd/display/dc/gpio/dcn32/hw_factory_dcn32.c
-> +++ b/drivers/gpu/drm/amd/display/dc/gpio/dcn32/hw_factory_dcn32.c
-> @@ -32,6 +32,8 @@
->  #include "../hw_hpd.h"
->  #include "../hw_generic.h"
->
-> +#include "../hw_factory_dcn_ddc.h"
-> +
->  #include "hw_factory_dcn32.h"
->
->  #include "dcn/dcn_3_2_0_offset.h"
-> @@ -203,25 +205,12 @@ static void define_ddc_registers(
->                 struct hw_gpio_pin *pin,
->                 uint32_t en)
->  {
-> -       struct hw_ddc *ddc =3D HW_DDC_FROM_BASE(pin);
-> -
-> -       switch (pin->id) {
-> -       case GPIO_ID_DDC_DATA:
-> -               ddc->regs =3D &ddc_data_regs_dcn[en];
-> -               ddc->base.regs =3D &ddc_data_regs_dcn[en].gpio;
-> -               break;
-> -       case GPIO_ID_DDC_CLOCK:
-> -               ddc->regs =3D &ddc_clk_regs_dcn[en];
-> -               ddc->base.regs =3D &ddc_clk_regs_dcn[en].gpio;
-> -               break;
-> -       default:
-> -               ASSERT_CRITICAL(false);
-> -               return;
-> -       }
-> -
-> -       ddc->shifts =3D &ddc_shift[en];
-> -       ddc->masks =3D &ddc_mask[en];
-> -
-> +       dcn_define_ddc_registers_common(
-> +               pin, en,
-> +               ddc_data_regs_dcn,
-> +               ddc_clk_regs_dcn,
-> +               ddc_shift,
-> +               ddc_mask);
->  }
->
->  static void define_hpd_registers(struct hw_gpio_pin *pin, uint32_t en)
-> diff --git a/drivers/gpu/drm/amd/display/dc/gpio/dcn401/hw_factory_dcn401=
-.c b/drivers/gpu/drm/amd/display/dc/gpio/dcn401/hw_factory_dcn401.c
-> index 928abca18a18..06a4d7a8a1ac 100644
-> --- a/drivers/gpu/drm/amd/display/dc/gpio/dcn401/hw_factory_dcn401.c
-> +++ b/drivers/gpu/drm/amd/display/dc/gpio/dcn401/hw_factory_dcn401.c
-> @@ -12,6 +12,7 @@
->  #include "../hw_hpd.h"
->  #include "../hw_generic.h"
->
-> +#include "../hw_factory_dcn_ddc.h"
->
->  #include "dcn/dcn_4_1_0_offset.h"
->  #include "dcn/dcn_4_1_0_sh_mask.h"
-> @@ -195,25 +196,12 @@ static void define_ddc_registers(
->                 struct hw_gpio_pin *pin,
->                 uint32_t en)
->  {
-> -       struct hw_ddc *ddc =3D HW_DDC_FROM_BASE(pin);
-> -
-> -       switch (pin->id) {
-> -       case GPIO_ID_DDC_DATA:
-> -               ddc->regs =3D &ddc_data_regs_dcn[en];
-> -               ddc->base.regs =3D &ddc_data_regs_dcn[en].gpio;
-> -               break;
-> -       case GPIO_ID_DDC_CLOCK:
-> -               ddc->regs =3D &ddc_clk_regs_dcn[en];
-> -               ddc->base.regs =3D &ddc_clk_regs_dcn[en].gpio;
-> -               break;
-> -       default:
-> -               ASSERT_CRITICAL(false);
-> -               return;
-> -       }
-> -
-> -       ddc->shifts =3D &ddc_shift[en];
-> -       ddc->masks =3D &ddc_mask[en];
-> -
-> +       dcn_define_ddc_registers_common(
-> +               pin, en,
-> +               ddc_data_regs_dcn,
-> +               ddc_clk_regs_dcn,
-> +               ddc_shift,
-> +               ddc_mask);
->  }
->
->  static void define_hpd_registers(struct hw_gpio_pin *pin, uint32_t en)
-> diff --git a/drivers/gpu/drm/amd/display/dc/gpio/hw_factory_dcn_ddc.h b/d=
-rivers/gpu/drm/amd/display/dc/gpio/hw_factory_dcn_ddc.h
-> new file mode 100644
-> index 000000000000..863177cf67e8
-> --- /dev/null
-> +++ b/drivers/gpu/drm/amd/display/dc/gpio/hw_factory_dcn_ddc.h
-> @@ -0,0 +1,39 @@
-> +/* SPDX-License-Identifier: MIT */
-> +/*
-> + * Copyright 2024 Advanced Micro Devices, Inc.
-> + */
-> +
-> +#ifndef __DAL_HW_FACTORY_DCN_DDC_H__
-> +#define __DAL_HW_FACTORY_DCN_DDC_H__
-> +
-> +static inline void dcn_define_ddc_registers_common(
-> +               struct hw_gpio_pin *pin,
-> +               uint32_t en,
-> +               const struct ddc_registers *data_regs,
-> +               const struct ddc_registers *clk_regs,
-> +               const struct ddc_sh_mask *shift,
-> +               const struct ddc_sh_mask *mask)
-> +{
-> +       struct hw_ddc *ddc =3D HW_DDC_FROM_BASE(pin);
-> +
-> +       switch (pin->id) {
-> +       case GPIO_ID_DDC_DATA:
-> +               ddc->regs =3D &data_regs[en];
-> +               ddc->base.regs =3D &data_regs[en].gpio;
-> +               break;
-> +
-> +       case GPIO_ID_DDC_CLOCK:
-> +               ddc->regs =3D &clk_regs[en];
-> +               ddc->base.regs =3D &clk_regs[en].gpio;
-> +               break;
-> +
-> +       default:
-> +               ASSERT_CRITICAL(false);
-> +               return;
-> +       }
-> +
-> +       ddc->shifts =3D &shift[en];
-> +       ddc->masks =3D &mask[en];
-> +}
-> +
-> +#endif /* __DAL_HW_FACTORY_DCN_DDC_H__ */
-> --
-> 2.47.3
->
