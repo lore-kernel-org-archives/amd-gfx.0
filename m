@@ -4,98 +4,104 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 471B51073CA6
-	for <amd-gfx@archiver.kernel.org>; Wed,  8 Apr 2026 12:54:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5CD9E1073C93
+	for <amd-gfx@archiver.kernel.org>; Wed,  8 Apr 2026 12:54:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8797F10E63E;
-	Wed,  8 Apr 2026 12:54:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 043A910E63F;
+	Wed,  8 Apr 2026 12:54:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.b="ayZ41nN1";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="GNj1+967";
 	dkim-atps=neutral
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F19A510E63E
- for <amd-gfx@lists.freedesktop.org>; Wed,  8 Apr 2026 12:54:05 +0000 (UTC)
-Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 63841DJ42302396; Wed, 8 Apr 2026 12:54:03 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
- :content-transfer-encoding:content-type:date:from:message-id
- :mime-version:subject:to; s=pp1; bh=/9lmjYribINghMTpISk5zLmyzb1A
- XeJHRSat1KEbG4Y=; b=ayZ41nN1Duen0lwc0XtSqMnRwtBOiZMM7hVNWjfR3DMt
- 3FQxA1fCl9NS6m+VfNMBJu03QUVd6DVlyCTwJh6dBLuuSUsBSfVE/wSwgUZiM9Uh
- Mmu3B2lfViWBbhlOesW/S8hVI+XQQPzJgDSujhwXdusETEUXiJ9YMPTawLu/BkvT
- AM3FPbs/iyZEHZ00TiCS2rWyIHV16a0BzYDHmxWu09+IcV4c4vje2GV/myW4dYCK
- pkAqJviQVuVMOHIL0wA3oxvACwvYgv1dbmZ0lowG+2SrDOYq2zzDWrUWjezIhB8L
- Yei/PH15Yb9GEKOfCIR6810O981khI0D/c0Hg+fs9Q==
-Received: from ppma13.dal12v.mail.ibm.com
- (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
- by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4dcn2fg1dt-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 08 Apr 2026 12:54:02 +0000 (GMT)
-Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
- by ppma13.dal12v.mail.ibm.com (8.18.1.2/8.18.1.2) with ESMTP id 638BJiMR018987;
- Wed, 8 Apr 2026 12:54:01 GMT
-Received: from smtprelay04.fra02v.mail.ibm.com ([9.218.2.228])
- by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4dcme9ff25-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 08 Apr 2026 12:54:01 +0000
-Received: from smtpav04.fra02v.mail.ibm.com (smtpav04.fra02v.mail.ibm.com
- [10.20.54.103])
- by smtprelay04.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 638CrwRk28312132
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Wed, 8 Apr 2026 12:53:58 GMT
-Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id EC49C20043;
- Wed,  8 Apr 2026 12:53:57 +0000 (GMT)
-Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 2C05A20040;
- Wed,  8 Apr 2026 12:53:55 +0000 (GMT)
-Received: from li-218185cc-29b5-11b2-a85c-9a1300ae2e6e.bl1-in.ibm.com (unknown
- [9.123.6.34]) by smtpav04.fra02v.mail.ibm.com (Postfix) with ESMTP;
- Wed,  8 Apr 2026 12:53:54 +0000 (GMT)
-From: Donet Tom <donettom@linux.ibm.com>
-To: amd-gfx@lists.freedesktop.org, Felix Kuehling <Felix.Kuehling@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Alex Deucher <alexdeucher@gmail.com>, christian.koenig@amd.com,
- Philip Yang <yangp@amd.com>
-Cc: David.YatSin@amd.com, Kent.Russell@amd.com,
- Ritesh Harjani <ritesh.list@gmail.com>,
- Vaidyanathan Srinivasan <svaidy@linux.ibm.com>, donettom@linux.ibm.com
-Subject: [PATCH v6] drm/amdgpu: Fix AMDGPU_GTT_MAX_TRANSFER_SIZE for non-4K
- page size
-Date: Wed,  8 Apr 2026 18:23:52 +0530
-Message-ID: <20260408125352.716899-1-donettom@linux.ibm.com>
-X-Mailer: git-send-email 2.52.0
+Received: from BN1PR04CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11010012.outbound.protection.outlook.com [52.101.56.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0F22B10E63F
+ for <amd-gfx@lists.freedesktop.org>; Wed,  8 Apr 2026 12:54:44 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=tNVr15fmahkbyimzmgoCnSHd9aMRkmBOWmqyz/8l5ilW04d5fXGvpxknMJOGNQ270oBVDw/CdT3EfEDvgKZPrUMKpfvgXYsGcH0zUEIaefvg2lbmEF8I6uU+C57N6qvNcwdmqO1BLAyYQRo5nsl16TcykNR7IzdcbxbEZWGnRmChYkOTM9SYPCW2oihX1+ffuaDA/S6avWE4Ym/m771irs+fJg5VYnFm/ZS2x0v7RF2zE9/CMz7zsUx9U+WIWtLS67dqCqd+XYpyFuv5e2xQr6t3HZFKsKatFN0pTIfFwgcOXxdjmyx7ywOkRib3xk3b2AXr+a+8eXsF53CSERdxyw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=si0yQQZqfDSIze6IemEc9NniJ0ire0qt1RwkFhJ1lEo=;
+ b=OhM10l3HfDFyoc3GOEXk/BEjivLMsuNmGnaEmm3lt6t7wjMfHmlaSfIfLSLlR8SgBQF6s3LhDNL/urejPUV13CELla5v/vFm7b81mYTdc8E+AvGCNVNQZYdX7o0svjWGwC6cxl94OqjKMubcOWwjEmfgJuCePVUMhHAieT4XH9qfo04X3ft7fJXzeOHdzChkCqxhRklLdvMoMUq9LdPMAB4Bkw1wimj2+FJ02u8G23OyhBgw+3TjJ9McP/NVZqMiVU1oZpAdTVC62lYuaucr31ZfRRXK5AcD3cEyGJLmeFPsjZ4tw80SGRehdTRspS+Yu8rsNmPewQwrIM5J1Fv0Qg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=si0yQQZqfDSIze6IemEc9NniJ0ire0qt1RwkFhJ1lEo=;
+ b=GNj1+967XM9TuAok36pJp92+FOGbKoCKuutDFud7BMAUOH7WeG4haIroV5B8J7DAxybHv5ZX1oyxdkori0RyY6ZkflF2Xt5Kcb5BbhgKR2TgSXDJAdfKM6Rj2qWaBTdY9OQoQQR1h4aQM3GqdOrimjQkuD6rbh+OrcAXSIz6aZQ=
+Received: from BN9PR03CA0128.namprd03.prod.outlook.com (2603:10b6:408:fe::13)
+ by IA0PR12MB8325.namprd12.prod.outlook.com (2603:10b6:208:407::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.18; Wed, 8 Apr
+ 2026 12:54:39 +0000
+Received: from BN2PEPF00004FBF.namprd04.prod.outlook.com
+ (2603:10b6:408:fe:cafe::30) by BN9PR03CA0128.outlook.office365.com
+ (2603:10b6:408:fe::13) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9769.38 via Frontend Transport; Wed,
+ 8 Apr 2026 12:54:39 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ BN2PEPF00004FBF.mail.protection.outlook.com (10.167.243.185) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9769.17 via Frontend Transport; Wed, 8 Apr 2026 12:54:39 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.17; Wed, 8 Apr
+ 2026 07:54:39 -0500
+Received: from satlexmb08.amd.com (10.181.42.217) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 8 Apr
+ 2026 07:54:39 -0500
+Received: from bencheng-dev (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
+ Transport; Wed, 8 Apr 2026 07:54:38 -0500
+From: Benjamin Cheng <benjamin.cheng@amd.com>
+To: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, Leo Liu
+ <leo.liu@amd.com>, <amd-gfx@lists.freedesktop.org>
+CC: "David (Ming Qiang) Wu" <David.Wu3@amd.com>, Ruijing Dong
+ <ruijing.dong@amd.com>, Benjamin Cheng <benjamin.cheng@amd.com>
+Subject: [PATCH v3 1/3] drm/amdgpu/vcn: Move RDECODE_* to amdgpu_vcn.h
+Date: Wed, 8 Apr 2026 08:54:24 -0400
+Message-ID: <20260408125426.2118644-1-benjamin.cheng@amd.com>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDA4MDExOCBTYWx0ZWRfXwiVxtbXABLMH
- nfv765CE61+gl2mJGhbnpgzj187LIR4VRCjwpXTlwo/skmQh9VVsQWSpBpcJUXwvyU5bcP5FiiD
- sIiLMrjO8B8tCp/+u7krGUVs5dtkNMW0eBX5B+7zW4TOc6wqXbzTbpjV8AD6sAuzMcIVytj3g4Q
- XfIYusk8c/DV6MCn8hlA/hFyJZ161nZR19UHJfT9WRCccTDCVWsNiqCEsN1f4gRX+pOJPFQmS8i
- VYOMDE09iAXorktEDFLfSxReiwqniIzlbSQroAgaO6M260gwPLYQPxJaGrazAjMyaUB0fIqrG97
- 91t4U6zSitNAp8g5ROJqcQJ5+W/pBNGkZYPHpeJ2/WaGiP9KCBVT2K7qpP0udGLoTCqDHgQq+wT
- elvwNI/XTe9jzbqs/AqF4RpaMlgDO7NSmbMw2UiYqQ+2wMn3IqHSd4oBnhPS/h55RUIDsTj0SOy
- BOvmZFAf08EJs0xEQ5w==
-X-Authority-Analysis: v=2.4 cv=FsY1OWrq c=1 sm=1 tr=0 ts=69d64feb cx=c_pps
- a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
- a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=U7nrCbtTmkRpXpFmAIza:22 a=VnNF1IyMAAAA:8
- a=d1KpeahhGMAa521JEmEA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
-X-Proofpoint-ORIG-GUID: R_I6qbJTBzx8mpCb3vA6PrDiTNyVQ-df
-X-Proofpoint-GUID: YH_kv1a7A30eyw1Jx1diqmegv2wNSrCY
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-08_04,2026-04-08_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 priorityscore=1501 impostorscore=0 spamscore=0 phishscore=0
- lowpriorityscore=0 clxscore=1015 adultscore=0 malwarescore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2604010000 definitions=main-2604080118
+Content-Type: text/plain
+Received-SPF: None (SATLEXMB04.amd.com: benjamin.cheng@amd.com does not
+ designate permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN2PEPF00004FBF:EE_|IA0PR12MB8325:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5b48781b-385d-4745-afeb-08de956dff19
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|82310400026|1800799024|36860700016|376014|18002099003|56012099003;
+X-Microsoft-Antispam-Message-Info: K7NN3ATeZ13NH9odYmLe9Sl6LAgc1Zfp3C1CYzJr1xvBHegt1J/aqm5xtHwPjrj5xa5xGWiHbFvMSFEOyqiscDcCKMddKFC6nf7yBUmJasgrwhG6d1Z5T6x4/yTh/75RjUK/SkTpi7D313MrtZHMzvVovmKiYd7I6h85DJydf7dy7L9rNFd4+smbL3yzN5S+o8H45Bfb4I10kXSsXoYA/izGbHhvwmtnHdV6irZWm+f70zVvWWq9XlOLagdfZug4RZ4JSQPQ3LcXusHYfgtAn+YfG7i4sio8VLN9BDUKUNj0o8uOuuDDrYVnGad3uOpEVRdcKyiB9zZJDyPZJ2QMbqblldiNudJe6cDSC307x3J+HpaIGCuVSC2a37P1QLJ4xiEMnqRb4Q9tlx4SLs4dIxRTzOgcsNLWCSXhJn7VVx/Ink97CY/1mu860ykSe5RVyHyxBQVxGSZWLWWXmo//997IP6Zu7QeO5MyF3/y4Lg4YK/xaTH5+qqZaJX3R4aD/j8NmDmsknCaudURfO6EUnULrJppF4C2IpBIRbd39xtUqFRJGdthv8nemGVwCxikfD9/miyiYyOhNRjLA+Bi9sSYC5BgUaaYFeEyj0TynoNljHS8Em76ePzd5IcRvBwIYO0NFNieIExYLrD1pOAzUWmS0unrRIo9C4dVR+b+TUnvwar3FGCrX1h+WyJZcq307Qt1Oow/REUb5iB+VWdjiyaFxBnlg/oMZdOJPf11OJeDCoAluNNWQEkbPjRQ5qKGjvfAwCvTL8rK1Dwe/4pIuCA==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(1800799024)(36860700016)(376014)(18002099003)(56012099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: b2GWBxZC9U7T3TR8w6SYpi/cQbsGMtZxHyJRdE7yo8qbntpU1nG7QPss0DQFKjIxNhFMbOpTXEL7ssl9pD9/Zl22AoDrLPmtWvT/UScDOvrQQYWSVfop77dbq7NCVQgYAh0biOx73UzF0g692BNBtgG8ymoRTFCdqa1RQ67ibLXeXPJ4XoEoAv2NApcOViB+l2ABMjRwUlZc006QjzJ2JHr/PJQLMjRGXwslKZVaLIDupngjbdsuFFHqSkQ25tBJCjrP+oIx3EiTzWwb/RU/jjycyG17+e+pPp1aiQ+mp5EvKvFkV1hPOrmdvfaHGv4ywjAan35V46OjYkCG3zg+son9VHP1UVjhO/Ini7Ex5ZmgSyz+1S0XvQFLhrOAyUmv4C+rxdccSgEUecrX8IvYEXOz94D3wCgXt8P0HDf7xLAruTEGx+a9xEI+UrBfnA+m
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Apr 2026 12:54:39.6614 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5b48781b-385d-4745-afeb-08de956dff19
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF00004FBF.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8325
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,121 +116,110 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-AMDGPU_GTT_MAX_TRANSFER_SIZE represented the maximum number of
-system-page-sized pages that could be transferred in a single
-operation. The effective maximum transfer size was intended to be
-one PMD-sized mapping.
+These defines can be shared. Move them and prefix with VCN_DEC_ instead.
 
-In the existing code, AMDGPU_GTT_MAX_TRANSFER_SIZE was hard-coded
-to 512 pages. This corresponded to 2 MB on 4 KB page-size systems,
-matching the PMD size. However, on systems with a non-4 KB page
-size, this value no longer matched the PMD size.
-
-This patch changed the calculation of AMDGPU_GTT_MAX_TRANSFER_SIZE
-to derive it from PMD_SHIFT and PAGE_SHIFT, ensuring that the
-maximum transfer size remained PMD-sized across all system page
-sizes.
-
-Additionally, in some places, AMDGPU_GTT_MAX_TRANSFER_SIZE was
-implicitly assumed to be based on 4 KB pages. This resulted in
-incorrect address offset calculations. This patch updated the
-address calculations to correctly handle non-4 KB system page
-sizes as well.
-
-amdgpu_ttm_map_buffer() can create both GTT GART entries and
-VRAM GART entries. For GTT mappings, amdgpu_gart_map() takes
-system page–sized PFNs, and the mappings are created correctly.
-
-However, for VRAM GART mappings, amdgpu_gart_map_vram_range() expects
-GPU page–sized PFNs, but CPU page–sized PFNs were being passed,
-resulting in incorrect mappings.
-
-This patch updates the code to pass GPU page–sized PFNs to
-amdgpu_gart_map_vram_range(), ensuring that VRAM GART mappings are
-created correctly.
-
-Signed-off-by: Donet Tom <donettom@linux.ibm.com>
+Signed-off-by: Benjamin Cheng <benjamin.cheng@amd.com>
 ---
+v3: Renamed to VCN_DEC_
 
-This patch is necessary, as it ensures the correct window is used
-while mapping the buffer. Without this fix, amdgpu_gart_map_vram_range()
-does not create all the required mappings when the page size is not 4K.
-Since this is also an important fix for enabling non-4K page size support,
-I would be grateful if you could take a look and share your feedback.
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h | 3 +++
+ drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c   | 7 ++-----
+ drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c   | 7 ++-----
+ drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c | 3 ---
+ 4 files changed, 7 insertions(+), 13 deletions(-)
 
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 8 +++++---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h | 2 +-
- drivers/gpu/drm/amd/amdgpu/vce_v1_0.c   | 3 ++-
- 3 files changed, 8 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-index 0ccb31788b20..f9f534119cbe 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-@@ -204,7 +204,7 @@ static int amdgpu_ttm_map_buffer(struct amdgpu_ttm_buffer_entity *entity,
- 	int r;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h
+index 82624b44e661..e72687246235 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h
+@@ -57,6 +57,9 @@
+ #define VCN_DEC_SW_CMD_REG_WRITE	0x0000000b
+ #define VCN_DEC_SW_CMD_REG_WAIT		0x0000000c
  
- 	BUG_ON(adev->mman.buffer_funcs->copy_max_bytes <
--	       AMDGPU_GTT_MAX_TRANSFER_SIZE * 8);
-+	       AMDGPU_GTT_MAX_TRANSFER_SIZE * AMDGPU_GPU_PAGES_IN_CPU_PAGE * 8);
++#define VCN_DEC_MSG_CREATE		0x00000000
++#define VCN_DEC_MESSAGE_CREATE		0x00000001
++
+ #define VCN_ENC_CMD_NO_OP		0x00000000
+ #define VCN_ENC_CMD_END 		0x00000001
+ #define VCN_ENC_CMD_IB			0x00000002
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
+index 6fb4fcdbba4f..64531ad56c48 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
+@@ -58,9 +58,6 @@
+ #define VCN_INSTANCES_SIENNA_CICHLID				2
+ #define DEC_SW_RING_ENABLED					FALSE
  
- 	if (WARN_ON(mem->mem_type == AMDGPU_PL_PREEMPT))
- 		return -EINVAL;
-@@ -230,7 +230,7 @@ static int amdgpu_ttm_map_buffer(struct amdgpu_ttm_buffer_entity *entity,
- 
- 	*addr = adev->gmc.gart_start;
- 	*addr += (u64)window * AMDGPU_GTT_MAX_TRANSFER_SIZE *
--		AMDGPU_GPU_PAGE_SIZE;
-+		AMDGPU_GPU_PAGES_IN_CPU_PAGE * AMDGPU_GPU_PAGE_SIZE;
- 	*addr += offset;
- 
- 	num_dw = ALIGN(adev->mman.buffer_funcs->copy_num_dw, 8);
-@@ -248,7 +248,8 @@ static int amdgpu_ttm_map_buffer(struct amdgpu_ttm_buffer_entity *entity,
- 	src_addr += job->ibs[0].gpu_addr;
- 
- 	dst_addr = amdgpu_bo_gpu_offset(adev->gart.bo);
--	dst_addr += window * AMDGPU_GTT_MAX_TRANSFER_SIZE * 8;
-+	dst_addr += window * AMDGPU_GTT_MAX_TRANSFER_SIZE *
-+		AMDGPU_GPU_PAGES_IN_CPU_PAGE * 8;
- 	amdgpu_emit_copy_buffer(adev, &job->ibs[0], src_addr,
- 				dst_addr, num_bytes, 0);
- 
-@@ -266,6 +267,7 @@ static int amdgpu_ttm_map_buffer(struct amdgpu_ttm_buffer_entity *entity,
- 	} else {
- 		u64 pa = mm_cur->start + adev->vm_manager.vram_base_offset;
- 
-+		num_pages *= AMDGPU_GPU_PAGES_IN_CPU_PAGE;
- 		amdgpu_gart_map_vram_range(adev, pa, 0, num_pages, flags, cpu_addr);
+-#define RDECODE_MSG_CREATE					0x00000000
+-#define RDECODE_MESSAGE_CREATE					0x00000001
+-
+ static const struct amdgpu_hwip_reg_entry vcn_reg_list_3_0[] = {
+ 	SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_POWER_STATUS),
+ 	SOC15_REG_ENTRY_STR(VCN, 0, mmUVD_STATUS),
+@@ -1957,7 +1954,7 @@ static int vcn_v3_0_dec_msg(struct amdgpu_cs_parser *p, struct amdgpu_job *job,
+ 		goto out;
  	}
  
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-index 143201ecea3f..15aff225af1d 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-@@ -38,7 +38,7 @@
- #define AMDGPU_PL_MMIO_REMAP	(TTM_PL_PRIV + 5)
- #define __AMDGPU_PL_NUM	(TTM_PL_PRIV + 6)
+-	if (msg[3] != RDECODE_MSG_CREATE)
++	if (msg[3] != VCN_DEC_MSG_CREATE)
+ 		goto out;
  
--#define AMDGPU_GTT_MAX_TRANSFER_SIZE	512
-+#define AMDGPU_GTT_MAX_TRANSFER_SIZE	(1 << (PMD_SHIFT - PAGE_SHIFT))
- #define AMDGPU_GTT_NUM_TRANSFER_WINDOWS	2
+ 	len_dw = msg[1] / 4;
+@@ -1973,7 +1970,7 @@ static int vcn_v3_0_dec_msg(struct amdgpu_cs_parser *p, struct amdgpu_job *job,
+ 	for (i = 0, msg = &msg[6]; i < num_buffers; ++i, msg += 4) {
+ 		uint32_t offset, size, *create;
  
- extern const struct attribute_group amdgpu_vram_mgr_attr_group;
-diff --git a/drivers/gpu/drm/amd/amdgpu/vce_v1_0.c b/drivers/gpu/drm/amd/amdgpu/vce_v1_0.c
-index 9ae424618556..b2d4114c258c 100644
---- a/drivers/gpu/drm/amd/amdgpu/vce_v1_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vce_v1_0.c
-@@ -48,7 +48,8 @@
- #define VCE_STATUS_VCPU_REPORT_FW_LOADED_MASK	0x02
+-		if (msg[0] != RDECODE_MESSAGE_CREATE)
++		if (msg[0] != VCN_DEC_MESSAGE_CREATE)
+ 			continue;
  
- #define VCE_V1_0_GART_PAGE_START \
--	(AMDGPU_GTT_MAX_TRANSFER_SIZE * AMDGPU_GTT_NUM_TRANSFER_WINDOWS)
-+	(AMDGPU_GTT_MAX_TRANSFER_SIZE * AMDGPU_GPU_PAGES_IN_CPU_PAGE * \
-+	 AMDGPU_GTT_NUM_TRANSFER_WINDOWS)
- #define VCE_V1_0_GART_ADDR_START \
- 	(VCE_V1_0_GART_PAGE_START * AMDGPU_GPU_PAGE_SIZE)
+ 		offset = msg[1];
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
+index 5dec92691f73..a89e316a4add 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
+@@ -50,9 +50,6 @@
  
+ #define VCN_HARVEST_MMSCH								0
+ 
+-#define RDECODE_MSG_CREATE							0x00000000
+-#define RDECODE_MESSAGE_CREATE							0x00000001
+-
+ static const struct amdgpu_hwip_reg_entry vcn_reg_list_4_0[] = {
+ 	SOC15_REG_ENTRY_STR(VCN, 0, regUVD_POWER_STATUS),
+ 	SOC15_REG_ENTRY_STR(VCN, 0, regUVD_STATUS),
+@@ -1874,7 +1871,7 @@ static int vcn_v4_0_dec_msg(struct amdgpu_cs_parser *p, struct amdgpu_job *job,
+ 		goto out;
+ 	}
+ 
+-	if (msg[3] != RDECODE_MSG_CREATE)
++	if (msg[3] != VCN_DEC_MSG_CREATE)
+ 		goto out;
+ 
+ 	len_dw = msg[1] / 4;
+@@ -1890,7 +1887,7 @@ static int vcn_v4_0_dec_msg(struct amdgpu_cs_parser *p, struct amdgpu_job *job,
+ 	for (i = 0, msg = &msg[6]; i < num_buffers; ++i, msg += 4) {
+ 		uint32_t offset, size, *create;
+ 
+-		if (msg[0] != RDECODE_MESSAGE_CREATE)
++		if (msg[0] != VCN_DEC_MESSAGE_CREATE)
+ 			continue;
+ 
+ 		offset = msg[1];
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c
+index 1f6a22983c0d..cbbc02d68695 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c
+@@ -50,9 +50,6 @@
+ 
+ #define VCN_HARVEST_MMSCH							0
+ 
+-#define RDECODE_MSG_CREATE							0x00000000
+-#define RDECODE_MESSAGE_CREATE						0x00000001
+-
+ static const struct amdgpu_hwip_reg_entry vcn_reg_list_4_0_5[] = {
+ 	SOC15_REG_ENTRY_STR(VCN, 0, regUVD_POWER_STATUS),
+ 	SOC15_REG_ENTRY_STR(VCN, 0, regUVD_STATUS),
 -- 
-2.52.0
+2.53.0
 
