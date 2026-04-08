@@ -4,84 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9572EE9DE6D
-	for <amd-gfx@archiver.kernel.org>; Thu,  9 Apr 2026 08:45:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6BAF2E9DE6C
+	for <amd-gfx@archiver.kernel.org>; Thu,  9 Apr 2026 08:45:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7505310E776;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7C20710E7A2;
 	Thu,  9 Apr 2026 08:45:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=jqluv-com.20251104.gappssmtp.com header.i=@jqluv-com.20251104.gappssmtp.com header.b="kdVbDMLy";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="KlkRzznO";
 	dkim-atps=neutral
-Received: from mail-qt1-f172.google.com (mail-qt1-f172.google.com
- [209.85.160.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DFE8510E138
- for <amd-gfx@lists.freedesktop.org>; Thu,  9 Apr 2026 00:05:23 +0000 (UTC)
-Received: by mail-qt1-f172.google.com with SMTP id
- d75a77b69052e-50d2945e6adso4952111cf.3
- for <amd-gfx@lists.freedesktop.org>; Wed, 08 Apr 2026 17:05:23 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1775693123; cv=none;
- d=google.com; s=arc-20240605;
- b=XCGIdAEMVi1NeHV6oNJaLBYPyZm8ZQBualNzOWz4PomWOURTvU3WjD0MvtvAn5wod8
- qc2kyM2RGvJ0t9lMuZuAAb+SgIeppyShUFmdOkWLYpLFVeEvghzaPfO9xCYFmnfeSsV2
- gKVDTz+2Y3E0xBEzBlpsAZKGbdWZRhymshCHsQDpVvAKUR7fVRsyLR7veEB/Y2qygncV
- O77aswylC3PdAKdYKrOY0BCl9CXP0CNUyuc0B63JcXS+EDAY97ETS5N89ZTAWGeSkfl8
- m93iQ7IDKq8QwAkxaQ1LuYK8wGTpBUyM3cW9nF9PYVNX+mKpj5d++o5lxz9hYTAqeuQ5
- W0sw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
- bh=d5Le/5THFWE6y5V0G24EA1XqfjwC/vACRAr6s3UaP0k=;
- fh=LYN8rUkjKrk8P/z4hxTLJgSk8ZFtrFPhcLjEY5H8VoM=;
- b=BD95z03BYjby0IvbwGtfMjZp0GY/oWteIhyQ7p+nLd2TMDGp4LOOFG1TzOVJk99sDk
- eIKzmoU/1kH0yQVy1zXfeolREw3bXA6u1tfPalSyQhbxyN4fE3/fq9svp0TgLHTopMnf
- YtRzLlb1TLrmxne9qeNyrRujJ2MnOfd3RnEVXrOQL5/+jeO87kxdoJAUKNvj9CPU6yZy
- rAwcMhQ6neGLkJZJxEVVPHBrfFtcebqOzaR0O9k/hdLl/WmaCdNYfjbjUmM9j6R8V+3P
- rF+9fiHfiDbhvsw3ccoV+EN4rt1y7+10R6OhJvPZXAQMK1a3W4KtpVomw8KlfF4U+5Wl
- TA9w==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=jqluv-com.20251104.gappssmtp.com; s=20251104; t=1775693123; x=1776297923;
- darn=lists.freedesktop.org; 
- h=cc:to:subject:message-id:date:from:mime-version:from:to:cc:subject
- :date:message-id:reply-to;
- bh=d5Le/5THFWE6y5V0G24EA1XqfjwC/vACRAr6s3UaP0k=;
- b=kdVbDMLy36E2OCLZOUExFcBg2YnHJBg/n7NMuAyfsqDK4E4h8qyO5O5Fadj56DlpqI
- atjS3HTcOQpCw/GjhY388bGrLG/EwlSVWcPzvOzaUlFMZahBajomP2szBmLrE4/XDDOw
- h7Sn0qdYU2i7XdljH6mn8IwMMKnVGaTCEVs8Xyz+Ye3LbUZvaXueFvm2EG5iMiLyWX16
- rCtP3zU4VDF+R/yAzsic+mR/fjYmzcETXZuEdmRBDxSd266J9he75CfUz8+AdADE4oJV
- 1iEzGjc6rzBP666h+j7QRbr/MGH168LZY/luDWRQEj90midhkRIZAnfThjJxtYPxIfKd
- BhcA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1775693123; x=1776297923;
- h=cc:to:subject:message-id:date:from:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=d5Le/5THFWE6y5V0G24EA1XqfjwC/vACRAr6s3UaP0k=;
- b=cUkQc/r33fWc+HDXijbcnAND9QiMafmvedwPeNO0hitVU8FpTwDIBozoaYBPizYyUm
- ti2eCjyMSy9pIBeMGzFWeXAVGs3yrJZWN8oU9sT+nlyjGFXO5sa8fB4tWeqbOlLGsMaP
- Yk8x8JuoWWuGGrs1lyGvNhUveWACQLok3XZec2oHyP/0f7V/vbbcchOIG1LbJ/gRHiMJ
- UDuyTQ9Z8DNy2Hx09RYCQDVMYrtSja37cD2BSCxWvfJ0zDVr/ijtKSRRt+4PFl6Q1iof
- qXt2vAV9XStcTOfNvVt5/ARZFnri7GvS2Rokm4M+v2J6eRIen61UhA2izkk/bkt6UX72
- Pexw==
-X-Gm-Message-State: AOJu0Yz+yAuAKduwGKO+5BXji95Ir1/2daBlmSfGMdx6GtJbJ4IE2z6z
- CAxGfyP8zyvVcgQOjMsN20tALaaIu5HCSfdouDyM7JAazqbXn3N8oz9UtbxTpqronZ15MEWIkit
- qaNPRgZH9MbDpl6EEHBJaO+RliGggjeylz0Li5MQrxJ/+LXOy51WxeSbvMJdF
-X-Gm-Gg: AeBDiet7L6aE3neULoqCvliy0488l7iVkYhHs2gtRgABlx5PA4bGo+TwUGocgJjrLHd
- FwyxBozmG7dR1U7HXKjfQN8WMDelVM4iFT4aaMHu84AqkVuxTtOIR5hLqcRbgGd+tTbtI5DQuuH
- WwMGG7iT+6l8cfUE4gG2O6yHYhUWexF/vz28S/66Khk5IFpszzVwlbaAz8RtpPQKz7HBP8QL90v
- wmQpkCCExPesIH/pwDM1TLth1JaxiNLhxvh8mIBSSm0M1KnxfN+id380tYH9jK07QA77DUhsR5q
- c2jR
-X-Received: by 2002:a05:622a:110c:b0:4ee:1b0e:861a with SMTP id
- d75a77b69052e-50dc21329e1mr24569581cf.13.1775693122679; Wed, 08 Apr 2026
- 17:05:22 -0700 (PDT)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9E07810E653;
+ Wed,  8 Apr 2026 13:08:06 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 7033744574;
+ Wed,  8 Apr 2026 13:08:06 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 068ABC2BCB1;
+ Wed,  8 Apr 2026 13:08:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+ s=korg; t=1775653686;
+ bh=qAWvd57xuzQN1BIcJOE21sD08yvlTid21TQqkmQWBkc=;
+ h=Subject:To:Cc:From:Date:In-Reply-To:From;
+ b=KlkRzznO4i4gOD/JPF0oP845Uybu+SLhZre+XixVZPWu1hM5JvPCoLs8aDp0Bydp+
+ SgG8kNw/FIRAZKR0jBI25WkbzOGWVJf5JQYKWR8lQPLPIP+0ZAnjsIcz6rgE5CcgCa
+ bX9G3JPz7iUXzhBwNNS46QkZqdkegw06TwySY0dU=
+Subject: Patch "drm/amd/display: Keep PLL0 running on DCE 6.0 and 6.4" has
+ been added to the 6.12-stable tree
+To: Eric.Yang2@amd.com, Mario.Limonciello@amd.com, Rodrigo.Siqueira@amd.com,
+ Roman.Li@amd.com, Tony.Cheng@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
+ alex.hung@amd.com, alexander.deucher@amd.com, amd-gfx@lists.freedesktop.org,
+ christian.koenig@amd.com, dri-devel@lists.freedesktop.org,
+ gregkh@linuxfoundation.org, harry.wentland@amd.com, issor.oruam@gmail.com,
+ ray.wu@amd.com, rosenp@gmail.com, simona@ffwll.ch, sunpeng.li@amd.com,
+ timur.kristof@gmail.com, wayne.lin@amd.com
+Cc: <stable-commits@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Wed, 08 Apr 2026 15:07:40 +0200
+In-Reply-To: <20260401003908.3438-6-rosenp@gmail.com>
+Message-ID: <2026040840-litigator-feline-ac29@gregkh>
 MIME-Version: 1.0
-From: Geramy Loveless <gloveless@jqluv.com>
-Date: Wed, 8 Apr 2026 17:05:11 -0700
-X-Gm-Features: AQROBzCxvCql-bYU3BcPNR_bl6Gf1i6iBkbe2arlUlSKV_Nw1rExdNXQsUwaQKw
-Message-ID: <CAGpo2mebCaP4vFuTnn6jgu6OjjE_ssS7i8ENepuUjwwHXddCHA@mail.gmail.com>
-Subject: [PATCH] amdgpu: recover Thunderbolt PCIe link after MODE1 GPU reset
-To: amd-gfx@lists.freedesktop.org
-Cc: alexander.deucher@amd.com, christian.koenig@amd.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=ISO-8859-1
+Content-Transfer-Encoding: 8bit
+X-stable: commit
+X-Patchwork-Hint: ignore 
 X-Mailman-Approved-At: Thu, 09 Apr 2026 08:45:39 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -97,102 +61,96 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-When an AMD GPU behind a Thunderbolt PCIe tunnel undergoes a MODE1 on
-Thunderbolt the TB driver receives no notification and the tunnel
-stays up while the endpoint is unreachable. All subsequent PCIe
-reads return 0xFFFFFFFF and MES firmware cannot reinitialize,
-triggering an infinite reset loop that hangs the system.
 
-After MODE1 reset completes, check whether the PCIe endpoint is still
-reachable using pci_device_is_present(). If the device is behind
-Thunderbolt and the link is dead, walk up parent bridges calling
-pci_bridge_secondary_bus_reset() to retrain the physical PCIe link
-inside the dock. If recovery fails, return -ENODEV to prevent the
-reset retry loop.
+This is a note to let you know that I've just added the patch titled
 
-This also causes the GPU fan to be at 100% and basically when it
-happens and you are not there, you now have a GPU with fan at 100% and
-cant reset it.
-I wanted to notate some other things I am finding sometimes before
-this adventure of patches to the kernel and amdgpu driver.
-Sometimes a crash could happen in the drive and then the GPU fan speed
-hits 100% and the air is hot coming out without any workload, other
-times
-I have seen it have barely any fan speed at all and heat up more than
-it should at the fan level its curently operating at. These are things
-I have seen with this gpu in a TB5 dock with the driver and
-instability. I'm not sure exactly whats going on there but I figured
-since im communicating with these patches I might as well bring you up
-to speed and supermario has been great help throughout me trying to
-get the AMD AI R9700 Pro working on my MS-S1 Halo Strix with a TB5 /
-USB4v2 dock!
+    drm/amd/display: Keep PLL0 running on DCE 6.0 and 6.4
 
-It seems to be finally working with bar resizing after my kernel
-patch. Which allows you to safely release a empty switch bridge at the
-device end.
-Then it rebuilds it afterwords with the increased bar. This was done
-on Kernel 7.0-rc7 i believe it is and latest changes from pci/resource
-branch with my patch here.
+to the 6.12-stable tree which can be found at:
+    http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
 
-https://lore.kernel.org/linux-pci/CAGpo2meKY6SXsESU-D0PGgbESLqdF8UBF-tmThxOvk2XUDpEzw@mail.gmail.com/T/#u
+The filename of the patch is:
+     drm-amd-display-keep-pll0-running-on-dce-6.0-and-6.4.patch
+and it can be found in the queue-6.12 subdirectory.
 
-Thank you!
+If you, or anyone else, feels it should not be added to the stable tree,
+please let <stable@vger.kernel.org> know about it.
 
-Signed-off-by: Geramy Loveless <gloveless@jqluv.com>
+
+From stable+bounces-232624-greg=kroah.com@vger.kernel.org Wed Apr  1 02:44:15 2026
+From: Rosen Penev <rosenp@gmail.com>
+Date: Tue, 31 Mar 2026 17:39:03 -0700
+Subject: drm/amd/display: Keep PLL0 running on DCE 6.0 and 6.4
+To: stable@vger.kernel.org
+Cc: "Alex Deucher" <alexander.deucher@amd.com>, "Christian König" <christian.koenig@amd.com>, "Xinhui Pan" <Xinhui.Pan@amd.com>, "David Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Harry Wentland" <harry.wentland@amd.com>, "Leo Li" <sunpeng.li@amd.com>, "Rodrigo Siqueira" <Rodrigo.Siqueira@amd.com>, "Ray Wu" <ray.wu@amd.com>, "Wayne Lin" <wayne.lin@amd.com>, "Mario Limonciello" <Mario.Limonciello@amd.com>, "Roman Li" <Roman.Li@amd.com>, "Eric Yang" <Eric.Yang2@amd.com>, "Tony Cheng" <Tony.Cheng@amd.com>, "Mauro Rossi" <issor.oruam@gmail.com>, "Timur Kristóf" <timur.kristof@gmail.com>, "Alex Hung" <alex.hung@amd.com>, amd-gfx@lists.freedesktop.org (open list:RADEON and AMDGPU DRM DRIVERS), dri-devel@lists.freedesktop.org (open list:DRM DRIVERS), linux-kernel@vger.kernel.org (open list)
+Message-ID: <20260401003908.3438-6-rosenp@gmail.com>
+
+From: Timur KristÃ³f <timur.kristof@gmail.com>
+
+[ Upstream commit 0449726b58ea64ec96b95f95944f0a3650204059 ]
+
+DC can turn off the display clock when no displays are connected
+or when all displays are off, for reference see:
+- dce*_validate_bandwidth
+
+DC also assumes that the DP clock is always on and never powers
+it down, for reference see:
+- dce110_clock_source_power_down
+
+In case of DCE 6.0 and 6.4, PLL0 is the clock source for both
+the engine clock and DP clock, for reference see:
+- radeon_atom_pick_pll
+- atombios_crtc_set_disp_eng_pll
+
+Therefore, PLL0 should be always kept running on DCE 6.0 and 6.4.
+This commit achieves that by ensuring that by setting the display
+clock to the corresponding value in low power state instead of
+zero.
+
+This fixes a page flip timeout on SI with DC which happens when
+all connected displays are blanked.
+
+Signed-off-by: Timur KristÃ³f <timur.kristof@gmail.com>
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+Reviewed-by: Alex Hung <alex.hung@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
-drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 40 ++++++++++++++++++++++
-1 file changed, 40 insertions(+)
+ drivers/gpu/drm/amd/display/dc/dce60/dce60_resource.c |   11 ++++++++++-
+ 1 file changed, 10 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index 31a60173c..91d01d538 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -5770,6 +5770,46 @@ int amdgpu_device_mode1_reset(struct amdgpu_device *adev)
-/* ensure no_hw_access is updated before we access hw */
-smp_mb();
-+ /*
-+ * On Thunderbolt-attached GPUs, MODE1 reset kills the PCIe
-+ * endpoint but the TB tunnel stays up unaware. Detect the
-+ * dead link and attempt recovery by resetting parent bridges
-+ * to retrain the physical PCIe link inside the dock.
-+ */
-+ if (!pci_device_is_present(adev->pdev) &&
-+ pci_is_thunderbolt_attached(adev->pdev)) {
-+ struct pci_dev *bridge;
-+ bool recovered = false;
+--- a/drivers/gpu/drm/amd/display/dc/dce60/dce60_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/dce60/dce60_resource.c
+@@ -889,7 +889,16 @@ static bool dce60_validate_bandwidth(
+ 		context->bw_ctx.bw.dce.dispclk_khz = 681000;
+ 		context->bw_ctx.bw.dce.yclk_khz = 250000 * MEMORY_TYPE_MULTIPLIER_CZ;
+ 	} else {
+-		context->bw_ctx.bw.dce.dispclk_khz = 0;
++		/* On DCE 6.0 and 6.4 the PLL0 is both the display engine clock and
++		 * the DP clock, and shouldn't be turned off. Just select the display
++		 * clock value from its low power mode.
++		 */
++		if (dc->ctx->dce_version == DCE_VERSION_6_0 ||
++			dc->ctx->dce_version == DCE_VERSION_6_4)
++			context->bw_ctx.bw.dce.dispclk_khz = 352000;
++		else
++			context->bw_ctx.bw.dce.dispclk_khz = 0;
 +
-+ dev_info(adev->dev,
-+ "PCIe link lost after mode1 reset, attempting Thunderbolt recovery\n");
-+
-+ bridge = pci_upstream_bridge(adev->pdev);
-+ while (bridge && !pci_is_root_bus(bridge->bus)) {
-+ dev_info(adev->dev,
-+ "attempting link recovery via %s\n",
-+ pci_name(bridge));
-+ pci_bridge_secondary_bus_reset(bridge);
-+ msleep(100);
-+ if (pci_device_is_present(adev->pdev)) {
-+ recovered = true;
-+ break;
-+ }
-+ bridge = pci_upstream_bridge(bridge);
-+ }
-+
-+ if (!recovered) {
-+ dev_err(adev->dev,
-+ "Thunderbolt PCIe link recovery failed\n");
-+ ret = -ENODEV;
-+ goto mode1_reset_failed;
-+ }
-+
-+ dev_info(adev->dev,
-+ "Thunderbolt PCIe link recovered via %s\n",
-+ pci_name(bridge));
-+ }
-+
-amdgpu_device_load_pci_state(adev->pdev);
-ret = amdgpu_psp_wait_for_bootloader(adev);
-if (ret)
--- 
-2.51.0
+ 		context->bw_ctx.bw.dce.yclk_khz = 0;
+ 	}
+ 
+
+
+Patches currently in stable-queue which might be from rosenp@gmail.com are
+
+queue-6.12/drm-amd-amdgpu-decouple-aspm-with-pcie-dpm.patch
+queue-6.12/drm-amd-display-reject-modes-with-too-high-pixel-clock-on-dce6-10.patch
+queue-6.12/drm-amd-display-fix-dce-6.0-and-6.4-pll-programming.patch
+queue-6.12/drm-amd-display-disable-scaling-on-dce6-for-now.patch
+queue-6.12/drm-amd-display-disable-fastboot-on-dce-6-too.patch
+queue-6.12/drm-amd-display-correct-logic-check-error-for-fastboot.patch
+queue-6.12/drm-amd-amdgpu-disable-aspm-in-some-situations.patch
+queue-6.12/drm-amd-display-keep-pll0-running-on-dce-6.0-and-6.4.patch
+queue-6.12/drm-amd-display-adjust-dce-8-10-clock-don-t-overclock-by-15.patch
+queue-6.12/drm-amd-disable-aspm-on-si.patch
