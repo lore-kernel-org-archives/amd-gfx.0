@@ -4,123 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D88D2FD5F92
-	for <amd-gfx@archiver.kernel.org>; Wed,  8 Apr 2026 08:23:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D313FD5F88
+	for <amd-gfx@archiver.kernel.org>; Wed,  8 Apr 2026 08:26:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7812910E56E;
-	Wed,  8 Apr 2026 08:23:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 19A6610E570;
+	Wed,  8 Apr 2026 08:26:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="z3XAUqKO";
+	dkim=pass (2048-bit key; secure) header.d=damsy.net header.i=@damsy.net header.b="GvNX4EKk";
+	dkim=permerror (0-bit key) header.d=damsy.net header.i=@damsy.net header.b="bmZjPCWl";
 	dkim-atps=neutral
-Received: from DM5PR21CU001.outbound.protection.outlook.com
- (mail-centralusazon11011045.outbound.protection.outlook.com [52.101.62.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C11F310E56E
- for <amd-gfx@lists.freedesktop.org>; Wed,  8 Apr 2026 08:23:58 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=NMm91scvu7DB/C+DnnH0k59A1tSIRNmWCA4K8nu4cwI4zMWHexGu9fZIemCzaMdzvaZ7cOJAHbcx4PCASfKGwmpK9CoWW/LSeb7QIzzIKtywY2okxJUjh1lzNR7I25BTpdaLEbKojIDrWI6VV9EmnKkvmZxejuySEQYhEd3PRdMgkMHa/UYI8JE6tjlZiD/lyJ6lF7arOirXKsh/20kprDNKSBczAZWHT4sC6+HKgVlU+u8iGOQi+AU3pvvbMTBv9GLLWNjpsvpBkUBzb/4LQaFc5SuR0RsoEILDQFtdPX3+gAHu9CyH75gqahgdH9fD6eCGqOs6febgwCHaNGQk8A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=MGMO57mQIoFIFj/bH4KQya0FP+utum6WYFkaFcsesnc=;
- b=JW3Yjgcuzk7qpVDxoZAzgaurPxSsEDZlrURU9/qq5E3QzuZPjCm3qXGMmg4y4X/XB4HqALZU6X27f2JgJk3GkuekHdHTxdkTZ9P0OO2awPRiQhQSpkH50KwMDgfSYz1JrdtQbU+bwK6c8KGXCer7YQbzI+XqnpYlNiJ1bPOpKpHZ8TwEEza91cIqhYgmMkeykKtUFePpZpZnfuxbxeFZZBiKMuoV0mOwPgkobx2aibAVnDFhb3n76fmG0iBkAVrCY/88b0qAITD6VtYb1sjNC3W4kJL3ZjirpY1P9/mll5QXuzOlt7h9hL9g2mpIvdTQMSko/CE5XfriZsfXV8PNtA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=MGMO57mQIoFIFj/bH4KQya0FP+utum6WYFkaFcsesnc=;
- b=z3XAUqKOS5zG3bP85ag/y2/vRAv9gwzKWRN0/AdgVdXp392/6FheXHd5AzGBCaLYf8YRmalI9dwiFuUS31eFQvqnRkuYNFziTlVCwFX5qe4us3LGA8Hv3xnJ1GNXSLVsX8XT+ROHR83ahlw3DpCkNuV+7ZjeaJJuw1xbwJRiE5E=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by PH7PR12MB5620.namprd12.prod.outlook.com (2603:10b6:510:137::5)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.17; Wed, 8 Apr
- 2026 08:23:55 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.20.9769.016; Wed, 8 Apr 2026
- 08:23:55 +0000
-Message-ID: <6e31b77d-a465-46d8-a299-1dd10c88334c@amd.com>
-Date: Wed, 8 Apr 2026 10:23:51 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH V1 1/2] drm/amdgpu/userq: avoid uneccessary locking in
- amdgpu_userq_create
-To: Sunil Khatri <sunil.khatri@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>
-Cc: amd-gfx@lists.freedesktop.org
-References: <20260408053603.2894742-1-sunil.khatri@amd.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260408053603.2894742-1-sunil.khatri@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR2P281CA0016.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:a::26) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+Received: from jeth.damsy.net (jeth.damsy.net [51.159.152.102])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6633D10E570
+ for <amd-gfx@lists.freedesktop.org>; Wed,  8 Apr 2026 08:26:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; s=202408r; d=damsy.net; c=relaxed/relaxed; 
+ h=From:To:Subject:Date:Message-ID; t=1775636774;
+ bh=+qpGNZpM/4zlDBjPSmbKKvW
+ 1+lrka7rHduPuKMaiudA=; b=GvNX4EKk8fC9QPwE7fnNl5xP+v66Lub+LYWxC/oEfFcdJ3MYde
+ 8nRpufZ62K5CvuOfRvXleuCWWRWfQsMXYII0bNe25LnbEQ5MmGTwah3txJzYadgIBbkcFW+FYNP
+ M86yjpLOAaCktNy7pXJckssOSVMa+bIN0NnlcE4ZYRfL7cgbBQBcqI1gT0f3h/ZM8NBy7b4NwaN
+ QlWNMq3XWyUGBIp8GuJ/UCrqz8xLZa0bno3Vn908n1mmKoQwYCtYULjGwDFWmCH3WP1mKVTQELC
+ ABC3cM8rEae8uvNmo7D0gkqPrZ669NYTfLZMzoYbcThvR/LYyr/z0z7Vq4wvu0yPPHQ==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202408e; d=damsy.net;
+ c=relaxed/relaxed; 
+ h=From:To:Subject:Date:Message-ID; t=1775636774; bh=+qpGNZpM/4zlDBjPSmbKKvW
+ 1+lrka7rHduPuKMaiudA=; b=bmZjPCWlf25rT+rt29D4AjqY0HNNUXddKH9lYxXQy4w1z91CQr
+ 4feg8EsFP1MOZ5fuXK058OXPyl3aC8fSAcCA==;
+Message-ID: <cb980ffb-1180-4613-a801-6e8bed5d669c@damsy.net>
+Date: Wed, 8 Apr 2026 10:26:13 +0200
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|PH7PR12MB5620:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3c4f41d2-1fbd-44b1-61ad-08de95482caa
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|366016|376014|56012099003|22082099003|18002099003; 
-X-Microsoft-Antispam-Message-Info: xcS7lRZHHWElSbMkgL8cxOLLLlaH+OTX4SY3WNoHPDRWGUQzOPWA2PoW9A4NQ6k3uHiYfPPdH2uDJ2Z7yp1zWi9xK2zc9uK/gXmFx0fl7dVB3h1oAsWe5/3FbqdSsv2G+6IvZIUYOjSww0J05069RpVp8Tl3XW9t8aCXe8AmeqcORW+0VUCPRCX+I8A8uZX5Rr995IPYWw2290fv33aFpO1iTEZx67yAxidOcb2GHBp0W4RskreeFHOt4XTk7ZYkiOrpvOEF9fUdAOtLjFHwjiWndsaBM9fWZ11eww6Lxjr9M2B/QLXomJiZKnISmEmH8wedswltWd8qncs/Seyqyl5GHD9L0n+FxYDEmisFIpvuvWf3CnCXVDqawihtljWuS2LwiFCK18+9mzCfSNWpCTYsgA2emep7DSu6rCCiy7FuxDB7NSHKfhw061oo1MD+o9nnGhQFRtFrvxWXeZAaDZqWne9ccxAkZzdNA6CemD5zxC7Dit2kcRD5y+mGNM6dCp+BuXHMyWqemJjOKMQTllDVf5gdl0hUGwv48hwwp1N+U5bY6kOO4c0ejQZNxeG+sySRqbErUp0RTInSkn3Bt10709isvZkVjmZbMsxZWyzWVXn4lXg21+kMZM7fb0ARVsgnB9N6sdYKhfWgFcBg8VKWx4K/DEQ6LdisAsRGWjExZBmC2o4qJsT6dLJCQpRH9oODKlEwcObMIpujdvxhK8DLpx8QaNXZh5TJ4WEZ4mg=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014)(56012099003)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TzYyaUJpOEo0aWg4RytZa2R4T3JpM3hiSlJuS1FRYmJOcW9RRGljMVFCQXg1?=
- =?utf-8?B?QXRSdHdidUptMDlpTHNUOTZ0eFZSMGJwY3poMmNxdm95KzdydzhFVnJLbEdh?=
- =?utf-8?B?RVc5UDlsbFJhd05lOTUwY29RQ0lyajFyNzBIY21LdGVOZWw5c2tTWWxZRXA1?=
- =?utf-8?B?cGNqdkhCTklvTHl6V2ZSU0JHS0RpMGJuUUZFeXptTkE4cWg5RTRJaWd3RlN4?=
- =?utf-8?B?c3VPNEZFNWE2eHFKbDQzR0ZqRVdOQlVCYW91NnJrNnlxcGYvMGtlZkg2U0M3?=
- =?utf-8?B?VWRYUWVGd2t2ZVpySnREK05oMW54ZzZqMDNqd1RiK0lQRGpLYXlDY3BQMGFT?=
- =?utf-8?B?R0hwMUZwWVZ5QlNTOWthbmJwb3MyVU51blZzUHhyS0FsZWdTN2hSOWt5MHlm?=
- =?utf-8?B?TEp2cmF5Qy9qRzduL1Jxay9xaysyTWp3eCtiVS9KaXZxUGdyK0tMbHJuWXJM?=
- =?utf-8?B?RGdnKzFHcEhTeEV2eDNVQWNNbW1NajdmMVZhUVlvMjJOaWMwZG5vZStEWDZN?=
- =?utf-8?B?MUFKSWI0RC82aTVOMUx3RVBZMXBJc0hoSmkrUU5oUjBqWHE5WmRweHR1Rk9E?=
- =?utf-8?B?OEJmSStlcUJCSkJJUVhmNlFwZlV5WkRLL3UxeU12N2tyeHJ2S0J0S0NsU3FQ?=
- =?utf-8?B?RlNkZEhNbit6V3I4b05xeUhHQzVxaEFLOVZiQ3J4eGw4djR6N1RJbWt6RHZo?=
- =?utf-8?B?RWZVc2N1NnY1aFRpSi8wK1FIRXV3L0ZaTDFobmtsWHMwdCtvbmxmQ2diS3Rm?=
- =?utf-8?B?aEZwdTBzTGptNTdsU0dCZHdXTFErYm1ORStPT2ZoRWZsN0VCMzlpZzBURlNE?=
- =?utf-8?B?dkZSREEzUGQvZGJ3eWtRVnoyVllWajh1RCtrUTRkYmFlR1lTR3laWFhaMXFq?=
- =?utf-8?B?Y1UrVFQrVldEamNkSGkvQ2xkZFFHOFFjdFlVeHpqenllTnI3cFhEZnlUVFdx?=
- =?utf-8?B?YU5YT1NvQlY2TXJZOGFUcG5FVy8vNENkaTdsS1pzaDVYNGpJZVowaVgwWGw0?=
- =?utf-8?B?VTlGM2ozWmlEOEVkQzZtNXRibmdHQm5QRXE0MW8ra3YzaHdOM1pqVlFKSHN4?=
- =?utf-8?B?MjhmVVpxMndIV211MWh6aU15UTdtaFpaZzh0cnEzeEZPMzM2Ryt4c1RRNWRC?=
- =?utf-8?B?NUV3OTF6OURTbFJ3RStHcE1ZdFNLZmZnamxaZ25PSGlpNXZrVFVyY2hUWTNM?=
- =?utf-8?B?Q2dVR3JkK0lKaXNEQmJTcENVSmN1Z2VMZEp2OHdmQ3BUd1htMUxqeEdMZWRH?=
- =?utf-8?B?TzNSSGlqRkpCY1BZZTBqSXZ2SnFzV1FQbXlUeVFTL3FhR21tWEd3UWg0MjZH?=
- =?utf-8?B?TG91eXUrZmF5eGR1Q21JVXBEODNrR1Byb3JTcm5JVXB4T1hlcHpxcFlteWxp?=
- =?utf-8?B?Wkd4cS9YcVhRZmV6cllFZm85eXprbzlMR0MvaDdCUjlheTlTYXBwdmM4eXcz?=
- =?utf-8?B?Y2VKSnJBRzhhcTdoWlMvU0ludU5RVXR0bUMwbEFmajlMYVBZc0ZTdnlJRk1X?=
- =?utf-8?B?TXV1UmsyTU9iRk1NVllCLytCLy9SVzNyYUl5dUlDRHlxVEY1OUkvQkMyVnYr?=
- =?utf-8?B?bGYxbVpHSy9LQTRTODFhZFQ4cGpudGQzM3F2eU1xMmh0ZWFFVVZ5OVlCN3M4?=
- =?utf-8?B?SjRWUDA0Smx4Y0RjOEQ0YXliNm43SDhVMmxPYlR4VmlwMEIwZDhwOFQ0MTJ6?=
- =?utf-8?B?OFZFVzZwalJzWTFSS2NoK1lUY1JrQVRwTGlyM251WEVuV1FwTS8ycG5pSENi?=
- =?utf-8?B?SWNWUGtwaDJLM1djQ1k3RzZCMzNsOEVRQ25KT3NoOGhpYjFHYUVRQmNIdmMv?=
- =?utf-8?B?c2FpcXkvS0ZrVUtKTndrYm9OSHNDaGg2YUlhSnZxU3FtYjhsMHZ1MTBndDQ4?=
- =?utf-8?B?aldremQrUGVFR01MQ29EaExtckU5dkRLUFNDREc0NjlKNk45RlltMGNYNDJC?=
- =?utf-8?B?S0ptQlBpcFRXVnJhcUFaK3RSVU9QMGZtOUZLd2NWaExtZ3VBRXd4WUJIZzd0?=
- =?utf-8?B?WGEwTlRwUHgyQjBrbzdSWHRxL2ZoK3dpYmRaVzRXWDlTRG9HaEJEbVlYbkpB?=
- =?utf-8?B?dTVsY3RJNUc3RkRVK1dHUGNtVklCcWFVTnZqZmJKQkxKK3FNbFFvRk5ORk1m?=
- =?utf-8?B?am1vYkREdktBaUNJbktESnlJK2Q0MFNhQXdnVHRDMkhHemt1U2szUXl5eEFm?=
- =?utf-8?B?ZjZJQ0NQamVycUYyZ29NYjZvaksvSmVOKzczeXRKQkVGSkVLREVaTnZpV1A3?=
- =?utf-8?B?TEUxL0RMVGtnY2lLdjgwZkNxb05iN0YvUlhIOG9LdHZkdzFhOE82NDVqOXh2?=
- =?utf-8?Q?RGWNYPa2y9MtzQbbgg?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3c4f41d2-1fbd-44b1-61ad-08de95482caa
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Apr 2026 08:23:55.4469 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: z8QpWljNVGoNwfNYdxar6HZuxRosEHwt7sPATfBrMqZmWGIEw3CgF0VHaQG55MSg
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5620
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 4/7] drm/amdgpu: give ttm entities access to all the
+ sdma scheds
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+References: <20260403083602.1771-1-pierre-eric.pelloux-prayer@amd.com>
+ <20260403083602.1771-4-pierre-eric.pelloux-prayer@amd.com>
+ <c9123064-413d-4cf3-b39f-5268cedcf92d@amd.com>
+Content-Language: en-US
+From: Pierre-Eric Pelloux-Prayer <pierre-eric@damsy.net>
+In-Reply-To: <c9123064-413d-4cf3-b39f-5268cedcf92d@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,104 +62,91 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 4/8/26 07:36, Sunil Khatri wrote:
-> Reorganise code to avoid holding mutex userq_mutex while
-> also trying to grab exec lock ww_mutex where its not needed
-> for function amdgpu_userq_input_va_validate
+
+
+Le 07/04/2026 à 12:05, Christian König a écrit :
+> On 4/3/26 10:35, Pierre-Eric Pelloux-Prayer wrote:
+>> With this change we now have as many clear and move entities as we
+>> have sdma engines (limited to TTM_NUM_MOVE_FENCES).
+>>
+>> To enable load-balancing this patch gives access to all sdma
+>> schedulers to all entities.
+>>
+>> Signed-off-by: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
+>> Reviewed-by: Christian König <christian.koenig@amd.com>
+>> ---
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 16 +++++++++-------
+>>   1 file changed, 9 insertions(+), 7 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+>> index 83f6d00dc3a0..648ad344e89c 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+>> @@ -2349,8 +2349,6 @@ void amdgpu_ttm_set_buffer_funcs_status(struct amdgpu_device *adev, bool enable)
+>>   		return;
+>>   
+>>   	if (enable) {
+>> -		struct drm_gpu_scheduler *sched;
+>> -
+>>   		if (!adev->mman.num_buffer_funcs_scheds) {
+>>   			dev_warn(adev->dev, "Not enabling DMA transfers for in kernel use");
+>>   			return;
+>> @@ -2358,11 +2356,10 @@ void amdgpu_ttm_set_buffer_funcs_status(struct amdgpu_device *adev, bool enable)
+>>   
+>>   		num_clear_entities = MIN(adev->mman.num_buffer_funcs_scheds, TTM_NUM_MOVE_FENCES);
+>>   		num_move_entities = MIN(adev->mman.num_buffer_funcs_scheds, TTM_NUM_MOVE_FENCES);
+>> -		sched = adev->mman.buffer_funcs_scheds[0];
+>>   		r = amdgpu_ttm_buffer_entity_init(&adev->mman.gtt_mgr,
+>>   						  &adev->mman.default_entity,
+>>   						  DRM_SCHED_PRIORITY_KERNEL,
+>> -						  &sched, 1, 0);
+>> +						  adev->mman.buffer_funcs_scheds, 1, 0);
 > 
-> Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 33 +++++++++++------------
->  1 file changed, 15 insertions(+), 18 deletions(-)
+> Why still giving num_schedulers as 1 here???
 > 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-> index 3a6e7a569c78..3f502c18879a 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-> @@ -737,28 +737,17 @@ amdgpu_userq_create(struct drm_file *filp, union drm_amdgpu_userq *args)
->  		return r;
->  	}
->  
-> -	/*
-> -	 * There could be a situation that we are creating a new queue while
-> -	 * the other queues under this UQ_mgr are suspended. So if there is any
-> -	 * resume work pending, wait for it to get done.
-> -	 *
-> -	 * This will also make sure we have a valid eviction fence ready to be used.
-> -	 */
-> -	amdgpu_userq_ensure_ev_fence(&fpriv->userq_mgr, &fpriv->evf_mgr);
-> -
->  	uq_funcs = adev->userq_funcs[args->in.ip_type];
->  	if (!uq_funcs) {
->  		drm_file_err(uq_mgr->file, "Usermode queue is not supported for this IP (%u)\n",
->  			     args->in.ip_type);
-> -		r = -EINVAL;
-> -		goto unlock;
-> +		return -EINVAL;
->  	}
->  
->  	queue = kzalloc(sizeof(struct amdgpu_usermode_queue), GFP_KERNEL);
->  	if (!queue) {
->  		drm_file_err(uq_mgr->file, "Failed to allocate memory for queue\n");
-> -		r = -ENOMEM;
-> -		goto unlock;
-> +		return -ENOMEM;
->  	}
->  
->  	INIT_LIST_HEAD(&queue->userq_va_list);
-> @@ -781,12 +770,21 @@ amdgpu_userq_create(struct drm_file *filp, union drm_amdgpu_userq *args)
->  		goto free_queue;
->  	}
->  
-> +	/*
-> +	 * There could be a situation that we are creating a new queue while
-> +	 * the other queues under this UQ_mgr are suspended. So if there is any
-> +	 * resume work pending, wait for it to get done.
-> +	 *
-> +	 * This will also make sure we have a valid eviction fence ready to be used.
-> +	 */
-> +	amdgpu_userq_ensure_ev_fence(&fpriv->userq_mgr, &fpriv->evf_mgr);
 
-Even that position is not correct. After grabbing the userq_mutex we can't allocate memory any more.
+Because I think multiple schedulers aren't useful for this entity. But if you prefer I can pass all 
+available schedulers to all ttm entities (in which case I'd remove the parameters from 
+amdgpu_ttm_buffer_entity_init).
 
-> +
->  	/* Convert relative doorbell offset into absolute doorbell index */
->  	index = amdgpu_userq_get_doorbell_index(uq_mgr, &db_info, filp);
->  	if (index == (uint64_t)-EINVAL) {
->  		drm_file_err(uq_mgr->file, "Failed to get doorbell for queue\n");
->  		r = -EINVAL;
-> -		goto free_queue;
-> +		goto unlock;
->  	}
->  
->  	queue->doorbell_index = index;
-> @@ -794,7 +792,7 @@ amdgpu_userq_create(struct drm_file *filp, union drm_amdgpu_userq *args)
->  	r = amdgpu_userq_fence_driver_alloc(adev, &queue->fence_drv);
+>>   		if (r < 0) {
+>>   			dev_err(adev->dev,
+>>   				"Failed setting up TTM entity (%d)\n", r);
+>> @@ -2380,8 +2377,11 @@ void amdgpu_ttm_set_buffer_funcs_status(struct amdgpu_device *adev, bool enable)
+>>   
+>>   		for (i = 0; i < num_clear_entities; i++) {
+>>   			r = amdgpu_ttm_buffer_entity_init(
+>> -				&adev->mman.gtt_mgr, &adev->mman.clear_entities[i],
+>> -				DRM_SCHED_PRIORITY_NORMAL, &sched, 1, 1);
+>> +				&adev->mman.gtt_mgr,
+>> +				&adev->mman.clear_entities[i],
+>> +				DRM_SCHED_PRIORITY_NORMAL,
+> 
+> That should be DRM_SCHED_PRIORITY_KERNEL, same below.
 
-So doing that here is also forbidden.
+OK, will update in v6.
 
-Regards,
-Christian.
+Thanks,
+Pierre-Eric
 
->  	if (r) {
->  		drm_file_err(uq_mgr->file, "Failed to alloc fence driver\n");
-> -		goto free_queue;
-> +		goto unlock;
->  	}
->  
->  	r = uq_funcs->mqd_create(queue, &args->in);
-> @@ -858,11 +856,10 @@ amdgpu_userq_create(struct drm_file *filp, union drm_amdgpu_userq *args)
->  	up_read(&adev->reset_domain->sem);
->  clean_fence_driver:
->  	amdgpu_userq_fence_driver_free(queue);
-> -free_queue:
-> -	kfree(queue);
->  unlock:
->  	mutex_unlock(&uq_mgr->userq_mutex);
-> -
-> +free_queue:
-> +	kfree(queue);
->  	return r;
->  }
->  
 
+> 
+> Regards,
+> Christian.
+> 
+>> +				adev->mman.buffer_funcs_scheds,
+>> +				adev->mman.num_buffer_funcs_scheds, 1);
+>>   
+>>   			if (r < 0) {
+>>   				for (j = 0; j < i; j++)
+>> @@ -2400,7 +2400,9 @@ void amdgpu_ttm_set_buffer_funcs_status(struct amdgpu_device *adev, bool enable)
+>>   			r = amdgpu_ttm_buffer_entity_init(
+>>   				&adev->mman.gtt_mgr,
+>>   				&adev->mman.move_entities[i],
+>> -				DRM_SCHED_PRIORITY_NORMAL, &sched, 1, 2);
+>> +				DRM_SCHED_PRIORITY_NORMAL,
+>> +				adev->mman.buffer_funcs_scheds,
+>> +				adev->mman.num_buffer_funcs_scheds, 2);
+>>   
+>>   			if (r < 0) {
+>>   				for (j = 0; j < i; j++)
