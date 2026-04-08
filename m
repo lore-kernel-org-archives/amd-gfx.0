@@ -4,50 +4,85 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1AF7FE9DE6C
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6E093E9DE6E
 	for <amd-gfx@archiver.kernel.org>; Thu,  9 Apr 2026 08:45:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9AF9A10E7B0;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B959410E7AF;
 	Thu,  9 Apr 2026 08:45:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="t8jHs4nY";
+	dkim=pass (2048-bit key; unprotected) header.d=jqluv-com.20251104.gappssmtp.com header.i=@jqluv-com.20251104.gappssmtp.com header.b="FE6R7rKz";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2BE1610E656;
- Wed,  8 Apr 2026 13:08:09 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 1396540295;
- Wed,  8 Apr 2026 13:08:09 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9990DC19424;
- Wed,  8 Apr 2026 13:08:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1775653688;
- bh=1fnP9fhKM/LV4zTeBsDzpY2Z2mFeApCa4rbxutDwJC8=;
- h=Subject:To:Cc:From:Date:In-Reply-To:From;
- b=t8jHs4nYT7M9y2qJLtkIY91pRhj79DIi6eSJ5/jHNY8p86ZHJy+cfYs7up91kOtJz
- EvFPfkswxILRPymiKudG2VStf57tU77eG+UfoNWSLT9ElOsw8gfolilZsTcPz6BgEC
- Dt9drF1V1s42zP+cJCpAY7KHoaEaVsJJOx1G3PS0=
-Subject: Patch "drm/amd/display: Correct logic check error for fastboot" has
- been added to the 6.12-stable tree
-To: Charlene.Liu@amd.com, Eric.Yang2@amd.com, Mario.Limonciello@amd.com,
- Rodrigo.Siqueira@amd.com, Roman.Li@amd.com, Tony.Cheng@amd.com,
- Xinhui.Pan@amd.com, airlied@gmail.com, alex.hung@amd.com,
- alexander.deucher@amd.com, amd-gfx@lists.freedesktop.org,
- christian.koenig@amd.com, daniel.wheeler@amd.com,
- dri-devel@lists.freedesktop.org, gregkh@linuxfoundation.org,
- harry.wentland@amd.com, issor.oruam@gmail.com, ovidiu.bunea@amd.com,
- ray.wu@amd.com, rosenp@gmail.com, simona@ffwll.ch, sunpeng.li@amd.com,
- timur.kristof@gmail.com, wayne.lin@amd.com
-Cc: <stable-commits@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Wed, 08 Apr 2026 15:07:40 +0200
-In-Reply-To: <20260401003908.3438-11-rosenp@gmail.com>
-Message-ID: <2026040840-prior-repossess-034d@gregkh>
+Received: from mail-qt1-f178.google.com (mail-qt1-f178.google.com
+ [209.85.160.178])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 50A8710E6E6
+ for <amd-gfx@lists.freedesktop.org>; Wed,  8 Apr 2026 21:33:57 +0000 (UTC)
+Received: by mail-qt1-f178.google.com with SMTP id
+ d75a77b69052e-50d8e11b948so2540411cf.3
+ for <amd-gfx@lists.freedesktop.org>; Wed, 08 Apr 2026 14:33:57 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1775684036; cv=none;
+ d=google.com; s=arc-20240605;
+ b=JQuycutBOXloqSaRe9/kGhTw8C2LL94wahSwD22Zp3KH1U41aP0cDo50NhMvOAKuQZ
+ ALaNt1ExGYhaKT/XikosE9C9f42A12jPzST1r1aySxyrPee6AQT2RsYtVPzU69uErQDu
+ 04SFzWxm7ScwO8tONc37AeKk1VPPorp4SYucnFjOBBKFJWROaMw9UvbphIEs9jJzI6+N
+ d3lyoWdLPYzvie+GVPs/I70H/MWMWpPM7KNBzNQLOup/og6UGag6c+nsyDM1DNKG/ZUX
+ FnmMCKGAwJ5ZRAMDz6UtH/KwVElBkwQhYe9rcfRh0BpAF2UZQsGx5xvdtr5L2GgVEhBb
+ R5FQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
+ bh=doGjfSdqGxWaaf0j31ZX+HNVKXX84w/qCErdZPoH15Y=;
+ fh=LYN8rUkjKrk8P/z4hxTLJgSk8ZFtrFPhcLjEY5H8VoM=;
+ b=DrsVr00gKwASn+T4/cRYBb4vPafpzUlAIREse2ZRPGKFFHJknCY188uZMAMxLLIWSQ
+ sq4xn2OLlpNVgqEkNsBqhX3JEu7+SCZibQwft55+QtIXRhTF6IUrO0xqcGq2NMyqH+WG
+ RcTYOZIfEw+a305XxqLf9/mw+PxyvVkVig2kw7w6rQ5dJCuPEtBB5isfApG4/PkurYfi
+ Bkqu1BZ4Rt/M8NsjmRxB4QWdIGV0piP2nnSE4copAlyA07T/OpUSELMyMX6IN1XDmC5S
+ HEfHzApUi5/G/IZ3mRT3dXATMsmrYtd48A5Va/Fn1rdZmGpErCuP+Qaw5LsEKP+XwpR9
+ N3Vg==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=jqluv-com.20251104.gappssmtp.com; s=20251104; t=1775684036; x=1776288836;
+ darn=lists.freedesktop.org; 
+ h=cc:to:subject:message-id:date:from:mime-version:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=doGjfSdqGxWaaf0j31ZX+HNVKXX84w/qCErdZPoH15Y=;
+ b=FE6R7rKzbHHsA2nJE+fRao2V5qmjFqGJzZVA1YV4qiSPm9q35kgYENvkMrDed+/KU9
+ 0Ug0Dm/eXOZE4+p4mX0jECXuTs4V8atWNpHlO23u+ybq0gC8D87MOS8U3x6w32lU1e3M
+ XUEmd9qGeffFvcmtRI1yaMCZch15KPWrHesPYEdmo4LUSPa4bW3N/LgPQH1sf8H0jwlT
+ Cx+DCFlb7Pwpkl47NMwNqvZuiKchCQQPXcsLBaKN2O/L4dwUjOenBrMi6yScOnyEADGf
+ 5rWqVG6oBz+yeud8DpqDz/FedmTWaXRolvXq3IW3UckAPWzuGEofzFXhAz2MSBjBiMK9
+ ei6Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1775684036; x=1776288836;
+ h=cc:to:subject:message-id:date:from:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=doGjfSdqGxWaaf0j31ZX+HNVKXX84w/qCErdZPoH15Y=;
+ b=abTUZ1MSCFRlK6u6+abtLWFGJKf39Pcl+9m5azebfevV218cN6Jq9Fd+hMtTGsjt0O
+ IuTF//x0djRiOsB+h1BdXrxyz+2BVhHj5q0P8j2nMUMbnY5xVo9RFk62m1NopU1Ww0iG
+ vU+pYjeBSkBIfo6vrJ2oivEPvnMrqdfLTdXccLuobV73BK1lnHYzfXZPRWrGq3z5wJ9m
+ 2ILxVqUBjYIhLqymdSkzZYWOFwoxibzMLOqLtgLA67fZDV5vUp9dSzOwlEZVmnNhZsLg
+ Y+ZmH5yi+LR2eduiOXXCGLI0dfwr8zGymRaNSGehRTYmb/knFNORz7/xXYKH+jDWwGpK
+ ROuQ==
+X-Gm-Message-State: AOJu0Yw98cT7eOZI5yO6yUNMBAT8xD/4m6lVdZ4BB3GmenwbZAr7/MV2
+ Zjd2n4ZBMEWqfVmAWZAPsuZQsDE53IRVqEzjS5ZFjqDc8wCwIUzsuigEBkU6MUkqwrJk3/4fvhu
+ BF+wqv78qo2eVITrvD8w4JN7o0lIYEb+HWN2HxYL7hewjGDr1QM8KjIYi9Q==
+X-Gm-Gg: AeBDiett60YV/YkOmJ1qS3KLWb13BHtss/YtkhK6Q877CZHYgychIeSDKKMP94BizGs
+ 13klGgmllj8a2wvqopAV9yTIWrAXj6RVrPT/sKfqfih+jD3PbTd+gWXC9tM65UVSYU4laglrfPa
+ 8V8i7FXX9UwOh+Zf5OchQ6ljq1kNpzcjci8ikrtDLzedAgxJfH2HBS90e2m4wbgfTi6OAOlAf5t
+ 3vD/23RKuTQ4eC6lsejEjrJRtHJXbYs55undW40v9CgCeURRINy09JLn3Iq/fQ5J8RY+k1ub18C
+ 8ZfQ
+X-Received: by 2002:ac8:7e91:0:b0:4ff:c08a:52c4 with SMTP id
+ d75a77b69052e-50d62772eb2mr346712311cf.18.1775684036030; Wed, 08 Apr 2026
+ 14:33:56 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ISO-8859-1
-Content-Transfer-Encoding: 8bit
-X-stable: commit
-X-Patchwork-Hint: ignore 
+From: Geramy Loveless <gloveless@jqluv.com>
+Date: Wed, 8 Apr 2026 14:33:44 -0700
+X-Gm-Features: AQROBzBhZoBiVroABRauZPhvuFMI8xBt-FnXYyap62Sm9CP41gzrWwXXmHQAnmk
+Message-ID: <CAGpo2meuqBDvbkX1_rmCacoLnixbQXdVw6+j5n-kYe25fj5cVw@mail.gmail.com>
+Subject: [PATCH] amdgpu: teardown after failed init causes NULL deref in
+ fw_reg_write_reg_wait
+To: amd-gfx@lists.freedesktop.org
+Cc: alexander.deucher@amd.com, christian.koenig@amd.com
+Content-Type: text/plain; charset="UTF-8"
 X-Mailman-Approved-At: Thu, 09 Apr 2026 08:45:39 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -63,84 +98,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+When GPU initialization fails (e.g. IP discovery failure), the teardown
+path frees TTM buffers which triggers GART unbind, following the call
+chain down to amdgpu_gmc_fw_reg_write_reg_wait. This function tries to
+emit commands to the KIQ ring, but the ring buffer was never mapped
+because of the initial failure to bring the device online.
 
-This is a note to let you know that I've just added the patch titled
+Check that ring->ring is non-NULL before continuing.
 
-    drm/amd/display: Correct logic check error for fastboot
-
-to the 6.12-stable tree which can be found at:
-    http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
-
-The filename of the patch is:
-     drm-amd-display-correct-logic-check-error-for-fastboot.patch
-and it can be found in the queue-6.12 subdirectory.
-
-If you, or anyone else, feels it should not be added to the stable tree,
-please let <stable@vger.kernel.org> know about it.
-
-
-From stable+bounces-232628-greg=kroah.com@vger.kernel.org Wed Apr  1 02:45:51 2026
-From: Rosen Penev <rosenp@gmail.com>
-Date: Tue, 31 Mar 2026 17:39:08 -0700
-Subject: drm/amd/display: Correct logic check error for fastboot
-To: stable@vger.kernel.org
-Cc: "Alex Deucher" <alexander.deucher@amd.com>, "Christian König" <christian.koenig@amd.com>, "Xinhui Pan" <Xinhui.Pan@amd.com>, "David Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Harry Wentland" <harry.wentland@amd.com>, "Leo Li" <sunpeng.li@amd.com>, "Rodrigo Siqueira" <Rodrigo.Siqueira@amd.com>, "Ray Wu" <ray.wu@amd.com>, "Wayne Lin" <wayne.lin@amd.com>, "Mario Limonciello" <Mario.Limonciello@amd.com>, "Roman Li" <Roman.Li@amd.com>, "Eric Yang" <Eric.Yang2@amd.com>, "Tony Cheng" <Tony.Cheng@amd.com>, "Mauro Rossi" <issor.oruam@gmail.com>, "Timur Kristóf" <timur.kristof@gmail.com>, "Alex Hung" <alex.hung@amd.com>, amd-gfx@lists.freedesktop.org (open list:RADEON and AMDGPU DRM DRIVERS), dri-devel@lists.freedesktop.org (open list:DRM DRIVERS), linux-kernel@vger.kernel.org (open list)
-Message-ID: <20260401003908.3438-11-rosenp@gmail.com>
-
-From: Charlene Liu <Charlene.Liu@amd.com>
-
-[ Upstream commit b6a65009e7ce3f0cc72da18f186adb60717b51a0 ]
-
-[Why]
-Fix fastboot broken in driver.
-This is caused by an open source backport change 7495962c.
-
-from the comment, the intended check is to disable fastboot
-for pre-DCN10. but the logic check is reversed, and causes
-fastboot to be disabled on all DCN10 and after.
-
-fastboot is for driver trying to pick up bios used hw setting
-and bypass reprogramming the hw if dc_validate_boot_timing()
-condition meets.
-
-Fixes: 7495962cbceb ("drm/amd/display: Disable fastboot on DCE 6 too")
-Cc: stable@vger.kernel.org
-Reviewed-by: Mario Limonciello <Mario.Limonciello@amd.com>
-Reviewed-by: Ovidiu Bunea <ovidiu.bunea@amd.com>
-Signed-off-by: Charlene Liu <Charlene.Liu@amd.com>
-Signed-off-by: Ray Wu <ray.wu@amd.com>
-Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Rosen Penev <rosenp@gmail.com>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Signed-off-by: Geramy Loveless <gloveless@jqluv.com>
 ---
- drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c |    4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c | 6 ++++++
+1 file changed, 6 insertions(+)
 
---- a/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
-@@ -1910,8 +1910,8 @@ void dce110_enable_accelerated_mode(stru
- 
- 	get_edp_streams(context, edp_streams, &edp_stream_num);
- 
--	/* Check fastboot support, disable on DCE 6-8 because of blank screens */
--	if (edp_num && edp_stream_num && dc->ctx->dce_version < DCE_VERSION_10_0) {
-+	/* Check fastboot support, disable on DCE 6-8-10 because of blank screens */
-+	if (edp_num && edp_stream_num && dc->ctx->dce_version > DCE_VERSION_10_0) {
- 		for (i = 0; i < edp_num; i++) {
- 			edp_link = edp_links[i];
- 			if (edp_link != edp_streams[0]->link)
-
-
-Patches currently in stable-queue which might be from rosenp@gmail.com are
-
-queue-6.12/drm-amd-amdgpu-decouple-aspm-with-pcie-dpm.patch
-queue-6.12/drm-amd-display-reject-modes-with-too-high-pixel-clock-on-dce6-10.patch
-queue-6.12/drm-amd-display-fix-dce-6.0-and-6.4-pll-programming.patch
-queue-6.12/drm-amd-display-disable-scaling-on-dce6-for-now.patch
-queue-6.12/drm-amd-display-disable-fastboot-on-dce-6-too.patch
-queue-6.12/drm-amd-display-correct-logic-check-error-for-fastboot.patch
-queue-6.12/drm-amd-amdgpu-disable-aspm-in-some-situations.patch
-queue-6.12/drm-amd-display-keep-pll0-running-on-dce-6.0-and-6.4.patch
-queue-6.12/drm-amd-display-adjust-dce-8-10-clock-don-t-overclock-by-15.patch
-queue-6.12/drm-amd-disable-aspm-on-si.patch
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+index 5179fa008..09db87139 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+@@ -876,6 +876,12 @@ void amdgpu_gmc_fw_reg_write_reg_wait(struct
+amdgpu_device *adev,
+return;
+}
++ /* Ring buffer may not be mapped if GPU init failed early
++ * such as a discovery failure. Check for NULL and return to stop a
+kernel crash.
++ */
++ if (unlikely(!ring->ring))
++ return;
++
+spin_lock_irqsave(&kiq->ring_lock, flags);
+amdgpu_ring_alloc(ring, 32);
+amdgpu_ring_emit_reg_write_reg_wait(ring, reg0, reg1,
+-- 
+2.51.0
