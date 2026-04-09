@@ -4,46 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D24AEE99048
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 02077E99049
 	for <amd-gfx@archiver.kernel.org>; Fri, 10 Apr 2026 07:07:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5BCA610E8B2;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5AFBF10E8B1;
 	Fri, 10 Apr 2026 07:07:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="a3kds8NW";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="CtG/PFDy";
 	dkim-atps=neutral
 Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
  [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6F97710E84C;
- Thu,  9 Apr 2026 15:46:48 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1775749598; cv=none; 
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 424EF10E85D;
+ Thu,  9 Apr 2026 15:47:20 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1775749628; cv=none; 
  d=zohomail.com; s=zohoarc; 
- b=aJjtN0ueduRcGyHk2+hbNnxXnYKC+mm/NbwQXA+CKwuJpR/EeuxIx4VcfbAmGcwSX/BTdNwM3NQqVWR/ppnFlI+ovglj9F9biLDJvhMrK001OXrTUYjrC12nBVa5WPNbCVUNyXHBZI7oleLzOk6loImTnqhVwvujqcAobJFYr4Q=
+ b=chVmjwjSndd65aozBzT5hpWg6KtdAHOO5RMyw4KnX2Qqh16jF2LD+fKuY0h7d4IizxquxdWoP0EBIEokSVWfrGPTSU6ooWkag9Osc3a5pjmDzfokmY62BliqJ6d97ET4TtOnNiklqOtsDwCVbsaW5lkHEPJKMhnH9e0TYH0YCqs=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1775749598;
+ s=zohoarc; t=1775749628;
  h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=gOyE23O5K6s9fqOK0Fz3jTjo+ifm/m4nA7cZNUJvvo4=; 
- b=DKOuWI2qrsWeQfUf0M8NI/5Q9wtTINPleVDegm2/emm8Da10y4X9/mqtMyMebuWYAw2gyWZoxHJeWdB6VtY0tYUatKG45cy91k+0uzZLtdieCuTbJUKj0hDf4ODSkl34w4DIVeORQCDYFRCtMvPnDcUjLrem07mFN7U9mkyR1sY=
+ bh=FenlZU+Q9fcqz4rTVQF15NxhkdYoxpJFDd83oJEXDMg=; 
+ b=QXZrWsZqOCtwwyC7w8ZsjScOwSoha4grbvFFC6qWp4PECtDqkfFOECtC987vCDTuIddHhC1CePM1k3mBaHfgJMimtVMTZinENYKEC3IDnbMVfOV3LTo7UBd/E05rrggaxZ1MgqDnZOGRkWuoEKgY3duXhxqx9w4TZzOn/87B1Nc=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
  dkim=pass  header.i=collabora.com;
  spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
  dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1775749598; 
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1775749628; 
  s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
  h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:References:In-Reply-To:To:To:Cc:Cc:Reply-To;
- bh=gOyE23O5K6s9fqOK0Fz3jTjo+ifm/m4nA7cZNUJvvo4=;
- b=a3kds8NWHuqGlIcESMewuVS4Ymrn48Qydvfvm84GRje6BO9X6ETN52ukJeinBqW1
- /MTwPbT6ysHbu7ahGg26Bng5oo5KrBtzXEZ6NdUM8bsL8IyzD/RlcgOc7bAriY0T8Sv
- C0iE2un3bBc41JfK0YTjImtBtLX95DAiJWJTCYuI=
-Received: by mx.zohomail.com with SMTPS id 1775749596319366.5445448013097;
- Thu, 9 Apr 2026 08:46:36 -0700 (PDT)
+ bh=FenlZU+Q9fcqz4rTVQF15NxhkdYoxpJFDd83oJEXDMg=;
+ b=CtG/PFDyKXi1BngC3NP7+Bj3663Ini6SdCyzf5KGH2cTGT4/IFV53r71O6tmIFM4
+ BcUApzIOH8RCicCSMt2qs/nBDDgOcT8TCOiFxaoQT1AABVecU4JNuMnKlGo17ylO7Pc
+ kX8DexrZ18saCKXCaPp7sTuAF70FcINqGmKVWxEk=
+Received: by mx.zohomail.com with SMTPS id 1775749626269513.6299910266216;
+ Thu, 9 Apr 2026 08:47:06 -0700 (PDT)
 From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Date: Thu, 09 Apr 2026 17:45:00 +0200
-Subject: [PATCH v12 10/25] drm/i915/dp: Add YCBCR444 handling for sink formats
+Date: Thu, 09 Apr 2026 17:45:04 +0200
+Subject: [PATCH v12 14/25] drm/rockchip: vop2: Recognise 10-bit YUV422 as
+ YUV format
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260409-color-format-v12-10-ce84e1817a27@collabora.com>
+Message-Id: <20260409-color-format-v12-14-ce84e1817a27@collabora.com>
 References: <20260409-color-format-v12-0-ce84e1817a27@collabora.com>
 In-Reply-To: <20260409-color-format-v12-0-ce84e1817a27@collabora.com>
 To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
@@ -71,7 +72,8 @@ Cc: kernel@collabora.com, amd-gfx@lists.freedesktop.org,
  linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
  intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
  linux-doc@vger.kernel.org, 
- Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+ Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, 
+ Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 X-Mailer: b4 0.15.1
 X-Mailman-Approved-At: Fri, 10 Apr 2026 07:07:32 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -88,34 +90,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-In anticipation of userspace being able to explicitly select supported
-sink formats, add handling of the YCBCR444 sink format. The AUTO path
-does not choose this format, but with explicit format selection added to
-the driver, it becomes a possibility.
+The Rockchip VOP2 video output driver has a "is_yuv_output" function,
+which returns true when a given bus format is a YUV format, and false
+otherwise.
 
-Check for sink support of YCBCR444 to intel_dp_sink_format_valid.
+This switch statement is lacking the bus format used for YUV422 10-bit.
 
+Add the two component orderings of the YUV422 10-bit bus formats to the
+switch statement.
+
+Fixes: 604be85547ce ("drm/rockchip: Add VOP2 driver")
+Reviewed-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 ---
- drivers/gpu/drm/i915/display/intel_dp.c | 5 +++++
- 1 file changed, 5 insertions(+)
+ drivers/gpu/drm/rockchip/rockchip_drm_vop2.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index 35b8fb5740aa..47bd3d59ea93 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -1364,6 +1364,11 @@ intel_dp_sink_format_valid(struct intel_connector *connector,
- 
- 		return MODE_OK;
- 	case INTEL_OUTPUT_FORMAT_RGB:
-+		return MODE_OK;
-+	case INTEL_OUTPUT_FORMAT_YCBCR444:
-+		if (!(info->color_formats & BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR444)))
-+			return MODE_BAD;
-+
- 		return MODE_OK;
- 	default:
- 		MISSING_CASE(sink_format);
+diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
+index d3b76e7e785e..59d15bacf023 100644
+--- a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
++++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
+@@ -352,6 +352,8 @@ static bool is_yuv_output(u32 bus_format)
+ 	switch (bus_format) {
+ 	case MEDIA_BUS_FMT_YUV8_1X24:
+ 	case MEDIA_BUS_FMT_YUV10_1X30:
++	case MEDIA_BUS_FMT_YUYV10_1X20:
++	case MEDIA_BUS_FMT_UYVY10_1X20:
+ 	case MEDIA_BUS_FMT_UYYVYY8_0_5X24:
+ 	case MEDIA_BUS_FMT_UYYVYY10_0_5X30:
+ 	case MEDIA_BUS_FMT_YUYV8_2X8:
 
 -- 
 2.53.0
