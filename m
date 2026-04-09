@@ -4,125 +4,151 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 228AEF364C2
-	for <amd-gfx@archiver.kernel.org>; Thu,  9 Apr 2026 21:56:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1F5E5F364C8
+	for <amd-gfx@archiver.kernel.org>; Thu,  9 Apr 2026 22:08:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8171810E870;
-	Thu,  9 Apr 2026 21:56:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8AC2110E07F;
+	Thu,  9 Apr 2026 22:08:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="3vP7z6wx";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="jnoN8bWY";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="DDmVIgAR";
 	dkim-atps=neutral
-Received: from BN1PR04CU002.outbound.protection.outlook.com
- (mail-eastus2azon11010066.outbound.protection.outlook.com [52.101.56.66])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B5BF710E08B
- for <amd-gfx@lists.freedesktop.org>; Thu,  9 Apr 2026 21:56:55 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=eVX3FH1aMEG55bA34O9pYXzxqthZGYauGlfyfjHvhAHeMwyBkc8vNiwCSVrc1e9flei6sJNv/kZvqJXF2PU2iLWC9Auv1ycMN1XPVT5MpedfvsCGq3Hx5BZVHin92dlaXp5/QYViAyXKoUTdLfeFgnDc9876knwlEJi3Re9inIsosZIJT/J4pzdhL9e7oRCk8m+RPMfZntdlci6g3Pq5cBWTvMCQ0a9PbAmeZC/jz7QeEoU8ORrCb5HQubZkpAtYfCkXVilQ3M8DSEqPAMVYELNvcsw22hT0IRiE1ewTHjejzIBEAmQf9+zuR4qKDhiaANf4Vv1mszGh9AWiQGLL4w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5+LSFhrqF+iw+e/KD2uoRuChTsxloUpxyeKEB2ijqB8=;
- b=KeRkp5GoQDM2ZEU22m399ylUqCGdWokT8tBA0jd8MWwN/GNVhLw+5h7qoPk7MPzoHufZefNzRM4hOlDJhaAW740aYXE384geR945ihrLAeWnoJQm0ztLx+0JeLavAjobDCdcAsRRmxDBwnJgoixtYwWsYqnsM1OlCvZBwhytAVjHE+iTtAvqnKS0Pp7jnWq41Cj0DIC3IWKFOiZaLVmImF58ylBamHOnUWQu236rtkLvFTvc1tC8PgEH0np/dutterFFX2UZ/wxd2PNBuw+SFSb6wTadup6tHnTT9KA9yo+EoKZlag9ytIwOWN5g/yhgaXvtVlEG7O9/X3YnUwdz1g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5+LSFhrqF+iw+e/KD2uoRuChTsxloUpxyeKEB2ijqB8=;
- b=3vP7z6wxkKuPqVLLKh2XhS8q/fVGZ9HyS7l7wNuYe+gDJjA29ks9XTnxAcowZNNqi11HN1qvtLuCaaJc7+GEmi8zszAGCWLxPyHzz56UTajCC71FiG8YhTsURUXVXPZFk8aX6VYgvAzmPUMRCKXYAlh4kGUNppzqh+IogXSIxY0=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB5149.namprd12.prod.outlook.com (2603:10b6:5:390::14)
- by BN7PPF7F4CD71A4.namprd12.prod.outlook.com (2603:10b6:40f:fc02::6d6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9791.32; Thu, 9 Apr
- 2026 21:56:51 +0000
-Received: from DM4PR12MB5149.namprd12.prod.outlook.com
- ([fe80::8218:248d:58ec:8c81]) by DM4PR12MB5149.namprd12.prod.outlook.com
- ([fe80::8218:248d:58ec:8c81%6]) with mapi id 15.20.9769.020; Thu, 9 Apr 2026
- 21:56:51 +0000
-Content-Type: multipart/alternative;
- boundary="------------OTeENLc0Cr40Ov4JCd7SbBna"
-Message-ID: <8ab95e17-11bf-4ea1-b408-c740c6cefc88@amd.com>
-Date: Thu, 9 Apr 2026 17:56:49 -0400
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu: extend mtype override to non-contiguous pages
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- "Chen, Xiaogang" <xiaogang.chen@amd.com>, Philip Yang <Philip.Yang@amd.com>,
- amd-gfx@lists.freedesktop.org
-Cc: Felix.Kuehling@amd.com, Kent.Russell@amd.com, Andrew.Martin@amd.com
-References: <20260407133833.463741-1-Philip.Yang@amd.com>
- <55d2743f-9585-4e79-a153-b403a9781aa4@amd.com>
- <4966b8f2-4d51-405c-beae-889771c298b5@amd.com>
-Content-Language: en-US
-From: Philip Yang <yangp@amd.com>
-In-Reply-To: <4966b8f2-4d51-405c-beae-889771c298b5@amd.com>
-X-ClientProxiedBy: YQZPR01CA0011.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:85::26) To DM4PR12MB5149.namprd12.prod.outlook.com
- (2603:10b6:5:390::14)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D0CBF10E025
+ for <amd-gfx@lists.freedesktop.org>; Thu,  9 Apr 2026 22:08:30 +0000 (UTC)
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 639JPkZK779530
+ for <amd-gfx@lists.freedesktop.org>; Thu, 9 Apr 2026 22:08:30 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=iETKg8FvpT4ZN+EK0fX3kJUj
+ 6Q9RbW2hQbNGtGbKoyw=; b=jnoN8bWYgZLnSIlM+agOuqFEkJaoTNQBwruxepLZ
+ ThL5Y01ObekZaA0ik9yYlMgYYok1DneaOIsODX+1ov3pqpt19CexpFckhLzF+Xcp
+ 6kQMQ7motvxmlXObMXN6JJweuoIzjrG9IZMNxoT2/FhHV9VqtpdNzzfpkLDrceIg
+ emXARy/bk37u1Vd2ai/VJI9nXcX0c1izxsbVM8mPRlmg3J/Sc4SkXxAJldYep4K/
+ UxsfAljXcztQ8+87yGt11vKYVO13PmDJGtCKvdLAU+g50esSDcF1o859QmL24bHp
+ UFjWeBuoPw3ee/PtTaBP6mRQ5L2/jSMmmR2uAefYF3I/BA==
+Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com
+ [209.85.160.198])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dec8ht23s-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <amd-gfx@lists.freedesktop.org>; Thu, 09 Apr 2026 22:08:30 +0000 (GMT)
+Received: by mail-qt1-f198.google.com with SMTP id
+ d75a77b69052e-50d812c898cso39539221cf.1
+ for <amd-gfx@lists.freedesktop.org>; Thu, 09 Apr 2026 15:08:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1775772509; x=1776377309;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=iETKg8FvpT4ZN+EK0fX3kJUj6Q9RbW2hQbNGtGbKoyw=;
+ b=DDmVIgAR6eXJcaqQ6lMjBW88RlsnAQrh9uDzrzettPVVhf21GDzEbC0QPz1n9AyNhV
+ XOXHKK6lULkCf9AH599s5cXgEhO0oa9obopPrrSwc716iqfSo+MCBBLxQC1GJplJR4LF
+ 04OM4u0hhLA7Q2bDKb0s1IKHeaFfrCYbp/yWEmhpPGTXDiusdGP1r5trvebcAMIhJWqT
+ 41bnWCI29a6VKZkWJPgYdxIHBBGetfkoCMh7uSnapOYT9wyy8ueLsw7op0nMXPY7RT1u
+ 8nGjQ9sE44d4nDRomxJK8TmAdVBcay1NnNRU2xeC4+WmJpudjfFgZcH7RDg3f0H0ncrl
+ MFew==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1775772509; x=1776377309;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=iETKg8FvpT4ZN+EK0fX3kJUj6Q9RbW2hQbNGtGbKoyw=;
+ b=C/0fm85IMxRKWehnWo24wha9d377CQMxszahIsmNTUwfYQvEOQalNQDcyHxxXUdsXb
+ f7/kiFULAeLwPfLUkBHUb0BP5pKliizYvOMOaUk1Y5AaXXOzyyJfCdM46G8YPdZamhPE
+ QPed3JJslWmw08oMPt5jgVqqUzyiEwfXfZVQsKGk1Qy1uFh5L4qjTm5emA2/oE3EouFe
+ yU2tNijoXHAY9ICTSpBihmGK2LN1LY6xSicsDjh4rEVG3NeJHmbbdyPbatR58LwxU+NZ
+ VPVGfNRbzUoAHQ9OsxwxwRVmK1OgNWWXPBEi3vxmQ0LV4nJ6Bxgmf4fsQQpZsKddSJaN
+ G+nw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWSpXhCb9pWAHzTU+U3CPekNrnZbi4EsxF50pYLMYPH/CFoC7oyF5rFywhM1vMXZsa9FKJY3U73@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxKt3Oa14JyImC3xMKNhNVHGiK/+79meoNGOUmByBEzjBUk5eX4
+ nf5OaUKG50kf14i8eLFNo/L/ijtOedXtgQ106dgGganJVCJ1o2AwLRedbbdZSHolEHlGCAlWg0A
+ G8xd6XigyekYgNhOu4m6bukzfpkHj2W/WPUGsF67txrTRSE4Av3rWY5PRVl6yLaJXaOnj
+X-Gm-Gg: AeBDievFz9SRMAFdOtwTQ5Tciw3meBuPD9BHodeucKilypRxTunWOi9BISA1xkpIpDz
+ 88borNUngtoGF/OUnaurTKicfUXnRdlJuxzNf55ApV0zvmMr6XpIMlP9AOS54PuDHo4XtStDVu4
+ 9mmtojMF+FPfKE1qLL2UIkE6NkcpdR8p0tB02sNB+wzHOl5Vqli2D5YwR2tIlRm0rtPuLDEoOYP
+ NcUiQFBiDLTbr7kbB7aVrekx0jMOWr95YOqJTa/FvsMOo6Xb06joKw0xkKc58lTa2e3HEyu6J4t
+ e5qBFpvS1hVgQXi576kpXOIvCjGPioIzhhmMkdBCPkguH1r3SSPqjL7M416IAR9KxqLTm5dvmtN
+ yP8CuggiZpcJ6Hi2elWRCQNLvuIo9z6utT9IwLw6kvEGwm+vsBLhGtl+dGtqf1wrKmJl73hZF3+
+ C8Qz0ESIXqlXn0XQuzCrkggEddXzP1arZXgnY=
+X-Received: by 2002:a05:622a:4a88:b0:50d:8cad:2381 with SMTP id
+ d75a77b69052e-50dd5cae418mr15903401cf.54.1775772509209; 
+ Thu, 09 Apr 2026 15:08:29 -0700 (PDT)
+X-Received: by 2002:a05:622a:4a88:b0:50d:8cad:2381 with SMTP id
+ d75a77b69052e-50dd5cae418mr15902681cf.54.1775772508751; 
+ Thu, 09 Apr 2026 15:08:28 -0700 (PDT)
+Received: from umbar.lan
+ (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+ by smtp.gmail.com with ESMTPSA id
+ 38308e7fff4ca-38e49567101sm2221331fa.30.2026.04.09.15.08.25
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 09 Apr 2026 15:08:27 -0700 (PDT)
+Date: Fri, 10 Apr 2026 01:08:24 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Sandy Huang <hjc@rock-chips.com>,
+ Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>,
+ Andy Yan <andy.yan@rock-chips.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, Dmitry Baryshkov <lumag@kernel.org>,
+ Sascha Hauer <s.hauer@pengutronix.de>, Rob Herring <robh@kernel.org>,
+ Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>, kernel@collabora.com,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, linux-doc@vger.kernel.org
+Subject: Re: [PATCH v12 04/25] drm/bridge: Act on the DRM color format property
+Message-ID: <edeq6wxmwzvovfoo6pvih6dybwszf3tahg7nvqkjrw3qxllbfd@jwejh2sgb5eh>
+References: <20260409-color-format-v12-0-ce84e1817a27@collabora.com>
+ <20260409-color-format-v12-4-ce84e1817a27@collabora.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB5149:EE_|BN7PPF7F4CD71A4:EE_
-X-MS-Office365-Filtering-Correlation-Id: 00dd88b7-5c46-499c-82d5-08de9682e7e1
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|1800799024|376014|18002099003|56012099003|22082099003|8096899003;
-X-Microsoft-Antispam-Message-Info: wU7jkK6LGepVWgNx3BXiZdMImzjGK8xsm/QYFMqG2dok77fDbcfK+ZIJy+VbNbVeQasUym7w1VOahYSfdukLQWMYc3MEOUe3UpsMZH6GM4+XMZ1Zszki934PCwPM3oAv6eCYjPpJP15j6/zAWSCU/D2uOYoFWmhoVDsobySNDMUoSXNEb186n5DW475bP1Y4XEYqrLKLVy3/97sxTOdpcezKHrfJxvC3G14Kw+FJt5s6bY5W3itJI/RnunGRgOIsVJWM7Pk2AAv9VyBrcBWDJBdLiqS+p17rdM3qwVqWQUxS45LBaLxxdeP0HslHReQNO/B6JPYhF9wJ6lmDLzk9i00OwQar8T+Ic0PQtylKAIQ+OhuRMHKVW7dIaTAKwAtRy9uxq5eV/ribLImWUg61Cus/geRU2hhEqC/S9NSSqup8rqu2g96pF767civJk+otK29UW6jh+ObceURSF1JML5tQTz51FhqN+n0FynJpHcGgkFW25Ym8/QINd2yOWce/tuz4btIdGV0VrQN8WM1cUK875gjfgXXiaan9fAH2sFkbcfuEKbHWDTPRJBeBjl43SuUTzyZdkocr3y1Vejp6lXV2osQh3M/2l0ZV2xjq0tg5JT/81d5zds4yBxEU76wlISxUAfYxmhfkNjA1uDxbeT79UNzlJusHjG/lu6FdJU92aspqovduYE0RHmw19iVMgaTolIFN0pdUwC1wiPAmXihXWYWws5yQxTJU7CDqOjQ=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB5149.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014)(18002099003)(56012099003)(22082099003)(8096899003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?blJINWVoSVBDUWRhL2l6NXl4TXVWSms2cVdCaSswUnpUQU0xVlpIS3pTZlYy?=
- =?utf-8?B?ajErRUxYcnZJdUd5UTlNV2ptcS9EaWRTdEtyNGFTbmRoQ0c2T212a0JzUGlP?=
- =?utf-8?B?MXNMSXRCTzJ5dzQwU2dtSG9rTWhDV0M2NlpiVUFQcklibFl2dmZxV21VdEI5?=
- =?utf-8?B?cnVGaFR4YW1RVUZweFN2TjE0Nno4cm1KSmo5Q2RseVVzRTIyRmdPSEtNZmwr?=
- =?utf-8?B?UFk4UWNCVWpld1hNbTdqaEJRZ0xNcmFsR3pCbGlvRVM3NjF5ZGxUZlVkZ29t?=
- =?utf-8?B?ZitKWjFLYTVwMCtYTXNsWkVWUi9mVXlwREpnSk93cDFhTEsyS1h0MXVOUEw2?=
- =?utf-8?B?UlRPd3FBcCtBMmxjNUwwSkFGWlIwVi9jWUZlSlNQU29WWTRNVC81Q3V1ZFlq?=
- =?utf-8?B?WDlERGJOOFg5d2RoR1JEeVptWnpxNndCR0JzVDh0Z2NzNlAxL2t3Qm9XYVd6?=
- =?utf-8?B?cU03QWxXV1pqeFhmdG14cG42WmhrOUNhY011dlN2YjJoaEorOGloeVduRUpM?=
- =?utf-8?B?YVExME14SXZoYWtkME5iTXRDUjY5Z3QyY1JOYUYwMXdIQS9SdDVMekVWVjhP?=
- =?utf-8?B?L1B0UjkvcXJSUElYcGUyTVBPTHZIZTBiUXExZzRwZnZOVE9kOUF4blh1WnBz?=
- =?utf-8?B?dXBhUGs1dlZWQ0g4VUphUFdjeStSb3JFZThPNDN4R2dnV3psOXcrelJONFJv?=
- =?utf-8?B?R1Z4L05MNFM2eXk0K09HVVY4Vy9VWGVtbFBpUVd4amlLOXBTcXo4KzRBRW5p?=
- =?utf-8?B?THBhWFA0b1p5eStPYnFYWGFYekVaNXZNVTZxSTB5SE91S2VsWXdjWUVPLzdi?=
- =?utf-8?B?UmhmamZnaCtoZng5TDZ6WXVEeDFVSkhMVnUwVGtQdkw3N1BqUllDaWVoWW91?=
- =?utf-8?B?OUxMb1Q5V05qaVRRdmZuZ2xVcDJ5dXQ2QTNLNVhIUGtQL0I0YVIzWWx2dWlw?=
- =?utf-8?B?SExnQkdVa1o1T3pzQmJJZEJuUFVtZkVKcVlpNURJejZscE1vSFFjYVlKUmRQ?=
- =?utf-8?B?ZlczNFhQRmJpR0JRV0piZm9KUUdFdDRHWFdOeXBJWWZmeTBRQTFoUWdiWnUx?=
- =?utf-8?B?bHhsR2EvdHRFWGFtQXd5NzVCaUJpMGJyU3pDRGRMZXQxOVdYV0ZxTmYyU0tM?=
- =?utf-8?B?dWpjeDdFeVZVNUZMemFzNVlNb2RDSzYvVXk3VkdCL0RmaGhsOXJBYjFCUEpV?=
- =?utf-8?B?TUxNTjYxaUc0a1RSMWNuOHhuY3FOcC9RVFRvRnRWUGtKWUgyV1FuQnFIRHhP?=
- =?utf-8?B?Nmw0KzFxTE1vSzlYRGtQNFR6bElhc253R3hBQVpaSHdZTThmbGlVd3dwRGlC?=
- =?utf-8?B?WXhnWktXbVVwZ2I0U1hOWmFWU0d4NjBxS2V0SVZrdGd2Y2MwZ1NoZFVvZWJ2?=
- =?utf-8?B?RjBueTNoTnlpbnRvRUpwTmxMY3UxYkVLUHI0K05zeVdFTTFzWEgxUjRVTDYx?=
- =?utf-8?B?VjZIaGdRenFYbzMrTWcvZmJsZEllU2Foc2tMMFNORmd5bk91aVQ2R1BTMU55?=
- =?utf-8?B?RnovYkExUTE1MXU3VUdmcDV1eDQzcHVDVTNEbktZSWZXdlZVYnJVMDBHczRE?=
- =?utf-8?B?RzRJdkJ5YWhTTUdSdUoyYkFscFozOUpIeHJCNmh2WElTOHhESUFDLzdyei9V?=
- =?utf-8?B?a2pyLytlaktJdEdYVE9SeStSRHpkVkVXV2taUzhodG5PZWxPVTEvbFZFNWRD?=
- =?utf-8?B?U1cwM2hweDdWK2FZdXhBbUk2blZRWnYyb2k2VXQwRU5Qbzhpa0F0WlF4aUlB?=
- =?utf-8?B?Z1pkZUR4bzF0Y1dUN2RUcWsweEh3azliRm4vS3UvT3lYN0lraTdPQ1BmK0h0?=
- =?utf-8?B?Y213RGd6ZDlBSVU0bGhjV041ZitCelU0RjJpdkZ3V1VHejFIUVlTU2c1Yktk?=
- =?utf-8?B?L3dMd3JpNlJ3ZE9kVnc2dkZuUUNlaTRaazl6elJKRzMvckIzdmJsSEt0cUJE?=
- =?utf-8?B?ZzQvRjkxRW5pNjBwL1RyY2dFMjM1QWNlRG0wYlIrcHN5eHBGY2p6STF1VExi?=
- =?utf-8?B?S2FSZW9IUFowUytYRUtJRDJOZW5XVXBuZ0s5cWlKNkM1UVNrV0ZPczVBYXVs?=
- =?utf-8?B?TEEyMlFGSjhxRjExNkhkcDRTaG1wcE1sdFBPT0pvbG5ocTg0WlppNXExN3dq?=
- =?utf-8?B?OGQ4N0RqRTBIY1ZKbElUYndsanl6L1pHdHJaTW5md1FMZlhTYTBOTlhpK3Ax?=
- =?utf-8?B?dlEvRURsM0xiRDlKUlRpRlJJeHhlcGtqQjdsVEs2ZlVCS3hGdWNtVlZ3dnFQ?=
- =?utf-8?B?QWJ5M0tieTB0L3crSnVHMldRbHFDTXBFd2xZamtRdUlmblNzbHFOL0VyUkhx?=
- =?utf-8?Q?2pBt5GirOsfQXOXA9r?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 00dd88b7-5c46-499c-82d5-08de9682e7e1
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5149.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Apr 2026 21:56:51.7096 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 8TKqYKEb4JOXtOfwYwMEYesq9H86s/Xyp7YYVvzpwZIHlYSn1dInPuFM0I+ZJKfu
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN7PPF7F4CD71A4
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260409-color-format-v12-4-ce84e1817a27@collabora.com>
+X-Authority-Analysis: v=2.4 cv=PMM/P/qC c=1 sm=1 tr=0 ts=69d8235e cx=c_pps
+ a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22 a=QX4gbG5DAAAA:8
+ a=NxoPbATI1rPzGprmJi8A:9 a=CjuIK1q_8ugA:10 a=dawVfQjAaf238kedN5IG:22
+ a=AbAUZ8qAyYyZVLSsDulk:22
+X-Proofpoint-ORIG-GUID: rvvQA3W3hOqMZaAL4nW8LhQDqKAr9_yM
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDA5MDIwNCBTYWx0ZWRfX7c+evzABBerc
+ 3tX3mmeg3KZyu9ba8ern4w8rhQhSufDkWJrmJHdeTQYni3vxyfRZZVW3kOEsX/ZlOKtu7j+Cy5X
+ R7Nk7vUhGIrMeBBQszgWJjZiOnWv6puyLeUHUkhZN56ZerraMySu3v3+Gj4O/kFa7Z82l+uvC1w
+ KpNR7xybz2JP8yG/oVgrgqRDf65nOXpNcDmUGMGOCoFCefGrp42buCeVmcCFTSieUPLOMTTk2Rk
+ oqHrvbkGhLS9D0C3SEryVpVQ+UpQy2iwxwjBHf8YQQDUTf57qRIMSqheg9udU9E6pFov1mkVeBA
+ o3HAQaYh6LgfXtXMEALbyoMaQIuRIgqDJfGEPFLTQn2JTLlpjmVCq5GNNSDyxDmn1nlAYZQ5JmE
+ IBXHMchxuiWDtV4qK8MfrF3cLvuCJMSv4uaAaVMPdNseDsCzjd8IkHgFYwCNvZcpcYxUdcHL6gC
+ QROj0AZFIdGD5J16xNQ==
+X-Proofpoint-GUID: rvvQA3W3hOqMZaAL4nW8LhQDqKAr9_yM
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-09_04,2026-04-09_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 suspectscore=0 priorityscore=1501 adultscore=0
+ lowpriorityscore=0 bulkscore=0 phishscore=0 clxscore=1015 malwarescore=0
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2604010000
+ definitions=main-2604090204
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,375 +163,164 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---------------OTeENLc0Cr40Ov4JCd7SbBna
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+On Thu, Apr 09, 2026 at 05:44:54PM +0200, Nicolas Frattaroli wrote:
+> The new DRM color format property allows userspace to request a specific
+> color format on a connector. In turn, this fills the connector state's
+> color_format member to switch color formats.
+> 
+> Make drm_bridges consider the color_format set in the connector state
+> during the atomic bridge check. For bridges that represent HDMI bridges,
+> rely on whatever format the HDMI logic set. Reject any output bus
+> formats that do not correspond to the requested color format.
+> 
+> Non-HDMI last bridges with DRM_CONNECTOR_COLOR_FORMAT_AUTO set will end
+> up choosing the first output format that functions to make a whole
+> recursive bridge chain format selection succeed.
+> 
+> Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+> ---
+>  drivers/gpu/drm/drm_bridge.c | 89 +++++++++++++++++++++++++++++++++++++++++++-
+>  1 file changed, 88 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/drm_bridge.c b/drivers/gpu/drm/drm_bridge.c
+> index ba80bebb5685..7c1516864d96 100644
+> --- a/drivers/gpu/drm/drm_bridge.c
+> +++ b/drivers/gpu/drm/drm_bridge.c
+> @@ -1150,6 +1150,47 @@ static int select_bus_fmt_recursive(struct drm_bridge *first_bridge,
+>  	return ret;
+>  }
+>  
+> +static bool __pure bus_format_is_color_fmt(u32 bus_fmt, enum drm_connector_color_format fmt)
+> +{
+> +	if (fmt == DRM_CONNECTOR_COLOR_FORMAT_AUTO)
+> +		return true;
+> +
+> +	switch (bus_fmt) {
+> +	case MEDIA_BUS_FMT_FIXED:
+> +		return true;
+> +	case MEDIA_BUS_FMT_RGB888_1X24:
+> +	case MEDIA_BUS_FMT_RGB101010_1X30:
+> +	case MEDIA_BUS_FMT_RGB121212_1X36:
+> +	case MEDIA_BUS_FMT_RGB161616_1X48:
+> +		return fmt == DRM_CONNECTOR_COLOR_FORMAT_RGB444;
+> +	case MEDIA_BUS_FMT_YUV8_1X24:
+> +	case MEDIA_BUS_FMT_YUV10_1X30:
+> +	case MEDIA_BUS_FMT_YUV12_1X36:
+> +	case MEDIA_BUS_FMT_YUV16_1X48:
+> +		return fmt == DRM_CONNECTOR_COLOR_FORMAT_YCBCR444;
+> +	case MEDIA_BUS_FMT_UYVY8_1X16:
+> +	case MEDIA_BUS_FMT_VYUY8_1X16:
+> +	case MEDIA_BUS_FMT_YUYV8_1X16:
+> +	case MEDIA_BUS_FMT_YVYU8_1X16:
+> +	case MEDIA_BUS_FMT_UYVY10_1X20:
+> +	case MEDIA_BUS_FMT_YUYV10_1X20:
+> +	case MEDIA_BUS_FMT_VYUY10_1X20:
+> +	case MEDIA_BUS_FMT_YVYU10_1X20:
+> +	case MEDIA_BUS_FMT_UYVY12_1X24:
+> +	case MEDIA_BUS_FMT_VYUY12_1X24:
+> +	case MEDIA_BUS_FMT_YUYV12_1X24:
+> +	case MEDIA_BUS_FMT_YVYU12_1X24:
+> +		return fmt == DRM_CONNECTOR_COLOR_FORMAT_YCBCR422;
+> +	case MEDIA_BUS_FMT_UYYVYY8_0_5X24:
+> +	case MEDIA_BUS_FMT_UYYVYY10_0_5X30:
+> +	case MEDIA_BUS_FMT_UYYVYY12_0_5X36:
+> +	case MEDIA_BUS_FMT_UYYVYY16_0_5X48:
+> +		return fmt == DRM_CONNECTOR_COLOR_FORMAT_YCBCR420;
+> +	default:
+> +		return false;
+> +	}
+> +}
+> +
+>  /*
+>   * This function is called by &drm_atomic_bridge_chain_check() just before
+>   * calling &drm_bridge_funcs.atomic_check() on all elements of the chain.
+> @@ -1193,6 +1234,7 @@ drm_atomic_bridge_chain_select_bus_fmts(struct drm_bridge *bridge,
+>  	struct drm_encoder *encoder = bridge->encoder;
+>  	struct drm_bridge_state *last_bridge_state;
+>  	unsigned int i, num_out_bus_fmts = 0;
+> +	enum drm_connector_color_format fmt;
+>  	u32 *out_bus_fmts;
+>  	int ret = 0;
+>  
+> @@ -1234,13 +1276,58 @@ drm_atomic_bridge_chain_select_bus_fmts(struct drm_bridge *bridge,
+>  			out_bus_fmts[0] = MEDIA_BUS_FMT_FIXED;
+>  	}
+>  
+> +	/*
+> +	 * On HDMI connectors, use the output format chosen by whatever does the
+> +	 * HDMI logic. For everyone else, just trust that the bridge out_bus_fmts
+> +	 * are sorted by preference for %DRM_CONNECTOR_COLOR_FORMAT_AUTO, as
+> +	 * bus_format_is_color_fmt() always returns true for AUTO.
+> +	 */
+> +	if (last_bridge->type == DRM_MODE_CONNECTOR_HDMIA) {
 
+I still think this is misplaced (and misidentified). Consider HDMI
+bridge being routed to the DVI-D connector. The last bridge would have
+different type, but the HDMI-specific logic must still be applied. The
+bridge must use RGB444, but it must be handled in a generic way.
 
+Or other way around, a DVI bridge being routed through the HDMI
+connector (thinking about PandaBoard here). The combo should not go
+through the HDMI-specific color format selection although the last
+bridge in the chanin is the HDMI-A bridge.
 
-On 2026-04-08 04:04, Christian König wrote:
-> On 4/7/26 21:40, Chen, Xiaogang wrote:
->> On 4/7/2026 8:38 AM, Philip Yang wrote:
->>> On multi-socket MI300A APU systems, system memory pages mapped to the
->>> closest GPU must use MTYPE_RW instead of MTYPE_NC to maintain correct
->>> cache coherence. The existing mtype override in amdgpu_vm_pte_update_flags()
->>> excluded non-contiguous page mappings from the override. This caused
->>> incorrect MTYPE_NC for scattered local pages, leading to cache coherence
->>> issues.
->>>
->>> The override applies to both contiguous and non-contiguous mappings.
->>> When pages_addr is set, resolve the physical address via
->>> pages_addr[addr >> PAGE_SHIFT] before passing it to the override
->>> callback for NUMA node lookup.
->>>
->>> Introduce amdgpu_vm_addr_contiguous() helper that, on MI300A, treats
->>> pages on different NUMA nodes as non-contiguous even if their DMA
->>> addresses are adjacent. This ensures amdgpu_vm_update_range() splits
->>> page table updates at NUMA node boundaries so each batch gets the
->>> correct mtype override.
->>>
->>> Signed-off-by: Philip Yang<Philip.Yang@amd.com>
->>> ---
->>>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c    | 48 +++++++++++++++++++----
->>>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c | 14 +++++--
->>>   2 files changed, 50 insertions(+), 12 deletions(-)
->>>
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
->>> index 63156289ae7f..f8fcbf079bf4 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
->>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
->>> @@ -1099,6 +1099,34 @@ amdgpu_vm_tlb_flush(struct amdgpu_vm_update_params *params,
->>>   	}
->>>   }
->>>   
->>> +/**
->>> + * amdgpu_vm_addr_contiguous - check if two DMA addresses are contiguous
->>> + *
->>> + * @adev: amdgpu_device pointer
->>> + * @addr: current DMA address
->>> + * @addr_next: next DMA address to check against
->>> + * @contiguous: current contiguity state of the range being built
->>> + *
->>> + * Check whether @addr and @addr_next are physically contiguous. On APU
->>> + * platforms with multiple NUMA nodes (e.g. MI300A), a NUMA node boundary
->>> + * also breaks contiguity so that each contiguous batch stays within a
->>> + * single NUMA node for correct MTYPE override selection.
->>> + *
->>> + * Returns:
->>> + * true if @addr_next continues the current contiguous range, false otherwise.
->>> + */
->> We can use pfn_to_nid or page_to_nid to get which noma(id) the backing memory is at. pfn_to_nid uses pfn from physical address. You use dma_addr_t that is device dependent. It is not always same as physical address of RAM.
-> Yeah that here won't work at all.
->
->> ttm_tt also has
->>
->> /** @pages: Array of pages backing the data. */ struct page **pages;
->>
->> I think using the pages to get numa id by page_to_nid is more appropriate.
-> That array isn't filled in for imported pages.
->
-> As far as I can see the whole approach won't work reliable. For imports we only know the dma_addr and not the struct page nor the pfn.
-if adev->ram_is_direct_mapped, then dma_addr equals to pfn, we can use 
-dma_addr to call pfn_to_nid.
-I will add ram_is_direct_mapped condition, this is currently inside 
-override function, and add fast path change suggested by Felix in next 
-version.
+I think all these cases should be handled by the connector, which knows
+if there is an OP_HDMI bridge in the chain or not.
 
-Regards,
-Philip
->
-> I think we need to re-iterate the whole idea of MTYPE override.
->
-> Regards,
-> Christian.
->
->> Regards
->>
->> Xiaogang
->>
->>> +static inline bool amdgpu_vm_addr_contiguous(struct amdgpu_device *adev, dma_addr_t addr,
->>> +					     dma_addr_t addr_next, bool contiguous)
->>> +{
->>> +	if (!adev->gmc.is_app_apu || !page_is_ram(addr >> PAGE_SHIFT))
->>> +		return (addr + PAGE_SIZE) == addr_next;
->>> +
->>> +	if (pfn_to_nid(addr >> PAGE_SHIFT) != pfn_to_nid(addr_next >> PAGE_SHIFT))
->>> +		return !contiguous;
->>> +
->>> +	return (addr + PAGE_SIZE) == addr_next;
->>> +}
->>> +
->>>   /**
->>>    * amdgpu_vm_update_range - update a range in the vm page table
->>>    *
->>> @@ -1198,22 +1226,26 @@ int amdgpu_vm_update_range(struct amdgpu_device *adev, struct amdgpu_vm *vm,
->>>   				uint64_t pfn = cursor.start >> PAGE_SHIFT;
->>>   				uint64_t count;
->>>   
->>> -				contiguous = pages_addr[pfn + 1] ==
->>> -					pages_addr[pfn] + PAGE_SIZE;
->>> +				contiguous = amdgpu_vm_addr_contiguous(adev,
->>> +								       pages_addr[pfn],
->>> +								       pages_addr[pfn + 1],
->>> +								       contiguous);
->>>   
->>> -				tmp = num_entries /
->>> -					AMDGPU_GPU_PAGES_IN_CPU_PAGE;
->>> +				tmp = num_entries / AMDGPU_GPU_PAGES_IN_CPU_PAGE;
->>>   				for (count = 2; count < tmp; ++count) {
->>>   					uint64_t idx = pfn + count;
->>>   
->>> -					if (contiguous != (pages_addr[idx] ==
->>> -					    pages_addr[idx - 1] + PAGE_SIZE))
->>> +					if (contiguous != amdgpu_vm_addr_contiguous(adev,
->>> +									pages_addr[idx - 1],
->>> +									pages_addr[idx],
->>> +									contiguous))
->>>   						break;
->>>   				}
->>> +
->>>   				if (!contiguous)
->>>   					count--;
->>> -				num_entries = count *
->>> -					AMDGPU_GPU_PAGES_IN_CPU_PAGE;
->>> +
->>> +				num_entries = count * AMDGPU_GPU_PAGES_IN_CPU_PAGE;
->>>   			}
->>>   
->>>   			if (!contiguous) {
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
->>> index 31a437ce9570..9e1607fb3b2e 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
->>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
->>> @@ -708,13 +708,19 @@ static void amdgpu_vm_pte_update_flags(struct amdgpu_vm_update_params *params,
->>>   		amdgpu_vm_pte_update_noretry_flags(adev, &flags);
->>>   
->>>   	/* APUs mapping system memory may need different MTYPEs on different
->>> -	 * NUMA nodes. Only do this for contiguous ranges that can be assumed
->>> -	 * to be on the same NUMA node.
->>> +	 * NUMA nodes. Both contiguous and non-contiguous ranges are handled
->>> +	 * since amdgpu_vm_update_range ensures updates don't span NUMA
->>> +	 * node boundaries.
->>>   	 */
->>>   	if ((flags & AMDGPU_PTE_SYSTEM) && (adev->flags & AMD_IS_APU) &&
->>>   	    adev->gmc.gmc_funcs->override_vm_pte_flags &&
->>> -	    num_possible_nodes() > 1 && !params->pages_addr && params->allow_override)
->>> -		amdgpu_gmc_override_vm_pte_flags(adev, params->vm, addr, &flags);
->>> +	    num_possible_nodes() > 1 && params->allow_override) {
->>> +		if (params->pages_addr)
->>> +			amdgpu_gmc_override_vm_pte_flags(adev, params->vm,
->>> +					params->pages_addr[addr >> PAGE_SHIFT], &flags);
->>> +		else
->>> +			amdgpu_gmc_override_vm_pte_flags(adev, params->vm, addr, &flags);
->>> +	}
->>>   
->>>   	params->vm->update_funcs->update(params, pt, pe, addr, count, incr,
->>>   					 flags);
+> +		drm_dbg_kms(last_bridge->dev,
+> +			    "HDMI bridge requests format %s\n",
+> +			    drm_hdmi_connector_get_output_format_name(
+> +				    conn_state->hdmi.output_format));
+> +		switch (conn_state->hdmi.output_format) {
+> +		case DRM_OUTPUT_COLOR_FORMAT_RGB444:
+> +			fmt = DRM_CONNECTOR_COLOR_FORMAT_RGB444;
+> +			break;
+> +		case DRM_OUTPUT_COLOR_FORMAT_YCBCR444:
+> +			fmt = DRM_CONNECTOR_COLOR_FORMAT_YCBCR444;
+> +			break;
+> +		case DRM_OUTPUT_COLOR_FORMAT_YCBCR422:
+> +			fmt = DRM_CONNECTOR_COLOR_FORMAT_YCBCR422;
+> +			break;
+> +		case DRM_OUTPUT_COLOR_FORMAT_YCBCR420:
+> +			fmt = DRM_CONNECTOR_COLOR_FORMAT_YCBCR420;
+> +			break;
+> +		default:
+> +			ret = -EINVAL;
+> +			goto out_free_bus_fmts;
+> +		}
+> +	} else {
+> +		fmt = conn_state->color_format;
+> +		drm_dbg_kms(last_bridge->dev, "Non-HDMI bridge requests format %d\n", fmt);
+> +	}
+> +
+>  	for (i = 0; i < num_out_bus_fmts; i++) {
+> +		if (!bus_format_is_color_fmt(out_bus_fmts[i], fmt)) {
+> +			drm_dbg_kms(last_bridge->dev,
+> +				    "Skipping bus format 0x%04x as it doesn't match format %d\n",
+> +				    out_bus_fmts[i], fmt);
+> +			ret = -ENOTSUPP;
+> +			continue;
+> +		}
+>  		ret = select_bus_fmt_recursive(bridge, last_bridge, crtc_state,
+>  					       conn_state, out_bus_fmts[i]);
+> -		if (ret != -ENOTSUPP)
+> +		if (ret != -ENOTSUPP) {
+> +			drm_dbg_kms(last_bridge->dev,
+> +				    "Found bridge chain ending with bus format 0x%04x\n",
+> +				    out_bus_fmts[i]);
+>  			break;
+> +		}
+>  	}
+>  
+> +out_free_bus_fmts:
+>  	kfree(out_bus_fmts);
+>  
+>  	return ret;
+> 
+> -- 
+> 2.53.0
+> 
 
---------------OTeENLc0Cr40Ov4JCd7SbBna
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-<!DOCTYPE html><html><head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body text="#000000" bgcolor="#FFFFFF">
-    <br>
-    <br>
-    <div class="moz-cite-prefix">On 2026-04-08 04:04, Christian König
-      wrote:<br>
-    </div>
-    <blockquote type="cite" cite="mid:4966b8f2-4d51-405c-beae-889771c298b5@amd.com">
-      <pre wrap="" class="moz-quote-pre">On 4/7/26 21:40, Chen, Xiaogang wrote:
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">
-On 4/7/2026 8:38 AM, Philip Yang wrote:
-</pre>
-        <blockquote type="cite">
-          <pre wrap="" class="moz-quote-pre">On multi-socket MI300A APU systems, system memory pages mapped to the
-closest GPU must use MTYPE_RW instead of MTYPE_NC to maintain correct
-cache coherence. The existing mtype override in amdgpu_vm_pte_update_flags()
-excluded non-contiguous page mappings from the override. This caused
-incorrect MTYPE_NC for scattered local pages, leading to cache coherence
-issues.
-
-The override applies to both contiguous and non-contiguous mappings.
-When pages_addr is set, resolve the physical address via
-pages_addr[addr &gt;&gt; PAGE_SHIFT] before passing it to the override
-callback for NUMA node lookup.
-
-Introduce amdgpu_vm_addr_contiguous() helper that, on MI300A, treats
-pages on different NUMA nodes as non-contiguous even if their DMA
-addresses are adjacent. This ensures amdgpu_vm_update_range() splits
-page table updates at NUMA node boundaries so each batch gets the
-correct mtype override.
-
-Signed-off-by: Philip Yang <a class="moz-txt-link-rfc2396E" href="mailto:Philip.Yang@amd.com">&lt;Philip.Yang@amd.com&gt;</a>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c    | 48 +++++++++++++++++++----
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c | 14 +++++--
- 2 files changed, 50 insertions(+), 12 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-index 63156289ae7f..f8fcbf079bf4 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-@@ -1099,6 +1099,34 @@ amdgpu_vm_tlb_flush(struct amdgpu_vm_update_params *params,
- 	}
- }
- 
-+/**
-+ * amdgpu_vm_addr_contiguous - check if two DMA addresses are contiguous
-+ *
-+ * @adev: amdgpu_device pointer
-+ * @addr: current DMA address
-+ * @addr_next: next DMA address to check against
-+ * @contiguous: current contiguity state of the range being built
-+ *
-+ * Check whether @addr and @addr_next are physically contiguous. On APU
-+ * platforms with multiple NUMA nodes (e.g. MI300A), a NUMA node boundary
-+ * also breaks contiguity so that each contiguous batch stays within a
-+ * single NUMA node for correct MTYPE override selection.
-+ *
-+ * Returns:
-+ * true if @addr_next continues the current contiguous range, false otherwise.
-+ */
-</pre>
-        </blockquote>
-        <pre wrap="" class="moz-quote-pre">
-We can use pfn_to_nid or page_to_nid to get which noma(id) the backing memory is at.&nbsp;pfn_to_nid uses pfn from physical address. You use dma_addr_t that is device dependent. It is not always same as physical address of RAM.
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-Yeah that here won't work at all.
-
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">
-ttm_tt also has
-
-/** @pages: Array of pages backing the data. */ struct page **pages;
-
-I think using the pages to get numa id by page_to_nid&nbsp;is more appropriate.
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-That array isn't filled in for imported pages.
-
-As far as I can see the whole approach won't work reliable. For imports we only know the dma_addr and not the struct page nor the pfn.</pre>
-    </blockquote>
-    if adev-&gt;ram_is_direct_mapped, then dma_addr equals to pfn, we
-    can use dma_addr to call pfn_to_nid.<br>
-    I will add ram_is_direct_mapped condition, this is currently inside
-    override function, and add fast path change suggested by Felix in
-    next version.<br>
-    <br>
-    Regards,<br>
-    Philip&nbsp;&nbsp;
-    <blockquote type="cite" cite="mid:4966b8f2-4d51-405c-beae-889771c298b5@amd.com">
-      <pre wrap="" class="moz-quote-pre">
-
-I think we need to re-iterate the whole idea of MTYPE override.
-
-Regards,
-Christian.
-
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">
-Regards
-
-Xiaogang
-
-</pre>
-        <blockquote type="cite">
-          <pre wrap="" class="moz-quote-pre">+static inline bool amdgpu_vm_addr_contiguous(struct amdgpu_device *adev, dma_addr_t addr,
-+					     dma_addr_t addr_next, bool contiguous)
-+{
-+	if (!adev-&gt;gmc.is_app_apu || !page_is_ram(addr &gt;&gt; PAGE_SHIFT))
-+		return (addr + PAGE_SIZE) == addr_next;
-+
-+	if (pfn_to_nid(addr &gt;&gt; PAGE_SHIFT) != pfn_to_nid(addr_next &gt;&gt; PAGE_SHIFT))
-+		return !contiguous;
-+
-+	return (addr + PAGE_SIZE) == addr_next;
-+}
-+
- /**
-  * amdgpu_vm_update_range - update a range in the vm page table
-  *
-@@ -1198,22 +1226,26 @@ int amdgpu_vm_update_range(struct amdgpu_device *adev, struct amdgpu_vm *vm,
- 				uint64_t pfn = cursor.start &gt;&gt; PAGE_SHIFT;
- 				uint64_t count;
- 
--				contiguous = pages_addr[pfn + 1] ==
--					pages_addr[pfn] + PAGE_SIZE;
-+				contiguous = amdgpu_vm_addr_contiguous(adev,
-+								       pages_addr[pfn],
-+								       pages_addr[pfn + 1],
-+								       contiguous);
- 
--				tmp = num_entries /
--					AMDGPU_GPU_PAGES_IN_CPU_PAGE;
-+				tmp = num_entries / AMDGPU_GPU_PAGES_IN_CPU_PAGE;
- 				for (count = 2; count &lt; tmp; ++count) {
- 					uint64_t idx = pfn + count;
- 
--					if (contiguous != (pages_addr[idx] ==
--					    pages_addr[idx - 1] + PAGE_SIZE))
-+					if (contiguous != amdgpu_vm_addr_contiguous(adev,
-+									pages_addr[idx - 1],
-+									pages_addr[idx],
-+									contiguous))
- 						break;
- 				}
-+
- 				if (!contiguous)
- 					count--;
--				num_entries = count *
--					AMDGPU_GPU_PAGES_IN_CPU_PAGE;
-+
-+				num_entries = count * AMDGPU_GPU_PAGES_IN_CPU_PAGE;
- 			}
- 
- 			if (!contiguous) {
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
-index 31a437ce9570..9e1607fb3b2e 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
-@@ -708,13 +708,19 @@ static void amdgpu_vm_pte_update_flags(struct amdgpu_vm_update_params *params,
- 		amdgpu_vm_pte_update_noretry_flags(adev, &amp;flags);
- 
- 	/* APUs mapping system memory may need different MTYPEs on different
--	 * NUMA nodes. Only do this for contiguous ranges that can be assumed
--	 * to be on the same NUMA node.
-+	 * NUMA nodes. Both contiguous and non-contiguous ranges are handled
-+	 * since amdgpu_vm_update_range ensures updates don't span NUMA
-+	 * node boundaries.
- 	 */
- 	if ((flags &amp; AMDGPU_PTE_SYSTEM) &amp;&amp; (adev-&gt;flags &amp; AMD_IS_APU) &amp;&amp;
- 	    adev-&gt;gmc.gmc_funcs-&gt;override_vm_pte_flags &amp;&amp;
--	    num_possible_nodes() &gt; 1 &amp;&amp; !params-&gt;pages_addr &amp;&amp; params-&gt;allow_override)
--		amdgpu_gmc_override_vm_pte_flags(adev, params-&gt;vm, addr, &amp;flags);
-+	    num_possible_nodes() &gt; 1 &amp;&amp; params-&gt;allow_override) {
-+		if (params-&gt;pages_addr)
-+			amdgpu_gmc_override_vm_pte_flags(adev, params-&gt;vm,
-+					params-&gt;pages_addr[addr &gt;&gt; PAGE_SHIFT], &amp;flags);
-+		else
-+			amdgpu_gmc_override_vm_pte_flags(adev, params-&gt;vm, addr, &amp;flags);
-+	}
- 
- 	params-&gt;vm-&gt;update_funcs-&gt;update(params, pt, pe, addr, count, incr,
- 					 flags);
-</pre>
-        </blockquote>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-</pre>
-    </blockquote>
-    <br>
-  </body>
-</html>
-
---------------OTeENLc0Cr40Ov4JCd7SbBna--
+-- 
+With best wishes
+Dmitry
