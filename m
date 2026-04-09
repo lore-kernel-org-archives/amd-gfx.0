@@ -4,128 +4,125 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B835EA3C59
-	for <amd-gfx@archiver.kernel.org>; Thu,  9 Apr 2026 13:45:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A2399EA3C5E
+	for <amd-gfx@archiver.kernel.org>; Thu,  9 Apr 2026 13:51:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CF70C10E7C3;
-	Thu,  9 Apr 2026 13:45:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2F93710E0D2;
+	Thu,  9 Apr 2026 13:51:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="0NYj6i4A";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="eAjs2Hrx";
 	dkim-atps=neutral
-Received: from SA9PR02CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11013010.outbound.protection.outlook.com
- [40.93.196.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0993D10E7F9
- for <amd-gfx@lists.freedesktop.org>; Thu,  9 Apr 2026 13:45:35 +0000 (UTC)
+Received: from DM1PR04CU001.outbound.protection.outlook.com
+ (mail-centralusazon11010012.outbound.protection.outlook.com [52.101.61.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3EAEB10E0D2
+ for <amd-gfx@lists.freedesktop.org>; Thu,  9 Apr 2026 13:51:32 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=YeIH6916daF0GXUocKGhZGPOYeiOcNDLAMuE3Snh2ngMi4Wv4c3JdXmYZq5jJ5wgPo8z+0BCrKyL0KMP0J+QSybBo417VCfdZi2jkssdn3D4HVWAGlwbfygWCr6fv5QxSjghsiRvgL+TWsC1a9yBKZHjJWtGYQKJGmJU0aGvg46chPdb7k/4u5qpqQXkslc5uahTm9apcbtuVjAAdGpraaUYHuPmBTl0FcThNyQTp2Y7n2Kbh9NEJS79NKCgVTCCl6Do42f/JeH4FHGK7nHE8KADwTT4D71yWU2z2cjo2RUbojrJismdoXGjqwRBi5ICDSW+hSBmTmvX5kMzMTfQsQ==
+ b=oqolvoUlRlZMwSUbThiCmI4aPUYUV3TzzatlWggg4b+SwpEMbHfBCFdnBSDRQXMQ107uK1UFM5BjzEPC64wZZHypGw3JtvvhNU5pqC9krC7rKE766D461ht8qv1VffXXWuN0bRpcAK1n7uzP3fI6MGZvswiLIFUvuhd74WScDV4wYsES8jrolfpqbKAU/xCW9hJxi+T4SwUmKWHR9mEHx9YUc8Yj9TBhbrrvf07sdah/ysg0oYiBmzchiiObXsRT6P+yfaKpriaXeO4upbZP+PZyLM6GIBwnUJaOeTOJRE8o9T6jTDAgJ8WjxEaBzkXmf53ysA8+SqsCBJg+bEjwwQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=MUoj26TkC9GdZS0OPFMfYdkg7O5FeiUL9CZtViZzn5Y=;
- b=cf0dpsjVcef80RCnAca2HTU+qPo5DPzV8Ybg5uQ9jLh1yJjOSHVmYWvki5q4MzSTHrIt6Y+iAu4Sb8POALtrOFzUiU2WjcydDzKPayLH7qUh1LAIdqz3KUI5lQSzhVIto6Hg4rr2Oe8Hu5WrOlxPxGm+DgZ6QM3o9MDg1n5IjTsqHN1kt836sFAzOGLz9yOoSCa9PHuJi+eMy9CZgmRVbtagNXZ1S87yE6fsi3oc5GYF7Otc+yZvN0tsjswetSpudF2ZDqyOhy170zAk10qyT6/uRtfPBywAKQ2Lqbq2OAMaf3uu9XYatxGhsDxe9o+bhuhkUcB1ciZ0OyHU8XYLtw==
+ bh=bRR4cACgMBOuJHuxTXJ6Q/k6Zfyp6Wu+itUYNsarg7U=;
+ b=AWxnv1qdOlMjM0fbYjgipg4AFdsVEZ+LpsBqSNwT1iwthybmLdEynmWT2yp19gDxKkcS7226LnErMDJNLo815Qm1A/E0bhtaX3NWcTHlmM1UOHncCkcDUk/9VgR+tO7Demq1vdBRyB1nn0h9R0C+iXDy6jClwROfUKmEDgwyndYVTNfO/to7zplKDtJ84As9c4uk8ieSehwHhkypxCwdpokokG1Q9w9+EBzQaHHQX1gxLLjrBTO14CSfKohzS0PrmEcxKffRdMVueYyjTm2tWNdMtzcv7l2bVGfuFdOITQFFTpHwK/6JRrlYuCQXeZqfxv2Ux7v6BfZ/ByG6O7mj8A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=MUoj26TkC9GdZS0OPFMfYdkg7O5FeiUL9CZtViZzn5Y=;
- b=0NYj6i4A2maYdQkI3OYVtA7y4aVTsqytiSMxSUJ+8LNccF0LBGgerlVF8uqG4OSW1Z/vlYu5UhruVc58STPdX2NZ/Ty+NnbsXEOahq2gadNBMI8qWtVBvIEvb0YyijMK7IlsTxrVeadmb+WFU+bKV1oYLRpk04E5kGyLh4lQoWI=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by DM6PR12MB4073.namprd12.prod.outlook.com (2603:10b6:5:217::12) with
+ bh=bRR4cACgMBOuJHuxTXJ6Q/k6Zfyp6Wu+itUYNsarg7U=;
+ b=eAjs2HrxDjFa5fbKaNF661RniYg5PkVkvBAURNuv1yAlHPb1lfeg2W3dj5cP4JegWmAudM8D0tLZyQFFfEj393meGf24h6FtgRAEaxq0CaZNK/pJSJ2DR/GTn9ibOJOYAge3aaBpakAkNE/xssIPaQ3IwKaSPMTNQn0LkyhSSbY=
+Received: from SJ0PR12MB8165.namprd12.prod.outlook.com (2603:10b6:a03:4e4::6)
+ by DS7PR12MB6142.namprd12.prod.outlook.com (2603:10b6:8:9a::11) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.20; Thu, 9 Apr
- 2026 13:45:31 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.20.9769.016; Thu, 9 Apr 2026
- 13:45:31 +0000
-Message-ID: <e8df8591-9014-4da7-b499-2d0d028ffc76@amd.com>
-Date: Thu, 9 Apr 2026 15:45:26 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] amdgpu: recover Thunderbolt PCIe link after MODE1 GPU
- reset
-To: Geramy Loveless <gloveless@jqluv.com>
-Cc: amd-gfx@lists.freedesktop.org,
- Mario Limonciello <mario.limonciello@amd.com>, alexander.deucher@amd.com
-References: <CAGpo2mebCaP4vFuTnn6jgu6OjjE_ssS7i8ENepuUjwwHXddCHA@mail.gmail.com>
- <243af06e-912b-4915-bc64-5aa16dad7db0@amd.com>
- <CAGpo2mcLFMrkduCx1MuQnR3EZUxtEo+jT8PAXGgXbGDm2_1Now@mail.gmail.com>
- <b92192ad-0a49-4234-927d-71e2c5441947@amd.com>
- <CAGpo2mdWGmDFVh_398=mBM4Zgt2fWXyBtYwFy4nH5VbxxbAmdQ@mail.gmail.com>
+ 2026 13:51:24 +0000
+Received: from SJ0PR12MB8165.namprd12.prod.outlook.com
+ ([fe80::1499:6598:d339:f12e]) by SJ0PR12MB8165.namprd12.prod.outlook.com
+ ([fe80::1499:6598:d339:f12e%5]) with mapi id 15.20.9791.032; Thu, 9 Apr 2026
+ 13:51:23 +0000
+From: "Vishwakarma, Pratik" <Pratik.Vishwakarma@amd.com>
+To: "Limonciello, Mario" <Mario.Limonciello@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Subject: Re: [PATCH] drm/amd: Add missing firmware declaration for PSP v15.0.0
+Thread-Topic: [PATCH] drm/amd: Add missing firmware declaration for PSP v15.0.0
+Thread-Index: AQHcx9cXbSBXlKHvT0S8rdGH50UOU7XXHFmA
+Date: Thu, 9 Apr 2026 13:51:23 +0000
+Message-ID: <SJ0PR12MB81656928402BE8895347C5C680582@SJ0PR12MB8165.namprd12.prod.outlook.com>
+References: <20260409041158.1007373-1-mario.limonciello@amd.com>
+In-Reply-To: <20260409041158.1007373-1-mario.limonciello@amd.com>
+Accept-Language: en-US
 Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <CAGpo2mdWGmDFVh_398=mBM4Zgt2fWXyBtYwFy4nH5VbxxbAmdQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: BL1PR13CA0007.namprd13.prod.outlook.com
- (2603:10b6:208:256::12) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DM6PR12MB4073:EE_
-X-MS-Office365-Filtering-Correlation-Id: e7215144-971b-42bc-0d4c-08de963e440f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|1800799024|366016|13003099007|18002099003|56012099003|22082099003;
-X-Microsoft-Antispam-Message-Info: MOs8JMpj1o9s25Rswcz2oDRg9WwN03aXL3OsxIikNqmbh/1hZ0lmczodSnr6+QW6Aq/BSeLfTAPxBDHwrRgAyk/rJcsplkWCTEiG1BJDpKZyZvjexeviryKPCe4qW+MLm7Eb8GsS1DPjDEfga8pU+hPfu3/6eSmXP8Ah7WlLETQZPEXbGrbO9gaQOZ8znFQ71bghlW251aX4f/MMlSajEaYoYSA52kuVJyb0/oNGDLFG2YtioV5GPWBz8w3Sd0pWGdS+dw43SxvH0FDTI6H8LSdEmKTIkZB1UpSICd5bonx9JZlFD1Vabdu9hQG5H5DIvH0N2HF+3oO9pDHTnRLtg8jkygs4Ekhwc0KsLGPd2d8VWaTc6Xy9Y0Tt82ND5H02JMDlzqx8r5rCdx9pmsNX8lO4zYEwELKLknj7k+u7fuAq9grDkaZyYy9mJHsHcF6HyovRh0J1r9I53n1DGFwoqavdd6Sk2Kfi3fTaW1D/4Sh09eu08axWXqKwVbZ6jzGOMCGy+dsTqmlZOAQgG2ZeqDROjsAdqer9O3eerxDP9eNw8jhJuriXrfuU0yUgKVayHkdzrMUMyJPRRMywrQdF+fgPvZEp+qRrs1VG4n6qdm8puSusdi4AIpzCCcpNKWpMBO+nDPOXgoSXp21u7KVIOW1OchbTEnW0MsIZCe6QKRQwWoFioI3DQZmIwNTDr0Ir
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(366016)(13003099007)(18002099003)(56012099003)(22082099003);
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ms-exchange-imapappendstamp: SJ0PR12MB8165.namprd12.prod.outlook.com
+ (15.20.9791.008)
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-exchange-messagesentrepresentingtype: 1
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: SJ0PR12MB8165:EE_|DS7PR12MB6142:EE_
+x-ms-office365-filtering-correlation-id: 133194e2-fae8-49f1-5408-08de963f1691
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|376014|366016|1800799024|38070700021|18002099003|22082099003|56012099003|8096899003;
+x-microsoft-antispam-message-info: XtmYrvN9UudcSY0i3do1m+Ma1w0j6WOykv67J41lFm3lqvbJ/cDJVLbTyCDQEI7TaLbHfyJf5UBQwxUZjeq/OGn4CAjSKXkfv9yfMrQCo/chzEkNCXeAvpYgcowmRvMT3aO665fIxJunzV32lUpPOxoPnwT5drDXK7b0VkPVDRvuDXbCv/uYuxJWkJDt0isvMH0iR+iWY5Y3UjiAA3H07bu+ledL64ABDuj4pGTToijceDLbiGyDFfpKzX6OdFPPlAoCprTPX0/x8Ud884BGv46gvE9gBw4tHiHaIkH+2vujccYk30ub3Ms8lWQW3PaLUuQ0uyEnljGTUK/C1lsKeAckOEQ9kzv4msvw9WI/OI4Dsr65KGCW+EGztrdqW/VmvUptW6OOQzsOV2jskNcpsvZI3IOhAVkXz4lDdutPKQilze8JR/FBioBaD+AXgcYZR0NaPbIIPEVjP+bEf6KIRPEoeNqVA67H5uDIWtEYzEOM1MeYkPsKy22rrmUtwymYQ2rwQa1aCouCRHuyUhuc9viGo37xKIh13XnK8IWlonzBn+Dvc64Fwlocrrj05tKSHrSN1bJbvScrLsC8a4KXVOynsMqyFGRh1egOSkvLFS/gb1cE888D8NAjF7mNXdIAYcgupECZHNPYmFyqWaqS1D1fNdgdNu/mU1uPHUIqFW7+PMFnFw3wzDPQU0Mplv9AhOxNJzRRX1dRZvubggEiuCUdVH+Dkby4NDzglLaoZPlfRJA5qm3XoydO0Hdp8ipGMR/ZIugOxwhs8ruHXTXWQ/MwQ8aYfmxxq3HPvbpAUJI=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SJ0PR12MB8165.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(366016)(1800799024)(38070700021)(18002099003)(22082099003)(56012099003)(8096899003);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?blZXWU9KU1lNTWQrWUdFZElDNVBJeVJVUEFVNFhPTjROZk5waS9UcWFkV05O?=
- =?utf-8?B?MzloVlpWZ1FwYTArN0srTzh1S2xwcXY3bWpscTJWOUkyc2ViYVFiRG9NMSsw?=
- =?utf-8?B?aUVLVmlzSWZOT2t2eWg1N1FKSWlqdGt6MkI2VEZCVjRqQTNaV1ViNzdCdzJS?=
- =?utf-8?B?eHZyb2pYM1l5NlFDZzlEYVkyZkQ5ckNNQm1LSDdVQkpxemtOUkpGRUhoVWM0?=
- =?utf-8?B?NWh5ZS83a2ZuVWh6bmR2L2VqZVdTcm84dUZXNytXZmYrY3dqUXVpemhzMGwy?=
- =?utf-8?B?U1M3VnZvSnozeERQWnNqb1pBUkVVRmhKQ0Fwc2VoeTZFa1dDWUJOVEI2bzZP?=
- =?utf-8?B?V0w3S1Z0aG52SEtsTHVzSHBlTklFaWlFb0wzaHdCOXk1a3lYSGVMTlFwRWcz?=
- =?utf-8?B?UVpCWDRPN0RuQ0VZSFgvVkw3djI5cTBKbkp4Tm52cDQ1WlI4R2hpK04zM1ZO?=
- =?utf-8?B?V3NzNTNUZTdNdGI2L1BDczkyNGdCVjVlOG5jOWEraWNla254RHkxaW1abVp5?=
- =?utf-8?B?WmY1eFRqTHo1UEs3ZUZhaFR3RzI5OUw4VTF2dU1BQmFleDU2MjExZ1JFZldU?=
- =?utf-8?B?VGxYNW1aOVlSQ0cvM3BRWWwvenpGcEVpNkRlQWhmSGhTcXZHcWxRbXU1Q0l5?=
- =?utf-8?B?dnREeVRqMWdTckVST0NjbXFLQzBYRW5WaWNSWmh1cmY0Z0ltT0RySnBldjZx?=
- =?utf-8?B?R2lkZ1VEVVlCRFZ0c3paZlBSZzYzOXFjNnJVdmhKWHlYd2x1NHl6ZHFFT0cr?=
- =?utf-8?B?cFFVWjA1czFtNUxqUktEb2pleHFuTWErRG9oQUJYaXhQZkJBTTBmNklYWWxl?=
- =?utf-8?B?Qkt0VlcwRFYrNFhDSXNXeHhGajdQTk9oWUkrV1cxMWE2ekppc0VINm5FT1lD?=
- =?utf-8?B?S1pCb2dmVEwyUkF4UXZnMmxldnc4UW1EQ1k3N1ZFNkNNcFBxTiszUFIwNnc0?=
- =?utf-8?B?dEFGaDRJSGJ0ZGorcllvbkp4V29GS25XN01hUFZIWXdmeC93NmFMb0x3ZWF5?=
- =?utf-8?B?TjdmWlBoTUhpRTc1eHJDWjZRajJZZDUxcTQrd0p3b0dITnRFQWlSNVZ4eU1I?=
- =?utf-8?B?d2xyVzVWNTRRVVplU1hsWWczK2JIZGtCd0QyZVJ5bWlnb21QVE1KOUdudTlM?=
- =?utf-8?B?ZzdoSzZZbkdHMFVuOXFrRU9kQnhkM2xwWHR3K2U0QUt6cXpKaXo1dWFFbWhj?=
- =?utf-8?B?L3lEM3FDanJrODM4bzJuUkNEWUR0dDE1TFNaT282WWJEMzMvU1FtdkxJeDdT?=
- =?utf-8?B?YWRNR2x1OGdBK09sZytCMUdpYU1RT1N1TkozRkYxVXJOK1B3ZFB5eGRVZU5L?=
- =?utf-8?B?TW5SS05mOGNPc1dvNEVncGJlaFo4M3FuWG91d3YwNytZd2dvU1A5L09QRXVp?=
- =?utf-8?B?OXY1SVpWNVVpb2xnZy96VS8vUitDNWg4c0J1d3U0YjN1UEU4V01ibE02TWxY?=
- =?utf-8?B?QXJIRDB0K3BmaW42TzJ0T1IzMXBGcFJVK0w0S3pWTnpBNXV5elhnMS8rak9M?=
- =?utf-8?B?aWMxeGh0QkJqMXdYZVE3enBuTWFKRENCZzZ3TDlCckR2N2JZSG9YSkp2WEs1?=
- =?utf-8?B?MFBqYytXRU5OZjFOSkZud2hNVXFIQ1hJdmRadWtRNlYvMWVWVmpaSmtFQVQ1?=
- =?utf-8?B?Qnd6YXJPaGF0cU1XbjVFZUd0akRrMTNJNmlxSjd4QVhhbzRPRTg0SThhMkFp?=
- =?utf-8?B?SzJXK0I3U0VnRkZzQmtVYWhDU29Vd0tDSkxZUGNhOWY1dS9NUWNZcm9ZRkdI?=
- =?utf-8?B?TnlaM3ZxMmMvd21tcUVSV2JFLzVnVTl0NWw0aHphSjkxWGE4d1JJN0F4RnI4?=
- =?utf-8?B?Q0pSaEQ2U0xvRGVSMksxNWV3eVFpbVRtUWxxcEkxWDdhSUJiZTY0SS85Y21q?=
- =?utf-8?B?SzV6eVhWRTBkQ2Y1V3dtVjMxdWtGWFdqWGtJdGJ0T2x1aThCb3N3VE0yMnFX?=
- =?utf-8?B?NmphUUY4VWF4NEFhQWRQTVpRanYyNGNEbjg2MHVSdk5KYWh2ODhrSHZOU0dZ?=
- =?utf-8?B?TlduSmZUa1dxWHhZUUZreENEaDhIM0FzcG5BY2Z0YVc1TUYzVTFKejFnd2pL?=
- =?utf-8?B?K3F5aXdDTEhiczZqeWZHWnFyQ1h4Rm85OHl3SGg1MWlRa1lYbXVGV3RyODdt?=
- =?utf-8?B?SnpHNjM4OURrNlFxTTdSVVAyTEEzQ3RrV3JBcDBtaTlkMTI2OVZYYlZNNzJp?=
- =?utf-8?B?a3RIUkRLL2NtSXlwbjhEbFFUVEp1SHh1cS9FQ1RuTXJ6QUJ6c1hqY0lhaGNL?=
- =?utf-8?B?Yi8vbmhZRnVJcDMyQVpMSkFabmIrNHBqQzQ5OHVZaVEwbkF2Y0paZFFNbnYr?=
- =?utf-8?Q?RZFPctUQWG68tk2rCi?=
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?L3JVeHJ0cG5aV2k4bXVrVFp3MjV4clVYTUJxNkhqMmxBYjlyWHdPRWRseHJl?=
+ =?utf-8?B?NlJYNERyR1ZQQ0ZoS0daOXcxd2hCU3hMc3pFamkzVzUwdE1TSDVOZFR4MzV6?=
+ =?utf-8?B?Zi8rWnEydkVJU2RjM21VakJ5a3RRYjZ5V2FhL3hyVTA1MHQzTmtwSEVlZURu?=
+ =?utf-8?B?Vk8xVzNsRnN1SkswQkhKRnZZbEJmTGJUOE45RXZRWFlOV29QQzNzbnZ2MDRi?=
+ =?utf-8?B?QzlxWmE4WXI2OVRweCtLT0VoY0RLcG80NXVOTTg2RDhuQ3llcm5tcjVBeDB1?=
+ =?utf-8?B?Y0xjS3lNZ3VFS1BTZkdhUkh4a1RLRmQyK3VjRGU2YkZqOWlmVzB3NUdKRVJF?=
+ =?utf-8?B?cWdWL0hlalJzV1F4eHlFQW5BSnA1T3lwcHhucFBuRlJML1IvWDQ1Y1VuRUdT?=
+ =?utf-8?B?SGltK2s3UktrTE91VTQxZkhXcmpibWFES01ObDVaUk5ERE9FdGNrU1lPNEhL?=
+ =?utf-8?B?TzNrRTZCNjQyNDFNcFFMU2JFY2Fxc01VcjBlT3p2emE1SmNJakJXcGdiaGJl?=
+ =?utf-8?B?L2dnQjlVc01MWm1xU3VtMTJObkQyZmFlRW9CcVFEY0Q3UVczZ0o1amVzYXJq?=
+ =?utf-8?B?WkJnb1dRZXZQclFzT3QxZDBFNnh4c09LYTJROTlIakpmRXY3TDE4bjhrWjVX?=
+ =?utf-8?B?c1BnUldjUVFjNlJscFBCTHpOTXU2NEFBcm1RRG5TU1ZrWEFHRWU5WEZRODdr?=
+ =?utf-8?B?clQ5ZWFnS0hCdmRsNTNadlpGdk5nM3pSdllaQXdsTVFnRHpJNmRtd1lxdUJv?=
+ =?utf-8?B?MmVocWtWS0xpc0JMTVUvOS85MWwwY0dXQjdnblJOaDFQM0VpQ3lBN3Rsamkz?=
+ =?utf-8?B?ZGY0RmYrVmZFV3RBT0tiU2pJbWJVcWgycEFoTkVjNzlQRTlZdXdzS1ozaThH?=
+ =?utf-8?B?WjBTT0VneXBtdDRmcTc3dnc2aG5zdUVCdHFjVmhoVDlyejlzdjk1aERoZTRV?=
+ =?utf-8?B?RFVpN1hxbDFUQUs4bmJyWisrNFA0dXJ6TjNMd0xreDE0cHd3OTBQayttMTlk?=
+ =?utf-8?B?SmFQdGFoTTlYU2pUdUFUMXhINkthOWNENk4xbzNHWG92U0NqUnAxSFZDNTVn?=
+ =?utf-8?B?b1pzek5tenpJNFRTcExtZC9xMXMweTFxT0M3T0RmRUc3TnVUT0lqelJxampL?=
+ =?utf-8?B?ZkRFOEdtNkhkV291dDMrUzV3elpsTGVFcGFieFpJb05yWTlqcVUrUFNnS1VK?=
+ =?utf-8?B?YWlsdjlEa2ExYXBtSGsrK2xzajB0OWwyN3Y5V1p2TEdESnd3RVduamQzRzRi?=
+ =?utf-8?B?eXMxKzBadlBWcDdGbGFVbEJNaXluR21Da1VMTlA0N1J6djNmd1A3YkVDNDQ4?=
+ =?utf-8?B?TjZUT2dlR2VPVysva2RDczJ2NVBBWGxKU3ZIZHBobVlwTHZIbG00ZU9qVmls?=
+ =?utf-8?B?RE5DblJFNTBpZklnVTFsYlY1aUpuYlNaV2ZNd1phL29laUo1amYrajRjUjVs?=
+ =?utf-8?B?UjVialVvSzJkRnBReVNlZE5BM0FEVithOFN2WnMrdWpUdE55S2krekV3anBR?=
+ =?utf-8?B?QlBJdEMwY0lsRm05VWlaOVRhOCswWnNLcWhSQ2ljQ0FKM1E3TXJ0U1dGanVR?=
+ =?utf-8?B?SVRpS2plaU5FZTkvZXBicVJzTmZydlV1NTZ0UE1SeUU3N1BOS2FobDNhdGk2?=
+ =?utf-8?B?c3g1L3ZyR1dRbFFxZkRWR1RVdUdHMWpQKy9ydFY1Q1ErUW40OWlDbWk4dE9S?=
+ =?utf-8?B?YjdjVmdHaXJ5a3BVT1NkZ00wR3E5U0xkcUtMeGMvUitHY25rZDREZ0F3TGJk?=
+ =?utf-8?B?NWNxUlBzTHFuampGK3Y0KzZpTDVIUlovdkFCSzRQU0ZrYVBKMHJLNU51ZHRI?=
+ =?utf-8?B?MjdBaitnelBmcnhac0FIRU9lbm5IQmZ5VlIwT3cyajhBTXNxMWFMWC9FV1BX?=
+ =?utf-8?B?bHoxa01teEsxRFpOYzJnLzJwbHN1dWpyUzlvNGQ5bFhxQ1AvSmpIVGZkYmp3?=
+ =?utf-8?B?aE5oTHNKQUpmWDZYMVZDV2NaSUZMVFA4TENycTdubmxqVENzUkl2TXlHZ2lr?=
+ =?utf-8?B?clBHYWExcnRTQktuSDlyK2x4LzJnaHRLMmhkN0RyMWZGZ011Wmpxd2I5T2kv?=
+ =?utf-8?B?bG80RUNTMFBsRWo1VzF3VEhRU2tIWWM0SW5uTkpSTUdreGs3L2I3UWRCYXI1?=
+ =?utf-8?B?blEvSm1mNzU2bGQ0dElTMUE4MXA5OFBFdXZVYm9iWTJyZzNMMEtjbDFCSWhn?=
+ =?utf-8?B?VlQ2NFZmTlBHd3dQY2g0RUpRZEdVbjlQLzNpRGpRU0RsVHNGZWxZWlRNY2xl?=
+ =?utf-8?B?dEdXaXlrVDN5azc4cEMwMlptdStEb3BURkE1ZGVWQnNmQmdNTzdSQ2NSVG12?=
+ =?utf-8?Q?I+Qx0o4iBBOF3zZV71?=
+Content-Type: multipart/alternative;
+ boundary="_000_SJ0PR12MB81656928402BE8895347C5C680582SJ0PR12MB8165namp_"
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e7215144-971b-42bc-0d4c-08de963e440f
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Apr 2026 13:45:30.9906 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 26i/9anG/mfdGFWwwrQzVHaClrbQc+VqaYlLTHjmeanDrXn1ZiX9aLMKOeki6Bu5
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4073
+X-MS-Exchange-CrossTenant-AuthSource: SJ0PR12MB8165.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 133194e2-fae8-49f1-5408-08de963f1691
+X-MS-Exchange-CrossTenant-originalarrivaltime: 09 Apr 2026 13:51:23.8898 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: UT0Pwsk6K71gx2/T7JwLvhvsDc+256pMS4wh0uBiIp7kS2ml1NouNRCm0K8f0B4CF4UKJ24r3Uw8jNHBYjb2Eg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6142
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -140,199 +137,110 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Geramy,
+--_000_SJ0PR12MB81656928402BE8895347C5C680582SJ0PR12MB8165namp_
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-On 4/9/26 15:12, Geramy Loveless wrote:
->  Christian,
-> 
-> This is going to be very interesting.
-> So the AMD Radeon AI R9700 Pro is running over USB4v2 into a Razor Dock on a 650W power supply I have two of these setups cards provided by AMD for some project testing on tb5 rocm ai broadcast messages for testing two machines connected over tb5 with rdma sorry if I loose you here.
+T24gMDktMDQtMjAyNiAwOTo0MSwgTWFyaW8gTGltb25jaWVsbG8gd3JvdGU6DQoNClBTUCB2MTUu
+MC4wIG5lZWRzIGJvdGggVE9DIGFuZCBUQSBmaXJtd2FyZS4gV2l0aG91dCB0aGUgZGVjbGFyYXRp
+b24NCg0KaXQgd29uJ3QgZ2V0IGluY2x1ZGVkIGluIGluaXRyYW1mcyBhbmQgbGVhZHMgdG8gZm9s
+bG93aW5nIGZhaWx1cmU6DQoNCg0KDQpgYGANCg0KRGlyZWN0IGZpcm13YXJlIGxvYWQgZm9yIGFt
+ZGdwdS9wc3BfMTVfMF8wX3RhLmJpbiBmYWlsZWQgd2l0aCBlcnJvciAtMg0KDQplYXJseV9pbml0
+IG9mIElQIGJsb2NrIDxwc3A+IGZhaWxlZCAtMTkNCg0KRmF0YWwgZXJyb3IgZHVyaW5nIEdQVSBp
+bml0DQoNCmBgYA0KDQoNCg0KRml4ZXM6IDliMjRmNjNkODI1ZTcgKCJkcm0vYW1kZ3B1OiBFbmFi
+bGUgc3VwcG9ydCBmb3IgUFNQIDE1XzBfMCIpDQoNClNpZ25lZC1vZmYtYnk6IE1hcmlvIExpbW9u
+Y2llbGxvIDxtYXJpby5saW1vbmNpZWxsb0BhbWQuY29tPjxtYWlsdG86bWFyaW8ubGltb25jaWVs
+bG9AYW1kLmNvbT4NClJldmlld2VkLWJ5OiAgUHJhdGlrIFZpc2h3YWthcm1hIDxQcmF0aWsuVmlz
+aHdha2FybWFAYW1kLmNvbTxtYWlsdG86UHJhdGlrLlZpc2h3YWthcm1hQGFtZC5jb20+Pg0KDQoN
+Cg0KLS0tDQoNCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9wc3BfdjE1XzAuYyB8IDEgKw0K
+DQogMSBmaWxlIGNoYW5nZWQsIDEgaW5zZXJ0aW9uKCspDQoNCg0KDQpkaWZmIC0tZ2l0IGEvZHJp
+dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvcHNwX3YxNV8wLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1k
+L2FtZGdwdS9wc3BfdjE1XzAuYw0KDQppbmRleCA3M2E3MDk3NzNlODViLi4yYTg1ODJlODdmMmI5
+IDEwMDY0NA0KDQotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9wc3BfdjE1XzAuYw0K
+DQorKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9wc3BfdjE1XzAuYw0KDQpAQCAtMzIs
+NiArMzIsNyBAQA0KDQogI2luY2x1ZGUgIm1wL21wXzE1XzBfMF9zaF9tYXNrLmgiDQoNCg0KDQog
+TU9EVUxFX0ZJUk1XQVJFKCJhbWRncHUvcHNwXzE1XzBfMF90b2MuYmluIik7DQoNCitNT0RVTEVf
+RklSTVdBUkUoImFtZGdwdS9wc3BfMTVfMF8wX3RhLmJpbiIpOw0KDQoNCg0KIHN0YXRpYyBpbnQg
+cHNwX3YxNV8wXzBfaW5pdF9taWNyb2NvZGUoc3RydWN0IHBzcF9jb250ZXh0ICpwc3ApDQoNCiB7
+DQo=
 
-Just as a site note 650W for two Radeon AI R9700 Pro is a bit tight. IIRC each of those GPUs can consume a maximum of 300W. Our test benches with two of those usually have 750W power supplies.
+--_000_SJ0PR12MB81656928402BE8895347C5C680582SJ0PR12MB8165namp_
+Content-Type: text/html; charset="utf-8"
+Content-ID: <105D2168BB901B418B63BC3E1AB57ADD@amdcloud.onmicrosoft.com>
+Content-Transfer-Encoding: base64
 
-But I don't think that this is the issue here, power supply problems usually look different. Is the whole box provided by AMD? Who is your contact person anyway?
+PGh0bWwgeG1sbnM6dj0idXJuOnNjaGVtYXMtbWljcm9zb2Z0LWNvbTp2bWwiIHhtbG5zOm89InVy
+bjpzY2hlbWFzLW1pY3Jvc29mdC1jb206b2ZmaWNlOm9mZmljZSIgeG1sbnM6dz0idXJuOnNjaGVt
+YXMtbWljcm9zb2Z0LWNvbTpvZmZpY2U6d29yZCIgeG1sbnM6bT0iaHR0cDovL3NjaGVtYXMubWlj
+cm9zb2Z0LmNvbS9vZmZpY2UvMjAwNC8xMi9vbW1sIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcv
+VFIvUkVDLWh0bWw0MCI+DQo8aGVhZD4NCjxtZXRhIGh0dHAtZXF1aXY9IkNvbnRlbnQtVHlwZSIg
+Y29udGVudD0idGV4dC9odG1sOyBjaGFyc2V0PXV0Zi04Ij4NCjxtZXRhIG5hbWU9IkdlbmVyYXRv
+ciIgY29udGVudD0iTWljcm9zb2Z0IFdvcmQgMTUgKGZpbHRlcmVkIG1lZGl1bSkiPg0KPHN0eWxl
+PjwhLS0NCi8qIEZvbnQgRGVmaW5pdGlvbnMgKi8NCkBmb250LWZhY2UNCgl7Zm9udC1mYW1pbHk6
+IkNhbWJyaWEgTWF0aCI7DQoJcGFub3NlLTE6MiA0IDUgMyA1IDQgNiAzIDIgNDt9DQpAZm9udC1m
+YWNlDQoJe2ZvbnQtZmFtaWx5OkFwdG9zO30NCkBmb250LWZhY2UNCgl7Zm9udC1mYW1pbHk6Q29u
+c29sYXM7DQoJcGFub3NlLTE6MiAxMSA2IDkgMiAyIDQgMyAyIDQ7fQ0KLyogU3R5bGUgRGVmaW5p
+dGlvbnMgKi8NCnAuTXNvTm9ybWFsLCBsaS5Nc29Ob3JtYWwsIGRpdi5Nc29Ob3JtYWwNCgl7bWFy
+Z2luOjBjbTsNCglmb250LXNpemU6MTIuMHB0Ow0KCWZvbnQtZmFtaWx5OiJBcHRvcyIsc2Fucy1z
+ZXJpZjt9DQphOmxpbmssIHNwYW4uTXNvSHlwZXJsaW5rDQoJe21zby1zdHlsZS1wcmlvcml0eTo5
+OTsNCgljb2xvcjpibHVlOw0KCXRleHQtZGVjb3JhdGlvbjp1bmRlcmxpbmU7fQ0KcHJlDQoJe21z
+by1zdHlsZS1wcmlvcml0eTo5OTsNCgltc28tc3R5bGUtbGluazoiSFRNTCBQcmVmb3JtYXR0ZWQg
+Q2hhciI7DQoJbWFyZ2luOjBjbTsNCgltYXJnaW4tYm90dG9tOi4wMDAxcHQ7DQoJZm9udC1zaXpl
+OjEwLjBwdDsNCglmb250LWZhbWlseToiQ291cmllciBOZXciO30NCnNwYW4uSFRNTFByZWZvcm1h
+dHRlZENoYXINCgl7bXNvLXN0eWxlLW5hbWU6IkhUTUwgUHJlZm9ybWF0dGVkIENoYXIiOw0KCW1z
+by1zdHlsZS1wcmlvcml0eTo5OTsNCgltc28tc3R5bGUtbGluazoiSFRNTCBQcmVmb3JtYXR0ZWQi
+Ow0KCWZvbnQtZmFtaWx5OkNvbnNvbGFzO30NCnNwYW4uRW1haWxTdHlsZTIwDQoJe21zby1zdHls
+ZS10eXBlOnBlcnNvbmFsLWNvbXBvc2U7DQoJZm9udC1mYW1pbHk6IlRpbWVzIE5ldyBSb21hbiIs
+c2VyaWY7fQ0KLk1zb0NocERlZmF1bHQNCgl7bXNvLXN0eWxlLXR5cGU6ZXhwb3J0LW9ubHk7DQoJ
+Zm9udC1zaXplOjEwLjBwdDsNCgltc28tbGlnYXR1cmVzOm5vbmU7fQ0KQHBhZ2UgV29yZFNlY3Rp
+b24xDQoJe3NpemU6NjEyLjBwdCA3OTIuMHB0Ow0KCW1hcmdpbjo3Mi4wcHQgNzIuMHB0IDcyLjBw
+dCA3Mi4wcHQ7fQ0KZGl2LldvcmRTZWN0aW9uMQ0KCXtwYWdlOldvcmRTZWN0aW9uMTt9DQotLT48
+L3N0eWxlPjwhLS1baWYgZ3RlIG1zbyA5XT48eG1sPg0KPG86c2hhcGVkZWZhdWx0cyB2OmV4dD0i
+ZWRpdCIgc3BpZG1heD0iMTAyNiIgLz4NCjwveG1sPjwhW2VuZGlmXS0tPjwhLS1baWYgZ3RlIG1z
+byA5XT48eG1sPg0KPG86c2hhcGVsYXlvdXQgdjpleHQ9ImVkaXQiPg0KPG86aWRtYXAgdjpleHQ9
+ImVkaXQiIGRhdGE9IjEiIC8+DQo8L286c2hhcGVsYXlvdXQ+PC94bWw+PCFbZW5kaWZdLS0+DQo8
+L2hlYWQ+DQo8Ym9keSBsYW5nPSJFTi1JTiIgbGluaz0iYmx1ZSIgdmxpbms9InB1cnBsZSIgc3R5
+bGU9IndvcmQtd3JhcDpicmVhay13b3JkIj4NCjxkaXYgY2xhc3M9IldvcmRTZWN0aW9uMSI+DQo8
+ZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+T24gMDktMDQtMjAyNiAwOTo0MSwgTWFyaW8gTGlt
+b25jaWVsbG8gd3JvdGU6PG86cD48L286cD48L3A+DQo8L2Rpdj4NCjxibG9ja3F1b3RlIHN0eWxl
+PSJtYXJnaW4tdG9wOjUuMHB0O21hcmdpbi1ib3R0b206NS4wcHQiPg0KPHByZT5QU1AgdjE1LjAu
+MCBuZWVkcyBib3RoIFRPQyBhbmQgVEEgZmlybXdhcmUuIFdpdGhvdXQgdGhlIGRlY2xhcmF0aW9u
+PG86cD48L286cD48L3ByZT4NCjxwcmU+aXQgd29uJ3QgZ2V0IGluY2x1ZGVkIGluIGluaXRyYW1m
+cyBhbmQgbGVhZHMgdG8gZm9sbG93aW5nIGZhaWx1cmU6PG86cD48L286cD48L3ByZT4NCjxwcmU+
+PG86cD4mbmJzcDs8L286cD48L3ByZT4NCjxwcmU+YGBgPG86cD48L286cD48L3ByZT4NCjxwcmU+
+RGlyZWN0IGZpcm13YXJlIGxvYWQgZm9yIGFtZGdwdS9wc3BfMTVfMF8wX3RhLmJpbiBmYWlsZWQg
+d2l0aCBlcnJvciAtMjxvOnA+PC9vOnA+PC9wcmU+DQo8cHJlPmVhcmx5X2luaXQgb2YgSVAgYmxv
+Y2sgJmx0O3BzcCZndDsgZmFpbGVkIC0xOTxvOnA+PC9vOnA+PC9wcmU+DQo8cHJlPkZhdGFsIGVy
+cm9yIGR1cmluZyBHUFUgaW5pdDxvOnA+PC9vOnA+PC9wcmU+DQo8cHJlPmBgYDxvOnA+PC9vOnA+
+PC9wcmU+DQo8cHJlPjxvOnA+Jm5ic3A7PC9vOnA+PC9wcmU+DQo8cHJlPkZpeGVzOiA5YjI0ZjYz
+ZDgyNWU3ICgmcXVvdDtkcm0vYW1kZ3B1OiBFbmFibGUgc3VwcG9ydCBmb3IgUFNQIDE1XzBfMCZx
+dW90Oyk8bzpwPjwvbzpwPjwvcHJlPg0KPHByZT5TaWduZWQtb2ZmLWJ5OiBNYXJpbyBMaW1vbmNp
+ZWxsbyA8YSBocmVmPSJtYWlsdG86bWFyaW8ubGltb25jaWVsbG9AYW1kLmNvbSI+Jmx0O21hcmlv
+LmxpbW9uY2llbGxvQGFtZC5jb20mZ3Q7PC9hPjxvOnA+PC9vOnA+PC9wcmU+DQo8L2Jsb2NrcXVv
+dGU+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIiBzdHlsZT0ibXNvLW1hcmdpbi10b3AtYWx0OmF1dG87
+bXNvLW1hcmdpbi1ib3R0b20tYWx0OmF1dG8iPjxzcGFuIHN0eWxlPSJtc28tZmFyZWFzdC1sYW5n
+dWFnZTpFTi1VUyI+UmV2aWV3ZWQtYnk6Jm5ic3A7PC9zcGFuPg0KPHNwYW4gc3R5bGU9Im1zby1m
+YXJlYXN0LWxhbmd1YWdlOkVOLVVTIj5QcmF0aWsgVmlzaHdha2FybWEgJmx0OzxhIGhyZWY9Im1h
+aWx0bzpQcmF0aWsuVmlzaHdha2FybWFAYW1kLmNvbSI+UHJhdGlrLlZpc2h3YWthcm1hQGFtZC5j
+b208L2E+Jmd0Ozwvc3Bhbj48bzpwPjwvbzpwPjwvcD4NCjxibG9ja3F1b3RlIHN0eWxlPSJtYXJn
+aW4tdG9wOjUuMHB0O21hcmdpbi1ib3R0b206NS4wcHQiPg0KPHByZT48bzpwPiZuYnNwOzwvbzpw
+PjwvcHJlPg0KPHByZT4tLS08bzpwPjwvbzpwPjwvcHJlPg0KPHByZT4gZHJpdmVycy9ncHUvZHJt
+L2FtZC9hbWRncHUvcHNwX3YxNV8wLmMgfCAxICs8bzpwPjwvbzpwPjwvcHJlPg0KPHByZT4gMSBm
+aWxlIGNoYW5nZWQsIDEgaW5zZXJ0aW9uKCspPG86cD48L286cD48L3ByZT4NCjxwcmU+PG86cD4m
+bmJzcDs8L286cD48L3ByZT4NCjxwcmU+ZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQv
+YW1kZ3B1L3BzcF92MTVfMC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvcHNwX3YxNV8w
+LmM8bzpwPjwvbzpwPjwvcHJlPg0KPHByZT5pbmRleCA3M2E3MDk3NzNlODViLi4yYTg1ODJlODdm
+MmI5IDEwMDY0NDxvOnA+PC9vOnA+PC9wcmU+DQo8cHJlPi0tLSBhL2RyaXZlcnMvZ3B1L2RybS9h
+bWQvYW1kZ3B1L3BzcF92MTVfMC5jPG86cD48L286cD48L3ByZT4NCjxwcmU+KysrIGIvZHJpdmVy
+cy9ncHUvZHJtL2FtZC9hbWRncHUvcHNwX3YxNV8wLmM8bzpwPjwvbzpwPjwvcHJlPg0KPHByZT5A
+QCAtMzIsNiArMzIsNyBAQDxvOnA+PC9vOnA+PC9wcmU+DQo8cHJlPiAjaW5jbHVkZSAmcXVvdDtt
+cC9tcF8xNV8wXzBfc2hfbWFzay5oJnF1b3Q7PG86cD48L286cD48L3ByZT4NCjxwcmU+IDxvOnA+
+PC9vOnA+PC9wcmU+DQo8cHJlPiZuYnNwO01PRFVMRV9GSVJNV0FSRSgmcXVvdDthbWRncHUvcHNw
+XzE1XzBfMF90b2MuYmluJnF1b3Q7KTs8bzpwPjwvbzpwPjwvcHJlPg0KPHByZT4rTU9EVUxFX0ZJ
+Uk1XQVJFKCZxdW90O2FtZGdwdS9wc3BfMTVfMF8wX3RhLmJpbiZxdW90Oyk7PG86cD48L286cD48
+L3ByZT4NCjxwcmU+IDxvOnA+PC9vOnA+PC9wcmU+DQo8cHJlPiZuYnNwO3N0YXRpYyBpbnQgcHNw
+X3YxNV8wXzBfaW5pdF9taWNyb2NvZGUoc3RydWN0IHBzcF9jb250ZXh0ICpwc3ApPG86cD48L286
+cD48L3ByZT4NCjxwcmU+IHs8bzpwPjwvbzpwPjwvcHJlPg0KPC9ibG9ja3F1b3RlPg0KPC9kaXY+
+DQo8L2JvZHk+DQo8L2h0bWw+DQo=
 
-> What I am seeing or finding in my opinion is thunderbolt is not very well flushed out on Linux in terms of stability and accessible feature sets.
-
-Yeah agree, thunderbolt setups is also not something we usually have in our production testing. So it can work but absolutely no guarantee for that.
-
-> After my kernel pci patch I have gotten it to work which we went over already.
-
-Your patch looks valid of hand. But you need to be super careful which resources to release on BAR resize.
-
-For example AMD GPUs usually have two resizable 64bit BARs and one 32bit BAR, *don't* release the 32bit BAR or you most likely run into trouble.
-
-So it would be helpful if you provide an lspci -vvvv -s $bdf of the two devices with and without your patch.
-
-> 
-> I have one machine running Qwen3.5 27B A3B on the GPU with llamacpp / lemonade successfully but yesterday after attempting to load the model which it did into vram it crashed which ten minutes prior was running a prompt 73k tokens at 40tps. A side note The power management on Thunderbolt seems to clash with the power management on the GPU. What I was seeing is when the GPU doesn’t detect a display it “suspends” which may be correct or not but it doesn’t matter either way in this scenario.
-
-That behavior is perfectly correct but the message is a bit misleading. The GPU suspends when there is nothing displayed nor any software client connected.
-
-So every time all applications stop the GPU is powered down and every time any application starts it is power up again. This of course exercises all the drivers and firmware involved, so there is a lot which can go wrong and I'm not surprised that you have seen problems with that.
-
-> The Thunderbolt fabric I believe shuts down also and kills the link. I got passed this by disabling all PM systems.
-
-How did you do that? E.g. which parameter did you use?
-
-> So I’m not 100% sure what’s going on and how to find the actual problem yet maybe if I spend more time and brain power on this I’ll find where in power management it’s having the problem or if that’s the real problem. Let me know if you can offer anymore guidance into where I should dig. I appreciate the help this far and the SMU information helps get more context.
-
-I'm here to help.
-
-Cheers,
-Christian.
-
-> 
-> On Thu, Apr 9, 2026 at 5:57 AM Christian König <christian.koenig@amd.com <mailto:christian.koenig@amd.com>> wrote:
-> 
->     Hi Geramy,
-> 
->     On 4/9/26 14:13, Geramy Loveless wrote:
->     > Hi Christian,
->     >
->     > I appreciate the speedy response,
->     > What your saying makes sense they are basically wrapping symptoms that could at least from what I seen now at this point only continue and eventually create a web of useless code to try to catch all code paths it hits during crashing. Let me investigate the real reason as to why it’s crashing more rather then where.
-> 
->     To just give you a bit background on what happens here:
-> 
->     AMD GPUs have an embedded micro controller called SMU which takes care of things like voltages, clocks, temperature, fan speed etc.. and reset.
-> 
->     So when the kernel driver detects that it needs to do a reset it sends a MODE1 reset command to the SMU. But instead of the SMU coming back a short time later noting that the reset was done the device just drops off the bus (e.g. all reads return 0xffffffff).
-> 
->     The cause of that can be anything, e.g. from power fluctuations to a dirty fan which doesn't starts to rotate again after it was stopped.
-> 
->     I would try to narrow it down step by step, e.g. if it work on older kernels, if yes what feature/patch broke the behavior. You can also try to disable certain power management features like ASPM (try amdgpu.aspm=0 on the kernel command line).
-> 
->     Hope that helps,
->     Christian.
-> 
->     >
->     >
->     > On Thu, Apr 9, 2026 at 4:42 AM Christian König <christian.koenig@amd.com <mailto:christian.koenig@amd.com> <mailto:christian.koenig@amd.com <mailto:christian.koenig@amd.com>>> wrote:
->     >
->     >     On 4/9/26 02:05, Geramy Loveless wrote:
->     >     > When an AMD GPU behind a Thunderbolt PCIe tunnel undergoes a MODE1 on
->     >     > Thunderbolt the TB driver receives no notification and the tunnel
->     >     > stays up while the endpoint is unreachable.
->     >
->     >     IIRC a MODE1 reset should keep the bus active and so the endpoint should still be reachable.
->     >
->     >     > All subsequent PCIe
->     >     > reads return 0xFFFFFFFF and MES firmware cannot reinitialize,
->     >     > triggering an infinite reset loop that hangs the system.
->     >
->     >     That sounds more like the MODE1 reset failed.
->     >
->     >     > After MODE1 reset completes, check whether the PCIe endpoint is still
->     >     > reachable using pci_device_is_present(). If the device is behind
->     >     > Thunderbolt and the link is dead, walk up parent bridges calling
->     >     > pci_bridge_secondary_bus_reset() to retrain the physical PCIe link
->     >     > inside the dock.
->     >
->     >     Well that is then a bus reset.
->     >
->     >     I mean that is a reasonable mitigation when a MODE1 reset failed, but the question is rather why does the MODE1 reset fails in the first place?
->     >
->     >     > If recovery fails, return -ENODEV to prevent the
->     >     > reset retry loop.
->     >     >
->     >     > This also causes the GPU fan to be at 100% and basically when it
->     >     > happens and you are not there, you now have a GPU with fan at 100% and
->     >     > cant reset it.
->     >     > I wanted to notate some other things I am finding sometimes before
->     >     > this adventure of patches to the kernel and amdgpu driver.
->     >     > Sometimes a crash could happen in the drive and then the GPU fan speed
->     >     > hits 100% and the air is hot coming out without any workload, other
->     >     > times
->     >     > I have seen it have barely any fan speed at all and heat up more than
->     >     > it should at the fan level its curently operating at. These are things
->     >     > I have seen with this gpu in a TB5 dock with the driver and
->     >     > instability. I'm not sure exactly whats going on there but I figured
->     >     > since im communicating with these patches I might as well bring you up
->     >     > to speed and supermario has been great help throughout me trying to
->     >     > get the AMD AI R9700 Pro working on my MS-S1 Halo Strix with a TB5 /
->     >     > USB4v2 dock!
->     >
->     >     Adding Mario as well. That strongly sounds like you crashed the SMU which would also explain the failed MODE1 reset.
->     >
->     >     But all of that are only symptoms. Question is what is actually going on here? e.g. what is the root cause?
->     >
->     >     >
->     >     > It seems to be finally working with bar resizing after my kernel
->     >     > patch. Which allows you to safely release a empty switch bridge at the
->     >     > device end.
->     >     > Then it rebuilds it afterwords with the increased bar. This was done
->     >     > on Kernel 7.0-rc7 i believe it is and latest changes from pci/resource
->     >     > branch with my patch here.
->     >     >
->     >     > https://lore.kernel.org/linux-pci/CAGpo2meKY6SXsESU-D0PGgbESLqdF8UBF-tmThxOvk2XUDpEzw@mail.gmail.com/T/#u <https://lore.kernel.org/linux-pci/CAGpo2meKY6SXsESU-D0PGgbESLqdF8UBF-tmThxOvk2XUDpEzw@mail.gmail.com/T/#u> <https://lore.kernel.org/linux-pci/CAGpo2meKY6SXsESU-D0PGgbESLqdF8UBF-tmThxOvk2XUDpEzw@mail.gmail.com/T/#u <https://lore.kernel.org/linux-pci/CAGpo2meKY6SXsESU-D0PGgbESLqdF8UBF-tmThxOvk2XUDpEzw@mail.gmail.com/T/#u>>
->     >
->     >     Where is the MMIO register BAR before and after the rebuild?
->     >
->     >     Regards,
->     >     Christian.
->     >
->     >     >
->     >     > Thank you!
->     >     >
->     >     > Signed-off-by: Geramy Loveless <gloveless@jqluv.com <mailto:gloveless@jqluv.com> <mailto:gloveless@jqluv.com <mailto:gloveless@jqluv.com>>>
->     >     > ---
->     >     > drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 40 ++++++++++++++++++++++
->     >     > 1 file changed, 40 insertions(+)
->     >     >
->     >     > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->     >     > b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->     >     > index 31a60173c..91d01d538 100644
->     >     > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->     >     > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->     >     > @@ -5770,6 +5770,46 @@ int amdgpu_device_mode1_reset(struct amdgpu_device *adev)
->     >     > /* ensure no_hw_access is updated before we access hw */
->     >     > smp_mb();
->     >     > + /*
->     >     > + * On Thunderbolt-attached GPUs, MODE1 reset kills the PCIe
->     >     > + * endpoint but the TB tunnel stays up unaware. Detect the
->     >     > + * dead link and attempt recovery by resetting parent bridges
->     >     > + * to retrain the physical PCIe link inside the dock.
->     >     > + */
->     >     > + if (!pci_device_is_present(adev->pdev) &&
->     >     > + pci_is_thunderbolt_attached(adev->pdev)) {
->     >     > + struct pci_dev *bridge;
->     >     > + bool recovered = false;
->     >     > +
->     >     > + dev_info(adev->dev,
->     >     > + "PCIe link lost after mode1 reset, attempting Thunderbolt recovery\n");
->     >     > +
->     >     > + bridge = pci_upstream_bridge(adev->pdev);
->     >     > + while (bridge && !pci_is_root_bus(bridge->bus)) {
->     >     > + dev_info(adev->dev,
->     >     > + "attempting link recovery via %s\n",
->     >     > + pci_name(bridge));
->     >     > + pci_bridge_secondary_bus_reset(bridge);
->     >     > + msleep(100);
->     >     > + if (pci_device_is_present(adev->pdev)) {
->     >     > + recovered = true;
->     >     > + break;
->     >     > + }
->     >     > + bridge = pci_upstream_bridge(bridge);
->     >     > + }
->     >     > +
->     >     > + if (!recovered) {
->     >     > + dev_err(adev->dev,
->     >     > + "Thunderbolt PCIe link recovery failed\n");
->     >     > + ret = -ENODEV;
->     >     > + goto mode1_reset_failed;
->     >     > + }
->     >     > +
->     >     > + dev_info(adev->dev,
->     >     > + "Thunderbolt PCIe link recovered via %s\n",
->     >     > + pci_name(bridge));
->     >     > + }
->     >     > +
->     >     > amdgpu_device_load_pci_state(adev->pdev);
->     >     > ret = amdgpu_psp_wait_for_bootloader(adev);
->     >     > if (ret)
->     >     > --
->     >     > 2.51.0
->     >
-> 
-
+--_000_SJ0PR12MB81656928402BE8895347C5C680582SJ0PR12MB8165namp_--
