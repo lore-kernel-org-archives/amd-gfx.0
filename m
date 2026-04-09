@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8E87FF31E21
-	for <amd-gfx@archiver.kernel.org>; Thu,  9 Apr 2026 15:04:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E7EF1F31E27
+	for <amd-gfx@archiver.kernel.org>; Thu,  9 Apr 2026 15:04:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1DE9510E0ED;
-	Thu,  9 Apr 2026 15:04:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 75B9810E815;
+	Thu,  9 Apr 2026 15:04:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Ysa94wYA";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="psfIt2pU";
 	dkim-atps=neutral
-Received: from PH8PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11012013.outbound.protection.outlook.com [40.107.209.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2D2B810E0ED
- for <amd-gfx@lists.freedesktop.org>; Thu,  9 Apr 2026 15:04:24 +0000 (UTC)
+Received: from MW6PR02CU001.outbound.protection.outlook.com
+ (mail-westus2azon11012064.outbound.protection.outlook.com [52.101.48.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B016B10E813
+ for <amd-gfx@lists.freedesktop.org>; Thu,  9 Apr 2026 15:04:27 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=BUk0OhGYhwNM5PY0DUT5u36IvEnCvWhoBK5YG8ICVGQBe4azXiUJjysltukD6lbVqu/R/XwNr92D/8dSWZLBCxXvlCiCO+4iBGjX5Htm3nKQ+nhnMtwoxbTaxm5SXWO9Sq+eTEsH56vf3ZNalPnQsTPIjwNdpZEvbG4RLw0iI1T/SzlQwNtLP1ZzGsudrdYxTcH4L5m3mBrFl+RovWVc5k78u+wERGC7Q0OZ8jHTv36SmtvR9WgyDGOB7XgurYS62oTxrySj9UBa3zRWbsuoP732iU47/3MgKwF+W8Kvhu/Cr/WH06DvhnUDnfPuNs3b6t88cgYjaFpRFEeOsPKxDw==
+ b=rFZvO7Gi4vtpcRcrA8Pxn5KnsXd2tM9r05MTE9cD05r81YZcy9htp3YfNyHsjCjMXzmVUqwW7WOAOonLz0aIyvqAr8mov+03ymoVSI8CYGq/Qv+b3lZHwq3CM67j6/onAjVcoOiic8RtucBq0dYfWFBzNaGM8ysipAIk8pA+k0KUmjBN9OINOUH9gUo3oa0+kRwTb2myNb2r8NHaeQ0GaYc+YTX/4gsfAkgaw6I4NEnZIyGJleY65sQObiOBfmnIDA3gws9WKUEnGSGLGZx6GlXNqiYvDub0mqr5MN/2mfPGP77XGS5oqECHMji+5DS4+v9YGYx/+rZaY6PPRPa4ng==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=VQ9NJ34dVPNtaT3smTXotsRLZkR2bsIoImV3tcs+O2s=;
- b=aOoiTS1JQ3wvAL1k2yZJYacteBL1pUmjit+n3F7Q8Pi7PFZq/ukFitQ7umVbZfv3JBoy87oRMCW08QOxwujQniQ/czSArMI1dmq8vf6TKNGHCWP9iyUVY490eEscmT++3hECuf7xAnwQDmYECxzPvMB5HI4Afm5bN5LlqUV3yBq0ncOP2wVZ3eHVr13rLIz6Yd8Lnk8WIiHYfNYjg/ACdM0CHRBgd9CGXyJx1jcqE6fVlPFZYEOvb1Vio7iYG39CHR9baGn6K0N0wkH4rQC7VLrdNt+WDi0xRwnaPu/9oiFWy7JAwUQy5jN4O74IdZeUdwT9aEdwuytRcOuizZkISg==
+ bh=3Jz4k86SsMRm+9b33cNBwNAYcFPibAdrivUZfUqaQ9o=;
+ b=UBL5/U8NK61CoeiFTwdOZJmETNNXauwc/ZxYOH99oNmuRzUnT+28AxNb4nf35gayB6vjIDCxVp1yz4YWyEBVteEhWXE+kbrhxB9a6AD4o+4VwjcGTBRxwHISTBFj9m/hF5zeL79tRm1e/Zb0uuMUSziCQ0qm3cG6ZMsAR5YLUUivUoSFRmyiNPEAjfEnxijwkcv90v9t7FG4oJ9/JA3ELvhO5+l9WLeYR77MwIvdh8j75REijy7vQgmaiWr091VUSYCqFXrQyG7U/p571jnfhJ6YMr2ArH57Q9llrBCQqm2Vw9zCuhscMvwwhvRfKQYj296msFTjtXlPdletHrZZqQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=VQ9NJ34dVPNtaT3smTXotsRLZkR2bsIoImV3tcs+O2s=;
- b=Ysa94wYA2yHHT/LZ/0h22Cclf1Bk7H2GXoqcPHxhYlNrWSgVFbd7S+bt1xU9pHAk6MHMp2Ao0R541Dwmq2vMkDCNPz5/96EAS6/Rv8abFMJsCKO6k5klWuV1S/9+xU+wk7ERJRqUVSQZrOeZHl8oZP+YyTKFEd27eIFzqQlNpMc=
-Received: from SJ0PR13CA0058.namprd13.prod.outlook.com (2603:10b6:a03:2c2::33)
- by CH8PR12MB999203.namprd12.prod.outlook.com (2603:10b6:610:35a::19)
+ bh=3Jz4k86SsMRm+9b33cNBwNAYcFPibAdrivUZfUqaQ9o=;
+ b=psfIt2pUZMY939mL/fDkyNFJQxsUi+vABdtkGg4Xou2kuBNPd6MLaXMCMkOBQcka5+XMc67O0JuRrrud71KPVYSngDINp/K1Y/twAmG0A8L3+u6Z1iRm4ZCbjdlMkJPhtam6VpWAYTtx9b5Tz82Jea6m0OvIR6RcZPNooldq/Pk=
+Received: from SJ0PR13CA0049.namprd13.prod.outlook.com (2603:10b6:a03:2c2::24)
+ by MN0PR12MB5835.namprd12.prod.outlook.com (2603:10b6:208:37a::6)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.18; Thu, 9 Apr
- 2026 15:04:21 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9791.32; Thu, 9 Apr
+ 2026 15:04:23 +0000
 Received: from SJ1PEPF00001CE3.namprd05.prod.outlook.com
- (2603:10b6:a03:2c2:cafe::a7) by SJ0PR13CA0058.outlook.office365.com
- (2603:10b6:a03:2c2::33) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9769.37 via Frontend Transport; Thu,
- 9 Apr 2026 15:04:21 +0000
+ (2603:10b6:a03:2c2:cafe::a0) by SJ0PR13CA0049.outlook.office365.com
+ (2603:10b6:a03:2c2::24) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9769.33 via Frontend Transport; Thu,
+ 9 Apr 2026 15:04:22 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -50,18 +50,18 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from satlexmb07.amd.com (165.204.84.17) by
  SJ1PEPF00001CE3.mail.protection.outlook.com (10.167.242.11) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9769.17 via Frontend Transport; Thu, 9 Apr 2026 15:04:20 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
+ 15.20.9769.17 via Frontend Transport; Thu, 9 Apr 2026 15:04:22 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Thu, 9 Apr
- 2026 10:04:15 -0500
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Thu, 9 Apr
- 2026 10:04:15 -0500
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.17; Thu, 9 Apr
+ 2026 10:04:17 -0500
+Received: from satlexmb08.amd.com (10.181.42.217) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 9 Apr
+ 2026 10:04:16 -0500
 Received: from aaurabin-tumbleweed.amd.com (10.180.168.240) by
  satlexmb08.amd.com (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.17
- via Frontend Transport; Thu, 9 Apr 2026 10:04:15 -0500
+ via Frontend Transport; Thu, 9 Apr 2026 10:04:16 -0500
 From: Aurabindo Pillai <aurabindo.pillai@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -69,42 +69,45 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Wayne Lin <wayne.lin@amd.com>, Tom Chung <chiahsuan.chung@amd.com>, "Fangzhi
  Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
- <alex.hung@amd.com>, Chuanyu Tseng <Chuanyu.Tseng@amd.com>
-Subject: [PATCH 2/6] drm/amd/display: Use overlay cursor when color pipeline
- is active
-Date: Thu, 9 Apr 2026 11:03:10 -0400
-Message-ID: <20260409150413.34779-3-aurabindo.pillai@amd.com>
+ <alex.hung@amd.com>, Chuanyu Tseng <Chuanyu.Tseng@amd.com>, Wenjing Liu
+ <wenjing.liu@amd.com>, Dillon Varone <dillon.varone@amd.com>
+Subject: [PATCH 4/6] drm/amd/display: add const qualifiers to watermark params
+ struct
+Date: Thu, 9 Apr 2026 11:03:12 -0400
+Message-ID: <20260409150413.34779-5-aurabindo.pillai@amd.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260409150413.34779-1-aurabindo.pillai@amd.com>
 References: <20260409150413.34779-1-aurabindo.pillai@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
+Received-SPF: None (SATLEXMB04.amd.com: aurabindo.pillai@amd.com does not
+ designate permitted sender hosts)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF00001CE3:EE_|CH8PR12MB999203:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0124d187-5365-4352-23cb-08de96494757
+X-MS-TrafficTypeDiagnostic: SJ1PEPF00001CE3:EE_|MN0PR12MB5835:EE_
+X-MS-Office365-Filtering-Correlation-Id: bc40d256-c634-4cbf-67c2-08de96494892
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|36860700016|376014|1800799024|18002099003|56012099003|22082099003;
-X-Microsoft-Antispam-Message-Info: q9g5YOX6XJVhwW6XnliAFR3oD4td0RHYlcdr+Sec/AcNilvz6cXbmDE9ZWQZ8GN1m7J6lOIlvPF3eC8/1DkCc/xIocHAqnJ9k/vO0dKHx0LtKT59FMMJHrjVDvBa7dIzRpDBO7Sf3mGwiq1auyBqJHxwkhtE0nqTD2evb9/NE/QxtCEfsis6ArmuhCfmcyR+BNA9e0FFW901I3t/O5/JiBiXvJ3NAfDAxuuu4DfbPKYktqn8TB0qcyB6G2NvoCu5GyJZeX+Uyj7H61mbbrgHCzwIATSz69OCJhwbBizKfEuSSse2j76T9ZndrCSwe2/9TneOgsQLbN5Dg0+mAn9HWXfAf9f3L5bhpvGaXSBb6LaaTLT3Rnlz/EluMnb1qUAQ1PNuIagB3dk93Vc0POah8Ju7FQ2LcHEyZ5VUf64BOKMHSqQ35WyjdXShVEwjU2IypNb3cFlaB3255WEKsCY2FQaO02oLAUPL2GKON2JnjjoKIhjDSqzH2JF3TXAg+jcB07NEAC5hkqmNr4nJP97NZ24c8p+eHsCWCVxiA6a7/KWxtv51hNG2y1fdNsH0JUuGvS4cbPgklmMknE7nEBq15a43iEhjvye/c+7ODt1aG7nWymZrEUQfEH6osWAj/510zqlLl+TUOuNQBFokusXdFjk4D+EiPahZOetZj+bgvHhdFY3NODNVJihQwTw/akNFw9EZsreX3zR5qeN+OW88fh5ChdUZfUcwRgFPcZEh9IBR2RXWumPxSZFxtDZJ89q9KKq7QD3jllAQO4nnFQHS1w==
+ ARA:13230040|376014|1800799024|36860700016|82310400026|56012099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: B04KnfcDevpF6FNsY8KK870MZ0aso3oPsOybNU+C8dz/raBgK5mdKWV/cAyLiHCNJKvXMdP4p9arlXo8CudUNLP98AWVIOez5BXMu8uPzEQ3thUDkceWXErtGZQuX63J9lGerpwD4pymzZTHikAqKp2Q68UR7tTFEVRQOnAnN5X3nf6SVjzbS/B8ea/yEbTKEr8aK83yGBEVR3heGaRYO1EOCQJU+ticIYzloDx2IB2lRL0Ug3YjtR3caKUQ2JX3/W2B1ee4CV8StDQKDT8YcjMWRrXl5/yvy8aT6GHVvK3bIx4LAhHubaQNiyTCv41noIkYQeIZXeRzh0MnbHjupEdcnZ6uDeTtQ7D5s/qKge0cqe+yJmkU0R7AJkQ0IdUvHrkOLo0bY58DW+kacTE9r5jAkV9glEHMdzHXzOu5KmpT0UECFA7o6btZdV10iblgJmt74WNqftqY2BF2hS/MsTssWrLJxYLibA5e4nbgb+3s5HPGDtlf1XXYw6YuE5dZ951f+7mo7Lp7Powwb1DCgWwp3yh4W/w/QZM18cZ+1OEaTI7jPFq55tF6Dli+qfqIR7+mdoE6RvIzvpPkCcRrBaRuXH4sbKdNmwphwP7klxaQ50kAM37/Dc1GpKrJoFuS5SpEqgrMiPPsPIyiavnMFnvrtsW/OOcdjfMhm5vdeUoQjdDIh/DgMOG7uZGJIAbO71dhmun8B255VpzJLxi8IWnS7fyUhS172fAe/Hwguw4nm+inL6LELOlXxOGism+djywaYBa2+hWLQLAQp5HfpA==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(36860700016)(376014)(1800799024)(18002099003)(56012099003)(22082099003);
+ SFS:(13230040)(376014)(1800799024)(36860700016)(82310400026)(56012099003)(22082099003)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: UagAd3Fi8TG6UFFjYGYgofJspPR+g6kn/s3zSldbmCSCXTxrlrGFC4wNVlX6YlhYa3xkArpipK++YppaK5uRNLU3sM4Mfo7ioB4pfebEOaECAzSCGTO1GX/UQNzH5703Ql5OwA742AIWguDwcU9KnPBNZ6TjW4KJPWKaC6fbzyZvDR0aN68AJg1aX78wjuN1BAiFD/FJhS5dcqRCsrv+/QFA0nv1kcl/6qLt+ED8ITASh31mXeT27D9JAncQ5kHHL59Glrk0iMdxyowJi8lvD/LvLPS6XwiC0/E2gkhqvVGEDxT809rAEDckl5/6j1lnGpK3+xSk+dE3ZrGpgJ6JNht2qGk1o+xREz79OBwoLf5uOLLax5/lJACBE7VeStoevTx6T3Krh+FgknJZDBgJCsoyQgbYZeWbrvm+2TP7vA7CrDRRWld79s/O3woSShsW
+X-MS-Exchange-AntiSpam-MessageData-0: rIhmIBVtL1Hz2cYLkFOTh1cuhBHCGm/ugwUd86Xdw1u/AOC8KsEmMmmnphpNyS5H/xwC3HduT2rx7H4H2Uk5d/WFfdqIw4xfPgAK370pjxrrTtiFIJhTakI4hKd82NvOOR35UVJgh1/qdS9TS51pVa/xOda0o9tctwoaIyiDTKYCeCGFlyagYoE03IKa12CQ178OLzSz6elCOV4p00wmqQi177bFWDCfCUfAQamuNhb1R6Fo2TWq4uK2Fj5jUpEwKltHg1T4PSEVRWdWeCimlzRF/FI6D/e3IkpIbGxiX2FY7TXRevAPAVhX02i3Gt9xECAoeaDFlfu3ao9sZI7OgWyMaR2LQRAT4CtB7OFClwv7gJLQGD5Mi9VbNzdh6RTb350pepDGtHWfnqMGlopqaAvXosDnj+uB8CGHTgFDY4j2hzgEQcWyG/VZKrjN/ruq
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Apr 2026 15:04:20.5756 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0124d187-5365-4352-23cb-08de96494757
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Apr 2026 15:04:22.6390 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: bc40d256-c634-4cbf-67c2-08de96494892
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF00001CE3.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH8PR12MB999203
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB5835
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -119,124 +122,71 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Alex Hung <alex.hung@amd.com>
+From: Wenjing Liu <wenjing.liu@amd.com>
 
-Force overlay cursor mode when an underlying plane has a non-bypassed
-color pipeline to avoid incorrect cursor transformation.
+[why]
+There are few non const input pointer fields. Setting them to const to
+prevent future modification of read-only data.
 
-Reviewed-by: Sun peng (Leo) Li <sunpeng.li@amd.com>
-Signed-off-by: Alex Hung <alex.hung@amd.com>
+Reviewed-by: Dillon Varone <dillon.varone@amd.com>
+Signed-off-by: Wenjing Liu <wenjing.liu@amd.com>
 Signed-off-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
 ---
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 53 +++++++++++++++++--
- 1 file changed, 49 insertions(+), 4 deletions(-)
+ .../src/dml2_core/dml2_core_shared_types.h    | 34 +++++++++----------
+ 1 file changed, 17 insertions(+), 17 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index bac02ea15b8a..bb3a92916bc8 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -95,6 +95,7 @@
- #include <drm/drm_utils.h>
- #include <drm/drm_vblank.h>
- #include <drm/drm_audio_component.h>
-+#include <drm/drm_colorop.h>
- #include <drm/drm_gem_atomic_helper.h>
+diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_shared_types.h b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_shared_types.h
+index 41d0c99d0864..987b29808ca4 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_shared_types.h
++++ b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_shared_types.h
+@@ -1721,30 +1721,30 @@ struct dml2_core_calcs_CalculateWatermarksMALLUseAndDRAMSpeedChangeSupport_param
+ 	double ReturnBW;
+ 	bool SynchronizeTimings;
+ 	bool SynchronizeDRRDisplaysForUCLKPStateChange;
+-	unsigned int *dpte_group_bytes;
++	const unsigned int *dpte_group_bytes;
+ 	struct dml2_core_internal_SOCParametersList mmSOCParameters;
+ 	unsigned int WritebackChunkSize;
+ 	double SOCCLK;
+ 	double DCFClkDeepSleep;
+-	unsigned int *DETBufferSizeY;
+-	unsigned int *DETBufferSizeC;
+-	unsigned int *SwathHeightY;
+-	unsigned int *SwathHeightC;
+-	unsigned int *SwathWidthY;
+-	unsigned int *SwathWidthC;
+-	unsigned int *DPPPerSurface;
+-	double *BytePerPixelDETY;
+-	double *BytePerPixelDETC;
+-	unsigned int *DSTXAfterScaler;
+-	unsigned int *DSTYAfterScaler;
++	const unsigned int *DETBufferSizeY;
++	const unsigned int *DETBufferSizeC;
++	const unsigned int *SwathHeightY;
++	const unsigned int *SwathHeightC;
++	const unsigned int *SwathWidthY;
++	const unsigned int *SwathWidthC;
++	const unsigned int *DPPPerSurface;
++	const double *BytePerPixelDETY;
++	const double *BytePerPixelDETC;
++	const unsigned int *DSTXAfterScaler;
++	const unsigned int *DSTYAfterScaler;
+ 	bool UnboundedRequestEnabled;
+ 	unsigned int CompressedBufferSizeInkByte;
+ 	bool max_outstanding_when_urgent_expected;
+-	unsigned int max_outstanding_requests;
+-	unsigned int max_request_size_bytes;
+-	unsigned int *meta_row_height_l;
+-	unsigned int *meta_row_height_c;
+-	enum dml2_pstate_method *uclk_pstate_switch_modes;
++	const unsigned int max_outstanding_requests;
++	const unsigned int max_request_size_bytes;
++	const unsigned int *meta_row_height_l;
++	const unsigned int *meta_row_height_c;
++	const enum dml2_pstate_method *uclk_pstate_switch_modes;
  
- #include <media/cec-notifier.h>
-@@ -12325,6 +12326,38 @@ static int add_affected_mst_dsc_crtcs(struct drm_atomic_state *state, struct drm
-  * available.
-  */
- 
-+/**
-+ * dm_plane_color_pipeline_active() - Check if a plane's color pipeline active.
-+ * @state: DRM atomic state
-+ * @plane: DRM plane to check
-+ * @use_old: if true, inspect the old colorop states; otherwise the new ones
-+ *
-+ * A color pipeline may be selected (color_pipeline != NULL) but still is
-+ * inactive if every colorop in the chain is bypassed.  Only return
-+ * true when at least one colorop has bypass == false, meaning the cursor
-+ * would be subjected to the transformation in native mode.
-+ *
-+ * Return: true if the pipeline modifies pixels, false otherwise.
-+ */
-+static bool dm_plane_color_pipeline_active(struct drm_atomic_state *state,
-+					   struct drm_plane *plane,
-+					   bool use_old)
-+{
-+	struct drm_colorop *colorop;
-+	struct drm_colorop_state *old_colorop_state, *new_colorop_state;
-+	int i;
-+
-+	for_each_oldnew_colorop_in_state(state, colorop, old_colorop_state, new_colorop_state, i) {
-+		struct drm_colorop_state *cstate = use_old ? old_colorop_state : new_colorop_state;
-+
-+		if (cstate->colorop->plane != plane)
-+			continue;
-+		if (!cstate->bypass)
-+			return true;
-+	}
-+	return false;
-+}
-+
- /**
-  * dm_crtc_get_cursor_mode() - Determine the required cursor mode on crtc
-  * @adev: amdgpu device
-@@ -12336,8 +12369,8 @@ static int add_affected_mst_dsc_crtcs(struct drm_atomic_state *state, struct drm
-  * the dm_crtc_state.
-  *
-  * The cursor should be enabled in overlay mode if there exists an underlying
-- * plane - on which the cursor may be blended - that is either YUV formatted, or
-- * scaled differently from the cursor.
-+ * plane - on which the cursor may be blended - that is either YUV formatted,
-+ * scaled differently from the cursor, or has a color pipeline active.
-  *
-  * Since zpos info is required, drm_atomic_normalize_zpos must be called before
-  * calling this function.
-@@ -12375,7 +12408,7 @@ static int dm_crtc_get_cursor_mode(struct amdgpu_device *adev,
- 
- 	/*
- 	 * Cursor mode can change if a plane's format changes, scale changes, is
--	 * enabled/disabled, or z-order changes.
-+	 * enabled/disabled, z-order changes, or color management properties change.
- 	 */
- 	for_each_oldnew_plane_in_state(state, plane, old_plane_state, plane_state, i) {
- 		int new_scale_w, new_scale_h, old_scale_w, old_scale_h;
-@@ -12400,6 +12433,12 @@ static int dm_crtc_get_cursor_mode(struct amdgpu_device *adev,
- 			consider_mode_change = true;
- 			break;
- 		}
-+
-+		if (dm_plane_color_pipeline_active(state, plane, true) !=
-+		    dm_plane_color_pipeline_active(state, plane, false)) {
-+			consider_mode_change = true;
-+			break;
-+		}
- 	}
- 
- 	if (!consider_mode_change && !crtc_state->zpos_changed)
-@@ -12440,6 +12479,12 @@ static int dm_crtc_get_cursor_mode(struct amdgpu_device *adev,
- 			return 0;
- 		}
- 
-+		/* Underlying plane has an active color pipeline - cursor would be transformed */
-+		if (dm_plane_color_pipeline_active(state, plane, false)) {
-+			*cursor_mode = DM_CURSOR_OVERLAY_MODE;
-+			return 0;
-+		}
-+
- 		dm_get_plane_scale(plane_state,
- 				   &underlying_scale_w, &underlying_scale_h);
- 		dm_get_plane_scale(cursor_state,
-@@ -12819,7 +12864,7 @@ static int amdgpu_dm_atomic_check(struct drm_device *dev,
- 			goto fail;
- 		} else if (required_cursor_mode == DM_CURSOR_OVERLAY_MODE) {
- 			drm_dbg_driver(crtc->dev,
--				       "[CRTC:%d:%s] Cannot enable native cursor due to scaling or YUV restrictions\n",
-+				       "[CRTC:%d:%s] Cannot enable native cursor due to scaling, YUV, or color pipeline restrictions\n",
- 				       crtc->base.id, crtc->name);
- 			ret = -EINVAL;
- 			goto fail;
+ 	// Output
+ 	struct dml2_core_internal_watermarks *Watermark;
 -- 
 2.53.0
 
