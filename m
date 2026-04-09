@@ -4,126 +4,126 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 651B2EA3C4E
-	for <amd-gfx@archiver.kernel.org>; Thu,  9 Apr 2026 12:48:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8BB97EA3C59
+	for <amd-gfx@archiver.kernel.org>; Thu,  9 Apr 2026 12:57:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E5D7510E4AF;
-	Thu,  9 Apr 2026 12:48:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0A9C110E7EC;
+	Thu,  9 Apr 2026 12:57:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="BKDd/qie";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Llp4z6iG";
 	dkim-atps=neutral
-Received: from PH0PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11011021.outbound.protection.outlook.com [40.107.208.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5870F10E4AF
- for <amd-gfx@lists.freedesktop.org>; Thu,  9 Apr 2026 12:48:10 +0000 (UTC)
+Received: from CY3PR05CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11013016.outbound.protection.outlook.com
+ [40.93.201.16])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4BF7B10E7EC
+ for <amd-gfx@lists.freedesktop.org>; Thu,  9 Apr 2026 12:57:50 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=vEhtDSKLuCVY6ng90Om7L4VnxUYVb+w/KqbIv+DaEb48J124xwST646vBVzWsK8mRa64/3BN9xvsPlJq1K+59g7GQG8J9Bs+aFkcB1cSQZ84+nAE2RED8a6AOqRFPL8L+NOD0LOn18U4iHi8H6wahXtkLrM3S4kOrZaYBAebB5QiHsERwTq/sAIP+bOZvjsbtMfm1IlCjPZ0Z1ZnQCMp9F29m/kAGOQmGNW71JVOzjMdRpcQ8D5TQfo4N6Mwem6cZUzWdbsgrOvkcQPg8VVfqkIT5qvoCg1JVDNI91K94hshk8ZNnLXk/VbjOuUu3C5Rj9tdeC6niINCP1hANGXHVg==
+ b=g3PiyZAuBIgc+GGcQ3sXnXYH2Loah1p/utgpcc1rWkGWRntyETApsOGfZg73Wb8xP6/hglHzTkBhEFks9EF8Pe86zqnqp+27mfmebEpnJi++lFHKcZcc1RqKoggw70aTLeL4PlV2FCP5ATK4dl96FpvRDmUcRy3ALjkae4CkLCprjDB8Nlv3ddLrUhN3wRyoUt+HQR91uS2In9pXIOfvkj58lw2qbE01fTrLtFAZL4Whf14W4ITjuHph89SK6OTOr99bpgGlXqkocgm03QR8dfa8u5Is6wkeOc18uKhTkmXQQODRbZHKEW60yh62ILG2+w2hdBn26JK48QFo9I5KaQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=9G5h7pvva3+hM0ooP9t2DmX5rOhld1GZHzRSejKCRg0=;
- b=dBaWSKQYyeOmrkGDuGsks+JCT91zw3faz/qVPutY3UoGIWMFwVJYkMbVAJXd6tV8c0DhboXQSVLh6GOgnhEFHKXfj97Rl2ZaPu2xU5pF1Pm1gW6LtxMVsKpbE9gdGI2ObtDy9sq57sshsfSCgQBjkyxpQu/jLr6UmW6ZiVcDvMUH847fxahBpteDS0s69J74qtCQw2EESqe1gMNlOzKzRYIJZa26gdHQZso7inahBZVkCl3aNw/0cdVmD3erECsvX810KL0D5m2QxFCJARwml2rjcavmUPBtVXdfzw4q2/9/sF5D2BjU/gNaMN+Kcr059y178JeXhHXVSyChyUeoZw==
+ bh=cDWNSP4E0Z7J7C3C+K0AEeLWxxUhPm6bt3a0QQ2bwa8=;
+ b=yCYGu7gL+sO9TG18wB/0NjaGkPA9xaov0P16Ytcyge5rN6GabCEAk8SH9Tco9LWQ6fsjAKGU3DU+QDhfMJV1oNjMANfEiSET38KLX0+7bE87AwSLCobEEhZ7G+svOb8b9QDP+P3j9Juyh5d+7hNgcTWkNpLxk8vLD+F1fqaGv1CZ0Fzv8oysvip6iaW8wrzrjng07Vq4hOkYg4ZjnfXmskPoGKPq2cumpuZzjhYa78l4JrJsJQRRNCLRSnl6p1gHdp2F5BAAi9JRcHHC4oV0BJxQWct7snsB12p8W8oRIqCBDMAxRBQR7HZkFdhqRBxgXTEZyIgWyxkyM1C/LBgOLA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9G5h7pvva3+hM0ooP9t2DmX5rOhld1GZHzRSejKCRg0=;
- b=BKDd/qie0LJTmldPEgrEB5RVk2MawgX86UjE8Lfv5MvkgQo1hWj/vJt+3yd7Rppr0zy0wKcW2ohlLq51vrTh4r4isJysored0YCriOEsBCTfgWTB4xyb5udma2l6Cd+r2qNVxLPPsP3ER/LV+Al3vaw/tSiXzNXffpHPg7qivN4=
+ bh=cDWNSP4E0Z7J7C3C+K0AEeLWxxUhPm6bt3a0QQ2bwa8=;
+ b=Llp4z6iGtA8liRUmrzubZH7lQL2kipcCbHR4K4mBmzfESc2q+eNFgLir33AJK12EvCKztSOZgt2ONE1Kcps8b8nP0019CMI3uuOf7ck8+IT+iK5m3T1qIIELdk6Wg5UIulIqig1wJpCJomokWoYFpiEJrCEDQE4wzmPsc+06c5k=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by BL1PR12MB5972.namprd12.prod.outlook.com (2603:10b6:208:39b::7)
+ by BY5PR12MB4292.namprd12.prod.outlook.com (2603:10b6:a03:212::12)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.20; Thu, 9 Apr
- 2026 12:48:07 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.15; Thu, 9 Apr
+ 2026 12:57:46 +0000
 Received: from PH7PR12MB5685.namprd12.prod.outlook.com
  ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
  ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.20.9769.016; Thu, 9 Apr 2026
- 12:48:06 +0000
-Message-ID: <3b5af30b-9575-4c4a-9426-34fc4c01bd99@amd.com>
-Date: Thu, 9 Apr 2026 14:48:00 +0200
+ 12:57:46 +0000
+Message-ID: <b92192ad-0a49-4234-927d-71e2c5441947@amd.com>
+Date: Thu, 9 Apr 2026 14:57:42 +0200
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 3/4] drm/amdgpu/userq: caller to take reserv lock for
- amdgpu_userq_buffer_vas_list_cleanup
-To: "Khatri, Sunil" <sukhatri@amd.com>, Sunil Khatri <sunil.khatri@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>
-Cc: amd-gfx@lists.freedesktop.org
-References: <20260409083355.1326089-1-sunil.khatri@amd.com>
- <20260409083355.1326089-4-sunil.khatri@amd.com>
- <25488a11-dee0-4397-949f-d166edaf674c@amd.com>
- <ec94e8db-712f-4409-a7f9-f800ed1f093d@amd.com>
+Subject: Re: [PATCH] amdgpu: recover Thunderbolt PCIe link after MODE1 GPU
+ reset
+To: Geramy Loveless <gloveless@jqluv.com>
+Cc: amd-gfx@lists.freedesktop.org,
+ Mario Limonciello <mario.limonciello@amd.com>, alexander.deucher@amd.com
+References: <CAGpo2mebCaP4vFuTnn6jgu6OjjE_ssS7i8ENepuUjwwHXddCHA@mail.gmail.com>
+ <243af06e-912b-4915-bc64-5aa16dad7db0@amd.com>
+ <CAGpo2mcLFMrkduCx1MuQnR3EZUxtEo+jT8PAXGgXbGDm2_1Now@mail.gmail.com>
 Content-Language: en-US
 From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <ec94e8db-712f-4409-a7f9-f800ed1f093d@amd.com>
+In-Reply-To: <CAGpo2mcLFMrkduCx1MuQnR3EZUxtEo+jT8PAXGgXbGDm2_1Now@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR4P281CA0184.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:ca::19) To PH7PR12MB5685.namprd12.prod.outlook.com
+X-ClientProxiedBy: BL1PR13CA0306.namprd13.prod.outlook.com
+ (2603:10b6:208:2c1::11) To PH7PR12MB5685.namprd12.prod.outlook.com
  (2603:10b6:510:13c::22)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|BL1PR12MB5972:EE_
-X-MS-Office365-Filtering-Correlation-Id: d07e0d34-32d4-44b0-5f99-08de96363f39
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|BY5PR12MB4292:EE_
+X-MS-Office365-Filtering-Correlation-Id: b7014487-ab77-42a9-d1f4-08de96379887
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|366016|1800799024|56012099003|22082099003|18002099003; 
-X-Microsoft-Antispam-Message-Info: hU/pvpWjttbnNcbbR1Zv0hyVFgAHMRQxfZBDIhrDaXsvBJr+n/ycDQ5NmJTtB0adS7i5pTpVdxcqVO+yBgNp8Zd5DA5hGxBJmR7Ks2GUM8q1DP5l8I5DsYXj3Sj9bSKblpsDGfTR1FEaPvwuYBkB0d5bwtv3KoGG/FErT9GcebStiA+Ilf85hKAkUSyYpCmJc/dCCXoGnzwnH0S7xICYLZPsRdonagy+GXmuopD+roYnbw64A542EEtmXDpn+lEODEHZbHT4kZai88jsUTQM04u0Ppt0zZ/f8mbdCutZjdFYcSs4sKpUtsQMTPs8XS1FwMqDk/LMq0j7NucAZZmJwb8vqxKHgePRQMUJqGKFgzrcIEi0FmDuWNz7P/Aqma2upQ6FUwCH6wNV46WrLPASw02PIy0mzoodt/lnbR5fiTg1p5d3PeUS2/bKhp1eFHST7pRVH/kHhq6jiBzHzKSDRlfcy+gOpWMUjJpeJUJnjVgyK61i8OT1pHcCJ0wa03nVohfkdU6ZVYZOIgJJvR/Nh9za42Ip5+eDINqLUCAZFqfvPTmOesj7NVPmDZzDEf5ec3fIaXRJrZHgz7+AO2ickSZVYYe2VLajqRU2j/1qEFHuk+57M3ha6XaRVgJIreR/3/ifLLBm4g2YtBODmPe7qz0dF0L86ZVwBgrqH6UQGyjzKGofvDuq2Gry+Tq3nYwABvXd6imfDWHZhZrzBuUM7iE0kejxrX7nsNwKbo/ukYM=
+ ARA:13230040|1800799024|366016|376014|18002099003|13003099007|56012099003|22082099003;
+X-Microsoft-Antispam-Message-Info: zG7q8/4FnJBu7xJwH0aDvKSn/b06dKKt8QnxtgOaETUTIs5M9vLcjm9lDDSsjgB2sta3f4MVziEkLSArB0zSs+qL74e/4EVTrAq7BIjpF2HsFpCjPfnte7goXLavQtWMPNptALU5Qe3/siKJ9DQzQmL+l+2hgAdogFqt8QugCCtbYbicRud2EH/cbsWbzA2l4vooXsPlXnBO5geiXFe4CixTxrzLVwREkmymwFTtIkhwp4TFWTip7UGAQtufqrP9c0oSivTZBiOhqkUgmbiW8y1qeJUejwrXkoSHy3BXUn9G1LAoVGLxCXBASm9DwqlCQw5+2XW09CW4HSqfpp0ElN3dfbFkisKs9JT5KCiAG2ngqbvH3LQUEN4C66HxSw+y1vafaBrIsZ537+RbzRDo+h2Lhpx29KBTVzw9hMkrBYHQDd4hOl6VrBeoN5tf82QOshc2R5Dtm8D/BASBdxYQMDXMAMZPGq3/OS+rEqpjo5AVqrRVSVVqjnr/2PeF0I/GeIZHCGENlCRD4MXH2icdhOctQnT2wFN8QizgUo3m4kF2M02dEiiSj35IWHAce3U8c9w/xCN76AEck3tnAm72ojyGbHJnVvFL+NGF/odCU88xfmQk0lp5a2f5AwFScC/jwPtqpICJ5G+r5xrny85kKBlWG61DSWGhB+vEQjB01QGBnA93wKIQN3uTyJiATWSu
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(1800799024)(56012099003)(22082099003)(18002099003);
+ SFS:(13230040)(1800799024)(366016)(376014)(18002099003)(13003099007)(56012099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bFArYVRPVFBPTWYxeDdDTG9nbkIwenZBd3M2bzZ3ak53NzR5MXVTeU0vMzRh?=
- =?utf-8?B?UVA0Q0sxNjUyTkhKYVlsTmM1V29HRGx6MHRxbTRJU2lZNEs5MS9vVU9UZllj?=
- =?utf-8?B?U3R5S09WbnZYNkNXWkxkRjhqR0tvMTZnSUJITG5xRFQ3clN0azN0QW91c3pz?=
- =?utf-8?B?dG1WQW1hS3dnbnViVDMyQXlIWVZJaG9QdG0rU3BrTE9OSHNvRU5pK1BxYklO?=
- =?utf-8?B?N0hETEZwRE9rK3QxczZ1anN5YndRL2ZtaHE4Q0J2b2E5R1ZYbUlFekRONmwy?=
- =?utf-8?B?N1RKU1FDeTBvSVZpVXc2cUViM21LSzRLdXVkM1hidVE2V1FxS2pBTzJqd0hM?=
- =?utf-8?B?ZGRoS2N4UDArM25VTk9MK05FcjE5ZkJJMFlwV3ByeUZkYll1WWNYK29Ta1B4?=
- =?utf-8?B?cXI0RjQ1SzF2VG5GcFFVWXpmS2V3LzBuR2JPb2dYb2RGeXdyYUZtcXNPaS9L?=
- =?utf-8?B?dFJJUWRXUFFIS1RoeHVVOWpLRzlHNE5rUGtpTHhvY1JwcGpzbnhMRWFEMVBY?=
- =?utf-8?B?c1Z5N25LcGkrWE5wSm1yQmxHaEQvaUVHNHVVQTNNWllhcFg5SDRYWnVVN1hn?=
- =?utf-8?B?UlZlR29rYVUzaURpOVFPVnZvQ1NGakNiS0JES1haaVlrdjhGQ2hndEFQMTg1?=
- =?utf-8?B?UHJDSWowbkFiYjdZdDJ1QmszbW95RnFlUlpTaTIzbnRucnFUcWdMTHAraDhp?=
- =?utf-8?B?L29qT0hTaE02akgwbWdZemJpN0doemZoV3h0T2U0TUkyZWZ5eEorQ3dPckd4?=
- =?utf-8?B?S3ZZK1dHNGRQWWJKQlpFRUVUYUFhdjNxTUFPYUlEVVB6SmZCRkRDL3ZKQk4z?=
- =?utf-8?B?dFk2a3hZMFFGQlp4WnBRckhLYUdMd2xISktwQkhPK3JpeUJjdm9UME41WWFw?=
- =?utf-8?B?eFBJZTZPOU1ZeDUwOEdSS3dONStZNklxWkxObGRJNmJpakdHT0p3SVJZeEZz?=
- =?utf-8?B?YzlwRTIySlpUejNzTG5UZXlWSyt6QmFNQWtYOUhLT2grVDloOU9rMjBSQ1NO?=
- =?utf-8?B?YlpIZXd3ckI5V2IwdjBmRG5sbDIrRzZPcTZOYnk4emNXd253RFgzKzNJNGxS?=
- =?utf-8?B?bWN6R2s0dEtGNzh1cmd0Slh3azdsOTZNQUw5SjVyd3Z0bm5MQTVLNzhYUW12?=
- =?utf-8?B?QzFnYWg4bmRFL3hDb3JsZkpoOE5lNXNVVG5nK0IzdENSNjlLbTI0RnVUY21O?=
- =?utf-8?B?NGhpWk1WV0p2aDdFWXN5T3pVdU52Um5FUGdEb2licnN3THdrZmlBeW5OVzla?=
- =?utf-8?B?NURMTGVtc1lXNngyaXJ5NklLWVBpa2tteVM0aTFNejhPQ2VmTVNMU2xROUVW?=
- =?utf-8?B?bmdLQzdDTkhJdHVQTXZoVnRHaDFSNWppWTVCZ2dFckZnSHZoRWt1SnZjalZp?=
- =?utf-8?B?TUdMcnVVU0dUVEo1TVFqVnk2REdHWE9IeVJ1ZWpGOFJNeUxKUkl6VEN3NmpM?=
- =?utf-8?B?SUd6ZVZRVEVkb1VzcnA0cTNpTHhkakZzNG5MM2pPM210eW5KMVZWMXhLbFA3?=
- =?utf-8?B?OWxjcTl6dERGVjNYMTB4aXlPQm8zVEJSL0xXWTJGZDdRUEt0RFdMSEZaQXNV?=
- =?utf-8?B?ak1xMGhzWmUwN05kdmFEOWhNdnNRQVVtY1ZyNS9XVjRZd0hFL2c5YXVUa0ZI?=
- =?utf-8?B?Mis3dXlsRXlSVEJ6bmMvbEJhSmlQMllaME10ZSszYnhzU0M0cXYrWFVadUZW?=
- =?utf-8?B?bndUNWlCYVNMNU5wNldscFVvMDRmU1dERXIzZG0wSHZWbjlya3VFK0VYdTBt?=
- =?utf-8?B?czErdStiWnBvR0pjM2liMWFxQzdZMjV5S3I1ckxiS0VCdDdNK3l0OWs4QzNQ?=
- =?utf-8?B?WXFRb2J3ZlZtNlliZEptV3Bmek5CRVlCUlpDTWE2Mk93UmtGT1dWWTNvVzZG?=
- =?utf-8?B?c3Z5TUdzMGp0WkFEYzkzQXNVSGN3Y2UzVlBCSGxnZG5ZTDB4eG16N2lMRVVt?=
- =?utf-8?B?Y1BZWUtDMU9JMGJUcWw0Q3JjcXlpT25nNWc0M2h4ZFpQblJpaUV5dERIMzl5?=
- =?utf-8?B?WjBRZnVDTUg4VHVOUU9IaExQa09tQ0VaRWJhRCtYRzBDRTdaYk1iZy9rNStN?=
- =?utf-8?B?VkNncEtTR0JtMGdqN1YyRnovbXNacVg4b3dFMWdFQThjdkRNVUhUVmM2MnV5?=
- =?utf-8?B?MXNITzRvcG1lc1B4SnBSWHhyN0JkZTJybnJTTmRiL09ERmxsemZPcm4xWGtR?=
- =?utf-8?B?L1RoNmI1eDJySDRHeVpoZGhWZUtXSjF6UEo4M1d4Z3krL2ZRRDdGOVVycW12?=
- =?utf-8?B?SU5vSW41U25OSEVYVjRJcTU2ZzViQmQzUlRyY0Juc3lzV2l0dGtiaURSdkJ1?=
- =?utf-8?Q?SavpdZ8KmfumDFpFRD?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UzZRR1JRYlJOR3diVFo5R0JBbTNEcGpTWVRndWdEcys2RWNIQ0hkMHRGWFV3?=
+ =?utf-8?B?MTV3T2RBUmNkMlREWWZmSjRDUFNoaUJ1bTZKdmkxQ2U1QzUxNnA2SUVYdTI1?=
+ =?utf-8?B?YmpqaFlwK0QwMjZEZVVWZXZzanFFalIzdDdpbG1YYUJOMlRZcDM2ZWZyYnFF?=
+ =?utf-8?B?OGMzVUYvamQ3SVlNR1p3NlN2djd3MlhXMlArZzVOYlBzYXFDR1p1dzFlM3J4?=
+ =?utf-8?B?Y3c2aDNvUk5KSjNRU2R3ZlZKeTk3d3NFQ1dVdE5pUnM4dnRzY3dib2NkdDlr?=
+ =?utf-8?B?NE91VkxSVFpSS1BQQmJSVnprVkhlNHNVbk1GL0lXZDJ1WHFGV3FSQ3kxR3ln?=
+ =?utf-8?B?S1NPNXg5cjM4WC9jdFVMSUhVdjJubjZzR0N2THhSL2pXZTZrRFd2RXM2RWNr?=
+ =?utf-8?B?M2VtcFBGVkJ1dHRxQytOY0c2N2V6QUdXcEpUalBuNUVpN3ZoUFNoRTJDeHBi?=
+ =?utf-8?B?a1ZxQWVBTTlRMjJBaDN4UWtPU1ZBcUJhUGxCR2dXdVA4aGZnMWp6NGE4c0gx?=
+ =?utf-8?B?U1ZiYzlHaHllMU96M0FXa3k5MnF2Wm9NSVZTOFpnS3FURVFVVGRvNDh2Zzhp?=
+ =?utf-8?B?UzZ1eDIvNmZNRDFRclRyMUwwLy9HbWJYNzR0ZGgwSTB5OTVYdTFlS0hPdFd3?=
+ =?utf-8?B?cEVEVHVtTE1VUm1iWjB1bUJRSDVTUzM3Y09ITzd5aWtLYkYrN1NUaVBUU3Uy?=
+ =?utf-8?B?aER1bHptNEU4V3BSR0FuZVBmRzBJVCtub3B5ZGo1dEJNeWZrSmNRdnBGa25Y?=
+ =?utf-8?B?M0pQTllWQXo4NWdJYjk2dzB5MXgrd2ZYQ0F6WmhXMXRhVXRiMFBqWmVrZXhZ?=
+ =?utf-8?B?NWsvNEIyTUFRRGp2dGhMSUNIdFVRLzJyZlgvVVovRktDNVVaaVdwMXFoSG52?=
+ =?utf-8?B?MlpudVBBSHE4OGgrdFowUElieU1NK2IyWm9IbVJlYVcrUG1LNFhzd0JkMk9M?=
+ =?utf-8?B?aitOYVdpa3FONG5mb1JyTXVrYjliSDJnSHZqMEg1MnBvQU5GNEdxbnB2T0Iv?=
+ =?utf-8?B?S1lRbmxXdXhZeXl1RXh4VUdSNXQ0c0tLVEVRa0xsTGtxUmwvUVdIYWlhVXFu?=
+ =?utf-8?B?VlpQSWFnV2pWWkdYazdMZ1pwN3JMMDJBNnVMM2NJQ09mVktBZzVIN3lrRGp0?=
+ =?utf-8?B?VUNwUUNhMDZ1blFPUXp0eXRmUlo5VU9lYS9qTzFwd2FzN0Z5MTBCNFlTWno5?=
+ =?utf-8?B?RWtkd240dDFKaVdNZ1Z1UHBZT3BBUUVLYmc4L1NZcTRMS2FmdHdMNktvMFYv?=
+ =?utf-8?B?cWhkZzFUTGdPZVJSSzE4S3lzUHArTHJzNmlIT0E0WnVlbktiRVR0T2JNWFl3?=
+ =?utf-8?B?WTRPTmtDdUlMd2JTcHJ5aS9EWXA3TCtMZjR1TUNMSXlZRUZKVDlhakpTMlBk?=
+ =?utf-8?B?VVZUWlRUNzdnTUpIODVOQVQrM0RlU1pBOGJ3SGs0YXpzeVZ0RGV4RVYzbWtI?=
+ =?utf-8?B?eUdYUUV2R3NyZ1dqVk4wMHdzUmZPeDVUZDRvTjRFRk9GS3hQSGxtSDhWc1Va?=
+ =?utf-8?B?RFlHakdiMnhKa0lNNHN1VWUrREprT0dGRWR1VG14QXA0NGwzSUVGZFJ6blVw?=
+ =?utf-8?B?UEJ6QzliMnpMK0tSZGQxUUw3UE4vSDJQbDZ2TG1mQjdoUndWcG4vQ09tUFFy?=
+ =?utf-8?B?V2ZzaUpKVC9aMGVaeThXRE9wb0JtbnZnWDNRMnhBQS9UK2YrTm9zc1phcW5Q?=
+ =?utf-8?B?K1FIVExxb0ZFdzFqU05nSXp2VHlXODA2UnA2SnJhU0paaWZjQzZDaUxBZlJa?=
+ =?utf-8?B?WVJFZXdQMW05VEZzWExDeDRzeFBLU1hsbk54ejQxY09YU01jejVZY21ZZmdy?=
+ =?utf-8?B?L3N0aGtKN2I5OVI1dVNTenVTK2JzSXJMb0JHU0pFY3Z4SHArSUxYMkxXQVFq?=
+ =?utf-8?B?dkZBOFF6NHJVa2dodFI4VUx5bFM3VzRTUG9XeEdXVmRJTFRmOUxuTGppOE1U?=
+ =?utf-8?B?Rm9Uc1h5K0xYcWxXZXFHQ0k5cG5id2lxcFVEYU0ybDhFaHpFRkl2aGszMlhR?=
+ =?utf-8?B?ZUFQb1piUEQ1dmRuaFdLYjJsQ0NMaVV2dE9iRWQyYWIxMXk3aTZncEpyOXJo?=
+ =?utf-8?B?bXVNUmpubGtzcHRZNy9rWXgvd3Y2Y0dzaUR0cHI1ZytxdGZMVURueWFMRFdK?=
+ =?utf-8?B?MkRNclNtNWJyc3JxcTdZamZWMzhQOFRoZEhoM09VWVVLUFdXUUNaNE1WWm1y?=
+ =?utf-8?B?QU91VTJBeFg2OWFscDQ0NFBNN2c3Wk9YWm8yVUFRa3IwNmJqWC9YK2FBa2FC?=
+ =?utf-8?B?bUs3QkhJbDZKcVdzUDI4Tm9DamlNZnlyRkM5UmwraTZPVENabUNJbjE3a1RW?=
+ =?utf-8?Q?tr1KjP7faNSt9eG3qd?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d07e0d34-32d4-44b0-5f99-08de96363f39
+X-MS-Exchange-CrossTenant-Network-Message-Id: b7014487-ab77-42a9-d1f4-08de96379887
 X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Apr 2026 12:48:06.8001 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Apr 2026 12:57:46.1919 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 7IKuI5QKDE4rnCTG8+eJMgeOcfob/lG/3k5BlrcR7uh9mqWuLd/fLiYdeQ8aTOxe
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5972
+X-MS-Exchange-CrossTenant-UserPrincipalName: cz31uy/h5mgtYEJdHnnQEU8hYEvjDgO2g0lZrETXFlcDGTU1iFNF8wWvioC8R7zY
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4292
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -138,123 +138,153 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 4/9/26 14:41, Khatri, Sunil wrote:
+Hi Geramy,
+
+On 4/9/26 14:13, Geramy Loveless wrote:
+> Hi Christian,
 > 
-> On 09-04-2026 05:28 pm, Christian König wrote:
->> On 4/9/26 10:33, Sunil Khatri wrote:
->>> Remove the reservation lock for vm from amdgpu_userq_buffer_vas_list_cleanup
->>> and caller should make sure it's taken before locking userq_mutex.
->>>
->>> Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
->>> ---
->>>  drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 34 ++++++++++++++---------
->>>  1 file changed, 21 insertions(+), 13 deletions(-)
->>>
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
->>> index 2408f888c4d9..1b81ce49d408 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
->>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
->>> @@ -312,25 +312,21 @@ static int amdgpu_userq_buffer_vas_list_cleanup(struct amdgpu_device *adev,
->>>  {
->>>  	struct amdgpu_userq_va_cursor *va_cursor, *tmp;
->>>  	struct amdgpu_bo_va_mapping *mapping;
->>> -	int r;
->>>  
->>> -	r = amdgpu_bo_reserve(queue->vm->root.bo, false);
->>> -	if (r)
->>> -		return r;
->>> +	/* Caller must hold vm->root.bo reservation */
->>> +	dma_resv_assert_held(queue->vm->root.bo->tbo.base.resv);
->>>  
->>>  	list_for_each_entry_safe(va_cursor, tmp, &queue->userq_va_list, list) {
->>>  		mapping = amdgpu_vm_bo_lookup_mapping(queue->vm, va_cursor->gpu_addr);
->>>  		if (!mapping) {
->>> -			r = -EINVAL;
->>> -			goto err;
->>> +			return -EINVAL;
->>>  		}
->>>  		dev_dbg(adev->dev, "delete the userq:%p va:%llx\n",
->>>  			queue, va_cursor->gpu_addr);
->>>  		amdgpu_userq_buffer_va_list_del(mapping, va_cursor);
->>>  	}
->>> -err:
->>> -	amdgpu_bo_unreserve(queue->vm->root.bo);
->>> -	return r;
->>> +
->>> +	return 0;
->>>  }
->>>  
->>>  static int amdgpu_userq_preempt_helper(struct amdgpu_usermode_queue *queue)
->>> @@ -444,8 +440,6 @@ static void amdgpu_userq_cleanup(struct amdgpu_usermode_queue *queue)
->>>  	/* Wait for mode-1 reset to complete */
->>>  	down_read(&adev->reset_domain->sem);
->>>  
->>> -	/* Drop the userq reference. */
->>> -	amdgpu_userq_buffer_vas_list_cleanup(adev, queue);
->>>  	uq_funcs->mqd_destroy(queue);
->>>  	/* Use interrupt-safe locking since IRQ handlers may access these XArrays */
->>>  	xa_erase_irq(&adev->userq_doorbell_xa, queue->doorbell_index);
->>> @@ -626,6 +620,9 @@ static int
->>>  amdgpu_userq_destroy(struct amdgpu_userq_mgr *uq_mgr, struct amdgpu_usermode_queue *queue)
->>>  {
->>>  	struct amdgpu_device *adev = uq_mgr->adev;
->>> +	struct amdgpu_fpriv *fpriv = uq_mgr_to_fpriv(uq_mgr);
->>> +	struct amdgpu_vm *vm = &fpriv->vm;
->>> +
->>>  	int r = 0;
->>>  
->>>  	cancel_delayed_work_sync(&uq_mgr->resume_work);
->>> @@ -633,6 +630,14 @@ amdgpu_userq_destroy(struct amdgpu_userq_mgr *uq_mgr, struct amdgpu_usermode_que
->>>  	/* Cancel any pending hang detection work and cleanup */
->>>  	cancel_delayed_work_sync(&queue->hang_detect_work);
->>>  
->>> +	r = amdgpu_bo_reserve(vm->root.bo, false);
->>> +	if (r) {
->>> +		drm_file_err(uq_mgr->file, "Failed to reserve root bo during userqueue destroy\n");
->>> +		return r;
->>> +	}
->>> +	amdgpu_userq_buffer_vas_list_cleanup(adev, queue);
->>> +	amdgpu_bo_unreserve(vm->root.bo);
->>> +
->>>  	mutex_lock(&uq_mgr->userq_mutex);
->>>  	queue->hang_detect_fence = NULL;
->>>  	amdgpu_userq_wait_for_last_fence(queue);
->>> @@ -664,7 +669,6 @@ amdgpu_userq_destroy(struct amdgpu_userq_mgr *uq_mgr, struct amdgpu_usermode_que
->>>  	}
->>>  	amdgpu_userq_cleanup(queue);
->>>  	mutex_unlock(&uq_mgr->userq_mutex);
->>> -
->>>  	pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
->>>  
->>>  	return r;
->>> @@ -856,7 +860,11 @@ amdgpu_userq_create(struct drm_file *filp, union drm_amdgpu_userq *args)
->>>  clean_fence_driver:
->>>  	amdgpu_userq_fence_driver_free(queue);
->>>  clean_mapping:
->>> -	amdgpu_userq_buffer_vas_list_cleanup(adev, queue);
->>> +	if (!amdgpu_bo_reserve(fpriv->vm.root.bo, false)) {
-> The second parameter should be true here, and then you actually don't need to check the return value.
-> 
-> Sure Noted. Should i do that in other patches too in this series where i do amdgpu_bo_reserve -> validate -> unreserve. so change this false to true and go without checking return values.
+> I appreciate the speedy response,
+> What your saying makes sense they are basically wrapping symptoms that could at least from what I seen now at this point only continue and eventually create a web of useless code to try to catch all code paths it hits during crashing. Let me investigate the real reason as to why it’s crashing more rather then where.
 
-It depend where the call is. If you can savely return to userspace then the lock should be interruptible (e.g. parameter false).
+To just give you a bit background on what happens here:
 
-If it is like this here in a cleanup/error path you can only do it non-interruptible and then also don't check the return value.
+AMD GPUs have an embedded micro controller called SMU which takes care of things like voltages, clocks, temperature, fan speed etc.. and reset.
 
-Regards,
+So when the kernel driver detects that it needs to do a reset it sends a MODE1 reset command to the SMU. But instead of the SMU coming back a short time later noting that the reset was done the device just drops off the bus (e.g. all reads return 0xffffffff).
+
+The cause of that can be anything, e.g. from power fluctuations to a dirty fan which doesn't starts to rotate again after it was stopped.
+
+I would try to narrow it down step by step, e.g. if it work on older kernels, if yes what feature/patch broke the behavior. You can also try to disable certain power management features like ASPM (try amdgpu.aspm=0 on the kernel command line).
+
+Hope that helps,
 Christian.
 
 > 
-> Regards
-> Sunil Khatri
->> Regards,
->> Christian.
->>
->>> +		amdgpu_userq_buffer_vas_list_cleanup(adev, queue);
->>> +		amdgpu_bo_unreserve(fpriv->vm.root.bo);
->>> +	}
->>> +
->>>  	kfree(queue);
->>>  	return r;
->>>  }
+> 
+> On Thu, Apr 9, 2026 at 4:42 AM Christian König <christian.koenig@amd.com <mailto:christian.koenig@amd.com>> wrote:
+> 
+>     On 4/9/26 02:05, Geramy Loveless wrote:
+>     > When an AMD GPU behind a Thunderbolt PCIe tunnel undergoes a MODE1 on
+>     > Thunderbolt the TB driver receives no notification and the tunnel
+>     > stays up while the endpoint is unreachable.
+> 
+>     IIRC a MODE1 reset should keep the bus active and so the endpoint should still be reachable.
+> 
+>     > All subsequent PCIe
+>     > reads return 0xFFFFFFFF and MES firmware cannot reinitialize,
+>     > triggering an infinite reset loop that hangs the system.
+> 
+>     That sounds more like the MODE1 reset failed.
+> 
+>     > After MODE1 reset completes, check whether the PCIe endpoint is still
+>     > reachable using pci_device_is_present(). If the device is behind
+>     > Thunderbolt and the link is dead, walk up parent bridges calling
+>     > pci_bridge_secondary_bus_reset() to retrain the physical PCIe link
+>     > inside the dock.
+> 
+>     Well that is then a bus reset.
+> 
+>     I mean that is a reasonable mitigation when a MODE1 reset failed, but the question is rather why does the MODE1 reset fails in the first place?
+> 
+>     > If recovery fails, return -ENODEV to prevent the
+>     > reset retry loop.
+>     >
+>     > This also causes the GPU fan to be at 100% and basically when it
+>     > happens and you are not there, you now have a GPU with fan at 100% and
+>     > cant reset it.
+>     > I wanted to notate some other things I am finding sometimes before
+>     > this adventure of patches to the kernel and amdgpu driver.
+>     > Sometimes a crash could happen in the drive and then the GPU fan speed
+>     > hits 100% and the air is hot coming out without any workload, other
+>     > times
+>     > I have seen it have barely any fan speed at all and heat up more than
+>     > it should at the fan level its curently operating at. These are things
+>     > I have seen with this gpu in a TB5 dock with the driver and
+>     > instability. I'm not sure exactly whats going on there but I figured
+>     > since im communicating with these patches I might as well bring you up
+>     > to speed and supermario has been great help throughout me trying to
+>     > get the AMD AI R9700 Pro working on my MS-S1 Halo Strix with a TB5 /
+>     > USB4v2 dock!
+> 
+>     Adding Mario as well. That strongly sounds like you crashed the SMU which would also explain the failed MODE1 reset.
+> 
+>     But all of that are only symptoms. Question is what is actually going on here? e.g. what is the root cause?
+> 
+>     >
+>     > It seems to be finally working with bar resizing after my kernel
+>     > patch. Which allows you to safely release a empty switch bridge at the
+>     > device end.
+>     > Then it rebuilds it afterwords with the increased bar. This was done
+>     > on Kernel 7.0-rc7 i believe it is and latest changes from pci/resource
+>     > branch with my patch here.
+>     >
+>     > https://lore.kernel.org/linux-pci/CAGpo2meKY6SXsESU-D0PGgbESLqdF8UBF-tmThxOvk2XUDpEzw@mail.gmail.com/T/#u <https://lore.kernel.org/linux-pci/CAGpo2meKY6SXsESU-D0PGgbESLqdF8UBF-tmThxOvk2XUDpEzw@mail.gmail.com/T/#u>
+> 
+>     Where is the MMIO register BAR before and after the rebuild?
+> 
+>     Regards,
+>     Christian.
+> 
+>     >
+>     > Thank you!
+>     >
+>     > Signed-off-by: Geramy Loveless <gloveless@jqluv.com <mailto:gloveless@jqluv.com>>
+>     > ---
+>     > drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 40 ++++++++++++++++++++++
+>     > 1 file changed, 40 insertions(+)
+>     >
+>     > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>     > b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>     > index 31a60173c..91d01d538 100644
+>     > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>     > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>     > @@ -5770,6 +5770,46 @@ int amdgpu_device_mode1_reset(struct amdgpu_device *adev)
+>     > /* ensure no_hw_access is updated before we access hw */
+>     > smp_mb();
+>     > + /*
+>     > + * On Thunderbolt-attached GPUs, MODE1 reset kills the PCIe
+>     > + * endpoint but the TB tunnel stays up unaware. Detect the
+>     > + * dead link and attempt recovery by resetting parent bridges
+>     > + * to retrain the physical PCIe link inside the dock.
+>     > + */
+>     > + if (!pci_device_is_present(adev->pdev) &&
+>     > + pci_is_thunderbolt_attached(adev->pdev)) {
+>     > + struct pci_dev *bridge;
+>     > + bool recovered = false;
+>     > +
+>     > + dev_info(adev->dev,
+>     > + "PCIe link lost after mode1 reset, attempting Thunderbolt recovery\n");
+>     > +
+>     > + bridge = pci_upstream_bridge(adev->pdev);
+>     > + while (bridge && !pci_is_root_bus(bridge->bus)) {
+>     > + dev_info(adev->dev,
+>     > + "attempting link recovery via %s\n",
+>     > + pci_name(bridge));
+>     > + pci_bridge_secondary_bus_reset(bridge);
+>     > + msleep(100);
+>     > + if (pci_device_is_present(adev->pdev)) {
+>     > + recovered = true;
+>     > + break;
+>     > + }
+>     > + bridge = pci_upstream_bridge(bridge);
+>     > + }
+>     > +
+>     > + if (!recovered) {
+>     > + dev_err(adev->dev,
+>     > + "Thunderbolt PCIe link recovery failed\n");
+>     > + ret = -ENODEV;
+>     > + goto mode1_reset_failed;
+>     > + }
+>     > +
+>     > + dev_info(adev->dev,
+>     > + "Thunderbolt PCIe link recovered via %s\n",
+>     > + pci_name(bridge));
+>     > + }
+>     > +
+>     > amdgpu_device_load_pci_state(adev->pdev);
+>     > ret = amdgpu_psp_wait_for_bootloader(adev);
+>     > if (ret)
+>     > --
+>     > 2.51.0
+> 
 
