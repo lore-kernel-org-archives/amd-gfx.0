@@ -4,132 +4,209 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F11CCE99057
-	for <amd-gfx@archiver.kernel.org>; Fri, 10 Apr 2026 07:07:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0FAD8E99051
+	for <amd-gfx@archiver.kernel.org>; Fri, 10 Apr 2026 07:07:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 29DB310E8CF;
-	Fri, 10 Apr 2026 07:07:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2650C10E8E3;
+	Fri, 10 Apr 2026 07:07:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=web.de header.i=spasswolf@web.de header.b="dA5lm5OE";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=linux.org.uk header.i=@linux.org.uk header.b="JJcsCEca";
 	dkim-atps=neutral
-Received: from mout.web.de (mout.web.de [212.227.17.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9B6D910E31E
- for <amd-gfx@lists.freedesktop.org>; Thu,  9 Apr 2026 13:31:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
- s=s29768273; t=1775741452; x=1776346252; i=spasswolf@web.de;
- bh=hXOC497Eg5/wV6WqBIGUnnuft83o6qJTAiZgUhifHG4=;
- h=X-UI-Sender-Class:Message-ID:Subject:From:To:Cc:Date:In-Reply-To:
- References:Content-Type:MIME-Version:Content-Transfer-Encoding:cc:
- content-transfer-encoding:content-type:date:from:message-id:
- mime-version:reply-to:subject:to;
- b=dA5lm5OE0WcGw7m1mB+p4+yhfixQpLdn92Qk8wYEGF1xZ9IZVvidUrDL4dSe5O1H
- jjfH2IAbtAoO12wpduojZRT5ufLJo4qvpC+RhuhMRP8Ds67xpQtd/IhNl+QnB0Uly
- xtykQw2AcNYj/sHI5AZKttjx3ZNyPyjtYYW6GfjL+A+CJE1DgrxFIllcLKPTs4C6S
- feFwOUNoQ3tet0ADamCpAvM3NFoZCv58XF3/sXDSHHkAXCxewSg2f6iWgVo1Ytsio
- drZ8MsrEaN5MbAhCY2OMuu/tjPN4ULKm+ksu76guWvJedMvy/yFVDtj1jjhU+iuJx
- KNPgl65SFisueQHDbg==
-X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
-Received: from client.hidden.invalid by smtp.web.de (mrweb105
- [213.165.67.124]) with ESMTPSA (Nemesis) id 1MnX5T-1vitFR3N5h-00gwft; Thu, 09
- Apr 2026 15:30:52 +0200
-Message-ID: <cbd18570adb605fcb699219b4a8662cb301f398c.camel@web.de>
-Subject: Re: kernel panic when resuming from hibernate in next-20260406 with
- PREEMPT_RT
-From: Bert Karwatzki <spasswolf@web.de>
-To: Rafal Ostrowski <rafal.ostrowski@amd.com>
-Cc: Dillon Varone <dillon.varone@amd.com>, spasswolf@web.de, Alex Hung	
- <alex.hung@amd.com>, Alex Deucher <alexander.deucher@amd.com>, Sebastian
- Andrzej Siewior <bigeasy@linutronix.de>, Thomas Gleixner
- <tglx@linutronix.de>, linux-kernel@vger.kernel.org, 
- linux-next@vger.kernel.org, linux-rt-devel@lists.linux.dev, 
- amd-gfx@lists.freedesktop.org
-Date: Thu, 09 Apr 2026 15:30:52 +0200
-In-Reply-To: <20260409131411.10598-1-spasswolf@web.de>
-References: <20260409131411.10598-1-spasswolf@web.de>
-Content-Type: text/plain; charset="UTF-8"
-User-Agent: Evolution 3.56.2-0+deb13u1 
+X-Greylist: delayed 1598 seconds by postgrey-1.36 at gabe;
+ Thu, 09 Apr 2026 18:39:34 UTC
+Received: from zeniv.linux.org.uk (zeniv.linux.org.uk [62.89.141.173])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 54A7F10E057;
+ Thu,  9 Apr 2026 18:39:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=linux.org.uk; s=zeniv-20220401; h=Sender:In-Reply-To:Content-Type:
+ MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description;
+ bh=BoGW7oywgvm57yYmgFIJhKPYzBfyhEW/uN+KSu6heaU=; b=JJcsCEcaKqyNrvJOUZ8XOnA1AS
+ yC//2gnLRa8FcBRiXofOYljopOoyt9r8CbkWaLEFmbUVfW5qK5utkUh3D77jxlkhKoZiYVbvdTEnm
+ X8jEr88bUddVEJ+24e8elVa7rPEDm9C+KeO3Yi+QSp+riwZi9Be8u3P2jnyNq7RhzU24dEi9YT5JB
+ 9o5OjQL5vQk2h32ksN+l6XHB7LZbu7YtKRAMPXU1ZH+Yata0JOXemtl88QWI3UJ7mBXR7GCgddkg5
+ qrhpzNPrKwHYiMCapxKfC0E4ZwUatWZBULD1y88efyo7haqTewJrOOn317SRlKBwAg9TXV76h3bsC
+ A/eZOWQA==;
+Received: from viro by zeniv.linux.org.uk with local (Exim 4.99.1 #2 (Red Hat
+ Linux)) id 1wAtvH-00000003xj6-26He; Thu, 09 Apr 2026 18:16:11 +0000
+Date: Thu, 9 Apr 2026 19:16:11 +0100
+From: Al Viro <viro@zeniv.linux.org.uk>
+To: Philipp Hahn <phahn-oss@avm.de>
+Cc: amd-gfx@lists.freedesktop.org, apparmor@lists.ubuntu.com,
+ bpf@vger.kernel.org, ceph-devel@vger.kernel.org, cocci@inria.fr,
+ dm-devel@lists.linux.dev, dri-devel@lists.freedesktop.org,
+ gfs2@lists.linux.dev, intel-gfx@lists.freedesktop.org,
+ intel-wired-lan@lists.osuosl.org, iommu@lists.linux.dev,
+ kvm@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-block@vger.kernel.org, linux-bluetooth@vger.kernel.org,
+ linux-btrfs@vger.kernel.org, linux-cifs@vger.kernel.org,
+ linux-clk@vger.kernel.org, linux-erofs@lists.ozlabs.org,
+ linux-ext4@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+ linux-gpio@vger.kernel.org, linux-hyperv@vger.kernel.org,
+ linux-input@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-leds@vger.kernel.org, linux-media@vger.kernel.org,
+ linux-mips@vger.kernel.org, linux-mm@kvack.org,
+ linux-modules@vger.kernel.org, linux-mtd@lists.infradead.org,
+ linux-nfs@vger.kernel.org, linux-omap@vger.kernel.org,
+ linux-phy@lists.infradead.org, linux-pm@vger.kernel.org,
+ linux-rockchip@lists.infradead.org, linux-s390@vger.kernel.org,
+ linux-scsi@vger.kernel.org, linux-sctp@vger.kernel.org,
+ linux-security-module@vger.kernel.org, linux-sh@vger.kernel.org,
+ linux-sound@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-trace-kernel@vger.kernel.org, linux-usb@vger.kernel.org,
+ linux-wireless@vger.kernel.org, netdev@vger.kernel.org,
+ ntfs3@lists.linux.dev, samba-technical@lists.samba.org,
+ sched-ext@lists.linux.dev, target-devel@vger.kernel.org,
+ tipc-discussion@lists.sourceforge.net, v9fs@lists.linux.dev,
+ Julia Lawall <Julia.Lawall@inria.fr>,
+ Nicolas Palix <nicolas.palix@imag.fr>, Chris Mason <clm@fb.com>,
+ David Sterba <dsterba@suse.com>, Ilya Dryomov <idryomov@gmail.com>,
+ Alex Markuze <amarkuze@redhat.com>, Viacheslav Dubeyko <slava@dubeyko.com>,
+ Theodore Ts'o <tytso@mit.edu>, Andreas Dilger <adilger.kernel@dilger.ca>,
+ Steve French <sfrench@samba.org>, Paulo Alcantara <pc@manguebit.org>,
+ Ronnie Sahlberg <ronniesahlberg@gmail.com>,
+ Shyam Prasad N <sprasad@microsoft.com>, Tom Talpey <tom@talpey.com>,
+ Bharath SM <bharathsm@microsoft.com>,
+ Eric Van Hensbergen <ericvh@kernel.org>,
+ Latchesar Ionkov <lucho@ionkov.net>,
+ Dominique Martinet <asmadeus@codewreck.org>,
+ Christian Schoenebeck <linux_oss@crudebyte.com>,
+ Gao Xiang <xiang@kernel.org>, Chao Yu <chao@kernel.org>,
+ Yue Hu <zbestahu@gmail.com>, Jeffle Xu <jefflexu@linux.alibaba.com>,
+ Sandeep Dhavale <dhavale@google.com>, Hongbo Li <lihongbo22@huawei.com>,
+ Chunhai Guo <guochunhai@vivo.com>, Miklos Szeredi <miklos@szeredi.hu>,
+ Konstantin Komarov <almaz.alexandrovich@paragon-software.com>,
+ Andreas Gruenbacher <agruenba@redhat.com>,
+ Kees Cook <kees@kernel.org>, Tony Luck <tony.luck@intel.com>,
+ "Guilherme G. Piccoli" <gpiccoli@igalia.com>,
+ Jan Kara <jack@suse.com>, Phillip Lougher <phillip@squashfs.org.uk>,
+ Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
+ Steven Rostedt <rostedt@goodmis.org>,
+ Masami Hiramatsu <mhiramat@kernel.org>,
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ Tejun Heo <tj@kernel.org>, David Vernet <void@manifault.com>,
+ Andrea Righi <arighi@nvidia.com>,
+ Changwoo Min <changwoo@igalia.com>, Ingo Molnar <mingo@redhat.com>,
+ Peter Zijlstra <peterz@infradead.org>, Juri Lelli <juri.lelli@redhat.com>,
+ Vincent Guittot <vincent.guittot@linaro.org>,
+ Dietmar Eggemann <dietmar.eggemann@arm.com>,
+ Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
+ Valentin Schneider <vschneid@redhat.com>,
+ Luis Chamberlain <mcgrof@kernel.org>, Petr Pavlu <petr.pavlu@suse.com>,
+ Daniel Gomez <da.gomez@kernel.org>,
+ Sami Tolvanen <samitolvanen@google.com>,
+ Aaron Tomlin <atomlin@atomlin.com>,
+ Sylwester Nawrocki <s.nawrocki@samsung.com>,
+ Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>, Max Filippov <jcmvbkbc@gmail.com>,
+ Paolo Bonzini <pbonzini@redhat.com>,
+ John Johansen <john.johansen@canonical.com>,
+ Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
+ "Serge E. Hallyn" <serge@hallyn.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Alasdair Kergon <agk@redhat.com>, Mike Snitzer <snitzer@kernel.org>,
+ Mikulas Patocka <mpatocka@redhat.com>,
+ Benjamin Marzinski <bmarzins@redhat.com>,
+ "David S. Miller" <davem@davemloft.net>, David Ahern <dsahern@kernel.org>,
+ Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Simon Horman <horms@kernel.org>, Marcel Holtmann <marcel@holtmann.org>,
+ Johan Hedberg <johan.hedberg@gmail.com>,
+ Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+ Alexei Starovoitov <ast@kernel.org>,
+ Daniel Borkmann <daniel@iogearbox.net>,
+ Jesper Dangaard Brouer <hawk@kernel.org>,
+ John Fastabend <john.fastabend@gmail.com>,
+ Stanislav Fomichev <sdf@fomichev.me>,
+ Jamal Hadi Salim <jhs@mojatatu.com>, Jiri Pirko <jiri@resnulli.us>,
+ Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>,
+ Xin Long <lucien.xin@gmail.com>, Trond Myklebust <trondmy@kernel.org>,
+ Anna Schumaker <anna@kernel.org>, Chuck Lever <chuck.lever@oracle.com>,
+ Jeff Layton <jlayton@kernel.org>, NeilBrown <neil@brown.name>,
+ Olga Kornievskaia <okorniev@redhat.com>,
+ Dai Ngo <Dai.Ngo@oracle.com>, Jon Maloy <jmaloy@redhat.com>,
+ Johannes Berg <johannes@sipsolutions.net>,
+ Catalin Marinas <catalin.marinas@arm.com>,
+ Russell King <linux@armlinux.org.uk>, John Crispin <john@phrozen.org>,
+ Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+ Yoshinori Sato <ysato@users.sourceforge.jp>, Rich Felker <dalias@libc.org>,
+ John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Zhenyu Wang <zhenyuw.linux@gmail.com>, Zhi Wang <zhi.wang.linux@gmail.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ Sandy Huang <hjc@rock-chips.com>,
+ Heiko =?iso-8859-1?Q?St=FCbner?= <heiko@sntech.de>,
+ Andy Yan <andy.yan@rock-chips.com>, Igor Russkikh <irusskikh@marvell.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>,
+ Pavan Chebbi <pavan.chebbi@broadcom.com>,
+ Michael Chan <mchan@broadcom.com>,
+ Potnuri Bharat Teja <bharat@chelsio.com>,
+ Tony Nguyen <anthony.l.nguyen@intel.com>,
+ Przemek Kitszel <przemyslaw.kitszel@intel.com>,
+ Taras Chornyi <taras.chornyi@plvision.eu>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Iyappan Subramanian <iyappan@os.amperecomputing.com>,
+ Keyur Chudgar <keyur@os.amperecomputing.com>,
+ Quan Nguyen <quan@os.amperecomputing.com>,
+ Heiner Kallweit <hkallweit1@gmail.com>,
+ Marc Zyngier <maz@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
+ Andrew Lunn <andrew@lunn.ch>,
+ Gregory Clement <gregory.clement@bootlin.com>,
+ Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
+ Vinod Koul <vkoul@kernel.org>, Linus Walleij <linusw@kernel.org>,
+ Ulf Hansson <ulf.hansson@linaro.org>, Heiko Carstens <hca@linux.ibm.com>,
+ Vasily Gorbik <gor@linux.ibm.com>,
+ Alexander Gordeev <agordeev@linux.ibm.com>,
+ Christian Borntraeger <borntraeger@linux.ibm.com>,
+ Sven Schnelle <svens@linux.ibm.com>,
+ "Martin K. Petersen" <martin.petersen@oracle.com>,
+ Eduardo Valentin <edubezval@gmail.com>, Keerthy <j-keerthy@ti.com>,
+ "Rafael J. Wysocki" <rafael@kernel.org>,
+ Daniel Lezcano <daniel.lezcano@kernel.org>,
+ Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
+ Alex Williamson <alex@shazbot.org>, Mark Greer <mgreer@animalcreek.com>,
+ Miquel Raynal <miquel.raynal@bootlin.com>,
+ Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>,
+ Shuah Khan <skhan@linuxfoundation.org>,
+ Kieran Bingham <kieran.bingham@ideasonboard.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+ Robin Murphy <robin.murphy@arm.com>, Lee Jones <lee@kernel.org>,
+ Pavel Machek <pavel@kernel.org>, Dave Penkler <dpenkler@gmail.com>,
+ "K. Y. Srinivasan" <kys@microsoft.com>,
+ Haiyang Zhang <haiyangz@microsoft.com>,
+ Wei Liu <wei.liu@kernel.org>, Dexuan Cui <decui@microsoft.com>,
+ Long Li <longli@microsoft.com>, Justin Sanders <justin@coraid.com>,
+ Jens Axboe <axboe@kernel.dk>, Georgi Djakov <djakov@kernel.org>,
+ Michael Turquette <mturquette@baylibre.com>,
+ Stephen Boyd <sboyd@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Borislav Petkov <bp@alien8.de>,
+ Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+ "H. Peter Anvin" <hpa@zytor.com>,
+ Pali =?iso-8859-1?Q?Roh=E1r?= <pali@kernel.org>,
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Subject: Re: [PATCH 00/61] treewide: Use IS_ERR_OR_NULL over manual NULL
+ check - refactor
+Message-ID: <20260409181611.GP3836593@ZenIV>
+References: <20260310-b4-is_err_or_null-v1-0-bd63b656022d@avm.de>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:YVeqYFyMxaI0LWxCV+qojBbRJEgtWbE4gFoY1KqakQlXH8NUkkH
- 7jI5i3NzjnPpf9tugGNuCi49lvse9MoCuujouVc/Plos+VDxGnd3Z4mGMN+xy+fNcF+jaBa
- iDP+ub+4iz8wWuWsOl8fJXgACCM9VC9lmuC2hoZnIm9ewvdIB3v+BduWxMQmZSaRttwRrXL
- GjGXmwxNe+aVKWv5ns8Vw==
-UI-OutboundReport: notjunk:1;M01:P0:qEDgRkMIgog=;vOf/6iFyWFbaO7R220IYbZKRlVj
- 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
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260310-b4-is_err_or_null-v1-0-bd63b656022d@avm.de>
 X-Mailman-Approved-At: Fri, 10 Apr 2026 07:07:32 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -145,96 +222,13 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am Donnerstag, dem 09.04.2026 um 15:14 +0200 schrieb Bert Karwatzki:
-> I noticed that my debian stable (trixie) system running linux next-20260=
-406
-> would sometimes hang when resuming from hibernate (I also had two simila=
-r errors
-> under different circumstances, one just after booting and one when start=
-ing the
-> game stellaris, but hibernate seems to be the best way to provoke this e=
-rror).=20
-> There are usually no error messages, but once I got this (incomplete) er=
-ror (via drm panic "kmsg"):
->=20
->=20
->=20
-> [ 125.266334][ C17] RSP: 002b:00007ffc1fcae230 EFLAGS: 00000246 ORIG_RAX=
-: 0000000000000010
-> [ 125.266335][ C17] RAX: ffffffffffffffda RBX: 000055845b640060 RCX: 000=
-07fb699e8e91b
-> [ 125.266335][ C17] RDX: 00007ffc1fcae2d0 RSI: 00000000c05064a7 RDI: 000=
-000000000000f
-> [ 125.266336][ C17] RBP: 00007ffc1fcae2d0 R08: 0000000000000060 R09: 000=
-0000000000000
-> [ 125.266336][ C17] R10: 0000000000000003 R11: 0000000000000246 R12: 000=
-00000c05064a7
-> [ 125.266336][ C17] R13: 000000000000000f R14: 00000000c05064a7 R15: 000=
-07ffc1fcae2d0
-> [ 125.266337][ C17] &lt;/TASK&gt;
-> [ 125.266337][ C17] Modules linked in: ccm snd_usb_audio joydev snd_usbm=
-idi_lib snd_ump snd_rawmidi snd_seq_dummy snd_hrtimer snd_seq snd_seq_devi=
-ce nls_ascii nls_cp437 vfat fat mt7925e mt7925_common mt792x_lib mt76_conn=
-ac_lib mt76 intel_rapl_msr snd_hda_codec_atihdmi mac80211 intel_rapl_commo=
-n snd_hda_codec_hdmi iosf_mbi snd_hda_intel rapl snd_hda_codec wmi_bmof sn=
-d_hda_core spd5118 regmap_i2c snd_intel_dspcfg snd_hwdep snd_pcm libarc4 s=
-nd_timer cfg80211 snd soundcore pcspkr rfkill ccp k10temp evdev nct6775 nc=
-t6775_core hwmon_vid configfs efi_pstore efivarfs autofs4 ext4 mbcache jbd=
-2 hid_generic usbhid hid amdgpu drm_client_lib i2c_algo_bit drm_buddy drm_=
-ttm_helper ttm drm_exec drm_suballoc_helper mfd_core drm_panel_backlight_q=
-uirks gpu_sched amdxcp drm_display_helper xhci_pci xhci_hcd drm_kms_helper=
- ahci libahci drm libata usbcore nvme scsi_mod igc nvme_core cec i2c_piix4=
- scsi_common video usb_common nvme_keyring crc16 i2c_smbus nvme_auth wmi h=
-kdf gpio_amdpt gpio_generic
-> [ 125.266351][ C17] ---[ end trace 0000000000000000 ]---
-> [ 126.356624][ C17] RIP: 0010:__get_vm_area_node+0x140/0x150
-> [ 126.356631][ C17] Code: 00 00 ff c5 39 c5 0f 4c e8 b8 1e 00 00 00 39 c=
-5 0f 4f e8 c4 e2 d1 f7 ea e9 3e ff ff ff 4c 89 e7 e8 f5 49 01 00 45 31 e4 =
-eb b0 &lt;0f&gt; 0b 66 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 00 0f 1f 40 d6 =
-41 50
-> [ 126.356633][ C17] RSP: 0018:ffffb50f075275f8 EFLAGS: 00010206
-> [ 126.356635][ C17] RAX: 0000000000ff0000 RBX: 000000000000000c RCX: 000=
-0000000000022
-> [ 126.356636][ C17] RDX: 0000000000ff0000 RSI: 0000000000000001 RDI: 000=
-000000000f720
-> [ 126.356637][ C17] RBP: 000000000000000c R08: ffffb50f00000000 R09: fff=
-fd50effffffff
-> [ 126.356637][ C17] R10: ffffd50effffffff R11: 0000000000000006 R12: fff=
-f9090a6000000
-> [ 126.356638][ C17] R13: ffff9090a62e9fd0 R14: 000000000000f720 R15: 000=
-0000000000dc0
-> [ 126.356639][ C17] FS: 00007fb699b0eb40(0000) GS:ffff90a00a848000(0000)=
- knlGS:0000000000000000
-> [ 126.356640][ C17] CS: 0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> [ 126.356640][ C17] CR2: 00007f617c3fa02f CR3: 00000001a0c4e000 CR4: 000=
-0000000f50ef0
-> [ 126.356641][ C17] PKRU: 55555554
-> [ 126.356642][ C17] Kernel panic - not syncing: Fatal exception in inter=
-rupt
-> [ 126.356811][ C17] Kernel Offset: 0x30a00000 from 0xffffffff81000000 (r=
-elocation range: 0xffffffff80000000-0xffffffffbfffffff)
->=20
->=20
-> Any Ideas?
->=20
-> Bert Karwatzki
->=20
+On Tue, Mar 10, 2026 at 12:48:26PM +0100, Philipp Hahn wrote:
+> While doing some static code analysis I stumbled over a common pattern,
+> where IS_ERR() is combined with a NULL check. For that there is
+> IS_ERR_OR_NULL().
 
-In just checked the error message with faddr2line and got this:
+... and valid uses of IS_ERR_OR_NULL are rare as hen teeth.
+Most of those are "I'm not sure how this function returns an
+error, let's use that just in case".
 
-$ scripts/faddr2line mm/vmalloc.o __get_vm_area_node+0x140/0x150
-__get_vm_area_node+0x140/0x150:
-__get_vm_area_node at /mnt/data/linux-forest/linux-next/mm/vmalloc.c:3212 =
-(discriminator 1)
-
-line 3213 in __get_vm_area_node is this:
-
-	BUG_ON(in_interrupt());
-
-So the problem is using __get_vm_area_node() (presumably via kzalloc() as =
-this is the only vm function
-in the offending poatch) from interrupt context.
-
-Bert Karwatzki=20
-
-
+Please, do not introduce more of that crap.
