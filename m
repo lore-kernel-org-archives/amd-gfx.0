@@ -4,76 +4,162 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 128ADE99046
-	for <amd-gfx@archiver.kernel.org>; Fri, 10 Apr 2026 07:07:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9E566E9904D
+	for <amd-gfx@archiver.kernel.org>; Fri, 10 Apr 2026 07:07:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9005010E8B7;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B4AF510E8B8;
 	Fri, 10 Apr 2026 07:07:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="dwmkss6P";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="KxG9rOfS";
 	dkim-atps=neutral
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
- [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 80BE110E86F;
- Thu,  9 Apr 2026 15:48:05 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1775749672; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=C2zEv2TMp3GrdC0kRQqQohoksF/+1Iv0DkbsjnsPjC+qJkgPrTpfBmQ2kObg/h+zkTUj7d3dgJgvz2Zh3DCtXjgI3hpyO0eOnyIPGUv28R+qtkJ63BEBzrWKhLEyYtB4QgBYhJ+E84c0V2hrDsYK0C9EOaT5/xjc+SFG9pTbfhE=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1775749672;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=oBUEH9z6fnnMMO3qVEtl/mVjCKKVwrQw2lUD6hVHl4g=; 
- b=AGLBEsguz9z/3JpMV0Rn2JRvBqPAnDUcFj4BaVYUY5czHA5k4KrZWwRTvQXj+B/KkTI4w1PtglJXE1JmjEvLEOxlTPnWQa/W8c65EtVXhL8deTetSbglraWJSbn9YmQv9/7w/AxafXRT88v7CnQ9SxYiVDfUg5kJAOBW7J95oo8=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
- dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1775749672; 
- s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
- h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:References:In-Reply-To:To:To:Cc:Cc:Reply-To;
- bh=oBUEH9z6fnnMMO3qVEtl/mVjCKKVwrQw2lUD6hVHl4g=;
- b=dwmkss6PyowMdr5luUNBJlz5ryJcUfnEOr1eSSS1Fr01f5Lmz7NdRUlJfbIin8dd
- INDMEVv/kOsqhpK1uhU6qzdhPoHUgBF795fmApn8rtKNpRIoG9vyjXDsLW3v8vJHBi9
- Sune/Sx9c3V2olNE8CMUJ49dTMyLlkQdXbtLfZQQ=
-Received: by mx.zohomail.com with SMTPS id 1775749670463556.2732851072401;
- Thu, 9 Apr 2026 08:47:50 -0700 (PDT)
-From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Date: Thu, 09 Apr 2026 17:45:10 +0200
-Subject: [PATCH v12 20/25] drm/tests: hdmi: Add tests for the color_format
- property
+Received: from SN4PR0501CU005.outbound.protection.outlook.com
+ (mail-southcentralusazon11011056.outbound.protection.outlook.com
+ [40.93.194.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 59DA110E4F6;
+ Thu,  9 Apr 2026 10:56:52 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=xC9QFv/5sfiDdK/S3fBPa9OJf3TEfX+sIJoXzQXjM+WeKDUTL3LBKrLkK4KLg66NWedorq3amcbdHBAeQKNaxscJF8RneZvSzES7DdrDk+e9PQPMd21nL5+vfnpVLggzFG8Vk9kIicVkC9mJkEfLMb9k61SZGa6aDyG33mnGBHWfsvpKeu5KAI3bK6bqlUzEHPcOhG2OyhYy71Vz/hg+IVea27RMQVa6Hor73XatirKPrZrJNvTkdfIhNE4XzMgjPPF0b/XNvuJF3nwpinu8KK34bNcei+UKRU7edCdmsoA6j4aqREjlhsabzXdn9GGOKW759xGmxFambZJPNHWU7Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=g1IrnZCvdmspYMcDBEN+tA/MYZ3Gm751aJuwZIonWoQ=;
+ b=HtVQxr0rVRvDNNVvmqZ/GnPF7ECe+nXyLKVK70s0I5NzkInmuMlrqAwVrWbmspVvNnHAjnlCcUT6Mccx8m/tKr/k8ZQaQsO47eI8OBIA5KhxCZ9UOU3HUFXcPv6ctquJfle9CU+5XbZeSBLqYfs0OilpX7sHC3DSw1i6IlE+XhIlqPYphZqWwpKs0hRRSXtkosvRJrl4L8h+rPohNLdYrcMva1hCdCcfR80aWcl9QkaIWwIWMFqG1pS7mIsGlwchqvkHrki2fJD+60gQSW+MGxIBtJ5JJ8ThrzrIPGSzQ+k2eAnVZnAmlxAU/xFR1EKnOiNSsDgk8mkVtNKV16YSpw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=g1IrnZCvdmspYMcDBEN+tA/MYZ3Gm751aJuwZIonWoQ=;
+ b=KxG9rOfSLBbLq4sWX3cUEPh3ykgT/l42IdCCAi6u7+zE/I9nmQsYavT+29WEVhYggCWZCHCQvUozlBQTfv+muEKvsXYk0VmKDqATsVJtHyKqr5uF8XkCJcTRprExr5dHR7/95oGBhug63+9je3CYZd9DpWMd5LRycMiOl0eLecDvWIqm3nkvnRDIS1BMne/RTNcfajwG6i5ZO4pMNDjaESQUFOiq7zFrf4wk+nbTovUrWfLP3BZzgGUjSMT4vQ9bDuH+MJz0rS2BmXHvYyvi/xOJKvmieORjdft6h9ersq55vyxPP09waBu0mz/5eTw7Pdsg9PucnDDD0qh4n15TOA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from CH2PR12MB3990.namprd12.prod.outlook.com (2603:10b6:610:28::18)
+ by LV8PR12MB9156.namprd12.prod.outlook.com (2603:10b6:408:181::6)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.16; Thu, 9 Apr
+ 2026 10:56:45 +0000
+Received: from CH2PR12MB3990.namprd12.prod.outlook.com
+ ([fe80::7de1:4fe5:8ead:5989]) by CH2PR12MB3990.namprd12.prod.outlook.com
+ ([fe80::7de1:4fe5:8ead:5989%4]) with mapi id 15.20.9769.018; Thu, 9 Apr 2026
+ 10:56:45 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 09 Apr 2026 19:56:41 +0900
+Message-Id: <DHOKJ3MJNO5P.SXKOAYKX13JL@nvidia.com>
+Subject: Re: [PATCH v10 12/21] gpu: nova-core: mm: Add unified page table
+ entry wrapper enums
+From: "Alexandre Courbot" <acourbot@nvidia.com>
+To: "Joel Fernandes" <joelagnelf@nvidia.com>
+Cc: "Eliot Courtney" <ecourtney@nvidia.com>, "Danilo Krummrich"
+ <dakr@kernel.org>, <linux-kernel@vger.kernel.org>, "Miguel Ojeda"
+ <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>, "Gary Guo"
+ <gary@garyguo.net>, "Bjorn Roy Baron" <bjorn3_gh@protonmail.com>, "Benno
+ Lossin" <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>,
+ "Alice Ryhl" <aliceryhl@google.com>, "Trevor Gross" <tmgross@umich.edu>,
+ "Dave Airlie" <airlied@redhat.com>, "Daniel Almeida"
+ <daniel.almeida@collabora.com>, "Koen Koning"
+ <koen.koning@linux.intel.com>, <dri-devel@lists.freedesktop.org>,
+ <rust-for-linux@vger.kernel.org>, "Nikola Djukic" <ndjukic@nvidia.com>,
+ "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>, "Maxime Ripard"
+ <mripard@kernel.org>, "Thomas Zimmermann" <tzimmermann@suse.de>, "David
+ Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Jonathan
+ Corbet" <corbet@lwn.net>, "Alex Deucher" <alexander.deucher@amd.com>,
+ "Christian Koenig" <christian.koenig@amd.com>, "Jani Nikula"
+ <jani.nikula@linux.intel.com>, "Joonas Lahtinen"
+ <joonas.lahtinen@linux.intel.com>, "Rodrigo Vivi" <rodrigo.vivi@intel.com>,
+ "Tvrtko Ursulin" <tursulin@ursulin.net>, "Huang Rui" <ray.huang@amd.com>,
+ "Matthew Auld" <matthew.auld@intel.com>, "Matthew Brost"
+ <matthew.brost@intel.com>, "Lucas De Marchi" <lucas.demarchi@intel.com>,
+ "Thomas Hellstrom" <thomas.hellstrom@linux.intel.com>, "Helge Deller"
+ <deller@gmx.de>, "Alex Gaynor" <alex.gaynor@gmail.com>, "Boqun Feng"
+ <boqun.feng@gmail.com>, "John Hubbard" <jhubbard@nvidia.com>, "Alistair
+ Popple" <apopple@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>, "Edwin Peer"
+ <epeer@nvidia.com>, "Andrea Righi" <arighi@nvidia.com>, "Andy Ritger"
+ <aritger@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>, "Balbir Singh"
+ <balbirs@nvidia.com>, "Philipp Stanner" <phasta@kernel.org>, "Elle Rhumsaa"
+ <elle@weathered-steel.dev>, <alexeyi@nvidia.com>, <joel@joelfernandes.org>,
+ <linux-doc@vger.kernel.org>, <amd-gfx@lists.freedesktop.org>,
+ <intel-gfx@lists.freedesktop.org>, <intel-xe@lists.freedesktop.org>,
+ <linux-fbdev@vger.kernel.org>
+References: <20260311004008.2208806-1-joelagnelf@nvidia.com>
+ <20260331212048.2229260-1-joelagnelf@nvidia.com>
+ <20260331212048.2229260-13-joelagnelf@nvidia.com>
+ <DHIFF98P1YQ3.1IXUT02E3TF20@nvidia.com>
+ <5db2aab1-4b65-486e-ad9b-27a108bdb0d6@nvidia.com>
+ <DHMYSTLVHIFJ.A2BDMPVNZNLS@nvidia.com>
+ <537a8c5a-3885-4c47-99f6-963b48ddf87d@nvidia.com>
+ <DHNKYBM159T9.2UUQ7CU0RN0BU@nvidia.com>
+ <2f004511-61d1-4197-84b6-cddcdd275e55@nvidia.com>
+In-Reply-To: <2f004511-61d1-4197-84b6-cddcdd275e55@nvidia.com>
+X-ClientProxiedBy: TYCP286CA0085.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:400:2b3::8) To CH2PR12MB3990.namprd12.prod.outlook.com
+ (2603:10b6:610:28::18)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260409-color-format-v12-20-ce84e1817a27@collabora.com>
-References: <20260409-color-format-v12-0-ce84e1817a27@collabora.com>
-In-Reply-To: <20260409-color-format-v12-0-ce84e1817a27@collabora.com>
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
- Rodrigo Siqueira <siqueira@igalia.com>, 
- Alex Deucher <alexander.deucher@amd.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Sandy Huang <hjc@rock-chips.com>, 
- =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
- Andy Yan <andy.yan@rock-chips.com>, 
- Jani Nikula <jani.nikula@linux.intel.com>, 
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
- Tvrtko Ursulin <tursulin@ursulin.net>, Dmitry Baryshkov <lumag@kernel.org>, 
- Sascha Hauer <s.hauer@pengutronix.de>, Rob Herring <robh@kernel.org>, 
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>
-Cc: kernel@collabora.com, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
- linux-doc@vger.kernel.org, 
- Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-X-Mailer: b4 0.15.1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH2PR12MB3990:EE_|LV8PR12MB9156:EE_
+X-MS-Office365-Filtering-Correlation-Id: 38fb3eec-0437-4746-91a6-08de9626b082
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|7416014|376014|1800799024|10070799003|366016|18002099003|22082099003|56012099003;
+X-Microsoft-Antispam-Message-Info: 0MrpxHZcu27DTzJumz3qG8KvoxLUyzkR9vkINQgZPiba4/GGdYQsnuFLrxIDVQNietlXBi2jTFZWfrLazQQRrigWuVgVt3yeGnmn3eLGcENs12xoVou/U0mwPYd4kSml4sthtDhFBOq+rDsdDdSL9dv1whA9SSEQFDg/lWW2laS42px6uFNtzgfLhKNcw/kdMqB9cfREeWo9zCAbJmShmDUI6QCZ15bdrTn4eX5hcU4XonZyUcIC80L1Ty8ufGvI9If85H/qTmhGswJXVAS3WDPAqMZF0tZ3weGGeB6pedO5x7Ceih7s0zKfeYHyu0KKIBY6hYX1raaKabG78Y8DlFMkjmONAfSug90YIh3JY1lJcAzY8TBxHRWKx45tDlLkxxmZK05NUKuMIbP6SGhjNHPZqZjc6Kdlrv8fzH+0ZUfNSTcQUnV97rkPJIvO3/8pYraAchRiywWvsFn7mpA0MH13ml44E0i+8xzqoW6E2l5awvqcT/ahb0B1Y/ClqODdDn2iTq6h56wpC8uc5agN6Ouo1ptG1KuVaA8460+5h/PPKzads6VVTay/ZR/p9e0DqOSSCS745+F4xnb/u1yiMnO0P36ZJt7H1+aml5tqXKMFP7NOcd6SztfN8/lif9fGZ1jpn8UqBNgmq6kEGCCvgUmDmOBNkY8HyyyL39ZL54eWSg1wYVW4aTaZh4tnPthuwcL2Py2Y+IJV4cOoNtlcfY1MNEH6Is/aYQB+R3Dj6ks=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CH2PR12MB3990.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(7416014)(376014)(1800799024)(10070799003)(366016)(18002099003)(22082099003)(56012099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SzNKei9jRDZKRVF2ckRLYjZYR1pLczZOWlRBWjZDeHU5VVgzRnFqK2U0R2xR?=
+ =?utf-8?B?WDRrM3YrYnBydkIzWkdqVGp4S0l6UXNOQ3I3R2RUWjhFUWZLMkIrM1A5Q3dV?=
+ =?utf-8?B?SGQ2ZmhUQWpDcUg3YkVCSGhuSEh6Y2ppRE9Zc0RPYXIzZnJ3VDhaYkc5MjJT?=
+ =?utf-8?B?M2tkYVNJRDhnaXAyRHBkZ1NPc1lTZm9UaHhhYVVsK2ZadU52TDVheko5QlpP?=
+ =?utf-8?B?NFFleVVOQXA2eWV4S2MxMjdyU1RiN3YzVXpsaHF3MUpJS2xWOXgvWWNwVGFw?=
+ =?utf-8?B?bVpzK1FkOTZCWkt6dU05bzM5USt2dHVlZFFXS2NUY0N0TDltbkx5MStZMXNR?=
+ =?utf-8?B?ZVhyN2syc3ZGM2xmYklJQ3M2RlphTVNmUWdDVlhNb0lKaWY4aTJ1czBNbHNY?=
+ =?utf-8?B?dFM1TUNiY1F0a05SSVVOZ2I0eVdjOTRNZWx4aHhhV3lQQ1BSbTNUN0hNVGR6?=
+ =?utf-8?B?OEVDYTM4WUc2YmhxMFNLTmVOTzVtN1dQK2NjU3dObnNSai9seHFrclRrOUdU?=
+ =?utf-8?B?ZzcxRmE4M3YvNis3TUppZC84c3NPVmRneWVsWmdBOE4zTTBGWUcwNWRLWmlz?=
+ =?utf-8?B?Ukd3UlhzNVBFVTYvVmVhRmFUcWZ3eUN5Zk5YaHVuWjFrSFRCeS9BMVlYQWhr?=
+ =?utf-8?B?Sit5ZjJwSGgvU0NjS2k4K3JnWXZDa3AyMHRhZEFadjU3VnBVZVZKa2tZaGpB?=
+ =?utf-8?B?dGVQaE1sS3NsNWN0blcxaGxVTWJPZWdvT0J3eDg0Z1VGVDhOWXRtemxDeFU3?=
+ =?utf-8?B?MDR0U2FTNlVPQkJuVGFQNng1NXZKUUd6TmVKYzE0c0NGSnpidEUzOGlpRDZW?=
+ =?utf-8?B?bW55dktheElqSFloSmlmN0pJNW9LY0oza0I3S2Rqc2s1TWhsMFptcnBFODdM?=
+ =?utf-8?B?NmZpNThMaWxPVUNYdmV5bmhvdElteVN5MzRSZ0p4T1F0VEU5ZEVXM0FsRG9L?=
+ =?utf-8?B?VDZSU0Y2dFNuanpEMXZCQ2gza2lUb0tUb3ZUYUdZRDZGN3VtSDFtNElVTW1X?=
+ =?utf-8?B?ekFFL0hUTWVIR2hCaWYzaUFUajJmYTRLdmczTDQvSVpPMDR2TTkzUnhDcXRm?=
+ =?utf-8?B?NTFHd29CaW53T1cvRXRic0pZeE5LQXl0d25GREZpWjVkWUxiQmgwcUthVU53?=
+ =?utf-8?B?TFo4S0JjcjVaWlNhQlFRS29Da0ppMXNWeVM2TnViQ1JyT1A1d2tDYXJTUTVG?=
+ =?utf-8?B?TjM5VXVjR0x3dzh3MWRSSFV5SEhIZURJUmgzNDRsQnJaaXpXN3AvbUNEaUhs?=
+ =?utf-8?B?T2xYS1RkOTh2V25CbHlRSGlIeHFhWVlGTFRjWXlaQlpHT3BUeXJKNHlvVnRy?=
+ =?utf-8?B?MXVhVm9wKzRxNG1pcjFtdW5ZQ1VZaTNSbmNjSU4zbkZCcjNVM1BCa01NZEJS?=
+ =?utf-8?B?bUw2a2Q3dnFaWmRwd1MzUUhlTHVUbnQrNTVPRjJBd2hpQlBpdEprdis3TEJQ?=
+ =?utf-8?B?aC9zYlVyUHhJd3RhMUZhNExRVFdiS0I4NXhKU0xXWXVINmxZM0JFOENkdVFw?=
+ =?utf-8?B?VWRQOXVwb1p6SHpqU1A3U1RLbE80U2NVbWo3MzlkZGFyZjRHd2dLenpqczJ6?=
+ =?utf-8?B?bXAxeU1LYVVSc2FIdUt5WTJWYVExck82WGlOOExzdnFUaXVjQUk3dVV6WkY1?=
+ =?utf-8?B?VTR3OWt0MkVQazlvVmtwbENRWmlwMnBEN2lrMkFBL0ZvYXptMmhRSWdSUHBS?=
+ =?utf-8?B?NTVXeGpyVTcrSTNmRS9CTE81eWtHczYwSVIzNHo3NGU3L3VYemxvTzFOUis2?=
+ =?utf-8?B?dlVXcGtKaVhPNTN6ZDlmdEh2czdlYkpUMlMzY1IrM1dxaU9xeW4xejVYanBI?=
+ =?utf-8?B?M2VyL0lwMEYvSUdZdEFxRmRsUC9vNW14MDV6Ky8vVnl1dVEycjZyS2JzZnhL?=
+ =?utf-8?B?ZlpwdzR4WEhkUXdQR0MrL1UrWjZnNE1YNnIzMWFXWEEwY0FyUHVXd0JHR2RY?=
+ =?utf-8?B?OUtNbE5ObkN1bFplQkFBRS8zTEc0d283SGdpTU9rU3lWTVZ4eC9kbkRpMzRj?=
+ =?utf-8?B?c0Z2MTRKT3Riem5LaDI4NzltR0d6c0g0MHNWZzY3YTRWNzR5UGNOQ1lWUHVn?=
+ =?utf-8?B?Z2lVYmFEWWNESGRFNUsvbERhS1NTVHF5ZXR0MHBtZmNMdnh2NEhnajNNMlB4?=
+ =?utf-8?B?TDkxSHF2WmdhVHQ4ODRQUVgzVmJTcDEweHI3NWdzcXNOVm12R1pwc09YYzEv?=
+ =?utf-8?B?eG54cmRJQ3JKL0MzOE5yYURBaFhWMTIybWRlWmNVcnFIWmw4QzdrMkF0eWUy?=
+ =?utf-8?B?Skd2eXV1dXM4SnVvWlk2dVJabzYyVzVyRzJBblJnZTVvZEJVMS9zMnBIMjlp?=
+ =?utf-8?B?ZnFiSUxxUi95SVVpY1RYbVg5RVJsdzVENEFOdEV3VHlJYnNlbkdyUEhtR3dV?=
+ =?utf-8?Q?cTmuOW3ORctuf4C+KfS9qs21AU6esgC/MBYOtxJrR0+5f?=
+X-MS-Exchange-AntiSpam-MessageData-1: 4iMfz2/xyf64ow==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 38fb3eec-0437-4746-91a6-08de9626b082
+X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB3990.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Apr 2026 10:56:45.0129 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: GUIpIgYTtexqGeGwnlrOvH9q6FWYYPFL9IaNM0FoQkdB8pmk49YNgNJHVqMU3CELlLun3eefafiGLs7qTrChSg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9156
 X-Mailman-Approved-At: Fri, 10 Apr 2026 07:07:32 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -89,310 +175,208 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add some KUnit tests to check the color_format property is working as
-expected with the HDMI state helper.
+On Thu Apr 9, 2026 at 5:19 AM JST, Joel Fernandes wrote:
+> Hi Alex, Eliot, Danilo,
+>
+> Thanks for taking a look. Let me respond to the specific points below.
+>
+> On Wed, 08 Apr 2026, Alexandre Courbot wrote:
+>> After a quick look I'd say that having a trait here would actually be
+>> *good* for correctness and maintainability.
+>>
+>> The current design implies that every operation on a page table (most
+>> likely using the walker) goes through a branching point. Just looking at
+>> `PtWalk::read_pte_at_level`, there are already at least 6
+>> `if version =3D=3D 2 { } else { }` branches that all resolve to the same
+>> result. Include walking down the PDEs and you have at least a dozen of
+>> these just to resolve a virtual address. I know CPUs are fast, but this
+>> is still wasted cycles for no good reason.
+>
+> I did some measurements and there is no notieceable difference in both
+> approaches. I ran perf and loaded nova with self-tests running. The extra
+> potential branching is lost in the noise. In both cases, loading nova and
+> running the self-tests has ~119.7M branch instructions on my Ampere. The =
+total
+> instruction count is also identical (~615M).
 
-Existing tests are extended to also test the
-DRM_CONNECTOR_COLOR_FORMAT_AUTO case, in order to avoid duplicating test
-cases. For the explicitly selected color format cases, parameterized
-tests are added.
+That's expected - as I said, CPUs are fast - and that's also not my
+point. My issue is that we are doing countless tests that all resolve to
+the code path, a code path that is already known during probe time.
+That's a huge code smell.
 
-Reviewed-by: Maxime Ripard <mripard@kernel.org>
-Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
----
- drivers/gpu/drm/tests/drm_hdmi_state_helper_test.c | 236 +++++++++++++++++++++
- 1 file changed, 236 insertions(+)
+When we create the GPU, we know whether we will be using v2 or v3 page
+tables. That we need to test that again 12 times per address resolution
+is a design issue, irrespective of performance. There are 24 version
+match sites in patch 12 alone.
 
-diff --git a/drivers/gpu/drm/tests/drm_hdmi_state_helper_test.c b/drivers/gpu/drm/tests/drm_hdmi_state_helper_test.c
-index a4357efaa983..3444c93c615f 100644
---- a/drivers/gpu/drm/tests/drm_hdmi_state_helper_test.c
-+++ b/drivers/gpu/drm/tests/drm_hdmi_state_helper_test.c
-@@ -60,6 +60,23 @@ static struct drm_display_mode *find_preferred_mode(struct drm_connector *connec
- 	return preferred;
- }
- 
-+static struct drm_display_mode *find_420_only_mode(struct drm_connector *connector)
-+{
-+	struct drm_device *drm = connector->dev;
-+	struct drm_display_mode *mode;
-+
-+	mutex_lock(&drm->mode_config.mutex);
-+	list_for_each_entry(mode, &connector->modes, head) {
-+		if (drm_mode_is_420_only(&connector->display_info, mode)) {
-+			mutex_unlock(&drm->mode_config.mutex);
-+			return mode;
-+		}
-+	}
-+	mutex_unlock(&drm->mode_config.mutex);
-+
-+	return NULL;
-+}
-+
- static int set_connector_edid(struct kunit *test, struct drm_connector *connector,
- 			      const void *edid, size_t edid_len)
- {
-@@ -1547,6 +1564,7 @@ static void drm_test_check_max_tmds_rate_bpc_fallback_yuv420(struct kunit *test)
-  *   RGB/10bpc
-  * - The chosen mode has a TMDS character rate lower than the display
-  *   supports in YUV422/12bpc.
-+ * - The HDMI connector state's color format property is unset (i.e. AUTO)
-  *
-  * Then we will prefer to keep the RGB format with a lower bpc over
-  * picking YUV422.
-@@ -1609,6 +1627,7 @@ static void drm_test_check_max_tmds_rate_bpc_fallback_ignore_yuv422(struct kunit
- 
- 	conn_state = conn->state;
- 	KUNIT_ASSERT_NOT_NULL(test, conn_state);
-+	KUNIT_ASSERT_EQ(test, conn_state->color_format, DRM_CONNECTOR_COLOR_FORMAT_AUTO);
- 
- 	KUNIT_EXPECT_EQ(test, conn_state->hdmi.output_bpc, 10);
- 	KUNIT_EXPECT_EQ(test, conn_state->hdmi.output_format, DRM_OUTPUT_COLOR_FORMAT_RGB444);
-@@ -1626,6 +1645,7 @@ static void drm_test_check_max_tmds_rate_bpc_fallback_ignore_yuv422(struct kunit
-  *   RGB/8bpc
-  * - The chosen mode has a TMDS character rate lower than the display
-  *   supports in YUV420/12bpc.
-+ * - The HDMI connector state's color format property is unset (i.e. AUTO)
-  *
-  * Then we will prefer to keep the RGB format with a lower bpc over
-  * picking YUV420.
-@@ -1687,6 +1707,7 @@ static void drm_test_check_max_tmds_rate_bpc_fallback_ignore_yuv420(struct kunit
- 
- 	conn_state = conn->state;
- 	KUNIT_ASSERT_NOT_NULL(test, conn_state);
-+	KUNIT_ASSERT_EQ(test, conn_state->color_format, DRM_CONNECTOR_COLOR_FORMAT_AUTO);
- 
- 	KUNIT_EXPECT_EQ(test, conn_state->hdmi.output_bpc, 8);
- 	KUNIT_EXPECT_EQ(test, conn_state->hdmi.output_format, DRM_OUTPUT_COLOR_FORMAT_RGB444);
-@@ -2198,6 +2219,217 @@ static void drm_test_check_disable_connector(struct kunit *test)
- 	drm_modeset_acquire_fini(&ctx);
- }
- 
-+struct color_format_test_param {
-+	enum drm_connector_color_format fmt;
-+	enum drm_output_color_format expected;
-+	int expected_ret;
-+	const char *desc;
-+};
-+
-+/* Test that if:
-+ * - an HDMI connector supports RGB, YUV444, YUV422, and YUV420
-+ * - the display supports RGB, YUV444, YUV422, and YUV420
-+ * - the "color format" property is set
-+ * then, for the preferred mode, for a given "color format" option:
-+ * - DRM_CONNECTOR_COLOR_FORMAT_AUTO results in an output format of RGB
-+ * - DRM_CONNECTOR_COLOR_FORMAT_YCBCR422 results in an output format of YUV422
-+ * - DRM_CONNECTOR_COLOR_FORMAT_YCBCR420 results in an output format of YUV420
-+ * - DRM_CONNECTOR_COLOR_FORMAT_YCBCR444 results in an output format of YUV444
-+ * - DRM_CONNECTOR_COLOR_FORMAT_RGB results in an HDMI output format of RGB
-+ */
-+static void drm_test_check_hdmi_color_format(struct kunit *test)
-+{
-+	const struct color_format_test_param *param = test->param_value;
-+	struct drm_atomic_helper_connector_hdmi_priv *priv;
-+	struct drm_connector_state *conn_state;
-+	struct drm_modeset_acquire_ctx ctx;
-+	struct drm_crtc_state *crtc_state;
-+	struct drm_atomic_state *state;
-+	struct drm_display_info *info;
-+	struct drm_display_mode *preferred;
-+	int ret;
-+
-+	priv = drm_kunit_helper_connector_hdmi_init_with_edid_funcs(test,
-+				BIT(DRM_OUTPUT_COLOR_FORMAT_RGB444) |
-+				BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR422) |
-+				BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR420) |
-+				BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR444),
-+				12,
-+				&dummy_connector_hdmi_funcs,
-+				test_edid_hdmi_4k_rgb_yuv420_dc_max_340mhz);
-+	KUNIT_ASSERT_NOT_NULL(test, priv);
-+
-+	drm_modeset_acquire_init(&ctx, 0);
-+
-+	KUNIT_ASSERT_TRUE(test, priv->connector.ycbcr_420_allowed);
-+
-+	info = &priv->connector.display_info;
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, info);
-+	preferred = find_preferred_mode(&priv->connector);
-+	KUNIT_ASSERT_TRUE(test, drm_mode_is_420(info, preferred));
-+
-+	state = drm_kunit_helper_atomic_state_alloc(test, &priv->drm, &ctx);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, state);
-+
-+	conn_state = drm_atomic_get_connector_state(state, &priv->connector);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, conn_state);
-+
-+	conn_state->color_format = param->fmt;
-+
-+	ret = drm_atomic_set_crtc_for_connector(conn_state, priv->crtc);
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+
-+	crtc_state = drm_atomic_get_crtc_state(state, priv->crtc);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, crtc_state);
-+
-+	ret = drm_atomic_set_mode_for_crtc(crtc_state, preferred);
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+
-+	crtc_state->enable = true;
-+	crtc_state->active = true;
-+
-+	ret = drm_atomic_check_only(state);
-+	KUNIT_EXPECT_EQ(test, ret, param->expected_ret);
-+	KUNIT_EXPECT_EQ(test, conn_state->hdmi.output_format, param->expected);
-+
-+	drm_modeset_drop_locks(&ctx);
-+	drm_modeset_acquire_fini(&ctx);
-+}
-+
-+static const struct color_format_test_param hdmi_color_format_params[] = {
-+	{
-+		.fmt = DRM_CONNECTOR_COLOR_FORMAT_AUTO,
-+		.expected = DRM_OUTPUT_COLOR_FORMAT_RGB444,
-+		.expected_ret = 0,
-+		.desc = "AUTO -> RGB"
-+	},
-+	{
-+		.fmt = DRM_CONNECTOR_COLOR_FORMAT_YCBCR422,
-+		.expected = DRM_OUTPUT_COLOR_FORMAT_YCBCR422,
-+		.expected_ret = 0,
-+		.desc = "YCBCR422 -> YUV422"
-+	},
-+	{
-+		.fmt = DRM_CONNECTOR_COLOR_FORMAT_YCBCR420,
-+		.expected = DRM_OUTPUT_COLOR_FORMAT_YCBCR420,
-+		.expected_ret = 0,
-+		.desc = "YCBCR420 -> YUV420"
-+	},
-+	{
-+		.fmt = DRM_CONNECTOR_COLOR_FORMAT_YCBCR444,
-+		.expected = DRM_OUTPUT_COLOR_FORMAT_YCBCR444,
-+		.expected_ret = 0,
-+		.desc = "YCBCR444 -> YUV444"
-+	},
-+	{
-+		.fmt = DRM_CONNECTOR_COLOR_FORMAT_RGB444,
-+		.expected = DRM_OUTPUT_COLOR_FORMAT_RGB444,
-+		.expected_ret = 0,
-+		.desc = "RGB -> RGB"
-+	},
-+};
-+
-+KUNIT_ARRAY_PARAM_DESC(check_hdmi_color_format, hdmi_color_format_params, desc);
-+
-+/* Test that if:
-+ * - the HDMI connector supports RGB, YUV422, YUV420, and YUV444
-+ * - the display has a YUV420-only mode
-+ * - the "color format" property is explicitly set (i.e. !AUTO)
-+ * then:
-+ * - color format DRM_CONNECTOR_COLOR_FORMAT_RGB444 will fail
-+ *   drm_atomic_check_only for the YUV420-only mode with -EINVAL
-+ * - color format DRM_CONNECTOR_COLOR_FORMAT_YCBCR444 will fail
-+ *   drm_atomic_check_only for the YUV420-only mode with -EINVAL
-+ * - color format DRM_CONNECTOR_COLOR_FORMAT_YCBCR422 will fail
-+ *   drm_atomic_check_only for the YUV420-only mode with -EINVAL
-+ * - color format DRM_CONNECTOR_COLOR_FORMAT_YCBCR420 passes
-+ *   drm_atomic_check_only for the YUV420-only mode
-+ */
-+static void drm_test_check_hdmi_color_format_420_only(struct kunit *test)
-+{
-+	const struct color_format_test_param *param = test->param_value;
-+	struct drm_atomic_helper_connector_hdmi_priv *priv;
-+	struct drm_connector_state *conn_state;
-+	struct drm_modeset_acquire_ctx ctx;
-+	struct drm_crtc_state *crtc_state;
-+	struct drm_atomic_state *state;
-+	struct drm_display_mode *dank;
-+	int ret;
-+
-+	priv = drm_kunit_helper_connector_hdmi_init_with_edid_funcs(test,
-+				BIT(DRM_OUTPUT_COLOR_FORMAT_RGB444) |
-+				BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR422) |
-+				BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR420) |
-+				BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR444),
-+				12,
-+				&dummy_connector_hdmi_funcs,
-+				test_edid_hdmi_1080p_rgb_yuv_4k_yuv420_dc_max_200mhz);
-+	KUNIT_ASSERT_NOT_NULL(test, priv);
-+
-+	drm_modeset_acquire_init(&ctx, 0);
-+
-+	dank = find_420_only_mode(&priv->connector);
-+	KUNIT_ASSERT_NOT_NULL(test, dank);
-+
-+	state = drm_kunit_helper_atomic_state_alloc(test, &priv->drm, &ctx);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, state);
-+
-+	conn_state = drm_atomic_get_connector_state(state, &priv->connector);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, conn_state);
-+
-+	conn_state->color_format = param->fmt;
-+
-+	ret = drm_atomic_set_crtc_for_connector(conn_state, priv->crtc);
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+
-+	crtc_state = drm_atomic_get_crtc_state(state, priv->crtc);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, crtc_state);
-+
-+	ret = drm_atomic_set_mode_for_crtc(crtc_state, dank);
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+
-+	crtc_state->enable = true;
-+	crtc_state->active = true;
-+
-+	ret = drm_atomic_check_only(state);
-+	KUNIT_EXPECT_EQ(test, ret, param->expected_ret);
-+	if (!param->expected_ret)
-+		KUNIT_EXPECT_EQ(test, conn_state->hdmi.output_format, param->expected);
-+
-+	drm_modeset_drop_locks(&ctx);
-+	drm_modeset_acquire_fini(&ctx);
-+};
-+
-+static const struct color_format_test_param hdmi_color_format_420_only_params[] = {
-+	{
-+		.fmt = DRM_CONNECTOR_COLOR_FORMAT_RGB444,
-+		.expected = DRM_OUTPUT_COLOR_FORMAT_RGB444,
-+		.expected_ret = -EINVAL,
-+		.desc = "RGB should fail"
-+	},
-+	{
-+		.fmt = DRM_CONNECTOR_COLOR_FORMAT_YCBCR444,
-+		.expected = DRM_OUTPUT_COLOR_FORMAT_YCBCR444,
-+		.expected_ret = -EINVAL,
-+		.desc = "YUV444 should fail"
-+	},
-+	{
-+		.fmt = DRM_CONNECTOR_COLOR_FORMAT_YCBCR422,
-+		.expected = DRM_OUTPUT_COLOR_FORMAT_YCBCR422,
-+		.expected_ret = -EINVAL,
-+		.desc = "YUV422 should fail"
-+	},
-+	{
-+		.fmt = DRM_CONNECTOR_COLOR_FORMAT_YCBCR420,
-+		.expected = DRM_OUTPUT_COLOR_FORMAT_YCBCR420,
-+		.expected_ret = 0,
-+		.desc = "YUV420 should work"
-+	},
-+};
-+
-+KUNIT_ARRAY_PARAM_DESC(check_hdmi_color_format_420_only,
-+		       hdmi_color_format_420_only_params, desc);
-+
- static struct kunit_case drm_atomic_helper_connector_hdmi_check_tests[] = {
- 	KUNIT_CASE(drm_test_check_broadcast_rgb_auto_cea_mode),
- 	KUNIT_CASE(drm_test_check_broadcast_rgb_auto_cea_mode_vic_1),
-@@ -2227,6 +2459,10 @@ static struct kunit_case drm_atomic_helper_connector_hdmi_check_tests[] = {
- 	KUNIT_CASE(drm_test_check_tmds_char_rate_rgb_8bpc),
- 	KUNIT_CASE(drm_test_check_tmds_char_rate_rgb_10bpc),
- 	KUNIT_CASE(drm_test_check_tmds_char_rate_rgb_12bpc),
-+	KUNIT_CASE_PARAM(drm_test_check_hdmi_color_format,
-+			 check_hdmi_color_format_gen_params),
-+	KUNIT_CASE_PARAM(drm_test_check_hdmi_color_format_420_only,
-+			 check_hdmi_color_format_420_only_gen_params),
- 	/*
- 	 * TODO: We should have tests to check that a change in the
- 	 * format triggers a CRTC mode change just like we do for the
+And that's precisely a good justification for using monomorphization. v2
+and v3 are technically two different page table implementations (they
+even have their own distinct module in your series), we just use
+generics to factorize the (source) code a bit.
 
--- 
-2.53.0
+>
+> I measured like this:
+> perf stat -e
+> branches,branch-misses,cache-references,cache-misses,instructions,cycles =
+--
+> modprobe nova_core
+>
+> So I think the branching argument is not a strong one. I also did more
+> measurements and the dominant time taken is MMIO. During the map prep and
+> execute, page table walks are done. A TLB flush alone costs ~1.4 microsec=
+onds.
+> And PRAMIN BAR0 writes to write the PTE is also about 1 microsecond. Cons=
+idering
+> this, I don't think the extra branching argument holds (even without bran=
+ch
+> prediction and speculation).
+>
+> Also some branches cannot be eliminated even with parameterization:
+>
+>     if level =3D=3D self.mmu_version.dual_pde_level() {
+>         // 128-bit dual PDE read
+>     } else {
+>         // Regular 64-bit PDE read
+>     }
+>
+> This isn't really a version branch -- it's a structural branch that
+> distinguishes between 64-bit PDE and 128-bit dual PDE entries. Any MMU
+> version with a dual PDE level would need this same distinction.
 
+The dual PDE level should be an associated constant - you still need to
+do the test, but note that you would also do it if there was only a
+single page table version. It's orthogonal to whether we use a trait or
+not here.
+
+>
+> I also did code-generation size analysis (see diff of code used below):
+>
+> Code generation analysis:
+>
+>   Module .ko size:   Before: 511,792 bytes   After: 524,464 bytes  (+2.5%=
+)
+>   .text section:     Before: 112,620 bytes   After: 116,628 bytes  (+4,00=
+8 bytes)
+>
+>   The +4K .text growth is the monomorphization cost: every generic functi=
+on
+>   is compiled twice (once for MmuV2, once for MmuV3).
+
+I would say this is working as intended then.
+
+>
+>> If you use a trait here, and make `PtWalk` generic against it, you can
+>> optimize this away. We had a similar situation when we introduced Turing
+>> support and the v2 ucode header, and tried both approaches: the
+>> trait-based one was slightly shorter, and arguably more readable.
+>
+> Actually I was the one who suggested traits for Falcon ucode descriptor i=
+f you
+> see this thread [1]. So basically you and Eliot are telling me to do what=
+ I
+> suggested in [1]. :-) However, I disagree that it is the right choice for=
+ this code.
+>
+> [1] https://lore.kernel.org/all/20251117231028.GA1095236@joelbox2/
+>
+> I think the two cases are quite different in complexity:
+
+Exactly. The complexity is different (this one involves multiple traits
+and associated types) but the pattern is the same - and that's a pattern
+traits are designed to address. If we were supposed to stop applying it
+when things go beyond a certain level of complexity, the conceptors of
+Rust would not have bothered addings things like associated types.
+
+These traits are nothing new, they simply formalize a reality that
+already exists in your code, which is that each version of the page
+table needs to implement a given set of methods. It's already there with
+the version doing dispatches, only it is not articulated clearly to the
+reader. So in that respect, having traits make the code *more* readable
+imho.
+
+>
+> The falcon ucode descriptor is essentially a set of flat field accessors
+> and a few params (imem_sec_load_params, dmem_load_params).
+> The trait has ~10 simple getter methods. There's no multi-level hierarchy=
+,
+> no walker, and no generic propagation.
+>
+> The MMU page table case is structurally different. Making PtWalk generic
+> over an Mmu trait would require:
+>
+>   - PtWalk<M: Mmu> (the walker)
+>   - Plus all the associated types: M::Pte, M::Pde, M::DualPde each
+>     needing their own trait bounds
+>
+> And we would also need:
+>   - Vmm<M: Mmu> (which creates PtWalk)
+>   - BarUser<M: Mmu> (which creates Vmm)
+>
+> I am also against making Vmm an enum as Eliot suggested:
+>        enum Vmm {
+>            V2(VmmInner<MmuV2>),
+>            V3(VmmInner<MmuV3>),
+>        }
+>
+> That moves the version complexity up to the reader. Code complexity IMO s=
+hould
+> decrease as we go up abstractions, making it easier for users (Vmm/Bar).
+>
+> If you look at the the changes in vmm.rs to handle version dispatch there=
+ [2]:
+> Added: +109
+> Removed: -28
+>
+> [2]
+> https://github.com/Edgeworth/linux/commit/3627af550b61256184d589e7ec666c1=
+108971f0e
+>
+> The main benefit of my approach is version-specific dispatch complexity i=
+s
+> completely isolated inside MmuVersion thus making the code outside of
+> pagetable.rs much more readable, without having to parametrize anything, =
+and
+> without code size increase. I think that is worth considering.
+>
+>> But the main argument to use a trait here IMO is that it enables
+>> associated types and constants. That's particularly critical since some
+>> equivalent fields have different lengths between v2 and v3. An
+>> associated `Bounded` type for these would force the caller to validate
+>> the length of these fields before calling a non-fallible operation,
+>> which is exactly the level of caution that we want when dealing with
+>> page tables.
+>
+> I think Bounded validation is orthogonal to the dispatch model.
+> We can add Bounded to the current design without restructuring
+> into traits. For example:
+>
+>     // In ver2::Pte
+>     pub fn new_vram(pfn: Bounded<Pfn, 25>, writable: bool) -> Self { ... =
+}
+>
+>     // In ver3::Pte
+>     pub fn new_vram(pfn: Bounded<Pfn, 40>, writable: bool) -> Self { ... =
+}
+>
+> The unified Pte enum wrapper already dispatches to the correct
+> version-specific constructor, which would enforce the correct Bounded
+> constraint for that version.
+
+But then what type does the `new_vram` dispatch method take? Generic
+code lets us expose the expected `Bounded` type to the caller, which can
+do the proper validation. This is a small example, but I expect this
+pattern to come up in other parts of the code as well.
+
+>
+>> In order to fully benefit from it, we will need the bitfield macro from
+>> the `kernel` crate so the PDE/PTE fields can be `Bounded`, I will try to
+>> make it available quickly in a patch that you can depend on.
+>
+> That would be great, and I'd be happy to integrate Bounded validation onc=
+e
+> the macro is available. I just don't think we need to restructure the
+> dispatch model in order to benefit from it.
+
+I'll finish the series and hopefully send it a bit later today. That's
+another significant rework for the series (sorry about that) but it
+should be worth the effort for the added correctness.
