@@ -4,68 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0E27DEBFD14
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6A338EBFD10
 	for <amd-gfx@archiver.kernel.org>; Mon, 13 Apr 2026 08:03:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 99F6210E358;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D2BBB10E35C;
 	Mon, 13 Apr 2026 08:03:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="CYDW+JhK";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="b6BYKUZr";
 	dkim-atps=neutral
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com
- [209.85.128.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5DCE310E8BE
- for <amd-gfx@lists.freedesktop.org>; Fri, 10 Apr 2026 07:32:59 +0000 (UTC)
-Received: by mail-wm1-f54.google.com with SMTP id
- 5b1f17b1804b1-488971db0fdso17033995e9.0
- for <amd-gfx@lists.freedesktop.org>; Fri, 10 Apr 2026 00:32:59 -0700 (PDT)
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com
+ [209.85.128.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7E69110E9E7
+ for <amd-gfx@lists.freedesktop.org>; Fri, 10 Apr 2026 18:04:10 +0000 (UTC)
+Received: by mail-wm1-f50.google.com with SMTP id
+ 5b1f17b1804b1-488a041eae5so16794655e9.1
+ for <amd-gfx@lists.freedesktop.org>; Fri, 10 Apr 2026 11:04:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1775806378; x=1776411178; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1775844249; x=1776449049; darn=lists.freedesktop.org;
  h=content-disposition:mime-version:message-id:subject:cc:to:from:date
  :from:to:cc:subject:date:message-id:reply-to;
- bh=KaKXwNgDTe/cTcSLDr5a9iy5kqjhw13CM3LHHvC+Yps=;
- b=CYDW+JhKcJHCPtKIf2Ma71VqPCs/ewwyR74mPTi4lJo76GH0kQRZzDT0ovEgXb25ij
- yUOkD+YpqcW9rImw2nxXy69/+HsVovkBUBI1+rrNamV9beCK4qa/NCj7gIGb9MqNPV1D
- ui0Hw4xKQEffFwGq4TqxguHD0FJ4IxtnIKV74Nw/T1tBRQ0WnPUMinSf0ihrTK20lHkf
- HG3ntgBxzWneVpBx63Xbs0iuILhugsCVosayp9ASGvaBwM+qRqgWvpgOG7xAR13lgtXK
- hIyqj0lGwjkT9H1k2Pe4lnA6+gNbVso7IV/abgB4t5tegFE7PuW4TVIwnqfFbW0gsS6W
- EfgA==
+ bh=9l/oix7dnYVXzfahKGR2Cy0MP70M99Q53kRWCfw0mow=;
+ b=b6BYKUZrXt3hKCTly79qv3A6die8BH23OTSh4hHfLX5eI/OQ1s+bA9uo+y836Z498k
+ UdgJ/Q8zmLx/p7eURr0TnR+yFHHqJVOempMztGW1jq+WvY+CHiqDw8e578JVt9aKX6kI
+ BFGs+6iaqwP3vAGL8j9ZojT9fc/D75rE4mB8xQboGemZlOWO8P5JeKiFUgfzkxIdT1mQ
+ gtfCu2iQjwrnIh9t+INB3Kc/YW9Mvh+4tLEe363iIAZwp4UpQW7tGp3/+9jasMUHXuDb
+ 3TyD4sw9jnOfW5PNYVugCVmS9zT1GUvycSaKWh/ykQe8ym9JOy39QxCiHCRMeYJOn7Bd
+ 0rGw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1775806378; x=1776411178;
+ d=1e100.net; s=20251104; t=1775844249; x=1776449049;
  h=content-disposition:mime-version:message-id:subject:cc:to:from:date
  :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=KaKXwNgDTe/cTcSLDr5a9iy5kqjhw13CM3LHHvC+Yps=;
- b=PjmB2WBiMSdZUmIvXYStw1ZIbitAOqVfx8YFnp7PA6IV1Zocnn9BV1Z2Uo37xeIT1Y
- BzrxRLWd6emzozpfI3GRhjBH3M53gEZnm4cvpxYsmfQmRqRwSngNGOLo8H7igKDJkW4q
- 8v0mJVBEaXS9zSmDXssC/KAEpfZVMXrgS7Q3osqGLA6aKZTJIGrtkyWmV+IeGfLoGzdb
- 6W7ga+eiP8APrgi163ngdSpazBk+AEsFTKFld+GTmomnhiMAbCB3n5DzEVx643UlRIJv
- CtXCA11ejI+CK+JzOGvVcHAYSb5bsXdVJzH21FNGfSlmDCXGYI+QsIlrs2fPF3LWdntC
- 9EFw==
-X-Gm-Message-State: AOJu0YxBu0515EAbum8+5gv+G8tYrqtLHt0Iu5YQ2quYnm9+4IXBN5c2
- ULcFm8vd51d+z6IUMDzljDrJUvbiH8eS3pDeCdc1re83dTp4l4u7YQC3
-X-Gm-Gg: AeBDies5uqpDVlvNmjOdIUxV4Mezxmuv8QSYxkjw0B8BzS4/EnNGzWSzHa/v9lWuL9U
- 0nveOX8ntIPCjB9V8iLS0Mj2pAXT+NtDgL0J0i42wqnGYw+87C/3iYOBv+JxgoIWVraxiSLjpi4
- Sj8KDghd/zg/igYegB9oA3CTzsrkc3FQ/8db9um+DXad6lRXKWKDhTi7KOZX95ZCB+hQjIRGhtY
- NQA0IqXPasBu+OAnaRUaPPdHU+r9jPhz3p/qX4exKZIkmw5pOQuHALI8EHsr/8DHWEgOQ7mEFJ4
- CRatxU57rdG8RS5YCY4p//Wquzr4ZS4mb/iN0fJOxQeHtgpI/TLAHmG2ZGuuhcltYlT4wx2Fm0v
- tNhGI/4XfA/ah+s58XrJI5/QK2QAlzsDJRovQixOe1BASh+fnQnFU26haxEV6KCTCLRLajzylCf
- fB611fXMel3u+r/NQF5Gg=
-X-Received: by 2002:a05:600c:1391:b0:483:6d42:25c6 with SMTP id
- 5b1f17b1804b1-488d687af33mr24678825e9.23.1775806377524; 
- Fri, 10 Apr 2026 00:32:57 -0700 (PDT)
+ bh=9l/oix7dnYVXzfahKGR2Cy0MP70M99Q53kRWCfw0mow=;
+ b=U6wDsZ64GxjKSOlCmLUjvPxsw13dOn8/ow0rqlbLKcRta794tfJlwd0jr6aMBzAJYG
+ BIlJnOCXqVL7C6GKlXFbNJtpfUvdAy7uy8q5AI3F9rcLgE4aApGr2dv46oqxHTZO9pV+
+ G5Lrb6h8f/fraxp2Rsy0WgrCl1HTcPAaLHFxpvfrpwoSCgJ9Xb1PBFULXS+bthBRHM2s
+ S6cnQZe6xk5tGCl2CeZ3XhDr8Ymwei6TNfuezq8ywPWfOShzvPQOkdXq4a2JvSiPL5jd
+ sUlTu43aU0SckAHnMW6YRaUydaynWlnaR4L9KOvyK47IcCD32fzhcMO4Loj2Ax+o5M96
+ 0wkg==
+X-Gm-Message-State: AOJu0YxQ/RJizuy82UCdYWpQvY9fH8pWQExWFDUiNFYjPt/7/uLcaMYn
+ XFExUN+9uEpzHrBnjBxqdavW/gaPkMJY9dS9yYzYg5CgiNbWO9kGrn+c
+X-Gm-Gg: AeBDietJIJ7bAA/+v+TkcX8DAH13pHFh62Tnzo6b+mG5pARJA9eDTQ/KHC4ZvE+l0vE
+ lxAmi5Dzv8PcGTgMq4nYQ+T2XGpTvnLMrrCF3+bLwwIkRFX7UqbGPdgTsz9CAsX7cW8AGgHEWQ0
+ y801eSKLM2/FJc4mhCE4mtXY8zfyjfmvaJuZRVdToJSS/NBNYTyqEKg2EuwbMarI5r3Slscq34b
+ 71Fc6wAuQES3wzWkO6YwbXJlif6ygCctJzNBaa0CRObSOOy4izAvRFlPKVRTCH3CAFTAwd0Kw3m
+ kTHPSueL5Go6h30XX/sUgyDiumUqcZYNLpvGLnOVEU7aY8OecKtAueIVv6UIpGtkTI9jGXLzCMh
+ 8kzsePjG/UqfANmPCq289XDH4ZlAf/37/RDAkgRiXms8AkVt5CP6vP+ce5+y2mjak/AWNgQdr+S
+ VhCbOAdSoaPaCl7SR7ots=
+X-Received: by 2002:a05:600c:5487:b0:488:ae26:435e with SMTP id
+ 5b1f17b1804b1-488d683d4f0mr52241845e9.16.1775844248944; 
+ Fri, 10 Apr 2026 11:04:08 -0700 (PDT)
 Received: from localhost ([196.207.164.177]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-488d5347ea5sm63347445e9.8.2026.04.10.00.32.56
+ 5b1f17b1804b1-488d533e596sm93964575e9.6.2026.04.10.11.04.07
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 10 Apr 2026 00:32:56 -0700 (PDT)
-Date: Fri, 10 Apr 2026 10:32:53 +0300
+ Fri, 10 Apr 2026 11:04:08 -0700 (PDT)
+Date: Fri, 10 Apr 2026 21:04:05 +0300
 From: Dan Carpenter <error27@gmail.com>
-To: Joshua Peisach <jpeisach@ubuntu.com>
+To: Rafal Ostrowski <rafal.ostrowski@amd.com>
 Cc: amd-gfx@lists.freedesktop.org,
  "SHANMUGAM, SRINIVASAN" <SRINIVASAN.SHANMUGAM@amd.com>
-Subject: [bug report] drm/amdgpu/amdgpu_connectors: remove
- amdgpu_connector_free_edid
-Message-ID: <adinpZORBkhVcw31@stanley.mountain>
+Subject: [bug report] drm/amd/display: Move FPU Guards From DML To DC - Part 1
+Message-ID: <adk7lVaJt_bX9LCs@stanley.mountain>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
@@ -84,58 +83,51 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hello Joshua Peisach,
+Hello Rafal Ostrowski,
 
-Commit 71036457ad85 ("drm/amdgpu/amdgpu_connectors: remove
-amdgpu_connector_free_edid") from Mar 3, 2026 (linux-next), leads to
-the following Smatch static checker warning:
+Commit 3539437f354b ("drm/amd/display: Move FPU Guards From DML To DC
+- Part 1") from Feb 24, 2026 (linux-next), leads to the following
+Smatch static checker warning:
 
-	drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c:1058 amdgpu_connector_dvi_detect()
-	warn: passing freed memory 'amdgpu_connector->edid' (line 1048)
+	drivers/gpu/drm/amd/amdgpu/../display/dc/dml2_0/dml2_wrapper_fpu.c:558 dml2_destroy()
+	warn: sleeping in atomic context
 
-drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c
-    1032                 /* Sometimes the pins required for the DDC probe on DVI
-    1033                  * connectors don't make contact at the same time that the ones
-    1034                  * for HPD do. If the DDC probe fails even though we had an HPD
-    1035                  * signal, try again later
-    1036                  */
-    1037                 if (!dret && !force &&
-    1038                     amdgpu_display_hpd_sense(adev, amdgpu_connector->hpd.hpd)) {
-    1039                         DRM_DEBUG_KMS("hpd detected without ddc, retrying in 1 second\n");
-    1040                         amdgpu_connector->detected_hpd_without_ddc = true;
-    1041                         schedule_delayed_work(&adev->hotplug_work,
-    1042                                               msecs_to_jiffies(1000));
-    1043                         goto exit;
-    1044                 }
-    1045         }
-    1046         if (dret) {
-    1047                 amdgpu_connector->detected_by_load = false;
-    1048                 drm_edid_free(amdgpu_connector->edid);
-                                       ^^^^^^^^^^^^^^^^^^^^^^
-This frees ->edid.  The old code used to set amdgpu_connector->edid = NULL
-after freeing it.
+drivers/gpu/drm/amd/amdgpu/../display/dc/dml2_0/dml2_wrapper_fpu.c
+    551 void dml2_destroy(struct dml2_context *dml2)
+    552 {
+    553         if (!dml2)
+    554                 return;
+    555 
+    556         if (dml2->architecture == dml2_architecture_21)
+    557                 dml21_destroy(dml2);
+--> 558         vfree(dml2);
 
-    1049                 amdgpu_connector_get_edid(connector);
-                                                   ^^^^^^^^^
-This function call is supposed to re-assign ->edid but because it's no
-longer NULL then it's just a no-op.  (It's so annoying that the naming
-switches between amdgpu_connector which and connector which are basically
-castings of each other).
+vfree() is a sleeping function (unless we're in an interrupt).
 
-    1050 
-    1051                 if (!amdgpu_connector->edid) {
-    1052                         drm_err(adev_to_drm(adev), "%s: probed a monitor but no|invalid EDID\n",
-    1053                                         connector->name);
-    1054                         ret = connector_status_connected;
-    1055                         broken_edid = true; /* defer use_digital to later */
-    1056                 } else {
-    1057                         amdgpu_connector->use_digital =
---> 1058                                 drm_edid_is_digital(amdgpu_connector->edid);
-                                                             ^^^^^^^^^^^^^^^^^^^^^^
-Use after free.
+    559 }
 
-    1059 
-    1060                         /* some oems have boards with separate digital and analog connectors
+drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc_state.c   380  static void dc_state_free(struct kref *kref)
+   381  {
+   382          struct dc_state *state = container_of(kref, struct dc_state, refcount);
+   383  
+   384          dc_state_destruct(state);
+   385  
+   386  #ifdef CONFIG_DRM_AMD_DC_FP
+   387          DC_FP_START();
+                ^^^^^^^^^^^^^
+The patch adds this, which disables preemption
+
+   388          dml2_destroy(state->bw_ctx.dml2);
+   389          state->bw_ctx.dml2 = 0;
+   390  
+   391          dml2_destroy(state->bw_ctx.dml2_dc_power_source);
+   392          state->bw_ctx.dml2_dc_power_source = 0;
+   393          DC_FP_END();
+   394  #endif
+   395  
+   396          kvfree(state);
+   397  }
+
 
 This email is a free service from the Smatch-CI project [smatch.sf.net].
 
