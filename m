@@ -4,70 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6A338EBFD10
-	for <amd-gfx@archiver.kernel.org>; Mon, 13 Apr 2026 08:03:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0A99BEBFD16
+	for <amd-gfx@archiver.kernel.org>; Mon, 13 Apr 2026 08:03:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D2BBB10E35C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E5D2910E35F;
 	Mon, 13 Apr 2026 08:03:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="b6BYKUZr";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="OYiOli/F";
 	dkim-atps=neutral
 Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com
  [209.85.128.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7E69110E9E7
- for <amd-gfx@lists.freedesktop.org>; Fri, 10 Apr 2026 18:04:10 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8BFE010E8AA
+ for <amd-gfx@lists.freedesktop.org>; Fri, 10 Apr 2026 07:06:56 +0000 (UTC)
 Received: by mail-wm1-f50.google.com with SMTP id
- 5b1f17b1804b1-488a041eae5so16794655e9.1
- for <amd-gfx@lists.freedesktop.org>; Fri, 10 Apr 2026 11:04:10 -0700 (PDT)
+ 5b1f17b1804b1-488a29e6110so19295535e9.3
+ for <amd-gfx@lists.freedesktop.org>; Fri, 10 Apr 2026 00:06:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1775844249; x=1776449049; darn=lists.freedesktop.org;
- h=content-disposition:mime-version:message-id:subject:cc:to:from:date
- :from:to:cc:subject:date:message-id:reply-to;
- bh=9l/oix7dnYVXzfahKGR2Cy0MP70M99Q53kRWCfw0mow=;
- b=b6BYKUZrXt3hKCTly79qv3A6die8BH23OTSh4hHfLX5eI/OQ1s+bA9uo+y836Z498k
- UdgJ/Q8zmLx/p7eURr0TnR+yFHHqJVOempMztGW1jq+WvY+CHiqDw8e578JVt9aKX6kI
- BFGs+6iaqwP3vAGL8j9ZojT9fc/D75rE4mB8xQboGemZlOWO8P5JeKiFUgfzkxIdT1mQ
- gtfCu2iQjwrnIh9t+INB3Kc/YW9Mvh+4tLEe363iIAZwp4UpQW7tGp3/+9jasMUHXuDb
- 3TyD4sw9jnOfW5PNYVugCVmS9zT1GUvycSaKWh/ykQe8ym9JOy39QxCiHCRMeYJOn7Bd
- 0rGw==
+ d=gmail.com; s=20251104; t=1775804815; x=1776409615; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-disposition:mime-version
+ :message-id:subject:cc:to:from:date:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=0cOBE4Zk7Ie2nnzrPJPwRrqSdaHEJi977p/pY63odXY=;
+ b=OYiOli/FgGthh5Odq8lGoEeqbgKosjURCYlhkPQ2NNw3us2dZQxegRQOjnNv0R4B+L
+ jBlj974Dhl4DbqIKEWl385lCIoJS54g6ev+C8BCSsaDsfgCl6lTUnJiyDqz7tcvfhzmu
+ OFEa839aSZBAklik2VBWrlb+u4mTX6WdAZBeEN9hen23Vii54gvN06AEBue5X7AZE1tc
+ IyHLbG9g3haokQqc7cnkxBccWetQ+bBb3jToVSQXtZVHU/+fmPSFqCGSMgbuUAyFhmHL
+ RL1v/J4PZdmQuSaAsWU2xhYKqWkdjpeyW5ks5QyHjYUoyg8F4wMXFQBBMhAx1c4Kvh4M
+ Okuw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1775844249; x=1776449049;
- h=content-disposition:mime-version:message-id:subject:cc:to:from:date
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=9l/oix7dnYVXzfahKGR2Cy0MP70M99Q53kRWCfw0mow=;
- b=U6wDsZ64GxjKSOlCmLUjvPxsw13dOn8/ow0rqlbLKcRta794tfJlwd0jr6aMBzAJYG
- BIlJnOCXqVL7C6GKlXFbNJtpfUvdAy7uy8q5AI3F9rcLgE4aApGr2dv46oqxHTZO9pV+
- G5Lrb6h8f/fraxp2Rsy0WgrCl1HTcPAaLHFxpvfrpwoSCgJ9Xb1PBFULXS+bthBRHM2s
- S6cnQZe6xk5tGCl2CeZ3XhDr8Ymwei6TNfuezq8ywPWfOShzvPQOkdXq4a2JvSiPL5jd
- sUlTu43aU0SckAHnMW6YRaUydaynWlnaR4L9KOvyK47IcCD32fzhcMO4Loj2Ax+o5M96
- 0wkg==
-X-Gm-Message-State: AOJu0YxQ/RJizuy82UCdYWpQvY9fH8pWQExWFDUiNFYjPt/7/uLcaMYn
- XFExUN+9uEpzHrBnjBxqdavW/gaPkMJY9dS9yYzYg5CgiNbWO9kGrn+c
-X-Gm-Gg: AeBDietJIJ7bAA/+v+TkcX8DAH13pHFh62Tnzo6b+mG5pARJA9eDTQ/KHC4ZvE+l0vE
- lxAmi5Dzv8PcGTgMq4nYQ+T2XGpTvnLMrrCF3+bLwwIkRFX7UqbGPdgTsz9CAsX7cW8AGgHEWQ0
- y801eSKLM2/FJc4mhCE4mtXY8zfyjfmvaJuZRVdToJSS/NBNYTyqEKg2EuwbMarI5r3Slscq34b
- 71Fc6wAuQES3wzWkO6YwbXJlif6ygCctJzNBaa0CRObSOOy4izAvRFlPKVRTCH3CAFTAwd0Kw3m
- kTHPSueL5Go6h30XX/sUgyDiumUqcZYNLpvGLnOVEU7aY8OecKtAueIVv6UIpGtkTI9jGXLzCMh
- 8kzsePjG/UqfANmPCq289XDH4ZlAf/37/RDAkgRiXms8AkVt5CP6vP+ce5+y2mjak/AWNgQdr+S
- VhCbOAdSoaPaCl7SR7ots=
-X-Received: by 2002:a05:600c:5487:b0:488:ae26:435e with SMTP id
- 5b1f17b1804b1-488d683d4f0mr52241845e9.16.1775844248944; 
- Fri, 10 Apr 2026 11:04:08 -0700 (PDT)
+ d=1e100.net; s=20251104; t=1775804815; x=1776409615;
+ h=content-transfer-encoding:content-disposition:mime-version
+ :message-id:subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=0cOBE4Zk7Ie2nnzrPJPwRrqSdaHEJi977p/pY63odXY=;
+ b=kBa6jtwF/2WhImxfjc8cw94oxPuxW29bSHXfhNUULbcuZBLUiEz+ABWAw9ceO/d2x3
+ anO//05UJT8Ywj2TA7pVkn698+OmdMqQVMboBO9FsFMeWGm5VPNXyoonTe1TYBSrDk6U
+ PvRHe/sAmjkzNRadjjHF1nrR44WWAhC1vsCb/TeB+vgUmcd78FDniXvjUBElEC2o9lY+
+ qO78IBqmWX+Wje3Pnw6nxDRbyWZgyfNZkJXrgmyTRDinccpX666mNA0Ww2JWD17NEW/Q
+ qkeeANdoxM8dNmEhHSGZsqx6qkS7FdQp+mILoHdhZFQL4B5PovU4IfQHmH77cq/aboOg
+ owmg==
+X-Gm-Message-State: AOJu0Yz0N/fl4+hrAekEOFvJFo+cKaTPddLmgTzEGkU4qIYGeIsyaPmc
+ puFeenoREt/wVQDlOLKoGcuButoqgTpgd6jDZ8/48y1k0HUY+3o1CiehZpWvjg==
+X-Gm-Gg: AeBDievfVDx5k/CRzBHYPTuyvxwYQSaFkPBsy815IpWG4tkb2dnmWyzhDwvYcUsOSXe
+ zc9nKXUphZOs78zUSVlVT6WA4WUIyQ4tv8faS4rMLgepVnu0oTBjNMb5p4g07kU+uOLIvuG/uum
+ pR0OC2qypLlsHfjzqbqYTw/rd4Azp8SIYM1tgl4KvEK73p+pO9BOcXcE0B2cb8OcUKEejP6p5VK
+ n1Co6dmmegqJK9DJhaJd9XsT4AAc3onLlFSAg8qwMFpTwSB3lPJL0MtwZK1TF9yP1lkXHJTkps9
+ lUBDIuHUs1zPgRQGOgvNuWHYN6clIoZtnTW8ZS7b8ydFE/Djz6b8yc4YC0kDgtZwiryTCl8QV0x
+ TYhC257I5ZKO1wAcDA8vk+J4iQ9wqG79HxvZ1xaYWTCbQyvpUObhYfMUeYrhz61WpLub9h7BlqY
+ Oi5R6EbRVnZw0K3g9MuOs=
+X-Received: by 2002:a05:600c:a30b:b0:485:6e40:5584 with SMTP id
+ 5b1f17b1804b1-488d67eb7e1mr17557915e9.6.1775804814786; 
+ Fri, 10 Apr 2026 00:06:54 -0700 (PDT)
 Received: from localhost ([196.207.164.177]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-488d533e596sm93964575e9.6.2026.04.10.11.04.07
+ 5b1f17b1804b1-488d5d85ae9sm19805735e9.3.2026.04.10.00.06.53
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 10 Apr 2026 11:04:08 -0700 (PDT)
-Date: Fri, 10 Apr 2026 21:04:05 +0300
+ Fri, 10 Apr 2026 00:06:54 -0700 (PDT)
+Date: Fri, 10 Apr 2026 10:06:51 +0300
 From: Dan Carpenter <error27@gmail.com>
-To: Rafal Ostrowski <rafal.ostrowski@amd.com>
+To: Timur =?iso-8859-1?Q?Krist=F3f?= <timur.kristof@gmail.com>
 Cc: amd-gfx@lists.freedesktop.org,
  "SHANMUGAM, SRINIVASAN" <SRINIVASAN.SHANMUGAM@amd.com>
-Subject: [bug report] drm/amd/display: Move FPU Guards From DML To DC - Part 1
-Message-ID: <adk7lVaJt_bX9LCs@stanley.mountain>
+Subject: [bug report] drm/amd/pm/smu7: Remove non-functional SMU7 voltage
+ dependency on DAL
+Message-ID: <adihi9-97_oI3uBc@stanley.mountain>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 13 Apr 2026 08:02:59 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -83,51 +86,92 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hello Rafal Ostrowski,
+Hello Timur Kristóf,
 
-Commit 3539437f354b ("drm/amd/display: Move FPU Guards From DML To DC
-- Part 1") from Feb 24, 2026 (linux-next), leads to the following
-Smatch static checker warning:
+Commit 9f49e3d4cb86 ("drm/amd/pm/smu7: Remove non-functional SMU7
+voltage dependency on DAL") from Mar 29, 2026 (linux-next), leads to
+the following Smatch static checker warning:
 
-	drivers/gpu/drm/amd/amdgpu/../display/dc/dml2_0/dml2_wrapper_fpu.c:558 dml2_destroy()
-	warn: sleeping in atomic context
+	drivers/gpu/drm/amd/amdgpu/../pm/powerplay/hwmgr/smu7_hwmgr.c:3065 smu7_hwmgr_backend_init()
+	warn: duplicate zero check 'result' (previous on line 3054)
 
-drivers/gpu/drm/amd/amdgpu/../display/dc/dml2_0/dml2_wrapper_fpu.c
-    551 void dml2_destroy(struct dml2_context *dml2)
-    552 {
-    553         if (!dml2)
-    554                 return;
-    555 
-    556         if (dml2->architecture == dml2_architecture_21)
-    557                 dml21_destroy(dml2);
---> 558         vfree(dml2);
+drivers/gpu/drm/amd/amdgpu/../pm/powerplay/hwmgr/smu7_hwmgr.c
+    3024 static int smu7_hwmgr_backend_init(struct pp_hwmgr *hwmgr)
+    3025 {
+    3026         struct amdgpu_device *adev = hwmgr->adev;
+    3027         struct smu7_hwmgr *data;
+    3028         int result = 0;
+    3029 
+    3030         data = kzalloc_obj(struct smu7_hwmgr);
+    3031         if (data == NULL)
+    3032                 return -ENOMEM;
+    3033 
+    3034         hwmgr->backend = data;
+    3035         smu7_set_sclk_cap(hwmgr);
+    3036         smu7_patch_voltage_workaround(hwmgr);
+    3037         smu7_init_dpm_defaults(hwmgr);
+    3038 
+    3039         /* Get leakage voltage based on leakage ID. */
+    3040         if (phm_cap_enabled(hwmgr->platform_descriptor.platformCaps,
+    3041                         PHM_PlatformCaps_EVV)) {
+    3042                 result = smu7_get_evv_voltages(hwmgr);
+    3043                 if (result) {
+    3044                         pr_info("Get EVV Voltage Failed.  Abort Driver loading!\n");
+    3045                         kfree(hwmgr->backend);
+    3046                         hwmgr->backend = NULL;
+    3047                         return -EINVAL;
+    3048                 }
+    3049         } else {
+    3050                 smu7_get_elb_voltages(hwmgr);
+    3051         }
+    3052 
+    3053         result = smu7_init_voltage_dependency_on_display_clock_table(hwmgr);
+    3054         if (result)
+    3055                 goto fail;
+    3056 
+    3057         if (hwmgr->pp_table_version == PP_TABLE_V1) {
+    3058                 smu7_complete_dependency_tables(hwmgr);
+    3059                 smu7_set_private_data_based_on_pptable_v1(hwmgr);
+    3060         } else if (hwmgr->pp_table_version == PP_TABLE_V0) {
+    3061                 smu7_patch_dependency_tables_with_leakage(hwmgr);
+    3062                 smu7_set_private_data_based_on_pptable_v0(hwmgr);
+    3063         }
+    3064 
+--> 3065         if (result)
+    3066                 goto fail;
 
-vfree() is a sleeping function (unless we're in an interrupt).
+The commit deleted the function call but left the error checking.
 
-    559 }
-
-drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc_state.c   380  static void dc_state_free(struct kref *kref)
-   381  {
-   382          struct dc_state *state = container_of(kref, struct dc_state, refcount);
-   383  
-   384          dc_state_destruct(state);
-   385  
-   386  #ifdef CONFIG_DRM_AMD_DC_FP
-   387          DC_FP_START();
-                ^^^^^^^^^^^^^
-The patch adds this, which disables preemption
-
-   388          dml2_destroy(state->bw_ctx.dml2);
-   389          state->bw_ctx.dml2 = 0;
-   390  
-   391          dml2_destroy(state->bw_ctx.dml2_dc_power_source);
-   392          state->bw_ctx.dml2_dc_power_source = 0;
-   393          DC_FP_END();
-   394  #endif
-   395  
-   396          kvfree(state);
-   397  }
-
+    3067 
+    3068         data->is_tlu_enabled = false;
+    3069 
+    3070         hwmgr->platform_descriptor.hardwareActivityPerformanceLevels =
+    3071                                                         SMU7_MAX_HARDWARE_POWERLEVELS;
+    3072         hwmgr->platform_descriptor.hardwarePerformanceLevels = 2;
+    3073         hwmgr->platform_descriptor.minimumClocksReductionPercentage = 50;
+    3074 
+    3075         data->pcie_gen_cap = adev->pm.pcie_gen_mask;
+    3076         if (data->pcie_gen_cap & CAIL_PCIE_LINK_SPEED_SUPPORT_GEN3)
+    3077                 data->pcie_spc_cap = 20;
+    3078         else
+    3079                 data->pcie_spc_cap = 16;
+    3080         data->pcie_lane_cap = adev->pm.pcie_mlw_mask;
+    3081 
+    3082         hwmgr->platform_descriptor.vbiosInterruptId = 0x20000400; /* IRQ_SOURCE1_SW_INT */
+    3083         /* The true clock step depends on the frequency, typically 4.5 or 9 MHz. Here we use 5. */
+    3084         hwmgr->platform_descriptor.clockStep.engineClock = 500;
+    3085         hwmgr->platform_descriptor.clockStep.memoryClock = 500;
+    3086         smu7_thermal_parameter_init(hwmgr);
+    3087 
+    3088         result = smu7_update_edc_leakage_table(hwmgr);
+    3089         if (result)
+    3090                 goto fail;
+    3091 
+    3092         return 0;
+    3093 fail:
+    3094         smu7_hwmgr_backend_fini(hwmgr);
+    3095         return result;
+    3096 }
 
 This email is a free service from the Smatch-CI project [smatch.sf.net].
 
