@@ -4,76 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A93DAEBFD15
-	for <amd-gfx@archiver.kernel.org>; Mon, 13 Apr 2026 08:03:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 287CCEBFD19
+	for <amd-gfx@archiver.kernel.org>; Mon, 13 Apr 2026 08:03:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D3ABF10E35D;
-	Mon, 13 Apr 2026 08:03:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0F8AF10E360;
+	Mon, 13 Apr 2026 08:03:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="CVwPR2Jj";
+	dkim=pass (2048-bit key; unprotected) header.d=mit.edu header.i=@mit.edu header.b="VM9pR3FU";
 	dkim-atps=neutral
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
- [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A17EC10E969;
- Fri, 10 Apr 2026 14:21:27 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1775830871; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=Jn/Tmj19i3gOK6f9TWANjUnYtLOPBQJNqcx0tOvjD6UpoX8CURmIgJHUNdecp8Pw0CljdDunOXYctaIxdBHusanURm0wQacxVoaGiqrv4X1c2DA8c8Y0+8I4KFWu1BkOG6EKYiSMzeB/aMXduHDEnhJaZkibDPCNqKz5tzzC2w0=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1775830871;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=9zLHnTtMqw0wWzWI7j+3+Qz08IlRB+2G4Qkl+hxqDWo=; 
- b=YYqZ7rPD2KtIX1IkeI5KwpQUzCS1ufbR7X+rw1FRYUs1PdogLTcepHPQHDUFTuX4/XqMYUliTgNli96hFqCPikJoz7GZp8BfKi27RdJ/soknA9PpgKQ9gi/D846d2zCYSaUSm/Cc3/QnFgD5R/p82+/jayc8xDqUoa0hzflpqSg=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
- dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1775830871; 
- s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
- h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:Content-Type:Message-Id:Reply-To;
- bh=9zLHnTtMqw0wWzWI7j+3+Qz08IlRB+2G4Qkl+hxqDWo=;
- b=CVwPR2JjdsnnJHG3iLLKNbX4wAsiZCkL3NtXjldGLNGHKv8/5VoQA1Jn4biRiq67
- //9zWXRFyP5j6alWl4gj1F2804zm/gplOKweJwC3iihVZHcLBnJ1hRq5pRUvZc8NkjE
- dyhmroMYyfJueA+zxqQg6lsQ7hpMUqCrpzHbjqJ0=
-Received: by mx.zohomail.com with SMTPS id 1775830869992203.62896287388855;
- Fri, 10 Apr 2026 07:21:09 -0700 (PDT)
-From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Sandy Huang <hjc@rock-chips.com>,
- Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>,
- Andy Yan <andy.yan@rock-chips.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, Dmitry Baryshkov <lumag@kernel.org>,
- Sascha Hauer <s.hauer@pengutronix.de>, Rob Herring <robh@kernel.org>,
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- kernel@collabora.com, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- linux-doc@vger.kernel.org
-Subject: Re: [PATCH v12 04/25] drm/bridge: Act on the DRM color format property
-Date: Fri, 10 Apr 2026 16:21:00 +0200
-Message-ID: <4810558.ElGaqSPkdT@workhorse>
-In-Reply-To: <edeq6wxmwzvovfoo6pvih6dybwszf3tahg7nvqkjrw3qxllbfd@jwejh2sgb5eh>
-References: <20260409-color-format-v12-0-ce84e1817a27@collabora.com>
- <20260409-color-format-v12-4-ce84e1817a27@collabora.com>
- <edeq6wxmwzvovfoo6pvih6dybwszf3tahg7nvqkjrw3qxllbfd@jwejh2sgb5eh>
+Received: from outgoing.mit.edu (outgoing-auth-1.mit.edu [18.9.28.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F27DC10E992
+ for <amd-gfx@lists.freedesktop.org>; Fri, 10 Apr 2026 15:19:08 +0000 (UTC)
+Received: from trampoline.thunk.org
+ (pool-173-48-116-90.bstnma.fios.verizon.net [173.48.116.90])
+ (authenticated bits=0) (User authenticated as tytso@ATHENA.MIT.EDU)
+ by outgoing.mit.edu (8.14.7/8.12.4) with ESMTP id 63AFIonm015842
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 10 Apr 2026 11:18:51 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mit.edu; s=outgoing;
+ t=1775834338; bh=eTlXD+fEi5OyNbu4TxRTwpDmEzFd2ThBwniicSqJG9M=;
+ h=From:Subject:Date:Message-ID:MIME-Version:Content-Type;
+ b=VM9pR3FUqiyu4dGQLYjxtn5fwtIzfU7ySZMp0abbH18xV6/gDABRi9uB743lXz8hh
+ DLg+D58JGiw6cmfTe96qrNZsfI1LrX8CH4Z4SZsryjUI4LnJNSYnME68kmTAWN0bac
+ +APmObxjmRctPfSGmHJbriSXfrkN55pWYIbiVRfu2y0ECqpOPHSJun6K+BHM+LkVI2
+ DM7T+QYmlRWbU/sqPlO03FdXluf2F9iRmmuiDmCsbPLwL4U9izV2zs90P/AyWnNi7/
+ WJE2W3FtW9KojAgen2wKI5w3YJJGh4CS8IuF5T47bMgUta6WPQzUW9F7QaunmIRgXz
+ enYXQQPwNnobw==
+Received: by trampoline.thunk.org (Postfix, from userid 15806)
+ id 0D7462E00E1; Fri, 10 Apr 2026 11:18:48 -0400 (EDT)
+From: "Theodore Ts'o" <tytso@mit.edu>
+To: amd-gfx@lists.freedesktop.org, apparmor@lists.ubuntu.com,
+ bpf@vger.kernel.org, ceph-devel@vger.kernel.org, cocci@inria.fr,
+ dm-devel@lists.linux.dev, dri-devel@lists.freedesktop.org,
+ gfs2@lists.linux.dev, intel-gfx@lists.freedesktop.org,
+ intel-wired-lan@lists.osuosl.org, iommu@lists.linux.dev,
+ kvm@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-block@vger.kernel.org, linux-bluetooth@vger.kernel.org,
+ linux-btrfs@vger.kernel.org, linux-cifs@vger.kernel.org,
+ linux-clk@vger.kernel.org, linux-erofs@lists.ozlabs.org,
+ linux-ext4@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+ linux-gpio@vger.kernel.org, linux-hyperv@vger.kernel.org,
+ linux-input@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-leds@vger.kernel.org, linux-media@vger.kernel.org,
+ linux-mips@vger.kernel.org, linux-mm@kvack.org,
+ linux-modules@vger.kernel.org, linux-mtd@lists.infradead.org,
+ linux-nfs@vger.kernel.org, linux-omap@vger.kernel.org,
+ linux-phy@lists.infradead.org, linux-pm@vger.kernel.org,
+ linux-rockchip@lists.infradead.org, linux-s390@vger.kernel.org,
+ linux-scsi@vger.kernel.org, linux-sctp@vger.kernel.org,
+ linux-security-module@vger.kernel.org, linux-sh@vger.kernel.org,
+ linux-sound@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-trace-kernel@vger.kernel.org, linux-usb@vger.kernel.org,
+ linux-wireless@vger.kernel.org, netdev@vger.kernel.org,
+ ntfs3@lists.linux.dev, samba-technical@lists.samba.org,
+ sched-ext@lists.linux.dev, target-devel@vger.kernel.org,
+ tipc-discussion@lists.sourceforge.net, v9fs@lists.linux.dev,
+ Philipp Hahn <phahn-oss@avm.de>
+Cc: "Theodore Ts'o" <tytso@mit.edu>, Andreas Dilger <adilger.kernel@dilger.ca>
+Subject: Re: [PATCH 04/61] ext4: Prefer IS_ERR_OR_NULL over manual NULL check
+Date: Fri, 10 Apr 2026 11:18:40 -0400
+Message-ID: <177583430870.2758959.6171961359325912353.b4-ty@b4>
+X-Mailer: git-send-email 2.51.0
+In-Reply-To: <20260310-b4-is_err_or_null-v1-4-bd63b656022d@avm.de>
+References: <20260310-b4-is_err_or_null-v1-4-bd63b656022d@avm.de>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
 Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 13 Apr 2026 08:02:59 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -89,186 +85,18 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Friday, 10 April 2026 00:08:24 Central European Summer Time Dmitry Baryshkov wrote:
-> On Thu, Apr 09, 2026 at 05:44:54PM +0200, Nicolas Frattaroli wrote:
-> > The new DRM color format property allows userspace to request a specific
-> > color format on a connector. In turn, this fills the connector state's
-> > color_format member to switch color formats.
-> > 
-> > Make drm_bridges consider the color_format set in the connector state
-> > during the atomic bridge check. For bridges that represent HDMI bridges,
-> > rely on whatever format the HDMI logic set. Reject any output bus
-> > formats that do not correspond to the requested color format.
-> > 
-> > Non-HDMI last bridges with DRM_CONNECTOR_COLOR_FORMAT_AUTO set will end
-> > up choosing the first output format that functions to make a whole
-> > recursive bridge chain format selection succeed.
-> > 
-> > Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-> > ---
-> >  drivers/gpu/drm/drm_bridge.c | 89 +++++++++++++++++++++++++++++++++++++++++++-
-> >  1 file changed, 88 insertions(+), 1 deletion(-)
-> > 
-> > diff --git a/drivers/gpu/drm/drm_bridge.c b/drivers/gpu/drm/drm_bridge.c
-> > index ba80bebb5685..7c1516864d96 100644
-> > --- a/drivers/gpu/drm/drm_bridge.c
-> > +++ b/drivers/gpu/drm/drm_bridge.c
-> > @@ -1150,6 +1150,47 @@ static int select_bus_fmt_recursive(struct drm_bridge *first_bridge,
-> >  	return ret;
-> >  }
-> >  
-> > +static bool __pure bus_format_is_color_fmt(u32 bus_fmt, enum drm_connector_color_format fmt)
-> > +{
-> > +	if (fmt == DRM_CONNECTOR_COLOR_FORMAT_AUTO)
-> > +		return true;
-> > +
-> > +	switch (bus_fmt) {
-> > +	case MEDIA_BUS_FMT_FIXED:
-> > +		return true;
-> > +	case MEDIA_BUS_FMT_RGB888_1X24:
-> > +	case MEDIA_BUS_FMT_RGB101010_1X30:
-> > +	case MEDIA_BUS_FMT_RGB121212_1X36:
-> > +	case MEDIA_BUS_FMT_RGB161616_1X48:
-> > +		return fmt == DRM_CONNECTOR_COLOR_FORMAT_RGB444;
-> > +	case MEDIA_BUS_FMT_YUV8_1X24:
-> > +	case MEDIA_BUS_FMT_YUV10_1X30:
-> > +	case MEDIA_BUS_FMT_YUV12_1X36:
-> > +	case MEDIA_BUS_FMT_YUV16_1X48:
-> > +		return fmt == DRM_CONNECTOR_COLOR_FORMAT_YCBCR444;
-> > +	case MEDIA_BUS_FMT_UYVY8_1X16:
-> > +	case MEDIA_BUS_FMT_VYUY8_1X16:
-> > +	case MEDIA_BUS_FMT_YUYV8_1X16:
-> > +	case MEDIA_BUS_FMT_YVYU8_1X16:
-> > +	case MEDIA_BUS_FMT_UYVY10_1X20:
-> > +	case MEDIA_BUS_FMT_YUYV10_1X20:
-> > +	case MEDIA_BUS_FMT_VYUY10_1X20:
-> > +	case MEDIA_BUS_FMT_YVYU10_1X20:
-> > +	case MEDIA_BUS_FMT_UYVY12_1X24:
-> > +	case MEDIA_BUS_FMT_VYUY12_1X24:
-> > +	case MEDIA_BUS_FMT_YUYV12_1X24:
-> > +	case MEDIA_BUS_FMT_YVYU12_1X24:
-> > +		return fmt == DRM_CONNECTOR_COLOR_FORMAT_YCBCR422;
-> > +	case MEDIA_BUS_FMT_UYYVYY8_0_5X24:
-> > +	case MEDIA_BUS_FMT_UYYVYY10_0_5X30:
-> > +	case MEDIA_BUS_FMT_UYYVYY12_0_5X36:
-> > +	case MEDIA_BUS_FMT_UYYVYY16_0_5X48:
-> > +		return fmt == DRM_CONNECTOR_COLOR_FORMAT_YCBCR420;
-> > +	default:
-> > +		return false;
-> > +	}
-> > +}
-> > +
-> >  /*
-> >   * This function is called by &drm_atomic_bridge_chain_check() just before
-> >   * calling &drm_bridge_funcs.atomic_check() on all elements of the chain.
-> > @@ -1193,6 +1234,7 @@ drm_atomic_bridge_chain_select_bus_fmts(struct drm_bridge *bridge,
-> >  	struct drm_encoder *encoder = bridge->encoder;
-> >  	struct drm_bridge_state *last_bridge_state;
-> >  	unsigned int i, num_out_bus_fmts = 0;
-> > +	enum drm_connector_color_format fmt;
-> >  	u32 *out_bus_fmts;
-> >  	int ret = 0;
-> >  
-> > @@ -1234,13 +1276,58 @@ drm_atomic_bridge_chain_select_bus_fmts(struct drm_bridge *bridge,
-> >  			out_bus_fmts[0] = MEDIA_BUS_FMT_FIXED;
-> >  	}
-> >  
-> > +	/*
-> > +	 * On HDMI connectors, use the output format chosen by whatever does the
-> > +	 * HDMI logic. For everyone else, just trust that the bridge out_bus_fmts
-> > +	 * are sorted by preference for %DRM_CONNECTOR_COLOR_FORMAT_AUTO, as
-> > +	 * bus_format_is_color_fmt() always returns true for AUTO.
-> > +	 */
-> > +	if (last_bridge->type == DRM_MODE_CONNECTOR_HDMIA) {
+
+On Tue, 10 Mar 2026 12:48:30 +0100, Philipp Hahn wrote:
+> Prefer using IS_ERR_OR_NULL() over using IS_ERR() and a manual NULL
+> check.
 > 
-> I still think this is misplaced (and misidentified). Consider HDMI
-> bridge being routed to the DVI-D connector. The last bridge would have
-> different type, but the HDMI-specific logic must still be applied. The
-> bridge must use RGB444, but it must be handled in a generic way.
+> Change generated with coccinelle.
 
-Thanks for the review. I was hoping that an HDMI bridge chain going to
-a DVI connector would be a DRM_MODE_CONNECTOR_HDMIB thing, but apparently
-not. I also don't know however how doing this in the drm bridge connector
-helps us here. I guess we'd call into a drm_bridge_connector specific
-function with the connector format and connector, and get an output
-format in return, and said function checks that if any bridge in the
-bridge connector is HDMI it uses the HDMI logic? That would conflict
-with the following case from what I understand:
+Applied, thanks!
 
-> Or other way around, a DVI bridge being routed through the HDMI
-> connector (thinking about PandaBoard here). The combo should not go
-> through the HDMI-specific color format selection although the last
-> bridge in the chanin is the HDMI-A bridge.
+[04/61] ext4: Prefer IS_ERR_OR_NULL over manual NULL check
+        commit: 1d749e110277ce4103f27bd60d6181e52c0cc1e3
 
-In that case, wouldn't the recursive bridge bus format selection
-take care of this? I assume the DVI bridge will only allow RGB444,
-and one of the bridges that follow it is an HDMI bridge for the
-HDMI connector that's physically on the board.
-
-In such a case, if the HDMI state helpers came up with something
-other than RGB444, the select_bus_fmt_recursive below would fail
-as expected, since it won't be able to find an output that
-satisfies the constraints given by the DVI bridge.
-
-> I think all these cases should be handled by the connector, which knows
-> if there is an OP_HDMI bridge in the chain or not.
-
-Kind regards,
-Nicolas Frattaroli
-
-> > +		drm_dbg_kms(last_bridge->dev,
-> > +			    "HDMI bridge requests format %s\n",
-> > +			    drm_hdmi_connector_get_output_format_name(
-> > +				    conn_state->hdmi.output_format));
-> > +		switch (conn_state->hdmi.output_format) {
-> > +		case DRM_OUTPUT_COLOR_FORMAT_RGB444:
-> > +			fmt = DRM_CONNECTOR_COLOR_FORMAT_RGB444;
-> > +			break;
-> > +		case DRM_OUTPUT_COLOR_FORMAT_YCBCR444:
-> > +			fmt = DRM_CONNECTOR_COLOR_FORMAT_YCBCR444;
-> > +			break;
-> > +		case DRM_OUTPUT_COLOR_FORMAT_YCBCR422:
-> > +			fmt = DRM_CONNECTOR_COLOR_FORMAT_YCBCR422;
-> > +			break;
-> > +		case DRM_OUTPUT_COLOR_FORMAT_YCBCR420:
-> > +			fmt = DRM_CONNECTOR_COLOR_FORMAT_YCBCR420;
-> > +			break;
-> > +		default:
-> > +			ret = -EINVAL;
-> > +			goto out_free_bus_fmts;
-> > +		}
-> > +	} else {
-> > +		fmt = conn_state->color_format;
-> > +		drm_dbg_kms(last_bridge->dev, "Non-HDMI bridge requests format %d\n", fmt);
-> > +	}
-> > +
-> >  	for (i = 0; i < num_out_bus_fmts; i++) {
-> > +		if (!bus_format_is_color_fmt(out_bus_fmts[i], fmt)) {
-> > +			drm_dbg_kms(last_bridge->dev,
-> > +				    "Skipping bus format 0x%04x as it doesn't match format %d\n",
-> > +				    out_bus_fmts[i], fmt);
-> > +			ret = -ENOTSUPP;
-> > +			continue;
-> > +		}
-> >  		ret = select_bus_fmt_recursive(bridge, last_bridge, crtc_state,
-> >  					       conn_state, out_bus_fmts[i]);
-> > -		if (ret != -ENOTSUPP)
-> > +		if (ret != -ENOTSUPP) {
-> > +			drm_dbg_kms(last_bridge->dev,
-> > +				    "Found bridge chain ending with bus format 0x%04x\n",
-> > +				    out_bus_fmts[i]);
-> >  			break;
-> > +		}
-> >  	}
-> >  
-> > +out_free_bus_fmts:
-> >  	kfree(out_bus_fmts);
-> >  
-> >  	return ret;
-> > 
-> 
-> 
-
-
-
-
+Best regards,
+-- 
+Theodore Ts'o <tytso@mit.edu>
