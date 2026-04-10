@@ -4,97 +4,121 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0875DF364C3
-	for <amd-gfx@archiver.kernel.org>; Thu,  9 Apr 2026 22:46:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E7EF2F36B97
+	for <amd-gfx@archiver.kernel.org>; Fri, 10 Apr 2026 01:25:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9FFF810E15B;
-	Thu,  9 Apr 2026 22:46:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6E36610E8AD;
+	Fri, 10 Apr 2026 01:25:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="4MLsQlXx";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="QifUYj5C";
 	dkim-atps=neutral
-Received: from DM1PR04CU001.outbound.protection.outlook.com
- (mail-centralusazon11010054.outbound.protection.outlook.com [52.101.61.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5D19110E15B
- for <amd-gfx@lists.freedesktop.org>; Thu,  9 Apr 2026 22:46:17 +0000 (UTC)
+Received: from BL0PR03CU003.outbound.protection.outlook.com
+ (mail-eastusazon11012026.outbound.protection.outlook.com [52.101.53.26])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2634C10E8AC
+ for <amd-gfx@lists.freedesktop.org>; Fri, 10 Apr 2026 01:25:10 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=CD3jWbkuj9DI/VF2WVzdGiCpHxfFppxJ3HMh/JM+R+9xlMrcWTIO4uT21vwT1Ahkgn2A2aIPQxdX3B8oYaNL/puwnud/9A5GxtTiQT8YuXqR94MCAGx0HAWevtDZBeqLmcNeYI+5zCVhExt9uU0UMEFRsfNh9h2jdDquH2Nhk6g4aV8hrcaR55aiJ3wWi/rEjk/8hoq3f02RWXiH4dZ11RIAA1MmRLIQFSMaTYD667nKy6XdkTtuenP5lGRndrKbhC4C2b1DbMPvSXdYxvOLxJG0t1Pbo3WU9zcfvCap0wUhI8HMaQ19WJ5NCOyeS96UiztfWnKZliI1VVNGgOBoBA==
+ b=SpIxBEXgd8yi9uuq6Yh3Y5kAVq0cI8XASvm1cLevUI081K6wLiDC/BKE9l8u7vPQz50izMVzn5gP2sDBHe7XH/QM4l5chXCnE5PwM9KN+stgFKWKVGyudnmi1Uu6qjCvVq0FOJfu5rsDegErv7T/PxcZwKlgJ1cbjiojGZSAsqQ0+a1HomplaIACvMEXwPwtK0MHhf2omoQDBCDzuo9UlJzSTaMT3EhKV4HD8rS1smRzS2ysBzdi8NEAySVA1NzCa/5G4vmVPAAbEVhPZkXVGQWdcyI1Q1wmb7sYZCCcODDkQyUiC6/wdQTKFO3dS+9h9/C46/HJTWxriTmYgvNH2A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=QRqZnSsANuV24XiAtTlHqLMgdiYbuX357Jn0DJVbSX4=;
- b=lnDGw9Ah0L7a6CLIVYMoyZP0NfKWMMlBKD1pjp93++gCxnCRn/TJkMJYBnqHwrF65C1NSst7u6mGFB0k2w47YFViUhDrAQ1uQlnWcWnS0cgA/Z8rt6Q7jsWWTWM4XU+3DFLKdgqS4qOHLIOk9yLTIWoD1z642P21zCtQgzdKTTwB9OF3sRrfDVAcFOwEztGeuEBfDwC9WodIjoQ0VXSwTeCEiUevNxAJhtr44vuhXFBOD71spqRrzkfAmxsHo1qZVNPKenJZAF+CegoqU4EDAu3p0YjKH5vsGUdN34XKDk5Zn2GM+TU21lkOOjQcHCCOyPPZSK3WYUBKblkZSHOvtw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
+ bh=VPJPj+sMJ7XQA1ycDWeBZtwHt83q0hVlOkPn4jU1NVY=;
+ b=kV7UeCc03PJBi9v0WyiynkLZ3y7O1rBXWc/cGSR+elfh2Np1UYzQQEEm8dCyk6OmZHQumgJ7NTqCgsTctt3gHKSivd5DHMfWLsTh0lFOaeErTNrJ3fyYtY2AIBxzyrt0BLrnd8IOrWTPPNpcAc2sJYN28NNczYH3sQeXDyVtwvqGORRL7wUro0ElIBUx7y+2yDmxifGGzYdV7qmxcuxbU3eK11QsySLtsFf1o0Ovjrx5Tpgin75jHynaNWMPIpbtza3TGzKS6xLK9ratrunsZD2Sc0eeomC8JbOtILtXiJGggWc6mxWDXbK+8UNg2Cc4HlXkkiHtwXA8fELI2yUsPw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=QRqZnSsANuV24XiAtTlHqLMgdiYbuX357Jn0DJVbSX4=;
- b=4MLsQlXxmdMsLMG//vxeqZERj075Bmrx0R1DesC/ke6D0TFCFzn2FnijsSISEPpIpYtMyVkqPHvbUril6j0/TrWgNFShrCK9z/hQ0atq5wv9OF/qgaUgr1j8LIgHafk3RwBhiZzNkMypyVi8WVCsICD4zipndA/HZ+jfAZJ1ATo=
-Received: from SJ0PR05CA0152.namprd05.prod.outlook.com (2603:10b6:a03:339::7)
- by DS0PR12MB8320.namprd12.prod.outlook.com (2603:10b6:8:f8::14) with
+ bh=VPJPj+sMJ7XQA1ycDWeBZtwHt83q0hVlOkPn4jU1NVY=;
+ b=QifUYj5CYGEvL6PDFv0IeVnnnCOm+N3rgKLbPtNfKwdH0tTXEOjoYNNF3QBU7w6yjEDfY/JpbFwViB4o5Gs2Ifw8DplJIKQksaKNL1iJ1x7Ac0vlUaVXw1YtiEmKnw8ZuvDSb//UPIphq149RBLey7yKpOIQNzEy1sghaUb0FXU=
+Received: from SJ0PR12MB6967.namprd12.prod.outlook.com (2603:10b6:a03:44b::6)
+ by DS7PR12MB8347.namprd12.prod.outlook.com (2603:10b6:8:e5::19) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.42; Thu, 9 Apr
- 2026 22:46:12 +0000
-Received: from CO1PEPF000066E7.namprd05.prod.outlook.com
- (2603:10b6:a03:339:cafe::89) by SJ0PR05CA0152.outlook.office365.com
- (2603:10b6:a03:339::7) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9769.37 via Frontend Transport; Thu,
- 9 Apr 2026 22:46:12 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- CO1PEPF000066E7.mail.protection.outlook.com (10.167.249.9) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9769.17 via Frontend Transport; Thu, 9 Apr 2026 22:46:11 +0000
-Received: from Philip-Dev.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Thu, 9 Apr
- 2026 17:46:10 -0500
-From: Philip Yang <Philip.Yang@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <Felix.Kuehling@amd.com>, <christian.koenig@amd.com>,
- <Kent.Russell@amd.com>, <Andrew.Martin@amd.com>, Philip Yang
- <Philip.Yang@amd.com>
-Subject: [PATCH v2] drm/amdgpu: extend mtype override to non-contiguous pages
-Date: Thu, 9 Apr 2026 18:45:53 -0400
-Message-ID: <20260409224554.2813645-1-Philip.Yang@amd.com>
-X-Mailer: git-send-email 2.50.1
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF000066E7:EE_|DS0PR12MB8320:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8319134a-c10d-45ed-9696-08de9689cc87
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|1800799024|36860700016|376014|56012099003|18002099003;
-X-Microsoft-Antispam-Message-Info: xFgJ1eLEs6pTCIknXYUNX7xmfCVMzqxPuKQKQd6k3xJ3JRtbsaj32yQILZtpIAj3n3lXFkPA++xWWJRHgU8EkTTY4brhPk8B8lcMYC/xywajTY9aeN0PWkpsxCaBa4DLRB45zyWE58YKNtTFLG3Zye2ZGIqSF+4NUavVk1O3ceKUTjbLwJOFcVKc6yR+LAWLj0hLvnS2bzm4IKfYDEByjsemmmya6JR5DZFrFGtb5pMCLwTAg33OXjQmEFeD2mG0wGtWdPkNHv6ZgOemvWhhuF73oSuEniEiL1prGVtfzbfNLDV1bT4C6l6+JM7PUJbcSgRO637exu+VwjnCxxR58TbDD3zX3cHvkT3USfG4wOry62bSYy5diFSZhHaXKuxjDck55OgsrUy8FHro+/YK/UxHG1I7mYWjVbyHS0F8r1dPQXy0yj9g6z2QFtPoUsxorIPciCpnMRsuZdBFDFS0nn9Pk97LRVudOy7HgKExWzWku84GPVkOh3W6HsaLv54N4AjLJfA7xwWhs3lj5VNGuWcWoI+H0BJuY1qw8rhlQOuhdrD85dOfO1Xg0D4t7dz1XFaloZlcu4h7xiBd6tsYNtmD43zxvxCiBNLHnQqLzYFa2ZPBcLH8VcvIH9e+5rxQLA3k8xUrR/ZYXAyRiF3/OeYBw3RkGkXvJvPWQNDQveBMnXc+SoWiQsoEsNmLcYN1oxdxPVEsxsf+0ZsVDRA/0FdKvB2Jx5iQC4xEHwbueie8XKqaqGtGbmNX7SLxn9ynAe1kLNT8XtPNmDw8+Ty4iw==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(1800799024)(36860700016)(376014)(56012099003)(18002099003);
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.20; Fri, 10 Apr
+ 2026 01:25:06 +0000
+Received: from SJ0PR12MB6967.namprd12.prod.outlook.com
+ ([fe80::9e49:aeba:9265:f46e]) by SJ0PR12MB6967.namprd12.prod.outlook.com
+ ([fe80::9e49:aeba:9265:f46e%7]) with mapi id 15.20.9791.032; Fri, 10 Apr 2026
+ 01:25:05 +0000
+From: "Sun, Ce(Overlord)" <Ce.Sun@amd.com>
+To: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+CC: "Zhang, Hawking" <Hawking.Zhang@amd.com>
+Subject: Re: [PATCH] drm/amdgpu: correct single device PCIe reset flow for DPC
+ status
+Thread-Topic: [PATCH] drm/amdgpu: correct single device PCIe reset flow for
+ DPC status
+Thread-Index: AQHcxxphvd65o3MB10i5FpgQh3rOxbXXgys4
+Date: Fri, 10 Apr 2026 01:25:05 +0000
+Message-ID: <SJ0PR12MB69671EE0AE9DF08BA2F5851A9D592@SJ0PR12MB6967.namprd12.prod.outlook.com>
+References: <20260408054126.2202627-1-cesun102@amd.com>
+In-Reply-To: <20260408054126.2202627-1-cesun102@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=True;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2026-04-10T01:25:04.381Z;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
+ Internal Distribution
+ Only; MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=1;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard; 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: SJ0PR12MB6967:EE_|DS7PR12MB8347:EE_
+x-ms-office365-filtering-correlation-id: 162975de-a79d-4561-7b85-08de969ffee1
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|376014|1800799024|366016|38070700021|56012099003|22082099003|18002099003|8096899003;
+x-microsoft-antispam-message-info: nXt7ccqucR3VuI5r3ZDVuzxFT13biyA8pt8ZXAtNxkfSHiOEO0a8ndzP7GHNxaZ/HoMYo3r18UYtuXO6Gr/6UiOSvS4aLfKovVNad/SqK9ZuLwqbmhWXf/e7S3VXg/i+GICnLU3nudeMJARceM+9vxBhc5kzV0qSVvXdv9w1fd1i+XvIVFyYHpu3xm9ZiuFBp+Eu/4gMfapNOvoFIpfY1olrNxiBNkgu43CF9VbiQ84een6rB5fMEDwMrXDI8hNZ9xC1XoNyi3b3EpE9hP7CnsMfgQ6+zyPnU2CeIIFXeA13cTrgtOg/WbYVeDYZhnMsq545acWDAWkxR3llxtCmfOqw4g5/poVi+tQ8sM8ZQq1D/bK8QlK2UULtTc5a7b7qItnba7daRV9mhhFZCUVTjVzmyO5Q+DXyG18h3/rpvYhKPTIxzFo3f/2zG2a86e5EqPXLR//dBKqoInCI44fZJPlePEYb34Vsvn0qUtX5H1RFCXS3CD6j5IAILeAqq3oAMc25E6yn5GCzjUpw/uEPvj0wAV9LeZvg3tES4q3TExgfv9Ov4tAbMPCrlQnDDpcNQjQ8eWDAawF9dbEgWLXpTTJoBQvFX5GgKRdHZPKBzMVyAO1cNdRNohzrIi/e12cdCDS33P7aRsXYmrtHKpMsMeZYtWN0YRgW3FvFjQqBv8l8PXhpL4H9LPT0jSfB5hfK8AVotEQ3xGjNNBDLjDI4NmT03XwKcOAmcyZvjIQa44SQVJFBzFkN26RItujCcqAPshoNqwC167MgOGxF69flo3krXCueBsTzZ13tioJoMrI=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SJ0PR12MB6967.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(366016)(38070700021)(56012099003)(22082099003)(18002099003)(8096899003);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: EhDQR+F//vIsMbVo2aEc8OJfAHde9urzeT6WjC6GEj3dAFR7gk7LtNdWiZ5Pnv761qn2XERp/Ap33JGoMUm5VdSurpsUdmZwmc7+t9GRmgb8Wzv6hyQEwerylcXuCDVGGs5KbwVoowEY5C9cyV7QnbF4ouC7NGiBrluA35z2P0ugn50crEE5XJfTjV4cyE9fqykacGpWkjA5glWEwaJjEiH3sD2T3LFzPvA+TeAErw1bsKYBN/CdzFDMJSB/Ig300yRw1PpFBu3Ju+J1Djb1jK2SiEi5tUbGLldaQobVTuGvkgacYJL4vVDaHsrTrErux4Q2dDt5DRE2zTOjF7UouGvs+EQwxoDyxOTxCMLlCOymSLGf/KGqGc9vDyKEy8lO1Y7lNx7ujalq/5peT6TbGqAnyMjwtwiFSykf2WJhh1NUOqIJ4rU5bqkTYOL9namr
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?qB5nokfS5A9b3HFPCPsrBWtxY3BhX0dt3lTwDhQ6h2PObuwkJ5xITUApBss1?=
+ =?us-ascii?Q?ukH9Fd0imPqdHWpGgde2zFB5c/AiYQd0FikQoVddwGMBG46J2iR8djbZnE4T?=
+ =?us-ascii?Q?2QVm2UlbwqZJ+eaLrMNCBrgmbngyKQrgTvAu2yWHZu/t1X+LIs6K3mqgCZlM?=
+ =?us-ascii?Q?qy19njS5qOcvDKzAO1KVe0j2yUdKN9hbYeucYxqpApvSHw3vZqlfqZk64nke?=
+ =?us-ascii?Q?ZI8QQUIR1BYys/qi8aR/CXcRruI/xEKFACcg6SX8b9JhrnvquY0560xG76qu?=
+ =?us-ascii?Q?c9Pz/HvRSvxVMc+yiH9t4+Vnz1Hx8AZhL6OFJfSGpG5vD1emfPzo7OXWPd5t?=
+ =?us-ascii?Q?XErq09t4uhtW//xNyeiiGzGb840og1hwf9GEH125VI9vRBNVO9bSEurBWRX9?=
+ =?us-ascii?Q?ujEjU3eZX1ETJkNZnplYOLww3Hq4pSfaMx+hDP7fqI0icbjduSsYwPy/rKVv?=
+ =?us-ascii?Q?oXh25eUlxCWyUKqOsXJysEyV7t0whYifcJ++c5CrOLnJOX6D/nBGKt47KMlK?=
+ =?us-ascii?Q?oOsZtrj9UQZ7oLDXcUdz+taQEqgCIt2M0TomxaxV/oQhBccLALssGGLu+YyQ?=
+ =?us-ascii?Q?/lFQ9SvcyT2/UcC1E59YAGGHGF5qoF6muWJ3qX1rL7U4rj2fqFQqLSlPwBmz?=
+ =?us-ascii?Q?Dgt6YWsXPPJjOq5LmUXm7w+Z804Pu+L5xVegf+s4icz9enCPsLx6BcniK03U?=
+ =?us-ascii?Q?wOgZlXm5pUDxrcivzXZk/s/CjzpG7LkJM1/FD2a8FvKDxxMQ4LDz9g+L22zT?=
+ =?us-ascii?Q?dmET2yy5eSBJFarOSDk0GaOCwN0Di//ViYZ9YZFw8NdDTqw0bhd+qxBL02HC?=
+ =?us-ascii?Q?0Gdx36WF9dOBwwOHGAn+NmVCV/DLol0fqF+5uV1wqZQZvvob5kHv8l3xtguc?=
+ =?us-ascii?Q?5xRWFa9/onzyIjABMyUd7SJaSh3EJP6pwBkyUr3Zqh3RuAh6DEeBfNk1cYPc?=
+ =?us-ascii?Q?+bnB+Y2jK7UbZLxJVct0YYRoFfRaxNyFKyARxFlRmzvQbfR6R9ZeVjBJa0L5?=
+ =?us-ascii?Q?2u7mJ5XVlBJKto+7OKFodESRtq19euqtEZ1QNIpKRzVdt8lwnv4vBxci6sHQ?=
+ =?us-ascii?Q?brbx5d8BjnokgCVtKCMI3a1dU9aIYUbqGu+pmaCWJ1Cqzn8zZ4SfpMugj/Od?=
+ =?us-ascii?Q?orgLgoJKnw/h9xuDrzqh98L7r8XQHpLIz1rSosOM1sj8Qb+gnMH4ay75i5sw?=
+ =?us-ascii?Q?x9qFmhnRxXOjWY/zmveAQ+g2rCa5sbqeiZsIsJVyNH7+fqNpqk2zpzomxCIr?=
+ =?us-ascii?Q?bZNScTgXbpVWqxB5f5QgA6n5deGGuu/TngO42SnIfo55hLnnVRDepbJXX+tY?=
+ =?us-ascii?Q?GP2LzUE5zt9MBVpOP+qdoYJbY4Vs5MiR7Qwk9QFiyEl9VorR/DlossIQkMU4?=
+ =?us-ascii?Q?NHUfl7Xw9aYuh78WQNWCa2ayrZ13z00YgkvqJQaPPBXdH+8RlQiQOVZxG0QJ?=
+ =?us-ascii?Q?1tcRB0y6rw2dTm4NDTrlfyurdihY5eBSx3zyg49vNWtdUIzvz0Cah21uOab+?=
+ =?us-ascii?Q?lLtfOGw/8T5PjbFLGA8IOtDBY+UytsYtOv25M+yK/nd8hP1HYmWRdIzQxxFD?=
+ =?us-ascii?Q?SOZaDQxzwEGcz8jFfT6WUCjzkDxJtl7GFds6qOQ1lTxUP/IrGvzq2UkqAySz?=
+ =?us-ascii?Q?cf7OpKoMURaniQl8Q1ybdluPdM+zakxYI/2xq7fi1AFS3H8BTKuULiB//XRz?=
+ =?us-ascii?Q?9qcecjHq/0n/YOjUoHnyUFdBKwIINKFZzI2IswrF4MsbOT+U?=
+Content-Type: multipart/alternative;
+ boundary="_000_SJ0PR12MB69671EE0AE9DF08BA2F5851A9D592SJ0PR12MB6967namp_"
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Apr 2026 22:46:11.7875 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8319134a-c10d-45ed-9696-08de9689cc87
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF000066E7.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8320
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: SJ0PR12MB6967.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 162975de-a79d-4561-7b85-08de969ffee1
+X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Apr 2026 01:25:05.2938 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: boiOmt/46WoWVxwneWzSvnhMFro1938h0x5GghCZxhl8ErJtezETEP6fdOh/Xw1am/zesKISHKQHzzu9Jyz45Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB8347
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,149 +133,194 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On multi-socket MI300A APU systems, system memory pages mapped to the
-closest GPU must use MTYPE_RW instead of MTYPE_NC to maintain correct
-cache coherence. The existing mtype override in amdgpu_vm_pte_update_flags()
-excluded non-contiguous page mappings from the override. This caused
-incorrect MTYPE_NC for scattered local pages, leading to cache coherence
-issues.
+--_000_SJ0PR12MB69671EE0AE9DF08BA2F5851A9D592SJ0PR12MB6967namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-The override applies to both contiguous and non-contiguous mappings.
-When pages_addr is set, resolve the physical address via
-pages_addr[addr >> PAGE_SHIFT] before passing it to the override
-callback for NUMA node lookup.
+[AMD Official Use Only - AMD Internal Distribution Only]
 
-Introduce amdgpu_vm_addr_contiguous() helper that, on MI300A, treats
-pages on different NUMA nodes as non-contiguous even if their DMA
-addresses are adjacent. This ensures amdgpu_vm_update_range() splits
-page table updates at NUMA node boundaries so each batch gets the
-correct mtype override.
+ping
+________________________________
+From: Sun, Ce(Overlord) <Ce.Sun@amd.com>
+Sent: Wednesday, April 8, 2026 1:41 PM
+To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
+Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Sun, Ce(Overlord) <Ce.Sun@amd.c=
+om>
+Subject: [PATCH] drm/amdgpu: correct single device PCIe reset flow for DPC =
+status
 
-Signed-off-by: Philip Yang <Philip.Yang@amd.com>
+For triggering the dpc event with a single device, we still need
+to set the in_link_reset flag and the dpc status.
+
+Signed-off-by: Ce Sun <cesun102@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c    | 51 +++++++++++++++++++----
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c | 14 +++++--
- 2 files changed, 53 insertions(+), 12 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-index 63156289ae7f..7b7cbe054d73 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-@@ -1099,6 +1099,32 @@ amdgpu_vm_tlb_flush(struct amdgpu_vm_update_params *params,
- 	}
- }
- 
-+/**
-+ * amdgpu_vm_addr_same_group - check if two DMA addresses are same contiguity state
-+ *
-+ * @same_nid: true to check if two address on same NUMA node
-+ * @addr: current DMA address
-+ * @addr_next: next DMA address to check against
-+ * @contiguous: current contiguity state of the range being built
-+ *
-+ * Check whether @addr and @addr_next are physically contiguous. On APU
-+ * platforms with multiple NUMA nodes (e.g. MI300A), a NUMA node boundary
-+ * also breaks contiguity so that each contiguous batch stays within a
-+ * single NUMA node for correct MTYPE override selection.
-+ *
-+ * Returns:
-+ * true if @addr_next continues the current contiguous range, false otherwise.
-+ */
-+static inline bool amdgpu_vm_addr_same_group(bool same_nid, dma_addr_t addr,
-+					     dma_addr_t addr_next, bool contiguous)
-+{
-+	if (same_nid && page_is_ram(addr >> PAGE_SHIFT) &&
-+	    pfn_to_nid(addr >> PAGE_SHIFT) != pfn_to_nid(addr_next >> PAGE_SHIFT))
-+		return !contiguous;
-+
-+	return (addr + PAGE_SIZE) == addr_next;
-+}
-+
- /**
-  * amdgpu_vm_update_range - update a range in the vm page table
-  *
-@@ -1134,6 +1160,7 @@ int amdgpu_vm_update_range(struct amdgpu_device *adev, struct amdgpu_vm *vm,
- 	struct amdgpu_vm_tlb_seq_struct *tlb_cb;
- 	struct amdgpu_vm_update_params params;
- 	struct amdgpu_res_cursor cursor;
-+	bool same_nid;
- 	int r, idx;
- 
- 	if (!drm_dev_enter(adev_to_drm(adev), &idx))
-@@ -1166,6 +1193,10 @@ int amdgpu_vm_update_range(struct amdgpu_device *adev, struct amdgpu_vm *vm,
- 	params.allow_override = allow_override;
- 	INIT_LIST_HEAD(&params.tlb_flush_waitlist);
- 
-+	same_nid = adev->gmc.is_app_apu && adev->ram_is_direct_mapped &&
-+		   adev->gmc.gmc_funcs->override_vm_pte_flags &&
-+		   num_possible_nodes() > 1 && params.allow_override;
-+
- 	amdgpu_vm_eviction_lock(vm);
- 	if (vm->evicting) {
- 		r = -EBUSY;
-@@ -1198,22 +1229,26 @@ int amdgpu_vm_update_range(struct amdgpu_device *adev, struct amdgpu_vm *vm,
- 				uint64_t pfn = cursor.start >> PAGE_SHIFT;
- 				uint64_t count;
- 
--				contiguous = pages_addr[pfn + 1] ==
--					pages_addr[pfn] + PAGE_SIZE;
-+				contiguous = amdgpu_vm_addr_same_group(same_nid,
-+								       pages_addr[pfn],
-+								       pages_addr[pfn + 1],
-+								       contiguous);
- 
--				tmp = num_entries /
--					AMDGPU_GPU_PAGES_IN_CPU_PAGE;
-+				tmp = num_entries / AMDGPU_GPU_PAGES_IN_CPU_PAGE;
- 				for (count = 2; count < tmp; ++count) {
- 					uint64_t idx = pfn + count;
- 
--					if (contiguous != (pages_addr[idx] ==
--					    pages_addr[idx - 1] + PAGE_SIZE))
-+					if (contiguous != amdgpu_vm_addr_same_group(same_nid,
-+									pages_addr[idx - 1],
-+									pages_addr[idx],
-+									contiguous))
- 						break;
- 				}
-+
- 				if (!contiguous)
- 					count--;
--				num_entries = count *
--					AMDGPU_GPU_PAGES_IN_CPU_PAGE;
-+
-+				num_entries = count * AMDGPU_GPU_PAGES_IN_CPU_PAGE;
- 			}
- 
- 			if (!contiguous) {
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
-index 31a437ce9570..9e1607fb3b2e 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
-@@ -708,13 +708,19 @@ static void amdgpu_vm_pte_update_flags(struct amdgpu_vm_update_params *params,
- 		amdgpu_vm_pte_update_noretry_flags(adev, &flags);
- 
- 	/* APUs mapping system memory may need different MTYPEs on different
--	 * NUMA nodes. Only do this for contiguous ranges that can be assumed
--	 * to be on the same NUMA node.
-+	 * NUMA nodes. Both contiguous and non-contiguous ranges are handled
-+	 * since amdgpu_vm_update_range ensures updates don't span NUMA
-+	 * node boundaries.
- 	 */
- 	if ((flags & AMDGPU_PTE_SYSTEM) && (adev->flags & AMD_IS_APU) &&
- 	    adev->gmc.gmc_funcs->override_vm_pte_flags &&
--	    num_possible_nodes() > 1 && !params->pages_addr && params->allow_override)
--		amdgpu_gmc_override_vm_pte_flags(adev, params->vm, addr, &flags);
-+	    num_possible_nodes() > 1 && params->allow_override) {
-+		if (params->pages_addr)
-+			amdgpu_gmc_override_vm_pte_flags(adev, params->vm,
-+					params->pages_addr[addr >> PAGE_SHIFT], &flags);
-+		else
-+			amdgpu_gmc_override_vm_pte_flags(adev, params->vm, addr, &flags);
-+	}
- 
- 	params->vm->update_funcs->update(params, pt, pe, addr, count, incr,
- 					 flags);
--- 
-2.50.1
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_device.c
+index deb41c095b59..0bdb54ab9a53 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -6291,6 +6291,9 @@ pci_ers_result_t amdgpu_pci_error_detected(struct pci=
+_dev *pdev, pci_channel_sta
+                         amdgpu_reset_set_dpc_status(adev, true);
 
+                         mutex_lock(&hive->hive_lock);
++               } else {
++                       if (amdgpu_device_bus_status_check(adev))
++                               amdgpu_reset_set_dpc_status(adev, true);
+                 }
+                 memset(&reset_context, 0, sizeof(reset_context));
+                 INIT_LIST_HEAD(&device_list);
+@@ -6411,6 +6414,7 @@ pci_ers_result_t amdgpu_pci_slot_reset(struct pci_dev=
+ *pdev)
+                 list_for_each_entry(tmp_adev, &hive->device_list, gmc.xgmi=
+.head)
+                         tmp_adev->pcie_reset_ctx.in_link_reset =3D true;
+         } else {
++               adev->pcie_reset_ctx.in_link_reset =3D true;
+                 set_bit(AMDGPU_SKIP_HW_RESET, &reset_context.flags);
+         }
+
+@@ -6467,8 +6471,10 @@ void amdgpu_pci_resume(struct pci_dev *pdev)
+                         tmp_adev->pcie_reset_ctx.in_link_reset =3D false;
+                         list_add_tail(&tmp_adev->reset_list, &device_list)=
+;
+                 }
+-       } else
++       } else {
++               adev->pcie_reset_ctx.in_link_reset =3D false;
+                 list_add_tail(&adev->reset_list, &device_list);
++       }
+
+         amdgpu_device_sched_resume(&device_list, NULL, NULL);
+         amdgpu_device_gpu_resume(adev, &device_list, false);
+--
+2.34.1
+
+
+--_000_SJ0PR12MB69671EE0AE9DF08BA2F5851A9D592SJ0PR12MB6967namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<div>
+<div style=3D"font-family: Calibri; text-align: left; color: rgb(0, 0, 255)=
+; margin-left: 5pt; font-size: 10pt;">
+[AMD Official Use Only - AMD Internal Distribution Only]</div>
+<br>
+</div>
+<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
+nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
+olor: rgb(0, 0, 0);">
+ping</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Sun, Ce(Overlord) &lt=
+;Ce.Sun@amd.com&gt;<br>
+<b>Sent:</b> Wednesday, April 8, 2026 1:41 PM<br>
+<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
+gt;<br>
+<b>Cc:</b> Zhang, Hawking &lt;Hawking.Zhang@amd.com&gt;; Sun, Ce(Overlord) =
+&lt;Ce.Sun@amd.com&gt;<br>
+<b>Subject:</b> [PATCH] drm/amdgpu: correct single device PCIe reset flow f=
+or DPC status</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">For triggering the dpc event with a single device,=
+ we still need<br>
+to set the in_link_reset flag and the dpc status.<br>
+<br>
+Signed-off-by: Ce Sun &lt;cesun102@amd.com&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 8 +++++++-<br>
+&nbsp;1 file changed, 7 insertions(+), 1 deletion(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_device.c<br>
+index deb41c095b59..0bdb54ab9a53 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
+@@ -6291,6 +6291,9 @@ pci_ers_result_t amdgpu_pci_error_detected(struct pci=
+_dev *pdev, pci_channel_sta<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgp=
+u_reset_set_dpc_status(adev, true);<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex=
+_lock(&amp;hive-&gt;hive_lock);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; } else {<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_devic=
+e_bus_status_check(adev))<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_reset_set_dpc_status(adev, true);<br=
+>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; memset(&amp;reset_context, 0, sizeof(reset_context));=
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; INIT_LIST_HEAD(&amp;device_list);<br>
+@@ -6411,6 +6414,7 @@ pci_ers_result_t amdgpu_pci_slot_reset(struct pci_dev=
+ *pdev)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; list_for_each_entry(tmp_adev, &amp;hive-&gt;device_li=
+st, gmc.xgmi.head)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp_a=
+dev-&gt;pcie_reset_ctx.in_link_reset =3D true;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else {<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; adev-&gt;pcie_reset_ctx.in_link_reset =3D true;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; set_bit(AMDGPU_SKIP_HW_RESET, &amp;reset_context.flag=
+s);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;<br>
+@@ -6467,8 +6471,10 @@ void amdgpu_pci_resume(struct pci_dev *pdev)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp_a=
+dev-&gt;pcie_reset_ctx.in_link_reset =3D false;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; list_=
+add_tail(&amp;tmp_adev-&gt;reset_list, &amp;device_list);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; }<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else {<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; adev-&gt;pcie_reset_ctx.in_link_reset =3D false;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; list_add_tail(&amp;adev-&gt;reset_list, &amp;device_l=
+ist);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_device_sched_resume=
+(&amp;device_list, NULL, NULL);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_device_gpu_resume(a=
+dev, &amp;device_list, false);<br>
+-- <br>
+2.34.1<br>
+<br>
+</div>
+</span></font></div>
+</body>
+</html>
+
+--_000_SJ0PR12MB69671EE0AE9DF08BA2F5851A9D592SJ0PR12MB6967namp_--
