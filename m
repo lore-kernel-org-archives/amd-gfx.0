@@ -4,122 +4,132 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 38D1FE937E0
-	for <amd-gfx@archiver.kernel.org>; Mon, 13 Apr 2026 01:26:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5305DE9380B
+	for <amd-gfx@archiver.kernel.org>; Mon, 13 Apr 2026 02:11:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BAFF210E2E8;
-	Mon, 13 Apr 2026 01:26:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AA55810E2F3;
+	Mon, 13 Apr 2026 02:11:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="oKVUDRWK";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="g/InvhvS";
 	dkim-atps=neutral
-Received: from CH5PR02CU005.outbound.protection.outlook.com
- (mail-northcentralusazon11012034.outbound.protection.outlook.com
- [40.107.200.34])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9115010E2E8
- for <amd-gfx@lists.freedesktop.org>; Mon, 13 Apr 2026 01:26:12 +0000 (UTC)
+Received: from MW6PR02CU001.outbound.protection.outlook.com
+ (mail-westus2azon11012021.outbound.protection.outlook.com [52.101.48.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CEB3910E2F2
+ for <amd-gfx@lists.freedesktop.org>; Mon, 13 Apr 2026 02:11:52 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=D1pjEH8NWLXh5dQoxC4My60bEAjNZqYiuuiJRx29XPVV7/K01bSGiVc3lYt+lgcGK+cR2nimXiXlup9DncneGWNIaBoja0pyFEUOMrDXm1PPp76omNmqCMUYnQT6QUb1NpnxQSoS9O9yIIFd+tSiuak9qJANaO524kQWSYtQaiMXDu22zJDltmL8ywvlZ0C7lyfEVaSxi4IT5xc/c5Zgr5cTIM8e5PYyzTZIc2way88mzAd+61iXJWaOLSXZ/CEOmZ6J+aj0jAqt07VDZYxGA0Ra7EXeAXomMgjb5GxLglnDVp50wfZXz0nCSBr9TULuRolWy3KzBwevsJxIzDA+Nw==
+ b=bCBs07YuVlYtkaZRv5kJfwzaRFUFTDaXA72lJJBC2OdfpPJEReQDMCWWrAubznw4tBoMUXJDMVFpV9GZgIJYaaKPDgjFy1Sdb92Js/qHeZdkKMx3A7XHiNkpP3q2VXomGeTs12513dZ5QHP25tzLd8Ghc6az/k+re2VrXqCaY9srXeAu1rF6/YMnOtuHUa8nQg5CI37NKkbJxm5ir/ZvUOAo1qGhmbVDRW2xlhDoclMVgV6CqkHbnK6DYrJdj6LXs1GiiGMabDietpiCkVsGAjI6Vop78206bF4HnM4Ko0UzicAvaZ2n5wGqxY+8YALt2xOA/e5mKMxvhw2xaCj+fg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=7KCVZ73u3kXgNtvidq0EM9C6b3juEiNZ0bgzTMCAT4I=;
- b=iCTAGh1OYH9T5V2AQxVe4wB96a4tWTKr7f7EDmOVG9Pn+3wK4talicsxWRM9gaKb0B6kTj42MZyk3t1Q2rGncgUk0FCOoahZJ8i8INNh8C4er1ZkU+/RACm8sxOIWEYmeyaGPVBXtc4TPXMPX1sYfOYY2tt6eRnjQz0QsrQBYTMmLuqpuphKvmFa8rpJaOLeZERx6rK2yrVVT2SLahcaojQPJUo1k3OPbUm9bMD0tnHDSvhdU6QiOIyfofaAsYzBlLx9ftFa6A22dVkXNiDzHyvcQgpkr/u90A3iXhWNgt1GaZJONG7l5EOhjdzWgogZUIx4EyoW1ob8EL+cEcweMQ==
+ bh=4AEcCbdnRuVleCmMxTjn+YRBIGQW680R/q/o47dr6Vc=;
+ b=RqVIxcQu+PnmicQxusKyUIzaOeuOPO3+32hawJZnX3YaAXnjTqOmC7+/7b0y6q3mcVN+4neKKQJh9I4XVwZFUUH9tYw35Bo6ba4Y3thtzOxtcxYUtu3nwOA0qai1GZOWI0x8Nu8uzy7FD0IWUQaySbSXYsnWwC+jcomdpnZ4LnSsqxyyWS38Dnaxjvyr9jOBqa+ZkvPiuPonV8h6T4HHErBrj1GyMmOiRCtH45iiDYGT3qnhUxnaj2zvos5iApl81qdBhRB9lTsndluop6ER45R4Yk+6STnYHxXA4/vfjoUljjq3acFywn2LO42UsFDMXauBxLOm2JLMsNJqrwdwyA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=7KCVZ73u3kXgNtvidq0EM9C6b3juEiNZ0bgzTMCAT4I=;
- b=oKVUDRWKTEN0vDQeuf7kA9Xav4+oXyqSahCmf3IVWv9fl1v7RiYcaahz0YyJPM8dTAZysyfssD6RVXdH/aQQaIBT5w3fWtQHk+dm/O8cB5RLvi8XlTWJoUWpjng2VaRus9OKWU7x0AuOuuiXSGxir0j6ayhk8YNJLh6R3kb6Svo=
-Received: from CY5PR12MB6345.namprd12.prod.outlook.com (2603:10b6:930:22::21)
- by PH7PR12MB6468.namprd12.prod.outlook.com (2603:10b6:510:1f4::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9818.20; Mon, 13 Apr
- 2026 01:26:05 +0000
-Received: from CY5PR12MB6345.namprd12.prod.outlook.com
- ([fe80::76ea:5e0e:c170:5dac]) by CY5PR12MB6345.namprd12.prod.outlook.com
- ([fe80::76ea:5e0e:c170:5dac%5]) with mapi id 15.20.9769.044; Mon, 13 Apr 2026
- 01:26:05 +0000
-From: "Liu, Xiang(Dean)" <Xiang.Liu@amd.com>
-To: "Zhou1, Tao" <Tao.Zhou1@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-CC: "Zhang, Hawking" <Hawking.Zhang@amd.com>
-Subject: Re: [PATCH] drm/amdgpu: fix CPER ring header parsing
-Thread-Topic: [PATCH] drm/amdgpu: fix CPER ring header parsing
-Thread-Index: AQHcyAK/ywgAONhk80urtRZ+Qhub9bXYMdgAgAQGsaY=
-Date: Mon, 13 Apr 2026 01:26:04 +0000
-Message-ID: <CY5PR12MB63459C79C2B09B4D539B124DFA242@CY5PR12MB6345.namprd12.prod.outlook.com>
-References: <20260409092403.572319-1-xiang.liu@amd.com>
- <PH7PR12MB8796C34213C5C06CA8B055BBB0592@PH7PR12MB8796.namprd12.prod.outlook.com>
-In-Reply-To: <PH7PR12MB8796C34213C5C06CA8B055BBB0592@PH7PR12MB8796.namprd12.prod.outlook.com>
+ bh=4AEcCbdnRuVleCmMxTjn+YRBIGQW680R/q/o47dr6Vc=;
+ b=g/InvhvSurN7bnwchZbr6b2QJ4zjUYjq3JtyEJ4WFiIONt24234OFXvJIzEcy2AYT9uULbDz/S/ar26jbU3XUeg1+u7sMyPKh1ZT507E0a2X1VIX1ZDUrFNItpA/ncV2mvjNuQxGCyrZxkl/8C/pKLye31chqsWqQwp5jZ3hB1I=
+Received: from PH7PR12MB6000.namprd12.prod.outlook.com (2603:10b6:510:1dc::15)
+ by DS7PR12MB9552.namprd12.prod.outlook.com (2603:10b6:8:24f::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9818.15; Mon, 13 Apr
+ 2026 02:11:50 +0000
+Received: from PH7PR12MB6000.namprd12.prod.outlook.com
+ ([fe80::757b:8342:952f:7cb4]) by PH7PR12MB6000.namprd12.prod.outlook.com
+ ([fe80::757b:8342:952f:7cb4%2]) with mapi id 15.20.9791.032; Mon, 13 Apr 2026
+ 02:11:50 +0000
+From: "Liang, Prike" <Prike.Liang@amd.com>
+To: "Koenig, Christian" <Christian.Koenig@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+CC: "Deucher, Alexander" <Alexander.Deucher@amd.com>
+Subject: RE: [PATCH] drm/amdgpu: drop userq fence driver refs on fence release
+Thread-Topic: [PATCH] drm/amdgpu: drop userq fence driver refs on fence release
+Thread-Index: AQHcxyu56w9gd+5d2kWBov5rm4hthrXU1KIAgAMiQBCAADssgIAEFR1g
+Date: Mon, 13 Apr 2026 02:11:49 +0000
+Message-ID: <PH7PR12MB6000FF5DF3D9CCC44FD0D3C5FB242@PH7PR12MB6000.namprd12.prod.outlook.com>
+References: <20260408074537.3439191-1-Prike.Liang@amd.com>
+ <9a52847a-eb80-4008-8d18-9707bd1751ca@amd.com>
+ <PH7PR12MB6000867DFA188AEA5489ADE7FB592@PH7PR12MB6000.namprd12.prod.outlook.com>
+ <8f7a2920-b8db-42ab-820f-63de5eb89e23@amd.com>
+In-Reply-To: <8f7a2920-b8db-42ab-820f-63de5eb89e23@amd.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=True;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2026-04-13T01:26:04.275Z;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
- Internal Distribution
- Only; MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=1;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard; 
+msip_labels: MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Enabled=True;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SetDate=2026-04-13T02:11:03.0000000Z;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Name=Open
+ Source; MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_ContentBits=3;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Method=Privileged
 authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: CY5PR12MB6345:EE_|PH7PR12MB6468:EE_
-x-ms-office365-filtering-correlation-id: 4d5aae16-6091-42ed-73cb-08de98fba1ad
+x-ms-traffictypediagnostic: PH7PR12MB6000:EE_|DS7PR12MB9552:EE_
+x-ms-office365-filtering-correlation-id: 3ef4fc6b-5615-4b5c-9f4d-08de990205e7
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
- ARA:13230040|376014|366016|1800799024|38070700021|56012099003|22082099003|18002099003|8096899003;
-x-microsoft-antispam-message-info: BaVfpw8CkB3TqklaHKhTmcMM9UIROlD3pWJAptPK3eBllqW9f9GV0Pzsw5ziFB1f1EQQ4VU8CnflAUkzv+kKK4iRgOSno5D5kmb+WfAEBTc0ytyI7/M5IKmppA4yVuGxGIpJpgbu1brdHsVdkGDhGoT6htNyzaiuf0PiNr5gd0OMr+NHTtVM83RdDD6xzIzbK0kwLxNY4pfcFQWo4H8Knbx8R0tf/IIiXnqsqGizDQzpdD57d9Pf4nWtzupFch/Zobr74rSnCWzAJkuvoYq/bgjPwhorxoBDstUAjGtWMiFWg9i46iAB01qC7G4Der5nNa7NL6Kj5aeVSjBf9yHzQ4uMep1dTkgQDD6P2qngkcFXoTp2rbwU0pUu1VsD9RihmTY5uDsX6gHBKvU3fcO1bhCIEnx6Y4V6kqdZU8iaTFemNrVETx4iAQsCGyDeCTxCKcOI+/cZ046GiRlJPXjTNRvbfabXsmL5pfmcq+A57e3V8KjUvpV+TEwSrFYpmz82ocCGgKPtVhr1BJx9u0f4RcM3qHEBqx0pGuGAesr5YFCn/TyCLYcWCTirsxmYEl+SR2VFZUTOmtOm9uxEPX5wda0c0lgQjzRhwOttv/Tqlk45uHmmdgknedWFPUz54wjLzfeYtIZPWh0v8qXw80nbNxg2kbBgl19ZKggfrw5OgPJomgbDpk1ltETW4ZvMkpBo4OWkCdY00/6MGXj5pqk543mIpoVMVpvYMf9ihXnFVP9d9jPCUmVdxWOe36xTGk6YXuUkxsIcqgUAQU2PiGz7rk3FJhD99R9p++Q1TgMMltA=
+ ARA:13230040|366016|376014|1800799024|18002099003|22082099003|56012099003|38070700021;
+x-microsoft-antispam-message-info: fk+3SgUyXoMSV/8N57okvdMAAYTUTqRBmEg7Vk36RscLrNzyzkpN8b8AzZyzJLOPB8ZMTkpuGryizeHU1MIbP4nqHff3O+EVIABifP4tzroi1F6dP/u38MwNyPyNf1O+rSyNBwVFHi+iu9zz60xo26UySzEEpLmslXGCq8iyOuNGQ+sfegd9MntDE/F95Avak2akXc2dwmCz1CfO+dvY4p0KvcUGyHYX0BfROEEj/5DXxU7uI8Iz1DJJQ2rcXmuUD0EYlziga/WKOcm9AbgkpweRL+P+pMb+Yp50oyGRmEhjTI5FPBRQA2Kzda9Z1vTVASDQsdC06P22jNn7DYpkcRGdoatIP1sPMSsNznNuBM6Tp6x67hwgUB41Fux6TWRB2NkXQlk3Mb+TEU+vyGjStNsbbCrZ5SB9yYnbxzGtiZ3t8nniQhVcBd87+b9lIdRawJCVxVBw76WvpK2vC6ip7nq6uJedb1ZFAMd2a3390kSxTZ38t5HoVOCXVziiRMslZqtmClTM5d1YMxDCe+xVL6EOn9nWFj2tWRWz9K0qfvt79iEp7utaO6lzgJajQXy1plZ5KfvlNv+BAWI/mvKAt2JMs3xvP+1Ck5teE0qa/Aou3fhe13D7uRXwsR+l4YIIuoPBC2fcoheiTcm7J8IA4opl/nppLXCHr9b8sg5r9C+mGAsKovObutD1LdnE8hV/fdl1Yd9CX14tBiVeL6XB4yt0quCSfuv+eK3w+gPupn45c+cq3fDPvw81rw4XJueP8OODY20p9WZI4hYvv2gyLWHK2/d5MVVee9vUpqSYEKQ=
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CY5PR12MB6345.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(1800799024)(38070700021)(56012099003)(22082099003)(18002099003)(8096899003);
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB6000.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(376014)(1800799024)(18002099003)(22082099003)(56012099003)(38070700021);
  DIR:OUT; SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?T3A5+MRQnW6IltXdzpvxTaNNC3HX41/8p30aQJMeh6YwXAV2oLsrP0r4R4OQ?=
- =?us-ascii?Q?TGYvmxCDjIbKtgK5OUdVv12RbzlqFCROdfM1VlPKF6Ng+WWQFcXhU1BdOfyZ?=
- =?us-ascii?Q?ba4fBr2ZfPCBczRU+3rYggz3qL5VyBB1ohamWVW97IbQsbVVSTBxvyj8aHP5?=
- =?us-ascii?Q?3vH0EzF3H23KAIr7WeRjNxKAXOqU088arkQXpOt+AKHiKvG/znG1+2PaU4z1?=
- =?us-ascii?Q?fRUtZ2Kh2x2fq3x2pG8M2+jvl4XPb7OjAKRT/r8wxAYu/VcDJI0bLQkqCtMy?=
- =?us-ascii?Q?iAUjeeTvu36dcnSZ98XJrSxIrEKat39F/JEDbOECbC/bT9ZdewE+soqrtiVY?=
- =?us-ascii?Q?+WpCklGKVMU5R7jcG4R49RyqO7Fia7hLdwMZPgbnBDJ81IhfNzsA4r4K4Qox?=
- =?us-ascii?Q?tj+hCZ48jWa+8aQClLUGt2SYfApZgfCHZicgZ2T4m/XqQGJib7rm8qDZH57V?=
- =?us-ascii?Q?KuWI3nSgCJJvj1w5JiWqou/nOxpe2UpKsD//ztLrL3sNN8dg7cdFBUVxgX55?=
- =?us-ascii?Q?qAy3xj/5gljmOJLlkbL7CrO1QyKoSwTSlevfX90dLeGpCcEwGNRHsmiGZI4T?=
- =?us-ascii?Q?Jf4H5ia6DTb04XZsOovTSf00XDnTzkTuYx+RtVlbh8ny9paBAqu3HvRvW5Om?=
- =?us-ascii?Q?HxXXiGn32OVvc5gl0D+eHabmzdYDINWHf1ARxM30rDpAF2/VicXmHIgQVPFG?=
- =?us-ascii?Q?CWn82me/9GaxuxGUr65Qbth0xsisqkINrl4t9VgdHSR9hgMI5uc92P3vRsTZ?=
- =?us-ascii?Q?AQ7q6YehEi5WMDtl5fKiM2Z2pXAZbURw8Z1IG32KvwY3Y0bU85/bC3h13dpN?=
- =?us-ascii?Q?w/nQqgxOghlZ2sJg1buooMiqe/x92dpI2CSNNUipr59e3sC5fqlmmkotBS+/?=
- =?us-ascii?Q?QtQTa0X9hqtFlr4oriGNkpcBhAUNYyWQCXRaZmR9NiuJTzzZyZp7kb68dA4a?=
- =?us-ascii?Q?AObFwVDAhsdcI/6EtkUxg75/4r3UdOF4mbycePDSv9c0JXsYZpbludPUyGK9?=
- =?us-ascii?Q?0+ngZsC5nDkDjPX1yTB4Jqfut8TcDewlXQvjhzGp4Ae1mWLioc4OSIxvYeUD?=
- =?us-ascii?Q?E7x53DvgCdPH88V8dLdiUQcr9NTALJ8HrLFzwSlbI65Q+hxBuudutDVd4nxH?=
- =?us-ascii?Q?yOcsdQpdeUug3waGdmSGgy/ToUCKa1b+ws6kTc67QdKM+16YzrVRFob6zC8v?=
- =?us-ascii?Q?VxoxVG5bXlaKbfZBSKHV9AtOJmzUWnM9OVuIr3tnsP9SVFZjTAHp1RE0FtEd?=
- =?us-ascii?Q?gofskDgkyOMLivR5u/8bnV6kTQFlvS6OMk9dYMG++HLW8EriTIxDH4hNZXJn?=
- =?us-ascii?Q?po1cStfALUunmt6gmUVOXdk8A/CqhWQ5jDpQO/5StILE/gPKiiR2rh/raYN9?=
- =?us-ascii?Q?NzqQoBTaPEM2UEHjMbPGBqfsouhqTXi36uz9UVzegqC0xh1m6xFheEqw72c4?=
- =?us-ascii?Q?dfw6ebtHTOSwJo1SXpRVA78ylpM9Upt/8fDTC7TYSGwmUbVc+a15Cxo+QSVF?=
- =?us-ascii?Q?aomwrigrNHKa5cpQ0ChxxvYxCMzyJWH3nMp3z1MKowJciy29MfD/D4suQ1/1?=
- =?us-ascii?Q?NxTQcAH+cryNZXDVFTjwrm8JFGKbEouPNuVla4fKD4tH8IRgnQcwGVqFiafs?=
- =?us-ascii?Q?2DGlDEqvt/pnvMQVZqX3pmcNZTStwsinqy7bgiNAYy9gMFDmRBtjBETI9kVN?=
- =?us-ascii?Q?uFcBCGVp7gkr/c2gb6xM0QdZPzs1MmefymZWc1Yy4cdelTd5?=
-Content-Type: multipart/alternative;
- boundary="_000_CY5PR12MB63459C79C2B09B4D539B124DFA242CY5PR12MB6345namp_"
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?MXIwNXA5VUxXWEVwZ0lraWoyQUJJcWZvN2hRbGdkS2l5V05seWk3NkJUa1lz?=
+ =?utf-8?B?NzhWOXl5QThlTm8xSnVNbzRTdFZ4RkU0NjlyeS9QdzBpU3d3VnQ5dEJxRGlW?=
+ =?utf-8?B?WnFqemQrajFsN3k0NzZ1WURuMFJXY0FMc0pHRkRNV1pLaUFYSTdQbHgwazRL?=
+ =?utf-8?B?MGdIZklQZVk3d1czaG9PZTVoaVozRCtuMmt4ZXRoQ2JhRVVTeXEySjVKOVhk?=
+ =?utf-8?B?RzFNZHlKL29HaFR1Q3VNUjMzOTBSajJHZkdFSko1WTlkQTdzRXdtRWRtd2t4?=
+ =?utf-8?B?ZHU1cEQ3WHQrbXd6ZThnWTJoeGdMT1hXbVhkVnFlYjJQcDRkSkRLRklRdnA3?=
+ =?utf-8?B?OHhQaDR2bWRLd0pBenpiSlRSamhSRlNxczhDUkpiRlYrM0Nqa0F5ZFVROWt0?=
+ =?utf-8?B?ZGdLaFJ6eDk2MURJelhGVGNwQnByVnlYMm9FeUFnOW9SUmMva3ZSc3pvMmR4?=
+ =?utf-8?B?T1htb05iZzc2aXI3aktiZW9HTVc1SEFtWnZqb3JGMjJKOGRqVU96OXcvSGZ3?=
+ =?utf-8?B?SWszNXdxOVJXUGowbGJQTW5ZZG1uNThXaWd6cStNK09zQ0ZkMHNmZ3BMcUFB?=
+ =?utf-8?B?bHlBaEd5bGNLMkdDT2pIWlMzbnlIYlB0RmU5TEZPZzNScncwcWtIOE1BcVRn?=
+ =?utf-8?B?VDhHRjF4dHpXVldNcG5kVEJOeElXa0gycWhkUi84VmxkRm9pTkdBblpyL3Q5?=
+ =?utf-8?B?cUw5ZGpSTWdLYW5BTnNndjBrNmx6UG41NU10eVhraGlvanA5bUwvbmtRUFZW?=
+ =?utf-8?B?dTBQdG14Ry92TjRtSDhFclZTemI0VHRyMWovUlZ0VG9paXRqbkxFN3F2cm1V?=
+ =?utf-8?B?VWttQXVoSDhyclptNDJ5VGJ5d3VrMzY5dnFrM2Y5Nyt1emp6MUppeTVTV0JI?=
+ =?utf-8?B?SnNLQ1FOdHo3NHlzdy9hTjlNejRUMEd0Q2VvWkZTMmJMRmNGWm5Lek1SMGp6?=
+ =?utf-8?B?NVN0dzkvNUcxajd6MWpCMFdUczNtRWloZ2pWSGtoNzVUc2ZIZzJmS1ZteTV2?=
+ =?utf-8?B?Ymo4bVRGM00yaFlMZld0ZHNhZGhiRm5ZVTlzTm9ROFNxR0hnV2wzNnBRRklJ?=
+ =?utf-8?B?ZCtmM0NtVGtHV1NDOXZaSXc1VHluNERsWm82d2VFQ0w5ZWdHMTFDUC9yWVNH?=
+ =?utf-8?B?MmNTLzBkdDBUNU1VMVdqSmM3L09JZUtwT2ZQK3JLMDdRUlphMUhjK3BHRm9U?=
+ =?utf-8?B?elViZlVFUkZPeEdWWkZNTklzbDJRd0JJR3hhOHpQTTlmT2tBTTdkd0k3OXhs?=
+ =?utf-8?B?bGpqendmTXJranlOMWE4UTk4VDJQS0V1czFvTW5XL0JJTzl0K0xzWklLdTFZ?=
+ =?utf-8?B?U1FsOEpBN2U5U1NUV3ZCbGU0Q0w5Tk5vY3FzMDFDWDdDUEhxMjg2aCtmTGlM?=
+ =?utf-8?B?UWJsVTJhZVRydSt1SURyQVh1eDBmTEk4WkJraW1FWHJnTERvWm50cERLZ05U?=
+ =?utf-8?B?Um5SbGpIc0hXekJkMXpBdmFWczR4Z0xsbExVcWJmOURzZ0I3Y0Q3akRhcEZS?=
+ =?utf-8?B?dlpiR0tDbzNxZzkzVGNiK25KS3c4NzdNdk03OTlXbzFJUlA4MUhmK2phQjlD?=
+ =?utf-8?B?RncyckRxNXVmaGQ4ditHZmZZVXBFc2NrTDY0QTFoSldRVUt5WnJtTkNzQTNi?=
+ =?utf-8?B?SVJmZXpUN3NOVnkwS0VLY0pWVDlmOHpZR044MW1TMEN0eGxUditzSHNmM0Qv?=
+ =?utf-8?B?NWhDQlI3YjJsYUVBdlZDbnBmazdUY25aMXdJM1kySlZpeXVrRmNXYi9oR1pi?=
+ =?utf-8?B?OGhlQWNvNjRhUzEvUW5kWHZBYlNKU2wzMWFhbHA2SnhOZHdxa0tUalJIQVNh?=
+ =?utf-8?B?KzdwM1FRWC9MSlZQUEhNblRRb2lUUlBveTg0allqMTZweDRicUp1RnYyQi8x?=
+ =?utf-8?B?c1p1Vm1EWTlxekdmUFF4N0tSNUovZFp2Sjc5ZVQ1aWtxNDlDT2dwNHpmSmFP?=
+ =?utf-8?B?RmVFUThJZlBLY2hVcGxKU21ISmZWUFZOV0w3bWZQZGd3Z0F1ZVBNbkpLZUFB?=
+ =?utf-8?B?TGF6WmtpZ1A1NjBkNEwzd1dlV2cvUjM5bjNFeW1tRXZwSzNZekVRUFZ3ZTcy?=
+ =?utf-8?B?VWhDQmF4czFWYno0YU9wd2J2RXFqeG1sSU1seDFCcWk0b2xPNURCMzlCM2xM?=
+ =?utf-8?B?WlBueFVaUjYvQUF6NE1vVFRQWWc1MDErZDg5SXVsREZsa2dmczVUdUxtQk9J?=
+ =?utf-8?B?WnRzMG1QUS9nV2laSUxZZmpnQSsyN2hraElqUEFEeHRsbVRWUnIwbU1MaXhF?=
+ =?utf-8?B?VUkwb3JyZklSZ1ZDU1ZteEdDRHJDT25Fa29lWGZHbWZ3QVl4TW5RNnZhUldj?=
+ =?utf-8?Q?zwFqC6pJQICAu4VHVx?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CY5PR12MB6345.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4d5aae16-6091-42ed-73cb-08de98fba1ad
-X-MS-Exchange-CrossTenant-originalarrivaltime: 13 Apr 2026 01:26:04.9387 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB6000.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3ef4fc6b-5615-4b5c-9f4d-08de990205e7
+X-MS-Exchange-CrossTenant-originalarrivaltime: 13 Apr 2026 02:11:50.0779 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 0C0OMJXpYgdSa04/Iej7yu/OxjI0mrJL5tyAbSzhthaU2XR1DatJVMlJEw5BcXifoifZjo8IKHGy3ij36uktYg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6468
+X-MS-Exchange-CrossTenant-userprincipalname: xQQJRudc7qKed9t4pjSreZLvDcWN/T4EVvj9dNmgMIfdgT20I1GT1u4KItvAJwpM
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB9552
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,345 +144,100 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_CY5PR12MB63459C79C2B09B4D539B124DFA242CY5PR12MB6345namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-[AMD Official Use Only - AMD Internal Distribution Only]
-
-Thanks, will improve this.
-
-Best Regards,
-
-Liu, Xiang
-
-________________________________
-From: Zhou1, Tao <Tao.Zhou1@amd.com>
-Sent: Friday, April 10, 2026 7:55 PM
-To: Liu, Xiang(Dean) <Xiang.Liu@amd.com>; amd-gfx@lists.freedesktop.org <am=
-d-gfx@lists.freedesktop.org>
-Cc: Zhang, Hawking <Hawking.Zhang@amd.com>
-Subject: RE: [PATCH] drm/amdgpu: fix CPER ring header parsing
-
-[AMD Official Use Only - AMD Internal Distribution Only]
-
-> -----Original Message-----
-> From: Liu, Xiang(Dean) <Xiang.Liu@amd.com>
-> Sent: Thursday, April 9, 2026 5:24 PM
-> To: amd-gfx@lists.freedesktop.org
-> Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Zhou1, Tao
-> <Tao.Zhou1@amd.com>; Liu, Xiang(Dean) <Xiang.Liu@amd.com>
-> Subject: [PATCH] drm/amdgpu: fix CPER ring header parsing
->
-> amdgpu_cper_ring_get_ent_sz() parses CPER headers directly from the
-> circular ring buffer to determine the current entry size. When the ring i=
-s full
-> and the write pointer lands near the end of the buffer, the header can wr=
-ap
-> across the ring boundary.
->
-> The existing code treats the 4-byte CPER signature as a C string and uses
-> strcmp() on in-ring binary data, then reads record_length through a direc=
-t
-> struct pointer cast. Both assumptions are unsafe for wrapped entries and =
-can
-> read past the end of the ring mapping.
->
-> Fix the parser by comparing the signature as raw bytes and by copying the
-> header into a local buffer before reading record_length, handling wraparo=
-und
-> explicitly in both cases. This avoids out-of-bounds reads in
-> amdgpu_cper_ring_get_ent_sz() when the CPER ring is full or the current
-> entry starts at the tail of the ring.
->
-> Signed-off-by: Xiang Liu <xiang.liu@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_cper.c | 34 +++++++++++++++++-----
-> --
->  1 file changed, 25 insertions(+), 9 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cper.c
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_cper.c
-> index 35fed4a05e1c..54ee4f7e7a0f 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cper.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cper.c
-> @@ -426,23 +426,40 @@ int amdgpu_cper_generate_ce_records(struct
-> amdgpu_device *adev,
->
->  static bool amdgpu_cper_is_hdr(struct amdgpu_ring *ring, u64 pos)  {
-> -     struct cper_hdr *chdr;
-> +     char signature[sizeof(((struct cper_hdr *)0)->signature)];
-
-[Tao] I prefer to define CPER_SIGNATURE_SZ macro for sizeof(signature), wit=
-h this fixed, the patch is:
-
-Reviewed-by: Tao Zhou <tao.zhou1@amd.com>
-
->
-> -     chdr =3D (struct cper_hdr *)&(ring->ring[pos]);
-> -     return strcmp(chdr->signature, "CPER") ? false : true;
-> +     if ((pos << 2) >=3D ring->ring_size)
-> +             return false;
-> +
-> +     if ((pos << 2) + sizeof(signature) <=3D ring->ring_size) {
-> +             memcpy(signature, &ring->ring[pos], sizeof(signature));
-> +     } else {
-> +             u32 chunk =3D ring->ring_size - (pos << 2);
-> +
-> +             memcpy(signature, &ring->ring[pos], chunk);
-> +             memcpy(signature + chunk, ring->ring, sizeof(signature) -
-> chunk);
-> +     }
-> +
-> +     return !memcmp(signature, "CPER", sizeof(signature));
->  }
->
->  static u32 amdgpu_cper_ring_get_ent_sz(struct amdgpu_ring *ring, u64 pos=
-)
-> {
-> -     struct cper_hdr *chdr;
-> +     struct cper_hdr chdr;
->       u64 p;
->       u32 chunk, rec_len =3D 0;
->
-> -     chdr =3D (struct cper_hdr *)&(ring->ring[pos]);
->       chunk =3D ring->ring_size - (pos << 2);
->
-> -     if (!strcmp(chdr->signature, "CPER")) {
-> -             rec_len =3D chdr->record_length;
-> +     if (amdgpu_cper_is_hdr(ring, pos)) {
-> +             if (chunk >=3D sizeof(chdr)) {
-> +                     memcpy(&chdr, &ring->ring[pos], sizeof(chdr));
-> +             } else {
-> +                     memcpy(&chdr, &ring->ring[pos], chunk);
-> +                     memcpy((u8 *)&chdr + chunk, ring->ring, sizeof(chdr=
-)
-> - chunk);
-> +             }
-> +
-> +             rec_len =3D chdr.record_length;
->               goto calc;
->       }
->
-> @@ -451,8 +468,7 @@ static u32 amdgpu_cper_ring_get_ent_sz(struct
-> amdgpu_ring *ring, u64 pos)
->               goto calc;
->
->       for (p =3D pos + 1; p <=3D ring->buf_mask; p++) {
-> -             chdr =3D (struct cper_hdr *)&(ring->ring[p]);
-> -             if (!strcmp(chdr->signature, "CPER")) {
-> +             if (amdgpu_cper_is_hdr(ring, p)) {
->                       rec_len =3D (p - pos) << 2;
->                       goto calc;
->               }
-> --
-> 2.34.1
-
-
---_000_CY5PR12MB63459C79C2B09B4D539B124DFA242CY5PR12MB6345namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<div>
-<div style=3D"font-family: Calibri; text-align: left; color: rgb(0, 0, 255)=
-; margin-left: 5pt; font-size: 10pt;">
-[AMD Official Use Only - AMD Internal Distribution Only]</div>
-<br>
-</div>
-<div class=3D"elementToProof" style=3D"font-family: Calibri, Helvetica, san=
-s-serif; font-size: 11pt; color: rgb(0, 0, 0);">
-Thanks, will improve this.</div>
-<p class=3D"elementToProof" style=3D"direction: ltr; text-align: left; text=
--indent: 0px; background-color: white; margin-top: 0px; margin-bottom: 0px;=
-">
-<span style=3D"font-family: Calibri, Helvetica, sans-serif; font-size: 11pt=
-; color: black;">Best Regards,</span></p>
-<p class=3D"elementToProof" style=3D"text-align: left; text-indent: 0px; ba=
-ckground-color: white; margin-top: 0px; margin-bottom: 0px;">
-<span style=3D"font-family: Calibri, Helvetica, sans-serif; font-size: 11pt=
-; color: rgb(36, 36, 36);">Liu, Xiang</span></p>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Zhou1, Tao &lt;Tao.Zh=
-ou1@amd.com&gt;<br>
-<b>Sent:</b> Friday, April 10, 2026 7:55 PM<br>
-<b>To:</b> Liu, Xiang(Dean) &lt;Xiang.Liu@amd.com&gt;; amd-gfx@lists.freede=
-sktop.org &lt;amd-gfx@lists.freedesktop.org&gt;<br>
-<b>Cc:</b> Zhang, Hawking &lt;Hawking.Zhang@amd.com&gt;<br>
-<b>Subject:</b> RE: [PATCH] drm/amdgpu: fix CPER ring header parsing</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font face=3D"Times New Roman" size=3D"3"><span=
- style=3D"font-size:12pt;"><a name=3D"BM_BEGIN"></a>
-<div><font size=3D"2"><span style=3D"font-size:11pt;">[AMD Official Use Onl=
-y - AMD Internal Distribution Only]<br>
-<br>
-&gt; -----Original Message-----<br>
-&gt; From: Liu, Xiang(Dean) &lt;Xiang.Liu@amd.com&gt;<br>
-&gt; Sent: Thursday, April 9, 2026 5:24 PM<br>
-&gt; To: amd-gfx@lists.freedesktop.org<br>
-&gt; Cc: Zhang, Hawking &lt;Hawking.Zhang@amd.com&gt;; Zhou1, Tao<br>
-&gt; &lt;Tao.Zhou1@amd.com&gt;; Liu, Xiang(Dean) &lt;Xiang.Liu@amd.com&gt;<=
-br>
-&gt; Subject: [PATCH] drm/amdgpu: fix CPER ring header parsing<br>
-&gt;<br>
-&gt; amdgpu_cper_ring_get_ent_sz() parses CPER headers directly from the<br=
->
-&gt; circular ring buffer to determine the current entry size. When the rin=
-g is full<br>
-&gt; and the write pointer lands near the end of the buffer, the header can=
- wrap<br>
-&gt; across the ring boundary.<br>
-&gt;<br>
-&gt; The existing code treats the 4-byte CPER signature as a C string and u=
-ses<br>
-&gt; strcmp() on in-ring binary data, then reads record_length through a di=
-rect<br>
-&gt; struct pointer cast. Both assumptions are unsafe for wrapped entries a=
-nd can<br>
-&gt; read past the end of the ring mapping.<br>
-&gt;<br>
-&gt; Fix the parser by comparing the signature as raw bytes and by copying =
-the<br>
-&gt; header into a local buffer before reading record_length, handling wrap=
-around<br>
-&gt; explicitly in both cases. This avoids out-of-bounds reads in<br>
-&gt; amdgpu_cper_ring_get_ent_sz() when the CPER ring is full or the curren=
-t<br>
-&gt; entry starts at the tail of the ring.<br>
-&gt;<br>
-&gt; Signed-off-by: Xiang Liu &lt;xiang.liu@amd.com&gt;<br>
-&gt; ---<br>
-&gt;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_cper.c | 34 +++++++++++++++++-=
-----<br>
-&gt; --<br>
-&gt;&nbsp; 1 file changed, 25 insertions(+), 9 deletions(-)<br>
-&gt;<br>
-&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cper.c<br>
-&gt; b/drivers/gpu/drm/amd/amdgpu/amdgpu_cper.c<br>
-&gt; index 35fed4a05e1c..54ee4f7e7a0f 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cper.c<br>
-&gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cper.c<br>
-&gt; @@ -426,23 +426,40 @@ int amdgpu_cper_generate_ce_records(struct<br>
-&gt; amdgpu_device *adev,<br>
-&gt;<br>
-&gt;&nbsp; static bool amdgpu_cper_is_hdr(struct amdgpu_ring *ring, u64 pos=
-)&nbsp; {<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; struct cper_hdr *chdr;<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp; char signature[sizeof(((struct cper_hdr *)0)=
--&gt;signature)];<br>
-<br>
-[Tao] I prefer to define CPER_SIGNATURE_SZ macro for sizeof(signature), wit=
-h this fixed, the patch is:<br>
-<br>
-Reviewed-by: Tao Zhou &lt;tao.zhou1@amd.com&gt;<br>
-<br>
-&gt;<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; chdr =3D (struct cper_hdr *)&amp;(ring-&gt;r=
-ing[pos]);<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; return strcmp(chdr-&gt;signature, &quot;CPER=
-&quot;) ? false : true;<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp; if ((pos &lt;&lt; 2) &gt;=3D ring-&gt;ring_s=
-ize)<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; return false;<br>
-&gt; +<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp; if ((pos &lt;&lt; 2) + sizeof(signature) &lt=
-;=3D ring-&gt;ring_size) {<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; memcpy(signature, &amp;ring-&gt;ring[pos], sizeof(signature));<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp; } else {<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; u32 chunk =3D ring-&gt;ring_size - (pos &lt;&lt; 2);<br>
-&gt; +<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; memcpy(signature, &amp;ring-&gt;ring[pos], chunk);<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; memcpy(signature + chunk, ring-&gt;ring, sizeof(signature) -<br>
-&gt; chunk);<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&gt; +<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp; return !memcmp(signature, &quot;CPER&quot;, =
-sizeof(signature));<br>
-&gt;&nbsp; }<br>
-&gt;<br>
-&gt;&nbsp; static u32 amdgpu_cper_ring_get_ent_sz(struct amdgpu_ring *ring,=
- u64 pos)<br>
-&gt; {<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; struct cper_hdr *chdr;<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp; struct cper_hdr chdr;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u64 p;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u32 chunk, rec_len =3D 0;<br>
-&gt;<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; chdr =3D (struct cper_hdr *)&amp;(ring-&gt;r=
-ing[pos]);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; chunk =3D ring-&gt;ring_size - (po=
-s &lt;&lt; 2);<br>
-&gt;<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; if (!strcmp(chdr-&gt;signature, &quot;CPER&q=
-uot;)) {<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; rec_len =3D chdr-&gt;record_length;<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_cper_is_hdr(ring, pos)) {<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; if (chunk &gt;=3D sizeof(chdr)) {<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; memcpy(&amp;chdr, &amp;=
-ring-&gt;ring[pos], sizeof(chdr));<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; } else {<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; memcpy(&amp;chdr, &amp;=
-ring-&gt;ring[pos], chunk);<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; memcpy((u8 *)&amp;chdr =
-+ chunk, ring-&gt;ring, sizeof(chdr)<br>
-&gt; - chunk);<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; }<br>
-&gt; +<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; rec_len =3D chdr.record_length;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp; goto calc;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&gt;<br>
-&gt; @@ -451,8 +468,7 @@ static u32 amdgpu_cper_ring_get_ent_sz(struct<br>
-&gt; amdgpu_ring *ring, u64 pos)<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp; goto calc;<br>
-&gt;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (p =3D pos + 1; p &lt;=3D ring=
--&gt;buf_mask; p++) {<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; chdr =3D (struct cper_hdr *)&amp;(ring-&gt;ring[p]);<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; if (!strcmp(chdr-&gt;signature, &quot;CPER&quot;)) {<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; if (amdgpu_cper_is_hdr(ring, p)) {<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; rec_len =3D (=
-p - pos) &lt;&lt; 2;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; goto calc;<br=
->
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp; }<br>
-&gt; --<br>
-&gt; 2.34.1<br>
-<br>
-</span></font></div>
-</span></font></div>
-</body>
-</html>
-
---_000_CY5PR12MB63459C79C2B09B4D539B124DFA242CY5PR12MB6345namp_--
+W1B1YmxpY10NCg0KUmVnYXJkcywNCiAgICAgIFByaWtlDQoNCj4gLS0tLS1PcmlnaW5hbCBNZXNz
+YWdlLS0tLS0NCj4gRnJvbTogS29lbmlnLCBDaHJpc3RpYW4gPENocmlzdGlhbi5Lb2VuaWdAYW1k
+LmNvbT4NCj4gU2VudDogRnJpZGF5LCBBcHJpbCAxMCwgMjAyNiA3OjUwIFBNDQo+IFRvOiBMaWFu
+ZywgUHJpa2UgPFByaWtlLkxpYW5nQGFtZC5jb20+OyBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9w
+Lm9yZw0KPiBDYzogRGV1Y2hlciwgQWxleGFuZGVyIDxBbGV4YW5kZXIuRGV1Y2hlckBhbWQuY29t
+Pg0KPiBTdWJqZWN0OiBSZTogW1BBVENIXSBkcm0vYW1kZ3B1OiBkcm9wIHVzZXJxIGZlbmNlIGRy
+aXZlciByZWZzIG9uIGZlbmNlIHJlbGVhc2UNCj4NCj4gT24gNC8xMC8yNiAxMDozMiwgTGlhbmcs
+IFByaWtlIHdyb3RlOg0KPiA+IFtQdWJsaWNdDQo+ID4NCj4gPiBSZWdhcmRzLA0KPiA+ICAgICAg
+IFByaWtlDQo+ID4NCj4gPj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4gPj4gRnJvbTog
+S29lbmlnLCBDaHJpc3RpYW4gPENocmlzdGlhbi5Lb2VuaWdAYW1kLmNvbT4NCj4gPj4gU2VudDog
+V2VkbmVzZGF5LCBBcHJpbCA4LCAyMDI2IDQ6MjcgUE0NCj4gPj4gVG86IExpYW5nLCBQcmlrZSA8
+UHJpa2UuTGlhbmdAYW1kLmNvbT47IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnDQo+ID4+
+IENjOiBEZXVjaGVyLCBBbGV4YW5kZXIgPEFsZXhhbmRlci5EZXVjaGVyQGFtZC5jb20+DQo+ID4+
+IFN1YmplY3Q6IFJlOiBbUEFUQ0hdIGRybS9hbWRncHU6IGRyb3AgdXNlcnEgZmVuY2UgZHJpdmVy
+IHJlZnMgb24NCj4gPj4gZmVuY2UgcmVsZWFzZQ0KPiA+Pg0KPiA+PiBPbiA0LzgvMjYgMDk6NDUs
+IFByaWtlIExpYW5nIHdyb3RlOg0KPiA+Pj4gYW1kZ3B1X3VzZXJxX3dhaXRfaW9jdGwoKSB0YWtl
+cyBleHRyYSByZWZlcmVuY2VzIG9uIHdhaXRlZC1vbiBmZW5jZQ0KPiA+Pj4gZHJpdmVycyBhbmQg
+c3RvcmVzIHRoZW0gaW4gd2FpdHEtPmZlbmNlX2Rydl94YS4gV2hlbiBhIG5ldyB1c2VycQ0KPiA+
+Pj4gZmVuY2UgaXMgY3JlYXRlZCwgdGhvc2UgcmVmZXJlbmNlcyBhcmUgdHJhbnNmZXJyZWQgaW50
+bw0KPiA+Pj4gdXNlcnFfZmVuY2UtPmZlbmNlX2Rydl9hcnJheSBzbyB0aGV5IGNhbiBiZSByZWxl
+YXNlZCB3aGVuIHRoZSBmZW5jZQ0KPiBjb21wbGV0ZXMuDQo+ID4+Pg0KPiA+Pj4gSG93ZXZlciwg
+dGhvc2UgaW5oZXJpdGVkIHJlZmVyZW5jZXMgYXJlIGN1cnJlbnRseSBvbmx5IGRyb3BwZWQgZnJv
+bQ0KPiA+Pj4gYW1kZ3B1X3VzZXJxX2ZlbmNlX2RyaXZlcl9wcm9jZXNzKCkuIElmIGEgZmVuY2Ug
+bmV2ZXIgcmVhY2hlcyB0aGF0DQo+ID4+PiBwYXRoLCBzdWNoIGFzIGl0IGlzIGFscmVhZHkgc2ln
+bmFsZWQgd2hlbiBjcmVhdGVkIG9yIGl0IGlzIGRyb3BwZWQNCj4gPj4+IHRocm91Z2ggYW4gZXJy
+b3IvY2xlYW51cCBwYXRoLCBhbWRncHVfdXNlcnFfZmVuY2VfZnJlZSgpIGZyZWVzDQo+ID4+PiBm
+ZW5jZV9kcnZfYXJyYXkgd2l0aG91dCBwdXR0aW5nIHRoZSByZWZlcmVuY2VkIGZlbmNlIGRyaXZl
+cnMuDQo+ID4+DQo+ID4+IENsZWFyIE5BSyB0byB0aGF0IGFzIHdlbGwuDQo+ID4+DQo+ID4+IEFu
+IHVzZXJxIGZlbmNlIG11c3QgYmUgc2lnbmFsZWQgYXQgc29tZSBwb2ludCBhbmQgd2hlbiB0aGF0
+IGhhcHBlbnMNCj4gPj4gdGhlIHJlZmVyZW5jZSBmZW5jZSBkcml2ZXJzIGNhbiBiZSBwdXQuDQo+
+ID4+DQo+ID4+IFdoYXQgY291bGQgYmUgaXMgdGhhdCB3ZSBoYXZlIGFub3RoZXIgY2FsbCB0byBk
+bWFfZmVuY2Vfc2lnbmFsKCkNCj4gPj4gd2hlcmUgd2UgZm9yZ2V0IHRvIGRvIHRoYXQsIGJ1dCBp
+dCBzaG91bGQgKm5ldmVyKiBiZSBkb25lIGluDQo+IGFtZGdwdV91c2VycV9mZW5jZV9mcmVlKCku
+DQo+ID4gSXQgbG9va3MgbGlrZSB3ZeKAmXJlIG1pc3NpbmcgdGhlIHVzZXJxIGZlbmNlLWFycmF5
+IHB1dCBvbiB0aGUgc2lnbmFsZWQtZmVuY2UgYnJhbmNoDQo+IGluIGFtZGdwdV91c2VycV9mZW5j
+ZV9jcmVhdGUoKS4NCj4NCj4gQWggeWVzLCBJIHNlZS4gR29vZCBjYXRjaC4NCj4NCj4gPiBJZiB3
+ZSBlbnN1cmUgdGhlIGZlbmNlLWFycmF5IGlzIHByb3Blcmx5IHB1dC9iYWxhbmNlZCBlYXJsaWVy
+IGluIHRoZQ0KPiA+IGZsb3csIHRoZW4gYW1kZ3B1X3VzZXJxX2ZlbmNlX3B1dF9mZW5jZV9kcnZf
+YXJyYXkoKSB3aWxsICBuYXR1cmFsbHkgYmVjb21lIGENCj4gbm8tb3AgaW4gYW1kZ3B1X3VzZXJx
+X2ZlbmNlX2ZyZWUoKS4gTWVhbndoaWxlLCBrZWVwaW5nIHRoZSAqX3B1dCBjYWxsIGluIGZyZWUo
+KQ0KPiBzZXJ2ZXMgYXMgYSBmaW5hbCBiYWNrc3RvcCB0byBjb3ZlciBhbnkgb3RoZXIgb3Zlcmxv
+b2tlZC91bmJhbGFuY2VkIHBhdGhzLg0KPiA+DQo+ID4gSWYgeW91IHN0aWxsIHByZWZlciB0aGF0
+IGFtZGdwdV91c2VycV9mZW5jZV9wdXRfZmVuY2VfZHJ2X2FycmF5KCkNCj4gPiBzaG91bGQgbm90
+IGJlIGNhbGxlZCBmcm9tIGZyZWUoKSwgSSBjYW4gcmVtb3ZlIGl0IGFuZCBjbGVhbiB0aGlzIHVw
+DQo+ID4gYWNjb3JkaW5nbHkgYW5kIG9ubHkgcHV0IGl0IGluIHRoZSAqY3JlYXRlKCkNCj4NCj4g
+YW1kZ3B1X3VzZXJxX2ZlbmNlX2ZyZWUoKSBpcyBjb21wbGV0ZWx5IHJlbW92ZWQgYnkgbXkgcmVj
+ZW50IERNQS1mZW5jZQ0KPiBpbmRlcGVuZGVuY2UgcGF0Y2hlcy4gU2VlIHRoZW0gb24gdGhlIG1h
+aWxpbmcgbGlzdC4NCj4NCj4gSSdtIGN1cnJlbnRseSB3b3JraW5nIG9uIGZpeGluZyB0aGUgcmVz
+ZXQgaGFuZGxpbmcgYW5kIGZlbmNlIGFsbG9jYXRpb24uIFBsZWFzZSB3cml0ZSBhDQo+IHN0YW5k
+IGFsb25lIHBhdGNoIHRvIGZpeCB0aGlzIGlzc3VlIHdoaWNoIHdlIGNhbiBwdXNoIGJlZm9yZSBt
+eSB3b3JrIGxhbmRzLg0KU3VyZSwgdGhhbmsgeW91IGZvciB0aGUgaGVhZHMgdXAuDQoNCj4gVGhh
+bmtzLA0KPiBDaHJpc3RpYW4uDQo+DQo+ID4NCj4gPj4gUmVnYXJkcywNCj4gPj4gQ2hyaXN0aWFu
+Lg0KPiA+Pg0KPiA+Pj4NCj4gPj4+IFNpZ25lZC1vZmYtYnk6IFByaWtlIExpYW5nIDxQcmlrZS5M
+aWFuZ0BhbWQuY29tPg0KPiA+Pj4gLS0tDQo+ID4+PiAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
+cHUvYW1kZ3B1X3VzZXJxX2ZlbmNlLmMgfCAxNw0KPiA+Pj4gKysrKysrKysrKystLS0tLS0NCj4g
+Pj4+ICAxIGZpbGUgY2hhbmdlZCwgMTEgaW5zZXJ0aW9ucygrKSwgNiBkZWxldGlvbnMoLSkNCj4g
+Pj4+DQo+ID4+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
+X3VzZXJxX2ZlbmNlLmMNCj4gPj4+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
+X3VzZXJxX2ZlbmNlLmMNCj4gPj4+IGluZGV4IDNiZTgwYTgyNzg4YS4uYmQxOTY1OTlkM2Q2IDEw
+MDY0NA0KPiA+Pj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3VzZXJx
+X2ZlbmNlLmMNCj4gPj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV91
+c2VycV9mZW5jZS5jDQo+ID4+PiBAQCAtMTQ1LDEzICsxNDUsMjEgQEAgYW1kZ3B1X3VzZXJxX2Zl
+bmNlX2RyaXZlcl9mcmVlKHN0cnVjdA0KPiA+PiBhbWRncHVfdXNlcm1vZGVfcXVldWUgKnVzZXJx
+KQ0KPiA+Pj4gICAgIGFtZGdwdV91c2VycV9mZW5jZV9kcml2ZXJfcHV0KHVzZXJxLT5mZW5jZV9k
+cnYpOw0KPiA+Pj4gIH0NCj4gPj4+DQo+ID4+PiArc3RhdGljIHZvaWQNCj4gPj4+ICthbWRncHVf
+dXNlcnFfZmVuY2VfcHV0X2ZlbmNlX2Rydl9hcnJheShzdHJ1Y3QgYW1kZ3B1X3VzZXJxX2ZlbmNl
+DQo+ID4+PiArKnVzZXJxX2ZlbmNlKSB7DQo+ID4+PiArICAgdW5zaWduZWQgbG9uZyBpOw0KPiA+
+Pj4gKyAgIGZvciAoaSA9IDA7IGkgPCB1c2VycV9mZW5jZS0+ZmVuY2VfZHJ2X2FycmF5X2NvdW50
+OyBpKyspDQo+ID4+PiArICAgICAgICAgICBhbWRncHVfdXNlcnFfZmVuY2VfZHJpdmVyX3B1dCh1
+c2VycV9mZW5jZS0+ZmVuY2VfZHJ2X2FycmF5W2ldKTsNCj4gPj4+ICsgICB1c2VycV9mZW5jZS0+
+ZmVuY2VfZHJ2X2FycmF5X2NvdW50ID0gMDsgfQ0KPiA+Pj4gKw0KPiA+Pj4gIHZvaWQgYW1kZ3B1
+X3VzZXJxX2ZlbmNlX2RyaXZlcl9wcm9jZXNzKHN0cnVjdA0KPiA+Pj4gYW1kZ3B1X3VzZXJxX2Zl
+bmNlX2RyaXZlciAqZmVuY2VfZHJ2KSAgew0KPiA+Pj4gICAgIHN0cnVjdCBhbWRncHVfdXNlcnFf
+ZmVuY2UgKnVzZXJxX2ZlbmNlLCAqdG1wOw0KPiA+Pj4gICAgIHN0cnVjdCBkbWFfZmVuY2UgKmZl
+bmNlOw0KPiA+Pj4gICAgIHVuc2lnbmVkIGxvbmcgZmxhZ3M7DQo+ID4+PiAgICAgdTY0IHJwdHI7
+DQo+ID4+PiAtICAgaW50IGk7DQo+ID4+Pg0KPiA+Pj4gICAgIGlmICghZmVuY2VfZHJ2KQ0KPiA+
+Pj4gICAgICAgICAgICAgcmV0dXJuOw0KPiA+Pj4gQEAgLTE2NiwxMCArMTc0LDcgQEAgdm9pZCBh
+bWRncHVfdXNlcnFfZmVuY2VfZHJpdmVyX3Byb2Nlc3Moc3RydWN0DQo+ID4+IGFtZGdwdV91c2Vy
+cV9mZW5jZV9kcml2ZXIgKmZlbmNlX2QNCj4gPj4+ICAgICAgICAgICAgICAgICAgICAgYnJlYWs7
+DQo+ID4+Pg0KPiA+Pj4gICAgICAgICAgICAgZG1hX2ZlbmNlX3NpZ25hbChmZW5jZSk7DQo+ID4+
+PiAtDQo+ID4+PiAtICAgICAgICAgICBmb3IgKGkgPSAwOyBpIDwgdXNlcnFfZmVuY2UtPmZlbmNl
+X2Rydl9hcnJheV9jb3VudDsgaSsrKQ0KPiA+Pj4gLSAgICAgICAgICAgICAgICAgICBhbWRncHVf
+dXNlcnFfZmVuY2VfZHJpdmVyX3B1dCh1c2VycV9mZW5jZS0NCj4gPj4+IGZlbmNlX2Rydl9hcnJh
+eVtpXSk7DQo+ID4+PiAtDQo+ID4+PiArICAgICAgICAgICBhbWRncHVfdXNlcnFfZmVuY2VfcHV0
+X2ZlbmNlX2Rydl9hcnJheSh1c2VycV9mZW5jZSk7DQo+ID4+PiAgICAgICAgICAgICBsaXN0X2Rl
+bCgmdXNlcnFfZmVuY2UtPmxpbmspOw0KPiA+Pj4gICAgICAgICAgICAgZG1hX2ZlbmNlX3B1dChm
+ZW5jZSk7DQo+ID4+PiAgICAgfQ0KPiA+Pj4gQEAgLTMyMCw5ICszMjUsOSBAQCBzdGF0aWMgdm9p
+ZCBhbWRncHVfdXNlcnFfZmVuY2VfZnJlZShzdHJ1Y3QNCj4gPj4+IHJjdV9oZWFkDQo+ID4+ICpy
+Y3UpDQo+ID4+PiAgICAgc3RydWN0IGFtZGdwdV91c2VycV9mZW5jZSAqdXNlcnFfZmVuY2UgPSB0
+b19hbWRncHVfdXNlcnFfZmVuY2UoZmVuY2UpOw0KPiA+Pj4gICAgIHN0cnVjdCBhbWRncHVfdXNl
+cnFfZmVuY2VfZHJpdmVyICpmZW5jZV9kcnYgPQ0KPiA+Pj4gdXNlcnFfZmVuY2UtPmZlbmNlX2Ry
+djsNCj4gPj4+DQo+ID4+PiArICAgYW1kZ3B1X3VzZXJxX2ZlbmNlX3B1dF9mZW5jZV9kcnZfYXJy
+YXkodXNlcnFfZmVuY2UpOw0KPiA+Pj4gICAgIC8qIFJlbGVhc2UgdGhlIGZlbmNlIGRyaXZlciBy
+ZWZlcmVuY2UgKi8NCj4gPj4+ICAgICBhbWRncHVfdXNlcnFfZmVuY2VfZHJpdmVyX3B1dChmZW5j
+ZV9kcnYpOw0KPiA+Pj4gLQ0KPiA+Pj4gICAgIGt2ZnJlZSh1c2VycV9mZW5jZS0+ZmVuY2VfZHJ2
+X2FycmF5KTsNCj4gPj4+ICAgICBrbWVtX2NhY2hlX2ZyZWUoYW1kZ3B1X3VzZXJxX2ZlbmNlX3Ns
+YWIsIHVzZXJxX2ZlbmNlKTsgIH0NCj4gPg0KDQo=
