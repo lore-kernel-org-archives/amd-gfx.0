@@ -4,85 +4,125 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 52F42F34C51
-	for <amd-gfx@archiver.kernel.org>; Mon, 13 Apr 2026 13:10:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 37DE4F34C4E
+	for <amd-gfx@archiver.kernel.org>; Mon, 13 Apr 2026 13:15:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DD1CE10E433;
-	Mon, 13 Apr 2026 13:10:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C47FE10E436;
+	Mon, 13 Apr 2026 13:15:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="rsI6ihAD";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="WH37nurP";
 	dkim-atps=neutral
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com
- [209.85.128.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 898E210E433
- for <amd-gfx@lists.freedesktop.org>; Mon, 13 Apr 2026 13:10:01 +0000 (UTC)
-Received: by mail-wm1-f41.google.com with SMTP id
- 5b1f17b1804b1-488971db0fdso43846165e9.0
- for <amd-gfx@lists.freedesktop.org>; Mon, 13 Apr 2026 06:10:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1776085800; x=1776690600; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=qhSMxhE5Dwtw1sPjxnXk51spImxGB+t3SQoJ99qfUxw=;
- b=rsI6ihADU4SRs9+EMUs4W4z7n0ejMNrNCHpmH5cDfgpKf6y01RSnFu/qYkEvdGbfrg
- f8BS4hXvR6IfPslxkmSIh/8C+kZQWOc3Uc8YuOsDSKtn7NISR2dxvzLyRvEsqwUvHi9H
- KUjwRI8Xzt6Zd7a9wYmfwr5910CBJood88L0SoS/Mq7/AfGu5l8x1xZcqV/WHExydIkQ
- G4GIR7xe7YRW5dFa7mt79OsjcddlycsnYgqGIQaoSzxK7thfKnH2QtfGc3QbGzgpGjtx
- xHimllswrgjikrbPCHszHT+lyAQEitNXe/exOK2M2lmqyZqzOBDJoTQNnDDUUPUiSCMI
- 54tg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1776085800; x=1776690600;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=qhSMxhE5Dwtw1sPjxnXk51spImxGB+t3SQoJ99qfUxw=;
- b=ivMROsdmXBDLlcDojbEiXOfWWkdbXXojZcj1NIcn53ykI296Spdp6eMKB95SDznHQi
- 7tRXdwfezn32pW0k1LQck+6lYcCg7RePaNe4xtKwByFJbxq/jlqUEfqas+EdRdrjQqj0
- DyZDt83DFoCzpvNllc1xuMAoocLGmV/9PoEibST3pWXXdLItw8lEH8uMWQFhBa1MKLgr
- EP1p8H3Xmy2H1zmESZypSgy91PzjT9VH3lN+wv0DwUDc4AjVTrdhsnaoJA5j6hoL3I3y
- Z5CQc2sMiGoRd2cJ6UvbPTTN8rLUMazYm2b4OkfCRoViqF1ZKVb3FQ0/b2YyCCXPY/2q
- vloA==
-X-Gm-Message-State: AOJu0YzWKXozZj8lztjNkXPVDy6nRGNPN8cRik8+cJ2gJrxgcN+XsAa9
- tYMA9mPQb5Mg/veJbQafhJJza0kGPKb8fWgqSXyTs/a78DPslMvT/IPS+8ZAcbUO
-X-Gm-Gg: AeBDiev85rnwpHd9biNZKIpo2ZKTI/98V/nePL6kJb3JgmZpcz+d7K+vJ9IW2xQoTRK
- GhobIH22oZOdbHmeXDqGN5/rSEVbe1NIIAPz1lqz+GgHlLU7AG+6qVzmAKww6ifxE2TWfYZG/5X
- VdzDHa32bfBU2tI0Lpmudg1mZ9vO2J1scFX0B/lhoeQD+qG1qqTngC0lfR8Urv1s+Bv5AWx88TQ
- 1K8XeYnXPxwUi024yTLYDEMz5rc53HrLR/V00OFJg8yTvOdCLPpb7iY7bthiw7RMwY2yYE3FTiz
- NmbfwC4QP18tFJoXMSd9OCnyQZ2HbAEgIETsuVHwhCG4HmGMtiTiv4kzNxgVrbUtYSI7k+6WG6w
- OAeUA5qj1L+4ozPGc96jgP1vMz5uhLyLPHjyHCKUtfp5BPZ/LwL0c5My4AbduJAauVLwtvhsYuh
- Wwyh+6rVx5+xQfWfWguGZ7JwWgQGPrgbJYCkSOEaA7UDpruUhBsgm5h4dATqQ6pdYt19eg4t+1C
- bIZHV4hjIwWr6xpVlNQULc5E2AnZw==
-X-Received: by 2002:a05:6000:240b:b0:43d:7633:2649 with SMTP id
- ffacd0b85a97d-43d76332872mr7515945f8f.45.1776085799633; 
- Mon, 13 Apr 2026 06:09:59 -0700 (PDT)
-Received: from timur-max.localnet
- (20014C4E24DEE400DF3121E46476B2BD.dsl.pool.telekom.hu.
- [2001:4c4e:24de:e400:df31:21e4:6476:b2bd])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-43d7a6054dfsm6904798f8f.17.2026.04.13.06.09.57
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 13 Apr 2026 06:09:58 -0700 (PDT)
-From: Timur =?UTF-8?B?S3Jpc3TDs2Y=?= <timur.kristof@gmail.com>
-To: amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>
-Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Aurabindo Pillai <aurabindo.pillai@amd.com>, Roman Li <roman.li@amd.com>,
- Wayne Lin <wayne.lin@amd.com>, Tom Chung <chiahsuan.chung@amd.com>,
- Fangzhi Zuo <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>,
- Ray Wu <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>,
- Alex Hung <alex.hung@amd.com>, Roman Li <Roman.Li@amd.com>,
- Alex Hung <alex.hung@amd.com>, David Airlie <airlied@gmail.com>,
- Christian <christian.koenig@amd.com>
-Subject: DC analog support regressed by "drm/amd/display: Sync dcn42 with DC
- 3.2.373"
-Date: Mon, 13 Apr 2026 15:09:56 +0200
-Message-ID: <7370736.9J7NaK4W3v@timur-max>
-In-Reply-To: <20260306031932.136179-20-alex.hung@amd.com>
-References: <20260306031932.136179-1-alex.hung@amd.com>
- <20260306031932.136179-20-alex.hung@amd.com>
-MIME-Version: 1.0
+Received: from PH7PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11010055.outbound.protection.outlook.com [52.101.201.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E8E7A10E436
+ for <amd-gfx@lists.freedesktop.org>; Mon, 13 Apr 2026 13:15:17 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=bHnWwOIxIr2zjqjhrv7oIz3kva014bhcqrPHeoiYhIO0BBgIzZC5NYksz+NffXoYirRn75UlXqZOS++SMbg+/2qnJSyyKNnX39ocfik4mEN64c62r1rr1gsvH4efa1DyTb1osG/tAyj0dUn5UBfpVOoAP+pwuN2/fWiVo+RirkcvH7nbmd+OsLW9HeJdtXsSoGQVu67rN73T5H1DMoITbGFHXlJdIOGe44Z/2H1eUZxFka+cDj75LxPGMu5/3k7bn089iAaANKyPMjnQ3rZzNBFVFiQB96pEkrFHQPW0fZQttyYJ1n7CpiP1Tky4T5hU4zrMus7KvhcqdHA5JKQTvQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=twqK95QG4NoP7EgCFe4IogmklE3WPZsnOehLIelHZGU=;
+ b=I+m1DaitnJuF9zl4N+gIvnH1eBAnz2blbaycYqCmu+wj/EKO9h4lObmopaNfCQRibKf4OkvkKPnvgPDmQ0Gon/AsQixCivm1tM/DtVYU0Yvlxw8/TlD1Z7teCB0j9CUxgBWl5lHOo7nMCagtyg8PHadxdjA08uKhNy/8wZtFIb6g2CY0Z4E/3BylbVneNSfo1T5KgDgo1BUoVj7UwqtwybYTuxdqDMR9zVOqDS6dwqJbBudU/wFs3jyZ5IuwTorG4PPtyA/zMqUgyMJZQgvU7sIj531WIA+0rGJgJ9wQNsQG+JJFX+TSlDlv8ImcxF7KiNJwjeoDP3O6Ut1ih5Kk7A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=twqK95QG4NoP7EgCFe4IogmklE3WPZsnOehLIelHZGU=;
+ b=WH37nurPO7SzLF4ocgTAR3Y01BD4FUE9i4MoRkDdjuGLpK/zMZ5nPjh71jnMuP8DOwuQXSF0/4I1cVuRcIvop/mXZ+T32OlvIrR91lTU7Rrn1tBqFQyC0VjSdVS/0hniqjSLfsLooSep17hM4WvqFGXQU5U2NKxZCvnwzzQAwuA=
+Received: from DS0PR12MB6534.namprd12.prod.outlook.com (2603:10b6:8:c1::19) by
+ PH7PR12MB8106.namprd12.prod.outlook.com (2603:10b6:510:2ba::9) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9818.20; Mon, 13 Apr 2026 13:15:13 +0000
+Received: from DS0PR12MB6534.namprd12.prod.outlook.com
+ ([fe80::b2e1:64e5:3b9e:738a]) by DS0PR12MB6534.namprd12.prod.outlook.com
+ ([fe80::b2e1:64e5:3b9e:738a%4]) with mapi id 15.20.9818.017; Mon, 13 Apr 2026
+ 13:15:13 +0000
+From: "Wheeler, Daniel" <Daniel.Wheeler@amd.com>
+To: "Pillai, Aurabindo" <Aurabindo.Pillai@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+CC: "Wentland, Harry" <Harry.Wentland@amd.com>, "Li, Sun peng (Leo)"
+ <Sunpeng.Li@amd.com>, "Pillai, Aurabindo" <Aurabindo.Pillai@amd.com>, "Li,
+ Roman" <Roman.Li@amd.com>, "Lin, Wayne" <Wayne.Lin@amd.com>, "Chung,
+ ChiaHsuan (Tom)" <ChiaHsuan.Chung@amd.com>, "Zuo, Jerry" <Jerry.Zuo@amd.com>, 
+ "Wu, Ray" <Ray.Wu@amd.com>, "LIPSKI, IVAN" <IVAN.LIPSKI@amd.com>, "Hung,
+ Alex" <Alex.Hung@amd.com>, "Tseng, Chuan Yu (Max)" <ChuanYu.Tseng@amd.com>
+Subject: RE: [PATCH 0/6] DC Patches for 13 April 2026
+Thread-Topic: [PATCH 0/6] DC Patches for 13 April 2026
+Thread-Index: AQHcyDIlWkINlY7ILU6MpdcoijFDPbXc/g6w
+Date: Mon, 13 Apr 2026 13:15:13 +0000
+Message-ID: <DS0PR12MB653409CFEF11581F9EB37D749C242@DS0PR12MB6534.namprd12.prod.outlook.com>
+References: <20260409150413.34779-1-aurabindo.pillai@amd.com>
+In-Reply-To: <20260409150413.34779-1-aurabindo.pillai@amd.com>
+Accept-Language: en-CA, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Enabled=True;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SetDate=2026-04-13T13:14:37.0000000Z;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Name=Open
+ Source; MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_ContentBits=3;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Method=Privileged
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DS0PR12MB6534:EE_|PH7PR12MB8106:EE_
+x-ms-office365-filtering-correlation-id: 58ed04ff-be9e-4358-eff8-08de995eb271
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|376014|1800799024|366016|38070700021|18002099003|22082099003|56012099003;
+x-microsoft-antispam-message-info: paT2KeP8ApHoh8ztfxM1+8aZ3AuoiTTDuCxsOJUtkFccTiRARD4zBcz7N1H4ePtIBYWCi9xQKoDWYG1y7EO0eTyqueD2f6nz8TlU2mgBkTfS6ocnDKndAaGpaNOGwe/lEIUMw6PmZyT63N7nVfTvYrBRxIBIjf4g1UX6lXk9sf2lMe06iMoEbRf6H9grS2lbeHuSQd+3uH0KFIYMH1hL/sgDk+rcESWK7WOTQkA2Neeh/2zwyBq+udUSBgCNOTQcJhTkP98zfS10I9M4+3nWi+Dr75pm5t94QxRTxbo1wok42CX/NhNC3JR2GPMYtJNKclgllOE/Fgn7GDn9bbodi6U3nIm1b4Le1Dnu0vidtyitUL8EjeiC+bFHhyBo5S3690wyphME9svRyuHebJzix2/rEJsgf/rTK2GAvkuYvewSWwDrOupC9jzx9T30wcRuMf6J9fkj/xfcK1pLs9iTEyMZoNGxrEw1TpbswgMK7WxTxk6n3pCRDGzCMwZCmE+b136AWtuuT4RUgm0wONC/HjWriGTf1oALpBzlOQ/4RTKRcBRkuD7P6t9lx8qd376sVBWvX5t+019l7EwHBPHLEoA+vNmd/ll+SjhLc4sM4YmHDTTW1RuJ88uiQNlg1i32vGhgcUo2YrkD5hwiBU9mryEyLJYSt/Hv/IDE8Sb4UPfOEAeBzNVJ21dezY9ygZcrIWZZC+nzX9Zs14jUYBrHAc2yayfIC864C4fqOQlgU5Lqb7TDRBjLzTIRQKbUklAtqUMsY/bcTPGysEAXzg4CXosN2mMk3Q7YoB4DZwutqRM=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS0PR12MB6534.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(366016)(38070700021)(18002099003)(22082099003)(56012099003);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?7gvgxAlZq+feCpD+voSequfGQyoWDi/+Aiv4IGEM0cJbJVatLPVKDm04Ip?=
+ =?iso-8859-1?Q?C+DWbYFfXyrNSZOX9RnECuCOa6XMJyhQ9d+47xh/ie9XqV8p3OA0rmjb5P?=
+ =?iso-8859-1?Q?U8CoxlqwKkuJnzvMZzucoFGll3lBsUaLm29btDSnnc4aihH9YDS59jhj9M?=
+ =?iso-8859-1?Q?RUsHVMve99uPj5uf5tWU475n6W7X15qSYWfV7ZP7NVu2It7LVfqCf4x6c8?=
+ =?iso-8859-1?Q?NSp6sHmCiGdS1VwhxpIIv01EpKLRODxKfQjcDSD9zJMoYmTNSPBXlZyzG8?=
+ =?iso-8859-1?Q?R/sAonR2ceTn3jgWo08uLRbdt8WmzOYGdFZOdJsyCGATo3qxzMR7jCgUVA?=
+ =?iso-8859-1?Q?ApMrCmbXQZ0HdF0WUhQOKCMEKQLk4Abx3N6dsq72L/HS+aEzefQY67A050?=
+ =?iso-8859-1?Q?ZaZJ297tdQRHOlbJwduW4HPoNPP3gR4AlsPqoQIVvKwqztudz8vMsxyVfz?=
+ =?iso-8859-1?Q?6QFTSDKIwJya251+l6CW3IaTdAUkHfj37Ahyt2i62ba7brZ9Lb6QAb2dA2?=
+ =?iso-8859-1?Q?Cr/7votC2wUMkE+xzCBP1f+DRc5w3iT5qUhzLgOjqNziC/q9utPcSH7Czu?=
+ =?iso-8859-1?Q?Tr/rnVy0MQ/6Kbd1ad7TjXg+r1f6BpXq5vsDChrB6ss51Eae/9bCv6F8cr?=
+ =?iso-8859-1?Q?+FpJlZo+NPEjpGUD2xFyFQ/wyxrDM1wn+hFP89L1JX1LgsAVee8fqDbjk9?=
+ =?iso-8859-1?Q?vkhtPNHjoTPpKAhZfRA7mf9z0BG8N66slUBkDHx496dPZ2nHWEKcgZ5c/d?=
+ =?iso-8859-1?Q?q0IZeHOGhJ2iWyzKaMmphR2JI4Ozgih6vOfNy4Xi3bbC0TWrTFi3wESgsg?=
+ =?iso-8859-1?Q?UpHcFsOyD73O+k0km49fG4a38TWEpNX9eyXJPyyymg9IDqo2aTHaE8l8YI?=
+ =?iso-8859-1?Q?oGHc0Shx1WF4VUjdajMwqjaGiej9pyz7UaR5BNisdnUDdIgX07UnHP2I28?=
+ =?iso-8859-1?Q?h93/1WPtKGovUbkZM+mMRa3yX/NceqoZt5BDVYX1HS0Hs53TJQfGbp4RWz?=
+ =?iso-8859-1?Q?se/bzfMYKCNAaBcwm2SYOiCS/ykZ6xNXFJmSlvZbQMRfxSWt1qXXd6l7dM?=
+ =?iso-8859-1?Q?BFw7orXAEplO8TpsnuiJ6lIUwZS5OIqrehjbjcIn/4/pN8Z7dpXjXOnzeK?=
+ =?iso-8859-1?Q?NmaqdgnL2Yin93QnleoFRkfZj6ozZAfiEnOjP2IcyRAsvc5wYCBRt8hoLl?=
+ =?iso-8859-1?Q?EmJbT+MGgbiJjsF1qiP3I26boas37P756OecQzhe7BE1Mrf/57HL9y30KC?=
+ =?iso-8859-1?Q?cBFdhdfnuTazvhktjBHYt46t2bNc5IOxBScAvcZaC90QsLVBOWvAhWj7XJ?=
+ =?iso-8859-1?Q?P+k4GQUzT8La4ylVzhwEB2RHX8uoewwiF895Zs0+AmNuAi+WqrK0rIsm/k?=
+ =?iso-8859-1?Q?v5Vd50KUoxNEWaW6UWS68OrnlubNU7xTRKgxG38wAdn9pVSSKA0xqeX3I6?=
+ =?iso-8859-1?Q?jmMwSOoZUvUIibgBgWGkMWz2oezznMvDvAkaG2N6MQbM8NTBi3Oa2/GARk?=
+ =?iso-8859-1?Q?T5/yJoN2EpekzQf4XPnXs+W+aj3uocszXtXRhlUlPEYjhF70N/UXDjn1YB?=
+ =?iso-8859-1?Q?KEVag+lQEsxYIsGtO/eNqF+3jzw481mA+TSDsAoyug4tk9GTAbZHNJ1p8d?=
+ =?iso-8859-1?Q?cFcpPZAO/Mv4pIfX3TAdYIeXd+/Kp3u6sCx5+0fbQDFga6Y74Gn9gARbQS?=
+ =?iso-8859-1?Q?wyLhv3kY5GEsdsI9ZyRZODI+juzBFSMYp6axkLyGZYJIIPMUf97L6JYr9k?=
+ =?iso-8859-1?Q?24qm5++Iz2OFLXsfRaHZC2xb4yekb24b/ldW5hPQjaS20h?=
+Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6534.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 58ed04ff-be9e-4358-eff8-08de995eb271
+X-MS-Exchange-CrossTenant-originalarrivaltime: 13 Apr 2026 13:15:13.2825 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: p35h/J1Ow2eb2SBZAfSGwsyA11aN8nHL6hjaxly0OIM3pceZTREOJ1PR57wkbfpRjr5Jt5f9YcFMcZwhspS/VA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB8106
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,119 +137,136 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi,
+[Public]
 
-This patch breaks analog connector support in DCE, both for analog encoders=
-=20
-and DP bridge encoders, because it deletes key functions such as=20
-dce110_enable_analog_link_output, dce110_prepare_ddc,=20
-dce110_external_encoder_control, and more.
+Hi all,
 
-With this patch applied, when you connect an analog monitor you just get a=
-=20
-crash in DC from trying to call link->dc->hwss.enable_analog_link_output()=
-=20
-which is now NULL.
+This week this patchset was tested on 4 systems, two dGPU and two APU based=
+, and tested across multiple display and connection types.
 
-This is basically undoing all the work I did for supporting old GPUs with D=
-C.
-I think either this commit should be reverted or someone should add back th=
-e=20
-analog support bits that were removed. I'm happy to help with that if neede=
-d.
-What do you guys think?
+APU
+        * Single Display eDP -> 1080p 60hz, 1920x1200 165hz, 3840x2400 60hz
+        * Single Display DP (SST DSC) -> 4k144hz, 4k240hz
+        * Multi display -> eDP + DP/HDMI/USB-C -> 1080p 60hz eDP + 4k 144hz=
+, 4k 240hz (Includes USB-C to DP/HDMI adapters)
+        * Thunderbolt -> LG Ultrafine 5k
+        * MST DSC -> Cable Matters 101075 (DP to 3x DP) with 3x 4k60hz disp=
+lays, HP Hook G2 with 2x 4k60hz displays
+        * USB 4 -> HP Hook G4, Lenovo Thunderbolt Dock, both with 2x 4k60hz=
+ DP and 1x 4k60hz HDMI displays
+        * SST PCON -> Club3D CAC-1085 + 1x 4k 144hz, FRL3, at a max resolut=
+ion supported by the dongle of 4k 120hz YUV420 12bpc.
+        * MST PCON -> 1x 4k 144hz, FRL3, at a max resolution supported by t=
+he adapter of 4k 120hz RGB 8bpc.
 
-As a side question, why was this commit merged without any review or ack?
+DGPU
+        * Single Display DP (SST DSC) -> 4k144hz, 4k240hz
+        * Multiple Display DP -> 4k240hz + 4k144hz
+        * MST (Startech MST14DP123DP [DP to 3x DP] and 2x 4k 60hz displays)
+        * MST DSC (with Cable Matters 101075 [DP to 3x DP] with 3x 4k60hz d=
+isplays)
 
-Thanks & best regards,
-Timur
+The testing is a mix of automated and manual tests. Manual testing includes=
+ (but is not limited to)
+        * Changing display configurations and settings
+        * Video/Audio playback
+        * Benchmark testing
+        * Suspend/Resume testing
+        * Feature testing (Freesync, HDCP, etc.)
 
-On 2026. m=C3=A1rcius 6., p=C3=A9ntek 4:13:45 k=C3=B6z=C3=A9p-eur=C3=B3pai =
-ny=C3=A1ri id=C5=91 Alex Hung wrote:
-> From: Roman Li <Roman.Li@amd.com>
->=20
-> This patch provides a bulk merge to align driver
-> support for DCN42 with Display Core version 3.2.373.
->=20
-> It includes upgrade for:
-> - clk_mgr
-> - dml2/dml21
-> - optc
-> - hubp
-> - mpc
-> - optc
-> - hwseq
->=20
-> Signed-off-by: Roman Li <Roman.Li@amd.com>
-> Signed-off-by: Alex Hung <alex.hung@amd.com>
-> ---
->  .../gpu/drm/amd/display/dc/bios/bios_parser.c |  11 +-
->  .../display/dc/clk_mgr/dcn42/dcn42_clk_mgr.c  | 141 +++--
->  .../display/dc/clk_mgr/dcn42/dcn42_clk_mgr.h  |   2 +-
->  drivers/gpu/drm/amd/display/dc/core/dc.c      |  95 ++-
->  .../gpu/drm/amd/display/dc/core/dc_stream.c   |  41 +-
->  .../gpu/drm/amd/display/dc/core/dc_surface.c  |   9 +
->  drivers/gpu/drm/amd/display/dc/dc.h           |  59 +-
->  .../gpu/drm/amd/display/dc/dc_bios_types.h    |   3 +-
->  drivers/gpu/drm/amd/display/dc/dc_hw_types.h  |   2 +-
->  drivers/gpu/drm/amd/display/dc/dc_plane.h     |   1 +
->  drivers/gpu/drm/amd/display/dc/dc_types.h     |  24 +
->  .../amd/display/dc/dccg/dcn401/dcn401_dccg.c  |  20 +
->  .../drm/amd/display/dc/dce/dmub_hw_lock_mgr.c |  16 +
->  .../drm/amd/display/dc/dce/dmub_hw_lock_mgr.h |  13 +
->  .../dml2_0/dml21/dml21_translation_helper.c   |  30 +-
->  .../amd/display/dc/dml2_0/dml21/dml21_utils.c |   1 +
->  .../display/dc/dml2_0/dml21/dml21_wrapper.c   |  14 +-
->  .../dml21/inc/bounding_boxes/dcn42_soc_bb.h   | 308 ++++------
->  .../dml21/inc/dml_top_display_cfg_types.h     |  13 +
->  .../dc/dml2_0/dml21/inc/dml_top_types.h       |   2 +
->  .../dml21/src/dml2_core/dml2_core_dcn4.c      | 204 +++----
->  .../dml21/src/dml2_core/dml2_core_factory.c   |   1 +
->  .../dml21/src/dml2_core/dml2_core_utils.c     |  63 +-
->  .../dml21/src/dml2_core/dml2_core_utils.h     |   2 +
->  .../dml21/src/dml2_dpmm/dml2_dpmm_dcn4.c      |   1 -
->  .../dml21/src/dml2_dpmm/dml2_dpmm_factory.c   |   1 +
->  .../dml2_0/dml21/src/dml2_mcg/dml2_mcg_dcn4.h |   2 +-
->  .../dml21/src/dml2_mcg/dml2_mcg_dcn42.h       |   5 +-
->  .../dml21/src/dml2_mcg/dml2_mcg_factory.c     |   1 +
->  .../dml21/src/dml2_pmo/dml2_pmo_dcn4_fams2.c  |   6 +
->  .../dml21/src/dml2_pmo/dml2_pmo_factory.c     |   4 +-
->  .../dml21/src/dml2_pmo/dml2_pmo_factory.h     |   2 +-
->  .../dml21/src/dml2_top/dml2_top_interfaces.c  |   1 +
->  .../dml21/src/dml2_top/dml2_top_legacy.c      |   1 -
->  .../src/inc/dml2_internal_shared_types.h      |   3 +
->  .../drm/amd/display/dc/dml2_0/dml2_wrapper.c  |   3 +-
->  .../amd/display/dc/dpp/dcn30/dcn30_dpp_cm.c   |   2 +
->  .../display/dc/dpp/dcn401/dcn401_dpp_dscl.c   |  21 +
->  .../hpo/dcn31/dcn31_hpo_dp_stream_encoder.c   |   5 +
->  .../amd/display/dc/hubp/dcn401/dcn401_hubp.c  | 201 ++++---
->  .../amd/display/dc/hubp/dcn401/dcn401_hubp.h  |  23 +-
->  .../amd/display/dc/hubp/dcn42/dcn42_hubp.c    |  85 ++-
->  .../amd/display/dc/hubp/dcn42/dcn42_hubp.h    |  16 +-
->  .../amd/display/dc/hwss/dce110/dce110_hwseq.c | 136 +++--
->  .../amd/display/dc/hwss/dcn401/dcn401_hwseq.c | 412 +++++--------
->  .../amd/display/dc/hwss/dcn42/dcn42_hwseq.c   | 553 +++---------------
->  .../amd/display/dc/hwss/dcn42/dcn42_hwseq.h   |  10 +-
->  .../amd/display/dc/hwss/dcn42/dcn42_init.c    |   8 +-
->  drivers/gpu/drm/amd/display/dc/inc/hw/hubp.h  |  36 +-
->  .../gpu/drm/amd/display/dc/inc/hw/hw_shared.h |  18 +-
->  drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h   | 112 ++--
->  drivers/gpu/drm/amd/display/dc/inc/resource.h |   1 +
->  .../amd/display/dc/mpc/dcn401/dcn401_mpc.c    | 177 +++---
->  .../amd/display/dc/mpc/dcn401/dcn401_mpc.h    |  25 +-
->  .../drm/amd/display/dc/mpc/dcn42/dcn42_mpc.c  | 390 ++----------
->  .../drm/amd/display/dc/mpc/dcn42/dcn42_mpc.h  |  50 +-
->  .../amd/display/dc/optc/dcn10/dcn10_optc.h    |   2 +-
->  .../amd/display/dc/optc/dcn42/dcn42_optc.c    | 105 +++-
->  .../amd/display/dc/optc/dcn42/dcn42_optc.h    |  13 +-
->  .../dc/resource/dcn42/dcn42_resource.c        |  10 +-
->  .../dcn401/dcn401_soc_and_ip_translator.c     |   3 +
->  .../dcn42/dcn42_soc_and_ip_translator.c       |  12 +-
->  .../gpu/drm/amd/display/dmub/inc/dmub_cmd.h   |  38 +-
->  .../include/asic_reg/dcn/dcn_4_2_0_offset.h   |   2 +
->  .../include/asic_reg/dcn/dcn_4_2_0_sh_mask.h  |   9 +
->  65 files changed, 1596 insertions(+), 1984 deletions(-)
+Automated testing includes (but is not limited to)
+        * Script testing (scripts to automate some of the manual checks)
+        * IGT testing
+
+The testing is mainly tested on the following displays, but occasionally th=
+ere are tests with other displays
+        * Samsung G8 Neo 4k240hz
+        * Samsung QN55QN95B 4k 120hz
+        * Acer XV322QKKV 4k144hz
+        * HP U27 4k Wireless 4k60hz
+        * LG 27UD58B 4k60hz
+        * LG 32UN650WA 4k60hz
+        * LG Ultrafine 5k 5k60hz
+        * AU Optronics B140HAN01.1 1080p 60hz eDP
+        * AU Optronics B160UAN01.J 1920x1200 165hz eDP
+        * Samsung ATNA60YV02-0 3840x2400 60Hz OLED eDP
 
 
+The patchset consists of the amd-staging-drm-next branch (Head commit -> b7=
+87d21fab08ddebc308b1c8b4baece1eb81243d -> drm/amd/pm: fix incorrect Feature=
+CtrlMask setting on smu v14.0.x) with new patches added on top of it.
 
+Tested on Ubuntu 24.04.3, on Wayland and X11, using Gnome.
+
+Tested-by: Dan Wheeler <daniel.wheeler@amd.com>
+
+
+Thank you,
+
+Dan Wheeler
+Sr. Technologist | AMD
+SW Display
+---------------------------------------------------------------------------=
+---------------------------------------
+1 Commerce Valley Dr E, Thornhill, ON L3T 7X6
+amd.com
+
+
+-----Original Message-----
+From: Aurabindo Pillai <aurabindo.pillai@amd.com>
+Sent: Thursday, April 9, 2026 11:03 AM
+To: amd-gfx@lists.freedesktop.org
+Cc: Wentland, Harry <Harry.Wentland@amd.com>; Li, Sun peng (Leo) <Sunpeng.L=
+i@amd.com>; Pillai, Aurabindo <Aurabindo.Pillai@amd.com>; Li, Roman <Roman.=
+Li@amd.com>; Lin, Wayne <Wayne.Lin@amd.com>; Chung, ChiaHsuan (Tom) <ChiaHs=
+uan.Chung@amd.com>; Zuo, Jerry <Jerry.Zuo@amd.com>; Wheeler, Daniel <Daniel=
+.Wheeler@amd.com>; Wu, Ray <Ray.Wu@amd.com>; LIPSKI, IVAN <IVAN.LIPSKI@amd.=
+com>; Hung, Alex <Alex.Hung@amd.com>; Tseng, Chuan Yu (Max) <ChuanYu.Tseng@=
+amd.com>
+Subject: [PATCH 0/6] DC Patches for 13 April 2026
+
+DC v3.2.378 summary:
+
+New:
+   - Add p-state schedule admissibility flags and frame-time utility
+
+Fixes:
+   - Fixed incorrect math_mod() result due to wrong variable in fmod implem=
+entation (Cc: stable)
+   - Use overlay cursor when a color pipeline is active to avoid incorrect =
+rendering
+   - Constrain vblank_nom to bounding box value instead of entire blank
+Cleanups:
+   - Add const qualifiers to watermark params struct
+   - Fix C4242 narrowing-conversion warnings
+
+---
+
+Alex Hung (1):
+  drm/amd/display: Use overlay cursor when color pipeline is active
+
+Gaghik Khachatrian (1):
+  drm/amd/display: Fix compiler warnings
+
+Taimur Hassan (1):
+  drm/amd/display: Promote DC to 3.2.378
+
+Wenjing Liu (3):
+  drm/amd/display: fix math_mod() using arg1 instead of arg2
+  drm/amd/display: add const qualifiers to watermark params struct
+  drm/amd/display: add pstate schedule admissibility flags and
+    frame-time utility
+
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 53 +++++++++++++++++--
+ drivers/gpu/drm/amd/display/dc/dc.h           | 10 ++--
+ drivers/gpu/drm/amd/display/dc/dc_stream.h    |  4 +-
+ drivers/gpu/drm/amd/display/dc/dc_types.h     |  2 +-
+ .../src/dml2_core/dml2_core_shared_types.h    | 39 ++++++++------
+ .../dml21/src/dml2_core/dml2_core_utils.c     |  8 +++
+ .../dml21/src/dml2_core/dml2_core_utils.h     |  1 +
+ .../lib_float_math.c                          |  2 +-
+ 8 files changed, 90 insertions(+), 29 deletions(-)
+
+--
+2.53.0
 
