@@ -4,47 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 45F99F34C56
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E1404F34C51
 	for <amd-gfx@archiver.kernel.org>; Mon, 13 Apr 2026 12:42:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D63CF10E46A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DB39E10E46B;
 	Mon, 13 Apr 2026 12:41:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="O3e1Ns5J";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="WLuNmRYk";
 	dkim-atps=neutral
 Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
  [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7C6C110E3BD;
- Mon, 13 Apr 2026 10:09:04 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1776074933; cv=none; 
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4551B10E3B0;
+ Mon, 13 Apr 2026 10:08:11 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1776074881; cv=none; 
  d=zohomail.com; s=zohoarc; 
- b=KJNrW+xd6CsbrX+CLV1OUxkupterS9Bqaiwh+AWh1tvhTs/f2a6JpPVYyLNDtiPSPa4y7m2/qs525jPom7mITxvXWWSIJuQFSCbnCsdBA4WgdLXG9WNZm7cHqhfOcnw3FZ6wCVGUApJNfv8oqt83Y3aqdVzGfZ5z9f6G2z7onMo=
+ b=FxYCO1CVrQACGqOTr9Rcqx1O26gUet4kg6OIt1F3Ns+1kP18mrdM9wRQhMso80v6u7ny1RazPiznufN11G9qmx+262aGf0izINDoN1YVUutwhH6DnSAjTuQNQjHrehJUzjQRGdz703mKDITeqcBdi7rVXZvIYM+F1BjlEfAiC2M=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1776074933;
+ s=zohoarc; t=1776074881;
  h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=5k1vlW62iXZjcOaFsSXyeVWlBMQFrsYlNjKb9M5MyLE=; 
- b=izgf12nq//iNfxmBrSKKL7j5w54uBLhDPmaW0ps7svBgDJsuXpLlD5innMhkFfdjMhGi1sjMUUhiF1LtM9yVBo549QEB6oSb7HQx4h6ofbEIVoxTEge7J8UZQM649z/nVaOxCUywe8nn2iMbHINNgznJiiwxNg7CAvFBOekHd2A=
+ bh=PlS0fOKH4i7gWqyWLF6xhZ2wNtI3PN2yuFORKR59uLI=; 
+ b=H45c6LGpG7qNlmUFoNXeTUWa/lyeTPA6/chA954CMhtx7xHLWrNbX8S2moU/KsQ+N3n6PHHPUeJRo25KPQwHN/n8CdxecykwLtiLHbELiF7v1KrsPpekMjhwZzVXZe5xclx3n3uIE3toeQojDM4Ro1zLKWSaDCfsNGkFlyvzdt0=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
  dkim=pass  header.i=collabora.com;
  spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
  dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1776074933; 
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1776074881; 
  s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
  h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:References:In-Reply-To:To:To:Cc:Cc:Reply-To;
- bh=5k1vlW62iXZjcOaFsSXyeVWlBMQFrsYlNjKb9M5MyLE=;
- b=O3e1Ns5JGpUNOvqJEaYekci2tHRhWGdHAGiiSJVGZwmlcOzj2ZmEvw7s3likwBUO
- +XPhHUJ+qYGz5f6GjwVXp423CkBMbbjS1pFbO5eN6xpeWEHULG7KEwlMyFDC3dMVFzR
- MI/8BpM2PhrnnzkgSe35fVA0Vlv/jlTFckA0q9/8=
-Received: by mx.zohomail.com with SMTPS id 1776074931930102.89146521052896;
- Mon, 13 Apr 2026 03:08:51 -0700 (PDT)
+ bh=PlS0fOKH4i7gWqyWLF6xhZ2wNtI3PN2yuFORKR59uLI=;
+ b=WLuNmRYkwvYYklFg2kJHpSOijmAz7k88TIxYuAeeSEB2U0qKLBAEe9/oQgZhjYs8
+ CcRlmztuq85tsyRj3Hj6PqY50tJ9hooWLkSCnwKR3nFE9zKzWloyIO454gsKPPjFzdu
+ ELNOFa9EYBkHfaWAkLn8AHdFiO4buuA5kSjmShKs=
+Received: by mx.zohomail.com with SMTPS id 1776074878667643.7008965777513;
+ Mon, 13 Apr 2026 03:07:58 -0700 (PDT)
 From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Date: Mon, 13 Apr 2026 12:07:22 +0200
-Subject: [PATCH v13 08/27] drm/display: hdmi-state-helper: Act on color
- format DRM property
+Date: Mon, 13 Apr 2026 12:07:16 +0200
+Subject: [PATCH v13 02/27] drm/display: hdmi-state-helper: Use default case
+ for unsupported formats
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260413-color-format-v13-8-ab37d4dfba48@collabora.com>
+Message-Id: <20260413-color-format-v13-2-ab37d4dfba48@collabora.com>
 References: <20260413-color-format-v13-0-ab37d4dfba48@collabora.com>
 In-Reply-To: <20260413-color-format-v13-0-ab37d4dfba48@collabora.com>
 To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
@@ -73,7 +73,7 @@ Cc: kernel@collabora.com, amd-gfx@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
  linux-doc@vger.kernel.org, 
  Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+ Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 X-Mailer: b4 0.15.2
 X-Mailman-Approved-At: Mon, 13 Apr 2026 12:41:56 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -90,66 +90,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-With the introduction of the "color format" DRM property, which allows
-userspace to request a specific color format, the HDMI state helper
-should implement this.
+Switch statements that do not handle all possible values of an
+enumeration will generate a warning during compilation. In preparation
+for adding a COUNT value to the end of the enum, this needs to be dealt
+with.
 
-Implement it by translating the requested drm_connector_color_format to
-a drm_output_color_format enum value as per the logic HDMI should use
-for this: Auto is translated to RGB, and a fallback to YUV420 is only
-performed if the original color format was auto.
+Add a default case to sink_supports_format_bpc's DRM_OUTPUT_COLOR_FORMAT
+switch statement, and move the log-and-return unknown pixel format
+handling into it.
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+No functional change.
+
 Reviewed-by: Maxime Ripard <mripard@kernel.org>
+Reviewed-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 ---
- drivers/gpu/drm/display/drm_hdmi_state_helper.c | 31 +++++++++++++++++++++++++
- 1 file changed, 31 insertions(+)
+ drivers/gpu/drm/display/drm_hdmi_state_helper.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/gpu/drm/display/drm_hdmi_state_helper.c b/drivers/gpu/drm/display/drm_hdmi_state_helper.c
-index a0d88701d236..954f8b2973fc 100644
+index 9f3b696aceeb..a0d88701d236 100644
 --- a/drivers/gpu/drm/display/drm_hdmi_state_helper.c
 +++ b/drivers/gpu/drm/display/drm_hdmi_state_helper.c
-@@ -670,8 +670,39 @@ hdmi_compute_config(const struct drm_connector *connector,
- 	unsigned int max_bpc = clamp_t(unsigned int,
- 				       conn_state->max_bpc,
- 				       8, connector->max_bpc);
-+	enum drm_output_color_format fmt;
- 	int ret;
+@@ -541,10 +541,11 @@ sink_supports_format_bpc(const struct drm_connector *connector,
+ 		drm_dbg_kms(dev, "YUV444 format supported in that configuration.\n");
  
-+	if (conn_state->color_format != DRM_CONNECTOR_COLOR_FORMAT_AUTO) {
-+		switch (conn_state->color_format) {
-+		case DRM_CONNECTOR_COLOR_FORMAT_AUTO:
-+			drm_warn(connector->dev, "AUTO format in non-AUTO path.\n");
-+			fallthrough;
-+		case DRM_CONNECTOR_COLOR_FORMAT_RGB444:
-+			fmt = DRM_OUTPUT_COLOR_FORMAT_RGB444;
-+			break;
-+		case DRM_CONNECTOR_COLOR_FORMAT_YCBCR444:
-+			fmt = DRM_OUTPUT_COLOR_FORMAT_YCBCR444;
-+			break;
-+		case DRM_CONNECTOR_COLOR_FORMAT_YCBCR422:
-+			fmt = DRM_OUTPUT_COLOR_FORMAT_YCBCR422;
-+			break;
-+		case DRM_CONNECTOR_COLOR_FORMAT_YCBCR420:
-+			fmt = DRM_OUTPUT_COLOR_FORMAT_YCBCR420;
-+			break;
-+		default:
-+			drm_dbg_kms(connector->dev, "HDMI does not support color format '%d'.\n",
-+				conn_state->color_format);
-+			return -EINVAL;
-+		}
-+
-+		return hdmi_compute_format_bpc(connector, conn_state, mode, max_bpc, fmt);
+ 		return true;
+-	}
+ 
+-	drm_dbg_kms(dev, "Unsupported pixel format.\n");
+-	return false;
++	default:
++		drm_dbg_kms(dev, "Unsupported pixel format.\n");
++		return false;
 +	}
-+
-+	/*
-+	 * For %DRM_CONNECTOR_COLOR_FORMAT_AUTO, try RGB first, and fall back
-+	 * to the less bandwidth-intensive YCBCR420 if RGB fails.
-+	 */
- 	ret = hdmi_compute_format_bpc(connector, conn_state, mode, max_bpc,
- 				      DRM_OUTPUT_COLOR_FORMAT_RGB444);
- 	if (ret) {
+ }
+ 
+ static enum drm_mode_status
 
 -- 
 2.53.0
