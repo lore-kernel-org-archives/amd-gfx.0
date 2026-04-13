@@ -4,47 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0D8EDF34C4E
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E27C6F34C50
 	for <amd-gfx@archiver.kernel.org>; Mon, 13 Apr 2026 12:42:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6E5C110E44C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9437010E45A;
 	Mon, 13 Apr 2026 12:41:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="dNPyeHI6";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="MUXuFQM4";
 	dkim-atps=neutral
 Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
  [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6756810E3AE;
- Mon, 13 Apr 2026 10:08:02 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1776074871; cv=none; 
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4813610E3ED;
+ Mon, 13 Apr 2026 10:11:42 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1776075092; cv=none; 
  d=zohomail.com; s=zohoarc; 
- b=TrtNrasC5V6cDZxjS7KeQ2JghwSAAV0u2iMuhEnm6PkfBr8aq0tnLpdsG1CWI2VD3DpqHMYzmMbOOSPDSpl8pXj4VItB0pFPuVlc4bAmJn0IjqwE0pWYNCfDXw2VHMKDM0obZ1wVX+GtoyTpMpKku4m9t5FqMHrTQDtf53nI6Kg=
+ b=BzK7pbbbtL0/RC583Da4ed82n0lff6IzUcoX+Izh3vJgInY2eKPFV/WsJ0JTtEP7qnNJRYkpi+zB0H8AO/rRLShCBukvu7c+8h1144odvcAhRpgNEqpR+Vhbwy2l6dS0wJgtHLNAmK7/wJ3dmIA1DM1EmpgG3kxxhLI5RB+CZt8=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1776074871;
+ s=zohoarc; t=1776075092;
  h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=0aHLj5HMmgBNp83PkRXSBCxnfFGY6jOss5iAqSsZMsg=; 
- b=Ks8CnCVqY21aDFy9ti11wBb2+QTLrmHBGUHNTuIWcIMobj6+9F5HnubxOmKpd8bn+yQr9y/V6MKe8pVsRBJqsm66x8HrZH/AhJ/oCDN4D8z0vsk+br21Vf142e2qWLdYT8KfCwUsz4RZ/gKrKW0L7zX/4Lh9HqI8z5Q30FpW6hw=
+ bh=76fDzNVJYSDVrGkTUxdvp/mv1wblBjOyqunsJgcUsWM=; 
+ b=QiVYLIzzfAaEGx1hpPU2hTpLctgT9AzZP/5FqH0Etq574pJjWqZ6/tdZ3DMfJk53NuOxgPCHI6W50tCeB93motguxEa5eP2T33Fx0mQh2vqquvmx+2FkfgkEgdGNmp+93I+MTbM1Mu1Q8D/AFEEcEWfzXhvBC0/SZIg/J0YrgQE=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
  dkim=pass  header.i=collabora.com;
  spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
  dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1776074871; 
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1776075092; 
  s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
  h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:References:In-Reply-To:To:To:Cc:Cc:Reply-To;
- bh=0aHLj5HMmgBNp83PkRXSBCxnfFGY6jOss5iAqSsZMsg=;
- b=dNPyeHI68YCj5ZtK/29mjjxcSscrL4HkTE2Vh+E9yqD392FFNoKC2toKcEG0v+zZ
- L8kPO74ZqyYMoryUmBWPsYty1e3yOSQ9vqSAWa9n6gvBmftnja4yC5TGZeVx7XROWps
- e3D8KUNFrFvAVayLSVLm8CRz/mDRfLjaBFJwNLko=
-Received: by mx.zohomail.com with SMTPS id 1776074869753787.0016875681852;
- Mon, 13 Apr 2026 03:07:49 -0700 (PDT)
+ bh=76fDzNVJYSDVrGkTUxdvp/mv1wblBjOyqunsJgcUsWM=;
+ b=MUXuFQM4uJ9ru9EMEqkiQWOyhLULiMsvuPJSkMl8HXJy1orXoTPzahMwuyc5XiPG
+ PvqVPW0+jDcw71KVXObXA22E+9BvEdLWNucx5FBtW4MWopCpjQRzmHiQyr1KlRVpMdY
+ hT+ODRV/J8PstN5lXHOXoHem6tMgM32BasAZ8A4A=
+Received: by mx.zohomail.com with SMTPS id 1776075090846920.0376394014768;
+ Mon, 13 Apr 2026 03:11:30 -0700 (PDT)
 From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Date: Mon, 13 Apr 2026 12:07:15 +0200
-Subject: [PATCH v13 01/27] drm/amd/display: Remove unnecessary
- SIGNAL_TYPE_HDMI_TYPE_A check
+Date: Mon, 13 Apr 2026 12:07:40 +0200
+Subject: [PATCH v13 26/27] drm/bridge: Document bridge chain format selection
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260413-color-format-v13-1-ab37d4dfba48@collabora.com>
+Message-Id: <20260413-color-format-v13-26-ab37d4dfba48@collabora.com>
 References: <20260413-color-format-v13-0-ab37d4dfba48@collabora.com>
 In-Reply-To: <20260413-color-format-v13-0-ab37d4dfba48@collabora.com>
 To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
@@ -72,9 +71,7 @@ Cc: kernel@collabora.com, amd-gfx@lists.freedesktop.org,
  linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
  intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
  linux-doc@vger.kernel.org, 
- Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, 
- Werner Sembach <wse@tuxedocomputers.com>, 
- Andri Yngvason <andri@yngvason.is>
+ Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 X-Mailer: b4 0.15.2
 X-Mailman-Approved-At: Mon, 13 Apr 2026 12:41:56 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -91,47 +88,90 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Werner Sembach <wse@tuxedocomputers.com>
+The bridge chain format selection behaviour was, until now,
+undocumented. With the addition of the "color format" DRM property, it's
+not sufficiently complex enough that documentation is warranted,
+especially for driver authors trying to do the right thing.
 
-Remove unnecessary SIGNAL_TYPE_HDMI_TYPE_A check that was performed in the
-drm_mode_is_420_only() case, but not in the drm_mode_is_420_also() &&
-force_yuv420_output case.
+Add a high-level overview of how the process is supposed to work, and
+mention what the display driver is supposed to do if it wants to make
+use of this functionality.
 
-Without further knowledge if YCbCr 4:2:0 is supported outside of HDMI,
-there is no reason to use RGB when the display
-reports drm_mode_is_420_only() even on a non HDMI connection.
-
-This patch also moves both checks in the same if-case. This  eliminates an
-extra else-if-case.
-
-Signed-off-by: Werner Sembach <wse@tuxedocomputers.com>
-Signed-off-by: Andri Yngvason <andri@yngvason.is>
-Tested-by: Andri Yngvason <andri@yngvason.is>
+Reviewed-by: Maxime Ripard <mripard@kernel.org>
 Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 9 +++------
- 1 file changed, 3 insertions(+), 6 deletions(-)
+ Documentation/gpu/drm-kms-helpers.rst |  6 ++++++
+ drivers/gpu/drm/drm_bridge.c          | 40 +++++++++++++++++++++++++++++++++++
+ 2 files changed, 46 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index c2066319772b..ad9714382d5f 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -6780,12 +6780,9 @@ static void fill_stream_properties_from_drm_display_mode(
- 	timing_out->v_border_top = 0;
- 	timing_out->v_border_bottom = 0;
- 	/* TODO: un-hardcode */
--	if (drm_mode_is_420_only(info, mode_in)
--			&& stream->signal == SIGNAL_TYPE_HDMI_TYPE_A)
--		timing_out->pixel_encoding = PIXEL_ENCODING_YCBCR420;
--	else if (drm_mode_is_420_also(info, mode_in)
--			&& aconnector
--			&& aconnector->force_yuv420_output)
-+	if (drm_mode_is_420_only(info, mode_in) ||
-+	    (aconnector && aconnector->force_yuv420_output &&
-+	     drm_mode_is_420_also(info, mode_in)))
- 		timing_out->pixel_encoding = PIXEL_ENCODING_YCBCR420;
- 	else if ((connector->display_info.color_formats & BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR422))
- 			&& aconnector
+diff --git a/Documentation/gpu/drm-kms-helpers.rst b/Documentation/gpu/drm-kms-helpers.rst
+index b4a9e5ae81f6..bf5a9d909cf3 100644
+--- a/Documentation/gpu/drm-kms-helpers.rst
++++ b/Documentation/gpu/drm-kms-helpers.rst
+@@ -169,6 +169,12 @@ Bridge Operations
+ .. kernel-doc:: drivers/gpu/drm/drm_bridge.c
+    :doc: bridge operations
+ 
++Bridge Chain Format Selection
++-----------------------------
++
++.. kernel-doc:: drivers/gpu/drm/drm_bridge.c
++   :doc: bridge chain format selection
++
+ Bridge Connector Helper
+ -----------------------
+ 
+diff --git a/drivers/gpu/drm/drm_bridge.c b/drivers/gpu/drm/drm_bridge.c
+index 5acd6bf84ae2..4cdc3c944f89 100644
+--- a/drivers/gpu/drm/drm_bridge.c
++++ b/drivers/gpu/drm/drm_bridge.c
+@@ -198,6 +198,46 @@
+  * driver.
+  */
+ 
++/**
++ * DOC: bridge chain format selection
++ *
++ * A bridge chain, from display output processor to connector, may contain
++ * bridges capable of converting between bus formats on their inputs, and
++ * output formats on their outputs. For example, a bridge may be able to convert
++ * from RGB to YCbCr 4:4:4, and pass through YCbCr 4:2:0 as-is, but not convert
++ * from RGB to YCbCr 4:2:0. This means not all input formats map to all output
++ * formats.
++ *
++ * Further adding to this, a desired output color format, as specified with the
++ * "color format" DRM property, might not correspond 1:1 to what the display
++ * driver should set at its output. The bridge chain it feeds into may only be
++ * able to reach the desired output format, if a conversion from a different
++ * starting format is performed.
++ *
++ * To deal with this complexity, the recursive bridge chain bus format selection
++ * logic starts with the last bridge in the chain, usually the connector, and
++ * then recursively walks the chain of bridges backwards to the first bridge,
++ * trying to find a path.
++ *
++ * For a display driver to work in such a scenario, it should read the first
++ * bridge's bridge state to figure out which bus format the chain resolved to.
++ * If the first bridge's input format resolved to %MEDIA_BUS_FMT_FIXED, then its
++ * output format should be used.
++ *
++ * Special handling is done for HDMI as it relates to format selection. Instead
++ * of directly using the "color format" DRM property for bridge chains that end
++ * in HDMI bridges, the bridge chain format selection logic will trust the logic
++ * that set the HDMI output format. For the common HDMI state helper
++ * functionality, this means that %DRM_CONNECTOR_COLOR_FORMAT_AUTO will allow
++ * fallbacks to YCBCr 4:2:0 if the bandwidth requirements would otherwise be too
++ * high but the mode and connector allow it.
++ *
++ * For bridge chains that do not end in an HDMI bridge,
++ * %DRM_CONNECTOR_COLOR_FORMAT_AUTO will be satisfied with the first output
++ * format on the last bridge for which it can find a path back to the first
++ * bridge.
++ */
++
+ /* Protect bridge_list and bridge_lingering_list */
+ static DEFINE_MUTEX(bridge_lock);
+ static LIST_HEAD(bridge_list);
 
 -- 
 2.53.0
