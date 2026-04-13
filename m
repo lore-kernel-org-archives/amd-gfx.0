@@ -4,46 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2FA93F34C53
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 96127F34C54
 	for <amd-gfx@archiver.kernel.org>; Mon, 13 Apr 2026 12:42:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9AF5110E45C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C916610E466;
 	Mon, 13 Apr 2026 12:41:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="IqUgY5nC";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="FWu/Fj7E";
 	dkim-atps=neutral
 Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
  [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 09F7B10E3C8;
- Mon, 13 Apr 2026 10:09:38 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1776074969; cv=none; 
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 955DF10E3D2;
+ Mon, 13 Apr 2026 10:10:31 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1776075021; cv=none; 
  d=zohomail.com; s=zohoarc; 
- b=VxWv5bDSLJh3szrqoEbNpalLAzrc1tm15m3ys+l9XwCIlg6vJJLJ5gkbdHEMeznTpl1eKYOgIae0SoPn8JeF6Hew+0UInFvYSrmLxVEmCDnsg8Ezl1UitHMOIqEFlqu3+R9HHt0madc00DLN0NmmT06/eMZARnLnmdq3tDsSRQg=
+ b=SWgG4dkMV1vO8gYvVBR9m/1IPoZwhBbTNpJ5SWgGlocTx6eV8sRy+EvjBpRwchuOaT9Fp/p8wrmA1xEJnEeHQgZHEjvLML9BrhLMV7Ff9GZ3W4i0GSGIANVOLqW5EpVl48a9Irq3zUS9UQOokPVWpu2e76N2bJNWSBzndGOWSfg=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1776074969;
+ s=zohoarc; t=1776075021;
  h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=gOyE23O5K6s9fqOK0Fz3jTjo+ifm/m4nA7cZNUJvvo4=; 
- b=TctDCQuOE5gZJj/OJ8V7M3ClkmGta8H0AuQETQeoRV6kf7qDW7Gl9E1v3wNKiagM76GM50fCOygkXZCAeHibgROC0fUoPJ15Kyfga8uMpI5VTus9nDEM7StJPrthaRoc2zbfF5wfamGV7qYXjjEQpJ3t9e7UnlLuwNJYyJOQ7lo=
+ bh=+F2WuEiqCUVykRB3XRC/Bxq6Gy1eCIr0ZWhVWJ26imU=; 
+ b=LvPcsJZ0q5V6HBS196+ZPK3AzOBEeaeEGwmLtMQjRyVaQm/HaY8Ws5p6Fi0kwFnQb+KAMMAhqTTJdaFuzn4WTdAhicqqetTJxRZwMgQYk03RApn1XrjpJhHT96urlyMrxuLK3H8pXBAus+ZvLaCKHpQAGgOOYUmD4evM6+W7CtE=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
  dkim=pass  header.i=collabora.com;
  spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
  dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1776074969; 
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1776075021; 
  s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
  h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:References:In-Reply-To:To:To:Cc:Cc:Reply-To;
- bh=gOyE23O5K6s9fqOK0Fz3jTjo+ifm/m4nA7cZNUJvvo4=;
- b=IqUgY5nCErZY9dfVVQjzXsO0vcP76sIlzMultDufo38ya7Ln/KyrRBxLF01abEMq
- DlK8yo13Pdf+N2H7JxdF8+ic/6OPunLszGNUVjiPKwlEfp7D+rzcZNP2JfE0DcSwJbB
- 2rnh5uexe+NviQUuhXeVJnNxeYm8NHfNjbhABlaA=
-Received: by mx.zohomail.com with SMTPS id 1776074967838175.92045163635623;
- Mon, 13 Apr 2026 03:09:27 -0700 (PDT)
+ bh=+F2WuEiqCUVykRB3XRC/Bxq6Gy1eCIr0ZWhVWJ26imU=;
+ b=FWu/Fj7ESc75rLeVnbStmpSKRmJY0gxT81KpIvgIUkJ9oD1G/yZJ1yKVR4gVNjVz
+ FsSBKc/EvVJoH5g+As6IZPhMgXhUiOxdpH8+06QQ/E9hNp34p57Qt4dGzJWwp3k0FPm
+ rcOXRaol6vf5DtHOn+dMHEplOSq+v7HR+yHSgSnY=
+Received: by mx.zohomail.com with SMTPS id 1776075021006776.3877738797408;
+ Mon, 13 Apr 2026 03:10:21 -0700 (PDT)
 From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Date: Mon, 13 Apr 2026 12:07:26 +0200
-Subject: [PATCH v13 12/27] drm/i915/dp: Add YCBCR444 handling for sink formats
+Date: Mon, 13 Apr 2026 12:07:32 +0200
+Subject: [PATCH v13 18/27] drm/bridge: dw-hdmi-qp: Use common HDMI output
+ bus fmts helper
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260413-color-format-v13-12-ab37d4dfba48@collabora.com>
+Message-Id: <20260413-color-format-v13-18-ab37d4dfba48@collabora.com>
 References: <20260413-color-format-v13-0-ab37d4dfba48@collabora.com>
 In-Reply-To: <20260413-color-format-v13-0-ab37d4dfba48@collabora.com>
 To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
@@ -71,7 +72,8 @@ Cc: kernel@collabora.com, amd-gfx@lists.freedesktop.org,
  linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
  intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
  linux-doc@vger.kernel.org, 
- Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+ Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, 
+ Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 X-Mailer: b4 0.15.2
 X-Mailman-Approved-At: Mon, 13 Apr 2026 12:41:56 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -88,34 +90,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-In anticipation of userspace being able to explicitly select supported
-sink formats, add handling of the YCBCR444 sink format. The AUTO path
-does not choose this format, but with explicit format selection added to
-the driver, it becomes a possibility.
+Make use of the common drm_bridge_funcs.atomic_get_output_bus_fmts
+helper for HDMI bridge connectors.
 
-Check for sink support of YCBCR444 to intel_dp_sink_format_valid.
+This allows dw-hdmi-qp HDMI bridges to participate in recursive bus
+format selection in a meaningful way.
 
+Reviewed-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 ---
- drivers/gpu/drm/i915/display/intel_dp.c | 5 +++++
- 1 file changed, 5 insertions(+)
+ drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index 35b8fb5740aa..47bd3d59ea93 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -1364,6 +1364,11 @@ intel_dp_sink_format_valid(struct intel_connector *connector,
+diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
+index d649a1cf07f5..5380aa7d82a8 100644
+--- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
++++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
+@@ -1192,6 +1192,7 @@ static int dw_hdmi_qp_cec_transmit(struct drm_bridge *bridge, u8 attempts,
+ #endif /* CONFIG_DRM_DW_HDMI_QP_CEC */
  
- 		return MODE_OK;
- 	case INTEL_OUTPUT_FORMAT_RGB:
-+		return MODE_OK;
-+	case INTEL_OUTPUT_FORMAT_YCBCR444:
-+		if (!(info->color_formats & BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR444)))
-+			return MODE_BAD;
-+
- 		return MODE_OK;
- 	default:
- 		MISSING_CASE(sink_format);
+ static const struct drm_bridge_funcs dw_hdmi_qp_bridge_funcs = {
++	.atomic_get_output_bus_fmts = drm_atomic_helper_bridge_get_hdmi_output_bus_fmts,
+ 	.atomic_duplicate_state = drm_atomic_helper_bridge_duplicate_state,
+ 	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
+ 	.atomic_reset = drm_atomic_helper_bridge_reset,
 
 -- 
 2.53.0
