@@ -4,47 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AB911F34C4E
-	for <amd-gfx@archiver.kernel.org>; Mon, 13 Apr 2026 12:42:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2FA93F34C53
+	for <amd-gfx@archiver.kernel.org>; Mon, 13 Apr 2026 12:42:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B7EB310E45F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9AF5110E45C;
 	Mon, 13 Apr 2026 12:41:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="QgmkkMtl";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="IqUgY5nC";
 	dkim-atps=neutral
 Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
  [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E4D1F10E3E4;
- Mon, 13 Apr 2026 10:11:51 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1776075102; cv=none; 
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 09F7B10E3C8;
+ Mon, 13 Apr 2026 10:09:38 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1776074969; cv=none; 
  d=zohomail.com; s=zohoarc; 
- b=IBTsDxLxQSdNoi3ndUXa20r13M4Ela5iEpVM08Oo2RkBEYLAF+Lw/dJzqDGqMyz+i5psseEJCdN5DruAJbExPguHCM75eMzOJdpnFxkP+wZg+/gMI7lE0pJcdv9DkEAtPV4kEdSgWhnuNvZd+EAylDxSJ4pdbF1Cjvz2D1hLgMU=
+ b=VxWv5bDSLJh3szrqoEbNpalLAzrc1tm15m3ys+l9XwCIlg6vJJLJ5gkbdHEMeznTpl1eKYOgIae0SoPn8JeF6Hew+0UInFvYSrmLxVEmCDnsg8Ezl1UitHMOIqEFlqu3+R9HHt0madc00DLN0NmmT06/eMZARnLnmdq3tDsSRQg=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1776075102;
+ s=zohoarc; t=1776074969;
  h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=pAXSZtPd5U/ZCuO8959Lc90gPEZRU63FJ0bQzc9gzHI=; 
- b=AOkxbjOIdTJDYdW1Ob1kjqvA6a3TpbC77dYOBpKpH4MSQpWVFZmHRnlbH+TrscRrKWcyrEhkmUzfM0Qgp5plOFgjrB1DhBx2Ffd2tCbUTRlCjXTMDaewahyww7Ty/Td11sYdcNqN+W0q853FZ0UjF0OwDnncCxJQfRJzyLt76r8=
+ bh=gOyE23O5K6s9fqOK0Fz3jTjo+ifm/m4nA7cZNUJvvo4=; 
+ b=TctDCQuOE5gZJj/OJ8V7M3ClkmGta8H0AuQETQeoRV6kf7qDW7Gl9E1v3wNKiagM76GM50fCOygkXZCAeHibgROC0fUoPJ15Kyfga8uMpI5VTus9nDEM7StJPrthaRoc2zbfF5wfamGV7qYXjjEQpJ3t9e7UnlLuwNJYyJOQ7lo=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
  dkim=pass  header.i=collabora.com;
  spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
  dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1776075102; 
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1776074969; 
  s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
  h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:References:In-Reply-To:To:To:Cc:Cc:Reply-To;
- bh=pAXSZtPd5U/ZCuO8959Lc90gPEZRU63FJ0bQzc9gzHI=;
- b=QgmkkMtl/suz2GbB8NnEaOetn8NXNniLv61xv0fk95cPbACV/sIw1UsHl28Dt/N5
- luI4x10c2eVBU0SoYIKt3VMzDO5Go1sk4iLDXd1ck8OcT43IzcLS7xvCvCMEeqDlrWh
- HoSdEUnQehxbKyyt7GHgciZ+tLnaeEi2F3cU++VE=
-Received: by mx.zohomail.com with SMTPS id 1776075099753819.2140777372053;
- Mon, 13 Apr 2026 03:11:39 -0700 (PDT)
+ bh=gOyE23O5K6s9fqOK0Fz3jTjo+ifm/m4nA7cZNUJvvo4=;
+ b=IqUgY5nCErZY9dfVVQjzXsO0vcP76sIlzMultDufo38ya7Ln/KyrRBxLF01abEMq
+ DlK8yo13Pdf+N2H7JxdF8+ic/6OPunLszGNUVjiPKwlEfp7D+rzcZNP2JfE0DcSwJbB
+ 2rnh5uexe+NviQUuhXeVJnNxeYm8NHfNjbhABlaA=
+Received: by mx.zohomail.com with SMTPS id 1776074967838175.92045163635623;
+ Mon, 13 Apr 2026 03:09:27 -0700 (PDT)
 From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Date: Mon, 13 Apr 2026 12:07:41 +0200
-Subject: [PATCH v13 27/27] drm/connector: Update docs of "colorspace" for
- color format prop
+Date: Mon, 13 Apr 2026 12:07:26 +0200
+Subject: [PATCH v13 12/27] drm/i915/dp: Add YCBCR444 handling for sink formats
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260413-color-format-v13-27-ab37d4dfba48@collabora.com>
+Message-Id: <20260413-color-format-v13-12-ab37d4dfba48@collabora.com>
 References: <20260413-color-format-v13-0-ab37d4dfba48@collabora.com>
 In-Reply-To: <20260413-color-format-v13-0-ab37d4dfba48@collabora.com>
 To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
@@ -89,35 +88,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The colorspace property's documentation states that BT2020_RGB and
-BT2020_YCC are equivalent, and the output format depends on the driver.
+In anticipation of userspace being able to explicitly select supported
+sink formats, add handling of the YCBCR444 sink format. The AUTO path
+does not choose this format, but with explicit format selection added to
+the driver, it becomes a possibility.
 
-Now that there is a "color format" property that userspace can use to
-explicitly set a format, update the colorspace docs to mention this.
-
-The behaviour here is not changed for userspace that doesn't know about
-the color format property yet, as the color format property defaults to
-"AUTO", where the choice of output format is left up to drivers.
+Check for sink support of YCBCR444 to intel_dp_sink_format_valid.
 
 Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 ---
- drivers/gpu/drm/drm_connector.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/display/intel_dp.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
-index 048789032971..88185a53d940 100644
---- a/drivers/gpu/drm/drm_connector.c
-+++ b/drivers/gpu/drm/drm_connector.c
-@@ -2573,7 +2573,8 @@ EXPORT_SYMBOL(drm_mode_create_aspect_ratio_property);
-  *		conversion matrix and convert to the appropriate quantization
-  *		range.
-  *		The variants BT2020_RGB and BT2020_YCC are equivalent and the
-- *		driver chooses between RGB and YCbCr on its own.
-+ *		driver chooses between RGB and YCbCr based on the color format
-+ *		property.
-  *
-  *	SMPTE_170M_YCC:
-  *	BT709_YCC:
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index 35b8fb5740aa..47bd3d59ea93 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -1364,6 +1364,11 @@ intel_dp_sink_format_valid(struct intel_connector *connector,
+ 
+ 		return MODE_OK;
+ 	case INTEL_OUTPUT_FORMAT_RGB:
++		return MODE_OK;
++	case INTEL_OUTPUT_FORMAT_YCBCR444:
++		if (!(info->color_formats & BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR444)))
++			return MODE_BAD;
++
+ 		return MODE_OK;
+ 	default:
+ 		MISSING_CASE(sink_format);
 
 -- 
 2.53.0
