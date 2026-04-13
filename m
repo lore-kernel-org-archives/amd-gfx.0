@@ -4,47 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9782BF34C60
-	for <amd-gfx@archiver.kernel.org>; Mon, 13 Apr 2026 12:42:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7B691F34C5E
+	for <amd-gfx@archiver.kernel.org>; Mon, 13 Apr 2026 12:42:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 35E1710E48C;
-	Mon, 13 Apr 2026 12:42:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6A92710E484;
+	Mon, 13 Apr 2026 12:42:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="Udc0KEwV";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="g4PHIP/E";
 	dkim-atps=neutral
 Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
  [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9156210E3B2;
- Mon, 13 Apr 2026 10:08:28 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1776074899; cv=none; 
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 33E5A10E3D1;
+ Mon, 13 Apr 2026 10:09:47 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1776074977; cv=none; 
  d=zohomail.com; s=zohoarc; 
- b=cD818MkwZJY3ZCKytg3FGlnUbcG4OfpQMnGwDpSqw1GopLqe9VThc3aEN34eRkntOW3jnYXd32XjsXayntyPuI9PRii0mfhGvp03g6bNztfA2BNSX4Jbf2vPa26O+MpRnluGQQ/GTCVaeb+hqBTBg0Nv+BosWdV1e7/o33t+b7Q=
+ b=IpYYRCqk8tavoGvhSbVCVZTy/Zp/Vz3RX2uc/19ZmPcYEILKWGe+rdahSZOB/qTrf1F7aerpMkFDXY58jylBg3e9bYr/u8M6Oih6kmTGloqMQzYxYzISDfk16I+HfexcBbzjJ3fnpj0I8a4Z4rgOsZ4DBjTuXYD3jsqi8X4kbLU=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1776074899;
+ s=zohoarc; t=1776074977;
  h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=edtnmsaCFOIW2dF6ZPDgcIxSPKqi37By5CYi0TNxv7E=; 
- b=F8r+H5BnWr0Y6zBsJqGsVCGzAjUr1lEbPGXE4mQFT8X+hCM0o9smf3dx33AssPoPFtmDa4UbbzVxWsg1BvJm7SardCXQUTmci7tOx7ZvzHufiRnrJURSn/3N0RhRvPMDWIlR8pX2ThKUPznQOZQd+1qTsIDfnGEGuZifJ17P06Y=
+ bh=pfuJgNlLA/GmqV8a4mWT/AFOH7DIYdQGAVlfIcknDY4=; 
+ b=QJngyNuJty26H+EkH9NujQusfNE23MNs/ZOHTSw6B8ivAub78LVljZapaAUhEwtYRxjW3CpMGkLmYZUsPDJw0FOgKkD3SEbzSO9M2lI7wZxNz0gbmKk2gO+18vvp3nzCYxYgNPWq9sCSL8Ndfjb2858LJV4uXX3FPd20SReAR5Y=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
  dkim=pass  header.i=collabora.com;
  spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
  dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1776074899; 
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1776074977; 
  s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
  h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:References:In-Reply-To:To:To:Cc:Cc:Reply-To;
- bh=edtnmsaCFOIW2dF6ZPDgcIxSPKqi37By5CYi0TNxv7E=;
- b=Udc0KEwVE71SDj/utQ5zTM168W0F7G6WBtHTk3BjZTO85yd8dk3wK22szkH2jWCh
- PMdV8fMWutZEkAUQ0UoV0tEEkK5KPjRpt4PmelQPyXJ9wCKOxuMYW++WHMtz9dDb8T+
- zMg8yX8RcyPHw0kYsdBnYEblLCy0oiJFJCewYuig=
-Received: by mx.zohomail.com with SMTPS id 1776074896853799.7351548980962;
- Mon, 13 Apr 2026 03:08:16 -0700 (PDT)
+ bh=pfuJgNlLA/GmqV8a4mWT/AFOH7DIYdQGAVlfIcknDY4=;
+ b=g4PHIP/EPkNVd3lJDrByBv5nWwJsdR7qGWTxixt9xABUDKKmUgTASWQYfiMsSiDy
+ RkHfTGyXUhNNNgWpzuX+NQdDvBJNqKl4fDeA8PWIzjEc4aVVe+xHf+IxyVaZeNe97rI
+ ZgX/uWOK8RrxuMjXwrbbxpfzMCTXBXqW6QPv3fjk=
+Received: by mx.zohomail.com with SMTPS id 1776074976647230.75652894518373;
+ Mon, 13 Apr 2026 03:09:36 -0700 (PDT)
 From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Date: Mon, 13 Apr 2026 12:07:18 +0200
-Subject: [PATCH v13 04/27] drm/connector: Let connectors have a say in
- their color format
+Date: Mon, 13 Apr 2026 12:07:27 +0200
+Subject: [PATCH v13 13/27] drm/i915: Implement the "color format" DRM property
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260413-color-format-v13-4-ab37d4dfba48@collabora.com>
+Message-Id: <20260413-color-format-v13-13-ab37d4dfba48@collabora.com>
 References: <20260413-color-format-v13-0-ab37d4dfba48@collabora.com>
 In-Reply-To: <20260413-color-format-v13-0-ab37d4dfba48@collabora.com>
 To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
@@ -89,77 +88,181 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add a function to get the connector color format from a connector state,
-and a new function pointer in drm_connector_funcs to allow connectors to
-override what connector color format it returns.
+Implement the "color format" DRM property for both DP and HDMI.  The
+values of the property include RGB, YCbCr420, YCbCr444 and Auto. Auto
+will pick RGB, with a fallback to YCbCr420.
 
-This is useful for the bridge chain recursive bus format selection code,
-which does not wish to implement connector implementation specific
-checks like whether it involves HDMI.
+The mask of supported formats by the source exposed by the property is
+an optimistic scenario, as specific DFP-related caveats can't be
+established before an EDID is present.
+
+Should the explicitly requested color format not be supported by the
+sink (or by the source in combination with the sink), then an error is
+returned to userspace, so that it can make a better choice.
 
 Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 ---
- drivers/gpu/drm/drm_connector.c | 16 ++++++++++++++++
- include/drm/drm_connector.h     | 12 ++++++++++++
- 2 files changed, 28 insertions(+)
+ drivers/gpu/drm/i915/display/intel_connector.c | 10 +++++++
+ drivers/gpu/drm/i915/display/intel_connector.h |  1 +
+ drivers/gpu/drm/i915/display/intel_dp.c        | 38 +++++++++++++++++++++++---
+ drivers/gpu/drm/i915/display/intel_hdmi.c      | 38 +++++++++++++++++++++++---
+ 4 files changed, 79 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
-index 1c4f3ff7d84f..d354ab77d3b8 100644
---- a/drivers/gpu/drm/drm_connector.c
-+++ b/drivers/gpu/drm/drm_connector.c
-@@ -3690,6 +3690,22 @@ void drm_connector_oob_hotplug_event(struct fwnode_handle *connector_fwnode,
+diff --git a/drivers/gpu/drm/i915/display/intel_connector.c b/drivers/gpu/drm/i915/display/intel_connector.c
+index 7ef9338d67ab..b1a21dd77af6 100644
+--- a/drivers/gpu/drm/i915/display/intel_connector.c
++++ b/drivers/gpu/drm/i915/display/intel_connector.c
+@@ -338,3 +338,13 @@ intel_attach_scaling_mode_property(struct drm_connector *connector)
+ 
+ 	connector->state->scaling_mode = DRM_MODE_SCALE_ASPECT;
  }
- EXPORT_SYMBOL(drm_connector_oob_hotplug_event);
- 
-+/**
-+ * drm_connector_get_color_format - Return connector color format of @conn_state
-+ * @conn_state: pointer to the &struct drm_connector_state to go check
-+ *
-+ */
-+enum drm_connector_color_format
-+drm_connector_get_color_format(const struct drm_connector_state *conn_state)
++
++void
++intel_attach_color_format_property(struct drm_connector *connector)
 +{
-+	struct drm_connector *connector = conn_state->connector;
++	const unsigned long fmts = BIT(DRM_OUTPUT_COLOR_FORMAT_RGB444) |
++				   BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR444) |
++				   BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR420);
 +
-+	if (connector->funcs->color_format)
-+		return connector->funcs->color_format(conn_state);
-+
-+	return conn_state->color_format;
++	drm_connector_attach_color_format_property(connector, fmts);
 +}
-+EXPORT_SYMBOL(drm_connector_get_color_format);
+diff --git a/drivers/gpu/drm/i915/display/intel_connector.h b/drivers/gpu/drm/i915/display/intel_connector.h
+index 0aa86626e646..c77b7aac02cb 100644
+--- a/drivers/gpu/drm/i915/display/intel_connector.h
++++ b/drivers/gpu/drm/i915/display/intel_connector.h
+@@ -34,5 +34,6 @@ void intel_attach_dp_colorspace_property(struct drm_connector *connector);
+ void intel_attach_scaling_mode_property(struct drm_connector *connector);
+ void intel_connector_queue_modeset_retry_work(struct intel_connector *connector);
+ void intel_connector_cancel_modeset_retry_work(struct intel_connector *connector);
++void intel_attach_color_format_property(struct drm_connector *connector);
  
- /**
-  * DOC: Tile group
-diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
-index 620f700fbe76..21767fffcba4 100644
---- a/include/drm/drm_connector.h
-+++ b/include/drm/drm_connector.h
-@@ -1811,6 +1811,16 @@ struct drm_connector_funcs {
- 	 * Allows connectors to create connector-specific debugfs files.
- 	 */
- 	void (*debugfs_init)(struct drm_connector *connector, struct dentry *root);
+ #endif /* __INTEL_CONNECTOR_H__ */
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index 47bd3d59ea93..3b2293415b55 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -3398,10 +3398,10 @@ intel_dp_compute_output_format(struct intel_encoder *encoder,
+ }
+ 
+ static int
+-intel_dp_compute_formats(struct intel_encoder *encoder,
+-			 struct intel_crtc_state *crtc_state,
+-			 struct drm_connector_state *conn_state,
+-			 bool respect_downstream_limits)
++intel_dp_compute_formats_auto(struct intel_encoder *encoder,
++			      struct intel_crtc_state *crtc_state,
++			      struct drm_connector_state *conn_state,
++			      bool respect_downstream_limits)
+ {
+ 	struct intel_display *display = to_intel_display(encoder);
+ 	struct intel_dp *intel_dp = enc_to_intel_dp(encoder);
+@@ -3437,6 +3437,34 @@ intel_dp_compute_formats(struct intel_encoder *encoder,
+ 	return ret;
+ }
+ 
++static int
++intel_dp_compute_formats(struct intel_encoder *encoder,
++			 struct intel_crtc_state *crtc_state,
++			 struct drm_connector_state *conn_state,
++			 bool respect_downstream_limits)
++{
++	switch (conn_state->color_format) {
++	case DRM_CONNECTOR_COLOR_FORMAT_RGB444:
++		return intel_dp_compute_output_format(encoder, crtc_state, conn_state,
++						      respect_downstream_limits,
++						      INTEL_OUTPUT_FORMAT_RGB);
++	case DRM_CONNECTOR_COLOR_FORMAT_YCBCR444:
++		return intel_dp_compute_output_format(encoder, crtc_state, conn_state,
++						      respect_downstream_limits,
++						      INTEL_OUTPUT_FORMAT_YCBCR444);
++	case DRM_CONNECTOR_COLOR_FORMAT_YCBCR420:
++		return intel_dp_compute_output_format(encoder, crtc_state, conn_state,
++						      respect_downstream_limits,
++						      INTEL_OUTPUT_FORMAT_YCBCR420);
++	case DRM_CONNECTOR_COLOR_FORMAT_AUTO:
++		return intel_dp_compute_formats_auto(encoder, crtc_state, conn_state,
++						     respect_downstream_limits);
++	default:
++		MISSING_CASE(conn_state->color_format);
++		return -EINVAL;
++	}
++}
 +
-+	/**
-+	 * @color_format:
-+	 *
-+	 * Allows connectors to return a connector color format other than
-+	 * @conn_state.color_format for purposes of e.g. display protocol
-+	 * specific helper logic having already mapped it to an output format.
-+	 */
-+	enum drm_connector_color_format (*color_format)(
-+		const struct drm_connector_state *conn_state);
- };
+ void
+ intel_dp_audio_compute_config(struct intel_encoder *encoder,
+ 			      struct intel_crtc_state *pipe_config,
+@@ -7025,6 +7053,8 @@ intel_dp_add_properties(struct intel_dp *intel_dp, struct drm_connector *_connec
  
- /**
-@@ -2627,6 +2637,8 @@ drm_connector_is_unregistered(struct drm_connector *connector)
+ 	if (HAS_VRR(display))
+ 		drm_connector_attach_vrr_capable_property(&connector->base);
++
++	intel_attach_color_format_property(&connector->base);
+ }
  
- void drm_connector_oob_hotplug_event(struct fwnode_handle *connector_fwnode,
- 				     enum drm_connector_status status);
-+enum drm_connector_color_format
-+drm_connector_get_color_format(const struct drm_connector_state *conn_state);
- const char *drm_get_connector_type_name(unsigned int connector_type);
- const char *drm_get_connector_status_name(enum drm_connector_status status);
- const char *drm_get_subpixel_order_name(enum subpixel_order order);
+ static void
+diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.c b/drivers/gpu/drm/i915/display/intel_hdmi.c
+index 5ab5b5f85cde..632498e3702b 100644
+--- a/drivers/gpu/drm/i915/display/intel_hdmi.c
++++ b/drivers/gpu/drm/i915/display/intel_hdmi.c
+@@ -2307,10 +2307,10 @@ static int intel_hdmi_compute_output_format(struct intel_encoder *encoder,
+ 	return intel_hdmi_compute_clock(encoder, crtc_state, respect_downstream_limits);
+ }
+ 
+-static int intel_hdmi_compute_formats(struct intel_encoder *encoder,
+-				      struct intel_crtc_state *crtc_state,
+-				      const struct drm_connector_state *conn_state,
+-				      bool respect_downstream_limits)
++static int intel_hdmi_compute_formats_auto(struct intel_encoder *encoder,
++					   struct intel_crtc_state *crtc_state,
++					   const struct drm_connector_state *conn_state,
++					   bool respect_downstream_limits)
+ {
+ 	struct intel_display *display = to_intel_display(encoder);
+ 	struct intel_connector *connector = to_intel_connector(conn_state->connector);
+@@ -2345,6 +2345,35 @@ static int intel_hdmi_compute_formats(struct intel_encoder *encoder,
+ 	return ret;
+ }
+ 
++static int intel_hdmi_compute_formats(struct intel_encoder *encoder,
++				      struct intel_crtc_state *crtc_state,
++				      const struct drm_connector_state *conn_state,
++				      bool respect_downstream_limits)
++{
++	struct intel_connector *connector = to_intel_connector(conn_state->connector);
++
++	switch (conn_state->color_format) {
++	case DRM_CONNECTOR_COLOR_FORMAT_RGB444:
++		return intel_hdmi_compute_output_format(encoder, crtc_state, connector,
++							respect_downstream_limits,
++							INTEL_OUTPUT_FORMAT_RGB);
++	case DRM_CONNECTOR_COLOR_FORMAT_YCBCR444:
++		return intel_hdmi_compute_output_format(encoder, crtc_state, connector,
++							respect_downstream_limits,
++							INTEL_OUTPUT_FORMAT_YCBCR444);
++	case DRM_CONNECTOR_COLOR_FORMAT_YCBCR420:
++		return intel_hdmi_compute_output_format(encoder, crtc_state, connector,
++							respect_downstream_limits,
++							INTEL_OUTPUT_FORMAT_YCBCR420);
++	case DRM_CONNECTOR_COLOR_FORMAT_AUTO:
++		return intel_hdmi_compute_formats_auto(encoder, crtc_state, conn_state,
++						       respect_downstream_limits);
++	default:
++		MISSING_CASE(conn_state->color_format);
++		return -EINVAL;
++	}
++}
++
+ static bool intel_hdmi_is_cloned(const struct intel_crtc_state *crtc_state)
+ {
+ 	return crtc_state->uapi.encoder_mask &&
+@@ -2729,6 +2758,7 @@ intel_hdmi_add_properties(struct intel_hdmi *intel_hdmi, struct drm_connector *_
+ 
+ 	intel_attach_hdmi_colorspace_property(&connector->base);
+ 	drm_connector_attach_content_type_property(&connector->base);
++	intel_attach_color_format_property(&connector->base);
+ 
+ 	if (DISPLAY_VER(display) >= 10)
+ 		drm_connector_attach_hdr_output_metadata_property(&connector->base);
 
 -- 
 2.53.0
