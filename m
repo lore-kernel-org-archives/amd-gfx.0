@@ -4,78 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C4480F34C52
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 87A5DF34C57
 	for <amd-gfx@archiver.kernel.org>; Mon, 13 Apr 2026 12:42:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AC41810E471;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 66E2510E46E;
 	Mon, 13 Apr 2026 12:41:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="SClcCwRG";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="hGQXd9JC";
 	dkim-atps=neutral
 Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
  [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E8F0710E32A;
- Mon, 13 Apr 2026 10:26:48 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1776075995; cv=none; 
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 52E0810E3E8;
+ Mon, 13 Apr 2026 10:11:34 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1776075084; cv=none; 
  d=zohomail.com; s=zohoarc; 
- b=h02R6SYWbmcMwoKgTR8LoC3h+o9xXPnlKOZgWDVMAOIfszgmHpI899QpLHBqvwiFWX+RKwwE4nLjDgd2c94afqa1TXauKAQ9elb3Jrzj0iDuxzm3EaLjO/ckhtIDBoYv7kZBBaTJdnOcrVX/5blV/hFS/O6mJLb8Hg1nEXExWIM=
+ b=AJqle+VVEyjbBfqvpUNfbLMRgDIZ+iasfiuLyGc3kDIZq88lKXDhTnklLAISiXh2DCwA1qt4+Rkft3P8Kt9JYqXaZKLJWSpHUJFnnNt9/R+HUJGI+dm/KjNZII4W88dsZyxfA69ONzvHj3VS6VGhcb1O9HOhE4KAYFpcXWj+hew=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1776075995;
+ s=zohoarc; t=1776075084;
  h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=MBy494F68r0qLKKEsa3LN0mB+quFxcEwe7H5kFBVbr0=; 
- b=Sw/0B9KI3xsgcXQuQvm+LSh3j6xIKGTH2vfNTHYxLh3t0BZNS2a6Z4FSigmlBak0Q/a/hw0toiKTnNNkUHM0uLQFDzPlAEfAbtZ1tlRgfFtjDMhX5OaUV1CfK/Sw3Z5GzltNIVBRoU/BessP6XT2Ou/K/SwtZ15mP9dh771A9Cw=
+ bh=mW0Ja2FbkQHM1K+7Np14cKRo9Q3SNA4jFH3nNeqjQjs=; 
+ b=BnceOwx7RXpY1/VkmgIbhmhSNXQPtEHhtpPCS1osy+w6JiqSUtRGrd2AT8ZxaC2AUIdInFZVn/uPbwTHYa0XiN8V34k4tj4EXI1mUJ8TVcPrL6g6xlrPhNF7HzBQzQxCFrLXF7TDWIS9PSmtrbG42E9mqn7PyFwi3Y9kA7cI+Bw=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
  dkim=pass  header.i=collabora.com;
  spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
  dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1776075995; 
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1776075084; 
  s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
- h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:Content-Type:Message-Id:Reply-To;
- bh=MBy494F68r0qLKKEsa3LN0mB+quFxcEwe7H5kFBVbr0=;
- b=SClcCwRGC3ptzz2W6dz6wheJPXh9BWTnc8EClbxkbu1yo2vIJT9PGcBejDaK6Nhe
- rECltZo9KuLaCQbOPkDfPZlGcwqAk5TatoV/zPjCblwvHcZJ8DSzwR1pcUupkpWRkb9
- 0yCeg7taHZbw7dhQ6hUP5rC01qXeRmHCd4WO9fkA=
-Received: by mx.zohomail.com with SMTPS id 1776075993436742.8313316176907;
- Mon, 13 Apr 2026 03:26:33 -0700 (PDT)
+ h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:References:In-Reply-To:To:To:Cc:Cc:Reply-To;
+ bh=mW0Ja2FbkQHM1K+7Np14cKRo9Q3SNA4jFH3nNeqjQjs=;
+ b=hGQXd9JCr13UNB7XEcyIBQUG+7HQZIkLaQ0FjtjOIluWhrbmmezFeFHtA3ncZth8
+ ghaWxW9rdt0iBhIyvK/3LuzwV1zy/7g9AARPdfTz0oj8FslfpQaPGodSVLAdp+MZJvQ
+ NY7ye83umBR5V9YrzBC6bGnmIZgWGzN/AS4Kbwxk=
+Received: by mx.zohomail.com with SMTPS id 1776075082243827.3960214208382;
+ Mon, 13 Apr 2026 03:11:22 -0700 (PDT)
 From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Sandy Huang <hjc@rock-chips.com>,
- Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>,
- Andy Yan <andy.yan@rock-chips.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, Dmitry Baryshkov <lumag@kernel.org>,
- Sascha Hauer <s.hauer@pengutronix.de>, Rob Herring <robh@kernel.org>,
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>
-Cc: kernel@collabora.com, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- linux-doc@vger.kernel.org, Werner Sembach <wse@tuxedocomputers.com>,
- Andri Yngvason <andri@yngvason.is>,
- Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
- Marius Vlad <marius.vlad@collabora.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Andy Yan <andyshrk@163.com>
-Subject: Re: [PATCH v13 00/27] Add new general DRM property "color format"
-Date: Mon, 13 Apr 2026 12:26:22 +0200
-Message-ID: <6275841.lOV4Wx5bFT@workhorse>
-In-Reply-To: <20260413-color-format-v13-0-ab37d4dfba48@collabora.com>
-References: <20260413-color-format-v13-0-ab37d4dfba48@collabora.com>
+Date: Mon, 13 Apr 2026 12:07:39 +0200
+Subject: [PATCH v13 25/27] drm/tests: bridge: Add test for HDMI output bus
+ formats helper
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
 Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260413-color-format-v13-25-ab37d4dfba48@collabora.com>
+References: <20260413-color-format-v13-0-ab37d4dfba48@collabora.com>
+In-Reply-To: <20260413-color-format-v13-0-ab37d4dfba48@collabora.com>
+To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
+ Rodrigo Siqueira <siqueira@igalia.com>, 
+ Alex Deucher <alexander.deucher@amd.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Sandy Huang <hjc@rock-chips.com>, 
+ =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
+ Andy Yan <andy.yan@rock-chips.com>, 
+ Jani Nikula <jani.nikula@linux.intel.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, Dmitry Baryshkov <lumag@kernel.org>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, Rob Herring <robh@kernel.org>, 
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>
+Cc: kernel@collabora.com, amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
+ linux-doc@vger.kernel.org, 
+ Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+X-Mailer: b4 0.15.2
 X-Mailman-Approved-At: Mon, 13 Apr 2026 12:41:56 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -91,98 +89,240 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Monday, 13 April 2026 12:07:14 Central European Summer Time Nicolas Frattaroli wrote:
-> Hello,
-> 
-> [snip mucho texto]
-> 
-> ---
-> Nicolas Frattaroli (26):
->       drm/display: hdmi-state-helper: Use default case for unsupported formats
->       drm: Add new general DRM property "color format"
->       drm/connector: Let connectors have a say in their color format
->       drm/display: bridge_connector: Use HDMI color format for HDMI conns
->       drm/bridge: Act on the DRM color format property
->       drm/atomic-helper: Add HDMI bridge output bus formats helper
->       drm/display: hdmi-state-helper: Act on color format DRM property
->       drm/display: hdmi-state-helper: Try subsampling in mode_valid
->       drm/amdgpu: Implement "color format" DRM property
->       drm/i915/hdmi: Add YCBCR444 handling for sink formats
->       drm/i915/dp: Add YCBCR444 handling for sink formats
->       drm/i915: Implement the "color format" DRM property
->       drm/rockchip: Add YUV422 output mode constants for VOP2
->       drm/rockchip: vop2: Add RK3576 to the RG swap special case
->       drm/rockchip: vop2: Recognise 10-bit YUV422 as YUV format
->       drm/rockchip: vop2: Set correct output format for RK3576 YUV422
->       drm/bridge: dw-hdmi-qp: Use common HDMI output bus fmts helper
->       drm/rockchip: dw_hdmi_qp: Implement "color format" DRM property
->       drm/rockchip: dw_hdmi_qp: Set supported_formats platdata
->       drm/connector: Register color format property on HDMI connectors
->       drm/tests: hdmi: Add tests for the color_format property
->       drm/tests: hdmi: Add tests for HDMI helper's mode_valid
->       drm/tests: bridge: Add KUnit tests for bridge chain format selection
->       drm/tests: bridge: Add test for HDMI output bus formats helper
->       drm/bridge: Document bridge chain format selection
->       drm/connector: Update docs of "colorspace" for color format prop
-> 
-> Werner Sembach (1):
->       drm/amd/display: Remove unnecessary SIGNAL_TYPE_HDMI_TYPE_A check
-> 
->  Documentation/gpu/drm-kms-helpers.rst              |   6 +
->  Documentation/gpu/drm-kms.rst                      |   6 +
->  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  |  91 +-
->  drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c       |   1 +
->  drivers/gpu/drm/display/drm_bridge_connector.c     |  24 +
->  drivers/gpu/drm/display/drm_hdmi_state_helper.c    |  53 +-
->  drivers/gpu/drm/drm_atomic_helper.c                |  86 ++
->  drivers/gpu/drm/drm_atomic_uapi.c                  |  11 +
->  drivers/gpu/drm/drm_bridge.c                       | 104 ++-
->  drivers/gpu/drm/drm_connector.c                    | 178 +++-
->  drivers/gpu/drm/i915/display/intel_connector.c     |  10 +
->  drivers/gpu/drm/i915/display/intel_connector.h     |   1 +
->  drivers/gpu/drm/i915/display/intel_dp.c            |  43 +-
->  drivers/gpu/drm/i915/display/intel_hdmi.c          |  47 +-
->  drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c     | 111 ++-
->  drivers/gpu/drm/rockchip/rockchip_drm_drv.h        |   4 +
->  drivers/gpu/drm/rockchip/rockchip_drm_vop2.c       |  21 +-
->  drivers/gpu/drm/tests/drm_bridge_test.c            | 971 +++++++++++++++++++++
->  drivers/gpu/drm/tests/drm_hdmi_state_helper_test.c | 345 ++++++++
->  include/drm/drm_atomic_helper.h                    |   7 +
->  include/drm/drm_connector.h                        | 120 +++
->  21 files changed, 2203 insertions(+), 37 deletions(-)
-> ---
-> base-commit: e3dc6072028a594d5e9bfc6476165842602d5307
-> change-id: 20251028-color-format-49fd202b7183
-> prerequisite-message-id: <20260409101539.22032-1-ville.syrjala@linux.intel.com>
-> prerequisite-patch-id: f382aeb5da5f2b8f6e2cb22b88eb47f490f2c724
-> prerequisite-patch-id: 20570aeb28e3c31353e6f697b193b23d8b47c47c
-> prerequisite-patch-id: 1b7e24034883b22cd82be025a1cf82ae77170fd0
-> prerequisite-patch-id: 6ec2dc2c05a75391b67cb12d93168f5e8da8ec55
-> prerequisite-patch-id: 32e84581998ef4eef05e1681c7ec36b90f2a6bb7
-> prerequisite-patch-id: 99c2187a846b0c9ac2ea1a892c17483120cb7da1
-> prerequisite-patch-id: fb41b4668a3b7c8c375c67ffd6b178fa3273e86a
-> prerequisite-patch-id: 4c115a36eea0d5f80643dc34310690894ac80e0e
-> prerequisite-patch-id: 6fdec0832cd6062de3cc5c2f363c5d624d8a00f9
-> 
-> Best regards,
-> --  
-> Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-> 
-> 
+The common atomic_get_output_bus_fmts helper for HDMI bridge connectors,
+called drm_atomic_helper_bridge_get_hdmi_output_bus_fmts, should return
+an array of output bus formats depending on the supported formats of the
+connector, and the current output BPC.
 
-Oops, forgot to apply the review trailers from last revision. (I did
-actually remember, but didn't remember to explicitly confirm applying
-them, and it defaults to not doing so.)
+Add a test to exercise some of this helper.
 
-So these two:
-- drm/atomic-helper: Add HDMI bridge output bus formats helper
-- drm/connector: Register color format property on HDMI connectors
+Reviewed-by: Maxime Ripard <mripard@kernel.org>
+Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+---
+ drivers/gpu/drm/tests/drm_bridge_test.c | 184 ++++++++++++++++++++++++++++++++
+ 1 file changed, 184 insertions(+)
 
-Lack Dmitry Baryshkov's R-b, but I assume it'll get picked up
-on the next `b4 trailers -u` anyway. Just mentioning it though
-to ruin the surprise for any reviewer who feels gaslit otherwise.
+diff --git a/drivers/gpu/drm/tests/drm_bridge_test.c b/drivers/gpu/drm/tests/drm_bridge_test.c
+index cb821c606070..d9bd930b1197 100644
+--- a/drivers/gpu/drm/tests/drm_bridge_test.c
++++ b/drivers/gpu/drm/tests/drm_bridge_test.c
+@@ -5,6 +5,7 @@
+ #include <linux/cleanup.h>
+ #include <linux/media-bus-format.h>
+ 
++#include <drm/drm_atomic_helper.h>
+ #include <drm/drm_atomic_state_helper.h>
+ #include <drm/drm_atomic_uapi.h>
+ #include <drm/drm_bridge.h>
+@@ -118,6 +119,28 @@ static const struct drm_bridge_funcs drm_test_bridge_atomic_funcs = {
+ 	.atomic_reset		= drm_atomic_helper_bridge_reset,
+ };
+ 
++static int dummy_clear_infoframe(struct drm_bridge *bridge)
++{
++	return 0;
++}
++
++static int dummy_write_infoframe(struct drm_bridge *bridge, const u8 *buffer,
++				 size_t len)
++{
++	return 0;
++}
++
++static const struct drm_bridge_funcs drm_test_bridge_bus_fmts_funcs = {
++	.atomic_get_output_bus_fmts	= drm_atomic_helper_bridge_get_hdmi_output_bus_fmts,
++	.atomic_destroy_state		= drm_atomic_helper_bridge_destroy_state,
++	.atomic_duplicate_state		= drm_atomic_helper_bridge_duplicate_state,
++	.atomic_reset			= drm_atomic_helper_bridge_reset,
++	.hdmi_write_avi_infoframe	= dummy_write_infoframe,
++	.hdmi_write_hdmi_infoframe	= dummy_write_infoframe,
++	.hdmi_clear_avi_infoframe	= dummy_clear_infoframe,
++	.hdmi_clear_hdmi_infoframe	= dummy_clear_infoframe,
++};
++
+ /**
+  * struct fmt_tuple - a tuple of input/output MEDIA_BUS_FMT_*
+  */
+@@ -539,6 +562,83 @@ drm_test_bridge_chain_init(struct kunit *test, unsigned int num_bridges,
+ 	return priv;
+ }
+ 
++static struct drm_bridge_init_priv *
++drm_test_bridge_hdmi_init(struct kunit *test, const struct drm_bridge_funcs *funcs,
++			  unsigned int supported_formats, int max_bpc)
++{
++	struct drm_bridge_init_priv *priv;
++	struct drm_encoder *enc;
++	struct drm_bridge *bridge;
++	struct drm_device *drm;
++	struct device *dev;
++	int ret;
++
++	dev = drm_kunit_helper_alloc_device(test);
++	if (IS_ERR(dev))
++		return ERR_CAST(dev);
++
++	priv = drm_kunit_helper_alloc_drm_device(test, dev,
++						 struct drm_bridge_init_priv, drm,
++						 DRIVER_MODESET | DRIVER_ATOMIC);
++	if (IS_ERR(priv))
++		return ERR_CAST(priv);
++
++	priv->test_bridge = devm_drm_bridge_alloc(dev, struct drm_bridge_priv, bridge, funcs);
++	if (IS_ERR(priv->test_bridge))
++		return ERR_CAST(priv->test_bridge);
++
++	priv->test_bridge->data = priv;
++
++	drm = &priv->drm;
++	priv->plane = drm_kunit_helper_create_primary_plane(test, drm,
++							    NULL,
++							    NULL,
++							    NULL, 0,
++							    NULL);
++	if (IS_ERR(priv->plane))
++		return ERR_CAST(priv->plane);
++
++	priv->crtc = drm_kunit_helper_create_crtc(test, drm,
++						  priv->plane, NULL,
++						  NULL,
++						  NULL);
++	if (IS_ERR(priv->crtc))
++		return ERR_CAST(priv->crtc);
++
++	enc = &priv->encoder;
++	ret = drmm_encoder_init(drm, enc, NULL, DRM_MODE_ENCODER_TMDS, NULL);
++	if (ret)
++		return ERR_PTR(ret);
++
++	enc->possible_crtcs = drm_crtc_mask(priv->crtc);
++
++	bridge = &priv->test_bridge->bridge;
++	bridge->type = DRM_MODE_CONNECTOR_HDMIA;
++	bridge->supported_formats = supported_formats;
++	bridge->max_bpc = max_bpc;
++	bridge->ops |= DRM_BRIDGE_OP_HDMI;
++	bridge->vendor = "LNX";
++	bridge->product = "KUnit";
++
++	ret = drm_kunit_bridge_add(test, bridge);
++	if (ret)
++		return ERR_PTR(ret);
++
++	ret = drm_bridge_attach(enc, bridge, NULL, 0);
++	if (ret)
++		return ERR_PTR(ret);
++
++	priv->connector = drm_bridge_connector_init(drm, enc);
++	if (IS_ERR(priv->connector))
++		return ERR_CAST(priv->connector);
++
++	drm_connector_attach_encoder(priv->connector, enc);
++
++	drm_mode_config_reset(drm);
++
++	return priv;
++}
++
+ /*
+  * Test that drm_bridge_get_current_state() returns the last committed
+  * state for an atomic bridge.
+@@ -786,10 +886,94 @@ static void drm_test_drm_bridge_helper_reset_crtc_legacy(struct kunit *test)
+ 	KUNIT_EXPECT_EQ(test, bridge_priv->disable_count, 1);
+ }
+ 
++/*
++ * Test that a bridge using the drm_atomic_helper_bridge_get_hdmi_output_bus_fmts()
++ * function for &drm_bridge_funcs.atomic_get_output_bus_fmts behaves as expected
++ * for an HDMI connector bridge. Does so by creating an HDMI bridge connector
++ * with RGB444, YCBCR444, and YCBCR420 (but not YCBCR422) as supported formats,
++ * sets the output depth to 8 bits per component, and then validates the returned
++ * list of bus formats.
++ */
++static void drm_test_drm_bridge_helper_hdmi_output_bus_fmts(struct kunit *test)
++{
++	struct drm_connector_state *conn_state;
++	struct drm_bridge_state *bridge_state;
++	struct drm_modeset_acquire_ctx ctx;
++	struct drm_bridge_init_priv *priv;
++	struct drm_crtc_state *crtc_state;
++	struct drm_atomic_state *state;
++	struct drm_display_mode *mode;
++	unsigned int num_output_fmts;
++	struct drm_bridge *bridge;
++	u32 *out_bus_fmts;
++	int ret;
++
++	priv = drm_test_bridge_hdmi_init(test, &drm_test_bridge_bus_fmts_funcs,
++					 BIT(DRM_OUTPUT_COLOR_FORMAT_RGB444) |
++					 BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR444) |
++					 BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR420),
++					 12);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, priv);
++
++	bridge = &priv->test_bridge->bridge;
++
++	drm_modeset_acquire_init(&ctx, 0);
++
++	state = drm_kunit_helper_atomic_state_alloc(test, &priv->drm, &ctx);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, state);
++
++retry_commit:
++	conn_state = drm_atomic_get_connector_state(state, priv->connector);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, conn_state);
++
++	conn_state->hdmi.output_bpc = 8;
++
++	mode = drm_kunit_display_mode_from_cea_vic(test, &priv->drm, 16);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, mode);
++
++	ret = drm_atomic_set_crtc_for_connector(conn_state, priv->crtc);
++	if (ret == -EDEADLK) {
++		drm_modeset_backoff(&ctx);
++		goto retry_commit;
++	}
++	KUNIT_ASSERT_EQ(test, ret, 0);
++
++	crtc_state = drm_atomic_get_crtc_state(state, priv->crtc);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, crtc_state);
++
++	ret = drm_atomic_set_mode_for_crtc(crtc_state, mode);
++	if (ret == -EDEADLK) {
++		drm_modeset_backoff(&ctx);
++		goto retry_commit;
++	}
++	KUNIT_ASSERT_EQ(test, ret, 0);
++
++	crtc_state->enable = true;
++	crtc_state->active = true;
++
++	bridge_state = drm_atomic_get_bridge_state(state, bridge);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, bridge_state);
++
++	out_bus_fmts = bridge->funcs->atomic_get_output_bus_fmts(
++		bridge, bridge_state, crtc_state, conn_state, &num_output_fmts);
++	KUNIT_EXPECT_NOT_NULL(test, out_bus_fmts);
++	KUNIT_EXPECT_EQ(test, num_output_fmts, 3);
++
++	KUNIT_EXPECT_EQ(test, out_bus_fmts[0], MEDIA_BUS_FMT_RGB888_1X24);
++	KUNIT_EXPECT_EQ(test, out_bus_fmts[1], MEDIA_BUS_FMT_YUV8_1X24);
++	KUNIT_EXPECT_EQ(test, out_bus_fmts[2], MEDIA_BUS_FMT_UYYVYY8_0_5X24);
++
++	drm_modeset_drop_locks(&ctx);
++	drm_modeset_acquire_fini(&ctx);
++
++	kfree(out_bus_fmts);
++}
++
+ static struct kunit_case drm_bridge_helper_reset_crtc_tests[] = {
+ 	KUNIT_CASE(drm_test_drm_bridge_helper_reset_crtc_atomic),
+ 	KUNIT_CASE(drm_test_drm_bridge_helper_reset_crtc_atomic_disabled),
+ 	KUNIT_CASE(drm_test_drm_bridge_helper_reset_crtc_legacy),
++	KUNIT_CASE(drm_test_drm_bridge_helper_hdmi_output_bus_fmts),
+ 	{ }
+ };
+ 
 
-Kind regards,
-Nicolas Frattaroli
-
+-- 
+2.53.0
 
