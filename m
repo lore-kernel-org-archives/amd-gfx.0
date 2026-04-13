@@ -4,30 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BEBB7F34C4B
-	for <amd-gfx@archiver.kernel.org>; Mon, 13 Apr 2026 12:21:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 235E1F34C4E
+	for <amd-gfx@archiver.kernel.org>; Mon, 13 Apr 2026 12:41:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 452A110E437;
-	Mon, 13 Apr 2026 12:21:42 +0000 (UTC)
-Received: from rtg-sunil-navi33.amd.com (unknown [165.204.156.251])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E28CE10E426
- for <amd-gfx@lists.freedesktop.org>; Mon, 13 Apr 2026 12:21:40 +0000 (UTC)
-Received: from rtg-sunil-navi33.amd.com (localhost [127.0.0.1])
- by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Debian-22ubuntu3) with ESMTP id
- 63DCLZet2070206; Mon, 13 Apr 2026 17:51:35 +0530
-Received: (from sunil@localhost)
- by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 63DCLZpT2070199;
- Mon, 13 Apr 2026 17:51:35 +0530
-From: Sunil Khatri <sunil.khatri@amd.com>
-To: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, Sunil Khatri <sunil.khatri@amd.com>
-Subject: [PATCH v4] drm/amdgpu/userq: unmap_helper dont return the queue state
-Date: Mon, 13 Apr 2026 17:51:32 +0530
-Message-Id: <20260413122132.2070147-1-sunil.khatri@amd.com>
-X-Mailer: git-send-email 2.34.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5C47E10E110;
+	Mon, 13 Apr 2026 12:41:57 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="ems3N+L1";
+	dkim-atps=neutral
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
+ [136.143.188.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2314810E3C1;
+ Mon, 13 Apr 2026 10:08:55 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1776074925; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=CJb/whBAbd8gxkcHDvfgunaFUCaJOjg6DevgxYqaU3GOzCM5WLk5MXN3L91f1ORGYDOX8aw2fmMv7CGWhJYuGYt0lyREAa2HStE2d7vXSWBNwuz9IIYEGhF3AqPj+ZmveHSf0GO7KnBsQj9y12lQaaifr5IbzGeXKReIa8Bld3k=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1776074925;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=IH5low48GM+yv78IQ9owPpTrmwFuFjqqYcrTkdlKUr4=; 
+ b=nG+IuaXJaZh4EeeDVbpyfXXDC9A4SxcGAHxzoLswmIPqyYqhB2CcbMQbloGrRG5MxvS9KTZSjlCXXD1e2aT5zCOQ++RevNvgGQ1Uj8rA2T6BQYXuJqs9uT1EvlyoG2L8Ug6KAqdkdHDZeqnPQVjQcFmHvQ61/llLZvP99kuc1C4=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
+ dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1776074925; 
+ s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
+ h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:References:In-Reply-To:To:To:Cc:Cc:Reply-To;
+ bh=IH5low48GM+yv78IQ9owPpTrmwFuFjqqYcrTkdlKUr4=;
+ b=ems3N+L1L6VqnJmubJ47l3htgrQRrQP8rFHznCNikhd08TGBL4NQ4OWhbuhl01BK
+ haki4gk5S7BtV9dUqsqVSIQ/hgHxIx9QDq7r2fvThcp1iCpwZL9JhjpL8zv/btLM1ou
+ vUdFbTmVOI4LenihaqxBJn/91qKRVX5tQ4io254Y=
+Received: by mx.zohomail.com with SMTPS id 1776074922983125.99840353906723;
+ Mon, 13 Apr 2026 03:08:42 -0700 (PDT)
+From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+Date: Mon, 13 Apr 2026 12:07:21 +0200
+Subject: [PATCH v13 07/27] drm/atomic-helper: Add HDMI bridge output bus
+ formats helper
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260413-color-format-v13-7-ab37d4dfba48@collabora.com>
+References: <20260413-color-format-v13-0-ab37d4dfba48@collabora.com>
+In-Reply-To: <20260413-color-format-v13-0-ab37d4dfba48@collabora.com>
+To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
+ Rodrigo Siqueira <siqueira@igalia.com>, 
+ Alex Deucher <alexander.deucher@amd.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Sandy Huang <hjc@rock-chips.com>, 
+ =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
+ Andy Yan <andy.yan@rock-chips.com>, 
+ Jani Nikula <jani.nikula@linux.intel.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, Dmitry Baryshkov <lumag@kernel.org>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, Rob Herring <robh@kernel.org>, 
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>
+Cc: kernel@collabora.com, amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
+ linux-doc@vger.kernel.org, 
+ Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+X-Mailer: b4 0.15.2
+X-Mailman-Approved-At: Mon, 13 Apr 2026 12:41:56 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -42,28 +89,149 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-We check for return value of amdgpu_userq_unmap_helper and
-compare it against the queue->state which is logically
-wrong and we should just check for failure and do the needfull.
+The drm_bridge_funcs atomic_get_output_bus_fmts operation should be the
+same for likely every HDMI connector bridge, unless such an HDMI
+connector bridge has some special hardware restrictions that I cannot
+envision yet.
 
-Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
+To avoid code duplication and standardize on a set of media bus formats
+that the HDMI output color formats translate to, add a common helper
+function that implements this operation to the drm bridge helpers.
+
+The function returns a list of output bus formats based on the HDMI
+bridge's current output bits-per-component, and its bitmask of supported
+color formats.
+
+To guard against future expansion of DRM_OUTPUT_COLOR_FORMAT outgrowing
+the hweight8 call, add a BUILD_BUG_ON statement where it's used that
+checks for DRM_OUTPUT_COLOR_FORMAT_COUNT. The justification for not
+using hweight32 in all cases is that not all ISAs have a popcount
+instruction, and will benefit from a smaller/faster software
+implementation that doesn't have to operate across all bits.
+
+The justification for not defining an hweight_color depending on the
+value of DRM_OUTPUT_COLOR_FORMAT_COUNT is that this count enum value is
+only known at compile time, not at preprocessor time.
+
+Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/drm_atomic_helper.c | 81 +++++++++++++++++++++++++++++++++++++
+ include/drm/drm_atomic_helper.h     |  7 ++++
+ 2 files changed, 88 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-index 7f966fb98018..d4e18b57be80 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-@@ -645,7 +645,7 @@ amdgpu_userq_destroy(struct amdgpu_userq_mgr *uq_mgr, struct amdgpu_usermode_que
- 	amdgpu_userq_detect_and_reset_queues(uq_mgr);
- 	r = amdgpu_userq_unmap_helper(queue);
- 	/*TODO: It requires a reset for userq hw unmap error*/
--	if (unlikely(r != AMDGPU_USERQ_STATE_UNMAPPED)) {
-+	if (r) {
- 		drm_warn(adev_to_drm(uq_mgr->adev), "trying to destroy a HW mapping userq\n");
- 		queue->state = AMDGPU_USERQ_STATE_HUNG;
- 	}
+diff --git a/drivers/gpu/drm/drm_atomic_helper.c b/drivers/gpu/drm/drm_atomic_helper.c
+index 0de9748a82c6..9e62a24ab4b4 100644
+--- a/drivers/gpu/drm/drm_atomic_helper.c
++++ b/drivers/gpu/drm/drm_atomic_helper.c
+@@ -28,6 +28,7 @@
+ #include <linux/export.h>
+ #include <linux/dma-fence.h>
+ #include <linux/ktime.h>
++#include <linux/media-bus-format.h>
+ 
+ #include <drm/drm_atomic.h>
+ #include <drm/drm_atomic_helper.h>
+@@ -4095,3 +4096,83 @@ drm_atomic_helper_bridge_propagate_bus_fmt(struct drm_bridge *bridge,
+ 	return input_fmts;
+ }
+ EXPORT_SYMBOL(drm_atomic_helper_bridge_propagate_bus_fmt);
++
++/**
++ * drm_atomic_helper_bridge_get_hdmi_output_bus_fmts - helper implementing
++ *                                           atomic_get_output_bus_fmts for HDMI
++ * @bridge: pointer to &struct drm_bridge
++ * @bridge_state: pointer to the current bridge state
++ * @crtc_state: pointer to the current CRTC state
++ * @conn_state: pointer to the current connector state
++ * @num_output_fmts: pointer to where the number of entries in the returned array
++ *                   will be stored. Set to 0 if unsuccessful.
++ *
++ * Common implementation for the &drm_bridge_funcs.atomic_get_output_bus_fmts
++ * operation that's applicable to HDMI connectors.
++ *
++ * Returns: a newly allocated array of u32 values of length \*@num_output_fmts,
++ * representing all the MEDIA_BUS_FMTS\_ for the current connector state's
++ * chosen HDMI output bits per compoennt, or %NULL if it fails to allocate one.
++ */
++u32 *
++drm_atomic_helper_bridge_get_hdmi_output_bus_fmts(struct drm_bridge *bridge,
++					struct drm_bridge_state *bridge_state,
++					struct drm_crtc_state *crtc_state,
++					struct drm_connector_state *conn_state,
++					unsigned int *num_output_fmts)
++{
++	unsigned int num_fmts = 0;
++	u32 *out_fmts;
++
++	/*
++	 * bridge->supported_formats is a bit field of BIT(enum drm_output_color_format)
++	 * values. The smallest hweight that is smaller than or equal to
++	 * %DRM_OUTPUT_COLOR_FORMAT_COUNT will do for counting set bits here.
++	 */
++	BUILD_BUG_ON(const_true(DRM_OUTPUT_COLOR_FORMAT_COUNT > 8));
++	out_fmts = kmalloc_array(hweight8(bridge->supported_formats),
++				 sizeof(u32), GFP_KERNEL);
++	if (!out_fmts) {
++		*num_output_fmts = 0;
++		return NULL;
++	}
++
++	switch (conn_state->hdmi.output_bpc) {
++	case 12:
++		if (bridge->supported_formats & BIT(DRM_OUTPUT_COLOR_FORMAT_RGB444))
++			out_fmts[num_fmts++] = MEDIA_BUS_FMT_RGB121212_1X36;
++		if (bridge->supported_formats & BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR444))
++			out_fmts[num_fmts++] = MEDIA_BUS_FMT_YUV12_1X36;
++		if (bridge->supported_formats & BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR422))
++			out_fmts[num_fmts++] = MEDIA_BUS_FMT_UYVY12_1X24;
++		if (bridge->supported_formats & BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR420))
++			out_fmts[num_fmts++] = MEDIA_BUS_FMT_UYYVYY12_0_5X36;
++		break;
++	case 10:
++		if (bridge->supported_formats & BIT(DRM_OUTPUT_COLOR_FORMAT_RGB444))
++			out_fmts[num_fmts++] = MEDIA_BUS_FMT_RGB101010_1X30;
++		if (bridge->supported_formats & BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR444))
++			out_fmts[num_fmts++] = MEDIA_BUS_FMT_YUV10_1X30;
++		if (bridge->supported_formats & BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR422))
++			out_fmts[num_fmts++] = MEDIA_BUS_FMT_UYVY10_1X20;
++		if (bridge->supported_formats & BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR420))
++			out_fmts[num_fmts++] = MEDIA_BUS_FMT_UYYVYY10_0_5X30;
++		break;
++	default:
++		if (bridge->supported_formats & BIT(DRM_OUTPUT_COLOR_FORMAT_RGB444))
++			out_fmts[num_fmts++] = MEDIA_BUS_FMT_RGB888_1X24;
++		if (bridge->supported_formats & BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR444))
++			out_fmts[num_fmts++] = MEDIA_BUS_FMT_YUV8_1X24;
++		if (bridge->supported_formats & BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR422))
++			out_fmts[num_fmts++] = MEDIA_BUS_FMT_UYVY8_1X16;
++		if (bridge->supported_formats & BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR420))
++			out_fmts[num_fmts++] = MEDIA_BUS_FMT_UYYVYY8_0_5X24;
++		break;
++	}
++
++	*num_output_fmts = num_fmts;
++
++	return out_fmts;
++}
++EXPORT_SYMBOL(drm_atomic_helper_bridge_get_hdmi_output_bus_fmts);
++
+diff --git a/include/drm/drm_atomic_helper.h b/include/drm/drm_atomic_helper.h
+index e154ee4f0696..7256eaca109b 100644
+--- a/include/drm/drm_atomic_helper.h
++++ b/include/drm/drm_atomic_helper.h
+@@ -295,4 +295,11 @@ drm_atomic_helper_bridge_propagate_bus_fmt(struct drm_bridge *bridge,
+ 					u32 output_fmt,
+ 					unsigned int *num_input_fmts);
+ 
++u32 *
++drm_atomic_helper_bridge_get_hdmi_output_bus_fmts(struct drm_bridge *bridge,
++					struct drm_bridge_state *bridge_state,
++					struct drm_crtc_state *crtc_state,
++					struct drm_connector_state *conn_state,
++					unsigned int *num_output_fmts);
++
+ #endif /* DRM_ATOMIC_HELPER_H_ */
+
 -- 
-2.34.1
+2.53.0
 
