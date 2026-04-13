@@ -4,77 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 39580F34C54
-	for <amd-gfx@archiver.kernel.org>; Mon, 13 Apr 2026 12:42:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 55E76F34C56
+	for <amd-gfx@archiver.kernel.org>; Mon, 13 Apr 2026 12:42:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5F12F10E47B;
-	Mon, 13 Apr 2026 12:42:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0164310E48A;
+	Mon, 13 Apr 2026 12:42:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="VWjK57pD";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="h285AnFg";
 	dkim-atps=neutral
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
- [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 79EDF10E3CB;
- Mon, 13 Apr 2026 10:09:12 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1776074941; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=VgQ+JpsYwY8zPibheNeVeo1K0abP05iyVrv4MzflopvU7V5wWCOl7Lc9TAIPt2y9SA+RXv7AhHnVK3UCYJ7/4xPyxRpJyv+165Bg0UZRzVEEWq+J1Ul2F1noosBAF3xe8VqUtsfTd1XDl10VpMbmwiClP89UZbAWMjOI5jVmXjI=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1776074941;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=MC7m65enPeoK56w15mZU/jnX37Exa8SW0qeHJO7INHM=; 
- b=cv3iKfWEPPJJd4K+4+aKqAcE2UBA7I/EwqnOdQVY0+6v9rv5bnebsvR2mp4VspMwUlM+xOS+IDd92AlfOu7GvHj3Pnu9fAIcMYGGQyGYiSiRMUd0IXOtitnI6SS4dTU+FRh+W3pLv9wIeR2+HbinNL+tNTkL2mNJPQi85XvpnBs=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
- dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1776074941; 
- s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
- h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:References:In-Reply-To:To:To:Cc:Cc:Reply-To;
- bh=MC7m65enPeoK56w15mZU/jnX37Exa8SW0qeHJO7INHM=;
- b=VWjK57pDGc8E9uy/2bjZWIJ0ckYhMtjPQidsS1yNnstKZ8e0ILXtkqasgD/sn1BB
- I+t6GJWijnGintb3yxBHgMz11cH5fiJnNdTPJLQeLXlA2pLQSVXw6GIGbzQ9fVlVQle
- f4erS/EcAc3k01XSIv5adacDxy8kLLtlefATEZ70=
-Received: by mx.zohomail.com with SMTPS id 1776074940799470.07694868646433;
- Mon, 13 Apr 2026 03:09:00 -0700 (PDT)
-From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Date: Mon, 13 Apr 2026 12:07:23 +0200
-Subject: [PATCH v13 09/27] drm/display: hdmi-state-helper: Try subsampling
- in mode_valid
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com
+ [209.85.128.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2B98610E37E
+ for <amd-gfx@lists.freedesktop.org>; Mon, 13 Apr 2026 08:38:50 +0000 (UTC)
+Received: by mail-wm1-f52.google.com with SMTP id
+ 5b1f17b1804b1-488b0e1b870so66201405e9.2
+ for <amd-gfx@lists.freedesktop.org>; Mon, 13 Apr 2026 01:38:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1776069529; x=1776674329; darn=lists.freedesktop.org;
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=EKUvFy2J2g8UJyWz6jy96B4Vk39G6dksKLaiANnQ+cQ=;
+ b=h285AnFglM/qSYjIvWb9yeP/GWifYekjshaotoNuV6UnBQ8ySHWwoxm8aA4jHz53Ip
+ /sT+LWXDWcfE86BDRyL+WTyvrunsqqJ2qQLDbzWOkGyk9/Uf2ocN+ZlEPDahrPM1ugx5
+ f5QA4YnshCuUkXk4xdDI0re0k12vfXNqzmaO/hQ3Bjd5eYu3CcqZzITAOk1sXOEyAfPd
+ Zu4WCBXKXna6KGPRCERhtbb8q2QsAFYwb88/AL0PbSlYNupAVqRwgfPxm9w9z6D/hx+c
+ SBOWptier3lTPYXuCLHGWWWQkCHaUJwXrQOUKMXZVyKQ1rP8S307i1Uym0qMYxJ/AWK+
+ nDHg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1776069529; x=1776674329;
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=EKUvFy2J2g8UJyWz6jy96B4Vk39G6dksKLaiANnQ+cQ=;
+ b=NEVG9lGYNez/DQAGpShxcPnC6fRHvEw3jxojNonX168uSdtryqXHIFyQY/yj9GNm+o
+ uz1M+CEMM5hcTCQOliTy6HGs8FuiE5Ovyqt732l2yrs4/KI85Tdkk3MoAwSvw+bwOkdM
+ +xohrCb80SKe+DsnkAJ7c16GAHUJuXIZXFs0Y7d82oRjaX290U2EtS40gxteD2j0vp7O
+ nCJj61BxvRpPHB7JDlDH8FrA4H1q47dSIpY6+5vMlWG5SC9u2ZQnpsHQX2JuMNU/Yty5
+ q4D1b2qxiwvRM1dMRg8EUkBQBglehtY2aPt/odmg3dsW00zV/DsXC9F186VjviDPnEF4
+ UXig==
+X-Gm-Message-State: AOJu0YwWeOIyLnNuWfl0qIx7aZMDnxp0uv9b0SCVuLLOfvbsTDAGemkX
+ /ZuuO7BvjAT34vHILvvcdEb+NABwEb2XVTNYxYy8h7n0y+ha0HnYbsJBpAGpqQJk
+X-Gm-Gg: AeBDieuvCVVh6C6aBvqZnSTvdVMV5xt6qXpfkR0Z1RR7pOZYiHYBjkpSbtVE/m1Jp6/
+ Pw+8dW0TYaHVfTKFsxoXmy1AId5Q9EM8fCEwFTjtj/Ix419bkpSAfOs7RjCRD7ysHeKGTEi6GUK
+ TIOU7IUtUyVYATQLC0/85ZM9GzHC3AZn2KPjEWXEh7Mw+zlKl+p+YqZgpywUsl/9ixwRuNvY7/Y
+ brC6Uy3z+gdzLk6CeNzgxD3ZxHmrpKBF+WNmJd/Ilm9ixn3WTTBg1TPGUEcMHrkgcwvIxC6iCml
+ zpL0RXVGeIYOdeq4rHQvPlp2VUecpg+MtNS8BSWb3sxjuLe5ovoHPG4mJc5jOaV+6Rqn3Bz5P6B
+ nt3fH5rpT0IPzGXOZ6GmlKyQvj6tCB8IW1yBMcqpo+dXU+Lq94bz9vpv5L0P/wjP4eaibFJqQmD
+ A8p6gZuxw7E7Iq5Wqfqy0=
+X-Received: by 2002:a05:600c:c088:b0:486:f9d0:aac8 with SMTP id
+ 5b1f17b1804b1-488d6843187mr122941275e9.18.1776069528534; 
+ Mon, 13 Apr 2026 01:38:48 -0700 (PDT)
+Received: from localhost ([196.207.164.177]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-488d525c931sm304668265e9.0.2026.04.13.01.38.46
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 13 Apr 2026 01:38:47 -0700 (PDT)
+Date: Mon, 13 Apr 2026 11:38:44 +0300
+From: Dan Carpenter <error27@gmail.com>
+To: Lijo Lazar <lijo.lazar@amd.com>
+Cc: amd-gfx@lists.freedesktop.org,
+ "SHANMUGAM, SRINIVASAN" <SRINIVASAN.SHANMUGAM@amd.com>
+Subject: [bug report] drm/amd/pm: Modify mode2 msg sequence on aldebaran
+Message-ID: <adyrlBPbpWHAvn_w@stanley.mountain>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260413-color-format-v13-9-ab37d4dfba48@collabora.com>
-References: <20260413-color-format-v13-0-ab37d4dfba48@collabora.com>
-In-Reply-To: <20260413-color-format-v13-0-ab37d4dfba48@collabora.com>
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
- Rodrigo Siqueira <siqueira@igalia.com>, 
- Alex Deucher <alexander.deucher@amd.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Sandy Huang <hjc@rock-chips.com>, 
- =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
- Andy Yan <andy.yan@rock-chips.com>, 
- Jani Nikula <jani.nikula@linux.intel.com>, 
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
- Tvrtko Ursulin <tursulin@ursulin.net>, Dmitry Baryshkov <lumag@kernel.org>, 
- Sascha Hauer <s.hauer@pengutronix.de>, Rob Herring <robh@kernel.org>, 
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>
-Cc: kernel@collabora.com, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
- linux-doc@vger.kernel.org, 
- Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 X-Mailman-Approved-At: Mon, 13 Apr 2026 12:41:56 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -90,55 +83,72 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-drm_hdmi_connector_mode_valid assumes modes are only valid if they work
-with RGB. The reality is more complex however: YCbCr 4:2:0
-chroma-subsampled modes only require half the pixel clock that the same
-mode would require in RGB.
+Hello Lijo Lazar,
 
-This leads to drm_hdmi_connector_mode_valid rejecting perfectly valid
-420-only or 420-also modes.
+Commit e42569d02acb ("drm/amd/pm: Modify mode2 msg sequence on
+aldebaran") from Mar 16, 2021 (linux-next), leads to the following
+Smatch static checker warning:
 
-Fix this by checking whether the mode is 420-capable first. If so, then
-proceed by checking it with DRM_OUTPUT_COLOR_FORMAT_YCBCR420 so long as
-the connector has legalized 420, otherwise error out. If the mode is not
-420-capable, check with RGB as was previously always the case.
+	drivers/gpu/drm/amd/amdgpu/../pm/swsmu/smu13/aldebaran_ppt.c:1861 aldebaran_mode2_reset()
+	warn: missing error code here? '_dev_err()' failed. 'ret' = '0'
 
-Fixes: 47368ab437fd ("drm/display: hdmi: add generic mode_valid helper")
-Reviewed-by: Maxime Ripard <mripard@kernel.org>
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
----
- drivers/gpu/drm/display/drm_hdmi_state_helper.c | 15 ++++++++++++++-
- 1 file changed, 14 insertions(+), 1 deletion(-)
+drivers/gpu/drm/amd/amdgpu/../pm/swsmu/smu13/aldebaran_ppt.c
+    1827 static int aldebaran_mode2_reset(struct smu_context *smu)
+    1828 {
+    1829         struct smu_msg_ctl *ctl = &smu->msg_ctl;
+    1830         struct amdgpu_device *adev = smu->adev;
+    1831         int ret = 0;
+    1832         int timeout = 10;
+    1833 
+    1834         mutex_lock(&ctl->lock);
+    1835 
+    1836         if (smu->smc_fw_version >= 0x00441400) {
+    1837                 ret = smu_msg_send_async_locked(ctl, SMU_MSG_GfxDeviceDriverReset,
+    1838                                                 SMU_RESET_MODE_2);
+    1839                 if (ret)
+    1840                         goto out;
+    1841 
+    1842                 /* This is similar to FLR, wait till max FLR timeout */
+    1843                 msleep(100);
+    1844                 dev_dbg(adev->dev, "restore config space...\n");
+    1845                 /* Restore the config space saved during init */
+    1846                 amdgpu_device_load_pci_state(adev->pdev);
+    1847 
+    1848                 dev_dbg(adev->dev, "wait for reset ack\n");
+    1849                 while (ret == -ETIME && timeout)  {
+    1850                         ret = smu_msg_wait_response(ctl, 0);
+    1851                         /* Wait a bit more time for getting ACK */
+    1852                         if (ret == -ETIME) {
+    1853                                 --timeout;
+    1854                                 usleep_range(500, 1000);
+    1855                                 continue;
+    1856                         }
+    1857 
+    1858                         if (ret != 1) {
+    1859                                 dev_err(adev->dev, "failed to send mode2 message \tparam: 0x%08x response %#x\n",
+    1860                                                 SMU_RESET_MODE_2, ret);
+--> 1861                                 goto out;
 
-diff --git a/drivers/gpu/drm/display/drm_hdmi_state_helper.c b/drivers/gpu/drm/display/drm_hdmi_state_helper.c
-index 954f8b2973fc..5cc30da30989 100644
---- a/drivers/gpu/drm/display/drm_hdmi_state_helper.c
-+++ b/drivers/gpu/drm/display/drm_hdmi_state_helper.c
-@@ -942,8 +942,21 @@ drm_hdmi_connector_mode_valid(struct drm_connector *connector,
- 			      const struct drm_display_mode *mode)
- {
- 	unsigned long long clock;
-+	enum drm_output_color_format fmt;
-+
-+	if (drm_mode_is_420_only(&connector->display_info, mode)) {
-+		if (connector->ycbcr_420_allowed)
-+			fmt = DRM_OUTPUT_COLOR_FORMAT_YCBCR420;
-+		else
-+			return MODE_NO_420;
-+	} else if (drm_mode_is_420_also(&connector->display_info, mode) &&
-+		   connector->ycbcr_420_allowed) {
-+		fmt = DRM_OUTPUT_COLOR_FORMAT_YCBCR420;
-+	} else {
-+		fmt = DRM_OUTPUT_COLOR_FORMAT_RGB444;
-+	}
- 
--	clock = drm_hdmi_compute_mode_clock(mode, 8, DRM_OUTPUT_COLOR_FORMAT_RGB444);
-+	clock = drm_hdmi_compute_mode_clock(mode, 8, fmt);
- 	if (!clock)
- 		return MODE_ERROR;
- 
+Do we need to set an error code on this goto?  aldebaran_mode2_reset()
+doesn't have a comment describing the returns...
 
--- 
-2.53.0
+    1862                         }
+    1863                 }
+    1864 
+    1865         } else {
+    1866                 dev_err(adev->dev, "smu fw 0x%x does not support MSG_GfxDeviceDriverReset MSG\n",
+    1867                                 smu->smc_fw_version);
+    1868         }
+    1869 
+    1870         if (ret == 1)
+    1871                 ret = 0;
+    1872 out:
+    1873         mutex_unlock(&ctl->lock);
+    1874 
+    1875         return ret;
+    1876 }
 
+This email is a free service from the Smatch-CI project [smatch.sf.net].
+
+regards,
+dan carpenter
