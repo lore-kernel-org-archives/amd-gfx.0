@@ -4,123 +4,97 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 46510E93817
-	for <amd-gfx@archiver.kernel.org>; Mon, 13 Apr 2026 04:47:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6C046E93817
+	for <amd-gfx@archiver.kernel.org>; Mon, 13 Apr 2026 05:32:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C15F310E081;
-	Mon, 13 Apr 2026 04:47:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B4A9110E142;
+	Mon, 13 Apr 2026 05:32:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="NLnvNc8W";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="hjXJC2ox";
 	dkim-atps=neutral
-Received: from DM1PR04CU001.outbound.protection.outlook.com
- (mail-centralusazon11010046.outbound.protection.outlook.com [52.101.61.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7040810E081
- for <amd-gfx@lists.freedesktop.org>; Mon, 13 Apr 2026 04:47:46 +0000 (UTC)
+Received: from BL0PR03CU003.outbound.protection.outlook.com
+ (mail-eastusazon11012047.outbound.protection.outlook.com [52.101.53.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9FF0210E142
+ for <amd-gfx@lists.freedesktop.org>; Mon, 13 Apr 2026 05:32:22 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=RlhSUvsNJUMcmViltMhQTzLqiQrFZsOYeYRD4b1mprerEDm0w7AucSu8riXnHIT9p0387YDMmdy2wmC9YjcpKGwO9xs0IJmAxfuLCp19VGf+lW4Pns4zHcgFt8+obrUfCNOUTCLCiWnolI5AnUlT/LhI49FI3JIRHHWDvVBXi7kEoGcRCiZTRne0gisYf514QADF7m3560dIccWLuEuu1QmhxDoRJbWKTC0xbnuQpaQUFIFEDg0cjyKEmAv+bjgXTwq1dpxJDBs2KALdin6cs5yV1Xdr6ow4XQddsoRLcJ0sFIPQp87Em2mXSeVQt2uVPDg0qDY5H2vl3AXOHfYMBQ==
+ b=UksFAo/ldSgQnSsKEGORD/V/T5DDlAreBiWXonv46BuKIZrdJOy27c5E1qhlvahYWIjjEp5a6iQnVeJjF/BudLFSHH9vNdbnPxGScFPSi4HBTmORyc64kM0Gl6otedf74gY2/0a9VD0NftgaKIM1WShvNB/6dXgvNBLpx9oehV/4Xfu+QwQHfcvQzViAFvFh3RNA/PL2VJYd+tttDi3iEd3bdRQNqTTQio+0/OTjMzaBNhNXyhqtgmwlKhEkTI4+72HkwqDK+4QH9U7EnVbLKlbmzCHWqWeOeE2QcrtJHMlgSZicwHQhisVXVwHEH949YVUp5KIkW8tTx8SAGU2Qxw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Jnu2a0Gyfs8tOeQq0Lc/ZvTbbHUxJP+nxTkLAxE4y7Y=;
- b=j1oP37DXJyKnAhe0g2KKiTWx993M+w7jwsBTGWvBUdEGyG3J3aNDsVgjb7g5Coi3wllZVrbtKxRNg5eZS383OAanhpJZ9k+Gj7A0N0V1LChkzoSmn8sc/imQlioXgJeEuowbDMDwiQ6wINKXI3tCC76tNYBtftJSC7QCxSeUL/FB3mcCaLSEQ7FzKspLXXKso3cUox689+0Po1EEpYYj98O4cu1gVI+QvCJrKO+jFPDqD1oH3lGXvjNEdXMpWLLtH++oRIihtcvc8FfnX2/lPnMqiDqSK8V4CZbZZZMNQ/4RLFEZR33miV1t44994ifo9j41qC266nFl6tBvYL0LCA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=TImqq/J9xlssjsG2jWkDzMZ5RvSa2cXYF+mjPjeCiVo=;
+ b=O5zNW9H7/pTKBRFLnvNyFt3YfWZlWXGpsBe5Itoc2QG+Y4MSaoPVXIvDA2krIspztZNsL9faQVOrTAsGw9JPKqEMJ58DRKaCINnHA5EjgbGSiLudCisq0U2j1uuZpQfqdbA032axWXhhmy0TYWUl9Zp12qI9qD9e0gAWM11qYEAt4OLQHoNxaQ8vepfyrteaXtH+S7ELjRiE8vnIG7d+tcaYruWrX9zPi/G0W7cMXfORqRhGQsmNvol2LaJ47wXjXXOyOOYk6228d7GkGSMhyamPYQ48Uot03fqzlTwyLbT7roSI0hLXANkosJHqkJPohE+bK/l8u4VEp/p3wquGNQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Jnu2a0Gyfs8tOeQq0Lc/ZvTbbHUxJP+nxTkLAxE4y7Y=;
- b=NLnvNc8W8IVHBwi809oHIVcfMw3f3QxUYFZI7PWatnhFqPX2ylPdZA3Ha3uUQIgOoNaTqduTVM2Dg8EOZRgTItk1/32vMzXxYiIXvOqc1XTGXmrbaPMSWmqxIFsleJV+qvBy+/tdcVwHwIEJrVIS/IgfUtbMI6FMjp98OLKoFyY=
-Received: from DM4PR12MB7646.namprd12.prod.outlook.com (2603:10b6:8:106::10)
- by CYXPR12MB9427.namprd12.prod.outlook.com (2603:10b6:930:d6::8) with
+ bh=TImqq/J9xlssjsG2jWkDzMZ5RvSa2cXYF+mjPjeCiVo=;
+ b=hjXJC2oxz8KZYTEUy0iVtZzaLd5OTFvFRDmkN1Q5Zxv1Ol8tuugoJE1j7EUMfsONrGh80B/mD2U4G1rgiE8IYMOxbczaTpNLL0kAe8rYSoolgJK26pXkocfPdOLvSJQ0n0LOGlnpiSENdaxE+TzXCtvFizS3kQETWd2iz+kPX00=
+Received: from DS7PR03CA0355.namprd03.prod.outlook.com (2603:10b6:8:55::30) by
+ PH7PR12MB6980.namprd12.prod.outlook.com (2603:10b6:510:1ba::13) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9791.34; Mon, 13 Apr
- 2026 04:47:42 +0000
-Received: from DM4PR12MB7646.namprd12.prod.outlook.com
- ([fe80::71b5:d9dc:6686:a45d]) by DM4PR12MB7646.namprd12.prod.outlook.com
- ([fe80::71b5:d9dc:6686:a45d%6]) with mapi id 15.20.9818.017; Mon, 13 Apr 2026
- 04:47:42 +0000
-From: "Ramalingeswara Reddy, Kanala" <Kanala.RamalingeswaraReddy@amd.com>
-To: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "Vishwakarma, Pratik" <Pratik.Vishwakarma@amd.com>, "Guttula, Suresh"
- <Suresh.Guttula@amd.com>
-Subject: RE: [PATCH] drm/amdgpu: [Medusa]- Fix Unified metrics average values
- reporting
-Thread-Topic: [PATCH] drm/amdgpu: [Medusa]- Fix Unified metrics average values
- reporting
-Thread-Index: AQHcySKNcD+LVSC1mkOpxWsUUYOdhbXcbrNw
-Date: Mon, 13 Apr 2026 04:47:42 +0000
-Message-ID: <DM4PR12MB764697C5D5B99A7C0916B8C895242@DM4PR12MB7646.namprd12.prod.outlook.com>
-References: <20260410194437.1461287-1-Kanala.RamalingeswaraReddy@amd.com>
-In-Reply-To: <20260410194437.1461287-1-Kanala.RamalingeswaraReddy@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=True;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2026-04-13T04:46:26.0000000Z;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
- Internal Distribution
- Only; MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=3;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DM4PR12MB7646:EE_|CYXPR12MB9427:EE_
-x-ms-office365-filtering-correlation-id: 7505da76-135c-4370-1c3f-08de9917cc3c
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|366016|1800799024|376014|38070700021|56012099003|18002099003|22082099003;
-x-microsoft-antispam-message-info: 1oLxITJSR47MHKtellTWBrzIsJLQSVQZXRf/t4K6LK10gzQuYmaozjGlmpmvLQFVOKSx/iQZOrdTPIubdbyVAd79QxdqzpkOY+BfMKU9/mA1EBn+LQ0Fyh53H9NIiV1od6+Yz4LYSRABYPbijvHqixYSqP3+ppGfo54kEqT+uLfJ6nZrH3wgsfPvWsuHSg2qUufRC/i1ozarbXfN9J2TqASrZUQkxsxhNfHzTC5GKWIkRZkth+zhG1ha82Wf4ic/zrHPjG6ya4820EKUVlLWvR63pMOsfbi4eUMuP5SxatyOd+Wa2eqDhM1NrnaAz6NPgdK+YXQZStu46lK5ZOU5I4bpqA+gnek9SLI6JZUK6IT9aSXTxLlPo2zK+x3HnVR0Yy2x4v7QJ0ox9e+UqVu1ciBp1CuxQZJxC/xNSa82ykqrS/5LjVbKWD/EzsQySent2DqyL+WmaT1ZEdI8mAXgh3yy7kV9ihtmnZHRduZgCNIon2AN75fnvT54dICy+M5wIdGg1I7Za4qNIpJnpnvP/CSxlDDmgJltwrGpki6iHO8D+3b0h4ThATZckLwjH6f80pjmSdBrP/71HMC+7nrR7aIEFie3VSUsf0/Nml3ejCkQsbf/0Teyz7Ja7G65kan4PdybYEA/eyxOBqXYjYV5C7iPcJ1QH1sQKuTHWPx6VW69eBAOra9F79ALd0lvabmsqBm8/mL5P7EjylJgrRKM4yZLZKLqnlu/JAqa9fwMJwTW+iO0GlWtjBdhgUpwMlGhsqitS2MoLcNAPG/fk/4L0vaOLFraCEvuarP2yq+JOsA=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB7646.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014)(38070700021)(56012099003)(18002099003)(22082099003);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?CNAdAN79fLyWsZVl8mZXVFfUI1Y5irEdn7vPLwDA2VV8h+/+VcqBOD0+/s8C?=
- =?us-ascii?Q?oCuq5/Dob8qRwYOwlKZ36skYvTcf7mL8I9XebJ5cTUP5tjLWhYOXr/7kvHj/?=
- =?us-ascii?Q?VU+UsiiRJp7ugIaFnbycvQY4LyKJkk6r7vh2QcW3RoByl8XmJJjoZMQqy6Yl?=
- =?us-ascii?Q?SL+rc85MVqiEQ9Ettu13SUfHx1gcpoXNiSh+iGexrMmlMwaymGlywM7C7ddH?=
- =?us-ascii?Q?LFsjjZLp1NLM+RP+HDmZ5uf1KkHsyjVS1e9s3MBFA9ywbd5ThN37b0ptlZ1i?=
- =?us-ascii?Q?NisiK9ktVoqdQcftk1TGq2p9T+QbbwKhFdDXetRtahZl/rPs0ZB7Jq8LKarR?=
- =?us-ascii?Q?g5I4uq4fqYYjT1fcTxg1gbwCFQGBQTZ6lnWa+G3IXGXmT6lOavMWYR19PdRk?=
- =?us-ascii?Q?wetLnblLZH/FKitUvfEUjK00eV1aAv+SKLumny7/8NmIRqZOEcyvY1o78ILs?=
- =?us-ascii?Q?e4C0nCP1O7yo69sGOB93RLo9yhcxbuZvWIsTiZx3cUf9HpiHVu+SbjEtjlGL?=
- =?us-ascii?Q?AKXtqWc2wtGF/Hc1RavXNw1RVibJzYjO8Udzx6jfIn6oNkI3SEeq2yZCpW+U?=
- =?us-ascii?Q?0jQX1rcG61VXXkap8elG+w2AEqlRcDew5m0Aijk0/2M8q072+SvuZLpneOJe?=
- =?us-ascii?Q?54nx0/yZPkgPTqeSxZ/bLEIE0u4WI9vv4lGJfOFDPtPXXI+YXYhggk6/L5HV?=
- =?us-ascii?Q?brwRntI3LhwGVwu8wnJqw9V67jSHPCnWYqn3byUn5amohplmfQrX6AodiPII?=
- =?us-ascii?Q?NyJDCHW/+Bq4zTuBk4MJcIx3246WSF19qSL4ChvyX0EgoGJsvO1+f8O7f19m?=
- =?us-ascii?Q?TJjqsPxIn3v43m392RtijhYlJHryrGu3B8ruD33oGQJMrCXFJbMWxcqJGH8v?=
- =?us-ascii?Q?OpOFXASIZMHZqwh7QhrUHlj8eCWEGlIHwc36ByMBImLyRb5NwilNEjVjYo4g?=
- =?us-ascii?Q?zHDpOvYtKOaz3KVm+PZplR9wkCur3U/6l9yWQqHYdtJeOwxzv1HHOp9FcFRe?=
- =?us-ascii?Q?Fq4A7rsReuVDxImjfRgQQH4iYupRNKirozbA6P6kS6I6rF5d0AuPMAWNGPKg?=
- =?us-ascii?Q?B8wJ7N0bJzbd96z8sYLtteE0zJh7YJk4dSCceZO2C54YHVqerf2TRwq70DYN?=
- =?us-ascii?Q?X1NdSui2ZtuNPVJX8xzLPicSLu2LcIG1KCCWQh1dIrtLMS5tyvWBvgNKDPnZ?=
- =?us-ascii?Q?JKYAvP1HavpFDXZ3Ye6vedsiiUVqdJ/VHyaolR0IHAIl3+bzaV8+TDwXv8iR?=
- =?us-ascii?Q?6oVHNeF1ojdVWl21/Zq9Ug8Eu+qSzER6g7obJD9DpHpFA5cMyEmEkkPpzH6c?=
- =?us-ascii?Q?gvEWntPTAhg8NLfoFlmhUmL2tT4wCYvbFO4SWYC0Td0Clr0TcBzIHnYPZ3/s?=
- =?us-ascii?Q?udGlAPP0b3Yy4Zn5yFthiQhKOlHGb2vlls/uld8p2DdBJQzt2vflO+lGjRin?=
- =?us-ascii?Q?T+W0Jbs8an2gxlCS7K4Gr/nYBfP1xrdHSPSKdKGsymQBNxlB1IbdewocaugH?=
- =?us-ascii?Q?SVl7eJxMcFLGeuf2pOV/NAGyXzJqS327fhIp7OYSkAmfiBkVOPDeim6HW3VL?=
- =?us-ascii?Q?RQ+B3f5y2ztEWrIGmxdMO+KSe4sRUFwQb8N00uTjqPFAjYzrxftfNl18Tcmu?=
- =?us-ascii?Q?VJfPSD3ois//uJYUJlSJG2TrYnGl8ZJnAA0nevM3Ou+04oJh6WrhvqF46u/O?=
- =?us-ascii?Q?X16DSvJ7vV0FTpd6htyrQ/PXUU/yco6fTx5yCUOS9wPpvw/R?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9818.15; Mon, 13 Apr
+ 2026 05:32:18 +0000
+Received: from DS2PEPF000061C6.namprd02.prod.outlook.com
+ (2603:10b6:8:55:cafe::27) by DS7PR03CA0355.outlook.office365.com
+ (2603:10b6:8:55::30) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9769.48 via Frontend Transport; Mon,
+ 13 Apr 2026 05:32:18 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ DS2PEPF000061C6.mail.protection.outlook.com (10.167.23.73) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9769.17 via Frontend Transport; Mon, 13 Apr 2026 05:32:17 +0000
+Received: from rahulb-Jaguar-Krk2e.amd.com (10.180.168.240) by
+ satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.17; Mon, 13 Apr 2026 00:32:15 -0500
+From: "Mahantappa, Rahul" <Rahul.Mahantappa@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <alex.deucher@amd.com>, <christian.koenig@amd.com>, <Marek.Olsak@amd.com>, 
+ BRahul <Rahul.Mahantappa@amd.com>
+Subject: [PATCH] drm/amdgpu/gfx11: use CP_MES_MTIME for GPU clock counter on
+ GC 11.5.0+
+Date: Mon, 13 Apr 2026 11:01:50 +0530
+Message-ID: <20260413053150.50007-1-Rahul.Mahantappa@amd.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS2PEPF000061C6:EE_|PH7PR12MB6980:EE_
+X-MS-Office365-Filtering-Correlation-Id: fa9cca32-f2fd-4042-a82e-08de991e06d4
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|36860700016|82310400026|376014|1800799024|56012099003|18002099003;
+X-Microsoft-Antispam-Message-Info: u7iGOpOYD+MFWJZCyJyLanrfIn9fKWsfzvhsNssqBJVWIPdpBcpLKYGfTFJbLMEN1pORLn0nDLpNCb9ao91f9AyqZ2jC1qfQGdR4u9m6i1PltZogM9Db5E2L8VMJJ5BI+Z+foq2LavM51D7xAtXjdytenVMyrVZIss8CZdzOrobkvEbjEqo/LLMM5e18W3W7EzlR5n4lrHZKEH1d64CBddG55FDW12i25jYFWrZVijgh+/0Fn/UN5LLmVZwTpQUpICIs6vNbjWlh0F0F29pSXCYiPkbEdfTZZK9s34f0Pd5RufkU1/CIAjkepV+kw3V1MzR/Nde8JNyE/8sj6DoTJrgC7yfSH2kQKOBUXFa/WKIg5vWP9HpPFfA0qpdSQXwp6NZqc8praaZFFyMt1AkQdHISk+KvlcPPyuUiMfFJmh235ApaMkD0LicKNyApoXDgsugnx2YWYleOPxfCpTbMT8fkiJDf6+qW+VPw9DST/y6zDniti2sXSlb+no2iRp/MZcWJ0/Oz/92Eg5T5kSzvOdmCFO5OKtU7jCeBQPqTC+IH8pLyIiQ/+Sl3ovRfuPIuln1TNiA7WY8Kt59INRkZHA44VUIGDP2w5d0Ujumq/2XfynrUH/iDKIpfH72zFxFbK/3seedNM/F6CbUq78XlAF/GCxkZnG34uxJop0a3ghcQ8gzQOgC3HnBm4WsCkN7BKm1jrpqAP/0eVDzYqNtfOc8vGdG2zZu0/xPPttdEX46Hm8QCGKXPHCWiSsbX8M0JUQkW6f1HbBmK9h1l6xpgNQ==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700016)(82310400026)(376014)(1800799024)(56012099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: jrX7k2/OeS8hesS1xyBHv2CTgOT9T2yVbYjg7lEgcId1D56EyhblDNDKUOf5coc80jNopU3PaUKavNjCL2gM8Djcr4EupKDGleotxsV/8/uOE2dkuyu7x0cgsiV3Tk57KhIF5MaygTiF+M+xg9AIgF5KEoVQfAlWbs0DCf1h5PK97NcMPSFzEyazjFGT7xoHShJdUYA2ZTIURInw6pJgzQHddAwTg8X6kKZw98hU0EG58c4pW56fEkbvTez3nMTE+uAAAAj+36jwjKiFceEnkGvNb0/BH2GcdiKKpJNkGKGknr9L/K+5axrt5Y0LMrcAqNL5WNsM5IeTm2lJdiAJHITMBYL5N75TGMCr/UjwkVGiu0FIF3apIUjetmsVkmr0+3tiLfgjrtd0Lkmj1Zdo8gJ5kuAjqMihgCsnRzQfRUWPyRpFM7xsZAfymr5tVuz0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB7646.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7505da76-135c-4370-1c3f-08de9917cc3c
-X-MS-Exchange-CrossTenant-originalarrivaltime: 13 Apr 2026 04:47:42.2393 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: v0oKQ9oyyI67xyakhSBnE86nQOx/NF6sDZqFoVWtvEqNNS2bd5r7qO3+aD43yjSBdKClBml9Omx11xirxZhf2Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYXPR12MB9427
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Apr 2026 05:32:17.5226 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: fa9cca32-f2fd-4042-a82e-08de991e06d4
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DS2PEPF000061C6.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6980
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,269 +109,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only - AMD Internal Distribution Only]
+From: BRahul <Rahul.Mahantappa@amd.com>
 
-Please don't review this, sent it by mistake.
-Sorry for the inconvenience.
+Use CP_MES_MTIME registers to read GPU clock counter for
+GC IP version 11.5.0 and later, in addition to SR-IOV VF.
 
------Original Message-----
-From: Ramalingeswara Reddy, Kanala <Kanala.RamalingeswaraReddy@amd.com>
-Sent: Saturday, April 11, 2026 1:15 AM
-To: Deucher, Alexander <Alexander.Deucher@amd.com>; amd-gfx@lists.freedeskt=
-op.org; Vishwakarma, Pratik <Pratik.Vishwakarma@amd.com>; Guttula, Suresh <=
-Suresh.Guttula@amd.com>
-Cc: Ramalingeswara Reddy, Kanala <Kanala.RamalingeswaraReddy@amd.com>
-Subject: [PATCH] drm/amdgpu: [Medusa]- Fix Unified metrics average values r=
-eporting
-
-SWDEV-577922:[Medusa]-SMU Metrics:New Unified metrics table support With ne=
-w design SMU is sending accummulated metric values, and stop sending us ave=
-rage metrics, so needs to average metrics once read.
-If no changes metrics accumulation return previous metrics only.
-
-Signed-off-by: Ramalingeswara Reddy, Kanala <Kanala.RamalingeswaraReddy@amd=
-.com>
+Signed-off-by: BRahul <Rahul.Mahantappa@amd.com>
 ---
- .../drm/amd/pm/swsmu/smu15/smu_v15_0_0_ppt.c  | 45 ++++++++++++++++---
- 1 file changed, 40 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_0_ppt.c b/drivers=
-/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_0_ppt.c
-index a6a7df683b7e..f0a798631903 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_0_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_0_ppt.c
-@@ -384,6 +384,7 @@ static int smu_v15_0_0_get_smu_metrics_data(struct smu_=
-context *smu,
-        SmuMetrics_t *metrics =3D (SmuMetrics_t *)smu_table->metrics_table;=
- //TBD
-
-        SMU_15_0_0_MetricsTable_t prev_metrics;
-+       static uint32_t Avg_Metric_copy[METRICS_AVERAGE_NPUCLK+1] =3D {0};
-        uint64_t counter, val;
-        int ret;
-
-@@ -394,6 +395,12 @@ static int smu_v15_0_0_get_smu_metrics_data(struct smu=
-_context *smu,
-        if (ret)
-                return ret;
-
-+       if (prev_metrics.IOD.AccumulationCounter =3D=3D
-+               ((SMU_15_0_0_MetricsTable_t *)smu_table->metrics_table)->IO=
-D.AccumulationCounter) {
-+               *value =3D Avg_Metric_copy[member];
-+               return 0;
-+       }
-+
-        switch (member) {
-        case METRICS_AVERAGE_GFXCLK:
-                counter =3D get_diff_count(prev_metrics.IOD.AccumulationCou=
-nter,
-@@ -401,6 +408,7 @@ static int smu_v15_0_0_get_smu_metrics_data(struct smu_=
-context *smu,
-                val =3D get_diff_val(prev_metrics.IOD.GfxclkFreqEffAcc,
-                 ((SMU_15_0_0_MetricsTable_t *)smu_table->metrics_table)->I=
-OD.GfxclkFreqEffAcc);
-                *value =3D counter ? (val/counter)/1024 : 0;
-+               Avg_Metric_copy[member] =3D *value;
-                break;
-        case METRICS_AVERAGE_SOCCLK:
-                counter =3D get_diff_count(prev_metrics.IOD.AccumulationCou=
-nter,
-@@ -408,6 +416,7 @@ static int smu_v15_0_0_get_smu_metrics_data(struct smu_=
-context *smu,
-                val =3D get_diff_val(prev_metrics.IOD.SocclkFreqEffAcc,
-                 ((SMU_15_0_0_MetricsTable_t *)smu_table->metrics_table)->I=
-OD.SocclkFreqEffAcc);
-                *value =3D counter ? (val/counter)/1024 : 0;
-+               Avg_Metric_copy[member] =3D *value;
-                break;
-        case METRICS_AVERAGE_VCLK:
-                counter =3D get_diff_count(prev_metrics.IOD.AccumulationCou=
-nter,
-@@ -415,9 +424,11 @@ static int smu_v15_0_0_get_smu_metrics_data(struct smu=
-_context *smu,
-                val =3D get_diff_val(prev_metrics.IOD.VclkFreqEffAcc,
-                 ((SMU_15_0_0_MetricsTable_t *)smu_table->metrics_table)->I=
-OD.VclkFreqEffAcc);
-                *value =3D counter ? (val/counter)/1024 : 0;
-+               Avg_Metric_copy[member] =3D *value;
-                break;
-        case METRICS_AVERAGE_DCLK:
-                *value =3D 0;
-+               Avg_Metric_copy[member] =3D *value;
-                break;
-        case METRICS_AVERAGE_UCLK:
-                counter =3D get_diff_count(prev_metrics.IOD.AccumulationCou=
-nter,
-@@ -425,6 +436,7 @@ static int smu_v15_0_0_get_smu_metrics_data(struct smu_=
-context *smu,
-                val =3D get_diff_val(prev_metrics.IOD.MemclkFreqEffAcc,
-                 ((SMU_15_0_0_MetricsTable_t *)smu_table->metrics_table)->I=
-OD.MemclkFreqEffAcc);
-                *value =3D counter ? (val/counter)/1024 : 0;
-+               Avg_Metric_copy[member] =3D *value;
-                break;
-        case METRICS_AVERAGE_FCLK:
-                counter =3D get_diff_count(prev_metrics.IOD.AccumulationCou=
-nter,
-@@ -432,9 +444,11 @@ static int smu_v15_0_0_get_smu_metrics_data(struct smu=
-_context *smu,
-                val =3D get_diff_val(prev_metrics.IOD.FclkFreqEffAcc,
-                 ((SMU_15_0_0_MetricsTable_t *)smu_table->metrics_table)->I=
-OD.FclkFreqEffAcc);
-                *value =3D counter ? (val/counter)/1024 : 0;
-+               Avg_Metric_copy[member] =3D *value;
-                break;
-        case METRICS_AVERAGE_VPECLK:
-                *value =3D metrics->VpeclkFrequency;
-+               Avg_Metric_copy[member] =3D *value;
-                break;
-        case METRICS_AVERAGE_NPUCLK:
-                counter =3D get_diff_count(prev_metrics.IOD.AccumulationCou=
-nter,
-@@ -442,6 +456,7 @@ static int smu_v15_0_0_get_smu_metrics_data(struct smu_=
-context *smu,
-                val =3D get_diff_val(prev_metrics.IOD.NpuhclkFreqEffAcc,
-                 ((SMU_15_0_0_MetricsTable_t *)smu_table->metrics_table)->I=
-OD.NpuhclkFreqEffAcc);
-                *value =3D counter ? (val/counter)/1024 : 0;
-+               Avg_Metric_copy[member] =3D *value;
-                break;
-        case METRICS_AVERAGE_GFXACTIVITY:
-                counter =3D get_diff_count(prev_metrics.IOD.AccumulationCou=
-nter,
-@@ -449,6 +464,7 @@ static int smu_v15_0_0_get_smu_metrics_data(struct smu_=
-context *smu,
-                val =3D get_diff_val(prev_metrics.IOD.GfxBusyAcc,
-                 ((SMU_15_0_0_MetricsTable_t *)smu_table->metrics_table)->I=
-OD.GfxBusyAcc);
-                *value =3D counter ? (val/counter)/1024 : 0;
-+               Avg_Metric_copy[member] =3D *value;
-                break;
-        case METRICS_AVERAGE_VCNACTIVITY:
-                counter =3D get_diff_count(prev_metrics.IOD.AccumulationCou=
-nter,
-@@ -456,6 +472,7 @@ static int smu_v15_0_0_get_smu_metrics_data(struct smu_=
-context *smu,
-                val =3D get_diff_val(prev_metrics.IOD.VcnBusyAcc,
-                 ((SMU_15_0_0_MetricsTable_t *)smu_table->metrics_table)->I=
-OD.VcnBusyAcc);
-                *value =3D counter ? (val/counter)/1024 : 0;
-+               Avg_Metric_copy[member] =3D *value;
-                break;
-        case METRICS_AVERAGE_SOCKETPOWER:
-                counter =3D get_diff_count(prev_metrics.IOD.AccumulationCou=
-nter,
-@@ -463,54 +480,68 @@ static int smu_v15_0_0_get_smu_metrics_data(struct sm=
-u_context *smu,
-                val =3D get_diff_val(prev_metrics.IOD.ApuPowerAcc,
-                 ((SMU_15_0_0_MetricsTable_t *)smu_table->metrics_table)->I=
-OD.ApuPowerAcc);
-                *value =3D counter ? (val/counter)/1024 : 0;
-+               Avg_Metric_copy[member] =3D *value;
-        case METRICS_CURR_SOCKETPOWER:
-                counter =3D get_diff_count(prev_metrics.IOD.AccumulationCou=
-nter,
-                 ((SMU_15_0_0_MetricsTable_t *)smu_table->metrics_table)->I=
-OD.AccumulationCounter);
-                val =3D get_diff_val(prev_metrics.IOD.SystemPowerAcc,
-                 ((SMU_15_0_0_MetricsTable_t *)smu_table->metrics_table)->I=
-OD.SystemPowerAcc);
-                *value =3D counter ? (val/counter)/1024 : 0;
-+               Avg_Metric_copy[member] =3D *value;
-                break;
-        case METRICS_TEMPERATURE_EDGE:
-                counter =3D get_diff_count(prev_metrics.IOD.AccumulationCou=
-nter,
-                 ((SMU_15_0_0_MetricsTable_t *)smu_table->metrics_table)->I=
-OD.AccumulationCounter);
-                val =3D get_diff_val(prev_metrics.IOD.GFX_TempAcc,
-                 ((SMU_15_0_0_MetricsTable_t *)smu_table->metrics_table)->I=
-OD.GFX_TempAcc);
--               *value =3D counter ? (val/counter)/1024 : 0;
-+               *value =3D counter ? (val/counter) : 0;
-+               Avg_Metric_copy[member] =3D *value;
-                break;
-        case METRICS_TEMPERATURE_HOTSPOT:
-                *value =3D metrics->SocTemperature / 100 *
-                SMU_TEMPERATURE_UNITS_PER_CENTIGRADES;
-+               Avg_Metric_copy[member] =3D *value;
-                break;
-        case METRICS_THROTTLER_RESIDENCY_PROCHOT:
-                *value =3D metrics->ThrottleResidency_PROCHOT;
-+               Avg_Metric_copy[member] =3D *value;
-                break;
-        case METRICS_THROTTLER_RESIDENCY_SPL:
-                *value =3D metrics->ThrottleResidency_SPL;
-+               Avg_Metric_copy[member] =3D *value;
-                break;
-        case METRICS_THROTTLER_RESIDENCY_FPPT:
-                *value =3D metrics->ThrottleResidency_FPPT;
-+               Avg_Metric_copy[member] =3D *value;
-                break;
-        case METRICS_THROTTLER_RESIDENCY_SPPT:
-                *value =3D metrics->ThrottleResidency_SPPT;
-+               Avg_Metric_copy[member] =3D *value;
-                break;
-        case METRICS_THROTTLER_RESIDENCY_THM_SOC:
-                *value =3D metrics->ThrottleResidency_THM_SOC;
-+               Avg_Metric_copy[member] =3D *value;
-                break;
-        case METRICS_VOLTAGE_VDDGFX:
-                *value =3D 0;
-+               Avg_Metric_copy[member] =3D *value;
-                break;
-        case METRICS_VOLTAGE_VDDSOC:
-                *value =3D 0;
-+               Avg_Metric_copy[member] =3D *value;
-                break;
-        case METRICS_SS_APU_SHARE:
-                /* return the percentage of APU power with respect to APU's=
- power limit.
-                 * percentage is reported, this isn't boost value. Smartshi=
-ft power
-                 * boost/shift is only when the percentage is more than 100=
-.
-                 */
--               if (metrics->StapmOpnLimit > 0)
-+               if (metrics->StapmOpnLimit > 0) {
-                        *value =3D (metrics->ApuPower * 100) / metrics->Sta=
-pmOpnLimit;
--               else
-+                       Avg_Metric_copy[member] =3D *value;
-+               } else {
-                        *value =3D 0;
-+                       Avg_Metric_copy[member] =3D *value;
-+               }
-                break;
-        case METRICS_SS_DGPU_SHARE:
-                /* return the percentage of dGPU power with respect to dGPU=
-'s power limit.
-@@ -518,14 +549,18 @@ static int smu_v15_0_0_get_smu_metrics_data(struct sm=
-u_context *smu,
-                 * boost/shift is only when the percentage is more than 100=
-.
-                 */
-                if ((metrics->dGpuPower > 0) &&
--                   (metrics->StapmCurrentLimit > metrics->StapmOpnLimit))
-+                   (metrics->StapmCurrentLimit > metrics->StapmOpnLimit)) =
-{
-                        *value =3D (metrics->dGpuPower * 100) /
-                                 (metrics->StapmCurrentLimit - metrics->Sta=
-pmOpnLimit);
--               else
-+                       Avg_Metric_copy[member] =3D *value;
-+               } else {
-                        *value =3D 0;
-+                       Avg_Metric_copy[member] =3D *value;
-+               }
-                break;
-        default:
-                *value =3D UINT_MAX;
-+               Avg_Metric_copy[member] =3D *value;
-                break;
-        }
-
---
-2.53.0
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+index 8c82e90f871b..316dcad0690a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+@@ -5227,7 +5227,7 @@ static uint64_t gfx_v11_0_get_gpu_clock_counter(struct amdgpu_device *adev)
+ 	uint64_t clock;
+ 	uint64_t clock_counter_lo, clock_counter_hi_pre, clock_counter_hi_after;
+ 
+-	if (amdgpu_sriov_vf(adev)) {
++	if ((amdgpu_sriov_vf(adev)) || (amdgpu_ip_version(adev, GC_HWIP, 0) >= IP_VERSION(11, 5, 0))) {
+ 		amdgpu_gfx_off_ctrl(adev, false);
+ 		mutex_lock(&adev->gfx.gpu_clock_mutex);
+ 		clock_counter_hi_pre = (uint64_t)RREG32_SOC15(GC, 0, regCP_MES_MTIME_HI);
+-- 
+2.43.0
 
