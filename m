@@ -4,86 +4,97 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 07076F531CA
-	for <amd-gfx@archiver.kernel.org>; Mon, 13 Apr 2026 19:21:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 02647F531C9
+	for <amd-gfx@archiver.kernel.org>; Mon, 13 Apr 2026 19:30:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5263610E520;
-	Mon, 13 Apr 2026 19:21:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 798E710E523;
+	Mon, 13 Apr 2026 19:30:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="oBLx4qZb";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="pMr0RMfZ";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6E63210E0FA;
- Mon, 13 Apr 2026 19:21:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1776108111; x=1807644111;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=/yuxMwENnIRcCPgqrASXBDil5WGzLxAiS5rqQNABMkc=;
- b=oBLx4qZbjEvbuqzd6Dy2msj+0yA65934zocl3Jf88fGWkWBcnejf+a91
- 9jVlZPR2IFZM+Cf4nvsxmesz5dkZQDtfok7DOXfjxyrZ7IK5UMOcevQRN
- FFRZFIYNxr3mTNd5YlY+yMtpaniKtJoZsbVgG2HSNe1C4tyT7dI+kfUpw
- WzZA8HZyLxyQuHFxazalJdgj3WBo/5Rqo8q984Ctf9MyipwJsRrH6wArn
- vV07UkYAfycCgr2m0UbI12E9ln3ZRDgFkpIk8eTO5bxx+ZMde9pmoBJpE
- LqW9iMv8dEECHYS8hXoktkOw3pUR/Ed0tZGLNzbljbrCW+Q6cDUG0Lh0k Q==;
-X-CSE-ConnectionGUID: dDSncvGUQZmERcngReNOLQ==
-X-CSE-MsgGUID: d6gwFR6lSAiH6mzJkFRM8g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11758"; a="88435225"
-X-IronPort-AV: E=Sophos;i="6.23,177,1770624000"; d="scan'208";a="88435225"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
- by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Apr 2026 12:21:51 -0700
-X-CSE-ConnectionGUID: +JW6UgNqSJaplS0n3VHDFQ==
-X-CSE-MsgGUID: bC1tA4TnQ3+K75+6KoFutQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,177,1770624000"; d="scan'208";a="225569953"
-Received: from abityuts-desk.ger.corp.intel.com (HELO localhost)
- ([10.245.245.97])
- by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Apr 2026 12:21:40 -0700
-Date: Mon, 13 Apr 2026 22:21:31 +0300
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Sandy Huang <hjc@rock-chips.com>,
- Heiko =?iso-8859-1?Q?St=FCbner?= <heiko@sntech.de>,
- Andy Yan <andy.yan@rock-chips.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, Dmitry Baryshkov <lumag@kernel.org>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Rob Herring <robh@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>, kernel@collabora.com,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-rockchip@lists.infradead.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, linux-doc@vger.kernel.org
-Subject: Re: [PATCH v13 13/27] drm/i915: Implement the "color format" DRM
- property
-Message-ID: <ad1CO9-nlaskZQM7@intel.com>
-References: <20260413-color-format-v13-0-ab37d4dfba48@collabora.com>
- <20260413-color-format-v13-13-ab37d4dfba48@collabora.com>
+Received: from PH0PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11011059.outbound.protection.outlook.com [40.107.208.59])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8E9EF10E521
+ for <amd-gfx@lists.freedesktop.org>; Mon, 13 Apr 2026 19:30:03 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=FmkQcAtcUQWLBBsT35EfqaiKs/n2H75H4r1GmdCJpAEWW0OmR0QbmbDuRLUCWy46XV9qX0EEr8tea/YdyovHq76WFEfQ2VYsI0IXPGHFInDixOekNotix9GjcHgtqaDv6uzG1x0x+ukUMRS/cFk10Ip2F9h5e+hDKZkJKk9otenC8ZshJbytvi3T3tDkgJtdAkUBxiLOsFFXlCr2adGeLGIdFHwwHbSA7jNtE8owhAXC8kxW4FiqF31AQw72XLRIHeLdrTX5HDVVXPeoccVRtaQN1SsSsMmDTfJ+VhF96ZdIDjCDhgkrgSr8EqxIJyk/rSuADTsEAwiJI9eM/JLUeQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=NjumSl1MOB6Ro2X8CTGyOyaU33ja6bDAup2fByb7bi0=;
+ b=T2Um302ffLkAEoui81BSTodlQt6DoNf7C2IpTmZoohmvTKS5xXL1RLSEfH15xWMjHcCVx6QyVqTz9O4V5IfFYet4xJD/0joW4XBMeVJBVykqzzWz0r9RpIfP1Pk+5A6v7si+vkWEcDgGTc/Mdx/K7mbKI7JMOiiqXwz84Q0VqO9odl27KSPYkQ2EoJ6hG9pd3btE2uCBuzsAxFKp1Ilkr61frwgCJ0dg43D5PWLRBmBGYYY4Is46wd3QWTHWH1IKEUgy+mRewt5oNSKgx+K6ELdKzIidw0PgsvYqhslzgxfTjQqFaKRqvPTna8y9P6i7Ly2zVLx1aITUYjRrj6UjuQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=NjumSl1MOB6Ro2X8CTGyOyaU33ja6bDAup2fByb7bi0=;
+ b=pMr0RMfZPii1HccK2qQJNmSnC+tsQilIz1RcJ/c87J0J2sn5NFB0pYIORwwpG4WcQBmo/pB/xjE1H08AeOmxDvBS6TH/mvEdAtLMZuEOav1uoQs8AWVMOQbprX4m6gqIwvM7qV6m8EL2RJPgXA2o8Vw/N09IZqzp/rWByjNAR5s=
+Received: from DS7P222CA0011.NAMP222.PROD.OUTLOOK.COM (2603:10b6:8:2e::18) by
+ DS7PR12MB5816.namprd12.prod.outlook.com (2603:10b6:8:78::20) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9769.48; Mon, 13 Apr 2026 19:29:57 +0000
+Received: from DS3PEPF000099DF.namprd04.prod.outlook.com
+ (2603:10b6:8:2e:cafe::dc) by DS7P222CA0011.outlook.office365.com
+ (2603:10b6:8:2e::18) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9769.48 via Frontend Transport; Mon,
+ 13 Apr 2026 19:29:57 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ DS3PEPF000099DF.mail.protection.outlook.com (10.167.17.202) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9769.17 via Frontend Transport; Mon, 13 Apr 2026 19:29:57 +0000
+Received: from work-495456.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Mon, 13 Apr
+ 2026 14:29:56 -0500
+From: James Zhu <James.Zhu@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <alexander.deucher@amd.com>,
+ <Bing.Ma@amd.com>, <David.Francis@amd.com>
+CC: <Jesse.Zhang@amd.com>, <Jenny-Jing.Liu@amd.com>, <jamesz@amd.com>
+Subject: [PATCH 1/2] amdgpu: Add profiler IOCTL interface for performance
+ monitoring
+Date: Mon, 13 Apr 2026 15:29:46 -0400
+Message-ID: <20260413192947.3145878-1-James.Zhu@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260413-color-format-v13-13-ab37d4dfba48@collabora.com>
-X-Patchwork-Hint: comment
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS3PEPF000099DF:EE_|DS7PR12MB5816:EE_
+X-MS-Office365-Filtering-Correlation-Id: de56305a-6655-47a0-5d87-08de99930c0b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|82310400026|1800799024|36860700016|18096099003|18002099003|56012099003;
+X-Microsoft-Antispam-Message-Info: bRN9MHdMW0kNpbnj99w6BMRrZa2GcU4v3+Nd7eR5URy02y4cor16IbG3jrHtYLKBHRPJ8mOCJBzZsiDoBT0v+3oIUZ/CKHlBPFDkCKhLnbW8TOKp2b/ei02ghaHqY6ypEqHyqO8HuFTmxOYhFMs5hHQiaiCR9yAW7+fuz3o6SGWkRnC/Yz94bRJs1fse5Ggxev9RrqLhkgAJ8dOgpPts/jUF8TYV6oyNgEfkdiwZHyBF5beKH1OdVFHX8xxrW5mtCNQlNCSbpLIfUoEGxaQNO2x5cDUNL/xaBI+jSbkvRbPNwy/9bjGVbpb5mJpmQpZNVrIJu6SSXXPez6kGEFOjuxxUHb7SJszzdvbqylP13pgLfaR6XVWaoTJ3bAYG5f9ZxhFkXy3kRKuSALtdFYa0uDJOAKbXgeVP7R4tW32cCIUWwUMtZUTmCbN+TYxKA4Ggnn5Tyy83DoLVzsKItUPk/EmsHyKYlXiLOxnH7F0yogXEkkvmSXlaaDPoRPHzMxpm0IqFEZWLQuSMgPBUZBqe/K8gJKaDSTH8qQVdvTspQUiFufnFw7xFOMd+va5ZcPSLI60RvvbZ9VDBKpOyeANa5Y9g4o8M1Jg2xSCxcJmP/S8IhRaqazn1N3bKhDH4A/N00qw8WxxVc0ocrJ/KAsrMaNerjVtjy1NiELXaNCPv1Tl5X21TStFC1zULMw0R2YL2WiLVYb3x2Ntbc5/EJbkC1AEIKtQwQ5Bg6dJkchtrUfqL9WiyvhskJEWNlNgSyK99+1v7lCCeX5cdgGseywKL/w==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(82310400026)(1800799024)(36860700016)(18096099003)(18002099003)(56012099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: 4gNFj7oszp9ZgdVQMXqTOSOz8YyPdDb7A5wm4ztVz3GsySwpGdyo6h26HPT2SN5SaR9KUUQSgZVlOZEqhRZNmrUTk9rObpf7/lI/QnfhH96BPsB3RoTqMTWPAzN4dTlQbao7GtBRKcZ8cOD+NffzBoSn92/T9vjWa4Z2bS37cEi8pMnNS7ScdFzdYK9sfHFWuyYdHcMcZfGdvJIXovfJRD8FtxLCVx7aJbvDxEhYzZtbKHhtTbTzI9ymptNOgrXUN9JGKECPMf1ExrUeB838r0p5v1dPFB6ejJLD5AwgPgafa7rphb11P/kENS4F5H0z7M3bpWM+yRpxJA7O/olldSTzkHlOU4qI4hMr9vW9AgrRAfKllMrMbKqywZmISWyGoU4KF5iKACNoTrkNdp7cnmyWAPa2bNolbRr77j+QRp7zjDQgKUHkyGRFqi663ohJ
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Apr 2026 19:29:57.4000 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: de56305a-6655-47a0-5d87-08de99930c0b
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DS3PEPF000099DF.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB5816
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,205 +109,165 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Apr 13, 2026 at 12:07:27PM +0200, Nicolas Frattaroli wrote:
-> Implement the "color format" DRM property for both DP and HDMI.  The
-> values of the property include RGB, YCbCr420, YCbCr444 and Auto. Auto
-> will pick RGB, with a fallback to YCbCr420.
-> 
-> The mask of supported formats by the source exposed by the property is
-> an optimistic scenario, as specific DFP-related caveats can't be
-> established before an EDID is present.
-> 
-> Should the explicitly requested color format not be supported by the
-> sink (or by the source in combination with the sink), then an error is
-> returned to userspace, so that it can make a better choice.
-> 
-> Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-> ---
->  drivers/gpu/drm/i915/display/intel_connector.c | 10 +++++++
->  drivers/gpu/drm/i915/display/intel_connector.h |  1 +
->  drivers/gpu/drm/i915/display/intel_dp.c        | 38 +++++++++++++++++++++++---
->  drivers/gpu/drm/i915/display/intel_hdmi.c      | 38 +++++++++++++++++++++++---
->  4 files changed, 79 insertions(+), 8 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/display/intel_connector.c b/drivers/gpu/drm/i915/display/intel_connector.c
-> index 7ef9338d67ab..b1a21dd77af6 100644
-> --- a/drivers/gpu/drm/i915/display/intel_connector.c
-> +++ b/drivers/gpu/drm/i915/display/intel_connector.c
-> @@ -338,3 +338,13 @@ intel_attach_scaling_mode_property(struct drm_connector *connector)
->  
->  	connector->state->scaling_mode = DRM_MODE_SCALE_ASPECT;
->  }
-> +
-> +void
-> +intel_attach_color_format_property(struct drm_connector *connector)
-> +{
-> +	const unsigned long fmts = BIT(DRM_OUTPUT_COLOR_FORMAT_RGB444) |
-> +				   BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR444) |
-> +				   BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR420);
+This patch introduces the foundational profiler infrastructure for AMD GPUs,
+enabling userspace access to performance monitoring capabilities including:
+- Performance Monitoring Counters (PMC)
+- Performance Counter Sampling (PC Sampling)
+- Streaming Performance Monitor (SPM)
 
-We're going to need different formats for different platforms, and 
-for DP vs. HDMI.
+The implementation includes:
+- New DRM_AMDGPU_PROFILER IOCTL interface with version query support
+- amdgpu_profiler_version() wrapper function for userspace
+- Profiler operation enumeration and argument structures in the kernel API
+- Build system integration for the new profiler module
 
-For HDMI it should be fairly simple if we have the
-ycbcr420_allowed and ycbcr444_allowed things to consult.
+The version query operation allows userspace to determine profiler capability
+and compatibility before attempting to use advanced profiling features. Future
+patches will extend this with additional profiler operations (acquire, release,
+configure sampling buffers, etc.).
 
-For DP I'm not sure if we want to advertise YCbCr output support
-for platforms that can't produce it without help from the PCON.
-If we know there is an on board PCON that can do it, then the answer
-is probably yes. But without that it might be best to not advertise
-the relevant formats unless source_can_output() tells us that it can
-be directly output. We could at least start with that, and revisit
-it later if some situations arise where eg. having explicit 4:2:0
-output on older platforms is beneficial.
+This foundation enables profiling tools and performance analysis frameworks to
+access GPU performance data directly from userspace, supporting performance
+debugging and optimization workflows.
 
-I think you want to split this to separate DP vs. HDMI patches since
-the two require quite different logic.
+Signed-off-by: James Zhu <James.Zhu@amd.com>
+---
+ amdgpu/amdgpu.h          |  9 ++++++++
+ amdgpu/amdgpu_profiler.c | 46 ++++++++++++++++++++++++++++++++++++++++
+ amdgpu/meson.build       |  2 +-
+ include/drm/amdgpu_drm.h | 19 +++++++++++++++++
+ 4 files changed, 75 insertions(+), 1 deletion(-)
+ create mode 100644 amdgpu/amdgpu_profiler.c
 
-> +
-> +	drm_connector_attach_color_format_property(connector, fmts);
-> +}
-> diff --git a/drivers/gpu/drm/i915/display/intel_connector.h b/drivers/gpu/drm/i915/display/intel_connector.h
-> index 0aa86626e646..c77b7aac02cb 100644
-> --- a/drivers/gpu/drm/i915/display/intel_connector.h
-> +++ b/drivers/gpu/drm/i915/display/intel_connector.h
-> @@ -34,5 +34,6 @@ void intel_attach_dp_colorspace_property(struct drm_connector *connector);
->  void intel_attach_scaling_mode_property(struct drm_connector *connector);
->  void intel_connector_queue_modeset_retry_work(struct intel_connector *connector);
->  void intel_connector_cancel_modeset_retry_work(struct intel_connector *connector);
-> +void intel_attach_color_format_property(struct drm_connector *connector);
->  
->  #endif /* __INTEL_CONNECTOR_H__ */
-> diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-> index 47bd3d59ea93..3b2293415b55 100644
-> --- a/drivers/gpu/drm/i915/display/intel_dp.c
-> +++ b/drivers/gpu/drm/i915/display/intel_dp.c
-> @@ -3398,10 +3398,10 @@ intel_dp_compute_output_format(struct intel_encoder *encoder,
->  }
->  
->  static int
-> -intel_dp_compute_formats(struct intel_encoder *encoder,
-> -			 struct intel_crtc_state *crtc_state,
-> -			 struct drm_connector_state *conn_state,
-> -			 bool respect_downstream_limits)
-> +intel_dp_compute_formats_auto(struct intel_encoder *encoder,
-> +			      struct intel_crtc_state *crtc_state,
-> +			      struct drm_connector_state *conn_state,
-> +			      bool respect_downstream_limits)
->  {
->  	struct intel_display *display = to_intel_display(encoder);
->  	struct intel_dp *intel_dp = enc_to_intel_dp(encoder);
-> @@ -3437,6 +3437,34 @@ intel_dp_compute_formats(struct intel_encoder *encoder,
->  	return ret;
->  }
->  
-> +static int
-> +intel_dp_compute_formats(struct intel_encoder *encoder,
-> +			 struct intel_crtc_state *crtc_state,
-> +			 struct drm_connector_state *conn_state,
-> +			 bool respect_downstream_limits)
-> +{
-> +	switch (conn_state->color_format) {
-> +	case DRM_CONNECTOR_COLOR_FORMAT_RGB444:
-> +		return intel_dp_compute_output_format(encoder, crtc_state, conn_state,
-> +						      respect_downstream_limits,
-> +						      INTEL_OUTPUT_FORMAT_RGB);
-> +	case DRM_CONNECTOR_COLOR_FORMAT_YCBCR444:
-> +		return intel_dp_compute_output_format(encoder, crtc_state, conn_state,
-> +						      respect_downstream_limits,
-> +						      INTEL_OUTPUT_FORMAT_YCBCR444);
-> +	case DRM_CONNECTOR_COLOR_FORMAT_YCBCR420:
-> +		return intel_dp_compute_output_format(encoder, crtc_state, conn_state,
-> +						      respect_downstream_limits,
-> +						      INTEL_OUTPUT_FORMAT_YCBCR420);
-> +	case DRM_CONNECTOR_COLOR_FORMAT_AUTO:
-> +		return intel_dp_compute_formats_auto(encoder, crtc_state, conn_state,
-> +						     respect_downstream_limits);
-> +	default:
-> +		MISSING_CASE(conn_state->color_format);
-> +		return -EINVAL;
-> +	}
-> +}
-> +
->  void
->  intel_dp_audio_compute_config(struct intel_encoder *encoder,
->  			      struct intel_crtc_state *pipe_config,
-> @@ -7025,6 +7053,8 @@ intel_dp_add_properties(struct intel_dp *intel_dp, struct drm_connector *_connec
->  
->  	if (HAS_VRR(display))
->  		drm_connector_attach_vrr_capable_property(&connector->base);
-> +
-> +	intel_attach_color_format_property(&connector->base);
->  }
->  
->  static void
-> diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.c b/drivers/gpu/drm/i915/display/intel_hdmi.c
-> index 5ab5b5f85cde..632498e3702b 100644
-> --- a/drivers/gpu/drm/i915/display/intel_hdmi.c
-> +++ b/drivers/gpu/drm/i915/display/intel_hdmi.c
-> @@ -2307,10 +2307,10 @@ static int intel_hdmi_compute_output_format(struct intel_encoder *encoder,
->  	return intel_hdmi_compute_clock(encoder, crtc_state, respect_downstream_limits);
->  }
->  
-> -static int intel_hdmi_compute_formats(struct intel_encoder *encoder,
-> -				      struct intel_crtc_state *crtc_state,
-> -				      const struct drm_connector_state *conn_state,
-> -				      bool respect_downstream_limits)
-> +static int intel_hdmi_compute_formats_auto(struct intel_encoder *encoder,
-> +					   struct intel_crtc_state *crtc_state,
-> +					   const struct drm_connector_state *conn_state,
-> +					   bool respect_downstream_limits)
->  {
->  	struct intel_display *display = to_intel_display(encoder);
->  	struct intel_connector *connector = to_intel_connector(conn_state->connector);
-> @@ -2345,6 +2345,35 @@ static int intel_hdmi_compute_formats(struct intel_encoder *encoder,
->  	return ret;
->  }
->  
-> +static int intel_hdmi_compute_formats(struct intel_encoder *encoder,
-> +				      struct intel_crtc_state *crtc_state,
-> +				      const struct drm_connector_state *conn_state,
-> +				      bool respect_downstream_limits)
-> +{
-> +	struct intel_connector *connector = to_intel_connector(conn_state->connector);
-> +
-> +	switch (conn_state->color_format) {
-> +	case DRM_CONNECTOR_COLOR_FORMAT_RGB444:
-> +		return intel_hdmi_compute_output_format(encoder, crtc_state, connector,
-> +							respect_downstream_limits,
-> +							INTEL_OUTPUT_FORMAT_RGB);
-> +	case DRM_CONNECTOR_COLOR_FORMAT_YCBCR444:
-> +		return intel_hdmi_compute_output_format(encoder, crtc_state, connector,
-> +							respect_downstream_limits,
-> +							INTEL_OUTPUT_FORMAT_YCBCR444);
-> +	case DRM_CONNECTOR_COLOR_FORMAT_YCBCR420:
-> +		return intel_hdmi_compute_output_format(encoder, crtc_state, connector,
-> +							respect_downstream_limits,
-> +							INTEL_OUTPUT_FORMAT_YCBCR420);
-> +	case DRM_CONNECTOR_COLOR_FORMAT_AUTO:
-> +		return intel_hdmi_compute_formats_auto(encoder, crtc_state, conn_state,
-> +						       respect_downstream_limits);
-> +	default:
-> +		MISSING_CASE(conn_state->color_format);
-> +		return -EINVAL;
-> +	}
-> +}
-> +
->  static bool intel_hdmi_is_cloned(const struct intel_crtc_state *crtc_state)
->  {
->  	return crtc_state->uapi.encoder_mask &&
-> @@ -2729,6 +2758,7 @@ intel_hdmi_add_properties(struct intel_hdmi *intel_hdmi, struct drm_connector *_
->  
->  	intel_attach_hdmi_colorspace_property(&connector->base);
->  	drm_connector_attach_content_type_property(&connector->base);
-> +	intel_attach_color_format_property(&connector->base);
->  
->  	if (DISPLAY_VER(display) >= 10)
->  		drm_connector_attach_hdr_output_metadata_property(&connector->base);
-> 
-> -- 
-> 2.53.0
-
+diff --git a/amdgpu/amdgpu.h b/amdgpu/amdgpu.h
+index 53144f59..4ec1f6b6 100644
+--- a/amdgpu/amdgpu.h
++++ b/amdgpu/amdgpu.h
+@@ -2120,6 +2120,15 @@ int amdgpu_userq_wait(amdgpu_device_handle dev,
+ int amdgpu_cwsr_set_l2_trap_handler(amdgpu_device_handle dev,
+ 				    uint64_t tba_addr, uint64_t tba_size,
+ 				    uint64_t tma_addr, uint64_t tma_size);
++
++/**
++ * Acquire profiler version
++ * \param   dev               - \c [in]     device handle
++ *
++ * \return  0 on success otherwise POSIX Error code
++ */
++int amdgpu_profiler_version(amdgpu_device_handle dev);
++
+ #ifdef __cplusplus
+ }
+ #endif
+diff --git a/amdgpu/amdgpu_profiler.c b/amdgpu/amdgpu_profiler.c
+new file mode 100644
+index 00000000..8d4dffe4
+--- /dev/null
++++ b/amdgpu/amdgpu_profiler.c
+@@ -0,0 +1,46 @@
++/*
++ * Copyright 2026 Advanced Micro Devices, Inc.
++ *
++ * Permission is hereby granted, free of charge, to any person obtaining a
++ * copy of this software and associated documentation files (the "Software"),
++ * to deal in the Software without restriction, including without limitation
++ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
++ * and/or sell copies of the Software, and to permit persons to whom the
++ * Software is furnished to do so, subject to the following conditions:
++ *
++ * The above copyright notice and this permission notice shall be included in
++ * all copies or substantial portions of the Software.
++ *
++ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
++ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
++ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
++ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
++ * OTHER DEALINGS IN THE SOFTWARE.
++ *
++ */
++
++#include <string.h>
++#include <errno.h>
++#include "xf86drm.h"
++#include "amdgpu_drm.h"
++#include "amdgpu_internal.h"
++
++drm_public int
++amdgpu_profiler_version(amdgpu_device_handle dev)
++{
++	int ret;
++	struct drm_amdgpu_profiler_args user_arg;
++
++	if (!dev)
++		return -EINVAL;
++
++	memset(&user_arg, 0, sizeof(user_arg));
++	user_arg.op = AMDGPU_PROFILER_VERSION;
++
++	ret = drmCommandWriteRead(dev->fd, DRM_AMDGPU_PROFILER,
++				  &user_arg, sizeof(user_arg));
++
++	return ret;
++}
+diff --git a/amdgpu/meson.build b/amdgpu/meson.build
+index 3962d32c..d781f2e9 100644
+--- a/amdgpu/meson.build
++++ b/amdgpu/meson.build
+@@ -27,7 +27,7 @@ libdrm_amdgpu = library(
+     files(
+       'amdgpu_asic_id.c', 'amdgpu_bo.c', 'amdgpu_cs.c', 'amdgpu_device.c',
+       'amdgpu_gpu_info.c', 'amdgpu_vamgr.c', 'amdgpu_vm.c', 'handle_table.c',
+-      'amdgpu_userq.c',
++      'amdgpu_userq.c', 'amdgpu_profiler.c',
+     ),
+     config_file,
+   ],
+diff --git a/include/drm/amdgpu_drm.h b/include/drm/amdgpu_drm.h
+index ef12e725..307242ac 100644
+--- a/include/drm/amdgpu_drm.h
++++ b/include/drm/amdgpu_drm.h
+@@ -58,6 +58,7 @@ extern "C" {
+ #define DRM_AMDGPU_USERQ_SIGNAL		0x17
+ #define DRM_AMDGPU_USERQ_WAIT		0x18
+ #define DRM_AMDGPU_CWSR			0x20
++#define DRM_AMDGPU_PROFILER			0x21
+ 
+ #define DRM_IOCTL_AMDGPU_GEM_CREATE	DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_CREATE, union drm_amdgpu_gem_create)
+ #define DRM_IOCTL_AMDGPU_GEM_MMAP	DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_MMAP, union drm_amdgpu_gem_mmap)
+@@ -79,6 +80,7 @@ extern "C" {
+ #define DRM_IOCTL_AMDGPU_USERQ_SIGNAL	DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_USERQ_SIGNAL, struct drm_amdgpu_userq_signal)
+ #define DRM_IOCTL_AMDGPU_USERQ_WAIT	DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_USERQ_WAIT, struct drm_amdgpu_userq_wait)
+ #define DRM_IOCTL_AMDGPU_CWSR		DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_CWSR, union drm_amdgpu_cwsr)
++#define DRM_IOCTL_AMDGPU_PROFILER	DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_PROFILER, struct drm_amdgpu_profiler_args)
+ 
+ /**
+  * DOC: memory domains
+@@ -1695,6 +1697,23 @@ struct drm_amdgpu_info_gpuvm_fault {
+ #define AMDGPU_FAMILY_GC_11_5_0			150 /* GC 11.5.0 */
+ #define AMDGPU_FAMILY_GC_12_0_0			152 /* GC 12.0.0 */
+ 
++/*
++ * Supported Profiler Operations
++ */
++enum drm_amdgpu_profiler_ops {
++	AMDGPU_PROFILER_VERSION = 0,
++};
++
++struct drm_amdgpu_profiler_args {
++	__u32 op;                        /* amdgpu_profiler_op */
++	union {
++	    __u32 version;               /* AMDGPU_PROFILER_VERSION_NUM
++	                                  * lower 16 bit: minor
++	                                  * higher 16 bit: major
++	                                  */
++	};
++};
++
+ #if defined(__cplusplus)
+ }
+ #endif
 -- 
-Ville Syrjälä
-Intel
+2.34.1
+
