@@ -4,47 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 572A6F34C59
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9BDA5F34C5A
 	for <amd-gfx@archiver.kernel.org>; Mon, 13 Apr 2026 12:42:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1074910E473;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4AF0010E478;
 	Mon, 13 Apr 2026 12:41:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="XzO0+UoH";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="XZ1rDGfi";
 	dkim-atps=neutral
 Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
  [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E69DD10E3DD;
- Mon, 13 Apr 2026 10:10:49 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1776075039; cv=none; 
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7DBA010E3D7;
+ Mon, 13 Apr 2026 10:10:23 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1776075013; cv=none; 
  d=zohomail.com; s=zohoarc; 
- b=grbanhlKd/mTMRRgybi00Zj23YmNLIdPBWoqc7uoWRz7xfkZj6hLkzi8tzosDtaOzPYaPx0++G+OWs1hbowgUAuldcA5dmMg4F6XfJHgBMkLqz+X89EM7+LyRkZk8SKEMfuLTu4F3BzVSOGlR+eJLO2xe98amPVthVPlK+w0ifY=
+ b=eufJxWAjk3m4fOPTEy5KM3tdUe5UaLkCDTRsKRD2da9+yAAVisIin38qT+6H3vs5jeSy7VV7Shxg3x5UipnCFEVcuKgatqBqgMqe97eu5AYLzevdEFC2hi4pca4qjEcm5krI3olCplKiJBD/PSlUVjGozGTAhq4oNFtAm66IYy8=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1776075039;
+ s=zohoarc; t=1776075013;
  h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=7vhv69Y2gxm63mrcxTzKMonuuUKqvplOlDnhfAPQ1P0=; 
- b=cYoteGAHNNwnCVfbxlHaj64S8vGhVyII5AoQTKkwhgJHooOnthogUPyg46Ol/5kzSD8JgAGAUC7LL+L9eFe+uisifySehgULEa9IEQEF/AufJdYLilCx6un05TRfb+/gb37BZJ3NDZph81jSse2CYtEfZ6WSF7efaQa2ndBGNlo=
+ bh=4QFgyuOG5afpYS03fcWAL5CdSy2aihqhs+a6jM8HpD0=; 
+ b=JVghGphdwzuseqRdf85fdJIhavB4G4+PxH1/gJ/eb4teCGZAa0fvjFUG8Lih3SToP/PNffPoS+tNGkce1n6ytC+KLkavz91RcJ1ecH1KOjZGIxXEQNGY+YYKH5UrQQcJlkkMLAZPdgv+QkP9c5zcw+eXvqouwCW9uzSH3Si6JgE=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
  dkim=pass  header.i=collabora.com;
  spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
  dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1776075039; 
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1776075013; 
  s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
  h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:References:In-Reply-To:To:To:Cc:Cc:Reply-To;
- bh=7vhv69Y2gxm63mrcxTzKMonuuUKqvplOlDnhfAPQ1P0=;
- b=XzO0+UoHmGkrZjponbvggDDoR/S803ovsw+OV1Pgp87JYyE27y2kvvoLyfCE6chy
- b+tQ1pM388R5EDE6Akl4krfPxz6QtmlQakWzK8vMBF/7MFLHwQYSqbwl4t0HwlMYi6W
- lrbr2MSYuqBEpNn6967qNFYMFwS4xPeXxP9UF0KM=
-Received: by mx.zohomail.com with SMTPS id 1776075038744835.1317770260284;
- Mon, 13 Apr 2026 03:10:38 -0700 (PDT)
+ bh=4QFgyuOG5afpYS03fcWAL5CdSy2aihqhs+a6jM8HpD0=;
+ b=XZ1rDGfiDvh5DDbE0ueXCfQqhl8HzCN1B6h+rpKX54Qg9wkzv3x9RDDg3+90Cmul
+ xQLQRooMZSIQ8r3pR6RKYBBY7/kEH9Nb1HPyoqyWDh7t7Bql3MbLdH1LgB9HYpFKmUL
+ ncXvwW6ph/4NCXs8LSIrwsUsMISzKe7d9B+ubN/s=
+Received: by mx.zohomail.com with SMTPS id 177607501214065.19548628636062;
+ Mon, 13 Apr 2026 03:10:12 -0700 (PDT)
 From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Date: Mon, 13 Apr 2026 12:07:34 +0200
-Subject: [PATCH v13 20/27] drm/rockchip: dw_hdmi_qp: Set supported_formats
- platdata
+Date: Mon, 13 Apr 2026 12:07:31 +0200
+Subject: [PATCH v13 17/27] drm/rockchip: vop2: Set correct output format
+ for RK3576 YUV422
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260413-color-format-v13-20-ab37d4dfba48@collabora.com>
+Message-Id: <20260413-color-format-v13-17-ab37d4dfba48@collabora.com>
 References: <20260413-color-format-v13-0-ab37d4dfba48@collabora.com>
 In-Reply-To: <20260413-color-format-v13-0-ab37d4dfba48@collabora.com>
 To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
@@ -73,7 +73,7 @@ Cc: kernel@collabora.com, amd-gfx@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
  linux-doc@vger.kernel.org, 
  Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, 
- Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+ Andy Yan <andyshrk@163.com>
 X-Mailer: b4 0.15.2
 X-Mailman-Approved-At: Mon, 13 Apr 2026 12:41:56 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -90,36 +90,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-With the introduction of the supported_formats member in the
-dw-hdmi-qp platform data struct, drivers that have access to this
-information should now set it.
+For RK3576 to be able to output YUV422 signals, it first needs to be
+able to pick the right output mode in the display controller to do so.
 
-Set it in the rockchip dw_hdmi_qp glue driver.
+The RK3576 hardware specifies different output formats depending on the
+used display protocol.
 
-This allows this information to be passed down to the dw-hdmi-qp core,
-which sets it in the bridge it creates, and consequently will allow the
-common HDMI bridge code to act on it.
+Adjust the written register value based on the SoC and connector, so
+other users of vcstate->output_mode don't have to care about this.
 
-Reviewed-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+Reviewed-by: Andy Yan <andyshrk@163.com>
 Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 ---
- drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ drivers/gpu/drm/rockchip/rockchip_drm_vop2.c | 16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
 
-diff --git a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
-index 9bf727c1dd7d..a7a8bdb76ce6 100644
---- a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
-+++ b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
-@@ -602,6 +602,10 @@ static int dw_hdmi_qp_rockchip_bind(struct device *dev, struct device *master,
- 	plat_data.phy_data = hdmi;
- 	plat_data.max_bpc = 10;
- 
-+	plat_data.supported_formats = BIT(DRM_OUTPUT_COLOR_FORMAT_RGB444) |
-+				      BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR444) |
-+				      BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR422);
-+
- 	encoder = &hdmi->encoder.encoder;
- 	encoder->possible_crtcs = drm_of_find_possible_crtcs(drm, dev->of_node);
+diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
+index 59d15bacf023..e76e00f0a530 100644
+--- a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
++++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
+@@ -1702,6 +1702,22 @@ static void vop2_crtc_atomic_enable(struct drm_crtc *crtc,
+ 	if (vcstate->output_mode == ROCKCHIP_OUT_MODE_AAAA &&
+ 	    !(vp_data->feature & VOP2_VP_FEATURE_OUTPUT_10BIT))
+ 		out_mode = ROCKCHIP_OUT_MODE_P888;
++	else if (vcstate->output_mode == ROCKCHIP_OUT_MODE_YUV422 &&
++		 vop2->version == VOP_VERSION_RK3576)
++		switch (vcstate->output_type) {
++		case DRM_MODE_CONNECTOR_DisplayPort:
++		case DRM_MODE_CONNECTOR_eDP:
++			out_mode = ROCKCHIP_OUT_MODE_YUV422_RK3576_DP;
++			break;
++		case DRM_MODE_CONNECTOR_HDMIA:
++			out_mode = ROCKCHIP_OUT_MODE_YUV422_RK3576_HDMI;
++			break;
++		default:
++			drm_err(vop2->drm, "Unknown DRM_MODE_CONNECTOR %d\n",
++				vcstate->output_type);
++			vop2_unlock(vop2);
++			return;
++		}
+ 	else
+ 		out_mode = vcstate->output_mode;
  
 
 -- 
