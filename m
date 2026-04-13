@@ -4,99 +4,164 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0E82DF9D0C9
-	for <amd-gfx@archiver.kernel.org>; Tue, 14 Apr 2026 12:44:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D95FDF9D0C9
+	for <amd-gfx@archiver.kernel.org>; Tue, 14 Apr 2026 13:06:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9BBD510E5EF;
-	Tue, 14 Apr 2026 12:44:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 56B7710E5F2;
+	Tue, 14 Apr 2026 13:06:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ipx5bJOf";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="KYO1KElx";
 	dkim-atps=neutral
-Received: from CO1PR03CU002.outbound.protection.outlook.com
- (mail-westus2azon11010053.outbound.protection.outlook.com [52.101.46.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BB6C810E5EF
- for <amd-gfx@lists.freedesktop.org>; Tue, 14 Apr 2026 12:44:05 +0000 (UTC)
+Received: from BN8PR05CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11011071.outbound.protection.outlook.com [52.101.57.71])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DC87810E055;
+ Mon, 13 Apr 2026 20:25:39 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=xAAGru7oMPnOrt2LD68JTioLFU2os0+KdUjNWB+QNO5lQ5homZQ2o23HoS7m2J2WZeBbmlO+XwhR0gQeNqbFValp1Kf8Mw18tpbrXOWG5Dl15EHMwe3TZswqTK1K2ntXgrMpBHnu6r4f3zchEoQTplA1u7iLFMiUp7PP9VgzM9Iq8JUTgxR4I7/LgulRjpiv2zMEwveCBu0NKpwaKbihEnDsMdBLgTBLMCYvxNPDVWKQqvoNK1C7rPto53+dAsVGu64C78wCCeJy8jYEeGU0pmbUcB0XcWXS8UBQpaDf25RCAcNbXk9i3eKgAyCgViXtSxAtDhJxD3oyw8+nXdLE5Q==
+ b=HMzv2bEoWxPSw4qNslew5f6iGQaWWubGj/vOgkxdW84Zak1QSialXZBXWAo2Vm641wijyQgYdc0WOu0T3Zc6qXhuwtVNE6F7F2OFRuXUQ/ymxE3MIxo4PyokggFc4y83b1I6E+oHZhlHyNRRureugAcL6oxHCNUuXMN3PMx90kSg7n9GAnq0Xnzx9o6dgTzwpl7i9ZuTplkxSLhbTZZkgXBXjJWiTzCc3uhqcrD7HjAq9qNqPL8QAUhXLN9M2FmNWAP21apmx0lXnyrMEuOh9GpDzwoNaYZc7YCKob7VRr/RYBT4x1+nKsQ1D/JY7aXjDhK/lqG8IXf2whF493T48g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=KmLc/ilF2rWPFTtNRWnSUWH2707klSFpg5/sftPl+1Y=;
- b=mnrecIiOVjKFY704ATzjXGU6FXp9bY9GC4P88Vol8JT6i5eyF4ClTFXypdaTf7wa655ClVmBoRiqH/SnnRvZpgSvO2gYw2L0iCriTtuWGGf9kXJC8QXcARNF9sXGRoeChbk0oFKyd8co1Tx3gI987S5KKNFYEoc2vkh8Y+A/q0x1DOggymOG9mkgxR62ZC6rb75CIaToDWHDNfVOWTE0sVOAp0d6PzRAqETYsXyyxsHdZjc6n5wFF6eogqQfBjJXRM3zHnTTJx/JZNMVaNIjvLR45qLhGngNCqjhVif/7UOzo5egZqkFtxogheMpTPBmmXFsYRwfl9R9Q7VqRafBMQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ bh=akNp3m4Iid1v8cmwjp0ofS8pjXed3gQ9X0aepN2Ddjw=;
+ b=qV3DL5CuRxNwTCgM6zg1TYJ+00VOTWfPy1DncbNUk+XT3Y2dEh9Yg3cO5Nq0AQ5GuoFytPhggEIa3UGVSE4TwQKSF7/t/mghllglnu6xW6m2UAlnSnfCBUnqrYBsyeIz97776G3KSE1bvockjWy70lfLLaE2CBooy5A0QKdDZ3Y9wFgwbnC9q8VdhpaITJHbm0OvZU4hRiQAQv0+w7FjcRdH+LMpWTZVYscZYrUXZQbbPcPx6vzFl5eZmsNBcAfSpdwNFixa+d0xZcuFCr8VpUzIxVTF4kO7mKS7goN5Ui1YTCKNJa8ZuXmqx973CSVjgQgNPQLuoj95ryiUbZJbGA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=KmLc/ilF2rWPFTtNRWnSUWH2707klSFpg5/sftPl+1Y=;
- b=ipx5bJOfwXtljHbIbz4RDaSMUEUDaFdpVb9uyoaV0h3kyqI7Hx6khgtcPYJVO534XFrig9lwNw70rY0xsJXl8o1WOola9KQunzG0cMPd3ySN032UhlTyVABgA+z/jr9O/qXJ9tdA57RV1TlA1H6F4OMBaIjPZyNGn2ewoM+FXb0=
-Received: from CH0PR13CA0002.namprd13.prod.outlook.com (2603:10b6:610:b1::7)
- by DS0PR12MB9445.namprd12.prod.outlook.com (2603:10b6:8:1a1::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9818.20; Tue, 14 Apr
- 2026 12:44:01 +0000
-Received: from CH1PEPF0000A346.namprd04.prod.outlook.com
- (2603:10b6:610:b1:cafe::11) by CH0PR13CA0002.outlook.office365.com
- (2603:10b6:610:b1::7) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9769.48 via Frontend Transport; Tue,
- 14 Apr 2026 12:44:00 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- CH1PEPF0000A346.mail.protection.outlook.com (10.167.244.11) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9769.17 via Frontend Transport; Tue, 14 Apr 2026 12:43:59 +0000
-Received: from srishanm-Cloudripper.amd.com (10.180.168.240) by
- satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.17; Tue, 14 Apr 2026 07:43:58 -0500
-From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-To: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "Alex
- Deucher" <alexander.deucher@amd.com>
-CC: <amd-gfx@lists.freedesktop.org>, Srinivasan Shanmugam
- <srinivasan.shanmugam@amd.com>
-Subject: [RFC PATCH v2 7/7] drm/amdgpu: document WAIT_EVENT condition semantics
-Date: Tue, 14 Apr 2026 18:13:22 +0530
-Message-ID: <20260414124322.2335906-8-srinivasan.shanmugam@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260414124322.2335906-1-srinivasan.shanmugam@amd.com>
-References: <20260414124322.2335906-1-srinivasan.shanmugam@amd.com>
+ bh=akNp3m4Iid1v8cmwjp0ofS8pjXed3gQ9X0aepN2Ddjw=;
+ b=KYO1KElxEf4x2JZyP3s31T9Z/ZEM0xveDAkFllW8ap/1PX0APQc9jc25dIfsh+HejoEk6DHT8381IdpOHDPsvC0aqyKnqqQRnCVyondBbX1h7JXcc1fohtsKsc9lS5c5/aBmQOjxBuBVaes6Q7TENRhCSNAfYPRsMyp/Xi0zF8M/nA9pZjofFxcxppROQcz85UuxBUnBpB0QiK9SSlK/uemKRfCDF9zRnfnZpDAbpf82SGrsa3Lm9UfYe7U89APUR01uuXnJwBtuutESAmadKRzgL3h6cCMQJJ0GZFOPIZy5nDxtu92VGuGSCvaX4Hi3FjkKMNZTCAz7vlOc+dmRUA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DS0PR12MB6486.namprd12.prod.outlook.com (2603:10b6:8:c5::21) by
+ BN7PPFA8145BD40.namprd12.prod.outlook.com (2603:10b6:40f:fc02::6de)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.17; Mon, 13 Apr
+ 2026 20:25:35 +0000
+Received: from DS0PR12MB6486.namprd12.prod.outlook.com
+ ([fe80::88a9:f314:c95f:8b33]) by DS0PR12MB6486.namprd12.prod.outlook.com
+ ([fe80::88a9:f314:c95f:8b33%4]) with mapi id 15.20.9769.014; Mon, 13 Apr 2026
+ 20:25:35 +0000
+Message-ID: <a675d5fa-29d2-4420-9b82-18a7027fc769@nvidia.com>
+Date: Mon, 13 Apr 2026 16:25:28 -0400
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v10 12/21] gpu: nova-core: mm: Add unified page table
+ entry wrapper enums
+To: Gary Guo <gary@garyguo.net>, Alexandre Courbot <acourbot@nvidia.com>,
+ Eliot Courtney <ecourtney@nvidia.com>, Danilo Krummrich <dakr@kernel.org>
+Cc: linux-kernel@vger.kernel.org, Miguel Ojeda <ojeda@kernel.org>,
+ Boqun Feng <boqun@kernel.org>, Bjorn Roy Baron <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
+ Dave Airlie <airlied@redhat.com>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Koen Koning <koen.koning@linux.intel.com>, dri-devel@lists.freedesktop.org,
+ rust-for-linux@vger.kernel.org, Nikola Djukic <ndjukic@nvidia.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Jonathan Corbet <corbet@lwn.net>, Alex Deucher <alexander.deucher@amd.com>,
+ Christian Koenig <christian.koenig@amd.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
+ <tursulin@ursulin.net>, Huang Rui <ray.huang@amd.com>,
+ Matthew Auld <matthew.auld@intel.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Lucas De Marchi <lucas.demarchi@intel.com>,
+ Thomas Hellstrom <thomas.hellstrom@linux.intel.com>,
+ Helge Deller <deller@gmx.de>, Alex Gaynor <alex.gaynor@gmail.com>,
+ Boqun Feng <boqun.feng@gmail.com>, John Hubbard <jhubbard@nvidia.com>,
+ Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
+ Edwin Peer <epeer@nvidia.com>, Andrea Righi <arighi@nvidia.com>,
+ Andy Ritger <aritger@nvidia.com>, Zhi Wang <zhiw@nvidia.com>,
+ Balbir Singh <balbirs@nvidia.com>, Philipp Stanner <phasta@kernel.org>,
+ Elle Rhumsaa <elle@weathered-steel.dev>, alexeyi@nvidia.com,
+ joel@joelfernandes.org, linux-doc@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, linux-fbdev@vger.kernel.org
+References: <20260311004008.2208806-1-joelagnelf@nvidia.com>
+ <20260331212048.2229260-1-joelagnelf@nvidia.com>
+ <20260331212048.2229260-13-joelagnelf@nvidia.com>
+ <DHIFF98P1YQ3.1IXUT02E3TF20@nvidia.com>
+ <5db2aab1-4b65-486e-ad9b-27a108bdb0d6@nvidia.com>
+ <DHMYSTLVHIFJ.A2BDMPVNZNLS@nvidia.com>
+ <537a8c5a-3885-4c47-99f6-963b48ddf87d@nvidia.com>
+ <DHNKYBM159T9.2UUQ7CU0RN0BU@nvidia.com>
+ <2f004511-61d1-4197-84b6-cddcdd275e55@nvidia.com>
+ <DHOKN9XVOTIB.1A4JY7CDJFWPS@garyguo.net>
+Content-Language: en-US
+From: Joel Fernandes <joelagnelf@nvidia.com>
+In-Reply-To: <DHOKN9XVOTIB.1A4JY7CDJFWPS@garyguo.net>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: BLAPR03CA0074.namprd03.prod.outlook.com
+ (2603:10b6:208:329::19) To DS0PR12MB6486.namprd12.prod.outlook.com
+ (2603:10b6:8:c5::21)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH1PEPF0000A346:EE_|DS0PR12MB9445:EE_
-X-MS-Office365-Filtering-Correlation-Id: e13ac942-65f7-4fe1-b2ac-08de9a23803b
+X-MS-TrafficTypeDiagnostic: DS0PR12MB6486:EE_|BN7PPFA8145BD40:EE_
+X-MS-Office365-Filtering-Correlation-Id: e32bf791-ea43-472e-9981-08de999ad175
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700016|82310400026|376014|1800799024|22082099003|18002099003|56012099003;
-X-Microsoft-Antispam-Message-Info: +Ak6aW4DbqG6QtbBZlu0zH933unb8GQ35eAvdou5c5nvFCbGy2JZcDdQbGDCac2Sf27JSpxC9JR/EhTniWj2pfOS1RPWopEkbCCen6rEmU5kmAiYyY8AkAO+nNk0DSVtNru10/UCw9KLfWG2hpnWc0MiGXJhdOOgCJ5pfNIyxEgGGPLiGm00r4zyc1UAswxSvxV33Rx9Q1rk8Htsml3/lPJsvxoZdcIyy9RghrYd3ejxHwFU83fYqPp7QrqE2H8IvrCK+JQXFrREzLuR57tlr0hY+86SKCWsZ8zZ1xSKRmgJRW0RbZtFxfSj2ESMz67h2zEWn9GIdZo4EMNAuSmZZSBz5WFZxcQQeczNjvQaSV904DRKlYA+yNy2o3W3zaseSSx1EQH6OQ2NaqKI/Rf0Yo2Eae4jEcJQZG3mr4KV5KG65Ei/KSWG/dS9Cvul/eWKMnFT7hF0oU/Vt1XS5orrSTsDWKpc0jz4DyQ9ITw/W6QhFuBqnKicGGXWhbvm8VieLXh6zyo1zg2dHr/hlWnj0ry4mwzDIE4FFPCfChZF99wEG8OfvoDl2Ijmn9qOG49aStFS0OU5Lm5PbEdFTer9ISb6jGbde/fcgP1fpWx72cn1rQxrRcyHMJKnP8gd98nyeTEcVZkRkB1riHW63A3pSOj1CQUCvAywG5UOBqRx+FvWhe1eC0GHH+HmWxVH/jyk5FIvyFUFrV2352ZsXkDkqgsZic+yUSfr6KtHxOQvBktXs+Y2jH5/Io9Gtk8eRQ30IhZyI0NmA0xTNdKqFSiKdg==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700016)(82310400026)(376014)(1800799024)(22082099003)(18002099003)(56012099003);
+ ARA:13230040|376014|7416014|366016|1800799024|22082099003|56012099003|18002099003;
+X-Microsoft-Antispam-Message-Info: ebsYEVVSv+Wiul3uryJ2ty31ggyTwywOZBMEPDjiM4moWtJn29dLWAF8v9+DvI1FHoLdQIn4SSiXYhA6sletpQ2TICsihi0YAtn6M/1QrWPVB9At8MvRPRX3aOPCBD0CetQhGP4GXaOZ82s1nhtqLKCoGY87HiqRv0CNB9uf/Db+yygv7e/WtRgMS6xPnR9DUA0re6g9NjctWQjGc5mwpq0xDRMKcWrPGIFpJhis/itwr3g5ue6bmm6oBTo3Ry2D06ZGdR6lfLrRD+HChjQjEqE0zPF2xiG4IL1gJkwWiszkUSwDmM5HkSzq8R5D7dfRLSMLAOn+FG64TTVufWAjpq96UtYYAMFD0aQjHqGoucOpoFup5/5Cvuo78/rzMdmYAVagu9uizjy7p+s0MjR2RG5IxarZ0ChT31NHI4PLmVJGvuhjCRCN5D12qR7kKHM6bqJgKKHa0McxYU+1F85OkCxXhGzhb0+fMI523HFfDJjzOWcLn4TPdD3sKAg4W6htE90OLEplmbWH8YgrcOuxI6JH6DHDaZuntkLZr3cSg4u5HSnnZEGnghfGfyiw5+4+yDEluDpQm6X9tZqHXHlEiNMZBCcj90/DTb3wU9SDXQJN4qEke6hJn/1PnuGzxXjwnuxT+kn3OM1W3n5kx18KoRnweZu/KUtYdN9ZZhGrqkbw5mk+ne0gknkuxST1mvqUOgjH+/U3RvkYlt947HtoPdYyp+oUQVanOI+HnLdlu9/dc/Jjfw2Ld6R/K1e6GEl7
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS0PR12MB6486.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(7416014)(366016)(1800799024)(22082099003)(56012099003)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: EmSSt/jSRx/3duUfUilOenjwb0L0XnTrRWpj9AsV3yfn9I0RUnTMkjArkWnrvo/XiqJG7z9cPoS4I8d4FUvemcVAzIQSBgRJsxwzksVEGyd9zWLoV0o2YXPKjRKA6xq3e7GlHUk8dXh6fo0HTiiBBwixWYFhBm3k2Uig0YgupCMRT3unJaN+X14NYAQx57rf5kvWmnKuFpA4PZUyBQtZmhRNVemA7WsHuVwfyBSMBUyI10F8du+z53XEET/k7EmGzBmB7WNbLZvHrAyThJqQckgTS8GiuAV8Yxrj3Uj0yeKuODZOFHxxvqaprdUbEmecqz/KOAXCPZlD75rwUrIg7/HL/ROhoZoF+Uiwi2muq1lBnb68MwI5T8QbmJzXLFz2m5eILrrMQKX+JzBikmUYTUmNiBmr63MpJbBNxcInxq7XJHxHSC4Hxcr5tSXWGlB6
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Apr 2026 12:43:59.8594 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e13ac942-65f7-4fe1-b2ac-08de9a23803b
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CH1PEPF0000A346.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB9445
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VUZiUlJjb3BRY1hFcGl0VEtVeFc2d0JEaGVoYUgxUXNoQnBWRnJnWitOd1Jr?=
+ =?utf-8?B?bUsvd2J3RmlFN1JGaDZJSUQrUXRSVGZZcUNZWVYybGZEdTZJdEJxeWxkTWJ6?=
+ =?utf-8?B?NDhPVHd0REJPaEVHVGZrYjBreXZOTEk0bytDeVBybkVxaDFiVksvR3V4YkpZ?=
+ =?utf-8?B?VEVsbEZvUVVhcEE4ZzUxR2p3alRucFk1NjdSYzdBSU85Z0tKb3VlRXY4czdP?=
+ =?utf-8?B?YU1XOHJqb3Y1ZEM1WnJ4akZvcDVNTEtRS2RiS3VyWE85SVRDMElxR2dKa01a?=
+ =?utf-8?B?b00wSnZNSHFmZ0psRmt0cjE0aVd5Zm8xVTBnUzk1TWxBbGViMVlvR2c3Q3Uv?=
+ =?utf-8?B?M2QyMGF2dDc3ZzFPMnI0WFRMZGp5ZmF3K1ZCN25GREZ3clRES1oxRE8xZ05B?=
+ =?utf-8?B?K3BmQ3kvYm8vQWFRdHIzeVFRNUV3WjdjQk1OUjUxNWJIL3ZPWFJ3YmlCSkJW?=
+ =?utf-8?B?UGZaZEUzMGhGMUo5SGpNdTBQZ0ZjVlJSN21PM3BGbXhSbG5MNzlGT0ovcmdG?=
+ =?utf-8?B?S045VHArY1dyejliN2RLSFF3aVQ3eXN6TWtmazdSMUYyVGpYcmhIbTRFTUpz?=
+ =?utf-8?B?OVJZTmpueWFyd2ZBZXRmNUpHWUVKcnhYMVlUTXEwcXljQTdCZXkvaGJ0a3FU?=
+ =?utf-8?B?emFLNUpZUHcyaHR1TitHM2laMlRydGpPVzlSeTFJZGZKTThWUTRuR3Q5eGRo?=
+ =?utf-8?B?MDNpK2FsaS96SHJIc3o2d2VrY214Zjd4dHh1QWJMdEhSL3BJSlYwdmFETlRl?=
+ =?utf-8?B?c0NTRk5LNXhaUjY5ZnlkWGpUZiszclVJM2ZsWXdZWmpwQUE5WGE4TnNJbFdq?=
+ =?utf-8?B?U0E0OUxTOXpWaVBiQ0RobjZDellkTnpJWG41UFdCYjJVcFVqbjVkRGYvd1E5?=
+ =?utf-8?B?MTFJV0ljTytJM0pYWnplS3E4ZWpKd0s0TUNsK3dQTEs3aVdPaE1KK3BZTU9E?=
+ =?utf-8?B?eHgvTCtWdTU1RU0xSlpDZllWMk5iM3J1TElzbldjY2RPQWxvbnQrVm1CaEVj?=
+ =?utf-8?B?bXZIS002VzhIN2JYdUZuOFVHN2o4aERjdGYvOE5xeG80VnVIakJMOXJ1RUY3?=
+ =?utf-8?B?N1d5RzZUTE1FWktxUkVjc080dnFrbTI3dHJRcHVKOVo4UVZoMWFBZnY5L0gw?=
+ =?utf-8?B?TFRhR3hvQk9zRlpycmlHWFc2OUVTMzhxaW5XZ00yTlVZWjl4YWoyS1U4YWRm?=
+ =?utf-8?B?aElnc2hzMnY4Qm5iTkZNVkxWTkdxdkEvcFh4OExQdTI5WVdHaFZ0YU4wN0s0?=
+ =?utf-8?B?VzJNbU1IbEJOaDU0UkY1Vk0wc3BqeWxzZFJPbjJ0RjMzOWVXNXA1WGFpNzZ2?=
+ =?utf-8?B?N2ZNSlBJWU1QK213MUczdHRyVFl4ZEZSbWRBcktMZDExMVZJWmhkWjhQTmtz?=
+ =?utf-8?B?eHFYMWRGQ0hwQUJnbjFQOVFVWVVnK3FZUThsQXJhSENZQU9zd2JVSGxoTWlq?=
+ =?utf-8?B?SERsMHhueTlhRVNPRURBNlZXNnU3dUxuUHBlMkdFZTk1NmRyMmdUdnAzN29I?=
+ =?utf-8?B?MzZEWG1LT0p0SVoza0xyMDlTKzNqL25kbzdtS29RanZ1QmFreXV5a3duSW9P?=
+ =?utf-8?B?SHQyV3IzZDIvaS9YM1RETG5NUVJqSnhReUtsUkF4a3hJYlo0WldOMUVxOWtk?=
+ =?utf-8?B?U3dOMkhvZFcyTjdwam9qV1BYU0xmZzNOdi9PVkJkZG5oajN0c0M1SnRQbWlY?=
+ =?utf-8?B?SDlxUHZWM0l1RFdRYUJ3RlgxSFMrZ01FQ2hvQTArUTFGT2MveGVLMTE4TG9h?=
+ =?utf-8?B?NldHbnRZclFaK2xBUFFZdVVHankweDJBSWZuQkhrNFAzbmNBVnFML2tPYWZx?=
+ =?utf-8?B?ZXNWbmNETzd1S3hoQll0MjFqSmNXdnFoZ2lHb3VYbHY0UExzcVNWbERLbldi?=
+ =?utf-8?B?TzcvVVZyMXIrYjBEUVg4WDJVTVFyRnNRMEVZMWJUdWJtQ2I0WXA4K09hOG9G?=
+ =?utf-8?B?VW9ZMnZ5YXkyRVFCdGxRam5qd2VGMmc2WHZjT1EyTVllZmhabHlHMHNXUGlG?=
+ =?utf-8?B?dUR4cEE4ODFORmdVdGZaMlpjbmhDRTdwemYxRHk5WjcvUmoySmltNDZJUy95?=
+ =?utf-8?B?YUVLZUtOYmhJR3JOS2t0MWtsOEoxK3hXU3hYbEZFTGdqVGMwMG05QWk3R09x?=
+ =?utf-8?B?aG5RZkJjU1JiNzU5aGtvUmtQSVFXYzNVYmpxb05aSGcrc2NzQng5YnV6L0w5?=
+ =?utf-8?B?WFF1Uzdnclh5eWVUUW9yQ1dxaldOaTkvb0t1SlUyZ2lZcFhhOElKRjFDUCty?=
+ =?utf-8?B?a0hQSWtZUUdKWGgzQXNHK0dXWWRLSGg5UEY5SC9xYjdTUndDSXVKQWFvWEox?=
+ =?utf-8?B?RXFIK0JqSFZKaTFLUjU1OG5PRXJyTWkwTzRtQ2pYd1Azb0lSZ0doZz09?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e32bf791-ea43-472e-9981-08de999ad175
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6486.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Apr 2026 20:25:35.3315 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 8uIGpcPvb4DaxWbwDmAcKD+6FM6qpExw6cxO3RDMTxTjSC5gshROq8llCMRMKhsbekUfqcW1JOGBovB9kp45mA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN7PPFA8145BD40
+X-Mailman-Approved-At: Tue, 14 Apr 2026 13:06:54 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,42 +176,177 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Document the optional condition semantics of WAIT_EVENT.
 
-When condition fields are provided, WAIT_EVENT completes only when both:
-- a matching event record exists, and
-- the userspace condition passes
 
-Matching records are consumed only on successful completion.
+On 4/9/2026 7:02 AM, Gary Guo wrote:
+> On Wed Apr 8, 2026 at 9:19 PM BST, Joel Fernandes wrote:
+>> Hi Alex, Eliot, Danilo,
+>>
+>> Thanks for taking a look. Let me respond to the specific points below.
+>>
+>> On Wed, 08 Apr 2026, Alexandre Courbot wrote:
+>>> After a quick look I'd say that having a trait here would actually be
+>>> *good* for correctness and maintainability.
+>>>
+>>> The current design implies that every operation on a page table (most
+>>> likely using the walker) goes through a branching point. Just looking at
+>>> `PtWalk::read_pte_at_level`, there are already at least 6
+>>> `if version == 2 { } else { }` branches that all resolve to the same
+>>> result. Include walking down the PDEs and you have at least a dozen of
+>>> these just to resolve a virtual address. I know CPUs are fast, but this
+>>> is still wasted cycles for no good reason.
+>>
+>> I did some measurements and there is no notieceable difference in both
+>> approaches. I ran perf and loaded nova with self-tests running. The extra
+>> potential branching is lost in the noise. In both cases, loading nova and
+>> running the self-tests has ~119.7M branch instructions on my Ampere. The total
+>> instruction count is also identical (~615M).
+>>
+>> I measured like this:
+>> perf stat -e
+>> branches,branch-misses,cache-references,cache-misses,instructions,cycles --
+>> modprobe nova_core
+>>
+>> So I think the branching argument is not a strong one. I also did more
+>> measurements and the dominant time taken is MMIO. During the map prep and
+>> execute, page table walks are done. A TLB flush alone costs ~1.4 microseconds.
+>> And PRAMIN BAR0 writes to write the PTE is also about 1 microsecond. Considering
+>> this, I don't think the extra branching argument holds (even without branch
+>> prediction and speculation).
+>>
+>> Also some branches cannot be eliminated even with parameterization:
+>>
+>>     if level == self.mmu_version.dual_pde_level() {
+>>         // 128-bit dual PDE read
+>>     } else {
+>>         // Regular 64-bit PDE read
+>>     }
+>>
+>> This isn't really a version branch -- it's a structural branch that
+>> distinguishes between 64-bit PDE and 128-bit dual PDE entries. Any MMU
+>> version with a dual PDE level would need this same distinction.
+>>
+>> I also did code-generation size analysis (see diff of code used below):
+>>
+>> Code generation analysis:
+>>
+>>   Module .ko size:   Before: 511,792 bytes   After: 524,464 bytes  (+2.5%)
+>>   .text section:     Before: 112,620 bytes   After: 116,628 bytes  (+4,008 bytes)
+>>
+>>   The +4K .text growth is the monomorphization cost: every generic function
+>>   is compiled twice (once for MmuV2, once for MmuV3).
+>>
+>>> If you use a trait here, and make `PtWalk` generic against it, you can
+>>> optimize this away. We had a similar situation when we introduced Turing
+>>> support and the v2 ucode header, and tried both approaches: the
+>>> trait-based one was slightly shorter, and arguably more readable.
+>>
+>> Actually I was the one who suggested traits for Falcon ucode descriptor if you
+>> see this thread [1]. So basically you and Eliot are telling me to do what I
+>> suggested in [1]. :-) However, I disagree that it is the right choice for this code.
+>>
+>> [1] https://lore.kernel.org/all/20251117231028.GA1095236@joelbox2/
+>>
+>> I think the two cases are quite different in complexity:
+>>
+>> The falcon ucode descriptor is essentially a set of flat field accessors
+>> and a few params (imem_sec_load_params, dmem_load_params).
+>> The trait has ~10 simple getter methods. There's no multi-level hierarchy,
+>> no walker, and no generic propagation.
+>>
+>> The MMU page table case is structurally different. Making PtWalk generic
+>> over an Mmu trait would require:
+>>
+>>   - PtWalk<M: Mmu> (the walker)
+>>   - Plus all the associated types: M::Pte, M::Pde, M::DualPde each
+>>     needing their own trait bounds
+>>
+>> And we would also need:
+>>   - Vmm<M: Mmu> (which creates PtWalk)
+>>   - BarUser<M: Mmu> (which creates Vmm)
+>>
+>> I am also against making Vmm an enum as Eliot suggested:
+>>        enum Vmm {
+>>            V2(VmmInner<MmuV2>),
+>>            V3(VmmInner<MmuV3>),
+>>        }
+>>
+>> That moves the version complexity up to the reader. Code complexity IMO should
+>> decrease as we go up abstractions, making it easier for users (Vmm/Bar).
+>>
+>> If you look at the the changes in vmm.rs to handle version dispatch there [2]:
+>> Added: +109
+>> Removed: -28
+>>
+>> [2]
+>> https://github.com/Edgeworth/linux/commit/3627af550b61256184d589e7ec666c1108971f0e
+>>
+>> The main benefit of my approach is version-specific dispatch complexity is
+>> completely isolated inside MmuVersion thus making the code outside of
+>> pagetable.rs much more readable, without having to parametrize anything, and
+>> without code size increase. I think that is worth considering.
+>>
+>>> But the main argument to use a trait here IMO is that it enables
+>>> associated types and constants. That's particularly critical since some
+>>> equivalent fields have different lengths between v2 and v3. An
+>>> associated `Bounded` type for these would force the caller to validate
+>>> the length of these fields before calling a non-fallible operation,
+>>> which is exactly the level of caution that we want when dealing with
+>>> page tables.
+>>
+>> I think Bounded validation is orthogonal to the dispatch model.
+>> We can add Bounded to the current design without restructuring
+>> into traits. For example:
+>>
+>>     // In ver2::Pte
+>>     pub fn new_vram(pfn: Bounded<Pfn, 25>, writable: bool) -> Self { ... }
+>>
+>>     // In ver3::Pte
+>>     pub fn new_vram(pfn: Bounded<Pfn, 40>, writable: bool) -> Self { ... }
+>>
+>> The unified Pte enum wrapper already dispatches to the correct
+>> version-specific constructor, which would enforce the correct Bounded
+>> constraint for that version.
+>>
+>>> In order to fully benefit from it, we will need the bitfield macro from
+>>> the `kernel` crate so the PDE/PTE fields can be `Bounded`, I will try to
+>>> make it available quickly in a patch that you can depend on.
+>>
+>> That would be great, and I'd be happy to integrate Bounded validation once
+>> the macro is available. I just don't think we need to restructure the
+>> dispatch model in order to benefit from it.
+>>
+>>> But long story short, and although I need to dive deeper into the code,
+>>> this looks like a good candidate for using a trait and associated types.
+>>
+>> The walker code (walk.rs) is already version-agnostic and reads cleanly.
+>> The version dispatch is encapsulated behind method calls, not exposed as
+>> inline if/else blocks.
+>>
+>> Generic propagation (or version-specific dispatch at higher levels) adds more
+>> complexity at higher layers.
+>>
+>> Enclosed below [3] is the diff I used for my testing with the data, I don't
+>> really see a net readability win there (IMO, it is a net-loss in readability).
+>>
+>> [3]
+>> https://git.kernel.org/pub/scm/linux/kernel/git/jfern/linux.git/commit/?h=trait-pt-dispatch&id=5eb0e98af11ba608ff4d0f7a06065ee863f5066a
+> 
+> IMO this diff is quite has got me quite in favour of trait approach.
+> 
+> I wanted about to purpose something similar (or maybe I had already?) trait
+> approach some versions ago but didn't due to the eventual need of `match` like
+> dispatch (like you had with `vmm_dispatch`), but your code made that looks not
+> as bad as I thought it would be.
+> 
 
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: Christian König <christian.koenig@amd.com>
-Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_wait_event.h | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+That's the drawback right, now vmm_dispatch has to deal with version difference
+where as before, the lower layers would. Maybe we can keep the vmm layer the way
+it is now, but do the dispatch itself at the lower layers, while still using
+traits like in the diff. I'll try that as well. :)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_wait_event.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_wait_event.h
-index ea1e780c3029..5fa8649981d3 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_wait_event.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_wait_event.h
-@@ -23,6 +23,16 @@ struct amdgpu_wait_event_mgr {
- 	bool dead;
- };
- 
-+/*
-+ * WAIT_EVENT semantics:
-+ *
-+ * - WAIT_EVENT matches pending records by event type and optional queue id.
-+ * - If cond_op is DRM_AMDGPU_WAIT_COND_NONE, a matching record completes
-+ *   the wait immediately.
-+ * - If cond_op is set, WAIT_EVENT completes only when both the record
-+ *   match and the userspace memory condition pass.
-+ * - Matching records are consumed only on successful completion.
-+ */
- void amdgpu_wait_event_mgr_init(struct amdgpu_wait_event_mgr *mgr);
- void amdgpu_wait_event_mgr_fini(struct amdgpu_wait_event_mgr *mgr);
- 
--- 
-2.34.1
+thanks,
+
+--
+Joel Fernandes
 
