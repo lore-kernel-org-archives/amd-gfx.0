@@ -4,135 +4,99 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0E553F9D0C9
-	for <amd-gfx@archiver.kernel.org>; Tue, 14 Apr 2026 13:06:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E397EF9D0CF
+	for <amd-gfx@archiver.kernel.org>; Tue, 14 Apr 2026 13:11:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CD41310E5F9;
-	Tue, 14 Apr 2026 13:06:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E166B10E5FB;
+	Tue, 14 Apr 2026 13:11:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=verivus.ai header.i=@verivus.ai header.b="elyC259S";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="BZiajlVq";
 	dkim-atps=neutral
-Received: from MEUPR01CU001.outbound.protection.outlook.com
- (mail-australiasoutheastazon11020103.outbound.protection.outlook.com
- [52.101.152.103])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 39DC310E2AE;
- Tue, 14 Apr 2026 09:47:49 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Wq+RHbtsBgPm8vR/PgdgJOZriCUMGDyK9f1i4cpZUMiM9jeHMufjzltBVt/enZEtOZBHqF9XaYoLnvTMzkr079DljLgKPvlOUnYvZTLUNwVddSFWOYW5da7UzHntGTbbf/aYiqQaku2lgYr9jEJMAhbjgow3RbLzvqjPZ9OCq3njhPdMbVmNFQgbazo3lf2GbBoRLlTjgH9cvaiyATiuR29b5WE4d2buUKI4ciJ8H4a6lzvgVmr6dx4msWUx/ABfaqpfct4Um1VXRk+EveyiAzBgKnWMk6X5DlzXx4eDmuHA+0LD11vkL4nWgW8ZWQfeCT+ive7mYX1Nd8l2AKqRTQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/YidKchPcy74m7eeNyl9psGVBLy2fw+qIUeu4IN2wFU=;
- b=fRXxjg5PT6FPID8L0SUhMO8ChYJMrwrLArZcx3ZHmLUUMLSCK+rRoeDVn6roGLVS7CD+uvQvwczOtu4W0Di2PRuVJAlMSX2RQvDEAZpzUemd8Hr853ZR3PjWUXYVDyFv6NRrGcoVOL+WZaIVro55SFSneLqF2A5SM9EoLK592CVmHcUA3SOguLH8zjKnbD+uLxDIkDDzMnCK0UZI6wI+KudrV3eVAeUb1E3wSkkG0Ip24XrorsaeZqh/L5WFJ6xD5U0moflwJxRjKgayYb2MsmyQWX51yCdiy+RxV/LjDPG0KKfeoSXWCsiv/fxH580cRtbvg9lJOO7HtUWvz8VuPQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=verivus.ai; dmarc=pass action=none header.from=verivus.ai;
- dkim=pass header.d=verivus.ai; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=verivus.ai;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/YidKchPcy74m7eeNyl9psGVBLy2fw+qIUeu4IN2wFU=;
- b=elyC259SVTMyqBk0l4frCANmCy89K7DpPBTpuRTUMXw947gQDhynzotB9VX37rmI9v8q8mIIMQOAHF6UracYVplg8LnrGWGtPP3H4POWIicZXNX4kMZXavhJYBSCaa5mQ/tzZ09zWrfs21tVBgNv7MpTaInX5bzG8Ghnoup1+qlKcuf6/Q2C4KYzN00ZwpKPvWNdCRd0c9KtRAX9ywcdixDiCcXl2VJX0lw6spnPmhXrxhL2EoO5jfT6w9X8UNDjy3WjZmM6c3DjI2ru1j8rtHCduHxL5+q+633+y1m3UC7XbCSNLGSMoXO9t1r6ZXawXqnMOPSZo7GcuFGsISejZA==
-Received: from ME0P300MB0853.AUSP300.PROD.OUTLOOK.COM (2603:10c6:220:22a::5)
- by SY7P300MB1436.AUSP300.PROD.OUTLOOK.COM (2603:10c6:10:2c3::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.48; Tue, 14 Apr
- 2026 09:47:43 +0000
-Received: from ME0P300MB0853.AUSP300.PROD.OUTLOOK.COM
- ([fe80::1e3f:9cb9:4a95:b5a2]) by ME0P300MB0853.AUSP300.PROD.OUTLOOK.COM
- ([fe80::1e3f:9cb9:4a95:b5a2%5]) with mapi id 15.20.9818.017; Tue, 14 Apr 2026
- 09:47:41 +0000
-From: Werner Kasselman <werner@verivus.ai>
-To: =?utf-8?B?Q2hyaXN0aWFuIEvDtm5pZw==?= <christian.koenig@amd.com>
-CC: Alex Deucher <alexander.deucher@amd.com>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Thomas Zimmermann
- <tzimmermann@suse.de>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v2] drm/amdgpu: fix integer overflow in
- amdgpu_gem_align_pitch()
-Thread-Topic: [PATCH v2] drm/amdgpu: fix integer overflow in
- amdgpu_gem_align_pitch()
-Thread-Index: AQHcy8zDxF1cRH/ziUyO+ZJ1bKaRhrXeSgiAgAAFv4A=
-Date: Tue, 14 Apr 2026 09:47:41 +0000
-Message-ID: <20260414094721.459068-1-werner@verivus.com>
-References: <20260406225008.2787532-2-werner@verivus.com>
- <20260414050840.244705-1-werner@verivus.com>
- <8892f093-a98b-481e-b01e-4e640d2edc54@amd.com>
-In-Reply-To: <8892f093-a98b-481e-b01e-4e640d2edc54@amd.com>
-Accept-Language: en-AU, en-AT, en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=verivus.ai;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: ME0P300MB0853:EE_|SY7P300MB1436:EE_
-x-ms-office365-filtering-correlation-id: 301cf7e3-4734-4507-29e2-08de9a0adf2c
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|1800799024|366016|376014|18002099003|56012099003|22082099003|38070700021;
-x-microsoft-antispam-message-info: f3/0xLg0Y38vqpFaDXaFFhcq/7cXXmxBeeFKddsiTB8qKm5Xktl+fEdW6pTUvljABARrt3LQjfZMcoIrrAx5r/6IuIXVugJSDpsdTyw4Z2rhlo2d+3LXELkOEE3sk5uFawhokhj2TezLrZKvHjLghzNeTXo+q6/0e+tx8IJ7R351PIkgGp+UApn2H3/qDhnnt2ghwlK4U61umiecTh246qjlFzc+8FbG8/HgmAtk0t8VrV7wqPEYOECVKvKJecNXVioWn/0aA8Iob42Yx8b+wR8SVNTrdDXGZLYZY0jR2Bd7n+mzk8x5zwVIzpdoD2a2zMAQK4Ek3yenBWujv9+3Dh15Ov2w4aqwJK7yOALPeyZh8XjQsarVGcyDPm8lw1f5DrBpS5Cq26tG+zaV0ZLk0J7LCiOJPcv41tEpfemoPVKDLnspze2iW3OGE7mh1PRdAk7em/NDuvU0fdFxll+fq8e0oGnPaBmolW6oK4rTfKL88IbnY6DBLZFNSSteYt+i4ccovJc1QInCi8U+i4NvU2q/+VDzgjYK0A+juYHiYPIAVN32hja0rMlEOZUc3Y+dP8inNCkS8noM3GrGAHY+mjywOhjHZampuB5qp/6CuMVPsAplf1+Z68l7CYSMjv1Ux5lyOyK9iG5L5RDdo69L4O5YxkOlmwwvQj6DQcoSPwk8HBdCCAfBSMrZQOaAQTw5egzygeHFnKE77v56DU3Nmmj+psSvNIsG9r5gHOkQTxlftBUtQHD7wP905kmJTwsy6Hq81327XPz6xnVbCcF/6sohR528Wkb6zy08+71/gZY=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:ME0P300MB0853.AUSP300.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014)(18002099003)(56012099003)(22082099003)(38070700021);
- DIR:OUT; SFP:1102; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?dUpFdWdDV3BWeTdUdEo0NU0zVVJFTjFOYU5ROFdFS1g4d084U3BNczQ1Q0NI?=
- =?utf-8?B?RWp4SGNLMUFzUDdIZTRWMmpFbWRQUWNHc09QQmJRWTVtSnFaNEpIWUlmeVZy?=
- =?utf-8?B?ZjRKZHNHUzlONjNoUTdjcCsxT3BzU3RxWGlDa2VTbjJ4MkVlY3Fhc1BUU0JK?=
- =?utf-8?B?ODJzZFZURjVHdWxnSFZpemwwY3BxYi9ITjB0YWFFY0JaYm1UaWZyOTFtRGY2?=
- =?utf-8?B?RmdRU2VVR1ppdHZOUTBYMVZzak12VjlUdjJoTFFMa05FRTJENWd3SDJTd3Zz?=
- =?utf-8?B?b0ZRRHBrZFNQZUhjNTU0Wi9ldUc4L2VGelBtV3I2SEpuNnd3RVczd0JzMHRz?=
- =?utf-8?B?ZG1BMmRBVjcxVXVUd1lTOCsrU0syUjZ5NDBXaEFVMjJJREdHTGNMcXpKMGpv?=
- =?utf-8?B?SjQ5VUYrSmFVdmpJUGRQcWJNamczdDBDQU1tMlQzcU1oZjBxMDNVa0I3clRo?=
- =?utf-8?B?RzlzQ3dzMzc2akZYSlUwa09ubnZIMDFxZnY4emNCNDFEU3lvQUQ5djg2bytT?=
- =?utf-8?B?WEdsN3l2WVkrckNCY3grNWk5bXhtbFhPS1ppTnlmQ1owYXRkYnJXNWtoNzRh?=
- =?utf-8?B?ODNOYXBNREZOb1QzK3RCdnZFSDc0ZVFMMGEzOTZDTEJVK2Rpc2txS0JFd3hk?=
- =?utf-8?B?a0czL0JNV2YzVmRwUExLY29BeGZIdHlmdGV6NWVjWlJtVmoyWlVzY0dXdkx3?=
- =?utf-8?B?R3oyTGhiakdpYWFpN2tTL1k3MGtUdjdBNzBuTkcxb1JKVFdKM3FaWjM3aWty?=
- =?utf-8?B?cmJUcU1odEx0dmxqbE9hS25IWHVaZy9qZE1QU3psRHFMRURhclFYa3lpMVJQ?=
- =?utf-8?B?Y3BWbFN6SGJhVmh3UWdOK253a2dOS0lhcWM2bG84V3BONGtqRXJsTXJyYzZk?=
- =?utf-8?B?dTF2SXhQWDBTdjhXV1FtN045VlNDSk1NdVRpTFRBQUVWQmdOTTNvUHhvcnNF?=
- =?utf-8?B?OWhFdjREck1nVG5hNFEzTnZseitETmdkUW03TE1LeVZndlIyVHNpNW9mTnZx?=
- =?utf-8?B?VHAweXJ3SWI4YXRBMCt2elB5QVVXVmRkS3Zwb3FJRmQ5bytTcmRWaVpSb2xQ?=
- =?utf-8?B?d1MvT3lEamc4YkFGNFlOWGYwMUxVTW4yK0lQWVZNS3NEdzNFWEt0aU1KL2o5?=
- =?utf-8?B?Zlc1dUdZUFVyd3lDKzV0ak0yS0JjeDM5aWlobG1EZDZlL3g0WnpMVlg4c0JS?=
- =?utf-8?B?Nm93bWh5eXgyT3YvbS9OMDRCZ282WkR1RTFkM3RiVnlJdHM1c2lIcXNPTXJQ?=
- =?utf-8?B?MEYwcjFLZ0dFNFUyem1Ea2hIK2RpZHhoRXhmcnBJVXh1WHU0NVhMc09TZVg5?=
- =?utf-8?B?UHEydTZFc2hwODNXaUVaUVZETFhDdUsyWjU3RXlvaVJRNWdSbjZPNGJqL003?=
- =?utf-8?B?Z1NZQnU2WmQ5VEhQamRPQU02aUFrUndCRmY1UFc4dDk5SlhuTFJGZHNGby9q?=
- =?utf-8?B?SUUydUFMZmgrclhZWW1GVWNXKzNyd1JSaXdZaG50MmZSOFZWYWo0OSs1OWR6?=
- =?utf-8?B?QXA4aFFzZWVRWlVaTEpVQjNTbzBQQjkvcE1ZZjIwVFdwZGQrVHRZdGtpaEpo?=
- =?utf-8?B?RkxhS1hSWk5iRXFZSkRCL0IyOVZLU2VsaTZEQ2t1d3dxZjE0bGdYVyt6NHNV?=
- =?utf-8?B?UVlxcS9qbDY0SXhNNG05RkV2MGlZdmVtTG9ZVHlRUWNjYWNjWTVaVkpmTWdn?=
- =?utf-8?B?WnY0Qm1zOWxyM3lpbGZReERKK2xVVWJUNFYwREFVQjdaWWlLTmJJMjBmdmwv?=
- =?utf-8?B?dVRBRGxJaElGbHgxNFFWbVNGT0UyUUZRT2FxM0JiUzFSRE8rbXYwelUvTFdU?=
- =?utf-8?B?eUZkS3Z5ajh6N0VCemxWcTJGRWZLWG1peTlrTU56RmZKZ3RrZlVrVnNVcFpi?=
- =?utf-8?B?QUhZU2hGMkRpbyt4OVlOaytPRUdVU2VXUjU2RWxxaUdYcHlqNUp5ajEycXUw?=
- =?utf-8?B?QzNOWmJ0SERDRE5GazczeUhPNVBEOVdNY1BmTXpibTQ2RGgxRU1WL0hJRG5Y?=
- =?utf-8?B?SlN3SFhTclg1OS9uV09yT1E3ZkZiZ3ByTjNqOXRZZWJyOWpRdWhpd2N6Zytp?=
- =?utf-8?B?cFZheGZMQUNJdjRzcStuY2VUcHhyQ1pWbUw1VEV2T2R2TGk4ZzNXWUVsakpK?=
- =?utf-8?B?cVA5UWtKZ0o0YlM2dWN3YXFWQllMRmRSNG90c0srbC9sSXlaR1BWSTc0eWZq?=
- =?utf-8?B?TlEyampRZ282cGp5SlJJOVNDR1RtWmxyRWdXV0dHQmQxeE96NUp3REpVZUcx?=
- =?utf-8?B?WGwrYUxWMVBOMXo0Q2Z2Ty9yUDVZY3gyMDdsTHZLZ2tsay9PV0NOck9aOWU5?=
- =?utf-8?B?a3NqdXpJcVMrdFBaKzQ2ZkZnZU4zWmRnbkowcXZKUHJkaXJEU2JGdz09?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <F87C71B660AA7D428ED3056FF26DF5B3@AUSP300.PROD.OUTLOOK.COM>
-Content-Transfer-Encoding: base64
+Received: from mail-dl1-f49.google.com (mail-dl1-f49.google.com [74.125.82.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C129B10E5FB
+ for <amd-gfx@lists.freedesktop.org>; Tue, 14 Apr 2026 13:11:37 +0000 (UTC)
+Received: by mail-dl1-f49.google.com with SMTP id
+ a92af1059eb24-124a7216c9cso324243c88.0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 14 Apr 2026 06:11:37 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1776172297; cv=none;
+ d=google.com; s=arc-20240605;
+ b=B5eBUc8Vzeo54rvJuMr9E6lnt+McM/AkFyIt7Uum1BupW8o4xd2QGRLaDlkY08sPaR
+ DtJ7+JoyhjRChkwneztH+StcXO17bYcV4CKjQoDR73GuTO+cQnPUJ1sueff4qc7Irq6L
+ y6BzuOAY5uv8U+4PB9nds96Xcs11dxYUzxxzb3UZlG76S66blg4yfqXcUTJpwHdLkmq4
+ /KaUDg6u3xqpzXUQSjpMmpcCTbJHgWNIjUaWBil5IA2ngcrFb7iuBZFe7EourReYiRrn
+ 7eu3x0Yv8RMKAH+TsHVpqT/FIbujYAyoOCUyBC0+BJ11sOqhNtopv9VFzVoQZPEbWsJD
+ 6m5A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=xAUGbKK/fQ8I+ulZb26pbb2JDvVKutYnIPXuPQk8XPY=;
+ fh=kVxK90IDavuIyCA5gQtkGxIldLhJPj1NF7JQyMxdCx8=;
+ b=iq2ickLT4X0PhlDZvv2HdAGDzotiXaEfKuhlFzIfHGD1TdVh834rB2xqb4ivi/X5Iz
+ K8OYhygLf23K4HIz33OcnJObcBC9sl4lrQfauKDb55L1d4pQiQK1q0uYGaBVyZyVOeIS
+ 1xS+eMr3ORW2HTwvY00lp/rkyM3/u8XV542xevj0rq2mqFAYjchpvOGmLDGNJZlSD6SG
+ 5U6z2LR/JMYNshJPEyn4xfLH2nTBtFqyw0FKtTHJc16I9tJNi+FoKnYrRCIxsHGy7bEf
+ lRfDjK/XzN2nP5YvOwkf04lOlYmQjqlpAMzfl/1UGQuac3ugY415IehFCg7XugW/cQI0
+ vThA==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1776172297; x=1776777097; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=xAUGbKK/fQ8I+ulZb26pbb2JDvVKutYnIPXuPQk8XPY=;
+ b=BZiajlVqwDbLpL+ZXq0yR1Om0zeAfFybcyhXZBB4UqYrWdQsrT14NHU2CYajptNduC
+ 8pOlmsb3gF5uX6m5ak7ngzhtjsGrhUaFbz2XlxcqtWRiNUS8ND9pBHT1BDPb+dCHh5Lt
+ ww9T1fU3V9BD7dkFbxFE8i0Tz1wbPJQp+M4KBhhcQHhLD5ZzmNHRNCLr7L66telxvXke
+ nOHzggFdqAwnd1aAtxVi6LFIEukPCOYuAUkp2e7vvWYs9Z1CPMtdCOtklzz+yVB/3Iyt
+ zipP94FNLP8p6/lq9uxUFQHjqcRjbiCCHoeXTWLXheGyaRS4Cvk6RaU2xUYY653wVWsk
+ Liog==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1776172297; x=1776777097;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=xAUGbKK/fQ8I+ulZb26pbb2JDvVKutYnIPXuPQk8XPY=;
+ b=SEgaOCmoAE9Y7mx95ySRzhxAKt3MrqG0Xr7F2IqyqrY1fAyrd8RDY56sjkv7Hz28wl
+ sYLXi3gbYNBkX11xkIoisanNCD4vZjJZx/U+xqHr/VWB7wvZUaDFFPse+FegDtkS/ISl
+ Mtd1EyzS3FcCM7ikr4LYnd2YGk8QAMvFfPfkF70+ZwMNy1uTvTH9JnsokVn6Qq7K/sO8
+ j4RLUNqpxlHr0p3beahIM1YPNjkW1oJoE1eFaKD9HhYMoT940eOS6oeo2tRjgDVJgWf/
+ NVXcIjqX59WaA+MYM2j5k4CORwd92NZb9ogfmIHW4v0w9HJxJk/2Cojed77C+6b6KuN5
+ 9rpA==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ9pRLK/XEQNw1Kbe0+P+CYn1rPPafpY0aEievIv/7ZSfQBgP8TV/4e0SRZwU5mye2KwI0uQ8mzQ@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yy+x9bNKJaFtnrhAJlg//s8p2nDmQu/dGj2ylLUaNUJ/nWvxk6h
+ VAtkkkzyJADfdoUedsIdJcYCIxWHzV+9102XS6sb3oZ5GjkjE9J87HSg/h6v3K+y7ujNyYozXgr
+ iSVFBh0E+gudgRDEpouLslc0/CW5hZ3g=
+X-Gm-Gg: AeBDieuZC0zX1VvG9KjeRnVlynz0kvwisG5L9MyYq04Yoo+txH8QrdnqH/V3Ty6vlW0
+ Vg65NuHQBQnV1L930goV2Wr22Z721ZvoYYGy7pdQb4sG5ltxvO2z+i8MZMb7JrkCM6Ow/MZjOZG
+ CxR4x/pv10q7Ez3iWvjLSXW6gxUelYVoJGxtOqFK4WoMB67cfrcBEG0QLHnqAOYi0DiAjHcLoGV
+ VK55xUTnRpZbARmz8+3CDPDvXgncb14xsE0dsOyZfYPhtyj4tSkttU+mfrccP188e2hKRqqgGdE
+ bTGQCMyA8aTtIcvEDx0HKjSX3pZdbqINt5NIt1v/XaTeZjYMgO/rBmI2NQY484BRdONA9Q==
+X-Received: by 2002:a05:7022:31b:b0:12c:3ef2:ef0b with SMTP id
+ a92af1059eb24-12c3ef2ef95mr3052157c88.6.1776172296806; Tue, 14 Apr 2026
+ 06:11:36 -0700 (PDT)
 MIME-Version: 1.0
-X-OriginatorOrg: verivus.ai
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: ME0P300MB0853.AUSP300.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-Network-Message-Id: 301cf7e3-4734-4507-29e2-08de9a0adf2c
-X-MS-Exchange-CrossTenant-originalarrivaltime: 14 Apr 2026 09:47:41.7567 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: ccdcedb0-4edc-4cc8-9791-c44ee6610030
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: F6RXQxm/g84/9RDGG4qq9qE7vqHqIfxWgMAk9/h3bBpzU4lGpGk4DWMpLGs9bGL9aPyuuEe0LZ88YTXPwsmW5Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SY7P300MB1436
-X-Mailman-Approved-At: Tue, 14 Apr 2026 13:06:54 +0000
+References: <20260406225008.2787532-1-werner@verivus.com>
+ <20260406225008.2787532-3-werner@verivus.com>
+In-Reply-To: <20260406225008.2787532-3-werner@verivus.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 14 Apr 2026 09:11:25 -0400
+X-Gm-Features: AQROBzAsbCXMjAgIiqqWYbip5sdNaqMuufvvZpt7WJlaFFjmFoOYluDAPOh2VSY
+Message-ID: <CADnq5_OVN+uCioTWNeuHkGpkUU-VhEio_uMEBMVur6-hWXwtug@mail.gmail.com>
+Subject: Re: [PATCH 2/2] drm/radeon: fix integer overflow in
+ radeon_align_pitch()
+To: Werner Kasselman <werner@verivus.ai>
+Cc: Alex Deucher <alexander.deucher@amd.com>, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, 
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, 
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, 
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
+ "stable@vger.kernel.org" <stable@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -147,9 +111,67 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-T24gVHVlLCBBcHIgMTQsIDIwMjYgYXQgMTE6MjYgQU0sIENocmlzdGlhbiBLw7ZuaWcgPGNocmlz
-dGlhbi5rb2VuaWdAYW1kLmNvbT4gd3JvdGU6Cj4gVGhlIHBhdGNoIGxvb2tzIHZhbGlkIHRvIG1l
-LCBidXQgSSB0aGluayB3ZSBjYW4gZHJvcCB0aGlzIENDOiBzdGFibGUuCj4KPiBTaW5jZSBkdW1w
-IGJ1ZmZlcnMgYXJlIGEga2VybmVsIG9ubHkgaW50ZXJmYWNlIHRoZSBmaXggaGFzIG5vIHByYWN0
-aWNhbAo+IHJlbGV2YW5jZSBhbmQgaXMgb25seSBvZiBjb3NtZXRpYyBuYXR1cmUuCgpBY2ssIHBs
-ZWFzZSBkcm9wIGl0IGF0IGFwcGx5IHRpbWUuCgpXZXJuZXIK
+On Tue, Apr 7, 2026 at 3:41=E2=80=AFAM Werner Kasselman <werner@verivus.ai>=
+ wrote:
+>
+> radeon_align_pitch() has the same integer overflow as amdgpu's variant:
+> 'aligned * cpp' can overflow signed int to 0 when alignment rounding
+> pushes the width past INT_MAX/cpp. This produces a 0-byte GEM buffer
+> via radeon_mode_dumb_create(), reachable from unprivileged userspace
+> via DRM_IOCTL_MODE_CREATE_DUMB on the render node.
+>
+> Add an overflow check in radeon_align_pitch() and reject zero pitch/size
+> in radeon_mode_dumb_create().
+>
+> Found via AST-based call-graph analysis using sqry.
+>
+> Fixes: ff72145badb8 ("drm: dumb scanout create/mmap for intel/radeon (v3)=
+")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Werner Kasselman <werner@verivus.com>
+
+Can you fix this up similar to the amdgpu patch?
+
+Thanks,
+
+Alex
+
+> ---
+>  drivers/gpu/drm/radeon/radeon_gem.c | 9 +++++++++
+>  1 file changed, 9 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/radeon/radeon_gem.c b/drivers/gpu/drm/radeon=
+/radeon_gem.c
+> index 20fc87409f2e..2cd179fef347 100644
+> --- a/drivers/gpu/drm/radeon/radeon_gem.c
+> +++ b/drivers/gpu/drm/radeon/radeon_gem.c
+> @@ -828,6 +828,11 @@ int radeon_align_pitch(struct radeon_device *rdev, i=
+nt width, int cpp, bool tile
+>
+>         aligned +=3D pitch_mask;
+>         aligned &=3D ~pitch_mask;
+> +
+> +       /* Guard against integer overflow in aligned * cpp. */
+> +       if (aligned > INT_MAX / (cpp ? cpp : 1) || aligned <=3D 0)
+> +               return 0;
+> +
+>         return aligned * cpp;
+>  }
+>
+> @@ -842,8 +847,12 @@ int radeon_mode_dumb_create(struct drm_file *file_pr=
+iv,
+>
+>         args->pitch =3D radeon_align_pitch(rdev, args->width,
+>                                          DIV_ROUND_UP(args->bpp, 8), 0);
+> +       if (!args->pitch)
+> +               return -EINVAL;
+>         args->size =3D (u64)args->pitch * args->height;
+>         args->size =3D ALIGN(args->size, PAGE_SIZE);
+> +       if (!args->size)
+> +               return -EINVAL;
+>
+>         r =3D radeon_gem_object_create(rdev, args->size, 0,
+>                                      RADEON_GEM_DOMAIN_VRAM, 0,
+> --
+> 2.43.0
+>
