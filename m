@@ -4,96 +4,146 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F0E7FF433C7
-	for <amd-gfx@archiver.kernel.org>; Thu, 16 Apr 2026 04:51:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A9BDCF8A148
+	for <amd-gfx@archiver.kernel.org>; Thu, 16 Apr 2026 08:46:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 937CC10E71A;
-	Thu, 16 Apr 2026 04:51:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 080A110E849;
+	Thu, 16 Apr 2026 08:46:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="NxqGmS8G";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="ErYsYKbU";
 	dkim-atps=neutral
-Received: from PH8PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11012021.outbound.protection.outlook.com [40.107.209.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7B7CF10E71A
- for <amd-gfx@lists.freedesktop.org>; Thu, 16 Apr 2026 04:51:00 +0000 (UTC)
+Received: from CO1PR03CU002.outbound.protection.outlook.com
+ (mail-westus2azon11010056.outbound.protection.outlook.com [52.101.46.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 413EA10E76F;
+ Wed, 15 Apr 2026 21:06:15 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=bQ8SDEwh3xwHnEopt46jIZM+DlPn0eKc8yMZMqrAW7346yBUOlaUCiUnh5dRQKzzcTudRm/kLuuNUv8Jjz6EEYxpM4vjKqSFh06bAdxmQbbKMu3QO8ib3tlVg4aJKkrNiNhRx8ycFfmfquHa5RnWG/3+ISbmF/5VydcdyOF5pawaxK66UrtXYK7C1Ix1jG4FYbsjIeMZ4NXsFsc3ZSF9FcceVXBADJGC2ZuAS4H9WgkPu0C0odca+5pW7p4P/zo09MBsO4UfMS2k6SPisQFX0gIyg5ncA7EOeSpAuEukhQTikmshVqw5E1DVXdVSJBXbtI0CsB23CJ9u1rrrbwJMtw==
+ b=SIC+H06auRgnAVQ5rNYTapbCHGnnc5Nko9z8ldnkchsUlie6Eh/u8vNg+PuzOpWa4siOtJeltbd3KFtbzQrZdgczhurwYVJptylV9D0QtXjExzLRTF5pTJuABSskrGxRmoV+sQF4GiOcE+34a/EZGyr9MxIa1a7u1LVHAb+b5XtNbruayOB/Q2PL191N8jowFYtBHL2yRKR5LEUNfb9PZRGHUoXur9PgGO0tosF94fD3SVAUhEP9iCx/15DtRpBQrPHzLP1hYgRg6a1/voWW+rBJ5l07TzMBLKw1qXlZNUobClQr46wrtcEVqnqgAH05x1/jyT9L2RvsfghxiEuD0g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8eAaS7cXGYhPIPtq4KHOJGH3QGt7vIGRUSIcfDV6ByA=;
- b=c6kUC8pss7ZNgTNFtuWwn4rgZXp+v2airGvDqOBGva2Nd4vbZQWEF0bbKh/fOqXGSNKZjykvkzixy2TgnJGg4jjYtPAPnnVp61gMbb2R9MrrMnh55vuiee9r/NvOEFzzL917VaE83v3cuCxi6OVy+fIhhPDQY5KVa8L3RBIRZno7VUR2c9d/mw1rKHoMhmezLtNR0MQcZq239ul+tw6iN55eKqczlgdHfltjQxhel+suCujAjAoiFkIK1UCyDgS4i5dbCqBTuDB6zpdCjguD2f7F5ltP+XpEwTyGJCTRQmeGcigWEzJPVwU5rW8QlgmBFNFS2JbezET9PI7s09iqZA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ bh=mTsPJpjCt9AO1iOWluO2YR/lmh8ZNCKSqxBURU6tKxU=;
+ b=Aihiq/0z0dhqazaiSKr4bOgaJs3hk8uoIDDEs6s71NWZEEHiiN//mXelHFHWxmsPqqB88Tdteo9o7tez6eVbn6aqTLMt3GfCabxEts02gjoiM5Zcee3PKm8fGgLLv4yxMOAedKLsZPYp9eOcVvVVuZkMEDtmuF75Wm2Hpm8uwe66C7UUL3gxZ5Fdu/92kpO6bjPQutyGc76kskn6PCZUtzGSNtIzLWaZKQH2Ag8iy+DlJTHO18e2JQ1B0LOB2jt9cs/QkF9FQNtbBv+4liu2W4knovdQm6IWh3YCDIIBnJmpOVhK7vLabStPEFVMxwSGIz/08OZqAgLQwHczK7ZWsw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8eAaS7cXGYhPIPtq4KHOJGH3QGt7vIGRUSIcfDV6ByA=;
- b=NxqGmS8GpVBYNDiCB+fIAIj+tCuv9AE8YTMcwExC9UdUVDyFx6tCsBXaHc2OiLn0iGIwREAd512iOk0GmXDZ2/hTILF7RYWiy0wZM2i8QHNzU8T7Gg5NC0ZHjJCN+RfxoCqd9zrfrOg00QGNtDo8XAxTCheaWXmyWvYP6UIOUfM=
-Received: from MN2PR18CA0020.namprd18.prod.outlook.com (2603:10b6:208:23c::25)
- by CH1PPF0316D269B.namprd12.prod.outlook.com
- (2603:10b6:61f:fc00::604) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9818.21; Thu, 16 Apr
- 2026 04:50:46 +0000
-Received: from BN1PEPF00005FFE.namprd05.prod.outlook.com
- (2603:10b6:208:23c:cafe::95) by MN2PR18CA0020.outlook.office365.com
- (2603:10b6:208:23c::25) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9769.49 via Frontend Transport; Thu,
- 16 Apr 2026 04:50:40 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BN1PEPF00005FFE.mail.protection.outlook.com (10.167.243.230) with Microsoft
+ bh=mTsPJpjCt9AO1iOWluO2YR/lmh8ZNCKSqxBURU6tKxU=;
+ b=ErYsYKbUmjwQ44c4E4WSETlOa9/PuGM1sSMf+GcMH9kxg6DoNYcMOn6VI3W8pURjQKyyQ3TTNsabgDczuZ/UCdjo6sLvwQZoQS+qEjJfQQqF/itHrjmsPDKK301nGKkXvK1m1/xOX0aw0L79Md7yzBKLvI1WgAmWUIySznHinTTFwZXCQCoouY0/dCakStgUIm3iq4xt/MqVwt3AlwvJRUMBvvGgt6lai1cnFQzVem2TSRuJCpzAd83Bo9c0J/DhJUhRZl4BM9rm1T0hn9Rr3waGys7wiMJsOXrKvGbWV6JtlusA/3x/dfNsEuVtiEiOIA4CD29QojHCY/NNDRiWWA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DS0PR12MB6486.namprd12.prod.outlook.com (2603:10b6:8:c5::21) by
+ SA3PR12MB9177.namprd12.prod.outlook.com (2603:10b6:806:39d::5) with
+ Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9769.17 via Frontend Transport; Thu, 16 Apr 2026 04:50:40 +0000
-Received: from pyuan-Chachani-VN.amd.com (10.180.168.240) by
- satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.17; Wed, 15 Apr 2026 23:50:39 -0500
-From: Perry Yuan <perry.yuan@amd.com>
-To: <Alexander.Deucher@amd.com>, <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 2/2] drm/amdkfd: bump KFD ioctl minor version to 1.23
-Date: Thu, 16 Apr 2026 12:50:25 +0800
-Message-ID: <20260416045025.1825888-2-perry.yuan@amd.com>
+ 15.20.9818.20; Wed, 15 Apr 2026 21:06:07 +0000
+Received: from DS0PR12MB6486.namprd12.prod.outlook.com
+ ([fe80::88a9:f314:c95f:8b33]) by DS0PR12MB6486.namprd12.prod.outlook.com
+ ([fe80::88a9:f314:c95f:8b33%4]) with mapi id 15.20.9818.017; Wed, 15 Apr 2026
+ 21:06:07 +0000
+From: Joel Fernandes <joelagnelf@nvidia.com>
+To: linux-kernel@vger.kernel.org
+Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
+ Gary Guo <gary@garyguo.net>, Bjorn Roy Baron <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
+ Danilo Krummrich <dakr@kernel.org>, Dave Airlie <airlied@redhat.com>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Koen Koning <koen.koning@linux.intel.com>, dri-devel@lists.freedesktop.org,
+ rust-for-linux@vger.kernel.org, Nikola Djukic <ndjukic@nvidia.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Jonathan Corbet <corbet@lwn.net>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Christian Koenig <christian.koenig@amd.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, Huang Rui <ray.huang@amd.com>,
+ Matthew Auld <matthew.auld@intel.com>,
+ Lucas De Marchi <lucas.demarchi@intel.com>,
+ Thomas Hellstrom <thomas.hellstrom@linux.intel.com>,
+ Helge Deller <deller@gmx.de>, Alex Gaynor <alex.gaynor@gmail.com>,
+ Boqun Feng <boqun.feng@gmail.com>, John Hubbard <jhubbard@nvidia.com>,
+ Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
+ Edwin Peer <epeer@nvidia.com>, Alexandre Courbot <acourbot@nvidia.com>,
+ Andrea Righi <arighi@nvidia.com>, Andy Ritger <aritger@nvidia.com>,
+ Zhi Wang <zhiw@nvidia.com>, Balbir Singh <balbirs@nvidia.com>,
+ Philipp Stanner <phasta@kernel.org>,
+ Elle Rhumsaa <elle@weathered-steel.dev>, alexeyi@nvidia.com,
+ Eliot Courtney <ecourtney@nvidia.com>, joel@joelfernandes.org,
+ linux-doc@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ linux-fbdev@vger.kernel.org, Joel Fernandes <joelagnelf@nvidia.com>
+Subject: [PATCH v11 05/20] docs: gpu: nova-core: Document the PRAMIN aperture
+ mechanism
+Date: Wed, 15 Apr 2026 17:05:32 -0400
+Message-Id: <20260415210548.3776595-5-joelagnelf@nvidia.com>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260416045025.1825888-1-perry.yuan@amd.com>
-References: <20260416045025.1825888-1-perry.yuan@amd.com>
-MIME-Version: 1.0
+In-Reply-To: <20260415210548.3776595-1-joelagnelf@nvidia.com>
+References: <20260415210548.3776595-1-joelagnelf@nvidia.com>
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
+X-ClientProxiedBy: CY5PR20CA0009.namprd20.prod.outlook.com
+ (2603:10b6:930:3::22) To DS0PR12MB6486.namprd12.prod.outlook.com
+ (2603:10b6:8:c5::21)
+MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN1PEPF00005FFE:EE_|CH1PPF0316D269B:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5e1e5839-91f4-4e43-1aa6-08de9b73b5e3
+X-MS-TrafficTypeDiagnostic: DS0PR12MB6486:EE_|SA3PR12MB9177:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5ff7a949-00af-4888-4873-08de9b32cfe5
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|1800799024|376014|36860700016|18002099003|22082099003|56012099003;
-X-Microsoft-Antispam-Message-Info: cJyoL0dogajmhMiOX6S3BfEjhZOVtiyLEIvbRyAFlx9A7ogS1181hUVqsV5Nl/lzToTDtkJyESjhobZDXS2FHt3JgznRbiJ8MtunWUQaOs/DZozHS/0hsRoZzohe5yrx6KDxyYbxliO8EXZpJWeK5hHhVv/SPHtLo3MK0u2nuaZYIvwAkCCZjXMtze1VuGqGAkh5wIDYxktm6M/wHVQnhNQmaHLkL+5s2oMDmpnAtAZ5Ho1bTX7P49VRPCE68NlixVvCpH+wsvyO5pyK79oUyYTeDLCmbyDEXnM8DBpPkKqQ8ScYZiMargd0ERBMBoaQhS82nlF+kFvxy+Ild/2St3eECAEwXU1Fqn9XfrElB+XVZGMc7Vkfpy6EMqqsYHPuCLTfu/oUtipz5QGh77eZYX3r3RJR0pZJOf+Sbvuqd/MmtLS8ekKhkI+48FOMHHyw73XwJ2F+DM11PXOTOg52dYFr4NIC1Nbc/CxcAYzMLv7ncWZZempDMI/S/Bp9EQS/BVlD3RKnbx/qCrvvozy+vzj+DWKhizilXERDV6i/e2+r29f56F/YTcocMpwWjLdsZ3bxEnN0nh1QsriOFTHk1gUNWXjN6DxAyGapeA7yYxUGMaMj426rEwhl7WItdKRxsLxMG1oYffq1S6fHFnE95c6K2lShs+4nIXytYgyHzdEWrDWZtSc0Srjtn4XJbN3OYPLaKtyrGtmo09b0PZkbHnhaB6K0DpHN9DYAzDmIP3J//r/PN7WKyXrhElFgMpuP5Xewp8eeFY8Rwr4YW99WOQ==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(1800799024)(376014)(36860700016)(18002099003)(22082099003)(56012099003);
+ ARA:13230040|1800799024|366016|376014|7416014|22082099003|18002099003|56012099003;
+X-Microsoft-Antispam-Message-Info: cYV5Z4aDNjH7nWkkbFKHMXyR0UiDP+lA9E8sKAjFjDpIBtApOit+CjM9tanYxf/42t2AhoqWLatxWLYxX6IsXe3aTAP1Uw1Yov/RmCNSgViyaEdE4eRtGLw9sPNTxF8RbR7zqqVjp0EXPi6VBLeW5nlDIZ7rKVHk2EXHGjzHf9WFA+v7wrW+7ouWwl8XwrkjJFyxpZes4RycvIyKifQ3pOR+UEWhfOQqmIeJ1b68S1EWWPg/Y95njKcPMZLKAx6tTCu8hSThqxWkVXsSIX2dQDfKyjj5Ub2MiUbLwwDT6j1SMsiQ+MEh2vYxQ1dDt3bRmA3vWJKomKx1s4QB9zzbKhusoyAx9yR7FLYtbKm9iMssW01JOAzMbLfasIfdNvJxPCAD9TZeRgOOjl/10ZbET0h+WnyqP5jyuMOefk0tKYWoM3K9nT7drmhftuy9diEiZ/qXKGExL3sjoqDb5pseBrW+i/LKoLNlVtNKOMfq5MSjG2edsDBQlKINuGycON0a/gcInNIEpMeFm6Zctldsp2zmlMDqv4IeVtCd36UTY5yyop4t/qAJZKfYTJW5Zb5By2Vedg/SHPwrgsTFFPQxJ8TKKZguLqAe7WihRk2vpuoctb49xHNgRKblOFmL/spZBFacCZelwty5+49B+EsqfatW5o3XvA3UKEA+oEL/tQxOzjAgMZtLWb0/Kbr09NzP1+O/a8auOT0dwr9K+6exna6XCK6LTRSOP1aZFFmddIg=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS0PR12MB6486.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(376014)(7416014)(22082099003)(18002099003)(56012099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: xztoaYmMkEg/mAtKrt6t+RgAw4yjL5JbR7mHTpw0Z8OFfj38eLyaC4gYC2A/5z51z+DGRGkCTne/8/KBQs5lzpJ/C1brFYIVfUenxwh+pr0MKI/iiNblnG21obHfdrXkPlTLufz0iYDHodUBRRUU5U8AGmUQZ8CbnSn4T2G2aHBrR384JsFXb2GotgZSR3LYp1Z7GgbchWBrDik3iB2Fw4u1V1uuJM9leVPo8M99AvV3uNHXS/qdfpZw+daYPgDEGd4xa5FSQoeMqAk3qr/UMxO3BQ19FnKK8Loy/jUS6kz+Murvq5tFmWB17zj6ktGRxusD6Lm2dAbxfF65HiqTtrXfIqmjJiDARiNbuBOdsd+WQaET+hRw9OgepTWbtKhXkbxzD1TUG6+4OuFRdpqkDcBYPF0VrmCsXxOMx7+bWtB/ktXti5Zj4UBq4ehG+PvC
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Apr 2026 04:50:40.7865 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5e1e5839-91f4-4e43-1aa6-08de9b73b5e3
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN1PEPF00005FFE.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH1PPF0316D269B
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?As5d8m6zDkNIWwPDZYOGZyBTl05XOB+67jXyNJkunfO8p88uu95glasKouAG?=
+ =?us-ascii?Q?3fSwugZOlJESpKuTmj7iBrb2Fg7ub7DyCxFh3rpfvIF3yhYNhyuTsMoBRlc/?=
+ =?us-ascii?Q?24gLNi/HaYV1acknZguU2ALrKvU6cyyZje1LI/7Yd2OXKO3op26/ldlltYhT?=
+ =?us-ascii?Q?i9gQe6sKZuTDpI7q97avPVGlqbSwTPeFQ1YcbZS5VNV+nODTZi5WfQIptB4p?=
+ =?us-ascii?Q?wdbuKB0K0fCo2jmdA6KkdPS+US1AjWQ3Ri4J7YqYYOFT7TQZm8QrGZbM682b?=
+ =?us-ascii?Q?HMJ6bSDpj0PqMQJWWsZE0G2Ipg/1jiPIfb565WmnEH8/Zdl31ZMRW8DJGQIv?=
+ =?us-ascii?Q?XfzrMIcK7ehFzQquVC9pjPTyB/W1cBd8S37VjeDSbYFhm5VuMGGGs9L19d7Z?=
+ =?us-ascii?Q?YLU5CuhuzpoU0FJMHA4eStYceSfPBIxliJkoEL1hN7YJXFsleK4MCyUck7ON?=
+ =?us-ascii?Q?ULj3QjE4a8wgnfn8kUZ/fyZ29FTVzQO24nGLZdeevaEtyMai7FH62dgfAQ7O?=
+ =?us-ascii?Q?QT/oKPZUukEouAHiK5nrEs+pEUw/fg8RbbIAVrUnBU4XLQMK5fCSoNu6qwOv?=
+ =?us-ascii?Q?+sDdDjb6NRccsjFPRPQIhdJBZAXxxJKHSXof7L6HfwqwnXvKxOFr58B0EbOB?=
+ =?us-ascii?Q?qQP51zFzrrKhWamgXV1TxvXjvgEfVtn2NPLoPfznFRWt9jYCTFAWicaXVmyW?=
+ =?us-ascii?Q?NdCRCxRRF6WTqKOiBi1qByVS5pGXwVglDPeHWRITMYcQBb50Moh4pF+jrEsc?=
+ =?us-ascii?Q?z826nplzB9JWGUMAffHHuBZW6zi/zvC6vhLAsdLIADbzWDT6cBW6cIlx0UfL?=
+ =?us-ascii?Q?B6jePmj6580mJrQEY7yuTp4kfYIK9y47YjTCC2LbyqkiHKVS2N10ooq4y7mr?=
+ =?us-ascii?Q?dasgyJJmpdTK2n9jxz10ubmaTm0ZncS37cP96yDHsdYEq5Fy4HHLpS+L4PeB?=
+ =?us-ascii?Q?2JCMWRpsz3J3rKmhGabHORG15pCm3dSX5KyzirSR+/xtq6sIKU5gAzGKY+p9?=
+ =?us-ascii?Q?bQlNSeYnBX5e9zgx0jWMh5mqF6yaUcEjgfp/bOae5M6rllBDFbHQUtqfR6nj?=
+ =?us-ascii?Q?4howyeqRXjWxsdCmmW92x+C2oQpKfC8vudUvP6GB+3e0cIe6/6G4lEM0sMLM?=
+ =?us-ascii?Q?ddkx2Z9s+f2WtJUvc7WxpxAMxaHwCyK/f+uOnu/9Lc6ormOW6YovKozjwhFO?=
+ =?us-ascii?Q?28WrySyn4Cu1cPMQkP+DhYJ4kXHBr/VBxG6pcXTEjZUTRh+8wnh19Nwhw9VE?=
+ =?us-ascii?Q?H/jK6HY1O6awg6yfUtnfzRD43tZbccZnrorLkqBHLs0o46Qpny76weOsQyKG?=
+ =?us-ascii?Q?Ioypr53tOvgu0GtZY3UycnuF/sDmokPTkR78LcB8bEcm9utOUvKjDTEfHP21?=
+ =?us-ascii?Q?LaG/p1OPwN0lO+poNlhndVaGNW4+9wM76KL8fDNrp59iAfNzqWAVnl0hzMKf?=
+ =?us-ascii?Q?WL//F+0hIiaqKiP4ZrYH0zbM2pBsApXKhKyAbh1SgbZXElzipSf2/eqNWpAF?=
+ =?us-ascii?Q?LzqencomF+/w/QXIZurw+bxfUUZPgDr/Cs4aJmtWoU3SPL0mPLju/6B40bUr?=
+ =?us-ascii?Q?WedPkPwPyptvDiKtTLgTKJlaTBW5l1/c4p4INg4UF0Fm4bEybjGPF7n+rUBO?=
+ =?us-ascii?Q?zaCiMAL1Kwd1r8R2TZL1Jw0bTNX7GwftOhFujS7aDv7EJhjKS4ShMIfrEBN0?=
+ =?us-ascii?Q?jWNgK+w6GoDmSkmiYU1wpA6PmQTmRFDlUvbcwvyMcZTU1KWpkc1GsFtjfdhf?=
+ =?us-ascii?Q?HM4whob1CA=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5ff7a949-00af-4888-4873-08de9b32cfe5
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6486.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Apr 2026 21:06:07.2951 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: /yZqkAg5K7dd05ZRnvih871rRpVs7AOjXROkbOzqlMZAMu/t7ofDLI0FY0583LRqJaSdJLvW8mRwSoNuBpm63A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB9177
+X-Mailman-Approved-At: Thu, 16 Apr 2026 08:46:30 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,31 +158,158 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Bump `KFD_IOCTL_MINOR_VERSION` from 22 to 23 and document version 1.23
-in `kfd_ioctl.h` so userspace can detect profiler ioctl support.
+Add documentation for the PRAMIN aperture mechanism used by nova-core
+for direct VRAM access.
 
-Signed-off-by: Perry Yuan <perry.yuan@amd.com>
-Suggested-by: Alex Deucher <alexander.deucher@amd.com>
+Nova only uses TARGET=VRAM for VRAM access. The SYS_MEM target values
+are documented for completeness but not used by the driver.
+
+Cc: Nikola Djukic <ndjukic@nvidia.com>
+Signed-off-by: Joel Fernandes <joelagnelf@nvidia.com>
 ---
- include/uapi/linux/kfd_ioctl.h | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ Documentation/gpu/nova/core/pramin.rst | 123 +++++++++++++++++++++++++
+ Documentation/gpu/nova/index.rst       |   1 +
+ 2 files changed, 124 insertions(+)
+ create mode 100644 Documentation/gpu/nova/core/pramin.rst
 
-diff --git a/include/uapi/linux/kfd_ioctl.h b/include/uapi/linux/kfd_ioctl.h
-index 1a94d512df35..9584b5aab727 100644
---- a/include/uapi/linux/kfd_ioctl.h
-+++ b/include/uapi/linux/kfd_ioctl.h
-@@ -48,9 +48,10 @@
-  * - 1.20 - Trap handler support for expert scheduling mode available
-  * - 1.21 - Debugger support to subscribe to LDS out-of-address exceptions
-  * - 1.22 - Add queue creation with metadata ring base address
-+ * - 1.23 - Add profiler control ioctl to enable/disable profiler on a process
-  */
- #define KFD_IOCTL_MAJOR_VERSION 1
--#define KFD_IOCTL_MINOR_VERSION 22
-+#define KFD_IOCTL_MINOR_VERSION 23
- 
- struct kfd_ioctl_get_version_args {
- 	__u32 major_version;	/* from KFD */
+diff --git a/Documentation/gpu/nova/core/pramin.rst b/Documentation/gpu/nova/core/pramin.rst
+new file mode 100644
+index 000000000000..3e8adbabeb74
+--- /dev/null
++++ b/Documentation/gpu/nova/core/pramin.rst
+@@ -0,0 +1,123 @@
++.. SPDX-License-Identifier: GPL-2.0
++
++=========================
++PRAMIN aperture mechanism
++=========================
++
++.. note::
++   The following description is approximate and current as of the Ampere family.
++   It may change for future generations and is intended to assist in understanding
++   the driver code.
++
++Introduction
++============
++
++PRAMIN is a hardware aperture mechanism that provides CPU access to GPU Video RAM (VRAM) before
++the GPU's Memory Management Unit (MMU) and page tables are initialized. This 1MB sliding window,
++located at a fixed offset within BAR0, is essential for setting up page tables and other critical
++GPU data structures without relying on the GPU's MMU.
++
++Architecture Overview
++=====================
++
++The PRAMIN aperture mechanism is logically implemented by the GPU's PBUS (PCIe Bus Controller Unit)
++and provides a CPU-accessible window into VRAM through the PCIe interface::
++
++    +-----------------+    PCIe     +------------------------------+
++    |      CPU        |<----------->|           GPU                |
++    +-----------------+             |                              |
++                                    |  +----------------------+    |
++                                    |  |       PBUS           |    |
++                                    |  |  (Bus Controller)    |    |
++                                    |  |                      |    |
++                                    |  |  +--------------+<------------ (window starts at
++                                    |  |  |   PRAMIN     |    |    |     BAR0 + 0x700000)
++                                    |  |  |   Window     |    |    |
++                                    |  |  |   (1MB)      |    |    |
++                                    |  |  +--------------+    |    |
++                                    |  |         |            |    |
++                                    |  +---------|------------+    |
++                                    |            |                 |
++                                    |            v                 |
++                                    |  +----------------------+<------------ (Program PRAMIN to any
++                                    |  |       VRAM           |    |    64KB-aligned VRAM boundary)
++                                    |  |    (Several GBs)     |    |
++                                    |  |                      |    |
++                                    |  |  FB[0x000000000000]  |    |
++                                    |  |          ...         |    |
++                                    |  |  FB[0x7FFFFFFFFFF]   |    |
++                                    |  +----------------------+    |
++                                    +------------------------------+
++
++PBUS (PCIe Bus Controller) is responsible for, among other things, handling MMIO
++accesses to the BAR registers.
++
++PRAMIN Window Operation
++=======================
++
++The PRAMIN window provides a 1MB sliding aperture that can be repositioned over
++the entire VRAM address space using the ``NV_PBUS_BAR0_WINDOW`` register.
++
++Window Control Mechanism
++-------------------------
++
++::
++
++    NV_PBUS_BAR0_WINDOW Register (0x1700):
++    +-------+--------+--------------------------------------+
++    | 31:26 | 25:24  |               23:0                   |
++    | RSVD  | TARGET |            BASE_ADDR                 |
++    |       |        |        (bits 39:16 of VRAM address)  |
++    +-------+--------+--------------------------------------+
++
++    The 24-bit BASE_ADDR field encodes bits [39:16] of the target VRAM address,
++    providing 40-bit (1TB) address space coverage with 64KB alignment.
++
++    TARGET field (bits 25:24):
++    - 0x0: VRAM (Video Memory)
++    - 0x1: SYS_MEM_COH (Coherent System Memory)
++    - 0x2: SYS_MEM_NONCOH (Non-coherent System Memory)
++    - 0x3: Reserved
++
++.. note::
++   Nova only uses TARGET=VRAM (0x0) for video memory access. The SYS_MEM
++   target values are documented here for hardware completeness but are
++   not used by the driver.
++
++64KB Alignment Requirement
++---------------------------
++
++The PRAMIN window must be aligned to 64KB boundaries in VRAM. This is enforced
++by the ``BASE_ADDR`` field representing bits [39:16] of the target address::
++
++    VRAM Address Calculation:
++    actual_vram_addr = (BASE_ADDR << 16) + pramin_offset
++    Where:
++    - BASE_ADDR: 24-bit value from NV_PBUS_BAR0_WINDOW[23:0]
++    - pramin_offset: 20-bit offset within the PRAMIN window [0x00000-0xFFFFF]
++
++    Example Window Positioning:
++    +---------------------------------------------------------+
++    |                    VRAM Space                           |
++    |                                                         |
++    |  0x000000000  +-----------------+ <-- 64KB aligned      |
++    |               | PRAMIN Window   |                       |
++    |               |    (1MB)        |                       |
++    |  0x0000FFFFF  +-----------------+                       |
++    |                                                         |
++    |       |              ^                                  |
++    |       |              | Window can slide                 |
++    |       v              | to any 64KB-aligned boundary     |
++    |                                                         |
++    |  0x123400000  +-----------------+ <-- 64KB aligned      |
++    |               | PRAMIN Window   |                       |
++    |               |    (1MB)        |                       |
++    |  0x1234FFFFF  +-----------------+                       |
++    |                                                         |
++    |                       ...                               |
++    |                                                         |
++    |  0x7FFFF0000  +-----------------+ <-- 64KB aligned      |
++    |               | PRAMIN Window   |                       |
++    |               |    (1MB)        |                       |
++    |  0x7FFFFFFFF  +-----------------+                       |
++    +---------------------------------------------------------+
+diff --git a/Documentation/gpu/nova/index.rst b/Documentation/gpu/nova/index.rst
+index e39cb3163581..b8254b1ffe2a 100644
+--- a/Documentation/gpu/nova/index.rst
++++ b/Documentation/gpu/nova/index.rst
+@@ -32,3 +32,4 @@ vGPU manager VFIO driver and the nova-drm driver.
+    core/devinit
+    core/fwsec
+    core/falcon
++   core/pramin
 -- 
 2.34.1
 
