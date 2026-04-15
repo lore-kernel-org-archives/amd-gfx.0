@@ -4,60 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5F4CAFA0C43
-	for <amd-gfx@archiver.kernel.org>; Wed, 15 Apr 2026 07:43:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 08E0BFA0C42
+	for <amd-gfx@archiver.kernel.org>; Wed, 15 Apr 2026 07:43:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F090A10E699;
-	Wed, 15 Apr 2026 07:43:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9A49410E69C;
+	Wed, 15 Apr 2026 07:43:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="eBxfnwWt";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ZUOfbDVS";
 	dkim-atps=neutral
-Received: from BN1PR04CU002.outbound.protection.outlook.com
- (mail-eastus2azon11010021.outbound.protection.outlook.com [52.101.56.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 18AD010E699
- for <amd-gfx@lists.freedesktop.org>; Wed, 15 Apr 2026 07:43:38 +0000 (UTC)
+Received: from BYAPR05CU005.outbound.protection.outlook.com
+ (mail-westusazon11010044.outbound.protection.outlook.com [52.101.85.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6E3B710E69A
+ for <amd-gfx@lists.freedesktop.org>; Wed, 15 Apr 2026 07:43:47 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=iHWqEZmu43/4UacTkTwH4wPOejVDZg+ep0DS9ukmMHyTk8xeDGBhfneBjBMne/yG4JAdkh8Ja/RcgLQo7CmVnkHgg15/PfdXW8FV5VlRMK2XhyIGmis7sImkxoZcG97Erg32LrrVVLwWR31f3GcOoMx+NpuVnlC0xPmexkWlvmX3Xbxm0NTzuorQEz0vR56zVkQ5o6DPqhZy6GYJrVzYlsx2hpvEVvN8t/rGaQoy7fEmdo+aktgj0xXl0TNOHnj/z+PkZ8uOVttKHgE/DVr0ApuTjDhiN5Uhhi6wOR4r0HA32Ng/x7wLDZKvm8rjtbCKFwtFcpU1/kNr8faWMOhw2Q==
+ b=Y9UXeLXQFoDgnUAuqM+RCm96XXe/gjGq4KReIvnplVWLC+3Z9ertDlA6TAdGaDgkEVYE7B542MUL1lLeKCGSa4XpfGYqCFa8Z6CmprUcJfhUHuexsAuL0lRXfDH3SziQaXjhaJ40qoo+8kZsHxNWL8yyFL+ZVJamfLVmoYBsGMRGVqjFIrimzY7EhG9/9duTmEbcOWM8OWjQbwPkOCDJXXPJiu0RhFeYrhAaI9SVwRu8tnVP7dZjohad+sa/k3Y1kx90DAMhD6NpL1Rds4pbLs0smde8KN0MfEle1AOabdGFgtbvnf8fXQthvlrkMNyWeZuvJgARx18KZKG3ESHQEQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=hUcoj0aud5ZFYWF/dozP5BrbM1iZTSdiEH2XCVEnkf4=;
- b=m9xBLr1Wd3PEhnSuN78t4m2YgUpzGseDi90BvfimR5FmNM+PKjyuyeQ2eHJ/wcy+aKuGAB3HVIaK/res8Y2v8tdXUy/EwPc42PPERwRQSllczWG0NkXlkI3CpZsd8r4OZZgTtB6nF8Mp/WGizkBd15CwVe+mGJNmmu4kf4Hew5r8GvGdsyC/N7s/WE32cHm+hTQS95hk0nshVpj3QUsosZ8pYA/kDMYFPwHwEhW31HdBBhxIwV6/We5DCEc5RV0YRvTlUEqXbqQZYk9xMjZdN5o7AV2f/yej97UoVZnsugcim5KVhFie9q3dAw5DbxtbjnQAsAMvgj7ugoG+BCIdNQ==
+ bh=JPJsgKjG3W1up4+SUHoiMUtXwZOPg0GZnf0H+NdLCXQ=;
+ b=MskiKFiKLfK3DBNm6A35A61IFzL5WLihwvUK0ikD06+SYl0bXGHUkC/89ykOYSmZUQI5JRH/C6NRozPnuPzt3NO/JCTAY7aJIinfwqgXSe7reMn8Qi8daInDZ87S9U6+0ILMYCE/PfJcrvX7qlVe3k4ahV5hZ+qEzp+oJ75y39E3qTxDJwIHMhRcr9eate7R8ncr++NKNPvrKmSw7JcFyHqAk+ndjiFZ/4n6SfZqBCzZVjv4xJAuNzfn4hLTjMRt5x82U+yqkFT6iM9E24MjAV+UKLvvqJjC4Mn9iFk+OEl3gKgcE+T2/ZFGWzCsOOoRBpxMvkUJokjv6dS8FNikOw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hUcoj0aud5ZFYWF/dozP5BrbM1iZTSdiEH2XCVEnkf4=;
- b=eBxfnwWtlljN1W3NWWCw4FEVayfRwYvSt7G0tzhzofzjmQObokhNaLbRj1XjoB0deBvjwwmK2W+0CTr0gydC3fLVH6yPTx+PRaI5Xwxnpf69MLBmEkuN8igZm8ky3+CNQZkrLi1MCcPSXaNOUh8OHLt6LrZCz68o0vILWQ8/NYw=
-Received: from BL0PR1501CA0034.namprd15.prod.outlook.com
- (2603:10b6:207:17::47) by LV3PR12MB9186.namprd12.prod.outlook.com
- (2603:10b6:408:197::16) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9818.20; Wed, 15 Apr
- 2026 07:43:30 +0000
-Received: from MN1PEPF0000F0DF.namprd04.prod.outlook.com
- (2603:10b6:207:17:cafe::c3) by BL0PR1501CA0034.outlook.office365.com
- (2603:10b6:207:17::47) with Microsoft SMTP Server (version=TLS1_3,
+ bh=JPJsgKjG3W1up4+SUHoiMUtXwZOPg0GZnf0H+NdLCXQ=;
+ b=ZUOfbDVSDYI2L5PVP+6/K87KC/SajOwWuazAjmTxhu/bs2dURo46+Rkhu6DQZwELM5x+2DgOSxzN7QPhRF0LPJBYhA7Of3+NGAxFFthO1OLo18a7misdyZc28S4fVNqr4iUYOSPACi/73FDk1VGrkDg6lE/duMix7EFJfC8iiF8=
+Received: from DM6PR03CA0058.namprd03.prod.outlook.com (2603:10b6:5:100::35)
+ by DM4PR12MB6469.namprd12.prod.outlook.com (2603:10b6:8:b6::6) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9818.20; Wed, 15 Apr 2026 07:43:39 +0000
+Received: from DS3PEPF000099DD.namprd04.prod.outlook.com
+ (2603:10b6:5:100:cafe::4b) by DM6PR03CA0058.outlook.office365.com
+ (2603:10b6:5:100::35) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.20.9769.48 via Frontend Transport; Wed,
- 15 Apr 2026 07:43:30 +0000
+ 15 Apr 2026 07:43:39 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- MN1PEPF0000F0DF.mail.protection.outlook.com (10.167.242.37) with Microsoft
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ DS3PEPF000099DD.mail.protection.outlook.com (10.167.17.199) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9769.17 via Frontend Transport; Wed, 15 Apr 2026 07:43:30 +0000
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.9769.17 via Frontend Transport; Wed, 15 Apr 2026 07:43:39 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Wed, 15 Apr
- 2026 02:43:29 -0500
+ 2026 02:43:38 -0500
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Wed, 15 Apr
+ 2026 02:43:38 -0500
 Received: from chenyu-station.amd.com (10.180.168.240) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
- Transport; Wed, 15 Apr 2026 02:43:21 -0500
+ Transport; Wed, 15 Apr 2026 02:43:30 -0500
 From: Chenyu Chen <chen-yu.chen@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -67,9 +70,9 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
  <alex.hung@amd.com>, Chuanyu Tseng <Chuanyu.Tseng@amd.com>, Ray Wu
  <ray.wu@amd.com>, Chenyu Chen <chen-yu.chen@amd.com>
-Subject: [PATCH 08/19] drm/amd/display: Introduce power module on Linux
-Date: Wed, 15 Apr 2026 15:39:47 +0800
-Message-ID: <20260415074223.34848-9-chen-yu.chen@amd.com>
+Subject: [PATCH 09/19] drm/amd/display: Add power module on Linux
+Date: Wed, 15 Apr 2026 15:39:48 +0800
+Message-ID: <20260415074223.34848-10-chen-yu.chen@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260415074223.34848-1-chen-yu.chen@amd.com>
 References: <20260415074223.34848-1-chen-yu.chen@amd.com>
@@ -78,29 +81,29 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN1PEPF0000F0DF:EE_|LV3PR12MB9186:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3ff428af-31c6-462d-92cf-08de9ac2b02a
+X-MS-TrafficTypeDiagnostic: DS3PEPF000099DD:EE_|DM4PR12MB6469:EE_
+X-MS-Office365-Filtering-Correlation-Id: d57d480c-9836-4993-4b25-08de9ac2b5a4
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700016|82310400026|376014|1800799024|18096099003|22082099003|18002099003|56012099003;
-X-Microsoft-Antispam-Message-Info: whQ12KN0A/wO/8FX7oU5w04SCkhoUVY7JU76+7OfsC6aB2nHzz0T1vUewhNlZYT5Rv1v2jNO0eV2nGT3KO+Io4eSd13dsd/57AHHtjpkysVqmt4WBQXHYy1NGcJPAemdLTpgwwmqV1w6VQ2zevseYCcjm9ARQeXyFN6Bxchwe8+SNlbUv1Lgp6xHiIyit/TdDbybFsVdy6M7e9Kn36IzPMRL0O4mTRP3Q4IeKHEetvVtYAQVHA9TgBBousbZmm5mCSoMY9+bG1tDIGJvKaFLbWgDPJOR5SqMipvRRJnrnSEhiH8ZHpMgbxKwlUvWeErH0lsdexG4T/gd5+rQiFsBGHkvOfOWtlpzGnUQbbxWuo/KpWyxQK+YkIRkk91LXIZ60Hnb3aYtaHKWSxsf2FtScmwBKrQoEHy/t6W2YHe7ofOgMP6LxFA1YSDx7kUiJQ92ss3Tkyrxy1odH3HK6GghgIrVkqv/fnjK6T+G+nk7DZbp5lYm+GHF4RQaAFY8Lwtz2d2Hb6N5les1t/Nb7s0FKFmb8RbQuSjeHZZvHZiP594fb2MHvbzVhJCcO12ir6auFXcGNX3UJeTygD2nQ7YydXx8km9/wQ39i5GTvU5P1xguK0F7a5jfhr3Q8Vb/A9x6dsU5QFXkN0unscilOxSQ8ZbYuajxbjWn3y3PAgThJAXp6KkjPdg5uqTLrAJ7VPu/qd5wrIS6sPSSvj6rCTVXTfrGVsO9ClMTr6DesVScJF6XvLBFTPd1+2GJygbzfJr3McTbjE4s4kggUzev/hCqoQ==
+ ARA:13230040|376014|36860700016|82310400026|1800799024|22082099003|56012099003|18002099003;
+X-Microsoft-Antispam-Message-Info: qABJxOuJuKU9UTRp2weCiwyCFsIZ5lO1FDrs3fbEruo2PLQ5DRTwVTU5qyIcUY2fJK73z15JXBi13fqK3V31yE5ACIat12X+W/6HPekG583urCvpq0fIqSepRSMfqnzm2WziJnkmQZAUEbAiUChd5REuu6hINHokReAyiGHMIc+YHNvtf4C6E6F1NS2q015dHUJ4OdJ0pMpv7A6z9uUqbLP9OwafIM/Z0lhilHYmZ3L9BXxfzXTzF+vUMWeoJ5We76oPX5K9/N4ZxGvB5o/ohGsFHUSd0ua71q87CaXV2G9twJVn7cFCdGQKNcFOLxlvN7bfQNAAmwIt6T40cgmKTQDQjQcgS3MR3lWHoCgMxnUCpMEYjX1dm968uDDvSzRBtxQ8MVgIuNL9F+QXnLHKEZkcLQi2o/2RWakkUlgnMxEMzGLUoHOUp38REkqjl4o95vSICsqgadRh3uv6dgpeS7ky8UUgSEdEaseqqlNwDliGfeGVSB5MUdWqERXWFjbPhxnaBDPHpDlQjfUKRE1x5aJOjMFjHkM1l0xd/W392J12nytCV5hl+aTeKMqoegcsJSn0iU4eHATCleoHYiIsCUjGAazw13d1yCmcHZOLjLPbdmwnGnHFk2nE++gHySL3UoovCXIct8qakJpZMZ9rpG4XqaNMaTCedoFfdyiTOyS+Mr3ZkSsl4uPlz2Fv+ntZrL0YGDjvcTrXWvZzEcbDQ5vcjGuT56EOer2FR2yjvz8v5W5JIXnOWjRhMa75ynOG3fDnd24lylYVuNBMM/yIkw==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700016)(82310400026)(376014)(1800799024)(18096099003)(22082099003)(18002099003)(56012099003);
+ IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(36860700016)(82310400026)(1800799024)(22082099003)(56012099003)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: Sov+DObYZwTPvvEtPX7RAVmPfACYynO6/WQDFsLTnU+n7BQKHoFQGoUJ+rEdshZEY3zwJYpPPmvEGK1nBTlQN9SmDiDfeDYlsepCO4QW8uyKAvS3kRslrTRuBRwAXDotmwelXGrRmbYGdbG+TDHJodoz4qfMSBxZbj+w2JCyc31ylN+VHuFtQhTAqkhlQwqgEQoUMWtspkDfktnB2zBymVRterYHcNPWrS9hTrJp6RVStnLMeLGtWFCMuCLilKUpePJ+UwvoVTJ9DJTml0W0Tzxghbmsucs4JPv6VVAkpvIHL+B/80Q3RtXVrJ0t711Qv7RQNx0MGhBQgBuLGREuiZND0PwVJo8+QiLvKmDOT9q7YkP7Bx5i0puF6j/hGWoizdLoKYD55ReJC8OIpJw50NzsrJlb4dIxLwTeSLsjwZtRdUQ0EuEC00/4hpYOlLcZ
+X-MS-Exchange-AntiSpam-MessageData-0: S4CkA4X8jNI6Iod0yLZspHyYhXokrWAPCNGW3zRq5900aL+YgNColqT6+sLnIAYfia1dL7dgI42Ge6ysdRF7n7DIwVL+cedRQIMUo6FTYX5Q/mHhfHl/aLHxySmAdWUB8K6e1wsfFqHK4mTQ7+iDgpqFxbvZvmZ+lDfkgjJfCFEnhYJazGyO3jAXU7vT6jrN2yihpWbhASziwcAgalKQ1uQFj7EaAPqZrEQgBuTwj5FMfltkEVruOLmb0bYr8IeBwcFXrE3u8L510asTWp5ZvnzI/TgKo6RKOuAWnZYY/Yl8ZIlccm2R91C7v34h+ROESRjzKSlIwlwttFxRG2DjhByZstOu6BxHQnNro2WBouohvy+dfB5qUy1IiDi1yWg5pBtYSclUV3qbvop2WRB3vx9XrwDINls5vJhOz0BAxUrClP++pd/hYvR7tzcUt0pv
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Apr 2026 07:43:30.2751 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3ff428af-31c6-462d-92cf-08de9ac2b02a
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Apr 2026 07:43:39.4220 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d57d480c-9836-4993-4b25-08de9ac2b5a4
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: MN1PEPF0000F0DF.namprd04.prod.outlook.com
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DS3PEPF000099DD.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR12MB9186
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6469
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,3552 +120,1574 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Ray Wu <ray.wu@amd.com>
 
-[Why]
+[Why & How]
+Refactors dm to utilize the power module for managing
+replay, PSR, and backlight control functionalities.
 
-Other OS supported by DC uses the power module to manage panel power
-features such as backlight and self-refresh. It contains enhancements
-on top what amdgpu_dm is doing today that can benefit power.
-
-[How]
-
-Introduce the power module. It's currently not being used anywhere, a
-future change will incorporate it into amdgpu_dm.
+Key changes:
+- Introduced replay / PSR events to enable / disable replay / PSR.
+- Implemented replay rate control and power option
+- Refactored backlight control by using the power module.
+- Enhanced handling of VRR within replay and PSR logic.
 
 Reviewed-by: Leo Li <sunpeng.li@amd.com>
 Signed-off-by: Ray Wu <ray.wu@amd.com>
 Signed-off-by: Leo Li <sunpeng.li@amd.com>
 Signed-off-by: Chenyu Chen <chen-yu.chen@amd.com>
 ---
- .../display/amdgpu_dm/amdgpu_dm_services.c    |   11 +
- .../gpu/drm/amd/display/dc/core/dc_stream.c   |    6 +
- drivers/gpu/drm/amd/display/dc/dc_stream.h    |    3 +
- .../drm/amd/display/modules/inc/mod_power.h   |  415 +++
- .../drm/amd/display/modules/power/Makefile    |    2 +-
- .../gpu/drm/amd/display/modules/power/power.c | 3030 +++++++++++++++++
- 6 files changed, 3466 insertions(+), 1 deletion(-)
- create mode 100644 drivers/gpu/drm/amd/display/modules/inc/mod_power.h
- create mode 100644 drivers/gpu/drm/amd/display/modules/power/power.c
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 344 ++++++++++++++----
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |  10 +
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c |  36 +-
+ .../amd/display/amdgpu_dm/amdgpu_dm_crtc.c    |  74 +---
+ .../amd/display/amdgpu_dm/amdgpu_dm_crtc.h    |   5 +-
+ .../amd/display/amdgpu_dm/amdgpu_dm_debugfs.c |  60 ++-
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_ism.c |  26 +-
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c | 242 ++++--------
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_psr.h |  13 +-
+ .../amd/display/amdgpu_dm/amdgpu_dm_replay.c  | 143 ++++----
+ .../amd/display/amdgpu_dm/amdgpu_dm_replay.h  |  28 +-
+ .../display/amdgpu_dm/amdgpu_dm_services.c    |  30 +-
+ 12 files changed, 566 insertions(+), 445 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_services.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_services.c
-index 8550d5e8b753..0ef7435ffda9 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_services.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_services.c
-@@ -62,3 +62,14 @@ void dm_trace_smu_exit(bool success, uint32_t response, struct dc_context *ctx)
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 09121152b980..5b5a6f66f8e5 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -104,6 +104,7 @@
+ #include "ivsrcid/dcn/irqsrcs_dcn_1_0.h"
+ 
+ #include "modules/inc/mod_freesync.h"
++#include "modules/inc/mod_power.h"
+ #include "modules/power/power_helpers.h"
+ 
+ static_assert(AMDGPU_DMUB_NOTIFICATION_MAX == DMUB_NOTIFICATION_MAX, "AMDGPU_DMUB_NOTIFICATION_MAX mismatch");
+@@ -1878,6 +1879,70 @@ static enum dmub_ips_disable_type dm_get_default_ips_mode(
+ 	return ret;
  }
  
- /**** power component interfaces ****/
-+
-+bool dm_query_extended_brightness_caps(struct dc_context *ctx,
-+	enum dm_acpi_display_type display,
-+	struct dm_acpi_atif_backlight_caps *pCaps)
++static int amdgpu_dm_init_power_module(struct amdgpu_display_manager *dm)
 +{
-+	/*
-+	 * TODO: Implement query for extended backlight caps.
-+	 * Some plumbing required, see amdgpu_atif_query_backlight_caps()
-+	 */
-+	return false;
-+}
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_stream.c b/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
-index cca3dece08d3..9c1d721011ca 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
-@@ -259,6 +259,12 @@ const struct dc_stream_status *dc_stream_get_status_const(
- 	return dc_state_get_stream_status(dc->current_state, stream);
- }
- 
-+struct dc_link *dc_stream_get_link(
-+	const struct dc_stream_state *stream)
-+{
-+	return stream->link;
-+}
-+
- void program_cursor_attributes(
- 	struct dc *dc,
- 	struct dc_stream_state *stream)
-diff --git a/drivers/gpu/drm/amd/display/dc/dc_stream.h b/drivers/gpu/drm/amd/display/dc/dc_stream.h
-index 88f70a9b64b1..6a8c1390b85f 100644
---- a/drivers/gpu/drm/amd/display/dc/dc_stream.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc_stream.h
-@@ -494,6 +494,9 @@ struct surface_update_descriptor dc_check_update_surfaces_for_stream(
- 		int surface_count,
- 		struct dc_stream_update *stream_update);
- 
-+struct dc_link *dc_stream_get_link(
-+	const struct dc_stream_state *dc_stream);
-+
- /**
-  * Create a new default stream for the requested sink
-  */
-diff --git a/drivers/gpu/drm/amd/display/modules/inc/mod_power.h b/drivers/gpu/drm/amd/display/modules/inc/mod_power.h
-new file mode 100644
-index 000000000000..89037f7b7961
---- /dev/null
-+++ b/drivers/gpu/drm/amd/display/modules/inc/mod_power.h
-@@ -0,0 +1,415 @@
-+/* Copyright (c) 2019 Advanced Micro Devices, Inc. All rights reserved. */
-+
-+#ifndef MODULES_INC_MOD_POWER_H_
-+#define MODULES_INC_MOD_POWER_H_
-+
-+#include "dm_services.h"
-+
-+struct mod_power_init_params {
-+
-+	bool disable_fractional_pwm;
-+
-+	/* Use nits based brightness instead of brightness percentage
-+	 */
-+	bool use_nits_based_brightness;
-+	unsigned int panel_min_millinits;
-+	unsigned int panel_max_millinits;
-+
-+	unsigned int min_backlight_pwm;
-+	unsigned int max_backlight_pwm;
-+
-+	unsigned int min_abm_backlight;
-+	unsigned int num_backlight_levels;
-+	bool backlight_ramping_override;
-+	unsigned int backlight_ramping_reduction;
-+	unsigned int backlight_ramping_start;
-+	bool def_varibright_enable;
-+	unsigned int def_varibright_level;
-+	unsigned int varibright_level;
-+	unsigned int abm_config_setting;
-+
-+	bool allow_psr_smu_optimizations;
-+
-+	bool allow_psr_multi_disp_optimizations;
-+
-+	bool use_custom_backlight_caps;
-+	unsigned int custom_backlight_caps_config_no;
-+	bool use_linear_backlight_curve;
-+};
-+
-+struct mod_power {
-+	int dummy;
-+};
-+
-+/* VariBright settings structure */
-+struct varibright_info {
-+	unsigned int level;
-+	bool enable;
-+	bool activate;
-+};
-+
-+struct mod_power_psr_context {
-+    /* ddc line */
-+    unsigned int channel;
-+    /* Transmitter id */
-+    unsigned int transmitter_id;
-+    /* Engine Id is used for Dig Be source select */
-+    unsigned int engine_id;
-+    /* Controller Id used for Dig Fe source select */
-+    unsigned int controller_id;
-+    /* Pcie or Uniphy */
-+    unsigned int phy_type;
-+    /* Physical PHY Id used by SMU interpretation */
-+    unsigned int smu_phy_id;
-+    /* Vertical total pixels from crtc timing.
-+     * This is used for static screen detection.
-+     * ie. If we want to detect half a frame,
-+     * we use this to determine the hyst lines.
-+     */
-+    unsigned int crtc_timing_vertical_total;
-+    /* PSR supported from panel capabilities and
-+     * current display configuration
-+     */
-+    bool psr_supported_display_config;
-+    /* Whether fast link training is supported by the panel */
-+    bool psr_exit_link_training_required;
-+    /* If RFB setup time is greater than the total VBLANK time,
-+     * it is not possible for the sink to capture the video frame
-+     * in the same frame the SDP is sent. In this case,
-+     * the frame capture indication bit should be set and an extra
-+     * static frame should be transmitted to the sink.
-+     */
-+    bool psr_frame_capture_indication_req;
-+    /* Set the last possible line SDP may be transmitted without violating
-+     * the RFB setup time or entering the active video frame.
-+     */
-+    unsigned int sdp_transmit_line_num_deadline;
-+    /* The VSync rate in Hz used to calculate the
-+     * step size for smooth brightness feature
-+     */
-+    unsigned int vsync_rate_hz;
-+    unsigned int skip_psr_wait_for_pll_lock;
-+    unsigned int number_of_controllers;
-+    /* Unused, for future use. To indicate that first changed frame from
-+     * state3 shouldn't result in psr_inactive, but rather to perform
-+     * an automatic single frame rfb_update.
-+     */
-+    bool rfb_update_auto_en;
-+    /* Number of frame before entering static screen */
-+    unsigned int timehyst_frames;
-+    /* Partial frames before entering static screen */
-+    unsigned int hyst_lines;
-+    /* # of repeated AUX transaction attempts to make before
-+     * indicating failure to the driver
-+     */
-+    unsigned int aux_repeats;
-+    /* Controls hw blocks to power down during PSR active state */
-+    unsigned int psr_level;
-+    /* Controls additional delay after remote frame capture before
-+     * continuing powerd own
-+     */
-+	unsigned int frame_delay;
-+	bool allow_smu_optimizations;
-+	bool allow_multi_disp_optimizations;
-+	unsigned int line_time_in_us;
-+	/* Panel self refresh 2 selective update granularity required */
-+	bool su_granularity_required;
-+	/* psr2 selective update y granularity capability */
-+	uint8_t su_y_granularity;
-+	uint8_t rate_control_caps;
-+	bool os_request_force_ffu;
-+};
-+
-+enum psr_event {
-+	psr_event_invalid = 0x0,
-+	psr_event_vsync = 0x1,
-+	psr_event_full_screen = 0x2,
-+	psr_event_defer_enable = 0x4,
-+	psr_event_hw_programming = 0x8,
-+	psr_event_test_harness_enable_psr = 0x10,
-+	psr_event_test_harness_disable_psr = 0x20,
-+	psr_event_mpo_video_selective_update = 0x40,
-+	psr_event_edp_panel_off_disable_psr = 0x80,
-+	psr_event_dynamic_display_switch = 0x100,
-+	psr_event_big_screen_video = 0x200,
-+	psr_event_dds_defer_stream_enable = 0x800,
-+	psr_event_dynamic_link_rate_control = 0x1000,
-+	psr_event_vrr_transition = 0x2000,
-+	psr_event_pause = 0x4000,
-+	psr_event_immediate_flip = 0x8000,
-+	psr_event_os_request_disable = 0x10000,
-+	psr_event_os_request_force_ffu = 0x20000,
-+	psr_event_os_override_hold = 0x40000,
-+	psr_event_crc_window_active = 0x80000,
-+};
-+
-+enum replay_event {
-+	replay_event_invalid = 0x0,
-+	replay_event_vsync = 0x1,
-+	replay_event_full_screen = 0x2,
-+	replay_event_mpo_video_selective_update = 0x4,
-+	replay_event_big_screen_video = 0x8,
-+	replay_event_hw_programming = 0x10,
-+	replay_event_edp_panel_off_disable_psr = 0x20,
-+	replay_event_general_ui = 0x40,
-+	replay_event_vrr = 0x80,
-+	replay_event_prepare_vtotal = 0x100,
-+	replay_event_test_harness_enable_replay = 0x200,
-+	replay_event_test_harness_disable_replay = 0x400,
-+	replay_event_test_harness_ultra_sleep = 0x800,
-+	replay_event_immediate_flip = 0x1000,
-+	replay_event_vrr_transition = 0x2000,
-+	replay_event_pause = 0x4000,
-+	replay_event_disable_replay_while_DPMS = 0x8000,
-+	replay_event_test_harness_mode = 0x10000,
-+	replay_event_cursor_updating = 0x20000,
-+	replay_event_sleep_resume = 0x40000,
-+	replay_event_disable_in_AC = 0x80000,
-+	replay_event_disable_replay_while_detect_display = 0x100000,
-+	replay_event_disable_replay_while_switching_mux = 0x400000,
-+	replay_event_infopacket = 0x800000,
-+	replay_event_os_request_disable = 0x1000000,
-+	replay_event_os_request_force_ffu = 0x2000000,
-+	replay_event_os_override_hold = 0x4000000,
-+	replay_event_crc_window_active = 0x8000000,
-+};
-+
-+enum replay_enable_option {
-+	pr_enable_option_static_screen = 0x1,
-+	pr_enable_option_mpo_video = 0x2,
-+	pr_enable_option_full_screen_video = 0x4,
-+	pr_enable_option_general_ui = 0x8,
-+	pr_enable_option_full_screen = 0x10,
-+	pr_enable_option_static_screen_coasting = 0x10000,
-+	pr_enable_option_mpo_video_coasting = 0x20000,
-+	pr_enable_option_full_screen_video_coasting = 0x40000,
-+	pr_enable_option_full_screen_coasting = 0x100000,
-+};
-+
-+struct mod_power *mod_power_create(struct dc *dc,
-+		struct mod_power_init_params *init_params,
-+		unsigned int edp_num);
-+
-+void mod_power_destroy(struct mod_power *mod_power);
-+
-+bool mod_power_hw_init(struct mod_power *mod_power);
-+
-+bool mod_power_add_stream(struct mod_power *mod_power,
-+		struct dc_stream_state *stream, struct psr_caps *caps);
-+
-+bool mod_power_remove_stream(struct mod_power *mod_power,
-+		const struct dc_stream_state *stream);
-+
-+bool mod_power_replace_stream(struct mod_power *mod_power,
-+		const struct dc_stream_state *current_stream,
-+		struct dc_stream_state *new_stream,
-+		struct psr_caps *new_caps);
-+
-+bool mod_power_set_backlight_nits(struct mod_power *mod_power,
-+		struct dc_stream_state *streams,
-+		unsigned int backlight_millinit,
-+		unsigned int transition_time_millisec,
-+		bool skip_aux,
-+		bool is_hdr);
-+
-+bool mod_power_set_backlight_percent(struct mod_power *mod_power,
-+		struct dc_stream_state *stream,
-+		unsigned int backlight_millipercent,
-+		unsigned int transition_time_millisec,
-+		bool is_hdr);
-+
-+void mod_power_update_backlight(struct mod_power *mod_power,
-+		struct dc_stream_state *stream,
-+		unsigned int backlight_millipercent);
-+
-+void mod_power_update_backlight_nits(struct mod_power *mod_power,
-+		struct dc_stream_state *stream,
-+		unsigned int backlight_millinit);
-+
-+bool mod_power_get_backlight_pwm(struct mod_power *mod_power,
-+		unsigned int *backlight_pwm,
-+		unsigned int inst);
-+
-+bool mod_power_get_backlight_nits(struct mod_power *mod_power,
-+		unsigned int *backlight_millinit,
-+		unsigned int inst);
-+
-+bool mod_power_get_backlight_percent(struct mod_power *mod_power,
-+		unsigned int *backlight_millipercent,
-+		unsigned int inst);
-+
-+bool mod_power_get_hw_target_backlight_pwm_nits(
-+		struct mod_power *mod_power,
-+		const struct dc_link *link,
-+		unsigned int *backlight_millinit,
-+		unsigned int inst);
-+
-+bool mod_power_get_hw_target_backlight_pwm_percent(
-+		struct mod_power *mod_power,
-+		const struct dc_link *link,
-+		unsigned int *backlight_millipercent,
-+		unsigned int inst);
-+
-+bool mod_power_get_hw_target_backlight_pwm(
-+		struct mod_power *mod_power,
-+		const struct dc_link *link,
-+		unsigned int *backlight_u16_16);
-+
-+bool mod_power_get_hw_backlight_pwm(
-+		struct mod_power *mod_power,
-+		const struct dc_link *link,
-+		unsigned int *backlight);
-+
-+bool mod_power_get_hw_backlight_pwm_nits(
-+		struct mod_power *mod_power,
-+		const struct dc_link *link,
-+		unsigned int *backlight_millinit,
-+		unsigned int inst);
-+
-+bool mod_power_get_hw_backlight_aux_nits(
-+		struct mod_power *mod_power,
-+		struct dc_stream_state **streams, int num_streams,
-+		unsigned int *backlight_millinit_avg,
-+		unsigned int *backlight_millinit_peak);
-+
-+bool mod_power_get_hw_backlight_pwm_percent(
-+		struct mod_power *mod_power,
-+		const struct dc_link *link,
-+		unsigned int *backlight_millipercent,
-+		unsigned int inst);
-+
-+void mod_power_initialize_backlight_caps
-+		(struct mod_power *mod_power);
-+
-+bool mod_power_get_panel_backlight_boundaries
-+				(struct mod_power *mod_power,
-+				unsigned int *out_min_backlight,
-+				unsigned int *out_max_backlight,
-+				unsigned int *out_ac_backlight_percent,
-+				unsigned int *out_dc_backlight_percent,
-+				unsigned int inst);
-+
-+bool mod_power_set_smooth_brightness(struct mod_power *mod_power,
-+		bool enable_brightness,
-+		unsigned int inst);
-+
-+bool mod_power_notify_mode_change(struct mod_power *mod_power,
-+		const struct dc_stream_state *stream,
-+		bool is_hdr);
-+
-+bool mod_power_get_varibright_level(struct mod_power *mod_power,
-+		unsigned int *varibright_level);
-+
-+bool mod_power_get_varibright_hw_level(struct mod_power *mod_power,
-+		unsigned int *varibright_level);
-+
-+bool mod_power_get_varibright_default_level(struct mod_power *mod_power,
-+		unsigned int *varibright_level);
-+
-+bool mod_power_get_varibright_enable(struct mod_power *mod_power,
-+		bool *varibright_enable);
-+
-+bool mod_power_varibright_activate(struct mod_power	*mod_power,
-+		bool activate, struct dc_stream_update *stream_update);
-+
-+bool mod_power_varibright_feature_enable(struct mod_power *mod_power,
-+		bool enable, struct dc_stream_update *stream_update);
-+
-+
-+bool mod_power_varibright_set_level(struct mod_power *mod_power,
-+		unsigned int level, struct dc_stream_update *stream_update);
-+
-+bool mod_power_varibright_set_hw_level(struct mod_power *mod_power,
-+		unsigned int level,	struct dc_stream_update *stream_update);
-+
-+bool mod_power_is_abm_active(struct mod_power *mod_power,
-+		const struct dc_link *link,
-+		unsigned int inst);
-+
-+
-+bool mod_power_set_psr_event(struct mod_power *mod_power,
-+		struct dc_stream_state *stream, bool set_event,
-+		enum psr_event event, bool wait);
-+
-+bool mod_power_get_psr_event(struct mod_power *mod_power,
-+			struct dc_stream_state *stream,
-+			unsigned int *active_psr_events);
-+
-+bool mod_power_get_psr_state(struct mod_power *mod_power,
-+		const struct dc_stream_state *stream,
-+		enum dc_psr_state *state);
-+
-+bool mod_power_get_psr_enabled_status(struct mod_power *mod_power,
-+		const struct dc_stream_state *stream,
-+		bool *psr_enabled);
-+
-+bool mod_power_set_replay_event(struct mod_power *mod_power,
-+	struct dc_stream_state *stream, bool set_event,
-+	enum replay_event event, bool wait_for_disable);
-+
-+bool mod_power_get_replay_event(struct mod_power *mod_power,
-+	struct dc_stream_state *stream,
-+	unsigned int *active_replay_events);
-+
-+bool mod_power_get_replay_active_status(const struct dc_stream_state *stream,
-+	bool *replay_active);
-+
-+bool mod_power_replay_set_coasting_vtotal(struct mod_power *mod_power,
-+	const struct dc_stream_state *stream,
-+	uint32_t coasting_vtotal, uint16_t frame_skip_number);
-+
-+void mod_power_replay_residency(const struct dc_stream_state *stream,
-+	unsigned int *residency, const bool is_start, const bool is_alpm);
-+
-+bool mod_power_replay_set_power_opt_and_coasting_vtotal(struct mod_power *mod_power,
-+	const struct dc_stream_state *stream, unsigned int active_replay_events, uint32_t coasting_vtotal,
-+	bool is_ultra_sleep_mode, uint16_t frame_skip_number);
-+
-+void mod_power_replay_set_timing_sync_supported(struct mod_power *mod_power,
-+	const struct dc_stream_state *stream);
-+
-+void mod_power_replay_disabled_adaptive_sync_sdp(struct mod_power *mod_power,
-+	const struct dc_stream_state *stream, bool force_disabled);
-+
-+void mod_power_replay_disabled_desync_error_detection(struct mod_power *mod_power,
-+	const struct dc_stream_state *stream,  bool force_disabled);
-+void mod_power_set_low_rr_activate(struct mod_power *mod_power,
-+	const struct dc_stream_state *stream, bool low_rr_supported);
-+
-+void mod_power_set_video_conferencing_activate(struct mod_power *mod_power,
-+	const struct dc_stream_state *stream, bool video_conferencing_activate);
-+
-+void mod_power_set_live_capture_with_cvt_activate(struct mod_power *mod_power,
-+	const struct dc_stream_state *stream, bool live_capture_with_cvt_activate);
-+
-+void mod_power_set_replay_continuously_resync(struct mod_power *mod_power,
-+	const struct dc_stream_state *stream, bool enable);
-+
-+void mod_power_set_coasting_vtotal_without_frame_update(struct mod_power *mod_power,
-+	const struct dc_stream_state *stream, uint32_t coasting_vtotal);
-+
-+
-+
-+void mod_power_psr_residency(struct mod_power *mod_power,
-+		const struct dc_stream_state *stream,
-+		unsigned int *residency,
-+		const uint8_t mode);
-+bool mod_power_psr_get_active_psr_events(struct mod_power *mod_power,
-+		const struct dc_stream_state *stream, unsigned int *active_psr_events);
-+bool mod_power_psr_set_sink_vtotal_in_psr_active(struct mod_power *mod_power,
-+		const struct dc_stream_state *stream,
-+		uint16_t psr_vtotal_idle,
-+		uint16_t psr_vtotal_su);
-+
-+
-+
-+bool mod_power_backlight_percent_to_nits(struct mod_power *mod_power,
-+		struct dc_stream_state *stream,
-+		unsigned int backlight_millipercent,
-+		unsigned int *backlight_millinit);
-+bool mod_power_backlight_nits_to_percent(struct mod_power *mod_power,
-+		struct dc_stream_state *stream,
-+		unsigned int backlight_millinit,
-+		unsigned int *backlight_millipercent);
-+
-+#endif /* MODULES_INC_MOD_POWER_H_ */
-diff --git a/drivers/gpu/drm/amd/display/modules/power/Makefile b/drivers/gpu/drm/amd/display/modules/power/Makefile
-index 9d1b22d35ece..b27a1ff3d86b 100644
---- a/drivers/gpu/drm/amd/display/modules/power/Makefile
-+++ b/drivers/gpu/drm/amd/display/modules/power/Makefile
-@@ -23,7 +23,7 @@
- # Makefile for the 'power' sub-module of DAL.
- #
- 
--MOD_POWER = power_helpers.o
-+MOD_POWER = power_helpers.o power.o
- 
- AMD_DAL_MOD_POWER = $(addprefix $(AMDDALPATH)/modules/power/,$(MOD_POWER))
- #$(info ************  DAL POWER MODULE MAKEFILE ************)
-diff --git a/drivers/gpu/drm/amd/display/modules/power/power.c b/drivers/gpu/drm/amd/display/modules/power/power.c
-new file mode 100644
-index 000000000000..6c73fecf57d5
---- /dev/null
-+++ b/drivers/gpu/drm/amd/display/modules/power/power.c
-@@ -0,0 +1,3030 @@
-+/*
-+ * Copyright 2016 Advanced Micro Devices, Inc.
-+ *
-+ * Permission is hereby granted, free of charge, to any person obtaining a
-+ * copy of this software and associated documentation files (the "Software"),
-+ * to deal in the Software without restriction, including without limitation
-+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
-+ * and/or sell copies of the Software, and to permit persons to whom the
-+ * Software is furnished to do so, subject to the following conditions:
-+ *
-+ * The above copyright notice and this permission notice shall be included in
-+ * all copies or substantial portions of the Software.
-+ *
-+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-+ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
-+ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-+ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-+ * OTHER DEALINGS IN THE SOFTWARE.
-+ *
-+ * Authors: AMD
-+ *
-+ */
-+
-+#include "dm_services.h"
-+#include "dc.h"
-+#include "mod_power.h"
-+#include "core_types.h"
-+#include "dmcu.h"
-+#include "abm.h"
-+#include "power_helpers.h"
-+#include "dce/dmub_psr.h"
-+#include "dal_asic_id.h"
-+#include "link_service.h"
-+#include <linux/math.h>
-+
-+#define DC_TRACE_LEVEL_MESSAGE(...) /* do nothing */
-+#define DC_TRACE_LEVEL_MESSAGEP(...) /* do nothing */
-+
-+#define MOD_POWER_MAX_CONCURRENT_STREAMS 32
-+#define SMOOTH_BRIGHTNESS_ADJUSTMENT_TIME_IN_MS 500
-+#define LOW_REFRESH_RATE_DURATION_US_UPPER_BOUND 25000
-+
-+
-+struct backlight_state {
-+	/* HW uses u16.16 format for backlight PWM */
-+	unsigned int backlight_pwm;
-+	/* DM may call power module to set backlight
-+	 * targeting percent brightness
-+	 */
-+	unsigned int backlight_millipercent;
-+	/* DM may call power module to set backlight based on an explicit
-+	 * nits value.
-+	 */
-+	unsigned int backlight_millinit;
-+	unsigned int frame_ramp;
-+	bool smooth_brightness_enabled;
-+	bool isHDR;
-+};
-+struct power_entity {
-+	struct dc_stream_state *stream;
-+	struct psr_caps *caps;
-+	struct mod_power_psr_context *psr_context;
-+
-+	/*PSR cached properties*/
-+	bool psr_enabled;
-+	unsigned int psr_events;
-+	unsigned int psr_power_opt;
-+	unsigned int replay_events;
-+};
-+
-+struct backlight_properties {
-+	bool use_nits_based_brightness;
-+	bool disable_fractional_pwm;
-+
-+	unsigned int min_abm_backlight;
-+	unsigned int num_backlight_levels;
-+
-+	bool backlight_ramping_override;
-+	unsigned int backlight_ramping_reduction;
-+	unsigned int backlight_ramping_start;
-+
-+	/* Backlight cached properties */
-+	unsigned int ac_backlight_percent;
-+	unsigned int dc_backlight_percent;
-+
-+	/* backlight LUT stored in HW u16.16 format*/
-+	unsigned int *backlight_lut;
-+	unsigned int min_backlight_pwm;
-+	unsigned int max_backlight_pwm;
-+	unsigned int backlight_range;
-+
-+	/* Describes the panel's min and max luminance in millinits measured
-+	 * on full white screen, in min and max backlight settings.
-+	 */
-+	unsigned int min_brightness_millinits;
-+	unsigned int max_brightness_millinits;
-+	unsigned int nits_range;
-+
-+	bool backlight_caps_valid;
-+	bool use_custom_backlight_caps;
-+	unsigned int custom_backlight_caps_config_no;
-+	bool use_linear_backlight_curve;
-+};
-+
-+struct dmcu_varibright_cached_properties {
-+	unsigned int varibright_config_setting;
-+	unsigned int varibright_level;
-+	unsigned int varibright_hw_level;
-+	unsigned int def_varibright_level;
-+	bool varibright_user_enable;
-+	bool varibright_active;
-+};
-+
-+struct core_power {
-+	struct mod_power public;
-+	struct dc *dc;
-+	struct power_entity *map;
-+	struct dmcu_varibright_cached_properties varibright_prop;
-+	struct backlight_properties bl_prop[MAX_NUM_EDP];
-+	struct backlight_state bl_state[MAX_NUM_EDP];
-+	unsigned int edp_num;
-+
-+	bool psr_smu_optimizations_support;
-+	bool multi_disp_optimizations_support;
-+
-+	int num_entities;
-+};
-+
-+union dmcu_abm_set_bl_params {
-+	struct {
-+		unsigned int gradual_change : 1; /* [0:0] */
-+		unsigned int reserved : 15; /* [15:1] */
-+		unsigned int frame_ramp : 16; /* [31:16] */
-+	} bits;
-+	unsigned int u32All;
-+};
-+
-+/* If system or panel does not report some sort of brightness percent to nits
-+ * mapping, we will use following default values so backlight control using
-+ * nits based interfaces will still work, but might not describe panel
-+ * correctly. In this case percentage based backlight control should ideally
-+ * be used.
-+ * Min = 5 nits
-+ * Max = 300 nits
-+ */
-+
-+static const unsigned int pwr_default_min_brightness_millinits = 1000;
-+static const unsigned int pwr_default_sdr_brightness_millinits = 270000;
-+
-+static const unsigned int default_ac_backlight_percent   = 100;
-+static const unsigned int default_dc_backlight_percent   = 70;
-+
-+#define MOD_POWER_TO_CORE(mod_power)\
-+		container_of(mod_power, struct core_power, public)
-+
-+static unsigned int calc_psr_num_static_frames(unsigned int vsync_rate_hz)
-+{
-+	/* Calculate number of static frames before generating interrupt to
-+	 * enter PSR.
-+	 */
-+	unsigned int frame_time_microsec = 1000000 / vsync_rate_hz;
-+
-+	// Init fail safe of 2 frames static
-+	unsigned int num_frames_static = 2;
-+
-+	/* Round up
-+	 * Calculate number of frames such that at least 30 ms of time has
-+	 * passed.
-+	 */
-+	if (vsync_rate_hz != 0)
-+		num_frames_static = (30000 / frame_time_microsec) + 1;
-+
-+	return num_frames_static;
-+}
-+
-+/* Given a specific dc_stream* this function finds its equivalent
-+ * on the core_freesync->map and returns the corresponding index
-+ */
-+static unsigned int map_index_from_stream(struct core_power *core_power,
-+		const struct dc_stream_state *stream)
-+{
-+	unsigned int index = 0;
-+
-+	for (index = 0; index < core_power->num_entities; index++) {
-+		if (core_power->map[index].stream == stream)
-+			return index;
++	struct mod_power_init_params init_data[MAX_NUM_EDP];
++
++	if (dm->num_of_edps == 0) {
++		drm_dbg_driver(
++			dm->ddev,
++			"amdgpu: No eDP detected, skip initializing power module\n");
++		return 0;
 +	}
-+	/* Could not find stream requested, this is not trivial, fix when hit*/
-+	DC_TRACE_LEVEL_MESSAGE(DAL_TRACE_LEVEL_ERROR,
-+						WPP_BIT_FLAG_Firmware_PsrState,
-+						"map index from stream: ERROR: core_power=%p stream=%p",
-+						core_power,
-+						stream);
-+	ASSERT(false);
-+	/* We come here only when we can't map stream index.
-+	 * In good cases, this would happen when we attempt to change
-+	 * brightness before stream creation, in which case we create a
-+	 * dummy stream with index 0.
-+	 * With external monitor connected, the index passed from this return
-+	 * is 1. Passing anything greater than 0 from here would always point
-+	 * to bad memory.
-+	 */
++
++	/* Initialize all the power module parameters */
++	for (int i = 0; i < dm->num_of_edps; i++) {
++		init_data[i].allow_psr_smu_optimizations =
++			!!(amdgpu_dc_feature_mask & DC_PSR_ALLOW_SMU_OPT);
++		init_data[i].allow_psr_multi_disp_optimizations =
++			!!(amdgpu_dc_feature_mask & DC_PSR_ALLOW_MULTI_DISP_OPT);
++		/* See dm_late_init */
++		init_data[i].backlight_ramping_override = false;
++		init_data[i].backlight_ramping_start = 0xCCCC;
++		init_data[i].backlight_ramping_reduction = 0xCCCCCCCC;
++		init_data[i].def_varibright_level = 0;
++		init_data[i].abm_config_setting = 0;
++		init_data[i].num_backlight_levels = 101;
++		init_data[i].use_nits_based_brightness = false;
++		init_data[i].panel_max_millinits = 0;
++		init_data[i].panel_min_millinits = 0;
++		init_data[i].disable_fractional_pwm =
++			!(amdgpu_dc_feature_mask & DC_DISABLE_FRACTIONAL_PWM_MASK);
++		init_data[i].use_custom_backlight_caps = false;
++		init_data[i].custom_backlight_caps_config_no = 0;
++		init_data[i].use_linear_backlight_curve = false;
++		init_data[i].def_varibright_enable = 0;
++		init_data[i].varibright_level = 0;
++		/*
++		 * Power module uses 16-bit backlight levels (0xFFFF max) rather
++		 * than 8-bit(0XFF max)
++		 */
++		init_data[i].min_backlight_pwm =
++			dm->backlight_caps[i].min_input_signal * 0x101;
++		init_data[i].max_backlight_pwm =
++			dm->backlight_caps[i].max_input_signal * 0x101;
++		init_data[i].min_abm_backlight =
++			dm->backlight_caps[i].min_input_signal * 0x101;
++
++		/* Min backlight level after ABM reduction,  Don't allow below 1%
++		 * 0xFFFF x 0.01 = 0x28F
++		 */
++		init_data[i].min_abm_backlight = (init_data[i].min_abm_backlight < 0x28F) ?
++			0x28F : init_data[i].min_abm_backlight;
++	}
++
++	dm->power_module = mod_power_create(dm->dc, init_data, dm->num_of_edps);
++	if (!dm->power_module) {
++		drm_err(dm->ddev, "amdgpu: Error allocating memory for power module\n");
++		return -ENOMEM;
++	}
++
++	mod_power_hw_init(dm->power_module);
++	drm_dbg_driver(dm->ddev, "amdgpu: Power module init done\n");
++
 +	return 0;
 +}
 +
-+static uint16_t backlight_8_to_16(unsigned int backlight_8bit)
-+{
-+	return (uint16_t)(backlight_8bit * 0x101);
-+}
+ static int amdgpu_dm_init(struct amdgpu_device *adev)
+ {
+ 	struct dc_init_data init_data;
+@@ -1895,6 +1960,8 @@ static int amdgpu_dm_init(struct amdgpu_device *adev)
+ 	mutex_init(&adev->dm.dc_lock);
+ 	mutex_init(&adev->dm.audio_lock);
+ 
++	spin_lock_init(&adev->dm.dmub_lock);
 +
+ 	if (amdgpu_dm_irq_init(adev)) {
+ 		drm_err(adev_to_drm(adev), "failed to initialize DM IRQ support.\n");
+ 		goto error;
+@@ -2191,6 +2258,9 @@ static int amdgpu_dm_init(struct amdgpu_device *adev)
+ 		goto error;
+ 	}
+ 
++	if (amdgpu_dm_init_power_module(&adev->dm))
++		goto error;
 +
-+static unsigned int backlight_millipercent_to_millinit(
-+		struct core_power *core_power, unsigned int millipercent, unsigned int inst)
-+{
-+	unsigned int millinit = 0;
-+	unsigned long long numerator = 0;
-+
-+	if (core_power == NULL)
-+		return 0;
-+
-+	numerator = ((unsigned long long)millipercent) *
-+				core_power->bl_prop[inst].nits_range;
-+	millinit = ((unsigned int)div_u64(numerator, 100000)) +
-+			core_power->bl_prop[inst].min_brightness_millinits;
-+
-+	return millinit;
-+}
-+
-+static unsigned int backlight_millinit_to_millipercent(
-+		struct core_power *core_power, unsigned int millinit, unsigned int inst)
-+{
-+	unsigned int millipercent = 0;
-+	unsigned long long numerator = 0;
-+
-+	if (core_power == NULL)
-+		return 0;
-+
-+	if (millinit <= core_power->bl_prop[inst].min_brightness_millinits)
-+		return 0;
-+
-+	if (millinit >= core_power->bl_prop[inst].max_brightness_millinits)
-+		return (100 * 1000);
-+
-+	numerator = (((unsigned long long)millinit) -
-+			core_power->bl_prop[inst].min_brightness_millinits) * 100000;
-+	millipercent = ((unsigned int)div_u64(numerator,
-+				core_power->bl_prop[inst].nits_range));
-+
-+	return millipercent;
-+}
-+
-+static unsigned int backlight_pwm_to_millipercent(
-+		struct core_power *core_power, unsigned int pwm, unsigned int inst)
-+{
-+	unsigned int millipercent = 0;
-+	unsigned int max_index = 0;
-+
-+	if (core_power == NULL)
-+		return 0;
-+
-+	if (!core_power->bl_prop[inst].backlight_caps_valid)
-+		return 0;
-+
-+	/* Doesn't really make sense to have one single backlight level
-+	 * possible...
-+	 */
-+	if (core_power->bl_prop[inst].num_backlight_levels < 2)
-+		return 0;
-+
-+	max_index = core_power->bl_prop[inst].num_backlight_levels - 1;
-+
-+	if (pwm <= core_power->bl_prop[inst].backlight_lut[0])
-+		return 0;
-+
-+	if (pwm > core_power->bl_prop[inst].backlight_lut[max_index])
-+		return (100 * 1000);
-+
-+	/* We need to do a binary search over the array for where the pwm level
-+	 * is in the lut. Based on the index we can determine percentage.
-+	 */
-+	unsigned int min = 0;
-+	unsigned int max = max_index;
-+	unsigned int mid = 0;
-+
-+	while (max >= min) {
-+		mid = (min + max) / 2; /* floor of half range */
-+
-+		if (core_power->bl_prop[inst].backlight_lut[mid] < pwm)
-+			min = mid + 1;
-+		else if (core_power->bl_prop[inst].backlight_lut[mid] > pwm)
-+			max = mid - 1;
-+		else
-+			break;
+ 	/* create fake encoders for MST */
+ 	dm_dp_create_fake_mst_encoders(adev);
+ 
+@@ -2332,6 +2402,10 @@ static void amdgpu_dm_fini(struct amdgpu_device *adev)
+ 		adev->dm.freesync_module = NULL;
+ 	}
+ 
++	if (adev->dm.power_module) {
++		mod_power_destroy(adev->dm.power_module);
++		adev->dm.power_module = NULL;
 +	}
-+
-+	/* In this case, exact match is not found. Check if mid/min/max
-+	 * value is actually closer.
-+	 */
-+	if (max < min) {
-+		unsigned int min_delta;
-+		unsigned int mid_delta;
-+		unsigned int max_delta;
-+
-+		min_delta = (core_power->bl_prop[inst].backlight_lut[min] > pwm) ?
-+				core_power->bl_prop[inst].backlight_lut[min] - pwm :
-+				pwm - core_power->bl_prop[inst].backlight_lut[min];
-+
-+		mid_delta = (core_power->bl_prop[inst].backlight_lut[mid] > pwm) ?
-+				core_power->bl_prop[inst].backlight_lut[mid] - pwm :
-+				pwm - core_power->bl_prop[inst].backlight_lut[mid];
-+
-+		max_delta = (core_power->bl_prop[inst].backlight_lut[max] > pwm) ?
-+				core_power->bl_prop[inst].backlight_lut[max] - pwm :
-+				pwm - core_power->bl_prop[inst].backlight_lut[max];
-+
-+		if ((min_delta < mid_delta) && (min_delta < max_delta))
-+			mid = min;
-+
-+		if ((max_delta < mid_delta) && (max_delta < min_delta))
-+			mid = max;
-+	}
-+
-+	/* No interpolation, just take closest index */
-+	millipercent = 1000 * 100 * mid / max_index;
-+
-+	return millipercent;
-+}
-+
-+static unsigned int backlight_pwm_to_millinit(
-+		struct core_power *core_power, unsigned int pwm, unsigned int inst)
+ 	mutex_destroy(&adev->dm.audio_lock);
+ 	mutex_destroy(&adev->dm.dc_lock);
+ 	mutex_destroy(&adev->dm.dpia_aux_lock);
+@@ -5051,8 +5125,8 @@ static int amdgpu_dm_mode_config_init(struct amdgpu_device *adev)
+ #define AMDGPU_DM_MIN_SPREAD ((AMDGPU_DM_DEFAULT_MAX_BACKLIGHT - AMDGPU_DM_DEFAULT_MIN_BACKLIGHT) / 2)
+ #define AUX_BL_DEFAULT_TRANSITION_TIME_MS 50
+ 
+-static void amdgpu_dm_update_backlight_caps(struct amdgpu_display_manager *dm,
+-					    int bl_idx)
++void amdgpu_dm_update_backlight_caps(struct amdgpu_display_manager *dm,
++				     int bl_idx)
+ {
+ 	struct amdgpu_dm_backlight_caps *caps = &dm->backlight_caps[bl_idx];
+ 
+@@ -5214,15 +5288,34 @@ static u32 convert_brightness_to_user(const struct amdgpu_dm_backlight_caps *cap
+ 				 max - min);
+ }
+ 
++static struct dc_stream_state *dm_find_stream_with_link(
++	struct amdgpu_display_manager *dm,
++	struct dc_link *link)
 +{
-+	unsigned int millinit = 0;
-+
-+	if (core_power == NULL)
-+		return 0;
-+
-+	if (pwm <= core_power->bl_prop[inst].min_backlight_pwm)
-+		return core_power->bl_prop[inst].min_brightness_millinits;
-+
-+	if (pwm >= core_power->bl_prop[inst].max_backlight_pwm)
-+		return core_power->bl_prop[inst].max_brightness_millinits;
-+
-+	millinit = ((unsigned int)div_u64(((unsigned long long)pwm -
-+				core_power->bl_prop[inst].min_backlight_pwm) *
-+				core_power->bl_prop[inst].nits_range,
-+				core_power->bl_prop[inst].backlight_range));
-+
-+	millinit += core_power->bl_prop[inst].min_brightness_millinits;
-+
-+	if (millinit > core_power->bl_prop[inst].max_brightness_millinits)
-+		millinit = core_power->bl_prop[inst].max_brightness_millinits;
-+
-+	return millinit;
-+}
-+
-+static unsigned int backlight_millipercent_to_pwm(
-+		struct core_power *core_power, unsigned int millipercent, unsigned int inst)
-+{
-+	unsigned int pwm = (unsigned int)-1;
-+	unsigned int index = 0;
-+
-+	if (core_power == NULL)
-+		return 0;
-+
-+	// Bypass the brightness mapping LUT
-+	if (core_power->bl_prop->use_linear_backlight_curve) {
-+		pwm = core_power->bl_prop[inst].min_backlight_pwm +
-+			(unsigned int) div_u64((unsigned long long) millipercent *
-+			core_power->bl_prop[inst].backlight_range,
-+			100000);
-+
-+		if (pwm > core_power->bl_prop[inst].max_backlight_pwm)
-+			pwm = core_power->bl_prop[inst].max_backlight_pwm;
-+
-+		return pwm;
-+	}
-+
-+	if (millipercent >= (100 * 1000))
-+		return core_power->bl_prop[inst].backlight_lut[core_power->bl_prop[inst].num_backlight_levels - 1];
-+
-+	/* This will give the floor index. */
-+	index = ((core_power->bl_prop[inst].num_backlight_levels - 1) *
-+						millipercent) / 100000;
-+	/* Null check otherwise eDP doesn't lightup when connected to DP1 */
-+	if (core_power->bl_prop[inst].backlight_lut == NULL)
-+		return pwm;
-+
-+	pwm = core_power->bl_prop[inst].backlight_lut[index];
-+
-+	return pwm;
-+}
-+
-+static unsigned int backlight_millinit_to_pwm(
-+		struct core_power *core_power, unsigned int millinit, unsigned int inst)
-+{
-+	unsigned int pwm = 0;
-+
-+	if (core_power == NULL)
-+		return 0;
-+
-+	/* For nits based brightness, the signal will be a value
-+	 * between the minimum and maximum value.
-+	 */
-+	if (millinit >= core_power->bl_prop[inst].max_brightness_millinits)
-+		return core_power->bl_prop[inst].max_backlight_pwm;
-+	else if (millinit <= core_power->bl_prop[inst].min_brightness_millinits)
-+		return core_power->bl_prop[inst].min_backlight_pwm;
-+
-+	pwm = ((unsigned int)div_u64(((unsigned long long)millinit -
-+			core_power->bl_prop[inst].min_brightness_millinits) *
-+			core_power->bl_prop[inst].backlight_range,
-+			core_power->bl_prop[inst].nits_range));
-+
-+	pwm += core_power->bl_prop[inst].min_backlight_pwm;
-+
-+	if (pwm > core_power->bl_prop[inst].max_backlight_pwm)
-+		pwm = core_power->bl_prop[inst].max_backlight_pwm;
-+
-+	return pwm;
-+}
-+
-+static bool validate_ext_backlight_caps(
-+		struct dm_acpi_atif_backlight_caps *ext_backlight_caps)
-+{
-+	unsigned int i;
-+	unsigned int num_of_data_points = 0;
-+	unsigned int last_signal_level = 0;
-+	unsigned int last_luminance = 0;
-+
-+	num_of_data_points = ext_backlight_caps->num_data_points;
-+
-+	/* Validation rules:
-+	 * 1. BIOS should carry customized data points and
-+	 * the number of data points should not be larger than 99.
-+	 * 2. The max_input_signal should be larger than min_input_signal.
-+	 * 3. For each data point:
-+	 *	a. luminance should be in ascending order and
-+	 *	should not be 0 or 100 since the corresponding signal_level
-+	 *	are assigned by min_input_signal and max_input_signal.
-+	 *	b. signal_level should be in ascending order and
-+	 *	be within the range of min/max_input_signal.
-+	 */
-+	if (num_of_data_points > BL_DATA_POINTS)
-+		return false;
-+
-+	if (ext_backlight_caps->min_input_signal >= ext_backlight_caps->max_input_signal)
-+		return false;
-+
-+	last_signal_level = ext_backlight_caps->min_input_signal;
-+	for (i = 0; i < num_of_data_points; i++) {
-+		unsigned int luminance = ext_backlight_caps->data_points[i].luminance;
-+		unsigned int signal_level = ext_backlight_caps->data_points[i].signal_level;
-+
-+		if ((luminance <= last_luminance) || (luminance > BL_DATA_POINTS))
-+			return false;
-+
-+		if ((signal_level <= last_signal_level) || (signal_level >= ext_backlight_caps->max_input_signal))
-+			return false;
-+
-+		last_signal_level = signal_level;
-+		last_luminance = luminance;
-+	}
-+
-+	return true;
-+}
-+
-+/* hard coded to default backlight curve. */
-+static void initialize_backlight_caps(struct core_power *core_power, unsigned int inst)
-+{
-+	unsigned int i;
-+	struct dm_acpi_atif_backlight_caps *ext_backlight_caps = NULL;
-+	bool custom_curve_present = false;
-+	unsigned int num_levels = 0;
-+	struct dc *dc = NULL;
-+	enum dm_acpi_display_type acpi_display_type =
-+		(inst == 0) ? AcpiDisplayType_LCD1 : AcpiDisplayType_LCD2;
-+
-+	if (core_power == NULL)
-+		return;
-+	dc = core_power->dc;
-+
-+	num_levels = core_power->bl_prop[inst].num_backlight_levels;
-+
-+	/* Allocate memory for ATIF output
-+	 * (do not want to use 256 bytes on the stack)
-+	 */
-+	ext_backlight_caps = (struct dm_acpi_atif_backlight_caps *)
-+		(kzalloc(sizeof(struct dm_acpi_atif_backlight_caps),
-+				GFP_KERNEL));
-+
-+	if (ext_backlight_caps == NULL)
-+		return;
-+
-+	/* Retrieve ACPI extended brightness caps */
-+	if (dm_query_extended_brightness_caps
-+		(dc->ctx, acpi_display_type, ext_backlight_caps)) {
-+		custom_curve_present = validate_ext_backlight_caps(ext_backlight_caps);
-+	}
-+
-+	if (core_power->bl_prop[inst].use_custom_backlight_caps &&
-+			fill_custom_backlight_caps(
-+					core_power->bl_prop[inst].custom_backlight_caps_config_no,
-+					ext_backlight_caps)) {
-+		custom_curve_present = validate_ext_backlight_caps(ext_backlight_caps);
-+	}
-+
-+	if (custom_curve_present) {
-+		unsigned int index = 1;
-+		unsigned int num_of_data_points = ext_backlight_caps->num_data_points;
-+
-+		core_power->bl_prop[inst].ac_backlight_percent =
-+			ext_backlight_caps->ac_level_percentage;
-+		core_power->bl_prop[inst].dc_backlight_percent =
-+			ext_backlight_caps->dc_level_percentage;
-+		core_power->bl_prop[inst].backlight_lut[0] =
-+			backlight_8_to_16(
-+				ext_backlight_caps->min_input_signal);
-+		core_power->bl_prop[inst].backlight_lut[num_levels - 1] =
-+			backlight_8_to_16(
-+				ext_backlight_caps->max_input_signal);
-+
-+		/* Filling translation table from data points -
-+		 * between every two provided data points we
-+		 * lineary interpolate missing values
-+		 */
-+		for (i = 0; i < num_of_data_points; i++) {
-+			unsigned int luminance =
-+				ext_backlight_caps->data_points[i].luminance;
-+			unsigned int signal_level =
-+				backlight_8_to_16(
-+					ext_backlight_caps->data_points[i].signal_level);
-+
-+			/* Since luminance is a percentage, scale it by num_levels*/
-+			luminance = (luminance * num_levels) / 101;
-+
-+			/* Lineary interpolate missing values */
-+			if (index < luminance) {
-+				unsigned int base_value =
-+					core_power->bl_prop[inst].backlight_lut[index-1];
-+				unsigned int delta_signal =
-+					signal_level - base_value;
-+				unsigned int delta_luma =
-+					luminance - index + 1;
-+				unsigned int step  = delta_signal;
-+
-+				for (; index < luminance; index++) {
-+					core_power->bl_prop[inst].backlight_lut[index] =
-+						base_value + (step / delta_luma);
-+					step += delta_signal;
-+				}
-+			}
-+
-+			/* Now [index == luminance],
-+			 * so we can add data point to the translation table
-+			 */
-+			core_power->bl_prop[inst].backlight_lut[index++] = signal_level;
-+		}
-+
-+		/* Complete the final segment of interpolation -
-+		 * between last datapoint and maximum value
-+		 */
-+		if (index < num_levels - 1) {
-+			unsigned int base_value =
-+				core_power->bl_prop[inst].backlight_lut[index-1];
-+			unsigned int delta_signal =
-+				core_power->bl_prop[inst].backlight_lut[num_levels - 1] -
-+								base_value;
-+			unsigned int delta_luma = num_levels - index;
-+			unsigned int step = delta_signal;
-+
-+			for (; index < num_levels - 1; index++) {
-+				core_power->bl_prop[inst].backlight_lut[index] =
-+						base_value + (step / delta_luma);
-+				step += delta_signal;
-+			}
-+		}
-+	/* Build backlight translation table based on default curve */
-+	} else {
-+		/* Defines default backlight curve F(x) = A(x*x) + Bx + C.
-+		 *
-+		 * Backlight curve should always  satisfy:
-+		 * F(0) = min, F(100) = max,
-+		 * So polynom coefficients are:
-+		 * A is 0.0255 - B/100 - min/10000 - (255-max)/10000 =
-+		 * (max - min)/10000 - B/100
-+		 * B is adjustable factor to modify the curve.
-+		 * Bigger B results in less concave curve.
-+		 * B range is [0..(max-min)/100]
-+		 * C is backlight minimum
-+		 */
-+		unsigned int backlight_curve_coeff_a_factor =
-+				num_levels * num_levels;
-+		unsigned int backlight_curve_coeff_b = num_levels;
-+		unsigned int delta =
-+			core_power->bl_prop[inst].backlight_lut[num_levels - 1] -
-+				core_power->bl_prop[inst].backlight_lut[0];
-+		unsigned int coeffC = core_power->bl_prop[inst].backlight_lut[0];
-+		unsigned int coeffB =
-+				(backlight_curve_coeff_b < delta ?
-+					backlight_curve_coeff_b : delta);
-+		unsigned long long coeffA = delta - coeffB; /* coeffB is B*100 */
-+
-+		for (i = 1; i < num_levels - 1; i++) {
-+			uint64_t lut_val = div_u64(coeffA * i * i, backlight_curve_coeff_a_factor) +
-+				div_u64((uint64_t)coeffB * i, backlight_curve_coeff_b) + coeffC;
-+
-+			ASSERT(lut_val <= 0xFFFFFFFF);
-+			core_power->bl_prop[inst].backlight_lut[i] = (unsigned int)lut_val;
-+		}
-+	}
-+
-+	if (ext_backlight_caps != NULL)
-+		kfree(ext_backlight_caps);
-+
-+	/* Successfully initialized */
-+	core_power->bl_prop[inst].backlight_caps_valid = true;
-+}
-+
-+static void varibright_set_level(struct core_power *core_power)
-+{
-+	if (!core_power->varibright_prop.varibright_active ||
-+		!core_power->varibright_prop.varibright_user_enable)
-+		core_power->varibright_prop.varibright_hw_level = 0;
-+	else
-+		core_power->varibright_prop.varibright_hw_level =
-+			core_power->varibright_prop.varibright_level;
-+}
-+
-+bool mod_power_hw_init(struct mod_power *mod_power)
-+{
-+	struct core_power *core_power = NULL;
-+	struct dc *dc = NULL;
-+	struct dmcu *dmcu = NULL;
-+	struct dmcu_iram_parameters params;
++	struct dc_state *cur_dc_state = dm->dc->current_state;
++	struct dc_stream_state *stream = NULL;
 +	int i;
 +
-+	if (mod_power == NULL)
-+		return false;
-+
-+	core_power = MOD_POWER_TO_CORE(mod_power);
-+	dc = core_power->dc;
-+
-+	for (i = 0; i < core_power->edp_num; i++) {
-+		params.set = core_power->varibright_prop.varibright_config_setting;
-+		params.backlight_ramping_override = core_power->bl_prop[i].backlight_ramping_override;
-+		params.backlight_ramping_reduction = core_power->bl_prop[i].backlight_ramping_reduction;
-+		params.backlight_ramping_start = core_power->bl_prop[i].backlight_ramping_start;
-+		params.backlight_lut_array = core_power->bl_prop[i].backlight_lut;
-+		params.backlight_lut_array_size = core_power->bl_prop[i].num_backlight_levels;
-+		params.min_abm_backlight = core_power->bl_prop[i].min_abm_backlight;
-+
-+		dmcu = dc->res_pool->dmcu;
-+
-+		// In the case where abm is implemented on dmcub,
-+		// dmcu object will be null.
-+		// ABM 2.4 and up are implemented on dmcub.
-+		if (dmcu) {
-+			//DMCU does not support multiple eDP
-+			return dmcu_load_iram(dmcu, params);
-+		} else if (dc->ctx->dmub_srv) {
-+			if (!dmub_init_abm_config(dc->res_pool, params, i))
-+				return false;
-+		} else
-+			return false;
-+	}
-+	return true;
-+}
-+
-+struct mod_power *mod_power_create(struct dc *dc,
-+		struct mod_power_init_params *init_params,
-+		unsigned int edp_num)
-+{
-+	struct core_power *core_power = NULL;
-+	int i = 0;
-+	int abm_max_config = 0;
-+	unsigned int inst = 0;
-+	bool is_brightness_range_valid = false;
-+
-+	if (dc == NULL)
-+		goto fail_dc_null;
-+
-+	core_power = kzalloc(sizeof(struct core_power), GFP_KERNEL);
-+
-+	if (core_power == NULL)
-+		goto fail_alloc_context;
-+
-+	core_power->edp_num = edp_num;
-+	core_power->map = kzalloc(sizeof(struct power_entity) * MOD_POWER_MAX_CONCURRENT_STREAMS,
-+				  GFP_KERNEL);
-+
-+	if (core_power->map == NULL)
-+		goto fail_alloc_map;
-+
-+	for (i = 0; i < MOD_POWER_MAX_CONCURRENT_STREAMS; i++) {
-+		core_power->map[i].stream = NULL;
++	for (i = 0; i < cur_dc_state->stream_count; i++) {
++		stream = cur_dc_state->streams[i];
++		if (stream->link == link)
++			return stream;
 +	}
 +
-+	for (i = 0; i < MOD_POWER_MAX_CONCURRENT_STREAMS; i++) {
-+		core_power->map[i].psr_context =
-+				kzalloc(sizeof(struct mod_power_psr_context),
-+					GFP_KERNEL);
-+		if (core_power->map[i].psr_context == NULL)
-+			goto fail_construct;
-+	}
-+
-+	core_power->psr_smu_optimizations_support = init_params->allow_psr_smu_optimizations;
-+	core_power->multi_disp_optimizations_support = init_params->allow_psr_multi_disp_optimizations;
-+
-+	for (inst = 0; inst < edp_num; inst++) {
-+		core_power->bl_prop[inst].min_abm_backlight =
-+				init_params[inst].min_abm_backlight;
-+		core_power->bl_prop[inst].disable_fractional_pwm =
-+				init_params[inst].disable_fractional_pwm;
-+		core_power->bl_prop[inst].use_linear_backlight_curve =
-+				init_params[inst].use_linear_backlight_curve;
-+		core_power->bl_prop[inst].use_nits_based_brightness =
-+				init_params[inst].use_nits_based_brightness;
-+		core_power->bl_prop[inst].backlight_ramping_override =
-+				init_params[inst].backlight_ramping_override;
-+		core_power->bl_prop[inst].backlight_ramping_reduction =
-+				init_params[inst].backlight_ramping_reduction;
-+		core_power->bl_prop[inst].backlight_ramping_start =
-+				init_params[inst].backlight_ramping_start;
-+		core_power->bl_prop[inst].use_custom_backlight_caps =
-+				init_params[inst].use_custom_backlight_caps;
-+		core_power->bl_prop[inst].custom_backlight_caps_config_no =
-+				init_params[inst].custom_backlight_caps_config_no;
-+
-+		// Do not allow less than 101 backlight levels
-+		if (init_params[inst].num_backlight_levels < 101)
-+			core_power->bl_prop[inst].num_backlight_levels = 101;
-+		else
-+			core_power->bl_prop[inst].num_backlight_levels =
-+				init_params[inst].num_backlight_levels;
-+
-+		core_power->bl_prop[inst].backlight_lut = (unsigned int *)
-+				(kzalloc(sizeof(unsigned int) *
-+				core_power->bl_prop[inst].num_backlight_levels, GFP_KERNEL));
-+		if (core_power->bl_prop[inst].backlight_lut == NULL)
-+			goto fail_alloc_backlight_array;
-+	}
-+
-+	core_power->varibright_prop.varibright_active = false;
-+
-+	core_power->varibright_prop.varibright_user_enable =
-+			init_params->def_varibright_enable;
-+
-+	// Table of ABM levels here is 1-4, but level 0 also exists as 'off'
-+	if (init_params->varibright_level <= abm_defines_max_level) {
-+		core_power->varibright_prop.varibright_level =
-+			init_params->varibright_level;
-+
-+	} else {
-+		core_power->varibright_prop.varibright_level = 3;
-+	}
-+	if (init_params->def_varibright_level <= abm_defines_max_level) {
-+		core_power->varibright_prop.def_varibright_level =
-+			init_params->def_varibright_level;
-+	} else {
-+		core_power->varibright_prop.def_varibright_level = 3;
-+	}
-+
-+	// ABM used to contain 4 different configs. There is only 3 since ABM 2.3.
-+	if ((dc->res_pool->dmcu != NULL) && (dc->res_pool->dmcu->dmcu_version.abm_version < 0x23))
-+		abm_max_config = 4;
-+	else
-+		abm_max_config = 3;
-+
-+	if (init_params->abm_config_setting < abm_max_config)
-+		core_power->varibright_prop.varibright_config_setting =
-+			init_params->abm_config_setting;
-+	else
-+		core_power->varibright_prop.varibright_config_setting = 0;
-+
-+	for (inst = 0; inst < edp_num; inst++) {
-+		core_power->bl_prop[inst].backlight_lut[0] = init_params[inst].min_backlight_pwm;
-+		core_power->bl_prop[inst].backlight_lut[
-+			core_power->bl_prop[inst].num_backlight_levels-1] =
-+				init_params[inst].max_backlight_pwm;
-+		core_power->bl_prop[inst].min_backlight_pwm = init_params[inst].min_backlight_pwm;
-+		core_power->bl_prop[inst].max_backlight_pwm = init_params[inst].max_backlight_pwm;
-+		core_power->bl_prop[inst].ac_backlight_percent =
-+				default_ac_backlight_percent;
-+		core_power->bl_prop[inst].dc_backlight_percent =
-+				default_dc_backlight_percent;
-+		core_power->bl_prop[inst].backlight_caps_valid = false;
-+
-+		if (core_power->bl_prop[inst].use_nits_based_brightness) {
-+			core_power->bl_prop[inst].min_brightness_millinits =
-+					init_params[inst].panel_min_millinits;
-+			core_power->bl_prop[inst].max_brightness_millinits =
-+					init_params[inst].panel_max_millinits;
-+		} else {
-+
-+			core_power->bl_prop[inst].min_brightness_millinits =
-+					pwr_default_min_brightness_millinits;
-+			core_power->bl_prop[inst].max_brightness_millinits =
-+					pwr_default_sdr_brightness_millinits;
-+		}
-+
-+		core_power->bl_prop[inst].backlight_range =
-+				core_power->bl_prop[inst].max_backlight_pwm-
-+				core_power->bl_prop[inst].min_backlight_pwm;
-+
-+		core_power->bl_prop[inst].nits_range =
-+				core_power->bl_prop[inst].max_brightness_millinits -
-+				core_power->bl_prop[inst].min_brightness_millinits;
-+
-+		core_power->bl_state[inst].smooth_brightness_enabled = true;
-+	}
-+
-+	/* Check if at least 1 instance in core_power is populated before failing */
-+	for (inst = 0; inst < edp_num; inst++) {
-+		if (core_power->bl_prop[inst].nits_range != 0 && core_power->bl_prop[inst].backlight_range != 0) {
-+			is_brightness_range_valid = true;
-+			break;
-+		}
-+
-+	}
-+	if (!is_brightness_range_valid)
-+		goto fail_bad_brightness_range;
-+
-+	core_power->num_entities = 0;
-+
-+	core_power->dc = dc;
-+	for (inst = 0; inst < edp_num; inst++) {
-+		initialize_backlight_caps(core_power, inst);
-+		core_power->bl_state[inst].backlight_millipercent =
-+			core_power->bl_prop[inst].dc_backlight_percent * 1000;
-+		core_power->bl_state[inst].backlight_pwm = backlight_millipercent_to_pwm(core_power,
-+		core_power->bl_state[inst].backlight_millipercent, inst);
-+		core_power->bl_state[inst].backlight_millinit = backlight_millipercent_to_millinit(core_power,
-+		core_power->bl_state[inst].backlight_millipercent, inst);
-+	}
-+
-+	return &core_power->public;
-+
-+fail_bad_brightness_range:
-+fail_alloc_backlight_array:
-+	for (inst = 0; inst < edp_num; inst++)
-+		if (core_power->bl_prop[inst].backlight_lut)
-+			kfree(core_power->bl_prop[inst].backlight_lut);
-+fail_construct:
-+	for (i = 0; i < MOD_POWER_MAX_CONCURRENT_STREAMS; i++) {
-+		if (core_power->map[i].psr_context)
-+			kfree(core_power->map[i].psr_context);
-+	}
-+	kfree(core_power->map);
-+
-+fail_alloc_map:
-+	kfree(core_power);
-+
-+fail_alloc_context:
-+fail_dc_null:
 +	return NULL;
 +}
 +
-+void mod_power_destroy(struct mod_power *mod_power)
-+{
-+	if (mod_power != NULL) {
-+		int i;
-+		struct core_power *core_power =
-+				MOD_POWER_TO_CORE(mod_power);
-+
-+		for (i = 0; i < MOD_POWER_MAX_CONCURRENT_STREAMS; i++)
-+			if (core_power->map[i].psr_context)
-+				kfree(core_power->map[i].psr_context);
-+
-+		for (i = 0; i < core_power->num_entities; i++)
-+			if (core_power->map[i].stream)
-+				dc_stream_release(core_power->map[i].stream);
-+
-+		kfree(core_power->map);
-+
-+		for (i = 0; i < MAX_NUM_EDP; i++)
-+			if (core_power->bl_prop[i].backlight_lut)
-+				kfree(core_power->bl_prop[i].backlight_lut);
-+
-+		kfree(core_power);
+ static void amdgpu_dm_backlight_set_level(struct amdgpu_display_manager *dm,
+ 					 int bl_idx,
+ 					 u32 user_brightness)
+ {
+ 	struct amdgpu_dm_backlight_caps *caps;
+ 	struct dc_link *link;
+-	u32 brightness;
+-	bool rc, reallow_idle = false;
++	u32 brightness = 0;
++	bool rc = false, reallow_idle = false;
+ 	struct drm_connector *connector;
++	struct dc_stream_state *stream;
++	unsigned int min, max;
+ 
+ 	list_for_each_entry(connector, &dm->ddev->mode_config.connector_list, head) {
+ 		struct amdgpu_dm_connector *aconnector = to_amdgpu_dm_connector(connector);
+@@ -5252,13 +5345,6 @@ static void amdgpu_dm_backlight_set_level(struct amdgpu_display_manager *dm,
+ 	if (caps->brightness_mask)
+ 		brightness |= caps->brightness_mask;
+ 
+-	/* Change brightness based on AUX property */
+-	mutex_lock(&dm->dc_lock);
+-	if (dm->dc->caps.ips_support && dm->dc->ctx->dmub_srv->idle_allowed) {
+-		dc_allow_idle_optimizations(dm->dc, false);
+-		reallow_idle = true;
+-	}
+-
+ 	if (trace_amdgpu_dm_brightness_enabled()) {
+ 		trace_amdgpu_dm_brightness(__builtin_return_address(0),
+ 					   user_brightness,
+@@ -5267,22 +5353,45 @@ static void amdgpu_dm_backlight_set_level(struct amdgpu_display_manager *dm,
+ 					   power_supply_is_system_supplied() > 0);
+ 	}
+ 
+-	if (caps->aux_support) {
+-		rc = dc_link_set_backlight_level_nits(link, true, brightness,
+-						      AUX_BL_DEFAULT_TRANSITION_TIME_MS);
+-		if (!rc)
+-			DRM_DEBUG("DM: Failed to update backlight via AUX on eDP[%d]\n", bl_idx);
+-	} else {
+-		struct set_backlight_level_params backlight_level_params = { 0 };
++	stream = dm_find_stream_with_link(dm, link);
++	if (!stream)
++		return;
+ 
+-		backlight_level_params.backlight_pwm_u16_16 = brightness;
+-		backlight_level_params.transition_time_in_ms = 0;
++	mutex_lock(&dm->dc_lock);
++	if (dm->dc->caps.ips_support && dm->dc->ctx->dmub_srv->idle_allowed) {
++		dc_allow_idle_optimizations(dm->dc, false);
++		reallow_idle = true;
 +	}
-+}
+ 
+-		rc = dc_link_set_backlight_level(link, &backlight_level_params);
+-		if (!rc)
+-			DRM_DEBUG("DM: Failed to update backlight on eDP[%d]\n", bl_idx);
++	if (caps->aux_support) {
++		rc = mod_power_set_backlight_nits(dm->power_module, stream, brightness,
++			AUX_BL_DEFAULT_TRANSITION_TIME_MS, false, true);
++	} else {
++		/* power module uses millipercent */
++		get_brightness_range(caps, &min, &max);
++		brightness = DIV_ROUND_CLOSEST(brightness * 100, (max - min)) * 1000;
++		rc = mod_power_set_backlight_percent(dm->power_module, stream,
++						     brightness, 0, false);
+ 	}
+ 
++	/*
++	 * Some kms clients create a ramped backlight transition effect
++	 * by rapidly changing the backlight. Yet we must wait on dmcub
++	 * fw to exit psr/replay before programming backlight. To
++	 * prevent lag, keep disable psr/replay and let the next atomic
++	 * flip clear the event.
++	 *
++	 * ToDo: use ISM to handle rapidly backlight change
++	 *
++	 * Rapidly backlight change is similar to rapidly cursor events,
++	 * which is now handled by ISM. ISM can delay the event until system
++	 * is really idle, so we may use ISM to handle backlight change as well.
++	 */
++	amdgpu_dm_psr_set_event(dm, stream, true,
++		psr_event_hw_programming, true);
++	amdgpu_dm_replay_set_event(dm, stream, true,
++		replay_event_hw_programming, true);
 +
-+bool mod_power_add_stream(struct mod_power *mod_power,
-+		struct dc_stream_state *stream, struct psr_caps *caps)
-+{
-+	struct core_power *core_power = NULL;
+ 	if (dm->dc->caps.ips_support && reallow_idle)
+ 		dc_allow_idle_optimizations(dm->dc, true);
+ 
+@@ -5500,6 +5609,8 @@ static void setup_backlight_device(struct amdgpu_display_manager *dm,
+ 
+ static void amdgpu_set_panel_orientation(struct drm_connector *connector);
+ 
 +
-+	if (mod_power == NULL)
-+		return false;
 +
-+	core_power = MOD_POWER_TO_CORE(mod_power);
+ /*
+  * In this architecture, the association
+  * connector -> encoder -> crtc
+@@ -5741,7 +5852,7 @@ static int amdgpu_dm_initialize_drm_device(struct amdgpu_device *adev)
+ 						psr_feature_enabled = false;
+ 
+ 				if (psr_feature_enabled) {
+-					amdgpu_dm_set_psr_caps(link);
++					amdgpu_dm_set_psr_caps(link, aconnector);
+ 					drm_info(adev_to_drm(adev), "%s: PSR support %d, DC PSR ver %d, sink PSR ver %d DPCD caps 0x%x su_y_granularity %d\n",
+ 						 aconnector->base.name,
+ 						 link->psr_settings.psr_feature_enabled,
+@@ -9793,7 +9904,8 @@ static void update_stream_irq_parameters(
+ 	spin_unlock_irqrestore(&adev_to_drm(adev)->event_lock, flags);
+ }
+ 
+-static void amdgpu_dm_handle_vrr_transition(struct dm_crtc_state *old_state,
++static void amdgpu_dm_handle_vrr_transition(struct amdgpu_display_manager *dm,
++					    struct dm_crtc_state *old_state,
+ 					    struct dm_crtc_state *new_state)
+ {
+ 	bool old_vrr_active = amdgpu_dm_crtc_vrr_active(old_state);
+@@ -9812,6 +9924,13 @@ static void amdgpu_dm_handle_vrr_transition(struct dm_crtc_state *old_state,
+ 		WARN_ON(drm_crtc_vblank_get(new_state->base.crtc) != 0);
+ 		drm_dbg_driver(new_state->base.crtc->dev, "%s: crtc=%u VRR off->on: Get vblank ref\n",
+ 				 __func__, new_state->base.crtc->base.id);
 +
-+	if (core_power->num_entities < MOD_POWER_MAX_CONCURRENT_STREAMS) {
-+		dc_stream_retain(stream);
++		scoped_guard(mutex, &dm->dc_lock) {
++			amdgpu_dm_psr_set_event(dm, new_state->stream, true,
++				psr_event_vrr_transition, true);
++			amdgpu_dm_replay_set_event(dm, new_state->stream, true,
++				replay_event_vrr, true);
++		}
+ 	} else if (old_vrr_active && !new_vrr_active) {
+ 		/* Transition VRR active -> inactive:
+ 		 * Allow vblank irq disable again for fixed refresh rate.
+@@ -9820,6 +9939,13 @@ static void amdgpu_dm_handle_vrr_transition(struct dm_crtc_state *old_state,
+ 		drm_crtc_vblank_put(new_state->base.crtc);
+ 		drm_dbg_driver(new_state->base.crtc->dev, "%s: crtc=%u VRR on->off: Drop vblank ref\n",
+ 				 __func__, new_state->base.crtc->base.id);
 +
-+		core_power->map[core_power->num_entities].stream = stream;
-+		core_power->map[core_power->num_entities].caps = caps;
++		scoped_guard(mutex, &dm->dc_lock) {
++			amdgpu_dm_psr_set_event(dm, new_state->stream, false,
++				psr_event_vrr_transition, false);
++			amdgpu_dm_replay_set_event(dm, new_state->stream, false,
++				replay_event_vrr, false);
++		}
+ 	}
+ }
+ 
+@@ -9917,7 +10043,8 @@ static void amdgpu_dm_update_cursor(struct drm_plane *plane,
+ 	}
+ }
+ 
+-static void amdgpu_dm_enable_self_refresh(struct amdgpu_crtc *acrtc_attach,
++static void amdgpu_dm_enable_self_refresh(struct amdgpu_display_manager *dm,
++					  struct amdgpu_crtc *acrtc_attach,
+ 					  const struct dm_crtc_state *acrtc_state,
+ 					  const u64 current_ts)
+ {
+@@ -9925,20 +10052,10 @@ static void amdgpu_dm_enable_self_refresh(struct amdgpu_crtc *acrtc_attach,
+ 	struct replay_settings *pr = &acrtc_state->stream->link->replay_settings;
+ 	struct amdgpu_dm_connector *aconn =
+ 		(struct amdgpu_dm_connector *)acrtc_state->stream->dm_stream_context;
+-	bool vrr_active = amdgpu_dm_crtc_vrr_active(acrtc_state);
+-
+-	if (acrtc_state->update_type > UPDATE_TYPE_FAST) {
+-		if (pr->config.replay_supported && !pr->replay_feature_enabled)
+-			amdgpu_dm_link_setup_replay(acrtc_state->stream->link, aconn);
+-		else if (psr->psr_version != DC_PSR_VERSION_UNSUPPORTED &&
+-			     !psr->psr_feature_enabled)
+-			if (!aconn->disallow_edp_enter_psr)
+-				amdgpu_dm_link_setup_psr(acrtc_state->stream);
+-	}
+ 
+ 	/* Decrement skip count when SR is enabled and we're doing fast updates. */
+ 	if (acrtc_state->update_type == UPDATE_TYPE_FAST &&
+-	    (psr->psr_feature_enabled || pr->config.replay_supported)) {
++	    (psr->psr_feature_enabled || pr->replay_feature_enabled)) {
+ 		if (aconn->sr_skip_count > 0)
+ 			aconn->sr_skip_count--;
+ 
+@@ -9953,17 +10070,15 @@ static void amdgpu_dm_enable_self_refresh(struct amdgpu_crtc *acrtc_attach,
+ 		 * of update events.
+ 		 * See `amdgpu_dm_crtc_vblank_control_worker()`.
+ 		 */
+-		if (!vrr_active &&
+-		    acrtc_attach->dm_irq_params.allow_sr_entry &&
+-#ifdef CONFIG_DRM_AMD_SECURE_DISPLAY
+-		    !amdgpu_dm_crc_window_is_activated(acrtc_state->base.crtc) &&
+-#endif
+-		    (current_ts - psr->psr_dirty_rects_change_timestamp_ns) > 500000000) {
+-			if (pr->replay_feature_enabled && !pr->replay_allow_active)
+-				amdgpu_dm_replay_enable(acrtc_state->stream, true);
+-			if (psr->psr_version == DC_PSR_VERSION_SU_1 &&
+-			    !psr->psr_allow_active && !aconn->disallow_edp_enter_psr)
+-				amdgpu_dm_psr_enable(acrtc_state->stream);
++		if (acrtc_attach->dm_irq_params.allow_sr_entry &&
++			(current_ts - psr->psr_dirty_rects_change_timestamp_ns) > 500000000) {
++			amdgpu_dm_psr_set_event(dm, acrtc_state->stream, false,
++				psr_event_hw_programming, false);
 +
-+		// initialize cached PSR params to something "safe" (something that is
-+		// consistent with disabled PSR state)
-+		core_power->map[core_power->num_entities].psr_enabled = 0;
-+		core_power->map[core_power->num_entities].psr_events = psr_event_vsync;
-+		core_power->map[core_power->num_entities].psr_power_opt = 0;
-+		core_power->num_entities++;
-+		return true;
-+	}
-+
-+	DC_TRACE_LEVEL_MESSAGE(DAL_TRACE_LEVEL_ERROR,
-+						WPP_BIT_FLAG_Firmware_PsrState,
-+						"mod_power: add_stream: ERROR: stream=%p num_entities=%d >= MOD_POWER_MAX_CONCURRENT_STREAMS",
-+						stream,
-+						core_power->num_entities);
-+
-+	return false;
-+}
-+
-+bool mod_power_remove_stream(struct mod_power *mod_power,
-+		const struct dc_stream_state *stream)
-+{
-+	int i = 0;
-+	struct core_power *core_power = NULL;
-+	unsigned int index = 0;
-+
-+	if (mod_power == NULL)
-+		return false;
-+
-+	core_power = MOD_POWER_TO_CORE(mod_power);
-+	if (core_power->num_entities == 0) {
-+		/* trying to remove a stream a second time or have not added yet */
-+		BREAK_TO_DEBUGGER();
-+		DC_TRACE_LEVEL_MESSAGE(DAL_TRACE_LEVEL_ERROR,
-+							WPP_BIT_FLAG_Firmware_PsrState,
-+							"mod_power: remove_stream: ERROR: num_entities=0 stream=%p",
-+							stream);
-+		return false;
-+	}
-+
-+	index = map_index_from_stream(core_power, stream);
-+
-+	if (index >= core_power->num_entities) {
-+		/* trying to remove a stream a second time or have not added yet */
-+		BREAK_TO_DEBUGGER();
-+		DC_TRACE_LEVEL_MESSAGE(DAL_TRACE_LEVEL_ERROR,
-+							WPP_BIT_FLAG_Firmware_PsrState,
-+							"mod_power: remove_stream: ERROR: index=%u >= num_entities=%d stream=%p",
-+							index,
-+							core_power->num_entities,
-+							stream);
-+		return false;
-+	}
-+
-+	dc_stream_release(core_power->map[index].stream);
-+	core_power->map[index].stream = NULL;
-+	/* To remove this entity, shift everything after down */
-+	for (i = index; i < core_power->num_entities - 1; i++) {
-+		core_power->map[i].stream = core_power->map[i + 1].stream;
-+		core_power->map[i].caps = core_power->map[i + 1].caps;
-+
-+		// copy over cached parameters in case they map to PSR capable display
-+		core_power->map[i].psr_enabled = core_power->map[i + 1].psr_enabled;
-+		core_power->map[i].psr_events = core_power->map[i + 1].psr_events;
-+		core_power->map[i].psr_power_opt = core_power->map[i + 1].psr_power_opt;
-+
-+		memcpy(core_power->map[i].psr_context, core_power->map[i + 1].psr_context, sizeof(struct mod_power_psr_context));
-+		memset(core_power->map[i + 1].psr_context, 0, sizeof(struct mod_power_psr_context));
-+	}
-+	core_power->num_entities--;
-+
-+	return true;
-+}
-+
-+/*
-+ * Replace_stream should be used when there is a mode set for existing
-+ * display target with a valid stream. In this case might need to retain
-+ * cached PSR state (events, power opt, en/dis) if we are dealing with PSR
-+ * capable display. If mod_power_remove and mod_power_add are used instead,
-+ * then stream may be assigned to a different slot and may end up with
-+ * wrong cached PSR state. It is hard to tell which PSR events should
-+ * persist through mode set or what psr_events should be initialized to, so
-+ * it might be better just to retain them all.
++			amdgpu_dm_replay_set_event(dm, acrtc_state->stream, true,
++				replay_event_general_ui, true);
++			amdgpu_dm_replay_set_event(dm, acrtc_state->stream, false,
++				replay_event_hw_programming, false);
+ 		}
+ 	} else {
+ 		acrtc_attach->dm_irq_params.allow_sr_entry = false;
+@@ -10125,15 +10240,12 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_state *state,
+ 			 */
+ 			if (acrtc_state->stream->link->psr_settings.psr_version >= DC_PSR_VERSION_SU_1 &&
+ 			    acrtc_attach->dm_irq_params.allow_sr_entry &&
+-#ifdef CONFIG_DRM_AMD_SECURE_DISPLAY
+-			    !amdgpu_dm_crc_window_is_activated(acrtc_state->base.crtc) &&
+-#endif
+ 			    dirty_rects_changed) {
+ 				mutex_lock(&dm->dc_lock);
+ 				acrtc_state->stream->link->psr_settings.psr_dirty_rects_change_timestamp_ns =
+ 				timestamp_ns;
+-				if (acrtc_state->stream->link->psr_settings.psr_allow_active)
+-					amdgpu_dm_psr_disable(acrtc_state->stream, true);
++				amdgpu_dm_psr_set_event(dm, acrtc_state->stream, true,
++					psr_event_hw_programming, true);
+ 				mutex_unlock(&dm->dc_lock);
+ 			}
+ 		}
+@@ -10298,15 +10410,6 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_state *state,
+ 		if (acrtc_state->abm_level != dm_old_crtc_state->abm_level)
+ 			bundle->stream_update.abm_level = &acrtc_state->abm_level;
+ 
+-		mutex_lock(&dm->dc_lock);
+-		if ((acrtc_state->update_type > UPDATE_TYPE_FAST) || vrr_active) {
+-			if (acrtc_state->stream->link->replay_settings.replay_allow_active)
+-				amdgpu_dm_replay_disable(acrtc_state->stream);
+-			if (acrtc_state->stream->link->psr_settings.psr_allow_active)
+-				amdgpu_dm_psr_disable(acrtc_state->stream, true);
+-		}
+-		mutex_unlock(&dm->dc_lock);
+-
+ 		/*
+ 		 * If FreeSync state on the stream has changed then we need to
+ 		 * re-adjust the min/max bounds now that DC doesn't handle this
+@@ -10344,8 +10447,8 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_state *state,
+ 		if (dm_old_crtc_state->active_planes != acrtc_state->active_planes)
+ 			dm_update_pflip_irq_state(drm_to_adev(dev),
+ 						  acrtc_attach);
+-
+-		amdgpu_dm_enable_self_refresh(acrtc_attach, acrtc_state, timestamp_ns);
++		amdgpu_dm_enable_self_refresh(dm, acrtc_attach, acrtc_state,
++					      timestamp_ns);
+ 		mutex_unlock(&dm->dc_lock);
+ 	}
+ 
+@@ -10464,6 +10567,102 @@ static void dm_clear_writeback(struct amdgpu_display_manager *dm,
+ 	dc_stream_remove_writeback(dm->dc, crtc_state->stream, 0);
+ }
+ 
++/**
++ * amdgpu_dm_mod_power_update_streams - update mod_power stream state on modeset
++ * @state: the drm atomic state
++ * @dm: the display manager to update mod_power on
++ *
++ * Notify mod_power of stream changes on modeset events, and disable PSR/Replay
++ * in preparation for hardware programming. See also
++ * amdgpu_dm_mod_power_setup_streams() for post-modeset mod_power setup.
 + */
-+bool mod_power_replace_stream(struct mod_power *mod_power,
-+		const struct dc_stream_state *current_stream,
-+		struct dc_stream_state *new_stream,
-+		struct psr_caps *new_caps)
++static void amdgpu_dm_mod_power_update_streams(struct drm_atomic_state *state,
++					       struct amdgpu_display_manager *dm)
 +{
-+	struct core_power *core_power = NULL;
-+	unsigned int index = 0;
++	struct dm_crtc_state *dm_old_crtc_state, *dm_new_crtc_state;
++	struct drm_crtc_state *old_crtc_state, *new_crtc_state;
++	struct amdgpu_dm_connector *aconnector;
++	struct drm_crtc *crtc;
++	int i = 0;
++
++	for_each_oldnew_crtc_in_state(state, crtc, old_crtc_state, new_crtc_state, i) {
++		dm_old_crtc_state = to_dm_crtc_state(old_crtc_state);
++		dm_new_crtc_state = to_dm_crtc_state(new_crtc_state);
++
++		if (!drm_atomic_crtc_needs_modeset(new_crtc_state))
++			continue;
 +
-+	if (mod_power == NULL)
-+		return false;
-+
-+	core_power = MOD_POWER_TO_CORE(mod_power);
-+	if (core_power->num_entities == 0) {
-+		/* no streams exist in the table yet */
-+		BREAK_TO_DEBUGGER();
-+		DC_TRACE_LEVEL_MESSAGE(DAL_TRACE_LEVEL_ERROR,
-+							WPP_BIT_FLAG_Firmware_PsrState,
-+							"mod_power: replace_stream: ERROR: num_entities=0 stream=%p",
-+							current_stream);
-+		return false;
-+	}
-+
-+	index = map_index_from_stream(core_power, current_stream);
-+
-+	if (index >= core_power->num_entities) {
-+		/* trying to replace a non-existent stream */
-+		BREAK_TO_DEBUGGER();
-+		DC_TRACE_LEVEL_MESSAGE(DAL_TRACE_LEVEL_ERROR,
-+							WPP_BIT_FLAG_Firmware_PsrState,
-+							"mod_power: replace_stream: ERROR: index=%u >= num_entities=%d stream=%p",
-+							index,
-+							core_power->num_entities,
-+							current_stream);
-+		return false;
-+	}
-+
-+	dc_stream_release(core_power->map[index].stream);
-+	dc_stream_retain(new_stream);
-+	core_power->map[index].stream = new_stream;
-+	core_power->map[index].caps = new_caps;
-+	memset(core_power->map[index].psr_context, 0, sizeof(struct mod_power_psr_context));
-+
-+	return true;
-+}
-+
-+static bool set_backlight_millinits_aux(struct core_power *core_power,
-+		struct dc_stream_state *stream,
-+		unsigned int backlight_millinits,
-+		unsigned int transition_time_millisec,
-+		unsigned int inst)
-+{
-+	struct dc_link *link = NULL;
-+
-+	if (core_power == NULL)
-+		return false;
-+
-+	if (stream == NULL)
-+		return true;
-+
-+	link = dc_stream_get_link(stream);
-+
-+	return dc_link_set_backlight_level_nits(link, core_power->bl_state[inst].isHDR,
-+			backlight_millinits, transition_time_millisec);
-+}
-+
-+static bool set_backlight(struct core_power *core_power,
-+		struct dc_stream_state *stream,
-+		struct set_backlight_level_params *backlight_level_params,
-+		unsigned int inst)
-+{
-+	bool retv = false;
-+	unsigned int frame_ramp = 0;
-+	unsigned int vsync_rate_hz;
-+	union dmcu_abm_set_bl_params params;
-+	const struct dc_link *link = NULL;
-+	unsigned int backlight_pwm_u16_16 = backlight_level_params->backlight_pwm_u16_16;
-+	unsigned int transition_time_millisec = backlight_level_params->transition_time_in_ms;
-+
-+	if (core_power == NULL)
-+		return false;
-+
-+	core_power->bl_state[inst].backlight_pwm = backlight_pwm_u16_16;
-+
-+	if (stream == NULL)
-+		return true;
-+
-+	if (stream->link->connector_signal != SIGNAL_TYPE_EDP)
-+		return false;
-+
-+	if (transition_time_millisec != 0) {
-+		unsigned int v_total =
-+			(stream->adjust.v_total_max == 0) ? stream->timing.v_total : stream->adjust.v_total_max;
-+
-+		vsync_rate_hz = (unsigned int)div_u64(div_u64((stream->
-+			timing.pix_clk_100hz * 100),
-+			v_total),
-+			stream->timing.h_total);
-+
-+		if (core_power->bl_state[inst].smooth_brightness_enabled)
-+			frame_ramp = ((vsync_rate_hz *
-+				transition_time_millisec) + 500) / 1000;
-+	}
-+
-+	core_power->bl_state[inst].frame_ramp = frame_ramp;
-+	params.u32All = 0;
-+	params.bits.gradual_change = (frame_ramp > 0);
-+	params.bits.frame_ramp = frame_ramp;
-+	link = dc_stream_get_link(stream);
-+
-+	mod_power_set_psr_event(&core_power->public, stream, true, psr_event_hw_programming, true);
-+	mod_power_set_replay_event(&core_power->public, stream, true, replay_event_hw_programming, true);
-+
-+	backlight_level_params->frame_ramp = params.u32All;
-+	retv = dc_link_set_backlight_level(link, backlight_level_params);
-+
-+	mod_power_set_psr_event(&core_power->public, stream, false, psr_event_hw_programming, false);
-+	mod_power_set_replay_event(&core_power->public, stream, false, replay_event_hw_programming, false);
-+
-+	return retv;
-+}
-+
-+static void fill_backlight_level_params(struct core_power *core_power,
-+	struct set_backlight_level_params *backlight_level_params,
-+	int panel_inst, uint8_t aux_inst, unsigned int backlight_pwm,
-+	enum backlight_control_type backlight_control_type,
-+	unsigned int backlight_millinit, unsigned int transition_time_millisec,
-+	bool is_hdr)
-+{
-+	struct backlight_properties *bl_prop = &core_power->bl_prop[panel_inst];
-+
-+	backlight_level_params->aux_inst = aux_inst;
-+	backlight_level_params->backlight_pwm_u16_16 = backlight_pwm;
-+	backlight_level_params->control_type = backlight_control_type;
-+	backlight_level_params->backlight_millinits = backlight_millinit;
-+	backlight_level_params->transition_time_in_ms = transition_time_millisec;
-+	backlight_level_params->min_luminance = bl_prop->min_brightness_millinits;
-+	backlight_level_params->max_luminance = bl_prop->max_brightness_millinits;
-+	backlight_level_params->min_backlight_pwm = bl_prop->min_backlight_pwm;
-+	backlight_level_params->max_backlight_pwm = bl_prop->max_backlight_pwm;
-+
-+	if (backlight_control_type == BACKLIGHT_CONTROL_AMD_AUX && !is_hdr)
-+		backlight_level_params->control_type = BACKLIGHT_CONTROL_PWM;
-+}
-+
-+bool mod_power_set_backlight_nits(struct mod_power *mod_power,
-+		struct dc_stream_state *stream,
-+		unsigned int backlight_millinit,
-+		unsigned int transition_time_millisec,
-+		bool skip_aux,
-+		bool is_hdr)
-+{
-+	struct core_power *core_power = NULL;
-+	unsigned int backlight_pwm;
-+	unsigned int panel_inst = 0;
-+	struct set_backlight_level_params backlight_level_params = { 0 };
-+	const struct dc_link *link = NULL;
-+	uint8_t aux_inst = 0;
-+
-+	if (mod_power == NULL)
-+		return false;
-+
-+	core_power = MOD_POWER_TO_CORE(mod_power);
-+	link = dc_stream_get_link(stream);
-+
-+	ASSERT(link->ddc->ddc_pin->hw_info.ddc_channel <= 0xFF);
-+	aux_inst = (uint8_t)link->ddc->ddc_pin->hw_info.ddc_channel;
-+
-+	if (!dc_get_edp_link_panel_inst(core_power->dc, stream->link, &panel_inst))
-+		return false;
-+
-+	if (!skip_aux) {
-+		if (!set_backlight_millinits_aux(core_power, stream,
-+						backlight_millinit, transition_time_millisec, panel_inst))
-+			return false;
-+	}
-+// always send both AUX (above) and PWM (below)
-+	core_power->bl_state[panel_inst].backlight_millinit = backlight_millinit;
-+
-+	core_power->bl_state[panel_inst].backlight_millipercent =
-+		backlight_millinit_to_millipercent(
-+				core_power, backlight_millinit, panel_inst);
-+
-+	backlight_pwm = backlight_millinit_to_pwm(
-+				core_power, backlight_millinit, panel_inst);
-+
-+	fill_backlight_level_params(core_power, &backlight_level_params, panel_inst, aux_inst, backlight_pwm,
-+		link->backlight_control_type, backlight_millinit, transition_time_millisec, is_hdr);
-+
-+	return set_backlight(core_power, stream,
-+			&backlight_level_params, panel_inst);
-+}
-+
-+
-+bool mod_power_backlight_percent_to_nits(struct mod_power *mod_power,
-+		struct dc_stream_state *stream,
-+		unsigned int backlight_millipercent,
-+		unsigned int *backlight_millinit)
-+{
-+	struct core_power *core_power = NULL;
-+	unsigned int inst = 0;
-+
-+	if (mod_power == NULL)
-+		return false;
-+
-+	core_power = MOD_POWER_TO_CORE(mod_power);
-+
-+	if (!dc_get_edp_link_panel_inst(core_power->dc, stream->link, &inst))
-+		return false;
-+
-+	*backlight_millinit = backlight_millipercent_to_millinit(
-+			core_power, backlight_millipercent, inst);
-+	return true;
-+}
-+
-+bool mod_power_backlight_nits_to_percent(struct mod_power *mod_power,
-+		struct dc_stream_state *stream,
-+		unsigned int backlight_millinit,
-+		unsigned int *backlight_millipercent)
-+{
-+	struct core_power *core_power = NULL;
-+	unsigned int inst = 0;
-+
-+	if (mod_power == NULL)
-+		return false;
-+
-+	core_power = MOD_POWER_TO_CORE(mod_power);
-+
-+	if (!dc_get_edp_link_panel_inst(core_power->dc, stream->link, &inst))
-+		return false;
-+
-+	*backlight_millipercent = backlight_millinit_to_millipercent(
-+			core_power, backlight_millinit, inst);
-+	return true;
-+}
-+
-+bool mod_power_set_backlight_percent(struct mod_power *mod_power,
-+		struct dc_stream_state *stream,
-+		unsigned int backlight_millipercent,
-+		unsigned int transition_time_millisec,
-+		bool is_hdr)
-+{
-+	struct core_power *core_power = NULL;
-+	struct set_backlight_level_params backlight_level_params = { 0 };
-+	const struct dc_link *link = NULL;
-+	unsigned int backlight_pwm;
-+	unsigned int panel_inst = 0;
-+	uint8_t aux_inst = 0;
-+
-+	if (mod_power == NULL)
-+		return false;
-+
-+	core_power = MOD_POWER_TO_CORE(mod_power);
-+	link = dc_stream_get_link(stream);
-+	ASSERT(link->ddc->ddc_pin->hw_info.ddc_channel <= 0xFF);
-+	aux_inst = (uint8_t)link->ddc->ddc_pin->hw_info.ddc_channel;
-+
-+	if (!dc_get_edp_link_panel_inst(core_power->dc, stream->link, &panel_inst))
-+		return false;
-+	core_power->bl_state[panel_inst].backlight_millipercent = backlight_millipercent;
-+
-+	core_power->bl_state[panel_inst].backlight_millinit =
-+		backlight_millipercent_to_millinit(
-+				core_power, backlight_millipercent, panel_inst);
-+
-+	backlight_pwm = backlight_millipercent_to_pwm(
-+				core_power, backlight_millipercent, panel_inst);
-+
-+	fill_backlight_level_params(core_power, &backlight_level_params, panel_inst,
-+		aux_inst, backlight_pwm, link->backlight_control_type,
-+		core_power->bl_state[panel_inst].backlight_millinit, transition_time_millisec, is_hdr);
-+
-+	return set_backlight(core_power, stream,
-+			&backlight_level_params, panel_inst);
-+}
-+
-+void mod_power_update_backlight(struct mod_power *mod_power,
-+		struct dc_stream_state *stream,
-+		unsigned int backlight_millipercent)
-+{
-+	struct core_power *core_power = NULL;
-+	unsigned int inst = 0;
-+
-+	if (mod_power == NULL)
-+		return;
-+
-+	core_power = MOD_POWER_TO_CORE(mod_power);
-+
-+	if (!dc_get_edp_link_panel_inst(core_power->dc, stream->link, &inst))
-+		return;
-+	core_power->bl_state[inst].backlight_millipercent = backlight_millipercent;
-+
-+	core_power->bl_state[inst].backlight_millinit =
-+		backlight_millipercent_to_millinit(
-+			core_power, backlight_millipercent, inst);
-+
-+	core_power->bl_state[inst].backlight_pwm = backlight_millipercent_to_pwm(
-+		core_power, backlight_millipercent, inst);
-+}
-+
-+void mod_power_update_backlight_nits(struct mod_power *mod_power,
-+		struct dc_stream_state *stream,
-+		unsigned int backlight_millinit)
-+{
-+	struct core_power *core_power = NULL;
-+	unsigned int inst = 0;
-+
-+	if (mod_power == NULL)
-+		return;
-+
-+	core_power = MOD_POWER_TO_CORE(mod_power);
-+
-+	if (!dc_get_edp_link_panel_inst(core_power->dc, stream->link, &inst))
-+		return;
-+
-+	core_power->bl_state[inst].backlight_millinit = backlight_millinit;
-+
-+	core_power->bl_state[inst].backlight_millipercent = backlight_millinit_to_millipercent(
-+		core_power, backlight_millinit, inst);
-+	core_power->bl_state[inst].backlight_pwm = backlight_millinit_to_pwm(
-+		core_power, backlight_millinit, inst);
-+}
-+
-+bool mod_power_get_backlight_pwm(struct mod_power *mod_power,
-+		unsigned int *backlight_pwm,
-+		unsigned int inst)
-+{
-+	struct core_power *core_power = NULL;
-+
-+	if (mod_power == NULL)
-+		return false;
-+
-+	core_power = MOD_POWER_TO_CORE(mod_power);
-+
-+	*backlight_pwm = core_power->bl_state[inst].backlight_pwm;
-+
-+	return true;
-+}
-+
-+bool mod_power_get_backlight_nits(struct mod_power *mod_power,
-+		unsigned int *backlight_millinit,
-+		unsigned int inst)
-+{
-+	struct core_power *core_power = NULL;
-+
-+	if (mod_power == NULL)
-+		return false;
-+
-+	core_power = MOD_POWER_TO_CORE(mod_power);
-+
-+	*backlight_millinit = core_power->bl_state[inst].backlight_millinit;
-+
-+	return true;
-+}
-+
-+bool mod_power_get_backlight_percent(struct mod_power *mod_power,
-+		unsigned int *backlight_millipercent,
-+		unsigned int inst)
-+{
-+	struct core_power *core_power = NULL;
-+
-+	if (mod_power == NULL)
-+		return false;
-+
-+	core_power = MOD_POWER_TO_CORE(mod_power);
-+
-+	*backlight_millipercent = core_power->bl_state[inst].backlight_millipercent;
-+
-+	return true;
-+}
-+
-+bool mod_power_get_hw_target_backlight_pwm_nits(struct mod_power *mod_power,
-+		const struct dc_link *link,
-+		unsigned int *backlight_millinit,
-+		unsigned int inst)
-+{
-+	struct core_power *core_power = NULL;
-+	unsigned int backlight_u16_16 = 0;
-+
-+	if (mod_power == NULL)
-+		return false;
-+
-+	core_power = MOD_POWER_TO_CORE(mod_power);
-+
-+	if (mod_power_get_hw_target_backlight_pwm(mod_power, link,
-+							&backlight_u16_16)) {
-+		*backlight_millinit =
-+			backlight_pwm_to_millinit(core_power,
-+					backlight_u16_16, inst);
-+		return true;
-+	}
-+	return false;
-+}
-+
-+bool mod_power_get_hw_target_backlight_pwm_percent(struct mod_power *mod_power,
-+		const struct dc_link *link,
-+		unsigned int *backlight_millipercent,
-+		unsigned int inst)
-+{
-+	struct core_power *core_power = NULL;
-+	unsigned int backlight_u16_16 = 0;
-+
-+	if (mod_power == NULL)
-+		return false;
-+
-+	core_power = MOD_POWER_TO_CORE(mod_power);
-+
-+	if (mod_power_get_hw_target_backlight_pwm(mod_power, link,
-+							&backlight_u16_16)) {
-+		*backlight_millipercent =
-+			backlight_pwm_to_millipercent(core_power,
-+					backlight_u16_16, inst);
-+		return true;
-+	}
-+	return false;
-+}
-+
-+bool mod_power_get_hw_target_backlight_pwm(struct mod_power *mod_power,
-+		const struct dc_link *link,
-+		unsigned int *backlight_u16_16)
-+{
-+	if (mod_power == NULL)
-+		return false;
-+
-+	*backlight_u16_16 = dc_link_get_target_backlight_pwm(link);
-+
-+	return true;
-+}
-+
-+bool mod_power_get_hw_backlight_pwm_nits(struct mod_power *mod_power,
-+		const struct dc_link *link,
-+		unsigned int *backlight_millinit,
-+		unsigned int inst)
-+{
-+	struct core_power *core_power = NULL;
-+	unsigned int backlight_u16_16 = 0;
-+
-+	if (mod_power == NULL)
-+		return false;
-+
-+	core_power = MOD_POWER_TO_CORE(mod_power);
-+
-+	if (mod_power_get_hw_backlight_pwm(mod_power, link, &backlight_u16_16)) {
-+		*backlight_millinit =
-+			backlight_pwm_to_millinit(core_power,
-+					backlight_u16_16, inst);
-+		return true;
-+	}
-+	return false;
-+}
-+
-+bool mod_power_get_hw_backlight_aux_nits(struct mod_power *mod_power,
-+		struct dc_stream_state **streams, int num_streams,
-+		unsigned int *backlight_millinit_avg,
-+		unsigned int *backlight_millinit_peak)
-+{
-+	struct core_power *core_power = NULL;
-+	struct dc_link *link = NULL;
-+	unsigned int stream_index;
-+
-+	if (mod_power == NULL)
-+		return false;
-+
-+	core_power = MOD_POWER_TO_CORE(mod_power);
-+
-+	if (core_power == NULL)
-+		return false;
-+
-+	if (num_streams < 1)
-+		return true;
-+
-+	for (stream_index = 0; stream_index < num_streams; stream_index++)
-+		if (streams[stream_index]->link->connector_signal == SIGNAL_TYPE_EDP ||
-+				streams[stream_index]->link->connector_signal == SIGNAL_TYPE_DISPLAY_PORT)
-+			break;
-+
-+	if (stream_index == num_streams)
-+		return false;
-+
-+	link = dc_stream_get_link(streams[stream_index]);
-+	if (link->dpcd_sink_ext_caps.bits.hdr_aux_backlight_control == 0)
-+		return false;
-+
-+	return dc_link_get_backlight_level_nits(link, backlight_millinit_avg,
-+			backlight_millinit_peak);
-+}
-+
-+bool mod_power_get_hw_backlight_pwm_percent(struct mod_power *mod_power,
-+		const struct dc_link *link,
-+		unsigned int *backlight_millipercent,
-+		unsigned int inst)
-+{
-+	struct core_power *core_power = NULL;
-+	unsigned int backlight_u16_16 = 0;
-+
-+	if (mod_power == NULL)
-+		return false;
-+
-+	core_power = MOD_POWER_TO_CORE(mod_power);
-+
-+	if (mod_power_get_hw_backlight_pwm(mod_power, link, &backlight_u16_16)) {
-+		*backlight_millipercent =
-+			backlight_pwm_to_millipercent(core_power,
-+					backlight_u16_16, inst);
-+		return true;
-+	}
-+	return false;
-+}
-+
-+bool mod_power_get_hw_backlight_pwm(struct mod_power *mod_power,
-+		const struct dc_link *link,
-+		unsigned int *backlight_u16_16)
-+{
-+	if (mod_power == NULL)
-+		return false;
-+
-+	*backlight_u16_16 = dc_link_get_backlight_level(link);
-+
-+	return true;
-+}
-+
-+bool mod_power_get_panel_backlight_boundaries(
-+				struct mod_power *mod_power,
-+				unsigned int *out_min_backlight,
-+				unsigned int *out_max_backlight,
-+				unsigned int *out_ac_backlight_percent,
-+				unsigned int *out_dc_backlight_percent,
-+				unsigned int inst)
-+{
-+	struct core_power *core_power = NULL;
-+
-+	if (mod_power == NULL)
-+		return false;
-+
-+	core_power = MOD_POWER_TO_CORE(mod_power);
-+
-+	/* If cache was successfully updated,
-+	 * copy the values to output structure and return success
-+	 */
-+	if (core_power->bl_prop[inst].backlight_caps_valid) {
-+		*out_min_backlight = core_power->bl_prop[inst].backlight_lut[0];
-+		*out_max_backlight =
-+			core_power->bl_prop[inst].backlight_lut[
-+				core_power->bl_prop[inst].num_backlight_levels - 1];
-+		*out_ac_backlight_percent =
-+			core_power->bl_prop[inst].ac_backlight_percent;
-+		*out_dc_backlight_percent =
-+			core_power->bl_prop[inst].dc_backlight_percent;
-+
-+		return true;
-+	}
-+
-+	return false;
-+}
-+
-+bool mod_power_set_smooth_brightness(struct mod_power *mod_power,
-+		bool enable_brightness,
-+		unsigned int inst)
-+{
-+	struct core_power *core_power = NULL;
-+
-+	if (mod_power == NULL)
-+		return false;
-+
-+	core_power = MOD_POWER_TO_CORE(mod_power);
-+
-+	core_power->bl_state[inst].smooth_brightness_enabled = enable_brightness;
-+
-+	return true;
-+}
-+
-+bool mod_power_notify_mode_change(struct mod_power *mod_power,
-+		const struct dc_stream_state *stream,
-+		bool is_hdr)
-+{
-+	unsigned int stream_index = 0;
-+	struct core_power *core_power = NULL;
-+	struct dc_link *link = NULL;
-+	struct psr_config psr_config = {0};
-+	struct psr_context psr_context = {0};
-+	struct dc *dc = NULL;
-+	unsigned int panel_inst = 0;
-+	int active_psr_events = 0;
-+	int active_replay_events = 0;
-+
-+	if ((mod_power == NULL) || (stream == NULL))
-+		return false;
-+
-+	core_power = MOD_POWER_TO_CORE(mod_power);
-+
-+	if (core_power->num_entities == 0)
-+		return false;
-+
-+	stream_index = map_index_from_stream(core_power, stream);
-+
-+	if (stream_index >= core_power->num_entities)
-+		return false;
-+
-+	dc = core_power->dc;
-+	link = dc_stream_get_link(stream);
-+	active_psr_events = core_power->map[stream_index].psr_events;
-+	active_replay_events = core_power->map[stream_index].replay_events;
-+	if (link != NULL && dc_get_edp_link_panel_inst(dc, link, &panel_inst)) {
-+		struct set_backlight_level_params backlight_level_params = { 0 };
-+
-+		ASSERT(link->ddc->ddc_pin->hw_info.ddc_channel <= 0xFF);
-+		uint8_t aux_inst = (uint8_t)link->ddc->ddc_pin->hw_info.ddc_channel;
-+
-+		if (link->dpcd_sink_ext_caps.bits.hdr_aux_backlight_control == 1 ||
-+			link->dpcd_sink_ext_caps.bits.sdr_aux_backlight_control == 1)
-+			dc_link_set_backlight_level_nits(link, core_power->bl_state[panel_inst].isHDR,
-+				core_power->bl_state[panel_inst].backlight_millinit, 0);
-+
-+		backlight_level_params.frame_ramp = 0;
-+
-+		fill_backlight_level_params(core_power, &backlight_level_params, panel_inst, aux_inst,
-+			core_power->bl_state[panel_inst].backlight_pwm, link->backlight_control_type,
-+			core_power->bl_state[panel_inst].backlight_millinit, 0, is_hdr);
-+
-+		dc_link_set_backlight_level(link, &backlight_level_params);
-+
-+		mod_power_calc_psr_configs(&psr_config, link, stream);
-+
-+		psr_config.psr_exit_link_training_required = core_power->map[stream_index].caps->psr_exit_link_training_required;
-+
-+		if (dc->ctx->asic_id.chip_family >= AMDGPU_FAMILY_GC_11_0_1)
-+			psr_config.allow_smu_optimizations =
-+					core_power->psr_smu_optimizations_support && dc_is_embedded_signal(stream->signal);
-+		else
-+			psr_config.allow_smu_optimizations =
-+					core_power->psr_smu_optimizations_support && mod_power_only_edp(dc->current_state, stream);
-+
-+		psr_config.allow_multi_disp_optimizations = core_power->multi_disp_optimizations_support;
-+
-+		psr_config.rate_control_caps = core_power->map[stream_index].caps->rate_control_caps;
-+
-+		if (active_psr_events & psr_event_os_request_force_ffu) {
-+			psr_config.os_request_force_ffu = true;
-+		}
 +		/*
-+		* DSC support:
-+		* DSC slice height value must be 'mod' by su_y_granularity.
-+		* According to Panel Vendor, there might be varied conditions to fulfill.
-+		* Right now, DSC slice height value must be multiple of su_y_granularity.
-+		*
-+		* The value of DSC slice height is determined in DSC Driver but it does not
-+		* propagated out here, so we need to calculate it as below 'slice_height'.
-+		*/
-+		psr_su_set_dsc_slice_height(dc, link,
-+					(struct dc_stream_state *) stream,
-+					&psr_config);
-+
-+		dc_link_setup_psr(link, stream, &psr_config, &psr_context);
-+
-+		link->replay_settings.replay_smu_opt_enable =
-+			(link->replay_settings.config.replay_smu_opt_supported &&
-+			mod_power_only_edp(dc->current_state, stream));
-+
-+		if (active_replay_events & replay_event_os_request_force_ffu) {
-+			link->replay_settings.config.os_request_force_ffu = true;
-+		}
-+
-+		if (dc_is_embedded_signal(stream->signal))
-+			dc->link_srv->dp_setup_replay(link, stream);
-+	}
-+
-+	return true;
-+}
-+
-+bool mod_power_varibright_feature_enable(struct mod_power *mod_power, bool enable,
-+		struct dc_stream_update *stream_update)
-+{
-+	struct core_power *core_power = NULL;
-+
-+	if (mod_power == NULL)
-+		return false;
-+
-+	core_power = MOD_POWER_TO_CORE(mod_power);
-+	core_power->varibright_prop.varibright_user_enable = enable;
-+
-+	/* find abm hw level to program, and save in stream update */
-+	varibright_set_level(core_power);
-+	*stream_update->abm_level = core_power->varibright_prop.varibright_hw_level;
-+
-+	DC_TRACE_LEVEL_MESSAGEP(DAL_TRACE_LEVEL_INFORMATION,
-+						WPP_BIT_FLAG_Backlight_ABM,
-+						">ABM feature enable: enable=%u su->varibright_level=%u varibright_hw_level=%u",
-+						(unsigned int) enable,
-+						*stream_update->abm_level,
-+						core_power->varibright_prop.varibright_hw_level);
-+	return true;
-+}
-+
-+bool mod_power_varibright_activate(struct mod_power *mod_power,
-+		bool activate,
-+		struct dc_stream_update *stream_update)
-+{
-+	struct core_power *core_power = NULL;
-+
-+	if (mod_power == NULL)
-+		return false;
-+
-+	core_power = MOD_POWER_TO_CORE(mod_power);
-+	core_power->varibright_prop.varibright_active = activate;
-+
-+	/* find abm hw level to program, and save in stream update */
-+	varibright_set_level(core_power);
-+	*stream_update->abm_level = core_power->varibright_prop.varibright_hw_level;
-+
-+	DC_TRACE_LEVEL_MESSAGEP(DAL_TRACE_LEVEL_INFORMATION,
-+						WPP_BIT_FLAG_Backlight_ABM,
-+						">ABM activate: activate=%u su->varibright_level=%u",
-+						(unsigned int) activate,
-+						*stream_update->abm_level);
-+	return true;
-+}
-+bool mod_power_varibright_set_level(struct mod_power *mod_power, unsigned int level,
-+		struct dc_stream_update *stream_update)
-+{
-+	struct core_power *core_power = NULL;
-+
-+	if (mod_power == NULL)
-+		return false;
-+
-+	core_power = MOD_POWER_TO_CORE(mod_power);
-+	core_power->varibright_prop.varibright_level = level;
-+	core_power->varibright_prop.varibright_hw_level = level;
-+
-+	/* find abm hw level to program, and save in stream update */
-+	varibright_set_level(core_power);
-+	*stream_update->abm_level = core_power->varibright_prop.varibright_hw_level;
-+
-+	DC_TRACE_LEVEL_MESSAGEP(DAL_TRACE_LEVEL_INFORMATION,
-+						WPP_BIT_FLAG_Backlight_ABM,
-+						">ABM set level: level=%u -> (varibright_level=%u varibright_hw_level=%u) -> su->varibright_level=%u",
-+						level,
-+						core_power->varibright_prop.varibright_level,
-+						core_power->varibright_prop.varibright_hw_level,
-+						*stream_update->abm_level);
-+	return true;
-+}
-+
-+bool mod_power_varibright_set_hw_level(struct mod_power *mod_power, unsigned int level,
-+		struct dc_stream_update *stream_update)
-+{
-+	struct core_power *core_power = NULL;
-+
-+	if (mod_power == NULL)
-+		return false;
-+
-+	core_power = MOD_POWER_TO_CORE(mod_power);
-+
-+	if (level == 0 || level == ABM_LEVEL_IMMEDIATE_DISABLE)
-+		core_power->varibright_prop.varibright_active = 0;
-+	else
-+		core_power->varibright_prop.varibright_active = 1;
-+	core_power->varibright_prop.varibright_hw_level = level;
-+	*stream_update->abm_level = core_power->varibright_prop.varibright_hw_level;
-+
-+	DC_TRACE_LEVEL_MESSAGEP(DAL_TRACE_LEVEL_INFORMATION,
-+						WPP_BIT_FLAG_Backlight_ABM,
-+						">ABM set level: level=%u -> (varibright_level=%u varibright_hw_level=%u) -> su->varibright_level=%u",
-+						level,
-+						core_power->varibright_prop.varibright_level,
-+						core_power->varibright_prop.varibright_hw_level,
-+						*stream_update->abm_level);
-+	return true;
-+}
-+
-+bool mod_power_get_varibright_level(struct mod_power *mod_power,
-+		unsigned int *varibright_level)
-+{
-+	struct core_power *core_power = NULL;
-+
-+	if (mod_power == NULL)
-+		return false;
-+
-+	core_power = MOD_POWER_TO_CORE(mod_power);
-+
-+	*varibright_level = core_power->varibright_prop.varibright_level;
-+
-+	DC_TRACE_LEVEL_MESSAGEP(DAL_TRACE_LEVEL_INFORMATION,
-+						WPP_BIT_FLAG_Backlight_ABM,
-+						">get varibright level: cp->varibright_level=%u",
-+						*varibright_level);
-+	return true;
-+
-+}
-+
-+bool mod_power_get_varibright_hw_level(struct mod_power *mod_power,
-+		unsigned int *varibright_level)
-+{
-+	struct core_power *core_power = NULL;
-+
-+	if (mod_power == NULL)
-+		return false;
-+
-+	core_power = MOD_POWER_TO_CORE(mod_power);
-+
-+	*varibright_level = core_power->varibright_prop.varibright_hw_level;
-+	DC_TRACE_LEVEL_MESSAGEP(DAL_TRACE_LEVEL_INFORMATION,
-+						WPP_BIT_FLAG_Backlight_ABM,
-+						">get varibright HW level: hw_level=%u",
-+						*varibright_level);
-+	return true;
-+}
-+
-+bool mod_power_get_varibright_default_level(struct mod_power *mod_power,
-+		unsigned int *varibright_level)
-+{
-+	struct core_power *core_power = NULL;
-+
-+	if (mod_power == NULL)
-+		return false;
-+
-+	core_power = MOD_POWER_TO_CORE(mod_power);
-+
-+	*varibright_level = core_power->varibright_prop.def_varibright_level;
-+	DC_TRACE_LEVEL_MESSAGEP(DAL_TRACE_LEVEL_INFORMATION,
-+						WPP_BIT_FLAG_Backlight_ABM,
-+						">get varibright default level: def_varibright_level=%u",
-+						*varibright_level);
-+	return true;
-+}
-+
-+bool mod_power_get_varibright_enable(struct mod_power *mod_power,
-+		bool *varibright_enable)
-+{
-+	struct core_power *core_power = NULL;
-+
-+	if (mod_power == NULL)
-+		return false;
-+
-+	core_power = MOD_POWER_TO_CORE(mod_power);
-+
-+	*varibright_enable = core_power->varibright_prop.varibright_user_enable;
-+	DC_TRACE_LEVEL_MESSAGEP(DAL_TRACE_LEVEL_INFORMATION,
-+				WPP_BIT_FLAG_Backlight_ABM,
-+				">get varibright enable state: varibright_user_enable=%u",
-+				(unsigned int) (*varibright_enable));
-+	return true;
-+}
-+
-+bool mod_power_is_abm_active(struct mod_power *mod_power,
-+		const struct dc_link *link,
-+		unsigned int inst)
-+{
-+	unsigned int user_backlight = 0;
-+	unsigned int current_backlight = 0;
-+	bool is_active = false;
-+
-+	if (mod_power == NULL)
-+		return false;
-+
-+	mod_power_get_backlight_pwm(mod_power, &user_backlight, inst);
-+	mod_power_get_hw_backlight_pwm(mod_power, link,	&current_backlight);
-+
-+	if (user_backlight != current_backlight)
-+		is_active = true;
-+	else
-+		is_active = false;
-+	DC_TRACE_LEVEL_MESSAGEP(DAL_TRACE_LEVEL_INFORMATION,
-+						WPP_BIT_FLAG_Backlight_ABM,
-+						">get ABM active state: is_active=%u (user_backlight_pwm=%u, current_backlight_pwm=%u)",
-+						(unsigned int)is_active,
-+						user_backlight,
-+						current_backlight);
-+	return is_active;
-+}
-+
-+
-+static void mod_power_psr_set_power_opt(struct mod_power *mod_power,
-+	struct dc_stream_state *stream,
-+	unsigned int active_psr_events,
-+	bool psr_enable_request)
-+{
-+	(void)psr_enable_request;
-+	struct core_power *core_power = NULL;
-+	struct dc_link *link = NULL;
-+	unsigned int stream_index = 0;
-+	unsigned int power_opt = 0;
-+
-+	if (!stream)
-+		return;
-+
-+	core_power = MOD_POWER_TO_CORE(mod_power);
-+	stream_index = map_index_from_stream(core_power, stream);
-+	if (!core_power->map[stream_index].caps->psr_version)
-+		return;
-+
-+	link = dc_stream_get_link(stream);
-+
-+	if (active_psr_events == 0) {
-+		/* Static Screen */
-+		power_opt |= (psr_power_opt_smu_opt_static_screen | psr_power_opt_z10_static_screen |
-+					psr_power_opt_ds_disable_allow);
-+	}
-+
-+	/* psr_power_opt_flag is a configuration parameter into the module that determines
-+	 * which optimizations to enable during psr
-+	 */
-+	power_opt &= core_power->map[stream_index].caps->psr_power_opt_flag;
-+	if (core_power->map[stream_index].psr_power_opt != power_opt) {
-+		DC_TRACE_LEVEL_MESSAGE(DAL_TRACE_LEVEL_VERBOSE,
-+				WPP_BIT_FLAG_Firmware_PsrState,
-+				"mod_power set_power_opt: psr_power_opt=0x%04x, power_opt=0x%04x"
-+				"active_psr_events=0x%04x, psr_power_opt_flag=0x%04x",
-+				core_power->map[stream_index].psr_power_opt,
-+				power_opt,
-+				active_psr_events,
-+				core_power->map[stream_index].caps->psr_power_opt_flag);
-+		dc_link_set_psr_allow_active(link, NULL, false, false, &power_opt);
-+		core_power->map[stream_index].psr_power_opt = power_opt;
-+	}
-+}
-+
-+static bool set_psr_enable(struct mod_power *mod_power,
-+		struct dc_stream_state *stream,
-+		bool psr_enable,
-+		bool wait,
-+		bool force_static)
-+{
-+	struct core_power *core_power = NULL;
-+	enum dc_psr_state state = PSR_STATE0;
-+	unsigned int retry_count;
-+	const unsigned int max_retry = 1000;
-+	struct dc_link *link = NULL;
-+
-+	if (mod_power == NULL)
-+		return false;
-+
-+	core_power = MOD_POWER_TO_CORE(mod_power);
-+
-+	if (core_power->num_entities == 0) {
-+		DC_TRACE_LEVEL_MESSAGE(DAL_TRACE_LEVEL_ERROR,
-+							WPP_BIT_FLAG_Firmware_PsrState,
-+							"set psr enable: ERROR: stream=%p num_entities=%d",
-+							stream,
-+							core_power->num_entities);
-+		return false;
-+	}
-+
-+	if (psr_enable)	{
-+		unsigned int vsync_rate_hz;
-+		struct dc_static_screen_params params = {0};
-+
-+		vsync_rate_hz = (unsigned int)div_u64(div_u64((
-+				stream->timing.pix_clk_100hz * 100),
-+				stream->timing.v_total),
-+				stream->timing.h_total);
-+
-+		params.triggers.cursor_update = true;
-+		params.triggers.overlay_update = true;
-+		params.triggers.surface_update = true;
-+		params.num_frames = calc_psr_num_static_frames(vsync_rate_hz);
-+
-+		DC_TRACE_LEVEL_MESSAGE(DAL_TRACE_LEVEL_INFORMATION,
-+							WPP_BIT_FLAG_Firmware_PsrState,
-+							"set psr enable: CALCS: pix_clk_100hz=%u v_total=%u h_total=%u vsync_rate_hz=%u num_frames=%u",
-+							stream->timing.pix_clk_100hz,
-+							stream->timing.v_total,
-+							stream->timing.h_total,
-+							vsync_rate_hz,
-+							params.num_frames);
-+
-+		dc_stream_set_static_screen_params(core_power->dc,
-+						   &stream, 1,
-+						   &params);
-+	}
-+
-+	link = dc_stream_get_link(stream);
-+
-+	if (!dc_link_set_psr_allow_active(link, &psr_enable, false, force_static, NULL)) {
-+		DC_TRACE_LEVEL_MESSAGE(DAL_TRACE_LEVEL_ERROR,
-+							WPP_BIT_FLAG_Firmware_PsrState,
-+							"set psr enable: ERROR: stream=%p link=%p psr_enable=%d",
-+							stream,
-+							link,
-+							psr_enable);
-+		return false;
-+	}
-+
-+	if (wait == true) {
-+
-+		DC_TRACE_LEVEL_MESSAGE(DAL_TRACE_LEVEL_INFORMATION,
-+							WPP_BIT_FLAG_Firmware_PsrState,
-+							"set psr enable: BEGIN WAIT: psr_enable=%d",
-+							(int)psr_enable);
-+
-+		for (retry_count = 0; retry_count <= max_retry; retry_count++) {
-+			dc_link_get_psr_state(link, &state);
-+			if (psr_enable) {
-+				if (state != PSR_STATE0 &&
-+						(!force_static || state == PSR_STATE3))
-+					break;
-+			} else {
-+				if (state == PSR_STATE0)
-+					break;
++		 * Update mod_power on modeset event in preparation for hw
++		 * programming. Always use the old stream, since it would have
++		 * been previously added to mod_power. If old stream is null (on
++		 * crtc enable, for example), mod_power will no-op, which is the
++		 * desried behavior.
++		 */
++		if (old_crtc_state->active) {
++			scoped_guard(mutex, &dm->dc_lock) {
++				amdgpu_dm_psr_set_event(dm, dm_old_crtc_state->stream, true,
++					psr_event_hw_programming, true);
++				amdgpu_dm_replay_set_event(dm, dm_old_crtc_state->stream, true,
++					replay_event_hw_programming, true);
 +			}
-+			udelay(500);
 +		}
 +
-+		DC_TRACE_LEVEL_MESSAGE(DAL_TRACE_LEVEL_INFORMATION,
-+							WPP_BIT_FLAG_Firmware_PsrState,
-+							"set psr enable: END WAIT: psr_enable=%d",
-+							(int)psr_enable);
-+
-+		/* assert if max retry hit */
-+		if (retry_count >= max_retry) {
-+			ASSERT(0);
-+			DC_TRACE_LEVEL_MESSAGE(DAL_TRACE_LEVEL_ERROR,
-+								WPP_BIT_FLAG_Firmware_PsrState,
-+								"set psr enable: ERROR: retry_count=%u: Unexpectedly long wait for PSR state change.",
-+								retry_count);
-+		}
-+	} else {
-+		DC_TRACE_LEVEL_MESSAGE(DAL_TRACE_LEVEL_INFORMATION,
-+							WPP_BIT_FLAG_Firmware_PsrState,
-+							"set psr enable: PSR state change initiated (wait=false): psr_enable=%d",
-+							(int)psr_enable);
-+	}
-+
-+	return true;
-+}
-+
-+bool mod_power_get_psr_event(struct mod_power *mod_power,
-+			struct dc_stream_state *stream,
-+			unsigned int *active_psr_events)
-+{
-+	struct core_power *core_power = NULL;
-+	unsigned int stream_index = 0;
-+
-+	if (mod_power == NULL)
-+		return false;
-+
-+	core_power = MOD_POWER_TO_CORE(mod_power);
-+
-+	if (core_power->num_entities == 0)
-+		return false;
-+
-+	stream_index = map_index_from_stream(core_power, stream);
-+
-+	if (!core_power->map[stream_index].caps->psr_version)
-+		return false;
-+
-+	*active_psr_events = core_power->map[stream_index].psr_events;
-+
-+	return true;
-+}
-+
-+bool mod_power_set_psr_event(struct mod_power *mod_power,
-+		struct dc_stream_state *stream, bool set_event,
-+		enum psr_event event, bool wait)
-+{
-+	struct core_power *core_power = NULL;
-+	unsigned int stream_index = 0;
-+	unsigned int active_psr_events = 0;
-+	bool psr_enable_request = false;
-+	bool force_static = false;
-+
-+	if (mod_power == NULL || stream == NULL)
-+		return false;
-+
-+	core_power = MOD_POWER_TO_CORE(mod_power);
-+	stream_index = map_index_from_stream(core_power, stream);
-+
-+	if (core_power->num_entities == 0) {
-+		DC_TRACE_LEVEL_MESSAGE(DAL_TRACE_LEVEL_ERROR,
-+							WPP_BIT_FLAG_Firmware_PsrState,
-+							"mod_power set_psr_event: ERROR: stream=%p event=%d num_entities=%d",
-+							stream,
-+							(int)event,
-+							core_power->num_entities);
-+		return false;
-+	}
-+
-+	if (!core_power->map[stream_index].caps->psr_version)
-+		return false;
-+
-+	if (set_event)
-+		core_power->map[stream_index].psr_events |= event;
-+	else
-+		core_power->map[stream_index].psr_events &= ~event;
-+
-+	active_psr_events = core_power->map[stream_index].psr_events;
-+
-+	// ignore other events when we're in forced psr enabled state
-+	if (active_psr_events & psr_event_dynamic_display_switch &&
-+			event != psr_event_dynamic_display_switch)
-+		return false;
-+
-+	// ignore other events when we're in forced psr enabled state
-+	if (active_psr_events & psr_event_os_override_hold &&
-+			event != psr_event_os_override_hold)
-+		return false;
-+
-+	// ignore other events when we're in forced psr enabled state
-+	// dds events need to be processed while in dynamic_link_rate_control
-+	if (active_psr_events & psr_event_dynamic_link_rate_control &&
-+			event != psr_event_dynamic_link_rate_control &&
-+			event != psr_event_dds_defer_stream_enable &&
-+			event != psr_event_dynamic_display_switch)
-+		return false;
-+
-+	if (active_psr_events & (psr_event_test_harness_disable_psr | psr_event_os_request_disable))
-+		psr_enable_request = false;
-+	else if (active_psr_events & psr_event_pause)
-+		psr_enable_request = false;
-+	else if (active_psr_events & psr_event_test_harness_enable_psr)
-+		psr_enable_request = true;
-+	else if (active_psr_events & psr_event_dynamic_display_switch) {
-+		psr_enable_request = true;
-+		force_static = true;
-+	} else if (active_psr_events & psr_event_dynamic_link_rate_control) {
-+		psr_enable_request = true;
-+		force_static = true;
-+	} else if (active_psr_events & psr_event_edp_panel_off_disable_psr)
-+		psr_enable_request = false;
-+	else if (active_psr_events & (psr_event_hw_programming |
-+			psr_event_defer_enable |
-+			psr_event_dds_defer_stream_enable |
-+			psr_event_vrr_transition |
-+			psr_event_immediate_flip))
-+		psr_enable_request = false;
-+	else if (active_psr_events & psr_event_big_screen_video)
-+		psr_enable_request = true;
-+	else if (active_psr_events & psr_event_full_screen)
-+		psr_enable_request = false;
-+	else if (active_psr_events & psr_event_mpo_video_selective_update)
-+		psr_enable_request = true;
-+	else if (active_psr_events & psr_event_vsync)
-+		psr_enable_request = false;
-+	else if (active_psr_events & psr_event_crc_window_active)
-+		psr_enable_request = false;
-+	else
-+		psr_enable_request = true;
-+
-+	DC_TRACE_LEVEL_MESSAGE(DAL_TRACE_LEVEL_VERBOSE,
-+						WPP_BIT_FLAG_Firmware_PsrState,
-+						"mod_power set_psr_event: before: psr_enabled=%d -> request: set_event=%d event=0x%04x -> result: psr_events=0x%04x psr_enable_request=%d",
-+						(int)core_power->map[stream_index].psr_enabled,
-+						(int)set_event,
-+						(unsigned int)event,
-+						(unsigned int)core_power->map[stream_index].psr_events,
-+						(int)psr_enable_request);
-+	mod_power_psr_set_power_opt(mod_power, stream, active_psr_events, psr_enable_request);
-+
-+	if (core_power->map[stream_index].psr_enabled != psr_enable_request || force_static) {
-+		if (set_psr_enable(mod_power, stream, psr_enable_request, wait, force_static)) {
-+			core_power->map[stream_index].psr_enabled = psr_enable_request;
-+		}
-+	}
-+
-+	return true;
-+}
-+
-+bool mod_power_get_psr_state(struct mod_power *mod_power,
-+		const struct dc_stream_state *stream,
-+		enum dc_psr_state *state)
-+{
-+	struct core_power *core_power = NULL;
-+	const struct dc_link *link = NULL;
-+
-+	if (!stream)
-+		return false;
-+
-+	if (mod_power == NULL)
-+		return false;
-+
-+	core_power = MOD_POWER_TO_CORE(mod_power);
-+
-+	if (core_power->num_entities == 0)
-+		return false;
-+
-+	link = dc_stream_get_link(stream);
-+	return dc_link_get_psr_state(link, state);
-+}
-+
-+bool mod_power_get_psr_enabled_status(struct mod_power *mod_power,
-+		const struct dc_stream_state *stream,
-+		bool *psr_enabled)
-+{
-+	struct core_power *core_power = NULL;
-+	unsigned int stream_index = 0;
-+
-+	if (mod_power == NULL)
-+		return false;
-+
-+	core_power = MOD_POWER_TO_CORE(mod_power);
-+
-+	if (core_power->num_entities == 0)
-+		return false;
-+
-+	stream_index = map_index_from_stream(core_power, stream);
-+
-+	if (!core_power->map[stream_index].caps->psr_version)
-+		return false;
-+
-+	*psr_enabled = core_power->map[stream_index].psr_enabled;
-+
-+	return true;
-+}
-+
-+void mod_power_psr_residency(struct mod_power *mod_power,
-+		const struct dc_stream_state *stream,
-+		unsigned int *residency,
-+		const uint8_t mode)
-+{
-+	struct core_power *core_power = NULL;
-+	const struct dc_link *link = NULL;
-+
-+	if (!stream)
-+		return;
-+
-+	if (mod_power == NULL)
-+		return;
-+
-+	core_power = MOD_POWER_TO_CORE(mod_power);
-+
-+	if (core_power->num_entities == 0)
-+		return;
-+
-+	link = dc_stream_get_link(stream);
-+
-+	if (link != NULL)
-+		link->dc->link_srv->edp_get_psr_residency(link, residency, mode);
-+}
-+bool mod_power_psr_get_active_psr_events(struct mod_power *mod_power,
-+		const struct dc_stream_state *stream, unsigned int *active_psr_events)
-+{
-+	struct core_power *core_power = NULL;
-+	unsigned int stream_index = 0;
-+
-+	if (!stream)
-+		return false;
-+
-+	if (mod_power == NULL)
-+		return false;
-+
-+	if (active_psr_events == NULL)
-+		return false;
-+
-+	core_power = MOD_POWER_TO_CORE(mod_power);
-+
-+	if (core_power->num_entities == 0)
-+		return false;
-+
-+	stream_index = map_index_from_stream(core_power, stream);
-+
-+	*active_psr_events = core_power->map[stream_index].psr_events;
-+	return true;
-+}
-+
-+bool mod_power_psr_set_sink_vtotal_in_psr_active(struct mod_power *mod_power,
-+		const struct dc_stream_state *stream,
-+		uint16_t psr_vtotal_idle,
-+		uint16_t psr_vtotal_su)
-+{
-+	struct core_power *core_power = NULL;
-+	unsigned int stream_index = 0;
-+	const struct dc_link *link = NULL;
-+
-+	if (!stream)
-+		return false;
-+
-+	if (mod_power == NULL)
-+		return false;
-+
-+	core_power = MOD_POWER_TO_CORE(mod_power);
-+
-+	if (core_power->num_entities == 0)
-+		return false;
-+
-+	stream_index = map_index_from_stream(core_power, stream);
-+
-+	if (!core_power->map[stream_index].caps->psr_version)
-+		return false;
-+
-+	link = dc_stream_get_link(stream);
-+
-+	return link->dc->link_srv->edp_set_sink_vtotal_in_psr_active(
-+			link, psr_vtotal_idle, psr_vtotal_su);
-+}
-+
-+static bool mod_power_set_replay_active(struct dc_stream_state *stream,
-+	bool replay_active,
-+	bool wait,
-+	bool force_static)
-+{
-+	uint64_t state;
-+	unsigned int retry_count;
-+	const unsigned int max_retry = 1000;
-+	struct dc_link *link = NULL;
-+
-+	if (!stream)
-+		return false;
-+
-+	link = dc_stream_get_link(stream);
-+
-+	if (!link)
-+		return false;
-+
-+	if (!dc_link_set_replay_allow_active(link, &replay_active, false, force_static, NULL))
-+		return false;
-+
-+	if (wait == true) {
-+
-+		for (retry_count = 0; retry_count <= max_retry; retry_count++) {
-+			dc_link_get_replay_state(link, &state);
-+			if (replay_active) {
-+				if (state != REPLAY_STATE_0 &&
-+					(!force_static || state == REPLAY_STATE_3))
-+					break;
++		if (new_crtc_state->active) {
++			aconnector = (struct amdgpu_dm_connector *)
++				dm_new_crtc_state->stream->dm_stream_context;
++			if (old_crtc_state->active) {
++				mod_power_replace_stream(dm->power_module,
++					dm_old_crtc_state->stream,
++					dm_new_crtc_state->stream,
++					&aconnector->psr_caps);
 +			} else {
-+				if (state == REPLAY_STATE_0)
-+					break;
++				mod_power_add_stream(dm->power_module,
++					dm_new_crtc_state->stream,
++					&aconnector->psr_caps);
 +			}
-+			udelay(500);
++		} else if (old_crtc_state->active) {
++			mod_power_remove_stream(dm->power_module,
++				dm_old_crtc_state->stream);
 +		}
-+
-+		/* assert if max retry hit */
-+		if (retry_count >= max_retry)
-+			ASSERT(0);
-+	} else {
-+		/* To-do: Add trace log */
 +	}
-+
-+	return true;
 +}
 +
-+static unsigned int mod_power_replay_setup_power_opt(struct dc_link *link,
-+	unsigned int active_replay_events, bool is_ultra_sleep_mode)
++/**
++ * amdgpu_dm_mod_power_setup_streams - setup mod_power stream state post modeset
++ * @state: the drm atomic state
++ * @dm: the display manager to update mod_power on
++ *
++ * Notify mod_power of mode_change. This needs to be done after dc_stream
++ * updates have been committed, and VRR parameters have been updated.
++ */
++static void amdgpu_dm_mod_power_setup_streams(struct drm_atomic_state *state,
++					      struct amdgpu_display_manager *dm)
 +{
-+	unsigned int power_opt = 0;
++	struct dm_crtc_state *dm_new_crtc_state;
++	struct drm_crtc_state *new_crtc_state;
++	struct amdgpu_crtc *acrtc;
++	struct drm_crtc *crtc;
++	int i = 0;
 +
-+	if (is_ultra_sleep_mode) {
-+		/* Static Screen */
-+		power_opt |= (replay_power_opt_smu_opt_static_screen | replay_power_opt_z10_static_screen);
-+	} else if (active_replay_events & replay_event_test_harness_ultra_sleep) {
-+		power_opt |= replay_power_opt_z10_static_screen;
++	for_each_new_crtc_in_state(state, crtc, new_crtc_state, i) {
++		dm_new_crtc_state = to_dm_crtc_state(new_crtc_state);
++		acrtc = to_amdgpu_crtc(crtc);
++
++		if (!drm_atomic_crtc_needs_modeset(new_crtc_state))
++			continue;
++
++		if (new_crtc_state->active) {
++			amdgpu_dm_link_setup_replay(dm_new_crtc_state->stream,
++					&acrtc->dm_irq_params.vrr_params);
++			mod_power_notify_mode_change(dm->power_module,
++						dm_new_crtc_state->stream,
++						false);
++		}
 +	}
 +
-+	/* replay_power_opt_flag is a configuration parameter into the module that determines
-+	 * which optimizations to enable during replay
++}
++
+ static void amdgpu_dm_commit_streams(struct drm_atomic_state *state,
+ 					struct dc_state *dc_state)
+ {
+@@ -10507,6 +10706,8 @@ static void amdgpu_dm_commit_streams(struct drm_atomic_state *state,
+ 		acrtc->wb_enabled = false;
+ 	}
+ 
++	amdgpu_dm_mod_power_update_streams(state, dm);
++
+ 	for_each_oldnew_crtc_in_state(state, crtc, old_crtc_state,
+ 				      new_crtc_state, i) {
+ 		struct amdgpu_crtc *acrtc = to_amdgpu_crtc(crtc);
+@@ -10611,13 +10812,10 @@ static void amdgpu_dm_commit_streams(struct drm_atomic_state *state,
+ 		}
+ 	} /* for_each_crtc_in_state() */
+ 
+-	/* if there mode set or reset, disable eDP PSR, Replay */
++	/* if there mode set or reset, flush vblank work queue */
+ 	if (mode_set_reset_required) {
+ 		if (dm->vblank_control_workqueue)
+ 			flush_workqueue(dm->vblank_control_workqueue);
+-
+-		amdgpu_dm_replay_disable_all(dm);
+-		amdgpu_dm_psr_disable_all(dm);
+ 	}
+ 
+ 	dm_enable_per_frame_crtc_master_sync(dc_state);
+@@ -11090,7 +11288,7 @@ static void amdgpu_dm_atomic_commit_tail(struct drm_atomic_state *state)
+ 			manage_dm_interrupts(adev, acrtc, dm_new_crtc_state);
+ 		}
+ 		/* Handle vrr on->off / off->on transitions */
+-		amdgpu_dm_handle_vrr_transition(dm_old_crtc_state, dm_new_crtc_state);
++		amdgpu_dm_handle_vrr_transition(dm, dm_old_crtc_state, dm_new_crtc_state);
+ 
+ #ifdef CONFIG_DEBUG_FS
+ 		if (new_crtc_state->active &&
+@@ -11128,6 +11326,8 @@ static void amdgpu_dm_atomic_commit_tail(struct drm_atomic_state *state)
+ #endif
+ 	}
+ 
++	amdgpu_dm_mod_power_setup_streams(state, dm);
++
+ 	for_each_new_crtc_in_state(state, crtc, new_crtc_state, j)
+ 		if (new_crtc_state->async_flip)
+ 			wait_for_vblank = false;
+@@ -13686,11 +13886,17 @@ int amdgpu_dm_process_dmub_set_config_sync(
+ 
+ bool dm_execute_dmub_cmd(const struct dc_context *ctx, union dmub_rb_cmd *cmd, enum dm_dmub_wait_type wait_type)
+ {
++	struct amdgpu_device *adev = ctx->driver_context;
++
++	guard(spinlock_irqsave)(&adev->dm.dmub_lock);
+ 	return dc_dmub_srv_cmd_run(ctx->dmub_srv, cmd, wait_type);
+ }
+ 
+ bool dm_execute_dmub_cmd_list(const struct dc_context *ctx, unsigned int count, union dmub_rb_cmd *cmd, enum dm_dmub_wait_type wait_type)
+ {
++	struct amdgpu_device *adev = ctx->driver_context;
++
++	guard(spinlock_irqsave)(&adev->dm.dmub_lock);
+ 	return dc_dmub_srv_cmd_run_list(ctx->dmub_srv, count, cmd, wait_type);
+ }
+ 
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+index 74a8fe1a1999..1e0ccf58cdb8 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+@@ -463,6 +463,13 @@ struct amdgpu_display_manager {
+ 	 */
+ 	struct mutex dc_lock;
+ 
++	/**
++	 * @dmub_lock:
++	 *
++	 * Guards access to DMUB command submission.
 +	 */
-+	power_opt &= link->replay_settings.config.replay_power_opt_supported;
++	spinlock_t dmub_lock;
 +
-+	return power_opt;
-+}
+ 	/**
+ 	 * @audio_lock:
+ 	 *
+@@ -568,6 +575,7 @@ struct amdgpu_display_manager {
+ 	struct amdgpu_dm_backlight_caps backlight_caps[AMDGPU_DM_MAX_NUM_EDP];
+ 
+ 	struct mod_freesync *freesync_module;
++	struct mod_power *power_module;
+ 	struct hdcp_workqueue *hdcp_workqueue;
+ 
+ 	/**
+@@ -835,6 +843,7 @@ struct amdgpu_dm_connector {
+ 	bool force_yuv420_output;
+ 	bool force_yuv422_output;
+ 	struct dsc_preferred_settings dsc_settings;
++	struct psr_caps psr_caps;
+ 	union dp_downstream_port_present mst_downstream_port_present;
+ 	/* Cached display modes */
+ 	struct drm_display_mode freesync_vid_base;
+@@ -1149,4 +1158,5 @@ int amdgpu_dm_initialize_hdmi_connector(struct amdgpu_dm_connector *aconnector);
+ 
+ void retrieve_dmi_info(struct amdgpu_display_manager *dm);
+ 
++void amdgpu_dm_update_backlight_caps(struct amdgpu_display_manager *dm, int bl_idx);
+ #endif /* __AMDGPU_DM_H__ */
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c
+index dd79866df1fd..2663593aa35c 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c
+@@ -503,7 +503,6 @@ int amdgpu_dm_crtc_configure_crc_source(struct drm_crtc *crtc,
+ {
+ 	struct amdgpu_device *adev = drm_to_adev(crtc->dev);
+ 	struct dc_stream_state *stream_state = dm_crtc_state->stream;
+-	struct amdgpu_dm_connector *aconnector = NULL;
+ 	bool enable = amdgpu_dm_is_valid_crc_source(source);
+ 	int ret = 0;
+ 	enum crc_poly_mode crc_poly_mode = CRC_POLY_MODE_16;
+@@ -512,21 +511,17 @@ int amdgpu_dm_crtc_configure_crc_source(struct drm_crtc *crtc,
+ 	if (!stream_state)
+ 		return -EINVAL;
+ 
+-	/* Get connector from stream */
+-	aconnector = (struct amdgpu_dm_connector *)stream_state->dm_stream_context;
+-
+ 	mutex_lock(&adev->dm.dc_lock);
+ 
+-
++	/* Notify power module about CRC window active to disable PSR/Replay
++	 * Power module will check caps internally and skip if not supported
++	 */
+ 	if (enable) {
+-		/* For PSR1, check that the panel has exited PSR */
+-		if (stream_state->link->psr_settings.psr_version < DC_PSR_VERSION_SU_1)
+-			amdgpu_dm_psr_wait_disable(stream_state);
++		amdgpu_dm_psr_set_event(&adev->dm, stream_state, true,
++			psr_event_crc_window_active, true);
+ 
+-		/* Set flag to disallow enter replay when CRC source is enabled */
+-		if (aconnector)
+-			aconnector->disallow_edp_enter_replay = true;
+-		amdgpu_dm_replay_disable(stream_state);
++		amdgpu_dm_replay_set_event(&adev->dm, stream_state, true,
++			replay_event_crc_window_active, true);
+ 	}
+ 
+ 	/* CRC polynomial selection only support for DCN3.6+ except DCN4.0.1 */
+@@ -559,11 +554,15 @@ int amdgpu_dm_crtc_configure_crc_source(struct drm_crtc *crtc,
+ 	}
+ 
+ 	if (!enable) {
+-		/* Clear flag to allow enter replay when CRC source is disabled */
+-		if (aconnector)
+-			aconnector->disallow_edp_enter_replay = false;
+-	}
++		/* Notify power module about CRC window inactive to re-enable PSR/Replay
++		 * Power module will check caps internally and skip if not supported
++		 */
++		amdgpu_dm_psr_set_event(&adev->dm, stream_state, false,
++			psr_event_crc_window_active, false);
+ 
++		amdgpu_dm_replay_set_event(&adev->dm, stream_state, false,
++			replay_event_crc_window_active, false);
++	}
+ unlock:
+ 	mutex_unlock(&adev->dm.dc_lock);
+ 
+@@ -760,10 +759,13 @@ void amdgpu_dm_crtc_handle_crc_irq(struct drm_crtc *crtc)
+ 	uint32_t crcs[3];
+ 	unsigned long flags;
+ 
+-	if (crtc == NULL)
++	if (!crtc || !crtc->state || !crtc->dev)
+ 		return;
+ 
+ 	crtc_state = to_dm_crtc_state(crtc->state);
++	if (!crtc_state->stream)
++		return;
 +
-+static bool mod_power_replay_set_power_opt(struct mod_power *mod_power,
-+	struct dc_stream_state *stream,
-+	unsigned int active_replay_events,
-+	bool is_ultra_sleep_mode)
-+{
-+	(void)mod_power;
-+	struct dc_link *link = NULL;
-+	unsigned int power_opt = 0;
+ 	stream_state = crtc_state->stream;
+ 	acrtc = to_amdgpu_crtc(crtc);
+ 	drm_dev = crtc->dev;
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
+index 40c5f74dbe2b..efb19f675b0c 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
+@@ -34,6 +34,7 @@
+ #include "amdgpu_dm_plane.h"
+ #include "amdgpu_dm_trace.h"
+ #include "amdgpu_dm_debugfs.h"
++#include "modules/inc/mod_power.h"
+ 
+ #define HPD_DETECTION_PERIOD_uS 2000000
+ #define HPD_DETECTION_TIME_uS 100000
+@@ -100,68 +101,33 @@ bool amdgpu_dm_crtc_vrr_active(const struct dm_crtc_state *dm_state)
+ }
+ 
+ /**
+- * amdgpu_dm_crtc_set_panel_sr_feature() - Manage panel self-refresh features.
+- * @dm: amdgpu display manager instance.
+- * @acrtc: CRTC whose panel self-refresh state is being updated.
+- * @stream: DC stream associated with @acrtc.
+- * @vblank_enabled: Whether the DRM vblank counter is currently enabled.
+- * @allow_sr_entry: Whether entry into self-refresh mode is allowed.
++ * amdgpu_dm_crtc_set_static_screen_optimze() - Toggle static screen optimizations.
+  *
+- * The DRM vblank counter enable/disable action is used as the trigger to enable
+- * or disable various panel self-refresh features:
++ * @dm: display manager
++ * @stream: DC stream state
++ * @sso_enable: desired static screen optimization state
++ * @allow_sr_entry: whether entry into self-refresh mode is allowed
+  *
+- * Panel Replay and PSR SU
+- * - Enable when:
+- *   - VRR is disabled
+- *   - vblank counter is disabled
+- *   - entry is allowed: usermode demonstrates an adequate number of fast
+- *     commits
+- *   - CRC capture window isn't active
+- * - Keep enabled even when vblank counter gets enabled
+- *
+- * PSR1
+- * - Enable condition same as above
+- * - Disable when vblank counter is enabled
++ * This function uses the static-screen optimization state as the trigger to
++ * set/clear the Replay and PSR vsync-related events.
+  */
+-void amdgpu_dm_crtc_set_panel_sr_feature(
++void amdgpu_dm_crtc_set_static_screen_optimze(
+ 	struct amdgpu_display_manager *dm,
+-	struct amdgpu_crtc *acrtc,
+ 	struct dc_stream_state *stream,
+-	bool vblank_enabled, bool allow_sr_entry)
++	bool sso_enable, bool allow_sr_entry)
+ {
+ 	struct dc_link *link = stream->link;
+-	bool is_sr_active = (link->replay_settings.replay_allow_active ||
+-				 link->psr_settings.psr_allow_active);
+-	bool is_crc_window_active = false;
+-	bool vrr_active = amdgpu_dm_crtc_vrr_active_irq(acrtc);
+-
+-#ifdef CONFIG_DRM_AMD_SECURE_DISPLAY
+-	is_crc_window_active =
+-		amdgpu_dm_crc_window_is_activated(&acrtc->base);
+-#endif
++	bool set_vsync_event = !sso_enable;
+ 
+-	if (link->replay_settings.replay_feature_enabled && !vrr_active &&
+-		allow_sr_entry && !is_sr_active && !is_crc_window_active) {
+-		amdgpu_dm_replay_enable(stream, true);
+-	} else if (vblank_enabled) {
+-		if (link->psr_settings.psr_version < DC_PSR_VERSION_SU_1 && is_sr_active)
+-			amdgpu_dm_psr_disable(stream, false);
+-	} else if (link->psr_settings.psr_feature_enabled && !vrr_active &&
+-		allow_sr_entry && !is_sr_active && !is_crc_window_active) {
+-
+-		struct amdgpu_dm_connector *aconn =
+-			(struct amdgpu_dm_connector *) stream->dm_stream_context;
+-
+-		if (!aconn->disallow_edp_enter_psr) {
+-			amdgpu_dm_psr_enable(stream);
+-			if (dm->idle_workqueue &&
+-			    (dm->dc->config.disable_ips == DMUB_IPS_ENABLE) &&
+-			    dm->dc->idle_optimizations_allowed &&
+-			    dm->idle_workqueue->enable &&
+-			    !dm->idle_workqueue->running)
+-				schedule_work(&dm->idle_workqueue->work);
+-		}
+-	}
++	if (!allow_sr_entry)
++		return;
 +
-+	if (!stream)
++	amdgpu_dm_replay_set_event(dm, stream,
++		set_vsync_event, replay_event_vsync, set_vsync_event);
++
++	if (link->psr_settings.psr_version < DC_PSR_VERSION_SU_1)
++		amdgpu_dm_psr_set_event(dm, stream,
++			set_vsync_event, psr_event_vsync, set_vsync_event);
+ }
+ 
+ bool amdgpu_dm_is_headless(struct amdgpu_device *adev)
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.h
+index 3a8094013a5d..e9fb52f0e66d 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.h
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.h
+@@ -27,11 +27,10 @@
+ #ifndef __AMDGPU_DM_CRTC_H__
+ #define __AMDGPU_DM_CRTC_H__
+ 
+-void amdgpu_dm_crtc_set_panel_sr_feature(
++void amdgpu_dm_crtc_set_static_screen_optimze(
+ 	struct amdgpu_display_manager *dm,
+-	struct amdgpu_crtc *acrtc,
+ 	struct dc_stream_state *stream,
+-	bool vblank_enabled, bool allow_sr_entry);
++	bool sso_enable, bool allow_sr_entry);
+ 
+ void amdgpu_dm_crtc_handle_vblank(struct amdgpu_crtc *acrtc);
+ 
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
+index 7c6deb2764aa..49226d6d0311 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
+@@ -33,6 +33,7 @@
+ #include "amdgpu_dm.h"
+ #include "amdgpu_dm_debugfs.h"
+ #include "amdgpu_dm_replay.h"
++#include "amdgpu_dm_psr.h"
+ #include "dm_helpers.h"
+ #include "dmub/dmub_srv.h"
+ #include "resource.h"
+@@ -3300,11 +3301,26 @@ static int disallow_edp_enter_psr_get(void *data, u64 *val)
+ static int disallow_edp_enter_psr_set(void *data, u64 val)
+ {
+ 	struct amdgpu_dm_connector *aconnector = data;
++	struct dc_link *link = aconnector->dc_link;
++
++	aconnector->disallow_edp_enter_psr = (val != 0);
+ 
+-	aconnector->disallow_edp_enter_psr = val ? true : false;
++	/* eDP PSR enable / disable is happened during mode change in power module.
++	 * Only psr_settings.psr_version is used to decide whether PSR is enabled or not.
++	 * So here we only update psr_version based on debugfs setting.
++	 * If disallow_edp_enter_psr is true, set psr_version to unsupported;
++	 * if disallow_edp_enter_psr is false, set psr_version based on sink capability.
++	 */
++	if (aconnector->disallow_edp_enter_psr)
++		link->psr_settings.psr_version = DC_PSR_VERSION_UNSUPPORTED;
++	else if (aconnector->psr_caps.psr_version == 1)
++		link->psr_settings.psr_version = DC_PSR_VERSION_1;
++	else if (aconnector->psr_caps.psr_version == 2)
++		link->psr_settings.psr_version = DC_PSR_VERSION_SU_1;
+ 	return 0;
+ }
+ 
++
+ /* check if kernel disallow eDP enter replay state
+  * cat /sys/kernel/debug/dri/0/eDP-X/disallow_edp_enter_replay
+  * 0: allow edp enter replay; 1: disallow
+@@ -3346,11 +3362,27 @@ static int disallow_edp_enter_replay_get(void *data, u64 *val)
+ static int disallow_edp_enter_replay_set(void *data, u64 val)
+ {
+ 	struct amdgpu_dm_connector *aconnector = data;
++	struct dc_link *link = aconnector->dc_link;
++
++	aconnector->disallow_edp_enter_replay = (val != 0);
+ 
+-	aconnector->disallow_edp_enter_replay = val ? true : false;
++	/* eDP replay enable / disable is happened during mode change in power module.
++	 * Only replay_settings.config.replay_supported is used to decide whether
++	 * replay is enabled or not. So here we only update replay_supported based on
++	 * debugfs setting.
++	 * If disallow_edp_enter_replay is true, set replay_supported to false.
++	 * if disallow_edp_enter_replay is false, set replay_supported back based on
++	 * sink replay capability.
++	 */
++	if (aconnector->disallow_edp_enter_replay)
++		link->replay_settings.config.replay_supported = false;
++	else
++		link->replay_settings.config.replay_supported =
++			link->replay_settings.config.replay_cap_support;
+ 	return 0;
+ }
+ 
++
+ static int dmub_trace_mask_set(void *data, u64 val)
+ {
+ 	struct amdgpu_device *adev = data;
+@@ -3485,6 +3517,7 @@ DEFINE_DEBUGFS_ATTRIBUTE(disallow_edp_enter_replay_fops,
+ 
+ DEFINE_DEBUGFS_ATTRIBUTE(ips_residency_cntl_fops, ips_residency_cntl_get,
+ 			   ips_residency_cntl_set, "%llu\n");
++
+ DEFINE_SHOW_ATTRIBUTE(current_backlight);
+ DEFINE_SHOW_ATTRIBUTE(target_backlight);
+ DEFINE_SHOW_ATTRIBUTE(ips_status);
+@@ -3855,28 +3888,35 @@ DEFINE_DEBUGFS_ATTRIBUTE(crc_win_y_end_fops, crc_win_y_end_get,
+ static int crc_win_update_set(void *data, u64 val)
+ {
+ 	struct drm_crtc *crtc = data;
+-	struct amdgpu_crtc *acrtc;
++	struct amdgpu_crtc *acrtc = to_amdgpu_crtc(crtc);
+ 	struct amdgpu_device *adev = drm_to_adev(crtc->dev);
+ 
+ 	if (val) {
+-		acrtc = to_amdgpu_crtc(crtc);
+ 		mutex_lock(&adev->dm.dc_lock);
+-		/* PSR may write to OTG CRC window control register,
+-		 * so close it before starting secure_display.
++		/* PSR Replay may write to OTG CRC window control register,
++		 * so inactive it before starting secure_display by sending disable event.
+ 		 */
+-		amdgpu_dm_psr_disable(acrtc->dm_irq_params.stream, true);
++		amdgpu_dm_psr_set_event(&adev->dm, acrtc->dm_irq_params.stream, true,
++			psr_event_crc_window_active, true);
++		amdgpu_dm_replay_set_event(&adev->dm, acrtc->dm_irq_params.stream, true,
++			replay_event_crc_window_active, true);
+ 
+ 		spin_lock_irq(&adev_to_drm(adev)->event_lock);
+-
+ 		acrtc->dm_irq_params.window_param[0].enable = true;
+ 		acrtc->dm_irq_params.window_param[0].update_win = true;
+ 		acrtc->dm_irq_params.window_param[0].skip_frame_cnt = 0;
+ 		acrtc->dm_irq_params.crc_window_activated = true;
+-
+ 		spin_unlock_irq(&adev_to_drm(adev)->event_lock);
+ 		mutex_unlock(&adev->dm.dc_lock);
++	} else {
++		/* Clear disable events to allow PSR/Replay to active */
++		mutex_lock(&adev->dm.dc_lock);
++		amdgpu_dm_psr_set_event(&adev->dm, acrtc->dm_irq_params.stream, false,
++			psr_event_crc_window_active, false);
++		amdgpu_dm_replay_set_event(&adev->dm, acrtc->dm_irq_params.stream, false,
++			replay_event_crc_window_active, false);
++		mutex_unlock(&adev->dm.dc_lock);
+ 	}
+-
+ 	return 0;
+ }
+ 
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_ism.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_ism.c
+index a3ccb6fdc372..f2f6c7936e58 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_ism.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_ism.c
+@@ -292,24 +292,16 @@ static void dm_ism_commit_idle_optimization_state(struct amdgpu_dm_ism *ism,
+ 	 */
+ 	if (stream && stream->link) {
+ 		/*
+-		 * If allow_panel_sso is true when disabling vblank, allow
+-		 * deeper panel sleep states such as PSR1 and Replay static
+-		 * screen optimization.
+-		 */
+-		if (!vblank_enabled && allow_panel_sso) {
+-			amdgpu_dm_crtc_set_panel_sr_feature(
+-				dm, acrtc, stream, false,
+-				acrtc->dm_irq_params.allow_sr_entry);
+-		} else if (vblank_enabled) {
+-			/* Make sure to exit SSO on vblank enable */
+-			amdgpu_dm_crtc_set_panel_sr_feature(
+-				dm, acrtc, stream, true,
+-				acrtc->dm_irq_params.allow_sr_entry);
+-		}
+-		/*
+-		 * Else, vblank_enabled == false and allow_panel_sso == false;
+-		 * do nothing here.
++		 * If the OS requires vblank events (or vblank is otherwise enabled),
++		 * do not allow static screen optimizations.
++		 *
++		 * Keep ism->allow_static_screen_optimizations unchanged so the
++		 * hysteresis-based decision can be reused once vblank is disabled.
+ 		 */
++		allow_panel_sso = allow_panel_sso && !vblank_enabled;
++		amdgpu_dm_crtc_set_static_screen_optimze(
++			dm, stream, allow_panel_sso,
++			acrtc->dm_irq_params.allow_sr_entry);
+ 	}
+ 
+ 	/*
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c
+index 99d6d6c93561..dc5913a6456e 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c
+@@ -58,171 +58,76 @@ static bool link_supports_psrsu(struct dc_link *link)
+ 	return false;
+ }
+ 
+-/*
+- * amdgpu_dm_set_psr_caps() - set link psr capabilities
+- * @link: link
+- *
+- */
+-void amdgpu_dm_set_psr_caps(struct dc_link *link)
++static void amdgpu_dm_psr_fill_caps(struct dc_link *link, struct psr_caps *caps)
+ {
+-	if (!(link->connector_signal & SIGNAL_TYPE_EDP)) {
+-		link->psr_settings.psr_feature_enabled = false;
+-		return;
+-	}
+-
+-	if (link->type == dc_connection_none) {
+-		link->psr_settings.psr_feature_enabled = false;
+-		return;
+-	}
+-
+-	if (link->dpcd_caps.psr_info.psr_version == 0) {
+-		link->psr_settings.psr_version = DC_PSR_VERSION_UNSUPPORTED;
+-		link->psr_settings.psr_feature_enabled = false;
+-
+-	} else {
+-		unsigned int panel_inst = 0;
+-
+-		if (link_supports_psrsu(link))
+-			link->psr_settings.psr_version = DC_PSR_VERSION_SU_1;
+-		else
+-			link->psr_settings.psr_version = DC_PSR_VERSION_1;
+-
+-		link->psr_settings.psr_feature_enabled = true;
+-
+-		/*disable allow psr/psrsu/replay on eDP1*/
+-		if (dc_get_edp_link_panel_inst(link->ctx->dc, link, &panel_inst) && panel_inst == 1) {
+-			link->psr_settings.psr_version = DC_PSR_VERSION_UNSUPPORTED;
+-			link->psr_settings.psr_feature_enabled = false;
+-		}
+-	}
++	struct dpcd_caps *dpcd_caps = &link->dpcd_caps;
++	unsigned int power_opts = 0;
++
++	if (amdgpu_dc_feature_mask & DC_PSR_ALLOW_SMU_OPT)
++		power_opts |= psr_power_opt_smu_opt_static_screen;
++	power_opts |= psr_power_opt_z10_static_screen;
++
++	if (link->psr_settings.psr_version == DC_PSR_VERSION_1)
++		caps->psr_version = 1;
++	else if (link->psr_settings.psr_version == DC_PSR_VERSION_SU_1)
++		caps->psr_version = 2;
++
++	caps->psr_rfb_setup_time = (6 - dpcd_caps->psr_info.psr_dpcd_caps.bits.PSR_SETUP_TIME) * 55;
++	caps->psr_exit_link_training_required =
++		!dpcd_caps->psr_info.psr_dpcd_caps.bits.LINK_TRAINING_ON_EXIT_NOT_REQUIRED;
++	caps->edp_revision = dpcd_caps->edp_rev;
++	caps->support_ver = dpcd_caps->psr_info.psr_version;
++	caps->su_granularity_required =
++		dpcd_caps->psr_info.psr_dpcd_caps.bits.SU_GRANULARITY_REQUIRED;
++	caps->y_coordinate_required = dpcd_caps->psr_info.psr_dpcd_caps.bits.Y_COORDINATE_REQUIRED;
++	caps->su_y_granularity = dpcd_caps->psr_info.psr2_su_y_granularity_cap;
++	caps->alpm_cap = dpcd_caps->alpm_caps.bits.AUX_WAKE_ALPM_CAP;
++	caps->standby_support = dpcd_caps->alpm_caps.bits.PM_STATE_2A_SUPPORT;
++	caps->rate_control_caps = 0; /* TODO: read in rc caps from aux */
++	caps->psr_power_opt_flag = power_opts;
+ }
+ 
+ /*
+- * amdgpu_dm_link_setup_psr() - configure psr link
+- * @stream: stream state
+- *
+- * Return: true if success
++ * amdgpu_dm_set_psr_caps() - set link psr capabilities
++ * @link: link
++ * @aconnector: amdgpu_dm_connector
+  */
+-bool amdgpu_dm_link_setup_psr(struct dc_stream_state *stream)
++bool amdgpu_dm_set_psr_caps(struct dc_link *link, struct amdgpu_dm_connector *aconnector)
+ {
+-	struct dc_link *link = NULL;
+-	struct psr_config psr_config = {0};
+-	struct psr_context psr_context = {0};
+-	struct dc *dc = NULL;
+-	bool ret = false;
++	struct dc *dc;
++	unsigned int panel_inst = 0;
+ 
+-	if (stream == NULL)
++	if (!link || !aconnector)
+ 		return false;
+ 
+-	link = stream->link;
+ 	dc = link->ctx->dc;
+ 
+-	if (link->psr_settings.psr_version != DC_PSR_VERSION_UNSUPPORTED) {
+-		mod_power_calc_psr_configs(&psr_config, link, stream);
+-
+-		/* linux DM specific updating for psr config fields */
+-		psr_config.allow_smu_optimizations =
+-			(amdgpu_dc_feature_mask & DC_PSR_ALLOW_SMU_OPT) &&
+-			mod_power_only_edp(dc->current_state, stream);
+-		psr_config.allow_multi_disp_optimizations =
+-			(amdgpu_dc_feature_mask & DC_PSR_ALLOW_MULTI_DISP_OPT);
+-
+-		if (link->psr_settings.psr_version == DC_PSR_VERSION_SU_1) {
+-			if (!psr_su_set_dsc_slice_height(dc, link, stream, &psr_config))
+-				return false;
+-		}
+-
+-		ret = dc_link_setup_psr(link, stream, &psr_config, &psr_context);
+-
+-	}
+-	DRM_DEBUG_DRIVER("PSR link: %d\n",	link->psr_settings.psr_feature_enabled);
+-
+-	return ret;
+-}
+-
+-/*
+- * amdgpu_dm_psr_enable() - enable psr f/w
+- * @stream: stream state
+- *
+- */
+-void amdgpu_dm_psr_enable(struct dc_stream_state *stream)
+-{
+-	struct dc_link *link = stream->link;
+-	unsigned int vsync_rate_hz = 0;
+-	struct dc_static_screen_params params = {0};
+-	/* Calculate number of static frames before generating interrupt to
+-	 * enter PSR.
+-	 */
+-	// Init fail safe of 2 frames static
+-	unsigned int num_frames_static = 2;
+-	unsigned int power_opt = 0;
+-	bool psr_enable = true;
+-
+-	DRM_DEBUG_DRIVER("Enabling psr...\n");
+-
+-	vsync_rate_hz = div64_u64(div64_u64((
+-			stream->timing.pix_clk_100hz * (uint64_t)100),
+-			stream->timing.v_total),
+-			stream->timing.h_total);
+-
+-	/* Round up
+-	 * Calculate number of frames such that at least 30 ms of time has
+-	 * passed.
+-	 */
+-	if (vsync_rate_hz != 0) {
+-		unsigned int frame_time_microsec = 1000000 / vsync_rate_hz;
+-
+-		num_frames_static = (30000 / frame_time_microsec) + 1;
+-	}
+-
+-	params.triggers.cursor_update = true;
+-	params.triggers.overlay_update = true;
+-	params.triggers.surface_update = true;
+-	params.num_frames = num_frames_static;
++	/* Reset psr version first */
++	link->psr_settings.psr_version = DC_PSR_VERSION_UNSUPPORTED;
+ 
+-	dc_stream_set_static_screen_params(link->ctx->dc,
+-					   &stream, 1,
+-					   &params);
++	if (!dc->caps.dmub_caps.psr)
 +		return false;
-+
-+	link = dc_stream_get_link(stream);
-+
-+	if (!link || !link->replay_settings.replay_feature_enabled)
+ 
+-	/*
+-	 * Only enable static-screen optimizations for PSR1. For PSR SU, this
+-	 * causes vstartup interrupt issues, used by amdgpu_dm to send vblank
+-	 * events.
+-	 */
+-	if (link->psr_settings.psr_version < DC_PSR_VERSION_SU_1)
+-		power_opt |= psr_power_opt_z10_static_screen;
++	if (!(link->connector_signal & SIGNAL_TYPE_EDP))
 +		return false;
-+
-+	power_opt = mod_power_replay_setup_power_opt(link, active_replay_events, is_ultra_sleep_mode);
-+
-+	if (!dc_link_set_replay_allow_active(link, NULL, false, false, &power_opt))
+ 
+-	dc_link_set_psr_allow_active(link, &psr_enable, false, false, &power_opt);
++	if (link->type == dc_connection_none)
 +		return false;
-+
+ 
+-	if (link->ctx->dc->caps.ips_support)
+-		dc_allow_idle_optimizations(link->ctx->dc, true);
+-}
++	if (link->dpcd_caps.psr_info.psr_version == 0)
++		return false;
+ 
+-/*
+- * amdgpu_dm_psr_disable() - disable psr f/w
+- * @stream:  stream state
+- *
+- * Return: true if success
+- */
+-bool amdgpu_dm_psr_disable(struct dc_stream_state *stream, bool wait)
+-{
+-	bool psr_enable = false;
++	/*disable allow psr/psrsu/replay on eDP1*/
++	if (dc_get_edp_link_panel_inst(link->ctx->dc, link, &panel_inst) && panel_inst == 1)
++		return false;
+ 
+-	DRM_DEBUG_DRIVER("Disabling psr...\n");
++	if (link_supports_psrsu(link))
++		link->psr_settings.psr_version = DC_PSR_VERSION_SU_1;
++	else
++		link->psr_settings.psr_version = DC_PSR_VERSION_1;
+ 
+-	return dc_link_set_psr_allow_active(stream->link, &psr_enable, wait, false, NULL);
+-}
+-
+-/*
+- * amdgpu_dm_psr_disable_all() - disable psr f/w for all streams
+- * if psr is enabled on any stream
+- *
+- * Return: true if success
+- */
+-bool amdgpu_dm_psr_disable_all(struct amdgpu_display_manager *dm)
+-{
+-	DRM_DEBUG_DRIVER("Disabling psr if psr is enabled on any stream\n");
+-	return dc_set_psr_allow_active(dm->dc, false);
++	amdgpu_dm_psr_fill_caps(link, &aconnector->psr_caps);
 +	return true;
-+}
-+
-+bool mod_power_get_replay_event(struct mod_power *mod_power,
-+	struct dc_stream_state *stream,
-+	unsigned int *active_replay_events)
-+{
-+	struct core_power *core_power = NULL;
-+	unsigned int stream_index = 0;
-+
-+	if (mod_power == NULL)
-+		return false;
-+
-+	core_power = MOD_POWER_TO_CORE(mod_power);
-+
-+	if (core_power->num_entities == 0)
-+		return false;
-+
-+	stream_index = map_index_from_stream(core_power, stream);
-+
-+	*active_replay_events = core_power->map[stream_index].replay_events;
-+
-+	return true;
-+}
-+
-+static bool mod_power_update_replay_active_status(unsigned int active_replay_events,
-+	struct dc_link *link, uint32_t *coasting_vtotal, bool *is_full_screen_video, bool *is_ultra_sleep_mode, uint16_t *frame_skip_number, bool *is_video_playback)
-+{
-+	if (!link || !coasting_vtotal || !is_full_screen_video || !is_video_playback)
-+		return false;
-+
-+	// Check coasting_vtotal_table has been updated.
-+	if (!link->replay_settings.coasting_vtotal_table[PR_COASTING_TYPE_STATIC]
-+		|| !link->replay_settings.coasting_vtotal_table[PR_COASTING_TYPE_NOM])
-+		return false;
-+
-+	unsigned int replay_enable_option =
-+		link->replay_settings.config.replay_enable_option;
-+
-+	/* TODO: To support test harness and DDS event */
-+
-+	*coasting_vtotal = link->replay_settings.coasting_vtotal_table[PR_COASTING_TYPE_NOM];
-+	ASSERT(link->replay_settings.frame_skip_number_table[PR_COASTING_TYPE_NOM] <= 0xFFFF);
-+	*frame_skip_number = (uint16_t)link->replay_settings.frame_skip_number_table[PR_COASTING_TYPE_NOM];
-+
-+	link->replay_settings.config.replay_timing_sync_supported = false;
-+
-+	*is_full_screen_video = false;
-+
-+	*is_ultra_sleep_mode = false;
-+
-+	*is_video_playback = false;
-+
-+	/* DSAT test scenario */
-+	if (active_replay_events & replay_event_test_harness_mode) {
-+		if (link->replay_settings.coasting_vtotal_table[PR_COASTING_TYPE_TEST_HARNESS])
-+			*coasting_vtotal =
-+				link->replay_settings.coasting_vtotal_table[PR_COASTING_TYPE_TEST_HARNESS];
-+		if (link->replay_settings.frame_skip_number_table[PR_COASTING_TYPE_TEST_HARNESS]) {
-+			ASSERT(link->replay_settings.frame_skip_number_table[PR_COASTING_TYPE_TEST_HARNESS] <= 0xFFFF);
-+			*frame_skip_number =
-+				(uint16_t)link->replay_settings.frame_skip_number_table[PR_COASTING_TYPE_TEST_HARNESS];
-+		}
-+
-+		/* During the ultra sleep mode testing, disable the timing sync in short vblank mode */
-+		if (active_replay_events & (replay_event_test_harness_enable_replay)) {
-+			if ((active_replay_events & replay_event_test_harness_ultra_sleep) &&
-+				  !link->replay_settings.config.replay_support_fast_resync_in_ultra_sleep_mode)
-+				link->replay_settings.config.replay_timing_sync_supported = false;
-+			return true;
-+		} else
-+			return false;
-+	} else if (active_replay_events & (replay_event_test_harness_enable_replay)) {
-+		if (link->replay_settings.coasting_vtotal_table[PR_COASTING_TYPE_TEST_HARNESS])
-+			*coasting_vtotal = link->replay_settings.coasting_vtotal_table[PR_COASTING_TYPE_TEST_HARNESS];
-+		if (link->replay_settings.frame_skip_number_table[PR_COASTING_TYPE_TEST_HARNESS]) {
-+			uint32_t frame_skip_val =
-+				link->replay_settings.frame_skip_number_table[PR_COASTING_TYPE_TEST_HARNESS];
-+
-+			ASSERT(frame_skip_val <= 0xFFFF);
-+			*frame_skip_number = (uint16_t)frame_skip_val;
-+		}
-+
-+		/* During the ultra sleep mode testing, disable the timing sync in short vblank mode */
-+		if ((active_replay_events & replay_event_test_harness_ultra_sleep) &&
-+			  !link->replay_settings.config.replay_support_fast_resync_in_ultra_sleep_mode)
-+			link->replay_settings.config.replay_timing_sync_supported = false;
+ }
+ 
+ /*
+@@ -250,36 +155,37 @@ bool amdgpu_dm_psr_is_active_allowed(struct amdgpu_display_manager *dm)
+ 			break;
+ 		}
+ 	}
+-
+ 	return allow_active;
+ }
+ 
+-/**
+- * amdgpu_dm_psr_wait_disable() - Wait for eDP panel to exit PSR
+- * @stream: stream state attached to the eDP link
+- *
+- * Waits for a max of 500ms for the eDP panel to exit PSR.
++/*
++ * amdgpu_dm_psr_set_event() - set or clear PSR event for stream
++ * @dm: pointer to amdgpu_display_manager
++ * @stream: pointer to dc_stream_state
++ * @set_event: true to set event, false to clear event
++ * @event: PSR event type
++ * @wait_for_disable: whether to wait for PSR to be disabled
+  *
+- * Return: true if panel exited PSR, false otherwise.
++ * Return: true if successful, false otherwise
+  */
+-bool amdgpu_dm_psr_wait_disable(struct dc_stream_state *stream)
++bool amdgpu_dm_psr_set_event(struct amdgpu_display_manager *dm, struct dc_stream_state *stream,
++		bool set_event, enum psr_event event, bool wait_for_disable)
+ {
+-	enum dc_psr_state psr_state = PSR_STATE0;
+-	struct dc_link *link = stream->link;
+-	int retry_count;
++	unsigned int psr_events;
+ 
+-	if (link == NULL)
++	/* Validate all required parameters */
++	if (!stream || !stream->link ||
++		!stream->link->psr_settings.psr_feature_enabled)
+ 		return false;
+ 
+-	for (retry_count = 0; retry_count <= 1000; retry_count++) {
+-		dc_link_get_psr_state(link, &psr_state);
+-		if (psr_state == PSR_STATE0)
+-			break;
+-		udelay(500);
+-	}
+-
+-	if (retry_count == 1000)
++	/* Get current psr events */
++	if (!mod_power_get_psr_event(dm->power_module, stream, &psr_events))
+ 		return false;
+ 
+-	return true;
++	/* If all events already in desired state, return true. */
++	if ((psr_events & event) == (set_event ? event : 0))
 +		return true;
-+	} else if (active_replay_events & (replay_event_test_harness_disable_replay | replay_event_os_request_disable)) {
-+		// set last set coasting vtotal
-+		if (link->replay_settings.coasting_vtotal_table[PR_COASTING_TYPE_TEST_HARNESS])
-+			*coasting_vtotal = link->replay_settings.coasting_vtotal_table[PR_COASTING_TYPE_TEST_HARNESS];
-+		if (link->replay_settings.frame_skip_number_table[PR_COASTING_TYPE_TEST_HARNESS]) {
-+			uint32_t frame_skip_val =
-+				link->replay_settings.frame_skip_number_table[PR_COASTING_TYPE_TEST_HARNESS];
 +
-+			ASSERT(frame_skip_val <= 0xFFFF);
-+			*frame_skip_number = (uint16_t)frame_skip_val;
-+		}
-+		return false;
-+	}
-+
-+	/* Inactive conditions */
-+	if (active_replay_events & (replay_event_edp_panel_off_disable_psr |
-+			replay_event_hw_programming |
-+			replay_event_vrr |
-+			replay_event_immediate_flip |
-+			replay_event_prepare_vtotal |
-+			replay_event_vrr_transition |
-+			replay_event_pause |
-+			replay_event_disable_replay_while_DPMS |
-+			replay_event_sleep_resume |
-+			replay_event_disable_in_AC |
-+			replay_event_disable_replay_while_detect_display |
-+			replay_event_infopacket |
-+			replay_event_crc_window_active))
-+		return false;
-+
-+	// Full screen scenario
-+	if (active_replay_events & replay_event_full_screen) {
-+		if (!(replay_enable_option & pr_enable_option_full_screen))
-+			return false;
-+	}
-+
-+	/* Full screen video scenario */
-+	if (active_replay_events & replay_event_big_screen_video) {
-+
-+		link->replay_settings.config.replay_timing_sync_supported = false;
-+
-+		if (replay_enable_option & pr_enable_option_full_screen_video_coasting) {
-+			unsigned int fsn_vid =
-+				link->replay_settings.frame_skip_number_table[PR_COASTING_TYPE_FULL_SCREEN_VIDEO];
-+
-+			*coasting_vtotal =
-+				link->replay_settings.coasting_vtotal_table[PR_COASTING_TYPE_FULL_SCREEN_VIDEO];
-+			ASSERT(fsn_vid <= 0xFFFF);
-+			*frame_skip_number = (uint16_t)fsn_vid;
-+		}
-+
-+		*is_video_playback = true;
-+
-+		if ((replay_enable_option & pr_enable_option_full_screen_video) &&
-+			(replay_enable_option & pr_enable_option_full_screen_video_coasting)) {
-+			*is_full_screen_video = true;
-+			return true;
-+		} else
-+			return false;
-+	}
-+
-+	/* MPO video scenario
-+	 * Some of the cases may contain a full screen UI layer in MPO video scenario which is
-+	 * not the expected case to enable Replay.
++	return mod_power_set_psr_event(dm->power_module, stream,
++				       set_event, event, wait_for_disable);
+ }
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.h
+index 4fb8626913cf..16d535806ad6 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.h
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.h
+@@ -28,16 +28,15 @@
+ #define AMDGPU_DM_AMDGPU_DM_PSR_H_
+ 
+ #include "amdgpu.h"
++#include "dc.h"
++#include "modules/inc/mod_power.h"
+ 
+ /* the number of pageflips before enabling psr */
+ #define AMDGPU_DM_PSR_ENTRY_DELAY 5
+ 
+-void amdgpu_dm_set_psr_caps(struct dc_link *link);
+-void amdgpu_dm_psr_enable(struct dc_stream_state *stream);
+-bool amdgpu_dm_link_setup_psr(struct dc_stream_state *stream);
+-bool amdgpu_dm_psr_disable(struct dc_stream_state *stream, bool wait);
+-bool amdgpu_dm_psr_disable_all(struct amdgpu_display_manager *dm);
++bool amdgpu_dm_set_psr_caps(struct dc_link *link, struct amdgpu_dm_connector *aconnector);
+ bool amdgpu_dm_psr_is_active_allowed(struct amdgpu_display_manager *dm);
+-bool amdgpu_dm_psr_wait_disable(struct dc_stream_state *stream);
+-
++bool amdgpu_dm_psr_set_event(struct amdgpu_display_manager *dm,
++		struct dc_stream_state *stream, bool set_event,	enum psr_event event,
++		bool wait_for_disable);
+ #endif /* AMDGPU_DM_AMDGPU_DM_PSR_H_ */
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_replay.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_replay.c
+index 8c150b001105..297125d1db70 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_replay.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_replay.c
+@@ -27,7 +27,6 @@
+ #include "amdgpu_dm_replay.h"
+ #include "dc_dmub_srv.h"
+ #include "dc.h"
+-#include "dm_helpers.h"
+ #include "amdgpu_dm.h"
+ #include "modules/power/power_helpers.h"
+ #include "dmub/inc/dmub_cmd.h"
+@@ -99,13 +98,29 @@ bool amdgpu_dm_set_replay_caps(struct dc_link *link, struct amdgpu_dm_connector
+ 		!dc->ctx->dmub_srv->dmub->feature_caps.replay_supported)
+ 		return false;
+ 
++	/* Mark Replay is supported in link and update related attributes
++	 * This flag presents DPCD caps & amd_vsdb caps satisfy replay requirement.
 +	 */
-+	if ((active_replay_events & replay_event_mpo_video_selective_update) &&
-+		!(active_replay_events & replay_event_full_screen)) {
++	pr_config.replay_cap_support = true;
 +
-+		link->replay_settings.config.replay_timing_sync_supported = false;
+ 	// Mark Replay is supported in pr_config
+ 	pr_config.replay_supported = true;
+ 
++	pr_config.replay_enable_option = pr_enable_option_general_ui |
++					 pr_enable_option_static_screen	|
++					 pr_enable_option_static_screen_coasting;
++	pr_config.replay_power_opt_supported = replay_power_opt_smu_opt_static_screen |
++					       replay_power_opt_z10_static_screen;
++	pr_config.replay_smu_opt_supported = false;
++	pr_config.replay_support_fast_resync_in_ultra_sleep_mode =
++		aconnector->max_vfreq >= 2 * aconnector->min_vfreq;
++	pr_config.force_disable_desync_error_check = false;
 +
-+		if (replay_enable_option & pr_enable_option_mpo_video_coasting) {
-+			*coasting_vtotal = link->replay_settings.coasting_vtotal_table[PR_COASTING_TYPE_NOM];
-+			{
-+				uint32_t frame_skip_val =
-+					link->replay_settings.frame_skip_number_table[PR_COASTING_TYPE_NOM];
+ 	debug_flags = (union replay_debug_flags *)&pr_config.debug_flags;
+ 	debug_flags->u32All = 0;
+ 	debug_flags->bitfields.visual_confirm =
+ 		link->ctx->dc->debug.visual_confirm == VISUAL_CONFIRM_REPLAY;
++	debug_flags->bitfields.skip_crtc_disabled = dc->debug.replay_skip_crtc_disabled;
+ 
+ 	init_replay_config(link, &pr_config);
+ 
+@@ -113,104 +128,80 @@ bool amdgpu_dm_set_replay_caps(struct dc_link *link, struct amdgpu_dm_connector
+ }
+ 
+ /*
+- * amdgpu_dm_link_setup_replay() - configure replay link
+- * @link: link
+- * @aconnector: aconnector
++ * amdgpu_dm_link_setup_replay() - config replay settings
++ * @stream: pointer to dc_stream_state structure
++ * @vrr_params: pointer to mod_vrr_params structure containing VRR parameters
+  *
++ * config replay link settings including coasting vtotal calculations.
++ *
++ * Return: true if successful, false if any parameter is invalid or replay not supported
+  */
+-bool amdgpu_dm_link_setup_replay(struct dc_link *link, struct amdgpu_dm_connector *aconnector)
++bool amdgpu_dm_link_setup_replay(struct dc_stream_state *stream,
++		struct mod_vrr_params *vrr_params)
+ {
+-	struct replay_config *pr_config;
++	struct dc_link *link;
++	unsigned int static_coasting_vtotal;
++	unsigned int nom_coasting_vtotal;
+ 
+-	if (link == NULL || aconnector == NULL)
++	if (!stream || !stream->link || !vrr_params)
+ 		return false;
+ 
+-	pr_config = &link->replay_settings.config;
+-
+-	if (!pr_config->replay_supported)
++	link = stream->link;
++	if (!link->replay_settings.config.replay_supported)
+ 		return false;
+ 
+-	pr_config->replay_power_opt_supported = 0x11;
+-	pr_config->replay_smu_opt_supported = false;
+-	pr_config->replay_enable_option |= pr_enable_option_static_screen;
+-	pr_config->replay_support_fast_resync_in_ultra_sleep_mode = aconnector->max_vfreq >= 2 * aconnector->min_vfreq;
+-	pr_config->replay_timing_sync_supported = false;
++	if (link->replay_settings.replay_feature_enabled)
++		return true;
+ 
+-	if (!pr_config->replay_timing_sync_supported)
+-		pr_config->replay_enable_option &= ~pr_enable_option_general_ui;
++	calculate_replay_link_off_frame_count(link, stream->timing.v_total,
++			stream->timing.h_total);
+ 
+-	link->replay_settings.replay_feature_enabled = true;
++	nom_coasting_vtotal = stream->timing.v_total;
++	static_coasting_vtotal = mod_freesync_calc_v_total_from_refresh(stream,
++			vrr_params->min_refresh_in_uhz);
+ 
++	set_replay_coasting_vtotal(link, PR_COASTING_TYPE_NOM,
++			nom_coasting_vtotal);
++	set_replay_coasting_vtotal(link, PR_COASTING_TYPE_STATIC,
++			static_coasting_vtotal);
+ 	return true;
+ }
+ 
+ /*
+- * amdgpu_dm_replay_enable() - enable replay f/w
+- * @stream: stream state
++ * amdgpu_dm_replay_set_event() - set or clear replay event for a stream
++ * @dm: pointer to amdgpu_display_manager
++ * @stream: pointer to dc_stream_state
++ * @set_event: true to set event, false to clear event
++ * @event: replay event type to set or clear
++ * @wait_for_disable: whether to wait for replay to be disabled before returning
+  *
+- * Return: true if success
+- */
+-bool amdgpu_dm_replay_enable(struct dc_stream_state *stream, bool wait)
+-{
+-	bool replay_active = true;
+-	struct dc_link *link = NULL;
+-	struct amdgpu_dm_connector *aconnector = NULL;
+-
+-	if (stream == NULL)
+-		return false;
+-
+-	/* Check if replay is disabled by connector flag */
+-	aconnector = (struct amdgpu_dm_connector *)stream->dm_stream_context;
+-	if (!aconnector || aconnector->disallow_edp_enter_replay) {
+-		return false;
+-	}
+-
+-	link = stream->link;
+-
+-	if (link) {
+-		link->dc->link_srv->dp_setup_replay(link, stream);
+-		link->dc->link_srv->edp_set_coasting_vtotal(link, stream->timing.v_total, 0);
+-		DRM_DEBUG_DRIVER("Enabling replay...\n");
+-		link->dc->link_srv->edp_set_replay_allow_active(link, &replay_active, wait, false, NULL);
+-		return true;
+-	}
+-
+-	return false;
+-}
+-
+-/*
+- * amdgpu_dm_replay_disable() - disable replay f/w
+- * @stream:  stream state
++ * This function sets or clears a specific replay event for the given stream.
++ * It temporarily disables idle optimizations during the operation to ensure
++ * hardware access is available.
+  *
+- * Return: true if success
++ * Return: true if successful, false if any parameter is invalid or operation fails
+  */
+-bool amdgpu_dm_replay_disable(struct dc_stream_state *stream)
++bool amdgpu_dm_replay_set_event(struct amdgpu_display_manager *dm,
++		struct dc_stream_state *stream,
++		bool set_event,
++		enum replay_event event,
++		bool wait_for_disable)
+ {
+-	bool replay_active = false;
+-	struct dc_link *link = NULL;
++	unsigned int replay_events;
+ 
+-	if (stream == NULL)
++	/* Validate all required parameters */
++	if (!stream || !stream->link ||
++		!stream->link->replay_settings.replay_feature_enabled)
+ 		return false;
+ 
+-	link = stream->link;
++	/* Get current replay events */
++	if (!mod_power_get_replay_event(dm->power_module, stream, &replay_events))
++		return false;
+ 
+-	if (link) {
+-		DRM_DEBUG_DRIVER("Disabling replay...\n");
+-		link->dc->link_srv->edp_set_replay_allow_active(stream->link, &replay_active, true, false, NULL);
++	/* If all events already in desired state, return true. */
++	if ((replay_events & event) == (set_event ? event : 0))
+ 		return true;
+-	}
+-
+-	return false;
+-}
+ 
+-/*
+- * amdgpu_dm_replay_disable_all() - disable replay f/w
+- * if replay is enabled on any stream
+- *
+- * Return: true if success
+- */
+-bool amdgpu_dm_replay_disable_all(struct amdgpu_display_manager *dm)
+-{
+-	DRM_DEBUG_DRIVER("Disabling replay if replay is enabled on any stream\n");
+-	return dc_set_replay_allow_active(dm->dc, false);
++	return mod_power_set_replay_event(dm->power_module, stream,
++					 set_event, event, wait_for_disable);
+ }
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_replay.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_replay.h
+index 73b6c67ae5e7..021bf0255516 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_replay.h
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_replay.h
+@@ -28,22 +28,16 @@
+ #define AMDGPU_DM_AMDGPU_DM_REPLAY_H_
+ 
+ #include "amdgpu.h"
++#include "dc.h"
++#include "modules/inc/mod_power.h"
+ 
+-enum replay_enable_option {
+-	pr_enable_option_static_screen = 0x1,
+-	pr_enable_option_mpo_video = 0x2,
+-	pr_enable_option_full_screen_video = 0x4,
+-	pr_enable_option_general_ui = 0x8,
+-	pr_enable_option_static_screen_coasting = 0x10000,
+-	pr_enable_option_mpo_video_coasting = 0x20000,
+-	pr_enable_option_full_screen_video_coasting = 0x40000,
+-};
+-
+-bool amdgpu_dm_link_supports_replay(struct dc_link *link, struct amdgpu_dm_connector *aconnector);
+-bool amdgpu_dm_replay_enable(struct dc_stream_state *stream, bool enable);
+-bool amdgpu_dm_set_replay_caps(struct dc_link *link, struct amdgpu_dm_connector *aconnector);
+-bool amdgpu_dm_link_setup_replay(struct dc_link *link, struct amdgpu_dm_connector *aconnector);
+-bool amdgpu_dm_replay_disable(struct dc_stream_state *stream);
+-bool amdgpu_dm_replay_disable_all(struct amdgpu_display_manager *dm);
+-
++bool amdgpu_dm_link_supports_replay(struct dc_link *link,
++		struct amdgpu_dm_connector *aconnector);
++bool amdgpu_dm_set_replay_caps(struct dc_link *link,
++		struct amdgpu_dm_connector *aconnector);
++bool amdgpu_dm_link_setup_replay(struct dc_stream_state *stream,
++		struct mod_vrr_params *vrr_params);
++bool amdgpu_dm_replay_set_event(struct amdgpu_display_manager *dm,
++		struct dc_stream_state *stream, bool set_event,
++		enum replay_event event, bool wait_for_disable);
+ #endif /* AMDGPU_DM_AMDGPU_DM_REPLAY_H_ */
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_services.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_services.c
+index 0ef7435ffda9..84dcb573d98f 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_services.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_services.c
+@@ -64,12 +64,28 @@ void dm_trace_smu_exit(bool success, uint32_t response, struct dc_context *ctx)
+ /**** power component interfaces ****/
+ 
+ bool dm_query_extended_brightness_caps(struct dc_context *ctx,
+-	enum dm_acpi_display_type display,
+-	struct dm_acpi_atif_backlight_caps *pCaps)
++	enum dm_acpi_display_type display, struct dm_acpi_atif_backlight_caps *pCaps)
+ {
+-	/*
+-	 * TODO: Implement query for extended backlight caps.
+-	 * Some plumbing required, see amdgpu_atif_query_backlight_caps()
+-	 */
+-	return false;
++	struct amdgpu_device *adev;
++	struct amdgpu_display_manager *dm;
++	int bl_index = (display == AcpiDisplayType_LCD1) ? 0 : 1;
 +
-+				ASSERT(frame_skip_val <= 0xFFFF);
-+				*frame_skip_number = (uint16_t)frame_skip_val;
-+			}
-+		}
-+
-+		*is_video_playback = true;
-+
-+		if (replay_enable_option & pr_enable_option_mpo_video)
-+			return true;
-+		else
-+			return false;
-+	}
-+
-+	/* Static screen scenario */
-+	if (!(active_replay_events & replay_event_vsync)) {
-+
-+		if (replay_enable_option & pr_enable_option_static_screen_coasting) {
-+			// Do not adjust eDP refresh rate if static screen + normal sleep mode
-+			if ((!(link->replay_settings.config.replay_power_opt_supported &
-+				replay_power_opt_z10_static_screen)) ||
-+				(active_replay_events & replay_event_cursor_updating)) {
-+				// normal sleep mode
-+				*coasting_vtotal =
-+					link->replay_settings.coasting_vtotal_table[PR_COASTING_TYPE_NOM];
-+				{
-+					uint32_t frame_skip_val =
-+						link->replay_settings.frame_skip_number_table[PR_COASTING_TYPE_NOM];
-+
-+					ASSERT(frame_skip_val <= 0xFFFF);
-+					*frame_skip_number = (uint16_t)frame_skip_val;
-+				}
-+			} else {
-+				// ultra sleep mode
-+				*coasting_vtotal =
-+					link->replay_settings.coasting_vtotal_table[PR_COASTING_TYPE_STATIC];
-+				{
-+					uint32_t frame_skip_val =
-+						link->replay_settings.frame_skip_number_table[PR_COASTING_TYPE_STATIC];
-+
-+					ASSERT(frame_skip_val <= 0xFFFF);
-+					*frame_skip_number = (uint16_t)frame_skip_val;
-+				}
-+				*is_ultra_sleep_mode = true;
-+			}
-+		}
-+
-+		if (replay_enable_option & pr_enable_option_static_screen) {
-+			if (!link->replay_settings.config.replay_support_fast_resync_in_ultra_sleep_mode)
-+				link->replay_settings.config.replay_timing_sync_supported = false;
-+			return true;
-+		} else
-+			return false;
-+	}
-+
-+	/* General UI scenario */
-+	if (active_replay_events & replay_event_general_ui) {
-+		if (replay_enable_option & pr_enable_option_general_ui)
-+			return true;
-+		else
-+			return false;
-+	}
-+
-+	return false;
-+}
-+
-+bool mod_power_replay_set_coasting_vtotal(struct mod_power *mod_power,
-+	const struct dc_stream_state *stream,
-+	uint32_t coasting_vtotal,
-+	uint16_t frame_skip_number)
-+{
-+	struct core_power *core_power = NULL;
-+	struct dc_link *link = NULL;
-+
-+	if (!stream)
++	if (!ctx || !pCaps || !ctx->driver_context)
 +		return false;
 +
-+	link = dc_stream_get_link(stream);
-+	if (!link || !link->replay_settings.replay_feature_enabled)
-+		return false;
-+
-+	if (mod_power == NULL)
-+		return false;
-+
-+	core_power = MOD_POWER_TO_CORE(mod_power);
-+
-+	if (core_power->num_entities == 0)
-+		return false;
-+
-+	return link->dc->link_srv->edp_set_coasting_vtotal(link, coasting_vtotal, frame_skip_number);
-+}
-+
-+void mod_power_replay_set_timing_sync_supported(struct mod_power *mod_power,
-+	const struct dc_stream_state *stream)
-+{
-+	struct core_power *core_power = NULL;
-+	struct dc_link *link = NULL;
-+	unsigned int stream_index = 0;
-+	union dmub_replay_cmd_set cmd_data = { 0 };
-+
-+	if (!stream || mod_power == NULL)
-+		return;
-+
-+	core_power = MOD_POWER_TO_CORE(mod_power);
-+	if (core_power->num_entities == 0)
-+		return;
-+
-+	stream_index = map_index_from_stream(core_power, stream);
-+	if (stream_index > core_power->num_entities) //invalid index
-+		return;
-+
-+	link = dc_stream_get_link(stream);
-+	if (!link || !link->replay_settings.replay_feature_enabled)
-+		return;
-+
-+	cmd_data.sync_data.timing_sync_supported = link->replay_settings.config.replay_timing_sync_supported;
-+
-+	link->dc->link_srv->edp_send_replay_cmd(link, Replay_Set_Timing_Sync_Supported,
-+		&cmd_data);
-+}
-+
-+void mod_power_replay_disabled_adaptive_sync_sdp(struct mod_power *mod_power,
-+	const struct dc_stream_state *stream, bool force_disabled)
-+{
-+	struct core_power *core_power = NULL;
-+	struct dc_link *link = NULL;
-+	unsigned int stream_index = 0;
-+	union dmub_replay_cmd_set cmd_data = { 0 };
-+
-+	if (!stream || mod_power == NULL)
-+		return;
-+
-+	core_power = MOD_POWER_TO_CORE(mod_power);
-+	if (core_power->num_entities == 0)
-+		return;
-+
-+	stream_index = map_index_from_stream(core_power, stream);
-+	if (stream_index > core_power->num_entities) //invalid index
-+		return;
-+
-+	link = dc_stream_get_link(stream);
-+	if (!link || !link->replay_settings.replay_feature_enabled)
-+		return;
-+
-+	cmd_data.disabled_adaptive_sync_sdp_data.force_disabled = force_disabled;
-+
-+	link->dc->link_srv->edp_send_replay_cmd(link, Replay_Disabled_Adaptive_Sync_SDP,
-+		&cmd_data);
-+}
-+
-+static void mod_power_replay_set_general_cmd(struct mod_power *mod_power,
-+	const struct dc_stream_state *stream,
-+	const enum dmub_cmd_replay_general_subtype general_cmd_type,
-+	const uint32_t param1, const uint32_t param2)
-+{
-+	struct core_power *core_power = NULL;
-+	struct dc_link *link = NULL;
-+	unsigned int stream_index = 0;
-+	union dmub_replay_cmd_set cmd_data = { 0 };
-+
-+	if (!stream || mod_power == NULL)
-+		return;
-+
-+	core_power = MOD_POWER_TO_CORE(mod_power);
-+	if (core_power->num_entities == 0)
-+		return;
-+
-+	stream_index = map_index_from_stream(core_power, stream);
-+	if (stream_index > core_power->num_entities) //invalid index
-+		return;
-+
-+	link = dc_stream_get_link(stream);
-+	if (!link || !link->replay_settings.replay_feature_enabled)
-+		return;
-+
-+	cmd_data.set_general_cmd_data.subtype = general_cmd_type;
-+	cmd_data.set_general_cmd_data.param1 = param1;
-+	cmd_data.set_general_cmd_data.param2 = param2;
-+	link->dc->link_srv->edp_send_replay_cmd(link, Replay_Set_General_Cmd,
-+		&cmd_data);
-+}
-+
-+void mod_power_replay_disabled_desync_error_detection(struct mod_power *mod_power,
-+	const struct dc_stream_state *stream,  bool force_disabled)
-+{
-+	mod_power_replay_set_general_cmd(mod_power, stream,
-+			REPLAY_GENERAL_CMD_DISABLED_DESYNC_ERROR_DETECTION,
-+			force_disabled, 0);
-+}
-+
-+static void mod_power_replay_set_pseudo_vtotal(struct mod_power *mod_power,
-+	const struct dc_stream_state *stream, uint16_t vtotal)
-+{
-+	struct core_power *core_power = NULL;
-+	struct dc_link *link = NULL;
-+	unsigned int stream_index = 0;
-+	union dmub_replay_cmd_set cmd_data = { 0 };
-+
-+	if (!stream || mod_power == NULL)
-+		return;
-+
-+	core_power = MOD_POWER_TO_CORE(mod_power);
-+	if (core_power->num_entities == 0)
-+		return;
-+
-+	stream_index = map_index_from_stream(core_power, stream);
-+	if (stream_index > core_power->num_entities) //invalid index
-+		return;
-+
-+	link = dc_stream_get_link(stream);
-+	if (!link || !link->replay_settings.replay_feature_enabled)
-+		return;
-+
-+	cmd_data.pseudo_vtotal_data.vtotal = vtotal;
-+
-+	if (link->replay_settings.last_pseudo_vtotal != vtotal) {
-+		link->replay_settings.last_pseudo_vtotal = vtotal;
-+		link->dc->link_srv->edp_send_replay_cmd(link, Replay_Set_Pseudo_VTotal, &cmd_data);
-+	}
-+}
-+
-+static void mod_power_update_error_status(struct mod_power *mod_power,
-+	const struct dc_stream_state *stream)
-+{
-+	struct dc_link *link = NULL;
-+	union replay_debug_flags *pDebug = NULL;
-+
-+	if (mod_power == NULL || stream == NULL)
-+		return;
-+
-+	link = dc_stream_get_link(stream);
-+
-+	if (!link)
-+		return;
-+
-+	pDebug = (union replay_debug_flags *)&link->replay_settings.config.debug_flags;
-+
-+	if (0 == pDebug->bitfields.enable_visual_confirm_debug)
-+		return;
-+
-+	mod_power_replay_set_general_cmd(mod_power, stream,
-+		REPLAY_GENERAL_CMD_UPDATE_ERROR_STATUS,
-+		link->replay_settings.config.replay_error_status.raw, 0);
-+}
-+
-+void mod_power_set_low_rr_activate(struct mod_power *mod_power,
-+	const struct dc_stream_state *stream, bool low_rr_supported)
-+{
-+	struct dc_link *link = NULL;
-+
-+	if (mod_power == NULL || stream == NULL)
-+		return;
-+
-+	link = dc_stream_get_link(stream);
-+
-+	if (!link)
-+		return;
-+
-+	mod_power_replay_set_general_cmd(mod_power, stream,
-+		REPLAY_GENERAL_CMD_SET_LOW_RR_ACTIVATE,
-+		low_rr_supported, 0);
-+}
-+
-+void mod_power_set_video_conferencing_activate(struct mod_power *mod_power,
-+	const struct dc_stream_state *stream, bool video_conferencing_activate)
-+{
-+	struct dc_link *link = NULL;
-+
-+	if (mod_power == NULL || stream == NULL)
-+		return;
-+
-+	link = dc_stream_get_link(stream);
-+	if (!link || !link->replay_settings.replay_feature_enabled)
-+		return;
-+
-+	mod_power_replay_set_general_cmd(mod_power, stream,
-+		REPLAY_GENERAL_CMD_VIDEO_CONFERENCING,
-+		video_conferencing_activate, 0);
-+}
-+
-+void mod_power_set_coasting_vtotal_without_frame_update(struct mod_power *mod_power,
-+	const struct dc_stream_state *stream, uint32_t coasting_vtotal)
-+{
-+	struct dc_link *link = NULL;
-+
-+	if (mod_power == NULL || stream == NULL)
-+		return;
-+
-+	link = dc_stream_get_link(stream);
-+	if (!link || !link->replay_settings.replay_feature_enabled)
-+		return;
-+
-+	mod_power_replay_set_general_cmd(mod_power, stream,
-+		REPLAY_GENERAL_CMD_SET_COASTING_VTOTAL_WITHOUT_FRAME_UPDATE,
-+		coasting_vtotal, 0);
-+}
-+
-+void mod_power_set_replay_continuously_resync(struct mod_power *mod_power,
-+	const struct dc_stream_state *stream, bool enable)
-+{
-+	struct dc_link *link = NULL;
-+
-+	if (mod_power == NULL || stream == NULL)
-+		return;
-+
-+	link = dc_stream_get_link(stream);
-+	if (!link || !link->replay_settings.replay_feature_enabled)
-+		return;
-+
-+	mod_power_replay_set_general_cmd(mod_power, stream,
-+		REPLAY_GENERAL_CMD_SET_CONTINUOUSLY_RESYNC,
-+		enable, 0);
-+}
-+
-+void mod_power_set_live_capture_with_cvt_activate(struct mod_power *mod_power,
-+	const struct dc_stream_state *stream, bool live_capture_with_cvt_activate)
-+{
-+	struct dc_link *link = NULL;
-+
-+	if (mod_power == NULL || stream == NULL)
-+		return;
-+
-+	link = dc_stream_get_link(stream);
-+	if (!link || !link->replay_settings.replay_feature_enabled)
-+		return;
-+
-+	// Check if LIVE_CAPTURE_WITH_CVT bit is enabled in DalRegKey_ReplayOptimization
-+	if (!link->replay_settings.config.replay_optimization.bits.LIVE_CAPTURE_WITH_CVT)
-+		return;
-+
-+	if (link->replay_settings.config.live_capture_with_cvt_activated != live_capture_with_cvt_activate) {
-+		link->replay_settings.config.live_capture_with_cvt_activated = live_capture_with_cvt_activate;
-+		mod_power_replay_set_general_cmd(mod_power, stream,
-+			REPLAY_GENERAL_CMD_LIVE_CAPTURE_WITH_CVT,
-+			live_capture_with_cvt_activate, 0);
-+	}
-+}
-+
-+bool mod_power_set_replay_event(struct mod_power *mod_power,
-+	struct dc_stream_state *stream, bool set_event,
-+	enum replay_event event, bool wait_for_disable)
-+{
-+	struct core_power *core_power = NULL;
-+	struct dc_link *link = NULL;
-+	unsigned int stream_index = 0;
-+	unsigned int active_replay_events = 0;
-+	bool replay_active_request = false;
-+	bool force_static = false;
-+	uint32_t coasting_vtotal = 0;
-+	bool current_timing_sync_status = false;
-+	bool is_full_screen_video = false;
-+	bool is_ultra_sleep_mode = false;
-+	unsigned int sink_duration_us = 0;
-+	bool low_rr_active = false;
-+	uint16_t frame_skip_number = 0;
-+	bool is_video_playback = false;
-+
-+	if (!stream)
-+		return false;
-+
-+	if (mod_power == NULL)
-+		return false;
-+
-+	core_power = MOD_POWER_TO_CORE(mod_power);
-+
-+	if (core_power->num_entities == 0)
-+		return false;
-+
-+	stream_index = map_index_from_stream(core_power, stream);
-+
-+	if (set_event)
-+		core_power->map[stream_index].replay_events |= event;
-+	else
-+		core_power->map[stream_index].replay_events &= ~event;
-+
-+	link = dc_stream_get_link(stream);
-+	if (!link || !link->replay_settings.replay_feature_enabled)
-+		return false;
-+
-+	if ((core_power->map[stream_index].replay_events & replay_event_disable_replay_while_switching_mux) != 0)
-+		return false;
-+
-+	if ((core_power->map[stream_index].replay_events & replay_event_os_override_hold) != 0)
-+		return false;
-+
-+	active_replay_events = core_power->map[stream_index].replay_events;
-+
-+	current_timing_sync_status =
-+		link->replay_settings.config.replay_timing_sync_supported;
-+
-+	replay_active_request = mod_power_update_replay_active_status(active_replay_events,
-+		link, &coasting_vtotal, &is_full_screen_video, &is_ultra_sleep_mode, &frame_skip_number, &is_video_playback);
-+
-+	if (is_full_screen_video)
-+		mod_power_replay_set_pseudo_vtotal(mod_power, stream,
-+			link->replay_settings.low_rr_full_screen_video_pseudo_vtotal);
-+	else
-+		mod_power_replay_set_pseudo_vtotal(mod_power, stream, 0);
-+
-+	//If timing_sync_status change, then re-enabled set timing_sync_supported value and re-enabled replay
-+	if (current_timing_sync_status != link->replay_settings.config.replay_timing_sync_supported)
-+		mod_power_replay_set_timing_sync_supported(mod_power, stream);
-+
-+	if (link->replay_settings.config.low_rr_supported) {
-+		sink_duration_us =
-+			(unsigned int)(div_u64(((unsigned long long)(coasting_vtotal)
-+				* 10000) * stream->timing.h_total,
-+					stream->timing.pix_clk_100hz));
-+		low_rr_active = sink_duration_us < LOW_REFRESH_RATE_DURATION_US_UPPER_BOUND ? false : true;
-+		if (low_rr_active != link->replay_settings.config.low_rr_activated) {
-+			mod_power_set_low_rr_activate(mod_power, stream, low_rr_active);
-+			link->replay_settings.config.low_rr_activated = low_rr_active;
-+		}
-+	}
-+
-+	// The function return fail when
-+	// 1. DMUB function is not support (for backward compatible).
-+	// 2. active_replay_events or coasting_vtotal is not updated in the same time
-+	if (!mod_power_replay_set_power_opt_and_coasting_vtotal(mod_power,
-+		stream, active_replay_events, coasting_vtotal, is_ultra_sleep_mode, frame_skip_number)) {
-+		if (!mod_power_replay_set_power_opt(mod_power, stream, active_replay_events, is_ultra_sleep_mode))
-+			return false;
-+
-+		if (!mod_power_replay_set_coasting_vtotal(mod_power, stream, coasting_vtotal, frame_skip_number))
-+			return false;
-+	}
-+
-+	mod_power_set_live_capture_with_cvt_activate(mod_power, stream, is_video_playback);
-+
-+	mod_power_update_error_status(mod_power, stream);
-+
-+	// If Replay is going to be enable (No matter is disable -> enable or enable -> enable), we don't need to wait.
-+	// If Replay is going to be disable
-+	//     if disable -> disable
-+	//         -> Replay DMUB state should be state 0.
-+	//            So no matter wait_for_disable is true or not, it should makes no difference.
-+	//     if enable -> disable -> We should wait if wait_for_disable is true.
-+	if (replay_active_request)
-+		wait_for_disable = false;
-+
-+	if (!mod_power_set_replay_active(stream, replay_active_request, wait_for_disable, force_static))
-+		return false;
-+
++	adev = (struct amdgpu_device *)ctx->driver_context;
++	dm = &adev->dm;
++
++	amdgpu_dm_update_backlight_caps(dm, bl_index);
++
++	pCaps->num_data_points = dm->backlight_caps[bl_index].data_points;
++	pCaps->max_input_signal = dm->backlight_caps[bl_index].max_input_signal;
++	pCaps->min_input_signal = dm->backlight_caps[bl_index].min_input_signal;
++	pCaps->ac_level_percentage = dm->backlight_caps[bl_index].ac_level;
++	pCaps->dc_level_percentage = dm->backlight_caps[bl_index].dc_level;
++
++	if (pCaps->num_data_points > 0)
++		memcpy(pCaps->data_points, dm->backlight_caps[bl_index].luminance_data,
++			sizeof(struct dm_bl_data_point) * pCaps->num_data_points);
 +	return true;
-+}
-+
-+bool mod_power_get_replay_active_status(const struct dc_stream_state *stream,
-+	bool *replay_active)
-+{
-+	const struct dc_link *link = NULL;
-+
-+	if (!stream)
-+		return false;
-+
-+	link = dc_stream_get_link(stream);
-+	*replay_active = link->replay_settings.replay_allow_active;
-+
-+	return true;
-+}
-+
-+void mod_power_replay_residency(const struct dc_stream_state *stream,
-+	unsigned int *residency, const bool is_start, const bool is_alpm)
-+{
-+	const struct dc_link *link = NULL;
-+	enum pr_residency_mode mode;
-+
-+	if (!stream)
-+		return;
-+
-+	link = dc_stream_get_link(stream);
-+
-+	if (is_alpm)
-+		mode = PR_RESIDENCY_MODE_ALPM;
-+	else
-+		mode = PR_RESIDENCY_MODE_PHY;
-+
-+	if (link && link->dc && link->dc->link_srv)
-+		link->dc->link_srv->edp_replay_residency(link, residency, is_start, mode);
-+}
-+
-+bool mod_power_replay_set_power_opt_and_coasting_vtotal(struct mod_power *mod_power,
-+	const struct dc_stream_state *stream, unsigned int active_replay_events, uint32_t coasting_vtotal,
-+	bool is_ultra_sleep_mode, uint16_t frame_skip_number)
-+{
-+	struct core_power *core_power = NULL;
-+	struct dc_link *link = NULL;
-+	unsigned int power_opt = 0;
-+
-+	if (!stream)
-+		return false;
-+
-+	if (mod_power == NULL)
-+		return false;
-+
-+	core_power = MOD_POWER_TO_CORE(mod_power);
-+
-+	if (core_power->num_entities == 0)
-+		return false;
-+
-+	link = dc_stream_get_link(stream);
-+
-+	if (!link || !link->replay_settings.replay_feature_enabled)
-+		return false;
-+
-+	power_opt = mod_power_replay_setup_power_opt(link, active_replay_events, is_ultra_sleep_mode);
-+
-+	return link->dc->link_srv->edp_set_replay_power_opt_and_coasting_vtotal(link, &power_opt, coasting_vtotal, frame_skip_number);
-+}
-+
-+
-+
-+
-+
+ }
 -- 
 2.43.0
 
