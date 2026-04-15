@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7F46AFA0C42
-	for <amd-gfx@archiver.kernel.org>; Wed, 15 Apr 2026 07:44:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2B23FFA0C3D
+	for <amd-gfx@archiver.kernel.org>; Wed, 15 Apr 2026 07:44:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2352D10E69A;
-	Wed, 15 Apr 2026 07:44:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BA61610E69D;
+	Wed, 15 Apr 2026 07:44:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="FbkDRx/k";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ENKcWcyp";
 	dkim-atps=neutral
-Received: from BL0PR03CU003.outbound.protection.outlook.com
- (mail-eastusazon11012056.outbound.protection.outlook.com [52.101.53.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3E69D10E69A
- for <amd-gfx@lists.freedesktop.org>; Wed, 15 Apr 2026 07:44:02 +0000 (UTC)
+Received: from BN8PR05CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11011056.outbound.protection.outlook.com [52.101.57.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E058E10E69F
+ for <amd-gfx@lists.freedesktop.org>; Wed, 15 Apr 2026 07:44:04 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=EPwTGdC90koiFLESNltMCzY+RPcDQulJAyRYrVt5WiomHSEyeqcOH3ZM4GmymWPDQiQE3WHim6rHU9rFx6uZuZI8pohOiWf7kbqjS787BLLsgZc+/1U3rUHu3ioiowWRUCEQc3gz2wOmkt2FNoe/an/lZLwt6Vdp0wG6kLPhR7P/gOmFM+iJRgKjnLVGjKwV9RaS+l1bxP6rjxK6cyVtuTxkIH1qkKO9R/eiGgkhKTGMxfiUaTQVLU3M6HYDb4zGbTektiIb6KDXwXuvXRsSQgcosFmLhs2utTh604wmfzN4/fAcULqA1pSjpLG8ycVm4UCbjJ9O6aSFHL4Hdvfn9g==
+ b=TYsTMCB+JxOlI5O6KH3ZbfHVhbqRVYoX9Oee1oXb9h49LUm9RlDdRT7Gur3YizXZnm7WMeV/oX69VadK4ivHXXRHi85NeSLBbLaY8x+W5vMxMKnP0tdrAh81Is+Ytbacwo/ll0n7UDN+BHhzei5IyGyMxBABqLbLDlaN80CqO+5fOazaAjGpLOk1z8QUIesDsoWg62V/IVOEYgwCKG9Rjl06vGbp7v5kAA4jBAznuG41J3WOgqWdUHZDWXr/zkgaqz3OR8cGa6J2z+ac0OVkKkCbo45e2W5/XqgG94B6V/4COxNzqeERaazqx7037z5pdzQA0MvuVkFloTo1YWtGXA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=cOF24ALXSRJlnSJoQiWDq/K0IJfpVUilmdyc3JNP99o=;
- b=xlA7BEsj7dGW1Kx0sMTDHj2M8s2rRc4QPib8S/jDn5OWFojXD7qCawfbo2Tmyjnpl5JJKIcDsT5KZ07ePGBrJWo46fulm2src3eg+5reydRMXhVhk5i4RLeyZ/hVMpUUUINI/qIbhH6FxjHNKbU8lBuXWE1XiYLQYEIhzEeD6hiQkjR0C9g7op0EtiaYa9ExLOOztDwFxvXX7SX5qh/OouTEzV4dUWo/3Ozu8mKwLq46Rza2cdRT0Zojx6q9i2T71aS2H6BrD4I2VoBE7fggAHE5m58rEcz5ACKBH9qWaxZ6U5HzTkoI74FEN0se9kkH0T/+qj9O+4/HWKgWj4pRfg==
+ bh=Ov/uE4G8G0fBfy9p3MAZRu35mKT0tST03vA5xMrHBvw=;
+ b=Nqz/Mly90B87csWgLKbjnm5bOqQbQ3mt8TNt+ItvYYZohm3weTBjuk2/WnG6keUI0630boaBBldABHh7zCsv13BzAUo8JnYp8ewBbBHq+22Xn9FS+VekBeJQVzRn0NnYzykzsuyswWuRoFq6lUoP0xkLn9DDJfMP+bcZqUBBvYulG9ONbmstHLPhMp9cXVwqN5e0pS480y07vgfd0i97n0GXQ8I9giS8PWywy8xrDfvqRuiIej0UbkR0GNhA8GKw6aGm+DLlL4qTu6tmwn0ApU8Aq4iIt+sL7bg6boy82fcbS4X4yMrXdWK8rUfca3LoeSkrh/pR5VfXtxhrP3tmvA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=cOF24ALXSRJlnSJoQiWDq/K0IJfpVUilmdyc3JNP99o=;
- b=FbkDRx/ku83dIsCKt4sdEBeb6K02TxRGlj0Sum9IakTBzgRsOlB3hrf/RcslkqkVnQwWr0wvpfdfxePqsS+6YeYJXzYRS4zSKvJxZ3HKmmflvejrI2iAJ4RLyVqHLut5V8pu4ROEJ643evft6Ddn+1Nx9ceeGFdVrGbbLO7G2qw=
-Received: from MN2PR19CA0041.namprd19.prod.outlook.com (2603:10b6:208:19b::18)
- by DS0PR12MB6415.namprd12.prod.outlook.com (2603:10b6:8:cc::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9818.20; Wed, 15 Apr
- 2026 07:43:58 +0000
+ bh=Ov/uE4G8G0fBfy9p3MAZRu35mKT0tST03vA5xMrHBvw=;
+ b=ENKcWcyp75EMJM9tvHGyMXMN4uZUExqzb/G65vdB9ANy6P6CZ3XFvALi2kpwo9/uQALmXSWv9zQGNs5TGapa8VLcqCULS2vBwHczHjk0o057Mhd/wZ1VRoWCHqu2x7i1duZBUrUCV1c16TT5BW00cJmYN259M7TXCdMSVk1sxT8=
+Received: from MN2PR19CA0051.namprd19.prod.outlook.com (2603:10b6:208:19b::28)
+ by MN2PR12MB4471.namprd12.prod.outlook.com (2603:10b6:208:26f::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9818.17; Wed, 15 Apr
+ 2026 07:44:01 +0000
 Received: from MN1PEPF0000F0E4.namprd04.prod.outlook.com
- (2603:10b6:208:19b:cafe::99) by MN2PR19CA0041.outlook.office365.com
- (2603:10b6:208:19b::18) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9769.48 via Frontend Transport; Wed,
- 15 Apr 2026 07:43:57 +0000
+ (2603:10b6:208:19b:cafe::30) by MN2PR19CA0051.outlook.office365.com
+ (2603:10b6:208:19b::28) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9769.44 via Frontend Transport; Wed,
+ 15 Apr 2026 07:44:01 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -50,14 +50,14 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from satlexmb07.amd.com (165.204.84.17) by
  MN1PEPF0000F0E4.mail.protection.outlook.com (10.167.242.42) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9769.17 via Frontend Transport; Wed, 15 Apr 2026 07:43:57 +0000
+ 15.20.9769.17 via Frontend Transport; Wed, 15 Apr 2026 07:44:01 +0000
 Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Wed, 15 Apr
- 2026 02:43:56 -0500
+ 2026 02:44:00 -0500
 Received: from chenyu-station.amd.com (10.180.168.240) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
- Transport; Wed, 15 Apr 2026 02:43:48 -0500
+ Transport; Wed, 15 Apr 2026 02:43:57 -0500
 From: Chenyu Chen <chen-yu.chen@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -65,13 +65,13 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Wayne Lin <wayne.lin@amd.com>, Tom Chung <chiahsuan.chung@amd.com>, "Fangzhi
  Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
- <alex.hung@amd.com>, Chuanyu Tseng <Chuanyu.Tseng@amd.com>, Allen Li
- <Allen.Li@amd.com>, ChunTao Tso <chuntao.tso@amd.com>, Allen Li
- <allen.li@amd.com>, Chenyu Chen <chen-yu.chen@amd.com>
-Subject: [PATCH 11/19] drm/amd/display: Add Replay/PSR active check in link
- loss status check
-Date: Wed, 15 Apr 2026 15:39:50 +0800
-Message-ID: <20260415074223.34848-12-chen-yu.chen@amd.com>
+ <alex.hung@amd.com>, Chuanyu Tseng <Chuanyu.Tseng@amd.com>, Andrew Lichmanov
+ <Andrew.Lichmanov@amd.com>, Charlene Liu <charlene.liu@amd.com>, Chenyu Chen
+ <chen-yu.chen@amd.com>
+Subject: [PATCH 12/19] drm/amd/display: Remove SYMCLK F and G values from link
+ encoder and MANUAL_FLOW_CONTROL from optc
+Date: Wed, 15 Apr 2026 15:39:51 +0800
+Message-ID: <20260415074223.34848-13-chen-yu.chen@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260415074223.34848-1-chen-yu.chen@amd.com>
 References: <20260415074223.34848-1-chen-yu.chen@amd.com>
@@ -80,29 +80,29 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN1PEPF0000F0E4:EE_|DS0PR12MB6415:EE_
-X-MS-Office365-Filtering-Correlation-Id: 78916b19-955a-422f-c33c-08de9ac2c04c
+X-MS-TrafficTypeDiagnostic: MN1PEPF0000F0E4:EE_|MN2PR12MB4471:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7b7a18e1-b12d-4ab0-cf6b-08de9ac2c299
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700016|82310400026|1800799024|376014|18002099003|22082099003|56012099003;
-X-Microsoft-Antispam-Message-Info: QsKIpR7XAR7zYTFdEQWYeDvAqLcwRnS4weJuG3+M3bmqMMzxa1a5oTiHQnDe2emaHZiBBIHIjXz4hvNSZv1zrWDX/eTWBVhpEuOkPI5DUf4xfzLUdkZXwIrmPOQC7Ck/EokN0jMl5fHH0J97IqH1Fq4XMSmHUw5BAysPpBPJybNs4bpWB7zZ0OKuUJeJqL85KQmJMOUALfrLIQ87Jjl3iBEnxkh35ZiIgY8yUnwSHAk99rkfyOuORuuJ1WMNMywO5Qp9MaRLmj4SRTX0iKifjtTd2w53xOMTpB5Ql7mTIqNFaRGDVmAZUn/S9ZI8xchI+xdcofyDLqF1d9A0jgd5/qMEV3pnrAsHLKeMb61RP/24gW4pZ2ht23OhISuSNUtBEzr0EH/jHjO8l9vs/4rsrrsBliwcX4capZYHXHqXOJJAf26JDVhStkbY75ULu/gzwGPY0a7eko/R7jnl9y8H5HJMvkCizaIRmSeEMChIWfWrb/rUHrvWeNLlY3zYnP/GD8StC05yXC0R3WZuAE8F9H98mecKU9iDXj0TAvFlZf/xhas3MXttyldKkgd2tFvFsys1v7QARtIhFgbqEqAOX/ZnPwK4pExR2S+Y+JUYiVuI0LevhCMF6eStiIc3JU05NcxfKkC4dcbLdCNfsdu0sW9EBpEPwf94265Ca7FCu7snKTkC5IULKQ6rhs+9UWly0q0nsUVwmXdDf1PK5hdCx1uJw4roebyNVAzPnpduIiYhU2d85JllcGCdBl5yCfovTvWMoyEJQhkjU8nnlv9rhQ==
+ ARA:13230040|376014|82310400026|1800799024|36860700016|18002099003|56012099003|22082099003;
+X-Microsoft-Antispam-Message-Info: /MFXmCyWGR4XmCXcdAyzmUlzs+IkjrL8uvEiF+DJfYMaVI4jdQy5au8gVGeLtUwhrrgI73w0SD6XSC8Q32m05SFLbiYGMRCTWnstmdbP3QE8MRjgrZbM32bWjvLltGK64pB/G2Xb7s4FnrQY2eXdJU3ugrKf6UlUdI3ZsAFfplKlJyqeoY3v6KO8Bf13Jz6mvKSVlIru7WqexPsQjonKwY/jc3XmrRzSHqXBUPzxsDlVYW44XR+SLuUBorJzdeER6k4r5drOQlOJ1s4/4z3UenSUlbAMfMy2wFRsuSUbYwFPnZOOOLL/RmN9wcwjYBNjzM95aUwSmnY6tT0bSY7MH69P5kR/j7tNKlM4WnojfYiaW8yUURWHVtVEDHb0Hzr8TS7YsY1YOHynjMgK05TK9S9Pz1cIsAPJFAF88YD0hoMk+Oqk/a/r3t9s8m45FlO9MrHY1BIbQDYueBRU2qcV2ScEqzXRuC3gAJ4jJxElwRhvQS5HThArSKzCGtf5FFnDklMxNFy67uFU0tZvDyOdeNz2kzqyt8QOIuarx/S6xoL8OeDRsXFz3BL7lgwNpZZhcjBs7bK2VlRe16ReEgT0zBG7+9rcbt8L8866+D23gcOkY3h/iEui/gOPhZUbj+7+9TMexuVzMYnZIAo8A7qGYCfAbqJNn9byNWPRUXHouPHWncSjvxVY8L9zj+EHLBmuX6eGvJovfafIUlBx/zuYZg1qYUGsIglVBD+ajmX1SM5n5NG+fa1aO2neMDFXYfqdaVpa0LMQYNuuzgkqkk20pg==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700016)(82310400026)(1800799024)(376014)(18002099003)(22082099003)(56012099003);
+ SFS:(13230040)(376014)(82310400026)(1800799024)(36860700016)(18002099003)(56012099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: QtiSoiCZj6xS7JcFqjSy1vSFxa2leVV2/tAskoaHosNbjwVRzT99gEUrDUca9T5LwFWeN8gWdsgeI8BJ08/nheJyrWkVFekxrJY7N3ZDP0Y573eZlvZ0kJDFuKuS/zndINGrPEe8YOqUv7d1EYPiEFOpB62AX2Q7ABVnKf7Jhg3bRq0fYsSsKGyrMQrbL98NmcKjfirERlkX4vg17FIzF7Hp78vRaGKlprzZzK2zDNU14IwO6avhcWWOZgo4hscjNXR54n6ie8ajygzgDg5GwxSeq3b409vqPGmTmNbSfiRlRTUFUzW/Hs0KLfIHZ6+XdU1ySzOgZZDnjphl+9ivEKeBViRKkHSLvAdkUMeMGVSSZXbtYOsm3xdesfz6CqlCwpgphG/cf10PqQwimVRTI5j0AJxR36i8drFmgL6OyEqyGecMpsOqM0n9wwJ+WYfi
+X-MS-Exchange-AntiSpam-MessageData-0: Q/eJKvzA03hsFPNokf4fGiNdaJHzfgPjSst1+MgcxJwDWDVR39QZR6Xm70kdvteeRmGXQgnXBnowGmxJN+JHavDab+tiMa2zHozZbwmTVE/6FWgNqJNzWi3nxACGzWi77QUyiVMiH2XTpj9TwrEYsPlDJuJ6Uyxz1V/UMGfKwIBqROP7GY9+5Cxo8rqFS6eO138ahPXY+Q3x51bvDZ9vfcAk+9mB9T7KBi7VYfkqjP1W7wlCnqCuMUN46AyI05kB1mDhqeEp6/jQHvzJV2occ70HQjsWYD2a9A6LpQIIV9Oz66UbwZ99wap/MHzef4Rbz72h1RJGHGeQhWXpAV49ow/B4bL+GJYetlA+p0Sf8OiGgkaWZzN6BR7EKvGTyHTxwTkMDBaaO4LJZ8WvatTyFxURKV9wM98dtlbchFo2mNXyE6orN3R+RaKH4GPIan9x
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Apr 2026 07:43:57.3325 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 78916b19-955a-422f-c33c-08de9ac2c04c
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Apr 2026 07:44:01.1935 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7b7a18e1-b12d-4ab0-cf6b-08de9ac2c299
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: MN1PEPF0000F0E4.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB6415
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4471
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,124 +117,54 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Allen Li <Allen.Li@amd.com>
+From: Andrew Lichmanov <Andrew.Lichmanov@amd.com>
 
-[Why&How]
-To avoid unnecessary link retraining when the panel is in Replay/PSR mode,
-we need to check if it's in active state and ESD information before we
-decide to retrain the link.
+[WHY]
+Definitions were removed by HW from new headers.
 
-Reviewed-by: ChunTao Tso <chuntao.tso@amd.com>
-Signed-off-by: Allen Li <allen.li@amd.com>
+Reviewed-by: Charlene Liu <charlene.liu@amd.com>
+Signed-off-by: Andrew Lichmanov <Andrew.Lichmanov@amd.com>
 Signed-off-by: Chenyu Chen <chen-yu.chen@amd.com>
 ---
- .../dc/link/protocols/link_dp_irq_handler.c   | 57 +++++++++++--------
- 1 file changed, 34 insertions(+), 23 deletions(-)
+ drivers/gpu/drm/amd/display/dc/clk_mgr/dcn42/dcn42_smu.c        | 1 -
+ .../gpu/drm/amd/display/dc/dio/dcn42/dcn42_dio_link_encoder.h   | 2 --
+ drivers/gpu/drm/amd/display/dc/optc/dcn42/dcn42_optc.h          | 1 -
+ 3 files changed, 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_irq_handler.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_irq_handler.c
-index 1860d44f63c1..dd19b912c48c 100644
---- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_irq_handler.c
-+++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_irq_handler.c
-@@ -223,7 +223,7 @@ static void handle_hpd_irq_vesa_replay_sink(struct dc_link *link)
- 	}
+diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn42/dcn42_smu.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn42/dcn42_smu.c
+index c791bb1edb47..6d0012b7d6dc 100644
+--- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn42/dcn42_smu.c
++++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn42/dcn42_smu.c
+@@ -428,4 +428,3 @@ void dcn42_smu_set_dtbclk(struct clk_mgr_internal *clk_mgr, bool enable)
+ 			enable);
+ 	smu_print("%s: smu_set_dtbclk = %d\n", __func__, enable ? 1 : 0);
  }
- 
--static void handle_hpd_irq_replay_sink(struct dc_link *link, bool *need_re_enable)
-+static void handle_hpd_irq_replay_sink(struct dc_link *link, bool *need_re_enable, bool *replay_esd_detection_needed)
- {
- 	union dpcd_replay_configuration replay_configuration = {0};
- 	union dpcd_replay_configuration replay_sink_status = {0};
-@@ -311,6 +311,14 @@ static void handle_hpd_irq_replay_sink(struct dc_link *link, bool *need_re_enabl
- 			*need_re_enable = true;
- 		}
- 	}
-+
-+	if (!link->replay_settings.replay_allow_active &&
-+	    replay_sink_status.bits.SINK_DEVICE_REPLAY_STATUS == 0x7) {
-+	    /* If sink device replay status is 0x7 and replay is disabled,
-+	     * it means sink is in a bad state and link retraining is needed to recover
-+	     */
-+	    *replay_esd_detection_needed = true;
-+	}
- }
- 
- void dp_handle_link_loss(struct dc_link *link)
-@@ -469,6 +477,7 @@ bool dp_handle_hpd_rx_irq(struct dc_link *link,
- 	enum dc_status result;
- 	bool status = false;
- 	bool replay_re_enable_needed = false;
-+	bool replay_esd_detection_needed = false;
- 
- 	if (out_link_loss)
- 		*out_link_loss = false;
-@@ -482,6 +491,7 @@ bool dp_handle_hpd_rx_irq(struct dc_link *link,
- 	DC_LOG_HW_HPD_IRQ("%s: Got short pulse HPD on link %d\n",
- 		__func__, link->link_index);
- 
-+	handle_hpd_irq_replay_sink(link, &replay_re_enable_needed, &replay_esd_detection_needed);
- 
- 	 /* All the "handle_hpd_irq_xxx()" methods
- 		 * should be called only after
-@@ -528,8 +538,6 @@ bool dp_handle_hpd_rx_irq(struct dc_link *link,
- 		/* PSR-related error was detected and handled */
- 		return true;
- 
--	handle_hpd_irq_replay_sink(link, &replay_re_enable_needed);
 -
- 	/* If PSR-related error handled, Main link may be off,
- 	 * so do not handle as a normal sink status change interrupt.
- 	 */
-@@ -552,27 +560,30 @@ bool dp_handle_hpd_rx_irq(struct dc_link *link,
- 	 * Downstream port status changed,
- 	 * then DM should call DC to do the detection.
- 	 * NOTE: Now includes eDP link loss detection and retraining
-+	 * Link will be retrained if panel is not EDP or
-+	 * Replay ESD recovery is needed.
- 	 */
--
--	if (dp_parse_link_loss_status(
--			link,
--			&hpd_irq_dpcd_data)) {
--		/* Connectivity log: link loss */
--		CONN_DATA_LINK_LOSS(link,
--					hpd_irq_dpcd_data.raw,
--					sizeof(hpd_irq_dpcd_data),
--					"Status: ");
--
--		if (defer_handling && has_left_work)
--			*has_left_work = true;
--		else
--			dp_handle_link_loss(link);
--
--		status = false;
--		if (out_link_loss)
--			*out_link_loss = true;
--
--		dp_trace_link_loss_increment(link);
-+	if (link->connector_signal != SIGNAL_TYPE_EDP || replay_esd_detection_needed) {
-+		if (dp_parse_link_loss_status(
-+				link,
-+				&hpd_irq_dpcd_data)) {
-+			/* Connectivity log: link loss */
-+			CONN_DATA_LINK_LOSS(link,
-+						hpd_irq_dpcd_data.raw,
-+						sizeof(hpd_irq_dpcd_data),
-+						"Status: ");
-+
-+			if (defer_handling && has_left_work)
-+				*has_left_work = true;
-+			else
-+				dp_handle_link_loss(link);
-+
-+			status = false;
-+			if (out_link_loss)
-+				*out_link_loss = true;
-+
-+			dp_trace_link_loss_increment(link);
-+		}
- 	}
+diff --git a/drivers/gpu/drm/amd/display/dc/dio/dcn42/dcn42_dio_link_encoder.h b/drivers/gpu/drm/amd/display/dc/dio/dcn42/dcn42_dio_link_encoder.h
+index 4b5a9594f279..9c607b24ec1c 100644
+--- a/drivers/gpu/drm/amd/display/dc/dio/dcn42/dcn42_dio_link_encoder.h
++++ b/drivers/gpu/drm/amd/display/dc/dio/dcn42/dcn42_dio_link_encoder.h
+@@ -121,8 +121,6 @@
+ 	LE_SF(DIO_CLK_CNTL, SYMCLKC_G_HDCP_GATE_DIS, mask_sh),\
+ 	LE_SF(DIO_CLK_CNTL, SYMCLKD_G_HDCP_GATE_DIS, mask_sh),\
+ 	LE_SF(DIO_CLK_CNTL, SYMCLKE_G_HDCP_GATE_DIS, mask_sh),\
+-	LE_SF(DIO_CLK_CNTL, SYMCLKF_G_HDCP_GATE_DIS, mask_sh),\
+-	LE_SF(DIO_CLK_CNTL, SYMCLKG_G_HDCP_GATE_DIS, mask_sh)
  
- 	if (link->dpcd_caps.usb4_dp_tun_info.dp_tun_cap.bits.dp_tunneling) {
+ void dcn42_link_encoder_construct(
+ 	struct dcn20_link_encoder *enc20,
+diff --git a/drivers/gpu/drm/amd/display/dc/optc/dcn42/dcn42_optc.h b/drivers/gpu/drm/amd/display/dc/optc/dcn42/dcn42_optc.h
+index fc7192f01b33..8e7d65317e7c 100644
+--- a/drivers/gpu/drm/amd/display/dc/optc/dcn42/dcn42_optc.h
++++ b/drivers/gpu/drm/amd/display/dc/optc/dcn42/dcn42_optc.h
+@@ -164,7 +164,6 @@
+ 	SF(GSL_SOURCE_SELECT, GSL0_READY_SOURCE_SEL, mask_sh),\
+ 	SF(GSL_SOURCE_SELECT, GSL1_READY_SOURCE_SEL, mask_sh),\
+ 	SF(GSL_SOURCE_SELECT, GSL2_READY_SOURCE_SEL, mask_sh),\
+-	SF(OTG0_OTG_GLOBAL_CONTROL2, MANUAL_FLOW_CONTROL_SEL, mask_sh),\
+ 	SF(OTG0_OTG_GLOBAL_CONTROL2, GLOBAL_UPDATE_LOCK_EN, mask_sh),\
+ 	SF(OTG0_OTG_GSL_WINDOW_X, OTG_GSL_WINDOW_START_X, mask_sh),\
+ 	SF(OTG0_OTG_GSL_WINDOW_X, OTG_GSL_WINDOW_END_X, mask_sh), \
 -- 
 2.43.0
 
