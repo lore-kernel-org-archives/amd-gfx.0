@@ -4,88 +4,97 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5752CF428E0
-	for <amd-gfx@archiver.kernel.org>; Wed, 15 Apr 2026 20:23:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9B2FEF433CD
+	for <amd-gfx@archiver.kernel.org>; Wed, 15 Apr 2026 22:42:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DCA9E10E1B6;
-	Wed, 15 Apr 2026 20:23:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1322A10E765;
+	Wed, 15 Apr 2026 22:42:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="D9R/olDK";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="U5txCJLa";
 	dkim-atps=neutral
-Received: from mail-dl1-f45.google.com (mail-dl1-f45.google.com [74.125.82.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E4FE510E1A5
- for <amd-gfx@lists.freedesktop.org>; Wed, 15 Apr 2026 20:23:01 +0000 (UTC)
-Received: by mail-dl1-f45.google.com with SMTP id
- a92af1059eb24-124b07e5fe4so993565c88.3
- for <amd-gfx@lists.freedesktop.org>; Wed, 15 Apr 2026 13:23:01 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1776284581; cv=none;
- d=google.com; s=arc-20240605;
- b=OoEYoEP6CeTUP8vzZGm6uobYNF5unlhsvS1y3iH6CG+LILaYHZULCPK/JRjkhBktqn
- sUsUFwa8qFNhv5Qu1mT+S2hy9bgjuaUErFsFpYIx1gaVhU6LHSnWmmPwwmsJWXGoUhWc
- s3+bebpKPqVSyQtUlOQBnbk2pj/APVr4pOzeDg3OStHJAkaBrPfqltEr73Ef7hJA4Tqt
- 5JzzdaScwR9LZzL79TDOviRXX76l1Ux8efsozx9PPhgnvM7kYKBSg5oYPKrTSsyU2X45
- Q1xrkz8ZRahQ0nKpPrmD4rrNFg40RrrHvC1W/Vzcp1vdFpHdDNDo2vrA/uchO7JG0nEL
- uekw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=Q6P0uBVwFnkHYvxQot6+TDtGlWunFt0s3U8ACRS3ykg=;
- fh=WRcOvqAWagn/OOijHcek4Yeq+cekNxSBiTd18ZctvQc=;
- b=UYOXo3SI4tfp2EiQCU+2DGJ/BREknAohQfBnfxN2YdzPa76SuzDjX1rQt3PgJt6sOT
- XF3+1JwmjT9cjINEbTXe/xaeN9zprBdlXmHvu91KV31DntzNU9mnpy5/IM4NAzzdsW3v
- uq3dIip1gEJBRZHSNluYRzjVudEM8/pIj11Lvpdp961F8UPQvY+a0nUHqWMFAjzHdRnY
- Yo3xB6CKzltHwzh6YHGJe8ktAElOICLBTOSYgfVrrJ/fM/mToTK98xe0CJp4gnHNI6gi
- d1HD8lPRwkwvNivngZm66omuxLcx4h7joGsMsmk2HV/pyOeXOQCI5T+q29E8XbBjABR3
- P2Nw==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1776284581; x=1776889381; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=Q6P0uBVwFnkHYvxQot6+TDtGlWunFt0s3U8ACRS3ykg=;
- b=D9R/olDKP+s9iKNLXDtbJXIZpxYmCr3ZDkrBm1s0jIGxmhuOHIh3umWt7C+RohEBDz
- IDmsgPgdAvvY5HJvU2+LgdHlOK+KAJa/9J/ZsfgmYGMMMpOIMg4lopHa1U6L+AOl7G/f
- xxX7oNFNMjpNBcyE4BX8aiQu+HLQ/QFOkB5dBNGdGD3TRfhaPd1bwLyBZh6Jx6SLsaBF
- VdtgSr3ZPpPeW+B1Ha6BI1wJ2qmi3ZU69bajV8DwlOIM6QJpDFKKtw79+HjclGSU5W64
- y5opZn9vbuPiM20TfTraip/1aSXTpzaprP5/9Db/pQwG34GkovHllkYdTH6mJBXabZz8
- Ss3w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1776284581; x=1776889381;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=Q6P0uBVwFnkHYvxQot6+TDtGlWunFt0s3U8ACRS3ykg=;
- b=fxN+dZEP3d3pA0IeXWNWVpiTEI5VhF1d4RSjQfkjFHznnlKQrmcKM+O6f1jsU9+oCF
- M2YZsuHlsidD0vdwAgSlfY8tbKCnhkJNcg6Qc/EA+q8PSSuCwUiTuX1VJqZEUKmCS3Zg
- ru4OnKc5gAwuuRgHjaRXiHsXacHTGQ2PgWSfr3G9/iaboLKbkWq8c2bfzSU0YnWKD6Ct
- rRx6UGVdMc2+yEZhE+gLRoQ8t0x37YYEKGjexoI2B7oNMBVlUY8X30+CbF8gxSlCE2ya
- MX5eJ2pG9yn6ks0Hg1ViqssLbMw9W1T4nzhV3QrPJDGeFO/UeKtxDe3DzcF4VXebcVPa
- vsyw==
-X-Gm-Message-State: AOJu0YymTfoixDgPepE/v1wvoAnrkDpQEMeD6Gz0uuCZxwxE4hOdl2rR
- i1FSTsj8VHOaZY4YSRmGTgkK2M7bZejnJ9TGkpxBk08aazsIhHoI+/ZAVaVHEBGasp7QqsHjAxl
- h0Ji1JI3zo70GC0txLVywi+HGcsIPw5974w==
-X-Gm-Gg: AeBDieuzCfVAn+Yvu0DouO5n6hPC1qow+12J8CkCfGMVDTHMlwO0yMHaUJtg4DOA8RX
- /1Kt0MP9aA2a5VQK3AGYcOAqVVtIdgI9nGO7OFZMDKKVLCcYQfzHsT2THXZH6KPIeqtu/E6pRAd
- ccos3VWjP9TLMztgiOL93bGnCaDIqJpO0D91n9F884cwnrobf9gBZQB35ElxLOu/Gg9E+4UJdVu
- /lfvh3h0+3UfN9mr0zIZp19vX+PxF6xFjUaA16hLEYqTWFOIyiVKsxWtsM/BsDczhZXvoxCUtEK
- JDAyxNMyFdVOhezYkqrYCu6BWZ+Ywg/41+Sxnh3IY8fTvg59wAsXGulz9YWEHEImIBgq6w==
-X-Received: by 2002:a05:7022:6182:b0:128:d590:2947 with SMTP id
- a92af1059eb24-12c5d4cb57bmr957289c88.4.1776284580793; Wed, 15 Apr 2026
- 13:23:00 -0700 (PDT)
+Received: from DM5PR21CU001.outbound.protection.outlook.com
+ (mail-centralusazon11011025.outbound.protection.outlook.com [52.101.62.25])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 37A0C10E765
+ for <amd-gfx@lists.freedesktop.org>; Wed, 15 Apr 2026 22:42:01 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=U/WRqg9M3e3Sx8EwhqFO+m2dojz7JYHB4gcASh2NbwXns9A8LwHrSHejLCsGPCfLhJ8nWob6WgMEKz03ziv3xOFd0ePKvOZLTJj0emjTDpsbg3Y0QnaJUqG7VWxbnoA3LYXv3ryb+dplxtXcdgiaUxkld3g8ieMDJYuEA6Ye2nphaRGVGy5tP9RAQt+e0LbkOZ9yJudqfIoiIBklcs+x57vDLzt/c3RGZM0vC8zp90ykocV/+dk50HJdm/kj0Yc1732xtNANIj3INAn7ZWpSSpylJXSDvIXANKBCh6WpV+Kc+KX9VU5aSitQPd39qBlPdc54x+V0OglPBjS71pqJcA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=VCZj0k40v3oFJxwwfDow6SXxncjyHjHze8/Nxj2Aw/g=;
+ b=CA1kl/EqbZ9evfg7uW0qqsCN0X00LLfDfbpMwy9aOeI2o3Ozm8tzlFn6VS1wcGPiioJzeiJPSDLqgAhPs5Rmm5U0YiF+irHUnFzxNiVatjZibvBSGYg1j+eLYKnPHsfVX++uKG4tBX+J5n/MVebHK2d10I7aANasHVe/pHnRo+z06DXsMutoeATd7+n7oiFeb+SA+attuYxaEoWErJ2sKoIGg7IdOwyCh98ptgdweTRKhwKb2fPUk+yjTJ1saqSd7RKVKrJk4t7k3mGalLww7GN/aqRVn2Ugl7HaK+kA9yFev0wM0O+BDIJ7SqrR/9I+3V69kfOiqgFzR4dsmYu7UA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=VCZj0k40v3oFJxwwfDow6SXxncjyHjHze8/Nxj2Aw/g=;
+ b=U5txCJLaQBofoMSNTp+hoIOLZvY+FST+Z+V34yDuzowQuFPsgfIsjfdz7pFsuQ02d2PwC+7pYxm4oZveXvZ31+RyDSESpkJUDqX/PZjJL6c2wOBLXL9Cv5+0SQxtW+Zeub+Nz+SBCc1UuwGkCqR9At/mrYGHqBlAAJeK7bDH2Zg=
+Received: from CH0PR03CA0065.namprd03.prod.outlook.com (2603:10b6:610:cc::10)
+ by LV3PR12MB9185.namprd12.prod.outlook.com (2603:10b6:408:199::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9818.20; Wed, 15 Apr
+ 2026 22:41:56 +0000
+Received: from DS3PEPF000099E2.namprd04.prod.outlook.com
+ (2603:10b6:610:cc:cafe::ef) by CH0PR03CA0065.outlook.office365.com
+ (2603:10b6:610:cc::10) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9769.49 via Frontend Transport; Wed,
+ 15 Apr 2026 22:41:56 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ DS3PEPF000099E2.mail.protection.outlook.com (10.167.17.201) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9769.17 via Frontend Transport; Wed, 15 Apr 2026 22:41:55 +0000
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Wed, 15 Apr
+ 2026 17:41:55 -0500
+Received: from roman-vdev.amd.com (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
+ Transport; Wed, 15 Apr 2026 17:41:54 -0500
+From: <Roman.Li@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <alexander.deucher@amd.com>, <Harry.Wentland@amd.com>,
+ <Sunpeng.Li@amd.com>, <Aurabindo.Pillai@amd.com>, <alex.hung@amd.com>,
+ <timur.kristof@gmail.com>, Roman Li <Roman.Li@amd.com>
+Subject: [PATCH] drm/amd/display: Restore analog connector support
+Date: Wed, 15 Apr 2026 18:41:50 -0400
+Message-ID: <20260415224150.1807020-1-Roman.Li@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-References: <20260415200559.838180-1-bing.ma@amd.com>
-In-Reply-To: <20260415200559.838180-1-bing.ma@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 15 Apr 2026 16:22:49 -0400
-X-Gm-Features: AQROBzC09QxJ74JF43vVk60CFrUNz7efAiLS2iZa3S9T1X0-lIzMu_fdDuOlSP4
-Message-ID: <CADnq5_MDOJrHu=Vg8On3_Va+qnL5=oS4oWGiwA4o4HKQSLue6Q@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: Add gc v12_1_0 ip headers v6
-To: Bing Ma <bing.ma@amd.com>
-Cc: amd-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS3PEPF000099E2:EE_|LV3PR12MB9185:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2895361d-7170-4b7f-3e3e-08de9b40326c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|376014|36860700016|82310400026|56012099003|18002099003;
+X-Microsoft-Antispam-Message-Info: C0QAACbak8UQnu3yhXy9e4L2DuWz0ouEzOef93Zs8eTDYoq0gDc6ois92iNrM37Gq652knScX8vBcf7c+ozrD94hu8UsdWidVGI3Okp3lvJWBfFef+9dYqmur1ntWYKNwK5BaAPoFZKzocmkeBzEITh7YAzFnw63vnwc80w8FwlEcWuxg0P8ezMFRYHSakgJKsQaii+Zvsq8N1Ht+vl2RfNYnlotHGvNXErBQZMbJZYiZdnaa2b/c3inioEZwQZwmf0NOOWRniM0pv045+zSIpczD05sKydjbHq22nkHQCPBzJiLtrrhYyFHhRFfy4duqxr7waIGKGWZoOgmwM1X1SOr2ZkZn+m/YNXlNN5G28GsKyrfEPe/TR8x/gR+eSXoz1czwrUDR9kXSzpozHPRIEgcsuSDA/RY2gzwnMsixN259kdSfdlALK3fHzc21ejyPholXGGyPskT6Qz8bKhSNCu+1niQ0Fopv4PqkvUeiwHyCLrYdfUnZXOHWPhpnAWbTzEz25/ohPmCOeYHg2WztZbs2iLc6FOzeLUm2tB4B0LOb8pjUNKZjUHEChCThU9Vlw9Yw+pfAIqrJz1ApMnNmnthiJyB8lKyNhMCjf2gm81rQDH3svfLtdthZa+83AIx/m+mk/25mDY3mz7ChYVmuHkdBK78myulo8873NRMsl8pOy8f3d+rH46tVBP8WaAyrU8rG9Y2ZWqEGO5Ik69jyQH+7VpMpTgP2i78KcxqfdMMMhoj+YmKpSo1902plIOU4IuqbiVwTb1zSLDou4VxVQ==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(36860700016)(82310400026)(56012099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: 3woR7gYFlsqp79g/uKqIHCuxxCju017PJvYMDD6x6SMbf9aD1DPz+bNiCkhqpowEXvpUJmMELT6ppLjzIfzWEF/AuLZTHIld2cF6oi/aD0XEArzQdr+NP/TPRBM+VaAMe4g1m0bS2Riob8fLCqkfJjiMv+eS8ZmZ4dQ9CLHbhJo3RqqHCu46MaEcSZghnAEXvleq4n3PqhUnTkVLDAZErDCrGlwMQntoTatJdMTrHlXLmUqlBxhc1sRnhc/BbiBLSnnVWRv7rL+uQKaFs6ErfF8tnXm2Xxll2A9PFCGxjSDBJE1Fz7RsXwvhiARDvq5UKgBjI+XzuEbgskIfXLqhZDa7N/TaWtD8h/zeA9fqIpR7CxTq6lw7rlJ+o06B32CllEknhVaN5w0tqAPJSUQv3aR1TVSIBJAamqni1eBs2axIZ6X7rxBNiv+KR2PsgSyA
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Apr 2026 22:41:55.8553 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2895361d-7170-4b7f-3e3e-08de9b40326c
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DS3PEPF000099E2.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR12MB9185
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,1153 +109,103 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Apr 15, 2026 at 4:14=E2=80=AFPM Bing Ma <bing.ma@amd.com> wrote:
->
-> Add header files for gc v12_1_0 register offsets
-> and shift masks
-> v2: Update gc v12_1_0 ip headers
-> v3: Update gc v12_1_0 ip headers
-> v4, v5: Clean up registers (Alex)
-> v6: Update gc v12_1_0 ip headers
->
-> Signed-off-by: Bing Ma <Bing.Ma@amd.com>
+From: Roman Li <Roman.Li@amd.com>
 
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+[Why]
+The analog connector support was accidentally removed,
+causing a crash when connecting an analog monitor.
 
-> ---
->  .../include/asic_reg/gc/gc_12_1_0_offset.h    | 110 +++++
->  .../include/asic_reg/gc/gc_12_1_0_sh_mask.h   | 455 ++++++++++++++++++
->  2 files changed, 565 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/include/asic_reg/gc/gc_12_1_0_offset.h b=
-/drivers/gpu/drm/amd/include/asic_reg/gc/gc_12_1_0_offset.h
-> index d6a2839b4682..025e5490e6f1 100644
-> --- a/drivers/gpu/drm/amd/include/asic_reg/gc/gc_12_1_0_offset.h
-> +++ b/drivers/gpu/drm/amd/include/asic_reg/gc/gc_12_1_0_offset.h
-> @@ -5475,6 +5475,14 @@
->  #define regCHA_PERFCOUNTER3_HI_BASE_IDX                                 =
-                                1
->
->
-> +// addressBlock: CHIP_XCD_gfxip_xcc_gfx_cpwd_perfddec
-> +// base address: 0x34000
-> +#define regGC_CANE_PERFCOUNTER0_LO                                      =
-                                0x36c0
-> +#define regGC_CANE_PERFCOUNTER0_LO_BASE_IDX                             =
-                                1
-> +#define regGC_CANE_PERFCOUNTER0_HI                                      =
-                                0x36c1
-> +#define regGC_CANE_PERFCOUNTER0_HI_BASE_IDX                             =
-                                1
-> +
-> +
->  // addressBlock: CHIP_XCD_gfxip_xcc_gfx_cpwd_cpwd_perfsdec
->  // base address: 0x36000
->  #define regCPG_PERFCOUNTER1_SELECT                                      =
-                                0x3800
-> @@ -5761,6 +5769,16 @@
->  #define regCHA_PERFCOUNTER3_SELECT1_BASE_IDX                            =
-                                1
->
->
-> +// addressBlock: CHIP_XCD_gfxip_xcc_gfx_cpwd_perfsdec
-> +// base address: 0x36000
-> +#define regGC_CANE_PERFCOUNTER0_SELECT                                  =
-                                0x3e80
-> +#define regGC_CANE_PERFCOUNTER0_SELECT_BASE_IDX                         =
-                                1
-> +#define regGC_CANE_PERFCOUNTER0_SELECT1                                 =
-                                0x3e81
-> +#define regGC_CANE_PERFCOUNTER0_SELECT1_BASE_IDX                        =
-                                1
-> +#define regGC_CANE_PERFCOUNTER0_MODE                                    =
-                                0x3e82
-> +#define regGC_CANE_PERFCOUNTER0_MODE_BASE_IDX                           =
-                                1
-> +
-> +
->  // addressBlock: CHIP_XCD_gfxip_xcc_gfx_cpwd_gdfll_xvmin_xvmin_xvmin_reg=
-_blk
->  // base address: 0x3a014
->  #define regXVMIN_XVMIN_WR_DATA                                          =
-                                0x4806
-> @@ -12080,6 +12098,22 @@
->  #define regGC_ATC_L2_PERFCOUNTER_HI_BASE_IDX                            =
-                                1
->
->
-> +// addressBlock: CHIP_XCD_gfxip_aigc_gcutcl2_inst0_gcutcl2ffbmprdec
-> +// base address: 0x353d0
-> +#define regGCUTCL2_FFBM_PERFCOUNTER_LO                                  =
-                                0x34f4
-> +#define regGCUTCL2_FFBM_PERFCOUNTER_LO_BASE_IDX                         =
-                                1
-> +#define regGCUTCL2_FFBM_PERFCOUNTER_HI                                  =
-                                0x34f5
-> +#define regGCUTCL2_FFBM_PERFCOUNTER_HI_BASE_IDX                         =
-                                1
-> +
-> +
-> +// addressBlock: CHIP_XCD_gfxip_aigc_gcutcl2_inst0_gcutcl2nhttlbprdec
-> +// base address: 0x353e0
-> +#define regGCUTCL2_NHTTLB_PERFCOUNTER_LO                                =
-                                0x34f8
-> +#define regGCUTCL2_NHTTLB_PERFCOUNTER_LO_BASE_IDX                       =
-                                1
-> +#define regGCUTCL2_NHTTLB_PERFCOUNTER_HI                                =
-                                0x34f9
-> +#define regGCUTCL2_NHTTLB_PERFCOUNTER_HI_BASE_IDX                       =
-                                1
-> +
-> +
->  // addressBlock: CHIP_XCD_gfxip_aigc_gcutcl2_inst0_gcl2tlbprdec
->  // base address: 0x353f0
->  #define regGC_L2TLB_PERFCOUNTER_LO                                      =
-                                0x34fc
-> @@ -12176,6 +12210,82 @@
->  #define regGC_ATC_L2_PERFCOUNTER_RSLT_CNTL_BASE_IDX                     =
-                                1
->
->
-> +// addressBlock: CHIP_XCD_gfxip_aigc_gcutcl2_inst0_gcutcl2ffbmpldec
-> +// base address: 0x37bb0
-> +#define regGCUTCL2_FFBM_PERFCOUNTER0_CFG                                =
-                                0x3eec
-> +#define regGCUTCL2_FFBM_PERFCOUNTER0_CFG_BASE_IDX                       =
-                                1
-> +#define regGCUTCL2_FFBM_PERFCOUNTER1_CFG                                =
-                                0x3eed
-> +#define regGCUTCL2_FFBM_PERFCOUNTER1_CFG_BASE_IDX                       =
-                                1
-> +#define regGCUTCL2_FFBM_PERFCOUNTER2_CFG                                =
-                                0x3eee
-> +#define regGCUTCL2_FFBM_PERFCOUNTER2_CFG_BASE_IDX                       =
-                                1
-> +#define regGCUTCL2_FFBM_PERFCOUNTER3_CFG                                =
-                                0x3eef
-> +#define regGCUTCL2_FFBM_PERFCOUNTER3_CFG_BASE_IDX                       =
-                                1
-> +#define regGCUTCL2_FFBM_PERFCOUNTER4_CFG                                =
-                                0x3ef0
-> +#define regGCUTCL2_FFBM_PERFCOUNTER4_CFG_BASE_IDX                       =
-                                1
-> +#define regGCUTCL2_FFBM_PERFCOUNTER5_CFG                                =
-                                0x3ef1
-> +#define regGCUTCL2_FFBM_PERFCOUNTER5_CFG_BASE_IDX                       =
-                                1
-> +#define regGCUTCL2_FFBM_PERFCOUNTER6_CFG                                =
-                                0x3ef2
-> +#define regGCUTCL2_FFBM_PERFCOUNTER6_CFG_BASE_IDX                       =
-                                1
-> +#define regGCUTCL2_FFBM_PERFCOUNTER7_CFG                                =
-                                0x3ef3
-> +#define regGCUTCL2_FFBM_PERFCOUNTER7_CFG_BASE_IDX                       =
-                                1
-> +#define regGCUTCL2_FFBM_PERFCOUNTER8_CFG                                =
-                                0x3ef4
-> +#define regGCUTCL2_FFBM_PERFCOUNTER8_CFG_BASE_IDX                       =
-                                1
-> +#define regGCUTCL2_FFBM_PERFCOUNTER9_CFG                                =
-                                0x3ef5
-> +#define regGCUTCL2_FFBM_PERFCOUNTER9_CFG_BASE_IDX                       =
-                                1
-> +#define regGCUTCL2_FFBM_PERFCOUNTER10_CFG                               =
-                                0x3ef6
-> +#define regGCUTCL2_FFBM_PERFCOUNTER10_CFG_BASE_IDX                      =
-                                1
-> +#define regGCUTCL2_FFBM_PERFCOUNTER11_CFG                               =
-                                0x3ef7
-> +#define regGCUTCL2_FFBM_PERFCOUNTER11_CFG_BASE_IDX                      =
-                                1
-> +#define regGCUTCL2_FFBM_PERFCOUNTER12_CFG                               =
-                                0x3ef8
-> +#define regGCUTCL2_FFBM_PERFCOUNTER12_CFG_BASE_IDX                      =
-                                1
-> +#define regGCUTCL2_FFBM_PERFCOUNTER13_CFG                               =
-                                0x3ef9
-> +#define regGCUTCL2_FFBM_PERFCOUNTER13_CFG_BASE_IDX                      =
-                                1
-> +#define regGCUTCL2_FFBM_PERFCOUNTER14_CFG                               =
-                                0x3efa
-> +#define regGCUTCL2_FFBM_PERFCOUNTER14_CFG_BASE_IDX                      =
-                                1
-> +#define regGCUTCL2_FFBM_PERFCOUNTER15_CFG                               =
-                                0x3efb
-> +#define regGCUTCL2_FFBM_PERFCOUNTER15_CFG_BASE_IDX                      =
-                                1
-> +#define regGCUTCL2_FFBM_PERFCOUNTER_RSLT_CNTL                           =
-                                0x3efc
-> +#define regGCUTCL2_FFBM_PERFCOUNTER_RSLT_CNTL_BASE_IDX                  =
-                                1
-> +
-> +
-> +// addressBlock: CHIP_XCD_gfxip_aigc_gcutcl2_inst0_gcutcl2nhttlbpldec
-> +// base address: 0x37c00
-> +#define regGCUTCL2_NHTTLB_PERFCOUNTER0_CFG                              =
-                                0x3f00
-> +#define regGCUTCL2_NHTTLB_PERFCOUNTER0_CFG_BASE_IDX                     =
-                                1
-> +#define regGCUTCL2_NHTTLB_PERFCOUNTER1_CFG                              =
-                                0x3f01
-> +#define regGCUTCL2_NHTTLB_PERFCOUNTER1_CFG_BASE_IDX                     =
-                                1
-> +#define regGCUTCL2_NHTTLB_PERFCOUNTER2_CFG                              =
-                                0x3f02
-> +#define regGCUTCL2_NHTTLB_PERFCOUNTER2_CFG_BASE_IDX                     =
-                                1
-> +#define regGCUTCL2_NHTTLB_PERFCOUNTER3_CFG                              =
-                                0x3f03
-> +#define regGCUTCL2_NHTTLB_PERFCOUNTER3_CFG_BASE_IDX                     =
-                                1
-> +#define regGCUTCL2_NHTTLB_PERFCOUNTER4_CFG                              =
-                                0x3f04
-> +#define regGCUTCL2_NHTTLB_PERFCOUNTER4_CFG_BASE_IDX                     =
-                                1
-> +#define regGCUTCL2_NHTTLB_PERFCOUNTER5_CFG                              =
-                                0x3f05
-> +#define regGCUTCL2_NHTTLB_PERFCOUNTER5_CFG_BASE_IDX                     =
-                                1
-> +#define regGCUTCL2_NHTTLB_PERFCOUNTER6_CFG                              =
-                                0x3f06
-> +#define regGCUTCL2_NHTTLB_PERFCOUNTER6_CFG_BASE_IDX                     =
-                                1
-> +#define regGCUTCL2_NHTTLB_PERFCOUNTER7_CFG                              =
-                                0x3f07
-> +#define regGCUTCL2_NHTTLB_PERFCOUNTER7_CFG_BASE_IDX                     =
-                                1
-> +#define regGCUTCL2_NHTTLB_PERFCOUNTER8_CFG                              =
-                                0x3f08
-> +#define regGCUTCL2_NHTTLB_PERFCOUNTER8_CFG_BASE_IDX                     =
-                                1
-> +#define regGCUTCL2_NHTTLB_PERFCOUNTER9_CFG                              =
-                                0x3f09
-> +#define regGCUTCL2_NHTTLB_PERFCOUNTER9_CFG_BASE_IDX                     =
-                                1
-> +#define regGCUTCL2_NHTTLB_PERFCOUNTER10_CFG                             =
-                                0x3f0a
-> +#define regGCUTCL2_NHTTLB_PERFCOUNTER10_CFG_BASE_IDX                    =
-                                1
-> +#define regGCUTCL2_NHTTLB_PERFCOUNTER11_CFG                             =
-                                0x3f0b
-> +#define regGCUTCL2_NHTTLB_PERFCOUNTER11_CFG_BASE_IDX                    =
-                                1
-> +#define regGCUTCL2_NHTTLB_PERFCOUNTER12_CFG                             =
-                                0x3f0c
-> +#define regGCUTCL2_NHTTLB_PERFCOUNTER12_CFG_BASE_IDX                    =
-                                1
-> +#define regGCUTCL2_NHTTLB_PERFCOUNTER13_CFG                             =
-                                0x3f0d
-> +#define regGCUTCL2_NHTTLB_PERFCOUNTER13_CFG_BASE_IDX                    =
-                                1
-> +#define regGCUTCL2_NHTTLB_PERFCOUNTER14_CFG                             =
-                                0x3f0e
-> +#define regGCUTCL2_NHTTLB_PERFCOUNTER14_CFG_BASE_IDX                    =
-                                1
-> +#define regGCUTCL2_NHTTLB_PERFCOUNTER15_CFG                             =
-                                0x3f0f
-> +#define regGCUTCL2_NHTTLB_PERFCOUNTER15_CFG_BASE_IDX                    =
-                                1
-> +#define regGCUTCL2_NHTTLB_PERFCOUNTER_RSLT_CNTL                         =
-                                0x3f10
-> +#define regGCUTCL2_NHTTLB_PERFCOUNTER_RSLT_CNTL_BASE_IDX                =
-                                1
-> +
-> +
->  // addressBlock: CHIP_XCD_gfxip_aigc_gcutcl2_inst0_gcl2tlbpldec
->  // base address: 0x37c50
->  #define regGC_L2TLB_PERFCOUNTER0_CFG                                    =
-                                0x3f14
-> diff --git a/drivers/gpu/drm/amd/include/asic_reg/gc/gc_12_1_0_sh_mask.h =
-b/drivers/gpu/drm/amd/include/asic_reg/gc/gc_12_1_0_sh_mask.h
-> index f606c5cd03c5..1cf890de35cb 100644
-> --- a/drivers/gpu/drm/amd/include/asic_reg/gc/gc_12_1_0_sh_mask.h
-> +++ b/drivers/gpu/drm/amd/include/asic_reg/gc/gc_12_1_0_sh_mask.h
-> @@ -16951,6 +16951,15 @@
->  #define CHA_PERFCOUNTER3_HI__PERFCOUNTER_HI_MASK                        =
-                                      0xFFFFFFFFL
->
->
-> +// addressBlock: CHIP_XCD_gfxip_xcc_gfx_cpwd_perfddec
-> +//GC_CANE_PERFCOUNTER0_LO
-> +#define GC_CANE_PERFCOUNTER0_LO__PERFCOUNTER_LO__SHIFT                  =
-                                      0x0
-> +#define GC_CANE_PERFCOUNTER0_LO__PERFCOUNTER_LO_MASK                    =
-                                      0xFFFFFFFFL
-> +//GC_CANE_PERFCOUNTER0_HI
-> +#define GC_CANE_PERFCOUNTER0_HI__PERFCOUNTER_HI__SHIFT                  =
-                                      0x0
-> +#define GC_CANE_PERFCOUNTER0_HI__PERFCOUNTER_HI_MASK                    =
-                                      0xFFFFFFFFL
-> +
-> +
->  // addressBlock: CHIP_XCD_gfxip_xcc_gfx_cpwd_cpwd_perfsdec
->  //CPG_PERFCOUNTER1_SELECT
->  #define CPG_PERFCOUNTER1_SELECT__PERF_SEL__SHIFT                        =
-                                      0x0
-> @@ -18123,6 +18132,46 @@
->  #define CHA_PERFCOUNTER3_SELECT1__PERF_MODE2_MASK                       =
-                                      0xF0000000L
->
->
-> +// addressBlock: CHIP_XCD_gfxip_xcc_gfx_cpwd_perfsdec
-> +//GC_CANE_PERFCOUNTER0_SELECT
-> +#define GC_CANE_PERFCOUNTER0_SELECT__PERF_SEL__SHIFT                    =
-                                      0x0
-> +#define GC_CANE_PERFCOUNTER0_SELECT__PERF_SEL1__SHIFT                   =
-                                      0xa
-> +#define GC_CANE_PERFCOUNTER0_SELECT__CNTR_MODE__SHIFT                   =
-                                      0x14
-> +#define GC_CANE_PERFCOUNTER0_SELECT__PERF_MODE1__SHIFT                  =
-                                      0x18
-> +#define GC_CANE_PERFCOUNTER0_SELECT__PERF_MODE__SHIFT                   =
-                                      0x1c
-> +#define GC_CANE_PERFCOUNTER0_SELECT__PERF_SEL_MASK                      =
-                                      0x000003FFL
-> +#define GC_CANE_PERFCOUNTER0_SELECT__PERF_SEL1_MASK                     =
-                                      0x000FFC00L
-> +#define GC_CANE_PERFCOUNTER0_SELECT__CNTR_MODE_MASK                     =
-                                      0x00F00000L
-> +#define GC_CANE_PERFCOUNTER0_SELECT__PERF_MODE1_MASK                    =
-                                      0x0F000000L
-> +#define GC_CANE_PERFCOUNTER0_SELECT__PERF_MODE_MASK                     =
-                                      0xF0000000L
-> +//GC_CANE_PERFCOUNTER0_SELECT1
-> +#define GC_CANE_PERFCOUNTER0_SELECT1__PERF_SEL2__SHIFT                  =
-                                      0x0
-> +#define GC_CANE_PERFCOUNTER0_SELECT1__PERF_SEL3__SHIFT                  =
-                                      0xa
-> +#define GC_CANE_PERFCOUNTER0_SELECT1__PERF_MODE3__SHIFT                 =
-                                      0x18
-> +#define GC_CANE_PERFCOUNTER0_SELECT1__PERF_MODE2__SHIFT                 =
-                                      0x1c
-> +#define GC_CANE_PERFCOUNTER0_SELECT1__PERF_SEL2_MASK                    =
-                                      0x000003FFL
-> +#define GC_CANE_PERFCOUNTER0_SELECT1__PERF_SEL3_MASK                    =
-                                      0x000FFC00L
-> +#define GC_CANE_PERFCOUNTER0_SELECT1__PERF_MODE3_MASK                   =
-                                      0x0F000000L
-> +#define GC_CANE_PERFCOUNTER0_SELECT1__PERF_MODE2_MASK                   =
-                                      0xF0000000L
-> +//GC_CANE_PERFCOUNTER0_MODE
-> +#define GC_CANE_PERFCOUNTER0_MODE__COMPARE_MODE0__SHIFT                 =
-                                      0x0
-> +#define GC_CANE_PERFCOUNTER0_MODE__COMPARE_MODE1__SHIFT                 =
-                                      0x2
-> +#define GC_CANE_PERFCOUNTER0_MODE__COMPARE_MODE2__SHIFT                 =
-                                      0x4
-> +#define GC_CANE_PERFCOUNTER0_MODE__COMPARE_MODE3__SHIFT                 =
-                                      0x6
-> +#define GC_CANE_PERFCOUNTER0_MODE__COMPARE_VALUE0__SHIFT                =
-                                      0x8
-> +#define GC_CANE_PERFCOUNTER0_MODE__COMPARE_VALUE1__SHIFT                =
-                                      0xc
-> +#define GC_CANE_PERFCOUNTER0_MODE__COMPARE_VALUE2__SHIFT                =
-                                      0x10
-> +#define GC_CANE_PERFCOUNTER0_MODE__COMPARE_VALUE3__SHIFT                =
-                                      0x14
-> +#define GC_CANE_PERFCOUNTER0_MODE__COMPARE_MODE0_MASK                   =
-                                      0x00000003L
-> +#define GC_CANE_PERFCOUNTER0_MODE__COMPARE_MODE1_MASK                   =
-                                      0x0000000CL
-> +#define GC_CANE_PERFCOUNTER0_MODE__COMPARE_MODE2_MASK                   =
-                                      0x00000030L
-> +#define GC_CANE_PERFCOUNTER0_MODE__COMPARE_MODE3_MASK                   =
-                                      0x000000C0L
-> +#define GC_CANE_PERFCOUNTER0_MODE__COMPARE_VALUE0_MASK                  =
-                                      0x00000F00L
-> +#define GC_CANE_PERFCOUNTER0_MODE__COMPARE_VALUE1_MASK                  =
-                                      0x0000F000L
-> +#define GC_CANE_PERFCOUNTER0_MODE__COMPARE_VALUE2_MASK                  =
-                                      0x000F0000L
-> +#define GC_CANE_PERFCOUNTER0_MODE__COMPARE_VALUE3_MASK                  =
-                                      0x00F00000L
-> +
-> +
->  // addressBlock: CHIP_XCD_gfxip_xcc_gfx_cpwd_gdfll_xvmin_xvmin_xvmin_reg=
-_blk
->  //XVMIN_XVMIN_WR_DATA
->  #define XVMIN_XVMIN_WR_DATA__XVMINDATA__SHIFT                           =
-                                      0x0
-> @@ -43203,6 +43252,28 @@
->  #define GC_ATC_L2_PERFCOUNTER_HI__COMPARE_VALUE_MASK                    =
-                                      0xFFFF0000L
->
->
-> +// addressBlock: CHIP_XCD_gfxip_aigc_gcutcl2_inst0_gcutcl2ffbmprdec
-> +//GCUTCL2_FFBM_PERFCOUNTER_LO
-> +#define GCUTCL2_FFBM_PERFCOUNTER_LO__COUNTER_LO__SHIFT                  =
-                                      0x0
-> +#define GCUTCL2_FFBM_PERFCOUNTER_LO__COUNTER_LO_MASK                    =
-                                      0xFFFFFFFFL
-> +//GCUTCL2_FFBM_PERFCOUNTER_HI
-> +#define GCUTCL2_FFBM_PERFCOUNTER_HI__COUNTER_HI__SHIFT                  =
-                                      0x0
-> +#define GCUTCL2_FFBM_PERFCOUNTER_HI__COMPARE_VALUE__SHIFT               =
-                                      0x10
-> +#define GCUTCL2_FFBM_PERFCOUNTER_HI__COUNTER_HI_MASK                    =
-                                      0x0000FFFFL
-> +#define GCUTCL2_FFBM_PERFCOUNTER_HI__COMPARE_VALUE_MASK                 =
-                                      0xFFFF0000L
-> +
-> +
-> +// addressBlock: CHIP_XCD_gfxip_aigc_gcutcl2_inst0_gcutcl2nhttlbprdec
-> +//GCUTCL2_NHTTLB_PERFCOUNTER_LO
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER_LO__COUNTER_LO__SHIFT                =
-                                      0x0
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER_LO__COUNTER_LO_MASK                  =
-                                      0xFFFFFFFFL
-> +//GCUTCL2_NHTTLB_PERFCOUNTER_HI
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER_HI__COUNTER_HI__SHIFT                =
-                                      0x0
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER_HI__COMPARE_VALUE__SHIFT             =
-                                      0x10
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER_HI__COUNTER_HI_MASK                  =
-                                      0x0000FFFFL
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER_HI__COMPARE_VALUE_MASK               =
-                                      0xFFFF0000L
-> +
-> +
->  // addressBlock: CHIP_XCD_gfxip_aigc_gcutcl2_inst0_gcl2tlbprdec
->  //GC_L2TLB_PERFCOUNTER_LO
->  #define GC_L2TLB_PERFCOUNTER_LO__COUNTER_LO__SHIFT                      =
-                                      0x0
-> @@ -43660,6 +43731,390 @@
->  #define GC_ATC_L2_PERFCOUNTER_RSLT_CNTL__STOP_ALL_ON_SATURATE_MASK      =
-                                      0x04000000L
->
->
-> +// addressBlock: CHIP_XCD_gfxip_aigc_gcutcl2_inst0_gcutcl2ffbmpldec
-> +//GCUTCL2_FFBM_PERFCOUNTER0_CFG
-> +#define GCUTCL2_FFBM_PERFCOUNTER0_CFG__PERF_SEL__SHIFT                  =
-                                      0x0
-> +#define GCUTCL2_FFBM_PERFCOUNTER0_CFG__PERF_SEL_END__SHIFT              =
-                                      0x8
-> +#define GCUTCL2_FFBM_PERFCOUNTER0_CFG__PERF_MODE__SHIFT                 =
-                                      0x18
-> +#define GCUTCL2_FFBM_PERFCOUNTER0_CFG__ENABLE__SHIFT                    =
-                                      0x1c
-> +#define GCUTCL2_FFBM_PERFCOUNTER0_CFG__CLEAR__SHIFT                     =
-                                      0x1d
-> +#define GCUTCL2_FFBM_PERFCOUNTER0_CFG__PERF_SEL_MASK                    =
-                                      0x000000FFL
-> +#define GCUTCL2_FFBM_PERFCOUNTER0_CFG__PERF_SEL_END_MASK                =
-                                      0x0000FF00L
-> +#define GCUTCL2_FFBM_PERFCOUNTER0_CFG__PERF_MODE_MASK                   =
-                                      0x0F000000L
-> +#define GCUTCL2_FFBM_PERFCOUNTER0_CFG__ENABLE_MASK                      =
-                                      0x10000000L
-> +#define GCUTCL2_FFBM_PERFCOUNTER0_CFG__CLEAR_MASK                       =
-                                      0x20000000L
-> +//GCUTCL2_FFBM_PERFCOUNTER1_CFG
-> +#define GCUTCL2_FFBM_PERFCOUNTER1_CFG__PERF_SEL__SHIFT                  =
-                                      0x0
-> +#define GCUTCL2_FFBM_PERFCOUNTER1_CFG__PERF_SEL_END__SHIFT              =
-                                      0x8
-> +#define GCUTCL2_FFBM_PERFCOUNTER1_CFG__PERF_MODE__SHIFT                 =
-                                      0x18
-> +#define GCUTCL2_FFBM_PERFCOUNTER1_CFG__ENABLE__SHIFT                    =
-                                      0x1c
-> +#define GCUTCL2_FFBM_PERFCOUNTER1_CFG__CLEAR__SHIFT                     =
-                                      0x1d
-> +#define GCUTCL2_FFBM_PERFCOUNTER1_CFG__PERF_SEL_MASK                    =
-                                      0x000000FFL
-> +#define GCUTCL2_FFBM_PERFCOUNTER1_CFG__PERF_SEL_END_MASK                =
-                                      0x0000FF00L
-> +#define GCUTCL2_FFBM_PERFCOUNTER1_CFG__PERF_MODE_MASK                   =
-                                      0x0F000000L
-> +#define GCUTCL2_FFBM_PERFCOUNTER1_CFG__ENABLE_MASK                      =
-                                      0x10000000L
-> +#define GCUTCL2_FFBM_PERFCOUNTER1_CFG__CLEAR_MASK                       =
-                                      0x20000000L
-> +//GCUTCL2_FFBM_PERFCOUNTER2_CFG
-> +#define GCUTCL2_FFBM_PERFCOUNTER2_CFG__PERF_SEL__SHIFT                  =
-                                      0x0
-> +#define GCUTCL2_FFBM_PERFCOUNTER2_CFG__PERF_SEL_END__SHIFT              =
-                                      0x8
-> +#define GCUTCL2_FFBM_PERFCOUNTER2_CFG__PERF_MODE__SHIFT                 =
-                                      0x18
-> +#define GCUTCL2_FFBM_PERFCOUNTER2_CFG__ENABLE__SHIFT                    =
-                                      0x1c
-> +#define GCUTCL2_FFBM_PERFCOUNTER2_CFG__CLEAR__SHIFT                     =
-                                      0x1d
-> +#define GCUTCL2_FFBM_PERFCOUNTER2_CFG__PERF_SEL_MASK                    =
-                                      0x000000FFL
-> +#define GCUTCL2_FFBM_PERFCOUNTER2_CFG__PERF_SEL_END_MASK                =
-                                      0x0000FF00L
-> +#define GCUTCL2_FFBM_PERFCOUNTER2_CFG__PERF_MODE_MASK                   =
-                                      0x0F000000L
-> +#define GCUTCL2_FFBM_PERFCOUNTER2_CFG__ENABLE_MASK                      =
-                                      0x10000000L
-> +#define GCUTCL2_FFBM_PERFCOUNTER2_CFG__CLEAR_MASK                       =
-                                      0x20000000L
-> +//GCUTCL2_FFBM_PERFCOUNTER3_CFG
-> +#define GCUTCL2_FFBM_PERFCOUNTER3_CFG__PERF_SEL__SHIFT                  =
-                                      0x0
-> +#define GCUTCL2_FFBM_PERFCOUNTER3_CFG__PERF_SEL_END__SHIFT              =
-                                      0x8
-> +#define GCUTCL2_FFBM_PERFCOUNTER3_CFG__PERF_MODE__SHIFT                 =
-                                      0x18
-> +#define GCUTCL2_FFBM_PERFCOUNTER3_CFG__ENABLE__SHIFT                    =
-                                      0x1c
-> +#define GCUTCL2_FFBM_PERFCOUNTER3_CFG__CLEAR__SHIFT                     =
-                                      0x1d
-> +#define GCUTCL2_FFBM_PERFCOUNTER3_CFG__PERF_SEL_MASK                    =
-                                      0x000000FFL
-> +#define GCUTCL2_FFBM_PERFCOUNTER3_CFG__PERF_SEL_END_MASK                =
-                                      0x0000FF00L
-> +#define GCUTCL2_FFBM_PERFCOUNTER3_CFG__PERF_MODE_MASK                   =
-                                      0x0F000000L
-> +#define GCUTCL2_FFBM_PERFCOUNTER3_CFG__ENABLE_MASK                      =
-                                      0x10000000L
-> +#define GCUTCL2_FFBM_PERFCOUNTER3_CFG__CLEAR_MASK                       =
-                                      0x20000000L
-> +//GCUTCL2_FFBM_PERFCOUNTER4_CFG
-> +#define GCUTCL2_FFBM_PERFCOUNTER4_CFG__PERF_SEL__SHIFT                  =
-                                      0x0
-> +#define GCUTCL2_FFBM_PERFCOUNTER4_CFG__PERF_SEL_END__SHIFT              =
-                                      0x8
-> +#define GCUTCL2_FFBM_PERFCOUNTER4_CFG__PERF_MODE__SHIFT                 =
-                                      0x18
-> +#define GCUTCL2_FFBM_PERFCOUNTER4_CFG__ENABLE__SHIFT                    =
-                                      0x1c
-> +#define GCUTCL2_FFBM_PERFCOUNTER4_CFG__CLEAR__SHIFT                     =
-                                      0x1d
-> +#define GCUTCL2_FFBM_PERFCOUNTER4_CFG__PERF_SEL_MASK                    =
-                                      0x000000FFL
-> +#define GCUTCL2_FFBM_PERFCOUNTER4_CFG__PERF_SEL_END_MASK                =
-                                      0x0000FF00L
-> +#define GCUTCL2_FFBM_PERFCOUNTER4_CFG__PERF_MODE_MASK                   =
-                                      0x0F000000L
-> +#define GCUTCL2_FFBM_PERFCOUNTER4_CFG__ENABLE_MASK                      =
-                                      0x10000000L
-> +#define GCUTCL2_FFBM_PERFCOUNTER4_CFG__CLEAR_MASK                       =
-                                      0x20000000L
-> +//GCUTCL2_FFBM_PERFCOUNTER5_CFG
-> +#define GCUTCL2_FFBM_PERFCOUNTER5_CFG__PERF_SEL__SHIFT                  =
-                                      0x0
-> +#define GCUTCL2_FFBM_PERFCOUNTER5_CFG__PERF_SEL_END__SHIFT              =
-                                      0x8
-> +#define GCUTCL2_FFBM_PERFCOUNTER5_CFG__PERF_MODE__SHIFT                 =
-                                      0x18
-> +#define GCUTCL2_FFBM_PERFCOUNTER5_CFG__ENABLE__SHIFT                    =
-                                      0x1c
-> +#define GCUTCL2_FFBM_PERFCOUNTER5_CFG__CLEAR__SHIFT                     =
-                                      0x1d
-> +#define GCUTCL2_FFBM_PERFCOUNTER5_CFG__PERF_SEL_MASK                    =
-                                      0x000000FFL
-> +#define GCUTCL2_FFBM_PERFCOUNTER5_CFG__PERF_SEL_END_MASK                =
-                                      0x0000FF00L
-> +#define GCUTCL2_FFBM_PERFCOUNTER5_CFG__PERF_MODE_MASK                   =
-                                      0x0F000000L
-> +#define GCUTCL2_FFBM_PERFCOUNTER5_CFG__ENABLE_MASK                      =
-                                      0x10000000L
-> +#define GCUTCL2_FFBM_PERFCOUNTER5_CFG__CLEAR_MASK                       =
-                                      0x20000000L
-> +//GCUTCL2_FFBM_PERFCOUNTER6_CFG
-> +#define GCUTCL2_FFBM_PERFCOUNTER6_CFG__PERF_SEL__SHIFT                  =
-                                      0x0
-> +#define GCUTCL2_FFBM_PERFCOUNTER6_CFG__PERF_SEL_END__SHIFT              =
-                                      0x8
-> +#define GCUTCL2_FFBM_PERFCOUNTER6_CFG__PERF_MODE__SHIFT                 =
-                                      0x18
-> +#define GCUTCL2_FFBM_PERFCOUNTER6_CFG__ENABLE__SHIFT                    =
-                                      0x1c
-> +#define GCUTCL2_FFBM_PERFCOUNTER6_CFG__CLEAR__SHIFT                     =
-                                      0x1d
-> +#define GCUTCL2_FFBM_PERFCOUNTER6_CFG__PERF_SEL_MASK                    =
-                                      0x000000FFL
-> +#define GCUTCL2_FFBM_PERFCOUNTER6_CFG__PERF_SEL_END_MASK                =
-                                      0x0000FF00L
-> +#define GCUTCL2_FFBM_PERFCOUNTER6_CFG__PERF_MODE_MASK                   =
-                                      0x0F000000L
-> +#define GCUTCL2_FFBM_PERFCOUNTER6_CFG__ENABLE_MASK                      =
-                                      0x10000000L
-> +#define GCUTCL2_FFBM_PERFCOUNTER6_CFG__CLEAR_MASK                       =
-                                      0x20000000L
-> +//GCUTCL2_FFBM_PERFCOUNTER7_CFG
-> +#define GCUTCL2_FFBM_PERFCOUNTER7_CFG__PERF_SEL__SHIFT                  =
-                                      0x0
-> +#define GCUTCL2_FFBM_PERFCOUNTER7_CFG__PERF_SEL_END__SHIFT              =
-                                      0x8
-> +#define GCUTCL2_FFBM_PERFCOUNTER7_CFG__PERF_MODE__SHIFT                 =
-                                      0x18
-> +#define GCUTCL2_FFBM_PERFCOUNTER7_CFG__ENABLE__SHIFT                    =
-                                      0x1c
-> +#define GCUTCL2_FFBM_PERFCOUNTER7_CFG__CLEAR__SHIFT                     =
-                                      0x1d
-> +#define GCUTCL2_FFBM_PERFCOUNTER7_CFG__PERF_SEL_MASK                    =
-                                      0x000000FFL
-> +#define GCUTCL2_FFBM_PERFCOUNTER7_CFG__PERF_SEL_END_MASK                =
-                                      0x0000FF00L
-> +#define GCUTCL2_FFBM_PERFCOUNTER7_CFG__PERF_MODE_MASK                   =
-                                      0x0F000000L
-> +#define GCUTCL2_FFBM_PERFCOUNTER7_CFG__ENABLE_MASK                      =
-                                      0x10000000L
-> +#define GCUTCL2_FFBM_PERFCOUNTER7_CFG__CLEAR_MASK                       =
-                                      0x20000000L
-> +//GCUTCL2_FFBM_PERFCOUNTER8_CFG
-> +#define GCUTCL2_FFBM_PERFCOUNTER8_CFG__PERF_SEL__SHIFT                  =
-                                      0x0
-> +#define GCUTCL2_FFBM_PERFCOUNTER8_CFG__PERF_SEL_END__SHIFT              =
-                                      0x8
-> +#define GCUTCL2_FFBM_PERFCOUNTER8_CFG__PERF_MODE__SHIFT                 =
-                                      0x18
-> +#define GCUTCL2_FFBM_PERFCOUNTER8_CFG__ENABLE__SHIFT                    =
-                                      0x1c
-> +#define GCUTCL2_FFBM_PERFCOUNTER8_CFG__CLEAR__SHIFT                     =
-                                      0x1d
-> +#define GCUTCL2_FFBM_PERFCOUNTER8_CFG__PERF_SEL_MASK                    =
-                                      0x000000FFL
-> +#define GCUTCL2_FFBM_PERFCOUNTER8_CFG__PERF_SEL_END_MASK                =
-                                      0x0000FF00L
-> +#define GCUTCL2_FFBM_PERFCOUNTER8_CFG__PERF_MODE_MASK                   =
-                                      0x0F000000L
-> +#define GCUTCL2_FFBM_PERFCOUNTER8_CFG__ENABLE_MASK                      =
-                                      0x10000000L
-> +#define GCUTCL2_FFBM_PERFCOUNTER8_CFG__CLEAR_MASK                       =
-                                      0x20000000L
-> +//GCUTCL2_FFBM_PERFCOUNTER9_CFG
-> +#define GCUTCL2_FFBM_PERFCOUNTER9_CFG__PERF_SEL__SHIFT                  =
-                                      0x0
-> +#define GCUTCL2_FFBM_PERFCOUNTER9_CFG__PERF_SEL_END__SHIFT              =
-                                      0x8
-> +#define GCUTCL2_FFBM_PERFCOUNTER9_CFG__PERF_MODE__SHIFT                 =
-                                      0x18
-> +#define GCUTCL2_FFBM_PERFCOUNTER9_CFG__ENABLE__SHIFT                    =
-                                      0x1c
-> +#define GCUTCL2_FFBM_PERFCOUNTER9_CFG__CLEAR__SHIFT                     =
-                                      0x1d
-> +#define GCUTCL2_FFBM_PERFCOUNTER9_CFG__PERF_SEL_MASK                    =
-                                      0x000000FFL
-> +#define GCUTCL2_FFBM_PERFCOUNTER9_CFG__PERF_SEL_END_MASK                =
-                                      0x0000FF00L
-> +#define GCUTCL2_FFBM_PERFCOUNTER9_CFG__PERF_MODE_MASK                   =
-                                      0x0F000000L
-> +#define GCUTCL2_FFBM_PERFCOUNTER9_CFG__ENABLE_MASK                      =
-                                      0x10000000L
-> +#define GCUTCL2_FFBM_PERFCOUNTER9_CFG__CLEAR_MASK                       =
-                                      0x20000000L
-> +//GCUTCL2_FFBM_PERFCOUNTER10_CFG
-> +#define GCUTCL2_FFBM_PERFCOUNTER10_CFG__PERF_SEL__SHIFT                 =
-                                      0x0
-> +#define GCUTCL2_FFBM_PERFCOUNTER10_CFG__PERF_SEL_END__SHIFT             =
-                                      0x8
-> +#define GCUTCL2_FFBM_PERFCOUNTER10_CFG__PERF_MODE__SHIFT                =
-                                      0x18
-> +#define GCUTCL2_FFBM_PERFCOUNTER10_CFG__ENABLE__SHIFT                   =
-                                      0x1c
-> +#define GCUTCL2_FFBM_PERFCOUNTER10_CFG__CLEAR__SHIFT                    =
-                                      0x1d
-> +#define GCUTCL2_FFBM_PERFCOUNTER10_CFG__PERF_SEL_MASK                   =
-                                      0x000000FFL
-> +#define GCUTCL2_FFBM_PERFCOUNTER10_CFG__PERF_SEL_END_MASK               =
-                                      0x0000FF00L
-> +#define GCUTCL2_FFBM_PERFCOUNTER10_CFG__PERF_MODE_MASK                  =
-                                      0x0F000000L
-> +#define GCUTCL2_FFBM_PERFCOUNTER10_CFG__ENABLE_MASK                     =
-                                      0x10000000L
-> +#define GCUTCL2_FFBM_PERFCOUNTER10_CFG__CLEAR_MASK                      =
-                                      0x20000000L
-> +//GCUTCL2_FFBM_PERFCOUNTER11_CFG
-> +#define GCUTCL2_FFBM_PERFCOUNTER11_CFG__PERF_SEL__SHIFT                 =
-                                      0x0
-> +#define GCUTCL2_FFBM_PERFCOUNTER11_CFG__PERF_SEL_END__SHIFT             =
-                                      0x8
-> +#define GCUTCL2_FFBM_PERFCOUNTER11_CFG__PERF_MODE__SHIFT                =
-                                      0x18
-> +#define GCUTCL2_FFBM_PERFCOUNTER11_CFG__ENABLE__SHIFT                   =
-                                      0x1c
-> +#define GCUTCL2_FFBM_PERFCOUNTER11_CFG__CLEAR__SHIFT                    =
-                                      0x1d
-> +#define GCUTCL2_FFBM_PERFCOUNTER11_CFG__PERF_SEL_MASK                   =
-                                      0x000000FFL
-> +#define GCUTCL2_FFBM_PERFCOUNTER11_CFG__PERF_SEL_END_MASK               =
-                                      0x0000FF00L
-> +#define GCUTCL2_FFBM_PERFCOUNTER11_CFG__PERF_MODE_MASK                  =
-                                      0x0F000000L
-> +#define GCUTCL2_FFBM_PERFCOUNTER11_CFG__ENABLE_MASK                     =
-                                      0x10000000L
-> +#define GCUTCL2_FFBM_PERFCOUNTER11_CFG__CLEAR_MASK                      =
-                                      0x20000000L
-> +//GCUTCL2_FFBM_PERFCOUNTER12_CFG
-> +#define GCUTCL2_FFBM_PERFCOUNTER12_CFG__PERF_SEL__SHIFT                 =
-                                      0x0
-> +#define GCUTCL2_FFBM_PERFCOUNTER12_CFG__PERF_SEL_END__SHIFT             =
-                                      0x8
-> +#define GCUTCL2_FFBM_PERFCOUNTER12_CFG__PERF_MODE__SHIFT                =
-                                      0x18
-> +#define GCUTCL2_FFBM_PERFCOUNTER12_CFG__ENABLE__SHIFT                   =
-                                      0x1c
-> +#define GCUTCL2_FFBM_PERFCOUNTER12_CFG__CLEAR__SHIFT                    =
-                                      0x1d
-> +#define GCUTCL2_FFBM_PERFCOUNTER12_CFG__PERF_SEL_MASK                   =
-                                      0x000000FFL
-> +#define GCUTCL2_FFBM_PERFCOUNTER12_CFG__PERF_SEL_END_MASK               =
-                                      0x0000FF00L
-> +#define GCUTCL2_FFBM_PERFCOUNTER12_CFG__PERF_MODE_MASK                  =
-                                      0x0F000000L
-> +#define GCUTCL2_FFBM_PERFCOUNTER12_CFG__ENABLE_MASK                     =
-                                      0x10000000L
-> +#define GCUTCL2_FFBM_PERFCOUNTER12_CFG__CLEAR_MASK                      =
-                                      0x20000000L
-> +//GCUTCL2_FFBM_PERFCOUNTER13_CFG
-> +#define GCUTCL2_FFBM_PERFCOUNTER13_CFG__PERF_SEL__SHIFT                 =
-                                      0x0
-> +#define GCUTCL2_FFBM_PERFCOUNTER13_CFG__PERF_SEL_END__SHIFT             =
-                                      0x8
-> +#define GCUTCL2_FFBM_PERFCOUNTER13_CFG__PERF_MODE__SHIFT                =
-                                      0x18
-> +#define GCUTCL2_FFBM_PERFCOUNTER13_CFG__ENABLE__SHIFT                   =
-                                      0x1c
-> +#define GCUTCL2_FFBM_PERFCOUNTER13_CFG__CLEAR__SHIFT                    =
-                                      0x1d
-> +#define GCUTCL2_FFBM_PERFCOUNTER13_CFG__PERF_SEL_MASK                   =
-                                      0x000000FFL
-> +#define GCUTCL2_FFBM_PERFCOUNTER13_CFG__PERF_SEL_END_MASK               =
-                                      0x0000FF00L
-> +#define GCUTCL2_FFBM_PERFCOUNTER13_CFG__PERF_MODE_MASK                  =
-                                      0x0F000000L
-> +#define GCUTCL2_FFBM_PERFCOUNTER13_CFG__ENABLE_MASK                     =
-                                      0x10000000L
-> +#define GCUTCL2_FFBM_PERFCOUNTER13_CFG__CLEAR_MASK                      =
-                                      0x20000000L
-> +//GCUTCL2_FFBM_PERFCOUNTER14_CFG
-> +#define GCUTCL2_FFBM_PERFCOUNTER14_CFG__PERF_SEL__SHIFT                 =
-                                      0x0
-> +#define GCUTCL2_FFBM_PERFCOUNTER14_CFG__PERF_SEL_END__SHIFT             =
-                                      0x8
-> +#define GCUTCL2_FFBM_PERFCOUNTER14_CFG__PERF_MODE__SHIFT                =
-                                      0x18
-> +#define GCUTCL2_FFBM_PERFCOUNTER14_CFG__ENABLE__SHIFT                   =
-                                      0x1c
-> +#define GCUTCL2_FFBM_PERFCOUNTER14_CFG__CLEAR__SHIFT                    =
-                                      0x1d
-> +#define GCUTCL2_FFBM_PERFCOUNTER14_CFG__PERF_SEL_MASK                   =
-                                      0x000000FFL
-> +#define GCUTCL2_FFBM_PERFCOUNTER14_CFG__PERF_SEL_END_MASK               =
-                                      0x0000FF00L
-> +#define GCUTCL2_FFBM_PERFCOUNTER14_CFG__PERF_MODE_MASK                  =
-                                      0x0F000000L
-> +#define GCUTCL2_FFBM_PERFCOUNTER14_CFG__ENABLE_MASK                     =
-                                      0x10000000L
-> +#define GCUTCL2_FFBM_PERFCOUNTER14_CFG__CLEAR_MASK                      =
-                                      0x20000000L
-> +//GCUTCL2_FFBM_PERFCOUNTER15_CFG
-> +#define GCUTCL2_FFBM_PERFCOUNTER15_CFG__PERF_SEL__SHIFT                 =
-                                      0x0
-> +#define GCUTCL2_FFBM_PERFCOUNTER15_CFG__PERF_SEL_END__SHIFT             =
-                                      0x8
-> +#define GCUTCL2_FFBM_PERFCOUNTER15_CFG__PERF_MODE__SHIFT                =
-                                      0x18
-> +#define GCUTCL2_FFBM_PERFCOUNTER15_CFG__ENABLE__SHIFT                   =
-                                      0x1c
-> +#define GCUTCL2_FFBM_PERFCOUNTER15_CFG__CLEAR__SHIFT                    =
-                                      0x1d
-> +#define GCUTCL2_FFBM_PERFCOUNTER15_CFG__PERF_SEL_MASK                   =
-                                      0x000000FFL
-> +#define GCUTCL2_FFBM_PERFCOUNTER15_CFG__PERF_SEL_END_MASK               =
-                                      0x0000FF00L
-> +#define GCUTCL2_FFBM_PERFCOUNTER15_CFG__PERF_MODE_MASK                  =
-                                      0x0F000000L
-> +#define GCUTCL2_FFBM_PERFCOUNTER15_CFG__ENABLE_MASK                     =
-                                      0x10000000L
-> +#define GCUTCL2_FFBM_PERFCOUNTER15_CFG__CLEAR_MASK                      =
-                                      0x20000000L
-> +//GCUTCL2_FFBM_PERFCOUNTER_RSLT_CNTL
-> +#define GCUTCL2_FFBM_PERFCOUNTER_RSLT_CNTL__PERF_COUNTER_SELECT__SHIFT  =
-                                      0x0
-> +#define GCUTCL2_FFBM_PERFCOUNTER_RSLT_CNTL__START_TRIGGER__SHIFT        =
-                                      0x8
-> +#define GCUTCL2_FFBM_PERFCOUNTER_RSLT_CNTL__STOP_TRIGGER__SHIFT         =
-                                      0x10
-> +#define GCUTCL2_FFBM_PERFCOUNTER_RSLT_CNTL__ENABLE_ANY__SHIFT           =
-                                      0x18
-> +#define GCUTCL2_FFBM_PERFCOUNTER_RSLT_CNTL__CLEAR_ALL__SHIFT            =
-                                      0x19
-> +#define GCUTCL2_FFBM_PERFCOUNTER_RSLT_CNTL__STOP_ALL_ON_SATURATE__SHIFT =
-                                      0x1a
-> +#define GCUTCL2_FFBM_PERFCOUNTER_RSLT_CNTL__PERF_COUNTER_SELECT_MASK    =
-                                      0x0000000FL
-> +#define GCUTCL2_FFBM_PERFCOUNTER_RSLT_CNTL__START_TRIGGER_MASK          =
-                                      0x0000FF00L
-> +#define GCUTCL2_FFBM_PERFCOUNTER_RSLT_CNTL__STOP_TRIGGER_MASK           =
-                                      0x00FF0000L
-> +#define GCUTCL2_FFBM_PERFCOUNTER_RSLT_CNTL__ENABLE_ANY_MASK             =
-                                      0x01000000L
-> +#define GCUTCL2_FFBM_PERFCOUNTER_RSLT_CNTL__CLEAR_ALL_MASK              =
-                                      0x02000000L
-> +#define GCUTCL2_FFBM_PERFCOUNTER_RSLT_CNTL__STOP_ALL_ON_SATURATE_MASK   =
-                                      0x04000000L
-> +
-> +
-> +// addressBlock: CHIP_XCD_gfxip_aigc_gcutcl2_inst0_gcutcl2nhttlbpldec
-> +//GCUTCL2_NHTTLB_PERFCOUNTER0_CFG
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER0_CFG__PERF_SEL__SHIFT                =
-                                      0x0
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER0_CFG__PERF_SEL_END__SHIFT            =
-                                      0x8
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER0_CFG__PERF_MODE__SHIFT               =
-                                      0x18
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER0_CFG__ENABLE__SHIFT                  =
-                                      0x1c
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER0_CFG__CLEAR__SHIFT                   =
-                                      0x1d
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER0_CFG__PERF_SEL_MASK                  =
-                                      0x000000FFL
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER0_CFG__PERF_SEL_END_MASK              =
-                                      0x0000FF00L
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER0_CFG__PERF_MODE_MASK                 =
-                                      0x0F000000L
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER0_CFG__ENABLE_MASK                    =
-                                      0x10000000L
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER0_CFG__CLEAR_MASK                     =
-                                      0x20000000L
-> +//GCUTCL2_NHTTLB_PERFCOUNTER1_CFG
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER1_CFG__PERF_SEL__SHIFT                =
-                                      0x0
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER1_CFG__PERF_SEL_END__SHIFT            =
-                                      0x8
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER1_CFG__PERF_MODE__SHIFT               =
-                                      0x18
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER1_CFG__ENABLE__SHIFT                  =
-                                      0x1c
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER1_CFG__CLEAR__SHIFT                   =
-                                      0x1d
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER1_CFG__PERF_SEL_MASK                  =
-                                      0x000000FFL
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER1_CFG__PERF_SEL_END_MASK              =
-                                      0x0000FF00L
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER1_CFG__PERF_MODE_MASK                 =
-                                      0x0F000000L
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER1_CFG__ENABLE_MASK                    =
-                                      0x10000000L
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER1_CFG__CLEAR_MASK                     =
-                                      0x20000000L
-> +//GCUTCL2_NHTTLB_PERFCOUNTER2_CFG
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER2_CFG__PERF_SEL__SHIFT                =
-                                      0x0
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER2_CFG__PERF_SEL_END__SHIFT            =
-                                      0x8
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER2_CFG__PERF_MODE__SHIFT               =
-                                      0x18
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER2_CFG__ENABLE__SHIFT                  =
-                                      0x1c
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER2_CFG__CLEAR__SHIFT                   =
-                                      0x1d
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER2_CFG__PERF_SEL_MASK                  =
-                                      0x000000FFL
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER2_CFG__PERF_SEL_END_MASK              =
-                                      0x0000FF00L
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER2_CFG__PERF_MODE_MASK                 =
-                                      0x0F000000L
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER2_CFG__ENABLE_MASK                    =
-                                      0x10000000L
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER2_CFG__CLEAR_MASK                     =
-                                      0x20000000L
-> +//GCUTCL2_NHTTLB_PERFCOUNTER3_CFG
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER3_CFG__PERF_SEL__SHIFT                =
-                                      0x0
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER3_CFG__PERF_SEL_END__SHIFT            =
-                                      0x8
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER3_CFG__PERF_MODE__SHIFT               =
-                                      0x18
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER3_CFG__ENABLE__SHIFT                  =
-                                      0x1c
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER3_CFG__CLEAR__SHIFT                   =
-                                      0x1d
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER3_CFG__PERF_SEL_MASK                  =
-                                      0x000000FFL
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER3_CFG__PERF_SEL_END_MASK              =
-                                      0x0000FF00L
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER3_CFG__PERF_MODE_MASK                 =
-                                      0x0F000000L
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER3_CFG__ENABLE_MASK                    =
-                                      0x10000000L
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER3_CFG__CLEAR_MASK                     =
-                                      0x20000000L
-> +//GCUTCL2_NHTTLB_PERFCOUNTER4_CFG
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER4_CFG__PERF_SEL__SHIFT                =
-                                      0x0
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER4_CFG__PERF_SEL_END__SHIFT            =
-                                      0x8
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER4_CFG__PERF_MODE__SHIFT               =
-                                      0x18
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER4_CFG__ENABLE__SHIFT                  =
-                                      0x1c
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER4_CFG__CLEAR__SHIFT                   =
-                                      0x1d
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER4_CFG__PERF_SEL_MASK                  =
-                                      0x000000FFL
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER4_CFG__PERF_SEL_END_MASK              =
-                                      0x0000FF00L
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER4_CFG__PERF_MODE_MASK                 =
-                                      0x0F000000L
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER4_CFG__ENABLE_MASK                    =
-                                      0x10000000L
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER4_CFG__CLEAR_MASK                     =
-                                      0x20000000L
-> +//GCUTCL2_NHTTLB_PERFCOUNTER5_CFG
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER5_CFG__PERF_SEL__SHIFT                =
-                                      0x0
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER5_CFG__PERF_SEL_END__SHIFT            =
-                                      0x8
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER5_CFG__PERF_MODE__SHIFT               =
-                                      0x18
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER5_CFG__ENABLE__SHIFT                  =
-                                      0x1c
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER5_CFG__CLEAR__SHIFT                   =
-                                      0x1d
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER5_CFG__PERF_SEL_MASK                  =
-                                      0x000000FFL
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER5_CFG__PERF_SEL_END_MASK              =
-                                      0x0000FF00L
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER5_CFG__PERF_MODE_MASK                 =
-                                      0x0F000000L
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER5_CFG__ENABLE_MASK                    =
-                                      0x10000000L
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER5_CFG__CLEAR_MASK                     =
-                                      0x20000000L
-> +//GCUTCL2_NHTTLB_PERFCOUNTER6_CFG
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER6_CFG__PERF_SEL__SHIFT                =
-                                      0x0
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER6_CFG__PERF_SEL_END__SHIFT            =
-                                      0x8
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER6_CFG__PERF_MODE__SHIFT               =
-                                      0x18
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER6_CFG__ENABLE__SHIFT                  =
-                                      0x1c
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER6_CFG__CLEAR__SHIFT                   =
-                                      0x1d
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER6_CFG__PERF_SEL_MASK                  =
-                                      0x000000FFL
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER6_CFG__PERF_SEL_END_MASK              =
-                                      0x0000FF00L
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER6_CFG__PERF_MODE_MASK                 =
-                                      0x0F000000L
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER6_CFG__ENABLE_MASK                    =
-                                      0x10000000L
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER6_CFG__CLEAR_MASK                     =
-                                      0x20000000L
-> +//GCUTCL2_NHTTLB_PERFCOUNTER7_CFG
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER7_CFG__PERF_SEL__SHIFT                =
-                                      0x0
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER7_CFG__PERF_SEL_END__SHIFT            =
-                                      0x8
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER7_CFG__PERF_MODE__SHIFT               =
-                                      0x18
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER7_CFG__ENABLE__SHIFT                  =
-                                      0x1c
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER7_CFG__CLEAR__SHIFT                   =
-                                      0x1d
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER7_CFG__PERF_SEL_MASK                  =
-                                      0x000000FFL
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER7_CFG__PERF_SEL_END_MASK              =
-                                      0x0000FF00L
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER7_CFG__PERF_MODE_MASK                 =
-                                      0x0F000000L
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER7_CFG__ENABLE_MASK                    =
-                                      0x10000000L
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER7_CFG__CLEAR_MASK                     =
-                                      0x20000000L
-> +//GCUTCL2_NHTTLB_PERFCOUNTER8_CFG
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER8_CFG__PERF_SEL__SHIFT                =
-                                      0x0
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER8_CFG__PERF_SEL_END__SHIFT            =
-                                      0x8
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER8_CFG__PERF_MODE__SHIFT               =
-                                      0x18
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER8_CFG__ENABLE__SHIFT                  =
-                                      0x1c
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER8_CFG__CLEAR__SHIFT                   =
-                                      0x1d
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER8_CFG__PERF_SEL_MASK                  =
-                                      0x000000FFL
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER8_CFG__PERF_SEL_END_MASK              =
-                                      0x0000FF00L
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER8_CFG__PERF_MODE_MASK                 =
-                                      0x0F000000L
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER8_CFG__ENABLE_MASK                    =
-                                      0x10000000L
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER8_CFG__CLEAR_MASK                     =
-                                      0x20000000L
-> +//GCUTCL2_NHTTLB_PERFCOUNTER9_CFG
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER9_CFG__PERF_SEL__SHIFT                =
-                                      0x0
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER9_CFG__PERF_SEL_END__SHIFT            =
-                                      0x8
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER9_CFG__PERF_MODE__SHIFT               =
-                                      0x18
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER9_CFG__ENABLE__SHIFT                  =
-                                      0x1c
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER9_CFG__CLEAR__SHIFT                   =
-                                      0x1d
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER9_CFG__PERF_SEL_MASK                  =
-                                      0x000000FFL
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER9_CFG__PERF_SEL_END_MASK              =
-                                      0x0000FF00L
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER9_CFG__PERF_MODE_MASK                 =
-                                      0x0F000000L
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER9_CFG__ENABLE_MASK                    =
-                                      0x10000000L
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER9_CFG__CLEAR_MASK                     =
-                                      0x20000000L
-> +//GCUTCL2_NHTTLB_PERFCOUNTER10_CFG
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER10_CFG__PERF_SEL__SHIFT               =
-                                      0x0
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER10_CFG__PERF_SEL_END__SHIFT           =
-                                      0x8
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER10_CFG__PERF_MODE__SHIFT              =
-                                      0x18
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER10_CFG__ENABLE__SHIFT                 =
-                                      0x1c
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER10_CFG__CLEAR__SHIFT                  =
-                                      0x1d
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER10_CFG__PERF_SEL_MASK                 =
-                                      0x000000FFL
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER10_CFG__PERF_SEL_END_MASK             =
-                                      0x0000FF00L
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER10_CFG__PERF_MODE_MASK                =
-                                      0x0F000000L
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER10_CFG__ENABLE_MASK                   =
-                                      0x10000000L
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER10_CFG__CLEAR_MASK                    =
-                                      0x20000000L
-> +//GCUTCL2_NHTTLB_PERFCOUNTER11_CFG
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER11_CFG__PERF_SEL__SHIFT               =
-                                      0x0
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER11_CFG__PERF_SEL_END__SHIFT           =
-                                      0x8
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER11_CFG__PERF_MODE__SHIFT              =
-                                      0x18
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER11_CFG__ENABLE__SHIFT                 =
-                                      0x1c
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER11_CFG__CLEAR__SHIFT                  =
-                                      0x1d
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER11_CFG__PERF_SEL_MASK                 =
-                                      0x000000FFL
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER11_CFG__PERF_SEL_END_MASK             =
-                                      0x0000FF00L
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER11_CFG__PERF_MODE_MASK                =
-                                      0x0F000000L
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER11_CFG__ENABLE_MASK                   =
-                                      0x10000000L
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER11_CFG__CLEAR_MASK                    =
-                                      0x20000000L
-> +//GCUTCL2_NHTTLB_PERFCOUNTER12_CFG
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER12_CFG__PERF_SEL__SHIFT               =
-                                      0x0
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER12_CFG__PERF_SEL_END__SHIFT           =
-                                      0x8
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER12_CFG__PERF_MODE__SHIFT              =
-                                      0x18
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER12_CFG__ENABLE__SHIFT                 =
-                                      0x1c
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER12_CFG__CLEAR__SHIFT                  =
-                                      0x1d
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER12_CFG__PERF_SEL_MASK                 =
-                                      0x000000FFL
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER12_CFG__PERF_SEL_END_MASK             =
-                                      0x0000FF00L
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER12_CFG__PERF_MODE_MASK                =
-                                      0x0F000000L
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER12_CFG__ENABLE_MASK                   =
-                                      0x10000000L
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER12_CFG__CLEAR_MASK                    =
-                                      0x20000000L
-> +//GCUTCL2_NHTTLB_PERFCOUNTER13_CFG
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER13_CFG__PERF_SEL__SHIFT               =
-                                      0x0
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER13_CFG__PERF_SEL_END__SHIFT           =
-                                      0x8
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER13_CFG__PERF_MODE__SHIFT              =
-                                      0x18
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER13_CFG__ENABLE__SHIFT                 =
-                                      0x1c
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER13_CFG__CLEAR__SHIFT                  =
-                                      0x1d
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER13_CFG__PERF_SEL_MASK                 =
-                                      0x000000FFL
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER13_CFG__PERF_SEL_END_MASK             =
-                                      0x0000FF00L
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER13_CFG__PERF_MODE_MASK                =
-                                      0x0F000000L
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER13_CFG__ENABLE_MASK                   =
-                                      0x10000000L
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER13_CFG__CLEAR_MASK                    =
-                                      0x20000000L
-> +//GCUTCL2_NHTTLB_PERFCOUNTER14_CFG
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER14_CFG__PERF_SEL__SHIFT               =
-                                      0x0
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER14_CFG__PERF_SEL_END__SHIFT           =
-                                      0x8
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER14_CFG__PERF_MODE__SHIFT              =
-                                      0x18
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER14_CFG__ENABLE__SHIFT                 =
-                                      0x1c
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER14_CFG__CLEAR__SHIFT                  =
-                                      0x1d
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER14_CFG__PERF_SEL_MASK                 =
-                                      0x000000FFL
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER14_CFG__PERF_SEL_END_MASK             =
-                                      0x0000FF00L
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER14_CFG__PERF_MODE_MASK                =
-                                      0x0F000000L
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER14_CFG__ENABLE_MASK                   =
-                                      0x10000000L
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER14_CFG__CLEAR_MASK                    =
-                                      0x20000000L
-> +//GCUTCL2_NHTTLB_PERFCOUNTER15_CFG
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER15_CFG__PERF_SEL__SHIFT               =
-                                      0x0
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER15_CFG__PERF_SEL_END__SHIFT           =
-                                      0x8
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER15_CFG__PERF_MODE__SHIFT              =
-                                      0x18
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER15_CFG__ENABLE__SHIFT                 =
-                                      0x1c
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER15_CFG__CLEAR__SHIFT                  =
-                                      0x1d
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER15_CFG__PERF_SEL_MASK                 =
-                                      0x000000FFL
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER15_CFG__PERF_SEL_END_MASK             =
-                                      0x0000FF00L
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER15_CFG__PERF_MODE_MASK                =
-                                      0x0F000000L
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER15_CFG__ENABLE_MASK                   =
-                                      0x10000000L
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER15_CFG__CLEAR_MASK                    =
-                                      0x20000000L
-> +//GCUTCL2_NHTTLB_PERFCOUNTER_RSLT_CNTL
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER_RSLT_CNTL__PERF_COUNTER_SELECT__SHIFT=
-                                      0x0
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER_RSLT_CNTL__START_TRIGGER__SHIFT      =
-                                      0x8
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER_RSLT_CNTL__STOP_TRIGGER__SHIFT       =
-                                      0x10
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER_RSLT_CNTL__ENABLE_ANY__SHIFT         =
-                                      0x18
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER_RSLT_CNTL__CLEAR_ALL__SHIFT          =
-                                      0x19
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER_RSLT_CNTL__STOP_ALL_ON_SATURATE__SHIF=
-T                                     0x1a
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER_RSLT_CNTL__PERF_COUNTER_SELECT_MASK  =
-                                      0x0000000FL
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER_RSLT_CNTL__START_TRIGGER_MASK        =
-                                      0x0000FF00L
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER_RSLT_CNTL__STOP_TRIGGER_MASK         =
-                                      0x00FF0000L
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER_RSLT_CNTL__ENABLE_ANY_MASK           =
-                                      0x01000000L
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER_RSLT_CNTL__CLEAR_ALL_MASK            =
-                                      0x02000000L
-> +#define GCUTCL2_NHTTLB_PERFCOUNTER_RSLT_CNTL__STOP_ALL_ON_SATURATE_MASK =
-                                      0x04000000L
-> +
-> +
->  // addressBlock: CHIP_XCD_gfxip_aigc_gcutcl2_inst0_gcl2tlbpldec
->  //GC_L2TLB_PERFCOUNTER0_CFG
->  #define GC_L2TLB_PERFCOUNTER0_CFG__PERF_SEL__SHIFT                      =
-                                      0x0
-> --
-> 2.34.1
->
+[How]
+This patch restores the functions and pointers required for proper analog
+and DP bridge encoder support on legacy GPUs.
+
+Fixes: 66715fc0ecfd ("drm/amd/display: Sync dcn42 with DC 3.2.373")
+Cc: Timur Kristóf <timur.kristof@gmail.com>
+Signed-off-by: Roman Li <Roman.Li@amd.com>
+---
+ .../amd/display/dc/hwss/dce110/dce110_hwseq.c | 53 +++++++++++++++++++
+ 1 file changed, 53 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
+index 5273ca09fe12..e76abc877f4a 100644
+--- a/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
+@@ -677,6 +677,48 @@ dce110_dac_encoder_control(struct pipe_ctx *pipe_ctx, bool enable)
+ 	bios->funcs->encoder_control(bios, &encoder_control);
+ }
+ 
++static void
++dce110_external_encoder_control(enum bp_external_encoder_control_action action,
++				struct dc_link *link,
++				struct dc_crtc_timing *timing)
++{
++	struct dc *dc = link->ctx->dc;
++	struct dc_bios *bios = link->ctx->dc_bios;
++	const struct dc_link_settings *link_settings = &link->cur_link_settings;
++	enum bp_result bp_result = BP_RESULT_OK;
++	struct bp_external_encoder_control ext_cntl = {
++		.action = action,
++		.connector_obj_id = link->link_enc->connector,
++		.encoder_id = link->ext_enc_id,
++		.lanes_number = link_settings->lane_count,
++		.link_rate = link_settings->link_rate,
++
++		/* Use signal type of the real link encoder, ie. DP */
++		.signal = link->connector_signal,
++
++		/* We don't know the timing yet when executing the SETUP action,
++		 * so use a reasonably high default value. It seems that ENABLE
++		 * can change the actual pixel clock but doesn't work with higher
++		 * pixel clocks than what SETUP was called with.
++		 */
++		.pixel_clock = timing ? timing->pix_clk_100hz / 10 : 300000,
++		.color_depth = timing ? timing->display_color_depth : COLOR_DEPTH_888,
++	};
++	DC_LOGGER_INIT(dc->ctx);
++
++	bp_result = bios->funcs->external_encoder_control(bios, &ext_cntl);
++
++	if (bp_result != BP_RESULT_OK)
++		DC_LOG_ERROR("Failed to execute external encoder action: 0x%x\n", action);
++}
++
++static void
++dce110_prepare_ddc(struct dc_link *link)
++{
++	if (link->ext_enc_id.id)
++		dce110_external_encoder_control(EXTERNAL_ENCODER_CONTROL_DDC_SETUP, link, NULL);
++}
++
+ static bool
+ dce110_dac_load_detect(struct dc_link *link)
+ {
+@@ -3376,6 +3418,15 @@ void dce110_enable_tmds_link_output(struct dc_link *link,
+ 	link->phy_state.symclk_state = SYMCLK_ON_TX_ON;
+ }
+ 
++static void dce110_enable_analog_link_output(
++		struct dc_link *link,
++		uint32_t pix_clk_100hz)
++{
++	link->link_enc->funcs->enable_analog_output(
++			link->link_enc,
++			pix_clk_100hz);
++}
++
+ void dce110_enable_dp_link_output(
+ 		struct dc_link *link,
+ 		const struct link_resource *link_res,
+@@ -3513,8 +3564,10 @@ static const struct hw_sequencer_funcs dce110_funcs = {
+ 	.enable_lvds_link_output = dce110_enable_lvds_link_output,
+ 	.enable_tmds_link_output = dce110_enable_tmds_link_output,
+ 	.enable_dp_link_output = dce110_enable_dp_link_output,
++	.enable_analog_link_output = dce110_enable_analog_link_output,
+ 	.disable_link_output = dce110_disable_link_output,
+ 	.dac_load_detect = dce110_dac_load_detect,
++	.prepare_ddc = dce110_prepare_ddc,
+ };
+ 
+ static const struct hwseq_private_funcs dce110_private_funcs = {
+-- 
+2.34.1
+
