@@ -4,76 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EEF00F8D76E
-	for <amd-gfx@archiver.kernel.org>; Thu, 16 Apr 2026 20:26:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5458AF8DFCB
+	for <amd-gfx@archiver.kernel.org>; Thu, 16 Apr 2026 21:45:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8D38A10E231;
-	Thu, 16 Apr 2026 20:26:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E3C1D10E937;
+	Thu, 16 Apr 2026 21:45:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="lu18mx5V";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="kshxNV/M";
 	dkim-atps=neutral
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com
- [209.85.128.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5B4AD10E8DC
- for <amd-gfx@lists.freedesktop.org>; Thu, 16 Apr 2026 20:26:53 +0000 (UTC)
-Received: by mail-wm1-f46.google.com with SMTP id
- 5b1f17b1804b1-488a29e6110so87866885e9.3
- for <amd-gfx@lists.freedesktop.org>; Thu, 16 Apr 2026 13:26:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1776371212; x=1776976012; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=dn+OB9qQMzTfzW/NDItl3MXsU2FiXozHBBJHcWirLPw=;
- b=lu18mx5VX7LRxSXJvdT4DhlyHccKdPsWIuNqSqjwC8Du/52P8axmyHWCl3SqoKSZIa
- a9myCdg4ftjm2+CZBqkbTFFg/sTvZRHzIAbPHaVc/3aEMXOc3r+PuovitQVshbcvaHCu
- WFwF8dOkaSlZC1WQ3HlCnmN6gHG4SCjcWu8WRu1VlZe4xXB33oF88BC7uKqcwwtARF8p
- eq1S3AOAdWBy0tMb29hQza9PrYHswVyHpxj4+TpCynBNUyN4cXYcDdhukRPLdltUTtFr
- 13bOCQL/jHkV+o141vcOeMOz7gsDcWQTDZvEFJsH/7wuowD/gdyOnBgzmxQxEh6ZbIgV
- 4ebA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1776371212; x=1776976012;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=dn+OB9qQMzTfzW/NDItl3MXsU2FiXozHBBJHcWirLPw=;
- b=ILS4gXOw3v8f/I/n9Gz1/nxRuWVBjvQC4rSWczAPaBdv2VmLQnLcGMUFG2qvkRI9nd
- HoHE/quWCz0uKaRyvMfm+Kz1j/X/o2AN8mCnswNjgwoFWoewo303A/I/JlO6raZ+PKYD
- pJeyUZNQ2pwHomqDpBlQZRdA1A4pRgY3cR55+Sednbeqo2GTTkc6fFyDffCgk6nNdfZ3
- 3JM/Gw64N/gCjmCN12+1AiT9spqZ8lT5x+9A1ikWXS/UfoIK+hPhpcvslWy9Sa4ADAQ6
- +pzjHwjYg9eK1l3isT/S8QBC2rRtZjiqjn+8sLjzhSNrO+Fg73kXYj4wD/nnf7ur6y7A
- PKgA==
-X-Gm-Message-State: AOJu0Yzw9FycIfFEmI8EitF2g1OEXLoVG1Iy1lQ1zDg5Fo48KXIc80i5
- Tu5FurjN2ggcaJF+RY1n71DnGOeQQXpTPaRl09IVnyWrxjlnRAtckMPyG0XH8A==
-X-Gm-Gg: AeBDieuo33TZ60IMSGM2PlY+jWZSi1OZ8VxhB8cQ4sm+vKGHKy+xWDZ8k/4bCrmIPSy
- MS+8pPHOoM6zIw19GOOJ3vp+MGrRxu7EJk2vKu7zbS79zoAXRnVkLkNA+ymDsBNeQfVo3Yi3v0g
- RpBlVXg/Q4xD9/ojzqhG1J8R8puyOJLa782Cs04v9fnw1po5cpkm8Io2FdDnyTQNhHFPDoXZu/a
- gGXm4cjpHTxyHy7rBYBcWX5JdYYr4dOgHhWcnJEPyPm/9w2RooVnCORAMDbukaMIPOlDiUHY4wD
- EfUebn4vbvNrLXg4bDgB15RfFTU2jeExCjUN4vg4FWKLCA3HnR6bPUmxwUIevNy209hG47RBDXz
- LaaK4o6p1oJHuvwVyb/EXGrYCIB8DnGkMTkdzlCvciPKH6OxzcND4L5RIgVBgsy/zDQwBK9RYs9
- 8kyIxKEUZoX6d/ty/BIUdpVOAzVlsh7LxjaY8VmQdvd33uhaaLI/H/UcJhVjO2tD5QHRUR9rpTO
- 63C+g==
-X-Received: by 2002:a05:600c:4e4f:b0:488:ab37:b442 with SMTP id
- 5b1f17b1804b1-488fb793c6bmr1298205e9.28.1776371211639; 
- Thu, 16 Apr 2026 13:26:51 -0700 (PDT)
-Received: from Timur-Hyperion.home (5E1B98A2.dsl.pool.telekom.hu.
- [94.27.152.162]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-488f581b9fbsm76941355e9.5.2026.04.16.13.26.50
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 16 Apr 2026 13:26:51 -0700 (PDT)
-From: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
-To: amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com,
- christian.koenig@amd.com
-Cc: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
-Subject: [PATCH 6/7] Documentation/gpu: Add TCC, update TCP in amdgpu glossary
-Date: Thu, 16 Apr 2026 22:26:42 +0200
-Message-ID: <20260416202643.25350-7-timur.kristof@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260416202643.25350-1-timur.kristof@gmail.com>
-References: <20260416202643.25350-1-timur.kristof@gmail.com>
-MIME-Version: 1.0
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4E33810E937;
+ Thu, 16 Apr 2026 21:45:48 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id 28CDB60139;
+ Thu, 16 Apr 2026 21:45:47 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E6DB3C2BCAF;
+ Thu, 16 Apr 2026 21:45:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1776375946;
+ bh=/AIHtk5dGaoSaB87dJf/1eE9xbVWkZ5BUf/GM/VtbXg=;
+ h=Date:Subject:Cc:To:From:References:In-Reply-To:From;
+ b=kshxNV/Mf/SAOfzwvPLHm/KFEujozISoNfYRy6l3ouTWw9jmEQXcjQ+iGPsd6zP5c
+ ZEAWOkywRdxIlMW1KuPs1t3NkXIMbaKjh29VPqTvcbgocmGxgcTswvkFoPSc3KWS8W
+ 08CZV0yL+7c0ow8wCZhluF2S/K8P/wzyAW999r0xg/l1Ubd3AId9oLABnxMLA4X/Sh
+ MkxiGhj9qoMuWpHjVGAjnZS/L0O6cxr8QUFQ+NCutGBi2wJLWRkNiZAt0Wi5RNZuKC
+ nDAW7K/hGMdCp2YooKNSgWuIXcFCuILbKSQ4ltxO5bkZC5EHEzCXvs4V1eqR+afVGz
+ SP/rfsLzw0Avg==
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Date: Thu, 16 Apr 2026 23:45:35 +0200
+Message-Id: <DHUWPQX14ZGZ.26BV7GQCJDZQI@kernel.org>
+Subject: Re: [PATCH v11 07/20] gpu: nova-core: mm: Add TLB flush support
+Cc: <linux-kernel@vger.kernel.org>, "Miguel Ojeda" <ojeda@kernel.org>,
+ "Boqun Feng" <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>, "Bjorn Roy
+ Baron" <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>,
+ "Andreas Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl"
+ <aliceryhl@google.com>, "Trevor Gross" <tmgross@umich.edu>, "Dave Airlie"
+ <airlied@redhat.com>, "Daniel Almeida" <daniel.almeida@collabora.com>,
+ "Koen Koning" <koen.koning@linux.intel.com>,
+ <dri-devel@lists.freedesktop.org>, <rust-for-linux@vger.kernel.org>,
+ "Nikola Djukic" <ndjukic@nvidia.com>, "Maarten Lankhorst"
+ <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
+ "Thomas Zimmermann" <tzimmermann@suse.de>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Jonathan Corbet"
+ <corbet@lwn.net>, "Alex Deucher" <alexander.deucher@amd.com>, "Christian
+ Koenig" <christian.koenig@amd.com>, "Jani Nikula"
+ <jani.nikula@linux.intel.com>, "Joonas Lahtinen"
+ <joonas.lahtinen@linux.intel.com>, "Rodrigo Vivi" <rodrigo.vivi@intel.com>,
+ "Tvrtko Ursulin" <tursulin@ursulin.net>, "Huang Rui" <ray.huang@amd.com>,
+ "Matthew Auld" <matthew.auld@intel.com>, "Lucas De Marchi"
+ <lucas.demarchi@intel.com>, "Thomas Hellstrom"
+ <thomas.hellstrom@linux.intel.com>, "Helge Deller" <deller@gmx.de>, "Alex
+ Gaynor" <alex.gaynor@gmail.com>, "Boqun Feng" <boqun.feng@gmail.com>, "John
+ Hubbard" <jhubbard@nvidia.com>, "Alistair Popple" <apopple@nvidia.com>,
+ "Timur Tabi" <ttabi@nvidia.com>, "Edwin Peer" <epeer@nvidia.com>,
+ "Alexandre Courbot" <acourbot@nvidia.com>, "Andrea Righi"
+ <arighi@nvidia.com>, "Andy Ritger" <aritger@nvidia.com>, "Zhi Wang"
+ <zhiw@nvidia.com>, "Balbir Singh" <balbirs@nvidia.com>, "Philipp Stanner"
+ <phasta@kernel.org>, "Elle Rhumsaa" <elle@weathered-steel.dev>,
+ <alexeyi@nvidia.com>, "Eliot Courtney" <ecourtney@nvidia.com>,
+ <joel@joelfernandes.org>, <linux-doc@vger.kernel.org>,
+ <amd-gfx@lists.freedesktop.org>, <intel-gfx@lists.freedesktop.org>,
+ <intel-xe@lists.freedesktop.org>, <linux-fbdev@vger.kernel.org>
+To: "Joel Fernandes" <joelagnelf@nvidia.com>
+From: "Danilo Krummrich" <dakr@kernel.org>
+References: <20260415210548.3776595-1-joelagnelf@nvidia.com>
+ <20260415210548.3776595-7-joelagnelf@nvidia.com>
+ <20260416212312.GA667928@joelbox2>
+In-Reply-To: <20260416212312.GA667928@joelbox2>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,34 +87,26 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-These are the L2 and L1 cache on some AMD GPU architectures.
+On Thu Apr 16, 2026 at 11:23 PM CEST, Joel Fernandes wrote:
+> Btw, I changed this to doing it in 2 phases to avoid holding the RCU read=
+lock
+> across read_poll_timeout, which can sleep. Will squash it in for v12.
 
-Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
----
- Documentation/gpu/amdgpu/amdgpu-glossary.rst | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
+Why do we need the try_access() dance in the first place? I assume this end=
+s up
+being called from the BarAccess destructor?
 
-diff --git a/Documentation/gpu/amdgpu/amdgpu-glossary.rst b/Documentation/gpu/amdgpu/amdgpu-glossary.rst
-index 033167025fcca..d553dd599c966 100644
---- a/Documentation/gpu/amdgpu/amdgpu-glossary.rst
-+++ b/Documentation/gpu/amdgpu/amdgpu-glossary.rst
-@@ -233,8 +233,15 @@ we have a dedicated glossary for Display Core at
-     TC
-       Texture Cache
- 
-+    TCC
-+      Texture Cache per Channel - L2 cache attached to the memory channels.
-+      May be used when shader cores are accessing memory.
-+      Despite "Texture" in the name, this is used by any kind of memory access.
-+      TCCs may be mapped to TCPs, depending on the architecture.
-+
-     TCP (AMDGPU)
--      Texture Cache per Pipe. Even though the name "Texture" is part of this
-+      Texture Cache per Pipe - L1 cache attached to each CU.
-+      Even though the name "Texture" is part of this
-       acronym, the TCP represents the path to memory shaders; i.e., it is not
-       related to texture. The name is a leftover from older designs where shader
-       stages had different cache designs; it refers to the L1 cache in older
--- 
-2.53.0
+If so, I think this is solvable. Gary and me are currently working on
+higher-ranked types and a chained Devres type.
 
+With that, such use-cases should be cleanly solvable without the need for
+try_access().
+
+Besides that, I can't find where BarAccess is ever constructed.
+
+It already has a lifetime 'a for &'a Bar1, so I don't see why you can't do =
+the
+same for Bar0.
+
+But again, I don't see this being constructed and I'm not sure the whole
+construct works in the first place.
