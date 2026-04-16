@@ -4,88 +4,120 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C8E87F8A171
-	for <amd-gfx@archiver.kernel.org>; Thu, 16 Apr 2026 13:07:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F3325F8A173
+	for <amd-gfx@archiver.kernel.org>; Thu, 16 Apr 2026 13:15:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 216F110E8B7;
-	Thu, 16 Apr 2026 13:07:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7B9F610E1E4;
+	Thu, 16 Apr 2026 13:15:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="bn4Uu7Fu";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Ca677J4r";
 	dkim-atps=neutral
-Received: from mail-dl1-f41.google.com (mail-dl1-f41.google.com [74.125.82.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2DADF10E1E9
- for <amd-gfx@lists.freedesktop.org>; Thu, 16 Apr 2026 13:07:18 +0000 (UTC)
-Received: by mail-dl1-f41.google.com with SMTP id
- a92af1059eb24-12736a0147cso609158c88.1
- for <amd-gfx@lists.freedesktop.org>; Thu, 16 Apr 2026 06:07:18 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1776344837; cv=none;
- d=google.com; s=arc-20240605;
- b=Bb7LaNlnLxKA94cO2s55+pCiXCjzipNXrSbp0TtsIE3oIJVXkq32jGGeXnRxHfq18P
- S76d7q/uuSfJiKoBiyyb98QezRvBZ9fdND4AOhdrWgUv+jPn706MAdjcPrcFz/QzhPF8
- Q+DKA/epAVlS8gw7JrGWlr9wKyyLUdBVYYOampZfMfgVSmjYOuWwBkQWNSFp5rkh9nvO
- /VpgutQwwbEfKLwdbO1fQ3HvUIX/77jTYWE3JZOPoDaw4bIrCxcdAEiNZuCoK4eUDbpm
- DfkBaTvmAnMdTF9qSFXf4BhmlciCyn5wxuiMk9zPnH8Z26ZYO3PNtD6EFjBoiEIGisrC
- Rxfg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=5d+UwmYh/wU9JxdrRLIeCQ1rfsH2EfTJrMUDY8rjEok=;
- fh=YfPanCJvkrg4xI4YIS9FcRUou91HmaGJlYpBN2WvcDo=;
- b=hhvgNk8mtw9AoVETIKc1zOCSKj39fZgkIySsox0E1jpULqRIV1Vgg9+9FkUob9lXdv
- /M6ZKAKQ4bHKlVZshqk2oHf4lATZMG+mfhJ5Pl10C21HJ/8hvghBymlUFzMRStgnkGb9
- 8tlkIazX/R4Cix/iwMWb5p6YN7DqdFpHazDBfHqM9SNVLEast+obsDJ+A/dCqvSL9A08
- 6hoVXAoObOmJhzHMZZK/UM9Eg1Q2Gc72DAVDKHHUrxL1wajiKfk1nIIWmcZv4xY4TbM/
- 673PMMnxxrHNxQ5tDxIXfPWd4V+L1WYC5TLPCCcoUN6Ibb7Do7ElHc0J8oRpTmUbAQVy
- sOpg==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1776344837; x=1776949637; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=5d+UwmYh/wU9JxdrRLIeCQ1rfsH2EfTJrMUDY8rjEok=;
- b=bn4Uu7FuxEf3fxrW+RaTkDGuGAFN4wkg/V2k+C47dI6IjOfgh8j6Y6ySx938WM6BOq
- +9Rdvaa6L36ROFGDV/1U96ppZnUPUQ86tTlv5k+S34vYD6osHAYa4+OEfeNDCRlYZ9FT
- 5q1TqapdingAM9bvYU4nE1/IPq8yfHvkOkj36AtJ3fQmMUkR52gzhj2gg6JuIbPRGZ+x
- S9iM7Ab3rpUrf5scQWkGtxy5ODvR5dZjFr8HERWIO0SdL/U/RnSFk1r065EXEZcaC0KU
- 0CXxMJ2Kszvq0FqHA3aJBMkZfR/fhCrVL0h/rn8LXWuZ1UQ+WexvP/In5T9LQUNYFpF8
- 4Gjg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1776344837; x=1776949637;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=5d+UwmYh/wU9JxdrRLIeCQ1rfsH2EfTJrMUDY8rjEok=;
- b=pjINaZRi7dYsPOkcDZboj0ZHYHawbyHYflQbx+nkiahaGwDkVlRPW0P1WhwZ7RJMry
- jqhzmKPoRFOQI+Yk+rDXm3Yydd3FOyor8TfoYnE4aWzkPmVupn8FuGoSSHnfNMrLCaPN
- mKav51ixMY6NClgaoNkDrd9pNhUkLIGsSVutXedIiK557TbaPzHJqOMlOXrK6tOLybcM
- PjmX6yy1asp+vjecZVBHfGjI6mOmDThRpmvxHBVE0btXJcU1+oYYj5tEDUgZSFZk8mnk
- hpyUFJRI4AaXLieNUegQjMrUTgF7aluDr6wrjmjwsbjl9p4PJDTkKtBIdgI5MLyFEjRA
- Bu0g==
-X-Gm-Message-State: AOJu0Yx50ALR5ewLraQtRD0edgF/jc5iRl/Xk0Mcmq+D/fOD85O31eAt
- NLeNJ1oGNtNXseQ3w/adlJMMNhIqrdyHk2vs2hy0qxWYru4n4QF0fUYORuvUZALdmLP8IHc7PT5
- do0P8QNr8D4dlq/6XHhw4c3DROdktf8A=
-X-Gm-Gg: AeBDieuxeGwRotKpavchPfgXZxPwT28Y/D6v2z5Ey3L8FzpUFH21WB+K+nqWiLc/jyY
- edU60+WEq8OwVjkIHCTqmTmjoDCQH0Rf+MqjJK5QkMit1fZWNlq34xQHVeMYsqd1dSS5vThp5z4
- cbW9eLtHqWQBAH5MQxELufd5OkbzalA48DC+UcLyj2eNm2I2GivE98l8ZwcCq9oaIjWjEfjHZ/J
- DyLfhkVXM6/tj/Vkqb4Igkk8jWp+iL1QBh/N0OQ8p8C3sI7msr+kk9FpZH3sUXCXSsidnhO4rVw
- oqqN/YYPhsvSdrtckSFnca02tut/VE+psOa0VA1Od8CboOau1mt4sOnkST++2JjMjN/fhA==
-X-Received: by 2002:a05:7022:220c:b0:12c:33dd:fa0b with SMTP id
- a92af1059eb24-12c6590eb0amr524705c88.2.1776344837046; Thu, 16 Apr 2026
- 06:07:17 -0700 (PDT)
-MIME-Version: 1.0
-References: <20260415201325.838342-1-bing.ma@amd.com>
-In-Reply-To: <20260415201325.838342-1-bing.ma@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 16 Apr 2026 09:07:03 -0400
-X-Gm-Features: AQROBzB-muIWxR1piYH5OWPk5laVWgLlzWZMcSJNVqHSIfg-79lwoUnKBImIWHA
-Message-ID: <CADnq5_NuyF=b-LG-S3YrQFM6HW8_NRRj9VWot50jzaQoX6nwcQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: Add gc v12_1_1 ip headers v3
-To: Bing Ma <bing.ma@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>
-Content-Type: text/plain; charset="UTF-8"
+Received: from SJ2PR03CU001.outbound.protection.outlook.com
+ (mail-westusazon11012002.outbound.protection.outlook.com [52.101.43.2])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0213810E1D7
+ for <amd-gfx@lists.freedesktop.org>; Thu, 16 Apr 2026 13:15:57 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=i+tYCbYYJ+JaGWLojPc+ypLzyyk4BkqqAH5qOH+VO/WCVsFK7d0iyIY6wd5EwJIt+Kwerfl02eb77y4wjoBN+lNdI0wQfQsKO+g069CtKS7Um+kLuVGeG79rr8TcR7lmMBOBNq+R0K8/0+w/yTthCRs3UPbBXNr3KT5GrVZwBxP4t34hIJaarfwV5ZKtZF0+J8bKeX8Huqq30Lnwt1l72zRqXw/02rVXQl0Zq1NY8994WmfeSwyD3vvJ6KwA2pvN9PuB6MP19KRSOYPgrx8LAeXBu7Zhep5TuFXNsp6LxCRpDVkj91GMaqHxe3hjRBkCZUbtwdDoaQMo8IHRnkxxWA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=pl9h5EAM5YvXBCriD1M7jxMzKLz9kGHVLaRMmZacaH8=;
+ b=Bn0LjuyqbLLDOt0EpRlMAgYNW/jcnaikcs/m2/yt8hZBtj9poi0cNHgyl4EkWI0mdT21G8nRBa/cbhIwZIlfvrjYxwKxSaM+LYuof9rpDcWZ18dlPb4W7iZXMGuls0vVY5ta8qZIcm0RCA5VYIUqSJ7B9AHmMhGMBFx3xCeGasN7ICEe3o2ClOYrw2T4vLnr36HibhbWONeRPat7QTa2I9gaxeHLe4jGC9UMHuhlvGKj76vrjo91b5h7hXeTJJzIcQEyp74irtRydJicsf9FgCjlvbsMZHtZUT8L4AD8ihLzBeGB4tqPdxVBuUkDGWJK/UCJm/i2Ak+hxIBOLj2raA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=pl9h5EAM5YvXBCriD1M7jxMzKLz9kGHVLaRMmZacaH8=;
+ b=Ca677J4rnc7aAWG7ruihzhJjUTASqOv6jPktPSVJw1pCwhuLPt7Tg1MBuv4ksTEDWCyMY1plhoCQx3X+3W6Mrhet5A0ZZDzSKRSaniuuOlj7yB59Vu2qsILOyAB4ZBUsUSvXOfCSnC8StQP17gyMogCktk0/73Ry4RYN7NqC2Qo=
+Received: from BL1PR12MB5898.namprd12.prod.outlook.com (2603:10b6:208:396::7)
+ by CH3PR12MB7739.namprd12.prod.outlook.com (2603:10b6:610:151::22)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9818.20; Thu, 16 Apr
+ 2026 13:15:54 +0000
+Received: from BL1PR12MB5898.namprd12.prod.outlook.com
+ ([fe80::914d:6a80:1477:4ed0]) by BL1PR12MB5898.namprd12.prod.outlook.com
+ ([fe80::914d:6a80:1477:4ed0%4]) with mapi id 15.20.9818.023; Thu, 16 Apr 2026
+ 13:15:54 +0000
+From: "Russell, Kent" <Kent.Russell@amd.com>
+To: "Yuan, Perry" <Perry.Yuan@amd.com>, "Deucher, Alexander"
+ <Alexander.Deucher@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH 1/2] drm/amdkfd: fix profiler ioctl command number
+Thread-Topic: [PATCH 1/2] drm/amdkfd: fix profiler ioctl command number
+Thread-Index: AQHczVyb/ZJo5cnsmEyDtmdRYDIlarXhqoew
+Date: Thu, 16 Apr 2026 13:15:54 +0000
+Message-ID: <BL1PR12MB58981E8785647FE677A7165F85232@BL1PR12MB5898.namprd12.prod.outlook.com>
+References: <20260416045025.1825888-1-perry.yuan@amd.com>
+In-Reply-To: <20260416045025.1825888-1-perry.yuan@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=True;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2026-04-16T13:12:07.0000000Z;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
+ Internal Distribution
+ Only; MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=3;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: BL1PR12MB5898:EE_|CH3PR12MB7739:EE_
+x-ms-office365-filtering-correlation-id: a4e63c22-fe11-4c45-1805-08de9bba4a08
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|1800799024|376014|366016|22082099003|56012099003|18002099003|38070700021;
+x-microsoft-antispam-message-info: ulX9U8m8LAaNFpahRPIwWW8voZiK/cu6yGyHJPg4+XEAkbEqw0XEABBfGOp3y/TZrhY7aRqTXe+bWzwcZ9JoXaRMWPy4g0R6AhlVClf7RKt/WvMKqBkdv3PHSNfvqQNri0ZpgUisfEKZnzeKFoaGZyj49DaQFjsRZpW9fDCeJOy6tQKsU4NxA6N8gCMvL17BEgxclcZo/xQ7wG9S/jfbHoAMgTH3n1wyZXRAp9I2y6/7yZxaP2PKKVHOvVD3kvyBvq9Krx4uG2V6obtkGvMVQze5tH70/F5w3RWK3YLFYxzwzE735/EI7dLF32D9neioYOp5eq5NjrU2qaFBF8bReHS2P0r15sRaQBQsg2zzxBDOS5AMd6Rw+WHFrEnRnLwdEoKK/bCmKBYenud5PC7dwp9RqOuG4dMsvdvWrc/x7jHMFoO+f9Xju5jGkfxYcojXcWmJtC+2svT8iYz6OCA2ugsEKkJAXMtH+ShzrtmxkXKIYrwx1UsNUD0I5fEgOq7oqQVOSyHsocPg4KrxL6h8mpJBSmwY9IXhF0t0b/ijXO3n8b3TgeJbMLJLcQ1dDn5Thdas6PN4K1aOuVU173zK6plJXLiDLci5RyG4O+7UoL/QGf9NJv8RE84Ai41nwYw6VCVI90aX7HeNE7zyYVrAx+cb0Y8GOjWMxK7e3HSKKcJcmcnpH2lZ7owqGlHF4AeTisKUs5pZ0aII9Xy4o317IoNTpRYcfIzOW8LwLsXVIhZhCOM8qq05SkMnq5XAjkoBrVa3plP7/6OljYNiMkHmfZoOp2x9CMTArqhjaUvLI+w=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BL1PR12MB5898.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(366016)(22082099003)(56012099003)(18002099003)(38070700021);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?p4tFTR/YTkyVMJuZnvSYs6cgn+4uz821TdORY7b+Wi3d9xuT/RvJmoWJj7lx?=
+ =?us-ascii?Q?j/KuhVTDXC3ASc32vFa1MI97V4dxZZlSNqH9GREfZQiO8fD0vu1WNcAdi3th?=
+ =?us-ascii?Q?ONzQW4HUvRdc17uoQWIZ4chEuTM6bbyji5+t0GOscJaK4zOrbkIYzD8dmOMG?=
+ =?us-ascii?Q?bQY0/Y10V9h7eKCnAMVQG8RkooVaAvFpVwVbCa4FvXwUMue2eNF4x595uCRW?=
+ =?us-ascii?Q?Vdynm7ZMP5FZFAzlcpsxFlWJcRvgUu5alHl+LNx2ZGIetvITJhK4HekkIvyg?=
+ =?us-ascii?Q?1r4NN9epyNGFOB0IDFIRJbaWri5DNMOqGo16hyPq+FZNYg3GPywEdjMWZB1Q?=
+ =?us-ascii?Q?LIQCrvT5Ufq6TUK71l4tT8W4lkrjnmrypK1S6NB//C3jpZCZ+miLVYznCRy8?=
+ =?us-ascii?Q?En6SwFv+mj1L/EQwZzpqIklxk7NVCFt7KGnkFyDAXEiDdeA0b15RHXlxKK5t?=
+ =?us-ascii?Q?LbQGJUWCfngel4XYdF4M+8hiR5/ljDXnDxcHOq68PVGI1dUbstSrzk50e/M+?=
+ =?us-ascii?Q?sfVIeRKnC5v3V3XZxMsUdZ5HHfOCdexVgFtYsFCmSnMDpGWISPMA+jqm3GL0?=
+ =?us-ascii?Q?XSOJQixKH0biXnhq7L5EOJCWGT3kuaPogjISj7+Y6VZME1gOjf4e7yprH0qb?=
+ =?us-ascii?Q?7iJVi85pRmy3PdmYEoMH5m1xz0LQT2GMsnTaXALt9GHgUvWwaQz+Xjf+xQf3?=
+ =?us-ascii?Q?w8av26gm7JjJtk59QKpQtGv5vYLg4ER8FfZBLLZJWw/FB+c+pAdy2rfcIPn8?=
+ =?us-ascii?Q?0a5bEte0o5AWwOBY9ofyD5U91P1jgshIax71elO9JyfyX+sN3mydrbrISZuh?=
+ =?us-ascii?Q?qBPkEc2E/3IF2LQDrjDpEYASNgk+ojker1o7LCZyzfe7aNXV78eLckXjx22C?=
+ =?us-ascii?Q?Urs8VngAPvJWFxpaJl5sTXzhGHIucDh7wQhqOVpQQXCQtwEiHTmSq8OjdT75?=
+ =?us-ascii?Q?rDpucTwaK0++VkPQOIe99Ia1BxaAcXjnTNvxAS5d8V4olOmeaJ71M806S/mZ?=
+ =?us-ascii?Q?0w7yyihf2snf657ocBzXpAMakI0dG5fDxuHdnvdAOyHWn2HxUK1oOpa1Mg/r?=
+ =?us-ascii?Q?QapGr/LzNwZFW/hb7a1GVrNbaoHzoFjZK1Bs+BHpUtDJcpy/zvpX6vfhhi0d?=
+ =?us-ascii?Q?1z5jqw1AUu5Z0tTydKwP/e/8z6xOtvNDBMS7aAK+juSl11EeH6HvBQq6azqR?=
+ =?us-ascii?Q?See8L2su8NLxu9jX7R22f7SxqxiLeNRxkefVhIsZ2wq4JZXmAk1IayJAJp0U?=
+ =?us-ascii?Q?2Y6OMbD2sNhiTLFjbnId6rbEY7uyzaHkosyaSJcLrEqAO5DzFcOtOdBJ+t2/?=
+ =?us-ascii?Q?5qfzYe9CZR/aeyuRt0uCzXQmNBRJj8v1v3vzBTnO+CxUZQV1rWUZFWh13VqQ?=
+ =?us-ascii?Q?80giS6L2pXpOhDL81sLv60IzNeG6RB0oX4ASvKLartGf1N6LOkNdmHnHtkGw?=
+ =?us-ascii?Q?HP7yjAWXekfdCDK5xuRbOD8cFdNl/0/ZIS1Ro1Lj3zWUyKAbn5ZhidNGyzVw?=
+ =?us-ascii?Q?EbWMLwLXoDGoyKMDlbHevFb3eciMWOoqnBDU4I2jtZ8g3SbaPZxJF1skFGSf?=
+ =?us-ascii?Q?fVRXi427BwtbdnJrWmhAoiANCrjzFxn0Mp9S26bySaqZKPfMBNNVTLTi7BSd?=
+ =?us-ascii?Q?RZKAnzdkuxcrx6gsWNqo6ju4xev6WHUaoz53nlot4bMESpQERedUOn305Kgc?=
+ =?us-ascii?Q?2hnSnaTiyW8pMIn7j7QSd6/meZLZB6Zera9l6sRcWzKEDB2b?=
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5898.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a4e63c22-fe11-4c45-1805-08de9bba4a08
+X-MS-Exchange-CrossTenant-originalarrivaltime: 16 Apr 2026 13:15:54.1379 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: sFhUAH1QDpFs66LOecjqRrCs6iZKCR9GspD6Bi2YaZxL65zGkTM7+S2787xD4jr2TqXswWasVqm55UjIraVXEg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB7739
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,980 +132,58 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Apr 15, 2026 at 5:09=E2=80=AFPM Bing Ma <bing.ma@amd.com> wrote:
->
-> Add header files for gc v12_1_1 register offsets
-> and shift masks
-> v2: Update gc v12_1_1 ip headers
-> v3: Update gc v12_1_1 ip headers
->
-> Signed-off-by: Bing Ma <Bing.Ma@amd.com>
+[AMD Official Use Only - AMD Internal Distribution Only]
 
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+Not sure if something git got messed up here, but it looks like you're remo=
+ving
+> -#define AMDKFD_COMMAND_START_2               0x80
+> -#define AMDKFD_COMMAND_END_2         0x87
 
+ Kent
+
+> -----Original Message-----
+> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Perry =
+Yuan
+> Sent: Thursday, April 16, 2026 12:50 AM
+> To: Deucher, Alexander <Alexander.Deucher@amd.com>; amd-
+> gfx@lists.freedesktop.org
+> Subject: [PATCH 1/2] drm/amdkfd: fix profiler ioctl command number
+>
+> Move `AMDKFD_IOC_PROFILER` from the secondary ioctl range to the
+> primary upstream range at `0x28` and bump `AMDKFD_COMMAND_END` to
+> `0x29`.
+>
+> Fixes: 4abe9fd1e763 ("Add kfd_ioctl_profiler to contain profiler kernel d=
+river
+> changes")
+> Signed-off-by: Perry Yuan <perry.yuan@amd.com>
+> Suggested-by: Alex Deucher <alexander.deucher@amd.com>
 > ---
->  .../include/asic_reg/gc/gc_12_1_1_offset.h    | 149 +++++++
->  .../include/asic_reg/gc/gc_12_1_1_sh_mask.h   | 377 ++++++++++++++++++
->  2 files changed, 526 insertions(+)
->  create mode 100755 drivers/gpu/drm/amd/include/asic_reg/gc/gc_12_1_1_off=
-set.h
->  create mode 100755 drivers/gpu/drm/amd/include/asic_reg/gc/gc_12_1_1_sh_=
-mask.h
+>  include/uapi/linux/kfd_ioctl.h | 9 +++------
+>  1 file changed, 3 insertions(+), 6 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/include/asic_reg/gc/gc_12_1_1_offset.h b=
-/drivers/gpu/drm/amd/include/asic_reg/gc/gc_12_1_1_offset.h
-> new file mode 100755
-> index 000000000000..f10e6168ad54
-> --- /dev/null
-> +++ b/drivers/gpu/drm/amd/include/asic_reg/gc/gc_12_1_1_offset.h
-> @@ -0,0 +1,149 @@
-> +/*
-> + * Copyright 2025 Advanced Micro Devices, Inc.
-> + *
-> + * Permission is hereby granted, free of charge, to any person obtaining=
- a
-> + * copy of this software and associated documentation files (the "Softwa=
-re"),
-> + * to deal in the Software without restriction, including without limita=
-tion
-> + * the rights to use, copy, modify, merge, publish, distribute, sublicen=
-se,
-> + * and/or sell copies of the Software, and to permit persons to whom the
-> + * Software is furnished to do so, subject to the following conditions:
-> + *
-> + * The above copyright notice and this permission notice shall be includ=
-ed in
-> + * all copies or substantial portions of the Software.
-> + *
-> + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRE=
-SS OR
-> + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILI=
-TY,
-> + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SH=
-ALL
-> + * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES=
- OR
-> + * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-> + * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-> + * OTHER DEALINGS IN THE SOFTWARE.
-> + *
-> + */
-> +#ifndef _gc_12_1_1_OFFSET_HEADER
-> +#define _gc_12_1_1_OFFSET_HEADER
-> +
-> +
-> +
-> +// addressBlock: aigc_grbma_grbma_grbmadec
-> +// base address: 0x18000
-> +#define regGRBMA_GFX_INDEX                                              =
-                                0x0011
-> +#define regGRBMA_GFX_INDEX_BASE_IDX                                     =
-                                1
-> +
-> +
-> +// addressBlock: aigc_grbma_grbma_perfddec
-> +// base address: 0x19200
-> +#define regGRBMA_PERFCOUNTER0_LO                                        =
-                                0x0480
-> +#define regGRBMA_PERFCOUNTER0_LO_BASE_IDX                               =
-                                1
-> +#define regGRBMA_PERFCOUNTER0_HI                                        =
-                                0x0481
-> +#define regGRBMA_PERFCOUNTER0_HI_BASE_IDX                               =
-                                1
-> +#define regGRBMA_PERFCOUNTER1_LO                                        =
-                                0x0482
-> +#define regGRBMA_PERFCOUNTER1_LO_BASE_IDX                               =
-                                1
-> +#define regGRBMA_PERFCOUNTER1_HI                                        =
-                                0x0483
-> +#define regGRBMA_PERFCOUNTER1_HI_BASE_IDX                               =
-                                1
-> +
-> +
-> +// addressBlock: aigc_grbma_grbma_perfsdec
-> +// base address: 0x19300
-> +#define regGRBMA_PERFCOUNTER0_SELECT                                    =
-                                0x04c0
-> +#define regGRBMA_PERFCOUNTER0_SELECT_BASE_IDX                           =
-                                1
-> +#define regGRBMA_PERFCOUNTER1_SELECT                                    =
-                                0x04c1
-> +#define regGRBMA_PERFCOUNTER1_SELECT_BASE_IDX                           =
-                                1
-> +#define regAID_PERFMON_CNTL                                             =
-                                0x04c2
-> +#define regAID_PERFMON_CNTL_BASE_IDX                                    =
-                                1
-> +
-> +
-> +// addressBlock: aigc_gl2x_gfx_se_perfsdec
-> +// base address: 0x19300
-> +#define regGL2C_PERFCOUNTER0_SELECT                                     =
-                                0x04e8
-> +#define regGL2C_PERFCOUNTER0_SELECT_BASE_IDX                            =
-                                1
-> +#define regGL2C_PERFCOUNTER0_SELECT1                                    =
-                                0x04e9
-> +#define regGL2C_PERFCOUNTER0_SELECT1_BASE_IDX                           =
-                                1
-> +#define regGL2C_PERFCOUNTER1_SELECT                                     =
-                                0x04ea
-> +#define regGL2C_PERFCOUNTER1_SELECT_BASE_IDX                            =
-                                1
-> +#define regGL2C_PERFCOUNTER1_SELECT1                                    =
-                                0x04eb
-> +#define regGL2C_PERFCOUNTER1_SELECT1_BASE_IDX                           =
-                                1
-> +#define regGL2C_PERFCOUNTER2_SELECT                                     =
-                                0x04ec
-> +#define regGL2C_PERFCOUNTER2_SELECT_BASE_IDX                            =
-                                1
-> +#define regGL2C_PERFCOUNTER2_SELECT1                                    =
-                                0x04ed
-> +#define regGL2C_PERFCOUNTER2_SELECT1_BASE_IDX                           =
-                                1
-> +#define regGL2C_PERFCOUNTER3_SELECT                                     =
-                                0x04ee
-> +#define regGL2C_PERFCOUNTER3_SELECT_BASE_IDX                            =
-                                1
-> +#define regGL2C_PERFCOUNTER3_SELECT1                                    =
-                                0x04ef
-> +#define regGL2C_PERFCOUNTER3_SELECT1_BASE_IDX                           =
-                                1
-> +#define regGL2A_PERFCOUNTER0_SELECT                                     =
-                                0x04f0
-> +#define regGL2A_PERFCOUNTER0_SELECT_BASE_IDX                            =
-                                1
-> +#define regGL2A_PERFCOUNTER0_SELECT1                                    =
-                                0x04f1
-> +#define regGL2A_PERFCOUNTER0_SELECT1_BASE_IDX                           =
-                                1
-> +#define regGL2A_PERFCOUNTER1_SELECT                                     =
-                                0x04f2
-> +#define regGL2A_PERFCOUNTER1_SELECT_BASE_IDX                            =
-                                1
-> +#define regGL2A_PERFCOUNTER1_SELECT1                                    =
-                                0x04f3
-> +#define regGL2A_PERFCOUNTER1_SELECT1_BASE_IDX                           =
-                                1
-> +#define regGL2A_PERFCOUNTER2_SELECT                                     =
-                                0x04f4
-> +#define regGL2A_PERFCOUNTER2_SELECT_BASE_IDX                            =
-                                1
-> +#define regGL2A_PERFCOUNTER2_SELECT1                                    =
-                                0x04f5
-> +#define regGL2A_PERFCOUNTER2_SELECT1_BASE_IDX                           =
-                                1
-> +#define regGL2A_PERFCOUNTER3_SELECT                                     =
-                                0x04f6
-> +#define regGL2A_PERFCOUNTER3_SELECT_BASE_IDX                            =
-                                1
-> +#define regGL2A_PERFCOUNTER3_SELECT1                                    =
-                                0x04f7
-> +#define regGL2A_PERFCOUNTER3_SELECT1_BASE_IDX                           =
-                                1
-> +
-> +
-> +// addressBlock: aigc_gl2x_gfx_se_perfddec
-> +// base address: 0x19200
-> +#define regGL2C_PERFCOUNTER0_LO                                         =
-                                0x04a0
-> +#define regGL2C_PERFCOUNTER0_LO_BASE_IDX                                =
-                                1
-> +#define regGL2C_PERFCOUNTER0_HI                                         =
-                                0x04a1
-> +#define regGL2C_PERFCOUNTER0_HI_BASE_IDX                                =
-                                1
-> +#define regGL2C_PERFCOUNTER1_LO                                         =
-                                0x04a2
-> +#define regGL2C_PERFCOUNTER1_LO_BASE_IDX                                =
-                                1
-> +#define regGL2C_PERFCOUNTER1_HI                                         =
-                                0x04a3
-> +#define regGL2C_PERFCOUNTER1_HI_BASE_IDX                                =
-                                1
-> +#define regGL2C_PERFCOUNTER2_LO                                         =
-                                0x04a4
-> +#define regGL2C_PERFCOUNTER2_LO_BASE_IDX                                =
-                                1
-> +#define regGL2C_PERFCOUNTER2_HI                                         =
-                                0x04a5
-> +#define regGL2C_PERFCOUNTER2_HI_BASE_IDX                                =
-                                1
-> +#define regGL2C_PERFCOUNTER3_LO                                         =
-                                0x04a6
-> +#define regGL2C_PERFCOUNTER3_LO_BASE_IDX                                =
-                                1
-> +#define regGL2C_PERFCOUNTER3_HI                                         =
-                                0x04a7
-> +#define regGL2C_PERFCOUNTER3_HI_BASE_IDX                                =
-                                1
-> +#define regGL2A_PERFCOUNTER0_LO                                         =
-                                0x04a8
-> +#define regGL2A_PERFCOUNTER0_LO_BASE_IDX                                =
-                                1
-> +#define regGL2A_PERFCOUNTER0_HI                                         =
-                                0x04a9
-> +#define regGL2A_PERFCOUNTER0_HI_BASE_IDX                                =
-                                1
-> +#define regGL2A_PERFCOUNTER1_LO                                         =
-                                0x04aa
-> +#define regGL2A_PERFCOUNTER1_LO_BASE_IDX                                =
-                                1
-> +#define regGL2A_PERFCOUNTER1_HI                                         =
-                                0x04ab
-> +#define regGL2A_PERFCOUNTER1_HI_BASE_IDX                                =
-                                1
-> +#define regGL2A_PERFCOUNTER2_LO                                         =
-                                0x04ac
-> +#define regGL2A_PERFCOUNTER2_LO_BASE_IDX                                =
-                                1
-> +#define regGL2A_PERFCOUNTER2_HI                                         =
-                                0x04ad
-> +#define regGL2A_PERFCOUNTER2_HI_BASE_IDX                                =
-                                1
-> +#define regGL2A_PERFCOUNTER3_LO                                         =
-                                0x04ae
-> +#define regGL2A_PERFCOUNTER3_LO_BASE_IDX                                =
-                                1
-> +#define regGL2A_PERFCOUNTER3_HI                                         =
-                                0x04af
-> +#define regGL2A_PERFCOUNTER3_HI_BASE_IDX                                =
-                                1
-> +
-> +
-> +// addressBlock: aigc_gfx_gcea_se_gfx_se_perfsdec
-> +// base address: 0x19320
-> +#define regGC_EA_SE_PERFCOUNTER0_SELECT                                 =
-                                0x04c8
-> +#define regGC_EA_SE_PERFCOUNTER0_SELECT_BASE_IDX                        =
-                                1
-> +#define regGC_EA_SE_PERFCOUNTER0_SELECT1                                =
-                                0x04c9
-> +#define regGC_EA_SE_PERFCOUNTER0_SELECT1_BASE_IDX                       =
-                                1
-> +#define regGC_EA_SE_PERFCOUNTER1_SELECT                                 =
-                                0x04ca
-> +#define regGC_EA_SE_PERFCOUNTER1_SELECT_BASE_IDX                        =
-                                1
-> +
-> +
-> +// addressBlock: aigc_gfx_gcea_se_gfx_se_perfddec
-> +// base address: 0x19240
-> +#define regGC_EA_SE_PERFCOUNTER0_LO                                     =
-                                0x0490
-> +#define regGC_EA_SE_PERFCOUNTER0_LO_BASE_IDX                            =
-                                1
-> +#define regGC_EA_SE_PERFCOUNTER0_HI                                     =
-                                0x0491
-> +#define regGC_EA_SE_PERFCOUNTER0_HI_BASE_IDX                            =
-                                1
-> +#define regGC_EA_SE_PERFCOUNTER1_LO                                     =
-                                0x0492
-> +#define regGC_EA_SE_PERFCOUNTER1_LO_BASE_IDX                            =
-                                1
-> +#define regGC_EA_SE_PERFCOUNTER1_HI                                     =
-                                0x0493
-> +#define regGC_EA_SE_PERFCOUNTER1_HI_BASE_IDX                            =
-                                1
-> +
-> +#endif
-> diff --git a/drivers/gpu/drm/amd/include/asic_reg/gc/gc_12_1_1_sh_mask.h =
-b/drivers/gpu/drm/amd/include/asic_reg/gc/gc_12_1_1_sh_mask.h
-> new file mode 100755
-> index 000000000000..8d09c8150a53
-> --- /dev/null
-> +++ b/drivers/gpu/drm/amd/include/asic_reg/gc/gc_12_1_1_sh_mask.h
-> @@ -0,0 +1,377 @@
-> +/*
-> + * Copyright 2025 Advanced Micro Devices, Inc.
-> + *
-> + * Permission is hereby granted, free of charge, to any person obtaining=
- a
-> + * copy of this software and associated documentation files (the "Softwa=
-re"),
-> + * to deal in the Software without restriction, including without limita=
-tion
-> + * the rights to use, copy, modify, merge, publish, distribute, sublicen=
-se,
-> + * and/or sell copies of the Software, and to permit persons to whom the
-> + * Software is furnished to do so, subject to the following conditions:
-> + *
-> + * The above copyright notice and this permission notice shall be includ=
-ed in
-> + * all copies or substantial portions of the Software.
-> + *
-> + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRE=
-SS OR
-> + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILI=
-TY,
-> + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SH=
-ALL
-> + * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES=
- OR
-> + * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-> + * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-> + * OTHER DEALINGS IN THE SOFTWARE.
-> + *
-> + */
-> +#ifndef _gc_12_1_1_SH_MASK_HEADER
-> +#define _gc_12_1_1_SH_MASK_HEADER
-> +
-> +
-> +// addressBlock: aigc_grbma_grbma_grbmadec
-> +//GRBMA_GFX_INDEX
-> +#define GRBMA_GFX_INDEX__INSTANCE_INDEX__SHIFT                          =
-                                      0x0
-> +#define GRBMA_GFX_INDEX__SA_INDEX__SHIFT                                =
-                                      0x8
-> +#define GRBMA_GFX_INDEX__SE_INDEX__SHIFT                                =
-                                      0x10
-> +#define GRBMA_GFX_INDEX__SA_BROADCAST_WRITES__SHIFT                     =
-                                      0x1d
-> +#define GRBMA_GFX_INDEX__INSTANCE_BROADCAST_WRITES__SHIFT               =
-                                      0x1e
-> +#define GRBMA_GFX_INDEX__SE_BROADCAST_WRITES__SHIFT                     =
-                                      0x1f
-> +#define GRBMA_GFX_INDEX__INSTANCE_INDEX_MASK                            =
-                                      0x0000007FL
-> +#define GRBMA_GFX_INDEX__SA_INDEX_MASK                                  =
-                                      0x00000300L
-> +#define GRBMA_GFX_INDEX__SE_INDEX_MASK                                  =
-                                      0x000F0000L
-> +#define GRBMA_GFX_INDEX__SA_BROADCAST_WRITES_MASK                       =
-                                      0x20000000L
-> +#define GRBMA_GFX_INDEX__INSTANCE_BROADCAST_WRITES_MASK                 =
-                                      0x40000000L
-> +#define GRBMA_GFX_INDEX__SE_BROADCAST_WRITES_MASK                       =
-                                      0x80000000L
-> +
-> +
-> +// addressBlock: aigc_grbma_grbma_perfddec
-> +//GRBMA_PERFCOUNTER0_LO
-> +#define GRBMA_PERFCOUNTER0_LO__PERFCOUNTER_LO__SHIFT                    =
-                                      0x0
-> +#define GRBMA_PERFCOUNTER0_LO__PERFCOUNTER_LO_MASK                      =
-                                      0xFFFFFFFFL
-> +//GRBMA_PERFCOUNTER0_HI
-> +#define GRBMA_PERFCOUNTER0_HI__PERFCOUNTER_HI__SHIFT                    =
-                                      0x0
-> +#define GRBMA_PERFCOUNTER0_HI__PERFCOUNTER_HI_MASK                      =
-                                      0xFFFFFFFFL
-> +//GRBMA_PERFCOUNTER1_LO
-> +#define GRBMA_PERFCOUNTER1_LO__PERFCOUNTER_LO__SHIFT                    =
-                                      0x0
-> +#define GRBMA_PERFCOUNTER1_LO__PERFCOUNTER_LO_MASK                      =
-                                      0xFFFFFFFFL
-> +//GRBMA_PERFCOUNTER1_HI
-> +#define GRBMA_PERFCOUNTER1_HI__PERFCOUNTER_HI__SHIFT                    =
-                                      0x0
-> +#define GRBMA_PERFCOUNTER1_HI__PERFCOUNTER_HI_MASK                      =
-                                      0xFFFFFFFFL
-> +
-> +
-> +// addressBlock: aigc_grbma_grbma_perfsdec
-> +//GRBMA_PERFCOUNTER0_SELECT
-> +#define GRBMA_PERFCOUNTER0_SELECT__PERF_SEL__SHIFT                      =
-                                      0x0
-> +#define GRBMA_PERFCOUNTER0_SELECT__GL1CC_BUSY_USER_DEFINED_MASK__SHIFT  =
-                                      0x6
-> +#define GRBMA_PERFCOUNTER0_SELECT__GL1XCC_BUSY_USER_DEFINED_MASK__SHIFT =
-                                      0x7
-> +#define GRBMA_PERFCOUNTER0_SELECT__PMR_BUSY_USER_DEFINED_MASK__SHIFT    =
-                                      0x8
-> +#define GRBMA_PERFCOUNTER0_SELECT__SC_CLEAN_USER_DEFINED_MASK__SHIFT    =
-                                      0x9
-> +#define GRBMA_PERFCOUNTER0_SELECT__WGS_BUSY_USER_DEFINED_MASK__SHIFT    =
-                                      0xa
-> +#define GRBMA_PERFCOUNTER0_SELECT__DB_CLEAN_USER_DEFINED_MASK__SHIFT    =
-                                      0xb
-> +#define GRBMA_PERFCOUNTER0_SELECT__CB_CLEAN_USER_DEFINED_MASK__SHIFT    =
-                                      0xc
-> +#define GRBMA_PERFCOUNTER0_SELECT__TA_BUSY_USER_DEFINED_MASK__SHIFT     =
-                                      0xd
-> +#define GRBMA_PERFCOUNTER0_SELECT__SX_BUSY_USER_DEFINED_MASK__SHIFT     =
-                                      0xe
-> +#define GRBMA_PERFCOUNTER0_SELECT__GL2C_BUSY_USER_DEFINED_MASK__SHIFT   =
-                                      0xf
-> +#define GRBMA_PERFCOUNTER0_SELECT__SPI_BUSY_USER_DEFINED_MASK__SHIFT    =
-                                      0x10
-> +#define GRBMA_PERFCOUNTER0_SELECT__XCAC_BUSY_USER_DEFINED_MASK__SHIFT   =
-                                      0x11
-> +#define GRBMA_PERFCOUNTER0_SELECT__PA_BUSY_USER_DEFINED_MASK__SHIFT     =
-                                      0x12
-> +#define GRBMA_PERFCOUNTER0_SELECT__GL2A_BUSY_USER_DEFINED_MASK__SHIFT   =
-                                      0x13
-> +#define GRBMA_PERFCOUNTER0_SELECT__DB_BUSY_USER_DEFINED_MASK__SHIFT     =
-                                      0x14
-> +#define GRBMA_PERFCOUNTER0_SELECT__CB_BUSY_USER_DEFINED_MASK__SHIFT     =
-                                      0x15
-> +#define GRBMA_PERFCOUNTER0_SELECT__EA_LINK_BUSY_USER_DEFINED_MASK__SHIFT=
-                                      0x17
-> +#define GRBMA_PERFCOUNTER0_SELECT__AIGC_CAC_BUSY_USER_DEFINED_MASK__SHIF=
-T                                     0x18
-> +#define GRBMA_PERFCOUNTER0_SELECT__BCI_BUSY_USER_DEFINED_MASK__SHIFT    =
-                                      0x19
-> +#define GRBMA_PERFCOUNTER0_SELECT__RLC_BUSY_USER_DEFINED_MASK__SHIFT    =
-                                      0x1a
-> +#define GRBMA_PERFCOUNTER0_SELECT__TCP_BUSY_USER_DEFINED_MASK__SHIFT    =
-                                      0x1b
-> +#define GRBMA_PERFCOUNTER0_SELECT__GE_BUSY_USER_DEFINED_MASK__SHIFT     =
-                                      0x1c
-> +#define GRBMA_PERFCOUNTER0_SELECT__UTCL1_BUSY_USER_DEFINED_MASK__SHIFT  =
-                                      0x1d
-> +#define GRBMA_PERFCOUNTER0_SELECT__EA_BUSY_USER_DEFINED_MASK__SHIFT     =
-                                      0x1e
-> +#define GRBMA_PERFCOUNTER0_SELECT__PERF_SEL_MASK                        =
-                                      0x0000003FL
-> +#define GRBMA_PERFCOUNTER0_SELECT__GL1CC_BUSY_USER_DEFINED_MASK_MASK    =
-                                      0x00000040L
-> +#define GRBMA_PERFCOUNTER0_SELECT__GL1XCC_BUSY_USER_DEFINED_MASK_MASK   =
-                                      0x00000080L
-> +#define GRBMA_PERFCOUNTER0_SELECT__PMR_BUSY_USER_DEFINED_MASK_MASK      =
-                                      0x00000100L
-> +#define GRBMA_PERFCOUNTER0_SELECT__SC_CLEAN_USER_DEFINED_MASK_MASK      =
-                                      0x00000200L
-> +#define GRBMA_PERFCOUNTER0_SELECT__WGS_BUSY_USER_DEFINED_MASK_MASK      =
-                                      0x00000400L
-> +#define GRBMA_PERFCOUNTER0_SELECT__DB_CLEAN_USER_DEFINED_MASK_MASK      =
-                                      0x00000800L
-> +#define GRBMA_PERFCOUNTER0_SELECT__CB_CLEAN_USER_DEFINED_MASK_MASK      =
-                                      0x00001000L
-> +#define GRBMA_PERFCOUNTER0_SELECT__TA_BUSY_USER_DEFINED_MASK_MASK       =
-                                      0x00002000L
-> +#define GRBMA_PERFCOUNTER0_SELECT__SX_BUSY_USER_DEFINED_MASK_MASK       =
-                                      0x00004000L
-> +#define GRBMA_PERFCOUNTER0_SELECT__GL2C_BUSY_USER_DEFINED_MASK_MASK     =
-                                      0x00008000L
-> +#define GRBMA_PERFCOUNTER0_SELECT__SPI_BUSY_USER_DEFINED_MASK_MASK      =
-                                      0x00010000L
-> +#define GRBMA_PERFCOUNTER0_SELECT__XCAC_BUSY_USER_DEFINED_MASK_MASK     =
-                                      0x00020000L
-> +#define GRBMA_PERFCOUNTER0_SELECT__PA_BUSY_USER_DEFINED_MASK_MASK       =
-                                      0x00040000L
-> +#define GRBMA_PERFCOUNTER0_SELECT__GL2A_BUSY_USER_DEFINED_MASK_MASK     =
-                                      0x00080000L
-> +#define GRBMA_PERFCOUNTER0_SELECT__DB_BUSY_USER_DEFINED_MASK_MASK       =
-                                      0x00100000L
-> +#define GRBMA_PERFCOUNTER0_SELECT__CB_BUSY_USER_DEFINED_MASK_MASK       =
-                                      0x00200000L
-> +#define GRBMA_PERFCOUNTER0_SELECT__EA_LINK_BUSY_USER_DEFINED_MASK_MASK  =
-                                      0x00800000L
-> +#define GRBMA_PERFCOUNTER0_SELECT__AIGC_CAC_BUSY_USER_DEFINED_MASK_MASK =
-                                      0x01000000L
-> +#define GRBMA_PERFCOUNTER0_SELECT__BCI_BUSY_USER_DEFINED_MASK_MASK      =
-                                      0x02000000L
-> +#define GRBMA_PERFCOUNTER0_SELECT__RLC_BUSY_USER_DEFINED_MASK_MASK      =
-                                      0x04000000L
-> +#define GRBMA_PERFCOUNTER0_SELECT__TCP_BUSY_USER_DEFINED_MASK_MASK      =
-                                      0x08000000L
-> +#define GRBMA_PERFCOUNTER0_SELECT__GE_BUSY_USER_DEFINED_MASK_MASK       =
-                                      0x10000000L
-> +#define GRBMA_PERFCOUNTER0_SELECT__UTCL1_BUSY_USER_DEFINED_MASK_MASK    =
-                                      0x20000000L
-> +#define GRBMA_PERFCOUNTER0_SELECT__EA_BUSY_USER_DEFINED_MASK_MASK       =
-                                      0x40000000L
-> +//GRBMA_PERFCOUNTER1_SELECT
-> +#define GRBMA_PERFCOUNTER1_SELECT__PERF_SEL__SHIFT                      =
-                                      0x0
-> +#define GRBMA_PERFCOUNTER1_SELECT__GL1CC_BUSY_USER_DEFINED_MASK__SHIFT  =
-                                      0x6
-> +#define GRBMA_PERFCOUNTER1_SELECT__GL1XCC_BUSY_USER_DEFINED_MASK__SHIFT =
-                                      0x7
-> +#define GRBMA_PERFCOUNTER1_SELECT__PMR_BUSY_USER_DEFINED_MASK__SHIFT    =
-                                      0x8
-> +#define GRBMA_PERFCOUNTER1_SELECT__SC_CLEAN_USER_DEFINED_MASK__SHIFT    =
-                                      0x9
-> +#define GRBMA_PERFCOUNTER1_SELECT__WGS_BUSY_USER_DEFINED_MASK__SHIFT    =
-                                      0xa
-> +#define GRBMA_PERFCOUNTER1_SELECT__DB_CLEAN_USER_DEFINED_MASK__SHIFT    =
-                                      0xb
-> +#define GRBMA_PERFCOUNTER1_SELECT__CB_CLEAN_USER_DEFINED_MASK__SHIFT    =
-                                      0xc
-> +#define GRBMA_PERFCOUNTER1_SELECT__TA_BUSY_USER_DEFINED_MASK__SHIFT     =
-                                      0xd
-> +#define GRBMA_PERFCOUNTER1_SELECT__SX_BUSY_USER_DEFINED_MASK__SHIFT     =
-                                      0xe
-> +#define GRBMA_PERFCOUNTER1_SELECT__GL2C_BUSY_USER_DEFINED_MASK__SHIFT   =
-                                      0xf
-> +#define GRBMA_PERFCOUNTER1_SELECT__SPI_BUSY_USER_DEFINED_MASK__SHIFT    =
-                                      0x10
-> +#define GRBMA_PERFCOUNTER1_SELECT__XCAC_BUSY_USER_DEFINED_MASK__SHIFT   =
-                                      0x11
-> +#define GRBMA_PERFCOUNTER1_SELECT__PA_BUSY_USER_DEFINED_MASK__SHIFT     =
-                                      0x12
-> +#define GRBMA_PERFCOUNTER1_SELECT__GL2A_BUSY_USER_DEFINED_MASK__SHIFT   =
-                                      0x13
-> +#define GRBMA_PERFCOUNTER1_SELECT__DB_BUSY_USER_DEFINED_MASK__SHIFT     =
-                                      0x14
-> +#define GRBMA_PERFCOUNTER1_SELECT__CB_BUSY_USER_DEFINED_MASK__SHIFT     =
-                                      0x15
-> +#define GRBMA_PERFCOUNTER1_SELECT__EA_LINK_BUSY_USER_DEFINED_MASK__SHIFT=
-                                      0x17
-> +#define GRBMA_PERFCOUNTER1_SELECT__AIGC_CAC_BUSY_USER_DEFINED_MASK__SHIF=
-T                                     0x18
-> +#define GRBMA_PERFCOUNTER1_SELECT__BCI_BUSY_USER_DEFINED_MASK__SHIFT    =
-                                      0x19
-> +#define GRBMA_PERFCOUNTER1_SELECT__RLC_BUSY_USER_DEFINED_MASK__SHIFT    =
-                                      0x1a
-> +#define GRBMA_PERFCOUNTER1_SELECT__TCP_BUSY_USER_DEFINED_MASK__SHIFT    =
-                                      0x1b
-> +#define GRBMA_PERFCOUNTER1_SELECT__GE_BUSY_USER_DEFINED_MASK__SHIFT     =
-                                      0x1c
-> +#define GRBMA_PERFCOUNTER1_SELECT__UTCL1_BUSY_USER_DEFINED_MASK__SHIFT  =
-                                      0x1d
-> +#define GRBMA_PERFCOUNTER1_SELECT__EA_BUSY_USER_DEFINED_MASK__SHIFT     =
-                                      0x1e
-> +#define GRBMA_PERFCOUNTER1_SELECT__PERF_SEL_MASK                        =
-                                      0x0000003FL
-> +#define GRBMA_PERFCOUNTER1_SELECT__GL1CC_BUSY_USER_DEFINED_MASK_MASK    =
-                                      0x00000040L
-> +#define GRBMA_PERFCOUNTER1_SELECT__GL1XCC_BUSY_USER_DEFINED_MASK_MASK   =
-                                      0x00000080L
-> +#define GRBMA_PERFCOUNTER1_SELECT__PMR_BUSY_USER_DEFINED_MASK_MASK      =
-                                      0x00000100L
-> +#define GRBMA_PERFCOUNTER1_SELECT__SC_CLEAN_USER_DEFINED_MASK_MASK      =
-                                      0x00000200L
-> +#define GRBMA_PERFCOUNTER1_SELECT__WGS_BUSY_USER_DEFINED_MASK_MASK      =
-                                      0x00000400L
-> +#define GRBMA_PERFCOUNTER1_SELECT__DB_CLEAN_USER_DEFINED_MASK_MASK      =
-                                      0x00000800L
-> +#define GRBMA_PERFCOUNTER1_SELECT__CB_CLEAN_USER_DEFINED_MASK_MASK      =
-                                      0x00001000L
-> +#define GRBMA_PERFCOUNTER1_SELECT__TA_BUSY_USER_DEFINED_MASK_MASK       =
-                                      0x00002000L
-> +#define GRBMA_PERFCOUNTER1_SELECT__SX_BUSY_USER_DEFINED_MASK_MASK       =
-                                      0x00004000L
-> +#define GRBMA_PERFCOUNTER1_SELECT__GL2C_BUSY_USER_DEFINED_MASK_MASK     =
-                                      0x00008000L
-> +#define GRBMA_PERFCOUNTER1_SELECT__SPI_BUSY_USER_DEFINED_MASK_MASK      =
-                                      0x00010000L
-> +#define GRBMA_PERFCOUNTER1_SELECT__XCAC_BUSY_USER_DEFINED_MASK_MASK     =
-                                      0x00020000L
-> +#define GRBMA_PERFCOUNTER1_SELECT__PA_BUSY_USER_DEFINED_MASK_MASK       =
-                                      0x00040000L
-> +#define GRBMA_PERFCOUNTER1_SELECT__GL2A_BUSY_USER_DEFINED_MASK_MASK     =
-                                      0x00080000L
-> +#define GRBMA_PERFCOUNTER1_SELECT__DB_BUSY_USER_DEFINED_MASK_MASK       =
-                                      0x00100000L
-> +#define GRBMA_PERFCOUNTER1_SELECT__CB_BUSY_USER_DEFINED_MASK_MASK       =
-                                      0x00200000L
-> +#define GRBMA_PERFCOUNTER1_SELECT__EA_LINK_BUSY_USER_DEFINED_MASK_MASK  =
-                                      0x00800000L
-> +#define GRBMA_PERFCOUNTER1_SELECT__AIGC_CAC_BUSY_USER_DEFINED_MASK_MASK =
-                                      0x01000000L
-> +#define GRBMA_PERFCOUNTER1_SELECT__BCI_BUSY_USER_DEFINED_MASK_MASK      =
-                                      0x02000000L
-> +#define GRBMA_PERFCOUNTER1_SELECT__RLC_BUSY_USER_DEFINED_MASK_MASK      =
-                                      0x04000000L
-> +#define GRBMA_PERFCOUNTER1_SELECT__TCP_BUSY_USER_DEFINED_MASK_MASK      =
-                                      0x08000000L
-> +#define GRBMA_PERFCOUNTER1_SELECT__GE_BUSY_USER_DEFINED_MASK_MASK       =
-                                      0x10000000L
-> +#define GRBMA_PERFCOUNTER1_SELECT__UTCL1_BUSY_USER_DEFINED_MASK_MASK    =
-                                      0x20000000L
-> +#define GRBMA_PERFCOUNTER1_SELECT__EA_BUSY_USER_DEFINED_MASK_MASK       =
-                                      0x40000000L
-> +//AID_PERFMON_CNTL
-> +#define AID_PERFMON_CNTL__PERFMON_STATE__SHIFT                          =
-                                      0x0
-> +#define AID_PERFMON_CNTL__SPM_PERFMON_STATE__SHIFT                      =
-                                      0x4
-> +#define AID_PERFMON_CNTL__PERFMON_ENABLE_MODE__SHIFT                    =
-                                      0x8
-> +#define AID_PERFMON_CNTL__PERFMON_SAMPLE_ENABLE__SHIFT                  =
-                                      0xa
-> +#define AID_PERFMON_CNTL__PERFMON_STATE_MASK                            =
-                                      0x0000000FL
-> +#define AID_PERFMON_CNTL__SPM_PERFMON_STATE_MASK                        =
-                                      0x000000F0L
-> +#define AID_PERFMON_CNTL__PERFMON_ENABLE_MODE_MASK                      =
-                                      0x00000300L
-> +#define AID_PERFMON_CNTL__PERFMON_SAMPLE_ENABLE_MASK                    =
-                                      0x00000400L
-> +
-> +
-> +// addressBlock: aigc_gl2x_gfx_se_perfsdec
-> +//GL2C_PERFCOUNTER0_SELECT
-> +#define GL2C_PERFCOUNTER0_SELECT__PERF_SEL__SHIFT                       =
-                                      0x0
-> +#define GL2C_PERFCOUNTER0_SELECT__PERF_SEL1__SHIFT                      =
-                                      0xa
-> +#define GL2C_PERFCOUNTER0_SELECT__CNTR_MODE__SHIFT                      =
-                                      0x14
-> +#define GL2C_PERFCOUNTER0_SELECT__PERF_MODE1__SHIFT                     =
-                                      0x18
-> +#define GL2C_PERFCOUNTER0_SELECT__PERF_MODE__SHIFT                      =
-                                      0x1c
-> +#define GL2C_PERFCOUNTER0_SELECT__PERF_SEL_MASK                         =
-                                      0x000003FFL
-> +#define GL2C_PERFCOUNTER0_SELECT__PERF_SEL1_MASK                        =
-                                      0x000FFC00L
-> +#define GL2C_PERFCOUNTER0_SELECT__CNTR_MODE_MASK                        =
-                                      0x00F00000L
-> +#define GL2C_PERFCOUNTER0_SELECT__PERF_MODE1_MASK                       =
-                                      0x0F000000L
-> +#define GL2C_PERFCOUNTER0_SELECT__PERF_MODE_MASK                        =
-                                      0xF0000000L
-> +//GL2C_PERFCOUNTER0_SELECT1
-> +#define GL2C_PERFCOUNTER0_SELECT1__PERF_SEL2__SHIFT                     =
-                                      0x0
-> +#define GL2C_PERFCOUNTER0_SELECT1__PERF_SEL3__SHIFT                     =
-                                      0xa
-> +#define GL2C_PERFCOUNTER0_SELECT1__PERF_MODE3__SHIFT                    =
-                                      0x18
-> +#define GL2C_PERFCOUNTER0_SELECT1__PERF_MODE2__SHIFT                    =
-                                      0x1c
-> +#define GL2C_PERFCOUNTER0_SELECT1__PERF_SEL2_MASK                       =
-                                      0x000003FFL
-> +#define GL2C_PERFCOUNTER0_SELECT1__PERF_SEL3_MASK                       =
-                                      0x000FFC00L
-> +#define GL2C_PERFCOUNTER0_SELECT1__PERF_MODE3_MASK                      =
-                                      0x0F000000L
-> +#define GL2C_PERFCOUNTER0_SELECT1__PERF_MODE2_MASK                      =
-                                      0xF0000000L
-> +//GL2C_PERFCOUNTER1_SELECT
-> +#define GL2C_PERFCOUNTER1_SELECT__PERF_SEL__SHIFT                       =
-                                      0x0
-> +#define GL2C_PERFCOUNTER1_SELECT__PERF_SEL1__SHIFT                      =
-                                      0xa
-> +#define GL2C_PERFCOUNTER1_SELECT__CNTR_MODE__SHIFT                      =
-                                      0x14
-> +#define GL2C_PERFCOUNTER1_SELECT__PERF_MODE1__SHIFT                     =
-                                      0x18
-> +#define GL2C_PERFCOUNTER1_SELECT__PERF_MODE__SHIFT                      =
-                                      0x1c
-> +#define GL2C_PERFCOUNTER1_SELECT__PERF_SEL_MASK                         =
-                                      0x000003FFL
-> +#define GL2C_PERFCOUNTER1_SELECT__PERF_SEL1_MASK                        =
-                                      0x000FFC00L
-> +#define GL2C_PERFCOUNTER1_SELECT__CNTR_MODE_MASK                        =
-                                      0x00F00000L
-> +#define GL2C_PERFCOUNTER1_SELECT__PERF_MODE1_MASK                       =
-                                      0x0F000000L
-> +#define GL2C_PERFCOUNTER1_SELECT__PERF_MODE_MASK                        =
-                                      0xF0000000L
-> +//GL2C_PERFCOUNTER1_SELECT1
-> +#define GL2C_PERFCOUNTER1_SELECT1__PERF_SEL2__SHIFT                     =
-                                      0x0
-> +#define GL2C_PERFCOUNTER1_SELECT1__PERF_SEL3__SHIFT                     =
-                                      0xa
-> +#define GL2C_PERFCOUNTER1_SELECT1__PERF_MODE3__SHIFT                    =
-                                      0x18
-> +#define GL2C_PERFCOUNTER1_SELECT1__PERF_MODE2__SHIFT                    =
-                                      0x1c
-> +#define GL2C_PERFCOUNTER1_SELECT1__PERF_SEL2_MASK                       =
-                                      0x000003FFL
-> +#define GL2C_PERFCOUNTER1_SELECT1__PERF_SEL3_MASK                       =
-                                      0x000FFC00L
-> +#define GL2C_PERFCOUNTER1_SELECT1__PERF_MODE3_MASK                      =
-                                      0x0F000000L
-> +#define GL2C_PERFCOUNTER1_SELECT1__PERF_MODE2_MASK                      =
-                                      0xF0000000L
-> +//GL2C_PERFCOUNTER2_SELECT
-> +#define GL2C_PERFCOUNTER2_SELECT__PERF_SEL__SHIFT                       =
-                                      0x0
-> +#define GL2C_PERFCOUNTER2_SELECT__PERF_SEL1__SHIFT                      =
-                                      0xa
-> +#define GL2C_PERFCOUNTER2_SELECT__CNTR_MODE__SHIFT                      =
-                                      0x14
-> +#define GL2C_PERFCOUNTER2_SELECT__PERF_MODE1__SHIFT                     =
-                                      0x18
-> +#define GL2C_PERFCOUNTER2_SELECT__PERF_MODE__SHIFT                      =
-                                      0x1c
-> +#define GL2C_PERFCOUNTER2_SELECT__PERF_SEL_MASK                         =
-                                      0x000003FFL
-> +#define GL2C_PERFCOUNTER2_SELECT__PERF_SEL1_MASK                        =
-                                      0x000FFC00L
-> +#define GL2C_PERFCOUNTER2_SELECT__CNTR_MODE_MASK                        =
-                                      0x00F00000L
-> +#define GL2C_PERFCOUNTER2_SELECT__PERF_MODE1_MASK                       =
-                                      0x0F000000L
-> +#define GL2C_PERFCOUNTER2_SELECT__PERF_MODE_MASK                        =
-                                      0xF0000000L
-> +//GL2C_PERFCOUNTER2_SELECT1
-> +#define GL2C_PERFCOUNTER2_SELECT1__PERF_SEL2__SHIFT                     =
-                                      0x0
-> +#define GL2C_PERFCOUNTER2_SELECT1__PERF_SEL3__SHIFT                     =
-                                      0xa
-> +#define GL2C_PERFCOUNTER2_SELECT1__PERF_MODE3__SHIFT                    =
-                                      0x18
-> +#define GL2C_PERFCOUNTER2_SELECT1__PERF_MODE2__SHIFT                    =
-                                      0x1c
-> +#define GL2C_PERFCOUNTER2_SELECT1__PERF_SEL2_MASK                       =
-                                      0x000003FFL
-> +#define GL2C_PERFCOUNTER2_SELECT1__PERF_SEL3_MASK                       =
-                                      0x000FFC00L
-> +#define GL2C_PERFCOUNTER2_SELECT1__PERF_MODE3_MASK                      =
-                                      0x0F000000L
-> +#define GL2C_PERFCOUNTER2_SELECT1__PERF_MODE2_MASK                      =
-                                      0xF0000000L
-> +//GL2C_PERFCOUNTER3_SELECT
-> +#define GL2C_PERFCOUNTER3_SELECT__PERF_SEL__SHIFT                       =
-                                      0x0
-> +#define GL2C_PERFCOUNTER3_SELECT__PERF_SEL1__SHIFT                      =
-                                      0xa
-> +#define GL2C_PERFCOUNTER3_SELECT__CNTR_MODE__SHIFT                      =
-                                      0x14
-> +#define GL2C_PERFCOUNTER3_SELECT__PERF_MODE1__SHIFT                     =
-                                      0x18
-> +#define GL2C_PERFCOUNTER3_SELECT__PERF_MODE__SHIFT                      =
-                                      0x1c
-> +#define GL2C_PERFCOUNTER3_SELECT__PERF_SEL_MASK                         =
-                                      0x000003FFL
-> +#define GL2C_PERFCOUNTER3_SELECT__PERF_SEL1_MASK                        =
-                                      0x000FFC00L
-> +#define GL2C_PERFCOUNTER3_SELECT__CNTR_MODE_MASK                        =
-                                      0x00F00000L
-> +#define GL2C_PERFCOUNTER3_SELECT__PERF_MODE1_MASK                       =
-                                      0x0F000000L
-> +#define GL2C_PERFCOUNTER3_SELECT__PERF_MODE_MASK                        =
-                                      0xF0000000L
-> +//GL2C_PERFCOUNTER3_SELECT1
-> +#define GL2C_PERFCOUNTER3_SELECT1__PERF_SEL2__SHIFT                     =
-                                      0x0
-> +#define GL2C_PERFCOUNTER3_SELECT1__PERF_SEL3__SHIFT                     =
-                                      0xa
-> +#define GL2C_PERFCOUNTER3_SELECT1__PERF_MODE3__SHIFT                    =
-                                      0x18
-> +#define GL2C_PERFCOUNTER3_SELECT1__PERF_MODE2__SHIFT                    =
-                                      0x1c
-> +#define GL2C_PERFCOUNTER3_SELECT1__PERF_SEL2_MASK                       =
-                                      0x000003FFL
-> +#define GL2C_PERFCOUNTER3_SELECT1__PERF_SEL3_MASK                       =
-                                      0x000FFC00L
-> +#define GL2C_PERFCOUNTER3_SELECT1__PERF_MODE3_MASK                      =
-                                      0x0F000000L
-> +#define GL2C_PERFCOUNTER3_SELECT1__PERF_MODE2_MASK                      =
-                                      0xF0000000L
-> +//GL2A_PERFCOUNTER0_SELECT
-> +#define GL2A_PERFCOUNTER0_SELECT__PERF_SEL__SHIFT                       =
-                                      0x0
-> +#define GL2A_PERFCOUNTER0_SELECT__PERF_SEL1__SHIFT                      =
-                                      0xa
-> +#define GL2A_PERFCOUNTER0_SELECT__CNTR_MODE__SHIFT                      =
-                                      0x14
-> +#define GL2A_PERFCOUNTER0_SELECT__PERF_MODE1__SHIFT                     =
-                                      0x18
-> +#define GL2A_PERFCOUNTER0_SELECT__PERF_MODE__SHIFT                      =
-                                      0x1c
-> +#define GL2A_PERFCOUNTER0_SELECT__PERF_SEL_MASK                         =
-                                      0x000003FFL
-> +#define GL2A_PERFCOUNTER0_SELECT__PERF_SEL1_MASK                        =
-                                      0x000FFC00L
-> +#define GL2A_PERFCOUNTER0_SELECT__CNTR_MODE_MASK                        =
-                                      0x00F00000L
-> +#define GL2A_PERFCOUNTER0_SELECT__PERF_MODE1_MASK                       =
-                                      0x0F000000L
-> +#define GL2A_PERFCOUNTER0_SELECT__PERF_MODE_MASK                        =
-                                      0xF0000000L
-> +//GL2A_PERFCOUNTER0_SELECT1
-> +#define GL2A_PERFCOUNTER0_SELECT1__PERF_SEL2__SHIFT                     =
-                                      0x0
-> +#define GL2A_PERFCOUNTER0_SELECT1__PERF_SEL3__SHIFT                     =
-                                      0xa
-> +#define GL2A_PERFCOUNTER0_SELECT1__PERF_MODE3__SHIFT                    =
-                                      0x18
-> +#define GL2A_PERFCOUNTER0_SELECT1__PERF_MODE2__SHIFT                    =
-                                      0x1c
-> +#define GL2A_PERFCOUNTER0_SELECT1__PERF_SEL2_MASK                       =
-                                      0x000003FFL
-> +#define GL2A_PERFCOUNTER0_SELECT1__PERF_SEL3_MASK                       =
-                                      0x000FFC00L
-> +#define GL2A_PERFCOUNTER0_SELECT1__PERF_MODE3_MASK                      =
-                                      0x0F000000L
-> +#define GL2A_PERFCOUNTER0_SELECT1__PERF_MODE2_MASK                      =
-                                      0xF0000000L
-> +//GL2A_PERFCOUNTER1_SELECT
-> +#define GL2A_PERFCOUNTER1_SELECT__PERF_SEL__SHIFT                       =
-                                      0x0
-> +#define GL2A_PERFCOUNTER1_SELECT__PERF_SEL1__SHIFT                      =
-                                      0xa
-> +#define GL2A_PERFCOUNTER1_SELECT__CNTR_MODE__SHIFT                      =
-                                      0x14
-> +#define GL2A_PERFCOUNTER1_SELECT__PERF_MODE1__SHIFT                     =
-                                      0x18
-> +#define GL2A_PERFCOUNTER1_SELECT__PERF_MODE__SHIFT                      =
-                                      0x1c
-> +#define GL2A_PERFCOUNTER1_SELECT__PERF_SEL_MASK                         =
-                                      0x000003FFL
-> +#define GL2A_PERFCOUNTER1_SELECT__PERF_SEL1_MASK                        =
-                                      0x000FFC00L
-> +#define GL2A_PERFCOUNTER1_SELECT__CNTR_MODE_MASK                        =
-                                      0x00F00000L
-> +#define GL2A_PERFCOUNTER1_SELECT__PERF_MODE1_MASK                       =
-                                      0x0F000000L
-> +#define GL2A_PERFCOUNTER1_SELECT__PERF_MODE_MASK                        =
-                                      0xF0000000L
-> +//GL2A_PERFCOUNTER1_SELECT1
-> +#define GL2A_PERFCOUNTER1_SELECT1__PERF_SEL2__SHIFT                     =
-                                      0x0
-> +#define GL2A_PERFCOUNTER1_SELECT1__PERF_SEL3__SHIFT                     =
-                                      0xa
-> +#define GL2A_PERFCOUNTER1_SELECT1__PERF_MODE3__SHIFT                    =
-                                      0x18
-> +#define GL2A_PERFCOUNTER1_SELECT1__PERF_MODE2__SHIFT                    =
-                                      0x1c
-> +#define GL2A_PERFCOUNTER1_SELECT1__PERF_SEL2_MASK                       =
-                                      0x000003FFL
-> +#define GL2A_PERFCOUNTER1_SELECT1__PERF_SEL3_MASK                       =
-                                      0x000FFC00L
-> +#define GL2A_PERFCOUNTER1_SELECT1__PERF_MODE3_MASK                      =
-                                      0x0F000000L
-> +#define GL2A_PERFCOUNTER1_SELECT1__PERF_MODE2_MASK                      =
-                                      0xF0000000L
-> +//GL2A_PERFCOUNTER2_SELECT
-> +#define GL2A_PERFCOUNTER2_SELECT__PERF_SEL__SHIFT                       =
-                                      0x0
-> +#define GL2A_PERFCOUNTER2_SELECT__PERF_SEL1__SHIFT                      =
-                                      0xa
-> +#define GL2A_PERFCOUNTER2_SELECT__CNTR_MODE__SHIFT                      =
-                                      0x14
-> +#define GL2A_PERFCOUNTER2_SELECT__PERF_MODE1__SHIFT                     =
-                                      0x18
-> +#define GL2A_PERFCOUNTER2_SELECT__PERF_MODE__SHIFT                      =
-                                      0x1c
-> +#define GL2A_PERFCOUNTER2_SELECT__PERF_SEL_MASK                         =
-                                      0x000003FFL
-> +#define GL2A_PERFCOUNTER2_SELECT__PERF_SEL1_MASK                        =
-                                      0x000FFC00L
-> +#define GL2A_PERFCOUNTER2_SELECT__CNTR_MODE_MASK                        =
-                                      0x00F00000L
-> +#define GL2A_PERFCOUNTER2_SELECT__PERF_MODE1_MASK                       =
-                                      0x0F000000L
-> +#define GL2A_PERFCOUNTER2_SELECT__PERF_MODE_MASK                        =
-                                      0xF0000000L
-> +//GL2A_PERFCOUNTER2_SELECT1
-> +#define GL2A_PERFCOUNTER2_SELECT1__PERF_SEL2__SHIFT                     =
-                                      0x0
-> +#define GL2A_PERFCOUNTER2_SELECT1__PERF_SEL3__SHIFT                     =
-                                      0xa
-> +#define GL2A_PERFCOUNTER2_SELECT1__PERF_MODE3__SHIFT                    =
-                                      0x18
-> +#define GL2A_PERFCOUNTER2_SELECT1__PERF_MODE2__SHIFT                    =
-                                      0x1c
-> +#define GL2A_PERFCOUNTER2_SELECT1__PERF_SEL2_MASK                       =
-                                      0x000003FFL
-> +#define GL2A_PERFCOUNTER2_SELECT1__PERF_SEL3_MASK                       =
-                                      0x000FFC00L
-> +#define GL2A_PERFCOUNTER2_SELECT1__PERF_MODE3_MASK                      =
-                                      0x0F000000L
-> +#define GL2A_PERFCOUNTER2_SELECT1__PERF_MODE2_MASK                      =
-                                      0xF0000000L
-> +//GL2A_PERFCOUNTER3_SELECT
-> +#define GL2A_PERFCOUNTER3_SELECT__PERF_SEL__SHIFT                       =
-                                      0x0
-> +#define GL2A_PERFCOUNTER3_SELECT__PERF_SEL1__SHIFT                      =
-                                      0xa
-> +#define GL2A_PERFCOUNTER3_SELECT__CNTR_MODE__SHIFT                      =
-                                      0x14
-> +#define GL2A_PERFCOUNTER3_SELECT__PERF_MODE1__SHIFT                     =
-                                      0x18
-> +#define GL2A_PERFCOUNTER3_SELECT__PERF_MODE__SHIFT                      =
-                                      0x1c
-> +#define GL2A_PERFCOUNTER3_SELECT__PERF_SEL_MASK                         =
-                                      0x000003FFL
-> +#define GL2A_PERFCOUNTER3_SELECT__PERF_SEL1_MASK                        =
-                                      0x000FFC00L
-> +#define GL2A_PERFCOUNTER3_SELECT__CNTR_MODE_MASK                        =
-                                      0x00F00000L
-> +#define GL2A_PERFCOUNTER3_SELECT__PERF_MODE1_MASK                       =
-                                      0x0F000000L
-> +#define GL2A_PERFCOUNTER3_SELECT__PERF_MODE_MASK                        =
-                                      0xF0000000L
-> +//GL2A_PERFCOUNTER3_SELECT1
-> +#define GL2A_PERFCOUNTER3_SELECT1__PERF_SEL2__SHIFT                     =
-                                      0x0
-> +#define GL2A_PERFCOUNTER3_SELECT1__PERF_SEL3__SHIFT                     =
-                                      0xa
-> +#define GL2A_PERFCOUNTER3_SELECT1__PERF_MODE3__SHIFT                    =
-                                      0x18
-> +#define GL2A_PERFCOUNTER3_SELECT1__PERF_MODE2__SHIFT                    =
-                                      0x1c
-> +#define GL2A_PERFCOUNTER3_SELECT1__PERF_SEL2_MASK                       =
-                                      0x000003FFL
-> +#define GL2A_PERFCOUNTER3_SELECT1__PERF_SEL3_MASK                       =
-                                      0x000FFC00L
-> +#define GL2A_PERFCOUNTER3_SELECT1__PERF_MODE3_MASK                      =
-                                      0x0F000000L
-> +#define GL2A_PERFCOUNTER3_SELECT1__PERF_MODE2_MASK                      =
-                                      0xF0000000L
-> +
-> +
-> +// addressBlock: aigc_gfx_gcea_se_gfx_se_perfsdec
-> +//GC_EA_SE_PERFCOUNTER0_SELECT
-> +#define GC_EA_SE_PERFCOUNTER0_SELECT__PERF_SEL__SHIFT                   =
-                                      0x0
-> +#define GC_EA_SE_PERFCOUNTER0_SELECT__PERF_SEL1__SHIFT                  =
-                                      0xa
-> +#define GC_EA_SE_PERFCOUNTER0_SELECT__CNTR_MODE__SHIFT                  =
-                                      0x14
-> +#define GC_EA_SE_PERFCOUNTER0_SELECT__PERF_MODE1__SHIFT                 =
-                                      0x18
-> +#define GC_EA_SE_PERFCOUNTER0_SELECT__PERF_MODE__SHIFT                  =
-                                      0x1c
-> +#define GC_EA_SE_PERFCOUNTER0_SELECT__PERF_SEL_MASK                     =
-                                      0x000003FFL
-> +#define GC_EA_SE_PERFCOUNTER0_SELECT__PERF_SEL1_MASK                    =
-                                      0x000FFC00L
-> +#define GC_EA_SE_PERFCOUNTER0_SELECT__CNTR_MODE_MASK                    =
-                                      0x00F00000L
-> +#define GC_EA_SE_PERFCOUNTER0_SELECT__PERF_MODE1_MASK                   =
-                                      0x0F000000L
-> +#define GC_EA_SE_PERFCOUNTER0_SELECT__PERF_MODE_MASK                    =
-                                      0xF0000000L
-> +//GC_EA_SE_PERFCOUNTER0_SELECT1
-> +#define GC_EA_SE_PERFCOUNTER0_SELECT1__PERF_SEL2__SHIFT                 =
-                                      0x0
-> +#define GC_EA_SE_PERFCOUNTER0_SELECT1__PERF_SEL3__SHIFT                 =
-                                      0xa
-> +#define GC_EA_SE_PERFCOUNTER0_SELECT1__PERF_MODE3__SHIFT                =
-                                      0x18
-> +#define GC_EA_SE_PERFCOUNTER0_SELECT1__PERF_MODE2__SHIFT                =
-                                      0x1c
-> +#define GC_EA_SE_PERFCOUNTER0_SELECT1__PERF_SEL2_MASK                   =
-                                      0x000003FFL
-> +#define GC_EA_SE_PERFCOUNTER0_SELECT1__PERF_SEL3_MASK                   =
-                                      0x000FFC00L
-> +#define GC_EA_SE_PERFCOUNTER0_SELECT1__PERF_MODE3_MASK                  =
-                                      0x0F000000L
-> +#define GC_EA_SE_PERFCOUNTER0_SELECT1__PERF_MODE2_MASK                  =
-                                      0xF0000000L
-> +//GC_EA_SE_PERFCOUNTER1_SELECT
-> +#define GC_EA_SE_PERFCOUNTER1_SELECT__PERF_SEL__SHIFT                   =
-                                      0x0
-> +#define GC_EA_SE_PERFCOUNTER1_SELECT__COUNTER_MODE__SHIFT               =
-                                      0x1c
-> +#define GC_EA_SE_PERFCOUNTER1_SELECT__PERF_SEL_MASK                     =
-                                      0x000003FFL
-> +#define GC_EA_SE_PERFCOUNTER1_SELECT__COUNTER_MODE_MASK                 =
-                                      0xF0000000L
-> +
-> +
-> +// addressBlock: aigc_gfx_gcea_se_gfx_se_perfddec
-> +//GC_EA_SE_PERFCOUNTER0_LO
-> +#define GC_EA_SE_PERFCOUNTER0_LO__PERFCOUNTER_LO__SHIFT                 =
-                                      0x0
-> +#define GC_EA_SE_PERFCOUNTER0_LO__PERFCOUNTER_LO_MASK                   =
-                                      0xFFFFFFFFL
-> +//GC_EA_SE_PERFCOUNTER0_HI
-> +#define GC_EA_SE_PERFCOUNTER0_HI__PERFCOUNTER_HI__SHIFT                 =
-                                      0x0
-> +#define GC_EA_SE_PERFCOUNTER0_HI__PERFCOUNTER_HI_MASK                   =
-                                      0xFFFFFFFFL
-> +//GC_EA_SE_PERFCOUNTER1_LO
-> +#define GC_EA_SE_PERFCOUNTER1_LO__PERFCOUNTER_LO__SHIFT                 =
-                                      0x0
-> +#define GC_EA_SE_PERFCOUNTER1_LO__PERFCOUNTER_LO_MASK                   =
-                                      0xFFFFFFFFL
-> +//GC_EA_SE_PERFCOUNTER1_HI
-> +#define GC_EA_SE_PERFCOUNTER1_HI__PERFCOUNTER_HI__SHIFT                 =
-                                      0x0
-> +#define GC_EA_SE_PERFCOUNTER1_HI__PERFCOUNTER_HI_MASK                   =
-                                      0xFFFFFFFFL
-> +
-> +#endif
+> diff --git a/include/uapi/linux/kfd_ioctl.h b/include/uapi/linux/kfd_ioct=
+l.h
+> index da93daa3283c..1a94d512df35 100644
+> --- a/include/uapi/linux/kfd_ioctl.h
+> +++ b/include/uapi/linux/kfd_ioctl.h
+> @@ -1711,13 +1711,10 @@ struct kfd_ioctl_profiler_args {
+>  #define AMDKFD_IOC_CREATE_PROCESS            \
+>               AMDKFD_IO(0x27)
+>
+> -#define AMDKFD_COMMAND_START         0x01
+> -#define AMDKFD_COMMAND_END           0x28
+> -
+>  #define AMDKFD_IOC_PROFILER                  \
+> -             AMDKFD_IOWR(0x86, struct kfd_ioctl_profiler_args)
+> +             AMDKFD_IOWR(0x28, struct kfd_ioctl_profiler_args)
+>
+> -#define AMDKFD_COMMAND_START_2               0x80
+> -#define AMDKFD_COMMAND_END_2         0x87
+> +#define AMDKFD_COMMAND_START         0x01
+> +#define AMDKFD_COMMAND_END           0x29
+>
+>  #endif
 > --
 > 2.34.1
->
+
