@@ -4,43 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 31E3DF433DD
-	for <amd-gfx@archiver.kernel.org>; Thu, 16 Apr 2026 03:27:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 01B54F433DF
+	for <amd-gfx@archiver.kernel.org>; Thu, 16 Apr 2026 03:27:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6AAEF10E7E3;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6713110E7E2;
 	Thu, 16 Apr 2026 03:27:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="VSx8Wov3";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="BvyCS+4Q";
 	dkim-atps=neutral
-Received: from DM1PR04CU001.outbound.protection.outlook.com
- (mail-centralusazon11010066.outbound.protection.outlook.com [52.101.61.66])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2872B10E7D8
- for <amd-gfx@lists.freedesktop.org>; Thu, 16 Apr 2026 03:27:33 +0000 (UTC)
+Received: from CH1PR05CU001.outbound.protection.outlook.com
+ (mail-northcentralusazon11010023.outbound.protection.outlook.com
+ [52.101.193.23])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DD52C10E7D8
+ for <amd-gfx@lists.freedesktop.org>; Thu, 16 Apr 2026 03:27:32 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Eh6dL9TlSQZm5A7PuDJwcqlxjFckdN+pM9eYq7Rh6eKiwGhdSwqPNUk9nUcylJ8+nQxXw2MXrw4CUEvdB0hbErf6dGDICBAsO8kzLnI/x/sdHzD7nlnfsMaBRsxOyMGhxP0TVtqojJqB+oS1C9sJcSjUjTX4ErnQLVPf0iGZn/w8lvZSnnPau2j16Kz9aht2yJFwAKCEqUwePVT3yg08rj6H8SCVKuvvCaJPa8G3DleDG5xfMfTPeO9czsYuEHMVVHAj2G4a/3EFfDlsQEaOe1B1xRs3NxN+R7/VMh6XQfFD4bfU/QYMxajnqjsWIaoDN2Euaul8exw3smvJ0t8Gzw==
+ b=CtDLli+2JXLROYX2J4sGRV0GpNKmPG05ICfLZKIQV/73twIP7xiFxzAg/FZZBIMgeDs3VlDZguOJ8yBKQT1UJOHvparM9Ia9+lc0LA9YkCm2NJrq3PLKpkv8Gkr+SZvOIWVRNqYRQWpzr0yAkJ91ZcyjaUSnmpb4d9v5R0Kodi0m6rYeRRk536Ln2nEg42qZ1EN+oGCiN5i9et45oDHNzHTBsgsUH8POpXNU0Odq6FlK0xHvAXZrf1JtSfxheKiDU7puEaAXVkH6YBXuVR+UEv+1LbTrLbkCr3gtCeYu08NV7+9yaLgzxekGCZe56TF4WnE5u561Pm08tQoNDqUz5A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=W34XZrKWCYBNagvdSxFh8W28a65LXehpKNjqt+dmZ4A=;
- b=KEquuE34sitKGCoZNxTGmZEzD3PnrNIaJuctWu8aJ+Wj1ZQznl1M7Q6z/ZXiud2bH0Spr8AjlVki8qFTrHR+VYFHugbBY5v3ZCWsxJ4FDhaaLwl9lYddEixNpb+wNmBExogBkyuBzybXadfFfuRoUZbgn/yavB1ctG/XyJcNKnx83Y0dv0VZe/HTwD30WyRYUxjG5atI1jKdQ+gtsdZtfx8JqdAjzSNhufk5/ROqmHPuzlR64aBUKSXkjSEnV23xljYHI8te0K6oGCKLCe3OVxA3mzN+lMZ6jro0GEliOz6GD/0qnK7lWs7Tisr1dh3wwgOnKrwIhKChjr91Wlk+YQ==
+ bh=740DU/IzQjR0030E3L2pbdX8UG6SuLrb7KKrwIWsAmg=;
+ b=kk0ZcGJA6S4Tp8gvu4weTk7LmKUxSmsMYpBV2Tgr7RIveH04Ox9jqnZYcS8G0anXcskynEVuB0C/R3fp/0PajwhV6IdBFTYGqJeu7xeyBF8FCXnMSIZmo3sBvHxmw8amxoHD7Eh5BEXK6BfYulRHCwKqPg4YCLB+o2XzfkJJ8faaK9H9HWHsJDNM6FlpPf5xNuIF27ROYhcSmSQlxgBbEwILZGrrfBza10tiOQpT2eEYf3FM/6AZKbTZuw9pPR1MMcXg2FENn176rc5lDrczBmMk2VXXLjNAZd5FH5lA9XlSzDq4eU78AhLZ2S0exZAgBBkwO4UXIZ85CWI9gffKAQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=W34XZrKWCYBNagvdSxFh8W28a65LXehpKNjqt+dmZ4A=;
- b=VSx8Wov3D8zyWVZZkTjaJHhTEKGy8K8ZvlOQY1FbB+VGvpBOnghWrKoW6L5x68qdGjkJAauWmWFpD26cfvcE46OcMc6Fz+j9bGQcDzkzd2UffN/CXdP8Cu0dvabdjLmnYmYKq1QUIfFpYVIvUrxgaqRs7am9YDI1eW6y73M8eOs=
-Received: from DM6PR06CA0074.namprd06.prod.outlook.com (2603:10b6:5:336::7) by
- BY5PR12MB4033.namprd12.prod.outlook.com (2603:10b6:a03:213::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9818.20; Thu, 16 Apr
- 2026 03:27:27 +0000
-Received: from DS2PEPF00003446.namprd04.prod.outlook.com
- (2603:10b6:5:336:cafe::d5) by DM6PR06CA0074.outlook.office365.com
- (2603:10b6:5:336::7) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9769.50 via Frontend Transport; Thu,
- 16 Apr 2026 03:27:27 +0000
+ bh=740DU/IzQjR0030E3L2pbdX8UG6SuLrb7KKrwIWsAmg=;
+ b=BvyCS+4QWMKCsvr88Vs/VBmGFc2+fXczkplfU0kvzco/L5K4W2AarSskCDnOK3l1qo15WFMJg7cBGBLZTV90YzqPzT2NBCskUcnWGqYxqPVpiQ0fCXpUYab2B8xTxgeh/Z3qNhr6q84bSFf0RxMMInVa2ZKFwHwA2dknGcv5TLg=
+Received: from CH2PR17CA0008.namprd17.prod.outlook.com (2603:10b6:610:53::18)
+ by IA1PR12MB6556.namprd12.prod.outlook.com (2603:10b6:208:3a0::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9818.21; Thu, 16 Apr
+ 2026 03:27:22 +0000
+Received: from DS2PEPF00003441.namprd04.prod.outlook.com
+ (2603:10b6:610:53:cafe::32) by CH2PR17CA0008.outlook.office365.com
+ (2603:10b6:610:53::18) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9769.52 via Frontend Transport; Thu,
+ 16 Apr 2026 03:27:22 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,22 +49,21 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- DS2PEPF00003446.mail.protection.outlook.com (10.167.17.73) with Microsoft
+ DS2PEPF00003441.mail.protection.outlook.com (10.167.17.68) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9769.17 via Frontend Transport; Thu, 16 Apr 2026 03:27:27 +0000
+ 15.20.9769.17 via Frontend Transport; Thu, 16 Apr 2026 03:27:21 +0000
 Received: from srishanm-Cloudripper.amd.com (10.180.168.240) by
  satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.17; Wed, 15 Apr 2026 22:27:25 -0500
+ 15.2.2562.17; Wed, 15 Apr 2026 22:27:19 -0500
 From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
 To: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "Alex
  Deucher" <alexander.deucher@amd.com>
 CC: <amd-gfx@lists.freedesktop.org>, Srinivasan Shanmugam
  <srinivasan.shanmugam@amd.com>
-Subject: [PATCH v7 04/10] drm/amdgpu/uapi: Add unified EVENTFD ioctl for
- render node
-Date: Thu, 16 Apr 2026 08:56:53 +0530
-Message-ID: <20260416032659.2368054-5-srinivasan.shanmugam@amd.com>
+Subject: [PATCH v7 01/10] drm/amdgpu: Add render-node EVENTFD manager core
+Date: Thu, 16 Apr 2026 08:56:50 +0530
+Message-ID: <20260416032659.2368054-2-srinivasan.shanmugam@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260416032659.2368054-1-srinivasan.shanmugam@amd.com>
 References: <20260416032659.2368054-1-srinivasan.shanmugam@amd.com>
@@ -75,29 +75,29 @@ X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS2PEPF00003446:EE_|BY5PR12MB4033:EE_
-X-MS-Office365-Filtering-Correlation-Id: abc004ca-9636-4e00-8ae5-08de9b681589
+X-MS-TrafficTypeDiagnostic: DS2PEPF00003441:EE_|IA1PR12MB6556:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3639fedb-a1a3-44cf-bc38-08de9b68124e
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|36860700016|1800799024|82310400026|56012099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: w/mplaMZT3sbs4zadmktR13BeL7B2QtrO6pQ5vRY+fM3MpBVb3DhvcvLC5Bcua5F1B7U/5+75Gff5TPzjp5NvnTc/5Rt3mu/fUxWSYXTqngTUTHV8ltzmdnxfI4tpGG26Uk348Uldg2yLPpRRziz4pf19bauzaBPN6M5KNRaYosV1C2vanQYtI1nIwZrlSPAf3qeM+zwL9qnh/5rladqxAd+U8S42lc+Xw2L9jEuPSNxjOyh9oEKhDeFAhIWyx4Cubh+WrmDTLEzTLam/TVJcWUt3MuWq+CR6MgGWGUpNfD2PpFppGoJRmkEadoeWTfdPYxjr4e6+1uYnaK5A4zBgefcMAdqC5NyiR4C08uhx6PODjbVfv08fqdsO8MN7y1e0cU+4wLjGyTfV4QdbjXemVkjVb+Cnfp+lxbfvJ8iO67PYkiNueqxumHsb1veG85y3DxK3j10RbZAZljfGRx+Zo+VChi89lYe0FWHO9Gk4G+49aZEFjmYfJozMdd3A6YHy18JvFXEks4Oi2f0WdiLODIMYZFq/QF0ErCRXOQFMWnuVO0TN0LX3oa3KQwqLGM6S2aFyVM7wwjyTRk2MNxpYmPhItMexveUrtx/5iupgRTMff6AcgRsyGPMRmjxK66ALetqgGFVDtjVb9rG6wU2oyHKqTcdiNvKl4k2vW592ZZdhKnHYgVmlUDCNwz17MQ1ejw2UkCkGoKQtLJVNvHmvWVVosOIxVqgYRMfrL51JiKnc34pzyQFrylxsO6jj4lD8oHgfCS9LSL8m7qheyQ0Lg==
+ ARA:13230040|1800799024|36860700016|82310400026|376014|18002099003|56012099003|22082099003|18096099003;
+X-Microsoft-Antispam-Message-Info: OW7Q15BDS7pvVP1b/zL4Qi9wCL3ZMi1jbJ0AoQbEClYskNRBLdlwWP5oUoqAx0hLNo2yvMIVlrU8kZz6pMUAYcqb06SOGqGucrG96GCk6+MeBhhm2sG//JaWF8Su64Q3gmqktlqVJnW5cY3D05V6uvsCS3WhcxRtGhawaX3dsdxUPkHJilf7DgXXXnpb9uZDcYcloOq2EpulPYCYTcEMclPaD2gI0O0NwZOgcpjBAEb9Zo4c1/FtARdNp/mtYowdNDo9866Anjno0ZoLuWOhmDk4W54r0gjMGqHlt2IWwLyvjow9Q7Dyhz7LQwMXQkLoIfkPpQeK5YEsIdnNTQWtWax9QCK6C39sAj/eoQtQlf++0ed1S4EZtrNp/wqqUFwXrhQYDAwig0PT7LC/1nsrYwiKWBGuTYG+WPTi2Yd3H2gFEp0IzSszHji0lFTxrOfB71BHlxb70m5hRkkAhflODMWzbO60nnmJaAYsep7PHzOpLthxSZ0nvV3JrM6H7VVyq+qJn8O0a/qi5oEx/7J6VnFoDU3jyYo3kjnkqDOmNts4+8E03kkt8U0x+6y9wy9qWmxLXOuEeGDPGkwAhq7Pnj5hdJjDxGtSdBHjsMzW2vmKgt5MWwgbQRc0/t29S9Tqi+E7hV5hBlAzQCSfhPKYuRXDqkgawbhWao1U/oJfXHes2/uXrZagsgnVqyfGOTHO7akF5uitw+yjReNDwj+AaH78jQM10nMdhPeOkUl7muTYG6XzlQeP2xXhd8vU4gdeSXjTPzYROLk4CEJSbbq2TQ==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(36860700016)(1800799024)(82310400026)(56012099003)(22082099003)(18002099003);
+ SFS:(13230040)(1800799024)(36860700016)(82310400026)(376014)(18002099003)(56012099003)(22082099003)(18096099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: +SQ+KPgWJ3OGVtmg1gBPYSO/fu7n7SSm6uNxvP0XiaoTxXwxEGa2iVXasUH0B4ZopMjoLOvK8Muk6PopHd2+UT4Vw2eVOhQMiiX2nFsBE7hwNCQ/w6/h6lz95+KyJyEYDC12BfpaTJLbGgwuTGYfDFh4qyQWf64E2MllieLe+u4+KlPHs78oGuQRMHj45s5tnVH+pujWsr30yRHsbyz0nSGCAnG6nawb0eljzNx/7C84C5oN2ro6YdF180DZhPG0x1Jmg9GGP7NWq++CTECpNhlBvz7pV6RL5O/8mQHxsSMhqsDKqKkT/uPp5ikLvqVQdvcJw6spkrUuvefpmVHdAHASPAkLGfXHrtnpjFGR1cSamdBID2wBRis6g/1YGb9qRIg8qaWGEl8hMkPsW5t95ZJK8l1glYS+D5t+CmCft+aVXRlKEa443V/drYNO9AGx
+X-MS-Exchange-AntiSpam-MessageData-0: iz34FuZK1S2w4QF9T4MkqqnBZ95WcYTnhqHE+wKmkTLRpHlQxazU2QaRAKEov3fWYEDzSFcB0iamlU21Y7wtDQnpnobUGnrKQdX6yWPFNb3QvV5cx7vXB4oROZRcyrfPOyHvv84S2YdVuxLX65jmr3YsZtR6pfxba+YJ99U3FkLkcdpNlxUNSEjYYY9zeZhvI4ChY4Qsn5LdNrOkeCucBXkSM3YyXdjJtPFIMEjFQSm/ZRrAO4O5xKhgHU0BolYu+64gVto8tAz4YziZDkQY2f6NjVNGnkAe6LCdEUmr5Di9ClLMrM20boKA3V2B6+lfGZnqwANIYjm39e+/UlADXXZILpgV2jPllug8F+Fdr/qgyjZ8NpMHV8b1rCBV2QCAK+evkwK5JuaW7mFmuxfqqIMyApX49HFV4/S6ETBh2B3+BUO4bl1vO0HKbbUQwDAk
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Apr 2026 03:27:27.2676 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: abc004ca-9636-4e00-8ae5-08de9b681589
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Apr 2026 03:27:21.8518 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3639fedb-a1a3-44cf-bc38-08de9b68124e
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DS2PEPF00003446.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: DS2PEPF00003441.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4033
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6556
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,161 +112,516 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Introduce two new UAPI ioctls to allow userspace to bind and unbind an
-eventfd to a userspace-defined event_id on the render node.
+Introduce a per-drm_file eventfd manager to support render-node event
+subscriptions.
 
-The design supports multiple eventfds bound to the same event_id.
-Therefore, unbind includes the eventfd to remove a specific binding.
+The manager is implemented in amdgpu_eventfd.[ch] and is owned by the
+drm_file (amdgpu_fpriv). It maps event_id -> eventfd_id object, where
+each eventfd_id can have multiple eventfds bound (fan-out).
 
-v2:
-Replace separate EVENTFD bind/unbind ioctls with a single EVENTFD ioctl
-that carries an operation field.
+The design is IRQ-safe for signaling: IRQ path takes the xarray lock
+(irqsave) and signals eventfds while still holding the lock.
 
-Also add a queue_id parameter to the UAPI so subscriptions can become
-queue-specific in a later step. For now, queue_id is reserved for future
-use and must be 0.
+This patch only adds the core manager
 
-This keeps ioctl number usage smaller and prepares the API for queue-aware
-event routing.
+v4:
+- Use eventfd_ctx pointer as binding identity instead of fd number
+- Make duplicate (event_id, ctx) binds idempotent
+- Replace mgr lock with atomic bind limit
+- Add helper for xa get-or-create event_id
+
+v5:
+- Rework event_id get/create helper so it is callable without holding xa lock
+- Move event_id allocation into the helper and use xa_insert() for insertion
+- Drop GFP_NOWAIT usage in xa insertion path
+- Allocate eventfd entry only after ctx/id prerequisites are satisfied
+- Simplify fini path by removing per-entry __xa_erase() and relying on xa_destroy()
+- Keep duplicate (event_id, ctx) binds idempotent
 
 Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: Christian König <christian.koenig@amd.com>
+Suggested-by: Christian König <christian.koenig@amd.com>
 Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-Change-Id: Ibe6a3be80f6435c1fe2a3243b63e6ed2fc6391ee
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu.h     |  5 ++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c |  1 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c | 33 +++++++++++++++++++++++++
- include/uapi/drm/amdgpu_drm.h           | 30 ++++++++++++++++++++++
- 4 files changed, 69 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/Makefile         |   3 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_eventfd.c | 387 ++++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_eventfd.h |  59 +++
+ 3 files changed, 448 insertions(+), 1 deletion(-)
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_eventfd.c
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_eventfd.h
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-index a48f8c214699..30df0354f44c 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-@@ -460,6 +460,11 @@ struct amdgpu_fpriv {
- 	struct amdgpu_eventfd_mgr	eventfd_mgr;
- };
+diff --git a/drivers/gpu/drm/amd/amdgpu/Makefile b/drivers/gpu/drm/amd/amdgpu/Makefile
+index db66c6372199..feea63b332fa 100644
+--- a/drivers/gpu/drm/amd/amdgpu/Makefile
++++ b/drivers/gpu/drm/amd/amdgpu/Makefile
+@@ -71,7 +71,8 @@ amdgpu-y += amdgpu_device.o amdgpu_reg_access.o amdgpu_doorbell_mgr.o amdgpu_kms
+ 	amdgpu_fw_attestation.o amdgpu_securedisplay.o \
+ 	amdgpu_eeprom.o amdgpu_mca.o amdgpu_psp_ta.o amdgpu_lsdma.o \
+ 	amdgpu_ring_mux.o amdgpu_xcp.o amdgpu_seq64.o amdgpu_aca.o amdgpu_dev_coredump.o \
+-	amdgpu_cper.o amdgpu_userq_fence.o amdgpu_eviction_fence.o amdgpu_ip.o
++	amdgpu_cper.o amdgpu_userq_fence.o amdgpu_eviction_fence.o amdgpu_ip.o \
++	amdgpu_eventfd.o
  
-+struct drm_device;
-+struct drm_file;
+ amdgpu-$(CONFIG_PROC_FS) += amdgpu_fdinfo.o
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_eventfd.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_eventfd.c
+new file mode 100644
+index 000000000000..4cd80d8d1361
+--- /dev/null
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_eventfd.c
+@@ -0,0 +1,387 @@
++/*
++ * Copyright 2026 Advanced Micro Devices, Inc.
++ *
++ * Permission is hereby granted, free of charge, to any person obtaining a
++ * copy of this software and associated documentation files (the "Software"),
++ * to deal in the Software without restriction, including without limitation
++ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
++ * and/or sell copies of the Software, and to permit persons to whom the
++ * Software is furnished to do so, subject to the following conditions:
++ *
++ * The above copyright notice and this permission notice shall be included in
++ * all copies or substantial portions of the Software.
++ *
++ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
++ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
++ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
++ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
++ * OTHER DEALINGS IN THE SOFTWARE.
++ *
++ */
 +
-+int amdgpu_eventfd_ioctl(struct drm_device *dev, void *data, struct drm_file *file_priv);
++/*
++ * Render-node eventfd subscription infrastructure.
++ *
++ * This module provides a simple event notification mechanism for render-node
++ * clients using Linux eventfd objects.
++ *
++ * Userspace can bind an eventfd to a userspace-defined event_id. When the
++ * driver signals that event_id, all eventfds bound to it are notified.
++ *
++ * This mechanism is intended to support lightweight GPU event notifications
++ * (for example, user queue EOP events) without polling from userspace.
++ */
 +
- int amdgpu_file_to_fpriv(struct file *filp, struct amdgpu_fpriv **fpriv);
- 
- /*
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-index c6546a858597..f4acb785b3fb 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-@@ -3078,6 +3078,7 @@ const struct drm_ioctl_desc amdgpu_ioctls_kms[] = {
- 	DRM_IOCTL_DEF_DRV(AMDGPU_USERQ_SIGNAL, amdgpu_userq_signal_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
- 	DRM_IOCTL_DEF_DRV(AMDGPU_USERQ_WAIT, amdgpu_userq_wait_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
- 	DRM_IOCTL_DEF_DRV(AMDGPU_GEM_LIST_HANDLES, amdgpu_gem_list_handles_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
-+	DRM_IOCTL_DEF_DRV(AMDGPU_EVENTFD, amdgpu_eventfd_ioctl, DRM_RENDER_ALLOW),
- };
- 
- static const struct drm_driver amdgpu_kms_driver = {
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-index 7df0e7fb2864..57644deec724 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-@@ -634,6 +634,39 @@ static int amdgpu_hw_ip_info(struct amdgpu_device *adev,
- 	return 0;
- }
- 
-+int amdgpu_eventfd_ioctl(struct drm_device *dev, void *data,
-+			 struct drm_file *file_priv)
++#include <linux/slab.h>
++#include <linux/err.h>
++
++#include "amdgpu_eventfd.h"
++
++#define AMDGPU_EVENTFD_MAX_BINDS 4096
++
++/**
++ * amdgpu_eventfd_id_alloc - allocate an event id container
++ * @event_id: userspace-defined event identifier
++ *
++ * Each event_id represents a notification category. Multiple eventfds can
++ * be bound to the same event_id.
++ *
++ * This function allocates the container which stores the list of eventfds
++ * associated with that event_id.
++ *
++ * Return:
++ * Pointer to the newly allocated structure or NULL on failure.
++ */
++static struct amdgpu_eventfd_id *amdgpu_eventfd_id_alloc(u32 event_id)
 +{
-+	struct amdgpu_fpriv *fpriv = file_priv->driver_priv;
-+	struct drm_amdgpu_eventfd *args = data;
++	struct amdgpu_eventfd_id *id;
 +
-+	if (!fpriv)
-+		return -EINVAL;
++	id = kzalloc(sizeof(*id), GFP_KERNEL);
++	if (!id)
++		return NULL;
 +
-+	if (args->flags || !args->event_id || args->eventfd < 0)
++	id->event_id = event_id;
++	INIT_HLIST_HEAD(&id->entries);
++	id->n_entries = 0;
++	return id;
++}
++
++/**
++ * amdgpu_eventfd_id_get_or_create - find or create an event_id entry
++ * @mgr: eventfd manager
++ * @event_id: event identifier
++ *
++ * This helper returns the container associated with the given event_id.
++ * If it does not exist, it will create one.
++ *
++ * The function is designed to be callable without holding any locks.
++ * Memory allocation is done outside the xarray lock to avoid blocking
++ * inside critical sections.
++ *
++ * Return:
++ * Pointer to the event_id structure or NULL on failure.
++ */
++static struct amdgpu_eventfd_id *
++amdgpu_eventfd_id_get_or_create(struct amdgpu_eventfd_mgr *mgr, u32 event_id)
++{
++	struct amdgpu_eventfd_id *id;
++	struct amdgpu_eventfd_id *new_id;
++	unsigned long flags;
++	int r;
++
++	xa_lock_irqsave(&mgr->ids, flags);
++	id = xa_load(&mgr->ids, event_id);
++	xa_unlock_irqrestore(&mgr->ids, flags);
++	if (id)
++		return id;
++
++	new_id = amdgpu_eventfd_id_alloc(event_id);
++	if (!new_id)
++		return NULL;
++
++	xa_lock_irqsave(&mgr->ids, flags);
++
++	/* Re-check after taking the lock in case another thread inserted it. */
++	id = xa_load(&mgr->ids, event_id);
++	if (id) {
++		xa_unlock_irqrestore(&mgr->ids, flags);
++		kfree(new_id);
++		return id;
++	}
++
++	/*
++	 * xa_insert() returns -EBUSY if an entry already exists.
++	 * Since we are in irqsave context here, use GFP_ATOMIC.
++	 */
++	r = xa_insert(&mgr->ids, event_id, new_id, GFP_ATOMIC);
++	if (r == -EBUSY)
++		id = xa_load(&mgr->ids, event_id);
++
++	xa_unlock_irqrestore(&mgr->ids, flags);
++
++	if (r == -EBUSY) {
++		kfree(new_id);
++		return id;
++	}
++
++	if (r) {
++		kfree(new_id);
++		return NULL;
++	}
++
++	return new_id;
++}
++
++/**
++ * amdgpu_eventfd_mgr_init - initialize eventfd manager
++ * @mgr: manager instance
++ *
++ * Each DRM file (amdgpu_fpriv) owns one eventfd manager.
++ *
++ * The manager stores mappings:
++ *
++ *   event_id -> list of eventfds
++ *
++ * The xarray provides efficient lookup of event_id containers.
++ */
++void amdgpu_eventfd_mgr_init(struct amdgpu_eventfd_mgr *mgr)
++{
++	xa_init_flags(&mgr->ids, XA_FLAGS_LOCK_IRQ);
++	atomic_set(&mgr->bind_count, 0);
++}
++
++/**
++ * amdgpu_eventfd_mgr_fini - destroy eventfd manager
++ * @mgr: manager instance
++ *
++ * Frees all registered eventfd bindings.
++ *
++ * The caller is expected to ensure that no IRQ-side signaling can occur
++ * after this function begins. This typically happens during drm_file
++ * teardown.
++ */
++void amdgpu_eventfd_mgr_fini(struct amdgpu_eventfd_mgr *mgr)
++{
++	unsigned long index;
++	struct amdgpu_eventfd_id *id;
++
++	/*
++	 * Expected teardown ordering: caller ensures no further IRQ-side
++	 * signaling can race with this before fini() is called.
++	 */
++	xa_lock(&mgr->ids);
++	xa_for_each(&mgr->ids, index, id) {
++		struct amdgpu_eventfd_entry *e;
++		struct hlist_node *tmp;
++
++		hlist_for_each_entry_safe(e, tmp, &id->entries, hnode) {
++			hlist_del(&e->hnode);
++			eventfd_ctx_put(e->ctx);
++			kfree(e);
++		}
++
++		kfree(id);
++	}
++	xa_unlock(&mgr->ids);
++
++	xa_destroy(&mgr->ids);
++}
++
++/**
++ * amdgpu_eventfd_bind - bind eventfd to an event_id
++ * @mgr: eventfd manager
++ * @event_id: userspace event identifier
++ * @eventfd: eventfd file descriptor
++ *
++ * This function allows userspace to subscribe to notifications for a
++ * specific event_id.
++ *
++ * Multiple eventfds can be bound to the same event_id.
++ *
++ * Duplicate bindings of the same eventfd are treated as success and do
++ * not create additional entries.
++ *
++ * Return:
++ * 0 on success, negative error code on failure.
++ */
++int amdgpu_eventfd_bind(struct amdgpu_eventfd_mgr *mgr, u32 event_id, int eventfd)
++{
++	struct amdgpu_eventfd_id *id;
++	struct amdgpu_eventfd_entry *e, *it;
++	struct eventfd_ctx *ctx;
++	unsigned long flags;
++	bool dup = false;
++
++	if (!mgr || !event_id || eventfd < 0)
 +		return -EINVAL;
 +
 +	/*
-+	 * queue_id is reserved for future queue-specific subscriptions.
-+	 * Keep it zero for now.
++	 * Enforce total bind limit without a separate manager lock.
++	 * For duplicate binds, we decrement back before returning success.
 +	 */
-+	if (args->queue_id)
-+		return -EINVAL;
-+
-+	switch (args->op) {
-+	case DRM_AMDGPU_EVENTFD_OP_BIND:
-+		return amdgpu_eventfd_bind(&fpriv->eventfd_mgr,
-+					   args->event_id,
-+					   args->eventfd);
-+	case DRM_AMDGPU_EVENTFD_OP_UNBIND:
-+		return amdgpu_eventfd_unbind(&fpriv->eventfd_mgr,
-+					     args->event_id,
-+					     args->eventfd);
-+	default:
-+		return -EINVAL;
++	if (atomic_inc_return(&mgr->bind_count) > AMDGPU_EVENTFD_MAX_BINDS) {
++		atomic_dec(&mgr->bind_count);
++		return -ENOSPC;
 +	}
++
++	ctx = eventfd_ctx_fdget(eventfd);
++	if (IS_ERR(ctx)) {
++		atomic_dec(&mgr->bind_count);
++		return PTR_ERR(ctx);
++	}
++
++	id = amdgpu_eventfd_id_get_or_create(mgr, event_id);
++	if (!id) {
++		eventfd_ctx_put(ctx);
++		atomic_dec(&mgr->bind_count);
++		return -ENOMEM;
++	}
++
++	/* check for duplicate binding */
++	xa_lock_irqsave(&mgr->ids, flags);
++	hlist_for_each_entry(it, &id->entries, hnode) {
++		if (it->ctx == ctx) {
++			dup = true;
++			break;
++		}
++	}
++	xa_unlock_irqrestore(&mgr->ids, flags);
++
++	if (dup) {
++		eventfd_ctx_put(ctx);
++		atomic_dec(&mgr->bind_count);
++		return 0;
++	}
++
++	/* Allocate entry only after ctx/id prerequisites are satisfied. */
++	e = kzalloc(sizeof(*e), GFP_KERNEL);
++	if (!e) {
++		eventfd_ctx_put(ctx);
++		atomic_dec(&mgr->bind_count);
++		return -ENOMEM;
++	}
++	e->ctx = ctx;
++
++	/*
++	 * Re-check duplicate under lock to close the race with another bind()
++	 * for the same (event_id, ctx).
++	 */
++	xa_lock_irqsave(&mgr->ids, flags);
++	hlist_for_each_entry(it, &id->entries, hnode) {
++		if (it->ctx == ctx) {
++			dup = true;
++			break;
++		}
++	}
++
++	if (!dup) {
++		hlist_add_head(&e->hnode, &id->entries);
++		id->n_entries++;
++		e = NULL; /* consumed */
++	}
++	xa_unlock_irqrestore(&mgr->ids, flags);
++
++	if (dup) {
++		eventfd_ctx_put(ctx);
++		kfree(e);
++		atomic_dec(&mgr->bind_count);
++		return 0;
++	}
++
++	return 0;
 +}
 +
- /*
-  * Userspace get information ioctl
-  */
-diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h
-index 9f3090db2f16..63cde4487c47 100644
---- a/include/uapi/drm/amdgpu_drm.h
-+++ b/include/uapi/drm/amdgpu_drm.h
-@@ -39,6 +39,7 @@ extern "C" {
- #endif
- 
- #define DRM_AMDGPU_GEM_CREATE		0x00
-+#define DRM_AMDGPU_EVENTFD		0x1A
- #define DRM_AMDGPU_GEM_MMAP		0x01
- #define DRM_AMDGPU_CTX			0x02
- #define DRM_AMDGPU_BO_LIST		0x03
-@@ -79,6 +80,8 @@ extern "C" {
- #define DRM_IOCTL_AMDGPU_USERQ_SIGNAL	DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_USERQ_SIGNAL, struct drm_amdgpu_userq_signal)
- #define DRM_IOCTL_AMDGPU_USERQ_WAIT	DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_USERQ_WAIT, struct drm_amdgpu_userq_wait)
- #define DRM_IOCTL_AMDGPU_GEM_LIST_HANDLES DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_LIST_HANDLES, struct drm_amdgpu_gem_list_handles)
-+#define DRM_IOCTL_AMDGPU_EVENTFD \
-+	DRM_IOW(DRM_COMMAND_BASE + DRM_AMDGPU_EVENTFD, struct drm_amdgpu_eventfd)
- 
- /**
-  * DOC: memory domains
-@@ -204,6 +207,33 @@ union drm_amdgpu_gem_create {
- 	struct drm_amdgpu_gem_create_out	out;
- };
- 
-+enum drm_amdgpu_eventfd_op {
-+	DRM_AMDGPU_EVENTFD_OP_BIND = 0,
-+	DRM_AMDGPU_EVENTFD_OP_UNBIND = 1,
-+};
++/**
++ * amdgpu_eventfd_unbind - remove eventfd binding
++ * @mgr: eventfd manager
++ * @event_id: event identifier
++ * @eventfd: eventfd file descriptor
++ *
++ * Removes an existing binding between an event_id and an eventfd.
++ *
++ * Return:
++ * 0 if removed, -ENOENT if binding does not exist.
++ */
++int amdgpu_eventfd_unbind(struct amdgpu_eventfd_mgr *mgr, u32 event_id, int eventfd)
++{
++	struct amdgpu_eventfd_id *id;
++	struct amdgpu_eventfd_entry *e;
++	struct hlist_node *tmp;
++	struct eventfd_ctx *ctx;
++	unsigned long flags;
++	bool removed = false;
++
++	if (!mgr || !event_id || eventfd < 0)
++		return -EINVAL;
++
++	ctx = eventfd_ctx_fdget(eventfd);
++	if (IS_ERR(ctx))
++		return PTR_ERR(ctx);
++
++	xa_lock_irqsave(&mgr->ids, flags);
++
++	id = xa_load(&mgr->ids, event_id);
++	if (!id)
++		goto out_unlock;
++
++	hlist_for_each_entry_safe(e, tmp, &id->entries, hnode) {
++		if (e->ctx == ctx) {
++			hlist_del(&e->hnode);
++			id->n_entries--;
++			removed = true;
++
++			eventfd_ctx_put(e->ctx);
++			kfree(e);
++
++			atomic_dec(&mgr->bind_count);
++
++			if (!id->n_entries) {
++				__xa_erase(&mgr->ids, event_id);
++				kfree(id);
++			}
++			break;
++		}
++	}
++
++out_unlock:
++	xa_unlock_irqrestore(&mgr->ids, flags);
++	eventfd_ctx_put(ctx);
++
++	return removed ? 0 : -ENOENT;
++}
 +
 +/**
-+ * struct drm_amdgpu_eventfd - bind or unbind an eventfd to an event_id
-+ * @op: operation type, see &enum drm_amdgpu_eventfd_op
-+ * @event_id: userspace-defined event identifier
-+ * @eventfd: eventfd file descriptor
-+ * @queue_id: queue identifier for future queue-specific subscriptions
-+ * @flags: must be 0
++ * amdgpu_eventfd_signal - notify all eventfds bound to event_id
++ * @mgr: eventfd manager
++ * @event_id: event identifier
 + *
-+ * This ioctl lets userspace register or unregister eventfd notifications
-+ * for a render-node event.
++ * This function is typically called from interrupt context.
 + *
-+ * For now, @queue_id is reserved for future queue-specific subscriptions
-+ * and must be 0.
++ * All eventfds registered for the given event_id will be signaled.
++ * Userspace processes waiting on those eventfds will wake up.
 + */
-+struct drm_amdgpu_eventfd {
-+	__u32 op;
-+	__u32 event_id;
-+	__s32 eventfd;
-+	__u32 queue_id;
-+	__u32 flags;
++void amdgpu_eventfd_signal(struct amdgpu_eventfd_mgr *mgr, u32 event_id)
++{
++	struct amdgpu_eventfd_id *id;
++	struct amdgpu_eventfd_entry *e;
++	unsigned long flags;
++
++	if (!mgr || !event_id)
++		return;
++
++	/*
++	 * IRQ-safe signaling path: keep xarray lock held while iterating and
++	 * signaling. eventfd_signal() is IRQ-safe.
++	 */
++	xa_lock_irqsave(&mgr->ids, flags);
++
++	id = xa_load(&mgr->ids, event_id);
++	if (id) {
++		hlist_for_each_entry(e, &id->entries, hnode)
++			eventfd_signal(e->ctx);
++	}
++
++	xa_unlock_irqrestore(&mgr->ids, flags);
++}
+\ No newline at end of file
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_eventfd.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_eventfd.h
+new file mode 100644
+index 000000000000..248afb1f2f14
+--- /dev/null
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_eventfd.h
+@@ -0,0 +1,59 @@
++/*
++ * Copyright 2026 Advanced Micro Devices, Inc.
++ *
++ * Permission is hereby granted, free of charge, to any person obtaining a
++ * copy of this software and associated documentation files (the "Software"),
++ * to deal in the Software without restriction, including without limitation
++ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
++ * and/or sell copies of the Software, and to permit persons to whom the
++ * Software is furnished to do so, subject to the following conditions:
++ *
++ * The above copyright notice and this permission notice shall be included in
++ * all copies or substantial portions of the Software.
++ *
++ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
++ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
++ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
++ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
++ * OTHER DEALINGS IN THE SOFTWARE.
++ *
++ */
++
++/*
++ * Render-node eventfd subscription infrastructure.
++ */
++
++#ifndef __AMDGPU_EVENTFD_H__
++#define __AMDGPU_EVENTFD_H__
++
++#include <linux/eventfd.h>
++#include <linux/xarray.h>
++#include <linux/atomic.h>
++
++struct amdgpu_eventfd_entry {
++	struct eventfd_ctx *ctx;
++	struct hlist_node hnode;
 +};
 +
- /** Opcode to create new residency list.  */
- #define AMDGPU_BO_LIST_OP_CREATE	0
- /** Opcode to destroy previously created residency list */
++struct amdgpu_eventfd_id {
++	u32 event_id;
++	struct hlist_head entries;
++	u32 n_entries;
++};
++
++struct amdgpu_eventfd_mgr {
++	struct xarray ids;          /* event_id -> struct amdgpu_eventfd_id* */
++	atomic_t bind_count;        /* total binds across all event_ids */
++};
++
++void amdgpu_eventfd_mgr_init(struct amdgpu_eventfd_mgr *mgr);
++void amdgpu_eventfd_mgr_fini(struct amdgpu_eventfd_mgr *mgr);
++
++int amdgpu_eventfd_bind(struct amdgpu_eventfd_mgr *mgr, u32 event_id, int eventfd);
++int amdgpu_eventfd_unbind(struct amdgpu_eventfd_mgr *mgr, u32 event_id, int eventfd);
++
++void amdgpu_eventfd_signal(struct amdgpu_eventfd_mgr *mgr, u32 event_id);
++
++#endif /* __AMDGPU_EVENTFD_H__ */
 -- 
 2.34.1
 
