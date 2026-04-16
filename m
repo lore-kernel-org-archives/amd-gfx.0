@@ -4,54 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9AE82F8D762
-	for <amd-gfx@archiver.kernel.org>; Thu, 16 Apr 2026 16:56:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 12BC9F8D761
+	for <amd-gfx@archiver.kernel.org>; Thu, 16 Apr 2026 17:27:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 12A7810E902;
-	Thu, 16 Apr 2026 16:56:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 76C2910E906;
+	Thu, 16 Apr 2026 17:27:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="Wt7Uc8DV";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="DAqkqEmW";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2DA3010E8FF;
- Thu, 16 Apr 2026 16:56:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=VAMs7rlBSaiNSscoEgpk4adl1TJRSox0dqWNZR973AY=; b=Wt7Uc8DVdEB/YkpYnJNGFuLM6E
- SjoE6+lOGepPbSYux0xhUVvhyMNOtXMbtWlxsf4eTXNp2mbTtSkuK1CoMoA5rTOwi0+Mp9giyAyVU
- DbC+GhRXyt/kucba9ejtSAfj0J+1IwmM3dgySjclNdmuEbuvMtlDcR5RYV/daHgnRY+zOxSGkUTpU
- mIkLyuMS5IISWZguw9wXUU1kkGL1zn/9x1hK6dSU+pcp1DDiENlmjBfFG4RFYEsfKX5HUQLM635fk
- d3y+UYb/KxJ5m3NguGlmGBSonJAB8Gto1BF+tvdCiLtThBSzr8cxSbUPN2lBtGHoDelL1oYjAJ9UF
- 9j8p7SJQ==;
-Received: from [186.208.73.228] (helo=[192.168.18.14])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1wDQ0g-00H5OP-GM; Thu, 16 Apr 2026 18:56:10 +0200
-Message-ID: <ed695e84-88d9-49e4-a171-1372ecc84746@igalia.com>
-Date: Thu, 16 Apr 2026 13:56:04 -0300
+Received: from mail-dl1-f44.google.com (mail-dl1-f44.google.com [74.125.82.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DC5BF10E906
+ for <amd-gfx@lists.freedesktop.org>; Thu, 16 Apr 2026 17:27:28 +0000 (UTC)
+Received: by mail-dl1-f44.google.com with SMTP id
+ a92af1059eb24-1277863a912so798792c88.0
+ for <amd-gfx@lists.freedesktop.org>; Thu, 16 Apr 2026 10:27:28 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1776360448; cv=none;
+ d=google.com; s=arc-20240605;
+ b=iDDavMv2kG2lLxuLK1BMKrEmLmzC0mIkP75WJrpABi4r4zuiR7ulJ0gDJWEq8VBuIh
+ vOyz9hh8CAep0kYa4LZDQ9kHLPC8njkcH/hx5AZU5KCEKF6lV5FEGtcc5Q1+KqIN2dw/
+ RtC6UeqPN/0IFfqbIVmqcDtoB+vUpJcC2rzfGiGNj/ZoTMxb/c4imqKeSRyN4MZJG5+J
+ uk5TIFDnGMiDux7zcKeA8xjNVW91IJe/2cv6e7jsxOw39xbxZJy5MHN+JreVqIMRtycM
+ vNClQUqiA3fQFldMCg0i7mrGE73QS3iuhfM4+2gWd3ovO7qObEm7d2rS7U2EfTrq75E7
+ klbA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=lJ33xfCcr7ujewLKKPQxYIyguzUGxVbSgkkm3EDmY7M=;
+ fh=tfjiyQiw2s6YcdxXwhHMkIDXKm8aun+ea11dOqVouwo=;
+ b=kUsj684fVTO2cdx2OV4FgPck2YeYWBYuy/pK6Pf8aqwys18aoSm9/c+dfZlfC4E2ak
+ LjnmZ4LkPsyE93cp4G0EHo+OrrlWKS08d+WNnjkmy79Q2lUEJgEo+lWpYYDdbs56FZAQ
+ A0O+m97XZww8WzEQ0TKoH/r9ro8zcyVoPpsqXqC0tCoP8LO5SO5GlIqMBw2OGKrnX5Vh
+ I2sgQs4RRAhLKUSK4eaCLKT6LIOaDFzOT/csphSrCoM2ODA91wWo6NJU6rmB5fBQ/fBH
+ yV6mUCD9IBJTmfB5o9Rkg1ebCQa3Eur7bdLkciUhRb+6OCElw0D31SJ5ursRf9PTmEI/
+ zt5A==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1776360448; x=1776965248; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=lJ33xfCcr7ujewLKKPQxYIyguzUGxVbSgkkm3EDmY7M=;
+ b=DAqkqEmWqwEr5SBn/X+x85epFmhPL1IAubHcoHLEE+4aSQHoDXha5o18+T/VW3Poev
+ KJZ93ZcNXybqh6NOC1khFCD2SybsE7DAr/KW5Fr9LOyzODl1U+ILnJZmiL3X2mwVKrpC
+ 2LlDr5sG4eS5QBTxN+XpZfLhLN1l1jC+1Mxo6L+a0TL4hxy5hsD22LHCYSzDCdMCav+c
+ /0gDQQMTn7SVoh8gAaiD2ZnokPJVMHrQgzCG5lwhrtig7Dpb9VGugn/g59IHPUbovcOZ
+ yYziNmwONXoLNJOO+SEEjX4HsIX93BpO5OQ7b5KQFv6yftLnTGsD+t+y3QhaBeHL/QOT
+ jBBA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1776360448; x=1776965248;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=lJ33xfCcr7ujewLKKPQxYIyguzUGxVbSgkkm3EDmY7M=;
+ b=izunCoB2tNJno5sOtuz+OkCn8bOCipppa07ym3sap4zJOREOfpqg4/Su97E9921cM7
+ NSpH7cUeva/kj3tULXZORETrhQ+Q6evkNScONsj2cEuDQLxAgiqWwAZ/Gj3SurLCdwZi
+ y8Rc/ZMEodL2YmtRfEu2mws3dR17oi/sc4S9gW10XcUR2mNLPa5J/WgiCwdFxWRgOmg/
+ ye/yZnqN6FbgPs/9gTJOEp+hL54JEF7KFdV9EDDRj9d0dyIM+2DpcFbRbh3aODODhkx1
+ iodinAG2DNzBXPl9u4r9/unqb+gCrPDeTF3+d0CrDNhDzH5Q8hpiT1ysCWPAM/cF/d+v
+ fEAQ==
+X-Gm-Message-State: AOJu0YwBKirdBVwfWcQquZa+axTrU1hxr069br5TKQecsRv+M6x/8acV
+ 2O9oO6XFMmpZhg42pUTpn8HAnUuNMOAKU5d/tDKfet3y5RBpYkhfQb6gtZokObPnnDaGNomu+DM
+ FkOYt82Z/LG2dnQbrsMRY2jK001KS79U=
+X-Gm-Gg: AeBDietMpHm2lDKo+XT9i6EaJ56mL/bs/XiqBhjesrDBIi3JkRuSUzKxkMjmsYDe3wj
+ UVU81ELtzuqS3nJ0lic3KL+e4nzSgftLuAFXFuBvqGBblHaVeVce6lzpDiMX9ZATdtG4OA6cAOO
+ omKuWQCA27JV8BE3Y2QCpypCgPOsIL1sB1aLTyo/7AjRlEZJC6oDNfMsdac8wq+hoNO1vdqhpsq
+ mH2Nd0n+7yilR/j/8Rn1dVdX3GohpTCGW3jyHvuq2WYzzDjUB8IqUc86/Awc/4CazPGhxQPGNdj
+ dqu+oKOZG56wYw4/2j0jZvV8w+8mUQYrfocr+OcOx4FhiQrnrpiYwugvnhf5rh5sBI8SUNUlaPh
+ er5t9
+X-Received: by 2002:a05:7022:211:b0:127:def:dd72 with SMTP id
+ a92af1059eb24-12c727f6438mr11974c88.2.1776360447923; Thu, 16 Apr 2026
+ 10:27:27 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] drm/drm_atomic: duplicate colorop states if plane
- color pipeline in use
-To: "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- airlied@gmail.com, simona@ffwll.ch, contact@emersion.fr,
- sebastian.wick@redhat.com, harry.wentland@amd.com, daniels@collabora.com
-Cc: Alex Hung <alex.hung@amd.com>, Uma Shankar <uma.shankar@intel.com>,
- Xaver Hugl <xaver.hugl@kde.org>, amd-gfx@lists.freedesktop.org,
- kernel-dev@igalia.com, dri-devel@lists.freedesktop.org
-References: <20260318163629.300627-1-mwen@igalia.com>
- <7139d8f8-36df-4951-a3c9-d82f6ac636be@intel.com>
-Content-Language: en-US
-From: Melissa Wen <mwen@igalia.com>
-In-Reply-To: <7139d8f8-36df-4951-a3c9-d82f6ac636be@intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+References: <20260416165056.15459-1-shaoyun.liu@amd.com>
+In-Reply-To: <20260416165056.15459-1-shaoyun.liu@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Thu, 16 Apr 2026 13:27:16 -0400
+X-Gm-Features: AQROBzC6Te2Fhue5VYheW5oprb3TBt9Avn5dLxdeSQNiU86ciAoTxjgtRhJSqj0
+Message-ID: <CADnq5_OThuww_7RA0xyQNkaiGBzzt1q2tRsCBtH_CKn48aD7DA@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/amdgpu/include : update mes api header v11/v12
+To: Shaoyun Liu <shaoyun.liu@amd.com>
+Cc: amd-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,111 +101,59 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-
-
-On 19/03/2026 03:38, Borah, Chaitanya Kumar wrote:
+On Thu, Apr 16, 2026 at 12:59=E2=80=AFPM Shaoyun Liu <shaoyun.liu@amd.com> =
+wrote:
 >
+> Update the parameter in SET_HW_RESOURCES API
+> 1. Align with the setting of enable_lr_compute_wa
+> 2. Add enable_compute_pipe_reset to enable pipe reset when compute queue =
+reset failes
 >
-> On 3/18/2026 9:57 PM, Melissa Wen wrote:
->> For suspend/resume to work correctly, do for colorop state the same we
->> do for plane/crtc/connector states: duplicate the state of colorops in a
->> color pipeline if it's in use by a given plane when suspending and
->> restore cached colorop states when resuming.
->>
->> Fixes: 2afc3184f3b3 ("drm/plane: Add COLOR PIPELINE property")
->> Reviewed-by: Harry Wentland <harry.wentland@amd.com>
->> Reviewed-by: Alex Hung <alex.hung@amd.com>
->> Reviewed-by: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
->> Signed-off-by: Melissa Wen <mwen@igalia.com>
->> ---
->>
->> Changes from v1 
->> (https://lore.kernel.org/dri-devel/20260316210055.234498-1-mwen@igalia.com/):
->> - keep the object hierarchy (Chaitanya)
->> - add r-b from Harry, Alex H. and Chaitanya (pending to confirm)
->>
->> Chaitanya,
->>
->> I kept the fix for unused-variable warning together because the warning
->> only appears with this new usage of for_each_new_colorop_in_state() in
->> drm_atomic_helper_commit_duplicated_state() here. Let me know if you
->> don't agree with this approach.
->>
+> Signed-off-by: Shaoyun Liu <shaoyun.liu@amd.com>
+
+Would be good to note which MES firmware versions support this.  With
+that noted,
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+
+> ---
+>  drivers/gpu/drm/amd/include/mes_v11_api_def.h | 5 +++--
+>  drivers/gpu/drm/amd/include/mes_v12_api_def.h | 5 +++--
+>  2 files changed, 6 insertions(+), 4 deletions(-)
 >
-> Please go ahead. Just add a "while at it" to the commit message.
-
-Applied to drm-misc-fixes with the suggested change in the commit message.
-
-Thanks!
-
-Melissa
-
+> diff --git a/drivers/gpu/drm/amd/include/mes_v11_api_def.h b/drivers/gpu/=
+drm/amd/include/mes_v11_api_def.h
+> index f9629d42ada2..6644fabeb0b7 100644
+> --- a/drivers/gpu/drm/amd/include/mes_v11_api_def.h
+> +++ b/drivers/gpu/drm/amd/include/mes_v11_api_def.h
+> @@ -238,8 +238,9 @@ union MESAPI_SET_HW_RESOURCES {
+>                                 uint32_t enable_mes_sch_stb_log : 1;
+>                                 uint32_t limit_single_process : 1;
+>                                 uint32_t is_strix_tmz_wa_enabled  :1;
+> -                               uint32_t enable_lr_compute_wa : 1;
+> -                               uint32_t reserved : 12;
+> +                               uint32_t enable_lr_compute_wa : 2;
+> +                               uint32_t enable_compute_pipe_reset : 1;
+> +                               uint32_t reserved : 10;
+>                         };
+>                         uint32_t        uint32_t_all;
+>                 };
+> diff --git a/drivers/gpu/drm/amd/include/mes_v12_api_def.h b/drivers/gpu/=
+drm/amd/include/mes_v12_api_def.h
+> index e541a43714a1..08466d59695c 100644
+> --- a/drivers/gpu/drm/amd/include/mes_v12_api_def.h
+> +++ b/drivers/gpu/drm/amd/include/mes_v12_api_def.h
+> @@ -294,8 +294,9 @@ union MESAPI_SET_HW_RESOURCES {
+>                                 uint32_t limit_single_process : 1;
+>                                 uint32_t unmapped_doorbell_handling: 2;
+>                                 uint32_t enable_mes_fence_int: 1;
+> -                               uint32_t enable_lr_compute_wa : 1;
+> -                               uint32_t reserved : 9;
+> +                               uint32_t enable_lr_compute_wa : 2;
+> +                               uint32_t enable_compute_pipe_reset : 1;
+> +                               uint32_t reserved : 8;
+>                         };
+>                         uint32_t uint32_all;
+>                 };
+> --
+> 2.34.1
 >
->> Melissa
->>
->> ---
->>   drivers/gpu/drm/drm_atomic_helper.c | 12 ++++++++++++
->>   include/drm/drm_atomic.h            |  3 ++-
->>   2 files changed, 14 insertions(+), 1 deletion(-)
->>
->> diff --git a/drivers/gpu/drm/drm_atomic_helper.c 
->> b/drivers/gpu/drm/drm_atomic_helper.c
->> index 26953ed6b53e..481f92a03683 100644
->> --- a/drivers/gpu/drm/drm_atomic_helper.c
->> +++ b/drivers/gpu/drm/drm_atomic_helper.c
->> @@ -3751,6 +3751,13 @@ drm_atomic_helper_duplicate_state(struct 
->> drm_device *dev,
->>               err = PTR_ERR(plane_state);
->>               goto free;
->>           }
->> +
->> +        if (plane_state->color_pipeline) {
->> +            err = drm_atomic_add_affected_colorops(state, plane);
->> +            if (err)
->> +                goto free;
->> +        }
->> +
->>       }
->>         drm_connector_list_iter_begin(dev, &conn_iter);
->> @@ -3856,6 +3863,8 @@ int 
->> drm_atomic_helper_commit_duplicated_state(struct drm_atomic_state 
->> *state,
->>       int i, ret;
->>       struct drm_plane *plane;
->>       struct drm_plane_state *new_plane_state;
->> +    struct drm_colorop *colorop;
->> +    struct drm_colorop_state *new_colorop_state;
->>       struct drm_connector *connector;
->>       struct drm_connector_state *new_conn_state;
->>       struct drm_crtc *crtc;
->> @@ -3863,6 +3872,9 @@ int 
->> drm_atomic_helper_commit_duplicated_state(struct drm_atomic_state 
->> *state,
->>         state->acquire_ctx = ctx;
->>   +    for_each_new_colorop_in_state(state, colorop, 
->> new_colorop_state, i)
->> +        state->colorops[i].old_state = colorop->state;
->> +
->>       for_each_new_plane_in_state(state, plane, new_plane_state, i)
->>           state->planes[i].old_state = plane->state;
->>   diff --git a/include/drm/drm_atomic.h b/include/drm/drm_atomic.h
->> index 0b1b32bcd2bd..96fd32a3e92c 100644
->> --- a/include/drm/drm_atomic.h
->> +++ b/include/drm/drm_atomic.h
->> @@ -1102,7 +1102,8 @@ void drm_state_dump(struct drm_device *dev, 
->> struct drm_printer *p);
->>           for_each_if ((__state)->colorops[__i].ptr &&        \
->>                    ((colorop) = (__state)->colorops[__i].ptr,    \
->>                     (void)(colorop) /* Only to avoid 
->> unused-but-set-variable warning */, \
->> -                  (new_colorop_state) = 
->> (__state)->colorops[__i].new_state, 1))
->> +                  (new_colorop_state) = 
->> (__state)->colorops[__i].new_state,\
->> +                  (void)(new_colorop_state) /* Only to avoid 
->> unused-but-set-variable warning */, 1))
->>     /**
->>    * for_each_oldnew_plane_in_state - iterate over all planes in an 
->> atomic update
->
-
