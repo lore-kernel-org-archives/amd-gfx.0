@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3C357F8D763
-	for <amd-gfx@archiver.kernel.org>; Thu, 16 Apr 2026 17:32:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 300E2F8D761
+	for <amd-gfx@archiver.kernel.org>; Thu, 16 Apr 2026 17:32:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CC9E610E91B;
-	Thu, 16 Apr 2026 17:32:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BE9FA10E91C;
+	Thu, 16 Apr 2026 17:32:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="sL11XH43";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="hyRDXPc3";
 	dkim-atps=neutral
-Received: from SN4PR2101CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11012040.outbound.protection.outlook.com
- [40.93.195.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3812210E91B
- for <amd-gfx@lists.freedesktop.org>; Thu, 16 Apr 2026 17:32:24 +0000 (UTC)
+Received: from CY3PR05CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11013010.outbound.protection.outlook.com
+ [40.93.201.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5601610E91B
+ for <amd-gfx@lists.freedesktop.org>; Thu, 16 Apr 2026 17:32:25 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ZGs9UX4FNrU30Ayv2QdrCVwtg1Qj2GwIKJvWwiS0RbhEhixEgR1xYUBKPYcPysGn9Gl3sbEF+C5iAuXoj66DTmR3pF823grLp9CC9+GpUbOkO5CclJ4AovaUWcN3hi874mn4O0tKrZna/Pwjoc5oLMpCJc1MfbcEQ8ltGfYMenj8ApTdHcTguUEzGogNMfPdU5exgxvFTQE5JB+r7OQ7hl1e5WY15gbX9UEvBhn1/EvxVSvQad9B2WCshTlwtRso1DzKrzcNI5VY56kVxdVFoEOxlOMP3TeQkCjfnoIPmOaD6INVTdDOhvJTFB0Fnf6l7VL4XTuA4W56P3kbY4Vx8Q==
+ b=ah6fPZ15IYfQju5j9Oc+0OTbiD/XOJDR8POlUzl+L49F89knCdOu6SfEGDD8+PdC1teYFbuo8EJ1DK46NO2fb6jcSlMJPodALVFvsNJBBdrsJExt2hEVSgKNYDu1yuPdW1YEtxZk47MHHMX+xTNgS8f8B12K5BJyNMKJgdYK09O6aEvIVRrSDVtQo0bbiXFIpPqqbDtzEXe0AzQ41ltuSAb0e+6Q+/vQIMFVPAb13B1EIlr7n2Pdx4Q8LbItN/vMLDFwg3ywra3P2YoblMs0KkbqQdlY5Q6vAtDh+jNU0LesYopB18B36Y++2a9hueg5lg9nK6mnqt4IIIxJBShwbg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=b5N3I9pzVZWf0M+l2yzwaGDcNiM3f0bzni2sXErsc+A=;
- b=C60MHArEoyoWAH97gzbJc0y8zDNB/x88Eo9fxbIjlqu9oeEszS/EXfpQkG/UhRHp8LU7sXFerMvYm9f8ZbFVysLNmyq1VH+CdJMjSLrbC1Au7CAemLURI2wV7KBAW9aP3YJBkjI1m21gNShpsLCXy1uJRHaWjSqQe477nSPz28uSx+/cK1fEwBqEfTS9TLotuBaXEcKTy0UIQC88mutd7ZL29D0us3Q3U+r16iwQFdkVWTVC0dJCRotZKO8uvhOFZ/pl77+xZyC1UPJoIweTm+8lojsP6nG91l2BgqSzgBRVaugyBtnJ0x+zic0oIRxJV0dGPkYz6OKJS98Hf8EAFw==
+ bh=Ao4w8pnT0dKMcFgVq2yND15f+mHPWeYD5gtXQWckiR8=;
+ b=Ero+5shD+scy5jUxINo+Bh5TBctBEPjWJ9lUK6Fj8XzAsRTII/lbODB+1hOOubRA5lqRU6LivZHx6i/8u6pfdPdcsi5tN5/QRfaptPRUvOIFw3YCWqnsdKWHvwVcV1dgYZzCIQBN0K8Q3FThKyx1x+Ciy26gCzbhl40Digbm0sEYOjD0PwE4ZivojhE1o5fU7hulw+yHeeXqtpDI2jVAd+s93LeFwNLGRLAv7tyTKoBGHsfWxEMwiSLp6HLJax25j/42iN8rJETuDIVnwAYZDQve1l19XX5YlPxM2IkN5wMh6rTDSms0fZZYH5pxUYHkVDCUIQFRW0f7AEMxQNqpJw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=b5N3I9pzVZWf0M+l2yzwaGDcNiM3f0bzni2sXErsc+A=;
- b=sL11XH43LFzXkK9gA0hc7n4ysDBhU4mowuAPVliUB1J8gEq2+aHmU5gGGVw7tBRhR48ZY4yK+EUlA+2eZkr6M1v22+gVGF+zjHd6wNwgTw4Ffh138KcV4JSKnb+XKu1UopVISfSmAr07IdYDzAqxPMwsUYi9Sfluru7llsU716w=
-Received: from BY3PR10CA0008.namprd10.prod.outlook.com (2603:10b6:a03:255::13)
- by DS0PR12MB9725.namprd12.prod.outlook.com (2603:10b6:8:226::24) with
+ bh=Ao4w8pnT0dKMcFgVq2yND15f+mHPWeYD5gtXQWckiR8=;
+ b=hyRDXPc3PSHRnIpXldElgwZxu5u5SjzGn5qzHf9WEU020AYA8MFT5ks7+ZTyxhMIX104cBU8Qdn4yzlVPnESZfoaA+RqoULijDspQjnSGcfWDV3ouRt03odc0rvYC4sFyhrucJ+DmApEb/EDVDn6Yz+A6+gMCcjXRNQHY39vHdU=
+Received: from PH8PR02CA0001.namprd02.prod.outlook.com (2603:10b6:510:2d0::19)
+ by DS0PR12MB7771.namprd12.prod.outlook.com (2603:10b6:8:138::6) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9818.21; Thu, 16 Apr
- 2026 17:32:18 +0000
-Received: from SJ1PEPF000023D7.namprd21.prod.outlook.com
- (2603:10b6:a03:255:cafe::ed) by BY3PR10CA0008.outlook.office365.com
- (2603:10b6:a03:255::13) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9769.51 via Frontend Transport; Thu,
- 16 Apr 2026 17:32:17 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9818.20; Thu, 16 Apr
+ 2026 17:32:14 +0000
+Received: from SJ1PEPF000023D9.namprd21.prod.outlook.com
+ (2603:10b6:510:2d0:cafe::ed) by PH8PR02CA0001.outlook.office365.com
+ (2603:10b6:510:2d0::19) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9769.52 via Frontend Transport; Thu,
+ 16 Apr 2026 17:32:14 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -49,26 +49,26 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
 Received: from satlexmb08.amd.com (165.204.84.17) by
- SJ1PEPF000023D7.mail.protection.outlook.com (10.167.244.72) with Microsoft
+ SJ1PEPF000023D9.mail.protection.outlook.com (10.167.244.74) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9846.0 via Frontend Transport; Thu, 16 Apr 2026 17:32:17 +0000
+ 15.20.9846.0 via Frontend Transport; Thu, 16 Apr 2026 17:32:13 +0000
 Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Thu, 16 Apr
- 2026 12:32:17 -0500
+ 2026 12:32:13 -0500
 Received: from ram-Splinter.amd.com (10.180.168.240) by satlexmb09.amd.com
  (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Thu, 16 Apr
- 2026 10:32:15 -0700
+ 2026 10:32:11 -0700
 From: "Ramalingeswara Reddy, Kanala" <Kanala.RamalingeswaraReddy@amd.com>
 To: <Alexander.Deucher@amd.com>, <amd-gfx@lists.freedesktop.org>,
  <Pratik.Vishwakarma@amd.com>, <Suresh.Guttula@amd.com>,
  <KevinYang.Wang@amd.com>
 CC: "Ramalingeswara Reddy, Kanala" <Kanala.RamalingeswaraReddy@amd.com>
-Subject: [PATCH v3 3/4] drm/amdgpu: smu: cache and reuse averaged unified
- metrics values
-Date: Thu, 16 Apr 2026 23:01:44 +0530
-Message-ID: <20260416173145.856326-3-Kanala.RamalingeswaraReddy@amd.com>
+Subject: [PATCH v3 2/4] drm/amdgpu: smu: fix average calculation for unified
+ metrics on SMU 15.0.0
+Date: Thu, 16 Apr 2026 23:01:43 +0530
+Message-ID: <20260416173145.856326-2-Kanala.RamalingeswaraReddy@amd.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260416173145.856326-1-Kanala.RamalingeswaraReddy@amd.com>
 References: <20260416173145.856326-1-Kanala.RamalingeswaraReddy@amd.com>
@@ -80,29 +80,29 @@ X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb09.amd.com
  (10.181.42.218)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF000023D7:EE_|DS0PR12MB9725:EE_
-X-MS-Office365-Filtering-Correlation-Id: 04ce02f1-eee0-42b0-5ebe-08de9bde1b60
+X-MS-TrafficTypeDiagnostic: SJ1PEPF000023D9:EE_|DS0PR12MB7771:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3dd95f9f-eade-404c-95cc-08de9bde18f4
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700016|82310400026|1800799024|376014|56012099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: bfdxDSCfhjZZdH8AhDE56fUtmXl/MFWuEDQOLxV8ZWuuiT/JsaZWvnAFgz+QU87uj/7SZxGR5GtT/cakngUaEnxPLhGE5hTLZZy2gFLLlBCICvHfyxbOADteJgYT0dKOMWsxui3b0Fl5E6U34LIrhya/JTQml/zV+zodIv7uungH3CpNx/u8HK5v/e9lPM7UTz7GXD6WyMnb4MaOXiaQ/3zXQe0MNCl9D4cg2FEuzCn1ziwECbGG3RnS86QK9bM44GfgPmw0uxwx53jrJj0Nu+V25Cy+207Lf5qgJWMHdKo+m8FRcFFYZtxAJfybkJWorwGDUS8R5dQ7tkD5D3IGnQQILqJmw0KGjbZ9f8LDkHstVy20kseEXx7uVNDgd1rE6VVkQmI3GZUG09HSJxei0Oo2PDR/bX9DG1WmOTyHgPRPpvkG+0321R5rvGQ2TPsJyEgxIzMDyx8HvUTKYyaSPLKJD4vmQ6D54W5so1yYs2DFy8TYCJqK9HiMysbKJ5EAblzyiPFlHMwDlxKGWal2bvOIa0tbOiyXYHMGBl37+XD8mHJICdaTkFqZ+fQgTHhw44ngffYrXwLocFKRws9O7EUIh9ND1vOCG/HWxYL5vB7DmEcpj56PQh+Hy4Ohz8rsrZYqDXsh4vr3wPg/B8FwS7kGtSZRoRtbwpPBcPU6mpZCYyB4gKUJsc7oCXjEmCotDthcASL+oVdTerLLTS1u5LaieTejpATGMB8NmP2WqnELOKEylyM9mprIHg8IrdoHmM++HIb04BRHwTAG82LZFg==
+ ARA:13230040|36860700016|82310400026|1800799024|376014|22082099003|56012099003|18002099003;
+X-Microsoft-Antispam-Message-Info: GCxvDjQ0iDb1NzZrSLaCG7YELA0BDWLWzPc7UEploi3qApzI/yCiWn4zS/qTur7rluPpEcBdPS8tfUouEDmNaNzLQjCiZAAUiLAJWlFKCo03FShcmOx5n3LVeuuSRHRetCF3Lt7dd3XaCcxS1wK3xGlgdLcf//1cmL3/Hz7ChMzc5X40fzsTYiwZj+vwFiAHBHar7toNK7imIcizE/EZ165+UtEXsOn9NTZ9HTGdDDPAhTOnlMo2lWttS1r+jS55zZlgHE07xbvW2dUAyAbhsAUWwisvsto2tiT9a/16ONgybFmXCCpBaEXOsJzNpu1vevMjZCy89QdhYz9RV+o0zf5xUmIb0ifnYCMu4acpkxX3B9mTUu1Fx2pXrV3gNNOYp9OeO/EpNZX2eMLEMWXM0wrgLhqNF/8cBu/rr18rChWFHycJR2PZIgiKmSbaWjXYU84p1ghSj5CL/A+7r6NAkosL0ru/NPJaunpZ525MGjwcLpqc5Bsomi1mfqGUe5vVRq1PGWJfWJ1uIPRV5h1PPUObmYT9TDbOo4E5wLy68nVpWZ1utzOmxc+FELRtu0st/0WHunJhjQWirllSYHrGhq3MhnIJ7VSZzq0fi2wO8tc+oqLAtRWp6U7BOziUTE/tK0qlBVIdLWTZY7T1NAcnajoOwoeZ1OeRk1ZAVCZ1coYp1BEPKz3ORbjW3a7NZoYq3dRda+0QoEEvHF5cluChXtIDnD2Y4gbunJTq0YXA7AXVS9+3OtuN39gnDf/I1oxWF4UPk2/RhqI/vQk489GbrQ==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700016)(82310400026)(1800799024)(376014)(56012099003)(22082099003)(18002099003);
+ SFS:(13230040)(36860700016)(82310400026)(1800799024)(376014)(22082099003)(56012099003)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 2r5jcIqkLKegaAM8xOb5Zir2WtJ/sfX9i9/g10JVUrmM89QWNt8QowWKD7J/nX+WsQ7gcT+l6IT2HyuI/g9F1QNHyfHtq3nc4aX3u3H+H1iTrSrcUhZ+Gr7Y1OTXSw52xTM41h4MKIsY7EfHVBT9iPSm8/E4P3Pf+oLClMKLEKCK0CpPmDHVFZGfqghUVUb47Z1JsNGfHvC1aPdH/kmcZ1x5tpjr25hdKANYywm4ueEapfeiYabIpS9qPXbWY+3Nu778HOTqATS95zEy9essNH5VffUeC7JbvqJdq9GiG2KYzdPtFg2ngv+otA8sbV9Nh6oM6VZQUiAePF3eJHapJKnslqb17RMvkAOmmBATANkOD07yNqcNw42EmMt/cc2FU3T8QzQ1MtI7//NtR3WGmGnKuZPKFqNP6+2fYBFL8qUobkXoaYvc9AsZKMiGSZLw
+X-MS-Exchange-AntiSpam-MessageData-0: I1X+0yS1grNGWYs1N48oaMKhY3Wj8DCMJphAq6kDgHoDz8KHQKngsNGtHpC63+wV0Gniv9uTCfBbGTzsL7IJQ2jAK181ybteOIgV+BOBJKs4Bx99xoH44g/++NN3rtTCgFjscRdwR+giTcr5B65xz78VxbJN90oaZ9AKRMGXQG07Acuasl8pMS0oLHkoW3jzhJCVSnhDsy1K+olotYK78xajHZkpWdzj9iQRzAkFXiAccM36Yh3D+YRQD/pkaMvPWJdSSzh8Bm32a5S+L/3D69UMBxJ6u3nTHwoLWU71YoOM4yQHS1P3sbqXGZcdr/NZAPoEc6Du2yUYmGhbsk6EpBel2q03jZ/0Vleq2l8ugOjOzphllk1KfCOa4Z+An4Uj/erUSFv0L4i9SErVRtZ0auRRFzdTCbaNZexer7jJCSuTNb0VrkoREi/+Q2XBjIKH
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Apr 2026 17:32:17.6429 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 04ce02f1-eee0-42b0-5ebe-08de9bde1b60
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Apr 2026 17:32:13.6143 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3dd95f9f-eade-404c-95cc-08de9bde18f4
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF000023D7.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF000023D9.namprd21.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB9725
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7771
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,205 +117,185 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Compute averaged metrics from accumulated SMU values and store them in a
-local cache. If the metrics accumulation counter has not changed, return
-the previously cached metrics instead of recalculating them.
+From: sguttula <Suresh.Guttula@amd.com>
 
+Unified metric values reported by SMU 15.0.0 are accumulated in units of
+KBytes. Convert the accumulated values to averages by dividing by 1024
+before reporting them to userspace.
+
+Signed-off-by: sguttula <Suresh.Guttula@amd.com>
 Signed-off-by: Ramalingeswara Reddy, Kanala <Kanala.RamalingeswaraReddy@amd.com>
 ---
- .../drm/amd/pm/swsmu/smu15/smu_v15_0_0_ppt.c  | 45 ++++++++++++++++---
- 1 file changed, 40 insertions(+), 5 deletions(-)
+ .../drm/amd/pm/swsmu/smu15/smu_v15_0_0_ppt.c  | 76 ++++++++++++-------
+ .../drm/amd/pm/swsmu/smu15/smu_v15_0_0_ppt.h  |  3 +-
+ 2 files changed, 52 insertions(+), 27 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_0_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_0_ppt.c
-index a6a7df683b7e..f0a798631903 100644
+index a280506f43fa..a6a7df683b7e 100644
 --- a/drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_0_ppt.c
 +++ b/drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_0_ppt.c
-@@ -384,6 +384,7 @@ static int smu_v15_0_0_get_smu_metrics_data(struct smu_context *smu,
+@@ -355,7 +355,7 @@ static int smu_v15_0_0_get_metrics_table(struct smu_context *smu,
+ 	addr = ((uint64_t)args.out_args[1] << 32) | args.out_args[0];
+ 	table_size = args.out_args[2];
+ 
+-	cpu_addr = ioremap_wc(addr, metrics->table_size);
++	cpu_addr = ioremap_wc(addr, table_size);
+ 
+ 	args.msg = SMU_MSG_GetMetricsTableLogSample;
+ 	args.num_args = 0;
+@@ -371,6 +371,10 @@ static int smu_v15_0_0_get_metrics_table(struct smu_context *smu,
+ 
+ #define get_diff(a, b) \
+ 	(a > b ? ((0xFFFFFFFF - a) + b + 1) : (b - a))
++#define get_diff_count(a, b) \
++	(a > b ? ((MAX_UINT32  - a) + b + 1) : (b - a))
++#define get_diff_val(a, b) \
++	(a > b ? ((MAX_UINT64  - a) + b + 1) : (b - a))
+ 
+ static int smu_v15_0_0_get_smu_metrics_data(struct smu_context *smu,
+ 					    MetricsMember_t member,
+@@ -380,7 +384,8 @@ static int smu_v15_0_0_get_smu_metrics_data(struct smu_context *smu,
  	SmuMetrics_t *metrics = (SmuMetrics_t *)smu_table->metrics_table; //TBD
  
  	SMU_15_0_0_MetricsTable_t prev_metrics;
-+	static uint32_t Avg_Metric_copy[METRICS_AVERAGE_NPUCLK+1] = {0};
- 	uint64_t counter, val;
- 	int ret;
+-	int ret, counter, val;
++	uint64_t counter, val;
++	int ret;
  
-@@ -394,6 +395,12 @@ static int smu_v15_0_0_get_smu_metrics_data(struct smu_context *smu,
- 	if (ret)
- 		return ret;
+ 	memcpy(&prev_metrics, smu_table->metrics_table,
+ 			sizeof(SMU_15_0_0_MetricsTable_t));
+@@ -391,67 +396,86 @@ static int smu_v15_0_0_get_smu_metrics_data(struct smu_context *smu,
  
-+	if (prev_metrics.IOD.AccumulationCounter ==
-+		((SMU_15_0_0_MetricsTable_t *)smu_table->metrics_table)->IOD.AccumulationCounter) {
-+		*value = Avg_Metric_copy[member];
-+		return 0;
-+	}
-+
  	switch (member) {
  	case METRICS_AVERAGE_GFXCLK:
- 		counter = get_diff_count(prev_metrics.IOD.AccumulationCounter,
-@@ -401,6 +408,7 @@ static int smu_v15_0_0_get_smu_metrics_data(struct smu_context *smu,
- 		val = get_diff_val(prev_metrics.IOD.GfxclkFreqEffAcc,
+-		counter = get_diff(prev_metrics.IOD.AccumulationCounter,
++		counter = get_diff_count(prev_metrics.IOD.AccumulationCounter,
+ 		 ((SMU_15_0_0_MetricsTable_t *)smu_table->metrics_table)->IOD.AccumulationCounter);
+-		val = get_diff(prev_metrics.IOD.GfxclkFreqEffAcc,
++		val = get_diff_val(prev_metrics.IOD.GfxclkFreqEffAcc,
  		 ((SMU_15_0_0_MetricsTable_t *)smu_table->metrics_table)->IOD.GfxclkFreqEffAcc);
- 		*value = counter ? (val/counter)/1024 : 0;
-+		Avg_Metric_copy[member] = *value;
+-		*value = counter ? (val/counter)*1024 : 0;
++		*value = counter ? (val/counter)/1024 : 0;
  		break;
  	case METRICS_AVERAGE_SOCCLK:
- 		counter = get_diff_count(prev_metrics.IOD.AccumulationCounter,
-@@ -408,6 +416,7 @@ static int smu_v15_0_0_get_smu_metrics_data(struct smu_context *smu,
- 		val = get_diff_val(prev_metrics.IOD.SocclkFreqEffAcc,
+-		counter = get_diff(prev_metrics.IOD.AccumulationCounter,
++		counter = get_diff_count(prev_metrics.IOD.AccumulationCounter,
+ 		 ((SMU_15_0_0_MetricsTable_t *)smu_table->metrics_table)->IOD.AccumulationCounter);
+-		val = get_diff(prev_metrics.IOD.SocclkFreqEffAcc,
++		val = get_diff_val(prev_metrics.IOD.SocclkFreqEffAcc,
  		 ((SMU_15_0_0_MetricsTable_t *)smu_table->metrics_table)->IOD.SocclkFreqEffAcc);
- 		*value = counter ? (val/counter)/1024 : 0;
-+		Avg_Metric_copy[member] = *value;
+-		*value = counter ? (val/counter)*1024 : 0;
++		*value = counter ? (val/counter)/1024 : 0;
  		break;
  	case METRICS_AVERAGE_VCLK:
- 		counter = get_diff_count(prev_metrics.IOD.AccumulationCounter,
-@@ -415,9 +424,11 @@ static int smu_v15_0_0_get_smu_metrics_data(struct smu_context *smu,
- 		val = get_diff_val(prev_metrics.IOD.VclkFreqEffAcc,
- 		 ((SMU_15_0_0_MetricsTable_t *)smu_table->metrics_table)->IOD.VclkFreqEffAcc);
- 		*value = counter ? (val/counter)/1024 : 0;
-+		Avg_Metric_copy[member] = *value;
+-		*value = 0;//metrics->VclkFrequency;
++		counter = get_diff_count(prev_metrics.IOD.AccumulationCounter,
++		 ((SMU_15_0_0_MetricsTable_t *)smu_table->metrics_table)->IOD.AccumulationCounter);
++		val = get_diff_val(prev_metrics.IOD.VclkFreqEffAcc,
++		 ((SMU_15_0_0_MetricsTable_t *)smu_table->metrics_table)->IOD.VclkFreqEffAcc);
++		*value = counter ? (val/counter)/1024 : 0;
  		break;
  	case METRICS_AVERAGE_DCLK:
  		*value = 0;
-+		Avg_Metric_copy[member] = *value;
  		break;
  	case METRICS_AVERAGE_UCLK:
- 		counter = get_diff_count(prev_metrics.IOD.AccumulationCounter,
-@@ -425,6 +436,7 @@ static int smu_v15_0_0_get_smu_metrics_data(struct smu_context *smu,
- 		val = get_diff_val(prev_metrics.IOD.MemclkFreqEffAcc,
+-		counter = get_diff(prev_metrics.IOD.AccumulationCounter,
++		counter = get_diff_count(prev_metrics.IOD.AccumulationCounter,
+ 		 ((SMU_15_0_0_MetricsTable_t *)smu_table->metrics_table)->IOD.AccumulationCounter);
+-		val = get_diff(prev_metrics.IOD.MemclkFreqEffAcc,
++		val = get_diff_val(prev_metrics.IOD.MemclkFreqEffAcc,
  		 ((SMU_15_0_0_MetricsTable_t *)smu_table->metrics_table)->IOD.MemclkFreqEffAcc);
- 		*value = counter ? (val/counter)/1024 : 0;
-+		Avg_Metric_copy[member] = *value;
+-		*value = counter ? (val/counter)*1024 : 0;
++		*value = counter ? (val/counter)/1024 : 0;
  		break;
  	case METRICS_AVERAGE_FCLK:
- 		counter = get_diff_count(prev_metrics.IOD.AccumulationCounter,
-@@ -432,9 +444,11 @@ static int smu_v15_0_0_get_smu_metrics_data(struct smu_context *smu,
- 		val = get_diff_val(prev_metrics.IOD.FclkFreqEffAcc,
- 		 ((SMU_15_0_0_MetricsTable_t *)smu_table->metrics_table)->IOD.FclkFreqEffAcc);
- 		*value = counter ? (val/counter)/1024 : 0;
-+		Avg_Metric_copy[member] = *value;
+-		*value = metrics->FclkFrequency;
++		counter = get_diff_count(prev_metrics.IOD.AccumulationCounter,
++		 ((SMU_15_0_0_MetricsTable_t *)smu_table->metrics_table)->IOD.AccumulationCounter);
++		val = get_diff_val(prev_metrics.IOD.FclkFreqEffAcc,
++		 ((SMU_15_0_0_MetricsTable_t *)smu_table->metrics_table)->IOD.FclkFreqEffAcc);
++		*value = counter ? (val/counter)/1024 : 0;
  		break;
  	case METRICS_AVERAGE_VPECLK:
  		*value = metrics->VpeclkFrequency;
-+		Avg_Metric_copy[member] = *value;
  		break;
  	case METRICS_AVERAGE_NPUCLK:
- 		counter = get_diff_count(prev_metrics.IOD.AccumulationCounter,
-@@ -442,6 +456,7 @@ static int smu_v15_0_0_get_smu_metrics_data(struct smu_context *smu,
- 		val = get_diff_val(prev_metrics.IOD.NpuhclkFreqEffAcc,
- 		 ((SMU_15_0_0_MetricsTable_t *)smu_table->metrics_table)->IOD.NpuhclkFreqEffAcc);
- 		*value = counter ? (val/counter)/1024 : 0;
-+		Avg_Metric_copy[member] = *value;
+-		*value = metrics->NpuclkFrequency;
++		counter = get_diff_count(prev_metrics.IOD.AccumulationCounter,
++		 ((SMU_15_0_0_MetricsTable_t *)smu_table->metrics_table)->IOD.AccumulationCounter);
++		val = get_diff_val(prev_metrics.IOD.NpuhclkFreqEffAcc,
++		 ((SMU_15_0_0_MetricsTable_t *)smu_table->metrics_table)->IOD.NpuhclkFreqEffAcc);
++		*value = counter ? (val/counter)/1024 : 0;
  		break;
  	case METRICS_AVERAGE_GFXACTIVITY:
- 		counter = get_diff_count(prev_metrics.IOD.AccumulationCounter,
-@@ -449,6 +464,7 @@ static int smu_v15_0_0_get_smu_metrics_data(struct smu_context *smu,
- 		val = get_diff_val(prev_metrics.IOD.GfxBusyAcc,
+-		counter = get_diff(prev_metrics.IOD.AccumulationCounter,
++		counter = get_diff_count(prev_metrics.IOD.AccumulationCounter,
+ 		 ((SMU_15_0_0_MetricsTable_t *)smu_table->metrics_table)->IOD.AccumulationCounter);
+-		val = get_diff(prev_metrics.IOD.GfxBusyAcc,
++		val = get_diff_val(prev_metrics.IOD.GfxBusyAcc,
  		 ((SMU_15_0_0_MetricsTable_t *)smu_table->metrics_table)->IOD.GfxBusyAcc);
- 		*value = counter ? (val/counter)/1024 : 0;
-+		Avg_Metric_copy[member] = *value;
+-		*value = counter ? (val/counter)*1024 : 0;
++		*value = counter ? (val/counter)/1024 : 0;
  		break;
  	case METRICS_AVERAGE_VCNACTIVITY:
- 		counter = get_diff_count(prev_metrics.IOD.AccumulationCounter,
-@@ -456,6 +472,7 @@ static int smu_v15_0_0_get_smu_metrics_data(struct smu_context *smu,
- 		val = get_diff_val(prev_metrics.IOD.VcnBusyAcc,
- 		 ((SMU_15_0_0_MetricsTable_t *)smu_table->metrics_table)->IOD.VcnBusyAcc);
- 		*value = counter ? (val/counter)/1024 : 0;
-+		Avg_Metric_copy[member] = *value;
+-		*value = metrics->VcnActivity / 100;
++		counter = get_diff_count(prev_metrics.IOD.AccumulationCounter,
++		 ((SMU_15_0_0_MetricsTable_t *)smu_table->metrics_table)->IOD.AccumulationCounter);
++		val = get_diff_val(prev_metrics.IOD.VcnBusyAcc,
++		 ((SMU_15_0_0_MetricsTable_t *)smu_table->metrics_table)->IOD.VcnBusyAcc);
++		*value = counter ? (val/counter)/1024 : 0;
  		break;
  	case METRICS_AVERAGE_SOCKETPOWER:
- 		counter = get_diff_count(prev_metrics.IOD.AccumulationCounter,
-@@ -463,54 +480,68 @@ static int smu_v15_0_0_get_smu_metrics_data(struct smu_context *smu,
- 		val = get_diff_val(prev_metrics.IOD.ApuPowerAcc,
- 		 ((SMU_15_0_0_MetricsTable_t *)smu_table->metrics_table)->IOD.ApuPowerAcc);
- 		*value = counter ? (val/counter)/1024 : 0;
-+		Avg_Metric_copy[member] = *value;
- 	case METRICS_CURR_SOCKETPOWER:
- 		counter = get_diff_count(prev_metrics.IOD.AccumulationCounter,
+-		counter = get_diff(prev_metrics.IOD.AccumulationCounter,
++		counter = get_diff_count(prev_metrics.IOD.AccumulationCounter,
  		 ((SMU_15_0_0_MetricsTable_t *)smu_table->metrics_table)->IOD.AccumulationCounter);
- 		val = get_diff_val(prev_metrics.IOD.SystemPowerAcc,
+-		val = get_diff(prev_metrics.IOD.ApuPowerAcc,
++		val = get_diff_val(prev_metrics.IOD.ApuPowerAcc,
+ 		 ((SMU_15_0_0_MetricsTable_t *)smu_table->metrics_table)->IOD.ApuPowerAcc);
+-		*value = counter ? (val/counter)*1024 : 0;
++		*value = counter ? (val/counter)/1024 : 0;
+ 	case METRICS_CURR_SOCKETPOWER:
+-		counter = get_diff(prev_metrics.IOD.AccumulationCounter,
++		counter = get_diff_count(prev_metrics.IOD.AccumulationCounter,
+ 		 ((SMU_15_0_0_MetricsTable_t *)smu_table->metrics_table)->IOD.AccumulationCounter);
+-		val = get_diff(prev_metrics.IOD.SystemPowerAcc,
++		val = get_diff_val(prev_metrics.IOD.SystemPowerAcc,
  		 ((SMU_15_0_0_MetricsTable_t *)smu_table->metrics_table)->IOD.SystemPowerAcc);
- 		*value = counter ? (val/counter)/1024 : 0;
-+		Avg_Metric_copy[member] = *value;
+-		*value = counter ? (val/counter)*1024 : 0;
++		*value = counter ? (val/counter)/1024 : 0;
  		break;
  	case METRICS_TEMPERATURE_EDGE:
- 		counter = get_diff_count(prev_metrics.IOD.AccumulationCounter,
- 		 ((SMU_15_0_0_MetricsTable_t *)smu_table->metrics_table)->IOD.AccumulationCounter);
- 		val = get_diff_val(prev_metrics.IOD.GFX_TempAcc,
- 		 ((SMU_15_0_0_MetricsTable_t *)smu_table->metrics_table)->IOD.GFX_TempAcc);
--		*value = counter ? (val/counter)/1024 : 0;
-+		*value = counter ? (val/counter) : 0;
-+		Avg_Metric_copy[member] = *value;
+-		*value = metrics->GfxTemperature / 100 *
+-		SMU_TEMPERATURE_UNITS_PER_CENTIGRADES;
++		counter = get_diff_count(prev_metrics.IOD.AccumulationCounter,
++		 ((SMU_15_0_0_MetricsTable_t *)smu_table->metrics_table)->IOD.AccumulationCounter);
++		val = get_diff_val(prev_metrics.IOD.GFX_TempAcc,
++		 ((SMU_15_0_0_MetricsTable_t *)smu_table->metrics_table)->IOD.GFX_TempAcc);
++		*value = counter ? (val/counter)/1024 : 0;
  		break;
  	case METRICS_TEMPERATURE_HOTSPOT:
  		*value = metrics->SocTemperature / 100 *
- 		SMU_TEMPERATURE_UNITS_PER_CENTIGRADES;
-+		Avg_Metric_copy[member] = *value;
- 		break;
- 	case METRICS_THROTTLER_RESIDENCY_PROCHOT:
- 		*value = metrics->ThrottleResidency_PROCHOT;
-+		Avg_Metric_copy[member] = *value;
- 		break;
- 	case METRICS_THROTTLER_RESIDENCY_SPL:
- 		*value = metrics->ThrottleResidency_SPL;
-+		Avg_Metric_copy[member] = *value;
- 		break;
- 	case METRICS_THROTTLER_RESIDENCY_FPPT:
- 		*value = metrics->ThrottleResidency_FPPT;
-+		Avg_Metric_copy[member] = *value;
- 		break;
- 	case METRICS_THROTTLER_RESIDENCY_SPPT:
- 		*value = metrics->ThrottleResidency_SPPT;
-+		Avg_Metric_copy[member] = *value;
- 		break;
- 	case METRICS_THROTTLER_RESIDENCY_THM_SOC:
- 		*value = metrics->ThrottleResidency_THM_SOC;
-+		Avg_Metric_copy[member] = *value;
- 		break;
- 	case METRICS_VOLTAGE_VDDGFX:
- 		*value = 0;
-+		Avg_Metric_copy[member] = *value;
- 		break;
- 	case METRICS_VOLTAGE_VDDSOC:
- 		*value = 0;
-+		Avg_Metric_copy[member] = *value;
- 		break;
- 	case METRICS_SS_APU_SHARE:
- 		/* return the percentage of APU power with respect to APU's power limit.
- 		 * percentage is reported, this isn't boost value. Smartshift power
- 		 * boost/shift is only when the percentage is more than 100.
- 		 */
--		if (metrics->StapmOpnLimit > 0)
-+		if (metrics->StapmOpnLimit > 0) {
- 			*value = (metrics->ApuPower * 100) / metrics->StapmOpnLimit;
--		else
-+			Avg_Metric_copy[member] = *value;
-+		} else {
- 			*value = 0;
-+			Avg_Metric_copy[member] = *value;
-+		}
- 		break;
- 	case METRICS_SS_DGPU_SHARE:
- 		/* return the percentage of dGPU power with respect to dGPU's power limit.
-@@ -518,14 +549,18 @@ static int smu_v15_0_0_get_smu_metrics_data(struct smu_context *smu,
- 		 * boost/shift is only when the percentage is more than 100.
- 		 */
- 		if ((metrics->dGpuPower > 0) &&
--		    (metrics->StapmCurrentLimit > metrics->StapmOpnLimit))
-+		    (metrics->StapmCurrentLimit > metrics->StapmOpnLimit)) {
- 			*value = (metrics->dGpuPower * 100) /
- 				 (metrics->StapmCurrentLimit - metrics->StapmOpnLimit);
--		else
-+			Avg_Metric_copy[member] = *value;
-+		} else {
- 			*value = 0;
-+			Avg_Metric_copy[member] = *value;
-+		}
- 		break;
- 	default:
- 		*value = UINT_MAX;
-+		Avg_Metric_copy[member] = *value;
- 		break;
- 	}
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_0_ppt.h b/drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_0_ppt.h
+index b3dc6ccdddaf..592bb0f8ee96 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_0_ppt.h
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_0_ppt.h
+@@ -23,6 +23,8 @@
+ #ifndef __SMU_V15_0_0_PPT_H__
+ #define __SMU_V15_0_0_PPT_H__
  
++#define MAX_UINT32 0x00000000FFFFFFFF
++#define MAX_UINT64 0xFFFFFFFFFFFFFFFF
+ #pragma pack(push, 1)
+ 
+ typedef struct {
+@@ -213,7 +215,6 @@ typedef struct {
+ } MetricsTable_CCX_t;
+ 
+ typedef struct {
+-	uint32_t table_size;
+ 	MetricsTable_IOD_t IOD;
+ 	MetricsTable_CCX_t CCX[4];
+ } SMU_15_0_0_MetricsTable_t;
 -- 
 2.53.0
 
