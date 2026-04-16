@@ -4,115 +4,122 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DFA29F8A16A
-	for <amd-gfx@archiver.kernel.org>; Thu, 16 Apr 2026 12:30:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C494CF8A171
+	for <amd-gfx@archiver.kernel.org>; Thu, 16 Apr 2026 12:53:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D929D10E1D0;
-	Thu, 16 Apr 2026 12:30:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 56ED410E1C9;
+	Thu, 16 Apr 2026 12:53:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="aREs4pY9";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="bZczVeKV";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F152F10E13B;
- Thu, 16 Apr 2026 12:30:53 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 91B2640474;
- Thu, 16 Apr 2026 12:30:53 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB8D2C2BCAF;
- Thu, 16 Apr 2026 12:30:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1776342653;
- bh=0+upWZt1SQSfIz6OgmfLK1joGZgudnQ2lP+Bv+7s1DM=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=aREs4pY9AFWiyPis1yCUHi655kH6F2cmateO3OS3vwiWh4XGstegazkXh9fTeJRQW
- F7PNlGo+5uv4JS1ghUA7GmLt/nGdKTIiz0N3eNo0k9qdgxnlZ6UVo1xvuY/jm0Jsgz
- 6OXZlHvLM95FlzgQqthFFGhbIejPY5s4jQOos8SHiaMv+4GNWDNJ4NBjKmastJKLl9
- B+kLcT7cwceOa9aKNihg3CZG+65E3BtgCcBvAVf5SIS4E47zAqVB8uUKfjkayyutdK
- 0Jj6v6r/4toyxe6BrveBQ3dEYq/LaiTL2nhXiDsBmOQK54Y4zcD7qDew9ISAzQHpha
- d9g1fsIICa3fA==
-Message-ID: <1fba96bd-124d-431d-8de8-78688c248600@kernel.org>
-Date: Thu, 16 Apr 2026 14:30:37 +0200
-MIME-Version: 1.0
+Received: from CY7PR03CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11010038.outbound.protection.outlook.com
+ [40.93.198.38])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 060A410E1C9
+ for <amd-gfx@lists.freedesktop.org>; Thu, 16 Apr 2026 12:53:08 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=zNqGfK67zAcD6t4fqNUM+H87LJNkATg9Ch5a73pclTEZ81F1aV0PpT4g8RCK34VbBEfpmsgMNbPi6EaolyFUphq9fov+FpRC2xM/bhPoa3jGKI7lc0XwKOWFrwyIPK0pyJfPFsMHdJMyDFa4+YUZtEf3gA967qC+7ukmfl16DmpOLpWbM0dXWo4kvayoPEntFiGrZTh/DwwL+Tccrk6GkYgvghyngRL2KtVuO4tVoiohumslYiZ9wiPOnGFtKXOeAfPMHG0iUKAXZNXZgndSlu7bu/Dr2hUmEdw0UeqHpHs/a5eVpG2ZHMRiFLfon2EJBxTKLd4T87BFQVL9erwy1A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=hjWJx4N0tZQiP6hfq/XtY5xdyQbRpCtJ10j5N23EltU=;
+ b=cknjxRhEp8pFUtlIrOQaHU3wo/O/qnXMmCCK6QBilm4EUcqwQxQm4sfi1ma4VVII9qDEvsMo+SdK54i+8lUCq5jdx8vQn7eohdNBR0hT/qvfVpc18uQtY3BnvPg+Xk+sMNcXD+/iAaDAdEFYOYCuL8DYXcopJGVKnw9XUq0dVvLtN9SHxTK9szQ1sFUL1ymPoFg7WU6RiC/ak7hGXCgfExraa/qzoYOh94SDjMjRNSLCg0l8kZIfIldGIJAlqCyr0gPObkVnpTcSLLyeH8/+UaBuy84vzuHFSu83lbNJoI8PToj2asH8+NmcwdNypTslBb3L5hbULVzTdz5Gabpg7g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=hjWJx4N0tZQiP6hfq/XtY5xdyQbRpCtJ10j5N23EltU=;
+ b=bZczVeKV8zM3t1NvlMpEMnDapbf5eBM0n1yv+qnu6kQn3gz3XNnu6W96k2kQ3caHfYI8JwwCq1+KXGfoyi2gyBULE1cG3mBqIyJMrKfc3VJopElaVRW00584AYsRfoSlttgNW56y3oxqavpgn0mEGXZypRNbJF8yVZyhEf8wR0c=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from SA0PR12MB7091.namprd12.prod.outlook.com (2603:10b6:806:2d5::17)
+ by PH7PR12MB6393.namprd12.prod.outlook.com (2603:10b6:510:1ff::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9818.20; Thu, 16 Apr
+ 2026 12:53:01 +0000
+Received: from SA0PR12MB7091.namprd12.prod.outlook.com
+ ([fe80::ec33:1213:cfd8:63bc]) by SA0PR12MB7091.namprd12.prod.outlook.com
+ ([fe80::ec33:1213:cfd8:63bc%3]) with mapi id 15.20.9818.023; Thu, 16 Apr 2026
+ 12:53:01 +0000
+Message-ID: <2f526765-ce90-4736-834c-53f02dab4d1d@amd.com>
+Date: Thu, 16 Apr 2026 18:22:55 +0530
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 01/61] Coccinelle: Prefer IS_ERR_OR_NULL over manual NULL
- check
-To: Philipp Hahn <phahn-oss@avm.de>, amd-gfx@lists.freedesktop.org,
- apparmor@lists.ubuntu.com, bpf@vger.kernel.org, ceph-devel@vger.kernel.org,
- cocci@inria.fr, dm-devel@lists.linux.dev, dri-devel@lists.freedesktop.org,
- gfs2@lists.linux.dev, intel-gfx@lists.freedesktop.org,
- intel-wired-lan@lists.osuosl.org, iommu@lists.linux.dev,
- kvm@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-block@vger.kernel.org, linux-bluetooth@vger.kernel.org,
- linux-btrfs@vger.kernel.org, linux-cifs@vger.kernel.org,
- linux-clk@vger.kernel.org, linux-erofs@lists.ozlabs.org,
- linux-ext4@vger.kernel.org, linux-fsdevel@vger.kernel.org,
- linux-gpio@vger.kernel.org, linux-hyperv@vger.kernel.org,
- linux-input@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-leds@vger.kernel.org, linux-media@vger.kernel.org,
- linux-mips@vger.kernel.org, linux-mm@kvack.org,
- linux-modules@vger.kernel.org, linux-mtd@lists.infradead.org,
- linux-nfs@vger.kernel.org, linux-omap@vger.kernel.org,
- linux-phy@lists.infradead.org, linux-pm@vger.kernel.org,
- linux-rockchip@lists.infradead.org, linux-s390@vger.kernel.org,
- linux-scsi@vger.kernel.org, linux-sctp@vger.kernel.org,
- linux-security-module@vger.kernel.org, linux-sh@vger.kernel.org,
- linux-sound@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-trace-kernel@vger.kernel.org, linux-usb@vger.kernel.org,
- linux-wireless@vger.kernel.org, netdev@vger.kernel.org,
- ntfs3@lists.linux.dev, samba-technical@lists.samba.org,
- sched-ext@lists.linux.dev, target-devel@vger.kernel.org,
- tipc-discussion@lists.sourceforge.net, v9fs@lists.linux.dev
-Cc: Julia Lawall <Julia.Lawall@inria.fr>, Nicolas Palix <nicolas.palix@imag.fr>
-References: <20260310-b4-is_err_or_null-v1-0-bd63b656022d@avm.de>
- <20260310-b4-is_err_or_null-v1-1-bd63b656022d@avm.de>
-From: Krzysztof Kozlowski <krzk@kernel.org>
+Subject: Re: [PATCH] drm/amd/pm: fix runtime PM imbalance issue in amdgpu_pm.c
+To: Yang Wang <kevinyang.wang@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: alexander.deucher@amd.com, hawking.zhang@amd.com, kenneth.feng@amd.com
+References: <20260416102808.71041-1-kevinyang.wang@amd.com>
 Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <20260310-b4-is_err_or_null-v1-1-bd63b656022d@avm.de>
-Content-Type: text/plain; charset=UTF-8
+From: "Lazar, Lijo" <lijo.lazar@amd.com>
+In-Reply-To: <20260416102808.71041-1-kevinyang.wang@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: PN2P287CA0004.INDP287.PROD.OUTLOOK.COM
+ (2603:1096:c01:21b::6) To SA0PR12MB7091.namprd12.prod.outlook.com
+ (2603:10b6:806:2d5::17)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SA0PR12MB7091:EE_|PH7PR12MB6393:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7983f6b9-375b-4147-7ac4-08de9bb71788
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|366016|1800799024|18002099003|56012099003|22082099003; 
+X-Microsoft-Antispam-Message-Info: XWz4PXTO6ano6nYn+/K7NgGtPwxScoTLX0dGdQHkswq42JeD/Uizx6f01LrrSp3COD+Pog2Rs4vWDhf/r5xl0dgjx6zW8KRHzg0ecv3Dg5hCGbo7zxzZ/YlZODGgfiXnSAUi9fGO5cUoSENPA6vV4vgpYUuFTZxxujqjFA+cuf3uo/4bIXB+0QwRGFatCgVFIVtr6nA9tavnrHN0lH3grisTr1zJB7wi9l7Z5bUMmHklNzrcn6CBmBLpI+D/nyGDvBA17ERa+1ujF6v38tX0WN/QQYOdrrPFwT2nhSX4dHmAdMluMVwHTBbfnHvQ1Pfdt0ZAxE3Nw2QECKBirolq+3MzOPfPpBDkdBC4M6UiLacgV8Qb8P7kW/XI3i49T8Kxo7lY4FuLf8e0GRT3s01V+rdm9xvcynzMoMW83IseW8axoGo3pAvDJynK6F/+Yt9xPUSp6LcKHVXjw5MbUS1xqBSCSPhbw0ot03IkMDhiRIxOHlp2otV7MzWxAOpYSWHQouT8cBEGTmy6YSCmWMKPUMJyXoeyb0lVS13DnF0xlijDhdep0E5k+iTr7AzbDxvFa+zEWMDjgedkMKFXehBvXCdha7eJVpnCPUVWxJLse/8yLdhNX09v58tXSG1ZPBcL8PXRfU7sPn2NbPHolrJ5kUEgyAPEMvKEVKq5wJ5f14mEt4GQz4RG56z8fXEqsu4klBfHOZICbaW+VbRJgZ4wz/dDk3twR/dXSibhEBL3oes=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SA0PR12MB7091.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(366016)(1800799024)(18002099003)(56012099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?djdtQy92TkZNS1hhampVZU51L3U2V3NiWGRVSkhpRFRFSlgwSExmSUJvcVRY?=
+ =?utf-8?B?aXlDVlhvVXRPdlp3NVo0M0tkOWc2S3p6dUZzZS9oUVBVdkMwRUNCeWRVNFBQ?=
+ =?utf-8?B?UXhma1AzeWhCem1wQlFJNmNvbzM0N1FVSi8xbnNxREZEbzFFbTFmc1ZhZXdJ?=
+ =?utf-8?B?b0RaVE9ZSmFpdUdvckRLZElvTHNpd3U0cDc5MEhrbFRDVkU0ei9SL1Vld3NF?=
+ =?utf-8?B?bkxHNDJXcnBpaHpiK3lTQ2pDRUxnSUF0cGgzb1VtU0tiWmdWdUczc2gvUllP?=
+ =?utf-8?B?bEcxTFR3S2h3YVpxL1JiNktKMjdEcnJpNEkzZnNyaXFFTVlUbnlOUzhxWGxq?=
+ =?utf-8?B?R1JQTkJ4NElrU3R4eEVPYitBemhNUE9MeGFHK0pKSlM3elNPMUYxODFQY0tE?=
+ =?utf-8?B?KzhVWk9GeXhPekF1R2ZQQ2d0Sm1hM0VEdmFSamNVUWl6a1FwNm4yNDNzQXN0?=
+ =?utf-8?B?cTJJRmxETDFwS3FBaVZMWDh2ZjhjNmUwYktSZkpxYmxtSExxL2J6L3p2eGs4?=
+ =?utf-8?B?ekxseXN0WkdQWHdOblJnZG1XYWdUUnpRREpTZ1ZjYS9uOGhFNlNFNTRSeHI5?=
+ =?utf-8?B?SFIxN3FBTUV5eloyMXBNc2Ezamc0VEVsVTVBVmN2VE5vbWN5L2ljaGI5eFVB?=
+ =?utf-8?B?bzhYcmluOHZWdElYazhuRHE2T2R2TEd3MWE2OHpFMkdMVXZxMWZ5MVhMR1hp?=
+ =?utf-8?B?U0J2RjVESTR5TnZxR25SUm1hV1VEZWk4czNBcGVqWXZPdVpNUElJbndCRERr?=
+ =?utf-8?B?TjRycGEvMFBWZUFsRE9icmFiNjc4MmlGbERwZU51ZlhRZlU3VERoNnBETHZI?=
+ =?utf-8?B?V0Z2S1RLZDBsYmNUMjdFRFVGbUpKMkZmalI3OU5BemlXbU0yVFlOLy9WcWtq?=
+ =?utf-8?B?TldPRU9PY0FvWG1OOG9FNTRIcUR2cXNpdm1pZkhFeVlkdWtqN1Z4STBpMlNO?=
+ =?utf-8?B?US9WUHM0UnZoUVQ3blF0czJDTXJnTUhzS25WSWtIMDdJZ1lIeTIxb3pPMW5G?=
+ =?utf-8?B?MDA1K1ZUM1BabysvTDJudzdlRjVIR1RNUmQ0VnNoc25EZExRUUFMWlc4TGlL?=
+ =?utf-8?B?a1l4ZkJwbEpRcXR1RFMvL1hmTkxMTlhSeTRkc0pKaS94clZ6U1VndHZiQnlZ?=
+ =?utf-8?B?dXhIdmJ0NW5VTFRmeHhxT2N3NDFYUStONmFWTVRveEErQjhYeXhEV0NsbS82?=
+ =?utf-8?B?c2d5VmZieHllUVBMK1VXK0ZWTm5vajF0ZHlVUXBnWVBCTDdpQjQ2Z2xzcmMx?=
+ =?utf-8?B?Q0N6TDB6ZTVJRXJyc2lGZDFITjJJM2YzTE85R3ZDVTFZWmt6Tlp5MUxpdEcv?=
+ =?utf-8?B?aXd4SEtnQndaVzlKcjVIM3JjQnNRaitENW9sTW8zcW1RNWRlZEtCbFRGbUp5?=
+ =?utf-8?B?MjVodzFZVGE2Z1BNSlgxa3UxRTB6YS9SbG9WbmtFVlgza082dGZscXUvLzc5?=
+ =?utf-8?B?UmtxRStkMHg3YnNIU0ZhU1hNU296WXEyYUVkeG9yMlVjWDV0aFlEcDQvTTJo?=
+ =?utf-8?B?SVM1blVNSkczclhRRkJtLzJyNXB2MW9paGVTMDM2WkdXQmVrdUlEWC9md2lJ?=
+ =?utf-8?B?YTY2aS8rV09oSGV4ZHg0dmpsc05XcmJmQ0Z1bmZGTVJ2YXBBdXdzVExGNFhL?=
+ =?utf-8?B?NjU1b1JXdXJ5M3VvSWI5UUJ1eVRwYXQzQkZtTnBJN0lKcjFiRGlONHM5QjFS?=
+ =?utf-8?B?OUQ5T2xJbGdJSXNTNFNoako2NmN6ZG1BZjRWT1gxU25JRk93ank2cVkyTnJl?=
+ =?utf-8?B?MDhaMkhLSGNWOHZGZk1sYzA1YlFJVmZKeGY1ZXVWZlRjNHByYmZ5WFdkV1dk?=
+ =?utf-8?B?N24ramVHV2dMRnVoaHhYcXhOSWRHOXJDdEM2TjdJdnFwS3B5SW1VNUNITzdV?=
+ =?utf-8?B?NTVHeDY1MWQrZGxOTGFFR3cwUllsZzZqbTh6WnhGU3hhWWxwR3B0YWxpaDBT?=
+ =?utf-8?B?ME03S2xDNkI0ZjRIbUI0eXc5SVJTb0s5M3prWmowVU1FYzZVMVNHYkEwdHVx?=
+ =?utf-8?B?ajdlQ0hpVVFlSytxeHRUdmxwMTNvbUhEN0dSL1BZTXhSNE4yWDV5Y3N6Mm96?=
+ =?utf-8?B?TlRzQnF5MHVTcG5EakRObTRkVHpzMWFaSUMySjFnemw2L2RpY2NjeGhsYys3?=
+ =?utf-8?B?WHA0MnB1aUxQdkc1bHhxa3F2NmFMVkpZdmowa1RoSHZmL3VQaVVlcE1id0VQ?=
+ =?utf-8?B?b1lXZU1GQ2VRQXdsWTArbkYwaVFZZWVVRXJvVGx2d09DOVZFYXlZeEp6THR6?=
+ =?utf-8?B?ZktHSXVjOFpseVBvY0IzcUt3bXpyeDRHNGZZRi8veDlZVU5oRDFzREh6elQx?=
+ =?utf-8?B?RzdtUDBpb3FZTjZmWXJ2MUxoZXJWYnd1YmptNWFldTJ1UHZNMDBndz09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7983f6b9-375b-4147-7ac4-08de9bb71788
+X-MS-Exchange-CrossTenant-AuthSource: SA0PR12MB7091.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Apr 2026 12:53:01.3899 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: TxgVwTLFD/JUI33S7Cic5ql+0Y6AA7gaNYcDfiACc7w1+mxqv8k4okopUpjkGwHD
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6393
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,51 +134,61 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 10/03/2026 12:48, Philipp Hahn wrote:
-> Find and convert uses of IS_ERR() plus NULL check to IS_ERR_OR_NULL().
-> 
-> There are several cases where `!ptr && WARN_ON[_ONCE](IS_ERR(ptr))` is
-> used:
-> - arch/x86/kernel/callthunks.c:215 WARN_ON_ONCE
-> - drivers/clk/clk.c:4561 WARN_ON_ONCE
-> - drivers/interconnect/core.c:793 WARN_ON
-> - drivers/reset/core.c:718 WARN_ON
-> The change is not 100% semantical equivalent as the warning will now
-> also happen when the pointer is NULL.
-> 
-> To: Julia Lawall <Julia.Lawall@inria.fr>
-> To: Nicolas Palix <nicolas.palix@imag.fr>
-> Cc: cocci@inria.fr
-> Cc: linux-kernel@vger.kernel.org
-> 
-> ---
-> drivers/clocksource/mips-gic-timer.c:283 looks suspicious: ret != clk,
-> but Daniel Lezcano verified it as cottect.
-> 
-> There are some cases where the checks are part of a larger expression:
-> - mm/kmemleak.c:1095
-> - mm/kmemleak.c:1155
-> - mm/kmemleak.c:1173
-> - mm/kmemleak.c:1290
-> - mm/kmemleak.c:1328
-> - mm/kmemleak.c:1241
-> - mm/kmemleak.c:1310
-> - mm/kmemleak.c:1258
-> - net/netlink/af_netlink.c:2670
-> Thanks to Julia Lawall for the help to also handle them.
-> 
-> Signed-off-by: Philipp Hahn <phahn-oss@avm.de>
-> ---
->  scripts/coccinelle/api/is_err_or_null.cocci | 125 ++++++++++++++++++++++++++++
->  1 file changed, 125 insertions(+)
-> 
 
-Neither this, nor try from 2011, nor any future try should be accepted,
-because it creates impression IS_ERR_OR_NULL is somehow okay. No, it is
-not okay, it is a discouraged pattern leading to less readable and
-maintainable code. We should not have therefore any tools suggesting
-usage of IS_ERR_OR_NULL, because people will be converting poor code
-into that, instead of fixing that poor code.
 
-Best regards,
-Krzysztof
+On 16-Apr-26 3:58 PM, Yang Wang wrote:
+> Fix runtime PM counter imbalance to prevent device from failing to enter low power state
+> 
+> Fixes: a50d32c41fb2 ("drm/amd/pm: Deprecate print_clock_levels interface")
+> 
+> Signed-off-by: Yang Wang <kevinyang.wang@amd.com>
+
+Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
+
+Thanks,
+Lijo
+
+> ---
+>   drivers/gpu/drm/amd/pm/amdgpu_pm.c | 14 ++++++++++----
+>   1 file changed, 10 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+> index afbfb8e7adf5..fd2e63530e8c 100644
+> --- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+> +++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+> @@ -995,12 +995,15 @@ static ssize_t amdgpu_get_pp_dpm_clock(struct device *dev,
+>   		return ret;
+>   
+>   	ret = amdgpu_dpm_emit_clock_levels(adev, type, buf, &size);
+> -	if (ret)
+> -		return ret;
+> +	if (ret) {
+> +		size = ret;
+> +		goto out_pm_put;
+> +	}
+>   
+>   	if (size == 0)
+>   		size = sysfs_emit(buf, "\n");
+>   
+> +out_pm_put:
+>   	amdgpu_pm_put_access(adev);
+>   
+>   	return size;
+> @@ -3902,11 +3905,14 @@ static int amdgpu_retrieve_od_settings(struct amdgpu_device *adev,
+>   		return ret;
+>   
+>   	ret = amdgpu_dpm_emit_clock_levels(adev, od_type, buf, &size);
+> -	if (ret)
+> -		return ret;
+> +	if (ret) {
+> +		size = ret;
+> +		goto out_pm_put;
+> +	}
+>   	if (size == 0)
+>   		size = sysfs_emit(buf, "\n");
+>   
+> +out_pm_put:
+>   	amdgpu_pm_put_access(adev);
+>   
+>   	return size;
+
