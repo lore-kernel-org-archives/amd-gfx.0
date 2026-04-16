@@ -4,123 +4,123 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4EC2AF8D74B
-	for <amd-gfx@archiver.kernel.org>; Thu, 16 Apr 2026 14:29:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2E197F8D75B
+	for <amd-gfx@archiver.kernel.org>; Thu, 16 Apr 2026 15:46:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AE96510E20B;
-	Thu, 16 Apr 2026 14:29:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BA17210E139;
+	Thu, 16 Apr 2026 15:46:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ZIUa4Upx";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="sVYvtbKB";
 	dkim-atps=neutral
 Received: from CY7PR03CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11010009.outbound.protection.outlook.com
- [40.93.198.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7E20810E20B
- for <amd-gfx@lists.freedesktop.org>; Thu, 16 Apr 2026 14:29:17 +0000 (UTC)
+ (mail-westcentralusazon11010040.outbound.protection.outlook.com
+ [40.93.198.40])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7AE6E10E139
+ for <amd-gfx@lists.freedesktop.org>; Thu, 16 Apr 2026 15:46:52 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=j0SetNdYdtVJbgb1ffH7TQ2uN63aqYUHAuVBjtvr65zS3ON5hNXjuGvdrFhNudnhi/3zDy2stqqzRO1iGCEviGbO12t7As0uZjsrT5mt52gdNLEmTNFP3/wnlZ0q4X3ZQkShDWGNM0jHxt/fdqqQ+r1xnTM14jL2P6lEUZC41MlNMzFhoug/4nKT0fB9WHSkgnKn8nNiinLsNtiV/LVUNuF4hyovR56YAlIBf2f5ZappkJJOgBpMowCvZAUL1jWOgElX7M8P8UARBsgHHNXBRAkDmjVsLTqYvaqPzJnfV9qcR2VH7jg2d5YyE9NZIPwFFI3NUFYziT2fFvss/DKBOg==
+ b=sjX5txEo7gfJT/8W4bEqrqq+HAy9ViA0IbOPKl8nKxX5gcNGqQDS9QeS6MUSKRSDsCnMzkPsYMvJrf0WkbHa8OR2LV1CUBUFxfPd0ygY68IAK7a1tkbK9Y8rI7VhnZqnB2T9O5QYZEvnCnraUztu3qwAOhF9uMpgLzi4MdbFb5Bog7tiyxOphDP/l5VJxM8ai9R75i347sLna/N1siDEU00YDK0BnC375CCguahCnx2mAkRx96sHMnS1mLkQO1g3lCSAEcmRVRkI1uxeOEoGvM7pS1HsUBYcZUhThH2+ImG1FywurZ+cj/ExSGfT6WSWZzR+vHrqO9P0+Y2t1KSgAA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=7xXqjKch6vtN0unDXHLpEEcdjTH3Y9CBSnAyHfLhFDk=;
- b=HBQ72dNE+3YvrU9e7pCxaCGTQgdCaBYr1McUN0Y+6Y5B0/i7lrNLCquRyXPcKg/XWElvc/G6pfGB/9qKtMRcBYbPzff4BI+U3RBr9v0sv58zBSUN8vzJCwtR+3qTkPTw5pa8j38HVxqg40KQpyl+r4fiyRTAne4SdFuOsU8fXJecCzXdZmBhFaRpq3k4MnH+1JnaGctL4AmhR1yV4kABHr2dw42S8rCLpEsyNI26GbOdFTdbW4l6OlWMjbEShthH8BLxPYtRuTJDyaooWelKtiJJE5/bubrcVbP+pfppU2AV4Bm/8mdw60vIm8VRgKnWwO9sGXcxmuwk9JnT73To5w==
+ bh=sdUi0E5m99j9CXzKkq2RkeAXblDabEJ3jljY8DLraHE=;
+ b=oceFnYMTVrZwxYI93ULsMIr5er+S4G7cEnubX3O0ZFuHMe3kGp0wabgY5I6Wgvo5DlYDl398+OGJdGurhWNMn09rJ+tfNTHqpgxt32v9s3X7Hg2svdbzhpExfXBim0oPcowrQPD7zCMyzAsnXSitMs9FohD7lWXwdL9WyQiLVbA7N4216ri/E4W48Yb33LudbsX/5c7NpLUjDbCcxICRQGhevGQ8IM2EZKBeU40R7PL6LWkk0b6rgSxcSoy61iVE2iHYvkBbi9e1Y+Vh2HJcG9NwkclBOWWpWpOYsOyHJsCcLTCOo+dQukQzSSd1yQ2CJu69pJtpYT+RLg8VtNZntQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=7xXqjKch6vtN0unDXHLpEEcdjTH3Y9CBSnAyHfLhFDk=;
- b=ZIUa4Upxuytn6gYLgnp6pzj8/NV0i2uBI4TWL+vb1uvg/6vrqphT/Ra6q9dJ+46H2Ml6BvAsMeLf26WqPGZvX9WGW5QatBrOb1iEqg02hjO2v19zEfQ3zpPLXSY9dBudNSWJz41+Ib5VhVo26zwuFMe2OyDJEkFsqEnF+KfxZek=
+ bh=sdUi0E5m99j9CXzKkq2RkeAXblDabEJ3jljY8DLraHE=;
+ b=sVYvtbKBvY2gnqdDHkcrnHj+UK6btfWl78P9XEdhZnW+VEKHvgKl4AyWSbjg7JD8+9MnudB14I4GTymsgXxoHvXsb6sY5nh7ouYG/pFe5g93KGG5R4iNdYJyKtdYeEsDTh3jctoXUZDSRaZH0Asgz01ftQXiUyEb07hpM8ofK40=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB5149.namprd12.prod.outlook.com (2603:10b6:5:390::14)
- by DS2PR12MB9712.namprd12.prod.outlook.com (2603:10b6:8:275::13) with
+Received: from DM4PR12MB8476.namprd12.prod.outlook.com (2603:10b6:8:17e::15)
+ by PH0PR12MB8029.namprd12.prod.outlook.com (2603:10b6:510:26c::8) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9818.20; Thu, 16 Apr
- 2026 14:29:14 +0000
-Received: from DM4PR12MB5149.namprd12.prod.outlook.com
- ([fe80::8218:248d:58ec:8c81]) by DM4PR12MB5149.namprd12.prod.outlook.com
- ([fe80::8218:248d:58ec:8c81%6]) with mapi id 15.20.9818.017; Thu, 16 Apr 2026
- 14:29:13 +0000
-Content-Type: multipart/alternative;
- boundary="------------wWeI0kBbTs4yj0RUV2n590UU"
-Message-ID: <116df723-1d80-489d-ad72-3e2f16e3f19e@amd.com>
-Date: Thu, 16 Apr 2026 10:29:11 -0400
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9818.25; Thu, 16 Apr
+ 2026 15:46:47 +0000
+Received: from DM4PR12MB8476.namprd12.prod.outlook.com
+ ([fe80::2d79:122f:c62b:1cd8]) by DM4PR12MB8476.namprd12.prod.outlook.com
+ ([fe80::2d79:122f:c62b:1cd8%7]) with mapi id 15.20.9818.023; Thu, 16 Apr 2026
+ 15:46:47 +0000
+Message-ID: <b6e52939-5593-4874-a8d0-010594d6a637@amd.com>
+Date: Thu, 16 Apr 2026 09:46:45 -0600
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu: OR init_pte_flags into invalid leaf PTE
- updates
-To: Siwei He <siwei.he@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: felix.kuehling@amd.com, harish.kasiviswanathan@amd.com
-References: <20260414184819.612245-1-siwei.he@amd.com>
+Subject: Re: [PATCH] drm/amd/display: Restore analog connector support
+To: Roman.Li@amd.com, amd-gfx@lists.freedesktop.org
+Cc: alexander.deucher@amd.com, Harry.Wentland@amd.com, Sunpeng.Li@amd.com,
+ Aurabindo.Pillai@amd.com, timur.kristof@gmail.com
+References: <20260415224150.1807020-1-Roman.Li@amd.com>
 Content-Language: en-US
-From: Philip Yang <yangp@amd.com>
-In-Reply-To: <20260414184819.612245-1-siwei.he@amd.com>
-X-ClientProxiedBy: YQBPR0101CA0279.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:68::10) To DM4PR12MB5149.namprd12.prod.outlook.com
- (2603:10b6:5:390::14)
+From: Alex Hung <alex.hung@amd.com>
+In-Reply-To: <20260415224150.1807020-1-Roman.Li@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: MW4PR04CA0157.namprd04.prod.outlook.com
+ (2603:10b6:303:85::12) To DM4PR12MB8476.namprd12.prod.outlook.com
+ (2603:10b6:8:17e::15)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB5149:EE_|DS2PR12MB9712:EE_
-X-MS-Office365-Filtering-Correlation-Id: c501080a-e8e0-4a1f-5af8-08de9bc487ea
+X-MS-TrafficTypeDiagnostic: DM4PR12MB8476:EE_|PH0PR12MB8029:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7a08dceb-8895-4561-13a7-08de9bcf5df6
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|366016|376014|8096899003|18002099003|22082099003|56012099003;
-X-Microsoft-Antispam-Message-Info: wItse14gC2p4lWzn7D73DXO0NuNbjGoBSU2t4EdHmrby+vumvIf/qaXA9S/PcBJLdLyY6tYbhVRmzx4bizkMPRtn7n/d4DlRI795+zwF3LElOPE+O8W4gK3vsKXlCjbIWphyV8m165njn3L9lJ+tqUwrLmnhWk7Jgg2pJX/CbtfgSnM+pA0Y4wrmvjMzLFQDco89BcPm6akmVgB7RN+onae+ga/kkJ5y8aHTyJIDoXYA70SvjoJBaOHyD5Nh/qyuy+nkIbfAZOnXw0SOeczEyPnrGpDs37wkalDq6e8yHoAaFhNEvr07hHEG+uibFhHF9ddyJLCER5Bie3P9/dLlSuF9FBv3zO4aC2dn4N1ZJs40kXQ7lUukYstH3+lmdT2MwaBzpMEj0lJVIajhG8D1cjhhgNutUHFUOkcYinor8mlJnImIZPWPpA1M+jE+tnxMrNOKaqHoDGTYyhZePUoJeYe5G037nO1I9RmLe5mEdlFxBReRzDq1gMFSuCUXEQlUqyA4uwwaADZR8xSB4b3qjC984xaWxHxn/Sa1T5LRsUhdOHWd3q+hW09VHEiCw7HDPDjr3hKRRkeIRF3HurJ5mMnT3lPf6MjCzq7k2tlt0RDpGbDUMtdmviVls7qd21gBOTcZgxifSVh83bEHaYROlfbINVnAweuXRsvKmGEDs6LCm5xLWjs3eKF6JhXPeFBSda+r/V2DnSs6qXVXK5+zhcKittV1zi7A0ov+oN+GLV0=
+ ARA:13230040|376014|366016|1800799024|22082099003|18002099003|56012099003; 
+X-Microsoft-Antispam-Message-Info: 1cF87qZqkPXAAabKd/Tdp/294XvWVQS0EO63ND3OoffKpDR2UA6XV6oDzHt3p481glzsnIVp4S6Llqf2q9JcxeceMnFom+vnH0pejrUWK6ZLbZ3czD3F+TP3HybxySPES8gfRHm8LrjNtpWZ4civ6rIvzOiVmtjN8yFWmaJbxaOtRcB4evfkbh1xMHXbNM3nD660zDFKqLcRdDOi+iu9KOhoBYXY51hDhIv2TuETNXs+xlYVsVcl/RWPHLxFlXDvE96MysLTxWrtTfwZ66cXGG20zgisNJieUobBIdOcT2YmGPwV61oNnVK5iegP0Pmzi/0ENTjDj98uZa4J+Ydi8fDBM1CbfiMw3r/EAkXFO9yMAcuyTPSvbV+EjATpxiFYiyHpoz5HpWOkrGLifq0PEtLdaQaV6jjNwmJLs6P47Rn/hgx2XqYNRHUQ1IGlhMWJm67ymZfmO55lKr7A4Pw0x71xTMi6RknlvyunxnQbWqOS8Pq9hThDCxz6P0ULVmQH6WK8/xwwjbHId4wY4BhnzcsOyskDrWn0oq9v2Renjrkxj/QRBgdeE19SnaPrOFk638gqOUo/h/m1vIOp0gZMituS4n+Y8JCl9HtUcmcmUdwB7L+CUtfX6RCeQktqSEveR1DFK2mTYsQ/5YXdQXVmLh/+rcJueS9sRDulib8U6G5ShEyLzQc8oqM0qTQiOrZSwJZrmRhhgBndCWHwx+VcJ4k921ih9JMXYnuw9purIno=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB5149.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014)(8096899003)(18002099003)(22082099003)(56012099003);
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB8476.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(366016)(1800799024)(22082099003)(18002099003)(56012099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VjBkTm1HUHU0VGI1SWZPYU8zNWtRSWpoVzZlWTd1dnRiTkxGZW9vK0JmdEtv?=
- =?utf-8?B?eHJoQUt2L0tIS3VqRlZkWjNPRm1WOGdqbFV0UHN5dTdDNWYrRldCemlZMTNF?=
- =?utf-8?B?eHdnM2laRXV1b3FIcG16bDJGVDBMSXJidnhhS2E2L1hOWWx4SDU1QnpRRDhF?=
- =?utf-8?B?NzNBVEtaZGxKYlp6dCtyTG1Tdk8xRzFleVovMElhMVkzeU8vbzUvU2VldzRK?=
- =?utf-8?B?RFJzWlNCem1NdU1EUmRGeTN4V0dkcnluOU1UdENWN0tIR2tocXJFc21qMzFJ?=
- =?utf-8?B?aFplYnZJR0FwVG9CQkFnL09TbWJ1OVFrTVlGRmJPQUF2SFljV0txNk9GTjU3?=
- =?utf-8?B?VFN0VloyRjFTSXJQMTV0Rys3eHBEVG5RdkNOMVlpRXNMckxmNERvdEpSbVhx?=
- =?utf-8?B?M0hoRHN1Rk5icXF1L1J6RHY2dk5ub0NUQUxzTWZzVENheWJHcGNTVll2SmRF?=
- =?utf-8?B?NGxOY1RGa0piQjEyZGNkQ3IySEJFQXZFeDZ1emVXMVRicUJyV1RPRmlTYjJR?=
- =?utf-8?B?bmpBMEJrb1ozQkRUZ01yczVnQVVKSHBpVmxzKzg5L2FtNDJjalY5SUk5ZHg5?=
- =?utf-8?B?U1ZKRnFDaEhlNE1mZlREeVlqOTZvZlc1aTk0UE5XbXEwUmkrWklxU2F4enlR?=
- =?utf-8?B?QlRhL0JYd0ZkcUlHd0tXNnl5VFZycStuNDNJTUJYK1EwMnpEUUI1UjBuYnlk?=
- =?utf-8?B?UlEyeWo4bFdYZUVWZERKMlk2RkcxWnJhU2dCUEVEVGRoZGlUTUZnNTdIb1ky?=
- =?utf-8?B?MjhXZVlGUlVvQ2RZTDZMVGszT1VOM1FTVGd5eHFiMmFJMVg0QXZ0VlBqZDRl?=
- =?utf-8?B?OGkxWHMvaHdkd0hzT3psNVoyQkxoZ0xqa3FScWRrNDZ4WmxmME4xbFVuVW4v?=
- =?utf-8?B?S3E2NG9SU2dPL3FYYURMcWgrb0hEUEFoNjRYWGEyMTNKcG85Z2g5QUxiZjhq?=
- =?utf-8?B?dEw1eXhkRTNiSUozVnlwNFBLV0ZSZy8rZGhNUGhoZkZFbms0VVUwRElUSDFE?=
- =?utf-8?B?OXkxSTRmRU8xRWVXdllFOVpjTWNyd1R2bzB0dElXYmhXcmpxNlRsR2Q2M2Rw?=
- =?utf-8?B?K3VaZ3lrQjBwL25lZ2k0dklIN0p4N2RYUFp5ZGZ1b0hPMmNpcjl4RWthZy8x?=
- =?utf-8?B?MmRTNnRtdEJoMmQ5NjRTd2xjaGZOSm1ZdmEweUw0VWxOZ1IyV0ptT0t4T3lS?=
- =?utf-8?B?dTA5b1NwUFY0ZXhEL0tnNUtWL2pUNFRNZnFqb1FPVmxLRGVhQ0xiMzhrY1pS?=
- =?utf-8?B?NXZ4L2FSSlpQWGU4bGF0Sk83QUNWQ0hldnBVNVJ5Y1BVMUN5VzJQYitaTDZt?=
- =?utf-8?B?RHM3Y0k0NkQranh6UEUrYkM3Vk5uTm9MdTkrS0g4akw3eHlBMFYyWGRuOE4w?=
- =?utf-8?B?anNTRlAxM1VYLy9qNlhudkNZRVl6c0hoVWhaNlJxT01yeFJBUlJmSmR6U2xo?=
- =?utf-8?B?MTM2S2dVa2RXcVgzZmZINThhL0NFaElCY1ppSGdpYkExUDVxZnR3YmRkS0ZP?=
- =?utf-8?B?WGZISGRycFR0OGhFOUNwYzBLRGJTdVBPOTg4ZnR2dHZ3U05OckxEbXlNT2hq?=
- =?utf-8?B?aTAzSythYjJ3eEU1M0pxZXJpL3EzcVVMekh2ZXZBMjBObysrSVBHaXFFejFY?=
- =?utf-8?B?aHhLaC8vOWlnd09jemRwcXljUXAxdnJ2U2krL3pEa1dndjNKeFpiN081Tmt6?=
- =?utf-8?B?VWpZMkdab3BqZFViWFBVblpQWnA0YlIrVEh3SXI0elNHZDZkWnFYYnVFOCtn?=
- =?utf-8?B?VGRZK1hYekhxYzVYOFdBZHZZSmtXVWM4QmJibDBJMTBzdEV4L3g2Rmp0Rm9D?=
- =?utf-8?B?TFRyallFVEVTaXBWQ0tQQy80VnFsb3hpWFpMZkZSSER5c2VuaERsa2oxanNa?=
- =?utf-8?B?WVlTc2pjam5rSHc1bjhCUklsZ1RFN09jd0NVQmpXTGd0QTRwVjB3M0RxOVg5?=
- =?utf-8?B?WkJIRjA4V2RSVkJUU21IbnZmZDNmR1RkUmVITzdHSFp0YUxFVmlRR21zaFhq?=
- =?utf-8?B?R0pyVU1LaktoMW5qV1BNUDRTU09odWZ6dmtCT3VYRHhZelNvNkszTHJpb0hp?=
- =?utf-8?B?N2FRNHhHVmJuOVlVeU1aSm13T1c3SVY4bVBBSWVwZkRwbEw4aGpQVDd3bzBy?=
- =?utf-8?B?dUdBM0pHSE1qNmJVY3lCbFZQRURWNmRpMjkxTVpEd2JGcUhBU05zMG1XN2Vm?=
- =?utf-8?B?ZVhidFlSSzRjK2UwbDI2NUMrUmZRODVreVVEalNOdmxRYnpBVkVQVFNYdWRW?=
- =?utf-8?B?WVE2RnlSNkRtSGdGU1FaRnl2UC9TS3gvUU5ZK2YyclFPaEpNczdqbmxwVys4?=
- =?utf-8?Q?q7di2WeBezZXm229SB?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VDh4RFVHZUF2T0loZjNuOG1VV01TVGl1bnFUMXFFeElqQktpSERBaTdXMHhz?=
+ =?utf-8?B?YmhlRnNDeDNha21sZXh4c2tZOEd6L091SjhnNHRLTlQzcnNFSVphMjJEQytP?=
+ =?utf-8?B?WHhLaGRFaXd4NnFKcU9zZEh2dEJPMzdWT1RLWkFLd1NNRnJ2d2RHMVFpMFBE?=
+ =?utf-8?B?bnBiMHEvQWxYS3MwWlJJY1RJekNKY1lrY3lxRnZ2ZkxtUlhOSWtLTU12WUdu?=
+ =?utf-8?B?VXQwVlFJQWl2RDJkejI4QVdOWVB0V1gwRWhTak5IKzdpd2NCNGR1cnlkV3E4?=
+ =?utf-8?B?a1lMbzFIdmJqeGxiQm00NTBuaXloL243QTlWQm9FMW9UTGV5RzRkeDhtY1VO?=
+ =?utf-8?B?VUVud0VHUE9BTFpSTGhaak4rU1AxcVkzQW02OU5wNzZXNVdoK01hSUVJY05H?=
+ =?utf-8?B?UTArdUVwWjZaNGVnd1hFRmxpSGZ3VXJ5ZEEwZ21yMGw1alBYZDBTRjd4Nms2?=
+ =?utf-8?B?bG9Za0EwaHo0R1NHQkVjSjZaSGNUc3VxNlBxUXQvc1lMU0pySk4rZWVISkJ6?=
+ =?utf-8?B?UlhnRnE4WWdZdFozK2hhVG50WTVGTlBSWUFWSVk5VmluQTcxVUVrbHY1OVR1?=
+ =?utf-8?B?alpCWGxsd1M3K3RQTTFxQTkxRENPRDNvTXlIUWFZNnAwOHN5U3RqYW5hb053?=
+ =?utf-8?B?bVVLblBnb1N0aGJKa1grYUQxenZITVZtOWZ1WWVaOElQMGoxcWhCNnBXYkZU?=
+ =?utf-8?B?R3krZXZXbEJPeGNRN1lFR0w0VUxOWGtuRzlVbU0xbklFQ3lYb2FwNm1oaWpP?=
+ =?utf-8?B?SWFGWkxNZVlWWjhlN2Z0c0F4VXF0cFp5cDVTRG55S1RPVjJVVDVGajJEV0Qr?=
+ =?utf-8?B?OWM4cDFVa04xSXcyR0MxVlg0TFN5WFd0ajd4YnV3TlFub0k3aFBDT3hveVRp?=
+ =?utf-8?B?bUZ0elFjUG5raXVJLzhjN1RLVUJaT01vaHY5WDE5RDFuU0NUeW1RT3gydSth?=
+ =?utf-8?B?TU5JRE9IN0REVVZzd0YxMjhLN0kraHNJV2dRWXYxbmNYWXAzZk44M1M2eldO?=
+ =?utf-8?B?aHROMjc5aVBmMEVTemNNaS9TcFRjOXVqZ1BGRHFsUkNVWG1tN0U4NnUxMFY4?=
+ =?utf-8?B?aStkdkZYdkVQRnVFTjEwOUcxSy9VVVF5cDdpYUQ0YTZZSFdQbzRXZ3VYR1Jt?=
+ =?utf-8?B?T3MxdzN2ZVI5S0F0aUpnUHNkVGthTFhBZ0VJL2dhZmY4bVM0NlM2d1I0NDhq?=
+ =?utf-8?B?NUF0RWxoWFRRVXFGcmpYTWR3Mm8ybEh0Q0hKN1VLZWVlYWlKK1FXaUZKbnht?=
+ =?utf-8?B?dklkdm1ZN0Y1NzVQWEo2NkQ0b2FnUlhIMXdDR2NIWEtaWTRzV0UvV0FrN3hz?=
+ =?utf-8?B?QXpHdkViajZXZkJYRFRzNm0vQUtkSE5rOWhMdVU3YkI4VncvUW1QbWl0ZENp?=
+ =?utf-8?B?TXBmbmVTTTNuOXhZYStEOFBqRjhXaXg0SFhPRnFwUVREUVlxMzAzSU4wRVl4?=
+ =?utf-8?B?U1RBM01hRTIySEp0eG1HVXpUeWYwdnV5VlRjcDRFZHA2QkFlS0xuVTNxLzR2?=
+ =?utf-8?B?NVc4VW9qRmdoYk9XVWl0ZmlmaWhUVUxWaFFpWEFFZWRCQUxsNGhCYTB5UDBR?=
+ =?utf-8?B?TGJBQzBRa0I4dHl0ekRIb3Z6VFE4Ym51R1J6WmVoOTJUZGhSK29rRjByTzdE?=
+ =?utf-8?B?US9tajlmUmEybC82dkRDNTVmcC9zYmk1cmdncFpWQWtCUzcvQ0tvR0d3cjdS?=
+ =?utf-8?B?QzVwUUFUNWNpSFpRcUQ5bmREWjZHRjNoQnZIL0U1RlNLbDhscmw3MlZIcXpn?=
+ =?utf-8?B?czBHL09sRnllTWVmMnFKVXNUMlp6K0Z5ZVZSM0FQeEVLay81NEFxVklnUDdo?=
+ =?utf-8?B?QjBUdldKK09NUXpMNjAzakNFdkpJQzZOUVlzcDB1VmcxeW9NQnpRc2lWYVgz?=
+ =?utf-8?B?N2ZDRVF0WkNJeStjSnI2bkl2b2xuR3lUUDF5SHl4UzRYZ3BDTGIxaE1IWG8z?=
+ =?utf-8?B?c2JQV3VmeDBtVGlWMW4rREpuU056ejVQSHZNbUNKb1RLaFhmbkZBQWU5NlBU?=
+ =?utf-8?B?WXNlVm9TeGZWbGJCLzNDL04zVHRHWHZORC9hLzdJS2k1NkhIYk1hNFVWQTR4?=
+ =?utf-8?B?N3dxWGsrdE9aWWl1cmdrTldrUnFNY2JJWWRSSEdJM3ZOVEVOWGgzVW9GNXhW?=
+ =?utf-8?B?am1oNC9lWDFvREhydWtxVnErcjNoSmpTY0s0dDkxUWdoM1BFVlBmNDhvbzc2?=
+ =?utf-8?B?L25yUi84dS9FWmdrVUVsSkVhaTA3NTEwVXZEQ3pmNXlpbWRndFhWaDJ0YWxk?=
+ =?utf-8?B?NGFnUEMweEdBcHZqNGs5eDNqNkhIMTZGN0V3cXdCTG5mckhZUzJCdU5xaUFU?=
+ =?utf-8?B?S3ZaYlVsYkpMY2V3WXgyMXM0ampxbTF1MU5VWFlZaCtBam5KR3E5UT09?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c501080a-e8e0-4a1f-5af8-08de9bc487ea
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5149.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7a08dceb-8895-4561-13a7-08de9bcf5df6
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB8476.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Apr 2026 14:29:13.2843 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Apr 2026 15:46:47.2395 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: iYGMAHiHqHZDuGGYqoA1gQ/77Uw5+N96SciKaXqYhh50utPAmY4CN5kG4klj7vlo
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS2PR12MB9712
+X-MS-Exchange-CrossTenant-UserPrincipalName: KG5s1zZg6LDstU2BtwCBrJOwlnsAD8vqVGtacdgqmtYpP+7IbStFxHcYjxo05EeO41Mckf2ZKpEVsQTDw5di2Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB8029
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,110 +135,104 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---------------wWeI0kBbTs4yj0RUV2n590UU
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Reviewed-by: Alex Hung <alex.hung@amd.com>
 
-
-
-On 2026-04-14 14:48, Siwei He wrote:
-> Invalid leaf clears that only set AMDGPU_PTE_EXECUTABLE match the old
-> GMC9 fault-priority workaround but omit adev->gmc.init_pte_flags.
-> On GFX12 that includes AMDGPU_PTE_IS_PTE; without it, some cleared
-> PTEs can fault as no-retry and bypass the SVM/XNACK handler when a
-> VA is reused after a BO unmap.
->
-> Apply init_pte_flags in amdgpu_vm_pte_update_flags() alongside
-> EXECUTABLE so range-driven clears (e.g. amdgpu_vm_clear_freed) match
-> amdgpu_vm_pt_clear() for leaf templates.
->
-> Signed-off-by: Siwei He<siwei.he@amd.com>
+On 4/15/26 16:41, Roman.Li@amd.com wrote:
+> From: Roman Li <Roman.Li@amd.com>
+> 
+> [Why]
+> The analog connector support was accidentally removed,
+> causing a crash when connecting an analog monitor.
+> 
+> [How]
+> This patch restores the functions and pointers required for proper analog
+> and DP bridge encoder support on legacy GPUs.
+> 
+> Fixes: 66715fc0ecfd ("drm/amd/display: Sync dcn42 with DC 3.2.373")
+> Cc: Timur Kristóf <timur.kristof@gmail.com>
+> Signed-off-by: Roman Li <Roman.Li@amd.com>
 > ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c | 7 +++++--
->   1 file changed, 5 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
-> index 31a437ce9570..a930f1522f96 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
-> @@ -693,8 +693,11 @@ static void amdgpu_vm_pte_update_flags(struct amdgpu_vm_update_params *params,
->   		   !(flags & AMDGPU_PTE_VALID) &&
->   		   !(flags & AMDGPU_PTE_PRT_FLAG(params->adev))) {
+>   .../amd/display/dc/hwss/dce110/dce110_hwseq.c | 53 +++++++++++++++++++
+>   1 file changed, 53 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
+> index 5273ca09fe12..e76abc877f4a 100644
+> --- a/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
+> +++ b/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
+> @@ -677,6 +677,48 @@ dce110_dac_encoder_control(struct pipe_ctx *pipe_ctx, bool enable)
+>   	bios->funcs->encoder_control(bios, &encoder_control);
+>   }
 >   
-> -		/* Workaround for fault priority problem on GMC9 */
-> -		flags |= AMDGPU_PTE_EXECUTABLE;
-> +		/* Workaround for fault priority problem on GMC9 and GFX12,
-> +		 * EXECUTABLE for GMC9 fault priority and init_pte_flags
-> +		 * (e.g. AMDGPU_PTE_IS_PTE on GFX12)
+> +static void
+> +dce110_external_encoder_control(enum bp_external_encoder_control_action action,
+> +				struct dc_link *link,
+> +				struct dc_crtc_timing *timing)
+> +{
+> +	struct dc *dc = link->ctx->dc;
+> +	struct dc_bios *bios = link->ctx->dc_bios;
+> +	const struct dc_link_settings *link_settings = &link->cur_link_settings;
+> +	enum bp_result bp_result = BP_RESULT_OK;
+> +	struct bp_external_encoder_control ext_cntl = {
+> +		.action = action,
+> +		.connector_obj_id = link->link_enc->connector,
+> +		.encoder_id = link->ext_enc_id,
+> +		.lanes_number = link_settings->lane_count,
+> +		.link_rate = link_settings->link_rate,
+> +
+> +		/* Use signal type of the real link encoder, ie. DP */
+> +		.signal = link->connector_signal,
+> +
+> +		/* We don't know the timing yet when executing the SETUP action,
+> +		 * so use a reasonably high default value. It seems that ENABLE
+> +		 * can change the actual pixel clock but doesn't work with higher
+> +		 * pixel clocks than what SETUP was called with.
 > +		 */
-> +		flags |= AMDGPU_PTE_EXECUTABLE | adev->gmc.init_pte_flags;
-
-Looks good to me, !(flags & AMDGPU_PTE_PRT_FLAG(params->adev) handles the NPA mapping update case correctly too.
-
-Reviewed-by: Philip Yang<philip.yang@amd.com>
-  
-
->   	}
+> +		.pixel_clock = timing ? timing->pix_clk_100hz / 10 : 300000,
+> +		.color_depth = timing ? timing->display_color_depth : COLOR_DEPTH_888,
+> +	};
+> +	DC_LOGGER_INIT(dc->ctx);
+> +
+> +	bp_result = bios->funcs->external_encoder_control(bios, &ext_cntl);
+> +
+> +	if (bp_result != BP_RESULT_OK)
+> +		DC_LOG_ERROR("Failed to execute external encoder action: 0x%x\n", action);
+> +}
+> +
+> +static void
+> +dce110_prepare_ddc(struct dc_link *link)
+> +{
+> +	if (link->ext_enc_id.id)
+> +		dce110_external_encoder_control(EXTERNAL_ENCODER_CONTROL_DDC_SETUP, link, NULL);
+> +}
+> +
+>   static bool
+>   dce110_dac_load_detect(struct dc_link *link)
+>   {
+> @@ -3376,6 +3418,15 @@ void dce110_enable_tmds_link_output(struct dc_link *link,
+>   	link->phy_state.symclk_state = SYMCLK_ON_TX_ON;
+>   }
 >   
->   	/*
+> +static void dce110_enable_analog_link_output(
+> +		struct dc_link *link,
+> +		uint32_t pix_clk_100hz)
+> +{
+> +	link->link_enc->funcs->enable_analog_output(
+> +			link->link_enc,
+> +			pix_clk_100hz);
+> +}
+> +
+>   void dce110_enable_dp_link_output(
+>   		struct dc_link *link,
+>   		const struct link_resource *link_res,
+> @@ -3513,8 +3564,10 @@ static const struct hw_sequencer_funcs dce110_funcs = {
+>   	.enable_lvds_link_output = dce110_enable_lvds_link_output,
+>   	.enable_tmds_link_output = dce110_enable_tmds_link_output,
+>   	.enable_dp_link_output = dce110_enable_dp_link_output,
+> +	.enable_analog_link_output = dce110_enable_analog_link_output,
+>   	.disable_link_output = dce110_disable_link_output,
+>   	.dac_load_detect = dce110_dac_load_detect,
+> +	.prepare_ddc = dce110_prepare_ddc,
+>   };
+>   
+>   static const struct hwseq_private_funcs dce110_private_funcs = {
 
---------------wWeI0kBbTs4yj0RUV2n590UU
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-
-<!DOCTYPE html><html><head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body text="#000000" bgcolor="#FFFFFF">
-    <br>
-    <br>
-    <div class="moz-cite-prefix">On 2026-04-14 14:48, Siwei He wrote:<br>
-    </div>
-    <blockquote type="cite" cite="mid:20260414184819.612245-1-siwei.he@amd.com">
-      <pre wrap="" class="moz-quote-pre">Invalid leaf clears that only set AMDGPU_PTE_EXECUTABLE match the old
-GMC9 fault-priority workaround but omit adev-&gt;gmc.init_pte_flags.
-On GFX12 that includes AMDGPU_PTE_IS_PTE; without it, some cleared
-PTEs can fault as no-retry and bypass the SVM/XNACK handler when a
-VA is reused after a BO unmap.
-
-Apply init_pte_flags in amdgpu_vm_pte_update_flags() alongside
-EXECUTABLE so range-driven clears (e.g. amdgpu_vm_clear_freed) match
-amdgpu_vm_pt_clear() for leaf templates.
-
-Signed-off-by: Siwei He <a class="moz-txt-link-rfc2396E" href="mailto:siwei.he@amd.com">&lt;siwei.he@amd.com&gt;</a>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
-index 31a437ce9570..a930f1522f96 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
-@@ -693,8 +693,11 @@ static void amdgpu_vm_pte_update_flags(struct amdgpu_vm_update_params *params,
- 		   !(flags &amp; AMDGPU_PTE_VALID) &amp;&amp;
- 		   !(flags &amp; AMDGPU_PTE_PRT_FLAG(params-&gt;adev))) {
- 
--		/* Workaround for fault priority problem on GMC9 */
--		flags |= AMDGPU_PTE_EXECUTABLE;
-+		/* Workaround for fault priority problem on GMC9 and GFX12,
-+		 * EXECUTABLE for GMC9 fault priority and init_pte_flags
-+		 * (e.g. AMDGPU_PTE_IS_PTE on GFX12)
-+		 */
-+		flags |= AMDGPU_PTE_EXECUTABLE | adev-&gt;gmc.init_pte_flags;</pre>
-    </blockquote>
-    <pre wrap="" class="moz-quote-pre">Looks good to me, !(flags &amp; AMDGPU_PTE_PRT_FLAG(params-&gt;adev) handles the NPA mapping update case correctly too.
-
-Reviewed-by: Philip Yang <a class="moz-txt-link-rfc2396E" href="mailto:philip.yang@amd.com">&lt;philip.yang@amd.com&gt;</a>
- </pre>
-    <blockquote type="cite" cite="mid:20260414184819.612245-1-siwei.he@amd.com">
-      <pre wrap="" class="moz-quote-pre">
- 	}
- 
- 	/*
-</pre>
-    </blockquote>
-    <br>
-  </body>
-</html>
-
---------------wWeI0kBbTs4yj0RUV2n590UU--
