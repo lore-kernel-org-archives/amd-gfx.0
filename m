@@ -4,95 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 31929F8D762
-	for <amd-gfx@archiver.kernel.org>; Thu, 16 Apr 2026 16:51:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9AE82F8D762
+	for <amd-gfx@archiver.kernel.org>; Thu, 16 Apr 2026 16:56:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9C7E910E266;
-	Thu, 16 Apr 2026 16:51:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 12A7810E902;
+	Thu, 16 Apr 2026 16:56:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="m1tu6NwI";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="Wt7Uc8DV";
 	dkim-atps=neutral
-Received: from BL2PR02CU003.outbound.protection.outlook.com
- (mail-eastusazon11011068.outbound.protection.outlook.com [52.101.52.68])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4D2F110E266
- for <amd-gfx@lists.freedesktop.org>; Thu, 16 Apr 2026 16:51:20 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=X1LtArw3OHjMO2wH55TOyXy4ULdeYHn4RnPfO559zzGpON8JGC2Siww90IJphZs0BVLrmoE615tdB+DppilQdQi7ptqwX6e/P48XC/bGR2Q47WIbflMLjKAAWowBlKZLCDKY47v0vuMwQFTroK5BexnYvPOqy1cRascMOb8fV6y+0uX5UjzHIaLB2PXWXU7yBu33VlG+fYd6o5qm4HKEyCvfGuVeVCz+ZofbVBNZ3JOuyIe5a2KauhmAY1OXfsDIMeb1vlCItT0fJvOS/z/LuawhoaYcCbg8wsGRcarUUUwBOPEYjPSmPKfpSx8sm/BYGgduUVxeNR1C2jRsEfmazA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=9cxicPSsuHYAd6bvNgqZlek9eG5XgrfgqZAtOyieXSc=;
- b=MEYCGw53Sla/OU0XMqpDu+v4Tqr9HTqT1fXyPlYyVtK4mtQIloAZjZJjP6bNeTn7rH8959XxQvFQC/MK5jh2wfq+9M5dnHYjqa2csaiacd4XRWYHvqQTvMeyHxx2I/ZAFO3XLkGO3J5VujT49vPDUL5/glB3mCF/rVxZbQgktSBSQEsAvw/GZTsTJBjWbI25MzsOPPZ+RV4GRbSr8h1SNZ3U8dSTrX6MRaK8T5BJiyUz5bh5Z4QMo8WAPdcWN3aXAF5Ky1LYZjHStXRKjwejNnx4ucxodf+rmUmom/RnUs33UBB9y3kjmw7CYcyYt3UQaiybGA6kL0ujAje7B6NPJA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9cxicPSsuHYAd6bvNgqZlek9eG5XgrfgqZAtOyieXSc=;
- b=m1tu6NwINeoF79wo4DId/4Bk8Iv1Sq2ux7NpGRdfVpahAtiTM5bIalwJruYhIlwQlLZjZ1V3dTlj27RhuTySvOK6uYjzjLWVJmp4EHbYq/2gjyAUtrvxp1rbivYR62pv+Rha83mTcDl/IHw0VrAX4sovn31smgrt+zX3s1ex8oc=
-Received: from BN9PR03CA0938.namprd03.prod.outlook.com (2603:10b6:408:108::13)
- by DS0PR12MB7849.namprd12.prod.outlook.com (2603:10b6:8:141::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9818.25; Thu, 16 Apr
- 2026 16:51:13 +0000
-Received: from BN3PEPF0000B36F.namprd21.prod.outlook.com
- (2603:10b6:408:108:cafe::ad) by BN9PR03CA0938.outlook.office365.com
- (2603:10b6:408:108::13) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9769.48 via Frontend Transport; Thu,
- 16 Apr 2026 16:51:12 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BN3PEPF0000B36F.mail.protection.outlook.com (10.167.243.166) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9846.0 via Frontend Transport; Thu, 16 Apr 2026 16:51:12 +0000
-Received: from shaoyunl-dev.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Thu, 16 Apr
- 2026 11:51:11 -0500
-From: Shaoyun Liu <shaoyun.liu@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: Shaoyun Liu <shaoyun.liu@amd.com>
-Subject: [PATCH] drm/amd/amdgpu/include : update mes api header v11/v12
-Date: Thu, 16 Apr 2026 12:50:56 -0400
-Message-ID: <20260416165056.15459-1-shaoyun.liu@amd.com>
-X-Mailer: git-send-email 2.34.1
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2DA3010E8FF;
+ Thu, 16 Apr 2026 16:56:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=VAMs7rlBSaiNSscoEgpk4adl1TJRSox0dqWNZR973AY=; b=Wt7Uc8DVdEB/YkpYnJNGFuLM6E
+ SjoE6+lOGepPbSYux0xhUVvhyMNOtXMbtWlxsf4eTXNp2mbTtSkuK1CoMoA5rTOwi0+Mp9giyAyVU
+ DbC+GhRXyt/kucba9ejtSAfj0J+1IwmM3dgySjclNdmuEbuvMtlDcR5RYV/daHgnRY+zOxSGkUTpU
+ mIkLyuMS5IISWZguw9wXUU1kkGL1zn/9x1hK6dSU+pcp1DDiENlmjBfFG4RFYEsfKX5HUQLM635fk
+ d3y+UYb/KxJ5m3NguGlmGBSonJAB8Gto1BF+tvdCiLtThBSzr8cxSbUPN2lBtGHoDelL1oYjAJ9UF
+ 9j8p7SJQ==;
+Received: from [186.208.73.228] (helo=[192.168.18.14])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1wDQ0g-00H5OP-GM; Thu, 16 Apr 2026 18:56:10 +0200
+Message-ID: <ed695e84-88d9-49e4-a171-1372ecc84746@igalia.com>
+Date: Thu, 16 Apr 2026 13:56:04 -0300
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] drm/drm_atomic: duplicate colorop states if plane
+ color pipeline in use
+To: "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ airlied@gmail.com, simona@ffwll.ch, contact@emersion.fr,
+ sebastian.wick@redhat.com, harry.wentland@amd.com, daniels@collabora.com
+Cc: Alex Hung <alex.hung@amd.com>, Uma Shankar <uma.shankar@intel.com>,
+ Xaver Hugl <xaver.hugl@kde.org>, amd-gfx@lists.freedesktop.org,
+ kernel-dev@igalia.com, dri-devel@lists.freedesktop.org
+References: <20260318163629.300627-1-mwen@igalia.com>
+ <7139d8f8-36df-4951-a3c9-d82f6ac636be@intel.com>
+Content-Language: en-US
+From: Melissa Wen <mwen@igalia.com>
+In-Reply-To: <7139d8f8-36df-4951-a3c9-d82f6ac636be@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN3PEPF0000B36F:EE_|DS0PR12MB7849:EE_
-X-MS-Office365-Filtering-Correlation-Id: ddd8e44d-8a1c-4458-0a5f-08de9bd85dd7
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|36860700016|82310400026|1800799024|18002099003|56012099003;
-X-Microsoft-Antispam-Message-Info: N7mXzVkvrZg+1AGQqrmtT2UBdfe9qZwYGKPk1a/8tQaxdBkvuvtiZA6KPdtQa4Qhdkxy7U6Gxk+3wCmwYKldXkLewAfrioRlu3kf0YMtO1Lv4/MqRBMaVQCgvYMvOkx72+3yPZtit/l5qsnAO6XxPOp0wiVnZKQzAv99AE/5t002zW9ee3D4OAtbfK4v5ht/4qjrzRnhgUC968ehApSeXVpBqnNFAdQk1QnNu4xZxreOmfKT8G/go5V/AWiWps/HDi6COzmrdFO4ynKcQ/snSi/3VDROlzmUV2y+hL8rIUtn+ehS8YJZ4sXu40QAfbM5uNr4MibQzvxZY6j7IB6Ujp4F/Ac6FlqCWr2dQzYKa+HxP1wW2QySyVNvo4ED/tu/kMdtmmPRqA2tjFHDjio/ORB7VxZYstXO2HDiIbtemtS62MXBKqpNpiM/CsGo+Z1izVsWtMnO8hnTfNSycf+7tEudL3g6TobK4CENstohB9XeNkrQFPhRQQLP/Ycs7lwiCo6aVkKUfxR2PJCTib73yqUFdiPZnlvUOMxTkj49IKa/Asm3q+GkyxhdQGiKj1wRzi1bOCMtGmHA3EGU9NQg+GzhPjpOCbfoaaiRVulSdXvL2WNLjwRnkVQxi0AeCqf6gVHOAWp4VCfiy79Ro9Yl4YXuf7YnnSMqbiC6ODjV7H4NVrTofljqWS+cNzNoWV9eQAKtvl1M/EHxjvkQR13U5j06MwBjiGeFRN7JYyKMBW6+dmSuoNeDZyWHfpPK1U5Nracb76ZlAjfygSETr3xbzA==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(36860700016)(82310400026)(1800799024)(18002099003)(56012099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: YZcU1tRrwN2+2I2INLhzs3tuCZLNepr4wGDdn8QcFs+5Btht/wP95cY0WNA9aoRt6gsrhCdhsbBM76gIdSXDgKCnPCZ6q+VZWJ2QWt5Y9y03vol3RTPq5xrZYcDpl3IqS1oBt+4MGa1//kryR0so0+hk+xHa1Us/7uc91c6NQWhpgFzEayc1fQbbXvgMx+Pmawmz2y7hMOV/nwx/K1PujnTtw+7qcPAQm6KxnJiKDJKWXNc2fyR5r3uRKu7iRiO6oXeKALj3mC3jPpSYYLttrmZlmRQCl3KZHaNMkEY6pESJywJOfevwE1SMtK3TdKp5dBQ/wEvmPx2oRzyOFmjdPKKQ2xs312WHbJVK2ApS2Aw/4+0pXiACkPqlTlxEytUpcH5Rnns/dotbwYrF1Fd2jpSgY2n7aBq4rGzh+kQAiVvuLXsHsNj1DmwXNd24YuH0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Apr 2026 16:51:12.2374 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ddd8e44d-8a1c-4458-0a5f-08de9bd85dd7
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN3PEPF0000B36F.namprd21.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7849
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,48 +66,111 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Update the parameter in SET_HW_RESOURCES API
-1. Align with the setting of enable_lr_compute_wa
-2. Add enable_compute_pipe_reset to enable pipe reset when compute queue reset failes
 
-Signed-off-by: Shaoyun Liu <shaoyun.liu@amd.com>
----
- drivers/gpu/drm/amd/include/mes_v11_api_def.h | 5 +++--
- drivers/gpu/drm/amd/include/mes_v12_api_def.h | 5 +++--
- 2 files changed, 6 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/include/mes_v11_api_def.h b/drivers/gpu/drm/amd/include/mes_v11_api_def.h
-index f9629d42ada2..6644fabeb0b7 100644
---- a/drivers/gpu/drm/amd/include/mes_v11_api_def.h
-+++ b/drivers/gpu/drm/amd/include/mes_v11_api_def.h
-@@ -238,8 +238,9 @@ union MESAPI_SET_HW_RESOURCES {
- 				uint32_t enable_mes_sch_stb_log : 1;
- 				uint32_t limit_single_process : 1;
- 				uint32_t is_strix_tmz_wa_enabled  :1;
--				uint32_t enable_lr_compute_wa : 1;
--				uint32_t reserved : 12;
-+				uint32_t enable_lr_compute_wa : 2;
-+				uint32_t enable_compute_pipe_reset : 1;
-+				uint32_t reserved : 10;
- 			};
- 			uint32_t	uint32_t_all;
- 		};
-diff --git a/drivers/gpu/drm/amd/include/mes_v12_api_def.h b/drivers/gpu/drm/amd/include/mes_v12_api_def.h
-index e541a43714a1..08466d59695c 100644
---- a/drivers/gpu/drm/amd/include/mes_v12_api_def.h
-+++ b/drivers/gpu/drm/amd/include/mes_v12_api_def.h
-@@ -294,8 +294,9 @@ union MESAPI_SET_HW_RESOURCES {
- 				uint32_t limit_single_process : 1;
- 				uint32_t unmapped_doorbell_handling: 2;
- 				uint32_t enable_mes_fence_int: 1;
--				uint32_t enable_lr_compute_wa : 1;
--				uint32_t reserved : 9;
-+				uint32_t enable_lr_compute_wa : 2;
-+				uint32_t enable_compute_pipe_reset : 1;
-+				uint32_t reserved : 8;
- 			};
- 			uint32_t uint32_all;
- 		};
--- 
-2.34.1
+On 19/03/2026 03:38, Borah, Chaitanya Kumar wrote:
+>
+>
+> On 3/18/2026 9:57 PM, Melissa Wen wrote:
+>> For suspend/resume to work correctly, do for colorop state the same we
+>> do for plane/crtc/connector states: duplicate the state of colorops in a
+>> color pipeline if it's in use by a given plane when suspending and
+>> restore cached colorop states when resuming.
+>>
+>> Fixes: 2afc3184f3b3 ("drm/plane: Add COLOR PIPELINE property")
+>> Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+>> Reviewed-by: Alex Hung <alex.hung@amd.com>
+>> Reviewed-by: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
+>> Signed-off-by: Melissa Wen <mwen@igalia.com>
+>> ---
+>>
+>> Changes from v1 
+>> (https://lore.kernel.org/dri-devel/20260316210055.234498-1-mwen@igalia.com/):
+>> - keep the object hierarchy (Chaitanya)
+>> - add r-b from Harry, Alex H. and Chaitanya (pending to confirm)
+>>
+>> Chaitanya,
+>>
+>> I kept the fix for unused-variable warning together because the warning
+>> only appears with this new usage of for_each_new_colorop_in_state() in
+>> drm_atomic_helper_commit_duplicated_state() here. Let me know if you
+>> don't agree with this approach.
+>>
+>
+> Please go ahead. Just add a "while at it" to the commit message.
+
+Applied to drm-misc-fixes with the suggested change in the commit message.
+
+Thanks!
+
+Melissa
+
+>
+>> Melissa
+>>
+>> ---
+>>   drivers/gpu/drm/drm_atomic_helper.c | 12 ++++++++++++
+>>   include/drm/drm_atomic.h            |  3 ++-
+>>   2 files changed, 14 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/gpu/drm/drm_atomic_helper.c 
+>> b/drivers/gpu/drm/drm_atomic_helper.c
+>> index 26953ed6b53e..481f92a03683 100644
+>> --- a/drivers/gpu/drm/drm_atomic_helper.c
+>> +++ b/drivers/gpu/drm/drm_atomic_helper.c
+>> @@ -3751,6 +3751,13 @@ drm_atomic_helper_duplicate_state(struct 
+>> drm_device *dev,
+>>               err = PTR_ERR(plane_state);
+>>               goto free;
+>>           }
+>> +
+>> +        if (plane_state->color_pipeline) {
+>> +            err = drm_atomic_add_affected_colorops(state, plane);
+>> +            if (err)
+>> +                goto free;
+>> +        }
+>> +
+>>       }
+>>         drm_connector_list_iter_begin(dev, &conn_iter);
+>> @@ -3856,6 +3863,8 @@ int 
+>> drm_atomic_helper_commit_duplicated_state(struct drm_atomic_state 
+>> *state,
+>>       int i, ret;
+>>       struct drm_plane *plane;
+>>       struct drm_plane_state *new_plane_state;
+>> +    struct drm_colorop *colorop;
+>> +    struct drm_colorop_state *new_colorop_state;
+>>       struct drm_connector *connector;
+>>       struct drm_connector_state *new_conn_state;
+>>       struct drm_crtc *crtc;
+>> @@ -3863,6 +3872,9 @@ int 
+>> drm_atomic_helper_commit_duplicated_state(struct drm_atomic_state 
+>> *state,
+>>         state->acquire_ctx = ctx;
+>>   +    for_each_new_colorop_in_state(state, colorop, 
+>> new_colorop_state, i)
+>> +        state->colorops[i].old_state = colorop->state;
+>> +
+>>       for_each_new_plane_in_state(state, plane, new_plane_state, i)
+>>           state->planes[i].old_state = plane->state;
+>>   diff --git a/include/drm/drm_atomic.h b/include/drm/drm_atomic.h
+>> index 0b1b32bcd2bd..96fd32a3e92c 100644
+>> --- a/include/drm/drm_atomic.h
+>> +++ b/include/drm/drm_atomic.h
+>> @@ -1102,7 +1102,8 @@ void drm_state_dump(struct drm_device *dev, 
+>> struct drm_printer *p);
+>>           for_each_if ((__state)->colorops[__i].ptr &&        \
+>>                    ((colorop) = (__state)->colorops[__i].ptr,    \
+>>                     (void)(colorop) /* Only to avoid 
+>> unused-but-set-variable warning */, \
+>> -                  (new_colorop_state) = 
+>> (__state)->colorops[__i].new_state, 1))
+>> +                  (new_colorop_state) = 
+>> (__state)->colorops[__i].new_state,\
+>> +                  (void)(new_colorop_state) /* Only to avoid 
+>> unused-but-set-variable warning */, 1))
+>>     /**
+>>    * for_each_oldnew_plane_in_state - iterate over all planes in an 
+>> atomic update
+>
 
