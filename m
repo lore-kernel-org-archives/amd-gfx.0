@@ -4,67 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C1B3CF8E4B5
-	for <amd-gfx@archiver.kernel.org>; Fri, 17 Apr 2026 07:06:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 26E2EF8E4B1
+	for <amd-gfx@archiver.kernel.org>; Fri, 17 Apr 2026 07:07:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4CE0710E978;
-	Fri, 17 Apr 2026 07:06:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B1D3810E979;
+	Fri, 17 Apr 2026 07:07:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="XB1H0iqR";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="itfUGja2";
 	dkim-atps=neutral
 Received: from BL2PR02CU003.outbound.protection.outlook.com
- (mail-eastusazon11011021.outbound.protection.outlook.com [52.101.52.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2D22010E02C;
- Thu, 16 Apr 2026 22:18:36 +0000 (UTC)
+ (mail-eastusazon11011013.outbound.protection.outlook.com [52.101.52.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4B85910E221;
+ Thu, 16 Apr 2026 21:23:21 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=kKHRuibBec5ihQ+f4hnJTQyQ6ZmZVTrV/Dt18axG7+HRfbBXovPCwG3zKcE788ELqcZRZyRebr+QMRq7ST6u95UGCBlXQ+LTtV/WRf+UK+ETCv6WBOxyyT0vBnVTFQZUMUGoowklfSUrd1Ra1rqa9UKyfoz6d2b6mbaUtQf3GB9vHlXrmwKOr6NuyYkA29d23HCv+WGxB8T4LsiXBuw8nYmzt8DrBTdr9Tt1u3EOtVmvio8vd8cdvo5cTXDXH+Fwy2FimpYxGSKEdvFGF4H0MegW3OR9+UKtGjiZcpGYrFB5kO0PpP95WbjAUKGOwqfGlYobUQk6uaQCqVcOb3q12Q==
+ b=jw/dSJnKsVu0T0IEZS8hoTooWjD6E5cZ8YBNp2fXc21HdCm8WgMw6XkTX6czbQEFx1ph0+KIxKx5co6dkBvnrMivKl/0lJTTvoHKdXDxk31qxFRekfdc1tZFdfEMyHKzwzazeCYELj/MHkhXE1vAt7XRaqfPhP5GgUNZJL5EJz8ZOfx3QGGykhmXW3Urqx5WohIYQhIyAbTfDOt4vHNo7i9PXFbAfzG3lXVQhemji2UOArSk+yLW9QD1JTfT4HiEhJLRhSb2i+a9E/VXeuiFSidMjhNpDGIKaiCAkLJa4L/NXCgvGmiWrqpCtGl/4Z8uuA7kAqDkNln8uB9/MaVMEg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=c1P1tQR9yZZWisKMGrQmCkUzuS4EOXOzhommPK/0CbY=;
- b=odjJE4rfoVSWwoWjBJWKp+1ubFvWh/R1+ReO/LDqm5SmuR+udE9d8zHflu+glrcEZeU/YOLCZgcxrsMyr/GqSmVAGbCxULSul6tkOBiFkLdqhp5RthPiBrWiLInhqmceRWszjfBtG4J/Xd2i9PZvYrEqx5W0vmJbBsggoQ/PxEup+q9r8GdRx0jir4vChs4UZIyi/jw12POHu+dIM9OnMT95zaAZiIsqmgieE+AA7B1jVnrWG+bPAe4/+Cw7Bd93VaUDBFJajE6gEhhZjFJafc18TK7NmW59jqJT/h9lNCu2XudTHJPBSSfJ5tpjkQBAD2HBkVDpkWtcUSW36qOFwA==
+ bh=tu88I+bH4hWUfaZSIkJgl6CWpzFe9Hhn9EaaSwdsHyA=;
+ b=xsSPEPTLo1fyGbicy8LsU0HFEntpr4c41c9itBiUWxiteOymSVCRM3yVHQIWMOhFHG24S8j9iO2mYWQWj2WafQBOmTXWdKxK0lnXFTlq4BbsChnr8ya5uQlBuXuh1gHQGdUptNoLmWxp1ZHO1qA5ENTBjloUCV+T9x6+WGn/D9UeIpShMRi3/c1Kpn80ggSCjNBPQ7kZVW/Nk9nRbHR9BMYgrVzP8qBsh6igjB6sENJCqQ8/emgXlsxYkhZEzWnfWh4Y2gKDuZ3JrfI77XhKHtuisLCrZOhutGsbLZDPA5qF9OhLx3Y6M3FXzVSsFX6vIXwIdNH7AMx5uOgfOK/TsA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=c1P1tQR9yZZWisKMGrQmCkUzuS4EOXOzhommPK/0CbY=;
- b=XB1H0iqR4+2W99OoP6A8JS7lPZNX51ggQowdihuYITpRDhi1hUxECdjyn7Bv5xCpzO2rirNf0fobDaG8eahcBL7cmS3f2G/tFJ11N/UNDrxHTdU6JC6MfI4uC984o+huWYsVmlXKf8xKG/20zisgrFUVCwiy3PjJg6LZ4mOhLJWyIha/dd/n4vIiW1BrHEkkdjpXa8BoflrTySs74Zfaz4WjLTCX9EWjVFGTa8ZnMpHBiQIssXhkVuzlKtJ5o7G9IHH1mv3BFjXTz7n6Vs1X8AKEb6Fa5IFDttg5vfHsEvhdNtApqvbMrSN+23SWvWnXuoCcpNpYIiAdfxSGeS0FDg==
+ bh=tu88I+bH4hWUfaZSIkJgl6CWpzFe9Hhn9EaaSwdsHyA=;
+ b=itfUGja29xYOL9e0bbb7YWDtHMV7fcevZLUW5O1+//YfUITlHrJz63XrpKea7ATKGqp/l8EhppdrN5/pLRfgiRork/94IQFxcr5Sca2vu+LZSiHcW9GLA4seWfYCVoHn6jcjTIrFqFU15INyskXNCOU4Awe1c907rUSIjQOi85DX35zBQy7PUVTDzb501ZcI6fnLG/TALcB7QJbkMlvP4+Yixo/sir2G0y4ufeRaEbNKkh8vVFxwynSXNaW/WipmD36WzlYTEzXg+v77hnmkbtg22n2bZ0J2HIg7HQnGHXMlUlHNc9ML7PP/09pYbP/lr6i8/0cYN/IWRwR7Mk+0Sg==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
 Received: from DS0PR12MB6486.namprd12.prod.outlook.com (2603:10b6:8:c5::21) by
- DS0PR12MB7875.namprd12.prod.outlook.com (2603:10b6:8:14d::7) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9818.20; Thu, 16 Apr 2026 22:18:27 +0000
+ IA0PPF7646FEBB5.namprd12.prod.outlook.com (2603:10b6:20f:fc04::bd3)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9818.20; Thu, 16 Apr
+ 2026 21:23:15 +0000
 Received: from DS0PR12MB6486.namprd12.prod.outlook.com
  ([fe80::88a9:f314:c95f:8b33]) by DS0PR12MB6486.namprd12.prod.outlook.com
  ([fe80::88a9:f314:c95f:8b33%4]) with mapi id 15.20.9818.017; Thu, 16 Apr 2026
- 22:18:27 +0000
-Message-ID: <1e3c423e-1cf5-48b1-b012-c4af0eb6b95f@nvidia.com>
-Date: Thu, 16 Apr 2026 18:18:24 -0400
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v11 07/20] gpu: nova-core: mm: Add TLB flush support
-To: Danilo Krummrich <dakr@kernel.org>
-Cc: linux-kernel@vger.kernel.org, Miguel Ojeda <ojeda@kernel.org>,
- Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
- Bjorn Roy Baron <bjorn3_gh@protonmail.com>, Benno Lossin
- <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
+ 21:23:15 +0000
+Date: Thu, 16 Apr 2026 17:23:12 -0400
+From: Joel Fernandes <joelagnelf@nvidia.com>
+To: linux-kernel@vger.kernel.org
+Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
+ Gary Guo <gary@garyguo.net>, Bjorn Roy Baron <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
  Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
- Dave Airlie <airlied@redhat.com>,
+ Danilo Krummrich <dakr@kernel.org>, Dave Airlie <airlied@redhat.com>,
  Daniel Almeida <daniel.almeida@collabora.com>,
- Koen Koning <koen.koning@linux.intel.com>, dri-devel@lists.freedesktop.org,
- rust-for-linux@vger.kernel.org, Nikola Djukic <ndjukic@nvidia.com>,
+ Koen Koning <koen.koning@linux.intel.com>,
+ dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org,
+ Nikola Djukic <ndjukic@nvidia.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  Jonathan Corbet <corbet@lwn.net>, Alex Deucher <alexander.deucher@amd.com>,
  Christian Koenig <christian.koenig@amd.com>,
  Jani Nikula <jani.nikula@linux.intel.com>,
  Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
- <tursulin@ursulin.net>, Huang Rui <ray.huang@amd.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, Huang Rui <ray.huang@amd.com>,
  Matthew Auld <matthew.auld@intel.com>,
  Lucas De Marchi <lucas.demarchi@intel.com>,
  Thomas Hellstrom <thomas.hellstrom@linux.intel.com>,
@@ -74,86 +73,86 @@ Cc: linux-kernel@vger.kernel.org, Miguel Ojeda <ojeda@kernel.org>,
  Edwin Peer <epeer@nvidia.com>, Alexandre Courbot <acourbot@nvidia.com>,
  Andrea Righi <arighi@nvidia.com>, Andy Ritger <aritger@nvidia.com>,
  Zhi Wang <zhiw@nvidia.com>, Balbir Singh <balbirs@nvidia.com>,
- Philipp Stanner <phasta@kernel.org>, Elle Rhumsaa
- <elle@weathered-steel.dev>, alexeyi@nvidia.com,
+ Philipp Stanner <phasta@kernel.org>,
+ Elle Rhumsaa <elle@weathered-steel.dev>, alexeyi@nvidia.com,
  Eliot Courtney <ecourtney@nvidia.com>, joel@joelfernandes.org,
  linux-doc@vger.kernel.org, amd-gfx@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
  linux-fbdev@vger.kernel.org
+Subject: Re: [PATCH v11 07/20] gpu: nova-core: mm: Add TLB flush support
+Message-ID: <20260416212312.GA667928@joelbox2>
 References: <20260415210548.3776595-1-joelagnelf@nvidia.com>
  <20260415210548.3776595-7-joelagnelf@nvidia.com>
- <20260416212312.GA667928@joelbox2> <DHUWPQX14ZGZ.26BV7GQCJDZQI@kernel.org>
-Content-Language: en-US
-From: Joel Fernandes <joelagnelf@nvidia.com>
-In-Reply-To: <DHUWPQX14ZGZ.26BV7GQCJDZQI@kernel.org>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: BLAP220CA0004.NAMP220.PROD.OUTLOOK.COM
- (2603:10b6:208:32c::9) To DS0PR12MB6486.namprd12.prod.outlook.com
+In-Reply-To: <20260415210548.3776595-7-joelagnelf@nvidia.com>
+X-ClientProxiedBy: CY5P221CA0159.NAMP221.PROD.OUTLOOK.COM
+ (2603:10b6:930:6a::26) To DS0PR12MB6486.namprd12.prod.outlook.com
  (2603:10b6:8:c5::21)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB6486:EE_|DS0PR12MB7875:EE_
-X-MS-Office365-Filtering-Correlation-Id: 12d1b84f-fd02-4f21-5cce-08de9c06152f
+X-MS-TrafficTypeDiagnostic: DS0PR12MB6486:EE_|IA0PPF7646FEBB5:EE_
+X-MS-Office365-Filtering-Correlation-Id: e06277b4-e971-4b5f-947b-08de9bfe5f10
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
  ARA:13230040|1800799024|366016|7416014|376014|56012099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: Z9gPoYCrnolufJuLkjHrmfiSazfG723fyrhE3ZiF9MPrOtirgVnsicdBjZEF0pKR4MIwKjpimnQKxEdlQFWiFmHyLNwtFLByxU3Cw+1FAc4GRDN0d5/t8DGqxR9zwnX8ugAlP8VQuEsECy2ZMgC+ZcWpML7PS8GeqjfYEojzjF23jRrcFs0E3D9cCuEL9Tw5XbrzKjhKUJg17ZvZI0zGRNRGTQ0KzgOiW0VXKojptxJXqFYlOr7v1TK+n8qzgunpdDh+8aO4cGFCdr6ubauCsaV5yaRp8eWTQUSMxSXJMwCA4JAyla4OgqwQOrlzcJoquRQjg/hgeRcCkWt8jUeuyNYcy+GstG5mXJVcc+Yv8iljucEW70yKCpM0+ejrOyI+9BwV5xnVkZjEYhsaNHPfcx54LPnoUf6GVG3Tyxy5V4G5coXRuzD2FsPESc9adVgAXCwLYPd1XtZPJ2igl6LIoC2AZuskMIaNO5GQE+3+R7xKN0bj315TXBP4WaYAy/MB9tl0NFyKcKkrHPbk2xqrxETNvjqKIp8As5JI8hgePuAUQ3sIBYbo5ZSHPqFI9W0kHyPHaVhW7Q8HQPgQlLF2IMSYFU7AmDnYzOaS/CYz6/rcgHPlM21qTYP1xFgDb3hBZT9uTszsCUyS5413qzPcsLo9+ZZKnsagDZjXl8amS8VVYe5hzXHb4KR/kZWPzwjUdoGJI3BRTVuBSr625QaxU3lOer8TsM56oi6jc4lpq4o=
+X-Microsoft-Antispam-Message-Info: yfCIBwh9DdKWJ8CnWKSf/TvrBQFaysplXIVmcY8b1Br2FGECyfeq66rGAkJEdCrU+ixQZfXCQc+0aP4U130KseWz6Lp08RPp636CZYGlm0Q0OMIznTHxiONzhkG/477PcpBFyuLyGaRY6Dtk/PEOsEZqyTOjcxJhxs8FoEI8wLhFOj6gPOCV0LFKp9Q12waMfm06yG+D7GM/qcRWf9ETvrUI1g78wZGp749oZtgwoNOddFrNmCjZTAR+IiE6zq0qxKGQQ+JVXaEzkyhGJWD7T7ahDG8KWAP85M235l81Vzb6YakK7Noswqojq9MmjRTOPLSeXnBhrG2OT5Ez8gOSgw/NnzWgoIBDFD61DqyvKwJ6Ylz9r+1dnIHudqRJ9CpLwJPRg3HaEQvGEzXV5r1P/WIWXB/HtM6joX6lzBaXHr5JNYJvWUu2pN2l6Hhw2JHCpCPQNWHPxdQZKYprLWn3stR7Ajf5J53EFUsPWZSiiT6GJlNMOoMfglNzGAW2X8JDFIowCqCEQJc+QTs1X8FL3iJPOftKE6JkRIn5Mtbf5gNVBqEv2pdqQoYQZTIbv8OnEtI4CIzI07HkXLg7vhDUHOl/s8uATK6iIyU7kZtGGGxKhVbGtkVNBhxsLm6Z9GhEJYokLuYH/O12GSagM2McE/Xu1AkXgu3XbUWQV7KUkandNtVh0NriOhNJxvhZ5sNDuJLf7g1lXq9KDdXyLUqhy7cvAuwu7v1/B6Sh5ore3ag=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DS0PR12MB6486.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFS:(13230040)(1800799024)(366016)(7416014)(376014)(56012099003)(18002099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WGZtWWZ3cjNKMlNPaXNuWlJSbFpGNFE1Z3ZRVDJ0UVJrZG1ONVlXYjY1eXhM?=
- =?utf-8?B?OXcxMzh1dEo2N2UrNDNNdCt4VWhZWHA5S1hNN0Eva1QzK1FBNy9EMG5VYmpv?=
- =?utf-8?B?eE9GZktSN3ExR1hUODhVK0owWVpOYWJnU1U3THc1N2QwZU13dXRadlZwWWgy?=
- =?utf-8?B?UWJNd3UxN2JYMFhoc3Z0VnZjRTdHUytWby8rMnMyMFFBbC9lZzVsa0VnY3d6?=
- =?utf-8?B?RGk5b3dUcDBzTHFYQ2RUQjJZbGlPeFY4bTJ0VUdJRDNxSmplNWIzVEVLUjJ2?=
- =?utf-8?B?dG1CZVdnTXN6eDdFM3d6NUpGZWJNb2xzOXFmTzRCMVRhaUhSZHdacmhUWXJn?=
- =?utf-8?B?UVZkcm5LYmdJdHhFMUVMdFZIM2dWalY4SUVZM0hueENuNzdEN25RU3RHRG9l?=
- =?utf-8?B?dG03ZUFSbldwSzNjakErN2UzaFN0WDJKZk9jei8zWE9ZaEFKZ2NRWGtyZ21k?=
- =?utf-8?B?bEF5cWdNZXRrNklUc0ZSMU5XMzBwelBHUFVjU29KQ3oyVHpjNW96akp5M2Y5?=
- =?utf-8?B?WnBUckU4RjNQRmRPTmxlc2E3Yy8wZWIwNWI4dHZoLzAvK0RqSWk1S0dEZzh4?=
- =?utf-8?B?M1diL1ZGaFYxR0Nld3FhOTczV1ZnenZLeVhNN1JUTjZTV3NhV2lKM0hadlov?=
- =?utf-8?B?MlQ3alhZRnNOcFgyZ1phd2lxeGw5NERFUFp1ZjM3WFB1bHpKK0tmRGNNSzRm?=
- =?utf-8?B?TC95ZVYxN3pVS3kwMjRseThYVkdudWJheGhCQW4wYXVYampKd2dIQW9BYnM1?=
- =?utf-8?B?cGJYWnFDamxteGFseHFhYmVMcnBMd2g0eldjOHpWaGhlREtUR3BMVFA0dHhz?=
- =?utf-8?B?VWNmL3B4bDEzVXJlT01uTlc0YXdjbGJKQUpvN0dweXdwajZGRmErUnJzY2g3?=
- =?utf-8?B?WHFPWUFrc3U0c0RZalc1TUFsWnFHOFM4QUFqTUFmZFJYalJUWnI4ZlJGUFhM?=
- =?utf-8?B?a21XYnZxb29CbldMQzJSc3A4S1NXTDlUdHRWTnJJUXd5UCtuZWVEUm52bjRE?=
- =?utf-8?B?NWZtM2JqNUVUM214NndDSFUrZVJBV29JWnRRRlF2TWtEeXVTUDEyT1JKZ2JD?=
- =?utf-8?B?TXMvY3ZqbWZSUGswT0JadlJFcjFyTlZ5dXFVNDVBWm5kQ0l4MmwrRWUxdDZw?=
- =?utf-8?B?bmpYWDh4K3ArdytmTzNqc0FnQnZkR0tOc3lrZXZ1TERtTjlqWGhSb3p5OVdX?=
- =?utf-8?B?UmlQTXpreWxUMkpSVVgwV3FqQTBhc211VVF2ZmhYQ3lrTWtoNGFpQ2djUXha?=
- =?utf-8?B?MS93czJiWTlqVG1mOEpPcFR1U1lrWmFHK01NNXJJc0FNT3BiUmZOZmRBNGRB?=
- =?utf-8?B?VW51d2NGODFody9vYmNYWXdNVHMzaGMwWFVKMXhtamRRYW9BaWcxdEJNY2ox?=
- =?utf-8?B?N0ZYbExET2pneGpubHlHcTB3RjBOZng2U0M0UXpTR2trVmRkN21PWVd4Tnk5?=
- =?utf-8?B?NXJFeGdwN2VEU2I3ajhhb3JxeXR3cHdxNW9VbWZGSXV0cG41by9PWXJ2WHBG?=
- =?utf-8?B?VlNKRTVIMEZKaDhPZWI5WmJ5TWxCZnBuT3p1dk1jYUVTRzRIc29UeWhYMjlY?=
- =?utf-8?B?dWkyZEJwODkxL0UzRFA4ZVA5WDdQVDdBMm1DendTWVdOMStSZE1TUXNtdmx6?=
- =?utf-8?B?U3FVWm9XeWpYQ3g5TnpJdlFwTTlKd09Sckoyei85cGdCdTdaUjdlTjJoZ0sy?=
- =?utf-8?B?VFBQNnJCRThlMm0rdXF0am53M1h5Skh3RzB0NkVHRTJVOWZKVjR2UTdpUDRZ?=
- =?utf-8?B?cExNbG51Q1ZyTVBTUElVcEFxZWRPdFR1ckV0QzVjWTk3ZUZjN3BPMkpuM3hW?=
- =?utf-8?B?SkFCbVY4S2hoenRXOTFHOTNQN3ArV04xRDl4WnNHVUNPa1E1enhtemN1UU9T?=
- =?utf-8?B?MFg0a1JkbFJCUEhPZkRGVzJMV29Bb1VjMGFtNncwWUE1TGtrU1pjUnE5dVJq?=
- =?utf-8?B?ZUpJbVdCRkZ3VlJHTHNUUEZzTlYwRXJFVlFuS3NOQkRIbWR1VDhSaS9QM1Na?=
- =?utf-8?B?eXBvekxxUDlWTVJLb0dhTXhpQmU1ekZxa3JzcXFra25mdUxsZGNla1ZoNVlH?=
- =?utf-8?B?azd2UjZRajkxajZLQ2o5L25USkpab3NycjNJWitRMThkbDRsOFVTK1J5SmdS?=
- =?utf-8?B?MFFSaFdKZzVzK25DOGQ5VFpMbHN1Rmx1NGNraHZFY24vanNQTzRCYTBBUXl0?=
- =?utf-8?B?elJQeTh3bUZZZ3RzNXNmeCtHck9YeW1oZHRQM2c5dWxpR204UlBKdldhSnlS?=
- =?utf-8?B?dENYSk0xMSt2MXdIZ3RBR1lrc1dhU0thdFMrdkZyUDV1SjNkZnQzYlc5Rk9s?=
- =?utf-8?B?SUVNdWlYc1JaL0o0L1ZLMUEwTXk1RHovTXpIM0xKN2ZNZTR3bWZPZz09?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MmdCc2JZQXdiNTNHd090ZmNOWkdlUm1ZQ3NONWV6azIrZ2k4bDFnOWFqV3BQ?=
+ =?utf-8?B?M0tFMTF4SWZ1dmljcG9xRkJrZVd2dWh0SE9ydjg0N2gvZ0ptY01iUnRXYXh3?=
+ =?utf-8?B?MmVYSzV5ZzBVQytheGpIMnptOXE3b2N6RElMYzZYNExqZ0NsRHFOandwMExG?=
+ =?utf-8?B?QlpJc0lBN0NyNEV4SkViSE5pbHpFRUlheEtEMmJ1WkVzeVprNk9qd2hnSTJE?=
+ =?utf-8?B?cGttMzM1TzdPYkUzY05CajFETko3NENzenBVaWRuN0V0blU2cFh5cEViZnRt?=
+ =?utf-8?B?dTJrR2ZpMzkrRlVqa1QxVWZ5QktiTXZTUDBETHFiWTdMMUVtUWpYRXgxbkVu?=
+ =?utf-8?B?SE05aEQ3YTkxNDJZT0RreG1KT0hFUWJUOTc2Q0ViWUFsa0ZJUEtIZHUxbUVL?=
+ =?utf-8?B?Tk5kVXN6S0tJN3FVbWpzOXozN2IyZ2xBUlJNeXh1cTNHVnJjcENBVjMwUTNB?=
+ =?utf-8?B?QWZpR1Y1ZnAxb2lXSDFkTThBaFpDdVlXZmZyTVhkaWVoRGR3a0EyUExyVDRS?=
+ =?utf-8?B?ZkNoL1ZuODF5K0FaUnhmSE9qMGVRZmdXdUlzeXZMYVUzNEFmMHN0U3NqZlE5?=
+ =?utf-8?B?Q21menF5QnhqUVppaXJVMFM1emJSR2g2My8zTFdlRVRMc1VOTWFQWktKTXFS?=
+ =?utf-8?B?QnpuSDJQZ2EyaWhZWWo0Z0xCT01PQTM5OFNMaDh2OVRoY2xES0FwVitPWnE5?=
+ =?utf-8?B?dW5HdFlHcGQxemEzNFFhMStHN1MzUHlXd0hrLzRTSzJxdTRmNit2Y2pUZ01H?=
+ =?utf-8?B?VkI2eGMreGhPVjZtWklnVTVJRVhYL1drVTE5Mk03cFNIVmtqYnR2T2dVL2o3?=
+ =?utf-8?B?WlU5MTB4QTFnYW9OWXVnNFlTd2ErQS9CMFNrekh2dmlsUWlzRWFsMFpLdFJm?=
+ =?utf-8?B?dkJEUmxuL3k0ZzM1RjUvVHN6RGlCQVBRL0JRZFcycHFzQVY4ZVVxS3A0MHJO?=
+ =?utf-8?B?clRuZDI1Z085ZjZ2QWpCbkc1Qm56U2tPRTBteWVVU1N5eDBkRklpZ1VFaStk?=
+ =?utf-8?B?cWVlenFObm01bXB1TENoKzdjMFNkSDU3V05VWXNJeU9Sa3lma3BoTm9RM0lo?=
+ =?utf-8?B?bTFkUE13SE5GYWx3YWNDMFJwQXN4UHJDLzRIMlBLaUV4MFJmbi9VbGJ6aDJu?=
+ =?utf-8?B?bm9rYjV2bUZiWXh6RXpQbTRhS09mVWZFQThQTlVQS2JLN25ZcXF3OGVac1ds?=
+ =?utf-8?B?K01MZXBjUlpSYW1xVUo5WXA5MkxyaXJ0NzNmSlRpMUxKcmFsOWxKTHpWQlBX?=
+ =?utf-8?B?VjBnaW94NldQYjJQeC9kbmJrbU53ZzF6L1JhOVNzSGQ3U2YrQTZkVmV6YVNJ?=
+ =?utf-8?B?SDU3bm5Nd1VQS1lVZ0Rna211bGthb3hTS3FEeDBKbU93Yk95UndqMDFpWWcw?=
+ =?utf-8?B?dGViQ0VaS3dYWFF4R3AzVGNXckpGTVlYQWNKMDRIeVVLUllPOFhVa0N2Y1B0?=
+ =?utf-8?B?NnhxbWtCR05ndTVVQkk4R0hRSWc0c0wvZ01xRHNXMzEyVlZRelpvalA0ZzFB?=
+ =?utf-8?B?cEZMNFhydzRPTk9KU2JSZXh2Rys3WTNFTnNzcmUwK21NSlQ0ZG1aVzBRV1Bu?=
+ =?utf-8?B?RlVOd1ZGM0cxd3JOK083RmRvbnQ4b1RadmNEcURBTzE5NzhVelhNSndISVdY?=
+ =?utf-8?B?OGd1a1diTWFidWFTYWhMNXJYWmo2WTRGaUVrWGJMdFZ3bi9qcXN1MjBLaTA1?=
+ =?utf-8?B?RkNPalZmT2tFRU53UW05a1ZXemdFSzlRdENqRk9VdFRzMms4SG85dmpOeVM1?=
+ =?utf-8?B?d3I2OVlDN2pyaGJWSWZpam42VDM4ZGIrTzZXa0IzUFZYQXp6VmVmenVTaFJ3?=
+ =?utf-8?B?bEhkTkVIcXNIcmN2TVVmWGtxUHBiQVYyMUZlQm9QU1c2emdubGxjQ1l6akxJ?=
+ =?utf-8?B?d09leVY5czYzU0s5aFNIaEc3cHRNMFNOK2pMT3lkRGw2QklHdy9QYVhsamRW?=
+ =?utf-8?B?djFuWGxWc01Ud3ZoNmVqMEM1MGNvNTBIUEZtdE9Sd2tXY1FJejdyOUNmc0NN?=
+ =?utf-8?B?MUdkOFZlbWVaWVlFeTYvenNIL0J6VUxTVHBWSW0yUzllYVhOUVpEL01NWFg2?=
+ =?utf-8?B?Ni8ybTh4aGhnVlpZR2F4b3dIZzBxNDFHd0tNWXBGZXBhUmI2Tkk4WDlVcDkv?=
+ =?utf-8?B?bGRCMTlFS3Y4enY5WGZNVUhHVDJ2UDFqaGFRUU1Rb2JvK24zVTVSNS9EY0E5?=
+ =?utf-8?B?ZTV3dFRsL1k3OWxxL1lQU0U4Q1hQeHErMzVzM1EvcWVDTHZ2NHQySlBiSm9y?=
+ =?utf-8?B?YmFmaWRvVldIUjVYKzVCWTdpVVZ2bGUwY2pET3BRWFFXSUt1TWNUUlhjSmlk?=
+ =?utf-8?B?MENmNlJwUEc3OUxuc09aWGNpVTZhWU41alkrenpmdVZmUzlzNHd6Zz09?=
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 12d1b84f-fd02-4f21-5cce-08de9c06152f
+X-MS-Exchange-CrossTenant-Network-Message-Id: e06277b4-e971-4b5f-947b-08de9bfe5f10
 X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6486.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Apr 2026 22:18:27.5574 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Apr 2026 21:23:15.4019 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: NVV4sENjNQ/k94ELk+Mo9Yv7BuDdIKwYT8yexHU4m6gK3x5qW2PGeSiGTmihKpS9azRkXsQLMnGXXWrZvt9rWg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7875
+X-MS-Exchange-CrossTenant-UserPrincipalName: 0B7pgPbpj6b0b1w2AB497zbKy5vZSNRxpzJ9AHhMzJERmYu4QWFH1ZDTgDxdanil6GYWARRJ3+NmAFZv1tfnNg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PPF7646FEBB5
 X-Mailman-Approved-At: Fri, 17 Apr 2026 07:06:57 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -169,52 +168,201 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-
-
-On 4/16/2026 5:45 PM, Danilo Krummrich wrote:
-> On Thu Apr 16, 2026 at 11:23 PM CEST, Joel Fernandes wrote:
->> Btw, I changed this to doing it in 2 phases to avoid holding the RCU readlock
->> across read_poll_timeout, which can sleep. Will squash it in for v12.
+On Wed, Apr 15, 2026 at 05:05:34PM -0400, Joel Fernandes wrote:
+> Add TLB (Translation Lookaside Buffer) flush support for GPU MMU.
 > 
-> Why do we need the try_access() dance in the first place? I assume this ends up
-> being called from the BarAccess destructor?
-
-BarAccess is different. The try_access() calls here are in tlb.rs and
-pramin.rs for Bar0. BarAccess uses &'a Bar1 directly — its Drop impl just
-calls self.vmm.unmap_pages(self.mm, mapped), without needing try_access().
-
+> After modifying page table entries, the GPU's TLB must be invalidated
+> to ensure the new mappings take effect. The Tlb struct provides flush
+> functionality through BAR0 registers.
 > 
-> If so, I think this is solvable. Gary and me are currently working on
-> higher-ranked types and a chained Devres type.
-
-Hmm, the issue here is we cannot hold revocable guard while sleeping, but
-we have read the bar as a condition in the body of the poll. So I split the
-try_access()'es. First phase for writing and second for reading (bar 0).
-
+> The flush operation writes the page directory base address and triggers
+> an invalidation, polling for completion with a 2 second timeout matching
+> the Nouveau driver.
 > 
-> With that, such use-cases should be cleanly solvable without the need for
-> try_access().
+> Cc: Nikola Djukic <ndjukic@nvidia.com>
+> Signed-off-by: Joel Fernandes <joelagnelf@nvidia.com>
+> ---
+>  drivers/gpu/nova-core/mm.rs     |  1 +
+>  drivers/gpu/nova-core/mm/tlb.rs | 97 +++++++++++++++++++++++++++++++++
+>  drivers/gpu/nova-core/regs.rs   | 44 +++++++++++++++
+>  3 files changed, 142 insertions(+)
+>  create mode 100644 drivers/gpu/nova-core/mm/tlb.rs
 > 
-> Besides that, I can't find where BarAccess is ever constructed.
+> diff --git a/drivers/gpu/nova-core/mm.rs b/drivers/gpu/nova-core/mm.rs
+> index fa29f525f282..314d660d898b 100644
+> --- a/drivers/gpu/nova-core/mm.rs
+> +++ b/drivers/gpu/nova-core/mm.rs
+> @@ -25,6 +25,7 @@ fn from(pfn: Pfn) -> Self {
+>  }
+>  
+>  pub(crate) mod pramin;
+> +pub(super) mod tlb;
+>  
+>  use kernel::{
+>      bitfield,
+> diff --git a/drivers/gpu/nova-core/mm/tlb.rs b/drivers/gpu/nova-core/mm/tlb.rs
+> new file mode 100644
+> index 000000000000..6d384f447635
+> --- /dev/null
+> +++ b/drivers/gpu/nova-core/mm/tlb.rs
+> @@ -0,0 +1,97 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +
+> +//! TLB (Translation Lookaside Buffer) flush support for GPU MMU.
+> +//!
+> +//! After modifying page table entries, the GPU's TLB must be flushed to
+> +//! ensure the new mappings take effect. This module provides TLB flush
+> +//! functionality for virtual memory managers.
+> +//!
+> +//! # Examples
+> +//!
+> +//! ```ignore
+> +//! use crate::mm::tlb::Tlb;
+> +//!
+> +//! fn page_table_update(tlb: &Tlb, pdb_addr: VramAddress) -> Result<()> {
+> +//!     // ... modify page tables ...
+> +//!
+> +//!     // Flush TLB to make changes visible (polls for completion).
+> +//!     tlb.flush(pdb_addr)?;
+> +//!
+> +//!     Ok(())
+> +//! }
+> +//! ```
+> +
+> +use kernel::{
+> +    devres::Devres,
+> +    io::poll::read_poll_timeout,
+> +    io::Io,
+> +    new_mutex,
+> +    prelude::*,
+> +    sync::{
+> +        Arc,
+> +        Mutex, //
+> +    },
+> +    time::Delta, //
+> +};
+> +
+> +use crate::{
+> +    driver::Bar0,
+> +    mm::VramAddress,
+> +    regs, //
+> +};
+> +
+> +/// TLB manager for GPU translation buffer operations.
+> +#[pin_data]
+> +pub(crate) struct Tlb {
+> +    bar: Arc<Devres<Bar0>>,
+> +    /// TLB flush serialization lock: This lock is designed to be acquired during
+> +    /// the DMA fence signalling critical path. It should NEVER be held across any
+> +    /// reclaimable CPU memory allocations because the memory reclaim path can
+> +    /// call `dma_fence_wait()` (when implemented), which would deadlock if lock held.
+> +    #[pin]
+> +    lock: Mutex<()>,
+> +}
+> +
+> +impl Tlb {
+> +    /// Create a new TLB manager.
+> +    pub(super) fn new(bar: Arc<Devres<Bar0>>) -> impl PinInit<Self> {
+> +        pin_init!(Self {
+> +            bar,
+> +            lock <- new_mutex!((), "tlb_flush"),
+> +        })
+> +    }
+> +
+> +    /// Flush the GPU TLB for a specific page directory base.
+> +    ///
+> +    /// This invalidates all TLB entries associated with the given PDB address.
+> +    /// Must be called after modifying page table entries to ensure the GPU sees
+> +    /// the updated mappings.
+> +    pub(super) fn flush(&self, pdb_addr: VramAddress) -> Result {
+> +        let _guard = self.lock.lock();
+> +
+> +        let bar = self.bar.try_access().ok_or(ENODEV)?;
+> +
+> +        // Write PDB address.
+> +        bar.write_reg(regs::NV_TLB_FLUSH_PDB_LO::from_pdb_addr(pdb_addr.raw_u64()));
+> +        bar.write_reg(regs::NV_TLB_FLUSH_PDB_HI::from_pdb_addr(pdb_addr.raw_u64()));
+> +
+> +        // Trigger flush: invalidate all pages, require global acknowledgment
+> +        // from all engines before completion.
+> +        bar.write_reg(
+> +            regs::NV_TLB_FLUSH_CTRL::zeroed()
+> +                .with_page_all(true)
+> +                .with_ack_globally(true)
+> +                .with_enable(true),
+> +        );
+> +
+> +        // Poll for completion - enable bit clears when flush is done.
+> +        read_poll_timeout(
+> +            || Ok(bar.read(regs::NV_TLB_FLUSH_CTRL)),
+> +            |ctrl: &regs::NV_TLB_FLUSH_CTRL| !ctrl.enable(),
+> +            Delta::ZERO,
+> +            Delta::from_secs(2),
+> +        )?;
+> +
+> +        Ok(())
+> +    }
+> +}
 
-BarUser::map() constructs it.
-https://lore.kernel.org/all/20260415210548.3776595-18-joelagnelf@nvidia.com/
+Btw, I changed this to doing it in 2 phases to avoid holding the RCU readlock
+across read_poll_timeout, which can sleep. Will squash it in for v12.
 
-> 
-> It already has a lifetime 'a for &'a Bar1, so I don't see why you can't do the
-> same for Bar0.>
-> But again, I don't see this being constructed and I'm not sure the whole
-> construct works in the first place.
+---8<-----------------------
 
-BarAccess uses &'a Bar1 because it's a short-lived scoped object. In long
-lived objects I am trying to avoid this. I guess I would be Ok with
-switching &'a Bar1 to Devres as well. But let me know your suggestions!
-
-If it is easier to look at a git tree to get a complete picture, here is
-the git tag of v11:
-https://git.kernel.org/pub/scm/linux/kernel/git/jfern/linux.git/tag/?h=nova-mm-v11-20260415
-
-Thanks.
-
-
+diff --git a/drivers/gpu/nova-core/mm/tlb.rs b/drivers/gpu/nova-core/mm/tlb.rs
+index 6d384f447635..3a65db7d9a1a 100644
+--- a/drivers/gpu/nova-core/mm/tlb.rs
++++ b/drivers/gpu/nova-core/mm/tlb.rs
+@@ -69,24 +69,35 @@ pub(super) fn new(bar: Arc<Devres<Bar0>>) -> impl PinInit<Self> {
+     pub(super) fn flush(&self, pdb_addr: VramAddress) -> Result {
+         let _guard = self.lock.lock();
+ 
+-        let bar = self.bar.try_access().ok_or(ENODEV)?;
++        // Broken into 2 phases with scopes (Write and Poll) to avoid holding
++        // RevecablableGuard (and hence RCU read-side critical section) across
++        // the read_poll_timeout() call that can sleep.
+ 
+-        // Write PDB address.
+-        bar.write_reg(regs::NV_TLB_FLUSH_PDB_LO::from_pdb_addr(pdb_addr.raw_u64()));
+-        bar.write_reg(regs::NV_TLB_FLUSH_PDB_HI::from_pdb_addr(pdb_addr.raw_u64()));
++        // Write phase — hold bar access briefly for register writes only.
++        {
++            let bar = self.bar.try_access().ok_or(ENODEV)?;
+ 
+-        // Trigger flush: invalidate all pages, require global acknowledgment
+-        // from all engines before completion.
+-        bar.write_reg(
+-            regs::NV_TLB_FLUSH_CTRL::zeroed()
+-                .with_page_all(true)
+-                .with_ack_globally(true)
+-                .with_enable(true),
+-        );
++            // Write PDB address.
++            bar.write_reg(regs::NV_TLB_FLUSH_PDB_LO::from_pdb_addr(pdb_addr.raw_u64()));
++            bar.write_reg(regs::NV_TLB_FLUSH_PDB_HI::from_pdb_addr(pdb_addr.raw_u64()));
+ 
+-        // Poll for completion - enable bit clears when flush is done.
++            // Trigger flush: invalidate all pages, require global acknowledgment
++            // from all engines before completion.
++            bar.write_reg(
++                regs::NV_TLB_FLUSH_CTRL::zeroed()
++                    .with_page_all(true)
++                    .with_ack_globally(true)
++                    .with_enable(true),
++            );
++        }
++
++        // Poll for completion — re-acquire bar access each iteration to avoid
++        // holding the RCU read-side lock (via RevocableGuard) across sleep.
+         read_poll_timeout(
+-            || Ok(bar.read(regs::NV_TLB_FLUSH_CTRL)),
++            || {
++                let bar = self.bar.try_access().ok_or(ENODEV)?;
++                Ok(bar.read(regs::NV_TLB_FLUSH_CTRL))
++            },
+             |ctrl: &regs::NV_TLB_FLUSH_CTRL| !ctrl.enable(),
+             Delta::ZERO,
+             Delta::from_secs(2),
+-- 
+2.34.1
 
