@@ -4,93 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E20D0F436BF
-	for <amd-gfx@archiver.kernel.org>; Fri, 17 Apr 2026 19:03:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 933FDF8D75C
+	for <amd-gfx@archiver.kernel.org>; Fri, 17 Apr 2026 19:36:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4876810EA94;
-	Fri, 17 Apr 2026 19:03:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1623910EA82;
+	Fri, 17 Apr 2026 19:36:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="a2FjQmG+";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="J8Tf0dQG";
 	dkim-atps=neutral
-Received: from mail-dl1-f42.google.com (mail-dl1-f42.google.com [74.125.82.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0B19310EA94
- for <amd-gfx@lists.freedesktop.org>; Fri, 17 Apr 2026 19:03:41 +0000 (UTC)
-Received: by mail-dl1-f42.google.com with SMTP id
- a92af1059eb24-12c750eaf4cso15479c88.0
- for <amd-gfx@lists.freedesktop.org>; Fri, 17 Apr 2026 12:03:41 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1776452620; cv=none;
- d=google.com; s=arc-20240605;
- b=Ww0R3egw7cG972FR789HA5MaUNhhV86gubRXUlE3X2+j/tXx5zBP7iHq9ICBwqC1oa
- mgEby9KKHCPSentb3btKs1sKEFjDMRl55PmHI1xUlGSRJRsbOc+VoGQ0TLWqdUTEwj/z
- m6v++GvGCiK6DeKWFk552I7qSxr+l+6iSLI9jyZrYsIZ/IYFplnvB0zq5E/G1xZWBzSa
- vOYxYRtqmdeUhcLS+hGHEioynRFcaWpxj9kZyr5KqoCxxncZtePvNBfFbgHuOcesztLl
- hoZaSSgt5/cKAZHFBBGRyMi6vALfxPfpNiPUmHb1K5svNXkAsA6e0r4MbWbjOyCJZZx4
- F3FQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=48PkQzawbX2U/I174xVMBOJ30/cxHhJ5sdphla9VdOs=;
- fh=v458ECaodq3QyzOL1RG0vslxIShLBcyzpAjnViqOYIg=;
- b=RG+zUCzuOJ9RitOkFBRpwN5AH2D5oE/44CoF+XjJB809jKTVkG9ODSs2uYB4F+lXqi
- vV08c1nx1EFqCu7HQv5pjiZ1TkuZkBljsnPwqQdN08NLyzYR2VEFGCOMDvrf53e5S6LW
- 6vELpl0jjZpQAZMpjYAQNWLg1xBdhwO86SD9RE12lrURCnX53jMoYP0/cHZ5pTujemsw
- 2noXUd8b1bbXuBDA0KHFUrfdzAI/n/SL8HgX8b3Tqd+Xsae7wb5HxNDQdUwiVTha9vkP
- 8CrTxl5W14Nm3ueWLqeokLknCqhjQu+dXXyST2+kEaicaI6aQeSRWRdP+lgEeSM1uVNi
- MZfw==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com
+ [209.85.221.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 063C110EA82
+ for <amd-gfx@lists.freedesktop.org>; Fri, 17 Apr 2026 19:36:00 +0000 (UTC)
+Received: by mail-wr1-f53.google.com with SMTP id
+ ffacd0b85a97d-43fe608cb92so624898f8f.2
+ for <amd-gfx@lists.freedesktop.org>; Fri, 17 Apr 2026 12:35:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1776452620; x=1777057420; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
+ d=gmail.com; s=20251104; t=1776454558; x=1777059358; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=48PkQzawbX2U/I174xVMBOJ30/cxHhJ5sdphla9VdOs=;
- b=a2FjQmG+313QDv3QaCVwovV7fKLNyRmAdGHRVi1yxoo2N2OjJ+y3mOEFfX7Mb15Jvt
- KdPmPzIfUPd3ysRQiUjtw3Cl82kqFDhpFCMz7UCOSMOtpcxwEvtDkoU0/3vKOif3l97R
- oC9qh3D64urwrq0CSxGYppjd5TWwjC/EqZsYHHQCXHQd3At6txL/V5ST6ly2AuQ5SPsp
- FacZ7mvtjE3zsVmYQP6tRCF1f/vYz7amljrR/McWgxSGzcaaS3MciEHLcyWD2P0QgSv9
- 34dk3cfmsO31UkysGj98tfM4AznGYOohNuCPGetymKtJk1UgJ0iiz+PBSpmL6R7By4Jp
- s/Lg==
+ bh=se5JFXi9hkfYAm6vnz6IfnclG6zuIDKJskwiqxro0Y8=;
+ b=J8Tf0dQGpNEOAATWwfh5C4gXzrsw6MNQ8jX44KLG0NcBVbvKZvxu3FtkXwIYS3RkeY
+ 7JLOgsCrE6vYyzT5P7WYVgW1T0ARX/QbuQ1gbab/BV8iYk4xTQkoyetxwdn2rbwGiC0g
+ 5+Mqms3HdzpCowlWHdS38/DjFFdZoLVtXtN7pcN5QwIGjbzkscN5T6fCeW0FDNFFhO0a
+ 1l7TSkIIcOH7zviQNSEjkPrNBQjZNe8Gs3feuiswDrkz7F1XR2L/S8Q5e+Wom7aH+gKT
+ 20priWwFANgcutBZcBPsdMhHXGFSWmghWWfpKVuF1AnRgrzZ0Xc+5XsRMHxPzxyBB+zj
+ 66Jg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1776452620; x=1777057420;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ d=1e100.net; s=20251104; t=1776454558; x=1777059358;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=48PkQzawbX2U/I174xVMBOJ30/cxHhJ5sdphla9VdOs=;
- b=qpt2IQUpMY2FYt/dZxZ5Qr+/SApOHY9KwnJywQDFd/HXo40MxdlD4FxF7iwBU20PUO
- WSNfFq+Jc8eFJIkMQz1S4r4GGaGAbfiWBvpFUcEfO5qJs1Fg4A65idF5G8Nrg28E3Yyw
- VDYCi2w3jg0Z9cQTIHsBVyK00V8VHBR5+LGfxAdjhhiZvyegXnfKfkkD6qPragGvVrpb
- txXPFWqlwNdgKQNeu8njREKmbVvWATvaBrQCjtYEPluQXuYjPJKgEvOWJckLRbUgDp5+
- CtQBkVgvdcwWQP30njoSGqZm/LSO5FLfYsNepKr2If0u4r4Euz7l6ivBisln5lAEitDS
- qmfA==
-X-Gm-Message-State: AOJu0YymljNyjh98ZqbIoxz9B7Dn0eOLPkrNHbyaIX3bTmm08Ir9RWT9
- POF6+nQZNuE30oZd84dBv8wusiW7xgP+aItN9+Ay9OhQ/ANWCVG2hOTKLJffVZ7VXhxlkLY33nm
- yih24UC0HreKEaQa3fIfqhwUiGAvP8RYeFQ==
-X-Gm-Gg: AeBDieu1AKn8FGhnIzzwUb0ahPSJLTw9Te8e+N/Ek++BUEPi3xqW/wYUVrirDgOIGC0
- 2YNBmfrCpQmLU84wCQQm7kbhbQu64x7b+TTpXgdrhUXw65Y4rbk6y5jYLNX4LD+xqYHa1/oznHF
- 5njEnr+C7QV3Ie05TNiVYXqqCNavRytthjndwyErq5BYIqaxln0J2Fxk0qjJGhC0TLIz8OVKvoy
- p9LDsKUMvHjh0vKp7K9fBFzU/LxjMmuOYslo5Cp9+0PatwaddWScTW9HBb/B2YQ4Bf36AD/H8gN
- jVgqprKuQpl9jE0KVLIfWBc16/6P8WOSx6sMEWtYQ6w+oTxFhIiEkQGf8dMzXFd4L6jcJCYXK1H
- yXK7f
-X-Received: by 2002:a05:7022:660d:b0:12c:33dd:f9fd with SMTP id
- a92af1059eb24-12c73f65b16mr784961c88.1.1776452620019; Fri, 17 Apr 2026
- 12:03:40 -0700 (PDT)
+ bh=se5JFXi9hkfYAm6vnz6IfnclG6zuIDKJskwiqxro0Y8=;
+ b=dPKiMAowHCMp65b+Khr8EMoeSOHHBc7+rGhemr/phcEs8kUAsKXGjAzVsBA7gB1mqr
+ IqZ5wMzNxVvNCvOsugQDcB2/U6oWlfir74vy+Xx478WYQOdbI3upxsTMPYuwwR/p16Cq
+ G352P/bBZZC2gUvGxsO+ora5Lo5nOMwrZd1T4BjxH5h31VPLsvog52fB5D0fyM9ih9zR
+ jPd6Vuv26vTF0nCgePU0eShZMwa+msEvW5eoNpqWJCDb/g0X9ohZn5PQYkxxPfKOlGYp
+ J5V6er+hjEsRM3bEWm4dhe7JY6nwTaR59cmP1jP+0YDpBs0MphxhbhzoV9Myo2iuuiNq
+ yqaA==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ+ylDZTEw9c4pPYhuvzoECyxk2PQXYm7CsXLfTclUgVTqYIcr4NDDr5ezBRs5ZeaSy5OKxHNT6L@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyQuE2CN8GF69qkc39HzzowG3g/MFS7j+JtuQCJdC/R3qEbH2Lo
+ /bY8yOz/iZzhldsitiL88n//cDyt1t6s5ca6ZgDYAwpwlbwMdlP9a6KD
+X-Gm-Gg: AeBDieuOFTiaO5s/mQMqkiIwX2e7iXDjdwvAqODFIwhfLy/AexERabeSYxBmkRBWmGN
+ pwSjvQ4qGbjMU6eVA0U0O5m5r7aUSBbLQq/Gm7o3uiShmIloN6czw1G2j/7HDAZv+r693SwbmlZ
+ 1zNzHOPJ4+oyPgEygmxinVnkBQlyjT7QgEihnbAVi8z7k8cshCG0eRptCCDCqzlKsDJl7sLYXoS
+ Eqs0rGojW6/7KiTZmPciUrecSkzxkP99tC93D8JP6ZTjrrDSHPbex767s4KMcmmqj9Un8PUsN/z
+ kW9Qj70rmCfyqNkgRWHyBJC+FpSSeuuirW3/3Y3Q+SonbTQQNE6QWDSKIKgZClsk3xcU+kZ9jig
+ +w4M0Cr66FECJuLr/NtaYSRphPJWTa6envGgdeZSlpsTcFyHUk3shnp8o7YEBtggP2tLnJlts9h
+ VkrnRvQ5xni0OPTjUq3yQ6FSrVlUAiLEY42VVt8Pxg9SlUJTE1HpsTw5FvPT+Ku1Y6Ou3+LFNk5
+ 9zqDpBrjkc=
+X-Received: by 2002:a05:6000:1ac9:b0:43d:6787:9934 with SMTP id
+ ffacd0b85a97d-43fe3db39b2mr6469228f8f.9.1776454558190; 
+ Fri, 17 Apr 2026 12:35:58 -0700 (PDT)
+Received: from timur-hyperion.localnet (5E1B98A2.dsl.pool.telekom.hu.
+ [94.27.152.162]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-43fe4e3a18csm7750448f8f.20.2026.04.17.12.35.57
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 17 Apr 2026 12:35:57 -0700 (PDT)
+From: Timur =?UTF-8?B?S3Jpc3TDs2Y=?= <timur.kristof@gmail.com>
+To: Alex Hung <alex.hung@amd.com>
+Cc: Roman Li <Roman.Li@amd.com>, amd-gfx list <amd-gfx@lists.freedesktop.org>, 
+ "Deucher, Alexander" <alexander.deucher@amd.com>,
+ Harry Wentland <Harry.Wentland@amd.com>, Leo Li <Sunpeng.Li@amd.com>,
+ Aurabindo Pillai <Aurabindo.Pillai@amd.com>
+Subject: Re: [PATCH] drm/amd/display: Restore analog connector support
+Date: Fri, 17 Apr 2026 21:35:56 +0200
+Message-ID: <2356837.vFx2qVVIhK@timur-hyperion>
+In-Reply-To: <CAFF-SiWw6vJR3uKO3Zw7XrmfF2Vx35dJRVMVviCu2gzhuT6RKw@mail.gmail.com>
+References: <20260415224150.1807020-1-Roman.Li@amd.com>
+ <b6e52939-5593-4874-a8d0-010594d6a637@amd.com>
+ <CAFF-SiWw6vJR3uKO3Zw7XrmfF2Vx35dJRVMVviCu2gzhuT6RKw@mail.gmail.com>
 MIME-Version: 1.0
-References: <20260417175430.47434-1-sunpeng.li@amd.com>
- <CADnq5_M+DfU0_PO7DW-q3hCJzCWDa2kngG5onds_5XJqQO--tA@mail.gmail.com>
- <e276ad4a-72d9-401e-a88e-8e8542b6f2bd@amd.com>
-In-Reply-To: <e276ad4a-72d9-401e-a88e-8e8542b6f2bd@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 17 Apr 2026 15:03:24 -0400
-X-Gm-Features: AQROBzB2fy412Q3yxre4sGbJjYtlcMqpSEXewmBW7FqkJVZ-TkoYIFPHwjWUklg
-Message-ID: <CADnq5_OJVujGWDGuZB74_Qh87aYMpeJDaRSQtcZnOYNTWUTF1Q@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/display: Undo accidental fix revert in
- amdgpu_dm_ism.c
-To: Leo Li <sunpeng.li@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, Harry.Wentland@amd.com, superm1@kernel.org, 
- Ray.Wu@amd.com
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,106 +93,195 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Apr 17, 2026 at 2:32=E2=80=AFPM Leo Li <sunpeng.li@amd.com> wrote:
->
->
->
-> On 2026-04-17 14:18, Alex Deucher wrote:
-> > On Fri, Apr 17, 2026 at 2:14=E2=80=AFPM <sunpeng.li@amd.com> wrote:
-> >>
-> >> From: Leo Li <sunpeng.li@amd.com>
-> >>
-> >> [Why]
-> >>
-> >> Pausing DPM power profiles during static screen caused a bunch of
-> >> audio/performance/clock issues that were addressed in this fix:
-> >> 1412482b7143 ("Revert "drm/amd/display: pause the workload setting in =
-dm"")
-> >>
-> >> This logic in function amdgpu_dm_crtc_vblank_control_worker() was move=
-d
-> >> to amdgpu_dm_ism.c, but the fix was lost in the process.
-> >
-> > Do you think ISM will fix this so we can re-enable pausing the power pr=
-ofile?
-> >
-> > Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
->
-> This regression was caught in our testing this week, so I don't think so.
->
-> The ISM doesn't differ from the original vblank on/off logic much. Instea=
-d of
-> idle features relying on the drm vblank off timer + a dm-specific worker,=
- we
-> moved it to a dm-specific delayed worker + hysteresis to prevent idle sta=
-te
-> thrashing.
->
-> I guess the question is: what exactly is amdgpu_dpm_pause_power_profile()
-> doing? Does it enter some low power-state? If so, what are the needed
-> conditions for entry and exit?
+Hi,
 
-All it does is set the power profile back to the default/bootup
-profile.  If there were workloads running the profile may be set to
-video, fullscreen3d, or compute.  My understanding is that the DC low
-power stuff gets ignored if the profile is not in the bootup state
-when DC enters it's low power mode.  To fix that, we called this
-helper to force the profile back to default/bootup do DC low power
-features will kick in.
+Tested this on the following:
+HD 7870 XT - works
+R9 280X (Tahiti) - works
+R9 380X (Tonga) - works
+A10-7850K (Kaveri) - broken
 
-Alex
+It seems that some other chunks of code were removed which were necessary f=
+or=20
+external DP bridge encoders to work properly. Those will need to be added b=
+ack=20
+too, otherwise we regress Kaveri APUs.
 
->
+Best regards,
+Timur
+
+
+On Thursday, April 16, 2026 7:38:39=E2=80=AFPM Central European Summer Time=
+ Timur=20
+Krist=C3=B3f wrote:
+> Hi,
+>=20
+> I'll test this on a few different old GPUs and get back to you.
+>=20
 > Thanks,
-> Leo
->
-> >
-> >>
-> >> [How]
-> >>
-> >> Reapply the fix to amdgpu_dm_ism.c
-> >>
-> >> Fixes: 0b572a6bf04a ("drm/amd/display: Add Idle state manager(ISM)")
-> >> Signed-off-by: Leo Li <sunpeng.li@amd.com>
-> >> ---
-> >>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_ism.c | 10 ----------
-> >>  1 file changed, 10 deletions(-)
-> >>
-> >> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_ism.c b/d=
-rivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_ism.c
-> >> index d2f47c69921d4..d03ea3bafd469 100644
-> >> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_ism.c
-> >> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_ism.c
-> >> @@ -270,7 +270,6 @@ static void dm_ism_commit_idle_optimization_state(=
-struct amdgpu_dm_ism *ism,
-> >>         struct amdgpu_crtc *acrtc =3D ism_to_amdgpu_crtc(ism);
-> >>         struct amdgpu_device *adev =3D drm_to_adev(acrtc->base.dev);
-> >>         struct amdgpu_display_manager *dm =3D &adev->dm;
-> >> -       int r;
-> >>
-> >>         trace_amdgpu_dm_ism_commit(dm->active_vblank_irq_count,
-> >>                                    vblank_enabled,
-> >> @@ -315,16 +314,7 @@ static void dm_ism_commit_idle_optimization_state=
-(struct amdgpu_dm_ism *ism,
-> >>          */
-> >>         if (!vblank_enabled && dm->active_vblank_irq_count =3D=3D 0) {
-> >>                 dc_post_update_surfaces_to_stream(dm->dc);
-> >> -
-> >> -               r =3D amdgpu_dpm_pause_power_profile(adev, true);
-> >> -               if (r)
-> >> -                       dev_warn(adev->dev, "failed to set default pow=
-er profile mode\n");
-> >> -
-> >>                 dc_allow_idle_optimizations(dm->dc, true);
-> >> -
-> >> -               r =3D amdgpu_dpm_pause_power_profile(adev, false);
-> >> -               if (r)
-> >> -                       dev_warn(adev->dev, "failed to restore the pow=
-er profile mode\n");
-> >>         }
-> >>  }
-> >>
-> >> --
-> >> 2.53.0
-> >>
->
+> Timur
+>=20
+> Alex Hung <alex.hung@amd.com> ezt =C3=ADrta (id=C5=91pont: 2026. =C3=A1pr=
+=2E 16., Cs=C3=BC 17:46):
+> > Reviewed-by: Alex Hung <alex.hung@amd.com>
+> >=20
+> > On 4/15/26 16:41, Roman.Li@amd.com wrote:
+> > > From: Roman Li <Roman.Li@amd.com>
+> > >=20
+> > > [Why]
+> > > The analog connector support was accidentally removed,
+> > > causing a crash when connecting an analog monitor.
+> > >=20
+> > > [How]
+> > > This patch restores the functions and pointers required for proper
+> > > analog
+> > > and DP bridge encoder support on legacy GPUs.
+> > >=20
+> > > Fixes: 66715fc0ecfd ("drm/amd/display: Sync dcn42 with DC 3.2.373")
+> > > Cc: Timur Krist=C3=B3f <timur.kristof@gmail.com>
+> > > Signed-off-by: Roman Li <Roman.Li@amd.com>
+> > > ---
+> > >=20
+> > >   .../amd/display/dc/hwss/dce110/dce110_hwseq.c | 53 ++++++++++++++++=
++++
+> > >   1 file changed, 53 insertions(+)
+> > >=20
+> > > diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
+> >=20
+> > b/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
+> >=20
+> > > index 5273ca09fe12..e76abc877f4a 100644
+> > > --- a/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
+> > > +++ b/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
+> > > @@ -677,6 +677,48 @@ dce110_dac_encoder_control(struct pipe_ctx
+> >=20
+> > *pipe_ctx, bool enable)
+> >=20
+> > >       bios->funcs->encoder_control(bios, &encoder_control);
+> > >  =20
+> > >   }
+> > >=20
+> > > +static void
+> > > +dce110_external_encoder_control(enum bp_external_encoder_control_act=
+ion
+> >=20
+> > action,
+> >=20
+> > > +                             struct dc_link *link,
+> > > +                             struct dc_crtc_timing *timing)
+> > > +{
+> > > +     struct dc *dc =3D link->ctx->dc;
+> > > +     struct dc_bios *bios =3D link->ctx->dc_bios;
+> > > +     const struct dc_link_settings *link_settings =3D
+> >=20
+> > &link->cur_link_settings;
+> >=20
+> > > +     enum bp_result bp_result =3D BP_RESULT_OK;
+> > > +     struct bp_external_encoder_control ext_cntl =3D {
+> > > +             .action =3D action,
+> > > +             .connector_obj_id =3D link->link_enc->connector,
+> > > +             .encoder_id =3D link->ext_enc_id,
+> > > +             .lanes_number =3D link_settings->lane_count,
+> > > +             .link_rate =3D link_settings->link_rate,
+> > > +
+> > > +             /* Use signal type of the real link encoder, ie. DP */
+> > > +             .signal =3D link->connector_signal,
+> > > +
+> > > +             /* We don't know the timing yet when executing the SETUP
+> >=20
+> > action,
+> >=20
+> > > +              * so use a reasonably high default value. It seems that
+> >=20
+> > ENABLE
+> >=20
+> > > +              * can change the actual pixel clock but doesn't work w=
+ith
+> >=20
+> > higher
+> >=20
+> > > +              * pixel clocks than what SETUP was called with.
+> > > +              */
+> >=20
+> > > +             .pixel_clock =3D timing ? timing->pix_clk_100hz / 10 :
+> > 300000,
+> >=20
+> > > +             .color_depth =3D timing ? timing->display_color_depth :
+> > COLOR_DEPTH_888,
+> >=20
+> > > +     };
+> > > +     DC_LOGGER_INIT(dc->ctx);
+> > > +
+> > > +     bp_result =3D bios->funcs->external_encoder_control(bios,
+> > > &ext_cntl);
+> > > +
+> > > +     if (bp_result !=3D BP_RESULT_OK)
+> >=20
+> > > +             DC_LOG_ERROR("Failed to execute external encoder action:
+> > 0x%x\n", action);
+> >=20
+> > > +}
+> > > +
+> > > +static void
+> > > +dce110_prepare_ddc(struct dc_link *link)
+> > > +{
+> > > +     if (link->ext_enc_id.id)
+> > > +
+> > =20
+> >  dce110_external_encoder_control(EXTERNAL_ENCODER_CONTROL_DDC_SETUP, li=
+nk,
+> >=20
+> > NULL);
+> >=20
+> > > +}
+> > > +
+> > >=20
+> > >   static bool
+> > >   dce110_dac_load_detect(struct dc_link *link)
+> > >   {
+> > >=20
+> > > @@ -3376,6 +3418,15 @@ void dce110_enable_tmds_link_output(struct
+> >=20
+> > dc_link *link,
+> >=20
+> > >       link->phy_state.symclk_state =3D SYMCLK_ON_TX_ON;
+> > >  =20
+> > >   }
+> > >=20
+> > > +static void dce110_enable_analog_link_output(
+> > > +             struct dc_link *link,
+> > > +             uint32_t pix_clk_100hz)
+> > > +{
+> > > +     link->link_enc->funcs->enable_analog_output(
+> > > +                     link->link_enc,
+> > > +                     pix_clk_100hz);
+> > > +}
+> > > +
+> > >=20
+> > >   void dce110_enable_dp_link_output(
+> > >  =20
+> > >               struct dc_link *link,
+> > >               const struct link_resource *link_res,
+> > >=20
+> > > @@ -3513,8 +3564,10 @@ static const struct hw_sequencer_funcs
+> >=20
+> > dce110_funcs =3D {
+> >=20
+> > >       .enable_lvds_link_output =3D dce110_enable_lvds_link_output,
+> > >       .enable_tmds_link_output =3D dce110_enable_tmds_link_output,
+> > >       .enable_dp_link_output =3D dce110_enable_dp_link_output,
+> > >=20
+> > > +     .enable_analog_link_output =3D dce110_enable_analog_link_output,
+> > >=20
+> > >       .disable_link_output =3D dce110_disable_link_output,
+> > >       .dac_load_detect =3D dce110_dac_load_detect,
+> > >=20
+> > > +     .prepare_ddc =3D dce110_prepare_ddc,
+> > >=20
+> > >   };
+> > >  =20
+> > >   static const struct hwseq_private_funcs dce110_private_funcs =3D {
+
+
+
+
