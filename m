@@ -4,103 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3339EF8D74A
-	for <amd-gfx@archiver.kernel.org>; Fri, 17 Apr 2026 08:23:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DF117F8DFEA
+	for <amd-gfx@archiver.kernel.org>; Fri, 17 Apr 2026 08:36:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7FA8510E294;
-	Fri, 17 Apr 2026 08:23:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 74C0810E94F;
+	Fri, 17 Apr 2026 08:36:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="csWpib2b";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="hs0EBQnr";
 	dkim-atps=neutral
-Received: from mail-ot1-f52.google.com (mail-ot1-f52.google.com
- [209.85.210.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E86E110E294
- for <amd-gfx@lists.freedesktop.org>; Fri, 17 Apr 2026 08:23:09 +0000 (UTC)
-Received: by mail-ot1-f52.google.com with SMTP id
- 46e09a7af769-7d4be94eeacso388648a34.2
- for <amd-gfx@lists.freedesktop.org>; Fri, 17 Apr 2026 01:23:09 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1776414189; cv=none;
- d=google.com; s=arc-20240605;
- b=Y3VVJp8GO4+GrISdjPUWrRjY3aICZNDpmfLcoMSgNqHMV2/OdHHc9lOXoax/HmVg/K
- CldIH/87fcD/D5dQP1m7o4SsfJDhe5DP46UYjbqNbatLoU67sN0AJNKuPZUv2OgS3S89
- E+d3ficbMddLZp3kiKb1o+FaZ0BXzdQTiNG1i71hrfPSG1LwafDjaMIjiWucq61mgoQH
- ulbvDPyBKUNkc91GaPjdFSiIA3dR4o5PmfwIqXJz37xVJdeVAlkcCn0ErgQDcakniB48
- UPpN3B5O5LkGXlaei3y2NXrpa8DN8evx1lJXildwS5XEkbzxYx5DQ8I1A/C1ma/cvnWn
- PKAA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=woDoqLHIajnMivWv45ENu9wE6nY7bLc4DhmibJPzpDk=;
- fh=mXNh0Y2CHCVqKIfZtL4i8/6nmS/RV/UTQma14wqsO3o=;
- b=dOv1R8P3ELv0cbZpWkV3z8ZFWAeBPJq/0h4uir6lKZsOL68Vv6lqmQlo5f56s+65u+
- 6a6hMg9jg/PA39G0PhrkPA3OC9UL3imAFAYpTd7Z5AJJt6k/+CFuXPFHVS3KnCytORMW
- zml7PcQVmcg+WZtKhRMePqMrCMJu9rG+bql11gYbmS6i/5oZ6aQtOPfMshH8C70Av39A
- mQM5SBhl4TAxjH79eefD5kN7y/jqFWM+Ri2+YIbIAswwm8HpH8pBD4F4ufCreQReXMZp
- Guc6aVZHZwikzXxtNNkRK8k/pxlsrpa/Trw6Wap5axIMvJCrLDC0eAxmeHpYo0+Vsj6z
- tuZQ==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com
+ [209.85.128.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 06E9510E94F
+ for <amd-gfx@lists.freedesktop.org>; Fri, 17 Apr 2026 08:36:44 +0000 (UTC)
+Received: by mail-wm1-f45.google.com with SMTP id
+ 5b1f17b1804b1-488ba840146so4340635e9.1
+ for <amd-gfx@lists.freedesktop.org>; Fri, 17 Apr 2026 01:36:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1776414189; x=1777018989; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=woDoqLHIajnMivWv45ENu9wE6nY7bLc4DhmibJPzpDk=;
- b=csWpib2bR9AQyUw0JLB1H6xKcrZa4FzbQxxo33sSY15yffkKxlSyWip58tJFrQWSnF
- hAefpS0YqTrTROsSArUGf6IsFr4yNwXoA1gwMmTUiXNA88gyQReL491/lsoiGtr1f0oc
- kYqk8gENygZ3tteLJ21obxPyAOuzuR1VxnDKdvNXha6WKZh6ubyRsNt0kWxYfOxk1SDX
- Ia0BN7yjiZzDGs2St6sTfwjZQHAJiXKDNsMZ0acSe4dKQAad+/IyDfc+FcjGziSV1Rk+
- O7NyRCYp8xfZT/btLmb4s4TeCQw/Va4gn5NQwsByZBlewZ2eEA98R53M9N5cWKvWQqzf
- oR8Q==
+ d=gmail.com; s=20251104; t=1776415002; x=1777019802; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
+ :reply-to; bh=e8RX14GBAMHHH5TyQ4Eg+UtaJeTWduPWuOMQeyRWh9E=;
+ b=hs0EBQnrBlKuA1cx24l9qqBGHWiuxpCAcggDl3e+NKwN0qPJcKXR+BlIMIqEp8nPTp
+ qHJDymTEyfgnSjR6h6rB4pDYD3L3HWo4bWVtcHYg59a96QJypIDTW8wg4q5f7lgQtS8J
+ Q5Sjh61XwZXCoFxDoDt8abuqnNDBmp4mh4LReflgVxC1j4YfVEgT0j60tNdB6H+5R753
+ a5Z4/Ei25xl6Y16W83apYunmgEGOE2XM62HbqwFolztVr4bzsO2NhHx9Ypn4ZRiZvktX
+ 257VEOFaq0iqSSZy5kzmW+YmfG93Dj0LTYfFYsuWKyXtA2inJW7+BbWy4urI2AKcdL+B
+ RzmQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1776414189; x=1777018989;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=woDoqLHIajnMivWv45ENu9wE6nY7bLc4DhmibJPzpDk=;
- b=behY8LaXGym11l5HljmErF+X86GyKdssHugsCmZS905UlTaa7MWqmiD4mp7nZoQodx
- te4q8Rs97uZXlkyoYvLZKN3f1d4c8R3i719XCiCrJJJ/HUSJuK0UykcQQuc7njyWoE3l
- zWQBAa4pEbWOdNAIYzEzldsSKiOls1UuDUEIZb7GWK+20lznpvf6ZEAhXgu8mrImtgWV
- +VNBd1z3tiLlCDWibCODzcNc0r6Kb26R3YXrYObuiWHpu4cU5g+93eluMLv2yO2mw9Q0
- MsuAgaajL7ikPQBevxKo4cGk/Ab6kgWUyf/O+3f1TXeCB1ntdBNPSePZUm4guT/7+YUf
- OMUg==
-X-Forwarded-Encrypted: i=1;
- AFNElJ923FQfVV6htLvTUOM/7cgqvFNvtt5WF5+27t0s1otlb8JW/M6caMczuSwwUO7KLJfUKfVZ2S8n@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yxgd0KBvOah6iuWTZE6vvQEnMuyRiYWcicvfgvyxVxw2YM+2pVZ
- CxsnXY/4ihIY9Ln/kee+47JvfwsMWNNxxuIcw7pZTRdejWWTaJ+Vy7nwueWqzoOG+r5KPZClUIB
- o52OK+kclzvj9Wx1z/Zi6Rfvt3GIoxC0=
-X-Gm-Gg: AeBDieuGuspmPpGKv/4CGZkp3TJphG1bOEqC//dt7iv4Tg8apC3TdJb+7wjHFoFd8mZ
- Sg3ok4jw+5Om1mYLa8PIU4PGRbYE/8S45a7VIX+4CuEgw7Zq0GNjzG2Lk083WwMTOsReyyiHcHc
- m/rMQor5zjeTSdjy36fEqOPcSXPBVptDs3mP24AVq7L8/7L0zeW2W8il7c8C4HWtCH/AZwOHPV/
- aJLsp2mtMzHN3XplS/sTytEAJyC9N62J08GozaC54zzksZ8MPCxI1fHVuk0nozKb7Y3McLJN+Sp
- NTZ+JNUm9hLNfGO/5Tvu/w/L0Uq4gSI=
-X-Received: by 2002:a05:6830:81ed:b0:7d9:b58e:55ed with SMTP id
- 46e09a7af769-7dc9522b228mr1064055a34.25.1776414188878; Fri, 17 Apr 2026
- 01:23:08 -0700 (PDT)
+ d=1e100.net; s=20251104; t=1776415002; x=1777019802;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=e8RX14GBAMHHH5TyQ4Eg+UtaJeTWduPWuOMQeyRWh9E=;
+ b=XIOlOyhq45EmuRiIYXEscBRCQ8+8zGYN9hSr7Ynk+jS9huRdQOmDS/LPL1khFqYB2T
+ fgmWX+Hey3ACoSZGQxXYA5K+tz4sbX653LPX74u+l2oovRFDY8y17HComPidboejyrU1
+ UIX7R5UFHh+JMLquLzfUro1EcM+KE0p8jfHc0wur+nfuHlUXNpHLh8hjsNriZzEX/0Hz
+ zYnnMDiPfqeN7vtxjHUIR1pz0l6yISUWXisicyfVUQYMmrNEY5bqULnKYRa8twuXwHHS
+ 7iaSuhgXIQaHBY9HcxS0pvTMTVEgOwMfHh6t7PQ3iKUaGCOyJ83TXIMZ/tGfFJTPkDYa
+ UDYw==
+X-Gm-Message-State: AOJu0YzsvawpZs95uSY+MAwEjbFQ8+7GTdayVgaKLjnaJqcdOqLYHWuS
+ n0xDbnx9vCiORIFKTqHmo3DtelPJZfsHcjTXQgh5nmIqwI1bjYBVLH3hDQm1pw==
+X-Gm-Gg: AeBDies9U0j6r8VhAlcFuBW7XMz/5QHmH1BurHjw6J9OnQqJA7qRxGZCfGyl72XLk/n
+ o1+QyYwO5SICio0Zq4S8buWpzyGV9Wsq45l3KhhGbjcAGJ6U6dFsXGfUZNsgCYVC1/tGNjH6IN/
+ Va6Px8gtnPAeBbUuRKOQdRDB6OcnrM0AEoqfB0F/fbRgteXhTYeTEfgJoDABDTjbVcRTtH2mWbx
+ pypOE+HvBn+LrcMrtnWtSSkt6OrKiyg1NGhVMhq498MKOGpcC+k7JGbhvIeLFgoo0cqfjcW+8iy
+ o/0bYiTGSefr5p7tXv4nHaPkICef26y0ra7EE+10kHHv2cK1C5v9ttO/wZNeqIuNFFhpSTGp1X9
+ whVJUYmnEoEzydCL3+8r9Y4NGAohzr/hfWEwiAQSa4LAN3x9pKC719V3OSZyTB4IJgv0jf11rBm
+ WCd2ECgT6k0slKyldjYEwOtHa3I32MA74qZB+sJonyyVKols/1jNSFSlLiJWvoRy1RlPDWRJLZI
+ 6CHwifdn8I=
+X-Received: by 2002:a05:600c:c085:b0:488:c530:48a0 with SMTP id
+ 5b1f17b1804b1-488fb784843mr18069185e9.24.1776415002123; 
+ Fri, 17 Apr 2026 01:36:42 -0700 (PDT)
+Received: from timur-hyperion.localnet (5E1B98A2.dsl.pool.telekom.hu.
+ [94.27.152.162]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-488fc1070bfsm27989615e9.7.2026.04.17.01.36.40
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 17 Apr 2026 01:36:41 -0700 (PDT)
+From: Timur =?UTF-8?B?S3Jpc3TDs2Y=?= <timur.kristof@gmail.com>
+To: amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com,
+ Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>
+Subject: Re: [PATCH 6/7] Documentation/gpu: Add TCC,
+ update TCP in amdgpu glossary
+Date: Fri, 17 Apr 2026 10:36:40 +0200
+Message-ID: <4874819.vXUDI8C0e8@timur-hyperion>
+In-Reply-To: <b7656601-bbcc-4dc0-bbe7-7ebe8e5ab777@amd.com>
+References: <20260416202643.25350-1-timur.kristof@gmail.com>
+ <20260416202643.25350-7-timur.kristof@gmail.com>
+ <b7656601-bbcc-4dc0-bbe7-7ebe8e5ab777@amd.com>
 MIME-Version: 1.0
-References: <20260417001503.26147-1-mikhail.v.gavrilov@gmail.com>
- <IA1PR12MB63074B99C20B81C7D5DFD7C5F8202@IA1PR12MB6307.namprd12.prod.outlook.com>
-In-Reply-To: <IA1PR12MB63074B99C20B81C7D5DFD7C5F8202@IA1PR12MB6307.namprd12.prod.outlook.com>
-From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
-Date: Fri, 17 Apr 2026 13:22:56 +0500
-X-Gm-Features: AQROBzCXwvgzZjV7RJEnXadzoOfi3sm37MeeW-RH5FptvuaBgU_TAR3aHCn8pW4
-Message-ID: <CABXGCsMnz+m3cHSQMAjOsGEz35u4usQ2TJuxSwZHQuSBEThF-A@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/display: Add FPU guards around dcn31/315/316
- update_bw_bounding_box
-To: "Ostrowski, Rafal" <Rafal.Ostrowski@amd.com>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, 
- "Koenig, Christian" <Christian.Koenig@amd.com>, "Wentland,
- Harry" <Harry.Wentland@amd.com>, 
- "Li, Sun peng (Leo)" <Sunpeng.Li@amd.com>, "Zheng,
- Austin" <Austin.Zheng@amd.com>, "Lei, Jun" <Jun.Lei@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Rodrigo Siqueira <siqueira@igalia.com>, "Hung, Alex" <Alex.Hung@amd.com>, 
- "Varone, Dillon" <Dillon.Varone@amd.com>, 
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, 
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, 
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,28 +88,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Apr 17, 2026 at 11:50=E2=80=AFAM Ostrowski, Rafal
-<Rafal.Ostrowski@amd.com> wrote:
->
-> Hi Mikhail,
->
-> Sorry for problems that occured on your platform.
-> This issue is correctly fixed as part of this change: https://patchwork.f=
-reedesktop.org/patch/718415/
-> Your change seems to be duplicate of above change.
-> Please retest using mentioned patch. If it works correctly, please discar=
-d your change. If problem still occurs please share me details and I will w=
-ork on resolving it.
+On Friday, April 17, 2026 9:24:55=E2=80=AFAM Central European Summer Time C=
+hristian=20
+K=C3=B6nig wrote:
+> On 4/16/26 22:26, Timur Krist=C3=B3f wrote:
+> > These are the L2 and L1 cache on some AMD GPU architectures.
+> >=20
+> > Signed-off-by: Timur Krist=C3=B3f <timur.kristof@gmail.com>
+> > ---
+> >=20
+> >  Documentation/gpu/amdgpu/amdgpu-glossary.rst | 9 ++++++++-
+> >  1 file changed, 8 insertions(+), 1 deletion(-)
+> >=20
+> > diff --git a/Documentation/gpu/amdgpu/amdgpu-glossary.rst
+> > b/Documentation/gpu/amdgpu/amdgpu-glossary.rst index
+> > 033167025fcca..d553dd599c966 100644
+> > --- a/Documentation/gpu/amdgpu/amdgpu-glossary.rst
+> > +++ b/Documentation/gpu/amdgpu/amdgpu-glossary.rst
+> > @@ -233,8 +233,15 @@ we have a dedicated glossary for Display Core at
+> >=20
+> >      TC
+> >     =20
+> >        Texture Cache
+> >=20
+> > +    TCC
+> > +      Texture Cache per Channel - L2 cache attached to the memory
+> > channels. +      May be used when shader cores are accessing memory.
+> > +      Despite "Texture" in the name, this is used by any kind of memory
+> > access. +      TCCs may be mapped to TCPs, depending on the architectur=
+e.
+> > +
+>=20
+> Good to have, but maybe put that below TCP. E.g. L1 first and then L2.
 
-Hi Rafal,
+I prefer to keep the alphabetical order for consistency with the rest of th=
+e=20
+glossary.
 
-Confirmed =E2=80=94 patch 718415 fixes the warning on my hardware.
-Dropping this submission as duplicate.
 
-Tested-by sent to the original thread:
-https://lore.kernel.org/all/a59292d686e3d5c17fe36e20b55996208d36a6fb.camel@=
-gmail.com/
 
---=20
-Thanks,
-Mike Gavrilov.
