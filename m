@@ -4,50 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B9B28F43693
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 54AADF43691
 	for <amd-gfx@archiver.kernel.org>; Fri, 17 Apr 2026 10:38:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 440A410EA1A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2F47610EA19;
 	Fri, 17 Apr 2026 10:38:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="UUHXTyYb";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="WkwUvSdF";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 60D3110EA18;
- Fri, 17 Apr 2026 10:38:04 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A63BB10E9FA;
+ Fri, 17 Apr 2026 10:38:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
- h=Content-Transfer-Encoding:Content-Type:MIME-Version:References:
- In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:
+ h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
+ Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
  Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
  :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=q1z+gZTYMM9IacUEKHXw1/ino5n+vrTajodXXsgZb34=; b=UUHXTyYbbZneCYMjCrmcpwa5xc
- G9n6Xit9D4qbK6qsDyGvS4g5NkH5N6d5++epX1SzW0WcSLefJvpqLVSpX0I81xuJJ03DU1cMvr7Ny
- sQxGe9FOY7o5GZCSZTdsKdep5YZTQRjVcBcv3M352D7d5163ofPLvIB3WVg8zBwkAJsh1kMcbrByR
- VMW4AmoWLDPOxf8S+UGw+ZXDVk0X/UDHCqrMNbw9L5wtM625mVDaZ73lEbizhfqlvST3LpTiCH7Qq
- Rxm8glFTpzsWd8iD0W06AamKGtRBLp3is0M7urQ1HoVB3RgQYwdfBIQKN32yqd/xggPVbPPpzqXfG
- XZ8qZioQ==;
+ bh=Tpcx+3SmVeAN6DJ8rWC9F4+OAE2tsd1sz8ukrBncSUc=; b=WkwUvSdFFgErz/wEpQPk7zWqG+
+ 8fakT1UT2H6CLr95o2gyZqW2TcWUTJG06M4h6q2LB/ZBTmLkItmN3ze6CvWHRmKWCJUv5m1oOK+5K
+ FlZzxEg9bGGTYWCt4e3iUoTSzQ2CSAelynkax8IP2H6gob72oLXSTSYDn/IK7iEzM7s3EV+D0SocF
+ bZLJ3r/X1hgfXoItuL9AKxcwETUTzXBeza0Sd+XeZcz2NyeQZvYlyLiT0XWyJg1Jb4m+r1C0MUwlv
+ cmHTa4XzQv1MLEQ8eJtDr0IM+b0Ugq7Pd3p13M0klF8IriVMQxX26Z0r7cc0bsIx1jYWq+9PCxMFn
+ DckcyWSg==;
 Received: from [90.240.106.137] (helo=localhost)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wDgaI-00HPSp-M2; Fri, 17 Apr 2026 12:38:02 +0200
+ id 1wDgaH-00HPSY-Se; Fri, 17 Apr 2026 12:38:02 +0200
 From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 To: amd-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
 Cc: intel-xe@lists.freedesktop.org, kernel-dev@igalia.com,
  Danilo Krummrich <dakr@kernel.org>, Philipp Stanner <phasta@kernel.org>,
  Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
-Subject: [PATCH v8 18/29] drm/amdgpu: Remove drm_sched_init_args->num_rqs usage
-Date: Fri, 17 Apr 2026 11:37:33 +0100
-Message-ID: <20260417103744.76020-19-tvrtko.ursulin@igalia.com>
+ "Rob Herring (Arm)" <robh@kernel.org>,
+ Tomeu Vizoso <tomeu@tomeuvizoso.net>, Oded Gabbay <ogabbay@kernel.org>
+Subject: [PATCH v8 17/29] accel/ethosu: Remove drm_sched_init_args->num_rqs
+ usage
+Date: Fri, 17 Apr 2026 11:37:32 +0100
+Message-ID: <20260417103744.76020-18-tvrtko.ursulin@igalia.com>
 X-Mailer: git-send-email 2.52.0
 In-Reply-To: <20260417103744.76020-1-tvrtko.ursulin@igalia.com>
 References: <20260417103744.76020-1-tvrtko.ursulin@igalia.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -66,25 +66,26 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 Remove member no longer used by the scheduler core.
 
 Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: "Christian König" <christian.koenig@amd.com>
-Cc: amd-gfx@lists.freedesktop.org
+Cc: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: Tomeu Vizoso <tomeu@tomeuvizoso.net>
+Cc: Oded Gabbay <ogabbay@kernel.org>
+Acked-by: Rob Herring (Arm) <robh@kernel.org>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 1 -
+ drivers/accel/ethosu/ethosu_job.c | 1 -
  1 file changed, 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index 584c9ec28bf1..0f2cdb56ae74 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -2224,7 +2224,6 @@ static int amdgpu_device_init_schedulers(struct amdgpu_device *adev)
- {
+diff --git a/drivers/accel/ethosu/ethosu_job.c b/drivers/accel/ethosu/ethosu_job.c
+index ec85f4156744..418463c03bfb 100644
+--- a/drivers/accel/ethosu/ethosu_job.c
++++ b/drivers/accel/ethosu/ethosu_job.c
+@@ -296,7 +296,6 @@ int ethosu_job_init(struct ethosu_device *edev)
+ 	struct device *dev = edev->base.dev;
  	struct drm_sched_init_args args = {
- 		.ops = &amdgpu_sched_ops,
+ 		.ops = &ethosu_sched_ops,
 -		.num_rqs = DRM_SCHED_PRIORITY_COUNT,
- 		.timeout_wq = adev->reset_domain->wq,
- 		.dev = adev->dev,
- 	};
+ 		.credit_limit = 1,
+ 		.timeout = msecs_to_jiffies(JOB_TIMEOUT_MS),
+ 		.name = dev_name(dev),
 -- 
 2.52.0
 
