@@ -4,122 +4,97 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 75059F436AB
-	for <amd-gfx@archiver.kernel.org>; Fri, 17 Apr 2026 14:04:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ABDBCF436AB
+	for <amd-gfx@archiver.kernel.org>; Fri, 17 Apr 2026 14:05:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CCE1610E2B7;
-	Fri, 17 Apr 2026 14:04:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5C08510E2BA;
+	Fri, 17 Apr 2026 14:05:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="0uTmj+q/";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="TKdUM3Z7";
 	dkim-atps=neutral
-Received: from SJ2PR03CU001.outbound.protection.outlook.com
- (mail-westusazon11012011.outbound.protection.outlook.com [52.101.43.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 82DED10E2B7
- for <amd-gfx@lists.freedesktop.org>; Fri, 17 Apr 2026 14:04:18 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=eFlxLAh+7O0kTADw0QTAcdKHx+aTjhzDqPotAgsK+yuIkL2AKDMzQg0S55IKIf4EIB05LsLc894QX8ruTWgtLEVOXRi3BGDcLQ5TqSSDf7nLO8FQs5DY39VMFARY4eMBqfdWGmFPZEu3qH4NwOIHNpfAobQDPg7hhcOmDLWDDgG69RFZpX4gx71zggd4uzhl79XFGWh+X/RsOYM0q3aDcZU9CXkLzW/Mg4uSKfu+Bi8ds9XaJWhtQyM8/gNf6Hl06kkAd2E3FkvEomo9O+V1QN08lzAOLzRI8Waiu5VAhTMf2rP56dzqwm0YGZPKUrVdZfwb5ETKhg6CcQUFC6MfiA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=U4iFrZuFN4yHYdQh9r5W7dFj0GeiPWXydfL6wdiheFI=;
- b=sRNOkjoYbNTn6vIBaJbTJ/TNw05gDK/sCrvd1Dtw/TGz2Kazj7ZjD5+aXNW6Nun2b8e3UnwWYBoE4N2KIAAx+J/aRUFOKgvsYMbjEx1ayZIodGTuov04F9y6FCQmLXW5ExMewX2ljAaXR6HXsJ8U8wTe0lvZsVrr08Foh+RunTG7W6BfDIsm/zB9fQPFXBE7CiLbh/EaaToSKJ4ZuxW62J7xWPs2DXZH+iHvWJYVpU9k6LMIQbt0UOLnMWpMjWc5MciFTN6QgFYpjHBhq/EQ2/q1+zO3aAkvvpusCsYkc0q0sUGe53ezsuZHwuCqWI+Ia/Q61qWbzScoJ779gicBGQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=U4iFrZuFN4yHYdQh9r5W7dFj0GeiPWXydfL6wdiheFI=;
- b=0uTmj+q/5inmqYb4NiBqJRM89sDz3uqPBtF7MuweI4PVm6j3OmH7NRS63q8V1sPMOb3yEnvO5BiMS/RSnZv/QzV8UWFcMkhR/qZQTUy7/Wpr4tqvcl6qlliunKfsprsJux8K7GFRHKEs1dG/h1FaD0uX4GZ0LLk+1mdLybzQjio=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by SN7PR12MB6932.namprd12.prod.outlook.com (2603:10b6:806:260::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9818.25; Fri, 17 Apr
- 2026 14:04:13 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.20.9818.017; Fri, 17 Apr 2026
- 14:04:11 +0000
-Message-ID: <b48fb991-9d12-4299-83e4-936a60267bd7@amd.com>
-Date: Fri, 17 Apr 2026 16:04:04 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu: move VM PTE MTYPE override to per-PTE
- granularity
-To: Philip Yang <Philip.Yang@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: Felix.Kuehling@amd.com, Kent.Russell@amd.com, Andrew.Martin@amd.com
-References: <20260417135025.3434482-1-Philip.Yang@amd.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260417135025.3434482-1-Philip.Yang@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: BN9P223CA0028.NAMP223.PROD.OUTLOOK.COM
- (2603:10b6:408:10b::33) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com
+ [74.125.82.177])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E845110E2BA
+ for <amd-gfx@lists.freedesktop.org>; Fri, 17 Apr 2026 14:05:49 +0000 (UTC)
+Received: by mail-dy1-f177.google.com with SMTP id
+ 5a478bee46e88-2bd801b4078so71206eec.2
+ for <amd-gfx@lists.freedesktop.org>; Fri, 17 Apr 2026 07:05:49 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1776434749; cv=none;
+ d=google.com; s=arc-20240605;
+ b=Xp0BuvRHoJiTahBrZWdmekKA/M8HmLmsbUhKxqp18cyk2Z4xegKWNIHYJvTyWBwfKQ
+ KmERSTTqnliYc+lP3nYB4C7NO0C5gfEwCEDZJsYXeeU5gRmRDVxSl9gUvA8xxzjUOXQO
+ eCT1QJJ6z/BY2uTSGoc74BaEfQkraRZXetq0vZAESiqS9FURhBHBsG9M92BsJLxz1Zdd
+ v7LlUEg2aehH9TAy+3bwVBZHOOFwy0Tp8d7f7t1bE65YS5u6hxTqoe+iAPrgjmC6CviJ
+ 7GvoKQ35pPlXJrUKvq9giC/a+ACR8HWPmXJEvH9LJEfMUUsUgYhWqWw41BdppE4KTzBV
+ 3psQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=H7S+DeEeooS5wykJOGH/mnHWINMYQqyyV2qSC32frrU=;
+ fh=O1Mz4nTE958NAdoYdjWKFCar1BgQOp1ze/grwF9wZA8=;
+ b=fvAnM1DcEF8/rdGMBUAreDapD8Y6k0NsNvg/rp36JVTPtPR3tgzKSXLre/YjBWNN1H
+ pYazOz2aEinNbEDYQM44H+bSakO/upkryaIetkZAj5xu0Vk0jWuTx8i18ZwU5brBra5M
+ BMNfjkBdqb7JFKa0UHvDgX9nZKCWcM/OuQjsiNF4MpltKFCL7DyYFAeteLto8pJAFf7B
+ m3bonrM/b3WmcCoZx69wdwf0SI0UATX1Hpbkp3vY+Ao7CpFRguaDjP070wdySmGgJBQE
+ 6xBdMFzS+aq2tc4+1eQWx98h46N2+lZxyWKjNCjvE6oPObAxOO/WyqrLc+bS3SFxs1Jr
+ 2iIg==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1776434749; x=1777039549; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=H7S+DeEeooS5wykJOGH/mnHWINMYQqyyV2qSC32frrU=;
+ b=TKdUM3Z7KGZxoUsLcUIrC3E2HCPC8Kn+RD50wVWWBJVFeYE5K0zxmWlNR0Sf3f+nBc
+ phMRhMU1+Mhojct9RfhrpKZQ+U/ICPw8qbM/z6YPuHOCtkypvx4gWQqqc8DwrsOqKUCo
+ frhjxQ+sbIYMHJdhu9Vp5VtHKj49zRFcU/P0gSJ7hP/0HaqDVaxY5hH4im3BB72eiWzP
+ /BuFpRX6ewozCJoHduIJboxDCoJtC7ei+LxLLp/EODBpRLXBZUQJ37AVq3KjU3yjNTgc
+ LC9wjet8s8hgsfdZ8ps3DvNMTTHYlcl3cAf1XUoO06/Gnd3piQOnEZJO9fvPuGgocy2W
+ /5fw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1776434749; x=1777039549;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=H7S+DeEeooS5wykJOGH/mnHWINMYQqyyV2qSC32frrU=;
+ b=ZANYqO3P+GGI+ZBzBtU8kJzD5/uDAtUcG7yn1TGgddNhZOPKtZi9o6mzYOlGXlB7T/
+ BihdTXG97ZFGym0ZsBFJiEA/mKZgAKwDmH0Pfuc1eI/OI1S25jJEIPIiIyAcqxlTgMnH
+ 6fjYM83Irn+OArQvZGrVV5d3NnUPwtOYAxRxXXb1pKDViwXeAcivKmcroOGPmWQwz7e1
+ 6Ezia1DMZjrkbuOx9KWEVvXztg5yskBXxdP6q889bUYBNKpmrtkVEznmIuH2jaDAg+br
+ WBJl5PV6859sYuui9awXa/vpjb6f1vGSWLLwXoNpVPXqihvtHdbfNbZPFRomcsvayy+D
+ bGCw==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ80uv0Komys/f5QyO6GnOX5L4qhipTon0pyMzBUPUrh5KpbC7yK9UL80O1naVh3mbyD7BRoURkD@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwP2FUDv4Z+1aq/yvwMTOi4WB1MHTBbv6X18xYvWXZOFXazjdqM
+ rzZWrTdrntHdOyMEuJ4ZMcTyJ31RYM04bDNIYIuUYilhQRA/AjfkycOnilj67DJJcOkgEuoATG6
+ Ok11FztGj9sk45Ijj+MsHf4bk/V0Heog=
+X-Gm-Gg: AeBDiesy7AMoW7CStKkUtBBg9sAuDknhg/bDdlLtAsyPg5q8yjwmWBpKTlj8enAmONV
+ 32r+MGMowJxwUeLeaYYhvGhsWZGoQgZwQMXMsHy9aS0EFPyQ/cYSAxykFMaJwQPDIk1lMNCp3qe
+ 62ERI8Apgc4F3nrlZwRLzuypwJSOf/6a1Dr5spAzRaLhOISucaLA/UN1uALe9zjWijNsSwbZuAj
+ MoELmEAAoHeWoJrPHkrDNHBU4j0Bk4sqAxmcfd3IT+H5BQSYTQdFjEnC6nJkN7MptZptDyorV41
+ rbc/Gz+3htOgZEJWl80ajwt0ePZcOjxKMVrphIlqUpK5Pw0dNYSKODeE1JkWVoxDxTxiLnOxUeG
+ xFIDc
+X-Received: by 2002:a05:693c:3011:b0:2c7:2cac:8149 with SMTP id
+ 5a478bee46e88-2e4871fe6bamr672967eec.7.1776434749018; Fri, 17 Apr 2026
+ 07:05:49 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SN7PR12MB6932:EE_
-X-MS-Office365-Filtering-Correlation-Id: 50e14088-c963-46a1-f1ba-08de9c8a334c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|366016|376014|56012099003|18002099003|22082099003; 
-X-Microsoft-Antispam-Message-Info: ew/MOsjce3ZeA51tjdwcdbX5f/2h9FQUoaowub6iFfYkVrlusNZuETwa04Q8zEkt2aFA/PzHddubx4cLWhLASeJQNXiHCDhbaEGVmCayMRPUdTEeIoEt76JuLtFKQhkzKYHvi9s5bspDGmlqC58pJKWHtT4vDOjojzPHwJbG+GKJbs26xPWJmk/4MobHaRtPkpr46vG30jsP8b0/LAmiJFv+wnnLiwC5R5SbSJ7mQl0SZtsS9rOyQ20TJTwNBVDgkSlT2bGJV6+/mBFThhLQfICBJ9r+QrxsqfO8nnluDyxuf2PduSxgePn5ndzFPxXI7IxAwCk/xpwLHa8tLiSm1r9cyHM7Jvh5Y8O/DNtZfWGO2dHuIFYdFt2YD4iXyYatCfgj0avyHlveHd0t91251OeZiY0TOEZfOD5AbNvQUn0KHV9+nbk7R15gzEePughxQ3s1MgZyi0jivienEr+MYLHmtr8urT+LEvsdjVVW78OAVlWtbsXP1I1oUTKqpvkT4nGyvhJSk2/klZfCFuDka6FwFYOKO6AD9KJ7yxQyITpo6VymbP6CIZOuZJvP4c1fF1CqPBYSh35vjlRdHwEzBxljc0vVQchR2F4TaEHe9CzhW/lGmmFSxfdJiFVMB/7RP31v8Z4Ifq5AxpPMrAhvsok9vbtwASVQl7bw3s/7LtV6MgxEXhT1CVBls4BIctphJrhWUe5XB+5xmkCLSHXfjiHKdM/HbTA+LK4HnKyoabw=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014)(56012099003)(18002099003)(22082099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UzZDVHZLNUVhYUJnZ3RENUNXb1l6akpUNWdGcUtpRGV5TFBaUllLN2p2RURU?=
- =?utf-8?B?RS9Cd3NNT2lxOXRLdS85eGNRV0F4SHpOL0cvcnBXY1djdCtwYkJ2T1VNTDlP?=
- =?utf-8?B?RFRZS0tIbzk1NkxHV3AvMDJXVmpzSWlRdHphSkd2MHpnZVBZZDdlWUpELzRu?=
- =?utf-8?B?TStNenJ0c1JPdFYxcFFEbG0rU0pGa1ZjM1puTklvZllBdkFtRStMNGNZS3R3?=
- =?utf-8?B?eit3cVQvbVQ2UzNwekZTRnRWUDk5UXl1djZLZ0c2bU10V3F3ME5GUy9rbFRE?=
- =?utf-8?B?elFTUjhzNCtKTHVLaXRlUkZLMU1xcDhZOEM5eVpOUXBQdzFMQWRIeHBMeUky?=
- =?utf-8?B?aEpaNW9MMUs0OGZjUU5kQTdTWnV5ejZhTDczTjRhQTJncEJUQ3UxNjByWnNp?=
- =?utf-8?B?cHFzOGRTYkw5RnVZeDdkNkloWXZTTDBWcWtIeUtKa3c4THgrRWVTUVozbVhY?=
- =?utf-8?B?OVlZcndHYmY5WktDdUdlVzQwejJidTlBTFRTbDRLNEViQWZ1NkJSY2Npb2hv?=
- =?utf-8?B?OEQvNlQrQmdyV0VlL0JNbnYzMDNyQ3RMOGhuNUxvd2YycDhkcGhiNUdJaFli?=
- =?utf-8?B?MGxVNmdsbFBTRkhKNEVlRVdxVWoyWDI3WmxLQWo1MmVYd21RU0huNnMxeW00?=
- =?utf-8?B?bDhVZlV0MDJqc1JMdXhGR05aTXExemk2Y0VkVHVrZ2JhU0hodFhIc25hYU9j?=
- =?utf-8?B?Y1B6TUdYTEpqTXBETjU4MVkyNktYUTJuWk16NkVlUWRtTHNVQ3VrNWJCRER0?=
- =?utf-8?B?cEYzWllFUjVsYTBMYlVHRW9oSEhNOEJiajJkTFY5RHlDWGpydzN1UXV1dTh0?=
- =?utf-8?B?WUYwVlByUHNqMTlqZ3lTdGZJODFJR21xblA4SE5RV2JGb2RzZmNYRjhjd00z?=
- =?utf-8?B?TjY2aDNXQmYwNm9sSjc4Q21RTW5SRkY1a0F4LzhGeVdGRFBGZC9vVUxSNUJr?=
- =?utf-8?B?OGlrTTlCMkhIV2N1VGxUMDlqVDA0bUVnL1ptNGw2UnpTZHMwSG9vc1RqZ01o?=
- =?utf-8?B?Y1BLWE94Z2d4RjdWZ0J0SWRoc21HalpYMk4wUkRXbDBjQ3BwU3p0U3hReUVr?=
- =?utf-8?B?SG0rOFJ0SmJuSjFvWWpobjNmTHFYdVA3em9qU2pzeXJtdGJWWkpjdHZwTnR3?=
- =?utf-8?B?dWIyam1PSFR1dXhGZHd0WGRIejg5anZBdVIvbDk4R2pmK2M4MFpkaXozTGhz?=
- =?utf-8?B?THA0cEcrak1GYy9kc2k1ZjJwK0FCQkRFT2JUVGx2aG90clJOeUtmWDNtZTBx?=
- =?utf-8?B?Mk4rc3Zva2srRmtmSWkzQTZ2dzZXNS9VaktxNEQrL21xR3crV0NxZDRsaEpF?=
- =?utf-8?B?K3VMTmViZUNvSmkvSm5vdkF1My9GVTlNa1lvOHM1Mkg3MXR0VTl5ajdxT0kz?=
- =?utf-8?B?cDNReXdiMmJqOUxSWDhyMXdGTzZlQ01NN2xDWnU5czRpUXFLTmVUVXNqNnZL?=
- =?utf-8?B?UklyejdXclBDUGhzWnJhaGlYQ1hRVGNNK3BXMmJQNmhFTi94cTJIZ2YzbS9a?=
- =?utf-8?B?d1NFK3hiSmhOYjRadGJZRjMveU5abUNKVXpGRlliRmJlZDZiTWtzcm1hWnhB?=
- =?utf-8?B?OVBmWHE1cjlwTzlWMDUvRVBUeUQwc2FUUWdTeHYzMGVUcDkzZnRYeitZclB1?=
- =?utf-8?B?b1ZEUlBqdGZXZjFzTGkrOFpwSkIyT3NJTkxnTU5EVkZKdzVna3FkRFhrZ3d4?=
- =?utf-8?B?Rk1YQmFBemJhRU9uT3BxY0lCQ3p1em1Xemg2Wlc1VmRBVGllQ21sQXBkdzVN?=
- =?utf-8?B?TVBCTzkvMWlZRjRPR1cvNTJ2WkordGZ1L3F3SWVjYVlueFBtcTd6MW9zc2dy?=
- =?utf-8?B?a2FFWE45MnpDZ2E1bUIvbmlCaStMemhDUjFjaHpmb1BlWE1GYk1UOUhHdGpO?=
- =?utf-8?B?elUwWk5PT3NCVFlmSEo0d0hlMEFLdmZRa2RTSmNnUmNRSENlSUI1R3FHc1VJ?=
- =?utf-8?B?Q1FXOEtNejZEcTdYeFM3YmtSUWNxc3VrOEUrQ0ptYWx0c2FUS1Q0cnBiWUVP?=
- =?utf-8?B?SFMzTmZ3ZHFJQWtqcWJKc0Fibi92ZnZCY09RZ0E5dGZsZVVSWFhMSUpqWjlS?=
- =?utf-8?B?OUYrZlh3bUlTcWNOTS94SVdwUUd6ZERlWWQyUXAzZHFESnptVnRETVJmaTdV?=
- =?utf-8?B?QmlMNHpDVnNZNVE3VlRzeHRPamV2MEFQdHhjbWk5SjAvUFVjOWtxSWVDOU5z?=
- =?utf-8?B?YkJhcGp6RlV4aGlndHVyWnBQcE84bUFzRkQwZ0pIZHBBNWF0bmhGMk9kOVF2?=
- =?utf-8?B?WHBLNUgzcDZPREg5TmFpcFRFZTZjc0FUMkdrSW5wVlBleTBQd1A5bFgydkU2?=
- =?utf-8?Q?noukU1sasJd3j3R93U?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 50e14088-c963-46a1-f1ba-08de9c8a334c
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Apr 2026 14:04:11.4711 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: s/sHDI7dnMw6Obypgp/AyG5eRmmCZ0IX5lSinIyfUrQB1Ma7HD4WJqk5ZOSU+nBB
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB6932
+References: <20260416195537.3632-1-dbgh9129@gmail.com>
+In-Reply-To: <20260416195537.3632-1-dbgh9129@gmail.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Fri, 17 Apr 2026 10:05:36 -0400
+X-Gm-Features: AQROBzDAAqMZZoPqgJldN_PKeIHlbSL12FRIFysUQMxrUkIadk_kNeR4nycyTco
+Message-ID: <CADnq5_NrVgGwAYbBGgGc9t-ke5xt_0iJNExXARb7LxdnHSwDQA@mail.gmail.com>
+Subject: Re: [PATCH v1] drm/radeon: fix memory leak in radeon_ring_restore()
+ on lock failure
+To: Yuho Choi <dbgh9129@gmail.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,261 +109,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 4/17/26 15:50, Philip Yang wrote:
-> Refactor the NUMA-aware MTYPE override for VM page table entries:
-> 
-> - Move the override_vm_pte_flags call from the centralized
->   amdgpu_vm_pte_update_flags() into the individual CPU and SDMA update
->   backends, enabling per-PTE MTYPE override including for scattered
->   pages (pages_addr path).
-> 
-> - Move APU, IP version, and direct-mapped eligibility checks from
->   runtime (gmc_v9_0_override_vm_pte_flags) to init time
->   (gmc_v9_0_set_gmc_funcs), selecting between gmc_funcs structs with
->   and without the override function pointer to avoid repeated runtime
->   checks on every PTE update.
-> 
-> - Guard allow_override on whether gmc_funcs->override_vm_pte_flags is
->   actually implemented.
-> 
-> - Move amdgpu_device_check_iommu_direct_map() earlier in device init
->   so ram_is_direct_mapped is available when gmc_funcs are selected
->   during IP early init.
-> 
-> Signed-off-by: Philip Yang <Philip.Yang@amd.com>
+Applied.  Thanks!
+
+On Fri, Apr 17, 2026 at 3:06=E2=80=AFAM Yuho Choi <dbgh9129@gmail.com> wrot=
+e:
+>
+> radeon_ring_restore() takes ownership of the data buffer allocated by
+> radeon_ring_backup(). The caller (radeon_gpu_reset()) only frees it in
+> the non-restore branch; in the restore branch it relies on
+> radeon_ring_restore() to free it.
+>
+> If radeon_ring_lock() fails, the function returned early without calling
+> kvfree(data), leaking the ring backup buffer on every GPU reset that
+> fails at the lock stage. During repeated GPU resets this causes
+> cumulative kernel memory exhaustion.
+>
+> Free data before returning the error.
+>
+> Fixes: 55d7c22192be ("drm/radeon: implement ring saving on reset v4")
+> Signed-off-by: Yuho Choi <dbgh9129@gmail.com>
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c  |  5 ++-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c      |  2 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h      |  4 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_vm_cpu.c  | 11 ++++-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c   |  9 ----
->  drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c | 11 ++++-
->  drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c       | 50 ++++++++++++---------
->  7 files changed, 55 insertions(+), 37 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> index bc7e96b58d3f..b139475f65cb 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -3860,6 +3860,9 @@ int amdgpu_device_init(struct amdgpu_device *adev,
->  	 * completed before the need for a different level is detected.
->  	 */
->  	amdgpu_set_init_level(adev, AMDGPU_INIT_LEVEL_DEFAULT);
-
-> +
-> +	amdgpu_device_check_iommu_direct_map(adev);
-> +
->  	/* early init functions */
->  	r = amdgpu_device_ip_early_init(adev);
->  	if (r)
-> @@ -4117,8 +4120,6 @@ int amdgpu_device_init(struct amdgpu_device *adev,
->  	if (px)
->  		vga_switcheroo_init_domain_pm_ops(adev->dev, &adev->vga_pm_domain);
->  
-> -	amdgpu_device_check_iommu_direct_map(adev);
-> -
-
-That should probably be a separate patch.
-
->  	adev->pm_nb.notifier_call = amdgpu_device_pm_notifier;
->  	r = register_pm_notifier(&adev->pm_nb);
->  	if (r)
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> index 63156289ae7f..853204b5bd73 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> @@ -1163,7 +1163,7 @@ int amdgpu_vm_update_range(struct amdgpu_device *adev, struct amdgpu_vm *vm,
->  	params.pages_addr = pages_addr;
->  	params.unlocked = unlocked;
->  	params.needs_flush = flush_tlb;
-> -	params.allow_override = allow_override;
-> +	params.allow_override = allow_override && adev->gmc.gmc_funcs->override_vm_pte_flags;
-
-Prerequisite check first please!
-
-And we should probably rename params.allow_override as well. Maybe something like override_pte_flags similar to the name of the callback?
-
->  	INIT_LIST_HEAD(&params.tlb_flush_waitlist);
->  
->  	amdgpu_vm_eviction_lock(vm);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-> index f33ea7f8509b..326522917131 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-> @@ -296,8 +296,8 @@ struct amdgpu_vm_update_params {
->  	bool needs_flush;
->  
->  	/**
-> -	 * @allow_override: true for memory that is not uncached: allows MTYPE
-> -	 * to be overridden for NUMA local memory.
-> +	 * @allow_override: true for memory that is not uncached and gmc override function is
-> +	 * implemented to allow MTYPE to be overridden for NUMA local memory.
->  	 */
->  	bool allow_override;
->  
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_cpu.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_cpu.c
-> index f078db3fef79..fa5d4ac2ef39 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_cpu.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_cpu.c
-> @@ -88,12 +88,21 @@ static int amdgpu_vm_cpu_update(struct amdgpu_vm_update_params *p,
->  
->  	trace_amdgpu_vm_set_ptes(pe, addr, count, incr, flags, p->immediate);
->  
-> +	if (!p->pages_addr && p->allow_override)
-> +		amdgpu_gmc_override_vm_pte_flags(p->adev, p->vm, addr, &flags);
-> +
->  	for (i = 0; i < count; i++) {
-> +		u64 oflags = flags;
-> +
->  		value = p->pages_addr ?
->  			amdgpu_vm_map_gart(p->pages_addr, addr) :
->  			addr;
-> +
-> +		if (p->pages_addr && p->allow_override)
-> +			amdgpu_gmc_override_vm_pte_flags(p->adev, p->vm, value, &oflags);
-> +
->  		amdgpu_gmc_set_pte_pde(p->adev, (void *)(uintptr_t)pe,
-> -				       i, value, flags);
-> +				       i, value, oflags);
->  		addr += incr;
->  	}
->  	return 0;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
-> index 31a437ce9570..883cc275f354 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
-> @@ -707,15 +707,6 @@ static void amdgpu_vm_pte_update_flags(struct amdgpu_vm_update_params *params,
->  	if (level == AMDGPU_VM_PTB)
->  		amdgpu_vm_pte_update_noretry_flags(adev, &flags);
->  
-> -	/* APUs mapping system memory may need different MTYPEs on different
-> -	 * NUMA nodes. Only do this for contiguous ranges that can be assumed
-> -	 * to be on the same NUMA node.
-> -	 */
-> -	if ((flags & AMDGPU_PTE_SYSTEM) && (adev->flags & AMD_IS_APU) &&
-> -	    adev->gmc.gmc_funcs->override_vm_pte_flags &&
-> -	    num_possible_nodes() > 1 && !params->pages_addr && params->allow_override)
-> -		amdgpu_gmc_override_vm_pte_flags(adev, params->vm, addr, &flags);
-> -
->  	params->vm->update_funcs->update(params, pt, pe, addr, count, incr,
->  					 flags);
->  }
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c
-> index 36805dcfa159..37f0c0027075 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c
-> @@ -257,6 +257,9 @@ static int amdgpu_vm_sdma_update(struct amdgpu_vm_update_params *p,
->  		}
->  
->  		if (!p->pages_addr) {
-> +			if (p->allow_override)
-> +				amdgpu_gmc_override_vm_pte_flags(p->adev, p->vm, addr, &flags);
-> +
->  			/* set page commands needed */
->  			amdgpu_vm_sdma_set_ptes(p, bo, pe, addr, count,
->  						incr, flags);
-> @@ -275,8 +278,14 @@ static int amdgpu_vm_sdma_update(struct amdgpu_vm_update_params *p,
->  		p->num_dw_left -= nptes * 2;
->  		pte = (uint64_t *)&(p->job->ibs->ptr[p->num_dw_left]);
->  		for (i = 0; i < nptes; ++i, addr += incr) {
-> +			u64 oflags = flags;
-> +
->  			pte[i] = amdgpu_vm_map_gart(p->pages_addr, addr);
-> -			pte[i] |= flags;
-> +
-> +			if (p->allow_override)
-> +				amdgpu_gmc_override_vm_pte_flags(p->adev, p->vm, pte[i], &oflags);
-> +
-> +			pte[i] |= oflags;
->  		}
->  
->  		amdgpu_vm_sdma_copy_ptes(p, bo, pe, nptes);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-> index e7b78027002b..479611e269b8 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-> @@ -1204,21 +1204,6 @@ static void gmc_v9_0_override_vm_pte_flags(struct amdgpu_device *adev,
->  {
->  	int local_node, nid;
->  
-> -	/* Only GFX 9.4.3 APUs associate GPUs with NUMA nodes. Local system
-> -	 * memory can use more efficient MTYPEs.
-> -	 */
-> -	if (!(adev->flags & AMD_IS_APU) ||
-> -	    amdgpu_ip_version(adev, GC_HWIP, 0) != IP_VERSION(9, 4, 3))
-> -		return;
-> -
-> -	/* Only direct-mapped memory allows us to determine the NUMA node from
-> -	 * the DMA address.
-> -	 */
-> -	if (!adev->ram_is_direct_mapped) {
-> -		dev_dbg_ratelimited(adev->dev, "RAM is not direct mapped\n");
-> -		return;
-> -	}
-> -
->  	/* MTYPE_NC is the same default and can be overridden.
->  	 * MTYPE_UC will be present if the memory is extended-coherent
->  	 * and can also be overridden.
-> @@ -1231,11 +1216,7 @@ static void gmc_v9_0_override_vm_pte_flags(struct amdgpu_device *adev,
->  		return;
->  	}
->  
-> -	/* FIXME: Only supported on native mode for now. For carve-out, the
-> -	 * NUMA affinity of the GPU/VM needs to come from the PCI info because
-> -	 * memory partitions are not associated with different NUMA nodes.
-> -	 */
-> -	if (adev->gmc.is_app_apu && vm->mem_id >= 0) {
-> +	if (vm->mem_id >= 0) {
->  		local_node = adev->gmc.mem_partitions[vm->mem_id].numa.node;
->  	} else {
->  		dev_dbg_ratelimited(adev->dev, "Only native mode APU is supported.\n");
-> @@ -1328,6 +1309,19 @@ static bool gmc_v9_0_need_reset_on_init(struct amdgpu_device *adev)
->  }
->  
->  static const struct amdgpu_gmc_funcs gmc_v9_0_gmc_funcs = {
-> +	.flush_gpu_tlb = gmc_v9_0_flush_gpu_tlb,
-> +	.flush_gpu_tlb_pasid = gmc_v9_0_flush_gpu_tlb_pasid,
-> +	.emit_flush_gpu_tlb = gmc_v9_0_emit_flush_gpu_tlb,
-> +	.emit_pasid_mapping = gmc_v9_0_emit_pasid_mapping,
-> +	.get_vm_pde = gmc_v9_0_get_vm_pde,
-> +	.get_vm_pte = gmc_v9_0_get_vm_pte,
-> +	.get_vbios_fb_size = gmc_v9_0_get_vbios_fb_size,
-> +	.query_mem_partition_mode = &amdgpu_gmc_query_memory_partition,
-> +	.request_mem_partition_mode = &amdgpu_gmc_request_memory_partition,
-> +	.need_reset_on_init = &gmc_v9_0_need_reset_on_init,
-> +};
-> +
-> +static const struct amdgpu_gmc_funcs gmc_v9_0_gmc_override_funcs = {
->  	.flush_gpu_tlb = gmc_v9_0_flush_gpu_tlb,
->  	.flush_gpu_tlb_pasid = gmc_v9_0_flush_gpu_tlb_pasid,
->  	.emit_flush_gpu_tlb = gmc_v9_0_emit_flush_gpu_tlb,
-> @@ -1343,7 +1337,21 @@ static const struct amdgpu_gmc_funcs gmc_v9_0_gmc_funcs = {
->  
->  static void gmc_v9_0_set_gmc_funcs(struct amdgpu_device *adev)
->  {
-> -	adev->gmc.gmc_funcs = &gmc_v9_0_gmc_funcs;
-> +	/* Only GFX 9.4.3 APUs associate GPUs with NUMA nodes, local system
-> +	 * memory can use more efficient MTYPEs.
-> +	 *
-> +	 * APUs mapping system memory may need different MTYPEs on different
-> +	 * NUMA nodes.
-> +	 *
-> +	 * Only direct-mapped memory allows us to determine the NUMA node from
-> +	 * the DMA address.
-> +	 */
-> +	if ((adev->gmc.is_app_apu && num_possible_nodes() > 1) &&
-> +	    amdgpu_ip_version(adev, GC_HWIP, 0) == IP_VERSION(9, 4, 3) &&
-> +	    adev->ram_is_direct_mapped)
-> +		adev->gmc.gmc_funcs = &gmc_v9_0_gmc_override_funcs;
-> +	else
-> +		adev->gmc.gmc_funcs = &gmc_v9_0_gmc_funcs;
-
-I think a flag in adev->gmc would probably do as well, no need to duplicate the call table.
-
-Regards,
-Christian.
-
->  }
->  
->  static void gmc_v9_0_set_umc_funcs(struct amdgpu_device *adev)
-
+>  drivers/gpu/drm/radeon/radeon_ring.c | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/radeon/radeon_ring.c b/drivers/gpu/drm/radeo=
+n/radeon_ring.c
+> index 581ae20c46e4b..a5dff072c1ac0 100644
+> --- a/drivers/gpu/drm/radeon/radeon_ring.c
+> +++ b/drivers/gpu/drm/radeon/radeon_ring.c
+> @@ -356,8 +356,10 @@ int radeon_ring_restore(struct radeon_device *rdev, =
+struct radeon_ring *ring,
+>
+>         /* restore the saved ring content */
+>         r =3D radeon_ring_lock(rdev, ring, size);
+> -       if (r)
+> +       if (r) {
+> +               kvfree(data);
+>                 return r;
+> +       }
+>
+>         for (i =3D 0; i < size; ++i) {
+>                 radeon_ring_write(ring, data[i]);
+> --
+> 2.50.1 (Apple Git-155)
+>
