@@ -4,125 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 17874F436B8
-	for <amd-gfx@archiver.kernel.org>; Fri, 17 Apr 2026 15:22:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C9DD9F436B9
+	for <amd-gfx@archiver.kernel.org>; Fri, 17 Apr 2026 16:08:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A653B10EA61;
-	Fri, 17 Apr 2026 15:22:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4B87910E2C9;
+	Fri, 17 Apr 2026 16:08:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="v3O4j7A/";
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="wGZcKlC+";
 	dkim-atps=neutral
-Received: from CY3PR05CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11013042.outbound.protection.outlook.com
- [40.93.201.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2C08D10EA61
- for <amd-gfx@lists.freedesktop.org>; Fri, 17 Apr 2026 15:22:36 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=d+vF6yD8RZ43qONFI3VpCHIUVyMzd0ODFuplI2IqQDXySjWhvtdhoZ1nB7WVBEWBZuq70Q501gN3OMsWvJMrvGEibcSKQfn8p4yDYxduTSTyE2iSGKwgxKGMYX6ynSsuFU7JqMRz/431lS0R2HdfNof+pSv9A6t+ggfTac5CZuGfmPyYTW1k3Qk/tYzj+D0ggMcYZSq55HgJl0bTXEmmwEohcF4WoG1K/4InjQyI43Pb0e3Zk6RlJDskmr0fDyHEj3Mlt821iGMjLiumZh+sDj7tgfuAVHDEW6fmTJ2J8sftnlJX7YUY//5xIexNdCUJ57hzOHVH5zaWn6va/kdjHA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zwb/+5EkCdm+cVVJv46K936+0yBKq024DesvR2F+NMg=;
- b=Cx82KKXw+OwVmsZ7ntP0Yk/5Wn6QDBeQp9Sd/Gv96/Sy5/oGa975KBNMI1WFuiyoIxHfZN/2HW9kNOrWbSwCeafAFguK2BNSRk7k4GlKYdMNv7KqrQwesVH+Z8iyO3JP0h2WP3mFWlIbErwjswPrYdfu9AdzmL7r5N4t5Ca6PpA6GqbH7KACOlZlC27ks8YcH2JxeAf1xnsCkQgXukEpAp2iuJ9o1AbYIh5YLSTgVkuIYzwIE81K+plfrb/JiP6NTXJ99toTnKaZ9yOe8YpURQH3L5QPCA5+VdfDnmYLe9+iw+HJkZUxCxEKkaDZ8EXDoDUH094aXfy5VXswk/mzcg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zwb/+5EkCdm+cVVJv46K936+0yBKq024DesvR2F+NMg=;
- b=v3O4j7A//fs5LENB+dQmjJu8dia0Ga1gFKm0/RM2O4nbylUGGmJGqIqin9DIRWn6iTA1aAAFzbQK5vKO1NgnLSzrOX4ZyMS4uQ992tWgalHYuU7rLito0NANk00wW04ZTyi1p8V2/VZOsbdONACUF+bWhKQ6aYr4w9g/welvLpw=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from CY8PR12MB7195.namprd12.prod.outlook.com (2603:10b6:930:59::11)
- by IA1PR12MB7757.namprd12.prod.outlook.com (2603:10b6:208:422::17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9818.25; Fri, 17 Apr
- 2026 15:22:30 +0000
-Received: from CY8PR12MB7195.namprd12.prod.outlook.com
- ([fe80::e571:5f76:2b46:e0f8]) by CY8PR12MB7195.namprd12.prod.outlook.com
- ([fe80::e571:5f76:2b46:e0f8%5]) with mapi id 15.20.9818.017; Fri, 17 Apr 2026
- 15:22:30 +0000
-Content-Type: multipart/alternative;
- boundary="------------2Ub3wR1yhyiAOW8TtMeEUs8Q"
-Message-ID: <3a365ca3-b2aa-418e-9eb6-9ac2a326a554@amd.com>
-Date: Fri, 17 Apr 2026 11:22:27 -0400
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 00/14] user queue support for VCN 4.0.5
-From: "Wu, David" <davidwu2@amd.com>
-To: "David (Ming Qiang) Wu" <David.Wu3@amd.com>,
- amd-gfx@lists.freedesktop.org, Christian.Koenig@amd.com,
- alexander.deucher@amd.com
-Cc: leo.liu@amd.com, Boyuan.Zhang@amd.com
-References: <20260210214729.80964-1-David.Wu3@amd.com>
- <5427cf30-9c9d-4904-8058-3a6c9785e696@amd.com>
-Content-Language: en-US
-In-Reply-To: <5427cf30-9c9d-4904-8058-3a6c9785e696@amd.com>
-X-ClientProxiedBy: YT4PR01CA0160.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:ac::24) To CY8PR12MB7195.namprd12.prod.outlook.com
- (2603:10b6:930:59::11)
+Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3355310E2C9;
+ Fri, 17 Apr 2026 16:08:16 +0000 (UTC)
+Received: from smtp2.mailbox.org (smtp2.mailbox.org
+ [IPv6:2001:67c:2050:b231:465::2])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4fy0Cw1dHpz9v1C;
+ Fri, 17 Apr 2026 18:08:12 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; t=1776442092;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=EEOhFI6FMsYr3RqKHmLgf8SxXkclhRS7RnspH6Yfq0g=;
+ b=wGZcKlC+Heacy4BW43Xr5h4S0JK+GbQFfYPP3fnrP0ScSl5R91M/E+N/PWsw4j2pz1/X6c
+ sEVZeQYT6XwXuLafjnxY0TlAJAQYSeVpt8lOyZoTS7hDL2PjDDnKiKWN4lnyf9vzB4IQ+8
+ k7wExmm+GYZvNHjTUwJCBtOOPG4KhZeiWz1uTX/cvWS3ZhQOcC4Lh2BM+dRT4YpZaVLW8F
+ aOLw1GHNqv91vKq3ZLai/lF81MnNgzLklhe16aFF2CEr6HqF0Dj+I9nVmT3uCqbgwGHINI
+ s+q2g6lbbZ/zVHcPfzYu+X2EdxvrNqFlL2GMxYNjGs314r90X/W3F/+48E8Hkw==
+Message-ID: <07072379-32c8-4912-8539-7fa590abf544@mailbox.org>
+Date: Fri, 17 Apr 2026 18:08:05 +0200
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY8PR12MB7195:EE_|IA1PR12MB7757:EE_
-X-MS-Office365-Filtering-Correlation-Id: 34c58146-4002-4250-bb79-08de9c95241a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|366016|1800799024|22082099003|56012099003|18002099003|8096899003;
-X-Microsoft-Antispam-Message-Info: 6RNZ3kGToGCUe2vrpLnC/bO9GzPXazyJVAPKiFPfsy9xRoKPJucjt1TXR4NF4sQOZyUESN9Q76GQHFRMKKiHWJVLC63YavuocWCRy6fvgbEUS2lu7UJ1Ywgtul6j5IYjuS/CQr32QUKmohA+JfjL4UG6/9DlqupA1F1syLQgEm94SPDzCSuz0AGZsSIppVTj5ukDP7mNbthFBwx9pN5c3+iuQjjRac7Zn6LC9J9omRdgkxfkqcTgs4FT2dLg5cWk6JV8MgUhm1qjdD4x/SFl2/TjBWueWk2a/RudcLU7NjrrDjCYfqz/SgFbVaqclbkr4u7bYWXDS+5flanpfexBvq+5ws39weyvSwnnPYIyJx5E/9bm7aO4iRTLLUdWcJSRiM94HbT2W1bHZwjFxtI0sRj3WRM7pE+5X416Ob9pg5yfYJEOB4i0cZ5x+x1j0WgW879g/8vS1gpTH9qi7+kro00exPpXseGXYZgeqNZHbLFfVzMS/vuVj4DLp0TPzWYSj0l1ejVhX1+xSIamdjIGdD0gsxsxSIocQ2WAa9YSyfETnwyluBWBfdmcvWUEMTqrDKTcuUJGfvoGESnQ5Z18uZQNYgm0Ww1f6+YxFHfqazpaWlvuZxaWeSf0DwXcwOF2MNiEEO9THdryyS3aZLAw4nZOaHqRH0eqWZ6Kr5qo6Easq9GtWnfh5Ekr4Cj0vzfG66A90VSWgH7OTetMsl5FbzHZemHrKxGg0O9Edv5K8DI=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CY8PR12MB7195.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(1800799024)(22082099003)(56012099003)(18002099003)(8096899003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?M0szRFdVMGhRMFRTdFRuT0NxT1QwME9ETittRkdOZkx3N01Wd3pYT0hYdTdT?=
- =?utf-8?B?V09RRTNFano0eHRoSHZtOWZLSHlJanJ5UHpvZXVSNGtCVHlYSmRzVDM4Nmhz?=
- =?utf-8?B?YmdweWhOb3RqdEVTSGpUa1B1WVZqV3NlNXVwU2FsQzQ2bGNIL0RnQzQ2M0hF?=
- =?utf-8?B?SzBsTTZYWVA4QmZ0cTUrN0hIYURST2NmbllxcVRod3g4WmZJc3IrZ1lBekpm?=
- =?utf-8?B?V1BuTkdOZjF4LzJ4UEgwTG4zSGIvNHZ2OVAybGtKbVB5MVJiTCtrQ2NKY0Y3?=
- =?utf-8?B?bFFXbXovZjZNNGNFT3hsZCtXdXRUb0F1K00xUENEbFAyN0k2R3VRUWlHZmhY?=
- =?utf-8?B?SllMNlZrdUJvdTRwM3FsZ0hQdWkxRGpvNEE4VFlmR0o1cTBIR3RBOXViZTJa?=
- =?utf-8?B?YnNVNzUwWU1hWjk5SjhvU0E2ZG1MdldHZXN3TVh6RmdLdnhEaW1oTDk3VGxE?=
- =?utf-8?B?LzFWUEJpNFpqNDQ2UHFJSWlZU2hLVzFzSnBpNS9XWmJPQmRPY2R0dXlyK3g4?=
- =?utf-8?B?ZFBJS2U5bnFXaVVmSkdtaFM4eUlNRFVOQTdWaTNOU0RYSGpDZ1llM040Y2FJ?=
- =?utf-8?B?R2xWWmhCZjJaMXFrUTA5U2RqcTJmcWlGS1FxVFNUVW9Da0hGMk1rUU1JV0tQ?=
- =?utf-8?B?TGFUdTFhK0hBYUszblRKNndmSkdSZkhNNFhWd212TklwNU5xeVFsNCtRNW1S?=
- =?utf-8?B?SnBvcGQwa1oydVpWZExheW1xdGg5eGtqSDlrRFdFRGtNdGxUa0pzSzFxcDVM?=
- =?utf-8?B?RGs3OEdWL2ZKZmdjR0lKWmFpSzFCVXJrNUNSTmRVeDdBZ1ZtRittQWdzOGE0?=
- =?utf-8?B?c2RCK3pQcmZldS9GY3R3M3JnNFhIRkY2Qm1MTHhBbHpNTGxNUXhlM213Wm9k?=
- =?utf-8?B?MjRick5PNW5wcUYzRXcwU1FNSHJ2NFBZeGxKcXU1dnVIT0RObFk5d1IwTHNm?=
- =?utf-8?B?TGZJblV2NHh2Ym5DR25WMTBLYld5OTlZbWZWYXhvTUpTNnlwS3F5ZnlqeDJH?=
- =?utf-8?B?SWhPMFRNQ0dlcFY1cVBta01OWlZaZUxoMlFQNCt0K3Y0cENnU3IybVZqTGNS?=
- =?utf-8?B?THZhWjloazFTN0VrM1lPcnY4K1pGNFdPSm5KUEJVZzc0OFcyK2FTMHVpdGxG?=
- =?utf-8?B?T0hWMnZCZktIQnF5NmYreWg0eDBIbmRjbXY4MmY0bDhrdG1xVk5GMURlWjJ6?=
- =?utf-8?B?dmhOMTBUNlkrUWdHays1UWpNNlhmVGpMbzJJOFdFUFEvN1VlSkVLK2Rmamdk?=
- =?utf-8?B?dmxxSXMxTjArTFNmK1FoWXF2MEtvM29yTkt2YWk1Y0FjUFl1ZWppd3hxQVFx?=
- =?utf-8?B?VHJoMnhDd3JORUVFS081dUx4QmFJUDdJNHNrYWZvMFZwSkpLNGJ2Qkp0aXh6?=
- =?utf-8?B?SFpVUmdlYmUzaHk4d2djOU14YjNjYk1nSWhSckFkckkrNWtnTU5jYWtEM094?=
- =?utf-8?B?cTMyZ3doQUNiSVVJaVJrL3VsdjIyOWlEczdIc3NLZ1p5eUpHMjFJcEZrSytr?=
- =?utf-8?B?Z050YklrOWxuZTJEbm83VDcyejVUSm5Rczc3T0p4b2tDZU1NRmhQTHZFQTN4?=
- =?utf-8?B?eWZnbG1PVmlJVmZOQ24wbnA1c1FGc0I4WjFPbGUyYmZzNUdnOW5KUTNMZkdT?=
- =?utf-8?B?NEdFeW5Yb1p1YWhYNTl6VmRvTHJEb0oxL3lINTVnd0ZCOHo4d1JlNkR6UXF6?=
- =?utf-8?B?M0JIb1VQNDZBQUJaeXE1RXpBbjNQYTZmSVZsL0p1VlJ6TmFlMm45dDEwSzZS?=
- =?utf-8?B?OTVQUGdJVE41SlYzK25CeWFyZGJVa0RXSUhYOWtXMjZldFRiUW1LK3VBRys1?=
- =?utf-8?B?SjFyTVdRaEZLZWxVdjF4eU44NWJHbC9IdEZsQXpzZU1Ub1YxWHRvbFRmdmZW?=
- =?utf-8?B?Z1ExbzNkQzNEMEZjNFZBWDE2UkVpNy9oK3dYNWtoWS9nSTNTRndqenB4R1ZX?=
- =?utf-8?B?L3VoaldsNW5HYnJ2UjRoSFdLSUw5SGFBS2FGZ2RDVGRQdFRkNjIxekEwMUlO?=
- =?utf-8?B?WExZcXV1blNGQVBKR1NoeCtmSVFQLzJGUDN1c3BJNVJISXFwV3JLRHplZkhh?=
- =?utf-8?B?YXJoSVJxdXJ6TTNOTmRDd3l4MjhUVHZFNkRWa2lZU1JlaEw5SnJrV3BESm9p?=
- =?utf-8?B?MmZQK3d1WFhmTTQ0NkZlZHQ4d3Y1WnpUYnB0bk9yd2I5OEFwV1liSitILzRE?=
- =?utf-8?B?bkRzSkxSWHcwT0tOWTE4NUdkejR6RXJjTkxncDJGMExsdkVObzh0dVRueUxZ?=
- =?utf-8?B?ZjUyMWhFRVRCQjIxSEtLaGxqaDAwT0szR3doV2JuSUxXazBDSXExZEliNGFi?=
- =?utf-8?B?dUVLTEVBemdWd0lCVVo3bzZ1T2hRV01ZOUVFV1dNS010SXRkRks5QT09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 34c58146-4002-4250-bb79-08de9c95241a
-X-MS-Exchange-CrossTenant-AuthSource: CY8PR12MB7195.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Apr 2026 15:22:30.6333 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: PJvGu2LbotwEWeKOcSyC2ciOvoNHDH2OPtpDGc6eoa5n0t4FAF4oi66CpalUqKWip3aoQTKywVPv2IR65vn44A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB7757
+Subject: Re: [PATCH v3 1/2] drm: introduce KMS recovery mechanism
+From: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>
+To: Hamza Mahfooz <someguy@effective-light.com>
+Cc: Mario Limonciello <mario.limonciello@amd.com>,
+ dri-devel@lists.freedesktop.org, Harry Wentland <harry.wentland@amd.com>,
+ Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Alex Hung <alex.hung@amd.com>, Wayne Lin <Wayne.Lin@amd.com>,
+ Aurabindo Pillai <aurabindo.pillai@amd.com>,
+ Ivan Lipski <ivan.lipski@amd.com>, =?UTF-8?Q?Timur_Krist=C3=B3f?=
+ <timur.kristof@gmail.com>, Dominik Kaszewski <dominik.kaszewski@amd.com>,
+ amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
+References: <20260212230905.688006-1-someguy@effective-light.com>
+ <2e359cd9-0192-44d0-886f-7f93a8b0a4fa@amd.com> <aY99D-yXVydpMdwy@hal-station>
+ <85319290-4027-4eb8-95d1-9009d23f2294@mailbox.org>
+ <aZD0W7V_6--2yqNK@hal-station>
+ <7f4a86ad-d642-444c-a576-17ff9caaa934@mailbox.org>
+ <aZULq2bDnZpdXvIg@hal-station>
+ <8588dcbc-621e-43db-9d69-32398f75d9e6@mailbox.org>
+ <dab8d21b-1d28-48c6-87bf-f2060e2d2f1e@mailbox.org>
+ <d7c7a96e-1686-4878-8b96-92c3427b2f6d@mailbox.org>
+Content-Language: de-CH-frami, en-CA
+In-Reply-To: <d7c7a96e-1686-4878-8b96-92c3427b2f6d@mailbox.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-MBO-RS-ID: 7bd649e8221e05cb222
+X-MBO-RS-META: 9tfp87rtgrzx9dptw3urqkdx3rj9fxm5
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,156 +83,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---------------2Ub3wR1yhyiAOW8TtMeEUs8Q
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-
-ping...
-
-On 2/19/2026 1:00 PM, David Wu wrote:
-> ping...
->
-> On 2026-02-10 16:47, David (Ming Qiang) Wu wrote:
->> add user queue support for VCN 4.0.5
+On 2/20/26 10:09, Michel Dänzer wrote:
+> On 2/20/26 09:42, Michel Dänzer wrote:
+>> On 2/18/26 10:22, Michel Dänzer wrote:
+>>> On 2/18/26 01:45, Hamza Mahfooz wrote:
+>>>> On Mon, Feb 16, 2026 at 10:28:13AM +0100, Michel Dänzer wrote:
+>>>>> On 2/14/26 23:16, Hamza Mahfooz wrote:
+>>>>>> On Sat, Feb 14, 2026 at 03:02:49PM +0100, Michel Dänzer wrote:
+>>>>>>
+>>>>>>> In principle it's possible to do (the equivalent of) a modeset with the current state for all CRTCs, no need to do it separately per CRTC.
+>>>>>>
+>>>>>> AFAIK that is what the uevent is already doing (unless I'm mistaken).
+>>>>>
+>>>>> This is about just doing a full modeset, which isn't something user space can do in response to a wedged event.
+>>>>
+>>>> I was referring to what compositors are doing in response to
+>>>> `drm_kms_helper_hotplug_event()`. Perhaps, the enum constants should be
+>>>> renamed, since the forced modeset is actually sent when the current
+>>>> reset phase is DRM_KMS_RESET_NONE (the phase is updated before sending
+>>>> out the event though).
+>>>
+>>> Ah, you're talking about the drm_kms_helper_hotplug_event call in drm_atomic_helper_wait_for_flip_done (I thought "uevent" referred to drm_dev_wedged_event in patch 2).
+>>>
+>>> I don't know about other compositors, but I don't think mutter will do a modeset in response to a hotplug event if no KMS state changed (because some monitors can generate spurious hotplug events).
 >>
->> David (Ming Qiang) Wu (10):
->>    amdgpu: add global aggregated doorbell bo
->>    drm/amdgpu: add AMDGPU_GEM_GLOBAL_AGGREGATED_DOORBELL
->>    drm/amdgpu/userq: add doorbell size for VCN and VPE
->>    drm/amdgpu: use amdgpu_user_queue instead of amdgpu_umsch_mm
->>    amdgpu/umsch: Add VCN IP init to umsch driver
->>    drm/amdgpu/userq: change mes_userq_create_wptr_mapping() to be common
->>    drm/amdgpu/userq: rework on amdgpu_userq_create_wptr_mapping
->>    drm/amdgpu/umsch: user queue support for vcn
->>    drm/amdgpu: add AMDGPU_INFO_DOORBELL
->>    drm/amdgpu/umsch: userq suspend and resume context
->>
->> Saleemkhan Jamadar (4):
->>    amdgpu/umsch: Update UMSCH interface and mqd structure
->>    drm/amdgpu/vcn: changes when kernel queue is disabled
->>    drm/amdgpu/vcn: handle interrupt received from fw
->>    drm/amdgpu/vcn: handle the suspend context interrupt
->>
->>   drivers/gpu/drm/amd/amdgpu/amdgpu.h           |   4 +-
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c   |   2 +-
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c |   2 +-
->>   .../gpu/drm/amd/amdgpu/amdgpu_doorbell_mgr.c  |  16 +
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       |  10 -
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c       |   2 +
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c       |  18 ++
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_umsch_mm.c  | 300 +++++++++++++++++-
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_umsch_mm.h  |  43 ++-
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c     |  69 +++-
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h     |   4 +
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h       |   4 +
->>   drivers/gpu/drm/amd/amdgpu/mes_userqueue.c    |  90 +-----
->>   drivers/gpu/drm/amd/amdgpu/umsch_mm_v4_0.c    |  75 ++++-
->>   drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c       | 122 +++++--
->>   .../amd/include/ivsrcid/vcn/irqsrcs_vcn_4_0.h |  10 +
->>   .../drm/amd/include/umsch_mm_4_0_api_def.h    |  12 +-
->>   include/uapi/drm/amdgpu_drm.h                 |  14 +
->>   18 files changed, 646 insertions(+), 151 deletions(-)
->>
+>> [...]
+> 
+> [...], a reason why the kernel can't just do a modeset itself occurred to me: A modeset might affect other CRTCs than the ones affected by the timed-out commit, which could interact badly with other pending commits affecting those other CRTCs.
 
---------------2Ub3wR1yhyiAOW8TtMeEUs8Q
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+In a different thread, Ville (added to Cc) said this shouldn't be an issue.
 
-<!DOCTYPE html><html><head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body>
-    <font face="Helvetica, Arial, sans-serif">ping...</font><br>
-    <br>
-    <div class="moz-cite-prefix">On 2/19/2026 1:00 PM, David Wu wrote:<br>
-    </div>
-    <blockquote type="cite" cite="mid:5427cf30-9c9d-4904-8058-3a6c9785e696@amd.com">ping...
-      <br>
-      <br>
-      On 2026-02-10 16:47, David (Ming Qiang) Wu wrote:
-      <br>
-      <blockquote type="cite">add user queue support for VCN 4.0.5
-        <br>
-        <br>
-        David (Ming Qiang) Wu (10):
-        <br>
-        &nbsp;&nbsp; amdgpu: add global aggregated doorbell bo
-        <br>
-        &nbsp;&nbsp; drm/amdgpu: add AMDGPU_GEM_GLOBAL_AGGREGATED_DOORBELL
-        <br>
-        &nbsp;&nbsp; drm/amdgpu/userq: add doorbell size for VCN and VPE
-        <br>
-        &nbsp;&nbsp; drm/amdgpu: use amdgpu_user_queue instead of amdgpu_umsch_mm
-        <br>
-        &nbsp;&nbsp; amdgpu/umsch: Add VCN IP init to umsch driver
-        <br>
-        &nbsp;&nbsp; drm/amdgpu/userq: change mes_userq_create_wptr_mapping() to
-        be common
-        <br>
-        &nbsp;&nbsp; drm/amdgpu/userq: rework on amdgpu_userq_create_wptr_mapping
-        <br>
-        &nbsp;&nbsp; drm/amdgpu/umsch: user queue support for vcn
-        <br>
-        &nbsp;&nbsp; drm/amdgpu: add AMDGPU_INFO_DOORBELL
-        <br>
-        &nbsp;&nbsp; drm/amdgpu/umsch: userq suspend and resume context
-        <br>
-        <br>
-        Saleemkhan Jamadar (4):
-        <br>
-        &nbsp;&nbsp; amdgpu/umsch: Update UMSCH interface and mqd structure
-        <br>
-        &nbsp;&nbsp; drm/amdgpu/vcn: changes when kernel queue is disabled
-        <br>
-        &nbsp;&nbsp; drm/amdgpu/vcn: handle interrupt received from fw
-        <br>
-        &nbsp;&nbsp; drm/amdgpu/vcn: handle the suspend context interrupt
-        <br>
-        <br>
-        &nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu.h&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp; 4 +-
-        <br>
-        &nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c&nbsp;&nbsp; |&nbsp;&nbsp; 2 +-
-        <br>
-        &nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c |&nbsp;&nbsp; 2 +-
-        <br>
-        &nbsp; .../gpu/drm/amd/amdgpu/amdgpu_doorbell_mgr.c&nbsp; |&nbsp; 16 +
-        <br>
-        &nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp; 10 -
-        <br>
-        &nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp; 2 +
-        <br>
-        &nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp; 18 ++
-        <br>
-        &nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_umsch_mm.c&nbsp; | 300
-        +++++++++++++++++-
-        <br>
-        &nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_umsch_mm.h&nbsp; |&nbsp; 43 ++-
-        <br>
-        &nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp; 69 +++-
-        <br>
-        &nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp; 4 +
-        <br>
-        &nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp; 4 +
-        <br>
-        &nbsp; drivers/gpu/drm/amd/amdgpu/mes_userqueue.c&nbsp;&nbsp;&nbsp; |&nbsp; 90 +-----
-        <br>
-        &nbsp; drivers/gpu/drm/amd/amdgpu/umsch_mm_v4_0.c&nbsp;&nbsp;&nbsp; |&nbsp; 75 ++++-
-        <br>
-        &nbsp; drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | 122 +++++--
-        <br>
-        &nbsp; .../amd/include/ivsrcid/vcn/irqsrcs_vcn_4_0.h |&nbsp; 10 +
-        <br>
-        &nbsp; .../drm/amd/include/umsch_mm_4_0_api_def.h&nbsp;&nbsp;&nbsp; |&nbsp; 12 +-
-        <br>
-        &nbsp; include/uapi/drm/amdgpu_drm.h&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp; 14 +
-        <br>
-        &nbsp; 18 files changed, 646 insertions(+), 151 deletions(-)
-        <br>
-        <br>
-      </blockquote>
-    </blockquote>
-    <br>
-  </body>
-</html>
+In which case this would seem like the simplest solution.
 
---------------2Ub3wR1yhyiAOW8TtMeEUs8Q--
+
+-- 
+Earthling Michel Dänzer       \        GNOME / Xwayland / Mesa developer
+https://redhat.com             \               Libre software enthusiast
