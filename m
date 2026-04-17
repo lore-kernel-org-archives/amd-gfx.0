@@ -4,82 +4,92 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8CD0BF436B4
-	for <amd-gfx@archiver.kernel.org>; Fri, 17 Apr 2026 16:28:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 61607F8DFFF
+	for <amd-gfx@archiver.kernel.org>; Fri, 17 Apr 2026 17:54:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2C42710E097;
-	Fri, 17 Apr 2026 16:28:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 00B7E10E0D9;
+	Fri, 17 Apr 2026 17:54:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Oh9mCKFJ";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Nob5vw2a";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 50A3F10E097;
- Fri, 17 Apr 2026 16:28:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1776443332; x=1807979332;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=5nXwJ1p+e+YdXF09wEe4PHC4FbUvtavabcxZ4YAKq2c=;
- b=Oh9mCKFJKZ7XONGRw5+Zx0tVSU8vreV8gN2HMASMC0dFB1syljnGLi8L
- CAQ4i0im8TcBjwu7/rdt6a0LTlfx7ySpa8arXAtKJWLy6nn5ivJPh+GL1
- l9+XbdqLpIqyxoi6ouzIpR3z/klatqsaGUhq5S4YQZ8ceGY5PLoqR6Dp6
- DOJfMKcxW6WENjMU7yW9aKDltyRn92DvfjHlpTh+IGEzIlwANzrr0sfgf
- yubPZ57OG4nBYb+FANIkenTp7i8enOx4VfltHl86FmAHbrAXX2NWpp2vy
- WLqAnJTul/gCv0CWlS49PLHiHCtLB9miO1GID+4tBsqZfKwqHxU9epYZM A==;
-X-CSE-ConnectionGUID: cB/M9RMzRO+ILtzoe584sQ==
-X-CSE-MsgGUID: q0vk4I5XSw60aa4lqwIvAw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11762"; a="102921428"
-X-IronPort-AV: E=Sophos;i="6.23,184,1770624000"; d="scan'208";a="102921428"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
- by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Apr 2026 09:28:52 -0700
-X-CSE-ConnectionGUID: gLKT2Z88Q3esgqpRIUGBzA==
-X-CSE-MsgGUID: CAyb2lqRSrS24TmUoPjLEg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,184,1770624000"; d="scan'208";a="236043344"
-Received: from zzombora-mobl1 (HELO localhost) ([10.245.245.176])
- by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Apr 2026 09:28:46 -0700
-Date: Fri, 17 Apr 2026 19:28:43 +0300
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Michel =?iso-8859-1?Q?D=E4nzer?= <michel.daenzer@mailbox.org>
-Cc: Hamza Mahfooz <someguy@effective-light.com>,
- Mario Limonciello <mario.limonciello@amd.com>,
- dri-devel@lists.freedesktop.org, Harry Wentland <harry.wentland@amd.com>,
- Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Alex Hung <alex.hung@amd.com>, Wayne Lin <Wayne.Lin@amd.com>,
- Aurabindo Pillai <aurabindo.pillai@amd.com>,
- Ivan Lipski <ivan.lipski@amd.com>,
- Timur =?iso-8859-1?Q?Krist=F3f?= <timur.kristof@gmail.com>,
- Dominik Kaszewski <dominik.kaszewski@amd.com>,
- amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 1/2] drm: introduce KMS recovery mechanism
-Message-ID: <aeJfu0CQwMGEsidC@intel.com>
-References: <2e359cd9-0192-44d0-886f-7f93a8b0a4fa@amd.com>
- <aY99D-yXVydpMdwy@hal-station>
- <85319290-4027-4eb8-95d1-9009d23f2294@mailbox.org>
- <aZD0W7V_6--2yqNK@hal-station>
- <7f4a86ad-d642-444c-a576-17ff9caaa934@mailbox.org>
- <aZULq2bDnZpdXvIg@hal-station>
- <8588dcbc-621e-43db-9d69-32398f75d9e6@mailbox.org>
- <dab8d21b-1d28-48c6-87bf-f2060e2d2f1e@mailbox.org>
- <d7c7a96e-1686-4878-8b96-92c3427b2f6d@mailbox.org>
- <07072379-32c8-4912-8539-7fa590abf544@mailbox.org>
+Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com
+ [74.125.82.175])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1028F10E0D9
+ for <amd-gfx@lists.freedesktop.org>; Fri, 17 Apr 2026 17:54:52 +0000 (UTC)
+Received: by mail-dy1-f175.google.com with SMTP id
+ 5a478bee46e88-2e59d6b11e5so48895eec.0
+ for <amd-gfx@lists.freedesktop.org>; Fri, 17 Apr 2026 10:54:52 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1776448491; cv=none;
+ d=google.com; s=arc-20240605;
+ b=QE5xhx4IuiN8InPwhj5d4O0nGGiKGiPafnINm3N3NYoPAcMf4/Ga4AZqSgV0s+O78S
+ RmjeBcrXIRVKc55XxE3J/XinPNKNwJrEtZ9+MfmWBP037jxgQ8hiUuig6Wye9j2Z0Alc
+ MgDiOw8dvJf2bvNVFjNrl4iTXjvWmOroFX5PJhNDAma0bH6PmcskrLwmfonzC2692M/T
+ pT8mj2Jj4I/a3DT1f6V22Q5fqQyPGLeImhkOI0Hdnaq/qiGrR65kkQksfWYG8vKzMTHo
+ Ebf1xdjdJrSWFQOtKxNS1PKRU67KjtN9II7JiC7YTRjWk3n25fvjRXfY/m0TPs8ZT8d8
+ VY3w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=ODWd0R+7gGwy0u0xVfZ5pMwHEbY1KoY+22G58Ak12XQ=;
+ fh=IY98SR0cNO93Tj0qH750yd04bAXFkNbDKtBTzSqo1Bw=;
+ b=bg308tWxziALDN/XAqKLDn0E4H6aXYsX6D9JLfZdBFwf/tg45YWvt9Ku0400sREm+N
+ Kr0k75WSr0KdW9ZwPpSKRPB+dBQswIx74Xv7eaZuqti7TU5E/ewGCGEmBHeQrtgrcxza
+ YiMcokmbEHkZGMZQYHg+3Y6MlfjL9hqsJZ90dDAJoBP2GZj9fcK+42i5UqHJrEqO3z8C
+ g081NN7goUjC4/+gUv9xqPHYJhZGHAshp6dKdLgrYdKFBwLf54FHmcYTDRUycXj/uu/3
+ JAu9iCYaU7YoJqrhDuaEc8E/4ZwTOi8E7ojyJM4/PIF+/mmmOwrnocNFWC6LGEQatp2C
+ Utdg==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1776448491; x=1777053291; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=ODWd0R+7gGwy0u0xVfZ5pMwHEbY1KoY+22G58Ak12XQ=;
+ b=Nob5vw2aL/G0pB/vQ3Cl4cY8ElPsUEt5ebxFy9p3xDWPSVedDMnE1Jn1+pO4/JByyQ
+ mSLyvTdmFcJwUwsUy+DtNvZvXGHsBiEcod27Dlfg+B0yBTG3NHU5+Cwt61R4D7wzwefr
+ /dyN4cndra4UQI8djMeLt+uOD0Mt4QbFBTlajXLNrrluPgtHXZBUi1kf5PK5Nwu5MJGA
+ 0jelz7G/nsKRNt5hwrENyGTcm+xKsBMF89I6+QjrX+f/DYhdYUPq7xJfFn+GbrcSlY0C
+ pxJnpi6IM6MtAc9eSvymhjqxSdlxALUwfjFDNTD+vFlSsAPjDtakcI1XqYF3GZo7qIJt
+ y7lA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1776448491; x=1777053291;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=ODWd0R+7gGwy0u0xVfZ5pMwHEbY1KoY+22G58Ak12XQ=;
+ b=WPME2UbVPgoS0qLTVv4jF/SY4VcVNjQSv50fLD/R55/3XLu41xrjlVPtcN4buioXeV
+ 3CfP69NFUrevmFcrnPdSI6GlqtGl6pOLNW9ljBtkDHajzdab1KxZOuL+wrrB4NhZ5RXB
+ M7UDexSm5I/NR1/55cMZi5TyoygK2pNb1XUGpez39sUjuXjuRnLOuEJnz53U2fsQTzc/
+ yPm0ecjLgh27Dxlv1SCPn0kjlebMSQOWhzcU85HvncYX2IuwNPtD6piBW4QNXlx4klj4
+ /+D7RQnBnA0oq3rgP17aLg5Be4dJoMMTrNtO9llTkwwo1A94QnZY+uHzLMj3NdywpCGx
+ C07A==
+X-Gm-Message-State: AOJu0Yz2m6pxjPTAKBuKjCujmvJ4eehU73O4iELXIwEQm0XDb9ZdQr/U
+ 8QgCRaPGOgJLEYGITE/HQ+I69f7ydg09I/qP4Y3o/MaTcnLiNIawKhtLuuKdngAQAPle41sXGuG
+ 5nyoZ2YYBaBiKGIXiXe3Zcb/NueN6jWdU1Q==
+X-Gm-Gg: AeBDietQNJdFjGq5xPoYkExlbgbp7CEeDBfb6Skd7pqF2L3E55Qht65zKXFTO5tEj0b
+ ctEqMwbSHQzSzHAddbayKGtHrPzbH4iXIVv64jaEfNHjOnx411+6ZtkhU09rhlKvGfAmg2Fy1J6
+ oY299RlhAJkohL7v1SNw4ZhMfgFFzrJie43nkZLs5qgLGyu37K9LawiCyWH/rDe3rpvboJJ7aJ4
+ l+Q8BdtmdVdf8chUXLXkr7KUJA7ESo+a6UDfMrLjvvNEZIn5qUGMXCNVuBmBT27kzQJwrklk/e2
+ FnmMf4JMNbqJzIDof0wGF3Oif+xSfDUW6GGMfBBXKfYaDxXPKNYCypSf4DFV9W7xPl4OfTCrqPN
+ 1SfkN
+X-Received: by 2002:a05:7022:6289:b0:119:e56b:c3f3 with SMTP id
+ a92af1059eb24-12c73f98f56mr725319c88.3.1776448490984; Fri, 17 Apr 2026
+ 10:54:50 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <07072379-32c8-4912-8539-7fa590abf544@mailbox.org>
-X-Patchwork-Hint: comment
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <20260318140837.582776-1-alexander.deucher@amd.com>
+ <20260318140837.582776-8-alexander.deucher@amd.com>
+ <CADnq5_N-b61C4=n_L87J6Pyf_Tv7UCGse317qYzECPtK_OgnZw@mail.gmail.com>
+In-Reply-To: <CADnq5_N-b61C4=n_L87J6Pyf_Tv7UCGse317qYzECPtK_OgnZw@mail.gmail.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Fri, 17 Apr 2026 13:54:38 -0400
+X-Gm-Features: AQROBzB99e5meANnntZwNvmcgvIfRUqzsu8hv4wV61Y6My2_W_NvweqOpIzoAVA
+Message-ID: <CADnq5_N-r_Y=p-n4BM3C_-KouuLkapiNbjYvcEcg2J3j512cXw@mail.gmail.com>
+Subject: Re: [PATCH 08/16] drm/amdgpu/gfx12.1: align mqd settings with KFD
+To: Alex Deucher <alexander.deucher@amd.com>
+Cc: amd-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,49 +104,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Apr 17, 2026 at 06:08:05PM +0200, Michel Dänzer wrote:
-> On 2/20/26 10:09, Michel Dänzer wrote:
-> > On 2/20/26 09:42, Michel Dänzer wrote:
-> >> On 2/18/26 10:22, Michel Dänzer wrote:
-> >>> On 2/18/26 01:45, Hamza Mahfooz wrote:
-> >>>> On Mon, Feb 16, 2026 at 10:28:13AM +0100, Michel Dänzer wrote:
-> >>>>> On 2/14/26 23:16, Hamza Mahfooz wrote:
-> >>>>>> On Sat, Feb 14, 2026 at 03:02:49PM +0100, Michel Dänzer wrote:
-> >>>>>>
-> >>>>>>> In principle it's possible to do (the equivalent of) a modeset with the current state for all CRTCs, no need to do it separately per CRTC.
-> >>>>>>
-> >>>>>> AFAIK that is what the uevent is already doing (unless I'm mistaken).
-> >>>>>
-> >>>>> This is about just doing a full modeset, which isn't something user space can do in response to a wedged event.
-> >>>>
-> >>>> I was referring to what compositors are doing in response to
-> >>>> `drm_kms_helper_hotplug_event()`. Perhaps, the enum constants should be
-> >>>> renamed, since the forced modeset is actually sent when the current
-> >>>> reset phase is DRM_KMS_RESET_NONE (the phase is updated before sending
-> >>>> out the event though).
-> >>>
-> >>> Ah, you're talking about the drm_kms_helper_hotplug_event call in drm_atomic_helper_wait_for_flip_done (I thought "uevent" referred to drm_dev_wedged_event in patch 2).
-> >>>
-> >>> I don't know about other compositors, but I don't think mutter will do a modeset in response to a hotplug event if no KMS state changed (because some monitors can generate spurious hotplug events).
-> >>
-> >> [...]
-> > 
-> > [...], a reason why the kernel can't just do a modeset itself occurred to me: A modeset might affect other CRTCs than the ones affected by the timed-out commit, which could interact badly with other pending commits affecting those other CRTCs.
-> 
-> In a different thread, Ville (added to Cc) said this shouldn't be an issue.
-> 
-> In which case this would seem like the simplest solution.
+ping?
 
-Yeah, so extra blocking commits will just make everything (including
-subsequent non-blocking commits) block on the modeset mutexes before
-the -EBUSY check even happens.
-
-On a somewhat relatd note, some time ago I proposed making blocking
-commits also do the commit_tail part locklessly. But realizing that
-something might depend on the current not-actually-nonblocking commit
-semantics I was careful to preserve that even while dropping the locks:
-https://lore.kernel.org/dri-devel/20220916163331.6849-1-ville.syrjala@linux.intel.com/
-
--- 
-Ville Syrjälä
-Intel
+On Fri, Apr 3, 2026 at 10:03=E2=80=AFAM Alex Deucher <alexdeucher@gmail.com=
+> wrote:
+>
+> Ping?
+>
+> On Wed, Mar 18, 2026 at 10:19=E2=80=AFAM Alex Deucher <alexander.deucher@=
+amd.com> wrote:
+> >
+> > Make sure to set the quantum bits in the compute MQD
+> > for better fairness across queues of the same priority.
+> >
+> > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> > ---
+> >  drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c | 5 +++++
+> >  1 file changed, 5 insertions(+)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c b/drivers/gpu/drm/a=
+md/amdgpu/gfx_v12_1.c
+> > index db49582a211f7..98dc6582b7aa6 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c
+> > @@ -2246,6 +2246,11 @@ static int gfx_v12_1_compute_mqd_init(struct amd=
+gpu_device *adev, void *m,
+> >         mqd->cp_mqd_stride_size =3D prop->mqd_stride_size ? prop->mqd_s=
+tride_size :
+> >                 AMDGPU_MQD_SIZE_ALIGN(adev->mqds[AMDGPU_HW_IP_COMPUTE].=
+mqd_size);
+> >
+> > +       tmp =3D REG_SET_FIELD(0, CP_HQD_QUANTUM, QUANTUM_EN, 1);
+> > +       tmp =3D REG_SET_FIELD(tmp, CP_HQD_QUANTUM, QUANTUM_SCALE, 1);
+> > +       tmp =3D REG_SET_FIELD(tmp, CP_HQD_QUANTUM, QUANTUM_DURATION, 1)=
+;
+> > +       mqd->cp_hqd_quantum =3D tmp;
+> > +
+> >         mqd->cp_hqd_active =3D prop->hqd_active;
+> >
+> >         return 0;
+> > --
+> > 2.53.0
+> >
