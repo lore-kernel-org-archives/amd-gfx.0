@@ -4,17 +4,17 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6F822F4369A
-	for <amd-gfx@archiver.kernel.org>; Fri, 17 Apr 2026 10:38:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 957C2F43692
+	for <amd-gfx@archiver.kernel.org>; Fri, 17 Apr 2026 10:38:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4324910EA21;
-	Fri, 17 Apr 2026 10:38:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7A19510E9EB;
+	Fri, 17 Apr 2026 10:38:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="Qa27CqRf";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="T/YkNMVP";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CAD3E10EA1E;
- Fri, 17 Apr 2026 10:38:06 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0BCF910EA17;
+ Fri, 17 Apr 2026 10:38:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
@@ -22,27 +22,27 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
  Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
  :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=xvPsbARzaq3ggo9gmC1g7UemI8aNYsH6VAOEHvJ8Jd4=; b=Qa27CqRf+3BFylGEdeHbsIKYst
- C/AEKHmPNjkLgWTxKsu6TVhqAjeDITsGV4EiVYWG/af1isGa4Q2F7XSBDmXZjQsRv5yvUv33qSlIV
- eCN6N7bKyYkGLgdDCDEjabrOnPgi276jwG+E6aGs8KZGp62E25AX8UELosgPkgnL0eLkOm8XVuoSu
- 882iOEKbCsWlEKmSG0EK5HpZDhpwVl1zCDLAWw0GdHjkVPZsB5exmI7g9Z7Ac6Q//QZQJ1g7HeGI8
- g69ZbLuIYibFAEQnGgk5A6qWQAS6N38mu0so8znskPDwA5DfkX7cYkO3l7KgJA2A96Pspdf7yiQcC
- GnErnyTg==;
+ bh=RQTUcL1I/8jadncAL2XKGoKxgkmVYQD7qHlBDYb7ynk=; b=T/YkNMVP8AGMm1QSBA0TClh+lz
+ WgqqaVyeNIkjF8lJowNfRc+5xpXfsFWOR2Adp6IgD8f1dOr4mKVD28CubLl0/dbNcp1RAI87Sb7ql
+ KVuHqCNJeDC37fR1azUFu97/0aEma9kI0bsGhP2BebY8ll5GJnIj1XUFdYJ0DT+9xIT0pVrfUTYxb
+ KeqhYmADzD1HjxN5Yct/nHH3EDloscZLC/wCIhXXKwaODW+x6Pky+n0UiPRYvTMunbc37VmvmyYNw
+ jT8lPb5Z5iPp+Mx5aG9S2dmVS2NH9vjobYg4jahKZHTQiG88j6jAS5MDDYbl7h/SRyxLf14Cy3EyI
+ Py2eZ+eQ==;
 Received: from [90.240.106.137] (helo=localhost)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wDgaK-00HPTJ-46; Fri, 17 Apr 2026 12:38:04 +0200
+ id 1wDgaM-00HPU1-8b; Fri, 17 Apr 2026 12:38:06 +0200
 From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 To: amd-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
 Cc: intel-xe@lists.freedesktop.org, kernel-dev@igalia.com,
  Danilo Krummrich <dakr@kernel.org>, Philipp Stanner <phasta@kernel.org>,
- Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- Frank Binns <frank.binns@imgtec.com>, Matt Coster <matt.coster@imgtec.com>
-Subject: [PATCH v8 20/29] drm/imagination: Remove drm_sched_init_args->num_rqs
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, Lyude Paul <lyude@redhat.com>,
+ nouveau@lists.freedesktop.org
+Subject: [PATCH v8 23/29] drm/nouveau: Remove drm_sched_init_args->num_rqs
  usage
-Date: Fri, 17 Apr 2026 11:37:35 +0100
-Message-ID: <20260417103744.76020-21-tvrtko.ursulin@igalia.com>
+Date: Fri, 17 Apr 2026 11:37:38 +0100
+Message-ID: <20260417103744.76020-24-tvrtko.ursulin@igalia.com>
 X-Mailer: git-send-email 2.52.0
 In-Reply-To: <20260417103744.76020-1-tvrtko.ursulin@igalia.com>
 References: <20260417103744.76020-1-tvrtko.ursulin@igalia.com>
@@ -65,26 +65,27 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 Remove member no longer used by the scheduler core.
 
 Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Cc: Frank Binns <frank.binns@imgtec.com>
-Cc: Matt Coster <matt.coster@imgtec.com>
-Cc: dri-devel@lists.freedesktop.org
-Reviewed-by: Matt Coster <matt.coster@imgtec.com>
+Cc: Lyude Paul <lyude@redhat.com>
+Cc: Danilo Krummrich <dakr@kernel.org>
+Cc: nouveau@lists.freedesktop.org
+Reviewed-by: Lyude Paul <lyude@redhat.com>
+Acked-by: Danilo Krummrich <dakr@kernel.org>
 ---
- drivers/gpu/drm/imagination/pvr_queue.c | 1 -
+ drivers/gpu/drm/nouveau/nouveau_sched.c | 1 -
  1 file changed, 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/imagination/pvr_queue.c b/drivers/gpu/drm/imagination/pvr_queue.c
-index b5bec656d13c..d10a13173f0f 100644
---- a/drivers/gpu/drm/imagination/pvr_queue.c
-+++ b/drivers/gpu/drm/imagination/pvr_queue.c
-@@ -1272,7 +1272,6 @@ struct pvr_queue *pvr_queue_create(struct pvr_context *ctx,
- 	const struct drm_sched_init_args sched_args = {
- 		.ops = &pvr_queue_sched_ops,
- 		.submit_wq = pvr_dev->sched_wq,
--		.num_rqs = 1,
- 		.credit_limit = 64 * 1024,
- 		.hang_limit = 1,
- 		.timeout = msecs_to_jiffies(500),
+diff --git a/drivers/gpu/drm/nouveau/nouveau_sched.c b/drivers/gpu/drm/nouveau/nouveau_sched.c
+index 5546be488795..179edf90a531 100644
+--- a/drivers/gpu/drm/nouveau/nouveau_sched.c
++++ b/drivers/gpu/drm/nouveau/nouveau_sched.c
+@@ -405,7 +405,6 @@ nouveau_sched_init(struct nouveau_sched *sched, struct nouveau_drm *drm,
+ 	struct drm_sched_entity *entity = &sched->entity;
+ 	struct drm_sched_init_args args = {
+ 		.ops = &nouveau_sched_ops,
+-		.num_rqs = DRM_SCHED_PRIORITY_COUNT,
+ 		.credit_limit = credit_limit,
+ 		.timeout = msecs_to_jiffies(NOUVEAU_SCHED_JOB_TIMEOUT_MS),
+ 		.name = "nouveau_sched",
 -- 
 2.52.0
 
