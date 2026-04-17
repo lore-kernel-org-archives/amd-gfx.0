@@ -4,46 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8A858F588C3
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EE72AF588C4
 	for <amd-gfx@archiver.kernel.org>; Mon, 20 Apr 2026 13:02:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1D2EB10E5B7;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2CC8C10E5B8;
 	Mon, 20 Apr 2026 13:02:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=cachyos.org header.i=@cachyos.org header.b="b0+5SpLV";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="bf3+Wn14";
 	dkim-atps=neutral
-X-Greylist: delayed 534 seconds by postgrey-1.36 at gabe;
- Sun, 19 Apr 2026 11:33:22 UTC
-Received: from mail.ptr1337.dev (mail.ptr1337.dev [202.61.224.105])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7594310E06D
- for <amd-gfx@lists.freedesktop.org>; Sun, 19 Apr 2026 11:33:22 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id ED6CD285DB7; Sun, 19 Apr 2026 13:24:22 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cachyos.org; s=dkim;
- t=1776597865; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding:in-reply-to:references;
- bh=GENHOMCXf0w5u/POMUUD3Yx7lYEQlqPPi9Wo8eZS1VA=;
- b=b0+5SpLV2aHHHSq4XJefCJfoTfv090pQLEf9AW3dqipqaDcAXT+FFvWrvJiNz0TXQ44GFg
- lcFU+17imvHrM88iWQLse07/VhakPIL8bzRjzBjbqCY10rymiOE3ZwBC/v1TVj5H4MSrAV
- ZQk+Famr/T1jonJiOmmi8N/6hWXLA2pYlPFj4dBgPM8FCX5zfmYukHIsoUjKYwYETFsJUC
- PHjmCVXG7R7Wjv8PNYB+eMKxU+saXSnTsFwk3PZaAHC4PPlZP9UfuQS90sOge4fMGUAt6C
- EHuS+OKOHns1Hrcj6XAxl7Hxr3xa0A33eGJc6UuUrmpVIFokOSYluZ17E3uLtQ==
-Message-ID: <dea28da4-b49c-400a-9f1f-4a7e806d8b0d@cachyos.org>
-Date: Sun, 19 Apr 2026 11:24:00 +0000
+Received: from mail-lf1-f44.google.com (mail-lf1-f44.google.com
+ [209.85.167.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0AC3D10E07E
+ for <amd-gfx@lists.freedesktop.org>; Fri, 17 Apr 2026 19:48:52 +0000 (UTC)
+Received: by mail-lf1-f44.google.com with SMTP id
+ 2adb3069b0e04-5a415fd6bceso1286162e87.1
+ for <amd-gfx@lists.freedesktop.org>; Fri, 17 Apr 2026 12:48:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1776455330; x=1777060130; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=4RdytHEJNq2b8qwksSfnD+lzh/+ULx6ZcQWcNHRMd1E=;
+ b=bf3+Wn14ZOhAVaoIqO3vuCzYaC5SciybXNKi6q3J6yHRJSSwG19WbB6n+wu66KzqQH
+ MobfZS4paGkegxnliVcHUVFdmAI9fqRVqRO0vUJGZQfcdHVaULP0/2Fm5O7szpGad86H
+ jKYSIBl8Zc4AimrI8q0K4UpPESBUtJD++0vjaOQfB5RENGDXvh2CZBa5GQevlQwRoG0z
+ fbZv9M5F4+OM9wIHFxW8jHi8yDrpmqHzExRVxYhaDfwlYQg3hPZVOnEoQW5kQEGyDvPk
+ ufcRvZ/9PG7ZWIb38SBoD8PVyRGcXxSr+65h+4NPL6rns+1JLnAkotBE2foStj6bq9fJ
+ CHdA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1776455330; x=1777060130;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=4RdytHEJNq2b8qwksSfnD+lzh/+ULx6ZcQWcNHRMd1E=;
+ b=etil7iHTlDJmDNQ/FymvbdJAsqXtTNp+JB7zWjQK7FhJvnKxKCOip3b9tipibh1gF4
+ OxJXjaTEMmElZU9KXaPBpWbaTrHxH8uxCU36xGvu+h3KHjvzpjHGqrfoRpTogfFyyeXJ
+ /al4g+kTzbWWEQZJN4Gcnx/Vnigb6jhrTH3zfFwIpSwaC/auN7Uo+TS2eeyISJgbsA99
+ TGU116v44UkB0jr6oRYsjFIRB03T6UkFrJsFS5EUYZKnz9CRxrUfCXroY928T13dLK09
+ +IeULSHlms6ASUUbT75KqAx3dBU+NLoCOYLGJACRNFM5EoeofdrdIpaXOMmWYpZgAgnq
+ PU8w==
+X-Gm-Message-State: AOJu0YyAP2DRE2Le5aYQC+h2Wk+dTqy1HVudGr2cLi1ocAo1yWeYz/VB
+ ZmF8WrPusJz6lit6vwpt3np8CALVJJsurn32Tz4tq3fUhuyUIU9uEE10weTYVUZL
+X-Gm-Gg: AeBDietvRBuodDdX89rx4CCrhpOo/PrmVx012CSChw3xMKhmFyUZU+gx/qsnW8qwLIT
+ Ym9KIMabOEf+Li/evYBUFHKNlO8gHLUNxvNhRNdzxMjvKVNkVKH2TxM+4FD2ScR7inxHmx6a+UV
+ kr5atPwq/kM+6En5xwoq6fCMBGkLUh6hcGR7c2FndsCEkQnApxNEaKzfbH/wVVzRfhcOEz8ZBCX
+ NM3vwjwUd2yZU2AmyU5OV0TQiY9e656BwZMkdCF/VMMly1RHKPf+8fAP8D6cIaDO1x3dXlgQ9hI
+ bwGP6sXAkm74Ol3fwxoBlE3dE/dD988v6gI5SN5D+3Y3qXpQNoMaNe65fwGXRlVZKmfPi2LBvr9
+ XwFbJ57p1nqmjjWtAKNVhR3C/00K+8FjoFdY3NvH8qoeOaMS/+M1pH8Mnrziza9n0/WtK2k7tvA
+ 9ZBJCtYZq+IAjI/nd9fM1eJb8R4QqjKYmCBrWmCTSRItUPAEEnuGMty3BhlR0e40DvkvIYHiA/j
+ 0+h+fNxm0wQT3Pnu2M+chCYI9JmRBRQpKTHJ7HdDvS8ZjLhXlHVxlmFC+HvARszMcoRCrgSe8Yn
+ qgZzQbFP9QwOJWrOhcN/TT3Wr5F2cg==
+X-Received: by 2002:a05:6512:3b0d:b0:5a3:f0a7:2f72 with SMTP id
+ 2adb3069b0e04-5a416f4c333mr1152842e87.0.1776455329659; 
+ Fri, 17 Apr 2026 12:48:49 -0700 (PDT)
+Received: from lilia.home ([46.205.200.78]) by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-5a4185ad0d0sm667857e87.5.2026.04.17.12.48.48
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 17 Apr 2026 12:48:49 -0700 (PDT)
+From: mjgajda@gmail.com
+To: amd-gfx@lists.freedesktop.org
+Cc: Alexander.Deucher@amd.com, Christian.Koenig@amd.com,
+ dri-devel@lists.freedesktop.org, "M. Gajda" <mjgajda@gmail.com>
+Subject: [PATCH] drm/amdgpu: allow unprivileged read of GC_THROTTLE_STATUS
+Date: Fri, 17 Apr 2026 21:48:35 +0200
+Message-ID: <20260417194835.792023-1-mjgajda@gmail.com>
+X-Mailer: git-send-email 2.51.0
 MIME-Version: 1.0
-From: Eric Naim <dnaim@cachyos.org>
-Subject: Re: 7.0-rc4 dcn31_program_compbuf_size trace
-To: Julian Wollrath <jwollrath@web.de>, amd-gfx@lists.freedesktop.org
-Cc: Martin Leung <martin.leung@amd.com>,
- Bhuvanachandra Pinninti <bpinnint@amd.com>,
- Aurabindo Pillai <aurabindo.pillai@amd.com>,
- Dan Wheeler <daniel.wheeler@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>
-References: <20260316094232.6bb6f0bf@schienar>
-In-Reply-To: <20260316094232.6bb6f0bf@schienar>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 20 Apr 2026 13:02:49 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -59,148 +85,98 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 3/16/26 4:42 PM, Julian Wollrath wrote:
-> Dear maintainers,
->=20
-> when turning the display of via 'xset dpms force off' I observe the
-> following warning and trace under 7.0-rc4 with a AMD Ryzen 7 PRO 8840U
-> w/ Radeon 780M Graphics card. This I did not observe under 6.19.7.
->=20
-> kernel: amdgpu 0000:c4:00.0: [drm] REG_WAIT timeout 1us * 100 tries - d=
-cn31_program_compbuf_size line:142
-> kernel: ------------[ cut here ]------------
-> kernel: WARNING: drivers/gpu/drm/amd/amdgpu/../display/dc/hubbub/dcn31/=
-dcn31_hubbub.c:151 at dcn31_program_compbuf_size+0xd2/0x230 [amdgpu], CPU=
-#2: Xorg/1207
-> kernel: Modules linked in: r8153_ecm hid_apple apple_mfi_fastcharge usb=
-hid r8152 rfcomm snd_seq_dummy snd_hrtimer snd_seq snd_seq_device michael=
-_mic 8021q garp stp mrp llc uhid algif_hash algif_skcipher af_alg qrtr_mh=
-i bnep binfmt_misc nls_iso8859_1 nls_cp437 vfat fat edac_mce_amd edac_cor=
-e ext4 mbcache jbd2 ucsi_acpi typec_ucsi roles amd_atl typec spd5118 kvm_=
-amd snd_soc_ps_mach snd_soc_dmic snd_ps_pdm_dma regmap_i2c qrtr uvcvideo =
-videobuf2_vmalloc kvm videobuf2_memops ath11k_pci uvc mhi irqbypass video=
-buf2_v4l2 ghash_clmulni_intel think_lmi snd_ctl_led snd_sof_amd_acp63 ath=
-11k rapl cdc_mbim btusb snd_hda_codec_alc269 snd_sof_amd_acp qmi_helpers =
-videodev cdc_wdm btintel snd_sof_xtensa_dsp snd_hda_scodec_component amdg=
-pu snd_sof_pci firmware_attributes_class wmi_bmof cdc_ncm videobuf2_commo=
-n snd_hda_codec_realtek_lib bluetooth mc cdc_ether mac80211 snd_hda_codec=
-_generic snd_sof usbnet mii snd_sof_utils i2c_algo_bit libarc4 drm_ttm_he=
-lper snd_pci_ps snd_hda_codec_atihdmi k10temp ttm snd_soc_acpi_amd_match
-> kernel:  snd_hda_codec_hdmi agpgart snd_acp_config cfg80211 drm_exec sn=
-d_amd_sdw_acpi thunderbolt r8169 drm_suballoc_helper soundwire_amd mfd_co=
-re ac soundwire_generic_allocation drm_buddy snd_soc_acpi snd_hda_intel d=
-rm_panel_backlight_quirks snd_intel_dspcfg soundwire_bus amd_pmf gpu_sche=
-d snd_hda_codec amdtee amdxcp sp5100_tco snd_soc_core snd_hda_core amd_sf=
-h watchdog drm_display_helper snd_compress snd_hwdep tpm_crb tee button c=
-ec snd_pcm crc16 i2c_piix4 mousedev snd_timer amd_pmc i2c_smbus nft_ct nf=
-_conntrack nf_defrag_ipv6 nf_defrag_ipv4 nft_limit sch_fq_codel parport_p=
-c msr parport nf_tables fuse efi_pstore configfs nfnetlink efivarfs tpm l=
-ibaescfb ecdh_generic autofs4 xfs dm_crypt dm_mod hid_multitouch hid_gene=
-ric i2c_hid_acpi i2c_hid thinkpad_acpi input_leds nvme psmouse xhci_pci n=
-vram sparse_keymap atkbd nvme_core xhci_hcd i2c_designware_platform platf=
-orm_profile vivaldi_fmap evdev aesni_intel serio_raw snd nvme_keyring usb=
-core soundcore battery usb_common rfkill nvme_auth ccp hkdf rng_core fan =
-thermal
-> kernel:  i2c_designware_core simpledrm drm_client_lib drm_shmem_helper =
-drm_sysfb_helper drm_kms_helper drm
-> kernel: CPU: 2 UID: 0 PID: 1207 Comm: Xorg Not tainted 7.0.0-rc4 #1 PRE=
-EMPT
-> kernel: Hardware name: LENOVO 21MCS03F00/21MCS03F00, BIOS R2LET37W (1.1=
-8 ) 11/25/2025
-> kernel: RIP: 0010:dcn31_program_compbuf_size+0xd2/0x230 [amdgpu]
-> kernel: Code: 00 48 8b 43 28 8b 88 d8 01 00 00 48 8b 43 20 0f b6 50 76 =
-48 8b 43 18 8b b0 14 01 00 00 e8 b6 d3 0b 00 85 c0 0f 85 32 01 00 00 <0f>=
- 0b 48 8b 44 24 08 65 48 2b 05 6f 34 9f ce 0f 85 35 01 00 00 48
-> kernel: RSP: 0018:ffffd27ac33376e8 EFLAGS: 00010202
-> kernel: RAX: 0000000000000001 RBX: ffff8f3fa057c800 RCX: 00000000800416=
-19
-> kernel: RDX: ffffd27ac510e5e8 RSI: 000000000000397a RDI: ffff8f3eda1800=
-00
-> kernel: RBP: 0000000000000004 R08: 0000000080041619 R09: 00000000000039=
-7a
-> kernel: R10: 0000000000000064 R11: ffffd27ac33373f8 R12: ffff8f3ec5c000=
-00
-> kernel: R13: ffff8f3f61800000 R14: ffff8f3fa057c800 R15: 00000000000000=
-04
-> kernel: FS:  00007f505be98b80(0000) GS:ffff8f466e70c000(0000) knlGS:000=
-0000000000000
-> kernel: CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> kernel: CR2: 00007faaf46f5f40 CR3: 0000000106478000 CR4: 0000000000750e=
-f0
-> kernel: PKRU: 55555554
-> kernel: Call Trace:
-> kernel:  <TASK>
-> kernel:  dcn20_optimize_bandwidth+0xe6/0x220 [amdgpu]
-> kernel:  dc_commit_state_no_check+0xc1e/0xe90 [amdgpu]
-> kernel:  dc_commit_streams+0x2f9/0x4f0 [amdgpu]
-> kernel:  ? srso_alias_return_thunk+0x5/0xfbef5
-> kernel:  ? dm_read_reg_func+0x5c/0x100 [amdgpu]
-> kernel:  amdgpu_dm_atomic_commit_tail+0x51f/0x34c0 [amdgpu]
-> kernel:  ? srso_alias_return_thunk+0x5/0xfbef5
-> kernel:  ? dcn30_internal_validate_bw+0x890/0x960 [amdgpu]
-> kernel:  ? srso_alias_return_thunk+0x5/0xfbef5
-> kernel:  ? srso_alias_return_thunk+0x5/0xfbef5
-> kernel:  ? dcn314_validate_bandwidth+0xf7/0x2e0 [amdgpu]
-> kernel:  ? srso_alias_return_thunk+0x5/0xfbef5
-> kernel:  ? dma_resv_get_fences+0xb2/0x290
-> kernel:  ? srso_alias_return_thunk+0x5/0xfbef5
-> kernel:  ? dma_resv_get_singleton+0x43/0x130
-> kernel:  ? srso_alias_return_thunk+0x5/0xfbef5
-> kernel:  ? srso_alias_return_thunk+0x5/0xfbef5
-> kernel:  ? wait_for_completion_timeout+0xf7/0x130
-> kernel:  commit_tail+0x9d/0x130 [drm_kms_helper]
-> kernel:  drm_atomic_helper_commit+0x13c/0x180 [drm_kms_helper]
-> kernel:  drm_atomic_commit+0xb1/0xe0 [drm]
-> kernel:  ? drm_plane_create_color_pipeline_property.cold+0x29/0x29 [drm=
-]
-> kernel:  drm_atomic_connector_commit_dpms+0xfa/0x110 [drm]
-> kernel:  drm_mode_obj_set_property_ioctl+0x1b4/0x3b0 [drm]
-> kernel:  ? srso_alias_return_thunk+0x5/0xfbef5
-> kernel:  ? drm_connector_set_obj_prop+0xa0/0xa0 [drm]
-> kernel:  drm_connector_property_set_ioctl+0x3c/0x60 [drm]
-> kernel:  drm_ioctl_kernel+0xae/0x100 [drm]
-> kernel:  drm_ioctl+0x29b/0x540 [drm]
-> kernel:  ? drm_connector_set_obj_prop+0xa0/0xa0 [drm]
-> kernel:  amdgpu_drm_ioctl+0x4a/0x80 [amdgpu]
-> kernel:  __x64_sys_ioctl+0x86/0xd0
-> kernel:  do_syscall_64+0xec/0x940
-> kernel:  ? srso_alias_return_thunk+0x5/0xfbef5
-> kernel:  ? common_interrupt+0x3f/0xa0
-> kernel:  entry_SYSCALL_64_after_hwframe+0x55/0x5d
-> kernel: RIP: 0033:0x7f505c21dd3b
-> kernel: Code: 00 48 89 44 24 18 31 c0 48 8d 44 24 60 c7 04 24 10 00 00 =
-00 48 89 44 24 08 48 8d 44 24 20 48 89 44 24 10 b8 10 00 00 00 0f 05 <89>=
- c2 3d 00 f0 ff ff 77 1c 48 8b 44 24 18 64 48 2b 04 25 28 00 00
-> kernel: RSP: 002b:00007ffda60126e0 EFLAGS: 00000246 ORIG_RAX: 000000000=
-0000010
-> kernel: RAX: ffffffffffffffda RBX: 0000000000000000 RCX: 00007f505c21dd=
-3b
-> kernel: RDX: 00007ffda6012770 RSI: 00000000c01064ab RDI: 00000000000000=
-0f
-> kernel: RBP: 00007ffda6012770 R08: 0000000000154eb5 R09: 7fffffffffffff=
-ff
-> kernel: R10: 00007f505bab9cb0 R11: 0000000000000246 R12: 00000000c01064=
-ab
-> kernel: R13: 000000000000000f R14: 000055ba642c5c60 R15: 00000000000000=
-00
-> kernel:  </TASK>
-> kernel: ---[ end trace 0000000000000000 ]---
->=20
->=20
->=20
-> Best regards,
-> Julian
->=20
+From: "M. Gajda" <mjgajda@gmail.com>
 
-Hi maintainers,
+GC_THROTTLE_STATUS is a read-only hardware status register present on all
+RDNA GPU generations (GFX10/11/12).  It reports the state of the GFX
+thermal throttle finite state machine:
 
-Per [1], this seems to be caused by 592c5b80110d5e9e50873b5364818cb6f401e=
-26d.
+  FSM_STATE    [3:0]  non-zero = GPU currently being throttled
+  PATTERN_INDEX [9:4]  active throttle duty-cycle pattern
 
-[1] https://github.com/CachyOS/linux-cachyos/issues/810#issuecomment-4275=
-280460
+The register is never written by the driver.  No side-effects occur on
+read.  Add it to the per-ASIC allowed_read_registers[] tables so that
+unprivileged userspace can query it via the AMDGPU_INFO_READ_MMR_REG ioctl
+(libdrm: amdgpu_read_mm_registers(3)).
 
+This enables monitoring tools such as radeontop to display GPU thermal
+throttle status without root privileges -- information of the same
+sensitivity class as GPU temperature, which is already exposed via the
+AMDGPU_INFO_SENSOR_GPU_TEMP sensor ioctl.
 
---=20
-Regards,
-  Eric
+Register offsets per generation:
+  GFX10 (RDNA 1/2): mmGC_THROTTLE_STATUS  0x2032  BASE_IDX 0
+  GFX11 (RDNA 3):  regGC_THROTTLE_STATUS  0x1b0a  BASE_IDX 1
+  GFX12 (RDNA 4):  regGC_THROTTLE_STATUS  0x1b1c  BASE_IDX 1
+
+Source: drivers/gpu/drm/amd/include/asic_reg/gc/
+  gc_10_3_0_{offset,sh_mask}.h, gc_11_0_0_{offset,sh_mask}.h,
+  gc_12_0_0_{offset,sh_mask}.h
+
+Public ISA documentation:
+  RDNA 1: https://developer.amd.com/wp-content/resources/RDNA_Shader_ISA.pdf
+  RDNA 2: https://www.amd.com/content/dam/amd/en/documents/radeon-tech-docs/instruction-set-architectures/rdna2-shader-instruction-set-architecture.pdf
+  RDNA 3: https://docs.amd.com/v/u/en-US/rdna3-shader-instruction-set-architecture
+  RDNA 4: https://docs.amd.com/v/u/en-US/rdna4-instruction-set-architecture
+
+Signed-off-by: M. Gajda <mjgajda@gmail.com>
+---
+ drivers/gpu/drm/amd/amdgpu/nv.c    | 6 ++++++
+ drivers/gpu/drm/amd/amdgpu/soc21.c | 6 ++++++
+ drivers/gpu/drm/amd/amdgpu/soc24.c | 6 ++++++
+ 3 files changed, 18 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/nv.c b/drivers/gpu/drm/amd/amdgpu/nv.c
+index 7ce1a1b95..80594c793 100644
+--- a/drivers/gpu/drm/amd/amdgpu/nv.c
++++ b/drivers/gpu/drm/amd/amdgpu/nv.c
+@@ -352,6 +352,12 @@ static struct soc15_allowed_register_entry nv_allowed_read_registers[] = {
+ 	{ SOC15_REG_ENTRY(GC, 0, mmCP_CPC_STALLED_STAT1)},
+ 	{ SOC15_REG_ENTRY(GC, 0, mmCP_CPC_STATUS)},
+ 	{ SOC15_REG_ENTRY(GC, 0, mmGB_ADDR_CONFIG)},
++	/*
++	 * GC_THROTTLE_STATUS (offset 0x2032): read-only thermal throttle FSM.
++	 * FSM_STATE [3:0] != 0 indicates the GPU is currently being throttled.
++	 * Defined in gc_10_3_0_offset.h / gc_10_3_0_sh_mask.h
++	 */
++	{ SOC15_REG_ENTRY(GC, 0, mmGC_THROTTLE_STATUS)},
+ };
+ 
+ static uint32_t nv_read_indexed_register(struct amdgpu_device *adev, u32 se_num,
+diff --git a/drivers/gpu/drm/amd/amdgpu/soc21.c b/drivers/gpu/drm/amd/amdgpu/soc21.c
+index fbd1d97f3..8c2472bd0 100644
+--- a/drivers/gpu/drm/amd/amdgpu/soc21.c
++++ b/drivers/gpu/drm/amd/amdgpu/soc21.c
+@@ -304,6 +304,12 @@ static struct soc15_allowed_register_entry soc21_allowed_read_registers[] = {
+ 	{ SOC15_REG_ENTRY(GC, 0, regCP_CPC_STALLED_STAT1)},
+ 	{ SOC15_REG_ENTRY(GC, 0, regCP_CPC_STATUS)},
+ 	{ SOC15_REG_ENTRY(GC, 0, regGB_ADDR_CONFIG)},
++	/*
++	 * GC_THROTTLE_STATUS (offset 0x1b0a): read-only thermal throttle FSM.
++	 * FSM_STATE [3:0] != 0 indicates the GPU is currently being throttled.
++	 * Defined in gc_11_0_0_offset.h / gc_11_0_0_sh_mask.h
++	 */
++	{ SOC15_REG_ENTRY(GC, 0, regGC_THROTTLE_STATUS)},
+ };
+ 
+ static uint32_t soc21_read_indexed_register(struct amdgpu_device *adev, u32 se_num,
+diff --git a/drivers/gpu/drm/amd/amdgpu/soc24.c b/drivers/gpu/drm/amd/amdgpu/soc24.c
+index d1adf19a5..617ee0a4d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/soc24.c
++++ b/drivers/gpu/drm/amd/amdgpu/soc24.c
+@@ -130,6 +130,12 @@ static struct soc15_allowed_register_entry soc24_allowed_read_registers[] = {
+ 	{ SOC15_REG_ENTRY(GC, 0, regCP_CPC_STALLED_STAT1)},
+ 	{ SOC15_REG_ENTRY(GC, 0, regCP_CPC_STATUS)},
+ 	{ SOC15_REG_ENTRY(GC, 0, regGB_ADDR_CONFIG)},
++	/*
++	 * GC_THROTTLE_STATUS (offset 0x1b1c): read-only thermal throttle FSM.
++	 * FSM_STATE [3:0] != 0 indicates the GPU is currently being throttled.
++	 * Defined in gc_12_0_0_offset.h / gc_12_0_0_sh_mask.h
++	 */
++	{ SOC15_REG_ENTRY(GC, 0, regGC_THROTTLE_STATUS)},
+ };
+ 
+ static uint32_t soc24_read_indexed_register(struct amdgpu_device *adev,
+-- 
+2.51.0
+
