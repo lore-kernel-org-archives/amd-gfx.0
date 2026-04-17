@@ -4,95 +4,97 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BF8BCF436A3
-	for <amd-gfx@archiver.kernel.org>; Fri, 17 Apr 2026 13:36:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DDBAFF436A1
+	for <amd-gfx@archiver.kernel.org>; Fri, 17 Apr 2026 13:50:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 64DA910EA0C;
-	Fri, 17 Apr 2026 13:36:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 62FC310E0BD;
+	Fri, 17 Apr 2026 13:50:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="btApDhEe";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="l0/amN3K";
 	dkim-atps=neutral
-Received: from mail-dl1-f51.google.com (mail-dl1-f51.google.com [74.125.82.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F30DB10EA0C
- for <amd-gfx@lists.freedesktop.org>; Fri, 17 Apr 2026 13:36:33 +0000 (UTC)
-Received: by mail-dl1-f51.google.com with SMTP id
- a92af1059eb24-12736a0147cso32536c88.1
- for <amd-gfx@lists.freedesktop.org>; Fri, 17 Apr 2026 06:36:33 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1776432993; cv=none;
- d=google.com; s=arc-20240605;
- b=T2PCmVHzxY4gXWeV6P1wtaw165MF9gLMnS9MkwRTCHAK3NOVmZ9Ppz8Nub0AvUtDdW
- MFjXVvw47l7KO/zKCmGeynhYVCK7fZHIPvCKXvpiHnD//eXIsBiUowglHV8hepBn+Vpx
- bOafeQrj7+1MpcS3xZjvvXybY5HAxhbsxVeHNJNxiRr4ZQq706py0K8lhms3wvS0c22H
- IRJSjClLTSN9LvvS9hiaWWIveiXOLYisKEX7dhTmDswb7AG43Tk5YFmZwhsNXK6iC/Co
- MYlnOWqeA3cMBE+LtEVko4CKCPCeLEp5Zqe9fl3sThvRP2BCJ9nq0YVWRBXF4HzdZCAY
- 99xA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=1sYiQeOo0FTQbMgLepH0Rf6O4LSziP+xNOutWeDH1WA=;
- fh=0MOuNrHd20WxR6qcaguK9s+Epp45VcbzFdDtmNqmbrE=;
- b=Qk8jE6C3J71Sl8+3ODuiEuJqTaGMMmrOESnx9zCqdL5wysphb3ZqUEhdhCD0IG/Yyy
- m2jALD8bpbquja8LT5vZtHQg5H+4iWkwD1TY84sKn3K6wo/zOQfvP8tuu7F8jAD+r0tb
- bdUdBGrKaX4nmWapzM9qUi9AhFHhNccCAKsDIgVusclt4Dxl7m8wCjFDRjUYLoPBJpMD
- WKQrVkz3bnbH6otkQGNeXAjxMNxW/5ypsyG/K04OUXSjhJSj/z3gdUGJAXKqoGjxlJ5Y
- hpPktdDTsg1WsXLikp/RTq5R2SkMVUnPlRt3STPZtDvea0XV0IZfNgq+O5kii/G0a8p3
- HrZg==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1776432993; x=1777037793; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=1sYiQeOo0FTQbMgLepH0Rf6O4LSziP+xNOutWeDH1WA=;
- b=btApDhEeKoU3WviJtIiMcCFrejtfPE7tBim/tmGBxVMQiikUtloWPnEd0VpyLU/Z/y
- MW8sDMtdGPGiGksNzE3lUFupkqHMjeW6ZJYMFltqyad4Q5FgVelB15Qc6qU1QMiSpMrC
- dwmKDWwDa4uyjvPDZ/pp22T/vK419z94V033VEL94GI7/OQZGaunbLcW0xvzltVUwbAU
- uYApbZnvU1hkgyDxNSjzet6FPePk0Df+U2XgtKMG/1L/2GS9LUUNYDMXJZXDm4+4aF6R
- 3RFVXAcs2sQ33ZD2JcUNWhzveErNYgia3DXI4DhW+6XnBXsZJ3LE6kXabDBtp/YjoK/d
- 1Gaw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1776432993; x=1777037793;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=1sYiQeOo0FTQbMgLepH0Rf6O4LSziP+xNOutWeDH1WA=;
- b=dPhKDX07lhZsNTtlf7izKcAmw0SrlcwiCtm+QBam3D0qUZ0Lu61VRHctp79L74aRhU
- gJ2xtVBT+ING3qh9kcHiGe5VR3Ti0FYpjazPr0sTdLD3jKpX3mBFu+UsqSvxAEJ374Y/
- XHex5VShiSAszFfQoSF61icYDM8TrhaaeRVleD5L036IC2lXvf5DZat/tHMHfU2+XldG
- 7sRx7Hm1HOvV4mOC/dk8QHDpNwc+PFZjwT4EPWnxEy7p4F0h/HDOeHzLoqCCAVwn8VHR
- CGd9HWKuEG/L6b2QwLDLQ1IOOtGycTHZseGXxADRoTdn0tjQ8rbw3xOk2EoSI8/BTAY+
- 3alA==
-X-Forwarded-Encrypted: i=1;
- AFNElJ/Ec+1G8LsGBwiarhjBDX8ThEMS/b2MFlVFsDDv6GGN1gp6W+IS7gddjx4f1DWlknlMHQsEYyLl@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwRZdgyTaViaBGhaE+XO/sP50ffF2Iaqyaw/dT+mpfmy1MLpT92
- lXz6fjKjfdPrs8qfhtVqSi6UJiDTHtTMb0t8OWR1yXTxFwOxThgI6lLJhh6lryQLL22i+ZtQURD
- fly5mL1ZkI+GHBjnlWIYufUEhfMSB5j0=
-X-Gm-Gg: AeBDieuJXlDfoZBBKWf2VR3sqp37m7S7N7/CiM1TmplI+i5aUf1N2CfAMZnEsyaK1Ym
- jc0jkesZLeS7XXaz58xdV/5RN8JIa1FDtYL7sHkU4fY/b67T9MC+pKW4VfoVc6/1dc20PXOGmGM
- Yw5gR9XhtlB4vH7jjDwc379mSVdM6Po1gY2sqxtCHqnhQWvdEVHzUqoEsVAIHj9QhM4UY7F59+j
- JzpftovEBq3bxt9Hry/F2HMI990yFCjknU61fW6T81XYN/4y48cc545WMIPsDsfIPdni7Zbd0NR
- DbWKuvyZR1l1xt3ivOzJUU4fJ6BBI3pyqUOVktp6cVgQcAN3yX4B/CNkH1F84Ss4uCDAJO/f1bD
- tJKxr
-X-Received: by 2002:a05:7022:928:b0:12c:33dd:fa0b with SMTP id
- a92af1059eb24-12c73f69c12mr562884c88.2.1776432993128; Fri, 17 Apr 2026
- 06:36:33 -0700 (PDT)
+Received: from PH0PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11011058.outbound.protection.outlook.com [40.107.208.58])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 624B910E0BD
+ for <amd-gfx@lists.freedesktop.org>; Fri, 17 Apr 2026 13:50:45 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=vPEO4QYOmAE6jjA9Vvfro1DSsEzHk0BErCmbchFIXfZiXeGUHEFkHaVvFLsQBvhjVSQ43wDbCuuFE50qD9ZRwDXvLklF2DRo+Z0vRRsQY3dMK7gJPWktYH/qAHfSUuicFSyKmoVjj30/K2Es1WQNJRkdA7SdYiF5c6ret7yFwIU5wtAF1okcvn7isZJ2isVZl0gSorPrl8ssGQ42BxMugYPshs+0gZVJUHboEboWgxOswZ7bD3JGJzIMTZewHqqWg91phuIX/6TmRPuWmw5hXQ4AKF5U9tojxokJNuYuDxNlv5f7f+nDvIMJmkQ4Cq9yxtjhl542NQl2zWi+zgs9+w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=mXtW1892rd8qlHLg3ilI1+IuitUDoH+HLjQro6WvpBY=;
+ b=WsUixWJVxpwbYbpyXsoj6OCUgQHl/j+iQimkUgyqSYtp+qqwIMvb/T0GOwIuLqV8o0RqB5o6YM5nzz9ZJa+n7WNvXDcgnaoNyW4I8AMcp66ugqzKXReET0iM1xU8yh4cvfgXLnDFrTNLRUj2m3bpPS2MCQl+dMKvbvOM9hw96lOnQTqgFjDu8aY1nQjOAfOo1TEUEZGfTnnzJEhHsTz3Aps/K6Wy5FldS7ystvSQMDimxIVt1AIcEEsv+g43eaHhThPpj4TqjKo43bIvAvLJVXsTfYXKGowWWj83O1ffQSj8+vbIF8yGOdTfit395GtbrXqwqsRamV3BL17PzTmV4g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=mXtW1892rd8qlHLg3ilI1+IuitUDoH+HLjQro6WvpBY=;
+ b=l0/amN3KApX5S1rVTvuV9ZvE8d3MWr2/YEJABDo7AnSn/D/fNNS4nFnNbpFlmcOwnxEZ/x0Wkafxqv2HZkFoLwURTlvxcfwuk4zWi/9z0tQ0pghVGY28/twZb0fpzWYbzIiMgoMU0Cq0bHOglj2eKTk5nonxV6UZwDpJz3iwOyE=
+Received: from PH7P221CA0027.NAMP221.PROD.OUTLOOK.COM (2603:10b6:510:32a::24)
+ by CH1PR12MB9670.namprd12.prod.outlook.com (2603:10b6:610:2af::6)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9818.25; Fri, 17 Apr
+ 2026 13:50:40 +0000
+Received: from SA2PEPF000015C9.namprd03.prod.outlook.com
+ (2603:10b6:510:32a:cafe::c3) by PH7P221CA0027.outlook.office365.com
+ (2603:10b6:510:32a::24) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9769.52 via Frontend Transport; Fri,
+ 17 Apr 2026 13:50:40 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SA2PEPF000015C9.mail.protection.outlook.com (10.167.241.199) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9769.17 via Frontend Transport; Fri, 17 Apr 2026 13:50:39 +0000
+Received: from Philip-Dev.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Fri, 17 Apr
+ 2026 08:50:38 -0500
+From: Philip Yang <Philip.Yang@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <Felix.Kuehling@amd.com>, <christian.koenig@amd.com>,
+ <Kent.Russell@amd.com>, <Andrew.Martin@amd.com>, Philip Yang
+ <Philip.Yang@amd.com>
+Subject: [PATCH] drm/amdgpu: move VM PTE MTYPE override to per-PTE granularity
+Date: Fri, 17 Apr 2026 09:50:25 -0400
+Message-ID: <20260417135025.3434482-1-Philip.Yang@amd.com>
+X-Mailer: git-send-email 2.50.1
 MIME-Version: 1.0
-References: <20260416202643.25350-1-timur.kristof@gmail.com>
- <20260416202643.25350-8-timur.kristof@gmail.com>
- <89ea2f13-57aa-4a9d-98b3-f5693e33c13a@amd.com>
-In-Reply-To: <89ea2f13-57aa-4a9d-98b3-f5693e33c13a@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 17 Apr 2026 09:36:20 -0400
-X-Gm-Features: AQROBzCvoSH0_LOcwsMW0dsD-d1DLXM3WrXB4uMycKTC1ZO5eZuROPzavaz00xo
-Message-ID: <CADnq5_My527aN+SHpv5YvDCU5u3og8PwPoW7OuzXdc-ZvGRX9A@mail.gmail.com>
-Subject: Re: [PATCH 7/7] drm/amdgpu/gfx6: Support harvested SI chips with
- disabled TCCs
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>, 
- amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SA2PEPF000015C9:EE_|CH1PR12MB9670:EE_
+X-MS-Office365-Filtering-Correlation-Id: 94f0cebd-84e5-4b19-6d35-08de9c884f7b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|82310400026|376014|36860700016|18002099003|56012099003;
+X-Microsoft-Antispam-Message-Info: lpfF+t5adrJSYTy6HCd+WekqSHI4+TvNUdWQ+KJ8rGymlCXEVkCvLCAKToy0haANDjOuHc3bduOGfn9IzlKP934vilnbtmMw+RGs4paPvEv+p8RrSjTefB9sYXUPeugYe19mqizxY0VM96Sxz8k6WV9gSuyKrhTx4I7aFsFq+KmiwKvfxgejtyNm7tdZVnM5ZpzNSk0ulwqfWBcrzUGOnY81qOqGmlVyg9MNb8HdHMx2jFs61MqQGVR6aB2IjsD4ekd54YogZ9DaLxTcWLEIWBj24Co2udcY9FU20Xg04bgcOwiVf52oePwAWKh5CzP5c0E2C3zyQr21rGIIZrpBU4lt3KVOOESsEZ3eR5D+gBqmRDERcOYVscERaWGZP1mhHtorp8qkIyoWSTGRd3hQpvZ58MdibR+WlRvOGBZmZyQk1JWJfAKfNKUHWecDSuZPeiYnb17Ochw4yOuIjjajI6ZwG71g0tHCJTD6zychZ4TnOtuHEzJbQ1cFs2VZdRwt2wsx+W3Ebakuvku+6g/8sAavfK1Ei6CbHt2ZU9wvLT5XyerOjE9QIXgPZ1IKK1WqOcKIkdPRgvX1lYEAx771digZ3loq6FWpWJdqhaMmBKygpNYeis683sjJAENDjTrC2zwITgk8khoPfgzx2VCrEPV4UTYOmqm8bCGU5JSIpqMUQczop2zcFrKM9dl1vK18W5H5o63itr8blF79vziYPpVwnAaTTrKdpknszA/sEH36T6O7TeR0053rMUSJJrc+OIWL9dZYZdoB4wRNDoUsHA==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(82310400026)(376014)(36860700016)(18002099003)(56012099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: Ng7pdXN6Vxn8ER7m5yXmVZ/CmZeHy+XheHEYYuRBpEbuvS5uiId5EHb3tLwoRFLHAmnC2klp4Eq6z9YLocZ2b3gJmyktcJ5gLWDb/Mo6FCGmtnPuyvGUKc5/5mbEFv9rTKoSB+x/qvtKoB+5Q1IKg6wgP16OF4RsMW5sfus4HDYWFjiolS954pkf5paHRArXiC2q0IrYQVorRgol6QU7V37Lk8J6Rg9DKddHJupiDPgEJDoOTYoW1AgyxlpsQAj0URcVeRspmYaGaZaGlKNXJMVPcZUhCkAlcqiivipjmLMYEs2rLC7+AccsdErgUINrGqZhSprcWVaQfhOQz+PrKRg96d5/xOOB/qkD3J+T1gN+byiBdE/1R7YQvT35xb7y1ylnhXiVSDWW/Ofh0qB1DkMzsmc5Yb96GBQiBTdoO1Ka4jz4MallH7Bo58nsCq4G
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Apr 2026 13:50:39.5521 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 94f0cebd-84e5-4b19-6d35-08de9c884f7b
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SA2PEPF000015C9.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH1PR12MB9670
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,153 +109,247 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Apr 17, 2026 at 9:04=E2=80=AFAM Christian K=C3=B6nig
-<christian.koenig@amd.com> wrote:
->
-> On 4/16/26 22:26, Timur Krist=C3=B3f wrote:
-> > This commit fixes amdgpu to work on the Radeon HD 7870 XT
-> > which has never worked with the Linux open source drivers before.
-> >
-> > Some boards have "harvested" chips, meaning that some parts of
-> > the chip are disabled and fused, and it's sold for cheaper and
-> > under a different marketing name.
-> > On a harvested chip, any of the following can be disabled:
-> > - CUs (Compute Units)
-> > - RBs (Render Backend, aka. ROP)
-> > - Memory channels (ie. the chip has a lower bandwidth)
-> > - TCCs (ie. less L2 cache)
-> >
-> > Handle chips with harvested TCCs by patching the registers
-> > that configure how TCCs are mapped.
-> >
-> > If some TCCs are disabled, we need to make sure that
-> > the disabled TCCs are not used, and the remaining TCCs
-> > are used optimally.
-> >
-> > TCP_CHAN_STEER_LO/HI control which TCC is used by TCP channels.
-> > TCP_ADDR_CONFIG.NUM_TCC_BANKS controls how many channels are used.
-> >
-> > Note that the TCC configuration is highly relevant to performance.
-> > Suboptimal configuration (eg. CHAN_STEER=3D0) can significantly
-> > reduce gaming performance.
-> >
-> > For optimal performance:
-> > - Rely on the CHAN_STEER from the golden registers table,
-> >   only skip disabled TCCs but keep the mapping order.
-> > - Limit NUM_TCC_BANKS to number of active TCCs to avoid thrashing,
-> >   which performs better than using the same TCC twice.
-> >
-> > Link: https://bugs.freedesktop.org/show_bug.cgi?id=3D60879
-> > Closes: https://gitlab.freedesktop.org/drm/amd/-/work_items/2664
-> > Fixes: 2cd46ad22383 ("drm/amdgpu: add graphic pipeline implementation f=
-or si v8")
-> > Signed-off-by: Timur Krist=C3=B3f <timur.kristof@gmail.com>
->
-> Reviewed-by: Christian K=C3=B6nig <christian.koenig@amd.com>
->
-> > ---
-> >  drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c | 63 +++++++++++++++++++++++++++
-> >  1 file changed, 63 insertions(+)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c b/drivers/gpu/drm/am=
-d/amdgpu/gfx_v6_0.c
-> > index 73223d97a87f5..baddb3aa7fa3c 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c
-> > @@ -1571,6 +1571,68 @@ static void gfx_v6_0_setup_spi(struct amdgpu_dev=
-ice *adev)
-> >       mutex_unlock(&adev->grbm_idx_mutex);
-> >  }
-> >
-> > +/**
-> > + * gfx_v6_0_setup_tcc() - setup which TCCs are used
-> > + *
-> > + * @adev: amdgpu_device pointer
-> > + *
-> > + * Verify whether the current GPU has any TCCs disabled,
-> > + * which can happen when the GPU is harvested and some
-> > + * memory channels are disabled, reducing the memory bus width.
-> > + * For example, on the Radeon HD 7870 XT (Tahiti LE).
-> > + *
-> > + * If some TCCs are disabled, we need to make sure that
-> > + * the disabled TCCs are not used, and the remaining TCCs
-> > + * are used optimally.
-> > + *
-> > + * TCP_CHAN_STEER_LO/HI control which TCC is used by TCP channels.
-> > + * TCP_ADDR_CONFIG.NUM_TCC_BANKS controls how many channels are used.
-> > + *
-> > + * For optimal performance:
-> > + * - Rely on the CHAN_STEER from the golden registers table,
-> > + *   only skip disabled TCCs but keep the mapping order.
-> > + * - Limit NUM_TCC_BANKS to number of active TCCs to avoid thrashing,
-> > + *   which performs better than using the same TCC twice.
-> > + */
-> > +static void gfx_v6_0_setup_tcc(struct amdgpu_device *adev)
-> > +{
-> > +     u32 i, tcc, tcp_addr_config, num_active_tcc =3D 0;
-> > +     u64 chan_steer, patched_chan_steer =3D 0;
-> > +     const u32 num_max_tcc =3D adev->gfx.config.max_texture_channel_ca=
-ches;
-> > +     const u32 dis_tcc_mask =3D amdgpu_gfx_create_bitmask(num_max_tcc)=
- &
-> > +                              REG_GET_FIELD(RREG32(mmCGTS_TCC_DISABLE)=
-,
-> > +                                            CGTS_TCC_DISABLE, TCC_DISA=
-BLE);
+Refactor the NUMA-aware MTYPE override for VM page table entries:
 
-I would OR dis_tcc_mask with mmCGTS_USER_TCC_DISABLE as well in case
-someone has set additional TCCs to disable as well.  Other than that,
-looks good to me.
+- Move the override_vm_pte_flags call from the centralized
+  amdgpu_vm_pte_update_flags() into the individual CPU and SDMA update
+  backends, enabling per-PTE MTYPE override including for scattered
+  pages (pages_addr path).
 
-Alex
+- Move APU, IP version, and direct-mapped eligibility checks from
+  runtime (gmc_v9_0_override_vm_pte_flags) to init time
+  (gmc_v9_0_set_gmc_funcs), selecting between gmc_funcs structs with
+  and without the override function pointer to avoid repeated runtime
+  checks on every PTE update.
 
-> > +
-> > +     /* When no TCC is disabled, the golden registers table already ha=
-s optimal TCC setup */
-> > +     if (!dis_tcc_mask)
-> > +             return;
-> > +
-> > +     /* Each 4-bit nibble contains the index of a TCC used by all TCPs=
- */
-> > +     chan_steer =3D RREG32(mmTCP_CHAN_STEER_LO) | ((u64)RREG32(mmTCP_C=
-HAN_STEER_HI) << 32ull);
-> > +
-> > +     /* Patch the TCP to TCC mapping to skip disabled TCCs */
-> > +     for (i =3D 0; i < num_max_tcc; ++i) {
-> > +             tcc =3D (chan_steer >> (u64)(4 * i)) & 0xf;
-> > +
-> > +             if (!((1 << tcc) & dis_tcc_mask)) {
-> > +                     /* Copy enabled TCC indices to the patched regist=
-er value. */
-> > +                     patched_chan_steer |=3D (u64)tcc << (u64)(4 * num=
-_active_tcc);
-> > +                     ++num_active_tcc;
-> > +             }
-> > +     }
-> > +
-> > +     WARN_ON(num_active_tcc !=3D num_max_tcc - hweight32(dis_tcc_mask)=
-);
-> > +
-> > +     /* Patch number of TCCs used by TCPs */
-> > +     tcp_addr_config =3D REG_SET_FIELD(RREG32(mmTCP_ADDR_CONFIG),
-> > +                                     TCP_ADDR_CONFIG, NUM_TCC_BANKS,
-> > +                                     num_active_tcc - 1);
-> > +
-> > +     WREG32(mmTCP_ADDR_CONFIG, tcp_addr_config);
-> > +     WREG32(mmTCP_CHAN_STEER_HI, upper_32_bits(patched_chan_steer));
-> > +     WREG32(mmTCP_CHAN_STEER_LO, lower_32_bits(patched_chan_steer));
-> > +}
-> > +
-> >  static void gfx_v6_0_config_init(struct amdgpu_device *adev)
-> >  {
-> >       adev->gfx.config.double_offchip_lds_buf =3D 0;
-> > @@ -1729,6 +1791,7 @@ static void gfx_v6_0_constants_init(struct amdgpu=
-_device *adev)
-> >       gfx_v6_0_tiling_mode_table_init(adev);
-> >
-> >       gfx_v6_0_setup_rb(adev);
-> > +     gfx_v6_0_setup_tcc(adev);
-> >
-> >       gfx_v6_0_setup_spi(adev);
-> >
->
+- Guard allow_override on whether gmc_funcs->override_vm_pte_flags is
+  actually implemented.
+
+- Move amdgpu_device_check_iommu_direct_map() earlier in device init
+  so ram_is_direct_mapped is available when gmc_funcs are selected
+  during IP early init.
+
+Signed-off-by: Philip Yang <Philip.Yang@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c  |  5 ++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c      |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h      |  4 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm_cpu.c  | 11 ++++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c   |  9 ----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c | 11 ++++-
+ drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c       | 50 ++++++++++++---------
+ 7 files changed, 55 insertions(+), 37 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index bc7e96b58d3f..b139475f65cb 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -3860,6 +3860,9 @@ int amdgpu_device_init(struct amdgpu_device *adev,
+ 	 * completed before the need for a different level is detected.
+ 	 */
+ 	amdgpu_set_init_level(adev, AMDGPU_INIT_LEVEL_DEFAULT);
++
++	amdgpu_device_check_iommu_direct_map(adev);
++
+ 	/* early init functions */
+ 	r = amdgpu_device_ip_early_init(adev);
+ 	if (r)
+@@ -4117,8 +4120,6 @@ int amdgpu_device_init(struct amdgpu_device *adev,
+ 	if (px)
+ 		vga_switcheroo_init_domain_pm_ops(adev->dev, &adev->vga_pm_domain);
+ 
+-	amdgpu_device_check_iommu_direct_map(adev);
+-
+ 	adev->pm_nb.notifier_call = amdgpu_device_pm_notifier;
+ 	r = register_pm_notifier(&adev->pm_nb);
+ 	if (r)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+index 63156289ae7f..853204b5bd73 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+@@ -1163,7 +1163,7 @@ int amdgpu_vm_update_range(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+ 	params.pages_addr = pages_addr;
+ 	params.unlocked = unlocked;
+ 	params.needs_flush = flush_tlb;
+-	params.allow_override = allow_override;
++	params.allow_override = allow_override && adev->gmc.gmc_funcs->override_vm_pte_flags;
+ 	INIT_LIST_HEAD(&params.tlb_flush_waitlist);
+ 
+ 	amdgpu_vm_eviction_lock(vm);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+index f33ea7f8509b..326522917131 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+@@ -296,8 +296,8 @@ struct amdgpu_vm_update_params {
+ 	bool needs_flush;
+ 
+ 	/**
+-	 * @allow_override: true for memory that is not uncached: allows MTYPE
+-	 * to be overridden for NUMA local memory.
++	 * @allow_override: true for memory that is not uncached and gmc override function is
++	 * implemented to allow MTYPE to be overridden for NUMA local memory.
+ 	 */
+ 	bool allow_override;
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_cpu.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_cpu.c
+index f078db3fef79..fa5d4ac2ef39 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_cpu.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_cpu.c
+@@ -88,12 +88,21 @@ static int amdgpu_vm_cpu_update(struct amdgpu_vm_update_params *p,
+ 
+ 	trace_amdgpu_vm_set_ptes(pe, addr, count, incr, flags, p->immediate);
+ 
++	if (!p->pages_addr && p->allow_override)
++		amdgpu_gmc_override_vm_pte_flags(p->adev, p->vm, addr, &flags);
++
+ 	for (i = 0; i < count; i++) {
++		u64 oflags = flags;
++
+ 		value = p->pages_addr ?
+ 			amdgpu_vm_map_gart(p->pages_addr, addr) :
+ 			addr;
++
++		if (p->pages_addr && p->allow_override)
++			amdgpu_gmc_override_vm_pte_flags(p->adev, p->vm, value, &oflags);
++
+ 		amdgpu_gmc_set_pte_pde(p->adev, (void *)(uintptr_t)pe,
+-				       i, value, flags);
++				       i, value, oflags);
+ 		addr += incr;
+ 	}
+ 	return 0;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
+index 31a437ce9570..883cc275f354 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
+@@ -707,15 +707,6 @@ static void amdgpu_vm_pte_update_flags(struct amdgpu_vm_update_params *params,
+ 	if (level == AMDGPU_VM_PTB)
+ 		amdgpu_vm_pte_update_noretry_flags(adev, &flags);
+ 
+-	/* APUs mapping system memory may need different MTYPEs on different
+-	 * NUMA nodes. Only do this for contiguous ranges that can be assumed
+-	 * to be on the same NUMA node.
+-	 */
+-	if ((flags & AMDGPU_PTE_SYSTEM) && (adev->flags & AMD_IS_APU) &&
+-	    adev->gmc.gmc_funcs->override_vm_pte_flags &&
+-	    num_possible_nodes() > 1 && !params->pages_addr && params->allow_override)
+-		amdgpu_gmc_override_vm_pte_flags(adev, params->vm, addr, &flags);
+-
+ 	params->vm->update_funcs->update(params, pt, pe, addr, count, incr,
+ 					 flags);
+ }
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c
+index 36805dcfa159..37f0c0027075 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c
+@@ -257,6 +257,9 @@ static int amdgpu_vm_sdma_update(struct amdgpu_vm_update_params *p,
+ 		}
+ 
+ 		if (!p->pages_addr) {
++			if (p->allow_override)
++				amdgpu_gmc_override_vm_pte_flags(p->adev, p->vm, addr, &flags);
++
+ 			/* set page commands needed */
+ 			amdgpu_vm_sdma_set_ptes(p, bo, pe, addr, count,
+ 						incr, flags);
+@@ -275,8 +278,14 @@ static int amdgpu_vm_sdma_update(struct amdgpu_vm_update_params *p,
+ 		p->num_dw_left -= nptes * 2;
+ 		pte = (uint64_t *)&(p->job->ibs->ptr[p->num_dw_left]);
+ 		for (i = 0; i < nptes; ++i, addr += incr) {
++			u64 oflags = flags;
++
+ 			pte[i] = amdgpu_vm_map_gart(p->pages_addr, addr);
+-			pte[i] |= flags;
++
++			if (p->allow_override)
++				amdgpu_gmc_override_vm_pte_flags(p->adev, p->vm, pte[i], &oflags);
++
++			pte[i] |= oflags;
+ 		}
+ 
+ 		amdgpu_vm_sdma_copy_ptes(p, bo, pe, nptes);
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+index e7b78027002b..479611e269b8 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+@@ -1204,21 +1204,6 @@ static void gmc_v9_0_override_vm_pte_flags(struct amdgpu_device *adev,
+ {
+ 	int local_node, nid;
+ 
+-	/* Only GFX 9.4.3 APUs associate GPUs with NUMA nodes. Local system
+-	 * memory can use more efficient MTYPEs.
+-	 */
+-	if (!(adev->flags & AMD_IS_APU) ||
+-	    amdgpu_ip_version(adev, GC_HWIP, 0) != IP_VERSION(9, 4, 3))
+-		return;
+-
+-	/* Only direct-mapped memory allows us to determine the NUMA node from
+-	 * the DMA address.
+-	 */
+-	if (!adev->ram_is_direct_mapped) {
+-		dev_dbg_ratelimited(adev->dev, "RAM is not direct mapped\n");
+-		return;
+-	}
+-
+ 	/* MTYPE_NC is the same default and can be overridden.
+ 	 * MTYPE_UC will be present if the memory is extended-coherent
+ 	 * and can also be overridden.
+@@ -1231,11 +1216,7 @@ static void gmc_v9_0_override_vm_pte_flags(struct amdgpu_device *adev,
+ 		return;
+ 	}
+ 
+-	/* FIXME: Only supported on native mode for now. For carve-out, the
+-	 * NUMA affinity of the GPU/VM needs to come from the PCI info because
+-	 * memory partitions are not associated with different NUMA nodes.
+-	 */
+-	if (adev->gmc.is_app_apu && vm->mem_id >= 0) {
++	if (vm->mem_id >= 0) {
+ 		local_node = adev->gmc.mem_partitions[vm->mem_id].numa.node;
+ 	} else {
+ 		dev_dbg_ratelimited(adev->dev, "Only native mode APU is supported.\n");
+@@ -1328,6 +1309,19 @@ static bool gmc_v9_0_need_reset_on_init(struct amdgpu_device *adev)
+ }
+ 
+ static const struct amdgpu_gmc_funcs gmc_v9_0_gmc_funcs = {
++	.flush_gpu_tlb = gmc_v9_0_flush_gpu_tlb,
++	.flush_gpu_tlb_pasid = gmc_v9_0_flush_gpu_tlb_pasid,
++	.emit_flush_gpu_tlb = gmc_v9_0_emit_flush_gpu_tlb,
++	.emit_pasid_mapping = gmc_v9_0_emit_pasid_mapping,
++	.get_vm_pde = gmc_v9_0_get_vm_pde,
++	.get_vm_pte = gmc_v9_0_get_vm_pte,
++	.get_vbios_fb_size = gmc_v9_0_get_vbios_fb_size,
++	.query_mem_partition_mode = &amdgpu_gmc_query_memory_partition,
++	.request_mem_partition_mode = &amdgpu_gmc_request_memory_partition,
++	.need_reset_on_init = &gmc_v9_0_need_reset_on_init,
++};
++
++static const struct amdgpu_gmc_funcs gmc_v9_0_gmc_override_funcs = {
+ 	.flush_gpu_tlb = gmc_v9_0_flush_gpu_tlb,
+ 	.flush_gpu_tlb_pasid = gmc_v9_0_flush_gpu_tlb_pasid,
+ 	.emit_flush_gpu_tlb = gmc_v9_0_emit_flush_gpu_tlb,
+@@ -1343,7 +1337,21 @@ static const struct amdgpu_gmc_funcs gmc_v9_0_gmc_funcs = {
+ 
+ static void gmc_v9_0_set_gmc_funcs(struct amdgpu_device *adev)
+ {
+-	adev->gmc.gmc_funcs = &gmc_v9_0_gmc_funcs;
++	/* Only GFX 9.4.3 APUs associate GPUs with NUMA nodes, local system
++	 * memory can use more efficient MTYPEs.
++	 *
++	 * APUs mapping system memory may need different MTYPEs on different
++	 * NUMA nodes.
++	 *
++	 * Only direct-mapped memory allows us to determine the NUMA node from
++	 * the DMA address.
++	 */
++	if ((adev->gmc.is_app_apu && num_possible_nodes() > 1) &&
++	    amdgpu_ip_version(adev, GC_HWIP, 0) == IP_VERSION(9, 4, 3) &&
++	    adev->ram_is_direct_mapped)
++		adev->gmc.gmc_funcs = &gmc_v9_0_gmc_override_funcs;
++	else
++		adev->gmc.gmc_funcs = &gmc_v9_0_gmc_funcs;
+ }
+ 
+ static void gmc_v9_0_set_umc_funcs(struct amdgpu_device *adev)
+-- 
+2.50.1
+
