@@ -4,99 +4,93 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 174DDF436A3
-	for <amd-gfx@archiver.kernel.org>; Fri, 17 Apr 2026 13:34:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BF8BCF436A3
+	for <amd-gfx@archiver.kernel.org>; Fri, 17 Apr 2026 13:36:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7C8B110EA0F;
-	Fri, 17 Apr 2026 13:34:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 64DA910EA0C;
+	Fri, 17 Apr 2026 13:36:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="SuUQ3+Ep";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="btApDhEe";
 	dkim-atps=neutral
-Received: from mail-dl1-f49.google.com (mail-dl1-f49.google.com [74.125.82.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4B54E10EA0C
- for <amd-gfx@lists.freedesktop.org>; Fri, 17 Apr 2026 13:34:55 +0000 (UTC)
-Received: by mail-dl1-f49.google.com with SMTP id
- a92af1059eb24-12736a0147cso32255c88.1
- for <amd-gfx@lists.freedesktop.org>; Fri, 17 Apr 2026 06:34:55 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1776432894; cv=none;
+Received: from mail-dl1-f51.google.com (mail-dl1-f51.google.com [74.125.82.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F30DB10EA0C
+ for <amd-gfx@lists.freedesktop.org>; Fri, 17 Apr 2026 13:36:33 +0000 (UTC)
+Received: by mail-dl1-f51.google.com with SMTP id
+ a92af1059eb24-12736a0147cso32536c88.1
+ for <amd-gfx@lists.freedesktop.org>; Fri, 17 Apr 2026 06:36:33 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1776432993; cv=none;
  d=google.com; s=arc-20240605;
- b=RDpfSI7VSz3bkZpOimBH9SUHH0xnqnhK2LIzjRm3n+J5kHR8A4ro6jd+9fziDNi32N
- CU8hM6Qgzd/J7YqJJhi2zsv1dY2Zv/yln+Uoju8roPD2gC3eRDmuVPYtjlJ0hJwgZM7F
- +hv6T8fFWWfUIztKdKuorrdXQRBls9/NcjbrhdcIC2fAtrE6guKik5injtM1BFKv4Ia/
- TUBfpgVmxGFkwakah0485sHj8AIcmzPbkMjtNmjg25zzoqYNBW0YlzZKqZ0jqeyFIUPl
- TQFt/bc4iFbcA9J2eNdsbxKBhMjsqxBK+zAiUBwc/1nhDb2jV2jDAKNuxfalPNjcWgU8
- DJoA==
+ b=T2PCmVHzxY4gXWeV6P1wtaw165MF9gLMnS9MkwRTCHAK3NOVmZ9Ppz8Nub0AvUtDdW
+ MFjXVvw47l7KO/zKCmGeynhYVCK7fZHIPvCKXvpiHnD//eXIsBiUowglHV8hepBn+Vpx
+ bOafeQrj7+1MpcS3xZjvvXybY5HAxhbsxVeHNJNxiRr4ZQq706py0K8lhms3wvS0c22H
+ IRJSjClLTSN9LvvS9hiaWWIveiXOLYisKEX7dhTmDswb7AG43Tk5YFmZwhsNXK6iC/Co
+ MYlnOWqeA3cMBE+LtEVko4CKCPCeLEp5Zqe9fl3sThvRP2BCJ9nq0YVWRBXF4HzdZCAY
+ 99xA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20240605; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=H5SQjdAFcyv8NdqIsfRQOzzA0lu5rNy+ZmGTAor1otU=;
- fh=4fNTSjg/+R4vZcx9hZJ1xQeqtFUWN7i1SEPIwezdLHw=;
- b=BJ/q6u05SlZgUd7hTiFVEP0MvYHXlZiUbB7vuMBXsVt5AFEMkbX7AqFf2HzmSbtZTk
- D9e8/lVoYe1xbpeglUh25xdPbMwltB4zT4LLE9p1YzJwxIzpTTtldYSoitdwZ2BP3s2t
- QEYveVcAgaIwqh/RdY+II3xuqxYCu14PC00QWSaeWAK9I6HtWHfOyyv5ovzj9Ut8q90F
- I9hrKrSBI73nvtefD1B1bQbXAGnV+0hUy6Ws1VZzdELK+uOnTazv1bOJ1fm/hUM9kJ2V
- hyApsp+IC/kVxDzej2d5htLyeaoeI1NQmZAPzCEj3b/efA0EKL1CgO9o9R4daExyI7WZ
- l/4Q==; darn=lists.freedesktop.org
+ bh=1sYiQeOo0FTQbMgLepH0Rf6O4LSziP+xNOutWeDH1WA=;
+ fh=0MOuNrHd20WxR6qcaguK9s+Epp45VcbzFdDtmNqmbrE=;
+ b=Qk8jE6C3J71Sl8+3ODuiEuJqTaGMMmrOESnx9zCqdL5wysphb3ZqUEhdhCD0IG/Yyy
+ m2jALD8bpbquja8LT5vZtHQg5H+4iWkwD1TY84sKn3K6wo/zOQfvP8tuu7F8jAD+r0tb
+ bdUdBGrKaX4nmWapzM9qUi9AhFHhNccCAKsDIgVusclt4Dxl7m8wCjFDRjUYLoPBJpMD
+ WKQrVkz3bnbH6otkQGNeXAjxMNxW/5ypsyG/K04OUXSjhJSj/z3gdUGJAXKqoGjxlJ5Y
+ hpPktdDTsg1WsXLikp/RTq5R2SkMVUnPlRt3STPZtDvea0XV0IZfNgq+O5kii/G0a8p3
+ HrZg==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1776432894; x=1777037694; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1776432993; x=1777037793; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=H5SQjdAFcyv8NdqIsfRQOzzA0lu5rNy+ZmGTAor1otU=;
- b=SuUQ3+Epprzx87ktui4oWAwGtBml/z7LXmDoLB2Crhz5DnYFDnMMsdTpLO5hBxdT5i
- z4l4SpfTzgfG/DQh0bDnHSvuMNQKUBmtkq0lZXCUoMXaSkrBvxBvdaaAqqM/DqZGWnUT
- GUWdVGrF74goxAAc59PJbf2PtDq/HjVYsP1rXbqUFyxT32at0c9I0T2z7cC38HwDObNl
- BvlviT5rc4CICSvTvSBZsbhl+OdCUKbPCJua7yTwSp9GywHNU5sePbKqC5dNXv/hczqN
- oimpXm3/Tw4xIvjBUoEZEL1UVDMpWxGUtCWNZAmzj0rSPQGkoIy5K9/qCQWVUtbcFp1S
- 7TuA==
+ bh=1sYiQeOo0FTQbMgLepH0Rf6O4LSziP+xNOutWeDH1WA=;
+ b=btApDhEeKoU3WviJtIiMcCFrejtfPE7tBim/tmGBxVMQiikUtloWPnEd0VpyLU/Z/y
+ MW8sDMtdGPGiGksNzE3lUFupkqHMjeW6ZJYMFltqyad4Q5FgVelB15Qc6qU1QMiSpMrC
+ dwmKDWwDa4uyjvPDZ/pp22T/vK419z94V033VEL94GI7/OQZGaunbLcW0xvzltVUwbAU
+ uYApbZnvU1hkgyDxNSjzet6FPePk0Df+U2XgtKMG/1L/2GS9LUUNYDMXJZXDm4+4aF6R
+ 3RFVXAcs2sQ33ZD2JcUNWhzveErNYgia3DXI4DhW+6XnBXsZJ3LE6kXabDBtp/YjoK/d
+ 1Gaw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1776432894; x=1777037694;
+ d=1e100.net; s=20251104; t=1776432993; x=1777037793;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=H5SQjdAFcyv8NdqIsfRQOzzA0lu5rNy+ZmGTAor1otU=;
- b=cBDmelItrMe5a1KdCl+yJHVyBRzdIHMsvSe0aGdqcKBNyMciCOaCT8ygDUkg89nX0O
- kDOwIDBvb3zfL/WzSjRJgH9DbpcpzoycLJTYe1JzP3jdC+IUxblY3OmbfKnHuoQMzLco
- mANhqOXMuYdChzi8bDUOJd7hY5QU71wRzRgppvFXpZxC5CYeQcbGFC+G67wIkYSka9ox
- vYdjJnrLMWBBxc+5oTKJfhGRyXOhfsv1QUciepQV/XKzGxeO5Xx17aWlGIeUOuRCXZ7v
- JTZO1LK0VvR7lL45jlqKUGE9ly7r1JLu1o1Dl6d1tgkJ21rBk42UNbpy+m1C3NZj8VFs
- ZSvw==
+ bh=1sYiQeOo0FTQbMgLepH0Rf6O4LSziP+xNOutWeDH1WA=;
+ b=dPhKDX07lhZsNTtlf7izKcAmw0SrlcwiCtm+QBam3D0qUZ0Lu61VRHctp79L74aRhU
+ gJ2xtVBT+ING3qh9kcHiGe5VR3Ti0FYpjazPr0sTdLD3jKpX3mBFu+UsqSvxAEJ374Y/
+ XHex5VShiSAszFfQoSF61icYDM8TrhaaeRVleD5L036IC2lXvf5DZat/tHMHfU2+XldG
+ 7sRx7Hm1HOvV4mOC/dk8QHDpNwc+PFZjwT4EPWnxEy7p4F0h/HDOeHzLoqCCAVwn8VHR
+ CGd9HWKuEG/L6b2QwLDLQ1IOOtGycTHZseGXxADRoTdn0tjQ8rbw3xOk2EoSI8/BTAY+
+ 3alA==
 X-Forwarded-Encrypted: i=1;
- AFNElJ9jcVCc6Eo6/L5+muBLZSLQXk3DCTK0Ukf5FlbAGTvMCHL4KL57LE0jNjQNqiFg+SurHWypwjDY@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwOoG7oX1sQx9o0CZlxUhdcp4uqjaUXbXNTRPhD+ZBLcT6U+Pku
- 6yRS4sOkYQ+GD6MpJgiqIIFqYBSQnaGhrAoY3hmTn0YykJNqpmwW/QqiASXksWc0DhNnbTSk2r+
- V6+d9vIxc2o/9w8kJQ8O5tDQOrQB0toU=
-X-Gm-Gg: AeBDiesjztmoo9Ke2i/BD9fFJk+C+ymk8V2zgPU6SFoXAVNGwPpo1E3+em1LItrXpmO
- naq3VRzzft6A9oATpvG5B+2bBAyzpTyEoJxvnLstiSVp3JarCOaFsA9ssmVU2YHyuvyL48wlaCj
- hfNrORC9CtsjXG21i0xStoE7z3AR/FFuoLDg7E7JiiBQYXDIWVNHtsvKNfud24CXyxsNXkpfyY6
- hdvqTLEOIPJWWj5d06y2b+RlTAXqBbAhoJ7969+3eMfSpUUWyF5losyIMfZvx5esveZLKGc7uzI
- ajUE6fCdjLVSM+nSwgS8p/cABwyn3d/TGZUFgz5/gvYM9wZXQ3F/z6hwO3ANsMBWhS1jzXexfJW
- +dAnJ
+ AFNElJ/Ec+1G8LsGBwiarhjBDX8ThEMS/b2MFlVFsDDv6GGN1gp6W+IS7gddjx4f1DWlknlMHQsEYyLl@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwRZdgyTaViaBGhaE+XO/sP50ffF2Iaqyaw/dT+mpfmy1MLpT92
+ lXz6fjKjfdPrs8qfhtVqSi6UJiDTHtTMb0t8OWR1yXTxFwOxThgI6lLJhh6lryQLL22i+ZtQURD
+ fly5mL1ZkI+GHBjnlWIYufUEhfMSB5j0=
+X-Gm-Gg: AeBDieuJXlDfoZBBKWf2VR3sqp37m7S7N7/CiM1TmplI+i5aUf1N2CfAMZnEsyaK1Ym
+ jc0jkesZLeS7XXaz58xdV/5RN8JIa1FDtYL7sHkU4fY/b67T9MC+pKW4VfoVc6/1dc20PXOGmGM
+ Yw5gR9XhtlB4vH7jjDwc379mSVdM6Po1gY2sqxtCHqnhQWvdEVHzUqoEsVAIHj9QhM4UY7F59+j
+ JzpftovEBq3bxt9Hry/F2HMI990yFCjknU61fW6T81XYN/4y48cc545WMIPsDsfIPdni7Zbd0NR
+ DbWKuvyZR1l1xt3ivOzJUU4fJ6BBI3pyqUOVktp6cVgQcAN3yX4B/CNkH1F84Ss4uCDAJO/f1bD
+ tJKxr
 X-Received: by 2002:a05:7022:928:b0:12c:33dd:fa0b with SMTP id
- a92af1059eb24-12c73f69c12mr560921c88.2.1776432894188; Fri, 17 Apr 2026
- 06:34:54 -0700 (PDT)
+ a92af1059eb24-12c73f69c12mr562884c88.2.1776432993128; Fri, 17 Apr 2026
+ 06:36:33 -0700 (PDT)
 MIME-Version: 1.0
-References: <CADnq5_Prw=X66ByOAutSV_jFCJ7guuRSMPWnEqttr+xe_j_Y4g@mail.gmail.com>
- <20260415221350.1178094-1-werner@verivus.com>
-In-Reply-To: <20260415221350.1178094-1-werner@verivus.com>
+References: <20260416202643.25350-1-timur.kristof@gmail.com>
+ <20260416202643.25350-8-timur.kristof@gmail.com>
+ <89ea2f13-57aa-4a9d-98b3-f5693e33c13a@amd.com>
+In-Reply-To: <89ea2f13-57aa-4a9d-98b3-f5693e33c13a@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 17 Apr 2026 09:34:41 -0400
-X-Gm-Features: AQROBzBNKLgUz5j7LnoNFi5Ad4rOoyX0l8ZAuNVWt5YQYXWOh6GE9S_RYf361NE
-Message-ID: <CADnq5_M4Rr2ifOoCrvLqiqj9H6tRgKOY3Tn6NqyUB3YziicqZw@mail.gmail.com>
-Subject: Re: [PATCH v3] drm/radeon: fix integer overflow in
- radeon_align_pitch()
-To: Werner Kasselman <werner@verivus.ai>
-Cc: "alexander.deucher@amd.com" <alexander.deucher@amd.com>, 
- "christian.koenig@amd.com" <christian.koenig@amd.com>,
- "airlied@gmail.com" <airlied@gmail.com>, 
- "simona@ffwll.ch" <simona@ffwll.ch>,
- "tzimmermann@suse.de" <tzimmermann@suse.de>, 
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, 
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, 
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
- "stable@vger.kernel.org" <stable@vger.kernel.org>
+Date: Fri, 17 Apr 2026 09:36:20 -0400
+X-Gm-Features: AQROBzCvoSH0_LOcwsMW0dsD-d1DLXM3WrXB4uMycKTC1ZO5eZuROPzavaz00xo
+Message-ID: <CADnq5_My527aN+SHpv5YvDCU5u3og8PwPoW7OuzXdc-ZvGRX9A@mail.gmail.com>
+Subject: Re: [PATCH 7/7] drm/amdgpu/gfx6: Support harvested SI chips with
+ disabled TCCs
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>, 
+ amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -113,89 +107,153 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.  Thanks!
+On Fri, Apr 17, 2026 at 9:04=E2=80=AFAM Christian K=C3=B6nig
+<christian.koenig@amd.com> wrote:
+>
+> On 4/16/26 22:26, Timur Krist=C3=B3f wrote:
+> > This commit fixes amdgpu to work on the Radeon HD 7870 XT
+> > which has never worked with the Linux open source drivers before.
+> >
+> > Some boards have "harvested" chips, meaning that some parts of
+> > the chip are disabled and fused, and it's sold for cheaper and
+> > under a different marketing name.
+> > On a harvested chip, any of the following can be disabled:
+> > - CUs (Compute Units)
+> > - RBs (Render Backend, aka. ROP)
+> > - Memory channels (ie. the chip has a lower bandwidth)
+> > - TCCs (ie. less L2 cache)
+> >
+> > Handle chips with harvested TCCs by patching the registers
+> > that configure how TCCs are mapped.
+> >
+> > If some TCCs are disabled, we need to make sure that
+> > the disabled TCCs are not used, and the remaining TCCs
+> > are used optimally.
+> >
+> > TCP_CHAN_STEER_LO/HI control which TCC is used by TCP channels.
+> > TCP_ADDR_CONFIG.NUM_TCC_BANKS controls how many channels are used.
+> >
+> > Note that the TCC configuration is highly relevant to performance.
+> > Suboptimal configuration (eg. CHAN_STEER=3D0) can significantly
+> > reduce gaming performance.
+> >
+> > For optimal performance:
+> > - Rely on the CHAN_STEER from the golden registers table,
+> >   only skip disabled TCCs but keep the mapping order.
+> > - Limit NUM_TCC_BANKS to number of active TCCs to avoid thrashing,
+> >   which performs better than using the same TCC twice.
+> >
+> > Link: https://bugs.freedesktop.org/show_bug.cgi?id=3D60879
+> > Closes: https://gitlab.freedesktop.org/drm/amd/-/work_items/2664
+> > Fixes: 2cd46ad22383 ("drm/amdgpu: add graphic pipeline implementation f=
+or si v8")
+> > Signed-off-by: Timur Krist=C3=B3f <timur.kristof@gmail.com>
+>
+> Reviewed-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+>
+> > ---
+> >  drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c | 63 +++++++++++++++++++++++++++
+> >  1 file changed, 63 insertions(+)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c b/drivers/gpu/drm/am=
+d/amdgpu/gfx_v6_0.c
+> > index 73223d97a87f5..baddb3aa7fa3c 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c
+> > @@ -1571,6 +1571,68 @@ static void gfx_v6_0_setup_spi(struct amdgpu_dev=
+ice *adev)
+> >       mutex_unlock(&adev->grbm_idx_mutex);
+> >  }
+> >
+> > +/**
+> > + * gfx_v6_0_setup_tcc() - setup which TCCs are used
+> > + *
+> > + * @adev: amdgpu_device pointer
+> > + *
+> > + * Verify whether the current GPU has any TCCs disabled,
+> > + * which can happen when the GPU is harvested and some
+> > + * memory channels are disabled, reducing the memory bus width.
+> > + * For example, on the Radeon HD 7870 XT (Tahiti LE).
+> > + *
+> > + * If some TCCs are disabled, we need to make sure that
+> > + * the disabled TCCs are not used, and the remaining TCCs
+> > + * are used optimally.
+> > + *
+> > + * TCP_CHAN_STEER_LO/HI control which TCC is used by TCP channels.
+> > + * TCP_ADDR_CONFIG.NUM_TCC_BANKS controls how many channels are used.
+> > + *
+> > + * For optimal performance:
+> > + * - Rely on the CHAN_STEER from the golden registers table,
+> > + *   only skip disabled TCCs but keep the mapping order.
+> > + * - Limit NUM_TCC_BANKS to number of active TCCs to avoid thrashing,
+> > + *   which performs better than using the same TCC twice.
+> > + */
+> > +static void gfx_v6_0_setup_tcc(struct amdgpu_device *adev)
+> > +{
+> > +     u32 i, tcc, tcp_addr_config, num_active_tcc =3D 0;
+> > +     u64 chan_steer, patched_chan_steer =3D 0;
+> > +     const u32 num_max_tcc =3D adev->gfx.config.max_texture_channel_ca=
+ches;
+> > +     const u32 dis_tcc_mask =3D amdgpu_gfx_create_bitmask(num_max_tcc)=
+ &
+> > +                              REG_GET_FIELD(RREG32(mmCGTS_TCC_DISABLE)=
+,
+> > +                                            CGTS_TCC_DISABLE, TCC_DISA=
+BLE);
 
-On Wed, Apr 15, 2026 at 6:14=E2=80=AFPM Werner Kasselman <werner@verivus.ai=
-> wrote:
+I would OR dis_tcc_mask with mmCGTS_USER_TCC_DISABLE as well in case
+someone has set additional TCCs to disable as well.  Other than that,
+looks good to me.
+
+Alex
+
+> > +
+> > +     /* When no TCC is disabled, the golden registers table already ha=
+s optimal TCC setup */
+> > +     if (!dis_tcc_mask)
+> > +             return;
+> > +
+> > +     /* Each 4-bit nibble contains the index of a TCC used by all TCPs=
+ */
+> > +     chan_steer =3D RREG32(mmTCP_CHAN_STEER_LO) | ((u64)RREG32(mmTCP_C=
+HAN_STEER_HI) << 32ull);
+> > +
+> > +     /* Patch the TCP to TCC mapping to skip disabled TCCs */
+> > +     for (i =3D 0; i < num_max_tcc; ++i) {
+> > +             tcc =3D (chan_steer >> (u64)(4 * i)) & 0xf;
+> > +
+> > +             if (!((1 << tcc) & dis_tcc_mask)) {
+> > +                     /* Copy enabled TCC indices to the patched regist=
+er value. */
+> > +                     patched_chan_steer |=3D (u64)tcc << (u64)(4 * num=
+_active_tcc);
+> > +                     ++num_active_tcc;
+> > +             }
+> > +     }
+> > +
+> > +     WARN_ON(num_active_tcc !=3D num_max_tcc - hweight32(dis_tcc_mask)=
+);
+> > +
+> > +     /* Patch number of TCCs used by TCPs */
+> > +     tcp_addr_config =3D REG_SET_FIELD(RREG32(mmTCP_ADDR_CONFIG),
+> > +                                     TCP_ADDR_CONFIG, NUM_TCC_BANKS,
+> > +                                     num_active_tcc - 1);
+> > +
+> > +     WREG32(mmTCP_ADDR_CONFIG, tcp_addr_config);
+> > +     WREG32(mmTCP_CHAN_STEER_HI, upper_32_bits(patched_chan_steer));
+> > +     WREG32(mmTCP_CHAN_STEER_LO, lower_32_bits(patched_chan_steer));
+> > +}
+> > +
+> >  static void gfx_v6_0_config_init(struct amdgpu_device *adev)
+> >  {
+> >       adev->gfx.config.double_offchip_lds_buf =3D 0;
+> > @@ -1729,6 +1791,7 @@ static void gfx_v6_0_constants_init(struct amdgpu=
+_device *adev)
+> >       gfx_v6_0_tiling_mode_table_init(adev);
+> >
+> >       gfx_v6_0_setup_rb(adev);
+> > +     gfx_v6_0_setup_tcc(adev);
+> >
+> >       gfx_v6_0_setup_spi(adev);
+> >
 >
-> radeon_align_pitch() has the same kind of overflow issue as the old
-> amdgpu helper: both the alignment round-up add and the final
-> 'aligned * cpp' calculation can overflow signed int.
->
-> If that wraps, radeon_mode_dumb_create() can end up returning an
-> invalid pitch or creating a zero-sized dumb buffer.
->
-> Fix this by using check_add_overflow() for the alignment round-up and
-> check_mul_overflow() for the final pitch calculation, returning 0 on
-> overflow. Also reject zero pitch and size in
-> radeon_mode_dumb_create().
->
-> Found via AST-based call-graph analysis using sqry.
->
-> Fixes: ff72145badb8 ("drm: dumb scanout create/mmap for intel/radeon (v3)=
-")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Werner Kasselman <werner@verivus.com>
-> ---
-> v3:
-> - Squash this fix with the earlier zero pitch/size validation change.
-> - Use overflow helpers for both the alignment round-up and final
->   pitch calculation.
->
->  drivers/gpu/drm/radeon/radeon_gem.c | 13 +++++++++++--
->  1 file changed, 11 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/radeon/radeon_gem.c b/drivers/gpu/drm/radeon=
-/radeon_gem.c
-> index 20fc87409f2e..8ce180e22d1d 100644
-> --- a/drivers/gpu/drm/radeon/radeon_gem.c
-> +++ b/drivers/gpu/drm/radeon/radeon_gem.c
-> @@ -28,6 +28,7 @@
->
->  #include <linux/debugfs.h>
->  #include <linux/iosys-map.h>
-> +#include <linux/overflow.h>
->  #include <linux/pci.h>
->
->  #include <drm/drm_device.h>
-> @@ -812,6 +813,7 @@ int radeon_align_pitch(struct radeon_device *rdev, in=
-t width, int cpp, bool tile
->         int aligned =3D width;
->         int align_large =3D (ASIC_IS_AVIVO(rdev)) || tiled;
->         int pitch_mask =3D 0;
-> +       int pitch;
->
->         switch (cpp) {
->         case 1:
-> @@ -826,9 +828,12 @@ int radeon_align_pitch(struct radeon_device *rdev, i=
-nt width, int cpp, bool tile
->                 break;
->         }
->
-> -       aligned +=3D pitch_mask;
-> +       if (check_add_overflow(aligned, pitch_mask, &aligned))
-> +               return 0;
->         aligned &=3D ~pitch_mask;
-> -       return aligned * cpp;
-> +       if (check_mul_overflow(aligned, cpp, &pitch))
-> +               return 0;
-> +       return pitch;
->  }
->
->  int radeon_mode_dumb_create(struct drm_file *file_priv,
-> @@ -842,8 +847,12 @@ int radeon_mode_dumb_create(struct drm_file *file_pr=
-iv,
->
->         args->pitch =3D radeon_align_pitch(rdev, args->width,
->                                          DIV_ROUND_UP(args->bpp, 8), 0);
-> +       if (!args->pitch)
-> +               return -EINVAL;
->         args->size =3D (u64)args->pitch * args->height;
->         args->size =3D ALIGN(args->size, PAGE_SIZE);
-> +       if (!args->size)
-> +               return -EINVAL;
->
->         r =3D radeon_gem_object_create(rdev, args->size, 0,
->                                      RADEON_GEM_DOMAIN_VRAM, 0,
-> --
-> 2.43.0
