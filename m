@@ -4,58 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C9DD9F436B9
-	for <amd-gfx@archiver.kernel.org>; Fri, 17 Apr 2026 16:08:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8CD0BF436B4
+	for <amd-gfx@archiver.kernel.org>; Fri, 17 Apr 2026 16:28:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4B87910E2C9;
-	Fri, 17 Apr 2026 16:08:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2C42710E097;
+	Fri, 17 Apr 2026 16:28:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="wGZcKlC+";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Oh9mCKFJ";
 	dkim-atps=neutral
-Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3355310E2C9;
- Fri, 17 Apr 2026 16:08:16 +0000 (UTC)
-Received: from smtp2.mailbox.org (smtp2.mailbox.org
- [IPv6:2001:67c:2050:b231:465::2])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4fy0Cw1dHpz9v1C;
- Fri, 17 Apr 2026 18:08:12 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; t=1776442092;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=EEOhFI6FMsYr3RqKHmLgf8SxXkclhRS7RnspH6Yfq0g=;
- b=wGZcKlC+Heacy4BW43Xr5h4S0JK+GbQFfYPP3fnrP0ScSl5R91M/E+N/PWsw4j2pz1/X6c
- sEVZeQYT6XwXuLafjnxY0TlAJAQYSeVpt8lOyZoTS7hDL2PjDDnKiKWN4lnyf9vzB4IQ+8
- k7wExmm+GYZvNHjTUwJCBtOOPG4KhZeiWz1uTX/cvWS3ZhQOcC4Lh2BM+dRT4YpZaVLW8F
- aOLw1GHNqv91vKq3ZLai/lF81MnNgzLklhe16aFF2CEr6HqF0Dj+I9nVmT3uCqbgwGHINI
- s+q2g6lbbZ/zVHcPfzYu+X2EdxvrNqFlL2GMxYNjGs314r90X/W3F/+48E8Hkw==
-Message-ID: <07072379-32c8-4912-8539-7fa590abf544@mailbox.org>
-Date: Fri, 17 Apr 2026 18:08:05 +0200
-MIME-Version: 1.0
-Subject: Re: [PATCH v3 1/2] drm: introduce KMS recovery mechanism
-From: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>
-To: Hamza Mahfooz <someguy@effective-light.com>
-Cc: Mario Limonciello <mario.limonciello@amd.com>,
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 50A3F10E097;
+ Fri, 17 Apr 2026 16:28:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1776443332; x=1807979332;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=5nXwJ1p+e+YdXF09wEe4PHC4FbUvtavabcxZ4YAKq2c=;
+ b=Oh9mCKFJKZ7XONGRw5+Zx0tVSU8vreV8gN2HMASMC0dFB1syljnGLi8L
+ CAQ4i0im8TcBjwu7/rdt6a0LTlfx7ySpa8arXAtKJWLy6nn5ivJPh+GL1
+ l9+XbdqLpIqyxoi6ouzIpR3z/klatqsaGUhq5S4YQZ8ceGY5PLoqR6Dp6
+ DOJfMKcxW6WENjMU7yW9aKDltyRn92DvfjHlpTh+IGEzIlwANzrr0sfgf
+ yubPZ57OG4nBYb+FANIkenTp7i8enOx4VfltHl86FmAHbrAXX2NWpp2vy
+ WLqAnJTul/gCv0CWlS49PLHiHCtLB9miO1GID+4tBsqZfKwqHxU9epYZM A==;
+X-CSE-ConnectionGUID: cB/M9RMzRO+ILtzoe584sQ==
+X-CSE-MsgGUID: q0vk4I5XSw60aa4lqwIvAw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11762"; a="102921428"
+X-IronPort-AV: E=Sophos;i="6.23,184,1770624000"; d="scan'208";a="102921428"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+ by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Apr 2026 09:28:52 -0700
+X-CSE-ConnectionGUID: gLKT2Z88Q3esgqpRIUGBzA==
+X-CSE-MsgGUID: CAyb2lqRSrS24TmUoPjLEg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,184,1770624000"; d="scan'208";a="236043344"
+Received: from zzombora-mobl1 (HELO localhost) ([10.245.245.176])
+ by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Apr 2026 09:28:46 -0700
+Date: Fri, 17 Apr 2026 19:28:43 +0300
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Michel =?iso-8859-1?Q?D=E4nzer?= <michel.daenzer@mailbox.org>
+Cc: Hamza Mahfooz <someguy@effective-light.com>,
+ Mario Limonciello <mario.limonciello@amd.com>,
  dri-devel@lists.freedesktop.org, Harry Wentland <harry.wentland@amd.com>,
  Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
  Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
  Alex Hung <alex.hung@amd.com>, Wayne Lin <Wayne.Lin@amd.com>,
  Aurabindo Pillai <aurabindo.pillai@amd.com>,
- Ivan Lipski <ivan.lipski@amd.com>, =?UTF-8?Q?Timur_Krist=C3=B3f?=
- <timur.kristof@gmail.com>, Dominik Kaszewski <dominik.kaszewski@amd.com>,
- amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
-References: <20260212230905.688006-1-someguy@effective-light.com>
- <2e359cd9-0192-44d0-886f-7f93a8b0a4fa@amd.com> <aY99D-yXVydpMdwy@hal-station>
+ Ivan Lipski <ivan.lipski@amd.com>,
+ Timur =?iso-8859-1?Q?Krist=F3f?= <timur.kristof@gmail.com>,
+ Dominik Kaszewski <dominik.kaszewski@amd.com>,
+ amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 1/2] drm: introduce KMS recovery mechanism
+Message-ID: <aeJfu0CQwMGEsidC@intel.com>
+References: <2e359cd9-0192-44d0-886f-7f93a8b0a4fa@amd.com>
+ <aY99D-yXVydpMdwy@hal-station>
  <85319290-4027-4eb8-95d1-9009d23f2294@mailbox.org>
  <aZD0W7V_6--2yqNK@hal-station>
  <7f4a86ad-d642-444c-a576-17ff9caaa934@mailbox.org>
@@ -63,12 +71,15 @@ References: <20260212230905.688006-1-someguy@effective-light.com>
  <8588dcbc-621e-43db-9d69-32398f75d9e6@mailbox.org>
  <dab8d21b-1d28-48c6-87bf-f2060e2d2f1e@mailbox.org>
  <d7c7a96e-1686-4878-8b96-92c3427b2f6d@mailbox.org>
-Content-Language: de-CH-frami, en-CA
-In-Reply-To: <d7c7a96e-1686-4878-8b96-92c3427b2f6d@mailbox.org>
-Content-Type: text/plain; charset=UTF-8
+ <07072379-32c8-4912-8539-7fa590abf544@mailbox.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-MBO-RS-ID: 7bd649e8221e05cb222
-X-MBO-RS-META: 9tfp87rtgrzx9dptw3urqkdx3rj9fxm5
+In-Reply-To: <07072379-32c8-4912-8539-7fa590abf544@mailbox.org>
+X-Patchwork-Hint: comment
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,39 +94,49 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2/20/26 10:09, Michel DÃ¤nzer wrote:
-> On 2/20/26 09:42, Michel DÃ¤nzer wrote:
->> On 2/18/26 10:22, Michel DÃ¤nzer wrote:
->>> On 2/18/26 01:45, Hamza Mahfooz wrote:
->>>> On Mon, Feb 16, 2026 at 10:28:13AM +0100, Michel DÃ¤nzer wrote:
->>>>> On 2/14/26 23:16, Hamza Mahfooz wrote:
->>>>>> On Sat, Feb 14, 2026 at 03:02:49PM +0100, Michel DÃ¤nzer wrote:
->>>>>>
->>>>>>> In principle it's possible to do (the equivalent of) a modeset with the current state for all CRTCs, no need to do it separately per CRTC.
->>>>>>
->>>>>> AFAIK that is what the uevent is already doing (unless I'm mistaken).
->>>>>
->>>>> This is about just doing a full modeset, which isn't something user space can do in response to a wedged event.
->>>>
->>>> I was referring to what compositors are doing in response to
->>>> `drm_kms_helper_hotplug_event()`. Perhaps, the enum constants should be
->>>> renamed, since the forced modeset is actually sent when the current
->>>> reset phase is DRM_KMS_RESET_NONE (the phase is updated before sending
->>>> out the event though).
->>>
->>> Ah, you're talking about the drm_kms_helper_hotplug_event call in drm_atomic_helper_wait_for_flip_done (I thought "uevent" referred to drm_dev_wedged_event in patch 2).
->>>
->>> I don't know about other compositors, but I don't think mutter will do a modeset in response to a hotplug event if no KMS state changed (because some monitors can generate spurious hotplug events).
->>
->> [...]
+On Fri, Apr 17, 2026 at 06:08:05PM +0200, Michel Dänzer wrote:
+> On 2/20/26 10:09, Michel Dänzer wrote:
+> > On 2/20/26 09:42, Michel Dänzer wrote:
+> >> On 2/18/26 10:22, Michel Dänzer wrote:
+> >>> On 2/18/26 01:45, Hamza Mahfooz wrote:
+> >>>> On Mon, Feb 16, 2026 at 10:28:13AM +0100, Michel Dänzer wrote:
+> >>>>> On 2/14/26 23:16, Hamza Mahfooz wrote:
+> >>>>>> On Sat, Feb 14, 2026 at 03:02:49PM +0100, Michel Dänzer wrote:
+> >>>>>>
+> >>>>>>> In principle it's possible to do (the equivalent of) a modeset with the current state for all CRTCs, no need to do it separately per CRTC.
+> >>>>>>
+> >>>>>> AFAIK that is what the uevent is already doing (unless I'm mistaken).
+> >>>>>
+> >>>>> This is about just doing a full modeset, which isn't something user space can do in response to a wedged event.
+> >>>>
+> >>>> I was referring to what compositors are doing in response to
+> >>>> `drm_kms_helper_hotplug_event()`. Perhaps, the enum constants should be
+> >>>> renamed, since the forced modeset is actually sent when the current
+> >>>> reset phase is DRM_KMS_RESET_NONE (the phase is updated before sending
+> >>>> out the event though).
+> >>>
+> >>> Ah, you're talking about the drm_kms_helper_hotplug_event call in drm_atomic_helper_wait_for_flip_done (I thought "uevent" referred to drm_dev_wedged_event in patch 2).
+> >>>
+> >>> I don't know about other compositors, but I don't think mutter will do a modeset in response to a hotplug event if no KMS state changed (because some monitors can generate spurious hotplug events).
+> >>
+> >> [...]
+> > 
+> > [...], a reason why the kernel can't just do a modeset itself occurred to me: A modeset might affect other CRTCs than the ones affected by the timed-out commit, which could interact badly with other pending commits affecting those other CRTCs.
 > 
-> [...], a reason why the kernel can't just do a modeset itself occurred to me: A modeset might affect other CRTCs than the ones affected by the timed-out commit, which could interact badly with other pending commits affecting those other CRTCs.
+> In a different thread, Ville (added to Cc) said this shouldn't be an issue.
+> 
+> In which case this would seem like the simplest solution.
 
-In a different thread, Ville (added to Cc) said this shouldn't be an issue.
+Yeah, so extra blocking commits will just make everything (including
+subsequent non-blocking commits) block on the modeset mutexes before
+the -EBUSY check even happens.
 
-In which case this would seem like the simplest solution.
-
+On a somewhat relatd note, some time ago I proposed making blocking
+commits also do the commit_tail part locklessly. But realizing that
+something might depend on the current not-actually-nonblocking commit
+semantics I was careful to preserve that even while dropping the locks:
+https://lore.kernel.org/dri-devel/20220916163331.6849-1-ville.syrjala@linux.intel.com/
 
 -- 
-Earthling Michel DÃ¤nzer       \        GNOME / Xwayland / Mesa developer
-https://redhat.com             \               Libre software enthusiast
+Ville Syrjälä
+Intel
