@@ -4,122 +4,122 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8E1C1F8E4B3
-	for <amd-gfx@archiver.kernel.org>; Fri, 17 Apr 2026 07:22:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90B61F8E4B4
+	for <amd-gfx@archiver.kernel.org>; Fri, 17 Apr 2026 07:25:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2437710E984;
-	Fri, 17 Apr 2026 07:22:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 23F3110E985;
+	Fri, 17 Apr 2026 07:25:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="l3N1WdYo";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Z3YZDaDW";
 	dkim-atps=neutral
-Received: from BN8PR05CU002.outbound.protection.outlook.com
- (mail-eastus2azon11011050.outbound.protection.outlook.com [52.101.57.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9B7EB10E984
- for <amd-gfx@lists.freedesktop.org>; Fri, 17 Apr 2026 07:22:46 +0000 (UTC)
+Received: from MW6PR02CU001.outbound.protection.outlook.com
+ (mail-westus2azon11012050.outbound.protection.outlook.com [52.101.48.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8351E10E985
+ for <amd-gfx@lists.freedesktop.org>; Fri, 17 Apr 2026 07:25:02 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=y4+qrs7bT49GcluMtYcWi9lNOoHB9BCiTxJR82kzqbyXE6NLdhmFehoe1UzFLPeevl0CW49Bjt09KyWFoAUvKR8CBANevx+6whyEA/PRGTUtI9WG5/VQecyjcZUBZwFoXyvjo2YEB9zR/bidqb5Mh17zkpJL/calOztnFkWNref2/pVFqT2UTADqtKU3rs83XBcWfvcayDo8F+z6ojtEDi5rhj7h+wNGv81d7JCUwBXG3/29xVj7G90/sTa39ZFDh9zh8b6k4LqGqfu/xAOVoSs9StBcfZ65pNKnDhveLXiUL/OqkEAgWxgP2y7amq3ONpr19ScIHX+tFP9k8br1mw==
+ b=qzJXUysot+oH6CHkL32zvLuKaiDlFZ2ZHfRVtjcsGuNfb9TwpIXzJpA2HCzBmxV/TpFKfPGA6Fo/2I95CgEss9q07fLcoc26KjqXSHPx26hyNveto+yJjuBmmG6B5yAPAOqcYZdML3VlDKGkdPNc/WU+YuUt21n2fCJqD2SKhz9QBdlQ9G3gkxH3HO+irOD44kLTRQHqzb7FDkBVIZaThjxHQYIQax6YJoPtnywhq5FFX/ApWh22qzooC6/OioDrJByKwn4WTZi1AStfY29Iu04SVzFZXpXA1vLmkqSeYfAYyP/J4q3FDQNycKKN3WC5f3II7gQqpCoJPyvpyCOU0Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=4rnJ/DQDfDsULp4IFFfKEI2NOmjKJn4DV1YSEO8GI3c=;
- b=BMBe/U09Itv0YMo8ocy8R5xyK/m+pOWMBhQnUdnRgRL1gdBUcb7kP7XAoEhBZ9BqpIN1npzMXeNPodA5HXO3UJKN2jcNT2rfa/fAUiQ4pQyH+Xw6GbeHFcgYCb51hMZs1vIkPLIT1pLHCGplG2HzqApFdUweWE4v4TE07Dw93O9mG4MOIKOKZuOfOpx/GIXEmCbdYDSVX0Sx+foe4+yzkeLLvYQ5YH2nXHSN9ROHB9B2uQfOD6BEKjU02xB2KO6LSRX29Pl7xdu1Ndrj7T5RNt8hdlOy/lUxmtq/B639phvMOiQCGLGhv2nAwaj6qbBO6KwFmNwcTQUIrrBQuLe6FA==
+ bh=IyxQBN/+AeGWRsfQDJP1JDiK1+i/iqVS/XwkB67JYi0=;
+ b=RN5BgvnEkvr/nm60x6pH1x7sMe9k4c92Ep/ndgM1ifq9qoBd9EfU7x1fWXcnjD8lNFCJmpCz5uILjEeCHRwTSYE+sCZn7dcONQhAjMAJmPiW+l3P6G/1moeuZ4Z6Qkv97lKjTSdZzFgy4ZvMF2BV6nbp8i0a3vtkf/cs0/3NouBUVex6OZAjnUPl80FbMLtMpM7DXiD/aJNLuAQTkAtlF/PQL57R4XQF+AfK7S60Nyq+wkEMnYqXr1gIEMP0jVNCgbuXtCHcSaMi2T/rcgkN5w3p9Y9ha6LTpyt93Ehjyag7lF0VsS+O5IlTD3ujRRBgCLDACTq1yp5UyIACNg6o6g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4rnJ/DQDfDsULp4IFFfKEI2NOmjKJn4DV1YSEO8GI3c=;
- b=l3N1WdYoz9ECHbNdh3+DFW8M66m6NLWO0niAjkkvP7NeXi2Yqhf6Cs1ylNnok6ibfLt4t/yhSDjPUEt7sHCdQSQhjqoUTU/zNYaB5UuZz8GWQ728k/AlXrPjEeGRFnRq2ZBIgEZMUNO+MjV/+r2u8nClYtCwy39iaswiCCUzWdk=
+ bh=IyxQBN/+AeGWRsfQDJP1JDiK1+i/iqVS/XwkB67JYi0=;
+ b=Z3YZDaDWUkBdBTljiAB2IVQp9u/Hw+xlJ6V4uDq5nSLM/CuYPn0lxSg687trvKwI2i8D2/iYoGAJHK7Ue0N5gySfwpp4rX+xmFmcxXsceM0IbMc0Z0DXoUVyBpNyY8CYkVyTJBTvmvE8saltItbJzBtl3hpTBNj2Zj8DNFpGGJk=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
  by IA0PR12MB7698.namprd12.prod.outlook.com (2603:10b6:208:432::19)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9818.25; Fri, 17 Apr
- 2026 07:22:43 +0000
+ 2026 07:24:59 +0000
 Received: from PH7PR12MB5685.namprd12.prod.outlook.com
  ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
  ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.20.9818.017; Fri, 17 Apr 2026
- 07:22:43 +0000
-Message-ID: <5ee27a79-90b7-48ba-9fca-a87705e319d4@amd.com>
-Date: Fri, 17 Apr 2026 09:22:39 +0200
+ 07:24:59 +0000
+Message-ID: <b7656601-bbcc-4dc0-bbe7-7ebe8e5ab777@amd.com>
+Date: Fri, 17 Apr 2026 09:24:55 +0200
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 5/7] drm/amdgpu/uvd3.1: Don't validate the firmware when
- already validated
+Subject: Re: [PATCH 6/7] Documentation/gpu: Add TCC, update TCP in amdgpu
+ glossary
 To: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>,
  amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com
 References: <20260416202643.25350-1-timur.kristof@gmail.com>
- <20260416202643.25350-6-timur.kristof@gmail.com>
+ <20260416202643.25350-7-timur.kristof@gmail.com>
 Content-Language: en-US
 From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260416202643.25350-6-timur.kristof@gmail.com>
+In-Reply-To: <20260416202643.25350-7-timur.kristof@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YT3PR01CA0104.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:85::29) To PH7PR12MB5685.namprd12.prod.outlook.com
+X-ClientProxiedBy: YT2PR01CA0010.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:38::15) To PH7PR12MB5685.namprd12.prod.outlook.com
  (2603:10b6:510:13c::22)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|IA0PR12MB7698:EE_
-X-MS-Office365-Filtering-Correlation-Id: f6e21c06-7f50-485b-1844-08de9c521dea
+X-MS-Office365-Filtering-Correlation-Id: 40763008-823f-4f00-3fd4-08de9c526ed6
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
  ARA:13230040|366016|1800799024|376014|56012099003|22082099003|18002099003; 
-X-Microsoft-Antispam-Message-Info: XNmMT8xPO4qDiH1HI0qP9K8gRM097ohd8u2f09i5x3ZX8IKSaiqSfxjZK+DFrz4inci6L5A7HFOV577ZNcf3BmZfp5A2NprbjOxh+UDTtLVY9Whpl9VeFSFUYKkYC76kp6mwOHxqd/lbNRIffYzicZkAVGV3lT+PV97wWn/OTkSIgYSeWwZN4vsOLGp1NaY+YCObYattwRnoRDOE5ERBXQGELQqtZsbGmf+HkzGMEIGeVNECTUvVv23ztiUtBT1KujMga+eg15i2ORgQEXyvQt1glqgbrN+Gj0xeB7V02/9zn92Bv1YBDanxD9X66oC8HGr6FmPJzcIgwH/gcDLGejzxdbOc69033Mjm+bS7r/yITCNNjZUb2JQjFe+lZ9peXpQrhrMJulYUD7kFA23bcs2EaQ6xLGZC3hnmnYO/0QLLeh8iJ5GtjjKQMtm5o5ywzyCRNkDT9arInyPfraW3E3ag+c5/gOTWGP79CI0X3hX2lYFmqmcuQUgi5w3G9hTALmi3gyp1pIaj+oCImam6+qXSGdTAKztPum6cK8XqAxeKOdSl2V7X6+Pwhwflx3lSBfRIHgfeWeyzvFkqZkMDpxR3e+2NpC4zuL2J12pfW3hTS6TABUw6G0zKGcW/ce1VN0PkEI4dslZcYO64vhPp1krgZJL0J1dLFq4C8GlAR+1CyTqdJuNrXkYCoeeH4cZj
+X-Microsoft-Antispam-Message-Info: s7fM+y2REQ34iJrrFS573knXQTe39MkQy5TqpDOXnhq30yz44mwFnfC+m0ZL/Xv8XmTZ7fSZbBMWtjhFIF93mW9iiwrB04fwtIKx+nd5hhxg/YelfTtv5QPBRF1rtwhqi/5tVMePK4DbF1Ind0lynLOG99XqACOKx+IR7ZfkJdsXSemGDM9teCH2oBmzJY3BlXs6DksQMmt0t99Khr7cGLALvvT+hw1nNU/DEHdwSI6Qdsyi6H0foTEB8EjhC8yFJx47wVzVH6EOO2SEHp38mJwh62npUtckLuSUSh/CGM97jAlLpNG4MoV1wcGPRRhhMUdArrU2riSpME+jAMupbRGDqaVeBCU41c+n7MF+lY4TuyKV6cgYMwdcuFEisKWQOcRI4YaOHu7lZ5v+fEDYPyr11OAOnQUJxT42O5rMnndVKxkmFSxPoxQP3REvPx8VSiITIi0sqKZzGKc9u30VNHkvK1YPOtURPalfo3BIr5pfm+UgJ/RfG8D86gVCKoYzJiFeRi6wnAV+mrheAoHrlMJ5sSKe7aAOoMHETeEhm3TnGY2UdpPeKzp4NKUWrE7EL8qThh85tuwU5dCARVkVzFFaXC4XQUUIdXaNOUZ6wk44KWD25998qK5y+5W4QMV3ssAz7zGvYMwfrKtXdq0V/yLU+Ausm08aA3g/Bvyiqj1DHxtLFgJpDn+MpjjpKqRVRzXA90AhkK2dint2ZecvphTlhhsNwhRcD/czeoHKxz8=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFS:(13230040)(366016)(1800799024)(376014)(56012099003)(22082099003)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?QUlnbHF2YWkraW54OFpDTVdrTWMxMjV6REdyZWJVZGpFN2ZxQkhVQTA3MG44?=
- =?utf-8?B?d0QzWmM5MHVMdHpnaC9kakFHbXlNd3Fma0duczg3RnpId0dqWnEwbUUzRUor?=
- =?utf-8?B?MytTMm43N0dVQS95b0FmSVhhcnVpdG9MQXpuOWNYYWRjTE1xbXRBZHRXRm1h?=
- =?utf-8?B?U1l4TXowM1F1dmlibkZRS1ZrNXZhTmxCOExpcFQ2MUROUmxqMjhlVkFrU0Fh?=
- =?utf-8?B?eTBmTmRnSmw5VmVQU0IrM0xvbUFwbDJVc29uRTdwS0d1Q0FLQUE4WXh2enBm?=
- =?utf-8?B?Rk5ibm1wcm9WdXlsU3FHeGNEWHQwRklJcUtVd1dOdDFxbGtlRTRtYUt3WTEr?=
- =?utf-8?B?RG1lOEdpbzdTY2xEelNOdlpXdDVwd3lKTlFSUHdUMUI2RWdUYkhIUCtRT1p2?=
- =?utf-8?B?WWdPMmliTHN4UXpEMEgrNUF0djBNN25RS2pkdFBrOHZpazlESkRyVlpKa1JB?=
- =?utf-8?B?ZitMZXlIMEVNalV0NkprQ0I5endYd1F6NlNVVlZTQTcwL3F0KzVUNTJwSlZM?=
- =?utf-8?B?bmhHaGE3YndNM29DZzczOXZzaDB2UllNZEVmS3kyQ1dtSHZCVG9NOXZUTlhW?=
- =?utf-8?B?a1o3ZTd3U3RjYXNrU0QzeEoxbzdjZnlUbVhySEN3QlBNM05XRXdTY2lnTzA0?=
- =?utf-8?B?Yld1VFBQb0FnckhTeUxQUmJQSXU4LzhSYjBzMkFYRXpZMlhLWkUwa3h3N0c2?=
- =?utf-8?B?Z0hpUVM4OUFVT3VpcTJSU3ZjdWZqdllrQ1ZSQURHb1k2dEo1R0dkci94elBw?=
- =?utf-8?B?LzV6OCtqRVZvRTY3WDU1ZzBSKytIVC84aWxHdFJFOVJvS3NyYmx6ZDEzZWRO?=
- =?utf-8?B?dDdac3Zsa0tBWnA1emIzalFaVGhrMXZZTnVKTHhoU1BqbUhybWVBOXVvSEFP?=
- =?utf-8?B?Sko4K1FuUWc0djQ5Z0orNWM5Z3lmLzVYcWUwREpaNWNIamtwZmRyc0JacmUw?=
- =?utf-8?B?bkVCbWkxSDZ0a0xXNmNiRnZTTWYrL3VEeitIdHUxdUNUdWFzVlJ5SDRIZnFh?=
- =?utf-8?B?NytXT3JET01TN21WMG1ScEs0dnhTdlAxVDBJandGcXZBY29ReXFhdWkrMVdT?=
- =?utf-8?B?Rks4anJkdU5SZ09pLzdaUWNQZitmNllOYk5CTnNHYVZMSjJrZi9aU2xjUjNB?=
- =?utf-8?B?Y3E3amhlSlpmdEo4eEJ3YWttQXlEVDlBeUFNalFORVBvdEhmeVpLUTdERUxS?=
- =?utf-8?B?b01EYnVKOFVGalFKUlRVZ3hBd2RnaFkreUtSemJnTEtUTmFkaWE3WHFET0FH?=
- =?utf-8?B?ODc3UGlhNWw4RGNBR1lQelI2UFJUdy8rWFBiVlhaUDVvWElkNTM1WGlkUWs1?=
- =?utf-8?B?TmplVDVxQWh5MzJja1dsN3R6amlzZ3dmUm9jdnRnektMT1hRWU1mUTFlOWhu?=
- =?utf-8?B?aUVUMFNtSWJtR1lPeGJzekFpSnV6YTJocXlZZ2NHL05kRjBiYXNkZ3Z1VmxF?=
- =?utf-8?B?cXdSYU9oVFVqUTNyZEd3WG9xaDBFK3lsbUNmKzFMdnFiclpTMklmYUFmOXl5?=
- =?utf-8?B?L0JNTzRHRGRVekdHeEFyWUdLSXpQS003Q0lKaTFPTnYzZ294N1pub0NITHVq?=
- =?utf-8?B?dDNJWWdsQ0lTUzZhKzhEK1NscE9FQnVqd3YzVlY5NEtWc0IvRldjVXhvdkFJ?=
- =?utf-8?B?cnRTdk5YMjE1SjhFeHFxT1dlR3BvYnVvRTRKK1psdmJCaDZzOUgvUHN5ejV1?=
- =?utf-8?B?eGpKMkVFSU1pM3VBWm52ZnkxSGJJQ1d2NTlLK1VQZW1CM0tKa2tibnRBRHhk?=
- =?utf-8?B?MENKenVhS3JMUFUwcHB0NnVhUjMzRnU0OWEzaGRBNjJNLzRqVmhLVUpSQmFV?=
- =?utf-8?B?SkJ3NmRWQ3hzUUJ5WlZ0SVFOUWlyeEYycFVvYTFYZCtwZUdPQ0ZVdzhPWGt3?=
- =?utf-8?B?NXRKeS9JS1VUV094V0kvRmQ1MGs1MUM2YXA1RU9XQ1N1UVJOM3ZqL0hBQk1Y?=
- =?utf-8?B?R09UY0NGbWMvYXNyVWd1cjEwM3p3RHJmVjAxMU5Bc1NPQmtHc1V5dG5qd0N0?=
- =?utf-8?B?VzZEaGNyUk5TUmFiZXRKSUxyT2dGajJ2MUc0aWpsdm05MWdieWRXc0Mya0JP?=
- =?utf-8?B?aVY5TmpzU3BLQ3JTSktxblVPVnhpUjFsaENncW9EZHFId2U1ekNqVGp6WXFC?=
- =?utf-8?B?NGRKemgxVXVjUG80cDRYLzFQclNqM2M0bmJmVjB6YzhreWN5YmVONW1wUE9C?=
- =?utf-8?B?SXVTUUtHWDVkZStEN2I3M3FoK21HNUpSY3U3ZjVrTDFjMnliUXdZMVVRNThx?=
- =?utf-8?B?K1luY3ZuTzhKU05wQ2RxUHlPS1VMdjY0dGlrN2diWldUbVlRVkRuWVNZbHp0?=
- =?utf-8?B?QmNvalM0NkxubFhsNk9PVFpyelNZcVhVRVJUZmtYaGI1YXhPWm0zUT09?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bElLQ21EMmVSVlZJUHlUUEZhcURiS3ZlclNWeElKVTNMaG9jYVhCNk80aFo1?=
+ =?utf-8?B?VC83MGZIQndyQ3dXdzVCVmsxa2hzYXl6elZuV3BiSHFySXczeFJsUElWaHpj?=
+ =?utf-8?B?VUNCUnFxNmYyNlg5MWJEbEw1bE0xbDc1S3NSNFl6azBkemJCZW9QdHZzaDlm?=
+ =?utf-8?B?bUhmU0p2VVRmUWZrd01ZVEphd1FiaDBKMDhiWjFGbk1DeDRydzZaK3o3eWFs?=
+ =?utf-8?B?NkFEOHRFbFI1S1ZKSWNpY3o0Qnc2MTJVSlExYmhQL1djc3l3SjZ4NVZsYXhQ?=
+ =?utf-8?B?N2ZtdGhuWW1GVEpCSWpaMkxJREp0RUl4WFRoNXllQzRUTDEzRlc4dSs3Q3o3?=
+ =?utf-8?B?VWJPUlc2VG9GcnJGUFlweXhLMXp4Wm1BYjZtWHlrOW56NG9jamNwK2ZJT1g4?=
+ =?utf-8?B?dkRtdElIR2s2UGpzK0hucVkrUVFRam1ONG05UTFKWVBLNWg0KzN5bUtiZmVs?=
+ =?utf-8?B?WWh0bjgwQVpUNnJvMmZxRitjSTI1cForOFd2VW5PcGtWL3l5Tld3dllGYlMz?=
+ =?utf-8?B?cHBCZy9yZFFvZk15dWlONkhxWnliZDVOQko1ZnBHSnlPazBoVXpKejRHUy9h?=
+ =?utf-8?B?dERneHVUblNVRElJS09WWE5RVXA0NXhTdGtsMU5tMk1MMENhclBnY3pFdTJy?=
+ =?utf-8?B?c0xQcVlsbWVubm9mL0VjRGRoT1VTOHFUNm1iRXNva2h2MWZrMDJXQ2JWb2tz?=
+ =?utf-8?B?czg2eEJMNGlPbktwMFhwTjhlak0yeTRmeXQySDJzeDQxb2krOUJtazRBSkdF?=
+ =?utf-8?B?RlBZZ1M5NGNhNmI4YUI4VjYzb3dsOHJCamJXOXJ3YUw1cW80N2FPTDV2cmR4?=
+ =?utf-8?B?bm9sQ203OTl1NFJXUEYyT3Q4ZkZZZHpzdm55Z1BVSmtQUmRsdFlYejc2UlBp?=
+ =?utf-8?B?YTZYYVFiOEdNcU81eVgrR05Zb0lBZDQvQWZJbWVleGk1RjRLektVblZRSTdP?=
+ =?utf-8?B?NWppcEFtUHpJUHRHMEpuZ016TDdEZEJldEFZeWZTa1JFTXEyd2duUFBINTMv?=
+ =?utf-8?B?SWo2OVJtZWlNVDdUVVZYK1pRSFptUHYyYkNNVS9BQlV4eDZ6bEFFcHlvS1FQ?=
+ =?utf-8?B?UjZGc0FyR09YVXllYk5sUUkvL01RUytpb2tSZk96UlY0blc3Z0hPbmg5Q0pN?=
+ =?utf-8?B?RExjMWpraWdHN1p3K1kwNE9XSzVxaWJyOW0yaXZxallvT09PT3B3dW12Q1Yy?=
+ =?utf-8?B?QVc4QmRBb1dBR0FZZUN4QUhPRGVVZ0pKUWRBeW9xN2d4N2tIQVVFaUxCaTM2?=
+ =?utf-8?B?N1piNlR0WG5tdkVFaEUwbDY4RisrZEVpbE5wcXFhQjVjUVpBWjJVaUtvM0sv?=
+ =?utf-8?B?bUhJNkkrUnpjdE84K1l5Q0xrdHJWc2NWUnJGODlIL3dGSW84ckJDYW5rVlRs?=
+ =?utf-8?B?NXJxVURuWGVTZGwvbVNRNlY3bHQ2ZFRIbXBZWEdydzRtek45QjFCaXdja0lJ?=
+ =?utf-8?B?WXJyZGV1SmNwNGg2WXVuUFJncDJDbkJEZng5VnV0WlVnMTdBc0YrMi9NcG9l?=
+ =?utf-8?B?c2ZYMW9VVW9LcEpNcGJyMjVwbEpaZHhQbjlyV0g2blcvc1JHejk5VThTdEJE?=
+ =?utf-8?B?UG5jN0RhMGRmTklBc3RzRlFtVk5sTzJQcmdCc2xaU3pKUEdFQ1AzcDdscHhH?=
+ =?utf-8?B?bXl6YzVqTHk5Y3diTUlPSFNEOGMvNGdtMnlxU3lURzlpK2tuZ0FlS1dpNDVr?=
+ =?utf-8?B?RUdXUmoybFpsZ2dIemZ6Wk02MXRXeERXRWUrSThYMEF1b1UxN2RRTHpjc1Rt?=
+ =?utf-8?B?TU1UMk5yWk5ORWRuWVNWOW5UNkRkTExyWVJZemp6Smt4T0NTeHdpRXBHQVZm?=
+ =?utf-8?B?UjhjQ0JBQUJtaks5aDZ0RFJkRGZlMURGSTJQb3R1QkcyelBZMjd1UHljUHIx?=
+ =?utf-8?B?ejI0dTZHcXU4TEVhSHhuMGY3WmJFWERLMGcxMWMvOFBFZzF2YVhiTHdhSk81?=
+ =?utf-8?B?S0lFUk9vamJMcEU0WFVhZ0NNNmx2QUJoQ3p5MUZWLzhZTGt5b3NsdThJakNB?=
+ =?utf-8?B?ZXQ2Q25KNXRZeTZ6aDAyRHR3d2JlbjBEMkFTTVJSN0xoMXFLMzY0bmw0NVdZ?=
+ =?utf-8?B?SDM4dmNCeWRMUGhmQVZUby9ocytUR3FkYlc3TmVvRER2RnpPZmV6NzhmbmNG?=
+ =?utf-8?B?aUp5R0xZTlh2NU5IaWpSaEp5bVd3a3hxV0FyaUQrS21LN04rUW94Tjh6NWFn?=
+ =?utf-8?B?eUZ5Z1RadC9WTStMSUx4M0tMVHppZjFmQ01tR2gvdmQ5L05NTDViWTZ6Tlk2?=
+ =?utf-8?B?VFBaR0t4b29JY1FXZlFHblUvRVdsYUlRSWtTN1poWTFLbGtCbCtoMDhCWCtQ?=
+ =?utf-8?B?RlJxa2R0MjM2QzJiYTlvLzI5V3NyM0RadUZBZktsVjFpZEdYWHJvZz09?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f6e21c06-7f50-485b-1844-08de9c521dea
+X-MS-Exchange-CrossTenant-Network-Message-Id: 40763008-823f-4f00-3fd4-08de9c526ed6
 X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Apr 2026 07:22:43.7914 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Apr 2026 07:24:59.5631 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: l026TWCfqwyFbQqy6L+ColNjV+//tmnrGzTc8++OUNbvM/9nJD4jaH4xPRjDsJmg
+X-MS-Exchange-CrossTenant-UserPrincipalName: Pq8xQeP98qnSea70wUZW2/C8wUTkPVwopyXwUPJ99gJx1lXLpGNGey5Va6VykEV9
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB7698
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -136,53 +136,40 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 On 4/16/26 22:26, Timur Kristóf wrote:
-> UVD 3.1 firmware validation seems to always fail after
-> attempting it when it had already been validated.
-> (This works similarly with the VCE 1.0 as well.)
+> These are the L2 and L1 cache on some AMD GPU architectures.
 > 
-> Don't attempt repeating the validation when it's already done.
-> 
-> This caused issues in situations when the system isn't able
-> to suspend the GPU properly and so the GPU isn't actually
-> powered down. Then amdgpu would fail when calling the IP
-> block resume function.
-> 
-> Closes: https://gitlab.freedesktop.org/drm/amd/-/work_items/2887
-> Fixes: bb7978111dd3 ("drm/amdgpu: fix SI UVD firmware validate resume fail")
 > Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
-
-Reviewed-by: Christian König <christian.koenig@amd.com>
-
 > ---
->  drivers/gpu/drm/amd/amdgpu/uvd_v3_1.c | 10 ++++++++++
->  1 file changed, 10 insertions(+)
+>  Documentation/gpu/amdgpu/amdgpu-glossary.rst | 9 ++++++++-
+>  1 file changed, 8 insertions(+), 1 deletion(-)
 > 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/uvd_v3_1.c b/drivers/gpu/drm/amd/amdgpu/uvd_v3_1.c
-> index fea576a7f397f..efb3fde919ee3 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/uvd_v3_1.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/uvd_v3_1.c
-> @@ -242,6 +242,10 @@ static void uvd_v3_1_mc_resume(struct amdgpu_device *adev)
->  	uint64_t addr;
->  	uint32_t size;
+> diff --git a/Documentation/gpu/amdgpu/amdgpu-glossary.rst b/Documentation/gpu/amdgpu/amdgpu-glossary.rst
+> index 033167025fcca..d553dd599c966 100644
+> --- a/Documentation/gpu/amdgpu/amdgpu-glossary.rst
+> +++ b/Documentation/gpu/amdgpu/amdgpu-glossary.rst
+> @@ -233,8 +233,15 @@ we have a dedicated glossary for Display Core at
+>      TC
+>        Texture Cache
 >  
-> +	/* When the keyselect is already set, don't perturb it. */
-> +	if (RREG32(mmUVD_FW_START))
-> +		return;
+> +    TCC
+> +      Texture Cache per Channel - L2 cache attached to the memory channels.
+> +      May be used when shader cores are accessing memory.
+> +      Despite "Texture" in the name, this is used by any kind of memory access.
+> +      TCCs may be mapped to TCPs, depending on the architecture.
 > +
->  	/* program the VCPU memory controller bits 0-27 */
->  	addr = (adev->uvd.inst->gpu_addr + AMDGPU_UVD_FIRMWARE_OFFSET) >> 3;
->  	size = AMDGPU_UVD_FIRMWARE_SIZE(adev) >> 3;
-> @@ -284,6 +288,12 @@ static int uvd_v3_1_fw_validate(struct amdgpu_device *adev)
->  	int i;
->  	uint32_t keysel = adev->uvd.keyselect;
->  
-> +	if (RREG32(mmUVD_FW_START) & UVD_FW_STATUS__PASS_MASK) {
-> +		dev_dbg(adev->dev, "UVD keyselect already set: 0x%x (on CPU: 0x%x)\n",
-> +			RREG32(mmUVD_FW_START), adev->uvd.keyselect);
-> +		return 0;
-> +	}
-> +
->  	WREG32(mmUVD_FW_START, keysel);
->  
->  	for (i = 0; i < 10; ++i) {
+
+Good to have, but maybe put that below TCP. E.g. L1 first and then L2.
+
+Apart from that nit Reviewed-by: Christian König <christian.koenig@amd.com>
+
+Regards,
+Christian.
+
+>      TCP (AMDGPU)
+> -      Texture Cache per Pipe. Even though the name "Texture" is part of this
+> +      Texture Cache per Pipe - L1 cache attached to each CU.
+> +      Even though the name "Texture" is part of this
+>        acronym, the TCP represents the path to memory shaders; i.e., it is not
+>        related to texture. The name is a leftover from older designs where shader
+>        stages had different cache designs; it refers to the L1 cache in older
 
