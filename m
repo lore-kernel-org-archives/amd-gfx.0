@@ -4,95 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 16ACBEA7188
-	for <amd-gfx@archiver.kernel.org>; Sun, 19 Apr 2026 04:17:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2FAA4EA719D
+	for <amd-gfx@archiver.kernel.org>; Sun, 19 Apr 2026 20:28:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6687310E054;
-	Sun, 19 Apr 2026 04:17:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9E29410E11F;
+	Sun, 19 Apr 2026 20:28:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="weCf3FPX";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="BE220zyi";
 	dkim-atps=neutral
-Received: from PH8PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11012029.outbound.protection.outlook.com [40.107.209.29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 56AF610E054
- for <amd-gfx@lists.freedesktop.org>; Sun, 19 Apr 2026 04:17:13 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Abw+FbLWBrIrMi7LW0PD2mXzUcC52vWRb6y2fULuuofcH6AuklFQg1nafNOOLRlMfgxIoj1ePMs8UAEEjJFbBm+aNibCFKRT6EjGUeusMghI61hqvqRNXYeI9GI4eUuKOyGXwzvJHLh7mqFISMncA09tra30D7lFUG2Vr6sXrm1l3htHoV+00BKq6JU6gPWxA83hxC36AytRIPHrgQaMkYSDmT+GDVWc+3gCdUfzn9ORbpCWb/cHVBBgEMg4w2Sd12q9yzwPKpjvWI9Q72tH5CA8ySHqnJYbBaJj0hLKwclxgNLBImgt20PcROUugG0v1ClBX21sqZfSyL8JQXQXUQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=qtQZ4fvCdqMvoMZIHtd3XpHywmoRwg27TatBw7UfdNM=;
- b=JdjiHPLHH4oWNYFlrb1p5Al00r/WiAQ8SAS81HfeVO5oHjH+IhBm6m5GLDR2ILTHmnhJACuNPCmVEwNxtbfFoAOsvXB3aHNLHm9R2JK3RXXQOLrmcJioGdjfJ3ENG/8z4NFjVaL89FnBhkgrqa+VTbYuQYDO36tHEAoDV7c+WoK3BQcQeKjH3pLyC0a/yA1aZG3XIqqVxyCjKLU0hvN6xidBrfc33pZOu7twyDbIRWdFL1QVSadcCHdZiGe9oPkNkF5MwNglG5m6ogKQ9/A5ZJX0gXEbDwYDW33+kINFBa0kNpdMVJZvumCzKWmMTlHHVnEhWPar5agevJFCPjVz0w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qtQZ4fvCdqMvoMZIHtd3XpHywmoRwg27TatBw7UfdNM=;
- b=weCf3FPXlz4E5z3gjNpdGR6XrYwqyM/KZ5z+0sln+Td6D7AeClVeaB40NPkucDraynMewVnYqCsCyVQEMNydNwJaxB4rJxL3wL/5Ez31Uq2H12KeghNacZbgpQpH7lT+OTI5JeURiwFlyOf7SXEPhYEP7D90UUBzj0l/ETD+HFk=
-Received: from BN0PR04CA0148.namprd04.prod.outlook.com (2603:10b6:408:ed::33)
- by BY5PR12MB4322.namprd12.prod.outlook.com (2603:10b6:a03:20a::20)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.8; Sun, 19 Apr
- 2026 04:17:06 +0000
-Received: from BN2PEPF000055DE.namprd21.prod.outlook.com
- (2603:10b6:408:ed:cafe::a4) by BN0PR04CA0148.outlook.office365.com
- (2603:10b6:408:ed::33) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9791.48 via Frontend Transport; Sun,
- 19 Apr 2026 04:17:05 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BN2PEPF000055DE.mail.protection.outlook.com (10.167.245.8) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9870.4 via Frontend Transport; Sun, 19 Apr 2026 04:17:05 +0000
-Received: from ausmlimonci-lx1.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Sat, 18 Apr
- 2026 23:17:03 -0500
-From: Mario Limonciello <mario.limonciello@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: Mario Limonciello <mario.limonciello@amd.com>
-Subject: [PATCH] drm/amd: Adjust ASPM support quirk to cover more Intel hosts
-Date: Sat, 18 Apr 2026 23:16:52 -0500
-Message-ID: <20260419041652.17673-1-mario.limonciello@amd.com>
-X-Mailer: git-send-email 2.43.0
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com
+ [209.85.128.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 18C6810E11F
+ for <amd-gfx@lists.freedesktop.org>; Sun, 19 Apr 2026 20:28:17 +0000 (UTC)
+Received: by mail-wm1-f50.google.com with SMTP id
+ 5b1f17b1804b1-4891c0620bcso2363445e9.1
+ for <amd-gfx@lists.freedesktop.org>; Sun, 19 Apr 2026 13:28:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1776630495; x=1777235295; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=nfoXfyGf9ObR4xJ/3axvDW8oWrNPF3XyHs7QsL9Tghk=;
+ b=BE220zyi9PpPK+6u7il5NgGaNMFLlEvHsmH6YAWDJtHWowjRIMIgO//qIoU+XEDRIu
+ YSmVDn+pSL+XVJUz6SW4dUkDpepC/2xUIdKCBlditxrCEBUVrAlMXqzQng2sNVy5LWRn
+ 8kxfjopVRY+pNam0rtNgLnoAW7L+1tApPFG4s6AzKYfW2NExvglK1x9G8nIhhFdKHLwl
+ Xwdn2TYGRcZ1QBeQqWxiCx2EZZHz7nA4iarp+SEa4U/CXJSFSrLO2aBMcLbgQP1ZPEv2
+ adXL8UlgC8aGd7FwvS5UUA2XhHqeq+A+yldxh8/oGsIOTG2rxjwf5o6/AELWaj27EXjs
+ QqDw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1776630495; x=1777235295;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=nfoXfyGf9ObR4xJ/3axvDW8oWrNPF3XyHs7QsL9Tghk=;
+ b=gD6wRB0P8lrimhxWw4YrI89PJqKEgvxjySBpxVKMqBm049qBrILDCm9WKV/ShWR7VX
+ tgcH2Oe2VcZJCKqUWjTyBpAFK57iLKwbsuVYU5A/6rCiOPKekaO05+FgVeOhJd6GaakQ
+ Nd2NQXhntarXgGt4Yepq+DWCcvNeivVEvBqvcJIGzN2PkeBSFOuPwx8PIzxADU5rMXe9
+ 89eZeYICtPlsr7MJ42AQP4ptqIlaEGKjzQqqnOMSdjfqr5lACjKm27zr1KZdLjWd/w0a
+ v2tS4l9RcbPU9mf0xFCsPMXSqUK66ObrtC9lxQbTMJhQYLsC+hhuTYzDKBMJcnRMnHeW
+ JOMg==
+X-Gm-Message-State: AOJu0YxeYPXXX3xxHj5SdBkpsVxVR4CYfGZM4gkx3f+ykNwveMvhV/l6
+ egETP2UmVAL0X7hHSzcEywxMtSAPqoUlrZDgqa8Lk/bOb3TjHRCUAql2eDvjtQ==
+X-Gm-Gg: AeBDieux55TeDGCqFIupoyO3F4c5LbpusMo0btoJYNwChWcFWCJxIVDNKu7sHcH69FV
+ j8SmgP6452iwiou72gw8q0DW/XalYoi1U2bKQGrFz6XSo985AQ1DnxfuRJ+y5wYXMxROaP2Sd45
+ tqAtlqNgsXDFfLwQD/hg7XKVVGj3+wAV7CQInlUUBPniM/MfMTFqvhww3U6J4/9VwpAUb2KVlaC
+ e5/upvgwHhfvjKloQLsso9hCfp3DIltxOc6LzeT1rxTk++iFQcwzLOylQospL3jQ8rVeuItBvfI
+ pXbl2JpnuV/dEsl5n5ZdP/W0tolpLOvyQ5+49vC5xtKOcxKNfwjYOMsihs09Uv8ku+5yew2MNaV
+ gziv8dKUS7WgiSXeSgd9Phd7QBuS4fdfTq7jsvD9GnQOdI7OnVtNHLMthjVcz4S2xWwskHAeEvL
+ Pjvqs3d9j4uN/NKdzlsvILVkLwwU4NmNdkp8osWB1AxT3NjxX3EDuT29V/kBVX5wNprQY4eTJ/C
+ wJW/jJGigM=
+X-Received: by 2002:a05:600c:46c8:b0:488:ae4e:51a5 with SMTP id
+ 5b1f17b1804b1-488fb778d5dmr155543815e9.15.1776630495366; 
+ Sun, 19 Apr 2026 13:28:15 -0700 (PDT)
+Received: from timur-hyperion.localnet (5E1B98A2.dsl.pool.telekom.hu.
+ [94.27.152.162]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-488fb735d3dsm147442195e9.2.2026.04.19.13.28.12
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 19 Apr 2026 13:28:13 -0700 (PDT)
+From: Timur =?UTF-8?B?S3Jpc3TDs2Y=?= <timur.kristof@gmail.com>
+To: amd-gfx@lists.freedesktop.org
+Cc: Mario Limonciello <mario.limonciello@amd.com>,
+ Mario Limonciello <mario.limonciello@amd.com>
+Subject: Re: [PATCH] drm/amd: Adjust ASPM support quirk to cover more Intel
+ hosts
+Date: Sun, 19 Apr 2026 22:28:12 +0200
+Message-ID: <2231677.9o76ZdvQCi@timur-hyperion>
+In-Reply-To: <20260419041652.17673-1-mario.limonciello@amd.com>
+References: <20260419041652.17673-1-mario.limonciello@amd.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF000055DE:EE_|BY5PR12MB4322:EE_
-X-MS-Office365-Filtering-Correlation-Id: 85a10561-5731-44c5-783a-08de9dca83ab
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|36860700016|376014|1800799024|18002099003|56012099003;
-X-Microsoft-Antispam-Message-Info: Rz+bzqGS1AsylBqF8yZReWj+vphhBtQhEZPIVqdK95Ukkju1smyD6zJUNwqrW8T4jDNfHfcoK9I78oH/pcSr/N8FLVy++B5jZzR7kLpfss3FPTAoHB2uG5hP0/W74SAkaB8IiE4A/pGKzU3ckR5tOdPFt4Msi0q0Pr+lYe/WcqyVNF+ZLwQewctarfFfWk8yqsinfWW0Q1qZfRbDF0wMzke3ucMUp7DJxgVPHCsLMNUlKfE9s1NiRiMrFKmsC/uh2g+6k03BNfgCis5H1FuRIOxJjgFPZz8uuJLzmuxKzv6X35j0Cz+/Sy09OG8Yxjod3dnOLidHuZXqFYZIapSJLhkFZPyTmTpXpufoZqH4bVVUvpBAdLa6qgXM71h+bP0Y/ikdK4+ICZbhScUU3oWSdrYgzOTi2QX9hfCpeXRgr/6Eywht7vW8o7uqae77uwagiqq5X/wneRFgZNKgKOzAc1TDECXavxuT9gG9HsarEmSfXuou9NURFDpXn8kR0EXNmvMIYyls4o/Xa4fEk6RGDOtKXxI2kHPGS+qTsRGgj1lNDdlHTyj9SJALQbdv12O2d8wpywNW0Gfonat+Qe7yAe1RRUoAuTFychMc4dD7oh18/lyM928DzF2Yb4PkLUWEnUFp6ITTpVTj1x9kvbMge+3+PqJf12yNQ/3oWIL/3S959yE9lHxfAyk6TuNBBjn3xhPy1RwGo2tXWgvRWNSrqdMmEWr3VSKxibrmjxWU7JE=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(36860700016)(376014)(1800799024)(18002099003)(56012099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: Zdg+fBsHHheUuiAbdgZI+cODm3wY3XC89xwlSzaksfviCQHDDYdTr+Fk4F+hUzR9d1yv8f9Zw2RzSCDa2MX5utILCP6PT6lmUdJfy0Q1vre0UVwurG7kfVZupEV5WyxUFQtNknYnzyzBilVbQDa472C5VGODBU4K/2jQtNqY52O3VS3xBcS+UyAki2C9CJEQK4DEznS/orCKkDTW5yzO/NNT+jMyW4l3GRMsiK3U9byQ53aU8MNJsoxkqw1u7zs3H4hfz/zaCdPcD09ar3yCxkdgZP4gPwplpHoUOOfivHDJZv65W/BG5RfjZA5ScuPzIMhPcWZSZME6IoeSD0X4d2JJvAapVDBTEARxiU6+bUKqfX4J+vGpaxIHz2p9GqUGnzS1sTqef/eVoVP5zVxRcbQKc6dOLUQQXFOdLHTNX7GyPYE/9v9HlR2DtFSOWEAo
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Apr 2026 04:17:05.0523 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 85a10561-5731-44c5-783a-08de9dca83ab
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF000055DE.namprd21.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4322
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,44 +88,58 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Some of the same issues identified in commit c770ef19673fb
-("drm/amd/amdgpu: disable ASPM in some situations") also affect
-Tiger Lake systems with GFX11 connected over USB4. Widen the net
-to also match these hosts.
+On Sunday, April 19, 2026 6:16:52=E2=80=AFAM Central European Summer Time M=
+ario=20
+Limonciello wrote:
+> Some of the same issues identified in commit c770ef19673fb
+> ("drm/amd/amdgpu: disable ASPM in some situations") also affect
+> Tiger Lake systems with GFX11 connected over USB4. Widen the net
+> to also match these hosts.
 
-Fixes: d9b3a066dfcd3 ("drm/amd: Exclude dGPUs in eGPU enclosures from DPM quirks")
-Closes: https://gitlab.freedesktop.org/drm/amd/-/work_items/5145
-Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 9 +++------
- 1 file changed, 3 insertions(+), 6 deletions(-)
+Wouldn't it be better to check that the connection is through USB4 rather t=
+han=20
+entirely disable ASPM accross all these families of CPUs?
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index bc7e96b58d3fc..b11c4b5fa8fcd 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -1334,18 +1334,15 @@ static bool amdgpu_device_aspm_support_quirk(struct amdgpu_device *adev)
- #if IS_ENABLED(CONFIG_X86)
- 	struct cpuinfo_x86 *c = &cpu_data(0);
- 
--	if (!(amdgpu_ip_version(adev, GC_HWIP, 0) == IP_VERSION(12, 0, 0) ||
--		  amdgpu_ip_version(adev, GC_HWIP, 0) == IP_VERSION(12, 0, 1)))
--		return false;
--
--	if (c->x86 == 6 &&
--		adev->pm.pcie_gen_mask & CAIL_PCIE_LINK_SPEED_SUPPORT_GEN5) {
-+	if (c->x86_vendor == X86_VENDOR_INTEL) {
- 		switch (c->x86_model) {
- 		case VFM_MODEL(INTEL_ALDERLAKE):
- 		case VFM_MODEL(INTEL_ALDERLAKE_L):
- 		case VFM_MODEL(INTEL_RAPTORLAKE):
- 		case VFM_MODEL(INTEL_RAPTORLAKE_P):
- 		case VFM_MODEL(INTEL_RAPTORLAKE_S):
-+		case VFM_MODEL(INTEL_TIGERLAKE):
-+		case VFM_MODEL(INTEL_TIGERLAKE_L):
- 			return true;
- 		default:
- 			return false;
--- 
-2.43.0
+>=20
+> Fixes: d9b3a066dfcd3 ("drm/amd: Exclude dGPUs in eGPU enclosures from DPM
+> quirks") Closes: https://gitlab.freedesktop.org/drm/amd/-/work_items/5145
+> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 9 +++------
+>  1 file changed, 3 insertions(+), 6 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c index
+> bc7e96b58d3fc..b11c4b5fa8fcd 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> @@ -1334,18 +1334,15 @@ static bool amdgpu_device_aspm_support_quirk(stru=
+ct
+> amdgpu_device *adev) #if IS_ENABLED(CONFIG_X86)
+>  	struct cpuinfo_x86 *c =3D &cpu_data(0);
+>=20
+> -	if (!(amdgpu_ip_version(adev, GC_HWIP, 0) =3D=3D IP_VERSION(12, 0, 0)=20
+||
+> -		  amdgpu_ip_version(adev, GC_HWIP, 0) =3D=3D IP_VERSION(12,=20
+0, 1)))
+> -		return false;
+> -
+> -	if (c->x86 =3D=3D 6 &&
+> -		adev->pm.pcie_gen_mask &=20
+CAIL_PCIE_LINK_SPEED_SUPPORT_GEN5) {
+> +	if (c->x86_vendor =3D=3D X86_VENDOR_INTEL) {
+>  		switch (c->x86_model) {
+>  		case VFM_MODEL(INTEL_ALDERLAKE):
+>  		case VFM_MODEL(INTEL_ALDERLAKE_L):
+>  		case VFM_MODEL(INTEL_RAPTORLAKE):
+>  		case VFM_MODEL(INTEL_RAPTORLAKE_P):
+>  		case VFM_MODEL(INTEL_RAPTORLAKE_S):
+> +		case VFM_MODEL(INTEL_TIGERLAKE):
+> +		case VFM_MODEL(INTEL_TIGERLAKE_L):
+>  			return true;
+>  		default:
+>  			return false;
+
+
+
 
