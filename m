@@ -4,54 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 85562F588C5
-	for <amd-gfx@archiver.kernel.org>; Mon, 20 Apr 2026 13:17:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B74A9F588C3
+	for <amd-gfx@archiver.kernel.org>; Mon, 20 Apr 2026 13:17:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2AFDC10E5F1;
-	Mon, 20 Apr 2026 13:17:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5347C10E5EE;
+	Mon, 20 Apr 2026 13:17:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="QTEE//Ss";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="O2eFMblt";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5611D10E5F1;
- Mon, 20 Apr 2026 13:17:17 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 89A9310E5ED;
+ Mon, 20 Apr 2026 13:17:53 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id C0C8B60141;
- Mon, 20 Apr 2026 13:17:16 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DBFE6C2BCB9;
- Mon, 20 Apr 2026 13:17:14 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id CF95260180;
+ Mon, 20 Apr 2026 13:17:52 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A1A0C2BCB8;
+ Mon, 20 Apr 2026 13:17:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1776691036;
- bh=v+YKt47OzZz2vi95JOA5Cavf8tQENiTTUFpgqDmIr2c=;
+ s=k20201202; t=1776691072;
+ bh=sXs0e0ZxqTG7ZrHQ090u7oJNMiq7KcY5riKMVzChehA=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=QTEE//SsQ2XbVShuOKIKQEMkFJoCxFOOePx786YOMLDofpg+q1u52B4/MJJ3Hqk8p
- keGPzl2PmBJnbzWBclWtehKxN57zYoZCwKfYspr3oJ23KmrWuQ375N0Gcl2410Ahhb
- tKwEE/AwH2ljVg+vWMTKT7OTuR8EgEqnMsYVWDLmnAFafK2ppCCouK8CiVH6UqwFEB
- XAq8vHPDC8c+zQgjnChQq2T8hbnwoVY5pNywtt0VU2oxNWC6gSqVbdI4V/oj3xkNBY
- PGtidE9TKKEFMG9iRxKfO2DTU8QHWOyn3wDlEdiDyeU2r9FQ2a7TN4gTGy2YP7lpbe
- lPkpHh5NrzmLQ==
+ b=O2eFMbltCjXz3hDprKRQinsbzQFrQ7DCFpkrt4zyp8YB97t/+bc8GBZDSZtNKDY+u
+ CWt0BRcH6SfO/mDMOWOMMO2MGjSdmK4lT4D2rnK6cmDdCr58VYuR5l6OT12AQyifjO
+ HePIMQQtwNZwDuyuCveOsqKDobFSvVI5RsFrSQbFxSoHRZF09eeAlT7XljsiVhvaXz
+ eoTzGzBn+iY9dXZtpWxazaaHabCzWtfxWPrFfB224kc4nuXtejtz2TKWqkgqO3djuw
+ hAL/0Qcp6YGYGsi2H09E9bDf1OyRQpzlGC/agORSxF+UqacUC1S71JisJBot9c4eyw
+ nIiKibYrX14gw==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Charlene Liu <Charlene.Liu@amd.com>, Leo Chen <leo.chen@amd.com>,
- Dmytro Laktyushkin <dmytro.laktyushkin@amd.com>,
- Ivan Lipski <ivan.lipski@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>,
+Cc: Donet Tom <donettom@linux.ibm.com>,
+ Felix Kuehling <felix.kuehling@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
- harry.wentland@amd.com, sunpeng.li@amd.com, christian.koenig@amd.com,
- airlied@gmail.com, simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
+ Felix.Kuehling@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
+ airlied@gmail.com, daniel@ffwll.ch, amd-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 7.0-6.12] drm/amd/display: Fix
- dcn401_optimize_bandwidth
-Date: Mon, 20 Apr 2026 09:08:42 -0400
-Message-ID: <20260420131539.986432-56-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18] drm/amdkfd: Fix queue preemption/eviction
+ failures by aligning control stack size to GPU page size
+Date: Mon, 20 Apr 2026 09:09:03 -0400
+Message-ID: <20260420131539.986432-77-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260420131539.986432-1-sashal@kernel.org>
 References: <20260420131539.986432-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
-X-stable-base: Linux 7.0
-Content-Type: text/plain; charset=UTF-8
+X-stable-base: Linux 6.18.23
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -67,338 +65,79 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Charlene Liu <Charlene.Liu@amd.com>
+From: Donet Tom <donettom@linux.ibm.com>
 
-[ Upstream commit 002f32db0d4292f117994c330928d2374887b28e ]
+[ Upstream commit 78746a474e92fc7aaed12219bec7c78ae1bd6156 ]
 
-[Why&How]
-We should check for != zstate disallow and programming extend blank from a
-different struct.
+The control stack size is calculated based on the number of CUs and
+waves, and is then aligned to PAGE_SIZE. When the resulting control
+stack size is aligned to 64 KB, GPU hangs and queue preemption
+failures are observed while running RCCL unit tests on systems with
+more than two GPUs.
 
-Reviewed-by: Leo Chen <leo.chen@amd.com>
-Reviewed-by: Dmytro Laktyushkin <dmytro.laktyushkin@amd.com>
-Signed-off-by: Charlene Liu <Charlene.Liu@amd.com>
-Signed-off-by: Ivan Lipski <ivan.lipski@amd.com>
-Tested-by: Dan Wheeler <daniel.wheeler@amd.com>
+amdgpu 0048:0f:00.0: amdgpu: Queue preemption failed for queue with
+doorbell_id: 80030008
+amdgpu 0048:0f:00.0: amdgpu: Failed to evict process queues
+amdgpu 0048:0f:00.0: amdgpu: GPU reset begin!. Source: 4
+amdgpu 0048:0f:00.0: amdgpu: Queue preemption failed for queue with
+doorbell_id: 80030008
+amdgpu 0048:0f:00.0: amdgpu: Failed to evict process queues
+amdgpu 0048:0f:00.0: amdgpu: Failed to restore process queues
+
+This issue is observed on both 4 KB and 64 KB system page-size
+configurations.
+
+This patch fixes the issue by aligning the control stack size to
+AMDGPU_GPU_PAGE_SIZE instead of PAGE_SIZE, so the control stack size
+will not be 64 KB on systems with a 64 KB page size and queue
+preemption works correctly.
+
+Additionally, In the current code, wg_data_size is aligned to PAGE_SIZE,
+which can waste memory if the system page size is large. In this patch,
+wg_data_size is aligned to AMDGPU_GPU_PAGE_SIZE. The cwsr_size, calculated
+from wg_data_size and the control stack size, is aligned to PAGE_SIZE.
+
+Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
+Signed-off-by: Donet Tom <donettom@linux.ibm.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+(cherry picked from commit a3e14436304392fbada359edd0f1d1659850c9b7)
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-Now I have a complete picture. Let me compile the full analysis.
-
----
-
-## PHASE 1: COMMIT MESSAGE FORENSICS
-
-**Step 1.1: Subject Line**
-- Subsystem: `drm/amd/display` (AMD GPU display controller)
-- Action verb: "Fix"
-- Summary: Fix dcn401_optimize_bandwidth function
-
-Record: [drm/amd/display] [Fix] [Corrects zstate condition and struct
-access in dcn401_optimize_bandwidth]
-
-**Step 1.2: Tags**
-- Reviewed-by: Leo Chen, Dmytro Laktyushkin (AMD display engineers)
-- Tested-by: Dan Wheeler (AMD test engineer)
-- Signed-off-by: Charlene Liu (author), Ivan Lipski (submitter), Alex
-  Deucher (AMD GPU maintainer)
-- No Fixes: tag, no Cc: stable (expected for autosel candidates)
-
-Record: Two reviewers, one tester, submitted through AMD's standard
-display patch process. Author is an AMD display team member.
-
-**Step 1.3: Commit Body**
-The message says "We should check for != zstate disallow and programming
-extend blank from a different struct." This describes two bugs:
-1. The zstate check condition was too restrictive
-2. The extended blank register value was being read from the wrong
-   struct
-
-Record: Two bugs described. Both relate to incorrect programming of
-extended blank during bandwidth optimization for DCN4.01 display
-hardware.
-
-**Step 1.4: Hidden Bug Fix Detection**
-Not hidden — explicitly labeled as "Fix" with clear description.
-
-## PHASE 2: DIFF ANALYSIS
-
-**Step 2.1: Inventory**
-- 1 file changed:
-  `drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c`
-- 2 lines changed (1 condition, 1 struct access)
-- Function modified: `dcn401_optimize_bandwidth`
-- Scope: Single-file, single-function surgical fix
-
-**Step 2.2: Code Flow Change**
-
-Change 1 (line 1476→1486):
-- Before: `if (zstate_support == DCN_ZSTATE_SUPPORT_ALLOW)` — only
-  enters the extended blank programming block when zstate is exactly
-  `ALLOW`
-- After: `if (zstate_support != DCN_ZSTATE_SUPPORT_DISALLOW)` — enters
-  for ALL allow modes
-
-The enum `dcn_zstate_support_state` has values: UNKNOWN, ALLOW,
-ALLOW_Z8_ONLY, ALLOW_Z8_Z10_ONLY, ALLOW_Z10_ONLY, DISALLOW. The old code
-missed Z8_ONLY, Z8_Z10_ONLY, and Z10_ONLY modes.
-
-Change 2 (line 1484):
-- Before: `pipe_ctx->dlg_regs.min_dst_y_next_start` — reads from old
-  DML1 struct `_vcs_dpi_display_dlg_regs_st`
-- After: `pipe_ctx->hubp_regs.dlg_regs.min_dst_y_next_start` — reads
-  from DML2.1 struct `dml2_dchub_per_pipe_register_set`
-
-**Step 2.3: Bug Mechanism**
-
-Bug 1 (Logic/correctness): Wrong condition excludes valid z-state power
-modes from extended blank programming. This is a logic bug where the
-original code was copied from DCN20 which only had ALLOW/DISALLOW, but
-DCN401 has additional modes (Z8, Z10, etc.).
-
-Bug 2 (Wrong struct access): DCN401 uses DML2.1 which populates
-`pipe_ctx->hubp_regs`. The old `pipe_ctx->dlg_regs` is populated by
-DML2.0's `dml21_update_pipe_ctx_dchub_regs`, which was removed in commit
-63ab80d9ac0a. Reading from the wrong struct yields zero/stale data.
-
-**Step 2.4: Fix Quality**
-- Obviously correct: aligns with how all other DCN clk_mgr code checks
-  zstate (`!= DISALLOW`), and aligns with how all other DCN401 code
-  accesses hubp_regs
-- Minimal/surgical: exactly 2 lines
-- No regression risk: both changes narrow in on the correct behavior
-
-## PHASE 3: GIT HISTORY INVESTIGATION
-
-**Step 3.1: Blame**
-The buggy code was introduced by commit `70839da636050` (Aurabindo
-Pillai, 2024-04-19) "drm/amd/display: Add new DCN401 sources". This
-commit first appeared in v6.11.
-
-The dlg_regs bug was latent until commit `63ab80d9ac0a` (Rafal
-Ostrowski, 2024-12-17) "drm/amd/display: DML2.1 Post-Si Cleanup" which
-removed `dml21_update_pipe_ctx_dchub_regs` that was populating
-`pipe_ctx->dlg_regs`. This commit is in v6.14+ only.
-
-Record: zstate bug exists since v6.11. dlg_regs bug became active in
-v6.14 when the function populating the old struct was removed.
-
-**Step 3.2: No Fixes: tag** (expected)
-
-**Step 3.3: File History**
-Recent file changes are mostly unrelated (NULL ptr deref fix, DPP
-guards, cursor offload). No prerequisites for this fix.
-
-**Step 3.4: Author**
-Charlene Liu is a regular AMD display team contributor with many commits
-in the subsystem. Ivan Lipski is the submitter who regularly contributes
-AMD display fixes.
-
-**Step 3.5: Dependencies**
-No dependencies. The fix is standalone — both `hubp_regs` and the zstate
-enum values exist since v6.11.
-
-## PHASE 4: MAILING LIST
-
-**Step 4.1: Original Submission**
-Found at: `https://yhbt.net/lore/amd-
-gfx/20260218165116.155001-6-IVAN.LIPSKI@amd.com/`
-Part of a 9-patch series "DC Patches February 18, 2026". This is patch
-5/9. The series includes other display fixes (cursor, DPIA, compiler
-warnings).
-
-**Step 4.2: Reviewers**
-Appropriate AMD display maintainers and engineers were CC'd: Harry
-Wentland, Leo Li, Aurabindo Pillai, Wayne Lin, Tom Chung, and the
-specific reviewers Leo Chen and Dmytro Laktyushkin.
-
-**Step 4.3: Bug Report**
-No specific bug report link found. This appears to be found during
-internal code review/testing at AMD.
-
-**Step 4.4: Series Independence**
-Other patches in the series (cursor pos fix, DPIA fix, type mismatch)
-are independent. This fix is standalone.
-
-**Step 4.5: No stable-specific discussion found.**
-
-## PHASE 5: CODE SEMANTIC ANALYSIS
-
-**Step 5.1: Modified Function**
-`dcn401_optimize_bandwidth` — called during display bandwidth
-optimization after clock updates.
-
-**Step 5.2: Callers**
-`dcn401_optimize_bandwidth` is a hardware sequencer function registered
-in the DCN401 init table. It is called during DC bandwidth optimization,
-which occurs on display mode changes, resolution changes, and power
-state transitions.
-
-**Step 5.3: Callees**
-The affected code calls
-`pipe_ctx->plane_res.hubp->funcs->program_extended_blank()` which
-programs display hardware registers for extended blanking during z-state
-power saving.
-
-**Step 5.4: Call Chain**
-Reachable via standard display mode setting paths (user-triggered via
-xrandr, display manager, etc.) and power management transitions. This is
-not an obscure path.
-
-**Step 5.5: Similar Patterns**
-DCN20 (`dcn20_hwseq.c:2458`) has the same `== DCN_ZSTATE_SUPPORT_ALLOW`
-pattern, which is potentially also a bug but uses the old DML path where
-`pipe_ctx->dlg_regs` IS populated.
-
-## PHASE 6: STABLE TREE ANALYSIS
-
-**Step 6.1: Code Existence**
-- DCN401 code exists since v6.11
-- `hubp_regs` field exists since v6.11 (commit 00c391102abc)
-- The dlg_regs regression was introduced in v6.14 (commit 63ab80d9ac0a)
-- Both bugs are present in v7.0
-
-**Step 6.2: Backport Difficulty**
-The patch should apply cleanly to v7.0.y — the modified lines are
-unchanged from when they were introduced. For v6.14.y+, both fixes
-apply. For v6.12.y and earlier, only the zstate fix applies (dlg_regs is
-still populated there).
-
-**Step 6.3: No related fixes in stable.**
-
-## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
-
-**Step 7.1:** drm/amd/display — IMPORTANT subsystem. DCN401 is AMD's
-display controller for newer GPUs. Display bugs directly affect user
-experience.
-
-**Step 7.2:** Actively developed subsystem with frequent commits.
-
-## PHASE 8: IMPACT AND RISK ASSESSMENT
-
-**Step 8.1:** Affects users of AMD GPUs with DCN4.01 display controller
-hardware.
-
-**Step 8.2:** Triggers during power management transitions (z-state
-changes) — common on laptops and energy-efficient desktops. The zstate
-bug triggers whenever Z8/Z10 power modes are selected instead of full
-Z-state.
-
-**Step 8.3:** Failure mode is incorrect display hardware programming:
-- Without extended blank programming during z-states: display artifacts,
-  flickering, or incorrect power management behavior
-- With wrong/zero value for min_dst_y_next_start: incorrect blank
-  timing, potential display corruption
-- Severity: HIGH (visible display issues for affected hardware)
-
-**Step 8.4:**
-- Benefit: HIGH — fixes real display hardware programming bugs for
-  DCN401 users
-- Risk: VERY LOW — 2-line change, obviously correct, reviewed and tested
-- Ratio: Strongly favors backporting
-
-## PHASE 9: FINAL SYNTHESIS
-
-**Step 9.1: Evidence**
-
-FOR backporting:
-- Fixes two real bugs: incorrect zstate condition and wrong struct
-  access
-- Small, surgical fix (2 lines)
-- Reviewed by two AMD display engineers, tested
-- Affects real hardware (DCN401 GPUs)
-- Display bugs directly affect user experience
-- Consistent with how other DCN code handles zstate and hubp_regs
-
-AGAINST backporting:
-- DCN401 is relatively new hardware (v6.11+)
-- No user bug reports (found during code review)
-- The dlg_regs bug only manifests in v6.14+ (after DML2.1 cleanup)
-
-**Step 9.2: Stable Rules**
-1. Obviously correct? YES — aligns with all other zstate checks and
-   hubp_regs usage
-2. Fixes real bug? YES — wrong hardware programming values
-3. Important issue? YES — display correctness on affected hardware
-4. Small and contained? YES — 2 lines, 1 function, 1 file
-5. No new features? CORRECT — pure bug fix
-6. Applies to stable? YES — cleanly for v7.0.y
-
-**Step 9.3:** No exception category — standard bug fix.
-
-**Step 9.4:** The evidence clearly supports backporting.
-
-## Verification
-
-- [Phase 1] Parsed tags: Reviewed-by Leo Chen and Dmytro Laktyushkin,
-  Tested-by Dan Wheeler, author Charlene Liu
-- [Phase 2] Diff analysis: 2 lines changed in
-  dcn401_optimize_bandwidth(): broadened zstate condition and fixed
-  struct access
-- [Phase 2] Verified enum values at `dc.h:665-671`: 6 states including
-  ALLOW, Z8_ONLY, Z8_Z10_ONLY, Z10_ONLY, DISALLOW
-- [Phase 2] Verified `pipe_ctx->hubp_regs` is `struct
-  dml2_dchub_per_pipe_register_set` containing `dlg_regs` with
-  `min_dst_y_next_start` field
-- [Phase 2] Verified `pipe_ctx->dlg_regs` is the OLD
-  `_vcs_dpi_display_dlg_regs_st` struct (different type)
-- [Phase 3] git blame: buggy code introduced in commit 70839da636050
-  (v6.11, "Add new DCN401 sources")
-- [Phase 3] Confirmed `hubp_regs` added in commit 00c391102abc (also
-  v6.11)
-- [Phase 3] Confirmed dlg_regs regression introduced by 63ab80d9ac0a
-  (v6.14, "DML2.1 Post-Si Cleanup") which removed
-  `dml21_update_pipe_ctx_dchub_regs`
-- [Phase 3] Verified `dml21_utils.c:225` populates `pipe_ctx->hubp_regs`
-  via memcpy for DCN401 (DML2.1 path)
-- [Phase 3] Verified DCN401 uses DML2.1 (`dcn401_resource.c` has
-  `.using_dml21 = true`)
-- [Phase 3] Verified other DCN401 code uses
-  `pipe_ctx->hubp_regs.dlg_regs` (dcn401_hwseq.c:2889-2892)
-- [Phase 4] Found original submission at lore (patch 5/9 in DC Patches
-  Feb 18 2026 series)
-- [Phase 4] Appropriate AMD display maintainers were CC'd
-- [Phase 5] Confirmed `program_extended_blank` is registered in hubp
-  function tables for DCN31/DCN35
-- [Phase 6] Verified 63ab80d9ac0a is NOT in v6.12/v6.13 but IS in v6.14+
-- [Phase 6] Both bugs present in v7.0
-- [Phase 8] Display correctness issue for DCN401 GPU users during power
-  state transitions
-
-The fix is small, surgical, obviously correct, reviewed, tested, and
-fixes real display hardware programming bugs for DCN401 users. It meets
-all stable kernel criteria.
-
-**YES**
-
- drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c
-index 4973d36aadc5d..a3d33d10853b8 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c
-@@ -1492,7 +1492,7 @@ void dcn401_optimize_bandwidth(
- 			dc->clk_mgr,
- 			context,
- 			true);
--	if (context->bw_ctx.bw.dcn.clk.zstate_support == DCN_ZSTATE_SUPPORT_ALLOW) {
-+	if (context->bw_ctx.bw.dcn.clk.zstate_support != DCN_ZSTATE_SUPPORT_DISALLOW) {
- 		for (i = 0; i < dc->res_pool->pipe_count; ++i) {
- 			struct pipe_ctx *pipe_ctx = &context->res_ctx.pipe_ctx[i];
+Error: Failed to generate final synthesis
+
+ drivers/gpu/drm/amd/amdkfd/kfd_queue.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_queue.c b/drivers/gpu/drm/amd/amdkfd/kfd_queue.c
+index 2822c90bd7be4..b97f4a51db6e3 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_queue.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_queue.c
+@@ -444,10 +444,11 @@ void kfd_queue_ctx_save_restore_size(struct kfd_topology_device *dev)
+ 		    min(cu_num * 40, props->array_count / props->simd_arrays_per_engine * 512)
+ 		    : cu_num * 32;
  
-@@ -1500,7 +1500,7 @@ void dcn401_optimize_bandwidth(
- 				&& pipe_ctx->stream->adjust.v_total_min == pipe_ctx->stream->adjust.v_total_max
- 				&& pipe_ctx->stream->adjust.v_total_max > pipe_ctx->stream->timing.v_total)
- 					pipe_ctx->plane_res.hubp->funcs->program_extended_blank(pipe_ctx->plane_res.hubp,
--						pipe_ctx->dlg_regs.min_dst_y_next_start);
-+						pipe_ctx->hubp_regs.dlg_regs.min_dst_y_next_start);
- 		}
- 	}
- }
+-	wg_data_size = ALIGN(cu_num * WG_CONTEXT_DATA_SIZE_PER_CU(gfxv, props), PAGE_SIZE);
++	wg_data_size = ALIGN(cu_num * WG_CONTEXT_DATA_SIZE_PER_CU(gfxv, props),
++				AMDGPU_GPU_PAGE_SIZE);
+ 	ctl_stack_size = wave_num * CNTL_STACK_BYTES_PER_WAVE(gfxv) + 8;
+ 	ctl_stack_size = ALIGN(SIZEOF_HSA_USER_CONTEXT_SAVE_AREA_HEADER + ctl_stack_size,
+-			       PAGE_SIZE);
++			       AMDGPU_GPU_PAGE_SIZE);
+ 
+ 	if ((gfxv / 10000 * 10000) == 100000) {
+ 		/* HW design limits control stack size to 0x7000.
+@@ -459,7 +460,7 @@ void kfd_queue_ctx_save_restore_size(struct kfd_topology_device *dev)
+ 
+ 	props->ctl_stack_size = ctl_stack_size;
+ 	props->debug_memory_size = ALIGN(wave_num * DEBUGGER_BYTES_PER_WAVE, DEBUGGER_BYTES_ALIGN);
+-	props->cwsr_size = ctl_stack_size + wg_data_size;
++	props->cwsr_size = ALIGN(ctl_stack_size + wg_data_size, PAGE_SIZE);
+ 
+ 	if (gfxv == 80002)	/* GFX_VERSION_TONGA */
+ 		props->eop_buffer_size = 0x8000;
 -- 
 2.53.0
 
