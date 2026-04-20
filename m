@@ -4,95 +4,164 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2E75CF588EC
-	for <amd-gfx@archiver.kernel.org>; Mon, 20 Apr 2026 15:58:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AFCAAF588E3
+	for <amd-gfx@archiver.kernel.org>; Mon, 20 Apr 2026 16:06:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 82FC210E6CE;
-	Mon, 20 Apr 2026 15:58:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4936010E6D9;
+	Mon, 20 Apr 2026 16:06:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="MZYFsvPS";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="SZERNu84";
 	dkim-atps=neutral
-Received: from MW6PR02CU001.outbound.protection.outlook.com
- (mail-westus2azon11012014.outbound.protection.outlook.com [52.101.48.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 31A9310E6CE
- for <amd-gfx@lists.freedesktop.org>; Mon, 20 Apr 2026 15:58:51 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 37C5E10E6D9;
+ Mon, 20 Apr 2026 16:06:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1776701197; x=1808237197;
+ h=date:from:to:cc:subject:message-id:references:
+ content-transfer-encoding:in-reply-to:mime-version;
+ bh=KRflUdpyqPKXOuKLLoI+/Q/mhRVoOkLvKPy9RGEVrb8=;
+ b=SZERNu84YQpL/O3i7jfd96wVFVfQ/HetLq6BGp8zIUkMQpdkvouE3OiF
+ dzpc71sik0lALzEqQmzmNPF70qnxYB/BYqmedavBt5IEZABC+hvusoQyd
+ 1riT+RZQeYJCyec/54SAVBOKzhPyAxvLgp5qE0aKKqbb35DOBSxcQOgrO
+ jyzky/vApGqEjf6577zyDpy5SLW0F8DfuUUVQaWvaW55dwPI4FLx0jf4y
+ VCDdERfJGSKjZGlt7yie3NMtIEqVNHTnnrXf/CrNIfuQcus3l7BfzQ4EI
+ Xk/89Jjn+uQrrxd8WZqhb1LpoXKG6L4rXZdNA6aJv9Ysyw2p/grkR3Sic Q==;
+X-CSE-ConnectionGUID: qsbIfplnT2qUIxkYlFvFCw==
+X-CSE-MsgGUID: VIRshkqZSw6DOWtrmnpQDg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11762"; a="88239388"
+X-IronPort-AV: E=Sophos;i="6.23,190,1770624000"; d="scan'208";a="88239388"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+ by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Apr 2026 09:06:36 -0700
+X-CSE-ConnectionGUID: 3qpXK0inRqyE+sm7nlZgvA==
+X-CSE-MsgGUID: 9yEm4f8RT56S9QQiSm0USw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,190,1770624000"; d="scan'208";a="227419017"
+Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
+ by fmviesa010.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Apr 2026 09:06:36 -0700
+Received: from FMSMSX903.amr.corp.intel.com (10.18.126.92) by
+ fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37; Mon, 20 Apr 2026 09:06:36 -0700
+Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
+ FMSMSX903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37 via Frontend Transport; Mon, 20 Apr 2026 09:06:36 -0700
+Received: from CH5PR02CU005.outbound.protection.outlook.com (40.107.200.7) by
+ edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37; Mon, 20 Apr 2026 09:06:35 -0700
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=QJBGng7TU7sAavfGbGWZo26E5VHAm2LnM0agyo53l/C/aJ3W4dA0gbeQy0sWNLiNH6E0VnNTF9Rl8qekLE67gFXSoODVU6iWBHIXAqIBM2wKscaDDiqrMD+JRFtbVgpZBIxBK3tB9avZeuENjUEGZap9JkKS53CfcYzGDiU/owXUwb5k3aH3ZyiecyNOAmf96W6zrmI8MfXBYrJh22rYeHGJaXz75A7Vq1JrXmKKZOX1bMWRP8xl6Dj8AQW0jXsknhRl1sZl5jX29oEz57+HJOw+wYYqjYxwTwC+VuO/RJZnPwStifUn7XYP660ZylpRv4HruywZlp2MtTj4GdtGmA==
+ b=YXI/cYoGA57A3EidoHYQ4KVn0ZFaAW1lP0caz4X3Yb5PxiIEzLDm9ACNgLo+5vRL0QWQW/FM8MrftkrtnwG8qudT4Vl2YeRfRU/0SexvPCau/ujrz6DDt9tgdzvzYYr8DmossLsqF5lQ1c4mvE9FlbdEtAC+k+rTTrN60Eiu18g2u/zHd9cJitB+a5X6M6iEUbpphk1cmquRcvt8+FLFR8tulQDUJRVKe+KGzBvU1XJyoPH15WhR3yEag+Ne3byaUSPlwCsHCxJuHnR+muS+EQ/e3SEp6AMHGw8XtxyRwqwG8I1kMCKdCDXR5JWXuxngzeImbvItT6vPeMyFkNpaZQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=0PtbD0qi2XbshYOpp0yLgHGdFRHhZMcm26v1XKCcwXc=;
- b=C013aRRTfP+emFoBlnhrIlZ1VmMAu5sCMBGA2AXp+yLDJ4X5W+VNGZaymP7pfKhOwqMG+OoXKLfI4TJ0FxdUaZ5nzjofepdlXdLtIfGvaOqyokK+LusYTTQiWEbX5BVDCKfEcXzswoYtFaAAlDSz3a5sdymjB705CT8VNrWRqLfz780IsoBjJ7+wlIQK25EHCVHVPzvfYRvGCcHREIdEnxENmUa85GFOur4Z7T2y6l2IQAom+Dy43U7WdUsDkS1I5o7CYZjlUx8JCU2RUeTRLftrjADRRS98npV+iBkJ2grsvfRflPoAUt+S3PQ1iqKmTGXuBjp/5rgkh4kX8Befkg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0PtbD0qi2XbshYOpp0yLgHGdFRHhZMcm26v1XKCcwXc=;
- b=MZYFsvPSPnc5Z38BUTkcKSL6EUTTpliqP1TP+ZXDbJEnAaSyuBo/g09YQvvZ2AwjlDcxcIyK5pS952w3zDXaDZa9V7x/9k7vxUFrFucldWxcZKq0pw8zN9KuK40E3fU3p5zgE1eWu4tnis62weG+p4GMI9FmWn05En58dMIvDFM=
-Received: from MN2PR05CA0052.namprd05.prod.outlook.com (2603:10b6:208:236::21)
- by DM4PR12MB5796.namprd12.prod.outlook.com (2603:10b6:8:63::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.15; Mon, 20 Apr
- 2026 15:58:44 +0000
-Received: from BN1PEPF00005FFD.namprd05.prod.outlook.com
- (2603:10b6:208:236:cafe::e) by MN2PR05CA0052.outlook.office365.com
- (2603:10b6:208:236::21) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9791.48 via Frontend Transport; Mon,
- 20 Apr 2026 15:58:44 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BN1PEPF00005FFD.mail.protection.outlook.com (10.167.243.229) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9791.48 via Frontend Transport; Mon, 20 Apr 2026 15:58:44 +0000
-Received: from MKMFKUEHLIN01.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Mon, 20 Apr
- 2026 10:58:43 -0500
-From: Felix Kuehling <felix.kuehling@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <philip.yang@amd.com>, <christian.koenig@amd.com>
-Subject: [PATCH] drm/amdkfd: Make all TLB-flushes heavy-weight
-Date: Mon, 20 Apr 2026 11:58:22 -0400
-Message-ID: <20260420155822.718805-1-felix.kuehling@amd.com>
-X-Mailer: git-send-email 2.43.0
-MIME-Version: 1.0
+ bh=ZKd2XLSuXH+NvGxWRfsUxXUqCeSDFFUOFEMWVtqQyrE=;
+ b=SkIkwDH5PHCPXjkzlYVp4YsZPuWzHkPW68LKiZ+C1MbqaPETUI+8NmTFy8aK2AdOhJoeiZR3IOxyjQxs5PfAx7Sh65kNF758MwWoeuEfr7TIgp6pWAmehx+9weXvLKbrLlufQpubPgTrfxnrF1sbVdoJTlHMIuor1YbO4iKRowwLVQvFrFfAkULQ4oHtrIkjbt9+hJmLWp7VYTFHX7bLNu/zwzYHsDymjYezaHgiZqOgqtNAx+fqhS7BagkxdkNvQgG1LUsjVp4sgEMhxw1VHpzbX+R9tagWzSpIRYAjws/yHv5DFNzSW5Drg9qTmb5hrCltqR4BN7FSlecROMnV4Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from PH7PR11MB6522.namprd11.prod.outlook.com (2603:10b6:510:212::12)
+ by DS4PPF31CEE2CEC.namprd11.prod.outlook.com (2603:10b6:f:fc02::1c)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9818.25; Mon, 20 Apr
+ 2026 16:06:34 +0000
+Received: from PH7PR11MB6522.namprd11.prod.outlook.com
+ ([fe80::e0c5:6cd8:6e67:dc0c]) by PH7PR11MB6522.namprd11.prod.outlook.com
+ ([fe80::e0c5:6cd8:6e67:dc0c%7]) with mapi id 15.20.9846.014; Mon, 20 Apr 2026
+ 16:06:33 +0000
+Date: Mon, 20 Apr 2026 09:06:30 -0700
+From: Matthew Brost <matthew.brost@intel.com>
+To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+CC: "Huang, Honglei1" <honghuan@amd.com>, <Alexander.Deucher@amd.com>,
+ <Felix.Kuehling@amd.com>, <Oak.Zeng@amd.com>, <Jenny-Jing.Liu@amd.com>,
+ <Philip.Yang@amd.com>, <Xiaogang.Chen@amd.com>, <Ray.Huang@amd.com>,
+ <Lingshan.Zhu@amd.com>, <Junhua.Shen@amd.com>, <rodrigo.vivi@intel.com>,
+ <thomas.hellstrom@linux.intel.com>, <dakr@kernel.org>,
+ <aliceryhl@google.com>, <amd-gfx@lists.freedesktop.org>,
+ <dri-devel@lists.freedesktop.org>
+Subject: Re: [RFC/POC PATCH 01/12] drm/amdgpu: add SVM UAPI definitions
+Message-ID: <aeZPBoJVTqOKd4bq@gsse-cloud1.jf.intel.com>
+References: <20260420120739.1811731-1-honglei1.huang@amd.com>
+ <20260420120739.1811731-2-honglei1.huang@amd.com>
+ <cda09d5d-4cca-46a1-8625-fe9fa687e5a2@amd.com>
+ <50d13ae3-be27-4b79-91ef-e1b386054943@amd.com>
+ <54bb7286-2ffb-47f0-b37d-83b5c39ad9a0@amd.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
+In-Reply-To: <54bb7286-2ffb-47f0-b37d-83b5c39ad9a0@amd.com>
+X-ClientProxiedBy: MW4PR04CA0387.namprd04.prod.outlook.com
+ (2603:10b6:303:81::32) To PH7PR11MB6522.namprd11.prod.outlook.com
+ (2603:10b6:510:212::12)
+MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN1PEPF00005FFD:EE_|DM4PR12MB5796:EE_
-X-MS-Office365-Filtering-Correlation-Id: 402cee07-dae7-43cf-5c43-08de9ef5b333
+X-MS-TrafficTypeDiagnostic: PH7PR11MB6522:EE_|DS4PPF31CEE2CEC:EE_
+X-MS-Office365-Filtering-Correlation-Id: ba0b4573-d7f9-402f-1264-08de9ef6cae3
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700016|82310400026|376014|1800799024|56012099003|18002099003;
-X-Microsoft-Antispam-Message-Info: tjcCqOuyMNyS81GjcVna7JJMmXpUc67prql7yo6T+VEweTVPAnFeQTusqAhVwI9DCIFzUf221WaZ/G+dis1Z9eoyJCh7aUrjx8Cicpc3OGfltDhi/x1GpGd3y2c2ylJ24TnPre359yw+3vaB2pJo2ARJj8v6OGhC4cujWiZ9SKlF9MprVKH24ada4nyiGIYOB25KOrAJXKtd0zandc5aS6U6/si6YG0Dte6m8SwVcH1HnRL6xJTxxrNUS7r5eQzsYOK4hJJ1tqAZY8k46OmLMw3puCO17xSsSZAN1Yolsp6dUoCd98k973l5ONwdaT1qnLNL9ddZkKOtsPfiSX6opDsyBZRM11Y3kXsfCY+u3LFOUOUZajEBZN2NBdcICzuTFisSpGqhnALtKx9w9V/qssJPeGKSSjxaWYTBsXJ9IS0G+8YBzsMiCl/FcXxbAYBLpmWma9QFcxvG8xfc+/FUcDIYiD04kdM+VkBsXW0u6BYnQ/akWuYCeeevnO06URgCaI3KS7IDDByIbeilfKiUKsgdH4OWj8uyzSQ5zFpKLRcFQkDBhBb4NFfq5HBlOYxI557/gwNHhqxtz/gZVocHywqneykCim/zUfcQenCF2K0Vry5jJ/h/5Egwd9M2fRTmk9E4gm8fC7gFILyN4mua3P8ktSHLzxDfWR91IOBMCjJKSSQnAGk4lCHfoAPdDl73xDUJxoF6b7F3iUwod3bRBix1PilAOPIzFDpLIiIEaBlqVX1RToJSQTi7Ufp0GAoOhJ1wHLKxCEM8pPIX55M+tA==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700016)(82310400026)(376014)(1800799024)(56012099003)(18002099003);
+ ARA:13230040|366016|376014|7416014|1800799024|22082099003|18002099003|56012099003;
+X-Microsoft-Antispam-Message-Info: p0P7+OzlbCPTakLQsUWxzenLCrWpeSDaxD6yKA873XLJ5UqizOy4q9Kp6zmzq2xpDwMcPLioktuI9oiMlkCKnR2hg7DJMhKvfMJ/zEKVI3K7hxsPBievEJGICsrNbdkf7kNQUaygEEmKA0JOWgdoV6krzFNX4d1e6e76CsllIGR9kExmur48kw2LYfwoPLQxGnVwj05U5CSkBuC+0qf712Fv+0Vx/470YGk+Wi0m5U3KOBPL3kbEqgO5ElZ4rvCcQbrKrzb5QFNoLNg/yi3iNCbZCTuQOX7mecqFm6ZT1kMLJwC0RVCaQNOex43Cx4fmtMaYxldtH2mjtdAxoaL8PvToaUb3+vtt0G6xz7M671rGxLMdGbtPkvQ9/HQjdWBjfiG+z+R1uEC50+dcO6CdwbAR1iiodr6fzaRLmW2OzgXAGNMY5lUUFekzGst8rt22vK9IfRCj2/URXJv6zL0Jtli+WvoRSkXfVHVsuiIx3PPyQS6603arLO9HCqSeTrLXXeO4zOnxkrRPLaWgXsj/PdzCL6yCetm84kDHOGFjbr63l1RSUXqBn7xsx0bu5waNOrpYp/T+0l0lmK+n5pQgyUQbkPPj7uTjcz/IHCn25EaGG9CXL+GRwH7UghpiZd7G26p2RFvzOH6CqQwNbYszTIRwlDgnz61B2ZSIpyG7VJi6lVU7DbnrDxvY8U3k+cHzvljRsqlClcHTWsDsskqYy1hYwh/7CARL6aZFUAEicfY=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR11MB6522.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(376014)(7416014)(1800799024)(22082099003)(18002099003)(56012099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 6fZ8c9ShnOAmN0QgJTNcmiFEYLjcsPqlqiXTCAK+HywkTaJ+otDyIhkIsHYiYPmSUP26yz0dF6VUtH8Z9mGbJKErydigoZFm+n9a4sMVcfDlnXCyGTxxMJdg43T3RfaFNGic8iSh1l5FbmDYJYaOzhBLXnHO/ZatGnkTvGzIJyPLVk32PbMkL8yDB4A893GBT6hgmTbRusnJDyNn1Y9acPHcTdvKTcjZ50T7kc7deAac7iSkF14UcjJP1/KcZwkMMlZtL2x8QhwzhcGGJy1le3gk3XvjRSRvviwmmSijuKDTxN9wohSsoRS3V8ORN/QA4eGBKSGbe0CROBzvPRoGPRu2CGi1rz/oSlRp7eWEes5T8XGxszhDjv4JMWvMpD4Ywvaow0PSuDVI/hg+qQ3mr4g/oTOh9KXsgzkURadkm9xwEk8vMq1v51z3Ddyyyoak
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Apr 2026 15:58:44.3421 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 402cee07-dae7-43cf-5c43-08de9ef5b333
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN1PEPF00005FFD.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5796
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aFBCZzRBS3dMUVFIMHhVNGtBZnl0S283THBJSEhibnloSS8zbHZhckl0azk5?=
+ =?utf-8?B?MDQwS3NieXQyS3ErUGZERVEzVW5VT3Q2M2V3bGRsZmlMbWJoaWw5YmZpY1Nz?=
+ =?utf-8?B?SGxySFV1VWhCNkZBU0xiZ1FTcWRreXQ4bTlLWkJxQm1YZEYxSnd2RDU4aEw0?=
+ =?utf-8?B?TmxzZ3NvSVFlZnc1UkRyNlBWdGtVR1pobXh1bXhJSWhaUkJiVlRJNFpOK3Zx?=
+ =?utf-8?B?c2tZV0llRjRkcVl5MDRyVUlNSFh3MFBpNC9wanhKL1FYWnMyaGNZck1nSnJS?=
+ =?utf-8?B?bk1rbzF4N0FiOWhiV2JsOTk5OGVzNTQ2L3kvbUlueXp3T2FVTmlwZk9aZ3BX?=
+ =?utf-8?B?dnlMc0JHNm93OVpmTjB6clozcmVpNmJDRnUvdW15b1N2OWFyWEFyeWV4U2Zi?=
+ =?utf-8?B?MVAwVDZha1ZIZFFzT0hUM0J5S1dlL0FTNHExVU1SNTlwaHREeVBUNnpFa2Z2?=
+ =?utf-8?B?cXU5V2s5RW1KTGxjM2lzcHpVRzFlNE5UVTU2VmFJRnArSGkzdHBLZVlCTk04?=
+ =?utf-8?B?TVpqQldxQVVwYldVWlRDOFJkU2diSUdINW40c0JUaVZDUEdJTTFNVVpLQ0tz?=
+ =?utf-8?B?bmM0Z2JGNXg0aWFXZ3VKbUVjYXZXVmxqUC9adWlIWFYydUJFWmpIMTAxZk1K?=
+ =?utf-8?B?S3d3MVM3RkJoWE1QRWVJY1BHTFFCdFdpekMwMWg2Nk9tU0JmYk10enRCUk01?=
+ =?utf-8?B?bWZYYmc5ck5zWm1sMjBaNjduMis2aS81dmpvVzZKRWUxTzRibG9WaVM1MFVa?=
+ =?utf-8?B?UXF3enpBR1NwZVVUQTJxaGZYTndxUCtQaUNsSE9kWlptVXEzSHBVRk1vT1Nz?=
+ =?utf-8?B?OTJGSjV3S05IVGpGN2NjUlRtbWI2VTRMK01xTGFjbWV0T3J5N2hJLzJSMHhv?=
+ =?utf-8?B?VDRMb213V2l4WHdVWkMxTHRvR0doUjdJTXRxTmUxeHBPM1dack9nOVNvdXJH?=
+ =?utf-8?B?QnBGb2pzYUlSV0hldHdDaFp1dmtGODNtL2Q3SkRPYVJSZndHWS9tOGV4NDV3?=
+ =?utf-8?B?OHJaY25tWXFqbm5LYzQzSUZBUmh5ZDFBdXJ6TWM2REFHYTBUSkNPWjU1Mk5l?=
+ =?utf-8?B?aFpzZ2J3czZyTWpwbnFQc1BSM1ZnQU1VMnRHRUJoMlFHY0srd2dETk9JbTN3?=
+ =?utf-8?B?RVBMME9mUTF1MXpwc2ZydXJLZDBRRk1mb3VlcnhnMHkzcXBtUUcvK1hXeG1R?=
+ =?utf-8?B?cm9XaFhaRjQ3ampxb1dJZzh5N3lPTXRaaHRtYUs5OHRXclFDK2p4bmdjYmZ2?=
+ =?utf-8?B?c3J4QlV2QzllZ1Z4NnFpV2JiU2xqYklpMXhZMGNwaGVBYnlKQjF0NU1IZ25Z?=
+ =?utf-8?B?WDNwVURoM1Z5dmJqSngvcWhqZ1dqczZ2cUFDUThxWmNUWVRpcWhEV282bHZ4?=
+ =?utf-8?B?d1A2RnFtUlhWbXF1OStVMENpQ2szZXdGUW9uUkFmamJDWTJFMHdRbEgwd05o?=
+ =?utf-8?B?VFpEQnhPcXhReWtPZVRRelNFVk9WZGJjOW5hLzJqaUlnQ2Q5dUFDSEU4UHpK?=
+ =?utf-8?B?dk5lYU9FaWJzWWVHZHp5OTE5OFVhckl0STdmSFB1OGZQUkltSGZkSXBLUGow?=
+ =?utf-8?B?a3FLdEM2b3ZoSG4xaWR5UWgzbXcrMldwdHcwM29ucTJiRHlsSjEraUEwb3dZ?=
+ =?utf-8?B?eStrdC95QysrWmI4NVgzV29pRWtYOUtHM0V6a0RBMTFENjVJUk5NMm01dGhC?=
+ =?utf-8?B?Q0xQWjRQL21MYnFXOU51NzI2VXVsdjFlWml3TU9UdmRieDFNbU96a1MxY2RQ?=
+ =?utf-8?B?Q1ZCWTdPU0xmaGNkSjZVdGJCckNvUE9OaWdYVnhDRVE3REYwaU1MSG93TlBa?=
+ =?utf-8?B?b0QrN25KbG1ZOTJZb3ZMNkpOT1gzREVJMXdPQlhZaThqblBxQ1Q1WE95b21K?=
+ =?utf-8?B?Y3pKeVF1TjF1akgwUGpIVDNvY2lvUzVyZU1UckcrNHBmcXoxRGcwdDFjWFl2?=
+ =?utf-8?B?VnpyMytuc0srcExZbFdkN2lNZWdyOVVsZ216SzJoeHRQM3NSSkRnSm5vM3lL?=
+ =?utf-8?B?RGYvYWp4VGIyM2VLYTFmUXRLK1RHa1VhMlJ0REdJdFBJblN4c3Jqem44bGdX?=
+ =?utf-8?B?L0NHU1VpbGROMU56bDUxNHJrRVRPalFmU1BJRmNSck15WDA2aVgxL0E5RDVM?=
+ =?utf-8?B?b1VHZmZEVmVsT2ltaW5oR1Qxci9Qb1VoNTlJNGZOVytFQ2RtZmQrcTlzaFVY?=
+ =?utf-8?B?L1dZU3MzY1J0ckZLWE1QOW1kWDVWUUp1N1AvZ2g2bEJhUnVVdmJBSUhBaGkz?=
+ =?utf-8?B?ZmpCY052TFk3RDFndEt2Z0ZtOStnNnhhS0tZajV1bXFrYkhjbjh1N1U1Nmt4?=
+ =?utf-8?B?Kzl4VFA3NkRLN0hKQktja0xIb3VmUVNYRnA3UFlyRmxaOEdKUVA2Zz09?=
+X-Exchange-RoutingPolicyChecked: XqFaX60JqrDe2pB5mvbM8Pfsw+of9Ue9rj3R+danS3Qze6c5cz1+vZz/UJllyF3MrhpcNnh7naRrJNVd/Vq+sz1/LbMDr5hePqqqZbLEtFX6pedeec0/EpU9TFf5ASmYhipg8DW6zRneR5hs6AN88uctxtnXLmOatLghouljWwfWXtgFZiJHkoDDi9/jUEouv2xyEjkY7rXpjMSkrwHlVIg+/rywerpL744RTy1FF/gwCON1mjIlxA1pTwdqtEE2meRRhNQ/soRh4aMefVSZvPo34Wl0c0nH5YycA6G3e9pN3ERHwNZ9+X05huLnBkLkH7WK0vU4wQsDSGz1axoWJg==
+X-MS-Exchange-CrossTenant-Network-Message-Id: ba0b4573-d7f9-402f-1264-08de9ef6cae3
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR11MB6522.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Apr 2026 16:06:33.8104 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: x1bzLQUViTice7ZzUSr6Tgq/0fM6OQQK5gWdt+Eb8pcQsN7ZTTXP2iAIEASxVboo3RxoRopjnvSuCZNmuCAzuQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS4PPF31CEE2CEC
+X-OriginatorOrg: intel.com
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,113 +176,183 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-With only one sequence number we cannot track the need for legacy vs
-heavy-weight flushes reliably. Always use heavy-weight.
+On Mon, Apr 20, 2026 at 05:37:43PM +0200, Christian König wrote:
+> On 4/20/26 15:30, Huang, Honglei1 wrote:
+> > On 4/20/2026 8:15 PM, Christian König wrote:
+> >>
+> >>
+> >> On 4/20/26 14:07, Honglei Huang wrote:
+> >>> From: Honglei Huang <honghuan@amd.com>
+> >>>
+> >>> Add amdgpu drm SVM API definitions built on the
+> >>> DRM GPUSVM framework.
+> >>>
+> >>> This includes:
+> >>> - DRM_AMDGPU_GEM_SVM ioctl
+> >>> - AMDGPU_SVM_FLAG_* flags
+> >>> - AMDGPU_SVM_OP_SET_ATTR / AMDGPU_SVM_OP_GET_ATTR operations
+> >>> - AMDGPU_SVM_ATTR_* attribute types
+> >>> - AMDGPU_SVM_LOCATION_SYSMEM / AMDGPU_SVM_LOCATION_UNDEFINED
+> >>> - struct drm_amdgpu_svm_attribute and struct drm_amdgpu_gem_svm
+> >>>
+> >>> Signed-off-by: Honglei Huang <honghuan@amd.com>
+> >>> ---
+> >>>   include/uapi/drm/amdgpu_drm.h | 39 +++++++++++++++++++++++++++++++++++
+> >>>   1 file changed, 39 insertions(+)
+> >>>
+> >>> diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h
+> >>> index 406a42be4..bed71ed9b 100644
+> >>> --- a/include/uapi/drm/amdgpu_drm.h
+> >>> +++ b/include/uapi/drm/amdgpu_drm.h
+> >>> @@ -58,6 +58,7 @@ extern "C" {
+> >>>   #define DRM_AMDGPU_USERQ_SIGNAL        0x17
+> >>>   #define DRM_AMDGPU_USERQ_WAIT        0x18
+> >>>   #define DRM_AMDGPU_GEM_LIST_HANDLES    0x19
+> >>> +#define DRM_AMDGPU_GEM_SVM        0x1a
+> >>>     #define DRM_IOCTL_AMDGPU_GEM_CREATE    DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_CREATE, union drm_amdgpu_gem_create)
+> >>>   #define DRM_IOCTL_AMDGPU_GEM_MMAP    DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_MMAP, union drm_amdgpu_gem_mmap)
+> >>> @@ -79,6 +80,7 @@ extern "C" {
+> >>>   #define DRM_IOCTL_AMDGPU_USERQ_SIGNAL    DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_USERQ_SIGNAL, struct drm_amdgpu_userq_signal)
+> >>>   #define DRM_IOCTL_AMDGPU_USERQ_WAIT    DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_USERQ_WAIT, struct drm_amdgpu_userq_wait)
+> >>>   #define DRM_IOCTL_AMDGPU_GEM_LIST_HANDLES DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_LIST_HANDLES, struct drm_amdgpu_gem_list_handles)
+> >>> +#define DRM_IOCTL_AMDGPU_GEM_SVM    DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_SVM, struct drm_amdgpu_gem_svm)
+> >>>     /**
+> >>>    * DOC: memory domains
+> >>> @@ -1665,6 +1667,43 @@ struct drm_color_ctm_3x4 {
+> >>>       __u64 matrix[12];
+> >>>   };
+> >>>   +#define AMDGPU_SVM_FLAG_HOST_ACCESS        0x00000001
+> >>> +#define AMDGPU_SVM_FLAG_COHERENT        0x00000002
+> >>> +#define AMDGPU_SVM_FLAG_HIVE_LOCAL        0x00000004
+> >>> +#define AMDGPU_SVM_FLAG_GPU_RO            0x00000008
+> >>> +#define AMDGPU_SVM_FLAG_GPU_EXEC        0x00000010
+> >>> +#define AMDGPU_SVM_FLAG_GPU_READ_MOSTLY        0x00000020
+> >>> +#define AMDGPU_SVM_FLAG_GPU_ALWAYS_MAPPED    0x00000040
+> >>> +#define AMDGPU_SVM_FLAG_EXT_COHERENT        0x00000080
+> >>> +
+> >>> +#define AMDGPU_SVM_OP_SET_ATTR        0
+> >>> +#define AMDGPU_SVM_OP_GET_ATTR        1
+> >>> +
+> >>> +#define AMDGPU_SVM_ATTR_PREFERRED_LOC        0
+> >>> +#define AMDGPU_SVM_ATTR_PREFETCH_LOC        1
+> >>
+> >> Up till here the interface makes perfect sense, but then it becomes a bit fuzzy.
+> >>
+> >>> +#define AMDGPU_SVM_ATTR_ACCESS            2
+> >>> +#define AMDGPU_SVM_ATTR_ACCESS_IN_PLACE        3
+> >>> +#define AMDGPU_SVM_ATTR_NO_ACCESS        4
+> >>
+> >> Why are those separate attributes? What is the difference between those?
+> > 
+> > Really thanks for the comments, I have some content mistaken in V2, so I updated the V3 to fix that. For the header they are same. for other content please review the V3, sorry about that. And will fix the concern you raised in next version.
+> > 
+> > So the meaning of AMDGPU_SVM_ATTR_ACCESS and AMDGPU_SVM_ATTR_NO_ACCESS are clear, GPU can access it or not, and the SVM can set the preferred location, it can be in VRAM or system, for AMDGPU_SVM_ATTR_ACCESS it can be migrated between RAM and VRAM. For AMDGPU_SVM_ATTR_ACCESS_IN_PLACE,
+> > it can not migrate, GPU only can access it in the initial place.
+> 
+> Yeah but that doesn't then the interface doesn't seem to make sense since such states are mutual exclusive.
+> 
+> It would make sense when you have some attribute which is named (for example) AMDGPU_SVM_ATTR_ACCESS which can have the values INACCESSIBLE, IN_PLACE, MIGRATE.
+> 
+> >>> +#define AMDGPU_SVM_ATTR_SET_FLAGS        5
+> >>> +#define AMDGPU_SVM_ATTR_CLR_FLAGS        6
+> >>
+> >> Why is that separated into set and clear flags?
+> > 
+> > This method inherits from KFD and is also designed to be compatible with upper layer applications such as ROCR.
+> 
+> That is *not* sufficient as justification. We need to document why that is necessary and *not* just say ROCR works that way.
+> 
+> As far as I can see just a SET_FLAGS should be sufficient.
+> 
+> >>> +#define AMDGPU_SVM_ATTR_GRANULARITY        7
+> >>> +
+> >>> +#define AMDGPU_SVM_LOCATION_SYSMEM        0
+> >>> +#define AMDGPU_SVM_LOCATION_UNDEFINED        0xffffffff
+> >>
+> >> No location for device local memory?
+> > 
+> > Vaule > 0 means for device memory, in xe_svm, it seems like it uses fd for device local memory.
 
-Signed-off-by: Felix Kuehling <felix.kuehling@amd.com>
----
- drivers/gpu/drm/amd/amdkfd/kfd_chardev.c              | 4 ++--
- drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c | 6 +++---
- drivers/gpu/drm/amd/amdkfd/kfd_priv.h                 | 6 +++---
- drivers/gpu/drm/amd/amdkfd/kfd_svm.c                  | 4 ++--
- 4 files changed, 10 insertions(+), 10 deletions(-)
+I have no stake in AMD’s uAPI, but I can at least explain how Xe’s uAPI
+works here—and admittedly, it’s somewhat goofy.
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-index 16fb39259911..0625104a7693 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-@@ -1358,7 +1358,7 @@ static int kfd_ioctl_map_memory_to_gpu(struct file *filep,
- 		peer_pdd = kfd_process_device_data_by_id(p, devices_arr[i]);
- 		if (WARN_ON_ONCE(!peer_pdd))
- 			continue;
--		kfd_flush_tlb(peer_pdd, TLB_FLUSH_LEGACY);
-+		kfd_flush_tlb(peer_pdd);
- 	}
- 	kfree(devices_arr);
- 
-@@ -1453,7 +1453,7 @@ static int kfd_ioctl_unmap_memory_from_gpu(struct file *filep,
- 		if (WARN_ON_ONCE(!peer_pdd))
- 			continue;
- 		if (flush_tlb)
--			kfd_flush_tlb(peer_pdd, TLB_FLUSH_HEAVYWEIGHT);
-+			kfd_flush_tlb(peer_pdd);
- 
- 		/* Remove dma mapping after tlb flush to avoid IO_PAGE_FAULT */
- 		err = amdgpu_amdkfd_gpuvm_dmaunmap_mem(mem, peer_pdd->drm_priv);
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-index c1f668f12732..8d9bf4334090 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-@@ -595,7 +595,7 @@ static int allocate_vmid(struct device_queue_manager *dqm,
- 			qpd->vmid,
- 			qpd->page_table_base);
- 	/* invalidate the VM context after pasid and vmid mapping is set up */
--	kfd_flush_tlb(qpd_to_pdd(qpd), TLB_FLUSH_LEGACY);
-+	kfd_flush_tlb(qpd_to_pdd(qpd));
- 
- 	if (dqm->dev->kfd2kgd->set_scratch_backing_va)
- 		dqm->dev->kfd2kgd->set_scratch_backing_va(dqm->dev->adev,
-@@ -633,7 +633,7 @@ static void deallocate_vmid(struct device_queue_manager *dqm,
- 		if (flush_texture_cache_nocpsch(q->device, qpd))
- 			dev_err(dev, "Failed to flush TC\n");
- 
--	kfd_flush_tlb(qpd_to_pdd(qpd), TLB_FLUSH_LEGACY);
-+	kfd_flush_tlb(qpd_to_pdd(qpd));
- 
- 	/* Release the vmid mapping */
- 	set_pasid_vmid_mapping(dqm, 0, qpd->vmid);
-@@ -1307,7 +1307,7 @@ static int restore_process_queues_nocpsch(struct device_queue_manager *dqm,
- 				dqm->dev->adev,
- 				qpd->vmid,
- 				qpd->page_table_base);
--		kfd_flush_tlb(pdd, TLB_FLUSH_LEGACY);
-+		kfd_flush_tlb(pdd);
- 	}
- 
- 	/* Take a safe reference to the mm_struct, which may otherwise
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-index 53c26b1a25ca..dc8787dc399b 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-@@ -1559,13 +1559,13 @@ void kfd_signal_reset_event(struct kfd_node *dev);
- void kfd_signal_poison_consumed_event(struct kfd_node *dev, u32 pasid);
- void kfd_signal_process_terminate_event(struct kfd_process *p);
- 
--static inline void kfd_flush_tlb(struct kfd_process_device *pdd,
--				 enum TLB_FLUSH_TYPE type)
-+static inline void kfd_flush_tlb(struct kfd_process_device *pdd)
- {
- 	struct amdgpu_device *adev = pdd->dev->adev;
- 	struct amdgpu_vm *vm = drm_priv_to_vm(pdd->drm_priv);
- 
--	amdgpu_vm_flush_compute_tlb(adev, vm, type, pdd->dev->xcc_mask);
-+	amdgpu_vm_flush_compute_tlb(adev, vm, TLB_FLUSH_HEAVYWEIGHT,
-+				    pdd->dev->xcc_mask);
- }
- 
- static inline bool kfd_flush_tlb_after_unmap(struct kfd_dev *dev)
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-index 015eb61f3440..5090f8c15428 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-@@ -1418,7 +1418,7 @@ svm_range_unmap_from_gpus(struct svm_range *prange, unsigned long start,
- 			if (r)
- 				break;
- 		}
--		kfd_flush_tlb(pdd, TLB_FLUSH_HEAVYWEIGHT);
-+		kfd_flush_tlb(pdd);
- 	}
- 
- 	return r;
-@@ -1560,7 +1560,7 @@ svm_range_map_to_gpus(struct svm_range *prange, unsigned long offset,
- 			}
- 		}
- 
--		kfd_flush_tlb(pdd, TLB_FLUSH_LEGACY);
-+		kfd_flush_tlb(pdd);
- 	}
- 
- 	return r;
--- 
-2.43.0
+0 == device-local memory, with first-touch placement on whichever
+device/tile touches the memory first
 
+-1 == system memory
+
+≥ 0 == a render-node FD (which could refer to a local or remote device),
+paired with a region instance to extract the pgmap for the desired
+placement
+
+I believe the reason this isn’t fully FD-based is that the compute UMD
+team wasn’t keen on exporting every pgmap as an FD, though that was
+something that had been considered.
+
+> 
+> Absolute clear NAK for that approach. This interface is per FD!
+> 
+> We need some value AMDGPU_SVM_LOCATION_DEVICE which means that the memory should be migrated to the current device.
+> 
+> We also need to make sure that setting attributes for different devices doesn't affect each other.
+
+We landed on the conclusion that it is undefined behavior if different
+render FDs—or more specifically, VMs across devices within the same SVM
+address space—set different madvise attributes. I believe this was at
+Sima's suggestion.
+
+From the UMD point of view, every madvise call therefore becomes:
+
+for_each_fd_vm
+	set_madvise_attributes
+
+This choice was made to keep madvise attributes local to the per-device
+VM structure, rather than introducing some form of cross-device shared
+storage.
+
+A misbehaving user can absolutely shoot themselves in the foot, but at
+worst this only ends up corrupting behavior within their own process
+shared across devices.
+
+Matt
+
+> 
+> Regards,
+> Christian.
+> 
+> > 
+> >>
+> >>> +
+> >>> +struct drm_amdgpu_svm_attribute {
+> >>> +    __u32 type;
+> >>> +    __u32 value;
+> >>> +};
+> >>> +
+> >>> +struct drm_amdgpu_gem_svm {
+> >>> +    __u64 start_addr;
+> >>> +    __u64 size;
+> >>> +    __u32 operation;
+> >>> +    __u32 nattr;
+> >>> +    __u64 attrs_ptr;
+> >>> +};
+> >>
+> >> Those struct make perfect sense but clearly need documentation. Preferable as kerneldoc.
+> >>
+> >> And we usually use unions in this header to separate the input from the output parameters.
+> > 
+> > Got it will add documentation for it and will use unions in next version. Really thanks for the comments.
+> > 
+> > Regards,
+> > Honglei
+> > 
+> >>
+> >> Regards,
+> >> Christian.
+> >>
+> >>> +
+> >>>   #if defined(__cplusplus)
+> >>>   }
+> >>>   #endif
+> >>
+> > 
+> 
