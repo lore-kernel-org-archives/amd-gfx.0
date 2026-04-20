@@ -4,104 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 15FECF588C4
-	for <amd-gfx@archiver.kernel.org>; Mon, 20 Apr 2026 13:14:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4164AF588C2
+	for <amd-gfx@archiver.kernel.org>; Mon, 20 Apr 2026 13:17:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A106810E5E4;
-	Mon, 20 Apr 2026 13:14:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D22E710E5E7;
+	Mon, 20 Apr 2026 13:17:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="KHkalqWV";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="llYjXabH";
 	dkim-atps=neutral
-Received: from BN1PR04CU002.outbound.protection.outlook.com
- (mail-eastus2azon11010004.outbound.protection.outlook.com [52.101.56.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0B78010E5E3;
- Mon, 20 Apr 2026 13:14:38 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=RW2+j9BYupk4fmbgkUHjGv/gKn0yEub7WBROFH2mIouOXU6QIxOzBSC+jWevRU7Ey3E9qpqY8+fENAsXDRDFZobREh0BU2fpvvDVlN7cuX/1ahZ2QK8OO2ner1jB4t3gqzEgjW1rvX2oLh1AOV7a3Ro32VLMOeMnfQrjsKirGY8avj4TdbtrUYDVQI9HyBFjVuX+mCt2Yx+RVogB7UClXzcwEjWMCurpp6d3stNeAIzhwpFrogUkET6cIQKDSyGlRsyxAkvmOaqtjo1QpU1gpRup+MHIwy93z/zYNWfdyZDr5NjuWp/Fiq/NVXqls3Obz4vdjTm1qGH9pjlP1m4xaA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=tOsQcBgl7FQ1l49wVLGNt+PkmDAXZvQatfna2QD2CCM=;
- b=UCwcTA0Aj6rk8CWY3gAe0x66+MKaRmVwsN17mW8fHnW9bS934iHvtwba7AByq9iZ2qf0FCnsCa1ovPwTGHi3MjhduDufpeybCUaEK0wmWA6yQqBb5ZuJV/yyj8X1x1EpcoBSTbX+gl1ruP7F7tPPLEPWvd1AbyuMQojkUZjjwQtRvSqTXttdm4TBICOry3FlQMGJnuH26z7MPIZM1Xjr9AiG4ZMApRWDaNxdBh+L6AWxCPCin/e5s0qChrmJmoAIdDEnef4L+H6hpxTZ5LiTfEyR4hRBY4Cvwdu3woau6D/4n+AzBYFTVK3hFagU+aG0xje8REPvXDcrUcmE4azQOA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=intel.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=tOsQcBgl7FQ1l49wVLGNt+PkmDAXZvQatfna2QD2CCM=;
- b=KHkalqWVc7UXfS+oKXfFe2vpxWQzlpSoHfEkSSwOlvxi7DH+Mk9fB2ixkAR1YuPkRdMMWGtVL6AWrnCvpXPzjvCFIXh8PYdl01DTAchtElMHk0DR1kmjjkci3C/vs1xGqORHuwpyj9VO6fZfKa/nvX+lX9pn6XPJsYoQmghQY94=
-Received: from CH0PR03CA0311.namprd03.prod.outlook.com (2603:10b6:610:118::13)
- by SA3PR12MB7784.namprd12.prod.outlook.com (2603:10b6:806:317::20)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.15; Mon, 20 Apr
- 2026 13:14:30 +0000
-Received: from CH1PEPF0000AD7A.namprd04.prod.outlook.com
- (2603:10b6:610:118:cafe::56) by CH0PR03CA0311.outlook.office365.com
- (2603:10b6:610:118::13) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9791.48 via Frontend Transport; Mon,
- 20 Apr 2026 13:14:30 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- CH1PEPF0000AD7A.mail.protection.outlook.com (10.167.244.59) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9791.48 via Frontend Transport; Mon, 20 Apr 2026 13:14:30 +0000
-Received: from honglei-remote.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Mon, 20 Apr
- 2026 08:14:23 -0500
-From: Honglei Huang <honglei1.huang@amd.com>
-To: <Alexander.Deucher@amd.com>, <Felix.Kuehling@amd.com>,
- <Christian.Koenig@amd.com>, <Oak.Zeng@amd.com>, <Jenny-Jing.Liu@amd.com>,
- <Philip.Yang@amd.com>, <Xiaogang.Chen@amd.com>, <Ray.Huang@amd.com>,
- <Lingshan.Zhu@amd.com>, <Junhua.Shen@amd.com>, <matthew.brost@intel.com>,
- <rodrigo.vivi@intel.com>, <thomas.hellstrom@linux.intel.com>,
- <dakr@kernel.org>, <aliceryhl@google.com>
-CC: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <honghuan@amd.com>, Honghuan He <honghuan.he@amd.com>
-Subject: [RFC V3 12/12] drm/amdgpu: integrate SVM into build system and VM
- fault path
-Date: Mon, 20 Apr 2026 21:13:07 +0800
-Message-ID: <20260420131307.1816671-13-honglei1.huang@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260420131307.1816671-1-honglei1.huang@amd.com>
-References: <20260420131307.1816671-1-honglei1.huang@amd.com>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8255E10E5E7;
+ Mon, 20 Apr 2026 13:17:09 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 53789404C3;
+ Mon, 20 Apr 2026 13:17:09 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F3893C2BCB7;
+ Mon, 20 Apr 2026 13:17:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1776691029;
+ bh=DZpahuMZuqCNd1jPzatGrPOZ6xoX1xfgs8kTTvQ4FCY=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=llYjXabHDskLhCbjyt9SsLoJD/RT91NY5yvJwD7Yo1Z5qRudNzlyZ5whtb2v2hmif
+ q/662MZE6KP7Sfm/Hc9lLV6yGJPjpMbMJiDIfTkBK/gPq5ZASMM+SPIH6kxqVrXL3W
+ rqOhUxxBRNpuY2RnAKGrcbVgNZB0mGM0tya+vdvgOV1hpNjidhCk6S0dWprwXj2u6X
+ H7K6cTxObAP5emlbNN7X1051e+9HCdby1WwvoWZj/6K76dJuZL0m3zD/3a6lgJNhbY
+ Y9SaPXyxdOirSIf4D0uECRa78XaJ4Gz+6dmQEbhYcTA1+9oPk9Os336gFWboaCWDIb
+ cejOkaVGCqgrA==
+From: Sasha Levin <sashal@kernel.org>
+To: patches@lists.linux.dev,
+	stable@vger.kernel.org
+Cc: Sunil Khatri <sunil.khatri@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
+ airlied@gmail.com, simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [PATCH AUTOSEL 7.0] drm/amdgpu/userq: remove queue from doorbell
+ xarray
+Date: Mon, 20 Apr 2026 09:08:38 -0400
+Message-ID: <20260420131539.986432-52-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260420131539.986432-1-sashal@kernel.org>
+References: <20260420131539.986432-1-sashal@kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+X-stable: review
+X-Patchwork-Hint: Ignore
+X-stable-base: Linux 7.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH1PEPF0000AD7A:EE_|SA3PR12MB7784:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6feca37c-4968-4772-87eb-08de9edec1bc
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|36860700016|82310400026|18002099003|22082099003|921020|56012099003;
-X-Microsoft-Antispam-Message-Info: p1fOGx1VyVIG8BiLwwOdgMWQQxSE5GZRXjsBx3DR9b14i9MMbYVPTUezcG6IoB/dlEXAGZSYI5Stje1/GkaNY55nom63VBvzBIa0fKkDA3v2YGvIRmyM+UmXba0ZirkexNgy8AcaPYZx8UR8riLxPDUJSxMg4xYcc0Q/9XUWwxNM8yZhwmK/a9oHvrmPxudzgGWrvv04al3XrJc9mffKQ/4fQ/861CTllVUzMop+Jp81yO3ey93ylOzb3fIcsJ/gpscVLX60w6M+U5KpJy3+OHa7yzXxBBizYFHx386cfvEGM/UHaQ81JiUaoQEclSDX5X4lCqBZfQ5vHQ83XEdYB8LQ82V9AdwQGA666b0TCAxUKcac4MuD3VYuOx4aatpllNBxo4/RawlQMcqc8yXhIUKEZprIrSYm+0sxYZbQSWYYNy3KbluQJ/G2YP/N7yI8zAP5tKVgH6XuwpIX90cz+mprcXtvrut68lOAP3HqZfFK9Ma6/QNfbyC3QgaCp2cBgZHbbr4hQ9bSLzsYhN++DCtMMg9KoNVSW1iLBVJqyfXtdAOVKopKxhGZfzqPl5kMj+1OuZh2Me+CNvF2wU45vnEBTBjOAtbgCAJ9NF46KxEZszqhCbwTk/zNOlNEggT5YvIl2htBW3Rtfc4v5uSkx5Q3xu+yarDVb+FcjPjk23POVPWBnDcn4ZP8OFeyubIAq1t5r04OECAQHkWDHVxtk+BQ7qAhNeLS0BMjTjQ8kCVzYCE2YFav4W9RaKqgTUXd3vJpdUuAwLnPLq74LSCdivP2WehkKKeuqgiqlp3NNhAPH22WvI1xKTOVl/Uh5xLz
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(36860700016)(82310400026)(18002099003)(22082099003)(921020)(56012099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: R9QGeSaZCmqLTMR/OPz7aXeEd2oUDhP1Xh3bC4aybISRuq5buolFwChWykv+VJ5/GqOZPvJNIWHx6qehaFrY8ccwGVofr+Py/c7Wj2DPMtt3DXoKFJUh4WjB1n5FH7djPu66/0rRtZvJg1G4VQyYP88nqPxgPt/FrowNmYPnioirKRLq6+WJvuXP0XrbaSn4jbdHghJWlgUqBoaLAYVdzwyLL8nscIJqqg+geiatf02JfRkVgCAIKVsoEuziCobPIluFctCXLUmEx3cuTeiEjasernji4nUyIFKXvar0vnXmsgp1oQrcUFjvDaeA4a1KS5JDRKD2DIgX6dPb+LDFhvOOT9aCnml61c7uAgKrx06pj8PvES5UNCtFmYx64dssDzpryVtVMFuN/xg5u4xScZ6ruO0nhc8vGwtDG1er65DpBAbl0HxtYeZFXrY2txX+
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Apr 2026 13:14:30.2911 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6feca37c-4968-4772-87eb-08de9edec1bc
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CH1PEPF0000AD7A.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB7784
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,190 +65,271 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Honglei Huang <honghuan@amd.com>
+From: Sunil Khatri <sunil.khatri@amd.com>
 
-Wire the amdgpu SVM subsystem into the kernel build and the
-runtime fault handling path.
+[ Upstream commit f0e46fd06c3f7590b0f06aea3c877f441c2cbccc ]
 
-Kconfig:
-- Add CONFIG_DRM_AMDGPU_SVM (default y), depends on
-  DEVICE_PRIVATE, selects DRM_GPUSVM, HMM_MIRROR, MMU_NOTIFIER
+In case of failure in xa_alloc, remove the queue during
+clean up from the userq_doorbell_xa.
 
-Makefile:
-- Build amdgpu_svm.o, amdgpu_svm_attr.o, amdgpu_svm_fault.o,
-  and amdgpu_svm_range.o when CONFIG_DRM_AMDGPU_SVM is enabled
-- Add KBUILD_EXTRA_SYMBOLS for drm Module.symvers to resolve
-  drm_gpusvm symbols
-
-amdgpu_drv.c:
-- Register DRM_IOCTL_AMDGPU_GEM_SVM in the ioctl table
-
-amdgpu_vm.c:
-- Initialize vm->svm = NULL in amdgpu_vm_init()
-- Call amdgpu_svm_init() in amdgpu_vm_make_compute() to create
-  SVM state for compute VMs
-- Call amdgpu_svm_close() and amdgpu_svm_fini() in
-  amdgpu_vm_fini() for cleanup
-- Route GPU page faults through amdgpu_svm_handle_fault() in
-  amdgpu_vm_handle_fault() when SVM is enabled, before falling
-  back to the KFD svm_range_restore_pages() path
-
-Signed-off-by: Honghuan He <honghuan.he@amd.com>
+Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
+Reviewed-by: Christian König <christian.koenig@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/amdgpu/Kconfig      | 11 +++++++++++
- drivers/gpu/drm/amd/amdgpu/Makefile     | 13 +++++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c |  2 ++
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c  | 20 +++++++++++++++++++-
- 4 files changed, 45 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/Kconfig b/drivers/gpu/drm/amd/amdgpu/Kconfig
-index 7f515be51..337314011 100644
---- a/drivers/gpu/drm/amd/amdgpu/Kconfig
-+++ b/drivers/gpu/drm/amd/amdgpu/Kconfig
-@@ -82,6 +82,17 @@ config DRM_AMDGPU_USERPTR
- 	  This option selects CONFIG_HMM and CONFIG_HMM_MIRROR if it
- 	  isn't already selected to enabled full userptr support.
- 
-+config DRM_AMDGPU_SVM
-+	bool "Enable AMDGPU SVM support (experimental)"
-+	depends on DRM_AMDGPU
-+	depends on DEVICE_PRIVATE
-+	select DRM_GPUSVM
-+	select HMM_MIRROR
-+	select MMU_NOTIFIER
-+	default y
-+	help
-+	  Experimental SVM support based on DRM GPUSVM.
-+
- config DRM_AMD_ISP
- 	bool "Enable AMD Image Signal Processor IP support"
- 	depends on DRM_AMDGPU && ACPI
-diff --git a/drivers/gpu/drm/amd/amdgpu/Makefile b/drivers/gpu/drm/amd/amdgpu/Makefile
-index 6a7e9bfec..a40a42995 100644
---- a/drivers/gpu/drm/amd/amdgpu/Makefile
-+++ b/drivers/gpu/drm/amd/amdgpu/Makefile
-@@ -44,6 +44,10 @@ ccflags-y := -I$(FULL_AMD_PATH)/include/asic_reg \
- subdir-ccflags-y += -Wno-override-init
- subdir-ccflags-$(CONFIG_DRM_AMDGPU_WERROR) += -Werror
- 
-+ifneq ($(wildcard $(objtree)/drivers/gpu/drm/Module.symvers),)
-+KBUILD_EXTRA_SYMBOLS += $(objtree)/drivers/gpu/drm/Module.symvers
-+endif
-+
- amdgpu-y := amdgpu_drv.o
- 
- # add KMS driver
-@@ -317,6 +321,15 @@ amdgpu-$(CONFIG_VGA_SWITCHEROO) += amdgpu_atpx_handler.o
- amdgpu-$(CONFIG_ACPI) += amdgpu_acpi.o
- amdgpu-$(CONFIG_HMM_MIRROR) += amdgpu_hmm.o
- 
-+# svm support
-+amdgpu-$(CONFIG_DRM_AMDGPU_SVM) += amdgpu_svm.o amdgpu_svm_attr.o \
-+	amdgpu_svm_fault.o amdgpu_svm_range.o
-+
-+.PHONY: clean-svm
-+clean-svm:
-+	rm -f $(obj)/amdgpu_svm.o $(obj)/amdgpu_svm_attr.o $(obj)/amdgpu_svm_fault.o $(obj)/amdgpu_svm_range.o \
-+	      $(obj)/.amdgpu_svm.o.cmd $(obj)/.amdgpu_svm_attr.o.cmd $(obj)/.amdgpu_svm_fault.o.cmd $(obj)/.amdgpu_svm_range.o.cmd
-+
- include $(FULL_AMD_PATH)/pm/Makefile
- 
- amdgpu-y += $(AMD_POWERPLAY_FILES)
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-index a44baa9ee..d5ccacdf2 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-@@ -51,6 +51,7 @@
- #include "amdgpu_ras.h"
- #include "amdgpu_reset.h"
- #include "amdgpu_sched.h"
-+#include "amdgpu_svm.h"
- #include "amdgpu_xgmi.h"
- #include "amdgpu_userq.h"
- #include "amdgpu_userq_fence.h"
-@@ -3064,6 +3065,7 @@ const struct drm_ioctl_desc amdgpu_ioctls_kms[] = {
- 	DRM_IOCTL_DEF_DRV(AMDGPU_USERQ_SIGNAL, amdgpu_userq_signal_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
- 	DRM_IOCTL_DEF_DRV(AMDGPU_USERQ_WAIT, amdgpu_userq_wait_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
- 	DRM_IOCTL_DEF_DRV(AMDGPU_GEM_LIST_HANDLES, amdgpu_gem_list_handles_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
-+	DRM_IOCTL_DEF_DRV(AMDGPU_GEM_SVM, amdgpu_gem_svm_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
- };
- 
- static const struct drm_driver amdgpu_kms_driver = {
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-index 429947f75..86603d2b3 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-@@ -43,6 +43,7 @@
- #include "amdgpu_xgmi.h"
- #include "amdgpu_dma_buf.h"
- #include "amdgpu_res_cursor.h"
-+#include "amdgpu_svm.h"
- #include "kfd_svm.h"
- 
- /**
-@@ -2606,6 +2607,7 @@ int amdgpu_vm_init(struct amdgpu_device *adev, struct amdgpu_vm *vm,
- 	int r, i;
- 
- 	vm->va = RB_ROOT_CACHED;
-+	vm->svm = NULL;
- 	for (i = 0; i < AMDGPU_MAX_VMHUBS; i++)
- 		vm->reserved_vmid[i] = NULL;
- 	INIT_LIST_HEAD(&vm->evicted);
-@@ -2766,6 +2768,10 @@ int amdgpu_vm_make_compute(struct amdgpu_device *adev, struct amdgpu_vm *vm)
- 	vm->is_compute_context = true;
- 	vm->need_tlb_fence = true;
- 
-+	r = amdgpu_svm_init(adev, vm);
-+	if (r)
-+		goto unreserve_bo;
-+
- unreserve_bo:
- 	amdgpu_bo_unreserve(vm->root.bo);
- 	return r;
-@@ -2798,6 +2804,9 @@ void amdgpu_vm_fini(struct amdgpu_device *adev, struct amdgpu_vm *vm)
- 	unsigned long flags;
- 	int i;
- 
-+	amdgpu_svm_close(vm);
-+	amdgpu_svm_fini(vm);
-+
- 	amdgpu_amdkfd_gpuvm_destroy_cb(adev, vm);
- 
- 	root = amdgpu_bo_ref(vm->root.bo);
-@@ -2976,8 +2985,10 @@ bool amdgpu_vm_handle_fault(struct amdgpu_device *adev, u32 pasid,
- 			    bool write_fault)
- {
- 	bool is_compute_context = false;
-+	bool has_svm = false;
- 	struct amdgpu_bo *root;
- 	unsigned long irqflags;
-+	uint64_t fault_addr = addr;
- 	uint64_t value, flags;
- 	struct amdgpu_vm *vm;
- 	int r;
-@@ -2987,6 +2998,7 @@ bool amdgpu_vm_handle_fault(struct amdgpu_device *adev, u32 pasid,
- 	if (vm) {
- 		root = amdgpu_bo_ref(vm->root.bo);
- 		is_compute_context = vm->is_compute_context;
-+		has_svm = !!vm->svm;
- 	} else {
- 		root = NULL;
- 	}
-@@ -2997,7 +3009,13 @@ bool amdgpu_vm_handle_fault(struct amdgpu_device *adev, u32 pasid,
- 
- 	addr /= AMDGPU_GPU_PAGE_SIZE;
- 
--	if (is_compute_context && !svm_range_restore_pages(adev, pasid, vmid,
-+	if (is_compute_context && has_svm && !amdgpu_svm_handle_fault(adev, pasid, addr,
-+		ts, write_fault)) {
-+		amdgpu_bo_unref(&root);
-+		return true;
-+	}
-+
-+	if (is_compute_context && !has_svm && !svm_range_restore_pages(adev, pasid, vmid,
- 	    node_id, addr, ts, write_fault)) {
- 		amdgpu_bo_unref(&root);
- 		return true;
+LLM Generated explanations, may be completely bogus:
+
+Here is my complete analysis:
+
+---
+
+## PHASE 1: COMMIT MESSAGE FORENSICS
+
+**Step 1.1: Subject Line**
+- Subsystem: `drm/amdgpu/userq`
+- Action verb: "remove" (corrective: removing a stale entry from data
+  structure on error path)
+- Summary: Remove queue from doorbell xarray during cleanup when
+  xa_alloc fails
+
+**Step 1.2: Tags**
+- `Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>` - author, regular
+  AMD GPU contributor
+- `Reviewed-by: Christian König <christian.koenig@amd.com>` - AMD GPU
+  subsystem co-maintainer
+- `Signed-off-by: Alex Deucher <alexander.deucher@amd.com>` - AMD GPU
+  subsystem maintainer
+- No Fixes: tag (expected for manual review candidates)
+- No Cc: stable tag
+
+**Step 1.3: Commit Body Analysis**
+The message says: "In case of failure in xa_alloc, remove the queue
+during clean up from the userq_doorbell_xa." This clearly describes a
+missing cleanup in an error path: the queue gets stored in
+`userq_doorbell_xa` but is not removed if the subsequent `xa_alloc`
+fails.
+
+**Step 1.4: Hidden Bug Fix Detection**
+This is not hidden - it's straightforwardly described as an error path
+cleanup fix. However, the severity is greater than the commit message
+suggests. It's actually a **use-after-free**: the queue is freed
+(`kfree(queue)`) but its pointer remains in the doorbell xarray.
+
+## PHASE 2: DIFF ANALYSIS
+
+**Step 2.1: Inventory**
+- Single file: `drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c`
+- 1 line added: `xa_erase_irq(&adev->userq_doorbell_xa, index);`
+- Function modified: `amdgpu_userq_create()`
+- Scope: Single-file surgical fix, error path only
+
+**Step 2.2: Code Flow Change**
+In `amdgpu_userq_create()`:
+
+1. Line 863: `xa_store_irq(&adev->userq_doorbell_xa, index, queue,
+   GFP_KERNEL)` - stores queue in global doorbell xarray
+2. Line 870: `xa_alloc(&uq_mgr->userq_xa, &qid, queue, ...)` - attempts
+   to allocate a queue ID
+3. If xa_alloc fails (line 872): error path calls
+   `amdgpu_userq_fence_driver_free()`, `mqd_destroy()`, `kfree(queue)` -
+   but did NOT remove the entry from `userq_doorbell_xa`
+4. Fix adds `xa_erase_irq(&adev->userq_doorbell_xa, index)` before the
+   kfree
+
+**Step 2.3: Bug Mechanism**
+This is a **use-after-free** caused by a missing cleanup on error path.
+After `kfree(queue)`, the freed pointer remains in `userq_doorbell_xa`.
+Six functions in the same file iterate `userq_doorbell_xa` with
+`xa_for_each()` and dereference the queue pointer:
+- `amdgpu_userq_suspend()` (line 1445)
+- `amdgpu_userq_resume()` (line 1471)
+- `amdgpu_userq_stop_sched_for_enforce_isolation()` (line 1501)
+- `amdgpu_userq_start_sched_for_enforce_isolation()` (line 1535)
+- `amdgpu_userq_pre_reset()` (line 1589)
+- `amdgpu_userq_post_reset()` (line 1617)
+
+All would crash or corrupt memory by accessing `queue->userq_mgr`,
+`queue->state`, etc.
+
+**Step 2.4: Fix Quality**
+The fix is obviously correct: it mirrors the cleanup in the normal
+destroy path (`amdgpu_userq_cleanup()` at line 463 already calls
+`xa_erase_irq(&adev->userq_doorbell_xa, queue->doorbell_index)`). The
+fix uses `xa_erase_irq()` matching the `xa_store_irq()` used during
+insertion. No regression risk.
+
+## PHASE 3: GIT HISTORY
+
+**Step 3.1: Blame**
+The buggy error path (xa_alloc failure without doorbell cleanup) was
+introduced by commit `f18719ef4bb7b` (Jesse.Zhang, October 2025) which
+converted IDR to XArray. When the XArray conversion added
+`xa_store_irq(&adev->userq_doorbell_xa, ...)` before `xa_alloc`, the
+error cleanup for `xa_alloc` failure was not updated to remove the
+doorbell entry.
+
+**Step 3.2: Fixes Target**
+No Fixes: tag present. The bug was introduced by f18719ef4bb7b.
+
+**Step 3.3: Related Changes**
+The companion commit `65b5c326ce410` ("refcount userqueues to avoid race
+conditions") was cherry-picked with `Cc: stable@vger.kernel.org`,
+showing this area is actively being stabilized for stable trees.
+
+**Step 3.4: Author**
+Sunil Khatri is a regular AMD GPU contributor with 11 commits to this
+file alone. He also authored the refcount fix.
+
+**Step 3.5: Dependencies**
+This fix is standalone - it requires only that the doorbell xarray code
+(from f18719ef4bb7b) exists, which it does in 7.0.
+
+## PHASE 4: MAILING LIST RESEARCH
+
+The exact commit "remove queue from doorbell xarray" was not found
+independently on lore.kernel.org. However, the v2 series of the refcount
+patchset (20260302180852) was a 2-patch series that included related
+doorbell cleanup work. The patch was reviewed by Christian König (AMD
+GPU co-maintainer) and committed through Alex Deucher (AMD GPU
+maintainer).
+
+## PHASE 5: CODE SEMANTIC ANALYSIS
+
+**Step 5.1: Modified Function**
+`amdgpu_userq_create()` - creates usermode queues for AMD GPU userspace
+queue submission.
+
+**Step 5.2: Callers**
+`amdgpu_userq_create()` is called from `amdgpu_userq_ioctl()` via
+`AMDGPU_USERQ_OP_CREATE`, which is a DRM IOCTL callable from userspace.
+This is a user-triggerable code path.
+
+**Step 5.3-5.4: Impact Surface**
+The stale entry in `userq_doorbell_xa` will be accessed by any
+subsequent suspend, resume, reset, or isolation enforcement operation on
+the GPU device. These are triggered by:
+- System suspend/resume (S3, S0ix) - common laptop operation
+- GPU reset (triggered by hang detection)
+- Enforce isolation mode changes
+
+## PHASE 6: STABLE TREE ANALYSIS
+
+**Step 6.1: Code in Stable Trees**
+The file `amdgpu_userq.c` was first added in the v6.16/6.17 timeframe.
+The `userq_doorbell_xa` was introduced by f18719ef4bb7b in the kernel
+7.0 development cycle. This code exists in the 7.0 stable tree.
+
+**Step 6.2: Backport Complexity**
+This is a clean 1-line addition with no context conflicts expected.
+
+## PHASE 7: SUBSYSTEM CONTEXT
+
+- Subsystem: `drivers/gpu/drm/amd/amdgpu` - AMD GPU driver
+- Criticality: IMPORTANT - widely used GPU driver on desktop/laptop
+  systems
+- Actively developed subsystem with heavy recent churn
+
+## PHASE 8: IMPACT AND RISK ASSESSMENT
+
+**Step 8.1: Who is Affected**
+Users with AMD GPUs using the usermode queue feature (GFX/Compute/DMA
+queues).
+
+**Step 8.2: Trigger Conditions**
+The bug requires:
+1. A userqueue creation attempt where `xa_store_irq` succeeds but
+   `xa_alloc` fails (e.g., hitting `AMDGPU_MAX_USERQ_COUNT` limit or
+   memory pressure)
+2. Followed by any suspend, resume, reset, or isolation operation
+
+The `xa_alloc` failure can be triggered by resource exhaustion or
+concurrent queue creation under memory pressure.
+
+**Step 8.3: Failure Mode Severity**
+- **CRITICAL**: Use-after-free on freed queue pointer leads to kernel
+  crash (oops/panic), potential memory corruption, or security
+  vulnerability. The freed pointer is dereferenced to access
+  `queue->userq_mgr`, `queue->state`, etc.
+
+**Step 8.4: Risk-Benefit Ratio**
+- BENEFIT: Very high - prevents UAF crash on a common GPU driver
+- RISK: Very low - single line addition, mirrors existing cleanup
+  pattern, obviously correct
+- Ratio: Strongly favorable
+
+## PHASE 9: FINAL SYNTHESIS
+
+**Evidence FOR backporting:**
+- Fixes a real use-after-free bug (stale pointer in xarray after kfree)
+- Single-line fix, surgically targeted to one error path
+- Reviewed by Christian König (AMD GPU co-maintainer)
+- Obviously correct (mirrors cleanup in normal destroy path)
+- Related refcount commit already tagged Cc: stable
+- User-triggerable code path (IOCTL)
+- Failure mode is kernel crash or memory corruption
+
+**Evidence AGAINST backporting:**
+- Relatively new code (userq feature added in v6.16-7.0 timeframe)
+- Trigger requires specific failure condition (xa_alloc failure)
+
+**Stable Rules Checklist:**
+1. Obviously correct and tested? YES - mirrors existing cleanup,
+   reviewed by maintainer
+2. Fixes a real bug? YES - use-after-free
+3. Important issue? YES - potential crash, memory corruption, security
+4. Small and contained? YES - 1 line added
+5. No new features? YES - pure bug fix
+6. Can apply to stable? YES - clean 1-line addition
+
+## Verification
+
+- [Phase 1] Parsed tags: Reviewed-by Christian König, Signed-off-by Alex
+  Deucher and Sunil Khatri
+- [Phase 2] Diff analysis: 1 line added in xa_alloc error path of
+  amdgpu_userq_create(), adds missing xa_erase_irq() for doorbell xarray
+- [Phase 3] git blame: buggy code introduced in f18719ef4bb7b (Oct
+  2025), XArray conversion commit
+- [Phase 3] git show f18719ef4bb7b: confirmed it added xa_store_irq to
+  doorbell_xa without corresponding xa_erase_irq in xa_alloc failure
+  path
+- [Phase 3] Related commit 65b5c326ce410 already has Cc: stable
+  (confirmed via git show)
+- [Phase 4] b4 dig -c 65b5c326ce410: found patch at
+  https://patch.msgid.link/20260303120849.2583663-1-sunil.khatri@amd.com
+- [Phase 4] Mailing list archive: found v2 series and review discussion,
+  Christian König reviewed
+- [Phase 5] Grep for userq_doorbell_xa: found 6 xa_for_each iteration
+  sites that would dereference the freed pointer
+- [Phase 5] amdgpu_userq_create called from amdgpu_userq_ioctl (user-
+  triggerable via DRM IOCTL)
+- [Phase 6] amdgpu_userq.c first added around v6.16, doorbell_xa added
+  in v7.0 cycle
+- [Phase 8] Failure mode: UAF -> kernel crash/memory corruption,
+  severity CRITICAL
+
+This is a small, surgical, obviously correct fix for a real use-after-
+free bug in the AMD GPU driver's error handling path. It was reviewed by
+the subsystem co-maintainer and carries essentially zero regression
+risk.
+
+**YES**
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+index 0a1b93259887a..819c4c26416c3 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+@@ -872,6 +872,7 @@ amdgpu_userq_create(struct drm_file *filp, union drm_amdgpu_userq *args)
+ 	if (r) {
+ 		drm_file_err(uq_mgr->file, "Failed to allocate a queue id\n");
+ 		amdgpu_userq_fence_driver_free(queue);
++		xa_erase_irq(&adev->userq_doorbell_xa, index);
+ 		uq_funcs->mqd_destroy(queue);
+ 		kfree(queue);
+ 		r = -ENOMEM;
 -- 
-2.34.1
+2.53.0
 
