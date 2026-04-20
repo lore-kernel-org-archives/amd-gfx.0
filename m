@@ -4,46 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C0361F588C4
-	for <amd-gfx@archiver.kernel.org>; Mon, 20 Apr 2026 13:31:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 42EEDF588C4
+	for <amd-gfx@archiver.kernel.org>; Mon, 20 Apr 2026 13:31:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5785010E64B;
-	Mon, 20 Apr 2026 13:31:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DE12210E64F;
+	Mon, 20 Apr 2026 13:31:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="PmSPj07E";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="KETZ+edK";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3FAAB10E64B;
- Mon, 20 Apr 2026 13:31:32 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0179310E64F;
+ Mon, 20 Apr 2026 13:31:55 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id ABB3760154;
- Mon, 20 Apr 2026 13:31:31 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 26E0AC2BCF4;
- Mon, 20 Apr 2026 13:31:29 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 6D16D6014C;
+ Mon, 20 Apr 2026 13:31:54 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 367CCC4AF09;
+ Mon, 20 Apr 2026 13:31:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1776691891;
- bh=zlcHTpa2ZsJ6GNWjqV8E7J6S2piuEFdQXj/3/loQ2Qw=;
+ s=k20201202; t=1776691914;
+ bh=y3ah3GKJjHFrdayhjIe3vmRKN4uPnejjCykot+9kPso=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=PmSPj07ETBnlUQxi/nFRGNdG13hwT5+EEqf0OxDdYJ2tMd0+ZnN/heFUY9AxNpnmB
- 6wy0LrYOxFF2qwL6xqUpUJpADHlRU2EhSWnf6x5MlpMd5fZO47OAqsmcjcjR6ksdYc
- BprpeSDVEllIJDnzQL5w/rals6r1/I4gphemdJsKqY38N/D8bD3p5znEZqT3TXM1Gq
- 1L334BvRh2htJ3WIfnyRXzyTisjRf+a3uk80qaMhtfpiJ6v72+gVOIIkg3B/mFkENM
- Poi9Em4y8gd9xnwtdFRMT2Mx7ORj0gs/soU30WfPKNF934uy2HbGMtq95Doz2BycQ6
- cAsAV/OU8LQpg==
+ b=KETZ+edKDzQXglFePRK4CCszVx/YXFBjk/vm8iY9EDdeD6/m3SDrC4eAFlG7Hcy7v
+ s0pq0vvJNwUZywLIcv51yUW8ZTv3KAMItSz6nC4rUqMQqiokbVoohzjaUA9iqa+xhm
+ 2Nib3Ntjzq+UCVWq+IT4QO8ljISaWP1CRuaxOBrq77RHpQW59M9lJyrd3UguPS3Ed7
+ rfAcM8SHJmPFFnCof5cye1A4OViB+1EtMwdjd8RZF1mQI/EXAOrtf65KxG5O6gcbtU
+ gYpsspe0E9wLuthpvzCAeQX+8hA5ELLvDbr/uNlM6dabvk5Is3S4UIVn8byPy3dErW
+ 30hOxIwRfolrA==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Austin Zheng <Austin.Zheng@amd.com>, Dillon Varone <dillon.varone@amd.com>,
- Chuanyu Tseng <chuanyu.tseng@amd.com>,
+Cc: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
+ Dillon Varone <dillon.varone@amd.com>, Alex Hung <alex.hung@amd.com>,
  Dan Wheeler <daniel.wheeler@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
- austin.zheng@amd.com, jun.lei@amd.com, harry.wentland@amd.com,
- sunpeng.li@amd.com, christian.koenig@amd.com, airlied@gmail.com,
- simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
+ harry.wentland@amd.com, sunpeng.li@amd.com, christian.koenig@amd.com,
+ airlied@gmail.com, simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 7.0-6.19] drm/amd/display: Fix number of opp
-Date: Mon, 20 Apr 2026 09:20:48 -0400
-Message-ID: <20260420132314.1023554-254-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 7.0] drm/amd/display: Fix HWSS v3 fast path
+ determination
+Date: Mon, 20 Apr 2026 09:21:00 -0400
+Message-ID: <20260420132314.1023554-266-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260420132314.1023554-1-sashal@kernel.org>
 References: <20260420132314.1023554-1-sashal@kernel.org>
@@ -51,6 +51,7 @@ MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 X-stable-base: Linux 7.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -66,16 +67,26 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Austin Zheng <Austin.Zheng@amd.com>
+From: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
 
-[ Upstream commit 2c5f15ee2c760514c5be0f02cf9c9f1ff68b9ac8 ]
+[ Upstream commit d3e79f333d90f6d3d268c3b073cf3afc0b019036 ]
 
-[Why/How]
-Patch number of opp based on IP caps
+[WHY]
+We're checking surface and stream updates after they've been applied to
+their respective states within `update_planes_and_stream_state`.
+
+Medium updates under the HWSS V3 fast path that are not supported or
+tested are getting implicitly if they don't trigger a DML validation
+and getting updated in place on the dc->current_state context.
+
+[HOW]
+Fix this issue by moving up the fast path determination check prior
+to `update_planes_and_stream_state`. This is how the V2 path works
+and how the V3 path used to work prior to the refactors in this area.
 
 Reviewed-by: Dillon Varone <dillon.varone@amd.com>
-Signed-off-by: Austin Zheng <Austin.Zheng@amd.com>
-Signed-off-by: Chuanyu Tseng <chuanyu.tseng@amd.com>
+Signed-off-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+Signed-off-by: Alex Hung <alex.hung@amd.com>
 Tested-by: Dan Wheeler <daniel.wheeler@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
@@ -83,284 +94,431 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
 
 LLM Generated explanations, may be completely bogus:
 
-Now I have all the information needed for a comprehensive analysis. Let
-me compile the full report.
+Now I have all the information needed for the complete analysis.
 
 ---
 
 ## PHASE 1: COMMIT MESSAGE FORENSICS
 
-**Step 1.1: Subject Line**
-- Subsystem: `drm/amd/display`
-- Action verb: "Fix"
-- Summary: Fix the number of OPP (Output Pixel Processors) patching from
-  IP caps.
+### Step 1.1: PARSE THE SUBJECT LINE
+Record: **[drm/amd/display]** **[Fix]** Fix HWSS v3 fast path
+determination — corrects the ordering of fast path evaluation in the V3
+update flow.
 
-Record: [drm/amd/display] [fix] [Ensures max_num_opp is patched from IP
-capabilities]
+### Step 1.2: PARSE ALL COMMIT MESSAGE TAGS
+- **Reviewed-by:** Dillon Varone <dillon.varone@amd.com> — an AMD
+  display engineer reviewed this
+- **Signed-off-by:** Nicholas Kazlauskas <nicholas.kazlauskas@amd.com> —
+  the author, an AMD display subsystem developer
+- **Signed-off-by:** Alex Hung <alex.hung@amd.com> — AMD display
+  committer
+- **Tested-by:** Dan Wheeler <daniel.wheeler@amd.com> — AMD QA testing
+- **Signed-off-by:** Alex Deucher <alexander.deucher@amd.com> — AMD GPU
+  maintainer
+- No Fixes: tag (expected for autosel)
+- No Cc: stable (expected for autosel)
+- No Reported-by (likely found internally during code review/testing)
 
-**Step 1.2: Tags**
-- Reviewed-by: Dillon Varone (AMD display team member)
-- Signed-off-by: Austin Zheng (author), Chuanyu Tseng (series submitter)
-- Tested-by: Dan Wheeler (AMD's display QA)
-- Signed-off-by: Alex Deucher (AMD display maintainer)
-- No Fixes: tag (expected for autosel candidates)
-- No Cc: stable (expected)
+Record: Multiple AMD engineers reviewed/tested/signed off. Standard AMD
+display commit flow through maintainer tree.
 
-Record: Reviewed, tested, and signed off by the AMD display team. No
-syzbot or external reports.
+### Step 1.3: ANALYZE THE COMMIT BODY TEXT
+The commit clearly describes:
+- **Bug**: Surface and stream updates are checked AFTER they've been
+  applied to state within `update_planes_and_stream_state`. This means
+  `fast_update_only` sees already-modified state, causing incorrect fast
+  path determination.
+- **Symptom**: Medium updates that should go through the full commit
+  path are incorrectly routed to the fast path. These "are not supported
+  or tested" updates get "implicitly" applied "in place on the
+  dc->current_state context."
+- **Fix**: Move the fast path determination check BEFORE
+  `update_planes_and_stream_state`, matching V2 behavior and original V3
+  behavior prior to refactoring.
 
-**Step 1.3: Body Text**
-- "[Why/How] Patch number of opp based on IP caps"
-- Terse message typical of AMD display DML patches. Indicates the OPP
-  count should come from IP capabilities (hardware-specific) rather than
-  remaining at the compile-time default.
+Record: Bug = incorrect fast path determination due to wrong ordering.
+Failure mode = untested update types being applied via fast path,
+leading to potential display corruption.
 
-Record: Bug is that `max_num_opp` was not being patched from hardware IP
-caps, leaving it at a static default regardless of actual hardware.
+### Step 1.4: DETECT HIDDEN BUG FIXES
+This is explicitly marked as "Fix" and the commit message clearly
+explains the bug mechanism. Not a hidden bug fix.
 
-**Step 1.4: Hidden Bug Fix Detection**
-This is explicitly labeled "Fix" and adds a missing field assignment
-that was omitted when OPP validation was introduced.
+Record: Explicitly a bug fix.
 
-Record: This is a direct bug fix for a missing field patching, not a
-hidden fix.
+---
 
-## PHASE 2: DIFF ANALYSIS
+## PHASE 2: DIFF ANALYSIS — LINE BY LINE
 
-**Step 2.1: Inventory**
-- 1 file changed: `dml2_core_dcn4.c`
-- +1 line added
-- Function modified: `patch_ip_params_with_ip_caps()`
-- Scope: Single-file, surgical 1-line fix
+### Step 2.1: INVENTORY THE CHANGES
+- **File:** `drivers/gpu/drm/amd/display/dc/core/dc.c`
+- **Functions modified:** `update_planes_and_stream_prepare_v3()`
+- **Net change:** ~15 lines of code moved from one location to another
+  within the same function; removed TODO comments; net line change is
+  approximately -2 lines.
+- **Scope:** Single-file surgical fix within a single function.
 
-**Step 2.2: Code Flow Change**
-The single line added:
+Record: 1 file, 1 function, net ~-2 lines. Single-file surgical fix.
 
-```c
-ip_params->max_num_opp = ip_caps->otg_count;
-```
+### Step 2.2: UNDERSTAND THE CODE FLOW CHANGE
 
-BEFORE: `patch_ip_params_with_ip_caps()` copies all IP capability fields
-to IP params EXCEPT `max_num_opp`. The `max_num_opp` remains at the
-compile-time default from `core_dcn4_ip_caps_base` (hardcoded to 4).
+**Before:** After `dc_exit_ips_for_hw_access()`, immediately calls
+`update_planes_and_stream_state()` which modifies surface/stream state.
+THEN, inside the `new_context == current_state` branch, performs
+`populate_fast_updates()` and `fast_update_only()` check.
 
-AFTER: `max_num_opp` is correctly patched from `ip_caps->otg_count`,
-matching the actual hardware's OTG count.
+**After:** After `dc_exit_ips_for_hw_access()`, FIRST calls
+`populate_fast_updates()` and `fast_update_only()` on the unmodified
+state. THEN calls `update_planes_and_stream_state()`. The pre-computed
+`is_hwss_fast_path_only` result is used later.
 
-**Step 2.3: Bug Mechanism**
-This is a **logic/correctness fix** - an omission bug. Commit
-`610cf76e9453b` ("Add opp count validation to dml2.1") added OPP count
-validation checks in `dml2_core_dcn4_calcs.c` that read
-`mode_lib->ip.max_num_opp`, but the function that patches IP params from
-IP caps (`patch_ip_params_with_ip_caps`) was not updated to copy
-`max_num_opp`. The validation uses a stale default value instead of the
-actual hardware capability.
+### Step 2.3: IDENTIFY THE BUG MECHANISM
+This is a **logic/correctness fix**. The `full_update_required()`
+function (called via `fast_update_only()`) compares update values
+against current surface/stream state (e.g.,
+`srf_updates[i].hdr_mult.value !=
+srf_updates->surface->hdr_mult.value`). After
+`update_planes_and_stream_state` copies the update into the surface
+state (`copy_surface_update_to_plane`), these comparisons see the
+already-updated values, causing the function to incorrectly return
+`false` (no full update needed) when it should return `true`.
 
-The validation code at lines 8588 checks:
-```c
-if (mode_lib->ms.TotalNumberOfActiveOPP > (unsigned
-int)mode_lib->ip.max_num_opp)
-    mode_lib->ms.support.TotalAvailablePipesSupport = false;
-```
+Record: Logic bug — wrong evaluation order causes
+`full_update_required()` to compare update values against already-
+modified state, leading to false negatives for full-update detection.
 
-If `max_num_opp` is wrong, display modes may be incorrectly accepted or
-rejected.
+### Step 2.4: ASSESS THE FIX QUALITY
+- **Obviously correct:** Yes — moving the check before state
+  modification is the logical correct order, and matches V2's behavior.
+- **Minimal/surgical:** Yes — only moves existing code within one
+  function.
+- **Regression risk:** Very low — the check now runs on pre-modification
+  state, which is how V2 works and how V3 used to work before the
+  refactoring.
+- **No red flags:** Single function, single file, no API changes.
 
-**Step 2.4: Fix Quality**
-- Obviously correct: follows the exact same pattern as ALL other fields
-  in the function
-- Minimal/surgical: 1 line
-- Regression risk: effectively zero - it only adds missing
-  initialization
-- No red flags
+Record: Fix is obviously correct, minimal, and low regression risk.
+
+---
 
 ## PHASE 3: GIT HISTORY INVESTIGATION
 
-**Step 3.1: Blame**
-The `patch_ip_params_with_ip_caps` function was introduced by commit
-`70839da636050` (Aurabindo Pillai, 2024-04-19, "Add new DCN401
-sources"). The function was created without a `max_num_opp` line because
-at that time there was no `max_num_opp` field or OPP validation.
+### Step 3.1: BLAME THE CHANGED LINES
+`git blame` shows the buggy code was introduced by commit
+`d38ec099aa6fb7` ("drm/amd/display: Split update_planes_and_stream_v3
+into parts (V2)") by Dominik Kaszewski, dated 2025-10-31. This commit
+was a refactoring that split the V3 update flow into
+prepare/execute/cleanup stages but accidentally placed the fast path
+determination after state modification.
 
-**Step 3.2: Fixes Target**
-The commit that introduced the bug is `610cf76e9453b` ("Add opp count
-validation to dml2.1", by Dmytro Laktyushkin, v6.19). That commit:
-- Added `max_num_opp = 4` to `core_dcn4_ip_caps_base` static struct
-- Added `max_num_opp` field to `dml2_core_ip_params`
-- Added OPP validation in `dml2_core_dcn4_calcs.c`
-- BUT did NOT add `max_num_opp` patching to
-  `patch_ip_params_with_ip_caps()`
+Record: Buggy code introduced by d38ec099aa6fb7 (2025-10-31), first
+appeared in v7.0-rc1.
 
-Record: The bug was introduced in v6.19. It exists in v6.19 and v7.0.
+### Step 3.2: FOLLOW THE FIXES: TAG
+No Fixes: tag present (expected). But the blame clearly identifies
+d38ec099aa6fb7 as the introducing commit.
 
-**Step 3.3: File History**
-Only one commit in the 7.0 tree modified this specific file (the rename
-from dml2/ to dml2_0/). The original code has had many "reintegration"
-commits prior to v7.0.
+Record: Introducing commit d38ec099aa6fb7 is present in v7.0-rc1 and
+v7.0, not in any older stable tree.
 
-**Step 3.4: Author**
-Austin Zheng is a regular AMD display team contributor. Other commits
-include DML-related fixes and data type corrections.
+### Step 3.3: CHECK FILE HISTORY FOR RELATED CHANGES
+Commit `5ad5b0b7845c9` ("Fix and reenable
+UPDATE_V3_FLOW_NEW_CONTEXT_MINIMAL") followed the introducing commit and
+fixed other issues in the V3 flow but did NOT fix this ordering issue.
+The fix under review is a standalone, independent fix.
 
-**Step 3.5: Dependencies**
-The fix depends on commit `610cf76e9453b` ("Add opp count validation")
-being present. Verified:
-- v6.19: Has this prerequisite (confirmed via `git show`)
-- v6.18 and older: Do NOT have this prerequisite
-- v6.12 LTS: Does NOT have this prerequisite
+Record: Related fix 5ad5b0b7845c9 exists but addresses a different V3
+issue. This fix is standalone.
 
-## PHASE 4: MAILING LIST RESEARCH
+### Step 3.4: CHECK THE AUTHOR'S OTHER COMMITS
+Nicholas Kazlauskas is a prolific AMD display developer and the reviewer
+of the original refactoring commit. He clearly understands the subsystem
+deeply and identified this ordering bug.
 
-Found the original submission: "[PATCH v2 0/9] DC Patches March 10,
-2026" on amd-gfx mailing list. The fix was patch 7 of 9 in a v2 series
-submitted by Chuanyu Tseng. The series was merged via the normal AMD
-display patch flow. It was NOT part of drm-fixes-7.0 (the -fixes pull
-only had different urgent fixes).
+Record: Author is a key AMD display developer and subsystem expert.
 
-No NAKs or objections found. No explicit stable nomination.
+### Step 3.5: CHECK FOR DEPENDENT/PREREQUISITE COMMITS
+The fix has no external dependencies. It modifies code that exists in
+v7.0 and applies to the `update_planes_and_stream_prepare_v3` function
+as-is in the current tree.
+
+Record: No dependencies. Self-contained fix.
+
+---
+
+## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
+
+### Step 4.1-4.5: MAILING LIST INVESTIGATION
+`b4 dig` could not find the original patch submissions (both the fix and
+the introducing commit) on lore.kernel.org. AMD display patches are
+often submitted through internal tooling (amd-gfx list) and may not be
+indexed by lore in the same way. Lore.kernel.org was also protected by
+Anubis anti-bot measures.
+
+Record: Could not find lore discussion. AMD display patches often flow
+through internal AMD tooling.
+
+---
 
 ## PHASE 5: CODE SEMANTIC ANALYSIS
 
-**Key function:** `patch_ip_params_with_ip_caps()` - called from
-`core_dcn4_initialize()` during DML2 core initialization.
+### Step 5.1: KEY FUNCTIONS
+- `update_planes_and_stream_prepare_v3()` — the function being fixed
+- `populate_fast_updates()` — populates fast update structure from
+  surface/stream updates
+- `fast_update_only()` → `full_update_required()` — determines if only
+  fast updates exist (no full update needed)
+- `update_planes_and_stream_state()` — applies updates to surface/stream
+  state and determines update type
 
-**Impact path:** `dml21_populate_dml_init_params()` ->
-`core_dcn4_initialize()` -> `patch_ip_params_with_ip_caps()`. This runs
-during display mode validation for every display configuration change on
-DCN4+ hardware.
+### Step 5.2: TRACE CALLERS
+`update_planes_and_stream_prepare_v3` is called from
+`dc_update_planes_and_stream_prepare` → called from
+`dc_update_planes_and_stream` → called from `amdgpu_dm.c` (the main AMD
+display manager path). This is the **primary display update path** for
+all AMD GPU operations including mode setting, cursor updates,
+pageflips, etc.
 
-**Consumer of `max_num_opp`:** Used in `CalculateODMMode()` and the main
-mode support validation loop in `dml2_core_dcn4_calcs.c` (lines 8421,
-8442, 8588) to validate that active OPP count doesn't exceed hardware
-capability.
+### Step 5.3-5.4: CALL CHAIN
+The path is: userspace (DRM ioctl) → `amdgpu_dm` →
+`dc_update_planes_and_stream` → `dc_update_planes_and_stream_prepare` →
+`update_planes_and_stream_prepare_v3`. This is directly reachable from
+userspace display operations.
 
-## PHASE 6: STABLE TREE ANALYSIS
+### Step 5.5: SIMILAR PATTERNS
+The V2 path (`update_planes_and_stream_v2`, line 5231-5233) correctly
+performs `populate_fast_updates` and `fast_update_only` BEFORE
+`update_planes_and_stream_state`. The fix aligns V3 with V2's correct
+ordering.
 
-**Bug existence by tree:**
-- v7.0: BUG EXISTS (verified - `max_num_opp` in struct at line 31,
-  validation in calcs, but missing patching)
-- v6.19: BUG EXISTS (verified - same state as 7.0, file at dml2_0 path)
-- v6.18: Bug does NOT exist (no `max_num_opp` field or validation)
-- v6.12 LTS: Bug does NOT exist
-- v6.6 LTS, v6.1 LTS: Bug does NOT exist
+Record: Main display update path, reachable from userspace. V2 already
+has the correct ordering.
 
-**Backport complexity:** For 7.0.y: should apply cleanly. For 6.19.y:
-path may need adjustment (file is at `dml2_0/` in v6.19 already, so it
-may apply cleanly).
+---
+
+## PHASE 6: CROSS-REFERENCING AND STABLE TREE ANALYSIS
+
+### Step 6.1: DOES THE BUGGY CODE EXIST IN STABLE TREES?
+The buggy code was introduced by d38ec099aa6fb7, first tagged in
+v7.0-rc1. It does NOT exist in any stable tree older than 7.0.y. Only
+the 7.0.y stable tree is affected.
+
+Record: Bug only exists in 7.0.y.
+
+### Step 6.2: CHECK FOR BACKPORT COMPLICATIONS
+The fix should apply cleanly to 7.0.y since the code was introduced in
+v7.0-rc1 and there have been no significant refactors to this specific
+code region since then (only the `5ad5b0b7845c9` commit touched a
+different part of the same function).
+
+Record: Expected clean apply to 7.0.y.
+
+### Step 6.3: CHECK IF RELATED FIXES ARE ALREADY IN STABLE
+No related fixes for this specific issue found.
+
+Record: No existing fix for this issue in stable.
+
+---
 
 ## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
 
-- Subsystem: drm/amd/display - DML2 (Display Mode Library) for DCN4+
-- Criticality: IMPORTANT - affects AMD GPU display output for newer
-  hardware
-- The DML2.1 code is actively developed with frequent "reintegration"
-  commits
+### Step 7.1: SUBSYSTEM CRITICALITY
+**Subsystem:** `drivers/gpu/drm/amd/display` — AMD GPU display driver
+**Criticality:** IMPORTANT — affects all users with AMD RDNA 3 and RDNA
+4 GPUs (very popular consumer hardware: RX 7000 series and RX 9000
+series).
+
+### Step 7.2: SUBSYSTEM ACTIVITY
+The AMD display subsystem is extremely active with dozens of commits per
+release cycle.
+
+Record: Very active subsystem, widely-used hardware.
+
+---
 
 ## PHASE 8: IMPACT AND RISK ASSESSMENT
 
-**Who is affected:** Users of AMD DCN4+ GPUs where the actual OPP/OTG
-count differs from the compile-time default of 4 (e.g., harvested
-silicon, different SKUs).
+### Step 8.1: WHO IS AFFECTED
+All users with AMD DCN 3.2 (RDNA 3), DCN 3.21 (RDNA 3 refresh), or DCN
+4.01+ (RDNA 4) GPUs running kernel 7.0.y. These are very popular
+consumer GPUs.
 
-**Trigger conditions:** Any display mode validation on affected
-hardware. This runs during every display configuration change (mode set,
-multi-monitor setup, etc.).
+Record: Driver-specific but affects millions of AMD GPU users.
 
-**Failure mode:** Incorrect DML mode validation:
-- If real OPP count < 4: modes could be accepted that the hardware can't
-  support (display corruption or failure)
-- If real OPP count > 4: modes could be incorrectly rejected (user can't
-  use supported display configurations)
-- Severity: MEDIUM-HIGH for affected hardware
+### Step 8.2: TRIGGER CONDITIONS
+The bug triggers whenever a medium update (e.g., HDR metadata, scaling,
+color space change) is submitted through the display update path AND the
+update values match after state application. This can happen during
+normal desktop operations, video playback, HDR content switching, etc.
 
-**Risk-Benefit:**
-- Benefit: Correct mode validation on all DCN4 hardware variants
-- Risk: VERY LOW - 1 line, follows established pattern, no behavioral
-  change for hardware where count == 4
+Record: Triggered during normal display operations. Common trigger.
+
+### Step 8.3: FAILURE MODE SEVERITY
+When the bug triggers:
+- Display updates that require full hardware programming go through the
+  fast path instead
+- This can cause **display corruption** (visual artifacts, incorrect
+  rendering)
+- Updates applied "in place on dc->current_state" without proper
+  validation
+- The commit message says these code paths "are not supported or tested"
+
+Record: Display corruption. Severity: **HIGH** (visual artifacts,
+incorrect rendering, untested code paths).
+
+### Step 8.4: RISK-BENEFIT RATIO
+- **BENEFIT:** Prevents display corruption on popular AMD hardware
+  during common display operations. HIGH benefit.
+- **RISK:** Very low — the fix moves ~15 lines of code within a single
+  function, matching proven V2 behavior. The fix was reviewed and tested
+  by AMD engineers.
+
+Record: High benefit, very low risk. Clear positive ratio.
+
+---
 
 ## PHASE 9: FINAL SYNTHESIS
 
-**Evidence FOR backporting:**
-- Fixes a real bug (missing field initialization) with concrete
-  consequences
-- Trivially correct (1 line, follows exact pattern of all other fields)
-- Reviewed and tested by AMD display team
-- Affects display functionality on AMD DCN4 hardware
-- Zero regression risk for hardware where OPP count == 4 (most current
-  hardware)
+### Step 9.1: COMPILE THE EVIDENCE
 
-**Evidence AGAINST backporting:**
-- Only affects hardware with non-default OPP counts (subset of DCN4
-  ASICs)
-- Commit message is terse with minimal detail
-- Not submitted via -fixes flow (went through normal DC patches)
-- Only applicable to trees containing v6.19+ (610cf76e9453b)
+**FOR backporting:**
+- Fixes a real display corruption bug on widely-used AMD hardware (RDNA
+  3 & RDNA 4)
+- Small, surgical fix (single function, ~15 lines moved)
+- Obviously correct (matches V2 path behavior and pre-refactoring V3
+  behavior)
+- Reviewed by AMD display engineer (Dillon Varone)
+- Tested by AMD QA (Dan Wheeler)
+- Authored by AMD display subsystem expert (Nicholas Kazlauskas)
+- Signed off by AMD GPU maintainer (Alex Deucher)
+- No external dependencies
+- Should apply cleanly to 7.0.y
 
-**Stable rules checklist:**
-1. Obviously correct? YES - exact pattern match with all other fields
-2. Fixes real bug? YES - incorrect DML mode validation
-3. Important issue? YES for affected hardware (display functionality)
-4. Small and contained? YES - 1 line
-5. No new features? YES
-6. Applies to stable? YES for 7.0.y and 6.19.y
+**AGAINST backporting:**
+- Only affects 7.0.y (bug introduced in v7.0-rc1)
+- No explicit user bug reports (likely caught internally)
+
+### Step 9.2: STABLE RULES CHECKLIST
+1. Obviously correct and tested? **YES** — reviewed and tested by AMD,
+   matches V2 behavior
+2. Fixes a real bug? **YES** — incorrect fast path determination leading
+   to display corruption
+3. Important issue? **YES** — display corruption on popular hardware
+4. Small and contained? **YES** — single function, single file, ~15
+   lines
+5. No new features or APIs? **YES** — pure fix
+6. Can apply to stable trees? **YES** — should apply cleanly to 7.0.y
+
+### Step 9.3: EXCEPTION CATEGORIES
+Not applicable — this is a straightforward bug fix, not an exception
+category.
+
+### Step 9.4: DECISION
+The evidence strongly supports backporting. This is a well-reviewed,
+tested, small fix for a display corruption bug affecting popular AMD GPU
+hardware on the main display update code path.
 
 ---
 
 ## Verification
 
-- [Phase 1] Parsed tags: Reviewed-by Dillon Varone, Tested-by Dan
-  Wheeler, author Austin Zheng, maintainer Alex Deucher
-- [Phase 2] Diff analysis: 1 line added to
-  `patch_ip_params_with_ip_caps()`, adds missing `max_num_opp` field
-  patching
-- [Phase 3] git blame: `patch_ip_params_with_ip_caps()` introduced in
-  70839da636050 (v6.12 era) without `max_num_opp`
-- [Phase 3] git show 610cf76e9453b: confirmed this commit added opp
-  validation but missed updating `patch_ip_params_with_ip_caps()` - this
-  is the root cause
-- [Phase 3] git show v6.19 file: confirmed `max_num_opp = 4` in struct
-  AND validation in calcs, BUT missing patching - bug exists in v6.19
-- [Phase 3] git show v6.18 file: confirmed no `max_num_opp` at all - bug
-  does NOT exist pre-6.19
-- [Phase 3] git show v6.12 file: confirmed no `max_num_opp` at all
-- [Phase 4] Found original submission: "[PATCH v2 0/9] DC Patches March
-  10, 2026" on amd-gfx mailing list
-- [Phase 4] No NAKs or concerns found in mailing list
-- [Phase 5] `max_num_opp` is consumed at lines 8421, 8442, 8588 of
-  dml2_core_dcn4_calcs.c for display mode validation
-- [Phase 5] `patch_ip_params_with_ip_caps()` called from
-  `core_dcn4_initialize()`, which runs during every DML initialization
-- [Phase 6] Bug exists in v6.19 and v7.0 only - confirmed by checking
-  file contents at each tagged version
-- [Phase 8] Failure mode: incorrect mode validation leading to display
-  issues, severity MEDIUM-HIGH for affected hardware
-- UNVERIFIED: Exact set of AMD ASICs where OPP count differs from
-  default 4 could not be determined (dcn42 bounding box header not found
-  in tree)
-
-The fix is a trivially correct 1-line addition that patches a missing
-field from the hardware IP capabilities, fixing incorrect DML mode
-validation on AMD DCN4 hardware where the OPP count may differ from the
-compile-time default.
+- [Phase 1] Parsed tags: Reviewed-by (Dillon Varone), Tested-by (Dan
+  Wheeler), SOBs from AMD maintainers
+- [Phase 2] Diff analysis: ~15 lines of
+  `populate_fast_updates`/`fast_update_only` moved before
+  `update_planes_and_stream_state` in
+  `update_planes_and_stream_prepare_v3()`
+- [Phase 2] Confirmed `full_update_required()` compares
+  `srf_updates[i].hdr_mult.value !=
+  srf_updates->surface->hdr_mult.value` (line 5151-5152), which becomes
+  false after `copy_surface_update_to_plane` (line 3592)
+- [Phase 2] Confirmed `update_planes_and_stream_state` calls
+  `copy_surface_update_to_plane` at line 3592 and
+  `copy_stream_update_to_stream` at line 3556
+- [Phase 3] git blame: buggy code introduced by d38ec099aa6fb7 (Dominik
+  Kaszewski, 2025-10-31) — "Split update_planes_and_stream_v3 into parts
+  (V2)"
+- [Phase 3] git tag --contains: d38ec099aa6fb7 first in v7.0-rc1, so
+  only 7.0.y affected
+- [Phase 3] V2 path (line 5231-5233) does fast path check BEFORE
+  `update_planes_and_stream_state` (line 5246) — confirmed correct
+  ordering
+- [Phase 3] Author Nicholas Kazlauskas has 10+ commits in dc.c, is the
+  reviewer of the original refactoring commit
+- [Phase 4] b4 dig: could not find original submission on lore (AMD
+  patches often flow through internal tooling)
+- [Phase 5] Call chain: userspace → amdgpu_dm →
+  dc_update_planes_and_stream → dc_update_planes_and_stream_prepare →
+  update_planes_and_stream_prepare_v3 — main display update path
+- [Phase 5] V3 path enabled for DCN_VERSION_4_01+ || DCN_VERSION_3_2 ||
+  DCN_VERSION_3_21 (line 7524) — RDNA 3 and RDNA 4
+- [Phase 6] Bug only in 7.0.y (d38ec099aa6fb7 first in v7.0-rc1)
+- [Phase 8] Failure mode: display corruption from untested fast path
+  updates; severity HIGH
+- UNVERIFIED: Could not access lore.kernel.org discussion due to anti-
+  bot protection
 
 **YES**
 
- .../amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn4.c   | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/gpu/drm/amd/display/dc/core/dc.c | 38 +++++++++++-------------
+ 1 file changed, 18 insertions(+), 20 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn4.c b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn4.c
-index eba948e187c11..93d479083acde 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn4.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn4.c
-@@ -107,6 +107,7 @@ static void patch_ip_params_with_ip_caps(struct dml2_core_ip_params *ip_params,
- {
- 	ip_params->max_num_dpp = ip_caps->pipe_count;
- 	ip_params->max_num_otg = ip_caps->otg_count;
-+	ip_params->max_num_opp = ip_caps->otg_count;
- 	ip_params->num_dsc = ip_caps->num_dsc;
- 	ip_params->max_num_dp2p0_streams = ip_caps->max_num_dp2p0_streams;
- 	ip_params->max_num_dp2p0_outputs = ip_caps->max_num_dp2p0_outputs;
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
+index 4c5ecbb97d5b0..47064e9bc08ad 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
+@@ -7285,6 +7285,23 @@ static bool update_planes_and_stream_prepare_v3(
+ 	ASSERT(scratch->flow == UPDATE_V3_FLOW_INVALID);
+ 	dc_exit_ips_for_hw_access(scratch->dc);
+ 
++	/* HWSS path determination needs to be done prior to updating the surface and stream states. */
++	struct dc_fast_update fast_update[MAX_SURFACES] = { 0 };
++
++	populate_fast_updates(fast_update,
++			      scratch->surface_updates,
++			      scratch->surface_count,
++			      scratch->stream_update);
++
++	const bool is_hwss_fast_path_only =
++		fast_update_only(scratch->dc,
++				 fast_update,
++				 scratch->surface_updates,
++				 scratch->surface_count,
++				 scratch->stream_update,
++				 scratch->stream) &&
++		!scratch->dc->check_config.enable_legacy_fast_update;
++
+ 	if (!update_planes_and_stream_state(
+ 			scratch->dc,
+ 			scratch->surface_updates,
+@@ -7300,26 +7317,7 @@ static bool update_planes_and_stream_prepare_v3(
+ 	if (scratch->new_context == scratch->dc->current_state) {
+ 		ASSERT(scratch->update_type < UPDATE_TYPE_FULL);
+ 
+-		// TODO: Do we need this to be alive in execute?
+-		struct dc_fast_update fast_update[MAX_SURFACES] = { 0 };
+-
+-		populate_fast_updates(
+-				fast_update,
+-				scratch->surface_updates,
+-				scratch->surface_count,
+-				scratch->stream_update
+-		);
+-		const bool fast = fast_update_only(
+-				scratch->dc,
+-				fast_update,
+-				scratch->surface_updates,
+-				scratch->surface_count,
+-				scratch->stream_update,
+-				scratch->stream
+-		)
+-		// TODO: Can this be used to skip `populate_fast_updates`?
+-				&& !scratch->dc->check_config.enable_legacy_fast_update;
+-		scratch->flow = fast
++		scratch->flow = is_hwss_fast_path_only
+ 				? UPDATE_V3_FLOW_NO_NEW_CONTEXT_CONTEXT_FAST
+ 				: UPDATE_V3_FLOW_NO_NEW_CONTEXT_CONTEXT_FULL;
+ 		return true;
 -- 
 2.53.0
 
