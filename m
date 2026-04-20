@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4FBC1F588C4
-	for <amd-gfx@archiver.kernel.org>; Mon, 20 Apr 2026 13:38:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 86DDDF588C4
+	for <amd-gfx@archiver.kernel.org>; Mon, 20 Apr 2026 13:38:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EB02010E662;
-	Mon, 20 Apr 2026 13:38:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 22B3010E664;
+	Mon, 20 Apr 2026 13:38:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="tAf6V6AT";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="rzrlruvw";
 	dkim-atps=neutral
-Received: from BN1PR04CU002.outbound.protection.outlook.com
- (mail-eastus2azon11010069.outbound.protection.outlook.com [52.101.56.69])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 24B0F10E62B
- for <amd-gfx@lists.freedesktop.org>; Mon, 20 Apr 2026 13:38:07 +0000 (UTC)
+Received: from BL2PR02CU003.outbound.protection.outlook.com
+ (mail-eastusazon11011049.outbound.protection.outlook.com [52.101.52.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7927610E663
+ for <amd-gfx@lists.freedesktop.org>; Mon, 20 Apr 2026 13:38:10 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=lFHVRId2dHdto1bZGeEl044qqyvzvfYTzBNCbw7HL2zebzCt7FGhW/0yMIJ4gwL4d+eLZUYcywbtF4HSLdzw0JBl26F5yrPVDUOlUdywOltTzEvmgMwJYRZXQP9tUdwlhhMOJZ6TWSbFl/GpPuU56ffvy8B1yYQH9jJjTVkfiV4KZORAkH5hh6Ymu3cD+LTd4CRqSmoCNj5Mag9uq59LDTG+FfEnuS3T8fyt7oS/+6GfcPls2Psq2ePvOFbEg2uMKC+FfeORI7ZMF8ql10p/MziAQortMWdh/mqNLKgzbNPxSuQcj56QEz5fiKv4yaL20lgsJTQZc/pApStSRTcFYA==
+ b=KlymnqqpWQTUMaM5acdxWfeUfqTvN5aOv9cIMAOGrsh/4IHF9SpvbKBbrUu4q8Tp8G7UXk5IT1FtTL1HyQCE5H/zo09BPJKB78PEGbcnXPgvRlwZh50BYwrJyREI6AdeEZR5z8kmDQitzzME9ROOsGOomRi/NAkmtTiXRAl+smINsG9b+EQRU2R2TTVzr1qSuwEN2PHPUsVFj4Jbgcedw8udHoJwHEL9tHvvWXJIPe2MPnRkjr40rJnh1OhQkmO7kwH4v9d5uR257aJ30woIbfQXV9p74ocfvtWBmrh4MHtLrUnwf8pc4kx2dX6PRQv2hSCAJnQjohGWGH3DS6P3Jg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=x00Wgr1wReXGgS4/9xzqkwn5KNjwJlBpz+vU+fB4Fkg=;
- b=HufWWBzuTA79dx5NKpamjbc+dfeQiJgBCXisIiF69DHEIiVZAroFKVInS1dijcM59epsgK0U2go+LFwOoQR1QUA1VRgFTRrtXJRF9nu9TjRec5tOZgOg/lM3LEa+C9DlGgQ3MTErlpV8+SiS1Sa32gadvPQNDGOH0TFHL98JmM/yXTTU/AImwDqFAAu12qf5TSLDMMu688tA0Mi++pcgXt/THajX7P8QOawGFm9/EjYGJxuUFzJzY8+okPBP5g3a021yH8BIA3j6A1dvPvCGxbpoZUoGqsLO4t8pvvm+B0rljAmg0jkwMetOKqOJtre4IuDOFiTw4vdidVDmH8Cu+w==
+ bh=GnKqsp6U4NfHPIWjv54niQDLoR0PfCwmzVbrANcbTj4=;
+ b=pQzdXvJ8DSoGgyfI7ilowSzk5CcJQNftJcum4Mq48yc15JQuyyFP4AEw0JfswASTehK8uuAYEs7+X18aVrOuXyACyx1+5bi/j9JWlgAyfL6GpqgsKyhI/FcBc88AmFSWgu3Z3YfNJDpkghscIrTv0QeSUDYCakr/R7CpzKHp0rU3eCn00TzD2Odu+hM3UGKk5c5CdF7mnq+UB2QmY5xrAatnwNkZb7mRAeBfOpZYnhIMyXfqNzjJEilZ8T5pKphQnWWtL+LGjIWm4r7l2A2Ey/pU3r+WWixeiVQmCtj35rUI8Ln4eMYoBL9PVdyTbmIvRoeqfXEZfSNdo0MBu5J9Lw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=x00Wgr1wReXGgS4/9xzqkwn5KNjwJlBpz+vU+fB4Fkg=;
- b=tAf6V6ATG8Za/7/wd9ytT7ZHvnv8tYdWaUfRIMJUGIGEqDkCfVV2uNkyw5cL+BkYuaK8IGhQ43N1T6wfjIA/t6UY1QaeKVuJuuRk6TT75ANH4fAsvhyoWBolVwcrrxCaB+Oj9DzJyQX3DebhNC9tNYqWBJR5JCzyigIRvUyjBgI=
-Received: from BYAPR08CA0009.namprd08.prod.outlook.com (2603:10b6:a03:100::22)
- by DS7PR12MB5861.namprd12.prod.outlook.com (2603:10b6:8:78::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.12; Mon, 20 Apr
- 2026 13:38:02 +0000
+ bh=GnKqsp6U4NfHPIWjv54niQDLoR0PfCwmzVbrANcbTj4=;
+ b=rzrlruvw6N0FMdRHDb9i2I+O7DJU3b87bW3rEScYj9bTtW+gE4vU3l2JXWpD3cth52AxuMBTjlWXQJyDFQstnl/xq3QY7BH4jG9Lm/KDk7ZsUgC8nPALkMficQ7Tth7U055KV3KQaYnOgz+vc/iKzYT3eos3vgOkC4hz2/mZ178=
+Received: from BYAPR08CA0011.namprd08.prod.outlook.com (2603:10b6:a03:100::24)
+ by IA1PR12MB6434.namprd12.prod.outlook.com (2603:10b6:208:3ae::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.8; Mon, 20 Apr
+ 2026 13:38:04 +0000
 Received: from SJ5PEPF0000020A.namprd05.prod.outlook.com
- (2603:10b6:a03:100:cafe::9d) by BYAPR08CA0009.outlook.office365.com
- (2603:10b6:a03:100::22) with Microsoft SMTP Server (version=TLS1_3,
+ (2603:10b6:a03:100:cafe::e4) by BYAPR08CA0011.outlook.office365.com
+ (2603:10b6:a03:100::24) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.20.9791.48 via Frontend Transport; Mon,
- 20 Apr 2026 13:38:02 +0000
+ 20 Apr 2026 13:38:03 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -50,7 +50,7 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from satlexmb07.amd.com (165.204.84.17) by
  SJ5PEPF0000020A.mail.protection.outlook.com (10.167.244.43) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9791.48 via Frontend Transport; Mon, 20 Apr 2026 13:38:02 +0000
+ 15.20.9791.48 via Frontend Transport; Mon, 20 Apr 2026 13:38:03 +0000
 Received: from Philip-Dev.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Mon, 20 Apr
@@ -60,10 +60,10 @@ To: <amd-gfx@lists.freedesktop.org>
 CC: <Felix.Kuehling@amd.com>, <christian.koenig@amd.com>,
  <Kent.Russell@amd.com>, <Andrew.Martin@amd.com>, Philip Yang
  <Philip.Yang@amd.com>
-Subject: [PATCH v2 1/2] drm/amdgpu: Move
- amdgpu_device_check_iommu_direct_map() earlier
-Date: Mon, 20 Apr 2026 09:37:04 -0400
-Message-ID: <20260420133705.3721315-2-Philip.Yang@amd.com>
+Subject: [PATCH v2 2/2] drm/amdgpu: move VM PTE MTYPE override to per-PTE
+ granularity
+Date: Mon, 20 Apr 2026 09:37:05 -0400
+Message-ID: <20260420133705.3721315-3-Philip.Yang@amd.com>
 X-Mailer: git-send-email 2.50.1
 In-Reply-To: <20260420133705.3721315-1-Philip.Yang@amd.com>
 References: <20260420133705.3721315-1-Philip.Yang@amd.com>
@@ -75,29 +75,29 @@ X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF0000020A:EE_|DS7PR12MB5861:EE_
-X-MS-Office365-Filtering-Correlation-Id: 78e1e2b0-c572-44db-482b-08de9ee20b76
+X-MS-TrafficTypeDiagnostic: SJ5PEPF0000020A:EE_|IA1PR12MB6434:EE_
+X-MS-Office365-Filtering-Correlation-Id: e1359a5d-f76f-4a02-55d3-08de9ee20c1c
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|36860700016|376014|1800799024|18002099003|22082099003|56012099003;
-X-Microsoft-Antispam-Message-Info: fc8+NxmEW5OGURLVd2JONEnB23pqJCL7eFdUejszoaSktQ7h6C7Ypo67EOILZaoVXRFniYWvk9PgC7c31IhWAay4r7t2R78lm3ifTPb1VUoefWIILse2Rla38fxRa3c3MZ1a3pzz3DqGJqtYE6DSSV9w46ev760sf8hwulfgsoUEBL04WByQ2a1GM7XEknsCggNsPXxOhgvOZncdjUxR+WW6x97KpToTvCVo2D0cIr/xCtsKnbCc6FfuDzYjA1sMo3nK2ojbHXyK3HFjpWa/wqbADz2RH3ALXZN7Wxwzm+wkAXTGao9NXhzvNgsDjUz54DdGumINKHjVw77uk6N2149S5SH5RZZXFl9AIzlr3cc4pTRwSKLF1iAXVxh4L7d+sp58aHcHQP8k4FtRJSGrkeWtsJnCnPIStxtIFr/udOV9hoHQuGA8T9x/iB+bKpyAUe8CFElcbvQES5/gBh3Tq4N3lElyGlyKxxIs/LeV8q+NMxa8KIt2NtvCsdIrNH671KUjiz4z0tfb43hkU7CLzgkuos+iz8/8TmuIQs2TO43P/nI8bzAUww5pYbj1Uy9dgKrviLwEs+K9BwhT4qHZkj09UzOX5sifsrhJe0VY7CnqFJT15Zv4X9wtxaVoypUhl3pI474YXizE7ZFe7FZ258JjN5ruw//6mKOED6Q/KU4tQLmSDith/pkstQcBk1sTwl4YkR+RQshkMOu2tetB4kqL6FHM/k93lN+b5hbdwmgV+NRcSsLppF54xnCdi4vvoaRcgXjSh31UQkxHkRtqBw==
+ ARA:13230040|1800799024|376014|82310400026|36860700016|18002099003|22082099003|56012099003;
+X-Microsoft-Antispam-Message-Info: 2wa+/03qB1nXrubXXQZOfco7PW7FarBTVBFjvoC2+a3QRSpf0WmOcJ9V7y9KKDL4cNVxxes70MzbzJixLqYtwIV73WzX41c9dIKS8Y1GkWLEMl2krTF1UJ2se3uq726Feu/rMrnzCIBJqiwsYyoaYHj6SZq08MGBqS+LrR12x2cqYSX08lmhI/IC+YLTF41v4cwayNmwroF0BX8nkqSj+/woD8PgbTJmk9dfvAwft1ge3MGsiEaR7u0q8NegmvRfoWbt7ZdnRXEuGta/qKUiXRiY+7rk9NHR6Z95VfsnaDWnnEFBZCivf5kiAQv6zDVC57IljObuEp2RYVTWHqsUorhVOpUR3jaTIzoL70jArOKm6fLOU7b/RCy+j7njq3RLXG4jVXy7s+N78iCCJzoVK4oCAdMU3HfefNOuTCK10dIt7ui1asbx57YR5NL2A95umrI4paibQIrqb8zITJFLQkMRSeYdX7+ZOUtWrt7EH7JJgDk5aihy9ACtgxHj+aJVoMnuPuL7J7JgenuoR33sa23i731kKZ0D2cyra8TsjiVnk+40oOFTZyo9wFATQN6wJQ24EPs/x1e+lxt7N8Vgd/e5wY54RkbKXG8Tkiir95cBQrfi9APYjmuQjoG/sizSurhkbQLG4pHac7YvC5YQVenfH9bMD7ly3554zjJol2TTJ2LOm/H31Aa2HAsMsNYrom/JOA+ytP2EXhLpbzpCvSrywH2sYk7mT9t2lhUBqihQxh5KXdHas5rkeWviLC8dJKP4uwMHpk5nqxeEXKOxJg==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(36860700016)(376014)(1800799024)(18002099003)(22082099003)(56012099003);
+ SFS:(13230040)(1800799024)(376014)(82310400026)(36860700016)(18002099003)(22082099003)(56012099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 6mvqvgxSLF0nMsL8GOwp8p0YTXgdCJgrou25bSOBF+wfJCmC+R2mDwKV5b8Vwk12GqH6SojdNpZ4GQkG2JCRTRYr8nGAEZOLCs/fFjmWw8PddZZ0gOxpjRRBDkbdCadqVkeYt9Gxbtpm1ZR10AxaCzyWAinxULHUQA22EYCgSEeQUabl2OeJ3+/3myX9bt4iqs2BcH5ZvfUFQ9LUuRlXgUo0qeDjTCtGnlbs3vVy8ZOq6Gc5StSNlb/RAJ5kXEt7oYmWt3b7EdmqLTighvxAelx3hW6cXDzVQdQGlXAbSrOAMrNn7AG3SiKYdim3cBBX6+hinE4Dd5Cllt+vY5d8BtQq5mCBeV+tD5U9YcsDdUXQbT+oq3uRTj4/e5urokng8KfJeEul2zm2e/34FSCdTVslBGrmF0tA48dhY4yBVmWuEZnjP86qbWzGvr5FPF7c
+X-MS-Exchange-AntiSpam-MessageData-0: 08RHLI2yPBEn4wBkKFoVvHKT7VQEUandqpvo/FRYNCgrFaIV96mLFcTpMqWVrMcCPuyBMZ6uFGw2U3MFgyKjIuSKTl8S4Q4P1nE5SPuJZ5fz7aGJOZd+3dsC20SpWJDbr8A4aFhgjm5M3Yi0AfoAZfGgnqT79Ba1L13Hpaeyh6lyIyWXbwlLgnRG8aV9v9ZINzO4PIyak//Eh1wcJr684WLxnqCTjhbdV/Q2DoCQlnx1X9oYDIWoWlPFvMI5epVLKl+I4eboRcCIEldwGndkDxpDx2Xv5snkieKjLEFPEbQa1y6fMzBKCJtkS4UvRnUUgRhtz7Y2uYq8b8afBmCS+gRWYOBPousPOrjaEmMrmmAXwwpECGkr+CMaAMbiePxyw6SlP0rN4wV6P03P2blnNo3/3/LyX/0KdRtMFO9z1g6w4iqxfYmNmRo+lDdCZEEm
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Apr 2026 13:38:02.4507 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 78e1e2b0-c572-44db-482b-08de9ee20b76
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Apr 2026 13:38:03.5326 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e1359a5d-f76f-4a02-55d3-08de9ee20c1c
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF0000020A.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB5861
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6434
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,37 +112,214 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-So device init ram_is_direct_mapped is available when gmc_funcs are selected
-during IP early init.
+Refactor the NUMA-aware MTYPE override for VM page table entries:
+
+- Move the override_vm_pte_flags call from the centralized
+  amdgpu_vm_pte_update_flags() into the individual CPU and SDMA update
+  backends, enabling per-PTE MTYPE override including for scattered
+  pages (pages_addr path).
+
+- Move APU, IP version, and direct-mapped eligibility checks from
+  runtime (gmc_v9_0_override_vm_pte_flags) to init time
+  (gmc_v9_0_set_gmc_funcs), selecting between gmc_funcs structs with
+  and without the override function pointer to avoid repeated runtime
+  checks on every PTE update.
+
+- Guard allow_override on whether gmc_funcs->override_vm_pte_flags is
+  actually implemented.
 
 Signed-off-by: Philip Yang <Philip.Yang@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h     |  2 ++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c      |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h      |  6 ++--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm_cpu.c  | 11 ++++++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c   |  9 ------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c | 11 ++++++-
+ drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c       | 35 +++++++++------------
+ 7 files changed, 41 insertions(+), 35 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index bc7e96b58d3f..b139475f65cb 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -3860,6 +3860,9 @@ int amdgpu_device_init(struct amdgpu_device *adev,
- 	 * completed before the need for a different level is detected.
- 	 */
- 	amdgpu_set_init_level(adev, AMDGPU_INIT_LEVEL_DEFAULT);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
+index 6ab4c1e297fc..c6d7a9e54eb3 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
+@@ -365,6 +365,8 @@ struct amdgpu_gmc {
+ 	bool flush_tlb_needs_extra_type_0;
+ 	bool flush_tlb_needs_extra_type_2;
+ 	bool flush_pasid_uses_kiq;
 +
-+	amdgpu_device_check_iommu_direct_map(adev);
-+
- 	/* early init functions */
- 	r = amdgpu_device_ip_early_init(adev);
- 	if (r)
-@@ -4117,8 +4120,6 @@ int amdgpu_device_init(struct amdgpu_device *adev,
- 	if (px)
- 		vga_switcheroo_init_domain_pm_ops(adev->dev, &adev->vga_pm_domain);
++	bool override_pte;
+ };
  
--	amdgpu_device_check_iommu_direct_map(adev);
+ #define amdgpu_gmc_emit_flush_gpu_tlb(r, vmid, addr) (r)->adev->gmc.gmc_funcs->emit_flush_gpu_tlb((r), (vmid), (addr))
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+index 63156289ae7f..532b78701bbe 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+@@ -1163,7 +1163,7 @@ int amdgpu_vm_update_range(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+ 	params.pages_addr = pages_addr;
+ 	params.unlocked = unlocked;
+ 	params.needs_flush = flush_tlb;
+-	params.allow_override = allow_override;
++	params.override_pte = allow_override && adev->gmc.override_pte;
+ 	INIT_LIST_HEAD(&params.tlb_flush_waitlist);
+ 
+ 	amdgpu_vm_eviction_lock(vm);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+index f33ea7f8509b..a0435468d0bd 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+@@ -296,10 +296,10 @@ struct amdgpu_vm_update_params {
+ 	bool needs_flush;
+ 
+ 	/**
+-	 * @allow_override: true for memory that is not uncached: allows MTYPE
+-	 * to be overridden for NUMA local memory.
++	 * @override_pte: true for memory that is not uncached and gmc override function is
++	 * implemented to allow MTYPE to be overridden for NUMA local memory.
+ 	 */
+-	bool allow_override;
++	bool override_pte;
+ 
+ 	/**
+ 	 * @tlb_flush_waitlist: temporary storage for BOs until tlb_flush
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_cpu.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_cpu.c
+index f078db3fef79..b31ff6f56f0d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_cpu.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_cpu.c
+@@ -88,12 +88,21 @@ static int amdgpu_vm_cpu_update(struct amdgpu_vm_update_params *p,
+ 
+ 	trace_amdgpu_vm_set_ptes(pe, addr, count, incr, flags, p->immediate);
+ 
++	if (!p->pages_addr && p->override_pte)
++		amdgpu_gmc_override_vm_pte_flags(p->adev, p->vm, addr, &flags);
++
+ 	for (i = 0; i < count; i++) {
++		u64 oflags = flags;
++
+ 		value = p->pages_addr ?
+ 			amdgpu_vm_map_gart(p->pages_addr, addr) :
+ 			addr;
++
++		if (p->pages_addr && p->override_pte)
++			amdgpu_gmc_override_vm_pte_flags(p->adev, p->vm, value, &oflags);
++
+ 		amdgpu_gmc_set_pte_pde(p->adev, (void *)(uintptr_t)pe,
+-				       i, value, flags);
++				       i, value, oflags);
+ 		addr += incr;
+ 	}
+ 	return 0;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
+index 31a437ce9570..883cc275f354 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
+@@ -707,15 +707,6 @@ static void amdgpu_vm_pte_update_flags(struct amdgpu_vm_update_params *params,
+ 	if (level == AMDGPU_VM_PTB)
+ 		amdgpu_vm_pte_update_noretry_flags(adev, &flags);
+ 
+-	/* APUs mapping system memory may need different MTYPEs on different
+-	 * NUMA nodes. Only do this for contiguous ranges that can be assumed
+-	 * to be on the same NUMA node.
+-	 */
+-	if ((flags & AMDGPU_PTE_SYSTEM) && (adev->flags & AMD_IS_APU) &&
+-	    adev->gmc.gmc_funcs->override_vm_pte_flags &&
+-	    num_possible_nodes() > 1 && !params->pages_addr && params->allow_override)
+-		amdgpu_gmc_override_vm_pte_flags(adev, params->vm, addr, &flags);
 -
- 	adev->pm_nb.notifier_call = amdgpu_device_pm_notifier;
- 	r = register_pm_notifier(&adev->pm_nb);
- 	if (r)
+ 	params->vm->update_funcs->update(params, pt, pe, addr, count, incr,
+ 					 flags);
+ }
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c
+index 36805dcfa159..2eb64df6daa9 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c
+@@ -257,6 +257,9 @@ static int amdgpu_vm_sdma_update(struct amdgpu_vm_update_params *p,
+ 		}
+ 
+ 		if (!p->pages_addr) {
++			if (p->override_pte)
++				amdgpu_gmc_override_vm_pte_flags(p->adev, p->vm, addr, &flags);
++
+ 			/* set page commands needed */
+ 			amdgpu_vm_sdma_set_ptes(p, bo, pe, addr, count,
+ 						incr, flags);
+@@ -275,8 +278,14 @@ static int amdgpu_vm_sdma_update(struct amdgpu_vm_update_params *p,
+ 		p->num_dw_left -= nptes * 2;
+ 		pte = (uint64_t *)&(p->job->ibs->ptr[p->num_dw_left]);
+ 		for (i = 0; i < nptes; ++i, addr += incr) {
++			u64 oflags = flags;
++
+ 			pte[i] = amdgpu_vm_map_gart(p->pages_addr, addr);
+-			pte[i] |= flags;
++
++			if (p->override_pte)
++				amdgpu_gmc_override_vm_pte_flags(p->adev, p->vm, pte[i], &oflags);
++
++			pte[i] |= oflags;
+ 		}
+ 
+ 		amdgpu_vm_sdma_copy_ptes(p, bo, pe, nptes);
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+index e7b78027002b..aca7841173f3 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+@@ -1204,21 +1204,6 @@ static void gmc_v9_0_override_vm_pte_flags(struct amdgpu_device *adev,
+ {
+ 	int local_node, nid;
+ 
+-	/* Only GFX 9.4.3 APUs associate GPUs with NUMA nodes. Local system
+-	 * memory can use more efficient MTYPEs.
+-	 */
+-	if (!(adev->flags & AMD_IS_APU) ||
+-	    amdgpu_ip_version(adev, GC_HWIP, 0) != IP_VERSION(9, 4, 3))
+-		return;
+-
+-	/* Only direct-mapped memory allows us to determine the NUMA node from
+-	 * the DMA address.
+-	 */
+-	if (!adev->ram_is_direct_mapped) {
+-		dev_dbg_ratelimited(adev->dev, "RAM is not direct mapped\n");
+-		return;
+-	}
+-
+ 	/* MTYPE_NC is the same default and can be overridden.
+ 	 * MTYPE_UC will be present if the memory is extended-coherent
+ 	 * and can also be overridden.
+@@ -1231,11 +1216,7 @@ static void gmc_v9_0_override_vm_pte_flags(struct amdgpu_device *adev,
+ 		return;
+ 	}
+ 
+-	/* FIXME: Only supported on native mode for now. For carve-out, the
+-	 * NUMA affinity of the GPU/VM needs to come from the PCI info because
+-	 * memory partitions are not associated with different NUMA nodes.
+-	 */
+-	if (adev->gmc.is_app_apu && vm->mem_id >= 0) {
++	if (vm->mem_id >= 0) {
+ 		local_node = adev->gmc.mem_partitions[vm->mem_id].numa.node;
+ 	} else {
+ 		dev_dbg_ratelimited(adev->dev, "Only native mode APU is supported.\n");
+@@ -1344,6 +1325,20 @@ static const struct amdgpu_gmc_funcs gmc_v9_0_gmc_funcs = {
+ static void gmc_v9_0_set_gmc_funcs(struct amdgpu_device *adev)
+ {
+ 	adev->gmc.gmc_funcs = &gmc_v9_0_gmc_funcs;
++
++	/* Only GFX 9.4.3 APUs associate GPUs with NUMA nodes, local system
++	 * memory can use more efficient MTYPEs.
++	 *
++	 * APUs mapping system memory may need different MTYPEs on different
++	 * NUMA nodes.
++	 *
++	 * Only direct-mapped memory allows us to determine the NUMA node from
++	 * the DMA address.
++	 */
++	adev->gmc.override_pte = adev->gmc.is_app_apu &&
++				 num_possible_nodes() > 1 &&
++				 amdgpu_ip_version(adev, GC_HWIP, 0) == IP_VERSION(9, 4, 3) &&
++				 adev->ram_is_direct_mapped;
+ }
+ 
+ static void gmc_v9_0_set_umc_funcs(struct amdgpu_device *adev)
 -- 
 2.50.1
 
