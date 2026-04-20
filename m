@@ -4,123 +4,121 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D7709F557ED
-	for <amd-gfx@archiver.kernel.org>; Mon, 20 Apr 2026 09:05:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D36F9F557ED
+	for <amd-gfx@archiver.kernel.org>; Mon, 20 Apr 2026 09:13:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5603E10E11C;
-	Mon, 20 Apr 2026 09:05:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 769FC10E43B;
+	Mon, 20 Apr 2026 09:13:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Nt9zOfAu";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="GC7dT96O";
 	dkim-atps=neutral
-Received: from DM1PR04CU001.outbound.protection.outlook.com
- (mail-centralusazon11010059.outbound.protection.outlook.com [52.101.61.59])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 643A410E11C
- for <amd-gfx@lists.freedesktop.org>; Mon, 20 Apr 2026 09:05:03 +0000 (UTC)
+Received: from BL2PR02CU003.outbound.protection.outlook.com
+ (mail-eastusazon11011005.outbound.protection.outlook.com [52.101.52.5])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 57B8E10E136;
+ Mon, 20 Apr 2026 09:13:55 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=hEWN8jO7BXaVylNFgoJiERRfX1ZaVdNaYSE1quiNFbLP7z9QMmf1NuRBE2BYLtpuKSGitiAHIHUwyc/R+RGKo2engPFlAAFOV2Ws2WQz7+KHxlKGpiMIRrKR5jn2pKD0rkDXm3RYxc4AY2QzLpFrtAievJpgbrGex59iaffTArnK6wZK1BgGnN9CK1Z7Pd7WMP8ZMv5fhc4tM/EjVIFQpr+k4OOqG6lRNXMDGszPj351V5kdUiFvNF77/zpXaYlcyVCRpxZK0HMUmcAHd2kDsXVl6XLdJDaAwUotjU/wA62NAXf/nYi2p7I2T/3JgG9Pa0jh4uOMO5RmwUaj3oc0EA==
+ b=A5V78eccWVF6bn7h+BzJulf8+coXk2wmWoKV6gZE9Z1GtVEXzuCbzme8Wu9ZJv5Y4h145zH5ltrnz6YD5vlaTanBaJFNxPwy7OevPlrUrD3mNZEV5SuTtuD+xQL9GNiLCFm9OFWOiBJSc2SaIdHgZ4pWq18EVHE05hESrcGVu5H95ir97tLxA0DeoaXbPGKuav4PWnU6OIAn2+pBZJvdYlQWGk23Civi2zpGBB/iXw+Yfo7tPF9Z427OZYe5Z3pcU9Ol+P4HvkyYIlH7l7cBicC6ytPQyN7ln4/erCjPScZacHqJWEq9QvIkfTddLUcunqnKW8IO5PZZoz4OfxXo4Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=iqu2NvC1a8kmbmUGuKdy/jZbqHji1O6YjT1tAjvXaEs=;
- b=ouSFlrRNbVAVuzI/VfxjgOxGTRvgXY4wsMfgPsEBlOpEuXXb/pfxK2/rj1vBhyergpzcgsaf+7hhyo4KU30PznZiZdBJ2qMG2z+84j9eymeC1SoUCLqc+fcE6Fyv/9KNLqCsInQ0/Q396WgejWRmMJ8fd6zdOT6JzbmwM2vUZyARXvs+XUYe+bCgXOrOAMGtCxnCuY0OZsoRR4vM6Tkd8BBSpgbau9no9GUjpwsQ7m0bITMCqqmBMBwNL62u0sSBLImezNznZ49bicInFfwVEQApW7If1DZzJc+1SxCKNl5kaJfmrqkiH9p5hBkYRRMHCSEotQ5e3Mo7FpvuEceyag==
+ bh=6mIG2ysnDoxNtrlhfKwxh5Byl1dejGuELSzAvmDb/fE=;
+ b=l+jiPrpxTH65YmeJMCwGY6CHKzNmhz+vk8L1s4X9lXWotX7fkWM826FdyINkjFeMWO6i1cVbSH7QObl4nZOZ15l/8+gN9Qu2BCVTCzGCE9rGPLeLl0PP3/lro/fIjrPsCZwHO00htvW1kiywacOXcxs+v3sv7Ijk/QdpsSoN8Rm2xSp005JtuPOxMvm0raOgwpmJyVcrxOboJvT+MR2EsxG0C5NUrh97QCPkOnpElrGovAgUQ2IjFNS6DEYT27MeHhL2oVyau0P38jtUkFQIOUsYztMvr707kzg/w0A8ly5LPf7nGfg3MpWwmRVJeum8HVNkZI0rD0nM8MWPlus1hA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=iqu2NvC1a8kmbmUGuKdy/jZbqHji1O6YjT1tAjvXaEs=;
- b=Nt9zOfAuiMsniAYGQeI0LNCCbJwIzysS9TM1IcPstCgILzuaRjv/MOQaduZVC7zJS8jy6BxHL7r6dGkXJEHKmJwpwnEaqnImOcHhqcfQQofEWm5ZdVAWJH3w0YTLZ6jy6slVtxvBT5Pr3xGcGUGOJVBag5o+adeA3klr33nXWVk=
+ bh=6mIG2ysnDoxNtrlhfKwxh5Byl1dejGuELSzAvmDb/fE=;
+ b=GC7dT96Oq/yzhEWr+zLKg1rFjxi+zPvbaUd4DUVK4PhuZn5LvPXjbz9P+DQDkM7p7Q4TSTmq8pTo28OtSKbUvJf2wrKPESn0VpBteoxUMEigdnptyIFMBd/EPar3cgICvSwWs5Fl4BzVfMb12SjdcvN791tZal/MEY1bQnkuOco=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from SJ0PR12MB5673.namprd12.prod.outlook.com (2603:10b6:a03:42b::13)
- by DS0PR12MB8199.namprd12.prod.outlook.com (2603:10b6:8:de::20) with
- Microsoft SMTP Server (version=TLS1_2,
+ by IA0PR12MB7604.namprd12.prod.outlook.com (2603:10b6:208:438::9)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.15; Mon, 20 Apr
- 2026 09:05:00 +0000
+ 2026 09:13:52 +0000
 Received: from SJ0PR12MB5673.namprd12.prod.outlook.com
  ([fe80::c3e5:48f8:beb6:ea68]) by SJ0PR12MB5673.namprd12.prod.outlook.com
  ([fe80::c3e5:48f8:beb6:ea68%5]) with mapi id 15.20.9846.014; Mon, 20 Apr 2026
- 09:05:00 +0000
-Message-ID: <8f0fbad4-fc60-40a7-a8ab-3962e6b8ecd4@amd.com>
-Date: Mon, 20 Apr 2026 11:04:53 +0200
+ 09:13:52 +0000
+Message-ID: <43120d24-2b69-4038-9540-dc204c75a14d@amd.com>
+Date: Mon, 20 Apr 2026 11:13:46 +0200
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu: unify gmc v10 and v11 get_vm_pde and
- get_vm_pte into common helpers
-To: Andre Hirata <andrejhirata@usp.br>, alexander.deucher@amd.com
-Cc: amd-gfx@lists.freedesktop.org, gabriel.dimant@usp.br,
- guilhermesangabriel@usp.br
-References: <20260418201545.20673-1-andrejhirata@usp.br>
+Subject: Re: [PATCH] drm/amdgpu: allow unprivileged read of GC_THROTTLE_STATUS
+To: mjgajda@gmail.com, amd-gfx@lists.freedesktop.org
+Cc: Alexander.Deucher@amd.com, dri-devel@lists.freedesktop.org
+References: <20260417213221.937722-1-mjgajda@gmail.com>
 Content-Language: en-US
 From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260418201545.20673-1-andrejhirata@usp.br>
+In-Reply-To: <20260417213221.937722-1-mjgajda@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR0P281CA0055.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:49::15) To SJ0PR12MB5673.namprd12.prod.outlook.com
+X-ClientProxiedBy: FR2P281CA0083.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:9b::7) To SJ0PR12MB5673.namprd12.prod.outlook.com
  (2603:10b6:a03:42b::13)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ0PR12MB5673:EE_|DS0PR12MB8199:EE_
-X-MS-Office365-Filtering-Correlation-Id: c094b912-5e1d-4490-c34a-08de9ebbe692
+X-MS-TrafficTypeDiagnostic: SJ0PR12MB5673:EE_|IA0PR12MB7604:EE_
+X-MS-Office365-Filtering-Correlation-Id: c23ce9b3-cbb0-47cc-f94c-08de9ebd23b9
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|1800799024|376014|18002099003|22082099003|56012099003; 
-X-Microsoft-Antispam-Message-Info: MvtvHAXin8XZlu/gy66t/GpXwACS1kvqDtanDym3alFfSP8CBBn3GrdsbasQa9otRPojVA6xzcb45kIzzcpJ9Ym80iY3nLGlEU5HNV8IPxWU1BwZWC5t1s9+ftpaR8DXUjtjzXRubSM/b0f2UGpbgHQRjlHYoAYQZNatMuli/HrKGWsn+sud//i1aIXQG6nU2TLBHHBM+JFvq4KdyiOZJCJ58EtD/W0Gh/rTMSrtX9ieRX7PHvqfP13igbxl0fDohysNsYDPBpBRxptcjcI272ocji4V73FtfEDtOAAueOGYYmEYqTy4jF+pEwCRIWHFG2wBtZhh4hy9mAshUBRCTxyyqcm3IDr+Ysycv5uiPHOEofZm2+NTJ243emaiwn2tNKyXDh0thWhRYF3WIcHN527eUl8lmHNHWmhWOhPKHFAAmprswHDCJAxElICBEWcSs/9ltmfW/pP5yrAiqsOEZLljSVpNKw0qoMKHbJ2qdxxeec2Mhf5PIixssCC+vJloLGbJjn0xQkqKXSRsCoOUNlcAz2zaRJWOmKc4qLmfpGS/HL38uZZeR4rbhQMckChXm7fCD2p6C52KBRpGvzjFJn+o+5G0RENB5ohNqBCGbUo/ihtzh/I4XE4gVJjsFKaYTeZ7yD+z9TefFX0+FJmbRX+bP7xu05TT8CjoyrjYt9dT6xU5BdBdf92WXE+jLgyxtNd7MYAq7rVPEnubuW1ZbbvwT00G7wM7Mo4mc9TAWR0=
+ ARA:13230040|376014|366016|1800799024|56012099003|22082099003|18002099003; 
+X-Microsoft-Antispam-Message-Info: zoLi6ZyQKquHT1inS51QgZRJUB7DLh29C1neOKGZz0U9V+IjNKIPxktuGmphkojWIabY4UD1zSxD447iMr6DLLNI94u+UmahMwbBh4edEJ2YAOwGPiP0Q+iBjOXVqT7TkBYELpK9lR/oKyG2Ha44ChKrYrnYxQXyV0r97ZYFORydQjRTBmcsEQAbI3Eh3CPj4e1IEsDxmBT9nXE7iwpoSSxoK/fvE17fei0ySY2SvPOM5nIzMP1mZvfJ3QP+vNC+NzMu4LYYITe/bUFCWnG5zKtFLbn04w1cYcn3XiNT11KJrTaDvfj4L1b6AmSCYd4akf7efUOwRn9qSLPuV3LMEm/r6/nR7sKDypecAYo0SVN7c0f6+kx9Uhlqs1EdSt4TAm9C7GasfX5eORgoizkwh8ZhzVM9oAZnC6rpAgel83lkOGvei7vcgmfcXxtujbRXujDHWYW+1i8Guu7uDcrHsG9pgf7CD9lScDO/6+AJ4Q7Ieo0J6C9mzIbIeZF9nmhzBSRxg6tUYJLrk0qxd1m3VFS+5eZ5wiC2m0SZCLDuUYH8MnIxk4UDo1UXeCzRe74BZUBL5TAovCj9XFB4HoGVHsu/j19Zc7xj2YR9EhYqtglhTEja2pPjlESMKrWZNlkB+/9b5GuzNEZ0KU6CxLsnQ6TbbJHWlzV/56NL/togNDmxdodNx6c6zWo5Sx7mdO6xdc7junMynPK+VPCzsXPjbA==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:SJ0PR12MB5673.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014)(18002099003)(22082099003)(56012099003);
+ SFS:(13230040)(376014)(366016)(1800799024)(56012099003)(22082099003)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dnhlOWhOTzNvcU9jWFFBMlZQMmlsVlg4MENqVFFHOERNTVY2TkxVZW5WKzVI?=
- =?utf-8?B?WExJK2FmQVJDbmw4V3dNbmZ3TnVDbXgxaXVXeHFVTHdreFhCVmFaQ3Zyb2Fy?=
- =?utf-8?B?V3F6RjNkQ0JObWgreFkwdE9IUTFxZHRKbU9JRDRGV3ZCRjAvVUtpeEc5OEJE?=
- =?utf-8?B?dG9PaUZGWG5UemN0aE5FTDF0cTZldnZQeHA3ZVpHRWcrTGRtS2djUXdPVVho?=
- =?utf-8?B?YkhrakE3eER2RTRvQlVaaS9nQ1VyemZMcG93bUs4VEJxYlJzdFR2SlJXZ3BG?=
- =?utf-8?B?M1hlUjhXdjVhT2c1b1dXM1l5NG9rcGhVYW1ZaE9QZGRqT1VEWHVPWTkvNG1Q?=
- =?utf-8?B?NVo1UnF2UkdIK29EQzNJa2ZRdEFodFY2bFhENkJHY2lSUE1BOUZtcDh5eUZ1?=
- =?utf-8?B?dlRtcWZXZ2hVbWFZaHNXSFlmcVV2N0ZnT0VkcGFQelhRcG52TmttRmNySnd2?=
- =?utf-8?B?M1NqT3hPVWZKK1VwOHNqSGNzTmFOQkdXNTNuUmIvQkx6NDJNcjdORkdydGtE?=
- =?utf-8?B?R3M5ekJQQTVlTkZmc0p4aVp2ZlQ5a2VxZkVyZG0yUkhnbmNpd2VJRnR0cS8z?=
- =?utf-8?B?elFRY09VamIvaFg4NkZQaUozaEI4MlBLSktMNUhNM0JuRUNjRUp4WnllMFh6?=
- =?utf-8?B?ZFF6ZGlwdHdVVzh6WFU2ZUdwZThDcTBFbzBRWHo1N2JYMVZRWGMrcVR5VFF1?=
- =?utf-8?B?SGUxZXB6R21vNzhFMTdHWUIyT2hMc251NUZTaklXcWc4M0JGM0hjYXg3czNr?=
- =?utf-8?B?ZFlHMERieGEwVDJ3M3BzcU1ENDkwcW5qdlNPdHEyVHdCTDAxb2dBNlU1TGhI?=
- =?utf-8?B?NXVWNldhUkVVWis5YU5oemg3QmtBSHlNdnU2dkkvYm5Icm52a2s2NGNNV1Iw?=
- =?utf-8?B?d0NDSE16S0tWZS9LOTBBMFluaFNtOHJ3NVZxWjFpLzFRa2tZOU1SdHptNzJ3?=
- =?utf-8?B?dkRybDlMNGx5WGpOeUFjeDljbDdkVytNd3UvZlFvSjc1L21icjRkdHhGVU1h?=
- =?utf-8?B?cmZLY0QrZEdFZU9md3FZZmRKUDkwbmZLM3JvYW43ZkcyUWRtZDdPMVprMEhN?=
- =?utf-8?B?dkpTSjNWei9NbEV4UEllaXZpcDM3L1BOYlNzT05oSTJRMjV1TURPdUtpZXhw?=
- =?utf-8?B?U0NtNTZlZnFmL1kzdFBLNGVnaEFIN2l1TjZNdVdEZ2ZwTTFNaUVMclB5bmFh?=
- =?utf-8?B?SkpvdTZGdmYxNERLY2VBNWxSakhqcXZLSnR6U09PdHdKTlQwd0ozSzJrVjVx?=
- =?utf-8?B?OHRneUlIZFA1QUZiOTlwaU1QZnU5WDdTNmdKK0ZINXlQcWljZkQzYmc0MUl5?=
- =?utf-8?B?S1RlTmJFTkJabGhHZ0lhVmxsV0NDTWJ4QUpyNTFRanZJazJsY3N0NVFwa0tu?=
- =?utf-8?B?b2Q0SFJsaVB4bmwwd0w4aFQzL2ZHc1dmNUtNN3Z0REtXM0kvMll3WTVVdThZ?=
- =?utf-8?B?dzdUZzgwRWpUWDBQR2VQelRkbTlSNWJ3RThCd2NURkxCNXZSN1dUaFNFM0x6?=
- =?utf-8?B?QmNJeVB6WVBPbzk2bzl0UXBWL0JTek10aWU4QjBOam5lZjBpNG93Ym1iSURD?=
- =?utf-8?B?elBLdFl0Q1hRNXhiNHpQR2pMZDViQTd6dUljUmIxMHgySmMrUVBhNzdjRW80?=
- =?utf-8?B?QXRTeDB4TTY3b2xBWFRGSEtNeEg5RjhjYXFQV2NUZC9kV1RMeXZWNGF6QnpP?=
- =?utf-8?B?T1NNb1JSbS9LV0hXd044UGkxQ0lveWc2ZFg1ZFl3b0RBWmJNZE1RYm0yd2Rz?=
- =?utf-8?B?T2tLTlRzSXV1MjhnTkxOQXcweUIxQ25oamREaDhmazE1LzYzYmRiemxyNWkw?=
- =?utf-8?B?R2dWZ0UxNkZ6OC82aWRRejNqdlNpNVhyNXAxYUhpTm9BdUVObmI3UTZ0Wlox?=
- =?utf-8?B?WDlZL2JVdmdQQzV6QnJTMmo1MUFhUlVIOHpCUjBKSXlicytlRTZPeWx3QzMy?=
- =?utf-8?B?N21oVU9VSjVtRjY1Y01zQ1hZL0c0TDhlMzdRTVNlMHRsNWhucG9KZDVlaXhF?=
- =?utf-8?B?QkxtQ05DMkpQczBPRi83NTBQbDdFdWVUVTdOb3ZMRVVBcllZbjdDUHRNa0Nx?=
- =?utf-8?B?NEIza2hucGpsR1g3c2puMnU0U0pQVkJkMWhrQkZienM3dlJGVXVmaVBXSEt4?=
- =?utf-8?B?WGUzYTYyR1VENjBwWnEwMDZ2WVZuTlBQOVpTK0lSbWJNbUxrQXgyVDQ3OGVh?=
- =?utf-8?B?Mm1xdW9iOE5GQk81U3ZzcnZQRmUxVW93L3dXOGhzNGU5MTMyMGIzMUFRQVVN?=
- =?utf-8?B?ZG1sZ0ZId21FeXhMd2ZkUTVTUTNFbFA1TE14czZ4aUpiMjRCaGc0K3lJdE5k?=
- =?utf-8?Q?Y8TAvtTqjJh1jhZW8L?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aWxRT2wzMVVaenZxQ0lzeEZIdFZzS01IL05jOFFHZGNRMDJkQm1FMGJ2aUtv?=
+ =?utf-8?B?aUJHRnlyejB5MmprQnBKbmpxNjZFbUhrZmVmRythcGRvanpEcFU3aVd2clB4?=
+ =?utf-8?B?MmltS1ZMaWVod01Zck9iS2hUV1FFbjl4Qk4xRDBwY2dtQ29BSHBjUUo5eEVi?=
+ =?utf-8?B?a1lzalR6aHNmNnVGNWYxQVpiV3dEVUpJVDRqdmlnSnlGaEhaTWN6V0ZnUDVB?=
+ =?utf-8?B?cXlFYi8xa1NKQVVMZFF4M2ZvTkdBVjJ4SlpCYWR2bDNWZHNEQS9IVEE1M0Nu?=
+ =?utf-8?B?Ty9rWDJHdEIzbmdBVnQ1cmJFU2NuVjJWS25LNmJxK0lpandRbyt5ZTh5empi?=
+ =?utf-8?B?VmUvT2Q1ekhpMXkycjFRaEptM2RoRmdCRFR0WmpWbWo2azhtV3FNcDNkRmRu?=
+ =?utf-8?B?cVNLMUNvOEhmaFIvQ0lqbWZGdnM2WkFURUNJRnY1ZHJNRXNCZG5MTWpVM1VD?=
+ =?utf-8?B?TE1mYXJXR3RKK2pYYTJ0UDJhd3A3ZDBTWlBHMUEzZTU3QW1qa2ROUFBnSzZs?=
+ =?utf-8?B?MjluM3Z4NWtndHRoUlg0TkFzSXY0WXhUSkt2anl6d2RjenZ3SStSK2tPRzB4?=
+ =?utf-8?B?em9OWlpJeDVramdQejJudWRvSVNuRHNoakNwc3BwNjA5OWs0ekw1a3F3K3Bu?=
+ =?utf-8?B?M0dPdHRoUVlVQ28ySlk2bGlDNUxxY2lCTzdQNmphSlhDbmZuS0Y2U3BYK3k5?=
+ =?utf-8?B?T3RrNFduNnBJMTBZNlArYm4wWE1zZ3huYjhyWUM0eWU4elJGQzhaNm9WbWlz?=
+ =?utf-8?B?azI4eDA2SjV2VlhWb3JVaCtiV1B6SWF5N0trZ3hwU0FMRFRlUU9nZTRmbzBx?=
+ =?utf-8?B?eXJaYUV3Nk1EN2srRTVDbEpsWXJJbWhoQnVxTGUzMFRHMFh5VTlZbTVmbmg3?=
+ =?utf-8?B?NGhwUllzV3hhYVVjVlorYWNkeU0xcXhsYVVKTXkveVJWZDNnUDFraGJoUDdy?=
+ =?utf-8?B?eGQ1byt6Y2xUS1JsTGlGM0ZZUTNmNkpiU2hiVm9KNm1yOGdJSzRaQTNCRitJ?=
+ =?utf-8?B?RVhYSXJYQzBHeG56NnowYXlEQ3pVbGsxUWo5ZEZPZVZ6RjhheW5OQXNmaWc3?=
+ =?utf-8?B?aU1aT0VDOHNUM1lwczNQYXVaL2NWaG91OVdrWEI1QlN3YUFGWmJhTWRrTVZ5?=
+ =?utf-8?B?Y0FmQktzQ0YyL1VUVkxMZkp1emhMRE9QaEgvbW1sNlNVdVo5NEw2d0kwQzUw?=
+ =?utf-8?B?c1htRzFNRnFIOXBsdEErVzlJMU5ScHBHSE9SRDFvZ0dxZTkzaXJvU3l3Tysr?=
+ =?utf-8?B?Q0wxVVdxT1lqYVNySzhaN3RQaUJKc0J2cC9uTktvSCtrMXd2UVE0TVc2b25R?=
+ =?utf-8?B?MTlBUVR5emU2bVk5cGxaQkZmMHJPeFAzSk52WFI4VXd0ay85bFZMeGNKTzMx?=
+ =?utf-8?B?MUVCcmJNTEdUNHBROW5oR1hSeGhiVVROWVJjTjBpZFh2NHliYXZFZ2poWUdO?=
+ =?utf-8?B?ZWprSG1BQmZ0bkUrcGdLL1BXQWxQVDc5V1lpMHIrc3NKQW00OVhxalQzcjI3?=
+ =?utf-8?B?aVFQUDE4dVg5aXlSNFR5Rm92bXJpVTgzMHFmVHZ0MzlXaXVHZnpxUjZqMWxB?=
+ =?utf-8?B?VGZzSTByUElOelZDZmVaUDMrTUJOMkZWMlkyZ05YT0RFdjlRY3FpVVdtZkFY?=
+ =?utf-8?B?NGNlUzVOK0xXNmRxZlZaL3JMYmxnZjZEZlo4YzVXRmlEYmhiSWgzMVltVUVP?=
+ =?utf-8?B?SVBMMWcwYnB3V1VBVVZNd0huMVhsR0NBd3F1ZnQzNHE0allLRFcwcUY5UEF5?=
+ =?utf-8?B?KzZPTjlCbE9ML2xOUEViVnFDWkxqYnV2c212NUI1ZzNrZk1lMGNZVzVBL1Vh?=
+ =?utf-8?B?WkJDRmNJR3ZzdEZYWmJZZzBsVWVDczlSNStxandNNGp5RkZoNUo2THRKM2xC?=
+ =?utf-8?B?Q3VBUExuNzdLaThZN1pNQkZXRDBvSm9YWENoL2dnbDZpRXlXWWVwb21IWUor?=
+ =?utf-8?B?RkpFUjczMW9tUmVNK0Rjb0ZqN0pGb3BmT2N4K0dJaGVzMncxbWEzeU96UkFt?=
+ =?utf-8?B?bnVWakJPRHFLbTEvZUJMRnNVa0N5S21va3BGOTA3b3Y0OEE3ZzlEUGxleWtL?=
+ =?utf-8?B?QkYyWWpKaG1zSnZ5YzV5citRQTVLQUJOaUpqUU4xQStPY0ZKaW1nV0oweXFw?=
+ =?utf-8?B?M0NzdkRTZVFGNVErcUZjaXRXVVV3UG5nWk5lMzErVjR3K0xsNUswS3p0dnJV?=
+ =?utf-8?B?UGZZM0ZCaFZqTGtta1A5OHg4UEJYbU1vNlhnbGpFUlRITVB5UDNrMmptV0Fk?=
+ =?utf-8?B?c01EcXFrOEJrRE94SGdBKzNnQ0tqSGNvc0RTb1AvQ3BpOThuTy9zcjB2TzV0?=
+ =?utf-8?Q?PnM3PmBSGJgK80p9++?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c094b912-5e1d-4490-c34a-08de9ebbe692
+X-MS-Exchange-CrossTenant-Network-Message-Id: c23ce9b3-cbb0-47cc-f94c-08de9ebd23b9
 X-MS-Exchange-CrossTenant-AuthSource: SJ0PR12MB5673.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Apr 2026 09:04:59.9820 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Apr 2026 09:13:52.1311 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: REnf2ub52tN7scewndiIBNT1cqE9LVuWRJreq/csbgWALD/hoCKWSDXJqgGzrjzw
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8199
+X-MS-Exchange-CrossTenant-UserPrincipalName: FxvOtutWrIM5kSSAeCNhqJDPQXXrWhSSH6e2L79yTSA8P5i6mATAo98tU6ReINBx
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB7604
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,426 +133,117 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 4/18/26 22:15, Andre Hirata wrote:
-> gmc_v10_0_get_vm_pde, gmc_v10_0_get_vm_pte and their v11 counterparts
-> are identical. Move the shared implementation to amdgpu_gmc.c as
-> amdgpu_gmc_get_vm_pde and amdgpu_gmc_get_vm_pte, and update both
-> gmc_v10_0 and gmc_v11_0 to use the common helpers to eliminate
-> code duplication.
+On 4/17/26 23:32, mjgajda@gmail.com wrote:
+> From: "M. Gajda" <mjgajda@gmail.com>
+> 
+> GC_THROTTLE_STATUS is a read-only hardware status register present on all
+> RDNA GPU generations (GFX10/11/12).  It reports the state of the GFX
+> thermal throttle finite state machine:
+> 
+>   FSM_STATE    [3:0]  non-zero = GPU currently being throttled
+>   PATTERN_INDEX [9:4]  active throttle duty-cycle pattern
 
-Well again this is *not* something we want to do. Those functions are intentionally separated.
+Mhm, according to AMDs internal register documentation that one is not available everywhere.
+
+My educated guess is that there is actually some SMU function you should call to get this information.
+
+
+> The register is never written by the driver.  No side-effects occur on
+> read.
+
+Oh that is not correct at all. Reads can have tons of side effects all the way to a spontaneous system reboot!
+
+> Add it to the per-ASIC allowed_read_registers[] tables so that
+> unprivileged userspace can query it via the AMDGPU_INFO_READ_MMR_REG ioctl
+> (libdrm: amdgpu_read_mm_registers(3)).
+> 
+> This enables monitoring tools such as radeontop to display GPU thermal
+> throttle status without root privileges -- information of the same
+> sensitivity class as GPU temperature, which is already exposed via the
+> AMDGPU_INFO_SENSOR_GPU_TEMP sensor ioctl.
+
+Yeah, but that one asks the DPM functions to talk to the SMU to get the requested data.
+
+That is clearly something completely different.
 
 Regards,
 Christian.
 
 > 
-> No functional changes intended. BUG_ON preserved from original
-> gmc_v10_0 and gmc_v11_0 implementations.
+> Register offsets per generation:
+>   GFX10 (RDNA 1/2): mmGC_THROTTLE_STATUS  0x2032  BASE_IDX 0
+>   GFX11 (RDNA 3):  regGC_THROTTLE_STATUS  0x1b0a  BASE_IDX 1
+>   GFX12 (RDNA 4):  regGC_THROTTLE_STATUS  0x1b1c  BASE_IDX 1
 > 
-> Signed-off-by: Andre Hirata <andrejhirata@usp.br>
-> Co-developed-by: Gabriel Dimant <gabriel.dimant@usp.br>
-> Signed-off-by: Gabriel Dimant <gabriel.dimant@usp.br>
-> Co-developed-by: Guilherme Gabriel <guilhermesangabriel@usp.br>
-> Signed-off-by: Guilherme Gabriel <guilhermesangabriel@usp.br>
+> Source: drivers/gpu/drm/amd/include/asic_reg/gc/
+>   gc_10_3_0_{offset,sh_mask}.h, gc_11_0_0_{offset,sh_mask}.h,
+>   gc_12_0_0_{offset,sh_mask}.h
+> 
+> Public ISA documentation:
+>   RDNA 1: https://developer.amd.com/wp-content/resources/RDNA_Shader_ISA.pdf
+>   RDNA 2: https://www.amd.com/content/dam/amd/en/documents/radeon-tech-docs/instruction-set-architectures/rdna2-shader-instruction-set-architecture.pdf
+>   RDNA 3: https://docs.amd.com/v/u/en-US/rdna3-shader-instruction-set-architecture
+>   RDNA 4: https://docs.amd.com/v/u/en-US/rdna4-instruction-set-architecture
+> 
+> Signed-off-by: M. Gajda <mjgajda@gmail.com>
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c |  76 +++++++++++++++
->  drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h |   7 ++
->  drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c  | 119 +++++-------------------
->  drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c  | 119 +++++-------------------
->  4 files changed, 131 insertions(+), 190 deletions(-)
+>  drivers/gpu/drm/amd/amdgpu/nv.c    | 6 ++++++
+>  drivers/gpu/drm/amd/amdgpu/soc21.c | 6 ++++++
+>  drivers/gpu/drm/amd/amdgpu/soc24.c | 6 ++++++
+>  3 files changed, 18 insertions(+)
 > 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-> index 290b9f904..bd7b0a269 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-> @@ -36,6 +36,7 @@
->  #include "amdgpu_xgmi.h"
->  #include "amdgpu_atomfirmware.h"
-> 
-> +#include "navi10_enum.h"
->  #include <drm/drm_drv.h>
->  #include <drm/ttm/ttm_tt.h>
-> 
-> @@ -1782,3 +1783,78 @@ int amdgpu_gmc_get_vram_info(struct amdgpu_device *adev,
->         }
->         return 0;
->  }
-> +
-> +/*
-> + * Common get_vm_pde implementation for gmc v10 and v11.
-> + */
-> +void amdgpu_gmc_get_nv_vm_pde(struct amdgpu_device *adev, int level,
-> +                           uint64_t *addr, uint64_t *flags)
-> +{
-> +       if (!(*flags & AMDGPU_PDE_PTE) && !(*flags & AMDGPU_PTE_SYSTEM))
-> +               *addr = amdgpu_gmc_vram_mc2pa(adev, *addr);
-> +       BUG_ON(*addr & 0xFFFF00000000003FULL);
-> +
-> +       if (!adev->gmc.translate_further)
-> +               return;
-> +
-> +       if (level == AMDGPU_VM_PDB1) {
-> +               /* Set the block fragment size */
-> +               if (!(*flags & AMDGPU_PDE_PTE))
-> +                       *flags |= AMDGPU_PDE_BFS(0x9);
-> +       } else if (level == AMDGPU_VM_PDB0) {
-> +               if (*flags & AMDGPU_PDE_PTE)
-> +                       *flags &= ~AMDGPU_PDE_PTE;
-> +               else
-> +                       *flags |= AMDGPU_PTE_TF;
-> +       }
-> +}
-> +
-> +/*
-> + * Common get_vm_pte implementation for gmc v10 and v11.
-> + */
-> +void amdgpu_gmc_get_nv_vm_pte(struct amdgpu_device *adev,
-> +                           struct amdgpu_vm *vm,
-> +                           struct amdgpu_bo *bo,
-> +                           uint32_t vm_flags,
-> +                           uint64_t *flags)
-> +{
-> +       if (vm_flags & AMDGPU_VM_PAGE_EXECUTABLE)
-> +               *flags |= AMDGPU_PTE_EXECUTABLE;
-> +       else
-> +               *flags &= ~AMDGPU_PTE_EXECUTABLE;
-> +
-> +       switch (vm_flags & AMDGPU_VM_MTYPE_MASK) {
-> +       case AMDGPU_VM_MTYPE_DEFAULT:
-> +       case AMDGPU_VM_MTYPE_NC:
-> +       default:
-> +               *flags = AMDGPU_PTE_MTYPE_NV10(*flags, MTYPE_NC);
-> +               break;
-> +       case AMDGPU_VM_MTYPE_WC:
-> +               *flags = AMDGPU_PTE_MTYPE_NV10(*flags, MTYPE_WC);
-> +               break;
-> +       case AMDGPU_VM_MTYPE_CC:
-> +               *flags = AMDGPU_PTE_MTYPE_NV10(*flags, MTYPE_CC);
-> +               break;
-> +       case AMDGPU_VM_MTYPE_UC:
-> +               *flags = AMDGPU_PTE_MTYPE_NV10(*flags, MTYPE_UC);
-> +               break;
-> +       }
-> +
-> +       if (vm_flags & AMDGPU_VM_PAGE_NOALLOC)
-> +               *flags |= AMDGPU_PTE_NOALLOC;
-> +       else
-> +               *flags &= ~AMDGPU_PTE_NOALLOC;
-> +
-> +       if (vm_flags & AMDGPU_VM_PAGE_PRT) {
-> +               *flags |= AMDGPU_PTE_PRT;
-> +               *flags |= AMDGPU_PTE_SNOOPED;
-> +               *flags |= AMDGPU_PTE_LOG;
-> +               *flags |= AMDGPU_PTE_SYSTEM;
-> +               *flags &= ~AMDGPU_PTE_VALID;
-> +       }
-> +
-> +       if (bo && bo->flags & (AMDGPU_GEM_CREATE_COHERENT |
-> +                              AMDGPU_GEM_CREATE_EXT_COHERENT |
-> +                              AMDGPU_GEM_CREATE_UNCACHED))
-> +               *flags = AMDGPU_PTE_MTYPE_NV10(*flags, MTYPE_UC);
-> +}
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
-> index 6ab4c1e29..a852ed8ff 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
-> @@ -484,4 +484,11 @@ void amdgpu_gmc_init_sw_mem_ranges(struct amdgpu_device *adev,
->                                    struct amdgpu_mem_partition_info *mem_ranges);
->  int amdgpu_gmc_get_vram_info(struct amdgpu_device *adev,
->                 int *vram_width, int *vram_type, int *vram_vendor);
-> +void amdgpu_gmc_get_nv_vm_pde(struct amdgpu_device *adev, int level,
-> +                           uint64_t *addr, uint64_t *flags);
-> +void amdgpu_gmc_get_nv_vm_pte(struct amdgpu_device *adev,
-> +                           struct amdgpu_vm *vm,
-> +                           struct amdgpu_bo *bo,
-> +                           uint32_t vm_flags,
-> +                           uint64_t *flags);
->  #endif
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-> index e1ace7d44..129c7fc4b 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-> @@ -418,6 +418,28 @@ static void gmc_v10_0_emit_pasid_mapping(struct amdgpu_ring *ring, unsigned int
->         amdgpu_ring_emit_wreg(ring, reg, pasid);
->  }
-> 
-> +static unsigned int gmc_v10_0_get_vbios_fb_size(struct amdgpu_device *adev)
-> +{
-> +       u32 d1vga_control = RREG32_SOC15(DCE, 0, mmD1VGA_CONTROL);
-> +       unsigned int size;
-> +
-> +       if (REG_GET_FIELD(d1vga_control, D1VGA_CONTROL, D1VGA_MODE_ENABLE)) {
-> +               size = AMDGPU_VBIOS_VGA_ALLOCATION;
-> +       } else {
-> +               u32 viewport;
-> +               u32 pitch;
-> +
-> +               viewport = RREG32_SOC15(DCE, 0, mmHUBP0_DCSURF_PRI_VIEWPORT_DIMENSION);
-> +               pitch = RREG32_SOC15(DCE, 0, mmHUBPREQ0_DCSURF_SURFACE_PITCH);
-> +               size = (REG_GET_FIELD(viewport,
-> +                                       HUBP0_DCSURF_PRI_VIEWPORT_DIMENSION, PRI_VIEWPORT_HEIGHT) *
-> +                               REG_GET_FIELD(pitch, HUBPREQ0_DCSURF_SURFACE_PITCH, PITCH) *
-> +                               4);
-> +       }
-> +
-> +       return size;
-> +}
-> +
->  /*
->   * PTE format on NAVI 10:
->   * 63:59 reserved
-> @@ -450,106 +472,13 @@ static void gmc_v10_0_emit_pasid_mapping(struct amdgpu_ring *ring, unsigned int
->   * 1 system
->   * 0 valid
->   */
-> -
-> -static void gmc_v10_0_get_vm_pde(struct amdgpu_device *adev, int level,
-> -                                uint64_t *addr, uint64_t *flags)
-> -{
-> -       if (!(*flags & AMDGPU_PDE_PTE) && !(*flags & AMDGPU_PTE_SYSTEM))
-> -               *addr = amdgpu_gmc_vram_mc2pa(adev, *addr);
-> -       BUG_ON(*addr & 0xFFFF00000000003FULL);
-> -
-> -       if (!adev->gmc.translate_further)
-> -               return;
-> -
-> -       if (level == AMDGPU_VM_PDB1) {
-> -               /* Set the block fragment size */
-> -               if (!(*flags & AMDGPU_PDE_PTE))
-> -                       *flags |= AMDGPU_PDE_BFS(0x9);
-> -
-> -       } else if (level == AMDGPU_VM_PDB0) {
-> -               if (*flags & AMDGPU_PDE_PTE)
-> -                       *flags &= ~AMDGPU_PDE_PTE;
-> -               else
-> -                       *flags |= AMDGPU_PTE_TF;
-> -       }
-> -}
-> -
-> -static void gmc_v10_0_get_vm_pte(struct amdgpu_device *adev,
-> -                                struct amdgpu_vm *vm,
-> -                                struct amdgpu_bo *bo,
-> -                                uint32_t vm_flags,
-> -                                uint64_t *flags)
-> -{
-> -       if (vm_flags & AMDGPU_VM_PAGE_EXECUTABLE)
-> -               *flags |= AMDGPU_PTE_EXECUTABLE;
-> -       else
-> -               *flags &= ~AMDGPU_PTE_EXECUTABLE;
-> -
-> -       switch (vm_flags & AMDGPU_VM_MTYPE_MASK) {
-> -       case AMDGPU_VM_MTYPE_DEFAULT:
-> -       case AMDGPU_VM_MTYPE_NC:
-> -       default:
-> -               *flags = AMDGPU_PTE_MTYPE_NV10(*flags, MTYPE_NC);
-> -               break;
-> -       case AMDGPU_VM_MTYPE_WC:
-> -               *flags = AMDGPU_PTE_MTYPE_NV10(*flags, MTYPE_WC);
-> -               break;
-> -       case AMDGPU_VM_MTYPE_CC:
-> -               *flags = AMDGPU_PTE_MTYPE_NV10(*flags, MTYPE_CC);
-> -               break;
-> -       case AMDGPU_VM_MTYPE_UC:
-> -               *flags = AMDGPU_PTE_MTYPE_NV10(*flags, MTYPE_UC);
-> -               break;
-> -       }
-> -
-> -       if (vm_flags & AMDGPU_VM_PAGE_NOALLOC)
-> -               *flags |= AMDGPU_PTE_NOALLOC;
-> -       else
-> -               *flags &= ~AMDGPU_PTE_NOALLOC;
-> -
-> -       if (vm_flags & AMDGPU_VM_PAGE_PRT) {
-> -               *flags |= AMDGPU_PTE_PRT;
-> -               *flags |= AMDGPU_PTE_SNOOPED;
-> -               *flags |= AMDGPU_PTE_LOG;
-> -               *flags |= AMDGPU_PTE_SYSTEM;
-> -               *flags &= ~AMDGPU_PTE_VALID;
-> -       }
-> -
-> -       if (bo && bo->flags & (AMDGPU_GEM_CREATE_COHERENT |
-> -                              AMDGPU_GEM_CREATE_EXT_COHERENT |
-> -                              AMDGPU_GEM_CREATE_UNCACHED))
-> -               *flags = AMDGPU_PTE_MTYPE_NV10(*flags, MTYPE_UC);
-> -}
-> -
-> -static unsigned int gmc_v10_0_get_vbios_fb_size(struct amdgpu_device *adev)
-> -{
-> -       u32 d1vga_control = RREG32_SOC15(DCE, 0, mmD1VGA_CONTROL);
-> -       unsigned int size;
-> -
-> -       if (REG_GET_FIELD(d1vga_control, D1VGA_CONTROL, D1VGA_MODE_ENABLE)) {
-> -               size = AMDGPU_VBIOS_VGA_ALLOCATION;
-> -       } else {
-> -               u32 viewport;
-> -               u32 pitch;
-> -
-> -               viewport = RREG32_SOC15(DCE, 0, mmHUBP0_DCSURF_PRI_VIEWPORT_DIMENSION);
-> -               pitch = RREG32_SOC15(DCE, 0, mmHUBPREQ0_DCSURF_SURFACE_PITCH);
-> -               size = (REG_GET_FIELD(viewport,
-> -                                       HUBP0_DCSURF_PRI_VIEWPORT_DIMENSION, PRI_VIEWPORT_HEIGHT) *
-> -                               REG_GET_FIELD(pitch, HUBPREQ0_DCSURF_SURFACE_PITCH, PITCH) *
-> -                               4);
-> -       }
-> -
-> -       return size;
-> -}
-> -
->  static const struct amdgpu_gmc_funcs gmc_v10_0_gmc_funcs = {
->         .flush_gpu_tlb = gmc_v10_0_flush_gpu_tlb,
->         .flush_gpu_tlb_pasid = gmc_v10_0_flush_gpu_tlb_pasid,
->         .emit_flush_gpu_tlb = gmc_v10_0_emit_flush_gpu_tlb,
->         .emit_pasid_mapping = gmc_v10_0_emit_pasid_mapping,
-> -       .get_vm_pde = gmc_v10_0_get_vm_pde,
-> -       .get_vm_pte = gmc_v10_0_get_vm_pte,
-> +       .get_vm_pde = amdgpu_gmc_get_nv_vm_pde,
-> +       .get_vm_pte = amdgpu_gmc_get_nv_vm_pte,
->         .get_vbios_fb_size = gmc_v10_0_get_vbios_fb_size,
+> diff --git a/drivers/gpu/drm/amd/amdgpu/nv.c b/drivers/gpu/drm/amd/amdgpu/nv.c
+> index 7ce1a1b95..80594c793 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/nv.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/nv.c
+> @@ -352,6 +352,12 @@ static struct soc15_allowed_register_entry nv_allowed_read_registers[] = {
+>         { SOC15_REG_ENTRY(GC, 0, mmCP_CPC_STALLED_STAT1)},
+>         { SOC15_REG_ENTRY(GC, 0, mmCP_CPC_STATUS)},
+>         { SOC15_REG_ENTRY(GC, 0, mmGB_ADDR_CONFIG)},
+> +       /*
+> +        * GC_THROTTLE_STATUS (offset 0x2032): read-only thermal throttle FSM.
+> +        * FSM_STATE [3:0] != 0 indicates the GPU is currently being throttled.
+> +        * Defined in gc_10_3_0_offset.h / gc_10_3_0_sh_mask.h
+> +        */
+> +       { SOC15_REG_ENTRY(GC, 0, mmGC_THROTTLE_STATUS)},
 >  };
 > 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
-> index 94d6631ce..f1ac292b8 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
-> @@ -410,6 +410,28 @@ static void gmc_v11_0_emit_pasid_mapping(struct amdgpu_ring *ring, unsigned int
->         amdgpu_ring_emit_wreg(ring, reg, pasid);
->  }
-> 
-> +static unsigned int gmc_v11_0_get_vbios_fb_size(struct amdgpu_device *adev)
-> +{
-> +       u32 d1vga_control = RREG32_SOC15(DCE, 0, regD1VGA_CONTROL);
-> +       unsigned int size;
-> +
-> +       if (REG_GET_FIELD(d1vga_control, D1VGA_CONTROL, D1VGA_MODE_ENABLE)) {
-> +               size = AMDGPU_VBIOS_VGA_ALLOCATION;
-> +       } else {
-> +               u32 viewport;
-> +               u32 pitch;
-> +
-> +               viewport = RREG32_SOC15(DCE, 0, regHUBP0_DCSURF_PRI_VIEWPORT_DIMENSION);
-> +               pitch = RREG32_SOC15(DCE, 0, regHUBPREQ0_DCSURF_SURFACE_PITCH);
-> +               size = (REG_GET_FIELD(viewport,
-> +                                       HUBP0_DCSURF_PRI_VIEWPORT_DIMENSION, PRI_VIEWPORT_HEIGHT) *
-> +                               REG_GET_FIELD(pitch, HUBPREQ0_DCSURF_SURFACE_PITCH, PITCH) *
-> +                               4);
-> +       }
-> +
-> +       return size;
-> +}
-> +
->  /*
->   * PTE format:
->   * 63:59 reserved
-> @@ -441,106 +463,13 @@ static void gmc_v11_0_emit_pasid_mapping(struct amdgpu_ring *ring, unsigned int
->   * 1 system
->   * 0 valid
->   */
-> -
-> -static void gmc_v11_0_get_vm_pde(struct amdgpu_device *adev, int level,
-> -                                uint64_t *addr, uint64_t *flags)
-> -{
-> -       if (!(*flags & AMDGPU_PDE_PTE) && !(*flags & AMDGPU_PTE_SYSTEM))
-> -               *addr = amdgpu_gmc_vram_mc2pa(adev, *addr);
-> -       BUG_ON(*addr & 0xFFFF00000000003FULL);
-> -
-> -       if (!adev->gmc.translate_further)
-> -               return;
-> -
-> -       if (level == AMDGPU_VM_PDB1) {
-> -               /* Set the block fragment size */
-> -               if (!(*flags & AMDGPU_PDE_PTE))
-> -                       *flags |= AMDGPU_PDE_BFS(0x9);
-> -
-> -       } else if (level == AMDGPU_VM_PDB0) {
-> -               if (*flags & AMDGPU_PDE_PTE)
-> -                       *flags &= ~AMDGPU_PDE_PTE;
-> -               else
-> -                       *flags |= AMDGPU_PTE_TF;
-> -       }
-> -}
-> -
-> -static void gmc_v11_0_get_vm_pte(struct amdgpu_device *adev,
-> -                                struct amdgpu_vm *vm,
-> -                                struct amdgpu_bo *bo,
-> -                                uint32_t vm_flags,
-> -                                uint64_t *flags)
-> -{
-> -       if (vm_flags & AMDGPU_VM_PAGE_EXECUTABLE)
-> -               *flags |= AMDGPU_PTE_EXECUTABLE;
-> -       else
-> -               *flags &= ~AMDGPU_PTE_EXECUTABLE;
-> -
-> -       switch (vm_flags & AMDGPU_VM_MTYPE_MASK) {
-> -       case AMDGPU_VM_MTYPE_DEFAULT:
-> -       case AMDGPU_VM_MTYPE_NC:
-> -       default:
-> -               *flags = AMDGPU_PTE_MTYPE_NV10(*flags, MTYPE_NC);
-> -               break;
-> -       case AMDGPU_VM_MTYPE_WC:
-> -               *flags = AMDGPU_PTE_MTYPE_NV10(*flags, MTYPE_WC);
-> -               break;
-> -       case AMDGPU_VM_MTYPE_CC:
-> -               *flags = AMDGPU_PTE_MTYPE_NV10(*flags, MTYPE_CC);
-> -               break;
-> -       case AMDGPU_VM_MTYPE_UC:
-> -               *flags = AMDGPU_PTE_MTYPE_NV10(*flags, MTYPE_UC);
-> -               break;
-> -       }
-> -
-> -       if (vm_flags & AMDGPU_VM_PAGE_NOALLOC)
-> -               *flags |= AMDGPU_PTE_NOALLOC;
-> -       else
-> -               *flags &= ~AMDGPU_PTE_NOALLOC;
-> -
-> -       if (vm_flags & AMDGPU_VM_PAGE_PRT) {
-> -               *flags |= AMDGPU_PTE_PRT;
-> -               *flags |= AMDGPU_PTE_SNOOPED;
-> -               *flags |= AMDGPU_PTE_LOG;
-> -               *flags |= AMDGPU_PTE_SYSTEM;
-> -               *flags &= ~AMDGPU_PTE_VALID;
-> -       }
-> -
-> -       if (bo && bo->flags & (AMDGPU_GEM_CREATE_COHERENT |
-> -                              AMDGPU_GEM_CREATE_EXT_COHERENT |
-> -                              AMDGPU_GEM_CREATE_UNCACHED))
-> -               *flags = AMDGPU_PTE_MTYPE_NV10(*flags, MTYPE_UC);
-> -}
-> -
-> -static unsigned int gmc_v11_0_get_vbios_fb_size(struct amdgpu_device *adev)
-> -{
-> -       u32 d1vga_control = RREG32_SOC15(DCE, 0, regD1VGA_CONTROL);
-> -       unsigned int size;
-> -
-> -       if (REG_GET_FIELD(d1vga_control, D1VGA_CONTROL, D1VGA_MODE_ENABLE)) {
-> -               size = AMDGPU_VBIOS_VGA_ALLOCATION;
-> -       } else {
-> -               u32 viewport;
-> -               u32 pitch;
-> -
-> -               viewport = RREG32_SOC15(DCE, 0, regHUBP0_DCSURF_PRI_VIEWPORT_DIMENSION);
-> -               pitch = RREG32_SOC15(DCE, 0, regHUBPREQ0_DCSURF_SURFACE_PITCH);
-> -               size = (REG_GET_FIELD(viewport,
-> -                                       HUBP0_DCSURF_PRI_VIEWPORT_DIMENSION, PRI_VIEWPORT_HEIGHT) *
-> -                               REG_GET_FIELD(pitch, HUBPREQ0_DCSURF_SURFACE_PITCH, PITCH) *
-> -                               4);
-> -       }
-> -
-> -       return size;
-> -}
-> -
->  static const struct amdgpu_gmc_funcs gmc_v11_0_gmc_funcs = {
->         .flush_gpu_tlb = gmc_v11_0_flush_gpu_tlb,
->         .flush_gpu_tlb_pasid = gmc_v11_0_flush_gpu_tlb_pasid,
->         .emit_flush_gpu_tlb = gmc_v11_0_emit_flush_gpu_tlb,
->         .emit_pasid_mapping = gmc_v11_0_emit_pasid_mapping,
-> -       .get_vm_pde = gmc_v11_0_get_vm_pde,
-> -       .get_vm_pte = gmc_v11_0_get_vm_pte,
-> +       .get_vm_pde = amdgpu_gmc_get_nv_vm_pde,
-> +       .get_vm_pte = amdgpu_gmc_get_nv_vm_pte,
->         .get_vbios_fb_size = gmc_v11_0_get_vbios_fb_size,
+>  static uint32_t nv_read_indexed_register(struct amdgpu_device *adev, u32 se_num,
+> diff --git a/drivers/gpu/drm/amd/amdgpu/soc21.c b/drivers/gpu/drm/amd/amdgpu/soc21.c
+> index fbd1d97f3..8c2472bd0 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/soc21.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/soc21.c
+> @@ -304,6 +304,12 @@ static struct soc15_allowed_register_entry soc21_allowed_read_registers[] = {
+>         { SOC15_REG_ENTRY(GC, 0, regCP_CPC_STALLED_STAT1)},
+>         { SOC15_REG_ENTRY(GC, 0, regCP_CPC_STATUS)},
+>         { SOC15_REG_ENTRY(GC, 0, regGB_ADDR_CONFIG)},
+> +       /*
+> +        * GC_THROTTLE_STATUS (offset 0x1b0a): read-only thermal throttle FSM.
+> +        * FSM_STATE [3:0] != 0 indicates the GPU is currently being throttled.
+> +        * Defined in gc_11_0_0_offset.h / gc_11_0_0_sh_mask.h
+> +        */
+> +       { SOC15_REG_ENTRY(GC, 0, regGC_THROTTLE_STATUS)},
 >  };
 > 
+>  static uint32_t soc21_read_indexed_register(struct amdgpu_device *adev, u32 se_num,
+> diff --git a/drivers/gpu/drm/amd/amdgpu/soc24.c b/drivers/gpu/drm/amd/amdgpu/soc24.c
+> index d1adf19a5..617ee0a4d 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/soc24.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/soc24.c
+> @@ -130,6 +130,12 @@ static struct soc15_allowed_register_entry soc24_allowed_read_registers[] = {
+>         { SOC15_REG_ENTRY(GC, 0, regCP_CPC_STALLED_STAT1)},
+>         { SOC15_REG_ENTRY(GC, 0, regCP_CPC_STATUS)},
+>         { SOC15_REG_ENTRY(GC, 0, regGB_ADDR_CONFIG)},
+> +       /*
+> +        * GC_THROTTLE_STATUS (offset 0x1b1c): read-only thermal throttle FSM.
+> +        * FSM_STATE [3:0] != 0 indicates the GPU is currently being throttled.
+> +        * Defined in gc_12_0_0_offset.h / gc_12_0_0_sh_mask.h
+> +        */
+> +       { SOC15_REG_ENTRY(GC, 0, regGC_THROTTLE_STATUS)},
+>  };
+> 
+>  static uint32_t soc24_read_indexed_register(struct amdgpu_device *adev,
 > --
-> 2.43.0
+> 2.51.0
 > 
 
