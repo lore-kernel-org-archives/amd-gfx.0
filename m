@@ -4,44 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6F5FFF588C4
-	for <amd-gfx@archiver.kernel.org>; Mon, 20 Apr 2026 13:30:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 712A7F588C3
+	for <amd-gfx@archiver.kernel.org>; Mon, 20 Apr 2026 13:30:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 12EE710E637;
-	Mon, 20 Apr 2026 13:30:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 02F2310E63A;
+	Mon, 20 Apr 2026 13:30:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="WLrH7nsp";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="CtBWn/PI";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BE22910E637;
- Mon, 20 Apr 2026 13:30:03 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4B22F10E636;
+ Mon, 20 Apr 2026 13:30:19 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id CF09261119;
- Mon, 20 Apr 2026 13:30:02 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EBDCBC2BCB7;
- Mon, 20 Apr 2026 13:30:00 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 2E00C40483;
+ Mon, 20 Apr 2026 13:30:19 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED492C19425;
+ Mon, 20 Apr 2026 13:30:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1776691802;
- bh=mWRQILyU3nYc0zxb2eBK81xWcn9ZqTdyq0u0KDN1QiA=;
+ s=k20201202; t=1776691819;
+ bh=m8CFpmikgbDVJIP7xd+FqUatg2Sl6tijDEeLmdzOWXY=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=WLrH7nsp/mQr37UQjB5QTf0pF4V9VaxQmxtRZ7+Q/rgRvUtPSuh8KLpOo43yRRiwm
- MLFVLlLtCoC5wPP3NyKkJ6UuJyYtfeXL8BGk2b5fwyu5IuSu6e9kamyYIeRqqtSDlE
- 8AbouXhsHzqzKsV/HjYVn8qGu0XjUANNhBrl1bZEiw2a1pgEIpg53rOzJyuZs8te3h
- 15GjJTi8j5Ec+glWxSFY0t41MoVyzyTwAJmpfb3oc+oILf6XqThnozY09sBtw0hjfk
- yPnhKvVs37nRH2SjL24kYCLnA/iLeAlYHN3hRQoc9WNgoqvG/G3+MondSuawL/aaP3
- v0eGSpTjH6N5A==
+ b=CtBWn/PIZSO4o+pQv5vW/ovLoxrxgi0xqa/Qi3FtOlEP0Tbk5xU2mT6+ndpsOgv+B
+ 2XCkqMUG6Eqxr92p/LdxcytAhjKQVuY+QV42ivJMgVdWlxQZd8I9eWDfeHC9J2GXc/
+ LDBJFey0WMISCOwIOXM1+HLM+dSrjxy/D1ESMJkVu/QF6bfA6auIouYsgKl0wOsA0q
+ bhBwMMRHey6u0RRU6rdNLAINxbOg29HHQReTdi3m8hFYzKx1JNlve/H3ESZoH6K5wC
+ LikWQWBpqAPyBM+Zr5/g+ZxOo/NBmGiNMnL+1A2HM+yxV/MNdZuDwtm1K3ZdYEKuZb
+ IlTHeTMnwElUA==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: David Francis <David.Francis@amd.com>,
+Cc: Benjamin Nwankwo <Benjamin.Nwankwo@amd.com>,
+ Charlene Liu <charlene.liu@amd.com>,
+ Nevenko Stupar <nevenko.stupar@amd.com>,
+ Chuanyu Tseng <chuanyu.tseng@amd.com>,
+ Dan Wheeler <daniel.wheeler@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
- Felix.Kuehling@amd.com, christian.koenig@amd.com, airlied@gmail.com,
- simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
+ harry.wentland@amd.com, sunpeng.li@amd.com, christian.koenig@amd.com,
+ airlied@gmail.com, simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 7.0-6.18] drm/amdgpu: Check for multiplication
- overflow in checkpoint stack size
-Date: Mon, 20 Apr 2026 09:19:56 -0400
-Message-ID: <20260420132314.1023554-202-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 7.0-6.19] drm/amd/display: Clamp dc_cursor_position
+ x_hotspot to prevent integer overflow
+Date: Mon, 20 Apr 2026 09:20:07 -0400
+Message-ID: <20260420132314.1023554-213-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260420132314.1023554-1-sashal@kernel.org>
 References: <20260420132314.1023554-1-sashal@kernel.org>
@@ -64,396 +68,298 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: David Francis <David.Francis@amd.com>
+From: Benjamin Nwankwo <Benjamin.Nwankwo@amd.com>
 
-[ Upstream commit 421c0f19043337a553e802b2dfe4b56d538ef4d6 ]
+[ Upstream commit a2aa7987de1169548c465f6cc1019d2112e0e8b5 ]
 
-get_checkpoint_info() in kfd_mqd_manager_v9.c finds 32-bit value
-ctl_stack_size by multiplying two 32-bit values. This can overflow to a
-lower value, which could result in copying outside the bounds of
-a buffer in checkpoint_mqd() in the same file.
+why:
+Workaround for duplicate cursor. Cursor offsetting via x_hotspot attempts
+to write a 32 bit unsigned integer to the 8 bit field CURSOR_HOT_SPOT_X.
+This wraps cursor position back into focus if x_hotspot exceeds 8 bits,
+making duplicate cursors visible
 
-Put in a check for the overflow, and fail with -EINVAL if detected.
+how:
+Clamp x_hotspot before writing to hardware
 
-v2: use check_mul_overflow()
-
-Signed-off-by: David Francis <David.Francis@amd.com>
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+Reviewed-by: Charlene Liu <charlene.liu@amd.com>
+Reviewed-by: Nevenko Stupar <nevenko.stupar@amd.com>
+Signed-off-by: Benjamin Nwankwo <Benjamin.Nwankwo@amd.com>
+Signed-off-by: Chuanyu Tseng <chuanyu.tseng@amd.com>
+Tested-by: Dan Wheeler <daniel.wheeler@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-Now I have a complete picture. Let me compile the full analysis.
+Now I have a comprehensive understanding of the bug. Let me compile the
+full analysis.
 
 ---
 
 ## PHASE 1: COMMIT MESSAGE FORENSICS
 
 **Step 1.1: Subject Line**
-- Subsystem: `drm/amdgpu` (AMD GPU driver, KFD subsystem)
-- Action verb: "Check" (adding a missing safety check)
-- Summary: Add overflow check to prevent out-of-bounds copy in
-  checkpoint stack size computation
+- Subsystem: `drm/amd/display` (AMD display driver, DCN401 specifically)
+- Action verb: "Clamp" (prevent overflow, clearly a bug fix)
+- Summary: Clamp x_hotspot value before writing to 8-bit hardware
+  register to prevent integer overflow causing duplicate cursors
 
 **Step 1.2: Tags**
-- Signed-off-by: David Francis (author)
-- Reviewed-by: Alex Deucher (AMD DRM subsystem maintainer)
-- Signed-off-by: Alex Deucher (committer/maintainer)
-- No Fixes: tag (expected for autosel candidates)
-- No Cc: stable (expected)
-- No Reported-by (found by code inspection, not a crash report)
+- `Reviewed-by: Charlene Liu` and `Reviewed-by: Nevenko Stupar` - two
+  AMD engineers reviewed
+- `Signed-off-by: Benjamin Nwankwo` (author), `Signed-off-by: Chuanyu
+  Tseng` (submitter)
+- `Tested-by: Dan Wheeler` - standard AMD display QA tester
+- `Signed-off-by: Alex Deucher` - AMD GPU subsystem maintainer accepted
+  the patch
+- No Fixes: tag (expected for candidate review)
+- No Cc: stable tag (expected)
 
 **Step 1.3: Commit Body**
-- Bug: `get_checkpoint_info()` computes `ctl_stack_size` by multiplying
-  two 32-bit values (`m->cp_hqd_cntl_stack_size *
-  NUM_XCC(mm->dev->xcc_mask)`). This can overflow to a smaller value.
-- Consequence: The overflowed smaller value is used to size a buffer
-  allocation. Later, `checkpoint_mqd()` copies data using the actual
-  (non-overflowed) hardware values, writing beyond the buffer boundary.
-- Failure mode: Out-of-bounds memory write (buffer overflow)
-- Fix: Use `check_mul_overflow()` and return -EINVAL on overflow
+- Bug: 32-bit `x_hotspot` value written to 8-bit `CURSOR_HOT_SPOT_X`
+  hardware register
+- Symptom: Value wraps, causing cursor position to jump back, creating
+  visible duplicate cursors
+- Fix: Clamp `x_hotspot` to 0xFF before hardware register write
 
 **Step 1.4: Hidden Bug Fix Detection**
-This is explicitly a bug fix for a buffer overflow vulnerability. The v2
-notation indicates the fix went through review iteration.
+This is explicitly a bug fix (visual display glitch with duplicate
+cursors). Not hidden.
 
 ## PHASE 2: DIFF ANALYSIS
 
 **Step 2.1: Inventory**
-- 6 files changed: `kfd_device_queue_manager.c`,
-  `kfd_device_queue_manager.h`, `kfd_mqd_manager.h`,
-  `kfd_mqd_manager_v9.c`, `kfd_mqd_manager_vi.c`,
-  `kfd_process_queue_manager.c`
-- Net change: +22/-8 lines
-- Functions modified: `get_checkpoint_info` (v9 and vi),
-  `get_queue_checkpoint_info` (dqm), `pqm_get_queue_checkpoint_info`
-- Scope: Multi-file but contained - all changes serve a single purpose
-  (propagating error from overflow check)
+- 1 file changed:
+  `drivers/gpu/drm/amd/display/dc/hubp/dcn401/dcn401_hubp.c`
+- +4 lines, -3 lines (net +1)
+- Function modified: `hubp401_cursor_set_position()`
+- Scope: Single-file surgical fix
 
 **Step 2.2: Code Flow Change**
-- Core fix in `kfd_mqd_manager_v9.c`: replaces unchecked multiplication
-  with `check_mul_overflow()`, returning -EINVAL on overflow
-- Plumbing: `get_checkpoint_info` and `get_queue_checkpoint_info`
-  signatures changed from `void` to `int` to propagate the error
-- `kfd_mqd_manager_vi.c`: trivially updated to return 0 (no overflow
-  risk since `*ctl_stack_size = 0`)
-- `kfd_process_queue_manager.c`: now checks the return value and
-  propagates errors
+1. New variable `x_hotspot_clamped = pos->x_hotspot` declared
+2. Before writing to HW register, clamp: `if (x_hotspot_clamped > 0xFF)
+   x_hotspot_clamped = 0xFF;`
+3. Use `x_hotspot_clamped` instead of `pos->x_hotspot` in
+   `REG_SET_2(CURSOR_HOT_SPOT, ...)` call
 
 **Step 2.3: Bug Mechanism**
-Category: **Buffer overflow / out-of-bounds write**
-
-The flow is:
-1. `get_checkpoint_info()` computes `ctl_stack_size =
-   m->cp_hqd_cntl_stack_size * NUM_XCC(...)` - can overflow to a small
-   value
-2. `criu_checkpoint_queues_device()` uses this to allocate a buffer:
-   `kzalloc(sizeof(*q_data) + mqd_size + ctl_stack_size, ...)`
-3. `checkpoint_mqd_v9_4_3()` loops over each XCC and calls
-   `memcpy(ctl_stack_dst, ctl_stack, m->cp_hqd_cntl_stack_size)` for
-   each, writing the full actual size
-4. Total bytes written = `m->cp_hqd_cntl_stack_size * NUM_XCC(...)` (the
-   actual, non-overflowed product), exceeding the buffer
+Category: Integer overflow / type mismatch bug. A 32-bit value is
+truncated to 8 bits by hardware, causing wraparound. The fix clamps the
+value to 8-bit range before writing.
 
 **Step 2.4: Fix Quality**
-- Obviously correct: uses standard `check_mul_overflow()` kernel macro
-- Minimal/surgical: core logic is 3 lines; rest is necessary type
-  signature propagation
-- No regression risk: overflow case now fails gracefully with -EINVAL
-  instead of silently corrupting memory
-- Reviewed by subsystem maintainer Alex Deucher
+Obviously correct - the hardware register is 8 bits, so values > 255 are
+meaningless. Clamping to 0xFF is the right approach. Zero regression
+risk - the clamped path already results in incorrect cursor positioning,
+so saturating at max is strictly better than wrapping.
 
-## PHASE 3: GIT HISTORY
+## PHASE 3: GIT HISTORY INVESTIGATION
 
 **Step 3.1: Blame**
-- `get_checkpoint_info` was introduced by commit 3a9822d7bd623b (David
-  Yat Sin, 2021-01-25) for CRIU checkpoint support
-- The multiplication `* NUM_XCC(...)` was added by commit f6c0f3d24478a0
-  / a578f2a58c3ab (David Yat Sin, 2025-07-16) "Fix checkpoint-restore on
-  multi-xcc"
-- The multi-xcc fix was merged in v6.18 and was cherry-picked with `Cc:
-  stable@vger.kernel.org`
+The buggy line (`CURSOR_HOT_SPOT_X, pos->x_hotspot`) was last touched by
+commit `518a368c57a0e6` ("Update cursor offload assignments", by Alvin
+Lee, 2025-10-02). The underlying bug pattern has existed since the
+function was first introduced in commit `ee8287e068a3` ("Fix cursor
+issues with ODMs and HW rotations"), first appearing in v6.11.
 
-**Step 3.2: Fixes tag** - No Fixes: tag present, which is expected.
+**Step 3.2: No Fixes: tag** (expected)
 
-**Step 3.3: File History** - The file is actively developed with 30+
-changes since v6.6.
+**Step 3.3: File History**
+17 commits between v6.11 and v7.0 modified this file. The function has
+been actively developed. The v7.0 version includes cursor offload
+support that doesn't exist in v6.11/v6.12.
 
-**Step 3.4: Author** - David Francis is an AMD employee working on
-KFD/CRIU support.
+**Step 3.4: Author**
+Benjamin Nwankwo is an AMD display engineer. The patch was submitted
+through Chuanyu Tseng as part of a DC patch series.
 
-**Step 3.5: Dependencies** - This commit is standalone. It only changes
-the existing code path without requiring other patches.
+**Step 3.5: Dependencies**
+The fix is self-contained. No dependencies on other patches. The core
+logic (clamp before REG_SET_2) applies regardless of the cursor offload
+changes.
 
-## PHASE 4: MAILING LIST
+## PHASE 4: MAILING LIST RESEARCH
 
-- Original submission found at spinics.net/lists/amd-gfx/msg138647.html
-  (posted 2026-03-04)
-- v2 iteration used `check_mul_overflow()` (v1 presumably used manual
-  overflow checks)
-- Alex Deucher provided Reviewed-by (msg138731)
-- No NAKs or concerns raised
-- No explicit stable nomination by reviewers, but the fix targets a bug
-  in code that was itself `Cc: stable`
+The patch was submitted as [PATCH v2 8/9] in "DC Patches March 10, 2026"
+series. It's v2 (revised from v1 - v1 reference:
+https://patchwork.freedesktop.org/patch/710768/). The series also
+includes other unrelated DC patches. No objections or NAKs found on the
+mailing list. No explicit stable nomination by reviewers.
 
 ## PHASE 5: CODE SEMANTIC ANALYSIS
 
-**Step 5.1: Key Functions**
-- `get_checkpoint_info()` in v9 (core fix)
-- `get_queue_checkpoint_info()` in dqm (plumbing)
-- `pqm_get_queue_checkpoint_info()` (plumbing)
+**Step 5.1: Key Function**: `hubp401_cursor_set_position()`
 
 **Step 5.2: Callers**
-- `pqm_get_queue_checkpoint_info()` -> `get_queue_data_sizes()` ->
-  `criu_checkpoint_queues_device()` -> `kfd_process_get_queue_info()`
-- Called during CRIU checkpoint operations (process migration/save)
+Called via `hubp->funcs->set_cursor_position()` from
+`dcn401_set_cursor_position()` in the hwseq layer. This is the main
+cursor position programming path for DCN401 hardware.
 
-**Step 5.4: Reachability**
-The path is reachable from userspace through the KFD ioctl interface
-during CRIU operations. On multi-XCC AMD GPUs, if
-`cp_hqd_cntl_stack_size` is large enough, the multiplication overflows.
+**Step 5.4: Critical Call Chain - THE ACTUAL TRIGGER PATH**
+In `dcn401_set_cursor_position()` (lines 1177-1182 and 1196-1202):
+
+```1177:1202:drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c
+        if (x_pos < 0) {
+                pos_cpy.x_hotspot -= x_pos;
+                // ...
+                x_pos = 0;
+        }
+        // ...
+        if (bottom_pipe_x_pos < 0) {
+                // ...
+                pos_cpy.x_hotspot -= bottom_pipe_x_pos;
+```
+
+When ODM combining or MPC combining is active and the cursor crosses
+slice boundaries, `x_pos` becomes negative. The line `pos_cpy.x_hotspot
+-= x_pos` (where `x_pos` is negative) **adds** a potentially large value
+to `x_hotspot`. For example, if the cursor is 500 pixels to the left of
+an ODM slice boundary, `x_hotspot` grows by 500 -- far exceeding the
+8-bit register maximum of 255.
+
+This confirms the bug is **real and triggerable** in ODM/MPC combining
+scenarios (multi-monitor, high-resolution displays).
 
 ## PHASE 6: STABLE TREE ANALYSIS
 
-**Step 6.1: Buggy code in stable**
-- The multiplication was introduced in commit a578f2a58c3ab, merged in
-  v6.18
-- The cherry-pick f6c0f3d24478a0 has `Cc: stable@vger.kernel.org`, so it
-  was intended for backport to active stable trees
-- The 7.0 tree we're evaluating definitely has this code
-- Any stable tree that received the multi-xcc fix backport also has the
-  bug
+**Step 6.1: Buggy Code in Stable**
+The file exists from v6.11 onwards. The ODM hotspot inflation code
+(`x_hotspot -= x_pos`) exists in both v6.11 and v6.12. The bug is
+present in all versions containing DCN401.
 
-**Step 6.2: Backport complexity** - The patch should apply cleanly since
-the code structure hasn't changed significantly.
+**Step 6.2: Backport Complications**
+The v6.11/v6.12 versions of `hubp401_cursor_set_position()` differ from
+v7.0 (no cursor offload path, different variable naming). The patch
+would need minor rework for older trees but the clamping concept applies
+cleanly.
 
 ## PHASE 7: SUBSYSTEM CONTEXT
 
-**Step 7.1:** drm/amdgpu (KFD) - GPU compute driver. Used by ROCm.
-Criticality: IMPORTANT for AMD GPU users.
-
-**Step 7.2:** Very actively developed subsystem.
+- Subsystem: `drivers/gpu/drm/amd/display` - AMD display driver
+- Criticality: IMPORTANT (AMD GPUs are widely used; display bugs affect
+  all users of that hardware)
+- DCN401 = AMD RDNA4 display controller
 
 ## PHASE 8: IMPACT AND RISK ASSESSMENT
 
-**Step 8.1:** Affects users of AMD multi-XCC GPUs (MI200/MI300 series)
-who use CRIU checkpoint/restore.
+**Step 8.1: Affected Users**: Users with AMD DCN401 (RDNA4) GPUs using
+ODM combining or MPC combining (multi-monitor, high-resolution displays)
 
-**Step 8.2: Trigger conditions**
-- Requires multi-XCC AMD GPU hardware
-- Requires CRIU checkpoint operation
-- Requires `cp_hqd_cntl_stack_size` large enough to overflow when
-  multiplied by XCC count
-- Triggerable from userspace via KFD ioctl
+**Step 8.2: Trigger Conditions**: Cursor moves across ODM or MPC slice
+boundaries with enough offset to push x_hotspot > 255. Common in multi-
+monitor or ultra-wide setups.
 
-**Step 8.3: Failure mode** - Out-of-bounds kernel heap write. Severity:
-**HIGH** (memory corruption, potential crash, potential security
-vulnerability).
+**Step 8.3: Failure Mode**: Visible duplicate cursor artifact. Severity:
+MEDIUM (user-visible display glitch, not a crash/security/corruption
+issue, but very annoying)
 
-**Step 8.4: Risk-Benefit**
-- Benefit: Prevents kernel heap buffer overflow -> HIGH
-- Risk: Very low - adds a standard overflow check, graceful error return
-- Ratio: Strongly favorable for backport
+**Step 8.4: Risk-Benefit**:
+- BENEFIT: High - fixes a visible display bug for AMD GPU users
+- RISK: Very Low - 3 lines, obviously correct clamping, zero regression
+  potential
 
-## PHASE 9: SYNTHESIS
+## PHASE 9: FINAL SYNTHESIS
 
 **Evidence FOR backporting:**
-- Fixes a real buffer overflow (out-of-bounds heap write)
-- Small and contained (+22/-8 lines, mostly plumbing)
-- Uses standard kernel overflow checking macro (`check_mul_overflow`)
-- Obviously correct - reviewed by subsystem maintainer Alex Deucher
-- The buggy code was itself marked `Cc: stable` (the multi-xcc fix), so
-  the bug exists in stable trees
-- Graceful error handling (returns -EINVAL instead of corrupting memory)
+- Fixes a real, user-visible display bug (duplicate cursors)
+- Trigger path confirmed: ODM/MPC combining inflates x_hotspot beyond
+  8-bit register width
+- Fix is minimal (3 effective lines), obviously correct, zero regression
+  risk
+- Reviewed by 2 AMD engineers, tested, accepted by subsystem maintainer
+- Hardware workaround pattern - exactly the type of fix allowed in
+  stable
+- Bug exists in all stable trees containing DCN401 (v6.11+)
 
 **Evidence AGAINST backporting:**
-- The bug requires specific hardware (multi-XCC AMD GPUs) and specific
-  operation (CRIU checkpoint)
-- The overflow may require unrealistic `cp_hqd_cntl_stack_size` values
-  in practice
-- The function signature change touches 6 files (though all changes are
-  mechanical)
+- Not a crash, security issue, or data corruption
+- DCN401 is relatively new hardware (v6.11+)
+- Would need minor rework for v6.11/v6.12 due to different function
+  structure
+- No explicit stable nomination or Fixes: tag
 
-**Stable rules checklist:**
-1. Obviously correct and tested? **YES** - uses standard
-   `check_mul_overflow()`, reviewed by maintainer
-2. Fixes a real bug? **YES** - buffer overflow from integer overflow
-3. Important issue? **YES** - out-of-bounds heap write, potential memory
-   corruption
-4. Small and contained? **YES** - 30 lines total, core logic is 3 lines
-5. No new features? **YES** - purely defensive overflow check
-6. Applies to stable? **YES** - any tree with the multi-xcc checkpoint
-   fix (6.18+, plus stable backports)
+**Stable Rules Checklist:**
+1. Obviously correct and tested? YES (trivial clamp, Tested-by)
+2. Fixes a real bug? YES (duplicate cursor visible to users)
+3. Important issue? MEDIUM (visible display glitch, not crash/security)
+4. Small and contained? YES (3 lines, single function)
+5. No new features/APIs? YES (pure bug fix)
+6. Can apply to stable? YES for 7.0.y; needs minor rework for
+   6.11.y/6.12.y
 
 ## Verification
 
-- [Phase 1] Parsed subject: drm/amdgpu, "Check" (adding safety check),
-  overflow in checkpoint stack size
-- [Phase 1] Tags: Reviewed-by Alex Deucher (subsystem maintainer),
-  Signed-off-by Alex Deucher
-- [Phase 2] Diff: 6 files, +22/-8 lines. Core fix is
-  `check_mul_overflow()` in `get_checkpoint_info()` v9
-- [Phase 2] Traced overflow to buffer allocation in
-  `criu_checkpoint_queues_device()` (line 895: kzalloc) and memcpy in
-  `checkpoint_mqd()` (line 412) / `checkpoint_mqd_v9_4_3()` (lines
-  424-430)
-- [Phase 3] git blame: multiplication introduced by f6c0f3d24478a0
-  (2025-07-16), cherry-pick of a578f2a58c3ab with `Cc: stable`
-- [Phase 3] Original `get_checkpoint_info` introduced by 3a9822d7bd623b
-  (2021-01-25)
-- [Phase 3] Multi-xcc fix entered mainline in v6.18
-- [Phase 4] Found original patch at spinics.net/lists/amd-
-  gfx/msg138647.html, Alex Deucher reviewed at msg138731
-- [Phase 4] No NAKs, no concerns raised
-- [Phase 5] Traced call chain: KFD ioctl -> kfd_process_get_queue_info
-  -> get_queue_data_sizes -> pqm_get_queue_checkpoint_info ->
-  get_queue_checkpoint_info -> get_checkpoint_info
-- [Phase 5] Confirmed overflowed value feeds into buffer allocation
-  (kzalloc) but actual memcpy uses non-overflowed per-XCC size
-- [Phase 6] Buggy code exists in mainline since v6.18 and in any stable
-  tree that backported the multi-xcc checkpoint fix
-- [Phase 8] Failure mode: heap buffer overflow (out-of-bounds write),
-  severity HIGH
+- [Phase 1] Parsed tags: 2x Reviewed-by (AMD engineers), Tested-by (Dan
+  Wheeler), Signed-off by Alex Deucher (subsystem maintainer)
+- [Phase 2] Diff analysis: 3 effective lines in
+  `hubp401_cursor_set_position()`, clamps x_hotspot to 0xFF before
+  register write
+- [Phase 3] git blame: buggy line from commit 518a368c57a0e6 (cursor
+  offload update); original function from ee8287e068a3 (v6.11)
+- [Phase 3] git ls-tree: confirmed dcn401_hubp.c exists in v6.11, v6.12,
+  v6.13, v7.0
+- [Phase 4] Found patch at https://lists.freedesktop.org/archives/amd-
+  gfx/2026-March/140330.html - part of v2 DC patch series
+- [Phase 4] Cover letter at https://lists.freedesktop.org/archives/amd-
+  gfx/2026-March/140322.html - no NAKs or concerns
+- [Phase 5] Traced caller chain: `dcn401_set_cursor_position()` ->
+  `hubp401_cursor_set_position()`. Confirmed at lines 1177-1182 and
+  1196-1202 that `pos_cpy.x_hotspot -= x_pos` (with negative x_pos)
+  inflates x_hotspot beyond 255 in ODM/MPC combining scenarios
+- [Phase 5] Verified x_hotspot inflation code exists in v6.11 and v6.12
+  versions of dcn401_hwseq.c
+- [Phase 6] DCN401 max_cursor_size=64, but x_hotspot is inflated *after*
+  initial position setup in hwseq layer, so 64-pixel limit doesn't
+  prevent the overflow
+- [Phase 6] Function structure differs between v6.12 and v7.0 (cursor
+  offload); backport needs minor adaptation for older trees
+- [Phase 8] Failure mode: duplicate cursor visible on screen (MEDIUM
+  severity, user-visible display bug)
+
+The fix is a small, safe hardware workaround that fixes a real visual
+bug triggered by ODM/MPC combining on AMD DCN401 hardware. It meets
+stable criteria as a hardware workaround with minimal risk and clear
+benefit.
 
 **YES**
 
- drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c  | 7 +++++--
- drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h  | 2 +-
- drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.h           | 3 ++-
- drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c        | 7 +++++--
- drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_vi.c        | 3 ++-
- drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c | 8 +++++++-
- 6 files changed, 22 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/amd/display/dc/hubp/dcn401/dcn401_hubp.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-index 3ddf06c755b52..ab3b2e7be9bd0 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-@@ -2720,7 +2720,7 @@ static int get_wave_state(struct device_queue_manager *dqm,
- 			ctl_stack, ctl_stack_used_size, save_area_used_size);
- }
+diff --git a/drivers/gpu/drm/amd/display/dc/hubp/dcn401/dcn401_hubp.c b/drivers/gpu/drm/amd/display/dc/hubp/dcn401/dcn401_hubp.c
+index c205500290ecd..806b9bd9a3fcf 100644
+--- a/drivers/gpu/drm/amd/display/dc/hubp/dcn401/dcn401_hubp.c
++++ b/drivers/gpu/drm/amd/display/dc/hubp/dcn401/dcn401_hubp.c
+@@ -739,9 +739,8 @@ void hubp401_cursor_set_position(
+ 	int x_pos_viewport = 0;
+ 	int x_hot_viewport = 0;
+ 	uint32_t cur_en = pos->enable ? 1 : 0;
+-
++	uint32_t x_hotspot_clamped = pos->x_hotspot;
+ 	hubp->curs_pos = *pos;
+-
+ 	/* Recout is zero for pipes if the entire dst_rect is contained
+ 	 * within preceeding ODM slices.
+ 	 */
+@@ -772,6 +771,8 @@ void hubp401_cursor_set_position(
  
--static void get_queue_checkpoint_info(struct device_queue_manager *dqm,
-+static int get_queue_checkpoint_info(struct device_queue_manager *dqm,
- 			const struct queue *q,
- 			u32 *mqd_size,
- 			u32 *ctl_stack_size)
-@@ -2728,6 +2728,7 @@ static void get_queue_checkpoint_info(struct device_queue_manager *dqm,
- 	struct mqd_manager *mqd_mgr;
- 	enum KFD_MQD_TYPE mqd_type =
- 			get_mqd_type_from_queue_type(q->properties.type);
-+	int ret = 0;
+ 	ASSERT(param->h_scale_ratio.value);
  
- 	dqm_lock(dqm);
- 	mqd_mgr = dqm->mqd_mgrs[mqd_type];
-@@ -2735,9 +2736,11 @@ static void get_queue_checkpoint_info(struct device_queue_manager *dqm,
- 	*ctl_stack_size = 0;
++	if (x_hotspot_clamped > 0xFF)
++		x_hotspot_clamped = 0xFF;
+ 	if (param->h_scale_ratio.value)
+ 		dst_x_offset = dc_fixpt_floor(dc_fixpt_div(
+ 			dc_fixpt_from_int(dst_x_offset),
+@@ -792,7 +793,7 @@ void hubp401_cursor_set_position(
+ 			CURSOR_Y_POSITION, pos->y);
  
- 	if (q->properties.type == KFD_QUEUE_TYPE_COMPUTE && mqd_mgr->get_checkpoint_info)
--		mqd_mgr->get_checkpoint_info(mqd_mgr, q->mqd, ctl_stack_size);
-+		ret = mqd_mgr->get_checkpoint_info(mqd_mgr, q->mqd, ctl_stack_size);
+ 		REG_SET_2(CURSOR_HOT_SPOT, 0,
+-			CURSOR_HOT_SPOT_X, pos->x_hotspot,
++			CURSOR_HOT_SPOT_X, x_hotspot_clamped,
+ 			CURSOR_HOT_SPOT_Y, pos->y_hotspot);
  
- 	dqm_unlock(dqm);
-+
-+	return ret;
- }
- 
- static int checkpoint_mqd(struct device_queue_manager *dqm,
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h
-index ef07e44916f80..3272328da11f9 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h
-@@ -192,7 +192,7 @@ struct device_queue_manager_ops {
- 
- 	int (*reset_queues)(struct device_queue_manager *dqm,
- 					uint16_t pasid);
--	void	(*get_queue_checkpoint_info)(struct device_queue_manager *dqm,
-+	int	(*get_queue_checkpoint_info)(struct device_queue_manager *dqm,
- 				  const struct queue *q, u32 *mqd_size,
- 				  u32 *ctl_stack_size);
- 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.h b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.h
-index 2429d278ef0eb..06ca6235ff1b7 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.h
-@@ -102,7 +102,8 @@ struct mqd_manager {
- 				  u32 *ctl_stack_used_size,
- 				  u32 *save_area_used_size);
- 
--	void	(*get_checkpoint_info)(struct mqd_manager *mm, void *mqd, uint32_t *ctl_stack_size);
-+	int	(*get_checkpoint_info)(struct mqd_manager *mm, void *mqd,
-+				       uint32_t *ctl_stack_size);
- 
- 	void	(*checkpoint_mqd)(struct mqd_manager *mm,
- 				  void *mqd,
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
-index a535f151cb5fd..fe471a8b98095 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
-@@ -393,11 +393,14 @@ static int get_wave_state(struct mqd_manager *mm, void *mqd,
- 	return 0;
- }
- 
--static void get_checkpoint_info(struct mqd_manager *mm, void *mqd, u32 *ctl_stack_size)
-+static int get_checkpoint_info(struct mqd_manager *mm, void *mqd, u32 *ctl_stack_size)
- {
- 	struct v9_mqd *m = get_mqd(mqd);
- 
--	*ctl_stack_size = m->cp_hqd_cntl_stack_size * NUM_XCC(mm->dev->xcc_mask);
-+	if (check_mul_overflow(m->cp_hqd_cntl_stack_size, NUM_XCC(mm->dev->xcc_mask), ctl_stack_size))
-+		return -EINVAL;
-+
-+	return 0;
- }
- 
- static void checkpoint_mqd(struct mqd_manager *mm, void *mqd, void *mqd_dst, void *ctl_stack_dst)
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_vi.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_vi.c
-index 69c1b8a690b86..5a758ed14ea50 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_vi.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_vi.c
-@@ -275,10 +275,11 @@ static int get_wave_state(struct mqd_manager *mm, void *mqd,
- 	return 0;
- }
- 
--static void get_checkpoint_info(struct mqd_manager *mm, void *mqd, u32 *ctl_stack_size)
-+static int get_checkpoint_info(struct mqd_manager *mm, void *mqd, u32 *ctl_stack_size)
- {
- 	/* Control stack is stored in user mode */
- 	*ctl_stack_size = 0;
-+	return 0;
- }
- 
- static void checkpoint_mqd(struct mqd_manager *mm, void *mqd, void *mqd_dst, void *ctl_stack_dst)
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
-index f5d2847e1cbb4..cc2621ae12f9c 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
-@@ -1070,6 +1070,7 @@ int pqm_get_queue_checkpoint_info(struct process_queue_manager *pqm,
- 				  uint32_t *ctl_stack_size)
- {
- 	struct process_queue_node *pqn;
-+	int ret;
- 
- 	pqn = get_queue_by_qid(pqm, qid);
- 	if (!pqn) {
-@@ -1082,9 +1083,14 @@ int pqm_get_queue_checkpoint_info(struct process_queue_manager *pqm,
- 		return -EOPNOTSUPP;
- 	}
- 
--	pqn->q->device->dqm->ops.get_queue_checkpoint_info(pqn->q->device->dqm,
-+	ret = pqn->q->device->dqm->ops.get_queue_checkpoint_info(pqn->q->device->dqm,
- 						       pqn->q, mqd_size,
- 						       ctl_stack_size);
-+	if (ret) {
-+		pr_debug("amdkfd: Overflow while computing stack size for queue %d\n", qid);
-+		return ret;
-+	}
-+
- 	return 0;
- }
- 
+ 		REG_SET(CURSOR_DST_OFFSET, 0,
 -- 
 2.53.0
 
