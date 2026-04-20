@@ -4,122 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 960EBF5A8C8
-	for <amd-gfx@archiver.kernel.org>; Mon, 20 Apr 2026 21:32:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DE471F5A8CE
+	for <amd-gfx@archiver.kernel.org>; Mon, 20 Apr 2026 23:55:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1AE5510E749;
-	Mon, 20 Apr 2026 21:32:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 71F3A10E0BA;
+	Mon, 20 Apr 2026 23:55:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="zxC/7MYJ";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="F9Jy3TS5";
 	dkim-atps=neutral
-Received: from SN4PR2101CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11012041.outbound.protection.outlook.com
- [40.93.195.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 477DD10E749
- for <amd-gfx@lists.freedesktop.org>; Mon, 20 Apr 2026 21:32:09 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=OSni83YVNSRNbpw0WZXtzdRsPlCRZHwWmciM3ogzAIo/QiPxtp99r+lmRkLSe+lTwIO/yStYw+Nbz7GjVUFiGGDls9Dg1daAG7h1SmvpTEBq7XNOgmmH22EaqtVoma6OptHOAox8wE8W63DI+BR2sqf/J9TNFzZw99XI8QnADp2noPE3rYWaP766Ahbg969496S7dqiab67E1CJcMdHYzkQN5UopVAe85+baA8PVbyeaDpl+IJnLpGggs3kAtkA2C2jl2BubKka9J20DeaxGc2K3pQuqNm90FfRcjL4TgoXui20R5iDWmJZNP0yVVIQZ2iNklSJ0yq5F2L3Xhadg8g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=J9c0qbUpOhWIIrjf/iRLEOSQblEw9zzk8eseqAwu0ng=;
- b=a2H5yLE28tDg47VMeGbvMZCnierxG1b1LZixB14eRj5oEHdJTPbqY7Q2qWrPM9JB2yzbAXBGY9f+og0Zz24GZolLopYlBRjPT5Uj2m/On3GqdtacjiD80Ij/bg2xWCXBIwglt09OLkK6N2h4rmnK556bgaNe4RdLaY9J5+m9/2GmXXhYOgLYSMxRhg/j6LrIPDBnl9kMZxRe9hB6LCCqQ1wb9qcztrZ+/7rebSEqRQSTqJpduJ5a7CnVb7De3f7iIOlMeP0NVACcuesyoPiaFRzWal9U3WjHQsRgcemzb9VuRRO0rX4ewH15XkbbCkxrli1nNbvxMWyMRBDR/iD5lQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=J9c0qbUpOhWIIrjf/iRLEOSQblEw9zzk8eseqAwu0ng=;
- b=zxC/7MYJofylsnzXWso13bmEQXTkibEsm+yHdmuRDKhLhVBmJgZiL320vCuTSeW+9fIraWGTgzSHEkzuD952VSiXptSba4vKx2jPob+9E4ycp2KKysKaSJh37Qle4kXPdDa2IEnSS6WuyAApVpwnPEK/+rXwUdCWFM9KzVYTNiE=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB5149.namprd12.prod.outlook.com (2603:10b6:5:390::14)
- by MW3PR12MB4396.namprd12.prod.outlook.com (2603:10b6:303:59::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.15; Mon, 20 Apr
- 2026 21:32:06 +0000
-Received: from DM4PR12MB5149.namprd12.prod.outlook.com
- ([fe80::8218:248d:58ec:8c81]) by DM4PR12MB5149.namprd12.prod.outlook.com
- ([fe80::8218:248d:58ec:8c81%6]) with mapi id 15.20.9846.014; Mon, 20 Apr 2026
- 21:32:06 +0000
-Content-Type: multipart/alternative;
- boundary="------------3MPqkbXW4SGKddwIq7CS1Tbd"
-Message-ID: <f2f17b8e-ce73-4d96-b5df-29d235f9ffca@amd.com>
-Date: Mon, 20 Apr 2026 17:32:04 -0400
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdkfd: Make all TLB-flushes heavy-weight
-To: Felix Kuehling <felix.kuehling@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: philip.yang@amd.com, christian.koenig@amd.com
-References: <20260420155822.718805-1-felix.kuehling@amd.com>
-Content-Language: en-US
-From: Philip Yang <yangp@amd.com>
-In-Reply-To: <20260420155822.718805-1-felix.kuehling@amd.com>
-X-ClientProxiedBy: YQZPR01CA0083.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:84::24) To DM4PR12MB5149.namprd12.prod.outlook.com
- (2603:10b6:5:390::14)
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com
+ [209.85.128.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 59EC510E0BA
+ for <amd-gfx@lists.freedesktop.org>; Mon, 20 Apr 2026 23:55:09 +0000 (UTC)
+Received: by mail-wm1-f49.google.com with SMTP id
+ 5b1f17b1804b1-4891b0786beso14647845e9.1
+ for <amd-gfx@lists.freedesktop.org>; Mon, 20 Apr 2026 16:55:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1776729307; x=1777334107; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=GpKnBihiQfiQkRK/QIHIlA0yF7t5TBoanxJLGFynGYM=;
+ b=F9Jy3TS5WTBq55Nb4fzM/zOPeETiKMoTUcNfHvA9jCDDLJNQ0bMm9fUd8jO3S/LbaF
+ kRwkoesRKO3BGMRV2PPC1SOIxxoFTObtkV6R76eUAShLl0bbx2fjV+U0Ks6NsqjUbUo4
+ Ojyz7Iu2TBzDHuD9TH4NYo5oTtG6FQmd9lG9LIFkx8xrK+LzVK6YGHY8mttLQeFLJGjW
+ JJrAF6Z20v52p2+M50lN+ecHxqQI4/1qrhq4wWIY87JScJuYMsSTReST9Nt0xKgF1iYE
+ HBPXGfb0o+o4EiWCAEPUAPI1vmy3slBWIRzg6onE7liuWCuohGmV78ROaxn86+LVQ5R7
+ 0hzg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1776729307; x=1777334107;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=GpKnBihiQfiQkRK/QIHIlA0yF7t5TBoanxJLGFynGYM=;
+ b=UOhNVUnwNPN+hDDLoug+YXMypRY6n5HWcz9so2atQT1HJfU4JKh9ZOUg0kt0AB/sPZ
+ xQ6D8o9pb78OI9zL6u9L6boCF9N2iKtLy5vkFmYp9c2RsZXK6CB5tqwHvlxUVcIBdYYc
+ g/9r+aPbNVuCT1cEmY0vO9F4NsTY6upLUQxbM1BTB7D/2dqON9M8YP6vwyxgLv5qe2uu
+ IRWSIiGULNcghDWHld+1UdZ0zRD2G+xRrWIXar1oDx/l+ZRgJoxCUc9dB7velGTY9Mb1
+ lmF+11WpFwX+1Wqv5Z1OJDQR1YMPvIDGdgSlCm5TZnnOZRFg/38ZHSvMbk91pOiKrQNZ
+ Vnbg==
+X-Gm-Message-State: AOJu0Yx4dF4gVpxapQQRrYpU0WOQiAU7tEmNKsSVwT3FCPQb1zDs8Ayv
+ arTJt++WRQYo6YVjFYtqpHrk2/yBviCzNksdDa/xu6VD/PEY/BO1dk4UnGGp/Q==
+X-Gm-Gg: AeBDiesTI8+WEbYnhSOfFlB0WpQ4dKzTp4q+lMhx6obQR7x57YgK6tB9e7ZKeKqzdTg
+ rNyK7pxtuwlkPqBou3gHEV4EjlUMYkjA94QVteSmqpn6Tj17Lc1iPd7Kdoq6+2J8OjeJZeI6VS4
+ QKWcyMqd4bUpKBTQfiI1MMgpIpKUxUtEihHLf0WrMOXza4jtsVCqTgGDwmUySzAY6cu7WV5PCT5
+ vOyU8fxgHr1OxmVedtPgdvCygsuqOxmhhECHJXg2K3FeKf1m5fk5tszwaNns4udWogUJxMlkR9D
+ 5r1y8RfsP7dF0SPxd6dA+wUangCd8Y2eA0rYx+Zuf0v1MRHli86esxsSqnR48I2bJLUFdHEwvjP
+ rT19GK6yPDrTMuNqSAv4keMiGUqt1JXnVhVUNEuRbwrVV5FcXj3++jr7I9s62vQUPSs1Wa7T8tL
+ WsTe1Z8Ed6gOQHwwJVQjJrfigbtJ7nEBPOMAppb7HlsHa4vdRcaRRY/RwCSwMduEuFVl0zs3ecw
+ qiCBw==
+X-Received: by 2002:a05:600c:33aa:b0:488:ae6c:42c0 with SMTP id
+ 5b1f17b1804b1-488fb742e7fmr139402645e9.7.1776729307243; 
+ Mon, 20 Apr 2026 16:55:07 -0700 (PDT)
+Received: from Timur-Hyperion.home (5E1B98A2.dsl.pool.telekom.hu.
+ [94.27.152.162]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-488fb75ab25sm102227135e9.11.2026.04.20.16.55.06
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 20 Apr 2026 16:55:06 -0700 (PDT)
+From: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
+To: amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com,
+ Alex Hung <alex.hung@amd.com>, Harry Wentland <Harry.Wentland@amd.com>,
+ Roman Li <Roman.Li@amd.com>
+Cc: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
+Subject: [PATCH] drm/amd/display: Disable 10-bit truncation and dithering on
+ DCE 6.x
+Date: Tue, 21 Apr 2026 01:55:04 +0200
+Message-ID: <20260420235504.17998-1-timur.kristof@gmail.com>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB5149:EE_|MW3PR12MB4396:EE_
-X-MS-Office365-Filtering-Correlation-Id: cf189d5e-8ba6-4933-b00a-08de9f2444ef
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|366016|1800799024|56012099003|22082099003|18002099003|8096899003;
-X-Microsoft-Antispam-Message-Info: qfumuqqnbcwaHU1e8eEMrprJ2H4n9shwCVBUzYgKfzMMbN3IEmdD4k9oqtE4pBhACPujYQyOXo51x/33osQNL5IVavFfKTZDvWhDERVSwukp9U+H9k21p0zHxAoLWO/hirohL96xQmnppgjcgDC6K9DCTSYT/dY76xiIxSsV2xoe4G8c89YZ3VtYf0OyD509NcPA+3Bv/wBYary4QBMDHj0kgyj7zXKr2tBKNLdtoa0BWHrxZuDH9dXqsZjA1RL8Pq6lCm3dU0F1Wz4MIQfRvzrshQMIqMB6yOQ8yDRSnM3BfZ5EEgHX3kCt5EpElpQIs+/mKnsk1GhJaoPFTTNxXrFmErr0B1JqoAZLu/IIsVFh+r37i65vCZMbVKWIGYz201oTTU/UiiXcD/1lVUBUFa+BC8NsEMLar0+/LQU1canU2Msv4mjrNx4+bY1xYdotNKKbd4gQCPU56T03uKz9tzo/RFhlZguGmknxj6krAfRSL8bqzY653w+R9CXJuLJK4++GUDUEbx7VIclUQzEbh7TAdor1NOm75sYEuWGwpS5sn5Gw9TMsLijZnSXJxJNXKwiw7Wt1B1ESEj14wLsj1bGjeFJFQtyrYxmJhFJcIEfWWeuJrdMq0xkJBW3aNqqy9fC7K83+PpGeweEwbYSr6cRwIC5T7i89eAMJPiAXhr1t/XDc4wZM/s63Rn42hj9Cb4+9cAgQXiujIl4bmk9tCmgnniL6OhQ22D1j9mVNFNg=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB5149.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(1800799024)(56012099003)(22082099003)(18002099003)(8096899003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?LzZOYjZDMG9RSkdqVTJWMjRveVRjdHFCa28ra1ZJWnM2YWZNL0txb0dsQUc2?=
- =?utf-8?B?YUpWU2ZJWDJmOE1rK1kxWmQ2M1R5ZGd4VGU4UWE4MVROTFg3QW0xbU4wODhZ?=
- =?utf-8?B?K3ZxL3Qvd2JNWmg4N3dhc0pINE4vMm9YY2VlR1BYejh1MkY1VEtKcEwvb3Jz?=
- =?utf-8?B?YUh4dkFDTk56bHlYWmZOUWVaMWNmRWJFTittdWNQMktwWkhtZUtNVUpaTkxB?=
- =?utf-8?B?WHV1MkZjeDloYkRUdzlWa3pGdk9rbDNKcWRHUndZYVU0QWVLVWlOR0Q4Ulk3?=
- =?utf-8?B?VGZaaEFjRjlKVGdnbWM0RkhkTm9HaUZCN0sycklKMHloY3VYL2hHcXJkRDNn?=
- =?utf-8?B?TUZITHZKbUlUeklId0NqT055R2JNR2lBY2gwcUZqcW5DTUlSNHl0S28vdElu?=
- =?utf-8?B?VUx5Y3lyRGJWUFFld29Zdy9JUXBHMmY2NTZ5TjZJR0pJVWJZRUhMRTlxdmRR?=
- =?utf-8?B?N0UxQk4xNmlaS2h2V3lGL2M5MWUvb2VucHlQNzJqQVJ4SnA0ZjBhQ2E1dzdp?=
- =?utf-8?B?eGo5R29iVkpTUm5XYlZuT1FRNmJkM1k4NlFEMjhzWHhOWVFRRWQ5Rmp4UTh3?=
- =?utf-8?B?NWFSR1BVVURKREZtcTBZZk1zVUw1aXIwa2NKUEgxWEw0dGI2YVV3ZjFyQi9P?=
- =?utf-8?B?ZzVEdk9YK1FPeHc3VjByUVFqTWlMYm1RMFoyY3ArbWNTRy85eFVBK1ozZTRo?=
- =?utf-8?B?MWhsM0F6MnNpY3VhYTdYQXFmSDBLSmJNaVQvdWdwaDQxdWZpMENMN0hmV3h1?=
- =?utf-8?B?MWQ4Nmw0cytWWHFkQkw2VkdmSXJjL2M5NEd1bEl6b3lqdUFxY0ZMTklIVjQ5?=
- =?utf-8?B?WTFLS2VNNlllQ252WnZhZWV1OFhHRmN6bXJ4VXFtaHZ0OVFQZ2tXL0xkai9P?=
- =?utf-8?B?VkJVMkN6RE9JRGlVU0pOV0M1SmVkd0xNRzBWQ2RleTI5QzA1SVZuN0tjNktn?=
- =?utf-8?B?bno3R3VkUlJHa2Nvakw1dmhiUmpRT2RlSmF6RDlrd0ZSUUxGbDRlNkJLbkpU?=
- =?utf-8?B?KzRVZnRtZDlwQUlQWmlRYUVndVI4RWUvUzFzakNKUm9sWjJDZmpMRG5DelNj?=
- =?utf-8?B?MkJGaGxjOVRCUnFyaStDOGlKZldRY0tTQ1UzV1RQWEgzbTdSS2pVRW9wbHRt?=
- =?utf-8?B?OUtBZnFjeEx2SStjdmYvTGNoQVpxTkdNZkhIbHcvcmFIbmM3NFVIWGQrMlo4?=
- =?utf-8?B?VmdBY0RRM2twNklXK2hLM1l6UlpyZm9jRFhJdHI0SDhTY21SYkhjRkQ5czBZ?=
- =?utf-8?B?Z1ZpZ3d5OGlvUWMxSC8wTmJOUUtMRFU1cVdlc2pjMzV0ZnZteWxub1JUdzZB?=
- =?utf-8?B?SVpSNjdCeW9KY2xZZ1U1SjRwWGhRMWpubG5qZmg1Y3BDSC9PcTV2OE9POVp1?=
- =?utf-8?B?QWY3UjNTRk1iRWV4YTkyT0srUEJEMndNNWlOQSthR2hTNVA4QkJ4STVwZmd3?=
- =?utf-8?B?cHdZbzQ2QmIxQ3p2eTZlUmNZUW5GVjFOUnNxK1BLQmo0VktCVW1vbC8xWGFw?=
- =?utf-8?B?YTd5NUlMQXMvSitNZjdFLzBaYmVZeFpVcE5HaVI1Z0ZrM1FwSzdZL1dSL3Rz?=
- =?utf-8?B?Skc1QUl1MXorWXJ5WGtCN1NkczhDZ09LOERQY2tLbkRRVFFJelhKdnpmbHh3?=
- =?utf-8?B?N0tqOStsTUx6aXN4clhHeUs4ekNGMW4zMythR1V4aGpob2JKUG5vSzdyQk8y?=
- =?utf-8?B?NldRTEJGL1dMS2g1RXBqdnZhQnAraWh1NDFiaWZybWZLNWNpNWFoYTZOOUpX?=
- =?utf-8?B?dWF0OEtEMjMveCt1RldxT1RYRlV0Q3hiNjJBWGtVVVZBUEJUNCtWcUFEWjJG?=
- =?utf-8?B?OGpucXZQOVBWMkMrTzFtb3B1MnJlblIxckQ1eHA3WFN2Tng2TWM4TWgvN3gx?=
- =?utf-8?B?Z2p3djdMMjU0SWZrYkxCd29EazdyUXpIalF1LzFNM1RQbXRrYzY0VmpqNzJr?=
- =?utf-8?B?c1BWSEFTQ3VJYng2YlpPbmtvUlExVVVvREFhR09wcGhZby81M1pVVlFoQ2xk?=
- =?utf-8?B?bXh1RFl2UE9qeVB0a3BjVi9VSzJmTHBBVnhydHAwck5KQ0JGSUx0SkRjMmta?=
- =?utf-8?B?d04wbVUzS2svM2s5bUdXck1kdXFuQ3dhV0FwbzNEQlFPRzBLaXBncXR3Sndo?=
- =?utf-8?B?RXllWmd4VG5BeVBJclpvNmFZdEozREhtY3B3ejllcG9UeGMzUzRKOThwT1hu?=
- =?utf-8?B?QjR2WkZ5WGUzbkF2NHozSkJSendISEN5NCtTdVg4OFpqWFMycSs1NmdjYnhu?=
- =?utf-8?B?ZzlINlZaeFp6d2g0NHhTRHVCMERWYWt2MnRtV0FsUXNWL2ZEK0pLWFpCVXdX?=
- =?utf-8?Q?1j1RLOCcIkcRGkmE5M?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: cf189d5e-8ba6-4933-b00a-08de9f2444ef
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5149.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Apr 2026 21:32:05.9240 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 9Z2XD1tiZsPOXa4ocHSjQu1pjAx46v+ajSRibmltSDC2D+2USj+/rbhbreM7p1I9
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR12MB4396
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,279 +87,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---------------3MPqkbXW4SGKddwIq7CS1Tbd
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+DCE 6.x doesn't support 10-bit truncation and 10-bit dithering
+because the following fields are 1-bit only:
+FMT_TEMPORAL_DITHER_DEPTH
+FMT_SPATIAL_DITHER_DEPTH
+FMT_TRUNCATE_DEPTH
+Programming these fields to "2" will program them as if the
+dithering option was 6-bit, resulting in sub-par picture
+quality and an ugly "color banding" effect.
 
+Note that a recent commit changed the default 10-bit dithering
+option to DITHER_OPTION_SPATIAL10 which improves the picture
+quality because it happens to look better, but is still not
+actually supported by DCE 6.x versions.
 
+When the color depth is 10-bit or more, just disable
+any kind of dithering options on DCE 6.x.
 
-On 2026-04-20 11:58, Felix Kuehling wrote:
-> With only one sequence number we cannot track the need for legacy vs
-> heavy-weight flushes reliably. Always use heavy-weight.
->
-> Signed-off-by: Felix Kuehling<felix.kuehling@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdkfd/kfd_chardev.c              | 4 ++--
->   drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c | 6 +++---
->   drivers/gpu/drm/amd/amdkfd/kfd_priv.h                 | 6 +++---
->   drivers/gpu/drm/amd/amdkfd/kfd_svm.c                  | 4 ++--
->   4 files changed, 10 insertions(+), 10 deletions(-)
-Probably change to heavy-weight flush in this path, other changes look 
-good to me.
-
-amdgpu_gem_va_update_vm()
-  {
-   ....
-           if (vm->is_compute_context) {
-             .....
-                                r = amdgpu_vm_flush_compute_tlb(adev, vm,
-                             TLB_FLUSH_LEGACY,
-                             xcc_mask);
-}
-
-Regards,
-Philip
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-> index 16fb39259911..0625104a7693 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-> @@ -1358,7 +1358,7 @@ static int kfd_ioctl_map_memory_to_gpu(struct file *filep,
->   		peer_pdd = kfd_process_device_data_by_id(p, devices_arr[i]);
->   		if (WARN_ON_ONCE(!peer_pdd))
->   			continue;
-> -		kfd_flush_tlb(peer_pdd, TLB_FLUSH_LEGACY);
-> +		kfd_flush_tlb(peer_pdd);
->   	}
->   	kfree(devices_arr);
->   
-> @@ -1453,7 +1453,7 @@ static int kfd_ioctl_unmap_memory_from_gpu(struct file *filep,
->   		if (WARN_ON_ONCE(!peer_pdd))
->   			continue;
->   		if (flush_tlb)
-> -			kfd_flush_tlb(peer_pdd, TLB_FLUSH_HEAVYWEIGHT);
-> +			kfd_flush_tlb(peer_pdd);
->   
->   		/* Remove dma mapping after tlb flush to avoid IO_PAGE_FAULT */
->   		err = amdgpu_amdkfd_gpuvm_dmaunmap_mem(mem, peer_pdd->drm_priv);
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-> index c1f668f12732..8d9bf4334090 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-> @@ -595,7 +595,7 @@ static int allocate_vmid(struct device_queue_manager *dqm,
->   			qpd->vmid,
->   			qpd->page_table_base);
->   	/* invalidate the VM context after pasid and vmid mapping is set up */
-> -	kfd_flush_tlb(qpd_to_pdd(qpd), TLB_FLUSH_LEGACY);
-> +	kfd_flush_tlb(qpd_to_pdd(qpd));
->   
->   	if (dqm->dev->kfd2kgd->set_scratch_backing_va)
->   		dqm->dev->kfd2kgd->set_scratch_backing_va(dqm->dev->adev,
-> @@ -633,7 +633,7 @@ static void deallocate_vmid(struct device_queue_manager *dqm,
->   		if (flush_texture_cache_nocpsch(q->device, qpd))
->   			dev_err(dev, "Failed to flush TC\n");
->   
-> -	kfd_flush_tlb(qpd_to_pdd(qpd), TLB_FLUSH_LEGACY);
-> +	kfd_flush_tlb(qpd_to_pdd(qpd));
->   
->   	/* Release the vmid mapping */
->   	set_pasid_vmid_mapping(dqm, 0, qpd->vmid);
-> @@ -1307,7 +1307,7 @@ static int restore_process_queues_nocpsch(struct device_queue_manager *dqm,
->   				dqm->dev->adev,
->   				qpd->vmid,
->   				qpd->page_table_base);
-> -		kfd_flush_tlb(pdd, TLB_FLUSH_LEGACY);
-> +		kfd_flush_tlb(pdd);
->   	}
->   
->   	/* Take a safe reference to the mm_struct, which may otherwise
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-> index 53c26b1a25ca..dc8787dc399b 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-> @@ -1559,13 +1559,13 @@ void kfd_signal_reset_event(struct kfd_node *dev);
->   void kfd_signal_poison_consumed_event(struct kfd_node *dev, u32 pasid);
->   void kfd_signal_process_terminate_event(struct kfd_process *p);
->   
-> -static inline void kfd_flush_tlb(struct kfd_process_device *pdd,
-> -				 enum TLB_FLUSH_TYPE type)
-> +static inline void kfd_flush_tlb(struct kfd_process_device *pdd)
->   {
->   	struct amdgpu_device *adev = pdd->dev->adev;
->   	struct amdgpu_vm *vm = drm_priv_to_vm(pdd->drm_priv);
->   
-> -	amdgpu_vm_flush_compute_tlb(adev, vm, type, pdd->dev->xcc_mask);
-> +	amdgpu_vm_flush_compute_tlb(adev, vm, TLB_FLUSH_HEAVYWEIGHT,
-> +				    pdd->dev->xcc_mask);
->   }
->   
->   static inline bool kfd_flush_tlb_after_unmap(struct kfd_dev *dev)
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-> index 015eb61f3440..5090f8c15428 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-> @@ -1418,7 +1418,7 @@ svm_range_unmap_from_gpus(struct svm_range *prange, unsigned long start,
->   			if (r)
->   				break;
->   		}
-> -		kfd_flush_tlb(pdd, TLB_FLUSH_HEAVYWEIGHT);
-> +		kfd_flush_tlb(pdd);
->   	}
->   
->   	return r;
-> @@ -1560,7 +1560,7 @@ svm_range_map_to_gpus(struct svm_range *prange, unsigned long offset,
->   			}
->   		}
->   
-> -		kfd_flush_tlb(pdd, TLB_FLUSH_LEGACY);
-> +		kfd_flush_tlb(pdd);
->   	}
->   
->   	return r;
-
---------------3MPqkbXW4SGKddwIq7CS1Tbd
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-<!DOCTYPE html><html><head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body text="#000000" bgcolor="#FFFFFF">
-    <br>
-    <br>
-    <div class="moz-cite-prefix">On 2026-04-20 11:58, Felix Kuehling
-      wrote:<br>
-    </div>
-    <blockquote type="cite" cite="mid:20260420155822.718805-1-felix.kuehling@amd.com">
-      <pre wrap="" class="moz-quote-pre">With only one sequence number we cannot track the need for legacy vs
-heavy-weight flushes reliably. Always use heavy-weight.
-
-Signed-off-by: Felix Kuehling <a class="moz-txt-link-rfc2396E" href="mailto:felix.kuehling@amd.com">&lt;felix.kuehling@amd.com&gt;</a>
+Closes: https://gitlab.freedesktop.org/drm/amd/-/work_items/5151
+Fixes: 529cad0f945c ("drm/amd/display: Add function to set dither option")
+Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_chardev.c              | 4 ++--
- drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c | 6 +++---
- drivers/gpu/drm/amd/amdkfd/kfd_priv.h                 | 6 +++---
- drivers/gpu/drm/amd/amdkfd/kfd_svm.c                  | 4 ++--
- 4 files changed, 10 insertions(+), 10 deletions(-)
-</pre>
-    </blockquote>
-    Probably change to heavy-weight flush in this path, other changes
-    look good to me.<br>
-    <br>
-    amdgpu_gem_va_update_vm()<br>
-    &nbsp;{<br>
-    &nbsp; ....<br>
-    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; if (vm-&gt;is_compute_context) {<br>
-    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .....<br>
-    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;r = amdgpu_vm_flush_compute_tlb(adev,
-    vm,<br>
-    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; TLB_FLUSH_LEGACY,<br>
-    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; xcc_mask);<br>
-    }<br>
-    <br>
-    Regards,<br>
-    Philip
-    <blockquote type="cite" cite="mid:20260420155822.718805-1-felix.kuehling@amd.com">
-      <pre wrap="" class="moz-quote-pre">
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-index 16fb39259911..0625104a7693 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-@@ -1358,7 +1358,7 @@ static int kfd_ioctl_map_memory_to_gpu(struct file *filep,
- 		peer_pdd = kfd_process_device_data_by_id(p, devices_arr[i]);
- 		if (WARN_ON_ONCE(!peer_pdd))
- 			continue;
--		kfd_flush_tlb(peer_pdd, TLB_FLUSH_LEGACY);
-+		kfd_flush_tlb(peer_pdd);
- 	}
- 	kfree(devices_arr);
- 
-@@ -1453,7 +1453,7 @@ static int kfd_ioctl_unmap_memory_from_gpu(struct file *filep,
- 		if (WARN_ON_ONCE(!peer_pdd))
- 			continue;
- 		if (flush_tlb)
--			kfd_flush_tlb(peer_pdd, TLB_FLUSH_HEAVYWEIGHT);
-+			kfd_flush_tlb(peer_pdd);
- 
- 		/* Remove dma mapping after tlb flush to avoid IO_PAGE_FAULT */
- 		err = amdgpu_amdkfd_gpuvm_dmaunmap_mem(mem, peer_pdd-&gt;drm_priv);
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-index c1f668f12732..8d9bf4334090 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-@@ -595,7 +595,7 @@ static int allocate_vmid(struct device_queue_manager *dqm,
- 			qpd-&gt;vmid,
- 			qpd-&gt;page_table_base);
- 	/* invalidate the VM context after pasid and vmid mapping is set up */
--	kfd_flush_tlb(qpd_to_pdd(qpd), TLB_FLUSH_LEGACY);
-+	kfd_flush_tlb(qpd_to_pdd(qpd));
- 
- 	if (dqm-&gt;dev-&gt;kfd2kgd-&gt;set_scratch_backing_va)
- 		dqm-&gt;dev-&gt;kfd2kgd-&gt;set_scratch_backing_va(dqm-&gt;dev-&gt;adev,
-@@ -633,7 +633,7 @@ static void deallocate_vmid(struct device_queue_manager *dqm,
- 		if (flush_texture_cache_nocpsch(q-&gt;device, qpd))
- 			dev_err(dev, &quot;Failed to flush TC\n&quot;);
- 
--	kfd_flush_tlb(qpd_to_pdd(qpd), TLB_FLUSH_LEGACY);
-+	kfd_flush_tlb(qpd_to_pdd(qpd));
- 
- 	/* Release the vmid mapping */
- 	set_pasid_vmid_mapping(dqm, 0, qpd-&gt;vmid);
-@@ -1307,7 +1307,7 @@ static int restore_process_queues_nocpsch(struct device_queue_manager *dqm,
- 				dqm-&gt;dev-&gt;adev,
- 				qpd-&gt;vmid,
- 				qpd-&gt;page_table_base);
--		kfd_flush_tlb(pdd, TLB_FLUSH_LEGACY);
-+		kfd_flush_tlb(pdd);
- 	}
- 
- 	/* Take a safe reference to the mm_struct, which may otherwise
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-index 53c26b1a25ca..dc8787dc399b 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-@@ -1559,13 +1559,13 @@ void kfd_signal_reset_event(struct kfd_node *dev);
- void kfd_signal_poison_consumed_event(struct kfd_node *dev, u32 pasid);
- void kfd_signal_process_terminate_event(struct kfd_process *p);
- 
--static inline void kfd_flush_tlb(struct kfd_process_device *pdd,
--				 enum TLB_FLUSH_TYPE type)
-+static inline void kfd_flush_tlb(struct kfd_process_device *pdd)
- {
- 	struct amdgpu_device *adev = pdd-&gt;dev-&gt;adev;
- 	struct amdgpu_vm *vm = drm_priv_to_vm(pdd-&gt;drm_priv);
- 
--	amdgpu_vm_flush_compute_tlb(adev, vm, type, pdd-&gt;dev-&gt;xcc_mask);
-+	amdgpu_vm_flush_compute_tlb(adev, vm, TLB_FLUSH_HEAVYWEIGHT,
-+				    pdd-&gt;dev-&gt;xcc_mask);
- }
- 
- static inline bool kfd_flush_tlb_after_unmap(struct kfd_dev *dev)
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-index 015eb61f3440..5090f8c15428 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-@@ -1418,7 +1418,7 @@ svm_range_unmap_from_gpus(struct svm_range *prange, unsigned long start,
- 			if (r)
- 				break;
- 		}
--		kfd_flush_tlb(pdd, TLB_FLUSH_HEAVYWEIGHT);
-+		kfd_flush_tlb(pdd);
- 	}
- 
- 	return r;
-@@ -1560,7 +1560,7 @@ svm_range_map_to_gpus(struct svm_range *prange, unsigned long offset,
- 			}
- 		}
- 
--		kfd_flush_tlb(pdd, TLB_FLUSH_LEGACY);
-+		kfd_flush_tlb(pdd);
- 	}
- 
- 	return r;
-</pre>
-    </blockquote>
-    <br>
-  </body>
-</html>
+ drivers/gpu/drm/amd/display/dc/core/dc_resource.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
---------------3MPqkbXW4SGKddwIq7CS1Tbd--
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
+index 19526a278b2a5..1ab76c2d0f723 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
+@@ -5069,6 +5069,12 @@ void resource_build_bit_depth_reduction_params(struct dc_stream_state *stream,
+ 		}
+ 	}
+ 
++	if (stream->ctx->dce_version < DCE_VERSION_8_0 &&
++	    stream->timing.display_color_depth >= COLOR_DEPTH_101010) {
++		/* DCE 6.x doesn't support 10-bit truncation or dither options. */
++		option = DITHER_OPTION_DISABLE;
++	}
++
+ 	if (option == DITHER_OPTION_DISABLE)
+ 		return;
+ 
+-- 
+2.53.0
+
