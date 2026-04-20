@@ -4,45 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 372F9F588C4
-	for <amd-gfx@archiver.kernel.org>; Mon, 20 Apr 2026 13:32:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 42DEDF588C3
+	for <amd-gfx@archiver.kernel.org>; Mon, 20 Apr 2026 13:33:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D05E510E652;
-	Mon, 20 Apr 2026 13:32:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DB08110E657;
+	Mon, 20 Apr 2026 13:33:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="aCf+GsAC";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="D5vPuwyS";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 35D1910E652;
- Mon, 20 Apr 2026 13:32:42 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 43A9810E655;
+ Mon, 20 Apr 2026 13:33:02 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 71B0760154;
- Mon, 20 Apr 2026 13:32:41 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4FA08C2BCB7;
- Mon, 20 Apr 2026 13:32:39 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 1925A4196D;
+ Mon, 20 Apr 2026 13:33:02 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7FCA3C2BCB6;
+ Mon, 20 Apr 2026 13:33:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1776691961;
- bh=yX3puy7JnbPtAPqAMV8g+f4cfGNV598Y0yDwkR4xBdg=;
+ s=k20201202; t=1776691982;
+ bh=F25UWTVoXxyJ+BPRUSSCjj0W9ZCJy+A1CCOh8EOuGJw=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=aCf+GsAC8msRQnIRpoVy0/pkspqblMe16m+f/E6wyr28bmTtSx94CywgECRLbHIgU
- Aip3Dh2/sVq7KEyw8vUg44kVj+lGYFjpXAd4ujF76ztIIRaCADdZvaMvAWxUW55+FY
- JWihpV10U8b50R6hDxmvBiIKjCkn98BU1f+bm0Pa7+o0wRULtVr/a9N18iN5zd98u4
- LkfNlf8AlqQzIjuP9UO7L9OZUKg5ru9NdgA3Ijoqd3bQYvs40v+RjqYm6Y1BnDe/c1
- NUHYsQ1uw4A9e2kWW3ePLJH8Gfw+alvMa4g1QiwbaqTzNWvot7sT0kFmcb9IrYfFwc
- ECMF7p923LhEg==
+ b=D5vPuwySqztejAkOXd/W4LgePXbgSavxL5Oo8xCeDV8bme//TYDn9bXCJ+sYyUQNN
+ tHXYr5H9U8zEWa4CM5gJiNXHIkQRuayMxAf0xGxamPY0Qd7j3/DjpsjzoT+3oND2Du
+ 1FKnmtfAv7Ec8rYZ93ut5OA90xQLoaVf1b/kwLVH2X+vNYIZIJXbkCV3+Mwj6Hn7R3
+ m4vSUFMtPsXe+rCMqxS7d/QFErnNVuWtJa3S6Hn3d+TQp0rykzmGGkunzoiAELsUkb
+ IXr2oc49Zx6blkIASjrwfIwFDZZ0Zfc6MRyIDrrJ8p0oCofjluBWPABi5sj82zoBtG
+ JiEbMiYMfu2tw==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Roman Li <Roman.Li@amd.com>, Dillon Varone <dillon.varone@amd.com>,
- Chuanyu Tseng <chuanyu.tseng@amd.com>,
+Cc: Asad Kamal <asad.kamal@amd.com>, Lijo Lazar <lijo.lazar@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
- harry.wentland@amd.com, sunpeng.li@amd.com, christian.koenig@amd.com,
- airlied@gmail.com, simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 7.0-6.12] drm/amd/display: Remove invalid DPSTREAMCLK
- mask usage
-Date: Mon, 20 Apr 2026 09:21:26 -0400
-Message-ID: <20260420132314.1023554-292-sashal@kernel.org>
+ christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH AUTOSEL 7.0] drm/amdgpu: Add default reset method for soc_v1_0
+Date: Mon, 20 Apr 2026 09:21:38 -0400
+Message-ID: <20260420132314.1023554-304-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260420132314.1023554-1-sashal@kernel.org>
 References: <20260420132314.1023554-1-sashal@kernel.org>
@@ -50,6 +48,7 @@ MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 X-stable-base: Linux 7.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -65,304 +64,381 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Roman Li <Roman.Li@amd.com>
+From: Asad Kamal <asad.kamal@amd.com>
 
-[ Upstream commit 8de2559ec172b04301d6e53c4f30388e40fad08c ]
+[ Upstream commit eb737fb303dd73ceb0f646fc2e696595e576056f ]
 
-[Why]
-The invalid register field access causes ASSERT(mask != 0) to fire
-in set_reg_field_values() during display enable.
+Add mode2 as default reset method for soc_v1_0
 
-WARNING: at drivers/gpu/drm/amd/amdgpu/../display/dc/dc_helper.c:100
-set_reg_field_values.isra.0+0xcf/0xf0 [amdgpu]
-Call Trace:
- <TASK>
-generic_reg_update_ex+0x66/0x1d0 [amdgpu]
-dccg401_set_dpstreamclk+0xed/0x350 [amdgpu]
-dcn401_enable_stream+0x165/0x370 [amdgpu]
-link_set_dpms_on+0x6e9/0xe90 [amdgpu]
-dce110_apply_single_controller_ctx_to_hw+0x343/0x530 [amdgpu]
-dce110_apply_ctx_to_hw+0x1f6/0x2d0 [amdgpu]
-dc_commit_state_no_check+0x49a/0xe20 [amdgpu]
-dc_commit_streams+0x354/0x570 [amdgpu]
-amdgpu_dm_atomic_commit_tail+0x6f8/0x3fc0 [amdgpu]
+v2: Remove unnecessary overrides while selecting reset method (Lijo)
+v4: Add dev_warn_once (Lijo)
 
-DCN4.x hardware does not have DPSTREAMCLK_GATE_DISABLE and
-DPSTREAMCLK_ROOT_GATE_DISABLE fields in DCCG_GATE_DISABLE_CNTL3.
-These global fields only exist in DCN3.1.x hardware.
-
-[How]
-Remove the call that tries to update non-existent fields in CNTL3.
-DCN4.x uses per-instance fields in CNTL5 instead,
-which are already correctly programmed in the switch cases above.
-
-Reviewed-by: Dillon Varone <dillon.varone@amd.com>
-Signed-off-by: Roman Li <Roman.Li@amd.com>
-Signed-off-by: Chuanyu Tseng <chuanyu.tseng@amd.com>
+Signed-off-by: Asad Kamal <asad.kamal@amd.com>
+Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-I now have all the evidence needed. Let me compile the complete
-analysis.
+Now I have all the evidence I need. Let me compile my analysis.
 
 ---
 
 ## PHASE 1: COMMIT MESSAGE FORENSICS
 
 **Step 1.1: Subject Line**
-- Subsystem: `drm/amd/display` (AMD Display Core for DCN401 / RDNA 4)
-- Action verb: "Remove" (removing invalid code that causes an assertion
-  failure)
-- Summary: Removes register field access to non-existent mask fields on
-  DCN4.x hardware
+- Subsystem: `drm/amdgpu`
+- Action verb: "Add" (default reset method)
+- Summary: Adds mode2 as the default reset method for soc_v1_0.
+- Record: [drm/amdgpu] [Add] [Default reset method for soc_v1_0 -
+  filling in a missing required callback]
 
 **Step 1.2: Tags**
-- `Reviewed-by: Dillon Varone <dillon.varone@amd.com>` - AMD display
-  engineer reviewed
-- `Signed-off-by: Roman Li` (author), `Chuanyu Tseng`, `Alex Deucher`
-  (AMD drm subsystem maintainer)
-- No Fixes: tag (expected for manual review candidates)
-- No Cc: stable (expected)
+- Signed-off-by: Asad Kamal (author, AMD developer)
+- Reviewed-by: Lijo Lazar (AMD engineer, specifically requested changes
+  in v2 and v4)
+- Signed-off-by: Alex Deucher (AMD GPU subsystem maintainer)
+- No Fixes: tag (expected), no Cc: stable, no Reported-by, no Link.
+- Record: Reviewed by AMD engineer, signed off by subsystem maintainer.
+  No syzbot or bug reports.
 
 **Step 1.3: Commit Body**
-The commit includes a full stack trace showing a WARNING triggered from
-`ASSERT(mask != 0)` in `set_reg_field_values()` during display enable.
-The path is: `amdgpu_dm_atomic_commit_tail -> dc_commit_streams -> ...
--> dccg401_set_dpstreamclk -> generic_reg_update_ex ->
-set_reg_field_values`. The bug is that DCN4.x code tries to write
-`DPSTREAMCLK_GATE_DISABLE` and `DPSTREAMCLK_ROOT_GATE_DISABLE` fields in
-`DCCG_GATE_DISABLE_CNTL3`, but those global fields only exist in
-DCN3.1.x hardware.
+- The commit message is minimal: "Add mode2 as default reset method for
+  soc_v1_0"
+- v2: Removed unnecessary overrides (Lijo's suggestion)
+- v4: Added dev_warn_once (Lijo's suggestion)
+- No bug description, no stack trace, no reproduction steps.
+- Record: The message describes feature completion but the underlying
+  issue is that `soc_v1_0_asic_funcs` has a NULL `.reset_method`
+  pointer.
 
-**Step 1.4: Hidden Bug Fix?**
-This is explicitly a bug fix, not disguised. The WARNING/ASSERT fires on
-every display enable path.
-
-Record: Clear bug fix. WARNING/ASSERT fires on the normal display enable
-path for all DCN4.x hardware.
+**Step 1.4: Hidden Bug Fix Detection**
+- This IS a hidden bug fix. The `amdgpu_asic_reset_method()` macro at
+  `amdgpu.h:1454` dereferences `.reset_method` directly with NO null
+  check. Without this patch, any call to
+  `amdgpu_asic_reset_method(adev)` on soc_v1_0 hardware dereferences a
+  NULL function pointer, causing a kernel oops.
+- Record: YES, this is a hidden bug fix - fixes NULL pointer dereference
+  of missing `.reset_method` callback.
 
 ## PHASE 2: DIFF ANALYSIS
 
 **Step 2.1: Inventory**
-- Single file:
-  `drivers/gpu/drm/amd/display/dc/dccg/dcn401/dcn401_dccg.c`
-- 4 lines removed, 0 lines added
-- Single function modified: `dccg401_enable_dpstreamclk`
-- Classification: Single-file surgical fix
+- Single file: `drivers/gpu/drm/amd/amdgpu/soc_v1_0.c`
+- +24 lines added, 0 removed
+- Functions modified: `soc_v1_0_asic_reset` (filled in stub),
+  `soc_v1_0_asic_funcs` (added callback)
+- Functions added: `soc_v1_0_asic_reset_method` (new function)
+- Record: Single-file, +24 lines, surgical fix
 
 **Step 2.2: Code Flow Change**
-Before: After the per-instance switch statement (which correctly
-programs CNTL5), the function unconditionally tries to update
-`DCCG_GATE_DISABLE_CNTL3` with `DPSTREAMCLK_GATE_DISABLE` and
-`DPSTREAMCLK_ROOT_GATE_DISABLE`. Since these masks are 0, ASSERT fires.
-
-After: The function ends after the per-instance switch cases, which
-already correctly program the per-instance fields in CNTL5.
+- BEFORE: `soc_v1_0_asic_reset` was a stub returning 0 (no-op).
+  `.reset_method` was NULL in `soc_v1_0_asic_funcs`.
+- AFTER: `soc_v1_0_asic_reset_method` selects Mode2 reset for specific
+  hardware configs, or returns the module param default.
+  `soc_v1_0_asic_reset` dispatches based on the selected method.
+  `.reset_method` callback is populated.
 
 **Step 2.3: Bug Mechanism**
-Category: Logic/correctness - writing to register fields that don't
-exist on this hardware. The `FN()` macro expands to `(shift=0, mask=0)`
-because `DCCG_MASK_SH_LIST_DCN401` in the header never initializes these
-fields.
+- Category: NULL pointer dereference + missing functionality
+- The `amdgpu_asic_reset_method` macro (amdgpu.h:1454) calls
+  `(adev)->asic_funcs->reset_method((adev))` without NULL check.
+  Multiple callers in `amdgpu_device.c` and `amdgpu_reset.c` invoke this
+  during GPU reset paths. Without `.reset_method` set, this is a NULL
+  deref crash.
+- Record: NULL pointer dereference in GPU reset path. All other SoC
+  variants (si, cik, vi, soc15, soc21, soc24, nv) set `.reset_method` —
+  soc_v1_0 was the only one missing it.
 
 **Step 2.4: Fix Quality**
-Absolutely minimal and obviously correct. The header file
-`dcn401_dccg.h` lists all mask/shift entries for DCN401 and does NOT
-include `DPSTREAMCLK_GATE_DISABLE` or `DPSTREAMCLK_ROOT_GATE_DISABLE`.
-The per-instance equivalents in CNTL5 (e.g. `DPSTREAMCLK0_GATE_DISABLE`
-through `DPSTREAMCLK3_GATE_DISABLE`) are already programmed in each
-switch case. Zero regression risk.
+- Obviously correct — follows exact same pattern as soc24, soc21, soc15,
+  etc.
+- Minimal and surgical
+- Low regression risk — only affects soc_v1_0 hardware
+- Minor dead code: `return 0;` after the switch in `soc_v1_0_asic_reset`
+  is unreachable (both cases return), but harmless.
+- Record: High quality fix, follows established patterns, low regression
+  risk.
 
-## PHASE 3: GIT HISTORY INVESTIGATION
+## PHASE 3: GIT HISTORY
 
 **Step 3.1: Blame**
-All buggy lines trace to commit `70839da636050` "drm/amd/display: Add
-new DCN401 sources" by Aurabindo Pillai (2024-04-19). The DCN401 code
-was copied from DCN31 where these global CNTL3 fields are valid. The bug
-has been present since DCN401's introduction.
+- The buggy code (stub `soc_v1_0_asic_reset` and missing
+  `.reset_method`) was introduced in commit `297b0cebbcc3a`
+  ("drm/amdgpu: Add soc v1_0 support") by Hawking Zhang on 2025-12-08.
+  The original commit even noted "reset placeholders" in its changelog
+  (v3).
+- Record: Bug introduced in 297b0cebbcc3a, v7.0-rc1. Explicitly noted as
+  "placeholder" in original commit.
 
-**Step 3.2: Fixes Tag**
-No Fixes: tag present. However, the implicit target is `70839da636050`
-which first appeared in v6.11-rc1.
+**Step 3.2: No Fixes: tag to follow.**
 
 **Step 3.3: File History**
-Recent changes to the file are mostly refactoring/restructuring. No
-related DPSTREAMCLK fixes were found.
+- 11 commits touch soc_v1_0.c, all building out the new soc_v1_0 driver.
+  No intermediate fix for the reset method issue.
+- Record: Standalone fix. No prerequisites needed beyond the initial
+  soc_v1_0 support.
 
 **Step 3.4: Author**
-Roman Li is an AMD display team member with multiple commits to
-drm/amd/display. Alex Deucher is the AMD drm subsystem maintainer who
-signed off.
+- Asad Kamal is an AMD developer with multiple commits in the PM and GPU
+  subsystem.
+- Alex Deucher (AMD GPU maintainer) signed off and submitted the patch
+  series.
+- Record: Author is AMD developer, maintainer signed off.
 
 **Step 3.5: Dependencies**
-None. This is a standalone 4-line removal. No prerequisites needed.
+- The companion patch "Disable reset on init for soc_v1_0" starts from
+  this commit's output hash (bd7043729e6a3), so it depends on this
+  patch. This patch does NOT depend on any other uncommitted patches.
+- Record: This patch is standalone and applies independently. A
+  companion patch depends on it.
 
-## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
+## PHASE 4: MAILING LIST RESEARCH
 
-**Step 4.1-4.5:**
-b4 dig did not find a lore thread (AMD often submits through internal
-processes to drm-next). Web search also did not surface a specific lore
-discussion. This is typical for AMD display driver commits which go
-through Alex Deucher's drm-next tree.
+**Step 4.1: Patch Discussion**
+- Found on spinics: `https://www.spinics.net/lists/amd-
+  gfx/msg138861.html`
+- Part of a series of soc_v1_0 fixes posted by Alex Deucher on
+  2026-03-06
+- The series includes ~12 related patches for soc_v1_0 and related
+  hardware
+- Patch went through v1 → v2 (removed unnecessary overrides) → v4 (added
+  dev_warn_once)
+- No explicit stable nomination in the discussion
+- Record: Found submission thread. Multi-revision patch, review-driven
+  improvements. No NAKs.
+
+**Step 4.2: Reviewers**
+- Reviewed-by: Lijo Lazar (AMD engineer who provided specific feedback
+  driving v2 and v4 changes)
+- Signed-off-by: Alex Deucher (subsystem maintainer)
+- Record: Properly reviewed by AMD engineers.
+
+**Step 4.3: Bug Report**
+- No formal bug report or syzbot report. This is a proactive fix for
+  missing functionality that would crash on GPU reset.
+- Record: No bug report; proactive fix for obviously broken code.
+
+**Step 4.4: Related Patches**
+- Companion patch "Disable reset on init for soc_v1_0" removes the
+  always-true `need_reset_on_init` logic. This is NOT in the 7.0 tree
+  yet.
+- Record: Companion patch exists but this commit is standalone.
+
+**Step 4.5: Stable Discussion**
+- No stable-specific discussion found.
+- Record: No stable discussion.
 
 ## PHASE 5: CODE SEMANTIC ANALYSIS
 
-**Step 5.1: Functions Modified**
-`dccg401_enable_dpstreamclk` - called from `dccg401_set_dpstreamclk`
+**Step 5.1: Functions**
+- New: `soc_v1_0_asic_reset_method`
+- Modified: `soc_v1_0_asic_reset`, `soc_v1_0_asic_funcs`
 
 **Step 5.2: Callers**
-The call chain from the stack trace:
-- `amdgpu_dm_atomic_commit_tail` -> `dc_commit_streams` -> ... ->
-  `dcn401_enable_stream` -> `dccg401_set_dpstreamclk` ->
-  `dccg401_enable_dpstreamclk`
+- `amdgpu_asic_reset_method(adev)` is called from:
+  - `amdgpu_device.c:3216` — `amdgpu_device_check_vram_lost()` (during
+    reset)
+  - `amdgpu_device.c:4179` — `amdgpu_device_xgmi_reset_work()` (XGMI
+    reset)
+  - `amdgpu_device.c:6114` — `amdgpu_device_set_mp1_state()` (during
+    reset)
+  - `amdgpu_device.c:6158` — `amdgpu_device_suspend_display_audio()`
+    (during reset)
+  - `amdgpu_reset.c:113` — XGMI reset path
+  - `amdgpu_ras.c:4885` — RAS error handling
+- These are all common GPU reset/recovery code paths.
+- Record: The NULL `.reset_method` is dereferenced from multiple common
+  code paths during GPU hang recovery.
 
-This is the **main display enable path** - triggered every time a
-display mode is committed on RDNA 4 hardware (mode set, resume from
-suspend, hotplug, etc.).
-
-**Step 5.3-5.4: Call Chain**
-The buggy path is reachable from userspace via any DRM atomic commit
-that enables a display stream (e.g., `xrandr`, Wayland compositor, KMS
-modesetting). This is the most common display operation.
-
-**Step 5.5: Similar Patterns**
-DCN31 (`dcn31_dccg.c`) correctly uses these fields because
-`DCCG_MASK_SH_LIST_DCN31` includes them. The bug is specific to DCN401
-which copied the DCN31 code but doesn't have these hardware fields.
+**Step 5.3-5.5: Call Chain / Similar Patterns**
+- Every other SoC variant (si, cik, vi, nv, soc15, soc21, soc24) has
+  `.reset_method` populated. soc_v1_0 was the only one missing it.
+- Record: Systematic omission — soc_v1_0 was incomplete compared to all
+  sibling drivers.
 
 ## PHASE 6: STABLE TREE ANALYSIS
 
-**Step 6.1: Buggy Code in Stable Trees**
-DCN401 was introduced in v6.11. Active stable trees 6.11.y, 6.12.y, and
-7.0.y all contain this buggy code. (6.6.y and earlier do not have
-DCN401.)
+**Step 6.1: Buggy Code Existence**
+- soc_v1_0.c was introduced in v7.0-rc1 (commit 297b0cebbcc3a). It
+  exists in v7.0.
+- Only relevant for 7.0.y stable tree.
+- Record: Bug exists in 7.0.y only.
 
 **Step 6.2: Backport Complications**
-The fix is a simple 4-line removal. The surrounding code is identical in
-all stable trees that have DCN401. Expected clean apply.
+- The diff applies against the base hash `26e7566a5479c`, which is the
+  current state in v7.0. Should apply cleanly.
+- Record: Clean apply expected for 7.0.y.
 
-**Step 6.3: No Related Fix in Stable**
-No previous DPSTREAMCLK fix for DCN401 exists in any stable tree.
+**Step 6.3: Related Fixes in Stable**
+- No related fixes found in stable.
+- Record: None.
 
 ## PHASE 7: SUBSYSTEM CONTEXT
 
-**Step 7.1:** drm/amd/display - AMD GPU display driver. DCN401
-corresponds to RDNA 4 (Radeon RX 9000 series), a current-generation
-consumer/professional GPU.
-Criticality: IMPORTANT - affects all RDNA 4 GPU owners using
-DisplayPort.
+**Step 7.1: Subsystem**
+- `drivers/gpu/drm/amd/amdgpu` — AMD GPU driver
+- Criticality: IMPORTANT — affects users of AMD GPUs with GC 12.1
+  hardware
+- Record: GPU driver, IMPORTANT criticality.
 
-**Step 7.2:** Active subsystem with frequent updates.
+**Step 7.2: Activity**
+- Very active subsystem — 40 changes between v7.0-rc1 and v7.0 in amdgpu
+  alone.
+- Record: Highly active, new hardware being brought up.
 
-## PHASE 8: IMPACT AND RISK ASSESSMENT
+## PHASE 8: IMPACT AND RISK
 
-**Step 8.1:** Affected users: All AMD RDNA 4 GPU users with DisplayPort
-displays.
+**Step 8.1: Affected Users**
+- Users with soc_v1_0 (GC 12.1) AMD GPU hardware running kernel 7.0.y
+- Record: Driver-specific, but for current-gen AMD hardware.
 
-**Step 8.2:** Trigger: Every display enable (mode set, resume, hotplug).
-Very common. Occurs on the normal code path, not an error path.
+**Step 8.2: Trigger Conditions**
+- Any GPU hang or error that triggers the GPU reset recovery path will
+  hit the NULL deref.
+- GPU hangs can happen during normal operation (driver bugs, power
+  management issues, etc.)
+- Record: Triggered by GPU reset, which can happen during normal GPU
+  usage.
 
-**Step 8.3:** Failure mode: `WARNING` fires on every display enable.
-Severity: HIGH
-- Produces kernel log warnings on every mode set
-- Systems with `panic_on_warn=1` will CRASH
-- Even without panic_on_warn, the WARNING indicates potentially
-  undefined register writes
+**Step 8.3: Failure Mode**
+- NULL pointer dereference → kernel oops/panic
+- Severity: CRITICAL
+- Record: Kernel crash during GPU reset recovery.
 
-**Step 8.4:** Risk-Benefit:
-- BENEFIT: Very high - eliminates WARNING on every display operation for
-  all RDNA 4 DP users
-- RISK: Extremely low - 4 lines removed, removing code that accesses
-  non-existent register fields; per-instance fields in CNTL5 are already
-  correctly programmed
+**Step 8.4: Risk-Benefit**
+- BENEFIT: HIGH — prevents kernel crash on GPU reset for soc_v1_0
+  hardware
+- RISK: LOW — 24 lines in a single file, follows exact pattern of all
+  sibling SoC variants, only affects soc_v1_0 hardware
+- Record: High benefit, low risk.
 
 ## PHASE 9: FINAL SYNTHESIS
 
-**Step 9.1: Evidence Compilation**
+**Step 9.1: Evidence Summary**
 
 FOR backporting:
-- Fixes a real bug with a full stack trace in the commit message
-- WARNING fires on the normal display enable path for ALL RDNA 4 DP
-  users
-- Systems with panic_on_warn will crash
-- Fix is 4 lines of pure removal - minimally invasive
-- Obviously correct: header confirms fields don't exist in DCN401 mask
-  list
-- Per-instance CNTL5 fields already handle the functionality correctly
-- Reviewed by AMD display engineer (Dillon Varone)
-- Signed off by AMD drm maintainer (Alex Deucher)
-- Bug has existed since DCN401 introduction (v6.11)
+- Fixes NULL pointer dereference (kernel crash) — CRITICAL severity
+- Small, contained (24 lines, single file)
+- Follows exact pattern of all other SoC variants (si, cik, vi, nv,
+  soc15, soc21, soc24)
+- Reviewed by AMD engineer, signed off by AMD GPU subsystem maintainer
+- The bug is in code shipped in v7.0; users with this hardware will hit
+  it on any GPU hang
+- Standalone patch, no dependencies
 
 AGAINST backporting:
-- None identified
+- No explicit Cc: stable or Fixes: tag (expected — that's why it's being
+  reviewed)
+- Could be seen as "feature completion" rather than "bug fix"
+- Very new code (soc_v1_0 only in v7.0)
+- No reported user impact yet (hardware may be very new)
 
 **Step 9.2: Stable Rules Checklist**
-1. Obviously correct? YES - verified by mask/shift header analysis
-2. Fixes a real bug? YES - WARNING on every display enable
-3. Important? YES - affects all RDNA 4 DP users, crash with
-   panic_on_warn
-4. Small and contained? YES - 4 lines removed in 1 file
-5. No new features? YES - pure removal of invalid code
-6. Applies to stable? YES - DCN401 exists in 6.11+, code is identical
+1. Obviously correct and tested? YES — follows identical pattern in 7
+   other SoC variants, reviewed by AMD
+2. Fixes a real bug? YES — NULL pointer dereference on GPU reset
+3. Important issue? YES — kernel crash (CRITICAL)
+4. Small and contained? YES — 24 lines, single file
+5. No new features? BORDERLINE — adds required callback, but the
+   functionality is not "new" (all other variants have it)
+6. Can apply to stable? YES — applies cleanly to 7.0.y
 
 **Step 9.3: Exception Categories**
-Not an exception category - this is a straightforward bug fix.
+- Not a standard exception category, but fixes a crash in new hardware
+  support that shipped in v7.0.
 
 **Step 9.4: Decision**
-Clear YES. This is a textbook stable candidate.
+The missing `.reset_method` callback in `soc_v1_0_asic_funcs` causes a
+NULL pointer dereference whenever GPU reset is triggered on this
+hardware. This is a CRITICAL crash bug. The fix is 24 lines, self-
+contained, follows established patterns from all other AMD GPU SoC
+variants, and was reviewed by AMD engineers including the subsystem
+maintainer. While it could be characterized as "completing" the driver,
+the practical effect is fixing a kernel crash.
 
 ## Verification
 
-- [Phase 1] Parsed tags: Reviewed-by from AMD display engineer, SOBs
-  from author + AMD maintainer
-- [Phase 2] Diff analysis: 4 lines removed from
-  `dccg401_enable_dpstreamclk()`, removing invalid CNTL3 register field
-  access
-- [Phase 3] git blame: All buggy lines from commit 70839da636050 "Add
-  new DCN401 sources" (2024-04-19), first in v6.11-rc1
-- [Phase 3] git tag --contains: Confirmed DCN401 introduced in v6.11-rc1
-- [Phase 5] Traced callers: `dccg401_set_dpstreamclk` ->
-  `dccg401_enable_dpstreamclk` called from `dcn401_enable_stream` during
-  every display enable
-- [Phase 5] Verified mask list: `DCCG_MASK_SH_LIST_DCN401` in
-  dcn401_dccg.h has per-instance DPSTREAMCLK[0-3] fields in CNTL5, but
-  NO global DPSTREAMCLK_GATE_DISABLE/DPSTREAMCLK_ROOT_GATE_DISABLE in
-  CNTL3
-- [Phase 5] Verified assert: `dc_helper.c:100` has `ASSERT(mask != 0)`
-  confirming the WARNING trigger
-- [Phase 5] Verified DCN31 has the fields: `dcn31_dccg.h` lines 153-154
-  include the global CNTL3 fields
-- [Phase 6] dcn401_resource.c: Static const `dccg_mask` initialized with
-  `DCCG_MASK_SH_LIST_DCN401(_MASK)` - confirmed fields are zero
-- [Phase 6] DCN401 exists in stable trees v6.11+
-- [Phase 4] b4 dig: No lore match found (typical for AMD drm-next
-  submissions)
-- UNVERIFIED: Exact lore discussion thread (b4 dig and web search
-  failed; does not affect decision as the code analysis is conclusive)
+- [Phase 1] Parsed tags: Reviewed-by: Lijo Lazar, Signed-off-by: Alex
+  Deucher (maintainer). No syzbot/Fixes/Cc:stable.
+- [Phase 2] Diff analysis: +24 lines in soc_v1_0.c. Adds
+  `soc_v1_0_asic_reset_method` function, fills in `soc_v1_0_asic_reset`
+  stub, populates `.reset_method` in asic_funcs.
+- [Phase 2] Verified: `amdgpu_asic_reset_method` macro at amdgpu.h:1454
+  dereferences `.reset_method` with NO null check.
+- [Phase 2] Verified: All other SoC variants (si, cik, vi, nv, soc15,
+  soc21, soc24) have `.reset_method` set. soc_v1_0 is the only one
+  missing it.
+- [Phase 3] git blame: buggy stub introduced in commit 297b0cebbcc3a
+  (2025-12-08), present since v7.0-rc1. Original commit described it as
+  "reset placeholders."
+- [Phase 3] git tag: 297b0cebbcc3a is contained in v7.0-rc1, v7.0.
+- [Phase 3] git log: 11 commits touch soc_v1_0.c, none fix the reset
+  method issue.
+- [Phase 4] Found original submission: spinics.net/lists/amd-
+  gfx/msg138861.html — part of series by Alex Deucher on 2026-03-06
+- [Phase 4] Patch evolved v1→v2→v4, review-driven improvements, no NAKs
+- [Phase 4] Companion patch "Disable reset on init for soc_v1_0" exists
+  and depends on this commit
+- [Phase 5] Verified callers: `amdgpu_asic_reset_method()` called from
+  amdgpu_device.c:3216, 4179, 6114, 6158 and amdgpu_reset.c:113 — all
+  GPU reset code paths
+- [Phase 6] Code exists only in v7.0 (soc_v1_0 introduced in v7.0-rc1)
+- [Phase 8] Failure mode: NULL deref → kernel oops on GPU reset,
+  severity CRITICAL
+- UNVERIFIED: Whether any users have actually triggered this crash
+  (hardware is very new)
 
 **YES**
 
- drivers/gpu/drm/amd/display/dc/dccg/dcn401/dcn401_dccg.c | 4 ----
- 1 file changed, 4 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/soc_v1_0.c | 24 ++++++++++++++++++++++++
+ 1 file changed, 24 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dccg/dcn401/dcn401_dccg.c b/drivers/gpu/drm/amd/display/dc/dccg/dcn401/dcn401_dccg.c
-index a37f94dec6f2f..44c4a53f14ad8 100644
---- a/drivers/gpu/drm/amd/display/dc/dccg/dcn401/dcn401_dccg.c
-+++ b/drivers/gpu/drm/amd/display/dc/dccg/dcn401/dcn401_dccg.c
-@@ -526,10 +526,6 @@ static void dccg401_enable_dpstreamclk(struct dccg *dccg, int otg_inst, int dp_h
- 		BREAK_TO_DEBUGGER();
- 		return;
- 	}
--	if (dccg->ctx->dc->debug.root_clock_optimization.bits.dpstream)
--		REG_UPDATE_2(DCCG_GATE_DISABLE_CNTL3,
--			DPSTREAMCLK_GATE_DISABLE, 1,
--			DPSTREAMCLK_ROOT_GATE_DISABLE, 1);
+diff --git a/drivers/gpu/drm/amd/amdgpu/soc_v1_0.c b/drivers/gpu/drm/amd/amdgpu/soc_v1_0.c
+index 59ab952d5cce4..ca66a0169c781 100644
+--- a/drivers/gpu/drm/amd/amdgpu/soc_v1_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/soc_v1_0.c
+@@ -229,8 +229,31 @@ static bool soc_v1_0_need_reset_on_init(struct amdgpu_device *adev)
+ 	return false;
  }
  
- void dccg401_disable_dpstreamclk(struct dccg *dccg, int dp_hpo_inst)
++static enum amd_reset_method
++soc_v1_0_asic_reset_method(struct amdgpu_device *adev)
++{
++	if ((adev->gmc.xgmi.supported && adev->gmc.xgmi.connected_to_cpu) ||
++	    (amdgpu_ip_version(adev, MP1_HWIP, 0) == IP_VERSION(15, 0, 8))) {
++		if (amdgpu_reset_method != -1)
++			dev_warn_once(adev->dev, "Reset override isn't supported, using Mode2 instead.\n");
++
++		return AMD_RESET_METHOD_MODE2;
++	}
++
++	return amdgpu_reset_method;
++}
++
+ static int soc_v1_0_asic_reset(struct amdgpu_device *adev)
+ {
++	switch (soc_v1_0_asic_reset_method(adev)) {
++	case AMD_RESET_METHOD_MODE2:
++		dev_info(adev->dev, "MODE2 reset\n");
++		return amdgpu_dpm_mode2_reset(adev);
++	default:
++		dev_info(adev->dev, "Invalid reset method Not supported\n");
++		return -EOPNOTSUPP;
++	}
++
+ 	return 0;
+ }
+ 
+@@ -244,6 +267,7 @@ static const struct amdgpu_asic_funcs soc_v1_0_asic_funcs = {
+ 	.need_reset_on_init = &soc_v1_0_need_reset_on_init,
+ 	.encode_ext_smn_addressing = &soc_v1_0_encode_ext_smn_addressing,
+ 	.reset = soc_v1_0_asic_reset,
++	.reset_method = &soc_v1_0_asic_reset_method,
+ };
+ 
+ static int soc_v1_0_common_early_init(struct amdgpu_ip_block *ip_block)
 -- 
 2.53.0
 
