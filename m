@@ -4,68 +4,120 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3AE39F327B2
-	for <amd-gfx@archiver.kernel.org>; Tue, 21 Apr 2026 07:10:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F259FF327AD
+	for <amd-gfx@archiver.kernel.org>; Tue, 21 Apr 2026 07:10:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B2AF110EB6C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2C4AD10E7FC;
 	Tue, 21 Apr 2026 07:10:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="k1VGY+20";
+	dkim=pass (2048-bit key; unprotected) header.d=leemhuis.info header.i=@leemhuis.info header.b="Y89ufJes";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 251EE10E24B;
- Mon, 20 Apr 2026 16:29:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1776702541; x=1808238541;
- h=message-id:subject:from:to:cc:date:in-reply-to:
- references:content-transfer-encoding:mime-version;
- bh=+gVX3UOSPwoyymXhgo+gjJ+g4VoiOsc5z7Zps3kfqUg=;
- b=k1VGY+20KXhqjTwR4wLxBzmfKF3/PXxBHoPFour+zJ1ETvxPpPzohCbz
- 8DByfvay2BYdUKeA6yYAGp6JAcSq3/ZDh0+1UGUP2apl9nIXpdn+rPF3g
- FZU99fA7QUwa0hRs9k9eJGRukJ24fFBY9RBW1JBvDnAMBdUG5BgkmDEwR
- aHj3rZOTusynNvJHOSnxxtPM3uywaTKeW0uUXS7PE+LskCisHhK6vsgR+
- 7nJu81ccv5GMUh3NC7wFxf93cEAhQPJJVL9z5eZMCW1cphOskzfQETYIj
- rGYk66eHI3+Q3qpGKBvgkkOvayRA4YBUc3EdP2yHWygs3NzcjzOMeKIyX w==;
-X-CSE-ConnectionGUID: prGzIehvSniAKo3U5u/UKw==
-X-CSE-MsgGUID: kCnr5OIoRV6n+abcAecQbA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11762"; a="77498200"
-X-IronPort-AV: E=Sophos;i="6.23,190,1770624000"; d="scan'208";a="77498200"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
- by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Apr 2026 09:28:59 -0700
-X-CSE-ConnectionGUID: 8283j0diQhuhlbRCi5UrTQ==
-X-CSE-MsgGUID: +05YG3k6QAq70gzjMJJMAw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,190,1770624000"; d="scan'208";a="227130085"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO [10.245.244.133])
- ([10.245.244.133])
- by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Apr 2026 09:28:53 -0700
-Message-ID: <c8c05759c23d8befd3034b35d63c1de22c1c0d3e.camel@linux.intel.com>
-Subject: Re: [RFC/POC PATCH 01/12] drm/amdgpu: add SVM UAPI definitions
-From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
-To: Matthew Brost <matthew.brost@intel.com>, Christian =?ISO-8859-1?Q?K=F6nig?=
- <christian.koenig@amd.com>
-Cc: "Huang, Honglei1" <honghuan@amd.com>, Alexander.Deucher@amd.com, 
- Felix.Kuehling@amd.com, Oak.Zeng@amd.com, Jenny-Jing.Liu@amd.com, 
- Philip.Yang@amd.com, Xiaogang.Chen@amd.com, Ray.Huang@amd.com, 
- Lingshan.Zhu@amd.com, Junhua.Shen@amd.com, rodrigo.vivi@intel.com,
- dakr@kernel.org, 	aliceryhl@google.com, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org
-Date: Mon, 20 Apr 2026 18:28:50 +0200
-In-Reply-To: <aeZPBoJVTqOKd4bq@gsse-cloud1.jf.intel.com>
-References: <20260420120739.1811731-1-honglei1.huang@amd.com>
- <20260420120739.1811731-2-honglei1.huang@amd.com>
- <cda09d5d-4cca-46a1-8625-fe9fa687e5a2@amd.com>
- <50d13ae3-be27-4b79-91ef-e1b386054943@amd.com>
- <54bb7286-2ffb-47f0-b37d-83b5c39ad9a0@amd.com>
- <aeZPBoJVTqOKd4bq@gsse-cloud1.jf.intel.com>
-Organization: Intel Sweden AB, Registration Number: 556189-6027
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
+Received: from relay.yourmailgateway.de (relay.yourmailgateway.de
+ [188.68.63.162])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EBEED10E68F;
+ Mon, 20 Apr 2026 14:49:05 +0000 (UTC)
+Received: from mors-relay-8201.netcup.net (localhost [127.0.0.1])
+ by mors-relay-8201.netcup.net (Postfix) with ESMTPS id 4fzpKC32hpz45s8;
+ Mon, 20 Apr 2026 16:49:03 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
+ s=key2; t=1776696543;
+ bh=XM471VK+ELxYjQ5qPCbjOc1X0nlC4QIEoRJ23kucUKo=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=Y89ufJes+/vdz6ZovmVwjDHWdPOtUFJcOOtv+cInG6BYXvHQdT2vik8pTPtja9aIG
+ 3kb3xa1p8TavXtUDt7FxOAFIdyYjs+XIv2x3vKVSTR7xOkeNPkSSZ27JoK7WPX4gKm
+ 7MfMEVlIvmd+Aekv+TDDQtS7BmFR8D/y8a8JQO7x5/Ss83AszhdnCiMR2+HNqPwDxL
+ c9BYlsl/uIaR2/XI75nGWQxcv1HRvMZKkwB3rszKqpQv4c/6sLMfd5jg5HXQpPSqkM
+ gWaPmcSHv11O//YxRFtpvkX0JluZgtV8b9381H/BaQSe5W2j794/JaXQAYK3etBhyn
+ zlR0HfBYVmrsQ==
+Received: from policy02-mors.netcup.net (unknown [46.38.225.35])
+ by mors-relay-8201.netcup.net (Postfix) with ESMTPS id 4fzpKC2Gszz45r9;
+ Mon, 20 Apr 2026 16:49:03 +0200 (CEST)
+Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
+ SHA256) (No client certificate requested)
+ by policy02-mors.netcup.net (Postfix) with ESMTPS id 4fzpK92dnVz8svZ;
+ Mon, 20 Apr 2026 16:49:01 +0200 (CEST)
+Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown
+ [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
+ by mxe9fb.netcup.net (Postfix) with ESMTPSA id 85E27635C4;
+ Mon, 20 Apr 2026 16:49:00 +0200 (CEST)
+Authentication-Results: mxe9fb;
+ spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f)
+ smtp.mailfrom=regressions@leemhuis.info
+ smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
+Received-SPF: pass (mxe9fb: connection is authenticated)
+Message-ID: <f0b79dd8-00e8-4352-b9ac-20ee6c114086@leemhuis.info>
+Date: Mon, 20 Apr 2026 16:48:58 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [REGRESSION] VRR not detected on a DisplayPort monitor using an
+ AMD GPU
+To: Ivan Sergeev <ivan8215145640@gmail.com>, Melissa Wen <mwen@igalia.com>,
+ Mario Limonciello <superm1@kernel.org>, amd-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org, regressions@lists.linux.dev,
+ mario.limonciello@amd.com, alex.hung@amd.com, daniel.wheeler@amd.com,
+ rodrigo.siqueira@amd.com, alexander.deucher@amd.com, harry.wentland@amd.com,
+ sunpeng.li@amd.com, christian.koenig@amd.com, huangalex409@gmail.com,
+ Linux kernel regressions list <regressions@lists.linux.dev>
+References: <CAKx_Wg7_HBxuq5W4T_AmoFYJGQpa6TAS_Fx9SUzyy1itPmj5Bw@mail.gmail.com>
+ <090d89a2-4f80-44ef-827c-6462d8948493@kernel.org>
+ <DGJFVPAQJA15.378GMU7XZXLU@gmail.com> <DGJGDIRQWDG7.XHHKF6UQP0HG@gmail.com>
+ <c70fe261-7fb0-4af5-b755-f02b193c8c5f@kernel.org>
+ <DGJH30US2XMK.S2HOHR14LIW0@gmail.com>
+ <bed447c7-07a3-46a8-9bcf-da352810883b@igalia.com>
+ <DGK98QFUDRR2.1RCLDXI8XRBFR@gmail.com>
+From: Thorsten Leemhuis <regressions@leemhuis.info>
+Content-Language: de-DE, en-US
+X-Enigmail-Draft-Status: N11222
+Autocrypt: addr=linux@leemhuis.info; keydata=
+ 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 MEK4
+In-Reply-To: <DGK98QFUDRR2.1RCLDXI8XRBFR@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-PPP-Message-ID: <177669654117.1695370.346976246835868325@mxe9fb.netcup.net>
+X-NC-CID: t+PJXoV5THhxAY/EbF03iQSZ8CoExLSOGkJa2jIGBA4msTBXPQk=
 X-Mailman-Approved-At: Tue, 21 Apr 2026 07:10:32 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -81,193 +133,16 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, 2026-04-20 at 09:06 -0700, Matthew Brost wrote:
-> On Mon, Apr 20, 2026 at 05:37:43PM +0200, Christian K=C3=B6nig wrote:
-> > On 4/20/26 15:30, Huang, Honglei1 wrote:
-> > > On 4/20/2026 8:15 PM, Christian K=C3=B6nig wrote:
-> > > >=20
-> > > >=20
-> > > > On 4/20/26 14:07, Honglei Huang wrote:
-> > > > > From: Honglei Huang <honghuan@amd.com>
-> > > > >=20
-> > > > > Add amdgpu drm SVM API definitions built on the
-> > > > > DRM GPUSVM framework.
-> > > > >=20
-> > > > > This includes:
-> > > > > - DRM_AMDGPU_GEM_SVM ioctl
-> > > > > - AMDGPU_SVM_FLAG_* flags
-> > > > > - AMDGPU_SVM_OP_SET_ATTR / AMDGPU_SVM_OP_GET_ATTR operations
-> > > > > - AMDGPU_SVM_ATTR_* attribute types
-> > > > > - AMDGPU_SVM_LOCATION_SYSMEM / AMDGPU_SVM_LOCATION_UNDEFINED
-> > > > > - struct drm_amdgpu_svm_attribute and struct
-> > > > > drm_amdgpu_gem_svm
-> > > > >=20
-> > > > > Signed-off-by: Honglei Huang <honghuan@amd.com>
-> > > > > ---
-> > > > > =C2=A0 include/uapi/drm/amdgpu_drm.h | 39
-> > > > > +++++++++++++++++++++++++++++++++++
-> > > > > =C2=A0 1 file changed, 39 insertions(+)
-> > > > >=20
-> > > > > diff --git a/include/uapi/drm/amdgpu_drm.h
-> > > > > b/include/uapi/drm/amdgpu_drm.h
-> > > > > index 406a42be4..bed71ed9b 100644
-> > > > > --- a/include/uapi/drm/amdgpu_drm.h
-> > > > > +++ b/include/uapi/drm/amdgpu_drm.h
-> > > > > @@ -58,6 +58,7 @@ extern "C" {
-> > > > > =C2=A0 #define DRM_AMDGPU_USERQ_SIGNAL=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0 0x17
-> > > > > =C2=A0 #define DRM_AMDGPU_USERQ_WAIT=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0 0x18
-> > > > > =C2=A0 #define DRM_AMDGPU_GEM_LIST_HANDLES=C2=A0=C2=A0=C2=A0 0x19
-> > > > > +#define DRM_AMDGPU_GEM_SVM=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0 0x1a
-> > > > > =C2=A0 =C2=A0 #define DRM_IOCTL_AMDGPU_GEM_CREATE=C2=A0=C2=A0=C2=
-=A0
-> > > > > DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_CREATE, union
-> > > > > drm_amdgpu_gem_create)
-> > > > > =C2=A0 #define DRM_IOCTL_AMDGPU_GEM_MMAP=C2=A0=C2=A0=C2=A0
-> > > > > DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_MMAP, union
-> > > > > drm_amdgpu_gem_mmap)
-> > > > > @@ -79,6 +80,7 @@ extern "C" {
-> > > > > =C2=A0 #define DRM_IOCTL_AMDGPU_USERQ_SIGNAL=C2=A0=C2=A0=C2=A0
-> > > > > DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_USERQ_SIGNAL, struct
-> > > > > drm_amdgpu_userq_signal)
-> > > > > =C2=A0 #define DRM_IOCTL_AMDGPU_USERQ_WAIT=C2=A0=C2=A0=C2=A0
-> > > > > DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_USERQ_WAIT, struct
-> > > > > drm_amdgpu_userq_wait)
-> > > > > =C2=A0 #define DRM_IOCTL_AMDGPU_GEM_LIST_HANDLES
-> > > > > DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_LIST_HANDLES,
-> > > > > struct drm_amdgpu_gem_list_handles)
-> > > > > +#define DRM_IOCTL_AMDGPU_GEM_SVM=C2=A0=C2=A0=C2=A0
-> > > > > DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_SVM, struct
-> > > > > drm_amdgpu_gem_svm)
-> > > > > =C2=A0 =C2=A0 /**
-> > > > > =C2=A0=C2=A0 * DOC: memory domains
-> > > > > @@ -1665,6 +1667,43 @@ struct drm_color_ctm_3x4 {
-> > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 __u64 matrix[12];
-> > > > > =C2=A0 };
-> > > > > =C2=A0 +#define AMDGPU_SVM_FLAG_HOST_ACCESS=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0 0x00000001
-> > > > > +#define AMDGPU_SVM_FLAG_COHERENT=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0 0x00000002
-> > > > > +#define AMDGPU_SVM_FLAG_HIVE_LOCAL=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0 0x00000004
-> > > > > +#define AMDGPU_SVM_FLAG_GPU_RO=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 0x00000008
-> > > > > +#define AMDGPU_SVM_FLAG_GPU_EXEC=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0 0x00000010
-> > > > > +#define AMDGPU_SVM_FLAG_GPU_READ_MOSTLY=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0 0x00000020
-> > > > > +#define AMDGPU_SVM_FLAG_GPU_ALWAYS_MAPPED=C2=A0=C2=A0=C2=A0 0x00=
-000040
-> > > > > +#define AMDGPU_SVM_FLAG_EXT_COHERENT=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0 0x00000080
-> > > > > +
-> > > > > +#define AMDGPU_SVM_OP_SET_ATTR=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0 0
-> > > > > +#define AMDGPU_SVM_OP_GET_ATTR=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0 1
-> > > > > +
-> > > > > +#define AMDGPU_SVM_ATTR_PREFERRED_LOC=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0 0
-> > > > > +#define AMDGPU_SVM_ATTR_PREFETCH_LOC=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0 1
-> > > >=20
-> > > > Up till here the interface makes perfect sense, but then it
-> > > > becomes a bit fuzzy.
-> > > >=20
-> > > > > +#define AMDGPU_SVM_ATTR_ACCESS=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 2
-> > > > > +#define AMDGPU_SVM_ATTR_ACCESS_IN_PLACE=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0 3
-> > > > > +#define AMDGPU_SVM_ATTR_NO_ACCESS=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0 4
-> > > >=20
-> > > > Why are those separate attributes? What is the difference
-> > > > between those?
-> > >=20
-> > > Really thanks for the comments, I have some content mistaken in
-> > > V2, so I updated the V3 to fix that. For the header they are
-> > > same. for other content please review the V3, sorry about that.
-> > > And will fix the concern you raised in next version.
-> > >=20
-> > > So the meaning of AMDGPU_SVM_ATTR_ACCESS and
-> > > AMDGPU_SVM_ATTR_NO_ACCESS are clear, GPU can access it or not,
-> > > and the SVM can set the preferred location, it can be in VRAM or
-> > > system, for AMDGPU_SVM_ATTR_ACCESS it can be migrated between RAM
-> > > and VRAM. For AMDGPU_SVM_ATTR_ACCESS_IN_PLACE,
-> > > it can not migrate, GPU only can access it in the initial place.
-> >=20
-> > Yeah but that doesn't then the interface doesn't seem to make sense
-> > since such states are mutual exclusive.
-> >=20
-> > It would make sense when you have some attribute which is named
-> > (for example) AMDGPU_SVM_ATTR_ACCESS which can have the values
-> > INACCESSIBLE, IN_PLACE, MIGRATE.
-> >=20
-> > > > > +#define AMDGPU_SVM_ATTR_SET_FLAGS=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0 5
-> > > > > +#define AMDGPU_SVM_ATTR_CLR_FLAGS=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0 6
-> > > >=20
-> > > > Why is that separated into set and clear flags?
-> > >=20
-> > > This method inherits from KFD and is also designed to be
-> > > compatible with upper layer applications such as ROCR.
-> >=20
-> > That is *not* sufficient as justification. We need to document why
-> > that is necessary and *not* just say ROCR works that way.
-> >=20
-> > As far as I can see just a SET_FLAGS should be sufficient.
-> >=20
-> > > > > +#define AMDGPU_SVM_ATTR_GRANULARITY=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0 7
-> > > > > +
-> > > > > +#define AMDGPU_SVM_LOCATION_SYSMEM=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0 0
-> > > > > +#define AMDGPU_SVM_LOCATION_UNDEFINED=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0 0xffffffff
-> > > >=20
-> > > > No location for device local memory?
-> > >=20
-> > > Vaule > 0 means for device memory, in xe_svm, it seems like it
-> > > uses fd for device local memory.
->=20
-> I have no stake in AMD=E2=80=99s uAPI, but I can at least explain how Xe=
-=E2=80=99s
-> uAPI
-> works here=E2=80=94and admittedly, it=E2=80=99s somewhat goofy.
->=20
-> 0 =3D=3D device-local memory, with first-touch placement on whichever
-> device/tile touches the memory first
->=20
-> -1 =3D=3D system memory
->=20
-> =E2=89=A5 0 =3D=3D a render-node FD (which could refer to a local or remo=
-te
-> device),
-> paired with a region instance to extract the pgmap for the desired
-> placement
->=20
+On 2/21/26 02:39, Ivan Sergeev wrote:
+> On Sat Feb 21, 2026 at 1:47 AM MSK, Melissa Wen wrote:
+>> Can you check if the attached patch resolves the issue?
+> The patch does resolve the issue!
 
-The first UAPI implementation here actually took a "pagemap fd"
-somewhat analogous to a dma-buf fd and that were created using a
-separate ioctl on the pagemap device.
+Melissa, was this ever resolved? I saw that you posted the patch Ivan
+tested as RFC here:
+https://lore.kernel.org/dri-devel/20260223203528.213275-1-mwen@igalia.com/
 
-IIRC when the RFC was posted, Christian had some concerns with that.
-And also when presented to the UMD team they, as Matt writes, preferred
-the current approach for simplicity.
+But from the outside it looks like nothing happened since then, which
+made me wonder if this regression was ever resolved.
 
-The benefit of a pagemap fd is that it would be easily possible to
-share other driver's pagemaps, and that the UMD would have explicit
-control over the pagemap lifetime. With the current approach a pagemap
-may be created during a gpu_madvise() call resulting in an unexpected
-(to the app) rather long delay.
-
-That said, it would be easy to support "pagemap fds" as well by just
-checking the file type in the gpu_madvise() ioctl.
-
-/Thomas
-
-
-
+Ciao, Thorsten
