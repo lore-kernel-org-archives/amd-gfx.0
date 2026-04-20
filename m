@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C64FEF588C5
-	for <amd-gfx@archiver.kernel.org>; Mon, 20 Apr 2026 13:26:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 89F27F588C5
+	for <amd-gfx@archiver.kernel.org>; Mon, 20 Apr 2026 13:27:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6E77110E626;
-	Mon, 20 Apr 2026 13:26:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2990A10E628;
+	Mon, 20 Apr 2026 13:27:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="gN542SxU";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="lGStd/FU";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D782810E628;
- Mon, 20 Apr 2026 13:26:52 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DE25510E62C;
+ Mon, 20 Apr 2026 13:27:15 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 4E49760154;
- Mon, 20 Apr 2026 13:26:52 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB69CC2BCB6;
- Mon, 20 Apr 2026 13:26:50 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 53C4E60055;
+ Mon, 20 Apr 2026 13:27:15 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 82705C2BCB4;
+ Mon, 20 Apr 2026 13:27:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1776691612;
- bh=dMLXMb9lsZEBL3IJdlXARDHwyhBPf2JT329tfRAuZfM=;
+ s=k20201202; t=1776691635;
+ bh=AJQ6JA3bSWogChV6szT/AXSZNnysG8AiXpnlWdYNJjs=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=gN542SxUBgiUl/tGb0yEuLmylnpeZh7f6yoD7IMD85SbFtTtcXWqdbgcMSQFuVSLZ
- dPzU/ei6k6Cj107/Cgn0uyOO4n/c7Msq62vxZz+tvWhW5B6/JmW0ocWJRH4+ujTOKX
- rLCXMXzT7Wn4bVy6ZTdTdD/6C6hRfEJ7Nga4Z3OYs6e9xdLcKQ8cfDimaRxPvwxd0M
- g4vk3fp9dUvKvFMVBnpL40W+3duYtY2A0bbyLtTmW3Iap8lxgRiD9OEzgWh9C0Jnx1
- pvltodxW0rxEtgNagVlGuvxMPYjY3yk5DJTXdooi7jD85yRPc/RgLZ2V/x0Kh02tX7
- S5amFCQU1YQcA==
+ b=lGStd/FUrUVmw23PO1ZGtELZMxA6Mb/83qvzOVby8miighiW7p+UcXs6QqlTOkgfr
+ Lqd8luMNOHd04G4NrwSiT3Gif599v4UHvSLwemSpu/qGCp3JcWPL27jxeIfQkcHDEQ
+ SV0IJbc6omQhZ1cAwnYIc1Cf6wNmmieGBpNt5hxLmT41VSF1qylR1e6tIvccTB59sm
+ APxnwoSF/LmQ0Ody00Pj0v9N1gcdTy2c75YvS6Kag0s7h55CDDQLunG4nQjKscrvKi
+ 8H5sU4uu071Mrh14rwEB5LKm9X/EdS2LCeZ+Guc/XEpIbaUGzFzxr65hq45zMfZtB+
+ xtQ0u/PTruveA==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Eric Huang <jinhuieric.huang@amd.com>, Kent Russell <kent.russell@amd.com>,
+Cc: Tao Zhou <tao.zhou1@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
- Felix.Kuehling@amd.com, christian.koenig@amd.com, airlied@gmail.com,
- simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 7.0] drm/amdkfd: fix kernel crash on releasing NULL
- sysfs entry
-Date: Mon, 20 Apr 2026 09:18:45 -0400
-Message-ID: <20260420132314.1023554-131-sashal@kernel.org>
+ christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH AUTOSEL 7.0-6.18] drm/amdgpu: clear related counter after RAS
+ eeprom reset
+Date: Mon, 20 Apr 2026 09:18:58 -0400
+Message-ID: <20260420132314.1023554-144-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260420132314.1023554-1-sashal@kernel.org>
 References: <20260420132314.1023554-1-sashal@kernel.org>
@@ -65,336 +65,303 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Eric Huang <jinhuieric.huang@amd.com>
+From: Tao Zhou <tao.zhou1@amd.com>
 
-[ Upstream commit 4ea64d482fc2cc85009fce5abdf4780ece00c31c ]
+[ Upstream commit 3d77ca68eb0b48f88cc891d1b98f109b68e2ffcf ]
 
-there is an abnormal case that When a process re-opens kfd
-with different mm_struct(execve() called by user), the
-allocated p->kobj will be freed, but missed setting it to NULL,
-that will cause sysfs/kernel crash with NULL pointers in p->kobj
-on kfd_process_remove_sysfs() when releasing process, and the
-similar error on kfd_procfs_del_queue() as well.
+Make eeprom data and its counter consistent.
 
-Signed-off-by: Eric Huang <jinhuieric.huang@amd.com>
-Reviewed-by: Kent Russell <kent.russell@amd.com>
+Signed-off-by: Tao Zhou <tao.zhou1@amd.com>
+Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-Now I have all the information needed for a complete analysis. Let me
-compile the full report.
+Now I have all the information needed. Let me compile the full analysis.
 
 ---
 
 ## PHASE 1: COMMIT MESSAGE FORENSICS
 
 ### Step 1.1: Subject Line
-- **Subsystem**: drm/amdkfd
-- **Action verb**: "fix" - explicitly a bug fix
-- **Summary**: Fixes a kernel crash when releasing a NULL (dangling)
-  sysfs entry
+- **Subsystem**: `drm/amdgpu` (AMD GPU driver, RAS subsystem)
+- **Action verb**: "clear" (indicating missing cleanup / consistency
+  fix)
+- **Summary**: Clear the `count_saved` counter when RAS EEPROM table is
+  reset
+
+Record: [drm/amdgpu] [clear] [Ensure count_saved is zeroed when EEPROM
+table is reset]
 
 ### Step 1.2: Tags
-- **Signed-off-by**: Eric Huang <jinhuieric.huang@amd.com> (author)
-- **Reviewed-by**: Kent Russell <kent.russell@amd.com> (AMD KFD team
-  member)
-- **Signed-off-by**: Alex Deucher <alexander.deucher@amd.com> (AMD DRM
-  maintainer)
-- No Fixes: tag, no Cc: stable, no Reported-by, no Link - absence
-  expected
+- **Signed-off-by**: Tao Zhou (author, regular AMD RAS contributor)
+- **Reviewed-by**: Hawking Zhang (AMD subsystem lead for RAS)
+- **Signed-off-by**: Alex Deucher (AMD GPU maintainer, final commit)
+- No Fixes: tag, no Reported-by:, no Cc: stable
+
+Record: Author is a regular AMD RAS contributor. Reviewed by AMD's RAS
+lead.
 
 ### Step 1.3: Commit Body
-The commit message describes: when a process re-opens KFD with a
-different `mm_struct` (after `execve()`), the allocated `p->kobj` is
-freed via `kobject_put()` but not set to NULL. Later,
-`kfd_process_remove_sysfs()` checks `if (!p->kobj)` - but since the
-pointer is dangling (not NULL), the check passes and causes a kernel
-crash. The same issue affects `kfd_procfs_del_queue()`.
+- "Make eeprom data and its counter consistent"
+- Terse description, but the intent is clear: a data consistency issue
+  between EEPROM state and in-memory counters.
 
-**Failure mode**: kernel crash (NULL pointer dereference / use-after-
-free on stale kobj pointer)
+Record: Bug is a data consistency issue. After EEPROM reset,
+`count_saved` retains a stale value while all other counters are zeroed.
 
-### Step 1.4: Hidden Bug Fix?
-No hiding here - the subject and body explicitly say "fix kernel crash."
+### Step 1.4: Hidden Bug Fix Detection
+This is a data consistency bug disguised as a minor cleanup. The word
+"consistent" signals that the code was **inconsistent** before—i.e., the
+counter was wrong after a reset. This is a real bug fix.
+
+Record: Yes, this is a hidden bug fix. The "consistent" language masks
+the fact that stale `count_saved` causes wrong data to be written to
+EEPROM on subsequent saves.
 
 ---
 
 ## PHASE 2: DIFF ANALYSIS
 
 ### Step 2.1: Inventory
-- **Files**: 1 file changed: `drivers/gpu/drm/amd/amdkfd/kfd_process.c`
-- **Lines**: +2, -1 (net 1 line added)
-- **Functions modified**: `kfd_procfs_del_queue()`,
-  `kfd_create_process_sysfs()`
-- **Scope**: Single-file, surgical fix
+- **Files**: 1 file modified (`amdgpu_ras_eeprom.c`)
+- **Lines**: +3 (one comment, one NULL check, one assignment)
+- **Function modified**: `amdgpu_ras_eeprom_reset_table()`
+- **Scope**: Single-file surgical fix
 
-### Step 2.2: Code Flow Changes
-
-**Hunk 1** (`kfd_procfs_del_queue`):
-- Before: only checks `if (!q)` then proceeds to `kobject_del(&q->kobj)`
-  and `kobject_put(&q->kobj)`
-- After: checks `if (!q || !q->process->kobj)` - if the process's kobj
-  was freed, skip queue cleanup since parent sysfs is gone
-
-**Hunk 2** (`kfd_create_process_sysfs`):
-- Before: on `kobject_init_and_add()` failure, calls
-  `kobject_put(process->kobj)` and returns, leaving `process->kobj` as a
-  dangling pointer
-- After: adds `process->kobj = NULL` after `kobject_put()`, preventing
-  dangling pointer
+### Step 2.2: Code Flow Change
+- **Before**: `amdgpu_ras_eeprom_reset_table()` zeroed `ras_num_recs`,
+  `ras_num_bad_pages`, `ras_num_mca_recs`, `ras_num_pa_recs`, `ras_fri`,
+  `bad_channel_bitmap`, and `update_channel_flag`, but left
+  `eh_data->count_saved` unchanged.
+- **After**: Also zeroes `con->eh_data->count_saved` (with NULL guard on
+  `eh_data`).
 
 ### Step 2.3: Bug Mechanism
-This is a **dangling pointer / use-after-free** bug. After
-`kobject_put()` frees the kobj, the pointer is not NULLed, so
-`kfd_process_remove_sysfs()` later passes the `!p->kobj` guard and
-dereferences the freed pointer.
+This is a **data consistency / correctness bug**. `count_saved` is used
+as an array index in `amdgpu_ras_save_bad_pages()`:
+
+```3341:3341:drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+                                        &data->bps[data->count_saved],
+unit_num)) {
+```
+
+If EEPROM is reset but `count_saved` retains value N from before, the
+next save operation starts writing from `bps[N]` instead of `bps[0]`.
+This means:
+1. **Wrong data is written to EEPROM** (skipping the first N entries)
+2. **Potential out-of-bounds access** if bps array was reorganized
+
+There are direct call sequences that trigger this: `reset_table` ->
+`save_bad_pages` at lines 1783-1784 and 3837-3838.
 
 ### Step 2.4: Fix Quality
-- Obviously correct: setting pointer to NULL after free is a textbook
-  fix
-- Minimal: 2 lines changed
-- No regression risk: the NULL check prevents use of an already-freed
-  object
-- No locking changes, no API changes
+- Obviously correct: when all EEPROM records are cleared, the "saved
+  count" must be 0
+- Minimal: 3 lines, single variable assignment with NULL guard
+- No regression risk: the NULL check prevents any potential NULL deref
 
 ---
 
-## PHASE 3: GIT HISTORY
+## PHASE 3: GIT HISTORY INVESTIGATION
 
 ### Step 3.1: Blame
-- `kfd_procfs_del_queue()` was introduced by commit 6d220a7e7971ec
-  (Amber Lin, 2020-01-30) - old function
-- `kfd_create_process_sysfs()` was introduced by commit 4cd255b9694647
-  (Zhu Lingshan, 2025-04-22) - the commit that extracted sysfs creation
-  into a separate function
-- The error path that's missing `= NULL` was introduced in
-  4cd255b9694647
+The reset function's body was built incrementally since v5.3 (2019) by
+Andrey Grodzovsky, with additions by Luben Tuikov (2021), Stanley Yang
+(2022), and Tao Zhou (2024). The `count_saved` field was introduced in
+commit d45c5e6845a76 by Tao Zhou (2025-07-04), first appearing in v6.18.
 
-### Step 3.2: Fixes target
-No explicit Fixes: tag. The bug was introduced by 4cd255b9694647
-("amdkfd: Introduce kfd_create_process_sysfs as a separate function").
-This commit first appeared in v7.0-rc1 - confirmed NOT in v6.19,
-v6.16-rc1, v6.15-rc1, or v6.14.
+### Step 3.2: No Fixes: tag
+No Fixes: tag present. The logical "fixes" target would be d45c5e6845a76
+which introduced `count_saved` without clearing it in the reset path.
 
 ### Step 3.3: File History
-Many intermediate changes between the buggy commit and the fix (treewide
-refactoring, unrelated amdkfd changes). No other fix for this specific
-issue.
+The file is actively developed with 20+ recent commits. Patch 1/2 of
+this series ("compatible with specific RAS old eeprom format") modifies
+`amdgpu_ras.c` and is thematically related but functionally independent.
 
 ### Step 3.4: Author
-Eric Huang is an AMD developer with multiple amdkfd commits (pasid
-debugfs, smi events, TLB flush, etc.) - a regular contributor to the
-subsystem.
+Tao Zhou is a frequent AMD RAS contributor (10+ recent commits to RAS
+code) and the same author who introduced `count_saved`.
 
 ### Step 3.5: Dependencies
-The fix modifies `kfd_create_process_sysfs()` which only exists since
-4cd255b9694647 (v7.0-rc1). The fix is self-contained and needs no other
-patches.
+- **Requires** d45c5e6845a76 (introduces `count_saved` field) - present
+  only in v6.18+
+- **Does NOT depend on** patch 1/2 of the series (separate bug fix)
+- Standalone fix
 
 ---
 
-## PHASE 4: MAILING LIST
+## PHASE 4: MAILING LIST RESEARCH
 
-### Step 4.1: Patch Discussion
-b4 dig found the original submission at:
-`https://patch.msgid.link/20260327180036.131096-1-
-jinhuieric.huang@amd.com`
-
-The mbox shows:
-- v1 submission on 2026-03-27 by Eric Huang
-- Kent Russell replied with `Reviewed-by` on the same day
-- No NAKs, no concerns raised
-- No stable nomination by reviewers, but this is expected for commits in
-  the autosel pipeline
-
-### Step 4.2: Reviewers
-Patch was sent to `amd-gfx@lists.freedesktop.org`, reviewed by Kent
-Russell (AMD KFD team), committed by Alex Deucher (AMD DRM maintainer).
-Appropriate review chain.
-
-### Step 4.3: Bug Report
-No external bug report link. The author discovered this through internal
-testing of the execve() code path.
-
-### Step 4.4: Related Patches
-Single standalone patch (v1 only, no series).
-
-### Step 4.5: Stable Discussion
-No prior stable discussion found.
+- Found at `lists.freedesktop.org/archives/amd-
+  gfx/2026-February/139281.html`
+- Part of a 2-patch series; b4 dig did not find a match (AMD internal
+  submission path)
+- Reviewed-by from Hawking Zhang (AMD RAS lead) for the entire series
+- No NAKs or concerns raised
+- No explicit stable nomination by reviewers
 
 ---
 
 ## PHASE 5: CODE SEMANTIC ANALYSIS
 
-### Step 5.1: Functions Modified
-- `kfd_procfs_del_queue()` - called to delete a queue's sysfs entry
-- `kfd_create_process_sysfs()` - creates sysfs entries for a KFD process
+### Step 5.1-5.4: Function/Caller Analysis
+`amdgpu_ras_eeprom_reset_table()` is called from:
+1. **`amdgpu_ras_debugfs_eeprom_write()`** - user-triggered via debugfs
+   (privileged only)
+2. **`amdgpu_ras_eeprom_init()`** - during driver initialization (new
+   table creation)
+3. **`amdgpu_ras_eeprom_check_and_recover()`** - reset + immediate
+   save_bad_pages
+4. **`amdgpu_ras_init_badpage_info()`** - reset + immediate
+   save_bad_pages (format upgrade path)
 
-### Step 5.2: Callers
-- `kfd_procfs_del_queue()` called from `kfd_process_queue_manager.c` in
-  two places: during queue destruction and queue resource cleanup
-- `kfd_create_process_sysfs()` called from `kfd_process.c` (initial
-  process creation) and `kfd_chardev.c` (secondary process context
-  creation via ioctl)
-
-### Step 5.3-5.4: Call Chain
-The bug path: user calls `execve()` → KFD detects mm change → re-opens
-KFD → `kfd_create_process_sysfs()` fails → dangling `kobj` → process
-cleanup → `kfd_process_remove_sysfs()` → crash via stale pointer
-
-### Step 5.5: Similar Patterns
-The existing `kfd_process_remove_sysfs()` already has a `if (!p->kobj)
-return;` guard (line 1158), which is the correct pattern. The bug is
-that the error path in `kfd_create_process_sysfs()` doesn't maintain the
-invariant that freed kobj should be NULL.
+Call sites 3 and 4 are the dangerous ones: they call `reset_table`
+immediately followed by `save_bad_pages`, which will use the stale
+`count_saved` as an array index.
 
 ---
 
 ## PHASE 6: STABLE TREE ANALYSIS
 
-### Step 6.1: Buggy Code in Stable Trees
-The buggy function `kfd_create_process_sysfs()` was introduced in commit
-4cd255b9694647, which is in v7.0-rc1 and v7.0 only. It is NOT in v6.19,
-v6.14, or any earlier stable tree. The fix is only relevant for the
-**7.0.y** stable tree.
+### Step 6.1: Which stable trees have the buggy code?
+`count_saved` was introduced in d45c5e6845a76, first in v6.18. This fix
+is only relevant for **v6.18.y and newer** stable trees.
 
-### Step 6.2: Backport Complications
-The fix should apply cleanly to 7.0.y since the code context matches
-directly.
-
-### Step 6.3: Related Fixes Already in Stable
-No related fixes found.
+### Step 6.2: Backport Difficulty
+The patch is 3 lines, no surrounding context changes. Clean apply
+expected on any tree containing d45c5e6845a76.
 
 ---
 
 ## PHASE 7: SUBSYSTEM CONTEXT
 
-### Step 7.1: Subsystem
-- **Subsystem**: drivers/gpu/drm/amd/amdkfd - AMD GPU Kernel Fusion
-  Driver
-- **Criticality**: IMPORTANT - AMD GPU users running KFD compute
-  workloads (ROCm, OpenCL)
-
-### Step 7.2: Activity
-Very active subsystem with frequent changes.
+- **Subsystem**: drm/amdgpu RAS (Reliability, Availability,
+  Serviceability)
+- **Criticality**: IMPORTANT - RAS tracks and retires bad GPU memory
+  pages. Incorrect tracking means potentially using defective memory, or
+  incorrectly retiring good memory.
+- Active subsystem with frequent development.
 
 ---
 
-## PHASE 8: IMPACT AND RISK
+## PHASE 8: IMPACT AND RISK ASSESSMENT
 
-### Step 8.1: Who Is Affected
-Users of AMD GPU KFD (ROCm compute users) who hit the error path in
-`kfd_create_process_sysfs()` during process creation, specifically when
-`execve()` causes a re-open with a different mm.
+### Step 8.1: Affected Users
+Users with AMD GPUs that support RAS (datacenter GPUs like MI200, MI300
+series). This is a significant enterprise/HPC user population.
 
-### Step 8.2: Trigger
-When `kobject_init_and_add()` fails during KFD process sysfs creation
-AND the process later gets cleaned up. This is an error path, but can be
-triggered by resource exhaustion or sysfs conflicts.
+### Step 8.2: Trigger Conditions
+- Triggered when EEPROM table is reset and new bad pages are
+  subsequently saved
+- Can occur during: checksum recovery (automatic), table format upgrade
+  (automatic), debugfs user action
 
 ### Step 8.3: Failure Mode
-**CRITICAL**: Kernel crash (use of dangling pointer / NULL dereference
-in sysfs teardown).
+- **Data corruption**: Wrong records written to EEPROM (persists across
+  reboots)
+- **Potential OOB access**: If `count_saved` points beyond current `bps`
+  array bounds
+- Severity: **MEDIUM-HIGH** - corrupted RAS data means bad memory pages
+  might not be properly tracked
 
 ### Step 8.4: Risk-Benefit
-- **Benefit**: HIGH - prevents kernel crash
-- **Risk**: VERY LOW - 2-line fix, setting pointer to NULL after free
-  and adding a NULL check
-- **Ratio**: Strongly favorable
+- **Benefit**: Prevents EEPROM data corruption and potential OOB access.
+  Medium-high benefit for datacenter GPU users.
+- **Risk**: Very low. 3 lines, single variable zeroed with NULL guard.
+  Impossible to introduce a regression.
 
 ---
 
 ## PHASE 9: FINAL SYNTHESIS
 
 ### Step 9.1: Evidence
+
 **FOR backporting:**
-- Fixes a kernel crash (dangling pointer causes crash in sysfs teardown)
-- Tiny fix: 2 lines changed in 1 file
-- Obviously correct (NULL pointer after free, NULL check before use)
-- Reviewed by subsystem developer (Kent Russell)
-- Committed by subsystem maintainer (Alex Deucher)
-- Standalone fix with no dependencies
-- Buggy code exists in 7.0.y stable tree
+- Fixes a real data consistency bug: stale `count_saved` causes wrong
+  data written to EEPROM
+- Potential OOB array access from stale index
+- 3-line fix, surgical, obviously correct
+- Reviewed by AMD RAS subsystem lead (Hawking Zhang)
+- Author is the same person who introduced `count_saved` (understands
+  the code)
+- Direct trigger paths exist (reset_table -> save_bad_pages sequences)
+- Affects enterprise/datacenter GPU users (RAS is critical for data
+  integrity)
 
 **AGAINST backporting:**
-- Error path only (not every user will hit this)
-- Only affects 7.0.y (the buggy code is new in v7.0-rc1)
-- No Fixes: tag (expected for autosel candidates)
+- Only applicable to v6.18+ trees (where `count_saved` exists)
+- No user-reported crash or bug report - preventive fix by the developer
+- Limited user population (AMD datacenter GPUs with RAS)
 
 ### Step 9.2: Stable Rules Checklist
-1. Obviously correct and tested? **YES** - trivial NULL-after-free
-   pattern, reviewed
-2. Fixes a real bug? **YES** - kernel crash on sysfs teardown
-3. Important issue? **YES** - kernel crash (CRITICAL severity)
-4. Small and contained? **YES** - 2 lines, 1 file
-5. No new features or APIs? **YES** - pure bug fix
-6. Can apply to stable? **YES** - code exists in 7.0.y, should apply
-   cleanly
+1. Obviously correct and tested? **YES** - zeroing a counter when table
+   is reset is trivially correct
+2. Fixes a real bug? **YES** - stale index causes wrong EEPROM writes
+   and potential OOB access
+3. Important issue? **YES** - data corruption of persistent RAS bad page
+   table
+4. Small and contained? **YES** - 3 lines in 1 file
+5. No new features? **YES** - pure fix
+6. Can apply to stable? **YES** - clean apply on v6.18+
 
 ### Step 9.3: Exception Categories
-Not an exception category - this is a standard bug fix.
+Not applicable (standard bug fix, not a quirk/ID/DT addition).
 
 ---
 
 ## Verification
 
-- [Phase 1] Parsed tags: Reviewed-by Kent Russell, Signed-off-by Alex
-  Deucher (maintainer), no Fixes/Cc-stable
-- [Phase 2] Diff analysis: +2/-1 lines; adds `process->kobj = NULL`
-  after `kobject_put()` and `!q->process->kobj` check in
-  `kfd_procfs_del_queue()`
-- [Phase 3] git blame: error path introduced by 4cd255b9694647 (Zhu
-  Lingshan, 2025-04-22)
-- [Phase 3] git merge-base: 4cd255b9694647 is in v7.0-rc1 and v7.0, NOT
-  in v6.19 or earlier
-- [Phase 3] git log between buggy and fix: no intermediate fix for same
-  issue found
-- [Phase 4] b4 dig: found original at `https://patch.msgid.link/20260327
-  180036.131096-1-jinhuieric.huang@amd.com`
-- [Phase 4] b4 dig -a: single v1 submission, no revisions
-- [Phase 4] mbox review: Kent Russell gave Reviewed-by, no NAKs or
-  concerns
-- [Phase 5] Grep callers: `kfd_procfs_del_queue()` called from
-  `kfd_process_queue_manager.c` (2 sites); `kfd_create_process_sysfs()`
-  called from both `kfd_process.c` and `kfd_chardev.c`
-- [Phase 5] `kfd_process_remove_sysfs()` at line 1158 already has `if
-  (!p->kobj) return;` guard, confirming the invariant the fix maintains
-- [Phase 6] Buggy code only in v7.0-rc1+, fix relevant for 7.0.y stable
-  only
-- [Phase 8] Failure mode: kernel crash on dangling pointer dereference
-  during sysfs teardown, severity CRITICAL
+- [Phase 1] Parsed tags: Reviewed-by Hawking Zhang, Signed-off-by Alex
+  Deucher, Tao Zhou as author
+- [Phase 2] Diff analysis: 3 lines added in
+  `amdgpu_ras_eeprom_reset_table()`, clearing `count_saved` with NULL
+  guard
+- [Phase 2] Traced `count_saved` usage: used as array index in
+  `amdgpu_ras_save_bad_pages()` at lines 3341, 3348
+- [Phase 3] git blame: surrounding code added by various AMD developers
+  2019-2024; `count_saved` introduced in d45c5e6845a76 (v6.18)
+- [Phase 3] git merge-base --is-ancestor: confirmed d45c5e6845a76 NOT in
+  v6.17, IS in v6.18
+- [Phase 3] Author check: Tao Zhou has 10+ recent RAS commits,
+  introduced `count_saved` himself
+- [Phase 4] Found patch discussion at lists.freedesktop.org, Hawking
+  Zhang reviewed both patches
+- [Phase 4] Series is 2/2, patch 1/2 is independent (different file,
+  different bug)
+- [Phase 5] Traced callers of `amdgpu_ras_eeprom_reset_table`: found 4
+  call sites, 2 immediately follow with `save_bad_pages` (lines
+  1783-1784, 3837-3838) - confirming the bug is triggerable
+- [Phase 6] Fix only applies to v6.18+ stable trees
+- [Phase 8] Failure mode: wrong records written to EEPROM (data
+  corruption), potential OOB array access
 
-The fix is small, surgical, obviously correct, and prevents a kernel
-crash. It meets all stable kernel criteria.
+The fix is small, surgical, obviously correct, and addresses a real data
+consistency bug that can cause EEPROM corruption and potential out-of-
+bounds access. It meets all stable kernel criteria for applicable trees
+(v6.18+).
 
 **YES**
 
- drivers/gpu/drm/amd/amdkfd/kfd_process.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-index 12e24fbf8c463..c6782904d2f1c 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-@@ -679,7 +679,7 @@ static void kfd_procfs_add_sysfs_files(struct kfd_process *p)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
+index 6fba9d5b29ea6..44fba4b6aa92a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
+@@ -508,6 +508,9 @@ int amdgpu_ras_eeprom_reset_table(struct amdgpu_ras_eeprom_control *control)
+ 	control->bad_channel_bitmap = 0;
+ 	amdgpu_dpm_send_hbm_bad_channel_flag(adev, control->bad_channel_bitmap);
+ 	con->update_channel_flag = false;
++	/* there is no record on eeprom now, clear the counter */
++	if (con->eh_data)
++		con->eh_data->count_saved = 0;
  
- void kfd_procfs_del_queue(struct queue *q)
- {
--	if (!q)
-+	if (!q || !q->process->kobj)
- 		return;
- 
- 	kobject_del(&q->kobj);
-@@ -858,6 +858,7 @@ int kfd_create_process_sysfs(struct kfd_process *process)
- 	if (ret) {
- 		pr_warn("Creating procfs pid directory failed");
- 		kobject_put(process->kobj);
-+		process->kobj = NULL;
- 		return ret;
- 	}
+ 	amdgpu_ras_debugfs_set_ret_size(control);
  
 -- 
 2.53.0
