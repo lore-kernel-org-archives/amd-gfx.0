@@ -4,53 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 06AEDF588C3
-	for <amd-gfx@archiver.kernel.org>; Mon, 20 Apr 2026 13:26:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 34263F588C3
+	for <amd-gfx@archiver.kernel.org>; Mon, 20 Apr 2026 13:26:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 97C3310E618;
-	Mon, 20 Apr 2026 13:26:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BE6F610E61F;
+	Mon, 20 Apr 2026 13:26:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="PDAmuY1f";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="kXw2ap40";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0543C10E618;
- Mon, 20 Apr 2026 13:26:15 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C051E10E61F;
+ Mon, 20 Apr 2026 13:26:23 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id D9F714385A;
- Mon, 20 Apr 2026 13:26:14 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7274CC2BCB8;
- Mon, 20 Apr 2026 13:26:13 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 38C9360580;
+ Mon, 20 Apr 2026 13:26:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ADA3DC19425;
+ Mon, 20 Apr 2026 13:26:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1776691574;
- bh=1FfShN0lxD5kueaKBwoKCRafm8VIHXcVBgIjBXL4Jjs=;
+ s=k20201202; t=1776691582;
+ bh=4COp8xb5iO+Kg0G+zZIjHdRsnR2gbF62l8JK/WOAnOA=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=PDAmuY1f+I7bqbKRmiRleAthjT9Vc7avLT+kIuH+WEs7zq6HdQiP2v3pu3ITsou7C
- wbtYZRZjuCjF/NFxF7YxpnRxl/ATM/JCiiIewR0y6X/Ub8OyCk4dOcY4XyaV5ebC8K
- Z1wkvmj0oJJ3gg+1Wmca2txtns5PrdycR9prnBVvGO8RmTCe2SKSVww1zsYucvB5UR
- imJv7Lf1DOaUVXTRh037LFx9eIVg2f96RNmJY+RyNmUP+UiebnHuCuBruMpJyhGLoT
- BxS1dd9LkWLs+pK1L9BA9OAFvFjSQ/ngzZqBEKw8RXC4VbL4CjAdBsGghrl56pxRTc
- be8VY1T/okg7A==
+ b=kXw2ap40PnjZqEJahn5cJxSR/zIjKNgmwOOYohhpHgTZ86goJs30oDDyeMqWFZI8B
+ ECJXVmhf+hTdaAXPI2ks0TvZPn4VYuTZTbix+Z/kjpTCP4Wo3fwpPbTl+WPVbwm4MT
+ 8vhuQI35WSPQFRsq1m70S64Vv/1wkKuBP4G0RlPfPpvXNE0Qtos39ya6vqgPTpsEz4
+ PT2upwfwdVf9WbAgj/0ZGY+oMzXw7Ji27PSFB6Xa+i+wFS5PCYnWnv8gEHEZyNmGx8
+ HVnZEpFSPqZ4AXy0XCnQr4E0m8QKw752ccQ/S6HVC34vOn0UktJM9z1QMSAZzoxEqd
+ jINg/tOzucfOA==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Jesse Zhang <Jesse.Zhang@amd.com>, Lijo Lazar <lijo.lazar@amd.com>,
- Jesse Zhang <Jesse.zhang@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
- christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 7.0-6.18] drm/amdgpu/vcn4.0.3: gate per-queue reset by
- PSP SOS program version
-Date: Mon, 20 Apr 2026 09:18:23 -0400
-Message-ID: <20260420132314.1023554-109-sashal@kernel.org>
+Cc: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Sunil Khatri <sunil.khatri@amd.com>, Sasha Levin <sashal@kernel.org>,
+ airlied@gmail.com, simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [PATCH AUTOSEL 7.0-6.18] drm/amdgpu: fix amdgpu_userq_evict
+Date: Mon, 20 Apr 2026 09:18:28 -0400
+Message-ID: <20260420132314.1023554-114-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260420132314.1023554-1-sashal@kernel.org>
 References: <20260420132314.1023554-1-sashal@kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 X-stable: review
 X-Patchwork-Hint: Ignore
 X-stable-base: Linux 7.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -66,446 +64,361 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Jesse Zhang <Jesse.Zhang@amd.com>
+From: Christian König <christian.koenig@amd.com>
 
-[ Upstream commit 16df395a55c635649dd3cf41d61bd685d3fd7a98 ]
+[ Upstream commit 98dc529a27c57e184ab47453993ba9cfcfcec0ca ]
 
-Add a PSP SOS firmware compatibility check before enabling VCN per-queue
-reset on vcn_v4_0_3.
+Canceling the resume worker synchonized can deadlock because it can in
+turn wait for the eviction worker through the userq_mutex.
 
-Per review, program check is sufficient: when PSP SOS program is 0x01,
-require fw version >= 0x0036015f; otherwise allow per-queue reset.
-
-Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
-Suggested-by: Lijo Lazar <lijo.lazar@amd.com>
-Signed-off-by: Jesse Zhang <Jesse.zhang@amd.com>
+Signed-off-by: Christian König <christian.koenig@amd.com>
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+Reviewed-by: Sunil Khatri <sunil.khatri@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-Now I have all the information needed for a complete analysis.
+Now I have all the information needed for a complete analysis. Let me
+compile the findings.
 
 ---
 
 ## PHASE 1: COMMIT MESSAGE FORENSICS
 
-**Step 1.1: PARSE THE SUBJECT LINE**
-- Subsystem prefix: `drm/amdgpu/vcn4.0.3`
-- Action verb: "gate" (restrict/conditionally enable)
-- Summary: Gate VCN per-queue reset feature behind a PSP SOS firmware
-  version check.
+**Step 1.1: Subject Line**
+- Subsystem: `drm/amdgpu` (AMD GPU DRM driver)
+- Action verb: "fix"
+- Summary: Fix deadlock in `amdgpu_userq_evict` function
+- Record: [drm/amdgpu] [fix] [deadlock in userqueue eviction path]
 
-Record: [drm/amdgpu/vcn4.0.3] [gate] [Add firmware compatibility check
-before enabling per-queue reset]
+**Step 1.2: Tags**
+- Signed-off-by: Christian König (author, AMD's senior DRM/GPU
+  maintainer)
+- Reviewed-by: Alex Deucher (AMD's kernel graphics lead maintainer)
+- Reviewed-by: Sunil Khatri
+- Signed-off-by: Alex Deucher (committer)
+- No Fixes: tag (expected - that's why manual review is needed)
+- No Cc: stable (expected)
+- Record: Author is subsystem maintainer. Two Reviewed-by tags from AMD
+  developers. Strong quality signal.
 
-**Step 1.2: PARSE ALL COMMIT MESSAGE TAGS**
-- `Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>` - AMD GPU firmware/IP
-  maintainer
-- `Suggested-by: Lijo Lazar <lijo.lazar@amd.com>` - The approach was
-  suggested by the reviewer
-- `Signed-off-by: Jesse Zhang <Jesse.zhang@amd.com>` - Author
-- `Signed-off-by: Alex Deucher <alexander.deucher@amd.com>` - AMD DRM
-  subsystem maintainer
-- No Fixes: tag (expected for autosel candidates)
-- No Cc: stable tag (expected)
-- No Reported-by tag
+**Step 1.3: Commit Body**
+- Bug: Canceling the resume worker synchronously
+  (`cancel_delayed_work_sync`) can deadlock because the resume worker
+  waits for the eviction worker via `userq_mutex`.
+- Record: Classic AB-BA deadlock between suspend_worker and
+  resume_worker via `userq_mutex`.
 
-Record: Reviewed and suggested by Lijo Lazar (AMD), committed by Alex
-Deucher (subsystem maintainer). No explicit bug reporter or syzbot
-involvement.
-
-**Step 1.3: ANALYZE THE COMMIT BODY TEXT**
-The commit explains that PSP SOS firmware compatibility must be checked
-before enabling VCN per-queue reset. Specifically: when PSP SOS program
-is 0x01, firmware version must be >= 0x0036015f. Otherwise (other
-programs), per-queue reset is allowed. This prevents enabling a reset
-path that the firmware doesn't support.
-
-Record: Bug: per-queue reset enabled without firmware version gating,
-leading to attempted resets on firmware that doesn't support it.
-Symptom: failed per-queue resets that fall back to full GPU reset. Root
-cause: missing firmware capability check.
-
-**Step 1.4: DETECT HIDDEN BUG FIXES**
-This is a firmware compatibility fix. "Gate" means "restrict to
-compatible configurations." Without it, per-queue reset is attempted on
-incompatible firmware, which fails. This is a real bug fix - enabling a
-feature on hardware/firmware that doesn't support it.
-
-Record: Yes, this is a real bug fix - it prevents incorrect feature
-enablement on incompatible firmware.
+**Step 1.4: Hidden Bug Fix Detection**
+- This is explicitly labeled "fix" and describes a deadlock. Not hidden
+  at all.
+- Record: Obvious deadlock fix.
 
 ---
 
-## PHASE 2: DIFF ANALYSIS - LINE BY LINE
+## PHASE 2: DIFF ANALYSIS
 
-**Step 2.1: INVENTORY THE CHANGES**
-- File: `drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c` (+18, -1)
-- New function: `vcn_v4_0_3_is_psp_fw_reset_supported()` (15 lines)
-- Modified function: `vcn_v4_0_3_late_init()` (1 line condition change)
-- Scope: Single-file surgical fix
+**Step 2.1: Inventory**
+- 1 file changed: `drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c`
+- Lines removed: ~6, lines added: ~2 (net -4 lines)
+- Function modified: `amdgpu_userq_evict()`
+- Scope: single-file surgical fix in one function
+- Record: Very small, contained change.
 
-Record: 1 file changed, 18 insertions, 1 deletion. Functions: new
-`vcn_v4_0_3_is_psp_fw_reset_supported()`, modified
-`vcn_v4_0_3_late_init()`. Single-file surgical fix.
+**Step 2.2: Code Flow Change**
 
-**Step 2.2: UNDERSTAND THE CODE FLOW CHANGE**
-- **Before**: `vcn_v4_0_3_late_init()` checks
-  `amdgpu_dpm_reset_vcn_is_supported(adev) && !amdgpu_sriov_vf(adev)` to
-  enable per-queue reset. No firmware version check.
-- **After**: Same check, but now also calls
-  `vcn_v4_0_3_is_psp_fw_reset_supported(adev)` which extracts the PSP
-  program version from firmware version field and requires version >=
-  0x0036015f for program 0x01.
-- This is an initialization-time check; it only runs once during
-  `late_init`.
+BEFORE:
+```c
+if (evf_mgr->fd_closing) {
+    cancel_delayed_work_sync(&uq_mgr->resume_work);
+    return;
+}
+schedule_delayed_work(&uq_mgr->resume_work, 0);
+```
 
-**Step 2.3: IDENTIFY THE BUG MECHANISM**
-Category: (h) Hardware workaround / firmware compatibility fix.
-The new function extracts `pgm = (fw_ver >> 8) & 0xFF` and for program
-1, requires `fw_ver >= 0x0036015f`. This follows the exact same pattern
-as `vcn_v5_0_1` which checks `adev->psp.sos.fw_version >= 0x00450025`.
+AFTER:
+```c
+if (!evf_mgr->fd_closing)
+    schedule_delayed_work(&uq_mgr->resume_work, 0);
+```
 
-Without this check, `AMDGPU_RESET_TYPE_PER_QUEUE` is set on systems
-where PSP firmware can't handle it. When a VCN timeout occurs,
-`amdgpu_job_timedout()` -> `amdgpu_ring_reset()` ->
-`vcn_v4_0_3_ring_reset()` -> `amdgpu_dpm_reset_vcn()` is called. If PSP
-can't handle it, the reset fails, the driver logs "VCN reset fail" and
-falls through to a full GPU reset.
+Before: When `fd_closing`, synchronously cancel any pending resume work
+and return. Otherwise, schedule resume work.
+After: Simply don't schedule resume work when `fd_closing`. No
+synchronous cancel.
 
-Record: Firmware compatibility fix. Missing version check causes per-
-queue reset to be attempted on incompatible firmware, leading to reset
-failures and unnecessary full GPU resets.
+**Step 2.3: Bug Mechanism**
 
-**Step 2.4: ASSESS THE FIX QUALITY**
-- Obviously correct: simple version comparison
-- Minimal and surgical: 18 lines, single file, follows established
-  pattern from vcn_v5_0_1
-- Regression risk: extremely low. Worst case: per-queue reset disabled
-  when it should be enabled (fallback to full GPU reset, which was the
-  old behavior anyway)
-- No API changes, no lock changes, no data structure changes
+This is a **deadlock** fix. The verified call chain:
 
-Record: Fix quality: excellent. Follows established pattern. Regression
-risk: very low.
+1. `amdgpu_eviction_fence_suspend_worker()` acquires
+   `uq_mgr->userq_mutex` (line 110 in `amdgpu_eviction_fence.c`), then
+   calls `amdgpu_userq_evict()` (line 119)
+2. `amdgpu_userq_evict()` calls
+   `cancel_delayed_work_sync(&uq_mgr->resume_work)` when `fd_closing` -
+   this waits for resume_work to finish
+3. `amdgpu_userq_restore_worker()` (the resume_work callback) first
+   calls `flush_delayed_work(&fpriv->evf_mgr.suspend_work)` (line 1277),
+   which waits for the suspend_worker, then tries to acquire
+   `userq_mutex` (line 1279)
 
----
+Result: suspend_worker holds `userq_mutex` and waits for resume_worker;
+resume_worker either flushes suspend_worker (direct circular wait) or
+waits for `userq_mutex` (held by suspend_worker). Classic deadlock.
 
-## PHASE 3: GIT HISTORY INVESTIGATION
+Record: [Deadlock] [suspend_worker holds userq_mutex ->
+cancel_delayed_work_sync waits for resume_worker -> resume_worker
+flushes suspend_worker or waits for userq_mutex = DEADLOCK]
 
-**Step 3.1: BLAME THE CHANGED LINES**
-- `vcn_v4_0_3_late_init()` was introduced by commit 655d6403ad143 (Jesse
-  Zhang, 2025-08-13), first in v6.18-rc1
-- The `!amdgpu_sriov_vf(adev)` condition was added by c156c7f27ecdb
-  (Shikang Fan, 2025-11-19), also in v6.18
-
-Record: Buggy code (missing firmware check) was introduced in v6.18-rc1
-with commit 655d6403ad143.
-
-**Step 3.2: FOLLOW THE FIXES TAG**
-No Fixes: tag present. This is expected for autosel candidates.
-
-**Step 3.3: CHECK FILE HISTORY FOR RELATED CHANGES**
-Between the late_init introduction (655d6403ad143) and this fix, the
-file has had several changes including rework of reset handling
-(d25c67fd9d6fe), DPG pause mode handling (de93bc353361f), and JPEG ring
-test ordering fix (91544c45fa6a1). The fix applies cleanly on top of the
-current state with the sriov check.
-
-Record: The fix is standalone, no prerequisites beyond the existing
-late_init function (which is already in the tree).
-
-**Step 3.4: CHECK THE AUTHOR'S OTHER COMMITS**
-Jesse Zhang is a regular AMD GPU driver contributor with many commits in
-the amdgpu subsystem, including the original late_init callback, SDMA
-fixes, and queue reset work.
-
-Record: Author is a regular AMD driver contributor, familiar with the
-subsystem.
-
-**Step 3.5: CHECK FOR DEPENDENT/PREREQUISITE COMMITS**
-The fix depends only on `vcn_v4_0_3_late_init()` existing (commit
-655d6403ad143) and access to `adev->psp.sos.fw_version`. Both exist in
-the current tree. The fix is self-contained.
-
-Record: No additional dependencies. Applies standalone.
+**Step 2.4: Fix Quality**
+- Obviously correct: Removing the `cancel_delayed_work_sync` eliminates
+  the deadlock
+- Minimal/surgical: Only removes the dangerous synchronous cancel, keeps
+  the logic of not resuming when fd is closing
+- Regression risk: Very low. The only concern would be if a stale
+  resume_work runs after fd_closing, but other cleanup paths
+  (`amdgpu_userq_destroy` at line 632 does `cancel_delayed_work_sync`
+  safely before taking mutex) handle this properly.
+- Record: High quality fix. No regression risk.
 
 ---
 
-## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
+## PHASE 3: GIT HISTORY
 
-**Step 4.1: FIND THE ORIGINAL PATCH DISCUSSION**
-b4 dig could not find the patch (possibly due to the AMD internal
-submission process), but the mail-archive.com search found both V1 and
-V2.
+**Step 3.1: Blame**
+- The buggy `cancel_delayed_work_sync` in `amdgpu_userq_evict` was
+  introduced by commit `f10eb185ad0552` (Arvind Yadav, 2025-05-07, "Fix
+  NULL dereference in amdgpu_userq_restore_worker"), though the original
+  `fd_closing` branch was from `44cfdf368fb72c` (Shashank Sharma,
+  2024-11-20, "resume gfx userqueues").
+- Record: Buggy code introduced in the v6.16 development cycle.
 
-- V1: `[PATCH] drm/amdgpu/vcn4.0.3: gate VCN reset on PSP FW for MP0
-  13.0.6` - included an IP version switch (13.0.6 specific)
-- V2: `[PATCH V2] drm/amdgpu/vcn4.0.3: gate per-queue reset by PSP SOS
-  program version` - simplified per Lijo's review feedback
+**Step 3.2:** No Fixes: tag to follow.
 
-**Step 4.2: CHECK WHO REVIEWED THE PATCH**
-Lijo Lazar (AMD IP/firmware expert) reviewed both versions and gave
-Reviewed-by on V2. He suggested the simplification (program check alone
-is sufficient). Alex Deucher (AMD DRM subsystem maintainer) committed
-it.
+**Step 3.3: Related Changes**
+- Commit `648a0dc0d78c3` fixed a different deadlock in the same file
+  (mutex ordering between `adev->userq_mutex` and `uqm->userq_mutex`)
+- Record: There have been multiple deadlock fixes in this subsystem,
+  indicating active locking issues being resolved.
 
-Record: Thoroughly reviewed by AMD maintainers. V1 was revised per
-feedback.
+**Step 3.4: Author**
+- Christian König is one of the most senior AMD DRM kernel developers
+  and a core maintainer of the AMDGPU driver.
+- Record: Author is THE subsystem expert. Very high trust signal.
 
-**Step 4.3: SEARCH FOR THE BUG REPORT**
-No explicit bug report link. The ticket reference FWDEV-159155 is an
-AMD-internal tracker. Lijo noted in review that internal ticket
-references shouldn't be in comments.
+**Step 3.5: Dependencies**
+- The fix is self-contained and standalone. It modifies one conditional
+  block in one function.
+- Record: No dependencies. Clean standalone fix.
 
-**Step 4.4: CHECK FOR RELATED PATCHES AND SERIES**
-This is a standalone single patch, not part of a series. VCN v5.0.1
-already had the same pattern (firmware version gating) from commit
-5886090032ec8.
+---
 
-**Step 4.5: CHECK STABLE MAILING LIST HISTORY**
-Could not access lore.kernel.org directly due to bot protection. No
-evidence of explicit stable nomination found in the mail-archive
-discussion.
+## PHASE 4: MAILING LIST
+
+- b4 dig could not find the fix commit directly (it appears to be very
+  recent, possibly not yet indexed)
+- lore.kernel.org search was blocked by anti-scraping protection
+- Record: Could not verify mailing list discussion, but the commit has
+  two Reviewed-by tags confirming peer review.
 
 ---
 
 ## PHASE 5: CODE SEMANTIC ANALYSIS
 
-**Step 5.1: IDENTIFY KEY FUNCTIONS**
-- New: `vcn_v4_0_3_is_psp_fw_reset_supported()` - called only from
-  `vcn_v4_0_3_late_init()`
-- Modified: `vcn_v4_0_3_late_init()` - called during driver
-  initialization
+**Step 5.1: Functions modified**
+- Only `amdgpu_userq_evict()` is modified.
 
-**Step 5.2: TRACE CALLERS**
-`vcn_v4_0_3_late_init` is registered as the `.late_init` callback in the
-IP function table. It's called once during device initialization by the
-amdgpu IP block management code.
+**Step 5.2: Callers**
+- `amdgpu_userq_evict()` is called from
+  `amdgpu_eviction_fence_suspend_worker()` in `amdgpu_eviction_fence.c`
+  (line 119). This is a workqueue callback triggered by
+  `amdgpu_eviction_fence_enable_signaling()` (line 141), which is a
+  dma_fence_ops callback. This means eviction happens automatically when
+  BO resources need to be moved, making this a common code path during
+  normal GPU operation.
 
-**Step 5.3-5.4: DOWNSTREAM IMPACT**
-If `AMDGPU_RESET_TYPE_PER_QUEUE` is incorrectly set,
-`amdgpu_job_timedout()` (amdgpu_job.c:134-155) will attempt per-queue
-reset via `vcn_v4_0_3_ring_reset()` which calls
-`amdgpu_dpm_reset_vcn()`. If firmware doesn't support it, this fails,
-and the driver falls through to a full GPU reset - a much more
-disruptive event that resets all GPU engines.
-
-**Step 5.5: SEARCH FOR SIMILAR PATTERNS**
-VCN v5.0.1 already has the same firmware version gating pattern
-(`vcn_v5_0_1_late_init`, line 125). GFX v11, v12, and SDMA v4.4.2 also
-gate per-queue reset behind firmware version checks. This is a well-
-established pattern.
+**Step 5.3-5.4: Call chains**
+- The eviction path is triggered when dma_fence signaling is enabled on
+  eviction fences attached to BOs. This happens during VM page table
+  operations, memory allocation, etc. - very common GPU operations.
+- Record: The buggy path is reachable during normal GPU usage by any
+  userspace GPU application.
 
 ---
 
-## PHASE 6: CROSS-REFERENCING AND STABLE TREE ANALYSIS
+## PHASE 6: STABLE TREE ANALYSIS
 
-**Step 6.1: DOES THE BUGGY CODE EXIST IN STABLE TREES?**
-The `vcn_v4_0_3_late_init()` function (with per-queue reset enablement
-but without firmware version check) was introduced in v6.18-rc1 (commit
-655d6403ad143). It exists in stable trees 6.18.y and newer. The VCN per-
-queue reset implementation itself was in v6.16+, but the late_init
-enablement path is the specific code this fixes.
+**Step 6.1: Does the buggy code exist in stable trees?**
+- Verified `amdgpu_userq.c` does NOT exist in v6.12, v6.13, v6.14, or
+  v6.15
+- File first appears in v6.16
+- The buggy `cancel_delayed_work_sync` in `amdgpu_userq_evict` exists in
+  v6.16, v6.17, v6.18, v6.19, and v7.0
+- This workspace is `linux-autosel-7.0`, evaluating for the 7.0.y stable
+  tree
+- Record: Bug exists in v7.0 (the target tree) and v6.19.y (current
+  active stable).
 
-Record: Buggy code exists in 6.18.y and newer stable trees.
-
-**Step 6.2: CHECK FOR BACKPORT COMPLICATIONS**
-The patch applies directly against the current state of `vcn_v4_0_3.c`.
-For 6.18.y, the patch should apply cleanly as the `vcn_v4_0_3_late_init`
-function with the same context lines exists there.
-
-Record: Expected clean apply to 6.18.y+.
-
-**Step 6.3: CHECK IF RELATED FIXES ARE ALREADY IN STABLE**
-No related firmware version check fix for vcn_v4_0_3 has been applied to
-stable. The sriov check (c156c7f27ecdb) was cherry-picked to stable with
-Cc: stable tag, but that's a different fix.
+**Step 6.2: Backport difficulty**
+- The v7.0 version of the function is identical to the current HEAD -
+  the patch should apply cleanly.
+- Record: Clean apply expected.
 
 ---
 
-## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
+## PHASE 7: SUBSYSTEM CONTEXT
 
-**Step 7.1: IDENTIFY THE SUBSYSTEM AND ITS CRITICALITY**
-- Subsystem: `drivers/gpu/drm/amd/amdgpu` - AMD GPU driver
-- Criticality: IMPORTANT - AMD GPUs are widely used in servers (MI-
-  series) and workstations
+**Step 7.1: Subsystem**
+- `drivers/gpu/drm/amd/amdgpu` - AMD GPU driver, one of the most widely
+  used GPU drivers
+- Criticality: IMPORTANT - affects all AMD GPU users
+- Record: [drm/amdgpu] [IMPORTANT]
 
-**Step 7.2: ASSESS SUBSYSTEM ACTIVITY**
-Very actively developed. VCN v4.0.3 specifically is for data center GPUs
-(Instinct series with multiple VCN instances).
+**Step 7.2: Activity**
+- Very active subsystem with frequent commits
+- Multiple deadlock fixes in the userqueue code recently, indicating
+  this is a new subsystem under active development and bug fixing
+- Record: Very active, new code with multiple recent fixes.
 
 ---
 
 ## PHASE 8: IMPACT AND RISK ASSESSMENT
 
-**Step 8.1: DETERMINE WHO IS AFFECTED**
-Users with AMD GPUs that use VCN v4.0.3 (data center/MI-series GPUs)
-running PSP SOS firmware program 0x01 with version < 0x0036015f.
+**Step 8.1: Who is affected**
+- All users of AMD GPUs with userqueue support (modern AMD hardware)
+- Record: Driver-specific but large user population (all AMD GPU users
+  with newer hardware)
 
-Record: Driver-specific, but for important data center hardware.
+**Step 8.2: Trigger conditions**
+- The deadlock triggers when: (1) an eviction fence signals while (2)
+  `fd_closing` is true and (3) a resume_work is pending or running
+- This can happen during normal application shutdown/close while GPU
+  operations are in progress
+- Record: Triggered during fd close with concurrent GPU eviction -
+  realistic scenario during application exit.
 
-**Step 8.2: DETERMINE THE TRIGGER CONDITIONS**
-Trigger: A VCN (video encode/decode) job times out, causing the
-scheduler to attempt a per-queue reset. With incompatible firmware, the
-per-queue reset fails, forcing a full GPU reset.
+**Step 8.3: Failure mode severity**
+- DEADLOCK = system hang (at minimum the GPU tasks hang, potentially
+  wider if other kernel threads wait on the locked mutex)
+- Severity: CRITICAL
+- Record: [Deadlock -> system hang] [CRITICAL]
 
-Record: Triggered by VCN job timeout (can happen during normal video
-workloads). The per-queue reset attempt itself is the trigger for the
-bug.
-
-**Step 8.3: DETERMINE THE FAILURE MODE SEVERITY**
-- Without fix: Failed per-queue reset → full GPU reset (disrupts ALL GPU
-  workloads, not just VCN)
-- A full GPU reset on a data center GPU is highly disruptive
-- Severity: HIGH (unnecessary disruptive full GPU reset instead of
-  contained per-queue reset)
-
-Record: Failure mode: unnecessary full GPU reset instead of graceful
-fallback to non-per-queue behavior. Severity: HIGH for data center use.
-
-**Step 8.4: CALCULATE RISK-BENEFIT RATIO**
-- BENEFIT: Prevents failed per-queue resets and unnecessary full GPU
-  resets on systems with older firmware
-- RISK: Very low. 18 lines, single file, initialization-only code,
-  follows established pattern. Worst case: per-queue reset incorrectly
-  disabled → falls back to full GPU reset (same as not having per-queue
-  reset at all, the previous behavior)
-
-Record: High benefit, very low risk.
+**Step 8.4: Risk-Benefit Ratio**
+- BENEFIT: Very high - prevents deadlocks during normal GPU operation
+- RISK: Very low - 2 lines added, 6 removed, obviously correct, written
+  and reviewed by subsystem maintainers
+- Record: [Very high benefit] [Very low risk] [Strongly favorable]
 
 ---
 
 ## PHASE 9: FINAL SYNTHESIS
 
-**Step 9.1: COMPILE THE EVIDENCE**
+**Step 9.1: Evidence Compilation**
 
 FOR backporting:
-- Fixes a real firmware compatibility bug (per-queue reset attempted on
-  unsupported firmware)
-- Small (18 lines), surgical, single-file change
-- Follows established pattern from vcn_v5_0_1
-- Reviewed by AMD maintainer Lijo Lazar, committed by subsystem
-  maintainer Alex Deucher
-- Went through V1→V2 revision with reviewer feedback
-- Prevents unnecessary full GPU resets on data center hardware
-- Very low regression risk
+- Fixes a real deadlock (CRITICAL severity)
+- Very small, surgical fix (net -4 lines)
+- Written by Christian König (senior AMD DRM maintainer)
+- Reviewed by Alex Deucher (AMD's kernel graphics lead) and Sunil Khatri
+- Bug exists in v7.0 (the target stable tree)
+- Deadlock is triggered during normal operations (fd close with GPU
+  activity)
+- Obviously correct - removes the synchronous cancel that causes the
+  deadlock
 - Self-contained, no dependencies
 
 AGAINST backporting:
-- No explicit Cc: stable (expected for autosel)
-- No Fixes: tag pointing to specific broken commit
-- No user-reported bug (AMD internal tracking reference FWDEV-159155)
-- Could be viewed as "hardening" rather than fixing a crash
-- Relatively new code (v6.18+), limited stable tree exposure
+- No items identified
 
-UNRESOLVED:
-- Could not access lore.kernel.org directly to check for stable-specific
-  discussions
-- Don't know how many users have the specific old firmware configuration
+Unresolved:
+- Could not verify mailing list discussion (lore blocked)
 
-**Step 9.2: APPLY THE STABLE RULES CHECKLIST**
-1. Obviously correct and tested? **Yes** - simple version comparison,
-   reviewed by AMD maintainer
-2. Fixes a real bug? **Yes** - prevents failed per-queue resets with
-   incompatible firmware
-3. Important issue? **Yes** - prevents unnecessary full GPU resets (HIGH
-   severity for data center)
-4. Small and contained? **Yes** - 18 lines, 1 file
-5. No new features or APIs? **Correct** - gates an existing feature
-6. Can apply to stable trees? **Yes** - should apply cleanly to 6.18.y+
+**Step 9.2: Stable Rules Checklist**
+1. Obviously correct and tested? **YES** - The deadlock mechanism is
+   clear and verifiable from code. Fix is minimal. Two Reviewed-by tags.
+2. Fixes a real bug? **YES** - Deadlock during GPU eviction with
+   fd_closing.
+3. Important issue? **YES** - Deadlock = system hang (CRITICAL).
+4. Small and contained? **YES** - Net -4 lines in a single function.
+5. No new features or APIs? **YES** - Pure bug fix.
+6. Can apply to stable trees? **YES** - Code in v7.0 is identical; clean
+   apply expected.
 
-**Step 9.3: CHECK FOR EXCEPTION CATEGORIES**
-This could be classified as a hardware/firmware quirk/workaround -
-gating feature enablement based on firmware version. These are typically
-YES for stable.
+**Step 9.3: Exception Categories**
+- Not applicable - this is a standard bug fix, not an exception
+  category.
 
-**Step 9.4: MAKE YOUR DECISION**
-This is a firmware compatibility fix that prevents the driver from
-enabling a reset path on firmware that doesn't support it. Without it,
-VCN job timeouts on affected systems lead to failed per-queue resets and
-unnecessary full GPU resets. The fix is small, surgical, well-reviewed,
-follows an established pattern, and has very low regression risk.
+**Step 9.4: Decision**
+All evidence strongly supports backporting. This is a textbook deadlock
+fix: small, surgical, obviously correct, fixes a critical issue, written
+and reviewed by the subsystem maintainers.
 
 ---
 
 ## Verification
 
-- [Phase 1] Parsed tags: Reviewed-by Lijo Lazar, Suggested-by Lijo
-  Lazar, Signed-off-by Jesse Zhang and Alex Deucher. No Fixes: or Cc:
-  stable (expected).
-- [Phase 2] Diff analysis: 18 lines added (new helper + condition
-  change), single file `vcn_v4_0_3.c`.
-- [Phase 3] git blame: `vcn_v4_0_3_late_init()` introduced by commit
-  655d6403ad143 in v6.18-rc1. Sriov check added by c156c7f27ecdb in
-  v6.18.
-- [Phase 3] git tag --contains: late_init commit first in v6.18, queue
-  reset impl in v6.16, this PSP check in v7.0.
-- [Phase 3] git log author: Jesse Zhang is a regular AMD GPU driver
-  contributor.
-- [Phase 4] mail-archive.com: Found V1 and V2 submissions. V1 had IP
-  version switch, V2 simplified per Lijo's review ("The program check
-  itself should be good enough").
-- [Phase 4] Lijo Lazar gave Reviewed-by on V2, noted internal ticket
-  reference should be removed.
-- [Phase 5] `vcn_v4_0_3_late_init()` is called once during
-  initialization; affects `AMDGPU_RESET_TYPE_PER_QUEUE` flag which gates
-  reset behavior in `amdgpu_job_timedout()`.
-- [Phase 5] vcn_v5_0_1 already has same firmware version gating pattern
-  at line 125.
-- [Phase 6] Buggy code present in 6.18.y+ stable trees. Patch expected
-  to apply cleanly.
-- [Phase 8] Failure mode: failed per-queue reset → full GPU reset.
-  Severity: HIGH for data center.
-- UNVERIFIED: Could not access lore.kernel.org directly (bot
-  protection). Used mail-archive.com as alternate source for discussion.
-- UNVERIFIED: Exact population of affected users with old firmware is
-  unknown, but AMD filed internal tracking ticket FWDEV-159155.
+- [Phase 1] Parsed tags: Signed-off-by Christian König (author),
+  Reviewed-by Alex Deucher, Reviewed-by Sunil Khatri, Signed-off-by Alex
+  Deucher (committer)
+- [Phase 2] Diff analysis: Removes `cancel_delayed_work_sync()` call in
+  `amdgpu_userq_evict()` (which is called under `userq_mutex`), replaces
+  6-line if/cancel/return/else/schedule block with 2-line if-not-
+  closing/schedule
+- [Phase 3] git blame: `cancel_delayed_work_sync` at line 1391 was
+  introduced by commit `f10eb185ad0552` (2025-05-07), fd_closing branch
+  by `44cfdf368fb72c` (2024-11-20)
+- [Phase 3] git log: Found related deadlock fix `648a0dc0d78c3` in same
+  file, confirming pattern of locking issues
+- [Phase 3] Author check: Christian König is a senior AMD DRM maintainer
+  with extensive commit history
+- [Phase 4] b4 dig: Could not find the specific fix commit (likely too
+  recent); found original buggy series at lore
+- [Phase 4] UNVERIFIED: Could not access lore.kernel.org due to anti-
+  scraping protection
+- [Phase 5] Caller analysis: `amdgpu_userq_evict()` called from
+  `amdgpu_eviction_fence_suspend_worker()` which holds `userq_mutex`
+  (verified in amdgpu_eviction_fence.c lines 110-119)
+- [Phase 5] Deadlock chain verified: suspend_worker(holds userq_mutex)
+  -> cancel_delayed_work_sync(resume_work) -> resume_worker calls
+  flush_delayed_work(suspend_work) at line 1277 AND
+  mutex_lock(userq_mutex) at line 1279 = DEADLOCK
+- [Phase 6] File existence check: `amdgpu_userq.c` does NOT exist in
+  v6.12, v6.13, v6.14, v6.15; EXISTS in v6.16, v6.17, v6.18, v6.19, v7.0
+- [Phase 6] Verified buggy `cancel_delayed_work_sync` in
+  `amdgpu_userq_evict` exists in v6.16 through v7.0 (all versions
+  checked)
+- [Phase 6] Verified v7.0 code is identical to current HEAD - clean
+  apply expected
+- [Phase 8] Failure mode: Deadlock -> system hang during GPU fd close,
+  severity CRITICAL
 
 **YES**
 
- drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c | 19 ++++++++++++++++++-
- 1 file changed, 18 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 9 ++-------
+ 1 file changed, 2 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
-index e78526a4e521e..ff3013b97abd1 100644
---- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
-@@ -134,6 +134,21 @@ static int vcn_v4_0_3_early_init(struct amdgpu_ip_block *ip_block)
- 	return 0;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+index 09f1d05328897..e8d12556d690a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+@@ -1389,13 +1389,8 @@ amdgpu_userq_evict(struct amdgpu_userq_mgr *uq_mgr,
+ 	/* Signal current eviction fence */
+ 	amdgpu_eviction_fence_signal(evf_mgr, ev_fence);
+ 
+-	if (evf_mgr->fd_closing) {
+-		cancel_delayed_work_sync(&uq_mgr->resume_work);
+-		return;
+-	}
+-
+-	/* Schedule a resume work */
+-	schedule_delayed_work(&uq_mgr->resume_work, 0);
++	if (!evf_mgr->fd_closing)
++		schedule_delayed_work(&uq_mgr->resume_work, 0);
  }
  
-+static bool vcn_v4_0_3_is_psp_fw_reset_supported(struct amdgpu_device *adev)
-+{
-+	uint32_t fw_ver = adev->psp.sos.fw_version;
-+	uint32_t pgm = (fw_ver >> 8) & 0xFF;
-+
-+	/*
-+	 * FWDEV-159155: PSP SOS FW must be >= 0x0036015f for program 0x01
-+	 * before enabling VCN per-queue reset.
-+	 */
-+	if (pgm == 1)
-+		return fw_ver >= 0x0036015f;
-+
-+	return true;
-+}
-+
- static int vcn_v4_0_3_late_init(struct amdgpu_ip_block *ip_block)
- {
- 	struct amdgpu_device *adev = ip_block->adev;
-@@ -141,7 +156,9 @@ static int vcn_v4_0_3_late_init(struct amdgpu_ip_block *ip_block)
- 	adev->vcn.supported_reset =
- 		amdgpu_get_soft_full_reset_mask(&adev->vcn.inst[0].ring_enc[0]);
- 
--	if (amdgpu_dpm_reset_vcn_is_supported(adev) && !amdgpu_sriov_vf(adev))
-+	if (amdgpu_dpm_reset_vcn_is_supported(adev) &&
-+	    vcn_v4_0_3_is_psp_fw_reset_supported(adev) &&
-+	    !amdgpu_sriov_vf(adev))
- 		adev->vcn.supported_reset |= AMDGPU_RESET_TYPE_PER_QUEUE;
- 
- 	return 0;
+ int amdgpu_userq_mgr_init(struct amdgpu_userq_mgr *userq_mgr, struct drm_file *file_priv,
 -- 
 2.53.0
 
