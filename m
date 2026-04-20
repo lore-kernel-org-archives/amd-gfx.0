@@ -4,52 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4164AF588C2
-	for <amd-gfx@archiver.kernel.org>; Mon, 20 Apr 2026 13:17:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 85562F588C5
+	for <amd-gfx@archiver.kernel.org>; Mon, 20 Apr 2026 13:17:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D22E710E5E7;
-	Mon, 20 Apr 2026 13:17:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2AFDC10E5F1;
+	Mon, 20 Apr 2026 13:17:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="llYjXabH";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="QTEE//Ss";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8255E10E5E7;
- Mon, 20 Apr 2026 13:17:09 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5611D10E5F1;
+ Mon, 20 Apr 2026 13:17:17 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 53789404C3;
- Mon, 20 Apr 2026 13:17:09 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F3893C2BCB7;
- Mon, 20 Apr 2026 13:17:07 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id C0C8B60141;
+ Mon, 20 Apr 2026 13:17:16 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DBFE6C2BCB9;
+ Mon, 20 Apr 2026 13:17:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1776691029;
- bh=DZpahuMZuqCNd1jPzatGrPOZ6xoX1xfgs8kTTvQ4FCY=;
+ s=k20201202; t=1776691036;
+ bh=v+YKt47OzZz2vi95JOA5Cavf8tQENiTTUFpgqDmIr2c=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=llYjXabHDskLhCbjyt9SsLoJD/RT91NY5yvJwD7Yo1Z5qRudNzlyZ5whtb2v2hmif
- q/662MZE6KP7Sfm/Hc9lLV6yGJPjpMbMJiDIfTkBK/gPq5ZASMM+SPIH6kxqVrXL3W
- rqOhUxxBRNpuY2RnAKGrcbVgNZB0mGM0tya+vdvgOV1hpNjidhCk6S0dWprwXj2u6X
- H7K6cTxObAP5emlbNN7X1051e+9HCdby1WwvoWZj/6K76dJuZL0m3zD/3a6lgJNhbY
- Y9SaPXyxdOirSIf4D0uECRa78XaJ4Gz+6dmQEbhYcTA1+9oPk9Os336gFWboaCWDIb
- cejOkaVGCqgrA==
+ b=QTEE//SsQ2XbVShuOKIKQEMkFJoCxFOOePx786YOMLDofpg+q1u52B4/MJJ3Hqk8p
+ keGPzl2PmBJnbzWBclWtehKxN57zYoZCwKfYspr3oJ23KmrWuQ375N0Gcl2410Ahhb
+ tKwEE/AwH2ljVg+vWMTKT7OTuR8EgEqnMsYVWDLmnAFafK2ppCCouK8CiVH6UqwFEB
+ XAq8vHPDC8c+zQgjnChQq2T8hbnwoVY5pNywtt0VU2oxNWC6gSqVbdI4V/oj3xkNBY
+ PGtidE9TKKEFMG9iRxKfO2DTU8QHWOyn3wDlEdiDyeU2r9FQ2a7TN4gTGy2YP7lpbe
+ lPkpHh5NrzmLQ==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Sunil Khatri <sunil.khatri@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+Cc: Charlene Liu <Charlene.Liu@amd.com>, Leo Chen <leo.chen@amd.com>,
+ Dmytro Laktyushkin <dmytro.laktyushkin@amd.com>,
+ Ivan Lipski <ivan.lipski@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
+ harry.wentland@amd.com, sunpeng.li@amd.com, christian.koenig@amd.com,
  airlied@gmail.com, simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 7.0] drm/amdgpu/userq: remove queue from doorbell
- xarray
-Date: Mon, 20 Apr 2026 09:08:38 -0400
-Message-ID: <20260420131539.986432-52-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 7.0-6.12] drm/amd/display: Fix
+ dcn401_optimize_bandwidth
+Date: Mon, 20 Apr 2026 09:08:42 -0400
+Message-ID: <20260420131539.986432-56-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260420131539.986432-1-sashal@kernel.org>
 References: <20260420131539.986432-1-sashal@kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 X-stable: review
 X-Patchwork-Hint: Ignore
 X-stable-base: Linux 7.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -65,271 +67,338 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Sunil Khatri <sunil.khatri@amd.com>
+From: Charlene Liu <Charlene.Liu@amd.com>
 
-[ Upstream commit f0e46fd06c3f7590b0f06aea3c877f441c2cbccc ]
+[ Upstream commit 002f32db0d4292f117994c330928d2374887b28e ]
 
-In case of failure in xa_alloc, remove the queue during
-clean up from the userq_doorbell_xa.
+[Why&How]
+We should check for != zstate disallow and programming extend blank from a
+different struct.
 
-Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
-Reviewed-by: Christian König <christian.koenig@amd.com>
+Reviewed-by: Leo Chen <leo.chen@amd.com>
+Reviewed-by: Dmytro Laktyushkin <dmytro.laktyushkin@amd.com>
+Signed-off-by: Charlene Liu <Charlene.Liu@amd.com>
+Signed-off-by: Ivan Lipski <ivan.lipski@amd.com>
+Tested-by: Dan Wheeler <daniel.wheeler@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-Here is my complete analysis:
+Now I have a complete picture. Let me compile the full analysis.
 
 ---
 
 ## PHASE 1: COMMIT MESSAGE FORENSICS
 
 **Step 1.1: Subject Line**
-- Subsystem: `drm/amdgpu/userq`
-- Action verb: "remove" (corrective: removing a stale entry from data
-  structure on error path)
-- Summary: Remove queue from doorbell xarray during cleanup when
-  xa_alloc fails
+- Subsystem: `drm/amd/display` (AMD GPU display controller)
+- Action verb: "Fix"
+- Summary: Fix dcn401_optimize_bandwidth function
+
+Record: [drm/amd/display] [Fix] [Corrects zstate condition and struct
+access in dcn401_optimize_bandwidth]
 
 **Step 1.2: Tags**
-- `Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>` - author, regular
-  AMD GPU contributor
-- `Reviewed-by: Christian König <christian.koenig@amd.com>` - AMD GPU
-  subsystem co-maintainer
-- `Signed-off-by: Alex Deucher <alexander.deucher@amd.com>` - AMD GPU
-  subsystem maintainer
-- No Fixes: tag (expected for manual review candidates)
-- No Cc: stable tag
+- Reviewed-by: Leo Chen, Dmytro Laktyushkin (AMD display engineers)
+- Tested-by: Dan Wheeler (AMD test engineer)
+- Signed-off-by: Charlene Liu (author), Ivan Lipski (submitter), Alex
+  Deucher (AMD GPU maintainer)
+- No Fixes: tag, no Cc: stable (expected for autosel candidates)
 
-**Step 1.3: Commit Body Analysis**
-The message says: "In case of failure in xa_alloc, remove the queue
-during clean up from the userq_doorbell_xa." This clearly describes a
-missing cleanup in an error path: the queue gets stored in
-`userq_doorbell_xa` but is not removed if the subsequent `xa_alloc`
-fails.
+Record: Two reviewers, one tester, submitted through AMD's standard
+display patch process. Author is an AMD display team member.
+
+**Step 1.3: Commit Body**
+The message says "We should check for != zstate disallow and programming
+extend blank from a different struct." This describes two bugs:
+1. The zstate check condition was too restrictive
+2. The extended blank register value was being read from the wrong
+   struct
+
+Record: Two bugs described. Both relate to incorrect programming of
+extended blank during bandwidth optimization for DCN4.01 display
+hardware.
 
 **Step 1.4: Hidden Bug Fix Detection**
-This is not hidden - it's straightforwardly described as an error path
-cleanup fix. However, the severity is greater than the commit message
-suggests. It's actually a **use-after-free**: the queue is freed
-(`kfree(queue)`) but its pointer remains in the doorbell xarray.
+Not hidden — explicitly labeled as "Fix" with clear description.
 
 ## PHASE 2: DIFF ANALYSIS
 
 **Step 2.1: Inventory**
-- Single file: `drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c`
-- 1 line added: `xa_erase_irq(&adev->userq_doorbell_xa, index);`
-- Function modified: `amdgpu_userq_create()`
-- Scope: Single-file surgical fix, error path only
+- 1 file changed:
+  `drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c`
+- 2 lines changed (1 condition, 1 struct access)
+- Function modified: `dcn401_optimize_bandwidth`
+- Scope: Single-file, single-function surgical fix
 
 **Step 2.2: Code Flow Change**
-In `amdgpu_userq_create()`:
 
-1. Line 863: `xa_store_irq(&adev->userq_doorbell_xa, index, queue,
-   GFP_KERNEL)` - stores queue in global doorbell xarray
-2. Line 870: `xa_alloc(&uq_mgr->userq_xa, &qid, queue, ...)` - attempts
-   to allocate a queue ID
-3. If xa_alloc fails (line 872): error path calls
-   `amdgpu_userq_fence_driver_free()`, `mqd_destroy()`, `kfree(queue)` -
-   but did NOT remove the entry from `userq_doorbell_xa`
-4. Fix adds `xa_erase_irq(&adev->userq_doorbell_xa, index)` before the
-   kfree
+Change 1 (line 1476→1486):
+- Before: `if (zstate_support == DCN_ZSTATE_SUPPORT_ALLOW)` — only
+  enters the extended blank programming block when zstate is exactly
+  `ALLOW`
+- After: `if (zstate_support != DCN_ZSTATE_SUPPORT_DISALLOW)` — enters
+  for ALL allow modes
+
+The enum `dcn_zstate_support_state` has values: UNKNOWN, ALLOW,
+ALLOW_Z8_ONLY, ALLOW_Z8_Z10_ONLY, ALLOW_Z10_ONLY, DISALLOW. The old code
+missed Z8_ONLY, Z8_Z10_ONLY, and Z10_ONLY modes.
+
+Change 2 (line 1484):
+- Before: `pipe_ctx->dlg_regs.min_dst_y_next_start` — reads from old
+  DML1 struct `_vcs_dpi_display_dlg_regs_st`
+- After: `pipe_ctx->hubp_regs.dlg_regs.min_dst_y_next_start` — reads
+  from DML2.1 struct `dml2_dchub_per_pipe_register_set`
 
 **Step 2.3: Bug Mechanism**
-This is a **use-after-free** caused by a missing cleanup on error path.
-After `kfree(queue)`, the freed pointer remains in `userq_doorbell_xa`.
-Six functions in the same file iterate `userq_doorbell_xa` with
-`xa_for_each()` and dereference the queue pointer:
-- `amdgpu_userq_suspend()` (line 1445)
-- `amdgpu_userq_resume()` (line 1471)
-- `amdgpu_userq_stop_sched_for_enforce_isolation()` (line 1501)
-- `amdgpu_userq_start_sched_for_enforce_isolation()` (line 1535)
-- `amdgpu_userq_pre_reset()` (line 1589)
-- `amdgpu_userq_post_reset()` (line 1617)
 
-All would crash or corrupt memory by accessing `queue->userq_mgr`,
-`queue->state`, etc.
+Bug 1 (Logic/correctness): Wrong condition excludes valid z-state power
+modes from extended blank programming. This is a logic bug where the
+original code was copied from DCN20 which only had ALLOW/DISALLOW, but
+DCN401 has additional modes (Z8, Z10, etc.).
+
+Bug 2 (Wrong struct access): DCN401 uses DML2.1 which populates
+`pipe_ctx->hubp_regs`. The old `pipe_ctx->dlg_regs` is populated by
+DML2.0's `dml21_update_pipe_ctx_dchub_regs`, which was removed in commit
+63ab80d9ac0a. Reading from the wrong struct yields zero/stale data.
 
 **Step 2.4: Fix Quality**
-The fix is obviously correct: it mirrors the cleanup in the normal
-destroy path (`amdgpu_userq_cleanup()` at line 463 already calls
-`xa_erase_irq(&adev->userq_doorbell_xa, queue->doorbell_index)`). The
-fix uses `xa_erase_irq()` matching the `xa_store_irq()` used during
-insertion. No regression risk.
+- Obviously correct: aligns with how all other DCN clk_mgr code checks
+  zstate (`!= DISALLOW`), and aligns with how all other DCN401 code
+  accesses hubp_regs
+- Minimal/surgical: exactly 2 lines
+- No regression risk: both changes narrow in on the correct behavior
 
-## PHASE 3: GIT HISTORY
+## PHASE 3: GIT HISTORY INVESTIGATION
 
 **Step 3.1: Blame**
-The buggy error path (xa_alloc failure without doorbell cleanup) was
-introduced by commit `f18719ef4bb7b` (Jesse.Zhang, October 2025) which
-converted IDR to XArray. When the XArray conversion added
-`xa_store_irq(&adev->userq_doorbell_xa, ...)` before `xa_alloc`, the
-error cleanup for `xa_alloc` failure was not updated to remove the
-doorbell entry.
+The buggy code was introduced by commit `70839da636050` (Aurabindo
+Pillai, 2024-04-19) "drm/amd/display: Add new DCN401 sources". This
+commit first appeared in v6.11.
 
-**Step 3.2: Fixes Target**
-No Fixes: tag present. The bug was introduced by f18719ef4bb7b.
+The dlg_regs bug was latent until commit `63ab80d9ac0a` (Rafal
+Ostrowski, 2024-12-17) "drm/amd/display: DML2.1 Post-Si Cleanup" which
+removed `dml21_update_pipe_ctx_dchub_regs` that was populating
+`pipe_ctx->dlg_regs`. This commit is in v6.14+ only.
 
-**Step 3.3: Related Changes**
-The companion commit `65b5c326ce410` ("refcount userqueues to avoid race
-conditions") was cherry-picked with `Cc: stable@vger.kernel.org`,
-showing this area is actively being stabilized for stable trees.
+Record: zstate bug exists since v6.11. dlg_regs bug became active in
+v6.14 when the function populating the old struct was removed.
+
+**Step 3.2: No Fixes: tag** (expected)
+
+**Step 3.3: File History**
+Recent file changes are mostly unrelated (NULL ptr deref fix, DPP
+guards, cursor offload). No prerequisites for this fix.
 
 **Step 3.4: Author**
-Sunil Khatri is a regular AMD GPU contributor with 11 commits to this
-file alone. He also authored the refcount fix.
+Charlene Liu is a regular AMD display team contributor with many commits
+in the subsystem. Ivan Lipski is the submitter who regularly contributes
+AMD display fixes.
 
 **Step 3.5: Dependencies**
-This fix is standalone - it requires only that the doorbell xarray code
-(from f18719ef4bb7b) exists, which it does in 7.0.
+No dependencies. The fix is standalone — both `hubp_regs` and the zstate
+enum values exist since v6.11.
 
-## PHASE 4: MAILING LIST RESEARCH
+## PHASE 4: MAILING LIST
 
-The exact commit "remove queue from doorbell xarray" was not found
-independently on lore.kernel.org. However, the v2 series of the refcount
-patchset (20260302180852) was a 2-patch series that included related
-doorbell cleanup work. The patch was reviewed by Christian König (AMD
-GPU co-maintainer) and committed through Alex Deucher (AMD GPU
-maintainer).
+**Step 4.1: Original Submission**
+Found at: `https://yhbt.net/lore/amd-
+gfx/20260218165116.155001-6-IVAN.LIPSKI@amd.com/`
+Part of a 9-patch series "DC Patches February 18, 2026". This is patch
+5/9. The series includes other display fixes (cursor, DPIA, compiler
+warnings).
+
+**Step 4.2: Reviewers**
+Appropriate AMD display maintainers and engineers were CC'd: Harry
+Wentland, Leo Li, Aurabindo Pillai, Wayne Lin, Tom Chung, and the
+specific reviewers Leo Chen and Dmytro Laktyushkin.
+
+**Step 4.3: Bug Report**
+No specific bug report link found. This appears to be found during
+internal code review/testing at AMD.
+
+**Step 4.4: Series Independence**
+Other patches in the series (cursor pos fix, DPIA fix, type mismatch)
+are independent. This fix is standalone.
+
+**Step 4.5: No stable-specific discussion found.**
 
 ## PHASE 5: CODE SEMANTIC ANALYSIS
 
 **Step 5.1: Modified Function**
-`amdgpu_userq_create()` - creates usermode queues for AMD GPU userspace
-queue submission.
+`dcn401_optimize_bandwidth` — called during display bandwidth
+optimization after clock updates.
 
 **Step 5.2: Callers**
-`amdgpu_userq_create()` is called from `amdgpu_userq_ioctl()` via
-`AMDGPU_USERQ_OP_CREATE`, which is a DRM IOCTL callable from userspace.
-This is a user-triggerable code path.
+`dcn401_optimize_bandwidth` is a hardware sequencer function registered
+in the DCN401 init table. It is called during DC bandwidth optimization,
+which occurs on display mode changes, resolution changes, and power
+state transitions.
 
-**Step 5.3-5.4: Impact Surface**
-The stale entry in `userq_doorbell_xa` will be accessed by any
-subsequent suspend, resume, reset, or isolation enforcement operation on
-the GPU device. These are triggered by:
-- System suspend/resume (S3, S0ix) - common laptop operation
-- GPU reset (triggered by hang detection)
-- Enforce isolation mode changes
+**Step 5.3: Callees**
+The affected code calls
+`pipe_ctx->plane_res.hubp->funcs->program_extended_blank()` which
+programs display hardware registers for extended blanking during z-state
+power saving.
+
+**Step 5.4: Call Chain**
+Reachable via standard display mode setting paths (user-triggered via
+xrandr, display manager, etc.) and power management transitions. This is
+not an obscure path.
+
+**Step 5.5: Similar Patterns**
+DCN20 (`dcn20_hwseq.c:2458`) has the same `== DCN_ZSTATE_SUPPORT_ALLOW`
+pattern, which is potentially also a bug but uses the old DML path where
+`pipe_ctx->dlg_regs` IS populated.
 
 ## PHASE 6: STABLE TREE ANALYSIS
 
-**Step 6.1: Code in Stable Trees**
-The file `amdgpu_userq.c` was first added in the v6.16/6.17 timeframe.
-The `userq_doorbell_xa` was introduced by f18719ef4bb7b in the kernel
-7.0 development cycle. This code exists in the 7.0 stable tree.
+**Step 6.1: Code Existence**
+- DCN401 code exists since v6.11
+- `hubp_regs` field exists since v6.11 (commit 00c391102abc)
+- The dlg_regs regression was introduced in v6.14 (commit 63ab80d9ac0a)
+- Both bugs are present in v7.0
 
-**Step 6.2: Backport Complexity**
-This is a clean 1-line addition with no context conflicts expected.
+**Step 6.2: Backport Difficulty**
+The patch should apply cleanly to v7.0.y — the modified lines are
+unchanged from when they were introduced. For v6.14.y+, both fixes
+apply. For v6.12.y and earlier, only the zstate fix applies (dlg_regs is
+still populated there).
 
-## PHASE 7: SUBSYSTEM CONTEXT
+**Step 6.3: No related fixes in stable.**
 
-- Subsystem: `drivers/gpu/drm/amd/amdgpu` - AMD GPU driver
-- Criticality: IMPORTANT - widely used GPU driver on desktop/laptop
-  systems
-- Actively developed subsystem with heavy recent churn
+## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
+
+**Step 7.1:** drm/amd/display — IMPORTANT subsystem. DCN401 is AMD's
+display controller for newer GPUs. Display bugs directly affect user
+experience.
+
+**Step 7.2:** Actively developed subsystem with frequent commits.
 
 ## PHASE 8: IMPACT AND RISK ASSESSMENT
 
-**Step 8.1: Who is Affected**
-Users with AMD GPUs using the usermode queue feature (GFX/Compute/DMA
-queues).
+**Step 8.1:** Affects users of AMD GPUs with DCN4.01 display controller
+hardware.
 
-**Step 8.2: Trigger Conditions**
-The bug requires:
-1. A userqueue creation attempt where `xa_store_irq` succeeds but
-   `xa_alloc` fails (e.g., hitting `AMDGPU_MAX_USERQ_COUNT` limit or
-   memory pressure)
-2. Followed by any suspend, resume, reset, or isolation operation
+**Step 8.2:** Triggers during power management transitions (z-state
+changes) — common on laptops and energy-efficient desktops. The zstate
+bug triggers whenever Z8/Z10 power modes are selected instead of full
+Z-state.
 
-The `xa_alloc` failure can be triggered by resource exhaustion or
-concurrent queue creation under memory pressure.
+**Step 8.3:** Failure mode is incorrect display hardware programming:
+- Without extended blank programming during z-states: display artifacts,
+  flickering, or incorrect power management behavior
+- With wrong/zero value for min_dst_y_next_start: incorrect blank
+  timing, potential display corruption
+- Severity: HIGH (visible display issues for affected hardware)
 
-**Step 8.3: Failure Mode Severity**
-- **CRITICAL**: Use-after-free on freed queue pointer leads to kernel
-  crash (oops/panic), potential memory corruption, or security
-  vulnerability. The freed pointer is dereferenced to access
-  `queue->userq_mgr`, `queue->state`, etc.
-
-**Step 8.4: Risk-Benefit Ratio**
-- BENEFIT: Very high - prevents UAF crash on a common GPU driver
-- RISK: Very low - single line addition, mirrors existing cleanup
-  pattern, obviously correct
-- Ratio: Strongly favorable
+**Step 8.4:**
+- Benefit: HIGH — fixes real display hardware programming bugs for
+  DCN401 users
+- Risk: VERY LOW — 2-line change, obviously correct, reviewed and tested
+- Ratio: Strongly favors backporting
 
 ## PHASE 9: FINAL SYNTHESIS
 
-**Evidence FOR backporting:**
-- Fixes a real use-after-free bug (stale pointer in xarray after kfree)
-- Single-line fix, surgically targeted to one error path
-- Reviewed by Christian König (AMD GPU co-maintainer)
-- Obviously correct (mirrors cleanup in normal destroy path)
-- Related refcount commit already tagged Cc: stable
-- User-triggerable code path (IOCTL)
-- Failure mode is kernel crash or memory corruption
+**Step 9.1: Evidence**
 
-**Evidence AGAINST backporting:**
-- Relatively new code (userq feature added in v6.16-7.0 timeframe)
-- Trigger requires specific failure condition (xa_alloc failure)
+FOR backporting:
+- Fixes two real bugs: incorrect zstate condition and wrong struct
+  access
+- Small, surgical fix (2 lines)
+- Reviewed by two AMD display engineers, tested
+- Affects real hardware (DCN401 GPUs)
+- Display bugs directly affect user experience
+- Consistent with how other DCN code handles zstate and hubp_regs
 
-**Stable Rules Checklist:**
-1. Obviously correct and tested? YES - mirrors existing cleanup,
-   reviewed by maintainer
-2. Fixes a real bug? YES - use-after-free
-3. Important issue? YES - potential crash, memory corruption, security
-4. Small and contained? YES - 1 line added
-5. No new features? YES - pure bug fix
-6. Can apply to stable? YES - clean 1-line addition
+AGAINST backporting:
+- DCN401 is relatively new hardware (v6.11+)
+- No user bug reports (found during code review)
+- The dlg_regs bug only manifests in v6.14+ (after DML2.1 cleanup)
+
+**Step 9.2: Stable Rules**
+1. Obviously correct? YES — aligns with all other zstate checks and
+   hubp_regs usage
+2. Fixes real bug? YES — wrong hardware programming values
+3. Important issue? YES — display correctness on affected hardware
+4. Small and contained? YES — 2 lines, 1 function, 1 file
+5. No new features? CORRECT — pure bug fix
+6. Applies to stable? YES — cleanly for v7.0.y
+
+**Step 9.3:** No exception category — standard bug fix.
+
+**Step 9.4:** The evidence clearly supports backporting.
 
 ## Verification
 
-- [Phase 1] Parsed tags: Reviewed-by Christian König, Signed-off-by Alex
-  Deucher and Sunil Khatri
-- [Phase 2] Diff analysis: 1 line added in xa_alloc error path of
-  amdgpu_userq_create(), adds missing xa_erase_irq() for doorbell xarray
-- [Phase 3] git blame: buggy code introduced in f18719ef4bb7b (Oct
-  2025), XArray conversion commit
-- [Phase 3] git show f18719ef4bb7b: confirmed it added xa_store_irq to
-  doorbell_xa without corresponding xa_erase_irq in xa_alloc failure
-  path
-- [Phase 3] Related commit 65b5c326ce410 already has Cc: stable
-  (confirmed via git show)
-- [Phase 4] b4 dig -c 65b5c326ce410: found patch at
-  https://patch.msgid.link/20260303120849.2583663-1-sunil.khatri@amd.com
-- [Phase 4] Mailing list archive: found v2 series and review discussion,
-  Christian König reviewed
-- [Phase 5] Grep for userq_doorbell_xa: found 6 xa_for_each iteration
-  sites that would dereference the freed pointer
-- [Phase 5] amdgpu_userq_create called from amdgpu_userq_ioctl (user-
-  triggerable via DRM IOCTL)
-- [Phase 6] amdgpu_userq.c first added around v6.16, doorbell_xa added
-  in v7.0 cycle
-- [Phase 8] Failure mode: UAF -> kernel crash/memory corruption,
-  severity CRITICAL
+- [Phase 1] Parsed tags: Reviewed-by Leo Chen and Dmytro Laktyushkin,
+  Tested-by Dan Wheeler, author Charlene Liu
+- [Phase 2] Diff analysis: 2 lines changed in
+  dcn401_optimize_bandwidth(): broadened zstate condition and fixed
+  struct access
+- [Phase 2] Verified enum values at `dc.h:665-671`: 6 states including
+  ALLOW, Z8_ONLY, Z8_Z10_ONLY, Z10_ONLY, DISALLOW
+- [Phase 2] Verified `pipe_ctx->hubp_regs` is `struct
+  dml2_dchub_per_pipe_register_set` containing `dlg_regs` with
+  `min_dst_y_next_start` field
+- [Phase 2] Verified `pipe_ctx->dlg_regs` is the OLD
+  `_vcs_dpi_display_dlg_regs_st` struct (different type)
+- [Phase 3] git blame: buggy code introduced in commit 70839da636050
+  (v6.11, "Add new DCN401 sources")
+- [Phase 3] Confirmed `hubp_regs` added in commit 00c391102abc (also
+  v6.11)
+- [Phase 3] Confirmed dlg_regs regression introduced by 63ab80d9ac0a
+  (v6.14, "DML2.1 Post-Si Cleanup") which removed
+  `dml21_update_pipe_ctx_dchub_regs`
+- [Phase 3] Verified `dml21_utils.c:225` populates `pipe_ctx->hubp_regs`
+  via memcpy for DCN401 (DML2.1 path)
+- [Phase 3] Verified DCN401 uses DML2.1 (`dcn401_resource.c` has
+  `.using_dml21 = true`)
+- [Phase 3] Verified other DCN401 code uses
+  `pipe_ctx->hubp_regs.dlg_regs` (dcn401_hwseq.c:2889-2892)
+- [Phase 4] Found original submission at lore (patch 5/9 in DC Patches
+  Feb 18 2026 series)
+- [Phase 4] Appropriate AMD display maintainers were CC'd
+- [Phase 5] Confirmed `program_extended_blank` is registered in hubp
+  function tables for DCN31/DCN35
+- [Phase 6] Verified 63ab80d9ac0a is NOT in v6.12/v6.13 but IS in v6.14+
+- [Phase 6] Both bugs present in v7.0
+- [Phase 8] Display correctness issue for DCN401 GPU users during power
+  state transitions
 
-This is a small, surgical, obviously correct fix for a real use-after-
-free bug in the AMD GPU driver's error handling path. It was reviewed by
-the subsystem co-maintainer and carries essentially zero regression
-risk.
+The fix is small, surgical, obviously correct, reviewed, tested, and
+fixes real display hardware programming bugs for DCN401 users. It meets
+all stable kernel criteria.
 
 **YES**
 
- drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-index 0a1b93259887a..819c4c26416c3 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-@@ -872,6 +872,7 @@ amdgpu_userq_create(struct drm_file *filp, union drm_amdgpu_userq *args)
- 	if (r) {
- 		drm_file_err(uq_mgr->file, "Failed to allocate a queue id\n");
- 		amdgpu_userq_fence_driver_free(queue);
-+		xa_erase_irq(&adev->userq_doorbell_xa, index);
- 		uq_funcs->mqd_destroy(queue);
- 		kfree(queue);
- 		r = -ENOMEM;
+diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c
+index 4973d36aadc5d..a3d33d10853b8 100644
+--- a/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c
+@@ -1492,7 +1492,7 @@ void dcn401_optimize_bandwidth(
+ 			dc->clk_mgr,
+ 			context,
+ 			true);
+-	if (context->bw_ctx.bw.dcn.clk.zstate_support == DCN_ZSTATE_SUPPORT_ALLOW) {
++	if (context->bw_ctx.bw.dcn.clk.zstate_support != DCN_ZSTATE_SUPPORT_DISALLOW) {
+ 		for (i = 0; i < dc->res_pool->pipe_count; ++i) {
+ 			struct pipe_ctx *pipe_ctx = &context->res_ctx.pipe_ctx[i];
+ 
+@@ -1500,7 +1500,7 @@ void dcn401_optimize_bandwidth(
+ 				&& pipe_ctx->stream->adjust.v_total_min == pipe_ctx->stream->adjust.v_total_max
+ 				&& pipe_ctx->stream->adjust.v_total_max > pipe_ctx->stream->timing.v_total)
+ 					pipe_ctx->plane_res.hubp->funcs->program_extended_blank(pipe_ctx->plane_res.hubp,
+-						pipe_ctx->dlg_regs.min_dst_y_next_start);
++						pipe_ctx->hubp_regs.dlg_regs.min_dst_y_next_start);
+ 		}
+ 	}
+ }
 -- 
 2.53.0
 
