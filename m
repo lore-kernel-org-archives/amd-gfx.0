@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2CBEFF588C5
-	for <amd-gfx@archiver.kernel.org>; Mon, 20 Apr 2026 13:23:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A4924F588C3
+	for <amd-gfx@archiver.kernel.org>; Mon, 20 Apr 2026 13:23:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5F89310E5F9;
-	Mon, 20 Apr 2026 13:23:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 48CA310E606;
+	Mon, 20 Apr 2026 13:23:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Bd9SDOXH";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="HIQmwqvE";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8553010E5F8;
- Mon, 20 Apr 2026 13:23:20 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9DE5310E604;
+ Mon, 20 Apr 2026 13:23:55 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 238D3438F0;
- Mon, 20 Apr 2026 13:23:20 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D00E7C2BCB4;
- Mon, 20 Apr 2026 13:23:18 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 813F34409A;
+ Mon, 20 Apr 2026 13:23:55 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C6F9C2BCB4;
+ Mon, 20 Apr 2026 13:23:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1776691400;
- bh=ilHKaWdBK9xAIgteGoH8Gkqxmn+NqMVwZI2GHoTdqIE=;
+ s=k20201202; t=1776691435;
+ bh=A+lz1RTkj2e9lOQtV5fCe9QkLphGB6D5KjK3efFNNvo=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=Bd9SDOXHWs2S0ECF3LnSmz1dpo5hqs0mAWu+oJbfVkIy6qAXPEqgVRFdPjs2xsPKS
- 0vFHCaPr5UY38wyEi/nd2zcIUV0NNCf4FkRxbaTJxrJ/BgqnYVgpSwbJYRPj86jO0f
- 4WQTVbzITeeXEg5ZIQUih20r6w/9Ozs9DRWJybNdZ6nUGlYxSVBcRXX3iAppQ0TfNS
- tjzrUhAYbBL6cVbhsQa5+UX4gKElMUfhLtFjzBLVC2HRtryZFgNk3y2Oos8WelU8cF
- ruMryhFDZplHMUmpXpdm1VQmOTBgc1riB6Ic5QIe65rJej2ZH7/Zch1n//1ft8rQOO
- j1K0yk+Zi9Tzw==
+ b=HIQmwqvEtlCadL/Et0zBZe15EzcZ7z9V72sBJ2USWVjVPwJ+4eLhQXT1jK2n5jMPS
+ 2F1hh7oiCO6mPdRcreE0oXcrZaXtn+frOCNOc0tH7PmaboCR8ZcRJ+jojtuMQ4QdI+
+ O6xvhmBQ8qomoWVNKlRsXgrdUK6cGBM0mliy8tz9EmKtal+Qd3+KXm/sbAzop/o2K8
+ R4X0edLPgwsbenVNRqsi7vOjTPyHumO3fzSVvjCY43ZqzqOq+Yfyu9D5Oaiyb6m7r2
+ rQi5zGiUcfKyQbRNYGrYrDom10F3M0gRucHqYyFaVX7GJKRwS3lXscNii9quRO3J4t
+ BOLyd3n6A0FrQ==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Likun Gao <Likun.Gao@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>,
+Cc: Erik Kurzinger <ekurzinger@gmail.com>,
  Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
- christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 7.0-6.12] drm/amdgpu: fix DF NULL pointer issue for
- soc24
-Date: Mon, 20 Apr 2026 09:16:37 -0400
-Message-ID: <20260420132314.1023554-3-sashal@kernel.org>
+ harry.wentland@amd.com, sunpeng.li@amd.com, christian.koenig@amd.com,
+ airlied@gmail.com, simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [PATCH AUTOSEL 7.0-6.12] drm/amd/display: remove duplicate format
+ modifier
+Date: Mon, 20 Apr 2026 09:16:59 -0400
+Message-ID: <20260420132314.1023554-25-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260420132314.1023554-1-sashal@kernel.org>
 References: <20260420132314.1023554-1-sashal@kernel.org>
@@ -65,355 +65,309 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Likun Gao <Likun.Gao@amd.com>
+From: Erik Kurzinger <ekurzinger@gmail.com>
 
-[ Upstream commit 50808826a64b4957b7088c789e539dd0a75a1560 ]
+[ Upstream commit 6736c8ff9d63e847a3b694aeaeb78d4e8ad42464 ]
 
-If DF function not initialized, NULL pointer issue
-will happen on soc24.
+amdgpu_dm_plane_get_plane_modifiers always adds DRM_FORMAT_MOD_LINEAR to
+the list of modifiers. However, with gfx12,
+amdgpu_dm_plane_add_gfx12_modifiers also adds that modifier to the list.
+So we end up with two copies. Most apps just ignore this but some
+(Weston) don't like it.
 
-Signed-off-by: Likun Gao <Likun.Gao@amd.com>
-Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
+As a fix, we change amdgpu_dm_plane_add_gfx12_modifiers to not add
+DRM_FORMAT_MOD_LINEAR to the list, matching the behavior of analogous
+functions for other chips.
+
+Signed-off-by: Erik Kurzinger <ekurzinger@gmail.com>
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-Now I have all the information I need. Let me compile the full analysis.
+Now I have all the information needed for the analysis. Let me compile
+the findings.
 
 ---
 
 ## PHASE 1: COMMIT MESSAGE FORENSICS
 
-### Step 1.1: PARSE THE SUBJECT LINE
-- **Subsystem:** `drm/amdgpu` (AMD GPU driver)
-- **Action verb:** "fix" - explicitly a bug fix
-- **Summary:** Fix NULL pointer dereference when DF functions are not
-  initialized on soc24
+**Step 1.1: Subject Line**
+Record: [drm/amd/display] [remove] Remove duplicate
+DRM_FORMAT_MOD_LINEAR format modifier in gfx12 modifiers list.
 
-Record: [drm/amdgpu] [fix] [NULL pointer dereference when df.funcs is
-NULL in soc24_common_hw_init]
+**Step 1.2: Tags**
+- Signed-off-by: Erik Kurzinger <ekurzinger@gmail.com> (author)
+- Acked-by: Alex Deucher <alexander.deucher@amd.com> (AMD subsystem
+  maintainer)
+- Signed-off-by: Alex Deucher <alexander.deucher@amd.com> (merged by
+  maintainer)
+- No Fixes: tag, no Cc: stable, no Reported-by — all expected for
+  AUTOSEL candidates.
 
-### Step 1.2: PARSE ALL COMMIT MESSAGE TAGS
-- **Signed-off-by:** Likun Gao (author)
-- **Reviewed-by:** Hawking Zhang (AMD architect/maintainer for amdgpu)
-- **Signed-off-by:** Alex Deucher (amdgpu subsystem maintainer)
-- No Fixes: tag, no Cc: stable tag, no Reported-by (expected for manual
-  review)
+**Step 1.3: Commit Body**
+The commit message clearly describes:
+`amdgpu_dm_plane_get_plane_modifiers` always adds
+`DRM_FORMAT_MOD_LINEAR` at the end of the modifier list for all chips
+(line 769). But `amdgpu_dm_plane_add_gfx12_modifiers` also includes
+`DRM_FORMAT_MOD_LINEAR` in its own `gfx12_modifiers[]` array, causing it
+to appear twice. Most compositors ignore duplicates, but Weston
+compositor breaks when it encounters them.
 
-Record: Reviewed by Hawking Zhang (AMD subsystem architect) and merged
-by Alex Deucher (amdgpu maintainer). Strong trust signal.
+Record: Bug = duplicate format modifier in the kernel-to-userspace
+modifier list for gfx12 GPUs. Symptom = Weston compositor malfunctions
+on gfx12 hardware.
 
-### Step 1.3: ANALYZE THE COMMIT BODY TEXT
-The body says: "If DF function not initialized, NULL pointer issue will
-happen on soc24." This describes a concrete crash scenario: when
-`adev->df.funcs` is NULL and code dereferences it to check `->hw_init`.
-
-Record: [Bug: NULL pointer dereference] [Symptom: kernel oops/crash
-during GPU hw_init or resume] [Root cause: missing NULL check before
-dereferencing df.funcs pointer]
-
-### Step 1.4: DETECT HIDDEN BUG FIXES
-Not hidden - this is an explicit "fix" for a NULL pointer dereference.
-
-Record: Not a hidden fix, explicitly labeled as a fix.
+**Step 1.4: Hidden Bug Fix**
+This is unambiguously a bug fix — it fixes incorrect behavior that
+breaks a real compositor (Weston). The word "remove" understates the fix
+— this corrects a real user-visible bug.
 
 ---
 
 ## PHASE 2: DIFF ANALYSIS
 
-### Step 2.1: INVENTORY THE CHANGES
-- **Files:** 1 file changed (`drivers/gpu/drm/amd/amdgpu/soc24.c`)
-- **Lines:** 1 line modified (replacing one condition with a guarded
-  condition)
-- **Function:** `soc24_common_hw_init()`
-- **Scope:** Single-line surgical fix
+**Step 2.1: Inventory**
+- 1 file changed:
+  `drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c`
+- ~4 lines of functional change within
+  `amdgpu_dm_plane_add_gfx12_modifiers()`
+- Scope: single-file, single-function surgical fix
 
-Record: [soc24.c: 1 line changed in soc24_common_hw_init()] [Scope:
-single-line surgical fix]
+**Step 2.2: Code Flow Changes**
+1. `gfx12_modifiers[]` array: `DRM_FORMAT_MOD_LINEAR` removed from the
+   array (5 elements → 4)
+2. DCC loop: `ARRAY_SIZE(gfx12_modifiers) - 1` →
+   `ARRAY_SIZE(gfx12_modifiers)` (now iterates over ALL tiled modifiers
+   for DCC, since there's no LINEAR to skip)
+3. Comments updated to explain the caller adds LINEAR for all chips
 
-### Step 2.2: UNDERSTAND THE CODE FLOW CHANGE
-Before:
+**Step 2.3: Bug Mechanism**
+Category: Logic/correctness fix. The gfx12 function inconsistently added
+LINEAR while all other gfx functions (gfx9, gfx10_1, gfx10_3, gfx11)
+rely on the caller to add it. Verified by grepping — only gfx12 had
+LINEAR in its internal list.
 
-```481:481:drivers/gpu/drm/amd/amdgpu/soc24.c
-        if (adev->df.funcs->hw_init)
-```
-
-After:
-```c
-        if (adev->df.funcs && adev->df.funcs->hw_init)
-```
-
-The code was dereferencing `adev->df.funcs` (which can be NULL) to check
-`hw_init`. The fix adds a NULL guard.
-
-Record: [Before: unconditional dereference of df.funcs -> After: guarded
-dereference with NULL check first]
-
-### Step 2.3: IDENTIFY THE BUG MECHANISM
-**Category: NULL pointer dereference (d)**
-- `adev->df.funcs` can be NULL if the DF IP version doesn't match any
-  known version in `amdgpu_discovery.c`
-- The code dereferences this NULL pointer to check `->hw_init`
-- This causes a kernel oops
-
-Record: [NULL pointer dereference] [df.funcs can be NULL when DF IP
-version is unrecognized; the fix adds a standard guard consistent with
-soc15.c patterns]
-
-### Step 2.4: ASSESS THE FIX QUALITY
-- Obviously correct: the pattern `if (ptr && ptr->member)` is idiomatic
-  C null-guard
-- Consistent: `soc15.c` already uses `if (adev->df.funcs &&
-  adev->df.funcs->hw_init)` and `if (adev->df.funcs &&
-  adev->df.funcs->sw_init)` - the exact same pattern
-- Minimal: single condition addition, no behavior change when df.funcs
-  is non-NULL
-- Regression risk: zero - the only change is skipping the call when
-  funcs is NULL (which would crash otherwise)
-
-Record: [Obviously correct, minimal, zero regression risk. Matches
-existing patterns in soc15.c]
+**Step 2.4: Fix Quality**
+Obviously correct — makes gfx12 match the pattern of all other chip
+functions. Minimal, surgical. Zero regression risk to other chips. The
+loop bound fix is critical: without it, removing LINEAR from the array
+would cause the DCC loop to skip the last real modifier (mod_256b).
 
 ---
 
 ## PHASE 3: GIT HISTORY INVESTIGATION
 
-### Step 3.1: BLAME THE CHANGED LINES
-The buggy line was introduced by commit `73048bda46c308` ("drm/amdgpu:
-Fix atomics on GFX12") by David Belanger on 2024-06-10. This commit
-added the DF hw_init call to soc24_common_hw_init but omitted the NULL
-check for `adev->df.funcs`, unlike how soc15.c handles it.
+**Step 3.1: Blame**
+The buggy `DRM_FORMAT_MOD_LINEAR` in the `gfx12_modifiers[]` array was
+introduced by commit `21e6f6085bbc97` ("drm/amd/display: Allow display
+DCC for DCN401", Aurabindo Pillai, 2024-07-03), which restructured the
+gfx12 function to add DCC support. The original gfx12 function
+(`a64a521231a46`, 2024-02-02) also had LINEAR inline, but pre-DCC. Both
+are in v6.11+.
 
-Record: [Buggy code introduced by 73048bda46c308, present in v6.11+]
+**Step 3.2: Fixes target**
+No Fixes: tag. The bug was introduced by `21e6f6085bbc97` (v6.11). This
+commit exists in stable trees 6.11.y, 6.12.y, 6.13.y, 6.14.y.
 
-### Step 3.2: FOLLOW THE FIXES TAG
-No Fixes: tag present (expected for review candidates).
+**Step 3.3: File History**
+Recent changes to the file are unrelated (color pipeline, kmalloc
+conversions). No prerequisites or dependencies found.
 
-Record: [No Fixes: tag, but the implicit fix target is 73048bda46c308]
+**Step 3.4: Author**
+Erik Kurzinger is a DRM contributor (drm/syncobj patches). Alex Deucher,
+who Acked and merged, is the AMD subsystem maintainer.
 
-### Step 3.3: CHECK FILE HISTORY
-soc24.c was created by `98b912c50e449` (first in v6.11). The buggy
-commit `73048bda46c308` was also added in v6.11. The file has had ~20
-subsequent commits (refactoring handle pointers, etc.), but none touched
-this specific df.funcs line.
-
-Record: [Standalone fix, no prerequisites beyond the original buggy
-commit]
-
-### Step 3.4: CHECK THE AUTHOR
-Likun Gao is a regular AMD GPU contributor with multiple recent commits
-to the amdgpu subsystem. The reviewer (Hawking Zhang) is the original
-soc24.c creator and AMD architect.
-
-Record: [Author is a regular AMD contributor; reviewer is the subsystem
-architect]
-
-### Step 3.5: DEPENDENCIES
-This fix has no dependencies. It simply adds a NULL check guard to an
-existing conditional. It will apply to any tree that contains commit
-`73048bda46c308`.
-
-Record: [No dependencies, standalone fix]
+**Step 3.5: Dependencies**
+The fix is completely standalone. The only context dependency is that
+`max_comp_block[] = {2, 1, 0}` in v6.15+ vs `{1, 0}` in 6.11-6.14 (from
+commit `3855f1d925d4f`), but this is in context lines, not in the
+changed lines. Minor context fuzz at most.
 
 ---
 
 ## PHASE 4: MAILING LIST RESEARCH
 
-### Step 4.1: PATCH DISCUSSION
-Found the original submission at
-[spinics](https://www.spinics.net/lists/amd-gfx/msg138858.html).
-Submitted by Alex Deucher on March 6, 2026. No objections or NAKs
-visible. It was part of a batch of AMD GPU fixes.
-
-Record: [Found submission on amd-gfx list, no objections, submitted in a
-batch of fixes by the maintainer]
-
-### Step 4.2: REVIEWERS
-Reviewed by Hawking Zhang (AMD architect), signed off by Alex Deucher
-(subsystem maintainer). Both are the top-level amdgpu maintainers.
-
-Record: [Reviewed and merged by subsystem maintainers]
-
-### Step 4.3-4.5: BUG REPORT / RELATED PATCHES / STABLE HISTORY
-No syzbot report, no explicit bug report URL. This appears to be an
-internally-discovered issue at AMD.
-
-Record: [Internal AMD finding, no external bug report]
+- Patch v1 was posted on Feb 10, 2026. Alex Deucher immediately Acked
+  it.
+- v2 was submitted the same day with improved comments and the loop
+  bound fix. Alex Deucher Acked v2 as well.
+- No NAKs or concerns raised. No explicit stable nomination, but also no
+  objection.
+- b4 dig could not find the AMD patches on lore (AMD patches go through
+  freedesktop gitlab, not always indexed by b4).
 
 ---
 
 ## PHASE 5: CODE SEMANTIC ANALYSIS
 
-### Step 5.1-5.2: KEY FUNCTIONS AND CALLERS
-`soc24_common_hw_init()` is called:
-1. During GPU initialization via the `amd_ip_funcs` table (line 588:
-   `.hw_init = soc24_common_hw_init`)
-2. During resume via `soc24_common_resume()` (line 524-527)
+**Step 5.1-5.4: Function and Call Chain**
+- `amdgpu_dm_plane_add_gfx12_modifiers()` is called from
+  `amdgpu_dm_plane_get_plane_modifiers()` for AMDGPU_FAMILY_GC_12_0_0
+  devices.
+- `amdgpu_dm_plane_get_plane_modifiers()` is called during plane
+  initialization (`amdgpu_dm_plane_init()`), which runs for every
+  display plane on every gfx12 GPU.
+- The modifier list is exported to userspace via the DRM plane
+  properties and queried by compositors like Weston when selecting
+  buffer formats.
 
-Both are common execution paths for any system with soc24 hardware.
-
-### Step 5.3-5.4: WHY df.funcs CAN BE NULL
-In `amdgpu_discovery.c`, `adev->df.funcs` is set in a switch on
-`DF_HWIP` version. The default case is `break` (no assignment). If a
-soc24 device has a DF IP version not in the list, `df.funcs` remains
-NULL. This is the exact trigger.
-
-### Step 5.5: SIMILAR PATTERNS
-Verified: `soc15.c` consistently uses the guarded pattern:
-- Line 1253: `if (adev->df.funcs && adev->df.funcs->sw_init)`
-- Line 1264: `if (adev->df.funcs && adev->df.funcs->sw_fini)`
-- Line 1498: `if (adev->df.funcs &&
-  adev->df.funcs->get_clockgating_state)`
-- `gmc_v9_0.c` also guards with `if (adev->df.funcs && ...)`
-
-soc24.c is the ONLY file missing this guard.
-
-Record: [All other callers guard df.funcs with NULL check; soc24.c is
-the sole exception]
+**Step 5.5: Similar Patterns**
+Confirmed: gfx9, gfx10_1, gfx10_3, and gfx11 functions do NOT add
+`DRM_FORMAT_MOD_LINEAR`. Only gfx12 was inconsistent.
 
 ---
 
 ## PHASE 6: STABLE TREE ANALYSIS
 
-### Step 6.1: BUGGY CODE IN STABLE TREES
-- `soc24.c` first appeared in v6.11
-- The buggy commit `73048bda46c308` is in v6.11+
-- Therefore the bug exists in stable trees: **6.11.y, 6.12.y, 7.0.y**
-- Not present in 6.6.y or earlier (soc24.c doesn't exist there)
+**Step 6.1: Buggy Code Presence**
+- gfx12 modifiers introduced in v6.11 (a64a521231a46)
+- DCC restructuring (introducing the duplicate) also in v6.11
+  (21e6f6085bbc97)
+- Bug exists in: **6.11.y, 6.12.y, 6.13.y, 6.14.y** stable trees
+- Not in v6.10 or earlier (no gfx12 support)
 
-Record: [Bug exists in 6.11.y, 6.12.y, 7.0.y]
-
-### Step 6.2: BACKPORT COMPLICATIONS
-The fix is a single-line change. No conflicting refactoring has touched
-this specific line. Clean apply expected.
-
-Record: [Expected clean apply to all affected stable trees]
+**Step 6.2: Backport Complications**
+For 6.11-6.14: `max_comp_block[] = {1, 0}` (context-only difference from
+`{2, 1, 0}` in 6.15+). The actual changed lines are identical. Should
+apply with minor fuzz or a trivial context adjustment.
 
 ---
 
 ## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
 
-### Step 7.1: SUBSYSTEM CRITICALITY
-- **Subsystem:** GPU driver (drm/amdgpu) - IMPORTANT
-- AMD GPUs are extremely common in desktop and laptop systems
-- soc24 corresponds to RDNA4 generation (GC 12.0.x) - recent and
-  actively shipping hardware
+**Step 7.1:** drm/amd/display — IMPORTANT subsystem. AMD GPUs
+(especially gfx12 = RDNA4) are widely used in desktops and embedded
+systems. Display bugs affect all users of the GPU.
 
-Record: [drm/amdgpu] [IMPORTANT - affects users of recent AMD GPUs]
+**Step 7.2:** The file is actively maintained with frequent changes.
 
 ---
 
 ## PHASE 8: IMPACT AND RISK ASSESSMENT
 
-### Step 8.1: WHO IS AFFECTED
-All users with soc24 (RDNA4) AMD GPU hardware where the DF IP version
-doesn't match a listed version in discovery.
+**Step 8.1: Affected Users**
+All users of gfx12 (AMDGPU RDNA4) GPUs running Weston compositor. Also
+potentially affects other compositors that validate modifier lists
+strictly.
 
-### Step 8.2: TRIGGER CONDITIONS
-The crash triggers during:
-- GPU hardware initialization (every boot)
-- GPU resume from suspend (every suspend/resume cycle)
-These are unavoidable common paths.
+**Step 8.2: Trigger Conditions**
+100% triggered on every gfx12 GPU initialization — the duplicate
+modifier is always present in the exported list.
 
-### Step 8.3: FAILURE MODE SEVERITY
-**CRITICAL** - NULL pointer dereference causes a kernel oops, crashing
-the system during boot or resume. The GPU driver is essential for
-display output.
+**Step 8.3: Failure Mode Severity**
+Weston compositor fails to work properly with gfx12 GPUs. Severity:
+MEDIUM-HIGH. This prevents a major compositor from functioning on new
+AMD hardware.
 
-### Step 8.4: RISK-BENEFIT RATIO
-- **Benefit:** Prevents kernel oops on boot/resume for soc24 users -
-  VERY HIGH
-- **Risk:** 1-line addition of a NULL check, zero chance of regression -
-  VERY LOW
-- **Ratio:** Extremely favorable
-
-Record: [Benefit: VERY HIGH (prevents crash), Risk: VERY LOW (1-line
-NULL guard)]
+**Step 8.4: Risk-Benefit**
+- Benefit: HIGH — fixes Weston on gfx12, corrects API contract (DRM
+  modifiers should not have duplicates)
+- Risk: VERY LOW — 4-line change in a single function, matching
+  established pattern of all other chip functions, Acked by maintainer
+- Ratio: Very favorable
 
 ---
 
 ## PHASE 9: FINAL SYNTHESIS
 
-### Step 9.1: EVIDENCE COMPILATION
+**Evidence FOR backporting:**
+- Fixes a real bug that breaks Weston compositor on gfx12 hardware
+- Small, surgical, obviously correct (4 functional line changes)
+- Matches the established pattern of all other chip generations
+- Acked by subsystem maintainer (Alex Deucher)
+- Bug present in all stable trees with gfx12 support (6.11+)
+- Zero regression risk to other chips
+- No new features or APIs
 
-**FOR backporting:**
-- Fixes a NULL pointer dereference (kernel oops/crash)
-- Affects GPU init and resume paths (common, unavoidable paths)
-- Single-line fix, obviously correct
-- Matches existing defensive patterns in soc15.c, gmc_v9_0.c,
-  amdgpu_ras.c
-- Reviewed by AMD architect (Hawking Zhang), merged by subsystem
-  maintainer (Alex Deucher)
-- Zero regression risk
-- Affects actively-shipping hardware (RDNA4)
+**Evidence AGAINST backporting:**
+- Impact is limited to Weston users on gfx12 (most compositors tolerate
+  duplicates)
+- No CVE, no crash, no data corruption
 
-**AGAINST backporting:**
-- None identified
-
-### Step 9.2: STABLE RULES CHECKLIST
-1. Obviously correct and tested? **YES** - standard NULL guard, matches
-   existing patterns, reviewed by maintainers
-2. Fixes a real bug? **YES** - NULL pointer dereference → kernel oops
-3. Important issue? **YES** - system crash during GPU init/resume
-   (CRITICAL)
-4. Small and contained? **YES** - 1 line changed in 1 file
-5. No new features or APIs? **YES** - purely defensive check
-6. Can apply to stable? **YES** - clean apply expected for 6.11.y+
-
-### Step 9.3: EXCEPTION CATEGORIES
-Not an exception case; this is a standard bug fix that meets all normal
-criteria.
-
-### Step 9.4: DECISION
-This is a textbook stable backport candidate: a one-line NULL pointer
-check that prevents a kernel oops during GPU initialization and resume
-on recent AMD hardware.
+**Stable Rules Checklist:**
+1. Obviously correct and tested? **YES** — matches all other chip
+   functions, Acked by maintainer
+2. Fixes a real bug? **YES** — duplicate modifier breaks Weston
+3. Important issue? **MEDIUM-HIGH** — prevents compositor from working
+   on new hardware
+4. Small and contained? **YES** — 4 lines, 1 function, 1 file
+5. No new features or APIs? **YES**
+6. Can apply to stable? **YES** — may need minor context adjustment for
+   6.11-6.14
 
 ---
 
 ## Verification
 
-- [Phase 1] Parsed tags: Reviewed-by: Hawking Zhang, SOB: Likun Gao,
-  Alex Deucher
-- [Phase 2] Diff analysis: 1 line changed in soc24_common_hw_init(),
-  adds `adev->df.funcs &&` guard
-- [Phase 3] git blame: buggy code introduced in commit 73048bda46c308
-  (v6.11), "Fix atomics on GFX12"
-- [Phase 3] git merge-base: confirmed 73048bda46c308 is in v6.11+,
-  soc24.c first added in v6.11
-- [Phase 4] Found original submission at spinics amd-gfx list, no NAKs
-  or concerns
-- [Phase 5] Grep for `adev->df.funcs`: soc15.c, gmc_v9_0.c, amdgpu_ras.c
-  all use NULL guard; soc24.c is the only exception
-- [Phase 5] amdgpu_discovery.c: df.funcs assignment has a `default:
-  break` that leaves funcs NULL for unrecognized DF versions
-- [Phase 5] soc24_common_resume() calls soc24_common_hw_init(),
-  confirming crash on both init and resume
-- [Phase 6] Bug exists in 6.11.y, 6.12.y, 7.0.y; not in 6.6.y or earlier
-  (soc24.c not present)
-- [Phase 8] Failure mode: NULL deref -> kernel oops during GPU
-  init/resume, severity CRITICAL
+- [Phase 1] Parsed tags: Acked-by Alex Deucher (AMD maintainer), no
+  Fixes/Cc-stable (expected)
+- [Phase 2] Diff analysis: 4 functional lines changed in
+  `amdgpu_dm_plane_add_gfx12_modifiers()`, removes LINEAR from array and
+  fixes loop bound
+- [Phase 2] Confirmed all other gfx add functions (gfx9, gfx10_1,
+  gfx10_3, gfx11) do NOT add LINEAR — verified via grep
+- [Phase 2] Confirmed caller `amdgpu_dm_plane_get_plane_modifiers()`
+  adds LINEAR at line 769 for ALL chips — verified via Read
+- [Phase 3] git blame: buggy line 707 introduced by commit
+  21e6f6085bbc97 (v6.11, 2024-07-03)
+- [Phase 3] git show a64a521231a46: original gfx12 function also had
+  LINEAR (duplicate from day one)
+- [Phase 3] Verified gfx12 NOT in v6.10, IS in v6.11+ via `git merge-
+  base --is-ancestor`
+- [Phase 3] 3855f1d925d4f (max_comp_block context change) in v6.15 only
+  — minor context fuzz for older stables
+- [Phase 4] Found patch v1 and v2 on freedesktop.org mailing list
+  archives
+- [Phase 4] v1 (1-line change) and v2 (4-line change with improved
+  comments/loop) both Acked by Alex Deucher
+- [Phase 4] No NAKs, no concerns raised in discussion
+- [Phase 5] Verified call chain: `amdgpu_dm_plane_init()` →
+  `amdgpu_dm_plane_get_plane_modifiers()` →
+  `amdgpu_dm_plane_add_gfx12_modifiers()` — runs on every gfx12 display
+  plane init
+- [Phase 6] Bug present in 6.11.y, 6.12.y, 6.13.y, 6.14.y stable trees
+  (verified)
+- [Phase 8] Failure mode: Weston compositor broken on gfx12, severity
+  MEDIUM-HIGH
 
 **YES**
 
- drivers/gpu/drm/amd/amdgpu/soc24.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/soc24.c b/drivers/gpu/drm/amd/amdgpu/soc24.c
-index ecb6c3fcfbd15..984262936545f 100644
---- a/drivers/gpu/drm/amd/amdgpu/soc24.c
-+++ b/drivers/gpu/drm/amd/amdgpu/soc24.c
-@@ -484,7 +484,7 @@ static int soc24_common_hw_init(struct amdgpu_ip_block *ip_block)
- 	if (adev->nbio.funcs->remap_hdp_registers)
- 		adev->nbio.funcs->remap_hdp_registers(adev);
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+index 127207e18dcb0..bc19438211dd3 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+@@ -704,21 +704,21 @@ static void amdgpu_dm_plane_add_gfx12_modifiers(struct amdgpu_device *adev,
+ 	uint8_t max_comp_block[] = {2, 1, 0};
+ 	uint64_t max_comp_block_mod[ARRAY_SIZE(max_comp_block)] = {0};
+ 	uint8_t i = 0, j = 0;
+-	uint64_t gfx12_modifiers[] = {mod_256k, mod_64k, mod_4k, mod_256b, DRM_FORMAT_MOD_LINEAR};
++	/* Note, linear (no DCC) gets added to the modifier list for all chips by the caller. */
++	uint64_t gfx12_modifiers[] = {mod_256k, mod_64k, mod_4k, mod_256b};
  
--	if (adev->df.funcs->hw_init)
-+	if (adev->df.funcs && adev->df.funcs->hw_init)
- 		adev->df.funcs->hw_init(adev);
+ 	for (i = 0; i < ARRAY_SIZE(max_comp_block); i++)
+ 		max_comp_block_mod[i] = AMD_FMT_MOD_SET(DCC_MAX_COMPRESSED_BLOCK, max_comp_block[i]);
  
- 	/* enable the doorbell aperture */
+ 	/* With DCC: Best choice should be kept first. Hence, add all 256k modifiers of different
+ 	 * max compressed blocks first and then move on to the next smaller sized layouts.
+-	 * Do not add the linear modifier here, and hence the condition of size-1 for the loop
+ 	 */
+-	for (j = 0; j < ARRAY_SIZE(gfx12_modifiers) - 1; j++)
++	for (j = 0; j < ARRAY_SIZE(gfx12_modifiers); j++)
+ 		for (i = 0; i < ARRAY_SIZE(max_comp_block); i++)
+ 			amdgpu_dm_plane_add_modifier(mods, size, capacity,
+ 						     ver | dcc | max_comp_block_mod[i] | gfx12_modifiers[j]);
+ 
+-	/* Without DCC. Add all modifiers including linear at the end */
++	/* Without DCC. */
+ 	for (i = 0; i < ARRAY_SIZE(gfx12_modifiers); i++)
+ 		amdgpu_dm_plane_add_modifier(mods, size, capacity, gfx12_modifiers[i]);
+ 
 -- 
 2.53.0
 
