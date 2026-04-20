@@ -4,92 +4,93 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7C1F0F588DE
-	for <amd-gfx@archiver.kernel.org>; Mon, 20 Apr 2026 14:14:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5890FF588E0
+	for <amd-gfx@archiver.kernel.org>; Mon, 20 Apr 2026 14:28:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 554A610E66B;
-	Mon, 20 Apr 2026 14:14:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E509D10E67C;
+	Mon, 20 Apr 2026 14:28:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="LnbDqKgi";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="cLieqVOS";
 	dkim-atps=neutral
-Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com
- [74.125.82.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B2CAB10E669
- for <amd-gfx@lists.freedesktop.org>; Mon, 20 Apr 2026 14:13:59 +0000 (UTC)
-Received: by mail-dy1-f171.google.com with SMTP id
- 5a478bee46e88-2bda3b4318dso393495eec.1
- for <amd-gfx@lists.freedesktop.org>; Mon, 20 Apr 2026 07:13:59 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1776694439; cv=none;
+Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com
+ [74.125.82.177])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B96B010E675
+ for <amd-gfx@lists.freedesktop.org>; Mon, 20 Apr 2026 14:28:56 +0000 (UTC)
+Received: by mail-dy1-f177.google.com with SMTP id
+ 5a478bee46e88-2e92c54bab4so90067eec.0
+ for <amd-gfx@lists.freedesktop.org>; Mon, 20 Apr 2026 07:28:56 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1776695336; cv=none;
  d=google.com; s=arc-20240605;
- b=ZbpT1AUuHccuVz9BJMPps3DzsA4BiOBht4V13Igq376vRgrpMplO78VzQ5WX1pit3F
- 3WeGt1yfRcMr1HshN9T3WrRdd3wSr+9ZNU83CKsahXjRvvwuXlahLcl5oueWN7Hd0Es0
- uwka917wwLs+C6exIoY0MPNvHTHTsd/smKM0TRk5+k864jsfV/qSK1mC8dORvPkKViPc
- qmNznSJFpkVLq25yRKy5N57WJ82erEQH3yzVWtWxnpcUQMp6r6xzxLfY/NTeqZ8YuM2R
- bRGlH1XgsZgcVA4fcCPhfsqZW7CfyVv6hVPWq5gIPNaspj5ITq+CFWYmBuAc+rDGVVcI
- DtDg==
+ b=WfMuJZ5nADeJVCwU52Ap5wu1xnIVemNUqiRd6j8kktkL73hUVbfcfrmWhDde/sbkJZ
+ u6Q8JmA9kb0GAxGqJbWWTBquYojQBz62NIDGMIRee5eA/zoyT3Z0/TcKs46yeO89zUi6
+ +NCleaGfIoP1Io0qHMHAoezMwJyhxnl7Zr5jzjAFAUb9mF4wgi0XYxlohtGevhzh2HoC
+ 9AUmaHqueSGHt+JZQf5QhC1se6WVZGC8bPgytMidU4apHKY1lXG7JvUIbNJnQcCgZMtg
+ mBfrKKBGZvFEpo4y+AmCzPnzgXxynrCQ5wKrwrp8hYlDGj9277DC5kD9MvwJR+e1nINw
+ l/Yg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20240605; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=SzgUBzAC2o0e5IwzPk2aEBcPIfZB4ZYpORnpK8lh66E=;
- fh=5MIwGJEwjviyNMWj3YtKTrtn1spn0TV9edMQ86er9aM=;
- b=N67bhYdP+RClQKxuwKbRDf/vZzDHAk1xhn9Ibed7tVX8xMVwCY81HQR0NtBdT+s4te
- N2w7A2cI6iDwiJUsxrq42DZtLdIE3FS5y7EtU0aCRIp4qPbkJPO3rCJMLm5yYTUDmqz1
- 9ml0dDnx9MEGUtIJe75pl423WH7xdTv9WJU2Y0meEhLMTnaZIv+jtPCqIHg2KVthfffC
- g2C4AnzF9WmXBuzfQ4FMihpjWWacJR/0KRayiAnqsKXlQlymcs1uMxlSbkSpJwokagFD
- Fd1IYeEiTH5rTUe37Kg07bWaTurW7wdVbEAaQ32aCPGWDYcEhOJHzNB+44IzwsSQ9MEn
- Y2/w==; darn=lists.freedesktop.org
+ bh=eZmECXGevCVaK/wwY62Jb7j9GBCzbmIgxR8ypNglG2Q=;
+ fh=cawDWxI3pxyT0H+8yM1mFM5CZg2tx3b5IbWGxbryy6o=;
+ b=AT7hcU7Sr975ql67HGSVzeNa/JSsIFa6nYsFQGGW9PaSfKWdzn0xa4lMMXMyVfos8P
+ Y8Ve+qEVreLA84L7pPwbjRwHS3UiXqaoTeHDoZ/EP/yit9WPOQAkaUZgLmUeRkrTjq9/
+ tjF2N1gCcDKLoMA1pn2jO8zg4Yz1ohyu49/y2p+cO8BZ7gxhVt26wg+9lVim/rV4VlvP
+ HQXAxcGdWFvSHGvoiJRGbB2z47FQm6dZ3F2mHk7cnXUN6Up/9vd+Iei+gmaNg9fQ+saI
+ ycc7Fv0EpkUDUUlkrknWbEtFsa4flC+sqMRbrWqELZ50zXwioSCslsKo86RYtuzozUQ3
+ GiBg==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1776694439; x=1777299239; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1776695336; x=1777300136; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=SzgUBzAC2o0e5IwzPk2aEBcPIfZB4ZYpORnpK8lh66E=;
- b=LnbDqKgiGrndxNVJti7Ge16wGm+/hHexjcjdJjPgZn+fGDpOguH/YMG3P+eXeTP8FS
- kxAGL11lye+zgQt5WnWVWpQGs7EaRGoiyyp7xD98rE10pBURw7OA+iu6nPJjf1S/QVZ6
- 29QepGYY6ush0+1l/6pjmNIu3ncpqvQhIub9EKzEWBcvk/BX3fsNepGWOKR2CQ7cv/JD
- 5GQ8tUk4XW3QfxpU0Oty/Ox9PHiRKqQ9Kh8XWHsCq+YR6po7GPxrdbkad2x2LHzIIgma
- xFEtsw6ebF3/wpvmavvPI+RfotpBeNH2iInxdjySx6WMXsjFT3fULShUlcjij7dSu/KY
- v77w==
+ bh=eZmECXGevCVaK/wwY62Jb7j9GBCzbmIgxR8ypNglG2Q=;
+ b=cLieqVOSEN13CNCpXyNI+JIhDg+WpIUbrY9B0UHU4Rn4GEzBYLrA/o4ZW5GF7Vny9o
+ dA+UPNeL9c451IfQGA0zDXkTiBGdhkRIM4HZjkAE2D6Wb9mULUueiPPZcipwF5MEr+jg
+ sYPFWzxLz7xlBmJmkLH7tc+mDAs5QCOFiXhJLOMOVH9muhb9mocCY9Xg/ZmWamkehVgx
+ juB2n+Sbn64baz2MarXMR8yp1TGq14b9cWZLxNGuVOIfKFbI6QJ4VmycVltkejw47/lI
+ TQL91FGyHVORk868z/4xuhfSso+ZD1D3jve0eXX0D/MWGmATwirtWU9j62CfIvSkO+pO
+ 1JYQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1776694439; x=1777299239;
+ d=1e100.net; s=20251104; t=1776695336; x=1777300136;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=SzgUBzAC2o0e5IwzPk2aEBcPIfZB4ZYpORnpK8lh66E=;
- b=dhPWxVt9sq4dGfkKu9dwfaROgEfDJFDPRXbb5MaF56gULcE8NLj7WDbxxsk85tiN1/
- BBJ7Cko3EufHwukeDq/Fpq4XKFDorsmZFSs0776CzQ8LFQyWDfy9i8OYPAhPy0Indugw
- JPLptFiWFxbuhcVsUHDTySpYADj/2rsyjAo3VYUEjheMOHOCv1LIAA01FI6DmnRhLuqM
- u4mZGEoRE4vXRGKEbg2sEBQQ98c0X9JH7DTW5HojsrztSTXKFs+8DQ9j6NUENnV/5oBW
- 9IXehUjvXhrLx9zFAZESrTzvFPjJVKnnP6dZPqc48ClpSh9PC6DWsYSUCG3/gJdOE0Bf
- mmVg==
+ bh=eZmECXGevCVaK/wwY62Jb7j9GBCzbmIgxR8ypNglG2Q=;
+ b=NIluH6ZSmyYc33yyxzdDu02gB+IPUfiM3GCKBla3S5Az9bTiYzoNmGbvLiYd7uQOs8
+ 41RXRxA6HPaOXXljKE5FhVioHW0MECq+boHOl7KtErjaa4LtzHVXtrqWYg0n7z+hrpH5
+ Fvvq6J8T14Wq3PPCFqoNeF/A93yby3tuIKkNMKegIyUFE+WsYf9gLAU1MokExdF2/xwA
+ FCg6u4+F9vNEMr5qTjiJ6NUrpdV7TkDiBJnk2UlmCG+ZX/LU6zDS6BCkr2FXToD5gzJ+
+ fWqzhPOA9MrINn8qXA62aAMqK67Nax3xwwZJHYue+Hrc/HMjwjBo4njD5qr0rs+z5Btw
+ 2bvQ==
 X-Forwarded-Encrypted: i=1;
- AFNElJ+fA69yhZKTtAltQTq+CQK3/G9Je4r+vbCiBKlT9ZEY2RGTDft7UH7pYY1e6wz/W+17/UDYNNri@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzvhDx/fMGCNxw4wUtIiXoQy6v3tBFW6Vyw1+nTP5KbRM7H+ZKJ
- afl5UhTqenPcgrHAfVvuJqqS0pokEPP2r0VWTmNg7SRCVwz+afjHrq0fUekJahemYFUFcD18ipO
- aBH/lPoa3YQ+16XZ6UZiBH2fADzY/WkQ=
-X-Gm-Gg: AeBDietGPt9oriRgF56gq8/b6WhFIrww6Sm0WH4uggG+Wj6wDtQZ0Z9oWjgFTUUGwoe
- EfXZ3xDiQZPfPKstTiT4+lgJaawsYFzH7DGlbA4Qn7nVfAGI/wByVYBZDNGOmiYoXqmo+za+4+X
- 7AtiEQ1sleC/yG9uvCxZHaERk+WGZFL4w909XW0HT89d2vbJ58IJbMc5Tz9bkyE25yfVhrXVZ+E
- vCpIcQwAukN5mIJeHBvGB2A8rSQ6izCIl1ybEyQqCbozk41+MJ1Lftm8+9t/i3eKa0IXKmBeASt
- qI+Vzn8Yh58/WDsxvQVsqvsfEkPxDczKtA2+SW/4hqgtZC83fR1quRPTdUaaLKhX10GBufPW0kp
- RhsFH
-X-Received: by 2002:a05:7022:6889:b0:124:af80:9d0c with SMTP id
- a92af1059eb24-12c73d26cc4mr2635816c88.0.1776694438767; Mon, 20 Apr 2026
- 07:13:58 -0700 (PDT)
+ AFNElJ9S65uIEeCvLOtPZluI3pGQkAD1Z1QSbMlTCVOkzMdK0lGnnFdaPFNYpIjcMnCY1WlMKCUdqCoq@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yy2E4c42QFdlDMz5IH6kAbB87voee8wSjO/rAtd6FdoitMBe3gX
+ Pof4yw6AOiXxWH5OKOiT0fbMAl3IC4CbbrJG/87tJUrJor++0COASlhRBvW1RZuKyHyBz8yqZ1r
+ XYqCfRhtn+wt7gcGq6to6GI9Pq5ZjHks=
+X-Gm-Gg: AeBDieutQ5bpqf4Fa/pv3OqSVaSbhItJjRz1bxGKrbXBKWPjSwcYa0Q3emLtMbZPlRu
+ aj8JjEXRjl+YUY+Yfu9lpqwpkCUHbYH+F9Gjdhy3WkR7yKh8jM2+mQAuUkREKIFAorWv231wWgp
+ 0Xf1X3AFDt8MbRYFVudcSv/sA9dgAraLHTJ4BitjJjZx+UL7gfMJa4xqhUv0qI+IPYcWo50Wn1P
+ O1M9ToNUBEczttdPFJXJ6xCx1It/cp8bla4BvwBLrZS/fyfmST2aueX9NZngbTuMip2zO2dJcqH
+ hi6gG5nVcUpbSN3w1rME7xvRpBjWG+loqGSCF5IsxrlhMIz8AoCsNl6M0QmutOPL9wK+Y7F3c8j
+ XLpmV
+X-Received: by 2002:a05:7022:618a:b0:12a:716c:d27c with SMTP id
+ a92af1059eb24-12c73f65e7bmr3336746c88.2.1776695335696; Mon, 20 Apr 2026
+ 07:28:55 -0700 (PDT)
 MIME-Version: 1.0
-References: <20260417213221.937722-1-mjgajda@gmail.com>
- <43120d24-2b69-4038-9540-dc204c75a14d@amd.com>
-In-Reply-To: <43120d24-2b69-4038-9540-dc204c75a14d@amd.com>
+References: <20260420125223.234974-1-tzimmermann@suse.de>
+In-Reply-To: <20260420125223.234974-1-tzimmermann@suse.de>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 20 Apr 2026 10:13:47 -0400
-X-Gm-Features: AQROBzDE_MPDw_jDdkeLrsu71yoHraxPuk43vC4IBtnWXH1xEiFdYBv6eUf2-co
-Message-ID: <CADnq5_OwGSGzSAZp=H1P2N+iePiVND9+1CD3Zf34oC5E8zzcwQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: allow unprivileged read of GC_THROTTLE_STATUS
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: mjgajda@gmail.com, amd-gfx@lists.freedesktop.org, 
- Alexander.Deucher@amd.com, dri-devel@lists.freedesktop.org
+Date: Mon, 20 Apr 2026 10:28:42 -0400
+X-Gm-Features: AQROBzAfpKXjX3L7Hkb49pntXhT2-oonx5BaqtdUEdryQOx7lU1Oxs2Y7j6KTKQ
+Message-ID: <CADnq5_Ms0U0Pmpt3cvz6zFLZGrG0f6-x=4Nqam2XU8+gXGZA1w@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: Replace VKMS vblank timer with common
+ implementation
+To: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com, 
+ simona@ffwll.ch, amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -106,154 +107,239 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Apr 20, 2026 at 5:13=E2=80=AFAM Christian K=C3=B6nig
-<christian.koenig@amd.com> wrote:
->
-> On 4/17/26 23:32, mjgajda@gmail.com wrote:
-> > From: "M. Gajda" <mjgajda@gmail.com>
-> >
-> > GC_THROTTLE_STATUS is a read-only hardware status register present on a=
-ll
-> > RDNA GPU generations (GFX10/11/12).  It reports the state of the GFX
-> > thermal throttle finite state machine:
-> >
-> >   FSM_STATE    [3:0]  non-zero =3D GPU currently being throttled
-> >   PATTERN_INDEX [9:4]  active throttle duty-cycle pattern
->
-> Mhm, according to AMDs internal register documentation that one is not av=
-ailable everywhere.
->
-> My educated guess is that there is actually some SMU function you should =
-call to get this information.
+Applied.  Thanks!
 
-This is already available via the smu metrics table.  I suspect this
-register is probably just a scratch register anyway since it's FW
-which handles the clocks, not the HW and as such, I'm not sure it
-would even get updated.
-
-Alex
-
+On Mon, Apr 20, 2026 at 8:59=E2=80=AFAM Thomas Zimmermann <tzimmermann@suse=
+.de> wrote:
 >
+> Replace amdgpu's custom vblank timers with the shared implementation
+> in DRM's vblank code. Both are built upon hrtimers. The vblank logic
+> is identical.
 >
-> > The register is never written by the driver.  No side-effects occur on
-> > read.
+> The shared helpers contain all initialization internally. They also
+> handle a number of deadlocks and race conditions that are present in
+> amdgpu.
 >
-> Oh that is not correct at all. Reads can have tons of side effects all th=
-e way to a spontaneous system reboot!
+> Also remove the set-but-unused field vsync_timer_enabled from struct
+> amdgpu_crtc.
 >
-> > Add it to the per-ASIC allowed_read_registers[] tables so that
-> > unprivileged userspace can query it via the AMDGPU_INFO_READ_MMR_REG io=
-ctl
-> > (libdrm: amdgpu_read_mm_registers(3)).
-> >
-> > This enables monitoring tools such as radeontop to display GPU thermal
-> > throttle status without root privileges -- information of the same
-> > sensitivity class as GPU temperature, which is already exposed via the
-> > AMDGPU_INFO_SENSOR_GPU_TEMP sensor ioctl.
+> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h |   4 -
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c | 123 +----------------------
+>  2 files changed, 3 insertions(+), 124 deletions(-)
 >
-> Yeah, but that one asks the DPM functions to talk to the SMU to get the r=
-equested data.
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_mode.h
+> index 51ab1a332615..8069fc41cc7f 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
+> @@ -38,7 +38,6 @@
+>  #include <drm/drm_probe_helper.h>
+>  #include <linux/i2c.h>
+>  #include <linux/i2c-algo-bit.h>
+> -#include <linux/hrtimer.h>
+>  #include "amdgpu_irq.h"
 >
-> That is clearly something completely different.
+>  #include <drm/display/drm_dp_mst_helper.h>
+> @@ -505,9 +504,6 @@ struct amdgpu_crtc {
+>         u32 line_time;
+>         u32 lb_vblank_lead_lines;
+>         struct drm_display_mode hw_mode;
+> -       /* for virtual dce */
+> -       struct hrtimer vblank_timer;
+> -       enum amdgpu_interrupt_state vsync_timer_enabled;
 >
-> Regards,
-> Christian.
+>         int otg_inst;
+>         struct drm_pending_vblank_event *event;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_vkms.c
+> index e54295b56282..9f497e9c65b8 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
+> @@ -5,6 +5,7 @@
+>  #include <drm/drm_simple_kms_helper.h>
+>  #include <drm/drm_gem_framebuffer_helper.h>
+>  #include <drm/drm_vblank.h>
+> +#include <drm/drm_vblank_helper.h>
 >
-> >
-> > Register offsets per generation:
-> >   GFX10 (RDNA 1/2): mmGC_THROTTLE_STATUS  0x2032  BASE_IDX 0
-> >   GFX11 (RDNA 3):  regGC_THROTTLE_STATUS  0x1b0a  BASE_IDX 1
-> >   GFX12 (RDNA 4):  regGC_THROTTLE_STATUS  0x1b1c  BASE_IDX 1
-> >
-> > Source: drivers/gpu/drm/amd/include/asic_reg/gc/
-> >   gc_10_3_0_{offset,sh_mask}.h, gc_11_0_0_{offset,sh_mask}.h,
-> >   gc_12_0_0_{offset,sh_mask}.h
-> >
-> > Public ISA documentation:
-> >   RDNA 1: https://developer.amd.com/wp-content/resources/RDNA_Shader_IS=
-A.pdf
-> >   RDNA 2: https://www.amd.com/content/dam/amd/en/documents/radeon-tech-=
-docs/instruction-set-architectures/rdna2-shader-instruction-set-architectur=
-e.pdf
-> >   RDNA 3: https://docs.amd.com/v/u/en-US/rdna3-shader-instruction-set-a=
-rchitecture
-> >   RDNA 4: https://docs.amd.com/v/u/en-US/rdna4-instruction-set-architec=
-ture
-> >
-> > Signed-off-by: M. Gajda <mjgajda@gmail.com>
-> > ---
-> >  drivers/gpu/drm/amd/amdgpu/nv.c    | 6 ++++++
-> >  drivers/gpu/drm/amd/amdgpu/soc21.c | 6 ++++++
-> >  drivers/gpu/drm/amd/amdgpu/soc24.c | 6 ++++++
-> >  3 files changed, 18 insertions(+)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/nv.c b/drivers/gpu/drm/amd/amdg=
-pu/nv.c
-> > index 7ce1a1b95..80594c793 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/nv.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/nv.c
-> > @@ -352,6 +352,12 @@ static struct soc15_allowed_register_entry nv_allo=
-wed_read_registers[] =3D {
-> >         { SOC15_REG_ENTRY(GC, 0, mmCP_CPC_STALLED_STAT1)},
-> >         { SOC15_REG_ENTRY(GC, 0, mmCP_CPC_STATUS)},
-> >         { SOC15_REG_ENTRY(GC, 0, mmGB_ADDR_CONFIG)},
-> > +       /*
-> > +        * GC_THROTTLE_STATUS (offset 0x2032): read-only thermal thrott=
-le FSM.
-> > +        * FSM_STATE [3:0] !=3D 0 indicates the GPU is currently being =
-throttled.
-> > +        * Defined in gc_10_3_0_offset.h / gc_10_3_0_sh_mask.h
-> > +        */
-> > +       { SOC15_REG_ENTRY(GC, 0, mmGC_THROTTLE_STATUS)},
-> >  };
-> >
-> >  static uint32_t nv_read_indexed_register(struct amdgpu_device *adev, u=
-32 se_num,
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/soc21.c b/drivers/gpu/drm/amd/a=
-mdgpu/soc21.c
-> > index fbd1d97f3..8c2472bd0 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/soc21.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/soc21.c
-> > @@ -304,6 +304,12 @@ static struct soc15_allowed_register_entry soc21_a=
-llowed_read_registers[] =3D {
-> >         { SOC15_REG_ENTRY(GC, 0, regCP_CPC_STALLED_STAT1)},
-> >         { SOC15_REG_ENTRY(GC, 0, regCP_CPC_STATUS)},
-> >         { SOC15_REG_ENTRY(GC, 0, regGB_ADDR_CONFIG)},
-> > +       /*
-> > +        * GC_THROTTLE_STATUS (offset 0x1b0a): read-only thermal thrott=
-le FSM.
-> > +        * FSM_STATE [3:0] !=3D 0 indicates the GPU is currently being =
-throttled.
-> > +        * Defined in gc_11_0_0_offset.h / gc_11_0_0_sh_mask.h
-> > +        */
-> > +       { SOC15_REG_ENTRY(GC, 0, regGC_THROTTLE_STATUS)},
-> >  };
-> >
-> >  static uint32_t soc21_read_indexed_register(struct amdgpu_device *adev=
-, u32 se_num,
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/soc24.c b/drivers/gpu/drm/amd/a=
-mdgpu/soc24.c
-> > index d1adf19a5..617ee0a4d 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/soc24.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/soc24.c
-> > @@ -130,6 +130,12 @@ static struct soc15_allowed_register_entry soc24_a=
-llowed_read_registers[] =3D {
-> >         { SOC15_REG_ENTRY(GC, 0, regCP_CPC_STALLED_STAT1)},
-> >         { SOC15_REG_ENTRY(GC, 0, regCP_CPC_STATUS)},
-> >         { SOC15_REG_ENTRY(GC, 0, regGB_ADDR_CONFIG)},
-> > +       /*
-> > +        * GC_THROTTLE_STATUS (offset 0x1b1c): read-only thermal thrott=
-le FSM.
-> > +        * FSM_STATE [3:0] !=3D 0 indicates the GPU is currently being =
-throttled.
-> > +        * Defined in gc_12_0_0_offset.h / gc_12_0_0_sh_mask.h
-> > +        */
-> > +       { SOC15_REG_ENTRY(GC, 0, regGC_THROTTLE_STATUS)},
-> >  };
-> >
-> >  static uint32_t soc24_read_indexed_register(struct amdgpu_device *adev=
-,
-> > --
-> > 2.51.0
-> >
+>  #include "amdgpu.h"
+>  #ifdef CONFIG_DRM_AMDGPU_SI
+> @@ -42,81 +43,6 @@ static const u32 amdgpu_vkms_formats[] =3D {
+>         DRM_FORMAT_XRGB8888,
+>  };
+>
+> -static enum hrtimer_restart amdgpu_vkms_vblank_simulate(struct hrtimer *=
+timer)
+> -{
+> -       struct amdgpu_crtc *amdgpu_crtc =3D container_of(timer, struct am=
+dgpu_crtc, vblank_timer);
+> -       struct drm_crtc *crtc =3D &amdgpu_crtc->base;
+> -       struct amdgpu_vkms_output *output =3D drm_crtc_to_amdgpu_vkms_out=
+put(crtc);
+> -       u64 ret_overrun;
+> -       bool ret;
+> -
+> -       ret_overrun =3D hrtimer_forward_now(&amdgpu_crtc->vblank_timer,
+> -                                         output->period_ns);
+> -       if (ret_overrun !=3D 1)
+> -               drm_warn(amdgpu_crtc->base.dev,
+> -                        "%s: vblank timer overrun count: %llu\n",
+> -                        __func__, ret_overrun);
+> -
+> -       ret =3D drm_crtc_handle_vblank(crtc);
+> -       /* Don't queue timer again when vblank is disabled. */
+> -       if (!ret)
+> -               return HRTIMER_NORESTART;
+> -
+> -       return HRTIMER_RESTART;
+> -}
+> -
+> -static int amdgpu_vkms_enable_vblank(struct drm_crtc *crtc)
+> -{
+> -       struct drm_vblank_crtc *vblank =3D drm_crtc_vblank_crtc(crtc);
+> -       struct amdgpu_vkms_output *out =3D drm_crtc_to_amdgpu_vkms_output=
+(crtc);
+> -       struct amdgpu_crtc *amdgpu_crtc =3D to_amdgpu_crtc(crtc);
+> -
+> -       drm_calc_timestamping_constants(crtc, &crtc->mode);
+> -
+> -       out->period_ns =3D ktime_set(0, vblank->framedur_ns);
+> -       hrtimer_start(&amdgpu_crtc->vblank_timer, out->period_ns, HRTIMER=
+_MODE_REL);
+> -
+> -       return 0;
+> -}
+> -
+> -static void amdgpu_vkms_disable_vblank(struct drm_crtc *crtc)
+> -{
+> -       struct amdgpu_crtc *amdgpu_crtc =3D to_amdgpu_crtc(crtc);
+> -
+> -       hrtimer_try_to_cancel(&amdgpu_crtc->vblank_timer);
+> -}
+> -
+> -static bool amdgpu_vkms_get_vblank_timestamp(struct drm_crtc *crtc,
+> -                                            int *max_error,
+> -                                            ktime_t *vblank_time,
+> -                                            bool in_vblank_irq)
+> -{
+> -       struct amdgpu_vkms_output *output =3D drm_crtc_to_amdgpu_vkms_out=
+put(crtc);
+> -       struct drm_vblank_crtc *vblank =3D drm_crtc_vblank_crtc(crtc);
+> -       struct amdgpu_crtc *amdgpu_crtc =3D to_amdgpu_crtc(crtc);
+> -
+> -       if (!READ_ONCE(vblank->enabled)) {
+> -               *vblank_time =3D ktime_get();
+> -               return true;
+> -       }
+> -
+> -       *vblank_time =3D READ_ONCE(amdgpu_crtc->vblank_timer.node.expires=
+);
+> -
+> -       if (WARN_ON(*vblank_time =3D=3D vblank->time))
+> -               return true;
+> -
+> -       /*
+> -        * To prevent races we roll the hrtimer forward before we do any
+> -        * interrupt processing - this is how real hw works (the interrup=
+t is
+> -        * only generated after all the vblank registers are updated) and=
+ what
+> -        * the vblank core expects. Therefore we need to always correct t=
+he
+> -        * timestampe by one frame.
+> -        */
+> -       *vblank_time -=3D output->period_ns;
+> -
+> -       return true;
+> -}
+> -
+>  static const struct drm_crtc_funcs amdgpu_vkms_crtc_funcs =3D {
+>         .set_config             =3D drm_atomic_helper_set_config,
+>         .destroy                =3D drm_crtc_cleanup,
+> @@ -124,45 +50,11 @@ static const struct drm_crtc_funcs amdgpu_vkms_crtc_=
+funcs =3D {
+>         .reset                  =3D drm_atomic_helper_crtc_reset,
+>         .atomic_duplicate_state =3D drm_atomic_helper_crtc_duplicate_stat=
+e,
+>         .atomic_destroy_state   =3D drm_atomic_helper_crtc_destroy_state,
+> -       .enable_vblank          =3D amdgpu_vkms_enable_vblank,
+> -       .disable_vblank         =3D amdgpu_vkms_disable_vblank,
+> -       .get_vblank_timestamp   =3D amdgpu_vkms_get_vblank_timestamp,
+> +       DRM_CRTC_VBLANK_TIMER_FUNCS,
+>  };
+>
+> -static void amdgpu_vkms_crtc_atomic_enable(struct drm_crtc *crtc,
+> -                                          struct drm_atomic_state *state=
+)
+> -{
+> -       drm_crtc_vblank_on(crtc);
+> -}
+> -
+> -static void amdgpu_vkms_crtc_atomic_disable(struct drm_crtc *crtc,
+> -                                           struct drm_atomic_state *stat=
+e)
+> -{
+> -       drm_crtc_vblank_off(crtc);
+> -}
+> -
+> -static void amdgpu_vkms_crtc_atomic_flush(struct drm_crtc *crtc,
+> -                                         struct drm_atomic_state *state)
+> -{
+> -       unsigned long flags;
+> -       if (crtc->state->event) {
+> -               spin_lock_irqsave(&crtc->dev->event_lock, flags);
+> -
+> -               if (drm_crtc_vblank_get(crtc) !=3D 0)
+> -                       drm_crtc_send_vblank_event(crtc, crtc->state->eve=
+nt);
+> -               else
+> -                       drm_crtc_arm_vblank_event(crtc, crtc->state->even=
+t);
+> -
+> -               spin_unlock_irqrestore(&crtc->dev->event_lock, flags);
+> -
+> -               crtc->state->event =3D NULL;
+> -       }
+> -}
+> -
+>  static const struct drm_crtc_helper_funcs amdgpu_vkms_crtc_helper_funcs =
+=3D {
+> -       .atomic_flush   =3D amdgpu_vkms_crtc_atomic_flush,
+> -       .atomic_enable  =3D amdgpu_vkms_crtc_atomic_enable,
+> -       .atomic_disable =3D amdgpu_vkms_crtc_atomic_disable,
+> +       DRM_CRTC_HELPER_VBLANK_FUNCS,
+>  };
+>
+>  static int amdgpu_vkms_crtc_init(struct drm_device *dev, struct drm_crtc=
+ *crtc,
+> @@ -187,10 +79,6 @@ static int amdgpu_vkms_crtc_init(struct drm_device *d=
+ev, struct drm_crtc *crtc,
+>         amdgpu_crtc->pll_id =3D ATOM_PPLL_INVALID;
+>         amdgpu_crtc->encoder =3D NULL;
+>         amdgpu_crtc->connector =3D NULL;
+> -       amdgpu_crtc->vsync_timer_enabled =3D AMDGPU_IRQ_STATE_DISABLE;
+> -
+> -       hrtimer_setup(&amdgpu_crtc->vblank_timer, &amdgpu_vkms_vblank_sim=
+ulate, CLOCK_MONOTONIC,
+> -                     HRTIMER_MODE_REL);
+>
+>         return ret;
+>  }
+> @@ -538,11 +426,6 @@ static int amdgpu_vkms_sw_init(struct amdgpu_ip_bloc=
+k *ip_block)
+>  static int amdgpu_vkms_sw_fini(struct amdgpu_ip_block *ip_block)
+>  {
+>         struct amdgpu_device *adev =3D ip_block->adev;
+> -       int i =3D 0;
+> -
+> -       for (i =3D 0; i < adev->mode_info.num_crtc; i++)
+> -               if (adev->mode_info.crtcs[i])
+> -                       hrtimer_cancel(&adev->mode_info.crtcs[i]->vblank_=
+timer);
+>
+>         drm_kms_helper_poll_fini(adev_to_drm(adev));
+>         drm_mode_config_cleanup(adev_to_drm(adev));
+> --
+> 2.53.0
 >
