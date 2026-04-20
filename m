@@ -4,128 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E0D8DF588CA
-	for <amd-gfx@archiver.kernel.org>; Mon, 20 Apr 2026 13:30:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 96B7CF588C4
+	for <amd-gfx@archiver.kernel.org>; Mon, 20 Apr 2026 13:30:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7C3F710E63E;
-	Mon, 20 Apr 2026 13:30:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2CDB410E645;
+	Mon, 20 Apr 2026 13:30:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="uteaJHAw";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="dY7JVugp";
 	dkim-atps=neutral
-Received: from PH0PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11011045.outbound.protection.outlook.com [40.107.208.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 47DCA10E642;
- Mon, 20 Apr 2026 13:30:46 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=h0ncuuHX0dXMZlK1ICdqurywAUsY5qwCQEEqqh7TU5ZgnyAItmn8xM87Bb8AqvNfpx/8asWqfByHLxZMDYERrvtx8obGYp9Dxn3Sf/1Mj2JZXKa1WvoIxgHs40bbSTfHEgh5+4VUOQavh/TF21/5+E54zdaQVmnoEN0ayFE/doD61gyZ8Jilr3PO2NwwedroAVx00lklVd2OZQq5kKcY/lXVVrdLtLVknc9nLgVqcwAOTuDN4khffWRWJW+gOhdGdP877jD+k/hbkAxspnKW4oeHZtX4VIbAznRlLPgiinVnkwr7pyfH/G3PfzGxkvNoi6Q1cDRg4hlGZcbw0IyeiQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=HSR4Dt0DMbjTiBcQuhyG6YL0SMSyFZpks+YxFuV0rOk=;
- b=VmIaacZp7zv2MGnEA51YQG3EUJlQraE2vXXfp8ZfAF3RdT2adumCxlYCjdpaF1GcQnuKPyWSmtu7OxgI998AP0/FOIKXHBWvCKNRE5fwAUgRzFYqK75iN2/zecFARAXlDdb+MlCaCjrjXQFuNZeAgLiSguASMhWZ6npi4xeSv66yHLIjJpp7fqhLaHg0TZd4/4LPYWnkvjc62KDva5W3Z4UzP9hU7KUWbxIKTY4X+/OobcUJ1kQSBmSIsQdabnc8KMthvRfXmER493q3zKeTcSpz0VT96a/SIsLoW81iUvdMo9yPFAGYkM84n4MO5/+rvkqWXosE2rlfk+XTe5tzIg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=HSR4Dt0DMbjTiBcQuhyG6YL0SMSyFZpks+YxFuV0rOk=;
- b=uteaJHAwR0cPQ1QBynYwoxf8IRos7uRSVqYGuS6vOkZyh2zSaoI5P3bgrRtdWq6C8nUWhKz+c7P5GLLzlYTCYlX1YrQH/WJAluuYyXb29fTD5opud8X1FwmuiKCb7aC/v18j/EzMnRpyTddIMGytcCOdpmeZQuidOY5DaQGfhQI=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from IA1PR12MB6435.namprd12.prod.outlook.com (2603:10b6:208:3ad::10)
- by CYYPR12MB8962.namprd12.prod.outlook.com (2603:10b6:930:c4::13)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.16; Mon, 20 Apr
- 2026 13:30:38 +0000
-Received: from IA1PR12MB6435.namprd12.prod.outlook.com
- ([fe80::8b77:7cdb:b17a:a8e2]) by IA1PR12MB6435.namprd12.prod.outlook.com
- ([fe80::8b77:7cdb:b17a:a8e2%5]) with mapi id 15.20.9846.007; Mon, 20 Apr 2026
- 13:30:38 +0000
-Message-ID: <50d13ae3-be27-4b79-91ef-e1b386054943@amd.com>
-Date: Mon, 20 Apr 2026 21:30:26 +0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC/POC PATCH 01/12] drm/amdgpu: add SVM UAPI definitions
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-References: <20260420120739.1811731-1-honglei1.huang@amd.com>
- <20260420120739.1811731-2-honglei1.huang@amd.com>
- <cda09d5d-4cca-46a1-8625-fe9fa687e5a2@amd.com>
-Content-Language: en-US
-From: "Huang, Honglei1" <honghuan@amd.com>
-Cc: Alexander.Deucher@amd.com, Felix.Kuehling@amd.com, Oak.Zeng@amd.com,
- Jenny-Jing.Liu@amd.com, Philip.Yang@amd.com, Xiaogang.Chen@amd.com,
- Ray.Huang@amd.com, Lingshan.Zhu@amd.com, Junhua.Shen@amd.com,
- matthew.brost@intel.com, rodrigo.vivi@intel.com,
- thomas.hellstrom@linux.intel.com, dakr@kernel.org, aliceryhl@google.com,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-In-Reply-To: <cda09d5d-4cca-46a1-8625-fe9fa687e5a2@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: SI2PR02CA0018.apcprd02.prod.outlook.com
- (2603:1096:4:194::18) To IA1PR12MB6435.namprd12.prod.outlook.com
- (2603:10b6:208:3ad::10)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E35E110E645;
+ Mon, 20 Apr 2026 13:30:53 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id 2831860141;
+ Mon, 20 Apr 2026 13:30:53 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 60CB4C19425;
+ Mon, 20 Apr 2026 13:30:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1776691852;
+ bh=4xiw5v4GHgFwfDMt4EGl/NU/LMF7cjo7fJz6cVUfIqU=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=dY7JVugpjsAyMhWviSBKV3MNPuSy8IWnJprkOX4G7A+KgTlXGOFdrO+Ht7KyRaA8f
+ DSnjCQIyB9BAMJrIVl5s6j62EXBe2jGbEo9IoSh6hHcFOXb89a3qM6FtZxQCS9jR/M
+ 7RNdgN+ndOWT8RFYloTlcLwBuQbbeo61siu6v9zmshdfInqg5MQRRP9o32x5J+tG7E
+ XUomDRxOVx2aGVxQ0OgDAYpkGuMLAV5kNBcG9/8xfUclg29UojZBF4WAmP2GBIq4or
+ QQ/8J34tSlzc5uwSK7Av7KBiME22/oCdF/aM7D1y6RZKp4eWm4E/tZxh4FsgyrRkpO
+ nb8i/pF6dZ9hg==
+From: Sasha Levin <sashal@kernel.org>
+To: patches@lists.linux.dev,
+	stable@vger.kernel.org
+Cc: Jesse Zhang <Jesse.Zhang@amd.com>, Lijo Lazar <lijo.lazar@amd.com>,
+ Jesse Zhang <jesse.zhang@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
+ christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH AUTOSEL 7.0-6.12] drm/amdgpu: guard atom_context in
+ devcoredump VBIOS dump
+Date: Mon, 20 Apr 2026 09:20:26 -0400
+Message-ID: <20260420132314.1023554-232-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260420132314.1023554-1-sashal@kernel.org>
+References: <20260420132314.1023554-1-sashal@kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA1PR12MB6435:EE_|CYYPR12MB8962:EE_
-X-MS-Office365-Filtering-Correlation-Id: a59f9ea2-2867-4857-9e1b-08de9ee10291
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|1800799024|376014|18002099003|22082099003|56012099003; 
-X-Microsoft-Antispam-Message-Info: 5tlzkJ90JzCZ8BG3N3v3mDN4HetcBga9uNhvfn91CmZseCzipLGBaZ3gKH7t8DlfD3gtaOOPJnbK9jdWImP5j1CFcBln00KnF/S+J2Sd9po9Hpt5IgQTpgrJKL+vCjReyRHGKiXiLSs3QW4Sw6/HM1+mcHSMli8hACV6hf58FFrHqvTfqSHLyi87J6MJlDSTNa1/vvTDGvCIuvS+a03FbFgDhcIGxJlyd6fdN4LkfYUMX5etrkMCLLprguSJA3W7Wej8O1yIBk8rpOdUPC7478XUUN/0Fs6Y437SA55R2QFA4EwhAIvf0ajvEJAp/H+cRbG+udz98YtjbWY/I8nrAmF0SEHtFYtGAJvAq7df0hqAxIjzNexkfxBrEGE3s+M5Db97nb0YqPJOlL5uVEYS0lotoGkel0k4QghT61zqJ8ZC0JE7jWwwKSqbjRqY8uDVRufkuBHZacopjmISebmfdgrPOt8qiI6NsjeYefeSw0z48Ryj5yHTVnzmVolovCysn2QoZIAG8z3k1jJFc5Qn/UTytA16Fv+XhZXZ1o4LkUnMLUrDZYW/dIOi1q0jUuNZoV9UEgUI+lXZT/5BWZdYvwGhWadkgV3jVoWlZddE2uOzLlExpc72WsMfajbJTCEey+7IQZsQeH7xBvPILgwcuGo9F/Gowg4lj/8NMY5lJMI7jX32raAkN2C6vKaHi0gPUYGzwRl4eEG8n4VVo+pQpUchc/atPYP2hyNnMeqdNE8=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:IA1PR12MB6435.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014)(18002099003)(22082099003)(56012099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cTFFaWE4MVdqR2xUcjRFbC85MUgvVHpmOFFjU0VuY3FkTlJKdFkwZnFab29G?=
- =?utf-8?B?N1BNalduNjFPbEppd0lraGx3RGljZXlVNmNOckx4LzBtNnBRbk5xdGpRQWZO?=
- =?utf-8?B?YVlWd0NBL3NvT0VCUGtjSmRtVjZOUVJVM0JTQWpmZXJmQnN1Sks5eUNNVkxK?=
- =?utf-8?B?U2x3SDJKdFhOdEtJYzRDR3RON2NDd3ZZWTJqNmVyRElQTjhUSG5kWlkxQTlG?=
- =?utf-8?B?Vy9KT05Wc2hwaGdhYmdkVXpONEt5NS96MmRGU1I5VHB1aUYzZTA3amlMcG1H?=
- =?utf-8?B?UjdhaDJYSFN6Q0xuZ2xDMFdJQ21Beno4dFVRRFA0cTdta2ZTYjQzaFV0VGZE?=
- =?utf-8?B?MzRjZk1EWkx4UU05Q1ZZRnB3ZG9DazlyZytUOXJUKyt0WXZBRDFnc0U3SzMr?=
- =?utf-8?B?RzV3ZmVoV1BBRkF4MEtoaStmcU95VXR3QU5pMnc2UGNQSzFrdE5LbXA0OHJi?=
- =?utf-8?B?dnhObWlWK1E2S2ZNMmRxYzFwZ0ZHTWp6UHNEck9QcWRMekwvb09XdVhvZnBp?=
- =?utf-8?B?MXF5bDl1MnB6b2RHSTJ4RW1VcERUNU8zSmRkdTNuYnVkZVVRYy84Q21tdFVC?=
- =?utf-8?B?cHpoNm1FdUFsdkovbEVPUXljejFVTllLWDJ5SXE5dmpjTnE5NG1yTnVpcXkr?=
- =?utf-8?B?dW5Ra0N6MFgrQXJiRXJYbkpEVnRTZXJJTFlTOU91QlBHWm1sUjk5aEVLTFZB?=
- =?utf-8?B?YXpKTlc4aVJoU1FuSFFBc25pSDdxbzNKcmw4d0ovL0JPTklFZ1puMkZpbVVE?=
- =?utf-8?B?ekd3dXFiSGpMSWJ4Vlk3ajBKc3Vld25tUmliRGEvWFhIMUlQQ3BuRS8vY0pu?=
- =?utf-8?B?aUV2M0docm9GbXpEb2RXcDkxNG5SbS9Dc1dVN283NnpqTTUrQUp2VGFEM1RR?=
- =?utf-8?B?RGxlVUhHMXNyaGR0dnBvTXB2VjZhdDJNRzdGSURiZGp2L3RhSE4xaUsrY1Z0?=
- =?utf-8?B?MTNtcmwrYkVLeEVXQzJCZVlhR0NZVlpzMkdMOU9MN2l2bEx3SmljdUtwUzVa?=
- =?utf-8?B?eHpoVWFySWtkMTZhcTNuQ2gwZDk2ejZVV1JZQ2pBNE8wL3lmeXBnYUFpQ05i?=
- =?utf-8?B?V0NEaFFGNUlJeEl5R2ExRFEzWTRTVVJnSWlGSUszU0VsQmNWZzd1WUVnRWIy?=
- =?utf-8?B?Y3NOUWhocndwUTNWVWpCSnY2czQ2bmtYYXhJeWZ2akxjZndSc1hBdWR5K0Fj?=
- =?utf-8?B?RmJpbmVUbStpbzdyNjIySlVlS2NzNXJXbVB4cjM0WGc1RzFXS3RtTFg1bEpT?=
- =?utf-8?B?UTkxSFp6dmdlSmRRRzdibElBbzBDRjladDBWcUoxRWUrdmNCMlFabVNBZSs5?=
- =?utf-8?B?UXpKUXV0bHp3YlZwblBUVng3ejZIK05Pa2RCTVFJcm02a081MXRPWXdROUhk?=
- =?utf-8?B?a05od2N6VFJNNGxoU2pnRlgwdjMyQmFIR253aFlCNGJHb242Y3BqNERoWWs4?=
- =?utf-8?B?YnR0UFRIV2gydzhOaHQ4SkpWYktRc1FMcldFYy9DVUl3dngyenRxUkhWOTFz?=
- =?utf-8?B?QkltZTVtblZ2VEgxRXN3VEVlZDlIWXdsdE5pOFc3U2lnaVczQTBBZjdkTmxm?=
- =?utf-8?B?SFNlVzUxaXFVc2VwM0lnNDRKcG5qUmhyZTJ1a2FwNTVlVCtMSEJlK2libnFo?=
- =?utf-8?B?czJrdDRDSXA3UmtiS0t4VXNuS3dWZ1JzUU1ET3hjaE9FOFZValI0enVKdHk3?=
- =?utf-8?B?NnowTjRkZjh6T0g5eEtURFhpdGtZZXNrcVNVR1hZUVJRb2hTTHFKWkZaYlV6?=
- =?utf-8?B?OE1zWU1VWnZRM1YyR3JjQ3lJc0I3RWw2RzFqbW1WbUR5emN2aldzdzhIWnV4?=
- =?utf-8?B?ei8xVFhUOGNzOS9TVEpQRjk3U1NoUldqaHZnUnBLTUZQRFNHZDIwN0JoS2hy?=
- =?utf-8?B?aFZxdCtBNmxweklUOGpPTVJORzVrazhxUGFveXJCaHhmMGYvaHc5RDB1aFRi?=
- =?utf-8?B?eVN2VEpjN0xJa2h3OXlSdTMrMGtEMGtzcjEyeS9PWFVQUHBMODNpK2Z1Rkw5?=
- =?utf-8?B?d3FFTHBkS3JCMDlJOG1xSXlBSTJRSEppbi9TYWVoZ1Bta21DYXBSMGw2SFMr?=
- =?utf-8?B?RUlxN1dxWWRPRzhkNEpKWThQWHF6OU5vc1daZ1NHcE9EbndPOUEyY2c5OUtX?=
- =?utf-8?B?Zmg4NDdZQ0FIZStvTk5JNzI1K1NYN25GQUJJYUozUjhNZmJMMDVXMGduNUJ1?=
- =?utf-8?B?OWs2YlMyeDNzbXRScDFzbDBtVE5LS3QyYTExT0ZYVVh4VllwNS9ETG5ya2Ux?=
- =?utf-8?B?TEs0Yy9rdkhYUWpZeVVzdXRlUm85bmI5cFdIVVNyZEN3N0F1OWJROGpUVURC?=
- =?utf-8?Q?+mlZizd8QMwMkoHNai?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a59f9ea2-2867-4857-9e1b-08de9ee10291
-X-MS-Exchange-CrossTenant-AuthSource: IA1PR12MB6435.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Apr 2026 13:30:38.3625 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: VP5WJKt/OglnyPxAwhHBB0jouzHh3YO0ut4aoS9yRyGN/aEDshsIZDx29NjnIQjk7+GdGGZqBckEecRigLH/aA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYYPR12MB8962
+X-stable: review
+X-Patchwork-Hint: Ignore
+X-stable-base: Linux 7.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -140,141 +66,410 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+From: Jesse Zhang <Jesse.Zhang@amd.com>
 
+[ Upstream commit 557fa5a453c9ccb49a22f30a7ad0545573d434b7 ]
 
-On 4/20/2026 8:15 PM, Christian König wrote:
-> 
-> 
-> On 4/20/26 14:07, Honglei Huang wrote:
->> From: Honglei Huang <honghuan@amd.com>
->>
->> Add amdgpu drm SVM API definitions built on the
->> DRM GPUSVM framework.
->>
->> This includes:
->> - DRM_AMDGPU_GEM_SVM ioctl
->> - AMDGPU_SVM_FLAG_* flags
->> - AMDGPU_SVM_OP_SET_ATTR / AMDGPU_SVM_OP_GET_ATTR operations
->> - AMDGPU_SVM_ATTR_* attribute types
->> - AMDGPU_SVM_LOCATION_SYSMEM / AMDGPU_SVM_LOCATION_UNDEFINED
->> - struct drm_amdgpu_svm_attribute and struct drm_amdgpu_gem_svm
->>
->> Signed-off-by: Honglei Huang <honghuan@amd.com>
->> ---
->>   include/uapi/drm/amdgpu_drm.h | 39 +++++++++++++++++++++++++++++++++++
->>   1 file changed, 39 insertions(+)
->>
->> diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h
->> index 406a42be4..bed71ed9b 100644
->> --- a/include/uapi/drm/amdgpu_drm.h
->> +++ b/include/uapi/drm/amdgpu_drm.h
->> @@ -58,6 +58,7 @@ extern "C" {
->>   #define DRM_AMDGPU_USERQ_SIGNAL		0x17
->>   #define DRM_AMDGPU_USERQ_WAIT		0x18
->>   #define DRM_AMDGPU_GEM_LIST_HANDLES	0x19
->> +#define DRM_AMDGPU_GEM_SVM		0x1a
->>   
->>   #define DRM_IOCTL_AMDGPU_GEM_CREATE	DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_CREATE, union drm_amdgpu_gem_create)
->>   #define DRM_IOCTL_AMDGPU_GEM_MMAP	DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_MMAP, union drm_amdgpu_gem_mmap)
->> @@ -79,6 +80,7 @@ extern "C" {
->>   #define DRM_IOCTL_AMDGPU_USERQ_SIGNAL	DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_USERQ_SIGNAL, struct drm_amdgpu_userq_signal)
->>   #define DRM_IOCTL_AMDGPU_USERQ_WAIT	DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_USERQ_WAIT, struct drm_amdgpu_userq_wait)
->>   #define DRM_IOCTL_AMDGPU_GEM_LIST_HANDLES DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_LIST_HANDLES, struct drm_amdgpu_gem_list_handles)
->> +#define DRM_IOCTL_AMDGPU_GEM_SVM	DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_SVM, struct drm_amdgpu_gem_svm)
->>   
->>   /**
->>    * DOC: memory domains
->> @@ -1665,6 +1667,43 @@ struct drm_color_ctm_3x4 {
->>   	__u64 matrix[12];
->>   };
->>   
->> +#define AMDGPU_SVM_FLAG_HOST_ACCESS		0x00000001
->> +#define AMDGPU_SVM_FLAG_COHERENT		0x00000002
->> +#define AMDGPU_SVM_FLAG_HIVE_LOCAL		0x00000004
->> +#define AMDGPU_SVM_FLAG_GPU_RO			0x00000008
->> +#define AMDGPU_SVM_FLAG_GPU_EXEC		0x00000010
->> +#define AMDGPU_SVM_FLAG_GPU_READ_MOSTLY		0x00000020
->> +#define AMDGPU_SVM_FLAG_GPU_ALWAYS_MAPPED	0x00000040
->> +#define AMDGPU_SVM_FLAG_EXT_COHERENT		0x00000080
->> +
->> +#define AMDGPU_SVM_OP_SET_ATTR		0
->> +#define AMDGPU_SVM_OP_GET_ATTR		1
->> +
->> +#define AMDGPU_SVM_ATTR_PREFERRED_LOC		0
->> +#define AMDGPU_SVM_ATTR_PREFETCH_LOC		1
-> 
-> Up till here the interface makes perfect sense, but then it becomes a bit fuzzy.
-> 
->> +#define AMDGPU_SVM_ATTR_ACCESS			2
->> +#define AMDGPU_SVM_ATTR_ACCESS_IN_PLACE		3
->> +#define AMDGPU_SVM_ATTR_NO_ACCESS		4
-> 
-> Why are those separate attributes? What is the difference between those?
+During GPU reset coredump generation, amdgpu_devcoredump_fw_info() unconditionally
+dereferences adev->mode_info.atom_context to print VBIOS fields. On reset/teardown
+paths this pointer can be NULL, causing a kernel page fault from the deferred
+coredump workqueue.
 
-Really thanks for the comments, I have some content mistaken in V2, so I 
-updated the V3 to fix that. For the header they are same. for other 
-content please review the V3, sorry about that. And will fix the concern 
-you raised in next version.
+Fix by checking ctx before printing VBIOS fields:
 
-So the meaning of AMDGPU_SVM_ATTR_ACCESS and AMDGPU_SVM_ATTR_NO_ACCESS 
-are clear, GPU can access it or not, and the SVM can set the preferred 
-location, it can be in VRAM or system, for AMDGPU_SVM_ATTR_ACCESS it can 
-be migrated between RAM and VRAM. For AMDGPU_SVM_ATTR_ACCESS_IN_PLACE,
-it can not migrate, GPU only can access it in the initial place.
+if ctx is valid, print full VBIOS information as before;
+This prevents NULL-dereference crashes while preserving coredump output.
 
-> 
->> +#define AMDGPU_SVM_ATTR_SET_FLAGS		5
->> +#define AMDGPU_SVM_ATTR_CLR_FLAGS		6
-> 
-> Why is that separated into set and clear flags?
+Observed page fault log:
+[  667.933329] RIP: 0010:amdgpu_devcoredump_format+0x780/0xc00 [amdgpu]
+[  667.941517] amdgpu 0002:01:00.0: Dumping IP State
+[  667.949660] Code: 8d 57 74 48 c7 c6 01 65 9f c2 48 8d 7d 98 e8 97 96 7a ff 49 8d 97 b4 00 00 00 48 c7 c6 18 65 9f c2 48 8d 7d 98 e8 80 96 7a ff <41> 8b 97 f4 00 00 00 48 c7 c6 2f 65 9f c2 48 8d 7d 98 e8 69 96 7a
+[  667.949666] RSP: 0018:ffffc9002302bd50 EFLAGS: 00010246
+[  667.949673] RAX: 0000000000000000 RBX: ffff888110600000 RCX: 0000000000000000
+[  667.949676] RDX: 000000000000a9b5 RSI: 0000000000000405 RDI: 000000000000a999
+[  667.949680] RBP: ffffc9002302be00 R08: ffffffffc09c3084 R09: ffffffffc09c3085
+[  667.949684] R10: 0000000000000000 R11: 0000000000000004 R12: 00000000000048e0
+[  667.993908] amdgpu 0002:01:00.0: Dumping IP State Completed
+[  667.994229] R13: 0000000000000025 R14: 000000000000000c R15: 0000000000000000
+[  667.994233] FS:  0000000000000000(0000) GS:ffff88c44c2c9000(0000) knlGS:0000000000000000
+[  668.000076] amdgpu 0002:01:00.0: [drm] AMDGPU device coredump file has been created
+[  668.008025] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+[  668.008030] CR2: 00000000000000f4 CR3: 000000011195f001 CR4: 0000000000770ef0
+[  668.008035] PKRU: 55555554
+[  668.008040] Call Trace:
+[  668.008045]  <TASK>
+[  668.016010] amdgpu 0002:01:00.0: [drm] Check your /sys/class/drm/card16/device/devcoredump/data
+[  668.023967]  ? srso_alias_return_thunk+0x5/0xfbef5
+[  668.023988]  ? __pfx___drm_printfn_coredump+0x10/0x10 [drm]
+[  668.031950] amdgpu 0003:01:00.0: Dumping IP State
+[  668.038159]  ? __pfx___drm_puts_coredump+0x10/0x10 [drm]
+[  668.083017] amdgpu 0003:01:00.0: Dumping IP State Completed
+[  668.083824]  amdgpu_devcoredump_deferred_work+0x26/0xc0 [amdgpu]
+[  668.086163] amdgpu 0003:01:00.0: [drm] AMDGPU device coredump file has been created
+[  668.095863]  process_scheduled_works+0xa6/0x420
+[  668.095880]  worker_thread+0x12a/0x270
+[  668.101223] amdgpu 0003:01:00.0: [drm] Check your /sys/class/drm/card24/device/devcoredump/data
+[  668.107441]  kthread+0x10d/0x230
+[  668.107451]  ? __pfx_worker_thread+0x10/0x10
+[  668.107458]  ? __pfx_kthread+0x10/0x10
+[  668.112709] amdgpu 0000:01:00.0: ring vcn_unified_1 timeout, signaled seq=9, emitted seq=10
+[  668.118630]  ret_from_fork+0x17c/0x1f0
+[  668.118640]  ? __pfx_kthread+0x10/0x10
+[  668.118647]  ret_from_fork_asm+0x1a/0x30
 
-This method inherits from KFD and is also designed to be compatible with 
-upper layer applications such as ROCR.
+Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
+Suggested-by: Lijo Lazar <lijo.lazar@amd.com>
+Signed-off-by: Jesse Zhang <jesse.zhang@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
 
+LLM Generated explanations, may be completely bogus:
 
-> 
->> +#define AMDGPU_SVM_ATTR_GRANULARITY		7
->> +
->> +#define AMDGPU_SVM_LOCATION_SYSMEM		0
->> +#define AMDGPU_SVM_LOCATION_UNDEFINED		0xffffffff
-> 
-> No location for device local memory?
+Now I have all the information needed for a comprehensive analysis. Let
+me compile the findings.
 
-Vaule > 0 means for device memory, in xe_svm, it seems like it uses fd 
-for device local memory.
+---
 
-> 
->> +
->> +struct drm_amdgpu_svm_attribute {
->> +	__u32 type;
->> +	__u32 value;
->> +};
->> +
->> +struct drm_amdgpu_gem_svm {
->> +	__u64 start_addr;
->> +	__u64 size;
->> +	__u32 operation;
->> +	__u32 nattr;
->> +	__u64 attrs_ptr;
->> +};
-> 
-> Those struct make perfect sense but clearly need documentation. Preferable as kerneldoc.
-> 
-> And we usually use unions in this header to separate the input from the output parameters.
+## PHASE 1: COMMIT MESSAGE FORENSICS
 
-Got it will add documentation for it and will use unions in next 
-version. Really thanks for the comments.
+**Step 1.1: Subject Line**
+- Subsystem: `drm/amdgpu`
+- Action verb: "guard" — implies adding a missing safety check, which is
+  a bug fix pattern
+- Summary: Guard `atom_context` in devcoredump VBIOS dump to prevent
+  NULL dereference
 
-Regards,
-Honglei
+**Step 1.2: Tags**
+- `Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>` — AMD GPU subsystem
+  reviewer
+- `Suggested-by: Lijo Lazar <lijo.lazar@amd.com>` — the fix approach was
+  suggested by a maintainer
+- `Signed-off-by: Jesse Zhang <jesse.zhang@amd.com>` — author, regular
+  AMD GPU contributor
+- `Signed-off-by: Alex Deucher <alexander.deucher@amd.com>` — AMD GPU
+  subsystem maintainer who committed it
+- No Fixes: tag (expected for autosel candidates)
+- No Cc: stable (expected)
 
-> 
-> Regards,
-> Christian.
-> 
->> +
->>   #if defined(__cplusplus)
->>   }
->>   #endif
-> 
+**Step 1.3: Commit Body**
+- Bug: During GPU reset coredump generation,
+  `amdgpu_devcoredump_fw_info()` unconditionally dereferences
+  `adev->mode_info.atom_context` (via local `ctx` variable) to print
+  VBIOS fields. On reset/teardown paths, this pointer can be NULL.
+- Symptom: Kernel page fault from deferred coredump workqueue. The crash
+  log with `CR2: 00000000000000f4` confirms access at offset 0xf4 from a
+  NULL pointer.
+- The RIP points to `amdgpu_devcoredump_format+0x780` and the call trace
+  shows `amdgpu_devcoredump_deferred_work` → `process_scheduled_works` →
+  `worker_thread`.
+
+**Step 1.4: Hidden Bug Fix Detection**
+- Not hidden — this is an explicit, documented crash fix with a full
+  kernel oops log.
+
+Record: This is a clear NULL pointer dereference fix with observed crash
+evidence.
+
+---
+
+## PHASE 2: DIFF ANALYSIS
+
+**Step 2.1: Inventory**
+- Files changed: 1 (`drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c`)
+- Lines: +10, -6 (net +4 lines)
+- Functions modified: `amdgpu_devcoredump_fw_info()`
+- Scope: Single-file surgical fix
+
+**Step 2.2: Code Flow Change**
+- BEFORE: Lines 190-195 unconditionally dereference `ctx->name`,
+  `ctx->vbios_pn`, `ctx->version`, `ctx->vbios_ver_str`, `ctx->date`
+- AFTER: Wrapped in `if (adev->bios)` — if BIOS is available, print full
+  VBIOS info; if not, print "VBIOS Information: NA"
+
+**Step 2.3: Bug Mechanism**
+Category: **Memory safety — NULL pointer dereference**
+- `ctx` is assigned at line 79: `struct atom_context *ctx =
+  adev->mode_info.atom_context;`
+- `atom_context` is set to NULL by `amdgpu_atombios_fini()` (line 1882
+  of `amdgpu_atombios.c`) during teardown
+- `adev->bios` is set to NULL by `amdgpu_bios_release()` (line 90 of
+  `amdgpu_bios.c`)
+- Both are called from `amdgpu_device_fini_sw()` at lines 4984-4988 of
+  `amdgpu_device.c`
+- The guard uses `adev->bios` because Lijo explained that if BIOS is
+  unavailable (skip_bios platforms), atom_context won't exist — this is
+  a non-error case
+
+**Step 2.4: Fix Quality**
+- Obviously correct: simple NULL guard
+- Minimal and surgical: only the VBIOS section is wrapped
+- No regression risk: doesn't change any logic, just prevents access to
+  NULL pointer
+- The `adev->bios` check is the correct proxy per maintainer guidance
+
+Record: Clean NULL guard fix, 4 net lines added, zero regression risk.
+
+---
+
+## PHASE 3: GIT HISTORY INVESTIGATION
+
+**Step 3.1: Blame**
+- Lines 190 (header print) introduced by commit `6a0e1bafd70fe5` (Sunil
+  Khatri, 2024-03-26) — "drm/amdgpu: add IP's FW information to
+  devcoredump"
+- Lines 191-195 (ctx dereferences) introduced by commit `3c858cf65e9a2c`
+  (Sunil Khatri, 2024-04-12) — "drm/amdgpu: add missing vbios version
+  from devcoredump"
+- Both first appeared in `v6.10-rc1`
+
+**Step 3.2: Fixes tag**
+- No Fixes: tag present. Based on analysis, would fix `3c858cf65e9a2c`
+  which added the `ctx->*` dereferences.
+
+**Step 3.3: File History**
+- 14 commits to this file since `6a0e1bafd70fe5`, mostly feature
+  additions (IP dump, ring buffer info, device info)
+- No prior fix for this specific NULL dereference
+
+**Step 3.4: Author**
+- Jesse Zhang is a regular AMD GPU contributor (10 recent commits to
+  amdgpu subsystem found)
+- Fix was suggested and reviewed by Lijo Lazar (AMD GPU maintainer)
+
+**Step 3.5: Dependencies**
+- Standalone fix, no dependencies on other patches
+
+Record: Buggy code from v6.10-rc1. Fix is standalone with no
+prerequisites.
+
+---
+
+## PHASE 4: MAILING LIST RESEARCH
+
+**Step 4.1: Patch Discussion**
+Found the full evolution on amd-gfx mailing list:
+- **V1**: Checked `ctx` directly before VBIOS access
+- **V2** (mail-archive.com/amd-
+  gfx@lists.freedesktop.org/msg139678.html): Still checked `ctx`, added
+  `!adev->bios` check per Lijo's initial feedback
+- **Lijo's V2 review**: "On a second check, this cannot happen when
+  vbios is available. Driver load will fail in that case. In other
+  cases, we operate without VBIOS. For them, probably this may be
+  avoided altogether (preferred) or mark the section as NA." Suggested
+  `drm_printf(p, "\nVBIOS Information: NA\n");`
+- **V3 (committed)**: Jesse incorporated Lijo's feedback — checks
+  `adev->bios` and prints "VBIOS Information: NA"
+
+**Step 4.2: Reviewers**
+- Lijo Lazar (AMD GPU reviewer) reviewed all versions and provided the
+  fix approach
+- Alex Deucher (AMD GPU maintainer) signed off and committed
+
+**Step 4.3: Bug Report**
+- No external bug report link, but the commit includes a complete kernel
+  oops log, confirming reproduction
+
+Record: Patch went through 3 revisions with constructive review. Final
+version incorporates maintainer's preferred approach.
+
+---
+
+## PHASE 5: CODE SEMANTIC ANALYSIS
+
+**Step 5.1: Functions Modified**
+- `amdgpu_devcoredump_fw_info()` — static helper to print firmware info
+  in coredump
+
+**Step 5.2: Callers**
+- Called from `amdgpu_devcoredump_read()` (line 266 in 7.0 tree), which
+  is the devcoredump read callback passed to `dev_coredumpm()`
+- Triggered when the devcoredump deferred work runs or when userspace
+  reads `/sys/class/drm/cardN/device/devcoredump/data`
+
+**Step 5.3: Trigger Path**
+- GPU reset → `amdgpu_coredump()` → `dev_coredumpm()` → (later) deferred
+  work or userspace read → `amdgpu_devcoredump_read()` →
+  `amdgpu_devcoredump_fw_info()` → **CRASH** if atom_context is NULL
+
+**Step 5.4: Reachability**
+- GPU resets happen automatically on GPU hang recovery — very common for
+  AMDGPU users
+- The coredump path is always active when `CONFIG_DEV_COREDUMP` is
+  enabled (default in most distros)
+
+Record: The crash path is reachable from normal GPU hang recovery
+operations.
+
+---
+
+## PHASE 6: STABLE TREE ANALYSIS
+
+**Step 6.1: Buggy Code in Stable**
+- The buggy code was introduced in v6.10-rc1
+- Affects all stable trees from 6.10 onwards: 6.10.y, 6.11.y, 6.12.y,
+  6.13.y, 6.14.y, and this 7.0 tree
+
+**Step 6.2: Backport Complications**
+- The actual changed code (VBIOS section in
+  `amdgpu_devcoredump_fw_info()`) is identical in the 7.0 tree and the
+  upstream version
+- The diff's trailing context shows `amdgpu_devcoredump_format` but the
+  7.0 tree has `amdgpu_devcoredump_read` — this is just context, not the
+  changed hunk, so it only requires minor fuzz adjustment
+
+**Step 6.3: Related Fixes Already in Stable**
+- No related fixes found for this specific issue
+
+Record: Fix applies to all stable trees 6.10+. Minor context adjustment
+needed for 7.0 tree.
+
+---
+
+## PHASE 7: SUBSYSTEM CONTEXT
+
+**Step 7.1: Subsystem**
+- `drm/amdgpu` — AMD GPU driver
+- Criticality: **IMPORTANT** — AMDGPU is one of the most widely used GPU
+  drivers (all AMD Radeon GPUs, both discrete and integrated)
+
+**Step 7.2: Activity**
+- Very actively developed subsystem with frequent commits
+
+Record: IMPORTANT subsystem affecting a large user base.
+
+---
+
+## PHASE 8: IMPACT AND RISK ASSESSMENT
+
+**Step 8.1: Affected Users**
+- All users with AMD GPUs running kernels 6.10+ with
+  `CONFIG_DEV_COREDUMP` enabled (most distros)
+
+**Step 8.2: Trigger Conditions**
+- GPU hang → automatic reset → coredump generation with `atom_context`
+  already freed
+- GPU hangs and resets are common real-world events
+- Does not require unprivileged user action (happens automatically)
+
+**Step 8.3: Failure Mode**
+- Kernel page fault (oops) from workqueue context
+- CR2: 0xf4 — NULL pointer dereference at struct offset 0xf4
+- Severity: **HIGH** (kernel oops, system instability)
+
+**Step 8.4: Risk-Benefit Ratio**
+- **Benefit**: HIGH — prevents kernel crash during GPU reset recovery
+- **Risk**: VERY LOW — 10-line NULL guard, single function, reviewed by
+  maintainer, obviously correct
+- **Ratio**: Strongly favorable for backporting
+
+---
+
+## PHASE 9: FINAL SYNTHESIS
+
+**Step 9.1: Evidence Summary**
+
+FOR backporting:
+- Fixes a real, observed kernel oops (full stack trace provided)
+- Small, surgical fix (4 net lines changed in one function)
+- Reviewed and suggested by AMD GPU maintainer (Lijo Lazar)
+- Signed off by subsystem maintainer (Alex Deucher)
+- Went through 3 review revisions — well-vetted
+- Affects widely-used AMDGPU driver
+- Bug present since v6.10 — affects all active stable trees
+- Zero regression risk — just a NULL guard
+- Standalone fix with no dependencies
+
+AGAINST backporting:
+- None identified
+- Minor context adjustment may be needed for backport (function name in
+  trailing context differs)
+
+**Step 9.2: Stable Rules Checklist**
+1. Obviously correct and tested? **YES** — simple NULL guard, reviewed
+   by maintainer
+2. Fixes a real bug? **YES** — kernel oops during GPU reset
+3. Important issue? **YES** — kernel crash (oops)
+4. Small and contained? **YES** — 10 lines changed, single file, single
+   function
+5. No new features or APIs? **YES** — only adds a safety check
+6. Can apply to stable? **YES** — with minor context adjustment
+
+**Step 9.3: Exception Categories**
+- Not an exception category; this is a standard bug fix that qualifies
+  on its own merits.
+
+---
+
+## Verification
+
+- [Phase 1] Parsed tags: Reviewed-by and Suggested-by from Lijo Lazar
+  (AMD reviewer), Signed-off-by from Alex Deucher (maintainer)
+- [Phase 2] Diff analysis: wraps 6 `ctx->*` dereferences with `if
+  (adev->bios)` guard in `amdgpu_devcoredump_fw_info()`
+- [Phase 3] git blame: buggy dereferences introduced in commits
+  `6a0e1bafd70fe5` and `3c858cf65e9a2c`, both in v6.10-rc1
+- [Phase 3] `git describe --contains 6a0e1bafd70fe5`: confirmed
+  `v6.10-rc1~148^2~21^2~118`
+- [Phase 3] `git describe --contains 3c858cf65e9a2c`: confirmed
+  `v6.10-rc1~148^2~19^2~49`
+- [Phase 4] mail-archive.com V2 thread: Lijo reviewed, suggested
+  `adev->bios` check and "NA" fallback
+- [Phase 4] mail-archive.com Jesse's response: confirmed V3 incorporates
+  Lijo's feedback
+- [Phase 5] Grep for `amdgpu_devcoredump_fw_info` callers: called from
+  `amdgpu_devcoredump_read()` line 266
+- [Phase 5] Grep for `amdgpu_atombios_fini`: confirmed `atom_context =
+  NULL` at line 1882 of `amdgpu_atombios.c`
+- [Phase 5] Grep for `amdgpu_bios_release`: confirmed `adev->bios =
+  NULL` at line 90 of `amdgpu_bios.c`
+- [Phase 5] Confirmed both called from `amdgpu_device.c` lines 4984-4988
+  during teardown
+- [Phase 6] Code exists in 7.0 tree — lines 190-195 of
+  `amdgpu_dev_coredump.c` show identical buggy code
+- [Phase 6] Function name difference in context (`format` vs `read`) is
+  only in trailing context, not the changed hunk
+- [Phase 8] Failure mode: NULL deref → kernel oops from workqueue during
+  GPU reset, severity HIGH
+
+---
+
+The fix is small, surgical, obviously correct, well-reviewed by AMD GPU
+maintainers, and prevents a real kernel oops triggered during normal GPU
+reset recovery. It meets all stable kernel criteria with minimal risk.
+
+**YES**
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c | 16 ++++++++++------
+ 1 file changed, 10 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c
+index c38e7371bafce..fed4e73d3492f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c
+@@ -187,12 +187,16 @@ static void amdgpu_devcoredump_fw_info(struct amdgpu_device *adev,
+ 	drm_printf(p, "VPE feature version: %u, fw version: 0x%08x\n",
+ 		   adev->vpe.feature_version, adev->vpe.fw_version);
+ 
+-	drm_printf(p, "\nVBIOS Information\n");
+-	drm_printf(p, "vbios name       : %s\n", ctx->name);
+-	drm_printf(p, "vbios pn         : %s\n", ctx->vbios_pn);
+-	drm_printf(p, "vbios version    : %d\n", ctx->version);
+-	drm_printf(p, "vbios ver_str    : %s\n", ctx->vbios_ver_str);
+-	drm_printf(p, "vbios date       : %s\n", ctx->date);
++	if (adev->bios) {
++		drm_printf(p, "\nVBIOS Information\n");
++		drm_printf(p, "vbios name       : %s\n", ctx->name);
++		drm_printf(p, "vbios pn         : %s\n", ctx->vbios_pn);
++		drm_printf(p, "vbios version    : %d\n", ctx->version);
++		drm_printf(p, "vbios ver_str    : %s\n", ctx->vbios_ver_str);
++		drm_printf(p, "vbios date       : %s\n", ctx->date);
++	}else {
++		drm_printf(p, "\nVBIOS Information: NA\n");
++	}
+ }
+ 
+ static ssize_t
+-- 
+2.53.0
 
