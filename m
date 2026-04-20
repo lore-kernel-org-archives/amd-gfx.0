@@ -4,65 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 13B4EF36C24
-	for <amd-gfx@archiver.kernel.org>; Mon, 20 Apr 2026 06:48:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 570F3F36C2A
+	for <amd-gfx@archiver.kernel.org>; Mon, 20 Apr 2026 07:03:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6517A10E0F2;
-	Mon, 20 Apr 2026 06:48:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A70DC10E10E;
+	Mon, 20 Apr 2026 07:03:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Ygu7DdUH";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="uWfqbs8K";
 	dkim-atps=neutral
-Received: from CH1PR05CU001.outbound.protection.outlook.com
- (mail-northcentralusazon11010002.outbound.protection.outlook.com
- [52.101.193.2])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2E00810E0F2
- for <amd-gfx@lists.freedesktop.org>; Mon, 20 Apr 2026 06:48:32 +0000 (UTC)
+Received: from MW6PR02CU001.outbound.protection.outlook.com
+ (mail-westus2azon11012062.outbound.protection.outlook.com [52.101.48.62])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0CE4310E10E
+ for <amd-gfx@lists.freedesktop.org>; Mon, 20 Apr 2026 07:03:13 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=LXSxI9lxNMUIb1sstiBeqcqwtPJaJ91OiVbK2sXUmxRInsyZeMdsSHDIgfogBapLeHthD1lXHouiP7v3GbegQsw3G6JQHKhsrUNV9NbWbKFoX+q1/NgxVtiqzeP9pCrjfwMghxMQfBGNCFKvDNbh6HirmjogNHHIyETpLrIjghYpQi4B+la+6WS0csnCvq01B0k92VDQGsOwDh6AtVEHE5CpY0g5qyzM8jtHNqyUKzaxRx4QusRJtPCDbVuksXTiU6iJ434aQWcDarmzIvPdwYiq5FAXTIlA1HfN8saMAT0zcBl3IWB90DG2jDc0bP0xJaTtmoJyBjXGrffPvJgeMw==
+ b=YG2/YB9/JCaVHGTadTGnqQde9KXBOtwqKKz3SH95C0QVL+fQbUfsZlQ8/xKx8bKZGH8wY4zTWAE0+5vtnvWem0lEYblJO43ta+XdVa5oh2HDE0fd6QOa6UXmmuJtPvXeFIaK2KP+eIzRf5bmyHCgl0kHtiFlzkhVy4GdUhTRdBHSK7Gr5BRl5wEr0+q1RxoFdKfDoWYxHe/Pj1SGi5LFdfH1RUY5r6haCmocDK76bJTs8g1vtwAgyjZ0nu+vvkhaHW+Xd+nX6cKjxqgQqH9aT9U7EIMYqD1ubuB328upEMBgF74Kx5gt7/kaA6y5OfPg8hcy+wt2v2TFoH7kWbYGuA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=fRElBpKR9eLkRm8D0Vdph3Qqw+4FN+Glvv59nUDwO6E=;
- b=JrbbUFO4bFGubO+Qi57qe/pKRAdMmPBEKSt4+967iZpu48cqBq4Up9E+nS/st3nRrKd458PrVsUkVhLmGTAe56jpgG41sbObdeKPbPwxsKexCIHfA1bw0OuOSRtnVUt+6kPcFka49STejLiW8/j0AxhigJgst0AbNnwj+p+CaIBFTOTvJgKPqi8z/JK4Hgtm/9pPeH/QHfd/XZwG5GDDWp0kCa9dnvGQKgCWjxs6qWj5mSVTcwVFUbxiKyPQRUZnN+B0VV7ewsU259r2TWzDz+dbiAqMcIxG7frIZ1/UbbVFcZjoFLtN7rp3TrJCIL9mkwMaUnBDgKS+hm5QKXls+Q==
+ bh=bvAxv7yLFTCm2v0BiSFECaQgos7tkgyZvapDkWxHq6A=;
+ b=g9R20myKDtH+y2AwI561M0uYXSKn5ojonkFFnuPiRKhtQ1iJ3SE+lPriog2mZBF1St+w3la19Se5oSYJSnSXVxQ04Ozx+uIRqncpMfNk4GbyZ3PxzcvsK8BWIU+Bo+dq6jkt2+zA5BJKWnm/bD1JIKgLherI1AiTaXS1CVZXWcHKRdKyY5egqxYmQpCLjXfRll2guEViDIxIdCIT3sz5Puccswh7rA2LydjjpfHnAaEyyOeEKgrRU97kf6QhPYynHuIzSFTMWj2OsOqAhO9M8Ytb+KbtLn/sHz5ATQ5MtoK2reCDD+5/Hl4OpfTlB5XTDsZg8He8svpIPeaO1VhJJw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=fRElBpKR9eLkRm8D0Vdph3Qqw+4FN+Glvv59nUDwO6E=;
- b=Ygu7DdUHsuBBB/tzYRgmUhqRlk++7Th8DLeCRdnPRY8bxy45Du2+D4PguStBAKOqd8vCRCjiFszJd1qm2L5LvJN3ICewea/De818t6JuYp22I8OMH+M5Ub8+1wJ9f5NcKE81gfifNXVB4Qngj4G0WsOPz2hzF81v9whxkVPHid4=
+ bh=bvAxv7yLFTCm2v0BiSFECaQgos7tkgyZvapDkWxHq6A=;
+ b=uWfqbs8KEFGUpOALWB9x0JHbb1ApR72u131G6Fp9AMohTJujI5k+bE+705INtD6vAEFJXeu6hGGjAhexq5TtTa+GyLf2kmp92uBTyEfDASBYle3wgAauLo5r4lclwWxcPoC9u5gUVV4LI/O2UToPoq6YgyUEd3u1DZ/iAvXGdys=
 Received: from DM6PR12MB2972.namprd12.prod.outlook.com (2603:10b6:5:39::31) by
- MN0PR12MB6080.namprd12.prod.outlook.com (2603:10b6:208:3c8::10) with
+ PH8PR12MB7254.namprd12.prod.outlook.com (2603:10b6:510:225::18) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.15; Mon, 20 Apr
- 2026 06:48:28 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.12; Mon, 20 Apr
+ 2026 07:03:10 +0000
 Received: from DM6PR12MB2972.namprd12.prod.outlook.com
  ([fe80::574d:7c2d:4d0a:855e]) by DM6PR12MB2972.namprd12.prod.outlook.com
  ([fe80::574d:7c2d:4d0a:855e%6]) with mapi id 15.20.9846.014; Mon, 20 Apr 2026
- 06:48:28 +0000
+ 07:03:10 +0000
 From: "Wang, Yang(Kevin)" <KevinYang.Wang@amd.com>
 To: "Ramalingeswara Reddy, Kanala" <Kanala.RamalingeswaraReddy@amd.com>,
  "Deucher, Alexander" <Alexander.Deucher@amd.com>,
  "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
  "Vishwakarma, Pratik" <Pratik.Vishwakarma@amd.com>, "Guttula, Suresh"
  <Suresh.Guttula@amd.com>
-Subject: RE: [PATCH v3 4/4] drm/amdgpu: smu: fix unified metrics handling for
- SMU 15.0.0
-Thread-Topic: [PATCH v3 4/4] drm/amdgpu: smu: fix unified metrics handling for
- SMU 15.0.0
-Thread-Index: AQHczcb/+l9p84T5BU6+3LQInQIHkLXnhhUQ
-Date: Mon, 20 Apr 2026 06:48:28 +0000
-Message-ID: <DM6PR12MB2972A7F0FD9382992AF384DB822F2@DM6PR12MB2972.namprd12.prod.outlook.com>
+Subject: RE: [PATCH v3 3/4] drm/amdgpu: smu: cache and reuse averaged unified
+ metrics values
+Thread-Topic: [PATCH v3 3/4] drm/amdgpu: smu: cache and reuse averaged unified
+ metrics values
+Thread-Index: AQHczccA65LgKUOigEO/GO7YSNLbiLXnihsQ
+Date: Mon, 20 Apr 2026 07:03:10 +0000
+Message-ID: <DM6PR12MB29729752B61F9DAFFE56F948822F2@DM6PR12MB2972.namprd12.prod.outlook.com>
 References: <20260416173145.856326-1-Kanala.RamalingeswaraReddy@amd.com>
- <20260416173145.856326-4-Kanala.RamalingeswaraReddy@amd.com>
-In-Reply-To: <20260416173145.856326-4-Kanala.RamalingeswaraReddy@amd.com>
+ <20260416173145.856326-3-Kanala.RamalingeswaraReddy@amd.com>
+In-Reply-To: <20260416173145.856326-3-Kanala.RamalingeswaraReddy@amd.com>
 Accept-Language: en-US, zh-CN
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
 msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=True;
  MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2026-04-20T06:42:12.0000000Z;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2026-04-20T06:56:37.0000000Z;
  MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
  Internal Distribution
  Only; MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=3;
@@ -70,69 +69,60 @@ msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=True;
 authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DM6PR12MB2972:EE_|MN0PR12MB6080:EE_
-x-ms-office365-filtering-correlation-id: a91834e7-8667-463f-6f9e-08de9ea8d413
+x-ms-traffictypediagnostic: DM6PR12MB2972:EE_|PH8PR12MB7254:EE_
+x-ms-office365-filtering-correlation-id: 418b1c1d-c932-49ad-2417-08de9eaae1ac
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
- ARA:13230040|376014|366016|1800799024|38070700021|22082099003|18002099003|56012099003;
-x-microsoft-antispam-message-info: r09MItJrFkfDT/ak9uETevvTX3r/X9YTYWEG27saVTDC/NQUTfwa61cuDsIyclICPKgs6sSdh6gxy0MNCIgLK56ubb7XgAEIiUnbEl7JZqFPltun0RmFML7xXg95e7g3rGSD/rmgsxGWJNQi4q7A9kMaI4zdWHiD9LWccZ4suNLtVrhK6hMDrFcx3iVZQNG5D0lptir8qqHImA6B4g8ae82pwj96/VeOkUj9YwV/pDaX795ro5WGxY98PcMHhtl5GrqyHDotiG/H8DObfcOZT0s7SZdixI7KERQIuNFzv+XFLI6i55FKcDhUhfrrWSA5rinFbNfw9ciQYTWtkTqcBZEV6aYMyjtBjeiX2J21GcQvtC2OKnIUq9Sm4I/t8MruB11UJ7viqcDy9HdEgIDribctHk5rPlysvbC+lKzT6pjKWE3nOfYC29aejt2lbgIjPs31wzwOWAz8IBJR4RIJ3CLRtPumyH9CidW0YSuz9DngAKCKd834Ve/1rRidkfrRGDGh/XOAhhRm65EjAkkd+Y6Zl3UiLumVFtu4c7O3ZxXY3QVrS3KIXbfeVTeOhfVciKIeUWbRfz/4qYJRbSBZ6/cM8DcxD3DAfDpyAVkWwRyV7Ipm5Bfdc6LhOMwPf7g5LPu+d06VrP6LqBk29JVrOUNeos9aMU2AaeQbNb956/cpEVgerhakgLGwJsOG8QYyTUDLg2gG+IBJu3M7AVMwVtvRbgNelexaim8XdRiTZzbUE43JtTQjkFcWZk3AvXIodJrVs2ZMEYR7jrjaQVXGHdwA21OHcPG3piS+ULcRTpA=
+ ARA:13230040|366016|1800799024|376014|38070700021|56012099003|22082099003|18002099003;
+x-microsoft-antispam-message-info: hhq38YrdANtkMv0ClNjs8YMjqMWqif+7ZfyLYjtXLXKWgixEOh0KyYESsoHiXw8aXAf4DXnrUutSTRiiLjgiOa5gfE2fgjiEra2U4Wo8Mg6CvKRzJfk5tljs3MLxCNgRO60dHOJCxwifFYhZq+F8H5CGFQiJKCzd6m3LlCYZvM6mivoIhxFVhRL+OF4bpqWIBYxkdpvmShLuGLrXGnO8IapzOyId+y6uz+4DzooYKcL1BLBTZCLDr/wmoFywb7bNk41Cxn36yTTbDMAOUwZTB5LffLhWqCW1ipCPZOWMMBK1pxO+pugy2PiOSDjzH7w+EHH8EVsEFy0xMQwW9qu5Gai9PZly8mv/a4WfEWRDR2okIyDyalyUWlmhcFWLeh5ca0KQAF0Z4T16CtA/IGegicQA7EfW3BvcDZ5cPxdfpoyH9SW5Hj+eaFiJ8iCUa6Zlyb3mazuIctZ9wyFtcggdhH3EKHzzo3tGAPz6rQQCndKEG/xSKIDeU8GysKeEapLN06ISzs47ElK2UlI/h0tTpY49C+pbEOjQnKj35CQup79lpP0WLlZz0GhlWBLFyG2XSwy2K/xSZtU2F7rgoQIP35Q3IKlnfbBE/7AJ1mFyV2PkEl+rwSC0Zbzj1kClBDzh2zgOpJYiULg0dOViFOBWB6aEgX8ZkIBpeVGWhBrwvdFq0vHKlt5hUf0gG2ht0k2i5Wuu+yDEkMajAKY3udcVNaw2pKDbZSy3ie/tfOTVG1/uTXXEkwM93ZIw4WQw56kO1dPjSEUud5mGzeimPYfX2YwOQkjl03scLBZCPrMTwJ8=
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DM6PR12MB2972.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(1800799024)(38070700021)(22082099003)(18002099003)(56012099003);
+ SFS:(13230040)(366016)(1800799024)(376014)(38070700021)(56012099003)(22082099003)(18002099003);
  DIR:OUT; SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?VElOeUxPWkpnSHJWZ05zOEFMRW9NQkdEN1IvSytEYzNOZGdSMmVuSWoyZXp1?=
- =?utf-8?B?WnhuT1RZWWNyVnJlU0lVblBmcDlETVdoZXVtYTZGZ1NJUDNUWkxqTjRtMlo5?=
- =?utf-8?B?ZUtzcFg4TEZTaXZKN0RiSUJJT2tyZzZnZUJ0WSs0YUQ3OWtsbnNwVWhjMEhE?=
- =?utf-8?B?YlpWak94TEJnNkFZNGZNV1ZTVnB0TGdOZkJmMlNuMVFHTXVSb0p6Z09iV29U?=
- =?utf-8?B?dk52S3lVbzkxc0hyV2JKS0RNWk9KRFdWTHdBNkwwWVA0OWhoSzdMUlZQU0pw?=
- =?utf-8?B?NFU4K2VTbWlMck5EVWh5a3JFNlIzYUJFV1JidXhKRCtMNitQNTh2VkZNdmxB?=
- =?utf-8?B?eU5vY2IrWk8xOHVzU2E3M3VZVDFxK1d6clI2TVMxbjhnMzV0NnQxL09BNXBK?=
- =?utf-8?B?d010c3FMMUtKaVJQM0E3c0E1cWVFQVk4S015WW12SEp6QlJhZVF4OXJmaHpm?=
- =?utf-8?B?allSOTZNb3c5bmNCNkd5SVo3TndZRG1oUWZZWXJpc3BpdUZ6L2FCNm1CNmZ0?=
- =?utf-8?B?WndtN0tmdTlGVGpxOXowMnJ3ekpLOGJzUjYySGltRG4yc1V2c0doOUh1RDlF?=
- =?utf-8?B?Rld4YkxVMEZLSHZGUW0rYVlBZmFIeFlLa2ZMbitwL29rUEI0YVFIMWs3T3d3?=
- =?utf-8?B?Y0FDMXRiaU5EdlZFaDE2S1k2dTE4VE0ycDJnSlpZcmFOVVFJR2N4bTV0dGZx?=
- =?utf-8?B?R1MwaXB5NnBGRXBSeDhTK2hGdFV4a1lYd2h6dVFtZEkzWWJEd0FHZDJuN2U0?=
- =?utf-8?B?d0pOTEN5dzhlVFR1Tmd5WEJONXh5YXBpSldWd1hOMWthb2gzMExyZStnZklj?=
- =?utf-8?B?WFp6R1NibXU0R2dLYUx0b2w0cEgwUUlTSWh4UE1NZ3FPQlc4U3hZVkhJTHo3?=
- =?utf-8?B?LzFBQzNna2xHOGw2THdzckgrTEN3eTFqYllJeHFETGtkNVJKMko2WVRBMFZx?=
- =?utf-8?B?Q3BqZU1TSittVnhCQ0JIZnEySnhWTEVmTVdxaXN2VGVmcjgybjU2emdIZk03?=
- =?utf-8?B?MERIM1lLNGlkSHhSZ1ZmamZ6T3kxNGdIcE5hdkZ2MXlQVmE0MzV3bHdJbDNx?=
- =?utf-8?B?MVVzMmY5aDlTYmhMTFJsSE1YWkZ4OWJ6YmlsUXd5RyttcmpaQitrTlQvb3dL?=
- =?utf-8?B?dDRTaG94QXY4c0R4cUtGS3lyZVRSdEFjcHNDekc2S1piaWl6SXBCMy9lNHRP?=
- =?utf-8?B?N0FVaGs5ZE1pZkoyVG1qTnRYalpQeFpJY3I5V0k5WTFpdG5ycENENVNzQndF?=
- =?utf-8?B?dEJMZzFuTUdzUzRtbWc0TGZOd2gxaDUvblBqdTM5MVR0K0VDYzM5Z0dDT3A2?=
- =?utf-8?B?YmJ6SHU2UWZMeXpJWXFiTmd1NDVZSFJVdTBnb09Ebk1jYVVMcjJ3M2hwUmN5?=
- =?utf-8?B?MGlKSTlqejJPMjBtUUMzQnZiSnMvYnpZOVkyM1hadG1uM21zWmpyWll0SGdt?=
- =?utf-8?B?TUxpcUNnZUFwOXJwb2J2Y3RUMXJPOXBwTFdxenhCZytSYjVUaWpYVXNiM1VP?=
- =?utf-8?B?NS9sRjNoengyM21kVWN6OGdDT0krRnpON2lCQmtsYXNGOVV5dDMrdGxySW5l?=
- =?utf-8?B?VDEycERYSmh6WnY4bnlEMGlONVRWK0F1VXlyRUZQV2YrWDRaZklBdHh2Mjdp?=
- =?utf-8?B?NWFpazE3RTUyUjJmaGhWem1LRzNLY2k0cExkTnFQQithUUZjdWZZeElrUitj?=
- =?utf-8?B?RGdyNlhiN0k2UUZwMVQrZlJNbVdIQ2tKNW5pbHgzTjRXUzZmblV2ZFJXQkJC?=
- =?utf-8?B?bUh6UEw4VGk0YmxYLzR6U25KQjZWVW1sOTdIcFB6aHVtQWpFZzN4SlBDLzd6?=
- =?utf-8?B?TGxvWDhsTFd6N2xUenU1WmpEbWVvZG9BYWNHOFZuVmgvQ3gwaDl5ZGlxWmsx?=
- =?utf-8?B?dXc4TnRXZ3N3cno0dnY0V2xySkVqYUtleU5aZ1VEQUVmUi9XZ0Q5M0RzUlVN?=
- =?utf-8?B?Uis1WGN1MzJaVmRqY0tlVVZaMDJFamNWNkZXSS90a2NiVlhHSThkNVVZMURz?=
- =?utf-8?B?Y3JlK1cvL3JoYk5PTWJJLzc4MldzWk5Id01WWjdRVVJCRHdkU1Q2dm9qTGcr?=
- =?utf-8?B?UmlmbmNRYnhXeDRINTE4bE5WWGU4NGJIcVUwNU94NjZoQk9NSHJCS1lGK0h5?=
- =?utf-8?B?eFZnTWJPVENLZE02bzF6cFN6Q2pYTWtBSC91alJUeXVidk96aU0rMTA4OG5Y?=
- =?utf-8?B?ZThhN3lDQk8vSzFuUXYwTHZCOGw2Y250NkdOL3lLTXRBVHlMTEtCQ0d3dWxQ?=
- =?utf-8?Q?Q041MpTnQWyEkJb64/iRxcsdZNn2lKdW46FDco9iQY=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?Vc/A3yrobVDKqH2uMAzqv+0VkFXVbag9oPCz4ljugCfG5T6N2B2Yd2HEIBzq?=
+ =?us-ascii?Q?bVWw7fVSY/GjYfSaiIN/mzEG28AChXPtVRU/Olkb5nFxIhzzNGaPN7NcuP59?=
+ =?us-ascii?Q?zauhsG+H4NCS2oi0V5DniEEEJ5P/Fg07uD0ryvpsdg8z464H7zh5HrKYn18Q?=
+ =?us-ascii?Q?USw5cCP7zhpQl3WDvgm+6QvXm62TxMNGFvFG11AXfs6/xdmcC5VWS53k787l?=
+ =?us-ascii?Q?ulVr9Z+vDkLx+mvDPQCxO4lpaBrxRpRqD16VsMYuiah4gSXU4cFjWaVp0rj5?=
+ =?us-ascii?Q?D9n/vmxjlASWHPptLu2KTArMq6HX/EQmudto6xDuXKpsQQawGBhT02FTpMpk?=
+ =?us-ascii?Q?frBIaUd+03GHylKAgrUW/QLwH5Epao2N6PJavytTVHe8Oow9y2M73SktRKLb?=
+ =?us-ascii?Q?HK8swGtOkpIMtWLtS1/6q/rqCgJ+kKKWPJL4dkYOdrSwRAo9VHPnqTmLRYWx?=
+ =?us-ascii?Q?MjU3bHEpxsSa+L5ffenNSjt6aek/BVgJCY1KPJ8amZPoCP+PmhnXx/HMKdbS?=
+ =?us-ascii?Q?ff6MvZ27+zTHt4aaqdRTM5LoluPXyV05NoDcxGxX0nk7Ragwt8LyRFzaeQMg?=
+ =?us-ascii?Q?cb211Yyt3oA2Zdfqs2pBArJhp3SHrOlseVK3R+BHQdz7bBKFFsRxGaOXuXaB?=
+ =?us-ascii?Q?hEtlSjcmQoJ7lCZPVPFMOXPsCdrxQD4WOxREqY61UA5QA/IEhUIkW3CUBVh1?=
+ =?us-ascii?Q?UW+67LBs8M+po1qB9xlYlSuOONsLApgg9ybbRz59TBiRlgAJoj521no4tbPT?=
+ =?us-ascii?Q?rDtqYqdsMT7lbUIs1ZHd0aOu0JNbN3FTv2+hmXAMMmpqxHlOoeEuEd93t3Ar?=
+ =?us-ascii?Q?RCf9UUequO2qiJkoWO/jyhy8LxMQFeaIcFzW19P+jks2l/a5yrcN7SHDbcIO?=
+ =?us-ascii?Q?70znaUnFiiSRxHlyfgcAZ5WksF+z5Wn1epo1C6hWTKseWiefN2uWg+BkYdoV?=
+ =?us-ascii?Q?pa0CBxw34TuTzrYLuJKqa9S7/pU11O7Gl9aYwJPWLEr7JcsskVeZu8WY7V35?=
+ =?us-ascii?Q?wGnE7TZm56fGggU9GYb/WzTEVRvkg4RRqWgOgTnpcKASK5bvKStvm5mcyMf6?=
+ =?us-ascii?Q?DLqZdu3VDMBjNKLefjMGpWFx7wSxNqxqiCRyWMCXlwix4SIVEgNx2C53o/KE?=
+ =?us-ascii?Q?gUXhlFdrrqoTbkOQ621Xw9gyC3YCOBsvrYjwPkxOz26sSdSerPtXokN3/91v?=
+ =?us-ascii?Q?xtM0ivm07uHdfkPh1rHsI+PpCa81fizwD0cZbeslyyeDebQSEjJsQ90M4LtO?=
+ =?us-ascii?Q?0J+GLjnBuRnVdFDUW3LNZ5WA9ueMK20gN47P0iOTzx5RY9gZFPX5DQ4H9mCI?=
+ =?us-ascii?Q?DiKihNkdmRq6I8WWpMMxC0tSqTeiEoozfj/84/RInM9NS5N79Xsl0cmPiyZT?=
+ =?us-ascii?Q?d10VFZUg0k1w1ORZiaGsN9a1f5mU37ASuTr0GiBoGwk9OgNR2i587tlweGyC?=
+ =?us-ascii?Q?jOm6bJ9WGrYM6Y5HiNUliiiKnFZo24POjy91H4aQAEXwFbQ8yPQ3CFtyHino?=
+ =?us-ascii?Q?2YZDBpy9hWuw65/Yj7hnj9v7rsACoPhEjLX3A2fQbnYMIkThUPK80ZtAemB9?=
+ =?us-ascii?Q?+Q5H3SM2gLkIrsONcPBVtfX0KwrY22qem0jDozyc12xPQA1poMujZ2xJqJZX?=
+ =?us-ascii?Q?e1JSkxbqt/5aLlN0sPveQ9ySIHgdJVQgPeaK3QHgzp7G0/F0B0HpeedvlCM9?=
+ =?us-ascii?Q?4whYKCyxCvMNUfdOB9ThTmEbd6k=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB2972.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a91834e7-8667-463f-6f9e-08de9ea8d413
-X-MS-Exchange-CrossTenant-originalarrivaltime: 20 Apr 2026 06:48:28.2472 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 418b1c1d-c932-49ad-2417-08de9eaae1ac
+X-MS-Exchange-CrossTenant-originalarrivaltime: 20 Apr 2026 07:03:10.0775 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: Uq/qOLX9GyC0mC3Sg8iIbP8SPPtu40gH3xyOsVliwcPlijXb3qff3+QXRLiJCxfC
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6080
+X-MS-Exchange-CrossTenant-userprincipalname: 3I64ji0HnrxiknJjNrQ9vUvKAh/dBWuRQT7AvEwwf7cC7RuBWj5zFWibiBoWVrvd
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB7254
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -147,82 +137,277 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-W0FNRCBPZmZpY2lhbCBVc2UgT25seSAtIEFNRCBJbnRlcm5hbCBEaXN0cmlidXRpb24gT25seV0N
-Cg0KVGhpcyBkb2VzIG5vdCBmb2xsb3cgc3VibWlzc2lvbiBndWlkZWxpbmVzLg0KU2luY2UgdGhp
-cyBpc3N1ZSBjb21lcyBmcm9tIHBhdGNoICMxIHVuZGVyIHJldmlldywgcGxlYXNlIGZpeCBpdCBp
-biB0aGUgb3JpZ2luYWwgY29kZSBpbnN0ZWFkIG9mIGFkZGluZyBhIG5ldyBwYXRjaC4NCg0KYnR3
-LA0KSSBmb3VuZCBzb21lIGZvcm1hdHRpbmcgaXNzdWVzLCBwbGVhc2UgcnVuIHNjcmlwdHMvY2hl
-Y2twYXRjaC5wbCB0byBjaGVjayB5b3VyIHBhdGNoIGZpcnN0IGJlZm9yZSBzZW5kaW5nIGl0IGZv
-ciByZXZpZXcuDQpodHRwczovL3d3dy5rZXJuZWwub3JnL2RvYy9odG1sL2xhdGVzdC9kZXYtdG9v
-bHMvY2hlY2twYXRjaC5odG1sDQoNCkJlc3QgUmVnYXJkcywNCktldmluDQoNCi0tLS0tT3JpZ2lu
-YWwgTWVzc2FnZS0tLS0tDQpGcm9tOiBSYW1hbGluZ2Vzd2FyYSBSZWRkeSwgS2FuYWxhIDxLYW5h
-bGEuUmFtYWxpbmdlc3dhcmFSZWRkeUBhbWQuY29tPg0KU2VudDogRnJpZGF5LCBBcHJpbCAxNywg
-MjAyNiAwMTozMg0KVG86IERldWNoZXIsIEFsZXhhbmRlciA8QWxleGFuZGVyLkRldWNoZXJAYW1k
-LmNvbT47IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnOyBWaXNod2FrYXJtYSwgUHJhdGlr
-IDxQcmF0aWsuVmlzaHdha2FybWFAYW1kLmNvbT47IEd1dHR1bGEsIFN1cmVzaCA8U3VyZXNoLkd1
-dHR1bGFAYW1kLmNvbT47IFdhbmcsIFlhbmcoS2V2aW4pIDxLZXZpbllhbmcuV2FuZ0BhbWQuY29t
-Pg0KQ2M6IFJhbWFsaW5nZXN3YXJhIFJlZGR5LCBLYW5hbGEgPEthbmFsYS5SYW1hbGluZ2Vzd2Fy
-YVJlZGR5QGFtZC5jb20+DQpTdWJqZWN0OiBbUEFUQ0ggdjMgNC80XSBkcm0vYW1kZ3B1OiBzbXU6
-IGZpeCB1bmlmaWVkIG1ldHJpY3MgaGFuZGxpbmcgZm9yIFNNVSAxNS4wLjANCg0KQWRkcmVzcyBy
-ZXZpZXcgY29tbWVudHMgYnkgaW52b2tpbmcgU01VX01TR19HZXRNZXRyaWNzVGFibGVMb2dEcmFt
-QWRkcg0Kb25seSBvbmNlIGR1cmluZyB0aGUgZmlyc3QgbWV0cmljcyByZXF1ZXN0LiBDYWNoZSB0
-aGUgRFJBTSBhZGRyZXNzIGFuZCBtZXRyaWNzIHRhYmxlIHNpemUgcmV0dXJuZWQgYnkgdGhlIFNN
-VSBhbmQgcmV1c2UgdGhlbSBmb3Igc3Vic2VxdWVudCBtZXRyaWNzIHF1ZXJpZXMgdG8gYXZvaWQg
-cmVkdW5kYW50IFNNVSBjYWxscy4NCg0KQWRkIGEgTlVMTCBjaGVjayBmb3IgdGhlIGlvcmVtYXBf
-d2MoKSByZXR1cm4gdmFsdWUgYW5kIGVuc3VyZSB0aGUgbWFwcGluZyBpcyByZWxlYXNlZCB3aXRo
-IGlvdW5tYXAoKSBiZWZvcmUgcmV0dXJuaW5nIGZyb20gdGhlIGZ1bmN0aW9uLg0KQWxzbyBhZGQg
-c2FuaXR5IGNoZWNrcyBmb3IgdGhlIFNNVeKAkXJlcG9ydGVkIG1ldHJpY3MgdGFibGUgc2l6ZSBh
-Z2FpbnN0IHRoZSBleHBlY3RlZCBzaXplIGFuZCBwZXJmb3JtIG1lbWNweSgpIGFjY29yZGluZ2x5
-IHRvIHByZXZlbnQgb3V04oCRb2bigJFib3VuZHMgYWNjZXNzLg0KDQpTaWduZWQtb2ZmLWJ5OiBS
-YW1hbGluZ2Vzd2FyYSBSZWRkeSwgS2FuYWxhIDxLYW5hbGEuUmFtYWxpbmdlc3dhcmFSZWRkeUBh
-bWQuY29tPg0KLS0tDQogLi4uL2RybS9hbWQvcG0vc3dzbXUvc211MTUvc211X3YxNV8wXzBfcHB0
-LmMgIHwgNDEgKysrKysrKysrKysrLS0tLS0tLQ0KIDEgZmlsZSBjaGFuZ2VkLCAyNyBpbnNlcnRp
-b25zKCspLCAxNCBkZWxldGlvbnMoLSkNCg0KZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9h
-bWQvcG0vc3dzbXUvc211MTUvc211X3YxNV8wXzBfcHB0LmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1k
-L3BtL3N3c211L3NtdTE1L3NtdV92MTVfMF8wX3BwdC5jDQppbmRleCBmMGE3OTg2MzE5MDMuLjhm
-OTdiYzZiNjIzNSAxMDA2NDQNCi0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG0vc3dzbXUvc211
-MTUvc211X3YxNV8wXzBfcHB0LmMNCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG0vc3dzbXUv
-c211MTUvc211X3YxNV8wXzBfcHB0LmMNCkBAIC0zMzYsMjYgKzMzNiwzNSBAQCBzdGF0aWMgaW50
-IHNtdV92MTVfMF8wX2dldF9ncHVfbWV0cmljc190YWJsZShzdHJ1Y3Qgc211X2NvbnRleHQgKnNt
-dSwgIHN0YXRpYyBpbnQgc211X3YxNV8wXzBfZ2V0X21ldHJpY3NfdGFibGUoc3RydWN0IHNtdV9j
-b250ZXh0ICpzbXUsDQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgU01V
-XzE1XzBfMF9NZXRyaWNzVGFibGVfdCAqbWV0cmljcykgIHsNCi0gICAgICAgdWludDY0X3QgYWRk
-cjsNCi0gICAgICAgdm9pZCBfX2lvbWVtICpjcHVfYWRkcjsNCisgICAgICAgdm9pZCBfX2lvbWVt
-ICpjcHVfYWRkciA9IE5VTEw7DQogICAgICAgIHN0cnVjdCBzbXVfbXNnX2N0bCAqY3RsID0gJnNt
-dS0+bXNnX2N0bDsNCi0gICAgICAgaW50IHJldCwgdGFibGVfc2l6ZTsNCisgICAgICAgc3RydWN0
-IHNtdV9tc2dfYXJncyBhcmdzID0gezB9Ow0KKyAgICAgICAvL3N0b3JlIHRhYmxlX3NpemUgYW5k
-IERyYW1BZGRyIHZhbHVlIHJldHVybmVkIGJ5IFNNVSBpbiBzdGF0aWMgYXQgZmlyc3QgcmVxdWVz
-dCwNCisgICAgICAgLy91c2UgdGhlc2UgdmFsdXNlIHRvIHJlYWQgTG9nU2FtcGxlIGluIGNhc2Ug
-b2YgbGF0ZXIgcmVxdWVzdHMNCisgICAgICAgc3RhdGljIGludCB0YWJsZV9zaXplOw0KKyAgICAg
-ICBzdGF0aWMgdWludDY0X3QgYWRkcjA7DQorICAgICAgIGludCByZXQ7DQoNCi0gICAgICAgc3Ry
-dWN0IHNtdV9tc2dfYXJncyBhcmdzID0gew0KLSAgICAgICAgICAgICAgIC5tc2cgPSBTTVVfTVNH
-X0dldE1ldHJpY3NUYWJsZUxvZ0RyYW1BZGRyLA0KLSAgICAgICAgICAgICAgIC5udW1fYXJncyA9
-IDAsDQotICAgICAgICAgICAgICAgLm51bV9vdXRfYXJncyA9IDMsDQotICAgICAgIH07DQorICAg
-ICAgIGlmIChhZGRyID09IDApIHsNCisgICAgICAgICAgICAgICAvLyBTZW5kIFNNVV9NU0dfR2V0
-TWV0cmljc1RhYmxlTG9nRHJhbUFkZHIgb25seSBvbmNlIHRvIGdldCBEcmFtQWRkciBhbmQNCisg
-ICAgICAgICAgICAgICAvLyB0YWJsZV9zaXplIGF0IGZpcnN0IHJlcXVlc3QNCisgICAgICAgICAg
-ICAgICBhcmdzLm1zZyA9IFNNVV9NU0dfR2V0TWV0cmljc1RhYmxlTG9nRHJhbUFkZHIsDQorICAg
-ICAgICAgICAgICAgYXJncy5udW1fYXJncyA9IDAsDQorICAgICAgICAgICAgICAgYXJncy5udW1f
-b3V0X2FyZ3MgPSAzLA0KDQotICAgICAgIHJldCA9IGN0bC0+b3BzLT5zZW5kX21zZyhjdGwsICZh
-cmdzKTsNCisgICAgICAgICAgICAgICByZXQgPSBjdGwtPm9wcy0+c2VuZF9tc2coY3RsLCAmYXJn
-cyk7DQoNCi0gICAgICAgaWYgKHJldCkNCi0gICAgICAgICAgICAgICByZXR1cm4gcmV0Ow0KKyAg
-ICAgICAgICAgICAgIGlmIChyZXQpDQorICAgICAgICAgICAgICAgICAgICAgICByZXR1cm4gcmV0
-Ow0KDQotICAgICAgIGFkZHIgPSAoKHVpbnQ2NF90KWFyZ3Mub3V0X2FyZ3NbMV0gPDwgMzIpIHwg
-YXJncy5vdXRfYXJnc1swXTsNCi0gICAgICAgdGFibGVfc2l6ZSA9IGFyZ3Mub3V0X2FyZ3NbMl07
-DQorICAgICAgICAgICAgICAgYWRkciA9ICgodWludDY0X3QpYXJncy5vdXRfYXJnc1sxXSA8PCAz
-MikgfCBhcmdzLm91dF9hcmdzWzBdOw0KKyAgICAgICAgICAgICAgIHRhYmxlX3NpemUgPSBhcmdz
-Lm91dF9hcmdzWzJdOw0KKw0KKyAgICAgICB9DQoNCiAgICAgICAgY3B1X2FkZHIgPSBpb3JlbWFw
-X3djKGFkZHIsIHRhYmxlX3NpemUpOw0KKyAgICAgICBpZiAoIWNwdV9hZGRyKQ0KKyAgICAgICAg
-ICAgICAgIHJldHVybiAtRU5PTUVNOw0KDQogICAgICAgIGFyZ3MubXNnID0gU01VX01TR19HZXRN
-ZXRyaWNzVGFibGVMb2dTYW1wbGU7DQogICAgICAgIGFyZ3MubnVtX2FyZ3MgPSAwOw0KQEAgLTM2
-NCw4ICszNzMsMTIgQEAgc3RhdGljIGludCBzbXVfdjE1XzBfMF9nZXRfbWV0cmljc190YWJsZShz
-dHJ1Y3Qgc211X2NvbnRleHQgKnNtdSwNCiAgICAgICAgcmV0ID0gY3RsLT5vcHMtPnNlbmRfbXNn
-KGN0bCwgJmFyZ3MpOw0KICAgICAgICBpZiAoIXJldCkgew0KICAgICAgICAgICAgICAgIGFtZGdw
-dV9oZHBfaW52YWxpZGF0ZShzbXUtPmFkZXYsIE5VTEwpOy8vYmVzdCB0byBmbHVzaCBiZWZvcmUg
-Y29weT8NCi0gICAgICAgICAgICAgICBtZW1jcHkobWV0cmljcywgY3B1X2FkZHIsIHRhYmxlX3Np
-emUpOw0KKyAgICAgICAgICAgICAgIGlmICh0YWJsZV9zaXplIDw9IHNpemVvZihTTVVfMTVfMF8w
-X01ldHJpY3NUYWJsZV90KSkNCisgICAgICAgICAgICAgICAgICAgICAgIG1lbWNweShtZXRyaWNz
-LCBjcHVfYWRkciwgdGFibGVfc2l6ZSk7DQorICAgICAgICAgICAgICAgZWxzZQ0KKyAgICAgICAg
-ICAgICAgICAgICAgICAgbWVtY3B5KG1ldHJpY3MsIGNwdV9hZGRyLCBzaXplb2YoU01VXzE1XzBf
-MF9NZXRyaWNzVGFibGVfdCkpOw0KICAgICAgICB9DQorICAgICAgIGlvdW5tYXAoY3B1X2FkZHIp
-Ow0KICAgICAgICByZXR1cm4gcmV0Ow0KIH0NCg0KLS0NCjIuNTMuMA0KDQo=
+[AMD Official Use Only - AMD Internal Distribution Only]
+
++       static uint32_t Avg_Metric_copy[METRICS_AVERAGE_NPUCLK+1] =3D {0};
+
+It is not appropriate to introduce a static local variable here.
+Even though only one GPU device exists on this APU platform, coupling logic=
+ with a static variable is bad design and should be avoided.
+(this will cause issues when there are multiple gpu device instances on one=
+ platform)
+please fix it.
+
+Best Regards,
+Kevin
+
+-----Original Message-----
+From: Ramalingeswara Reddy, Kanala <Kanala.RamalingeswaraReddy@amd.com>
+Sent: Friday, April 17, 2026 01:32
+To: Deucher, Alexander <Alexander.Deucher@amd.com>; amd-gfx@lists.freedeskt=
+op.org; Vishwakarma, Pratik <Pratik.Vishwakarma@amd.com>; Guttula, Suresh <=
+Suresh.Guttula@amd.com>; Wang, Yang(Kevin) <KevinYang.Wang@amd.com>
+Cc: Ramalingeswara Reddy, Kanala <Kanala.RamalingeswaraReddy@amd.com>
+Subject: [PATCH v3 3/4] drm/amdgpu: smu: cache and reuse averaged unified m=
+etrics values
+
+Compute averaged metrics from accumulated SMU values and store them in a lo=
+cal cache. If the metrics accumulation counter has not changed, return the =
+previously cached metrics instead of recalculating them.
+
+Signed-off-by: Ramalingeswara Reddy, Kanala <Kanala.RamalingeswaraReddy@amd=
+.com>
+---
+ .../drm/amd/pm/swsmu/smu15/smu_v15_0_0_ppt.c  | 45 ++++++++++++++++---
+ 1 file changed, 40 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_0_ppt.c b/drivers=
+/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_0_ppt.c
+index a6a7df683b7e..f0a798631903 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_0_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_0_ppt.c
+@@ -384,6 +384,7 @@ static int smu_v15_0_0_get_smu_metrics_data(struct smu_=
+context *smu,
+        SmuMetrics_t *metrics =3D (SmuMetrics_t *)smu_table->metrics_table;=
+ //TBD
+
+        SMU_15_0_0_MetricsTable_t prev_metrics;
++       static uint32_t Avg_Metric_copy[METRICS_AVERAGE_NPUCLK+1] =3D {0};
+        uint64_t counter, val;
+        int ret;
+
+@@ -394,6 +395,12 @@ static int smu_v15_0_0_get_smu_metrics_data(struct smu=
+_context *smu,
+        if (ret)
+                return ret;
+
++       if (prev_metrics.IOD.AccumulationCounter =3D=3D
++               ((SMU_15_0_0_MetricsTable_t *)smu_table->metrics_table)->IO=
+D.AccumulationCounter) {
++               *value =3D Avg_Metric_copy[member];
++               return 0;
++       }
++
+        switch (member) {
+        case METRICS_AVERAGE_GFXCLK:
+                counter =3D get_diff_count(prev_metrics.IOD.AccumulationCou=
+nter,
+@@ -401,6 +408,7 @@ static int smu_v15_0_0_get_smu_metrics_data(struct smu_=
+context *smu,
+                val =3D get_diff_val(prev_metrics.IOD.GfxclkFreqEffAcc,
+                 ((SMU_15_0_0_MetricsTable_t *)smu_table->metrics_table)->I=
+OD.GfxclkFreqEffAcc);
+                *value =3D counter ? (val/counter)/1024 : 0;
++               Avg_Metric_copy[member] =3D *value;
+                break;
+        case METRICS_AVERAGE_SOCCLK:
+                counter =3D get_diff_count(prev_metrics.IOD.AccumulationCou=
+nter,
+@@ -408,6 +416,7 @@ static int smu_v15_0_0_get_smu_metrics_data(struct smu_=
+context *smu,
+                val =3D get_diff_val(prev_metrics.IOD.SocclkFreqEffAcc,
+                 ((SMU_15_0_0_MetricsTable_t *)smu_table->metrics_table)->I=
+OD.SocclkFreqEffAcc);
+                *value =3D counter ? (val/counter)/1024 : 0;
++               Avg_Metric_copy[member] =3D *value;
+                break;
+        case METRICS_AVERAGE_VCLK:
+                counter =3D get_diff_count(prev_metrics.IOD.AccumulationCou=
+nter,
+@@ -415,9 +424,11 @@ static int smu_v15_0_0_get_smu_metrics_data(struct smu=
+_context *smu,
+                val =3D get_diff_val(prev_metrics.IOD.VclkFreqEffAcc,
+                 ((SMU_15_0_0_MetricsTable_t *)smu_table->metrics_table)->I=
+OD.VclkFreqEffAcc);
+                *value =3D counter ? (val/counter)/1024 : 0;
++               Avg_Metric_copy[member] =3D *value;
+                break;
+        case METRICS_AVERAGE_DCLK:
+                *value =3D 0;
++               Avg_Metric_copy[member] =3D *value;
+                break;
+        case METRICS_AVERAGE_UCLK:
+                counter =3D get_diff_count(prev_metrics.IOD.AccumulationCou=
+nter,
+@@ -425,6 +436,7 @@ static int smu_v15_0_0_get_smu_metrics_data(struct smu_=
+context *smu,
+                val =3D get_diff_val(prev_metrics.IOD.MemclkFreqEffAcc,
+                 ((SMU_15_0_0_MetricsTable_t *)smu_table->metrics_table)->I=
+OD.MemclkFreqEffAcc);
+                *value =3D counter ? (val/counter)/1024 : 0;
++               Avg_Metric_copy[member] =3D *value;
+                break;
+        case METRICS_AVERAGE_FCLK:
+                counter =3D get_diff_count(prev_metrics.IOD.AccumulationCou=
+nter,
+@@ -432,9 +444,11 @@ static int smu_v15_0_0_get_smu_metrics_data(struct smu=
+_context *smu,
+                val =3D get_diff_val(prev_metrics.IOD.FclkFreqEffAcc,
+                 ((SMU_15_0_0_MetricsTable_t *)smu_table->metrics_table)->I=
+OD.FclkFreqEffAcc);
+                *value =3D counter ? (val/counter)/1024 : 0;
++               Avg_Metric_copy[member] =3D *value;
+                break;
+        case METRICS_AVERAGE_VPECLK:
+                *value =3D metrics->VpeclkFrequency;
++               Avg_Metric_copy[member] =3D *value;
+                break;
+        case METRICS_AVERAGE_NPUCLK:
+                counter =3D get_diff_count(prev_metrics.IOD.AccumulationCou=
+nter,
+@@ -442,6 +456,7 @@ static int smu_v15_0_0_get_smu_metrics_data(struct smu_=
+context *smu,
+                val =3D get_diff_val(prev_metrics.IOD.NpuhclkFreqEffAcc,
+                 ((SMU_15_0_0_MetricsTable_t *)smu_table->metrics_table)->I=
+OD.NpuhclkFreqEffAcc);
+                *value =3D counter ? (val/counter)/1024 : 0;
++               Avg_Metric_copy[member] =3D *value;
+                break;
+        case METRICS_AVERAGE_GFXACTIVITY:
+                counter =3D get_diff_count(prev_metrics.IOD.AccumulationCou=
+nter,
+@@ -449,6 +464,7 @@ static int smu_v15_0_0_get_smu_metrics_data(struct smu_=
+context *smu,
+                val =3D get_diff_val(prev_metrics.IOD.GfxBusyAcc,
+                 ((SMU_15_0_0_MetricsTable_t *)smu_table->metrics_table)->I=
+OD.GfxBusyAcc);
+                *value =3D counter ? (val/counter)/1024 : 0;
++               Avg_Metric_copy[member] =3D *value;
+                break;
+        case METRICS_AVERAGE_VCNACTIVITY:
+                counter =3D get_diff_count(prev_metrics.IOD.AccumulationCou=
+nter,
+@@ -456,6 +472,7 @@ static int smu_v15_0_0_get_smu_metrics_data(struct smu_=
+context *smu,
+                val =3D get_diff_val(prev_metrics.IOD.VcnBusyAcc,
+                 ((SMU_15_0_0_MetricsTable_t *)smu_table->metrics_table)->I=
+OD.VcnBusyAcc);
+                *value =3D counter ? (val/counter)/1024 : 0;
++               Avg_Metric_copy[member] =3D *value;
+                break;
+        case METRICS_AVERAGE_SOCKETPOWER:
+                counter =3D get_diff_count(prev_metrics.IOD.AccumulationCou=
+nter,
+@@ -463,54 +480,68 @@ static int smu_v15_0_0_get_smu_metrics_data(struct sm=
+u_context *smu,
+                val =3D get_diff_val(prev_metrics.IOD.ApuPowerAcc,
+                 ((SMU_15_0_0_MetricsTable_t *)smu_table->metrics_table)->I=
+OD.ApuPowerAcc);
+                *value =3D counter ? (val/counter)/1024 : 0;
++               Avg_Metric_copy[member] =3D *value;
+        case METRICS_CURR_SOCKETPOWER:
+                counter =3D get_diff_count(prev_metrics.IOD.AccumulationCou=
+nter,
+                 ((SMU_15_0_0_MetricsTable_t *)smu_table->metrics_table)->I=
+OD.AccumulationCounter);
+                val =3D get_diff_val(prev_metrics.IOD.SystemPowerAcc,
+                 ((SMU_15_0_0_MetricsTable_t *)smu_table->metrics_table)->I=
+OD.SystemPowerAcc);
+                *value =3D counter ? (val/counter)/1024 : 0;
++               Avg_Metric_copy[member] =3D *value;
+                break;
+        case METRICS_TEMPERATURE_EDGE:
+                counter =3D get_diff_count(prev_metrics.IOD.AccumulationCou=
+nter,
+                 ((SMU_15_0_0_MetricsTable_t *)smu_table->metrics_table)->I=
+OD.AccumulationCounter);
+                val =3D get_diff_val(prev_metrics.IOD.GFX_TempAcc,
+                 ((SMU_15_0_0_MetricsTable_t *)smu_table->metrics_table)->I=
+OD.GFX_TempAcc);
+-               *value =3D counter ? (val/counter)/1024 : 0;
++               *value =3D counter ? (val/counter) : 0;
++               Avg_Metric_copy[member] =3D *value;
+                break;
+        case METRICS_TEMPERATURE_HOTSPOT:
+                *value =3D metrics->SocTemperature / 100 *
+                SMU_TEMPERATURE_UNITS_PER_CENTIGRADES;
++               Avg_Metric_copy[member] =3D *value;
+                break;
+        case METRICS_THROTTLER_RESIDENCY_PROCHOT:
+                *value =3D metrics->ThrottleResidency_PROCHOT;
++               Avg_Metric_copy[member] =3D *value;
+                break;
+        case METRICS_THROTTLER_RESIDENCY_SPL:
+                *value =3D metrics->ThrottleResidency_SPL;
++               Avg_Metric_copy[member] =3D *value;
+                break;
+        case METRICS_THROTTLER_RESIDENCY_FPPT:
+                *value =3D metrics->ThrottleResidency_FPPT;
++               Avg_Metric_copy[member] =3D *value;
+                break;
+        case METRICS_THROTTLER_RESIDENCY_SPPT:
+                *value =3D metrics->ThrottleResidency_SPPT;
++               Avg_Metric_copy[member] =3D *value;
+                break;
+        case METRICS_THROTTLER_RESIDENCY_THM_SOC:
+                *value =3D metrics->ThrottleResidency_THM_SOC;
++               Avg_Metric_copy[member] =3D *value;
+                break;
+        case METRICS_VOLTAGE_VDDGFX:
+                *value =3D 0;
++               Avg_Metric_copy[member] =3D *value;
+                break;
+        case METRICS_VOLTAGE_VDDSOC:
+                *value =3D 0;
++               Avg_Metric_copy[member] =3D *value;
+                break;
+        case METRICS_SS_APU_SHARE:
+                /* return the percentage of APU power with respect to APU's=
+ power limit.
+                 * percentage is reported, this isn't boost value. Smartshi=
+ft power
+                 * boost/shift is only when the percentage is more than 100=
+.
+                 */
+-               if (metrics->StapmOpnLimit > 0)
++               if (metrics->StapmOpnLimit > 0) {
+                        *value =3D (metrics->ApuPower * 100) / metrics->Sta=
+pmOpnLimit;
+-               else
++                       Avg_Metric_copy[member] =3D *value;
++               } else {
+                        *value =3D 0;
++                       Avg_Metric_copy[member] =3D *value;
++               }
+                break;
+        case METRICS_SS_DGPU_SHARE:
+                /* return the percentage of dGPU power with respect to dGPU=
+'s power limit.
+@@ -518,14 +549,18 @@ static int smu_v15_0_0_get_smu_metrics_data(struct sm=
+u_context *smu,
+                 * boost/shift is only when the percentage is more than 100=
+.
+                 */
+                if ((metrics->dGpuPower > 0) &&
+-                   (metrics->StapmCurrentLimit > metrics->StapmOpnLimit))
++                   (metrics->StapmCurrentLimit > metrics->StapmOpnLimit)) =
+{
+                        *value =3D (metrics->dGpuPower * 100) /
+                                 (metrics->StapmCurrentLimit - metrics->Sta=
+pmOpnLimit);
+-               else
++                       Avg_Metric_copy[member] =3D *value;
++               } else {
+                        *value =3D 0;
++                       Avg_Metric_copy[member] =3D *value;
++               }
+                break;
+        default:
+                *value =3D UINT_MAX;
++               Avg_Metric_copy[member] =3D *value;
+                break;
+        }
+
+--
+2.53.0
+
