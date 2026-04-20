@@ -4,58 +4,129 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 74426F588E1
-	for <amd-gfx@archiver.kernel.org>; Mon, 20 Apr 2026 15:15:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9ED10F588E3
+	for <amd-gfx@archiver.kernel.org>; Mon, 20 Apr 2026 15:37:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1077E10E69B;
-	Mon, 20 Apr 2026 15:15:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 30C3910E38F;
+	Mon, 20 Apr 2026 15:37:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="BhFFVLWT";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="lOfBrK4j";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 632C010E69B;
- Mon, 20 Apr 2026 15:15:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:References:
- Cc:To:From:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=skSQvzbt7j5EHxdkPQCgif/AbyHaCcD5q2iwTOKbt10=; b=BhFFVLWTu+TGFl99mzhvYzpiV7
- W2nDVKBzHAKjYJtaqDEApRXCIX+sakXqhVv1B4CkZm6JVZGPYT6yY1a+B8RKNs5VoPL1iSyHikWlM
- zT1PXbduDVVM1NA2Zkz17HB0uq0RtEBmE8jHLV4hoUJkrEuok5zEgwdBjqtxC4WXld37rmqDAh2yF
- d926TLgY2qa71CAm3SERyuD0PpJYZHYCl6V7uIpqFCrWb/aQ1uDCD9nBRF1bqGJdR6YGqBfskp/dY
- UvdQnctS4KlKbFIsiZ4lFtYdyhfUHsia9ZNMhj5aOJRcxaXo+Z38Da3VQnPQCSGybGF3Tr/ViOlNh
- 3/n3GfVQ==;
-Received: from [186.208.73.228] (helo=[192.168.18.14])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1wEqLB-001EBh-4e; Mon, 20 Apr 2026 17:15:13 +0200
-Message-ID: <40c88946-bd13-4bca-a1b4-5fe361f9de30@igalia.com>
-Date: Mon, 20 Apr 2026 12:15:07 -0300
-MIME-Version: 1.0
+Received: from BL2PR02CU003.outbound.protection.outlook.com
+ (mail-eastusazon11011069.outbound.protection.outlook.com [52.101.52.69])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8B1E510E38F;
+ Mon, 20 Apr 2026 15:37:53 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=p9Q3wzQihS5d+rYu1sgPv4Lw5/ZoPr3bsj2LAvLrPMGAdnV9dxBjZvsl/iNThpSczyhG/PnupVjzVISoXyfJeARxEl9LR9B4pDzejS4hVe3COYgQDgVfUUzBIG2FPIO8Q+W4cx7JfjZjdZnXgOJsu9W7e3kpYIdSw/E9YloCn0T3SLgVmvFhzk3uMgn/mRSQ7yo0ZZK7U7NVii5bdDGOSbJx9evnF/BALJKpUsgGe4rtPN4h7U61w2aIgR3qowyjFpF9+lWP5c4sCE9bYnkK0TKsoE3tOyRskhPOCnCS9nsIs0zhogf9updlxVDOp8AWMBnwX8SoZrcO4Z90/QEw1A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=nRwagvkUfE6VuRm1N3gAtkGZjvdLXZqXtPG36YtfVys=;
+ b=BTERwYwmSmKbpP8Rim1hGMl+cIWZtmXbxhcNxj15itB7vzG9tpV62r6/9OFOpRrDPMtQGU64PPcxJ42uIa5mGp8Xh9DjK/NzAHDyFe/mevE8Ap+tZ47LTzHQuLxTNUYD/d1POw96pgFmHLH7pMzUUMnnPWWv+bPQdPVLgwRSzR5PmlvFnTRx4oTtQNMaIHyRGheKAYUMKIfdPX2PxCZZz7nnHEKW9TM3TVF2BQr746l+6cNubkFu3/km8bXiLXl1kA74zyqPwYgo1fIE8R7yb9/3LxMP7dUVefyXUXqe5Uj0emUxZ3BHkIG0ZWuG/E0TU3KJVHRoijn9mxtyddPzNg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=nRwagvkUfE6VuRm1N3gAtkGZjvdLXZqXtPG36YtfVys=;
+ b=lOfBrK4jm+NMj2vUF+/wXhUIklEAM0Vcv/+VpHb3KyULKNi8uhDZC1QPa6P4pEkuVOzDV+TEDyRLW6mJ9z2FeZu6SlLjirfzQRLjItZo69xCgYkb+zCoFtSq/HFras/Z4YCTTdRgVAluW4KeHSHmHRx9OVqmYoSxfXAaNJ9Tv0s=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from SJ0PR12MB5673.namprd12.prod.outlook.com (2603:10b6:a03:42b::13)
+ by PH7PR12MB5653.namprd12.prod.outlook.com (2603:10b6:510:132::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.12; Mon, 20 Apr
+ 2026 15:37:49 +0000
+Received: from SJ0PR12MB5673.namprd12.prod.outlook.com
+ ([fe80::c3e5:48f8:beb6:ea68]) by SJ0PR12MB5673.namprd12.prod.outlook.com
+ ([fe80::c3e5:48f8:beb6:ea68%5]) with mapi id 15.20.9846.014; Mon, 20 Apr 2026
+ 15:37:49 +0000
+Message-ID: <54bb7286-2ffb-47f0-b37d-83b5c39ad9a0@amd.com>
+Date: Mon, 20 Apr 2026 17:37:43 +0200
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH] drm/drm_edid: ignore continuous frequency support for
- VRR
-From: Melissa Wen <mwen@igalia.com>
-To: =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
-Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org,
- tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch,
- siqueira@igalia.com, mario.limonciello@amd.com, alexander.deucher@amd.com,
- alex.hung@amd.com, Ivan Sergeev <ivan8215145640@gmail.com>,
- =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>,
- Xaver Hugl <xaver.hugl@gmail.com>, amd-gfx@lists.freedesktop.org,
- kernel-dev@igalia.com, Jani Nikula <jani.nikula@intel.com>,
- Harry Wentland <harry.wentland@amd.com>,
- Mario Limonciello <superm1@kernel.org>, dri-devel@lists.freedesktop.org
-References: <20260223203528.213275-1-mwen@igalia.com>
- <aZ1YE6dcEfTMwly1@intel.com>
- <b6f267f4-812f-441b-939d-1ff24fd3406e@igalia.com>
+Subject: Re: [RFC/POC PATCH 01/12] drm/amdgpu: add SVM UAPI definitions
+To: "Huang, Honglei1" <honghuan@amd.com>
+Cc: Alexander.Deucher@amd.com, Felix.Kuehling@amd.com, Oak.Zeng@amd.com,
+ Jenny-Jing.Liu@amd.com, Philip.Yang@amd.com, Xiaogang.Chen@amd.com,
+ Ray.Huang@amd.com, Lingshan.Zhu@amd.com, Junhua.Shen@amd.com,
+ matthew.brost@intel.com, rodrigo.vivi@intel.com,
+ thomas.hellstrom@linux.intel.com, dakr@kernel.org, aliceryhl@google.com,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+References: <20260420120739.1811731-1-honglei1.huang@amd.com>
+ <20260420120739.1811731-2-honglei1.huang@amd.com>
+ <cda09d5d-4cca-46a1-8625-fe9fa687e5a2@amd.com>
+ <50d13ae3-be27-4b79-91ef-e1b386054943@amd.com>
 Content-Language: en-US
-In-Reply-To: <b6f267f4-812f-441b-939d-1ff24fd3406e@igalia.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <50d13ae3-be27-4b79-91ef-e1b386054943@amd.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: BLAPR03CA0012.namprd03.prod.outlook.com
+ (2603:10b6:208:32b::17) To SJ0PR12MB5673.namprd12.prod.outlook.com
+ (2603:10b6:a03:42b::13)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ0PR12MB5673:EE_|PH7PR12MB5653:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0b66af26-d6f7-466b-5139-08de9ef2c6db
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|1800799024|376014|18002099003|56012099003|22082099003; 
+X-Microsoft-Antispam-Message-Info: qFJP/bjh5xqLctuMhVqyqLkxb/tsZh5cMrN4P35mu2wyoMXgcb+WGX5fRChvECjXLc6bljdobML+gd5MsO+GufKRl9P6zH+hnlM9HBlPoOolBPoqWmq3jvAvscoXUbprxLhrvUrJ+UZj+5Q7lWVWxWpwdmElJNxRZO7OnlhpgkL14nCuagl9ctH9oRopybvX5ZQOT6eMitzMrSHdcSJG9lWNu3QzwqFW28SbU7KssXQauKypyhpZjqpBbh8gRlhG/s4kt2lTqdxiAVYSXowXPUHxecvGEqqfDpk5zS6KGVSVvXr0aNtS7I1ZW0ZM+ihFX9RAQ44RC/KZZVKziFHugVTXq5bxsUbVUjP+K52tk3vM2h5hBqn1ohlvDs2kpfK0XgMtiBvs+3g1oQUcHQ5s2ofCBK/IjkW/vySl8eXd6BTtEWSsXI+kqvCS2CVG8y3gT0lsMyJRjDPh2Y8irni/RQLz/OfLWjRRYR9HY0SZrqPr7r4/NoYaBzUPz9lp6pAvHwbj+/9B89gvUwsxfJGKj0cHa9YII7E98v0MjwAlTPzDLS8bizYWB3vorzaFCRANuwtncjRNIgYo7I6KsDsqXVTCsnIUVvtcpB5BoAn10UQi8Fni+dDj3JNm78dCPji+sj5KFYEqKFbmVZYKjVlUIDwVjHw5yCViqTceGtPK6qjetsMUBzN4F4q4HjRZXQzGZxLtGIcepVWvnYJcQa/6rwhdppAo/CVnYGcROzfYWy4=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SJ0PR12MB5673.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(376014)(18002099003)(56012099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VjZMMzB3ZjhZYjBHTGZqdmdOWmNBTExHUUJ2MGFPeFY4dmI2TEZwWXllTk9T?=
+ =?utf-8?B?RWFJL0hBclQ2R21CYVFNNHhRTU9lYVFDMk5IUGFVWjc0MXpObkZvYjN6d3Q0?=
+ =?utf-8?B?NUZvTnZEa0ZzWEs2UDZ0Z1dGVmFDdGYvZlE0RXN6UEFZMjRITG5IeEczd0Yv?=
+ =?utf-8?B?T0xyNHN0Nk5JdEJRRG5VMG1Oc01VZXNyTTJveUMrNUM1TnEvYXpwc1Y2cVVT?=
+ =?utf-8?B?Y1FTc2hTb2FmR0QvVVJzU0Rad3ZmTEpTdFBZZ2NIRkltY2RHQjZTaU9GTGg4?=
+ =?utf-8?B?YmxNRVdKT2l1WEUvL2Fhc2pIVlk3WVVnS2dVbFRDdnNmNVE2WFk0YWRjRm85?=
+ =?utf-8?B?d3BtTy9Yb0IyeVQvT0Z1MHFMQjFqV29UYWJxRTVqdWVwSUpJU0ZXM21lVGoy?=
+ =?utf-8?B?SFZJajRjLzFuNGoyeW1BMDkvUE1Yb0dNSVdobmdPN0FUekdzRU1zYWpRUXZ0?=
+ =?utf-8?B?RG8xdVVuNDI3TUlzbFVueHF4OWQzaUVNczNCZXI2Z211K3lCZ3VQeGNJaVJ2?=
+ =?utf-8?B?Vy9xQ0ZWRVkvYlN1dHhIa1ZaRmZMT2dIaUI3ZlZQM3NpbU1rV0xTVDljTkVw?=
+ =?utf-8?B?eEl4TVR2NTJUSHZGa0dyODBkWlUrcVEvTzdMTTdLN2VMMFAzY0pJVnRQQVZr?=
+ =?utf-8?B?WVZoQ2ZwWncrRE5aR2JYMGplRnMxTlRrWDdXTW1lMzRRNno5QUQ5SStSVldD?=
+ =?utf-8?B?MTVKZitheVRrMFJWRlFFMktHbEtOTmhiTC9tNWJmWVdVazU2R1BpT1F5N0g5?=
+ =?utf-8?B?RWI2cmFUbHlHMkJBd0pQUTNwUGlDUS8ycUQwbnI5YUFXLy95S0l0enlPS0lC?=
+ =?utf-8?B?Y2tzTjUzQUVLaFAwUDU2djBzcUp6ZWtQLzVIYTVsL2gvSG9QaERKQk1HVVZL?=
+ =?utf-8?B?cksrcmpjV3J3L2JFNEtYUkVmb01JSlNDSmFJdExQSndaWTA3Y01iT09SaHRu?=
+ =?utf-8?B?aDU1YnRCZElsU0QwV1JIeWt5RnF5RExneGcreXp4UGxUTVo3Q3BOOE1iMzM4?=
+ =?utf-8?B?UXpOeWx4V0VkNEQ1WCtwRStieDk1Snp0NDhlNHZtS1hSREw1ZGpPcXV6eHl5?=
+ =?utf-8?B?Sm5pNmJWbnYyb29iMHZUeHZnRWdobzFvTFY4TUh3WGZMOEdQR2dsRlYzZVhG?=
+ =?utf-8?B?dmlmSHBOTiszY2RaVFpSSkxkd3I1MkhSSTIyWkhRaFY0cFRHUUREbXhVdHRV?=
+ =?utf-8?B?Vnd4TkVIVTNnM1puSnQzU0Zsa2lwZjY5RUQwdzl2b2J1UjZ0UE9SVDdqdmlF?=
+ =?utf-8?B?L290MlZlUEZOcURWa0IrNSt0RG85Tm10Rkg2aHQ0TERGUXc2NGRES1VmRFZy?=
+ =?utf-8?B?ckRsZjNHM3dJUk5PNEtMaUtyWTEzY2llaDEyTXc5QUw2T0orZkxJcHdjd0Ro?=
+ =?utf-8?B?L0pyNzN4bHhkSjRGT21QbEczVW85RVAxMUMzRUdjTSt6eFRMNmt6RmpJdm0y?=
+ =?utf-8?B?Z1dNUU0zeGdlUXNNeHUrZXpRZWJ5cTd2OEdZVkUyTGhiWG52bk4ra0RiK2Iz?=
+ =?utf-8?B?eldZWHR1WTVTcDBoZGRSbmJ4WXpDbEtiSDNQeTc2WnJPeWtrcFBIbGQwYW1m?=
+ =?utf-8?B?QW5uSlh6SGRMczBLL3NvaVNXSiswUzBIOFRGRy9HMW5HcndhWDBlSVFOcDNz?=
+ =?utf-8?B?UGxXTEFUWGZReVMvellnanVYbDlLM2FBVGowUWRyWWk0NzZtdTBPSEVJcHI1?=
+ =?utf-8?B?dW1VK2dkL0FJVisxcjUwOHdlQVJFTFN4TlZHandTUG5ESGFOdFUxaDhERXlZ?=
+ =?utf-8?B?VVBkL3BFbjZIODdySjBUWDFUQVBFRFlkaDhaVlNHSGhCMUZLUHJ0SGNtY2g1?=
+ =?utf-8?B?SW4wdWxFU3RvUzVJSFU2TUw0TEZUK1dmOVg2eGZEWEh6M3gyd2d3eHpCSElO?=
+ =?utf-8?B?NFNjZ2kyaEZpaWxpVWI5QWlLTlFyV1U5UUNVNElnNm9ZVk9WSFdoSzBOeWNB?=
+ =?utf-8?B?cmYvWmd6WGVObHNJVmZhMkYzSytZUkRiL3Vzb1VLck1kSzRhR2htMVN1VHds?=
+ =?utf-8?B?UnNCVTQ5d2I0eHdtUnVxUGJrZGFKeS9lTEpSRkMwSmF1TkN5c01va1UxYkVB?=
+ =?utf-8?B?L1c5d290OVloU1ZwK3lTUklmVTdnaDZUWDVHSVZCb1Erc0VmL3orNk9lZEJN?=
+ =?utf-8?B?WUVjYkd5ZlFBSFJiUUxIOU4wY01GTGUrQmJhN3V1akpyT1UrQ0tkUXorQVcx?=
+ =?utf-8?B?VHAySklJcWpqSkNmTVRWeThkeHl2T2hRcW8xWWxXN1VPQ3Q0aGl4dmxWMlR4?=
+ =?utf-8?B?N0hlYnplNkhFeTBOS3NxSHRFL1NjV2xqZTdLRTBsOHowNEtaeGdibGhHYVll?=
+ =?utf-8?Q?kS8Q8Ia8RU5TqSBBmJ?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0b66af26-d6f7-466b-5139-08de9ef2c6db
+X-MS-Exchange-CrossTenant-AuthSource: SJ0PR12MB5673.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Apr 2026 15:37:49.1122 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 08icVh4c/17E93CZIn4zeNNONDjzNceERrdtxl4a3AZn+O1IfFdY90YS6Ns3CqZZ
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5653
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,151 +141,144 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-
-
-On 24/02/2026 09:49, Melissa Wen wrote:
->
->
-> On 24/02/2026 04:49, Ville Syrjälä wrote:
->> On Mon, Feb 23, 2026 at 05:29:46PM -0300, Melissa Wen wrote:
->>> Display can be VRR capable even if its EDID doesn't contain the
->>> Continuous Frequency flag. On the other hand, continuous frequency
->>> support is expected for smooth VRR and ensures better compatibility 
->>> with
->>> VRR tehcnologies. As the lack of this flag can result in unexpected
->>> issues like tearing, get monitor range even without the guarantee of
->>> continuous frequency but add a debug message for unexpected results.
+On 4/20/26 15:30, Huang, Honglei1 wrote:
+> On 4/20/2026 8:15 PM, Christian König wrote:
+>>
+>>
+>> On 4/20/26 14:07, Honglei Huang wrote:
+>>> From: Honglei Huang <honghuan@amd.com>
 >>>
->>> CC: Ville Syrjälä <ville.syrjala@linux.intel.com>
->>> CC: Jani Nikula <jani.nikula@intel.com>
->>> CC: Harry Wentland <harry.wentland@amd.com>
->>> CC: Mario Limonciello <superm1@kernel.org>
->>> CC: Alex Hung <alex.hung@amd.com>
->>> Reported-by: Ivan Sergeev <ivan8215145640@gmail.com>
->>> Fixes: 0159f88a ("drm/amd/display: remove redundant freesync parser 
->>> for DP")
->>> Signed-off-by: Melissa Wen <mwen@igalia.com>
+>>> Add amdgpu drm SVM API definitions built on the
+>>> DRM GPUSVM framework.
+>>>
+>>> This includes:
+>>> - DRM_AMDGPU_GEM_SVM ioctl
+>>> - AMDGPU_SVM_FLAG_* flags
+>>> - AMDGPU_SVM_OP_SET_ATTR / AMDGPU_SVM_OP_GET_ATTR operations
+>>> - AMDGPU_SVM_ATTR_* attribute types
+>>> - AMDGPU_SVM_LOCATION_SYSMEM / AMDGPU_SVM_LOCATION_UNDEFINED
+>>> - struct drm_amdgpu_svm_attribute and struct drm_amdgpu_gem_svm
+>>>
+>>> Signed-off-by: Honglei Huang <honghuan@amd.com>
 >>> ---
+>>>   include/uapi/drm/amdgpu_drm.h | 39 +++++++++++++++++++++++++++++++++++
+>>>   1 file changed, 39 insertions(+)
 >>>
->>> Hello,
->>>
->>> After replacing the AMD driver-specific parser for VRR with the 
->>> drm_edid
->>> implementation, monitors without the continuous frequency flag in their
->>> EDID stopped obtaining the monitor range because the DRM common code
->>> considers them incompatible with VRR if they don't advertise support to
->>> continuous frequencies. This differs from the original driver-specific
->>> parser of AMD, that only checked EDID version, 
->>> EDID_DETAIL_MONITOR_RANGE
->>> and DRM_EDID_RANGE_LIMITS_ONLY_FLAG to determine the VRR range, so
->>> switching to DRM common code caused a regression (reported by Ivan).
->>>
->>> The commit ca2582c66b930 `drm/edid: Parse only the VRR range for
->>> continuous frequency displays` [1] introduced the Continuous Frequency
->>> flag condition. While it was created to avoid issues related to
->>> non-continuous refresh rates, it looks very restrictive to drivers that
->>> want to deal with VRR capable monitor even without the guarantee of
->>> continuous frequencies. I propose relaxing this restriction and 
->>> adding a
->>> debug message if anyone experiences problems related to the lack of
->>> continuous frequency support.
->> AFAIK without the continuous frequency bit the monitor isn't guaranteed
->> to support all the refresh rates between min/max. So is this monitor
->> trying to tell us that you are allowed to change the vtotal dynamically
->> between the various explicit timings declared in the EDID but not 
->> between
->> any other other timings?
+>>> diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h
+>>> index 406a42be4..bed71ed9b 100644
+>>> --- a/include/uapi/drm/amdgpu_drm.h
+>>> +++ b/include/uapi/drm/amdgpu_drm.h
+>>> @@ -58,6 +58,7 @@ extern "C" {
+>>>   #define DRM_AMDGPU_USERQ_SIGNAL        0x17
+>>>   #define DRM_AMDGPU_USERQ_WAIT        0x18
+>>>   #define DRM_AMDGPU_GEM_LIST_HANDLES    0x19
+>>> +#define DRM_AMDGPU_GEM_SVM        0x1a
+>>>     #define DRM_IOCTL_AMDGPU_GEM_CREATE    DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_CREATE, union drm_amdgpu_gem_create)
+>>>   #define DRM_IOCTL_AMDGPU_GEM_MMAP    DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_MMAP, union drm_amdgpu_gem_mmap)
+>>> @@ -79,6 +80,7 @@ extern "C" {
+>>>   #define DRM_IOCTL_AMDGPU_USERQ_SIGNAL    DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_USERQ_SIGNAL, struct drm_amdgpu_userq_signal)
+>>>   #define DRM_IOCTL_AMDGPU_USERQ_WAIT    DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_USERQ_WAIT, struct drm_amdgpu_userq_wait)
+>>>   #define DRM_IOCTL_AMDGPU_GEM_LIST_HANDLES DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_LIST_HANDLES, struct drm_amdgpu_gem_list_handles)
+>>> +#define DRM_IOCTL_AMDGPU_GEM_SVM    DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_SVM, struct drm_amdgpu_gem_svm)
+>>>     /**
+>>>    * DOC: memory domains
+>>> @@ -1665,6 +1667,43 @@ struct drm_color_ctm_3x4 {
+>>>       __u64 matrix[12];
+>>>   };
+>>>   +#define AMDGPU_SVM_FLAG_HOST_ACCESS        0x00000001
+>>> +#define AMDGPU_SVM_FLAG_COHERENT        0x00000002
+>>> +#define AMDGPU_SVM_FLAG_HIVE_LOCAL        0x00000004
+>>> +#define AMDGPU_SVM_FLAG_GPU_RO            0x00000008
+>>> +#define AMDGPU_SVM_FLAG_GPU_EXEC        0x00000010
+>>> +#define AMDGPU_SVM_FLAG_GPU_READ_MOSTLY        0x00000020
+>>> +#define AMDGPU_SVM_FLAG_GPU_ALWAYS_MAPPED    0x00000040
+>>> +#define AMDGPU_SVM_FLAG_EXT_COHERENT        0x00000080
+>>> +
+>>> +#define AMDGPU_SVM_OP_SET_ATTR        0
+>>> +#define AMDGPU_SVM_OP_GET_ATTR        1
+>>> +
+>>> +#define AMDGPU_SVM_ATTR_PREFERRED_LOC        0
+>>> +#define AMDGPU_SVM_ATTR_PREFETCH_LOC        1
 >>
->> Or is it just a buggy EDID that needs quirking?
->
-> Looks like a buggy EDID. From decoded EDID I understand it supports all
-> refresh rates between 48Hz/75Hz (very small range anyway), without the
-> continuous freq flag in Features:
->
-> ```
->   EDID Structure Version & Revision: 1.4
->   Vendor & Product Identification:
->     Manufacturer: SKG
->     Model: 10003
->     Made in: week 25 of 2023
->   Basic Display Parameters & Features:
->     Digital display
->     Bits per primary color channel: 10
->     DisplayPort interface
->     Maximum image size: 60 cm x 33 cm
->     Gamma: 2.20
->     DPMS levels: Off
->     Supported color formats: RGB 4:4:4, YCrCb 4:4:4, YCrCb 4:2:2
->     First detailed timing includes the native pixel format and 
-> preferred refresh rate
->   Color Characteristics:
->
-> [...]
->
-> Detailed Timing Descriptors:
-> [...]
->    Display Range Limits: Monitor ranges (Bare Limits): 48-75 Hz V, 
-> 223-223 kHz H, max dotclock 400 MHz
-> [...]
->
-> Vendor-Specific Data Block (AMD), OUI 00-00-1A:
-> Version: 2.1
-> Minimum Refresh Rate: 48 Hz
-> Maximum Refresh Rate: 75 Hz
-> [...]
-> ```
->
-> The reporter shared the EDID here:
-> - 
-> https://lore.kernel.org/amd-gfx/CAKx_Wg7_HBxuq5W4T_AmoFYJGQpa6TAS_Fx9SUzyy1itPmj5Bw@mail.gmail.com/ 
->
-
-Hi Ville,
-
-In the end, it wasn't clear to me if this approach is acceptable or 
-should I create a quirk for this monitor.
-WDYT?
-
-Melissa
-
->
-> Melissa
->
+>> Up till here the interface makes perfect sense, but then it becomes a bit fuzzy.
 >>
->>> Maybe I'm missing something, so I would like to hear your opinions.
->>>
->>> Obs.: In addition to the display kernel developers who have already
->>> worked with this code, I am sending copies to some compositor 
->>> developers
->>> who may have an opinion on it.
->>>
->>> [1] https://cgit.freedesktop.org/drm/drm-misc/commit/?id=ca2582c66b930
->>>
->>> Thanks in advance,
->>>
->>> Melissa
->>>
->>>
->>>   drivers/gpu/drm/drm_edid.c | 4 +++-
->>>   1 file changed, 3 insertions(+), 1 deletion(-)
->>>
->>> diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
->>> index ff432ac6b569..8ebd1c17d78a 100644
->>> --- a/drivers/gpu/drm/drm_edid.c
->>> +++ b/drivers/gpu/drm/drm_edid.c
->>> @@ -6517,7 +6517,9 @@ static void drm_get_monitor_range(struct 
->>> drm_connector *connector,
->>>           return;
->>>         if (!(drm_edid->edid->features & 
->>> DRM_EDID_FEATURE_CONTINUOUS_FREQ))
->>> -        return;
->>> +        drm_dbg_kms(connector->dev,
->>> +                "[CONNECTOR:%d:%s] Display doesn't support 
->>> continuous frequencies\n",
->>> +                connector->base.id, connector->name);
->>>         drm_for_each_detailed_block(drm_edid, get_monitor_range, 
->>> &closure);
->>>   --
->>> 2.51.0
->
+>>> +#define AMDGPU_SVM_ATTR_ACCESS            2
+>>> +#define AMDGPU_SVM_ATTR_ACCESS_IN_PLACE        3
+>>> +#define AMDGPU_SVM_ATTR_NO_ACCESS        4
+>>
+>> Why are those separate attributes? What is the difference between those?
+> 
+> Really thanks for the comments, I have some content mistaken in V2, so I updated the V3 to fix that. For the header they are same. for other content please review the V3, sorry about that. And will fix the concern you raised in next version.
+> 
+> So the meaning of AMDGPU_SVM_ATTR_ACCESS and AMDGPU_SVM_ATTR_NO_ACCESS are clear, GPU can access it or not, and the SVM can set the preferred location, it can be in VRAM or system, for AMDGPU_SVM_ATTR_ACCESS it can be migrated between RAM and VRAM. For AMDGPU_SVM_ATTR_ACCESS_IN_PLACE,
+> it can not migrate, GPU only can access it in the initial place.
+
+Yeah but that doesn't then the interface doesn't seem to make sense since such states are mutual exclusive.
+
+It would make sense when you have some attribute which is named (for example) AMDGPU_SVM_ATTR_ACCESS which can have the values INACCESSIBLE, IN_PLACE, MIGRATE.
+
+>>> +#define AMDGPU_SVM_ATTR_SET_FLAGS        5
+>>> +#define AMDGPU_SVM_ATTR_CLR_FLAGS        6
+>>
+>> Why is that separated into set and clear flags?
+> 
+> This method inherits from KFD and is also designed to be compatible with upper layer applications such as ROCR.
+
+That is *not* sufficient as justification. We need to document why that is necessary and *not* just say ROCR works that way.
+
+As far as I can see just a SET_FLAGS should be sufficient.
+
+>>> +#define AMDGPU_SVM_ATTR_GRANULARITY        7
+>>> +
+>>> +#define AMDGPU_SVM_LOCATION_SYSMEM        0
+>>> +#define AMDGPU_SVM_LOCATION_UNDEFINED        0xffffffff
+>>
+>> No location for device local memory?
+> 
+> Vaule > 0 means for device memory, in xe_svm, it seems like it uses fd for device local memory.
+
+Absolute clear NAK for that approach. This interface is per FD!
+
+We need some value AMDGPU_SVM_LOCATION_DEVICE which means that the memory should be migrated to the current device.
+
+We also need to make sure that setting attributes for different devices doesn't affect each other.
+
+Regards,
+Christian.
+
+> 
+>>
+>>> +
+>>> +struct drm_amdgpu_svm_attribute {
+>>> +    __u32 type;
+>>> +    __u32 value;
+>>> +};
+>>> +
+>>> +struct drm_amdgpu_gem_svm {
+>>> +    __u64 start_addr;
+>>> +    __u64 size;
+>>> +    __u32 operation;
+>>> +    __u32 nattr;
+>>> +    __u64 attrs_ptr;
+>>> +};
+>>
+>> Those struct make perfect sense but clearly need documentation. Preferable as kerneldoc.
+>>
+>> And we usually use unions in this header to separate the input from the output parameters.
+> 
+> Got it will add documentation for it and will use unions in next version. Really thanks for the comments.
+> 
+> Regards,
+> Honglei
+> 
+>>
+>> Regards,
+>> Christian.
+>>
+>>> +
+>>>   #if defined(__cplusplus)
+>>>   }
+>>>   #endif
+>>
+> 
 
