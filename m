@@ -4,70 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E9FF8F9B5E2
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E077FF9B5E0
 	for <amd-gfx@archiver.kernel.org>; Wed, 22 Apr 2026 08:27:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2DF4610E981;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1B23110E97F;
 	Wed, 22 Apr 2026 08:27:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=usp.br header.i=@usp.br header.b="UoD+yE3n";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ebKmvOgx";
 	dkim-atps=neutral
-Received: from mail-dl1-f52.google.com (mail-dl1-f52.google.com [74.125.82.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C74EB10E16B
- for <amd-gfx@lists.freedesktop.org>; Tue, 21 Apr 2026 20:03:24 +0000 (UTC)
-Received: by mail-dl1-f52.google.com with SMTP id
- a92af1059eb24-12c87f1f8c8so211935c88.2
- for <amd-gfx@lists.freedesktop.org>; Tue, 21 Apr 2026 13:03:24 -0700 (PDT)
+Received: from mail-pj1-f65.google.com (mail-pj1-f65.google.com
+ [209.85.216.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1AE5110ED91
+ for <amd-gfx@lists.freedesktop.org>; Tue, 21 Apr 2026 20:06:12 +0000 (UTC)
+Received: by mail-pj1-f65.google.com with SMTP id
+ 98e67ed59e1d1-35fb7c1a455so1870030a91.3
+ for <amd-gfx@lists.freedesktop.org>; Tue, 21 Apr 2026 13:06:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=usp.br; s=usp-google; t=1776801804; x=1777406604; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1776801971; x=1777406771; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=ctfYCUwnq+ND/BK2YrW6WN95Q5+5Z1z7I8KH/f9G8o4=;
- b=UoD+yE3nq0R9oZkiN9Ly2w+Kr/YhyUyIAy15h4ItRKImnW8JU7P+NqdxoQPAQiq2oS
- wPnBtWYtv4O0txogxnVZRj7pQy5wcmQTzSR3AMtTaNsdZV0Qm1IGQGnBEM6XVCjrb5qX
- 856OD9rhIUblU40aRGaMbIZrfIU8+7VcmjOr6yBivGrHDXDNSmBL+nUDkKd5P0BJ0M1w
- 6HksAmiOiOlbPRnQqpKlv1iNcR6AHb+RgGHxLu/6+wuAi9eZLXVfWI0QHqIhLZBlxuxY
- uHfNVp+1xIgewJnipFzWB/T2Q/2Ye8wVh6wRisOrvCdWu6+NorhMIJtfxVO312AUjCm2
- eZsg==
+ bh=tqUPrapJmfk162jOprC1A32Q+Yo8c7HKbfTLBNJ4ZkA=;
+ b=ebKmvOgxSESybvHb/Rg6zf1ablxPpgiqy1wrQbi3NNB08J2UD2axmiUdjRxgNaQ5e3
+ wQJkETZrx5hRuSrxVZTxTJD4DjTf2tdhKp96+cw+38QHtah/qGDYAQ/8FtFm/Wvaicvk
+ SdPIZFTCuVLJEzWQG99lNyFFuIZMDJMgvKIzyYtsQfzyzrNuvUkFu4QW/sVwrqMIN07n
+ 0zYAMs/wV24cg9AclzkK5X8LQd4Hvrr8FbxxLKtnyFsx6zuMw5kms1Q7QSuUAgvsBBKe
+ VY09YFHSkpODM8tolQuVnBvfmUdUVdX1dKdmhgZqZ/1S6BbpekJnsmtnuH8xNA5O8GBQ
+ TOPg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1776801804; x=1777406604;
+ d=1e100.net; s=20251104; t=1776801971; x=1777406771;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=ctfYCUwnq+ND/BK2YrW6WN95Q5+5Z1z7I8KH/f9G8o4=;
- b=ZHdiykRrqVKYZWDFS0rF9Z1fEste3bo4NIo7wugAkuL61oxtlAp7NhjaVr3UvlXRMy
- b6Isr+xc8xe2fxvjHOEuMXBfLbPoEo7Tne/42mdIvbSSQK7C47v33inTlzpYmGc1oHnd
- HgtYLZXpplpYpfZ5dwMhlULpjyp3B0inDh73buOD3sTEFve6ivMPJwRgsQULw42CAhoR
- rQ6WKG4jmetEpc2hn92yTSwMVggUwJPte90mre+5EHj3jDvG7ja4hnoqRbZjToazJMjZ
- +uFYXSD0Z0ME/bVLAhjAVWH+Vc0oxMBEDNTbpAzwB2dkhqgNYmC+FIHcMkTCYvEQq+gP
- ZAmw==
-X-Forwarded-Encrypted: i=1;
- AFNElJ/mJ5azIsQT9uHSEfHEEquMXsxLE4avQjoOv2eKlcitg2CWPwgPkDY99bpngThXZHvOtyChIeHi@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yxzyhww2GxYumEv7/bgcKeDOcrAThsm4tJUEr8fWXIqgAxzEdqw
- 9IqNBPtMR2+SHGC53iRGMU0aYl8mJHHverzGJN2iArSX39M0UxaUKAcl0ugSSmNR7y0=
-X-Gm-Gg: AeBDietuqoDaqeeCWOw8BYux71HD+p+KENvl/VgQffzl5rn3hKgWcxkrsm6Mx3fdsMG
- 5FzeuCWC0fwqIZZdJQ0wHhY9aQSH15Vd+2XkhcmvSRTZV5sdElxEYxBGMPj3g+vEPmztFVTmu14
- MlbSfyk59QofYlsYF5TGK3YBF9QtTkGYOmf4UQPth4wmTn0YV567iqKP5VtRtpIPB5nr9ekMY3Q
- N1GPUueSAFuZARb2gK9ynTzqAriLGCf7YFBhl040gK3RSTy336peYtrqIRXOZj2d0ATC7SosL3F
- HAK56qk1/PW/iIEpg1CKSsQ2EU3rzTLag4arbqJjH+QQmmTLKS0lIart2wUcTO6tCOIETzGVVzu
- b/qBeJZnAXebjdR9q8jjY2N+YgFvImJP9FC+Zj0YFLBJPgTznpVgr7r00Ie+gzOa6+76g+pg+n8
- VPF+Q8WZ5XRsxjFwKrY5EVyt+tpZ35jFe9jitWTcoqQknoJP9fDlbJ1drHpUs=
-X-Received: by 2002:a05:7022:90d:b0:12c:900b:9dee with SMTP id
- a92af1059eb24-12c900ba4bamr2072612c88.1.1776801803528; 
- Tue, 21 Apr 2026 13:03:23 -0700 (PDT)
-Received: from Haru.. ([2804:1b1:f983:1702:ed2:736c:4e1d:a8a8])
+ bh=tqUPrapJmfk162jOprC1A32Q+Yo8c7HKbfTLBNJ4ZkA=;
+ b=jjjhBgG9gVTqXM74C1H6x6fsahzIrgaBvOE/h4c0Gc6B6ZgUfDum1tYqcuOhhIwzr/
+ oGf7s6BXtLCzuwTYwWQMWPiCNRxWvQ6704lwWDlfGRXPhC1C91iCz1qgInnDbcfQWjWa
+ C+PIPa3rt/dd6qkPHN10mwotuvryTj7Np6N8Ydy7to9+w1I3mnN2iAals7RK0hWqgI3r
+ kIkf1YHHsfsLBY6Nt2rk88L83HUCerRxGslt26cpgMMNBybf3sDX7ZMRnryS+7/K+fdd
+ apBgNfgnjobVJ/UtDc7e3q7nrhy9d/joMCg4uRwLYUa6LLAbPpSNW6xrx4sUULULhZG6
+ g9Tw==
+X-Gm-Message-State: AOJu0Yw+1HH/xaEHB9UIedjyx5BbixLWuYfQWYDGPfmvStiUi3z7K2ga
+ RLIwUmgvTonPj2ls3/d2gz25Q6NKKWXf8O1H1DhLPt0/JVrA+S9fMPo4Bhj7/nq1lrPjSw==
+X-Gm-Gg: AeBDiesVK4rktwcj63zEHVwjdClIagTV8WwrP/8gq+KBWUV6KikG3pi2US+BoxQW+Ga
+ zt0AZJcSCPwUNwFNTipcL3WpJ6WhssOZFvPaGzSTPOiPTulpkywzyHSvm2tiG0Dyi50bECfkm37
+ eebeEvTV4e3hnBV5Dn3APgxzKnpXK0+wMtqm5kM7MwQJ0DjyV8nh4Qm72pPbt4krl5l4b+CaL8G
+ m8ljpggiqO9O2iE3InvlQIsUIQj2R5NVLP52FSAu8qWnn27rwNV0RN1LYkwClyVnycVDhZJzLHS
+ /yzMs2P+zqvJEYxIqUVzScMwc7sYy7SwLpXy+CQ/xoL47E9RNsCxzjeTqjDZoRVWCaj3+yyemmo
+ o+uXwMjkrGvg2C2XOfCKHu9VWuFEBYHCHYulAi+F7PRa2qH4InwWYIozoWy+7sD9RsGeicFaB5a
+ VTyu+W5KKGTmH5Ln/mSz7svdoBc+292QXLr/S7Zpwe1cHPvwi4R/s8dw==
+X-Received: by 2002:a17:90b:5106:b0:35a:189b:43db with SMTP id
+ 98e67ed59e1d1-361403d5c41mr17003533a91.4.1776801971250; 
+ Tue, 21 Apr 2026 13:06:11 -0700 (PDT)
+Received: from localhost.localdomain ([2804:1b3:a542:324a:19b3:4f10:39f6:f212])
  by smtp.gmail.com with ESMTPSA id
- a92af1059eb24-12c74a185a8sm20830097c88.9.2026.04.21.13.03.20
+ 98e67ed59e1d1-362bbf963c9sm4606304a91.16.2026.04.21.13.06.08
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 21 Apr 2026 13:03:23 -0700 (PDT)
-From: Leonardo Cesar <leonardocesar@usp.br>
-To: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
- simona@ffwll.ch
-Cc: Leonardo Cesar <leonardocesar@usp.br>, amd-gfx@lists.freedesktop.org,
+ Tue, 21 Apr 2026 13:06:10 -0700 (PDT)
+From: Andre Luiz Batista Bueno <andrebueno.mac@gmail.com>
+To: amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com,
+ christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch
+Cc: enzo.spinella@usp.br, Andre Luiz Batista Bueno <andrebueno.mac@gmail.com>,
  dri-devel@lists.freedesktop.org
-Subject: [PATCH] drm/amdgpu: deduplicate ring preempt ib function
-Date: Tue, 21 Apr 2026 17:03:00 -0300
-Message-ID: <20260421200311.15624-1-leonardocesar@usp.br>
+Subject: [PATCH] drm/amdgpu: deduplicate JPEG v5.0 interrupt routine
+Date: Tue, 21 Apr 2026 17:02:25 -0300
+Message-ID: <20260421200236.30927-1-andrebueno.mac@gmail.com>
 X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -86,237 +85,274 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The ring preemption function is identical for both gfx_v11_0 and
-gfx_v12_0. This patch refactors the code by moving the core logic
-into a generic function inside amdgpu_gfx.c to reduce code
-duplication and simplify future maintenance.
+Both jpeg_v5_0_1.c and jpeg_v5_0_2.c implement identical
+interrupt processing routines. To avoid code duplication,
+extract this implementation into a shared common function
+in new jpeg_v5_0_interrupt.c and .h files.
 
-Signed-off-by: Leonardo Cesar <leonardocesar@usp.br>
-
+Signed-off-by: Andre Luiz Batista Bueno <andrebueno.mac@gmail.com>
+Co-developed-by: Enzo Furegatti Spinella <enzo.spinella@usp.br>
+Signed-off-by: Enzo Furegatti Spinella <enzo.spinella@usp.br>
 ---
-v1 -> v2:
-- Removed wrapper functions for gfx_v11 and gfx_v12 and updated call sites directly.
+ drivers/gpu/drm/amd/amdgpu/Makefile           |  1 +
+ drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_1.c      | 57 +----------------
+ drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_2.c      | 57 +----------------
+ .../gpu/drm/amd/amdgpu/jpeg_v5_0_interrupt.c  | 64 +++++++++++++++++++
+ .../gpu/drm/amd/amdgpu/jpeg_v5_0_interrupt.h  | 12 ++++
+ 5 files changed, 83 insertions(+), 108 deletions(-)
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_interrupt.c
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_interrupt.h
 
- drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | ...
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | 51 ++++++++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h |  2 +
- drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c  | 52 +------------------------
- drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c  | 52 +------------------------
- 4 files changed, 55 insertions(+), 102 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-index 2956e45c9..a157cbd8e 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-@@ -2684,3 +2684,54 @@ void amdgpu_debugfs_compute_sched_mask_init(struct amdgpu_device *adev)
- #endif
+diff --git a/drivers/gpu/drm/amd/amdgpu/Makefile b/drivers/gpu/drm/amd/amdgpu/Makefile
+index db66c6372199..69e5e55e1a2b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/Makefile
++++ b/drivers/gpu/drm/amd/amdgpu/Makefile
+@@ -229,6 +229,7 @@ amdgpu-y += \
+ 	jpeg_v5_0_0.o \
+ 	jpeg_v5_0_1.o \
+ 	jpeg_v5_0_2.o \
++	jpeg_v5_0_interrupt.o \
+ 	jpeg_v5_3_0.o
+ 
+ # add VPE block
+diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_1.c b/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_1.c
+index edecbfe66c79..6e5611921eda 100644
+--- a/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_1.c
++++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_1.c
+@@ -34,6 +34,8 @@
+ #include "vcn/vcn_5_0_0_sh_mask.h"
+ #include "ivsrcid/vcn/irqsrcs_vcn_5_0.h"
+ 
++#include "jpeg_v5_0_interrupt.h"
++
+ static int jpeg_v5_0_1_start_sriov(struct amdgpu_device *adev);
+ static void jpeg_v5_0_1_set_dec_ring_funcs(struct amdgpu_device *adev);
+ static void jpeg_v5_0_1_set_irq_funcs(struct amdgpu_device *adev);
+@@ -759,60 +761,7 @@ static int jpeg_v5_0_1_process_interrupt(struct amdgpu_device *adev,
+ 					 struct amdgpu_irq_src *source,
+ 					 struct amdgpu_iv_entry *entry)
+ {
+-	u32 i, inst;
+-
+-	i = node_id_to_phys_map[entry->node_id];
+-	DRM_DEV_DEBUG(adev->dev, "IH: JPEG TRAP\n");
+-
+-	for (inst = 0; inst < adev->jpeg.num_jpeg_inst; ++inst)
+-		if (adev->jpeg.inst[inst].aid_id == i)
+-			break;
+-
+-	if (inst >= adev->jpeg.num_jpeg_inst) {
+-		dev_WARN_ONCE(adev->dev, 1,
+-			      "Interrupt received for unknown JPEG instance %d",
+-			      entry->node_id);
+-		return 0;
+-	}
+-
+-	switch (entry->src_id) {
+-	case VCN_5_0__SRCID__JPEG_DECODE:
+-		amdgpu_fence_process(&adev->jpeg.inst[inst].ring_dec[0]);
+-		break;
+-	case VCN_5_0__SRCID__JPEG1_DECODE:
+-		amdgpu_fence_process(&adev->jpeg.inst[inst].ring_dec[1]);
+-		break;
+-	case VCN_5_0__SRCID__JPEG2_DECODE:
+-		amdgpu_fence_process(&adev->jpeg.inst[inst].ring_dec[2]);
+-		break;
+-	case VCN_5_0__SRCID__JPEG3_DECODE:
+-		amdgpu_fence_process(&adev->jpeg.inst[inst].ring_dec[3]);
+-		break;
+-	case VCN_5_0__SRCID__JPEG4_DECODE:
+-		amdgpu_fence_process(&adev->jpeg.inst[inst].ring_dec[4]);
+-		break;
+-	case VCN_5_0__SRCID__JPEG5_DECODE:
+-		amdgpu_fence_process(&adev->jpeg.inst[inst].ring_dec[5]);
+-		break;
+-	case VCN_5_0__SRCID__JPEG6_DECODE:
+-		amdgpu_fence_process(&adev->jpeg.inst[inst].ring_dec[6]);
+-		break;
+-	case VCN_5_0__SRCID__JPEG7_DECODE:
+-		amdgpu_fence_process(&adev->jpeg.inst[inst].ring_dec[7]);
+-		break;
+-	case VCN_5_0__SRCID__JPEG8_DECODE:
+-		amdgpu_fence_process(&adev->jpeg.inst[inst].ring_dec[8]);
+-		break;
+-	case VCN_5_0__SRCID__JPEG9_DECODE:
+-		amdgpu_fence_process(&adev->jpeg.inst[inst].ring_dec[9]);
+-		break;
+-	default:
+-		DRM_DEV_ERROR(adev->dev, "Unhandled interrupt: %d %d\n",
+-			      entry->src_id, entry->src_data[0]);
+-		break;
+-	}
+-
+-	return 0;
++	return jpeg_v5_0_process_interrupt_common(adev, entry);
  }
  
-+int amdgpu_gfx_ring_preempt_ib(struct amdgpu_ring *ring)
+ static void jpeg_v5_0_1_core_stall_reset(struct amdgpu_ring *ring)
+diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_2.c b/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_2.c
+index 285c459379c4..daea95907639 100644
+--- a/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_2.c
++++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_2.c
+@@ -34,6 +34,8 @@
+ #include "vcn/vcn_5_0_0_sh_mask.h"
+ #include "ivsrcid/vcn/irqsrcs_vcn_5_0.h"
+ 
++#include "jpeg_v5_0_interrupt.h"
++
+ static void jpeg_v5_0_2_set_dec_ring_funcs(struct amdgpu_device *adev);
+ static void jpeg_v5_0_2_set_irq_funcs(struct amdgpu_device *adev);
+ static int jpeg_v5_0_2_set_powergating_state(struct amdgpu_ip_block *ip_block,
+@@ -587,60 +589,7 @@ static int jpeg_v5_0_2_process_interrupt(struct amdgpu_device *adev,
+ 					 struct amdgpu_irq_src *source,
+ 					 struct amdgpu_iv_entry *entry)
+ {
+-	u32 i, inst;
+-
+-	i = node_id_to_phys_map[entry->node_id];
+-	DRM_DEV_DEBUG(adev->dev, "IH: JPEG TRAP\n");
+-
+-	for (inst = 0; inst < adev->jpeg.num_jpeg_inst; ++inst)
+-		if (adev->jpeg.inst[inst].aid_id == i)
+-			break;
+-
+-	if (inst >= adev->jpeg.num_jpeg_inst) {
+-		dev_WARN_ONCE(adev->dev, 1,
+-			      "Interrupt received for unknown JPEG instance %d",
+-			      entry->node_id);
+-		return 0;
+-	}
+-
+-	switch (entry->src_id) {
+-	case VCN_5_0__SRCID__JPEG_DECODE:
+-		amdgpu_fence_process(&adev->jpeg.inst[inst].ring_dec[0]);
+-		break;
+-	case VCN_5_0__SRCID__JPEG1_DECODE:
+-		amdgpu_fence_process(&adev->jpeg.inst[inst].ring_dec[1]);
+-		break;
+-	case VCN_5_0__SRCID__JPEG2_DECODE:
+-		amdgpu_fence_process(&adev->jpeg.inst[inst].ring_dec[2]);
+-		break;
+-	case VCN_5_0__SRCID__JPEG3_DECODE:
+-		amdgpu_fence_process(&adev->jpeg.inst[inst].ring_dec[3]);
+-		break;
+-	case VCN_5_0__SRCID__JPEG4_DECODE:
+-		amdgpu_fence_process(&adev->jpeg.inst[inst].ring_dec[4]);
+-		break;
+-	case VCN_5_0__SRCID__JPEG5_DECODE:
+-		amdgpu_fence_process(&adev->jpeg.inst[inst].ring_dec[5]);
+-		break;
+-	case VCN_5_0__SRCID__JPEG6_DECODE:
+-		amdgpu_fence_process(&adev->jpeg.inst[inst].ring_dec[6]);
+-		break;
+-	case VCN_5_0__SRCID__JPEG7_DECODE:
+-		amdgpu_fence_process(&adev->jpeg.inst[inst].ring_dec[7]);
+-		break;
+-	case VCN_5_0__SRCID__JPEG8_DECODE:
+-		amdgpu_fence_process(&adev->jpeg.inst[inst].ring_dec[8]);
+-		break;
+-	case VCN_5_0__SRCID__JPEG9_DECODE:
+-		amdgpu_fence_process(&adev->jpeg.inst[inst].ring_dec[9]);
+-		break;
+-	default:
+-		DRM_DEV_ERROR(adev->dev, "Unhandled interrupt: %d %d\n",
+-			      entry->src_id, entry->src_data[0]);
+-		break;
+-	}
+-
+-	return 0;
++	return jpeg_v5_0_process_interrupt_common(adev, entry);
+ }
+ 
+ static void jpeg_v5_0_2_core_stall_reset(struct amdgpu_ring *ring)
+diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_interrupt.c b/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_interrupt.c
+new file mode 100644
+index 000000000000..a76ee6586b63
+--- /dev/null
++++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_interrupt.c
+@@ -0,0 +1,64 @@
++// SPDX-License-Identifier: GPL-2.0 OR MIT
++
++#include "amdgpu.h"
++#include "ivsrcid/vcn/irqsrcs_vcn_5_0.h"
++#include "jpeg_v5_0_interrupt.h"
++
++int jpeg_v5_0_process_interrupt_common(struct amdgpu_device *adev,
++				       struct amdgpu_iv_entry *entry)
 +{
-+	int i, r = 0;
-+	struct amdgpu_device *adev = ring->adev;
-+	struct amdgpu_kiq *kiq = &adev->gfx.kiq[0];
-+	struct amdgpu_ring *kiq_ring = &kiq->ring;
-+	unsigned long flags;
++	u32 i, inst;
 +
-+	if (adev->enable_mes)
-+		return -EINVAL;
++	i = node_id_to_phys_map[entry->node_id];
++	DRM_DEV_DEBUG(adev->dev, "IH: JPEG TRAP\n");
 +
-+	if (!kiq->pmf || !kiq->pmf->kiq_unmap_queues)
-+		return -EINVAL;
-+
-+	spin_lock_irqsave(&kiq->ring_lock, flags);
-+
-+	if (amdgpu_ring_alloc(kiq_ring, kiq->pmf->unmap_queues_size)) {
-+		spin_unlock_irqrestore(&kiq->ring_lock, flags);
-+		return -ENOMEM;
-+	}
-+
-+	/* assert preemption condition */
-+	amdgpu_ring_set_preempt_cond_exec(ring, false);
-+
-+	/* assert IB preemption, emit the trailing fence */
-+	kiq->pmf->kiq_unmap_queues(kiq_ring, ring, PREEMPT_QUEUES_NO_UNMAP,
-+					ring->trail_fence_gpu_addr,
-+					++ring->trail_seq);
-+	amdgpu_ring_commit(kiq_ring);
-+
-+	spin_unlock_irqrestore(&kiq->ring_lock, flags);
-+
-+	/* poll the trailing fence */
-+	for (i = 0; i < adev->usec_timeout; i++) {
-+		if (ring->trail_seq ==
-+			le32_to_cpu(*(ring->trail_fence_cpu_addr)))
++	for (inst = 0; inst < adev->jpeg.num_jpeg_inst; ++inst)
++		if (adev->jpeg.inst[inst].aid_id == i)
 +			break;
-+		udelay(1);
++
++	if (inst >= adev->jpeg.num_jpeg_inst) {
++		dev_WARN_ONCE(adev->dev, 1,
++			      "Interrupt received for unknown JPEG instance %d",
++			      entry->node_id);
++		return 0;
 +	}
 +
-+	if (i >= adev->usec_timeout) {
-+		r = -EINVAL;
-+		DRM_ERROR("ring %d failed to preempt ib\n", ring->idx);
++	switch (entry->src_id) {
++	case VCN_5_0__SRCID__JPEG_DECODE:
++		amdgpu_fence_process(&adev->jpeg.inst[inst].ring_dec[0]);
++		break;
++	case VCN_5_0__SRCID__JPEG1_DECODE:
++		amdgpu_fence_process(&adev->jpeg.inst[inst].ring_dec[1]);
++		break;
++	case VCN_5_0__SRCID__JPEG2_DECODE:
++		amdgpu_fence_process(&adev->jpeg.inst[inst].ring_dec[2]);
++		break;
++	case VCN_5_0__SRCID__JPEG3_DECODE:
++		amdgpu_fence_process(&adev->jpeg.inst[inst].ring_dec[3]);
++		break;
++	case VCN_5_0__SRCID__JPEG4_DECODE:
++		amdgpu_fence_process(&adev->jpeg.inst[inst].ring_dec[4]);
++		break;
++	case VCN_5_0__SRCID__JPEG5_DECODE:
++		amdgpu_fence_process(&adev->jpeg.inst[inst].ring_dec[5]);
++		break;
++	case VCN_5_0__SRCID__JPEG6_DECODE:
++		amdgpu_fence_process(&adev->jpeg.inst[inst].ring_dec[6]);
++		break;
++	case VCN_5_0__SRCID__JPEG7_DECODE:
++		amdgpu_fence_process(&adev->jpeg.inst[inst].ring_dec[7]);
++		break;
++	case VCN_5_0__SRCID__JPEG8_DECODE:
++		amdgpu_fence_process(&adev->jpeg.inst[inst].ring_dec[8]);
++		break;
++	case VCN_5_0__SRCID__JPEG9_DECODE:
++		amdgpu_fence_process(&adev->jpeg.inst[inst].ring_dec[9]);
++		break;
++	default:
++		DRM_DEV_ERROR(adev->dev, "Unhandled interrupt: %d %d\n",
++			      entry->src_id, entry->src_data[0]);
++		break;
 +	}
 +
-+	/* deassert preemption condition */
-+	amdgpu_ring_set_preempt_cond_exec(ring, true);
-+	return r;
++	return 0;
 +}
+diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_interrupt.h b/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_interrupt.h
+new file mode 100644
+index 000000000000..046bcb4a3906
+--- /dev/null
++++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_interrupt.h
+@@ -0,0 +1,12 @@
++/* SPDX-License-Identifier: GPL-2.0 OR MIT */
 +
++#ifndef __JPEG_V5_0_INTERRUPT_H__
++#define __JPEG_V5_0_INTERRUPT_H__
 +
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-index a0cf0a3b4..77050f988 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-@@ -664,6 +664,8 @@ void amdgpu_gfx_csb_preamble_end(u32 *buffer, u32 count);
- void amdgpu_debugfs_gfx_sched_mask_init(struct amdgpu_device *adev);
- void amdgpu_debugfs_compute_sched_mask_init(struct amdgpu_device *adev);
- 
-+int amdgpu_gfx_ring_preempt_ib(struct amdgpu_ring *ring);
++struct amdgpu_device;
++struct amdgpu_iv_entry;
 +
- static inline const char *amdgpu_gfx_compute_mode_desc(int mode)
- {
- 	switch (mode) {
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-index 5097de940..1ba848bfa 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-@@ -6206,56 +6206,6 @@ static void gfx_v11_0_ring_emit_gfx_shadow(struct amdgpu_ring *ring,
- 	ring->set_q_mode_offs = offs;
- }
- 
--static int gfx_v11_0_ring_preempt_ib(struct amdgpu_ring *ring)
--{
--	int i, r = 0;
--	struct amdgpu_device *adev = ring->adev;
--	struct amdgpu_kiq *kiq = &adev->gfx.kiq[0];
--	struct amdgpu_ring *kiq_ring = &kiq->ring;
--	unsigned long flags;
--
--	if (adev->enable_mes)
--		return -EINVAL;
--
--	if (!kiq->pmf || !kiq->pmf->kiq_unmap_queues)
--		return -EINVAL;
--
--	spin_lock_irqsave(&kiq->ring_lock, flags);
--
--	if (amdgpu_ring_alloc(kiq_ring, kiq->pmf->unmap_queues_size)) {
--		spin_unlock_irqrestore(&kiq->ring_lock, flags);
--		return -ENOMEM;
--	}
--
--	/* assert preemption condition */
--	amdgpu_ring_set_preempt_cond_exec(ring, false);
--
--	/* assert IB preemption, emit the trailing fence */
--	kiq->pmf->kiq_unmap_queues(kiq_ring, ring, PREEMPT_QUEUES_NO_UNMAP,
--				   ring->trail_fence_gpu_addr,
--				   ++ring->trail_seq);
--	amdgpu_ring_commit(kiq_ring);
--
--	spin_unlock_irqrestore(&kiq->ring_lock, flags);
--
--	/* poll the trailing fence */
--	for (i = 0; i < adev->usec_timeout; i++) {
--		if (ring->trail_seq ==
--		    le32_to_cpu(*(ring->trail_fence_cpu_addr)))
--			break;
--		udelay(1);
--	}
--
--	if (i >= adev->usec_timeout) {
--		r = -EINVAL;
--		DRM_ERROR("ring %d failed to preempt ib\n", ring->idx);
--	}
--
--	/* deassert preemption condition */
--	amdgpu_ring_set_preempt_cond_exec(ring, true);
--	return r;
--}
--
- static void gfx_v11_0_ring_emit_de_meta(struct amdgpu_ring *ring, bool resume)
- {
- 	struct amdgpu_device *adev = ring->adev;
-@@ -7295,7 +7245,7 @@ static const struct amdgpu_ring_funcs gfx_v11_0_ring_funcs_gfx = {
- 	.emit_cntxcntl = gfx_v11_0_ring_emit_cntxcntl,
- 	.emit_gfx_shadow = gfx_v11_0_ring_emit_gfx_shadow,
- 	.init_cond_exec = gfx_v11_0_ring_emit_init_cond_exec,
--	.preempt_ib = gfx_v11_0_ring_preempt_ib,
-+	.preempt_ib = amdgpu_gfx_ring_preempt_ib,
- 	.emit_frame_cntl = gfx_v11_0_ring_emit_frame_cntl,
- 	.emit_wreg = gfx_v11_0_ring_emit_wreg,
- 	.emit_reg_wait = gfx_v11_0_ring_emit_reg_wait,
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-index 65c33823a..6cf244349 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-@@ -4611,56 +4611,6 @@ static unsigned gfx_v12_0_ring_emit_init_cond_exec(struct amdgpu_ring *ring,
- 	return ret;
- }
- 
--static int gfx_v12_0_ring_preempt_ib(struct amdgpu_ring *ring)
--{
--	int i, r = 0;
--	struct amdgpu_device *adev = ring->adev;
--	struct amdgpu_kiq *kiq = &adev->gfx.kiq[0];
--	struct amdgpu_ring *kiq_ring = &kiq->ring;
--	unsigned long flags;
--
--	if (adev->enable_mes)
--		return -EINVAL;
--
--	if (!kiq->pmf || !kiq->pmf->kiq_unmap_queues)
--		return -EINVAL;
--
--	spin_lock_irqsave(&kiq->ring_lock, flags);
--
--	if (amdgpu_ring_alloc(kiq_ring, kiq->pmf->unmap_queues_size)) {
--		spin_unlock_irqrestore(&kiq->ring_lock, flags);
--		return -ENOMEM;
--	}
--
--	/* assert preemption condition */
--	amdgpu_ring_set_preempt_cond_exec(ring, false);
--
--	/* assert IB preemption, emit the trailing fence */
--	kiq->pmf->kiq_unmap_queues(kiq_ring, ring, PREEMPT_QUEUES_NO_UNMAP,
--				   ring->trail_fence_gpu_addr,
--				   ++ring->trail_seq);
--	amdgpu_ring_commit(kiq_ring);
--
--	spin_unlock_irqrestore(&kiq->ring_lock, flags);
--
--	/* poll the trailing fence */
--	for (i = 0; i < adev->usec_timeout; i++) {
--		if (ring->trail_seq ==
--		    le32_to_cpu(*(ring->trail_fence_cpu_addr)))
--			break;
--		udelay(1);
--	}
--
--	if (i >= adev->usec_timeout) {
--		r = -EINVAL;
--		DRM_ERROR("ring %d failed to preempt ib\n", ring->idx);
--	}
--
--	/* deassert preemption condition */
--	amdgpu_ring_set_preempt_cond_exec(ring, true);
--	return r;
--}
--
- static void gfx_v12_0_ring_emit_rreg(struct amdgpu_ring *ring, uint32_t reg,
- 				     uint32_t reg_val_offs)
- {
-@@ -5539,7 +5489,7 @@ static const struct amdgpu_ring_funcs gfx_v12_0_ring_funcs_gfx = {
- 	.pad_ib = amdgpu_ring_generic_pad_ib,
- 	.emit_cntxcntl = gfx_v12_0_ring_emit_cntxcntl,
- 	.init_cond_exec = gfx_v12_0_ring_emit_init_cond_exec,
--	.preempt_ib = gfx_v12_0_ring_preempt_ib,
-+	.preempt_ib = amdgpu_gfx_ring_preempt_ib,
- 	.emit_wreg = gfx_v12_0_ring_emit_wreg,
- 	.emit_reg_wait = gfx_v12_0_ring_emit_reg_wait,
- 	.emit_reg_write_reg_wait = gfx_v12_0_ring_emit_reg_write_reg_wait,
++int jpeg_v5_0_process_interrupt_common(struct amdgpu_device *adev,
++				       struct amdgpu_iv_entry *entry);
++
++#endif /* __JPEG_V5_0_INTERRUPT_H__ */
 -- 
 2.43.0
 
