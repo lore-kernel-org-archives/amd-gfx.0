@@ -4,93 +4,95 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BCE6DF8FA80
-	for <amd-gfx@archiver.kernel.org>; Tue, 21 Apr 2026 14:20:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 034F9F8FA78
+	for <amd-gfx@archiver.kernel.org>; Tue, 21 Apr 2026 14:29:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5927910E8CB;
-	Tue, 21 Apr 2026 14:20:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 907EB10E8BB;
+	Tue, 21 Apr 2026 14:29:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="FxRfIfNM";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="UMsqLT7S";
 	dkim-atps=neutral
-Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com
- [74.125.82.175])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5EBC010E8BE
- for <amd-gfx@lists.freedesktop.org>; Tue, 21 Apr 2026 14:20:45 +0000 (UTC)
-Received: by mail-dy1-f175.google.com with SMTP id
- 5a478bee46e88-2e92c54bab4so267395eec.0
- for <amd-gfx@lists.freedesktop.org>; Tue, 21 Apr 2026 07:20:45 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1776781245; cv=none;
- d=google.com; s=arc-20240605;
- b=WqUn8DawaqhN02WI+8IbtPpHQsSLqCs3qzVpzOpTgIs4TDpQK5GmVZ7tdCqMLtJyTa
- QCqJ8UshlR0vpzQnKt1BY7BQLN11qzVwOUZ335vkJJBDrk0NfEyyA+1nrxnT+4ryOfmA
- WG7llEsePCD6enMD0sgI0wX3qGDR5N/5x7CStCmCAMt511u46wWx6ncp7BrnMc3IY0Cm
- SpgclBVXedKPBw4ryxqMA6h7jmRf1MKRfCjbpmA7zFXAJpc+ZEYu2fXVWsy7C7EzrW4n
- 8hH/BVx/kN4YtoNaq9wbn7F46TPusBK6DYe1ek3pSPLoqm6RjaCDzCHXlrSROqyaq2WB
- UZ7w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=6ecIPKCl9xaMqTZ1iZfdRln8cLYWJAZ+Dy7s9vdXJ+o=;
- fh=E/SACSLIjJSza37UAEphhj5fYwKS3HtqNPhKlayxxvc=;
- b=kssOyFkk59lOHWV8YiTpd5up6cofcJWnS5hS+goJrZXXF5dp37uoui/dFwYhNMrdw/
- ZWBEuHOvVziHvYsMOwEw0CJru7IEtAvFBWllHfgBGZoLIz5m0ALlB/EVaZW/S6RtG96f
- VcnydBMZ4eDCe2G5JCRQXjY3Q1QLGOkZJXGMWy5eLvjAbuPtBZ1qF1hFJzwOmo/btMEE
- 3/D2QLN05LGj49FrYswWop7kEa/Rh5ig82inZLWlyzp2uZqJlrDAB0Nvu8fgOeIu8OKe
- EmpECD4c+jQWck7c6xnNYAqxSCZ+YyDhzKbVyilRcrrENMexaIfUACWrL4ToDZ/Qoj3Z
- z0hQ==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1776781245; x=1777386045; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=6ecIPKCl9xaMqTZ1iZfdRln8cLYWJAZ+Dy7s9vdXJ+o=;
- b=FxRfIfNMLGgmndQalaNyq9CUcdApI7p7Zgh5MGig/dtiqLAHYGtO7m9k2VdrPBr0oa
- yyddAPMMVFJ/rNBfAhVdKyGfcR3tgb6YHim8nqH8FbKmPyeAbReWy4NQLGTg/oEeO/lQ
- Ezt+sxs6TEXdFmIS34AhyhXOyHACsvXbsk8vzJT1HzgDB3KY2v2qtuqCicmfW5dBtiK0
- uYQ72lSc3yzYX6qjn6rBNcM51E0OBFe33z0XIOc1jMU64wWR2zyulK6agP5WSY1ArLCP
- g4QNicC0RHHUatWehJA162+k+RFux6vjhjj3sjzj+EHxFE0HOPYmXmwZ0kmPOkwsVZt/
- iEJg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1776781245; x=1777386045;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=6ecIPKCl9xaMqTZ1iZfdRln8cLYWJAZ+Dy7s9vdXJ+o=;
- b=NT0MGTaYBUtFyZKIzB8lfbPfokiW7QnagKdM6Bg0lVCgVDunFOMRLD7sZlczxNSAOH
- F5nRHlNXzsY53Da48R3ByI2FNradbCi1YFoHGozvUYjYxee/1BgdBmGyXVWnKlHd84di
- AXEKlo8TpBREJW5SZhLSdMaAJ8lVaSatqkKVZO5rhYXBFOgsHkq402xwMnrP53Nxwz6H
- 4qU+bAgIetUmnFgqqH3eZSVIJ6nws9ciZeTxNv9d+1r+2jmuCkNERwZWHWFt97QRIgEE
- SEaSYVHSc1Pa9uODP4+xn0YV6wpOk+e1L+hy4aHG0sXEpc+V1dPJyiZZlqNWdfIvMiv+
- XwFA==
-X-Gm-Message-State: AOJu0Yz8CilmRKSSevCnBOwNE7iKHjcrwighljdJV6vqlsSIJeJ46PSo
- VnQpdQeg3PjAGLvGRwKzCG91GAZuKKZO94HovLkSIOHe+ofhm9fmaRKBXf4UucxzT6ase5CsVbx
- 4DY4eVeoTpws3uz4EtOB6dRNdOYMExSOY6A==
-X-Gm-Gg: AeBDietBSA90C9QVErmAOW1O/kiBGxbcQzt05NWgKxoA/h44qwL+1TuEiR+qEZMo4NP
- K6S27u5CuWzqEKProWhwrSe4eKF4AYMU3IPgD4SDsJE3SXM5Ubb+vbueQ584ZkLPi4fVZdiOs9S
- lxuxq8pLwLI3ZOnULAMFF8DWaHbn55+iMjoQunz+02DOhwzmrBoPK9o/yYhnCU0/4e9r0tH2ta6
- L0tzB0tnO3Jw6SgwAKUIKfs+qaq1TCAxp/nttmsN37ryCmmNoNV/MNODQyW1qQZGFY3Te2jpvGj
- AAUJKPr0u2uUpJOdA63oMyQcyn0MZwSmw6ivuyNM0aCNwMIchv7WxmvQpOUoDixpVioREdKFroL
- TUXxr
-X-Received: by 2002:a05:7022:6988:b0:12c:8862:368d with SMTP id
- a92af1059eb24-12c8862379fmr1663675c88.4.1776781244504; Tue, 21 Apr 2026
- 07:20:44 -0700 (PDT)
+Received: from PH7PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11010019.outbound.protection.outlook.com [52.101.201.19])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4DF2910E8C8
+ for <amd-gfx@lists.freedesktop.org>; Tue, 21 Apr 2026 14:29:07 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=v9eMGnK4kPO2085yRnRQlLhbrwTbFonS0Gb84DJG4jG+YwxINKD30FbNgDyWbiT6q8lBtKxXQb39TGDqzorVKOaNYHbb9qefSSGUog7pii5JtSql6g6xTZjs6sYtBNzGILo7VlJXwrNjGrpgWn6wK/mrxGxh5v+2v6hZKbDa7UET1GI4lSfd+966eNTwwoZO6a09cdexBg6qtYN+aC2q9umjCV2ohG8/0dmv6YJEr5eEtny8j5UPITviuG3wK4/YWIdo7hK+yVlOr1g4vWly80xgNZhZIrnTtOaUAIo+ctIsh2vKrN0P5ZS+YNxuO+cN853n+yc+KVIJiClNRRXpiw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Qji13EVxefWItq6WIEmJphFnjXO47zvdeFFtjFHElIg=;
+ b=OD7F8ay1qU/UMQr/dg6vfT71tpT2/4wl9XO+Q3NiMc3YY1v3reKLkGImHutD6ct3TrCqq3XCUpKACjy2yB9oSb0tEHQ0RYjFLAWtcVzT7M4Qd4Kp2fPX34eD6jBBnIYVRoWf07VrP2fzklWhDR6EyvX0uJfZozWteEUfeIl3FJiG0M4+adXqaGC2tnDC8Ra7MH52gLoMo7TGN0v8zmLM2HcxqcdMyqUCNdg9/E+BSkwrk9i2oVLA5ink1baN4yI0H9SsXV14Dm2AZNcnQZjV6cBl9tYHib0N/yp7Ki2IcaC3nwijxVrOI0Rzqcl0cMJb4pIqzJNlBd1B1eyqnB2Gcg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Qji13EVxefWItq6WIEmJphFnjXO47zvdeFFtjFHElIg=;
+ b=UMsqLT7SKyR4fR3YSxgN30Q+4G8UjY4Lx4RK/j0bJMd4EuG4m9YTNFCNzTULrfz4hCk1qak4ryb84jHbAUEzUbY1XqCMhde/7Cr35FcrY1rjOgSjPU7fVqR3S7dBPdZxgcgDPxs0z22aubLuuWZKIJ25aSqYJ61Sr1UbFZTKa/Y=
+Received: from DSSP221CA0002.NAMP221.PROD.OUTLOOK.COM (2603:10b6:8:3d5::19) by
+ CH3PR12MB9218.namprd12.prod.outlook.com (2603:10b6:610:19f::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.16; Tue, 21 Apr
+ 2026 14:29:00 +0000
+Received: from DS2PEPF000061C8.namprd02.prod.outlook.com
+ (2603:10b6:8:3d5:cafe::c7) by DSSP221CA0002.outlook.office365.com
+ (2603:10b6:8:3d5::19) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9791.48 via Frontend Transport; Tue,
+ 21 Apr 2026 14:29:00 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ DS2PEPF000061C8.mail.protection.outlook.com (10.167.23.75) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9791.48 via Frontend Transport; Tue, 21 Apr 2026 14:28:59 +0000
+Received: from test-X10DRi.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Tue, 21 Apr
+ 2026 09:28:59 -0500
+From: Alysa Liu <Alysa.Liu@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <amir.shetaia@amd.com>, Alysa Liu <Alysa.Liu@amd.com>
+Subject: [PATCH] drm/amdkfd: validate SVM ioctl nattr against buffer size
+Date: Tue, 21 Apr 2026 10:28:49 -0400
+Message-ID: <20260421142849.19422-1-Alysa.Liu@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-References: <20260420235504.17998-1-timur.kristof@gmail.com>
-In-Reply-To: <20260420235504.17998-1-timur.kristof@gmail.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 21 Apr 2026 10:20:32 -0400
-X-Gm-Features: AQROBzD6zYjKlucSemxP8Npx8Z5QEDsattxTawfv_AEWLoiBo1NQbhDoKNivAL4
-Message-ID: <CADnq5_P8f+uNO_roJR=qz9VY2rcFCCRkxHhWAZ+ddLW6MfW1uw@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/display: Disable 10-bit truncation and dithering
- on DCE 6.x
-To: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>
-Cc: amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com, 
- Alex Hung <alex.hung@amd.com>, Harry Wentland <Harry.Wentland@amd.com>,
- Roman Li <Roman.Li@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS2PEPF000061C8:EE_|CH3PR12MB9218:EE_
+X-MS-Office365-Filtering-Correlation-Id: 50cf9e69-ec10-4099-7900-08de9fb2544a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|36860700016|82310400026|1800799024|376014|18002099003|56012099003;
+X-Microsoft-Antispam-Message-Info: fVZvTi5l5ajm5sGZNSJ/CaaS7ACfMJuWm/cDfdWLnGj/9Z3dqLpwMc7fl42hlxoScQqJRkCyjx1RiRpuFvcmv7hhpSHcfaMptntDO6QRr0RK6LOG0BRog+6O7PymO9dLT0wAQ1f47imHeLAWgA9zFIgrTnLgPzyZtcPvqUcS8wV8qfktWaIFl1aXGT8ihefTnQQJr7PEYQN6UIc3Ez2eEJks8T2NLa29isLz0eFisyCuguIHFrO354yPkaccuWjO87OGBB91C+sMTIa9kj4CkNdw3QsbSfV4RHEYs+1J2z8BcZHXwWqA2S/AXGcl8k4jzcLwOElfZokhVK+DfeFxMN8R3SIaCqaoaIFaFByYSWdkCoDKe3jThyLWEM5w4mcVN5R1oo39w+EXNLXHDezvuBxEXaSdB2PX+n7vtoX5zpcsQEbr40g13upDSNNAWsq9ERqNqSYKz2jA8Tx1MgVBiG6pvewuAfpQAnDNwbfS2YP19qZKX8z1y/eTIteUzXYbjEJ8y9i7qtygqX3DPMb7+nl+iRxR39JXxn+r0JuMxOd49onMqlWJ/zc3sj2Vj2UOB9+UwWD568T7t+hm6LXIIBmNnMA3BTMRpO4gWKOj4Pqc2uwLKKC948w7bYapGGgv4MC2BqV6WYV9wsxbv2K5aNJ2uIOLlUMUmmSWUgwM6Ad7lF5wfZOgSe9XyaN6CW+vKwJEtOZJott48WOp2hNfxcJg6WXnWkqdiKdlhoCa1S3kCFqGzhavwpL0ZeWbdtR67TteQ3fPrtUBJ93Qf3cGRA==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700016)(82310400026)(1800799024)(376014)(18002099003)(56012099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: jjThNfph5QgrFLtAfNAbt0nVUIbuKYNvYo9ZJezq1qkMmomR08Bpk7HtjlbbxEpr6ITvvc2XSLs46B3+PZ46v0j75N1SBTt8HsPsZ6bTUE7OuJ8ZeW5u0grxc0IJF184q3EpOk6VXkJN/lamYTJCBzs3bUEuX3pndt7nGfkHQ1rsN/gFtEjIQ3v+mLNya0jGW6nk0aM88HvXRAB6N/6nhKzdxoup9FcvWkF5pI0p8CtrnbTExscX+Fb2TaYyKXe5cq/HDaENNz+RGZ3lwftXgpEi5hIXUYVS7iRVckv3oAZPO+m1tKdBylTz7zu2ePg++JNXfPpJ0PHbOo+dhmEyv8+muVMnYns+divDQeOwsc1aKjPLADi73CazrC1qyhrRNJ9SqW9u2Z9UbSwvZoOP3JbpzTQyPwkmDDTqFv9bKt0pyiv1UriPEYVEsr7JZIIC
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Apr 2026 14:28:59.9558 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 50cf9e69-ec10-4099-7900-08de9fb2544a
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DS2PEPF000061C8.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB9218
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,58 +107,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.  Thanks!
+Validate nattr field against the buffer size, preventing
+out-of-bounds stack access via user-controlled attribute count.
 
-Alex
+Signed-off-by: Alysa Liu <Alysa.Liu@amd.com>
+---
+ drivers/gpu/drm/amd/amdkfd/kfd_chardev.c | 16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
 
-On Mon, Apr 20, 2026 at 8:14=E2=80=AFPM Timur Krist=C3=B3f <timur.kristof@g=
-mail.com> wrote:
->
-> DCE 6.x doesn't support 10-bit truncation and 10-bit dithering
-> because the following fields are 1-bit only:
-> FMT_TEMPORAL_DITHER_DEPTH
-> FMT_SPATIAL_DITHER_DEPTH
-> FMT_TRUNCATE_DEPTH
-> Programming these fields to "2" will program them as if the
-> dithering option was 6-bit, resulting in sub-par picture
-> quality and an ugly "color banding" effect.
->
-> Note that a recent commit changed the default 10-bit dithering
-> option to DITHER_OPTION_SPATIAL10 which improves the picture
-> quality because it happens to look better, but is still not
-> actually supported by DCE 6.x versions.
->
-> When the color depth is 10-bit or more, just disable
-> any kind of dithering options on DCE 6.x.
->
-> Closes: https://gitlab.freedesktop.org/drm/amd/-/work_items/5151
-> Fixes: 529cad0f945c ("drm/amd/display: Add function to set dither option"=
-)
-> Signed-off-by: Timur Krist=C3=B3f <timur.kristof@gmail.com>
-> ---
->  drivers/gpu/drm/amd/display/dc/core/dc_resource.c | 6 ++++++
->  1 file changed, 6 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c b/drivers/=
-gpu/drm/amd/display/dc/core/dc_resource.c
-> index 19526a278b2a5..1ab76c2d0f723 100644
-> --- a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
-> +++ b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
-> @@ -5069,6 +5069,12 @@ void resource_build_bit_depth_reduction_params(str=
-uct dc_stream_state *stream,
->                 }
->         }
->
-> +       if (stream->ctx->dce_version < DCE_VERSION_8_0 &&
-> +           stream->timing.display_color_depth >=3D COLOR_DEPTH_101010) {
-> +               /* DCE 6.x doesn't support 10-bit truncation or dither op=
-tions. */
-> +               option =3D DITHER_OPTION_DISABLE;
-> +       }
-> +
->         if (option =3D=3D DITHER_OPTION_DISABLE)
->                 return;
->
-> --
-> 2.53.0
->
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+index 16fb39259911..3e575fdfa4c5 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+@@ -3636,6 +3636,22 @@ static long kfd_ioctl(struct file *filep, unsigned int cmd, unsigned long arg)
+ 		memset(kdata, 0, usize);
+ 	}
+ 
++	if (nr == _IOC_NR(AMDKFD_IOC_SVM)) {
++		struct kfd_ioctl_svm_args *svm = (struct kfd_ioctl_svm_args *)kdata;
++		size_t expected_size;
++
++		// Guard against integer overflow in size calculation
++		if (svm->nattr > (SIZE_MAX - sizeof(*svm)) / sizeof(svm->attrs[0])) {
++			retcode = -EINVAL;
++			goto err_i1;
++		}
++		expected_size = sizeof(*svm) + (size_t)svm->nattr * sizeof(svm->attrs[0]);
++		if (usize < expected_size) {
++			retcode = -EINVAL;
++			goto err_i1;
++		}
++	}
++
+ 	retcode = func(filep, process, kdata);
+ 
+ 	if (cmd & IOC_OUT)
+-- 
+2.34.1
+
