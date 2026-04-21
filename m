@@ -4,123 +4,123 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1C280F94CA7
-	for <amd-gfx@archiver.kernel.org>; Tue, 21 Apr 2026 21:15:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90145F94CA7
+	for <amd-gfx@archiver.kernel.org>; Tue, 21 Apr 2026 21:20:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A218E10E8F4;
-	Tue, 21 Apr 2026 21:15:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2DAD510EDAF;
+	Tue, 21 Apr 2026 21:20:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="CnpJe3BO";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="fKvSZcXp";
 	dkim-atps=neutral
-Received: from DM1PR04CU001.outbound.protection.outlook.com
- (mail-centralusazon11010032.outbound.protection.outlook.com [52.101.61.32])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7B54510EDA4;
- Tue, 21 Apr 2026 21:15:00 +0000 (UTC)
+Received: from BL0PR03CU003.outbound.protection.outlook.com
+ (mail-eastusazon11012032.outbound.protection.outlook.com [52.101.53.32])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7EA7B10E15A;
+ Tue, 21 Apr 2026 21:20:33 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=q+lfHGh3oQArt+sJeF9Cquj/O8GwhZ/AlNpxNOzFhWV3bjqYDpsxOKdn/ALupt+QIe48Y2ljvmkRAa0nUn/uXeGFlBZ0FcTWf/2okbwn+BDsR21uHHT7p0vbGdRmqG2zb9DcxKmZfpi/tBMlBAqEMxfYhgPz7/0J8LkWFRskFpEWZo/ZcqI9yWqdaLLEyONpAlbBamv4r+HdVy6KdK7QbhaSz4k7MLM8vNuuWjD97H60gK2XcaYPkuSeejTU/a7pytxA7fkrP/wKRqtZVliQOYGzgZ6Ge5izYMh6/NG+0pnirspZU3h2Or8+9MIvcBafSLe/Nio9BKC+YtpaE1D7jA==
+ b=yHFlKFA8v/XmIg6iqnYEt2EBiNt/ICo6eD4GSovyk1e8PERtyCnjx5re4P/uP99Hkhnsn2U2KBKuvRwN1ADqhS0UXQxfYpvUvFzOyTbQHjmdH95o8klOIphSQ1+C+jdznofzUMOPh8ahedVqulC9D1UYCHkP+cLXjh2HO0n9JgTXBl/PgiXuD1kmPNQJ4GasYVN1fAh1SgJQvpnUeiwONhE6zu757E+wYDYNnGBCGhDj+xqmPcAPedM1urkC9/NkKeti/81zheKUpZYgKNBXovQX9iVMWcxVxCFp1wrLsRrYA8en5Zy/1fyJSTnufHDsUXfvSYgVGcF11mPXemCW0g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=LCIxqzHa5hKMjF7UqlZkeq3P95pBnmAcv3S4QZxqZ1w=;
- b=A9pkTaSNF/C5tBk7yHhvFXGtjtUg7eCvf5DqkNhQ8fe5kGTNu2u57Dqvvf6Ay6m0UoXpzQUV/uQfjorGlWdYZtr60ia9dHqvzQxwLbOXAAz9sKJTXpGVDvhao3O4b8XRrlOKJW9dTE2Y8noeSRz7EPdCoUl6MvNtL94Nx3TcUCYQkvnGUnMQHUF1U9xtN+9DoIHp1pA/xwmGbL9y1jVrB5Q4gRs4rgHRKQxNd1NFur3BtnVL/gVn8o12qY1wv3Btw5rDLiNgfZ4GmVS/YcIVkLSreEuvW0hhHmoYH4hDAKKx1D8RHWVylzL2B1UJbpNNKTkXgRyAflBvSlnGwywszQ==
+ bh=6DXnAMu6qyaOS+5fRN+e3sJffd7ZySrySg2njfEBwsw=;
+ b=ngZdibpLOgBEosJ2d25Ztkrh2RBcMZYvLt2l7mjA1AJgTrGpITjs/6wKI07wSQ57kQovgOdG6+oV/hjZAVLKDo/rM0ykUpJxVA1kM18ollDaWTJXWZMSjVU6g3jm4ctyO1cNDKloyKKBFzfOBhj6XqLe22BboBOlguwoqy5W1a2UysQxhWraXXygHipD7Aw9uL64izZSGMNPMQ6hBgbGxSaysVH0U3LK7v6qu7rqEvfhQjA+GbE40EyXE9wCeR1UXvniZhCVAty8pcnU/vwrIKvRhvvgoKzQM7T2exJIsN7kJmeO2Zf/wUoxs0ne2wohUs4Bb1Gtk8cQ4zf6ZCWpNg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=LCIxqzHa5hKMjF7UqlZkeq3P95pBnmAcv3S4QZxqZ1w=;
- b=CnpJe3BOuHp6ebr3f5EmEsD/m4tNDT1lO3ySRr4MEf0I/mmibBBQSESxJHcD4TpddbE9htojDf851A9tP/QzwV+bdr5rFTCZxMvXs6uPJAzqxgj8v2Enxr4CZL76/f/PL6IURrb7OJEF4HZ41l9fFl9DHRdnftoxfRhWKSJui4U=
+ bh=6DXnAMu6qyaOS+5fRN+e3sJffd7ZySrySg2njfEBwsw=;
+ b=fKvSZcXp6fONTKmnkPX3lJvVor5i2r/vJ5pLhOUI9G/HBW8Ahejqz/HmwiDD4GHwdM0Ljm8qsgSPsDfaKBjhVAd1+qsL7Jvmine2hYyoihqj3YYqQUfbd1ZMcol2mPWZiSliF4pqSeTgDA09KiHc0yy1gsPj1iAehoRmTEG0i9o=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from DM4PR12MB8476.namprd12.prod.outlook.com (2603:10b6:8:17e::15)
- by SJ0PR12MB6805.namprd12.prod.outlook.com (2603:10b6:a03:44f::5) with
+ by SJ0PR12MB6904.namprd12.prod.outlook.com (2603:10b6:a03:483::5) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.14; Tue, 21 Apr
- 2026 21:14:57 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.16; Tue, 21 Apr
+ 2026 21:20:30 +0000
 Received: from DM4PR12MB8476.namprd12.prod.outlook.com
  ([fe80::2d79:122f:c62b:1cd8]) by DM4PR12MB8476.namprd12.prod.outlook.com
  ([fe80::2d79:122f:c62b:1cd8%7]) with mapi id 15.20.9846.016; Tue, 21 Apr 2026
- 21:14:57 +0000
-Message-ID: <de53f6fc-c1c9-4669-ba29-2d57ec7aa3f9@amd.com>
-Date: Tue, 21 Apr 2026 15:14:55 -0600
+ 21:20:30 +0000
+Message-ID: <fd972f77-7472-4459-acbb-eb545c3a919d@amd.com>
+Date: Tue, 21 Apr 2026 15:20:28 -0600
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH v2 5/9] drm/amd/display: Add CSC FF colorop to color
- pipeline
+Subject: Re: [RFC PATCH v2 4/9] drm/vkms: Add atomic check and matrix handling
+ for CSC FF colorop
 To: Harry Wentland <harry.wentland@amd.com>, dri-devel@lists.freedesktop.org, 
  amd-gfx@lists.freedesktop.org
 References: <20260330153451.99472-1-harry.wentland@amd.com>
- <20260330153451.99472-6-harry.wentland@amd.com>
+ <20260330153451.99472-5-harry.wentland@amd.com>
 Content-Language: en-US
 From: Alex Hung <alex.hung@amd.com>
-In-Reply-To: <20260330153451.99472-6-harry.wentland@amd.com>
+In-Reply-To: <20260330153451.99472-5-harry.wentland@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MW3PR05CA0015.namprd05.prod.outlook.com
- (2603:10b6:303:2b::20) To DM4PR12MB8476.namprd12.prod.outlook.com
+X-ClientProxiedBy: MW4PR04CA0176.namprd04.prod.outlook.com
+ (2603:10b6:303:85::31) To DM4PR12MB8476.namprd12.prod.outlook.com
  (2603:10b6:8:17e::15)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB8476:EE_|SJ0PR12MB6805:EE_
-X-MS-Office365-Filtering-Correlation-Id: c0bde579-32f0-4e37-c24d-08de9feb0a57
+X-MS-TrafficTypeDiagnostic: DM4PR12MB8476:EE_|SJ0PR12MB6904:EE_
+X-MS-Office365-Filtering-Correlation-Id: 51da0351-a42d-43a3-84b2-08de9febd0d3
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|366016|1800799024|56012099003|22082099003|18002099003; 
-X-Microsoft-Antispam-Message-Info: 68e5Om5Ao3X2AKZ2c5SXVrwaH5lBj9x6mstw8x2YFnZFAxHM003X3msz6ljoN5aflYmps92dw5sHB2JWgSjJhSOaJaatOfBb8WT+fj5w6ta5bvqDbaylj0HYKhd0MixKmE6IbfYPDj0GYt4LqmMnNWageDJgRSC8q9SnRASwSlEMzzZCkjrrMOzUcMjoI3/AU8HIUeo2jJEhVbnGCc36TV9iK/L5wXMurDgWVMgD6rDaZqFQTaR1izmb7EwYHlBb6SW4xZIpwZRqbaRTgo2BmJ9EhedjcMpE5UAAK3zkxWkudbTuUs4pz9sIp+NqI+GKwwyXDHuWXJ+Gho5snWmEPPr0r6EyejJYD4AMxu+cS/PhFOBMQZHu3RoHOgFWO17hBbW7FY/yQLY2bo8VE+aDWKNcQrDTqFOCowJ6kImqh409pzBPV3mMHf8wfWE3IYs1SP3DocXYrdTbhh39yRyGIZSDrEcBY68pjnGPMP0XLT48hT0CZFpgTbPmXwy1OxTBEPEEEJevf7P8jtUUyfWaamiKEBUZlj4CJhZ0Wo0YHbjsw9dV1HxyJi6XI1/GhPUhSNL7DTy3ifH+8VU/wnDFXEQ/a49qvTWNBC045gFIdqmDw7QM/t1Tc7WgPx+9c2sWvjf1xj4gLl2C4E2i1dt+RpgrXY9s2tRRiFHzwPVpwIwfMpEXb7qs9qqxu/PZnW00nE1Rac+yzcvFVrduQ3hwzhCQLCzQ3PzLnwvEoEVqL9E=
+ ARA:13230040|1800799024|366016|376014|18002099003|56012099003|22082099003; 
+X-Microsoft-Antispam-Message-Info: U8sCClljwR4luWVroEplNYFyO1B1qGyBQhIGyfbPnVaL+/Yy6P6W1PUTuJ9uG1VIbGaK0FYmHFLcIdLlO7eMt2w4nfUvFjcVqp+cfVaFUDHELStCopJd1VGWJQHVU1sX5qmWMd0o8PlwYGfENgiFnbxiliriXjT3ZAGNOY8vzN38Tg7GyuFTPjCj1SuvC0jbJ329KfFAeJJVudwCvO9r0ZQINLqX2oPcLsjUaKt7aQlZd0l5ddJaXjbDO4F+0qi/K7abv2jHmHw7zXuXaeX4m38AjpnUdv+/SVPsc+VqKkGFj/6rVvXWUte7q6LjhycYZS7YmeGe2KmpWE25Cp3ceMYkZpbrjpQY1xzTF/fHryjChmNvCYQFUybcNpe7K+F2w0S86Ae/M8hJTV3gtmRBcYLuSvXsbGBhM0xW6NHE+HUyEoMS8a8eSJsH028i/adlm66cs3vrVEIp9nFA1wHzrzbQe7Yc9PEiM6cpG1oS/U1nG1sqZg5AwWAT+dHXPHG512VqDNO0W9lv4vEjfZm9bp6rCraG93Yczr/eZRepH2+7dQ1UVHEbwyr/Gxc8gDq/vo/1qSgbfhr6uXF6M1Le67rkNG7tGxhCnQhA3dXDYNK07chmSCXSEoC/LsFi6sz347k+PMSDK+QJWfgUbn4a5az6yRFtUo3QZnpHqvomTHGkSEKrYQ3KwAqKJYP0Rki7QjcbxURLK2+ISrc/++muzk7WJx6c/b0W6cs7Dv/33q8=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DM4PR12MB8476.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(1800799024)(56012099003)(22082099003)(18002099003);
+ SFS:(13230040)(1800799024)(366016)(376014)(18002099003)(56012099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bHY2SWNLcmxkSFBOU3NjYnZjOVpheElMZDFNYXhvVEZ2R0JMend2bXhOMlFW?=
- =?utf-8?B?emE0WkFWU3hNamp4ZHlJZU1ZYml1dU9kVkU2dGplT3BkcmVJZjc3WHYvSXdJ?=
- =?utf-8?B?M3c5TDdPQW1UZERXWFpuRXNaZmQvYnRLRnhPL3VPYVloMTZZNWk3cTY3Q1BJ?=
- =?utf-8?B?bFVJejcrc3BFYUJ5RFg2TFZTcE4wQ2I3VUtiNXdhdWVWQUdnVUlmYjhzTG5L?=
- =?utf-8?B?Zno5YWRSaWZueWMwMXcyMXNKODAxeVl4N1pXVDBCcWRUQ2tUbXpsc2t0UkNT?=
- =?utf-8?B?OVZMbG56NTkxR25pMS9reTlwSmJ1WXIwRUd4dXFyTDJzTk51ZGVqN1l1MlJT?=
- =?utf-8?B?dnluS1JSMUJOZWJXcVpJWjNmNU1RYVU0V0t4Z1JrcnExNUNkYlh2NFVNcTB0?=
- =?utf-8?B?KzExTmE4MFFvSGZwM3dHUWhoVHAwOGdWd21tL0NWMXdsUE8zT1Vvd050UVlY?=
- =?utf-8?B?Y0Z5Y3BEQ1R4UWhXZXZwVU5XTVBJdEkxRTcvR1JKNCtrelhzeE9Ic1FXd1Nt?=
- =?utf-8?B?YmRXZEVqS0g5Z3gzRVI2VWcvaTM4Q2VNVlFESktpdWJ0cGlPcytxWWVzT0Qy?=
- =?utf-8?B?d3dhZm5JY1IvM2lPSWZTMW50WWNKVnhwRU5KRWtIUE03TGxNVHgvSURNUExw?=
- =?utf-8?B?TEl1SkJRaVZpK3BhNU4zMTFSYk1jRENKSm9yUXZURXQ2amJ3T0psOHVIK29y?=
- =?utf-8?B?WDBnblBvTWU4ZGVyUjUzL0E4bEhuckp2T3BIcmhoaUVHekI4N2JTSFFmRTM5?=
- =?utf-8?B?MC9qQTJvUWc0Yk1YYU1qOUNVWmZkcy96VklEd3JIR3dJbktPbytpM2N1eU9a?=
- =?utf-8?B?ZTdwT1ZFdUJwSGUxcXNIbjhiWHAyWTJvdTlOc0lzRXpHWUpJbzE0dTc0Vml6?=
- =?utf-8?B?OEtCaXlRbWJHTDd3NU1pejNRS1g0My9STVFGbXNQNGF1dml1cXo1UDFiWVps?=
- =?utf-8?B?TGlBVWVOMUN4YWxlNE1OdUJvUlUyd0JNMWhHbjhUc1R0V3VjSmt3Y1hoOHgw?=
- =?utf-8?B?M0ZKeVRuVUpBQ25DWVBlZXFCeFNpQ2dFM1FlVDJtQjFBeVlIemFrRmMxMXVa?=
- =?utf-8?B?RDJGZHYwcGg3OFlXWFlxelRaVHVTS0tFT09ma1pBc0E5V3BBZk1CRmtnWHlK?=
- =?utf-8?B?czZublJtbHB3MFJQTEU0RlRqZFVQQm9hQnl6czZiOW9CTmtwYzN4Nm9wbTNH?=
- =?utf-8?B?ZEtaT2d4RHliRFhYalBSTFNQRGVLbmFQV1JYL0N4bGpaeXNJaGxwSmhNTnVp?=
- =?utf-8?B?U2pFUEZmWEljdGJVWnNUczBGNDAzaVA3Z2tuaW04d2t2b0JCN0JPTldycm0r?=
- =?utf-8?B?SDY2dFRReFhLa1JUTzZvbDZEVGI5MHdkNUVSMWx4MG8xa2k3QzEvK3JjTDVk?=
- =?utf-8?B?MXJVdzZRQ3BhcUxUQ0d4RnhWOGZ4Q2N5Sk00VkhoQlVYUXJUZG1uRHM4L3hZ?=
- =?utf-8?B?RktEaWU4M3V1RWU2UkRTcURTRzVyRDFmeHlMOUNtbWc2dWlXL0R2NFRlVlFQ?=
- =?utf-8?B?Y29WZGlLNVhMK2o3Z1BBd0M0VkhDbXo4ZnA1ajYvQUtFa3dwNmdDdUxITml5?=
- =?utf-8?B?YTRnbUZkcWlOTzltZmtRWGYvUXc0VU1yYXZkRnZGQURlb3liTk5kK1RGdExK?=
- =?utf-8?B?KzhKSUI1ZzQxQlQrZXRONnBVZzR6QnF4UHErMGxvNUxReElZb2NJbjFtZ3dp?=
- =?utf-8?B?TW42Vy94Y1I5dmFNQy9lWEw5R0d2eFIzaHpxR1M0Umo1WDZLaVNBVWtoaldU?=
- =?utf-8?B?NzBtVlZ5NEk3cDdIclVyOTQwK2hqdGNiNlJ2T2c4cjhzM3h1ZWR1TGJaekRy?=
- =?utf-8?B?bVdtcGJUbS93WERjcVBIRnREQm0yek5LREROTHR5eEd5eUR5NnZOUUhyVWZD?=
- =?utf-8?B?aCtZYTFLRHZ4TFBZTFR5RngwbjY0RFRyMDdVanFqMm5oWlA4Y28wTXJ2dlRS?=
- =?utf-8?B?cVEwOGRxRFQ4Vk9IdHFscGpQc1NnWXZncXAzN1Z2eG9PZkRPRk1MYVRIQmRt?=
- =?utf-8?B?QVNvd1dOSTlQQ1RuWGFjZjdDRDg4SE1sb292MzJ6UkpMVTdTLzQrYWw0dXhy?=
- =?utf-8?B?emMyTzAyMVJPSUlZSndRSXA5VVJ1SUFaRy9vTlYydThlcFRySmo1YnJiN21Q?=
- =?utf-8?B?RXhtYllnS2ZVVlVtTG1CWm40bC9INlpXMjJYdjc3aXgyQ0FNcVB6dzBGclZL?=
- =?utf-8?B?WE9qdEtjMTFxeGRDTHQwMHFzUHZKVkpYUWtlNFR2NUtzNTdxWm05WDJXald4?=
- =?utf-8?B?NFFhZDBBZm5PUFNoOUtrR2N3SzZvdzFsbWtJRDNZVmlSODJlWExHdUhzaHpx?=
- =?utf-8?B?ZzdHaDNrL0NySVBkZm1NZEtNSzlHR25CZFZnQlc1OXg2aGMxbUZ2dz09?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RElmbmdkVVU1cE50RTNJNXNCRko3dDBjOU12NUIrVm1IdDB5bGpKdlJMMWlm?=
+ =?utf-8?B?N0dRVnFjLzRCaXhhQm9DVEZGKzJIaVljVlZGcVgxcnZlN1d2UDk3aHQ0K1Qx?=
+ =?utf-8?B?WVdCNFZRdmowVS9EeDIvNE9kbWV3VG5jeSttZ3dneFVDS2pCTG5VcDI4R3hh?=
+ =?utf-8?B?V0dyQ1VhVWJxdUQwcGFSYzdJODR3QllpbW9kQlFtWU9oTVFHcEw4cStCdmd0?=
+ =?utf-8?B?Nk96UHNqeEZjT2FITWhvS0dndW9YN1FWazZqaTZmcVp4VThIdHFrOCtYSXhB?=
+ =?utf-8?B?TC91dU43aXFIU0dvWFNqaXRSNE1RZU44WXBPMm1sUUdpU1VWQUhWUUJieFp4?=
+ =?utf-8?B?YUd2dzlqTXBQajY3WC80NCsxcnpCSmF5NEx2R3VMNkFJZllWbnFhY2NrQlU3?=
+ =?utf-8?B?b1I0UGZiM2Zjd1oySGgzYW9uQXowSG9GZ2JLNnFqeWcyaFZMcVRuSXh2T2pR?=
+ =?utf-8?B?dTFWQjFWTjJ4MWRGSlpBVWdZcUQ0TjNmSWVNUXBQVi9sVk1ZTFovZU9uNUVL?=
+ =?utf-8?B?T2xudVVuNXIraUM4UnZLeERHZlVWTVFZNWd2SWpTQ3BwK3VZaG5kMm1yZy9r?=
+ =?utf-8?B?S3VkZHJmVDVlWk9nSzErS0ZxRzkxaUZVNHVEVngwT1U4S2pROTdLMEpQdjBQ?=
+ =?utf-8?B?amE3TjduMFdIUS8xWWJ1VFdtRGdYV3hpcHArQzBES3R3N0R0bXMvcEhFQTFq?=
+ =?utf-8?B?bERoSk00VGRaZ1dldVh0YjZVK1ZCKzQwUnJHS0kzbzBETHNsRFFTbHlOanFt?=
+ =?utf-8?B?RlBEcWllVUNLcldCdlp2cWM0OWZ3UWZnazkvVFliTFQ4eEVWVERvVnFaeGYz?=
+ =?utf-8?B?N2lJS0N1NGpRNTAxdVFjU3BjNlUvaWN2c1VpdEcrZEluNHpkSWU0enhKS1dP?=
+ =?utf-8?B?VmQrY25ZQ1luMUQrNXAvUkcwbUl0Y2ZOeEZ5QW93L3FNaWFHd1VhZFV0eWdj?=
+ =?utf-8?B?c0tiR1ovM2xMU2FFY0NIdFpTR1dVVXZaclF3VXdiMmVmQklUSHM4dU9zV2Z2?=
+ =?utf-8?B?NjREQ0lCYjhrZnZ6bW1TbExjQzlYZytyMGY3WkJZRzlmd1lFeFZNaFM3Wk5x?=
+ =?utf-8?B?QUxESTJGTjBBSkRLa3pKTlR0RDRNOEZaQnhaYkM1c0FSUHIwY2hGM0VNSjky?=
+ =?utf-8?B?WURHSC9CejJ4ZUNZaVBLQnpSNjFDVUZGZHQ3ZENSVHgyY0ZCeGFKOTg4WXRQ?=
+ =?utf-8?B?Wk5kelZxanhkSFdGczVHQlFncjJPYlBoWHhEbUtGRFBXVW5XRVcwMEdsNkUz?=
+ =?utf-8?B?K1RGeEdGdXozaFZOT3NsQWhjVGU1bEFIVGF1YWovd2ZUaDRjQ0hReFR4Qld3?=
+ =?utf-8?B?aEtySEVQZHVrU2JnbnBnaVRJUVJFZUVENnkwRkVlOXE4cVJLSG4zSndsVmda?=
+ =?utf-8?B?dlllYzVsNE5TSFAyNUVVQ2IxSTJYLzlnb0p1bnNhUjdld2FLQ09FMWlnVVpE?=
+ =?utf-8?B?bFpSZVBHbnljY25ORkxqK09lNm9rNmdkaDBTamh5dlkzTXJtd2JLcmdDa0wr?=
+ =?utf-8?B?ck5nRzFlV21QWWc5SXNBeEo0MEJKRlorNHdjRGdYV0lEQytBczdJaWd2cmxU?=
+ =?utf-8?B?WWtoaDdrbFJmdDRJbS96Nzc1ZzBRMVZmeWdqVWUrVTRjUmhLZzdmMStnWWc0?=
+ =?utf-8?B?elZZQlNrUERiTnF0RTRMeXV2NHpqRjdmT21mZUdZNUowWGpYc3VyNno3cjJK?=
+ =?utf-8?B?eFRKRzd3UWtjaFllWUQwUWlNdzVEOGhrK042R2JlMUI0R3hua2xRakR0dUdJ?=
+ =?utf-8?B?T3p2cVJlaGZyTm1EeFFUN1VBSTJ3M1MydTZ0cVp6ZmhyK2lZdWxwdkZMRGhV?=
+ =?utf-8?B?bm5FUXRTK3NYR0g2Mml3dW5GdkpCK0UvUGlyaUl1cGVZWTJkSHNEcGp1SUJD?=
+ =?utf-8?B?aytzbFBtZ3BaNm5kVzhqclpzUC9HcGhOcEZVZkg4Q0VCa3VEQ3dRRUg4elFv?=
+ =?utf-8?B?WWo4MjdsNnpHcTFIMktubG1UQ2hFRnNSenFuRXJ4UzZWZjFneTFmcG54SnJU?=
+ =?utf-8?B?MzlFcjZPbzEvcGZYbWduNUVlczVSRHNTdk55Rm9OYndEZzh6VUxodjJnZVFj?=
+ =?utf-8?B?WUt0a0ZocXIzTktuYUtNSUYvUmFrem1zcS9YZ2MvWHF0cmhHaG40OCtoaTNa?=
+ =?utf-8?B?UTQ4eDZCdExZOWZEZ09xTVVsaStMbTM5OFlxQy9Cd1BKVS8vZG9XeXJtTm9o?=
+ =?utf-8?B?ODduT0l0R2xqMkVCZzNGdEY2QzNrVk8xZDJVNEtLNUZtbThCenViSktvUTdF?=
+ =?utf-8?B?bXUxMDZGRmZhdDV2QVJ2RXBmMHM1NEJsUzlFR0ZSR3FtclBFRVg2VXRYVkEx?=
+ =?utf-8?B?cTl4V292aHluWjVSbURqdWNtQW1nRVY0TFdiQUx3cmZaazVTb3hJdz09?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c0bde579-32f0-4e37-c24d-08de9feb0a57
+X-MS-Exchange-CrossTenant-Network-Message-Id: 51da0351-a42d-43a3-84b2-08de9febd0d3
 X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB8476.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Apr 2026 21:14:57.4297 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Apr 2026 21:20:30.3825 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: LsUcq4oEj7CuEsi/1g0htL0mGzo3EydxE/aytfNnRxparEqtZJ18RzovX0hghozITjwfPY5uhI5oEllR9JDxnA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB6805
+X-MS-Exchange-CrossTenant-UserPrincipalName: 2uEezsa5+OCkz1EQcSQ+oja1PGl2FUOEgDtG0wdVIO7V2JgjHN2ALaZdE+pEySziiZqtSkDOaLYk0uGUfi0XAA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB6904
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,89 +135,145 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Reviewed-by: Alex Hung <alex.hung@amd.com>
+
 
 On 3/30/26 09:34, Harry Wentland wrote:
-> Insert a CSC Fixed-Function colorop as the first operation in the
-> amdgpu color pipeline, before the existing DEGAM 1D curve. This
-> allows userspace to select YUV-to-RGB conversion via the color
-> pipeline for YCbCr framebuffers.
+> In vkms_plane_atomic_check(), validate that when a color pipeline
+> is active and the framebuffer format is YUV:
+>    - The first colorop must be DRM_COLOROP_CSC_FF
+>    - The CSC FF colorop must not be bypassed
 > 
-> The CSC FF colorop advertises support for all six YUV-to-RGB
-> conversion presets:
->    - YUV601/709/2020 full-range to RGB
->    - YUV601/709/2020 limited-range to RGB
+> In vkms_plane_atomic_update(), when a color pipeline is active,
+> read the csc_ff_type from the first colorop state and map it to
+> the appropriate (color_encoding, color_range) pair for the existing
+> get_conversion_matrix_to_argb_u16() function.
+> 
+> In apply_colorop(), add a no-op case for DRM_COLOROP_CSC_FF since
+> the actual YUV-to-RGB conversion is already performed at format
+> read time via the conversion matrix.
 > 
 > Assisted-by Claude:claude-opus-4.6
 > 
 > Signed-off-by: Harry Wentland <harry.wentland@amd.com>
 > ---
->   .../amd/display/amdgpu_dm/amdgpu_dm_colorop.c | 27 ++++++++++++++++++-
->   .../amd/display/amdgpu_dm/amdgpu_dm_colorop.h |  1 +
->   2 files changed, 27 insertions(+), 1 deletion(-)
+>   drivers/gpu/drm/vkms/vkms_composer.c |  6 +++
+>   drivers/gpu/drm/vkms/vkms_plane.c    | 70 +++++++++++++++++++++++++++-
+>   2 files changed, 74 insertions(+), 2 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.c
-> index 3e05e48a8792..13521095e021 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.c
-> @@ -51,6 +51,14 @@ const u64 amdgpu_dm_supported_blnd_tfs =
->   	BIT(DRM_COLOROP_1D_CURVE_BT2020_INV_OETF) |
->   	BIT(DRM_COLOROP_1D_CURVE_GAMMA22_INV);
+> diff --git a/drivers/gpu/drm/vkms/vkms_composer.c b/drivers/gpu/drm/vkms/vkms_composer.c
+> index 83d217085ad0..e29376f1cbd7 100644
+> --- a/drivers/gpu/drm/vkms/vkms_composer.c
+> +++ b/drivers/gpu/drm/vkms/vkms_composer.c
+> @@ -187,6 +187,12 @@ static void apply_colorop(struct pixel_argb_s32 *pixel, struct drm_colorop *colo
+>   		if (colorop_state->data)
+>   			apply_3x4_matrix(pixel,
+>   					 (struct drm_color_ctm_3x4 *)colorop_state->data->data);
+> +	} else if (colorop->type == DRM_COLOROP_CSC_FF) {
+> +		/*
+> +		 * CSC FF is a no-op here. YUV-to-RGB conversion is handled
+> +		 * at format read time via the conversion_matrix set in
+> +		 * vkms_plane_atomic_update().
+> +		 */
+>   	}
+>   }
 >   
-> +const u64 amdgpu_dm_supported_csc_ff =
-> +	BIT(DRM_COLOROP_CSC_FF_YUV601_RGB601) |
-> +	BIT(DRM_COLOROP_CSC_FF_YUV601_LIMITED_RGB601) |
-> +	BIT(DRM_COLOROP_CSC_FF_YUV709_RGB709) |
-> +	BIT(DRM_COLOROP_CSC_FF_YUV709_LIMITED_RGB709) |
-> +	BIT(DRM_COLOROP_CSC_FF_YUV2020_RGB2020) |
-> +	BIT(DRM_COLOROP_CSC_FF_YUV2020_LIMITED_RGB2020);
+> diff --git a/drivers/gpu/drm/vkms/vkms_plane.c b/drivers/gpu/drm/vkms/vkms_plane.c
+> index ca7aee101a95..0f1ebdd9e391 100644
+> --- a/drivers/gpu/drm/vkms/vkms_plane.c
+> +++ b/drivers/gpu/drm/vkms/vkms_plane.c
+> @@ -6,6 +6,7 @@
+>   #include <drm/drm_atomic.h>
+>   #include <drm/drm_atomic_helper.h>
+>   #include <drm/drm_blend.h>
+> +#include <drm/drm_colorop.h>
+>   #include <drm/drm_fourcc.h>
+>   #include <drm/drm_gem_atomic_helper.h>
+>   #include <drm/drm_gem_framebuffer_helper.h>
+> @@ -148,8 +149,58 @@ static void vkms_plane_atomic_update(struct drm_plane *plane,
+>   	frame_info->rotation = new_state->rotation;
+>   
+>   	vkms_plane_state->pixel_read_line = get_pixel_read_line_function(fmt);
+> -	get_conversion_matrix_to_argb_u16(fmt, new_state->color_encoding, new_state->color_range,
+> -					  &vkms_plane_state->conversion_matrix);
 > +
->   #define MAX_COLOR_PIPELINE_OPS 10
+> +	if (new_state->color_pipeline) {
+> +		struct drm_colorop *colorop = new_state->color_pipeline;
+> +		struct drm_colorop_state *colorop_state;
+> +
+> +		drm_WARN_ON(plane->dev, colorop->type != DRM_COLOROP_CSC_FF);
+Is this drm_WARN_ON necessary? How about a drm_dbg?
+
+Either way, this patch is
+Reviewed-by: Alex Hung <alex.hung@amd.com>
+> +
+> +		colorop_state = drm_atomic_get_new_colorop_state(state, colorop);
+> +
+> +		if (colorop_state && !colorop_state->bypass) {
+> +			enum drm_color_encoding encoding;
+> +			enum drm_color_range range;
+> +
+> +			switch (colorop_state->csc_ff_type) {
+> +			case DRM_COLOROP_CSC_FF_YUV601_RGB601:
+> +				encoding = DRM_COLOR_YCBCR_BT601;
+> +				range = DRM_COLOR_YCBCR_FULL_RANGE;
+> +				break;
+> +			case DRM_COLOROP_CSC_FF_YUV601_LIMITED_RGB601:
+> +				encoding = DRM_COLOR_YCBCR_BT601;
+> +				range = DRM_COLOR_YCBCR_LIMITED_RANGE;
+> +				break;
+> +			case DRM_COLOROP_CSC_FF_YUV709_RGB709:
+> +				encoding = DRM_COLOR_YCBCR_BT709;
+> +				range = DRM_COLOR_YCBCR_FULL_RANGE;
+> +				break;
+> +			case DRM_COLOROP_CSC_FF_YUV709_LIMITED_RGB709:
+> +				encoding = DRM_COLOR_YCBCR_BT709;
+> +				range = DRM_COLOR_YCBCR_LIMITED_RANGE;
+> +				break;
+> +			case DRM_COLOROP_CSC_FF_YUV2020_RGB2020:
+> +				encoding = DRM_COLOR_YCBCR_BT2020;
+> +				range = DRM_COLOR_YCBCR_FULL_RANGE;
+> +				break;
+> +			case DRM_COLOROP_CSC_FF_YUV2020_LIMITED_RGB2020:
+> +				encoding = DRM_COLOR_YCBCR_BT2020;
+> +				range = DRM_COLOR_YCBCR_LIMITED_RANGE;
+> +				break;
+> +			default:
+> +				encoding = DRM_COLOR_YCBCR_BT709;
+> +				range = DRM_COLOR_YCBCR_LIMITED_RANGE;
+> +				break;
+> +			}
+> +
+> +			get_conversion_matrix_to_argb_u16(fmt, encoding, range,
+> +							  &vkms_plane_state->conversion_matrix);
+> +		}
+> +	} else {
+> +		get_conversion_matrix_to_argb_u16(fmt, new_state->color_encoding,
+> +						  new_state->color_range,
+> +						  &vkms_plane_state->conversion_matrix);
+> +	}
+>   }
 >   
->   #define LUT3D_SIZE		17
-> @@ -70,6 +78,23 @@ int amdgpu_dm_initialize_default_pipeline(struct drm_plane *plane, struct drm_pr
+>   static int vkms_plane_atomic_check(struct drm_plane *plane,
+> @@ -175,6 +226,21 @@ static int vkms_plane_atomic_check(struct drm_plane *plane,
+>   	if (ret != 0)
+>   		return ret;
 >   
->   	memset(ops, 0, sizeof(ops));
->   
-> +	/* CSC Fixed-Function (YUV to RGB) */
-> +	ops[i] = kzalloc_obj(*ops[0]);
-> +	if (!ops[i]) {
-> +		ret = -ENOMEM;
-> +		goto cleanup;
+> +	if (new_plane_state->color_pipeline && new_plane_state->fb->format->is_yuv) {
+> +		struct drm_colorop *colorop = new_plane_state->color_pipeline;
+> +		struct drm_colorop_state *colorop_state;
+> +
+> +		if (colorop->type != DRM_COLOROP_CSC_FF)
+> +			return -EINVAL;
+> +
+> +		colorop_state = drm_atomic_get_new_colorop_state(state, colorop);
+> +		if (!colorop_state)
+> +			return -EINVAL;
+> +
+> +		if (colorop_state->bypass)
+> +			return -EINVAL;
 > +	}
 > +
-> +	ret = drm_plane_colorop_csc_ff_init(dev, ops[i], plane, &dm_colorop_funcs,
-> +					    amdgpu_dm_supported_csc_ff,
-> +					    DRM_COLOROP_FLAG_ALLOW_BYPASS);
-> +	if (ret)
-> +		goto cleanup;
-> +
-> +	list->type = ops[i]->base.id;
-> +
-> +	i++;
-> +
->   	/* 1D curve - DEGAM TF */
->   	ops[i] = kzalloc_obj(*ops[0]);
->   	if (!ops[i]) {
-> @@ -83,7 +108,7 @@ int amdgpu_dm_initialize_default_pipeline(struct drm_plane *plane, struct drm_pr
->   	if (ret)
->   		goto cleanup;
->   
-> -	list->type = ops[i]->base.id;
-> +	drm_colorop_set_next_property(ops[i - 1], ops[i]);
->   
->   	i++;
->   
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.h
-> index 2e1617ffc8ee..e509646b5567 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.h
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.h
-> @@ -30,6 +30,7 @@
->   extern const u64 amdgpu_dm_supported_degam_tfs;
->   extern const u64 amdgpu_dm_supported_shaper_tfs;
->   extern const u64 amdgpu_dm_supported_blnd_tfs;
-> +extern const u64 amdgpu_dm_supported_csc_ff;
->   
->   int amdgpu_dm_initialize_default_pipeline(struct drm_plane *plane, struct drm_prop_enum_list *list);
+>   	return 0;
+>   }
 >   
 
