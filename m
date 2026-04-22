@@ -4,102 +4,122 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2362BFA1FD6
-	for <amd-gfx@archiver.kernel.org>; Wed, 22 Apr 2026 16:30:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6A641FA1FD7
+	for <amd-gfx@archiver.kernel.org>; Wed, 22 Apr 2026 16:42:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BF42510EA6B;
-	Wed, 22 Apr 2026 16:30:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 09B0310EA7B;
+	Wed, 22 Apr 2026 16:42:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="p1aSfU/N";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="RfduYAdG";
 	dkim-atps=neutral
-Received: from CY7PR03CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11010050.outbound.protection.outlook.com
- [40.93.198.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1691C10EA6B
- for <amd-gfx@lists.freedesktop.org>; Wed, 22 Apr 2026 16:30:50 +0000 (UTC)
+Received: from DM1PR04CU001.outbound.protection.outlook.com
+ (mail-centralusazon11010021.outbound.protection.outlook.com [52.101.61.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3A4B610EA7B
+ for <amd-gfx@lists.freedesktop.org>; Wed, 22 Apr 2026 16:42:25 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=nzJQmGZ6YuRp7r8VwrcnD0uMTjmRArU860OMTyNWZnDCzLMhzSi0COBGHNlNgFjFUTgSlZTlT8F1PJ1B1jvCNL17puyL7zyZkOwYaJ/GYjPNTX5gvProcPq7ZxtpjurFZZ5eJ4cDU99vWhlS4s4E9nBv2bsRRQrhupFA8TOLaxtZKRCjNZ2w8Fgu/z1KiIBsjmf+0gBT9eJFjCtOhn1sRBYqmHcu8rpWdrI5ftmJlKbEmhdDLnF63lEheCWcOWSRugTymlspOcu0HtE1sxyWFxalhvoagTEvBdz6WcftAZVF/Q+9GVHwbC6Z1Mrd7xotWRBNwpKqaXMRv1DMJEHWLA==
+ b=Depfrxkoe1eFdj2YXUnE/fFocusFHcO5hq23kDQ5SKi6ratryY1RW0xg4JHHa+JHgZme99s5S/P90Ob67X5bvfuxqXijp7c08mLCNoNhCkPWe4DlgNsDFgXFy670qN7sH+mCwYOpsLTJL20XUD35uDL96bcH56FwYMB7/Y99ZzqJFBfN35ISooRqUXm3BPhMxLOIAvYjGrcI0FfIHQqyfrIEE6uRvig5iCPXvw4Egr+H2nqJ9RmIs2GMO1LIzhS1j2AUbE+7bLpexA5c3/cQkw+Bs7+k6NnVHJnC0Wx4fhU48LTaFf6KbSheFCB4N6RumTG8UYTIIzYGj48Do0kbxg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=YBXvf8EQrNy/d+7omVEDK9dRi+m87zRlKgAVKpwqEOY=;
- b=ETMpOeNeNXooZyMlcEV9TPEAUXLvAjyKksQJDnj7w/BDyRugFpshQ1mcJ1iEFz0bneWVakkZukwkCztmPJozGiueKIramtFkXPNdbyxzaBNpI5/ASrL4Air3xI8VRt661JSBBF+tCVc8OgMc05lXMueCMPDcnOyLbu1F/+3hnVS9VJ5SGppi0fe6Ra9FhlMeiIkuB0F6iKM/WHEAienWPFCCPDfvJ67w5PdHvRcwkqzPE/8edYGO3ZsPp186M7cpp1YzYIdmoV/y30BQ2H5wDhGgQ+097ymK00hssOI8KCm92OlydYplZfC2EISHD0MJ9unxe5n5ZCkR5bpe7XLwRw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
+ bh=ToaNGNrYviQhomPOo9RXO/ntX04R/RdWzn5tlhFKh7c=;
+ b=IZT+RV6eLpOalfAljZUVaj4beYOmfwpoyN/pu53LnqXiOD2O5N4FFnmYObZ0E+cEtD5bUmaMLDnW/+nkdgIVC9Gkj0CQlOesmgtRsKcnAvNaTJLI0qRcn/dp3fvnPbwhd+sKZie4HA810yeQGc0rZ3mofsDdFRwYJ/8xNHL3VUdd0yF6ztaC9zD0zLMEdSdQhPWSqYJKh5z+AzQzP1NsVL7jbdYUKFRLyWn1pOtIJ/pNSQsor6Yh1Nualqgee4sXGMT0OX4JDUg5CdYddDOmYjmL8gNuAWqKmspo+vcxLuQo+JzoBtZ5VNtlYJpzOWmXB/Rp5FjiBEKCRonLlGWKAQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=YBXvf8EQrNy/d+7omVEDK9dRi+m87zRlKgAVKpwqEOY=;
- b=p1aSfU/NpBNkTNON1xB2RGVuRcvfDjw8jJEBJAc2J2zrKegqCzYgMyDJKC0tMA8vL2Zz2vfk6GJpb4Ux4Ay320xX7oKKSzuiUpiX38WELUVFnOAVlHRQ3YBjR/Dfr1+dgfiTPKaxT83AskVzkCiY8aX7+yOKL4sm+VISP8mcyNE=
-Received: from SA9PR13CA0014.namprd13.prod.outlook.com (2603:10b6:806:21::19)
- by MW4PR12MB8609.namprd12.prod.outlook.com (2603:10b6:303:1e2::22)
+ bh=ToaNGNrYviQhomPOo9RXO/ntX04R/RdWzn5tlhFKh7c=;
+ b=RfduYAdG3ZjqNRYn+G2mrlQzHKs2L1q039CQzSra7ryLVrOQgw2qvaBixh8MihPbBkXS9zWtg5b/qM18XcMGiNlJIz+dteKSD9VgctxVBQ9yu0WJWWJN0SQBY6P3U5QW3z1nVW8fZKfNPITxYa3snYy4IfdapCcLEDRK3OsYFL0=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from SA0PR12MB4557.namprd12.prod.outlook.com (2603:10b6:806:9d::10)
+ by SJ2PR12MB8806.namprd12.prod.outlook.com (2603:10b6:a03:4d0::8)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.16; Wed, 22 Apr
- 2026 16:30:43 +0000
-Received: from SN1PEPF000252A3.namprd05.prod.outlook.com
- (2603:10b6:806:21:cafe::86) by SA9PR13CA0014.outlook.office365.com
- (2603:10b6:806:21::19) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9846.15 via Frontend Transport; Wed,
- 22 Apr 2026 16:30:43 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- SN1PEPF000252A3.mail.protection.outlook.com (10.167.242.10) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9846.18 via Frontend Transport; Wed, 22 Apr 2026 16:30:43 +0000
-Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Wed, 22 Apr
- 2026 11:30:42 -0500
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb09.amd.com
- (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Wed, 22 Apr
- 2026 09:30:42 -0700
-Received: from thonkpad (10.180.168.240) by satlexmb07.amd.com (10.181.42.216)
- with Microsoft SMTP Server id 15.2.2562.17 via Frontend Transport;
- Wed, 22 Apr 2026 11:30:41 -0500
-From: <sunpeng.li@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <Harry.Wentland@amd.com>, <Aurabindo.Pillai@amd.com>,
- <mario.limonciello@amd.com>, <wiagn233@outlook.com>, <sysdadmin@m1k.cloud>,
- <stable@vger.kernel.org>, Leo Li <sunpeng.li@amd.com>
-Subject: [PATCH] drm/amd/display: Restore 5s vbl offdelay for NV3x+ DGPUs
-Date: Wed, 22 Apr 2026 12:29:56 -0400
-Message-ID: <20260422162956.620362-1-sunpeng.li@amd.com>
-X-Mailer: git-send-email 2.53.0
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.19; Wed, 22 Apr
+ 2026 16:42:21 +0000
+Received: from SA0PR12MB4557.namprd12.prod.outlook.com
+ ([fe80::885a:79b3:8288:287]) by SA0PR12MB4557.namprd12.prod.outlook.com
+ ([fe80::885a:79b3:8288:287%5]) with mapi id 15.20.9846.019; Wed, 22 Apr 2026
+ 16:42:20 +0000
+Message-ID: <6b404b52-c5e2-4192-9c22-629f64ad2dc1@amd.com>
+Date: Wed, 22 Apr 2026 11:42:17 -0500
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amd/display: Restore 5s vbl offdelay for NV3x+ DGPUs
+Content-Language: en-US
+To: sunpeng.li@amd.com, amd-gfx@lists.freedesktop.org
+Cc: Harry.Wentland@amd.com, Aurabindo.Pillai@amd.com, wiagn233@outlook.com,
+ sysdadmin@m1k.cloud, stable@vger.kernel.org
+References: <20260422162956.620362-1-sunpeng.li@amd.com>
+From: Mario Limonciello <mario.limonciello@amd.com>
+In-Reply-To: <20260422162956.620362-1-sunpeng.li@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: CH2PR16CA0001.namprd16.prod.outlook.com
+ (2603:10b6:610:50::11) To SA0PR12MB4557.namprd12.prod.outlook.com
+ (2603:10b6:806:9d::10)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN1PEPF000252A3:EE_|MW4PR12MB8609:EE_
-X-MS-Office365-Filtering-Correlation-Id: dc2f334a-5195-492f-d20d-08dea08c7fe3
+X-MS-TrafficTypeDiagnostic: SA0PR12MB4557:EE_|SJ2PR12MB8806:EE_
+X-MS-Office365-Filtering-Correlation-Id: c20ce2f7-6d71-4619-cc50-08dea08e1f45
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|30052699003|1800799024|82310400026|376014|32650700020|36860700016|13003099007|18002099003|56012099003;
-X-Microsoft-Antispam-Message-Info: 5c3e0Cee2zqTCAKLid/DC6odNhzGTySRXVOyGuIQhC6uuFpb+bAIfGElkRiLN1LyKOA3V/Cjeye99t5x4ass5zv8y1b7M+9PCzHZWw+bnwyg/62VWCcic5rllC15bD7hXVc3bWL7Xu/WiM522Jr4h+ZqOlZQ4VNg0YnATZ4H2GsSv79h+y4UUDiX7zCPM4qS4II150/FaNJwz+D0hBI2L2i29px0BIkoOGUZFwesNly1dVN/zf9jbo8FcG1yrmto+VHWxijVybbGdFvwLcDUwGbHicduYXDQyUJWBklK6SKY6zj3H/Drg1QxxOBpMmsaTg/cX63a5vMNRjZQNpHJCuYMvY6/VPJn6gQGZWjBvnd2sWe1Uyh0FDi4jRynd6J05r3aPp0OCTJS+PDvGKk+6mAAn82AXZUuf3Pe+C8SGsNm/gQHbM399JnlHHwX7Hh1qlh8YWR2BgYe2qhtz3UHbBf/w4lrPEf2DCvwO1vMxVb2pZRvpY1kVDEFNMuMJyiT+9E8iR7dHqsgsx4vY816FzjYCibD2zYTWN8Fuv5DDE9fSNo7VxCIZbtP4nb8Hh1epGShX3JjHyqnsUoNsezi8aB5yIES1otsZNpV26nIq86//sM8pZRSArvczqlEDlV4uBnumxkaXLrTmj/dnYaak3fNHPHV66W+u/1aTHUYvYBxAzfzlD8NGCvYA3Ijtjy+hhOisJV4tOG+008QvkoTmBnVwnT/C6YScSnUne1I8bY=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(30052699003)(1800799024)(82310400026)(376014)(32650700020)(36860700016)(13003099007)(18002099003)(56012099003);
+ ARA:13230040|376014|1800799024|366016|13003099007|56012099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: lYcJPmX5KOk1r+AZcrFdA3MQ7Durm6Ce+FoZ/cAQ2Yl+dRktt67g9yOd5eT2vDac6DBCp1wRWCziCfvopU1L3sbgmf1wnszl/HQMHPsnBo/G/KZokuNP+7ZfhseBgXknuiyXMuUInP7KwJptbgGzIvhgatPjcII4aHb/7+t1dDEOCSew7Ln1cLrWqDOS5LeWlOSqKIJByTum7Vyk86pZJwUpyjvYE+GqLY56QcW74SjmHboQwY3fStM5EHuyWK62xbL4/AOCK9CI4zbM3+rLt30M6ujFtVVQyvM+jZdne3ipQFnd1IQ1d36VNmQxn8rJNDFtIGqFsRde4PQ/Si4akF1Bqbo10pei3Ca6ChSVqgd+0aoa5hC1xIcgtLBHt2irh/zdYumN4R6FwRAwxqzqGpRKVKshbYYSgqX2Y91pgi3aWZ+cGVmhzAYPlPiFXscfCc0P3Vqwsc6DUutNkmHHrRRYVMWZMwOoczCL16zE4wwYSOD3o1P3PHTK/K6ZMyMxypZ7FTARz1rB3JByL2ZF05sYZ4ixEPlyUTS5IXExZs7De9L+3Yr9p8CKbMD6ypIUUC/qJ+S/nmUf+ood80QmlMoE/vjeoeCa1KEnzDUDFxnnCEmX14lHc8IIlG3twjEyT1cCoMAY9IXvsIUeWraq9cMlqTxeM6h1xBJIdzfiVJZGMzMpDj8eBEC8apnqFtl6
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SA0PR12MB4557.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(366016)(13003099007)(56012099003)(22082099003)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: mlq+I/AQ7NejQI+GKXZmg/km406/YiW13xj5IAGI9coS7J5c6qIAcfG0LmZwKZwKvTosqXlgd0eFFZgLgdwsR5G1myXYmbeNfh9OSPH1khI7iYHUCkgSh77PVNNBMwJMs445Bqn9TP0F3kt09KJRhXdr9eJc3si2IRXB3oRM+Q9+zKNpZRJgzNomwwi6+XiGWzYEoad7Nl8e/a5Z8lNkb8IckWipk046Y+dniDJ4/iMyBiXtZuyby/N/9vfyOzfn2pzZEgXMX4BXacwUoY71+m/iZ4Ou8ShqiQjoKDT0jWDhaoprjwlqU1gCnDtNDp4Zanb1jVsWQDSK2DpkWsjRTRnkLFXxI+ODpzm3rg5XNedhyAfs6vcTdOMMIE6LKYm6SQn/9gUDBv3lgt6Ai9jfZ1VMLQXzusyE6WrcEFCVCyP+R881ppU+vS/DHf/Womi5
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NWdLODFLSUtFbTZLamY5WGZYZFJwUldudlF5amM4ZU04ZDNTNnQrVFBON25z?=
+ =?utf-8?B?TFQ0dTVjalJPcUNzK1l2dzdLNzA4NzNJQWtrTDNkMm40VHlZZ1cvOUh4RnFC?=
+ =?utf-8?B?K3JleDMvVUZCQS93QjZ0eEtEL0dPVThBdDk4YythYnlvdUNiY2h2Z0FEQ2RM?=
+ =?utf-8?B?YTVSQm1PVmJXeFpxTkVUY0VkV2hUYVMrWVZRbzRPcGkyVVA1OG9XZ2lhbjMx?=
+ =?utf-8?B?U3hsU0ZtUDVybU1YWEZKaHZXSUx1WGRWNG5zRXQxa04vdWVkK3IyeWZJVlRn?=
+ =?utf-8?B?YUJQUVBOa0pWSmtic3pQakRlTUJhYkpwZk9jL1ZLNFpNL3p3dm4vWk54MGR5?=
+ =?utf-8?B?amlhcUluZnBjMnJJMXNmUVh5VXFxQ3pnbnhOM1dCNEQzTnJNalVOSHVCK000?=
+ =?utf-8?B?cVJLRUxZc3dXLzVsWXBqNmVwelc5SDBRWUZneTNIMU5jbC9hcTdoYjlaQ3Y2?=
+ =?utf-8?B?OGlWQVBxSjg2Mmg1eVRmOVhCQzI1akhDZTIzYkxGQWRZTUs3ZFppMFFWbkdG?=
+ =?utf-8?B?NWpCTHJBZEN4TmFuTmVPM1lkVmRqOXlkZVJvR3pwb3NrSGFQeWM3OEEyQ1Vh?=
+ =?utf-8?B?ZE1uNjhjd2lLR1pnUXZNdUcwOWE0czBOTXBnVEdwWUh5bFdqWEpZOVJiQ255?=
+ =?utf-8?B?eGJibk9NZUptRDFBSVd3N0JGM2o2bmkrQ3J3L3dsdnh6MzBaNXNqYnIzMHZz?=
+ =?utf-8?B?YnpQWllKMTVWb1VwRFJqaGZ2c0tCTFdJK2JRWFViRllWK3Voa1Y3MTAxV0ZS?=
+ =?utf-8?B?TDNGOSthSXNjekN0OUlhRW0xSzdVeE9KVzVJbHdKdGkza093ZFdveWU2bmp4?=
+ =?utf-8?B?VC9tRjZVd0h5UXAzalFpMlk0V01MS1ZkQ3Q4QUI0QS9YTXQ4SHdrNkpnUlNy?=
+ =?utf-8?B?K3kwNlBMMXRaYU9SOVhzVldJbDRFczNybWpud21wckM3VW16dEY1YXI5VUVm?=
+ =?utf-8?B?eFdydDV1bVRXby9ZYkpGUVZKenJ4K1krektFMWwxbFpjMkRGMTlKSUN5OXU2?=
+ =?utf-8?B?cWdSNzhGTGFKcVZqVUl2WC8rckI3ZDMxZEhEcDc0ZGtidkhtOTJHZ21kNmVn?=
+ =?utf-8?B?aU5acUxYQlJuaHF0YzB1RThOcER5bEhzWVVScXorZkhTaTN5dGsyUGNhMkky?=
+ =?utf-8?B?eGJXUjZVa2w2Y29EZVJKSWJzRU9hVUtuMWcyZU9XZmNpdXJQM0N5VTUxR25K?=
+ =?utf-8?B?ZmlkdEhnblpsSWpwZTJyUmxXYWRxSmtyRytWcGcrNy9ZblpDWTYzY0k1SGh2?=
+ =?utf-8?B?cysyaVphdkFDdkE1b1dmbEk3TEZWQmN2VzF5RHdEUzRlVWdTOW1FWTJDUlhk?=
+ =?utf-8?B?RFovaWI4ZlcwUGpqRmdTKzVQNUtIVlZpQys5S29qNUNtaHF2b1BuV01XTDdF?=
+ =?utf-8?B?L04vL1Z2L0Y4R3dOcFpCZVBMRjBNbGxZdzAyTVM4d1pUanQ2RGRoR0h4K3U4?=
+ =?utf-8?B?WHZyZFdkb3NyWFRJK1dWRCtHSEF2L2NnN1BZOTgrU2lFNTBlWUloZmdCdVNt?=
+ =?utf-8?B?NVU3RWxDMmJHc0psNWZGeDVneEJwL0NDeDBBajNRSFE5VDJRODVXNVZaWjND?=
+ =?utf-8?B?bkxtWE1xdmR6bUZmTGtySTRrdXoyUytXbEgwRThQb01LT1Rxc08ydGVIVHNC?=
+ =?utf-8?B?Tko1MEVaMmcvMkMyN3Y3V3krUzh4eDJhckE5OXRiSG5pMWxsUHhDVmg4YWtz?=
+ =?utf-8?B?NUJpQy9lbTFRNXJXYlVMUFcwUzFrWDExUnlGN2pBSm9KbEwwL05ncnNVMDND?=
+ =?utf-8?B?bmx2UDVia3ZFMThoZVROczN6ekRwcEg5VnoybEpPZmlwNFFqbTZRK0prc2pa?=
+ =?utf-8?B?UHBPZHhMd3JVVTZnT0t3OTJycFZmdVZsb0lzUmxXaHlXR0Q3eUlTeU55VTU4?=
+ =?utf-8?B?bXhTU0sxdTY2RUlLK3U0UHFEalUyem5RM0JQa1dta3JHcFc2Q3dtSEVwRjlj?=
+ =?utf-8?B?Y1cyN1B6L08zT1FoUVdmTS8rTFJjekhyYklNUlB6NDRTd3JuZnZtckM1MmRn?=
+ =?utf-8?B?K1FYSk8xNEdmUGxwZi82ak5RRTZqWjA3TVFxQUhhTW9JVEpvYjRWK0NvVWFZ?=
+ =?utf-8?B?QjEyUXJtMVVKWXU5K3BYY0Njb3RnWUpLaVI2bHlMZzNXSDZWbm16WkJPdWk1?=
+ =?utf-8?B?QmdtVEZnWStZTHVwNGFnNXdqMm15ZE5sbFZkRzRaYy8xaHFFQVFZdEp5Vzgw?=
+ =?utf-8?B?T3lGZ1ZPRTFFRlB6RVRCNytENDBFK1JWVlFlampGMm04OS9WaU9tbzNDK0JO?=
+ =?utf-8?B?WnRmWXVRU1YxYU9DMkduYkJIdSthaEI4SC9MNmk5OHBIL0g2blVTdml0R0Fo?=
+ =?utf-8?B?Y3dUczh0bjNYY1NZUy9oV1lyYXdNdjJYenU5V2JqdEVHQlFWcS8yZz09?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Apr 2026 16:30:43.4031 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: dc2f334a-5195-492f-d20d-08dea08c7fe3
+X-MS-Exchange-CrossTenant-Network-Message-Id: c20ce2f7-6d71-4619-cc50-08dea08e1f45
+X-MS-Exchange-CrossTenant-AuthSource: SA0PR12MB4557.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Apr 2026 16:42:20.6332 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF000252A3.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB8609
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: NHnYk+/KVQHWHNNxXcdPBr7QX8EX0RhFyeASDsyk+wxAOSVcyRKBR4tOUJm84SxtaJpfF4z8POUBPZiFsAnOJQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8806
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,58 +134,65 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Leo Li <sunpeng.li@amd.com>
 
-[Why]
 
-Rapid vblank off is causing flip-done timeouts for NV3x and newer
-family of GPUs that support more idle optimization features.
+On 4/22/26 11:29, sunpeng.li@amd.com wrote:
+> From: Leo Li <sunpeng.li@amd.com>
+> 
+> [Why]
+> 
+> Rapid vblank off is causing flip-done timeouts for NV3x and newer
+> family of GPUs that support more idle optimization features.
+> 
+> A proper fix requires further investigation. In lieu of it, let's
+> workaround it for now.
+> 
+> [How]
+> 
+> For NV3x and newer family of DGPUs, restore the old 5s vblank off timer.
 
-A proper fix requires further investigation. In lieu of it, let's
-workaround it for now.
+Why would it be dGPU only though?  I thought we have various reports of 
+flip_done timeouts for APUs too.
 
-[How]
+Is your theory they're different root causes?
 
-For NV3x and newer family of DGPUs, restore the old 5s vblank off timer.
-
-Fixes: 9b47278cec98 ("drm/amd/display: temp w/a for dGPU to enter idle optimizations")
-Link: https://gitlab.freedesktop.org/drm/amd/-/issues/3787
-Link: https://lore.kernel.org/amd-gfx/20260217191632.1243826-1-sysdadmin@m1k.cloud/
-Signed-off-by: Leo Li <sunpeng.li@amd.com>
-Tested-by: Michele Palazzi <sysdadmin@m1k.cloud>
----
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  | 18 +++++++++++++++---
- 1 file changed, 15 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 3fa4dbda4517c..ce5063928413c 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -9511,9 +9511,21 @@ static void manage_dm_interrupts(struct amdgpu_device *adev,
- 	if (acrtc_state) {
- 		timing = &acrtc_state->stream->timing;
- 
--		if (amdgpu_ip_version(adev, DCE_HWIP, 0) <
--			   IP_VERSION(3, 5, 0) ||
--			   !(adev->flags & AMD_IS_APU)) {
-+		if (amdgpu_ip_version(adev, DCE_HWIP, 0) >=
-+		      IP_VERSION(3, 2, 0) &&
-+		      !(adev->flags & AMD_IS_APU)) {
-+			/*
-+			 * DGPUs NV3x and newer that support idle optimizations
-+			 * experience intermittent flip-done timeouts on cursor
-+			 * updates. Restore 5s offdelay behavior for now.
-+			 *
-+			 * Discussion on the issue:
-+			 * https://lore.kernel.org/amd-gfx/20260217191632.1243826-1-sysdadmin@m1k.cloud/
-+			 */
-+			config.offdelay_ms = 5000;
-+			config.disable_immediate = false;
-+		} else if (amdgpu_ip_version(adev, DCE_HWIP, 0) <
-+			     IP_VERSION(3, 5, 0)) {
- 			/*
- 			 * Older HW and DGPU have issues with instant off;
- 			 * use a 2 frame offdelay.
--- 
-2.53.0
+> 
+> Fixes: 9b47278cec98 ("drm/amd/display: temp w/a for dGPU to enter idle optimizations")
+> Link: https://gitlab.freedesktop.org/drm/amd/-/issues/3787
+> Link: https://lore.kernel.org/amd-gfx/20260217191632.1243826-1-sysdadmin@m1k.cloud/
+> Signed-off-by: Leo Li <sunpeng.li@amd.com>
+> Tested-by: Michele Palazzi <sysdadmin@m1k.cloud>
+> ---
+>   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  | 18 +++++++++++++++---
+>   1 file changed, 15 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index 3fa4dbda4517c..ce5063928413c 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -9511,9 +9511,21 @@ static void manage_dm_interrupts(struct amdgpu_device *adev,
+>   	if (acrtc_state) {
+>   		timing = &acrtc_state->stream->timing;
+>   
+> -		if (amdgpu_ip_version(adev, DCE_HWIP, 0) <
+> -			   IP_VERSION(3, 5, 0) ||
+> -			   !(adev->flags & AMD_IS_APU)) {
+> +		if (amdgpu_ip_version(adev, DCE_HWIP, 0) >=
+> +		      IP_VERSION(3, 2, 0) &&
+> +		      !(adev->flags & AMD_IS_APU)) {
+> +			/*
+> +			 * DGPUs NV3x and newer that support idle optimizations
+> +			 * experience intermittent flip-done timeouts on cursor
+> +			 * updates. Restore 5s offdelay behavior for now.
+> +			 *
+> +			 * Discussion on the issue:
+> +			 * https://lore.kernel.org/amd-gfx/20260217191632.1243826-1-sysdadmin@m1k.cloud/
+> +			 */
+> +			config.offdelay_ms = 5000;
+> +			config.disable_immediate = false;
+> +		} else if (amdgpu_ip_version(adev, DCE_HWIP, 0) <
+> +			     IP_VERSION(3, 5, 0)) {
+>   			/*
+>   			 * Older HW and DGPU have issues with instant off;
+>   			 * use a 2 frame offdelay.
 
