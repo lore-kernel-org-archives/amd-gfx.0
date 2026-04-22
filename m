@@ -4,125 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 114EFF9B607
-	for <amd-gfx@archiver.kernel.org>; Wed, 22 Apr 2026 10:20:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB525F9B60B
+	for <amd-gfx@archiver.kernel.org>; Wed, 22 Apr 2026 10:29:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 937EB10E042;
-	Wed, 22 Apr 2026 10:20:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7051210E9A2;
+	Wed, 22 Apr 2026 10:29:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="FVftBodU";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="frNPfyXR";
 	dkim-atps=neutral
-Received: from CY3PR05CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11013032.outbound.protection.outlook.com
- [40.93.201.32])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ECF1D10E9A7
- for <amd-gfx@lists.freedesktop.org>; Wed, 22 Apr 2026 10:20:13 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Gqenvh0R2B95kSUKRkDJE1sxbmS+BlXdLcEXKGhQkc1vD9Eq1EfbQeq4e9/eoQtQ7qI7B5oZXK06jIt40E4lhDlnuwE+2Rw7+zcbw5eMym/KtCYOFMja93T96oZ4RZbOKcCA51XGc0CFcidJoowx35QvL3z7dQWv6ubv+mceNTARHb3KMZ9QrB6BMb27pFVfNJM8/Fyf3NGZBPryHsGpMNDIbmCAJH+QOh7zW2VzeKf8HFsnNSpsQ4V6NcI5D090QZGp6PvI9XthGozHF6vl1RdOUIwCf1Byo/buQGutifWB+DywWkkeBT7YdxPvHhH+SM4jYdBV/0zhw3yrv8+RBg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=CABjCl7JuJ4elKkP3XjCKvHic0ng+YGfP6ZlFhyDQ4w=;
- b=iYUbFwq4pJ2udPljaFIzjB85XwxfycJNsFukfvvo4bSwoyl5hyZp2mwGFq3weRv28crgBqXw2O/xPiTH0bkbJBWsI1VIfu+UaTlJSUbHqaOiNQI2AoDobNAgkqinvoU5TVyMuO1I1apTFU+LKE0kwAIqaWrS/b9snPba9d0NjTpTVOHdte1rY2xEOQuLaxJVhMfBg+OOz/DmuTXFhE+cneQq6a3GO4VtJvhpi2wyn9kmGl2YARp5VZvsKnutMu0l98uY1grDz5NJ9f0jekOe1/pG1PU0GUroJ5p5ln7mypYgYNcqBD7cFhieZWCuU9kbLJQXup6QrLmw94A7j0a0XA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=CABjCl7JuJ4elKkP3XjCKvHic0ng+YGfP6ZlFhyDQ4w=;
- b=FVftBodUcs2wX/27pv+DEQbzfkOiEC/xJBqkJ/yL4sChIOSxFvqFEQLoENgXKFAXbS8JMi7m7EMWgdcL32kipUMxFVzImYn1hwn/Q1czjK8RYgK/RYMwpcosi5+4cjqP4wkngkJ6hApTmsOheeBP9/J6v34POPHbJkei00zDYpE=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BL1PR12MB5753.namprd12.prod.outlook.com (2603:10b6:208:390::15)
- by BL4PR12MB9536.namprd12.prod.outlook.com (2603:10b6:208:590::21)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.16; Wed, 22 Apr
- 2026 10:20:10 +0000
-Received: from BL1PR12MB5753.namprd12.prod.outlook.com
- ([fe80::81e6:908a:a59b:87e2]) by BL1PR12MB5753.namprd12.prod.outlook.com
- ([fe80::81e6:908a:a59b:87e2%6]) with mapi id 15.20.9846.014; Wed, 22 Apr 2026
- 10:20:10 +0000
-Message-ID: <30fcb9fe-cef3-4320-b430-735071e808c8@amd.com>
-Date: Wed, 22 Apr 2026 15:50:03 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 06/11] drm/amdgpu: remove almost all calls to
- amdgpu_userq_detect_and_reset_queues
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
- alexander.deucher@amd.com, Prike.Liang@amd.com, amd-gfx@lists.freedesktop.org
-Cc: christian.koenig@amd.com
-References: <20260421125513.4545-1-christian.koenig@amd.com>
- <20260421125513.4545-6-christian.koenig@amd.com>
-Content-Language: en-US
-From: "Khatri, Sunil" <sukhatri@amd.com>
-In-Reply-To: <20260421125513.4545-6-christian.koenig@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: PN4PR01CA0096.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:2af::8) To BL1PR12MB5753.namprd12.prod.outlook.com
- (2603:10b6:208:390::15)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7D38210E9A2;
+ Wed, 22 Apr 2026 10:29:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1776853782; x=1808389782;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=auy2u+Gs2Ji/Jlwrh4HD3XtXCLmifnNNlGdQJLIyD14=;
+ b=frNPfyXRM3bm6Lw+4gRN14t84PN7qKw66GlufI12T5ic6+bEBTx6Xa96
+ dWn/Xir27VGqrQ0yvFsr7YWgwYW24UfR9Vq6ga69UYh7O1sc+4OAZAGnm
+ npKUH0758Kjw092xC102qFzXtjxsHwPMvZ/eedMFaDeNpyvOZ2Anw0fP9
+ Ca726Bmbeq9WHV5JFAwnC8CmylY27jIJBEQmt69ef1pGj8yKhhS6nkMmj
+ oZ3vd8qVCJGUcI1D+Un32N19JUtFg6GNYFENHgUDbL6ltfCe90XprzM81
+ wvlQIt7vuHy8OsJBOqQltNJSGIFjAVG7WlZwuFaBJmSwMD1WSYFmbQFVt g==;
+X-CSE-ConnectionGUID: W62wBR1PTouSGSc3CgBkxA==
+X-CSE-MsgGUID: +YLNCTVLQ7aViUVOwigBoA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11763"; a="77678460"
+X-IronPort-AV: E=Sophos;i="6.23,192,1770624000"; d="scan'208";a="77678460"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+ by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Apr 2026 03:29:42 -0700
+X-CSE-ConnectionGUID: lWq4nYq7SIynvDYM3mko8w==
+X-CSE-MsgGUID: HMiHusvQQf+tZ7IBNWRcdw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,192,1770624000"; d="scan'208";a="232184948"
+Received: from amilburn-desk.amilburn-desk (HELO [10.245.245.228])
+ ([10.245.245.228])
+ by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Apr 2026 03:29:38 -0700
+Message-ID: <4f74cacc-ff98-426f-ac31-c25e6cbec314@linux.intel.com>
+Date: Wed, 22 Apr 2026 12:29:35 +0200
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL1PR12MB5753:EE_|BL4PR12MB9536:EE_
-X-MS-Office365-Filtering-Correlation-Id: df309b60-349c-4289-58f2-08dea058bb7a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|1800799024|366016|18002099003|56012099003|22082099003; 
-X-Microsoft-Antispam-Message-Info: AOHGIjGTLoZ/5Tb+m+KBGq5I2NIvz/6AtGutsD3k6mGRlhlCpTDGBC1s+x5X+YiRezWdNIWtZK6rnd3H51qPiQ0niC3n5NIVidn9IjjbXnowwkSruGcOXCigJCGKtFXbWBy4/M+Z3Glq2Dn9gVMYamg9FK4ivvQze4ak4SEUFVZjSXJ9aFlhsOO6/iwi+g4jc7Hc4tPnJDlG9YOdpYEUpKnRHp7Hbztb1LWzZxm0+iAM3tp68tXLp75Tf/BHM8p7GJUz7bmH10jUbsRenX+jiEsfju1VnCBrNz+zN7FPc6QM6KC+PjWEjBtCPY4M+2JLaimxM33PFTQiiB3AmvE8owmSrYTKcqDYtZWRod2ykVY1MFRR/8V0PDK39rH/RKTzJ4+6pmt8I/sWEIPtex8nmY/o9knvD9N157O1N7YxqC0snvOxUvSenYHW74/YtE3wINjuvqF9QUdi+/VS+mOMTt0WU1R2RylluSD2corU/acJ/lpOOfYrqv7RZiISBcPkIhZ1YWPQkGE/5AhO1iQ5iMN9ha/BvdVrqpuIK9lcChu9UKW1/jMKZlQl7VkoFlmh+aXImUGiZWdaEtpiIxvxMKReqap+YX+j3+Xz5tcj/xo6F6co7yZWkjBHcNVPNhLirDvMP8ZxpUrilPrTpNWMJJsa6gizpPOgSl+DshjVqtSYkiF327Ldi8SzXhJ3zK0J2os7f19w+6NT1jEOvYyfnqvFYMXvoR39NiCm9U69f2k=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BL1PR12MB5753.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(366016)(18002099003)(56012099003)(22082099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VnFJd3YrQm55YWxVSWhYRFJBV285aGQvMGZVSUxYcUxQTVgrWEFZd3FCWUo4?=
- =?utf-8?B?aG40NmVBLzlEUUhmVEUvMTVHbGJkaGQ4bTJpTENJRGlSUmx5VjJsMWUrRmpE?=
- =?utf-8?B?emJkakN5MDZ5ZExmdXBuMFY3dk9XTGZORnVWQUxSTEgxNGo2ZzI1NG42aVhT?=
- =?utf-8?B?Z1FLcUNNekE2MnRKNFNLNFVFRm5KaXZHKzhqem12bGg2OCt3Y1N3T29JMzBZ?=
- =?utf-8?B?NGx2MzdsN0dzU2c1SVBaMzI3bXFOTzJ1MjRneTIyTmRwL0xwb2JJTTVFdGow?=
- =?utf-8?B?TEVpSWlXSmJocllTbVdWUkZKSGQvRjZRcHpEUzA2M24yYkpKR2RlaWlpUHkv?=
- =?utf-8?B?djdMeE8wbVZnOTNXM1piMk9ZMi9Qb3h0VUxoY2tCeHkvWGYyZ1pJSDBHMndE?=
- =?utf-8?B?R1BKOW5oMFVtdHE3YlJJdm1sS04vNWx6WDB5dEh1QjFBVjl6UFFMT0g4aDNU?=
- =?utf-8?B?VzBwQjRNVjIyTUlkdGFmODFzbHpNT1hRaHhxNTR0NlZjaVhyQytlZDA2ZkJp?=
- =?utf-8?B?VG0vKzhtUEJObG5aNjdScTFiOGh5MFlDQzBGV1RJN1JMNjlFZlRnS3k3RUE5?=
- =?utf-8?B?dGIzUWU3RzY1cHFCN1hKOFVsWk1zZ3lXYlRsWHZBbzJlTmxWNlRZdEtJakFQ?=
- =?utf-8?B?YklNYjQvdTRTMDRCY2JGMCtjQnVyTkxZVTVZMjhBRFFxTnpnZ3daQ1QrY1Zl?=
- =?utf-8?B?WlU1cndMMG55YmZBU1lyVUt2S1hVQUJ6ejRjWS9BQ0ZyQk15citrellVaEd3?=
- =?utf-8?B?YjFITUEyN3BxL2xTNVQvLzdKczVNankwZ1hweDE0Z0tsSnBsSXhvVVhVRS9q?=
- =?utf-8?B?UGQvMGo2c2ZQSnYrNzZVYkZSa0I5bzBjcFpGY0txdWYrNUMyWjkwQXJMTkRh?=
- =?utf-8?B?eFhSd2dNU1BnZGxVRWxkQ04xQ2tUVHZzSEFMVXJvLzRqOVFYUndzR1AzdENk?=
- =?utf-8?B?dVd0Rk5Ja01TMElXZWY3anRkayszcTR6dktRY2U4M1B5ZXU0clp3RlYwKzlD?=
- =?utf-8?B?dTRUM3psZjU4ZnN2NXR6N2JTbDJsenNDcG5zenppNmFhd0lyYXQvc0dhc01L?=
- =?utf-8?B?eVkydmxTZHBRUUNKWlh3N1NwY1kxbk5FNnJxaEdKMXh0b2x6YW1vZG1xRkFp?=
- =?utf-8?B?MHQ0M0I4eWhXZ1p0WXRkK2Y0V3psYU9IbzNsc0RIbUpFNWxnUURrcjZhUHVX?=
- =?utf-8?B?S210d2NDL3RFV2I1YmVMSjMxOFJVd3N0K3dyNmJUUkNiVWRpYXBTcXh6aGVE?=
- =?utf-8?B?bklROFFIcWM3dlBpUkk5SGxvbEtWemNjQmt2ZkVKRlBRenAvZWdMYW5uOXZi?=
- =?utf-8?B?RmQyQ0FhR25yYjdNOUk0MWNrNE5lUGJKblJtSUR0ZmVDQkwzOC9ac1A4WjRv?=
- =?utf-8?B?cnBEN2xOUUVPZDdETmRiUlo0VDZYdmtZeTBQd3MzWldQUkR0SmRDTnpyL2dH?=
- =?utf-8?B?bG5OMmVESlJYYXVzU2YrT2d3YjBuWGlvY3dueGRwNG15dStzUW1nOVVYU1Vw?=
- =?utf-8?B?TVlPcnJna0ZBNWJqbEs5eVA2WlNtckMrZXNBY1FrSjlHVDBUdTBHN0VQem02?=
- =?utf-8?B?WHZhdm5ISC94V3ZZSHdPZlFZNXJucTdCSXBkYW9SeGVjMmV3ajgrblUvdDVa?=
- =?utf-8?B?N2JvUEVac0xOZTZPOVJLUmJHZTM1V0Mvc3VGTHA0V2pQRS9RYlM0M0FFNHZG?=
- =?utf-8?B?WVJaZlZBZzB4aytnbG9hMHpLYkFDT2l2YTZQQkNFa21rMkdGU09lQkp5Nkxs?=
- =?utf-8?B?UDZvUkhUR0c4aXAzcDZOZU43R2FuQjZiWUltMEFvYWVDTUt0WDhpWTdtMkNX?=
- =?utf-8?B?bGdtVTBrSlRDYlVvNjgyOFV0VzFiT2pUUmhaU1JqNHlRakJaOCtZSHlXK2Nh?=
- =?utf-8?B?RVZpVmcyRFBvc0YzZkZBMExwNTJUMlovc1FHWFV2MHF6SExWeUxtdVZLSW9L?=
- =?utf-8?B?eG5XdmxoeE5RczRJT052dUh5UysyMmRoZlROV290cmpXWFljcGhNL1hBTjJS?=
- =?utf-8?B?MCthTDQ0ZmhjdnUxc0dPM3QrRzVsQWZvV1BvSFRPMlRFbHNseGxtYUJaNFZG?=
- =?utf-8?B?SEp1cENZdUdTdWNQVmZ5aDJ2eVBmb2RFbllRMGRiaG1QU1M0TEdCQVVYeGJR?=
- =?utf-8?B?alFuNkVGTkxUSFloaFhsdnFyTmdIcGZFb0w1OVc5OVVyRmhWMkx6YURzMXpu?=
- =?utf-8?B?T0VUMExoNE5xa2I0WWpGamRuN0xzNWxleTVyR0hnT2tvWTdDd0dLQWF2T3M0?=
- =?utf-8?B?M0FiZnB5Y1piS3JCVWJpeUkwTnYyWnZaTVYyRjh1dG55dTFhQ3REbnBOTDBM?=
- =?utf-8?B?S0MzY1UrUWxlQUE5L3NnNUZyVXRhYmxPNDcwMXhZTHNscWQxcytIUT09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: df309b60-349c-4289-58f2-08dea058bb7a
-X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5753.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Apr 2026 10:20:10.1364 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: uBPLSDfApMmdHxxDwMK8ccXXpD1Bz4kyWqwTGHCEGy2XDaVrPgbGHUPr2hhKS02xu8UxwrQLZ5mJQZjyV0DC1Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL4PR12MB9536
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/5] cgroup/dmem: Add reclaim callback for lowering max
+ below current usage
+To: =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ intel-xe@lists.freedesktop.org
+Cc: Natalie Vock <natalie.vock@gmx.de>, Johannes Weiner <hannes@cmpxchg.org>, 
+ Tejun Heo <tj@kernel.org>, =?UTF-8?Q?Michal_Koutn=C3=BD?=
+ <mkoutny@suse.com>, cgroups@vger.kernel.org, Huang Rui <ray.huang@amd.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Matthew Auld <matthew.auld@intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Simona Vetter <simona@ffwll.ch>,
+ David Airlie <airlied@gmail.com>, =?UTF-8?Q?Christian_K=C3=B6nig?=
+ <christian.koenig@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+References: <20260327081600.4885-1-thomas.hellstrom@linux.intel.com>
+ <20260327081600.4885-3-thomas.hellstrom@linux.intel.com>
+ <4b647952-0038-4878-b67e-6c7fc7ab27a6@linux.intel.com>
+ <398623a092c65ce4e53d1713112fa39ac0979fd7.camel@linux.intel.com>
+ <8ecda206-d290-4895-bf57-346419afdc3c@linux.intel.com>
+ <3b662522e17e380953d9b981d8c2febecf42455e.camel@linux.intel.com>
+Content-Language: en-US
+From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+In-Reply-To: <3b662522e17e380953d9b981d8c2febecf42455e.camel@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,150 +86,271 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Now this is exactly how i nearly disabled the reset login in my 
-validation setup.
-Looks clean and as per the expectations.
+Hey,
 
-Reviewed-by: Sunil Khatri <sunil.khatri@amd.com>
+Den 2026-04-22 kl. 12:20, skrev Thomas Hellström:
+> On Wed, 2026-04-22 at 11:50 +0200, Maarten Lankhorst wrote:
+>> Hey,
+>>
+>> Den 2026-04-22 kl. 10:42, skrev Thomas Hellström:
+>>> On Wed, 2026-04-22 at 10:31 +0200, Maarten Lankhorst wrote:
+>>>> Hey,
+>>>>
+>>>> (Adding Thadeu to cc since they've been working on the same
+>>>> issue)
+>>>>
+>>>> Den 2026-03-27 kl. 09:15, skrev Thomas Hellström:
+>>>>> Add an optional reclaim callback to struct dmem_cgroup_region. 
+>>>>> When
+>>>>> dmem.max is set below current usage, invoke the callback to
+>>>>> evict
+>>>>> memory
+>>>>> and retry setting the limit rather than failing immediately. 
+>>>>> Signal
+>>>>> interruptions propagate back to the write() caller.
+>>>>>
+>>>>> RFC:
+>>>>> Due to us updating the max limit _after_ the usage has been
+>>>>> sufficiently lowered, this should be prone to failures if there
+>>>>> are
+>>>>> aggressive allocators running in parallel to the reclaim.
+>>>>> So can we somehow enforce the new limit while the eviction is
+>>>>> happening?
+>>>>>
+>>>>> Assisted-by: GitHub Copilot:claude-sonnet-4.6
+>>>>> Signed-off-by: Thomas Hellström
+>>>>> <thomas.hellstrom@linux.intel.com>
+>>>>> ---
+>>>>>  include/linux/cgroup_dmem.h | 11 +++++
+>>>>>  kernel/cgroup/dmem.c        | 94
+>>>>> +++++++++++++++++++++++++++++++++----
+>>>>>  2 files changed, 96 insertions(+), 9 deletions(-)
+>>>>>
+>>>>> diff --git a/include/linux/cgroup_dmem.h
+>>>>> b/include/linux/cgroup_dmem.h
+>>>>> index dd4869f1d736..61520a431740 100644
+>>>>> --- a/include/linux/cgroup_dmem.h
+>>>>> +++ b/include/linux/cgroup_dmem.h
+>>>>> @@ -26,6 +26,10 @@ bool dmem_cgroup_state_evict_valuable(struct
+>>>>> dmem_cgroup_pool_state *limit_pool,
+>>>>>  				      bool ignore_low, bool
+>>>>> *ret_hit_low);
+>>>>>  
+>>>>>  void dmem_cgroup_pool_state_put(struct dmem_cgroup_pool_state
+>>>>> *pool);
+>>>>> +void dmem_cgroup_region_set_reclaim(struct dmem_cgroup_region
+>>>>> *region,
+>>>>> +				    int (*reclaim)(struct
+>>>>> dmem_cgroup_pool_state *pool,
+>>>>> +						   u64
+>>>>> target_bytes, void *priv),
+>>>>> +				    void *priv);
+>>>>>  #else
+>>>>>  static inline __printf(2,3) struct dmem_cgroup_region *
+>>>>>  dmem_cgroup_register_region(u64 size, const char *name_fmt,
+>>>>> ...)
+>>>>> @@ -62,5 +66,12 @@ bool dmem_cgroup_state_evict_valuable(struct
+>>>>> dmem_cgroup_pool_state *limit_pool,
+>>>>>  static inline void dmem_cgroup_pool_state_put(struct
+>>>>> dmem_cgroup_pool_state *pool)
+>>>>>  { }
+>>>>>  
+>>>>> +static inline void
+>>>>> +dmem_cgroup_region_set_reclaim(struct dmem_cgroup_region
+>>>>> *region,
+>>>>> +			       int (*reclaim)(struct
+>>>>> dmem_cgroup_pool_state *pool,
+>>>>> +					      u64
+>>>>> target_bytes,
+>>>>> void *priv),
+>>>>> +			       void *priv)
+>>>>> +{ }
+>>>>> +
+>>>>>  #endif
+>>>>>  #endif	/* _CGROUP_DMEM_H */
+>>>>> diff --git a/kernel/cgroup/dmem.c b/kernel/cgroup/dmem.c
+>>>>> index 3e6d4c0b26a1..f993fb058b74 100644
+>>>>> --- a/kernel/cgroup/dmem.c
+>>>>> +++ b/kernel/cgroup/dmem.c
+>>>>> @@ -51,6 +51,18 @@ struct dmem_cgroup_region {
+>>>>>  	 * No new pools should be added to the region
+>>>>> afterwards.
+>>>>>  	 */
+>>>>>  	bool unregistered;
+>>>>> +
+>>>>> +	/**
+>>>>> +	 * @reclaim: Optional callback invoked when dmem.max
+>>>>> is
+>>>>> set below the
+>>>>> +	 * current usage of a pool. The driver should attempt
+>>>>> to
+>>>>> free at least
+>>>>> +	 * @target_bytes from @pool. May be called multiple
+>>>>> times
+>>>>> if usage
+>>>>> +	 * remains above the limit after returning.
+>>>>> +	 */
+>>>>> +	int (*reclaim)(struct dmem_cgroup_pool_state *pool,
+>>>>> u64
+>>>>> target_bytes,
+>>>>> +		       void *priv);
+>>>>> +
+>>>>> +	/** @reclaim_priv: Private data passed to @reclaim. */
+>>>>> +	void *reclaim_priv;
+>>>>>  };
+>>>>>  
+>>>>>  struct dmemcg_state {
+>>>>> @@ -145,23 +157,59 @@ static void free_cg_pool(struct
+>>>>> dmem_cgroup_pool_state *pool)
+>>>>>  }
+>>>>>  
+>>>>>  static int
+>>>>> -set_resource_min(struct dmem_cgroup_pool_state *pool, u64 val)
+>>>>> +set_resource_min(struct dmem_cgroup_pool_state *pool, u64 val,
+>>>>> +		 struct dmem_cgroup_region *region)
+>>>>>  {
+>>>>>  	page_counter_set_min(&pool->cnt, val);
+>>>>>  	return 0;
+>>>>>  }
+>>>>>  
+>>>>>  static int
+>>>>> -set_resource_low(struct dmem_cgroup_pool_state *pool, u64 val)
+>>>>> +set_resource_low(struct dmem_cgroup_pool_state *pool, u64 val,
+>>>>> +		 struct dmem_cgroup_region *region)
+>>>>>  {
+>>>>>  	page_counter_set_low(&pool->cnt, val);
+>>>>>  	return 0;
+>>>>>  }
+>>>>>  
+>>>>>  static int
+>>>>> -set_resource_max(struct dmem_cgroup_pool_state *pool, u64 val)
+>>>>> +set_resource_max(struct dmem_cgroup_pool_state *pool, u64 val,
+>>>>> +		 struct dmem_cgroup_region *region)
+>>>>>  {
+>>>>> -	return page_counter_set_max(&pool->cnt, val);
+>>>>> +	int err = page_counter_set_max(&pool->cnt, val);
+>>>>> +
+>>>>> +	if (err != -EBUSY || !region || !region->reclaim)
+>>>>> +		return err;
+>>>>> +
+>>>>> +	/*
+>>>>> +	 * The new max is below current usage.  Ask the driver
+>>>>> to
+>>>>> evict memory
+>>>>> +	 * and retry, up to a bounded number of times.  Signal
+>>>>> interruptions are
+>>>>> +	 * propagated back to the write() caller; other
+>>>>> reclaim
+>>>>> failures leave
+>>>>> +	 * -EBUSY as the result.
+>>>>> +	 */
+>>>>> +	for (int retries = 5; retries > 0; retries--) {
+>>>>> +		u64 usage = page_counter_read(&pool->cnt);
+>>>>> +		u64 target = usage > val ? usage - val : 0;
+>>>>> +		int reclaim_err;
+>>>>> +
+>>>>> +		if (!target) {
+>>>>> +			err = page_counter_set_max(&pool->cnt,
+>>>>> val);
+>>>>> +			break;
+>>>>> +		}
+>>>>> +
+>>>>> +		reclaim_err = region->reclaim(pool, target,
+>>>>> region->reclaim_priv);
+>>>>> +		if (reclaim_err) {
+>>>>> +			if (reclaim_err == -EINTR ||
+>>>>> reclaim_err
+>>>>> == -ERESTARTSYS)
+>>>>> +				err = reclaim_err;
+>>>>> +			break;
+>>>>> +		}
+>>>>> +
+>>>>> +		err = page_counter_set_max(&pool->cnt, val);
+>>>>> +		if (err != -EBUSY)
+>>>>> +			break;
+>>>>> +	}
+>>>>> +
+>>>>> +	return err;
+>>>>>  }
+>>>>
+>>>> I mentioned this in chat but I wanted to mention it on the
+>>>> mailing
+>>>> list for others as well,
+>>>> can we reproduce the behavior from memory_max_write() in
+>>>> mm/memcontrol.c?
+>>>>
+>>>> 1. First set new limit through xchg.
+>>>> 2. If O_NONBLOCK is set -> do nothing, next allocation in target
+>>>> region will fail and cause reclaim.
+>>>> 3. If not set -> reclaim until below new limit or interrupted by
+>>>> a
+>>>> signal, return success in all cases here since we set new limit.
+>>>>
+>>>>
+>>>
+>>> Yup.
+>>>
+>>> For 3, we also need to consider the case where we fail to reclaim
+>>> due
+>>> to memory being pinned. If it's OK to (usually temporary) have
+>>> current
+>>> usage above max, that would work.
+>>>
+>>> I have that coded up and also add a patch on top to defer reclaim
+>>> to a
+>>> thread if we bail due to signal or O_NONBLOCK. Perhaps we could
+>>> discuss
+>>> whether that's a good or bad idea in that patch.
+>>
+>> That doesn't sound like a good idea. The semantics of O_NONBLOCK
+>> are deliberately intended to be able to change the max without
+>> causing
+>> reclaim.
+>>
+>> See the details in commit ("memcg: introduce non-blocking limit
+>> setting option")
+> 
+> From reading the docs that introduces, it sounds more like that avoids
+> *synchronous* reclaim, which is also in line with O_NONBLOCK semantics.
+> 
+> The analogy with launching a thread would be more that of kswapd doing
+> the reclaim in the memcg case?
+> 
+> But OTOH, if we were to introduce a thread-driven dmem reclaim that
+> would perhaps be something that wasn't directly tied to the dmem
+> controller but rather to the dmem provider itself. (TTM in this case).
 
-On 21-04-2026 06:25 pm, Christian König wrote:
-> Well the reset handling seems broken on multiple levels.
->
-> As first step of fixing this remove most calls to the hang detection.
-> That function should only be called after we run into a timeout! And *NOT*
-> as random check spread over the code in multiple places.
->
-> Signed-off-by: Christian König <christian.koenig@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 38 +++++++++--------------
->   1 file changed, 14 insertions(+), 24 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-> index 8ce001481d42..5ccd53ad8efd 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-> @@ -345,23 +345,18 @@ static int amdgpu_userq_preempt_helper(struct amdgpu_usermode_queue *queue)
->   	struct amdgpu_device *adev = uq_mgr->adev;
->   	const struct amdgpu_userq_funcs *userq_funcs =
->   		adev->userq_funcs[queue->queue_type];
-> -	bool found_hung_queue = false;
-> -	int r = 0;
-> +	int r;
->   
->   	if (queue->state == AMDGPU_USERQ_STATE_MAPPED) {
->   		r = userq_funcs->preempt(queue);
->   		if (r) {
->   			queue->state = AMDGPU_USERQ_STATE_HUNG;
-> -			found_hung_queue = true;
-> +			return r;
->   		} else {
->   			queue->state = AMDGPU_USERQ_STATE_PREEMPTED;
->   		}
->   	}
-> -
-> -	if (found_hung_queue)
-> -		amdgpu_userq_detect_and_reset_queues(uq_mgr);
-> -
-> -	return r;
-> +	return 0;
->   }
->   
->   static int amdgpu_userq_restore_helper(struct amdgpu_usermode_queue *queue)
-> @@ -390,24 +385,21 @@ static int amdgpu_userq_unmap_helper(struct amdgpu_usermode_queue *queue)
->   	struct amdgpu_device *adev = uq_mgr->adev;
->   	const struct amdgpu_userq_funcs *userq_funcs =
->   		adev->userq_funcs[queue->queue_type];
-> -	bool found_hung_queue = false;
-> -	int r = 0;
-> +	int r;
->   
->   	if ((queue->state == AMDGPU_USERQ_STATE_MAPPED) ||
-> -		(queue->state == AMDGPU_USERQ_STATE_PREEMPTED)) {
-> +	    (queue->state == AMDGPU_USERQ_STATE_PREEMPTED)) {
-> +
->   		r = userq_funcs->unmap(queue);
->   		if (r) {
->   			queue->state = AMDGPU_USERQ_STATE_HUNG;
-> -			found_hung_queue = true;
-> +			return r;
->   		} else {
->   			queue->state = AMDGPU_USERQ_STATE_UNMAPPED;
->   		}
->   	}
->   
-> -	if (found_hung_queue)
-> -		amdgpu_userq_detect_and_reset_queues(uq_mgr);
-> -
-> -	return r;
-> +	return 0;
->   }
->   
->   static int amdgpu_userq_map_helper(struct amdgpu_usermode_queue *queue)
-> @@ -416,19 +408,19 @@ static int amdgpu_userq_map_helper(struct amdgpu_usermode_queue *queue)
->   	struct amdgpu_device *adev = uq_mgr->adev;
->   	const struct amdgpu_userq_funcs *userq_funcs =
->   		adev->userq_funcs[queue->queue_type];
-> -	int r = 0;
-> +	int r;
->   
->   	if (queue->state == AMDGPU_USERQ_STATE_UNMAPPED) {
->   		r = userq_funcs->map(queue);
->   		if (r) {
->   			queue->state = AMDGPU_USERQ_STATE_HUNG;
-> -			amdgpu_userq_detect_and_reset_queues(uq_mgr);
-> +			return r;
->   		} else {
->   			queue->state = AMDGPU_USERQ_STATE_MAPPED;
->   		}
->   	}
->   
-> -	return r;
-> +	return 0;
->   }
->   
->   static void amdgpu_userq_wait_for_last_fence(struct amdgpu_usermode_queue *queue)
-> @@ -654,7 +646,6 @@ amdgpu_userq_destroy(struct amdgpu_userq_mgr *uq_mgr, struct amdgpu_usermode_que
->   #if defined(CONFIG_DEBUG_FS)
->   	debugfs_remove_recursive(queue->debugfs_queue);
->   #endif
-> -	amdgpu_userq_detect_and_reset_queues(uq_mgr);
->   	r = amdgpu_userq_unmap_helper(queue);
->   	/*TODO: It requires a reset for userq hw unmap error*/
->   	if (r) {
-> @@ -1268,7 +1259,6 @@ amdgpu_userq_evict_all(struct amdgpu_userq_mgr *uq_mgr)
->   	unsigned long queue_id;
->   	int ret = 0, r;
->   
-> -	amdgpu_userq_detect_and_reset_queues(uq_mgr);
->   	/* Try to unmap all the queues in this process ctx */
->   	xa_for_each(&uq_mgr->userq_xa, queue_id, queue) {
->   		r = amdgpu_userq_preempt_helper(queue);
-> @@ -1276,9 +1266,11 @@ amdgpu_userq_evict_all(struct amdgpu_userq_mgr *uq_mgr)
->   			ret = r;
->   	}
->   
-> -	if (ret)
-> +	if (ret) {
->   		drm_file_err(uq_mgr->file,
->   			     "Couldn't unmap all the queues, eviction failed ret=%d\n", ret);
-> +		amdgpu_userq_detect_and_reset_queues(uq_mgr);
-> +	}
->   	return ret;
->   }
->   
-> @@ -1378,7 +1370,6 @@ int amdgpu_userq_suspend(struct amdgpu_device *adev)
->   		uqm = queue->userq_mgr;
->   		cancel_delayed_work_sync(&uqm->resume_work);
->   		guard(mutex)(&uqm->userq_mutex);
-> -		amdgpu_userq_detect_and_reset_queues(uqm);
->   		if (adev->in_s0ix)
->   			r = amdgpu_userq_preempt_helper(queue);
->   		else
-> @@ -1437,7 +1428,6 @@ int amdgpu_userq_stop_sched_for_enforce_isolation(struct amdgpu_device *adev,
->   		if (((queue->queue_type == AMDGPU_HW_IP_GFX) ||
->   		     (queue->queue_type == AMDGPU_HW_IP_COMPUTE)) &&
->   		    (queue->xcp_id == idx)) {
-> -			amdgpu_userq_detect_and_reset_queues(uqm);
->   			r = amdgpu_userq_preempt_helper(queue);
->   			if (r)
->   				ret = r;
+From the docs:
++        If memory.max is opened with O_NONBLOCK, then the synchronous
++        reclaim and oom-kill are bypassed. This is useful for admin
++        processes that need to dynamically adjust the job's memory limits
++        without expending their own CPU resources on memory reclamation.
++        The job will trigger the reclaim and/or oom-kill on its next
++        charge request.
+
+The task writing to max will not trigger a reclaim,
+only set the new max value.
+
+But when a process, part of the affected cgroup, tries to allocate memory,
+it will be forced to reclaim memory until below max again. 
+
+This is a workflow where instead of the updater doing all
+the evictions, the evictions handled by a process in the cgroup itself.
+
+>>
+>> I also believe it's ok not to continue reclaiming if aborted, the
+>> caller can
+>> always try again if necessary.
+>>
+>> If we want to deviate from the memcg controller, we need a very good
+>> reason
+>> to do so. I'd like to keep the semantics the same if possible.
+>>
+>>> Will send out when I've updated the IGT tests accordingly.
+>>>
+>>> Thanks,
+>>> Thomas
+>>
+>> Kind regards,
+>> ~Maarten Lankhorst
+
