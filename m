@@ -4,130 +4,105 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 537E0F94CBE
-	for <amd-gfx@archiver.kernel.org>; Wed, 22 Apr 2026 22:02:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9E9F6F94CC1
+	for <amd-gfx@archiver.kernel.org>; Wed, 22 Apr 2026 22:06:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BD36E10EAA8;
-	Wed, 22 Apr 2026 22:02:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 376E110EAAF;
+	Wed, 22 Apr 2026 22:06:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="SW5s8km9";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="x+GiZUv3";
 	dkim-atps=neutral
-Received: from PH8PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11012053.outbound.protection.outlook.com [40.107.209.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EC40310EAA8
- for <amd-gfx@lists.freedesktop.org>; Wed, 22 Apr 2026 22:02:20 +0000 (UTC)
+Received: from CY3PR05CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11013071.outbound.protection.outlook.com
+ [40.93.201.71])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3E24810EAAF
+ for <amd-gfx@lists.freedesktop.org>; Wed, 22 Apr 2026 22:06:29 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=D7u3Rbv4ipEKvJbx+UcDxlJYPkwYl7PonGHD75Wrao3rYGp0odETOiAJ5YtGi1AOABiE+imnS7dJX5ATBSQSAZk8umirOuImJWR638/9K938xKNXQgAoHWf/mJOnBwvEJUGZbOcs0nBoo/KMd31H68d+7hlmMdcOM8IyS9peVCrqihORJ14EOHaz9nTabAxWe7dQzu1jvKUG6oEA/071S71kpgJvJ2sMu/9pMmDyAw0s7gcLk6MStN3UvkzMWDC9+hLOcM73BcXXzWNOEG7pYQzLk9DOAl9j1DZb/Ok4dyijAuw8ln+oLML6+BetnN2EOGhUiWPZQ4HEBJAXulJiUg==
+ b=pVFjmOJSmyfWmWhNm/Y9S7B3nHu3TQvQ0MQPAuuCca03X6nC8c/UKx/QKgD2A8IQzYb39KLIkt7Lnd9D5klnuKO6jyPZMBuTl3Idc0DUCPOirbc1UBDnn+kLAlP+180oRI9emMNiaZhJNlBa9h5JNoJEjIDhuC5lT7LdZIR3VDiAGqmVzgLXSm2T51QNSFHD+e6lFnNVsywtePO+snKL+8EwRqqEtwPwCDuIqw5MDcCAqhjYoDAyx2/NkZzfwQGAkKFmk0It2Iwu7LqqrDvqkJPdH/jHZC5U7vi0aZararMmm2AauRBJycOpdq72Ki8+plDIQXSPHQbOyCB1NonlNw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=4dLFNsY9Q6mydWktn6XOVs28G+ww9IpuIP4D7DpJikc=;
- b=yfserg2ETmSv+Mifap7wW57FhRbv5UcyLypJaEUK/Fjay31Ky1Yo50U0m8MXkIxD1MTEgJbQHOrlXLAQTuhNdGy3Bdkyfbp0si29PyVtiOJuTpzUe+y7hRdVPKsiNridxQAY8C3yPX7j3SvES2myP68BBq+H4FEkTzBwvnYE5+qAQZe39PA+2rUW0JNyxgGSC1jVtAzFZTyBax0YsO9Ps9+joh8q2OO4YJo2mpagOZny7fgFuiSNIXyC+bUpXthp9eJTmlshf8s1PUIaMKyLQq7W686XX/o/l27zhpSafp6yjIf/naDH2JeJC/PC9w1KIndRYj/fXPACOQWp+l7VTg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=SfAXCoLDtiZlSAK4rI5vHL0bwsE7wBsdYwXXsisPQws=;
+ b=Xi42D6hrjQi55rNDPmPuYbl1k743TR9EYUgPli5JwfkqGVfSq7nGnRjx/e8UlR4TtxL7AKTGTZykh5nMj5oYeRACh4sBWzAiNZMAp7/U0NtGG72OrakaZlOp9gDMYFVRWLNCemcixtTuH31NMQGpPELl2ysknhbg8J0gSpN6F1Qt2DgyFO1VtP5MfRFikOqoT8RbI9w997s3dej4Zu0nN3+L9GrfadFgSn2jCB1M0Anusbr8XfNK6smEEk75qV4EVBYLmhIJJe0Fh3Iwg1FW3QHYYwbaHpuiQIzkz3Rw6GPwfqqdQHFS3o+e0JprhIVRaAztiHcH91KVoZW8B8m2ig==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4dLFNsY9Q6mydWktn6XOVs28G+ww9IpuIP4D7DpJikc=;
- b=SW5s8km9WMikVHQjegkLKjA4v3D7ZvV5NxonB843WkSuKw3UC39WSO7OJl4O68wf0usa4jZqZdDb8LUV8ggF4hpf9yaB5E6O81yUuOmAOeL64yMphvp7TPUJKZkrgPxdC+Ex/sf7UEZWqdEH/UjdTQthcs1Mhk71qNwe+VHFyr4=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM6PR12MB4401.namprd12.prod.outlook.com (2603:10b6:5:2a9::15)
- by MW4PR12MB8609.namprd12.prod.outlook.com (2603:10b6:303:1e2::22) with
+ bh=SfAXCoLDtiZlSAK4rI5vHL0bwsE7wBsdYwXXsisPQws=;
+ b=x+GiZUv3Oia6SIbLHr5eErdFOV+AjsWGg1GKeqj/OB53ur7x8NBLIQP8gQyc8x4CPRy6nWbZ32DguLsq0N78Zf0QPwgb6isNPW+I2nvupN4f3c1b0mS7LuI/Ji7wSAGydaXXLkreUnfSI3lriQmvRKVm49+BxzReKVzXmOjKwes=
+Received: from SJ0PR03CA0087.namprd03.prod.outlook.com (2603:10b6:a03:331::32)
+ by DM4PR12MB7741.namprd12.prod.outlook.com (2603:10b6:8:103::21) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.16; Wed, 22 Apr
- 2026 22:02:15 +0000
-Received: from DM6PR12MB4401.namprd12.prod.outlook.com
- ([fe80::795e:4056:1c5f:6b33]) by DM6PR12MB4401.namprd12.prod.outlook.com
- ([fe80::795e:4056:1c5f:6b33%5]) with mapi id 15.20.9846.019; Wed, 22 Apr 2026
- 22:02:14 +0000
-Message-ID: <59e14708-56db-4b49-be3a-d3b48e71c99b@amd.com>
-Date: Wed, 22 Apr 2026 17:02:12 -0500
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdkfd: Terminate queues on surprise unplug with
- running processes
-To: Felix Kuehling <felix.kuehling@amd.com>,
- Mario Limonciello <mario.limonciello@amd.com>,
- Mario Limonciello <superm1@kernel.org>, amd-gfx@lists.freedesktop.org
-Cc: Kent Russell <kent.russell@amd.com>
-References: <20260112182925.347303-1-mario.limonciello@amd.com>
- <2b4d4476-97a6-42f8-b5cf-5599ac8d0035@kernel.org>
- <60e1e12d-7705-4531-ba15-c956f4d268d4@amd.com>
- <5fc35475-e7a2-483e-84d8-1de7226e1e59@amd.com>
- <43f46559-fb74-4a34-9cd6-16de02b4147b@amd.com>
- <fbfaf548-0c34-4c09-9674-8802224f9349@amd.com>
- <339fdaba-5649-4bf3-bd09-6bd20c197118@amd.com>
-Content-Language: en-US
-From: "Chen, Xiaogang" <xiaogang.chen@amd.com>
-In-Reply-To: <339fdaba-5649-4bf3-bd09-6bd20c197118@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: SA0PR11CA0103.namprd11.prod.outlook.com
- (2603:10b6:806:d1::18) To DM6PR12MB4401.namprd12.prod.outlook.com
- (2603:10b6:5:2a9::15)
+ 2026 22:06:25 +0000
+Received: from CO1PEPF000066E7.namprd05.prod.outlook.com
+ (2603:10b6:a03:331:cafe::de) by SJ0PR03CA0087.outlook.office365.com
+ (2603:10b6:a03:331::32) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9791.48 via Frontend Transport; Wed,
+ 22 Apr 2026 22:06:25 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ CO1PEPF000066E7.mail.protection.outlook.com (10.167.249.9) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9846.18 via Frontend Transport; Wed, 22 Apr 2026 22:06:25 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.17; Wed, 22 Apr
+ 2026 17:06:24 -0500
+Received: from satlexmb08.amd.com (10.181.42.217) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 22 Apr
+ 2026 17:06:24 -0500
+Received: from p8.amd.com (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
+ Transport; Wed, 22 Apr 2026 17:06:23 -0500
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Shiwu Zhang <shiwu.zhang@amd.com>, Likun Gao <Likun.Gao@amd.com>, "Hawking
+ Zhang" <Hawking.Zhang@amd.com>, Alex Deucher <alexander.deucher@amd.com>
+Subject: [PATCH] drm/amdgpu: use the ASP command for partition switch
+Date: Wed, 22 Apr 2026 18:06:13 -0400
+Message-ID: <20260422220614.2259600-3-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260422220614.2259600-1-alexander.deucher@amd.com>
+References: <20260422220614.2259600-1-alexander.deucher@amd.com>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+Received-SPF: None (SATLEXMB04.amd.com: alexander.deucher@amd.com does not
+ designate permitted sender hosts)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6PR12MB4401:EE_|MW4PR12MB8609:EE_
-X-MS-Office365-Filtering-Correlation-Id: c9d13b2a-4bc3-4e9f-0ad2-08dea0bacfdb
+X-MS-TrafficTypeDiagnostic: CO1PEPF000066E7:EE_|DM4PR12MB7741:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5e0ba379-9844-49e1-0794-08dea0bb656a
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|376014|1800799024|56012099003|22082099003|18002099003; 
-X-Microsoft-Antispam-Message-Info: fmb9cHefWnGuHrAq4+mRxNiyGN1y+yAy39cryov/M4S/CfKb04M26UT8nVc5warIshrvEV48YQD1UEWAAjj2qvQW8mrmxEBrk8DDqp4l7ZOenbeJIq+WRAd3GSP7HKXBLo8/kDLORml7CA6xPYO/xZtdm9As0/eRnqVXmq1FpY+//kkjJc3TVopeWAXvJHvbmrjucQ20e6Nq7r4BPXVaHsub+98qMvlXAC7lKJPbJAVicoj8KiiR1CsUf0vW/ai7ZkdLeBrTkcgaskwf2pMGV61SVgwuyh9vhfK1ipfoBotr9CdoLL2XkPfWYSJNWfswZTJ+5w9XXk2muv6vs8hg8wJimr6hILL0R5FpXzyOjj7lnfTN5puU/FTfsQJFplx9BpdX0qJ2FR1mGj+gEn4anQVmylb8jbjiXcB477J63doov3Ylt3Qy0cGVoTEn4AGKKIXMUTwsXFKnojxOZGjMzioxpVwLGAlQbuHeEC7um++/un31FRJv6yH4G/cSvMBpIz0cjNyvoqLrJba42GyukHyC9MqXXShLWxSzTnPPob1Zhzmg0B9oCrzJNkvL6m99D5Ea5PGqz85gKnY1w0HAz+wIxIFJLLp9nXH4zfcExqQ4QIMaaeYOWgIMS9YEUxMeddbsf3QbcJke7vqVN/f6Ffx4jTjTjEXa8dZq743vui5pC8fiMuQM6GJdGfJdVgS3igQTsTc7gyYUwWvS7ucMlN+JewdW6vF+v4SGPXbruuk=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB4401.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(1800799024)(56012099003)(22082099003)(18002099003);
+ ARA:13230040|82310400026|36860700016|376014|1800799024|22082099003|56012099003|18002099003;
+X-Microsoft-Antispam-Message-Info: m1Fq4O3OHlx+VwdEa45CX8vnpqezY+0cayJp9VYdjlf1+tplziHRvwce9C9/A8bqZw4oQwrQCjAgyfghoufYEEa6tFppasiHga89Oc32GgZT0MdGWHyFwotYT+qIqhFFXuOKogOBnOUAAOXybRb/J2cHJvct6F504VZUjylFcgma3YRtQ/UkT18E4v2M2L6rHyw71O6OgjaYxD2BJe1YQUWnHi1krh57gy3Ulh0o/RC2b7IGc0wXOzrahRuTCrIOtUam8rDOktIk+stWXxZLyFHvQTQaAR/nYSutRMRNspuWz4DmMk7+9uR7EJHKH5DJmdBmZmFNZiF00bef11s2kWvr24LjknxfQ/xu3Br6lg/HWty16yiVvCTRGZnzenUoASh4fVsMX88UF4XXImopyc8eLzPusEUsea4KJKlUpg0joqEVtfwCFVdyihsSmJy195OjglKO2gHCvVAka9cLp3RoLNeNqb5ACMRNI734/gtlU3t7HxlKu9sXyN5z9CYTs/vhLkniphE5IsU0Fpy5V9TZ0GGVWd5NoN5GvNxvbxQNcEnYcgnSzb+KF1r/XTidcbmEsAiBqICI1qVSiDaVuChLbP6wQADuj+uahyWp4VS6c+UWkUREykDc9KgPjG9/+7yXWVZB7F/92RVrG+wX4gIswb74DOee8OnLoCmknQhX1kTxdChyDbZ96V2xCasWn7rRZ3+ZtZoXbUlIRPmnBB5fOVxyWdoc/p9ro8DsjRfg2gLIMG5Y4N+RrWOMC/3B4RzOSUIXCMJe7qtdyDi6jg==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(36860700016)(376014)(1800799024)(22082099003)(56012099003)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RitqeUppd0x0cG0rUkx2SzkwKzR4b0ZvdUNmckNtOHI1eXdDdEhGcmx5S3FK?=
- =?utf-8?B?bjRNSys4M0k1YTRraWdQQzJCbWlsd1BEQUE1Tk05eGhvUVNUL1hNQVNERkZQ?=
- =?utf-8?B?cWhVTnplbjZjK2JDV05JL1pPaWZsSlNqa00zUjIxTlg2a0FWTHRFcFFlejdx?=
- =?utf-8?B?dU9CdWQ3RVdXSTdablRHWWsyTURDZ3lmSTZvSXdRT0FUMWdYSE5UZGNEQlp0?=
- =?utf-8?B?eW1KcVkxcVNVUVViUGl2OTFUZDlzQ2lwbTFNak9vMFc5QTM3WVppWFhzZTFS?=
- =?utf-8?B?RkdQYktBTzZKM0RzZXNIdWZISGdlMTAzQTFyVzRPaG9MN2Z4QkdRTWY4RzBH?=
- =?utf-8?B?NC82VXVhRmhBcXhvM2J0WDQ2ZzVMeHV4RmdlSnZVNlBFNVlRR1V0UlhXbzls?=
- =?utf-8?B?SzM1aTZiSFhOSW1UQUNDaTd2N2ZWYXBNSW1RODRyT1RjMXVQazNFSDdGSkFw?=
- =?utf-8?B?clJ2RzZOSjlSdHQ1b2NjNHRuTDdoQ25vN0hlTTNzOXR4bXo0L2xkS1p3QnFz?=
- =?utf-8?B?amFBM2pSSWRMY0NpajJxbjhrUGV3L2FMUGVBMS9sTnlub2NkT2tPZGtpS1FK?=
- =?utf-8?B?TUFLb2V2R1VHVmZTamVZZ2F4cjdDZ0M0S3pFZzhlYjIzajBnNW9MVytxKzEz?=
- =?utf-8?B?MVA4Q2kzbFpjdXQveDN3UkhQR0hlZHYwZk1udXpQOUVYbGFZSDVBYTFLdmk0?=
- =?utf-8?B?dldISDFMSzRVS0RuL2dvRUpnMHRhWUoyUjNwYkFIcjNQcHNLUlBkMjJjQVJV?=
- =?utf-8?B?V05QbWJZazRubVpQMXp4eUhYRVlId2lNVk5nOE1NTE9ieG1icTlhNlFGYmxR?=
- =?utf-8?B?SlcwRERsdTVjcFJwNUpPTVQ0MVlvZ0kvWTVBaUdLMkFMRWJiV3dtVWtkN3hq?=
- =?utf-8?B?Y25NclV5V1ZZbFMzTTh3dUNTSSs2endwckNWWWdkTTNLenQzV2twN2RFYTBS?=
- =?utf-8?B?KzNzYjJoeDk0b09BbzAwK1pSZUdkdmw4WXZmRzJ4ZVkwWTMyRENUVVFHTGxB?=
- =?utf-8?B?dmVXeXE2M2xRNGZnMWhMWTR5TlJIMUtLZkVJRUJxZEZWUXU0VUpNa0Jic092?=
- =?utf-8?B?eFZMRlNRUkNVZkM2STBXSm40L0NFUzlZTDVrdnJiaDFHL3FNbTB0dXg3Ymhx?=
- =?utf-8?B?ZFdScTEyRTdBa3hYQlFOOWh2bGkwcTRjMW9YbXVkYnl2VEJZNk9nbno5RzNW?=
- =?utf-8?B?QnlPaS9RSS9rWGQ5Z3J4dWJQMituQlBpL3FTbkc1Mnl6MzNicUIvRVhMMmRD?=
- =?utf-8?B?QzdUVnM5bmNNMVFUUHlYdUlaRnBYcmxuMUhUekJ6S3dBOUdWTkwvb0JOT3Nh?=
- =?utf-8?B?Q205OEpvSlhxMDlRMkNTV3JnQkFQQ3MzSXVlRXRGZmx4TnpEL3drZGNLQlFU?=
- =?utf-8?B?WHZza3RuTTlaajdGaGp6WUlvanRhNDNabzZub1JVUWtOUkpjd1pqVk52dkRQ?=
- =?utf-8?B?WkY5Q1VTdk16TmlLd2l5Nkc5aUxEK0wrRlUrYjVyRGQxdmVHMFVTM2tSWW9i?=
- =?utf-8?B?RFpGTG5vZnBnekozTGxSSVhZa2MrVjk3emxZUzBnRDVBY0tvTEdHRnZEN0Za?=
- =?utf-8?B?TC9MaGhIVkJkeWNCSElUQ09nbEliaGhoMmVTVUVVOGZEYVJtT2wyOXIxZStL?=
- =?utf-8?B?aElaQWRHaFh3ZzRpK0crTHBxZ3lkMU5xSmdvd1hKLzVyZXlXekxRNjZZZ1Ex?=
- =?utf-8?B?dHNsWDI3RWpEZjVmUUFSaFhnODNVVlJLbmE5ajF1bEFOOUsrSjVTVzIrdnc0?=
- =?utf-8?B?WGRHakZIL1poYllHN0lTRWdaMzg4enJZN2NLajBxVXdDVHd6SEUrRHdGWURS?=
- =?utf-8?B?RlFVa09vTFBEWndXNTVjUlhmZkkxTzA3REtQTmRrbTE2aXJWWXJGQzhOdzg2?=
- =?utf-8?B?dWNFaFNnbXpEUmJMSlI5RDRaa0oyTjNld1duZ1VoYnVydDBtamN4R05FYWZC?=
- =?utf-8?B?Nk0zZWlVRGFIMWwySVJOSm9ac0JUeU5xTkJnd29OTVdPZmdzVXZzYjlxUTNC?=
- =?utf-8?B?b1NLNXE5V2EyaFNxd0VSbW0waElsODI3T1I5RmEveXJSYi9BT3Q1QTVFRDhw?=
- =?utf-8?B?NlpvLzJEdHFrYWprQkpud1pwVGVrOTVWYXR4VjE3ZEt6cVFabjBDd282VEVQ?=
- =?utf-8?B?MzJnUXZOeGVxaWNjMkEyYklCSEgvR3JOOWpZcXQvTnVMMlpjQXozeUN4NlFI?=
- =?utf-8?B?MnZoWGp1MG1uTEtNTlBTRlR2WVdXSDZ3N3Z2bUZzSG50Q2I2cmZXTkY3SUxF?=
- =?utf-8?B?dnJWdUhXcGRjNVJzOXAvQmtYQlNnOG5OeFBObWtPQU1lZkdQL2tPVEZMQWYz?=
- =?utf-8?Q?bJkQpyxCftX9RdYbpX?=
+X-MS-Exchange-AntiSpam-MessageData-0: D63/ThdZG7nxHlgww7n2IMT0Z21Sg9H7/2RZ/LO6+dwrwU5UKNR9ggPx3t7crrUICCfxvdl5hiDpGSXRcu0T8eGbv4qMUormnhDSV0hClZVPB8yvx6LACDEsxLPA8+D5vGSh0aO1ugjLpyZCjC+4NDoBTZDDaxl4xdSW2VWD8L1KMhBor8SPq7SQnJmgvhP2SPJ3VdgNnHGG+qN252g18sLX1eL3/rn9uMa6YV5hKNdK15CYlRGpDffeNNwKMsFjAnONYMPYow0NjBCDjHIYlAApYe7ORYeXhLhqdtZiw1hgIkjdMiO3emX3kD8GlKrC4QftlQTc4mTgN5BgKCORU7f6xSIRvmxCNSeaA1hWYh7TVQSB3Moe9vVQqP9v6BU8IU34nUv5NR3PJp4GeUGL33oCWI5mZAARCDvfNA31YqoIfDrl+oW03u6x1JXkrBRO
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c9d13b2a-4bc3-4e9f-0ad2-08dea0bacfdb
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4401.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Apr 2026 22:02:14.6880 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Apr 2026 22:06:25.2623 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5e0ba379-9844-49e1-0794-08dea0bb656a
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: dWgRzFbQSSNEhJMapMFtSWnB23inC4W+UanbKR9lArLfOqbVT8TEizUWykl7gR15
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB8609
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF000066E7.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB7741
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -142,181 +117,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+From: Shiwu Zhang <shiwu.zhang@amd.com>
 
-On 4/22/2026 4:00 PM, Felix Kuehling wrote:
->
-> On 2026-04-22 11:53, Chen, Xiaogang wrote:
->>
->> On 4/21/2026 8:56 PM, Kuehling, Felix wrote:
->>>
->>> On 2026-04-21 11:00, Chen, Xiaogang wrote:
->>>>
->>>> On 4/20/2026 4:25 PM, Mario Limonciello wrote:
->>>>>
->>>>>
->>>>> On 3/7/26 06:49, Mario Limonciello wrote:
->>>>>>
->>>>>>
->>>>>> On 1/12/26 12:29 PM, Mario Limonciello wrote:
->>>>>>> When a surprise unplug occurs while a process has active KFD 
->>>>>>> queues,
->>>>>>> userspace never gets a chance to call kfd_ioctl_destroy_queue() to
->>>>>>> properly clean them up. This leads to a WARN_ON in uninitialize()
->>>>>>> complaining about active_queue_count or processes_count being 
->>>>>>> non-zero.
->>>>>>>
->>>> During hot-unplug driver sends SIGBUS signal to all processes who 
->>>> are using the unplugged device. It is expected that affected 
->>>> processes will clean their workloads when get this signal.
->>>>
->>>> When a device got removed physically all sources from it will be 
->>>> removed. It is unnecessary(in theory) to clean them up. I am not 
->>>> surprised to see some software warnings due to hardware got 
->>>> physically removed since it is unexpected behavior at run time.
->>>>
->>>> I think what we need worry about is if there is memory leak. Driver 
->>>> also waits when an affected device is idle(by 
->>>> kgd2kfd_check_device_idle(adev)) by checking/waiting if there is 
->>>> process still using it. If there is no process using the being 
->>>> removed device the processes should have been terminated by same 
->>>> process termination logic from driver.
->>>
->>> The problem is, that a lot of the process termination stuff happens 
->>> in a worker thread. It can happen after the hot-unplug is already 
->>> done. That would lead to the cleanup worker accessing pointers to 
->>> device structures that are no longer there (or used by something else).
->>>
->>> We'd need to ensure proper synchronization so that the process 
->>> cleanup completes before the device unplug frees the device structures.
->>
->> How about at kgd2kfd_device_exit before doing any device clean up 
->> check/waiting there is no any kfd process run on this 
->> device(kgd2kfd_check_device_idle)?
->
-> Looks like this should already be happening in this call chain: 
-> amdgpu_device_ip_fini_early -> amdgpu_amdkfd_teardown_processes -> 
-> kgd2kfd_teardown_processes -> kgd2kfd_check_device_idle
->
-> Maybe whats missing at the end of kgd2kfd_teardown_processes is a 
-> flush_workqueue(kfd_process_wq) to make sure that all the cleanup work 
-> is done. After that, there should be no more process data structures 
-> referencing the device.
->
-We send signal SIGBUS to affected kfd processes(who are using the being 
-removed device). The app signal handler will be executed asynchronously. 
-There is a delay for signal handler got run. If call flush_workqueue 
-immediately after sent the signal the kfd_process_ref_release(from 
-kfd_release->kfd_unref_process) will not be got ran immediately after 
-sent signal. Then flush_workqueue will not take effect since 
-kfd_process_wq is empty or no filled work item yet.
+Pass the compute partition mode to ASP.
 
-Regards
+v2: Squash fixes (Alex)
 
-Xiaogang
+Reviewed-by: Likun Gao <Likun.Gao@amd.com>
+Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
+Signed-off-by: Shiwu Zhang <shiwu.zhang@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/imu_v12_1.c | 6 +-----
+ 1 file changed, 1 insertion(+), 5 deletions(-)
 
+diff --git a/drivers/gpu/drm/amd/amdgpu/imu_v12_1.c b/drivers/gpu/drm/amd/amdgpu/imu_v12_1.c
+index 8e33ffcdfa4cc..fe20cf2b94545 100644
+--- a/drivers/gpu/drm/amd/amdgpu/imu_v12_1.c
++++ b/drivers/gpu/drm/amd/amdgpu/imu_v12_1.c
+@@ -140,16 +140,12 @@ static int imu_v12_1_switch_compute_partition(struct amdgpu_device *adev,
+ 	int ret;
+ 
+ 	if (adev->psp.funcs) {
+-		/*TODO: revisit asp interface once it's avaialble */
+-		ret = psp_spatial_partition(&adev->psp,
+-					    NUM_XCC(adev->gfx.xcc_mask) /
+-						    num_xccs_per_xcp);
++		ret = psp_spatial_partition(&adev->psp, compute_partition_mode);
+ 		if (ret)
+ 			return ret;
+ 	}
+ 
+ 	adev->gfx.num_xcc_per_xcp = num_xccs_per_xcp;
+-
+ 	return 0;
+ }
+ 
+-- 
+2.53.0
 
-> Regards,
->   Felix
->
->
->>
->> Regards
->>
->> Xiaogang
->>
->>>
->>> Regards,
->>>   Felix
->>>
->>>
->>>
->>>>
->>>> Regards
->>>>
->>>> Xiaogang
->>>>
->>>>>>> The issue is that during surprise unplug:
->>>>>>> 1. amdgpu_device_fini_hw() checks drm_dev_is_unplugged()
->>>>>>> 2. It calls amdgpu_amdkfd_device_fini_sw()
->>>>>>> 3. This leads to kfd_cleanup_nodes() -> 
->>>>>>> device_queue_manager_uninit()
->>>>>>> 4. uninitialize() has: WARN_ON(dqm->active_queue_count > 0 ||
->>>>>>>     dqm->processes_count > 0)
->>>>>>>
->>>>>>> The warning triggers because the queues were never destroyed - 
->>>>>>> userspace
->>>>>>> had no opportunity to clean them up before the device disappeared.
->>>>>>>
->>>>>>> Fix this by checking for device unplug in kfd_cleanup_nodes() and
->>>>>>> calling process_termination for each affected process before
->>>>>>> uninitializing the DQM. This mirrors what happens during normal 
->>>>>>> process
->>>>>>> shutdown (kfd_process_notifier_release_internal), ensuring 
->>>>>>> queues are
->>>>>>> properly cleaned up even during surprise removal.
->>>>>>>
->>>>>>> Cc: Felix Kuehling <Felix.Kuehling@amd.com>
->>>>>>> Cc: Kent Russell <kent.russell@amd.com>
->>>>>>> Cc: Xiaogang.chen@amd.com
->>>>>>> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
->>>>>>
->>>>>> Ping?
->>>>> Ping?
->>>>>>
->>>>>>> ---
->>>>>>>   drivers/gpu/drm/amd/amdkfd/kfd_device.c | 32 
->>>>>>> ++++++++++++++++++++++++
->>>>>>>   1 file changed, 32 insertions(+)
->>>>>>>
->>>>>>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c 
->>>>>>> b/drivers/gpu/ drm/amd/amdkfd/kfd_device.c
->>>>>>> index e9cfb80bd436..7727b66e6afb 100644
->>>>>>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
->>>>>>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
->>>>>>> @@ -664,6 +664,38 @@ static void kfd_cleanup_nodes(struct 
->>>>>>> kfd_dev *kfd, unsigned int num_nodes)
->>>>>>>       flush_workqueue(kfd->ih_wq);
->>>>>>>       destroy_workqueue(kfd->ih_wq);
->>>>>>> +    /*
->>>>>>> +     * For surprise unplugs with running processes, we need to 
->>>>>>> clean up
->>>>>>> +     * queues before uninitializing the DQM to avoid WARN in 
->>>>>>> uninitialize.
->>>>>>> +     * This handles the case where userspace can't destroy 
->>>>>>> queues normally.
->>>>>>> +     */
->>>>>>> +    if (drm_dev_is_unplugged(adev_to_drm(kfd->adev))) {
->>>>>>> +        struct kfd_process *p;
->>>>>>> +        unsigned int temp;
->>>>>>> +        int idx;
->>>>>>> +
->>>>>>> +        idx = srcu_read_lock(&kfd_processes_srcu);
->>>>>>> +        hash_for_each_rcu(kfd_processes_table, temp, p, 
->>>>>>> kfd_processes) {
->>>>>>> +            int j;
->>>>>>> +
->>>>>>> +            for (j = 0; j < p->n_pdds; j++) {
->>>>>>> +                struct kfd_process_device *pdd = p->pdds[j];
->>>>>>> +
->>>>>>> +                if (pdd->dev->kfd != kfd)
->>>>>>> +                    continue;
->>>>>>> +
->>>>>>> +                dev_info(kfd_device,
->>>>>>> +                     "Terminating queues for process %d on 
->>>>>>> unplugged device\n",
->>>>>>> +                     p->lead_thread->pid);
->>>>>>> +
->>>>>>> + pdd->dev->dqm->ops.process_termination(pdd->dev->dqm,
->>>>>>> + &pdd->qpd);
->>>>>>> +                pdd->already_dequeued = true;
->>>>>>> +            }
->>>>>>> +        }
->>>>>>> +        srcu_read_unlock(&kfd_processes_srcu, idx);
->>>>>>> +    }
->>>>>>> +
->>>>>>>       for (i = 0; i < num_nodes; i++) {
->>>>>>>           knode = kfd->nodes[i];
->>>>>>>           device_queue_manager_uninit(knode->dqm);
->>>>>>
->>>>>>
->>>>>
