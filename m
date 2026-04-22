@@ -4,70 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 56CF5F99356
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EACDFF99359
 	for <amd-gfx@archiver.kernel.org>; Thu, 23 Apr 2026 08:52:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C44FF10EFEA;
+	by gabe.freedesktop.org (Postfix) with ESMTP id CB0DC10EFF1;
 	Thu, 23 Apr 2026 08:52:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="mMkEppB3";
+	dkim=pass (2048-bit key; secure) header.d=protonmail.com header.i=@protonmail.com header.b="bqQYdI7d";
 	dkim-atps=neutral
-Received: from mail-yw1-f178.google.com (mail-yw1-f178.google.com
- [209.85.128.178])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 77C3210E2FB
- for <amd-gfx@lists.freedesktop.org>; Thu, 23 Apr 2026 06:13:16 +0000 (UTC)
-Received: by mail-yw1-f178.google.com with SMTP id
- 00721157ae682-78fc4425b6bso53826237b3.1
- for <amd-gfx@lists.freedesktop.org>; Wed, 22 Apr 2026 23:13:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1776924795; x=1777529595; darn=lists.freedesktop.org;
- h=content-disposition:mime-version:message-id:subject:cc:to:from:date
- :from:to:cc:subject:date:message-id:reply-to;
- bh=U3/MOmdOLroD9p85e7US4YLluRFmhxlSnYcY4Fdalac=;
- b=mMkEppB38dNMlknZ4d4vCNCY1YKjitcrunaMh22ATcjPmr2bsg0PLEoul0NfzXD98x
- TiABNyEtCBe+VCdx62sEbxirlDptU3HxUPMccQmGO4L/2wf4rU83d2yFzedTQ7DjMwEY
- IPBntFeKBpGuaN5eJhZwZD1IrLRbNEEoxMdkIaidmlINil7LxQUBgELMG+AwYMqX6TP/
- 2ROcDlBITPoTLF4YIW32qygp9C1ba9E2wYoOQdmBEAHeJ1arSwntjaMcfzvZwObb8Hkz
- YTY7VIlMBJiVx+yZjaaWcB1BFQUaVKOtYzfzIQi8N+bq2aUQlgS1NF47L9v4MtTpi/7w
- b0Cw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1776924795; x=1777529595;
- h=content-disposition:mime-version:message-id:subject:cc:to:from:date
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=U3/MOmdOLroD9p85e7US4YLluRFmhxlSnYcY4Fdalac=;
- b=bzu62s7jDk3o9Q649YsaQe5yOLmX6FzblmH0SDXMdhSiKmQSHZXShHhk+y8AWyatVz
- wEth57Cydw+QkNFERo3M1cDVnZmCTnDlyiyyRINq2rqZ3VTs542HFRygpsuiuGMsCMc8
- 9/Jmxmzye3sfJfWzfdLeC9cgTI4EAdJI4rDKb1jLli/WTEUNZaXlTJQezAhvV+Sk1Nc8
- zRN3scyo31ztPlqxikI1InWq12gGFvTIqGfitbrEj+kH6Wmg8Z5687pjJyVpInaeUu9E
- G8GGZHVmcxDL/u8PPQjnAEOjPGxy0uB7nGfGyr//gmhWDpNb3vNLMppCXjA2jxVogTUo
- ZXqQ==
-X-Gm-Message-State: AOJu0YzfBqU3fDdVlY8Ckaj/eKER+3kKiLSzxSRV1FZvWmOy/Nb50bWd
- bAKBdpKgzxkdfSMbUNURHkc8Md1coK7vHybvsVYOPN1YvMYMa/f4Q0gl
-X-Gm-Gg: AeBDiesntZT+hWE+QSkRsExhTd8wv6r7Xuum96jE6ZI2p3I34T/InjazFiqctw1MNuY
- oDy+VuUT0YazLxooNbLfuGzDUE9w5okLxlhoS4j8Oj9juKMDtIv3V3HNZFo06zb2vs3veKb/7El
- 4WmisxBfRjHKcJkTenQnZtlfjU+Soidsa3fYaHs/wfLgeyoOsoSKArHBUVK4l0b7UCO1lnE0XSi
- txvwRxQtteK/DWo0Tx6Jtzg/j5IfUKisD3qeQP5+RS5BOaBef6iKE2sH0U2h1BzeqdYIptZRPZH
- esq2x9u/rSTPdZfjOU54NvGFnX5II87KfH4RUeZthddOdlbCIeWpcQVd2WIQtXNpPV0PxogpIPX
- 7uyRHQkcZCFJJFx9a8wGjbu55lJBOBAAqq1DnwumZCWVJDLLXJbi23SM9maCd/eCIUYZ40jKSbc
- ziQI3U74NyjNyOIIODRbEaChrkl3Yh
-X-Received: by 2002:a05:690c:ed5:b0:7b9:b31:8361 with SMTP id
- 00721157ae682-7b9ece6a6e6mr270428607b3.1.1776924795363; 
- Wed, 22 Apr 2026 23:13:15 -0700 (PDT)
-Received: from localhost ([172.216.252.33]) by smtp.gmail.com with ESMTPSA id
- 00721157ae682-7b9ee9b28a9sm76619487b3.39.2026.04.22.23.13.12
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 22 Apr 2026 23:13:14 -0700 (PDT)
-Date: Thu, 23 Apr 2026 09:13:08 +0300
-From: Dan Carpenter <error27@gmail.com>
-To: David Yat Sin <david.yatsin@amd.com>
-Cc: amd-gfx@lists.freedesktop.org,
- "SHANMUGAM, SRINIVASAN" <SRINIVASAN.SHANMUGAM@amd.com>
-Subject: [bug report] drm/amdkfd: CRIU checkpoint and restore events
-Message-ID: <aem4dADjR-Q7Wduj@stanley.mountain>
+Received: from mail-4327.protonmail.ch (mail-4327.protonmail.ch [185.70.43.27])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 61DC310E16A
+ for <amd-gfx@lists.freedesktop.org>; Wed, 22 Apr 2026 21:29:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
+ s=protonmail3; t=1776893264; x=1777152464;
+ bh=hNuKgalmnoGfnIXopd2mRVdLZ+BpFCeJ4dh9y0wW2pE=;
+ h=Date:To:From:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+ Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+ b=bqQYdI7d8dFMSQQIInef6ujtBuqj1acLRbAVNyHfCINRlxAX1ulJpJZh7eNzwbbG+
+ LWjn0SkXQw5eW/g/aBBjsgA4xSnNsrXAM8fLxRnzuU9iV75oE2vbN5foTjAw1YzHa5
+ KDXhEld6xaejNKqJ+L8LtrtJxsomz5k5kOr7UC2RoUeKXCKULRklvGpI5MDVJJIjWQ
+ kvhzvVGP7Uct9uAiNghKW6ZJFUzwXP/tMuFtDeMd/NXf+SgT+aOAvaNGIOf63E2N8G
+ 91KUtkRadZAub3O1+cIztqHcxuqP7+RtB7ltbL+dUgBWl7hQebA9Sa19Vqwwx37jH7
+ CYKBZmCVMzFpg==
+Date: Wed, 22 Apr 2026 21:27:38 +0000
+To: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+From: Kostadin Shishmanov <kostadinshishmanov@protonmail.com>
+Subject: BUG: sleeping function called from invalid context at
+ ./include/linux/sched/mm.h:323 during DC initialization
+Message-ID: <7t2m9N9vWRP5ulx1qQDLmZlw1qIep3cLDd54ZVPDBxsEeUtWX1r4VTsKCbz1QbZEjw0jbsT3cmgfwv1D1XtZtyikC9qlvLmj6KBkjuFsy3s=@protonmail.com>
+Feedback-ID: 25269289:user:proton
+X-Pm-Message-ID: d1d42383f0a200c0ecbd58778ed5d76cb5dbc169
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Thu, 23 Apr 2026 08:52:16 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -83,175 +52,124 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hello David Yat Sin,
+It only seems to show up if CONFIG_DEBUG_ATOMIC_SLEEP is enabled, but thoug=
+ht I should report it anyway. The kernel is built from drm-next today.
 
-Commit 40e8a766a761 ("drm/amdkfd: CRIU checkpoint and restore
-events") from Mar 5, 2021 (linux-next), leads to the following Smatch
-static checker warning:
+The trace disappears if I boot with nomodeset or amdgpu.dc=3D0
 
-drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_events.c:110 allocate_event_notification_slot() warn: idr_alloc start value from user can be < 0
+[    7.167550] amdgpu 0000:03:00.0: STB initialized to 2048 entries
+[    7.167693] amdgpu 0000:03:00.0: [drm] Loading DMUB firmware via PSP: ve=
+rsion=3D0x02020021
+[    7.167987] amdgpu 0000:03:00.0: [drm] use_doorbell being set to: [true]
+[    7.168002] amdgpu 0000:03:00.0: [drm] use_doorbell being set to: [true]
+[    7.168015] amdgpu 0000:03:00.0: [drm] use_doorbell being set to: [true]
+[    7.168027] amdgpu 0000:03:00.0: [drm] use_doorbell being set to: [true]
+[    7.168045] amdgpu 0000:03:00.0: [VCN instance 0] Found VCN firmware Ver=
+sion ENC: 1.33 DEC: 4 VEP: 0 Revision: 14
+[    7.168142] amdgpu 0000:03:00.0: [VCN instance 1] Found VCN firmware Ver=
+sion ENC: 1.33 DEC: 4 VEP: 0 Revision: 14
+[    7.233699] amdgpu 0000:03:00.0: reserve 0xa00000 from 0x83fd000000 for =
+PSP TMR
+[    7.376763] amdgpu 0000:03:00.0: SECUREDISPLAY: optional securedisplay t=
+a ucode is not available
+[    7.376807] amdgpu 0000:03:00.0: smu driver if version =3D 0x00000040, s=
+mu fw if version =3D 0x00000041, smu fw program =3D 0, smu fw version =3D 0=
+x003a5b00 (58.91.0)
+[    7.376837] amdgpu 0000:03:00.0: use vbios provided pptable
+[    7.451657] amdgpu 0000:03:00.0: SMU is initialized successfully!
+[    7.451766] BUG: sleeping function called from invalid context at ./incl=
+ude/linux/sched/mm.h:323
+[    7.451776] in_atomic(): 1, irqs_disabled(): 0, non_block: 0, pid: 327, =
+name: (udev-worker)
+[    7.451783] preempt_count: 201, expected: 0
+[    7.451786] RCU nest depth: 0, expected: 0
+[    7.451789] 1 lock held by (udev-worker)/327:
+[    7.451790]  #0: ffff8c7bc1eb4200 (&dev->mutex){....}-{4:4}, at: __drive=
+r_attach+0xb5/0x200
+[    7.451797] CPU: 8 UID: 0 PID: 327 Comm: (udev-worker) Not tainted 7.0.0=
+-rc7 #1 PREEMPT(full)  3ea630ac936a7123d6bffb42972bc5d75ccd9b07
+[    7.451799] Hardware name: ASRock B650M-HDV/M.2/B650M-HDV/M.2, BIOS 4.10=
+ 02/09/2026
+[    7.451799] Call Trace:
+[    7.451800]  <TASK>
+[    7.451801]  dump_stack_lvl+0x59/0x80
+[    7.451803]  ? dcn30_clock_source_create+0x34/0xb0 [amdgpu 2841543364449=
+4137702b25fd9f49d37d365a3cc]
+[    7.452023]  __might_resched.cold+0xec/0xfe
+[    7.452025]  __kmalloc_cache_noprof+0x3a9/0x6e0
+[    7.452029]  dcn30_clock_source_create+0x34/0xb0 [amdgpu 284154336444941=
+37702b25fd9f49d37d365a3cc]
+[    7.452193]  dcn30_create_resource_pool+0x2ea/0x17f0 [amdgpu 28415433644=
+494137702b25fd9f49d37d365a3cc]
+[    7.452317]  ? amdgpu_dm_init+0x510/0x510 [amdgpu 28415433644494137702b2=
+5fd9f49d37d365a3cc]
+[    7.452492]  dc_create_resource_pool+0x166/0x210 [amdgpu 284154336444941=
+37702b25fd9f49d37d365a3cc]
+[    7.452683]  dc_create+0x1e1/0x670 [amdgpu 28415433644494137702b25fd9f49=
+d37d365a3cc]
+[    7.452846]  amdgpu_dm_init+0x305/0x510 [amdgpu 28415433644494137702b25f=
+d9f49d37d365a3cc]
+[    7.453008]  ? __irq_work_queue_local+0x4e/0x150
+[    7.453010]  ? console_unlock+0x94/0x120
+[    7.453012]  ? irq_work_queue+0x29/0x50
+[    7.453013]  ? __wake_up_klogd+0x4e/0x70
+[    7.453014]  ? vprintk_emit+0x260/0x340
+[    7.453019]  ? amdgpu_dm_init+0x510/0x510 [amdgpu 28415433644494137702b2=
+5fd9f49d37d365a3cc]
+[    7.453145]  dm_hw_init+0x17/0x80 [amdgpu 28415433644494137702b25fd9f49d=
+37d365a3cc]
+[    7.453258]  amdgpu_device_init.cold+0x13dc/0x2072 [amdgpu 2841543364449=
+4137702b25fd9f49d37d365a3cc]
+[    7.453445]  ? pci_bus_read_config_word+0x42/0x70
+[    7.453448]  amdgpu_driver_load_kms+0x15/0x80 [amdgpu 284154336444941377=
+02b25fd9f49d37d365a3cc]
+[    7.453577]  amdgpu_pci_probe+0x231/0x540 [amdgpu 28415433644494137702b2=
+5fd9f49d37d365a3cc]
+[    7.453688]  ? _raw_spin_unlock_irqrestore+0x3c/0x50
+[    7.453691]  local_pci_probe+0x39/0x80
+[    7.453694]  pci_call_probe+0x56/0x300
+[    7.453696]  ? _raw_spin_unlock+0x1f/0x40
+[    7.453697]  ? pci_match_device+0xf9/0x120
+[    7.453699]  pci_device_probe+0x91/0x130
+[    7.453701]  really_probe+0xd5/0x370
+[    7.453702]  __driver_probe_device+0x78/0x140
+[    7.453703]  driver_probe_device+0x1f/0xa0
+[    7.453704]  ? __device_attach_driver+0x110/0x110
+[    7.453705]  __driver_attach+0xc0/0x200
+[    7.453706]  bus_for_each_dev+0x81/0xd0
+[    7.453708]  bus_add_driver+0x113/0x200
+[    7.453709]  ? crc16+0x1000/0x1000 [crc16 23fab5f78db1f9f2d12b1a145d6cfe=
+f916d4b62e]
+[    7.453710]  driver_register+0x71/0xd0
+[    7.453711]  ? __pci_register_driver+0x58/0x80
+[    7.453712]  do_one_initcall+0x68/0x3d0
+[    7.453715]  do_init_module+0x62/0x230
+[    7.453717]  __do_sys_init_module+0x192/0x1c0
+[    7.453719]  do_syscall_64+0xe2/0x950
+[    7.453721]  ? trace_hardirqs_off+0x46/0xf0
+[    7.453722]  ? trace_hardirqs_on_prepare+0xd0/0xf0
+[    7.453723]  ? lockdep_hardirqs_on_prepare+0xcf/0x160
+[    7.453725]  ? irqentry_exit+0xf2/0x780
+[    7.453727]  entry_SYSCALL_64_after_hwframe+0x4b/0x53
+[    7.453727] RIP: 0033:0x7f0f3c94afba
+[    7.453729] Code: 48 8b 0d 41 9e 0d 00 f7 d8 64 89 01 48 83 c8 ff c3 66 =
+2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 49 89 ca b8 af 00 00 00 0f 05 <48=
+> 3d 01 f0 ff ff 73 01 c3 48 8b 0d 0e 9e 0d 00 f7 d8 64 89 01 48
+[    7.453729] RSP: 002b:00007fffaca4d538 EFLAGS: 00000246 ORIG_RAX: 000000=
+00000000af
+[    7.453730] RAX: ffffffffffffffda RBX: 000055a774508700 RCX: 00007f0f3c9=
+4afba
+[    7.453731] RDX: 00007f0f3d1344ce RSI: 000000001a2330d0 RDI: 00007f0f171=
+cc010
+[    7.453731] RBP: 00007fffaca4d5d0 R08: 00007f0f171cc010 R09: 000055a7745=
+70530
+[    7.453732] R10: 00007f0f3c946087 R11: 0000000000000246 R12: 00007f0f3d1=
+344ce
+[    7.453732] R13: 000055a77440a4d0 R14: 0000000000000000 R15: 00000000000=
+00000
+[    7.453734]  </TASK>
+[    7.453893] amdgpu 0000:03:00.0: [drm] Display Core v3.2.378 initialized=
+ on DCN 3.0
 
-[ There are a couple older warnings as well ]
-
-drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_events.c:226 create_other_event() warn: idr_alloc start value from user can be < 0
-drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_chardev.c:2367 criu_restore_memory_of_gpu() warn: idr_alloc start value from user can be < 0
-
-drivers/gpu/drm/amd/amdkfd/kfd_events.c
-   454  int kfd_criu_restore_event(struct file *devkfd,
-   455                             struct kfd_process *p,
-   456                             uint8_t __user *user_priv_ptr,
-   457                             uint64_t *priv_data_offset,
-   458                             uint64_t max_priv_data_size)
-   459  {
-   460          struct kfd_criu_event_priv_data *ev_priv;
-   461          struct kfd_event *ev = NULL;
-   462          int ret = 0;
-   463  
-   464          ev_priv = kmalloc_obj(*ev_priv);
-   465          if (!ev_priv)
-   466                  return -ENOMEM;
-   467  
-   468          ev = kzalloc_obj(*ev);
-   469          if (!ev) {
-   470                  ret = -ENOMEM;
-   471                  goto exit;
-   472          }
-   473  
-   474          if (*priv_data_offset + sizeof(*ev_priv) > max_priv_data_size) {
-   475                  ret = -EINVAL;
-   476                  goto exit;
-   477          }
-   478  
-   479          ret = copy_from_user(ev_priv, user_priv_ptr + *priv_data_offset, sizeof(*ev_priv));
-   480          if (ret) {
-   481                  ret = -EFAULT;
-   482                  goto exit;
-   483          }
-   484          *priv_data_offset += sizeof(*ev_priv);
-   485  
-   486          if (ev_priv->user_handle) {
-   487                  ret = kfd_kmap_event_page(p, ev_priv->user_handle);
-   488                  if (ret)
-   489                          goto exit;
-   490          }
-   491  
-   492          ev->type = ev_priv->type;
-   493          ev->auto_reset = ev_priv->auto_reset;
-   494          ev->signaled = ev_priv->signaled;
-   495  
-   496          spin_lock_init(&ev->lock);
-   497          init_waitqueue_head(&ev->wq);
-   498  
-   499          mutex_lock(&p->event_mutex);
-   500          switch (ev->type) {
-   501          case KFD_EVENT_TYPE_SIGNAL:
-   502          case KFD_EVENT_TYPE_DEBUG:
-   503                  ret = create_signal_event(devkfd, p, ev, &ev_priv->event_id);
-                                                                  ^^^^^^^^^^^^^^^^^
-If this is more than INT_MAX then it triggers a WARN() at the start of
-idr_alloc().  Greg KH always points out that technically most linux users
-have reboot on WARN() enabled so this is a quite bad bug.
-
-   504                  break;
-
-The other warnings come from;
-drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-   841  static int kfd_ioctl_create_event(struct file *filp, struct kfd_process *p,
-   842                                          void *data)
-   843  {
-   844          struct kfd_ioctl_create_event_args *args = data;
-   845          int err;
-   846  
-   847          /* For dGPUs the event page is allocated in user mode. The
-   848           * handle is passed to KFD with the first call to this IOCTL
-   849           * through the event_page_offset field.
-   850           */
-   851          if (args->event_page_offset) {
-   852                  mutex_lock(&p->mutex);
-   853                  err = kfd_kmap_event_page(p, args->event_page_offset);
-   854                  mutex_unlock(&p->mutex);
-   855                  if (err)
-   856                          return err;
-   857          }
-   858  
-   859          err = kfd_event_create(filp, p, args->event_type,
-   860                                  args->auto_reset != 0, args->node_id,
-   861                                  &args->event_id, &args->event_trigger_data,
-                                        ^^^^^^^^^^^^^^^
-Not checked.
-
-   862                                  &args->event_page_offset,
-   863                                  &args->event_slot_index);
-   864  
-   865          pr_debug("Created event (id:0x%08x) (%s)\n", args->event_id, __func__);
-   866          return err;
-   867  }
-
-drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-  2456  static int criu_restore_bos(struct kfd_process *p,
-  2457                              struct kfd_ioctl_criu_args *args,
-  2458                              uint64_t *priv_offset,
-  2459                              uint64_t max_priv_data_size)
-  2460  {
-  2461          struct kfd_criu_bo_bucket *bo_buckets = NULL;
-  2462          struct kfd_criu_bo_priv_data *bo_privs = NULL;
-  2463          struct file **files = NULL;
-  2464          int ret = 0;
-  2465          uint32_t i = 0;
-  2466  
-  2467          if (*priv_offset + (args->num_bos * sizeof(*bo_privs)) > max_priv_data_size)
-  2468                  return -EINVAL;
-  2469  
-  2470          /* Prevent MMU notifications until stage-4 IOCTL (CRIU_RESUME) is received */
-  2471          amdgpu_amdkfd_block_mmu_notifications(p->kgd_process_info);
-  2472  
-  2473          bo_buckets = kvmalloc_objs(*bo_buckets, args->num_bos);
-  2474          if (!bo_buckets)
-  2475                  return -ENOMEM;
-  2476  
-  2477          files = kvzalloc(args->num_bos * sizeof(struct file *), GFP_KERNEL);
-  2478          if (!files) {
-  2479                  ret = -ENOMEM;
-  2480                  goto exit;
-  2481          }
-  2482  
-  2483          ret = copy_from_user(bo_buckets, (void __user *)args->bos,
-  2484                               args->num_bos * sizeof(*bo_buckets));
-  2485          if (ret) {
-  2486                  pr_err("Failed to copy BOs information from user\n");
-  2487                  ret = -EFAULT;
-  2488                  goto exit;
-  2489          }
-  2490  
-  2491          bo_privs = kvmalloc_objs(*bo_privs, args->num_bos);
-  2492          if (!bo_privs) {
-  2493                  ret = -ENOMEM;
-  2494                  goto exit;
-  2495          }
-  2496  
-  2497          ret = copy_from_user(bo_privs, (void __user *)args->priv_data + *priv_offset,
-  2498                               args->num_bos * sizeof(*bo_privs));
-  2499          if (ret) {
-  2500                  pr_err("Failed to copy BOs information from user\n");
-  2501                  ret = -EFAULT;
-  2502                  goto exit;
-  2503          }
-  2504          *priv_offset += args->num_bos * sizeof(*bo_privs);
-  2505  
-  2506          /* Create and map new BOs */
-  2507          for (; i < args->num_bos; i++) {
-  2508                  ret = criu_restore_bo(p, &bo_buckets[i], &bo_privs[i], &files[i]);
-                                                                 ^^^^^^^^^^^^
-Unchecked event_ids.
-
-  2509                  if (ret) {
-  2510                          pr_debug("Failed to restore BO[%d] ret%d\n", i, ret);
-  2511                          goto exit;
-  2512                  }
-  2513          } /* done */
-
-
-This email is a free service from the Smatch-CI project [smatch.sf.net].
-
-regards,
-dan carpenter
+Regards,
+Kostadin
