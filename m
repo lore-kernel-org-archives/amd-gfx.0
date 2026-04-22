@@ -4,64 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 11EE3F94CC3
-	for <amd-gfx@archiver.kernel.org>; Wed, 22 Apr 2026 03:57:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8CE80F94CC2
+	for <amd-gfx@archiver.kernel.org>; Wed, 22 Apr 2026 03:57:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A513C10E24F;
-	Wed, 22 Apr 2026 03:57:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 26B3110E25C;
+	Wed, 22 Apr 2026 03:57:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ev4NmX/l";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="zZKgpwca";
 	dkim-atps=neutral
-Received: from PH7PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11010014.outbound.protection.outlook.com [52.101.201.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 532FB10E210
- for <amd-gfx@lists.freedesktop.org>; Wed, 22 Apr 2026 03:57:14 +0000 (UTC)
+Received: from SJ2PR03CU001.outbound.protection.outlook.com
+ (mail-westusazon11012035.outbound.protection.outlook.com [52.101.43.35])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 073BD10E25C
+ for <amd-gfx@lists.freedesktop.org>; Wed, 22 Apr 2026 03:57:21 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Qm/SN+bwM/GMvCYpMuAVxqP27xnnqmOHKMyeST8QZp0N24rh/epV339d4wN8UMvjjFvojN5PrfEux0MQKJSJkwPbegdqyekG0FnLauQBH/yvBBuFOVHW9KZGe4CezTc3naenxk45GsyxiYGaTZ+e2XsSpz4ztB+5DezWBpg1x5Fs+NW+2NjRaC3RD+ScqA2y6v+p6N/bj5rxm1iWF3QgRu0L/vLLv+Vx3LeZPSLs1hDe/gn63gmZlbrEtSCdrABUu22Cd2mwqR/k/5kAUJkejaX1kmXhepIhBOc4upY01bcrvRMxlV32Tm50Gf+MJr2nHH0MTO0RPo61oQIwJTTHVA==
+ b=B6bE5hUoDvB9MrXFQoK+u9SiAUv8onyzqiN8oEA27t5lGhg8my1JnzjdcYX5gz1Z8otlDVD9IVUBskYeFNQyijZBDE2sDfru3cNQbP6SCwkx6vbQvLu1mSOYom4FfWopz148haR6TEm36raScPHqy/EdxTkrNwZXo2EvBEa+pwl4uzrUb8MiI4/MX2/FUP33Cuhtlp4V0k0LMyxzLsDoNRlApgRlho3X+pydit4WFI0e2dod5A7ZS5YcmvntlYJfstOkJKyO9cDKcsoD8tWBpANSyW4EPdH8MK8ZKeOy6DjWXJxNMnSbS2i+g3Vpkj6wYsfEo7Qz/zEoF/U3pSvsyA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zJzLsP5BuKTlzbx9zTdg8koB5ZZk3WtcbibLu2XERnQ=;
- b=B2eVXn3plXHMbcxQ/U1xCLhFFD/BXtkREmFe/zgHozv93ZbjmjpqePCab6+76XKBt9uutmB8rwo8IFHSdzZZaeNeZ9AuyeZqiK67279ttgR4Jfap8yC3VQYZpbw6dTnQ1NJDPp4DT9Xe+gHTiFduBlkX0Xaq/un40i8YcwbXWxqdayyn/kZgPyHwKywMpMvD0kqS5mVtSwe7JKnXgJGX+Ot1r6q5ZKvmsYrGI/RiEWxBqWzomfQN14jaYFH8bv43UAGtQJ5rS/8xx0Umk2ajHq6agpZL9ds4MLskEqOI96umGTR+4GwM2w5EAfgHBPFDLHxDbID95DjfXC8FqJJj5g==
+ bh=Q711FlyfHLVxY100vVlctgiXJbOvSTIJTGjSjdC3BJI=;
+ b=LYZni2fcU7ebiKMhc83Ubp7Bj6pcPc6W9IwxhjSoYalQFZvmdNY/qDaaTfuYbPnCG+727x+ubykYTMimtR/adPaxlFzvhAaFzP8InCnrnVSIQKBfJKdlFA4kqzUf/XrDO9Cb7QP6iyiDdDWMbhsXlwrtHzd6ghFqmQDDpahk6DsVQ6QBv/H+YF59i+TwoCnL2G5LgqFmpiR5opZEfzKGtXqaMnO271EImJhTzrlp2KFyBlPmK12Wt+Jg52dhDhWCisphQNC+QU+vjB38rXRalBVlvh9A49btywyMKodmUa5TGIygF3Jnx7oROfG/NqY8Yl2fHKVVrHBnx/febznEjg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zJzLsP5BuKTlzbx9zTdg8koB5ZZk3WtcbibLu2XERnQ=;
- b=ev4NmX/lb2D2YXiz4TWbdSlrgxdrM+yWDG553g7CICQr5bQWuUEbOMGS5bhV8WWcAsFoizXGISDOjEsvhTuxKbrn2GAgjIkurQZS33vw48QA8eH+dAAh5gHIxQbz5rURjkP7er53rj0bxhS4y+NgLIVbA+Qz/ChUV6weyfwGSnQ=
-Received: from BN9PR03CA0370.namprd03.prod.outlook.com (2603:10b6:408:f7::15)
- by PH7PR12MB7260.namprd12.prod.outlook.com (2603:10b6:510:208::13)
+ bh=Q711FlyfHLVxY100vVlctgiXJbOvSTIJTGjSjdC3BJI=;
+ b=zZKgpwcawUv5mlJOHm3M9EIW0Lim0UEYkn3vn4LK0FCnMpR/fnlwbXX96wMRDjY+kLJfEps03qzxr35p05BYrNr44AAh2s5sDapONhzqfPaffa8MKSbRwpDyynwjJBpPfONl2fVP55UoVgeVmFCIwwYK2zwQ/kKul+zdAVbos08=
+Received: from PH8P222CA0017.NAMP222.PROD.OUTLOOK.COM (2603:10b6:510:2d7::27)
+ by PH7PR12MB6611.namprd12.prod.outlook.com (2603:10b6:510:211::11)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.16; Wed, 22 Apr
- 2026 03:57:10 +0000
-Received: from BN3PEPF0000B071.namprd04.prod.outlook.com
- (2603:10b6:408:f7:cafe::fa) by BN9PR03CA0370.outlook.office365.com
- (2603:10b6:408:f7::15) with Microsoft SMTP Server (version=TLS1_3,
+ 2026 03:57:13 +0000
+Received: from CY4PEPF0000EDD4.namprd03.prod.outlook.com
+ (2603:10b6:510:2d7:cafe::6b) by PH8P222CA0017.outlook.office365.com
+ (2603:10b6:510:2d7::27) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.20.9791.48 via Frontend Transport; Wed,
- 22 Apr 2026 03:57:09 +0000
+ 22 Apr 2026 03:57:13 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- BN3PEPF0000B071.mail.protection.outlook.com (10.167.243.116) with Microsoft
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ CY4PEPF0000EDD4.mail.protection.outlook.com (10.167.241.200) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9846.18 via Frontend Transport; Wed, 22 Apr 2026 03:57:09 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.9846.18 via Frontend Transport; Wed, 22 Apr 2026 03:57:13 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Tue, 21 Apr
- 2026 22:57:09 -0500
+ 2026 22:57:05 -0500
 Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb10.amd.com
  (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Tue, 21 Apr
- 2026 22:57:09 -0500
+ 2026 22:57:05 -0500
 Received: from tom-r5.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
- Transport; Tue, 21 Apr 2026 22:57:05 -0500
+ Transport; Tue, 21 Apr 2026 22:57:02 -0500
 From: Tom Chung <chiahsuan.chung@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -69,12 +69,11 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Wayne Lin <wayne.lin@amd.com>, Tom Chung <chiahsuan.chung@amd.com>, "Fangzhi
  Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
- <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Jing Zhou
- <Jing.Zhou@amd.com>, Aric Cyr <aric.cyr@amd.com>
-Subject: [PATCH 12/14] drm/amd/display: fix root clock disabled when DSC power
- gate disabled for DCN314
-Date: Wed, 22 Apr 2026 11:52:50 +0800
-Message-ID: <20260422035611.1870316-13-chiahsuan.chung@amd.com>
+ <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Leo Chen
+ <leo.chen@amd.com>
+Subject: [PATCH 11/14] drm/amd/display: Disable hpo power gate
+Date: Wed, 22 Apr 2026 11:52:49 +0800
+Message-ID: <20260422035611.1870316-12-chiahsuan.chung@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260422035611.1870316-1-chiahsuan.chung@amd.com>
 References: <20260422035611.1870316-1-chiahsuan.chung@amd.com>
@@ -83,29 +82,29 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN3PEPF0000B071:EE_|PH7PR12MB7260:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2ff429df-e435-43ee-affa-08dea0233a7a
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000EDD4:EE_|PH7PR12MB6611:EE_
+X-MS-Office365-Filtering-Correlation-Id: 36aded47-48b9-48fc-ab41-08dea0233c68
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|82310400026|36860700016|22082099003|18002099003|56012099003;
-X-Microsoft-Antispam-Message-Info: 4dFoX0eFKx+gYLeGkptyMLv+VY3vdgpdwtd5tO4fiGIQPfsZarHsZhIWn7uoLyBdXhoKPvmWs3yyLljJ5eCTazTzU3VyBu+Kiy1MqmrFAvCHGH8AjnjQCkeaLnMlW83zAQXvReRrDK2GaPL9fOq+93AdUSrs4JDDdCV7gCJZKOAPpQ7cnXXH6gaWpjDR9BbrnRPxVJTNaB6p9ocoDFejemOSIw+SOY0QFS+qA6C+aIW0nbiXX+sBTzbnmwmYEFDLdcGzI4Q6ISiGbeaLR2YvoNQlthvHCUQQsRePjwV85DnuHlhsY91weMuzB7ymh0JXDRlKaanr/VOXsH5o0XAR0MTzzvPVjbf6dfFx5nF1/V2pd0zSnkzFtatLSPxv3/pHRVU7gCfMlxmGQL8iYAo73gtABuTIJ5DHZX2bc6yYjfD8lAFgljMuJDDHiHRKtH6AlzKK0yKYwhl+SoSeSzxU6KVJza4ktIZj/g2KTmWyqkYD8QQClpXBgCcq2ux6l1Rmewjh0IQwrnPLOAdjMB8YOmxAGvpg27RHJzXn1ikbMiHUsro7WPWlnIFuqJjUNFbPkUO0iKw/YVpcGrcuo96TkwRUTrFcUtbwJoGG2lZ8712n2yJtB9fKECpS9KUJdsufg5XVzitObLHB+XUG+x8ucmpBJUTQFpAHYtoCictCdGLG6eNlU1PdoPEf9xHwZ5tQ40sKS8WvJnnRFfuKdoWoiqyT7y1aRnNtAbtH5jGuaKmAdewDoC3IZfeRTz+sg1hkhTWkZ79i15Ym/paNq4unsQ==
+ ARA:13230040|82310400026|36860700016|1800799024|376014|56012099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: VkbnKWToSX22OURev6gI9quw2knulKzFowc6FCPX4JjObBBY2YP1DQCjVeb7rmremex6+HU8mySr2cjcTDUdMhFNOh0dV0ZAuDFxRVTX3rbmqIKyVOGTnmGR3+mZn6pMvGQ+/aKqwp2+FpiVySKWEkr2doqP9sQTLijbD2tXoGfu2DLkFRiXvED0hR546X25XbU0NUcyuoCSG8aS8K3r/RYQ87QJKC5ziQmBNXnPQBenjs7p3qlXpVE0K+6nxm4leL/6atg2tqiTQJ8BymMn2+v4U1Uld5mlEHxRJA/a3LaeR0eSfvQKuDbnTpLX3io6zH1sJVsB6ec1IyfhCoumvbt8tHXkp++yQlh4wDjT8S44UP8PAnKTwN8TCq+dIxwCyKayEmDmRg6uV/le5KWSdoNxKgNZLCuDuTj6DTeCCqAx/IDje7hKkelw2hvjLS4E3tnCElh9qSGQG4zswa+brA2ZZVJm+UFy186b2bNmCFNFqn2MU3YucTTomhi0TljOkR8sdZjDq5T3oMCiEdF3ROo6Jg3jK4Z+I2I7FuGOl3kBneD2HwCDAkVO3oTSbiCkaLOG7DUNcT/ozUAiZzUZQE4+LKES3RlNV/wlAKTNrKLb9W95O6L97BhDndJFu2osnrSpWyj3Zt3o/tw+KN3MgbGpUUuXOUlktV41yn7KpqvsjRow/zQoQc7/nxT+QJ6DNJLPgxH29SQOkPItPZlbmpbp/0rjBNnblTaDP1OQpUUbHkb4+JhzuIr27aMqUbroV1Arz52qNdajHwRS5RfVvA==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(82310400026)(36860700016)(22082099003)(18002099003)(56012099003);
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(36860700016)(1800799024)(376014)(56012099003)(18002099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: UgdaghwyrH43kopuXUXcqHF5XkTf5D88KlQIxN+1uz9c5+mnf/Pia2v3vxHPX5XTVGybpdBLQfnjJmXPn01IhaiGQAyKFXZwgMBUiqExYrugog0Vz1mEG1MOUMbtTZqo+UB5N7e8MC+/JppKgLJdzc5554NaucN4O1rJszoKmQrfTYNmG29EtKUiwGvAviiKVOnlBwHF3MoQKjkd1YZiSH/spF8J1aNQZhA4lsAvCYpCKg1JZFPAeemwxWEht2zFo4yGZfVHb9JHn2gRRXtxMN/FWNVfrd4b2Li/fulcnhczssO1RYVPtVKFKh+X3fMmXE++2AZssFaU1UYirtUzLa1VtWChQsaieGpS79KrJqE/T8lgCZerKXOS6H3xMUmhfCkFtkgI6EzJ6TxWNQljA7tqUOj6BYdq6mYo5rQVIpaxXyH/JfkKKjX0TC1Vdvvy
+X-MS-Exchange-AntiSpam-MessageData-0: Mkc4QdskeWXMUsI9cQfOH2TZQPpWD0WfiKjvJJG0CDyS53pb7yzqLsypfsrr3a8PlVf67E4O+ZzSqfGUNFrqXNMj+i7eHkvkbDgJZeqEbJcGf5OMAwc2iK58uQo8EkQIWvOSTLPUX1G4drrEYnGKKTBK5U9yTy6z5epDkQjJb8np/UjJvtW904tGRSoGlz/VPSwFvgpB18HotulBVyptVLlbI+nkw5QNe3jlRiYC92Ywtvo34b2Q6r8xTZtqNYZpY5u9c9u572Y06Ls+/sU8DGlZ1XQMuaEynZ7G4EfSsKf6mVw1CRUgrrMKsFtHeV6hgfItAP/lmLX8uDa5CCQ1/AEVX1mM/LrlnpwmQBt78vLrWYvCf+eZLK/LqYdT/iQzU5AGC19ZuJJclUZ8kRHsWm5Yakcaz2qxoq2XFmfiOYcwkvkCp9RSi+P3OZyYUbiQ
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Apr 2026 03:57:09.8180 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2ff429df-e435-43ee-affa-08dea0233a7a
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Apr 2026 03:57:13.0114 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 36aded47-48b9-48fc-ab41-08dea0233c68
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN3PEPF0000B071.namprd04.prod.outlook.com
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000EDD4.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7260
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6611
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -120,149 +119,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Jing Zhou <Jing.Zhou@amd.com>
+From: Leo Chen <leo.chen@amd.com>
 
-[Why]
-When set debug.disable_dsc_power_gate = true, the original code
-uses an early return to skip the power gate sequence and root
-clock enable and disable.
+[Why & How]
+Disable HPO power gate temporarily.
 
-For this case, install new driver without uninstall old driver.
-The sequence like below:
-1. On the power-off path, the old driver will power gate dsc and
-   disable_dsc() (root clock disable) due to
-   debug.disable_dsc_power_gate = false.
-2. On the power-on path, the new driver will force power on dsc but skip
-   enable_dsc() (root clock enable) due to
-   debug.disable_dsc_power_gate = true.
-
-Finally, when mode needs DSC but the root clock is disabled, underflow
-happened.
-
-[How]
-- Moving enable_dsc() before the disable_dsc_power_gate check so the
-  root clock is always enabled on the power-on path.
-- Replacing the early return with a goto that skips only the power gate
-  register writes, allowing disable_dsc() to still execute on the
-  power-off path.
-
-Reviewed-by: Aric Cyr <aric.cyr@amd.com>
-Signed-off-by: Jing Zhou <Jing.Zhou@amd.com>
+Reviewed-by: Roman Li <roman.li@amd.com>
+Signed-off-by: Leo Chen <leo.chen@amd.com>
 Signed-off-by: Tom Chung <chiahsuan.chung@amd.com>
 ---
- .../amd/display/dc/hwss/dcn314/dcn314_hwseq.c | 90 +++++++++----------
- 1 file changed, 45 insertions(+), 45 deletions(-)
+ drivers/gpu/drm/amd/display/dc/resource/dcn42/dcn42_resource.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn314/dcn314_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn314/dcn314_hwseq.c
-index 1e856ee508f1..408d417318c2 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn314/dcn314_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn314/dcn314_hwseq.c
-@@ -232,60 +232,60 @@ void dcn314_dsc_pg_control(
- 	uint32_t pwr_status = power_on ? 0 : 2;
- 	uint32_t org_ip_request_cntl = 0;
- 
--	if (hws->ctx->dc->debug.disable_dsc_power_gate)
--		return;
--
- 	if (hws->ctx->dc->debug.root_clock_optimization.bits.dsc &&
- 		hws->ctx->dc->res_pool->dccg->funcs->enable_dsc &&
- 		power_on)
- 		hws->ctx->dc->res_pool->dccg->funcs->enable_dsc(
- 			hws->ctx->dc->res_pool->dccg, dsc_inst);
- 
--	REG_GET(DC_IP_REQUEST_CNTL, IP_REQUEST_EN, &org_ip_request_cntl);
--	if (org_ip_request_cntl == 0)
--		REG_SET(DC_IP_REQUEST_CNTL, 0, IP_REQUEST_EN, 1);
--
--	switch (dsc_inst) {
--	case 0: /* DSC0 */
--		REG_UPDATE(DOMAIN16_PG_CONFIG,
--				DOMAIN_POWER_GATE, power_gate);
--
--		REG_WAIT(DOMAIN16_PG_STATUS,
--				DOMAIN_PGFSM_PWR_STATUS, pwr_status,
--				1, 1000);
--		break;
--	case 1: /* DSC1 */
--		REG_UPDATE(DOMAIN17_PG_CONFIG,
--				DOMAIN_POWER_GATE, power_gate);
--
--		REG_WAIT(DOMAIN17_PG_STATUS,
--				DOMAIN_PGFSM_PWR_STATUS, pwr_status,
--				1, 1000);
--		break;
--	case 2: /* DSC2 */
--		REG_UPDATE(DOMAIN18_PG_CONFIG,
--				DOMAIN_POWER_GATE, power_gate);
--
--		REG_WAIT(DOMAIN18_PG_STATUS,
--				DOMAIN_PGFSM_PWR_STATUS, pwr_status,
--				1, 1000);
--		break;
--	case 3: /* DSC3 */
--		REG_UPDATE(DOMAIN19_PG_CONFIG,
--				DOMAIN_POWER_GATE, power_gate);
-+	if (!hws->ctx->dc->debug.disable_dsc_power_gate) {
-+
-+		REG_GET(DC_IP_REQUEST_CNTL, IP_REQUEST_EN, &org_ip_request_cntl);
-+		if (org_ip_request_cntl == 0)
-+			REG_SET(DC_IP_REQUEST_CNTL, 0, IP_REQUEST_EN, 1);
-+
-+		switch (dsc_inst) {
-+		case 0: /* DSC0 */
-+			REG_UPDATE(DOMAIN16_PG_CONFIG,
-+					DOMAIN_POWER_GATE, power_gate);
-+
-+			REG_WAIT(DOMAIN16_PG_STATUS,
-+					DOMAIN_PGFSM_PWR_STATUS, pwr_status,
-+					1, 1000);
-+			break;
-+		case 1: /* DSC1 */
-+			REG_UPDATE(DOMAIN17_PG_CONFIG,
-+					DOMAIN_POWER_GATE, power_gate);
-+
-+			REG_WAIT(DOMAIN17_PG_STATUS,
-+					DOMAIN_PGFSM_PWR_STATUS, pwr_status,
-+					1, 1000);
-+			break;
-+		case 2: /* DSC2 */
-+			REG_UPDATE(DOMAIN18_PG_CONFIG,
-+					DOMAIN_POWER_GATE, power_gate);
-+
-+			REG_WAIT(DOMAIN18_PG_STATUS,
-+					DOMAIN_PGFSM_PWR_STATUS, pwr_status,
-+					1, 1000);
-+			break;
-+		case 3: /* DSC3 */
-+			REG_UPDATE(DOMAIN19_PG_CONFIG,
-+					DOMAIN_POWER_GATE, power_gate);
-+
-+			REG_WAIT(DOMAIN19_PG_STATUS,
-+					DOMAIN_PGFSM_PWR_STATUS, pwr_status,
-+					1, 1000);
-+			break;
-+		default:
-+			BREAK_TO_DEBUGGER();
-+			break;
-+		}
- 
--		REG_WAIT(DOMAIN19_PG_STATUS,
--				DOMAIN_PGFSM_PWR_STATUS, pwr_status,
--				1, 1000);
--		break;
--	default:
--		BREAK_TO_DEBUGGER();
--		break;
-+		if (org_ip_request_cntl == 0)
-+			REG_SET(DC_IP_REQUEST_CNTL, 0, IP_REQUEST_EN, 0);
- 	}
- 
--	if (org_ip_request_cntl == 0)
--		REG_SET(DC_IP_REQUEST_CNTL, 0, IP_REQUEST_EN, 0);
--
- 	if (hws->ctx->dc->debug.root_clock_optimization.bits.dsc) {
- 		if (hws->ctx->dc->res_pool->dccg->funcs->disable_dsc && !power_on)
- 			hws->ctx->dc->res_pool->dccg->funcs->disable_dsc(
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn42/dcn42_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn42/dcn42_resource.c
+index acd76269abb4..ce26816b3e65 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dcn42/dcn42_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dcn42/dcn42_resource.c
+@@ -700,6 +700,7 @@ static const struct dc_debug_options debug_defaults_drv = {
+ 	.disable_optc_power_gate = false,
+ 	.disable_dsc_power_gate = false,
+ 	.disable_dio_power_gate = true,
++	.disable_hpo_power_gate = true,
+ 	.pipe_split_policy = MPC_SPLIT_AVOID,
+ 	.force_single_disp_pipe_split = false,
+ 	.disable_dcc = DCC_ENABLE,
 -- 
 2.43.0
 
