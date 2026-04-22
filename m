@@ -4,162 +4,124 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 21526F9B5E1
-	for <amd-gfx@archiver.kernel.org>; Wed, 22 Apr 2026 08:27:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AB47DF9B5E0
+	for <amd-gfx@archiver.kernel.org>; Wed, 22 Apr 2026 08:29:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8016B10E982;
-	Wed, 22 Apr 2026 08:27:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 484BA10E96C;
+	Wed, 22 Apr 2026 08:29:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="TkQX0zeQ";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="B1fBh96G";
 	dkim-atps=neutral
-Received: from BL2PR02CU003.outbound.protection.outlook.com
- (mail-eastusazon11011011.outbound.protection.outlook.com [52.101.52.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C332E10E25E;
- Tue, 21 Apr 2026 17:23:12 +0000 (UTC)
+Received: from CY3PR05CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11013028.outbound.protection.outlook.com
+ [40.93.201.28])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C55F510E96C
+ for <amd-gfx@lists.freedesktop.org>; Wed, 22 Apr 2026 08:29:53 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=P5bJXsyk28zvK2vEcgK9A2qHrUEzaCV6CU1nOKbbNFN8pVjBEhTl48aMVYMKBY6Q0HsjmNuLHqIl6iz9f0CZF4DK8fh8zryW0cDw2RBeRkOpBzQ0MjnHuIFB9qL4LilCENGH3w0x4DgwXNkur7XG6OOfla7nDcUGyuuUA84+MOlM+SyEbrJCgwsEJoYaHJK8NUdD3zIr6zFtLCRBrZwUAeZkn8agnQPSe2hNaWk4ie1hIK+hUEQ/3xD3yF+sABTeSyATn/caRopnnn8jvg4WLAfYfUUuwVMpZBvW1M/iAKM3ehLPuDIgj75HEhKS+rc4J6Boo0Z980itZS7NrMI9Fw==
+ b=IwmhCT8JXkoh8pM7sd8BOS+5B3dTYBq4nuHbxPwDR82djDH1S732Irp0SRcRU3XUdQ4hhH0D8qsUSYEJ9y7sTSKlIvMroCwnFHEdGKdEPFfGvY6ryUbWL8u5t50Gw0pXO2sntJT6pcmKeOBkcSWvhkb+HXIlsd4KfYjr/2ZJvQzeTlQ9f3D9vt9ThqGUda3lHV8xO2z0k4htqDq1BTEw+wiNmMX+y2Gbb0UFR+NKshcFIfzWFu/Bba7YfO2YnF5rdeidQ/14WG6ri/vVOgGxx1E3cD2vgvatqGOoP/nzwWNH1qrRMNa/oJm4WUrNfnN7vc+dJeAA0cGD5b7wms+YyQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=vopnOB/WWITfZL/OxyGcwL8Zb9YDQk8oZcn6VJEfsVI=;
- b=AM/MhXLAI5dqWCxv/Jxm2PAiV1JBQDOy5s02R84OlfwF16fVFDH+qftoCqXRhhIJaTvrCAK+8G+P3sv2IXG/DYvt5ant4XbSvTyxUsLiX7UMptx2nqhBh1qxfHiXrWR9+iQz246sZlrRwpFiHFTMsP6f2tJW0ZM4RFpBYBbCp37zVEKS25v+1jLUtY+VtGbnbjS5TXGo4QSjHIqGi5JfkmycaafdjSFSQD79YAJKcoi038iX3q0iVwIoeaYKVDqo0L7wdbmq3uyon1IQ61HxqXuH2rDeONQdMH3gnKohdnC3mq7pYKQYD0+YEQkFTZhfUobTuuUsJeUnXP7tcQHj5w==
+ bh=Z++6S5reEkOEPSDKhS8SOy9pHK1MVT/dT3aLf9lOZUI=;
+ b=a0MtJrHNxfMV/xyizwTHRVTgiYis4k1/9zlFkBef8dMSzown1s7HPpmlXAB0ZejUIzzu24NmphWvc5gMMaFxe6evhVwdyqyIRd+2CdN7w0Q55sBgP39Bndfy/XeQXpU0OpYQ+jkF0wLLKAewRCXFo/+C9RNz2SLUG5WA0bO27Ci/eIJ3BlmuMk5PfxUxAdvzwiJXuuq881nX5gPNqFuFXR0FpvtTlijjCpE33+I8/J5H+hB4oUCktWoWcD8/P90hKUju8ZXQawQiIzaDpHZlKxzEcvjgu+jADDWDQgMj9KbTLhz+yYQEcZacUz91a7cheJvO5qfyO9HjcWoBTLU3uA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vopnOB/WWITfZL/OxyGcwL8Zb9YDQk8oZcn6VJEfsVI=;
- b=TkQX0zeQ5RvxQJ0b9gJyzE3ZifrAjFliKRzbWX5gRw/vGgPFLjtD2q2IY9HpVrUgSsEwOtPdieXvo8PrLl9WkeYxW2f0UBoYUNZD+3ltxcozJITeg7S0FVxapv7S+VY7HQxJIaYmm93WDNWsdkTO5WoY/fMLinCddQbUVFWeJ9Jwc8fS7TxjpNe0QieowfF8r3e8SEVhlhA1edwz2+zNqwWsBYA6BR75XphzIbw0NlVXAzVBhXp9WHgFn2LOp8yWgBvxEF+QZgYAeXSojhsDYir3wOpb8Y5YLdu/32dkek/2jrapjWE8cHfDkPEq06jL2tBhuGdK56yJnxKSehQjgQ==
+ bh=Z++6S5reEkOEPSDKhS8SOy9pHK1MVT/dT3aLf9lOZUI=;
+ b=B1fBh96Gwzd3ehhMRRj3NX8DU837Ir5Id5Uzdoq97NWXiueXimSIDATtHQ/EiAuHVB905cExEK9jP8j0CvZRdMmXKJAfB3iK7hQaCMEsVbXWG8uEuvnd5kSxKO7bUuLhS+tUEaFQIN4oO+2TfUD4UrR+lVibSPGq+wFslNa7lfY=
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DS0PR12MB6486.namprd12.prod.outlook.com (2603:10b6:8:c5::21) by
- PH7PR12MB5807.namprd12.prod.outlook.com (2603:10b6:510:1d3::8) with
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BL1PR12MB5753.namprd12.prod.outlook.com (2603:10b6:208:390::15)
+ by DM4PR12MB6592.namprd12.prod.outlook.com (2603:10b6:8:8a::9) with
  Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9846.16; Tue, 21 Apr 2026 17:23:02 +0000
-Received: from DS0PR12MB6486.namprd12.prod.outlook.com
- ([fe80::88a9:f314:c95f:8b33]) by DS0PR12MB6486.namprd12.prod.outlook.com
- ([fe80::88a9:f314:c95f:8b33%4]) with mapi id 15.20.9846.016; Tue, 21 Apr 2026
- 17:23:02 +0000
-Date: Tue, 21 Apr 2026 13:23:00 -0400
-From: Joel Fernandes <joelagnelf@nvidia.com>
-To: Danilo Krummrich <dakr@kernel.org>
-Cc: linux-kernel@vger.kernel.org, Miguel Ojeda <ojeda@kernel.org>,
- Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
- Bjorn Roy Baron <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
- Dave Airlie <airlied@redhat.com>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Koen Koning <koen.koning@linux.intel.com>,
- dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org,
- Nikola Djukic <ndjukic@nvidia.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Jonathan Corbet <corbet@lwn.net>, Alex Deucher <alexander.deucher@amd.com>,
- Christian Koenig <christian.koenig@amd.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, Huang Rui <ray.huang@amd.com>,
- Matthew Auld <matthew.auld@intel.com>,
- Lucas De Marchi <lucas.demarchi@intel.com>,
- Thomas Hellstrom <thomas.hellstrom@linux.intel.com>,
- Helge Deller <deller@gmx.de>, Alex Gaynor <alex.gaynor@gmail.com>,
- Boqun Feng <boqun.feng@gmail.com>, John Hubbard <jhubbard@nvidia.com>,
- Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
- Edwin Peer <epeer@nvidia.com>, Alexandre Courbot <acourbot@nvidia.com>,
- Andrea Righi <arighi@nvidia.com>, Andy Ritger <aritger@nvidia.com>,
- Zhi Wang <zhiw@nvidia.com>, Balbir Singh <balbirs@nvidia.com>,
- Philipp Stanner <phasta@kernel.org>,
- Elle Rhumsaa <elle@weathered-steel.dev>, alexeyi@nvidia.com,
- Eliot Courtney <ecourtney@nvidia.com>, joel@joelfernandes.org,
- linux-doc@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- linux-fbdev@vger.kernel.org
-Subject: Re: [PATCH v11 07/20] gpu: nova-core: mm: Add TLB flush support
-Message-ID: <20260421172300.GA2038908@joelbox2>
-References: <20260415210548.3776595-1-joelagnelf@nvidia.com>
- <20260415210548.3776595-7-joelagnelf@nvidia.com>
- <20260416212312.GA667928@joelbox2>
- <DHUWPQX14ZGZ.26BV7GQCJDZQI@kernel.org>
- <1e3c423e-1cf5-48b1-b012-c4af0eb6b95f@nvidia.com>
- <DHUY5IGHGE49.Z2UVYJ23KX2Y@kernel.org>
- <9f30b572-04be-4adc-b5f0-a286ea601996@nvidia.com>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <9f30b572-04be-4adc-b5f0-a286ea601996@nvidia.com>
-X-ClientProxiedBy: BL0PR05CA0004.namprd05.prod.outlook.com
- (2603:10b6:208:91::14) To DS0PR12MB6486.namprd12.prod.outlook.com
- (2603:10b6:8:c5::21)
+ 15.20.9846.15; Wed, 22 Apr 2026 08:29:43 +0000
+Received: from BL1PR12MB5753.namprd12.prod.outlook.com
+ ([fe80::81e6:908a:a59b:87e2]) by BL1PR12MB5753.namprd12.prod.outlook.com
+ ([fe80::81e6:908a:a59b:87e2%6]) with mapi id 15.20.9846.014; Wed, 22 Apr 2026
+ 08:29:42 +0000
+Content-Type: multipart/alternative;
+ boundary="------------n0h6lQqewWVFXPLFfOv0Jj70"
+Message-ID: <4a0892be-46b9-4720-9b7e-398aa0a74c87@amd.com>
+Date: Wed, 22 Apr 2026 13:59:34 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 03/11] drm/amdgpu: nuke amdgpu_userq_fence_free
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ alexander.deucher@amd.com, Prike.Liang@amd.com, amd-gfx@lists.freedesktop.org
+Cc: christian.koenig@amd.com
+References: <20260421125513.4545-1-christian.koenig@amd.com>
+ <20260421125513.4545-3-christian.koenig@amd.com>
+Content-Language: en-US
+From: "Khatri, Sunil" <sukhatri@amd.com>
+In-Reply-To: <20260421125513.4545-3-christian.koenig@amd.com>
+X-ClientProxiedBy: BM1P287CA0012.INDP287.PROD.OUTLOOK.COM
+ (2603:1096:b00:40::35) To BL1PR12MB5753.namprd12.prod.outlook.com
+ (2603:10b6:208:390::15)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB6486:EE_|PH7PR12MB5807:EE_
-X-MS-Office365-Filtering-Correlation-Id: a503980e-1a72-4816-566c-08de9fcaa43a
+X-MS-TrafficTypeDiagnostic: BL1PR12MB5753:EE_|DM4PR12MB6592:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7c30b472-2ea3-4865-5b95-08dea0494ca3
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|1800799024|7416014|376014|22082099003|56012099003|18002099003;
-X-Microsoft-Antispam-Message-Info: wO3FPb0VG/qzArdggiCZwmG4tghcN8nKX7T+8ZNc6+wq2L5f/r33EpPVXOES6Gi5FOVJevmSuoQ0txKoRr0t+Ah0aO4nUgWh3LLMy/l6SSpxUeK07Bp+k7tFOkHwuvc726RKEW6ZN1VrLxmteTLlPyW9Njdp6msWE2kiFcY0IaDRez1aTiWkC6sJlApbNOcZS1h1Di5/3y4QatAj/yIMy/3BZvEdAVmqlPkyeabSLcRrlt6AZIGuhI5S2H4ciQcNhVKlxy/MUJ8q2gK1G0ktD48Dbgl6uJZ0eLUTb9b5X4zv2gteJS6fasN4FkreV7XRacl361QlnDjWtVpNk6JWwmdcfLZwDWO783NNT6y4GAUPPsf+YgPxehoBHNXdik6q5BaYW180240bSEqxTHjojib9mNcqvkidGyjZxonhkHM7crHTu0JP1twtxjmYT4Whv6A6/2NzBJ6dRqeZWjBIjmb2GePGTwqS0gEAHRtgvcbR8iQD8c6Nmb5PsiVB/LiYuz1XqzEv5uBNu2AvvbnyR/ridLqEX/Rt+HfA92xuA1uha8RJBJuu5BGfBxblOMbfzmmqOw9nNuHyGzOispGAp6BQbqHzj6SJvrES3OoeIHB6y7kPptbboZz/DEYKfIiKYkFkj6SFomX8nH8iqDZsBadLU04f74r6vzPAI32y9lgxTCrppvZ7bJfktdH2fxO4N1rY+YYiqbZipvta9PiY4ZtKspGK47++R1g3c9LfHQY=
+ ARA:13230040|376014|1800799024|366016|18096099003|56012099003|18002099003|22082099003|8096899003;
+X-Microsoft-Antispam-Message-Info: mOeg5ymMKxYFxCPbmcX8pQQXmPJejAj5kMc284UNbKtSO3v0iW61SQJwfIC01XmSUFTb9YPVF0uQ6wA6ZDA2ohpaJCNaw25FmrthVJnL/xoQguQxy8L1QIBUyTMWmHSqgb6Ibww3b5pdgwG1tSE2ew55RaMXUVXa9Zh+PcDUydbbf83tMAjSZzXhMXIyVGjXNf1UPBvT8zzmG6zfTDUYgnTd5jvKnkrbHzAutlm5Ug1aTl84V6z1uKp7ORYBVW6BRqG9VevxtHPy4/+B5RD4aqnL0hNh0sC0DKQnlgv0pEpbXgN9Tr7cmoIdYBmHM3ld6ei9Kla3Flc0AB9ImpLGThjBV2iVppThVMz4QCk6hlcKsAtQrb45JkUd3iIfoCb7Pv2oUcBx2H5HwR32NzTb1wl+N10Jb8wmz6Z8JzJK6Qfghp9RHq1bfZqdDO8H02rCVms0J0u4/R471jJwS/i1ftc68EUF6Z2N8mhETj03il3JwD4VX9whjUFW3TE8TELQbmKX3RXOEfhjdpe4YhaoSYTTI+kSg4EB6UswRUvcWbKgupH4Hv+qHI7pAdg1tXkLTWyTsPcfAggkAAVvmWmTQkCeyEHjKRG0Esv8QsO1fzeKNXWsmh+mpJFP3N8Z0B3tmMGHG89wRdwDFAR5GeRbcyI+735n6zuNLmAoKnbAnDDk4TwBifJqYr8TZdYoZE9uBrQyqRFUFFv0H814odwQAgYPskw3IAaiIjskTG+HxPU=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS0PR12MB6486.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(7416014)(376014)(22082099003)(56012099003)(18002099003);
+ IPV:NLI; SFV:NSPM; H:BL1PR12MB5753.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(366016)(18096099003)(56012099003)(18002099003)(22082099003)(8096899003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ekRzMWh5VnhVcWVTSGQraU5Tc0wrS0VrWGRyZWV3cmlqTlNUSmdNckdOV0lF?=
- =?utf-8?B?citVcUtPNW1RcDc1UFhyUFR3ZEk5NzlnNmRydElmRjlPZVZRNkwvWVp0aS9o?=
- =?utf-8?B?ZGszMGczVXk2RmNBb3p5dmFxZSs0aDVqdFMrZmJnRSsyWWxCZXlZYjVsek42?=
- =?utf-8?B?UlF6cXJ0WVd6OENyeWhlUlVQZUVNMmFYKzJYbnhiR05sODhlZ0NiK3VJTDkv?=
- =?utf-8?B?TFZUb29JZ04rRFppRHpURnNVZ0pmU0FOQmJGcTRSaE51THpxUHZpM25NdDFQ?=
- =?utf-8?B?ZkFUanlNdURmZXNENG5mRjVFbC9Cd3RhK3NibXNtQWJ3QnM1THJPNkt5OUFz?=
- =?utf-8?B?VEFpejN3M3kxUFdvNzZuamFlVSs4aW10QlI0NkVoV2YycDZFM2lBQ2tLRWtS?=
- =?utf-8?B?WGFoS3Z2SENiY2R1Nk1CWHd5MkczcmFuSlNCeExEaU5XMGROTXJTU3J6ZDVw?=
- =?utf-8?B?ZlMvZXFoT2twOVQwNTVMQlNHOThSY1NwWUtUM1R2TXhDYzh5YUVaM0ZSTnhU?=
- =?utf-8?B?eCs0VjVLMkJLT2FYczVUb21XeEVKdzJZME5oUGdRQmdGNHM4M29vTTA4NkNv?=
- =?utf-8?B?OUhtVDk5d0pzdmgyVDhLT0I4aDJjNUx1ZjNNditDVXdTRzJuclQ5aEdzLy9u?=
- =?utf-8?B?L1JZVThCa3pFRUYzTFB6M2VJRjIzQnlBeHhFYTBMcTZJSlVJNjYzRDFCSy9a?=
- =?utf-8?B?Q21sSGdKRUM0eCt3dlZUWEd1WlBXcXdRSHdBN21VZnhZWlh2R05vT0YyNjky?=
- =?utf-8?B?WUo1RWw3RHdWaWhWc1ZsK2kxMDdPcytTSjQzU3R0WW9NQS9DSU9LMURDSmpN?=
- =?utf-8?B?bldhRnBuMkZyaGFqV2tUaDdhTDRtYitFUnJBbnVrZFJzYjFlQTNON3J3cUdR?=
- =?utf-8?B?TVMrdWI3S1F5VDN4RnZGeDhDZG1zcGRPUmRta3YvR0JXdWNIY3JnZ2M5bEtF?=
- =?utf-8?B?dTVQbk1rc3F4Tm03RDVwWmNuWml5a3NTVXJtbElOS0Fnc1cvMGFNWHFHYWFk?=
- =?utf-8?B?TUpvRU0vQ3llZFJSa0UvSjBDMHFvVk9oRldnVTU2eWJvc05tOGljTDByUnlD?=
- =?utf-8?B?YzdOVzNYZStZaVN6TTEvZm4yaFE4NlNqMWlpbUFyYVo5dXJGZVlBeC9tdHEy?=
- =?utf-8?B?bkpVSURzZGpadTBSK0MyTW8zdnB1U0hVNjd0Sjh4bTZQZytRSjYrYXQwd3pv?=
- =?utf-8?B?cTF1WFFrWWQwcjYrNHdCVzZZdDdCaUN5cWxLbW54Vkp1RUlrMUpmb2RtbVEy?=
- =?utf-8?B?ZGtrdFpFUVgwSjBQbC9reGJWK0F5MzBMWmIxamhsK09BakNValo0Y085dkRU?=
- =?utf-8?B?T2VQNkJOYjlTQzFHSCtGYXFCcTg4TE5sSGpVM0pCUXNhdHN4aS9vclJQTTE2?=
- =?utf-8?B?bmduSlR1RW02ZXdxbElKTDZZNzdVKzVMRU93N250K3V4TGJaK0Qrd083SnAz?=
- =?utf-8?B?OEJqTmEvaGhrb1VCVnViMjA1c3BBMkE3NkRJMVBhUFcwUmJrL1lva1lUWFFH?=
- =?utf-8?B?YnNCVjh2RTJDVUpDNUhZSFlwaHU1bS9FcDZWMis2R1VzNncwQm5CNWp0VEEr?=
- =?utf-8?B?YjkxbE81NFQyamdEVktoU21pcFhpczVmcStUZ0xCWmhLblNwUHE2bTdsR2Nu?=
- =?utf-8?B?R3A5bjl4OVh1RGJUYjUzdS9xbStqMnRRUytjLzAwSUloTUJmdmhvd0Z3NU5m?=
- =?utf-8?B?dkJrSW1GeGQzOFlOU1d2cDBkbGcyUnlYZWJFcXNub2ZDMW8rN1d0dFZpay9y?=
- =?utf-8?B?ZUNZTEJZUnJ3RUUvWmlxQTU4TlBGanNKd2lSdHExSy9YK0ZFVk03ZDQvNFBW?=
- =?utf-8?B?T0crVjVhUndGNGRqbU1CdzgvbzR3Y05Kdzh5NjdFT1RmeHNPVHR5bkN4a0h3?=
- =?utf-8?B?UGlsRkJMMXYvVlBIRDVELy9rYnpSUVJ2STVDQURULzBjcVd2M3k0ZDVaOE1E?=
- =?utf-8?B?Tzl3SGV3WDJ5aFlLcUIxR3hqYlZ1bVdBZFE5N0x6RmdObDVRQzQ5cmE0OWlQ?=
- =?utf-8?B?UU00ZEZQS1ZyQ295ZHIwa2IyZ3NMOWZzelA4S3hNVG1yV0g5NTV1Y1BRK2hy?=
- =?utf-8?B?azdkM1JPUzEzWXlhOGVrSVhaSm1Nb2dJdzkybmsvZVA5cDdRV0pITWNBQjZP?=
- =?utf-8?B?M1lqcHQzV1V1ODU5YVplN096V296K2tEQW5WenVHaytFbEZQcGpEVFpiRTA4?=
- =?utf-8?B?UVk3ZElFaThtSlFMakp4eDRJdHJKMkVIVUE3VHFYNlRFYW1DL0RhMmpoaEk1?=
- =?utf-8?B?ZVMzSkVFRnFvRGx2TmU5eE1tWS9aMTdndGpIRHVzeDlESlNhbVNiazBRd3oz?=
- =?utf-8?B?OEJEUHVSNnJXVHVzQjcwbmp2Vkt3Vk04MVVoNyt3UHhNVXV2NXkrdz09?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a503980e-1a72-4816-566c-08de9fcaa43a
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6486.namprd12.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bUE1cG1pVjV1Vmx5UUVZd1lXZEl5elVWWGQxWENyK1pteXVwRnB6RDRXU01o?=
+ =?utf-8?B?UzlUSHVMT1lNM3YxaVk2enU3cm5NTmNRS2w5UVJhQjE0SkRwdUk1cTBSZitN?=
+ =?utf-8?B?TTRWTTllckkwT0t3YnRRSkxkTmlybTRkVkwraDZLSTIxcklUZDBQcHVjSXVp?=
+ =?utf-8?B?SmZEODRRNjhiTTNWYmRwMFVtUWNDOFJqRE5xMUV1emVQZWRqUFMwdWZFNUlC?=
+ =?utf-8?B?VlJ2bUlKbE1ldDE3aXZDaDEzemdZelBkMUJMV0pzRVF3b01MODI3NlprazZG?=
+ =?utf-8?B?ZzUxQ0FmWHcrOTlWNjlxWjhabnozVkI1bEc1OURObUxkYjdLZVA1SmI1Nk9N?=
+ =?utf-8?B?YkVVV1NySWFOT21TeVNTWVk2c2lSdk0xcWUyQjZ4bmE0SWpxQ1VWSjBSVUVY?=
+ =?utf-8?B?MlFkVEFpeTZWalcxeGdFUGV1dEdzTXRGd3hrci9HcjFySW40dFNjUmxXRkFj?=
+ =?utf-8?B?L1Y5U1hwYUFILzVaZ1ZxN01Od0Q1Nk9CU2Z6OFdhQjdHNWsxbWpqc1lTMHc2?=
+ =?utf-8?B?SmV5L3lud3Y1WWQ2ZzdjaWV5UUFibG1ZYWFObk5wcmtHWThaejRZV0hJdGF4?=
+ =?utf-8?B?bGJXR1g0Zlg4d3JaMVFhK1cvMVp4eEpaZStFbGNCa2RSWlFaN1FFU0lyTWRy?=
+ =?utf-8?B?TDVSVVVycnA2YUI3OVhweU8vUVFNODI1cndMRnlaZGhVS3dNOUxvbVE0ZHBY?=
+ =?utf-8?B?Tk1Za3VLcDBEbThyTzNuRlNuQXZvMGVCNlNyQmFTUlNMWU5qcVc2ZWdpSGhF?=
+ =?utf-8?B?WXNoemVjY0tYM0dsWE9sWVhSeDU3TXd4TWhEVHdFS0drV296MjZVTGYzTFlU?=
+ =?utf-8?B?V2tuNGtRNlBqdzRZUWNncWxHN0NyMnRDRUtCZ2NNTjZVRU8rMm5Ra3lkQlRj?=
+ =?utf-8?B?OHZqeWNFL2dHelAzTWNiaDZjR2FXNGhaak1XS2QxVFdaM1V3RGZ0T3ZTdGN3?=
+ =?utf-8?B?cVVTRGUvOTliNlFDOWJiU1VubGhkM1d0VE5zMUtMOWY5WEl1YzVURkoreFFH?=
+ =?utf-8?B?VjFVYzdJazI2STZFT096QnYvZkZEMncxMDRyWmVORHV1a0Rsd3VDYkYrRm41?=
+ =?utf-8?B?NGVBNllWZE9TUUdPdStmRGh4Y3JnaDhFVis5QUNSK0NWa0NMdW43b1hSS0My?=
+ =?utf-8?B?d3JNMDU3RFd2ZVZVUlhoSDluVDJSZWo1YkZxSW1Rd0VyVW00TVRUR3BFRVc5?=
+ =?utf-8?B?Q1BBOG1ONUEyV0tQM3pybjVVcXVGb0ZTbi8vRkoxSjc3WElWSXYydkFYRFB4?=
+ =?utf-8?B?NGZwb21COXFTaUVvajBUNzB4K09iajNNRS9yNHlQTVhGdW01MkhIY3dOdE5Z?=
+ =?utf-8?B?MVRtRHJ0eHUwQlcwUktlRTJqVHZ1VHpYdWJpaDdRYllseWFhU2Fhbi81NWNi?=
+ =?utf-8?B?aFl6UEhMV3FwdmpZWW5RVU83NDFaY2wrT0lOYkNBbmp5MGpMZlZNUFdFNnpU?=
+ =?utf-8?B?QXZNcGJndGh6YWQxSFZNTFY5TFE1cTBxWjRxRkd3TWhJanR6MktkS3JqY0sy?=
+ =?utf-8?B?MHJGWi9mam9tOUlvRExzWmNzUVRnMFJ0eGlEdWxoeGdXald4UkUzZEVPUGRq?=
+ =?utf-8?B?YURHdDZWV0h4TnRxVDZjeG1FOUdYOG9pMFpOdUI4V3Ztc2cvelBLUlNoaC8z?=
+ =?utf-8?B?cFE0UlNpcE5RMFR5WGtIYytkZmxqWkxqTWxYeTUrWENoem9ya2IzSXNxUE9J?=
+ =?utf-8?B?M2FOMjFLNkluM1RVTXBFV1huazM0REJ3WUIzN0NVMEtENXNoYlBvT1owNTFq?=
+ =?utf-8?B?SHJIR0xUMmxEWWpadUhib1dUT3BIRkpLZWRRQitHWHNJdHlzNWtiM0FWemNj?=
+ =?utf-8?B?ZTQwZWM2VXJEK3lvVnk1UjJiemZ1aURHbmRiTm9RRUhUaS8zUHdWZTNpYkRn?=
+ =?utf-8?B?YjV2MDJaem1WQ2VpZ2hFSFh6NHQ4OGkvOUwyeXRYZDk3SW1qdVlkSUpJSU5t?=
+ =?utf-8?B?RkJOVWQ4SWxvU2lyYTBqOEphd3hCM3Fjbi9nOWZsMnB1bGJuQzZxalZCYW12?=
+ =?utf-8?B?OGRPQTRVeWI4SWNJZVJOdE1VVnRWVzNRYnAwNWk2UnR3aTN1dzJ0ekpka3JR?=
+ =?utf-8?B?RTZxZHFjQXJINVUrMFMybng1UGdqQzVYdmJUSmhjNVhoaUdsRGtVM1J3ZkFD?=
+ =?utf-8?B?ck9yL0UvbHg5NUhzQTlNQSs5TlpUUzVMODFJM0Q4b2Niek9IU2ZkMG9yTnRR?=
+ =?utf-8?B?NFVZbkswK2ZmeHJHQzBvWDF6RHpHL3NzU251dXlCRnZFNmp3dWdoaEFDWEtU?=
+ =?utf-8?B?RnlqRzNrSGNiSHVnQSsyNUV5TTBpNS9wNlkwQ1h4QkxRdisrRWlNWEcycEJG?=
+ =?utf-8?B?Tm5WSDZtUWs1bUZSQmY2OUFoWXBRcVcweUtFNTFmczNlTlBVSnNldz09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7c30b472-2ea3-4865-5b95-08dea0494ca3
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5753.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Apr 2026 17:23:02.3257 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Apr 2026 08:29:41.4625 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: dtQ/CphyWrCHNAZxyTlAQqqWohwnnv6u+6xPaKJufNLO4ttKEU3WfQYqjWalsJKbRtX5fDzZsmxv1ABWZri5YA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5807
-X-Mailman-Approved-At: Wed, 22 Apr 2026 08:27:32 +0000
+X-MS-Exchange-CrossTenant-UserPrincipalName: pWVRQyc7Wyj38CPJ/lE7djLOOuNmpswmNHjz0Zz06ONdV6YOKrLdxmkc8wLuKNRLFNAqQc6xfKfQqviYE+vnnA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6592
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -174,760 +136,510 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Apr 21, 2026 at 09:47:39AM -0400, Joel Fernandes wrote:
-> 
-> 
-> On 4/16/2026 6:53 PM, Danilo Krummrich wrote:
-> > On Fri Apr 17, 2026 at 12:18 AM CEST, Joel Fernandes wrote:
-> >> On 4/16/2026 5:45 PM, Danilo Krummrich wrote:
-> >>> Why do we need the try_access() dance in the first place? I assume this ends up
-> >>> being called from the BarAccess destructor?
-> >>
-> >> BarAccess is different. The try_access() calls here are in tlb.rs and
-> >> pramin.rs for Bar0.
-> > 
-> > Yes, and we shouldn't need them in the first place; we should have a
-> > &Device<Bound> in all call paths this is called from.
+--------------n0h6lQqewWVFXPLFfOv0Jj70
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-So it causes a bit more threading of the device, but agreed it is an improvement.
-Here is a preview, let me know if this is not what you had in mind, thanks!
 
----8<-----------------------
+On 21-04-2026 06:25 pm, Christian König wrote:
+> As preparation for independent fences remove the function and do all of
+> it's cleanup directly after signaling.
+>
+> Signed-off-by: Christian König<christian.koenig@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       | 13 +--
+>   .../gpu/drm/amd/amdgpu/amdgpu_userq_fence.c   | 79 +++++++------------
+>   .../gpu/drm/amd/amdgpu/amdgpu_userq_fence.h   |  3 -
+>   3 files changed, 31 insertions(+), 64 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> index c6546a858597..1b15b51dc3f4 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> @@ -3162,11 +3162,7 @@ static int __init amdgpu_init(void)
+>   
+>   	r = amdgpu_sync_init();
+>   	if (r)
+> -		goto error_sync;
+> -
+> -	r = amdgpu_userq_fence_slab_init();
+> -	if (r)
+> -		goto error_fence;
+> +		return r;
+>   
+>   	amdgpu_register_atpx_handler();
+>   	amdgpu_acpi_detect();
+> @@ -3182,12 +3178,6 @@ static int __init amdgpu_init(void)
+>   
+>   	/* let modprobe override vga console setting */
+>   	return pci_register_driver(&amdgpu_kms_pci_driver);
+> -
+> -error_fence:
+> -	amdgpu_sync_fini();
+> -
+> -error_sync:
+> -	return r;
+>   }
+>   
+>   static void __exit amdgpu_exit(void)
+> @@ -3197,7 +3187,6 @@ static void __exit amdgpu_exit(void)
+>   	amdgpu_unregister_atpx_handler();
+>   	amdgpu_acpi_release();
+>   	amdgpu_sync_fini();
+> -	amdgpu_userq_fence_slab_fini();
+>   	mmu_notifier_synchronize();
+>   	amdgpu_xcp_drv_release();
+>   }
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
+> index a58342c2ac44..909bdccc2a92 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
+> @@ -32,29 +32,9 @@
+>   #include "amdgpu.h"
+>   #include "amdgpu_userq_fence.h"
+>   
+> -static const struct dma_fence_ops amdgpu_userq_fence_ops;
+> -static struct kmem_cache *amdgpu_userq_fence_slab;
+> -
+>   #define AMDGPU_USERQ_MAX_HANDLES	(1U << 16)
+>   
+> -int amdgpu_userq_fence_slab_init(void)
+> -{
+> -	amdgpu_userq_fence_slab = kmem_cache_create("amdgpu_userq_fence",
+> -						    sizeof(struct amdgpu_userq_fence),
+> -						    0,
+> -						    SLAB_HWCACHE_ALIGN,
+> -						    NULL);
+Are we not having benefit enough to continue create a cache here ? If 
+that is fine that LGTM,
 
-diff --git a/drivers/gpu/nova-core/gpu.rs b/drivers/gpu/nova-core/gpu.rs
-index 6ea9ab7647ced..c2756525dffad 100644
---- a/drivers/gpu/nova-core/gpu.rs
-+++ b/drivers/gpu/nova-core/gpu.rs
-@@ -322,7 +322,7 @@ pub(crate) fn new<'a>(
-                 // PRAMIN covers all physical VRAM (including GSP-reserved areas
-                 // above the usable region, e.g. the BAR1 page directory).
-                 let pramin_vram_region = 0..gsp_static_info.total_fb_end;
--                GpuMm::new(devres_bar.clone(), spec.chipset, GpuBuddyParams {
-+                GpuMm::new(devres_bar.clone(), pdev.as_ref(), spec.chipset, GpuBuddyParams {
-                     base_offset: usable_vram.start,
-                     size: usable_vram.end - usable_vram.start,
-                     chunk_size: Alignment::new::<SZ_4K>(),
-diff --git a/drivers/gpu/nova-core/mm.rs b/drivers/gpu/nova-core/mm.rs
-index 2583e32fb5dc1..1c0d076a785d5 100644
---- a/drivers/gpu/nova-core/mm.rs
-+++ b/drivers/gpu/nova-core/mm.rs
-@@ -32,6 +32,7 @@ fn from(pfn: Pfn) -> Self {
+Acked-by: Sunil Khatri <sunil.khatri@amd.com>
+
+Regards
+Sunil
+
+
+
+> -	if (!amdgpu_userq_fence_slab)
+> -		return -ENOMEM;
+> -
+> -	return 0;
+> -}
+> -
+> -void amdgpu_userq_fence_slab_fini(void)
+> -{
+> -	rcu_barrier();
+> -	kmem_cache_destroy(amdgpu_userq_fence_slab);
+> -}
+> +static const struct dma_fence_ops amdgpu_userq_fence_ops;
+>   
+>   static inline struct amdgpu_userq_fence *to_amdgpu_userq_fence(struct dma_fence *f)
+>   {
+> @@ -146,12 +126,18 @@ amdgpu_userq_fence_driver_free(struct amdgpu_usermode_queue *userq)
+>   }
+>   
+>   static void
+> -amdgpu_userq_fence_put_fence_drv_array(struct amdgpu_userq_fence *userq_fence)
+> +amdgpu_userq_fence_put_fence_drv_refs(struct amdgpu_userq_fence *userq_fence)
+>   {
+>   	unsigned long i;
+> +
+>   	for (i = 0; i < userq_fence->fence_drv_array_count; i++)
+>   		amdgpu_userq_fence_driver_put(userq_fence->fence_drv_array[i]);
+>   	userq_fence->fence_drv_array_count = 0;
+> +	kfree(userq_fence->fence_drv_array);
+> +	userq_fence->fence_drv_array = NULL;
+> +
+> +	amdgpu_userq_fence_driver_put(userq_fence->fence_drv);
+> +	userq_fence->fence_drv = NULL;
+>   }
+>   
+>   void amdgpu_userq_fence_driver_process(struct amdgpu_userq_fence_driver *fence_drv)
+> @@ -181,10 +167,11 @@ void amdgpu_userq_fence_driver_process(struct amdgpu_userq_fence_driver *fence_d
+>   		fence = &userq_fence->base;
+>   		list_del_init(&userq_fence->link);
+>   		dma_fence_signal(fence);
+> -		/* Drop fence_drv_array outside fence_list_lock
+> +		/*
+> +		 * Drop fence_drv_array outside fence_list_lock
+>   		 * to avoid the recursion lock.
+>   		 */
+> -		amdgpu_userq_fence_put_fence_drv_array(userq_fence);
+> +		amdgpu_userq_fence_put_fence_drv_refs(userq_fence);
+>   		dma_fence_put(fence);
+>   	}
+>   
+> @@ -231,7 +218,7 @@ void amdgpu_userq_fence_driver_put(struct amdgpu_userq_fence_driver *fence_drv)
+>   
+>   static int amdgpu_userq_fence_alloc(struct amdgpu_userq_fence **userq_fence)
+>   {
+> -	*userq_fence = kmem_cache_alloc(amdgpu_userq_fence_slab, GFP_ATOMIC);
+> +	*userq_fence = kmalloc(sizeof(**userq_fence), GFP_ATOMIC);
+>   	return *userq_fence ? 0 : -ENOMEM;
+>   }
+>   
+> @@ -299,7 +286,7 @@ static int amdgpu_userq_fence_create(struct amdgpu_usermode_queue *userq,
+>   	spin_unlock_irqrestore(&fence_drv->fence_list_lock, flags);
+>   
+>   	if (signaled)
+> -		amdgpu_userq_fence_put_fence_drv_array(userq_fence);
+> +		amdgpu_userq_fence_put_fence_drv_refs(userq_fence);
+>   
+>   	*f = fence;
+>   
+> @@ -333,29 +320,10 @@ static bool amdgpu_userq_fence_signaled(struct dma_fence *f)
+>   	return false;
+>   }
+>   
+> -static void amdgpu_userq_fence_free(struct rcu_head *rcu)
+> -{
+> -	struct dma_fence *fence = container_of(rcu, struct dma_fence, rcu);
+> -	struct amdgpu_userq_fence *userq_fence = to_amdgpu_userq_fence(fence);
+> -	struct amdgpu_userq_fence_driver *fence_drv = userq_fence->fence_drv;
+> -
+> -	/* Release the fence driver reference */
+> -	amdgpu_userq_fence_driver_put(fence_drv);
+> -
+> -	kvfree(userq_fence->fence_drv_array);
+> -	kmem_cache_free(amdgpu_userq_fence_slab, userq_fence);
+> -}
+> -
+> -static void amdgpu_userq_fence_release(struct dma_fence *f)
+> -{
+> -	call_rcu(&f->rcu, amdgpu_userq_fence_free);
+> -}
+> -
+>   static const struct dma_fence_ops amdgpu_userq_fence_ops = {
+>   	.get_driver_name = amdgpu_userq_fence_get_driver_name,
+>   	.get_timeline_name = amdgpu_userq_fence_get_timeline_name,
+>   	.signaled = amdgpu_userq_fence_signaled,
+> -	.release = amdgpu_userq_fence_release,
+>   };
+>   
+>   /**
+> @@ -546,7 +514,7 @@ int amdgpu_userq_signal_ioctl(struct drm_device *dev, void *data,
+>   	r = amdgpu_userq_fence_create(queue, userq_fence, wptr, &fence);
+>   	if (r) {
+>   		mutex_unlock(&userq_mgr->userq_mutex);
+> -		kmem_cache_free(amdgpu_userq_fence_slab, userq_fence);
+> +		kfree(userq_fence);
+>   		goto put_gobj_write;
+>   	}
+>   
+> @@ -871,6 +839,7 @@ amdgpu_userq_wait_return_fence_info(struct drm_file *filp,
+>   	for (i = 0, cnt = 0; i < num_fences; i++) {
+>   		struct amdgpu_userq_fence_driver *fence_drv;
+>   		struct amdgpu_userq_fence *userq_fence;
+> +		unsigned long flags;
+>   		u32 index;
+>   
+>   		userq_fence = to_amdgpu_userq_fence(fences[i]);
+> @@ -886,7 +855,19 @@ amdgpu_userq_wait_return_fence_info(struct drm_file *filp,
+>   			continue;
+>   		}
+>   
+> +		spin_lock_irqsave(userq_fence->base.lock, flags);
+> +		if (dma_fence_is_signaled_locked(&userq_fence->base)) {
+> +			/*
+> +			 * It is possible that fence is already signaled and the
+> +			 * fence_drv now NULL, just skip over such fences.
+> +			*/
+> +			spin_unlock_irqrestore(userq_fence->base.lock, flags);
+> +			continue;
+> +		}
+>   		fence_drv = userq_fence->fence_drv;
+> +		amdgpu_userq_fence_driver_get(fence_drv);
+> +		spin_unlock_irqrestore(userq_fence->base.lock, flags);
+> +
+>   		/*
+>   		 * We need to make sure the user queue release their reference
+>   		 * to the fence drivers at some point before queue destruction.
+> @@ -895,10 +876,10 @@ amdgpu_userq_wait_return_fence_info(struct drm_file *filp,
+>   		 */
+>   		r = xa_alloc(&waitq->fence_drv_xa, &index, fence_drv,
+>   			     xa_limit_32b, GFP_KERNEL);
+> -		if (r)
+> +		if (r) {
+> +			amdgpu_userq_fence_driver_put(fence_drv);
+>   			goto put_waitq;
+> -
+> -		amdgpu_userq_fence_driver_get(fence_drv);
+> +		}
+>   
+>   		/* Store drm syncobj's gpu va address and value */
+>   		fence_info[cnt].va = fence_drv->va;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.h
+> index d56246ad8c26..d355a0eecc07 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.h
+> @@ -58,9 +58,6 @@ struct amdgpu_userq_fence_driver {
+>   	char timeline_name[TASK_COMM_LEN];
+>   };
+>   
+> -int amdgpu_userq_fence_slab_init(void);
+> -void amdgpu_userq_fence_slab_fini(void);
+> -
+>   void amdgpu_userq_fence_driver_get(struct amdgpu_userq_fence_driver *fence_drv);
+>   void amdgpu_userq_fence_driver_put(struct amdgpu_userq_fence_driver *fence_drv);
+>   int amdgpu_userq_fence_driver_alloc(struct amdgpu_device *adev,
+--------------n0h6lQqewWVFXPLFfOv0Jj70
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+<!DOCTYPE html><html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <br>
+  <body>
+    <div class="moz-cite-prefix">On 21-04-2026 06:25 pm, Christian König
+      wrote:<br>
+    </div>
+    <blockquote type="cite" cite="mid:20260421125513.4545-3-christian.koenig@amd.com">
+      <pre wrap="" class="moz-quote-pre">As preparation for independent fences remove the function and do all of
+it's cleanup directly after signaling.
+
+Signed-off-by: Christian König <a class="moz-txt-link-rfc2396E" href="mailto:christian.koenig@amd.com">&lt;christian.koenig@amd.com&gt;</a>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       | 13 +--
+ .../gpu/drm/amd/amdgpu/amdgpu_userq_fence.c   | 79 +++++++------------
+ .../gpu/drm/amd/amdgpu/amdgpu_userq_fence.h   |  3 -
+ 3 files changed, 31 insertions(+), 64 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+index c6546a858597..1b15b51dc3f4 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+@@ -3162,11 +3162,7 @@ static int __init amdgpu_init(void)
  
- use kernel::{
-     bitfield,
-+    device,
-     devres::Devres,
-     gpu::buddy::{
-         GpuBuddy,
-@@ -75,13 +76,14 @@ impl GpuMm {
-     /// areas). PRAMIN window accesses are validated against this range.
-     pub(crate) fn new(
-         bar: Arc<Devres<Bar0>>,
-+        dev: &device::Device<device::Bound>,
-         chipset: Chipset,
-         buddy_params: GpuBuddyParams,
-         pramin_vram_region: core::ops::Range<u64>,
-     ) -> Result<impl PinInit<Self>> {
-         let buddy = GpuBuddy::new(buddy_params)?;
-         let tlb_init = Tlb::new(bar.clone());
--        let pramin_init = pramin::Pramin::new(bar, chipset, pramin_vram_region)?;
-+        let pramin_init = pramin::Pramin::new(bar, dev, chipset, pramin_vram_region)?;
- 
-         Ok(pin_init!(Self {
-             buddy,
-diff --git a/drivers/gpu/nova-core/mm/bar_user.rs b/drivers/gpu/nova-core/mm/bar_user.rs
-index 086d33776c48a..172f9c0f5b4d8 100644
---- a/drivers/gpu/nova-core/mm/bar_user.rs
-+++ b/drivers/gpu/nova-core/mm/bar_user.rs
-@@ -4,6 +4,7 @@
- //! for GPU work submission, and applications to access GPU buffers via mmap().
- 
- use kernel::{
-+    device,
-     io::Io,
-     prelude::*, //
- };
-@@ -45,6 +46,7 @@ pub(crate) fn new(pdb_addr: VramAddress, chipset: Chipset, va_size: u64) -> Resu
-     /// Map physical pages to a contiguous BAR1 virtual range.
-     pub(crate) fn map<'a>(
-         &'a mut self,
-+        dev: &'a device::Device<device::Bound>,
-         mm: &'a GpuMm,
-         bar: &'a Bar1,
-         pfns: &[Pfn],
-@@ -54,10 +56,11 @@ pub(crate) fn map<'a>(
-             return Err(EINVAL);
-         }
- 
--        let mapped = self.vmm.map_pages(mm, pfns, None, writable)?;
-+        let mapped = self.vmm.map_pages(dev, mm, pfns, None, writable)?;
- 
-         Ok(BarUserAccess {
-             vmm: &mut self.vmm,
-+            dev,
-             mm,
-             bar,
-             mapped: Some(mapped),
-@@ -72,6 +75,7 @@ pub(crate) fn map<'a>(
- /// [`Vmm::unmap_pages()`], which consumes it).
- pub(crate) struct BarUserAccess<'a> {
-     vmm: &'a mut Vmm,
-+    dev: &'a device::Device<device::Bound>,
-     mm: &'a GpuMm,
-     bar: &'a Bar1,
-     /// Needs to be an `Option` so that we can `take()` it and call `Drop`
-@@ -144,7 +148,7 @@ pub(crate) fn try_write64(&self, value: u64, offset: usize) -> Result {
- impl Drop for BarUserAccess<'_> {
-     fn drop(&mut self) {
-         if let Some(mapped) = self.mapped.take() {
--            if self.vmm.unmap_pages(self.mm, mapped).is_err() {
-+            if self.vmm.unmap_pages(self.dev, self.mm, mapped).is_err() {
-                 kernel::pr_warn_once!("BarUserAccess: unmap_pages failed.\n");
-             }
-         }
-@@ -158,7 +162,7 @@ fn drop(&mut self) {
- /// and test pages as needed.
- #[cfg(CONFIG_NOVA_MM_SELFTESTS)]
- pub(crate) fn run_self_test(
--    dev: &kernel::device::Device,
-+    pdev: &device::Device<device::Bound>,
-     mm: &GpuMm,
-     bar1: &Bar1,
-     bar1_pdb: u64,
-@@ -180,12 +184,13 @@ pub(crate) fn run_self_test(
-     const PATTERN_PRAMIN: u32 = 0xDEAD_BEEF;
-     const PATTERN_BAR1: u32 = 0xCAFE_BABE;
- 
-+    let dev = pdev.as_ref();
-     dev_info!(dev, "MM: Starting self-test...\n");
- 
-     let pdb_addr = VramAddress::new(bar1_pdb);
- 
-     // Check if initial page tables are in VRAM.
--    if crate::mm::pagetable::check_pdb_valid(mm.pramin(), pdb_addr, chipset).is_err() {
-+    if crate::mm::pagetable::check_pdb_valid(pdev, mm.pramin(), pdb_addr, chipset).is_err() {
-         dev_info!(dev, "MM: Self-test SKIPPED - no valid VRAM page tables\n");
-         return Ok(());
-     }
-@@ -208,7 +213,7 @@ pub(crate) fn run_self_test(
-     let mut vmm = Vmm::new(pdb_addr, chipset.mmu_version(), SZ_64K.into_safe_cast())?;
- 
-     // Create a test mapping.
--    let mapped = vmm.map_pages(mm, &[test_pfn], None, true)?;
-+    let mapped = vmm.map_pages(pdev, mm, &[test_pfn], None, true)?;
-     let test_vfn = mapped.vfn_start;
- 
-     // Pre-compute test addresses for the PRAMIN to BAR1 read test.
-@@ -219,7 +224,7 @@ pub(crate) fn run_self_test(
- 
-     // Test 1: Write via PRAMIN, read via BAR1.
-     {
--        let mut window = mm.pramin().get_window()?;
-+        let mut window = mm.pramin().get_window(pdev)?;
-         window.try_write32(vram_read_addr, PATTERN_PRAMIN)?;
-     }
- 
-@@ -239,19 +244,19 @@ pub(crate) fn run_self_test(
-     };
- 
-     // Cleanup - invalidate PTE.
--    vmm.unmap_pages(mm, mapped)?;
-+    vmm.unmap_pages(pdev, mm, mapped)?;
- 
-     // Test 2: Two-phase prepare/execute API.
--    let prepared = vmm.prepare_map(mm, 1, None)?;
--    let mapped2 = vmm.execute_map(mm, prepared, &[test_pfn], true)?;
--    let readback = vmm.read_mapping(mm, mapped2.vfn_start)?;
-+    let prepared = vmm.prepare_map(pdev, mm, 1, None)?;
-+    let mapped2 = vmm.execute_map(pdev, mm, prepared, &[test_pfn], true)?;
-+    let readback = vmm.read_mapping(pdev, mm, mapped2.vfn_start)?;
-     let test2_passed = if readback == Some(test_pfn) {
-         true
-     } else {
-         dev_err!(dev, "MM: Test 2 FAILED - Two-phase map readback mismatch\n");
-         false
-     };
--    vmm.unmap_pages(mm, mapped2)?;
-+    vmm.unmap_pages(pdev, mm, mapped2)?;
- 
-     // Test 3: Range-constrained allocation with a hole — exercises block.size()-driven
-     // BAR1 mapping. A 4K hole is punched at base+16K, then a single 32K allocation
-@@ -311,7 +316,7 @@ pub(crate) fn run_self_test(
-             )?;
-         }
- 
--        let mapped = vmm.map_pages(mm, &pfns, None, true)?;
-+        let mapped = vmm.map_pages(pdev, mm, &pfns, None, true)?;
-         let bar1_base_vfn: usize = mapped.vfn_start.raw().into_safe_cast();
-         let bar1_base = bar1_base_vfn.checked_mul(PAGE_SIZE).ok_or(EOVERFLOW)?;
- 
-@@ -326,7 +331,7 @@ pub(crate) fn run_self_test(
-             bar1.try_write32(PATTERN_BAR1, page_bar1_off)?;
- 
-             let pramin_val = {
--                let mut window = mm.pramin().get_window()?;
-+                let mut window = mm.pramin().get_window(pdev)?;
-                 window.try_read32(page_phys.into_safe_cast())?
-             };
- 
-@@ -342,7 +347,7 @@ pub(crate) fn run_self_test(
-             }
-         }
- 
--        vmm.unmap_pages(mm, mapped)?;
-+        vmm.unmap_pages(pdev, mm, mapped)?;
-     }
- 
-     // Verify aggregate: all returned block sizes must sum to allocation size.
-@@ -363,11 +368,11 @@ pub(crate) fn run_self_test(
-     // Test 4: Exercise `BarUser::map()` end-to-end.
-     let mut bar_user = BarUser::new(pdb_addr, chipset, SZ_64K.into_safe_cast())?;
-     let test4_passed = {
--        let access = bar_user.map(mm, bar1, &[test_pfn], true)?;
-+        let access = bar_user.map(pdev, mm, bar1, &[test_pfn], true)?;
- 
-         // Write pattern via PRAMIN, read via BarUserAccess.
-         {
--            let mut window = mm.pramin().get_window()?;
-+            let mut window = mm.pramin().get_window(pdev)?;
-             window.try_write32(test_vram.raw(), PATTERN_BAR1)?;
-         }
- 
-diff --git a/drivers/gpu/nova-core/mm/pagetable.rs b/drivers/gpu/nova-core/mm/pagetable.rs
-index 922ff8bd4f0fd..b267dcf4dd8ba 100644
---- a/drivers/gpu/nova-core/mm/pagetable.rs
-+++ b/drivers/gpu/nova-core/mm/pagetable.rs
-@@ -22,7 +22,10 @@
-     VirtualAddress,
-     VramAddress, //
- };
--use kernel::prelude::*;
-+use kernel::{
-+    device,
-+    prelude::*, //
-+};
- 
- /// Extracts the page table index at a given level from a virtual address.
- pub(super) trait VaLevelIndex {
-@@ -386,10 +389,11 @@ fn from(val: AperturePde) -> Self {
- /// Check if the PDB has valid, VRAM-backed page tables.
- #[cfg(CONFIG_NOVA_MM_SELFTESTS)]
- fn check_pdb_inner<M: MmuConfig>(
-+    dev: &device::Device<device::Bound>,
-     pramin: &pramin::Pramin,
-     pdb_addr: VramAddress,
- ) -> Result {
--    let mut window = pramin.get_window()?;
-+    let mut window = pramin.get_window(dev)?;
-     let raw = window.try_read64(pdb_addr.raw())?;
- 
-     if !M::Pde::new(raw).is_valid_vram() {
-@@ -401,12 +405,13 @@ fn check_pdb_inner<M: MmuConfig>(
- /// Check if the PDB has valid, VRAM-backed page tables, dispatching by MMU version.
- #[cfg(CONFIG_NOVA_MM_SELFTESTS)]
- pub(super) fn check_pdb_valid(
-+    dev: &device::Device<device::Bound>,
-     pramin: &pramin::Pramin,
-     pdb_addr: VramAddress,
-     chipset: crate::gpu::Chipset,
- ) -> Result {
-     match MmuVersion::from(chipset.arch()) {
--        MmuVersion::V2 => check_pdb_inner::<MmuV2>(pramin, pdb_addr),
--        MmuVersion::V3 => check_pdb_inner::<MmuV3>(pramin, pdb_addr),
-+        MmuVersion::V2 => check_pdb_inner::<MmuV2>(dev, pramin, pdb_addr),
-+        MmuVersion::V3 => check_pdb_inner::<MmuV3>(dev, pramin, pdb_addr),
-     }
- }
-diff --git a/drivers/gpu/nova-core/mm/pagetable/map.rs b/drivers/gpu/nova-core/mm/pagetable/map.rs
-index a9719580143e1..16af491472dbc 100644
---- a/drivers/gpu/nova-core/mm/pagetable/map.rs
-+++ b/drivers/gpu/nova-core/mm/pagetable/map.rs
-@@ -5,6 +5,7 @@
- use core::marker::PhantomData;
- 
- use kernel::{
-+    device,
-     gpu::buddy::{
-         AllocatedBlocks,
-         GpuBuddyAllocFlags,
-@@ -73,7 +74,11 @@ pub(super) fn new(pdb_addr: VramAddress) -> Self {
-     }
- 
-     /// Allocate and zero a physical page table page.
--    fn alloc_and_zero_page(mm: &GpuMm, level: PageTableLevel) -> Result<PreparedPtPage> {
-+    fn alloc_and_zero_page(
-+        dev: &device::Device<device::Bound>,
-+        mm: &GpuMm,
-+        level: PageTableLevel,
-+    ) -> Result<PreparedPtPage> {
-         let blocks = KBox::pin_init(
-             mm.buddy().alloc_blocks(
-                 GpuBuddyAllocMode::Simple,
-@@ -87,7 +92,7 @@ fn alloc_and_zero_page(mm: &GpuMm, level: PageTableLevel) -> Result<PreparedPtPa
-         let page_vram = VramAddress::new(blocks.iter().next().ok_or(ENOMEM)?.offset());
- 
-         // Zero via PRAMIN.
--        let mut window = mm.pramin().get_window()?;
-+        let mut window = mm.pramin().get_window(dev)?;
-         let base = page_vram.raw();
-         for off in (0..PAGE_SIZE).step_by(8) {
-             window.try_write64(base + off, 0)?;
-@@ -106,6 +111,7 @@ fn alloc_and_zero_page(mm: &GpuMm, level: PageTableLevel) -> Result<PreparedPtPa
-     /// the fence signalling critical path.
-     fn ensure_single_pte_path(
-         &self,
-+        dev: &device::Device<device::Bound>,
-         mm: &GpuMm,
-         vfn: Vfn,
-         pt_pages: &mut RBTree<VramAddress, PreparedPtPage>,
-@@ -113,7 +119,7 @@ fn ensure_single_pte_path(
-         let max_iter = 2 * M::PDE_LEVELS.len();
- 
-         for _ in 0..max_iter {
--            let mut window = mm.pramin().get_window()?;
-+            let mut window = mm.pramin().get_window(dev)?;
- 
-             let result = self
-                 .walker
-@@ -133,7 +139,7 @@ fn ensure_single_pte_path(
-                 } => {
-                     // Drop PRAMIN before allocation.
-                     drop(window);
--                    let page = Self::alloc_and_zero_page(mm, level)?;
-+                    let page = Self::alloc_and_zero_page(dev, mm, level)?;
-                     let node = RBTreeNode::new(install_addr, page, GFP_KERNEL)?;
-                     let old = pt_pages.insert(node);
-                     if old.is_some() {
-@@ -160,6 +166,7 @@ fn ensure_single_pte_path(
-     /// per-VFN to prepare pages for all missing PDEs.
-     pub(super) fn prepare_map(
-         &self,
-+        dev: &device::Device<device::Bound>,
-         mm: &GpuMm,
-         vfn_start: Vfn,
-         num_pages: usize,
-@@ -175,7 +182,7 @@ pub(super) fn prepare_map(
-         for i in 0..num_pages {
-             let i_u64: u64 = i.into_safe_cast();
-             let vfn = Vfn::new(vfn_start.raw() + i_u64);
--            self.ensure_single_pte_path(mm, vfn, pt_pages)?;
-+            self.ensure_single_pte_path(dev, mm, vfn, pt_pages)?;
-         }
-         Ok(())
-     }
-@@ -185,6 +192,7 @@ pub(super) fn prepare_map(
-     /// Drains `pt_pages` and moves allocations into `page_table_allocs`.
-     pub(super) fn install_mappings(
-         &self,
-+        dev: &device::Device<device::Bound>,
-         mm: &GpuMm,
-         pt_pages: &mut RBTree<VramAddress, PreparedPtPage>,
-         page_table_allocs: &mut KVec<Pin<KBox<AllocatedBlocks>>>,
-@@ -192,7 +200,7 @@ pub(super) fn install_mappings(
-         pfns: &[Pfn],
-         writable: bool,
-     ) -> Result {
--        let mut window = mm.pramin().get_window()?;
-+        let mut window = mm.pramin().get_window(dev)?;
- 
-         // Drain prepared PT pages, install all pending PDEs.
-         let mut cursor = pt_pages.cursor_front_mut();
-@@ -239,14 +247,20 @@ pub(super) fn install_mappings(
-         drop(window);
- 
-         // Flush TLB.
--        mm.tlb().flush(self.pdb_addr)
-+        mm.tlb().flush(dev, self.pdb_addr)
-     }
- 
-     /// Invalidate PTEs for a range and flush TLB.
--    pub(super) fn invalidate_ptes(&self, mm: &GpuMm, vfn_start: Vfn, num_pages: usize) -> Result {
-+    pub(super) fn invalidate_ptes(
-+        &self,
-+        dev: &device::Device<device::Bound>,
-+        mm: &GpuMm,
-+        vfn_start: Vfn,
-+        num_pages: usize,
-+    ) -> Result {
-         let invalid_pte = M::Pte::invalid();
- 
--        let mut window = mm.pramin().get_window()?;
-+        let mut window = mm.pramin().get_window(dev)?;
-         for i in 0..num_pages {
-             let i_u64: u64 = i.into_safe_cast();
-             let vfn = Vfn::new(vfn_start.raw() + i_u64);
-@@ -265,7 +279,7 @@ pub(super) fn invalidate_ptes(&self, mm: &GpuMm, vfn_start: Vfn, num_pages: usiz
-         }
-         drop(window);
- 
--        mm.tlb().flush(self.pdb_addr)
-+        mm.tlb().flush(dev, self.pdb_addr)
-     }
- }
- 
-@@ -298,6 +312,7 @@ pub(in crate::mm) fn new(pdb_addr: VramAddress, version: MmuVersion) -> Self {
-     /// Prepare page table resources for a mapping.
-     pub(in crate::mm) fn prepare_map(
-         &self,
-+        dev: &device::Device<device::Bound>,
-         mm: &GpuMm,
-         vfn_start: Vfn,
-         num_pages: usize,
-@@ -306,13 +321,14 @@ pub(in crate::mm) fn prepare_map(
-     ) -> Result {
-         pt_map_dispatch!(
-             self,
--            prepare_map(mm, vfn_start, num_pages, page_table_allocs, pt_pages)
-+            prepare_map(dev, mm, vfn_start, num_pages, page_table_allocs, pt_pages)
-         )
-     }
- 
-     /// Install prepared PDEs and write PTEs, then flush TLB.
-     pub(in crate::mm) fn install_mappings(
-         &self,
-+        dev: &device::Device<device::Bound>,
-         mm: &GpuMm,
-         pt_pages: &mut RBTree<VramAddress, PreparedPtPage>,
-         page_table_allocs: &mut KVec<Pin<KBox<AllocatedBlocks>>>,
-@@ -322,17 +338,18 @@ pub(in crate::mm) fn install_mappings(
-     ) -> Result {
-         pt_map_dispatch!(
-             self,
--            install_mappings(mm, pt_pages, page_table_allocs, vfn_start, pfns, writable)
-+            install_mappings(dev, mm, pt_pages, page_table_allocs, vfn_start, pfns, writable)
-         )
-     }
- 
-     /// Invalidate PTEs for a range and flush TLB.
-     pub(in crate::mm) fn invalidate_ptes(
-         &self,
-+        dev: &device::Device<device::Bound>,
-         mm: &GpuMm,
-         vfn_start: Vfn,
-         num_pages: usize,
-     ) -> Result {
--        pt_map_dispatch!(self, invalidate_ptes(mm, vfn_start, num_pages))
-+        pt_map_dispatch!(self, invalidate_ptes(dev, mm, vfn_start, num_pages))
-     }
- }
-diff --git a/drivers/gpu/nova-core/mm/pagetable/walk.rs b/drivers/gpu/nova-core/mm/pagetable/walk.rs
-index 89d4426bcf144..fedb8b4f33e58 100644
---- a/drivers/gpu/nova-core/mm/pagetable/walk.rs
-+++ b/drivers/gpu/nova-core/mm/pagetable/walk.rs
-@@ -36,7 +36,10 @@
- 
- use core::marker::PhantomData;
- 
--use kernel::prelude::*;
-+use kernel::{
-+    device,
-+    prelude::*, //
-+};
- 
- use super::{
-     DualPdeOps,
-@@ -168,8 +171,13 @@ pub(super) fn walk_pde_levels(
-     /// Walk to PTE for lookup only (no allocation).
-     ///
-     /// Returns [`WalkResult::PageTableMissing`] if intermediate tables don't exist.
--    pub(super) fn walk_to_pte_lookup(&self, mm: &GpuMm, vfn: Vfn) -> Result<WalkResult> {
--        let mut window = mm.pramin().get_window()?;
-+    pub(super) fn walk_to_pte_lookup(
-+        &self,
-+        dev: &device::Device<device::Bound>,
-+        mm: &GpuMm,
-+        vfn: Vfn,
-+    ) -> Result<WalkResult> {
-+        let mut window = mm.pramin().get_window(dev)?;
-         self.walk_to_pte_lookup_with_window(&mut window, vfn)
-     }
- 
-@@ -236,7 +244,12 @@ pub(in crate::mm) fn new(pdb_addr: VramAddress, version: MmuVersion) -> Self {
-     }
- 
-     /// Walk to PTE for lookup.
--    pub(in crate::mm) fn walk_to_pte(&self, mm: &GpuMm, vfn: Vfn) -> Result<WalkResult> {
--        pt_walk_dispatch!(self, walk_to_pte_lookup(mm, vfn))
-+    pub(in crate::mm) fn walk_to_pte(
-+        &self,
-+        dev: &device::Device<device::Bound>,
-+        mm: &GpuMm,
-+        vfn: Vfn,
-+    ) -> Result<WalkResult> {
-+        pt_walk_dispatch!(self, walk_to_pte_lookup(dev, mm, vfn))
-     }
- }
-diff --git a/drivers/gpu/nova-core/mm/pramin.rs b/drivers/gpu/nova-core/mm/pramin.rs
-index f56d6c3d4e255..c16717a73ecba 100644
---- a/drivers/gpu/nova-core/mm/pramin.rs
-+++ b/drivers/gpu/nova-core/mm/pramin.rs
-@@ -75,11 +75,11 @@
- };
- 
- use kernel::{
-+    device,
-     devres::Devres,
-     io::Io,
-     new_mutex,
-     prelude::*,
--    revocable::RevocableGuard,
-     sizes::{
-         SZ_1M,
-         SZ_64K, //
-@@ -117,7 +117,7 @@ pub(crate) fn $name(&mut self, vram_offset: usize) -> Result<$ty> {
-                 self.compute_window(vram_offset, ::core::mem::size_of::<$ty>())?;
- 
-             if let Some(base) = new_base {
--                regs::pramin_window_write_base(self.chipset.arch(), &self.bar, base)?;
-+                regs::pramin_window_write_base(self.chipset.arch(), self.bar, base)?;
-                 *self.state = base;
-             }
-             self.bar.$name(bar_offset)
-@@ -134,7 +134,7 @@ pub(crate) fn $name(&mut self, vram_offset: usize, value: $ty) -> Result {
-                 self.compute_window(vram_offset, ::core::mem::size_of::<$ty>())?;
- 
-             if let Some(base) = new_base {
--                regs::pramin_window_write_base(self.chipset.arch(), &self.bar, base)?;
-+                regs::pramin_window_write_base(self.chipset.arch(), self.bar, base)?;
-                 *self.state = base;
-             }
-             self.bar.$name(value, bar_offset)
-@@ -169,11 +169,12 @@ impl Pramin {
-     /// `vram_region` specifies the valid VRAM address range.
-     pub(crate) fn new(
-         bar: Arc<Devres<Bar0>>,
-+        dev: &device::Device<device::Bound>,
-         chipset: Chipset,
-         vram_region: Range<u64>,
-     ) -> Result<impl PinInit<Self>> {
--        let bar_access = bar.try_access().ok_or(ENODEV)?;
--        let current_base = regs::pramin_window_read_base(chipset.arch(), &bar_access);
-+        let bar_access = bar.access(dev)?;
-+        let current_base = regs::pramin_window_read_base(chipset.arch(), bar_access);
- 
-         Ok(pin_init!(Self {
-             bar,
-@@ -192,8 +193,11 @@ fn vram_region(&self) -> &Range<u64> {
-     ///
-     /// Returns a [`PraminWindow`] guard that provides VRAM read/write accessors.
-     /// The [`PraminWindow`] is exclusive and only one can exist at a time.
--    pub(crate) fn get_window(&self) -> Result<PraminWindow<'_>> {
--        let bar = self.bar.try_access().ok_or(ENODEV)?;
-+    pub(crate) fn get_window<'a>(
-+        &'a self,
-+        dev: &'a device::Device<device::Bound>,
-+    ) -> Result<PraminWindow<'a>> {
-+        let bar = self.bar.access(dev)?;
-         let state = self.state.lock();
-         Ok(PraminWindow {
-             bar,
-@@ -212,7 +216,7 @@ pub(crate) fn get_window(&self) -> Result<PraminWindow<'_>> {
- /// Only one [`PraminWindow`] can exist at a time per [`Pramin`] instance (enforced by the
- /// internal `MutexGuard`).
- pub(crate) struct PraminWindow<'a> {
--    bar: RevocableGuard<'a, Bar0>,
-+    bar: &'a Bar0,
-     chipset: Chipset,
-     vram_region: Range<u64>,
-     state: MutexGuard<'a, u64>,
-@@ -433,14 +437,15 @@ fn test_misaligned_access(
- 
- /// Run PRAMIN self-tests during boot if self-tests are enabled.
- #[cfg(CONFIG_NOVA_MM_SELFTESTS)]
--pub(crate) fn run_self_test(dev: &kernel::device::Device, pramin: &Pramin) -> Result {
-+pub(crate) fn run_self_test(pdev: &device::Device<device::Bound>, pramin: &Pramin) -> Result {
-+    let dev = pdev.as_ref();
-     dev_info!(dev, "PRAMIN: Starting self-test...\n");
- 
-     let vram_region = pramin.vram_region();
-     let base: usize = vram_region.start.into_safe_cast();
-     let base = base + SELFTEST_REGION_OFFSET;
-     let vram_end = vram_region.end;
--    let mut win = pramin.get_window()?;
-+    let mut win = pramin.get_window(pdev)?;
- 
-     test_byte_readwrite(dev, &mut win, base)?;
-     test_u32_as_bytes(dev, &mut win, base)?;
-diff --git a/drivers/gpu/nova-core/mm/tlb.rs b/drivers/gpu/nova-core/mm/tlb.rs
-index 8d36e1552792d..53c6fe6084b81 100644
---- a/drivers/gpu/nova-core/mm/tlb.rs
-+++ b/drivers/gpu/nova-core/mm/tlb.rs
-@@ -11,17 +11,22 @@
- //! ```ignore
- //! use crate::mm::tlb::Tlb;
- //!
--//! fn page_table_update(tlb: &Tlb, pdb_addr: VramAddress) -> Result<()> {
-+//! fn page_table_update(
-+//!     dev: &device::Device<device::Bound>,
-+//!     tlb: &Tlb,
-+//!     pdb_addr: VramAddress,
-+//! ) -> Result<()> {
- //!     // ... modify page tables ...
- //!
- //!     // Flush TLB to make changes visible (polls for completion).
--//!     tlb.flush(pdb_addr)?;
-+//!     tlb.flush(dev, pdb_addr)?;
- //!
- //!     Ok(())
- //! }
- //! ```
- 
- use kernel::{
-+    device,
-     devres::Devres,
-     io::poll::read_poll_timeout,
-     io::Io,
-@@ -92,39 +97,29 @@ pub(super) fn new(bar: Arc<Devres<Bar0>>) -> impl PinInit<Self> {
-     /// This invalidates all TLB entries associated with the given PDB address.
-     /// Must be called after modifying page table entries to ensure the GPU sees
-     /// the updated mappings.
--    pub(super) fn flush(&self, pdb_addr: VramAddress) -> Result {
-+    pub(super) fn flush(
-+        &self,
-+        dev: &device::Device<device::Bound>,
-+        pdb_addr: VramAddress,
-+    ) -> Result {
-         let _guard = self.lock.lock();
-+        let bar = self.bar.access(dev)?;
- 
--        // Broken into 2 phases with scopes (Write and Poll) to avoid holding
--        // RevecablableGuard (and hence RCU read-side critical section) across
--        // the read_poll_timeout() call that can sleep.
-+        // Write PDB address.
-+        bar.write_reg(regs::NV_TLB_FLUSH_PDB_LO::from_pdb_addr(pdb_addr.raw_u64()));
-+        bar.write_reg(regs::NV_TLB_FLUSH_PDB_HI::from_pdb_addr(pdb_addr.raw_u64()));
- 
--        // Write phase — hold bar access briefly for register writes only.
--        {
--            let bar = self.bar.try_access().ok_or(ENODEV)?;
-+        // Trigger flush.
-+        bar.write_reg(
-+            regs::NV_TLB_FLUSH_CTRL::zeroed()
-+                .with_all_va(true)
-+                .with_ack(TlbAckMode::None)
-+                .with_trigger(true),
-+        );
- 
--            // Write PDB address.
--            bar.write_reg(regs::NV_TLB_FLUSH_PDB_LO::from_pdb_addr(pdb_addr.raw_u64()));
--            bar.write_reg(regs::NV_TLB_FLUSH_PDB_HI::from_pdb_addr(pdb_addr.raw_u64()));
+ 	r = amdgpu_sync_init();
+ 	if (r)
+-		goto error_sync;
 -
--            // Trigger flush: invalidate all virtual addresses, require global
--            // acknowledgment from all engines before completion. See
--            // [`TlbAckMode::Globally`] for why this scope is used unconditionally.
--            bar.write_reg(
--                regs::NV_TLB_FLUSH_CTRL::zeroed()
--                    .with_all_va(true)
--                    .with_ack(TlbAckMode::None)
--                    .with_trigger(true),
--            );
--        }
+-	r = amdgpu_userq_fence_slab_init();
+-	if (r)
+-		goto error_fence;
++		return r;
+ 
+ 	amdgpu_register_atpx_handler();
+ 	amdgpu_acpi_detect();
+@@ -3182,12 +3178,6 @@ static int __init amdgpu_init(void)
+ 
+ 	/* let modprobe override vga console setting */
+ 	return pci_register_driver(&amp;amdgpu_kms_pci_driver);
 -
--        // Poll for completion — re-acquire bar access each iteration to avoid
--        // holding the RCU read-side lock (via RevocableGuard) across sleep.
-+        // Poll for completion.
-         read_poll_timeout(
--            || {
--                let bar = self.bar.try_access().ok_or(ENODEV)?;
--                Ok(bar.read(regs::NV_TLB_FLUSH_CTRL))
--            },
-+            || Ok(bar.read(regs::NV_TLB_FLUSH_CTRL)),
-             |ctrl: &regs::NV_TLB_FLUSH_CTRL| !ctrl.trigger(),
-             Delta::ZERO,
-             Delta::from_secs(2),
-diff --git a/drivers/gpu/nova-core/mm/vmm.rs b/drivers/gpu/nova-core/mm/vmm.rs
-index 45da443211583..35caaed56007e 100644
---- a/drivers/gpu/nova-core/mm/vmm.rs
-+++ b/drivers/gpu/nova-core/mm/vmm.rs
-@@ -6,6 +6,7 @@
- //! virtual address spaces (Channels, BAR1, BAR2).
+-error_fence:
+-	amdgpu_sync_fini();
+-
+-error_sync:
+-	return r;
+ }
  
- use kernel::{
-+    device,
-     gpu::buddy::AllocatedBlocks,
-     maple_tree::MapleTreeAlloc,
-     prelude::*,
-@@ -207,8 +208,13 @@ fn free_vfn(&self, vfn: Vfn) {
-     }
+ static void __exit amdgpu_exit(void)
+@@ -3197,7 +3187,6 @@ static void __exit amdgpu_exit(void)
+ 	amdgpu_unregister_atpx_handler();
+ 	amdgpu_acpi_release();
+ 	amdgpu_sync_fini();
+-	amdgpu_userq_fence_slab_fini();
+ 	mmu_notifier_synchronize();
+ 	amdgpu_xcp_drv_release();
+ }
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
+index a58342c2ac44..909bdccc2a92 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
+@@ -32,29 +32,9 @@
+ #include &quot;amdgpu.h&quot;
+ #include &quot;amdgpu_userq_fence.h&quot;
  
-     /// Read the [`Pfn`] for a mapped [`Vfn`] if one is mapped.
--    pub(super) fn read_mapping(&self, mm: &GpuMm, vfn: Vfn) -> Result<Option<Pfn>> {
--        match self.pt_walk.walk_to_pte(mm, vfn)? {
-+    pub(super) fn read_mapping(
-+        &self,
-+        dev: &device::Device<device::Bound>,
-+        mm: &GpuMm,
-+        vfn: Vfn,
-+    ) -> Result<Option<Pfn>> {
-+        match self.pt_walk.walk_to_pte(dev, mm, vfn)? {
-             WalkResult::Mapped { pfn, .. } => Ok(Some(pfn)),
-             WalkResult::Unmapped { .. } | WalkResult::PageTableMissing => Ok(None),
-         }
-@@ -223,6 +229,7 @@ pub(super) fn read_mapping(&self, mm: &GpuMm, vfn: Vfn) -> Result<Option<Pfn>> {
-     /// to call outside the fence signalling critical path.
-     pub(crate) fn prepare_map(
-         &mut self,
-+        dev: &device::Device<device::Bound>,
-         mm: &GpuMm,
-         num_pages: usize,
-         va_range: Option<Range<u64>>,
-@@ -235,6 +242,7 @@ pub(crate) fn prepare_map(
-         let vfn_start = self.alloc_vfn_range(num_pages, va_range)?;
+-static const struct dma_fence_ops amdgpu_userq_fence_ops;
+-static struct kmem_cache *amdgpu_userq_fence_slab;
+-
+ #define AMDGPU_USERQ_MAX_HANDLES	(1U &lt;&lt; 16)
  
-         if let Err(e) = self.pt_map.prepare_map(
-+            dev,
-             mm,
-             vfn_start,
-             num_pages,
-@@ -257,6 +265,7 @@ pub(crate) fn prepare_map(
-     /// Installs all prepared PDEs and writes PTEs into the page table, then flushes TLB.
-     pub(crate) fn execute_map(
-         &mut self,
-+        dev: &device::Device<device::Bound>,
-         mm: &GpuMm,
-         prepared: PreparedMapping,
-         pfns: &[Pfn],
-@@ -275,6 +284,7 @@ pub(crate) fn execute_map(
-         _drop_guard.disarm();
+-int amdgpu_userq_fence_slab_init(void)
+-{
+-	amdgpu_userq_fence_slab = kmem_cache_create(&quot;amdgpu_userq_fence&quot;,
+-						    sizeof(struct amdgpu_userq_fence),
+-						    0,
+-						    SLAB_HWCACHE_ALIGN,
+-						    NULL);</pre>
+    </blockquote>
+    Are we not having benefit enough to continue create a cache here ?
+    If that is fine that LGTM,&nbsp;
+    <p style="margin:0in;font-family:Calibri;font-size:11.0pt">Acked-by:
+      Sunil
+      Khatri <a class="moz-txt-link-rfc2396E" href="mailto:sunil.khatri@amd.com">&lt;sunil.khatri@amd.com&gt;</a></p>
+    <p style="margin:0in;font-family:Calibri;font-size:11.0pt">Regards<br>
+      Sunil</p>
+    <br>
+    <br>
+    <blockquote type="cite" cite="mid:20260421125513.4545-3-christian.koenig@amd.com">
+      <pre wrap="" class="moz-quote-pre">
+-	if (!amdgpu_userq_fence_slab)
+-		return -ENOMEM;
+-
+-	return 0;
+-}
+-
+-void amdgpu_userq_fence_slab_fini(void)
+-{
+-	rcu_barrier();
+-	kmem_cache_destroy(amdgpu_userq_fence_slab);
+-}
++static const struct dma_fence_ops amdgpu_userq_fence_ops;
  
-         if let Err(e) = self.pt_map.install_mappings(
-+            dev,
-             mm,
-             &mut self.pt_pages,
-             &mut self.page_table_allocs,
-@@ -300,6 +310,7 @@ pub(crate) fn execute_map(
-     /// [`Vmm::execute_map()`] will be called separately.
-     pub(crate) fn map_pages(
-         &mut self,
-+        dev: &device::Device<device::Bound>,
-         mm: &GpuMm,
-         pfns: &[Pfn],
-         va_range: Option<Range<u64>>,
-@@ -322,15 +333,20 @@ pub(crate) fn map_pages(
-             }
-         }
+ static inline struct amdgpu_userq_fence *to_amdgpu_userq_fence(struct dma_fence *f)
+ {
+@@ -146,12 +126,18 @@ amdgpu_userq_fence_driver_free(struct amdgpu_usermode_queue *userq)
+ }
  
--        let prepared = self.prepare_map(mm, pfns.len(), va_range)?;
--        self.execute_map(mm, prepared, pfns, writable)
-+        let prepared = self.prepare_map(dev, mm, pfns.len(), va_range)?;
-+        self.execute_map(dev, mm, prepared, pfns, writable)
-     }
+ static void
+-amdgpu_userq_fence_put_fence_drv_array(struct amdgpu_userq_fence *userq_fence)
++amdgpu_userq_fence_put_fence_drv_refs(struct amdgpu_userq_fence *userq_fence)
+ {
+ 	unsigned long i;
++
+ 	for (i = 0; i &lt; userq_fence-&gt;fence_drv_array_count; i++)
+ 		amdgpu_userq_fence_driver_put(userq_fence-&gt;fence_drv_array[i]);
+ 	userq_fence-&gt;fence_drv_array_count = 0;
++	kfree(userq_fence-&gt;fence_drv_array);
++	userq_fence-&gt;fence_drv_array = NULL;
++
++	amdgpu_userq_fence_driver_put(userq_fence-&gt;fence_drv);
++	userq_fence-&gt;fence_drv = NULL;
+ }
  
-     /// Unmap all pages in a [`MappedRange`] with a single TLB flush.
--    pub(crate) fn unmap_pages(&mut self, mm: &GpuMm, range: MappedRange) -> Result {
-+    pub(crate) fn unmap_pages(
-+        &mut self,
-+        dev: &device::Device<device::Bound>,
-+        mm: &GpuMm,
-+        range: MappedRange,
-+    ) -> Result {
-         let result = self
-             .pt_map
--            .invalidate_ptes(mm, range.vfn_start, range.num_pages);
-+            .invalidate_ptes(dev, mm, range.vfn_start, range.num_pages);
+ void amdgpu_userq_fence_driver_process(struct amdgpu_userq_fence_driver *fence_drv)
+@@ -181,10 +167,11 @@ void amdgpu_userq_fence_driver_process(struct amdgpu_userq_fence_driver *fence_d
+ 		fence = &amp;userq_fence-&gt;base;
+ 		list_del_init(&amp;userq_fence-&gt;link);
+ 		dma_fence_signal(fence);
+-		/* Drop fence_drv_array outside fence_list_lock
++		/*
++		 * Drop fence_drv_array outside fence_list_lock
+ 		 * to avoid the recursion lock.
+ 		 */
+-		amdgpu_userq_fence_put_fence_drv_array(userq_fence);
++		amdgpu_userq_fence_put_fence_drv_refs(userq_fence);
+ 		dma_fence_put(fence);
+ 	}
  
-         // TODO: Internal page table pages (PDE, PTE pages) are still kept around.
-         // This is by design as repeated maps/unmaps will be fast. As a future TODO,
--- 
-2.34.1
+@@ -231,7 +218,7 @@ void amdgpu_userq_fence_driver_put(struct amdgpu_userq_fence_driver *fence_drv)
+ 
+ static int amdgpu_userq_fence_alloc(struct amdgpu_userq_fence **userq_fence)
+ {
+-	*userq_fence = kmem_cache_alloc(amdgpu_userq_fence_slab, GFP_ATOMIC);
++	*userq_fence = kmalloc(sizeof(**userq_fence), GFP_ATOMIC);
+ 	return *userq_fence ? 0 : -ENOMEM;
+ }
+ 
+@@ -299,7 +286,7 @@ static int amdgpu_userq_fence_create(struct amdgpu_usermode_queue *userq,
+ 	spin_unlock_irqrestore(&amp;fence_drv-&gt;fence_list_lock, flags);
+ 
+ 	if (signaled)
+-		amdgpu_userq_fence_put_fence_drv_array(userq_fence);
++		amdgpu_userq_fence_put_fence_drv_refs(userq_fence);
+ 
+ 	*f = fence;
+ 
+@@ -333,29 +320,10 @@ static bool amdgpu_userq_fence_signaled(struct dma_fence *f)
+ 	return false;
+ }
+ 
+-static void amdgpu_userq_fence_free(struct rcu_head *rcu)
+-{
+-	struct dma_fence *fence = container_of(rcu, struct dma_fence, rcu);
+-	struct amdgpu_userq_fence *userq_fence = to_amdgpu_userq_fence(fence);
+-	struct amdgpu_userq_fence_driver *fence_drv = userq_fence-&gt;fence_drv;
+-
+-	/* Release the fence driver reference */
+-	amdgpu_userq_fence_driver_put(fence_drv);
+-
+-	kvfree(userq_fence-&gt;fence_drv_array);
+-	kmem_cache_free(amdgpu_userq_fence_slab, userq_fence);
+-}
+-
+-static void amdgpu_userq_fence_release(struct dma_fence *f)
+-{
+-	call_rcu(&amp;f-&gt;rcu, amdgpu_userq_fence_free);
+-}
+-
+ static const struct dma_fence_ops amdgpu_userq_fence_ops = {
+ 	.get_driver_name = amdgpu_userq_fence_get_driver_name,
+ 	.get_timeline_name = amdgpu_userq_fence_get_timeline_name,
+ 	.signaled = amdgpu_userq_fence_signaled,
+-	.release = amdgpu_userq_fence_release,
+ };
+ 
+ /**
+@@ -546,7 +514,7 @@ int amdgpu_userq_signal_ioctl(struct drm_device *dev, void *data,
+ 	r = amdgpu_userq_fence_create(queue, userq_fence, wptr, &amp;fence);
+ 	if (r) {
+ 		mutex_unlock(&amp;userq_mgr-&gt;userq_mutex);
+-		kmem_cache_free(amdgpu_userq_fence_slab, userq_fence);
++		kfree(userq_fence);
+ 		goto put_gobj_write;
+ 	}
+ 
+@@ -871,6 +839,7 @@ amdgpu_userq_wait_return_fence_info(struct drm_file *filp,
+ 	for (i = 0, cnt = 0; i &lt; num_fences; i++) {
+ 		struct amdgpu_userq_fence_driver *fence_drv;
+ 		struct amdgpu_userq_fence *userq_fence;
++		unsigned long flags;
+ 		u32 index;
+ 
+ 		userq_fence = to_amdgpu_userq_fence(fences[i]);
+@@ -886,7 +855,19 @@ amdgpu_userq_wait_return_fence_info(struct drm_file *filp,
+ 			continue;
+ 		}
+ 
++		spin_lock_irqsave(userq_fence-&gt;base.lock, flags);
++		if (dma_fence_is_signaled_locked(&amp;userq_fence-&gt;base)) {
++			/*
++			 * It is possible that fence is already signaled and the
++			 * fence_drv now NULL, just skip over such fences.
++			*/
++			spin_unlock_irqrestore(userq_fence-&gt;base.lock, flags);
++			continue;
++		}
+ 		fence_drv = userq_fence-&gt;fence_drv;
++		amdgpu_userq_fence_driver_get(fence_drv);
++		spin_unlock_irqrestore(userq_fence-&gt;base.lock, flags);
++
+ 		/*
+ 		 * We need to make sure the user queue release their reference
+ 		 * to the fence drivers at some point before queue destruction.
+@@ -895,10 +876,10 @@ amdgpu_userq_wait_return_fence_info(struct drm_file *filp,
+ 		 */
+ 		r = xa_alloc(&amp;waitq-&gt;fence_drv_xa, &amp;index, fence_drv,
+ 			     xa_limit_32b, GFP_KERNEL);
+-		if (r)
++		if (r) {
++			amdgpu_userq_fence_driver_put(fence_drv);
+ 			goto put_waitq;
+-
+-		amdgpu_userq_fence_driver_get(fence_drv);
++		}
+ 
+ 		/* Store drm syncobj's gpu va address and value */
+ 		fence_info[cnt].va = fence_drv-&gt;va;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.h
+index d56246ad8c26..d355a0eecc07 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.h
+@@ -58,9 +58,6 @@ struct amdgpu_userq_fence_driver {
+ 	char timeline_name[TASK_COMM_LEN];
+ };
+ 
+-int amdgpu_userq_fence_slab_init(void);
+-void amdgpu_userq_fence_slab_fini(void);
+-
+ void amdgpu_userq_fence_driver_get(struct amdgpu_userq_fence_driver *fence_drv);
+ void amdgpu_userq_fence_driver_put(struct amdgpu_userq_fence_driver *fence_drv);
+ int amdgpu_userq_fence_driver_alloc(struct amdgpu_device *adev,
+</pre>
+    </blockquote>
+  </body>
+</html>
 
+--------------n0h6lQqewWVFXPLFfOv0Jj70--
