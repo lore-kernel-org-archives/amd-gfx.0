@@ -4,96 +4,83 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C16DF9EDD1
-	for <amd-gfx@archiver.kernel.org>; Wed, 22 Apr 2026 13:36:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 012A6F9EDD9
+	for <amd-gfx@archiver.kernel.org>; Wed, 22 Apr 2026 14:04:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2F2CF10E83A;
-	Wed, 22 Apr 2026 13:36:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1AE5710EA0F;
+	Wed, 22 Apr 2026 14:04:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="pY3KOm/I";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="j+26Fqpn";
 	dkim-atps=neutral
-Received: from CH5PR02CU005.outbound.protection.outlook.com
- (mail-northcentralusazon11012071.outbound.protection.outlook.com
- [40.107.200.71])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0C19110E83A
- for <amd-gfx@lists.freedesktop.org>; Wed, 22 Apr 2026 13:36:11 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=AittF90MojOyc1NqQVMZnh/eqfket5Q4FT2ato4fPg3CqiooMmTJ7heOqrc6YXm36jEMTWyjG3tlRFSf/swwrfVRgXswDVbALcqHZ3u7YdX241VKEJerYpANGk4lVdULZqcKbYygkavDv3mo5/igezDxhKXRVGldT/rsHkwCFQS/msjvlRFDeHbhxtnrX7//GSMjcL0jeSfFYvlIo6YtBAvApVky5q2cQ6Ore/sFsnbxQlWiIpTRkySCCPTtQzDYoEq7UsUPGUlcUOl6bsQdWhcDyPW8jL6cMW/05NcWCZuZeV6Rfi/1F0NFTHpzbxTI+fY5R6Aw7ACwx4r2f+mS7Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=G2QpWUY7UYsy8krSB7ALIemkgN1ayD0O+eqIXc/2x4Q=;
- b=by7v9GDt7fO7Fb0lUmOfO7Po1xRs48Wnb0btdqLqaP3kXLEAAdCalBNRFcp8sUEisMbayyC3p/3IbNMvmhPMc345O3YjYGVkNqJxPBt0rueeO4lhDrOmntmopHdmWEwXhD4EUS5QDDkhThgegO/Nvvob6zG9NP09+RLTJ4lUirt1gXlvDkboMmjljvQV7QzcT7EsKw4RfMA8yclnFK4zmqxIDGSQVEh4XYvTTl4Kju6WI37q8kaDpKh7MAfntBgQ2Q3I/DoBjzua/AUfY6cNJNw73M46UR+AoOZv3WG5R+wtbuunkaAvQgw5JSPppzrSzchcyMRiBb0rahuSmlIHvw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=G2QpWUY7UYsy8krSB7ALIemkgN1ayD0O+eqIXc/2x4Q=;
- b=pY3KOm/ISbltWqGJRShiVv7MQ47lplkUiXpQ9hyjj8aFU5NggUSzkdE+D0NQjqoqei4snYS/52ItXKrexfD30JuaMiheYA1QVZKAvsW7cqQNIOtLf5LNYpH6q2ep7XoTbDmzh+3Rc1Ez93SyTPa9hBmbNYb8ecX1N2NsPSP1JME=
-Received: from BN9PR03CA0623.namprd03.prod.outlook.com (2603:10b6:408:106::28)
- by LV2PR12MB5774.namprd12.prod.outlook.com (2603:10b6:408:17a::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.16; Wed, 22 Apr
- 2026 13:36:04 +0000
-Received: from BL6PEPF00022575.namprd02.prod.outlook.com
- (2603:10b6:408:106:cafe::29) by BN9PR03CA0623.outlook.office365.com
- (2603:10b6:408:106::28) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9791.48 via Frontend Transport; Wed,
- 22 Apr 2026 13:36:04 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BL6PEPF00022575.mail.protection.outlook.com (10.167.249.43) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9846.18 via Frontend Transport; Wed, 22 Apr 2026 13:36:03 +0000
-Received: from krussell.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Wed, 22 Apr
- 2026 08:36:03 -0500
-From: Kent Russell <kent.russell@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: Kent Russell <kent.russell@amd.com>
-Subject: [PATCH] drm/amdgpu: Only send RMA CPER when threshold is exceeded
-Date: Wed, 22 Apr 2026 09:35:51 -0400
-Message-ID: <20260422133551.654582-1-kent.russell@amd.com>
-X-Mailer: git-send-email 2.43.0
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com
+ [209.85.128.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9FC4510EA0C
+ for <amd-gfx@lists.freedesktop.org>; Wed, 22 Apr 2026 14:04:03 +0000 (UTC)
+Received: by mail-wm1-f48.google.com with SMTP id
+ 5b1f17b1804b1-48984d29fe3so46892555e9.0
+ for <amd-gfx@lists.freedesktop.org>; Wed, 22 Apr 2026 07:04:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1776866642; x=1777471442; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=MB2D5LFDJfWK+z/VNsomGx4bgTK6cIcOio7NwwAtJ5A=;
+ b=j+26FqpneNkIwCXzzfW9Ud0aX7chLZWKhumktQnAriv/CEd2712xBLou6R1GfgPC7g
+ bQ+mk89c73SC2gc1/m7rV05hkEHkfpscV5893aPl4IKm7oduXRiNl30dVZl0Su7cpKAR
+ 1psaq0y4+HyyNHjYS75JZ0bPAG2BeVPamvzxIa5eXUB3gTSOaFurKsDBKMpip2BIXhB/
+ 5OS7zsx0s6QUt8nInu6e6CtGxnNcWRS2Li1HJe0fsPQVP4VOWCR/43rxWGo0qO0iUgMf
+ Dbbc3MJkzWROpI9X0esW9HsdNi63jv+h+QNhG/R5CD01+XLq56a7c9xZkS3x/W38ghkc
+ sGuw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1776866642; x=1777471442;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=MB2D5LFDJfWK+z/VNsomGx4bgTK6cIcOio7NwwAtJ5A=;
+ b=mpGjQyZQSrQkgZUAnMpHKGBaT/OokYYmzZNt3uWGyBLxaflnZmI/xc8fmhqBPcbW16
+ NElhj8NiQZH2chz+qDEm4IiiweXBF9ReEdQDuRxctbxaNb32zKc5v4YhpWvWjgLF/I6v
+ bgPg2omQndu1dkmU08DIog0Nl4wfc4yJkHm8zt2J/RgIAy94PHX0CtlJ5Ln0N8U4lxKA
+ EDJUxpNqaUBC1+4LqSKDPcKiicwnSdYmg7XE0HujYDupF/RDdCTugeyvGFPy+5Wcy/Op
+ gMoua6ZrfnW7eWrcMEak64ilPTAATEZ9QtRgdy6dthOhxgt5EGetyECn6xHPwqXvF84Y
+ YOxQ==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ8bJBveMiuV2Vk+yXq+Gcx554ulC+/FY1K2TvOPbSPuj7XyaP1/6Hhe4/eBF7lnIdL0n+mW3ptW@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyIKkZ3w41Y3YBcau+IpVJeYvNuCNcZQdv6dBcV7zvjRZizEHEr
+ 2UzJ+p1wUMo/xNITV5oWAnIftsCuRtVd1NSwGzF3l9/Cb3uvskus+Elt
+X-Gm-Gg: AeBDiesOXjlKyyoehi2PMC8uG7+bhdWs1Hk5oYXovX/cZGhkx6HJiUnHErwL6N/K9Q4
+ au9rUFt9OhFiY5YGEr2P4wiVl6J/I6JGfx1pnaVYwniT8MbA1FEA7UfXomlGJZpZ79M4PQwYx9M
+ oyEJPRAS7Vy5VPk/3RWxKwY1Dunbjp5Q3SJP7mwLOQT2vMxkJlO3QfFmcwj4jW+M3vLiropxUbi
+ poYb8B01h7hb5BTCXVf0KRiwGRv0CHxUy8jOIXjBzhCw/yP04PWvZWffVT42sFZqm+P67ZQ0yt3
+ aqcrxfxa8b4wHeVw3ryzUJDYADOscLQDCSbFSgvFlbsx5XgSxED9tDg3/TjRX0366ejJcdBdoKs
+ FexZSrGLL1vnPfLlbG1hgTe4xcfIOPpP5kTtR0dBCqZn8mkuZtM8+p1qMVg+OvN/Eu1qcbMku/x
+ VKkLtS8vq3CDrYG5/PNX7jNoF0tYkKzTnfZ++rlL8NmSel3DBrPpiCJCYqsr0WGa/kFQkkgxO43
+ VnLkNS+sQg=
+X-Received: by 2002:a05:600c:4f92:b0:48a:f18:ece4 with SMTP id
+ 5b1f17b1804b1-48a0f18edf7mr147574885e9.24.1776866641781; 
+ Wed, 22 Apr 2026 07:04:01 -0700 (PDT)
+Received: from timur-hyperion.localnet (5E1B98A2.dsl.pool.telekom.hu.
+ [94.27.152.162]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-489393ddd69sm64867095e9.10.2026.04.22.07.03.59
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 22 Apr 2026 07:04:00 -0700 (PDT)
+From: Timur =?UTF-8?B?S3Jpc3TDs2Y=?= <timur.kristof@gmail.com>
+To: stable@vger.kernel.org,
+ Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ Robert Garcia <rob_garcia@163.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, Pan Xinhui <Xinhui.Pan@amd.com>, 
+ Robert Garcia <rob_garcia@163.com>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Yifan Zha <Yifan.Zha@amd.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 6.1.y] drm/amdgpu: remove two invalid BUG_ON()s
+Date: Wed, 22 Apr 2026 16:03:59 +0200
+Message-ID: <7260936.9J7NaK4W3v@timur-hyperion>
+In-Reply-To: <20260417074010.1607496-1-rob_garcia@163.com>
+References: <20260417074010.1607496-1-rob_garcia@163.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL6PEPF00022575:EE_|LV2PR12MB5774:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5f83585c-36b5-400d-c668-08dea0741982
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|82310400026|1800799024|36860700016|18002099003|56012099003;
-X-Microsoft-Antispam-Message-Info: Wh0G7RzOT1020JHE7Hp5wxopAz72NV7eU7S7ZG/1sniHeQbMI/BWRoYgIVnoMB2x1bjhk8Ed7OTfAlDNfma/juyGf5V01vVCYLykIA8twLLAJSSWUsXff+1l20exXiGhIb3o1ouIwq7qznNgxyC2HGvtrUQ4z8kFhol32jTW12iqZkV501TvfPMLKqDxtnxpFH6oGI6LYThZTW5i/85QElHHrR1mYcV6yLsJcBhpZTan7v9HRp0TZXKmdzCeUdYZ4yPj/yrNHk7pCeyeR9hz4cjQhZLEzaaoQYO5/78qB2eb/z2mVq+XCLWpstDH66285fh5Lz87IBdM6S6T+6Ecu89uaP9hStay/lGP1WqErBji53NSD/4iUz45A9HkpCOS65qBnKUnrqm0l/wG1QcipFkZb8Xgk79jWmskpPFNAbhdP7p+5nydKs14QU01jdi+V1uB6ejahBWeHd35LGxRqlC0kFI0jJ0E6je59IgQv7JqQ61t3R5skNIqB7r4Sw025hxN2EM7cSnFFEoLNz9LWFJOdsF2bw9Q9T63fL1aoKR/PoxEJpTbT8qIQ2+BB+3pQdXkhIG+HsqQA1Xv5qlNpgPzJbv5yClrwKxW6lgwtghSvVv8uWeptVvlveleQu89cFUG6rw9C2IUvnTucGKUbAISHeJW1sBn0tJo8HWp4tQ5MjhdVcGY5WxrU9RS0KAHQ9l+J1eM9UDVG5ZYUVccqj9B2ISIsioFky0YfV4spB9KZ0pkNyNlSUe2v7Pb2AS+DDC5bv0udYkDo0BezP9WDA==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(82310400026)(1800799024)(36860700016)(18002099003)(56012099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: siKgsB8fTtwL3eR8JfBr7Oac5C/UHt6CqkynsCEuOyCQam0xtm6neKysLdY1A8ttrYBJ84TKwo8a93GCeXi2GDjVVcmxc4r93ElVtypbn+rg6G0ku/LeZD8uvXFgvkj1+4HqLmQbv8ky+vU+UMoXxr7IAQTNkV5t8qzB+3MCEBqBuGHMsN4V2wc7t4rM+eHekVx5lEYDfaRcCYMOxb8Oi1i89NuUvmhq4WiROfn25jw8+7bXFkI3QopDGu6nAAYPcoO0LZkzNHowOVRzE9uUWQCbJpTdoz5rxaunYz4QANO9VBJXdH1YZuHNxDFQlRxgitOCzpkrLv5QZhhT8XVrYa/mxikOncOsiDPdmV2TvMhzUBmyMhZsxIFY82G7mJzCZ+kmyguP0b2O1hO+0yiHbtfwl7dbmf2S6m8qYCWzBFVE7KfpkJkI4SpF8kNGImgU
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Apr 2026 13:36:03.7401 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5f83585c-36b5-400d-c668-08dea0741982
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF00022575.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB5774
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,28 +95,54 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-According to our documentation, the RMA should only occur when the
-threshold has been exceeded, not met.
+Hi,
 
-Fixes: 6c470a9bb431 ("drm/amdgpu: Send applicable RMA CPERs at end of RAS init")
-Signed-off-by: Kent Russell <kent.russell@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+In my opinion, this BUG_ON should NOT be removed.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
-index cdf4909592d2..0c57fe259894 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
-@@ -1950,7 +1950,7 @@ void amdgpu_ras_check_bad_page_status(struct amdgpu_device *adev)
- 	if (!control || amdgpu_bad_page_threshold == 0)
- 		return;
- 
--	if (control->ras_num_bad_pages >= ras->bad_page_cnt_threshold) {
-+	if (control->ras_num_bad_pages > ras->bad_page_cnt_threshold) {
- 		if (amdgpu_dpm_send_rma_reason(adev))
- 			dev_warn(adev->dev, "Unable to send out-of-band RMA CPER");
- 		else
--- 
-2.43.0
+Using the CE was never well-supported by amdgpu and can lead to serious=20
+issues, so we are planning to remove it entirely. Userspace isn't using it,=
+ so=20
+there is no loss of functionality here.
+
+Mesa (the official userspace drivers) have never used CE and never will.
+
+Best regards,
+Timur
+
+On Friday, April 17, 2026 9:40:10=E2=80=AFAM Central European Summer Time R=
+obert=20
+Garcia wrote:
+> From: Christian K=C3=B6nig <christian.koenig@amd.com>
+>=20
+> [ Upstream commit 5d55ed19d4190d2c210ac05ac7a53f800a8c6fe5 ]
+>=20
+> Those can be triggered trivially by userspace.
+>=20
+> Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+> Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+> Acked-by: Timur Krist=C3=B3f <timur.kristof@gmail.com>
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> [ Modified to gfx_v11_0.c only. ]
+> Signed-off-by: Robert Garcia <rob_garcia@163.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c | 2 --
+>  1 file changed, 2 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+> b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c index 37f793f7d4d2..6e3a32779168
+> 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+> @@ -5380,8 +5380,6 @@ static void gfx_v11_0_ring_emit_ib_gfx(struct
+> amdgpu_ring *ring, unsigned vmid =3D AMDGPU_JOB_GET_VMID(job);
+>  	u32 header, control =3D 0;
+>=20
+> -	BUG_ON(ib->flags & AMDGPU_IB_FLAG_CE);
+> -
+>  	header =3D PACKET3(PACKET3_INDIRECT_BUFFER, 2);
+>=20
+>  	control |=3D ib->length_dw | (vmid << 24);
+
+
+
 
