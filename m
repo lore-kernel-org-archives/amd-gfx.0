@@ -4,128 +4,102 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 53197FA1FC9
-	for <amd-gfx@archiver.kernel.org>; Wed, 22 Apr 2026 15:53:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2362BFA1FD6
+	for <amd-gfx@archiver.kernel.org>; Wed, 22 Apr 2026 16:30:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C7BEB10EA66;
-	Wed, 22 Apr 2026 15:53:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BF42510EA6B;
+	Wed, 22 Apr 2026 16:30:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="BUC4B4G8";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="p1aSfU/N";
 	dkim-atps=neutral
-Received: from DM1PR04CU001.outbound.protection.outlook.com
- (mail-centralusazon11010071.outbound.protection.outlook.com [52.101.61.71])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CFA8F10EE87
- for <amd-gfx@lists.freedesktop.org>; Wed, 22 Apr 2026 15:53:41 +0000 (UTC)
+Received: from CY7PR03CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11010050.outbound.protection.outlook.com
+ [40.93.198.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1691C10EA6B
+ for <amd-gfx@lists.freedesktop.org>; Wed, 22 Apr 2026 16:30:50 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Tt5yH2byDL/33Twh6z0XQ1BcVOxIH8c17SwXToGVntjrPEYaxnm/5O16lwIOOiSexLk2KGs+tcZPklghlFVTi4V6s7t97/3TBTbXAmVAUBIi/nynEdQ3ZOdC01EHxHc0Desoc+mB/NeXsTamyooTTkl9XIoRg6nZYtmGe6gUiRfggEcwwM1HhJRHU2KxVqqtMQ8zf9KM+pkleiPI20fcWBCZaW/8WoxWlfd8qOUntaQM+XLqnGiZCiIusc7tc/qV9V3Z/jjOeEm1RErL0yPYU5HwXAkISlaEGjroyGaW6ZFiUtrTh6EKQLDiFhtZLaePqPvaS8SfQOW1xCP9uVy6XA==
+ b=nzJQmGZ6YuRp7r8VwrcnD0uMTjmRArU860OMTyNWZnDCzLMhzSi0COBGHNlNgFjFUTgSlZTlT8F1PJ1B1jvCNL17puyL7zyZkOwYaJ/GYjPNTX5gvProcPq7ZxtpjurFZZ5eJ4cDU99vWhlS4s4E9nBv2bsRRQrhupFA8TOLaxtZKRCjNZ2w8Fgu/z1KiIBsjmf+0gBT9eJFjCtOhn1sRBYqmHcu8rpWdrI5ftmJlKbEmhdDLnF63lEheCWcOWSRugTymlspOcu0HtE1sxyWFxalhvoagTEvBdz6WcftAZVF/Q+9GVHwbC6Z1Mrd7xotWRBNwpKqaXMRv1DMJEHWLA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=CoJ5UV6OnYQlquMLQcpBLw2DA/l2vMNhKmbH4KNw0iY=;
- b=GMG1j23x52EnpXc0JMXhbOMqQJx6p9VrFGXdNThlwaylBuJU4D/H4H9q2jTYJYvPQnzushJ+lzhgceW9lHZh7C+m3TDcoi42Ph7ni4xLJcTHjxLrbeWUyfy5v7uIDOtDo4VEYRlh19uXGqL7wSl/d69V8/4Cmr79rcvbMFTAxhqgpZWi+WjiQdWbN03ZOAognd2yz6GapwvPXRq62n8VzYgaTsWraUlT6Au5S9iUGJ0fc8Aw8A0Cb5khH+i0BTJqDtwjzdMfCrivf+aGGRqEPKlxpv7lgdCX+s0/Kkur+I6IlwA4dzuQhQHEbkdmTdWiRZLjqyPMNKsNWirWM4iebA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=YBXvf8EQrNy/d+7omVEDK9dRi+m87zRlKgAVKpwqEOY=;
+ b=ETMpOeNeNXooZyMlcEV9TPEAUXLvAjyKksQJDnj7w/BDyRugFpshQ1mcJ1iEFz0bneWVakkZukwkCztmPJozGiueKIramtFkXPNdbyxzaBNpI5/ASrL4Air3xI8VRt661JSBBF+tCVc8OgMc05lXMueCMPDcnOyLbu1F/+3hnVS9VJ5SGppi0fe6Ra9FhlMeiIkuB0F6iKM/WHEAienWPFCCPDfvJ67w5PdHvRcwkqzPE/8edYGO3ZsPp186M7cpp1YzYIdmoV/y30BQ2H5wDhGgQ+097ymK00hssOI8KCm92OlydYplZfC2EISHD0MJ9unxe5n5ZCkR5bpe7XLwRw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=CoJ5UV6OnYQlquMLQcpBLw2DA/l2vMNhKmbH4KNw0iY=;
- b=BUC4B4G8nfT5ulMAF7ZgbRkdJ6rDAOoj3jtqC2DKfWVNFZW9KcYr7Iobz61GOim3pO6+5SiEYwNF6a3/HQ1DJak2YmKKV9CIj0I37UlPF0VWjkvca+aYnPLEuVKVGetErJi65dKajW1Cez7IOl2IojcW1UUXr1MAIpgYAdJm0N4=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM6PR12MB4401.namprd12.prod.outlook.com (2603:10b6:5:2a9::15)
- by IA0PPF4D923B935.namprd12.prod.outlook.com (2603:10b6:20f:fc04::bcd) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9818.25; Wed, 22 Apr
- 2026 15:53:36 +0000
-Received: from DM6PR12MB4401.namprd12.prod.outlook.com
- ([fe80::795e:4056:1c5f:6b33]) by DM6PR12MB4401.namprd12.prod.outlook.com
- ([fe80::795e:4056:1c5f:6b33%5]) with mapi id 15.20.9846.019; Wed, 22 Apr 2026
- 15:53:35 +0000
-Message-ID: <fbfaf548-0c34-4c09-9674-8802224f9349@amd.com>
-Date: Wed, 22 Apr 2026 10:53:33 -0500
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdkfd: Terminate queues on surprise unplug with
- running processes
-To: "Kuehling, Felix" <felix.kuehling@amd.com>,
- Mario Limonciello <mario.limonciello@amd.com>,
- Mario Limonciello <superm1@kernel.org>, amd-gfx@lists.freedesktop.org
-Cc: Kent Russell <kent.russell@amd.com>
-References: <20260112182925.347303-1-mario.limonciello@amd.com>
- <2b4d4476-97a6-42f8-b5cf-5599ac8d0035@kernel.org>
- <60e1e12d-7705-4531-ba15-c956f4d268d4@amd.com>
- <5fc35475-e7a2-483e-84d8-1de7226e1e59@amd.com>
- <43f46559-fb74-4a34-9cd6-16de02b4147b@amd.com>
-Content-Language: en-US
-From: "Chen, Xiaogang" <xiaogang.chen@amd.com>
-In-Reply-To: <43f46559-fb74-4a34-9cd6-16de02b4147b@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: CH0PR03CA0360.namprd03.prod.outlook.com
- (2603:10b6:610:11a::11) To DM6PR12MB4401.namprd12.prod.outlook.com
- (2603:10b6:5:2a9::15)
+ bh=YBXvf8EQrNy/d+7omVEDK9dRi+m87zRlKgAVKpwqEOY=;
+ b=p1aSfU/NpBNkTNON1xB2RGVuRcvfDjw8jJEBJAc2J2zrKegqCzYgMyDJKC0tMA8vL2Zz2vfk6GJpb4Ux4Ay320xX7oKKSzuiUpiX38WELUVFnOAVlHRQ3YBjR/Dfr1+dgfiTPKaxT83AskVzkCiY8aX7+yOKL4sm+VISP8mcyNE=
+Received: from SA9PR13CA0014.namprd13.prod.outlook.com (2603:10b6:806:21::19)
+ by MW4PR12MB8609.namprd12.prod.outlook.com (2603:10b6:303:1e2::22)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.16; Wed, 22 Apr
+ 2026 16:30:43 +0000
+Received: from SN1PEPF000252A3.namprd05.prod.outlook.com
+ (2603:10b6:806:21:cafe::86) by SA9PR13CA0014.outlook.office365.com
+ (2603:10b6:806:21::19) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9846.15 via Frontend Transport; Wed,
+ 22 Apr 2026 16:30:43 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ SN1PEPF000252A3.mail.protection.outlook.com (10.167.242.10) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9846.18 via Frontend Transport; Wed, 22 Apr 2026 16:30:43 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Wed, 22 Apr
+ 2026 11:30:42 -0500
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Wed, 22 Apr
+ 2026 09:30:42 -0700
+Received: from thonkpad (10.180.168.240) by satlexmb07.amd.com (10.181.42.216)
+ with Microsoft SMTP Server id 15.2.2562.17 via Frontend Transport;
+ Wed, 22 Apr 2026 11:30:41 -0500
+From: <sunpeng.li@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <Harry.Wentland@amd.com>, <Aurabindo.Pillai@amd.com>,
+ <mario.limonciello@amd.com>, <wiagn233@outlook.com>, <sysdadmin@m1k.cloud>,
+ <stable@vger.kernel.org>, Leo Li <sunpeng.li@amd.com>
+Subject: [PATCH] drm/amd/display: Restore 5s vbl offdelay for NV3x+ DGPUs
+Date: Wed, 22 Apr 2026 12:29:56 -0400
+Message-ID: <20260422162956.620362-1-sunpeng.li@amd.com>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6PR12MB4401:EE_|IA0PPF4D923B935:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2656d11f-f4b5-43e4-e10c-08dea0874fd4
+X-MS-TrafficTypeDiagnostic: SN1PEPF000252A3:EE_|MW4PR12MB8609:EE_
+X-MS-Office365-Filtering-Correlation-Id: dc2f334a-5195-492f-d20d-08dea08c7fe3
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|1800799024|376014|22082099003|56012099003|18002099003; 
-X-Microsoft-Antispam-Message-Info: PYrq6UmkakEiSUM78lUv1qY5TRn+CszDXvz2if0X3qnWZVVFxnwJ9B6vf//nj44g0LJ1QGjt3cLVMiUnK+LB4t5GAe7m7339O9biwsAE5A5+E6TEpKb5DYtHJdFWYQ/ISLPCG9PTeYyVsMLte8N9tDdQQYuUhv4shfcy/JKRJWn/boqDtAvcgyBG7P08ZKXhhA31Wd0iuskU0rXdWX5HwUmgZBD7+BIjC8y+6TnSTRGdiU+S5mYZnak7ufuSx+xcev/JaqOWKtwjjmExRzfhmPAU96EvZocFrD0/QBQZX1JDbKicNryCn9zbjorfotVYpMYiK1suPS5pENGkZDmXKAufZC09ZVXQMRBNCJhix0Kt4sCIXTt6WfhSQN/MiiiZyXipIewXfP+QAfDsmWgYLQgqKI+vo5Szf5Ci7l3HuipwDq62uZ8V3mfMqfvmGd4A+IwwvWrIC4qsxJ6zZp1+DHwloPb9zNc5xdg6unw+fwMWy3DsyL40w6QugQxM/wihNa6QeF7PhwKf1NaNXaRdQST8f6Ca718iAWerAK63IvsZWafx3GsHsd5VVl2pWsmFwAiEpRbhDzsIbvnc86u1auQt4Aizub6Dn7/Znp7+1KUVFBvv0mT6xOgIYN/hbNxBnOezL110MVyvDrKQOtW8Hz0Pmfs8SAdo8tiJT1U8PSPuoDcAxXEXgjrHYimdRTD12oo8Z94Km0NkhnrMo+Mol4ceeMN3Q4+tNRIK2/w2BRk=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB4401.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014)(22082099003)(56012099003)(18002099003);
+ ARA:13230040|30052699003|1800799024|82310400026|376014|32650700020|36860700016|13003099007|18002099003|56012099003;
+X-Microsoft-Antispam-Message-Info: 5c3e0Cee2zqTCAKLid/DC6odNhzGTySRXVOyGuIQhC6uuFpb+bAIfGElkRiLN1LyKOA3V/Cjeye99t5x4ass5zv8y1b7M+9PCzHZWw+bnwyg/62VWCcic5rllC15bD7hXVc3bWL7Xu/WiM522Jr4h+ZqOlZQ4VNg0YnATZ4H2GsSv79h+y4UUDiX7zCPM4qS4II150/FaNJwz+D0hBI2L2i29px0BIkoOGUZFwesNly1dVN/zf9jbo8FcG1yrmto+VHWxijVybbGdFvwLcDUwGbHicduYXDQyUJWBklK6SKY6zj3H/Drg1QxxOBpMmsaTg/cX63a5vMNRjZQNpHJCuYMvY6/VPJn6gQGZWjBvnd2sWe1Uyh0FDi4jRynd6J05r3aPp0OCTJS+PDvGKk+6mAAn82AXZUuf3Pe+C8SGsNm/gQHbM399JnlHHwX7Hh1qlh8YWR2BgYe2qhtz3UHbBf/w4lrPEf2DCvwO1vMxVb2pZRvpY1kVDEFNMuMJyiT+9E8iR7dHqsgsx4vY816FzjYCibD2zYTWN8Fuv5DDE9fSNo7VxCIZbtP4nb8Hh1epGShX3JjHyqnsUoNsezi8aB5yIES1otsZNpV26nIq86//sM8pZRSArvczqlEDlV4uBnumxkaXLrTmj/dnYaak3fNHPHV66W+u/1aTHUYvYBxAzfzlD8NGCvYA3Ijtjy+hhOisJV4tOG+008QvkoTmBnVwnT/C6YScSnUne1I8bY=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(30052699003)(1800799024)(82310400026)(376014)(32650700020)(36860700016)(13003099007)(18002099003)(56012099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SjJTWTUrUjJsNjQ4d09HN0d6QW5lMjNwQ1pQT1BvdnBHdkRkOEp0MDl1VVpi?=
- =?utf-8?B?OVpCejAzQUhMNkYxT1FxTk51YVEwendrQ3FGeXpoS3FzVUZ1QmVhQXM3eXZB?=
- =?utf-8?B?V0pjVm83M3VDUWloQ3B5Q1JoOG9DS0MyNWFUS3FYN3kvTmhLNkdHbHQvUklp?=
- =?utf-8?B?Q21mc0NlOWZRMjNJZXZsY0pBV2JuUzd6RkMvR0pMazJXTjlrbzJTcVpWUFoz?=
- =?utf-8?B?L3Rva3BNL201akF5TEtPc2labUNydGwwdHFILytmSERILzdKU3llK1J6ZERa?=
- =?utf-8?B?T0xQdzd2SGNDbmFsZG12OW1hRUxLckE5SGNnNlFicTc4cjFIVy9wUFhHVjZa?=
- =?utf-8?B?TUFxdFV0aUZkM3Z4UC96bDFKQUdEb24vK3BWYVhnaG5qRE9WTDRSUjl5MEhX?=
- =?utf-8?B?MGtIZlNQU1lUc3NreHB2MVRaTkpWRVY2R09vcnl6WFQwd0ZxVlNrRm0yZlRO?=
- =?utf-8?B?aFBlV2RYQU4vWDhETWZHbEQ5bFJsYm5iZlJtY1lYSC92M2dGaEJaNmQxUFBZ?=
- =?utf-8?B?d002TFpabUpDeEtHMXZ5RVEyY1liNjMxenM2bDRVRVdocjdJTmhLalJXNW9x?=
- =?utf-8?B?enBCNC93ZGljNDZqYzYyQ0pZNmFHWlQ2TVRBY2VmYkJlMXpjZzBkT3FOZnNr?=
- =?utf-8?B?cHBDRFpPd0xKWWxQajluTXQ5bnh2aVhZZCtzQlFxVzFXWWRwVFpVY0RwSWti?=
- =?utf-8?B?bHUxSjZobUVzTm52UklFeXd2RHVTTEVQODNVcEdyUkRrekMwNFI1SDZHUk5h?=
- =?utf-8?B?NXJlclkrSlRqOUlsdDRkeXhvUFF1Ny9KNnZIcTBXeGdac3dKQ2tJYXU0QmVI?=
- =?utf-8?B?ZTJzRlBCRHNVYUpxWDJzRlhLUlBjdVRqLzdwaGpaNlBxRTZBSGNHWDFwSmds?=
- =?utf-8?B?Vno0RlQwK0VidW9keTZFeWREdEhTRTEvak9BVFBTL0dObTNhVmhHLy85U2tJ?=
- =?utf-8?B?cng3cmFtTmhWeTl4bEI2QWhDOHJzbnNOVXBkb1VZQklRdk1yREhMczJZWDNB?=
- =?utf-8?B?NlArd0xYUU55TTlMKzZTVFBwWWRXejB1WFVvNnN5ZGFjV05qZjE2ay91bVM5?=
- =?utf-8?B?dS9hbEpFMnZNR3FFcDFPZGJISDdmTXJFVi8wUTRsYWJER0xXVkwyaXlYNko1?=
- =?utf-8?B?ZzJZYzhlakRDbTVXZnZtcmw1MjF6bHlVODNXRzZKenlpL2dFMjJFSklOR0RJ?=
- =?utf-8?B?VWZMc0tHZnYzalpPOSszN0RqWUxiNEpOR3oyNDZyZVZCalhhSnVBdGs2a1A1?=
- =?utf-8?B?R1V5SVU4aklBdnI5cGcrZFJtdURqOTF2emt5aG9sYzFBRHZrcEgwNDVEc29w?=
- =?utf-8?B?Z3cva0pyYThnV1FpTXc1bW1PWTJIV3oyY2U0dWhQSytQYmpYbjdXcjF2ZmZx?=
- =?utf-8?B?Ynh5dTZzZ05yQkJzSjVFNEtOVXBiZXZqL3RTNHY1bUcrSDdtQWtwUCt2c2x6?=
- =?utf-8?B?UklvWVlnRjNvb0pKL1MvQVZKRFA5Z2U4SGZYOHNZREp3cVlaTU5JVzlZNzZu?=
- =?utf-8?B?QWxxOE1saDhtQy9VTldHQ2x5M0tBMzVhZFVmN2NCcVhaNEQwc29USC9pUVhI?=
- =?utf-8?B?Z2NGaGF3aVM2dlp6Mk95bm9LOTNpek45SkhQeWVsMUxaaUVjMG5Xc3ZkSEFU?=
- =?utf-8?B?eCthMmVOODd3elhpd0VvenZFc1VIZFQ0anNSdDFBbGI4NmdaMW9VMWFtRTBM?=
- =?utf-8?B?MGlVcVpwUE5SS25xU1FybVIxa2JiNUoyYjBIMFNJOElvYjlJdVgva05wY0hy?=
- =?utf-8?B?Y2dmMU1jRzF4MmNOdGtLTWt5MWJjWTN6YzN4SS9aT3kyR01hSGxwandyOWR1?=
- =?utf-8?B?Y2g0VHVvZXFNUkc2MlJOZnBlSEcwYVBiUEYvWExackF0bmorajFWTEROZ2Zz?=
- =?utf-8?B?TUhpNG5YYVR1NDZzdzE4Z0hFMDNrUFMveUxFcTlwNnA1TGVZZ3ZrTjBnZXJ2?=
- =?utf-8?B?N25jZS9kRW1BRmFDQmhkaUdkUGVGWENyNFAwUFJIbnFpTG5yakYyTFVLQmM5?=
- =?utf-8?B?OHJNNHJvS2xZN0MxeE1VZkZIdWRuU1QwZU5RNjBsdHVJZ0pSOGxpUzJLNEpy?=
- =?utf-8?B?QlZ6UkRVdzVZTjl4UStFcG1IVFJZZGlSMUlwWkZNTytVNzkyMVd3ZHMvNXFW?=
- =?utf-8?B?b2Z3N21TR2d0WVA4Sko1OWdQaVhyN1dLYmJWRGhNNVpTK09pQVZhTVBKVVlL?=
- =?utf-8?B?SzlSMDRYRXdrS2E1TEFVUnFVL1JKM00rR3k3YytacjA4V2pvZmlhWW9jOWhk?=
- =?utf-8?B?N3hwcVhDUVZQK2NnRnB4bW5Jd1JLeWhJZjB2cFUvWExjUVhXcW9uZDNwc3Ix?=
- =?utf-8?Q?m2xTXwwCFvMvpMri+7?=
+X-MS-Exchange-AntiSpam-MessageData-0: mlq+I/AQ7NejQI+GKXZmg/km406/YiW13xj5IAGI9coS7J5c6qIAcfG0LmZwKZwKvTosqXlgd0eFFZgLgdwsR5G1myXYmbeNfh9OSPH1khI7iYHUCkgSh77PVNNBMwJMs445Bqn9TP0F3kt09KJRhXdr9eJc3si2IRXB3oRM+Q9+zKNpZRJgzNomwwi6+XiGWzYEoad7Nl8e/a5Z8lNkb8IckWipk046Y+dniDJ4/iMyBiXtZuyby/N/9vfyOzfn2pzZEgXMX4BXacwUoY71+m/iZ4Ou8ShqiQjoKDT0jWDhaoprjwlqU1gCnDtNDp4Zanb1jVsWQDSK2DpkWsjRTRnkLFXxI+ODpzm3rg5XNedhyAfs6vcTdOMMIE6LKYm6SQn/9gUDBv3lgt6Ai9jfZ1VMLQXzusyE6WrcEFCVCyP+R881ppU+vS/DHf/Womi5
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2656d11f-f4b5-43e4-e10c-08dea0874fd4
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4401.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Apr 2026 15:53:35.5307 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Apr 2026 16:30:43.4031 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: dc2f334a-5195-492f-d20d-08dea08c7fe3
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: UdtyafCeet6+9GHm9hVUFUfhgwRbGcIFMO25YxmXy4AXbg/DRlkKNMLHMF0Mgfu+
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PPF4D923B935
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF000252A3.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB8609
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -140,147 +114,58 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+From: Leo Li <sunpeng.li@amd.com>
 
-On 4/21/2026 8:56 PM, Kuehling, Felix wrote:
->
-> On 2026-04-21 11:00, Chen, Xiaogang wrote:
->>
->> On 4/20/2026 4:25 PM, Mario Limonciello wrote:
->>>
->>>
->>> On 3/7/26 06:49, Mario Limonciello wrote:
->>>>
->>>>
->>>> On 1/12/26 12:29 PM, Mario Limonciello wrote:
->>>>> When a surprise unplug occurs while a process has active KFD queues,
->>>>> userspace never gets a chance to call kfd_ioctl_destroy_queue() to
->>>>> properly clean them up. This leads to a WARN_ON in uninitialize()
->>>>> complaining about active_queue_count or processes_count being 
->>>>> non-zero.
->>>>>
->> During hot-unplug driver sends SIGBUS signal to all processes who are 
->> using the unplugged device. It is expected that affected processes 
->> will clean their workloads when get this signal.
->>
->> When a device got removed physically all sources from it will be 
->> removed. It is unnecessary(in theory) to clean them up. I am not 
->> surprised to see some software warnings due to hardware got 
->> physically removed since it is unexpected behavior at run time.
->>
->> I think what we need worry about is if there is memory leak. Driver 
->> also waits when an affected device is idle(by 
->> kgd2kfd_check_device_idle(adev)) by checking/waiting if there is 
->> process still using it. If there is no process using the being 
->> removed device the processes should have been terminated by same 
->> process termination logic from driver.
->
-> The problem is, that a lot of the process termination stuff happens in 
-> a worker thread. It can happen after the hot-unplug is already done. 
-> That would lead to the cleanup worker accessing pointers to device 
-> structures that are no longer there (or used by something else).
->
-> We'd need to ensure proper synchronization so that the process cleanup 
-> completes before the device unplug frees the device structures.
+[Why]
 
-How about at kgd2kfd_device_exit before doing any device clean up 
-check/waiting there is no any kfd process run on this 
-device(kgd2kfd_check_device_idle)?
+Rapid vblank off is causing flip-done timeouts for NV3x and newer
+family of GPUs that support more idle optimization features.
 
-Regards
+A proper fix requires further investigation. In lieu of it, let's
+workaround it for now.
 
-Xiaogang
+[How]
 
->
-> Regards,
->   Felix
->
->
->
->>
->> Regards
->>
->> Xiaogang
->>
->>>>> The issue is that during surprise unplug:
->>>>> 1. amdgpu_device_fini_hw() checks drm_dev_is_unplugged()
->>>>> 2. It calls amdgpu_amdkfd_device_fini_sw()
->>>>> 3. This leads to kfd_cleanup_nodes() -> device_queue_manager_uninit()
->>>>> 4. uninitialize() has: WARN_ON(dqm->active_queue_count > 0 ||
->>>>>     dqm->processes_count > 0)
->>>>>
->>>>> The warning triggers because the queues were never destroyed - 
->>>>> userspace
->>>>> had no opportunity to clean them up before the device disappeared.
->>>>>
->>>>> Fix this by checking for device unplug in kfd_cleanup_nodes() and
->>>>> calling process_termination for each affected process before
->>>>> uninitializing the DQM. This mirrors what happens during normal 
->>>>> process
->>>>> shutdown (kfd_process_notifier_release_internal), ensuring queues are
->>>>> properly cleaned up even during surprise removal.
->>>>>
->>>>> Cc: Felix Kuehling <Felix.Kuehling@amd.com>
->>>>> Cc: Kent Russell <kent.russell@amd.com>
->>>>> Cc: Xiaogang.chen@amd.com
->>>>> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
->>>>
->>>> Ping?
->>> Ping?
->>>>
->>>>> ---
->>>>>   drivers/gpu/drm/amd/amdkfd/kfd_device.c | 32 
->>>>> ++++++++++++++++++++++++
->>>>>   1 file changed, 32 insertions(+)
->>>>>
->>>>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c 
->>>>> b/drivers/gpu/ drm/amd/amdkfd/kfd_device.c
->>>>> index e9cfb80bd436..7727b66e6afb 100644
->>>>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
->>>>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
->>>>> @@ -664,6 +664,38 @@ static void kfd_cleanup_nodes(struct kfd_dev 
->>>>> *kfd, unsigned int num_nodes)
->>>>>       flush_workqueue(kfd->ih_wq);
->>>>>       destroy_workqueue(kfd->ih_wq);
->>>>> +    /*
->>>>> +     * For surprise unplugs with running processes, we need to 
->>>>> clean up
->>>>> +     * queues before uninitializing the DQM to avoid WARN in 
->>>>> uninitialize.
->>>>> +     * This handles the case where userspace can't destroy queues 
->>>>> normally.
->>>>> +     */
->>>>> +    if (drm_dev_is_unplugged(adev_to_drm(kfd->adev))) {
->>>>> +        struct kfd_process *p;
->>>>> +        unsigned int temp;
->>>>> +        int idx;
->>>>> +
->>>>> +        idx = srcu_read_lock(&kfd_processes_srcu);
->>>>> +        hash_for_each_rcu(kfd_processes_table, temp, p, 
->>>>> kfd_processes) {
->>>>> +            int j;
->>>>> +
->>>>> +            for (j = 0; j < p->n_pdds; j++) {
->>>>> +                struct kfd_process_device *pdd = p->pdds[j];
->>>>> +
->>>>> +                if (pdd->dev->kfd != kfd)
->>>>> +                    continue;
->>>>> +
->>>>> +                dev_info(kfd_device,
->>>>> +                     "Terminating queues for process %d on 
->>>>> unplugged device\n",
->>>>> +                     p->lead_thread->pid);
->>>>> +
->>>>> + pdd->dev->dqm->ops.process_termination(pdd->dev->dqm,
->>>>> +                                       &pdd->qpd);
->>>>> +                pdd->already_dequeued = true;
->>>>> +            }
->>>>> +        }
->>>>> +        srcu_read_unlock(&kfd_processes_srcu, idx);
->>>>> +    }
->>>>> +
->>>>>       for (i = 0; i < num_nodes; i++) {
->>>>>           knode = kfd->nodes[i];
->>>>>           device_queue_manager_uninit(knode->dqm);
->>>>
->>>>
->>>
+For NV3x and newer family of DGPUs, restore the old 5s vblank off timer.
+
+Fixes: 9b47278cec98 ("drm/amd/display: temp w/a for dGPU to enter idle optimizations")
+Link: https://gitlab.freedesktop.org/drm/amd/-/issues/3787
+Link: https://lore.kernel.org/amd-gfx/20260217191632.1243826-1-sysdadmin@m1k.cloud/
+Signed-off-by: Leo Li <sunpeng.li@amd.com>
+Tested-by: Michele Palazzi <sysdadmin@m1k.cloud>
+---
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  | 18 +++++++++++++++---
+ 1 file changed, 15 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 3fa4dbda4517c..ce5063928413c 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -9511,9 +9511,21 @@ static void manage_dm_interrupts(struct amdgpu_device *adev,
+ 	if (acrtc_state) {
+ 		timing = &acrtc_state->stream->timing;
+ 
+-		if (amdgpu_ip_version(adev, DCE_HWIP, 0) <
+-			   IP_VERSION(3, 5, 0) ||
+-			   !(adev->flags & AMD_IS_APU)) {
++		if (amdgpu_ip_version(adev, DCE_HWIP, 0) >=
++		      IP_VERSION(3, 2, 0) &&
++		      !(adev->flags & AMD_IS_APU)) {
++			/*
++			 * DGPUs NV3x and newer that support idle optimizations
++			 * experience intermittent flip-done timeouts on cursor
++			 * updates. Restore 5s offdelay behavior for now.
++			 *
++			 * Discussion on the issue:
++			 * https://lore.kernel.org/amd-gfx/20260217191632.1243826-1-sysdadmin@m1k.cloud/
++			 */
++			config.offdelay_ms = 5000;
++			config.disable_immediate = false;
++		} else if (amdgpu_ip_version(adev, DCE_HWIP, 0) <
++			     IP_VERSION(3, 5, 0)) {
+ 			/*
+ 			 * Older HW and DGPU have issues with instant off;
+ 			 * use a 2 frame offdelay.
+-- 
+2.53.0
+
