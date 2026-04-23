@@ -4,123 +4,123 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B6576F99368
-	for <amd-gfx@archiver.kernel.org>; Thu, 23 Apr 2026 10:43:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 26416F99362
+	for <amd-gfx@archiver.kernel.org>; Thu, 23 Apr 2026 10:45:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 428F710E323;
-	Thu, 23 Apr 2026 10:43:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 93EF010F03A;
+	Thu, 23 Apr 2026 10:45:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="1AM9Vz6g";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="AeMyiOuW";
 	dkim-atps=neutral
 Received: from CH1PR05CU001.outbound.protection.outlook.com
- (mail-northcentralusazon11010007.outbound.protection.outlook.com
- [52.101.193.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 69C4C10E323
- for <amd-gfx@lists.freedesktop.org>; Thu, 23 Apr 2026 10:43:39 +0000 (UTC)
+ (mail-northcentralusazon11010017.outbound.protection.outlook.com
+ [52.101.193.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F243810E334
+ for <amd-gfx@lists.freedesktop.org>; Thu, 23 Apr 2026 10:45:48 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=G6wPi1kiX3jQ6jM7Meer7f/1Kes9pLk6K5t+O6hKKhfMjJSLk/OoK1Ybbllg/b/Ef0OmPCgzE73u4Q4S41MhC1XSbKtB8nihdGTmBUMKHPILcHqeZWSrlgKKxKRTAy6kRSVvNyduR2Tt5o9+etJA5hyvU+e4/jIsrUmdCKksfSU+8izUHUEHxWyEu3RZXme/w/2z+TdcaU0mRPH/ud7v/y6WituE3Po4OWruudqneX+9ZhooVtucPbliANyzAuWJZ44km9NyuGx7xrYxSbYVxcTI1vKp3c814l0Mccb1q1aGxNp/VL9JTl5yw2VAmXkxoepi30lYoAyqoqC5E4pDzQ==
+ b=ESN42REZ7PD1J3mGjxiGEoeHgtDsM0Fo76QWaSmMXkyvduqSEVqDCxBGbHpqMjzNZyfkDeHzmuaLz1RJhDglwF1rtNvhp3+HfbRDSN67A+K5CIxtTb/6hoIOF7D1UpdjmGhN2HN0vtczpck82N13dxp/K/XfQ532H4Uclz/teFfhSSDfnWErtgA1me6wXy65sMcgtDGRsVf3NkEpZJDivhm4n8hm2Sr6LD2f9rkLTXwdKoKFYxP0d2SUINGLNs75a9L5+5CMEUoUJ2OlwoufqLb/tyVxsZywteYdF+6n8HFDrjozKzveK816YsaDiiD7JsIF5UmPGbibHm47BYxXbw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=W3XjE/H/AhVotGw5jclWxWYZkJ1r7ZN8mJJplWhJrPE=;
- b=ALwBeuxr0/p01v0OsCO96obA1WoDEBZ73tMrP+dH/Y55do4JahoKWPI9zq9oVvzYivMERqicjeXdBuYJW5wtRC1blpjfKJqxlIseXiytLgevTghKeD5WjAbkdfvG0HDZeIqYpzq9vSt6UjFQy2rH+i6/drdDudFNS7JidCQCsELABjOEdFNMijjeJrAgziAkVHSw+KxMjJAmkmHZW7JqWk+/elgGrW0efY+wR0CdkoIaU3GYe5YKgNzHgqvwfWhwRvYRKvUXsgsXZYx6Jz+O//lJJRB8XyO3qkVIhSRiQoICFS5R01R4oScSzWwM+rIfrio2DoURxzjBAPNkEgpMRg==
+ bh=Z4BLeUl0YUenc7GbdDnUprWorbODQ2cJu3WyjCXKMFI=;
+ b=lEa2nryjy/CpvmFHiDWihSmSaSuie1nqceEiMhRpKUP9s78yMx2ZvvlNyvnvlYGD4NNUnocuRidm7WbIfaJZI80UkY6Z6QHVhUZWdvASetY3b7dcoVdtsay3rOfTmTEMUdGc8mQ8wTWR1I0QdE9P6yV4B1v46q44700ajaeYWICcBxAg1nEtS6O5UlhPfDsHxZFYwI2Zg06JXd06/38uynA6jjMvm0j9EdsmujywlILSsFdDFw9rjtnZ08efvHyreDSuXBgvAb5w/OazPVNGQ7KKdidtJ57CYSfnS5pW/PuqWJ7KajmM5Qj17rSju08JM37iMrLdhLcDf/r2JAtpKA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=W3XjE/H/AhVotGw5jclWxWYZkJ1r7ZN8mJJplWhJrPE=;
- b=1AM9Vz6gq8r5hSRejrIvj+eOxLszaW3XkwjFdo9sehFWlAlAa2McemrUQbqhJepjeGKXwJap6p5FTxMgOZnqud6X/BbYDSZm8zXuZ+PBfzjBQ43qvmxsEGyu8yMSPV7FsboGTBUeYeJvUcDByRkzSvLPR/dA9BDzSSFfG+uwWVw=
+ bh=Z4BLeUl0YUenc7GbdDnUprWorbODQ2cJu3WyjCXKMFI=;
+ b=AeMyiOuWZO4WT5kqQRLeWp+SklvgVfmp2UL6oofyV6K1zAHCZRN6bfcov1FkTd0NEqlZMEq0t206n7/JcleckqCeIqhLIvhbmoEDSNylmOXCjo1z5rytfF3wnC2dnasegMESPrQPDHeTePEfEJ14LpttKi0gVLTx6usBmm+hBBw=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from BL1PR12MB5753.namprd12.prod.outlook.com (2603:10b6:208:390::15)
  by DM6PR12MB4202.namprd12.prod.outlook.com (2603:10b6:5:219::22) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.21; Thu, 23 Apr
- 2026 10:43:36 +0000
+ 2026 10:45:44 +0000
 Received: from BL1PR12MB5753.namprd12.prod.outlook.com
  ([fe80::81e6:908a:a59b:87e2]) by BL1PR12MB5753.namprd12.prod.outlook.com
  ([fe80::81e6:908a:a59b:87e2%6]) with mapi id 15.20.9846.014; Thu, 23 Apr 2026
- 10:43:36 +0000
-Content-Type: multipart/alternative;
- boundary="------------7atV4pbI3wRdr8L85RWxV4wl"
-Message-ID: <99fbb7b9-bdd4-4c97-b089-5f6a3bb7a6c8@amd.com>
-Date: Thu, 23 Apr 2026 16:13:30 +0530
+ 10:45:43 +0000
+Message-ID: <3cd5634b-e715-4e92-8e21-26758f790458@amd.com>
+Date: Thu, 23 Apr 2026 16:15:37 +0530
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 08/11] drm/amdgpu: rework userq reset work handling
+Subject: Re: [PATCH 09/11] drm/amdgpu: revert to old status lock handling v4
 To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
  alexander.deucher@amd.com, Prike.Liang@amd.com, amd-gfx@lists.freedesktop.org
 Cc: christian.koenig@amd.com
 References: <20260421125513.4545-1-christian.koenig@amd.com>
- <20260421125513.4545-8-christian.koenig@amd.com>
+ <20260421125513.4545-9-christian.koenig@amd.com>
 Content-Language: en-US
 From: "Khatri, Sunil" <sukhatri@amd.com>
-In-Reply-To: <20260421125513.4545-8-christian.koenig@amd.com>
-X-ClientProxiedBy: PN2PR01CA0240.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:eb::17) To BL1PR12MB5753.namprd12.prod.outlook.com
+In-Reply-To: <20260421125513.4545-9-christian.koenig@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: PN2PR01CA0232.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:eb::10) To BL1PR12MB5753.namprd12.prod.outlook.com
  (2603:10b6:208:390::15)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: BL1PR12MB5753:EE_|DM6PR12MB4202:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9308f775-e156-444e-0298-08dea1252bed
+X-MS-Office365-Filtering-Correlation-Id: 6ab0cba5-b729-481a-e9bc-08dea1257820
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|1800799024|376014|8096899003|18002099003|56012099003|22082099003;
-X-Microsoft-Antispam-Message-Info: MrrWQR8weQHZrbR3BZf2LBzeN75z+R54SaWsFj3SEex37XEWQwZ4rgoySJUjMJnbZdiByN9ESmV8XEHyMTApTHBbPYHBDEi2nD0RAMlA2fCmUsxK5z27SLIdEv1aOozyy/wuF0sVF2x+meSbO0d0qCtZ5OiUU3k06UJrIe/lAzFmfR/iq8IJ9P/OPaRsCo0kjl0dqyxzOO7AguWFt2F8WqMOd/GfY3VegoI3misDCTSYTRzjWtZnDmRDqn/JrKdDXtdN392w+Z9u17CPBqnTbgQDdTJiOYI1PYvB/WQvlC7QzeyvTsgrT8lWfPSHngA3V2XDTMe/V9SPjXngVlXqmjwaXq/Lc16RMeC1sHNTVHl19CzTNFzRl2wgL/4N3twWtJ1Dtu1UH/X6e3CKuy6UoY2Kt34xyAh8LGYwqrOjYo0u80Jq6GZOJq4Gk9igaXdmLFtbnJcnMGTjpeyLURXpfUMN5feNTam74sMKEPr7Sxs/mry00QFypE9L2P2fauen+qSTj+1ZyjVssdMD9fyBHgvOe/zvnoPYShVHlzlxiyAFy1rNYN/emwMgL3s04gcJqilMmab2cvR7e3xD6Kf3+q/Rdscbq3Zcd2ODv03fo/A0hIydj2QZg2hM1VC0ZNg612QF/CvPYPVfSF8pODyEz27run9XWYLmMqCg7f1tVMg/vXI1aFsfm5QPkWQuFIyapVmiYGYOb9rHCjcVgczx66MGfMJ4T/03F70QTGsH0VE=
+ ARA:13230040|366016|1800799024|376014|18002099003|56012099003|22082099003; 
+X-Microsoft-Antispam-Message-Info: 2JbphYNF5C6pPCC4IqOBm/XEaGHSCNaB4TNWdXRMWoC9xceK/LjQVNHCOLnr32Q5T3EbnNUd5+uGkToN38DSelz/lOuO9S9RO98xvvSYLBUZknkDfNL+m4AM0/zVCs4GIiYwG+97GvdnKxqPRCDOlO4fCGT1ZeJDI2t3nps1vlzPVewCrZ/GPAyMkc6PALzjYacRNDZ4zF4K8RJzU2fHtXK51WMz4PPhT7c2mnPtaKxIooduKnUYkn2uj4y6V79lTun7D1Jz6WeE74IhUZ8CAvCWyV1DjaM2/iy1kFwQBOfTOFABnU+KQVJCQtEpotQaJSsWnPjgDTjRdT+QUgRS7UaEKoByE39i+fg4y39nrME879C3GCAS5YqDyXTDef0l7fCR/zBsfRJSw79K5S32ftQuMsmdGXZ/Kq0FSZiHh6PqL3LMnaJrCboKbkp2B8gNMOH7UMm4k/1qTVFS5w2h0Oer/PkC9H2stISkiw8jBejcrhbtjdjp/1Z0zo6F0o43QseG37zbqzzq2yzndKiT3bZ3OvbGYIiVIvPRb6N16Bs2ymWtIO2YSrRb68SwjaqtfDV+j1KuOV6eovQi8sjk/78kdB9gE5nGvfR6Ry9Mvhv9y66pKM7ilcYBXP+xC4dZbtc6M7rcYk3YE/3C5eICaJaJtGoWXDYk93vIzoWfUvU2SpaE4B4hNSCMqpuN7TRTNeb7fS3637ItErlJCAX3kLet8aFWryNe+uTalmWkRyU=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:BL1PR12MB5753.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014)(8096899003)(18002099003)(56012099003)(22082099003);
+ SFS:(13230040)(366016)(1800799024)(376014)(18002099003)(56012099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VUVuUVZ1VDIyWVUyRE4zRlhZWCtxSjVaU08rVWdibVlzK3pCVTVpTUQvQTZy?=
- =?utf-8?B?T2lrZ21jUWtmNko2aEpnM1JMZ0ZXbFg0cExRTmhzS3cwaHJMd3U4L3NYODZP?=
- =?utf-8?B?WWJwOHA4MUhYOFRwejQ2dEJxWEQyQXNEdmJlQmE2N0YwcHl4R0ZXRStXbm8v?=
- =?utf-8?B?Zlc4QTdjRmdUcHZudVE4NlNWZmt1dXZIaEhEUUR1UklQZ3BocHcyeXNJVFVn?=
- =?utf-8?B?UnkrbFB0ZkJNNExnYklLWHQ0OWYwMGkzYlZlSFNxWk1QWGJ2YzY4L1lWcGRY?=
- =?utf-8?B?NGJoM01HZlRDd0tvT0hyS3BhSW5yU0M1cXdDczhOZVVKQ2JzNkVtQmZieDU3?=
- =?utf-8?B?Vjg2OEcyWUVLb3QwT1ZmZmlPTjFuc1RrbUtDYmQyZ2EwTzJydTAyYlhsK1Bn?=
- =?utf-8?B?aTRBUzVxRmFOcStadGtqYm0wYlpGNVlFTDVyYUloMU1QNVFCRzhmUU1uZHFm?=
- =?utf-8?B?MUluTjUrM2U5cHNJcTIwWVYwS3V5RS9XQk92OEUvVTZHTUcwN1JjMkxkUGFt?=
- =?utf-8?B?UXVRd1RFWUV3NVcyRUV0M1lhNDJyWU40ckNyYkgzOE1UTFE4Z1hoRFp1ZjZW?=
- =?utf-8?B?S0tmMHhvR3JnYXFBVmR5WVF0ckQvaXNtUmVHLzIycjBna1pXTTRzWFZiUnpW?=
- =?utf-8?B?REV5SjBNNlgwOWxCL1pLeDJZRHIreEp4WldNcTBiMVp2NEsxNmxRSkhoQ0No?=
- =?utf-8?B?ZzdzSEpwQ3g1MllwenNuMG5URm9FQjloV0pUd01UNXQwaHgxOSsxT3FRdkt0?=
- =?utf-8?B?YmhkU0ROK29taDEzQ0JVdktxSkNlS3BQdjdyYWlkdUpFNDV1cWVPUGpiM2Y2?=
- =?utf-8?B?T3h3MmFkVVdFK1M4UGR6SXcweFY0azFEY1MyOGZYeXNDRXFnU20wWXdpQ2Iy?=
- =?utf-8?B?K3psZHBHNDY4Z1JkRTBVczFlOEdvVEVMNEIxQTlJNFRydS90VVFUTGtMVzEy?=
- =?utf-8?B?elhTUGFLSGc5b0NTNnZRYms4SStKZDMyeExSblY1L2FBS3MrclNub3gxZ1Fz?=
- =?utf-8?B?WU8vOWNTMStFSEFwVUZYN0Y5UkNiY0dhQlljZkJLUWsxL2JLNHIvcy85Yk9Z?=
- =?utf-8?B?TElsbVhNMXJPR3BhU3cwcmRNUnFBYVZzWG1wYWJBVHhFWlhpV1J5SFdaUVV2?=
- =?utf-8?B?ZXVxa25saDY0aUx2QkN5UUhKbzVhdEdtTFR5MkpndXdPdGJlRldkQ2N2bElR?=
- =?utf-8?B?R0JaTWduV25LQlNwc3NVOVcyVkhhWU1yMThTN2JOTEZkWHFTa1gxeDFqQlV2?=
- =?utf-8?B?aVN2ZGRDTHM1c2owSGJ1OFB5c1NCTDZVNGFwYVo1UFNvbmptb0dpVG9PYTdB?=
- =?utf-8?B?eUFBRUdJa1pYQTZTVmhraWM1aFVyYTdqeWxhUjJMUDNtZmYwM1hJaURvWjJV?=
- =?utf-8?B?c3lPNGFOQlNQYUV1YVZqVlQ4Y3FJZnZSaGNpQ2Q2eWo3bUNuSHNxYVlYR2lt?=
- =?utf-8?B?UCt4L29YbTIwVksvTC9xUldCbDlERnJiM1pscldZbzBJd1Z1L0FQWVc5T0xJ?=
- =?utf-8?B?aXFsc0lKZTUwejE5bS8rOUJLRUhBVE1OcWFWTWlkbG9GUkkvTU1NZHh0anNG?=
- =?utf-8?B?UEs4N3A1ZDZ4c1ZOQjZOR0hYRm8zeU9xYk1RUEx4UlVta2FLQUtOV3FnaXdL?=
- =?utf-8?B?aVJnd3F4ci9wR2NZa1djd1B0UCt0WGpxbEx5dkI2cGJkQjNLTjJ1ajd4Z3NI?=
- =?utf-8?B?bi9pUVdYUURaWlllV3JSS3B3SHlLMUY1VEQvQmRHNmpEaXQ4VnpyTjJOQlBw?=
- =?utf-8?B?NTFLZGVUOFhxMEZmY2UyYXFKZ0NlRmtRbzMwN0ZmZWpqQTNHUSsySUZ1NW5T?=
- =?utf-8?B?Y2ZFWGRpekRISWpCdWtObFZqdnlxK20xcEhQV0pibVIrVkJTQ2dEYUMzbnZG?=
- =?utf-8?B?aEhOMG04Yk1pc1NEa1VaUHU0amFlRmdQUk9zK3padG1nOXZtRnh2MHhDbXUz?=
- =?utf-8?B?OGVrK0RYTG9XMTB1TWtDV2xveTgxSHgyVlpGQU1pUXpXZW56Sk5pVXVvdlRH?=
- =?utf-8?B?Q2ZiYVV1eG9jL01sMGloN0NkVGY4d2w0U25Sdml4dkloUHZFa3NHQXprL3dw?=
- =?utf-8?B?NDBWRWdhcm1OMXRCaGJDYWNjZmlpSm5iTTRaU3FKSEdBVmJhSTlzL0xKVkls?=
- =?utf-8?B?WGpkdHdoWGZ6WFc4dndsSG45S2tPUU55R3hBc3o0Sm1xKzhnMkFMOGt6UjFx?=
- =?utf-8?B?bU1iMXVQMTdhMGV0NUFHS2NuaUx0OU14ZmRxeGhIMEc3MnJRNkFWWHlXRkp4?=
- =?utf-8?B?Vy91cGpMeTV1MUtseExHaVk4aFcyNGU2NlB0T0tLNU5LMC9HZm9nem1mZFlX?=
- =?utf-8?B?QS9BelZodEhaWnNWVU1hOVhhMkFEYjFVblg3RzBZSThsb0dpeGlIdz09?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dEZBWHl2MTY1bktMMlF4di9vb1oyaDJIeFpobERHZFVHYjI1cUwyNzlhbHRD?=
+ =?utf-8?B?WlNENnduVVF3Z1pjVVVLOUlzSDFVTEw2VG1pcW1TdEc0VFIwZThxMFJ6US9y?=
+ =?utf-8?B?SVpwREdwcllCME5qeXJoMGw3TW9tNUZhRmJHMnVITHhIOFZkcWc1WW12RnpP?=
+ =?utf-8?B?YjhKZVZUbzFQQ1VTb250NXQ1RFhkNnROd1VscS9qYVNoWTBDQnBpR29hYUg0?=
+ =?utf-8?B?YkZjQlIzSkNLUWRvVmE4WmtWcE44NG5vRHJBWUZGUVg1dFM0bjNsT0RYb1V4?=
+ =?utf-8?B?SlpxVENRdi9MSC90dUtDK3BHaFpkbkhhSXBMMkNBMGVKTlFteVMyS0xqNlNX?=
+ =?utf-8?B?eC9ORGRLeFRYUXRUNyt4OCtuVW5FMEI1MXVTMzJnVWoyNldjOEdPd29vYXdn?=
+ =?utf-8?B?NlE0cStraTlhS05vb3VrVHpwbUxEcWcxSyt6S2x4ays4OVBhNkZSbVdoN2lt?=
+ =?utf-8?B?Vkc0RFloYXdQRUFyZWxpQVVaMmx3WjM5SUE5UElVNVphRE1LMnk5WDJaTEVG?=
+ =?utf-8?B?ZkRyNFl0amEvMUlmZng2VEdhNXY1MVpidjZ1UVZKMGEzcHNIVjNCS2dKeEJL?=
+ =?utf-8?B?c1AzYStnalFESG94cVQrRm1vdGJ1cGdMNUcybWJHZmxJcjVHbGpveG50a3Rp?=
+ =?utf-8?B?Y2xWZHkyUm1wcVhZeHRUajFLazEraG1wV2orWlF3em5weUt5dnR0YzNnajNJ?=
+ =?utf-8?B?dXNkOWZpa0Y4Z1pRTUlQLzdGNklsTlJnODZSM0tSNEFUU2thZVM0dWlrL3Z1?=
+ =?utf-8?B?OEhRWUlCdFRMRWZKdzB4ekFzS2tmTnNodk50S3BPSnlQMFhWSVJXWEpTajFv?=
+ =?utf-8?B?M1FIbERTTzZJamczNjAwamdWNEZyTHZQM0IwMnNzMUYvdHhFSmh4MkkzcmU3?=
+ =?utf-8?B?Q1FkdDEyTkhGUEZkVDZ2clNkL0xZV3FvYVdudGdhTm1STnlrZzc2dktXUEFU?=
+ =?utf-8?B?bGM1UEUzVkhxcjNmZEx6dENkaTN3c0ZpZE80RVlVMXdoME9VdVFLOWQ3djhZ?=
+ =?utf-8?B?bGhYalRod0ZQbEFmOUhzb0RUY1BGUHJVSEFSQ09wMXB4Q0Q0R09FRFRubHFl?=
+ =?utf-8?B?cGs0dlRLL1JZMSttSkRFNzRWN3k1RkNIcUNFdi92eFFBNWRiN09McXI1TTJn?=
+ =?utf-8?B?S2lZZ0l1cEw5ME5rZnRJSXRObGdqTUNUNEs2Mlhwa0grSTd1eHpWbXZhVzU1?=
+ =?utf-8?B?WEp5TjF6bVVxb2JxQ3dlZG8ycTZaYk9IZEQ3VDN3TTh0bnhpZGxJQzZwT2pF?=
+ =?utf-8?B?MHpWTi9PWFp6U2p2Q1dkUEVRVDFDT3Nad1B3bWhYTmo0TVhqYUIybGdzd0RG?=
+ =?utf-8?B?VmN0eTNpMWRzZzZBdWs3WlRrVmNoa082akVqV2JkZ2JEM3ZycXZncjB6ODJC?=
+ =?utf-8?B?WnA3eTNBRU9YbThDQTVnMm05SFJndGhNaEhBbERJN1ZURVNFVGcxUVZRL002?=
+ =?utf-8?B?RC9hb2cxaVp5ejV0cWxocnQxR2srSlozMjh5V3ZzcUhrOXVHWXdxdThaY1Ux?=
+ =?utf-8?B?c0lVOHFqU3laRTJ0WS82RnpxRWdQZzFwOXY0YkN1OE9nbVB2dVBIUElub2hB?=
+ =?utf-8?B?OHRBU2ErYUpsNEZoalpYc3VDcG1uQTBSL1lDU3g5OUVIaFZXTkNLcm9yVmtB?=
+ =?utf-8?B?MFEveDhSc0lnd3VDN1FuWWg2VE1Yd0NUSlBIYVNIcnJ0R2dHVDZLdEoyTjd4?=
+ =?utf-8?B?Mmdnb25RLzVYWmxWL0pHZExnMUxVTjZ5NG41YUljOGhwcVprN3lQYVI2Q01h?=
+ =?utf-8?B?TVFLRkJkN0VMZzhwODV5WUNBTEJ3alA4TU1Dd00xbzVRUnRIelE3SXBUL25C?=
+ =?utf-8?B?b1NjM3lOL1V5blNBZ2dJY2tJUEw2dVdRMkZBeFJ3TXRHY0tnNTNVcDRXQjJl?=
+ =?utf-8?B?UDlCdkpTOHBOblh6SkFwUWJJZ2xIemRSeWpuU21TRDNKK3I4YXJVU211OHhQ?=
+ =?utf-8?B?alZSb01kdXhvakh4WHd5L0tWWFVRZDcrYVpTQWozR09teW85VUhkRnVBVWs3?=
+ =?utf-8?B?TXN0N1BYbU5OeWdPMDY0M05FMWU2ekFKMkFwTVpwSlFtQWl6MGdYQU83bjFz?=
+ =?utf-8?B?SHVqNUR3bTNZOG1NTE9CUU0zUVVlSWdRUnBUNHdncUhSRnY4cmJ2UStsQ1Vm?=
+ =?utf-8?B?RVhLLzBuQ292eDhXZHcwTkFrR1YwbThpZTc5SklqTVBDT1daVzlKY1FvRjFQ?=
+ =?utf-8?B?R2R3T0JkSkxLeGNCMDJTRURhVURxYXJuaUN4YnJVTTJtaWl4akZMam9uSUxS?=
+ =?utf-8?B?d1lhbFRWTDVxVkhFN1MxSnZIVFlENU12R0R2NVBQeW1Bb2JaWEVsQWhHcUpT?=
+ =?utf-8?B?aWhTQzNpUWdjb0Y4TTF0YWZJR0F5Y2NvK0wvc21pWFhLNVJVL3FKdz09?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9308f775-e156-444e-0298-08dea1252bed
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6ab0cba5-b729-481a-e9bc-08dea1257820
 X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5753.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Apr 2026 10:43:35.8585 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Apr 2026 10:45:43.8350 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: tegi366gmFxuqvSdxP+m7BWXj+sw1xNfFvqXEiq4kDyrzCiFN042+IS3AOofDS+pjZZiCZgzonNOfMrlOYVatA==
+X-MS-Exchange-CrossTenant-UserPrincipalName: yg6ATChK6p6/gVYcmH4fohSVk3cxrOo/ZevXYJzPhTtCTawcioQG097+2sPOOiduBr3lwyWp3CfRoo+vqNHBpg==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4202
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -136,547 +136,602 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---------------7atV4pbI3wRdr8L85RWxV4wl
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Not sure if anything changes in this version if not its already reviewed.
 
+regards
+Sunil Khatri
 
 On 21-04-2026 06:25 pm, Christian König wrote:
-> It is illegal to schedule reset work from another reset work!
+> It turned out that protecting the status of each bo_va with a
+> spinlock was just hiding problems instead of solving them.
 >
-> Fix this by scheduling the userq reset work directly on the work queue
-> of the reset domain.
+> Revert the whole approach, add a separate stats_lock and lockdep
+> assertions that the correct reservation lock is held all over the place.
 >
-> Not fully tested, I leave that to the IGT test cases.
+> This not only allows for better checks if a state transition is properly
+> protected by a lock, but also switching back to using list macros to
+> iterate over the state of lists protected by the dma_resv lock of the
+> root PD.
 >
-> Signed-off-by: Christian König<christian.koenig@amd.com>
+> v2: re-add missing check
+> v3: split into two patches
+> v4: re-apply by fixing holding the VM lock at the right places.
+>
+> Signed-off-by: Christian König <christian.koenig@amd.com>
+> Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+> Reviewed-by: Sunil Khatri <sunil.khatri@amd.com>
 > ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu.h        |  1 -
->   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  3 +-
->   drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c  | 84 +++++++++++-----------
->   drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h  | 16 ++++-
->   4 files changed, 60 insertions(+), 44 deletions(-)
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c |   8 +-
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c    | 146 ++++++++--------------
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h    |  15 ++-
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c |   4 -
+>   4 files changed, 68 insertions(+), 105 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> index 39894e38fee4..17341e384caf 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> @@ -1191,7 +1191,6 @@ struct amdgpu_device {
->   	bool                            apu_prefer_gtt;
->   
->   	bool                            userq_halt_for_enforce_isolation;
-> -	struct work_struct              userq_reset_work;
->   	struct amdgpu_uid *uid_info;
->   
->   	struct amdgpu_uma_carveout_info uma_info;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> index b11c4b5fa8fc..cf61be17e061 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -3786,7 +3786,6 @@ int amdgpu_device_init(struct amdgpu_device *adev,
->   	}
->   
->   	INIT_WORK(&adev->xgmi_reset_work, amdgpu_device_xgmi_reset_func);
-> -	INIT_WORK(&adev->userq_reset_work, amdgpu_userq_reset_work);
->   
->   	amdgpu_coredump_init(adev);
->   
-> @@ -5477,7 +5476,7 @@ static inline void amdgpu_device_stop_pending_resets(struct amdgpu_device *adev)
->   	if (!amdgpu_sriov_vf(adev))
->   		cancel_work(&adev->reset_work);
->   #endif
-> -	cancel_work(&adev->userq_reset_work);
-> +	amdgpu_userq_mgr_cancel_reset_work(adev);
->   
->   	if (adev->kfd.dev)
->   		cancel_work(&adev->kfd.reset_work);
 > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-> index 0a4c39d83adc..ad6dac17dd21 100644
+> index ad6dac17dd21..7fc733ba962e 100644
 > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
 > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-> @@ -82,19 +82,11 @@ static bool amdgpu_userq_is_reset_type_supported(struct amdgpu_device *adev,
->   	return false;
+> @@ -1048,12 +1048,12 @@ amdgpu_userq_bo_validate(struct amdgpu_device *adev, struct drm_exec *exec,
+>   	struct amdgpu_bo *bo;
+>   	int ret;
+>   
+> -	spin_lock(&vm->status_lock);
+> +	spin_lock(&vm->invalidated_lock);
+>   	while (!list_empty(&vm->invalidated)) {
+>   		bo_va = list_first_entry(&vm->invalidated,
+>   					 struct amdgpu_bo_va,
+>   					 base.vm_status);
+> -		spin_unlock(&vm->status_lock);
+> +		spin_unlock(&vm->invalidated_lock);
+>   
+>   		bo = bo_va->base.bo;
+>   		ret = drm_exec_prepare_obj(exec, &bo->tbo.base, 2);
+> @@ -1070,9 +1070,9 @@ amdgpu_userq_bo_validate(struct amdgpu_device *adev, struct drm_exec *exec,
+>   		if (ret)
+>   			return ret;
+>   
+> -		spin_lock(&vm->status_lock);
+> +		spin_lock(&vm->invalidated_lock);
+>   	}
+> -	spin_unlock(&vm->status_lock);
+> +	spin_unlock(&vm->invalidated_lock);
+>   
+>   	return 0;
+>   }
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> index 63156289ae7f..e2a21a66b28f 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> @@ -167,12 +167,10 @@ static void amdgpu_vm_bo_evicted(struct amdgpu_vm_bo_base *vm_bo)
+>   
+>   	vm_bo->moved = true;
+>   	amdgpu_vm_assert_locked(vm);
+> -	spin_lock(&vm_bo->vm->status_lock);
+>   	if (bo->tbo.type == ttm_bo_type_kernel)
+>   		list_move(&vm_bo->vm_status, &vm->evicted);
+>   	else
+>   		list_move_tail(&vm_bo->vm_status, &vm->evicted);
+> -	spin_unlock(&vm_bo->vm->status_lock);
+>   }
+>   /**
+>    * amdgpu_vm_bo_moved - vm_bo is moved
+> @@ -185,9 +183,7 @@ static void amdgpu_vm_bo_evicted(struct amdgpu_vm_bo_base *vm_bo)
+>   static void amdgpu_vm_bo_moved(struct amdgpu_vm_bo_base *vm_bo)
+>   {
+>   	amdgpu_vm_assert_locked(vm_bo->vm);
+> -	spin_lock(&vm_bo->vm->status_lock);
+>   	list_move(&vm_bo->vm_status, &vm_bo->vm->moved);
+> -	spin_unlock(&vm_bo->vm->status_lock);
 >   }
 >   
-> -static void amdgpu_userq_gpu_reset(struct amdgpu_device *adev)
-> -{
-> -	if (amdgpu_device_should_recover_gpu(adev)) {
-> -		amdgpu_reset_domain_schedule(adev->reset_domain,
-> -					     &adev->userq_reset_work);
-> -		/* Wait for the reset job to complete */
-> -		flush_work(&adev->userq_reset_work);
-> -	}
-> -}
-> -
-> -static int
-> -amdgpu_userq_detect_and_reset_queues(struct amdgpu_userq_mgr *uq_mgr)
-> +static void amdgpu_userq_mgr_reset_work(struct work_struct *work)
+>   /**
+> @@ -201,9 +197,7 @@ static void amdgpu_vm_bo_moved(struct amdgpu_vm_bo_base *vm_bo)
+>   static void amdgpu_vm_bo_idle(struct amdgpu_vm_bo_base *vm_bo)
 >   {
-> +	struct amdgpu_userq_mgr *uq_mgr =
-> +		container_of(work, struct amdgpu_userq_mgr,
-> +			     reset_work);
->   	struct amdgpu_device *adev = uq_mgr->adev;
->   	const int queue_types[] = {
->   		AMDGPU_RING_TYPE_COMPUTE,
-> @@ -103,12 +95,11 @@ amdgpu_userq_detect_and_reset_queues(struct amdgpu_userq_mgr *uq_mgr)
->   	};
->   	const int num_queue_types = ARRAY_SIZE(queue_types);
->   	bool gpu_reset = false;
-> -	int r = 0;
-> -	int i;
-> +	int i, r;
+>   	amdgpu_vm_assert_locked(vm_bo->vm);
+> -	spin_lock(&vm_bo->vm->status_lock);
+>   	list_move(&vm_bo->vm_status, &vm_bo->vm->idle);
+> -	spin_unlock(&vm_bo->vm->status_lock);
+>   	vm_bo->moved = false;
+>   }
 >   
->   	if (unlikely(adev->debug_disable_gpu_ring_reset)) {
->   		dev_err(adev->dev, "userq reset disabled by debug mask\n");
-> -		return 0;
-> +		return;
+> @@ -217,9 +211,9 @@ static void amdgpu_vm_bo_idle(struct amdgpu_vm_bo_base *vm_bo)
+>    */
+>   static void amdgpu_vm_bo_invalidated(struct amdgpu_vm_bo_base *vm_bo)
+>   {
+> -	spin_lock(&vm_bo->vm->status_lock);
+> +	spin_lock(&vm_bo->vm->invalidated_lock);
+>   	list_move(&vm_bo->vm_status, &vm_bo->vm->invalidated);
+> -	spin_unlock(&vm_bo->vm->status_lock);
+> +	spin_unlock(&vm_bo->vm->invalidated_lock);
+>   }
+>   
+>   /**
+> @@ -232,10 +226,9 @@ static void amdgpu_vm_bo_invalidated(struct amdgpu_vm_bo_base *vm_bo)
+>    */
+>   static void amdgpu_vm_bo_evicted_user(struct amdgpu_vm_bo_base *vm_bo)
+>   {
+> +	amdgpu_vm_assert_locked(vm_bo->vm);
+>   	vm_bo->moved = true;
+> -	spin_lock(&vm_bo->vm->status_lock);
+>   	list_move(&vm_bo->vm_status, &vm_bo->vm->evicted_user);
+> -	spin_unlock(&vm_bo->vm->status_lock);
+>   }
+>   
+>   /**
+> @@ -249,13 +242,10 @@ static void amdgpu_vm_bo_evicted_user(struct amdgpu_vm_bo_base *vm_bo)
+>   static void amdgpu_vm_bo_relocated(struct amdgpu_vm_bo_base *vm_bo)
+>   {
+>   	amdgpu_vm_assert_locked(vm_bo->vm);
+> -	if (vm_bo->bo->parent) {
+> -		spin_lock(&vm_bo->vm->status_lock);
+> +	if (vm_bo->bo->parent)
+>   		list_move(&vm_bo->vm_status, &vm_bo->vm->relocated);
+> -		spin_unlock(&vm_bo->vm->status_lock);
+> -	} else {
+> +	else
+>   		amdgpu_vm_bo_idle(vm_bo);
+> -	}
+>   }
+>   
+>   /**
+> @@ -269,9 +259,7 @@ static void amdgpu_vm_bo_relocated(struct amdgpu_vm_bo_base *vm_bo)
+>   static void amdgpu_vm_bo_done(struct amdgpu_vm_bo_base *vm_bo)
+>   {
+>   	amdgpu_vm_assert_locked(vm_bo->vm);
+> -	spin_lock(&vm_bo->vm->status_lock);
+>   	list_move(&vm_bo->vm_status, &vm_bo->vm->done);
+> -	spin_unlock(&vm_bo->vm->status_lock);
+>   }
+>   
+>   /**
+> @@ -285,13 +273,13 @@ static void amdgpu_vm_bo_reset_state_machine(struct amdgpu_vm *vm)
+>   {
+>   	struct amdgpu_vm_bo_base *vm_bo, *tmp;
+>   
+> -	amdgpu_vm_assert_locked(vm);
+> -
+> -	spin_lock(&vm->status_lock);
+> +	spin_lock(&vm->invalidated_lock);
+>   	list_splice_init(&vm->done, &vm->invalidated);
+>   	list_for_each_entry(vm_bo, &vm->invalidated, vm_status)
+>   		vm_bo->moved = true;
+> +	spin_unlock(&vm->invalidated_lock);
+>   
+> +	amdgpu_vm_assert_locked(vm);
+>   	list_for_each_entry_safe(vm_bo, tmp, &vm->idle, vm_status) {
+>   		struct amdgpu_bo *bo = vm_bo->bo;
+>   
+> @@ -301,14 +289,13 @@ static void amdgpu_vm_bo_reset_state_machine(struct amdgpu_vm *vm)
+>   		else if (bo->parent)
+>   			list_move(&vm_bo->vm_status, &vm_bo->vm->relocated);
+>   	}
+> -	spin_unlock(&vm->status_lock);
+>   }
+>   
+>   /**
+>    * amdgpu_vm_update_shared - helper to update shared memory stat
+>    * @base: base structure for tracking BO usage in a VM
+>    *
+> - * Takes the vm status_lock and updates the shared memory stat. If the basic
+> + * Takes the vm stats_lock and updates the shared memory stat. If the basic
+>    * stat changed (e.g. buffer was moved) amdgpu_vm_update_stats need to be called
+>    * as well.
+>    */
+> @@ -321,7 +308,7 @@ static void amdgpu_vm_update_shared(struct amdgpu_vm_bo_base *base)
+>   	bool shared;
+>   
+>   	dma_resv_assert_held(bo->tbo.base.resv);
+> -	spin_lock(&vm->status_lock);
+> +	spin_lock(&vm->stats_lock);
+>   	shared = drm_gem_object_is_shared_for_memory_stats(&bo->tbo.base);
+>   	if (base->shared != shared) {
+>   		base->shared = shared;
+> @@ -333,7 +320,7 @@ static void amdgpu_vm_update_shared(struct amdgpu_vm_bo_base *base)
+>   			vm->stats[bo_memtype].drm.private += size;
+>   		}
+>   	}
+> -	spin_unlock(&vm->status_lock);
+> +	spin_unlock(&vm->stats_lock);
+>   }
+>   
+>   /**
+> @@ -358,11 +345,11 @@ void amdgpu_vm_bo_update_shared(struct amdgpu_bo *bo)
+>    *        be bo->tbo.resource
+>    * @sign: if we should add (+1) or subtract (-1) from the stat
+>    *
+> - * Caller need to have the vm status_lock held. Useful for when multiple update
+> + * Caller need to have the vm stats_lock held. Useful for when multiple update
+>    * need to happen at the same time.
+>    */
+>   static void amdgpu_vm_update_stats_locked(struct amdgpu_vm_bo_base *base,
+> -			    struct ttm_resource *res, int sign)
+> +					  struct ttm_resource *res, int sign)
+>   {
+>   	struct amdgpu_vm *vm = base->vm;
+>   	struct amdgpu_bo *bo = base->bo;
+> @@ -386,7 +373,8 @@ static void amdgpu_vm_update_stats_locked(struct amdgpu_vm_bo_base *base,
+>   		 */
+>   		if (bo->flags & AMDGPU_GEM_CREATE_DISCARDABLE)
+>   			vm->stats[res_memtype].drm.purgeable += size;
+> -		if (!(bo->preferred_domains & amdgpu_mem_type_to_domain(res_memtype)))
+> +		if (!(bo->preferred_domains &
+> +		      amdgpu_mem_type_to_domain(res_memtype)))
+>   			vm->stats[bo_memtype].evicted += size;
+>   	}
+>   }
+> @@ -405,9 +393,9 @@ void amdgpu_vm_update_stats(struct amdgpu_vm_bo_base *base,
+>   {
+>   	struct amdgpu_vm *vm = base->vm;
+>   
+> -	spin_lock(&vm->status_lock);
+> +	spin_lock(&vm->stats_lock);
+>   	amdgpu_vm_update_stats_locked(base, res, sign);
+> -	spin_unlock(&vm->status_lock);
+> +	spin_unlock(&vm->stats_lock);
+>   }
+>   
+>   /**
+> @@ -433,10 +421,10 @@ void amdgpu_vm_bo_base_init(struct amdgpu_vm_bo_base *base,
+>   	base->next = bo->vm_bo;
+>   	bo->vm_bo = base;
+>   
+> -	spin_lock(&vm->status_lock);
+> +	spin_lock(&vm->stats_lock);
+>   	base->shared = drm_gem_object_is_shared_for_memory_stats(&bo->tbo.base);
+>   	amdgpu_vm_update_stats_locked(base, bo->tbo.resource, +1);
+> -	spin_unlock(&vm->status_lock);
+> +	spin_unlock(&vm->stats_lock);
+>   
+>   	if (!amdgpu_vm_is_bo_always_valid(vm, bo))
+>   		return;
+> @@ -495,25 +483,25 @@ int amdgpu_vm_lock_done_list(struct amdgpu_vm *vm, struct drm_exec *exec,
+>   	int ret;
+>   
+>   	/* We can only trust prev->next while holding the lock */
+> -	spin_lock(&vm->status_lock);
+> +	spin_lock(&vm->invalidated_lock);
+>   	while (!list_is_head(prev->next, &vm->done)) {
+>   		bo_va = list_entry(prev->next, typeof(*bo_va), base.vm_status);
+>   
+>   		bo = bo_va->base.bo;
+>   		if (bo) {
+>   			amdgpu_bo_ref(bo);
+> -			spin_unlock(&vm->status_lock);
+> +			spin_unlock(&vm->invalidated_lock);
+>   
+>   			ret = drm_exec_prepare_obj(exec, &bo->tbo.base, 1);
+>   			amdgpu_bo_unref(&bo);
+>   			if (unlikely(ret))
+>   				return ret;
+>   
+> -			spin_lock(&vm->status_lock);
+> +			spin_lock(&vm->invalidated_lock);
+>   		}
+>   		prev = prev->next;
+>   	}
+> -	spin_unlock(&vm->status_lock);
+> +	spin_unlock(&vm->invalidated_lock);
+>   
+>   	return 0;
+>   }
+> @@ -609,7 +597,7 @@ int amdgpu_vm_validate(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+>   		       void *param)
+>   {
+>   	uint64_t new_vm_generation = amdgpu_vm_generation(adev, vm);
+> -	struct amdgpu_vm_bo_base *bo_base;
+> +	struct amdgpu_vm_bo_base *bo_base, *tmp;
+>   	struct amdgpu_bo *bo;
+>   	int r;
+>   
+> @@ -622,13 +610,7 @@ int amdgpu_vm_validate(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+>   			return r;
 >   	}
 >   
->   	/*
-> @@ -116,7 +107,7 @@ amdgpu_userq_detect_and_reset_queues(struct amdgpu_userq_mgr *uq_mgr)
->   	 * skip all reset detection logic
->   	 */
->   	if (!amdgpu_gpu_recovery)
-> -		return 0;
-> +		return;
+> -	spin_lock(&vm->status_lock);
+> -	while (!list_empty(&vm->evicted)) {
+> -		bo_base = list_first_entry(&vm->evicted,
+> -					   struct amdgpu_vm_bo_base,
+> -					   vm_status);
+> -		spin_unlock(&vm->status_lock);
+> -
+> +	list_for_each_entry_safe(bo_base, tmp, &vm->evicted, vm_status) {
+>   		bo = bo_base->bo;
 >   
->   	/*
->   	 * Iterate through all queue types to detect and reset problematic queues
-> @@ -141,10 +132,19 @@ amdgpu_userq_detect_and_reset_queues(struct amdgpu_userq_mgr *uq_mgr)
+>   		r = validate(param, bo);
+> @@ -641,26 +623,21 @@ int amdgpu_vm_validate(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+>   			vm->update_funcs->map_table(to_amdgpu_bo_vm(bo));
+>   			amdgpu_vm_bo_relocated(bo_base);
+>   		}
+> -		spin_lock(&vm->status_lock);
+>   	}
+> -	while (ticket && !list_empty(&vm->evicted_user)) {
+> -		bo_base = list_first_entry(&vm->evicted_user,
+> -					   struct amdgpu_vm_bo_base,
+> -					   vm_status);
+> -		spin_unlock(&vm->status_lock);
+>   
+> -		bo = bo_base->bo;
+> -		dma_resv_assert_held(bo->tbo.base.resv);
+> +	if (ticket) {
+> +		list_for_each_entry_safe(bo_base, tmp, &vm->evicted_user,
+> +					 vm_status) {
+> +			bo = bo_base->bo;
+> +			dma_resv_assert_held(bo->tbo.base.resv);
+>   
+> -		r = validate(param, bo);
+> -		if (r)
+> -			return r;
+> -
+> -		amdgpu_vm_bo_invalidated(bo_base);
+> +			r = validate(param, bo);
+> +			if (r)
+> +				return r;
+>   
+> -		spin_lock(&vm->status_lock);
+> +			amdgpu_vm_bo_invalidated(bo_base);
+> +		}
+>   	}
+> -	spin_unlock(&vm->status_lock);
+>   
+>   	amdgpu_vm_eviction_lock(vm);
+>   	vm->evicting = false;
+> @@ -689,9 +666,7 @@ bool amdgpu_vm_ready(struct amdgpu_vm *vm)
+>   	ret = !vm->evicting;
+>   	amdgpu_vm_eviction_unlock(vm);
+>   
+> -	spin_lock(&vm->status_lock);
+>   	ret &= list_empty(&vm->evicted);
+> -	spin_unlock(&vm->status_lock);
+>   
+>   	spin_lock(&vm->immediate.lock);
+>   	ret &= !vm->immediate.stopped;
+> @@ -985,18 +960,13 @@ int amdgpu_vm_update_pdes(struct amdgpu_device *adev,
+>   			  struct amdgpu_vm *vm, bool immediate)
+>   {
+>   	struct amdgpu_vm_update_params params;
+> -	struct amdgpu_vm_bo_base *entry;
+> +	struct amdgpu_vm_bo_base *entry, *tmp;
+>   	bool flush_tlb_needed = false;
+> -	LIST_HEAD(relocated);
+>   	int r, idx;
+>   
+>   	amdgpu_vm_assert_locked(vm);
+>   
+> -	spin_lock(&vm->status_lock);
+> -	list_splice_init(&vm->relocated, &relocated);
+> -	spin_unlock(&vm->status_lock);
+> -
+> -	if (list_empty(&relocated))
+> +	if (list_empty(&vm->relocated))
+>   		return 0;
+>   
+>   	if (!drm_dev_enter(adev_to_drm(adev), &idx))
+> @@ -1012,7 +982,7 @@ int amdgpu_vm_update_pdes(struct amdgpu_device *adev,
+>   	if (r)
+>   		goto error;
+>   
+> -	list_for_each_entry(entry, &relocated, vm_status) {
+> +	list_for_each_entry(entry, &vm->relocated, vm_status) {
+>   		/* vm_flush_needed after updating moved PDEs */
+>   		flush_tlb_needed |= entry->moved;
+>   
+> @@ -1028,9 +998,7 @@ int amdgpu_vm_update_pdes(struct amdgpu_device *adev,
+>   	if (flush_tlb_needed)
+>   		atomic64_inc(&vm->tlb_seq);
+>   
+> -	while (!list_empty(&relocated)) {
+> -		entry = list_first_entry(&relocated, struct amdgpu_vm_bo_base,
+> -					 vm_status);
+> +	list_for_each_entry_safe(entry, tmp, &vm->relocated, vm_status) {
+>   		amdgpu_vm_bo_idle(entry);
+>   	}
+>   
+> @@ -1260,9 +1228,9 @@ int amdgpu_vm_update_range(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+>   void amdgpu_vm_get_memory(struct amdgpu_vm *vm,
+>   			  struct amdgpu_mem_stats stats[__AMDGPU_PL_NUM])
+>   {
+> -	spin_lock(&vm->status_lock);
+> +	spin_lock(&vm->stats_lock);
+>   	memcpy(stats, vm->stats, sizeof(*stats) * __AMDGPU_PL_NUM);
+> -	spin_unlock(&vm->status_lock);
+> +	spin_unlock(&vm->stats_lock);
+>   }
+>   
+>   /**
+> @@ -1629,29 +1597,24 @@ int amdgpu_vm_handle_moved(struct amdgpu_device *adev,
+>   			   struct amdgpu_vm *vm,
+>   			   struct ww_acquire_ctx *ticket)
+>   {
+> -	struct amdgpu_bo_va *bo_va;
+> +	struct amdgpu_bo_va *bo_va, *tmp;
+>   	struct dma_resv *resv;
+>   	bool clear, unlock;
+>   	int r;
+>   
+> -	spin_lock(&vm->status_lock);
+> -	while (!list_empty(&vm->moved)) {
+> -		bo_va = list_first_entry(&vm->moved, struct amdgpu_bo_va,
+> -					 base.vm_status);
+> -		spin_unlock(&vm->status_lock);
+> -
+> +	list_for_each_entry_safe(bo_va, tmp, &vm->moved, base.vm_status) {
+>   		/* Per VM BOs never need to bo cleared in the page tables */
+>   		r = amdgpu_vm_bo_update(adev, bo_va, false);
+>   		if (r)
+>   			return r;
+> -		spin_lock(&vm->status_lock);
+>   	}
+>   
+> +	spin_lock(&vm->invalidated_lock);
+>   	while (!list_empty(&vm->invalidated)) {
+>   		bo_va = list_first_entry(&vm->invalidated, struct amdgpu_bo_va,
+>   					 base.vm_status);
+>   		resv = bo_va->base.bo->tbo.base.resv;
+> -		spin_unlock(&vm->status_lock);
+> +		spin_unlock(&vm->invalidated_lock);
+>   
+>   		/* Try to reserve the BO to avoid clearing its ptes */
+>   		if (!adev->debug_vm && dma_resv_trylock(resv)) {
+> @@ -1683,9 +1646,9 @@ int amdgpu_vm_handle_moved(struct amdgpu_device *adev,
+>   		     bo_va->base.bo->tbo.resource->mem_type == TTM_PL_SYSTEM))
+>   			amdgpu_vm_bo_evicted_user(&bo_va->base);
+>   
+> -		spin_lock(&vm->status_lock);
+> +		spin_lock(&vm->invalidated_lock);
+>   	}
+> -	spin_unlock(&vm->status_lock);
+> +	spin_unlock(&vm->invalidated_lock);
+>   
+>   	return 0;
+>   }
+> @@ -2223,9 +2186,9 @@ void amdgpu_vm_bo_del(struct amdgpu_device *adev,
 >   		}
 >   	}
 >   
-> -	if (gpu_reset)
-> -		amdgpu_userq_gpu_reset(adev);
-> +	if (gpu_reset) {
-> +		struct amdgpu_reset_context reset_context;
+> -	spin_lock(&vm->status_lock);
+> +	spin_lock(&vm->invalidated_lock);
+>   	list_del(&bo_va->base.vm_status);
+> -	spin_unlock(&vm->status_lock);
+> +	spin_unlock(&vm->invalidated_lock);
 >   
-> -	return r;
-> +		memset(&reset_context, 0, sizeof(reset_context));
-> +
-> +		reset_context.method = AMD_RESET_METHOD_NONE;
-> +		reset_context.reset_req_dev = adev;
-> +		reset_context.src = AMDGPU_RESET_SRC_USERQ;
-> +		set_bit(AMDGPU_NEED_FULL_RESET, &reset_context.flags);
-> +		/*set_bit(AMDGPU_SKIP_COREDUMP, &reset_context.flags);*/
-> +
-> +		amdgpu_device_gpu_recover(adev, NULL, &reset_context);
-> +	}
->   }
+>   	list_for_each_entry_safe(mapping, next, &bo_va->valids, list) {
+>   		list_del(&mapping->list);
+> @@ -2333,10 +2296,10 @@ void amdgpu_vm_bo_move(struct amdgpu_bo *bo, struct ttm_resource *new_mem,
+>   	for (bo_base = bo->vm_bo; bo_base; bo_base = bo_base->next) {
+>   		struct amdgpu_vm *vm = bo_base->vm;
 >   
->   static void amdgpu_userq_hang_detect_work(struct work_struct *work)
-The function and the work handler for are using the same name and it 
-causes confusion to understand.
-queue_delayed_work(adev->reset_domain->wq, &queue->hang_detect_work,
-                            msecs_to_jiffies(timeout_ms)); The queued 
-item here call the work item where the function name is same , so its 
-better if we can keep a different name
-
-Regards
-Sunil Khatri
-
-> @@ -153,7 +153,11 @@ static void amdgpu_userq_hang_detect_work(struct work_struct *work)
->   		container_of(work, struct amdgpu_usermode_queue,
->   			     hang_detect_work.work);
->   
-> -	amdgpu_userq_detect_and_reset_queues(queue->userq_mgr);
-> +	/*
-> +	 * Don't schedule the work here! Scheduling or queue work from one reset
-> +	 * handler to another is illegal if you don't take extra precautions!
-> +	 */
-> +	amdgpu_userq_mgr_reset_work(&queue->userq_mgr->reset_work);
->   }
->   
->   /*
-> @@ -182,8 +186,8 @@ void amdgpu_userq_start_hang_detect_work(struct amdgpu_usermode_queue *queue)
->   		break;
+> -		spin_lock(&vm->status_lock);
+> +		spin_lock(&vm->stats_lock);
+>   		amdgpu_vm_update_stats_locked(bo_base, bo->tbo.resource, -1);
+>   		amdgpu_vm_update_stats_locked(bo_base, new_mem, +1);
+> -		spin_unlock(&vm->status_lock);
+> +		spin_unlock(&vm->stats_lock);
 >   	}
 >   
-> -	schedule_delayed_work(&queue->hang_detect_work,
-> -		     msecs_to_jiffies(timeout_ms));
-> +	queue_delayed_work(adev->reset_domain->wq, &queue->hang_detect_work,
-> +			   msecs_to_jiffies(timeout_ms));
->   }
+>   	amdgpu_vm_bo_invalidate(bo, evicted);
+> @@ -2608,11 +2571,12 @@ int amdgpu_vm_init(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+>   	INIT_LIST_HEAD(&vm->relocated);
+>   	INIT_LIST_HEAD(&vm->moved);
+>   	INIT_LIST_HEAD(&vm->idle);
+> +	spin_lock_init(&vm->invalidated_lock);
+>   	INIT_LIST_HEAD(&vm->invalidated);
+> -	spin_lock_init(&vm->status_lock);
+>   	INIT_LIST_HEAD(&vm->freed);
+>   	INIT_LIST_HEAD(&vm->done);
+>   	INIT_KFIFO(vm->faults);
+> +	spin_lock_init(&vm->stats_lock);
 >   
->   void amdgpu_userq_process_fence_irq(struct amdgpu_device *adev, u32 doorbell)
-> @@ -1256,28 +1260,13 @@ amdgpu_userq_evict_all(struct amdgpu_userq_mgr *uq_mgr)
->   	if (ret) {
->   		drm_file_err(uq_mgr->file,
->   			     "Couldn't unmap all the queues, eviction failed ret=%d\n", ret);
-> -		amdgpu_userq_detect_and_reset_queues(uq_mgr);
-> +		amdgpu_reset_domain_schedule(uq_mgr->adev->reset_domain,
-> +					     &uq_mgr->reset_work);
-> +		flush_work(&uq_mgr->reset_work);
-Flush work is called here with userq_mutex held? Is it ok to run for 
-that long time and not sure about it but the flush_work might try to 
-take the userq_mutex again, that was problem initially during reset.
+>   	r = amdgpu_vm_init_entities(adev, vm);
+>   	if (r)
+> @@ -3105,7 +3069,6 @@ void amdgpu_debugfs_vm_bo_info(struct amdgpu_vm *vm, struct seq_file *m)
+>   
+>   	amdgpu_vm_assert_locked(vm);
+>   
+> -	spin_lock(&vm->status_lock);
+>   	seq_puts(m, "\tIdle BOs:\n");
+>   	list_for_each_entry_safe(bo_va, tmp, &vm->idle, base.vm_status) {
+>   		if (!bo_va->base.bo)
+> @@ -3143,11 +3106,13 @@ void amdgpu_debugfs_vm_bo_info(struct amdgpu_vm *vm, struct seq_file *m)
+>   	id = 0;
+>   
+>   	seq_puts(m, "\tInvalidated BOs:\n");
+> +	spin_lock(&vm->invalidated_lock);
+>   	list_for_each_entry_safe(bo_va, tmp, &vm->invalidated, base.vm_status) {
+>   		if (!bo_va->base.bo)
+>   			continue;
+>   		total_invalidated += amdgpu_bo_print_info(id++,	bo_va->base.bo, m);
 >   	}
->   	return ret;
+> +	spin_unlock(&vm->invalidated_lock);
+>   	total_invalidated_objs = id;
+>   	id = 0;
+>   
+> @@ -3157,7 +3122,6 @@ void amdgpu_debugfs_vm_bo_info(struct amdgpu_vm *vm, struct seq_file *m)
+>   			continue;
+>   		total_done += amdgpu_bo_print_info(id++, bo_va->base.bo, m);
+>   	}
+> -	spin_unlock(&vm->status_lock);
+>   	total_done_objs = id;
+>   
+>   	seq_printf(m, "\tTotal idle size:        %12lld\tobjs:\t%d\n", total_idle,
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+> index f33ea7f8509b..b5216bc1292f 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+> @@ -205,11 +205,11 @@ struct amdgpu_vm_bo_base {
+>   	/* protected by bo being reserved */
+>   	struct amdgpu_vm_bo_base	*next;
+>   
+> -	/* protected by vm status_lock */
+> +	/* protected by vm reservation and invalidated_lock */
+>   	struct list_head		vm_status;
+>   
+>   	/* if the bo is counted as shared in mem stats
+> -	 * protected by vm status_lock */
+> +	 * protected by vm BO being reserved */
+>   	bool				shared;
+>   
+>   	/* protected by the BO being reserved */
+> @@ -345,10 +345,8 @@ struct amdgpu_vm {
+>   	bool			evicting;
+>   	unsigned int		saved_flags;
+>   
+> -	/* Lock to protect vm_bo add/del/move on all lists of vm */
+> -	spinlock_t		status_lock;
+> -
+> -	/* Memory statistics for this vm, protected by status_lock */
+> +	/* Memory statistics for this vm, protected by stats_lock */
+> +	spinlock_t		stats_lock;
+>   	struct amdgpu_mem_stats stats[__AMDGPU_PL_NUM];
+>   
+>   	/*
+> @@ -356,6 +354,8 @@ struct amdgpu_vm {
+>   	 * PDs, PTs or per VM BOs. The state transits are:
+>   	 *
+>   	 * evicted -> relocated (PDs, PTs) or moved (per VM BOs) -> idle
+> +	 *
+> +	 * Lists are protected by the root PD dma_resv lock.
+>   	 */
+>   
+>   	/* Per-VM and PT BOs who needs a validation */
+> @@ -376,7 +376,10 @@ struct amdgpu_vm {
+>   	 * state transits are:
+>   	 *
+>   	 * evicted_user or invalidated -> done
+> +	 *
+> +	 * Lists are protected by the invalidated_lock.
+>   	 */
+> +	spinlock_t		invalidated_lock;
+>   
+>   	/* BOs for user mode queues that need a validation */
+>   	struct list_head	evicted_user;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
+> index 31a437ce9570..7bdd664f0770 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
+> @@ -544,9 +544,7 @@ static void amdgpu_vm_pt_free(struct amdgpu_vm_bo_base *entry)
+>   	entry->bo->vm_bo = NULL;
+>   	ttm_bo_set_bulk_move(&entry->bo->tbo, NULL);
+>   
+> -	spin_lock(&entry->vm->status_lock);
+>   	list_del(&entry->vm_status);
+> -	spin_unlock(&entry->vm->status_lock);
+>   	amdgpu_bo_unref(&entry->bo);
 >   }
 >   
-> -void amdgpu_userq_reset_work(struct work_struct *work)
-> -{
-> -	struct amdgpu_device *adev = container_of(work, struct amdgpu_device,
-> -						  userq_reset_work);
-> -	struct amdgpu_reset_context reset_context;
-> -
-> -	memset(&reset_context, 0, sizeof(reset_context));
-> -
-> -	reset_context.method = AMD_RESET_METHOD_NONE;
-> -	reset_context.reset_req_dev = adev;
-> -	reset_context.src = AMDGPU_RESET_SRC_USERQ;
-> -	set_bit(AMDGPU_NEED_FULL_RESET, &reset_context.flags);
-> -	/*set_bit(AMDGPU_SKIP_COREDUMP, &reset_context.flags);*/
-> -
-> -	amdgpu_device_gpu_recover(adev, NULL, &reset_context);
-> -}
-> -
->   static void
->   amdgpu_userq_wait_for_signal(struct amdgpu_userq_mgr *uq_mgr)
->   {
-> @@ -1311,9 +1300,24 @@ int amdgpu_userq_mgr_init(struct amdgpu_userq_mgr *userq_mgr, struct drm_file *f
->   	userq_mgr->file = file_priv;
+> @@ -590,7 +588,6 @@ static void amdgpu_vm_pt_add_list(struct amdgpu_vm_update_params *params,
+>   	struct amdgpu_vm_pt_cursor seek;
+>   	struct amdgpu_vm_bo_base *entry;
 >   
->   	INIT_DELAYED_WORK(&userq_mgr->resume_work, amdgpu_userq_restore_worker);
-> +	INIT_WORK(&userq_mgr->reset_work, amdgpu_userq_mgr_reset_work);
->   	return 0;
+> -	spin_lock(&params->vm->status_lock);
+>   	for_each_amdgpu_vm_pt_dfs_safe(params->adev, params->vm, cursor, seek, entry) {
+>   		if (entry && entry->bo)
+>   			list_move(&entry->vm_status, &params->tlb_flush_waitlist);
+> @@ -598,7 +595,6 @@ static void amdgpu_vm_pt_add_list(struct amdgpu_vm_update_params *params,
+>   
+>   	/* enter start node now */
+>   	list_move(&cursor->entry->vm_status, &params->tlb_flush_waitlist);
+> -	spin_unlock(&params->vm->status_lock);
 >   }
 >   
-> +void amdgpu_userq_mgr_cancel_reset_work(struct amdgpu_device *adev)
-> +{
-> +	struct xarray *xa = &adev->userq_doorbell_xa;
-> +	struct amdgpu_usermode_queue *queue;
-> +	unsigned long flags, queue_id;
-> +
-> +	xa_lock_irqsave(xa, flags);
-> +	xa_for_each(xa, queue_id, queue) {
-> +		cancel_delayed_work(&queue->hang_detect_work);
-> +		cancel_work(&queue->userq_mgr->reset_work);
-> +	}
-> +	xa_unlock_irqrestore(xa, flags);
-> +}
-> +
->   void amdgpu_userq_mgr_cancel_resume(struct amdgpu_userq_mgr *userq_mgr)
->   {
->   	cancel_delayed_work_sync(&userq_mgr->resume_work);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
-> index 85f460e7c31b..49b33e2d6932 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
-> @@ -84,7 +84,13 @@ struct amdgpu_usermode_queue {
->   	u32			xcp_id;
->   	int			priority;
->   	struct dentry		*debugfs_queue;
-> -	struct delayed_work hang_detect_work;
-> +
-> +	/**
-> +	 * @hang_detect_work:
-> +	 *
-> +	 * Delayed work which runs when userq_fences time out.
-> +	 */
-> +	struct delayed_work	hang_detect_work;
->   	struct kref		refcount;
->   
->   	struct list_head	userq_va_list;
-> @@ -116,6 +122,13 @@ struct amdgpu_userq_mgr {
->   	struct amdgpu_device		*adev;
->   	struct delayed_work		resume_work;
->   	struct drm_file			*file;
-> +
-> +	/**
-> +	 * @reset_work:
-> +	 *
-> +	 * Reset work which is used when eviction fails.
-> +	 */
-> +	struct work_struct		reset_work;
->   	atomic_t                        userq_count[AMDGPU_RING_TYPE_MAX];
->   };
->   
-> @@ -134,6 +147,7 @@ int amdgpu_userq_ioctl(struct drm_device *dev, void *data, struct drm_file *filp
->   int amdgpu_userq_mgr_init(struct amdgpu_userq_mgr *userq_mgr, struct drm_file *file_priv,
->   			  struct amdgpu_device *adev);
->   
-> +void amdgpu_userq_mgr_cancel_reset_work(struct amdgpu_device *adev);
->   void amdgpu_userq_mgr_cancel_resume(struct amdgpu_userq_mgr *userq_mgr);
->   void amdgpu_userq_mgr_fini(struct amdgpu_userq_mgr *userq_mgr);
->   
---------------7atV4pbI3wRdr8L85RWxV4wl
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-<!DOCTYPE html><html><head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body>
-    <p><br>
-    </p>
-    <div class="moz-cite-prefix">On 21-04-2026 06:25 pm, Christian König
-      wrote:<br>
-    </div>
-    <blockquote type="cite" cite="mid:20260421125513.4545-8-christian.koenig@amd.com">
-      <pre wrap="" class="moz-quote-pre">It is illegal to schedule reset work from another reset work!
-
-Fix this by scheduling the userq reset work directly on the work queue
-of the reset domain.
-
-Not fully tested, I leave that to the IGT test cases.
-
-Signed-off-by: Christian König <a class="moz-txt-link-rfc2396E" href="mailto:christian.koenig@amd.com">&lt;christian.koenig@amd.com&gt;</a>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu.h        |  1 -
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  3 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c  | 84 +++++++++++-----------
- drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h  | 16 ++++-
- 4 files changed, 60 insertions(+), 44 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-index 39894e38fee4..17341e384caf 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-@@ -1191,7 +1191,6 @@ struct amdgpu_device {
- 	bool                            apu_prefer_gtt;
- 
- 	bool                            userq_halt_for_enforce_isolation;
--	struct work_struct              userq_reset_work;
- 	struct amdgpu_uid *uid_info;
- 
- 	struct amdgpu_uma_carveout_info uma_info;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index b11c4b5fa8fc..cf61be17e061 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -3786,7 +3786,6 @@ int amdgpu_device_init(struct amdgpu_device *adev,
- 	}
- 
- 	INIT_WORK(&amp;adev-&gt;xgmi_reset_work, amdgpu_device_xgmi_reset_func);
--	INIT_WORK(&amp;adev-&gt;userq_reset_work, amdgpu_userq_reset_work);
- 
- 	amdgpu_coredump_init(adev);
- 
-@@ -5477,7 +5476,7 @@ static inline void amdgpu_device_stop_pending_resets(struct amdgpu_device *adev)
- 	if (!amdgpu_sriov_vf(adev))
- 		cancel_work(&amp;adev-&gt;reset_work);
- #endif
--	cancel_work(&amp;adev-&gt;userq_reset_work);
-+	amdgpu_userq_mgr_cancel_reset_work(adev);
- 
- 	if (adev-&gt;kfd.dev)
- 		cancel_work(&amp;adev-&gt;kfd.reset_work);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-index 0a4c39d83adc..ad6dac17dd21 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-@@ -82,19 +82,11 @@ static bool amdgpu_userq_is_reset_type_supported(struct amdgpu_device *adev,
- 	return false;
- }
- 
--static void amdgpu_userq_gpu_reset(struct amdgpu_device *adev)
--{
--	if (amdgpu_device_should_recover_gpu(adev)) {
--		amdgpu_reset_domain_schedule(adev-&gt;reset_domain,
--					     &amp;adev-&gt;userq_reset_work);
--		/* Wait for the reset job to complete */
--		flush_work(&amp;adev-&gt;userq_reset_work);
--	}
--}
--
--static int
--amdgpu_userq_detect_and_reset_queues(struct amdgpu_userq_mgr *uq_mgr)
-+static void amdgpu_userq_mgr_reset_work(struct work_struct *work)
- {
-+	struct amdgpu_userq_mgr *uq_mgr =
-+		container_of(work, struct amdgpu_userq_mgr,
-+			     reset_work);
- 	struct amdgpu_device *adev = uq_mgr-&gt;adev;
- 	const int queue_types[] = {
- 		AMDGPU_RING_TYPE_COMPUTE,
-@@ -103,12 +95,11 @@ amdgpu_userq_detect_and_reset_queues(struct amdgpu_userq_mgr *uq_mgr)
- 	};
- 	const int num_queue_types = ARRAY_SIZE(queue_types);
- 	bool gpu_reset = false;
--	int r = 0;
--	int i;
-+	int i, r;
- 
- 	if (unlikely(adev-&gt;debug_disable_gpu_ring_reset)) {
- 		dev_err(adev-&gt;dev, &quot;userq reset disabled by debug mask\n&quot;);
--		return 0;
-+		return;
- 	}
- 
- 	/*
-@@ -116,7 +107,7 @@ amdgpu_userq_detect_and_reset_queues(struct amdgpu_userq_mgr *uq_mgr)
- 	 * skip all reset detection logic
- 	 */
- 	if (!amdgpu_gpu_recovery)
--		return 0;
-+		return;
- 
- 	/*
- 	 * Iterate through all queue types to detect and reset problematic queues
-@@ -141,10 +132,19 @@ amdgpu_userq_detect_and_reset_queues(struct amdgpu_userq_mgr *uq_mgr)
- 		}
- 	}
- 
--	if (gpu_reset)
--		amdgpu_userq_gpu_reset(adev);
-+	if (gpu_reset) {
-+		struct amdgpu_reset_context reset_context;
- 
--	return r;
-+		memset(&amp;reset_context, 0, sizeof(reset_context));
-+
-+		reset_context.method = AMD_RESET_METHOD_NONE;
-+		reset_context.reset_req_dev = adev;
-+		reset_context.src = AMDGPU_RESET_SRC_USERQ;
-+		set_bit(AMDGPU_NEED_FULL_RESET, &amp;reset_context.flags);
-+		/*set_bit(AMDGPU_SKIP_COREDUMP, &amp;reset_context.flags);*/
-+
-+		amdgpu_device_gpu_recover(adev, NULL, &amp;reset_context);
-+	}
- }
- 
- static void amdgpu_userq_hang_detect_work(struct work_struct *work)</pre>
-    </blockquote>
-    The function and the work handler for are using the same name and it
-    causes confusion to understand.<br>
-    <div style="color: #cccccc;background-color: #1f1f1f;font-family: Consolas, 'Courier New', monospace;font-weight: normal;font-size: 14px;line-height: 19px;white-space: pre;"><div>queue_delayed_work(adev-&gt;reset_domain-&gt;wq, &amp;queue-&gt;hang_detect_work,</div><div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;msecs_to_jiffies(timeout_ms));
-The queued item here call the work item where the function name is same , so its better if we can keep a different name</div></div>
-    <p>Regards<br>
-      Sunil Khatri</p>
-    <blockquote type="cite" cite="mid:20260421125513.4545-8-christian.koenig@amd.com">
-      <pre wrap="" class="moz-quote-pre">
-@@ -153,7 +153,11 @@ static void amdgpu_userq_hang_detect_work(struct work_struct *work)
- 		container_of(work, struct amdgpu_usermode_queue,
- 			     hang_detect_work.work);
- 
--	amdgpu_userq_detect_and_reset_queues(queue-&gt;userq_mgr);
-+	/*
-+	 * Don't schedule the work here! Scheduling or queue work from one reset
-+	 * handler to another is illegal if you don't take extra precautions!
-+	 */
-+	amdgpu_userq_mgr_reset_work(&amp;queue-&gt;userq_mgr-&gt;reset_work);
- }
- 
- /*
-@@ -182,8 +186,8 @@ void amdgpu_userq_start_hang_detect_work(struct amdgpu_usermode_queue *queue)
- 		break;
- 	}
- 
--	schedule_delayed_work(&amp;queue-&gt;hang_detect_work,
--		     msecs_to_jiffies(timeout_ms));
-+	queue_delayed_work(adev-&gt;reset_domain-&gt;wq, &amp;queue-&gt;hang_detect_work,
-+			   msecs_to_jiffies(timeout_ms));
- }
- 
- void amdgpu_userq_process_fence_irq(struct amdgpu_device *adev, u32 doorbell)
-@@ -1256,28 +1260,13 @@ amdgpu_userq_evict_all(struct amdgpu_userq_mgr *uq_mgr)
- 	if (ret) {
- 		drm_file_err(uq_mgr-&gt;file,
- 			     &quot;Couldn't unmap all the queues, eviction failed ret=%d\n&quot;, ret);
--		amdgpu_userq_detect_and_reset_queues(uq_mgr);
-+		amdgpu_reset_domain_schedule(uq_mgr-&gt;adev-&gt;reset_domain,
-+					     &amp;uq_mgr-&gt;reset_work);
-+		flush_work(&amp;uq_mgr-&gt;reset_work);</pre>
-    </blockquote>
-    Flush work is called here with userq_mutex held? Is it ok to run for
-    that long time and not sure about it but the flush_work might try to
-    take the userq_mutex again, that was problem initially during reset.
-    <blockquote type="cite" cite="mid:20260421125513.4545-8-christian.koenig@amd.com">
-      <pre wrap="" class="moz-quote-pre">
- 	}
- 	return ret;
- }
- 
--void amdgpu_userq_reset_work(struct work_struct *work)
--{
--	struct amdgpu_device *adev = container_of(work, struct amdgpu_device,
--						  userq_reset_work);
--	struct amdgpu_reset_context reset_context;
--
--	memset(&amp;reset_context, 0, sizeof(reset_context));
--
--	reset_context.method = AMD_RESET_METHOD_NONE;
--	reset_context.reset_req_dev = adev;
--	reset_context.src = AMDGPU_RESET_SRC_USERQ;
--	set_bit(AMDGPU_NEED_FULL_RESET, &amp;reset_context.flags);
--	/*set_bit(AMDGPU_SKIP_COREDUMP, &amp;reset_context.flags);*/
--
--	amdgpu_device_gpu_recover(adev, NULL, &amp;reset_context);
--}
--
- static void
- amdgpu_userq_wait_for_signal(struct amdgpu_userq_mgr *uq_mgr)
- {
-@@ -1311,9 +1300,24 @@ int amdgpu_userq_mgr_init(struct amdgpu_userq_mgr *userq_mgr, struct drm_file *f
- 	userq_mgr-&gt;file = file_priv;
- 
- 	INIT_DELAYED_WORK(&amp;userq_mgr-&gt;resume_work, amdgpu_userq_restore_worker);
-+	INIT_WORK(&amp;userq_mgr-&gt;reset_work, amdgpu_userq_mgr_reset_work);
- 	return 0;
- }
- 
-+void amdgpu_userq_mgr_cancel_reset_work(struct amdgpu_device *adev)
-+{
-+	struct xarray *xa = &amp;adev-&gt;userq_doorbell_xa;
-+	struct amdgpu_usermode_queue *queue;
-+	unsigned long flags, queue_id;
-+
-+	xa_lock_irqsave(xa, flags);
-+	xa_for_each(xa, queue_id, queue) {
-+		cancel_delayed_work(&amp;queue-&gt;hang_detect_work);
-+		cancel_work(&amp;queue-&gt;userq_mgr-&gt;reset_work);
-+	}
-+	xa_unlock_irqrestore(xa, flags);
-+}
-+
- void amdgpu_userq_mgr_cancel_resume(struct amdgpu_userq_mgr *userq_mgr)
- {
- 	cancel_delayed_work_sync(&amp;userq_mgr-&gt;resume_work);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
-index 85f460e7c31b..49b33e2d6932 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
-@@ -84,7 +84,13 @@ struct amdgpu_usermode_queue {
- 	u32			xcp_id;
- 	int			priority;
- 	struct dentry		*debugfs_queue;
--	struct delayed_work hang_detect_work;
-+
-+	/**
-+	 * @hang_detect_work:
-+	 *
-+	 * Delayed work which runs when userq_fences time out.
-+	 */
-+	struct delayed_work	hang_detect_work;
- 	struct kref		refcount;
- 
- 	struct list_head	userq_va_list;
-@@ -116,6 +122,13 @@ struct amdgpu_userq_mgr {
- 	struct amdgpu_device		*adev;
- 	struct delayed_work		resume_work;
- 	struct drm_file			*file;
-+
-+	/**
-+	 * @reset_work:
-+	 *
-+	 * Reset work which is used when eviction fails.
-+	 */
-+	struct work_struct		reset_work;
- 	atomic_t                        userq_count[AMDGPU_RING_TYPE_MAX];
- };
- 
-@@ -134,6 +147,7 @@ int amdgpu_userq_ioctl(struct drm_device *dev, void *data, struct drm_file *filp
- int amdgpu_userq_mgr_init(struct amdgpu_userq_mgr *userq_mgr, struct drm_file *file_priv,
- 			  struct amdgpu_device *adev);
- 
-+void amdgpu_userq_mgr_cancel_reset_work(struct amdgpu_device *adev);
- void amdgpu_userq_mgr_cancel_resume(struct amdgpu_userq_mgr *userq_mgr);
- void amdgpu_userq_mgr_fini(struct amdgpu_userq_mgr *userq_mgr);
- 
-</pre>
-    </blockquote>
-  </body>
-</html>
-
---------------7atV4pbI3wRdr8L85RWxV4wl--
+>   /**
