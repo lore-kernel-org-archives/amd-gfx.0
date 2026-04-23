@@ -4,75 +4,158 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 31DDAF99355
-	for <amd-gfx@archiver.kernel.org>; Thu, 23 Apr 2026 08:52:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 088C0F99360
+	for <amd-gfx@archiver.kernel.org>; Thu, 23 Apr 2026 09:34:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C2C2610EFEB;
-	Thu, 23 Apr 2026 08:52:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8DED310F023;
+	Thu, 23 Apr 2026 09:34:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="p6dl/TRD";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="WcPUbgp8";
 	dkim-atps=neutral
-Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com
- [74.125.82.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1313310EABE
- for <amd-gfx@lists.freedesktop.org>; Thu, 23 Apr 2026 00:06:50 +0000 (UTC)
-Received: by mail-dy1-f174.google.com with SMTP id
- 5a478bee46e88-2d832f2f44cso5531541eec.0
- for <amd-gfx@lists.freedesktop.org>; Wed, 22 Apr 2026 17:06:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1776902809; x=1777507609; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=4O6lko4zi306GH3gds5YYnP+riJNi0HMENwF4Fn7N7A=;
- b=p6dl/TRDCQ8yFEZFAUm45UWOF+W6yeew/VdOA62hhv96lObCfhEf9F2DMqfdkXJQC0
- amWjxDS4fTsIhIs+1RP3GRWgUkWxRvDW8ubaobI0R8FIqp4lMwfgVy9RkNRgIDNdoCbb
- SMkcrji0WBrmMcm8KUVKMOqGYd5nfCsGluGbkRmdIbl6TbO+vTl5JNCBRKMnCmZLb9Ye
- tAHLN6Y1Sb6SdtwvYU7W+rVYr8gF2BPpMEUKsHlqqLVo6qYcZe8AzW9cTWO52nIBKyxy
- hXriuiNsswepIZb4LUM2Wncmm3HiMEHInl1Q9g2dPfdPNKgMohC+uUrUpVUbF9DLvmQl
- 9IoA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1776902809; x=1777507609;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=4O6lko4zi306GH3gds5YYnP+riJNi0HMENwF4Fn7N7A=;
- b=TG8J+vHhbozxXJYP40/xKciZvniMGKDS+wNz7wi75p6JeeiYZ95E8I5bkFUxW6GUHe
- iTnE7lFqpGmYj1Zr+FgGd7F3u2WE3y7n314PKlI98HKqZA7qVBDT0wQxHS8veB8hPJk2
- CVtSambWX1TgB0Uxz/2oTA01y49d3WAsU1teH53dyH1gI25eE8a4pjZcBer+CM9NZnml
- Aisy7XJWDoviV2sUnCIOnOps/Rc/MhJ49qcJxDxSno08+IJHh1pJS7t1E2zeQB2+0Tzr
- DJ518AYtFzFQ/xhVzG2u4BR5p6gwCAmOgNd4rezyaoeiNEdXrpKyJX3fwDK6h6LswDrZ
- U6xA==
-X-Forwarded-Encrypted: i=1;
- AFNElJ/RiOO7X3Oiw+0bjVni7zVEjR0F7uWBX41yqYaXq2E9vOUiSYLQQJFiI6CmbgKZdCuH1Jno1nim@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxsGaSZ43tdh04fMUvlzaqDKqrJRRQTT5K8yuxMbdAKOUt4OkLP
- EBrhWnYK6kCQY1z1GoGtUFTB3CxlEcd/iW6jJY3JL1x2XpejXZLpRlER
-X-Gm-Gg: AeBDietBxv+QPdTpVKpa/91Y/JSB49nU5te1rWRnrDpsd4b2XbywrAxlqKky1/0/hBz
- QM8Dr6UNmtFwZq2F1h9X1EKVxPg3+q1Z9pUaEoDPqLSpB5XXWO01bwY1PV4P71Rr/7WAa4fxFRH
- pZKUmjC8jLWY/AiWWQ1tOhrkuU3GCcCEGV0nyAo9oTZKOSZN73/JhozSuSp995uVvw5TNlS+5f1
- CRNL+3+v/Z1o0RAg4jYpVWKXRotMBZYRQOngZSag4QbBFp9Zs/r/skAmwA33QhvpBkROinStxIF
- CNFlcrUUNP0Aq+99lXmQ07wd2lbPPtac2A7LV2tQmv4t3F+l5A3hK303qtSuSEbcv/T+GnlpCVy
- 0xNAJsl019wLOrLLVa8e3pavlpbDG8tcCpMnMot7ammdvvA3ItTyEcBq22QFJFBMmxjLAECQsMD
- URwsRYKzkGRAzDJjfKewYoHiFX4+OfQfygeLOq1ENebUBIrrg=
-X-Received: by 2002:a05:7301:168a:b0:2d6:78af:ef5f with SMTP id
- 5a478bee46e88-2e464ea6ee1mr11927085eec.3.1776902809071; 
- Wed, 22 Apr 2026 17:06:49 -0700 (PDT)
-Received: from osabio.. ([2804:14c:498:1391:82a3:269:c35e:9c5])
- by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-2e53d2cfef3sm24342342eec.24.2026.04.22.17.06.45
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 22 Apr 2026 17:06:48 -0700 (PDT)
-From: Gabriel Almeida <gabrielsousa230@gmail.com>
-To: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
- simona@ffwll.ch
-Cc: linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, gabrielsousa230@gmail.com
-Subject: [PATCH v2] drm/amdgpu: deduplicate register access and helper routines
-Date: Wed, 22 Apr 2026 21:06:29 -0300
-Message-ID: <20260423000629.47095-1-gabrielsousa230@gmail.com>
-X-Mailer: git-send-email 2.43.0
-MIME-Version: 1.0
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8590710EFFC;
+ Thu, 23 Apr 2026 09:34:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1776936852; x=1808472852;
+ h=message-id:date:subject:to:references:from:in-reply-to:
+ content-transfer-encoding:mime-version;
+ bh=RgtwLA6JxdeVVP3NTKxHKz+BGXkaOhc7Ev9juHLNziY=;
+ b=WcPUbgp8nD5EwnjpPNW132Cy25/gabC8FUUOkOr3ehcou1OG7wlSG2iH
+ UtHcbMyqjFTkk9kXp480C8gDc4jPeK9Go0Y1NKV2DmA7saazNRIO6RcM+
+ zStXryFQXsM3tucsA7skMaXYs6XFVdDe1Y9jgBE+ZuLPyuhIcFXAXbRZ9
+ mS3b03/qb3hWt7o4l1iU8v+6E8oD8Jgv4YCHdAW7R/gSTmCeyu2xDHTu+
+ WmJVIg7Kkh0CNXCotFRDKPUY2OdjOiEnoZC4cvbgYznCkQ+I0uubAl24g
+ coXCal74qwndubPYnf7bIws4UvISrLaLaf9veSWQ4aVYNTkK+z/8WV1lX A==;
+X-CSE-ConnectionGUID: Y3pWYn1nR7SqdOH3dczHwg==
+X-CSE-MsgGUID: WNKKSFOGTnuwxuhZXqv1cA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11764"; a="88984283"
+X-IronPort-AV: E=Sophos;i="6.23,194,1770624000"; d="scan'208";a="88984283"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+ by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Apr 2026 02:34:11 -0700
+X-CSE-ConnectionGUID: c3lU3NYqSzaeyb3seLJQ8g==
+X-CSE-MsgGUID: zOcQnOq/Tr+M8SCcV6OCWQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,194,1770624000"; d="scan'208";a="232517028"
+Received: from orsmsx902.amr.corp.intel.com ([10.22.229.24])
+ by orviesa008.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Apr 2026 02:34:11 -0700
+Received: from ORSMSX901.amr.corp.intel.com (10.22.229.23) by
+ ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37; Thu, 23 Apr 2026 02:34:10 -0700
+Received: from ORSEDG903.ED.cps.intel.com (10.7.248.13) by
+ ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37 via Frontend Transport; Thu, 23 Apr 2026 02:34:10 -0700
+Received: from MW6PR02CU001.outbound.protection.outlook.com (52.101.48.71) by
+ edgegateway.intel.com (134.134.137.113) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37; Thu, 23 Apr 2026 02:34:09 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=YFA3h0eFqdg803sATaJ8JhFs/e27mU0xMzoS63OK4h3MSWwOqjABggzw8Uk8Xk74JV0GEsbIa/ct1cr1Zo4nX9VbE/x15A+WJFqBrrLx+XhFpMNh/yOEEXuOJwE4zjhZw9uao1mfLkYZCc72V5HBN204PGW5bsdxYpSyy1s565RvyA5bXGSif3Kez6TEmNj/odwP9NEoIBHP3QRgZMrbZp6J5hSfIn8ybFZ3YLI5wVqgcJ1hPLL/4C3aZf0G5h9Ad/MT0IiWxMwC8iLZkGfKKz/KpatF1ZvG4FCsv/4RgdTGgnpKEzahPcTQuRoJUh/iUSabRcaTpmR/jdijUep4mg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=paCy4PGC1ujEeFaS27m8xS6iIYvns6mGoe7835Ggdg8=;
+ b=MwFLjZeX25+7yAzDygupVw3w6AJo9uVMsqNHwbcVX2tUM7wURppDIV2dajYSWQ3Mb7GvQv1+R2fp4RvrfVw1tf0HYRvWBtmu5T7eaDEIwKSyQ9USD3T0NeEGWNh0/TEnw8VABUxJMtZbU3EhlLo/i/P8u6BMM2a5tpKy6HVQnyb31DTh4XKsSYv3ZdQ2Usbj89GpN1+Nm9HdYb1z+mlBnR1oLiupJtPrWGpSmPreqkC8f4DxSWu3s76w/enQVsRtBrDkHyVMoJmLVPlaC1O+T/c7M+8ngHUpN1YbQ1aS/2UTROriTq3htAUDlMFWDn37b9FhtJJszzW1OgFsJR8vjA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from SJ1PR11MB6129.namprd11.prod.outlook.com (2603:10b6:a03:488::12)
+ by BL3PR11MB6506.namprd11.prod.outlook.com (2603:10b6:208:38d::7)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.20; Thu, 23 Apr
+ 2026 09:34:08 +0000
+Received: from SJ1PR11MB6129.namprd11.prod.outlook.com
+ ([fe80::45f:5907:efdb:cb5b]) by SJ1PR11MB6129.namprd11.prod.outlook.com
+ ([fe80::45f:5907:efdb:cb5b%3]) with mapi id 15.20.9846.021; Thu, 23 Apr 2026
+ 09:34:07 +0000
+Message-ID: <1fe865c5-3f82-4178-a88e-88a6837a4819@intel.com>
+Date: Thu, 23 Apr 2026 15:04:01 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH v2 2/9] drm/colorop: Add limited-range YUV-to-RGB CSC
+ FF enum values
+Content-Language: en-GB
+To: Harry Wentland <harry.wentland@amd.com>,
+ <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>
+References: <20260330153451.99472-1-harry.wentland@amd.com>
+ <20260330153451.99472-3-harry.wentland@amd.com>
+From: "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>
+In-Reply-To: <20260330153451.99472-3-harry.wentland@amd.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Thu, 23 Apr 2026 08:52:16 +0000
+X-ClientProxiedBy: MA5PR01CA0136.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:a01:1d5::19) To SJ1PR11MB6129.namprd11.prod.outlook.com
+ (2603:10b6:a03:488::12)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PR11MB6129:EE_|BL3PR11MB6506:EE_
+X-MS-Office365-Filtering-Correlation-Id: ff91eb0e-68ec-4659-07ed-08dea11b777b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|366016|1800799024|18002099003|22082099003|56012099003; 
+X-Microsoft-Antispam-Message-Info: CpKfc/NOIZonQ7V2VhLb+nlILTM/QWyCHa6d01uwWYXIHklmGVTvsCePYuYvW8zwAHY7YhHBuwqBbfdiPapdZ43UzEcTVMx9d7aM9Bc06fFi1TjEGycP6IIsA2amQWDMWX3L17lKZzWuFO8QWHMfYqBrhkgzZ/MvddjJwoBlp7pTDh0/ooWd/LqlxWK4Vbd/ySHVBP3VvDoFvOuyWcusHFfl0yGVUSl0XmcWGvDzqwgkSD8HjUiy+Dbbii9hcBtAnEcDiHrUzIjMoZJUw4udbAYkeCqKZNetmID/TEvBWC5Aubo3SFPK9OJECiTSrqd5YJCoAvQMhBE1HDTQNVmabsFtUoKO/W2XFvlLuZi4qmUp/W7+KihnMTM1U6x9VzUMSptZll2+SzKp9+DGwaMuJCT0F2v3IhTxat0VoyhTHwss9aVIM8uDwY9sRUxDv4TC++ugfW59Qj7Xhhau4UMT9SMX7ny+mpK2FRK/vDFG495P0zUILdzQJQbVPrdOpc90Hp1aQQPHZ/5U2dIcOly6B3GxjCspfV4goXAR3SBPGQ/vcyksW9wQIwgod19eldvuSpT/vHJo7Z7oW0v+HQx41HGwsZRB+fm0NgZnVwkut4h86NzK4W63cz8T+qnIZhOGYWpzf1fkDNMAQ9kSlqo0bhPmE+b+idHtB69cydFrvYcLSA7AkaW8nPFCk/+qIUJSKNBj5e9hKiIHSTF69Ufp8/4W7pRWttcsbI4/eOGTD50=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SJ1PR11MB6129.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(366016)(1800799024)(18002099003)(22082099003)(56012099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VWlqQUppL3MzV1BvQ296aDhZb1NGNmsvWnVmTkRQNDRaSEN6c1pCdk9zNWRq?=
+ =?utf-8?B?ZFdYWE11ZlAraTZTTDRJT2dYbmVaQ1I0MXhTWFNtV0xsaE81VEtnMENUVCtI?=
+ =?utf-8?B?ZXRlVWx4NXhzNE9BRHFoQXNRbGFVNVRhYis3dm5TNlI5Z3YvbzlPb25SU29Z?=
+ =?utf-8?B?SjJjUjFmM2l6dUg2M2M1OUU3WFFaYWlGN0Q5OVl2OXVEeEhhYnpnekxLYy8r?=
+ =?utf-8?B?YzZWWmhYbk9rSmRWdy9UWG8wYUZ5MDNIbjl1NjAxL2VuN0xXNVQ5dHRCNU5L?=
+ =?utf-8?B?OXMrd21EbDhOTzNvaGxheUd6ZENrWDRzRVBKOEpWNW5YdmVaQ3ZhU2srVWgy?=
+ =?utf-8?B?K3hYQjIxQi9XQzN2T3pCclI2UGdtVERmNitIbjNGYXRZVUxNaCtnVkxqZTd4?=
+ =?utf-8?B?cmZqVFluMCt6eUJqZy9zV2MzSUVoZTFuWVRVSW51azVSd1d5VEJtZmZXNmF6?=
+ =?utf-8?B?dDU2eldCaW1zdlFwUllTdHNEQ2k5bllZdmZkcGxGQzV2L1o4enBHMVpZdlRB?=
+ =?utf-8?B?UDBBbnF0M09IYnFSR1YxVTRZVDlxWEowc1NHT3FMRS9xakhiV2hiZU9BZGdD?=
+ =?utf-8?B?VFRUNXNEL3dBNFJIaFRiMnQ5V0tlQzUzZ05KcGQwN1F5NUg3YWpPcXpmU1BH?=
+ =?utf-8?B?aUdidUM5aWU3R2NJZHBxRzBHMEliZ25XVmRGY3VoMTYvUXdFMHBUSzdlYkxJ?=
+ =?utf-8?B?eWxuNlpoUDlyWkdKSzN4OEFkUmJ6cllnbWs2bkg3THpBOG16bUlnMUtpNWtD?=
+ =?utf-8?B?WDlGWEFpYStxOWF6RE5tYlVkeVdEZHNsd09ST2RLWXpFNjB0Q0RTWlFKeHVO?=
+ =?utf-8?B?d0dYM0ZVSHBreUpxYit2VkhxYnBXSUhLZTJHZnA5L1FaWXZhYjNBcytPTUN5?=
+ =?utf-8?B?U0dZTWE4bUY2Um5LMVg0NTFYSEpzNEpyUGcwNDY1TGpuaC9ZQzF1bVBySFh3?=
+ =?utf-8?B?R3U2dXFqVE45OUI5TmM5UlVTaWFrbE5pRytTMFRXTURPMHhQak93TTVtY1ps?=
+ =?utf-8?B?K1RQM1ZOTEdNTWhoYytTd0xTcW5wWldxakt4cGxmTGhxTWVUaDl4MWVVWjNs?=
+ =?utf-8?B?aDZCVnV0bS9qbFc4a0pRRVZOeWZWbjN3MytlbStsem96NWZkOU5BNS9qWTJ3?=
+ =?utf-8?B?Yi9FdlhJOEk3UENhazE1YzBqa2s3MmpHbGozdkY2d1EwbGpBbXJDYS85Vmxh?=
+ =?utf-8?B?c3pHYzBQNVBEWkhvVVFxK2praDhQano1dWU1bEdmNXBmK2hrdFhOR255MnBh?=
+ =?utf-8?B?UU9GMUg3Wk5kS2FJQm9sNWVpaEpVaDJVMnBmeWp5YTNjVm9WeHJzeDA0WWlK?=
+ =?utf-8?B?cHZ6ODZsY3dBTnV3RkRzYnM1bUhEcGxzZkNhQWlvdDhWbTZJclVNdHhNcDhh?=
+ =?utf-8?B?NkVmc1FGT2hXbmlhM0xybXJ5UVZXMC9wMWlIY0MwbFNyK2lHUUpmVDJNZ091?=
+ =?utf-8?B?NGlHdHU1MzIveWRHanR1WTF4eVNBN1IvQXNlK0hTZEhTSk5NQ3BZYmpZWFNQ?=
+ =?utf-8?B?a3VOeFJ6VHl1U1AyQTNKekM4ZUlkdzBSRDB1N0oySFM2N24zdHkrRnlkaFVF?=
+ =?utf-8?B?dVQ0cDZHTzA2WUV0eTIzb2ZpWGc1YVdOc1FUTXo5SjJpcDlzbXl6Q0gwZHRN?=
+ =?utf-8?B?S0tYbGxvcXpkMkczaWN0SGk5TmQ5bURaU1dzOWR2dGsybE9ZOFBXQ1M2L3R6?=
+ =?utf-8?B?aUdITlBIUHNmSmZCV3dFUWkzTzhXejQ0bytOM1Jic3pVVVJ3K1JwQXlDUHI5?=
+ =?utf-8?B?WkNQUkJFYWIyQkhGdTNyNHRpalNINW8ra2h6cy95T2pPZEJjRk9xNzhRc042?=
+ =?utf-8?B?dFBhOXFJMmVsYS84SlFGdzVWSmJBelhJcStvcTg4SVdieGIxSUNyY29KVTZ6?=
+ =?utf-8?B?RUc1SUJxYTJLelg4M3oyYjliM2w3bUNOMXNzNHpoaEkrdU1uaEtFanRqRk04?=
+ =?utf-8?B?TWo5K1pjQzUrVFBzUFMrQ2ZmUW9qMTE3M0E0cDlHTnpTMllIT2hDOEtlc0Jr?=
+ =?utf-8?B?UiswSXpxNXlnNG5yRmJSWnBmdVhqbnBlVmVXR0VObndDNmRsOFZyOERVQm1K?=
+ =?utf-8?B?UmU2TmhCQWNxNERMSU9Qc3VuUXFNQTBOWHZHRWJia1VJODQwMUZhY0NCckhs?=
+ =?utf-8?B?bnZHYVJmZGYvZUtXSXBDYStkVWhrejJOV1c5VlVMTzhlWmZzNTlNWEV1L01n?=
+ =?utf-8?B?V0t0VGlJWWQ2SGtCTUh3Yzc1WHFDdDBOemFodEN6aFM2UE9qdzJoMUFmdExE?=
+ =?utf-8?B?ME5SL2diUm5qczRLT3hLR2VRSnZ6SEJhZngzZE9PQ1NGZ0tSSXFyQlJWWWN6?=
+ =?utf-8?B?VXdVcWQzc2FHNHFJcTZpdTNtb0RRM3lEU2tvZ0tvT2N2Um84dzFyUnBvbVZa?=
+ =?utf-8?Q?Plaholwo8YD2clBI=3D?=
+X-Exchange-RoutingPolicyChecked: NZjhYoIbs+hrorVZqnWwqALGhd+LBK8i03DQQs4VgH39KkBVvBRLQ3A9Ew6b7tFhp9k43/HgXJz2ZMgP6VxdW331BZJk5cFkyQ9qcPBv3RLSf5kM3xQLRPl20eXNsroCWFaKGkVTyKBgq9Q6d5nKS4tAu8Nipsxtao3EQA7xDlR5BIVtBgNou2BQfC/uqY/ux4UN6V0T4YPetdgi8AkehOHYNJVwUMvdu3DTq4cSsUSvyESzWe5qBHR5ADsFsKFAA0jIsor1tu7fFxINNAbhjsXjM35rkXNw1nxb6ERt5cl+DT0D0nalmEhpuc33wcESi4CVDyQ//VruV1djFyaitQ==
+X-MS-Exchange-CrossTenant-Network-Message-Id: ff91eb0e-68ec-4659-07ed-08dea11b777b
+X-MS-Exchange-CrossTenant-AuthSource: SJ1PR11MB6129.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Apr 2026 09:34:07.7805 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: N6f9rgctvNYzhEydh3Cyt3TMsRGX0abN0r+fRFPl2k46abmZXX+AV13hcx+k4eCDFi27k/bskn2i8t9mv+DebNE+gGN+etAFjiYSDIxwFag=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL3PR11MB6506
+X-OriginatorOrg: intel.com
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,359 +170,136 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Several helper functions are duplicated across multiple files with
-identical logic.
 
-Move these helpers to more appropriate locations based on their
-functionality:
-- move read_indexed_register to amdgpu_reg_access.c as
-  amdgpu_read_indexed_register
-- move program_aspm to amdgpu_nbio.c as
-  amdgpu_nbio_program_aspm
 
-No functional changes intended.
+On 3/30/2026 9:04 PM, Harry Wentland wrote:
+> Add three new limited-range YUV-to-RGB conversion presets to the
+> CSC Fixed-Function colorop enum:
+> 
+>    - DRM_COLOROP_CSC_FF_YUV601_LIMITED_RGB601
+>    - DRM_COLOROP_CSC_FF_YUV709_LIMITED_RGB709
+>    - DRM_COLOROP_CSC_FF_YUV2020_LIMITED_RGB2020
+> 
+> The existing full-range enums (YUV601_RGB601, YUV709_RGB709,
+> YUV2020_RGB2020) are kept as-is. The limited-range variants are
+> inserted after their corresponding full-range entries.
+> 
+> This gives drivers the ability to advertise support for both full
+> and limited range YCbCr framebuffers via the color pipeline,
+> replacing the need for separate COLOR_ENCODING and COLOR_RANGE
+> properties on the CSC colorop.
+> 
+> Assisted-by Claude:claude-opus-4.6
+> 
+> Signed-off-by: Harry Wentland <harry.wentland@amd.com>
+> ---
+>   drivers/gpu/drm/drm_colorop.c | 11 +++++----
+>   include/drm/drm_colorop.h     | 42 ++++++++++++++++++++++++++++++-----
+>   2 files changed, 43 insertions(+), 10 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/drm_colorop.c b/drivers/gpu/drm/drm_colorop.c
+> index 6a345e2e8b15..f0d11cf7e3cd 100644
+> --- a/drivers/gpu/drm/drm_colorop.c
+> +++ b/drivers/gpu/drm/drm_colorop.c
+> @@ -92,10 +92,13 @@ static const struct drm_prop_enum_list drm_colorop_lut3d_interpolation_list[] =
+>   };
+>   
+>   static const char * const colorop_csc_ff_type_names[] = {
+> -	[DRM_COLOROP_CSC_FF_YUV601_RGB601]   = "YUV601 to RGB601",
+> -	[DRM_COLOROP_CSC_FF_YUV709_RGB709]   = "YUV709 to RGB709",
+> -	[DRM_COLOROP_CSC_FF_YUV2020_RGB2020] = "YUV2020 to RGB2020",
+> -	[DRM_COLOROP_CSC_FF_RGB709_RGB2020]  = "RGB709 to RGB2020",
+> +	[DRM_COLOROP_CSC_FF_YUV601_RGB601]           = "YUV601 to RGB601",
+> +	[DRM_COLOROP_CSC_FF_YUV601_LIMITED_RGB601]    = "YUV601 Limited to RGB601",
+> +	[DRM_COLOROP_CSC_FF_YUV709_RGB709]            = "YUV709 to RGB709",
+> +	[DRM_COLOROP_CSC_FF_YUV709_LIMITED_RGB709]    = "YUV709 Limited to RGB709",
+> +	[DRM_COLOROP_CSC_FF_YUV2020_RGB2020]          = "YUV2020 to RGB2020",
+> +	[DRM_COLOROP_CSC_FF_YUV2020_LIMITED_RGB2020]  = "YUV2020 Limited to RGB2020",
+> +	[DRM_COLOROP_CSC_FF_RGB709_RGB2020]           = "RGB709 to RGB2020",
 
-Signed-off-by: Gabriel Almeida <gabrielsousa230@gmail.com>
----
-v2:
-- Move read_indexed_register to amdgpu_reg_access.c instead of a new file
-- Move program_aspm to amdgpu_nbio.c
-- Drop amdgpu_common.[ch]
-- Drop changes to common_sw_init
+As I understand, all combinations of input/output ranges are 
+mathematically valid (e.g., “YCbCr XXX Limited → RGB Limited” or “YCbCr 
+XXX Full → RGB Limited”).
 
- drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.c      | 10 +++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.h      |  2 ++
- .../gpu/drm/amd/amdgpu/amdgpu_reg_access.c    | 18 +++++++++++
- .../gpu/drm/amd/amdgpu/amdgpu_reg_access.h    |  3 ++
- drivers/gpu/drm/amd/amdgpu/nv.c               | 30 ++-----------------
- drivers/gpu/drm/amd/amdgpu/soc15.c            | 30 ++-----------------
- drivers/gpu/drm/amd/amdgpu/soc21.c            | 30 ++-----------------
- drivers/gpu/drm/amd/amdgpu/soc24.c            | 21 +------------
- drivers/gpu/drm/amd/amdgpu/soc_v1_0.c         | 20 +------------
- 9 files changed, 41 insertions(+), 123 deletions(-)
+I am not sure how widespread such use-cases are but will it be prudent 
+to have the enums be named as "YCbCrXXX <range> to RGB <range>"?
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.c
-index a97426583..e4c8e9872 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.c
-@@ -84,3 +84,13 @@ int amdgpu_nbio_ras_late_init(struct amdgpu_device *adev, struct ras_common_if *
- 	amdgpu_ras_block_late_fini(adev, ras_block);
- 	return r;
- }
-+
-+
-+void amdgpu_nbio_program_aspm(struct amdgpu_device *adev)
-+{
-+	if (!amdgpu_device_should_use_aspm(adev))
-+		return;
-+
-+	if (adev->nbio.funcs->program_aspm)
-+		adev->nbio.funcs->program_aspm(adev);
-+}
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.h
-index b528de6a0..a61f3a6e8 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.h
-@@ -121,4 +121,6 @@ u64 amdgpu_nbio_get_pcie_replay_count(struct amdgpu_device *adev);
- 
- bool amdgpu_nbio_is_replay_cnt_supported(struct amdgpu_device *adev);
- 
-+void amdgpu_nbio_program_aspm(struct amdgpu_device *adev);
-+
- #endif
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_reg_access.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_reg_access.c
-index 540040c76..daefbeeee 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_reg_access.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_reg_access.c
-@@ -956,3 +956,21 @@ uint32_t amdgpu_device_wait_on_rreg(struct amdgpu_device *adev, uint32_t inst,
- 	}
- 	return ret;
- }
-+
-+
-+uint32_t amdgpu_read_indexed_register(struct amdgpu_device *adev,
-+			       u32 se_num, u32 sh_num, u32 reg_offset)
-+{
-+	uint32_t val;
-+
-+	mutex_lock(&adev->grbm_idx_mutex);
-+	if (se_num != 0xffffffff || sh_num != 0xffffffff)
-+		amdgpu_gfx_select_se_sh(adev, se_num, sh_num, 0xffffffff, 0);
-+
-+	val = RREG32(reg_offset);
-+
-+	if (se_num != 0xffffffff || sh_num != 0xffffffff)
-+		amdgpu_gfx_select_se_sh(adev, 0xffffffff, 0xffffffff, 0xffffffff, 0);
-+	mutex_unlock(&adev->grbm_idx_mutex);
-+	return val;
-+}
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_reg_access.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_reg_access.h
-index 4d88e5cd1..a1011af6b 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_reg_access.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_reg_access.h
-@@ -160,4 +160,7 @@ uint32_t amdgpu_device_wait_on_rreg(struct amdgpu_device *adev, uint32_t inst,
- 				    uint32_t reg_addr, char reg_name[],
- 				    uint32_t expected_value, uint32_t mask);
- 
-+uint32_t amdgpu_read_indexed_register(struct amdgpu_device *adev,
-+					u32 se_num, u32 sh_num, u32 reg_offset);
-+
- #endif /* __AMDGPU_REG_ACCESS_H__ */
-diff --git a/drivers/gpu/drm/amd/amdgpu/nv.c b/drivers/gpu/drm/amd/amdgpu/nv.c
-index 7ce1a1b95..1ab9d450e 100644
---- a/drivers/gpu/drm/amd/amdgpu/nv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/nv.c
-@@ -354,29 +354,13 @@ static struct soc15_allowed_register_entry nv_allowed_read_registers[] = {
- 	{ SOC15_REG_ENTRY(GC, 0, mmGB_ADDR_CONFIG)},
- };
- 
--static uint32_t nv_read_indexed_register(struct amdgpu_device *adev, u32 se_num,
--					 u32 sh_num, u32 reg_offset)
--{
--	uint32_t val;
--
--	mutex_lock(&adev->grbm_idx_mutex);
--	if (se_num != 0xffffffff || sh_num != 0xffffffff)
--		amdgpu_gfx_select_se_sh(adev, se_num, sh_num, 0xffffffff, 0);
--
--	val = RREG32(reg_offset);
--
--	if (se_num != 0xffffffff || sh_num != 0xffffffff)
--		amdgpu_gfx_select_se_sh(adev, 0xffffffff, 0xffffffff, 0xffffffff, 0);
--	mutex_unlock(&adev->grbm_idx_mutex);
--	return val;
--}
- 
- static uint32_t nv_get_register_value(struct amdgpu_device *adev,
- 				      bool indexed, u32 se_num,
- 				      u32 sh_num, u32 reg_offset)
- {
- 	if (indexed) {
--		return nv_read_indexed_register(adev, se_num, sh_num, reg_offset);
-+		return amdgpu_read_indexed_register(adev, se_num, sh_num, reg_offset);
- 	} else {
- 		if (reg_offset == SOC15_REG_OFFSET(GC, 0, mmGB_ADDR_CONFIG))
- 			return adev->gfx.config.gb_addr_config;
-@@ -511,16 +495,6 @@ static int nv_set_vce_clocks(struct amdgpu_device *adev, u32 evclk, u32 ecclk)
- 	return 0;
- }
- 
--static void nv_program_aspm(struct amdgpu_device *adev)
--{
--	if (!amdgpu_device_should_use_aspm(adev))
--		return;
--
--	if (adev->nbio.funcs->program_aspm)
--		adev->nbio.funcs->program_aspm(adev);
--
--}
--
- const struct amdgpu_ip_block_version nv_common_ip_block = {
- 	.type = AMD_IP_BLOCK_TYPE_COMMON,
- 	.major = 1,
-@@ -984,7 +958,7 @@ static int nv_common_hw_init(struct amdgpu_ip_block *ip_block)
- 		adev->nbio.funcs->apply_l1_link_width_reconfig_wa(adev);
- 
- 	/* enable aspm */
--	nv_program_aspm(adev);
-+	amdgpu_nbio_program_aspm(adev);
- 	/* setup nbio registers */
- 	adev->nbio.funcs->init_registers(adev);
- 	/* remap HDP registers to a hole in mmio space,
-diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c b/drivers/gpu/drm/amd/amdgpu/soc15.c
-index b456e4541..87b398dd0 100644
---- a/drivers/gpu/drm/amd/amdgpu/soc15.c
-+++ b/drivers/gpu/drm/amd/amdgpu/soc15.c
-@@ -401,29 +401,12 @@ static struct soc15_allowed_register_entry soc15_allowed_read_registers[] = {
- 	{ SOC15_REG_ENTRY(GC, 0, mmDB_DEBUG2)},
- };
- 
--static uint32_t soc15_read_indexed_register(struct amdgpu_device *adev, u32 se_num,
--					 u32 sh_num, u32 reg_offset)
--{
--	uint32_t val;
--
--	mutex_lock(&adev->grbm_idx_mutex);
--	if (se_num != 0xffffffff || sh_num != 0xffffffff)
--		amdgpu_gfx_select_se_sh(adev, se_num, sh_num, 0xffffffff, 0);
--
--	val = RREG32(reg_offset);
--
--	if (se_num != 0xffffffff || sh_num != 0xffffffff)
--		amdgpu_gfx_select_se_sh(adev, 0xffffffff, 0xffffffff, 0xffffffff, 0);
--	mutex_unlock(&adev->grbm_idx_mutex);
--	return val;
--}
--
- static uint32_t soc15_get_register_value(struct amdgpu_device *adev,
- 					 bool indexed, u32 se_num,
- 					 u32 sh_num, u32 reg_offset)
- {
- 	if (indexed) {
--		return soc15_read_indexed_register(adev, se_num, sh_num, reg_offset);
-+		return amdgpu_read_indexed_register(adev, se_num, sh_num, reg_offset);
- 	} else {
- 		if (reg_offset == SOC15_REG_OFFSET(GC, 0, mmGB_ADDR_CONFIG))
- 			return adev->gfx.config.gb_addr_config;
-@@ -695,15 +678,6 @@ static int soc15_set_vce_clocks(struct amdgpu_device *adev, u32 evclk, u32 ecclk
- 	return 0;
- }
- 
--static void soc15_program_aspm(struct amdgpu_device *adev)
--{
--	if (!amdgpu_device_should_use_aspm(adev))
--		return;
--
--	if (adev->nbio.funcs->program_aspm)
--		adev->nbio.funcs->program_aspm(adev);
--}
--
- const struct amdgpu_ip_block_version vega10_common_ip_block =
- {
- 	.type = AMD_IP_BLOCK_TYPE_COMMON,
-@@ -1284,7 +1258,7 @@ static int soc15_common_hw_init(struct amdgpu_ip_block *ip_block)
- 	struct amdgpu_device *adev = ip_block->adev;
- 
- 	/* enable aspm */
--	soc15_program_aspm(adev);
-+	amdgpu_nbio_program_aspm(adev);
- 	/* setup nbio registers */
- 	adev->nbio.funcs->init_registers(adev);
- 	/* remap HDP registers to a hole in mmio space,
-diff --git a/drivers/gpu/drm/amd/amdgpu/soc21.c b/drivers/gpu/drm/amd/amdgpu/soc21.c
-index fbd1d97f3..93c002e51 100644
---- a/drivers/gpu/drm/amd/amdgpu/soc21.c
-+++ b/drivers/gpu/drm/amd/amdgpu/soc21.c
-@@ -306,29 +306,12 @@ static struct soc15_allowed_register_entry soc21_allowed_read_registers[] = {
- 	{ SOC15_REG_ENTRY(GC, 0, regGB_ADDR_CONFIG)},
- };
- 
--static uint32_t soc21_read_indexed_register(struct amdgpu_device *adev, u32 se_num,
--					 u32 sh_num, u32 reg_offset)
--{
--	uint32_t val;
--
--	mutex_lock(&adev->grbm_idx_mutex);
--	if (se_num != 0xffffffff || sh_num != 0xffffffff)
--		amdgpu_gfx_select_se_sh(adev, se_num, sh_num, 0xffffffff, 0);
--
--	val = RREG32(reg_offset);
--
--	if (se_num != 0xffffffff || sh_num != 0xffffffff)
--		amdgpu_gfx_select_se_sh(adev, 0xffffffff, 0xffffffff, 0xffffffff, 0);
--	mutex_unlock(&adev->grbm_idx_mutex);
--	return val;
--}
--
- static uint32_t soc21_get_register_value(struct amdgpu_device *adev,
- 				      bool indexed, u32 se_num,
- 				      u32 sh_num, u32 reg_offset)
- {
- 	if (indexed) {
--		return soc21_read_indexed_register(adev, se_num, sh_num, reg_offset);
-+		return amdgpu_read_indexed_register(adev, se_num, sh_num, reg_offset);
- 	} else {
- 		if (reg_offset == SOC15_REG_OFFSET(GC, 0, regGB_ADDR_CONFIG) && adev->gfx.config.gb_addr_config)
- 			return adev->gfx.config.gb_addr_config;
-@@ -470,15 +453,6 @@ static int soc21_set_vce_clocks(struct amdgpu_device *adev, u32 evclk, u32 ecclk
- 	return 0;
- }
- 
--static void soc21_program_aspm(struct amdgpu_device *adev)
--{
--	if (!amdgpu_device_should_use_aspm(adev))
--		return;
--
--	if (adev->nbio.funcs->program_aspm)
--		adev->nbio.funcs->program_aspm(adev);
--}
--
- const struct amdgpu_ip_block_version soc21_common_ip_block = {
- 	.type = AMD_IP_BLOCK_TYPE_COMMON,
- 	.major = 1,
-@@ -925,7 +899,7 @@ static int soc21_common_hw_init(struct amdgpu_ip_block *ip_block)
- 	struct amdgpu_device *adev = ip_block->adev;
- 
- 	/* enable aspm */
--	soc21_program_aspm(adev);
-+	amdgpu_nbio_program_aspm(adev);
- 	/* setup nbio registers */
- 	adev->nbio.funcs->init_registers(adev);
- 	/* remap HDP registers to a hole in mmio space,
-diff --git a/drivers/gpu/drm/amd/amdgpu/soc24.c b/drivers/gpu/drm/amd/amdgpu/soc24.c
-index d1adf19a5..265db9331 100644
---- a/drivers/gpu/drm/amd/amdgpu/soc24.c
-+++ b/drivers/gpu/drm/amd/amdgpu/soc24.c
-@@ -132,31 +132,12 @@ static struct soc15_allowed_register_entry soc24_allowed_read_registers[] = {
- 	{ SOC15_REG_ENTRY(GC, 0, regGB_ADDR_CONFIG)},
- };
- 
--static uint32_t soc24_read_indexed_register(struct amdgpu_device *adev,
--					    u32 se_num,
--					    u32 sh_num,
--					    u32 reg_offset)
--{
--	uint32_t val;
--
--	mutex_lock(&adev->grbm_idx_mutex);
--	if (se_num != 0xffffffff || sh_num != 0xffffffff)
--		amdgpu_gfx_select_se_sh(adev, se_num, sh_num, 0xffffffff, 0);
--
--	val = RREG32(reg_offset);
--
--	if (se_num != 0xffffffff || sh_num != 0xffffffff)
--		amdgpu_gfx_select_se_sh(adev, 0xffffffff, 0xffffffff, 0xffffffff, 0);
--	mutex_unlock(&adev->grbm_idx_mutex);
--	return val;
--}
--
- static uint32_t soc24_get_register_value(struct amdgpu_device *adev,
- 					 bool indexed, u32 se_num,
- 					 u32 sh_num, u32 reg_offset)
- {
- 	if (indexed) {
--		return soc24_read_indexed_register(adev, se_num, sh_num, reg_offset);
-+		return amdgpu_read_indexed_register(adev, se_num, sh_num, reg_offset);
- 	} else {
- 		if (reg_offset == SOC15_REG_OFFSET(GC, 0, regGB_ADDR_CONFIG) &&
- 		    adev->gfx.config.gb_addr_config)
-diff --git a/drivers/gpu/drm/amd/amdgpu/soc_v1_0.c b/drivers/gpu/drm/amd/amdgpu/soc_v1_0.c
-index 709b1669b..4a5fe8e9d 100644
---- a/drivers/gpu/drm/amd/amdgpu/soc_v1_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/soc_v1_0.c
-@@ -184,31 +184,13 @@ static struct soc15_allowed_register_entry soc_v1_0_allowed_read_registers[] = {
- 	{ SOC15_REG_ENTRY(GC, 0, regGB_ADDR_CONFIG_1) },
- };
- 
--static uint32_t soc_v1_0_read_indexed_register(struct amdgpu_device *adev,
--					       u32 se_num,
--					       u32 sh_num,
--					       u32 reg_offset)
--{
--	uint32_t val;
--
--	mutex_lock(&adev->grbm_idx_mutex);
--	if (se_num != 0xffffffff || sh_num != 0xffffffff)
--		amdgpu_gfx_select_se_sh(adev, se_num, sh_num, 0xffffffff, 0);
--
--	val = RREG32(reg_offset);
--
--	if (se_num != 0xffffffff || sh_num != 0xffffffff)
--		amdgpu_gfx_select_se_sh(adev, 0xffffffff, 0xffffffff, 0xffffffff, 0);
--	mutex_unlock(&adev->grbm_idx_mutex);
--	return val;
--}
- 
- static uint32_t soc_v1_0_get_register_value(struct amdgpu_device *adev,
- 					    bool indexed, u32 se_num,
- 					    u32 sh_num, u32 reg_offset)
- {
- 	if (indexed) {
--		return soc_v1_0_read_indexed_register(adev, se_num, sh_num, reg_offset);
-+		return amdgpu_read_indexed_register(adev, se_num, sh_num, reg_offset);
- 	} else {
- 		if (reg_offset == SOC15_REG_OFFSET(GC, 0, regGB_ADDR_CONFIG_1) &&
- 		    adev->gfx.config.gb_addr_config)
--- 
-2.43.0
+==
+Chaitanya
+
+>   };
+>   
+>   /* Init Helpers */
+> diff --git a/include/drm/drm_colorop.h b/include/drm/drm_colorop.h
+> index 2cd8e0779c2a..c414b9070afb 100644
+> --- a/include/drm/drm_colorop.h
+> +++ b/include/drm/drm_colorop.h
+> @@ -145,31 +145,61 @@ enum drm_colorop_csc_ff_type {
+>   	 *
+>   	 * enum string "YUV601 to RGB601"
+>   	 *
+> -	 * Selects the fixed-function CSC preset that converts YUV
+> -	 * (BT.601) colorimetry to RGB (BT.601).
+> +	 * Selects the fixed-function CSC preset that converts full-range
+> +	 * YUV (BT.601) colorimetry to RGB (BT.601).
+>   	 */
+>   	DRM_COLOROP_CSC_FF_YUV601_RGB601,
+>   
+> +	/**
+> +	 * @DRM_COLOROP_CSC_FF_YUV601_LIMITED_RGB601:
+> +	 *
+> +	 * enum string "YUV601 Limited to RGB601"
+> +	 *
+> +	 * Selects the fixed-function CSC preset that converts limited-range
+> +	 * YUV (BT.601) colorimetry to RGB (BT.601).
+> +	 */
+> +	DRM_COLOROP_CSC_FF_YUV601_LIMITED_RGB601,
+> +
+>   	/**
+>   	 * @DRM_COLOROP_CSC_FF_YUV709_RGB709:
+>   	 *
+>   	 * enum string "YUV709 to RGB709"
+>   	 *
+> -	 * Selects the fixed-function CSC preset that converts YUV
+> -	 * (BT.709) colorimetry to RGB (BT.709).
+> +	 * Selects the fixed-function CSC preset that converts full-range
+> +	 * YUV (BT.709) colorimetry to RGB (BT.709).
+>   	 */
+>   	DRM_COLOROP_CSC_FF_YUV709_RGB709,
+>   
+> +	/**
+> +	 * @DRM_COLOROP_CSC_FF_YUV709_LIMITED_RGB709:
+> +	 *
+> +	 * enum string "YUV709 Limited to RGB709"
+> +	 *
+> +	 * Selects the fixed-function CSC preset that converts limited-range
+> +	 * YUV (BT.709) colorimetry to RGB (BT.709).
+> +	 */
+> +	DRM_COLOROP_CSC_FF_YUV709_LIMITED_RGB709,
+> +
+>   	/**
+>   	 * @DRM_COLOROP_CSC_FF_YUV2020_RGB2020:
+>   	 *
+>   	 * enum string "YUV2020 to RGB2020"
+>   	 *
+> -	 * Selects the fixed-function CSC preset that converts YUV
+> -	 * (BT.2020) colorimetry to RGB (BT.2020).
+> +	 * Selects the fixed-function CSC preset that converts full-range
+> +	 * YUV (BT.2020) colorimetry to RGB (BT.2020).
+>   	 */
+>   	DRM_COLOROP_CSC_FF_YUV2020_RGB2020,
+>   
+> +	/**
+> +	 * @DRM_COLOROP_CSC_FF_YUV2020_LIMITED_RGB2020:
+> +	 *
+> +	 * enum string "YUV2020 Limited to RGB2020"
+> +	 *
+> +	 * Selects the fixed-function CSC preset that converts limited-range
+> +	 * YUV (BT.2020) colorimetry to RGB (BT.2020).
+> +	 */
+> +	DRM_COLOROP_CSC_FF_YUV2020_LIMITED_RGB2020,
+> +
+>   	/**
+>   	 * @DRM_COLOROP_CSC_FF_RGB709_RGB2020:
+>   	 *
 
