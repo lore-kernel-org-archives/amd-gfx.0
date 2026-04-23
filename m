@@ -4,62 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B343FFDEE45
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DCF45FDEE3F
 	for <amd-gfx@archiver.kernel.org>; Thu, 23 Apr 2026 19:15:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4F6C010F236;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7637210F240;
 	Thu, 23 Apr 2026 19:15:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="YGDCrm/N";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Oxho1OmR";
 	dkim-atps=neutral
-Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com
- [209.85.221.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 618B510F236
- for <amd-gfx@lists.freedesktop.org>; Thu, 23 Apr 2026 19:15:24 +0000 (UTC)
-Received: by mail-wr1-f42.google.com with SMTP id
- ffacd0b85a97d-4411e1eba51so3589225f8f.3
- for <amd-gfx@lists.freedesktop.org>; Thu, 23 Apr 2026 12:15:24 -0700 (PDT)
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com
+ [209.85.128.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5CE4010F236
+ for <amd-gfx@lists.freedesktop.org>; Thu, 23 Apr 2026 19:15:25 +0000 (UTC)
+Received: by mail-wm1-f45.google.com with SMTP id
+ 5b1f17b1804b1-48909558b3aso63857125e9.0
+ for <amd-gfx@lists.freedesktop.org>; Thu, 23 Apr 2026 12:15:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1776971723; x=1777576523; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=XD9YqW1ZhBfWVo9tTfxBp7CNJmkjnAPhJ+3R1hcOLYk=;
- b=YGDCrm/NpNuhLa/EJPZ5ryGM9ywW3nEqqI6qRYxHpEndhzu/U2+KsBjvcc/w/MkRDf
- Naf1QC/E20qVVj5gijI/Phs4rsvyoFdfwxJBN5j1fr648Nzm7g1FZ9zVIbLDbBhBvj9w
- aQECW0qKOQQygeFEzr2cEfJTvHxsPSuE7sK+ljZGOqxYQDgXpfU12e8erRH7Ea89ae6v
- wQmsAnP1jNjD4d7QLThsfSgWnN/K+26lhmuUL6cZAoALx9pT+WUBHeVuD7e4vhB9UhVb
- +eJudeGttB6TdfoxwrZDZFUHklQYvC1f3f/RmSro1HbkD4XgSkg8HJeMc/ZE8j6aP/Kf
- H9qQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1776971723; x=1777576523;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=gmail.com; s=20251104; t=1776971724; x=1777576524; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=XD9YqW1ZhBfWVo9tTfxBp7CNJmkjnAPhJ+3R1hcOLYk=;
- b=hMKe+yYhwN6y4mXsCxVdQ7zKA4q3g9/KLUMcbi3P+1DHcSORZWPZGqSiGm1S/+X1d0
- wCtoeRfW4SZihWGh68oADzalVAmECDG+0kZiK1+k2D6qP+SzAfTMNfi4Zc1KE7VvEGdd
- A0EtQ+cPDhD0/UrfvjC389BXrwOaFghQ+aXOmGUoVzFvOV/bX7sNRLCSnn4GsCtHL6P6
- YEppzZQnrN6da+8hDYdPnkGNezTpD5wIohDSzCHTB0EbCFXzDDFwA0QelqP703haWqlH
- XSkyQ3//ol3zslTDuh51PLKEH9yTXsMTLd8bANID4oqQXh8hzwwCb040I5KJajZzwW0r
- KgTw==
-X-Gm-Message-State: AOJu0YzC5A92WbSrisP1Z2cgBTLjaFz+5otBRLEWen6IB6eO6et/oSYG
- FBoiDEqeppnG6cd30z07Hld8w/k/OSxP0O7BsQ5Cfd7bKhpsUWuzA7gzauOxjR6/
-X-Gm-Gg: AeBDieuexy4tdpcCnwEhXc4E5cdCP2Pm0s85k3wKW+NQ5I5HyVX/UuGcw/ymjrZuJVs
- SzKqakwHM0yXNReu2PxAYHk9Xv5bUK25LHiT8qn9YAZ18jQPK/nxo+xSpzI8l/BH3dHyoe+4eSL
- A9B9xM6j1b5hLZ5Fe7ntRZ4QPjJJw9EROxfRe2T4bzk/SuOyo0bXo+ewK8OLY2dZ39k2SI/XRon
- NUKvsi8INCiN6U8Y23t/sj9Hdvf4VpbORk/9/KQKDAGgedtcHsfqyOKNQrIGK2kG5SRw9WHvEAB
- gr+0EPNzCgg5ycqMDwvB6h2Ve5xvo8slKnFswBuJobJhx8Psc5yjlgm2/VdbiQBTVszW/STq7zI
- CopV4Yx/BMCJROGbY8zOyh11QWDW0bZ1eR6PzaFWkgWU2wI8DWJT5ieEiczmT9Rr7xrx7f7csQ1
- qx1WWaxln11KdmIznQ4Hr4a8XuqEBI9XF1BLR/giQhv8E4e+KClvN83xnVsq8nc8oTVpfrDWG0H
- CgdhQ==
-X-Received: by 2002:a05:6000:220c:b0:43b:498f:dceb with SMTP id
- ffacd0b85a97d-43fe3db9c7cmr43578149f8f.9.1776971722610; 
- Thu, 23 Apr 2026 12:15:22 -0700 (PDT)
+ bh=IqsoOrnvDJ46ubFgr1djQI0jyKv8swbMpRnTCmSWrAI=;
+ b=Oxho1OmR7YP5T9LxMsVUsoeDCwZEsndn90bFIu9WxUQTMX4l+T1SqiwJqIOCeNCDqt
+ luVsFXiR8/0/83wT1qVCmWMuZYA/+FfhzvdggBKvT8oWTsM5Nz6W85oIr8drywZkSgE6
+ QmDAqGRn8EQnIpg9CwY4UH5J1Ry3rle3ggUWZS6ObiC5uMmYosZp3mH4j+e0qVOYyyFv
+ EJ4v3Ap3NL/5XeY4WzlB4Xg6AwhCjz30F4NLk1wEZBhpwwKPNaUFpaFCcaMjEXa+a+De
+ qEZmB7q55Ly84ZIWyjlAQ73A8E7SWTDxQLYr0WO8BRg/jrR0ZfDnBuYcxGBoC01wxzO1
+ eXDQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1776971724; x=1777576524;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=IqsoOrnvDJ46ubFgr1djQI0jyKv8swbMpRnTCmSWrAI=;
+ b=a4fXEb7q7m5uMaIuKE4xBA27zsiTyAj22ywNN3R+Yy2Y7GP4nUT3PsGip0+dVXN/a7
+ ezSaXPJP2BNZhKRDgQqrU+JsKDvO1/dwsX6EjORkG12NelZc9nn/bcBPhY3nTciM9TGV
+ B4QZ2/eA8JGcSUuRZJMTjTdlwQf5uZAoX0t37rm9WpnLHlimGy9bgIsE2yKMRUlFUt8S
+ egYJUbFrFCL/Iez6DIeQcs2Aq9/iWPZLweNuhBtt6nBfjWg9+gMyDoWC4X0Tdoq6ZC9x
+ fxQGrMdgD3qMz3KH+uyIXtoRvdoqjDzjiGB9M5wmCYLrH8+x1QkVj3ayg6GeTgR8qyil
+ J8IA==
+X-Gm-Message-State: AOJu0YyRg2qd2gM3LsIzr3NYjmvfQtpyiWRD9OyT/+87ZxU082niVH5f
+ /g7Rkft9++JlFtj1eKDn3ZEOKCh39XSPyKwqJ19hZv0Se7EJSvq0ZLsA/+FaLqfd
+X-Gm-Gg: AeBDieugBWZNkqOKmTXqwVqQqyEJlAOYmw+eRGbYg49sxiSceuS2YkqAxfWbjfHMnZI
+ kvhK8bNibLPY2NAwCLtmrQFk8iL53d3PQLSdgkY9V57v1qjiZ3LJg/W0J6d/lzrlDLvU4sBcrI6
+ u7vXPJ1h1iXBsL+8BVsUddQKwelaGaD+zspd8Qgr0W9Zo7oX1i/2lzLnaIG3RoJzsxDEw2EJFjf
+ m+EyQFBFU/oEVkWtkYguF2BRZOtbmkHMfKx5WJebKVjP7CEd+sree0/oNkQwWeTbKP8P3fcHTwv
+ h+YUiPczUzTKt1yYEqkEc4Tl1SZQbgrsiqZBcOfSaG9uvY/X/Yed8NyXrvbRcYWHhUsmOo+V2t1
+ IPk7M7cYLAaZiajQjpxBFlpElJM7j6SsQ3LFS1JujRbrPBExmcb0nJpbANqn4vXV4r0hy/YYz0q
+ iV+xr4qDSSIgmj/FgtpWch2eNkkGi5kStBRxvTf9d5MSLnE/MLMfhT6ce7TwGIQCaGEckhGvgUC
+ NL8xQ==
+X-Received: by 2002:a05:600c:4746:b0:488:9439:881a with SMTP id
+ 5b1f17b1804b1-488fb738412mr380647705e9.2.1776971723714; 
+ Thu, 23 Apr 2026 12:15:23 -0700 (PDT)
 Received: from Timur-Hyperion.home (5E1B98A2.dsl.pool.telekom.hu.
  [94.27.152.162]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-44123d23e0bsm15792782f8f.15.2026.04.23.12.15.21
+ ffacd0b85a97d-44123d23e0bsm15792782f8f.15.2026.04.23.12.15.22
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 23 Apr 2026 12:15:21 -0700 (PDT)
+ Thu, 23 Apr 2026 12:15:23 -0700 (PDT)
 From: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
 To: amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com,
  Alex Hung <alex.hung@amd.com>, Harry Wentland <Harry.Wentland@amd.com>,
@@ -68,10 +69,13 @@ To: amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com,
  Mario Limonciello <mario.limonciello@amd.com>,
  Ivan Lipski <ivan.lipski@amd.com>, Melissa Wen <mwen@igalia.com>
 Cc: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
-Subject: [PATCH 00/14] drm/amd: Delete defunct DAL power level code
-Date: Thu, 23 Apr 2026 21:15:05 +0200
-Message-ID: <20260423191519.73127-1-timur.kristof@gmail.com>
+Subject: [PATCH 01/14] drm/amd/display: Delete unimplemented
+ dm_pp_apply_power_level_change_request()
+Date: Thu, 23 Apr 2026 21:15:06 +0200
+Message-ID: <20260423191519.73127-2-timur.kristof@gmail.com>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260423191519.73127-1-timur.kristof@gmail.com>
+References: <20260423191519.73127-1-timur.kristof@gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -89,102 +93,132 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Delete unused code related to DAL power levels.
-It seems that the DAL power level concept has been
-never fully implemented and was thus non-functional
-in amdgpu.
+dm_pp_apply_power_level_change_request() was called from old
+DCE clock manager implementations on DCE6, 8, 10, 11.2
+but has not been implemented ever since the beginning of DC.
 
-DCE 11.0 and 11.2 never actually relied on the
-power level because they calculate all necessary
-power requirements in dce_calcs and communicate
-that using dm_pp_apply_display_requirements() to
-the power management code.
+Affected GPUs have been working fine without that implementation
+for many years. Let's delete it now.
 
-DCE 6, 8 and 10 also didn't rely on power levels
-because they always just set the maximum possible
-display clock and the power management code
-already takes that into account when setting the
-power state. This was somewhat improved recently
-by also using dm_pp_apply_display_requirements()
-on these DCE versions.
+Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
+---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c | 8 --------
+ .../gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c  | 9 ---------
+ .../drm/amd/display/dc/clk_mgr/dce110/dce110_clk_mgr.c   | 9 ---------
+ .../drm/amd/display/dc/clk_mgr/dce112/dce112_clk_mgr.c   | 9 ---------
+ drivers/gpu/drm/amd/display/dc/dm_services.h             | 4 ----
+ 5 files changed, 39 deletions(-)
 
-The code base for newer GPUs doesn't use the
-concept of power levels anymore either, so
-this change reduces the maintenance burden
-of the old DCE code.
-
-On the DC side:
-
-dm_pp_apply_power_level_change_request() was never
-implemented in amdgpu_dm, and DC has been working
-fine for years without it. Let's delete the dummy
-function and the code that calls it.
-
-With that, we can also delete the power levels
-and the static arrays containing hardcoded power
-level values. These were never used for anything,
-only for finding the maximum supported display clock.
-
-On the AMDGPU PM side:
-
-The get_dal_power_level() implementations were
-dummy on SMU10, Vega10, Vega12 and Vega20 meaning
-that they didn't return an actual DAL power level,
-and were non-functional on SMU8 which always
-returned the highest possible power level.
-Nothing actually relied on the power level
-returned by these functions. Let's delete them.
-
-What's next:
-
-After this code cleanup lands, I have plans to
-further improve display power management on old DCE.
-
-Timur Kristóf (14):
-  drm/amd/display: Delete unimplemented
-    dm_pp_apply_power_level_change_request()
-  drm/amd/display: Delete dce_get_required_clocks_state()
-  drm/amd/display: Remove min/max clock levels from clk_mgr
-  drm/amd/display: Delete max_clocks_state from dm_pp_static_clock_info
-  drm/amd/display: Set max supported display clock without
-    max_clks_by_state
-  drm/amd/display: Delete max_clks_by_state from DCE clock manager
-  drm/amd/display: Delete disp_clk_voltage from integrated info
-  drm/amd/display: Delete dm_pp_clocks_state
-  drm/amd/pm: Delete unused get_display_power_level() function
-  drm/amd/pm: Delete dummy get_dal_power_level implementations
-  drm/amd/pm: Delete non-functional SMU8 get_dal_power_level
-    implementation
-  drm/amd/pm: Delete vddc_dep_on_dal_pwrl
-  drm/amd/pm: Delete get_dal_power_level
-  drm/amd/pm: Delete PP_DAL_POWERLEVEL
-
- .../amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c  |  39 -----
- .../gpu/drm/amd/display/dc/bios/bios_parser.c |  36 -----
- .../drm/amd/display/dc/bios/bios_parser2.c    |   9 --
- .../display/dc/clk_mgr/dce100/dce_clk_mgr.c   | 144 ++----------------
- .../display/dc/clk_mgr/dce100/dce_clk_mgr.h   |   3 -
- .../dc/clk_mgr/dce110/dce110_clk_mgr.c        |  25 ---
- .../dc/clk_mgr/dce112/dce112_clk_mgr.c        |  41 -----
- .../dc/clk_mgr/dce120/dce120_clk_mgr.c        |  16 --
- drivers/gpu/drm/amd/display/dc/dm_services.h  |   4 -
- .../drm/amd/display/dc/dm_services_types.h    |  30 ----
- .../amd/display/dc/inc/hw/clk_mgr_internal.h  |   4 -
- .../display/include/grph_object_ctrl_defs.h   |   9 --
- drivers/gpu/drm/amd/include/dm_pp_interface.h |  19 ---
- .../gpu/drm/amd/include/kgd_pp_interface.h    |   2 -
- .../gpu/drm/amd/pm/powerplay/amd_powerplay.c  |  22 ---
- .../amd/pm/powerplay/hwmgr/hardwaremanager.c  |  10 --
- .../amd/pm/powerplay/hwmgr/processpptables.c  |   1 -
- .../drm/amd/pm/powerplay/hwmgr/smu10_hwmgr.c  |  48 ------
- .../drm/amd/pm/powerplay/hwmgr/smu8_hwmgr.c   |  64 --------
- .../drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c |  18 ---
- .../drm/amd/pm/powerplay/hwmgr/vega12_hwmgr.c |  16 --
- .../drm/amd/pm/powerplay/hwmgr/vega20_hwmgr.c |  17 ---
- .../amd/pm/powerplay/inc/hardwaremanager.h    |   3 -
- drivers/gpu/drm/amd/pm/powerplay/inc/hwmgr.h  |   4 -
- 24 files changed, 11 insertions(+), 573 deletions(-)
-
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c
+index 11b2ea6edf953..17f42201ab862 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c
+@@ -417,14 +417,6 @@ bool dm_pp_notify_wm_clock_changes(
+ 	return false;
+ }
+ 
+-bool dm_pp_apply_power_level_change_request(
+-	const struct dc_context *ctx,
+-	struct dm_pp_power_level_change_request *level_change_req)
+-{
+-	/* TODO: to be implemented */
+-	return false;
+-}
+-
+ bool dm_pp_apply_clock_for_voltage_request(
+ 	const struct dc_context *ctx,
+ 	struct dm_pp_clock_for_voltage_req *clock_for_voltage_req)
+diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c
+index 6d41df52d7c9b..ffb70120362e7 100644
+--- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c
++++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c
+@@ -431,19 +431,10 @@ static void dce_update_clocks(struct clk_mgr *clk_mgr_base,
+ 			bool safe_to_lower)
+ {
+ 	struct clk_mgr_internal *clk_mgr_dce = TO_CLK_MGR_INTERNAL(clk_mgr_base);
+-	struct dm_pp_power_level_change_request level_change_req;
+ 	const int max_disp_clk =
+ 		clk_mgr_dce->max_clks_by_state[DM_PP_CLOCKS_STATE_PERFORMANCE].display_clk_khz;
+ 	int patched_disp_clk = MIN(max_disp_clk, context->bw_ctx.bw.dce.dispclk_khz);
+ 
+-	level_change_req.power_level = dce_get_required_clocks_state(clk_mgr_base, context);
+-	/* get max clock state from PPLIB */
+-	if ((level_change_req.power_level < clk_mgr_dce->cur_min_clks_state && safe_to_lower)
+-			|| level_change_req.power_level > clk_mgr_dce->cur_min_clks_state) {
+-		if (dm_pp_apply_power_level_change_request(clk_mgr_base->ctx, &level_change_req))
+-			clk_mgr_dce->cur_min_clks_state = level_change_req.power_level;
+-	}
+-
+ 	if (should_set_clock(safe_to_lower, patched_disp_clk, clk_mgr_base->clks.dispclk_khz)) {
+ 		patched_disp_clk = dce_set_clock(clk_mgr_base, patched_disp_clk);
+ 		clk_mgr_base->clks.dispclk_khz = patched_disp_clk;
+diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dce110/dce110_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dce110/dce110_clk_mgr.c
+index 13296c6ec08f4..ae922f1a31ff8 100644
+--- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dce110/dce110_clk_mgr.c
++++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dce110/dce110_clk_mgr.c
+@@ -257,21 +257,12 @@ static void dce11_update_clocks(struct clk_mgr *clk_mgr_base,
+ 			bool safe_to_lower)
+ {
+ 	struct clk_mgr_internal *clk_mgr_dce = TO_CLK_MGR_INTERNAL(clk_mgr_base);
+-	struct dm_pp_power_level_change_request level_change_req;
+ 	int patched_disp_clk = context->bw_ctx.bw.dce.dispclk_khz;
+ 
+ 	/*TODO: W/A for dal3 linux, investigate why this works */
+ 	if (!clk_mgr_dce->dfs_bypass_active)
+ 		patched_disp_clk = patched_disp_clk * 115 / 100;
+ 
+-	level_change_req.power_level = dce_get_required_clocks_state(clk_mgr_base, context);
+-	/* get max clock state from PPLIB */
+-	if ((level_change_req.power_level < clk_mgr_dce->cur_min_clks_state && safe_to_lower)
+-			|| level_change_req.power_level > clk_mgr_dce->cur_min_clks_state) {
+-		if (dm_pp_apply_power_level_change_request(clk_mgr_base->ctx, &level_change_req))
+-			clk_mgr_dce->cur_min_clks_state = level_change_req.power_level;
+-	}
+-
+ 	if (should_set_clock(safe_to_lower, patched_disp_clk, clk_mgr_base->clks.dispclk_khz)) {
+ 		context->bw_ctx.bw.dce.dispclk_khz = dce_set_clock(clk_mgr_base, patched_disp_clk);
+ 		clk_mgr_base->clks.dispclk_khz = patched_disp_clk;
+diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dce112/dce112_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dce112/dce112_clk_mgr.c
+index 1f36ad8a7de46..48393c69735b6 100644
+--- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dce112/dce112_clk_mgr.c
++++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dce112/dce112_clk_mgr.c
+@@ -193,21 +193,12 @@ static void dce112_update_clocks(struct clk_mgr *clk_mgr_base,
+ 			bool safe_to_lower)
+ {
+ 	struct clk_mgr_internal *clk_mgr_dce = TO_CLK_MGR_INTERNAL(clk_mgr_base);
+-	struct dm_pp_power_level_change_request level_change_req;
+ 	int patched_disp_clk = context->bw_ctx.bw.dce.dispclk_khz;
+ 
+ 	/*TODO: W/A for dal3 linux, investigate why this works */
+ 	if (!clk_mgr_dce->dfs_bypass_active)
+ 		patched_disp_clk = patched_disp_clk * 115 / 100;
+ 
+-	level_change_req.power_level = dce_get_required_clocks_state(clk_mgr_base, context);
+-	/* get max clock state from PPLIB */
+-	if ((level_change_req.power_level < clk_mgr_dce->cur_min_clks_state && safe_to_lower)
+-			|| level_change_req.power_level > clk_mgr_dce->cur_min_clks_state) {
+-		if (dm_pp_apply_power_level_change_request(clk_mgr_base->ctx, &level_change_req))
+-			clk_mgr_dce->cur_min_clks_state = level_change_req.power_level;
+-	}
+-
+ 	if (should_set_clock(safe_to_lower, patched_disp_clk, clk_mgr_base->clks.dispclk_khz)) {
+ 		patched_disp_clk = dce112_set_clock(clk_mgr_base, patched_disp_clk);
+ 		clk_mgr_base->clks.dispclk_khz = patched_disp_clk;
+diff --git a/drivers/gpu/drm/amd/display/dc/dm_services.h b/drivers/gpu/drm/amd/display/dc/dm_services.h
+index fbbf9c757b3c3..1395d36bfabe9 100644
+--- a/drivers/gpu/drm/amd/display/dc/dm_services.h
++++ b/drivers/gpu/drm/amd/display/dc/dm_services.h
+@@ -224,10 +224,6 @@ bool dm_pp_apply_display_requirements(
+ 	const struct dc_context *ctx,
+ 	const struct dm_pp_display_configuration *pp_display_cfg);
+ 
+-bool dm_pp_apply_power_level_change_request(
+-	const struct dc_context *ctx,
+-	struct dm_pp_power_level_change_request *level_change_req);
+-
+ bool dm_pp_apply_clock_for_voltage_request(
+ 	const struct dc_context *ctx,
+ 	struct dm_pp_clock_for_voltage_req *clock_for_voltage_req);
 -- 
 2.53.0
 
