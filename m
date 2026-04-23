@@ -4,72 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D2E97FB44CD
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3CC2CFB44D3
 	for <amd-gfx@archiver.kernel.org>; Fri, 24 Apr 2026 08:05:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 94C6C10F40E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id EC1DC10F414;
 	Fri, 24 Apr 2026 08:05:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="kI0JRZC6";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="CwLvbBcD";
 	dkim-atps=neutral
-Received: from mail-oi1-f175.google.com (mail-oi1-f175.google.com
- [209.85.167.175])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 312BA10F289
- for <amd-gfx@lists.freedesktop.org>; Thu, 23 Apr 2026 20:55:10 +0000 (UTC)
-Received: by mail-oi1-f175.google.com with SMTP id
- 5614622812f47-479810de04bso2590692b6e.1
- for <amd-gfx@lists.freedesktop.org>; Thu, 23 Apr 2026 13:55:10 -0700 (PDT)
+Received: from mail-oi1-f182.google.com (mail-oi1-f182.google.com
+ [209.85.167.182])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 648C010F28B
+ for <amd-gfx@lists.freedesktop.org>; Thu, 23 Apr 2026 20:55:14 +0000 (UTC)
+Received: by mail-oi1-f182.google.com with SMTP id
+ 5614622812f47-45f053b7b90so4049947b6e.0
+ for <amd-gfx@lists.freedesktop.org>; Thu, 23 Apr 2026 13:55:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1776977708; x=1777582508; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1776977713; x=1777582513; darn=lists.freedesktop.org;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=qXxdsOArU9ZJHRv0gxhcPUMG6BfjYVh32ZwNXW3DQls=;
- b=kI0JRZC61rpAnKkYp53jkjzJGsktXCdg1fDZp49B4Ln3OGeL0nrGt2x/3XTHO7bPsS
- kb1228DpGsmN8O18pxufz2/xpRuBlP1cJ/mJPLA9oLJE6AJc2RruiBHo43XIFzaZXy1c
- mnRuSe3pFW+aKKmn8Oa2p6W6HQrjV/OIWmcip96Fgs21BeZQxefEn4hrqGNKLopNRWGX
- a5Xaxawqe9h00iPI1Vm+leOG5lKxBrDevhHzWJV1kkqv1dlwxAkBOMdPJ7Pjxb1U6IAR
- vijO8F0aM6Rbz7C4cPQsmem6atwJ0RwmtAHy5o3bxHwhXm9YiM4S67F0v4zSoX3s70Ly
- 4MBQ==
+ :reply-to; bh=xQ+t538DK5KlP4845w+LRXbRqcfRle16Hyt2NlH5lpA=;
+ b=CwLvbBcDI7on2CgPi0CLWd6ZUppLjlvy0UfPw8XHj735F18qGreAQXkNLtWgl4PKZK
+ Dxuy5DMgF/Hn9A1htFVC7mWfIVeIAFy/q6DLEKaI4/y/kM+Rv9hNi8KU1GqRa9cYj56O
+ YyTiVyUkQSE19lJTyc/M85R6+hd60X2OYAZplfcaYyZlP3At0JjiSmf58Vx/qfHhnZOZ
+ 4QF3vvYhfzjzVmdLOWPRQzj+af6JFQe0NnTG2IkZK2IE2kn+TFfST8LQGM6HLBzSvl3r
+ 0QOw2yowj/s5BN2J2WjlR0zm1Taa+kTpodCFZ9z8xDFNiRSv+AryZ31zom+kMes2NZd0
+ iAfQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1776977708; x=1777582508;
+ d=1e100.net; s=20251104; t=1776977713; x=1777582513;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
  :cc:subject:date:message-id:reply-to;
- bh=qXxdsOArU9ZJHRv0gxhcPUMG6BfjYVh32ZwNXW3DQls=;
- b=tZsS+OWg00Dw/X3Mq3jtZRfNl2d4X2hP369z8h8SoGRO3LCdA6b3FlNrM2Rv8NJQWR
- KU6Nb6nESXqDKItuIihccRrvBS5/20eZ0msvDH9zsEgVHcEqpmxXdzxvSgGtc++xuhXD
- oTny8FvbG9rC6Cq0hL1ZRj49o9IdzOk1HYb9bnF3d6Mf6qma4twFDsV+nPkcZdk23FMv
- SjwfPw2m3V/TB6/mkTVU0+fGjzfc8ebfWFqtZutVKNzR5LGA7OXAeURg5mSzB0Gp6U09
- Dw0dv36rhJ+TB+C99HmZWDkDRCKnrAVeZfwydCQVtKmKP853UGdMPrzz4XiYNlVH+TN3
- pLuw==
+ bh=xQ+t538DK5KlP4845w+LRXbRqcfRle16Hyt2NlH5lpA=;
+ b=KqPFPD4MvrmERLmIvYUBtZv+HOC/5+n+yC8afvbzQxP+WCUYP18uoVBcwuZnRw0Wxv
+ lh3g1lds5SfVTI/rziCdqRb3w1XPduTOTWr0vK7Ms2k2vAP04EG94NPxSe0CBwIBit4y
+ GcqQskPKWiW630ibu04yE9eD/VLD6FmpO1vdiea1lMnE8ZbfwYzp5Qm6IETi327IZjvL
+ OeNVpa5tha5S3CJI1ED6kjsyE3GeWihRWkD9XFNEPc9irftvmZQVY7i52S+GNI+COHZa
+ tU/GFosW04vyO2eFSUvRc0oJyOmHBYS0Bz0em3y09vjt/D43h1hZjz+RDtHe4j4zRRmQ
+ FUfg==
 X-Forwarded-Encrypted: i=1;
- AFNElJ+qfqqGDKg4qdurm0w+mGzWQj1WnSQ51tVOludpdk86+j43vCYQnEixwXPOezM6HQ7K4XpT6ve0@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YySdZ5aU5tXGzxzKjfGFHkJLHfs46qNdz5G2LBXYJCCytMoT4n6
- BAKLtCrRuWKFKV3W/GBBWS6aTedsJEk8Xkxuzn2rDohNYDSvQxQwUQ7O
-X-Gm-Gg: AeBDievc7/7fNpV8JHQVdrN78Hry2sj+y0glVLOho0FNPb+Q/9lEtQl/gsYh0kj1p1c
- 2qwp5YG1KAEcZ6ycdAf8k8q298zjuAtf0r0N3Kc7tDnC99YE5z0A8Z2xBCX/dOXphFhfvQ/aefe
- REFICiXu+4l1LHr6yYOPfdKwbodBoD7zWXohrk2zsWM0PDhedtJluq2lfVpgsGNFEFjyYkAOk+2
- S1XWoIVdKZPm2i3XIo3IoKkdRmrSxKYKT6vrz95kLDlAxUKCtd1AIqgtxnDslCmak9VdM4SIxi4
- K2H4ejQa/feKkGvSIyVyWuhiGPC2VtSTR219kpEaKEzASRtC2nFUnK86HD4v6TTlnt4m5c2doPk
- MCzK+L+hoJgKLESCFfm+xCY1dAUM1bfUUR3RR6WDftzW0gZR6tAW/YgU0Hgv7VYKZnw9xT9seX7
- cfuRxNbSVDgZ0+MqxtxnxNbLyo3ygWod48BsKd9mRIKDP5DOD0KM75rveJWx9ZF6RkxbQsNbUQR
- nem06ZSj4I=
-X-Received: by 2002:a05:6808:2381:b0:467:f567:d609 with SMTP id
- 5614622812f47-4799cacba8amr15988443b6e.34.1776977708127; 
- Thu, 23 Apr 2026 13:55:08 -0700 (PDT)
+ AFNElJ/vgPI9ixTNXRLyORYEQBE/bZjsiCB6EBs/siS2NsIb5cUm0G2yhZYuPxbhaJ5ZkSA46u5H5IX5@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzcMjBvsH5K9PBXokWHsHsZQrXFgZ6u6DPYmZKvaQ+DCwYsZKr1
+ dOHX4m73fPbRgY1NrDPHfjeT23fDgzVNxA6KPCeVoAP+B1MwaPGIK4kI
+X-Gm-Gg: AeBDieunnsDt3wCeKo/bkdOcGIWpWrD2L75vfo0DlGIJMYWX3+UnUxLyw3l6n1dFPLP
+ GqvlAnkOv4vBYiycCD0QA01WiiIj1ADwBDbdEk+6aYGDLDiLBL41SZV3tG21H5wZOUJCodB6Mm4
+ 3q+Ra6r1V92Cox+MNqo1MfCNGrWa0fBCKShJ9m+B09D9lg7e8FepIsyE30ko6BSYPf9FD+yGWJm
+ hIT/vNcgrjyjvZqEObPf57GBJ8PPLnv/KfuRO//AHJ1d65Z0ilOHcNncRdejkXUwaVYMTK/HYOH
+ 6Lb3+Vi1uzOtvW9PrKAv8uvDcQkY00OgEXsabdCemdRQRiRakBe8S8bOsIVQzGPmaEfkN6Yfjvb
+ b8coHM6Z6TksYSgfhLrur3nLLkumqy+jo8vY3ja8UVJYZaW4Dn2oS63e8ZQ09cmO5hA3efPGb8W
+ Bs6Ik2iPPrzpKp030o4B8yyARctEK3zUHY7YH6QYsbQweWC76PS9YY4bhxWRBa1knmVt2lu3Xd9
+ KIOrBvXbq4=
+X-Received: by 2002:a05:6808:e68f:b0:47b:c703:4231 with SMTP id
+ 5614622812f47-47bc7034dc7mr1386941b6e.16.1776977713420; 
+ Thu, 23 Apr 2026 13:55:13 -0700 (PDT)
 Received: from [192.168.0.245] (c-98-38-17-99.hsd1.co.comcast.net.
  [98.38.17.99]) by smtp.googlemail.com with ESMTPSA id
- 5614622812f47-4799fead505sm14329744b6e.2.2026.04.23.13.55.03
+ 5614622812f47-4799fead505sm14329744b6e.2.2026.04.23.13.55.08
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 23 Apr 2026 13:55:07 -0700 (PDT)
+ Thu, 23 Apr 2026 13:55:12 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
-Date: Thu, 23 Apr 2026 14:53:54 -0600
-Subject: [PATCH v14 13/92] dyndbg: tweak pr_fmt to avoid expansion
- conflicts
+Date: Thu, 23 Apr 2026 14:53:55 -0600
+Subject: [PATCH v14 14/92] dyndbg: reduce verbose/debug clutter
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260423-submit-dyndbg-classmap-foundation-v14-13-2b809a8019d0@gmail.com>
+Message-Id: <20260423-submit-dyndbg-classmap-foundation-v14-14-2b809a8019d0@gmail.com>
 References: <20260423-submit-dyndbg-classmap-foundation-v14-0-2b809a8019d0@gmail.com>
 In-Reply-To: <20260423-submit-dyndbg-classmap-foundation-v14-0-2b809a8019d0@gmail.com>
 To: Arnd Bergmann <arnd@arndb.de>, Jason Baron <jbaron@akamai.com>, 
@@ -164,11 +163,11 @@ Cc: linux-arch@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-renesas-soc@vger.kernel.org, 
  etnaviv@lists.freedesktop.org, Jim Cromie <jim.cromie@gmail.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1776977637; l=739;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1776977637; l=3911;
  i=jim.cromie@gmail.com; s=20260203; h=from:subject:message-id;
- bh=Lx8Le50+nsjiQgeV6zgGG9hZjacD3w46irda8Vp6AWc=;
- b=SnpdcS+23XSjrZpeLIyoz7fp4858ZuhNdkUZ3gyhPRKYDKkKBaruLmuYi2tS21h9vU8M8wWZE
- Y5Q7mlfCnULCyFEZyjXTXMc7I7vQ1FQTWqcfAQXyvf5zEOLG4FrW4jT
+ bh=N6DLiVASeuimkj0ky/CjB9cS4a6lMcbjqDXmylGeHH4=;
+ b=smdObwt3/3HRk1wBYVctMzI+f80HbU+QWqDLWb82qvaWDwuJYffAI82+sQIOu7Qinq1xWmx1P
+ Ias8KDROqGBDKJUxV5hv3ogiRe2jP1pYr8OafadNijakVkg0ApTr2Nd
 X-Developer-Key: i=jim.cromie@gmail.com; a=ed25519;
  pk=C6E5ODlPQo7ZBynATXH9wg7K6HxP0pIXyf4s38Qw0XE=
 X-Mailman-Approved-At: Fri, 24 Apr 2026 08:04:50 +0000
@@ -186,30 +185,123 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Disambiguate pr_fmt(fmt) arg, by changing it to _FMT_, to avoid naming
-confusion with many later macros also using that argname.
+currently, for verbose=3, these are logged (blank lines for clarity):
+
+ dyndbg: query 0: "class DRM_UT_CORE +p" mod:*
+ dyndbg: split into words: "class" "DRM_UT_CORE" "+p"
+
+ dyndbg: op='+'
+ dyndbg: flags=0x1
+ dyndbg: *flagsp=0x1 *maskp=0xffffffff
+
+ dyndbg: parsed: func="" file="" module="" format="" lineno=0-0 class=...
+ dyndbg: no matches for query
+ dyndbg: no-match: func="" file="" module="" format="" lineno=0-0 class=...
+ dyndbg: processed 1 queries, with 0 matches, 0 errs
+
+That is excessive, so this patch:
+ - shrinks 3 lines of 2nd stanza to single line
+ - drops 1st 2 lines of 3rd stanza
+   3rd line is like 1st, with result, not procedure.
+   2nd line is just status, retold in 4th, with more info.
+
+New output:
+
+ dyndbg: query 0: "class DRM_UT_CORE +p" mod:*
+ dyndbg: split into words: "class" "DRM_UT_CORE" "+p"
+ dyndbg: op='+' flags=0x1 *flagsp=0x1 *maskp=0xffffffff
+ dyndbg: no-match: func="" file="" module="" format="" lineno=0-0 class=...
+ dyndbg: processed 1 queries, with 0 matches, 0 errs
+
+Also reduce verbose=3 messages in ddebug_add_module
+
+When modprobing a module, dyndbg currently logs/says "add-module", and
+then "skipping" if the module has no prdbgs.  Instead just check 1st
+and return quietly.
 
 no functional change
 
 Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- lib/dynamic_debug.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ lib/dynamic_debug.c | 21 ++++++---------------
+ 1 file changed, 6 insertions(+), 15 deletions(-)
 
 diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-index ffa1cf7c2c72..9575b92a8deb 100644
+index 9575b92a8deb..3ae9ecabdad1 100644
 --- a/lib/dynamic_debug.c
 +++ b/lib/dynamic_debug.c
-@@ -11,7 +11,7 @@
-  * Copyright (C) 2013 Du, Changbin <changbin.du@gmail.com>
-  */
+@@ -276,9 +276,6 @@ static int ddebug_change(const struct ddebug_query *query,
+ 	}
+ 	mutex_unlock(&ddebug_lock);
  
--#define pr_fmt(fmt) "dyndbg: " fmt
-+#define pr_fmt(_FMT_) "dyndbg: " _FMT_
+-	if (!nfound && verbose)
+-		pr_info("no matches for query\n");
+-
+ 	return nfound;
+ }
  
- #include <linux/kernel.h>
- #include <linux/module.h>
+@@ -511,7 +508,6 @@ static int ddebug_parse_flags(const char *str, struct flag_settings *modifiers)
+ 		pr_err("bad flag-op %c, at start of %s\n", *str, str);
+ 		return -EINVAL;
+ 	}
+-	v3pr_info("op='%c'\n", op);
+ 
+ 	for (; *str ; ++str) {
+ 		for (i = ARRAY_SIZE(opt_array) - 1; i >= 0; i--) {
+@@ -525,7 +521,6 @@ static int ddebug_parse_flags(const char *str, struct flag_settings *modifiers)
+ 			return -EINVAL;
+ 		}
+ 	}
+-	v3pr_info("flags=0x%x\n", modifiers->flags);
+ 
+ 	/* calculate final flags, mask based upon op */
+ 	switch (op) {
+@@ -541,7 +536,7 @@ static int ddebug_parse_flags(const char *str, struct flag_settings *modifiers)
+ 		modifiers->flags = 0;
+ 		break;
+ 	}
+-	v3pr_info("*flagsp=0x%x *maskp=0x%x\n", modifiers->flags, modifiers->mask);
++	v3pr_info("op='%c' flags=0x%x maskp=0x%x\n", op, modifiers->flags, modifiers->mask);
+ 
+ 	return 0;
+ }
+@@ -551,7 +546,7 @@ static int ddebug_exec_query(char *query_string, const char *modname)
+ 	struct flag_settings modifiers = {};
+ 	struct ddebug_query query = {};
+ #define MAXWORDS 9
+-	int nwords, nfound;
++	int nwords;
+ 	char *words[MAXWORDS];
+ 
+ 	nwords = ddebug_tokenize(query_string, words, MAXWORDS);
+@@ -569,10 +564,7 @@ static int ddebug_exec_query(char *query_string, const char *modname)
+ 		return -EINVAL;
+ 	}
+ 	/* actually go and implement the change */
+-	nfound = ddebug_change(&query, &modifiers);
+-	vpr_info_dq(&query, nfound ? "applied" : "no-match");
+-
+-	return nfound;
++	return ddebug_change(&query, &modifiers);
+ }
+ 
+ /* handle multiple queries in query string, continue on error, return
+@@ -1246,11 +1238,10 @@ static int ddebug_add_module(struct _ddebug_info *di, const char *modname)
+ {
+ 	struct ddebug_table *dt;
+ 
+-	v3pr_info("add-module: %s.%d sites\n", modname, di->num_descs);
+-	if (!di->num_descs) {
+-		v3pr_info(" skip %s\n", modname);
++	if (!di->num_descs)
+ 		return 0;
+-	}
++
++	v3pr_info("add-module: %s %d sites\n", modname, di->num_descs);
+ 
+ 	dt = kzalloc_obj(*dt);
+ 	if (dt == NULL) {
 
 -- 
 2.53.0
