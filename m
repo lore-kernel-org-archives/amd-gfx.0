@@ -4,50 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E4895F589B0
-	for <amd-gfx@archiver.kernel.org>; Thu, 23 Apr 2026 12:42:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 58372F589B2
+	for <amd-gfx@archiver.kernel.org>; Thu, 23 Apr 2026 12:42:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 89E2110F0F6;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E800A10F0F8;
 	Thu, 23 Apr 2026 12:42:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="A9zIJ8W5";
+	dkim=pass (4096-bit key; unprotected) header.d=alien8.de header.i=@alien8.de header.b="jn8A1Ww9";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1EAEE10F0B7;
- Thu, 23 Apr 2026 11:40:42 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id D18D7406C6;
- Thu, 23 Apr 2026 11:40:41 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 60D82C2BCAF;
- Thu, 23 Apr 2026 11:40:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1776944441;
- bh=XWpyzthTDl8osOJZCyGUAdA1IW4nOmyc8fO7wAVzzhk=;
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1609A10F056;
+ Thu, 23 Apr 2026 10:14:22 +0000 (UTC)
+Received: from localhost (localhost.localdomain [127.0.0.1])
+ by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 7460E40E00C4; 
+ Thu, 23 Apr 2026 10:14:20 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
+ header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+ by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+ with ESMTP id aMWtIg-9UTMt; Thu, 23 Apr 2026 10:14:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+ t=1776939249; bh=Z3fMnOzXvY9vQ6rbTljdxVI28pomvdIlA1Bba16AfpY=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=A9zIJ8W5rUljqWcYOM2NMB8yCRv5QyRJso61Dr+oylA1kSt3a58vGL9WIEFRWn75I
- bPSFsVbGzQhg9+HByVx9r2XzSY1cjq3g/jexNuy/h4HkRV34294O5bRNUa5rlLt+Eg
- l544Jm3OVB4hk49omkplHMkr9Lg6RM4ONxWHrD6A=
-Date: Thu, 23 Apr 2026 13:40:39 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Timur =?iso-8859-1?Q?Krist=F3f?= <timur.kristof@gmail.com>
-Cc: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- stable@vger.kernel.org, Robert Garcia <rob_garcia@163.com>,
+ b=jn8A1Ww91QGYOA8y+n5VK2+pK1EPRVjDgUreAwiRRS+tWJ0JeHVwmRJhvqYC88y4S
+ 1AB2WbPxJU0ZOmaa3C2M+wpgpAJnRkdE+DynlWfK5OJ3eFkkQKttXlbmeW3BMvIL25
+ 5K5GjomiMzQgFIAmrYvQJfX+OVK53L/whn5WKxxpz+NGU/jEWidVdb5B6+JOCccai3
+ JYN4OmDN6iC4YTGy3Lt36k7jaYSjzGxxJngX60XlhWH/8Qq/HX0bkHaPIR8w7Vnixt
+ ui3npXsSp/Rp0OJXhxTbTj1sLCbv0TrzP1aPLlkmmvX92jmtEtBkXZkZuffboxr0vg
+ As+5gVJZBsr6K1BgNlLELQVF8ym9/e0sJ7BE+z/hXIj0WQXmBEoUeqjn2MqsJXhXLg
+ atc5x1ARUPwN93GMK317ythCe6oaI0Yqa+MMt1Pp77quGneTRtOIahwjC597fkHzsN
+ H7nq+EEO0/UTjA7HMQVCz6kZNEDrJourtQtuxTSXuJd2eEx1ooBpMWKyH5TfYTPix/
+ 33GL4Ap22ZKs+YJhFyEdnQ1e1A6TaA8JPwTJeKBNoguSpQNAF7Q/ySO5RXjsVPFYU7
+ 5BgqMe07H0D2q7ucvKYRfCsPIhVFTE1eXMBBXzkwZQCAqGVy2W8plPyA2/VGUKZb8c
+ jPztUW54IUD4ZD2F6d7IVsb0=
+Received: from zn.tnic (p5de8e020.dip0.t-ipconnect.de [93.232.224.32])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest
+ SHA256) (No client certificate requested)
+ by mail.alien8.de (SuperMail on ZX Spectrum 128k) with UTF8SMTPSA id
+ CE14D40E0031; Thu, 23 Apr 2026 10:13:59 +0000 (UTC)
+Date: Thu, 23 Apr 2026 12:13:52 +0200
+From: Borislav Petkov <bp@alien8.de>
+To: Alex Deucher <alexdeucher@gmail.com>
+Cc: Rafal Ostrowski <rostrows@amd.com>, amd-gfx@lists.freedesktop.org,
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>,
- Pan Xinhui <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, Yifan Zha <Yifan.Zha@amd.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 6.1.y] drm/amdgpu: remove two invalid BUG_ON()s
-Message-ID: <2026042330-washhouse-amusement-db9e@gregkh>
-References: <20260417074010.1607496-1-rob_garcia@163.com>
- <6064b45a-b8de-4848-856f-383d2d06680d@amd.com>
- <2026042335-probation-heftiness-7399@gregkh>
- <4885687.vXUDI8C0e8@timur-hyperion>
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: amdgpu: WARNING:
+ drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/dc_fpu.c:58 at
+ dc_assert_fp_enabled+0x10/0x20 [amdgpu], CPU#5: (udev-worker)/418
+Message-ID: <20260423101352.GAaenw4LLAwWyEtANw@fat_crate.local>
+References: <20260421132303.GCaed6N9mDwutP6sEx@fat_crate.local>
+ <CADnq5_POMAQyY1OtqE6v4-NwoN2ViUCTeq-RQp79UwpMeDZRYA@mail.gmail.com>
+ <20260422203314.GCaekwikuCiHx8CK-S@fat_crate.local>
+ <CADnq5_MD=88gWXFp_-sQ0qpj-xDbqNsEkofnaNqFkQbJL43hNg@mail.gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <4885687.vXUDI8C0e8@timur-hyperion>
+In-Reply-To: <CADnq5_MD=88gWXFp_-sQ0qpj-xDbqNsEkofnaNqFkQbJL43hNg@mail.gmail.com>
 X-Mailman-Approved-At: Thu, 23 Apr 2026 12:42:22 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -63,37 +79,14 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Apr 23, 2026 at 01:34:42PM +0200, Timur Kristóf wrote:
-> On Thursday, April 23, 2026 1:22:22 PM Central European Summer Time Greg 
-> Kroah-Hartman wrote:
-> > On Wed, Apr 22, 2026 at 04:11:15PM +0200, Christian König wrote:
-> > > Those points are certainly valid.
-> > > 
-> > > I've also up-streamed a patch which completely rejects userspace
-> > > submissions who try to use the CE.
-> > > 
-> > > The problem is that those BUG_ON() can lead to a deny of service because
-> > > they crash the whole kernel.
-> > > 
-> > > A BUG_ON() is only justified if it prevents even worse things to happen,
-> > > e.g. data corruption or it would crash later on anyway just not so
-> > > obvious on what is wrong.
-> > > 
-> > > Otherwise we should use WARN_ON().
-> > 
-> > WARN_ON() crashes the kernel as well when panic-on-warn is enabled, as
-> > it is in a few billion Linux systems :(
-> > 
-> > As this commit is upstream, and in other stable trees, I'll apply this
-> > as it's not nice to have a simple way for userspace to crash the system.
-> > 
-> > thanks,
-> > 
-> > greg k-h
-> 
-> Sounds reasonable, if you feel this improves stability.
-> 
-> That being said, there are many other ways besides this one for userspace to 
-> crash the system equally easily.
+On Wed, Apr 22, 2026 at 04:54:32PM -0400, Alex Deucher wrote:
+> It's in drm-next, should land in this week's next-fixes PR.
+> https://gitlab.freedesktop.org/drm/kernel/-/commit/07598c76964a2c73702fa652bcd07ec21088c5ef
 
-Great, please fix up those as well :)
+Thanks, that fixes it.
+
+-- 
+Regards/Gruss,
+    Boris.
+
+https://people.kernel.org/tglx/notes-about-netiquette
