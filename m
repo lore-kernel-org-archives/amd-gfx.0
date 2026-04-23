@@ -4,171 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 384A8FB44C6
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 84869FB44CE
 	for <amd-gfx@archiver.kernel.org>; Fri, 24 Apr 2026 08:05:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 173B510F416;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C2AB610F41F;
 	Fri, 24 Apr 2026 08:05:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="V+lnKaGH";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="NsSXvARW";
 	dkim-atps=neutral
-Received: from mail-oi1-f172.google.com (mail-oi1-f172.google.com
- [209.85.167.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C248E10F2A1
- for <amd-gfx@lists.freedesktop.org>; Thu, 23 Apr 2026 20:54:33 +0000 (UTC)
-Received: by mail-oi1-f172.google.com with SMTP id
- 5614622812f47-479fc1fc048so1991662b6e.1
- for <amd-gfx@lists.freedesktop.org>; Thu, 23 Apr 2026 13:54:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1776977673; x=1777582473; darn=lists.freedesktop.org;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=9bGJ7z/H2igvBo422MeRtnHn2LDlfxtz4FMju+TOrdc=;
- b=V+lnKaGHD1r+RIEzd8fetvFsdL8ey2dEhKIHFFOM63q9QmnMS45NpCpwDepxdxdOE8
- CUJbSzbW/ZMOmuObSO9zm0z0gSRhoZ370ePrDu5fAqHmPndgsJWLnm2+q402zubhIQHb
- 9MObV/WS4sUkp5RLVHqC8Uarju8MIPqYCT54/zfct8RAMsJO1UHtTkUijDxdUVSCoCYk
- 9c9KuzKd1To/EvHYpYgLDCu5DM9SGXlz0y5Hab+vI4QO/pDDlmQiQahRJlGKETFP/SPX
- yyJLvzXYMcDGrnSkmenW07Nr9hQ+MH4V4f2iQo0XXPiIAnCSyZuC2eHIglGWT58M7cui
- XqYg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1776977673; x=1777582473;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to;
- bh=9bGJ7z/H2igvBo422MeRtnHn2LDlfxtz4FMju+TOrdc=;
- b=AYberF9BvVwfS0KWkeoxyzUpm6ux62bsJQ7wIpiGEcQNQFnktnui0qBsoPD688RSbD
- /dbTxWJc1L2KCtedWelIyATpTEJBKyiwgi3uH0mmpEBoO9J0gb7DAtP0pnGSycwEFCRf
- GJIGve/NVJfQI8fpEvhm034iHe3Ha1Dx7guZtGb3T5oTZlO6EwS5NQcooYDvPTGkWQv7
- uCQD2YVZbABZXyERCu7uSmFoCAUqiaU2BFnLsDM9L2apzbqPP/0t6Qyau9SvMnSjxEXP
- j5X/mTrjgyGh4+tmI+RKt01CMObbJslqVI1tNvh1cHiH0fsxDfMp/z0is57jjxNocQ56
- fNaQ==
-X-Forwarded-Encrypted: i=1;
- AFNElJ891RfNcTsXrfv+pnGReTQDZ3LV5mD3136pCUwDKRK/XYTlBWi51OKc/EJRHz3+hLxfLnOx6wm5@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yyq5qOEadq8Q4iCRceR6LOnJhJieJpTVHgo9Jb4lv7/4kW0FdCw
- 9q9DDUCxudTqPIAonFuGAeHmFjFnAMX9yyg+p5/tpE2Bl70qVaDWq8UQ
-X-Gm-Gg: AeBDiesVpSb5rMNatC3uCFqeZiyQ3vzGFO66lNUCV+uCld+F2Z+/nnRark9lfqk0PfN
- eFN7fTgmrSzyfBty3Go2HYPXOFYAN9aB94WoksdIM4WWTR/E5OfIDOXxAXgCXc7MibhuMD5SGT9
- OsJGGsRc/xwh6dwnnYM8CpwqUQc2s8u3H3rZUc/kN1L9x9yifzwRiXrXUUBojW+LTtM4n8wKORj
- mgugHgcB8/r+TllzQAzYtP0I2hKrtQ46vwep2XHD5sXMERiG90vGUvlWhZQQ7c/fKRc9w0U4/dH
- u24c9n/qFqfxWcyktcZLKUMyZ5gUVSFHq82RfN1zK0n2kdq6L3jNNgk8W3liVdTAw2k1gFD4X1N
- W8Ek3fHCzgiSA7gx0PMb9kS6H9V0tcm1AoMY+NA6KZ8pctjKEbQkZALHRirkXfUuWlIHdwDE8vr
- AOvWyjSWUSszqpXJQ+6+gWE/dqT0MXjYFS9kkaju6Lp0XdEFZOMzdMZeVVsVlSvSsfxmAwuWKi
-X-Received: by 2002:a05:6808:1513:b0:47b:2b67:71ab with SMTP id
- 5614622812f47-47b2b678371mr3602419b6e.17.1776977672897; 
- Thu, 23 Apr 2026 13:54:32 -0700 (PDT)
-Received: from [192.168.0.245] (c-98-38-17-99.hsd1.co.comcast.net.
- [98.38.17.99]) by smtp.googlemail.com with ESMTPSA id
- 5614622812f47-4799fead505sm14329744b6e.2.2026.04.23.13.54.28
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 23 Apr 2026 13:54:32 -0700 (PDT)
-From: Jim Cromie <jim.cromie@gmail.com>
-Date: Thu, 23 Apr 2026 14:53:47 -0600
-Subject: [PATCH v14 06/92] dyndbg: add stub macro for DECLARE_DYNDBG_CLASSMAP
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
+ [136.143.188.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1F9ED10F387;
+ Thu, 23 Apr 2026 19:07:19 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1776971230; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=MvtUbT0EWkZD5vlvcYR4JTvYMIQglSzZCxW/MdDTB64hT5b2R5TeEB5ANsdfGi3GxPz7G+kNwMfMDEoPPesWd/itSGXzZZoQi36l1t4hZv4zXqfHgoFF21rINW1VlgQThhFsfdwEaIx4VVcxYM1x7w2LwfEjrXHPLWT8AipovD0=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1776971230;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=mW0Ja2FbkQHM1K+7Np14cKRo9Q3SNA4jFH3nNeqjQjs=; 
+ b=jS/YJIxpO9EccrepS25MVU6nbmxc8KtOjhNXJtzXb0K2ASfxKVTnKI0xrjJhoxwcTKwEHtZA6WGYQcaKESfB4veNm5C2H97nTzRMljOWEMzqAY/L7bUkiq1g+QRm9Plj5ZeFf45L76p1uRSQfNzmnGJFsJ1hYizmBVM8TnfRxcY=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
+ dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1776971230; 
+ s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
+ h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:References:In-Reply-To:To:To:Cc:Cc:Reply-To;
+ bh=mW0Ja2FbkQHM1K+7Np14cKRo9Q3SNA4jFH3nNeqjQjs=;
+ b=NsSXvARWy2Ow968hPuvcYUSZH+9VzUQkuGLnnW9eXSqrV0+n2kLKSSrWueIS7Sms
+ B4pfjiIIqAxr52xc9Sx5jEI9WniYPSEK2fMqqn+tQX4wIlAIKuA7CD1OUmUhPNpjrZl
+ 6uajF5lN79QrjIEJXmLMnem4YMQBo0B1OldFV15Q=
+Received: by mx.zohomail.com with SMTPS id 177697122942670.00416904047358;
+ Thu, 23 Apr 2026 12:07:09 -0700 (PDT)
+From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+Date: Thu, 23 Apr 2026 21:03:49 +0200
+Subject: [PATCH v14 26/28] drm/tests: bridge: Add test for HDMI output bus
+ formats helper
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260423-submit-dyndbg-classmap-foundation-v14-6-2b809a8019d0@gmail.com>
-References: <20260423-submit-dyndbg-classmap-foundation-v14-0-2b809a8019d0@gmail.com>
-In-Reply-To: <20260423-submit-dyndbg-classmap-foundation-v14-0-2b809a8019d0@gmail.com>
-To: Arnd Bergmann <arnd@arndb.de>, Jason Baron <jbaron@akamai.com>, 
- Luis Chamberlain <mcgrof@kernel.org>, Petr Pavlu <petr.pavlu@suse.com>, 
- Daniel Gomez <da.gomez@kernel.org>, Sami Tolvanen <samitolvanen@google.com>, 
- Aaron Tomlin <atomlin@atomlin.com>, 
- Andrew Morton <akpm@linux-foundation.org>, Jonathan Corbet <corbet@lwn.net>, 
- Shuah Khan <skhan@linuxfoundation.org>, Shuah Khan <shuah@kernel.org>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Jani Nikula <jani.nikula@linux.intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Tvrtko Ursulin <tursulin@ursulin.net>, 
+Message-Id: <20260423-color-format-v14-26-449a419ccbd4@collabora.com>
+References: <20260423-color-format-v14-0-449a419ccbd4@collabora.com>
+In-Reply-To: <20260423-color-format-v14-0-449a419ccbd4@collabora.com>
+To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
+ Rodrigo Siqueira <siqueira@igalia.com>, 
  Alex Deucher <alexander.deucher@amd.com>, 
  =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@redhat.com>, Gerd Hoffmann <kraxel@redhat.com>, 
- Dmitry Osipenko <dmitry.osipenko@collabora.com>, 
- Gurchetan Singh <gurchetansingh@chromium.org>, 
- Chia-I Wu <olvaffe@gmail.com>, Matthew Brost <matthew.brost@intel.com>, 
- =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
- Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>, 
- Patrik Jakobsson <patrik.r.jakobsson@gmail.com>, 
- Zack Rusin <zack.rusin@broadcom.com>, 
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
- Louis Chauvet <louis.chauvet@bootlin.com>, 
- Haneen Mohammed <hamohammed.sa@gmail.com>, 
- Melissa Wen <melissa.srw@gmail.com>, Sean Paul <sean@poorly.run>, 
- Jocelyn Falempe <jfalempe@redhat.com>, Ruben Wauters <rubenru09@aol.com>, 
- Dave Stevenson <dave.stevenson@raspberrypi.com>, 
- =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>, 
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, 
- Rob Clark <robin.clark@oss.qualcomm.com>, 
- Dmitry Baryshkov <lumag@kernel.org>, 
- Abhinav Kumar <abhinav.kumar@linux.dev>, 
- Jessica Zhang <jesszhan0024@gmail.com>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
- Xinliang Liu <xinliang.liu@linaro.org>, Tian Tao <tiantao6@hisilicon.com>, 
- Xinwei Kong <kong.kongxinwei@hisilicon.com>, 
- Sumit Semwal <sumit.semwal@linaro.org>, 
- Yongqin Liu <yongqin.liu@linaro.org>, John Stultz <jstultz@google.com>, 
- Philipp Zabel <p.zabel@pengutronix.de>, Frank Li <Frank.Li@nxp.com>, 
- Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, Chun-Kuang Hu <chunkuang.hu@kernel.org>, 
- Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
- Sandy Huang <hjc@rock-chips.com>, 
- =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
- Andy Yan <andy.yan@rock-chips.com>, Alain Volmat <alain.volmat@foss.st.com>, 
- Raphael Gallais-Pou <rgallaispou@gmail.com>, 
- Yannick Fertre <yannick.fertre@foss.st.com>, 
- Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>, 
- Philippe Cornu <philippe.cornu@foss.st.com>, 
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
- Alexandre Torgue <alexandre.torgue@foss.st.com>, 
- Oded Gabbay <ogabbay@kernel.org>, 
- Maciej Falkowski <maciej.falkowski@linux.intel.com>, 
- Karol Wachowski <karol.wachowski@linux.intel.com>, 
- "Rob Herring (Arm)" <robh@kernel.org>, Tomeu Vizoso <tomeu@tomeuvizoso.net>, 
- Liviu Dudau <liviu.dudau@arm.com>, Andrzej Hajda <andrzej.hajda@intel.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>, 
  Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
  Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
  Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Liu Ying <victor.liu@nxp.com>, 
- Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>, 
- Lucas Stach <l.stach@pengutronix.de>, Paul Kocialkowski <paulk@sys-base.io>, 
- Jianmin Lv <lvjianmin@loongson.cn>, Qianhai Wu <wuqianhai@loongson.cn>, 
- Huacai Chen <chenhuacai@kernel.org>, Mingcong Bai <jeffbai@aosc.io>, 
- Xi Ruoyao <xry111@xry111.site>, Icenowy Zheng <zhengxingda@iscas.ac.cn>, 
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>, 
- Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>, 
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>, 
- Geert Uytterhoeven <geert+renesas@glider.be>, 
- Magnus Damm <magnus.damm@gmail.com>, 
- Javier Martinez Canillas <javierm@redhat.com>, 
- Huang Rui <ray.huang@amd.com>, Matthew Auld <matthew.auld@intel.com>, 
- Jani Nikula <jani.nikula@intel.com>, Luca Coelho <luciano.coelho@intel.com>, 
- Russell King <linux+etnaviv@armlinux.org.uk>, 
- Christian Gmeiner <christian.gmeiner@gmail.com>
-Cc: linux-arch@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-modules@vger.kernel.org, linux-doc@vger.kernel.org, 
- linux-kselftest@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, 
- virtualization@lists.linux.dev, intel-xe@lists.freedesktop.org, 
- nouveau@lists.freedesktop.org, spice-devel@lists.freedesktop.org, 
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, 
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
- linux-mediatek@lists.infradead.org, linux-rockchip@lists.infradead.org, 
- linux-stm32@st-md-mailman.stormreply.com, linux-renesas-soc@vger.kernel.org, 
- etnaviv@lists.freedesktop.org, Jim Cromie <jim.cromie@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1776977636; l=3163;
- i=jim.cromie@gmail.com; s=20260203; h=from:subject:message-id;
- bh=oEsmtxZpy1nA6cwG/GlCHHZozIXv5uvGK/7t8FuqEsQ=;
- b=lJFEKrs7OI72yEbcHyyGRZPIfwBYftyO/2B8JWO8raLEp4blxfP1T+epq6F6qyKAJo6t2pR2/
- sDkfqbYlJtSAFIt3rUWIfc7dHV5sl2JqqN/oqEmXSoIrgPE9+4Ux3y1
-X-Developer-Key: i=jim.cromie@gmail.com; a=ed25519;
- pk=C6E5ODlPQo7ZBynATXH9wg7K6HxP0pIXyf4s38Qw0XE=
+ Sandy Huang <hjc@rock-chips.com>, 
+ =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
+ Andy Yan <andy.yan@rock-chips.com>, 
+ Jani Nikula <jani.nikula@linux.intel.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, Dmitry Baryshkov <lumag@kernel.org>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, Rob Herring <robh@kernel.org>, 
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>
+Cc: kernel@collabora.com, amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
+ linux-doc@vger.kernel.org, wayland-devel@lists.freedesktop.org, 
+ Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+X-Mailer: b4 0.15.2
 X-Mailman-Approved-At: Fri, 24 Apr 2026 08:04:49 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -184,83 +89,239 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add the stub macro for !DYNAMIC_DEBUG builds, after moving the
-original macro-defn down under the big ifdef.  Do it now so future
-changes have a cleaner starting point.
+The common atomic_get_output_bus_fmts helper for HDMI bridge connectors,
+called drm_atomic_helper_bridge_get_hdmi_output_bus_fmts, should return
+an array of output bus formats depending on the supported formats of the
+connector, and the current output BPC.
 
-Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+Add a test to exercise some of this helper.
+
+Reviewed-by: Maxime Ripard <mripard@kernel.org>
+Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 ---
- include/linux/dynamic_debug.h | 43 ++++++++++++++++++++++---------------------
- 1 file changed, 22 insertions(+), 21 deletions(-)
+ drivers/gpu/drm/tests/drm_bridge_test.c | 184 ++++++++++++++++++++++++++++++++
+ 1 file changed, 184 insertions(+)
 
-diff --git a/include/linux/dynamic_debug.h b/include/linux/dynamic_debug.h
-index 05743900a116..a10adac8e8f0 100644
---- a/include/linux/dynamic_debug.h
-+++ b/include/linux/dynamic_debug.h
-@@ -93,27 +93,6 @@ struct ddebug_class_map {
- 	enum class_map_type map_type;
+diff --git a/drivers/gpu/drm/tests/drm_bridge_test.c b/drivers/gpu/drm/tests/drm_bridge_test.c
+index cb821c606070..d9bd930b1197 100644
+--- a/drivers/gpu/drm/tests/drm_bridge_test.c
++++ b/drivers/gpu/drm/tests/drm_bridge_test.c
+@@ -5,6 +5,7 @@
+ #include <linux/cleanup.h>
+ #include <linux/media-bus-format.h>
+ 
++#include <drm/drm_atomic_helper.h>
+ #include <drm/drm_atomic_state_helper.h>
+ #include <drm/drm_atomic_uapi.h>
+ #include <drm/drm_bridge.h>
+@@ -118,6 +119,28 @@ static const struct drm_bridge_funcs drm_test_bridge_atomic_funcs = {
+ 	.atomic_reset		= drm_atomic_helper_bridge_reset,
  };
  
--/**
-- * DECLARE_DYNDBG_CLASSMAP - declare classnames known by a module
-- * @_var:   a struct ddebug_class_map, passed to module_param_cb
-- * @_type:  enum class_map_type, chooses bits/verbose, numeric/symbolic
-- * @_base:  offset of 1st class-name. splits .class_id space
-- * @classes: class-names used to control class'd prdbgs
-- */
--#define DECLARE_DYNDBG_CLASSMAP(_var, _maptype, _base, ...)		\
--	static const char *_var##_classnames[] = { __VA_ARGS__ };	\
--	static struct ddebug_class_map __aligned(8) __used		\
--		__section("__dyndbg_classes") _var = {			\
--		.mod = THIS_MODULE,					\
--		.mod_name = KBUILD_MODNAME,				\
--		.base = _base,						\
--		.map_type = _maptype,					\
--		.length = NUM_TYPE_ARGS(char*, __VA_ARGS__),		\
--		.class_names = _var##_classnames,			\
--	}
--#define NUM_TYPE_ARGS(eltype, ...)				\
--        (sizeof((eltype[]){__VA_ARGS__}) / sizeof(eltype))
--
- /* encapsulate linker provided built-in (or module) dyndbg data */
- struct _ddebug_info {
- 	struct _ddebug *descs;
-@@ -138,6 +117,27 @@ struct ddebug_class_param {
- #if defined(CONFIG_DYNAMIC_DEBUG) || \
- 	(defined(CONFIG_DYNAMIC_DEBUG_CORE) && defined(DYNAMIC_DEBUG_MODULE))
- 
-+/**
-+ * DECLARE_DYNDBG_CLASSMAP - declare classnames known by a module
-+ * @_var:   a struct ddebug_class_map, passed to module_param_cb
-+ * @_type:  enum class_map_type, chooses bits/verbose, numeric/symbolic
-+ * @_base:  offset of 1st class-name. splits .class_id space
-+ * @classes: class-names used to control class'd prdbgs
-+ */
-+#define DECLARE_DYNDBG_CLASSMAP(_var, _maptype, _base, ...)		\
-+	static const char *_var##_classnames[] = { __VA_ARGS__ };	\
-+	static struct ddebug_class_map __aligned(8) __used		\
-+		__section("__dyndbg_classes") _var = {			\
-+		.mod = THIS_MODULE,					\
-+		.mod_name = KBUILD_MODNAME,				\
-+		.base = _base,						\
-+		.map_type = _maptype,					\
-+		.length = NUM_TYPE_ARGS(char*, __VA_ARGS__),		\
-+		.class_names = _var##_classnames,			\
-+	}
-+#define NUM_TYPE_ARGS(eltype, ...)				\
-+	(sizeof((eltype[]) {__VA_ARGS__}) / sizeof(eltype))
++static int dummy_clear_infoframe(struct drm_bridge *bridge)
++{
++	return 0;
++}
 +
- extern __printf(2, 3)
- void __dynamic_pr_debug(struct _ddebug *descriptor, const char *fmt, ...);
++static int dummy_write_infoframe(struct drm_bridge *bridge, const u8 *buffer,
++				 size_t len)
++{
++	return 0;
++}
++
++static const struct drm_bridge_funcs drm_test_bridge_bus_fmts_funcs = {
++	.atomic_get_output_bus_fmts	= drm_atomic_helper_bridge_get_hdmi_output_bus_fmts,
++	.atomic_destroy_state		= drm_atomic_helper_bridge_destroy_state,
++	.atomic_duplicate_state		= drm_atomic_helper_bridge_duplicate_state,
++	.atomic_reset			= drm_atomic_helper_bridge_reset,
++	.hdmi_write_avi_infoframe	= dummy_write_infoframe,
++	.hdmi_write_hdmi_infoframe	= dummy_write_infoframe,
++	.hdmi_clear_avi_infoframe	= dummy_clear_infoframe,
++	.hdmi_clear_hdmi_infoframe	= dummy_clear_infoframe,
++};
++
+ /**
+  * struct fmt_tuple - a tuple of input/output MEDIA_BUS_FMT_*
+  */
+@@ -539,6 +562,83 @@ drm_test_bridge_chain_init(struct kunit *test, unsigned int num_bridges,
+ 	return priv;
+ }
  
-@@ -314,6 +314,7 @@ void __dynamic_ibdev_dbg(struct _ddebug *descriptor,
++static struct drm_bridge_init_priv *
++drm_test_bridge_hdmi_init(struct kunit *test, const struct drm_bridge_funcs *funcs,
++			  unsigned int supported_formats, int max_bpc)
++{
++	struct drm_bridge_init_priv *priv;
++	struct drm_encoder *enc;
++	struct drm_bridge *bridge;
++	struct drm_device *drm;
++	struct device *dev;
++	int ret;
++
++	dev = drm_kunit_helper_alloc_device(test);
++	if (IS_ERR(dev))
++		return ERR_CAST(dev);
++
++	priv = drm_kunit_helper_alloc_drm_device(test, dev,
++						 struct drm_bridge_init_priv, drm,
++						 DRIVER_MODESET | DRIVER_ATOMIC);
++	if (IS_ERR(priv))
++		return ERR_CAST(priv);
++
++	priv->test_bridge = devm_drm_bridge_alloc(dev, struct drm_bridge_priv, bridge, funcs);
++	if (IS_ERR(priv->test_bridge))
++		return ERR_CAST(priv->test_bridge);
++
++	priv->test_bridge->data = priv;
++
++	drm = &priv->drm;
++	priv->plane = drm_kunit_helper_create_primary_plane(test, drm,
++							    NULL,
++							    NULL,
++							    NULL, 0,
++							    NULL);
++	if (IS_ERR(priv->plane))
++		return ERR_CAST(priv->plane);
++
++	priv->crtc = drm_kunit_helper_create_crtc(test, drm,
++						  priv->plane, NULL,
++						  NULL,
++						  NULL);
++	if (IS_ERR(priv->crtc))
++		return ERR_CAST(priv->crtc);
++
++	enc = &priv->encoder;
++	ret = drmm_encoder_init(drm, enc, NULL, DRM_MODE_ENCODER_TMDS, NULL);
++	if (ret)
++		return ERR_PTR(ret);
++
++	enc->possible_crtcs = drm_crtc_mask(priv->crtc);
++
++	bridge = &priv->test_bridge->bridge;
++	bridge->type = DRM_MODE_CONNECTOR_HDMIA;
++	bridge->supported_formats = supported_formats;
++	bridge->max_bpc = max_bpc;
++	bridge->ops |= DRM_BRIDGE_OP_HDMI;
++	bridge->vendor = "LNX";
++	bridge->product = "KUnit";
++
++	ret = drm_kunit_bridge_add(test, bridge);
++	if (ret)
++		return ERR_PTR(ret);
++
++	ret = drm_bridge_attach(enc, bridge, NULL, 0);
++	if (ret)
++		return ERR_PTR(ret);
++
++	priv->connector = drm_bridge_connector_init(drm, enc);
++	if (IS_ERR(priv->connector))
++		return ERR_CAST(priv->connector);
++
++	drm_connector_attach_encoder(priv->connector, enc);
++
++	drm_mode_config_reset(drm);
++
++	return priv;
++}
++
+ /*
+  * Test that drm_bridge_get_current_state() returns the last committed
+  * state for an atomic bridge.
+@@ -786,10 +886,94 @@ static void drm_test_drm_bridge_helper_reset_crtc_legacy(struct kunit *test)
+ 	KUNIT_EXPECT_EQ(test, bridge_priv->disable_count, 1);
+ }
  
- #define DEFINE_DYNAMIC_DEBUG_METADATA(name, fmt)
- #define DYNAMIC_DEBUG_BRANCH(descriptor) false
-+#define DECLARE_DYNDBG_CLASSMAP(...)
++/*
++ * Test that a bridge using the drm_atomic_helper_bridge_get_hdmi_output_bus_fmts()
++ * function for &drm_bridge_funcs.atomic_get_output_bus_fmts behaves as expected
++ * for an HDMI connector bridge. Does so by creating an HDMI bridge connector
++ * with RGB444, YCBCR444, and YCBCR420 (but not YCBCR422) as supported formats,
++ * sets the output depth to 8 bits per component, and then validates the returned
++ * list of bus formats.
++ */
++static void drm_test_drm_bridge_helper_hdmi_output_bus_fmts(struct kunit *test)
++{
++	struct drm_connector_state *conn_state;
++	struct drm_bridge_state *bridge_state;
++	struct drm_modeset_acquire_ctx ctx;
++	struct drm_bridge_init_priv *priv;
++	struct drm_crtc_state *crtc_state;
++	struct drm_atomic_state *state;
++	struct drm_display_mode *mode;
++	unsigned int num_output_fmts;
++	struct drm_bridge *bridge;
++	u32 *out_bus_fmts;
++	int ret;
++
++	priv = drm_test_bridge_hdmi_init(test, &drm_test_bridge_bus_fmts_funcs,
++					 BIT(DRM_OUTPUT_COLOR_FORMAT_RGB444) |
++					 BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR444) |
++					 BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR420),
++					 12);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, priv);
++
++	bridge = &priv->test_bridge->bridge;
++
++	drm_modeset_acquire_init(&ctx, 0);
++
++	state = drm_kunit_helper_atomic_state_alloc(test, &priv->drm, &ctx);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, state);
++
++retry_commit:
++	conn_state = drm_atomic_get_connector_state(state, priv->connector);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, conn_state);
++
++	conn_state->hdmi.output_bpc = 8;
++
++	mode = drm_kunit_display_mode_from_cea_vic(test, &priv->drm, 16);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, mode);
++
++	ret = drm_atomic_set_crtc_for_connector(conn_state, priv->crtc);
++	if (ret == -EDEADLK) {
++		drm_modeset_backoff(&ctx);
++		goto retry_commit;
++	}
++	KUNIT_ASSERT_EQ(test, ret, 0);
++
++	crtc_state = drm_atomic_get_crtc_state(state, priv->crtc);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, crtc_state);
++
++	ret = drm_atomic_set_mode_for_crtc(crtc_state, mode);
++	if (ret == -EDEADLK) {
++		drm_modeset_backoff(&ctx);
++		goto retry_commit;
++	}
++	KUNIT_ASSERT_EQ(test, ret, 0);
++
++	crtc_state->enable = true;
++	crtc_state->active = true;
++
++	bridge_state = drm_atomic_get_bridge_state(state, bridge);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, bridge_state);
++
++	out_bus_fmts = bridge->funcs->atomic_get_output_bus_fmts(
++		bridge, bridge_state, crtc_state, conn_state, &num_output_fmts);
++	KUNIT_EXPECT_NOT_NULL(test, out_bus_fmts);
++	KUNIT_EXPECT_EQ(test, num_output_fmts, 3);
++
++	KUNIT_EXPECT_EQ(test, out_bus_fmts[0], MEDIA_BUS_FMT_RGB888_1X24);
++	KUNIT_EXPECT_EQ(test, out_bus_fmts[1], MEDIA_BUS_FMT_YUV8_1X24);
++	KUNIT_EXPECT_EQ(test, out_bus_fmts[2], MEDIA_BUS_FMT_UYYVYY8_0_5X24);
++
++	drm_modeset_drop_locks(&ctx);
++	drm_modeset_acquire_fini(&ctx);
++
++	kfree(out_bus_fmts);
++}
++
+ static struct kunit_case drm_bridge_helper_reset_crtc_tests[] = {
+ 	KUNIT_CASE(drm_test_drm_bridge_helper_reset_crtc_atomic),
+ 	KUNIT_CASE(drm_test_drm_bridge_helper_reset_crtc_atomic_disabled),
+ 	KUNIT_CASE(drm_test_drm_bridge_helper_reset_crtc_legacy),
++	KUNIT_CASE(drm_test_drm_bridge_helper_hdmi_output_bus_fmts),
+ 	{ }
+ };
  
- #define dynamic_pr_debug(fmt, ...)					\
- 	no_printk(KERN_DEBUG pr_fmt(fmt), ##__VA_ARGS__)
 
 -- 
 2.53.0
