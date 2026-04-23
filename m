@@ -4,72 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C50FDFB44CE
-	for <amd-gfx@archiver.kernel.org>; Fri, 24 Apr 2026 08:05:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5CB56FB44D1
+	for <amd-gfx@archiver.kernel.org>; Fri, 24 Apr 2026 08:05:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EFC6F10F403;
-	Fri, 24 Apr 2026 08:05:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A756710F410;
+	Fri, 24 Apr 2026 08:05:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ZFFpef85";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="qNOATfap";
 	dkim-atps=neutral
-Received: from mail-oi1-f175.google.com (mail-oi1-f175.google.com
- [209.85.167.175])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E794910E213
- for <amd-gfx@lists.freedesktop.org>; Thu, 23 Apr 2026 20:54:08 +0000 (UTC)
-Received: by mail-oi1-f175.google.com with SMTP id
- 5614622812f47-479e4835e16so2475924b6e.1
- for <amd-gfx@lists.freedesktop.org>; Thu, 23 Apr 2026 13:54:08 -0700 (PDT)
+Received: from mail-oi1-f172.google.com (mail-oi1-f172.google.com
+ [209.85.167.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A8CEC10F2A1
+ for <amd-gfx@lists.freedesktop.org>; Thu, 23 Apr 2026 20:54:38 +0000 (UTC)
+Received: by mail-oi1-f172.google.com with SMTP id
+ 5614622812f47-470145d7df5so4423324b6e.0
+ for <amd-gfx@lists.freedesktop.org>; Thu, 23 Apr 2026 13:54:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1776977648; x=1777582448; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1776977678; x=1777582478; darn=lists.freedesktop.org;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=vh+dAS21x3C6ulKovRegxLPmO53GnqH/AjpAPmkhI+c=;
- b=ZFFpef85PM+gNR5T8XilJeoDtJmGgjpxDB4uBu5bTFA7GYEc9oJt2KKbtR3GkimElm
- OGoqNsrKzTaLukeoYe0B1sNIw6FvsJlDOdF9+0M4DgkW6yyvT8MWeYfREbTGN97NpDTX
- StlrXQ1J1nzFpi+i31JcH2kBWh6C4My8NKIp+QQhc7Cec1ug+fZMCbXygHhVpIeMFXfe
- yZ3Ij0cQDshrjqc425Pu4UtSv6xepZo7XblsGSjjrodK89DcRapm1AKtnavWsVr6fF7E
- Uav2QUw67/dWppXwYMNezmQWyWDJswHkRYwGkKPBD+KM7mQccmyPZYF99CsZ9cvyJAm6
- TyqQ==
+ :reply-to; bh=mJr2/Y7a9Z56nZcPhFHsPKIdw2ZGjJ+UXlDP2b9GwxI=;
+ b=qNOATfapIfOLyBcLtzwyAP7gEGnOJ1LNORfkfQDQn0E8v9sMesfuL8Q8aWbVCjH4m9
+ EQdZx0h8MMQeYRke/VNv+4DWpN2BOzJl0W3miTBor4gAOHc/StKjEO5IHemGGPQuFU2K
+ yLXC6mIU0B8A/w+BAjYiEJMPrQCCCMJJ3fbWXbMV7DqUQnwRuqluINwmMekAsE5SoDzb
+ GURAl9myddv4NUqcH/3Ef+6F31ZvUhqR2Y7rPPnDK9eALPQl/D2bioEpJxOAAFCp6tur
+ 63n0QLVaY1eBH0NylK7w071LNsMph2ih19phyx67Wyg3NXARs1ndtbBtSL+4grMILcbT
+ rhsw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1776977648; x=1777582448;
+ d=1e100.net; s=20251104; t=1776977678; x=1777582478;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
  :cc:subject:date:message-id:reply-to;
- bh=vh+dAS21x3C6ulKovRegxLPmO53GnqH/AjpAPmkhI+c=;
- b=jZsYhF2343vFr8y0DJ7i0Y4Ravup/UJwHCXYsyZXykFM6zkjCiuG6NS56HupOE5q37
- yMQBhC7oQJy9xk5gryjAhCV+WlmlikC4ehqAgRVHbHqv6pjuK65c8fOYxMgLGGVFc7h7
- Tpn4lW+PBLkEkam9FWQ2Yx0eme7qdkIuJy+zA6NW0UX8CvLPW4+ROS03CIRe1c1xUDxW
- hY5BaRnzcMpA7Kay0BEeIllWSR0MQXiDraLhg+8ArDiTPNPRpsrkIMo9tn+tl3KMgQWQ
- 7YWzk43Jh8tmHqD8qds2rqmaCtgYfPJoag0XoDde0xl4hTQEejfXZftAnNjdFKpXU8CV
- EPow==
+ bh=mJr2/Y7a9Z56nZcPhFHsPKIdw2ZGjJ+UXlDP2b9GwxI=;
+ b=X93JogTg6YjfkJc6KvcnWDjow1DBiSrOE/o5Fov12qO2IZ6sFgkUtoSlAjPjErb0di
+ F5KUeAZH2sSUdxfqy3q5kbrgcJ7f4qwvIcuUgK4//t/iTHnuXMImT8a8FaTRNLJ+RfFf
+ lxQCOOLjg5MtaICSB9qA1ZCJ/S8BkPxo1DK3358EsymtINkR7vAsdS1F50BEclHYwyO/
+ VfusM0/wS3cBblpUNLAu6zc03I/B8XZ2r1aOopSVu/DTXIzBdv7CsB76hXl3nhfsJigN
+ jjMpnVo4c86cuQ3mx1X2zENcH4DYw+hB8z+SwL5stm+MqOf884y4AAkqJ0V+4oHKEBQ2
+ ScGA==
 X-Forwarded-Encrypted: i=1;
- AFNElJ/+paAEmFaQrbz+wE1CAAJytPVwaeG4zfdaOGub5OzzJHum0WNqBuG6e3zDl4Fm8n+1ifb2E4Ww@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzMf0E055JG+HIjuGV3XCDPrHoiGEa8GShtnuDBWklfCxDV+lhr
- OSDDieDgmWHGs3vS4qErv4/xmUFT+EsHkTxy+sabWDASkv8YPZaldYzG
-X-Gm-Gg: AeBDievizO1OunkFubQClqGa+TLMIyu20HQDmz4mrC2iInZiO285opxZS1gkMW4OwU1
- hpqZ4hROqdNOTE+NggIzrkIZc2eD+bzmWxct1/K4+U3KI62INQ3MUcvhjDNi7MGULSkjTdu8kt4
- 2rGHvaLrFOAo/ImO+UZCrZ0yYdq70gKqLC3BEgAEf7DFm2nO2uSjmw7lRuKqJCGBZOC8bHYMCIU
- PlVFAfNRrpb30amIcxOSr7oBGKctfxfsuQCrabc2dzuUw9/Wcpx2nXD7Ot7sYay7ttz6GvG3g4t
- saL9+4PdkNLxi3v6r2MSvVfvJhlqky1Fy28cnDSLqLxv1+AKgH5IpZJAL25eVTpWnPZdqt8yl8X
- yOFGcSjg7/0SQab4WQPTSnHoqR73tw8PdWiVqw4+sDOM4ggOqc2Lrf8+9AixrCyqdqGFmBpX4wn
- avBIMe6uYY175V205bnoedXrFRWD7IihO39DQPNV4dydOe9wOcIeqz8xTsuIa3WWm9z078HUvcb
- EJF/pbOMt0=
-X-Received: by 2002:a05:6808:138b:b0:45f:59e:1e06 with SMTP id
- 5614622812f47-4799c8711e1mr17988935b6e.4.1776977647783; 
- Thu, 23 Apr 2026 13:54:07 -0700 (PDT)
+ AFNElJ8BS6VuIMiEBp/i7su5huTy4+YAqWoV6l/k6uzK78UpGbKRK27Xz2iBdoSKukmC7glCkpYqVyrv@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwwtMzXTyojK+wBWD2+3o/GRl/p6mmYjsq82eWlmXKoNCaviIjc
+ ivaYV7qyvp0K71zese8uCwBq4R+bgUMpeSCmJUpynrml5RGKvhrqWKdc
+X-Gm-Gg: AeBDieuJp7WMz5RxWeccW6cEuLeynHw3QIdeFG1VUwTkm/9YOi9t48gU/8lCLkVTjGo
+ oaK7Ox/duSqsG5lpopf6eiqT1HVfwSEpx41VUzHfrlllVmESVhG9+7GuvT0iOjjokAyasFY7PBT
+ mH69NMvB2RI8K9o2NaI10H6kalJoX4tqrn4Fld8Sge+b8FGK17/0gTze4fZlxlZrY341uCW0aed
+ cllGvx7VMKcrf8/ehzmesm7OF6QmrrLrld+fQMJmEuj/dwaBBJEL5QTrNFj7lDGYxoHxT2vCiA2
+ 25RYo6UAlVLa6mo6EtJgtGhSYY2dQvVSVjcv5PpSr9Iut3em5U+YjdouevLGZnYi+ZBK6mApov5
+ eQIRLiTmDWEpKiBae0PC5mkslqpJvrjw0u6+VZiFtW6XAJGPkIz/zUYV1eOsqvYjtkm6nc8wjTE
+ FeMBtr1d9PEEp81XlKkzWBkS5cp9NxLHk+Qv9Y9DgRTiabMb6UCQK1eiJCfrdKgiM3gzCxgu+h
+X-Received: by 2002:a05:6808:d51:b0:466:f60b:19d7 with SMTP id
+ 5614622812f47-4799c8febffmr15113908b6e.1.1776977677733; 
+ Thu, 23 Apr 2026 13:54:37 -0700 (PDT)
 Received: from [192.168.0.245] (c-98-38-17-99.hsd1.co.comcast.net.
  [98.38.17.99]) by smtp.googlemail.com with ESMTPSA id
- 5614622812f47-4799fead505sm14329744b6e.2.2026.04.23.13.54.03
+ 5614622812f47-4799fead505sm14329744b6e.2.2026.04.23.13.54.33
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 23 Apr 2026 13:54:07 -0700 (PDT)
+ Thu, 23 Apr 2026 13:54:37 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
-Date: Thu, 23 Apr 2026 14:53:42 -0600
-Subject: [PATCH v14 01/92] dyndbg: fix NULL ptr on i386 due to section
- mis-alignment
+Date: Thu, 23 Apr 2026 14:53:48 -0600
+Subject: [PATCH v14 07/92] docs/dyndbg: update examples \012 to \n
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260423-submit-dyndbg-classmap-foundation-v14-1-2b809a8019d0@gmail.com>
+Message-Id: <20260423-submit-dyndbg-classmap-foundation-v14-7-2b809a8019d0@gmail.com>
 References: <20260423-submit-dyndbg-classmap-foundation-v14-0-2b809a8019d0@gmail.com>
 In-Reply-To: <20260423-submit-dyndbg-classmap-foundation-v14-0-2b809a8019d0@gmail.com>
 To: Arnd Bergmann <arnd@arndb.de>, Jason Baron <jbaron@akamai.com>, 
@@ -162,17 +160,16 @@ Cc: linux-arch@vger.kernel.org, linux-kernel@vger.kernel.org,
  imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
  linux-mediatek@lists.infradead.org, linux-rockchip@lists.infradead.org, 
  linux-stm32@st-md-mailman.stormreply.com, linux-renesas-soc@vger.kernel.org, 
- etnaviv@lists.freedesktop.org, Jim Cromie <jim.cromie@gmail.com>, 
- kernel test robot <oliver.sang@intel.com>
+ etnaviv@lists.freedesktop.org, Jim Cromie <jim.cromie@gmail.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1776977636; l=2644;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1776977636; l=2677;
  i=jim.cromie@gmail.com; s=20260203; h=from:subject:message-id;
- bh=YvI+c+2Ph7G01gY6UA2wVrmrHHoi2nJdOmOI4+tqFF4=;
- b=JyTcuYLHHiwHBHDMwQ80bkTwG2D19eoKHDE+tl83KcpGRfh3fZenxZ7q9Sw+M3I1crSkiEMPL
- U/h1shBkXbNDxTVmN1qvPMSBm5G8hxuK6TqMgzZBBZXdklZASPjpC8F
+ bh=siK3DbSjtbdXIzp+rb57NbLxo/EWi9u81nppU4wsdus=;
+ b=ePiF0EDWwi/oQY3TXS9i+qRl3hbaq3feRkC0e2PDbzK0sheeYllu5PZJlb5eUbhbmthqySsq4
+ IoWvb2TDFhCDz/i/TjB+nfqMjI3xELvbI8eTQStIQFj10HRY4dVJV1a
 X-Developer-Key: i=jim.cromie@gmail.com; a=ed25519;
  pk=C6E5ODlPQo7ZBynATXH9wg7K6HxP0pIXyf4s38Qw0XE=
-X-Mailman-Approved-At: Fri, 24 Apr 2026 08:04:49 +0000
+X-Mailman-Approved-At: Fri, 24 Apr 2026 08:04:50 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -187,77 +184,55 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-When dyndbg classmaps get used (later in this series), the
-__dyndbg_classes section (which has 28 byte structs on i386), causes
-mis-alignment of the following __dyndbg section, resulting in a NULL
-pointer deref in dynamic_debug_init().
+commit 47ea6f99d06e ("dyndbg: use ESCAPE_SPACE for cat control")
+changed the control-file to display format strings with "\n" rather
+than "\012".  Update the docs to match the new reality.
 
-Fix this by:
-
-Adding ALIGN(8) to the BOUNDED_SECTION* macros.  This aligns all
-sections using those macros, including the problem section above.
-Almost all the other macro uses are already ALIGN(8), either
-directly or by being below one.
-
-Removing BOUNDED_SECTION* uses in ORC_UNWINDER sections.  These
-explicitly have smaller alignments, and using the modified macros here
-would override that alignment, which scripts/sorttable.c does not
-tolerate.
-
-Move __dyndbg section back above __dyndbg_classes, restoring its
-original position.  This is cosmetic, given the alignment added to the
-macros.
-
-Reported-by: kernel test robot <oliver.sang@intel.com>
-Closes: https://lore.kernel.org/oe-lkp/202601211325.7e1f336-lkp@intel.com
+Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
+Tested-by: Louis Chauvet <louis.chauvet@bootlin.com>
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- include/asm-generic/vmlinux.lds.h | 14 +++++++++++---
- 1 file changed, 11 insertions(+), 3 deletions(-)
+ Documentation/admin-guide/dynamic-debug-howto.rst | 20 ++++++++++----------
+ 1 file changed, 10 insertions(+), 10 deletions(-)
 
-diff --git a/include/asm-generic/vmlinux.lds.h b/include/asm-generic/vmlinux.lds.h
-index 60c8c22fd3e4..db38f52035f3 100644
---- a/include/asm-generic/vmlinux.lds.h
-+++ b/include/asm-generic/vmlinux.lds.h
-@@ -212,11 +212,13 @@
- #endif
+diff --git a/Documentation/admin-guide/dynamic-debug-howto.rst b/Documentation/admin-guide/dynamic-debug-howto.rst
+index 095a63892257..4b14d9fd0300 100644
+--- a/Documentation/admin-guide/dynamic-debug-howto.rst
++++ b/Documentation/admin-guide/dynamic-debug-howto.rst
+@@ -38,12 +38,12 @@ You can view the currently configured behaviour in the *prdbg* catalog::
  
- #define BOUNDED_SECTION_PRE_LABEL(_sec_, _label_, _BEGIN_, _END_)	\
-+	. = ALIGN(8);							\
- 	_BEGIN_##_label_ = .;						\
- 	KEEP(*(_sec_))							\
- 	_END_##_label_ = .;
+   :#> head -n7 /proc/dynamic_debug/control
+   # filename:lineno [module]function flags format
+-  init/main.c:1179 [main]initcall_blacklist =_ "blacklisting initcall %s\012
+-  init/main.c:1218 [main]initcall_blacklisted =_ "initcall %s blacklisted\012"
+-  init/main.c:1424 [main]run_init_process =_ "  with arguments:\012"
+-  init/main.c:1426 [main]run_init_process =_ "    %s\012"
+-  init/main.c:1427 [main]run_init_process =_ "  with environment:\012"
+-  init/main.c:1429 [main]run_init_process =_ "    %s\012"
++  init/main.c:1179 [main]initcall_blacklist =_ "blacklisting initcall %s\n"
++  init/main.c:1218 [main]initcall_blacklisted =_ "initcall %s blacklisted\n"
++  init/main.c:1424 [main]run_init_process =_ "  with arguments:\n"
++  init/main.c:1426 [main]run_init_process =_ "    %s\n"
++  init/main.c:1427 [main]run_init_process =_ "  with environment:\n"
++  init/main.c:1429 [main]run_init_process =_ "    %s\n"
  
- #define BOUNDED_SECTION_POST_LABEL(_sec_, _label_, _BEGIN_, _END_)	\
-+	. = ALIGN(8);							\
- 	_label_##_BEGIN_ = .;						\
- 	KEEP(*(_sec_))							\
- 	_label_##_END_ = .;
-@@ -862,15 +864,21 @@
- #ifdef CONFIG_UNWINDER_ORC
- #define ORC_UNWIND_TABLE						\
- 	.orc_header : AT(ADDR(.orc_header) - LOAD_OFFSET) {		\
--		BOUNDED_SECTION_BY(.orc_header, _orc_header)		\
-+		__start_orc_header = .;					\
-+		KEEP(*(.orc_header))					\
-+		__stop_orc_header = .;					\
- 	}								\
- 	. = ALIGN(4);							\
- 	.orc_unwind_ip : AT(ADDR(.orc_unwind_ip) - LOAD_OFFSET) {	\
--		BOUNDED_SECTION_BY(.orc_unwind_ip, _orc_unwind_ip)	\
-+		__start_orc_unwind_ip = .;				\
-+		KEEP(*(.orc_unwind_ip))					\
-+		__stop_orc_unwind_ip = .;				\
- 	}								\
- 	. = ALIGN(2);							\
- 	.orc_unwind : AT(ADDR(.orc_unwind) - LOAD_OFFSET) {		\
--		BOUNDED_SECTION_BY(.orc_unwind, _orc_unwind)		\
-+		__start_orc_unwind = .;					\
-+		KEEP(*(.orc_unwind))					\
-+		__stop_orc_unwind = .;					\
- 	}								\
- 	text_size = _etext - _stext;					\
- 	. = ALIGN(4);							\
+ The 3rd space-delimited column shows the current flags, preceded by
+ a ``=`` for easy use with grep/cut. ``=p`` shows enabled callsites.
+@@ -59,10 +59,10 @@ query/commands to the control file.  Example::
+ 
+   :#> ddcmd '-p; module main func run* +p'
+   :#> grep =p /proc/dynamic_debug/control
+-  init/main.c:1424 [main]run_init_process =p "  with arguments:\012"
+-  init/main.c:1426 [main]run_init_process =p "    %s\012"
+-  init/main.c:1427 [main]run_init_process =p "  with environment:\012"
+-  init/main.c:1429 [main]run_init_process =p "    %s\012"
++  init/main.c:1424 [main]run_init_process =p "  with arguments:\n"
++  init/main.c:1426 [main]run_init_process =p "    %s\n"
++  init/main.c:1427 [main]run_init_process =p "  with environment:\n"
++  init/main.c:1429 [main]run_init_process =p "    %s\n"
+ 
+ Error messages go to console/syslog::
+ 
 
 -- 
 2.53.0
