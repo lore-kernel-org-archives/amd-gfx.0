@@ -4,63 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DA392FDEE48
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EF446FDEE47
 	for <amd-gfx@archiver.kernel.org>; Thu, 23 Apr 2026 19:15:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 77B3B10F264;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 88B8110F24F;
 	Thu, 23 Apr 2026 19:15:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="f7VQ4QjZ";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="SeH0Vrbm";
 	dkim-atps=neutral
-Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com
- [209.85.221.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5689910F23D
- for <amd-gfx@lists.freedesktop.org>; Thu, 23 Apr 2026 19:15:26 +0000 (UTC)
-Received: by mail-wr1-f52.google.com with SMTP id
- ffacd0b85a97d-43fe62837baso4286536f8f.3
- for <amd-gfx@lists.freedesktop.org>; Thu, 23 Apr 2026 12:15:26 -0700 (PDT)
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com
+ [209.85.128.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6A60710F24F
+ for <amd-gfx@lists.freedesktop.org>; Thu, 23 Apr 2026 19:15:27 +0000 (UTC)
+Received: by mail-wm1-f53.google.com with SMTP id
+ 5b1f17b1804b1-488b3f8fa2bso70845325e9.1
+ for <amd-gfx@lists.freedesktop.org>; Thu, 23 Apr 2026 12:15:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1776971725; x=1777576525; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1776971726; x=1777576526; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=wbwvXexGBuwDQrR6bVA4Yq59xFwjuTbqWzJZyNZMULY=;
- b=f7VQ4QjZqhwUW9u8UJcXpNzEc37ytQwEKDf+zyk/1kfLBOxavBu/aQNOgPZHw5Z0ue
- 5Q35nNk2wGsUM40WQ9b5J0/NtClF2XBvIVM77HWfa/lLYbfyzdH1+LrVSZBCWUlbpFf7
- 8s56FQc9wSvhA/fWQEp3InY5nf7bNzNCn6pd+lYGQa6kz/MeWO2j+f4BKcYot2SOLDBM
- y0+r7EJ/c+PZ/7mJcsiYUV4CjNnDb+MxQ4sfDO+wd2WjrlzpSHZ39F9COzkWu8ewfczI
- 8d8e884a8+uqkyIYxjJYdhqTP8rUkgpRs91+PV/O3euMNKQRHOCkE8IGdBbgekKxyu/K
- XNMg==
+ bh=PyzjHn1+4x3a8NDfXNzldgyxCZU5mudONlR0gNcG9B8=;
+ b=SeH0VrbmXy121L4vWcQ5MtJw36QcW7Cs1AT1aFIq+bM3YL4tTzYOynr5WvytwOiW49
+ oSibl+lE2LfYl5g5X9k+MexuCVm9ILrVAFuukjzJVosgPEQPr13Jwj5CPcuLsGe5zMZa
+ HGBNwS3NHM3Vikfq8fR0Vf2RJ6sS8Pru3IO0Y8I7lSXO+WpqTY40T9lisEehzM7ZJ5RI
+ d+nmVlU0gofZkYr+GWPW6wyxEDyrwodU0Jxe7w4Ga2zJ76qwcDyXO7LyrrcA15XfHaHk
+ FNNKe5X1O89qS8EIgZ7RUC4ZKRihNPecNXJVKWIEkibDsdFKegt6npxk0iPHBir6C9c1
+ uQXQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1776971725; x=1777576525;
+ d=1e100.net; s=20251104; t=1776971726; x=1777576526;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=wbwvXexGBuwDQrR6bVA4Yq59xFwjuTbqWzJZyNZMULY=;
- b=Uon3WPOOAJQd2D5BVuFo4bphP5naW3fFqvfsNtCyBWTuYs1F75TGfiY1BkYXInrsTi
- /Gf5L85qPDp7yeBz71F/wzFwL0iIkPKjnHg5ZBGNN56mRlRHRiKJ9Se6t01Xqe0nbJRp
- AuoteQaOrm3FufAedxc+nGC8+PTB6aCAVEchwAz7O5Pn32TJ4s/uyXb96Wv6hpcsUaDY
- VA7xeWbxdC+6JI6OuioG559xkqn4v2KPw4puk+DeuDzYboFBlVb4R900xxul6KC9NF3P
- KGbfbqNwAP2/EdpCTKx4HcmbNelusql9GXJNegpDoidoTzUv/eXe1nmRVAAXrogbilrS
- dFGw==
-X-Gm-Message-State: AOJu0Yw9mE79s+/kWFMZy87bz2+xuNel2zzaCF2P3LHONeqOr7riu88T
- t1OcK5KyWK1QguIHnbGL8b7QGeVxMBi/VFBEERoWNWQmCqpAmTLC+4hhRNnlAv2h
-X-Gm-Gg: AeBDietjuDmgWxpseDZr05bFmmO+srVKVYFyhtkZajBUDSfhUgRSDanzmY70/ikZGmP
- z93DUxq/VOoTETyLHnIA+kKxmRV5P3VkDAoQOpINc8BopWX+IRdUFmh0H3A7z3Hs7J7eUCXT50D
- wP77jdAUhAmImjIL723wc979Gbch2MByZpIA5XUEguv14wxbazBkAMVvxISXuCqv+3Q05qcknQb
- q7mS7+FkhBZu8Ay10yJ/DWNo5xfYhWdeZ+AFC1Kg1wBMLvr5jsloD8mKUonFyw3k/wLhWNQQXdC
- ilwzB9LmLXa8un7Qvdn1nGTBxLFV7zLSOwOvp4PFMPr8jnyO5fTfjwwA4JszcdEf8GaN6mfMHAR
- inEkRo4e1VASpB2oHsQ42QnDOEj255HcwZWlq43nORrKYHMvFX5f4vij1QPsvx85m9nc3a8o9Q1
- QjZ4yd+60vyLQzkN29KOwIioxBS2KNIyOWJHvX3F9ApPyPHIOoDrnhr/zAD4p7vv7NnFGaFqQYq
- j7I6w==
-X-Received: by 2002:a05:6000:26c6:b0:43c:f66e:f31 with SMTP id
- ffacd0b85a97d-43fe3df24f7mr42578857f8f.27.1776971724705; 
- Thu, 23 Apr 2026 12:15:24 -0700 (PDT)
+ bh=PyzjHn1+4x3a8NDfXNzldgyxCZU5mudONlR0gNcG9B8=;
+ b=qhjBGYiJsa1Ukdt+1eM/4AYMaOy5xVjXqmxAm7TUBVc49ElZidyyJ3GHGLm5b39G6w
+ lfKVRkFCXS86eCsJZQ4Vof2hVx6APGmrRmIawfc00Ki842yfAxywHPhjf5LEILdmuXqz
+ joSLTAUqEqETstUZyv9/eQM1HQerBgOoM7ZiOn84+5V1Tx1iI5rZx6ceuzhYy9UQZTEx
+ ZrygMH8r2i2HrOO6LVgJ//otG7tdCWujJomgBxKA8A3mmiFpTK2Nz4oMEWRN9b36qFc6
+ SCZv+WtEfGhwCn45aRJnkFIR7lSJSYeaMui3+nho3rGBne4iiXgkp8UMUVfwQfLUU8+r
+ 3Fww==
+X-Gm-Message-State: AOJu0YznyK63p+mSeAl/5s5G7FT7SZoa/CWOUgwVEY80YuuEwKbvcCL+
+ F7lJpfQRAZZfOOV/3UoEPRLgwu7caGo3PW5e3qPyJNO/rpCIBYxsl2ih0JRPPjW7
+X-Gm-Gg: AeBDieu9L8JmQtMJTQjZkXv+5TE+ne0coRRwPBqFNG4uarYugOBcqotJN4Y6KoEYjEX
+ kpcY1MduWtRWkRyx3qKx+POfdImqDIZrbiSzJlkCY3DXY79NUULOnlkaoB+UXIHHhp171SoMI2E
+ hI7CWAV+go9CmFrvSzyjN4M1FeDozNrnaAmbB30Zmrm6cI81BRIRS9RNP71Kv12wko5mMFYbMCD
+ OExqI9kjrnTH1h/3JQoRqm13NQeWw6yOAmP3VADFGIHqLnwhU2oT+Gpd+FSyuwf3HqGfiJLFxtI
+ Ykkge2S1augqq/QpyYAAzmtPDpn+73gr9HUiuSFNTUxNKY4qn/788ECSuytjG6qWoimAZkEk5IM
+ xkynOW1ViUXlMIYvx6mIOXCQZ6OK98rnIvaqa6yuqiSpUKL2lbngBrhfCVhytuIayRZTFhcXa9D
+ xPFK6mklhEBCnhDoqBv7RYYY0wBl+g7WsDkp/j3oe29E7vXNm91Uj3O5BlaVjZh6NX3UPh6F+HL
+ nI0MA==
+X-Received: by 2002:a05:600c:a410:b0:48a:5821:6006 with SMTP id
+ 5b1f17b1804b1-48a5821692dmr143202705e9.4.1776971725738; 
+ Thu, 23 Apr 2026 12:15:25 -0700 (PDT)
 Received: from Timur-Hyperion.home (5E1B98A2.dsl.pool.telekom.hu.
  [94.27.152.162]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-44123d23e0bsm15792782f8f.15.2026.04.23.12.15.23
+ ffacd0b85a97d-44123d23e0bsm15792782f8f.15.2026.04.23.12.15.24
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 23 Apr 2026 12:15:24 -0700 (PDT)
+ Thu, 23 Apr 2026 12:15:25 -0700 (PDT)
 From: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
 To: amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com,
  Alex Hung <alex.hung@amd.com>, Harry Wentland <Harry.Wentland@amd.com>,
@@ -69,9 +69,10 @@ To: amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com,
  Mario Limonciello <mario.limonciello@amd.com>,
  Ivan Lipski <ivan.lipski@amd.com>, Melissa Wen <mwen@igalia.com>
 Cc: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
-Subject: [PATCH 02/14] drm/amd/display: Delete dce_get_required_clocks_state()
-Date: Thu, 23 Apr 2026 21:15:07 +0200
-Message-ID: <20260423191519.73127-3-timur.kristof@gmail.com>
+Subject: [PATCH 03/14] drm/amd/display: Remove min/max clock levels from
+ clk_mgr
+Date: Thu, 23 Apr 2026 21:15:08 +0200
+Message-ID: <20260423191519.73127-4-timur.kristof@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260423191519.73127-1-timur.kristof@gmail.com>
 References: <20260423191519.73127-1-timur.kristof@gmail.com>
@@ -92,73 +93,100 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-It is not called from anywhere anymore.
+These fields are not used by anything anymore.
 
 Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
 ---
- .../display/dc/clk_mgr/dce100/dce_clk_mgr.c   | 34 -------------------
- .../display/dc/clk_mgr/dce100/dce_clk_mgr.h   |  3 --
- 2 files changed, 37 deletions(-)
+ .../amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c   | 14 --------------
+ .../display/dc/clk_mgr/dce112/dce112_clk_mgr.c    | 15 ---------------
+ .../drm/amd/display/dc/inc/hw/clk_mgr_internal.h  |  2 --
+ 3 files changed, 31 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c
-index ffb70120362e7..988eb6f841f54 100644
+index 988eb6f841f54..2ba341df7fffd 100644
 --- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c
 +++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c
-@@ -220,40 +220,6 @@ uint32_t dce_get_max_pixel_clock_for_all_paths(struct dc_state *context)
- 	return max_pix_clk;
- }
+@@ -257,11 +257,6 @@ int dce_set_clock(
+ 		actual_clock = pxl_clk_params.dfs_bypass_display_clock;
+ 	}
  
--enum dm_pp_clocks_state dce_get_required_clocks_state(
--	struct clk_mgr *clk_mgr_base,
--	struct dc_state *context)
--{
--	struct clk_mgr_internal *clk_mgr_dce = TO_CLK_MGR_INTERNAL(clk_mgr_base);
--	int i;
--	enum dm_pp_clocks_state low_req_clk;
--	int max_pix_clk = dce_get_max_pixel_clock_for_all_paths(context);
+-	/* from power down, we need mark the clock state as ClocksStateNominal
+-	 * from HWReset, so when resume we will call pplib voltage regulator.*/
+-	if (requested_clk_khz == 0)
+-		clk_mgr_dce->cur_min_clks_state = DM_PP_CLOCKS_STATE_NOMINAL;
 -
--	/* Iterate from highest supported to lowest valid state, and update
--	 * lowest RequiredState with the lowest state that satisfies
--	 * all required clocks
--	 */
--	for (i = clk_mgr_dce->max_clks_state; i >= DM_PP_CLOCKS_STATE_ULTRA_LOW; i--)
--		if (context->bw_ctx.bw.dce.dispclk_khz >
--				clk_mgr_dce->max_clks_by_state[i].display_clk_khz
--			|| max_pix_clk >
--				clk_mgr_dce->max_clks_by_state[i].pixel_clk_khz)
--			break;
--
--	low_req_clk = i + 1;
--	if (low_req_clk > clk_mgr_dce->max_clks_state) {
--		/* set max clock state for high phyclock, invalid on exceeding display clock */
--		if (clk_mgr_dce->max_clks_by_state[clk_mgr_dce->max_clks_state].display_clk_khz
--				< context->bw_ctx.bw.dce.dispclk_khz)
--			low_req_clk = DM_PP_CLOCKS_STATE_INVALID;
+ 	if (dmcu && dmcu->funcs->is_dmcu_initialized(dmcu))
+ 		dmcu->funcs->set_psr_wait_loop(dmcu, actual_clock / 1000 / 7);
+ 
+@@ -425,7 +420,6 @@ void dce_clk_mgr_construct(
+ 		struct clk_mgr_internal *clk_mgr)
+ {
+ 	struct clk_mgr *base = &clk_mgr->base;
+-	struct dm_pp_static_clock_info static_clk_info = {0};
+ 
+ 	if (ctx->dce_version <= DCE_VERSION_6_4)
+ 		memcpy(clk_mgr->max_clks_by_state,
+@@ -451,14 +445,6 @@ void dce_clk_mgr_construct(
+ 	clk_mgr->dprefclk_ss_divider = 1000;
+ 	clk_mgr->ss_on_dprefclk = false;
+ 
+-	if (ctx->dce_version >= DCE_VERSION_8_0) {
+-		if (dm_pp_get_static_clocks(ctx, &static_clk_info))
+-			clk_mgr->max_clks_state = static_clk_info.max_clocks_state;
 -		else
--			low_req_clk = clk_mgr_dce->max_clks_state;
+-			clk_mgr->max_clks_state = DM_PP_CLOCKS_STATE_NOMINAL;
+-		clk_mgr->cur_min_clks_state = DM_PP_CLOCKS_STATE_INVALID;
 -	}
 -
--	return low_req_clk;
--}
+ 	base->clks.max_supported_dispclk_khz =
+ 		clk_mgr->max_clks_by_state[DM_PP_CLOCKS_STATE_PERFORMANCE].display_clk_khz;
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dce112/dce112_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dce112/dce112_clk_mgr.c
+index 48393c69735b6..0f3f8df4df96a 100644
+--- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dce112/dce112_clk_mgr.c
++++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dce112/dce112_clk_mgr.c
+@@ -89,13 +89,6 @@ int dce112_set_clock(struct clk_mgr *clk_mgr_base, int requested_clk_khz)
+ 	bp->funcs->set_dce_clock(bp, &dce_clk_params);
+ 	actual_clock = dce_clk_params.target_clock_frequency;
+ 
+-	/*
+-	 * from power down, we need mark the clock state as ClocksStateNominal
+-	 * from HWReset, so when resume we will call pplib voltage regulator.
+-	 */
+-	if (requested_clk_khz == 0)
+-		clk_mgr_dce->cur_min_clks_state = DM_PP_CLOCKS_STATE_NOMINAL;
+-
+ 	/*Program DP ref Clock*/
+ 	/*VBIOS will determine DPREFCLK frequency, so we don't set it*/
+ 	dce_clk_params.target_clock_frequency = 0;
+@@ -143,14 +136,6 @@ int dce112_set_dispclk(struct clk_mgr_internal *clk_mgr, int requested_clk_khz)
+ 	bp->funcs->set_dce_clock(bp, &dce_clk_params);
+ 	actual_clock = dce_clk_params.target_clock_frequency;
+ 
+-	/*
+-	 * from power down, we need mark the clock state as ClocksStateNominal
+-	 * from HWReset, so when resume we will call pplib voltage regulator.
+-	 */
+-	if (requested_clk_khz == 0)
+-		clk_mgr->cur_min_clks_state = DM_PP_CLOCKS_STATE_NOMINAL;
 -
 -
- /* TODO: remove use the two broken down functions */
- int dce_set_clock(
- 	struct clk_mgr *clk_mgr_base,
-diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.h b/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.h
-index f6622f58f62eb..f9f0cfa2a7b20 100644
---- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.h
-+++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.h
-@@ -32,9 +32,6 @@
- /* functions shared by other dce clk mgrs */
- int dce_adjust_dp_ref_freq_for_ss(struct clk_mgr_internal *clk_mgr_dce, int dp_ref_clk_khz);
- int dce_get_dp_ref_freq_khz(struct clk_mgr *clk_mgr_base);
--enum dm_pp_clocks_state dce_get_required_clocks_state(
--	struct clk_mgr *clk_mgr_base,
--	struct dc_state *context);
+ 	if (dmcu && dmcu->funcs->is_dmcu_initialized(dmcu)) {
+ 		if (clk_mgr->dfs_bypass_disp_clk != actual_clock)
+ 			dmcu->funcs->set_psr_wait_loop(dmcu,
+diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw/clk_mgr_internal.h b/drivers/gpu/drm/amd/display/dc/inc/hw/clk_mgr_internal.h
+index c69ccfcebeb5a..e01bf6bd7f3f4 100644
+--- a/drivers/gpu/drm/amd/display/dc/inc/hw/clk_mgr_internal.h
++++ b/drivers/gpu/drm/amd/display/dc/inc/hw/clk_mgr_internal.h
+@@ -477,8 +477,6 @@ struct clk_mgr_internal {
+ 	 */
+ 	int dprefclk_ss_divider;
  
- uint32_t dce_get_max_pixel_clock_for_all_paths(struct dc_state *context);
+-	enum dm_pp_clocks_state max_clks_state;
+-	enum dm_pp_clocks_state cur_min_clks_state;
+ 	bool periodic_retraining_disabled;
  
+ 	unsigned int cur_phyclk_req_table[MAX_LINKS];
 -- 
 2.53.0
 
