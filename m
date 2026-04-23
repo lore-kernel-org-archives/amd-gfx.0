@@ -4,173 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3CC2CFB44D3
-	for <amd-gfx@archiver.kernel.org>; Fri, 24 Apr 2026 08:05:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B5F42FB44CC
+	for <amd-gfx@archiver.kernel.org>; Fri, 24 Apr 2026 08:05:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EC1DC10F414;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 79D4A10F40B;
 	Fri, 24 Apr 2026 08:05:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="CwLvbBcD";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="Fw+r1suW";
 	dkim-atps=neutral
-Received: from mail-oi1-f182.google.com (mail-oi1-f182.google.com
- [209.85.167.182])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 648C010F28B
- for <amd-gfx@lists.freedesktop.org>; Thu, 23 Apr 2026 20:55:14 +0000 (UTC)
-Received: by mail-oi1-f182.google.com with SMTP id
- 5614622812f47-45f053b7b90so4049947b6e.0
- for <amd-gfx@lists.freedesktop.org>; Thu, 23 Apr 2026 13:55:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1776977713; x=1777582513; darn=lists.freedesktop.org;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=xQ+t538DK5KlP4845w+LRXbRqcfRle16Hyt2NlH5lpA=;
- b=CwLvbBcDI7on2CgPi0CLWd6ZUppLjlvy0UfPw8XHj735F18qGreAQXkNLtWgl4PKZK
- Dxuy5DMgF/Hn9A1htFVC7mWfIVeIAFy/q6DLEKaI4/y/kM+Rv9hNi8KU1GqRa9cYj56O
- YyTiVyUkQSE19lJTyc/M85R6+hd60X2OYAZplfcaYyZlP3At0JjiSmf58Vx/qfHhnZOZ
- 4QF3vvYhfzjzVmdLOWPRQzj+af6JFQe0NnTG2IkZK2IE2kn+TFfST8LQGM6HLBzSvl3r
- 0QOw2yowj/s5BN2J2WjlR0zm1Taa+kTpodCFZ9z8xDFNiRSv+AryZ31zom+kMes2NZd0
- iAfQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1776977713; x=1777582513;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to;
- bh=xQ+t538DK5KlP4845w+LRXbRqcfRle16Hyt2NlH5lpA=;
- b=KqPFPD4MvrmERLmIvYUBtZv+HOC/5+n+yC8afvbzQxP+WCUYP18uoVBcwuZnRw0Wxv
- lh3g1lds5SfVTI/rziCdqRb3w1XPduTOTWr0vK7Ms2k2vAP04EG94NPxSe0CBwIBit4y
- GcqQskPKWiW630ibu04yE9eD/VLD6FmpO1vdiea1lMnE8ZbfwYzp5Qm6IETi327IZjvL
- OeNVpa5tha5S3CJI1ED6kjsyE3GeWihRWkD9XFNEPc9irftvmZQVY7i52S+GNI+COHZa
- tU/GFosW04vyO2eFSUvRc0oJyOmHBYS0Bz0em3y09vjt/D43h1hZjz+RDtHe4j4zRRmQ
- FUfg==
-X-Forwarded-Encrypted: i=1;
- AFNElJ/vgPI9ixTNXRLyORYEQBE/bZjsiCB6EBs/siS2NsIb5cUm0G2yhZYuPxbhaJ5ZkSA46u5H5IX5@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzcMjBvsH5K9PBXokWHsHsZQrXFgZ6u6DPYmZKvaQ+DCwYsZKr1
- dOHX4m73fPbRgY1NrDPHfjeT23fDgzVNxA6KPCeVoAP+B1MwaPGIK4kI
-X-Gm-Gg: AeBDieunnsDt3wCeKo/bkdOcGIWpWrD2L75vfo0DlGIJMYWX3+UnUxLyw3l6n1dFPLP
- GqvlAnkOv4vBYiycCD0QA01WiiIj1ADwBDbdEk+6aYGDLDiLBL41SZV3tG21H5wZOUJCodB6Mm4
- 3q+Ra6r1V92Cox+MNqo1MfCNGrWa0fBCKShJ9m+B09D9lg7e8FepIsyE30ko6BSYPf9FD+yGWJm
- hIT/vNcgrjyjvZqEObPf57GBJ8PPLnv/KfuRO//AHJ1d65Z0ilOHcNncRdejkXUwaVYMTK/HYOH
- 6Lb3+Vi1uzOtvW9PrKAv8uvDcQkY00OgEXsabdCemdRQRiRakBe8S8bOsIVQzGPmaEfkN6Yfjvb
- b8coHM6Z6TksYSgfhLrur3nLLkumqy+jo8vY3ja8UVJYZaW4Dn2oS63e8ZQ09cmO5hA3efPGb8W
- Bs6Ik2iPPrzpKp030o4B8yyARctEK3zUHY7YH6QYsbQweWC76PS9YY4bhxWRBa1knmVt2lu3Xd9
- KIOrBvXbq4=
-X-Received: by 2002:a05:6808:e68f:b0:47b:c703:4231 with SMTP id
- 5614622812f47-47bc7034dc7mr1386941b6e.16.1776977713420; 
- Thu, 23 Apr 2026 13:55:13 -0700 (PDT)
-Received: from [192.168.0.245] (c-98-38-17-99.hsd1.co.comcast.net.
- [98.38.17.99]) by smtp.googlemail.com with ESMTPSA id
- 5614622812f47-4799fead505sm14329744b6e.2.2026.04.23.13.55.08
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 23 Apr 2026 13:55:12 -0700 (PDT)
-From: Jim Cromie <jim.cromie@gmail.com>
-Date: Thu, 23 Apr 2026 14:53:55 -0600
-Subject: [PATCH v14 14/92] dyndbg: reduce verbose/debug clutter
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
+ [136.143.188.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 98F5710F232;
+ Thu, 23 Apr 2026 19:05:07 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1776971096; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=iYSaLATXcF1nQ9uw+DQMeskCQXUWTOFfBHFDMGl0P9PMmxmwZG+OewyhVyfvAowNM02esv87eDSwa8Fj6qpMX+mQFduI2rxKK0FNlNs/qNzwye6Jt7eBy6WERidpCt6FkzOs5aPxLhWkmHRNbThOhp308t2hnwBc6aabQRKUk+A=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1776971096;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=5k1vlW62iXZjcOaFsSXyeVWlBMQFrsYlNjKb9M5MyLE=; 
+ b=YuBR8fOBbfxAnYv+5DPk5R7tIEjeoc2I5zYR5wA3bC3tPV8QwML7wAK8wFPdo1OSD7U42tA6PeqOCI0thbJYzEk590ML4m7G2IvKSq6HjzzSKfGdQLHezlSiztVWlD5isjfs30Bjv/Oh1DVi22TzNp5923vd9pf/P392B9UkUdk=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
+ dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1776971095; 
+ s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
+ h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:References:In-Reply-To:To:To:Cc:Cc:Reply-To;
+ bh=5k1vlW62iXZjcOaFsSXyeVWlBMQFrsYlNjKb9M5MyLE=;
+ b=Fw+r1suWIOoBIdxvbwl38Dw+vKKHz89GbgtvAUR8sboveymUX0OIqXL6+kKM6+l+
+ QeqmLa702SGB+kP5lYx4R9pcknr+XR30RTuqpsc7Rv8aouQxcInHeg48dIHWPbMsgyC
+ flRPD7jGzCvPldsauve1FwmPFLwxogfDhmlXVpRY=
+Received: by mx.zohomail.com with SMTPS id 1776971094703164.3612840189653;
+ Thu, 23 Apr 2026 12:04:54 -0700 (PDT)
+From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+Date: Thu, 23 Apr 2026 21:03:31 +0200
+Subject: [PATCH v14 08/28] drm/display: hdmi-state-helper: Act on color
+ format DRM property
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260423-submit-dyndbg-classmap-foundation-v14-14-2b809a8019d0@gmail.com>
-References: <20260423-submit-dyndbg-classmap-foundation-v14-0-2b809a8019d0@gmail.com>
-In-Reply-To: <20260423-submit-dyndbg-classmap-foundation-v14-0-2b809a8019d0@gmail.com>
-To: Arnd Bergmann <arnd@arndb.de>, Jason Baron <jbaron@akamai.com>, 
- Luis Chamberlain <mcgrof@kernel.org>, Petr Pavlu <petr.pavlu@suse.com>, 
- Daniel Gomez <da.gomez@kernel.org>, Sami Tolvanen <samitolvanen@google.com>, 
- Aaron Tomlin <atomlin@atomlin.com>, 
- Andrew Morton <akpm@linux-foundation.org>, Jonathan Corbet <corbet@lwn.net>, 
- Shuah Khan <skhan@linuxfoundation.org>, Shuah Khan <shuah@kernel.org>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Jani Nikula <jani.nikula@linux.intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Tvrtko Ursulin <tursulin@ursulin.net>, 
+Message-Id: <20260423-color-format-v14-8-449a419ccbd4@collabora.com>
+References: <20260423-color-format-v14-0-449a419ccbd4@collabora.com>
+In-Reply-To: <20260423-color-format-v14-0-449a419ccbd4@collabora.com>
+To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
+ Rodrigo Siqueira <siqueira@igalia.com>, 
  Alex Deucher <alexander.deucher@amd.com>, 
  =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@redhat.com>, Gerd Hoffmann <kraxel@redhat.com>, 
- Dmitry Osipenko <dmitry.osipenko@collabora.com>, 
- Gurchetan Singh <gurchetansingh@chromium.org>, 
- Chia-I Wu <olvaffe@gmail.com>, Matthew Brost <matthew.brost@intel.com>, 
- =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
- Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>, 
- Patrik Jakobsson <patrik.r.jakobsson@gmail.com>, 
- Zack Rusin <zack.rusin@broadcom.com>, 
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
- Louis Chauvet <louis.chauvet@bootlin.com>, 
- Haneen Mohammed <hamohammed.sa@gmail.com>, 
- Melissa Wen <melissa.srw@gmail.com>, Sean Paul <sean@poorly.run>, 
- Jocelyn Falempe <jfalempe@redhat.com>, Ruben Wauters <rubenru09@aol.com>, 
- Dave Stevenson <dave.stevenson@raspberrypi.com>, 
- =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>, 
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, 
- Rob Clark <robin.clark@oss.qualcomm.com>, 
- Dmitry Baryshkov <lumag@kernel.org>, 
- Abhinav Kumar <abhinav.kumar@linux.dev>, 
- Jessica Zhang <jesszhan0024@gmail.com>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
- Xinliang Liu <xinliang.liu@linaro.org>, Tian Tao <tiantao6@hisilicon.com>, 
- Xinwei Kong <kong.kongxinwei@hisilicon.com>, 
- Sumit Semwal <sumit.semwal@linaro.org>, 
- Yongqin Liu <yongqin.liu@linaro.org>, John Stultz <jstultz@google.com>, 
- Philipp Zabel <p.zabel@pengutronix.de>, Frank Li <Frank.Li@nxp.com>, 
- Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, Chun-Kuang Hu <chunkuang.hu@kernel.org>, 
- Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
- Sandy Huang <hjc@rock-chips.com>, 
- =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
- Andy Yan <andy.yan@rock-chips.com>, Alain Volmat <alain.volmat@foss.st.com>, 
- Raphael Gallais-Pou <rgallaispou@gmail.com>, 
- Yannick Fertre <yannick.fertre@foss.st.com>, 
- Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>, 
- Philippe Cornu <philippe.cornu@foss.st.com>, 
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
- Alexandre Torgue <alexandre.torgue@foss.st.com>, 
- Oded Gabbay <ogabbay@kernel.org>, 
- Maciej Falkowski <maciej.falkowski@linux.intel.com>, 
- Karol Wachowski <karol.wachowski@linux.intel.com>, 
- "Rob Herring (Arm)" <robh@kernel.org>, Tomeu Vizoso <tomeu@tomeuvizoso.net>, 
- Liviu Dudau <liviu.dudau@arm.com>, Andrzej Hajda <andrzej.hajda@intel.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>, 
  Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
  Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
  Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Liu Ying <victor.liu@nxp.com>, 
- Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>, 
- Lucas Stach <l.stach@pengutronix.de>, Paul Kocialkowski <paulk@sys-base.io>, 
- Jianmin Lv <lvjianmin@loongson.cn>, Qianhai Wu <wuqianhai@loongson.cn>, 
- Huacai Chen <chenhuacai@kernel.org>, Mingcong Bai <jeffbai@aosc.io>, 
- Xi Ruoyao <xry111@xry111.site>, Icenowy Zheng <zhengxingda@iscas.ac.cn>, 
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>, 
- Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>, 
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>, 
- Geert Uytterhoeven <geert+renesas@glider.be>, 
- Magnus Damm <magnus.damm@gmail.com>, 
- Javier Martinez Canillas <javierm@redhat.com>, 
- Huang Rui <ray.huang@amd.com>, Matthew Auld <matthew.auld@intel.com>, 
- Jani Nikula <jani.nikula@intel.com>, Luca Coelho <luciano.coelho@intel.com>, 
- Russell King <linux+etnaviv@armlinux.org.uk>, 
- Christian Gmeiner <christian.gmeiner@gmail.com>
-Cc: linux-arch@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-modules@vger.kernel.org, linux-doc@vger.kernel.org, 
- linux-kselftest@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, 
- virtualization@lists.linux.dev, intel-xe@lists.freedesktop.org, 
- nouveau@lists.freedesktop.org, spice-devel@lists.freedesktop.org, 
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, 
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
- linux-mediatek@lists.infradead.org, linux-rockchip@lists.infradead.org, 
- linux-stm32@st-md-mailman.stormreply.com, linux-renesas-soc@vger.kernel.org, 
- etnaviv@lists.freedesktop.org, Jim Cromie <jim.cromie@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1776977637; l=3911;
- i=jim.cromie@gmail.com; s=20260203; h=from:subject:message-id;
- bh=N6DLiVASeuimkj0ky/CjB9cS4a6lMcbjqDXmylGeHH4=;
- b=smdObwt3/3HRk1wBYVctMzI+f80HbU+QWqDLWb82qvaWDwuJYffAI82+sQIOu7Qinq1xWmx1P
- Ias8KDROqGBDKJUxV5hv3ogiRe2jP1pYr8OafadNijakVkg0ApTr2Nd
-X-Developer-Key: i=jim.cromie@gmail.com; a=ed25519;
- pk=C6E5ODlPQo7ZBynATXH9wg7K6HxP0pIXyf4s38Qw0XE=
-X-Mailman-Approved-At: Fri, 24 Apr 2026 08:04:50 +0000
+ Sandy Huang <hjc@rock-chips.com>, 
+ =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
+ Andy Yan <andy.yan@rock-chips.com>, 
+ Jani Nikula <jani.nikula@linux.intel.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, Dmitry Baryshkov <lumag@kernel.org>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, Rob Herring <robh@kernel.org>, 
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>
+Cc: kernel@collabora.com, amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
+ linux-doc@vger.kernel.org, wayland-devel@lists.freedesktop.org, 
+ Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-Mailman-Approved-At: Fri, 24 Apr 2026 08:04:49 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -185,123 +90,66 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-currently, for verbose=3, these are logged (blank lines for clarity):
+With the introduction of the "color format" DRM property, which allows
+userspace to request a specific color format, the HDMI state helper
+should implement this.
 
- dyndbg: query 0: "class DRM_UT_CORE +p" mod:*
- dyndbg: split into words: "class" "DRM_UT_CORE" "+p"
+Implement it by translating the requested drm_connector_color_format to
+a drm_output_color_format enum value as per the logic HDMI should use
+for this: Auto is translated to RGB, and a fallback to YUV420 is only
+performed if the original color format was auto.
 
- dyndbg: op='+'
- dyndbg: flags=0x1
- dyndbg: *flagsp=0x1 *maskp=0xffffffff
-
- dyndbg: parsed: func="" file="" module="" format="" lineno=0-0 class=...
- dyndbg: no matches for query
- dyndbg: no-match: func="" file="" module="" format="" lineno=0-0 class=...
- dyndbg: processed 1 queries, with 0 matches, 0 errs
-
-That is excessive, so this patch:
- - shrinks 3 lines of 2nd stanza to single line
- - drops 1st 2 lines of 3rd stanza
-   3rd line is like 1st, with result, not procedure.
-   2nd line is just status, retold in 4th, with more info.
-
-New output:
-
- dyndbg: query 0: "class DRM_UT_CORE +p" mod:*
- dyndbg: split into words: "class" "DRM_UT_CORE" "+p"
- dyndbg: op='+' flags=0x1 *flagsp=0x1 *maskp=0xffffffff
- dyndbg: no-match: func="" file="" module="" format="" lineno=0-0 class=...
- dyndbg: processed 1 queries, with 0 matches, 0 errs
-
-Also reduce verbose=3 messages in ddebug_add_module
-
-When modprobing a module, dyndbg currently logs/says "add-module", and
-then "skipping" if the module has no prdbgs.  Instead just check 1st
-and return quietly.
-
-no functional change
-
-Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
-Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Reviewed-by: Maxime Ripard <mripard@kernel.org>
+Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 ---
- lib/dynamic_debug.c | 21 ++++++---------------
- 1 file changed, 6 insertions(+), 15 deletions(-)
+ drivers/gpu/drm/display/drm_hdmi_state_helper.c | 31 +++++++++++++++++++++++++
+ 1 file changed, 31 insertions(+)
 
-diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-index 9575b92a8deb..3ae9ecabdad1 100644
---- a/lib/dynamic_debug.c
-+++ b/lib/dynamic_debug.c
-@@ -276,9 +276,6 @@ static int ddebug_change(const struct ddebug_query *query,
- 	}
- 	mutex_unlock(&ddebug_lock);
+diff --git a/drivers/gpu/drm/display/drm_hdmi_state_helper.c b/drivers/gpu/drm/display/drm_hdmi_state_helper.c
+index a0d88701d236..954f8b2973fc 100644
+--- a/drivers/gpu/drm/display/drm_hdmi_state_helper.c
++++ b/drivers/gpu/drm/display/drm_hdmi_state_helper.c
+@@ -670,8 +670,39 @@ hdmi_compute_config(const struct drm_connector *connector,
+ 	unsigned int max_bpc = clamp_t(unsigned int,
+ 				       conn_state->max_bpc,
+ 				       8, connector->max_bpc);
++	enum drm_output_color_format fmt;
+ 	int ret;
  
--	if (!nfound && verbose)
--		pr_info("no matches for query\n");
--
- 	return nfound;
- }
- 
-@@ -511,7 +508,6 @@ static int ddebug_parse_flags(const char *str, struct flag_settings *modifiers)
- 		pr_err("bad flag-op %c, at start of %s\n", *str, str);
- 		return -EINVAL;
- 	}
--	v3pr_info("op='%c'\n", op);
- 
- 	for (; *str ; ++str) {
- 		for (i = ARRAY_SIZE(opt_array) - 1; i >= 0; i--) {
-@@ -525,7 +521,6 @@ static int ddebug_parse_flags(const char *str, struct flag_settings *modifiers)
- 			return -EINVAL;
- 		}
- 	}
--	v3pr_info("flags=0x%x\n", modifiers->flags);
- 
- 	/* calculate final flags, mask based upon op */
- 	switch (op) {
-@@ -541,7 +536,7 @@ static int ddebug_parse_flags(const char *str, struct flag_settings *modifiers)
- 		modifiers->flags = 0;
- 		break;
- 	}
--	v3pr_info("*flagsp=0x%x *maskp=0x%x\n", modifiers->flags, modifiers->mask);
-+	v3pr_info("op='%c' flags=0x%x maskp=0x%x\n", op, modifiers->flags, modifiers->mask);
- 
- 	return 0;
- }
-@@ -551,7 +546,7 @@ static int ddebug_exec_query(char *query_string, const char *modname)
- 	struct flag_settings modifiers = {};
- 	struct ddebug_query query = {};
- #define MAXWORDS 9
--	int nwords, nfound;
-+	int nwords;
- 	char *words[MAXWORDS];
- 
- 	nwords = ddebug_tokenize(query_string, words, MAXWORDS);
-@@ -569,10 +564,7 @@ static int ddebug_exec_query(char *query_string, const char *modname)
- 		return -EINVAL;
- 	}
- 	/* actually go and implement the change */
--	nfound = ddebug_change(&query, &modifiers);
--	vpr_info_dq(&query, nfound ? "applied" : "no-match");
--
--	return nfound;
-+	return ddebug_change(&query, &modifiers);
- }
- 
- /* handle multiple queries in query string, continue on error, return
-@@ -1246,11 +1238,10 @@ static int ddebug_add_module(struct _ddebug_info *di, const char *modname)
- {
- 	struct ddebug_table *dt;
- 
--	v3pr_info("add-module: %s.%d sites\n", modname, di->num_descs);
--	if (!di->num_descs) {
--		v3pr_info(" skip %s\n", modname);
-+	if (!di->num_descs)
- 		return 0;
--	}
++	if (conn_state->color_format != DRM_CONNECTOR_COLOR_FORMAT_AUTO) {
++		switch (conn_state->color_format) {
++		case DRM_CONNECTOR_COLOR_FORMAT_AUTO:
++			drm_warn(connector->dev, "AUTO format in non-AUTO path.\n");
++			fallthrough;
++		case DRM_CONNECTOR_COLOR_FORMAT_RGB444:
++			fmt = DRM_OUTPUT_COLOR_FORMAT_RGB444;
++			break;
++		case DRM_CONNECTOR_COLOR_FORMAT_YCBCR444:
++			fmt = DRM_OUTPUT_COLOR_FORMAT_YCBCR444;
++			break;
++		case DRM_CONNECTOR_COLOR_FORMAT_YCBCR422:
++			fmt = DRM_OUTPUT_COLOR_FORMAT_YCBCR422;
++			break;
++		case DRM_CONNECTOR_COLOR_FORMAT_YCBCR420:
++			fmt = DRM_OUTPUT_COLOR_FORMAT_YCBCR420;
++			break;
++		default:
++			drm_dbg_kms(connector->dev, "HDMI does not support color format '%d'.\n",
++				conn_state->color_format);
++			return -EINVAL;
++		}
 +
-+	v3pr_info("add-module: %s %d sites\n", modname, di->num_descs);
- 
- 	dt = kzalloc_obj(*dt);
- 	if (dt == NULL) {
++		return hdmi_compute_format_bpc(connector, conn_state, mode, max_bpc, fmt);
++	}
++
++	/*
++	 * For %DRM_CONNECTOR_COLOR_FORMAT_AUTO, try RGB first, and fall back
++	 * to the less bandwidth-intensive YCBCR420 if RGB fails.
++	 */
+ 	ret = hdmi_compute_format_bpc(connector, conn_state, mode, max_bpc,
+ 				      DRM_OUTPUT_COLOR_FORMAT_RGB444);
+ 	if (ret) {
 
 -- 
 2.53.0
