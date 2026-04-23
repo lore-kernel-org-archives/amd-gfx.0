@@ -4,76 +4,172 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D3F8FB44C8
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CE5C9FB44CC
 	for <amd-gfx@archiver.kernel.org>; Fri, 24 Apr 2026 08:05:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2BF5010F408;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3BCFD10F409;
 	Fri, 24 Apr 2026 08:05:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="JrVoh0ra";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="jhpTfukX";
 	dkim-atps=neutral
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
- [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5840410F3B9;
- Thu, 23 Apr 2026 19:07:36 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1776971246; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=C5vUuAtEWb/6gVXNhucnzAgKJC4cjGy3XDfuRvmyZ0FaDyPQHKkInxRvM+m6xJuCjBV8tXklapczrZ4+WZecmpQXirisB709mBZLq6TYHtPVb4eemoUtfUVGSdNxFAGCESUsiuPiwiN52rr1LD6MbCQP3Hf7lPfMRGbiW4e+X4w=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1776971246;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=fWW+fCd6NdbM2KrptCAGlUgGhewIwRtQJLb67KPR+Qk=; 
- b=bZ/iDKiSmpThaKMZF8DJwOT4FFJ9FVTcx8aHXZQOuPNBAYb1F2o95rhNqmTACiEyyh5ia/9jOSW81zTTx/6oEJXVwcHpG5dIUWEzWTPcl+9zGeNxSM7IWAoWw1m5rGoy0rocTd+kTycQxqSDwXQbP6TTubucH13Z6SSDmnmc0sk=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
- dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1776971246; 
- s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
- h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:References:In-Reply-To:To:To:Cc:Cc:Reply-To;
- bh=fWW+fCd6NdbM2KrptCAGlUgGhewIwRtQJLb67KPR+Qk=;
- b=JrVoh0raEMxJ5w7vb1aWo58o9plRtxvr8liiRm5CZwZ/gDjHEE/LSGBkyekMNsvB
- 4cmRn/YRlgvggHwJGzR3UQozPU/PvGlQdsrwtoYZxdSSsvKm3CB+++IBr5BYHU4velM
- nPAIXmZo/HEMOpXOmztcaSo5qYjD3tXQQvQ7hxNQ=
-Received: by mx.zohomail.com with SMTPS id 177697124400182.1090326347678;
- Thu, 23 Apr 2026 12:07:24 -0700 (PDT)
-From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Date: Thu, 23 Apr 2026 21:03:51 +0200
-Subject: [PATCH v14 28/28] drm/connector: Update docs of "colorspace" for
- color format prop
+Received: from mail-oi1-f176.google.com (mail-oi1-f176.google.com
+ [209.85.167.176])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CC7EC10F295
+ for <amd-gfx@lists.freedesktop.org>; Thu, 23 Apr 2026 20:54:53 +0000 (UTC)
+Received: by mail-oi1-f176.google.com with SMTP id
+ 5614622812f47-479d68a90a7so2684573b6e.2
+ for <amd-gfx@lists.freedesktop.org>; Thu, 23 Apr 2026 13:54:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1776977693; x=1777582493; darn=lists.freedesktop.org;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+ :reply-to; bh=3OHbRsO14nacRj9UKrh+9hs7l7M/scZ1A9iLFCIgQ2w=;
+ b=jhpTfukX+zmcXTsX8aIiOQazsaAjTlbmQUtu7ld3bM8fYbUx4aF82Ld+ZGksKiw07r
+ mMQdxUKaqgtEoPREm6yngKWaKct8vomeWFolbmdDn45t5ZiOUsv/O7qzR9Ya1ihPo4ud
+ aGjmnnCmutTKUkKH/yqT7AzvWIy4TD6I4KXlnsjCcIKpsdmAXBEziqKE+QVAbweqdLSU
+ FzvbLURb5eYAPjqmNhLZ3k6rvS3q0DIL4rKZd7t3qS2tqGrRR/XmlI7eBfQRR2iuCiEN
+ +O+hKhhTNFvHblT7mTgM0Da/A9gZtdfhet5UOSxt/GFd5AlhudFQDp2sHbIMl2+LpWXZ
+ ESmw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1776977693; x=1777582493;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=3OHbRsO14nacRj9UKrh+9hs7l7M/scZ1A9iLFCIgQ2w=;
+ b=V8cbODDSy8e0VKELYqwF2VD8iPlyPXyw1QHTFx6GRxwbxMCCDzSWPCIOd/7LPSRTb9
+ O4VeROtr36QViEUTtLgj5NziVOIzIdpulfbfqYA5ZCqOH4oE2jc1EG/Rvj1ZHKdg02/P
+ Pyi5SQHTcykyy89XGBOpgFGh71BZbdyK/FeTPruXIeUzCmyZ0uMwriB/U9gl3zC5KYaC
+ DOv7+QdUFyKNLH+7dwqGB/05dQzxvUt2Bhjv8FUP1mLxvVqcOcubEI6fHyucr2OVyORe
+ 7dH1176zyj6OcD/lXC7espHijq2imtn56bxTiuG0GfWISxDxT14rbPkOk+vMtcifaQFg
+ j5Ng==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ9cM7mxkW2FgVCwXpeGHFDk+Rt7FZ2GfYUjoue6fWVZsQ6ZcG6cXjXf2+NWh2cGT3cSrIC31wzj@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yz+KeupI1+r5S3QtYBHAI7OzdXgLn/Xy13dCfBatxh7Indx5jI6
+ +/7KOholEPYrDdl8ZdoewaWis0N6e3ru3DosgIScd/lIlqYwP2cnt8r+
+X-Gm-Gg: AeBDievchLAl5PTZ6LeEV8480Zfg4na1pJYPDPYqwDYPlwUuAnLfKMiv4VUNDPpKcoK
+ NTOdiAOtEV/3X1rYQsBjDBxPkZbmPSlqYMh5UUTG6Soohix58N/xutcQVIV3fwca7OZPko78tC+
+ K7enT6KTw0ZyJPEdSdfsGor4rH1Vyjc19L+og0o1oak9Dv/RClA7+7eWTL8PnOP7YFQuyPcaSXa
+ mi/Fipzb5Q19UOVLX7r01kXqfqB0pp7OeoYCZt5yLK8AA1sTRgQMKe7dsNmCXuK7iUVHWNNK4fg
+ 3WH0VWyTjCVfzFvYqhn5WPYREIfXVqN6/wBgraa5qiVBPHFxVRvY7n33xxGWOBQuS4YlEvcldi5
+ +TyYBEb2+Dk+hsEZ5NOjA3ymQ2rQKAxH/0WrF4Kso+EtTn/JZAVK3DKouunIwOxC2awYNygGStO
+ S3QHGF4J93FEmwlAQ4j3B0KPrUeF96nQg+voSKSK534ULhbOZ6CzXMncsslLxZzbesM9nEeDbTx
+ CyxRrchctM=
+X-Received: by 2002:a05:6808:d4a:b0:467:49c0:5f6d with SMTP id
+ 5614622812f47-4799ca893f0mr15678939b6e.23.1776977692926; 
+ Thu, 23 Apr 2026 13:54:52 -0700 (PDT)
+Received: from [192.168.0.245] (c-98-38-17-99.hsd1.co.comcast.net.
+ [98.38.17.99]) by smtp.googlemail.com with ESMTPSA id
+ 5614622812f47-4799fead505sm14329744b6e.2.2026.04.23.13.54.48
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 23 Apr 2026 13:54:52 -0700 (PDT)
+From: Jim Cromie <jim.cromie@gmail.com>
+Date: Thu, 23 Apr 2026 14:53:51 -0600
+Subject: [PATCH v14 10/92] dyndbg: reword "class unknown," to "class:_UNKNOWN_"
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260423-color-format-v14-28-449a419ccbd4@collabora.com>
-References: <20260423-color-format-v14-0-449a419ccbd4@collabora.com>
-In-Reply-To: <20260423-color-format-v14-0-449a419ccbd4@collabora.com>
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
- Rodrigo Siqueira <siqueira@igalia.com>, 
- Alex Deucher <alexander.deucher@amd.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+Message-Id: <20260423-submit-dyndbg-classmap-foundation-v14-10-2b809a8019d0@gmail.com>
+References: <20260423-submit-dyndbg-classmap-foundation-v14-0-2b809a8019d0@gmail.com>
+In-Reply-To: <20260423-submit-dyndbg-classmap-foundation-v14-0-2b809a8019d0@gmail.com>
+To: Arnd Bergmann <arnd@arndb.de>, Jason Baron <jbaron@akamai.com>, 
+ Luis Chamberlain <mcgrof@kernel.org>, Petr Pavlu <petr.pavlu@suse.com>, 
+ Daniel Gomez <da.gomez@kernel.org>, Sami Tolvanen <samitolvanen@google.com>, 
+ Aaron Tomlin <atomlin@atomlin.com>, 
+ Andrew Morton <akpm@linux-foundation.org>, Jonathan Corbet <corbet@lwn.net>, 
+ Shuah Khan <skhan@linuxfoundation.org>, Shuah Khan <shuah@kernel.org>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Andrzej Hajda <andrzej.hajda@intel.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Jani Nikula <jani.nikula@linux.intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, 
+ Alex Deucher <alexander.deucher@amd.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ David Airlie <airlied@redhat.com>, Gerd Hoffmann <kraxel@redhat.com>, 
+ Dmitry Osipenko <dmitry.osipenko@collabora.com>, 
+ Gurchetan Singh <gurchetansingh@chromium.org>, 
+ Chia-I Wu <olvaffe@gmail.com>, Matthew Brost <matthew.brost@intel.com>, 
+ =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
+ Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>, 
+ Patrik Jakobsson <patrik.r.jakobsson@gmail.com>, 
+ Zack Rusin <zack.rusin@broadcom.com>, 
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+ Louis Chauvet <louis.chauvet@bootlin.com>, 
+ Haneen Mohammed <hamohammed.sa@gmail.com>, 
+ Melissa Wen <melissa.srw@gmail.com>, Sean Paul <sean@poorly.run>, 
+ Jocelyn Falempe <jfalempe@redhat.com>, Ruben Wauters <rubenru09@aol.com>, 
+ Dave Stevenson <dave.stevenson@raspberrypi.com>, 
+ =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>, 
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, 
+ Rob Clark <robin.clark@oss.qualcomm.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>, 
+ Abhinav Kumar <abhinav.kumar@linux.dev>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ Xinliang Liu <xinliang.liu@linaro.org>, Tian Tao <tiantao6@hisilicon.com>, 
+ Xinwei Kong <kong.kongxinwei@hisilicon.com>, 
+ Sumit Semwal <sumit.semwal@linaro.org>, 
+ Yongqin Liu <yongqin.liu@linaro.org>, John Stultz <jstultz@google.com>, 
+ Philipp Zabel <p.zabel@pengutronix.de>, Frank Li <Frank.Li@nxp.com>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>, Chun-Kuang Hu <chunkuang.hu@kernel.org>, 
+ Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+ Sandy Huang <hjc@rock-chips.com>, 
+ =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
+ Andy Yan <andy.yan@rock-chips.com>, Alain Volmat <alain.volmat@foss.st.com>, 
+ Raphael Gallais-Pou <rgallaispou@gmail.com>, 
+ Yannick Fertre <yannick.fertre@foss.st.com>, 
+ Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>, 
+ Philippe Cornu <philippe.cornu@foss.st.com>, 
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+ Oded Gabbay <ogabbay@kernel.org>, 
+ Maciej Falkowski <maciej.falkowski@linux.intel.com>, 
+ Karol Wachowski <karol.wachowski@linux.intel.com>, 
+ "Rob Herring (Arm)" <robh@kernel.org>, Tomeu Vizoso <tomeu@tomeuvizoso.net>, 
+ Liviu Dudau <liviu.dudau@arm.com>, Andrzej Hajda <andrzej.hajda@intel.com>, 
  Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
  Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
  Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Sandy Huang <hjc@rock-chips.com>, 
- =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
- Andy Yan <andy.yan@rock-chips.com>, 
- Jani Nikula <jani.nikula@linux.intel.com>, 
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
- Tvrtko Ursulin <tursulin@ursulin.net>, Dmitry Baryshkov <lumag@kernel.org>, 
- Sascha Hauer <s.hauer@pengutronix.de>, Rob Herring <robh@kernel.org>, 
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>
-Cc: kernel@collabora.com, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
- linux-doc@vger.kernel.org, wayland-devel@lists.freedesktop.org, 
- Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-X-Mailer: b4 0.15.2
+ Liu Ying <victor.liu@nxp.com>, 
+ Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>, 
+ Lucas Stach <l.stach@pengutronix.de>, Paul Kocialkowski <paulk@sys-base.io>, 
+ Jianmin Lv <lvjianmin@loongson.cn>, Qianhai Wu <wuqianhai@loongson.cn>, 
+ Huacai Chen <chenhuacai@kernel.org>, Mingcong Bai <jeffbai@aosc.io>, 
+ Xi Ruoyao <xry111@xry111.site>, Icenowy Zheng <zhengxingda@iscas.ac.cn>, 
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>, 
+ Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>, 
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>, 
+ Geert Uytterhoeven <geert+renesas@glider.be>, 
+ Magnus Damm <magnus.damm@gmail.com>, 
+ Javier Martinez Canillas <javierm@redhat.com>, 
+ Huang Rui <ray.huang@amd.com>, Matthew Auld <matthew.auld@intel.com>, 
+ Jani Nikula <jani.nikula@intel.com>, Luca Coelho <luciano.coelho@intel.com>, 
+ Russell King <linux+etnaviv@armlinux.org.uk>, 
+ Christian Gmeiner <christian.gmeiner@gmail.com>
+Cc: linux-arch@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-modules@vger.kernel.org, linux-doc@vger.kernel.org, 
+ linux-kselftest@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, 
+ virtualization@lists.linux.dev, intel-xe@lists.freedesktop.org, 
+ nouveau@lists.freedesktop.org, spice-devel@lists.freedesktop.org, 
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, 
+ imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+ linux-mediatek@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+ linux-stm32@st-md-mailman.stormreply.com, linux-renesas-soc@vger.kernel.org, 
+ etnaviv@lists.freedesktop.org, Jim Cromie <jim.cromie@gmail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1776977636; l=1024;
+ i=jim.cromie@gmail.com; s=20260203; h=from:subject:message-id;
+ bh=4QM3LS2xsg7RLYgSN87KN0NOYRoI2SlINH0Xj+sS9wE=;
+ b=zEZMT0WhA4tazHE8iUsJRCDfWjq/snV5y5Ucebwf2eD2LMkQH1VD4rtB+5MLgRCm4kUHuVv2l
+ mCQ8zw3QDM0CpaAyRTte6a4hImlzDdBhTb6cuX8iNQbekmlAYqZ0f+w
+X-Developer-Key: i=jim.cromie@gmail.com; a=ed25519;
+ pk=C6E5ODlPQo7ZBynATXH9wg7K6HxP0pIXyf4s38Qw0XE=
 X-Mailman-Approved-At: Fri, 24 Apr 2026 08:04:49 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -89,35 +185,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The colorspace property's documentation states that BT2020_RGB and
-BT2020_YCC are equivalent, and the output format depends on the driver.
+When a dyndbg classname is unknown to a kernel module (as before
+previous patch), the callsite is un-addressable via >control queries.
 
-Now that there is a "color format" property that userspace can use to
-explicitly set a format, update the colorspace docs to mention this.
+The control-file displays this condition as "class unknown,"
+currently.  That spelling is sub-optimal/too-generic, so change it to
+"class:_UNKNOWN_" to loudly announce the erroneous situation, and to
+make it uniquely greppable.
 
-The behaviour here is not changed for userspace that doesn't know about
-the color format property yet, as the color format property defaults to
-"AUTO", where the choice of output format is left up to drivers.
-
-Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
+Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- drivers/gpu/drm/drm_connector.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ lib/dynamic_debug.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
-index b91c1f76355e..52f9a6a8daf7 100644
---- a/drivers/gpu/drm/drm_connector.c
-+++ b/drivers/gpu/drm/drm_connector.c
-@@ -2573,7 +2573,8 @@ EXPORT_SYMBOL(drm_mode_create_aspect_ratio_property);
-  *		conversion matrix and convert to the appropriate quantization
-  *		range.
-  *		The variants BT2020_RGB and BT2020_YCC are equivalent and the
-- *		driver chooses between RGB and YCbCr on its own.
-+ *		driver chooses between RGB and YCbCr based on the color format
-+ *		property.
-  *
-  *	SMPTE_170M_YCC:
-  *	BT709_YCC:
+diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
+index 6b1e983cfedc..a9caf84ddb22 100644
+--- a/lib/dynamic_debug.c
++++ b/lib/dynamic_debug.c
+@@ -1166,7 +1166,7 @@ static int ddebug_proc_show(struct seq_file *m, void *p)
+ 		if (class)
+ 			seq_printf(m, " class:%s", class);
+ 		else
+-			seq_printf(m, " class unknown, _id:%d", dp->class_id);
++			seq_printf(m, " class:_UNKNOWN_ _id:%d", dp->class_id);
+ 	}
+ 	seq_putc(m, '\n');
+ 
 
 -- 
 2.53.0
