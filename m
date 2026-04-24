@@ -4,43 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 832E1FED3C5
-	for <amd-gfx@archiver.kernel.org>; Fri, 24 Apr 2026 12:50:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7A86AFED3C3
+	for <amd-gfx@archiver.kernel.org>; Fri, 24 Apr 2026 12:50:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1FCD210E205;
-	Fri, 24 Apr 2026 12:50:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1EFE410E3D9;
+	Fri, 24 Apr 2026 12:50:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="f72oGfOY";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="cBNGJQKD";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1D92110E205
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9208E10E3D9
  for <amd-gfx@lists.freedesktop.org>; Fri, 24 Apr 2026 12:50:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
- h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:
- Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:Content-Description:
- Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
- In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
+ Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=hY0AYaerHoo3Ewm22h+eXvY7kFIPk8YaBu3FgS3ln0E=; b=f72oGfOYI8D9LJvQLMfia4035Y
- vPa0CEmEcfZg8oM97stBk1vAAeWLYWtKL7UJbG1HPozvVwRZWWLuOvELNG345A0N0g/kRPRzEeCHG
- t4Lzkt/MI97SSDExSxM/UTWLvm2aNjsPsy5z+0oy1o8C/2Adlw0/RgcCWbCnWlb78d1hC4PYZEKue
- Fszfmuy7OibRBPpsUxDVf+ZxO0rvSdmf+gZlknASEQ1JPHM2SDmcLnCdXycezqxqQ04Z6Ee7a84v0
- bNSxnLzd6D/hf+obV/Kp9BpQSWgoltAQfpiJJSSbxUcy4T06k14Y5EmSA5nlAy3mdnj/FJjsTYpqI
- Y4B8xAIQ==;
+ bh=e4WUenLnZNm9/ho3w2OXWwE97KP7YfVPkEa0sC6SwuQ=; b=cBNGJQKD54XfZUskyvRdzRkULA
+ JFtxIjRzhB0iLUVr4Q7vn3mtT5XT5kJ5Z36LfQf/byrHWgPQhQ4QvpNUDAGNW9v1EBEILlaUGCL6L
+ OQM7hxcMMCDGw4YLp1Jij6b8MeN1HlhZ+93zpALNc4ik/wAAMllywq48pAGwXzFuOhRmtqQnCLTN3
+ AMWGElf9YMh6STQmL8eZwgaA655lT0ttMp8AMPOQVL9N9VHZtDARU0FPNjWq13j1HbORkJcw4wmP4
+ trbq7/BeGsmlHBVrZPU7XKmw2R/grzN39n+cRe1/Kjub3V3C0u4hVneQRe5lGU7nFlhR940hN98Hg
+ Kk6uY+wg==;
 Received: from [90.240.106.137] (helo=localhost)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wGFyx-001bIE-TZ; Fri, 24 Apr 2026 14:50:07 +0200
+ id 1wGFyy-001bIJ-Lj; Fri, 24 Apr 2026 14:50:07 +0200
 From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 To: amd-gfx@lists.freedesktop.org
 Cc: kernel-dev@igalia.com,
 	Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Subject: [PATCH 1/2] drm/amdgpu: Choose SOC15 RLC register read write
- functions at init time
-Date: Fri, 24 Apr 2026 13:50:02 +0100
-Message-ID: <20260424125003.52366-1-tvrtko.ursulin@igalia.com>
+Subject: [PATCH 2/2] drm/amdgpu: Only calculate register offset once in SOC15
+ RLC
+Date: Fri, 24 Apr 2026 13:50:03 +0100
+Message-ID: <20260424125003.52366-2-tvrtko.ursulin@igalia.com>
 X-Mailer: git-send-email 2.52.0
+In-Reply-To: <20260424125003.52366-1-tvrtko.ursulin@igalia.com>
+References: <20260424125003.52366-1-tvrtko.ursulin@igalia.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -57,230 +59,84 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Currently on every RLC register read the driver checks for three different
-conditions to decide which of the two register read/write functions to
-call.
+We can save some text by only calculating the register offset once
+in a few of the SOC15 RLC register read/write macros.
 
-As these register operations are macros, which is required for register
-name expansion to work, the result is a significant explosion of generated
-(redundant) code which the compiler cannot optimise away.
-
-We however know that all of the three conditional are static and can
-therefore move the decision to driver init time. All that we need to do is
-define a new vfunc table for the SOC12 RLC read/write functions and just
-use them directly.
-
-Bloat-o-meter agrees the driver size savings are significant:
-
-add/remove: 11/35 grow/shrink: 82/1117 up/down: 53024/-450922 (-397898)
+add/remove: 0/0 grow/shrink: 3/69 up/down: 62/-1259 (-1197)
 ...
-Total: Before=10293928, After=9896030, chg -3.87%
+Total: Before=9896030, After=9894833, chg -0.01%
 
 Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  1 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_rlc.c    | 39 ++++++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_rlc.h    | 10 ++++++
- drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c     |  2 ++
- drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c     |  2 ++
- drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c     |  2 ++
- drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c     |  2 ++
- drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c      |  2 ++
- drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c    |  2 ++
- drivers/gpu/drm/amd/amdgpu/soc15_common.h  |  8 ++---
- 10 files changed, 64 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/soc15_common.h | 47 +++++++++++++----------
+ 1 file changed, 27 insertions(+), 20 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index 30ce2e85a506..bd1b0e9ee220 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -3745,6 +3745,7 @@ int amdgpu_device_init(struct amdgpu_device *adev,
- 	mutex_init(&adev->gfx.workload_profile_mutex);
- 	mutex_init(&adev->vcn.workload_profile_mutex);
- 
-+	amdgpu_early_init_rlc_reg_funcs(adev);
- 	amdgpu_device_init_apu_flags(adev);
- 
- 	r = amdgpu_device_check_arguments(adev);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_rlc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_rlc.c
-index 572a60e1b3cb..002fae3c380e 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_rlc.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_rlc.c
-@@ -583,3 +583,42 @@ int amdgpu_gfx_rlc_init_microcode(struct amdgpu_device *adev,
- 		amdgpu_gfx_rlc_init_microcode_v2_5(adev);
- 	return 0;
- }
-+
-+static const struct amdgpu_rlc_reg_funcs amdgpu_sriov_rlc_reg_funcs = {
-+	.rreg32 = amdgpu_sriov_rreg,
-+	.wreg32 = amdgpu_sriov_wreg,
-+};
-+
-+static u32
-+amdgpu_rlc_rreg(struct amdgpu_device *adev, u32 reg, u32 acc_flags, u32 hwip,
-+		u32 xcc_id)
-+{
-+	return amdgpu_device_rreg(adev, reg, 0);
-+}
-+
-+static void
-+amdgpu_rlc_wreg(struct amdgpu_device *adev, u32 reg, u32 value, u32 acc_flags,
-+		u32 hwip, u32 xcc_id)
-+{
-+	amdgpu_device_wreg(adev, reg, value, 0);
-+}
-+
-+static const struct amdgpu_rlc_reg_funcs amdgpu_rlc_reg_funcs = {
-+	.rreg32 = amdgpu_rlc_rreg,
-+	.wreg32 = amdgpu_rlc_wreg,
-+};
-+
-+void amdgpu_early_init_rlc_reg_funcs(struct amdgpu_device *adev)
-+{
-+	adev->gfx.rlc.reg_funcs = &amdgpu_rlc_reg_funcs;
-+}
-+
-+void amdgpu_init_rlc_reg_funcs(struct amdgpu_device *adev)
-+{
-+	if (amdgpu_sriov_vf(adev) &&
-+	    adev->gfx.rlc.funcs &&
-+	    adev->gfx.rlc.rlcg_reg_access_supported)
-+		adev->gfx.rlc.reg_funcs = &amdgpu_sriov_rlc_reg_funcs;
-+	else
-+		adev->gfx.rlc.reg_funcs = &amdgpu_rlc_reg_funcs;
-+}
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_rlc.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_rlc.h
-index e535534237a1..959d60c90dcd 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_rlc.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_rlc.h
-@@ -262,6 +262,11 @@ struct amdgpu_rlc_funcs {
- 	bool (*is_rlcg_access_range)(struct amdgpu_device *adev, uint32_t reg);
- };
- 
-+struct amdgpu_rlc_reg_funcs {
-+	u32  (*rreg32)(struct amdgpu_device *adev, u32 reg, u32 acc_flags, u32 hwip, u32 xcc_id);
-+	void (*wreg32)(struct amdgpu_device *adev, u32 reg, u32 val, u32 acc_flags, u32 hwip, u32 xcc_id);
-+};
-+
- struct amdgpu_rlcg_reg_access_ctrl {
- 	uint32_t scratch_reg0;
- 	uint32_t scratch_reg1;
-@@ -303,6 +308,7 @@ struct amdgpu_rlc {
- 	/* safe mode for updating CG/PG state */
- 	bool in_safe_mode[AMDGPU_MAX_RLC_INSTANCES];
- 	const struct amdgpu_rlc_funcs *funcs;
-+	const struct amdgpu_rlc_reg_funcs *reg_funcs;
- 
- 	/* for firmware data */
- 	u32 save_and_restore_offset;
-@@ -374,4 +380,8 @@ void amdgpu_gfx_rlc_fini(struct amdgpu_device *adev);
- int amdgpu_gfx_rlc_init_microcode(struct amdgpu_device *adev,
- 				  uint16_t version_major,
- 				  uint16_t version_minor);
-+
-+void amdgpu_early_init_rlc_reg_funcs(struct amdgpu_device *adev);
-+void amdgpu_init_rlc_reg_funcs(struct amdgpu_device *adev);
-+
- #endif
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-index 8b60299b73ef..4bfdd55be7f9 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-@@ -7829,6 +7829,8 @@ static int gfx_v10_0_early_init(struct amdgpu_ip_block *ip_block)
- 	/* init rlcg reg access ctrl */
- 	gfx_v10_0_init_rlcg_reg_access_ctrl(adev);
- 
-+	amdgpu_init_rlc_reg_funcs(adev);
-+
- 	return gfx_v10_0_init_microcode(adev);
- }
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-index 8c82e90f871b..8b9a9d944641 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-@@ -5341,6 +5341,8 @@ static int gfx_v11_0_early_init(struct amdgpu_ip_block *ip_block)
- 
- 	gfx_v11_0_init_rlcg_reg_access_ctrl(adev);
- 
-+	amdgpu_init_rlc_reg_funcs(adev);
-+
- 	return gfx_v11_0_init_microcode(adev);
- }
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-index 65c33823a688..a5034e39a8e9 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-@@ -3912,6 +3912,8 @@ static int gfx_v12_0_early_init(struct amdgpu_ip_block *ip_block)
- 
- 	gfx_v12_0_init_rlcg_reg_access_ctrl(adev);
- 
-+	amdgpu_init_rlc_reg_funcs(adev);
-+
- 	return gfx_v12_0_init_microcode(adev);
- }
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c b/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c
-index 68fd3c04134d..13de1b356e9d 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c
-@@ -2915,6 +2915,8 @@ static int gfx_v12_1_early_init(struct amdgpu_ip_block *ip_block)
- 
- 	gfx_v12_1_init_rlcg_reg_access_ctrl(adev);
- 
-+	amdgpu_init_rlc_reg_funcs(adev);
-+
- 	return gfx_v12_1_init_microcode(adev);
- }
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-index 95be105671ec..100b5ee44fef 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-@@ -4816,6 +4816,8 @@ static int gfx_v9_0_early_init(struct amdgpu_ip_block *ip_block)
- 	/* init rlcg reg access ctrl */
- 	gfx_v9_0_init_rlcg_reg_access_ctrl(adev);
- 
-+	amdgpu_init_rlc_reg_funcs(adev);
-+
- 	return gfx_v9_0_init_microcode(adev);
- }
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-index ad4d442e7345..2e17fc1157fd 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-@@ -2525,6 +2525,8 @@ static int gfx_v9_4_3_early_init(struct amdgpu_ip_block *ip_block)
- 	/* init rlcg reg access ctrl */
- 	gfx_v9_4_3_init_rlcg_reg_access_ctrl(adev);
- 
-+	amdgpu_init_rlc_reg_funcs(adev);
-+
- 	return gfx_v9_4_3_init_microcode(adev);
- }
- 
 diff --git a/drivers/gpu/drm/amd/amdgpu/soc15_common.h b/drivers/gpu/drm/amd/amdgpu/soc15_common.h
-index a7b5a95ebebb..a04f61b22379 100644
+index a04f61b22379..e8c1d0f207e7 100644
 --- a/drivers/gpu/drm/amd/amdgpu/soc15_common.h
 +++ b/drivers/gpu/drm/amd/amdgpu/soc15_common.h
-@@ -38,14 +38,10 @@
- 	(adev->reg_offset[ip##_HWIP][inst][reg##_BASE_IDX] + (reg)+(offset))
- 
- #define __WREG32_SOC15_RLC__(reg, value, flag, hwip, inst) \
--	((amdgpu_sriov_vf(adev) && adev->gfx.rlc.funcs && adev->gfx.rlc.rlcg_reg_access_supported) ? \
--	 amdgpu_sriov_wreg(adev, reg, value, flag, hwip, inst) : \
--	 WREG32(reg, value))
-+	adev->gfx.rlc.reg_funcs->wreg32(adev, reg, value, flag, hwip, inst)
- 
+@@ -43,21 +43,25 @@
  #define __RREG32_SOC15_RLC__(reg, flag, hwip, inst) \
--	((amdgpu_sriov_vf(adev) && adev->gfx.rlc.funcs && adev->gfx.rlc.rlcg_reg_access_supported) ? \
--	 amdgpu_sriov_rreg(adev, reg, flag, hwip, inst) : \
--	 RREG32(reg))
-+	adev->gfx.rlc.reg_funcs->rreg32(adev, reg, flag, hwip, inst)
+ 	adev->gfx.rlc.reg_funcs->rreg32(adev, reg, flag, hwip, inst)
  
- #define WREG32_FIELD15(ip, idx, reg, field, val)	\
- 	 __WREG32_SOC15_RLC__(adev->reg_offset[ip##_HWIP][idx][mm##reg##_BASE_IDX] + mm##reg,	\
+-#define WREG32_FIELD15(ip, idx, reg, field, val)	\
+-	 __WREG32_SOC15_RLC__(adev->reg_offset[ip##_HWIP][idx][mm##reg##_BASE_IDX] + mm##reg,	\
+-				(__RREG32_SOC15_RLC__( \
+-					adev->reg_offset[ip##_HWIP][idx][mm##reg##_BASE_IDX] + mm##reg, \
+-					0, ip##_HWIP, idx) & \
+-				~REG_FIELD_MASK(reg, field)) | (val) << REG_FIELD_SHIFT(reg, field), \
+-			      0, ip##_HWIP, idx)
++#define WREG32_FIELD15(ip, idx, reg_name, field, val) \
++do { \
++	u32 reg__ = adev->reg_offset[ip##_HWIP][idx][mm##reg_name##_BASE_IDX] + mm##reg_name; \
++	u32 val__ = __RREG32_SOC15_RLC__(reg__, 0, ip##_HWIP, idx); \
++\
++	val__ &= ~REG_FIELD_MASK(reg_name, field); \
++	val__ |= (val) << REG_FIELD_SHIFT(reg_name, field); \
++	__WREG32_SOC15_RLC__(reg__, val__, 0, ip##_HWIP, idx); \
++} while (0)
+ 
+-#define WREG32_FIELD15_PREREG(ip, idx, reg_name, field, val)        \
+-	__WREG32_SOC15_RLC__(adev->reg_offset[ip##_HWIP][idx][reg##reg_name##_BASE_IDX] + reg##reg_name,   \
+-			(__RREG32_SOC15_RLC__( \
+-					adev->reg_offset[ip##_HWIP][idx][reg##reg_name##_BASE_IDX] + reg##reg_name, \
+-					0, ip##_HWIP, idx) & \
+-					~REG_FIELD_MASK(reg_name, field)) | (val) << REG_FIELD_SHIFT(reg_name, field), \
+-			0, ip##_HWIP, idx)
++#define WREG32_FIELD15_PREREG(ip, idx, reg_name, field, val) \
++do { \
++	u32 reg__ = adev->reg_offset[ip##_HWIP][idx][reg##reg_name##_BASE_IDX] + reg##reg_name; \
++	u32 val__ = __RREG32_SOC15_RLC__(reg__, 0, ip##_HWIP, idx); \
++\
++	val__ &= ~REG_FIELD_MASK(reg_name, field); \
++	val__ |= (val) << REG_FIELD_SHIFT(reg_name, field); \
++	__WREG32_SOC15_RLC__(reg__, val__, 0, ip##_HWIP, idx); \
++} while (0)
+ 
+ #define RREG32_SOC15(ip, inst, reg) \
+ 	__RREG32_SOC15_RLC__(adev->reg_offset[ip##_HWIP][inst][reg##_BASE_IDX] + reg, \
+@@ -177,12 +181,15 @@
+ 			WREG32_RLC_EX(prefix, target_reg, value, inst); \
+ 	} while (0)
+ 
+-#define WREG32_FIELD15_RLC(ip, idx, reg, field, val)   \
+-	__WREG32_SOC15_RLC__((adev->reg_offset[ip##_HWIP][idx][mm##reg##_BASE_IDX] + mm##reg), \
+-			     (__RREG32_SOC15_RLC__(adev->reg_offset[ip##_HWIP][idx][mm##reg##_BASE_IDX] + mm##reg, \
+-						   AMDGPU_REGS_RLC, ip##_HWIP, idx) & \
+-			      ~REG_FIELD_MASK(reg, field)) | (val) << REG_FIELD_SHIFT(reg, field), \
+-			     AMDGPU_REGS_RLC, ip##_HWIP, idx)
++#define WREG32_FIELD15_RLC(ip, idx, reg_name, field, val) \
++do { \
++	u32 reg__ = adev->reg_offset[ip##_HWIP][idx][mm##reg_name##_BASE_IDX] + mm##reg_name; \
++	u32 val__ = __RREG32_SOC15_RLC__(reg__, AMDGPU_REGS_RLC, ip##_HWIP, idx); \
++\
++	val__ &= ~REG_FIELD_MASK(reg_name, field); \
++	val__ |= (val) << REG_FIELD_SHIFT(reg_name, field); \
++	__WREG32_SOC15_RLC__(reg__, val__, AMDGPU_REGS_RLC, ip##_HWIP, idx); \
++} while (0)
+ 
+ #define WREG32_SOC15_OFFSET_RLC(ip, inst, reg, offset, value) \
+ 	__WREG32_SOC15_RLC__((adev->reg_offset[ip##_HWIP][inst][reg##_BASE_IDX] + reg) + offset, value, AMDGPU_REGS_RLC, ip##_HWIP, inst)
 -- 
 2.52.0
 
