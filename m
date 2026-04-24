@@ -4,17 +4,17 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 10E5FFED3C9
-	for <amd-gfx@archiver.kernel.org>; Fri, 24 Apr 2026 14:19:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 60861FED3CC
+	for <amd-gfx@archiver.kernel.org>; Fri, 24 Apr 2026 14:22:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AB22B10F5A8;
-	Fri, 24 Apr 2026 14:19:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F09E510F5BB;
+	Fri, 24 Apr 2026 14:22:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="lHLeo3k6";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="eECOLrxW";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 30C7910F5A8
- for <amd-gfx@lists.freedesktop.org>; Fri, 24 Apr 2026 14:19:42 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E378610F5DE
+ for <amd-gfx@lists.freedesktop.org>; Fri, 24 Apr 2026 14:21:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:Content-Type:In-Reply-To:References:
@@ -22,23 +22,23 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
  Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
  :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=oEFEPo1h9NXVrcr8a8UK8q/4AoIr3Tz99mdMHrhUp2o=; b=lHLeo3k6Oe2bLXuW57ExCZZRQt
- aGMSCaEe6A2aTkd2R72CLLsykph6vYE1Dozxs+vyp0kuu4fE9nvpML7cKbMYk1Qkzu3a+U9Yk7Gow
- jhQkxz3neg0n2+f6p2h6UU+7cAtWN58JotxbXIK5psRNG5mG+NZHJXbOngO/qaSs3yQnjvyJqUH9V
- PdwDk6Whz0dDmna5TpelTfHAfM15G0JWwDX8wXmQOj00gfnOqd13ik1MRdRFmdKXK8pVkBE1VSOHh
- W9fxHDwwyOqwLrNrS1ve8I9QD9726BNTs/UkBVfx1Im+t8E+3pjsz2Kl6HiZJgrIdd9xEte50SYui
- 3eapi/xw==;
+ bh=25r/+cTx1lMeADQmb5MvfK/EXRzL+GmAdKg1bm8tZyw=; b=eECOLrxW/0EH/lTRVmof1Tm9HF
+ QBHmfihBb6M4KMLj4+F+JlbRg2VlyK6UwUtBAe/PGbM8O/TNy/Klr5g91inCvzFbRxPyjxcTUs9yU
+ HqUIlIuelKsUCRq1wNWsP11oATe9OmqF6iNijg2egt4FVqWOuvplegTFSIH7eKxBdJc4hJD3vXsOr
+ Uz41sl+UNlXkaxH4HOBMOh2v5hVFAZ7nRFk3O2dthXwkqJ2+20WQpEWOOndNjkGRM8RslRg9cO4Br
+ KYUnO362H5WCuKfm+qSmTdlnV4L0LUavAhX02YE9Ifa4Tn3K+2pw0nRFgfUBsrKIykn4+sbx/8/fh
+ HOQxmvjg==;
 Received: from [186.208.73.228] (helo=[192.168.18.14])
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1wGHNc-001d6c-Gi; Fri, 24 Apr 2026 16:19:39 +0200
-Message-ID: <1abaa821-5477-4bfb-9731-9820f303f22f@igalia.com>
-Date: Fri, 24 Apr 2026 11:19:34 -0300
+ id 1wGHPq-001dA2-ON; Fri, 24 Apr 2026 16:21:58 +0200
+Message-ID: <5132be76-3565-4b4d-8703-8fa49e652ea0@igalia.com>
+Date: Fri, 24 Apr 2026 11:21:54 -0300
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 From: Melissa Wen <mwen@igalia.com>
-Subject: Re: [PATCH 01/14] drm/amd/display: Delete unimplemented
- dm_pp_apply_power_level_change_request()
+Subject: Re: [PATCH 03/14] drm/amd/display: Remove min/max clock levels from
+ clk_mgr
 To: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>,
  amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com,
  Alex Hung <alex.hung@amd.com>, Harry Wentland <Harry.Wentland@amd.com>,
@@ -47,9 +47,9 @@ To: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>,
  Mario Limonciello <mario.limonciello@amd.com>,
  Ivan Lipski <ivan.lipski@amd.com>
 References: <20260423191519.73127-1-timur.kristof@gmail.com>
- <20260423191519.73127-2-timur.kristof@gmail.com>
+ <20260423191519.73127-4-timur.kristof@gmail.com>
 Content-Language: en-US
-In-Reply-To: <20260423191519.73127-2-timur.kristof@gmail.com>
+In-Reply-To: <20260423191519.73127-4-timur.kristof@gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -69,140 +69,101 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
 On 23/04/2026 16:15, Timur Kristóf wrote:
-> dm_pp_apply_power_level_change_request() was called from old
-> DCE clock manager implementations on DCE6, 8, 10, 11.2
-> but has not been implemented ever since the beginning of DC.
->
-> Affected GPUs have been working fine without that implementation
-> for many years. Let's delete it now.
+> These fields are not used by anything anymore.
 >
 > Signed-off-by: Timur Kristóf<timur.kristof@gmail.com>
 > ---
->   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c | 8 --------
->   .../gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c  | 9 ---------
->   .../drm/amd/display/dc/clk_mgr/dce110/dce110_clk_mgr.c   | 9 ---------
->   .../drm/amd/display/dc/clk_mgr/dce112/dce112_clk_mgr.c   | 9 ---------
->   drivers/gpu/drm/amd/display/dc/dm_services.h             | 4 ----
->   5 files changed, 39 deletions(-)
+>   .../amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c   | 14 --------------
+>   .../display/dc/clk_mgr/dce112/dce112_clk_mgr.c    | 15 ---------------
+>   .../drm/amd/display/dc/inc/hw/clk_mgr_internal.h  |  2 --
+>   3 files changed, 31 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c
-> index 11b2ea6edf953..17f42201ab862 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c
-> @@ -417,14 +417,6 @@ bool dm_pp_notify_wm_clock_changes(
->   	return false;
->   }
->   
-> -bool dm_pp_apply_power_level_change_request(
-> -	const struct dc_context *ctx,
-> -	struct dm_pp_power_level_change_request *level_change_req)
-Hi Timur,
-> -{
-> -	/* TODO: to be implemented */
-I feel a little uneasy about removing all this infrastructure with this 
-series, as AFAIU, it could be avoided by implementing this TODO (?)
-Any idea if AMD has this code somewhere that could be upstreamed, or did 
-it end up in the firmware?
-
-BTW, Looks like `struct dm_pp_power_level_change_request` also becomes 
-unused with this change, right?
-
-Melissa
-> -	return false;
-> -}
-> -
->   bool dm_pp_apply_clock_for_voltage_request(
->   	const struct dc_context *ctx,
->   	struct dm_pp_clock_for_voltage_req *clock_for_voltage_req)
 > diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c
-> index 6d41df52d7c9b..ffb70120362e7 100644
+> index 988eb6f841f54..2ba341df7fffd 100644
 > --- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c
 > +++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c
-> @@ -431,19 +431,10 @@ static void dce_update_clocks(struct clk_mgr *clk_mgr_base,
->   			bool safe_to_lower)
->   {
->   	struct clk_mgr_internal *clk_mgr_dce = TO_CLK_MGR_INTERNAL(clk_mgr_base);
-> -	struct dm_pp_power_level_change_request level_change_req;
->   	const int max_disp_clk =
->   		clk_mgr_dce->max_clks_by_state[DM_PP_CLOCKS_STATE_PERFORMANCE].display_clk_khz;
->   	int patched_disp_clk = MIN(max_disp_clk, context->bw_ctx.bw.dce.dispclk_khz);
+> @@ -257,11 +257,6 @@ int dce_set_clock(
+>   		actual_clock = pxl_clk_params.dfs_bypass_display_clock;
+>   	}
 >   
-> -	level_change_req.power_level = dce_get_required_clocks_state(clk_mgr_base, context);
-> -	/* get max clock state from PPLIB */
-> -	if ((level_change_req.power_level < clk_mgr_dce->cur_min_clks_state && safe_to_lower)
-> -			|| level_change_req.power_level > clk_mgr_dce->cur_min_clks_state) {
-> -		if (dm_pp_apply_power_level_change_request(clk_mgr_base->ctx, &level_change_req))
-> -			clk_mgr_dce->cur_min_clks_state = level_change_req.power_level;
+> -	/* from power down, we need mark the clock state as ClocksStateNominal
+> -	 * from HWReset, so when resume we will call pplib voltage regulator.*/
+> -	if (requested_clk_khz == 0)
+> -		clk_mgr_dce->cur_min_clks_state = DM_PP_CLOCKS_STATE_NOMINAL;
+> -
+>   	if (dmcu && dmcu->funcs->is_dmcu_initialized(dmcu))
+>   		dmcu->funcs->set_psr_wait_loop(dmcu, actual_clock / 1000 / 7);
+>   
+> @@ -425,7 +420,6 @@ void dce_clk_mgr_construct(
+>   		struct clk_mgr_internal *clk_mgr)
+>   {
+>   	struct clk_mgr *base = &clk_mgr->base;
+> -	struct dm_pp_static_clock_info static_clk_info = {0};
+>   
+>   	if (ctx->dce_version <= DCE_VERSION_6_4)
+>   		memcpy(clk_mgr->max_clks_by_state,
+> @@ -451,14 +445,6 @@ void dce_clk_mgr_construct(
+>   	clk_mgr->dprefclk_ss_divider = 1000;
+>   	clk_mgr->ss_on_dprefclk = false;
+>   
+> -	if (ctx->dce_version >= DCE_VERSION_8_0) {
+> -		if (dm_pp_get_static_clocks(ctx, &static_clk_info))
+
+and `dm_pp_get_static_clocks` becomes unused, right?
+
+> -			clk_mgr->max_clks_state = static_clk_info.max_clocks_state;
+> -		else
+> -			clk_mgr->max_clks_state = DM_PP_CLOCKS_STATE_NOMINAL;
+> -		clk_mgr->cur_min_clks_state = DM_PP_CLOCKS_STATE_INVALID;
 > -	}
 > -
->   	if (should_set_clock(safe_to_lower, patched_disp_clk, clk_mgr_base->clks.dispclk_khz)) {
->   		patched_disp_clk = dce_set_clock(clk_mgr_base, patched_disp_clk);
->   		clk_mgr_base->clks.dispclk_khz = patched_disp_clk;
-> diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dce110/dce110_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dce110/dce110_clk_mgr.c
-> index 13296c6ec08f4..ae922f1a31ff8 100644
-> --- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dce110/dce110_clk_mgr.c
-> +++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dce110/dce110_clk_mgr.c
-> @@ -257,21 +257,12 @@ static void dce11_update_clocks(struct clk_mgr *clk_mgr_base,
->   			bool safe_to_lower)
->   {
->   	struct clk_mgr_internal *clk_mgr_dce = TO_CLK_MGR_INTERNAL(clk_mgr_base);
-> -	struct dm_pp_power_level_change_request level_change_req;
->   	int patched_disp_clk = context->bw_ctx.bw.dce.dispclk_khz;
+>   	base->clks.max_supported_dispclk_khz =
+>   		clk_mgr->max_clks_by_state[DM_PP_CLOCKS_STATE_PERFORMANCE].display_clk_khz;
 >   
->   	/*TODO: W/A for dal3 linux, investigate why this works */
->   	if (!clk_mgr_dce->dfs_bypass_active)
->   		patched_disp_clk = patched_disp_clk * 115 / 100;
->   
-> -	level_change_req.power_level = dce_get_required_clocks_state(clk_mgr_base, context);
-> -	/* get max clock state from PPLIB */
-> -	if ((level_change_req.power_level < clk_mgr_dce->cur_min_clks_state && safe_to_lower)
-> -			|| level_change_req.power_level > clk_mgr_dce->cur_min_clks_state) {
-> -		if (dm_pp_apply_power_level_change_request(clk_mgr_base->ctx, &level_change_req))
-> -			clk_mgr_dce->cur_min_clks_state = level_change_req.power_level;
-> -	}
-> -
->   	if (should_set_clock(safe_to_lower, patched_disp_clk, clk_mgr_base->clks.dispclk_khz)) {
->   		context->bw_ctx.bw.dce.dispclk_khz = dce_set_clock(clk_mgr_base, patched_disp_clk);
->   		clk_mgr_base->clks.dispclk_khz = patched_disp_clk;
 > diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dce112/dce112_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dce112/dce112_clk_mgr.c
-> index 1f36ad8a7de46..48393c69735b6 100644
+> index 48393c69735b6..0f3f8df4df96a 100644
 > --- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dce112/dce112_clk_mgr.c
 > +++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dce112/dce112_clk_mgr.c
-> @@ -193,21 +193,12 @@ static void dce112_update_clocks(struct clk_mgr *clk_mgr_base,
->   			bool safe_to_lower)
->   {
->   	struct clk_mgr_internal *clk_mgr_dce = TO_CLK_MGR_INTERNAL(clk_mgr_base);
-> -	struct dm_pp_power_level_change_request level_change_req;
->   	int patched_disp_clk = context->bw_ctx.bw.dce.dispclk_khz;
+> @@ -89,13 +89,6 @@ int dce112_set_clock(struct clk_mgr *clk_mgr_base, int requested_clk_khz)
+>   	bp->funcs->set_dce_clock(bp, &dce_clk_params);
+>   	actual_clock = dce_clk_params.target_clock_frequency;
 >   
->   	/*TODO: W/A for dal3 linux, investigate why this works */
->   	if (!clk_mgr_dce->dfs_bypass_active)
->   		patched_disp_clk = patched_disp_clk * 115 / 100;
->   
-> -	level_change_req.power_level = dce_get_required_clocks_state(clk_mgr_base, context);
-> -	/* get max clock state from PPLIB */
-> -	if ((level_change_req.power_level < clk_mgr_dce->cur_min_clks_state && safe_to_lower)
-> -			|| level_change_req.power_level > clk_mgr_dce->cur_min_clks_state) {
-> -		if (dm_pp_apply_power_level_change_request(clk_mgr_base->ctx, &level_change_req))
-> -			clk_mgr_dce->cur_min_clks_state = level_change_req.power_level;
-> -	}
+> -	/*
+> -	 * from power down, we need mark the clock state as ClocksStateNominal
+> -	 * from HWReset, so when resume we will call pplib voltage regulator.
+> -	 */
+> -	if (requested_clk_khz == 0)
+> -		clk_mgr_dce->cur_min_clks_state = DM_PP_CLOCKS_STATE_NOMINAL;
 > -
->   	if (should_set_clock(safe_to_lower, patched_disp_clk, clk_mgr_base->clks.dispclk_khz)) {
->   		patched_disp_clk = dce112_set_clock(clk_mgr_base, patched_disp_clk);
->   		clk_mgr_base->clks.dispclk_khz = patched_disp_clk;
-> diff --git a/drivers/gpu/drm/amd/display/dc/dm_services.h b/drivers/gpu/drm/amd/display/dc/dm_services.h
-> index fbbf9c757b3c3..1395d36bfabe9 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dm_services.h
-> +++ b/drivers/gpu/drm/amd/display/dc/dm_services.h
-> @@ -224,10 +224,6 @@ bool dm_pp_apply_display_requirements(
->   	const struct dc_context *ctx,
->   	const struct dm_pp_display_configuration *pp_display_cfg);
+>   	/*Program DP ref Clock*/
+>   	/*VBIOS will determine DPREFCLK frequency, so we don't set it*/
+>   	dce_clk_params.target_clock_frequency = 0;
+> @@ -143,14 +136,6 @@ int dce112_set_dispclk(struct clk_mgr_internal *clk_mgr, int requested_clk_khz)
+>   	bp->funcs->set_dce_clock(bp, &dce_clk_params);
+>   	actual_clock = dce_clk_params.target_clock_frequency;
 >   
-> -bool dm_pp_apply_power_level_change_request(
-> -	const struct dc_context *ctx,
-> -	struct dm_pp_power_level_change_request *level_change_req);
+> -	/*
+> -	 * from power down, we need mark the clock state as ClocksStateNominal
+> -	 * from HWReset, so when resume we will call pplib voltage regulator.
+> -	 */
+> -	if (requested_clk_khz == 0)
+> -		clk_mgr->cur_min_clks_state = DM_PP_CLOCKS_STATE_NOMINAL;
 > -
->   bool dm_pp_apply_clock_for_voltage_request(
->   	const struct dc_context *ctx,
->   	struct dm_pp_clock_for_voltage_req *clock_for_voltage_req);
+> -
+>   	if (dmcu && dmcu->funcs->is_dmcu_initialized(dmcu)) {
+>   		if (clk_mgr->dfs_bypass_disp_clk != actual_clock)
+>   			dmcu->funcs->set_psr_wait_loop(dmcu,
+> diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw/clk_mgr_internal.h b/drivers/gpu/drm/amd/display/dc/inc/hw/clk_mgr_internal.h
+> index c69ccfcebeb5a..e01bf6bd7f3f4 100644
+> --- a/drivers/gpu/drm/amd/display/dc/inc/hw/clk_mgr_internal.h
+> +++ b/drivers/gpu/drm/amd/display/dc/inc/hw/clk_mgr_internal.h
+> @@ -477,8 +477,6 @@ struct clk_mgr_internal {
+>   	 */
+>   	int dprefclk_ss_divider;
+>   
+> -	enum dm_pp_clocks_state max_clks_state;
+> -	enum dm_pp_clocks_state cur_min_clks_state;
+>   	bool periodic_retraining_disabled;
+>   
+>   	unsigned int cur_phyclk_req_table[MAX_LINKS];
 
