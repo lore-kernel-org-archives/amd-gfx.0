@@ -4,80 +4,104 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0ECA5FED3F0
-	for <amd-gfx@archiver.kernel.org>; Fri, 24 Apr 2026 16:28:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 16363FED3F0
+	for <amd-gfx@archiver.kernel.org>; Fri, 24 Apr 2026 16:47:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A017110E402;
-	Fri, 24 Apr 2026 16:28:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6B10310E0ED;
+	Fri, 24 Apr 2026 16:47:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="A50wq11k";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="kx3tSgdu";
 	dkim-atps=neutral
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com
- [209.85.128.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DC12C10E402
- for <amd-gfx@lists.freedesktop.org>; Fri, 24 Apr 2026 16:28:53 +0000 (UTC)
-Received: by mail-wm1-f47.google.com with SMTP id
- 5b1f17b1804b1-48334ee0aeaso83878545e9.1
- for <amd-gfx@lists.freedesktop.org>; Fri, 24 Apr 2026 09:28:53 -0700 (PDT)
+Received: from mail-dl1-f42.google.com (mail-dl1-f42.google.com [74.125.82.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D233510E0ED
+ for <amd-gfx@lists.freedesktop.org>; Fri, 24 Apr 2026 16:47:07 +0000 (UTC)
+Received: by mail-dl1-f42.google.com with SMTP id
+ a92af1059eb24-12c7288cfb9so175256c88.2
+ for <amd-gfx@lists.freedesktop.org>; Fri, 24 Apr 2026 09:47:07 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1777049227; cv=none;
+ d=google.com; s=arc-20240605;
+ b=Q+bYPtgV4fzXNZD/euSN0jfaIU+E5pnpCjPlCpxpPme9s+laYKIsuVsGQ2901ro21c
+ EmGKgPhZ6zcN48fF8Oebg+3eSZACxbtaLZZnawnfyRBRg4XscGsQux7I+iB6sThRfhyn
+ lEfZJy6ZmWD44otCwpEGmZuzeg3rms2HyWGdDHq5BwEGKsDo0wEPIlwojwnWnyNIkcJK
+ Cvj6RBpBlVNqr+M07caD75S7wF4keCgM7NBlfWMVqpHsJ6ag7Sa5iChYBbLvWbv9DpbK
+ SZMgjpPyXoXTMzxsvtY9YWbdUF5z3oQdFuobIB7RXt+siZOoeCSqbsOoE5x0N4tWrGrh
+ VOhw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=eZvZViiM+KTU4U/lHwXHb/VYi6/H9RrxQbIfS0n37TE=;
+ fh=tdeteHDu0TTxjlo1rS45TJ4py/kcUPjpsWnOyQTw0sw=;
+ b=ayUgoa70KBlGXUIt33+AFpkQhMF5DXPQfBhoVZbjrGzanVpPDynvo3GBohT/XIHFKf
+ dBW7lkffaLp/nALVm1tQME8z0QPqP0y+RrDfTcroRROw4Q267LVQHELtD40le2VvFbQf
+ oA/X1BIQfGQTcRL1zz/99AN8KjDX4y9rmcYpbHjUZdI8IZAlvuWU9L1cv8s5ubneAzGX
+ JtFRD70VhzGgOS5q+551iF057EfadISqpWoSvF3QXivjWoPteSRgl+rns0MSB+HA2jrf
+ 3R+AJLp9dpaciw1+tni/R9PIFLjulhE7ki2xtE6yAMpQD+u8agmOiPLkDCeRzQNRsAev
+ 1JuA==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1777048132; x=1777652932; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
- :reply-to; bh=8O6I+hq683VBQwlRSKnFzEs1zN65e2/VVYAazZL5GNk=;
- b=A50wq11k3AffLypQvPXxcQY9jmOaEJsWgJtM0cWq/QOCAXElW86psGDCrwimPdoOGq
- jctArgNMfy+7xi6D2domOxc1XP7yfbbDt7KyTk8wupDBYyMi8pDt1PL7VLr38myZTKfn
- PeklOMKG+vZ6JK3LSHpiLOrvTXAwSKZV0iNC7+OoldQat2ephemgU4Cxpo7DxpumMkse
- nUVb5LfSGOVHrJlysorACm/djHX4B/mC5mZWHCtr6IiHlmSve1fr7jpno8Cn+ObeJMHs
- aI8sYdGX3uQzxAc8c/Acx7yaQ9tTNpjOUILjbIUVAMrm9eUbOLFWPM+Ghi8lKdqMercs
- Debw==
+ d=gmail.com; s=20251104; t=1777049227; x=1777654027; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=eZvZViiM+KTU4U/lHwXHb/VYi6/H9RrxQbIfS0n37TE=;
+ b=kx3tSgdufT/FxDOoOp9V4P/m7DFWmYz8u3hWyf7N4RV/U/Yb3EJ2XCPnrG0otvhviZ
+ kF5UkQnsrFW/GwZ4pFoDvMQ8IQb2H8xvbXIabAWO53QayA2SqWWu4BiSI1KgU0B45Dio
+ qwX3aK9UzYjnw4OZQ874F062fNKzsVm5yJuBNzRC/lrGVseGG51YTkSI40h66W2t6zkd
+ 6uwgKzyiL/COqdN5TOZKphtW1EDPsaA75NL8QQDO0OQkPboVuPaGC7sesJqXo7zLzlCz
+ Rvg2thpx+et8UgEwC1bMVbBGr/gvN/h98K9HxkW9ToDSvz+H4FSvC6Hzar7rT0iMn4Ub
+ isow==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1777048132; x=1777652932;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to;
- bh=8O6I+hq683VBQwlRSKnFzEs1zN65e2/VVYAazZL5GNk=;
- b=EuI20HvJNYq8g95aiwfREB8tn9n62wvUBPa6udj5eBnaeY8uFsJ5OcwEFoZRRuezjN
- avQbbime4S/CO+m83dV8EFwVIvB0DNOXdKPkROtdP+ivhl77EDqnarAYkXUM5kk1p6/o
- QcDENA8gjXMWeTgYevgBpaIqwVi8Sue9mL+xq9AHKTuOiZeC4k13CdIQtPH8OxdTR4ki
- lDPFqCevK9CzEBFsWURy0i142aRFOa+9RnwaUQae3y6xGVp3wPUOW5PvmIaWys9GyHUo
- s9IAWRRq+44GGu5ikNCgpE//HiFAICVt7nKtbGTgGyPJD2BgcsnlOUHijWNPmBxGl7PV
- gkAg==
-X-Gm-Message-State: AOJu0Yw2zdAoCyhDkXMOXWevNP4eeLZtapKwqUKO0vs/49WB58oqbUgX
- VGBkhlc6EWQWkWyX+qEMqhLza3COUXJYIp9zqnBeE2F38wSdOjZKRbbaP05uQ1IF
-X-Gm-Gg: AeBDietJAtoJXwTJYRtsjzSVQz/j+G/IFnsdYGc1nptbJyRU5ljFXul6RMOOEjlRpb6
- TSHh6E2rECpvrmHb5qgOBEOOVVmiaiQGd5hm4OSa5a9Q66I0X+eF19IaHOI8h2CbGK7OWe+4EVO
- kqoGYiw28Y5L+RFFXeUiRP36aNo9xYvbuVYZVijmyQQMqDbhshMSsBMwQZAi8lG21rkdxF8l/Se
- ozeORbsfzIE410ezlSv/TZJrMqOeuEoiIy/czDNQJ4JbjifTsBkWHBnfeqHIbbFV1ORsXlvfV1I
- 7yeBZP4jbIcYKHGYIwlu2nfG9dkhdQlCsS7ApjWkKGHW5Hk/Ez85Nm04qHkPj2RrEUObAc61sHt
- bs6rX274IabjdHtmLKTGMupCaDBega2QFU14vBdjaA6BJjziy2/WNVexWX9IOmhNbdOGJgxJgyL
- ZIzUHd0G+nwJgeVjUKROsnWWpM/3vDdwRxbi1NOmeBBRXF7HqsJjYGL6w3BdWW8zzoo0iLNbe0J
- lyNtsfVwA==
-X-Received: by 2002:a05:600c:3483:b0:488:af7f:775f with SMTP id
- 5b1f17b1804b1-488fb77d343mr448046555e9.18.1777048132201; 
- Fri, 24 Apr 2026 09:28:52 -0700 (PDT)
-Received: from timur-hyperion.localnet (5401DFC2.dsl.pool.telekom.hu.
- [84.1.223.194]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-488fc0f82bbsm1025761145e9.3.2026.04.24.09.28.51
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 24 Apr 2026 09:28:51 -0700 (PDT)
-From: Timur =?UTF-8?B?S3Jpc3TDs2Y=?= <timur.kristof@gmail.com>
-To: amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com,
- Alex Hung <alex.hung@amd.com>, Harry Wentland <Harry.Wentland@amd.com>,
- Roman Li <Roman.Li@amd.com>, Leo Li <sunpeng.li@amd.com>,
- David Airlie <airlied@gmail.com>,
- Mario Limonciello <mario.limonciello@amd.com>,
- Ivan Lipski <ivan.lipski@amd.com>, Melissa Wen <mwen@igalia.com>
-Subject: Re: [PATCH 03/14] drm/amd/display: Remove min/max clock levels from
- clk_mgr
-Date: Fri, 24 Apr 2026 18:28:50 +0200
-Message-ID: <3592022.LZWGnKmheA@timur-hyperion>
-In-Reply-To: <5132be76-3565-4b4d-8703-8fa49e652ea0@igalia.com>
-References: <20260423191519.73127-1-timur.kristof@gmail.com>
- <20260423191519.73127-4-timur.kristof@gmail.com>
- <5132be76-3565-4b4d-8703-8fa49e652ea0@igalia.com>
+ d=1e100.net; s=20251104; t=1777049227; x=1777654027;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=eZvZViiM+KTU4U/lHwXHb/VYi6/H9RrxQbIfS0n37TE=;
+ b=QWPS27L94WEkbx8wY3/ZWiMMIqjeZykret3/4rnuiveGwHI431OXlBGEDCk7gJfQl5
+ 7tRrBTPgb5CgRxsqBK83RY08a7jOIxiv5qOlwYTfflh81LacZjRXq/nlP1o6W3flL2g+
+ tfZ2mht0hTRDIdqwG+knANAlT0GIio4bwa+V4MGpLoGQjAOM6sT8/ch0xEglCBSouHQv
+ /mILXe/etWB5XFCwdRb6nXARu0SJfw0dyw4AUb68KQCWSIydW5AsiUsAdDfddF42SZRG
+ twoNpXPROc83Y0irJ6mnRK/r1ewDpRcjC7SuUnXw+QDHEJPuqW/dwZQSZNAx9fJBpcuN
+ t+tw==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ9DpCrbaUAr/onK1qqR21Tb9rIoSbxF0KSj/fAci1s4YMK9txw36IaLOosBBQ48bzhbLU4GnlDz@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yyn5rqxO9JVXvaT3jQDhA85dqyeuAlG6HFVwki2uMXe8+ZlCOvc
+ TavuY41Kqm4pfvjbsIqjz6GAh+8/wrGEn34iG2y2Bc6gcZN7Q/WNUxS4zqbIGJoMkm4F+o8KJsr
+ we2E7hIpRTZ+ncQ1pOuWd27XPwmdZG4Q=
+X-Gm-Gg: AeBDiessvTJVgNjjIvtsiShng1Yn4bA+wEf1bukFbutN6Z0jVcohHPkrfdoxOsFXxZm
+ BsGqMtDAUbdfn5m/PM+Zh341Gpa7DMyXxuZxzYOPj2pcfqvHhCmPQ1WEf4TIaH4s38UQjyduxZG
+ YuZ8ZnlSkpI1kUNmkYaqx4Dw0eIXz11lit/dlBcdZ0bh/7ZqU6+nWCF1VEDwh+AMwlo3oKaSncT
+ xXhnAP2vbK9FVvlpPEyROoVTpGCAhsxLAiTswVjh6W0R1DyHnLHNpdpMZZ8u1zP11ohXvvAiiCs
+ vPiboYhz4eaxPoQFfkgChAywvZN4IqGz13hAzkIsbGtdWUnecc6jQfblKXkb9Q2V7Mb3z+yG0x5
+ uGGYI
+X-Received: by 2002:a05:7022:5f01:b0:12d:b654:8180 with SMTP id
+ a92af1059eb24-12db65484bfmr1873101c88.2.1777049226880; Fri, 24 Apr 2026
+ 09:47:06 -0700 (PDT)
 MIME-Version: 1.0
+References: <20260306031932.136179-1-alex.hung@amd.com>
+ <20260306031932.136179-20-alex.hung@amd.com>
+ <7370736.9J7NaK4W3v@timur-max>
+ <df82dbc6-623f-4be7-acbc-49157e59764c@leemhuis.info>
+In-Reply-To: <df82dbc6-623f-4be7-acbc-49157e59764c@leemhuis.info>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Fri, 24 Apr 2026 12:46:55 -0400
+X-Gm-Features: AQROBzBraznBYsAZpxHnqUE8Q_8czz02MUBY3I2yXLrWz3uNfcj8hqf_okcVyc4
+Message-ID: <CADnq5_MFgdSH6sXPg+bpHYda0SGkK+sLevgwXNo+iDJmYMOdzg@mail.gmail.com>
+Subject: Re: DC analog support regressed by "drm/amd/display: Sync dcn42 with
+ DC 3.2.373"
+To: Thorsten Leemhuis <regressions@leemhuis.info>
+Cc: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>, 
+ amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>, 
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
+ Aurabindo Pillai <aurabindo.pillai@amd.com>, Roman Li <roman.li@amd.com>, 
+ Wayne Lin <wayne.lin@amd.com>, Tom Chung <chiahsuan.chung@amd.com>, 
+ Fangzhi Zuo <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>,
+ Ray Wu <Ray.Wu@amd.com>, 
+ Ivan Lipski <ivan.lipski@amd.com>, Alex Hung <alex.hung@amd.com>, 
+ David Airlie <airlied@gmail.com>, Christian <christian.koenig@amd.com>, 
+ Linux kernel regressions list <regressions@lists.linux.dev>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,158 +116,141 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Friday, April 24, 2026 4:21:54=E2=80=AFPM Central European Summer Time M=
-elissa Wen=20
-wrote:
-> On 23/04/2026 16:15, Timur Krist=C3=B3f wrote:
-> > These fields are not used by anything anymore.
-> >=20
-> > Signed-off-by: Timur Krist=C3=B3f<timur.kristof@gmail.com>
-> > ---
-> >=20
-> >   .../amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c   | 14 --------------
-> >   .../display/dc/clk_mgr/dce112/dce112_clk_mgr.c    | 15 ---------------
-> >   .../drm/amd/display/dc/inc/hw/clk_mgr_internal.h  |  2 --
-> >   3 files changed, 31 deletions(-)
-> >=20
-> > diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c
-> > b/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c index
-> > 988eb6f841f54..2ba341df7fffd 100644
-> > --- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c
-> > +++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c
-> > @@ -257,11 +257,6 @@ int dce_set_clock(
-> >=20
-> >   		actual_clock =3D=20
-pxl_clk_params.dfs_bypass_display_clock;
-> >   =09
-> >   	}
-> >=20
-> > -	/* from power down, we need mark the clock state as=20
-ClocksStateNominal
-> > -	 * from HWReset, so when resume we will call pplib voltage=20
-regulator.*/
-> > -	if (requested_clk_khz =3D=3D 0)
-> > -		clk_mgr_dce->cur_min_clks_state =3D=20
-DM_PP_CLOCKS_STATE_NOMINAL;
-> > -
-> >=20
-> >   	if (dmcu && dmcu->funcs->is_dmcu_initialized(dmcu))
-> >   =09
-> >   		dmcu->funcs->set_psr_wait_loop(dmcu, actual_clock /=20
-1000 / 7);
-> >=20
-> > @@ -425,7 +420,6 @@ void dce_clk_mgr_construct(
-> >=20
-> >   		struct clk_mgr_internal *clk_mgr)
-> >  =20
-> >   {
-> >  =20
-> >   	struct clk_mgr *base =3D &clk_mgr->base;
-> >=20
-> > -	struct dm_pp_static_clock_info static_clk_info =3D {0};
-> >=20
-> >   	if (ctx->dce_version <=3D DCE_VERSION_6_4)
-> >   =09
-> >   		memcpy(clk_mgr->max_clks_by_state,
-> >=20
-> > @@ -451,14 +445,6 @@ void dce_clk_mgr_construct(
-> >=20
-> >   	clk_mgr->dprefclk_ss_divider =3D 1000;
-> >   	clk_mgr->ss_on_dprefclk =3D false;
-> >=20
-> > -	if (ctx->dce_version >=3D DCE_VERSION_8_0) {
-> > -		if (dm_pp_get_static_clocks(ctx, &static_clk_info))
->=20
-> and `dm_pp_get_static_clocks` becomes unused, right?
+On Fri, Apr 24, 2026 at 12:34=E2=80=AFPM Thorsten Leemhuis
+<regressions@leemhuis.info> wrote:
+>
+> On 4/13/26 15:09, Timur Krist=C3=B3f wrote:
+> > This patch breaks analog connector support in DCE, both for analog enco=
+ders
+> > and DP bridge encoders, because it deletes key functions such as
+> > dce110_enable_analog_link_output, dce110_prepare_ddc,
+> > dce110_external_encoder_control, and more.
+> >
+> > With this patch applied, when you connect an analog monitor you just ge=
+t a
+> > crash in DC from trying to call link->dc->hwss.enable_analog_link_outpu=
+t()
+> > which is now NULL.
+> >
+> > This is basically undoing all the work I did for supporting old GPUs wi=
+th DC.
+> > I think either this commit should be reverted or someone should add bac=
+k the
+> > analog support bits that were removed. I'm happy to help with that if n=
+eeded.
+> > What do you guys think?
+>
+> I noticed that a patch to fix this mistake is ready by now:
+> drm/amd/display: Restore analog connector support --
+> https://lore.kernel.org/all/20260418003539.1862136-1-Roman.Li@amd.com/
+>
+> And from that thread the fix was even "merged" somewhere. But I can't
+> see this in -next or Alex' drm-fixes-7.1 pull, so I assume it will miss
+> -rc1 (please corrent me if I'm wrong). Is that something to be concerned
+> about?
 
-Looks like nothing else is using dm_pp_get_static_clocks() so that can be=20
-deleted as well. I can do that in a follow-up series if that's OK.
+It will be in -rc2.
 
->=20
-> > -			clk_mgr->max_clks_state =3D=20
-static_clk_info.max_clocks_state;
-> > -		else
-> > -			clk_mgr->max_clks_state =3D=20
-DM_PP_CLOCKS_STATE_NOMINAL;
-> > -		clk_mgr->cur_min_clks_state =3D=20
-DM_PP_CLOCKS_STATE_INVALID;
-> > -	}
-> > -
-> >=20
-> >   	base->clks.max_supported_dispclk_khz =3D
-> >   =09
-> >   		clk_mgr-
->max_clks_by_state[DM_PP_CLOCKS_STATE_PERFORMANCE].display_clk
-> >   		_khz;
-> >=20
-> > diff --git
-> > a/drivers/gpu/drm/amd/display/dc/clk_mgr/dce112/dce112_clk_mgr.c
-> > b/drivers/gpu/drm/amd/display/dc/clk_mgr/dce112/dce112_clk_mgr.c index
-> > 48393c69735b6..0f3f8df4df96a 100644
-> > --- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dce112/dce112_clk_mgr.c
-> > +++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dce112/dce112_clk_mgr.c
-> > @@ -89,13 +89,6 @@ int dce112_set_clock(struct clk_mgr *clk_mgr_base, i=
-nt
-> > requested_clk_khz)>=20
-> >   	bp->funcs->set_dce_clock(bp, &dce_clk_params);
-> >   	actual_clock =3D dce_clk_params.target_clock_frequency;
-> >=20
-> > -	/*
-> > -	 * from power down, we need mark the clock state as=20
-ClocksStateNominal
-> > -	 * from HWReset, so when resume we will call pplib voltage=20
-regulator.
-> > -	 */
-> > -	if (requested_clk_khz =3D=3D 0)
-> > -		clk_mgr_dce->cur_min_clks_state =3D=20
-DM_PP_CLOCKS_STATE_NOMINAL;
-> > -
-> >=20
-> >   	/*Program DP ref Clock*/
-> >   	/*VBIOS will determine DPREFCLK frequency, so we don't set it*/
-> >   	dce_clk_params.target_clock_frequency =3D 0;
-> >=20
-> > @@ -143,14 +136,6 @@ int dce112_set_dispclk(struct clk_mgr_internal
-> > *clk_mgr, int requested_clk_khz)>=20
-> >   	bp->funcs->set_dce_clock(bp, &dce_clk_params);
-> >   	actual_clock =3D dce_clk_params.target_clock_frequency;
-> >=20
-> > -	/*
-> > -	 * from power down, we need mark the clock state as=20
-ClocksStateNominal
-> > -	 * from HWReset, so when resume we will call pplib voltage=20
-regulator.
-> > -	 */
-> > -	if (requested_clk_khz =3D=3D 0)
-> > -		clk_mgr->cur_min_clks_state =3D=20
-DM_PP_CLOCKS_STATE_NOMINAL;
-> > -
-> > -
-> >=20
-> >   	if (dmcu && dmcu->funcs->is_dmcu_initialized(dmcu)) {
-> >   =09
-> >   		if (clk_mgr->dfs_bypass_disp_clk !=3D actual_clock)
-> >   	=09
-> >   			dmcu->funcs->set_psr_wait_loop(dmcu,
-> >=20
-> > diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw/clk_mgr_internal.h
-> > b/drivers/gpu/drm/amd/display/dc/inc/hw/clk_mgr_internal.h index
-> > c69ccfcebeb5a..e01bf6bd7f3f4 100644
-> > --- a/drivers/gpu/drm/amd/display/dc/inc/hw/clk_mgr_internal.h
-> > +++ b/drivers/gpu/drm/amd/display/dc/inc/hw/clk_mgr_internal.h
-> > @@ -477,8 +477,6 @@ struct clk_mgr_internal {
-> >=20
-> >   	 */
-> >   =09
-> >   	int dprefclk_ss_divider;
-> >=20
-> > -	enum dm_pp_clocks_state max_clks_state;
-> > -	enum dm_pp_clocks_state cur_min_clks_state;
-> >=20
-> >   	bool periodic_retraining_disabled;
-> >   =09
-> >   	unsigned int cur_phyclk_req_table[MAX_LINKS];
+Alex
 
-
-
-
+>
+> Ciao, Thorsten
+>
+> > As a side question, why was this commit merged without any review or ac=
+k?
+> >
+> > Thanks & best regards,
+> > Timur
+> >
+> > On 2026. m=C3=A1rcius 6., p=C3=A9ntek 4:13:45 k=C3=B6z=C3=A9p-eur=C3=B3=
+pai ny=C3=A1ri id=C5=91 Alex Hung wrote:
+> >> From: Roman Li <Roman.Li@amd.com>
+> >>
+> >> This patch provides a bulk merge to align driver
+> >> support for DCN42 with Display Core version 3.2.373.
+> >>
+> >> It includes upgrade for:
+> >> - clk_mgr
+> >> - dml2/dml21
+> >> - optc
+> >> - hubp
+> >> - mpc
+> >> - optc
+> >> - hwseq
+> >>
+> >> Signed-off-by: Roman Li <Roman.Li@amd.com>
+> >> Signed-off-by: Alex Hung <alex.hung@amd.com>
+> >> ---
+> >>  .../gpu/drm/amd/display/dc/bios/bios_parser.c |  11 +-
+> >>  .../display/dc/clk_mgr/dcn42/dcn42_clk_mgr.c  | 141 +++--
+> >>  .../display/dc/clk_mgr/dcn42/dcn42_clk_mgr.h  |   2 +-
+> >>  drivers/gpu/drm/amd/display/dc/core/dc.c      |  95 ++-
+> >>  .../gpu/drm/amd/display/dc/core/dc_stream.c   |  41 +-
+> >>  .../gpu/drm/amd/display/dc/core/dc_surface.c  |   9 +
+> >>  drivers/gpu/drm/amd/display/dc/dc.h           |  59 +-
+> >>  .../gpu/drm/amd/display/dc/dc_bios_types.h    |   3 +-
+> >>  drivers/gpu/drm/amd/display/dc/dc_hw_types.h  |   2 +-
+> >>  drivers/gpu/drm/amd/display/dc/dc_plane.h     |   1 +
+> >>  drivers/gpu/drm/amd/display/dc/dc_types.h     |  24 +
+> >>  .../amd/display/dc/dccg/dcn401/dcn401_dccg.c  |  20 +
+> >>  .../drm/amd/display/dc/dce/dmub_hw_lock_mgr.c |  16 +
+> >>  .../drm/amd/display/dc/dce/dmub_hw_lock_mgr.h |  13 +
+> >>  .../dml2_0/dml21/dml21_translation_helper.c   |  30 +-
+> >>  .../amd/display/dc/dml2_0/dml21/dml21_utils.c |   1 +
+> >>  .../display/dc/dml2_0/dml21/dml21_wrapper.c   |  14 +-
+> >>  .../dml21/inc/bounding_boxes/dcn42_soc_bb.h   | 308 ++++------
+> >>  .../dml21/inc/dml_top_display_cfg_types.h     |  13 +
+> >>  .../dc/dml2_0/dml21/inc/dml_top_types.h       |   2 +
+> >>  .../dml21/src/dml2_core/dml2_core_dcn4.c      | 204 +++----
+> >>  .../dml21/src/dml2_core/dml2_core_factory.c   |   1 +
+> >>  .../dml21/src/dml2_core/dml2_core_utils.c     |  63 +-
+> >>  .../dml21/src/dml2_core/dml2_core_utils.h     |   2 +
+> >>  .../dml21/src/dml2_dpmm/dml2_dpmm_dcn4.c      |   1 -
+> >>  .../dml21/src/dml2_dpmm/dml2_dpmm_factory.c   |   1 +
+> >>  .../dml2_0/dml21/src/dml2_mcg/dml2_mcg_dcn4.h |   2 +-
+> >>  .../dml21/src/dml2_mcg/dml2_mcg_dcn42.h       |   5 +-
+> >>  .../dml21/src/dml2_mcg/dml2_mcg_factory.c     |   1 +
+> >>  .../dml21/src/dml2_pmo/dml2_pmo_dcn4_fams2.c  |   6 +
+> >>  .../dml21/src/dml2_pmo/dml2_pmo_factory.c     |   4 +-
+> >>  .../dml21/src/dml2_pmo/dml2_pmo_factory.h     |   2 +-
+> >>  .../dml21/src/dml2_top/dml2_top_interfaces.c  |   1 +
+> >>  .../dml21/src/dml2_top/dml2_top_legacy.c      |   1 -
+> >>  .../src/inc/dml2_internal_shared_types.h      |   3 +
+> >>  .../drm/amd/display/dc/dml2_0/dml2_wrapper.c  |   3 +-
+> >>  .../amd/display/dc/dpp/dcn30/dcn30_dpp_cm.c   |   2 +
+> >>  .../display/dc/dpp/dcn401/dcn401_dpp_dscl.c   |  21 +
+> >>  .../hpo/dcn31/dcn31_hpo_dp_stream_encoder.c   |   5 +
+> >>  .../amd/display/dc/hubp/dcn401/dcn401_hubp.c  | 201 ++++---
+> >>  .../amd/display/dc/hubp/dcn401/dcn401_hubp.h  |  23 +-
+> >>  .../amd/display/dc/hubp/dcn42/dcn42_hubp.c    |  85 ++-
+> >>  .../amd/display/dc/hubp/dcn42/dcn42_hubp.h    |  16 +-
+> >>  .../amd/display/dc/hwss/dce110/dce110_hwseq.c | 136 +++--
+> >>  .../amd/display/dc/hwss/dcn401/dcn401_hwseq.c | 412 +++++--------
+> >>  .../amd/display/dc/hwss/dcn42/dcn42_hwseq.c   | 553 +++--------------=
+-
+> >>  .../amd/display/dc/hwss/dcn42/dcn42_hwseq.h   |  10 +-
+> >>  .../amd/display/dc/hwss/dcn42/dcn42_init.c    |   8 +-
+> >>  drivers/gpu/drm/amd/display/dc/inc/hw/hubp.h  |  36 +-
+> >>  .../gpu/drm/amd/display/dc/inc/hw/hw_shared.h |  18 +-
+> >>  drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h   | 112 ++--
+> >>  drivers/gpu/drm/amd/display/dc/inc/resource.h |   1 +
+> >>  .../amd/display/dc/mpc/dcn401/dcn401_mpc.c    | 177 +++---
+> >>  .../amd/display/dc/mpc/dcn401/dcn401_mpc.h    |  25 +-
+> >>  .../drm/amd/display/dc/mpc/dcn42/dcn42_mpc.c  | 390 ++----------
+> >>  .../drm/amd/display/dc/mpc/dcn42/dcn42_mpc.h  |  50 +-
+> >>  .../amd/display/dc/optc/dcn10/dcn10_optc.h    |   2 +-
+> >>  .../amd/display/dc/optc/dcn42/dcn42_optc.c    | 105 +++-
+> >>  .../amd/display/dc/optc/dcn42/dcn42_optc.h    |  13 +-
+> >>  .../dc/resource/dcn42/dcn42_resource.c        |  10 +-
+> >>  .../dcn401/dcn401_soc_and_ip_translator.c     |   3 +
+> >>  .../dcn42/dcn42_soc_and_ip_translator.c       |  12 +-
+> >>  .../gpu/drm/amd/display/dmub/inc/dmub_cmd.h   |  38 +-
+> >>  .../include/asic_reg/dcn/dcn_4_2_0_offset.h   |   2 +
+> >>  .../include/asic_reg/dcn/dcn_4_2_0_sh_mask.h  |   9 +
+> >>  65 files changed, 1596 insertions(+), 1984 deletions(-)
+> >
+> >
+> >
+> >
+> >
+>
