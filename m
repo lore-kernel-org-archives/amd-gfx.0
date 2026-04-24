@@ -4,91 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9DEC1FED3D6
-	for <amd-gfx@archiver.kernel.org>; Fri, 24 Apr 2026 14:35:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 31F56FED3D6
+	for <amd-gfx@archiver.kernel.org>; Fri, 24 Apr 2026 14:48:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3C08410F5D4;
-	Fri, 24 Apr 2026 14:35:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9F6A510F5E4;
+	Fri, 24 Apr 2026 14:48:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="fi2+pTVh";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="F/E+6uqc";
 	dkim-atps=neutral
-Received: from mail-dl1-f49.google.com (mail-dl1-f49.google.com [74.125.82.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9AFFF10F5D4
- for <amd-gfx@lists.freedesktop.org>; Fri, 24 Apr 2026 14:35:55 +0000 (UTC)
-Received: by mail-dl1-f49.google.com with SMTP id
- a92af1059eb24-12736a0147cso535124c88.1
- for <amd-gfx@lists.freedesktop.org>; Fri, 24 Apr 2026 07:35:55 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1777041355; cv=none;
- d=google.com; s=arc-20240605;
- b=JszRXBFj+AqxoHoLZovSg9WtbT/sNVS1Zf91vhDn7f5ZiOgt6y3j26MLbKu2QynW0I
- RnUNtqcKqY7NlgiJxuqVECefe725fWk6PHPA0Wk2sPu6rduiNkOoitNJiMIPxU9UobgX
- XLPrIOWxNjaCHUb+Q9G42xOXEPfeBIrL7qTycEL94PnSTs0+bxfilzv5rIhNkxqH9IZa
- CtIhbVR2Smab3ePJ5j2J95LpQIsK1xAnkn/2HiigZAsAozQqK3tMWInd753mO2mt1p1P
- 88LqLpkzXVN1CSdlLu+nV7GERzjuKxzqVgmx6Xk2pocdopB5GrhFjFjICpRzwM5GuCcH
- sW7Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=cajcnwfU92lMTp9xFina6lZRBTJ8PyLL8/WwHmKLwWs=;
- fh=mfQLJlQ1hC0n2Ib9V6AWRWUCc8qDOp0nhOZ+b5bi1x0=;
- b=IZ9zCOc51yM1ZrtmRDyJLzqnj18MmdTk+BVDZAqi1LnaufIV1RqInBYGTzlX833dPU
- GsbdUL3WZxOsfPcQlOk7jS/A3k29Gt+euZ/eoXSMAtyl9IbFCUXit2PfWej2gpbNdw4M
- iWBRkKj8xpVHpvcyxIauGKg6h+DWeBo/l3ot3Kuh6sgFppycyc+SJ+hL6hBtABKhnu8j
- GEUG94ZvODb4xfpYXvuFKKipfLw8gRVlzXKA0zq/z2jXXLfS/mUsKtaCmE9CCs080YFR
- gPbMOyez0xPld3BNH8O4Gvvt/c4F7fgvPypk8j15rUjOnBdDKwtNcMOxa/P44ReyWIdQ
- zBzg==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1777041355; x=1777646155; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=cajcnwfU92lMTp9xFina6lZRBTJ8PyLL8/WwHmKLwWs=;
- b=fi2+pTVhlza5TqV32OinfHt05p1nDOH4JZucLLpJQOhQ33hfoc/Z7Bwh/EiJBRsAy+
- 16jPMsQfzMk3q56xbiFLXj76kqnnIdD3lkNjSHqmfrTPu6a0ML+wUgjOBD7ockAUsRQ2
- KJWO5ku5HIkNVPugNtULnBo/bpg78oW/Sl+HhYXnx1OW37hS1Ttc3ru9DleLKF7JVMnL
- SK6EHCbooh5fUY/meP2ON5XRBewWmIkWIEKzzxJZjxUIxTVRz6eHVTQONqALxiP9p06j
- MNAd3zRjA34XgGuYdoIChk6aFulCkgCIyt1KqYAn81TRqu1GGIdiwj6S0UM43KfBRboE
- JyXw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1777041355; x=1777646155;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=cajcnwfU92lMTp9xFina6lZRBTJ8PyLL8/WwHmKLwWs=;
- b=Xelz75rl5VmXv/JYb7CIAyIiuxQVebJplbfK8+B3Gw2JiR8fS59SS1bWb6Ov4PlX+U
- hWfQDR3/NZJHWrIv3BF3v90GCPwy/wQof9C0KNJvaCJ89BK9teLhBxTdHI6w8RZ0DDKO
- XCWzNj7rymqIxMlrpDq0cF3U09+8NYXF+C3O51Kbi0CVHqXPDAJlJOP6TSnU3JtFpSKF
- 2xKRSNM7BnRdGJfJ+EJVluc8MvCQs1hQDbEGr29qCZobjnE8+ZqgM1sQ5ioewhfGs5WV
- rzYAhLdhVnU9wkTp/IEG/Rko24TPpDA4lKsnXsiMHwmsOddxqiAl8u7IGF2Iof1f+mIi
- fTxA==
-X-Gm-Message-State: AOJu0YxdTkKSlgfvotmGlNJWW75SrGDMRnfX3n5TxJb9eUn4Tr00ybmt
- YRa2glX7idPrs+f4701nFa0w3Pa5HAtuxUaEFyJHNetFpgCv0r1wMG3RAJs1VWB2UlhcrpsoSjZ
- z9s+fH5IZDxlK7CRxVGyhg93M/7BAGo73WA==
-X-Gm-Gg: AeBDiesRohRNY/CR+rttF4OYWKqo0UUPONQLbveDHhzI0IeUa4hZeRIYmk+FnMXwUNi
- A4Yg/D8FoLzT4z/bOVl2JBnnLnd3IkBBNTkdOa9OgIpZtAhoWbqhBU6TjJIo9NyFNr25fOpoGLO
- QfKarANtPcSXzhc2q8LRhepBHjD2xf+3mPss92FIFsPyAA8w2EGrJfU95Hpz3TefPF/P/aghulS
- hUMH26aGVdhjbGnygdZGDY+EL9OvQPf43LnqgPPZqDBeSyHUwVMt2X1435/KQ+Ee3r7aP8Pl08w
- 8ltodMF8SlpsWy34Ys0Sct6k+Y5vF5tsSePbTTOiGN/bUgvVzUS9FepgNbRkSSrmJ8clUrIsq3/
- +Gklv
-X-Received: by 2002:a05:7022:6289:b0:12a:6cff:2e7e with SMTP id
- a92af1059eb24-12c73fa64efmr6383710c88.7.1777041354878; Fri, 24 Apr 2026
- 07:35:54 -0700 (PDT)
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0A08410F5E4;
+ Fri, 24 Apr 2026 14:48:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:Cc:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=0jKpBDpmzKq8kjiqbw3Z3ba1caxadP+koz8SDo0MCBg=; b=F/E+6uqcVVCo9My+Z1sa5ZyDnL
+ K+VhYZRp9YMMV56i3cnNOv5tZXGLMMawasQ2LoMUEMqvFxCEZQMcDC8cGkupDYuRNZ8KkJENurwCx
+ m3LHtpuQ48CH26Ax0Zirz7xFAs84gIBNNfldrfg1NykAgAPU8+MAQ17Jp2zTMLlH8tEaDujMjW+xS
+ hxqrEOokp4gY6/ECOW3F7k9EEY3eDHFPNVGrPii4ndNH6UesmGLQ4H7MJ+UZS7uddaUP3D7sLbhtR
+ HjCG6XiYpqG/vQ72k4IDA/lvpwH6Q1JgXwXyOn7e0rOlXHhEebYtNvb8rBMI4mlsYsC7O2P3GonGh
+ k72C/PhQ==;
+Received: from [186.208.73.228] (helo=[192.168.18.14])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1wGHpB-001dee-Sh; Fri, 24 Apr 2026 16:48:09 +0200
+Message-ID: <ccf3e322-154e-4ad1-8470-dea9446e2092@igalia.com>
+Date: Fri, 24 Apr 2026 11:48:06 -0300
 MIME-Version: 1.0
-References: <20260424140755.2500419-1-IVAN.LIPSKI@amd.com>
-In-Reply-To: <20260424140755.2500419-1-IVAN.LIPSKI@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 24 Apr 2026 10:35:43 -0400
-X-Gm-Features: AQROBzAXwRQnF0bd8MX8hzSg-qn3dCSQuWdHXaECyh0MFPRnUs-34ZQ_z4aN36Y
-Message-ID: <CADnq5_O=Q173PuDjWb2VaFciftMToqFvqW8XfRTCxjG9HeaSeA@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: Remove dead init_mcm_addr_lut call in soc_v1_0
-To: IVAN.LIPSKI@amd.com
-Cc: amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>, 
- Shiwu Zhang <shiwu.zhang@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>, 
- Mario Limonciello <superm1@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH v2 7/9] drm/amd/display: Use GAMCOR for first TF if
+ CSC is used
+To: Harry Wentland <harry.wentland@amd.com>, dri-devel@lists.freedesktop.org, 
+ amd-gfx@lists.freedesktop.org
+References: <20260330153451.99472-1-harry.wentland@amd.com>
+ <20260330153451.99472-8-harry.wentland@amd.com>
+Content-Language: en-US
+From: Melissa Wen <mwen@igalia.com>
+In-Reply-To: <20260330153451.99472-8-harry.wentland@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,45 +61,87 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This is already fixed.  Sorry for the noise.
 
-Alex
 
-On Fri, Apr 24, 2026 at 10:34=E2=80=AFAM <IVAN.LIPSKI@amd.com> wrote:
+On 30/03/2026 12:34, Harry Wentland wrote:
+> For subsampled formats we need to use GAMCOR instead of
+> the DEGAM block. The color module can create a LUT for
+> that if we set map_user_ramp to true. So do that when
+> we have subsampled formats.
 >
-> From: Ivan Lipski <ivan.lipski@amd.com>
+> Co-developed by Claude Sonnet 4.5.
 >
-> [Why&How]
-> init_mcm_addr_lut() definition was reverted from amdgpu_imu_funcs , so th=
-is
-> function call causes build failure.
->
-> Thus, remove it.
->
-> Fixes: 21bd78c821c9 ("Revert "drm/amdgpu: Init mcm_addr look up table"")
->
-> Signed-off-by: Ivan Lipski <ivan.lipski@amd.com>
+> Signed-off-by: Harry Wentland <harry.wentland@amd.com>
 > ---
->  drivers/gpu/drm/amd/amdgpu/soc_v1_0.c | 4 ----
->  1 file changed, 4 deletions(-)
+>   .../amd/display/amdgpu_dm/amdgpu_dm_color.c   | 34 ++++++++++++++++++-
+>   1 file changed, 33 insertions(+), 1 deletion(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/soc_v1_0.c b/drivers/gpu/drm/amd/=
-amdgpu/soc_v1_0.c
-> index d06953c237ed..f09d21738400 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/soc_v1_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/soc_v1_0.c
-> @@ -744,10 +744,6 @@ static int soc_v1_0_switch_partition_mode(struct amd=
-gpu_xcp_mgr *xcp_mgr,
->                 if (ret)
->                         goto out;
->         }
-> -       if (adev->gfx.imu.funcs &&
-> -           adev->gfx.imu.funcs->init_mcm_addr_lut &&
-> -           amdgpu_emu_mode)
-> -               adev->gfx.imu.funcs->init_mcm_addr_lut(adev);
->
->         /* Init info about new xcps */
->         *num_xcps =3D num_xcc / num_xcc_per_xcp;
-> --
-> 2.43.0
->
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
+> index d5b4190e635c..6403dfe4ee10 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
+> @@ -1471,6 +1471,8 @@ __set_colorop_in_tf_1d_curve(struct dc_plane_state *dc_plane_state,
+>   	struct dc_transfer_func *tf = &dc_plane_state->in_transfer_func;
+>   	struct drm_colorop *colorop = colorop_state->colorop;
+>   	struct drm_device *drm = colorop->dev;
+> +	struct dc_color_caps *color_caps = NULL;
+> +	bool is_subsampled_format;
+>   
+>   	if (colorop->type != DRM_COLOROP_1D_CURVE)
+>   		return -EINVAL;
+> @@ -1486,9 +1488,39 @@ __set_colorop_in_tf_1d_curve(struct dc_plane_state *dc_plane_state,
+>   
+>   	drm_dbg(drm, "Degamma colorop with ID: %d\n", colorop->base.id);
+>   
+> -	tf->type = TF_TYPE_PREDEFINED;
+> +	/* Check if format requires post-scale color processing (subsampled formats) */
+> +	is_subsampled_format = (dc_plane_state->format >= SURFACE_PIXEL_FORMAT_VIDEO_BEGIN &&
+> +				dc_plane_state->format < SURFACE_PIXEL_FORMAT_SUBSAMPLE_END);
+> +
+>   	tf->tf = amdgpu_colorop_tf_to_dc_tf(colorop_state->curve_1d_type);
+>   
+> +	if (is_subsampled_format) {
+Hi,
+
+I'm checking this fix and I think current __set_dm_plane_degamma() with 
+AMD driver-specific properties also needs it, right?
+> +		/*
+> +		 * For subsampled formats (P010, NV12), we need color processing
+> +		 * to happen AFTER scaling (to expand UV channels first).
+> +		 * Convert predefined TF to PWL so DC will use GAMCOR (post-scale)
+> +		 * instead of PRE_DEGAM (pre-scale).
+> +		 *
+> +		 * IMPORTANT: We must pass map_user_ramp=true to force PWL conversion.
+> +		 * Without it, mod_color_calculate_degamma_params() returns early for
+> +		 * SRGB/Linear TFs without converting to TF_TYPE_DISTRIBUTED_POINTS.
+> +		 */
+> +		tf->type = TF_TYPE_PREDEFINED;
+> +
+> +		if (dc_plane_state->ctx && dc_plane_state->ctx->dc)
+> +			color_caps = &dc_plane_state->ctx->dc->caps.color;
+> +
+> +		if (!mod_color_calculate_degamma_params(color_caps, tf, NULL, true)) {
+> +			drm_err(drm, "Failed to calculate degamma params for subsampled format\n");
+> +			return -EINVAL;
+> +		}
+> +
+> +		/* mod_color_calculate_degamma_params sets tf->type to TF_TYPE_DISTRIBUTED_POINTS */
+> +	} else {
+> +		/* For non-subsampled formats (RGB, XR30), use predefined ROM LUT (PRE_DEGAM) */
+> +		tf->type = TF_TYPE_PREDEFINED;
+
+I understand we don't need to check DPP color caps here because colorop 
+is currently only supported by DCN3 and newer, and I guess they all 
+support full range of predefined ROM LUT, right?
+But checking `dc_caps->dpp.dgam_rom_caps` as 
+mod_color_calculate_degamma_params() does before fallback to GAM_COR 
+looks more robust to me.
+
+Melissa
+
+> +	}
+> +
+>   	return 0;
+>   }
+>   
+
