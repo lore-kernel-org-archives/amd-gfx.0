@@ -4,98 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 77C0DFED3CF
-	for <amd-gfx@archiver.kernel.org>; Fri, 24 Apr 2026 14:09:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 10E5FFED3C9
+	for <amd-gfx@archiver.kernel.org>; Fri, 24 Apr 2026 14:19:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 152E310F5AB;
-	Fri, 24 Apr 2026 14:09:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AB22B10F5A8;
+	Fri, 24 Apr 2026 14:19:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="bHSmEo89";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="lHLeo3k6";
 	dkim-atps=neutral
-Received: from SN4PR2101CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11012071.outbound.protection.outlook.com
- [40.93.195.71])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BE86510F5AB
- for <amd-gfx@lists.freedesktop.org>; Fri, 24 Apr 2026 14:09:03 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=j6o9THTAgN5LWRkRYgfaP2B2g/SIwZJgVEs6srvVnZ19fSGDKuS9sRxBdG4k0GEQoBYjXEGKnPb28V+pkiBK4CW2JlylKTJ7mOohlS8t/aLtf9uiIuteBIJKaqiFTQYd0LXnmPcixxbHHkYFVsj57UZu9IGgd5tfePY1n3RQUdHU4igtUsYOcYQjhpdigfZ7pdhMAtpNH0v+eCFpvib8/mbMPoonZPw1kxDfzvBEJqf0IQVoGfz5He25gLqze4dW3tKEc55vTbaf7+HR+AkL6GEyqY+dGLpPyLCZziv+paHAMLJNJkSomra+Gydvtyg5RgqII5sWREyBwQbLpJUnZg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=kh2KmHrJ5KxYqszZS37eUSeQG1ayJmSsNNExbgonRo8=;
- b=wHLVRSuR4mhIrDk1rUkgkCYo4wegAlqtoYMz1T75tLnNMROn8VTKFutrQ4nLv9QQqnGKZcBhOYDqtMJcGT3pRIKn/S80MMwy+xUEHI5ZapgIqpDHJbmX2v8fARavS0eoq1aRQLFHBGdLkM4dzvl5ctcse1NVPWaEePuQPxhJFnMJZznEguYUt8xkH9iuNNNwnb6cFuARV53UiTQagJDweKgyCq5LRGl/vjQdYDYyR44UcJzoZSWZvcZnONphlwQdXvP7cy9gkZklzEd6dcen9X1iPaJ5RpPxNkW6n3X9x6aqzy0kyyFtaRx7tDVHJoP6e7TQEkElAXwUwZuz213PrQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=kh2KmHrJ5KxYqszZS37eUSeQG1ayJmSsNNExbgonRo8=;
- b=bHSmEo89SyA9/+v9wOojJqQybdTPBwTLATWCWA3ulsBsUyyE7YJZzciB0+i6MayG4MkLhbzz4p4CuAtRxeem4WE/2Y65EUOCb6l8dhxcbZfDU84Icj+KYUE2Al+keoNYc+vRq+hWdHG+QGipBLJxMzm1YT/4s+jMVgqIFIzftHI=
-Received: from SJ0PR13CA0177.namprd13.prod.outlook.com (2603:10b6:a03:2c7::32)
- by SA1PR12MB7296.namprd12.prod.outlook.com (2603:10b6:806:2ba::21)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.22; Fri, 24 Apr
- 2026 14:08:59 +0000
-Received: from SJ5PEPF000001CC.namprd05.prod.outlook.com
- (2603:10b6:a03:2c7:cafe::48) by SJ0PR13CA0177.outlook.office365.com
- (2603:10b6:a03:2c7::32) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9846.22 via Frontend Transport; Fri,
- 24 Apr 2026 14:08:59 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- SJ5PEPF000001CC.mail.protection.outlook.com (10.167.242.41) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9846.18 via Frontend Transport; Fri, 24 Apr 2026 14:08:58 +0000
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Fri, 24 Apr
- 2026 09:08:58 -0500
-Received: from box-0.amd.com (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
- Transport; Fri, 24 Apr 2026 09:08:58 -0500
-From: <IVAN.LIPSKI@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: Alex Deucher <alexander.deucher@amd.com>, Shiwu Zhang
- <shiwu.zhang@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>, "Mario
- Limonciello" <superm1@kernel.org>, Ivan Lipski <ivan.lipski@amd.com>
-Subject: [PATCH] drm/amdgpu: Remove dead init_mcm_addr_lut call in soc_v1_0
-Date: Fri, 24 Apr 2026 10:07:33 -0400
-Message-ID: <20260424140755.2500419-1-IVAN.LIPSKI@amd.com>
-X-Mailer: git-send-email 2.43.0
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 30C7910F5A8
+ for <amd-gfx@lists.freedesktop.org>; Fri, 24 Apr 2026 14:19:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:References:
+ To:Subject:From:MIME-Version:Date:Message-ID:Sender:Reply-To:Cc:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=oEFEPo1h9NXVrcr8a8UK8q/4AoIr3Tz99mdMHrhUp2o=; b=lHLeo3k6Oe2bLXuW57ExCZZRQt
+ aGMSCaEe6A2aTkd2R72CLLsykph6vYE1Dozxs+vyp0kuu4fE9nvpML7cKbMYk1Qkzu3a+U9Yk7Gow
+ jhQkxz3neg0n2+f6p2h6UU+7cAtWN58JotxbXIK5psRNG5mG+NZHJXbOngO/qaSs3yQnjvyJqUH9V
+ PdwDk6Whz0dDmna5TpelTfHAfM15G0JWwDX8wXmQOj00gfnOqd13ik1MRdRFmdKXK8pVkBE1VSOHh
+ W9fxHDwwyOqwLrNrS1ve8I9QD9726BNTs/UkBVfx1Im+t8E+3pjsz2Kl6HiZJgrIdd9xEte50SYui
+ 3eapi/xw==;
+Received: from [186.208.73.228] (helo=[192.168.18.14])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1wGHNc-001d6c-Gi; Fri, 24 Apr 2026 16:19:39 +0200
+Message-ID: <1abaa821-5477-4bfb-9731-9820f303f22f@igalia.com>
+Date: Fri, 24 Apr 2026 11:19:34 -0300
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+From: Melissa Wen <mwen@igalia.com>
+Subject: Re: [PATCH 01/14] drm/amd/display: Delete unimplemented
+ dm_pp_apply_power_level_change_request()
+To: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>,
+ amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com,
+ Alex Hung <alex.hung@amd.com>, Harry Wentland <Harry.Wentland@amd.com>,
+ Roman Li <Roman.Li@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ David Airlie <airlied@gmail.com>,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ Ivan Lipski <ivan.lipski@amd.com>
+References: <20260423191519.73127-1-timur.kristof@gmail.com>
+ <20260423191519.73127-2-timur.kristof@gmail.com>
+Content-Language: en-US
+In-Reply-To: <20260423191519.73127-2-timur.kristof@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF000001CC:EE_|SA1PR12MB7296:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2a17c7e4-21e4-4f10-ba3c-08dea20b077f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|1800799024|82310400026|36860700016|56012099003|18002099003;
-X-Microsoft-Antispam-Message-Info: BCF91v4ZbHLWlZ9OPMb3Bt08nbxOHWFLI5SPjPvQMhCRbABg5vQjF/01Wy7aWFo48vLTV5kUtM3mj1j0O03uct3URoRl8qVIMgzhyhk/ufd+1ZCLIogCfiL4dtl2WdSGok/JFy7xZwsBDWlGP7lTpH09oHEOshbkymhtiP+sdlF2X/3D41l1aLW+G6HZLyjD7KxIoQhKx/7NUzDi22xT9iGBLIrJ52qK3gysQ4vkYaysZispceYVx9dfHyABvNmoleEcsi4DEkDbQ80PU35qZnslqOJ368IYGXG1VE8H/7hkYag5IsQ9brP9IFG2YxitnP+J4131Gzk8CRUb+stBQnHXmM/ORHn7+zXAu3ISwE4eHha00F2Hc0p56+IpAcGN4mNwNAA5IHId+n2lfb/qrgboiEgiJJOhEduq/D48/UvbtlVwSsYTB1Jb0Fb8BH3/ldLAhrX54ew670dan5fvGljnNZn2nWtZTai9TVlbVFx5syxu5IN+jvEfR1SPIVX121uSLNqk+RRHm6uyc38zGtk/UpMxvZeklKY5tCncGxW2omgidombKAQm+cm7SEXD78ZlOtRKzxqtAuxjephXaUcvVi2L/xxiCCPgyjZ45BixxHKh9oZdP34TvE6dnO71jcLcFfZrbyKiihsKfuF/yBfJMkalZmDW4Sk4O/r+kAtvPgTyGLySQH1v2TmOgcLam8QY5dsqyfXMMQvR3ECpnGyfhUTXXs/tBooVqe4rOrjlwBtRZgXGyKoCMOCLggPFO+7QvSd9xSrikKRwZFXGiQ==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(82310400026)(36860700016)(56012099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: Cmc3Eg8ZMoCoAb8GafS9DWgm9M0w/g7BuZArk+WlIZUKKjWv0Rm0Xa8gPTBlK5ctpoT5Fi1oCytTvhcpOjoOZO8IMByooc9xyWtXnqEnRxDgpHI3Fl4kEK14pRvaj5zWKPfIwLom1REOQJnsjxQkFuE6PNmISF/jiM2m0JRQxsl8TdNo1UQs7K4HLuhSbCCahrU/iwxESfy4VLn6DOBwAoCaJATlMup35LkW10matBeJajtBNKP6dt1EralcsyPS+R8aizJNPy4G/XqmFVz77TP0ixg9Y9uhcL0mUIHVIKlb/0fFAzQVMa3S4kmYAQPw3OybA41rqYwARR0yFs5Z9p8bCNjCBWY8nkTR0DkDrPhza3n5RgYNlDKB7Uivdhe2V0GuduiJBmVpXbGmzJktPfodsm87+ipAzXPK/gjgWpyACAEgFLqW0lBazB3EDlmb
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Apr 2026 14:08:58.6477 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2a17c7e4-21e4-4f10-ba3c-08dea20b077f
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF000001CC.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB7296
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,36 +66,143 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Ivan Lipski <ivan.lipski@amd.com>
 
-[Why&How]
-init_mcm_addr_lut() definition was reverted from amdgpu_imu_funcs , so this
-function call causes build failure.
 
-Thus, remove it.
+On 23/04/2026 16:15, Timur Kristóf wrote:
+> dm_pp_apply_power_level_change_request() was called from old
+> DCE clock manager implementations on DCE6, 8, 10, 11.2
+> but has not been implemented ever since the beginning of DC.
+>
+> Affected GPUs have been working fine without that implementation
+> for many years. Let's delete it now.
+>
+> Signed-off-by: Timur Kristóf<timur.kristof@gmail.com>
+> ---
+>   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c | 8 --------
+>   .../gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c  | 9 ---------
+>   .../drm/amd/display/dc/clk_mgr/dce110/dce110_clk_mgr.c   | 9 ---------
+>   .../drm/amd/display/dc/clk_mgr/dce112/dce112_clk_mgr.c   | 9 ---------
+>   drivers/gpu/drm/amd/display/dc/dm_services.h             | 4 ----
+>   5 files changed, 39 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c
+> index 11b2ea6edf953..17f42201ab862 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c
+> @@ -417,14 +417,6 @@ bool dm_pp_notify_wm_clock_changes(
+>   	return false;
+>   }
+>   
+> -bool dm_pp_apply_power_level_change_request(
+> -	const struct dc_context *ctx,
+> -	struct dm_pp_power_level_change_request *level_change_req)
+Hi Timur,
+> -{
+> -	/* TODO: to be implemented */
+I feel a little uneasy about removing all this infrastructure with this 
+series, as AFAIU, it could be avoided by implementing this TODO (?)
+Any idea if AMD has this code somewhere that could be upstreamed, or did 
+it end up in the firmware?
 
-Fixes: 21bd78c821c9 ("Revert "drm/amdgpu: Init mcm_addr look up table"")
+BTW, Looks like `struct dm_pp_power_level_change_request` also becomes 
+unused with this change, right?
 
-Signed-off-by: Ivan Lipski <ivan.lipski@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/soc_v1_0.c | 4 ----
- 1 file changed, 4 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/soc_v1_0.c b/drivers/gpu/drm/amd/amdgpu/soc_v1_0.c
-index d06953c237ed..f09d21738400 100644
---- a/drivers/gpu/drm/amd/amdgpu/soc_v1_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/soc_v1_0.c
-@@ -744,10 +744,6 @@ static int soc_v1_0_switch_partition_mode(struct amdgpu_xcp_mgr *xcp_mgr,
- 		if (ret)
- 			goto out;
- 	}
--	if (adev->gfx.imu.funcs &&
--	    adev->gfx.imu.funcs->init_mcm_addr_lut &&
--	    amdgpu_emu_mode)
--		adev->gfx.imu.funcs->init_mcm_addr_lut(adev);
- 
- 	/* Init info about new xcps */
- 	*num_xcps = num_xcc / num_xcc_per_xcp;
--- 
-2.43.0
+Melissa
+> -	return false;
+> -}
+> -
+>   bool dm_pp_apply_clock_for_voltage_request(
+>   	const struct dc_context *ctx,
+>   	struct dm_pp_clock_for_voltage_req *clock_for_voltage_req)
+> diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c
+> index 6d41df52d7c9b..ffb70120362e7 100644
+> --- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c
+> +++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c
+> @@ -431,19 +431,10 @@ static void dce_update_clocks(struct clk_mgr *clk_mgr_base,
+>   			bool safe_to_lower)
+>   {
+>   	struct clk_mgr_internal *clk_mgr_dce = TO_CLK_MGR_INTERNAL(clk_mgr_base);
+> -	struct dm_pp_power_level_change_request level_change_req;
+>   	const int max_disp_clk =
+>   		clk_mgr_dce->max_clks_by_state[DM_PP_CLOCKS_STATE_PERFORMANCE].display_clk_khz;
+>   	int patched_disp_clk = MIN(max_disp_clk, context->bw_ctx.bw.dce.dispclk_khz);
+>   
+> -	level_change_req.power_level = dce_get_required_clocks_state(clk_mgr_base, context);
+> -	/* get max clock state from PPLIB */
+> -	if ((level_change_req.power_level < clk_mgr_dce->cur_min_clks_state && safe_to_lower)
+> -			|| level_change_req.power_level > clk_mgr_dce->cur_min_clks_state) {
+> -		if (dm_pp_apply_power_level_change_request(clk_mgr_base->ctx, &level_change_req))
+> -			clk_mgr_dce->cur_min_clks_state = level_change_req.power_level;
+> -	}
+> -
+>   	if (should_set_clock(safe_to_lower, patched_disp_clk, clk_mgr_base->clks.dispclk_khz)) {
+>   		patched_disp_clk = dce_set_clock(clk_mgr_base, patched_disp_clk);
+>   		clk_mgr_base->clks.dispclk_khz = patched_disp_clk;
+> diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dce110/dce110_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dce110/dce110_clk_mgr.c
+> index 13296c6ec08f4..ae922f1a31ff8 100644
+> --- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dce110/dce110_clk_mgr.c
+> +++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dce110/dce110_clk_mgr.c
+> @@ -257,21 +257,12 @@ static void dce11_update_clocks(struct clk_mgr *clk_mgr_base,
+>   			bool safe_to_lower)
+>   {
+>   	struct clk_mgr_internal *clk_mgr_dce = TO_CLK_MGR_INTERNAL(clk_mgr_base);
+> -	struct dm_pp_power_level_change_request level_change_req;
+>   	int patched_disp_clk = context->bw_ctx.bw.dce.dispclk_khz;
+>   
+>   	/*TODO: W/A for dal3 linux, investigate why this works */
+>   	if (!clk_mgr_dce->dfs_bypass_active)
+>   		patched_disp_clk = patched_disp_clk * 115 / 100;
+>   
+> -	level_change_req.power_level = dce_get_required_clocks_state(clk_mgr_base, context);
+> -	/* get max clock state from PPLIB */
+> -	if ((level_change_req.power_level < clk_mgr_dce->cur_min_clks_state && safe_to_lower)
+> -			|| level_change_req.power_level > clk_mgr_dce->cur_min_clks_state) {
+> -		if (dm_pp_apply_power_level_change_request(clk_mgr_base->ctx, &level_change_req))
+> -			clk_mgr_dce->cur_min_clks_state = level_change_req.power_level;
+> -	}
+> -
+>   	if (should_set_clock(safe_to_lower, patched_disp_clk, clk_mgr_base->clks.dispclk_khz)) {
+>   		context->bw_ctx.bw.dce.dispclk_khz = dce_set_clock(clk_mgr_base, patched_disp_clk);
+>   		clk_mgr_base->clks.dispclk_khz = patched_disp_clk;
+> diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dce112/dce112_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dce112/dce112_clk_mgr.c
+> index 1f36ad8a7de46..48393c69735b6 100644
+> --- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dce112/dce112_clk_mgr.c
+> +++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dce112/dce112_clk_mgr.c
+> @@ -193,21 +193,12 @@ static void dce112_update_clocks(struct clk_mgr *clk_mgr_base,
+>   			bool safe_to_lower)
+>   {
+>   	struct clk_mgr_internal *clk_mgr_dce = TO_CLK_MGR_INTERNAL(clk_mgr_base);
+> -	struct dm_pp_power_level_change_request level_change_req;
+>   	int patched_disp_clk = context->bw_ctx.bw.dce.dispclk_khz;
+>   
+>   	/*TODO: W/A for dal3 linux, investigate why this works */
+>   	if (!clk_mgr_dce->dfs_bypass_active)
+>   		patched_disp_clk = patched_disp_clk * 115 / 100;
+>   
+> -	level_change_req.power_level = dce_get_required_clocks_state(clk_mgr_base, context);
+> -	/* get max clock state from PPLIB */
+> -	if ((level_change_req.power_level < clk_mgr_dce->cur_min_clks_state && safe_to_lower)
+> -			|| level_change_req.power_level > clk_mgr_dce->cur_min_clks_state) {
+> -		if (dm_pp_apply_power_level_change_request(clk_mgr_base->ctx, &level_change_req))
+> -			clk_mgr_dce->cur_min_clks_state = level_change_req.power_level;
+> -	}
+> -
+>   	if (should_set_clock(safe_to_lower, patched_disp_clk, clk_mgr_base->clks.dispclk_khz)) {
+>   		patched_disp_clk = dce112_set_clock(clk_mgr_base, patched_disp_clk);
+>   		clk_mgr_base->clks.dispclk_khz = patched_disp_clk;
+> diff --git a/drivers/gpu/drm/amd/display/dc/dm_services.h b/drivers/gpu/drm/amd/display/dc/dm_services.h
+> index fbbf9c757b3c3..1395d36bfabe9 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dm_services.h
+> +++ b/drivers/gpu/drm/amd/display/dc/dm_services.h
+> @@ -224,10 +224,6 @@ bool dm_pp_apply_display_requirements(
+>   	const struct dc_context *ctx,
+>   	const struct dm_pp_display_configuration *pp_display_cfg);
+>   
+> -bool dm_pp_apply_power_level_change_request(
+> -	const struct dc_context *ctx,
+> -	struct dm_pp_power_level_change_request *level_change_req);
+> -
+>   bool dm_pp_apply_clock_for_voltage_request(
+>   	const struct dc_context *ctx,
+>   	struct dm_pp_clock_for_voltage_req *clock_for_voltage_req);
 
