@@ -4,97 +4,152 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B976AFF885A
-	for <amd-gfx@archiver.kernel.org>; Fri, 24 Apr 2026 22:10:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AA01DFF885C
+	for <amd-gfx@archiver.kernel.org>; Sat, 25 Apr 2026 11:02:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5BAD210F6DE;
-	Fri, 24 Apr 2026 22:10:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EAF5110E158;
+	Sat, 25 Apr 2026 11:02:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="wR8qB00A";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="HQaWP/zU";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="UTOLPRxl";
 	dkim-atps=neutral
-Received: from CH1PR05CU001.outbound.protection.outlook.com
- (mail-northcentralusazon11010047.outbound.protection.outlook.com
- [52.101.193.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B3C8F10F6DE;
- Fri, 24 Apr 2026 22:10:38 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=nr0AXiRr/2lfjGUoCTQzD/Ie7h7yzNgLHczBKDrSeSSmDuA7MLHvJ7beSRSNG0jcTAc6FULsT42RgMuVWVu4CrJcOWMpYksGfPJwJue7GKnGg/SLIXbRmHvzdZFphzr87DjN4C8U5KUFoU8kmD1byxirGxd0n3cBNR/NdMO2BBeWwtvVgVF3wruVav2WXHi2DMmHOQ0/tGEpNqkdGkFp2MAeTItUlHru8Zwy5pAtv7fS1HQtu308JujMhGs8Hd/X0ehwVr8quXD6OUtkRegpOAW7WSpIjgSAmKUAR72J/CwCN1pX+JFghFl3RADSfds6ccyE+gmZer33yT80TmZB8w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=kaatD0hhAl1jTCJMwjTexp5WaNCYfZle8a6aEZ1PJ/k=;
- b=JkGuh7XnIo9wisD78MIDyYbD6KnLWm2zWpbyckok6k04VIiLph//PWrNt6un8rnKUN+hAgOVqeFf+3kfalcZEbosZNGEoBfNZZ0+rnatfXgi2dUN7iv/2Nj3OEEUkg0wgED1J1MSaMakbv5eIqkCwoqFWlxzBgcSkM+LdlDo0oJ+lucX+RBnb/bWUHInj7z+rp/TrII2h6m6ZMj2k2jjyd2HpQ9U/erUG0df++3HTczrQo+idVd8DOUGrJnM0gokgPfBCAFTHnv5KNfpydvKts7oMFnVJUd2+gTbAnl2r4Jruom5WeEed08A5JiNQPiDX2eBf9/8pRmwDOkInUNqQA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=kaatD0hhAl1jTCJMwjTexp5WaNCYfZle8a6aEZ1PJ/k=;
- b=wR8qB00Ag5P+naTRc+A+sijRHCx3Xnv7TEWMiMDfAlr2OFUoSknRFKtwxOGxYr0XZ2PvPDOGyJZSTGShYk1TzJ41kj66Du2LYfvdTRwk4Ptkm3aBh0gIcXf++03i5u9sfLtzzNl2+bXkSa9tp1yyTrLUOGmWcu/P7gQ3OdPJZDc=
-Received: from CY5PR19CA0001.namprd19.prod.outlook.com (2603:10b6:930:15::15)
- by BL3PR12MB9051.namprd12.prod.outlook.com (2603:10b6:208:3ba::6)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.22; Fri, 24 Apr
- 2026 22:10:33 +0000
-Received: from CH2PEPF0000009E.namprd02.prod.outlook.com
- (2603:10b6:930:15:cafe::54) by CY5PR19CA0001.outlook.office365.com
- (2603:10b6:930:15::15) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9846.22 via Frontend Transport; Fri,
- 24 Apr 2026 22:10:32 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- CH2PEPF0000009E.mail.protection.outlook.com (10.167.244.27) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9846.18 via Frontend Transport; Fri, 24 Apr 2026 22:10:32 +0000
-Received: from ausmlimonci-lx1.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Fri, 24 Apr
- 2026 17:10:31 -0500
-From: Mario Limonciello <mario.limonciello@amd.com>
-To: <dri-devel@lists.freedesktop.org>
-CC: <harry.wentland@amd.com>, Xaver Hugl <xaver.hugl@gmail.com>,
- <amd-gfx@lists.freedesktop.org>, Mario Limonciello <superm1@kernel.org>
-Subject: [PATCH] IGT: Add a luminance test
-Date: Fri, 24 Apr 2026 17:10:19 -0500
-Message-ID: <20260424221021.167179-1-mario.limonciello@amd.com>
-X-Mailer: git-send-email 2.43.0
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 074E510E156
+ for <amd-gfx@lists.freedesktop.org>; Sat, 25 Apr 2026 11:02:30 +0000 (UTC)
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 63P3LJsC945188
+ for <amd-gfx@lists.freedesktop.org>; Sat, 25 Apr 2026 11:02:30 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=LuIbxZ4UGkr2MNHoHHNNbGJq
+ U9tVlBHwrX/08rcaVp8=; b=HQaWP/zUUv16lKqJeof414zvjCEHqwtLTwHORYrc
+ uuNXKoXfW5xGdbfm7Ul2EKQS01bgJCvGTn7tFrXPUj4NBCTi90rDrtl3v8QyNe50
+ DtQQN7s1AB4G21yOz+YImxfApS9x3qvQrARYn096MMbdRHlaPG/xoinPcHGIKf1E
+ tmgDhWBQPAxLVP1SypmeoVoGibGc1VCqey3Loy4wTxCvMMvPDs/U99gKAHIOz7Gr
+ nZCj7rWqTMAhcuLCqlUsZzsm3E9TEDKRIyEkHrEZ51znwV/lYgZDnpM02rejVviM
+ 8MXPjmeovoPfg7Q6u7PSJEljEZglSRT34jMwkCOUNjnZEA==
+Received: from mail-ua1-f70.google.com (mail-ua1-f70.google.com
+ [209.85.222.70])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4drnmr0s05-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <amd-gfx@lists.freedesktop.org>; Sat, 25 Apr 2026 11:02:29 +0000 (GMT)
+Received: by mail-ua1-f70.google.com with SMTP id
+ a1e0cc1a2514c-956804755faso10008009241.0
+ for <amd-gfx@lists.freedesktop.org>; Sat, 25 Apr 2026 04:02:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1777114949; x=1777719749;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=LuIbxZ4UGkr2MNHoHHNNbGJqU9tVlBHwrX/08rcaVp8=;
+ b=UTOLPRxlHyRHNPIp3cPRVlVBYf2cwANu6vGr7n9RE27rg0o7W3pTEKsnluyyuKC47x
+ agr5WEfU0Sc3YTPM2khoRK7xLPORRRCByOQLy17xWOpwwMKn/kN8Ow2xCO5zMhzCW4zV
+ Q4Iaz/aYv+2YdACmwT+d8ti5cLHajWfrjGiSI84EjgC5qJvDpelaIRsOTThL0OHTYFaH
+ LM10vO1l9zydXWRJg7oJcFjxlij7Q33sOyRvnV1wGNBsdQW8zvTretFLplCFr0YLQul5
+ sdMWmUumA8fH7DUx6DgsRtPLHJ3w0PzKUg/4NPK2D5IxDRkyByQEqpnmB0+N9+ggRGHl
+ i2dg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1777114949; x=1777719749;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=LuIbxZ4UGkr2MNHoHHNNbGJqU9tVlBHwrX/08rcaVp8=;
+ b=ZOumucIccTFL/oSI4zNgL0cv15AwPgNSy7pKtbf7wCqo5vHXeJKp4YT3weHrkoMKBI
+ W9MGjdLTKNmD/4q/a6CpnIhusbgeih+AREUpkjgkrzwMt644UVCH9pUf6iIoUf1A24lH
+ Na7R3h6ID+x1QOBCyR2fsyYE/x8v2GFsr8mml8E+lLf5GWAZqsuWSb/NFJXptj9io6ph
+ AsBxqTZCv1heoRRhacTgNvNPIB267zK9k5YDAaYzNMe39EFI6tKsCzpztJJk49J/m/Zg
+ bD06V+qGVt+1C6HcBU2ngYnngK8mCBVcI3iE/sP0X3XVq7i9rauLxV+v0exfRbi4TF3B
+ 1GGw==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ8sF9CrBRGCcCl8gNhDqJGPlB5F8/BGfGLzIdAxbt14Ke/oR3Gm/EGJsMhKSeR0K9xzjjAw8NxF@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzetMQk0uINblMlHRaNgYSntdyDws9Ksy2z+7Op2iBZHQJYBrsE
+ TtnssoQnVn4Ki7HecOkOkdTxnzSFS2bMgLz3MUio9mcRjb4ods8GW/rlGzQgg8RBQZ3MoGAwNZx
+ JD+Tl2mOPmhgmUFNxl/Kwn2fxSokw7V1Cj5xlR3i+dwV0N31fD3d+CB0HefH5ZmOsTN1u
+X-Gm-Gg: AeBDieu6Uv8WYA+93GdZIlpf2bs1Y5YJLRwUOWVu4/zSt0Xwu20GNuReJiJa875CfPk
+ THCC0X0pm/t2TpbCgKdBmtgF/wiYdNWjlzx5JDvh4H9ozHatl4UguFoCANIe6fKSFiQsqjuOLC/
+ /+6dadbOv5gVOUwR+p7uMFlSL6RutvYDIuN5VcZb+sf+GTphT8Ap3Dah/ej4rGE5TerObV923as
+ uxF9jXrh0Gw6URcnRrs1G2Qus22N1WpMO+JqWLykWUbE9Twh2hHfGOVFQytNoRXWmVP2/g/lMb8
+ DhDM9hYSRkkNmVBT4zu/9BWAxgG81/ydux9iRXJVu7Vs/yEQvAq2QYSIgcEn1ANWIAsd9XjiihS
+ 4hLrCfgXTwy8sYQ2t0EAfn/IGNSjBT/obWkfrtzHy39YPsQjQyQSN6KWca6cJw1StrsMfMmmDuj
+ ruqrKi7vquQVgfJHfgQp9Ihw8VjhDhaLAomBfyEPHCaoDMGg==
+X-Received: by 2002:a05:6102:6a85:b0:607:ccde:5c00 with SMTP id
+ ada2fe7eead31-616feb7be9cmr12845688137.21.1777114949260; 
+ Sat, 25 Apr 2026 04:02:29 -0700 (PDT)
+X-Received: by 2002:a05:6102:6a85:b0:607:ccde:5c00 with SMTP id
+ ada2fe7eead31-616feb7be9cmr12845654137.21.1777114948825; 
+ Sat, 25 Apr 2026 04:02:28 -0700 (PDT)
+Received: from umbar.lan
+ (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-5a4187ebfd6sm6609501e87.78.2026.04.25.04.02.26
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 25 Apr 2026 04:02:26 -0700 (PDT)
+Date: Sat, 25 Apr 2026 14:02:24 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Sandy Huang <hjc@rock-chips.com>,
+ Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>,
+ Andy Yan <andy.yan@rock-chips.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, Dmitry Baryshkov <lumag@kernel.org>,
+ Sascha Hauer <s.hauer@pengutronix.de>, Rob Herring <robh@kernel.org>,
+ Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>, kernel@collabora.com,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, linux-doc@vger.kernel.org,
+ wayland-devel@lists.freedesktop.org
+Subject: Re: [PATCH v14 05/28] drm/display: bridge_connector: Use HDMI color
+ format for HDMI conns
+Message-ID: <uwmhvmgnhge2vez5yussn3swgkqb4scfir7ls7iy35v4ewifmp@br3ynryrptzb>
+References: <20260423-color-format-v14-0-449a419ccbd4@collabora.com>
+ <20260423-color-format-v14-5-449a419ccbd4@collabora.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PEPF0000009E:EE_|BL3PR12MB9051:EE_
-X-MS-Office365-Filtering-Correlation-Id: 959d6ab4-0eea-4ae1-fff7-08dea24e4d65
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|82310400026|376014|36860700016|18002099003|56012099003|18096099003|11006099003;
-X-Microsoft-Antispam-Message-Info: pPJ3FwMvRasF9Hmk3G9kWJ48wA+yC9VnU/rU8jTVwg9S4EMJ1C4bnKcooxD8EMD0Zy6g9e3toU2O4XUZY8hJKi9+sQMKZJO+6mpHf+qyAOZ+nRMATgVys806dHkstePAaJFIwVSHVtJ13OZ0QCjCVtJ1p6LyUpLMwJukNK4AHnLUxDpcqfSZVqD8scH9ish0kppjx7EQsezP8Z9/pQznwimG2sL2mmwJtR3oDlg7k9lHhTge++tB4ZSxM9BAI5nOclHul67O60unL8Xu++bOvyomyoCmSXIyWgpBi6+w1auEk1sWu6qQPG/Xn5HWkx2WFVJia90InP8Vj5+Ub7wNi4RrobOaL0puTtRHkU8dVpKVNqUBwh+lnYnrrSLQCa1SrekeFAEzkuqHwMWClLWPbxb4V2iwCtwSTsIomW1QKzZtgN2Kh39c3/xM+0E28Aidjd/MztcuekdA+oNLLp957zSCi9ga6eB1k5cm3CQ4BeDDc18FejIJATPAIATyVhJ2+A+f1pj+xzQIOT4Gw1nHsNak7itf5y9egnr3o8vkv31w5bY9TaB6DKVEYwYMYup1RT8MQT9TfNeDSV3LOc3rhTzQGySAXqrWma2D62vltPzxMwn8/biATriVJhWJQtv7vhLjI8ntpT+zyjoOr8cqancg8Y1ssve5oZmHl88yOo2krrxBTL7fUNubH0wr4RpjtseDsCTQjIbGsKkbjy/eVFxR/A6xnS7EypkalGv9cgOjE8s7m4J36ct+Akoljn625lug+PL+UVO/7xe1z7krVA==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(82310400026)(376014)(36860700016)(18002099003)(56012099003)(18096099003)(11006099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: p0jbodQUBf9jIeYabikzOT3mOSPIKCbrtEkne0kE7xLuhWapjnOqwzmiXOnKas4rh4Wq2SGkSg0R8KYVHDPNjow46mRs/4B+Xk/g84bpsNG8g2wemgoDD7uDh6JdSc8vESTwx6gWkmY16nNFx9wrfv3Y3OxuI+5UOjTugudCitN78WxuMObjAPb4WJoIOFQ2cKXc5EG6SYP4p1QQgBR8XoJQYR7UGP+R2I2VPYG5M6abaxeAp/0JOHjjW6s1wDfqPXcS6d00+7+TUvBOtRIThMQDqjG/8HaQSNznV+M4YpAvyyypsjFzDZUCSOett/jNIZdyE/ES7Zdkdj929Ln86mSXur0rX5YdDBGPILkKpT9TKqsmpuY69dUelOPPjoy0OQIbyq+R69CL8ylgQ0vgGaWixUKtBKLp2XP6Cb06hwzuOsYC5UgMEcawV/ATV4xf
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Apr 2026 22:10:32.2607 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 959d6ab4-0eea-4ae1-fff7-08dea24e4d65
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CH2PEPF0000009E.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL3PR12MB9051
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260423-color-format-v14-5-449a419ccbd4@collabora.com>
+X-Authority-Analysis: v=2.4 cv=aqCCzyZV c=1 sm=1 tr=0 ts=69ec9f45 cx=c_pps
+ a=R6oCqFB+Yf/t2GF8e0/dFg==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=QX4gbG5DAAAA:8
+ a=EUspDBNiAAAA:8 a=gN0RDaQLg4mAccs6Ca8A:9 a=CjuIK1q_8ugA:10
+ a=TD8TdBvy0hsOASGTdmB-:22 a=AbAUZ8qAyYyZVLSsDulk:22
+X-Proofpoint-GUID: 7Zv1Vxl__eADItxCv9Kjgt8d_Uw6p3WK
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDI1MDExMCBTYWx0ZWRfX5ZkhowU/byFx
+ sk7RALMleTkwSif2frAItxkdQSXiFA8aHryG/RlFSjwTZpwTj4aRkEmvqLtdHmuLKix4uOR/f5R
+ UyR/dXOLjx5PP/StVVpl5obdGcjinvgWLc0bo3rN/s92OgH6UqkzCny1dOcHzJQPyGU35GZ/jw9
+ YHH9LS0FvGODg+XJ+XBiYFVB+LqJDXmFs5ZhgUCzLzwZ7SNSWOJ5aRvPkTCvNqz0M0i9Z6Dc/54
+ +n/b6fGWvKipOBhXkx7NQlNLb8TZrS0D9TCl2slvAe7ZroHrjLcbgWtepEVnaDutloxsEhZQxrK
+ lId4XKylGPaSdDqWwwUBzvI+bWzJcHkum1IUpfwzFag8S2uiB/c98UyX50rrjjQDt2sC+/2FY1s
+ TZicyi7zJfy3geDEkucuYwkZhOVKAVf/VqZ9CtvYu9JcxnLH+YxjRAzKdZzD3m9TgxvA9rC0mqt
+ hIHCCbcw9Tr3CvHrYIA==
+X-Proofpoint-ORIG-GUID: 7Zv1Vxl__eADItxCv9Kjgt8d_Uw6p3WK
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-25_02,2026-04-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 impostorscore=0 phishscore=0 spamscore=0 adultscore=0
+ suspectscore=0 malwarescore=0 bulkscore=0 clxscore=1015 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2604200000 definitions=main-2604250110
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,430 +164,25 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Mario Limonciello (AMD) <superm1@kernel.org>
+On Thu, Apr 23, 2026 at 09:03:28PM +0200, Nicolas Frattaroli wrote:
+> For bridge connectors which contain an HDMI bridge at some stage, the
+> HDMI state helpers' format selection logic should be involved.
+> 
+> Add an implementation for the drm_bridge_funcs color_format function,
+> which translates from the HDMI state's output format to a connector
+> format for bridge connectors involving an HDMI bridge, but return the
+> connector state's color_format member unchanged otherwise.
+> 
+> Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+> ---
+>  drivers/gpu/drm/display/drm_bridge_connector.c | 24 ++++++++++++++++++++++++
+>  1 file changed, 24 insertions(+)
 
-This will make sure that luminance can be changed from DRM master
-and that it stays in sync with sysfs.
+Thanks! I like how it ended up looking.
 
-Assisted-by: Claude Sonnet
-Signed-off-by: Mario Limonciello (AMD) <superm1@kernel.org>
----
- tests/kms_luminance.c | 393 ++++++++++++++++++++++++++++++++++++++++++
- tests/meson.build     |   1 +
- 2 files changed, 394 insertions(+)
- create mode 100644 tests/kms_luminance.c
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
-diff --git a/tests/kms_luminance.c b/tests/kms_luminance.c
-new file mode 100644
-index 000000000..9e4499eac
---- /dev/null
-+++ b/tests/kms_luminance.c
-@@ -0,0 +1,393 @@
-+/*
-+ * Copyright © 2026 Advanced Micro Devices, Inc.
-+ *
-+ * Permission is hereby granted, free of charge, to any person obtaining a
-+ * copy of this software and associated documentation files (the "Software"),
-+ * to deal in the Software without restriction, including without limitation
-+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
-+ * and/or sell copies of the Software, and to permit persons to whom the
-+ * Software is furnished to do so, subject to the following conditions:
-+ *
-+ * The above copyright notice and this permission notice (including the next
-+ * paragraph) shall be included in all copies or substantial portions of the
-+ * Software.
-+ *
-+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-+ * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-+ * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
-+ * IN THE SOFTWARE.
-+ */
-+
-+/**
-+ * TEST: kms luminance
-+ * Category: Display
-+ * Description: Test LUMINANCE connector property and backlight synchronization
-+ * Driver requirement: any
-+ * Mega feature: General Display Features
-+ */
-+
-+#include "igt.h"
-+#include <dirent.h>
-+#include <errno.h>
-+#include <stdbool.h>
-+#include <stdio.h>
-+#include <string.h>
-+#include <fcntl.h>
-+#include <unistd.h>
-+#include <stdlib.h>
-+
-+#define BACKLIGHT_PATH "/sys/class/backlight"
-+
-+/**
-+ * SUBTEST: luminance-basic
-+ * Description: Verify LUMINANCE property exists and has correct range
-+ */
-+
-+/**
-+ * SUBTEST: luminance-dpms-coordination
-+ * Description: Verify LUMINANCE is forced to 0 when DPMS is off
-+ */
-+
-+/**
-+ * SUBTEST: luminance-sysfs-to-drm
-+ * Description: Test sysfs brightness changes synchronize to DRM LUMINANCE property
-+ */
-+
-+/**
-+ * SUBTEST: luminance-drm-to-sysfs
-+ * Description: Test DRM LUMINANCE property changes synchronize to sysfs brightness
-+ */
-+
-+typedef struct {
-+	int drm_fd;
-+	igt_display_t display;
-+	igt_output_t *output;
-+	char backlight_path[256];
-+	int max_brightness;
-+} data_t;
-+
-+static bool find_backlight_for_connector(igt_output_t *output, char *path, size_t path_len)
-+{
-+	char link_path[512];
-+	char backlight_name[256];
-+	ssize_t len;
-+	DIR *dir;
-+	struct dirent *entry;
-+	char *slash;
-+
-+	/* Try to find backlight linked to this connector via sysfs */
-+	snprintf(link_path, sizeof(link_path),
-+		 "/sys/class/drm/card%d-%s/backlight",
-+		 output->display->drm_fd,
-+		 igt_output_name(output));
-+
-+	len = readlink(link_path, backlight_name, sizeof(backlight_name) - 1);
-+	if (len > 0) {
-+		backlight_name[len] = '\0';
-+		/* Extract just the backlight device name */
-+		slash = strrchr(backlight_name, '/');
-+		if (slash)
-+			snprintf(path, path_len, "%s/%s", BACKLIGHT_PATH, slash + 1);
-+		else
-+			snprintf(path, path_len, "%s/%s", BACKLIGHT_PATH, backlight_name);
-+		return true;
-+	}
-+
-+	/* Fallback: look for any backlight device (common case: single panel) */
-+	dir = opendir(BACKLIGHT_PATH);
-+
-+	if (!dir)
-+		return false;
-+
-+	while ((entry = readdir(dir)) != NULL) {
-+		if (entry->d_name[0] == '.')
-+			continue;
-+
-+		snprintf(path, path_len, "%s/%s", BACKLIGHT_PATH, entry->d_name);
-+		closedir(dir);
-+		return true;
-+	}
-+
-+	closedir(dir);
-+	return false;
-+}
-+
-+static int read_sysfs_int(const char *path)
-+{
-+	FILE *f;
-+	int value = -1;
-+
-+	f = fopen(path, "r");
-+	if (!f)
-+		return -1;
-+
-+	if (fscanf(f, "%d", &value) != 1)
-+		value = -1;
-+
-+	fclose(f);
-+	return value;
-+}
-+
-+static bool write_sysfs_int(const char *path, int value)
-+{
-+	FILE *f;
-+
-+	f = fopen(path, "w");
-+	if (!f)
-+		return false;
-+
-+	fprintf(f, "%d\n", value);
-+	fclose(f);
-+	return true;
-+}
-+
-+static void require_luminance_support(data_t *data)
-+{
-+	uint64_t value;
-+
-+	igt_require(igt_has_drm_cap(data->drm_fd, DRM_CLIENT_CAP_ATOMIC));
-+	igt_require(drmSetClientCap(data->drm_fd, DRM_CLIENT_CAP_ATOMIC, 1) == 0);
-+
-+	/* Check if LUMINANCE capability is supported */
-+	igt_require(drmSetClientCap(data->drm_fd, 8 /* DRM_CLIENT_CAP_LUMINANCE */, 1) == 0);
-+
-+	/* Find eDP output with LUMINANCE property */
-+	for_each_connected_output(&data->display, data->output) {
-+		if (data->output->config.connector->connector_type == DRM_MODE_CONNECTOR_eDP) {
-+			if (kmstest_get_property(data->drm_fd,
-+						 data->output->config.connector->connector_id,
-+						 DRM_MODE_OBJECT_CONNECTOR,
-+						 "LUMINANCE",
-+						 NULL, &value, NULL)) {
-+				/* Found eDP with LUMINANCE */
-+				igt_require(find_backlight_for_connector(data->output,
-+									  data->backlight_path,
-+									  sizeof(data->backlight_path)));
-+				return;
-+			}
-+		}
-+	}
-+
-+	igt_skip("No eDP connector with LUMINANCE property found\n");
-+}
-+
-+static void test_luminance_basic(data_t *data)
-+{
-+	uint32_t prop_id;
-+	uint64_t value, range_min, range_max;
-+	bool is_atomic;
-+	drmModePropertyPtr prop;
-+
-+	igt_info("Testing LUMINANCE property on %s\n", igt_output_name(data->output));
-+
-+	igt_assert(kmstest_get_property(data->drm_fd,
-+					data->output->config.connector->connector_id,
-+					DRM_MODE_OBJECT_CONNECTOR,
-+					"LUMINANCE",
-+					&prop_id, &value, NULL));
-+
-+	/* Verify property is atomic */
-+	prop = drmModeGetProperty(data->drm_fd, prop_id);
-+	igt_assert(prop);
-+	is_atomic = !!(prop->flags & DRM_MODE_PROP_ATOMIC);
-+	igt_assert_f(is_atomic, "LUMINANCE property must be atomic\n");
-+
-+	/* Verify range is [0, 65535] */
-+	igt_assert_f(prop->count_values == 2, "LUMINANCE must be a range property\n");
-+	range_min = prop->values[0];
-+	range_max = prop->values[1];
-+	igt_assert_f(range_min == 0, "LUMINANCE min must be 0, got %lu\n", range_min);
-+	igt_assert_f(range_max == 65535, "LUMINANCE max must be 65535, got %lu\n", range_max);
-+
-+	igt_info("LUMINANCE property: id=%u, value=%lu, range=[%lu, %lu]\n",
-+		 prop_id, value, range_min, range_max);
-+
-+	drmModeFreeProperty(prop);
-+}
-+
-+static void test_luminance_sysfs_to_drm(data_t *data)
-+{
-+	char brightness_path[512];
-+	char max_brightness_path[512];
-+	int original_brightness, new_brightness, max_brightness;
-+	uint64_t original_luminance, new_luminance, expected_luminance;
-+
-+	snprintf(brightness_path, sizeof(brightness_path), "%s/brightness", data->backlight_path);
-+	snprintf(max_brightness_path, sizeof(max_brightness_path), "%s/max_brightness", data->backlight_path);
-+
-+	max_brightness = read_sysfs_int(max_brightness_path);
-+	igt_assert_f(max_brightness > 0, "Failed to read max_brightness\n");
-+
-+	/* Read original values */
-+	original_brightness = read_sysfs_int(brightness_path);
-+	igt_assert_f(original_brightness >= 0, "Failed to read brightness\n");
-+
-+	kmstest_get_property(data->drm_fd,
-+			     data->output->config.connector->connector_id,
-+			     DRM_MODE_OBJECT_CONNECTOR,
-+			     "LUMINANCE",
-+			     NULL, &original_luminance, NULL);
-+
-+	igt_info("Initial: sysfs=%d/%d, LUMINANCE=%lu\n",
-+		 original_brightness, max_brightness, original_luminance);
-+
-+	/* Test multiple values: min, 25%, 50%, 75%, max */
-+	int test_values[] = {0, max_brightness / 4, max_brightness / 2,
-+			     max_brightness * 3 / 4, max_brightness};
-+
-+	for (int i = 0; i < 5; i++) {
-+		new_brightness = test_values[i];
-+		igt_assert(write_sysfs_int(brightness_path, new_brightness));
-+
-+		/* Give kernel time to propagate notification */
-+		usleep(300000); /* 300ms */
-+
-+		/* Read back DRM property */
-+		kmstest_get_property(data->drm_fd,
-+				     data->output->config.connector->connector_id,
-+				     DRM_MODE_OBJECT_CONNECTOR,
-+				     "LUMINANCE",
-+				     NULL, &new_luminance, NULL);
-+
-+		/* Calculate expected LUMINANCE value using kernel's formula:
-+		 * set = (v * U16_MAX) / max
-+		 */
-+		expected_luminance = ((uint64_t)new_brightness * 65535) / max_brightness;
-+
-+		igt_info("Test %d: sysfs=%d, LUMINANCE=%lu (expected %lu)\n",
-+			 i, new_brightness, new_luminance, expected_luminance);
-+
-+		/* Allow for small rounding differences - at most 2 to catch formula bugs */
-+		igt_assert_f(abs((int)(new_luminance - expected_luminance)) <= 2,
-+			     "LUMINANCE not synchronized: expected %lu, got %lu (diff: %d)\n",
-+			     expected_luminance, new_luminance, abs((int)(new_luminance - expected_luminance)));
-+	}
-+
-+	/* Restore original brightness */
-+	write_sysfs_int(brightness_path, original_brightness);
-+	usleep(100000);
-+}
-+
-+static void test_luminance_drm_to_sysfs(data_t *data)
-+{
-+	char brightness_path[512];
-+	char max_brightness_path[512];
-+	int original_brightness, new_brightness, max_brightness, expected_brightness;
-+	uint64_t original_luminance, new_luminance, luminance_max;
-+	drmModeAtomicReqPtr req;
-+	drmModePropertyPtr prop;
-+	uint32_t prop_id;
-+	int ret;
-+
-+	snprintf(brightness_path, sizeof(brightness_path), "%s/brightness", data->backlight_path);
-+	snprintf(max_brightness_path, sizeof(max_brightness_path), "%s/max_brightness", data->backlight_path);
-+
-+	max_brightness = read_sysfs_int(max_brightness_path);
-+	igt_assert_f(max_brightness > 0, "Failed to read max_brightness\n");
-+
-+	/* Read original values */
-+	original_brightness = read_sysfs_int(brightness_path);
-+	igt_assert_f(original_brightness >= 0, "Failed to read brightness\n");
-+
-+	kmstest_get_property(data->drm_fd,
-+			     data->output->config.connector->connector_id,
-+			     DRM_MODE_OBJECT_CONNECTOR,
-+			     "LUMINANCE",
-+			     &prop_id, &original_luminance, NULL);
-+
-+	/* Get LUMINANCE property range */
-+	prop = drmModeGetProperty(data->drm_fd, prop_id);
-+	igt_assert(prop);
-+	igt_assert(prop->count_values == 2);
-+	luminance_max = prop->values[1];
-+	drmModeFreeProperty(prop);
-+
-+	igt_info("Initial: sysfs=%d/%d, LUMINANCE=%lu/%lu\n",
-+		 original_brightness, max_brightness, original_luminance, luminance_max);
-+
-+	/* Test multiple values: min, 25%, 50%, 75%, max of the LUMINANCE range */
-+	uint64_t test_luminance[] = {0, luminance_max / 4, luminance_max / 2,
-+				     luminance_max * 3 / 4, luminance_max};
-+
-+	for (int i = 0; i < 5; i++) {
-+		new_luminance = test_luminance[i];
-+
-+		req = drmModeAtomicAlloc();
-+		igt_assert(req);
-+
-+		ret = drmModeAtomicAddProperty(req, data->output->config.connector->connector_id,
-+					       prop_id, new_luminance);
-+		igt_assert(ret >= 0);
-+
-+		ret = drmModeAtomicCommit(data->drm_fd, req, DRM_MODE_ATOMIC_ALLOW_MODESET, NULL);
-+		igt_assert_f(ret == 0, "Atomic commit failed: %s\n", strerror(errno));
-+
-+		drmModeAtomicFree(req);
-+
-+		/* Give kernel time to update sysfs */
-+		usleep(300000); /* 300ms */
-+
-+		/* Read back sysfs brightness */
-+		new_brightness = read_sysfs_int(brightness_path);
-+		igt_assert_f(new_brightness >= 0, "Failed to read brightness after DRM change\n");
-+
-+		/* Calculate expected sysfs value using kernel's formula:
-+		 * brightness = (luminance * max_brightness) / luminance_max
-+		 */
-+		expected_brightness = (new_luminance * max_brightness) / luminance_max;
-+
-+		igt_info("Test %d: LUMINANCE=%lu, sysfs=%d (expected %d)\n",
-+			 i, new_luminance, new_brightness, expected_brightness);
-+
-+		/* Allow for small rounding differences - at most 2 to catch formula bugs */
-+		igt_assert_f(abs(new_brightness - expected_brightness) <= 2,
-+			     "sysfs not synchronized: expected %d, got %d (diff: %d)\n",
-+			     expected_brightness, new_brightness, abs(new_brightness - expected_brightness));
-+	}
-+
-+	/* Restore original value */
-+	req = drmModeAtomicAlloc();
-+	igt_assert(req);
-+	drmModeAtomicAddProperty(req, data->output->config.connector->connector_id,
-+				 prop_id, original_luminance);
-+	drmModeAtomicCommit(data->drm_fd, req, DRM_MODE_ATOMIC_ALLOW_MODESET, NULL);
-+	drmModeAtomicFree(req);
-+	usleep(100000);
-+}
-+
-+int igt_main()
-+{
-+	data_t data = {};
-+
-+	igt_fixture() {
-+		data.drm_fd = drm_open_driver_master(DRIVER_ANY);
-+		igt_require(data.drm_fd >= 0);
-+
-+		kmstest_set_vt_graphics_mode();
-+
-+		igt_display_require(&data.display, data.drm_fd);
-+		require_luminance_support(&data);
-+
-+		igt_info("Using backlight: %s\n", data.backlight_path);
-+	}
-+
-+	igt_describe("Verify LUMINANCE property exists and has correct range");
-+	igt_subtest("luminance-basic")
-+		test_luminance_basic(&data);
-+
-+	igt_describe("Test sysfs brightness changes synchronize to DRM LUMINANCE property");
-+	igt_subtest("luminance-sysfs-to-drm")
-+		test_luminance_sysfs_to_drm(&data);
-+
-+	igt_describe("Test DRM LUMINANCE property changes synchronize to sysfs brightness");
-+	igt_subtest("luminance-drm-to-sysfs")
-+		test_luminance_drm_to_sysfs(&data);
-+
-+	igt_fixture() {
-+		igt_display_fini(&data.display);
-+		drm_close_driver(data.drm_fd);
-+	}
-+}
-diff --git a/tests/meson.build b/tests/meson.build
-index 60cea3aa8..0fe7caf48 100644
---- a/tests/meson.build
-+++ b/tests/meson.build
-@@ -46,6 +46,7 @@ test_progs = [
- 	'kms_hdr',
- 	'kms_invalid_mode',
- 	'kms_lease',
-+	'kms_luminance',
- 	'kms_multipipe_modeset',
- 	'kms_panel_fitting',
- 	'kms_pipe_crc_basic',
+
 -- 
-2.53.0
-
+With best wishes
+Dmitry
