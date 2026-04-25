@@ -4,59 +4,150 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5D7EDFF886C
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 65C27FF886E
 	for <amd-gfx@archiver.kernel.org>; Mon, 27 Apr 2026 08:37:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9EF8010E630;
+	by gabe.freedesktop.org (Postfix) with ESMTP id AB13D10E631;
 	Mon, 27 Apr 2026 08:37:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=qq.com header.i=@qq.com header.b="ECyPV9rG";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="Ua6Jupsz";
 	dkim-atps=neutral
-Received: from out203-205-221-173.mail.qq.com (out203-205-221-173.mail.qq.com
- [203.205.221.173])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B73C610E191;
- Mon, 27 Apr 2026 06:51:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
- t=1777272705; bh=ks8ggYiCLDadKMxcZ8CW+2cQqlh6RyPsgTtN23PYkL0=;
- h=From:To:Cc:Subject:Date;
- b=ECyPV9rGTiY7Y7rWX2D8ICYsmhJhQu8A0m6MhX7knfQkzfsloo1kmuz6Y0uLESf1x
- 3oxADBBgd+xBoc+p5hgF0sj1cdu3oLs3Kv0zx/MKrYelKuigkHf9QTqzWI9OE1PkNq
- 6AJJBeMUB772WCfOtVEYi+Gg6c37wYqIG9ipCszw=
-Received: from NTT-kernel-dev ([60.247.85.88])
- by newxmesmtplogicsvrszc56-0.qq.com (NewEsmtp) with SMTP
- id CE98AADB; Mon, 27 Apr 2026 14:51:41 +0800
-X-QQ-mid: xmsmtpt1777272701t78vn4y9q
-Message-ID: <tencent_8DBF29E0271CF7880497A344239DA11C2B0A@qq.com>
-X-QQ-XMAILINFO: MRMtjO3A6C9XhMGAw4Y2fX3RcOFCSr9oRvruFjIRTe12uuhbLspCq/SNuxvm7A
- /fk2dEjaYSKw0EedVgPO6nIz6hLkHgVIovQaqi2r98YMvjd3U2/vqzWwcywvrK2hcL8XMVFi5mTr
- aFZyz7oKC2HY+LAukPfbcNgTYO3cPCFsLHpUb88LlzUhakacuGNho12hcp7o1tkkH7SpO82enzTC
- l0rglZjLbzM3vjgjglGL7IwDQNU7U/+KInd23qTD/reO+HdVks9XQNft/Sxih3dBovBCYiwqlwh7
- VWHVMwhILJHDTs/9QmilCLXVHswg0JKsnu7b55aeN4XFb1ZJM9U7iEu15UXsoZNy7ai1EuUIV2s5
- SRlfPND3AQ1Zy3BEShDgJY/qNHnUWu9uFxFGG7SBsGsEstl+uN+bph6AGZ8kajr/6RlJzxs1x30Y
- wsVgutCd1YZb8grk02KL8527aQ7SDXjTjHgtVfYdiYMYj0LBroUGAiz8pDGlfQmYJ5mcAacQeNvv
- q/G1237Jw+nE27gSCTdRFRtpBDQKalmmkFXAxf1SVX2ciLNkbmXVFkeRhCVZxzjM/sZU39Ox4EEN
- dEzbzP581qm8P/KRqZY119BhwP0NTihokx3mIKXDMTrncrEl9DMUSPrWSYQqTk0hRyHmSPt2UwF1
- w0yRTeSJ+Ybj2Nye9IYpODU6cq3/aiCVv3pO6fBZNpGqz2mJbmh6qvE1tKeaMQOl7B8pemJHyYzZ
- 9PM6fFZ0h0WYQIdj5xtVe9ZUi5QLRNVEJ4oRtWtfbPcBGQcxDrsxPKihk/yCDEK5jaey9QixmhQh
- ID90LasAN1l0o+VryfPK7FkJ92QdCtRIffUqMET+vdgBLloEQTd5qyZkz6SQHmrtPt9nd84s072j
- ExqWgGdRNSz9B9yTzEmmsvTiBkpo+/PmN4K1lTmGuogumRLBnJ3vhP3n2e+bnIgNrH9pJbn9f7op
- Mi2kXYMCcsMJ5DBts/0KhejMXs313OQ2R0ENTa6EurJ77/3OqDZAUDM4tdvpx3MR+acCRRR24=
-X-QQ-XMRINFO: Mp0Kj//9VHAxzExpfF+O8yhSrljjwrznVg==
-From: Fang Wang <32840572@qq.com>
-To: gregkh@linuxfoundation.org, stable@vger.kernel.org,
- tvrtko.ursulin@igalia.com
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
- airlied@gmail.com, simona@ffwll.ch, Jesse.Zhang@amd.com,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Subject: [PATCH 6.12.y 1/2] drm/amdgpu: Use vmemdup_array_user in
- amdgpu_bo_create_list_entry_array
-Date: Mon, 27 Apr 2026 14:51:41 +0800
-X-OQ-MSGID: <20260427065141.4118590-1-32840572@qq.com>
-X-Mailer: git-send-email 2.34.1
+Received: from BL2PR02CU003.outbound.protection.outlook.com
+ (mail-eastusazon11011051.outbound.protection.outlook.com [52.101.52.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8DB0F10E201;
+ Sat, 25 Apr 2026 20:57:38 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ry1gRdP7CzFYht5dY+x976cA/2ygYOu+xsZGLkieqshyWpLJvb/8TD2L46CQJ9d1JR2mxHwnRlgjO+hVKi5Dm9EGTWIY2qiRnnm5Pl1osIyajN+7AG1QppfBfSWKeUEjdS6kIoNUQgyjscL24al+tgQN3MPRcLwOL5QgennfFFhzQ6bXnpnkDPWBcj+O0CFbf7+P0I3+Dpw5ZDGPw6t1Angb2jKDJ+sONYIVx1XgAoV/CNcUhyPyjRVrw8Mnc+l4tMHehXx5jIgwa+qRdkpV7JmEkwjOKjTvBdomiUZCq67qZAo5is3uWr2afww6oPgM9xDDOYq+LBFW9mvwkzsP7g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=3kCDLJrzbGvosey2wmX0bNeuDHlO0iCZmi+LRb4NG0A=;
+ b=plWSg/E9atNmGXRR/hRT8kRgQ5Rg/JJnXck5GA4hLcVPQ4+f7i8fUE5gDEd8OumNVfsG0soPQJdbL1mxd+7t5YAKB3aXVaH4WHmxKYiAJ4m4PXdAKp8W1dFYbXtGEI/xICxQbF+6jbbAd9/vmprqpI6yHN7HmXvxBuyME1kPzsSmm1b0McVSIBRK4d3U+pEk8zRBPcK3C4bGK4Met2cZ6m+C6g/IOCNRz0bxnfnic65vvh7MELr404o/7Blsg/ke8zFWigvrjhuwyNt2fsio34HDsjZiDlCiekfeOJYoxotiJZXLz+3/xrOknZXNzg/5tdqYvVk7hyr7eSg+vtt6jw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=3kCDLJrzbGvosey2wmX0bNeuDHlO0iCZmi+LRb4NG0A=;
+ b=Ua6JupszyxSBwYh4VD4Vfq5SL+c+cLN6v/e2pHwzyZvHq7WDCrI4cGluZDaCzbJB+1yLgMvU2WENqyiuGWu8aVzZu0wrU7mrx4UVmcg4fmebAssJmrlAI9U7U4iBRRbzxfiOojXduXsgdBPmo2zV9cIAzkZroLj3U8SKBFM0/ukKmyXGWawQ10fTwbh9ffCA7cRZOgNK/RfXwYJOli6b05fExZnignO/3RdoP3yPdVFEEhLLi6sinHUzAITwk0tOckws3B3io9KmBlgBcmpRWT/w34IfvfWdFRioYTAwFUnk0jnHVe1jcQrbmDgYy6VL3mFyUaMqinav2Og8ytD20A==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DS0PR12MB6486.namprd12.prod.outlook.com (2603:10b6:8:c5::21) by
+ SA1PR12MB7344.namprd12.prod.outlook.com (2603:10b6:806:2b7::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.12; Sat, 25 Apr
+ 2026 20:57:33 +0000
+Received: from DS0PR12MB6486.namprd12.prod.outlook.com
+ ([fe80::88a9:f314:c95f:8b33]) by DS0PR12MB6486.namprd12.prod.outlook.com
+ ([fe80::88a9:f314:c95f:8b33%4]) with mapi id 15.20.9870.012; Sat, 25 Apr 2026
+ 20:57:33 +0000
+Date: Sat, 25 Apr 2026 16:57:30 -0400
+From: Joel Fernandes <joelagnelf@nvidia.com>
+To: John Hubbard <jhubbard@nvidia.com>
+Cc: linux-kernel@vger.kernel.org, Miguel Ojeda <ojeda@kernel.org>,
+ Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
+ Bjorn Roy Baron <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
+ Danilo Krummrich <dakr@kernel.org>, Dave Airlie <airlied@redhat.com>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Koen Koning <koen.koning@linux.intel.com>,
+ dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org,
+ Nikola Djukic <ndjukic@nvidia.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Jonathan Corbet <corbet@lwn.net>, Alex Deucher <alexander.deucher@amd.com>,
+ Christian Koenig <christian.koenig@amd.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, Huang Rui <ray.huang@amd.com>,
+ Matthew Auld <matthew.auld@intel.com>,
+ Lucas De Marchi <lucas.demarchi@intel.com>,
+ Thomas Hellstrom <thomas.hellstrom@linux.intel.com>,
+ Helge Deller <deller@gmx.de>, Alex Gaynor <alex.gaynor@gmail.com>,
+ Boqun Feng <boqun.feng@gmail.com>,
+ Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
+ Edwin Peer <epeer@nvidia.com>, Alexandre Courbot <acourbot@nvidia.com>,
+ Andrea Righi <arighi@nvidia.com>, Andy Ritger <aritger@nvidia.com>,
+ Zhi Wang <zhiw@nvidia.com>, Balbir Singh <balbirs@nvidia.com>,
+ Philipp Stanner <phasta@kernel.org>,
+ Elle Rhumsaa <elle@weathered-steel.dev>, alexeyi@nvidia.com,
+ Eliot Courtney <ecourtney@nvidia.com>, joel@joelfernandes.org,
+ linux-doc@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ linux-fbdev@vger.kernel.org
+Subject: Re: [PATCH v11 02/20] gpu: nova-core: gsp: Extract usable FB region
+ from GSP
+Message-ID: <20260425205730.GA4071848@joelbox2>
+References: <20260415210548.3776595-1-joelagnelf@nvidia.com>
+ <20260415210548.3776595-2-joelagnelf@nvidia.com>
+ <b0c5267d-ea77-41c5-94d4-39c651761b3c@nvidia.com>
+ <20260421145521.GA51176@joelbox2>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260421145521.GA51176@joelbox2>
+X-ClientProxiedBy: CYXPR03CA0071.namprd03.prod.outlook.com
+ (2603:10b6:930:d1::12) To DS0PR12MB6486.namprd12.prod.outlook.com
+ (2603:10b6:8:c5::21)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Mon, 27 Apr 2026 08:37:20 +0000
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS0PR12MB6486:EE_|SA1PR12MB7344:EE_
+X-MS-Office365-Filtering-Correlation-Id: a937c324-4312-4e7c-c0ab-08dea30d455e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|1800799024|376014|7416014|18002099003|22082099003|56012099003;
+X-Microsoft-Antispam-Message-Info: LEWcHncFqiY/x6lFwdxWNfy1v//L5jWb/OGcMV6QkaUlkJ0AiUdmh3zJ44h815t0QI5KTCQ2BDCdy88BMg6bfllo956hzHEt4RrNzo4ijlkrID6ymD3lKezah5dLh3YKr+1FFSQ8zg9yUCjgwo1B8Ig4byVZASMEKnXo0u7/HDKbufWYaR0fUSzTWJTyfTQH5nlbjgZ/J1sRNgZZ96VuU3L+QYzQZGwJuMLZhLBI3kz8DxjTceCqh+Kxk5auLfOWj70+KQ/HMiyqGf1NZk5PKTs8SnzvF/+JMnc9I63Zs3J+5NTgzcGymrs89BUlhf6ztcobxFFO9Pl6CgF6Hrnbk5XZXzD6tMiaof+0LmIIU0itZL4Q4ERlocEtQqGsgqf27nAr/pJDur/h59JLRsiWNAitWTJD7Ftq3i9dRJpjMTFOKY6aL+JYTea1Xpf5ZzsfmNQAipzcNVLxTEenGobwvfcronWDHy7472bITdhGvfpNw5ZXvWG5rGUX8Yt/uaFJqthzjHvuSZts/LJd3QjYTZlrqgQVohI7n4SBY73IK46IYb4lQhTA91PzP2PB56n3jNWpcd7npFQaDOHoNbvoOiQNVhEY+wjl4cQ+5GWRJFLVP60pcXnqvAdko/FJtKaOIwsL5nbj3SWmcrQXFEvFuIfcY3PiZAuDpCqvM0q+f7e/TgO1l7FRwEOTJxcG+mHLZ8kBctI2aN7BrpLjLe1DbAapnabFVqkEy7bBv6QqrMg=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS0PR12MB6486.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(376014)(7416014)(18002099003)(22082099003)(56012099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?HG9niSUZoeUnhvlzIuT5wG4HcLvUCjgUaRxRc9eks47rx3sAE6TLFvwR64MP?=
+ =?us-ascii?Q?6N0UZqyuG23n5Iti5+msZCDDpR4Poknpx+Tnc+a9GS6nNMTX6R+xYQhfrvMF?=
+ =?us-ascii?Q?LI3inpvw39C/VLQORyfIhReMWCJOa+rGK0rKISkwMQ92+TIWRaW/2PkSchka?=
+ =?us-ascii?Q?zo8jkiCD3WX8pFXsOYv+dzc38OVKIELJRPqqTaw9D8J8PMu1KYDFYE0o2gK+?=
+ =?us-ascii?Q?ykzfMSA0/fWdPCNcXo9hz148UG/xE3DIvJyYsoRHQ3NhBxJFBTHR26wnEjHr?=
+ =?us-ascii?Q?qDy0t8TGPiNPxpGgE3Uss/eL8dctDegZv2INmFc59Jhih/eZXudBK+79YTg3?=
+ =?us-ascii?Q?fU88zmES0Vy64IzIa7O6KoDei2e6JbGG8nGIIuf2v9dgcDxl+x129jWPWh3D?=
+ =?us-ascii?Q?bBNvJ2ZURyize/fxY23XC0ft+JQ03hN81bOlRp+ODh6rnkd4hGR/PbFX7VSi?=
+ =?us-ascii?Q?IEMTewin98OtBenKbJqzc/dBTu8eaDtK82Y6Bqez5h1m3RtLhtSV3NCJ1CDn?=
+ =?us-ascii?Q?pxryVMnWRALVoLSm/1eJAhW2lgvpKWUM5UjTS+C7ub7+2udGQaDvoWKTqKsy?=
+ =?us-ascii?Q?7r++MC05YAiX+X5YtqnMQi5rqYvRjuhYm6WCEbkv7Wjfwg5SVK6x4KvS/fLL?=
+ =?us-ascii?Q?5lL/Y1VIJXsc5sCMt+VItgOjRj+XdEB7W/7rVgZUtNp1tMryF6sp2xVIeWbK?=
+ =?us-ascii?Q?+l8LqBai7V2qd0f117t4Zb20ZIkAURefqzC5fTeMobNT14OZ6IGys1gATFG6?=
+ =?us-ascii?Q?smBgFgnz723PevbcGEjdlNocTuESh9mPWIKThDXrK4LMwui6tn6YhgZUj1LW?=
+ =?us-ascii?Q?DyUGdPX/9tj71UvfzbdqY6SdnboYnC5CQyiLCdBhJkSV2Z/gbBpfLud+zesg?=
+ =?us-ascii?Q?8pRcKIIO+qc2G9nT/NVMR5Y/4yTmuuvUvRIhwmF9hDjgrQCN4Ov1rTHmaeNX?=
+ =?us-ascii?Q?3EoEyw1oNo4x/4qKpRImGClSzqmob7m6Wb7LmC0gCbXDheYtzW4NYlX0lL9z?=
+ =?us-ascii?Q?8oMsxYRymz86yOpFmQl6veUvxOPE3MEqF+LkfQAXssST4REOBUCzURYLKCAB?=
+ =?us-ascii?Q?rjYUbTSOK/qxU2DKpha7yrtopH8byaT0y6Ag3tLa/DdGPKgk1rHjfbF5792X?=
+ =?us-ascii?Q?9pV3ySp9xgYKZqv+fBEbnc7tSX4MNH+EaFNTT9hi11oL50DpJmhWruqjLjcZ?=
+ =?us-ascii?Q?BWjMwo+WS31mm0heoAOo0r9y4GaMGgl5jTWJDq8YX/0TPsQFi3ONAsYL1jBB?=
+ =?us-ascii?Q?FPksODKLIaI80cD43XliIHDslA3/QGkIU2ewuD2Zf7Edo2RAE/5DOmJVvNTw?=
+ =?us-ascii?Q?azdT8YaD8Y3PhXhVLXdIxSMP+UcSzIfBz6M4nD2kgP4/IaIZVxpscWgL3zwP?=
+ =?us-ascii?Q?XPBWDmwBDeF5j2s8XYhgsEhgpvElYWIO0FrQo2CBSxjo7HFUJYUbq1ZRVeNi?=
+ =?us-ascii?Q?wIsjShXpthohppvh3ynH9IgSMRry8kM4mmu5E/p5mzwYDh4gxGHGVVx8AdzO?=
+ =?us-ascii?Q?zwus31ahrOFn83ZCrQTSUE7kFuz2JOepUHOo38BAgBOpdpwxRaXSyN4BUaAU?=
+ =?us-ascii?Q?T5McmAeXJcQeilq/Ly+7aquOTZGPDTG4qAoMiV45p5xZCSnuXjLzVpOz5+4y?=
+ =?us-ascii?Q?cvZmnUgjFYzD8lES/lbz+YpzeLJkVt7ouBENAxlbfHB+nzkUr/cdHGVPdLll?=
+ =?us-ascii?Q?I5uAkKYjdrgZNyrV3wxUUV7kNyluhl+V9nQfplHBZ2G//tXAd3E3FoDEHRrz?=
+ =?us-ascii?Q?hXH4qCWL4w=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a937c324-4312-4e7c-c0ab-08dea30d455e
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6486.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Apr 2026 20:57:32.9350 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: c4pA7PyLeqZjPZob0FqyAjR49KJPki19p6hn3YtfcT2+UJZgtNmeIgSAs/fNRY88QK3l9njK/JqybSh7bDBZuw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB7344
+X-Mailman-Approved-At: Mon, 27 Apr 2026 08:37:19 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,88 +162,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+On Tue, Apr 21, 2026 at 10:55:21AM -0400, Joel Fernandes wrote:
+> On Thu, Apr 16, 2026 at 04:26:48PM -0700, John Hubbard wrote:
+> > On 4/15/26 2:05 PM, Joel Fernandes wrote:
+> > ...
+> > 
+> > Apologies, I found one more minor thing, while looking at a
+> > subsequent patch in this series:
+> > 
+> > >  impl MessageFromGsp for GetGspStaticInfoReply {
+> > >      const FUNCTION: MsgFunction = MsgFunction::GetGspStaticInfo;
+> > >      type Message = GspStaticConfigInfo;
+> > > -    type InitError = Infallible;
+> > > +    type InitError = Error;
+> > >  
+> > >      fn read(
+> > >          msg: &Self::Message,
+> > > @@ -205,6 +209,7 @@ fn read(
+> > >      ) -> Result<Self, Self::InitError> {
+> > >          Ok(GetGspStaticInfoReply {
+> > >              gpu_name: msg.gpu_name_str(),
+> > > +            usable_fb_region: msg.first_usable_fb_region().ok_or(ENODEV)?,
+> > 
+> > OK, failing out is correct here. But in addition, we should also
+> > log this at dev_err!() level. This is rare, surprising, and actionable,
+> > so perfect for that level of logging.
+> 
+> Sure, that works for me. Will add it in for v12.
 
-[ Upstream commit c4ac100e9ae252b09986766ad23b1f83ca3a369d ]
+dev_err unfortunately requires passing dev into MessageFromGsp::read()
+which it doesn't today. Doing so modifies all other implementations of read()
+as well, not just GspStaticInfo. For v12 I will leave it as is, but lets
+discuss for future versions.
 
-Replace kvmalloc_array() + copy_from_user() with vmemdup_array_user() on
-the fast path.
+Also, note that the error does not go undetected because it will result in
+the following dev_err firing anyway, perhaps its sufficient?
+  dev_err!(pdev, "Failed to obtain GSP static info ({:?})\n", e)
 
-This shrinks the source code and improves separation between the kernel
-and userspace slabs.
+thanks,
 
-Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Fang Wang <32840572@qq.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c | 41 +++++++++------------
- 1 file changed, 17 insertions(+), 24 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c
-index 702f6610d024..66fb37b64388 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c
-@@ -184,43 +184,36 @@ void amdgpu_bo_list_put(struct amdgpu_bo_list *list)
- int amdgpu_bo_create_list_entry_array(struct drm_amdgpu_bo_list_in *in,
- 				      struct drm_amdgpu_bo_list_entry **info_param)
- {
--	const void __user *uptr = u64_to_user_ptr(in->bo_info_ptr);
- 	const uint32_t info_size = sizeof(struct drm_amdgpu_bo_list_entry);
-+	const void __user *uptr = u64_to_user_ptr(in->bo_info_ptr);
-+	const uint32_t bo_info_size = in->bo_info_size;
-+	const uint32_t bo_number = in->bo_number;
- 	struct drm_amdgpu_bo_list_entry *info;
--	int r;
--
--	info = kvmalloc_array(in->bo_number, info_size, GFP_KERNEL);
--	if (!info)
--		return -ENOMEM;
- 
- 	/* copy the handle array from userspace to a kernel buffer */
--	r = -EFAULT;
--	if (likely(info_size == in->bo_info_size)) {
--		unsigned long bytes = in->bo_number *
--			in->bo_info_size;
--
--		if (copy_from_user(info, uptr, bytes))
--			goto error_free;
--
-+	if (likely(info_size == bo_info_size)) {
-+		info = vmemdup_array_user(uptr, bo_number, info_size);
-+		if (IS_ERR(info))
-+			return PTR_ERR(info);
- 	} else {
--		unsigned long bytes = min(in->bo_info_size, info_size);
-+		const uint32_t bytes = min(bo_info_size, info_size);
- 		unsigned i;
- 
--		memset(info, 0, in->bo_number * info_size);
--		for (i = 0; i < in->bo_number; ++i) {
--			if (copy_from_user(&info[i], uptr, bytes))
--				goto error_free;
-+		info = kvmalloc_array(bo_number, info_size, GFP_KERNEL);
-+		if (!info)
-+			return -ENOMEM;
- 
--			uptr += in->bo_info_size;
-+		memset(info, 0, bo_number * info_size);
-+		for (i = 0; i < bo_number; ++i, uptr += bo_info_size) {
-+			if (copy_from_user(&info[i], uptr, bytes)) {
-+				kvfree(info);
-+				return -EFAULT;
-+			}
- 		}
- 	}
- 
- 	*info_param = info;
- 	return 0;
--
--error_free:
--	kvfree(info);
--	return r;
- }
- 
- int amdgpu_bo_list_ioctl(struct drm_device *dev, void *data,
--- 
-2.34.1
+--
+Joel Fernandes
 
