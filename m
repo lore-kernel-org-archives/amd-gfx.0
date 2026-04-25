@@ -4,125 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BAD85FF8861
-	for <amd-gfx@archiver.kernel.org>; Sat, 25 Apr 2026 14:45:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A21A8FF885C
+	for <amd-gfx@archiver.kernel.org>; Sat, 25 Apr 2026 15:58:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 100EE10E238;
-	Sat, 25 Apr 2026 14:45:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1D71610E137;
+	Sat, 25 Apr 2026 15:58:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="BTqCoP7z";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="atAf5mYC";
 	dkim-atps=neutral
-Received: from BN8PR05CU002.outbound.protection.outlook.com
- (mail-eastus2azon11011069.outbound.protection.outlook.com [52.101.57.69])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A3BA110E227;
- Sat, 25 Apr 2026 14:45:38 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Z2/1iMtbsrXAfJS5fXwn8bYHoCXvrpv3E4yC9cDqok47NvgmS3IPuuxsfpZgAh15iUdyNW9M4fStXYwhFkv7hIJYvOjmeJMadFTmoMzvTNoS1uhDLhzKiIvsT/py5zJ+JRmGihWQRNW9OIqPGIfG/HF5eI5J8v/1Cyy1/WkEr7RRpq3DDWGqZhGNnv2aATwLlNJibTScYt3z25BpRMcH1PKdNH8OqJJGfhxi3TRmPu4w+fLpTPYbFTbZjtyw3ZL1mZl7gJc7nJWNB3cF6T3NPhXuPxq0ixgvVm9qZbsy5lILjSL0Km7lUlT34Zj9phIQJOfrq2SNL4rx7cqriASG4w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=U+vEX4gYTeZLZoJjxeEi/rgaAD6iNObFIdo6R/LBOjc=;
- b=ZBdpjRkSrUG4zB+zNk4u6TOnyIRuuAcXYCAX4gpHFMdHpyCxE202rRBBkNDZlUOGdYEIj74JUHQmJidGPevir9LtEh1ZNJqyHERooQYEPUEYA+mhmiTykQkMYL2PkgUx1SYSVOD8ZtNwAtvc5vfqCM45Ykm2QiSAighWI83YvOGnVChImfkmeG139IkhEs7IVeQlgux3fsUasvDSPUXJJoh5P25X2Pl0vd6280Yh3YwBKGdCpNlZLlwEE3jAHtvr3eolKEp2s2/NbSgSamvi4R02c5VpTLpClDR7ix27kFa5mC6hNLOGqfI1MLYI211FbA2pJFDcLv5Xv/8pAj2ECw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=U+vEX4gYTeZLZoJjxeEi/rgaAD6iNObFIdo6R/LBOjc=;
- b=BTqCoP7zAoTJAVJWSIOqBMJU36H1mKYgL4eC2SUclsNsA8Arg0kzyMHgNX0xUgduo7vLGSuC5zhQzja2Sdd38Y0OzjZ6B6vT7Adg0iVOF2nqn4qSSzTRevikajdiPv9vT3HxWi0zvpOLak3XBZFYAQXDtKXjicpoOnaDrAp0R+Y=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from SA0PR12MB4557.namprd12.prod.outlook.com (2603:10b6:806:9d::10)
- by PH7PR12MB7235.namprd12.prod.outlook.com (2603:10b6:510:206::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.12; Sat, 25 Apr
- 2026 14:45:32 +0000
-Received: from SA0PR12MB4557.namprd12.prod.outlook.com
- ([fe80::885a:79b3:8288:287]) by SA0PR12MB4557.namprd12.prod.outlook.com
- ([fe80::885a:79b3:8288:287%5]) with mapi id 15.20.9870.012; Sat, 25 Apr 2026
- 14:45:32 +0000
-Message-ID: <cb1ab06a-630b-4bd7-95a3-5f679b84dbe2@amd.com>
-Date: Sat, 25 Apr 2026 09:45:30 -0500
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 4/8] DRM: Add support for client and driver indicating
- support for luminance
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: dri-devel@lists.freedesktop.org, harry.wentland@amd.com,
- Xaver Hugl <xaver.hugl@gmail.com>, amd-gfx@lists.freedesktop.org
-References: <20260424220953.167058-1-mario.limonciello@amd.com>
- <20260424220953.167058-5-mario.limonciello@amd.com>
- <5trcw3bcadvk2ltmat5axlezuznylsgm5xr7dmo66o5ijcrpdz@fhv7yhmlklub>
-From: Mario Limonciello <mario.limonciello@amd.com>
-In-Reply-To: <5trcw3bcadvk2ltmat5axlezuznylsgm5xr7dmo66o5ijcrpdz@fhv7yhmlklub>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: SA0PR11CA0062.namprd11.prod.outlook.com
- (2603:10b6:806:d2::7) To SA0PR12MB4557.namprd12.prod.outlook.com
- (2603:10b6:806:9d::10)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5A1CE10E137;
+ Sat, 25 Apr 2026 15:58:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1777132722; x=1808668722;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=d7YGNiqgSx7E17Fhg5GpF35421BdBBAoOnfImJvpxJ8=;
+ b=atAf5mYCKuiwXg3Emnz9frHMgCR8yMeaDsspHtBbv5w8x8JB1byEOBor
+ Mlcq7sxsRLIc05QCRJnmGQ0JqXN8YsKUwpZzl+g90dB1AHiXxXku4FaIY
+ 1/PY2316yvhF6EAARQ0WF+ZLyXypbpr7MJTzDkJpijz4tygq7U5duUiTy
+ IeXtRn9Tl4uaIOfGpzLsSJvvh9HudEFY3Sk5YJ3tBQGwFQzZ2ZlOKwB9u
+ Da+KxJFahUppfXijNGUZq0AwFZ1724Pif/+gR5WpOJb2O3z5Mla1PLZE2
+ pACCNTGKmbrJMooOvou/tPC4mT88arp1oXmQoJF3hq8P129myL9z1qg5e w==;
+X-CSE-ConnectionGUID: Gxbhd2iYTXylpY3dvJtkgA==
+X-CSE-MsgGUID: G6nWbVVLShKZKpsxtEoESw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11766"; a="88398001"
+X-IronPort-AV: E=Sophos;i="6.23,198,1770624000"; d="scan'208";a="88398001"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+ by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Apr 2026 08:58:41 -0700
+X-CSE-ConnectionGUID: hBfsDdj1Qs+7DLbBwxK4nA==
+X-CSE-MsgGUID: SJwIh4K8Q9GKlr0t3y3i2g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,198,1770624000"; d="scan'208";a="226694395"
+Received: from lkp-server01.sh.intel.com (HELO aa799cca880d) ([10.239.97.150])
+ by fmviesa009.fm.intel.com with ESMTP; 25 Apr 2026 08:58:38 -0700
+Received: from kbuild by aa799cca880d with local (Exim 4.98.2)
+ (envelope-from <lkp@intel.com>) id 1wGfOt-000000006q1-2AOT;
+ Sat, 25 Apr 2026 15:58:35 +0000
+Date: Sat, 25 Apr 2026 23:57:44 +0800
+From: kernel test robot <lkp@intel.com>
+To: Yury Norov <ynorov@nvidia.com>, Felix Kuehling <Felix.Kuehling@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Cc: oe-kbuild-all@lists.linux.dev, Yury Norov <ynorov@nvidia.com>
+Subject: Re: [PATCH] drm/amdgpu: use bitmap_clear() in
+ amdgpu_amdkfd_device_init()
+Message-ID: <202604252305.5nmLNigU-lkp@intel.com>
+References: <20260424005218.147961-1-ynorov@nvidia.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA0PR12MB4557:EE_|PH7PR12MB7235:EE_
-X-MS-Office365-Filtering-Correlation-Id: 31ea8980-9364-490f-78e6-08dea2d94d54
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|366016|376014|56012099003|22082099003|18002099003; 
-X-Microsoft-Antispam-Message-Info: 0zpYpx0SUwm691YeMoAOAsDHFx6MN4svkdFyb6C2LDTdnIidBBVZW2zQ29K+oR3MVkbaQHei7h9rLqzvPboK9C6x1pEdTTROWA/bndtTpL4KP0oCO3h9q9BiAzbh33qNJmUEipLHT7Su3zvEdcSXS+UAhEvjblJ0gGY85piPEeLJaefCzx1sWPBqyw+6Tal2oth+YBkauAhb7WPWh2njcGo+1UCSe1de+qTLPGFAbyuSJxyoSYHK423pTevHcOHEe8gHwxRYfqZ6zlSMioRGPLd8cOV9W5TaSksRz0/tOqGJTWFXWB1ERiqZP+crDPSiXwC6jdKBXqJVHIoN5zkSswFFhd6yPp5WT3OZnf684SSIiuLEI6fqyUY1dRRNhBq5KPG8JJ/EIQPwtJRfQkEw5A1cusEV1qxA6JzNnRj8Dr/lT427igo8kDlEDrVqrsvVcenXYaxCAkREVF06FcMU+GOgRydE3Hz9aG52waP39Nx7dwSYAIqFGQDVXPJkr5PvFiOKFZ/xu8qgjX1x2IHBHrtskyif5f/dMobdrIG9vVOUNuDpat+WlbqBLnbd1BqNe+hUqy9I1D+4SxLmojTQCPBghKwEmtX+lOyeQMhMmoh0Ao9myoqFaJxuzYCauNf1ZfHevnfm6RlGpZX7KICuhYq6ONM4sNla8DrYUzTfefZ6B3eXk4TPb1kjBYQRxdnkvFDTQe5An79Tnl61DeyezM6Lzxyr6FaP9Ot+CKwqpAc=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SA0PR12MB4557.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014)(56012099003)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?R2xsTWV5YVFqTHhVRmoxQ0JiMnMwZ1JkdmhVbHM5dHVOSDRXSjU0NE9WRTBN?=
- =?utf-8?B?TVlhYW9KK2liYXEyOHluR1JCZnFoYVlMSTV1NnF3QVRneXRSd3U3cVpEN0Zl?=
- =?utf-8?B?ekF2VFVFTGcvU3BkdXBrMlNSZFU3eDkrRHRkTVBhNzRoT2VLOVYxVmFtdHFF?=
- =?utf-8?B?MzdPSTBkWW4zc3hwcm5yaWlZRHVuRnl5RHYrQVVUemJnV0hEV2JZZmcxRDJU?=
- =?utf-8?B?dUs0NE1HMWNjOU5maUdjeTVxNGV6YUJzS3ZxRmVVdmVwSHYrZDhMMFNGNEdu?=
- =?utf-8?B?ZjkxZFJuaWlhYzc5N2tvb0V0WkYwOUUxVUpoUnhQODZUS0RWSmhmb0NnT3lQ?=
- =?utf-8?B?M2svMVU4U29FSGIwUFNkVE9sYmFqQ0xkNzgwcXN1ZllFTlZSN0I0U1pQQWNr?=
- =?utf-8?B?OGJNcFBZWVNidHUwd1o2eUhoZlVYUW5FNGdrK1d4bHJvTmtzMGcybW8vdXBw?=
- =?utf-8?B?a0ZtV3liYXB0bW5LeWN3cXc2Q2c4UGhFQkNjNzJwYThxcjBTUkxrMVNmWitR?=
- =?utf-8?B?OHFBOGpwUkQyT0RtNVBvV2ZlYlEvWmdMaUp5MkF1TGxaY0s5VStFcWMvam85?=
- =?utf-8?B?bGVyVkZONlh1MElFOUFWcXdaYm1jakZTdU9adm43VWVNYUhyUXN3aDNyMFBu?=
- =?utf-8?B?RHZaZktCYXA4TzJKQ3JNMjhvcnMyNnlTTHN0UklJY0hOZGJ4MmJkbnUraG1a?=
- =?utf-8?B?TmJmcGV5bHBxNjZBZ1RSa2tIbzVSS1NqMUM5ZytZa2FmUERncWI1QUJISjRW?=
- =?utf-8?B?OGs1VVpveFhXM1ZaZlhBSjZhUHFXNlh6RU9IekFFMUNiSkwxbWNlbjhkdlpw?=
- =?utf-8?B?a2xiOVg5NnVWSUJwKzlXR2ZJeldnRGRSR2JETGxQV0oyZ1lNa1MraEdONU9X?=
- =?utf-8?B?S3lhbFVJMXBiRUZacTdYWHRkRjJUT21SQUJoR0RGbGJ0azcyYWFOM0s0SWhp?=
- =?utf-8?B?aHBjWm1SK0ljUVloRWdnQWd3RmlWV0tvS09zM0VmTWdodXVwY2VUQnV5bnMw?=
- =?utf-8?B?VnY4N2M1dnRKbytEQWNCLzZnMGF6R05JbFBITmp5dVh6dktzTll1Z3VPTTdk?=
- =?utf-8?B?dDAyejNOV2lhYnJVeVR2WVNaeGlTSzFjVCtXTmFqQTdIWUlFUHZWZ0JUU21T?=
- =?utf-8?B?dVEyMW4wRGh6cEJtWHFKK3BTcGJwcWpGeHRzS2NNZklhQWR6SUF2Zlp1eVRy?=
- =?utf-8?B?cXZ4MlZCNjBkZHlsSEh0MXdhcnE1SC9OME9DODNCRU53Y1hGanY2L2dCdVl2?=
- =?utf-8?B?dVRmVEN0c1hnUm9ocmc1NnJPR3FJb3RETUkrd1MzTUxma3RRSmswNXY5U0Va?=
- =?utf-8?B?OC9nc3lRdk83Ly9NemMrbGZGcUpTMkk0V3N6L1NFL3BTTHI1aThrNHZQUHM2?=
- =?utf-8?B?RzNKTFlJUnBTZUhPcGlDbzlTbHhVL2pzNG9DTWtXS05xY3VlaTNQMnVscUpy?=
- =?utf-8?B?NktGTllaTzEvdXFxK1gwNzA1RUNLZkhicnB5VlhlaGFlcUtaSll4Q2FCenVi?=
- =?utf-8?B?WkRsVmJOM0JUQzdVQ3o5OFFrbjQ3VE1GTTRDcysyenJSamhISFE1c1V4eENR?=
- =?utf-8?B?OEpNbEQ3cDFTdE5FUWsyaHJFc0pNZlRSZklBV1VRSWZ5T1FweU5DeXgzb0tN?=
- =?utf-8?B?NWtGeERMM3ZSU2p0ZElkSWZWNTJYeGpRODYvaStIaEp2NG1UTWNTR0p2d3ZI?=
- =?utf-8?B?TzdPYTN2UldwQ2srUnJTdzNXbTZWcUFFTlNrOFBrS2F1YXFFNEdQN3R4dkNv?=
- =?utf-8?B?SUdzK3R4K0xZUmU4UFNrOHZhNFR1VGFrWkZiQVNtenhGTEhydVBRSUloZnhq?=
- =?utf-8?B?QnVTQXJydTFyQ0NibFhUUVN1UUMvNGxqVFlKV0JVeHZkSnU2VVN0RE5yVEhx?=
- =?utf-8?B?UUt4TWx4WDNCd3VaeXFYaTU0bFVFd2ZPUEcxY3J3Vnlpc1FabWlmUDhrL1RK?=
- =?utf-8?B?UDU4WHU4Q1BOdkM0Zjh2Z0NjZmRZbFlJTU9xVGZEVkVZU3FLdlFuSkNkK3lY?=
- =?utf-8?B?RUxGSzhDeXlWSWw2SjZpMjZ4em0wRVM5SEJ4Y0QwNDNYR1JNVml6aFJCVE9v?=
- =?utf-8?B?ZE1ralNTUWplNEQvL09wMStUQm9sZlNMYVQyRzNHbEs1OXk2V1c0ejJaNnBl?=
- =?utf-8?B?U0NqdzVxQW5YQ2UwbjdEU1N1bW0xa1NQUzJZWmZWTnZtcVNoK1U2YUtCVHVK?=
- =?utf-8?B?Ykd0Vy8wZnNYTURDbERTeHlrNVlkdWt2MjlnVFhZWmd5TU43NnJFSUtZaUlW?=
- =?utf-8?B?VmlnNUtvbzduVU5LOFljMXk0TmlYY01abElVOTVmeWpxNFRHeHN4YmNocGZW?=
- =?utf-8?Q?t71WK7haMCO9wH1cTM?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 31ea8980-9364-490f-78e6-08dea2d94d54
-X-MS-Exchange-CrossTenant-AuthSource: SA0PR12MB4557.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Apr 2026 14:45:32.5977 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 1YoyUFjKqu4+8DT2eh2y2/dKQui6LzEAfJmq0oMyXfVlK0SN9KkWUIQRElFOx78gNiVj1XNCeqbU58m8tYZuBA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7235
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260424005218.147961-1-ynorov@nvidia.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,75 +75,105 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Hi Yury,
+
+kernel test robot noticed the following build warnings:
+
+[auto build test WARNING on drm-misc/drm-misc-next]
+[also build test WARNING on linus/master v7.0 next-20260424]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
+
+url:    https://github.com/intel-lab-lkp/linux/commits/Yury-Norov/drm-amdgpu-use-bitmap_clear-in-amdgpu_amdkfd_device_init/20260424-111821
+base:   https://gitlab.freedesktop.org/drm/misc/kernel.git drm-misc-next
+patch link:    https://lore.kernel.org/r/20260424005218.147961-1-ynorov%40nvidia.com
+patch subject: [PATCH] drm/amdgpu: use bitmap_clear() in amdgpu_amdkfd_device_init()
+config: csky-allmodconfig (https://download.01.org/0day-ci/archive/20260425/202604252305.5nmLNigU-lkp@intel.com/config)
+compiler: csky-linux-gcc (GCC) 15.2.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260425/202604252305.5nmLNigU-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202604252305.5nmLNigU-lkp@intel.com/
+
+All warnings (new ones prefixed by >>):
+
+   drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c: In function 'amdgpu_amdkfd_device_init':
+>> drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c:170:13: warning: unused variable 'i' [-Wunused-variable]
+     170 |         int i;
+         |             ^
 
 
-On 4/25/26 07:17, Dmitry Baryshkov wrote:
-> On Fri, Apr 24, 2026 at 05:09:49PM -0500, Mario Limonciello wrote:
->> The legacy backlight control interface can only be disabled when both
->> the client and driver have agreed that the luminance can be set during
->> a modeset. Add capability for the client to register and for the driver
->> to indicate support.
-> 
-> Please describe, why do we need DRM_CLIENT_CAP_LUMINANCE.
-> 
->> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
->> ---
->>   drivers/gpu/drm/drm_atomic_uapi.c | 24 ++++++++++++++++++++++++
->>   drivers/gpu/drm/drm_connector.c   |  4 ++--
->>   drivers/gpu/drm/drm_ioctl.c       | 10 ++++++++++
->>   include/drm/drm_connector.h       |  5 +++++
->>   include/drm/drm_drv.h             |  7 +++++++
->>   include/drm/drm_file.h            |  8 ++++++++
->>   include/uapi/drm/drm.h            | 10 ++++++++++
->>   7 files changed, 66 insertions(+), 2 deletions(-)
->>
->> diff --git a/include/uapi/drm/drm.h b/include/uapi/drm/drm.h
->> index 27cc159c1d275..b5e6d940f2816 100644
->> --- a/include/uapi/drm/drm.h
->> +++ b/include/uapi/drm/drm.h
->> @@ -921,6 +921,16 @@ struct drm_get_cap {
->>    */
->>   #define DRM_CLIENT_CAP_PLANE_COLOR_PIPELINE	7
->>   
->> +/**
->> + * DRM_CLIENT_CAP_LUMINANCE
->> + *
->> + * If set to 1, legacy sysfs interface for controlling backlight brightness will
->> + * be disabled.  The client will include luminance values as part of the modeset.
-> 
-> I don't think this is accurate (anymore?). The sysfs doesn't seem to be
-> disabled. Rather the DRM updates it internally. Which might mean that we
-> don't need an extra client cap.
+vim +/i +170 drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
 
-I had code in my tree for doing it and decided to defer that (see cover 
-letter) but forgot to drop the cap.
+c0125b848abecf Le Ma             2024-01-25  167  
+dc102c436f1238 Andres Rodriguez  2017-02-01  168  void amdgpu_amdkfd_device_init(struct amdgpu_device *adev)
+130e0371b7d454 Oded Gabbay       2015-06-12  169  {
+234441dd49bcd9 Yong Zhao         2019-01-09 @170  	int i;
+d0b63bb3385c56 Andres Rodriguez  2017-02-03  171  	int last_valid_bit;
+611736d8447c0c Felix Kuehling    2018-11-19  172  
+27fb73a0e3aa74 Mukul Joshi       2023-04-25  173  	amdgpu_amdkfd_gpuvm_init_mem_limits();
+27fb73a0e3aa74 Mukul Joshi       2023-04-25  174  
+611736d8447c0c Felix Kuehling    2018-11-19  175  	if (adev->kfd.dev) {
+130e0371b7d454 Oded Gabbay       2015-06-12  176  		struct kgd2kfd_shared_resources gpu_resources = {
+40111ec2298f44 Felix Kuehling    2020-06-24  177  			.compute_vmid_bitmap =
+40111ec2298f44 Felix Kuehling    2020-06-24  178  				((1 << AMDGPU_NUM_VMID) - 1) -
+40111ec2298f44 Felix Kuehling    2020-06-24  179  				((1 << adev->vm_manager.first_kfd_vmid) - 1),
+d0b63bb3385c56 Andres Rodriguez  2017-02-03  180  			.num_pipe_per_mec = adev->gfx.mec.num_pipe_per_mec,
+155494dbbbf4d6 Felix Kuehling    2018-02-06  181  			.num_queue_per_pipe = adev->gfx.mec.num_queue_per_pipe,
+155494dbbbf4d6 Felix Kuehling    2018-02-06  182  			.gpuvm_size = min(adev->vm_manager.max_pfn
+155494dbbbf4d6 Felix Kuehling    2018-02-06  183  					  << AMDGPU_GPU_PAGE_SHIFT,
+ad9a5b78f585e9 Christian König   2018-08-27  184  					  AMDGPU_GMC_HOLE_START),
+4a580877bdcb83 Luben Tuikov      2020-08-24  185  			.drm_render_minor = adev_to_drm(adev)->render->index,
+234441dd49bcd9 Yong Zhao         2019-01-09  186  			.sdma_doorbell_idx = adev->doorbell_index.sdma_engine,
+cc009e613de656 Mukul Joshi       2022-04-26  187  			.enable_mes = adev->enable_mes,
+130e0371b7d454 Oded Gabbay       2015-06-12  188  		};
+130e0371b7d454 Oded Gabbay       2015-06-12  189  
+d0b63bb3385c56 Andres Rodriguez  2017-02-03  190  		/* this is going to have a few of the MSBs set that we need to
+0d87c9cfc08e15 Kent Russell      2019-05-01  191  		 * clear
+0d87c9cfc08e15 Kent Russell      2019-05-01  192  		 */
+e6945304187dea Yong Zhao         2020-01-30  193  		bitmap_complement(gpu_resources.cp_queue_bitmap,
+be697aa3a78ef8 Le Ma             2022-07-27  194  				  adev->gfx.mec_bitmap[0].queue_bitmap,
+68fa72a437ea3b Mukul Joshi       2023-09-06  195  				  AMDGPU_MAX_QUEUES);
+d0b63bb3385c56 Andres Rodriguez  2017-02-03  196  
+3447d220155bd9 Jay Cornwall      2017-07-13  197  		last_valid_bit = 1 /* only first MEC can have compute queues */
+d0b63bb3385c56 Andres Rodriguez  2017-02-03  198  				* adev->gfx.mec.num_pipe_per_mec
+d0b63bb3385c56 Andres Rodriguez  2017-02-03  199  				* adev->gfx.mec.num_queue_per_pipe;
+25259687589365 Yury Norov        2026-04-23  200  		bitmap_clear(gpu_resources.cp_queue_bitmap, last_valid_bit,
+25259687589365 Yury Norov        2026-04-23  201  					AMDGPU_MAX_QUEUES - last_valid_bit);
+d0b63bb3385c56 Andres Rodriguez  2017-02-03  202  
+dc102c436f1238 Andres Rodriguez  2017-02-01  203  		amdgpu_doorbell_get_kfd_info(adev,
+130e0371b7d454 Oded Gabbay       2015-06-12  204  				&gpu_resources.doorbell_physical_address,
+130e0371b7d454 Oded Gabbay       2015-06-12  205  				&gpu_resources.doorbell_aperture_size,
+130e0371b7d454 Oded Gabbay       2015-06-12  206  				&gpu_resources.doorbell_start_offset);
+c5892230d98b04 Shaoyun Liu       2018-03-23  207  
+1f86805adc3432 Yong Zhao         2019-02-13  208  		/* Since SOC15, BIF starts to statically use the
+1f86805adc3432 Yong Zhao         2019-02-13  209  		 * lower 12 bits of doorbell addresses for routing
+1f86805adc3432 Yong Zhao         2019-02-13  210  		 * based on settings in registers like
+1f86805adc3432 Yong Zhao         2019-02-13  211  		 * SDMA0_DOORBELL_RANGE etc..
+1f86805adc3432 Yong Zhao         2019-02-13  212  		 * In order to route a doorbell to CP engine, the lower
+1f86805adc3432 Yong Zhao         2019-02-13  213  		 * 12 bits of its address has to be outside the range
+1f86805adc3432 Yong Zhao         2019-02-13  214  		 * set for SDMA, VCN, and IH blocks.
+642a0e80262af8 Felix Kuehling    2018-04-10  215  		 */
+234441dd49bcd9 Yong Zhao         2019-01-09  216  		if (adev->asic_type >= CHIP_VEGA10) {
+1f86805adc3432 Yong Zhao         2019-02-13  217  			gpu_resources.non_cp_doorbells_start =
+1f86805adc3432 Yong Zhao         2019-02-13  218  					adev->doorbell_index.first_non_cp;
+1f86805adc3432 Yong Zhao         2019-02-13  219  			gpu_resources.non_cp_doorbells_end =
+1f86805adc3432 Yong Zhao         2019-02-13  220  					adev->doorbell_index.last_non_cp;
+234441dd49bcd9 Yong Zhao         2019-01-09  221  		}
+130e0371b7d454 Oded Gabbay       2015-06-12  222  
+8e2712e71bfc97 shaoyunl          2021-02-16  223  		adev->kfd.init_complete = kgd2kfd_device_init(adev->kfd.dev,
+d69a3b762dc4c9 Mukul Joshi       2022-05-09  224  							&gpu_resources);
+b5fd0cf3ea377a Andrey Grodzovsky 2022-05-17  225  
+2302d507149f0a Philip Yang       2022-10-03  226  		amdgpu_amdkfd_total_mem_size += adev->gmc.real_vram_size;
+2302d507149f0a Philip Yang       2022-10-03  227  
+b5fd0cf3ea377a Andrey Grodzovsky 2022-05-17  228  		INIT_WORK(&adev->kfd.reset_work, amdgpu_amdkfd_reset_work);
+130e0371b7d454 Oded Gabbay       2015-06-12  229  	}
+130e0371b7d454 Oded Gabbay       2015-06-12  230  }
+130e0371b7d454 Oded Gabbay       2015-06-12  231  
 
-I suppose this is an area that would be good to discuss if it's worth 
-getting some of it done in the same series or should be deferred.
-
-The overally idea I have is:
-
-1) Allow both sysfs and DRM master to do writes initially (allow 
-transitioning and PoC)
-2) Userspace changes to DRM master
-3) Introduce client cap for it and block off sysfs writes when DRM 
-master indicates it.
-4) Move sysfs compat behind a kconfig
-5) Drop Kconfig
-
-The timescale between steps 3 and 5 is "many kernel cycles".
-
-> 
->> +
->> + * This capability is supported starting in kernel 7.2
->> + */
->> +#define DRM_CLIENT_CAP_LUMINANCE		8
->> +
->>   /* DRM_IOCTL_SET_CLIENT_CAP ioctl argument type */
->>   struct drm_set_client_cap {
->>   	__u64 capability;
->> -- 
->> 2.43.0
->>
-> 
-
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
