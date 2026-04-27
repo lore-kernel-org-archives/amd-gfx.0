@@ -4,137 +4,98 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 39878FF8861
-	for <amd-gfx@archiver.kernel.org>; Mon, 27 Apr 2026 08:33:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 81EA1FF885E
+	for <amd-gfx@archiver.kernel.org>; Mon, 27 Apr 2026 08:35:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CE0B810E174;
-	Mon, 27 Apr 2026 08:33:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 214AD10E602;
+	Mon, 27 Apr 2026 08:35:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="F2Z20S45";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="SuZxaVin";
 	dkim-atps=neutral
-Received: from SN4PR0501CU005.outbound.protection.outlook.com
- (mail-southcentralusazon11011058.outbound.protection.outlook.com
- [40.93.194.58])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B0E5710E174
- for <amd-gfx@lists.freedesktop.org>; Mon, 27 Apr 2026 08:33:42 +0000 (UTC)
+Received: from CH4PR04CU002.outbound.protection.outlook.com
+ (mail-northcentralusazon11013017.outbound.protection.outlook.com
+ [40.107.201.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BF6BE10E292
+ for <amd-gfx@lists.freedesktop.org>; Mon, 27 Apr 2026 08:35:51 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=JE+FxX/LxPyxAWByvsHwDU2gf4WaDXkrWr+PABNUMXgUXUIE+JGZ+O46pxi3vMB/Dp5tlSSeF828GeouhTG+J+fmBEmGkoajoUSf7Aj4LJoEgTlDDAkfkIzRfjBqVgYnNkv2VBITVML6DEZQ/7rtROSwR3OLd4vYWH4dYqK80wbuk71wy1BvA3SL8/S5D2OjtVKxMQi8i6L06l/gjZiryT6h+l7XYJ0KUO6k0zmwLPC/FR+p9ctv3HkNl6lkMvdp9JogsUBSaw8gWLu61w5Revhv+oP253WW/dUzCVRsOCHT84LxWv5YeWdI+QcCXfGkszNTAHplsuAVV0iSNSLyCQ==
+ b=SNHHmHNVPI03wdqducGbfMXUtOACPd7i7a3mq1kb83R2FlLCPF27eo21inZ/Tfup8Ctf5g6kTmOv30gUWSOetsP4TwCrNwtgv/eawyr3U6Lcme7uB0xWBC+XQDojbRLk4j4vC6DQg8C98jeJcUA4mG0i4bsJJv8Po+BHkYL760NeJY5cJz43dLIByd5NBzjMM81vNfO8xDWThTrTvcMg9mCoPuu/dnx3YIYgs383hyiZy6Q3a/3fjg34SDy5uVUBRqr6MSXuPqnJ8GsBP2G4qnL8dtysgUXEL9Z8ESLw6yRlHxyimDgxir5SniJvpb34gRvggOSz09SeVsK7XRF0XQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=DjOfTJjqkmfhOSNA9SxAIOFciBecf7wsBSvnuOdc+YA=;
- b=ZGmncPbzOQoMClB7ZEJwN5zrT2oCWxqsX0n3R548RjIPYKkmGSDkzDmjUrTabABj1AeT1NREhSn6/azS07j1WZ8sHjuG220QDY6ANKRXahPg56Vc6PByR9RRKEYRoh6t+M/keSGPnwYEVQnmf9IUvy3Wu4BCLXBZwzQPDaZMjYLyrx7nIbvsy45oQh7wQtBLUTMEW3iifK19HenBAyWtj+wAQIFH9paaTyLSkbic6CRrTkcnJCU/uRYaMa9we6Yxc3OZ6rSDF+dulNHfKufzeT+ZrDaTtYMqlXN4xoV7c377w+R6bWZVSUgxlWBdeJIHvpfUKcX7hxXFfzAiAiSWFA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=yGKCPUQo4JU/O0Aw3oQ04BDkvMu4yX3zZFdorHNuThM=;
+ b=MNU9jj3ZFS73hkplTJkkfP7cQcYPN2PlrpaE4wUcB5l6dZosNnwS57Q+4eLylgYBMDPPub7tq9x73XEI1wuwhsTiEdK86DfqNpaqL/U78CUf6uwailddl7Op8xuPkhTNSiRkN8/sbtUOY5ObS8ET2M6L+voGfXtOe3NlQjDlB/DMZe4vl8m+FW70JaLsnYKfjdyCKKYysv3nq1PIiy5e89XzroHuJkfgnaoT0rhc/rWxcsnLDFOxIj40L9qouQw/IU08E2Zs+dSuQin3I7grVS0MDJDA2RvkPi4aqPMB4Hqwbajmq2P9rPp9tr2/R5Z0AdcXg3k9hp3Dbhq//GplMg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=DjOfTJjqkmfhOSNA9SxAIOFciBecf7wsBSvnuOdc+YA=;
- b=F2Z20S45y6YY3q5rTg43Pi+ITIpvTn3GjPRgewUnu1UKV3cjyoa48aHu4E13lT2gOQkEomuTxNDmvQBpuQ/v87qiAoIYIIsKO7ovxANZw1Q3P3YN6kehY5fOFIonNX7w/n4ZIFirEOw3flur6YjGoz0aTkatG61E+AQ+PP3tXNk=
-Received: from DM4PR12MB5152.namprd12.prod.outlook.com (2603:10b6:5:393::16)
- by DS7PR12MB8201.namprd12.prod.outlook.com (2603:10b6:8:ef::13) with
- Microsoft SMTP Server (version=TLS1_2,
+ bh=yGKCPUQo4JU/O0Aw3oQ04BDkvMu4yX3zZFdorHNuThM=;
+ b=SuZxaVinXx/tUTXrRxqSgWM0QvJbq72QNieqU2sGODL/tDpacMmp1xxl2a5Aib5JhUxn9A/iZO48vssDLj22OPW+48NiPk8mfyM0E+jSixgQ8PP9TzEkl/k7hXjaniYlebVC62iQvTxdqHRlOLAPA6HuGXBZ/udYN63iJrgy2y4=
+Received: from CH5PR05CA0003.namprd05.prod.outlook.com (2603:10b6:610:1f0::16)
+ by MN2PR12MB4408.namprd12.prod.outlook.com (2603:10b6:208:26c::14)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.15; Mon, 27 Apr
- 2026 08:33:39 +0000
-Received: from DM4PR12MB5152.namprd12.prod.outlook.com
- ([fe80::8874:ea43:ba4a:e73d]) by DM4PR12MB5152.namprd12.prod.outlook.com
- ([fe80::8874:ea43:ba4a:e73d%3]) with mapi id 15.20.9870.013; Mon, 27 Apr 2026
- 08:33:39 +0000
-From: "Zhang, Jesse(Jie)" <Jesse.Zhang@amd.com>
-To: Alex Deucher <alexdeucher@gmail.com>, "Koenig, Christian"
- <Christian.Koenig@amd.com>
-CC: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Deucher, 
- Alexander" <Alexander.Deucher@amd.com>
-Subject: RE: [PATCH 05/10] drm/amdgpu: add AMDGPU_INFO_SDMA_USERQ_DOORBELL
- ioctl
-Thread-Topic: [PATCH 05/10] drm/amdgpu: add AMDGPU_INFO_SDMA_USERQ_DOORBELL
- ioctl
-Thread-Index: AQHc08M6KwE4lPUrOEi0HqFlsWR1ObXt4UqAgABTVYCAAAF4AIAEYw2w
-Date: Mon, 27 Apr 2026 08:33:38 +0000
-Message-ID: <DM4PR12MB51528F0A47875A84FB684E3FE3362@DM4PR12MB5152.namprd12.prod.outlook.com>
-References: <20260424081955.873090-1-Jesse.Zhang@amd.com>
- <20260424081955.873090-5-Jesse.Zhang@amd.com>
- <ffd8867b-50b8-4f67-a21c-45dfd24a2ae9@amd.com>
- <CADnq5_OEraKrwjzsdacO0W4UGEJ6eszv5+S+Fk=asVJUgdBxRw@mail.gmail.com>
- <CADnq5_PWxC5RcxfH58g+HTREzwiwFX6_UfTuz-ze2rxFgDi7Rg@mail.gmail.com>
-In-Reply-To: <CADnq5_PWxC5RcxfH58g+HTREzwiwFX6_UfTuz-ze2rxFgDi7Rg@mail.gmail.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-04-27T08:32:07.0000000Z;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD General
- v26; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=3;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DM4PR12MB5152:EE_|DS7PR12MB8201:EE_
-x-ms-office365-filtering-correlation-id: e574ea51-91cc-4560-8d41-08dea437ae8e
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|376014|366016|1800799024|38070700021|22082099003|18002099003|56012099003;
-x-microsoft-antispam-message-info: iO669R0ajUaLAhZv7bbHSCD5TcFjwJQPzHzok9MHhz11dQ4tSlzRItpHCUCUZhbAFBsrxjBqzjENZS7f2DFyX61TehGO1gAmkcLy/AA6FE1ySEoOEUrPkBqgF41TyrywxiA6O1QqMJyZZzhuVLPJpjglwUxJlVEIUeOzt08rNsKXHFcFZA+mKk3vsQDQq6N91ikD70A6ktZoTP/nVMg9+r67wvFf5ZbHkKRtmB/vHT300MN2YgRBTKEoErITQZqSP1LmRN1nzkeR1A4zj/BJKBSgUSTO7L15mR2F4Ks9dZYC9B/dFnqlffKFHJpC9bxbiC7tM/92vOzJgOFFawUDfj/Hvy31FJ3PVW4fR7Fj2OJkIM7FPuraD9mwHGhZMLliIVlakWyizixea+dj5M1CkG9J7v7RPpdKv7p8ah+BeTlwP/d0mInWgXMYMzmxwBeRpIKEk1QRlWeGKeWvpb5Aw+v3qVQbclHUoeyUsU8aCDhOkul/SSaimxnvoEKgx5+inFegdHqGKKXvL2sv8uOjlBS2SO56gYlEATliODmzqjRhBs28m695xP9zif0o9YeHvX4qjjiYRrx5xN7KY5iynMCF6rUjhS3QJpTchFSS/HSd27iWkHgE7BPdtbsKAfMRfHMTZdclFvobe/DTaLIfQPbCaz2IvFVkHyeNYebjUL7kyM0yuHX8OuTvzSNU+GX/2oc4JoODW6DRzpm9CH8NtYNnIdEl3GAL/k/VQCJZ1jkz4NO+Csm9NPGYtl4HEBLY
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB5152.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(1800799024)(38070700021)(22082099003)(18002099003)(56012099003);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?YU1GSjh6SjVPNEJnb2lmOENDSU1ZOEpHaHFsSTE1akZTd0paUXFmNTlHajhl?=
- =?utf-8?B?Q045OUNxOG1ra2MxYW1JOG83aGYrL3NrK0o5QTJBb0VrNGY4SUpyU3VOZElq?=
- =?utf-8?B?VEJYVml4TFRUaXQ3ckp4NTd1d1FZOHVSTHk3cjZVUkkwYzkvWXpqNG5jT2I1?=
- =?utf-8?B?TmNiNU9oNGhhbmQyQlljdUdobG5BL3BYQXRZLzRXWmVOL042bTRoOWtvQlpx?=
- =?utf-8?B?VmRDL2hOV1BjWE9wYW80UjU1Wjc4VGZxOWlHMGV5THpuUkpDbHRFZTUraGJr?=
- =?utf-8?B?MjR1UGFoQmRtRGpzaEdhMTEyOHI5VnB3Mk5IVDl0LytYYTMyRjJyYU1zUnZC?=
- =?utf-8?B?bitBYmJzanQyT1Q5b2Z0NVN6YjlxQnpxME5mT1phVGRXL2dPZkl5RGFWZTBE?=
- =?utf-8?B?RVlWLzNCb2JqczQ5MG1JQjhvY2RsaEZrK1ZjaTU1NXBLb0xxSEkxcDJVT3BD?=
- =?utf-8?B?dDRRNmVQdnJiVWtvc2g5YXMzdW10QWo5TkMvSUxFdWE1YjJoREJIdHJyUElV?=
- =?utf-8?B?S2Yyc3RxNnVHNXQzNENVNGRMWGJCZDYwRmZnTW9jR2tObG5HcXZaR3liY3JM?=
- =?utf-8?B?cllvbjNpMHR4MmNNSFI3NlBjQ29JcHY0K3N6Y1djWEk3aU51VzBqOUtZaW1C?=
- =?utf-8?B?MlNRTWVVN0FPMjZXbkRHS0g0ZFIrN2dDQjlmcTZSVlNoWmUwMUhPNERUcEk5?=
- =?utf-8?B?b2M5bUZ4RnpveHltM1pjWURTT3FvZWdMdU9IL01keFEvV3pIbk5MNkl0dGFF?=
- =?utf-8?B?ck5NWnFLTDdGQnpUMEY4UUtrOU9mc25KNTgrMitveUpwTWY0a04wdGVBOHBX?=
- =?utf-8?B?T2xwQUVPdzcxUXhpSmNiOTQzQ3pmWjcrcXBoV0hFRzdXUHljTUQ1WU96Y1Ro?=
- =?utf-8?B?TnF6ME11U0NRT3RtaVlia3hnQ3NheVJZVHpWTE9iN0JoQVl4WUI2bEp0OGRK?=
- =?utf-8?B?RS9ObHZ3VDlvK1FFZVFPdmtWbC9oZlNIRWg0Tng2VjBjVXpseFBQaGZrNEEy?=
- =?utf-8?B?SzZkVUNsWDBnNWRJZ1kzTHpRc0lkWUVXWUk4L3Q1NHdub0NUMEd2cVFjNStM?=
- =?utf-8?B?Yk5EY2RhY1JLcTA3VkFZSzBDdVdaOVV0NXBkOW9QUGx3YUVhNngrRGlkSnpx?=
- =?utf-8?B?cWVXakpOQjZaNzRCYzVFNW5VZUNRV3BtR2IvRDVYTVFQMmxKVmpVUEplcUNM?=
- =?utf-8?B?YUljdkdrOS9JM2wzUlM1bUplNnFyUUF0WHkvOWd4K3FFZlR3VkxnSE9KcGVP?=
- =?utf-8?B?MEI2emVtN1l2ZlU0aTR5UDdZU0VhTW4rS3VZUjc3bE1Mb0RQMGZiU0FKVnRp?=
- =?utf-8?B?d2t6bTdZSlhPN09oMGdsWDluYzY0a05zQ09DQVI1U2ZIYndONjNaWVgremJ1?=
- =?utf-8?B?dGEyRFVVVjRwOGlFSnZIS3dLTGs1MDdKaWdQMzI4ZWc1VnEvVXdaKytJcjUv?=
- =?utf-8?B?ZHRSV3ZXNHVIbzdvQWZFdnNsM0hWWk5XUzRHUEVnV2VBa2NGbVhlRm1DN0dO?=
- =?utf-8?B?TFlmb3RMRlE1ZmVFaEZWcEZvcm9DWlhITk9CeDJlRTk2S3lBY1VaK2ovSzZj?=
- =?utf-8?B?SW1QTFpSaEZXNFZxRkxzb29rVjEvSkQwYWVPb1dzNDNOQ2htL1l6L2xybjR4?=
- =?utf-8?B?VkNBN1kzTEh6bS93NWF5MG1WVFN0aHZINGlzZXRpcjE1SFY4enBaNUUvNXJ6?=
- =?utf-8?B?VERiMWJ0L2lQL0x5Y3ZBUmxKblVxYWdDV3c5NHRFdTE3MnRNekUxcnBiV0VD?=
- =?utf-8?B?NU51TzdwUkIrODY3WkZUY2lRdUhXcWdEeFhCemRvM1J5bGVNc0tieDBuYktm?=
- =?utf-8?B?SnNCdVBKMGhWM0VzQ2JnNXlXakxFa1J2dU91WWI3WVJTd0xtTFJaRjJLOEp0?=
- =?utf-8?B?OEx6Zjg3MllIMmlid0Q4OGZpQWQxTDRkanQyak45OUlBS2MxOVRCWkxlTytw?=
- =?utf-8?B?b1l3OTcrUC9MQ0NpcmdoOEJMTnQ2eHQzVnF4VWNBd3E0WHBnSG5ic2pLYVRZ?=
- =?utf-8?B?bXRHNnhMK0NxNVByZmVXQnFjMGQ3MkJsUUxodTJhYWJ3RGZuSTc0d0FGOEpp?=
- =?utf-8?B?ayt5SkFkajRjLy9PUTB6eXFWRmJIVmZFdE9PTkJwL0k2M3dDaE90QU4zZGwx?=
- =?utf-8?B?cVNTNmNrQnRDdVpBa1poWklrZTBVZFRyeEVwOFdoaTdjc2lXNGVNZVZVQUx1?=
- =?utf-8?B?aFF4dXNuTFh0UDBDN3lrMVo0MVhidzlDNzI5TjNqLzRpblR1TVc1QjRmbmFw?=
- =?utf-8?B?LzRpamxhNlhHZG5MOWhDbE1EZitDQXpZTE9qdWh4Si9DT1NwVUY4WFhtZW5Q?=
- =?utf-8?Q?ltg5vjbZqy4Z6/zxn2?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+ 2026 08:35:46 +0000
+Received: from CH1PEPF0000A345.namprd04.prod.outlook.com
+ (2603:10b6:610:1f0:cafe::81) by CH5PR05CA0003.outlook.office365.com
+ (2603:10b6:610:1f0::16) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9846.26 via Frontend Transport; Mon,
+ 27 Apr 2026 08:35:46 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ CH1PEPF0000A345.mail.protection.outlook.com (10.167.244.8) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9846.18 via Frontend Transport; Mon, 27 Apr 2026 08:35:46 +0000
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Mon, 27 Apr
+ 2026 03:35:45 -0500
+Received: from JesseDEV.amd.com (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
+ Transport; Mon, 27 Apr 2026 03:35:44 -0500
+From: Jesse Zhang <Jesse.Zhang@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <Alexander.Deucher@amd.com>, Christian Koenig <christian.koenig@amd.com>, 
+ Jesse Zhang <Jesse.Zhang@amd.com>
+Subject: [PATCH v2 01/11] drm/amdgpu/sdma: add SDMA usermode-queue doorbell
+ pool infra
+Date: Mon, 27 Apr 2026 16:34:27 +0800
+Message-ID: <20260427083543.1328533-1-Jesse.Zhang@amd.com>
+X-Mailer: git-send-email 2.49.0
 MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH1PEPF0000A345:EE_|MN2PR12MB4408:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1fa39f34-1d6d-4660-669c-08dea437fa3e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|376014|82310400026|36860700016|56012099003|18002099003;
+X-Microsoft-Antispam-Message-Info: NYBTxdlldA0VdD+MJOVJNL9xdUjzzhikpWZcu4fL1VeFr+/ulnFQfwuJe0hP896XlylN9o10P8VrYix+lbknpiamMOQTFFx5pFG22fYocExJ9PCOUwQNbIQtidDWE7rEGCr/NJPZHMRNnJxRBMuDadksnsV/dn+EyqWV6WvZfdUF5c6PlVJavcNdWDzwpW+kpbzC5i+dPhOXZdinbt4OyJJ87v2Csc94MgmQqhoxruu71w84xjW4i9iUc4x6+9pCkSJNjw0N8vtVQPYNFgvNzUaJ5l69Xj2EH9SbmzjhcQdpNbjH+3zvQ7YCvQCC3T7lcJNT3Iioap9uA4C04NwesmI/yzJgNG2CsLTKu7POX02tN2nllwEiHU/Z7+yjsToXZ/xn6WMcYf0XpGK6MZr+p5N6DTNC12NnLaPgml3Aj2Q3PpP/1Il/JCjYKbbWUEPHABAIDIdAqjAzES+3MnleRP3YqLmDIiQSuRGzdkvXZoEx7ooA1snvnW53obMpgCyt227YIbMvWTdIB8YHkgQKUUt9tyAWlCMxZlfjT2HVpKDn4v7N9YjZOAhYrFOlEdr3Ts//0WlDNAo3SInuC8QZHK7bHhQ4m3vph2wyFGVNvIVprzRltFkdc4HECul0XVT2K77fs8FSjvwZML3vlCxUGAJWiOQP8DISBMAepUGEkTd2yOT0l8Hrlob49o92g6TMU8EsyM/alBjTUUPz8vetkOdYKMdu783a46Qheh6NjW9vVZT2Rl9/yvqACOwNw/QFLvdyVisjTnXyxVDoB18qQg==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(82310400026)(36860700016)(56012099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: uoZZYcpbxtwQ9SlmnEwY3LxqqL/zA02SqI+TPSS1Ec1HIPM/ZKq1PwPMEz/RfsWfGRaddu3BA4bebUIQoyMUJ6pMpsWRQ9TziRGiHaDSrCxILfv1ta6nspI66hEUz/F1xP42gJ4MrHyA09yj0FvsRnmh4Bl+gxvzFTFOe+yEVZI6dlEpD2Q/f8kjauSjqda/7x4/Evp8VR9C1Ds1wLWdeTqb8XLVN4UCHwTaspULmElmP0xRCmMEJal0OoXGJUd2O0x0GtwRqi236LdRaUGelUAPLpLEFUM0qvhnhQ5Ab33GiFPQ0x+diny6bKJkJStQ98+9Dr28H3sXD6hI1H2X9jboxtXMEysKnCTR+6KBMaGnyHElqoGaD8eT6P0gn7POerwmnrWbLscBxj72Kw8IaC9mL34GJ06mYGE5o7XBY5W53B/fVeyA9uFTuusaXH0/
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5152.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e574ea51-91cc-4560-8d41-08dea437ae8e
-X-MS-Exchange-CrossTenant-originalarrivaltime: 27 Apr 2026 08:33:39.1527 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 8F5hNTjVu7GE8HzheccZlDnhWGuBQD257YHjAXnTXAIrDtVV7ZiK+1cHEX8U6GtyFlAgbsZ/fzp7tlYOCuvR+A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB8201
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Apr 2026 08:35:46.1183 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1fa39f34-1d6d-4660-669c-08dea437fa3e
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CH1PEPF0000A345.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4408
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -149,92 +110,292 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-QU1EIEdlbmVyYWwNCg0KPiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBBbGV4
-IERldWNoZXIgPGFsZXhkZXVjaGVyQGdtYWlsLmNvbT4NCj4gU2VudDogRnJpZGF5LCBBcHJpbCAy
-NCwgMjAyNiA5OjMzIFBNDQo+IFRvOiBLb2VuaWcsIENocmlzdGlhbiA8Q2hyaXN0aWFuLktvZW5p
-Z0BhbWQuY29tPg0KPiBDYzogWmhhbmcsIEplc3NlKEppZSkgPEplc3NlLlpoYW5nQGFtZC5jb20+
-OyBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZzsNCj4gRGV1Y2hlciwgQWxleGFuZGVyIDxB
-bGV4YW5kZXIuRGV1Y2hlckBhbWQuY29tPg0KPiBTdWJqZWN0OiBSZTogW1BBVENIIDA1LzEwXSBk
-cm0vYW1kZ3B1OiBhZGQNCj4gQU1ER1BVX0lORk9fU0RNQV9VU0VSUV9ET09SQkVMTCBpb2N0bA0K
-Pg0KPiBPbiBGcmksIEFwciAyNCwgMjAyNiBhdCA5OjI34oCvQU0gQWxleCBEZXVjaGVyIDxhbGV4
-ZGV1Y2hlckBnbWFpbC5jb20+IHdyb3RlOg0KPiA+DQo+ID4gT24gRnJpLCBBcHIgMjQsIDIwMjYg
-YXQgNDozOeKAr0FNIENocmlzdGlhbiBLw7ZuaWcNCj4gPiA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQu
-Y29tPiB3cm90ZToNCj4gPiA+DQo+ID4gPiBPbiA0LzI0LzI2IDEwOjE4LCBKZXNzZSBaaGFuZyB3
-cm90ZToNCj4gPiA+ID4gRnJvbTogIkplc3NlLnpoYW5nIiA8SmVzc2UuemhhbmdAYW1kLmNvbT4N
-Cj4gPiA+ID4NCj4gPiA+ID4gTmV3IEFNREdQVV9JTkZPIHF1ZXJ5IHRoYXQgcmV0dXJucyBhIHBl
-ci1mcHJpdiBHRU0gaGFuZGxlIGZvciB0aGUNCj4gPiA+ID4ga2VybmVsLW93bmVkIEJPIGJhY2tp
-bmcgdGhlIFNETUEgVU1RIGRvb3JiZWxsIHdpbmRvdywgcGx1cyBpdHMgc2l6ZS4NCj4gPiA+ID4g
-VXNlcnNwYWNlIG1tYXAoKXMgdGhhdCBoYW5kbGUgdGhyb3VnaCB0aGUgc3RhbmRhcmQNCj4gPiA+
-ID4gQU1ER1BVX0dFTV9PUF9NTUFQIC8gbW1hcCgpIGZsb3cgdG8gb2J0YWluIGEgQ1BVIHBvaW50
-ZXIgdG8gdGhlDQo+ID4gPiA+IHJvdXRhYmxlIGRvb3JiZWxsIEJBUiB3aW5kb3c7IGVhY2ggY3Jl
-YXRlZCBTRE1BIHVzZXJtb2RlIHF1ZXVlJ3MNCj4gPiA+ID4gcXdvcmQtc2xvdCBvZmZzZXQgaW5z
-aWRlIHRoYXQgbWFwcGluZyBpcyByZXBvcnRlZCBpbg0KPiA+ID4gPiBkcm1fYW1kZ3B1X3VzZXJx
-X291dC5zZG1hX2Rvb3JiZWxsX29mZnNldF9ieXRlcy4NCj4gPiA+DQo+ID4gPiBXZSBhZGRlZCB0
-aGUgc2VwYXJhdGUgSU9DVEwgZm9yIHRoaXMgcHVycG9zZSBvbiB0aGUgS0ZEL0tHRCB1bmlmaWNh
-dGlvbg0KPiBicmFuY2guIEkgdGhpbmsgd2Ugc2hvdWxkIGp1c3QgY2hlcnJ5IHBpY2sgdGhhdCBv
-dmVyIHRvIGFtZC1zdGFnaW5nLWRybS1uZXh0Lg0KPiA+ID4NCj4gPiA+IEBBbGV4IHdoYXQgZG8g
-eW91IHRoaW5rPw0KPiA+DQo+ID4gWWVzLCB3ZSBhbHJlYWR5IGhhdmUgYSBwYXRjaCBmb3IgdGhp
-cyBhbmQgYW5vdGhlciBmaXggZm9yIGNvbXB1dGUNCj4gPiBxdWV1ZXMgaW4gdGhlIHVuaWZpY2F0
-aW9uIGJyYW5jaC4gIFdlIHdlcmUganVzdCB3YWl0aW5nIG9uIG1lc2EgdG8NCj4gPiBtYWtlIHVz
-ZSBvZiBpdC4NCj4NCj4gSXQgbWFrZXMgc2Vuc2UgdG8gbGFuZCB0aG9zZSBwYXRjaGVzLCBidXQg
-dGhlIGRvb3JiZWxsIG9mZnNldCBzdHVmZiBpcyBwYXJ0IG9mIERhdmlkJ3MNCj4gVkNOIHVzZXIg
-cXVldWUgcGF0Y2ggc2V0LiAgU2VlOg0KPiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9h
-cmNoaXZlcy9hbWQtZ2Z4LzIwMjYtRmVicnVhcnkvMTM4NjE5Lmh0bWwNCg0KVGhhbmtzIGZvciB0
-aGUgcmVtaW5kZXIsIEFsZXguIEkgd2lsbCB1cGRhdGUgdGhlIHBhdGNoLg0KDQpUaGFua3MNCkpl
-c3NlLg0KPg0KPiBBbGV4DQo+DQo+ID4NCj4gPiBBbGV4DQo+ID4NCj4gPiA+DQo+ID4gPiBSZWdh
-cmRzLA0KPiA+ID4gQ2hyaXN0aWFuLg0KPiA+ID4NCj4gPiA+ID4NCj4gPiA+ID4gU2lnbmVkLW9m
-Zi1ieTogSmVzc2UgWmhhbmcgPEplc3NlLlpoYW5nQGFtZC5jb20+DQo+ID4gPiA+IC0tLQ0KPiA+
-ID4gPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2ttcy5jIHwgMTMgKysrKysr
-KysrKysrKw0KPiA+ID4gPiAgaW5jbHVkZS91YXBpL2RybS9hbWRncHVfZHJtLmggICAgICAgICAg
-IHwgMTYgKysrKysrKysrKysrKysrKw0KPiA+ID4gPiAgMiBmaWxlcyBjaGFuZ2VkLCAyOSBpbnNl
-cnRpb25zKCspDQo+ID4gPiA+DQo+ID4gPiA+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0v
-YW1kL2FtZGdwdS9hbWRncHVfa21zLmMNCj4gPiA+ID4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
-ZGdwdS9hbWRncHVfa21zLmMNCj4gPiA+ID4gaW5kZXggZDg4ZTQ5OTRjOGMxLi5kYmNmYmU0MThl
-NDIgMTAwNjQ0DQo+ID4gPiA+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
-dV9rbXMuYw0KPiA+ID4gPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
-a21zLmMNCj4gPiA+ID4gQEAgLTE0MjUsNiArMTQyNSwxOSBAQCBpbnQgYW1kZ3B1X2luZm9faW9j
-dGwoc3RydWN0IGRybV9kZXZpY2UgKmRldiwNCj4gdm9pZCAqZGF0YSwgc3RydWN0IGRybV9maWxl
-ICpmaWxwKQ0KPiA+ID4gPiAgICAgICAgICAgICAgICAgICAgICAgcmV0dXJuIC1FSU5WQUw7DQo+
-ID4gPiA+ICAgICAgICAgICAgICAgfQ0KPiA+ID4gPiAgICAgICB9DQo+ID4gPiA+ICsgICAgIGNh
-c2UgQU1ER1BVX0lORk9fU0RNQV9VU0VSUV9ET09SQkVMTDogew0KPiA+ID4gPiArICAgICAgICAg
-ICAgIHN0cnVjdCBkcm1fYW1kZ3B1X2luZm9fc2RtYV91c2VycV9kb29yYmVsbCBkYl9pbmZvID0g
-e307DQo+ID4gPiA+ICsgICAgICAgICAgICAgaW50IHI7DQo+ID4gPiA+ICsNCj4gPiA+ID4gKyAg
-ICAgICAgICAgICByID0gYW1kZ3B1X3NkbWFfdXNlcnFfZG9vcmJlbGxfY3JlYXRlX2hhbmRsZShh
-ZGV2LCBmaWxwLA0KPiA+ID4gPiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICZkYl9pbmZvLmhhbmRsZSwNCj4gPiA+ID4gKyAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAmZGJfaW5m
-by5zaXplX2J5dGVzKTsNCj4gPiA+ID4gKyAgICAgICAgICAgICBpZiAocikNCj4gPiA+ID4gKyAg
-ICAgICAgICAgICAgICAgICAgIHJldHVybiByOw0KPiA+ID4gPiArICAgICAgICAgICAgIHJldHVy
-biBjb3B5X3RvX3VzZXIob3V0LCAmZGJfaW5mbywNCj4gPiA+ID4gKyAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgIG1pbigoc2l6ZV90KXNpemUsIHNpemVvZihkYl9pbmZvKSkpDQo+ID4g
-PiA+ICsgICAgICAgICAgICAgICAgICAgICA/IC1FRkFVTFQgOiAwOw0KPiA+ID4gPiArICAgICB9
-DQo+ID4gPiA+ICAgICAgIGRlZmF1bHQ6DQo+ID4gPiA+ICAgICAgICAgICAgICAgRFJNX0RFQlVH
-X0tNUygiSW52YWxpZCByZXF1ZXN0ICVkXG4iLCBpbmZvLT5xdWVyeSk7DQo+ID4gPiA+ICAgICAg
-ICAgICAgICAgcmV0dXJuIC1FSU5WQUw7DQo+ID4gPiA+IGRpZmYgLS1naXQgYS9pbmNsdWRlL3Vh
-cGkvZHJtL2FtZGdwdV9kcm0uaA0KPiA+ID4gPiBiL2luY2x1ZGUvdWFwaS9kcm0vYW1kZ3B1X2Ry
-bS5oIGluZGV4IDc5ZThiYmRhMDQ2Yi4uNTMzYmU4YWQ4YTdlDQo+ID4gPiA+IDEwMDY0NA0KPiA+
-ID4gPiAtLS0gYS9pbmNsdWRlL3VhcGkvZHJtL2FtZGdwdV9kcm0uaA0KPiA+ID4gPiArKysgYi9p
-bmNsdWRlL3VhcGkvZHJtL2FtZGdwdV9kcm0uaA0KPiA+ID4gPiBAQCAtMTI4MCw2ICsxMjgwLDIy
-IEBAIHN0cnVjdCBkcm1fYW1kZ3B1X2NzX2NodW5rX2NwX2dmeF9zaGFkb3cgew0KPiA+ID4gPiAg
-I2RlZmluZSBBTURHUFVfSU5GT19HUFVWTV9GQVVMVCAgICAgICAgICAgICAgICAgICAgICAweDIz
-DQo+ID4gPiA+ICAvKiBxdWVyeSBGVyBvYmplY3Qgc2l6ZSBhbmQgYWxpZ25tZW50ICovDQo+ID4g
-PiA+ICAjZGVmaW5lIEFNREdQVV9JTkZPX1VRX0ZXX0FSRUFTICAgICAgICAgICAgICAgICAgICAg
-IDB4MjQNCj4gPiA+ID4gKy8qDQo+ID4gPiA+ICsgKiBTRE1BIHVzZXJtb2RlLXF1ZXVlIGRvb3Ji
-ZWxsIHdpbmRvdyBxdWVyeS4gIFJldHVybnMgYQ0KPiA+ID4gPiArcGVyLWZwcml2IEdFTQ0KPiA+
-ID4gPiArICogaGFuZGxlIGZvciBhIGtlcm5lbC1vd25lZCBCTyB0aGF0IGJhY2tzIHRoZSByb3V0
-YWJsZSBTRE1BDQo+ID4gPiA+ICtkb29yYmVsbA0KPiA+ID4gPiArICogd2luZG93LCBwbHVzIGl0
-cyBieXRlIHNpemUuICBVc2Vyc3BhY2UgbW1hcCgpcyB0aGUgQk8gdmlhIHRoZQ0KPiA+ID4gPiAr
-c3RhbmRhcmQNCj4gPiA+ID4gKyAqIEFNREdQVV9HRU1fT1BfTU1BUCAvIG1tYXAoKSBmbG93IHRv
-IGdldCBhIENQVSBwb2ludGVyOyBlYWNoDQo+ID4gPiA+ICtjcmVhdGVkDQo+ID4gPiA+ICsgKiBT
-RE1BIHVzZXJtb2RlIHF1ZXVlJ3Mgc2xvdCBvZmZzZXQgaW5zaWRlIHRoYXQgbWFwcGluZyBpcw0K
-PiA+ID4gPiArcmV0dXJuZWQgaW4NCj4gPiA+ID4gKyAqIGRybV9hbWRncHVfdXNlcnFfb3V0LnNk
-bWFfZG9vcmJlbGxfb2Zmc2V0X2J5dGVzLg0KPiA+ID4gPiArICovDQo+ID4gPiA+ICsjZGVmaW5l
-IEFNREdQVV9JTkZPX1NETUFfVVNFUlFfRE9PUkJFTEwgICAgICAgICAgICAgIDB4MjUNCj4gPiA+
-ID4gKw0KPiA+ID4gPiArc3RydWN0IGRybV9hbWRncHVfaW5mb19zZG1hX3VzZXJxX2Rvb3JiZWxs
-IHsNCj4gPiA+ID4gKyAgICAgLyogUGVyLWZwcml2IEdFTSBoYW5kbGUgZm9yIHRoZSBTRE1BIFVN
-USBkb29yYmVsbCBCTy4gKi8NCj4gPiA+ID4gKyAgICAgX191MzIgaGFuZGxlOw0KPiA+ID4gPiAr
-ICAgICAvKiBCeXRlIHNpemUgb2YgdGhlIEJPICg9PSBtbWFwcGFibGUgd2luZG93IHNpemUpLiAq
-Lw0KPiA+ID4gPiArICAgICBfX3UzMiBzaXplX2J5dGVzOw0KPiA+ID4gPiArfTsNCj4gPiA+ID4N
-Cj4gPiA+ID4gICNkZWZpbmUgQU1ER1BVX0lORk9fTU1SX1NFX0lOREVYX1NISUZUICAgICAgIDAN
-Cj4gPiA+ID4gICNkZWZpbmUgQU1ER1BVX0lORk9fTU1SX1NFX0lOREVYX01BU0sgICAgICAgIDB4
-ZmYNCj4gPiA+DQo=
+Add a per-device qword-slot pool covering the firmware-managed NBIO
+SDMA decode window (BAR dwords [sdma_engine[0],
+sdma_engine[0] + sdma_doorbell_range * num_instances)) — the only
+range whose writes are routed to the SDMA back-end.  Kernel SDMA ring
+slots are pre-masked at init.
+
+The window is exposed to userspace as a custom drm_gem_object: no TTM
+backing, custom .mmap callback that does io_remap_pfn_range from the
+SDMA decode window's BAR address.  Per-fpriv GEM handles for that BO
+can be minted on demand via amdgpu_sdma_userq_doorbell_create_handle()
+so userspace mmap()s through the standard drm_gem_mmap path — no
+file_operations override and no fixed mmap pgoff sentinel.
+
+Slots are allocated/freed via amdgpu_sdma_userq_doorbell_alloc/free.
+The init/fini and the AMDGPU_INFO_USERQ_DOORBELL ioctl that uses
+create_handle land in subsequent patches.
+
+Suggested-by:Prike Liang <Prike.Liang@amd.com>
+Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c | 164 +++++++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h |  55 ++++++++
+ 2 files changed, 219 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
+index 321310ba2c08..1c61761c0046 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
+@@ -22,6 +22,8 @@
+  */
+ 
+ #include <linux/firmware.h>
++#include <drm/drm_gem.h>
++#include <drm/drm_file.h>
+ #include "amdgpu.h"
+ #include "amdgpu_sdma.h"
+ #include "amdgpu_ras.h"
+@@ -200,6 +202,168 @@ void amdgpu_sdma_destroy_inst_ctx(struct amdgpu_device *adev,
+ 	       sizeof(struct amdgpu_sdma_instance) * AMDGPU_MAX_SDMA_INSTANCES);
+ }
+ 
++static int amdgpu_sdma_userq_db_obj_mmap(struct drm_gem_object *obj,
++					 struct vm_area_struct *vma)
++{
++	struct amdgpu_sdma_userq_db_obj *db = to_amdgpu_sdma_userq_db(obj);
++
++	if (vma->vm_end - vma->vm_start > round_up(db->size, PAGE_SIZE))
++		return -EINVAL;
++
++	vm_flags_set(vma, VM_IO | VM_DONTCOPY | VM_DONTEXPAND | VM_NORESERVE |
++		     VM_DONTDUMP | VM_PFNMAP);
++	vma->vm_page_prot = pgprot_noncached(vma->vm_page_prot);
++
++	return io_remap_pfn_range(vma, vma->vm_start,
++				  db->phys_base >> PAGE_SHIFT,
++				  vma->vm_end - vma->vm_start,
++				  vma->vm_page_prot);
++}
++
++static void amdgpu_sdma_userq_db_obj_free(struct drm_gem_object *obj)
++{
++	struct amdgpu_sdma_userq_db_obj *db = to_amdgpu_sdma_userq_db(obj);
++
++	drm_gem_object_release(obj);
++	kfree(db);
++}
++
++static const struct drm_gem_object_funcs amdgpu_sdma_userq_db_obj_funcs = {
++	.free = amdgpu_sdma_userq_db_obj_free,
++	.mmap = amdgpu_sdma_userq_db_obj_mmap,
++};
++
++int amdgpu_sdma_userq_doorbell_init(struct amdgpu_device *adev)
++{
++	struct amdgpu_sdma_userq_db_obj *db;
++	u32 base_dw, size_dw, nslots, ring_dw;
++	int i, r;
++
++	if (!adev->userq_funcs[AMDGPU_HW_IP_DMA])
++		return 0;
++
++	base_dw = adev->doorbell_index.sdma_engine[0] << 1;
++	size_dw = adev->doorbell_index.sdma_doorbell_range *
++		  adev->sdma.num_instances;
++	nslots  = size_dw / 2;	/* qword slots */
++	if (!nslots)
++		return 0;
++
++	db = kzalloc(sizeof(*db), GFP_KERNEL);
++	if (!db)
++		return -ENOMEM;
++
++	db->phys_base = adev->doorbell.base +
++			(resource_size_t)base_dw * sizeof(u32);
++	db->size      = size_dw * sizeof(u32);
++	db->base.funcs = &amdgpu_sdma_userq_db_obj_funcs;
++
++	drm_gem_private_object_init(adev_to_drm(adev), &db->base,
++				    round_up(db->size, PAGE_SIZE));
++	r = drm_gem_create_mmap_offset(&db->base);
++	if (r) {
++		drm_gem_object_put(&db->base);
++		return r;
++	}
++
++	mutex_init(&adev->sdma.userq_db_mutex);
++	adev->sdma.userq_db_bitmap = bitmap_zalloc(nslots, GFP_KERNEL);
++	if (!adev->sdma.userq_db_bitmap) {
++		drm_gem_object_put(&db->base);
++		return -ENOMEM;
++	}
++
++	adev->sdma.userq_db_obj    = db;
++	adev->sdma.userq_db_nslots = nslots;
++
++	/*
++	 * Mask out the qword slots used by the kernel SDMA rings
++	 * (sdma_engine[i] << 1 in absolute BAR dwords ⇒ qword slot
++	 * (sdma_engine[i] - sdma_engine[0]) within this window).
++	 */
++	for (i = 0; i < adev->sdma.num_instances; i++) {
++		ring_dw = adev->doorbell_index.sdma_engine[i] << 1;
++		if (ring_dw >= base_dw && ring_dw < base_dw + size_dw)
++			set_bit((ring_dw - base_dw) / 2,
++				adev->sdma.userq_db_bitmap);
++	}
++
++	dev_info(adev->dev,
++		 "SDMA UMQ doorbell pool: %u qword slots in BAR dword [%u, %u)\n",
++		 nslots, base_dw, base_dw + size_dw);
++	return 0;
++}
++
++void amdgpu_sdma_userq_doorbell_fini(struct amdgpu_device *adev)
++{
++	if (!adev->sdma.userq_db_obj)
++		return;
++	bitmap_free(adev->sdma.userq_db_bitmap);
++	adev->sdma.userq_db_bitmap = NULL;
++	adev->sdma.userq_db_nslots = 0;
++	drm_gem_object_put(&adev->sdma.userq_db_obj->base);
++	adev->sdma.userq_db_obj = NULL;
++}
++
++/*
++ * Allocate one qword doorbell slot.  On success, *out_slot receives the
++ * slot id (also the qword index inside the userspace mmap of the window
++ * BO) which the caller passes back to free.
++ */
++int amdgpu_sdma_userq_doorbell_alloc(struct amdgpu_device *adev, u32 *out_slot)
++{
++	u32 slot;
++
++	if (!adev->sdma.userq_db_obj || !adev->sdma.userq_db_nslots)
++		return -ENODEV;
++
++	mutex_lock(&adev->sdma.userq_db_mutex);
++	slot = find_first_zero_bit(adev->sdma.userq_db_bitmap,
++				   adev->sdma.userq_db_nslots);
++	if (slot >= adev->sdma.userq_db_nslots) {
++		mutex_unlock(&adev->sdma.userq_db_mutex);
++		return -ENOSPC;
++	}
++	set_bit(slot, adev->sdma.userq_db_bitmap);
++	mutex_unlock(&adev->sdma.userq_db_mutex);
++
++	*out_slot = slot;
++	return 0;
++}
++
++void amdgpu_sdma_userq_doorbell_free(struct amdgpu_device *adev, u32 slot)
++{
++	if (!adev->sdma.userq_db_obj)
++		return;
++	if (slot >= adev->sdma.userq_db_nslots)
++		return;
++	mutex_lock(&adev->sdma.userq_db_mutex);
++	clear_bit(slot, adev->sdma.userq_db_bitmap);
++	mutex_unlock(&adev->sdma.userq_db_mutex);
++}
++
++/*
++ * Mint a per-fpriv GEM handle for the per-device SDMA UMQ doorbell BO.
++ * Userspace then uses standard GEM_MMAP / mmap() on /dev/dri/cardN to
++ * obtain a CPU pointer to the routable doorbell window.
++ */
++int amdgpu_sdma_userq_doorbell_create_handle(struct amdgpu_device *adev,
++					     struct drm_file *filp,
++					     u32 *handle, u32 *size_bytes)
++{
++	int r;
++
++	if (!adev->sdma.userq_db_obj)
++		return -ENODEV;
++
++	r = drm_gem_handle_create(filp, &adev->sdma.userq_db_obj->base, handle);
++	if (r)
++		return r;
++
++	*size_bytes = adev->sdma.userq_db_obj->size;
++	return 0;
++}
++
+ int amdgpu_sdma_init_microcode(struct amdgpu_device *adev,
+ 			       u32 instance, bool duplicate)
+ {
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h
+index 2bf365609775..93a7eb9746d5 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h
+@@ -146,6 +146,20 @@ struct amdgpu_sdma {
+ 	bool			disable_uq;
+ 	void (*get_csa_info)(struct amdgpu_device *adev,
+ 			     struct amdgpu_sdma_csa_info *csa_info);
++
++	/*
++	 * SDMA usermode-queue doorbell pool.  The window covers
++	 * BAR dwords [sdma_engine[0], sdma_engine[0] +
++	 * sdma_doorbell_range * num_instances) — the only range that NBIO
++	 * routes to the SDMA back-end.  Each bit in the bitmap represents
++	 * one qword slot; kernel SDMA ring slots are pre-masked at init.
++	 * The window is exposed to userspace as a custom drm_gem_object
++	 * (userq_db_obj) that is mmap'd via standard GEM_MMAP.
++	 */
++	struct amdgpu_sdma_userq_db_obj *userq_db_obj;
++	struct mutex		userq_db_mutex;
++	unsigned long		*userq_db_bitmap;
++	u32			userq_db_nslots;	/* qword slots */
+ };
+ 
+ /*
+@@ -185,6 +199,38 @@ struct amdgpu_buffer_funcs {
+ 				 uint32_t byte_count);
+ };
+ 
++/*
++ * SDMA usermode-queue doorbell pool.
++ *
++ * The pool re-uses qword doorbell slots inside the firmware-managed NBIO
++ * SDMA decode window (BAR dwords [sdma_engine[0],
++ * sdma_engine[0] + sdma_doorbell_range * num_instances)) — that range is
++ * the only one whose writes are routed to the SDMA back-end.  The kernel
++ * SDMA ring slots are pre-marked so they keep working alongside any
++ * number of SDMA UMQs.
++ *
++ * The window is exposed to userspace via a per-device drm_gem_object that
++ * userspace mmap()s through the standard GEM_MMAP path; per-fpriv handles
++ * are minted on demand by the AMDGPU_INFO_SDMA_USERQ_DOORBELL ioctl.  No
++ * file_operations override and no fixed mmap pgoff sentinel.
++ *
++ * FIXME: KFD's SDMA queue doorbells (kgd_*_hqd_sdma_get_doorbell on chips
++ * with a non-stub implementation, e.g. gfx9.4.3) are computed
++ * from the same adev->doorbell_index.sdma_engine[] array and would
++ * overlap with this pool.  On gfx12 the kgd hook stubs to 0, so there is
++ * no immediate conflict.  A shared per-adev allocator that both
++ * KFD and amdgpu UMQ call into is the longer-term fix.
++ */
++
++struct amdgpu_sdma_userq_db_obj {
++	struct drm_gem_object	base;
++	resource_size_t		phys_base;	/* BAR phys addr of window start */
++	u32			size;		/* window size in bytes */
++};
++
++#define to_amdgpu_sdma_userq_db(_obj) \
++	container_of(_obj, struct amdgpu_sdma_userq_db_obj, base)
++
+ int amdgpu_sdma_reset_engine(struct amdgpu_device *adev, uint32_t instance_id,
+ 			     bool caller_handles_kernel_queues);
+ 
+@@ -205,6 +251,15 @@ int amdgpu_sdma_process_ecc_irq(struct amdgpu_device *adev,
+ 				      struct amdgpu_iv_entry *entry);
+ int amdgpu_sdma_init_microcode(struct amdgpu_device *adev, u32 instance,
+ 			       bool duplicate);
++struct drm_file;
++struct amdgpu_sdma_userq_db_obj;
++int amdgpu_sdma_userq_doorbell_init(struct amdgpu_device *adev);
++void amdgpu_sdma_userq_doorbell_fini(struct amdgpu_device *adev);
++int amdgpu_sdma_userq_doorbell_alloc(struct amdgpu_device *adev, u32 *out_slot);
++void amdgpu_sdma_userq_doorbell_free(struct amdgpu_device *adev, u32 slot);
++int amdgpu_sdma_userq_doorbell_create_handle(struct amdgpu_device *adev,
++					     struct drm_file *filp,
++					     u32 *handle, u32 *size_bytes);
+ void amdgpu_sdma_destroy_inst_ctx(struct amdgpu_device *adev,
+         bool duplicate);
+ int amdgpu_sdma_ras_sw_init(struct amdgpu_device *adev);
+-- 
+2.49.0
+
