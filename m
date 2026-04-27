@@ -4,71 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6AD8EFF886D
-	for <amd-gfx@archiver.kernel.org>; Mon, 27 Apr 2026 18:27:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ACB75FF8860
+	for <amd-gfx@archiver.kernel.org>; Mon, 27 Apr 2026 18:27:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3787B10E8C4;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0ADE710E8BF;
 	Mon, 27 Apr 2026 18:27:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="K6tuuert";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="dnmRlqmi";
 	dkim-atps=neutral
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com
- [209.85.128.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 66FA710E8BA
- for <amd-gfx@lists.freedesktop.org>; Mon, 27 Apr 2026 18:27:29 +0000 (UTC)
-Received: by mail-wm1-f49.google.com with SMTP id
- 5b1f17b1804b1-48334ee0aeaso110850505e9.1
- for <amd-gfx@lists.freedesktop.org>; Mon, 27 Apr 2026 11:27:29 -0700 (PDT)
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com
+ [209.85.128.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0AE0010E8BE
+ for <amd-gfx@lists.freedesktop.org>; Mon, 27 Apr 2026 18:27:32 +0000 (UTC)
+Received: by mail-wm1-f51.google.com with SMTP id
+ 5b1f17b1804b1-483487335c2so104006225e9.2
+ for <amd-gfx@lists.freedesktop.org>; Mon, 27 Apr 2026 11:27:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1777314448; x=1777919248; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1777314450; x=1777919250; darn=lists.freedesktop.org;
  h=content-transfer-encoding:reply-to:mime-version:references
  :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
  :date:message-id:reply-to;
- bh=JA5iYeuGbm2HE1glmsB6nqwIqgWBFwsZS05htCPhNPE=;
- b=K6tuuertpizZz/hGXmtVUlueNTzshNGrBNgGg9GyfNxFDRfVSYBumAkbtlQQZRNELN
- GFnUDcek7BxY+bXkTaFj98vyWQoVtnLZvMOEzEthY/+7D9kzWVcL7KIWq62RVen/CIVw
- aRVSUzflRnd8YvsG9jSfdZ5FcilZhPs9DlzORCCkdBE8wrDp9hKYOsSwsluEmdIOXM70
- c3q4Brlq0NePFrDioCLIgrEoPuBZUgALA6soVe4v5Amfd+sMkKONW3IzAA4cUrvwYEKQ
- M/LxTd/VQrHrSRXIT6pDoPM+M322gRiGSXoTQyIWzJuO5Cs2wAydGOEcRLWiLylY7EiS
- qC9w==
+ bh=C8jjBzt4SAaPs5uKZuCx3eHOYYKFiJpT7muPblq0epo=;
+ b=dnmRlqmi/ncVfbdXvPwl7HO6hdOWZxsH5JHUhEfDpf4WpjT6x7qflqnF+ZIKdH2tpc
+ JNllzWg1CFfJdQsKpQWnj+7uDuzk6Pp1gFLc0Wy4vxbA6fAKd6l9KSE2/lMnwkAgFZwg
+ EDwoFgIFAc14mUwNoG+hEv+srT85cqfOrj578FoZ3mxPzxIglryCItvAH/SPh3xjUn+0
+ J/L1zuYBlJmlTvfYd60eObHudY4CPsUROTeDfbgJPm44pcZqt54sQo2BShyUxv6Mbmdc
+ nnx4eBbqUeLEoALAB+M91LtKg0vIKEVLpUhRfkeRENR2xZSzdNslepIXzWs7OEqsFugP
+ DGXw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1777314448; x=1777919248;
+ d=1e100.net; s=20251104; t=1777314450; x=1777919250;
  h=content-transfer-encoding:reply-to:mime-version:references
  :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=JA5iYeuGbm2HE1glmsB6nqwIqgWBFwsZS05htCPhNPE=;
- b=VMle96hPNG0I67/4XcqBF2ZV4+hSk40fOItX8PmPbwtJiuv4OwB3c9iLEvP2ug0F5I
- Jklxf7oFF8HYeUOIkUtgaaGjlLFslnQFNS7dXtcKZTKa/Q6ONrzuC6l/aaQhIF8sGcqJ
- tE6Id4jg0RBOw4plRmaNi8UE7i4EQj0nQs0lsCKvuGSO4T9CFkEtF0BRjn+RFG3sVKdh
- DBOJd3k/38w0QgqC7f0o0mw8Q6E9lK2X6wP8wU4P7kp6WAOeVfRJRLQTnkBnvhT1AtrA
- L971lym10YaE/F+4obJ1OMWSMPcPJ1A4OmfJVFrBm5RFQA5HD2bmFiKeAQ6tAd2rtgGl
- Lo1A==
-X-Gm-Message-State: AOJu0Ywytt4h3VT5+3Me8n4RBtNtABOF4Pjmbw/W5nOfHlvGS37hTQQy
- YzwIeIXhHAJt3B8lMqWcfqrJjVpzoENqh8p4e4SFLzd1AZttH4DbTbnM
-X-Gm-Gg: AeBDieuG/WRMx9GqJIyxnsDubYPjnJ82mvOKfnCmhZiEir+5y2+CKXVkaSvTQlD7lbD
- +mD30E6sXgfCLY9MHiUaH24FbzKDgAFGCmEKyy8WdIwM0V6p77EoFNAEFN3nGcC4tzsNBNDRMLm
- Wyfy//RVExmXNTjvjJNPe6hctWEiOK30CuNQi0UkKrer1Wb13/rpIo8bwuqmx4RSY+MQIsiUgjH
- Fo7/XrBNhcW229t60NibVSMTyhYqpOaxvtNAxQG70YYHtm8EOY3M965tN1zdyqoNhzwYsOfm1JC
- q1UblHGhGi67dec9rAPwpX7WlPZERtfez5TaXxm7z8KGLa58RfjIZSvuBDcXWA3h19yeL8xER/l
- lRgJkPXM3RGynnlM+VebSUVZv+qoPLWAsyVX6lqYjNm34Tha+V8GQo9tIIlmEdeUiBr3C8ddK6z
- yn2Bs13EAljcVp8udZ44WOP+wBfDSrhhL72TuGHpGFEi9h8A==
-X-Received: by 2002:a05:600c:a316:b0:489:1ba8:5bf0 with SMTP id
- 5b1f17b1804b1-48a76f85a78mr4650245e9.21.1777314447810; 
- Mon, 27 Apr 2026 11:27:27 -0700 (PDT)
+ bh=C8jjBzt4SAaPs5uKZuCx3eHOYYKFiJpT7muPblq0epo=;
+ b=oYb66ZWBQz80Z4s7ADpMF1S6FavBTV4Ljtzz+PNdwPglEyqCSlhGCqePmaOHyS/NIP
+ kJpLKd8o+Ccez92P1V4BuA+S2CnlDSNIsxAB98+Gw+mDfrVkz0fJD59dP05YUeYIW5il
+ swofkmECrcDPsBYdERg+985Kza2YIfKOedWNogRtaWia+yPylfH7cGplMD1YTaOIR/Qn
+ 2bilIHVyUKPvTsdVJnb3iVP5V8vucmRCIWfP9ee76P6dWBYzC8W6YXZ8icpa187kJcXX
+ C+PQZKE9mHdzwcH4UJ2M7IFV4o6qgGd40rMDFGYTkaXIi3b9nu0bN+qIlyl3XPr2twA4
+ oa5Q==
+X-Gm-Message-State: AOJu0YzMQnHh4gi9fhXS4O0mI9Yk0+37xTSo6qHnbP2LleqRHq5Werxa
+ J8ilMcoCmhd69TGQjYL7VbzsD8KwAOL8CGXiaxLLxftD1JiVTIPKwlxe
+X-Gm-Gg: AeBDiet9wZr37fRIZ+WseMBu3scSqvov4qYoX9mVl2GQPUD8393T14cUYoof2Cmw4Yx
+ FdRm4L6IgYFQNQm8c7bbWMdCh09Q/8fML5HzLwy8AhN8dBPEVnJsbNakcz7A8Dfx40Zc4wPUEdA
+ +tQ5zCJSjdH59bJLTmXaN0svWkjX9CtbT5Wx0a9UAYrC8CqNAIJb/Ng+lr/7ffE7kkFFEk2L8xf
+ jLcM/tpAeJhboWuc4n4uRB1ObbB3etiJZad8j8rW2JkqRhUJl05+CnsZ1FY7Qld7IlsgBalCu3G
+ l1rnRa5Dw7cLrW1kIBhYc0QNkXaanq5KWxku1Y3Tx6kNY2npsLuMeKn97MD01iThfg0RaCfC9ON
+ fBwoyT7ZLiqs8CY2Ozu+Sh8OS7+p+EoGwW/9EfWeBeHuhHJ9uVTdlKsYN5RMAKQ96EE7ijkQ9yp
+ aYJWpCa72cAXVoaSS1m3GzrGHenNxPvkjmYYxY5J/8BV9qf4A430lgmXA6
+X-Received: by 2002:a05:600c:354e:b0:48a:58ae:993b with SMTP id
+ 5b1f17b1804b1-48a76f7a4ddmr7018085e9.16.1777314450188; 
+ Mon, 27 Apr 2026 11:27:30 -0700 (PDT)
 Received: from able.fritz.box ([2a00:e180:153b:d200:96aa:46be:4d7:72d2])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-48a773af5c5sm6046165e9.5.2026.04.27.11.27.27
+ 5b1f17b1804b1-48a773af5c5sm6046165e9.5.2026.04.27.11.27.29
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 27 Apr 2026 11:27:27 -0700 (PDT)
+ Mon, 27 Apr 2026 11:27:29 -0700 (PDT)
 From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
 X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
  <christian.koenig@amd.com>
 To: alexander.deucher@amd.com, Prike.Liang@amd.com, sukhatri@amd.com,
  jesse.zhang@amd.com
 Cc: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 5/8] drm/amdgpu: fix userq hang detection and reset
-Date: Mon, 27 Apr 2026 20:27:20 +0200
-Message-ID: <20260427182723.1715-5-christian.koenig@amd.com>
+Subject: [PATCH 8/8] drm/amdgpu: restructure VM state machine v2
+Date: Mon, 27 Apr 2026 20:27:23 +0200
+Message-ID: <20260427182723.1715-8-christian.koenig@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260427182723.1715-1-christian.koenig@amd.com>
 References: <20260427182723.1715-1-christian.koenig@amd.com>
@@ -90,230 +90,1163 @@ Reply-To: christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Fix lock inversions pointed out by Prike and Sunil. The hang detection
-timeout *CAN'T* grab locks under which we wait for fences, especially
-not the userq_mutex lock.
+Instead of coming up with more sophisticated names for states a VM BO
+can be in, group them by the type of BO first and then by the state.
 
-Then instead of this completely broken handling with the
-hang_detect_fence just cancel the work when fences are processed and
-re-start if necessary.
+So we end with BO type kernel, always_valid and individual and then states
+evicted, moved and idle.
+
+Not much functional change, except that evicted_user is moved back
+together with the other BOs again which makes the handling in
+amdgpu_vm_validate() a bit more complex.
+
+Also fixes a problem with user queues and amdgpu_vm_ready(). We didn't
+considered the VM ready when user BOs were not ideally placed, harmless
+performance impact for kernel queues but a complete show stopper for
+userqueues.
+
+v2: fix a few typos in comments, rename the BO types to make them more
+    descriptive, fix a couple of bugs found during testing
+v3: squashed together with revert to old status lock handling, looks
+    like the first patch still had some bug which this one here should fix.
+    Fix a missing lock around debugfs printing.
 
 Signed-off-by: Christian König <christian.koenig@amd.com>
-Reviewed-by: Sunil Khatri <sunil.khatri@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c     | 65 ++++++++-----------
- drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h     |  1 -
- .../gpu/drm/amd/amdgpu/amdgpu_userq_fence.c   | 17 +++--
- .../gpu/drm/amd/amdgpu/amdgpu_userq_fence.h   |  2 +-
- 4 files changed, 40 insertions(+), 45 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c |  65 +--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c    | 534 +++++++++-------------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h    |  69 ++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c |   4 -
+ 4 files changed, 298 insertions(+), 374 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-index fb3c0425cf22..b2c64a05d03a 100644
+index 28e0695b53e7..07e30acbdc3a 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-@@ -106,9 +106,6 @@ amdgpu_userq_detect_and_reset_queues(struct amdgpu_userq_mgr *uq_mgr)
- 	int r = 0;
- 	int i;
+@@ -805,41 +805,50 @@ amdgpu_userq_create(struct drm_file *filp, union drm_amdgpu_userq *args)
+ 	if (r)
+ 		goto clean_mqd;
  
--	/* Warning if current process mutex is not held */
--	WARN_ON(!mutex_is_locked(&uq_mgr->userq_mutex));
--
- 	if (unlikely(adev->debug_disable_gpu_ring_reset)) {
- 		dev_err(adev->dev, "userq reset disabled by debug mask\n");
- 		return 0;
-@@ -127,9 +124,11 @@ amdgpu_userq_detect_and_reset_queues(struct amdgpu_userq_mgr *uq_mgr)
- 	 */
- 	for (i = 0; i < num_queue_types; i++) {
- 		int ring_type = queue_types[i];
--		const struct amdgpu_userq_funcs *funcs = adev->userq_funcs[ring_type];
-+		const struct amdgpu_userq_funcs *funcs =
-+			adev->userq_funcs[ring_type];
+-	amdgpu_userq_ensure_ev_fence(&fpriv->userq_mgr, &fpriv->evf_mgr);
++	/* Make sure a concurrent close operation doesn't kill our userq */
++	kref_get(&queue->refcount);
++	r = xa_alloc(&uq_mgr->userq_xa, &qid, queue,
++		     XA_LIMIT(1, AMDGPU_MAX_USERQ_COUNT),
++		     GFP_KERNEL);
++	if (r) {
++		/*
++		 * This drops the extra and last reference which should take
++		 * care of all cleanup.
++		 */
++		amdgpu_userq_put(queue);
++		amdgpu_userq_put(queue);
++		return r;
++	}
  
--		if (!amdgpu_userq_is_reset_type_supported(adev, ring_type, AMDGPU_RESET_TYPE_PER_QUEUE))
-+		if (!amdgpu_userq_is_reset_type_supported(adev, ring_type,
-+							  AMDGPU_RESET_TYPE_PER_QUEUE))
- 				continue;
- 
- 		if (atomic_read(&uq_mgr->userq_count[ring_type]) > 0 &&
-@@ -150,38 +149,22 @@ amdgpu_userq_detect_and_reset_queues(struct amdgpu_userq_mgr *uq_mgr)
- 
- static void amdgpu_userq_hang_detect_work(struct work_struct *work)
- {
--	struct amdgpu_usermode_queue *queue = container_of(work,
--							  struct amdgpu_usermode_queue,
--							  hang_detect_work.work);
--	struct dma_fence *fence;
--	struct amdgpu_userq_mgr *uq_mgr;
--
--	if (!queue->userq_mgr)
--		return;
--
--	uq_mgr = queue->userq_mgr;
--	fence = READ_ONCE(queue->hang_detect_fence);
--	/* Fence already signaled – no action needed */
--	if (!fence || dma_fence_is_signaled(fence))
--		return;
-+	struct amdgpu_usermode_queue *queue =
-+		container_of(work, struct amdgpu_usermode_queue,
-+			     hang_detect_work.work);
- 
--	mutex_lock(&uq_mgr->userq_mutex);
--	amdgpu_userq_detect_and_reset_queues(uq_mgr);
--	mutex_unlock(&uq_mgr->userq_mutex);
-+	amdgpu_userq_detect_and_reset_queues(queue->userq_mgr);
- }
- 
- /*
-  * Start hang detection for a user queue fence. A delayed work will be scheduled
-- * to check if the fence is still pending after the timeout period.
--*/
-+ * to reset the queues when the fence doesn't signal in time.
-+ */
- void amdgpu_userq_start_hang_detect_work(struct amdgpu_usermode_queue *queue)
- {
- 	struct amdgpu_device *adev;
- 	unsigned long timeout_ms;
- 
--	if (!queue || !queue->userq_mgr || !queue->userq_mgr->adev)
--		return;
--
- 	adev = queue->userq_mgr->adev;
- 	/* Determine timeout based on queue type */
- 	switch (queue->queue_type) {
-@@ -199,8 +182,6 @@ void amdgpu_userq_start_hang_detect_work(struct amdgpu_usermode_queue *queue)
- 		break;
+ 	/* don't map the queue if scheduling is halted */
++	/* TODO: That is racy! */
+ 	if (!adev->userq_halt_for_enforce_isolation ||
+ 	    ((queue->queue_type != AMDGPU_HW_IP_GFX) &&
+ 	     (queue->queue_type != AMDGPU_HW_IP_COMPUTE))) {
++
++		/* TODO: We could skip mapping if ev fence is signaled */
++		amdgpu_userq_ensure_ev_fence(&fpriv->userq_mgr,
++					     &fpriv->evf_mgr);
+ 		r = amdgpu_userq_map_helper(queue);
+ 		if (r) {
+ 			drm_file_err(uq_mgr->file, "Failed to map Queue\n");
+ 			mutex_unlock(&uq_mgr->userq_mutex);
+-			goto clean_doorbell;
++			/* Prevent racing with close */
++			if (xa_erase(&uq_mgr->userq_xa, qid) == queue)
++				amdgpu_userq_put(queue);
++			amdgpu_userq_put(queue);
++			return r;
+ 		}
++		mutex_unlock(&uq_mgr->userq_mutex);
  	}
  
--	/* Store the fence to monitor and schedule hang detection */
--	WRITE_ONCE(queue->hang_detect_fence, queue->last_fence);
- 	schedule_delayed_work(&queue->hang_detect_work,
- 		     msecs_to_jiffies(timeout_ms));
- }
-@@ -210,18 +191,24 @@ void amdgpu_userq_process_fence_irq(struct amdgpu_device *adev, u32 doorbell)
- 	struct xarray *xa = &adev->userq_doorbell_xa;
- 	struct amdgpu_usermode_queue *queue;
- 	unsigned long flags;
-+	int r;
- 
- 	xa_lock_irqsave(xa, flags);
- 	queue = xa_load(xa, doorbell);
--	if (queue)
--		amdgpu_userq_fence_driver_process(queue->fence_drv);
--	xa_unlock_irqrestore(xa, flags);
--}
-+	if (queue) {
-+		r = amdgpu_userq_fence_driver_process(queue->fence_drv);
-+		/*
-+		 * We are in interrupt context here, this *can't* wait for
-+		 * reset work to finish.
-+		 */
-+		if (r >= 0)
-+			cancel_delayed_work(&queue->hang_detect_work);
- 
--static void amdgpu_userq_init_hang_detect_work(struct amdgpu_usermode_queue *queue)
--{
--	INIT_DELAYED_WORK(&queue->hang_detect_work, amdgpu_userq_hang_detect_work);
--	queue->hang_detect_fence = NULL;
-+		/* Restart the timer when there are still fences pending */
-+		if (r == 1)
-+			amdgpu_userq_start_hang_detect_work(queue);
-+	}
-+	xa_unlock_irqrestore(xa, flags);
- }
- 
- static int amdgpu_userq_buffer_va_list_add(struct amdgpu_usermode_queue *queue,
-@@ -640,7 +627,6 @@ amdgpu_userq_destroy(struct amdgpu_userq_mgr *uq_mgr, struct amdgpu_usermode_que
- 	amdgpu_bo_unreserve(vm->root.bo);
- 
- 	mutex_lock(&uq_mgr->userq_mutex);
--	queue->hang_detect_fence = NULL;
- 	amdgpu_userq_wait_for_last_fence(queue);
- 
- #if defined(CONFIG_DEBUG_FS)
-@@ -853,7 +839,8 @@ amdgpu_userq_create(struct drm_file *filp, union drm_amdgpu_userq *args)
- 	up_read(&adev->reset_domain->sem);
+ 	atomic_inc(&uq_mgr->userq_count[queue->queue_type]);
+-	mutex_unlock(&uq_mgr->userq_mutex);
+-
+-	r = xa_alloc(&uq_mgr->userq_xa, &qid, queue,
+-		     XA_LIMIT(1, AMDGPU_MAX_USERQ_COUNT),
+-		     GFP_KERNEL);
+-	if (r) {
+-		/*
+-		 * This drops the last reference which should take care of
+-		 * all cleanup.
+-		 */
+-		amdgpu_userq_put(queue);
+-		return r;
+-	}
  
  	amdgpu_debugfs_userq_init(filp, queue, qid);
--	amdgpu_userq_init_hang_detect_work(queue);
-+	INIT_DELAYED_WORK(&queue->hang_detect_work,
-+			  amdgpu_userq_hang_detect_work);
- 
++	amdgpu_userq_put(queue);
  	args->out.queue_id = qid;
- 	atomic_inc(&uq_mgr->userq_count[queue->queue_type]);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
-index 843ea8ecc5d7..85f460e7c31b 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
-@@ -85,7 +85,6 @@ struct amdgpu_usermode_queue {
- 	int			priority;
- 	struct dentry		*debugfs_queue;
- 	struct delayed_work hang_detect_work;
--	struct dma_fence *hang_detect_fence;
- 	struct kref		refcount;
+ 	return 0;
  
- 	struct list_head	userq_va_list;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
-index a2792f05b670..bf452c5aacbe 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
-@@ -135,7 +135,14 @@ amdgpu_userq_fence_put_fence_drv_array(struct amdgpu_userq_fence *userq_fence)
- 	userq_fence->fence_drv_array_count = 0;
+-clean_doorbell:
+-	xa_erase_irq(&adev->userq_doorbell_xa, index);
+ clean_mqd:
+ 	uq_funcs->mqd_destroy(queue);
+ clean_mapping:
+@@ -1035,12 +1044,12 @@ amdgpu_userq_bo_validate(struct amdgpu_device *adev, struct drm_exec *exec,
+ 	struct amdgpu_bo *bo;
+ 	int ret;
+ 
+-	spin_lock(&vm->status_lock);
+-	while (!list_empty(&vm->invalidated)) {
+-		bo_va = list_first_entry(&vm->invalidated,
++	spin_lock(&vm->individual_lock);
++	while (!list_empty(&vm->always_valid.evicted)) {
++		bo_va = list_first_entry(&vm->always_valid.evicted,
+ 					 struct amdgpu_bo_va,
+ 					 base.vm_status);
+-		spin_unlock(&vm->status_lock);
++		spin_unlock(&vm->individual_lock);
+ 
+ 		bo = bo_va->base.bo;
+ 		ret = drm_exec_prepare_obj(exec, &bo->tbo.base, 2);
+@@ -1052,14 +1061,14 @@ amdgpu_userq_bo_validate(struct amdgpu_device *adev, struct drm_exec *exec,
+ 		if (ret)
+ 			return ret;
+ 
+-		/* This moves the bo_va to the done list */
++		/* This moves the bo_va to the idle list */
+ 		ret = amdgpu_vm_bo_update(adev, bo_va, false);
+ 		if (ret)
+ 			return ret;
+ 
+-		spin_lock(&vm->status_lock);
++		spin_lock(&vm->individual_lock);
+ 	}
+-	spin_unlock(&vm->status_lock);
++	spin_unlock(&vm->individual_lock);
+ 
+ 	return 0;
+ }
+@@ -1091,7 +1100,7 @@ amdgpu_userq_vm_validate(struct amdgpu_userq_mgr *uq_mgr)
+ 		if (unlikely(ret))
+ 			goto unlock_all;
+ 
+-		ret = amdgpu_vm_lock_done_list(vm, &exec, 1);
++		ret = amdgpu_vm_lock_individual(vm, &exec, 1);
+ 		drm_exec_retry_on_contention(&exec);
+ 		if (unlikely(ret))
+ 			goto unlock_all;
+@@ -1134,7 +1143,7 @@ amdgpu_userq_vm_validate(struct amdgpu_userq_mgr *uq_mgr)
+ 
+ 	key = 0;
+ 	/* Validate User Ptr BOs */
+-	list_for_each_entry(bo_va, &vm->done, base.vm_status) {
++	list_for_each_entry(bo_va, &vm->always_valid.idle, base.vm_status) {
+ 		bo = bo_va->base.bo;
+ 		if (!bo)
+ 			continue;
+@@ -1184,10 +1193,10 @@ amdgpu_userq_vm_validate(struct amdgpu_userq_mgr *uq_mgr)
+ 
+ 	/*
+ 	 * We need to wait for all VM updates to finish before restarting the
+-	 * queues. Using the done list like that is now ok since everything is
++	 * queues. Using the idle list like that is now ok since everything is
+ 	 * locked in place.
+ 	 */
+-	list_for_each_entry(bo_va, &vm->done, base.vm_status)
++	list_for_each_entry(bo_va, &vm->always_valid.idle, base.vm_status)
+ 		dma_fence_wait(bo_va->last_pt_update, false);
+ 	dma_fence_wait(vm->last_update, false);
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+index 6b58b0ecfa06..9f71a146f1f6 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+@@ -138,6 +138,47 @@ static void amdgpu_vm_assert_locked(struct amdgpu_vm *vm)
+ 	dma_resv_assert_held(vm->root.bo->tbo.base.resv);
  }
  
--void amdgpu_userq_fence_driver_process(struct amdgpu_userq_fence_driver *fence_drv)
++/* Initialize the amdgpu_vm_bo_status object */
++static void amdgpu_vm_bo_status_init(struct amdgpu_vm_bo_status *lists)
++{
++	INIT_LIST_HEAD(&lists->evicted);
++	INIT_LIST_HEAD(&lists->moved);
++	INIT_LIST_HEAD(&lists->idle);
++}
++
 +/*
-+ * Returns:
-+ * -ENOENT when no fences were processes
-+ * 1 when more fences are pending
-+ * 0 when no fences are pending any more
++ * Make sure we have the lock to modify the vm_bo status and return the object
++ * with the status lists.
 + */
-+int
-+amdgpu_userq_fence_driver_process(struct amdgpu_userq_fence_driver *fence_drv)
++static struct amdgpu_vm_bo_status *
++amdgpu_vm_bo_lock_lists(struct amdgpu_vm_bo_base *vm_bo)
++{
++	struct amdgpu_vm *vm = vm_bo->vm;
++	struct amdgpu_bo *bo = vm_bo->bo;
++
++	if (amdgpu_vm_is_bo_always_valid(vm, bo)) {
++		/* No extra locking needed, protected by the root PD resv lock */
++		amdgpu_vm_assert_locked(vm);
++
++		if (bo->tbo.type == ttm_bo_type_kernel)
++			return &vm->kernel;
++
++		return &vm->always_valid;
++	}
++
++	spin_lock(&vm_bo->vm->individual_lock);
++	return &vm->individual;
++}
++
++/* Eventually unlock the status list lock again */
++static void amdgpu_vm_bo_unlock_lists(struct amdgpu_vm_bo_base *vm_bo)
++{
++	if (amdgpu_vm_is_bo_always_valid(vm_bo->vm, vm_bo->bo))
++		amdgpu_vm_assert_locked(vm_bo->vm);
++	else
++		spin_unlock(&vm_bo->vm->individual_lock);
++}
++
+ /**
+  * amdgpu_vm_is_bo_always_valid - check if the BO is VM always valid
+  *
+@@ -157,37 +198,44 @@ bool amdgpu_vm_is_bo_always_valid(struct amdgpu_vm *vm, struct amdgpu_bo *bo)
+  *
+  * @vm_bo: vm_bo which is evicted
+  *
+- * State for PDs/PTs and per VM BOs which are not at the location they should
+- * be.
++ * State for vm_bo objects meaning the underlying BO was evicted and need to
++ * move in place again.
+  */
+ static void amdgpu_vm_bo_evicted(struct amdgpu_vm_bo_base *vm_bo)
  {
- 	struct amdgpu_userq_fence *userq_fence, *tmp;
- 	LIST_HEAD(to_be_signaled);
-@@ -143,9 +150,6 @@ void amdgpu_userq_fence_driver_process(struct amdgpu_userq_fence_driver *fence_d
- 	unsigned long flags;
- 	u64 rptr;
+-	struct amdgpu_vm *vm = vm_bo->vm;
+-	struct amdgpu_bo *bo = vm_bo->bo;
++	struct amdgpu_vm_bo_status *lists;
  
--	if (!fence_drv)
++	lists = amdgpu_vm_bo_lock_lists(vm_bo);
+ 	vm_bo->moved = true;
+-	amdgpu_vm_assert_locked(vm);
+-	spin_lock(&vm_bo->vm->status_lock);
+-	if (bo->tbo.type == ttm_bo_type_kernel)
+-		list_move(&vm_bo->vm_status, &vm->evicted);
+-	else
+-		list_move_tail(&vm_bo->vm_status, &vm->evicted);
+-	spin_unlock(&vm_bo->vm->status_lock);
++	list_move(&vm_bo->vm_status, &lists->evicted);
++	amdgpu_vm_bo_unlock_lists(vm_bo);
+ }
+ /**
+  * amdgpu_vm_bo_moved - vm_bo is moved
+  *
+  * @vm_bo: vm_bo which is moved
+  *
+- * State for per VM BOs which are moved, but that change is not yet reflected
+- * in the page tables.
++ * State for vm_bo objects meaning the underlying BO was moved but the new
++ * location not yet reflected in the page tables.
+  */
+ static void amdgpu_vm_bo_moved(struct amdgpu_vm_bo_base *vm_bo)
+ {
+-	amdgpu_vm_assert_locked(vm_bo->vm);
+-	spin_lock(&vm_bo->vm->status_lock);
+-	list_move(&vm_bo->vm_status, &vm_bo->vm->moved);
+-	spin_unlock(&vm_bo->vm->status_lock);
++	struct amdgpu_vm_bo_status *lists;
++	struct amdgpu_bo *bo = vm_bo->bo;
++
++	/*
++	 * The root PD doesn't have a parent PDE and goes directly into the
++	 * idle state.
++	 */
++	lists = amdgpu_vm_bo_lock_lists(vm_bo);
++	if (bo && bo->tbo.type == ttm_bo_type_kernel && !bo->parent) {
++		vm_bo->moved = false;
++		list_move(&vm_bo->vm_status, &lists->idle);
++	} else {
++		vm_bo->moved = true;
++		list_move(&vm_bo->vm_status, &lists->moved);
++	}
++	amdgpu_vm_bo_unlock_lists(vm_bo);
+ }
+ 
+ /**
+@@ -195,120 +243,43 @@ static void amdgpu_vm_bo_moved(struct amdgpu_vm_bo_base *vm_bo)
+  *
+  * @vm_bo: vm_bo which is now idle
+  *
+- * State for PDs/PTs and per VM BOs which have gone through the state machine
+- * and are now idle.
++ * State for vm_bo objects meaning we are done with the state machine and no
++ * further action is necessary.
+  */
+ static void amdgpu_vm_bo_idle(struct amdgpu_vm_bo_base *vm_bo)
+ {
+-	amdgpu_vm_assert_locked(vm_bo->vm);
+-	spin_lock(&vm_bo->vm->status_lock);
+-	list_move(&vm_bo->vm_status, &vm_bo->vm->idle);
+-	spin_unlock(&vm_bo->vm->status_lock);
+-	vm_bo->moved = false;
+-}
++	struct amdgpu_vm_bo_status *lists;
+ 
+-/**
+- * amdgpu_vm_bo_invalidated - vm_bo is invalidated
+- *
+- * @vm_bo: vm_bo which is now invalidated
+- *
+- * State for normal BOs which are invalidated and that change not yet reflected
+- * in the PTs.
+- */
+-static void amdgpu_vm_bo_invalidated(struct amdgpu_vm_bo_base *vm_bo)
+-{
+-	spin_lock(&vm_bo->vm->status_lock);
+-	list_move(&vm_bo->vm_status, &vm_bo->vm->invalidated);
+-	spin_unlock(&vm_bo->vm->status_lock);
+-}
+-
+-/**
+- * amdgpu_vm_bo_evicted_user - vm_bo is evicted
+- *
+- * @vm_bo: vm_bo which is evicted
+- *
+- * State for BOs used by user mode queues which are not at the location they
+- * should be.
+- */
+-static void amdgpu_vm_bo_evicted_user(struct amdgpu_vm_bo_base *vm_bo)
+-{
+-	vm_bo->moved = true;
+-	spin_lock(&vm_bo->vm->status_lock);
+-	list_move(&vm_bo->vm_status, &vm_bo->vm->evicted_user);
+-	spin_unlock(&vm_bo->vm->status_lock);
+-}
+-
+-/**
+- * amdgpu_vm_bo_relocated - vm_bo is reloacted
+- *
+- * @vm_bo: vm_bo which is relocated
+- *
+- * State for PDs/PTs which needs to update their parent PD.
+- * For the root PD, just move to idle state.
+- */
+-static void amdgpu_vm_bo_relocated(struct amdgpu_vm_bo_base *vm_bo)
+-{
+-	amdgpu_vm_assert_locked(vm_bo->vm);
+-	if (vm_bo->bo->parent) {
+-		spin_lock(&vm_bo->vm->status_lock);
+-		list_move(&vm_bo->vm_status, &vm_bo->vm->relocated);
+-		spin_unlock(&vm_bo->vm->status_lock);
+-	} else {
+-		amdgpu_vm_bo_idle(vm_bo);
+-	}
+-}
+-
+-/**
+- * amdgpu_vm_bo_done - vm_bo is done
+- *
+- * @vm_bo: vm_bo which is now done
+- *
+- * State for normal BOs which are invalidated and that change has been updated
+- * in the PTs.
+- */
+-static void amdgpu_vm_bo_done(struct amdgpu_vm_bo_base *vm_bo)
+-{
+-	amdgpu_vm_assert_locked(vm_bo->vm);
+-	spin_lock(&vm_bo->vm->status_lock);
+-	list_move(&vm_bo->vm_status, &vm_bo->vm->done);
+-	spin_unlock(&vm_bo->vm->status_lock);
++	lists = amdgpu_vm_bo_lock_lists(vm_bo);
++	if (!amdgpu_vm_is_bo_always_valid(vm_bo->vm, vm_bo->bo))
++		vm_bo->moved = false;
++	list_move(&vm_bo->vm_status, &lists->idle);
++	amdgpu_vm_bo_unlock_lists(vm_bo);
+ }
+ 
+ /**
+  * amdgpu_vm_bo_reset_state_machine - reset the vm_bo state machine
+  * @vm: the VM which state machine to reset
+  *
+- * Move all vm_bo object in the VM into a state where they will be updated
+- * again during validation.
++ * Move all vm_bo object in the VM into a state where their location will be
++ * updated in the page tables again.
+  */
+ static void amdgpu_vm_bo_reset_state_machine(struct amdgpu_vm *vm)
+ {
+-	struct amdgpu_vm_bo_base *vm_bo, *tmp;
+-
+ 	amdgpu_vm_assert_locked(vm);
++	list_splice_init(&vm->kernel.idle, &vm->kernel.moved);
++	list_splice_init(&vm->always_valid.idle, &vm->always_valid.moved);
+ 
+-	spin_lock(&vm->status_lock);
+-	list_splice_init(&vm->done, &vm->invalidated);
+-	list_for_each_entry(vm_bo, &vm->invalidated, vm_status)
+-		vm_bo->moved = true;
+-
+-	list_for_each_entry_safe(vm_bo, tmp, &vm->idle, vm_status) {
+-		struct amdgpu_bo *bo = vm_bo->bo;
+-
+-		vm_bo->moved = true;
+-		if (!bo || bo->tbo.type != ttm_bo_type_kernel)
+-			list_move(&vm_bo->vm_status, &vm_bo->vm->moved);
+-		else if (bo->parent)
+-			list_move(&vm_bo->vm_status, &vm_bo->vm->relocated);
+-	}
+-	spin_unlock(&vm->status_lock);
++	spin_lock(&vm->individual_lock);
++	list_splice_init(&vm->individual.idle, &vm->individual.moved);
++	spin_unlock(&vm->individual_lock);
+ }
+ 
+ /**
+  * amdgpu_vm_update_shared - helper to update shared memory stat
+  * @base: base structure for tracking BO usage in a VM
+  *
+- * Takes the vm status_lock and updates the shared memory stat. If the basic
++ * Takes the vm stats_lock and updates the shared memory stat. If the basic
+  * stat changed (e.g. buffer was moved) amdgpu_vm_update_stats need to be called
+  * as well.
+  */
+@@ -321,7 +292,7 @@ static void amdgpu_vm_update_shared(struct amdgpu_vm_bo_base *base)
+ 	bool shared;
+ 
+ 	dma_resv_assert_held(bo->tbo.base.resv);
+-	spin_lock(&vm->status_lock);
++	spin_lock(&vm->stats_lock);
+ 	shared = drm_gem_object_is_shared_for_memory_stats(&bo->tbo.base);
+ 	if (base->shared != shared) {
+ 		base->shared = shared;
+@@ -333,7 +304,7 @@ static void amdgpu_vm_update_shared(struct amdgpu_vm_bo_base *base)
+ 			vm->stats[bo_memtype].drm.private += size;
+ 		}
+ 	}
+-	spin_unlock(&vm->status_lock);
++	spin_unlock(&vm->stats_lock);
+ }
+ 
+ /**
+@@ -358,11 +329,11 @@ void amdgpu_vm_bo_update_shared(struct amdgpu_bo *bo)
+  *        be bo->tbo.resource
+  * @sign: if we should add (+1) or subtract (-1) from the stat
+  *
+- * Caller need to have the vm status_lock held. Useful for when multiple update
++ * Caller need to have the vm stats_lock held. Useful for when multiple update
+  * need to happen at the same time.
+  */
+ static void amdgpu_vm_update_stats_locked(struct amdgpu_vm_bo_base *base,
+-			    struct ttm_resource *res, int sign)
++					  struct ttm_resource *res, int sign)
+ {
+ 	struct amdgpu_vm *vm = base->vm;
+ 	struct amdgpu_bo *bo = base->bo;
+@@ -386,7 +357,8 @@ static void amdgpu_vm_update_stats_locked(struct amdgpu_vm_bo_base *base,
+ 		 */
+ 		if (bo->flags & AMDGPU_GEM_CREATE_DISCARDABLE)
+ 			vm->stats[res_memtype].drm.purgeable += size;
+-		if (!(bo->preferred_domains & amdgpu_mem_type_to_domain(res_memtype)))
++		if (!(bo->preferred_domains &
++		      amdgpu_mem_type_to_domain(res_memtype)))
+ 			vm->stats[bo_memtype].evicted += size;
+ 	}
+ }
+@@ -405,9 +377,9 @@ void amdgpu_vm_update_stats(struct amdgpu_vm_bo_base *base,
+ {
+ 	struct amdgpu_vm *vm = base->vm;
+ 
+-	spin_lock(&vm->status_lock);
++	spin_lock(&vm->stats_lock);
+ 	amdgpu_vm_update_stats_locked(base, res, sign);
+-	spin_unlock(&vm->status_lock);
++	spin_unlock(&vm->stats_lock);
+ }
+ 
+ /**
+@@ -428,37 +400,34 @@ void amdgpu_vm_bo_base_init(struct amdgpu_vm_bo_base *base,
+ 	base->next = NULL;
+ 	INIT_LIST_HEAD(&base->vm_status);
+ 
++	dma_resv_assert_held(vm->root.bo->tbo.base.resv);
+ 	if (!bo)
+ 		return;
++
+ 	base->next = bo->vm_bo;
+ 	bo->vm_bo = base;
+ 
+-	spin_lock(&vm->status_lock);
++	spin_lock(&vm->stats_lock);
+ 	base->shared = drm_gem_object_is_shared_for_memory_stats(&bo->tbo.base);
+ 	amdgpu_vm_update_stats_locked(base, bo->tbo.resource, +1);
+-	spin_unlock(&vm->status_lock);
++	spin_unlock(&vm->stats_lock);
+ 
+-	if (!amdgpu_vm_is_bo_always_valid(vm, bo))
++	if (!amdgpu_vm_is_bo_always_valid(vm, bo)) {
++		amdgpu_vm_bo_idle(base);
+ 		return;
+-
+-	dma_resv_assert_held(vm->root.bo->tbo.base.resv);
++	}
+ 
+ 	ttm_bo_set_bulk_move(&bo->tbo, &vm->lru_bulk_move);
+-	if (bo->tbo.type == ttm_bo_type_kernel && bo->parent)
+-		amdgpu_vm_bo_relocated(base);
+-	else
+-		amdgpu_vm_bo_idle(base);
+ 
++	/*
++	 * When a per VM isn't in the desired domain put it into the evicted
++	 * state to make sure that it gets validated on the next best occasion.
++	 */
+ 	if (bo->preferred_domains &
+ 	    amdgpu_mem_type_to_domain(bo->tbo.resource->mem_type))
 -		return;
 -
- 	spin_lock_irqsave(&fence_drv->fence_list_lock, flags);
- 	rptr = amdgpu_userq_fence_read(fence_drv);
- 
-@@ -158,6 +162,9 @@ void amdgpu_userq_fence_driver_process(struct amdgpu_userq_fence_driver *fence_d
- 				&userq_fence->link);
- 	spin_unlock_irqrestore(&fence_drv->fence_list_lock, flags);
- 
-+	if (list_empty(&to_be_signaled))
-+		return -ENOENT;
-+
- 	list_for_each_entry_safe(userq_fence, tmp, &to_be_signaled, link) {
- 		fence = &userq_fence->base;
- 		list_del_init(&userq_fence->link);
-@@ -169,6 +176,8 @@ void amdgpu_userq_fence_driver_process(struct amdgpu_userq_fence_driver *fence_d
- 		dma_fence_put(fence);
- 	}
- 
-+	/* That doesn't need to be accurate so no locking */
-+	return list_empty(&fence_drv->fences) ? 0 : 1;
+-	/*
+-	 * we checked all the prerequisites, but it looks like this per vm bo
+-	 * is currently evicted. add the bo to the evicted list to make sure it
+-	 * is validated on next vm use to avoid fault.
+-	 * */
+-	amdgpu_vm_bo_evicted(base);
++		amdgpu_vm_bo_moved(base);
++	else
++		amdgpu_vm_bo_evicted(base);
  }
  
- void amdgpu_userq_fence_driver_destroy(struct kref *ref)
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.h
-index d355a0eecc07..0bd51616cef1 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.h
-@@ -63,7 +63,7 @@ void amdgpu_userq_fence_driver_put(struct amdgpu_userq_fence_driver *fence_drv);
- int amdgpu_userq_fence_driver_alloc(struct amdgpu_device *adev,
- 				    struct amdgpu_userq_fence_driver **fence_drv_req);
- void amdgpu_userq_fence_driver_free(struct amdgpu_usermode_queue *userq);
--void amdgpu_userq_fence_driver_process(struct amdgpu_userq_fence_driver *fence_drv);
-+int amdgpu_userq_fence_driver_process(struct amdgpu_userq_fence_driver *fence_drv);
- void amdgpu_userq_fence_driver_force_completion(struct amdgpu_usermode_queue *userq);
- void amdgpu_userq_fence_driver_destroy(struct kref *ref);
- int amdgpu_userq_signal_ioctl(struct drm_device *dev, void *data,
+ /**
+@@ -479,41 +448,41 @@ int amdgpu_vm_lock_pd(struct amdgpu_vm *vm, struct drm_exec *exec,
+ }
+ 
+ /**
+- * amdgpu_vm_lock_done_list - lock all BOs on the done list
++ * amdgpu_vm_lock_individual - lock all BOs on the individual idle list
+  * @vm: vm providing the BOs
+  * @exec: drm execution context
+  * @num_fences: number of extra fences to reserve
+  *
+- * Lock the BOs on the done list in the DRM execution context.
++ * Lock the BOs on the individual idle list in the DRM execution context.
+  */
+-int amdgpu_vm_lock_done_list(struct amdgpu_vm *vm, struct drm_exec *exec,
+-			     unsigned int num_fences)
++int amdgpu_vm_lock_individual(struct amdgpu_vm *vm, struct drm_exec *exec,
++			      unsigned int num_fences)
+ {
+-	struct list_head *prev = &vm->done;
++	struct list_head *prev = &vm->individual.idle;
+ 	struct amdgpu_bo_va *bo_va;
+ 	struct amdgpu_bo *bo;
+ 	int ret;
+ 
+ 	/* We can only trust prev->next while holding the lock */
+-	spin_lock(&vm->status_lock);
+-	while (!list_is_head(prev->next, &vm->done)) {
++	spin_lock(&vm->individual_lock);
++	while (!list_is_head(prev->next, &vm->individual.idle)) {
+ 		bo_va = list_entry(prev->next, typeof(*bo_va), base.vm_status);
+ 
+ 		bo = bo_va->base.bo;
+ 		if (bo) {
+ 			amdgpu_bo_ref(bo);
+-			spin_unlock(&vm->status_lock);
++			spin_unlock(&vm->individual_lock);
+ 
+ 			ret = drm_exec_prepare_obj(exec, &bo->tbo.base, 1);
+ 			amdgpu_bo_unref(&bo);
+ 			if (unlikely(ret))
+ 				return ret;
+ 
+-			spin_lock(&vm->status_lock);
++			spin_lock(&vm->individual_lock);
+ 		}
+ 		prev = prev->next;
+ 	}
+-	spin_unlock(&vm->status_lock);
++	spin_unlock(&vm->individual_lock);
+ 
+ 	return 0;
+ }
+@@ -609,10 +578,10 @@ int amdgpu_vm_validate(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+ 		       void *param)
+ {
+ 	uint64_t new_vm_generation = amdgpu_vm_generation(adev, vm);
+-	struct amdgpu_vm_bo_base *bo_base;
+-	struct amdgpu_bo *bo;
++	struct amdgpu_vm_bo_base *bo_base, *tmp;
+ 	int r;
+ 
++	dma_resv_assert_held(vm->root.bo->tbo.base.resv);
+ 	if (vm->generation != new_vm_generation) {
+ 		vm->generation = new_vm_generation;
+ 		amdgpu_vm_bo_reset_state_machine(vm);
+@@ -622,49 +591,59 @@ int amdgpu_vm_validate(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+ 			return r;
+ 	}
+ 
+-	spin_lock(&vm->status_lock);
+-	while (!list_empty(&vm->evicted)) {
+-		bo_base = list_first_entry(&vm->evicted,
+-					   struct amdgpu_vm_bo_base,
+-					   vm_status);
+-		spin_unlock(&vm->status_lock);
++	list_for_each_entry_safe(bo_base, tmp, &vm->kernel.evicted, vm_status) {
++		r = validate(param, bo_base->bo);
++		if (r)
++			return r;
+ 
+-		bo = bo_base->bo;
++		vm->update_funcs->map_table(to_amdgpu_bo_vm(bo_base->bo));
++		amdgpu_vm_bo_moved(bo_base);
++	}
+ 
+-		r = validate(param, bo);
++	/*
++	 * As soon as all page tables are in place we can start updating them
++	 * again.
++	 */
++	amdgpu_vm_eviction_lock(vm);
++	vm->evicting = false;
++	amdgpu_vm_eviction_unlock(vm);
++
++	list_for_each_entry_safe(bo_base, tmp, &vm->always_valid.evicted,
++				 vm_status) {
++		r = validate(param, bo_base->bo);
+ 		if (r)
+ 			return r;
+ 
+-		if (bo->tbo.type != ttm_bo_type_kernel) {
+-			amdgpu_vm_bo_moved(bo_base);
+-		} else {
+-			vm->update_funcs->map_table(to_amdgpu_bo_vm(bo));
+-			amdgpu_vm_bo_relocated(bo_base);
+-		}
+-		spin_lock(&vm->status_lock);
++		amdgpu_vm_bo_moved(bo_base);
+ 	}
+-	while (ticket && !list_empty(&vm->evicted_user)) {
+-		bo_base = list_first_entry(&vm->evicted_user,
+-					   struct amdgpu_vm_bo_base,
+-					   vm_status);
+-		spin_unlock(&vm->status_lock);
+ 
+-		bo = bo_base->bo;
+-		dma_resv_assert_held(bo->tbo.base.resv);
++	if (!ticket)
++		return 0;
++
++	spin_lock(&vm->individual_lock);
++restart:
++	list_for_each_entry(bo_base, &vm->individual.evicted, vm_status) {
++		struct amdgpu_bo *bo = bo_base->bo;
++
++		if (dma_resv_locking_ctx(bo->tbo.base.resv) != ticket)
++			continue;
++
++		spin_unlock(&vm->individual_lock);
+ 
+ 		r = validate(param, bo);
+ 		if (r)
+ 			return r;
+ 
+-		amdgpu_vm_bo_invalidated(bo_base);
++		amdgpu_vm_bo_moved(bo_base);
+ 
+-		spin_lock(&vm->status_lock);
++		/* It's a bit inefficient to always jump back to the start, but
++		 * we would need to re-structure the KFD for properly fixing
++		 * that.
++		 */
++		spin_lock(&vm->individual_lock);
++		goto restart;
+ 	}
+-	spin_unlock(&vm->status_lock);
+-
+-	amdgpu_vm_eviction_lock(vm);
+-	vm->evicting = false;
+-	amdgpu_vm_eviction_unlock(vm);
++	spin_unlock(&vm->individual_lock);
+ 
+ 	return 0;
+ }
+@@ -689,9 +668,7 @@ bool amdgpu_vm_ready(struct amdgpu_vm *vm)
+ 	ret = !vm->evicting;
+ 	amdgpu_vm_eviction_unlock(vm);
+ 
+-	spin_lock(&vm->status_lock);
+-	ret &= list_empty(&vm->evicted);
+-	spin_unlock(&vm->status_lock);
++	ret &= list_empty(&vm->kernel.evicted);
+ 
+ 	spin_lock(&vm->immediate.lock);
+ 	ret &= !vm->immediate.stopped;
+@@ -985,18 +962,13 @@ int amdgpu_vm_update_pdes(struct amdgpu_device *adev,
+ 			  struct amdgpu_vm *vm, bool immediate)
+ {
+ 	struct amdgpu_vm_update_params params;
+-	struct amdgpu_vm_bo_base *entry;
++	struct amdgpu_vm_bo_base *entry, *tmp;
+ 	bool flush_tlb_needed = false;
+-	LIST_HEAD(relocated);
+ 	int r, idx;
+ 
+ 	amdgpu_vm_assert_locked(vm);
+ 
+-	spin_lock(&vm->status_lock);
+-	list_splice_init(&vm->relocated, &relocated);
+-	spin_unlock(&vm->status_lock);
+-
+-	if (list_empty(&relocated))
++	if (list_empty(&vm->kernel.moved))
+ 		return 0;
+ 
+ 	if (!drm_dev_enter(adev_to_drm(adev), &idx))
+@@ -1012,7 +984,7 @@ int amdgpu_vm_update_pdes(struct amdgpu_device *adev,
+ 	if (r)
+ 		goto error;
+ 
+-	list_for_each_entry(entry, &relocated, vm_status) {
++	list_for_each_entry(entry, &vm->kernel.moved, vm_status) {
+ 		/* vm_flush_needed after updating moved PDEs */
+ 		flush_tlb_needed |= entry->moved;
+ 
+@@ -1028,11 +1000,8 @@ int amdgpu_vm_update_pdes(struct amdgpu_device *adev,
+ 	if (flush_tlb_needed)
+ 		atomic64_inc(&vm->tlb_seq);
+ 
+-	while (!list_empty(&relocated)) {
+-		entry = list_first_entry(&relocated, struct amdgpu_vm_bo_base,
+-					 vm_status);
++	list_for_each_entry_safe(entry, tmp, &vm->kernel.moved, vm_status)
+ 		amdgpu_vm_bo_idle(entry);
+-	}
+ 
+ error:
+ 	drm_dev_exit(idx);
+@@ -1260,9 +1229,9 @@ int amdgpu_vm_update_range(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+ void amdgpu_vm_get_memory(struct amdgpu_vm *vm,
+ 			  struct amdgpu_mem_stats stats[__AMDGPU_PL_NUM])
+ {
+-	spin_lock(&vm->status_lock);
++	spin_lock(&vm->stats_lock);
+ 	memcpy(stats, vm->stats, sizeof(*stats) * __AMDGPU_PL_NUM);
+-	spin_unlock(&vm->status_lock);
++	spin_unlock(&vm->stats_lock);
+ }
+ 
+ /**
+@@ -1406,7 +1375,7 @@ int amdgpu_vm_bo_update(struct amdgpu_device *adev, struct amdgpu_bo_va *bo_va,
+ 		else
+ 			amdgpu_vm_bo_idle(&bo_va->base);
+ 	} else {
+-		amdgpu_vm_bo_done(&bo_va->base);
++		amdgpu_vm_bo_idle(&bo_va->base);
+ 	}
+ 
+ 	list_splice_init(&bo_va->invalids, &bo_va->valids);
+@@ -1629,29 +1598,25 @@ int amdgpu_vm_handle_moved(struct amdgpu_device *adev,
+ 			   struct amdgpu_vm *vm,
+ 			   struct ww_acquire_ctx *ticket)
+ {
+-	struct amdgpu_bo_va *bo_va;
++	struct amdgpu_bo_va *bo_va, *tmp;
+ 	struct dma_resv *resv;
+ 	bool clear, unlock;
+ 	int r;
+ 
+-	spin_lock(&vm->status_lock);
+-	while (!list_empty(&vm->moved)) {
+-		bo_va = list_first_entry(&vm->moved, struct amdgpu_bo_va,
+-					 base.vm_status);
+-		spin_unlock(&vm->status_lock);
+-
++	list_for_each_entry_safe(bo_va, tmp, &vm->always_valid.moved,
++				 base.vm_status) {
+ 		/* Per VM BOs never need to bo cleared in the page tables */
+ 		r = amdgpu_vm_bo_update(adev, bo_va, false);
+ 		if (r)
+ 			return r;
+-		spin_lock(&vm->status_lock);
+ 	}
+ 
+-	while (!list_empty(&vm->invalidated)) {
+-		bo_va = list_first_entry(&vm->invalidated, struct amdgpu_bo_va,
+-					 base.vm_status);
++	spin_lock(&vm->individual_lock);
++	while (!list_empty(&vm->individual.moved)) {
++		bo_va = list_first_entry(&vm->individual.moved,
++					 typeof(*bo_va), base.vm_status);
+ 		resv = bo_va->base.bo->tbo.base.resv;
+-		spin_unlock(&vm->status_lock);
++		spin_unlock(&vm->individual_lock);
+ 
+ 		/* Try to reserve the BO to avoid clearing its ptes */
+ 		if (!adev->debug_vm && dma_resv_trylock(resv)) {
+@@ -1681,11 +1646,11 @@ int amdgpu_vm_handle_moved(struct amdgpu_device *adev,
+ 		    drm_gem_is_imported(&bo_va->base.bo->tbo.base) &&
+ 		    (!bo_va->base.bo->tbo.resource ||
+ 		     bo_va->base.bo->tbo.resource->mem_type == TTM_PL_SYSTEM))
+-			amdgpu_vm_bo_evicted_user(&bo_va->base);
++			amdgpu_vm_bo_evicted(&bo_va->base);
+ 
+-		spin_lock(&vm->status_lock);
++		spin_lock(&vm->individual_lock);
+ 	}
+-	spin_unlock(&vm->status_lock);
++	spin_unlock(&vm->individual_lock);
+ 
+ 	return 0;
+ }
+@@ -2223,9 +2188,9 @@ void amdgpu_vm_bo_del(struct amdgpu_device *adev,
+ 		}
+ 	}
+ 
+-	spin_lock(&vm->status_lock);
++	spin_lock(&vm->individual_lock);
+ 	list_del(&bo_va->base.vm_status);
+-	spin_unlock(&vm->status_lock);
++	spin_unlock(&vm->individual_lock);
+ 
+ 	list_for_each_entry_safe(mapping, next, &bo_va->valids, list) {
+ 		list_del(&mapping->list);
+@@ -2305,14 +2270,7 @@ void amdgpu_vm_bo_invalidate(struct amdgpu_bo *bo, bool evicted)
+ 
+ 		if (bo_base->moved)
+ 			continue;
+-		bo_base->moved = true;
+-
+-		if (bo->tbo.type == ttm_bo_type_kernel)
+-			amdgpu_vm_bo_relocated(bo_base);
+-		else if (amdgpu_vm_is_bo_always_valid(vm, bo))
+-			amdgpu_vm_bo_moved(bo_base);
+-		else
+-			amdgpu_vm_bo_invalidated(bo_base);
++		amdgpu_vm_bo_moved(bo_base);
+ 	}
+ }
+ 
+@@ -2333,10 +2291,10 @@ void amdgpu_vm_bo_move(struct amdgpu_bo *bo, struct ttm_resource *new_mem,
+ 	for (bo_base = bo->vm_bo; bo_base; bo_base = bo_base->next) {
+ 		struct amdgpu_vm *vm = bo_base->vm;
+ 
+-		spin_lock(&vm->status_lock);
++		spin_lock(&vm->stats_lock);
+ 		amdgpu_vm_update_stats_locked(bo_base, bo->tbo.resource, -1);
+ 		amdgpu_vm_update_stats_locked(bo_base, new_mem, +1);
+-		spin_unlock(&vm->status_lock);
++		spin_unlock(&vm->stats_lock);
+ 	}
+ 
+ 	amdgpu_vm_bo_invalidate(bo, evicted);
+@@ -2603,16 +2561,14 @@ int amdgpu_vm_init(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+ 	vm->va = RB_ROOT_CACHED;
+ 	for (i = 0; i < AMDGPU_MAX_VMHUBS; i++)
+ 		vm->reserved_vmid[i] = NULL;
+-	INIT_LIST_HEAD(&vm->evicted);
+-	INIT_LIST_HEAD(&vm->evicted_user);
+-	INIT_LIST_HEAD(&vm->relocated);
+-	INIT_LIST_HEAD(&vm->moved);
+-	INIT_LIST_HEAD(&vm->idle);
+-	INIT_LIST_HEAD(&vm->invalidated);
+-	spin_lock_init(&vm->status_lock);
++
++	amdgpu_vm_bo_status_init(&vm->kernel);
++	amdgpu_vm_bo_status_init(&vm->always_valid);
++	spin_lock_init(&vm->individual_lock);
++	amdgpu_vm_bo_status_init(&vm->individual);
+ 	INIT_LIST_HEAD(&vm->freed);
+-	INIT_LIST_HEAD(&vm->done);
+ 	INIT_KFIFO(vm->faults);
++	spin_lock_init(&vm->stats_lock);
+ 
+ 	r = amdgpu_vm_init_entities(adev, vm);
+ 	if (r)
+@@ -3089,100 +3045,64 @@ bool amdgpu_vm_handle_fault(struct amdgpu_device *adev, u32 pasid,
+ }
+ 
+ #if defined(CONFIG_DEBUG_FS)
+-/**
+- * amdgpu_debugfs_vm_bo_info  - print BO info for the VM
+- *
+- * @vm: Requested VM for printing BO info
+- * @m: debugfs file
+- *
+- * Print BO information in debugfs file for the VM
+- */
+-void amdgpu_debugfs_vm_bo_info(struct amdgpu_vm *vm, struct seq_file *m)
+-{
+-	struct amdgpu_bo_va *bo_va, *tmp;
+-	u64 total_idle = 0;
+-	u64 total_evicted = 0;
+-	u64 total_relocated = 0;
+-	u64 total_moved = 0;
+-	u64 total_invalidated = 0;
+-	u64 total_done = 0;
+-	unsigned int total_idle_objs = 0;
+-	unsigned int total_evicted_objs = 0;
+-	unsigned int total_relocated_objs = 0;
+-	unsigned int total_moved_objs = 0;
+-	unsigned int total_invalidated_objs = 0;
+-	unsigned int total_done_objs = 0;
+-	unsigned int id = 0;
+ 
+-	amdgpu_vm_assert_locked(vm);
++/* print the debug info for a specific set of status lists */
++static void amdgpu_debugfs_vm_bo_status_info(struct seq_file *m,
++					     struct amdgpu_vm_bo_status *lists)
++{
++	struct amdgpu_vm_bo_base *base;
++	unsigned int id;
+ 
+-	spin_lock(&vm->status_lock);
+-	seq_puts(m, "\tIdle BOs:\n");
+-	list_for_each_entry_safe(bo_va, tmp, &vm->idle, base.vm_status) {
+-		if (!bo_va->base.bo)
+-			continue;
+-		total_idle += amdgpu_bo_print_info(id++, bo_va->base.bo, m);
+-	}
+-	total_idle_objs = id;
+ 	id = 0;
+-
+ 	seq_puts(m, "\tEvicted BOs:\n");
+-	list_for_each_entry_safe(bo_va, tmp, &vm->evicted, base.vm_status) {
+-		if (!bo_va->base.bo)
++	list_for_each_entry(base, &lists->evicted, vm_status) {
++		if (!base->bo)
+ 			continue;
+-		total_evicted += amdgpu_bo_print_info(id++, bo_va->base.bo, m);
+-	}
+-	total_evicted_objs = id;
+-	id = 0;
+ 
+-	seq_puts(m, "\tRelocated BOs:\n");
+-	list_for_each_entry_safe(bo_va, tmp, &vm->relocated, base.vm_status) {
+-		if (!bo_va->base.bo)
+-			continue;
+-		total_relocated += amdgpu_bo_print_info(id++, bo_va->base.bo, m);
++		amdgpu_bo_print_info(id++, base->bo, m);
+ 	}
+-	total_relocated_objs = id;
+-	id = 0;
+ 
++	id = 0;
+ 	seq_puts(m, "\tMoved BOs:\n");
+-	list_for_each_entry_safe(bo_va, tmp, &vm->moved, base.vm_status) {
+-		if (!bo_va->base.bo)
++	list_for_each_entry(base, &lists->moved, vm_status) {
++		if (!base->bo)
+ 			continue;
+-		total_moved += amdgpu_bo_print_info(id++, bo_va->base.bo, m);
++
++		amdgpu_bo_print_info(id++, base->bo, m);
+ 	}
+-	total_moved_objs = id;
+-	id = 0;
+ 
+-	seq_puts(m, "\tInvalidated BOs:\n");
+-	list_for_each_entry_safe(bo_va, tmp, &vm->invalidated, base.vm_status) {
+-		if (!bo_va->base.bo)
++	id = 0;
++	seq_puts(m, "\tIdle BOs:\n");
++	list_for_each_entry(base, &lists->moved, vm_status) {
++		if (!base->bo)
+ 			continue;
+-		total_invalidated += amdgpu_bo_print_info(id++,	bo_va->base.bo, m);
++
++		amdgpu_bo_print_info(id++, base->bo, m);
+ 	}
+-	total_invalidated_objs = id;
+-	id = 0;
++}
+ 
+-	seq_puts(m, "\tDone BOs:\n");
+-	list_for_each_entry_safe(bo_va, tmp, &vm->done, base.vm_status) {
+-		if (!bo_va->base.bo)
+-			continue;
+-		total_done += amdgpu_bo_print_info(id++, bo_va->base.bo, m);
+-	}
+-	spin_unlock(&vm->status_lock);
+-	total_done_objs = id;
+-
+-	seq_printf(m, "\tTotal idle size:        %12lld\tobjs:\t%d\n", total_idle,
+-		   total_idle_objs);
+-	seq_printf(m, "\tTotal evicted size:     %12lld\tobjs:\t%d\n", total_evicted,
+-		   total_evicted_objs);
+-	seq_printf(m, "\tTotal relocated size:   %12lld\tobjs:\t%d\n", total_relocated,
+-		   total_relocated_objs);
+-	seq_printf(m, "\tTotal moved size:       %12lld\tobjs:\t%d\n", total_moved,
+-		   total_moved_objs);
+-	seq_printf(m, "\tTotal invalidated size: %12lld\tobjs:\t%d\n", total_invalidated,
+-		   total_invalidated_objs);
+-	seq_printf(m, "\tTotal done size:        %12lld\tobjs:\t%d\n", total_done,
+-		   total_done_objs);
++/**
++ * amdgpu_debugfs_vm_bo_info  - print BO info for the VM
++ *
++ * @vm: Requested VM for printing BO info
++ * @m: debugfs file
++ *
++ * Print BO information in debugfs file for the VM
++ */
++void amdgpu_debugfs_vm_bo_info(struct amdgpu_vm *vm, struct seq_file *m)
++{
++	amdgpu_vm_assert_locked(vm);
++
++	seq_puts(m, "\tKernel PT/PDs:\n");
++	amdgpu_debugfs_vm_bo_status_info(m, &vm->kernel);
++
++	seq_puts(m, "\tPer VM BOs:\n");
++	amdgpu_debugfs_vm_bo_status_info(m, &vm->always_valid);
++
++	seq_puts(m, "\tIndividual BOs:\n");
++	spin_lock(&vm->individual_lock);
++	amdgpu_debugfs_vm_bo_status_info(m, &vm->individual);
++	spin_unlock(&vm->individual_lock);
+ }
+ #endif
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+index f33ea7f8509b..cc96a3e6252f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+@@ -205,17 +205,34 @@ struct amdgpu_vm_bo_base {
+ 	/* protected by bo being reserved */
+ 	struct amdgpu_vm_bo_base	*next;
+ 
+-	/* protected by vm status_lock */
++	/* protected by vm reservation and invalidated_lock */
+ 	struct list_head		vm_status;
+ 
+ 	/* if the bo is counted as shared in mem stats
+-	 * protected by vm status_lock */
++	 * protected by vm BO being reserved */
+ 	bool				shared;
+ 
+ 	/* protected by the BO being reserved */
+ 	bool				moved;
+ };
+ 
++/*
++ * The following status lists contain amdgpu_vm_bo_base objects for
++ * either PD/PTs, per VM BOs or BOs with individual resv object.
++ *
++ * The state transits are: evicted -> moved -> idle
++ */
++struct amdgpu_vm_bo_status {
++	/* BOs evicted which need to move into place again */
++	struct list_head		evicted;
++
++	/* BOs which moved but new location hasn't been updated in the PDs/PTs */
++	struct list_head		moved;
++
++	/* BOs done with the state machine and need no further action */
++	struct list_head		idle;
++};
++
+ /* provided by hw blocks that can write ptes, e.g., sdma */
+ struct amdgpu_vm_pte_funcs {
+ 	/* number of dw to reserve per operation */
+@@ -345,47 +362,29 @@ struct amdgpu_vm {
+ 	bool			evicting;
+ 	unsigned int		saved_flags;
+ 
+-	/* Lock to protect vm_bo add/del/move on all lists of vm */
+-	spinlock_t		status_lock;
+-
+-	/* Memory statistics for this vm, protected by status_lock */
++	/* Memory statistics for this vm, protected by stats_lock */
++	spinlock_t		stats_lock;
+ 	struct amdgpu_mem_stats stats[__AMDGPU_PL_NUM];
+ 
++	/* BO's belonging to PD/PT which are internal to the kernel. */
++	struct amdgpu_vm_bo_status	kernel;
++
+ 	/*
+-	 * The following lists contain amdgpu_vm_bo_base objects for either
+-	 * PDs, PTs or per VM BOs. The state transits are:
+-	 *
+-	 * evicted -> relocated (PDs, PTs) or moved (per VM BOs) -> idle
++	 * BOs allocated by userspace where the dma_resv is shared with the
++	 * root PD
+ 	 */
+-
+-	/* Per-VM and PT BOs who needs a validation */
+-	struct list_head	evicted;
+-
+-	/* PT BOs which relocated and their parent need an update */
+-	struct list_head	relocated;
+-
+-	/* per VM BOs moved, but not yet updated in the PT */
+-	struct list_head	moved;
+-
+-	/* All BOs of this VM not currently in the state machine */
+-	struct list_head	idle;
++	struct amdgpu_vm_bo_status	always_valid;
+ 
+ 	/*
+ 	 * The following lists contain amdgpu_vm_bo_base objects for BOs which
+-	 * have their own dma_resv object and not depend on the root PD. Their
+-	 * state transits are:
++	 * have their own dma_resv object and not depend on the root PD.
+ 	 *
+-	 * evicted_user or invalidated -> done
++	 * Lists are protected by the individual_lock.
+ 	 */
++	spinlock_t			individual_lock;
+ 
+-	/* BOs for user mode queues that need a validation */
+-	struct list_head	evicted_user;
+-
+-	/* regular invalidated BOs, but not yet updated in the PT */
+-	struct list_head	invalidated;
+-
+-	/* BOs which are invalidated, has been updated in the PTs */
+-	struct list_head        done;
++	/* Userspace BOs with individual resv object */
++	struct amdgpu_vm_bo_status	individual;
+ 
+ 	/*
+ 	 * This list contains amdgpu_bo_va_mapping objects which have been freed
+@@ -507,8 +506,8 @@ int amdgpu_vm_make_compute(struct amdgpu_device *adev, struct amdgpu_vm *vm);
+ void amdgpu_vm_fini(struct amdgpu_device *adev, struct amdgpu_vm *vm);
+ int amdgpu_vm_lock_pd(struct amdgpu_vm *vm, struct drm_exec *exec,
+ 		      unsigned int num_fences);
+-int amdgpu_vm_lock_done_list(struct amdgpu_vm *vm, struct drm_exec *exec,
+-			     unsigned int num_fences);
++int amdgpu_vm_lock_individual(struct amdgpu_vm *vm, struct drm_exec *exec,
++			      unsigned int num_fences);
+ bool amdgpu_vm_ready(struct amdgpu_vm *vm);
+ uint64_t amdgpu_vm_generation(struct amdgpu_device *adev, struct amdgpu_vm *vm);
+ int amdgpu_vm_validate(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
+index a930f1522f96..ff334f4dcc90 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
+@@ -544,9 +544,7 @@ static void amdgpu_vm_pt_free(struct amdgpu_vm_bo_base *entry)
+ 	entry->bo->vm_bo = NULL;
+ 	ttm_bo_set_bulk_move(&entry->bo->tbo, NULL);
+ 
+-	spin_lock(&entry->vm->status_lock);
+ 	list_del(&entry->vm_status);
+-	spin_unlock(&entry->vm->status_lock);
+ 	amdgpu_bo_unref(&entry->bo);
+ }
+ 
+@@ -590,7 +588,6 @@ static void amdgpu_vm_pt_add_list(struct amdgpu_vm_update_params *params,
+ 	struct amdgpu_vm_pt_cursor seek;
+ 	struct amdgpu_vm_bo_base *entry;
+ 
+-	spin_lock(&params->vm->status_lock);
+ 	for_each_amdgpu_vm_pt_dfs_safe(params->adev, params->vm, cursor, seek, entry) {
+ 		if (entry && entry->bo)
+ 			list_move(&entry->vm_status, &params->tlb_flush_waitlist);
+@@ -598,7 +595,6 @@ static void amdgpu_vm_pt_add_list(struct amdgpu_vm_update_params *params,
+ 
+ 	/* enter start node now */
+ 	list_move(&cursor->entry->vm_status, &params->tlb_flush_waitlist);
+-	spin_unlock(&params->vm->status_lock);
+ }
+ 
+ /**
 -- 
 2.43.0
 
