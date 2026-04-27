@@ -4,49 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 64E3FFF8868
-	for <amd-gfx@archiver.kernel.org>; Tue, 28 Apr 2026 12:54:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8D3D6FF886D
+	for <amd-gfx@archiver.kernel.org>; Tue, 28 Apr 2026 12:54:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DCF2710EC02;
-	Tue, 28 Apr 2026 12:54:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1086710EC09;
+	Tue, 28 Apr 2026 12:54:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=infradead.org header.i=@infradead.org header.b="sBqKbi2B";
+	dkim=pass (2048-bit key; secure) header.d=tennr.com header.i=@tennr.com header.b="ZyrjZyNn";
 	dkim-atps=neutral
-Received: from bombadil.infradead.org (bombadil.infradead.org
- [198.137.202.133])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1FEC410E8CB;
- Mon, 27 Apr 2026 18:38:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
- Content-Type:MIME-Version:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:
- Content-ID:Content-Description:In-Reply-To:References;
- bh=LFh9Pfv0Npt2sq912K35cDtK4V20ay7IadsnZb0Pv6Q=; b=sBqKbi2B2vEx9hCDVOc+IHqNSC
- /DA4MWpEQr7JjlWTqCRLHM9wgZJP46gbg538KQ1QNYDLSuhU4rGOVCFRxfUaqw5WB7MaMxLj+C7eW
- sXevY1HXAiEvAyffjjjg3MJ/WyC+4DJ1t2FJov3xX4tFz5knDrsJnRRdROFqu9KRJbBtzBGLfZ2OI
- CHMob2i1Kx965yAttGUmY9NmummMc7BgJqLdRKuCHMZTaV+JuNRz9o3TRGmltDlnMdfmKI+J5GSlq
- 53U9nzVgZEXuk/nq9aPobiMPoHzoKWNLsF3R3h3XCiElwVyCyjEym4lPDvKo1rsmbInrU6UMXOe2V
- 8BGGV4IA==;
-Received: from [50.53.43.113] (helo=bombadil.infradead.org)
- by bombadil.infradead.org with esmtpsa (Exim 4.98.2 #2 (Red Hat Linux))
- id 1wHQr9-0000000HaWS-2Bzz; Mon, 27 Apr 2026 18:38:55 +0000
-From: Randy Dunlap <rdunlap@infradead.org>
-To: dri-devel@lists.freedesktop.org
-Cc: Randy Dunlap <rdunlap@infradead.org>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- amd-gfx@lists.freedesktop.org,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
-Subject: [PATCH v3] drm/amdgpu: amdgpu{_reset}.h: fix all kernel-doc warnings
-Date: Mon, 27 Apr 2026 11:38:53 -0700
-Message-ID: <20260427183854.672967-1-rdunlap@infradead.org>
-X-Mailer: git-send-email 2.53.0
+Received: from mail-qk1-f172.google.com (mail-qk1-f172.google.com
+ [209.85.222.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3993B10E997
+ for <amd-gfx@lists.freedesktop.org>; Mon, 27 Apr 2026 22:58:47 +0000 (UTC)
+Received: by mail-qk1-f172.google.com with SMTP id
+ af79cd13be357-8ef45a6d9dfso754990985a.0
+ for <amd-gfx@lists.freedesktop.org>; Mon, 27 Apr 2026 15:58:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=tennr.com; s=google; t=1777330726; x=1777935526; darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:from:content-language:subject:cc:to
+ :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=+tTpdXP31L/w3dxQzZkwmCqv09pS8R5zE05I+AiYdQk=;
+ b=ZyrjZyNn3ABt3/p4NWXBbNd04lYE0+0jyeIPKvenHpZ9iCeRAYr4W4GNXY/547JpJi
+ H8uaVyf4FNFuBCKlwjCm+lZk0gqkQHFKn0q7PATaQvYgwfEBT8fKKSRhVtlcniZkP87T
+ r1/GZjICSDu08x01ZsGQ8zwzJJnlko/4P1eLQ32JU1jL6j2aYvYrtbKq1M1sVMsWoYNy
+ v086Kt/FQmGY2e/skbHcAJiMqNHPtjslJTIfQC1IRA1K9mcV+TSScVMsHhd8joLOd76w
+ 9iiainnGLj3e/+bw/wBG+LHeIFnQppcV179NilQSywwh73/oaw/bUDcdz0wM62K+pS17
+ KEgg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1777330726; x=1777935526;
+ h=content-transfer-encoding:from:content-language:subject:cc:to
+ :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=+tTpdXP31L/w3dxQzZkwmCqv09pS8R5zE05I+AiYdQk=;
+ b=BHBy2K9byKFBqEGwcwAxLuqha3FOmsWRCgSqDxkbMJTKLaEzHHX172WpUamThc6fqH
+ qrY0kxJNxInLknZZeZmVvUZFeb+H+jDHBqE3HI01aNePXr2NFNhA6rV2rR2uy8ovmfER
+ sKLFjDe+BurgagV+MBYyrFfGRQwzTPoOoFRrYmRkFiM1y+pB4Bqu9LW60HOuHe9dhjqa
+ vmmwBKX4na5jaQB2qgyAUCle6n9JBg7LqI9MORFMtuqeAsZrlszIvQ36uEpc7sbNGhun
+ fj2FdeJFVUXhGgIAY+bF5ofhLtokb9ec4wvoLMbvuy0fsMYO280R4WZNDQF1tL5gacMw
+ 7sFA==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ9gDZ/oQVYeT6FHLgx+FLr5LrgcQq+r11jxJTNl0/uySJrt2HvZbaQwWGjHICqaO4MZZDFDa5j6@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwVkBWKTDrEGxAHwoty7hFSofB+eu2pMWUPOdN9rQFW+K0Ddij3
+ WihwdGEQgrRKjD2bISJgQJxNy3KjDh1MD3b9lzGLTgcZsdYA1ani0OpU8Dd3TkTNx9A=
+X-Gm-Gg: AeBDiet+sXGKeyJwKq9WuxWeOVOqdy4DnL118XPrmTjxhxTiwEnHwVwhIJYfxSQSO2K
+ viEsT1eTEvKo3a+nRkU2/o0OnAzB82AYV7pzNUxQ0ukkjG4emP3dt/muXom1xsEuqGRe8juaRF0
+ Xo2j5tVzaBm8kEuZ8SZhrcsaAZGHp1hFqCfkxyU/B/fugcOxga/ylmBLm/Xq2PZ7SdIc1rSirEY
+ MxXO5R0Rxst4FRDpViJ6DmwSAvhL3MvFWTx8UMNYrnD4/q7J9zJM2eKFNMZnvZF4v3da3OXiOOj
+ 2mmRyq07HMed1vFssx5+YRnbxgAaXWxoOn+2GdXiNbIlu6jbLacY/9IwAVlWbDMbNJ9Y8Zz927t
+ 16Rohw4bodxYQ0qL9EzCpgaABMfwIr8rYObXpRdL22cMvCLiFMt/5PHbuRAvHlSvzKeDFHN8cUK
+ 5sekWxqHQHk/pjBpnvnj7LoQ5QObnr8ra3tjwaJA4RM57WTqZWn/FZkFoCZEnlFrdbGmM=
+X-Received: by 2002:ac8:58d6:0:b0:50f:b81e:c655 with SMTP id
+ d75a77b69052e-5100e1fbae3mr7673691cf.57.1777330725738; 
+ Mon, 27 Apr 2026 15:58:45 -0700 (PDT)
+Received: from [172.25.10.5] ([104.225.247.194])
+ by smtp.gmail.com with ESMTPSA id
+ 6a1803df08f44-8b3e2976bd6sm6538126d6.35.2026.04.27.15.58.44
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 27 Apr 2026 15:58:45 -0700 (PDT)
+Message-ID: <986650a0-2035-4082-9867-9c5ecd8dbc55@tennr.com>
+Date: Mon, 27 Apr 2026 18:58:44 -0400
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+To: Harry Wentland <harry.wentland@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>
+Cc: Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Wayne Lin <Wayne.Lin@amd.com>, Roman Li <Roman.Li@amd.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, kernel test robot <lkp@intel.com>
+Subject: [PATCH] drm/amd/display: simplify FreeSync MCCS capability check
+Content-Language: en-US
+From: Avi Radinsky <avi.radinsky@tennr.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Tue, 28 Apr 2026 12:54:19 +0000
+Content-Transfer-Encoding: 7bit
+X-Mailman-Approved-At: Tue, 28 Apr 2026 12:54:20 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,221 +93,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Fix all kernel-doc warnings in amdgpu.h and amdgpu_reset.h:
-- Use the struct keyword for kernel-doc struct comments.
-- Use the correct enum names in enum amd_reset_method.
+Simplify the FreeSync MCCS capability check by removing a redundant
+freesync_vcp_code test. The expression matches Coccinelle's
+!A || (A && B) to !A || B simplification without changing behavior.
 
-This eliminates these warnings:
-
-Warning: drivers/gpu/drm/amd/amdgpu/amdgpu.h:477 cannot understand
- function prototype: 'struct amdgpu_wb'
-Warning: drivers/gpu/drm/amd/amdgpu/amdgpu.h:576 Enum value
- 'AMD_RESET_METHOD_LEGACY' not described in enum 'amd_reset_method'
-Warning: drivers/gpu/drm/amd/amdgpu/amdgpu.h:576 Enum value
- 'AMD_RESET_METHOD_MODE0' not described in enum 'amd_reset_method'
-Warning: drivers/gpu/drm/amd/amdgpu/amdgpu.h:576 Enum value
- 'AMD_RESET_METHOD_MODE1' not described in enum 'amd_reset_method'
-Warning: drivers/gpu/drm/amd/amdgpu/amdgpu.h:576 Enum value
- 'AMD_RESET_METHOD_MODE2' not described in enum 'amd_reset_method'
-Warning: drivers/gpu/drm/amd/amdgpu/amdgpu.h:576 Enum value
- 'AMD_RESET_METHOD_LINK' not described in enum 'amd_reset_method'
-Warning: drivers/gpu/drm/amd/amdgpu/amdgpu.h:576 Enum value
- 'AMD_RESET_METHOD_BACO' not described in enum 'amd_reset_method'
-Warning: drivers/gpu/drm/amd/amdgpu/amdgpu.h:576 Enum value
- 'AMD_RESET_METHOD_PCI' not described in enum 'amd_reset_method'
-Warning: drivers/gpu/drm/amd/amdgpu/amdgpu.h:576 Enum value
- 'AMD_RESET_METHOD_ON_INIT' not described in enum 'amd_reset_method'
-Warning: drivers/gpu/drm/amd/amdgpu/amdgpu.h:576 Excess enum value
- '@AMD_RESET_LEGACY' description in 'amd_reset_method'
-Warning: drivers/gpu/drm/amd/amdgpu/amdgpu.h:576 Excess enum value
- '@AMD_RESET_MODE0' description in 'amd_reset_method'
-Warning: drivers/gpu/drm/amd/amdgpu/amdgpu.h:576 Excess enum value
- '@AMD_RESET_MODE1' description in 'amd_reset_method'
-Warning: drivers/gpu/drm/amd/amdgpu/amdgpu.h:576 Excess enum value
- '@AMD_RESET_MODE2' description in 'amd_reset_method'
-Warning: drivers/gpu/drm/amd/amdgpu/amdgpu.h:576 Excess enum value
- '@AMD_RESET_LINK' description in 'amd_reset_method'
-Warning: drivers/gpu/drm/amd/amdgpu/amdgpu.h:576 Excess enum value
- '@AMD_RESET_BACO' description in 'amd_reset_method'
-Warning: drivers/gpu/drm/amd/amdgpu/amdgpu.h:576 Excess enum value
- '@AMD_RESET_PCI' description in 'amd_reset_method'
-
-Also move the enum to amdgpu_reset.h and eventually only forward declare
-it in amdgpu.h. (Christian)
-
-Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
+Fixes: 6f71d5dd3206 ("drm/amd/display: Read sink freesync support via mccs")
+Reported-by: kernel test robot <lkp@intel.com>
+Closes: https://lore.kernel.org/oe-kbuild-all/202604270741.pABgRDTb-lkp@intel.com/
+Signed-off-by: Avi Radinsky <avi.radinsky@tennr.com>
 ---
-v2: I moved the enum to amdgpu_reset.h and then #included amdgpu_reset.h
-    in amdgpu.h. The simpler method causes build errors.
-v3: rebase and resend
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: Christian König <christian.koenig@amd.com>
-Cc: amd-gfx@lists.freedesktop.org
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Cc: Maxime Ripard <mripard@kernel.org>
-Cc: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: David Airlie <airlied@gmail.com>
-Cc: Simona Vetter <simona@ffwll.ch>
-
- drivers/gpu/drm/amd/amdgpu/amdgpu.h       |   42 ------------
- drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h |   69 +++++++++++++++-----
- 2 files changed, 58 insertions(+), 53 deletions(-)
-
---- linux-next-20260427.orig/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-+++ linux-next-20260427/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-@@ -464,7 +464,7 @@ int amdgpu_file_to_fpriv(struct file *fi
- #define AMDGPU_MAX_WB 1024	/* Reserve at most 1024 WB slots for amdgpu-owned rings. */
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index e96a12ff2d31..b7fa74a87c1f 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -13436,7 +13436,7 @@ void amdgpu_dm_update_freesync_caps(struct drm_connector *connector,
+ 	if ((sink->sink_signal == SIGNAL_TYPE_HDMI_TYPE_A ||
+ 		as_type == FREESYNC_TYPE_PCON_IN_WHITELIST) &&
+ 		(!sink->edid_caps.freesync_vcp_code ||
+-		(sink->edid_caps.freesync_vcp_code && !sink->mccs_caps.freesync_supported)))
++		!sink->mccs_caps.freesync_supported))
+ 		freesync_capable = false;
  
- /**
-- * amdgpu_wb - This struct is used for small GPU memory allocation.
-+ * struct amdgpu_wb - This struct is used for small GPU memory allocation.
-  *
-  * This struct is used to allocate a small amount of GPU memory that can be
-  * used to shadow certain states into the memory. This is especially useful for
-@@ -538,44 +538,6 @@ struct amdgpu_allowed_register_entry {
- 	bool grbm_indexed;
- };
- 
--/**
-- * enum amd_reset_method - Methods for resetting AMD GPU devices
-- *
-- * @AMD_RESET_METHOD_NONE: The device will not be reset.
-- * @AMD_RESET_LEGACY: Method reserved for SI, CIK and VI ASICs.
-- * @AMD_RESET_MODE0: Reset the entire ASIC. Not currently available for the
-- *                   any device.
-- * @AMD_RESET_MODE1: Resets all IP blocks on the ASIC (SDMA, GFX, VCN, etc.)
-- *                   individually. Suitable only for some discrete GPU, not
-- *                   available for all ASICs.
-- * @AMD_RESET_MODE2: Resets a lesser level of IPs compared to MODE1. Which IPs
-- *                   are reset depends on the ASIC. Notably doesn't reset IPs
-- *                   shared with the CPU on APUs or the memory controllers (so
-- *                   VRAM is not lost). Not available on all ASICs.
-- * @AMD_RESET_LINK: Triggers SW-UP link reset on other GPUs
-- * @AMD_RESET_BACO: BACO (Bus Alive, Chip Off) method powers off and on the card
-- *                  but without powering off the PCI bus. Suitable only for
-- *                  discrete GPUs.
-- * @AMD_RESET_PCI: Does a full bus reset using core Linux subsystem PCI reset
-- *                 and does a secondary bus reset or FLR, depending on what the
-- *                 underlying hardware supports.
-- *
-- * Methods available for AMD GPU driver for resetting the device. Not all
-- * methods are suitable for every device. User can override the method using
-- * module parameter `reset_method`.
-- */
--enum amd_reset_method {
--	AMD_RESET_METHOD_NONE = -1,
--	AMD_RESET_METHOD_LEGACY = 0,
--	AMD_RESET_METHOD_MODE0,
--	AMD_RESET_METHOD_MODE1,
--	AMD_RESET_METHOD_MODE2,
--	AMD_RESET_METHOD_LINK,
--	AMD_RESET_METHOD_BACO,
--	AMD_RESET_METHOD_PCI,
--	AMD_RESET_METHOD_ON_INIT,
--};
--
- struct amdgpu_video_codec_info {
- 	u32 codec_type;
- 	u32 max_width;
-@@ -1373,6 +1335,8 @@ int emu_soc_asic_init(struct amdgpu_devi
- #define RBIOS16(i) (RBIOS8(i) | (RBIOS8((i)+1) << 8))
- #define RBIOS32(i) ((RBIOS16(i)) | (RBIOS16((i)+2) << 16))
- 
-+#include "amdgpu_reset.h"
-+
- /*
-  * ASICs macro.
-  */
---- linux-next-20260427.orig/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h
-+++ linux-next-20260427/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h
-@@ -46,6 +46,47 @@ enum AMDGPU_RESET_SRCS {
- 	AMDGPU_RESET_SRC_USERQ,
- };
- 
-+/**
-+ * enum amd_reset_method - Methods for resetting AMD GPU devices
-+ *
-+ * @AMD_RESET_METHOD_NONE: The device will not be reset.
-+ * @AMD_RESET_METHOD_LEGACY: Method reserved for SI, CIK and VI ASICs.
-+ * @AMD_RESET_METHOD_MODE0: Reset the entire ASIC. Not currently available for
-+ *                          the any device.
-+ * @AMD_RESET_METHOD_MODE1: Resets all IP blocks on the ASIC (SDMA, GFX, VCN,
-+ *                   etc.) individually. Suitable only for some discrete GPU,
-+ *                   not available for all ASICs.
-+ * @AMD_RESET_METHOD_MODE2: Resets a lesser level of IPs compared to MODE1.
-+ *                   Which IPs are reset depends on the ASIC. Notably doesn't
-+ *                   reset IPs shared with the CPU on APUs or the memory
-+ *                   controllers (so VRAM is not lost). Not available on all
-+ *                   ASICs.
-+ * @AMD_RESET_METHOD_LINK: Triggers SW-UP link reset on other GPUs
-+ * @AMD_RESET_METHOD_BACO: BACO (Bus Alive, Chip Off) method powers off and on
-+ *                   the card but without powering off the PCI bus. Suitable
-+ *                   only for discrete GPUs.
-+ * @AMD_RESET_METHOD_PCI: Does a full bus reset using core Linux subsystem
-+ *                   PCI reset and does a secondary bus reset or FLR,
-+ *                   depending on what the underlying hardware supports.
-+ * @AMD_RESET_METHOD_ON_INIT: Does a device reset during the driver init
-+ *                   sequence.
-+ *
-+ * Methods available for AMD GPU driver for resetting the device. Not all
-+ * methods are suitable for every device. User can override the method using
-+ * module parameter `reset_method`.
-+ */
-+enum amd_reset_method {
-+	AMD_RESET_METHOD_NONE = -1,
-+	AMD_RESET_METHOD_LEGACY = 0,
-+	AMD_RESET_METHOD_MODE0,
-+	AMD_RESET_METHOD_MODE1,
-+	AMD_RESET_METHOD_MODE2,
-+	AMD_RESET_METHOD_LINK,
-+	AMD_RESET_METHOD_BACO,
-+	AMD_RESET_METHOD_PCI,
-+	AMD_RESET_METHOD_ON_INIT,
-+};
-+
- struct amdgpu_reset_context {
- 	enum amd_reset_method method;
- 	struct amdgpu_device *reset_req_dev;
-@@ -56,6 +97,20 @@ struct amdgpu_reset_context {
- 	enum AMDGPU_RESET_SRCS src;
- };
- 
-+struct amdgpu_reset_control {
-+	void *handle;
-+	struct work_struct reset_work;
-+	struct mutex reset_lock;
-+	struct amdgpu_reset_handler *(
-+		*reset_handlers)[AMDGPU_RESET_MAX_HANDLERS];
-+	atomic_t in_reset;
-+	enum amd_reset_method active_reset;
-+	struct amdgpu_reset_handler *(*get_reset_handler)(
-+		struct amdgpu_reset_control *reset_ctl,
-+		struct amdgpu_reset_context *context);
-+	void (*async_reset)(struct work_struct *work);
-+};
-+
- struct amdgpu_reset_handler {
- 	enum amd_reset_method reset_method;
- 	int (*prepare_env)(struct amdgpu_reset_control *reset_ctl,
-@@ -72,20 +127,6 @@ struct amdgpu_reset_handler {
- 	int (*do_reset)(struct amdgpu_device *adev);
- };
- 
--struct amdgpu_reset_control {
--	void *handle;
--	struct work_struct reset_work;
--	struct mutex reset_lock;
--	struct amdgpu_reset_handler *(
--		*reset_handlers)[AMDGPU_RESET_MAX_HANDLERS];
--	atomic_t in_reset;
--	enum amd_reset_method active_reset;
--	struct amdgpu_reset_handler *(*get_reset_handler)(
--		struct amdgpu_reset_control *reset_ctl,
--		struct amdgpu_reset_context *context);
--	void (*async_reset)(struct work_struct *work);
--};
--
- 
- enum amdgpu_reset_domain_type {
- 	SINGLE_DEVICE,
+ 	if (do_mccs && sink->mccs_caps.freesync_supported && freesync_capable)
