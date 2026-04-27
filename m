@@ -4,131 +4,84 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6500FFF885E
-	for <amd-gfx@archiver.kernel.org>; Mon, 27 Apr 2026 13:58:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D8D09FF8865
+	for <amd-gfx@archiver.kernel.org>; Mon, 27 Apr 2026 14:01:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CE1B510E036;
-	Mon, 27 Apr 2026 13:58:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5B61910E2AB;
+	Mon, 27 Apr 2026 14:01:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="JbT4oCEQ";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="s+BJuNrr";
 	dkim-atps=neutral
-Received: from CY7PR03CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11010019.outbound.protection.outlook.com
- [40.93.198.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F3DB410E036
- for <amd-gfx@lists.freedesktop.org>; Mon, 27 Apr 2026 13:58:01 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=uOUQRsNFzusjVNHYNJO0Adb7WnjjwOCC2OfNNcD2AuWf0Us5rpKc2W8S1U/NHScSNbNQg984jsz0POAhKUe4smyH46WoryJCan05lV6MqHpmJ/oXjEUvAtEIxaGtqd7+AOofgyjP+teea24aivA13XK1jT+f+2gRSOALsNLRTLzUFJd0b9CzNe/6JUSep+5cS7HRLfAyqJIZKB0K5WrDWJyJFJsMmkRnEeJjF15ghFFC2/OY2+LMWI+UtFFPftOsuAzDIZBz/vrdjSwdP/uRe3RtDTcA3tck6/0ZQjWwaofFcmJPEXIsqYT72o5FivVK/jW1IIoTkOGNdPmnXIvf3Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=mQSqg3RJOOQo2JXuY5r5JX7s6CfmvFp0y4rX21r36d8=;
- b=Rn3C4wXchS+zjn7L1x5FURjaP4r13TalPUzvWA5E26Ig4SFCGLrXKxVTsMv97HehT8iPJZ60iyK6QVwBoba0rmRKEnQa6r3tonjyiAV9i8v9cfP0ljDLh8uIr065EwRArLPR42NwDGL+hm1KWxjDux69ZrJ5jkPczHC0TfRuD6gMucySPvzU+pp6+tttckLKtc0KGFOC8XZYqIANTgMuk2LTbXptrxQ3zGQ0J5PNOvsRzrIC98xJx0PTkOuGRp0qIicfFO8Mx7F/CIgOpgSPqUbsAJHt8ErCV3scLiJIZUWDKeBfpYSFwtrKW4doJZQLHajV65ZMgMXu7DM3kX2XDA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=mQSqg3RJOOQo2JXuY5r5JX7s6CfmvFp0y4rX21r36d8=;
- b=JbT4oCEQrOvSF4KleOlp+Ze9n3CE63dLRTqaudsvzGDTQ0SzqxK71DcdyAxl+Wf9n608Hn/LvmJLwmV9VtKvhlBmeDNzYqho5lURRD4NWN6ODf4rlj9Qy5MaIVJUoRfq/XDz0Qrn+Xqyfj18/wj2tYJUhiGAC83WaSgRzdSyT+g=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from SA0PR12MB7091.namprd12.prod.outlook.com (2603:10b6:806:2d5::17)
- by SA3PR12MB8761.namprd12.prod.outlook.com (2603:10b6:806:312::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.16; Mon, 27 Apr
- 2026 13:57:58 +0000
-Received: from SA0PR12MB7091.namprd12.prod.outlook.com
- ([fe80::ec33:1213:cfd8:63bc]) by SA0PR12MB7091.namprd12.prod.outlook.com
- ([fe80::ec33:1213:cfd8:63bc%3]) with mapi id 15.20.9870.013; Mon, 27 Apr 2026
- 13:57:57 +0000
-Message-ID: <eac359b6-13f8-4114-96db-84f6b2429968@amd.com>
-Date: Mon, 27 Apr 2026 19:27:51 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amd/pm: Add fine grained flag to SMU v13.0.6
-To: "Wang, Yang(Kevin)" <KevinYang.Wang@amd.com>,
- "Kamal, Asad" <Asad.Kamal@amd.com>,
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com
+ [209.85.128.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 19E2B10E2AB
+ for <amd-gfx@lists.freedesktop.org>; Mon, 27 Apr 2026 14:01:54 +0000 (UTC)
+Received: by mail-wm1-f49.google.com with SMTP id
+ 5b1f17b1804b1-4852b81c73aso86006845e9.3
+ for <amd-gfx@lists.freedesktop.org>; Mon, 27 Apr 2026 07:01:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1777298512; x=1777903312; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=DWToCEIaXUKWmzZCo1GynuIdV0WlRzUNUcIX47DR9ME=;
+ b=s+BJuNrrj40N5hhIbQz7ltcXIaDIcEuM5CBDnz+zHMyp11VBkf2JP5xgD2tXuZmaGo
+ LPRxZBPZY3jNNMum4xGwsc2MLMJTjLy8YuIwfwKImAJ2c9vKzO/aW2HxH0gHwoxJ5WhY
+ daJqFSS7mkHhP0wHSAhz2qib0Nnqk5incfsDVBQoapjB7W8tTvwbav3JF532X2BTnnaL
+ 5juEUCdYwFScaTjcd5a2ky5Kqi6NU1+H5zwp8+EwBqsN8ex4lScpTBpdMYhc9vj7wiKN
+ eqav/cyKpq/WVfKVp5hY4zCMgJQyLpkvYlZGoVIhDg3VT5YisuY2BTrWTCPnHyZBGvlT
+ gxXg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1777298512; x=1777903312;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=DWToCEIaXUKWmzZCo1GynuIdV0WlRzUNUcIX47DR9ME=;
+ b=AUC1xzNc4/nyIm4STS5GPApBUEhtqQ/PCFVWfPVVrdcH6SNIR3G2/84gnsSoG4C+/g
+ pQq6KQt/i20uU30mKkquZUD8uhT8C9+zRTGWwxIZcwSwqDXaILMvHNYmH0jvUWFw6WDv
+ kiGOD43+Z2d+b6Q+GyyQDvzFD9nu8HlLRZB3VX9+VwI99pTVfXG+5/ypeQ5izKnI8xog
+ 73QIyxw1ZGgCdDxluseB8Gfc1g7S6tnQBXxmrAZOtjyfynP7hSl2RQyTvPnMbKnSSsDI
+ fEQbCvn56cZr34cOLVNDWqwXbfUxLx9cofV2/PMSKkwbJA4La7dfPSVDGea/gSXXkf+v
+ 1ZPQ==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ/GNhu+b/mJAgEnTFLtZz4T9XcLYvy6yfBOqP8KsZ2kHvyQBDoD0kTWNDA1ltHN8/lGKrbKVk7R@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwaxZLnZfc8W+FcwdGsmPp93BBb+cSp1HLXsIKwb9WXjQOCdnIc
+ fi50i+POZG6VPAcziK1Ms5cNOmF2Ga93/qzRSIjR/jAX/LgP8GNVchoF
+X-Gm-Gg: AeBDietIx68YK/r+oCr3lzzRicK+vWCJQYZjTsabKr0Extjfw+v83IRaqly8kU02Uqc
+ lr3zzt3+cy01JEwcBVnHSF+DlH0Yc+wR83bN6l8dn8XchgBum+Jvg8uCA/0aR7Qjc/iRAz99CCq
+ Az1eiMtC8sk2p8rLKtiA+Q7+E5u4RvznpctWpPY7Xew/CjtPQcO4ZUCKncPRmvXKk3XoUy7Op9f
+ P8adDgY8m74xhfGiipKpE2OsUzSIi1lS74FwSWKns4fmaZMgKdlENCvj2rtt0oAn1T0fZN+fJtR
+ 1gltWTgwJz6aiXGnmmI0bzrZH1BpFmKBIZX4K52aaHVf+fEUA9MlZXCUamqTn7zAHeus8d6E1Wq
+ 3PjgzngzpcXQj2rd+dIvbmCDjGipUl3saVvAM4dNHgJY3x2xn56xXeX0lph4+rumggwX5Q8qc/4
+ TC5x4jMmU/kbnbHJ7QgUaLR6KipTClvYd6we8hJgCB4JAcCJTfmm1YF4rHD0bJB3iB95gbO9lnb
+ 6RaSINNxA==
+X-Received: by 2002:a05:600c:4593:b0:488:c120:480a with SMTP id
+ 5b1f17b1804b1-488fb78bf05mr614809525e9.31.1777298512250; 
+ Mon, 27 Apr 2026 07:01:52 -0700 (PDT)
+Received: from timur-hyperion.localnet (5401DFC2.dsl.pool.telekom.hu.
+ [84.1.223.194]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4891c08faffsm1050495965e9.1.2026.04.27.07.01.51
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 27 Apr 2026 07:01:51 -0700 (PDT)
+From: Timur =?UTF-8?B?S3Jpc3TDs2Y=?= <timur.kristof@gmail.com>
+To: Brandon Taylor <br.ta.2818@gmail.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Linux regressions mailing list <regressions@lists.linux.dev>,
+ Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>
+Cc: Linux kernel regressions list <regressions@lists.linux.dev>,
+ Alex Deucher <alexander.deucher@amd.com>,
  "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Cc: "Zhang, Hawking" <Hawking.Zhang@amd.com>,
- "Deucher, Alexander" <Alexander.Deucher@amd.com>
-References: <20260427073042.3547935-1-lijo.lazar@amd.com>
- <DM6PR12MB2972472A5F44139A4439029C82362@DM6PR12MB2972.namprd12.prod.outlook.com>
- <b462125b-0cf8-4fff-996c-26a58e48e438@amd.com>
- <DM6PR12MB2972F9AD29542173B6B9A9B882362@DM6PR12MB2972.namprd12.prod.outlook.com>
- <fe6ed465-47bb-41fa-9d3d-5e6c79b83bd7@amd.com>
- <DS7PR12MB60717B0AC6C53245966A41868E362@DS7PR12MB6071.namprd12.prod.outlook.com>
- <DM6PR12MB29722EEFE265BC9704E3558882362@DM6PR12MB2972.namprd12.prod.outlook.com>
-Content-Language: en-US
-From: "Lazar, Lijo" <lijo.lazar@amd.com>
-In-Reply-To: <DM6PR12MB29722EEFE265BC9704E3558882362@DM6PR12MB2972.namprd12.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MA5PR01CA0179.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a01:1a9::9) To SA0PR12MB7091.namprd12.prod.outlook.com
- (2603:10b6:806:2d5::17)
+Subject: Re: [REGRESSION] amdgpu error -22 first encountered in kernel 6.19,
+ not fixed in 7.0
+Date: Mon, 27 Apr 2026 16:01:50 +0200
+Message-ID: <2730559.vYhyI6sBWr@timur-hyperion>
+In-Reply-To: <ed3171ef-eda8-4907-a35b-2e2b8185e574@leemhuis.info>
+References: <CAMYTvdA+yCqU4_9mzMUkX_3S=myExKMBCyB88dYWCMwA1edsrw@mail.gmail.com>
+ <6c48aff5-b6ee-40af-98f0-c26ded3095bc@leemhuis.info>
+ <ed3171ef-eda8-4907-a35b-2e2b8185e574@leemhuis.info>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA0PR12MB7091:EE_|SA3PR12MB8761:EE_
-X-MS-Office365-Filtering-Correlation-Id: 25bb4fd4-a2fb-48e9-6740-08dea464fbf6
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|366016|56012099003|22082099003|18002099003; 
-X-Microsoft-Antispam-Message-Info: EyAuytPbaXhtgYQOaRLY6IVaTaqdEHZi1LlCiac7K3B6/3QjP1XzP45/Oc1GojUPAM1/+L7XkbpbKIyDYM7gnDIZeGIRppdsj4stPwsn7kDHVBGR4mffFiFaqgluQ2v+ZtEkgBFVlV7OP1/kaab1lzDJXGMgu8Ba9wyXG6hf1ldOIyU+r8KVXVp+/vIGcCpWR+ZTR241pQiE8J79RyBsj9cui8U4Tk17jmTAIA6AiVgZ8/xXVqsvzw9Muy+ZULLpnMDY27vrixuI0G0gg02S3RtOQ65pKefuxUFlnUhS4meKLbf1Fvwr3XO9Jo3PCnNa3NpcGQaMXDdvF8LlKQXJ3nbCIaW1r579J2zvnohhUJ+HFMot6xo+jBVAogvDOr1AZ6nniAo/q6TkrCCxqFlb/8VKvDVvI6aMXwVBFwSUNmuY9gIcL6o1QOJo+0XByWT6BuyF+EK9kkZVNqkp8vd+wf09IncRDMzmvIDC0JhWczu1Bew7bddd5cEJeUwVS5BkBkFaYUh9LEuNr27Toz+QX7ryC16fxjHDF45+m3PWsGAoZnW1gThb35uCEs1+2YYWQJteM3fXZKvF6uHiJ1nEHi6khGysmLVQnn3eBBfT69k+ygRwmodG8F0ffd/ExP23mDaBIqsmtZr2ekNe1GA8TOkbPS25Jsc8+OLf5GcySaCo4zn35Jo2b/K23I5Jonfpq9BR8HIjZHVoIWXUG+KLiL4eJrNoTZWtnhPJ0Q5U2KQ=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SA0PR12MB7091.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(366016)(56012099003)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Z3RKeCtyMFE5NWtWdGU0L2F4ZmZQMk9QNlVWRHFISGRsVm1TN0hKU2pSRGlk?=
- =?utf-8?B?elA2L09STTZHajVZQ2NVcFp5WDRXK3BSeDRLSk02K2xPQ016eWNlc2tjMVV1?=
- =?utf-8?B?QnBmRVNORE5wdndaTHlmYnR1WmJsYjEvNmdWM3FCRUpjRURCYjYwb09aUXcz?=
- =?utf-8?B?THBjdWZwNVYxMWNaNjlrOHlib1NqaXJNbElYYWhVREcwVk9jYkdUZGdsekVw?=
- =?utf-8?B?dWpiU3U4WGRraTBncXBXUmlWWmtwTmp6YTNhMndYT3JNWkVZM1lheE9pUFBQ?=
- =?utf-8?B?dHhJWXBWWjJ0VWNPa2hDRGs2amhJR2sxNTJ5RU51VzB6ZXRibXVvVG5Oa21W?=
- =?utf-8?B?SVpJeStsWllIU1dqbytRS3F0ZFZzS0laSVRyTE9VY3JWU09md3kzTVZlaDY4?=
- =?utf-8?B?eFh4bjB3WVJjYjJQdjlOUEtraW9UOERmbldWK1BoOHBhWnlGR05yUEpFdUtv?=
- =?utf-8?B?ZUZCaUptRmxNdXV5ZFZQb1FyaWMrQkMrWUo2WEdvVUplOEhLLy9nMlRtbkZO?=
- =?utf-8?B?aWlYTFcyRWVkZDRXREVueVlRbnhNS3B2MWRnbEMxanR6QUpLMXMrUXRycjh6?=
- =?utf-8?B?OVZtMGJJNXVpRjgyOGVpYU5mb3JlSVFKVDJ5M3huRjFMRzhmMm5nbXcvR0ht?=
- =?utf-8?B?K1B5TGJTOWlwK3ovNFJIVzN4M0xEQmM3aUJqcjJ0Vk9Vbmo5b3NyTkxFOVpE?=
- =?utf-8?B?aFpLNXI4czJvRDdFL0pWT09xVDk2OWNVcjBMRmxlb3pPN08rZFNVNXY5eXB3?=
- =?utf-8?B?U1BOcC85TUxHZXh3T0pxcTlNd3ZEK2EvUlVCZ2tUOE9tUzlyUmFGMGxsdlkr?=
- =?utf-8?B?aW9yQXRIN0ZBWm4wWm04ZkVlR2tLY1EwNkZZT1JBMHF3eUN1VkFsOTRlT283?=
- =?utf-8?B?VWNpS1k2MFc1ek1URFJpRWdtUEswM1M3eFJBSGZqUUNCd1lGdXgrVGM3TXJq?=
- =?utf-8?B?OTdTRGVqNEdHZE1EU2xUNkdhdXNYSWxGRFFRQmV5MXcvaEtPdnhxMXRVSUpS?=
- =?utf-8?B?Yk1iNzBjd0pIUC9CbGN3bXhlbzc5Y01ITk91NGxTVmxUZHdLdXU5c3pZUmFF?=
- =?utf-8?B?UjEvU2tyVUJ2OTY2ZitKYmhDdWxscER4dE9aOUNSa0hrT3JqbE50UmdTbWFL?=
- =?utf-8?B?VmhMaU5OWk9scE1SV2NvTGpYa3JhZW1LMGNmSUxISzY4ZGl4b1V0eHh3dXl3?=
- =?utf-8?B?Yk5GTmo4aFRPeTdoSldId2hKbEM4ZFVuS21PTFltd2hrN2Frc1ViU1dpSDhG?=
- =?utf-8?B?cGpIcU9Kcy9Ka3d5NHZPOXEybjI3QzhsS3FNYXpDK21VUGh1a2szNFZ1YXR1?=
- =?utf-8?B?QlkwQ2l2Ykk1dDRhNnhEOFRLaEZFcWtuTXRHdkhSUm1aak9ESXRTQWozbGZ6?=
- =?utf-8?B?a2xRTnlsclFaN2F2Q0V6YTVDYm1UUjFYbHQ5UHh5QU9YZ2hnOXJpdUpQWmM3?=
- =?utf-8?B?aGs0dTlkZVYyWU5vRlNuZWRGdUYwOUJBS21tQWgvOHYvM1BDa3g4Y2xZV3Z3?=
- =?utf-8?B?SDB5TEtham9UalBLN05Pei9GMXplNkt4NThUTHRLTGlGV2tQdStqdmFZMFVj?=
- =?utf-8?B?OHB6cXVsdEMxSThxSkxzamp0VnI1cm9CZ2Jld2swZ1EwUllab3l0Yk5YQnFp?=
- =?utf-8?B?bmdRcC9BaDAyc2JYaWxwSEhDa0gyUGNHSXVqd3RrWUp6MzlURlpOUUExbWZp?=
- =?utf-8?B?c0VGSGRNYWYrbEsvR2xtWEZOb3JPSEVMSjRrSzZDV2Rzd00raWUxemhZWkdm?=
- =?utf-8?B?M2ZGODVSajhLWmxBQ3RQclJFOVREVm9PemF1L2w0ZDJsbllSZUhkNFBETFRz?=
- =?utf-8?B?LzhvM1Qra1dDSDVodzd5M2IxbkFCWHV1Wkl0S094MWp3N3p4Wks2MGhDNVRa?=
- =?utf-8?B?Qy9XTFo0ZndraFJwdi9EWVg3dW5ZQnl2OGhNa1AvVmlxNE02TTFRUUpodGMx?=
- =?utf-8?B?MXVDbFpsZ2hkNVJ0YnVhbWplQy9FL2ZJeHhZSW9LcGZRbjhxUVNsN0pSdGtP?=
- =?utf-8?B?U2dzZmI1RUZYazdTYWl1b1RBTDl2RW5QZ1FiWVRkeWI0UWxYNElqTTUrZjAx?=
- =?utf-8?B?Q0RWMWhUaUFMV25vb3lqcy9STlgzV1dxK1VYWFR3d0VYc3p2QmhHWDNnRzRY?=
- =?utf-8?B?STlZbDQ4eEJCNDNCcEwzeFRDTWxQWXlHVVNmdHA1TTExanp2cCtFYURmQ0VF?=
- =?utf-8?B?amtMck9DdXpYUjAwMmNPNmFuQVhjN2R6Z1FzcGc1cEEzempOZ1JXbHhRRWM2?=
- =?utf-8?B?TEhpS2crcW5YdWF6Rkl3MlBwYzlmNFJCd0ZoemNLcXlLRmtDZm9nSEh0OVhn?=
- =?utf-8?B?WEdiOU9rSStTYXd3SVpmNElDZmNkRllDTjZ0UDZnL3JLMjdSY0lpUT09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 25bb4fd4-a2fb-48e9-6740-08dea464fbf6
-X-MS-Exchange-CrossTenant-AuthSource: SA0PR12MB7091.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Apr 2026 13:57:56.8631 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Au58XuqPAmCmVkvhfrO2o/3XJCwPwJpTL6P7X+Tn9vsnMuOsvrKfkwutJq74OlQM
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB8761
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -143,146 +96,94 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Hi,
+
+Thank you Thorsten for forwarding this to me, indeed I am working on improv=
+ing=20
+the driver for these GPUs. See my replies below.
+
+On Monday, April 27, 2026 11:37:53=E2=80=AFAM Central European Summer Time =
+Thorsten=20
+Leemhuis wrote:
+> [note: please remove Timo Lindfors when replying to this mail and
+> include Timur Krist=C3=B3f =E2=80=93 sorry everyone and especially Timo, =
+my mailers
+> address book tricked me]
+>=20
+> On 4/27/26 11:35, Linux regression tracking (Thorsten Leemhuis) wrote:
+> > On 4/26/26 01:22, Brandon Taylor wrote:
+> >> I have an AMD Radeon R9 270X GPU (yes, I know it's old) which used to
+> >> default to the `radeon` firmware
+> >=20
+> > FYI, as using the wrong terms can lead to confusion while dealing with
+> > bugs: that's not a firmware, that's the driver (sometimes also called
+> > kernel module)
+
+=2D "radeon" is the old kernel driver for these GPUs that didn't support Vu=
+lkan=20
+and therefore was mostly useless for gaming.
+=2D "amdgpu" is the new driver, which supports Vulkan and offers better per=
+f,=20
+this is the default since Linux 6.19.
+
+I don't think this is a firmware issue.
+
+> >=20
+> >> on kernel versions up to and
+> >> including 6.18. I could manually change this behavior to use the new
+> >> `amdgpu` firmware by setting `radeon.si_support=3D0 amdgpu.si_support=
+=3D1`
+> >> as kernel parameters in the GRUB bootloader. Everything worked fine,
+> >> and I was able to play my Windows games without any problems.
+> >>=20
+> >> That was, until kernel version 6.19 came out.>
+> >> 6.19, from what I was able to Google, was supposed to have AMD GPUs to
+> >> default to the new `amdgpu` firmware. Unfortunately, when I updated
+> >> the kernel and rebooted, I got a black screen.
+> >>=20
+> >> Further Google searches led me to reboot, set `nomodeset` in the
+> >> kernel parameters, switch to a TTY, login, and investigate the output
+> >> of a `dmesg` command =E2=80=94 and what I saw ... Well, let's just say=
+ it's
+> >> the kind of thing that would make Linus go Chernobyl:
+> >>=20
+> >> `amdgpu: probe with driver amdgpu failed with error -22`
+> >=20
+
+I am sorry this happened and understand the frustration.
+
+Please open an issue here:
+https://gitlab.freedesktop.org/drm/amd/-/work_items/new
+and upload your full dmesg log. Please ping me personally @Venemo on that=20
+issue after you opened it so we can start investigating what is wrong there.
+
+I got curious so I plugged in my R9 270X right now. I am typing this email =
+on=20
+a computer with a Radeon R9 270X using Linux 6.19.12 on Fedora 43 and it wo=
+rks=20
+fine. We are going to need to need more details in order to diagnose what t=
+he=20
+problem really is. We might ask you to test some proposed fixes, considerin=
+g=20
+that the issue doesn't happen on my R9 270X, I don't have a way to verify i=
+t.
+
+> >> Now, I hope to God that this email finds whoever is responsible for
+> >> breaking this `amdgpu` firmware before the same thing happens to Linus
+> >> via Fedora 44, and he goes berserk. I realize that's not a heck of a
+> >> lot of time, but God only knows HOW many Linux users with AMD GPUs are
+> >> pissed off by this kind of issue =E2=80=94 and I for one can only imag=
+ine how
+> >> Linus' reaction will compare when it happens to HIM!
+
+I'm happy to help, there is no need for personal insults.
+
+(Note that the issue clearly doesn't affect all AMD GPUs and it clearly doe=
+sn't=20
+even affect all R9 270X GPUs.)
+
+Thanks & best regards,
+Timur
 
 
-On 27-Apr-26 5:53 PM, Wang, Yang(Kevin) wrote:
-> AMD General
-> 
-> Sorry, I need to revoke my Reviewed-by.
-> I object to adding this custom workaround for SMU v13.0.6 in the SMU common layer.
-> The concern is that this stems from an incorrect this patch, then adding an additional workaround to compensate for that incorrect change is not appropriate.
-> 
-
-This is not a custom workaround, but rather an issue with common 
-implementation. Flags is a property of the clock table. In older SMU13 
-SOCs, fine grained status query also required DPM to be enabled for that 
-clock; hence there is a dependency on DPM enablement.
-
-In newer SOCs, there is no such concept, rather the property is set in 
-the clock table for the clock type. Thus DPM enablement is not a 
-mandatory requirement for the clock table property.
-
-The current common logic assumes that table for fine grained clock type 
-always will have 2 levels enabled regardless of DPM enablement. That is 
-not the case when DPM is not enabled for that particular clock.
-
-Thanks,
-Lijo
-
-
-> Best Regards,
-> Kevin
-> 
-> -----Original Message-----
-> From: Kamal, Asad <Asad.Kamal@amd.com>
-> Sent: Monday, April 27, 2026 20:00
-> To: Lazar, Lijo <Lijo.Lazar@amd.com>; Wang, Yang(Kevin) <KevinYang.Wang@amd.com>; amd-gfx@lists.freedesktop.org
-> Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Deucher, Alexander <Alexander.Deucher@amd.com>
-> Subject: RE: [PATCH] drm/amd/pm: Add fine grained flag to SMU v13.0.6
-> 
-> AMD General
-> 
-> With follow up patch already sent to update smu_cmn_print_dpm_clk_levels logic, there is no more update needed here
-> 
-> Reviewed-by: Asad Kamal <asad.kamal@amd.com>
-> 
-> Thanks & Regards
-> Asad
-> 
-> 
-> 
-> -----Original Message-----
-> From: Lazar, Lijo <Lijo.Lazar@amd.com>
-> Sent: Monday, April 27, 2026 2:45 PM
-> To: Wang, Yang(Kevin) <KevinYang.Wang@amd.com>; amd-gfx@lists.freedesktop.org
-> Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Deucher, Alexander <Alexander.Deucher@amd.com>; Kamal, Asad <Asad.Kamal@amd.com>
-> Subject: Re: [PATCH] drm/amd/pm: Add fine grained flag to SMU v13.0.6
-> 
-> 
-> 
-> On 27-Apr-26 1:39 PM, Wang, Yang(Kevin) wrote:
->> AMD General
->>
->> -----Original Message-----
->> From: Lazar, Lijo <Lijo.Lazar@amd.com>
->> Sent: Monday, April 27, 2026 15:56
->> To: Wang, Yang(Kevin) <KevinYang.Wang@amd.com>;
->> amd-gfx@lists.freedesktop.org
->> Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Deucher, Alexander
->> <Alexander.Deucher@amd.com>; Kamal, Asad <Asad.Kamal@amd.com>
->> Subject: Re: [PATCH] drm/amd/pm: Add fine grained flag to SMU v13.0.6
->>
->>
->>
->> On 27-Apr-26 1:16 PM, Wang, Yang(Kevin) wrote:
->>> AMD General
->>>
->>> +       dpm_table->flags = SMU_DPM_TABLE_FINE_GRAINED;
->>>
->>> You need to move this line of code under smu_feature_is_enabled() to prevent subsequent smu_cmn_print_dpm_clk_levels() errors.
->>
->> I think it's better to fix the smu_cmn_print_dpm_clk_levels() logic for that - to keep a separate path for dpm_table->count == 1.
->>
->> [kevin]:
->> No, this should be an independent issue, and you need to maintain consistent code logic with other SMU functions.
->> e.g: all locations where the smu_v13_0_set_single_dpm_table() function is invoked.
->>
-> 
-> The issue is because smu_cmn_print_dpm_clk_levels is hardcoding number of levels to 2 for fine grained regardless of dpm enablement status. I think the fix should be there rather than at other places. If the count is only 1, it shouldn't keep the hardcoded value as 2.
-> 
-> Thanks,
-> Lijo
-> 
->> Best Regards,
->> Kevin
->>
->> Thanks,
->> Lijo
->>
->>>
->>> With that fixed, the patch is
->>>
->>> Reviewed-by: Yang Wang <kevinyang.wang@amd.com>
->>>
->>> Best Regards,
->>> Kevin
->>>
->>> -----Original Message-----
->>> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of
->>> Lijo Lazar
->>> Sent: Monday, April 27, 2026 15:31
->>> To: amd-gfx@lists.freedesktop.org
->>> Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Deucher, Alexander
->>> <Alexander.Deucher@amd.com>; Kamal, Asad <Asad.Kamal@amd.com>
->>> Subject: [PATCH] drm/amd/pm: Add fine grained flag to SMU v13.0.6
->>>
->>> Gfx clock is fine grained on SMU v13.0.6/12 SOCs. Add the flag to report clock frequencies correctly.
->>>
->>> Fixes: 7380228401c4 ("drm/amd/pm: Use generic dpm table for SMUv13
->>> SOCs")
->>>
->>> Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
->>> ---
->>>     drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c | 1 +
->>>     1 file changed, 1 insertion(+)
->>>
->>> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
->>> b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
->>> index 40f0d8a685bf..8d04f6e73fd7 100644
->>> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
->>> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
->>> @@ -1133,6 +1133,7 @@ static int smu_v13_0_6_set_default_dpm_table(struct smu_context *smu)
->>>            /* gfxclk dpm table setup */
->>>            dpm_table = &dpm_context->dpm_tables.gfx_table;
->>>            dpm_table->clk_type = SMU_GFXCLK;
->>> +       dpm_table->flags = SMU_DPM_TABLE_FINE_GRAINED;
->>>            if (smu_cmn_feature_is_enabled(smu, SMU_FEATURE_DPM_GFXCLK_BIT)) {
->>>                    /* In the case of gfxclk, only fine-grained dpm is honored.
->>>                     * Get min/max values from FW.
->>> --
->>> 2.49.0
->>>
->>
-> 
-> 
 
