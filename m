@@ -4,123 +4,137 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 55CFAFF8864
-	for <amd-gfx@archiver.kernel.org>; Mon, 27 Apr 2026 20:53:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 89AE7FF8870
+	for <amd-gfx@archiver.kernel.org>; Mon, 27 Apr 2026 21:05:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E31AD10E931;
-	Mon, 27 Apr 2026 20:53:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C8DE910E93A;
+	Mon, 27 Apr 2026 21:05:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="c45kyukD";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="WHWe1nQQ";
 	dkim-atps=neutral
-Received: from CO1PR03CU002.outbound.protection.outlook.com
- (mail-westus2azon11010025.outbound.protection.outlook.com [52.101.46.25])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6AB8510E931
- for <amd-gfx@lists.freedesktop.org>; Mon, 27 Apr 2026 20:53:19 +0000 (UTC)
+Received: from CY3PR05CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11013042.outbound.protection.outlook.com
+ [40.93.201.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 74C8310E933;
+ Mon, 27 Apr 2026 21:05:08 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=bP0dZY0s2oYtXKbJ+fo7gk4n5a8dFe6/Dwl+q28pb8c+EljfCOT9TyJ1V70EAJfB0Hv2uzAfFVpaqljxcHaOhkkrrqH3K4nDAVnscCSB7hXEsqXdLok0zncpV0rynBJ8iOrebRd1aPlZ6jAle2MlYmXVbasiP0wAmaVOFiTMJ206B18UyeVNWy+PuLdMEgs0y3uEwS9eG1zcBjLtvC81BqIpxeRPpnTPJDjFzPUUtWeO+VtEyAWFMusKZatvokWsZo7eyNlQQxnZp8pugAB+0eeRl3pu/5G1UOg+XFabp7YoSCC6M75xgDqEs/oezHbNQD1tjJQfTueSWDpr7mM1bg==
+ b=vkW8x4nCs54ww5TJSHNj0cDQW8LByj3aKUeHfRhqE3xsBKhLFvilRRNSQ7H7/R/2iH4QcW3kzkddU1wcHUtiNjd0hWVMBoqqMy8bQ0uFl8GRJCzZ/MkL9dE7W08FY7EQY+a+zHpbW0teyXltqDv2Ny8/q9vhnBiLRze4QQfFVtrIwM1zCk0Hy9m0koxRxVrRXZSekJHa7IkJqPXaYPjqt11Hza3Ogr40YAg8VAQ9ffphDgeIdv0G0Vcb/fAtaT2MSiQleq/PV5MFPZdWpg62pM0HDrL/L4wgUCY3o7JoZDvs9kp+g8gqyewHSgyakOoAdiOd+AhQkGJteGl+zS9XdQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=VgTNiT33O4UitVsIO8gPAV+aPoRRy2N8W7odxbpnr44=;
- b=JT+ekLEtAur9QEqberlGoV6Pviq4V6BVa8uInyI3U8abgrxcsPqahtUNrwYyyIHzCXhJ/VcIlUhPwpZbkuvp58pVCCQOvIV7v9uUx0oVlKHTuLHr4sTWaGhDMujhzZQISFKpzaN5t0Mvo0pYWFT1b7d/JbQpJpQsPEiRPCTjZtaPGkWIiGI8hI9Q5MzFhNbDfK3w6O61Nhks0RPXOfwnP2wYtBDsHPG7OhQzAiHtiZ6C0lwiF4He/HrovCB8VA1UPM/7no8CGtPAuHlS4N1y7yMOVCdLnljHX54CjkyY9DTXVKZtyPDyu0DFAaKmrTGzmA5sFFnCXdOYFhrM0wkM0A==
+ bh=lLOGAUp5VuNuZMFX8y1lcSOiRQMu9ywRllnavtH2gJw=;
+ b=kfF/H9JNm3wfmDK1KWIfHOaK201S2egif9jJrdXYp3pCeXwzdDX1CKkQne1uY1+hskZ+tiXskfyGDhgYqJrLYRlf2xvtp8iua0Z7yQh5iCguHwAf7uyGw/GHOQGuM78UZMlrnD9DqeU1oPy7Ebxh7eHf9TRuPPs7cU47gFAtgN9dRXI1qX7ffJR5P9F9K4dZLS8VJwWbWSRy9CiUdRL7YrjzoCh2GFnOdwD8J6jh6fmEQa3qnsUCSw8j8AiWlwGKcT2J7mSqzRumqzgDsNlvG0VifJFrBuENE/Nu6QSY8GXxnDwSzeXtF6rbBQYxYyNUZnUogEyh1xdaWNgzUCF5WA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=VgTNiT33O4UitVsIO8gPAV+aPoRRy2N8W7odxbpnr44=;
- b=c45kyukDR16AMdocaIlPJ58JLkvR/jhU1912+5NnhG3/h7ra23hBDUxzjoz90KK+p3WXYNzlmCn+zcRVXR7sVcG2tRcQIpsgPJDvpCnQMsIiila435DsXzP3H1pTENX+hyNimTOetRqs2+nFOGO67qxfKZKqZqUKIOmDLDAdld8=
+ bh=lLOGAUp5VuNuZMFX8y1lcSOiRQMu9ywRllnavtH2gJw=;
+ b=WHWe1nQQ+Jm5JJ360U7EvEyGUBR65E454Pq3oj6zq263QGEeB9NS3eFsbN5QdLmfUB2D1Kvmu3h3XUuEfl6GZhYvDTD5XbiRzy70zuK0OntbRnoF1R2QiWfnaDCI5iVYn3enGCp5p6/wodYLZJJw5IO4bS2x8XSzBm18wfrBIUM=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB5149.namprd12.prod.outlook.com (2603:10b6:5:390::14)
- by CH2PR12MB4104.namprd12.prod.outlook.com (2603:10b6:610:a4::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.16; Mon, 27 Apr
- 2026 20:53:11 +0000
-Received: from DM4PR12MB5149.namprd12.prod.outlook.com
- ([fe80::8218:248d:58ec:8c81]) by DM4PR12MB5149.namprd12.prod.outlook.com
- ([fe80::8218:248d:58ec:8c81%6]) with mapi id 15.20.9870.013; Mon, 27 Apr 2026
- 20:53:11 +0000
-Content-Type: multipart/alternative;
- boundary="------------RTuKPYEAVdUFtARrdf2YHLSL"
-Message-ID: <b9679800-c13b-498a-91e4-d3a12a1530a8@amd.com>
-Date: Mon, 27 Apr 2026 16:53:09 -0400
+Received: from BL1PR12MB5112.namprd12.prod.outlook.com (2603:10b6:208:316::16)
+ by LV3PR12MB9332.namprd12.prod.outlook.com (2603:10b6:408:20f::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.15; Mon, 27 Apr
+ 2026 21:05:05 +0000
+Received: from BL1PR12MB5112.namprd12.prod.outlook.com
+ ([fe80::d977:95c9:e89:ff27]) by BL1PR12MB5112.namprd12.prod.outlook.com
+ ([fe80::d977:95c9:e89:ff27%6]) with mapi id 15.20.9870.013; Mon, 27 Apr 2026
+ 21:05:05 +0000
+Message-ID: <67e190b3-deb9-44c0-a3a1-d269de677c21@amd.com>
+Date: Mon, 27 Apr 2026 17:05:02 -0400
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdkfd: Make all TLB-flushes heavy-weight
-To: Felix Kuehling <felix.kuehling@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: philip.yang@amd.com, christian.koenig@amd.com
-References: <20260420155822.718805-1-felix.kuehling@amd.com>
- <f2f17b8e-ce73-4d96-b5df-29d235f9ffca@amd.com>
- <a663fedf-0c41-4d4d-ab6a-f85c3d46a129@amd.com>
+Subject: Re: [RFC/POC PATCH 01/12] drm/amdgpu: add SVM UAPI definitions
+To: "Huang, Honglei1" <honghuan@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Alexander.Deucher@amd.com, Oak.Zeng@amd.com, Jenny-Jing.Liu@amd.com,
+ Philip.Yang@amd.com, Xiaogang.Chen@amd.com, Ray.Huang@amd.com,
+ Lingshan.Zhu@amd.com, Junhua.Shen@amd.com, matthew.brost@intel.com,
+ rodrigo.vivi@intel.com, thomas.hellstrom@linux.intel.com, dakr@kernel.org,
+ aliceryhl@google.com, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+References: <20260420120739.1811731-1-honglei1.huang@amd.com>
+ <20260420120739.1811731-2-honglei1.huang@amd.com>
+ <cda09d5d-4cca-46a1-8625-fe9fa687e5a2@amd.com>
+ <50d13ae3-be27-4b79-91ef-e1b386054943@amd.com>
+ <54bb7286-2ffb-47f0-b37d-83b5c39ad9a0@amd.com>
+ <9e2bee93-306a-4ef0-80be-daed33c8bbb5@amd.com>
+ <7a3ebad2-839a-4a88-911f-c9bb7be3b00e@amd.com>
+ <daa7239f-7fc9-492d-849f-2d46bd84999b@amd.com>
+ <9c5afd4b-f9f0-445a-9b39-35f56fa2bea4@amd.com>
 Content-Language: en-US
-From: Philip Yang <yangp@amd.com>
-In-Reply-To: <a663fedf-0c41-4d4d-ab6a-f85c3d46a129@amd.com>
-X-ClientProxiedBy: YQZPR01CA0092.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:84::11) To DM4PR12MB5149.namprd12.prod.outlook.com
- (2603:10b6:5:390::14)
+From: Felix Kuehling <felix.kuehling@amd.com>
+Organization: AMD Inc.
+In-Reply-To: <9c5afd4b-f9f0-445a-9b39-35f56fa2bea4@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: YQZPR01CA0102.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:83::24) To BL1PR12MB5112.namprd12.prod.outlook.com
+ (2603:10b6:208:316::16)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB5149:EE_|CH2PR12MB4104:EE_
-X-MS-Office365-Filtering-Correlation-Id: c408f347-771e-4128-1e2c-08dea49efe4f
+X-MS-TrafficTypeDiagnostic: BL1PR12MB5112:EE_|LV3PR12MB9332:EE_
+X-MS-Office365-Filtering-Correlation-Id: fa57bbe2-c0f8-439c-fe31-08dea4a0a7a6
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|376014|1800799024|18002099003|56012099003|22082099003|8096899003;
-X-Microsoft-Antispam-Message-Info: PPq5rA+iB1mhnGPpciDTdLuu5OAwGhut8W0OwZMW8ZLg7gYOTk0XyggMuwoo4tuCHDofDqcuiCbFA62dtDEOOkxpaY2z3LVybIPIPllbirefSfpbR1JxTedj+7lE+8J0ws82yXB8c1JjbTPObw9uFZ3ioqMUfsS/mVAvjRsJfNR53fVG5dlDedNMEX4Vr3AWCTPmUjoiANpG+8TAr5mqvYrXhDrMltRn7VaosrcMtKhkQJpVaWKw9C4xw68iNE1bvSMJWb8kU2U0hs4ESMsXIP6vEWkdhAsUWVb6UMvwUY9CFm8w7p+8jaWabD5NM4F2K7NTMUbUuSJnBR5HlpfFymMdKX+us4iEEFvvm9jpdsoxkhd2DX4v8QmtCBPXLwmPNkAYuVw1jJJj4mE7iRTBew1eyWtNEASvvHHKVf7pcfEIcbdp9nGOxrgblq2pJyNzh4bicdYSEZ8bnWvWojOu6aGanFtBqAsLELvoiUykJCpZD9pktxhAIiCAgtT+oY6KiBJ3bNGhTRbDF7S2XC0PgYeR3eSQWrrXevGlZ/Hwdz0w/58PplTdQJluvpZX5EvDmZmyGyK5gRelF5RolP7jeFpfbKCsrc+B4GURnyh/RXynfrLGfMr0m4fAzDN3QRPNyxnquLZgJyaE9np79xjA42eGibrWJ/Iboh6FhGMD1fnfRNhhsSQ4qAEhHqneiUwip6qgN5/0BqKJ0uXhVpvRFYk+EIV3Id72pqmkxwNET6A=
+ ARA:13230040|366016|376014|1800799024|56012099003|18002099003|22082099003; 
+X-Microsoft-Antispam-Message-Info: KhuLqiUdhW5ftRIHkJytdJ99ayoaZx/C3Vn8MFBdLPAfYdbXYYYBwViLfOqwU/fml1ZqAdN1ib5GLvAmDe9xCO+w/YQu/7fGMw7zVl96+23n5lNY/NKnlD+7M3XCgYB8+a9PIeH2D5KzFsRsFdCp3Yqr4S1wKa3LOzbAirMbjjc+HqNHXqYex4dlfBQcNuP0HO8iJxDsrJflpA9XeC2/Ua+nh0Tl8gfuNWx7ykEoW2ElX9Z/XRJpfec+tyhtRS5R7s7GAKnXPj30xQLVgyiXu1CnDeJXXeM6POG12tY3H3fOBxKmd4Jh9z3LkGjnGKYBydmeafu8RuqyANH4XPseHS+noz8InhKSz3SxFhEfPOP+Jj21kGIsuSzJnB2fJMud57sRFskJISIql4OSiWp8UwdRlUdafnC8XCIS7auxZZf5JPKYZK/69HKr/O2Br3PPt+Zf/cof1Wc0yDpkH9dAXJGXRTiwh5bBBMz6dQZSHGy5Qh7XvitZvZs9MTEwGtTpif2FPlgPNhOxNtcIwD15oqaznQqJN2L/iHj0FASflk+KIJtHV0kEwSO9quEiU8m3wGH4or/QrsNCMl0c9GAIzIsyXEyGCTI0d0wULHjd4L0IaEh7/o681TkRhoFrSBmaiokp6P2K7FegTyfOns+ZpqNxZhCspsV90mileR8I0jGf6D6/K2xU5n6GETcaQsFEsY6s++u/zNKICvUCEev8uj4qQQcq2J2ZkAG7Bu9h/NY=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB5149.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(1800799024)(18002099003)(56012099003)(22082099003)(8096899003);
+ IPV:NLI; SFV:NSPM; H:BL1PR12MB5112.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(376014)(1800799024)(56012099003)(18002099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RzU5VmgrZVlBdzJUanIxVzVJSXZndHVtU2pCak9jMG5qRXhvc1pKYVR6UjNH?=
- =?utf-8?B?U2tVR1ZIcWlqN0p5T2pPalF4TXl6NkxmeGVJQU1KeGR1WUw2aXlsT01semtY?=
- =?utf-8?B?L21uTHVPdFh2eFBiZmMxSkptS3c2aFhWSG1oSkkvOWtnc3ExaEJOcHVCOWRW?=
- =?utf-8?B?TXNTYXRFSmgraFpqZ3lkc0Q1MnlzKzJJYW53a2I0NVJ5aU1yOTRRWEc0d2ky?=
- =?utf-8?B?UUtydFJuR01aTU5HMUxRTXYxTjF2ZC9GNG9PeTArdHRrenJJT29PSDNFOUdl?=
- =?utf-8?B?VjRDREVUTXdwajhxeFVNcE5KRDNVYU9SV1pOREY2d0VmMHhrUmtPY05TVnIy?=
- =?utf-8?B?bFFwaFpvZzdwRmxSZVhZY0xsQVA2Yk5hU0lVbnNzd2tNZmV2blljVTcrLzls?=
- =?utf-8?B?MndhYkIrSEh5NDhaSUx4OGUxRWdpQ0x0b2Q5cmlSWkh1RVlKM2FxVXpsb1N2?=
- =?utf-8?B?aGhaRERnTzEwcCthd1Rxb3NLdkxyQTBoUjUzUktYTjR3ZUFBWS9uK3l1YitV?=
- =?utf-8?B?TFdkaU90RGMrdHcxVlZManQxTHE5QitaQ2phTnBGRmNXVkZad1hKdXlqb01Z?=
- =?utf-8?B?bldHeEU0R1E1VU9ISVZNL3FGYVBsZDcrMnhqemkzUHJXVWpnWmtsMUNVZ2hm?=
- =?utf-8?B?NGlWTDEzQkI0ODhSOVBiT1hqb3YwbGRPc2Ixa3oySlhFY0tDSlFGRmdDYzlI?=
- =?utf-8?B?cHhCZTVHdTRCVEd0SHhxTk5iNWVtaTM2SkI0QWJWVlBoZTU3dlphY3ZNaEgx?=
- =?utf-8?B?b1RVWEVndjhHYkNMR1c2YUg1QkVZcHhNNFc1U2FsejZEY2NwaE5qclc3aEVQ?=
- =?utf-8?B?bXNodnZaRjh4Y0MyWUxnZXRPaG40cWVjWkhpb0J6Y1BtZjNTT1NQMjZJY2ZT?=
- =?utf-8?B?alNJdUVVejUrdXM1VUpycm14MG5ZMVR5NUhIR1ZBTzMxK3pJWXk0dURKeTBW?=
- =?utf-8?B?MU9yaC9QUTN5MmdvYzNYaExBZm5BaFovZ09DTTdFeWg4dll4S2xVVjRqdS9Q?=
- =?utf-8?B?MzlHK1NSbm9BRTgxczBrVzJDOENrV0V1TGVnZWE4NWFTdDBHZS95TnhUQ2Vs?=
- =?utf-8?B?QVArNkNCbWhHZTM0UmUzSHB0TTY1ZFdXK25DY3huUCtzak0wNjZ0c01zVS8z?=
- =?utf-8?B?L1JWOFRYSkhxb2V0bTBibnoweXI4MWtLOW1MYjA1Q1dsaDVHNUE2bHhEUko0?=
- =?utf-8?B?akdHeThtVmw0L090c3VoaGxQVFR3QXQ4T1pRUlpyN08rdHBkN2dMRHRFdDZt?=
- =?utf-8?B?TzNna2VFeWlaQmVJWnZ1c2toV3NZRUtydThDS2JIT3BPYnRCd09uV21za3lG?=
- =?utf-8?B?T1pvTTUwRENuT1J1SDFCTGN5TXZGeWVjL1BBTWkrTVZiNnMrVFpONUxpS3pF?=
- =?utf-8?B?UjJSQUV1N0ZCbXRQUHhxNVl2V0xSQlV1c0xNMGJVK0pBOVlhL0pJazRsemNs?=
- =?utf-8?B?enVma1c4NVBZMUtmaHBUd2hwTUVUdVB0YlRSVnVXWlZtTUEydWZxRWFrdUxn?=
- =?utf-8?B?ZWo4T2ZTZlB1MklENEJsSHAxc09QVFNadWdLenNDMkQ0NzR1M2hMWXJpSVda?=
- =?utf-8?B?UWJUS25kNWdoRTBTT1VLbDJ0V3VxNmFuUnlRVlJ2SEl2akYwcE5ONDhKRnUz?=
- =?utf-8?B?QStEOVVzQ1NTdGlodlZKVEo3Tm9hZkg0VVFET3JVTG1qaVRmbFVIb1hMS1RH?=
- =?utf-8?B?VFhVNXJtTnBTdE52K3RWTXFZZHRnZHZHMlhkOFhVVWp3VVFqUnBFZ05ZeUx5?=
- =?utf-8?B?MG9JNmROcGN1TlZFZ3ZhZG1lKzZpbit2Sk12c1lhakNZYlBJL3RBeUtDVy9X?=
- =?utf-8?B?SU51d01aMllIcGpXZmh0bFlHeWkwV2VVd1lnTHcveXNybnVHVXpob1NMWUcw?=
- =?utf-8?B?eFg5bWViN05GM00zN3gxZkJseGNtKzZYdGdUZjR1WFVsQTdIYUNtVnRySGxr?=
- =?utf-8?B?anNGTVN4VmdzaXZGVjdFOXNoc2tQMVdEdU04cUpHYVdtTzYxd1d2MWhadjJV?=
- =?utf-8?B?NHVnNUxXaFZRTmpCWnlOS3JVREVhcGR5REdob3RMSGlZYmQxeGhhQjFNY2Zn?=
- =?utf-8?B?YjBib0l3Qm11LzFJUlZJQ1MrbklxNXFVbGRZd2pObTZQR3gwbkZTeFdIUXRp?=
- =?utf-8?B?YW1jT010aDBVeStHWXRIeFhTVjNDbEhHNmZBZWtMUmZ3Q05SWFpMUGlxN1N1?=
- =?utf-8?B?bmxIWGNDTVhiNHl1L2ZLS1pBTE44V1E3dGJZbVRYaDJSeWtMekdTT3ZIc1NU?=
- =?utf-8?B?RUVvWEF5MHlVNzRUSmZ5T0dEeVF5bGl4Q29CcU9na1dnY2ZlMGpSWDA3VUdI?=
- =?utf-8?Q?ANpxnnXtFBW2KsiJ/W?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WHF0OTd5eUZLZ1NjMlEvcFF4QTZqRlU4Qm0vNmlHNW5uT2xCK052djBZSUtS?=
+ =?utf-8?B?M0M3MEw1ZFRmS3dPYUN6Nk1qTERpdFhia3lYaEt6UWU2Z3lQM0FJeGM4a1No?=
+ =?utf-8?B?TGdiNk0rS3VXbUJkMk9GcEhBUWE4VExxa0J0L1E3U05DQmdKRXdVTWU2Y0Ri?=
+ =?utf-8?B?amU0S3lTbDluS0ZBSGJraDVMTXhnYkxaUHdXUU81dThHcjZzUmFnWHJpeTNQ?=
+ =?utf-8?B?N3dqNWt2dnIzR2xxZTlhWWZHU0QvN0orOHNiV2wzakdpaHNwM0hheTNvY0tV?=
+ =?utf-8?B?L3RSVEwzRm54eWh1UVpJSElSelc4OXJ2NEQ2aXplaHlzTFZzWHN3OHl2eXBo?=
+ =?utf-8?B?RFFBSHJ5Vm5RM1dmeE1odFRQZW10alNCRGxUUStUeTYyWW9wWUxlWW1nNkJy?=
+ =?utf-8?B?RDYxMEdPd1NvWWVzQ3V5MUtVVENrUlcxNDEvYU1QYngyN1dXd1FwOEpkNE1H?=
+ =?utf-8?B?a1RabTBuaVlxRXVHRGZkYU9GaVowMkZnS1krbVh1VEdoQ0ZZeXBSbWRuejNY?=
+ =?utf-8?B?VFRnVWFVUWtocnhHZEZnaUo3dXZkM2VKcVZza3NlUFh6RjVBUlU1S3R0S3NI?=
+ =?utf-8?B?ZWtmZG9WNks2QU5LL2VLVHM4dUlxUzBtYVVvbnh0SUlhRDJFWkxjVFdwZ0hi?=
+ =?utf-8?B?YXhjMHN4cmF4bEw4Y3NySEZrNjZTcHVmNGNIN3NlU3paNWo0ZkRPUjhDUSsw?=
+ =?utf-8?B?OXlsRVNsdERscTI2QW1qUUp1YVQrclUvbXNUTmM4bGtaaDhWTkF2czI3L2ll?=
+ =?utf-8?B?WVErZElwVmVXVVJLVmc1ZTU1ajloVklIT2hzYkNjcnNPWjd5eitWaGZXaVNZ?=
+ =?utf-8?B?R1EyOHg0ZXV4U2hjWnc2MC8vSHVRQmdKTm5jdHd5SExNUWE4Zm5WMlBpdkRv?=
+ =?utf-8?B?ZWE1V05MM0NTd2NESGNLZ3VrdXE2YXUzREIxc3NmUjFrb3dTblpweWtoV2hJ?=
+ =?utf-8?B?TXZUUEtMWTlHcGptMkl1eGVBWXBJYXAyMG1yRGQrSUh4TG9GdHdpQjFJb2lK?=
+ =?utf-8?B?ZGQ4WEhzL3FrUm92NVUyd0dudDFKV09QSFEwemlPTXNNR2dML2hLYk5NdzdC?=
+ =?utf-8?B?cmNMRDR1ZzRlM245VW90ZnZUQ2pXRTlFV1JaWi9xZkc0eERtczRtYjU4dEJa?=
+ =?utf-8?B?ZGhSNlBpN2M3cDRsVlg1U0g1Si9INjZSWmw1RVlHZHdxQ2Q5ODZ2dXFCS3Jt?=
+ =?utf-8?B?K0NyVkNGa3MxZXYzM2xHYThOZzZSMmg0aFRSb1d6S0dkUnpuckZFQ2I5emo3?=
+ =?utf-8?B?WWo0cStmSmVTR01tVmV5YXlKS01VbFhidHRrMXJJQmdBL2VkcTF3ZnJITjc4?=
+ =?utf-8?B?eHhXdDg1cjVmaGJNY2dZK00wbnRRdTVpTlExNzRWbjNDNlV2dGdqeTYvS0VW?=
+ =?utf-8?B?djFqQnZITmtJVmNyL09la1dvcjR5ZkRNeHBsM2k5ZC81aUxCYi82b01EMzU0?=
+ =?utf-8?B?WDBvSXBSaGVHREI3Znl1eDI3eXZDZ2NOUUdEUFBZVm55dUZJVDF5L1JxTElr?=
+ =?utf-8?B?WDk3NjVxYmlMd1RUcW5lQnNGTVB0MUN0ZEZJdnJIR2RZYUVQdC96UUR1Vnd2?=
+ =?utf-8?B?SHd1Zmo2dG5nclgrWUV1UEZCZHdpL2JVNkJVQnRlVkhrNm5TWVp5Wlp1OGxk?=
+ =?utf-8?B?TmNzZFVLNC9FeWZ4S1FFekt4MzdJR3BHSGdadnNLRUViYi8wM3M0VDFZbUM1?=
+ =?utf-8?B?cHBzYVpzVFNIVllNbVZJK1RsNTRYV00yUnhvVVZHamRGQ0sxdkIrK29rUW56?=
+ =?utf-8?B?WndURHl5U2NFOHBEaDFvMm44NytaT05pUk9IZ0JjRXM4UTZoUkVzTjd1NGlQ?=
+ =?utf-8?B?UTVJSjBwYy8yZ09JamJlOGp5TVorSGdPWWVrc3Z4SWRHRTlxK3NJSWFKTVo3?=
+ =?utf-8?B?eHFaeER1VlU0M0pOSXRNak5yQUpPdTNCdFVOdVZPVTM0V2RGOTFlaktUbmRO?=
+ =?utf-8?B?endoMW5SejBQNjNMTzhmcUdaUGFVKzRjNXVDVGY0aVY2aXdlZkJCNFMwNGhp?=
+ =?utf-8?B?NG9haHNVc0tybjJiZWJaL3IwTmgrNEpHQklUbmFUZHZGUGdpcjd2cnB1aTNr?=
+ =?utf-8?B?Uzc2VXEyZ2pMdytTcFI5VWFSeThuWWRNT2RXLzFYbVdpcjVrZmZkUnhLRFA2?=
+ =?utf-8?B?SFJjMnYrbWNLUlB1VFJRc3VxQkNmeE1rMXlIQmZ6REhIenhFVE5aOUJXS3ly?=
+ =?utf-8?B?bDArbkY0aVhHcFVxblozVGZwZitmM29rQUN0clBLZjdyWGgwdXY3TzVtNm5M?=
+ =?utf-8?B?akx0cXI1a3lrZXJ1M0NZRTlYNDRIaHZPNnNzeDNCS0VOUThUTVJyVFI1bVpI?=
+ =?utf-8?B?SDZlWU9FcVRHdGpnSUFDbTVnSWlSYWNNTjRKTEJZRnRVSFJyK3R3dz09?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c408f347-771e-4128-1e2c-08dea49efe4f
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5149.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: fa57bbe2-c0f8-439c-fe31-08dea4a0a7a6
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5112.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Apr 2026 20:53:11.3194 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Apr 2026 21:05:05.0431 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 5E1z4LsIpB5DdC1VoGnYzmwr11OFjsgkx62ld+eQ0i2Oq00aSATEOSyl4v6lizeW
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4104
+X-MS-Exchange-CrossTenant-UserPrincipalName: 0xqCVPeIEm7OSuMFiTDKKyG5ms9oBPsVo2B9Fw6JbQzJnfwejaE32bmHfVXk/tuS8ASoE98WeXe7b1WJALsV/g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR12MB9332
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,456 +149,325 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---------------RTuKPYEAVdUFtARrdf2YHLSL
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
 
-
-
-On 2026-04-27 13:48, Felix Kuehling wrote:
-> On 2026-04-20 17:32, Philip Yang wrote:
+On 2026-04-24 06:12, Huang, Honglei1 wrote:
+>
+>
+> On 4/23/2026 7:06 PM, Huang, Honglei1 wrote:
 >>
 >>
->> On 2026-04-20 11:58, Felix Kuehling wrote:
->>> With only one sequence number we cannot track the need for legacy vs
->>> heavy-weight flushes reliably. Always use heavy-weight.
+>> On 4/23/2026 6:39 PM, Christian König wrote:
+>>> On 4/23/26 08:21, Huang, Honglei1 wrote:
+>>>>
+>>>>
+>>>> On 4/20/2026 11:37 PM, Christian König wrote:
+>>>>> On 4/20/26 15:30, Huang, Honglei1 wrote:
+>>>>>> On 4/20/2026 8:15 PM, Christian König wrote:
+>>>>>>>
+>>>>>>>
+>>>>>>> On 4/20/26 14:07, Honglei Huang wrote:
+>>>>>>>> From: Honglei Huang <honghuan@amd.com>
+>>>>>>>>
+>>>>>>>> Add amdgpu drm SVM API definitions built on the
+>>>>>>>> DRM GPUSVM framework.
+>>>>>>>>
+>>>>>>>> This includes:
+>>>>>>>> - DRM_AMDGPU_GEM_SVM ioctl
+>>>>>>>> - AMDGPU_SVM_FLAG_* flags
+>>>>>>>> - AMDGPU_SVM_OP_SET_ATTR / AMDGPU_SVM_OP_GET_ATTR operations
+>>>>>>>> - AMDGPU_SVM_ATTR_* attribute types
+>>>>>>>> - AMDGPU_SVM_LOCATION_SYSMEM / AMDGPU_SVM_LOCATION_UNDEFINED
+>>>>>>>> - struct drm_amdgpu_svm_attribute and struct drm_amdgpu_gem_svm
+>>>>>>>>
+>>>>>>>> Signed-off-by: Honglei Huang <honghuan@amd.com>
+>>>>>>>> ---
+>>>>>>>>     include/uapi/drm/amdgpu_drm.h | 39 
+>>>>>>>> ++++++++++++++++++++++++++ +++++++++
+>>>>>>>>     1 file changed, 39 insertions(+)
+>>>>>>>>
+>>>>>>>> diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/ 
+>>>>>>>> amdgpu_drm.h
+>>>>>>>> index 406a42be4..bed71ed9b 100644
+>>>>>>>> --- a/include/uapi/drm/amdgpu_drm.h
+>>>>>>>> +++ b/include/uapi/drm/amdgpu_drm.h
+>>>>>>>> @@ -58,6 +58,7 @@ extern "C" {
+>>>>>>>>     #define DRM_AMDGPU_USERQ_SIGNAL        0x17
+>>>>>>>>     #define DRM_AMDGPU_USERQ_WAIT        0x18
+>>>>>>>>     #define DRM_AMDGPU_GEM_LIST_HANDLES    0x19
+>>>>>>>> +#define DRM_AMDGPU_GEM_SVM        0x1a
+>>>>>>>>       #define DRM_IOCTL_AMDGPU_GEM_CREATE 
+>>>>>>>> DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_CREATE, union 
+>>>>>>>> drm_amdgpu_gem_create)
+>>>>>>>>     #define DRM_IOCTL_AMDGPU_GEM_MMAP DRM_IOWR(DRM_COMMAND_BASE 
+>>>>>>>> + DRM_AMDGPU_GEM_MMAP, union drm_amdgpu_gem_mmap)
+>>>>>>>> @@ -79,6 +80,7 @@ extern "C" {
+>>>>>>>>     #define DRM_IOCTL_AMDGPU_USERQ_SIGNAL 
+>>>>>>>> DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_USERQ_SIGNAL, struct 
+>>>>>>>> drm_amdgpu_userq_signal)
+>>>>>>>>     #define DRM_IOCTL_AMDGPU_USERQ_WAIT 
+>>>>>>>> DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_USERQ_WAIT, struct 
+>>>>>>>> drm_amdgpu_userq_wait)
+>>>>>>>>     #define DRM_IOCTL_AMDGPU_GEM_LIST_HANDLES 
+>>>>>>>> DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_LIST_HANDLES, struct 
+>>>>>>>> drm_amdgpu_gem_list_handles)
+>>>>>>>> +#define DRM_IOCTL_AMDGPU_GEM_SVM DRM_IOWR(DRM_COMMAND_BASE + 
+>>>>>>>> DRM_AMDGPU_GEM_SVM, struct drm_amdgpu_gem_svm)
+>>>>>>>>       /**
+>>>>>>>>      * DOC: memory domains
+>>>>>>>> @@ -1665,6 +1667,43 @@ struct drm_color_ctm_3x4 {
+>>>>>>>>         __u64 matrix[12];
+>>>>>>>>     };
+>>>>>>>>     +#define AMDGPU_SVM_FLAG_HOST_ACCESS 0x00000001
+>>>>>>>> +#define AMDGPU_SVM_FLAG_COHERENT        0x00000002
+>>>>>>>> +#define AMDGPU_SVM_FLAG_HIVE_LOCAL 0x00000004
+>>>>>>>> +#define AMDGPU_SVM_FLAG_GPU_RO 0x00000008
+>>>>>>>> +#define AMDGPU_SVM_FLAG_GPU_EXEC        0x00000010
+>>>>>>>> +#define AMDGPU_SVM_FLAG_GPU_READ_MOSTLY 0x00000020
+>>>>>>>> +#define AMDGPU_SVM_FLAG_GPU_ALWAYS_MAPPED 0x00000040
+>>>>>>>> +#define AMDGPU_SVM_FLAG_EXT_COHERENT 0x00000080
+>>>>>>>> +
+>>>>>>>> +#define AMDGPU_SVM_OP_SET_ATTR        0
+>>>>>>>> +#define AMDGPU_SVM_OP_GET_ATTR        1
+>>>>>>>> +
+>>>>>>>> +#define AMDGPU_SVM_ATTR_PREFERRED_LOC        0
+>>>>>>>> +#define AMDGPU_SVM_ATTR_PREFETCH_LOC        1
+>>>>>>>
+>>>>>>> Up till here the interface makes perfect sense, but then it 
+>>>>>>> becomes a bit fuzzy.
+>>>>>>>
+>>>>>>>> +#define AMDGPU_SVM_ATTR_ACCESS            2
+>>>>>>>> +#define AMDGPU_SVM_ATTR_ACCESS_IN_PLACE        3
+>>>>>>>> +#define AMDGPU_SVM_ATTR_NO_ACCESS        4
+>>>>>>>
+>>>>>>> Why are those separate attributes? What is the difference 
+>>>>>>> between those?
+>>>>>>
+>>>>>> Really thanks for the comments, I have some content mistaken in 
+>>>>>> V2, so I updated the V3 to fix that. For the header they are 
+>>>>>> same. for other content please review the V3, sorry about that. 
+>>>>>> And will fix the concern you raised in next version.
+>>>>>>
+>>>>>> So the meaning of AMDGPU_SVM_ATTR_ACCESS and 
+>>>>>> AMDGPU_SVM_ATTR_NO_ACCESS are clear, GPU can access it or not, 
+>>>>>> and the SVM can set the preferred location, it can be in VRAM or 
+>>>>>> system, for AMDGPU_SVM_ATTR_ACCESS it can be migrated between RAM 
+>>>>>> and VRAM. For AMDGPU_SVM_ATTR_ACCESS_IN_PLACE,
+>>>>>> it can not migrate, GPU only can access it in the initial place.
+>>>>>
+>>>>> Yeah but that doesn't then the interface doesn't seem to make 
+>>>>> sense since such states are mutual exclusive.
+>>>>>
+>>>>> It would make sense when you have some attribute which is named 
+>>>>> (for example) AMDGPU_SVM_ATTR_ACCESS which can have the values 
+>>>>> INACCESSIBLE, IN_PLACE, MIGRATE.
+>>>>
+>>>> Got it so can I change the UAPI to the following format?
+>>>>
+>>>> enum amdgpu_ioctl_svm_attr_type {
+>>>>      AMDGPU_IOCTL_SVM_ATTR_PREFERRED_LOC,
+>>>>      AMDGPU_IOCTL_SVM_ATTR_PREFETCH_LOC,
+>>>>      AMDGPU_IOCTL_SVM_ATTR_ACCESS,
+>>>>      AMDGPU_IOCTL_SVM_ATTR_SET_FLAGS,
+>>>>      AMDGPU_IOCTL_SVM_ATTR_CLR_FLAGS,
+>>>>      AMDGPU_IOCTL_SVM_ATTR_GRANULARITY
+>>>> };
+>>>>
+>>>> enum amdgpu_ioctl_svm_location {
 >>>
->>> Signed-off-by: Felix Kuehling<felix.kuehling@amd.com>
->>> ---
->>>   drivers/gpu/drm/amd/amdkfd/kfd_chardev.c              | 4 ++--
->>>   drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c | 6 +++---
->>>   drivers/gpu/drm/amd/amdkfd/kfd_priv.h                 | 6 +++---
->>>   drivers/gpu/drm/amd/amdkfd/kfd_svm.c                  | 4 ++--
->>>   4 files changed, 10 insertions(+), 10 deletions(-)
->> Probably change to heavy-weight flush in this path, other changes 
->> look good to me.
+>>> The enum name could probably be improved, but apart from that looks 
+>>> reasonable to me.
 >>
->> amdgpu_gem_va_update_vm()
->>  {
->>   ....
->>           if (vm->is_compute_context) {
->>             .....
->>                                r = amdgpu_vm_flush_compute_tlb(adev, vm,
->>                             TLB_FLUSH_LEGACY,
->>                             xcc_mask);
+>> Will improve the name.
+>>>
+>>>>      AMDGPU_SVM_ACCESS_INACCESSIBLE = 1,
+>>>>      AMDGPU_SVM_ACCESS_IN_PLACE = 2,
+>>>>      AMDGPU_SVM_ACCESS_MIGRATE = 3,
+>>>> };
+>>>>
+>>>>>
+>>>>>>>> +#define AMDGPU_SVM_ATTR_SET_FLAGS        5
+>>>>>>>> +#define AMDGPU_SVM_ATTR_CLR_FLAGS        6
+>>>>>>>
+>>>>>>> Why is that separated into set and clear flags?
+>>>>>>
+>>>>>> This method inherits from KFD and is also designed to be 
+>>>>>> compatible with upper layer applications such as ROCR.
+>>>>>
+>>>>> That is *not* sufficient as justification. We need to document why 
+>>>>> that is necessary and *not* just say ROCR works that way.
+>>>>>
+>>>>> As far as I can see just a SET_FLAGS should be sufficient.
+>>>>
+>>>> Accoding to the reply form Felix, CLR_FLAGS provides a convenient 
+>>>> method for deleting large-scale flags, do we need to redesign this 
+>>>> part?
+>>>
+>>> I think we should expose those flags as individual attributes then.
+>>
+>> Got it will do.
+>>
+>>>
+>>>>>
+>>>>>>>> +#define AMDGPU_SVM_ATTR_GRANULARITY        7
+>>>>>>>> +
+>>>>>>>> +#define AMDGPU_SVM_LOCATION_SYSMEM        0
+>>>>>>>> +#define AMDGPU_SVM_LOCATION_UNDEFINED 0xffffffff
+>>>>>>>
+>>>>>>> No location for device local memory?
+>>>>>>
+>>>>>> Vaule > 0 means for device memory, in xe_svm, it seems like it 
+>>>>>> uses fd for device local memory.
+>>>>>
+>>>>> Absolute clear NAK for that approach. This interface is per FD!
+>>>>>
+>>>>> We need some value AMDGPU_SVM_LOCATION_DEVICE which means that the 
+>>>>> memory should be migrated to the current device.
+>>>>>
+>>>>> We also need to make sure that setting attributes for different 
+>>>>> devices doesn't affect each other.
+>>>>
+>>>>
+>>>> I Totally agreed with your thoughts, but according to the reply 
+>>>> from matt, it seems like we need to consider the P2P/multi GPU 
+>>>> situation.
+>>>
+>>> When the drm_svm or pagemap component has already code to deal with 
+>>> that then it is probably ok to have the same interface.
+>>>
+>>> When when XE only hacked that together on their own then that is a 
+>>> bit questionable because getting the lifetime right is usually tricky.
+>>>
+>>>>
+>>>> So do I need to add a AMDGPU_SVM_LOCATION_DEVICE  flag or do I need 
+>>>> to modify the UAPI to align with xe_svm?
+>>>
+>>> I think we need to full clarify how XE works here. E.g. that you can 
+>>> specify both 0 as well as give the fd to get the memory migrated to 
+>>> the local device sounds odd.
+>>
+>> Got it, for this part maybe require more discussion and time to fully 
+>> understand, so this part will remain unchanged in the next version.
+>>
 >
-> This code doesn't exist on the amd-staging-drm-next branch that this 
-> patch is intended for. I'll need to make a separate patch for the DKMS 
-> branch that includes this one.
+> Hi Christian, Felix,
 >
-> Can I get your R-b for this patch?
-ohh, I checked the DKMS branch as I am working on it. For 
-amd-staging-drm-next branch, this patch is
+> Based on the v3 review, I've reworked the SVM UAPI. Please let me know 
+> if anything still looks off before I post v4.
+>
+> Changes with v3 UAPI:
+>   - OP / ATTR_TYPE / ACCESS / LOCATION converted to documented enums.
+>   - Three ACCESS_* attribute types collapsed into a single
+>     AMDGPU_SVM_ATTR_ACCESS carrying enum amdgpu_ioctl_svm_access.
+>   - ACCESS/MIGRATE renamed to ALLOW_MIGRATE to means permitted, not 
+> required
+>   - SET_FLAGS / CLR_FLAGS removed; each former flag is now its own
+>     attribute carrying enum amdgpu_ioctl_svm_flag_value: CLR / SET
+>
+>
+>   enum amdgpu_ioctl_svm_op {
+>           AMDGPU_SVM_OP_SET_ATTR = 0,
+>           AMDGPU_SVM_OP_GET_ATTR = 1,
+>   };
+>
+>   enum amdgpu_ioctl_svm_attr_type {
+>           AMDGPU_SVM_ATTR_PREFERRED_LOC           = 0,
+>           AMDGPU_SVM_ATTR_PREFETCH_LOC            = 1,
+>           AMDGPU_SVM_ATTR_ACCESS                  = 2,
+>           AMDGPU_SVM_ATTR_GRANULARITY             = 3,
+>           AMDGPU_SVM_ATTR_HOST_ACCESS             = 4,
+>           AMDGPU_SVM_ATTR_COHERENT                = 5,
+>           AMDGPU_SVM_ATTR_EXT_COHERENT            = 6,
+>           AMDGPU_SVM_ATTR_HIVE_LOCAL              = 7,
+>           AMDGPU_SVM_ATTR_GPU_RO                  = 8,
+>           AMDGPU_SVM_ATTR_GPU_EXEC                = 9,
+>           AMDGPU_SVM_ATTR_GPU_READ_MOSTLY         = 10,
+>           AMDGPU_SVM_ATTR_GPU_ALWAYS_MAPPED       = 11,
+>   };
+>
+>   enum amdgpu_ioctl_svm_access {
+>           AMDGPU_SVM_ACCESS_INACCESSIBLE          = 0,
+>           AMDGPU_SVM_ACCESS_IN_PLACE              = 1,
+>           AMDGPU_SVM_ACCESS_ALLOW_MIGRATE         = 2,
+>   };
+>
+>   enum amdgpu_ioctl_svm_location {
+>           AMDGPU_SVM_LOCATION_SYSMEM              = 0,
+>           AMDGPU_SVM_LOCATION_UNDEFINED           = 0xffffffff,
+>   };
+>
+>   enum amdgpu_ioctl_svm_flag_value {
+>           AMDGPU_SVM_FLAG_CLR                     = 0,
+>           AMDGPU_SVM_FLAG_SET                     = 1,
+>   };
 
-Reviewed-by: Philip Yang <philip.yang@amd.com>
+Looks reasonable to me. But I'm not sure you really need enum 
+amdgpu_ioctl_svm_flag_value. I'd just use 0 and non-zero to mean false 
+and true.
+
+Regards,
+   Felix
+
+
 >
-> Thanks,
->   Felix
 >
+> Regards,
+> Honglei
 >
->> }
->>
 >> Regards,
->> Philip
->>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c 
->>> b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
->>> index 16fb39259911..0625104a7693 100644
->>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
->>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
->>> @@ -1358,7 +1358,7 @@ static int kfd_ioctl_map_memory_to_gpu(struct 
->>> file *filep,
->>>           peer_pdd = kfd_process_device_data_by_id(p, devices_arr[i]);
->>>           if (WARN_ON_ONCE(!peer_pdd))
->>>               continue;
->>> -        kfd_flush_tlb(peer_pdd, TLB_FLUSH_LEGACY);
->>> +        kfd_flush_tlb(peer_pdd);
->>>       }
->>>       kfree(devices_arr);
->>>   @@ -1453,7 +1453,7 @@ static int 
->>> kfd_ioctl_unmap_memory_from_gpu(struct file *filep,
->>>           if (WARN_ON_ONCE(!peer_pdd))
->>>               continue;
->>>           if (flush_tlb)
->>> -            kfd_flush_tlb(peer_pdd, TLB_FLUSH_HEAVYWEIGHT);
->>> +            kfd_flush_tlb(peer_pdd);
->>>             /* Remove dma mapping after tlb flush to avoid 
->>> IO_PAGE_FAULT */
->>>           err = amdgpu_amdkfd_gpuvm_dmaunmap_mem(mem, 
->>> peer_pdd->drm_priv);
->>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c 
->>> b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
->>> index c1f668f12732..8d9bf4334090 100644
->>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
->>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
->>> @@ -595,7 +595,7 @@ static int allocate_vmid(struct 
->>> device_queue_manager *dqm,
->>>               qpd->vmid,
->>>               qpd->page_table_base);
->>>       /* invalidate the VM context after pasid and vmid mapping is 
->>> set up */
->>> -    kfd_flush_tlb(qpd_to_pdd(qpd), TLB_FLUSH_LEGACY);
->>> +    kfd_flush_tlb(qpd_to_pdd(qpd));
->>>         if (dqm->dev->kfd2kgd->set_scratch_backing_va)
->>> dqm->dev->kfd2kgd->set_scratch_backing_va(dqm->dev->adev,
->>> @@ -633,7 +633,7 @@ static void deallocate_vmid(struct 
->>> device_queue_manager *dqm,
->>>           if (flush_texture_cache_nocpsch(q->device, qpd))
->>>               dev_err(dev, "Failed to flush TC\n");
->>>   -    kfd_flush_tlb(qpd_to_pdd(qpd), TLB_FLUSH_LEGACY);
->>> +    kfd_flush_tlb(qpd_to_pdd(qpd));
->>>         /* Release the vmid mapping */
->>>       set_pasid_vmid_mapping(dqm, 0, qpd->vmid);
->>> @@ -1307,7 +1307,7 @@ static int 
->>> restore_process_queues_nocpsch(struct device_queue_manager *dqm,
->>>                   dqm->dev->adev,
->>>                   qpd->vmid,
->>>                   qpd->page_table_base);
->>> -        kfd_flush_tlb(pdd, TLB_FLUSH_LEGACY);
->>> +        kfd_flush_tlb(pdd);
->>>       }
->>>         /* Take a safe reference to the mm_struct, which may otherwise
->>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h 
->>> b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
->>> index 53c26b1a25ca..dc8787dc399b 100644
->>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
->>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
->>> @@ -1559,13 +1559,13 @@ void kfd_signal_reset_event(struct kfd_node 
->>> *dev);
->>>   void kfd_signal_poison_consumed_event(struct kfd_node *dev, u32 
->>> pasid);
->>>   void kfd_signal_process_terminate_event(struct kfd_process *p);
->>>   -static inline void kfd_flush_tlb(struct kfd_process_device *pdd,
->>> -                 enum TLB_FLUSH_TYPE type)
->>> +static inline void kfd_flush_tlb(struct kfd_process_device *pdd)
->>>   {
->>>       struct amdgpu_device *adev = pdd->dev->adev;
->>>       struct amdgpu_vm *vm = drm_priv_to_vm(pdd->drm_priv);
->>>   -    amdgpu_vm_flush_compute_tlb(adev, vm, type, pdd->dev->xcc_mask);
->>> +    amdgpu_vm_flush_compute_tlb(adev, vm, TLB_FLUSH_HEAVYWEIGHT,
->>> +                    pdd->dev->xcc_mask);
->>>   }
->>>     static inline bool kfd_flush_tlb_after_unmap(struct kfd_dev *dev)
->>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c 
->>> b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
->>> index 015eb61f3440..5090f8c15428 100644
->>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
->>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
->>> @@ -1418,7 +1418,7 @@ svm_range_unmap_from_gpus(struct svm_range 
->>> *prange, unsigned long start,
->>>               if (r)
->>>                   break;
->>>           }
->>> -        kfd_flush_tlb(pdd, TLB_FLUSH_HEAVYWEIGHT);
->>> +        kfd_flush_tlb(pdd);
->>>       }
->>>         return r;
->>> @@ -1560,7 +1560,7 @@ svm_range_map_to_gpus(struct svm_range 
->>> *prange, unsigned long offset,
->>>               }
->>>           }
->>>   -        kfd_flush_tlb(pdd, TLB_FLUSH_LEGACY);
->>> +        kfd_flush_tlb(pdd);
->>>       }
->>>         return r;
+>> Honglei
 >>
-
---------------RTuKPYEAVdUFtARrdf2YHLSL
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-<!DOCTYPE html><html><head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body text="#000000" bgcolor="#FFFFFF">
-    <br>
-    <br>
-    <div class="moz-cite-prefix">On 2026-04-27 13:48, Felix Kuehling
-      wrote:<br>
-    </div>
-    <blockquote type="cite" cite="mid:a663fedf-0c41-4d4d-ab6a-f85c3d46a129@amd.com">On
-      2026-04-20 17:32, Philip Yang wrote:
-      <br>
-      <blockquote type="cite">
-        <br>
-        <br>
-        On 2026-04-20 11:58, Felix Kuehling wrote:
-        <br>
-        <blockquote type="cite">With only one sequence number we cannot
-          track the need for legacy vs
-          <br>
-          heavy-weight flushes reliably. Always use heavy-weight.
-          <br>
-          <br>
-          Signed-off-by: Felix Kuehling<a class="moz-txt-link-rfc2396E" href="mailto:felix.kuehling@amd.com">&lt;felix.kuehling@amd.com&gt;</a>
-          <br>
-          ---
-          <br>
-          &nbsp; drivers/gpu/drm/amd/amdkfd/kfd_chardev.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | 4
-          ++--
-          <br>
-          &nbsp; drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c | 6
-          +++---
-          <br>
-          &nbsp; drivers/gpu/drm/amd/amdkfd/kfd_priv.h&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | 6
-          +++---
-          <br>
-          &nbsp; drivers/gpu/drm/amd/amdkfd/kfd_svm.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | 4
-          ++--
-          <br>
-          &nbsp; 4 files changed, 10 insertions(+), 10 deletions(-)
-          <br>
-        </blockquote>
-        Probably change to heavy-weight flush in this path, other
-        changes look good to me.
-        <br>
-        <br>
-        amdgpu_gem_va_update_vm()
-        <br>
-        &nbsp;{
-        <br>
-        &nbsp; ....
-        <br>
-        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; if (vm-&gt;is_compute_context) {
-        <br>
-        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .....
-        <br>
-        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;r =
-        amdgpu_vm_flush_compute_tlb(adev, vm,
-        <br>
-        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; TLB_FLUSH_LEGACY,
-        <br>
-        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; xcc_mask);
-        <br>
-      </blockquote>
-      <br>
-      This code doesn't exist on the amd-staging-drm-next branch that
-      this patch is intended for. I'll need to make a separate patch for
-      the DKMS branch that includes this one.
-      <br>
-      <br>
-      Can I get your R-b for this patch?&nbsp;<br>
-    </blockquote>
-    ohh, I checked the DKMS branch as I am working on it. For
-    amd-staging-drm-next branch, this patch is<br>
-    <br>
-    Reviewed-by: Philip Yang <a class="moz-txt-link-rfc2396E" href="mailto:philip.yang@amd.com">&lt;philip.yang@amd.com&gt;</a>
-    <blockquote type="cite" cite="mid:a663fedf-0c41-4d4d-ab6a-f85c3d46a129@amd.com"><br>
-      Thanks,
-      <br>
-      &nbsp; Felix
-      <br>
-      <br>
-      <br>
-      <blockquote type="cite">}
-        <br>
-        <br>
-        Regards,
-        <br>
-        Philip
-        <br>
-        <blockquote type="cite">diff --git
-          a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-          b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-          <br>
-          index 16fb39259911..0625104a7693 100644
-          <br>
-          --- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-          <br>
-          +++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-          <br>
-          @@ -1358,7 +1358,7 @@ static int
-          kfd_ioctl_map_memory_to_gpu(struct file *filep,
-          <br>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; peer_pdd = kfd_process_device_data_by_id(p,
-          devices_arr[i]);
-          <br>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (WARN_ON_ONCE(!peer_pdd))
-          <br>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; continue;
-          <br>
-          -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfd_flush_tlb(peer_pdd, TLB_FLUSH_LEGACY);
-          <br>
-          +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfd_flush_tlb(peer_pdd);
-          <br>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }
-          <br>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfree(devices_arr);
-          <br>
-          &nbsp; @@ -1453,7 +1453,7 @@ static int
-          kfd_ioctl_unmap_memory_from_gpu(struct file *filep,
-          <br>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (WARN_ON_ONCE(!peer_pdd))
-          <br>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; continue;
-          <br>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (flush_tlb)
-          <br>
-          -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfd_flush_tlb(peer_pdd, TLB_FLUSH_HEAVYWEIGHT);
-          <br>
-          +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfd_flush_tlb(peer_pdd);
-          <br>
-          &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Remove dma mapping after tlb flush to avoid
-          IO_PAGE_FAULT */
-          <br>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; err = amdgpu_amdkfd_gpuvm_dmaunmap_mem(mem,
-          peer_pdd-&gt;drm_priv);
-          <br>
-          diff --git
-          a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-          b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-          <br>
-          index c1f668f12732..8d9bf4334090 100644
-          <br>
-          --- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-          <br>
-          +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-          <br>
-          @@ -595,7 +595,7 @@ static int allocate_vmid(struct
-          device_queue_manager *dqm,
-          <br>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; qpd-&gt;vmid,
-          <br>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; qpd-&gt;page_table_base);
-          <br>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* invalidate the VM context after pasid and vmid
-          mapping is set up */
-          <br>
-          -&nbsp;&nbsp;&nbsp; kfd_flush_tlb(qpd_to_pdd(qpd), TLB_FLUSH_LEGACY);
-          <br>
-          +&nbsp;&nbsp;&nbsp; kfd_flush_tlb(qpd_to_pdd(qpd));
-          <br>
-          &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if
-          (dqm-&gt;dev-&gt;kfd2kgd-&gt;set_scratch_backing_va)
-          <br>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          dqm-&gt;dev-&gt;kfd2kgd-&gt;set_scratch_backing_va(dqm-&gt;dev-&gt;adev,
-          <br>
-          @@ -633,7 +633,7 @@ static void deallocate_vmid(struct
-          device_queue_manager *dqm,
-          <br>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (flush_texture_cache_nocpsch(q-&gt;device, qpd))
-          <br>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dev_err(dev, &quot;Failed to flush TC\n&quot;);
-          <br>
-          &nbsp; -&nbsp;&nbsp;&nbsp; kfd_flush_tlb(qpd_to_pdd(qpd), TLB_FLUSH_LEGACY);
-          <br>
-          +&nbsp;&nbsp;&nbsp; kfd_flush_tlb(qpd_to_pdd(qpd));
-          <br>
-          &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Release the vmid mapping */
-          <br>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; set_pasid_vmid_mapping(dqm, 0, qpd-&gt;vmid);
-          <br>
-          @@ -1307,7 +1307,7 @@ static int
-          restore_process_queues_nocpsch(struct device_queue_manager
-          *dqm,
-          <br>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dqm-&gt;dev-&gt;adev,
-          <br>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; qpd-&gt;vmid,
-          <br>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; qpd-&gt;page_table_base);
-          <br>
-          -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfd_flush_tlb(pdd, TLB_FLUSH_LEGACY);
-          <br>
-          +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfd_flush_tlb(pdd);
-          <br>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }
-          <br>
-          &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Take a safe reference to the mm_struct, which may
-          otherwise
-          <br>
-          diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-          b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-          <br>
-          index 53c26b1a25ca..dc8787dc399b 100644
-          <br>
-          --- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-          <br>
-          +++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-          <br>
-          @@ -1559,13 +1559,13 @@ void kfd_signal_reset_event(struct
-          kfd_node *dev);
-          <br>
-          &nbsp; void kfd_signal_poison_consumed_event(struct kfd_node *dev,
-          u32 pasid);
-          <br>
-          &nbsp; void kfd_signal_process_terminate_event(struct kfd_process
-          *p);
-          <br>
-          &nbsp; -static inline void kfd_flush_tlb(struct kfd_process_device
-          *pdd,
-          <br>
-          -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; enum TLB_FLUSH_TYPE type)
-          <br>
-          +static inline void kfd_flush_tlb(struct kfd_process_device
-          *pdd)
-          <br>
-          &nbsp; {
-          <br>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev = pdd-&gt;dev-&gt;adev;
-          <br>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_vm *vm = drm_priv_to_vm(pdd-&gt;drm_priv);
-          <br>
-          &nbsp; -&nbsp;&nbsp;&nbsp; amdgpu_vm_flush_compute_tlb(adev, vm, type,
-          pdd-&gt;dev-&gt;xcc_mask);
-          <br>
-          +&nbsp;&nbsp;&nbsp; amdgpu_vm_flush_compute_tlb(adev, vm,
-          TLB_FLUSH_HEAVYWEIGHT,
-          <br>
-          +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pdd-&gt;dev-&gt;xcc_mask);
-          <br>
-          &nbsp; }
-          <br>
-          &nbsp; &nbsp; static inline bool kfd_flush_tlb_after_unmap(struct
-          kfd_dev *dev)
-          <br>
-          diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-          b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-          <br>
-          index 015eb61f3440..5090f8c15428 100644
-          <br>
-          --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-          <br>
-          +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-          <br>
-          @@ -1418,7 +1418,7 @@ svm_range_unmap_from_gpus(struct
-          svm_range *prange, unsigned long start,
-          <br>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r)
-          <br>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break;
-          <br>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }
-          <br>
-          -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfd_flush_tlb(pdd, TLB_FLUSH_HEAVYWEIGHT);
-          <br>
-          +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfd_flush_tlb(pdd);
-          <br>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }
-          <br>
-          &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return r;
-          <br>
-          @@ -1560,7 +1560,7 @@ svm_range_map_to_gpus(struct svm_range
-          *prange, unsigned long offset,
-          <br>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }
-          <br>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }
-          <br>
-          &nbsp; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfd_flush_tlb(pdd, TLB_FLUSH_LEGACY);
-          <br>
-          +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfd_flush_tlb(pdd);
-          <br>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }
-          <br>
-          &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return r;
-          <br>
-        </blockquote>
-        <br>
-      </blockquote>
-    </blockquote>
-    <br>
-  </body>
-</html>
-
---------------RTuKPYEAVdUFtARrdf2YHLSL--
+>>>
+>>> Regards,
+>>> Christian.
+>>>
+>>>>
+>>>> Regards,
+>>>> Honglei
+>>>>
+>>>>>
+>>>>> Regards,
+>>>>> Christian.
+>>>>>
+>>>>>>
+>>>>>>>
+>>>>>>>> +
+>>>>>>>> +struct drm_amdgpu_svm_attribute {
+>>>>>>>> +    __u32 type;
+>>>>>>>> +    __u32 value;
+>>>>>>>> +};
+>>>>>>>> +
+>>>>>>>> +struct drm_amdgpu_gem_svm {
+>>>>>>>> +    __u64 start_addr;
+>>>>>>>> +    __u64 size;
+>>>>>>>> +    __u32 operation;
+>>>>>>>> +    __u32 nattr;
+>>>>>>>> +    __u64 attrs_ptr;
+>>>>>>>> +};
+>>>>>>>
+>>>>>>> Those struct make perfect sense but clearly need documentation. 
+>>>>>>> Preferable as kerneldoc.
+>>>>>>>
+>>>>>>> And we usually use unions in this header to separate the input 
+>>>>>>> from the output parameters.
+>>>>>>
+>>>>>> Got it will add documentation for it and will use unions in next 
+>>>>>> version. Really thanks for the comments.
+>>>>>>
+>>>>>> Regards,
+>>>>>> Honglei
+>>>>>>
+>>>>>>>
+>>>>>>> Regards,
+>>>>>>> Christian.
+>>>>>>>
+>>>>>>>> +
+>>>>>>>>     #if defined(__cplusplus)
+>>>>>>>>     }
+>>>>>>>>     #endif
+>>>>>>>
+>>>>>>
+>>>>>
+>>>>
+>>>
+>>
+>
