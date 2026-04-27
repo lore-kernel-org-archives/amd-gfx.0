@@ -4,175 +4,110 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 57066FF886D
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 80311FF8870
 	for <amd-gfx@archiver.kernel.org>; Tue, 28 Apr 2026 12:54:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B225210EBEC;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6B2E410EBEA;
 	Tue, 28 Apr 2026 12:54:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="n4DBQ3Um";
+	dkim=pass (1024-bit key; unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="hp54kPp8";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 171FA10EAB1;
- Tue, 28 Apr 2026 09:38:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1777369135; x=1808905135;
- h=from:to:cc:subject:date:message-id:references:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=Vu/evHjS+I0jlDg2co6amQ2EzktiBhYALW3VU1PgJP4=;
- b=n4DBQ3Um34wIslhy9k9Pyx43ACrj2zcNVqW8Du+q+9hJEkFwEhlTvMD9
- aRpYVXmeRhvRU1kDv4PETnW6xn+0Y7hRCF1zDk5txl2jU8eBBTnk8MjFT
- BjQ7k+7m8HdH0Fr1JMbvbquof9IUj69J362VxcGLjE3BexNc9r1Wu8ZDj
- wer113BqJvaZVAvugDZVTdj/cH+qLaN2qyIhNFNafGWDJIQV+8ThKuThC
- +J75WrnA6EfJ/mtw2sxfPlzJe0MVGmlCrIsuec5ZQgrO3sRi5Q5l5WKt4
- X5GTNHTOAic0mmuI28p0RW0OzPLegnF5t3vBQlwlSk63OrBOcoxL0c6XQ A==;
-X-CSE-ConnectionGUID: RPwLNrQ1SwKD1PEHyPMRuA==
-X-CSE-MsgGUID: yD7lj+UESVWxrmjTenliTg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11769"; a="77302818"
-X-IronPort-AV: E=Sophos;i="6.23,203,1770624000"; d="scan'208";a="77302818"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
- by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Apr 2026 02:38:54 -0700
-X-CSE-ConnectionGUID: 4hlUWpbzTG+Zr6z6GHfc7Q==
-X-CSE-MsgGUID: XokshLwpQPy29fNA7penug==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,203,1770624000"; d="scan'208";a="235666491"
-Received: from orsmsx901.amr.corp.intel.com ([10.22.229.23])
- by fmviesa004.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Apr 2026 02:38:54 -0700
-Received: from ORSMSX903.amr.corp.intel.com (10.22.229.25) by
- ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Tue, 28 Apr 2026 02:38:53 -0700
-Received: from ORSEDG903.ED.cps.intel.com (10.7.248.13) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37 via Frontend Transport; Tue, 28 Apr 2026 02:38:53 -0700
-Received: from MW6PR02CU001.outbound.protection.outlook.com (52.101.48.28) by
- edgegateway.intel.com (134.134.137.113) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Tue, 28 Apr 2026 02:38:50 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=aodsFF1GPdxTS/vl6mqG4bD4Eowj3yPLX22J2D9dD57z0S2tsvsvQ5IGq1c5XSJd+btaHUC9/sdSCkQvOIHF0X0F32Za7ce9kvU5/8AfydNqvKzzA1kKoBwCNADT7/qEBmdq04r4Hom60VvuZrT7AsgqoE+qxaE/zYUNXBs7Nyv8QnRTp2TY5yRHD3DSpnap8X5GG6Nd/+lB/lJNPskA6stMLqcLuLgqd7zLp7fQNXUxUPqDVexbP+x16UI9dOoKpWv8zsbItQLoDt+0/h16IRcYQuQf+78RRovGbgJ1d7ZpSxD4a7NE/kTUKP74a4wTK2YD+h/FItpnRIQD+SlJig==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Vu/evHjS+I0jlDg2co6amQ2EzktiBhYALW3VU1PgJP4=;
- b=UdzssOIf44uPUkZMvt41u5BuEaLuOeJlz15PKnLxB4mJj87W0mUURcRj5T5buLYFmvjP4XHx5Q4wR1Z2iZbgKi+egOSNG1tyGz/u401qO7wLKG2eg/SV6pZLqqRQP0qK9GGU5DOjsMABdIhOxopbuRXd1dXJVRLX2o43oWPMGOZTh1rDJd1TCDmxVDn1bc5wlo6TDs4JKC1QQ1dihdOYUJHEWMDB63e1PMzN40sBz9bIPlnYNbisbXz/+XoQHNAIYbq/36UboZjIt9+sSxcCxUWA99GxHXKagjKk29G7dJKr8E+jxnt3Um2D4Jv0kNfRMThO5P7oGH7NPfuzRqMPbA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Received: from DM6PR11MB3227.namprd11.prod.outlook.com (2603:10b6:5:5d::16) by
- DS0PR11MB7335.namprd11.prod.outlook.com (2603:10b6:8:11e::9) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9870.15; Tue, 28 Apr 2026 09:38:48 +0000
-Received: from DM6PR11MB3227.namprd11.prod.outlook.com
- ([fe80::2666:d656:48ff:cc9a]) by DM6PR11MB3227.namprd11.prod.outlook.com
- ([fe80::2666:d656:48ff:cc9a%4]) with mapi id 15.20.9870.016; Tue, 28 Apr 2026
- 09:38:48 +0000
-From: "Upadhyay, Tejas" <tejas.upadhyay@intel.com>
-To: =?utf-8?B?VGhvbWFzIEhlbGxzdHLDtm0=?= <thomas.hellstrom@linux.intel.com>,
- "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>
-CC: Natalie Vock <natalie.vock@gmx.de>, Johannes Weiner <hannes@cmpxchg.org>, 
- Tejun Heo <tj@kernel.org>, =?utf-8?B?TWljaGFsIEtvdXRuw70=?=
- <mkoutny@suse.com>, "cgroups@vger.kernel.org" <cgroups@vger.kernel.org>,
- Huang Rui <ray.huang@amd.com>, "Brost, Matthew" <matthew.brost@intel.com>,
- "Auld, Matthew" <matthew.auld@intel.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Simona Vetter <simona@ffwll.ch>,
- David Airlie <airlied@gmail.com>, =?utf-8?B?Q2hyaXN0aWFuIEvDtm5pZw==?=
- <christian.koenig@amd.com>, Alex Deucher <alexander.deucher@amd.com>, "Vivi,
- Rodrigo" <rodrigo.vivi@intel.com>, "dri-devel@lists.freedesktop.org"
- <dri-devel@lists.freedesktop.org>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>, "linux-kernel@vger.kernel.org"
- <linux-kernel@vger.kernel.org>
-Subject: RE: [PATCH v2 3/4] drm/xe: Wire up dmem cgroup reclaim for VRAM
- manager
-Thread-Topic: [PATCH v2 3/4] drm/xe: Wire up dmem cgroup reclaim for VRAM
- manager
-Thread-Index: AQHc1uE0dzjdUYsBp0eq7ilL7jWoXrX0N4eA
-Date: Tue, 28 Apr 2026 09:38:47 +0000
-Message-ID: <DM6PR11MB3227E09A268BAFABF7E0A2F081372@DM6PR11MB3227.namprd11.prod.outlook.com>
-References: <20260428073116.15687-1-thomas.hellstrom@linux.intel.com>
- <20260428073116.15687-4-thomas.hellstrom@linux.intel.com>
-In-Reply-To: <20260428073116.15687-4-thomas.hellstrom@linux.intel.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DM6PR11MB3227:EE_|DS0PR11MB7335:EE_
-x-ms-office365-filtering-correlation-id: 66a2ced9-f5e5-4b65-e7e7-08dea509f2db
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|7416014|366016|376014|10070799003|1800799024|18002099003|22082099003|56012099003|38070700021;
-x-microsoft-antispam-message-info: J+ZZKq6pBAALSZrBwg3WcMohRGsDGS1Hbgs97cnTOmiD+fLjroG3J6AyED+rE8RAbFP0Y0PHpdZe7v2CP+ldzj40rx8nsv32NQBCkAzh/l8GmGBMjFlGe5kUgaBe//8Q+hj/4ZeF0V9jEbdlj5bq8Rod7u3EY1apgdY1Bf8xrJxpYQe7pqmaTfu2mq64aMgX9dVQmKoJ6MX//ZjNbPl7EWRchB7dksUgnOLiAyqoqPjiZRQ9TRIJ31Gq3iwSTnymB+0Pv2ZqKw3/GFefYaWcaDcdLpkCkDwjotOkxOrfH3fR4oMWwlkh7qb2r83sB9pKsLoso5T4syimosSQGigFLjhXO07HG9AQtZNC55mldSOlWozTKRMKk4RIFc53WDJ5pJpJliUOgEC3dg1ciDU+LisC6kuA84/579yC0J5r3r6JO64Vx7QDik7/nBX2ZdvivU6wtWkkgghzVjcRc5YEkZZNc2RHJFOYELdxHpIL7Qxb4xRfrhHxngxT4E7Fk9TbnPJJxn63b7wJ3FrU5XOnmSC/m2o1Jx+2h9p4ZFMJ1lDDaGxM5AKXfhy0dmVhQYpjgVF95d/rXWFEYq/JTxWGyQFNHu+HNCcFsaDJih/ohDI8K3BMdoTni8DeBYyhmtZgDCLAPqKe1y6859Z8YXnfwNBltkkhWmi1MLgBSA2WFNjfwqdGzJ1PHIUQub0P51YMwcsuJ2t00aeiZWZTtk59l1+eehCNCpn9psxEzZPGhQMuohdSSLgJ8vGfCLQweImi2hDHIibIDDR74Yr9enFcv2uw61z+eCW1GNsevRSd6Xc=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR11MB3227.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(7416014)(366016)(376014)(10070799003)(1800799024)(18002099003)(22082099003)(56012099003)(38070700021);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 2
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?ajd0WGNpK0tYeGNCZjY3UG80bVhpZXQ0SHRVZWVXSUFZTUU5ZWVxUjhaSFNO?=
- =?utf-8?B?THphNjVRN1pqMUE4bkJEM2ZtRG5Ucmp4WDkrV0M2V0dsQ01BdzdqTy9IVTB6?=
- =?utf-8?B?ZnBzckFCZU5XTk5yTlY5TWhRTFZWSDF3ZG5EMkZxcld0cjFJWkE1ZDJOZTZa?=
- =?utf-8?B?bkhBczI2LzhyQk03c0c0bGp0dDB2K1VCSEREcDRrZ1pNMU9DeGdlNnM3Y3NM?=
- =?utf-8?B?VEVxcDZUKzl0eDdKRnVRV0lPUHFGUjgvVU9WVW1zM2RCVm1NblJWd0xsUHFJ?=
- =?utf-8?B?VGZVVFhUTldMYTFrL1NxR0dOWWt4NDZWRzJRSlFMN3ZGeWRTTkdxY2txYmJV?=
- =?utf-8?B?VDg5VElSZWNnNmlkT21CMmM3aG03UkZTMGRxNlVYQ3V4OHVHVG1URFFkeUFx?=
- =?utf-8?B?N3dnUmVLN1pqbThwamplMFBGa245R1dyZFN3RVpnNy9OblFZT0h0ZHVPM3Ju?=
- =?utf-8?B?ZlUzMW03azJpbjhNS3FEU2NOajh6bWVnU1B5aXNNRzY2bTFDQjFxVWR6MVdK?=
- =?utf-8?B?bUFPTmdoVEEvNHV2WkdEUVVwMnBuVGVRbjEvdFkvZEhteHgxKzFRZVlUWGsw?=
- =?utf-8?B?ZE5QSnh2cDlDd3l4dG1XRk9Mb0tDdlRnc0RQMXRqdHpaTzU1TnFqdllTcnI5?=
- =?utf-8?B?bEtNNDlKSVROUUN2RkczR01BdGlXVC9Fa0pxaktHajduSFBvWjdSdUhoUzg4?=
- =?utf-8?B?dG96S1dJN0JldDMzM21wSllQZHFiczJjN0ZaWUlJOHBFdERoS2J1d1dpcnRn?=
- =?utf-8?B?MCtSeGhOQkpoNlUxTnRhRzJZRTdVNUNxOFhEaS9YNE1BR3VpYU40aTgzRUZp?=
- =?utf-8?B?a3NnS2xIWE1GUnhIYXVXbnM3c3RzWFZnRm9SNkplSWFONk9XTVNzZkdEeTJ3?=
- =?utf-8?B?R1ZjQWlYaUtsaW1nbzYvaVVvK3JxbUpzUWdVdFFOekdzcUFHQmRWK1FpbDZT?=
- =?utf-8?B?YTErYUNTRjcwZ2cybmJMK1dYRVQzOC9WR0Zod3N5a3pJVnlVZkcvbllDMWVt?=
- =?utf-8?B?ZnR0cnhQRXlodkpBeDBxSEZCRklSblRNV0VBRFByOXdRcEVWaVJ5bExrcDlH?=
- =?utf-8?B?eVQwS2dsM0h1b0MydEpxdmtmR3VyY21wcGRTUE8rMlJ3UnMyVTVCZzI5aW9a?=
- =?utf-8?B?cmFtaC9DRGZvbSs5bWhpRFRnZENtQ0FKT0lRWkMwcktZM1NRZzQ1SHQxU0Rn?=
- =?utf-8?B?WSt0WWlnMllWTFA2MGpDVHp2THpNa012dkhIOFVPRmYyOHNTWjVSbDhOYWFW?=
- =?utf-8?B?Z1hYRE91RG9iOTg4UWN4ZndZdEo2cktEVnhkUHFiL3JtaFBxSlhMdHo0OFpR?=
- =?utf-8?B?UjNIWjBzaWVvc2J6YS91dkE3ZEhJc2RxK1hPTGZKSThMWGgxVmRiQm9GWmdH?=
- =?utf-8?B?NlFQYUlJN3JBY1d6NHo5NmhWcWhvZU80b21NYUxEbnN1emVXd0t6Vnd1T3k3?=
- =?utf-8?B?dWVrZ2NaRkNiVm8vRUhpcXJlYVdlTW1HSGxkbkFKblUwZXI1NTVKamJ5RzVW?=
- =?utf-8?B?RHJoQm1GeWQ4Mm1vVStMMlhYYlVoQ1FDZ1NvenRZNGs3dDVPQXEyVkFiVWpK?=
- =?utf-8?B?OUZDNUZtQnZuc2pqdEtrOU16U25EUTRNRS81OEk3ZEMvcTFZZGhucGNwWmVB?=
- =?utf-8?B?Y2YzS3hmQ2hCL1NNcmtUZDBmSXRJOVRoN2hSS1pVUkxwMFhaODgwcXlHT1pR?=
- =?utf-8?B?TkpJTStKcDBEZjlUWk5QKzNzSjFqZU80bkNXQVZ6MnNzR2ZkelhQVXZQMldB?=
- =?utf-8?B?L09hR2Q1VUs5US82RmM1SnJrUkFsTEFPSmwySzJCYnRtb2JCQVJ2ZElxSzJa?=
- =?utf-8?B?cHdwWWx6aXRjalZQSTZqdjVxU0VXNUl3RHBBeHpKZjVjalUvanoxNWV6b2g5?=
- =?utf-8?B?SUNwSVNweS9mdmZtbVA0UEVvcVVLT1gxK1pYK0NVVjJuM2ptSTlKeFFvYTFz?=
- =?utf-8?B?ZGlsZENHSjVOd2RwVjNTMUQxektCS1MvZDdjaW1YVDhWY3dOQ1RwWU9rNzAy?=
- =?utf-8?B?QTZZM1E2MTVNeGxoRzJhemlySTVnYlgrVHpTSUFvQWVnVzNuSHV2VnJILzhF?=
- =?utf-8?B?WU5QalhLL2V4NDdsaTJERkpFNndnb0dGTFlFb2JELy9waU95d09udUtENk4y?=
- =?utf-8?B?bzVmbURMNnBqUEk2TkpoczlDcEV1c21FOTcraHhNM3hwK0laR050TTVEc1dP?=
- =?utf-8?B?eFQ4UWpEazJVTldMa2dBcHlVUURGQnJsY3hoa2FkS1hOby9ieEpqMExza3o0?=
- =?utf-8?B?RDRoQmc3ZWtjZVdPUjNEVGNqWDVOa1VCL09YdGlFRWxVOXJubGo1NzhaL0JX?=
- =?utf-8?B?ZWVYcG94L0YzOWdKTmtWaDhNQ3FNYllDb000SWdGZWxWWno5SyszM0pXc21N?=
- =?utf-8?Q?hp2f2bGI0BjAQ8nRlq7Pqv4+HXYanib+A1oWRsTXfeqJF?=
-x-ms-exchange-antispam-messagedata-1: hZH5MgXudukAoA==
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Received: from mail-lf1-f45.google.com (mail-lf1-f45.google.com
+ [209.85.167.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8BB2A10E8F8
+ for <amd-gfx@lists.freedesktop.org>; Mon, 27 Apr 2026 19:08:24 +0000 (UTC)
+Received: by mail-lf1-f45.google.com with SMTP id
+ 2adb3069b0e04-5a2c7427ad9so10205210e87.1
+ for <amd-gfx@lists.freedesktop.org>; Mon, 27 Apr 2026 12:08:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linux-foundation.org; s=google; t=1777316902; x=1777921702;
+ darn=lists.freedesktop.org; 
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=eo95+vxRQveZjyTXx2nQjz3zXl5qvV2nK5Gunw4PJlE=;
+ b=hp54kPp8YnanxPxOAJyD9GH4TWxPaKlyozbBzfFqmnnxwHuDxeWzdGR0BM5sal2Zfm
+ x2bj7B6YbkhcRTAAch6ko6G+015Us+N/a+JJsjb6comth2W5SsbojmR/M1LlvPeLQUNW
+ lUmuNnbjQAziRxCBgIA12DveoGl9sY5XN8lXI=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1777316902; x=1777921702;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=eo95+vxRQveZjyTXx2nQjz3zXl5qvV2nK5Gunw4PJlE=;
+ b=H2ARw95cdIeV3q+Gp44vEYQdHXmTS5ZuUsIYyna11YjutnIto1ZhZUdCdsvRab+xai
+ WAskkns/gbxUHIO5CN8P3SOldQkgtxYX5W7LTW8Hp1AlNghh7WhPJgVPPffzlrf/BKhb
+ lAwHqTRYnUV9CisjVY/r3VjfmN9UsxbTjEAg7CJ3gczbAxTuCDQZQB/uZVtlI/YyaKxi
+ hwne4Gksv49WwackhQeqhf3Uh5VaHVMmwktU9hWDsxioxou7YHqltsLhnhiQe+HEmA+R
+ ndA/lXbGOH9p6vv1C52GIWEAVe65B9tauoG21WXNk7ib47zmUhQSah8s0qrK54rzQsVc
+ KI2Q==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ+NYdoAkkHef4AT5JJ56YIi30mWxF3UtxMs0/v/k8P/lyfyJVbUl8ETSkcPy2cImxmZNdP4tQ8Z@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Ywb0ABUYgJtsQsRj2S3xn49SloHFap5D1liAM3QxwsDTRUKsnBk
+ pUl9pur/WxfXIZzRMG9Zvildimc7FJPxNmLO7N9p4Ov35QQP8DjTTGlZZ2sRiqfFMq7K13xb1x8
+ qQKkzIx/3SA==
+X-Gm-Gg: AeBDiesxaUXMgHavv00ncKBwSJAhFmmsLURzz6dxLx7q46XCegxnZs7aC5RtpNGtW8C
+ V7gNkS9njSIcVmHz1iUMR1CpcUV6njJbNFlyCQlRjbDY2wEg2uv/t7mI5DiGOy6b+zTx6Mtem3I
+ cAe7+2ic36XtNHM9tcHdJoJzn2kytPLNGqSG05IUbAom5hpxqhxJhCnwwj20HqUaSIdJjaQbjSc
+ l6WcdZvEgdZ2Y7kREAk1NJGGLIBAXqwBvZd5hNIyHPir7xI9nh9rLM3VKR8fb729PR+S8DLVauH
+ o12P1LnL3eObaN5GMg7tbGFjk83EYmPKSlLFBemL/1DooZ7jg8isOihs/rL2doM4kftPMudRd94
+ Nv3jCprgI7ekESr0TEjiB4pBt1KSoUS+QEL6sUNfRDnzT6jjPWvAQyXRt43hKXHzgR4VKtBHru0
+ r0iqyo1VsELoOq3QLcfccjVRBsgY3R0rYgjXlk19ACbCkT5uCOVrqHmH0/n1R1RFk4QK1tT2YBD
+ IT2mROV4+4=
+X-Received: by 2002:a05:6512:33cf:b0:5a2:ca1d:8ea8 with SMTP id
+ 2adb3069b0e04-5a7466238a4mr39300e87.25.1777316902217; 
+ Mon, 27 Apr 2026 12:08:22 -0700 (PDT)
+Received: from mail-lf1-f54.google.com (mail-lf1-f54.google.com.
+ [209.85.167.54]) by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-5a7463f5f4bsm17508e87.49.2026.04.27.12.08.21
+ for <amd-gfx@lists.freedesktop.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 27 Apr 2026 12:08:21 -0700 (PDT)
+Received: by mail-lf1-f54.google.com with SMTP id
+ 2adb3069b0e04-5a2c7427ad9so10205186e87.1
+ for <amd-gfx@lists.freedesktop.org>; Mon, 27 Apr 2026 12:08:21 -0700 (PDT)
+X-Forwarded-Encrypted: i=1;
+ AFNElJ/Gp7Hn/hHPp1SMqsh+BxS2HUkX8x0pONrrs3sCysRyMHU77PteWbZwCHgMgIt/xnxGODzfcFVA@lists.freedesktop.org
+X-Received: by 2002:a17:907:9495:b0:ba3:a8ef:3597 with SMTP id
+ a640c23a62f3a-bb80443c92emr2812866b.25.1777316502372; Mon, 27 Apr 2026
+ 12:01:42 -0700 (PDT)
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: peFTr0Vr38YPhMnZihd5to4vQWb/yS+4za+ul7Dt8uXSCwLVtdd7U0q2h3yRkmFpD7JVLZmU6PVHZ9Mx6wN6/cEwXSAbKPXHKw9DIAHq8dKvmOdsGAKXscgxOTuRqP37zp7S5TUMHVR3fungbaUqtG+4wfQbuzvMq3ZcEbRjr3sq4ZSzIfseKpX+IurOiW6mZ5P6EgytbDkq1gKiFKAp4dy4IWk27pLtsKoUZkHDi+WAR5ofSAKS+tH/DktPsz/qrnlMyBWZ41ieE7lpj+JksJc0ArDMQe6RvZfyNCNkhTgDVEyI8jQLQqEdVt9nwSJYLdXV93/98Y8XqXhkGUx1og==
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR11MB3227.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 66a2ced9-f5e5-4b65-e7e7-08dea509f2db
-X-MS-Exchange-CrossTenant-originalarrivaltime: 28 Apr 2026 09:38:48.0729 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: HfoSqNIDSPlsEhTRGQHCOjBLVb9X7N8nnF9sk+fK0qyEdCrqDsp+iEsIR3txvaPAudgLIS4Zn95L0r0Kk50E6/wYeYrw+NDYv7b3rSWVrek=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR11MB7335
-X-OriginatorOrg: intel.com
-X-Mailman-Approved-At: Tue, 28 Apr 2026 12:54:19 +0000
+References: <cover.1777306795.git.chleroy@kernel.org>
+ <289b424e243ba2c4139ea04009cf8b9c448a87ff.1777306795.git.chleroy@kernel.org>
+In-Reply-To: <289b424e243ba2c4139ea04009cf8b9c448a87ff.1777306795.git.chleroy@kernel.org>
+From: Linus Torvalds <torvalds@linux-foundation.org>
+Date: Mon, 27 Apr 2026 12:01:23 -0700
+X-Gmail-Original-Message-ID: <CAHk-=whC1DZojwdMB1=sJWG2=dsCdfyU8N6tDE1qx50HRZ-WJQ@mail.gmail.com>
+X-Gm-Features: AVHnY4JOOuu1ghb35GF5M7sO3SAfkj4A7WtLiFNY579kWyh92WWRKfW5QE_KjRI
+Message-ID: <CAHk-=whC1DZojwdMB1=sJWG2=dsCdfyU8N6tDE1qx50HRZ-WJQ@mail.gmail.com>
+Subject: Re: [RFC PATCH v1 5/9] uaccess: Switch to
+ copy_{to/from}_user_partial() when relevant
+To: "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>
+Cc: Yury Norov <ynorov@nvidia.com>, Andrew Morton <akpm@linux-foundation.org>, 
+ David Laight <david.laight.linux@gmail.com>,
+ Thomas Gleixner <tglx@linutronix.de>, 
+ linux-alpha@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-snps-arc@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
+ linux-mips@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
+ kvm@vger.kernel.org, linux-riscv@lists.infradead.org, 
+ linux-s390@vger.kernel.org, sparclinux@vger.kernel.org, 
+ linux-um@lists.infradead.org, dmaengine@vger.kernel.org, 
+ linux-efi@vger.kernel.org, linux-fsi@lists.ozlabs.org, 
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ intel-gfx@lists.freedesktop.org, linux-wpan@vger.kernel.org, 
+ netdev@vger.kernel.org, linux-wireless@vger.kernel.org, 
+ linux-spi@vger.kernel.org, linux-media@vger.kernel.org, 
+ linux-staging@lists.linux.dev, linux-serial@vger.kernel.org, 
+ linux-usb@vger.kernel.org, xen-devel@lists.xenproject.org, 
+ linux-fsdevel@vger.kernel.org, ocfs2-devel@lists.linux.dev, 
+ bpf@vger.kernel.org, kasan-dev@googlegroups.com, linux-mm@kvack.org, 
+ linux-x25@vger.kernel.org, rust-for-linux@vger.kernel.org, 
+ linux-sound@vger.kernel.org, sound-open-firmware@alsa-project.org, 
+ linux-csky@vger.kernel.org, linux-hexagon@vger.kernel.org, 
+ loongarch@lists.linux.dev, linux-m68k@lists.linux-m68k.org, 
+ linux-openrisc@vger.kernel.org, linux-parisc@vger.kernel.org, 
+ linux-sh@vger.kernel.org, linux-arch@vger.kernel.org
+Content-Type: multipart/mixed; boundary="000000000000c765e2065075bee2"
+X-Mailman-Approved-At: Tue, 28 Apr 2026 12:54:20 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -187,57 +122,241 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-DQoNCj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4gRnJvbTogSW50ZWwteGUgPGludGVs
-LXhlLWJvdW5jZXNAbGlzdHMuZnJlZWRlc2t0b3Aub3JnPiBPbiBCZWhhbGYgT2YgVGhvbWFzDQo+
-IEhlbGxzdHLDtm0NCj4gU2VudDogMjggQXByaWwgMjAyNiAxMzowMQ0KPiBUbzogaW50ZWwteGVA
-bGlzdHMuZnJlZWRlc2t0b3Aub3JnDQo+IENjOiBUaG9tYXMgSGVsbHN0csO2bSA8dGhvbWFzLmhl
-bGxzdHJvbUBsaW51eC5pbnRlbC5jb20+OyBOYXRhbGllIFZvY2sNCj4gPG5hdGFsaWUudm9ja0Bn
-bXguZGU+OyBKb2hhbm5lcyBXZWluZXIgPGhhbm5lc0BjbXB4Y2hnLm9yZz47IFRlanVuIEhlbw0K
-PiA8dGpAa2VybmVsLm9yZz47IE1pY2hhbCBLb3V0bsO9IDxta291dG55QHN1c2UuY29tPjsNCj4g
-Y2dyb3Vwc0B2Z2VyLmtlcm5lbC5vcmc7IEh1YW5nIFJ1aSA8cmF5Lmh1YW5nQGFtZC5jb20+OyBC
-cm9zdCwgTWF0dGhldw0KPiA8bWF0dGhldy5icm9zdEBpbnRlbC5jb20+OyBBdWxkLCBNYXR0aGV3
-IDxtYXR0aGV3LmF1bGRAaW50ZWwuY29tPjsNCj4gTWFhcnRlbiBMYW5raG9yc3QgPG1hYXJ0ZW4u
-bGFua2hvcnN0QGxpbnV4LmludGVsLmNvbT47IE1heGltZSBSaXBhcmQNCj4gPG1yaXBhcmRAa2Vy
-bmVsLm9yZz47IFRob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPjsNCj4gU2lt
-b25hIFZldHRlciA8c2ltb25hQGZmd2xsLmNoPjsgRGF2aWQgQWlybGllIDxhaXJsaWVkQGdtYWls
-LmNvbT47IENocmlzdGlhbg0KPiBLw7ZuaWcgPGNocmlzdGlhbi5rb2VuaWdAYW1kLmNvbT47IEFs
-ZXggRGV1Y2hlcg0KPiA8YWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbT47IFZpdmksIFJvZHJpZ28g
-PHJvZHJpZ28udml2aUBpbnRlbC5jb20+OyBkcmktDQo+IGRldmVsQGxpc3RzLmZyZWVkZXNrdG9w
-Lm9yZzsgYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmc7IGxpbnV4LQ0KPiBrZXJuZWxAdmdl
-ci5rZXJuZWwub3JnDQo+IFN1YmplY3Q6IFtQQVRDSCB2MiAzLzRdIGRybS94ZTogV2lyZSB1cCBk
-bWVtIGNncm91cCByZWNsYWltIGZvciBWUkFNDQo+IG1hbmFnZXINCj4gDQo+IFJlZ2lzdGVyIHRo
-ZSBWUkFNIG1hbmFnZXIgd2l0aCB0aGUgZG1lbSBjZ3JvdXAgcmVjbGFpbSBpbmZyYXN0cnVjdHVy
-ZSBzbw0KPiB0aGF0IGxvd2VyaW5nIGRtZW0ubWF4IGJlbG93IGN1cnJlbnQgVlJBTSB1c2FnZSB0
-cmlnZ2VycyBUVE0gZXZpY3Rpb24NCj4gcmF0aGVyIHRoYW4gZmFpbGluZyB3aXRoIC1FQlVTWS4N
-Cj4gDQo+IEFzc2lzdGVkLWJ5OiBHaXRIdWIgQ29waWxvdDpjbGF1ZGUtc29ubmV0LTQuNg0KPiBT
-aWduZWQtb2ZmLWJ5OiBUaG9tYXMgSGVsbHN0csO2bSA8dGhvbWFzLmhlbGxzdHJvbUBsaW51eC5p
-bnRlbC5jb20+DQo+IC0tLQ0KPiAgZHJpdmVycy9ncHUvZHJtL3hlL3hlX3R0bV92cmFtX21nci5j
-IHwgMTkgKysrKysrKysrKysrLS0tLS0tLQ0KPiAgMSBmaWxlIGNoYW5nZWQsIDEyIGluc2VydGlv
-bnMoKyksIDcgZGVsZXRpb25zKC0pDQo+IA0KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJt
-L3hlL3hlX3R0bV92cmFtX21nci5jDQo+IGIvZHJpdmVycy9ncHUvZHJtL3hlL3hlX3R0bV92cmFt
-X21nci5jDQo+IGluZGV4IDVmZDBkNTUwNmE3ZS4uMWJkY2IzZmVlOTAxIDEwMDY0NA0KPiAtLS0g
-YS9kcml2ZXJzL2dwdS9kcm0veGUveGVfdHRtX3ZyYW1fbWdyLmMNCj4gKysrIGIvZHJpdmVycy9n
-cHUvZHJtL3hlL3hlX3R0bV92cmFtX21nci5jDQo+IEBAIC0zMDMsMTMgKzMwMyw2IEBAIGludCBf
-X3hlX3R0bV92cmFtX21ncl9pbml0KHN0cnVjdCB4ZV9kZXZpY2UgKnhlLA0KPiBzdHJ1Y3QgeGVf
-dHRtX3ZyYW1fbWdyICptZ3IsDQo+ICAJc3RydWN0IHR0bV9yZXNvdXJjZV9tYW5hZ2VyICptYW4g
-PSAmbWdyLT5tYW5hZ2VyOw0KPiAgCWludCBlcnI7DQo+IA0KPiAtCWlmIChtZW1fdHlwZSAhPSBY
-RV9QTF9TVE9MRU4pIHsNCj4gLQkJY29uc3QgY2hhciAqbmFtZSA9IG1lbV90eXBlID09IFhFX1BM
-X1ZSQU0wID8gInZyYW0wIiA6DQo+ICJ2cmFtMSI7DQo+IC0JCW1hbi0+Y2cgPSBkcm1tX2Nncm91
-cF9yZWdpc3Rlcl9yZWdpb24oJnhlLT5kcm0sIG5hbWUsDQo+IHNpemUpOw0KPiAtCQlpZiAoSVNf
-RVJSKG1hbi0+Y2cpKQ0KPiAtCQkJcmV0dXJuIFBUUl9FUlIobWFuLT5jZyk7DQo+IC0JfQ0KPiAt
-DQo+ICAJbWFuLT5mdW5jID0gJnhlX3R0bV92cmFtX21ncl9mdW5jOw0KPiAgCW1nci0+bWVtX3R5
-cGUgPSBtZW1fdHlwZTsNCj4gIAltdXRleF9pbml0KCZtZ3ItPmxvY2spOw0KPiBAQCAtMzE4LDYg
-KzMxMSwxOCBAQCBpbnQgX194ZV90dG1fdnJhbV9tZ3JfaW5pdChzdHJ1Y3QgeGVfZGV2aWNlICp4
-ZSwNCj4gc3RydWN0IHhlX3R0bV92cmFtX21nciAqbWdyLA0KPiAgCW1nci0+dmlzaWJsZV9hdmFp
-bCA9IGlvX3NpemU7DQo+IA0KPiAgCXR0bV9yZXNvdXJjZV9tYW5hZ2VyX2luaXQobWFuLCAmeGUt
-PnR0bSwgc2l6ZSk7DQo+ICsNCj4gKwlpZiAobWVtX3R5cGUgIT0gWEVfUExfU1RPTEVOKSB7DQo+
-ICsJCWNvbnN0IGNoYXIgKm5hbWUgPSBtZW1fdHlwZSA9PSBYRV9QTF9WUkFNMCA/ICJ2cmFtMCIg
-Og0KPiAidnJhbTEiOw0KPiArCQlzdHJ1Y3QgZG1lbV9jZ3JvdXBfcmVnaW9uICpjZyA9DQo+ICsJ
-CQlkcm1tX2Nncm91cF9yZWdpc3Rlcl9yZWdpb24oJnhlLT5kcm0sIG5hbWUsDQo+IHNpemUpOw0K
-PiArDQo+ICsJCWlmIChJU19FUlIoY2cpKQ0KPiArCQkJcmV0dXJuIFBUUl9FUlIoY2cpOw0KPiAr
-DQo+ICsJCXR0bV9yZXNvdXJjZV9tYW5hZ2VyX3NldF9kbWVtX3JlZ2lvbihtYW4sIGNnKTsNCj4g
-Kwl9DQo+ICsNCg0KSSB0aGluaywgdGhpcyByZW9yZGVyaW5nIGlzIHJlYXNvbmFibGUgY2xlYW51
-cCwgTEdUTToNClJldmlld2VkLWJ5OiBUZWphcyBVcGFkaHlheSA8dGVqYXMudXBhZGh5YXlAaW50
-ZWwuY29tPg0KDQpUZWphcw0KPiAgCWVyciA9IGdwdV9idWRkeV9pbml0KCZtZ3ItPm1tLCBtYW4t
-PnNpemUsIGRlZmF1bHRfcGFnZV9zaXplKTsNCj4gIAlpZiAoZXJyKQ0KPiAgCQlyZXR1cm4gZXJy
-Ow0KPiAtLQ0KPiAyLjUzLjANCg0K
+--000000000000c765e2065075bee2
+Content-Type: text/plain; charset="UTF-8"
+
+On Mon, 27 Apr 2026 at 10:18, Christophe Leroy (CS GROUP)
+<chleroy@kernel.org> wrote:
+>
+> In a subsequent patch, copy_{to/from}_user() will be modified to
+> return -EFAULT when copy fails.
+
+Please don't do this.
+
+This is a maintenance nightmare, and changes pretty much three decades
+of semantics, and will cause *very* subtle backporting issues if
+somebody happens to rely on the old / new behavior.
+
+I understand the reasoning for the change, but I really don't think
+the pain of creating yet another user copy interface is worth it.
+
+We already have a lot of different versions of user copies for
+different reasons, and while they all tend to have a good reason (and
+some not-so-good, but historical reasons) for existing, this one
+doesn't seem worth it.
+
+The main - perhaps only - reason for this "partial" version is that
+you want to do that "automatically inlined and optimized fixed-sized
+case".
+
+But here's the thing: I think you can already do that. Yes, it
+requires some improvements to unsafe_copy_from_user(), but *that*
+interface doesn't have three decades of history associated with it,
+_and_ you're extending on that one anyway in this series.
+
+"unsafe_copy_from_user()" is very odd, is meant only for small simple
+copies that can be inlined and it's special-cased for 'objtool' anyway
+(because objtool would have complained about an out-of-line call,
+although it could have been special-cased other ways).
+
+In other words: unsafe_copy_from_user() is *very* close to what you
+want for that "Oh, I noticed that it's a small fixed-size copy, so I
+want to special-case copy-from-user for that".
+
+The _only_ issue with unsafe_copy_from_user() is that you can't see
+that there were partial successes. But if *that* was fixed, then this
+whole "create a new copy_from_user interface" issue would just go
+away.
+
+So please - let's just change unsafe_copy_from_user() to be usable for
+the partial case.
+
+And the thing is, all the existing unsafe_copy_from_user()
+implementations already effectively *have* the "how much did I not
+copy" internally, and they actually do extra work to hide it, ie they
+have things like that
+
+        int _i;
+
+that is "how many bytes have I copied" in the powerpc implementation,
+or the x86 code does
+
+        size_t __ucu_len = (_len);
+
+where that "ucu_len" is updated as you go along and is literally the
+"how many bytes are left to copy" return value that is missing from
+this interface.
+
+So what I would suggest is
+
+ - introduce a new user accessor helper that is used for *both*
+unsafe_copy_to/from_user() *and* the "inline small constant-sized
+normal copy_to/from_user()" calls
+
+ - it's the same thing as the existing  unsafe_copy_to/from_user()
+implementation, except it exposes how many bytes are left to be copied
+to the exception label.
+
+IOW, it would look something like
+
+     #define unsafe_copy_to_user_outlen(_dst,_src,_len,label)...
+
+which is exactly the same as the current unsafe_copy_to_user(),
+*except* it changes "_len" as it does along.
+
+And then you use that for both the "real" unsafe_copy_user and for the
+"small constant values" case.
+
+Just as an example, attached is a completely stupid rough draft of a
+patch that does this for x86 and only for unsafe_copy_to_user().
+
+And I made a very very hacky change to kernel/sys.c to see what the
+code generation looks like.
+
+This is what it results in on x86 with clang (with all the magic
+.section data edited out):
+
+        ... edited out the code to generate the times
+        ... this is the actual user copy:
+        # HERE!
+        movabsq $81985529216486895, %rcx        # imm = 0x123456789ABCDEF
+        cmpq    %rcx, %rbx
+        cmovaq  %rcx, %rbx
+        stac
+        movq    %r13, (%rbx)                    # exception to .LBB45_8
+        movq    %r14, 8(%rbx)                   # exception to .LBB45_8
+        movq    %r15, 16(%rbx)                  # exception to .LBB45_8
+        movq    %rax, 24(%rbx)                  # exception to .LBB45_8
+        clac
+.LBB45_6:
+        movq    jiffies(%rip), %rdi
+        callq   jiffies_64_to_clock_t
+.LBB45_7:
+        addq    $16, %rsp
+        popq    %rbx
+        popq    %r12
+        popq    %r13
+        popq    %r14
+        popq    %r15
+        retq
+.LBB45_8:
+        clac
+        movq    $-14, %rax
+        jmp     .LBB45_7
+
+and notice how the compiler noticed that the 'outlen' isn't actually
+used, and turned the exception label into just a "return -EFAULT" and
+never actually generated any code for updating remaining lengths?
+
+That actually looks pretty much optimal for a 32-byte user copy.
+
+And it didn't involve changing the semantics at all.
+
+Just to check, I changed that "times()" system call to return the
+number of bytes uncopied instead (to emulate the "I actually want to
+know what's left" case), and it generated this:
+
+        # HERE!
+        movabsq $81985529216486895, %rcx        # imm = 0x123456789ABCDEF
+        cmpq    %rcx, %rbx
+        cmovaq  %rcx, %rbx
+        stac
+        movl    $32, %ecx
+        movq    %r13, (%rbx)                    # exception to .LBB45_7
+        movl    $24, %ecx
+        movq    %r15, 8(%rbx)                   # exception to .LBB45_7
+        movl    $16, %ecx
+        movq    %r14, 16(%rbx)                  # exception to .LBB45_7
+        movl    $8, %ecx
+        movq    %rax, 24(%rbx)                  # exception to .LBB45_7
+        clac
+        xorl    %ecx, %ecx
+.LBB45_8:
+        movq    %rcx, %rax
+        addq    $16, %rsp
+        popq    %rbx
+        popq    %r12
+        popq    %r13
+        popq    %r14
+        popq    %r15
+        retq
+.LBB45_6:
+        movq    jiffies(%rip), %rdi
+        jmp     jiffies_64_to_clock_t           # TAILCALL
+.LBB45_7:
+        clac
+        jmp     .LBB45_8
+
+so it all seems to work - although obviously the above is *not* the normal case.
+
+NOTE NOTE NOTE! The attached patch is entirely untested. I obviously
+did some "test code generation" with it, but I only *looked* at the
+result, and maybe it has some fundamental problem that I just didn't
+notice. So treat this as a "how about this approach" patch, not as
+anything more serious than that.
+
+And the kerrnel/sys.c hack is very obviously just that: a complate
+hack for testing.
+
+A real patch would do that "for small constant-sized copies, turn
+copy_to_user() automatically into "_small_copy_to_user()".
+
+The attached is *not* a real patch. Treat it with the contempt it deserves.
+
+             Linus
+
+--000000000000c765e2065075bee2
+Content-Type: text/x-patch; charset="US-ASCII"; name="patch.diff"
+Content-Disposition: attachment; filename="patch.diff"
+Content-Transfer-Encoding: base64
+Content-ID: <f_mohk3mm10>
+X-Attachment-Id: f_mohk3mm10
+
+IGFyY2gveDg2L2luY2x1ZGUvYXNtL3VhY2Nlc3MuaCB8IDE3ICsrKysrKysrKysrLS0tLS0tCiBp
+bmNsdWRlL2xpbnV4L3VhY2Nlc3MuaCAgICAgICAgfCAxNiArKysrKysrKysrKysrKysrCiBrZXJu
+ZWwvc3lzLmMgICAgICAgICAgICAgICAgICAgfCAgMyArKy0KIDMgZmlsZXMgY2hhbmdlZCwgMjkg
+aW5zZXJ0aW9ucygrKSwgNyBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9hcmNoL3g4Ni9pbmNs
+dWRlL2FzbS91YWNjZXNzLmggYi9hcmNoL3g4Ni9pbmNsdWRlL2FzbS91YWNjZXNzLmgKaW5kZXgg
+M2EwZGQzYzJiMjMzLi4zYjJjNTdjOTE0MTggMTAwNjQ0Ci0tLSBhL2FyY2gveDg2L2luY2x1ZGUv
+YXNtL3VhY2Nlc3MuaAorKysgYi9hcmNoL3g4Ni9pbmNsdWRlL2FzbS91YWNjZXNzLmgKQEAgLTYw
+NiwxNSArNjA2LDIwIEBAIF9sYWJlbDoJCQkJCQkJCQlcCiAJCWxlbiAtPSBzaXplb2YodHlwZSk7
+CQkJCQkJXAogCX0KIAotI2RlZmluZSB1bnNhZmVfY29weV90b191c2VyKF9kc3QsX3NyYyxfbGVu
+LGxhYmVsKQkJCVwKKyNkZWZpbmUgdW5zYWZlX2NvcHlfdG9fdXNlcl9vdXRsZW4oX2RzdCxfc3Jj
+LF9sZW4sbGFiZWwpCVwKIGRvIHsJCQkJCQkJCQlcCiAJY2hhciBfX3VzZXIgKl9fdWN1X2RzdCA9
+IChfZHN0KTsJCQkJXAogCWNvbnN0IGNoYXIgKl9fdWN1X3NyYyA9IChfc3JjKTsJCQkJCVwKLQlz
+aXplX3QgX191Y3VfbGVuID0gKF9sZW4pOwkJCQkJXAotCXVuc2FmZV9jb3B5X2xvb3AoX191Y3Vf
+ZHN0LCBfX3VjdV9zcmMsIF9fdWN1X2xlbiwgdTY0LCBsYWJlbCk7CVwKLQl1bnNhZmVfY29weV9s
+b29wKF9fdWN1X2RzdCwgX191Y3Vfc3JjLCBfX3VjdV9sZW4sIHUzMiwgbGFiZWwpOwlcCi0JdW5z
+YWZlX2NvcHlfbG9vcChfX3VjdV9kc3QsIF9fdWN1X3NyYywgX191Y3VfbGVuLCB1MTYsIGxhYmVs
+KTsJXAotCXVuc2FmZV9jb3B5X2xvb3AoX191Y3VfZHN0LCBfX3VjdV9zcmMsIF9fdWN1X2xlbiwg
+dTgsIGxhYmVsKTsJXAorCXVuc2FmZV9jb3B5X2xvb3AoX191Y3VfZHN0LCBfX3VjdV9zcmMsIF9s
+ZW4sIHU2NCwgbGFiZWwpOwlcCisJdW5zYWZlX2NvcHlfbG9vcChfX3VjdV9kc3QsIF9fdWN1X3Ny
+YywgX2xlbiwgdTMyLCBsYWJlbCk7CVwKKwl1bnNhZmVfY29weV9sb29wKF9fdWN1X2RzdCwgX191
+Y3Vfc3JjLCBfbGVuLCB1MTYsIGxhYmVsKTsJXAorCXVuc2FmZV9jb3B5X2xvb3AoX191Y3VfZHN0
+LCBfX3VjdV9zcmMsIF9sZW4sIHU4LCBsYWJlbCk7CVwKK30gd2hpbGUgKDApCisKKyNkZWZpbmUg
+dW5zYWZlX2NvcHlfdG9fdXNlcihfZHN0LF9zcmMsX2xlbixsYWJlbCkJCQlcCitkbyB7CQkJCQkJ
+CQkJXAorCXNpemVfdCBfX3VjdV9sZW4gPSBfbGVuOwkJCQkJXAorCXVuc2FmZV9jb3B5X3RvX3Vz
+ZXJfb3V0bGVuKF9kc3QsX3NyYyxfX3VjdV9sZW4sbGFiZWwpOwkJXAogfSB3aGlsZSAoMCkKIAog
+I2lmZGVmIENPTkZJR19DQ19IQVNfQVNNX0dPVE9fT1VUUFVUCmRpZmYgLS1naXQgYS9pbmNsdWRl
+L2xpbnV4L3VhY2Nlc3MuaCBiL2luY2x1ZGUvbGludXgvdWFjY2Vzcy5oCmluZGV4IDU2MzI4NjAx
+MjE4Yy4uMWE3MGVmNzA3ODRjIDEwMDY0NAotLS0gYS9pbmNsdWRlL2xpbnV4L3VhY2Nlc3MuaAor
+KysgYi9pbmNsdWRlL2xpbnV4L3VhY2Nlc3MuaApAQCAtODc0LDQgKzg3NCwyMCBAQCB2b2lkIF9f
+bm9yZXR1cm4gdXNlcmNvcHlfYWJvcnQoY29uc3QgY2hhciAqbmFtZSwgY29uc3QgY2hhciAqZGV0
+YWlsLAogCQkJICAgICAgIHVuc2lnbmVkIGxvbmcgbGVuKTsKICNlbmRpZgogCitzdGF0aWMgX19h
+bHdheXNfaW5saW5lIF9fbXVzdF9jaGVjayB1bnNpZ25lZCBsb25nCitfc21hbGxfY29weV90b191
+c2VyKHZvaWQgX191c2VyICp0bywgY29uc3Qgdm9pZCAqZnJvbSwgdW5zaWduZWQgbG9uZyBuKQor
+eworCXNpemVfdCB1bmNvcGllZCA9IG47CisKKwltaWdodF9mYXVsdCgpOworCWlmIChzaG91bGRf
+ZmFpbF91c2VyY29weSgpKQorCQlyZXR1cm4gbjsKKwlpbnN0cnVtZW50X2NvcHlfdG9fdXNlcih0
+bywgZnJvbSwgbik7CisJc2NvcGVkX3VzZXJfd3JpdGVfYWNjZXNzX3NpemUodG8sIG4sIGZhaWxl
+ZCkKKwkJdW5zYWZlX2NvcHlfdG9fdXNlcl9vdXRsZW4odG8sIGZyb20sIHVuY29waWVkLCBmYWls
+ZWQpOworCXJldHVybiAwOworZmFpbGVkOgorICAgICAgIHJldHVybiB1bmNvcGllZDsKK30KKwog
+I2VuZGlmCQkvKiBfX0xJTlVYX1VBQ0NFU1NfSF9fICovCmRpZmYgLS1naXQgYS9rZXJuZWwvc3lz
+LmMgYi9rZXJuZWwvc3lzLmMKaW5kZXggNjJlODQyMDU1Y2M5Li42NWIyZDAxMDNhNzMgMTAwNjQ0
+Ci0tLSBhL2tlcm5lbC9zeXMuYworKysgYi9rZXJuZWwvc3lzLmMKQEAgLTEwNjcsNyArMTA2Nyw4
+IEBAIFNZU0NBTExfREVGSU5FMSh0aW1lcywgc3RydWN0IHRtcyBfX3VzZXIgKiwgdGJ1ZikKIAkJ
+c3RydWN0IHRtcyB0bXA7CiAKIAkJZG9fc3lzX3RpbWVzKCZ0bXApOwotCQlpZiAoY29weV90b191
+c2VyKHRidWYsICZ0bXAsIHNpemVvZihzdHJ1Y3QgdG1zKSkpCisJCWFzbSB2b2xhdGlsZSgiIyBI
+RVJFISIpOworCQlpZiAoX3NtYWxsX2NvcHlfdG9fdXNlcih0YnVmLCAmdG1wLCBzaXplb2Yoc3Ry
+dWN0IHRtcykpKQogCQkJcmV0dXJuIC1FRkFVTFQ7CiAJfQogCWZvcmNlX3N1Y2Nlc3NmdWxfc3lz
+Y2FsbF9yZXR1cm4oKTsK
+--000000000000c765e2065075bee2--
