@@ -4,126 +4,131 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B2577FF885E
-	for <amd-gfx@archiver.kernel.org>; Mon, 27 Apr 2026 12:48:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6500FFF885E
+	for <amd-gfx@archiver.kernel.org>; Mon, 27 Apr 2026 13:58:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3609E10E2A4;
-	Mon, 27 Apr 2026 12:48:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CE1B510E036;
+	Mon, 27 Apr 2026 13:58:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="mGJoAxAI";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="JbT4oCEQ";
 	dkim-atps=neutral
 Received: from CY7PR03CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11010016.outbound.protection.outlook.com
- [40.93.198.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 797D810E2A4
- for <amd-gfx@lists.freedesktop.org>; Mon, 27 Apr 2026 12:48:40 +0000 (UTC)
+ (mail-westcentralusazon11010019.outbound.protection.outlook.com
+ [40.93.198.19])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F3DB410E036
+ for <amd-gfx@lists.freedesktop.org>; Mon, 27 Apr 2026 13:58:01 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=NR+z5rrB6XpMTQanvxTptRiDWtEVn8EXvZqn5vmsu91pirXGyvaJDzjq3VPL3KjR6eIEfQCfQGDdlQlePcEFHq08t3r7tKZbaQWDQLzlXM2yv+ReNHcor6sABBS+paQtcsUwX1RAqHrtE641FcLfPuw6aHgjP5LOVJWvVgGrrNewwmEPb4LzfLsQbPLLO3kYfd3U3CbxrF09zGrt/VwWMfVUSiPBEmoHYWRqrUdGkxR4IpsyPuijWxAcdKkBxWAZxqTpUYgyUKkljq65mEjnZ/WmLked0FhZhN+wqbzqAC45JMaHTYhVyZWQA9XiFJnm75e2SthE+UWzIblOWuJXng==
+ b=uOUQRsNFzusjVNHYNJO0Adb7WnjjwOCC2OfNNcD2AuWf0Us5rpKc2W8S1U/NHScSNbNQg984jsz0POAhKUe4smyH46WoryJCan05lV6MqHpmJ/oXjEUvAtEIxaGtqd7+AOofgyjP+teea24aivA13XK1jT+f+2gRSOALsNLRTLzUFJd0b9CzNe/6JUSep+5cS7HRLfAyqJIZKB0K5WrDWJyJFJsMmkRnEeJjF15ghFFC2/OY2+LMWI+UtFFPftOsuAzDIZBz/vrdjSwdP/uRe3RtDTcA3tck6/0ZQjWwaofFcmJPEXIsqYT72o5FivVK/jW1IIoTkOGNdPmnXIvf3Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=JjRID9KKi3gCYNcPLgngRU4SnkXn3v3tbclkbIljCo0=;
- b=UvRDn1zpvJIMDxAbkZt9xckZhnZF1uIpMEqn+2CjRj96Sv2A4iG5gi2h1MU9V3X/ie9vt85jwyOZ9i4POi0/xzqdxqSinqYGojfrxTcfuc5vkFmCqZkiPBCqSSRb+Uc5PUOIQ13VganhM/9N/uoxz8nG0e3q+uVugvyvZJz2uNF+dFhIKr3akJ7NpRwGa0KYZcfoXOoj44N5psh/X/Pp+OjCxo0gx5vm+tJ6zG+A4dkioyiGw/DIyz+JS3svIFfl/PX+qtYVqRKtq7MU/xfux0RA0i2NkNa+zEVmVfqaGNU/ZzGHiBm/HOfbKaatkso3zz9yXIx8fi77nlZEYvkSmA==
+ bh=mQSqg3RJOOQo2JXuY5r5JX7s6CfmvFp0y4rX21r36d8=;
+ b=Rn3C4wXchS+zjn7L1x5FURjaP4r13TalPUzvWA5E26Ig4SFCGLrXKxVTsMv97HehT8iPJZ60iyK6QVwBoba0rmRKEnQa6r3tonjyiAV9i8v9cfP0ljDLh8uIr065EwRArLPR42NwDGL+hm1KWxjDux69ZrJ5jkPczHC0TfRuD6gMucySPvzU+pp6+tttckLKtc0KGFOC8XZYqIANTgMuk2LTbXptrxQ3zGQ0J5PNOvsRzrIC98xJx0PTkOuGRp0qIicfFO8Mx7F/CIgOpgSPqUbsAJHt8ErCV3scLiJIZUWDKeBfpYSFwtrKW4doJZQLHajV65ZMgMXu7DM3kX2XDA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=JjRID9KKi3gCYNcPLgngRU4SnkXn3v3tbclkbIljCo0=;
- b=mGJoAxAIX8Ahr5qIjUyqC6DMgp/xu8+MpZJ+1GGYDSTxMbKDD130ZI9EM4YPhj8zPqaagtbRURxQkk0o+lM/XKaiLBQ6cOzuExSgHGv6lNr7GtkTp6UJobjlPgns0zbOIGtC4emSqFwbZWFs6TRpBpj0oGuYeEftha/0fQedXns=
-Received: from DS0PR12MB6534.namprd12.prod.outlook.com (2603:10b6:8:c1::19) by
- CH3PR12MB9121.namprd12.prod.outlook.com (2603:10b6:610:1a1::8) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9870.15; Mon, 27 Apr 2026 12:48:37 +0000
-Received: from DS0PR12MB6534.namprd12.prod.outlook.com
- ([fe80::b2e1:64e5:3b9e:738a]) by DS0PR12MB6534.namprd12.prod.outlook.com
- ([fe80::b2e1:64e5:3b9e:738a%4]) with mapi id 15.20.9870.013; Mon, 27 Apr 2026
- 12:48:36 +0000
-From: "Wheeler, Daniel" <Daniel.Wheeler@amd.com>
-To: "Chung, ChiaHsuan (Tom)" <ChiaHsuan.Chung@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-CC: "Wentland, Harry" <Harry.Wentland@amd.com>, "Li, Sun peng (Leo)"
- <Sunpeng.Li@amd.com>, "Pillai, Aurabindo" <Aurabindo.Pillai@amd.com>, "Li,
- Roman" <Roman.Li@amd.com>, "Lin, Wayne" <Wayne.Lin@amd.com>, "Chung,
- ChiaHsuan (Tom)" <ChiaHsuan.Chung@amd.com>, "Zuo, Jerry" <Jerry.Zuo@amd.com>, 
- "Wu, Ray" <Ray.Wu@amd.com>, "LIPSKI, IVAN" <IVAN.LIPSKI@amd.com>, "Hung,
- Alex" <Alex.Hung@amd.com>, "Lin, Ping Lei" <PingLei.Lin@amd.com>
-Subject: RE: [PATCH 00/14] DC Patches Apr 27 2026
-Thread-Topic: [PATCH 00/14] DC Patches Apr 27 2026
-Thread-Index: AQHc0gwEUBvImDGIo0WxMdkMugdlYbXy497g
-Date: Mon, 27 Apr 2026 12:48:36 +0000
-Message-ID: <DS0PR12MB6534E96C77CB6879F46DAB7E9C362@DS0PR12MB6534.namprd12.prod.outlook.com>
-References: <20260422035611.1870316-1-chiahsuan.chung@amd.com>
-In-Reply-To: <20260422035611.1870316-1-chiahsuan.chung@amd.com>
-Accept-Language: en-CA, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_Enabled=True;
- MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_SetDate=2026-04-27T12:48:23.0000000Z;
- MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_Name=AMD Public
- v26; MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_ContentBits=3;
- MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_Method=Privileged
-authentication-results: dkim=none (message not signed)
+ bh=mQSqg3RJOOQo2JXuY5r5JX7s6CfmvFp0y4rX21r36d8=;
+ b=JbT4oCEQrOvSF4KleOlp+Ze9n3CE63dLRTqaudsvzGDTQ0SzqxK71DcdyAxl+Wf9n608Hn/LvmJLwmV9VtKvhlBmeDNzYqho5lURRD4NWN6ODf4rlj9Qy5MaIVJUoRfq/XDz0Qrn+Xqyfj18/wj2tYJUhiGAC83WaSgRzdSyT+g=
+Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DS0PR12MB6534:EE_|CH3PR12MB9121:EE_
-x-ms-office365-filtering-correlation-id: 4ce459a0-5f9d-404b-a06a-08dea45b4c92
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|376014|366016|1800799024|56012099003|22082099003|18002099003|38070700021;
-x-microsoft-antispam-message-info: zMJHsPXE/7JC2y+i86KTaNw/5zwc39dOZyzzpQI/lfp8O6JFiJqTsgJ+Wa18VA1JhIVLjSTdxFZQb7GDb2eYRKR868BB3SXvy6Jpd4daeylAkBCJ4npna+TVC5x8DMXVGmmxtrxyMRBiHWowfGRFnJs+qrFk7iJFJqDspLiQv62Zn0vDomaRwGNp2TZ+5e5CzoEc4hyR4q2idooaI09d1rnFHT1TkacPKPnK9AqXWzHIqEquRarYyfNtRFm9ap1bSQ7fhrDfvosuFwY1k3fs+Nyqt+R6UPbWK7W4T3MJ3JXxqAI19oOriLlXEjTqeDE4f0oCuoE68hpxyjnWF1Ff59KH748/vLhtyy1/t8lAXULySmgof+O4BVhsZGfVDRc1jlQg8N1FT39+depZm/194xI2ameESjGHb5/1z+A6ILBcS2yg+5A/5I+omg8SIO8FdK37sK6wf5GB03I8nySmvyj2LL8cJ40EcPyuYsbY2uwd1ZeiiA8hgb5v4RsXhgw4yxi1gJRhKS2p/tWC1BMNmMVIG8K+FdBe0Lfs0YXNEFAK2NNipclNPUi4tZAqZ3epP/zuF4RdO40d2LbJKfyJ6y1ZfC08EIZQDlBYhbdVU1PCkgQ8OzV78Xf7uRibdW1jXl86s8qrgVs+jaasZ7CTwe8GQwMobXC9/bu7tkXrELE2AWcip3SHwKenPlA+gzd2wiSi3Q13LIipiFKd9CEcy6X5LB1ww8ztPblG9PZ7FtKYUHsz97n4k/SmtYTTn6Lb2uln7enKaQ0eGXFps7sgAoaQK+lr5yiB8XyGjKZqi3o=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS0PR12MB6534.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(1800799024)(56012099003)(22082099003)(18002099003)(38070700021);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?Azxqu1kVvehFn3wajVIXfsfKUlwhQB5Ax00HTkXuAfJJ+Oq3Hq5wjsAnpy?=
- =?iso-8859-1?Q?T0yGLzwCGFv+6GpJAAqqoB5HFR/DJ9EKkDnrgbIhEpHIwoejdtaBnKjvKa?=
- =?iso-8859-1?Q?zzCAU2yUttrvtM8E1cs3XzyEdQL1it6wOT2dtEWw9SXtX64pDd5a4DuOFk?=
- =?iso-8859-1?Q?vZHj5+N2/hXfcUTEdKWUv7peBmlR2N933UV6jmBSDWemRdNZPiypCMfQB1?=
- =?iso-8859-1?Q?iF/0AkYxvmN4zLVXqpYjflIBazBfeqCQU2h2k4cgknlW/rqL4fDRzrgwpN?=
- =?iso-8859-1?Q?R5A5dZz+ev1g730XK5KbrEGdiKLZzhgs2ciRl3OWCwOYiFGL6kgmRU5F2v?=
- =?iso-8859-1?Q?gGDamlE7OratfaWdVCd9ke6QvNPCVZgL4+yeQd6df2pR2ZfZCKxrkHuHAM?=
- =?iso-8859-1?Q?SBJlOlgLYbLrI06IJyksaDebCJe9VI7vewJhOrqFPT3DoUwt3dNWXPSPww?=
- =?iso-8859-1?Q?qlmd7+o/W8Gur/za4UZ4jSBsnJpjt+GEb692FSXNPTv8S42rCPn/MSuncU?=
- =?iso-8859-1?Q?jq7Rvo9ikMQ/vnZ3uDHtYcuJcPftrRt8CH0SH6a3PvdCfhx1jwgqf9POdm?=
- =?iso-8859-1?Q?IhjcE3NIdE3qoK5FPSGVy5jDQ7REEDdmQNYvXDwgZhGFXx4RR6We7fn+/J?=
- =?iso-8859-1?Q?p0oE+IkNnjqWxKOHeD/R2eEPwk1czD18r0hQLC+z3UqwMzaa7lVRgMKTAo?=
- =?iso-8859-1?Q?SjUaoh4ISr9+cUus4m3Kh4CDaZw/vZOXrRgAyqe8LF0VeU3cYtZ9DZF4Uu?=
- =?iso-8859-1?Q?W75YWLm/KJFNzF35cSuWzzxaU+t9/44ubyO9EbvhAMBTbPoAAc9fguQEiv?=
- =?iso-8859-1?Q?wNi8ENOWhlwlNT0YtA8kxNZkl97EiwN0Sd0sFtPxcVngfmdHiMEyyXgXYD?=
- =?iso-8859-1?Q?le5bkDQAjhOeHc9XdFxIoE39zk7+8cj5H29USlvt6H5KoacCfAcXLwzh1Z?=
- =?iso-8859-1?Q?1ym8a7rJNo5smrdb5wwtnw4SmSIvOtabz+1wYoRqnrKyWAV6j+W6nrLHps?=
- =?iso-8859-1?Q?8sU6hnmooaVnxMdhcT0liViYfUm4tCT6L/ySmEqZH8uA7OHZVxFLLo3YpT?=
- =?iso-8859-1?Q?l2Nog7rj7lF2xySEGohFV/ul+9O2Uc0j+HWU8xDGIZ5p2Vl4xo8RKRCflh?=
- =?iso-8859-1?Q?Y29yrb/7gE7TXiZxFo9m4SFhvzcG0aQrvRHV96mCxcKBNz4gw+zwGfKFaC?=
- =?iso-8859-1?Q?DvQox7bo9FJDxCta3a2Mj2kRCCYIhKYYlBFGcCu2GfwhM6aOiympkquECs?=
- =?iso-8859-1?Q?NcRKaLaScTxQmFinJ28Gu+L/Vy4oi5NvYv+Cy7UdYxmjxdkRfVII4DTSs/?=
- =?iso-8859-1?Q?jcFUFY+ZVYVZBdvtKXGAY5YF8XeWgcpwdFI9nmliKIQ6pDWGtnuW3v/6Un?=
- =?iso-8859-1?Q?Kzy52v+160E4bqbf0PySj6LTGEpJhy/GuIiwBgIzoX2mvnB30nXLSKF4TB?=
- =?iso-8859-1?Q?VSAPYoLigfEq0BkSsKL6wNQhxpFOBYQphm0CuZehNnGZmI+TjIea3Ikhjc?=
- =?iso-8859-1?Q?MgnWP9Bbklp4kEeEc8ivsFnjThGb9Ix7nCu34tKaFOb2uCCPZdMRbyG/g9?=
- =?iso-8859-1?Q?aIw+XKhVcU/seFW6urrTsk/QD06no93WG3Z6Q10XsjNQ7KRB39RdRI4zvE?=
- =?iso-8859-1?Q?bV4BlW9ZCep3+G+psCOFr815vcQndkXDl/eXUlAspKtjeORTCdfqa9cqPm?=
- =?iso-8859-1?Q?FL4yIAJV7Cf5nFVgLXO6PEVi+rEvKGxThxa0fdagC6WUUjaj5iq5bYljl1?=
- =?iso-8859-1?Q?CvRPyzpnpDHuG4yvlGE28Dq9BJAsbCxuxLxJIGNRVyIhxJ?=
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Received: from SA0PR12MB7091.namprd12.prod.outlook.com (2603:10b6:806:2d5::17)
+ by SA3PR12MB8761.namprd12.prod.outlook.com (2603:10b6:806:312::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.16; Mon, 27 Apr
+ 2026 13:57:58 +0000
+Received: from SA0PR12MB7091.namprd12.prod.outlook.com
+ ([fe80::ec33:1213:cfd8:63bc]) by SA0PR12MB7091.namprd12.prod.outlook.com
+ ([fe80::ec33:1213:cfd8:63bc%3]) with mapi id 15.20.9870.013; Mon, 27 Apr 2026
+ 13:57:57 +0000
+Message-ID: <eac359b6-13f8-4114-96db-84f6b2429968@amd.com>
+Date: Mon, 27 Apr 2026 19:27:51 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amd/pm: Add fine grained flag to SMU v13.0.6
+To: "Wang, Yang(Kevin)" <KevinYang.Wang@amd.com>,
+ "Kamal, Asad" <Asad.Kamal@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Cc: "Zhang, Hawking" <Hawking.Zhang@amd.com>,
+ "Deucher, Alexander" <Alexander.Deucher@amd.com>
+References: <20260427073042.3547935-1-lijo.lazar@amd.com>
+ <DM6PR12MB2972472A5F44139A4439029C82362@DM6PR12MB2972.namprd12.prod.outlook.com>
+ <b462125b-0cf8-4fff-996c-26a58e48e438@amd.com>
+ <DM6PR12MB2972F9AD29542173B6B9A9B882362@DM6PR12MB2972.namprd12.prod.outlook.com>
+ <fe6ed465-47bb-41fa-9d3d-5e6c79b83bd7@amd.com>
+ <DS7PR12MB60717B0AC6C53245966A41868E362@DS7PR12MB6071.namprd12.prod.outlook.com>
+ <DM6PR12MB29722EEFE265BC9704E3558882362@DM6PR12MB2972.namprd12.prod.outlook.com>
+Content-Language: en-US
+From: "Lazar, Lijo" <lijo.lazar@amd.com>
+In-Reply-To: <DM6PR12MB29722EEFE265BC9704E3558882362@DM6PR12MB2972.namprd12.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MA5PR01CA0179.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:a01:1a9::9) To SA0PR12MB7091.namprd12.prod.outlook.com
+ (2603:10b6:806:2d5::17)
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SA0PR12MB7091:EE_|SA3PR12MB8761:EE_
+X-MS-Office365-Filtering-Correlation-Id: 25bb4fd4-a2fb-48e9-6740-08dea464fbf6
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|376014|366016|56012099003|22082099003|18002099003; 
+X-Microsoft-Antispam-Message-Info: EyAuytPbaXhtgYQOaRLY6IVaTaqdEHZi1LlCiac7K3B6/3QjP1XzP45/Oc1GojUPAM1/+L7XkbpbKIyDYM7gnDIZeGIRppdsj4stPwsn7kDHVBGR4mffFiFaqgluQ2v+ZtEkgBFVlV7OP1/kaab1lzDJXGMgu8Ba9wyXG6hf1ldOIyU+r8KVXVp+/vIGcCpWR+ZTR241pQiE8J79RyBsj9cui8U4Tk17jmTAIA6AiVgZ8/xXVqsvzw9Muy+ZULLpnMDY27vrixuI0G0gg02S3RtOQ65pKefuxUFlnUhS4meKLbf1Fvwr3XO9Jo3PCnNa3NpcGQaMXDdvF8LlKQXJ3nbCIaW1r579J2zvnohhUJ+HFMot6xo+jBVAogvDOr1AZ6nniAo/q6TkrCCxqFlb/8VKvDVvI6aMXwVBFwSUNmuY9gIcL6o1QOJo+0XByWT6BuyF+EK9kkZVNqkp8vd+wf09IncRDMzmvIDC0JhWczu1Bew7bddd5cEJeUwVS5BkBkFaYUh9LEuNr27Toz+QX7ryC16fxjHDF45+m3PWsGAoZnW1gThb35uCEs1+2YYWQJteM3fXZKvF6uHiJ1nEHi6khGysmLVQnn3eBBfT69k+ygRwmodG8F0ffd/ExP23mDaBIqsmtZr2ekNe1GA8TOkbPS25Jsc8+OLf5GcySaCo4zn35Jo2b/K23I5Jonfpq9BR8HIjZHVoIWXUG+KLiL4eJrNoTZWtnhPJ0Q5U2KQ=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SA0PR12MB7091.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(366016)(56012099003)(22082099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Z3RKeCtyMFE5NWtWdGU0L2F4ZmZQMk9QNlVWRHFISGRsVm1TN0hKU2pSRGlk?=
+ =?utf-8?B?elA2L09STTZHajVZQ2NVcFp5WDRXK3BSeDRLSk02K2xPQ016eWNlc2tjMVV1?=
+ =?utf-8?B?QnBmRVNORE5wdndaTHlmYnR1WmJsYjEvNmdWM3FCRUpjRURCYjYwb09aUXcz?=
+ =?utf-8?B?THBjdWZwNVYxMWNaNjlrOHlib1NqaXJNbElYYWhVREcwVk9jYkdUZGdsekVw?=
+ =?utf-8?B?dWpiU3U4WGRraTBncXBXUmlWWmtwTmp6YTNhMndYT3JNWkVZM1lheE9pUFBQ?=
+ =?utf-8?B?dHhJWXBWWjJ0VWNPa2hDRGs2amhJR2sxNTJ5RU51VzB6ZXRibXVvVG5Oa21W?=
+ =?utf-8?B?SVpJeStsWllIU1dqbytRS3F0ZFZzS0laSVRyTE9VY3JWU09md3kzTVZlaDY4?=
+ =?utf-8?B?eFh4bjB3WVJjYjJQdjlOUEtraW9UOERmbldWK1BoOHBhWnlGR05yUEpFdUtv?=
+ =?utf-8?B?ZUZCaUptRmxNdXV5ZFZQb1FyaWMrQkMrWUo2WEdvVUplOEhLLy9nMlRtbkZO?=
+ =?utf-8?B?aWlYTFcyRWVkZDRXREVueVlRbnhNS3B2MWRnbEMxanR6QUpLMXMrUXRycjh6?=
+ =?utf-8?B?OVZtMGJJNXVpRjgyOGVpYU5mb3JlSVFKVDJ5M3huRjFMRzhmMm5nbXcvR0ht?=
+ =?utf-8?B?K1B5TGJTOWlwK3ovNFJIVzN4M0xEQmM3aUJqcjJ0Vk9Vbmo5b3NyTkxFOVpE?=
+ =?utf-8?B?aFpLNXI4czJvRDdFL0pWT09xVDk2OWNVcjBMRmxlb3pPN08rZFNVNXY5eXB3?=
+ =?utf-8?B?U1BOcC85TUxHZXh3T0pxcTlNd3ZEK2EvUlVCZ2tUOE9tUzlyUmFGMGxsdlkr?=
+ =?utf-8?B?aW9yQXRIN0ZBWm4wWm04ZkVlR2tLY1EwNkZZT1JBMHF3eUN1VkFsOTRlT283?=
+ =?utf-8?B?VWNpS1k2MFc1ek1URFJpRWdtUEswM1M3eFJBSGZqUUNCd1lGdXgrVGM3TXJq?=
+ =?utf-8?B?OTdTRGVqNEdHZE1EU2xUNkdhdXNYSWxGRFFRQmV5MXcvaEtPdnhxMXRVSUpS?=
+ =?utf-8?B?Yk1iNzBjd0pIUC9CbGN3bXhlbzc5Y01ITk91NGxTVmxUZHdLdXU5c3pZUmFF?=
+ =?utf-8?B?UjEvU2tyVUJ2OTY2ZitKYmhDdWxscER4dE9aOUNSa0hrT3JqbE50UmdTbWFL?=
+ =?utf-8?B?VmhMaU5OWk9scE1SV2NvTGpYa3JhZW1LMGNmSUxISzY4ZGl4b1V0eHh3dXl3?=
+ =?utf-8?B?Yk5GTmo4aFRPeTdoSldId2hKbEM4ZFVuS21PTFltd2hrN2Frc1ViU1dpSDhG?=
+ =?utf-8?B?cGpIcU9Kcy9Ka3d5NHZPOXEybjI3QzhsS3FNYXpDK21VUGh1a2szNFZ1YXR1?=
+ =?utf-8?B?QlkwQ2l2Ykk1dDRhNnhEOFRLaEZFcWtuTXRHdkhSUm1aak9ESXRTQWozbGZ6?=
+ =?utf-8?B?a2xRTnlsclFaN2F2Q0V6YTVDYm1UUjFYbHQ5UHh5QU9YZ2hnOXJpdUpQWmM3?=
+ =?utf-8?B?aGs0dTlkZVYyWU5vRlNuZWRGdUYwOUJBS21tQWgvOHYvM1BDa3g4Y2xZV3Z3?=
+ =?utf-8?B?SDB5TEtham9UalBLN05Pei9GMXplNkt4NThUTHRLTGlGV2tQdStqdmFZMFVj?=
+ =?utf-8?B?OHB6cXVsdEMxSThxSkxzamp0VnI1cm9CZ2Jld2swZ1EwUllab3l0Yk5YQnFp?=
+ =?utf-8?B?bmdRcC9BaDAyc2JYaWxwSEhDa0gyUGNHSXVqd3RrWUp6MzlURlpOUUExbWZp?=
+ =?utf-8?B?c0VGSGRNYWYrbEsvR2xtWEZOb3JPSEVMSjRrSzZDV2Rzd00raWUxemhZWkdm?=
+ =?utf-8?B?M2ZGODVSajhLWmxBQ3RQclJFOVREVm9PemF1L2w0ZDJsbllSZUhkNFBETFRz?=
+ =?utf-8?B?LzhvM1Qra1dDSDVodzd5M2IxbkFCWHV1Wkl0S094MWp3N3p4Wks2MGhDNVRa?=
+ =?utf-8?B?Qy9XTFo0ZndraFJwdi9EWVg3dW5ZQnl2OGhNa1AvVmlxNE02TTFRUUpodGMx?=
+ =?utf-8?B?MXVDbFpsZ2hkNVJ0YnVhbWplQy9FL2ZJeHhZSW9LcGZRbjhxUVNsN0pSdGtP?=
+ =?utf-8?B?U2dzZmI1RUZYazdTYWl1b1RBTDl2RW5QZ1FiWVRkeWI0UWxYNElqTTUrZjAx?=
+ =?utf-8?B?Q0RWMWhUaUFMV25vb3lqcy9STlgzV1dxK1VYWFR3d0VYc3p2QmhHWDNnRzRY?=
+ =?utf-8?B?STlZbDQ4eEJCNDNCcEwzeFRDTWxQWXlHVVNmdHA1TTExanp2cCtFYURmQ0VF?=
+ =?utf-8?B?amtMck9DdXpYUjAwMmNPNmFuQVhjN2R6Z1FzcGc1cEEzempOZ1JXbHhRRWM2?=
+ =?utf-8?B?TEhpS2crcW5YdWF6Rkl3MlBwYzlmNFJCd0ZoemNLcXlLRmtDZm9nSEh0OVhn?=
+ =?utf-8?B?WEdiOU9rSStTYXd3SVpmNElDZmNkRllDTjZ0UDZnL3JLMjdSY0lpUT09?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 25bb4fd4-a2fb-48e9-6740-08dea464fbf6
+X-MS-Exchange-CrossTenant-AuthSource: SA0PR12MB7091.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6534.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4ce459a0-5f9d-404b-a06a-08dea45b4c92
-X-MS-Exchange-CrossTenant-originalarrivaltime: 27 Apr 2026 12:48:36.6699 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: SYHA3D2XNTCOi1uhDfWf/7SsejAkYCjRrlrGhXOAKtPxKCvBnFwb4De5GU4tLUVQylUUWlcXedOdU09OJvNebg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB9121
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Apr 2026 13:57:56.8631 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Au58XuqPAmCmVkvhfrO2o/3XJCwPwJpTL6P7X+Tn9vsnMuOsvrKfkwutJq74OlQM
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB8761
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -138,179 +143,146 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Public
-
-Hi all,
-
-This week this patchset was tested on 4 systems, two dGPU and two APU based=
-, and tested across multiple display and connection types.
-
-APU
-        * Single Display eDP -> 1080p 60hz, 1920x1200 165hz, 3840x2400 60hz
-        * Single Display DP (SST DSC) -> 4k144hz, 4k240hz
-        * Multi display -> eDP + DP/HDMI/USB-C -> 1080p 60hz eDP + 4k 144hz=
-, 4k 240hz (Includes USB-C to DP/HDMI adapters)
-        * Thunderbolt -> LG Ultrafine 5k
-        * MST DSC -> Cable Matters 101075 (DP to 3x DP) with 3x 4k60hz disp=
-lays, HP Hook G2 with 2x 4k60hz displays
-        * USB 4 -> HP Hook G4, Lenovo Thunderbolt Dock, both with 2x 4k60hz=
- DP and 1x 4k60hz HDMI displays
-        * SST PCON -> Club3D CAC-1085 + 1x 4k 144hz, FRL3, at a max resolut=
-ion supported by the dongle of 4k 120hz YUV420 12bpc.
-        * MST PCON -> 1x 4k 144hz, FRL3, at a max resolution supported by t=
-he adapter of 4k 120hz RGB 8bpc.
-
-DGPU
-        * Single Display DP (SST DSC) -> 4k144hz, 4k240hz
-        * Multiple Display DP -> 4k240hz + 4k144hz
-        * MST (Startech MST14DP123DP [DP to 3x DP] and 2x 4k 60hz displays)
-        * MST DSC (with Cable Matters 101075 [DP to 3x DP] with 3x 4k60hz d=
-isplays)
-
-The testing is a mix of automated and manual tests. Manual testing includes=
- (but is not limited to)
-        * Changing display configurations and settings
-        * Video/Audio playback
-        * Benchmark testing
-        * Suspend/Resume testing
-        * Feature testing (Freesync, HDCP, etc.)
-
-Automated testing includes (but is not limited to)
-        * Script testing (scripts to automate some of the manual checks)
-        * IGT testing
-
-The testing is mainly tested on the following displays, but occasionally th=
-ere are tests with other displays
-        * Samsung G8 Neo 4k240hz
-        * Samsung QN55QN95B 4k 120hz
-        * Acer XV322QKKV 4k144hz
-        * HP U27 4k Wireless 4k60hz
-        * LG 27UD58B 4k60hz
-        * LG 32UN650WA 4k60hz
-        * LG Ultrafine 5k 5k60hz
-        * AU Optronics B140HAN01.1 1080p 60hz eDP
-        * AU Optronics B160UAN01.J 1920x1200 165hz eDP
-        * Samsung ATNA60YV02-0 3840x2400 60Hz OLED eDP
 
 
-The patchset consists of the amd-staging-drm-next branch (Head commit -> 48=
-b6b371b42d57513a5aaeef0c5a9a65364041cf -> drm/amd/display: Undo accidental =
-fix revert in amdgpu_dm_ism.c) with new patches added on top of it.
+On 27-Apr-26 5:53 PM, Wang, Yang(Kevin) wrote:
+> AMD General
+> 
+> Sorry, I need to revoke my Reviewed-by.
+> I object to adding this custom workaround for SMU v13.0.6 in the SMU common layer.
+> The concern is that this stems from an incorrect this patch, then adding an additional workaround to compensate for that incorrect change is not appropriate.
+> 
 
-Tested on Ubuntu 24.04.3, on Wayland and X11, using Gnome.
+This is not a custom workaround, but rather an issue with common 
+implementation. Flags is a property of the clock table. In older SMU13 
+SOCs, fine grained status query also required DPM to be enabled for that 
+clock; hence there is a dependency on DPM enablement.
 
-Tested-by: Dan Wheeler <daniel.wheeler@amd.com>
+In newer SOCs, there is no such concept, rather the property is set in 
+the clock table for the clock type. Thus DPM enablement is not a 
+mandatory requirement for the clock table property.
 
-Thank you,
+The current common logic assumes that table for fine grained clock type 
+always will have 2 levels enabled regardless of DPM enablement. That is 
+not the case when DPM is not enabled for that particular clock.
 
-Dan Wheeler
-Sr. Technologist | AMD
-SW Display
----------------------------------------------------------------------------=
----------------------------------------
-1 Commerce Valley Dr E, Thornhill, ON L3T 7X6
-amd.com
-
-
------Original Message-----
-From: Tom Chung <chiahsuan.chung@amd.com>
-Sent: Tuesday, April 21, 2026 11:53 PM
-To: amd-gfx@lists.freedesktop.org
-Cc: Wentland, Harry <Harry.Wentland@amd.com>; Li, Sun peng (Leo) <Sunpeng.L=
-i@amd.com>; Pillai, Aurabindo <Aurabindo.Pillai@amd.com>; Li, Roman <Roman.=
-Li@amd.com>; Lin, Wayne <Wayne.Lin@amd.com>; Chung, ChiaHsuan (Tom) <ChiaHs=
-uan.Chung@amd.com>; Zuo, Jerry <Jerry.Zuo@amd.com>; Wheeler, Daniel <Daniel=
-.Wheeler@amd.com>; Wu, Ray <Ray.Wu@amd.com>; LIPSKI, IVAN <IVAN.LIPSKI@amd.=
-com>; Hung, Alex <Alex.Hung@amd.com>; Lin, Ping Lei <PingLei.Lin@amd.com>
-Subject: [PATCH 00/14] DC Patches Apr 27 2026
-
-This DC patchset brings improvements in multiple areas. In summary, we have=
-:
-
--Fix root clock disabled when DSC power gate disabled for DCN314 -Enable RC=
-G on DCN42 -Enable/Disable some power gating -Remove Mall, SubVP and MCLK f=
-rom DCN42 -Unify fast update classification paths -Fix narrowing boundaries=
- in dml -Update MCIF_ADDR macro to address IGT DWB regression -Fix dual cur=
-sor shows on extend desktop -Fix hubp tmz field define mismatch
+Thanks,
+Lijo
 
 
-Cc: Daniel Wheeler <daniel.wheeler@amd.com>
-
-Charlene Liu (2):
-  drm/amd/display: fix hubp tmz field define mismatch
-  drm/amd/display: fix dual cursor shows on extend desktop
-
-Gaghik Khachatrian (3):
-  drm/amd/display: Update MCIF_ADDR macro to address IGT DWB regression
-  drm/amd/display: Fix implicit conversion warning
-  drm/amd/display: Fix narrowing boundaries in dml
-
-Ivan Lipski (2):
-  drm/amd/display: Remove Mall, SubVP and MCLK from DCN42
-  drm/amd/display: Enable RCG on DCN42
-
-Jing Zhou (1):
-  drm/amd/display: fix root clock disabled when DSC power gate disabled
-    for DCN314
-
-Leo Chen (3):
-  drm/amd/display: Enable driver power gating
-  drm/amd/display: Enable HUBP/OPTC/DPP power gating
-  drm/amd/display: Disable hpo power gate
-
-Rafal Ostrowski (1):
-  drm/amd/display: Unify fast update classification paths
-
-Taimur Hassan (2):
-  drm/amd/display: [FW Promotion] Release 0.1.57.0
-  drm/amd/display: Promote DC to 3.2.380
-
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |    4 +-
- drivers/gpu/drm/amd/display/dc/core/dc.c      |  252 +--
- .../drm/amd/display/dc/core/dc_hw_sequencer.c |   14 +-
- drivers/gpu/drm/amd/display/dc/dc.h           |   38 +-
- drivers/gpu/drm/amd/display/dc/dc_stream.h    |    3 +
- .../drm/amd/display/dc/dcn30/dcn30_mmhubbub.c |   20 +-
- .../amd/display/dc/dml/calcs/dcn_calc_auto.c  | 1854 ++++++++---------
- .../amd/display/dc/dml/calcs/dcn_calc_math.c  |    6 +-
- .../drm/amd/display/dc/dml/calcs/dcn_calcs.c  |  280 +--  .../drm/amd/disp=
-lay/dc/dml/dcn20/dcn20_fpu.c  |  112 +-
- .../dc/dml/dcn20/display_mode_vba_20.c        |  292 ++-
- .../dc/dml/dcn20/display_mode_vba_20v2.c      |  290 ++-
- .../dc/dml/dcn20/display_rq_dlg_calc_20.c     |  164 +-
- .../dc/dml/dcn20/display_rq_dlg_calc_20v2.c   |  164 +-
- .../dc/dml/dcn21/display_mode_vba_21.c        |  296 ++-
- .../dc/dml/dcn21/display_rq_dlg_calc_21.c     |   80 +-
- .../drm/amd/display/dc/dml/dcn30/dcn30_fpu.c  |   74 +-
- .../dc/dml/dcn30/display_mode_vba_30.c        |  328 +--
- .../dc/dml/dcn30/display_rq_dlg_calc_30.c     |   82 +-
- .../amd/display/dc/dml/dcn301/dcn301_fpu.c    |   20 +-
- .../amd/display/dc/dml/dcn302/dcn302_fpu.c    |   16 +-
- .../amd/display/dc/dml/dcn303/dcn303_fpu.c    |   16 +-
- .../drm/amd/display/dc/dml/dcn31/dcn31_fpu.c  |   26 +-
- .../dc/dml/dcn31/display_mode_vba_31.c        |  354 ++--
- .../dc/dml/dcn31/display_rq_dlg_calc_31.c     |   76 +-
- .../amd/display/dc/dml/dcn314/dcn314_fpu.c    |    8 +-
- .../dc/dml/dcn314/display_mode_vba_314.c      |  358 ++--
- .../dc/dml/dcn314/display_rq_dlg_calc_314.c   |   80 +-
- .../drm/amd/display/dc/dml/dcn32/dcn32_fpu.c  |  291 +--
- .../dc/dml/dcn32/display_mode_vba_32.c        |  174 +-
- .../dc/dml/dcn32/display_mode_vba_util_32.c   |  324 +--
- .../dc/dml/dcn32/display_rq_dlg_calc_32.c     |  138 +-
- .../amd/display/dc/dml/dcn321/dcn321_fpu.c    |   49 +-
- .../drm/amd/display/dc/dml/dcn35/dcn35_fpu.c  |   22 +-
- .../amd/display/dc/dml/dcn351/dcn351_fpu.c    |   22 +-
- .../drm/amd/display/dc/dml/display_mode_vba.c |    4 +-
- .../display/dc/dml/dml1_display_rq_dlg_calc.c |   32 +-
- .../drm/amd/display/dc/dml/dsc/rc_calc_fpu.c  |   82 +-
- .../drm/amd/display/dc/dpp/dcn42/dcn42_dpp.c  |    9 +
- .../amd/display/dc/hwss/dcn314/dcn314_hwseq.c |   90 +-
- .../amd/display/dc/hwss/dcn35/dcn35_hwseq.c   |    7 +
- drivers/gpu/drm/amd/display/dc/inc/hw/hubp.h  |    2 +-
- .../dc/resource/dcn42/dcn42_resource.c        |   53 +-
- .../gpu/drm/amd/display/dmub/inc/dmub_cmd.h   |   26 +-
- 44 files changed, 3092 insertions(+), 3540 deletions(-)
-
---
-2.43.0
+> Best Regards,
+> Kevin
+> 
+> -----Original Message-----
+> From: Kamal, Asad <Asad.Kamal@amd.com>
+> Sent: Monday, April 27, 2026 20:00
+> To: Lazar, Lijo <Lijo.Lazar@amd.com>; Wang, Yang(Kevin) <KevinYang.Wang@amd.com>; amd-gfx@lists.freedesktop.org
+> Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Deucher, Alexander <Alexander.Deucher@amd.com>
+> Subject: RE: [PATCH] drm/amd/pm: Add fine grained flag to SMU v13.0.6
+> 
+> AMD General
+> 
+> With follow up patch already sent to update smu_cmn_print_dpm_clk_levels logic, there is no more update needed here
+> 
+> Reviewed-by: Asad Kamal <asad.kamal@amd.com>
+> 
+> Thanks & Regards
+> Asad
+> 
+> 
+> 
+> -----Original Message-----
+> From: Lazar, Lijo <Lijo.Lazar@amd.com>
+> Sent: Monday, April 27, 2026 2:45 PM
+> To: Wang, Yang(Kevin) <KevinYang.Wang@amd.com>; amd-gfx@lists.freedesktop.org
+> Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Deucher, Alexander <Alexander.Deucher@amd.com>; Kamal, Asad <Asad.Kamal@amd.com>
+> Subject: Re: [PATCH] drm/amd/pm: Add fine grained flag to SMU v13.0.6
+> 
+> 
+> 
+> On 27-Apr-26 1:39 PM, Wang, Yang(Kevin) wrote:
+>> AMD General
+>>
+>> -----Original Message-----
+>> From: Lazar, Lijo <Lijo.Lazar@amd.com>
+>> Sent: Monday, April 27, 2026 15:56
+>> To: Wang, Yang(Kevin) <KevinYang.Wang@amd.com>;
+>> amd-gfx@lists.freedesktop.org
+>> Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Deucher, Alexander
+>> <Alexander.Deucher@amd.com>; Kamal, Asad <Asad.Kamal@amd.com>
+>> Subject: Re: [PATCH] drm/amd/pm: Add fine grained flag to SMU v13.0.6
+>>
+>>
+>>
+>> On 27-Apr-26 1:16 PM, Wang, Yang(Kevin) wrote:
+>>> AMD General
+>>>
+>>> +       dpm_table->flags = SMU_DPM_TABLE_FINE_GRAINED;
+>>>
+>>> You need to move this line of code under smu_feature_is_enabled() to prevent subsequent smu_cmn_print_dpm_clk_levels() errors.
+>>
+>> I think it's better to fix the smu_cmn_print_dpm_clk_levels() logic for that - to keep a separate path for dpm_table->count == 1.
+>>
+>> [kevin]:
+>> No, this should be an independent issue, and you need to maintain consistent code logic with other SMU functions.
+>> e.g: all locations where the smu_v13_0_set_single_dpm_table() function is invoked.
+>>
+> 
+> The issue is because smu_cmn_print_dpm_clk_levels is hardcoding number of levels to 2 for fine grained regardless of dpm enablement status. I think the fix should be there rather than at other places. If the count is only 1, it shouldn't keep the hardcoded value as 2.
+> 
+> Thanks,
+> Lijo
+> 
+>> Best Regards,
+>> Kevin
+>>
+>> Thanks,
+>> Lijo
+>>
+>>>
+>>> With that fixed, the patch is
+>>>
+>>> Reviewed-by: Yang Wang <kevinyang.wang@amd.com>
+>>>
+>>> Best Regards,
+>>> Kevin
+>>>
+>>> -----Original Message-----
+>>> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of
+>>> Lijo Lazar
+>>> Sent: Monday, April 27, 2026 15:31
+>>> To: amd-gfx@lists.freedesktop.org
+>>> Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Deucher, Alexander
+>>> <Alexander.Deucher@amd.com>; Kamal, Asad <Asad.Kamal@amd.com>
+>>> Subject: [PATCH] drm/amd/pm: Add fine grained flag to SMU v13.0.6
+>>>
+>>> Gfx clock is fine grained on SMU v13.0.6/12 SOCs. Add the flag to report clock frequencies correctly.
+>>>
+>>> Fixes: 7380228401c4 ("drm/amd/pm: Use generic dpm table for SMUv13
+>>> SOCs")
+>>>
+>>> Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
+>>> ---
+>>>     drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c | 1 +
+>>>     1 file changed, 1 insertion(+)
+>>>
+>>> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
+>>> b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
+>>> index 40f0d8a685bf..8d04f6e73fd7 100644
+>>> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
+>>> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
+>>> @@ -1133,6 +1133,7 @@ static int smu_v13_0_6_set_default_dpm_table(struct smu_context *smu)
+>>>            /* gfxclk dpm table setup */
+>>>            dpm_table = &dpm_context->dpm_tables.gfx_table;
+>>>            dpm_table->clk_type = SMU_GFXCLK;
+>>> +       dpm_table->flags = SMU_DPM_TABLE_FINE_GRAINED;
+>>>            if (smu_cmn_feature_is_enabled(smu, SMU_FEATURE_DPM_GFXCLK_BIT)) {
+>>>                    /* In the case of gfxclk, only fine-grained dpm is honored.
+>>>                     * Get min/max values from FW.
+>>> --
+>>> 2.49.0
+>>>
+>>
+> 
+> 
 
