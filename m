@@ -4,71 +4,143 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE38CFF8873
-	for <amd-gfx@archiver.kernel.org>; Tue, 28 Apr 2026 12:54:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 23114FF8870
+	for <amd-gfx@archiver.kernel.org>; Tue, 28 Apr 2026 12:54:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 59BFF10EBFA;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3C10B10EBF8;
 	Tue, 28 Apr 2026 12:54:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="lK6aPlVs";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="Ekpevu7d";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4185710EA2E;
- Tue, 28 Apr 2026 07:31:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1777361517; x=1808897517;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=ytyzwX3feuwVR1dvurybDs4E55hpyZh2Q7G3QI5sDxQ=;
- b=lK6aPlVsJyQ2w+uq68rH6OzeCu3MKKoomji/6dutCC9fOMqgrHXt/xmD
- 1vftYod1fHw09pCphcxeseduZMMqTjgzVdjgWWa+JxzokpIKRtx1gsrW+
- 6D94emSmqqVM+sHbbPi5LT1buB3ySK3mNmpKSUPmRdvRbPSDAy7kfmsxP
- TiXhY91e0CdcF7BmN27/x3C0B3CAE4Wa2bMkEKRaM6TF2K/QOEJqG2nnY
- sG2k09R3ffIQMFQQmSHdgOhUhSkI7tuwtuCnKVym/HPNCFEcOwFojlya0
- OCidXJ+kZXYhlgtqBZx0YGCClduyAnjQfHdXy/Wmgi4+emYbSBJfm7qqf w==;
-X-CSE-ConnectionGUID: pwdh6eD8TleMikIvOgyRHw==
-X-CSE-MsgGUID: Xg+gK95SQoCyHtBD9Ow+Pw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11769"; a="103722074"
-X-IronPort-AV: E=Sophos;i="6.23,203,1770624000"; d="scan'208";a="103722074"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
- by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Apr 2026 00:31:57 -0700
-X-CSE-ConnectionGUID: 5U7t1NFMSfq/I64E1TgSjQ==
-X-CSE-MsgGUID: aSh3BOeNTUqUtnrXbw/xcw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,203,1770624000"; d="scan'208";a="230716318"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO fedora)
- ([10.245.244.161])
- by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Apr 2026 00:31:52 -0700
-From: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-To: intel-xe@lists.freedesktop.org
-Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Natalie Vock <natalie.vock@gmx.de>, Johannes Weiner <hannes@cmpxchg.org>,
- Tejun Heo <tj@kernel.org>,
- =?UTF-8?q?Michal=20Koutn=C3=BD?= <mkoutny@suse.com>,
- cgroups@vger.kernel.org, Huang Rui <ray.huang@amd.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Matthew Auld <matthew.auld@intel.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Simona Vetter <simona@ffwll.ch>,
- David Airlie <airlied@gmail.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v2 2/4] drm/ttm: Hook up a cgroup-aware reclaim callback for
- the dmem controller
-Date: Tue, 28 Apr 2026 09:31:14 +0200
-Message-ID: <20260428073116.15687-3-thomas.hellstrom@linux.intel.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260428073116.15687-1-thomas.hellstrom@linux.intel.com>
-References: <20260428073116.15687-1-thomas.hellstrom@linux.intel.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Received: from SJ2PR03CU001.outbound.protection.outlook.com
+ (mail-westusazon11012033.outbound.protection.outlook.com [52.101.43.33])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 88A1810E929;
+ Mon, 27 Apr 2026 20:48:04 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=EKJfc55gBn7/JbJs21SiRzUuW0AsfDVMTGZmA7fovsVtMpwpJXl5dlFpVdpigSVe3EWg0hBB0fu4CdI1q6zDfHGeLadKtZhEqjE7ydQqdN2j4UzanfOMKli8tBLxG4xE9Gnus/RcdDUX4LAPWvelU3Kl+4NLuekf+MSaWUp21k9wamSHm393QK0i3y9MWuF2ysFyqzpmJJz8Mdo8isyyLOcS7eDXfzYJEZpvSAG2PouwHF3KGxptafxFzeABcOnr6b5s15caTbUtbWG0RfIUe5QbTeBgBo6MVAuW/CqNsRX4shiveKpaPp65fKEDjq8A+rCDlEl4UQlySXJLv6V2KA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=wJfDnkGQDnB7YqaX7jhz4r3pYQAr7nSK9IhgO8ax4J4=;
+ b=rsQdUUbJcU9so0R7/zFg7mRBFAySidN5CdO0zGCGM86QKGAxvA74BKUH63WvS3Tk0mL+vASpIam1O4Zmh9rAGrdThUTlvlpfrqYPGShsqKfmDSbcq7tlmSOjpQkHGHahsJfn4U+n1o1vBx2EYhJ7brHFuKBy8kjZ7GFVjMtKqJ2iNZogaxH/G+wSti4US7N076mGb2fGyHmqtBMXTy6dvPieTRnpIUVrrTK2hX7jlr0w0xx58LcxU6+u4oe9MNGftQmzh7t1iNY2TSYrUg+Wkyi7Yd1NqHn0grLjG9obOU0YhlxEFl5sm8V4hgpq+BBuW9cBSBY8C+KZtmfBhZuaaw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=wJfDnkGQDnB7YqaX7jhz4r3pYQAr7nSK9IhgO8ax4J4=;
+ b=Ekpevu7dvZexS27zf6AAushYVGKE2eyKqudikxclym3HcV42ATS6kdvhzRmxkgoE3UM6ANC+pGpRxFyh9gBzNh+b00reJl7lqMvIcy0JSfz+541KpWAKDyh+fz1lMlsGeW3w+f1gCG0cF+47eMxsS70gUjxMLhEN/viVEI3YCTpyhfe82oiQ3gIWQdD+eiGmuV51mjdQ3D5GBVCPtTRshca6OeMvxGY3iEbIzJsPiy+dpjuwSxW2GRx6o6JVH4a9y2xQ5lYy5EeK7FzcAG1vNoor5k6rR6JO3aXcfZMvQmoZFdkb1mqFlj8XmeJn6ScLYqvaY181izAl3zJrlxnFHg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from CY8PR12MB8300.namprd12.prod.outlook.com (2603:10b6:930:7d::16)
+ by SA3PR12MB7829.namprd12.prod.outlook.com (2603:10b6:806:316::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.16; Mon, 27 Apr
+ 2026 20:47:58 +0000
+Received: from CY8PR12MB8300.namprd12.prod.outlook.com
+ ([fe80::ce75:8187:3ac3:c5de]) by CY8PR12MB8300.namprd12.prod.outlook.com
+ ([fe80::ce75:8187:3ac3:c5de%3]) with mapi id 15.20.9870.013; Mon, 27 Apr 2026
+ 20:47:57 +0000
+Date: Mon, 27 Apr 2026 16:47:53 -0400
+From: Yury Norov <ynorov@nvidia.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Linus Torvalds <torvalds@linux-foundation.org>,
+ David Laight <david.laight.linux@gmail.com>,
+ Thomas Gleixner <tglx@linutronix.de>, linux-alpha@vger.kernel.org,
+ Yury Norov <yury.norov@gmail.com>, linux-kernel@vger.kernel.org,
+ linux-snps-arc@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, linux-mips@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org,
+ linux-riscv@lists.infradead.org, linux-s390@vger.kernel.org,
+ sparclinux@vger.kernel.org, linux-um@lists.infradead.org,
+ dmaengine@vger.kernel.org, linux-efi@vger.kernel.org,
+ linux-fsi@lists.ozlabs.org, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ linux-wpan@vger.kernel.org, netdev@vger.kernel.org,
+ linux-wireless@vger.kernel.org, linux-spi@vger.kernel.org,
+ linux-media@vger.kernel.org, linux-staging@lists.linux.dev,
+ linux-serial@vger.kernel.org, linux-usb@vger.kernel.org,
+ xen-devel@lists.xenproject.org, linux-fsdevel@vger.kernel.org,
+ ocfs2-devel@lists.linux.dev, bpf@vger.kernel.org,
+ kasan-dev@googlegroups.com, linux-mm@kvack.org,
+ linux-x25@vger.kernel.org, rust-for-linux@vger.kernel.org,
+ linux-sound@vger.kernel.org, sound-open-firmware@alsa-project.org,
+ linux-csky@vger.kernel.org, linux-hexagon@vger.kernel.org,
+ loongarch@lists.linux.dev, linux-m68k@lists.linux-m68k.org,
+ linux-openrisc@vger.kernel.org, linux-parisc@vger.kernel.org,
+ linux-sh@vger.kernel.org, linux-arch@vger.kernel.org
+Subject: Re: [RFC PATCH v1 2/9] uaccess: Convert INLINE_COPY_{TO/FROM}_USER
+ to kconfig and reduce ifdefery
+Message-ID: <ae_LeSk7XDEseaZb@yury>
+References: <cover.1777306795.git.chleroy@kernel.org>
+ <9fe875d2f55af59c12708336c571a46038528678.1777306795.git.chleroy@kernel.org>
+ <ae-tVFVfx72oCC_i@yury>
+ <f54c3c2b-33da-42a0-80b7-0f6615d930ce@citrix.com>
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <f54c3c2b-33da-42a0-80b7-0f6615d930ce@citrix.com>
+X-ClientProxiedBy: BN9PR03CA0735.namprd03.prod.outlook.com
+ (2603:10b6:408:110::20) To CY8PR12MB8300.namprd12.prod.outlook.com
+ (2603:10b6:930:7d::16)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY8PR12MB8300:EE_|SA3PR12MB7829:EE_
+X-MS-Office365-Filtering-Correlation-Id: e21d145c-03ba-4a6a-9777-08dea49e433e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|7416014|1800799024|366016|10070799003|22082099003|56012099003|18002099003;
+X-Microsoft-Antispam-Message-Info: HCC9cdge92V4m6hZLbkxYjY9nSdZMvY3eUrYJzVoB9gQOqmxAPK6rdaWqs+TbJRNyZBGFNrE679QPKqMgPKQHmcjESEesO2VJjPgChKtepPLUYOE/LkQQGZsmv4w+55OFZ+Sur4Mu4JOw7V/vNmvJwOlYlBhT92YWuGJR6DXk2yQMvjP+eOYlTJdO+YTWa/Jz5KJgNrHtOAvm1it4WHU2ZBZLuL/AhrqVVwkzc+IPXkcU79jgOjI9ydER1cGo3HoLCd6gdpsP3eOfNEEF1DgB1xwOU0GvQzD1FHx6RYh0dNBNICPgU4SwossH1u0yrKpK7DamImEaixNUhDIX5GqeLTvugMJVVzxBSaEiDILCjAbZA9Z+OHcM1SVIztBG4AIVhyBRLw7KvN9n80fJiW1prOhuq6i0UkL/bhvl2RXV8f/qvckHvjveZOF5G5W/CDJJbwSEMR5qmaHNd2zViXK41IHDwoAcE3lAUf9N3NwqTg0t13f/0OcaYbRU6vQ/EEXYIwU1f+9BVtx4tw2aV5CPMy3zTFmt8JHaFRFe4e6l7ArpDbBZg6Xml+AFgUU08CpDyCP3LHA2k7Yz8eX8hEKDJ4RCJADvvVuGPsqeH/7bVuUQfTS8EKRrxfaQNDlPFfA8ce4uzJFhb290nwgicqO9fWHhu657hjQi6f4ke3+NIkg+bbwnEo9XuQ/fkQEeFoGpwGekFQ1Ooc0oaJTcAZVREVLsSoJWh99E1nS7yB9CuQ=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CY8PR12MB8300.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(7416014)(1800799024)(366016)(10070799003)(22082099003)(56012099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?iso-8859-1?Q?2oPD54n5ZXNlK/kFqbJNXD1QtsOVDwh+UJSvy6M6BXER4piMhd4MdKi/hs?=
+ =?iso-8859-1?Q?dtPpvaj4LxnpiHlSbO1r9fiNIKnpbVyt/rHkG6vZrPFcZWV33Wt3zTJ3qe?=
+ =?iso-8859-1?Q?ckpBkmbC6Q5Mugc8CDDrjZOIIHIUCmJaeWHL6owAAl4UEDpaubTbrYmMuI?=
+ =?iso-8859-1?Q?NqIws0lQ62II3JN8RQZuKwQsrYOL7Nq5cL28v9C0yBSaStZjc/oua7D88W?=
+ =?iso-8859-1?Q?lVp9FnMbzl5ZdPFHkvwcurNSWE6BI72RYLGmhfxuw+iEalNBTLg93jaryl?=
+ =?iso-8859-1?Q?OQazywBMu1WZqV5znY98J8cAhbSaXoqNerO0nX5QD3UEwjJsWjGXnlR9MF?=
+ =?iso-8859-1?Q?Bg4g2NlweZOcbd0J9a6HGZaL0npF+/is4ng5baw4IKHSBGb/WHSXYdb4td?=
+ =?iso-8859-1?Q?d3TtbuomhIdQorREntl9+RMaFZfUQj6JJP8xowgTVew4wom6mp8Ds/aio3?=
+ =?iso-8859-1?Q?yk6XHj08kGeyGvaiem4uBZf8Y2rOkdQseejpE4luAqcRFsSolHHNQ72xfS?=
+ =?iso-8859-1?Q?bae/SS8Lc8zTresY8jBaOtgkXkNPTJHB5HQDPPRP+g3130C3EcS8eD5tGO?=
+ =?iso-8859-1?Q?NzZ+ymHQUjmXdjSLHoKhP4TdN5hksLFroHF4YT+CieTOYyfTC3T4uN14Js?=
+ =?iso-8859-1?Q?UL87gmptyN6VwoW6YhMFZgHudT/IN/KukxSYBtWnZHqw/I/RRpeaTAknI1?=
+ =?iso-8859-1?Q?7z1yyEgD+nkCwBsbgf4V2o7fXMYFCDwVMoMNrl5ZLCY2ZZVCbVB+K2+wJ/?=
+ =?iso-8859-1?Q?inPaRdegXyxv3Z2bAPJAkiT8X0ISDMOe2eOf9iNEETkwOYz7Jr4nKvc80u?=
+ =?iso-8859-1?Q?XmIxrPRpBAhnAr8S7xfczH+Qqehg2TjkgAz64f8ZE8/9i1wG7mXVO1Q9as?=
+ =?iso-8859-1?Q?0uNtSUBT6CwjDIu2Amsqe4AUMw/9zUCctXgXVLfEx9aZcp1+1Dsxtt2N8z?=
+ =?iso-8859-1?Q?/L7OSlnpIcZg+TM7s8ia0P1nx+MU3SMI3qOYqLkDN6MHjtMX1beye9a0NQ?=
+ =?iso-8859-1?Q?ax9jU/0KlCxKchpGqMjIocKvlky4JLfKCTiBpS5XjJfREJ2e7Jew9rHsl9?=
+ =?iso-8859-1?Q?w8ClFQzQqaLDDgE4HpS45w/MKo9f93Ash6uWAME71hU/OPJaLBOz0Hpldd?=
+ =?iso-8859-1?Q?m2FT9tRGyPVIo1L+3HqLJUg9o1OscoKBqdF68jUKqgmevSHEfa1UBdv373?=
+ =?iso-8859-1?Q?tsqh6SgzYUFHbhsPtvMgwVDmVKImbZY1DOP0fd8wUojL2nHmKHuapuUelP?=
+ =?iso-8859-1?Q?Cy7jKpGJCTnRVCFUP+TcIiCMeg7jztgl1gZm6ZF5OEMPnLSgVXNc2frsXG?=
+ =?iso-8859-1?Q?i7Tl4usifn7qlFirf9xjgi/muZGT3O54fymYbGeXPWXs9yYi6E734lRU3s?=
+ =?iso-8859-1?Q?esZwUYXTz+a6EE2LAkm2J/jh8f4tiKB+vx1FITuMB8F09K/S0rGrQCfbOA?=
+ =?iso-8859-1?Q?zQJYWuF7cpp6qPoJQ4D/NwHej7OthQv0ts8RpcxqFrX8r2QFTE2kxBnbRQ?=
+ =?iso-8859-1?Q?zH+VYeLWY/k489znw1njCgLLGESMF0DyOWS6pKnzOdAZGSqYkjDH97a4Pw?=
+ =?iso-8859-1?Q?fCVnJ+gzPGl0Z8ysg8nsTHrAvnWX/YKoJKKlW6ayYaVF/toGLaJhXQXBwU?=
+ =?iso-8859-1?Q?hXseQkaBmAmk8jvoDWKtBllEbMiEapN9iuDyfvYHntUDaL2Gy1qlm+aosx?=
+ =?iso-8859-1?Q?1NyFkDKiwyMNtj9YU33Xjg14+fUyMnYdXGjdpUJk60YTi5RRQJD2DjjAV+?=
+ =?iso-8859-1?Q?wuTrE0HYz7zXrNZJofNvR8+A56trLl7EwyrqY231N4pMe/m58Zda1V/tIq?=
+ =?iso-8859-1?Q?bdVf26XRYGA8BCZj3ziv31rtyHAsm+JkxqEH6VRAcg40GKElJycg?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e21d145c-03ba-4a6a-9777-08dea49e433e
+X-MS-Exchange-CrossTenant-AuthSource: CY8PR12MB8300.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Apr 2026 20:47:57.4916 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ApBP39ijwBDa3/RbspzeLaHHXUB2RtFB8F4ypsIudayixW1tFGUX6nHaIuJK1Cdq2xPDFGyR8Es6N/9hhOEExA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB7829
 X-Mailman-Approved-At: Tue, 28 Apr 2026 12:54:19 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -84,268 +156,20 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add ttm_bo_evict_cgroup() to evict buffer objects charged to a specific
-dmem cgroup pool from a resource manager's LRU until a byte target is
-met.  Add ttm_resource_manager_set_dmem_region() to register the TTM
-eviction path as the reclaim callback for a dmem cgroup region.
+On Mon, Apr 27, 2026 at 09:39:33PM +0100, Andrew Cooper wrote:
+> On 27/04/2026 7:39 pm, Yury Norov wrote:
+> > On Mon, Apr 27, 2026 at 07:13:43PM +0200, Christophe Leroy (CS GROUP) wrote:
+> >> Among the 21 architectures supported by the kernel, 16 define both
+> >> INLINE_COPY_TO_USER and INLINE_COPY_FROM_USER while the 5 other ones
+> >> don't define any of the two.
+> >>
+> >> To simplify and reduce risk of mistakes, convert them to a single
+> >> kconfig item named CONFIG_ARCH_WANTS_NOINLINE_COPY which will be
+> > We've got a special word for it: outline. Can you name it
+> > CONFIG_OUTLINE_USERCOPY, or similar?
+> 
+> You can't swap the "in" for "out" like this.† "out of line" is the
+> opposite of "inline" in this context, while "outline" means something
+> different and unrelated.
 
-The eviction context is interruptible; signals abort the operation and
-propagate back through the write() syscall.
-
-Introduce a new mode for the bo LRU walker so that sleeping locks
-can be taken. This can be used when the caller doesn't hold any
-previous dma_resv locks, and where it intends to hold at most
-one lock at a time.
-
-Like the rest of the TTM eviction this should sooner than later
-be converted to full WW transactions.
-
-Assisted-by: GitHub Copilot:claude-sonnet-4.6
-Signed-off-by: Thomas Hellstr√∂m <thomas.hellstrom@linux.intel.com>
----
- drivers/gpu/drm/ttm/ttm_bo.c       | 95 +++++++++++++++++++++++++++++-
- drivers/gpu/drm/ttm/ttm_bo_util.c  |  3 +-
- drivers/gpu/drm/ttm/ttm_resource.c | 36 +++++++++++
- include/drm/ttm/ttm_bo.h           | 10 ++++
- include/drm/ttm/ttm_resource.h     |  4 ++
- 5 files changed, 144 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/gpu/drm/ttm/ttm_bo.c b/drivers/gpu/drm/ttm/ttm_bo.c
-index d85f0a37ac35..1745557c184c 100644
---- a/drivers/gpu/drm/ttm/ttm_bo.c
-+++ b/drivers/gpu/drm/ttm/ttm_bo.c
-@@ -515,12 +515,20 @@ static s64 ttm_bo_evict_cb(struct ttm_lru_walk *walk, struct ttm_buffer_object *
- {
- 	struct ttm_bo_evict_walk *evict_walk =
- 		container_of(walk, typeof(*evict_walk), walk);
-+	/* Capture size before eviction in case res is cleared. */
-+	s64 bo_size = bo->base.size;
- 	s64 lret;
- 
- 	if (!dmem_cgroup_state_evict_valuable(evict_walk->limit_pool, bo->resource->css,
- 					      evict_walk->try_low, &evict_walk->hit_low))
- 		return 0;
- 
-+	/*
-+	 * evict_walk->place is NULL in cgroup drain mode.  Drivers'
-+	 * eviction_valuable() callbacks must handle a NULL place, treating it
-+	 * as "any placement": the TTM base implementation already does so via
-+	 * ttm_resource_intersects().
-+	 */
- 	if (bo->pin_count || !bo->bdev->funcs->eviction_valuable(bo, evict_walk->place))
- 		return 0;
- 
-@@ -536,11 +544,15 @@ static s64 ttm_bo_evict_cb(struct ttm_lru_walk *walk, struct ttm_buffer_object *
- 		goto out;
- 
- 	evict_walk->evicted++;
--	if (evict_walk->res)
-+	if (evict_walk->res) {
- 		lret = ttm_resource_alloc(evict_walk->evictor, evict_walk->place,
- 					  evict_walk->res, NULL);
--	if (lret == 0)
--		return 1;
-+		if (lret == 0)
-+			return 1;
-+	} else {
-+		/* Cgroup drain: return bytes freed for byte-denominated progress. */
-+		return bo_size;
-+	}
- out:
- 	/* Errors that should terminate the walk. */
- 	if (lret == -ENOSPC)
-@@ -614,6 +626,83 @@ static int ttm_bo_evict_alloc(struct ttm_device *bdev,
- 	return 0;
- }
- 
-+/**
-+ * ttm_bo_evict_cgroup - Evict buffer objects charged to a specific cgroup.
-+ * @bdev: The TTM device.
-+ * @man: The resource manager whose LRU to walk.
-+ * @limit_pool: The cgroup pool state whose members should be evicted.
-+ * @target_bytes: Number of bytes to free.
-+ * @ctx: The TTM operation context.
-+ *
-+ * Walk the LRU of @man and evict buffer objects that are charged to the
-+ * cgroup identified by @limit_pool, until at least @target_bytes have been
-+ * freed.  Mirrors the two-pass (trylock -> sleeping-lock, low-watermark)
-+ * strategy used by ttm_bo_evict_alloc().
-+ *
-+ * Return: >= @target_bytes on full success, 0..target_bytes-1 if partial,
-+ *         negative error code on fatal error.
-+ */
-+s64 ttm_bo_evict_cgroup(struct ttm_device *bdev,
-+			struct ttm_resource_manager *man,
-+			struct dmem_cgroup_pool_state *limit_pool,
-+			s64 target_bytes,
-+			struct ttm_operation_ctx *ctx)
-+{
-+	struct ttm_bo_evict_walk evict_walk = {
-+		.walk = {
-+			.ops = &ttm_evict_walk_ops,
-+			.arg = { .ctx = ctx },
-+		},
-+		.limit_pool = limit_pool,
-+		/* place, evictor, res left NULL: selects cgroup drain mode */
-+	};
-+	s64 lret, pass;
-+
-+	evict_walk.walk.arg.trylock_only = true;
-+	lret = ttm_lru_walk_for_evict(&evict_walk.walk, bdev, man, target_bytes);
-+	if (lret < 0 || lret >= target_bytes)
-+		return lret;
-+
-+	/* Second pass: also evict BOs at the low watermark. */
-+	if (evict_walk.hit_low) {
-+		evict_walk.try_low = true;
-+		pass = ttm_lru_walk_for_evict(&evict_walk.walk, bdev, man,
-+					      target_bytes - lret);
-+		if (pass < 0)
-+			return pass;
-+		lret += pass;
-+		if (lret >= target_bytes)
-+			return lret;
-+	}
-+
-+	/* Full sleeping-lock pass for remaining target. */
-+	evict_walk.try_low = evict_walk.hit_low = false;
-+	evict_walk.walk.arg.trylock_only = false;
-+
-+retry:
-+	evict_walk.walk.arg.sleeping_lock = true;
-+	do {
-+		evict_walk.evicted = 0;
-+		pass = ttm_lru_walk_for_evict(&evict_walk.walk, bdev, man,
-+					      target_bytes - lret);
-+		if (pass < 0) {
-+			lret = pass;
-+			goto out;
-+		}
-+		lret += pass;
-+	} while (lret < target_bytes && evict_walk.evicted);
-+
-+	/* One more attempt if we hit the low limit during sleeping-lock pass. */
-+	if (lret < target_bytes && evict_walk.hit_low && !evict_walk.try_low) {
-+		evict_walk.try_low = true;
-+		goto retry;
-+	}
-+
-+out:
-+	return lret;
-+}
-+EXPORT_SYMBOL(ttm_bo_evict_cgroup);
-+
- /**
-  * ttm_bo_pin - Pin the buffer object.
-  * @bo: The buffer object to pin
-diff --git a/drivers/gpu/drm/ttm/ttm_bo_util.c b/drivers/gpu/drm/ttm/ttm_bo_util.c
-index f83b7d5ec6c6..81c6a674c462 100644
---- a/drivers/gpu/drm/ttm/ttm_bo_util.c
-+++ b/drivers/gpu/drm/ttm/ttm_bo_util.c
-@@ -999,7 +999,8 @@ __ttm_bo_lru_cursor_next(struct ttm_bo_lru_cursor *curs)
- 		bo = res->bo;
- 		if (ttm_lru_walk_trylock(curs, bo))
- 			bo_locked = true;
--		else if (!arg->ticket || arg->ctx->no_wait_gpu || arg->trylock_only)
-+		else if ((!arg->ticket && !arg->sleeping_lock) || arg->ctx->no_wait_gpu ||
-+			 arg->trylock_only)
- 			continue;
- 
- 		if (!ttm_bo_get_unless_zero(bo)) {
-diff --git a/drivers/gpu/drm/ttm/ttm_resource.c b/drivers/gpu/drm/ttm/ttm_resource.c
-index 9f36631d48b6..936552f426a7 100644
---- a/drivers/gpu/drm/ttm/ttm_resource.c
-+++ b/drivers/gpu/drm/ttm/ttm_resource.c
-@@ -937,3 +937,39 @@ void ttm_resource_manager_create_debugfs(struct ttm_resource_manager *man,
- #endif
- }
- EXPORT_SYMBOL(ttm_resource_manager_create_debugfs);
-+
-+static int ttm_resource_manager_dmem_reclaim(struct dmem_cgroup_pool_state *pool,
-+					     u64 target_bytes, void *priv)
-+{
-+	struct ttm_resource_manager *man = priv;
-+	struct ttm_operation_ctx ctx = { .interruptible = true };
-+	s64 freed;
-+
-+	freed = ttm_bo_evict_cgroup(man->bdev, man, pool, target_bytes, &ctx);
-+	if (freed < 0)
-+		return freed;
-+
-+	return freed >= (s64)target_bytes ? 0 : -ENOSPC;
-+}
-+
-+/**
-+ * ttm_resource_manager_set_dmem_region - Associate a dmem cgroup region with a
-+ *                                        resource manager and register a reclaim
-+ *                                        callback.
-+ * @man: The resource manager.
-+ * @region: The dmem cgroup region to associate, may be NULL or IS_ERR().
-+ *
-+ * Sets @man->cg and registers ttm_resource_manager_dmem_reclaim() so that
-+ * writing to dmem.max below current usage triggers TTM eviction rather than
-+ * returning -EBUSY to userspace.
-+ */
-+void ttm_resource_manager_set_dmem_region(struct ttm_resource_manager *man,
-+					  struct dmem_cgroup_region *region)
-+{
-+	man->cg = region;
-+	if (!IS_ERR_OR_NULL(region))
-+		dmem_cgroup_region_set_reclaim(region,
-+					       ttm_resource_manager_dmem_reclaim,
-+					       man);
-+}
-+EXPORT_SYMBOL(ttm_resource_manager_set_dmem_region);
-diff --git a/include/drm/ttm/ttm_bo.h b/include/drm/ttm/ttm_bo.h
-index 8310bc3d55f9..32791c4db2a9 100644
---- a/include/drm/ttm/ttm_bo.h
-+++ b/include/drm/ttm/ttm_bo.h
-@@ -226,6 +226,11 @@ struct ttm_lru_walk_arg {
- 	struct ww_acquire_ctx *ticket;
- 	/** @trylock_only: Only use trylock for locking. */
- 	bool trylock_only;
-+	/**
-+	 * @sleeping_lock: Use sleeping locks even with %NULL @ticket.
-+	 * @trylock_only has precedence over this field.
-+	 */
-+	bool sleeping_lock;
- };
- 
- /**
-@@ -431,6 +436,11 @@ void ttm_bo_unpin(struct ttm_buffer_object *bo);
- int ttm_bo_evict_first(struct ttm_device *bdev,
- 		       struct ttm_resource_manager *man,
- 		       struct ttm_operation_ctx *ctx);
-+s64 ttm_bo_evict_cgroup(struct ttm_device *bdev,
-+			struct ttm_resource_manager *man,
-+			struct dmem_cgroup_pool_state *limit_pool,
-+			s64 target_bytes,
-+			struct ttm_operation_ctx *ctx);
- int ttm_bo_access(struct ttm_buffer_object *bo, unsigned long offset,
- 		  void *buf, int len, int write);
- vm_fault_t ttm_bo_vm_reserve(struct ttm_buffer_object *bo,
-diff --git a/include/drm/ttm/ttm_resource.h b/include/drm/ttm/ttm_resource.h
-index 33e80f30b8b8..c187e6c8b871 100644
---- a/include/drm/ttm/ttm_resource.h
-+++ b/include/drm/ttm/ttm_resource.h
-@@ -39,6 +39,7 @@
- 
- struct dentry;
- struct dmem_cgroup_device;
-+struct dmem_cgroup_region;
- struct drm_printer;
- struct ttm_device;
- struct ttm_resource_manager;
-@@ -475,6 +476,9 @@ void ttm_resource_manager_init(struct ttm_resource_manager *man,
- 			       struct ttm_device *bdev,
- 			       uint64_t size);
- 
-+void ttm_resource_manager_set_dmem_region(struct ttm_resource_manager *man,
-+					  struct dmem_cgroup_region *region);
-+
- int ttm_resource_manager_evict_all(struct ttm_device *bdev,
- 				   struct ttm_resource_manager *man);
- 
--- 
-2.53.0
-
+Check KASAN_OUTLINE vs KASAN_INLINE for example
