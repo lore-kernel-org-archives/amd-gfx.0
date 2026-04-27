@@ -4,79 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DD113FF886A
-	for <amd-gfx@archiver.kernel.org>; Mon, 27 Apr 2026 08:37:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5D7EDFF886C
+	for <amd-gfx@archiver.kernel.org>; Mon, 27 Apr 2026 08:37:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3CFFA10E62C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9EF8010E630;
 	Mon, 27 Apr 2026 08:37:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="IFbcKvXa";
+	dkim=pass (1024-bit key; unprotected) header.d=qq.com header.i=@qq.com header.b="ECyPV9rG";
 	dkim-atps=neutral
-Received: from mail-oa1-f46.google.com (mail-oa1-f46.google.com
- [209.85.160.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B680710F5AA
- for <amd-gfx@lists.freedesktop.org>; Fri, 24 Apr 2026 14:08:20 +0000 (UTC)
-Received: by mail-oa1-f46.google.com with SMTP id
- 586e51a60fabf-4233e152457so5588174fac.1
- for <amd-gfx@lists.freedesktop.org>; Fri, 24 Apr 2026 07:08:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1777039700; x=1777644500; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=Awi4viU8NvHRlCqV4pUg2d0xyjRYURsNTCZSqlhhrUI=;
- b=IFbcKvXaihoQFRtDhH4tAzVc3IeWELWNGdThrJwq9l8J/mJtpo9tUbSEHg7kik18KY
- ueTr5bvAitQMiYXldukBjUiIGTllXXvrvazTxzSOh85qcthjCWY5pSQioCnyvrn2zkAg
- aHDpXDliYIF1heIAm8WSL13jmWne5JBTY1p6Cs8wiNhXCI027EoSMcatYpYGR6Ociv3j
- oOIEEw5D+sJo9sSYoOy6toKzb6N8URwrQwLkVQ+sc8B3zAgLE2iNEy3rYRCSMc/VVzrU
- U+fWG3kf9ixPSAbwmIFpL6JsLEVM9BpSJIWxRVXJDRQu1jr1PHzz90jSCtUV34oePREc
- D9Fw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1777039700; x=1777644500;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=Awi4viU8NvHRlCqV4pUg2d0xyjRYURsNTCZSqlhhrUI=;
- b=A7C5FoD2ksw3s8JJFW1/mTWU5xzhwtlgpBhtriDfix+PYWA7Db9v9JPXZVKKk2EzkK
- bzJLHv40rnmOv8K7pYJqLuNGok2DS1ZqQZ6BqWruiel63dgGxlL/BRtXYpoI2V128zDK
- 9KLp/ErUKCS7xqoZ3GOXMWkZNRstAyl0sg/ldkcIdxv4aCTVwlRUhsGey5piOHMqb2wM
- Jcyv1LnSGhBFxglSKuQ0jcAIGJkX15voBan0ojjacu3EJp1uCBmI+d4jzW1GBeqC3o4N
- AdkaXBpnReLuKTNXGBCbCm7l44O0yGMWz2KjmWRYdSabBGFZ7Eeiq7nIiVE71KGTmTtO
- BSqg==
-X-Gm-Message-State: AOJu0Yx6mGS7uj5BLWdFF4CUZnCbyvB7qBXrqE114ZNA29q28b/kE/NR
- iPlQVI1ZUE8PhtGgn0+735Lbolzd4bn/bWkAiAUU/pFz5YXWqqWtgPY=
-X-Gm-Gg: AeBDietw6qIvgyTgZiDQVyYd1D5IBrT1uG7bhty2NdaMbfsnPSUauxZ4wKFWEwHXJib
- yQ76gsTx53BW/PR52EoqXOuMFyOlNaoKd150IMYaMfty6TY9qrg/XY4dJSbo5/lOGnvknNhpVOX
- SQE0Eatkfb+pCj6zpY7NQC8ZfyhJ4oaOvYXb/fSIbF4yeaSozQSq1Cendz88mWlsmJW7WkaI5Q0
- wac3rNc+cxbfwN80iIavvr9wV/bnK/UtH83Gc2jbsOm0OYeM3o78a9Wtxpye3xNe4OUG4hSiNsF
- yNL+9kTiU7/B9/VrFrNDDwkZWAcaz3sjnR9ma/de0Ht1/MvItGZ7Dcn5VeOfhxXXmQBiW0gFBoc
- hjxhRJnp+E/pZ/5A818KYZxRI6GnQ8wQWcWOx1NEeGb85D9p4cvcEK3TEEV6/b2FkAAZJL61vp/
- VMe+qnqn2prdaSsbbASQibxW9NiPQ5sQF0FWF35vVa0Nu7csx4GWCoiK77Z/BD4mtlz1VySC59R
- EwBX/FOejA4Pe77C2SP/jwMoomxG/RhjAg=
-X-Received: by 2002:a05:6870:9109:b0:42c:f89:7555 with SMTP id
- 586e51a60fabf-42c0f89783cmr10667903fac.11.1777039699909; 
- Fri, 24 Apr 2026 07:08:19 -0700 (PDT)
-Received: from localhost.localdomain ([47.188.191.104])
- by smtp.gmail.com with ESMTPSA id
- 586e51a60fabf-42b934a2dd1sm22228653fac.9.2026.04.24.07.08.19
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 24 Apr 2026 07:08:19 -0700 (PDT)
-From: "John B. Moore" <jbmoore61@gmail.com>
-To: alexander.deucher@amd.com,
-	christian.koenig@amd.com
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- airlied@gmail.com, simona@ffwll.ch, stable@vger.kernel.org,
- "John B. Moore" <jbmoore61@gmail.com>
-Subject: [PATCH v2 2/2] drm/amdgpu: remove superfluous BUG_ON in
- amdgpu_cs_vm_handling
-Date: Fri, 24 Apr 2026 09:08:16 -0500
-Message-ID: <20260424140816.43766-3-jbmoore61@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260424140816.43766-1-jbmoore61@gmail.com>
-References: <20260424140816.43766-1-jbmoore61@gmail.com>
+Received: from out203-205-221-173.mail.qq.com (out203-205-221-173.mail.qq.com
+ [203.205.221.173])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B73C610E191;
+ Mon, 27 Apr 2026 06:51:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+ t=1777272705; bh=ks8ggYiCLDadKMxcZ8CW+2cQqlh6RyPsgTtN23PYkL0=;
+ h=From:To:Cc:Subject:Date;
+ b=ECyPV9rGTiY7Y7rWX2D8ICYsmhJhQu8A0m6MhX7knfQkzfsloo1kmuz6Y0uLESf1x
+ 3oxADBBgd+xBoc+p5hgF0sj1cdu3oLs3Kv0zx/MKrYelKuigkHf9QTqzWI9OE1PkNq
+ 6AJJBeMUB772WCfOtVEYi+Gg6c37wYqIG9ipCszw=
+Received: from NTT-kernel-dev ([60.247.85.88])
+ by newxmesmtplogicsvrszc56-0.qq.com (NewEsmtp) with SMTP
+ id CE98AADB; Mon, 27 Apr 2026 14:51:41 +0800
+X-QQ-mid: xmsmtpt1777272701t78vn4y9q
+Message-ID: <tencent_8DBF29E0271CF7880497A344239DA11C2B0A@qq.com>
+X-QQ-XMAILINFO: MRMtjO3A6C9XhMGAw4Y2fX3RcOFCSr9oRvruFjIRTe12uuhbLspCq/SNuxvm7A
+ /fk2dEjaYSKw0EedVgPO6nIz6hLkHgVIovQaqi2r98YMvjd3U2/vqzWwcywvrK2hcL8XMVFi5mTr
+ aFZyz7oKC2HY+LAukPfbcNgTYO3cPCFsLHpUb88LlzUhakacuGNho12hcp7o1tkkH7SpO82enzTC
+ l0rglZjLbzM3vjgjglGL7IwDQNU7U/+KInd23qTD/reO+HdVks9XQNft/Sxih3dBovBCYiwqlwh7
+ VWHVMwhILJHDTs/9QmilCLXVHswg0JKsnu7b55aeN4XFb1ZJM9U7iEu15UXsoZNy7ai1EuUIV2s5
+ SRlfPND3AQ1Zy3BEShDgJY/qNHnUWu9uFxFGG7SBsGsEstl+uN+bph6AGZ8kajr/6RlJzxs1x30Y
+ wsVgutCd1YZb8grk02KL8527aQ7SDXjTjHgtVfYdiYMYj0LBroUGAiz8pDGlfQmYJ5mcAacQeNvv
+ q/G1237Jw+nE27gSCTdRFRtpBDQKalmmkFXAxf1SVX2ciLNkbmXVFkeRhCVZxzjM/sZU39Ox4EEN
+ dEzbzP581qm8P/KRqZY119BhwP0NTihokx3mIKXDMTrncrEl9DMUSPrWSYQqTk0hRyHmSPt2UwF1
+ w0yRTeSJ+Ybj2Nye9IYpODU6cq3/aiCVv3pO6fBZNpGqz2mJbmh6qvE1tKeaMQOl7B8pemJHyYzZ
+ 9PM6fFZ0h0WYQIdj5xtVe9ZUi5QLRNVEJ4oRtWtfbPcBGQcxDrsxPKihk/yCDEK5jaey9QixmhQh
+ ID90LasAN1l0o+VryfPK7FkJ92QdCtRIffUqMET+vdgBLloEQTd5qyZkz6SQHmrtPt9nd84s072j
+ ExqWgGdRNSz9B9yTzEmmsvTiBkpo+/PmN4K1lTmGuogumRLBnJ3vhP3n2e+bnIgNrH9pJbn9f7op
+ Mi2kXYMCcsMJ5DBts/0KhejMXs313OQ2R0ENTa6EurJ77/3OqDZAUDM4tdvpx3MR+acCRRR24=
+X-QQ-XMRINFO: Mp0Kj//9VHAxzExpfF+O8yhSrljjwrznVg==
+From: Fang Wang <32840572@qq.com>
+To: gregkh@linuxfoundation.org, stable@vger.kernel.org,
+ tvrtko.ursulin@igalia.com
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
+ airlied@gmail.com, simona@ffwll.ch, Jesse.Zhang@amd.com,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Subject: [PATCH 6.12.y 1/2] drm/amdgpu: Use vmemdup_array_user in
+ amdgpu_bo_create_list_entry_array
+Date: Mon, 27 Apr 2026 14:51:41 +0800
+X-OQ-MSGID: <20260427065141.4118590-1-32840572@qq.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Mon, 27 Apr 2026 08:37:19 +0000
+X-Mailman-Approved-At: Mon, 27 Apr 2026 08:37:20 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,28 +71,88 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Remove the BUG_ON(!bo_va) in amdgpu_cs_vm_handling() that is
-unreachable: bo_va is assigned from fpriv->csa_va on the line
-directly above, inside an if (fpriv->csa_va) block, so it is
-guaranteed to be non-NULL at that point.
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 
-Signed-off-by: John B. Moore <jbmoore61@gmail.com>
+[ Upstream commit c4ac100e9ae252b09986766ad23b1f83ca3a369d ]
+
+Replace kvmalloc_array() + copy_from_user() with vmemdup_array_user() on
+the fast path.
+
+This shrinks the source code and improves separation between the kernel
+and userspace slabs.
+
+Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Fang Wang <32840572@qq.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 1 -
- 1 file changed, 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c | 41 +++++++++------------
+ 1 file changed, 17 insertions(+), 24 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-index 53f537f3e..556c62948 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-@@ -1137,7 +1137,6 @@ static int amdgpu_cs_vm_handling(struct amdgpu_cs_parser *p)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c
+index 702f6610d024..66fb37b64388 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c
+@@ -184,43 +184,36 @@ void amdgpu_bo_list_put(struct amdgpu_bo_list *list)
+ int amdgpu_bo_create_list_entry_array(struct drm_amdgpu_bo_list_in *in,
+ 				      struct drm_amdgpu_bo_list_entry **info_param)
+ {
+-	const void __user *uptr = u64_to_user_ptr(in->bo_info_ptr);
+ 	const uint32_t info_size = sizeof(struct drm_amdgpu_bo_list_entry);
++	const void __user *uptr = u64_to_user_ptr(in->bo_info_ptr);
++	const uint32_t bo_info_size = in->bo_info_size;
++	const uint32_t bo_number = in->bo_number;
+ 	struct drm_amdgpu_bo_list_entry *info;
+-	int r;
+-
+-	info = kvmalloc_array(in->bo_number, info_size, GFP_KERNEL);
+-	if (!info)
+-		return -ENOMEM;
  
- 	if (fpriv->csa_va) {
- 		bo_va = fpriv->csa_va;
--		BUG_ON(!bo_va);
- 		r = amdgpu_vm_bo_update(adev, bo_va, false);
- 		if (r)
- 			return r;
+ 	/* copy the handle array from userspace to a kernel buffer */
+-	r = -EFAULT;
+-	if (likely(info_size == in->bo_info_size)) {
+-		unsigned long bytes = in->bo_number *
+-			in->bo_info_size;
+-
+-		if (copy_from_user(info, uptr, bytes))
+-			goto error_free;
+-
++	if (likely(info_size == bo_info_size)) {
++		info = vmemdup_array_user(uptr, bo_number, info_size);
++		if (IS_ERR(info))
++			return PTR_ERR(info);
+ 	} else {
+-		unsigned long bytes = min(in->bo_info_size, info_size);
++		const uint32_t bytes = min(bo_info_size, info_size);
+ 		unsigned i;
+ 
+-		memset(info, 0, in->bo_number * info_size);
+-		for (i = 0; i < in->bo_number; ++i) {
+-			if (copy_from_user(&info[i], uptr, bytes))
+-				goto error_free;
++		info = kvmalloc_array(bo_number, info_size, GFP_KERNEL);
++		if (!info)
++			return -ENOMEM;
+ 
+-			uptr += in->bo_info_size;
++		memset(info, 0, bo_number * info_size);
++		for (i = 0; i < bo_number; ++i, uptr += bo_info_size) {
++			if (copy_from_user(&info[i], uptr, bytes)) {
++				kvfree(info);
++				return -EFAULT;
++			}
+ 		}
+ 	}
+ 
+ 	*info_param = info;
+ 	return 0;
+-
+-error_free:
+-	kvfree(info);
+-	return r;
+ }
+ 
+ int amdgpu_bo_list_ioctl(struct drm_device *dev, void *data,
 -- 
-2.43.0
+2.34.1
 
