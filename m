@@ -4,77 +4,126 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D15AEFF8860
-	for <amd-gfx@archiver.kernel.org>; Mon, 27 Apr 2026 18:27:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 18C7DFF8860
+	for <amd-gfx@archiver.kernel.org>; Mon, 27 Apr 2026 18:43:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 723D210E8C1;
-	Mon, 27 Apr 2026 18:27:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AD01B10E8D5;
+	Mon, 27 Apr 2026 18:43:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Mh/A7k6M";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="4dxKZYls";
 	dkim-atps=neutral
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com
- [209.85.128.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E1F9B10E8BC
- for <amd-gfx@lists.freedesktop.org>; Mon, 27 Apr 2026 18:27:30 +0000 (UTC)
-Received: by mail-wm1-f53.google.com with SMTP id
- 5b1f17b1804b1-4890098abbaso83870575e9.0
- for <amd-gfx@lists.freedesktop.org>; Mon, 27 Apr 2026 11:27:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1777314449; x=1777919249; darn=lists.freedesktop.org;
- h=content-transfer-encoding:reply-to:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
- :date:message-id:reply-to;
- bh=FXOIxAVnbDqcBbL8Oow0AZzgIVnEysY5ba/JO00V+ak=;
- b=Mh/A7k6MCa7r/eIMfncDVoGlUTJ/6cO6dk6d/I6Ri0jhv65QkQvKi/aWoQp46m+dKH
- ECYCcRpXw4lAuOcS7qVEjbQY7IQUMk03c7yj2DC7jrCsYX+QbGB+vSyP9ajQokQUVgor
- 7OPzJXlelOtALNOmQM5XD3nLy32tY8gReQlMo6YQ3VdOGs7q4PXIIeYIn5R1u+gIEEGb
- D9A1nozqD9EGAd1F3Yeh8W+8VzP5VTXIHpFWW0fEav2mWGRBg7UskV/5uI1rBvXFhnVS
- c8ymT1+I25dYK4VNhdooovZb3YZZZStus3oUSlCCFCPJy5tRX4vV2qWgicKBi1lHCWk7
- GR/Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1777314449; x=1777919249;
- h=content-transfer-encoding:reply-to:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=FXOIxAVnbDqcBbL8Oow0AZzgIVnEysY5ba/JO00V+ak=;
- b=YKQSVh1KT2a5d2BitOv35Ono1VDpz3fGHeV5sJ6KWnjT+TTNoCRbVrCapgntRkzn1b
- l9+niUhjQ9DqMhqxDHsVBG2S26k+a5apydluJgdzTpUwXgJ9OXZG6LT+Tthh/ZmE03OR
- tOi61g6Z87tnWKegudSQaOoBDg0fljczMaQ29bTiXEpzicQc1Q8aDG7f+b8dxWhAgIR3
- xqJVMLRwN1yXtPIgTFCHyeLcc41ijLawMZPKKTh6+a4xFTeOGgqDIMc3W22C3i8yDIal
- Vl8E/p8GTeVfoR2OH05RxWuhEABavC3aWNFtet7vkIgOYaimACYklaCyMSuAYIlfasMq
- T20g==
-X-Gm-Message-State: AOJu0YwG3M4j92B3a9bLthLKYCyI0wRcXdqk8DaBu8SjEZCvrYnVovFT
- aK5DwTdlsGdUP4G/9/GdlCBf6lrzM4HXlMRM8zb3Xk+WEQYVcbwVISKt
-X-Gm-Gg: AeBDieuCmUJdQuidcXlxVRSxvVcsJaG1YaF6x1cDhtuEeKhaLAyBd0neAQHg73P/Gv2
- x6k0u+i2P3BQqSI7MOUxEdFAu3UflGDEmvSId1TAnTkoD4Emuz9EznUBepH3Ohx8Ir1A9tE7xhw
- svlDa8u3sjrlv8KfZBRTVdKo2uF3cS14BlyT5lK8jCorKy3xYp0n9sqL4UCSUncdifNghrMFEUG
- 6tYNOqpqBgJowGVSHKfMfs3wQNUy+r4D5zizbgYHhJxssNY1fZoo0S7XA/iP7IAPRf6RHhtv0rm
- AHy0LSo9zNrLEP93bLWLX3Sj0nm2dnRrZykEihrzczalgPJt/ZDFU61F0ub6FjbM9kOR5c9ihSC
- lQ+ONNl6J3veWSHSoPHP1L7sSNAIfc5fu+Q+RGrMiy6nXqXAMoQddWxt7EoGGqxOhGLq0P8+gUJ
- JapI90UALzGModEmAFHk3yRFrAUT+IzLX8iYZSbpO/ithlRQ==
-X-Received: by 2002:a05:600c:470a:b0:48a:7772:c26b with SMTP id
- 5b1f17b1804b1-48a7772c28emr234845e9.26.1777314449209; 
- Mon, 27 Apr 2026 11:27:29 -0700 (PDT)
-Received: from able.fritz.box ([2a00:e180:153b:d200:96aa:46be:4d7:72d2])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-48a773af5c5sm6046165e9.5.2026.04.27.11.27.28
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 27 Apr 2026 11:27:28 -0700 (PDT)
-From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
-X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
- <christian.koenig@amd.com>
-To: alexander.deucher@amd.com, Prike.Liang@amd.com, sukhatri@amd.com,
- jesse.zhang@amd.com
-Cc: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 7/8] drm/amdgpu: fix handling in amdgpu_userq_create
-Date: Mon, 27 Apr 2026 20:27:22 +0200
-Message-ID: <20260427182723.1715-7-christian.koenig@amd.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260427182723.1715-1-christian.koenig@amd.com>
-References: <20260427182723.1715-1-christian.koenig@amd.com>
-MIME-Version: 1.0
+Received: from SN4PR2101CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11012021.outbound.protection.outlook.com
+ [40.93.195.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 24BFD10E8D4;
+ Mon, 27 Apr 2026 18:43:44 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=QGER4bJQL2LuVvKSnqXSjsTmyzoh4SPK6uGRrCbSyemij1ZpIraIb3/ynXamTPXXJ4JU6Us5hIZMAuFRpka2m6ggAof7r2hym25niha1NPaNvOp7G3IOYHk/Z07AmjFHI8/v6IxBl9zvi8KnpGKKtrgUOrQOiQnSPUfHy/vgupGUEacUWuy+u3uV1AAnX2rQmZkcCPvdbWOuw53eMrc+pWYJLeFcCS3YNOsHl48gAlKYvK8I+B2tmd37hMSJCq9ZWXvj8b5WdnlGjmT4x2NL8M8d8vSyjv0b1fVsofEXtSXTUp0KItBLZ/TS1vfExRKO+Z0g+HXpeJpyBTmRIkgd6g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=w54Cx1XWezmHtdCmaOr3hwoY0NeBQuPdujegigQEUwU=;
+ b=Vl4yy4SeTByeGAKWcVPu992aQouh6skHt8u/+N/uGHOvc5V9X4/Pm12vqMULPcRuueOp+4Km6K2Wk7oi3AwpgixUKnQSdBLI1F+OmELwSnVzOEh0TW6ueekRkAsrm6/miCA7cgyN1g8Fnr9OLVk9BeX6d/c6za0lmL4jPPz4QxvrGiUxJJrzjx9qdowVAlqfDTDkwvwvd9bGl6pnO2M1biTMcZTEH8ga/J716zKGkScm05oRpEgCCxKVjpIbmJyFcpiGfExzOdeWH0bHDgH4SkyZwyzY4Ial7jCOn12b5nWBVqdcEFds+JmBoUiZ+M9lg/QrcX3uHJdrs1FuqqOY3w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=w54Cx1XWezmHtdCmaOr3hwoY0NeBQuPdujegigQEUwU=;
+ b=4dxKZYlstj49Huw5efZ93PU5HbTCY/dGIz07OE0l+4vbrpp7Q+4VIMrSdUp1DwV4XKKWb2H13mUoUDNlmrEm9FDgylxO/JdGdNH4/P6ida/phE83U8ARNZWPZI8HdAym8ttzsZDEqvnHe22iYkM7hssDxvEnqWMl+NRgFjZg0E0=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by MW4PR12MB6850.namprd12.prod.outlook.com (2603:10b6:303:1ed::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.16; Mon, 27 Apr
+ 2026 18:43:37 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.20.9870.013; Mon, 27 Apr 2026
+ 18:43:36 +0000
+Message-ID: <9ad1c4bd-6f12-41b6-b6a0-979a0de32e16@amd.com>
+Date: Mon, 27 Apr 2026 20:43:31 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] drm/amdgpu: amdgpu{_reset}.h: fix all kernel-doc
+ warnings
+To: Randy Dunlap <rdunlap@infradead.org>, dri-devel@lists.freedesktop.org
+Cc: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+References: <20260427183854.672967-1-rdunlap@infradead.org>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20260427183854.672967-1-rdunlap@infradead.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR2P281CA0157.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:99::18) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|MW4PR12MB6850:EE_
+X-MS-Office365-Filtering-Correlation-Id: 76975576-03f8-43b1-6938-08dea48ce43b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|376014|1800799024|56012099003|22082099003|18002099003; 
+X-Microsoft-Antispam-Message-Info: TZ4BmXe6sKLOPzchFq+85HOODucdMng40MKUPnZmnms9X7p579WtAstaA7q9Z3U4YBF5OMiEkrdpjLljDZydCBHqp3XGwD360Z82xXJ0J+iailXZIUQGR3mkvxv20tRQ+RthrhZN1fSouZAmx/pojrnPH77whoX+hxUefHBFP9YZqo7ePqv90t/pDZCgoGbvIRNdHEZ3FIZ83UtzZCA5O1QVZOL70zG/Ypn3RBSWuezC0Ql5r45JMeifGv88MNm+ly5a9ZCS/jWuuZwziRnh1nvxOuBudr7KjrZTO3APzd1bDDhM5EMElk/jiTfUYGJ4diSb7FnzTmEESNyBdkr+eShAF5ySqVHvEdYQ0moy/PbGt6RIlJ9EhGtIHbRa5OE2Y56WHwco0jQT/fMqDaV/1Pxveda64I4+Ow0lMxEXnJQqixpj5URz3muFcGq8zjhwazaXnqtKZLof/ZGwBnZTczKmaRYfqxuPZxbIy6JvDiq+wMc7d4puacxki6ykaTuJrN4+097J6dhNZytGjm/SXzwMyzQ1TREB9ReHi42S/hdnVPlJk/J5ZIW97T8ls5AkjpMhoVE8fuU6sgA10MQhD9QpZGK1vo6quOsqn7tPmbKlyPfvHcFOFRytMh3893lOTr/rz6jKvrY09wYjRxruNdHz289t39N9RpCKbaSicUf5VlwQA2Alfb1iDuIeYuro
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(376014)(1800799024)(56012099003)(22082099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?a2FGaHZOVU9KK3VmQ1ZwU3dwMjlqVWsvc2lKbGpYT0dqaFJXTEptbUFLNUUr?=
+ =?utf-8?B?dzFlWS9EdVNIcW1LeGt6NnJrRFh1V1ZSMlpoT01xMTQ2enJQRzZRYzg2NGNS?=
+ =?utf-8?B?clZEOTV6aE9EZG1YL3Z6aDJvMWE3MGs1OTRtU1g2TFJCV0V3UDhUYzBpRlBr?=
+ =?utf-8?B?YTNubnNuZnVBSXRLY1ZVUWNCT2xOZEJITkpHMXZRbFRUV2ZCV0FPMnV0cUNI?=
+ =?utf-8?B?UHlaWEhQQ3ZCaHpFQTIvNzE3VFYybHdjTHNOYnZ2NVgwVktycFhVUHF3bjM0?=
+ =?utf-8?B?bGhXajNIU2xHY1FyYStuRlJqRjEzOFVEUlpGbXprbGlPcE5zblM0NVJMcWZX?=
+ =?utf-8?B?YitRVSs4QXcvL1R4YmZpSE93OXpOUzdpZTJiaHI0U21kMlU1NlNzYlp3WFc3?=
+ =?utf-8?B?aUViQ0d6Mm0ydm5jZ1dOOFhoYkJEZVNVNTJ1MWVwWEV2N2RUMXlHUnhLUldz?=
+ =?utf-8?B?cmt5OTZheVRqSjNSNjhNOXR1TVhhMVNHR1FZSmMvVzZqYUVnd3llRk1sZUZ6?=
+ =?utf-8?B?NFhGWW1pbmRNeFdDNmd2TTMzY1QxUXZWYzRyeUQxZDY5Vk5DSHNjdS9iRHE4?=
+ =?utf-8?B?RzFLVTZkcHpjSk50TFV1a3ozSnB1dWk2TUNMazZDVHE5VFl0QmhuZzFuQ20v?=
+ =?utf-8?B?Ym9OK1BFRlU4bUlZZU1SMDNOK0laZ3lRQVBCV0ZtRng5QWRWblhYUm1tWm1L?=
+ =?utf-8?B?OEQ1Mnp1dGNWdTJDVlk1ZFBSM3pyMkRtT0ZLNTQ4bUExUEpXejg3Qi9qdEN1?=
+ =?utf-8?B?UTRzMTA5LzRaRVRlWVZHNG9CSS9xUDBBeTgxemJDV3FoU1EvdkprTXdLa1RI?=
+ =?utf-8?B?ZEpNbUxibHNnUGtxQ2hNRDhXQlk2emNjZjNBUXd3dk9yWkdId3VSa0NBTmFv?=
+ =?utf-8?B?ckF4emhsRnQwdVlHSWNpVzNNaXFuUGNtUDJ3NU9ITkFpQ2NKY2ZlRHZScUZu?=
+ =?utf-8?B?MU02OWVoUmEyRnU0aTB5S2ZBNS9jQ3hSWjU1Y29uNzhhUmZMMU9jTUQ1Qklr?=
+ =?utf-8?B?K3dBdjE5dlA4RjRzOVB5eDlkcnRtanZNSmhmVjJPeXBvWUJXRE91NmgrM1lJ?=
+ =?utf-8?B?ckp1WnlZNjJ4RWRFVUVkTjFWdWQ0OTIzam9lMTIxZGQrS3ZJa0JpcU42Ny9F?=
+ =?utf-8?B?RDVCbVA5M3BhMnJXclBOL2ZnUHVaZzR2U213RkNFcVU3TExFQVpmUnovQlRE?=
+ =?utf-8?B?TmtPbnJGcWQ0bCtGTGtjblZBV3djaUdlQTFub3kxQnk4QWhFN1BBK2R6QkJl?=
+ =?utf-8?B?OGgxencybzFBSEtQRTc2ZTh4Mm9aUEozWERucUN0OWVkdHlHbjZyM2l6RUtZ?=
+ =?utf-8?B?VElua2wrT01PYmRFZWcrazZMclVkQzgvZXZxcUViTHhMWndGb3B5Y0F0TkI2?=
+ =?utf-8?B?S0NlT3ViQTVIS3JnR281bjdMakJpYmowQ1BLV04reTlBdlNzK3lxZXJPbXYy?=
+ =?utf-8?B?NTZncXNwUmlRTVROcnZBVWZSUTZQbWhVTS9MS1Z1K2pZdjNnVTdGZ0J5UUVl?=
+ =?utf-8?B?S01jQmpRbGVydDZSRDJSblFDSktYTWdmeTVkM0JtY3dOZ1pFR3VXbHliVlh3?=
+ =?utf-8?B?ZTF0S3FRVEZHWG5pVEdqczZBeTVCQ2k0TW9WUTNSRU5GZ3FEaTkycDQ5cGZo?=
+ =?utf-8?B?MWxmVDJuc1E2MkN4SGVXRHFkOE9OOEpORWk1aDB2S2JWbktmS0pVNkQ0TWY0?=
+ =?utf-8?B?d0xNa080RWhMbGovTUl2Q2wwclBkVWNuUS9nWjRUa3FTYmRiMmdxcGNHMG1K?=
+ =?utf-8?B?VGp3cFJ4N3VHL2lkczBPdTYyeUVqcjdZZFJQcUlNY0xSU1QyZ1NvaW92QURu?=
+ =?utf-8?B?cGVxTWVxWldvRkR3VWZ3V3d4U0Ziek55UHAzRU0zcXJBajFKL2tzZUJYWmdU?=
+ =?utf-8?B?N2JtWTFSNzFYWUtWblh4MHd0VjU5NGtrbDgzeFNqdHpveHo5S3dFZHpNMFVq?=
+ =?utf-8?B?dnJwMVF3Q3ZnNTF1NUNJUW1RUDNaay8xNVRnZmY1R0NMRWsyM2NLNUZNU3Bs?=
+ =?utf-8?B?aTg3dlV5OTZDT0E4Wis2RmFscy9hTm8rNGxGaEFUVG9PamZrSFRRZGFTZldE?=
+ =?utf-8?B?R0VEU0JqUWMzQlQwT2pRWmhaV3BkN2lRUFI3QllWZFBhUVhnalhIWW0wYk1O?=
+ =?utf-8?B?K3hQc3Q5dm5uTllzVlhobytwaTlialBjMERON0VnM1NmcVBiTldYQjJhS2py?=
+ =?utf-8?B?QUdETE1vamhtaEJtc0lvMkZQSEhOSEZpcHpuS2tHbDIybytzOWhiemJSUExU?=
+ =?utf-8?B?aStGSGVVbzBPSjJuTjQ0QUVBK3Q0OUs5Rk1mM1MyY3NiM0x5NUpCNjc3ZkFt?=
+ =?utf-8?Q?a56dhy1JFEZeyRW6ZS?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 76975576-03f8-43b1-6938-08dea48ce43b
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Apr 2026 18:43:36.7231 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 9VgqtJTtx332pb8RvE02DP2K/xsR3plXULmCci0rLStQBj96d+SMqQ+6s5lDyaA6
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB6850
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,225 +135,231 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Well mostly the same issues the other code had as well:
 
-1. Memory allocation while holding the userq_mutex lock is forbidden!
-2. Things were created/started/published in the wrong order.
-3. Error messages on invalid input parameters can spam the logs.
-4. Error messages on memory allocation failures are usually superflous
-   as well.
 
-Signed-off-by: Christian König <christian.koenig@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 118 ++++++++++------------
- 1 file changed, 52 insertions(+), 66 deletions(-)
+On 4/27/26 20:38, Randy Dunlap wrote:
+> Fix all kernel-doc warnings in amdgpu.h and amdgpu_reset.h:
+> - Use the struct keyword for kernel-doc struct comments.
+> - Use the correct enum names in enum amd_reset_method.
+> 
+> This eliminates these warnings:
+> 
+> Warning: drivers/gpu/drm/amd/amdgpu/amdgpu.h:477 cannot understand
+>  function prototype: 'struct amdgpu_wb'
+> Warning: drivers/gpu/drm/amd/amdgpu/amdgpu.h:576 Enum value
+>  'AMD_RESET_METHOD_LEGACY' not described in enum 'amd_reset_method'
+> Warning: drivers/gpu/drm/amd/amdgpu/amdgpu.h:576 Enum value
+>  'AMD_RESET_METHOD_MODE0' not described in enum 'amd_reset_method'
+> Warning: drivers/gpu/drm/amd/amdgpu/amdgpu.h:576 Enum value
+>  'AMD_RESET_METHOD_MODE1' not described in enum 'amd_reset_method'
+> Warning: drivers/gpu/drm/amd/amdgpu/amdgpu.h:576 Enum value
+>  'AMD_RESET_METHOD_MODE2' not described in enum 'amd_reset_method'
+> Warning: drivers/gpu/drm/amd/amdgpu/amdgpu.h:576 Enum value
+>  'AMD_RESET_METHOD_LINK' not described in enum 'amd_reset_method'
+> Warning: drivers/gpu/drm/amd/amdgpu/amdgpu.h:576 Enum value
+>  'AMD_RESET_METHOD_BACO' not described in enum 'amd_reset_method'
+> Warning: drivers/gpu/drm/amd/amdgpu/amdgpu.h:576 Enum value
+>  'AMD_RESET_METHOD_PCI' not described in enum 'amd_reset_method'
+> Warning: drivers/gpu/drm/amd/amdgpu/amdgpu.h:576 Enum value
+>  'AMD_RESET_METHOD_ON_INIT' not described in enum 'amd_reset_method'
+> Warning: drivers/gpu/drm/amd/amdgpu/amdgpu.h:576 Excess enum value
+>  '@AMD_RESET_LEGACY' description in 'amd_reset_method'
+> Warning: drivers/gpu/drm/amd/amdgpu/amdgpu.h:576 Excess enum value
+>  '@AMD_RESET_MODE0' description in 'amd_reset_method'
+> Warning: drivers/gpu/drm/amd/amdgpu/amdgpu.h:576 Excess enum value
+>  '@AMD_RESET_MODE1' description in 'amd_reset_method'
+> Warning: drivers/gpu/drm/amd/amdgpu/amdgpu.h:576 Excess enum value
+>  '@AMD_RESET_MODE2' description in 'amd_reset_method'
+> Warning: drivers/gpu/drm/amd/amdgpu/amdgpu.h:576 Excess enum value
+>  '@AMD_RESET_LINK' description in 'amd_reset_method'
+> Warning: drivers/gpu/drm/amd/amdgpu/amdgpu.h:576 Excess enum value
+>  '@AMD_RESET_BACO' description in 'amd_reset_method'
+> Warning: drivers/gpu/drm/amd/amdgpu/amdgpu.h:576 Excess enum value
+>  '@AMD_RESET_PCI' description in 'amd_reset_method'
+> 
+> Also move the enum to amdgpu_reset.h and eventually only forward declare
+> it in amdgpu.h. (Christian)
+> 
+> Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-index 0374a70b631c..28e0695b53e7 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-@@ -718,14 +718,14 @@ amdgpu_userq_create(struct drm_file *filp, union drm_amdgpu_userq *args)
- 	const struct amdgpu_userq_funcs *uq_funcs;
- 	struct amdgpu_usermode_queue *queue;
- 	struct amdgpu_db_info db_info;
--	bool skip_map_queue;
--	u32 qid;
- 	uint64_t index;
--	int r = 0;
--	int priority =
--		(args->in.flags & AMDGPU_USERQ_CREATE_FLAGS_QUEUE_PRIORITY_MASK) >>
--		AMDGPU_USERQ_CREATE_FLAGS_QUEUE_PRIORITY_SHIFT;
-+	int priority;
-+	u32 qid;
-+	int r;
- 
-+	priority =
-+		(args->in.flags & AMDGPU_USERQ_CREATE_FLAGS_QUEUE_PRIORITY_MASK)
-+		>> AMDGPU_USERQ_CREATE_FLAGS_QUEUE_PRIORITY_SHIFT;
- 	r = amdgpu_userq_priority_permit(filp, priority);
- 	if (r)
- 		return r;
-@@ -738,40 +738,43 @@ amdgpu_userq_create(struct drm_file *filp, union drm_amdgpu_userq *args)
- 
- 	uq_funcs = adev->userq_funcs[args->in.ip_type];
- 	if (!uq_funcs) {
--		drm_file_err(uq_mgr->file, "Usermode queue is not supported for this IP (%u)\n",
--			     args->in.ip_type);
- 		r = -EINVAL;
- 		goto err_pm_runtime;
- 	}
- 
- 	queue = kzalloc(sizeof(struct amdgpu_usermode_queue), GFP_KERNEL);
- 	if (!queue) {
--		drm_file_err(uq_mgr->file, "Failed to allocate memory for queue\n");
- 		r = -ENOMEM;
- 		goto err_pm_runtime;
- 	}
- 
-+	kref_init(&queue->refcount);
- 	INIT_LIST_HEAD(&queue->userq_va_list);
- 	queue->doorbell_handle = args->in.doorbell_handle;
- 	queue->queue_type = args->in.ip_type;
- 	queue->vm = &fpriv->vm;
- 	queue->priority = priority;
--
--	db_info.queue_type = queue->queue_type;
--	db_info.doorbell_handle = queue->doorbell_handle;
--	db_info.db_obj = &queue->db_obj;
--	db_info.doorbell_offset = args->in.doorbell_offset;
--
- 	queue->userq_mgr = uq_mgr;
-+	INIT_DELAYED_WORK(&queue->hang_detect_work,
-+			  amdgpu_userq_hang_detect_work);
- 
--	/* Validate the userq virtual address.*/
--	r = amdgpu_bo_reserve(fpriv->vm.root.bo, false);
-+	mutex_init(&queue->fence_drv_lock);
-+	xa_init_flags(&queue->fence_drv_xa, XA_FLAGS_ALLOC);
-+	r = amdgpu_userq_fence_driver_alloc(adev, &queue->fence_drv);
- 	if (r)
- 		goto free_queue;
- 
--	if (amdgpu_userq_input_va_validate(adev, queue, args->in.queue_va, args->in.queue_size) ||
--	    amdgpu_userq_input_va_validate(adev, queue, args->in.rptr_va, AMDGPU_GPU_PAGE_SIZE) ||
--	    amdgpu_userq_input_va_validate(adev, queue, args->in.wptr_va, AMDGPU_GPU_PAGE_SIZE)) {
-+	/* Make sure the queue can actually run with those virtual addresses. */
-+	r = amdgpu_bo_reserve(fpriv->vm.root.bo, false);
-+	if (r)
-+		goto free_fence_drv;
-+
-+	if (amdgpu_userq_input_va_validate(adev, queue, args->in.queue_va,
-+					   args->in.queue_size) ||
-+	    amdgpu_userq_input_va_validate(adev, queue, args->in.rptr_va,
-+					   AMDGPU_GPU_PAGE_SIZE) ||
-+	    amdgpu_userq_input_va_validate(adev, queue, args->in.wptr_va,
-+					   AMDGPU_GPU_PAGE_SIZE)) {
- 		r = -EINVAL;
- 		amdgpu_bo_unreserve(fpriv->vm.root.bo);
- 		goto clean_mapping;
-@@ -779,6 +782,10 @@ amdgpu_userq_create(struct drm_file *filp, union drm_amdgpu_userq *args)
- 	amdgpu_bo_unreserve(fpriv->vm.root.bo);
- 
- 	/* Convert relative doorbell offset into absolute doorbell index */
-+	db_info.queue_type = queue->queue_type;
-+	db_info.doorbell_handle = queue->doorbell_handle;
-+	db_info.db_obj = &queue->db_obj;
-+	db_info.doorbell_offset = args->in.doorbell_offset;
- 	index = amdgpu_userq_get_doorbell_index(uq_mgr, &db_info, filp);
- 	if (index == (uint64_t)-EINVAL) {
- 		drm_file_err(uq_mgr->file, "Failed to get doorbell for queue\n");
-@@ -787,82 +794,61 @@ amdgpu_userq_create(struct drm_file *filp, union drm_amdgpu_userq *args)
- 	}
- 
- 	queue->doorbell_index = index;
--	mutex_init(&queue->fence_drv_lock);
--	xa_init_flags(&queue->fence_drv_xa, XA_FLAGS_ALLOC);
--	r = amdgpu_userq_fence_driver_alloc(adev, &queue->fence_drv);
--	if (r) {
--		drm_file_err(uq_mgr->file, "Failed to alloc fence driver\n");
--		goto clean_mapping;
--	}
--
- 	r = uq_funcs->mqd_create(queue, &args->in);
- 	if (r) {
- 		drm_file_err(uq_mgr->file, "Failed to create Queue\n");
--		goto clean_fence_driver;
-+		goto clean_mapping;
- 	}
- 
-+	r = xa_err(xa_store_irq(&adev->userq_doorbell_xa, index, queue,
-+				GFP_KERNEL));
-+	if (r)
-+		goto clean_mqd;
-+
- 	amdgpu_userq_ensure_ev_fence(&fpriv->userq_mgr, &fpriv->evf_mgr);
- 
- 	/* don't map the queue if scheduling is halted */
--	if (adev->userq_halt_for_enforce_isolation &&
--	    ((queue->queue_type == AMDGPU_HW_IP_GFX) ||
--	     (queue->queue_type == AMDGPU_HW_IP_COMPUTE)))
--		skip_map_queue = true;
--	else
--		skip_map_queue = false;
--	if (!skip_map_queue) {
-+	if (!adev->userq_halt_for_enforce_isolation ||
-+	    ((queue->queue_type != AMDGPU_HW_IP_GFX) &&
-+	     (queue->queue_type != AMDGPU_HW_IP_COMPUTE))) {
- 		r = amdgpu_userq_map_helper(queue);
- 		if (r) {
- 			drm_file_err(uq_mgr->file, "Failed to map Queue\n");
--			goto clean_mqd;
-+			mutex_unlock(&uq_mgr->userq_mutex);
-+			goto clean_doorbell;
- 		}
- 	}
- 
--	/* drop this refcount during queue destroy */
--	kref_init(&queue->refcount);
--
--	/* Wait for mode-1 reset to complete */
--	down_read(&adev->reset_domain->sem);
-+	atomic_inc(&uq_mgr->userq_count[queue->queue_type]);
-+	mutex_unlock(&uq_mgr->userq_mutex);
- 
- 	r = xa_alloc(&uq_mgr->userq_xa, &qid, queue,
--		     XA_LIMIT(1, AMDGPU_MAX_USERQ_COUNT), GFP_KERNEL);
--	if (r) {
--		if (!skip_map_queue)
--			amdgpu_userq_unmap_helper(queue);
--		r = -ENOMEM;
--		goto clean_reset_domain;
--	}
--
--	r = xa_err(xa_store_irq(&adev->userq_doorbell_xa, index, queue, GFP_KERNEL));
-+		     XA_LIMIT(1, AMDGPU_MAX_USERQ_COUNT),
-+		     GFP_KERNEL);
- 	if (r) {
--		xa_erase(&uq_mgr->userq_xa, qid);
--		if (!skip_map_queue)
--			amdgpu_userq_unmap_helper(queue);
--		goto clean_reset_domain;
-+		/*
-+		 * This drops the last reference which should take care of
-+		 * all cleanup.
-+		 */
-+		amdgpu_userq_put(queue);
-+		return r;
- 	}
--	up_read(&adev->reset_domain->sem);
- 
- 	amdgpu_debugfs_userq_init(filp, queue, qid);
--	INIT_DELAYED_WORK(&queue->hang_detect_work,
--			  amdgpu_userq_hang_detect_work);
--
- 	args->out.queue_id = qid;
--	atomic_inc(&uq_mgr->userq_count[queue->queue_type]);
--	mutex_unlock(&uq_mgr->userq_mutex);
- 	return 0;
- 
--clean_reset_domain:
--	up_read(&adev->reset_domain->sem);
-+clean_doorbell:
-+	xa_erase_irq(&adev->userq_doorbell_xa, index);
- clean_mqd:
--	mutex_unlock(&uq_mgr->userq_mutex);
- 	uq_funcs->mqd_destroy(queue);
--clean_fence_driver:
--	amdgpu_userq_fence_driver_free(queue);
- clean_mapping:
- 	amdgpu_bo_reserve(fpriv->vm.root.bo, true);
- 	amdgpu_userq_buffer_vas_list_cleanup(adev, queue);
- 	amdgpu_bo_unreserve(fpriv->vm.root.bo);
- 	mutex_destroy(&queue->fence_drv_lock);
-+free_fence_drv:
-+	amdgpu_userq_fence_driver_free(queue);
- free_queue:
- 	kfree(queue);
- err_pm_runtime:
--- 
-2.43.0
+Acked-by: Christian König <christian.koenig@amd.com>
+
+> ---
+> v2: I moved the enum to amdgpu_reset.h and then #included amdgpu_reset.h
+>     in amdgpu.h. The simpler method causes build errors.
+> v3: rebase and resend
+> 
+> Cc: Alex Deucher <alexander.deucher@amd.com>
+> Cc: Christian König <christian.koenig@amd.com>
+> Cc: amd-gfx@lists.freedesktop.org
+> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+> Cc: Maxime Ripard <mripard@kernel.org>
+> Cc: Thomas Zimmermann <tzimmermann@suse.de>
+> Cc: David Airlie <airlied@gmail.com>
+> Cc: Simona Vetter <simona@ffwll.ch>
+> 
+>  drivers/gpu/drm/amd/amdgpu/amdgpu.h       |   42 ------------
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h |   69 +++++++++++++++-----
+>  2 files changed, 58 insertions(+), 53 deletions(-)
+> 
+> --- linux-next-20260427.orig/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> +++ linux-next-20260427/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> @@ -464,7 +464,7 @@ int amdgpu_file_to_fpriv(struct file *fi
+>  #define AMDGPU_MAX_WB 1024	/* Reserve at most 1024 WB slots for amdgpu-owned rings. */
+>  
+>  /**
+> - * amdgpu_wb - This struct is used for small GPU memory allocation.
+> + * struct amdgpu_wb - This struct is used for small GPU memory allocation.
+>   *
+>   * This struct is used to allocate a small amount of GPU memory that can be
+>   * used to shadow certain states into the memory. This is especially useful for
+> @@ -538,44 +538,6 @@ struct amdgpu_allowed_register_entry {
+>  	bool grbm_indexed;
+>  };
+>  
+> -/**
+> - * enum amd_reset_method - Methods for resetting AMD GPU devices
+> - *
+> - * @AMD_RESET_METHOD_NONE: The device will not be reset.
+> - * @AMD_RESET_LEGACY: Method reserved for SI, CIK and VI ASICs.
+> - * @AMD_RESET_MODE0: Reset the entire ASIC. Not currently available for the
+> - *                   any device.
+> - * @AMD_RESET_MODE1: Resets all IP blocks on the ASIC (SDMA, GFX, VCN, etc.)
+> - *                   individually. Suitable only for some discrete GPU, not
+> - *                   available for all ASICs.
+> - * @AMD_RESET_MODE2: Resets a lesser level of IPs compared to MODE1. Which IPs
+> - *                   are reset depends on the ASIC. Notably doesn't reset IPs
+> - *                   shared with the CPU on APUs or the memory controllers (so
+> - *                   VRAM is not lost). Not available on all ASICs.
+> - * @AMD_RESET_LINK: Triggers SW-UP link reset on other GPUs
+> - * @AMD_RESET_BACO: BACO (Bus Alive, Chip Off) method powers off and on the card
+> - *                  but without powering off the PCI bus. Suitable only for
+> - *                  discrete GPUs.
+> - * @AMD_RESET_PCI: Does a full bus reset using core Linux subsystem PCI reset
+> - *                 and does a secondary bus reset or FLR, depending on what the
+> - *                 underlying hardware supports.
+> - *
+> - * Methods available for AMD GPU driver for resetting the device. Not all
+> - * methods are suitable for every device. User can override the method using
+> - * module parameter `reset_method`.
+> - */
+> -enum amd_reset_method {
+> -	AMD_RESET_METHOD_NONE = -1,
+> -	AMD_RESET_METHOD_LEGACY = 0,
+> -	AMD_RESET_METHOD_MODE0,
+> -	AMD_RESET_METHOD_MODE1,
+> -	AMD_RESET_METHOD_MODE2,
+> -	AMD_RESET_METHOD_LINK,
+> -	AMD_RESET_METHOD_BACO,
+> -	AMD_RESET_METHOD_PCI,
+> -	AMD_RESET_METHOD_ON_INIT,
+> -};
+> -
+>  struct amdgpu_video_codec_info {
+>  	u32 codec_type;
+>  	u32 max_width;
+> @@ -1373,6 +1335,8 @@ int emu_soc_asic_init(struct amdgpu_devi
+>  #define RBIOS16(i) (RBIOS8(i) | (RBIOS8((i)+1) << 8))
+>  #define RBIOS32(i) ((RBIOS16(i)) | (RBIOS16((i)+2) << 16))
+>  
+> +#include "amdgpu_reset.h"
+> +
+>  /*
+>   * ASICs macro.
+>   */
+> --- linux-next-20260427.orig/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h
+> +++ linux-next-20260427/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h
+> @@ -46,6 +46,47 @@ enum AMDGPU_RESET_SRCS {
+>  	AMDGPU_RESET_SRC_USERQ,
+>  };
+>  
+> +/**
+> + * enum amd_reset_method - Methods for resetting AMD GPU devices
+> + *
+> + * @AMD_RESET_METHOD_NONE: The device will not be reset.
+> + * @AMD_RESET_METHOD_LEGACY: Method reserved for SI, CIK and VI ASICs.
+> + * @AMD_RESET_METHOD_MODE0: Reset the entire ASIC. Not currently available for
+> + *                          the any device.
+> + * @AMD_RESET_METHOD_MODE1: Resets all IP blocks on the ASIC (SDMA, GFX, VCN,
+> + *                   etc.) individually. Suitable only for some discrete GPU,
+> + *                   not available for all ASICs.
+> + * @AMD_RESET_METHOD_MODE2: Resets a lesser level of IPs compared to MODE1.
+> + *                   Which IPs are reset depends on the ASIC. Notably doesn't
+> + *                   reset IPs shared with the CPU on APUs or the memory
+> + *                   controllers (so VRAM is not lost). Not available on all
+> + *                   ASICs.
+> + * @AMD_RESET_METHOD_LINK: Triggers SW-UP link reset on other GPUs
+> + * @AMD_RESET_METHOD_BACO: BACO (Bus Alive, Chip Off) method powers off and on
+> + *                   the card but without powering off the PCI bus. Suitable
+> + *                   only for discrete GPUs.
+> + * @AMD_RESET_METHOD_PCI: Does a full bus reset using core Linux subsystem
+> + *                   PCI reset and does a secondary bus reset or FLR,
+> + *                   depending on what the underlying hardware supports.
+> + * @AMD_RESET_METHOD_ON_INIT: Does a device reset during the driver init
+> + *                   sequence.
+> + *
+> + * Methods available for AMD GPU driver for resetting the device. Not all
+> + * methods are suitable for every device. User can override the method using
+> + * module parameter `reset_method`.
+> + */
+> +enum amd_reset_method {
+> +	AMD_RESET_METHOD_NONE = -1,
+> +	AMD_RESET_METHOD_LEGACY = 0,
+> +	AMD_RESET_METHOD_MODE0,
+> +	AMD_RESET_METHOD_MODE1,
+> +	AMD_RESET_METHOD_MODE2,
+> +	AMD_RESET_METHOD_LINK,
+> +	AMD_RESET_METHOD_BACO,
+> +	AMD_RESET_METHOD_PCI,
+> +	AMD_RESET_METHOD_ON_INIT,
+> +};
+> +
+>  struct amdgpu_reset_context {
+>  	enum amd_reset_method method;
+>  	struct amdgpu_device *reset_req_dev;
+> @@ -56,6 +97,20 @@ struct amdgpu_reset_context {
+>  	enum AMDGPU_RESET_SRCS src;
+>  };
+>  
+> +struct amdgpu_reset_control {
+> +	void *handle;
+> +	struct work_struct reset_work;
+> +	struct mutex reset_lock;
+> +	struct amdgpu_reset_handler *(
+> +		*reset_handlers)[AMDGPU_RESET_MAX_HANDLERS];
+> +	atomic_t in_reset;
+> +	enum amd_reset_method active_reset;
+> +	struct amdgpu_reset_handler *(*get_reset_handler)(
+> +		struct amdgpu_reset_control *reset_ctl,
+> +		struct amdgpu_reset_context *context);
+> +	void (*async_reset)(struct work_struct *work);
+> +};
+> +
+>  struct amdgpu_reset_handler {
+>  	enum amd_reset_method reset_method;
+>  	int (*prepare_env)(struct amdgpu_reset_control *reset_ctl,
+> @@ -72,20 +127,6 @@ struct amdgpu_reset_handler {
+>  	int (*do_reset)(struct amdgpu_device *adev);
+>  };
+>  
+> -struct amdgpu_reset_control {
+> -	void *handle;
+> -	struct work_struct reset_work;
+> -	struct mutex reset_lock;
+> -	struct amdgpu_reset_handler *(
+> -		*reset_handlers)[AMDGPU_RESET_MAX_HANDLERS];
+> -	atomic_t in_reset;
+> -	enum amd_reset_method active_reset;
+> -	struct amdgpu_reset_handler *(*get_reset_handler)(
+> -		struct amdgpu_reset_control *reset_ctl,
+> -		struct amdgpu_reset_context *context);
+> -	void (*async_reset)(struct work_struct *work);
+> -};
+> -
+>  
+>  enum amdgpu_reset_domain_type {
+>  	SINGLE_DEVICE,
 
