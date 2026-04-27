@@ -4,71 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7C264FF8868
-	for <amd-gfx@archiver.kernel.org>; Mon, 27 Apr 2026 08:37:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ABE3BFF8861
+	for <amd-gfx@archiver.kernel.org>; Mon, 27 Apr 2026 08:37:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DE5DF10E634;
-	Mon, 27 Apr 2026 08:37:31 +0000 (UTC)
-X-Greylist: delayed 984 seconds by postgrey-1.36 at gabe;
- Sat, 25 Apr 2026 06:59:06 UTC
-Received: from dggsgout12.his.huawei.com (dggsgout12.his.huawei.com
- [45.249.212.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5ED9910E0D6;
- Sat, 25 Apr 2026 06:59:06 +0000 (UTC)
-Received: from mail.maildlp.com (unknown [172.19.163.198])
- by dggsgout12.his.huawei.com (SkyGuard) with ESMTPS id 4g2gHC1b9YzKHMXJ;
- Sat, 25 Apr 2026 14:42:15 +0800 (CST)
-Received: from mail02.huawei.com (unknown [10.116.40.128])
- by mail.maildlp.com (Postfix) with ESMTP id 4AC9640574;
- Sat, 25 Apr 2026 14:42:40 +0800 (CST)
-Received: from [10.67.111.176] (unknown [10.67.111.176])
- by APP4 (Coremail) with SMTP id gCh0CgA3HrxeYuxpzYCiBg--.33183S2;
- Sat, 25 Apr 2026 14:42:40 +0800 (CST)
-Message-ID: <220aadd9-0d92-44ce-8a70-bd30030defa9@huaweicloud.com>
-Date: Sat, 25 Apr 2026 14:42:38 +0800
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5119410E636;
+	Mon, 27 Apr 2026 08:37:38 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (1024-bit key; unprotected) header.d=qq.com header.i=@qq.com header.b="H90BX9qc";
+	dkim-atps=neutral
+Received: from out203-205-221-153.mail.qq.com (out203-205-221-153.mail.qq.com
+ [203.205.221.153])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B7A7310E191;
+ Mon, 27 Apr 2026 06:54:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+ t=1777272869; bh=lHLU024aAwcguS5ARAG4kBqUfkxnD5hl6+Lo4kd7XPY=;
+ h=From:To:Cc:Subject:Date;
+ b=H90BX9qcBLE+uU8EcshUZIosNX0ZZ4eg4QDQdyxHcOM4X0k/eGS/ZWYaDwRa/0z6F
+ /RpdYCUS0RNRGsg1Cb9b0Omw9NaHGcnB13jSGhLwBm6yeyWjSQA9r+eO1haGGegL6g
+ vyzill9D1tqOGwE/uvUqvd+0UrIxZ4W8vvHJaqqA=
+Received: from NTT-kernel-dev ([60.247.85.88])
+ by newxmesmtplogicsvrsza53-0.qq.com (NewEsmtp) with SMTP
+ id D99A8494; Mon, 27 Apr 2026 14:54:25 +0800
+X-QQ-mid: xmsmtpt1777272865tepqw5bdl
+Message-ID: <tencent_983388E3E437227CF3632311A472F9E89907@qq.com>
+X-QQ-XMAILINFO: NGZp1yYNf7Y+XImPKHod7cmbUONk4HZ2f3rdMQkVnqsXgSgz30B4xqrsAGR7js
+ kFrpGcBqy7N9NtT1oJLAgLyFdGeXQeT4hTfZvvB3UIc+mwTT9w7+rcoCRedGfRn32joDZ1N2CpeT
+ jhJNkkL4VCkMUUgYqkpuLnsU7ru3cU6Go887wJd09ri9XQyJD1QQZAG708uNyBR0kIrh4D5J2EGg
+ vu1bOEh88zwYaQ9Vb9q8GYJpvS+Nk6PQ9RMZf2t1w+qaZkrbu0OEwaqQ6fhRr4pTV2Q0vo+c90CJ
+ cohxr2xmdbBZK+ymZ0bKVp5bozy/tqvJ9iCSNbbbOMNA+hzobsiCChWxjRhUYPWjWyFQgcSFugiP
+ zGXak2ssj1h6N0JFHs3Giu+II7T+eWkpTaVx+6rXVjjbqmpLHtrF1PD2Nv21legm0BlxTgyqMV8V
+ EYgj+kBjVMN9VKVZExlf5Sk8VcVYdIpoUIs/Z1xK4TRKp8680/ZVZf3px3JYQmrl19xtbvugMMEx
+ YUx7LpTuHCA5C5LTAOGfSXdn3NcYcQbAUcmTBv0YHr6W6En+XFgHkZMkbqVps+P0CtcUKxCGizo0
+ 58MMu4g0mGSUkwezMc8CcMiJ2lrmkui0OlJ/kMOtEt1HEm75hNkKwWRUNaZtPzgfnJFAwg4RZzYo
+ S7PVrMBnYPN+jj2cV4AC6tmARxa0/Ft1qdP3rKGDyO+dkJyIQS8N2CYYNzm9VCxW+re4HIVEdTf4
+ 1jC3HXLu75GO8Z8H+cJACJLDXlPXzVOqCFJs5Ol/CWyfPIue4OovUdnxhTz/Qfb37Xog8yLUTPya
+ IcRfhBCobFUZD4p4wCEjp20b+ws9OpAfxQVZ8FUTbpKNBw6d58TzydDA2B1zp7KGokVrCwiJBT4+
+ b3NVHAYqgmQ01jjLmJwg/J6iKdJCN4U893Qbr/WwWzAMHh3jo+Y8ym8sjeGvHH+2jR+B89e/vKht
+ aofPLQbwymIYgyLfeufqB6C4UglGjaOwjlNgsdw8zzL6zsWoGCSWFQzvX4FipIOl/S3KVHhIwQe4
+ bipDdVA/gtnICNu+aV1v/8+QDNKZtwij3nSuqlWoLD5nNUup0FoXB7jLXfU9A=
+X-QQ-XMRINFO: OWPUhxQsoeAVwkVaQIEGSKwwgKCxK/fD5g==
+From: Fang Wang <32840572@qq.com>
+To: gregkh@linuxfoundation.org, stable@vger.kernel.org,
+ tvrtko.ursulin@igalia.com
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
+ airlied@gmail.com, simona@ffwll.ch, Jesse.Zhang@amd.com,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Subject: [PATCH 6.1.y 1/2] drm/amdgpu: Use vmemdup_array_user in
+ amdgpu_bo_create_list_entry_array
+Date: Mon, 27 Apr 2026 14:54:25 +0800
+X-OQ-MSGID: <20260427065425.4120132-1-32840572@qq.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/5] cgroup/dmem: Add reclaim callback for lowering max
- below current usage
-To: =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- intel-xe@lists.freedesktop.org
-Cc: Natalie Vock <natalie.vock@gmx.de>, Johannes Weiner <hannes@cmpxchg.org>, 
- Tejun Heo <tj@kernel.org>, =?UTF-8?Q?Michal_Koutn=C3=BD?=
- <mkoutny@suse.com>, cgroups@vger.kernel.org, Huang Rui <ray.huang@amd.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Matthew Auld <matthew.auld@intel.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Simona Vetter <simona@ffwll.ch>, David Airlie <airlied@gmail.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20260327081600.4885-1-thomas.hellstrom@linux.intel.com>
- <20260327081600.4885-3-thomas.hellstrom@linux.intel.com>
-Content-Language: en-US
-From: Chen Ridong <chenridong@huaweicloud.com>
-In-Reply-To: <20260327081600.4885-3-thomas.hellstrom@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: gCh0CgA3HrxeYuxpzYCiBg--.33183S2
-X-Coremail-Antispam: 1UD129KBjvJXoW3Jr4kKr4xGFWxCr47Ar1DKFg_yoW3XrykpF
- ZrCr13Kw4rXrW7Zrsay3W8uF93u3Wvgr45W34xGw4fuFsrJw1Yyr4qk3yYyF1UCF9rGr1f
- Xan0krnruFWjyrDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUUvjb4IE77IF4wAFF20E14v26ryj6rWUM7CY07I20VC2zVCF04k2
- 6cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4
- vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Ar0_tr1l84ACjcxK6xIIjxv20xvEc7Cj
- xVAFwI0_Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I
- 0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40E
- x7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x
- 0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lFIxGxcIEc7CjxVA2Y2ka0xkIwI1lc7CjxVAaw2AF
- wI0_GFv_Wryl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4
- xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r4a6rW5
- MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I
- 0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWU
- JVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjxUIa
- 0PDUUUU
-X-CM-SenderInfo: hfkh02xlgr0w46kxt4xhlfz01xgou0bp/
 X-Mailman-Approved-At: Mon, 27 Apr 2026 08:37:19 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -84,215 +72,88 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 
+[ Upstream commit c4ac100e9ae252b09986766ad23b1f83ca3a369d ]
 
-On 2026/3/27 16:15, Thomas Hellström wrote:
-> Add an optional reclaim callback to struct dmem_cgroup_region.  When
-> dmem.max is set below current usage, invoke the callback to evict memory
-> and retry setting the limit rather than failing immediately.  Signal
-> interruptions propagate back to the write() caller.
-> 
-> RFC:
-> Due to us updating the max limit _after_ the usage has been
-> sufficiently lowered, this should be prone to failures if there are
-> aggressive allocators running in parallel to the reclaim.
-> So can we somehow enforce the new limit while the eviction is
-> happening?
-> 
-> Assisted-by: GitHub Copilot:claude-sonnet-4.6
-> Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-> ---
->  include/linux/cgroup_dmem.h | 11 +++++
->  kernel/cgroup/dmem.c        | 94 +++++++++++++++++++++++++++++++++----
->  2 files changed, 96 insertions(+), 9 deletions(-)
-> 
-> diff --git a/include/linux/cgroup_dmem.h b/include/linux/cgroup_dmem.h
-> index dd4869f1d736..61520a431740 100644
-> --- a/include/linux/cgroup_dmem.h
-> +++ b/include/linux/cgroup_dmem.h
-> @@ -26,6 +26,10 @@ bool dmem_cgroup_state_evict_valuable(struct dmem_cgroup_pool_state *limit_pool,
->  				      bool ignore_low, bool *ret_hit_low);
->  
->  void dmem_cgroup_pool_state_put(struct dmem_cgroup_pool_state *pool);
-> +void dmem_cgroup_region_set_reclaim(struct dmem_cgroup_region *region,
-> +				    int (*reclaim)(struct dmem_cgroup_pool_state *pool,
-> +						   u64 target_bytes, void *priv),
-> +				    void *priv);
->  #else
->  static inline __printf(2,3) struct dmem_cgroup_region *
->  dmem_cgroup_register_region(u64 size, const char *name_fmt, ...)
-> @@ -62,5 +66,12 @@ bool dmem_cgroup_state_evict_valuable(struct dmem_cgroup_pool_state *limit_pool,
->  static inline void dmem_cgroup_pool_state_put(struct dmem_cgroup_pool_state *pool)
->  { }
->  
-> +static inline void
-> +dmem_cgroup_region_set_reclaim(struct dmem_cgroup_region *region,
-> +			       int (*reclaim)(struct dmem_cgroup_pool_state *pool,
-> +					      u64 target_bytes, void *priv),
-> +			       void *priv)
-> +{ }
-> +
->  #endif
->  #endif	/* _CGROUP_DMEM_H */
-> diff --git a/kernel/cgroup/dmem.c b/kernel/cgroup/dmem.c
-> index 3e6d4c0b26a1..f993fb058b74 100644
-> --- a/kernel/cgroup/dmem.c
-> +++ b/kernel/cgroup/dmem.c
-> @@ -51,6 +51,18 @@ struct dmem_cgroup_region {
->  	 * No new pools should be added to the region afterwards.
->  	 */
->  	bool unregistered;
-> +
-> +	/**
-> +	 * @reclaim: Optional callback invoked when dmem.max is set below the
-> +	 * current usage of a pool. The driver should attempt to free at least
-> +	 * @target_bytes from @pool. May be called multiple times if usage
-> +	 * remains above the limit after returning.
-> +	 */
-> +	int (*reclaim)(struct dmem_cgroup_pool_state *pool, u64 target_bytes,
-> +		       void *priv);
-> +
-> +	/** @reclaim_priv: Private data passed to @reclaim. */
-> +	void *reclaim_priv;
->  };
->  
->  struct dmemcg_state {
-> @@ -145,23 +157,59 @@ static void free_cg_pool(struct dmem_cgroup_pool_state *pool)
->  }
->  
->  static int
-> -set_resource_min(struct dmem_cgroup_pool_state *pool, u64 val)
-> +set_resource_min(struct dmem_cgroup_pool_state *pool, u64 val,
-> +		 struct dmem_cgroup_region *region)
->  {
->  	page_counter_set_min(&pool->cnt, val);
->  	return 0;
->  }
->  
->  static int
-> -set_resource_low(struct dmem_cgroup_pool_state *pool, u64 val)
-> +set_resource_low(struct dmem_cgroup_pool_state *pool, u64 val,
-> +		 struct dmem_cgroup_region *region)
->  {
->  	page_counter_set_low(&pool->cnt, val);
->  	return 0;
->  }
->  
->  static int
-> -set_resource_max(struct dmem_cgroup_pool_state *pool, u64 val)
-> +set_resource_max(struct dmem_cgroup_pool_state *pool, u64 val,
+Replace kvmalloc_array() + copy_from_user() with vmemdup_array_user() on
+the fast path.
 
-Though we are discussing how to set the maximum, renaming 'val' to 'max' would
-improve readability in the next version.
+This shrinks the source code and improves separation between the kernel
+and userspace slabs.
 
-> +		 struct dmem_cgroup_region *region)
->  {
-> -	return page_counter_set_max(&pool->cnt, val);
-> +	int err = page_counter_set_max(&pool->cnt, val);
-> +
-> +	if (err != -EBUSY || !region || !region->reclaim)
-> +		return err;
-> +
-> +	/*
-> +	 * The new max is below current usage.  Ask the driver to evict memory
-> +	 * and retry, up to a bounded number of times.  Signal interruptions are
-> +	 * propagated back to the write() caller; other reclaim failures leave
-> +	 * -EBUSY as the result.
-> +	 */
-> +	for (int retries = 5; retries > 0; retries--) {
-> +		u64 usage = page_counter_read(&pool->cnt);
-> +		u64 target = usage > val ? usage - val : 0;
-> +		int reclaim_err;
-> +
-> +		if (!target) {
-> +			err = page_counter_set_max(&pool->cnt, val);
-> +			break;
-> +		}
-> +
-> +		reclaim_err = region->reclaim(pool, target, region->reclaim_priv);
-> +		if (reclaim_err) {
-> +			if (reclaim_err == -EINTR || reclaim_err == -ERESTARTSYS)
-> +				err = reclaim_err;
-> +			break;
-> +		}
-> +
-> +		err = page_counter_set_max(&pool->cnt, val);
-> +		if (err != -EBUSY)
-> +			break;
-> +	}
-> +
-> +	return err;
->  }
->  
->  static u64 get_resource_low(struct dmem_cgroup_pool_state *pool)
-> @@ -186,9 +234,9 @@ static u64 get_resource_current(struct dmem_cgroup_pool_state *pool)
->  
->  static void reset_all_resource_limits(struct dmem_cgroup_pool_state *rpool)
->  {
-> -	set_resource_min(rpool, 0);
-> -	set_resource_low(rpool, 0);
-> -	set_resource_max(rpool, PAGE_COUNTER_MAX);
-> +	set_resource_min(rpool, 0, NULL);
-> +	set_resource_low(rpool, 0, NULL);
-> +	set_resource_max(rpool, PAGE_COUNTER_MAX, NULL);
->  }
->  
->  static void dmemcs_offline(struct cgroup_subsys_state *css)
-> @@ -570,6 +618,32 @@ void dmem_cgroup_pool_state_put(struct dmem_cgroup_pool_state *pool)
->  }
->  EXPORT_SYMBOL_GPL(dmem_cgroup_pool_state_put);
->  
-> +/**
-> + * dmem_cgroup_region_set_reclaim - Register a reclaim callback on a region.
-> + * @region: The region to register the callback for.
-> + * @reclaim: Callback to invoke when dmem.max is set below current usage.
-> + *           Called with the pool that needs reclaiming and the number of
-> + *           bytes to free. Returns 0 on progress, negative on failure.
-> + * @priv: Opaque pointer passed back to @reclaim.
-> + *
-> + * When dmem.max is lowered below the current usage of a cgroup pool, the
-> + * dmem controller will call @reclaim with a target number of bytes to free.
-> + * After @reclaim returns the controller retries setting the limit; if usage
-> + * is still too high it calls @reclaim again, up to a bounded retry count.
-> + */
-> +void dmem_cgroup_region_set_reclaim(struct dmem_cgroup_region *region,
-> +				    int (*reclaim)(struct dmem_cgroup_pool_state *pool,
-> +						   u64 target_bytes, void *priv),
-> +				    void *priv)
-> +{
-> +	if (!region)
-> +		return;
-> +
-> +	region->reclaim = reclaim;
-> +	region->reclaim_priv = priv;
-> +}
-> +EXPORT_SYMBOL_GPL(dmem_cgroup_region_set_reclaim);
-> +
->  static struct dmem_cgroup_pool_state *
->  get_cg_pool_unlocked(struct dmemcg_state *cg, struct dmem_cgroup_region *region)
->  {
-> @@ -728,7 +802,8 @@ static int dmemcg_parse_limit(char *options, struct dmem_cgroup_region *region,
->  
->  static ssize_t dmemcg_limit_write(struct kernfs_open_file *of,
->  				 char *buf, size_t nbytes, loff_t off,
-> -				 int (*apply)(struct dmem_cgroup_pool_state *, u64))
-> +				 int (*apply)(struct dmem_cgroup_pool_state *, u64,
-> +					      struct dmem_cgroup_region *))
->  {
->  	struct dmemcg_state *dmemcs = css_to_dmemcs(of_css(of));
->  	int err = 0;
-> @@ -775,7 +850,8 @@ static ssize_t dmemcg_limit_write(struct kernfs_open_file *of,
->  		}
->  
->  		/* And commit */
-> -		err = apply(pool, new_limit);
-> +		err = apply(pool, new_limit, region);
-> +
->  		dmemcg_pool_put(pool);
->  
->  out_put:
+Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Fang Wang <32840572@qq.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c | 41 +++++++++------------
+ 1 file changed, 17 insertions(+), 24 deletions(-)
 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c
+index fdc302aa59e7..79e43896eddd 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c
+@@ -226,43 +226,36 @@ void amdgpu_bo_list_put(struct amdgpu_bo_list *list)
+ int amdgpu_bo_create_list_entry_array(struct drm_amdgpu_bo_list_in *in,
+ 				      struct drm_amdgpu_bo_list_entry **info_param)
+ {
+-	const void __user *uptr = u64_to_user_ptr(in->bo_info_ptr);
+ 	const uint32_t info_size = sizeof(struct drm_amdgpu_bo_list_entry);
++	const void __user *uptr = u64_to_user_ptr(in->bo_info_ptr);
++	const uint32_t bo_info_size = in->bo_info_size;
++	const uint32_t bo_number = in->bo_number;
+ 	struct drm_amdgpu_bo_list_entry *info;
+-	int r;
+-
+-	info = kvmalloc_array(in->bo_number, info_size, GFP_KERNEL);
+-	if (!info)
+-		return -ENOMEM;
+ 
+ 	/* copy the handle array from userspace to a kernel buffer */
+-	r = -EFAULT;
+-	if (likely(info_size == in->bo_info_size)) {
+-		unsigned long bytes = in->bo_number *
+-			in->bo_info_size;
+-
+-		if (copy_from_user(info, uptr, bytes))
+-			goto error_free;
+-
++	if (likely(info_size == bo_info_size)) {
++		info = vmemdup_array_user(uptr, bo_number, info_size);
++		if (IS_ERR(info))
++			return PTR_ERR(info);
+ 	} else {
+-		unsigned long bytes = min(in->bo_info_size, info_size);
++		const uint32_t bytes = min(bo_info_size, info_size);
+ 		unsigned i;
+ 
+-		memset(info, 0, in->bo_number * info_size);
+-		for (i = 0; i < in->bo_number; ++i) {
+-			if (copy_from_user(&info[i], uptr, bytes))
+-				goto error_free;
++		info = kvmalloc_array(bo_number, info_size, GFP_KERNEL);
++		if (!info)
++			return -ENOMEM;
+ 
+-			uptr += in->bo_info_size;
++		memset(info, 0, bo_number * info_size);
++		for (i = 0; i < bo_number; ++i, uptr += bo_info_size) {
++			if (copy_from_user(&info[i], uptr, bytes)) {
++				kvfree(info);
++				return -EFAULT;
++			}
+ 		}
+ 	}
+ 
+ 	*info_param = info;
+ 	return 0;
+-
+-error_free:
+-	kvfree(info);
+-	return r;
+ }
+ 
+ int amdgpu_bo_list_ioctl(struct drm_device *dev, void *data,
 -- 
-Best regards,
-Ridong
+2.34.1
 
