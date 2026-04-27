@@ -4,123 +4,141 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1A8D3FF8868
-	for <amd-gfx@archiver.kernel.org>; Mon, 27 Apr 2026 19:22:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 33EFFFF8867
+	for <amd-gfx@archiver.kernel.org>; Mon, 27 Apr 2026 20:00:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7793A10E2D0;
-	Mon, 27 Apr 2026 19:22:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6230910E900;
+	Mon, 27 Apr 2026 20:00:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="2EBRLG2i";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ALnXr+uT";
 	dkim-atps=neutral
-Received: from SN4PR2101CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11012060.outbound.protection.outlook.com
- [40.93.195.60])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D1B5A10E2D0
- for <amd-gfx@lists.freedesktop.org>; Mon, 27 Apr 2026 19:22:07 +0000 (UTC)
+Received: from PH7PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11010043.outbound.protection.outlook.com [52.101.201.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E4BCE10E8F5;
+ Mon, 27 Apr 2026 20:00:45 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=nR1eS0nqu1OWAzcIi2wvagUILDycvkWV5D0TdMoRznmLuhP9P+IDVxChifEqP8rHOU3q9A6temqMhjYRfxvD0OC6TH/VqQ1Mizj45n5ABNIOxxVC8Zjbs5cL91Np7REPI+7m6QQe443o7RO5ZguYqJ3m4wkeNr7MOQI9/ovPhLk4YrUp++CI+7tzwRh42neNv4xFt6IxrS9fyxq97eNPh14s3SwgECO6hVQtLfoQ3ZVRIx9bai3MFaPydA5fUioAAefFqKmZfA8O+GHI5Elp8lzgIL91EOUKr7FO75fe7eQDxG3J1Y5RZskqDCWUU4NOJiEWfi2Ymx4oEAx+Ex+FdQ==
+ b=hfXsQzeEM8IXQryte31+cvjwNx5AMtJ9nCnP8Sobjj3fJkZrBvzho3x9IvvwdEJlD5JOE9TOS6jpfrDtWW4bUgZcWW9GTzCon4gc0dc0hZkQT+cMrGqvIZ8GOY/fvvij2WHypAEIqY0ZWB5q6Dt89h6VvtyIIEMnrHb+y9h/qavF3DLG7C4HyGrMbQ1/bGfcmuQqJL7QVVa3elUVSj3+cjFj5cxT1xQ+U9dn5ci6VYha4UEIoRm1WhdTNlHK85NcAc7EIiq7bNcEosw3VwhBpAfdgZ9hOoYAsakiNgiLESSSdQVHQFWP9U/FK6JI09Z/ftGCegcLDKRZCl9sgkA0hQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=eeKLIVg88NbE1oomkhN4TVVk4xZ+pZ73nkKuTMlgLBA=;
- b=epf02/sJs/E8VibH9qGk4gSxmMwzM1vMDNVsTIFTxpZ5UJTMQNJKk2QPKXpuLmu8JaKGWyl92SgU8mVpZV2ByksYcnowOvW4GNLQJXS1IE6BUf+reRBeTsDXvjGZWdMkhwLrhRKiD/pAgmIh6Byi5RhUmoo6L5gLhufogW3FbvM6mTfR8ZFgYr9GM9JMfHEoynxyrfPL+E2Nm7/XI+SAKcgZWWkhY78BtsMRFLENnGC6xrAhSotiybwdSFf/MoU+XlqeVMPkOv0FKF5f6HodXq3cMAX2j0jBZ+KabCb/oiREZTdPCH7bhylHL0iogIDLzJDTCre/V35cM+D/v95LBA==
+ bh=Vj+GU6m0bcUImM6Vj/Zt8wPi0I15nocrwqlQT4PLSzo=;
+ b=jYoxofGaUVUw8/R96NZKtfM0Ru/faf5uPA8DzREWLhq6/kLRnQfX8XapWv5TiqnXnnT0aobRp6a9uPfsgQ6NrtoAC+xWlpV543cvkFfK2AZ0PJJuxr8CfL1ODv+UyGGDJ3JW6OeHYjf+gh/LuCWj766FPAu3usk8l+m4ZtIZS+SS4l4XMl9D0fj9GvGSs/zChrc4pR+OKcbA2ogP4k8vFaXdDliApVhqtiWQ5HOzaYvkb67OsOQq6auJcR/4oois10CRhIPeSlNdfYi9PizmeX/e3OJvY/R2nX0vC1VwUskafqbIn0y6k5W2ZQqsa7Xcs3qXomW8fguRaiZNcYh7XQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=eeKLIVg88NbE1oomkhN4TVVk4xZ+pZ73nkKuTMlgLBA=;
- b=2EBRLG2ilgl7F95x577B1cwJzIOz0/GEt16W9HcG7/I+mOStgkqbA5kkgld0JmAxIMOqGwExHLuLNVSPBmqW6aguykWq+NN7bgrV+qO7wjKm9zU6N3DiN6vOcYDh5Q/2fldN9fkHB1cqy3UR7nCTrGWgZMIbScK1IFwkwqmRPn8=
-Received: from SJ1PR12MB6194.namprd12.prod.outlook.com (2603:10b6:a03:458::12)
- by LV9PR12MB9805.namprd12.prod.outlook.com (2603:10b6:408:2ee::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.16; Mon, 27 Apr
- 2026 19:22:04 +0000
-Received: from SJ1PR12MB6194.namprd12.prod.outlook.com
- ([fe80::2201:99d6:c63e:3d2a]) by SJ1PR12MB6194.namprd12.prod.outlook.com
- ([fe80::2201:99d6:c63e:3d2a%4]) with mapi id 15.20.9870.013; Mon, 27 Apr 2026
- 19:22:04 +0000
-From: "Dong, Ruijing" <Ruijing.Dong@amd.com>
-To: "Cheng, Benjamin" <Benjamin.Cheng@amd.com>, "Deucher, Alexander"
- <Alexander.Deucher@amd.com>, "Koenig, Christian" <Christian.Koenig@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-CC: "Wu, David" <David.Wu3@amd.com>, "Liu, Leo" <Leo.Liu@amd.com>, "Cheng,
- Benjamin" <Benjamin.Cheng@amd.com>, SDL <sdl@nppct.ru>
-Subject: RE: [PATCH 2/2] drm/amdgpu/vcn4: Avoid overflow on msg bound check
-Thread-Topic: [PATCH 2/2] drm/amdgpu/vcn4: Avoid overflow on msg bound check
-Thread-Index: AQHcy1DGWxtY65Myn06z+2+jdKDBs7XzX2jA
-Date: Mon, 27 Apr 2026 19:22:03 +0000
-Message-ID: <SJ1PR12MB6194B03932069B255E8F451B95362@SJ1PR12MB6194.namprd12.prod.outlook.com>
-References: <20260413142037.1039073-1-benjamin.cheng@amd.com>
- <20260413142037.1039073-2-benjamin.cheng@amd.com>
-In-Reply-To: <20260413142037.1039073-2-benjamin.cheng@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-04-27T19:21:16.0000000Z;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD General
- v26; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=3;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard
-authentication-results: dkim=none (message not signed)
+ bh=Vj+GU6m0bcUImM6Vj/Zt8wPi0I15nocrwqlQT4PLSzo=;
+ b=ALnXr+uTyDXfR07RRf0m0IxWoZWBFlzciPbEN6ZRAxnxl6MhMrEr99Ni43Dpzrpm/jmkE0XvQ73Bf/Lc/xXjTxxSp9v7zHCg+jXk4ZrDhXHiiFUm8jeQ6Wy5m0RcCTssaoNRLTEwg+nCzcwkb4nz8fhOwB1bB7dGpzJuX1Ws3gI=
+Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SJ1PR12MB6194:EE_|LV9PR12MB9805:EE_
-x-ms-office365-filtering-correlation-id: 93a88ad5-6df7-451b-d770-08dea49243ab
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|376014|366016|1800799024|56012099003|22082099003|18002099003|38070700021;
-x-microsoft-antispam-message-info: JlLLGvQhk95L+5tGs3yMe6XGgzxFTpZ6KjJfZtn6VUa/aVrlIlHB8s14kl0GDAPiXPaLI7RTTlGdg2cjrWW0VJu8/Q1KzNf9rNbW9S5MYWrRMZdLuebk10ckAyshAygg5B1wvE7FQp5n33Vtvr8YU7OnQYlxarGKy5g28XpgAfcS1uPVwmc8ytrCuVIbiWiX8PWGWYRAbQiwEJewYYXH/yJMUK77IUqHDRDMM0uC8xhq+5KzElk5M8kVB/zpzRCRnmBskaO6FdftnZbCDhnV7m3X1qGp9GT/srgLRSw0duzGHYn/RWtC64tkiawc9WH2wd2hHs6A0OVTwECw2npBh7HkSwyqDTac84zhYNXSI01ZCucUG9kVVoy6+aYnmuHS8fxBIzVgQ22ILHadse5GMHbmZGFNe/SYNBJPsLbSICOUO3ZjwmC6GSxvkG8lUjmw6rx4stRObD5kUVunsbBS4Zkv8H1PCH5aot6LRqJr7bMNjdbvU6KYVTmJvgbAw3Kv3M6K3TFE/cqhiKWvweLA3ZDN+m5tcyBv9joY0yHV1LKpDeSnCSV3LoxnEFoxfgwuTGnAeqmt3bHJ5JAnZxU31U3oV5RRQ+ssdG9R0WLvMHAePu0gRJfoMDx43QPt1KMT7zh7xGXLJRQUcUY5T3zSkEZz4qauOc9WPzQFuYscqs4tw7Jsre5nXceKpGCWsEs4VXR456kL6OqMGA/3Jr58YXWDQIjNCDssonV0tOwnL2N2cZlcDy0Khy/QHuQysQ4Xl6NncnnLx7p5DwQWGlIukHwtU8hfelOa7ogRhqfHYzc=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SJ1PR12MB6194.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(1800799024)(56012099003)(22082099003)(18002099003)(38070700021);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?7Bhw9Frv8Ndjm4DxYVgXdrPPeS06AlJrYXnIA0dp5emVW0Kj3TjmMhyiw6VN?=
- =?us-ascii?Q?4dMieZYZq1p0Gwgp/Pao0SFkHOjo6zKDWt2atpwTDgfjmBAjd7k7Pin/Q121?=
- =?us-ascii?Q?jp837S/hhsteGwJ/h8BH1CP/m6DZ6aWZDrMMR2ruxzjMs8pIL2vSyN3CmiTG?=
- =?us-ascii?Q?BcvxjH2px8IOHWFPFwtLkx/Uwi4d4inqoBL31C8GL9UnHtIlSZQaWGhuxbAy?=
- =?us-ascii?Q?L6dtPH/5BmWJGa2q+u8nN69DiQjczSnPUp+ew8QDvthKyDkhLpAz4LfKRI9h?=
- =?us-ascii?Q?eHr5GMEn5flWeYN/aJ3pnNyE5xMMYFo+3I8cdbB8lKmlxuYda3fK2r5sqfsZ?=
- =?us-ascii?Q?hgFgHRGW2L5Q1PJLxStN/YN8ubiMk8zQAmrPUjXAnDIRoKnFuP5An7FKB/n7?=
- =?us-ascii?Q?QvMOc6Qhoa2OgwIrB6GLzU7MMu69hMcqukP2B21htnw8YZ4sfOSzINBK+I4X?=
- =?us-ascii?Q?LUrgi+vVZu85dpSoSTuVrbvc/AgCgmoCZ5gqKbRrbeeTXXsFAVZUTBSmvrfn?=
- =?us-ascii?Q?uBqVwJ5EJIYRTVS380zfRBwqo9UtKSIR3IgAvM21oYwBQudakiR6mUrOM/wB?=
- =?us-ascii?Q?IJsE+Ju4M9esK068HBrvN7lFY9LRIemowo8yE4Dal5n6Ps0xr4lulBfVpLTO?=
- =?us-ascii?Q?fVhAi/EWs86m5I/NW+oksmsM+PbsGFgV25IuUlEkyR0ywOiCbniWmyD7uSWT?=
- =?us-ascii?Q?IhMLtOtoEGJNqnmzg1IMQJokHBF6ynhthso3jne+2E2UBmgs2q4QeKk24r76?=
- =?us-ascii?Q?nr+ONv72qvVfVnVeefYoCH3UR6HA9rn71Mar86lcdvBI5PXRAHgbsiQ9UDDF?=
- =?us-ascii?Q?Do66rXfK8cvU3aKgOUz5Q5IwSIUQOeBY/cEeqf4hJbYEPvPLHmUCEgsri8Iu?=
- =?us-ascii?Q?lvYFLgZ3xOgv6VmzhXM+PD6VgOpho8oSbAMeEbjCDjZHb2xUvFbUgpBkH6BD?=
- =?us-ascii?Q?/owO4MTgPaeVjGE4H1Wk/HYNEb6RBRY0uYbN2PUVVY6LNmVn9DV0NEEYgrJI?=
- =?us-ascii?Q?C9hxdyhNiv8n4BkAexFZQPWbysDvootlZI86Dv8JxXTYoxbUJcGHbeNgXjQk?=
- =?us-ascii?Q?5UAQJNmzNVTX4zDoG0WW6MafW10IxAqE5C+Maoth8/3FLUM7Wbn0oiUCcHqu?=
- =?us-ascii?Q?jT15CemUsayRYR/tMLUJfpRJXYR2RHVIocuTB/M8D+hdQPQiWeMOfe7XAR3T?=
- =?us-ascii?Q?qFnricxXUJT6Y/2yUCuHmYoofUe/2NbR1yoHux9auLaIrwbFI8TvDZgkaehM?=
- =?us-ascii?Q?I38QDawOUl8BK4H8HwSclekRnVB5fnTr5mPDSr32eZtQjfkRsLFahapOYNzt?=
- =?us-ascii?Q?wQvWIjkxXUQsDiwsrbzd7E2ekMkEoJGqej+ZEVV7JDII5+jTktXu/D5l5bdD?=
- =?us-ascii?Q?wFjo5h4XFfRiEkTGYV7i1TP9BGnbm7vYw5n07T0Z2NfXcS8wBqzc9AQyHkHR?=
- =?us-ascii?Q?6r6ZDUgZA2WUX+Vn0H+TxA+72qrSmCHaZjWPEdTULgaokZXkjC7e8u3etpHw?=
- =?us-ascii?Q?rF8hQDCh5GP1aX0iv/0ti2uGjNMOBMbtGy8wLb+1xeGo0GmzpDncpnTkxdVj?=
- =?us-ascii?Q?a0jfizuqU33QXIp9q4QCudo9D5+JcXOuawK8MnzApwAHnGxOuyk8vTDeLJuV?=
- =?us-ascii?Q?ZKGHFJoVz4mYqon5K7R2YYkASuaiKoRQrBNrm6gTmPrM4Uz+GyM7xDxGRuW0?=
- =?us-ascii?Q?EO184P8Fb3tw/+lJ7BXIJRKiZVdeMSpC7OelKSWYsEfbh2QQ?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Received: from BL1PR12MB5112.namprd12.prod.outlook.com (2603:10b6:208:316::16)
+ by SA6PR12MB999200.namprd12.prod.outlook.com (2603:10b6:806:450::24)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.26; Mon, 27 Apr
+ 2026 20:00:43 +0000
+Received: from BL1PR12MB5112.namprd12.prod.outlook.com
+ ([fe80::d977:95c9:e89:ff27]) by BL1PR12MB5112.namprd12.prod.outlook.com
+ ([fe80::d977:95c9:e89:ff27%6]) with mapi id 15.20.9870.013; Mon, 27 Apr 2026
+ 20:00:43 +0000
+Message-ID: <66a7efd4-8ec9-47af-b6c4-5be25459a474@amd.com>
+Date: Mon, 27 Apr 2026 16:00:40 -0400
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC/POC PATCH 00/12] POC SVM implementation in AMDGPU based on
+ drm_gpusvm
+To: "Huang, Honglei1" <honghuan@amd.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ Alexander.Deucher@amd.com, Honglei Huang <honglei1.huang@amd.com>,
+ Oak.Zeng@amd.com, Jenny-Jing.Liu@amd.com, Philip.Yang@amd.com,
+ Xiaogang.Chen@amd.com, Ray.Huang@amd.com, Lingshan.Zhu@amd.com,
+ Junhua.Shen@amd.com, =?UTF-8?Q?Thomas_Hellstr=C3=B6m?=
+ <thomas.hellstrom@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>
+References: <abuE0KBPtAZM9Bo0@lstrano-desk.jf.intel.com>
+ <098d5d68-f218-4cee-8b73-201e7012a287@amd.com>
+ <acDeRhCTh/ehOUyu@lstrano-desk.jf.intel.com>
+ <26186168-abff-4ce4-ad93-db9bc2fd68d7@amd.com> <acRgr7QwdULsn6G2@gsse-cloud1>
+ <d2fddc5d-2628-47e3-95c5-874b3a0466be@amd.com>
+ <5fb57768-35b9-4e48-8178-2e1760a93aed@amd.com>
+ <aem++OfFRJqHAPTG@gsse-cloud1.jf.intel.com>
+ <aenH0REel7/enRi+@gsse-cloud1.jf.intel.com>
+ <812102ac-906b-4fbf-bc8c-1881493a3eca@amd.com>
+ <aep/S6m7vG5K7Ra9@gsse-cloud1.jf.intel.com>
+ <79e9730b-80b5-4517-9942-fb6ec1569276@amd.com>
+Content-Language: en-US
+From: Felix Kuehling <felix.kuehling@amd.com>
+Organization: AMD Inc.
+In-Reply-To: <79e9730b-80b5-4517-9942-fb6ec1569276@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: YQBPR01CA0144.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:1::44) To BL1PR12MB5112.namprd12.prod.outlook.com
+ (2603:10b6:208:316::16)
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL1PR12MB5112:EE_|SA6PR12MB999200:EE_
+X-MS-Office365-Filtering-Correlation-Id: 17662974-cbb4-4cfd-9141-08dea497a956
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|1800799024|376014|56012099003|22082099003|18002099003; 
+X-Microsoft-Antispam-Message-Info: nfloivDL6+EG3Dt9nUZkYHSBTXViPrtnV/G8e0Uz3aNpjaByWPAgBiwI8lkcMKNR9aAIJcHnOxHuj8ijKTAm+ND5cC1AJxzipuyQKyRlCILItjTwismJ3SFEiWWVxUPUYn6artxQlTvP+LR8JMjnn6Scl9dIrGkDjwAcwn+E1AAwQK7eOV/FHVKpLxrG9WcYwSLUrmgDmFaGcMEUHTe2gapdpgf1NGBUeptL/ankSn6Ug41bkjaXjHrvIg0XjHcNTf/kUK6aGQlPV0E3QSx3V2BpUaNjq/s4CTbqbOwOlC1odAHTY+BNcfHQagYHE4r7ydQFzVOUodyfeyT1W/kUVqPtOm2xNItnnpfU5bgGE1hBolf1MDYwAIFr/yGCQUgITM89NKTTJuHeABwFdj8PaH6cN63rZWTh1CtOzqXujOMI+zTqmE7WaXcsWvwzQDCHl1F8zQMJRDGNkP6/QvfhiDTVh9/fKvEIMALQH1vXIrjW/oaI23hWySIPXkPu4fxG+i44CosssC9nMphe9MHDdqgQI/q4bqnlhstRefp/5Ti8j02hEExjv4afVEX1KMVJkJ9/Pp470BQlSN6pvwCXA16xmodBzVBCrfiRfkBxRF3Jz1u4A0Q/bGtndTwBIGMK/AIVLOuTgf/Km2hGWHlO5JQIxEKbVqMn4a97jP8d/nt1R5pNsdXILDM/oILu1aov
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BL1PR12MB5112.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(376014)(56012099003)(22082099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Rm5acTVIaUdmYzRlcUs3S1ZOVjJndU1hSERSKy9SdmRacHRRRjZjTnJnVjdn?=
+ =?utf-8?B?bXNrVTlQaWVsZ0lOOGdUbjBMY0dIc1dteitIaU1Eby9CTkxyNUdOYkQyZVpI?=
+ =?utf-8?B?YTMxaGs1RVRqVGMwNkp5NEc0aVhrV2plK0V2SnNnWGNrMWFmNmxDZDFwUWpk?=
+ =?utf-8?B?d2FKb0xoZ2ZFTHdNVFRFMXBDengvVXNDUnBmYUcvV2tlMUVlaUdXZ29td2F1?=
+ =?utf-8?B?QW9iZVAxekZ0ZGh2RHlEeWpJQ1hDT1pETkkvcVlFTEZucVc2ODFxUVg4Tmtz?=
+ =?utf-8?B?N011RFN3YllRYjBhM2MvTHB5MS9TVnh1K0FkUHVZRzNKTTlLYkZSY1ZZM00z?=
+ =?utf-8?B?a2ZuLzAxYU4vZXZUMUdoUjNjZ0FGd1BVZ1dJbDdHSG5VR09SWWNtVWhmdW8y?=
+ =?utf-8?B?MkFjeUF2TjJNN0Y4RFJRWjlFN1hrY2ZRcEJqQThOaFRGVlVCVm5aWXR6aC9P?=
+ =?utf-8?B?MVhwZ3hadFVXcGk0cFZ4N2ZEVkcvaWVBTkV4ckFyMW92RzlqaWdoVllIY2V5?=
+ =?utf-8?B?Q002TnpLeUpZZzRiZW5WdFJTdzFBVzB1UzZDRStSd3lZR1RxUDJXV0J3Zk5K?=
+ =?utf-8?B?K1pnaGpaQlZoakliNklOaWJqaUpSN21VcWQ3dnMwdkVwWmtBRUpnSjZmQS92?=
+ =?utf-8?B?VnFSMVFFMjdJdkRHNWhjQWJLbXA0Qlh4WjVVSGN3YXVKbm8rbnY4eEV3RlE0?=
+ =?utf-8?B?QldDQkQzMmptdjhkNHlnN0ROc3NtYlZrZUhubm13cU1sdTBVY3hWODlVNlpw?=
+ =?utf-8?B?MjVVVFdUaE8rR3FuOUl2b1lUNFA0dllGcWJacXo4SmFtREZhSXBZc0N1TXNs?=
+ =?utf-8?B?dGJEU2JMNDlMbk5HT3BvWGhQOWN0NWpvK1pINHFRVmlJK1N4SkdtQkljV1Rh?=
+ =?utf-8?B?VDdOb3I3TWFaQ0NTSDhEVk1haEZwbEtuUEZBUTZvOFY1NlJrMUMzVnFIajdL?=
+ =?utf-8?B?UDErOVlqSVRvUU96TmwyZUdYNG9UUU84cE1wTkcxTDZ6Z0JZemdHaURvemc5?=
+ =?utf-8?B?YWJQcWpjOUY5ZkNKdXpveGM4a28rUnRGYXI1VGhjbGlzWGltZFBJcUErK1Ra?=
+ =?utf-8?B?WFJYNjc3bUdOUGRKOXk5OUtkODlSNW5Fb05rbDQyUytDSlpmUDJ3MTZQQjNm?=
+ =?utf-8?B?dmJTalFFQitadFRBbE0xR0NFUERia3g0NjhyUG15dWhuWjlGa0J1WUxDQjcw?=
+ =?utf-8?B?U3g3blpEMUg3RUFzc0R3RFJsbmlXcWJzMTFwVHduRzdxWFFqTGY2Tklvakpw?=
+ =?utf-8?B?aE45Y3lpRGZCMGpXVUYwdGNVRkxFZVBZQXIvYlRtYi9jbHEyUjllMUFYSklw?=
+ =?utf-8?B?RjNZZFJZVzNZc0VySVNmU093dDhGVDJCRXRtRDYwaHRRWU1mZGMxYWsxREpB?=
+ =?utf-8?B?d0pmZ2lGNEt5QWliWFRlbXRHeGNocCtsekpPUGhSZEVMbjI4ZjU4SnF0dFVK?=
+ =?utf-8?B?NHptQzFPMlVzL2pocTRORXV6VmdnVW10VnlOUlBpZUZEdUI0cUVFeTloNW5J?=
+ =?utf-8?B?QXRFa1RKL2xQeUdTd3ZZS2NMQzJOM3VJekl1ZHVvVXpvUG8zNWFpTWZ6NkNP?=
+ =?utf-8?B?VjhseXNiMVpzN2x5SWM3N25Gd1pyUnM1YzVJL296U2pEL2s2UGU1b0F5dmFs?=
+ =?utf-8?B?aVBjeVZnSnBNcEx3WUEzUWFkQU8rVGliUGd6d3BiRHFIOEEzRUloVEF3WDcv?=
+ =?utf-8?B?U1Rib0tvaHZDSDNpeUc3Rjl4d1N0VXR2TklIRURKamZSTk5VeU5YN1pPODZI?=
+ =?utf-8?B?MlhCeVZDb1FMKy9IeThwc3l5RmlqMi9oa3Y2L1pyNG44ekY1R2FSWlpMdDFw?=
+ =?utf-8?B?OVBkRElQeWFRZzhWMERsU2VVRGVJWWNkNFdZMWY0cFFGWldDNWJBUzdYZEF6?=
+ =?utf-8?B?ZnVDTXA4dk9wUkw4cmtGUWdHMnd0NTNtVWN2VkRYYU9IcWJUT252ckxuQWFG?=
+ =?utf-8?B?Q0loVDNFakM1dlQyb0pXc3ArMUxuSHIwK3B6cUlaeGZrczNlMkU2amc4R3pZ?=
+ =?utf-8?B?RW44V2wyeHZBRXFyVktPajBta0tDaXc4VHovVzQxNzc0TmRlQnJMa0oyR2dS?=
+ =?utf-8?B?WEpuUkt3K3RXek1mUTJsNUdrNmd0RnhWZU1HWkZYQUpaUWZndUlRUS9mR2R0?=
+ =?utf-8?B?dmJoTm9MLyt2YUdyY2IvV3lSaWpNRE9xWGhWWWZ5THBWYWRTUTBZcEkwREdQ?=
+ =?utf-8?B?VmN5WittMzRCcHNmWlIrUGZOVVI2MFc0QVpSWEJEMDQ1NWxGZC82TFdnMGto?=
+ =?utf-8?B?Y2JoY3hCUVZaUWh1d2x4c05rb0ZIOG1wZDl5a2dpNElrc1drZjRYNnRZUkhN?=
+ =?utf-8?B?QUtBN0JWN2tVQ0JtS2pZR2VWR2hCZXJnWmF3UXpkRnZreTM4QVdJUT09?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 17662974-cbb4-4cfd-9141-08dea497a956
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5112.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SJ1PR12MB6194.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 93a88ad5-6df7-451b-d770-08dea49243ab
-X-MS-Exchange-CrossTenant-originalarrivaltime: 27 Apr 2026 19:22:04.0211 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 6lazG1c8hxWwJnpJcKB2QozDP78mOg9uTxsAgl0KwCV3cOrPplbR7HEoqfjmWlYY
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV9PR12MB9805
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Apr 2026 20:00:42.6363 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 7Mf0JlsLWSg1LU0NJm/tp8ABbTFCYaBn/jRsRqahYCWgGLnI21BlFOJegcI8RRrl+sw97EcJlMB3j+V0t7QK5Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA6PR12MB999200
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,62 +153,293 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-AMD General
 
-The series is
-`Reviewed-by: Ruijing Dong <ruijing.dong@amd.com>`
+On 2026-04-24 06:43, Huang, Honglei1 wrote:
+>
+>
+> On 4/24/2026 4:21 AM, Matthew Brost wrote:
+>> On Thu, Apr 23, 2026 at 07:03:52PM +0800, Huang, Honglei1 wrote:
+>>>
+>>>
+>>> On 4/23/2026 3:18 PM, Matthew Brost wrote:
+>>> ...
+>>>>>>>>>> This clarifies a lot. This is what we’d call in Xe 
+>>>>>>>>>> “preemption fence”
+>>>>>>>>>> mode for a VM. Anytime memory is moved, we trigger a GPU 
+>>>>>>>>>> preemption and
+>>>>>>>>>> resume. We don’t actually support SVM in this case; instead, 
+>>>>>>>>>> we use
+>>>>>>>>>> “userptr binds,” which are built on gpusvm for page
+>>>>>>>>>> collection. However,
+>>>>>>>>>> we don’t support migrating memory to the device—though we could.
+>>>>>>>>>>
+>>>>>>>>>> I’d look at how we converted 'userptr' to be based on GPU SVM 
+>>>>>>>>>> [2]. In
+>>>>>>>>>> this case, don’t maintain a range tree, as those—as you
+>>>>>>>>>> suggest—are more
+>>>>>>>>>> of an on-demand fault driver concern. Instead, just embed 
+>>>>>>>>>> 'struct
+>>>>>>>>>> drm_gpusvm_pages' in the VMA struct defined by the IOCTLs..
+>>>>>>>>>>
+>>>>>>>>>> We could extend this to support migrating 'userptr', but we
+>>>>>>>>>> just haven’t
+>>>>>>>>>> done that yet—this may be what you want to do in “XNACK off..
+>>>>>>>>>>
+>>>>>>>>>> [2] https://patchwork.freedesktop.org/series/146553/
+>>>>>>>>>>
+>>>>>>>>>
+>>>>>>>>> Actually we need to swith the xnack mode between on and off, so
+>>>>>>>>> in xnack off
+>>>>>>>>> mode, the driver operats in "implicit  prefetch mode". This may
+>>>>>>>>> be due to
+>>>>>>>>> compatibility with older hardware and the need for UMD 
+>>>>>>>>> runtime. We will
+>>>>>>>>> further discuss the handling method under xnack off internally.
+>>>>>>>>>
+>>>>>>
+>>>>>> Hi Matt,
+>>>>>>
+>>>>>> I studied the xe_userptr code and the conversion series [2] you
+>>>>>> pointed to.
+>>>>>>
+>>>>>> I have a question that:
+>>>>>> Would it be possible to reuse drm_gpusvm_range to handle the 
+>>>>>> hardware
+>>>>>> without gpu fault feature(xnack off mode).
+>>>>>
+>>>>> That’s not how we’ve done it. We embedded drm_gpusvm_pages into 
+>>>>> our VMA
+>>>>> structure and then attached a notifier. The notifier attachment is
+>>>>> open-coded on the Xe side, and this could be normalized and opened up
+>>>>> for common driver use cases.
+>>>
+>>> The way in xe_userptr likes the implementation in kfd_svm: embeded 
+>>> physical
+>>> pages into structure and attach same size notifier.
+>>> But kfd_svm is an implementation of SVM semantics, which supports 
+>>> partial
+>>> unmap, doesn't need explicitly delete userptr ioctl calling when 
+>>> remove ,
+>>> and doesn't need a explicitly userptr flag when creating.
+>>> And actually there is also a existing implementation for userptr 
+>>> semantics
+>>> in amdgpu kfd: KFD_IOC_ALLOC_MEM_FLAGS_USERPTR.
+>>> If the no gpu fault mode can not use the drm gpu svm fram work, use 
+>>> the same
+>>> way for xe_userptr, it seems like doing the duplicate work.
+>>>
+>>> I think the core gap is we are trying to use the drmgpu_svm to 
+>>> implement a
+>>> SVM semantics driver for no gpu fault hardware instead of userptr 
+>>> semantics.
+>>>
+>>>>>
+>>>>> The problem with reusing drm_gpusvm_range directly is that a VMA may
+>>>>> span multiple gpusvm notifiers—i.e., it can be larger than the 
+>>>>> notifier
+>>>>> size. Of course, we could rework this as well.
+>>>
+>>> So the "VMA spans multiple gpusvm notifiers" concern: I'd like to 
+>>> clarify
+>>> that this is not actually a blocker for amdgpu's XNACK-off path, 
+>>> because
+>>> amdgpu does not try to represent one user ioctl virtual address 
+>>> interval as
+>>> a single drm_gpusvm_range.
+>>>
+>>> we walk the attr interval and call drm_gpusvm_range_find_or_insert()
+>>> repeatedly, letting gpusvm pick chunk aligned ranges bounded by
+>>> notifier_size. One ioctl interval will create N chunk sized ranges.
+>>>
+>>>>>
+>>>>
+>>>> Sorry for the double reply—I just glanced at the latest series. I 
+>>>> don’t
+>>>> think creating a range per page of the userptr is desirable. While it
+>>>> would work, from a time-complexity point of view I don’t think this is
+>>>> ideal.
+>>>>
+>>>> The issue with spans across multiple notifiers is real, though.
+>>>>
+>>>> My rough idea would be:
+>>>>
+>>>> - Give drivers an interface to create larger ranges.
+>>>
+>>> So maybe we do not need to create larger ranges if we call
+>>> drm_gpusvm_range_find_or_insert() repeatedly.
+>>>
+>>
+>> That will be functional, but consider it from a time-complexity point of
+>> view.
+>>
+>> Multiple ranges increase the time complexity of range-tree searches.
+>> This isn’t a huge deal, but it will show up to some extent.
+>>
+>> Multiple ranges will also slow down DMA mapping and migration. We
+>> switched over to the dma_iova_alloc/link/unlink/sync uAPI here [1].
+>> While dma_iova_link is a relatively fast radix-tree walk, the allocation
+>> and sync steps are where things get expensive. Therefore, it is
+>> advantageous to perform these steps as few times as possible. For
+>> example, if your SVM buffer is 512MB, instead of doing these steps 256
+>> times, you do them once. The same logic applies to the migrate_vma_*
+>> functions—they are quite expensive, so doing them in a single shot is
+>> significantly faster.
+>>
+>> The same applies to invalidations. If you can invalidate a large range
+>> in a single shot, it will be faster. Although the logic in the notifier
+>> should be able to zap multiple ranges in one shot (Xe does this), having
+>> to DMA-unmap a single large range will still be faster than multiple
+>> smaller DMA unmaps.
+>>
+>> The TL;DR is if your driver knows size of SVM allocation upfront (e.g.,
+>> an IOCTL tells you the size) it makes more sense to use a single large
+>> struct (either embedded drm_gpusvm_pages into a VMA or we figure out an
+>> interface to insert large ranges / notifiers).
+>>
+>> [1] https://patchwork.freedesktop.org/series/160587/
+>>
+>>>>
+>>>> - If the range fits inside a single notifier’s size → done.
+>>>>
+>>>> - If the range spans multiple notifier sizes → round up to a power of
+>>>>     two and create a larger notifier. This may overlap with existing
+>>>>     notifiers, which is likely fine given that interval trees support
+>>>>     overlaps (?). We’d need to double-check and test this. If 
+>>>> overlapping
+>>>>     notifiers are not acceptable, we’d need some heavy-handed 
+>>>> notifier merge
+>>>>     logic—it will be complicated, but isolated, so once we get it 
+>>>> right
+>>>>     everyone can use it.
+>>>
+>>> If we call drm_gpusvm_range_find_or_insert() repeatedly the 
+>>> drmgpu_svm will
+>>> create the corresponding notifier correctly as far as I can see.
+>>>
+>>
+>> I agree this will be functional but not ideal. You can always start the
+>> approach you have here and optimize it later by adding the required
+>> support in GPU SVM.
+>>
+>
+> Hi Matt,
+>
+> Really thanks for your information, this really helps a lot!
+>
+>
+> Hi Christian, Felix,
+>
+> According to the discussion with Matt on the previous thread, I'd like 
+> to align with you on the XNACK off direction before start to the series.
+>
+> According to the information form Matt:
+> when the allocation size is known doing one big operation is
+> significantly faster than doing many small ranges, because
+> the allocation and sync steps are where things get expensive.
+> Doing them in a single shot is significantly faster, especially in the
+> situlation of xnack off mode, which needs pre fault and pre map in 
+> ioctl, and the size is known.
+>
+> It is confirmed that repeatedly calling 
+> drm_gpusvm_range_find_or_insert() is
+> functional, and suggested we land it first and optimize later by adding
+> large range support in GPU SVM core. That motivates the two phase plan 
+> below.
+>
+> Phase 1
+> - Reuse drm_gpusvm_range for XNACK-off, one ioctl interval is split by 
+> drm_gpusvm_range_find_or_insert() into
+>   N chunk-sized ranges bounded by notifier_size, same mechanism as the 
+> fault path.
+> - populate all ranges at ioctl / submit time instead of on fault.
+> - Invalidation -> GPU queue stop -> rebind/restore the pages and gpu 
+> map ->restore queue
+>
+> Phase 2:
+> Add a large range / large notifier insert interface in GPU SVM core
+> so one ioctl interval maps to a single range to improve efficiency.
+> This needs modify the drmgpu_svm frame work.
+>
+> May I know your thoughts on this plan?
 
-Thanks,
-Ruijing
+I think drm_gpusvm_range_find_or_insert already has all the parameters 
+necessary to allocate larger notifiers and ranges. All it would take is 
+maybe adding a flag in drm_gpusvm_ctx to request larger range allocation 
+instead of arbitrary chunking.
 
------Original Message-----
-From: Benjamin Cheng <benjamin.cheng@amd.com>
-Sent: Monday, April 13, 2026 10:21 AM
-To: Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian <Chri=
-stian.Koenig@amd.com>; amd-gfx@lists.freedesktop.org
-Cc: Wu, David <David.Wu3@amd.com>; Dong, Ruijing <Ruijing.Dong@amd.com>; Li=
-u, Leo <Leo.Liu@amd.com>; Cheng, Benjamin <Benjamin.Cheng@amd.com>; SDL <sd=
-l@nppct.ru>
-Subject: [PATCH 2/2] drm/amdgpu/vcn4: Avoid overflow on msg bound check
+I agree this could be done as a second phase and is mostly work in the 
+drm_gpusvm code.
 
-As pointed out by SDL, the previous condition may be vulnerable to overflow=
-.
+Regards,
+   Felix
 
-Fixes: f405753b0751 ("drm/amdgpu/vcn4: Prevent OOB reads when parsing dec m=
-sg")
-Cc: SDL <sdl@nppct.ru>
-Signed-off-by: Benjamin Cheng <benjamin.cheng@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c b/drivers/gpu/drm/amd/am=
-dgpu/vcn_v4_0.c
-index 5dec92691f73..63d37b475c2c 100644
---- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
-@@ -1889,6 +1889,7 @@ static int vcn_v4_0_dec_msg(struct amdgpu_cs_parser *=
-p, struct amdgpu_job *job,
-
-        for (i =3D 0, msg =3D &msg[6]; i < num_buffers; ++i, msg +=3D 4) {
-                uint32_t offset, size, *create;
-+               uint64_t buf_end;
-
-                if (msg[0] !=3D RDECODE_MESSAGE_CREATE)
-                        continue;
-@@ -1896,7 +1897,8 @@ static int vcn_v4_0_dec_msg(struct amdgpu_cs_parser *=
-p, struct amdgpu_job *job,
-                offset =3D msg[1];
-                size =3D msg[2];
-
--               if (size < 4 || offset + size > end - addr) {
-+               if (size < 4 || check_add_overflow(offset, size, &buf_end) =
-||
-+                   buf_end > end - addr) {
-                        DRM_ERROR("VCN message buffer exceeds BO bounds!\n"=
-);
-                        r =3D -EINVAL;
-                        goto out;
---
-2.53.0
-
+>
+> Regards,
+> Honglei
+>
+>
+>> Matt
+>>
+>>> Regards,
+>>> Honglei
+>>>
+>>>>
+>>>> - Finally, make sure that individual userptr pages can reside at any
+>>>>     location.
+>>>>
+>>>> Over conversely:
+>>>>
+>>>> - Normalize embedding of drm_gpusvm_pages in VMA structs + notifier
+>>>>     creation
+>>>>
+>>>> - Make sure that individual userptr pages can reside at any location.
+>>>
+>>>>
+>>>> Both options actually sound really similar after typing this out.
+>>>>
+>>>> Matt
+>>>>
+>>>>> So either way, the Xe userptr + gpusvm implementation should be 
+>>>>> refined
+>>>>> further for common driver use.
+>>>>>
+>>>>>>
+>>>>>> Reusing drm_gpusvm_range for the XNACK-off case would simplify our
+>>>>>> implementation considerably, it already provides large page chunk
+>>>>>> optimization, can reuse the existing migration infrastructure.
+>>>>>>
+>>>>>> Building these on top of a standalone drm_gpusvm_pages
+>>>>>> would mean reimplementing much of what the range layer already 
+>>>>>> offers.
+>>>>>> It would also let us keep a single code path for both XNACK modes,
+>>>>>> which reduces maintenance burden and avoids behavioral difference.
+>>>>>>
+>>>>>> Would this direction be acceptable, or do you see concerns with 
+>>>>>> reusing
+>>>>>> the range infrastructure for the no-fault case?
+>>>>>>
+>>>>>
+>>>>> If you prefer something like insert a range exactly here + create 
+>>>>> range
+>>>>> + notifier I think that completely reasonable direction and Xe would
+>>>>> likely switch over to using this.
+>>>>>
+>>>>> I guess my only concern is sub-userptr migration. We are trending
+>>>>> towards allowing userptrs to being migrated either via prefetch 
+>>>>> IOCTLs
+>>>>> or access counters on the GPU side - access counter we'd likely a 
+>>>>> single
+>>>>> 2M page at time migration within the userptr. get_pages() supports 
+>>>>> mixed
+>>>>> mappings between VRAM + system but likely needs some more work to 
+>>>>> really
+>>>>> make this complete though.
+>>>>>
+>>>>> Matt
+>>>>>> Regards,
+>>>>>> Honglei
+>>> ...
+>>>
+>>>
+>
