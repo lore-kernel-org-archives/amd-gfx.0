@@ -4,78 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 99B0CFF885E
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C28F5FF8861
 	for <amd-gfx@archiver.kernel.org>; Mon, 27 Apr 2026 08:37:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3D03710E625;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4E8AB10E626;
 	Mon, 27 Apr 2026 08:37:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="pxOFpbPH";
+	dkim=pass (1024-bit key; unprotected) header.d=qq.com header.i=@qq.com header.b="Mh7+Ohn4";
 	dkim-atps=neutral
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com
- [209.85.221.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0524510E20F
- for <amd-gfx@lists.freedesktop.org>; Sun, 26 Apr 2026 19:19:13 +0000 (UTC)
-Received: by mail-wr1-f47.google.com with SMTP id
- ffacd0b85a97d-43cf7683a28so6301249f8f.2
- for <amd-gfx@lists.freedesktop.org>; Sun, 26 Apr 2026 12:19:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1777231152; x=1777835952; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=Zhjzk6+k9bpCPC8O+MN7tV3ddOFfrvXcuTes7z8vTpM=;
- b=pxOFpbPH1jut33I/dJ+EdE/A2hzNU+Hl+z+B+Wmkcuxma7CTGnEzBDxsAEt0xuQsIS
- 4jRFoONLDIUcp8/Y2ywwcc8tAxwavIv/J+KKziRhMR4BOdIPMYrORbFTNWJhAvByahlY
- whJlV5b9s1XLRrIo5EW/7ZKDnZWR+M+Q8OU1Snr1xn8v84iYFg9ydLP8YsXqD9zumq1Z
- B4eft2Xu8Ea186z/NtR8T4/Www1g6lHdHAjS84Jl745eqk1nKMGAnYdxxDyXjF31w50L
- G2YwLm50pBnUIK3XtJNBKN1jg331Z5ZUYqeXE7HpIQ1JojUxe5JEwLqfcdMz3E6mYqpt
- vIvA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1777231152; x=1777835952;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=Zhjzk6+k9bpCPC8O+MN7tV3ddOFfrvXcuTes7z8vTpM=;
- b=AyIzPj0PPM5h3856xoTeBb2+rELFW/3w/FdckPTvU2K9g62OxRgUgqrqprFDtzZ474
- WM5m6RPgKhkyDb6inAM1qLjeOTxutJu92qghB4nE7mj9Lav0j96FARUY2HwWiG8RtoFW
- 0wEu+FNZwiWZPrBt9W3sgBy4L0IQCsFlkEZ3Ay0YnRbCCYH9SJMPK36I+V6eytAkZBVZ
- hiu6t7s6ImpHjddBdqra/WBUNUcdt1ggB6124ugQBb8rVQu8YmMcwtTDZI8p7/xhsSoS
- rqQxi0iZOE4GMhiCpCMOeH7OkfrRqjxxFB7shrkaKY6Bv80SCin4TDtUD8tUk4n2QQfE
- lzxw==
-X-Forwarded-Encrypted: i=1;
- AFNElJ+9coAfc6DPF4FjrbpqeBzrH2GRBvJbhucCMc2TRV3Xb7GtFDPHmkNZjmgIO161cLXM7mzYktE5@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwiLpLt0MTlb620SPM5TFWIOHXSw3J1d1PjMDKggHGh7L7DF0N5
- +r0+ANmBajQDHXLh0IudB7a7V8pkqCM9dNEGQvI3H2YJPUSBw+IJfMe3
-X-Gm-Gg: AeBDievauvLJHf6aciz7pcXG1Y3adgFR4XEGC39tSLO8CYQegXNAiHkqu2O0eupDuVy
- LbPxDsYll9iNgtGMQ4oRdDk2g+LCwdwC8pUoSuNh6bHmi/U2Q2OWKgFAgKYb8EsRNYcIR1vKviF
- 1AZsqq5qBkmETnzFUn/ek3zbIRa10Nifml8SVCiRuWYGT5WZHoiz5yH5badUAZnM2GqURSM+gXX
- sncJkDk9vjAU//06f2QE5OBpwmD/EhxRoTUyOiXxQE/Du2B7vbLmG0lRt6TMJZdonLt+rFbPtUu
- dG+ZmZToNn/HY9SxkYg4+JSjnpUifME5odRa4uOjrUzUB7LZ1mkppsC9gBcmWtGWfgAwlv4VEfP
- dAqST2/DprSPv2uit4R+lyCwDNCLlKI/9r7WiTR8GJkE+4SlyeQk+WIWWBegybTLOwd3OULAy/c
- UvCV9OcmNYuHvSEySoF3Eo1pQ67AXb7pVYwR9ST/pn42HcpCPNzUaSakkusZ5+mlyTMMcfljB2x
- FhR6SBBPYG2Jkol2VlcZEjH0qx1WCWbz1fZjE6wKWE86wNOEyM=
-X-Received: by 2002:a5d:5f84:0:b0:43d:7783:c684 with SMTP id
- ffacd0b85a97d-43fe3e1e092mr63569379f8f.43.1777231152150; 
- Sun, 26 Apr 2026 12:19:12 -0700 (PDT)
-Received: from fedora.homenet.telecomitalia.it
- (host-82-60-237-185.retail.telecomitalia.it. [82.60.237.185])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-4412150a092sm39057567f8f.23.2026.04.26.12.19.10
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 26 Apr 2026 12:19:11 -0700 (PDT)
-From: Adriano Vero <adri.vero.dev@gmail.com>
-To: austin.zheng@amd.com, jun.lei@amd.com, harry.wentland@amd.com,
- sunpeng.li@amd.com
-Cc: siqueira@igalia.com, alexander.deucher@amd.com, christian.koenig@amd.com,
- airlied@gmail.com, simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Adriano Vero <adri.vero.dev@gmail.com>
-Subject: [PATCH] drm/amd/display: clarify average bandwidth comment in
- dcn4_calcs
-Date: Sun, 26 Apr 2026 21:18:25 +0200
-Message-ID: <20260426191825.9727-1-adri.vero.dev@gmail.com>
-X-Mailer: git-send-email 2.53.0
+Received: from out203-205-221-153.mail.qq.com (out203-205-221-153.mail.qq.com
+ [203.205.221.153])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CB1EC10E191;
+ Mon, 27 Apr 2026 06:54:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+ t=1777272879; bh=YAf/LrZfGLPBHgeXFYTRaJADqAAirwQb1U8glIUJrVQ=;
+ h=From:To:Cc:Subject:Date;
+ b=Mh7+Ohn4coSTVl2TCCqykuYULvxOwZWIwYlF4AhpzPYpmQ/5ZgxKcLqJelbQSu07+
+ nXJilrGhlWY3nI2QlxZ345SLthEe8/ByhLpml3M1CG685dV3ROFMhYZpFlKprmntsU
+ Q7VejewWxAhYl7VSo+4+g7JGcK1ktOfi3Ni/ruBU=
+Received: from NTT-kernel-dev ([60.247.85.88])
+ by newxmesmtplogicsvrszb51-1.qq.com (NewEsmtp) with SMTP
+ id DA406ACD; Mon, 27 Apr 2026 14:54:36 +0800
+X-QQ-mid: xmsmtpt1777272876t4whu3acg
+Message-ID: <tencent_899C611CFFBE8DE17F1DE7896C968F47DF0A@qq.com>
+X-QQ-XMAILINFO: OVFdYp27KdlJFxO5Mr92P2c3o2Wm6PFcJfY62DYcKfwndIjHB320O1n8Hq8GXD
+ eVEo88eEEcagnd6V8Xnnjhj70WKYH4BdFBzC1aZC4D+2mydkE8Gs8QT7MOT6xN9BCCgXUBvO7HPH
+ +ASCA95OLvJ+KaTqRg6Kfp+bxa+2xDwyc7CovkiRLHAPxTLMK/DPwNtA+lG/qNnenBlx0C5/XCS8
+ XYOehxeEJ/AeQ9yCev/eQscUdS0vnHnWYoIGO/XDvDxat87ZXi4oEMgA8wt0RiM5Z/6OU1LuWiK3
+ TmCPqiQQVMzSPFUa2lBeqCU2sFgLPTemsjXpKf7TxyyU6UpwpJUdS7eSg8kr0GUVjAk91HirPL4X
+ ZOEmgmcHsdwLMQp6e19kyCESM2Q+68ZpLM5WN/EwMJgIa/8HaPAT1FQjrTR1UEqO3Qf4hArQdWQd
+ t0DTzvBPTqM7D62GhCQJfM7Mdung91Nfa/Leo/+zd/yrxAMclHOta7ZTr2BMNzy498p8RgH/e07Q
+ JCleUCaG7bAWLb+bjarOPVHyEBrHTVSma/EU/qDggiyJOZL4IQ+fUHi0ORvV+vFJde0FensJLcle
+ fnTPqRXJCCPlX+rOO61Lz+pI5jiyEufk9zAS0E+hLy6J1AmCNWnUj+aiWuWZBjwdGYcL3tLGH1+e
+ RIKo5SRsyLCO1M1IudVO+RBqwSJg4drbfkRnnbwk69AlXCUxplgjlV/AmnP0gvwD4gYBC8k2PhEL
+ oxQ990yJY7ZBVRPKWsD7tp7endP4UHd99Qn/LyvMRD7xLsXfLui49tAcaqnmtRO5bN1EroCM8GVr
+ 9xbd4lYC8XYT+zIQjuUd7QoJFheMFmTEsz8s/0nTJH4k6oLlkhXiN+BcTjdB7uzjQ3+ovCiNJe3Y
+ IAD1A13qrK2rVpazLVEt6PIOvuNIgxgmvhqx201V+pisAzwd2+i/Vb6j+/ik7HtBghAQ717RCt/u
+ B1AFxOXe7gv87xLXKl0Y6JI/ueZBOW0Rv+AsRwBQ9Re88GrnOFYNdGcQJwa8nVNCmTl0LMhkUCvL
+ SDwMIeRvQUw2KYDyTDLMVrGLRxAHM9AU9zEKfe+XJGg3RYOmuZLB6/9c/W/i6QeWfBmunAkLJPo8
+ xODDYVjtV9kkw8VQU=
+X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
+From: Fang Wang <32840572@qq.com>
+To: gregkh@linuxfoundation.org, stable@vger.kernel.org,
+ tvrtko.ursulin@igalia.com
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
+ airlied@gmail.com, simona@ffwll.ch, Jesse.Zhang@amd.com,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Subject: [PATCH 6.1.y 2/2] drm/amdgpu: Limit BO list entry count to prevent
+ resource exhaustion
+Date: Mon, 27 Apr 2026 14:54:35 +0800
+X-OQ-MSGID: <20260427065435.4120232-1-32840572@qq.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 27 Apr 2026 08:37:19 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -92,46 +74,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Replace a stale FIXME_DCN4 comment in calculate_avg_bandwidth_required()
-that questioned whether cursor_bw and tdlut bandwidth should be included
-in the average bandwidth calculation.
+From: "Jesse.Zhang" <Jesse.Zhang@amd.com>
 
-cursor_bw is already correctly included in all four accumulation
-sites below the comment. tdlut bandwidth is intentionally absent
-because tdlut data is fetched only during prefetch and blanking
-intervals, not during active display, and therefore does not
-contribute to active average bandwidth.
+[ Upstream commit 6270b1a5dab94665d7adce3dc78bc9066ed28bdd ]
 
-Also clarify the phantom pipe handling: phantom pipes are excluded
-from sys_active average BW but included in svp_prefetch average BW,
-which matches the existing code structure.
+Userspace can pass an arbitrary number of BO list entries via the
+bo_number field. Although the previous multiplication overflow check
+prevents out-of-bounds allocation, a large number of entries could still
+cause excessive memory allocation (up to potentially gigabytes) and
+unnecessarily long list processing times.
 
-Signed-off-by: Adriano Vero <adri.vero.dev@gmail.com>
+Introduce a hard limit of 128k entries per BO list, which is more than
+sufficient for any realistic use case (e.g., a single list containing all
+buffers in a large scene). This prevents memory exhaustion attacks and
+ensures predictable performance.
+
+Return -EINVAL if the requested entry count exceeds the limit
+
+Reviewed-by: Christian König <christian.koenig@amd.com>
+Suggested-by: Christian König <christian.koenig@amd.com>
+Signed-off-by: Jesse Zhang <jesse.zhang@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+(cherry picked from commit 688b87d39e0aa8135105b40dc167d74b5ada5332)
+Cc: stable@vger.kernel.org
+Signed-off-by: Fang Wang <32840572@qq.com>
 ---
- .../dml2_0/dml21/src/dml2_core/dml2_core_dcn4_calcs.c  | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn4_calcs.c b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn4_calcs.c
-index ca5ac3c0d..34a2a8326 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn4_calcs.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn4_calcs.c
-@@ -2845,8 +2845,14 @@ static void calculate_avg_bandwidth_required(
- 		dram_overhead_factor_p0 = dcc_dram_bw_nom_overhead_factor_p0[k] * mall_prefetch_dram_overhead_factor[k];
- 		dram_overhead_factor_p1 = dcc_dram_bw_nom_overhead_factor_p1[k] * mall_prefetch_dram_overhead_factor[k];
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c
+index 79e43896eddd..28a5b54a3aae 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c
+@@ -35,6 +35,7 @@
  
--		// FIXME_DCN4, was missing cursor_bw in here, but do I actually need that and tdlut bw for average bandwidth calculation?
--		// active avg bw not include phantom, but svp_prefetch avg bw should include phantom pipes
-+		/*
-+		 * cursor_bw is included in the average bandwidth calculation below.
-+		 * tdlut bandwidth is intentionally excluded: tdlut data is fetched
-+		 * only during prefetch/blanking intervals and does not contribute
-+		 * to active average bandwidth.
-+		 * Phantom pipe contributions are excluded from sys_active but
-+		 * included in svp_prefetch average bandwidth.
-+		 */
- 		if (!dml_is_phantom_pipe(&display_cfg->plane_descriptors[k])) {
- 			avg_bandwidth_required[dml2_core_internal_soc_state_sys_active][dml2_core_internal_bw_sdp] += sdp_overhead_factor * (ReadBandwidthLuma[k] + ReadBandwidthChroma[k]) + cursor_bw[k];
- 			avg_bandwidth_required[dml2_core_internal_soc_state_sys_active][dml2_core_internal_bw_dram] += dram_overhead_factor_p0 * ReadBandwidthLuma[k] + dram_overhead_factor_p1 * ReadBandwidthChroma[k] + cursor_bw[k];
+ #define AMDGPU_BO_LIST_MAX_PRIORITY	32u
+ #define AMDGPU_BO_LIST_NUM_BUCKETS	(AMDGPU_BO_LIST_MAX_PRIORITY + 1)
++#define AMDGPU_BO_LIST_MAX_ENTRIES	(128 * 1024)
+ 
+ static void amdgpu_bo_list_free_rcu(struct rcu_head *rcu)
+ {
+@@ -232,6 +233,9 @@ int amdgpu_bo_create_list_entry_array(struct drm_amdgpu_bo_list_in *in,
+ 	const uint32_t bo_number = in->bo_number;
+ 	struct drm_amdgpu_bo_list_entry *info;
+ 
++	if (bo_number > AMDGPU_BO_LIST_MAX_ENTRIES)
++		return -EINVAL;
++
+ 	/* copy the handle array from userspace to a kernel buffer */
+ 	if (likely(info_size == bo_info_size)) {
+ 		info = vmemdup_array_user(uptr, bo_number, info_size);
 -- 
-2.53.0
+2.34.1
 
