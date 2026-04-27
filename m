@@ -4,116 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 044FDFF8870
-	for <amd-gfx@archiver.kernel.org>; Tue, 28 Apr 2026 12:54:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D2E3FF8876
+	for <amd-gfx@archiver.kernel.org>; Tue, 28 Apr 2026 12:54:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1C0F010EBFE;
-	Tue, 28 Apr 2026 12:54:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 328F210EBF3;
+	Tue, 28 Apr 2026 12:54:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="unioIHw9";
+	dkim=pass (2048-bit key; secure) header.d=usp.br header.i=@usp.br header.b="ANz+d50p";
 	dkim-atps=neutral
-Received: from CH1PR05CU001.outbound.protection.outlook.com
- (mail-northcentralusazon11010040.outbound.protection.outlook.com
- [52.101.193.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 51AE910E9FB;
- Tue, 28 Apr 2026 02:26:14 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=qSM7YELtnh+W3/V1GBXekz228fGIKi5OlvMsKQPaUwngHy7RfIuvG+LeL7NDxQbHa+E/d560zaXd+dhxphMIXFtCzBfFaP3Ll5RXHLat2ETSmoXZCh+Te7H20nB6cWM2a5pZwMtuUHYmiHrkAWChvj1FpuUHubbL0OX0KipjHTYkOhqVoWBnLK949xvHdJbJtTN6k6ccGesTN/K7HBLBNs0orD8twUV9ggWl93fKqnNQvStNMoCuwMf/xCu8DbOpP+J1sVranHvtc/6u5GWiem2tvETJaBIBf02rr7zr0CZqJrOS4+PsL9senxpMQ59oPHEBOZZg7alJesRgwhPEsw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=UDyUNoctDMfwm+g2l5JMBDbLiL5Q6jDUdV3kLUHo9hU=;
- b=sGLJJZZNk5Xq1A6GjYcRSEp1CoMQ5W0HsrckOjj5kxMPqKhdoxTrcA2gYjRqazViPRvW2uRA15gdb1s+6aPyNXD26dO5wZVUqIhmE0rrR/6cZDJIROeHiHy3baPJeW0lURzNmiBaug0MSZzpYi2cupC0/skzzuBdVH1n8GwsIms/oIWclxDf6S9QBmsmBVAlunVIMzDm5YHYiBM7vTOd2RPUZFgGeMFJ7Z4/KC/ivJEP0bGztGrEKbRkjR5nQysuCl9kb7SskegaRX3cSAxSKVf5aJBLnIVSBW7VKS7I/4RowOtpv2E2uzkdWhnSeDA3EnbPIKhv1Smxl2e8xHjltw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=UDyUNoctDMfwm+g2l5JMBDbLiL5Q6jDUdV3kLUHo9hU=;
- b=unioIHw9S2L35SAAkqPP8IkKrN8CbDnXjTZjWrO+FfdEM80U3jzgjhbOMBWP8I1wT/dhU+5fwAbmn2LEOKRUove9sSzsnHArlsyoV/IzliR0eQC/HGevtiIzSeEvl2Amw+yxg14GikO3yfWtEHu384YYti9HQaYiPo0fy/D0Lyw/iUFm5nO24xJe3XcYWeQD3fMVqytocGtNKWB20QH7DRx2s+lF1p4qqo5qnDjXBV2kxD2eiKOvkoyGEwfDQ2P0COsYAeMl3xjfSDmR9aGPsngVPEsTom1lOYaTQZ/4iBm7LnHEr9H9xi2b/58qwVk0Dw5ry2Mv29/WO+QjDvtaRQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from CY8PR12MB8300.namprd12.prod.outlook.com (2603:10b6:930:7d::16)
- by SN7PR12MB7323.namprd12.prod.outlook.com (2603:10b6:806:29a::5)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.16; Tue, 28 Apr
- 2026 02:26:08 +0000
-Received: from CY8PR12MB8300.namprd12.prod.outlook.com
- ([fe80::ce75:8187:3ac3:c5de]) by CY8PR12MB8300.namprd12.prod.outlook.com
- ([fe80::ce75:8187:3ac3:c5de%3]) with mapi id 15.20.9870.013; Tue, 28 Apr 2026
- 02:26:08 +0000
-From: Yury Norov <ynorov@nvidia.com>
-To: Felix Kuehling <Felix.Kuehling@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Cc: Yury Norov <ynorov@nvidia.com>
-Subject: [PATCH] drm/amdkfd: simplify kgd_gfx_v9_get_cu_occupancy()
-Date: Mon, 27 Apr 2026 22:26:04 -0400
-Message-ID: <20260428022605.447901-1-ynorov@nvidia.com>
-X-Mailer: git-send-email 2.51.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: BN0PR10CA0014.namprd10.prod.outlook.com
- (2603:10b6:408:143::12) To CY8PR12MB8300.namprd12.prod.outlook.com
- (2603:10b6:930:7d::16)
+Received: from mail-dl1-f54.google.com (mail-dl1-f54.google.com [74.125.82.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0466310E2CC
+ for <amd-gfx@lists.freedesktop.org>; Mon, 27 Apr 2026 19:16:11 +0000 (UTC)
+Received: by mail-dl1-f54.google.com with SMTP id
+ a92af1059eb24-12714f01940so779798c88.0
+ for <amd-gfx@lists.freedesktop.org>; Mon, 27 Apr 2026 12:16:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=usp.br; s=usp-google; t=1777317371; x=1777922171; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=/gnG/TV4QlirwEhC4yr5r/hW1goyUy/VqJ4SZeh+gDg=;
+ b=ANz+d50pEOgqZW9ADk7BlDe4vHVc5v1KgJrI70JjWOciAvfrDOQFHVnnXef0T4eqiT
+ T8+gAzvVasxJQye+bM/rSvdc1zIpVrClD7ulntQIjPHroxez1zf/+X/BK2Mh/kv2X60j
+ 4g+HUlivWnm21k1pb8wqDzBh1lyDwJ6V75z6E6JemCa3m4K9H2Z1sFe/xK43aLdwtOG/
+ LCIDrs1B5/0BUglNzlsPW7E+bdVJSukR/OAF8p7tPPepJjSo2D4sXlxFulohAEQvCFpM
+ Si+HF3XNa/9G7/LAzE0e9nQhz1hv8dpMI5gGZb2xIfXGIuYm+EXTemp2gZhnph0qZXaP
+ CAGA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1777317371; x=1777922171;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=/gnG/TV4QlirwEhC4yr5r/hW1goyUy/VqJ4SZeh+gDg=;
+ b=nD3X9hVPS5MmjNNDITWXlitz2Orbhp6woMD6P+PZiHt/y7zP/Pfjf7lP52EXnnD3Yt
+ KMjiC5O3XMYaDBGa3taar0gZ0GicGSnZq/nEpA4iQyD7u9QAqtEE01qx6dEgHk27xGTB
+ pK7f1Z5ThIELHIoUJxniIKgMOUQcbzxUn2S78E2caQ/XN5EnTAwX3SO2/1D4AxC6lkBZ
+ srafop6ddxiuTVdcqoprc87KkXZ5KVeiUFejlJ+UddTGW33dDUtDYH/ktjmmYkm2hZKi
+ gaI6PJdFnC0Oa4OWWdYhTWbduER6oHBbQXxJHAf63kSRcbJGW0EhG6SiztKvJkAGNFtz
+ FawA==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ/A8lV+iC8Yz155386giHj0nSnME/OXECo8hU5zEUbMpXCYgc4oTMTIZgcm0G5G7UGizKBDWNsK@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzCJHWkZbxJT78rlCMqYyouK5wAbsw9jDZbRLVl30nEDChVHpoC
+ QyZthvkOkxDpg9zNUFFt9hKtvzuDMAleyoiYqKU9Fpa+vv5XizOM7q8UutDFT7Em/xQ=
+X-Gm-Gg: AeBDietuYMdAI78wh4r4bvuKhYXYDeO9OzlhCFJ6t6jiCXmSte0dAGIQD4BeZIZvhSP
+ bX4Zkx46MAfJv/wisOClFxtW6NPtbB9tkbwLr+HOwe6RIowNPjnTYD7E8Sm3yG4stoyxXl/hRb5
+ Nu4fR+/JkhD+UhOqep21c7I7MgrxiZaKE2ypoaabF7r4/1fqPPiZ+Erw3HumrJu9aD9JZsx6daV
+ A0w7MJE1DIu2/NA85uLHhul8uEo1obQTCyB/XY1hFOXf6B2W/1D1RYKzYLe7oltk3dw6ZVKa+cG
+ 7cFtFQMvg/wuNAhgCpGn5Y24pZwGneCefftWeVnEbm3KQt69Knkp/k21CYiQxv+ekq6D+GrxMKw
+ nyIE2C5HZDk4gHU9u9rkuhrS0AE1lJAtMAdh5cJj6e+nCgbutq8u7MUgnSXwWpr1FMBQwhhxqiI
+ QkOCbCLjkbtZmIJrmi6ZXFUForwPk3M3yMcdwG9Gq4VhNRW49v3oVpUax4hZFe
+X-Received: by 2002:a05:7022:f8c:b0:12d:b4e2:f566 with SMTP id
+ a92af1059eb24-12ddd539d5cmr109672c88.4.1777317370737; 
+ Mon, 27 Apr 2026 12:16:10 -0700 (PDT)
+Received: from Haru.. ([2804:1b1:f983:1702:93e0:14bb:90e7:dc5e])
+ by smtp.gmail.com with ESMTPSA id
+ a92af1059eb24-12ddd9b1e3bsm144583c88.13.2026.04.27.12.16.05
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 27 Apr 2026 12:16:09 -0700 (PDT)
+From: Leonardo Cesar <leonardocesar@usp.br>
+To: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
+ simona@ffwll.ch
+Cc: Leonardo Cesar <leonardocesar@usp.br>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Subject: [PATCH v3] drm/amdgpu: deduplicate ring preempt ib function
+Date: Mon, 27 Apr 2026 16:15:19 -0300
+Message-ID: <20260427191556.9672-1-leonardocesar@usp.br>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY8PR12MB8300:EE_|SN7PR12MB7323:EE_
-X-MS-Office365-Filtering-Correlation-Id: b3b13a83-8e95-4300-f1b4-08dea4cd816d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|1800799024|376014|10070799003|56012099003|18002099003; 
-X-Microsoft-Antispam-Message-Info: rrjMYlU5UhptM2V1qj9cMGRO6F7V84+l5emyb/R8HckBmznxk2G6lq8PFTIrY228UlronmoonwVbiSoy3y/1LTyAO+trEPTwe4QkRjcWszp6Ubv0m6Yj3S6QVbQk3HNMDyqgSn5sfbx41iBCemHTLfcpIvjqpXDJWqIrgz2ioTabSaeE4FKJh3pQvs8SjFByAw3Ob1qYRRWwi4GEjfuvwwlCzelQ6nvjN7XePy8qiVyGLKqh4mF4qzIZIA6vYE/023LxCiAgLDzBKnYS0hWXdjnYQcENyUodssLU7U4hDpFSHtajKP8iWxyV8rUNe5c+32LsS3Iy3uJVoeRPdPGLPpC2rzvo+mUQoFdaq74UBfyBy3Dfz1//M0cxcTPD/eFbwOHohnEtXEB0uNnIKebs6szOeS/ce3WtPwoSm/6Yw1vTQunZ2PKoj4rQnbhoIcziGL5WGpG0i1/aT3YZL0Ce3w/NgAM29g4q8BTaoKtxYCnrxgXCd79ImrMQ+oHuMme4jCtqo9ucItUfQ45O7BwUxV+y0uQ3i6FaX/5pSh+DaCyNd6YEpCG9Esm0kdhDKPHRUly8xClLH5ulv7/97AjMQVqvQ0uZJrxkehRVKB80nQED0zgWYGxkfPjoDVAPES/R27mVlJRCMFmeI+3mruT1L0OOOkl/s4RJCBbRyqwzZy8L8fCaP3m47mpEy/zvJ4A1or3RAAFvqsMhUiRMqfdKvv0vDBcw24ivxAjc3sjsOn4=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CY8PR12MB8300.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014)(10070799003)(56012099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?c0BZQAeZugx2o51ZjCMZJASQF0/T2BfzV52MVo+a4H9gaHSeXP/Y87poeYeP?=
- =?us-ascii?Q?eUtKWjV+f5BIbxqN+Jr9GhpNQenijIwxZItSZ9PaULbSYmvUQMu2MDCmZMvB?=
- =?us-ascii?Q?yZhXMX5aEh+ZoW8bhimLtgJjL3HWH+IraWaucvZsD6ow8+Bzn/uLqlXig/C4?=
- =?us-ascii?Q?pR7Q+mXchhS7oqMFjGTYIddeg7F8M6wtjXCelGJaSeEMcnKcjWACrmEkPl2o?=
- =?us-ascii?Q?76e1IEI28NhHOhKgSkbMsGTsyFRabzhThBAAjFAQt6jQaxyig+LpcxTXeJh2?=
- =?us-ascii?Q?Yk8JpH4X6ean1/pC5s18PKB2k7420+neBpz57fcDebvcKaScMCUKqr5EeQ1u?=
- =?us-ascii?Q?SwjvACI50E50sRCErS9dmgslKP4FKQEBwRwEYZs2JIggr/sveE2jPGDFam+t?=
- =?us-ascii?Q?gZjOUvncVtSZibhg0cBEA87Duh/x/h0s446N0ddbHDEcFH2yEk/KjE1cW3Db?=
- =?us-ascii?Q?ExuYbq7shAsdKUd83DW8x4Kx9WXrAjiRXxmUBK/9Zk9toDgOUVhHkm68af2K?=
- =?us-ascii?Q?TN/sGdjxP/zbjot1IQ6sYlEZOa/rrJ8F885nunYGHKN9HX2elLs74KXQ3aO8?=
- =?us-ascii?Q?b398R0rV4JuK90aJ5hREloZhTOG2hReH5AdGTBnseBALGL46fjgWihcKtQfg?=
- =?us-ascii?Q?GQ/ud5p84bKCqsNwXrH7ZYE/9tezL2cwxoyKn6nKfnAJyZKSU0DeA/plWJIU?=
- =?us-ascii?Q?WxTQtvlF2gfxQxlPAW2++WSgREBR99CTbtSxtS0KzA3+GEgNJMtCGWgAVQ4r?=
- =?us-ascii?Q?JEpfcMM+ctDfRhhhgPy8JgW7d0X1IDzM05SCB0UcZYPfKSzbelbUOzrHNXCk?=
- =?us-ascii?Q?anqRfgk+YUpSoXy+Uu+AHUXfIEXLRxfpBQ4FA6eK5J112yz/okc1SwC16444?=
- =?us-ascii?Q?sXYgPSfdzcS91r8uHFwoyZ8mlJe4crTzY/yeRhw1cxDZiWge8ocgt6wSOeI8?=
- =?us-ascii?Q?2uclyF8v0NR/AhefmJQTd5ZxLKHvdkHi5wTS/WEzTYYCw0jivZbXzKZ12PfK?=
- =?us-ascii?Q?O1CY+EN/1OUngE4pDmOZbv/wOMlW8KoM61xDCU7KaVmurbUO9E2pkufEXXFI?=
- =?us-ascii?Q?BjBmWRsWdKGPoOPXLaeNT4NYN+Ksqe265xuLc57sARErrASq9Z+IvARS1PD3?=
- =?us-ascii?Q?AP4+zTddQHkIssoyGFhmoyqfJ69j6ldQC+pTlt8fCaXm9v1M34hf0Vk9ZyD3?=
- =?us-ascii?Q?ouerozH8hpRWGam/1z5kxLjdSZiIa3OIfx4C5yn14olzzOojQKhrxTrWI+Wi?=
- =?us-ascii?Q?SCGwK6Ru6tEJKFRG3m3/cr0noyU6t2EAsCjCJMWJ+fC7ZFovFF4/6QVHqJJz?=
- =?us-ascii?Q?SCjG3OAcAnwR0GgN90Y+FgLHQJHqlkj1oiFp4OnMYxmNyCFdVvGhu/seQsgz?=
- =?us-ascii?Q?pLJIjgqCflSReVt5DZpTVxAD84M+dCKJd5ksa6VJj4mBz4+YR9ZwH64zcSQd?=
- =?us-ascii?Q?RO7zhaVsZDfwonKJiBM3JhDUU2PvMnE6YluWFmjxRFwbENbFi1wxCklm4fS4?=
- =?us-ascii?Q?EquekwEnSfsoAHHr0+Ve+G36eJbGKUmxJkwHj3ZLhBuRSkMS3t5mEpwzj/qH?=
- =?us-ascii?Q?QAVTxDiuMefTKCyJz+BvZDFELS9qv7xbdfu6TycFMHwVnfShahqTJMC0jpUo?=
- =?us-ascii?Q?QQ2Crgx4vfaOpO8ok9KEmvLHqRIQrzAactv/hRlYIo673DN+LkjiwocSuHux?=
- =?us-ascii?Q?NYHC/M0jxHpgzTSngw2CNwl5Xl00wE5XJqYhys+6vvBSHaI4+HQ3mMWuB9lP?=
- =?us-ascii?Q?2TUPPNN+X9C8Az5OTRCzhABn1noe3R/g6dO13M6PyLTQZpJBQ8XT?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b3b13a83-8e95-4300-f1b4-08dea4cd816d
-X-MS-Exchange-CrossTenant-AuthSource: CY8PR12MB8300.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Apr 2026 02:26:08.1570 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: wBk1MVGITPv87UCMBXa9/Af3cyONbB5q3YqvZCWaSF/9BSYE+oKuBtMvp2oJDnjtMk3we3kLiM1Ob+z4j0D89g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7323
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 28 Apr 2026 12:54:19 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -129,75 +86,239 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Switch inner loop in kgd_gfx_v9_get_cu_occupancy() to the dedicated
-for_each(), and drop most of housekeeping code.
+The ring preemption function is identical for both gfx_v11_0 and
+gfx_v12_0. This patch refactors the code by moving the core logic
+into a generic function inside amdgpu_gfx.c to reduce code
+duplication and simplify future maintenance.
 
-Signed-off-by: Yury Norov <ynorov@nvidia.com>
+Signed-off-by: Leonardo Cesar <leonardocesar@usp.br>
+
 ---
- .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c | 32 +++++++------------
- 1 file changed, 11 insertions(+), 21 deletions(-)
+v2 -> v3:
+- Style fix: Move variable declarations to follow reverse christmas tree and do not initialize 'r' on definition.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
-index 2e116c06d5be..08f4c4bf20c3 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
-@@ -1026,9 +1026,8 @@ void kgd_gfx_v9_get_cu_occupancy(struct amdgpu_device *adev,
- 	int qidx;
- 	int se_idx;
- 	int se_cnt;
--	int queue_map;
--	int max_queue_cnt;
--	DECLARE_BITMAP(cp_queue_bitmap, AMDGPU_MAX_QUEUES);
-+	DECLARE_BITMAP(queue_map, 32);
-+	int max_queue_cnt, queue_reg;
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | ...
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | 53 +++++++++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h |  2 +
+ drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c  | 52 +-----------------------
+ drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c  | 52 +-----------------------
+ 4 files changed, 57 insertions(+), 102 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+index 2956e45c9..45d41f24d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+@@ -2684,3 +2684,56 @@ void amdgpu_debugfs_compute_sched_mask_init(struct amdgpu_device *adev)
+ #endif
+ }
  
- 	lock_spi_csq_mutexes(adev);
- 	soc15_grbm_select(adev, 1, 0, 0, 0, GET_INST(GC, inst));
-@@ -1037,35 +1036,26 @@ void kgd_gfx_v9_get_cu_occupancy(struct amdgpu_device *adev,
- 	 * Iterate through the shader engines and arrays of the device
- 	 * to get number of waves in flight
- 	 */
--	bitmap_complement(cp_queue_bitmap, adev->gfx.mec_bitmap[0].queue_bitmap,
--			  AMDGPU_MAX_QUEUES);
- 	max_queue_cnt = adev->gfx.mec.num_pipe_per_mec *
- 			adev->gfx.mec.num_queue_per_pipe;
- 	se_cnt = adev->gfx.config.max_shader_engines;
- 	for (se_idx = 0; se_idx < se_cnt; se_idx++) {
- 		amdgpu_gfx_select_se_sh(adev, se_idx, 0, 0xffffffff, inst);
--		queue_map = RREG32_SOC15(GC, GET_INST(GC, inst), mmSPI_CSQ_WF_ACTIVE_STATUS);
-+		queue_reg = RREG32_SOC15(GC, GET_INST(GC, inst), mmSPI_CSQ_WF_ACTIVE_STATUS);
-+		bitmap_from_arr32(queue_map, &queue_reg, 32);
++int amdgpu_gfx_ring_preempt_ib(struct amdgpu_ring *ring)
++{
++	struct amdgpu_device *adev = ring->adev;
++	struct amdgpu_kiq *kiq = &adev->gfx.kiq[0];
++	struct amdgpu_ring *kiq_ring = &kiq->ring;
++	unsigned long flags;
++	int i, r;
++
++	r = 0;
++
++	if (adev->enable_mes)
++		return -EINVAL;
++
++	if (!kiq->pmf || !kiq->pmf->kiq_unmap_queues)
++		return -EINVAL;
++
++	spin_lock_irqsave(&kiq->ring_lock, flags);
++
++	if (amdgpu_ring_alloc(kiq_ring, kiq->pmf->unmap_queues_size)) {
++		spin_unlock_irqrestore(&kiq->ring_lock, flags);
++		return -ENOMEM;
++	}
++
++	/* assert preemption condition */
++	amdgpu_ring_set_preempt_cond_exec(ring, false);
++
++	/* assert IB preemption, emit the trailing fence */
++	kiq->pmf->kiq_unmap_queues(kiq_ring, ring, PREEMPT_QUEUES_NO_UNMAP,
++					ring->trail_fence_gpu_addr,
++					++ring->trail_seq);
++	amdgpu_ring_commit(kiq_ring);
++
++	spin_unlock_irqrestore(&kiq->ring_lock, flags);
++
++	/* poll the trailing fence */
++	for (i = 0; i < adev->usec_timeout; i++) {
++		if (ring->trail_seq ==
++			le32_to_cpu(*(ring->trail_fence_cpu_addr)))
++			break;
++		udelay(1);
++	}
++
++	if (i >= adev->usec_timeout) {
++		r = -EINVAL;
++		DRM_ERROR("ring %d failed to preempt ib\n", ring->idx);
++	}
++
++	/* deassert preemption condition */
++	amdgpu_ring_set_preempt_cond_exec(ring, true);
++	return r;
++}
++
++
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+index a0cf0a3b4..77050f988 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+@@ -664,6 +664,8 @@ void amdgpu_gfx_csb_preamble_end(u32 *buffer, u32 count);
+ void amdgpu_debugfs_gfx_sched_mask_init(struct amdgpu_device *adev);
+ void amdgpu_debugfs_compute_sched_mask_init(struct amdgpu_device *adev);
  
- 		/*
- 		 * Assumption: queue map encodes following schema: four
- 		 * pipes per each micro-engine, with each pipe mapping
- 		 * eight queues. This schema is true for GFX9 devices
--		 * and must be verified for newer device families
-+		 * and must be verified for newer device families.
-+		 *
-+		 * Get number of waves in flight and aggregate them, and skip
-+		 * queues that are not associated with compute functions.
- 		 */
--		for (qidx = 0; qidx < max_queue_cnt; qidx++) {
--			/* Skip qeueus that are not associated with
--			 * compute functions
--			 */
--			if (!test_bit(qidx, cp_queue_bitmap))
--				continue;
++int amdgpu_gfx_ring_preempt_ib(struct amdgpu_ring *ring);
++
+ static inline const char *amdgpu_gfx_compute_mode_desc(int mode)
+ {
+ 	switch (mode) {
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+index 5097de940..1ba848bfa 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+@@ -6206,56 +6206,6 @@ static void gfx_v11_0_ring_emit_gfx_shadow(struct amdgpu_ring *ring,
+ 	ring->set_q_mode_offs = offs;
+ }
+ 
+-static int gfx_v11_0_ring_preempt_ib(struct amdgpu_ring *ring)
+-{
+-	int i, r = 0;
+-	struct amdgpu_device *adev = ring->adev;
+-	struct amdgpu_kiq *kiq = &adev->gfx.kiq[0];
+-	struct amdgpu_ring *kiq_ring = &kiq->ring;
+-	unsigned long flags;
 -
--			if (!(queue_map & (1 << qidx)))
--				continue;
+-	if (adev->enable_mes)
+-		return -EINVAL;
 -
--			/* Get number of waves in flight and aggregate them */
--			get_wave_count(adev, qidx, &cu_occupancy[qidx],
--					inst);
--		}
-+		for_each_andnot_bit(qidx, adev->gfx.mec_bitmap[0].queue_bitmap,
-+					queue_map, max_queue_cnt)
-+			get_wave_count(adev, qidx, &cu_occupancy[qidx], inst);
- 	}
+-	if (!kiq->pmf || !kiq->pmf->kiq_unmap_queues)
+-		return -EINVAL;
+-
+-	spin_lock_irqsave(&kiq->ring_lock, flags);
+-
+-	if (amdgpu_ring_alloc(kiq_ring, kiq->pmf->unmap_queues_size)) {
+-		spin_unlock_irqrestore(&kiq->ring_lock, flags);
+-		return -ENOMEM;
+-	}
+-
+-	/* assert preemption condition */
+-	amdgpu_ring_set_preempt_cond_exec(ring, false);
+-
+-	/* assert IB preemption, emit the trailing fence */
+-	kiq->pmf->kiq_unmap_queues(kiq_ring, ring, PREEMPT_QUEUES_NO_UNMAP,
+-				   ring->trail_fence_gpu_addr,
+-				   ++ring->trail_seq);
+-	amdgpu_ring_commit(kiq_ring);
+-
+-	spin_unlock_irqrestore(&kiq->ring_lock, flags);
+-
+-	/* poll the trailing fence */
+-	for (i = 0; i < adev->usec_timeout; i++) {
+-		if (ring->trail_seq ==
+-		    le32_to_cpu(*(ring->trail_fence_cpu_addr)))
+-			break;
+-		udelay(1);
+-	}
+-
+-	if (i >= adev->usec_timeout) {
+-		r = -EINVAL;
+-		DRM_ERROR("ring %d failed to preempt ib\n", ring->idx);
+-	}
+-
+-	/* deassert preemption condition */
+-	amdgpu_ring_set_preempt_cond_exec(ring, true);
+-	return r;
+-}
+-
+ static void gfx_v11_0_ring_emit_de_meta(struct amdgpu_ring *ring, bool resume)
+ {
+ 	struct amdgpu_device *adev = ring->adev;
+@@ -7295,7 +7245,7 @@ static const struct amdgpu_ring_funcs gfx_v11_0_ring_funcs_gfx = {
+ 	.emit_cntxcntl = gfx_v11_0_ring_emit_cntxcntl,
+ 	.emit_gfx_shadow = gfx_v11_0_ring_emit_gfx_shadow,
+ 	.init_cond_exec = gfx_v11_0_ring_emit_init_cond_exec,
+-	.preempt_ib = gfx_v11_0_ring_preempt_ib,
++	.preempt_ib = amdgpu_gfx_ring_preempt_ib,
+ 	.emit_frame_cntl = gfx_v11_0_ring_emit_frame_cntl,
+ 	.emit_wreg = gfx_v11_0_ring_emit_wreg,
+ 	.emit_reg_wait = gfx_v11_0_ring_emit_reg_wait,
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
+index 65c33823a..6cf244349 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
+@@ -4611,56 +4611,6 @@ static unsigned gfx_v12_0_ring_emit_init_cond_exec(struct amdgpu_ring *ring,
+ 	return ret;
+ }
  
- 	amdgpu_gfx_select_se_sh(adev, 0xffffffff, 0xffffffff, 0xffffffff, inst);
+-static int gfx_v12_0_ring_preempt_ib(struct amdgpu_ring *ring)
+-{
+-	int i, r = 0;
+-	struct amdgpu_device *adev = ring->adev;
+-	struct amdgpu_kiq *kiq = &adev->gfx.kiq[0];
+-	struct amdgpu_ring *kiq_ring = &kiq->ring;
+-	unsigned long flags;
+-
+-	if (adev->enable_mes)
+-		return -EINVAL;
+-
+-	if (!kiq->pmf || !kiq->pmf->kiq_unmap_queues)
+-		return -EINVAL;
+-
+-	spin_lock_irqsave(&kiq->ring_lock, flags);
+-
+-	if (amdgpu_ring_alloc(kiq_ring, kiq->pmf->unmap_queues_size)) {
+-		spin_unlock_irqrestore(&kiq->ring_lock, flags);
+-		return -ENOMEM;
+-	}
+-
+-	/* assert preemption condition */
+-	amdgpu_ring_set_preempt_cond_exec(ring, false);
+-
+-	/* assert IB preemption, emit the trailing fence */
+-	kiq->pmf->kiq_unmap_queues(kiq_ring, ring, PREEMPT_QUEUES_NO_UNMAP,
+-				   ring->trail_fence_gpu_addr,
+-				   ++ring->trail_seq);
+-	amdgpu_ring_commit(kiq_ring);
+-
+-	spin_unlock_irqrestore(&kiq->ring_lock, flags);
+-
+-	/* poll the trailing fence */
+-	for (i = 0; i < adev->usec_timeout; i++) {
+-		if (ring->trail_seq ==
+-		    le32_to_cpu(*(ring->trail_fence_cpu_addr)))
+-			break;
+-		udelay(1);
+-	}
+-
+-	if (i >= adev->usec_timeout) {
+-		r = -EINVAL;
+-		DRM_ERROR("ring %d failed to preempt ib\n", ring->idx);
+-	}
+-
+-	/* deassert preemption condition */
+-	amdgpu_ring_set_preempt_cond_exec(ring, true);
+-	return r;
+-}
+-
+ static void gfx_v12_0_ring_emit_rreg(struct amdgpu_ring *ring, uint32_t reg,
+ 				     uint32_t reg_val_offs)
+ {
+@@ -5539,7 +5489,7 @@ static const struct amdgpu_ring_funcs gfx_v12_0_ring_funcs_gfx = {
+ 	.pad_ib = amdgpu_ring_generic_pad_ib,
+ 	.emit_cntxcntl = gfx_v12_0_ring_emit_cntxcntl,
+ 	.init_cond_exec = gfx_v12_0_ring_emit_init_cond_exec,
+-	.preempt_ib = gfx_v12_0_ring_preempt_ib,
++	.preempt_ib = amdgpu_gfx_ring_preempt_ib,
+ 	.emit_wreg = gfx_v12_0_ring_emit_wreg,
+ 	.emit_reg_wait = gfx_v12_0_ring_emit_reg_wait,
+ 	.emit_reg_write_reg_wait = gfx_v12_0_ring_emit_reg_write_reg_wait,
 -- 
-2.51.0
+2.43.0
 
