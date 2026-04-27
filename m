@@ -4,116 +4,98 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 85404FF8876
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 10971FF8875
 	for <amd-gfx@archiver.kernel.org>; Tue, 28 Apr 2026 12:54:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 618E68924B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3EA4610EBF4;
 	Tue, 28 Apr 2026 12:54:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="AuPavHym";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="TLgKiC9I";
 	dkim-atps=neutral
-Received: from BN1PR04CU002.outbound.protection.outlook.com
- (mail-eastus2azon11010012.outbound.protection.outlook.com [52.101.56.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4E15910E9FC;
- Tue, 28 Apr 2026 02:35:43 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=mu2mFh/L4SHptnH6mxgss+cmpwPam1Y3Ia3VSW5Eb4dF2u20fHsV9w69HilFtmKDsdHakujjp418SbPNncLJKD6B9wnW5EgKixneEGNVgL+97wwveFFfvJv/MJ9NH/+7bg0ZkOAqvqcK9Qzd/BoxOKvnIT14rvfPQvyZuv7kDQouDnmmOiZdTPr/uMnbtRtXKbPYR2iqRfTlTgHV3oeDW+5eZ4fEhtbJQgSIG578vKZppMvvkkf0+ovVZAAG6tOYcDowxGDsS5KTQKl9wBTc3hcGo5WAjLnv4c5FbSCmGHi5UbGPxXP4d9IJmhfwUMOVfJpQNjO/J0p30Qc6hLUewQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=mswZ9XIgqEvFPnMTw8GEKaRRnR8In/I260QHyCGjAPE=;
- b=mQzwecd1lpFMVNUNWt1vXX2qNeDDRD64kwjeQOJenwL93ADB8EEe7s64yHUfqNoRzmN2mPoPO4ZTFv9OYwAFxsi1UTCcroig8GMiPJsplxKcNNCee2kKnulErkbzAFOTJVjs4pZKE+N+/xqoBXY0862gtYs2jFl2GQFYUz9xl5pZWMhEF7iuU1M8YWoHDvD5XaawSf1P49Nng8XH0wjzJSkALQA8FZvCR+rIW8ps3GeywuRsuynYu1i3hwIvrTfm4beuJph0z62jhW+7Qq1/8AHUrxGru2RfR25mQERv2jJP/VWW5EDJiiW0YsyLSK/TX/L0VQSU8yUaim58GAneKA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=mswZ9XIgqEvFPnMTw8GEKaRRnR8In/I260QHyCGjAPE=;
- b=AuPavHymy6tG2Hmir0tYb0IZZkhg2nIWe9aUBzXnJ8DGxMnctJHGIUCwZ/GJYboiemB459mua5kx9ZEZ8uLUTFjWwUtUZrEAJrD/akaQydNauBUDtPPlcTnUogdboq2Mw7608JUxN3tKcS6N0oX0Ho/C7dMGI2d97fsNqtvWCQ6gZa+NXNLYzNFb1MztORw1bjinOieq/S5xDTL6YQCszdIhNJL9bmmZxhLfTNgs03Oo+AUdw5tQfCPyYd3KbY2hOefeVdE/sffcMhBGkQLYSNOJNJHvYW/1uXtfugEkMnXguG6zDwmWl3+upRp6uIoWbgJxFzri85XimaxV/Jf8ow==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from CY8PR12MB8300.namprd12.prod.outlook.com (2603:10b6:930:7d::16)
- by PH7PR12MB8107.namprd12.prod.outlook.com (2603:10b6:510:2bb::16)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.15; Tue, 28 Apr
- 2026 02:35:39 +0000
-Received: from CY8PR12MB8300.namprd12.prod.outlook.com
- ([fe80::ce75:8187:3ac3:c5de]) by CY8PR12MB8300.namprd12.prod.outlook.com
- ([fe80::ce75:8187:3ac3:c5de%3]) with mapi id 15.20.9870.013; Tue, 28 Apr 2026
- 02:35:39 +0000
-From: Yury Norov <ynorov@nvidia.com>
-To: Felix Kuehling <Felix.Kuehling@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Cc: Yury Norov <ynorov@nvidia.com>
-Subject: [PATCH v2] drm/amdgpu: use bitmap_clear() in
- amdgpu_amdkfd_device_init()
-Date: Mon, 27 Apr 2026 22:35:35 -0400
-Message-ID: <20260428023536.449877-1-ynorov@nvidia.com>
-X-Mailer: git-send-email 2.51.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: BN9PR03CA0980.namprd03.prod.outlook.com
- (2603:10b6:408:109::25) To CY8PR12MB8300.namprd12.prod.outlook.com
- (2603:10b6:930:7d::16)
+Received: from mail-dl1-f42.google.com (mail-dl1-f42.google.com [74.125.82.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 50AA110E852
+ for <amd-gfx@lists.freedesktop.org>; Mon, 27 Apr 2026 17:17:25 +0000 (UTC)
+Received: by mail-dl1-f42.google.com with SMTP id
+ a92af1059eb24-12c7212836bso81172c88.0
+ for <amd-gfx@lists.freedesktop.org>; Mon, 27 Apr 2026 10:17:25 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1777310244; cv=none;
+ d=google.com; s=arc-20240605;
+ b=hW/yEYbhwODOSWHUhRsKyKwgEZbLLVEUct5WwQt934u02vBQvHBIdW8Ggs7YK2x0gW
+ MTIvADUIZKfgg5TMVmgMbVgxYg+mxixwFeYGSGNcZj+EsjjYVaPlDUtpisNZu3CD3hjC
+ dMBSTSeFEI5pxwsTjiSw9/0fWbF0ROFckF60uTUHSW131BfW40Itwrg96dPCZSAI8wa2
+ 3+VTboz9ws0xCqPKgjvZrg0OrD5/c9S8+LXPiFuQlu8FosCJmNWdBJizZ3RZ+5xmSYQl
+ pFn/ahufQsTinPMRIahtpyOjIO259R9noQbcYePpSIaZT3GISXbUalcFP+9xAb4HHCWh
+ ldgA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=d76/vhNDwu/QAcZIz5Xx/7XZ2Yg2CBZFye37EPl8zpI=;
+ fh=kdA52a1Mm+omqsf2MPi2zJ3xY/DGYEdA+ugX5gm3PTI=;
+ b=hNgudeH59827gYB2LrBJ+yqGCIEHoMPeBZGRZoosMWzIso/eF4IZvyz0MqwlZRcgOU
+ /H/XIgk7nWvu892fKtjxXJ5x88a4JERFIVNTa89y716qV4nSkXWzofdrE4ybWfI9W4TK
+ EVayWqLA7slO9nDtSGNSp/cX/3t+P6kisskde9QIBreevRuZYeEKLzyMcBHaIDHHrsD1
+ qWp2jUxEPlQ/zaUZ43d22+3TfqEbC1xsP48YOjXKrHlh5M2hgYEOM4xQQrTsNtsgctWA
+ R4OFsfRKnTapRiAwG3sEX3sDzJXTjMwmNp8RjkBe7et4J60GzY6nAA9lBeTyC5ciFBQP
+ 4XSA==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1777310244; x=1777915044; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=d76/vhNDwu/QAcZIz5Xx/7XZ2Yg2CBZFye37EPl8zpI=;
+ b=TLgKiC9I/qT3WCJfetjVNsEgZMrVo3+Edv+szrnIvKsyq4ptDoHvNjgNukv+oyfWCY
+ XiauCg2+TQJ7JCxfs39D7hKhc19Iteha+dS5zmLcnIW0TP8OuaUVemuo0IsIfkyeO+qT
+ B7y7B2BLxPPr+mlTud/CpXU1/z2UylCYCvw3Vj/IQbCRZvE4B6Uqk0LSNLu7rOL1fHhB
+ M5Rtwv0D/L3gp1+NGOFzFqaWJlN+Q3F9QElqi/mnGtUhR71/CzpnUgO3Y+U5+YY5beqg
+ NTYmI6g7jOfPYBVr6m4bP6L5Fm4J8EED3qzJXCNtMlA2d37sojBb4Owyu0eWywO1A272
+ JzSA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1777310244; x=1777915044;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=d76/vhNDwu/QAcZIz5Xx/7XZ2Yg2CBZFye37EPl8zpI=;
+ b=OBTsG78qBko4zPmO1EvD7JbCkvuRUXlCAV99wQj48UkrXPth2P1Ho+XW+GYg7q6iaW
+ z2/il3q9Q1cZ9UFIEuj7tT7nW0B14/uyqY2X5FO9+mb1QiPBQ2qn0ysvL6/bDhKY22Ds
+ qSV0Jk0hng0Htbrw8GI+Tw3GWW9VckRu3rqHCbg0l8U/GQM3gZp0TA8PI0BBCd+XE4lH
+ q/rNNTvu79E4Tt/ut/bDwUFfEYcsoW07M8NPoDHQIZj2/s7ym1W7czx0nAYaBw2/uXao
+ tF2wDaIpEf214nYxNFX60VCCRAthav4u1jnC35hs3A35jr5JF9Zwhq4Z6o4NAniqTq0U
+ yS1Q==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ+1VfezuqrR7wtFcH3lkdpDCvqo4b9rqUuuwzkJcmDHw+CoM+gBhCIBNIXpIwy7J8/BROg2th3s@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwGWadwLgcrYyi7GUYtB/mootnu9oHy/dOUbEzKQKasiSY2FsJV
+ ytmKN+MSTebRAx6CSZQ8oAaDRx+OrN9crZUzv3pmMobD5UfQA4VKUwUWlK/AW0qe3fxp6xMJJWx
+ I/6YjqH0HwHYYGzGxgYRXX9hD4MZjYiI=
+X-Gm-Gg: AeBDietZNRp6wMCMzsplgGRl+y79r8Gks8BmSu34oA8C7sWJpIO+Uz5njpkKjirHDQL
+ R/FsbFdMYtkketSZ3UfsqLDoZzmLExALAo192lJh5bwxHPCAZRJQKA4OPBH7GMu+3eyBruHzL1Q
+ RwY7u1sQxCZEN57bGbrSJBjgIV7ICnwPCA5OHLEBbdNK8c8Xu7o7sQqUj9VD6nsxzJg8LnWBsjw
+ uJjLT22uPbjbZlT5KMDEBsGHKgupfBibALFP8I53mwBbJFzQZa+uvEDQGFOuWI3vvNfJke4H2iW
+ dvY2JxaQiEsoxTz1Iq8=
+X-Received: by 2002:a05:7022:42:b0:12d:ca31:f1b5 with SMTP id
+ a92af1059eb24-12ddd538ab8mr116171c88.26.1777310244307; Mon, 27 Apr 2026
+ 10:17:24 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY8PR12MB8300:EE_|PH7PR12MB8107:EE_
-X-MS-Office365-Filtering-Correlation-Id: 02fed187-1d75-427e-1051-08dea4ced5b4
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|10070799003|366016|376014|1800799024|56012099003|18002099003; 
-X-Microsoft-Antispam-Message-Info: 3tk70V6DS1uVdjkkl7XfSwXFd54uUEff0sSaQrng3Os/TvxLJYlxdpKitwCk+CCtm2+zDoahTCp7HLz6cSTZwlD9dNtWE05ax+QBIYZd2QQkaVks5k1XeFttxfETU4kUnm0IDfco6s3RdtfKZpNTrA8cGC1lifsiVPR57IRqj06c1C6Uwgdh+0fwKVU1HW5U1bWKwIGoQ3wSB2zZxT90rSodtOI5zIJuC4mkJrYyakt74GZT9oeUyxE2J0VpOe/JK1jxHKjCbAlromYBbeDxR75SE7/yZFPSDf0E4YXZQLv4+vXA9YC961gKKPQ/87qRNagU21HxsYhtWH/c1voPJi6sO9ST+fkCAKCJ2Uj4t8q7PCsBiqcSonx2GkQpAxLTQA3tNPG3Ro/5ujY6mIWZ1Z7awg6IY9jItqJCgfJ/W000txVTeGAfevjV8fKyoUXq/nnEglW8gSacVynzK1F4dLUBH+KcPOa+pgUlv7mrt4O8lbZEn49KcTZTKPBHjvZLolrfe3AdJP8ALo1hw8+53JZ+Pm/FStF8mwFF5BgTYa5D+lh3TO/YKyT8KXRqV5Tr6rlXmnKAOjhQ/Pz4xCWNKTHwLGWUNdTPJRQNrSq8xK5samuuSvDxPjCjpQs3FdK1yeNC9NflXRoeNDszSXTq4H0W93gReErcG8VrNRbIjEhq8tWQvBwhrrKheV0g5q0kK/SAjxb5CdvWPxbYXfUt0sfxpFQrTdW7/nu5fiZqFjM=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CY8PR12MB8300.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(10070799003)(366016)(376014)(1800799024)(56012099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?ugWNcJC46Ugs7ATZaNqD/SoASrImtM3EPTkXS8fK9e3MguyJJqTbTgA3DDnQ?=
- =?us-ascii?Q?p9BHMIGthnbt5yRSnOGnxgeAOLqo5Wjigz5P/i3amQaLBZU7zvr3CH7VV6W0?=
- =?us-ascii?Q?yNg/kvLw9bwyUBs74DxSqnBAWOyK2YIyRJy/TM0GIy60xLRdR2xOCi3yUrNz?=
- =?us-ascii?Q?7FvKpsZSyIDNL0WCRQx558uivBdozuoah7/c453EQXWdkS6jgJJNWqRA4oz+?=
- =?us-ascii?Q?aKKD90IPE+c0DS65KCszQMHKlVZJ3Vh/71z2RPQKqGFt6tFLSPvh6Kh1SUus?=
- =?us-ascii?Q?WcoBh5Ud95Wi5iVTXTJF8EtTxj8Z94jkYomrMJBwAKKsHsdgl7aM9nv3sYm0?=
- =?us-ascii?Q?koDrWhUdVolvXkd9yiAV8KhD56nR6PPBQKSQOORvmsNdz8fgPMqzrOfyhpo6?=
- =?us-ascii?Q?LrIyMh13p1nb71KsnW564RWrNra3AbZrm8ximFs6FheckiCW0z0BjvmR/OTP?=
- =?us-ascii?Q?KTqsKZgMgDqAqm4HUIToKp/qy4pAFzSMM7KcJoicQgpzXWIEnNqdT3xX8lJJ?=
- =?us-ascii?Q?mVrWYzdGq+PvVOVvPWtSa0+iGeHi9Mi6pF6/e6DR8l9YSsLMEr/Q87rKY+ky?=
- =?us-ascii?Q?RPcy7D5+EOoxdNXbvGHYqmIZiJrHpADdkHeOD1kyq2/CYRBXgvHGE/reMrrd?=
- =?us-ascii?Q?xRJWz4oWoBZaJHHVHZYuxGACyEzb3NcIDwSnlaCjDHBRSAPVkG7bkGSaKAon?=
- =?us-ascii?Q?62jEImUgAHhiGRLX1WLvNWDVzIpeE+ACxp8u5PjY2EMffu7Gnbn+IC/h36cg?=
- =?us-ascii?Q?bAwrnnq2LzcDyebqnHiNmpnHFJFSyOg2uwTUjIA1noQQoT6bsg/YQgmmi10I?=
- =?us-ascii?Q?GHRACrDzYrPxS36kvlE7Xk6kW1kqQk9SH8MzVPZwvHvBM8AjTOnqv6o2rcdC?=
- =?us-ascii?Q?GeDefvVLNxYp58wLbL9bNXapO7TejBhEdnAsXxehYXqFXNUA9mhGDv013mGa?=
- =?us-ascii?Q?PMGYPKjA/LDinMkDuD2tXQe5RhAvTCn426pRZTF+quUfBUSA81GHMfwABNnp?=
- =?us-ascii?Q?D4dA6yzzf5pieYK1c1tiwwcK1+z6Z3qLpbSg6fRe5UaEEDFEQaJ+4Wwgjblm?=
- =?us-ascii?Q?q81FsbZtaKnKeGk9dkyJy0DFOZe/ClMOVAPY2/rPBRfa3/fDMSpHWOwR3qmm?=
- =?us-ascii?Q?kWqrSi3b1eSruJWwCwJPoTNIw72L88oCzMFuNhXxkeFrJizVG0dQUQM0xzia?=
- =?us-ascii?Q?8yK1gFDNR7v+Kfl/vKMWBp7xnDoemIyyv5zvpweHo8anE18cU3XfG1z4/RT7?=
- =?us-ascii?Q?Pm4jmMxgm22uNdGB3LTbqbOPusHtsDImiltP3RwP1QxSDYjkyLdExFJSgK/V?=
- =?us-ascii?Q?B+LkKw26I0bxhZXNAVaCeRQwuediO6UKiqQC3pfiGSJjhYq81WaMyNaG/YEs?=
- =?us-ascii?Q?ZAygTkLJ0cg2Ih/k5UbMiTOE/ZBBq13AwxPQXPCNJ3zpgXBaVQ0nowvNIdNm?=
- =?us-ascii?Q?oweeh7iXNaNI5FFfvIpnwUuFClvFiXWCAYAI6OLuzMrX+6Pz7OK4lafvN1HI?=
- =?us-ascii?Q?80QeVxjyJ9pQdSUtksTAxIAbRCm4Xql9nOaag2nJXA++u6YCfvEeTnflmngF?=
- =?us-ascii?Q?z8je+W7oXM5v+/7E3UwtIXnZMOCg1k+5E24AdC16sejD3gRXpsGel8g/wTl5?=
- =?us-ascii?Q?TSJsiC9A8DgPzPQT1gUbYQMVs41TBBA2Ytd/fwDOn/2x+7L3ZQwog49cWrdj?=
- =?us-ascii?Q?BUOR/CU5A9kP1pQ5Seucj43aaz/Jw3dhKz0loDy+PsBZz7vhO3iJjD52+SBu?=
- =?us-ascii?Q?P29RdivpH3uPQqcP7CH7KWdLaqGVThxPPiGJUcrZrTo8N2fT/iYt?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 02fed187-1d75-427e-1051-08dea4ced5b4
-X-MS-Exchange-CrossTenant-AuthSource: CY8PR12MB8300.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Apr 2026 02:35:39.0017 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: /Q5uSe77TtNPY3pfz4dBS/dQxGSXaFNogEA/QgW3Ea1bOjPeRwmEYAS5sI2H2gDyie7JYc2OBSEcW+NU3RDrcA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB8107
+References: <CAMYTvdA+yCqU4_9mzMUkX_3S=myExKMBCyB88dYWCMwA1edsrw@mail.gmail.com>
+ <6c48aff5-b6ee-40af-98f0-c26ded3095bc@leemhuis.info>
+ <ed3171ef-eda8-4907-a35b-2e2b8185e574@leemhuis.info>
+ <2730559.vYhyI6sBWr@timur-hyperion>
+In-Reply-To: <2730559.vYhyI6sBWr@timur-hyperion>
+From: Brandon Taylor <br.ta.2818@gmail.com>
+Date: Mon, 27 Apr 2026 12:17:13 -0500
+X-Gm-Features: AVHnY4IAw3_4fcOnTdNIs8ulSKBdL22VjTacDK_lOq82_bswTKBvGSkYygld3KU
+Message-ID: <CAMYTvdCtpKsHAjBtZOK8MK4dYJUTUMCwgsur50Np3+yJhnic+A@mail.gmail.com>
+Subject: Re: [REGRESSION] amdgpu error -22 first encountered in kernel 6.19,
+ not fixed in 7.0
+To: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>
+Cc: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
+ Linux regressions mailing list <regressions@lists.linux.dev>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Alex Deucher <alexander.deucher@amd.com>, 
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Tue, 28 Apr 2026 12:54:19 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -129,49 +111,116 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The bitmap_clear() works OK with both compile- and runtime nbits. But the
-comment says it doesn't work, and opencodes the call for nothing.
-Drop the misleading comment, and use bitmap_clear() as it should.
+> I'm happy to help, there is no need for personal insults.
 
-As a side effect, the patch switches from a series of atomics to
-a single non-atomic operation, which is easier on caches.
+Sorry if I came across as insulting; that was most definitely not my
+intention. I simply know Linus' penchant for going insane when an
+error is found in his kernel. But I'm thinking Timur's probably right;
+this may merely be a "me" problem, with my particular GPU.
 
-Signed-off-by: Yury Norov <ynorov@nvidia.com>
----
-v2: don't declare 'i' in the new implementation.
+At any rate, I've created the issue ticket as requested, and here it
+is. https://gitlab.freedesktop.org/drm/amd/-/work-items/5220
 
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c | 8 ++------
- 1 file changed, 2 insertions(+), 6 deletions(-)
+Brandon Taylor
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-index d9e283f3b57d..500976d9087a 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-@@ -167,7 +167,6 @@ int amdgpu_amdkfd_drm_client_create(struct amdgpu_device *adev)
- 
- void amdgpu_amdkfd_device_init(struct amdgpu_device *adev)
- {
--	int i;
- 	int last_valid_bit;
- 
- 	amdgpu_amdkfd_gpuvm_init_mem_limits();
-@@ -194,14 +193,11 @@ void amdgpu_amdkfd_device_init(struct amdgpu_device *adev)
- 				  adev->gfx.mec_bitmap[0].queue_bitmap,
- 				  AMDGPU_MAX_QUEUES);
- 
--		/* According to linux/bitmap.h we shouldn't use bitmap_clear if
--		 * nbits is not compile time constant
--		 */
- 		last_valid_bit = 1 /* only first MEC can have compute queues */
- 				* adev->gfx.mec.num_pipe_per_mec
- 				* adev->gfx.mec.num_queue_per_pipe;
--		for (i = last_valid_bit; i < AMDGPU_MAX_QUEUES; ++i)
--			clear_bit(i, gpu_resources.cp_queue_bitmap);
-+		bitmap_clear(gpu_resources.cp_queue_bitmap, last_valid_bit,
-+					AMDGPU_MAX_QUEUES - last_valid_bit);
- 
- 		amdgpu_doorbell_get_kfd_info(adev,
- 				&gpu_resources.doorbell_physical_address,
--- 
-2.51.0
-
+On Mon, Apr 27, 2026 at 9:01=E2=80=AFAM Timur Krist=C3=B3f <timur.kristof@g=
+mail.com> wrote:
+>
+> Hi,
+>
+> Thank you Thorsten for forwarding this to me, indeed I am working on impr=
+oving
+> the driver for these GPUs. See my replies below.
+>
+> On Monday, April 27, 2026 11:37:53=E2=80=AFAM Central European Summer Tim=
+e Thorsten
+> Leemhuis wrote:
+> > [note: please remove Timo Lindfors when replying to this mail and
+> > include Timur Krist=C3=B3f =E2=80=93 sorry everyone and especially Timo=
+, my mailers
+> > address book tricked me]
+> >
+> > On 4/27/26 11:35, Linux regression tracking (Thorsten Leemhuis) wrote:
+> > > On 4/26/26 01:22, Brandon Taylor wrote:
+> > >> I have an AMD Radeon R9 270X GPU (yes, I know it's old) which used t=
+o
+> > >> default to the `radeon` firmware
+> > >
+> > > FYI, as using the wrong terms can lead to confusion while dealing wit=
+h
+> > > bugs: that's not a firmware, that's the driver (sometimes also called
+> > > kernel module)
+>
+> - "radeon" is the old kernel driver for these GPUs that didn't support Vu=
+lkan
+> and therefore was mostly useless for gaming.
+> - "amdgpu" is the new driver, which supports Vulkan and offers better per=
+f,
+> this is the default since Linux 6.19.
+>
+> I don't think this is a firmware issue.
+>
+> > >
+> > >> on kernel versions up to and
+> > >> including 6.18. I could manually change this behavior to use the new
+> > >> `amdgpu` firmware by setting `radeon.si_support=3D0 amdgpu.si_suppor=
+t=3D1`
+> > >> as kernel parameters in the GRUB bootloader. Everything worked fine,
+> > >> and I was able to play my Windows games without any problems.
+> > >>
+> > >> That was, until kernel version 6.19 came out.>
+> > >> 6.19, from what I was able to Google, was supposed to have AMD GPUs =
+to
+> > >> default to the new `amdgpu` firmware. Unfortunately, when I updated
+> > >> the kernel and rebooted, I got a black screen.
+> > >>
+> > >> Further Google searches led me to reboot, set `nomodeset` in the
+> > >> kernel parameters, switch to a TTY, login, and investigate the outpu=
+t
+> > >> of a `dmesg` command =E2=80=94 and what I saw ... Well, let's just s=
+ay it's
+> > >> the kind of thing that would make Linus go Chernobyl:
+> > >>
+> > >> `amdgpu: probe with driver amdgpu failed with error -22`
+> > >
+>
+> I am sorry this happened and understand the frustration.
+>
+> Please open an issue here:
+> https://gitlab.freedesktop.org/drm/amd/-/work_items/new
+> and upload your full dmesg log. Please ping me personally @Venemo on that
+> issue after you opened it so we can start investigating what is wrong the=
+re.
+>
+> I got curious so I plugged in my R9 270X right now. I am typing this emai=
+l on
+> a computer with a Radeon R9 270X using Linux 6.19.12 on Fedora 43 and it =
+works
+> fine. We are going to need to need more details in order to diagnose what=
+ the
+> problem really is. We might ask you to test some proposed fixes, consider=
+ing
+> that the issue doesn't happen on my R9 270X, I don't have a way to verify=
+ it.
+>
+> > >> Now, I hope to God that this email finds whoever is responsible for
+> > >> breaking this `amdgpu` firmware before the same thing happens to Lin=
+us
+> > >> via Fedora 44, and he goes berserk. I realize that's not a heck of a
+> > >> lot of time, but God only knows HOW many Linux users with AMD GPUs a=
+re
+> > >> pissed off by this kind of issue =E2=80=94 and I for one can only im=
+agine how
+> > >> Linus' reaction will compare when it happens to HIM!
+>
+> I'm happy to help, there is no need for personal insults.
+>
+> (Note that the issue clearly doesn't affect all AMD GPUs and it clearly d=
+oesn't
+> even affect all R9 270X GPUs.)
+>
+> Thanks & best regards,
+> Timur
+>
+>
+>
