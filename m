@@ -4,48 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 82464FF8877
-	for <amd-gfx@archiver.kernel.org>; Tue, 28 Apr 2026 12:54:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 64E3FFF8868
+	for <amd-gfx@archiver.kernel.org>; Tue, 28 Apr 2026 12:54:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1FECE10EC07;
-	Tue, 28 Apr 2026 12:54:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DCF2710EC02;
+	Tue, 28 Apr 2026 12:54:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=infradead.org header.i=@infradead.org header.b="RKRi/tD/";
+	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=infradead.org header.i=@infradead.org header.b="sBqKbi2B";
 	dkim-atps=neutral
 Received: from bombadil.infradead.org (bombadil.infradead.org
  [198.137.202.133])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ACB5210E94D;
- Mon, 27 Apr 2026 21:41:25 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1FEC410E8CB;
+ Mon, 27 Apr 2026 18:38:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
- Content-Type:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:
- To:From:Sender:Reply-To:Content-ID:Content-Description;
- bh=wfCWRNqlZezMxFMCv0tqtbKuZJLO2xtkjSupxx5nIf4=; b=RKRi/tD/qwm0U6+H4oQtnhNH6S
- ACAK8ntdmAhMyxafmCSaITYdAk2nMrlrNxGqHhW6b5eP0QTkzf9+sa7Kw11Zmuyt8Joe9x6L6UPNi
- LEE+PhYMFF0ac1wOHyidVqkuzJCgTe3Jj0Sl812KdALNrS/LEqd0AEmxjoh+8r+9ynOZ2NMw7EXRN
- 27IfOyE5No78OWGF7EgYs0+7Hy8rgp2KiDUyNFa73W24TojB/9O310jsbEY9VzJWc0ov1cdrqPbLY
- U0NIalvFc86MZHhvkg+Rv0XP2k4lIVW2JFRRHdpfHQI2quCGH1mzUifW+IWMlrCWy7Yce5QAa8et2
- NddinQFg==;
+ Content-Type:MIME-Version:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:
+ Content-ID:Content-Description:In-Reply-To:References;
+ bh=LFh9Pfv0Npt2sq912K35cDtK4V20ay7IadsnZb0Pv6Q=; b=sBqKbi2B2vEx9hCDVOc+IHqNSC
+ /DA4MWpEQr7JjlWTqCRLHM9wgZJP46gbg538KQ1QNYDLSuhU4rGOVCFRxfUaqw5WB7MaMxLj+C7eW
+ sXevY1HXAiEvAyffjjjg3MJ/WyC+4DJ1t2FJov3xX4tFz5knDrsJnRRdROFqu9KRJbBtzBGLfZ2OI
+ CHMob2i1Kx965yAttGUmY9NmummMc7BgJqLdRKuCHMZTaV+JuNRz9o3TRGmltDlnMdfmKI+J5GSlq
+ 53U9nzVgZEXuk/nq9aPobiMPoHzoKWNLsF3R3h3XCiElwVyCyjEym4lPDvKo1rsmbInrU6UMXOe2V
+ 8BGGV4IA==;
 Received: from [50.53.43.113] (helo=bombadil.infradead.org)
  by bombadil.infradead.org with esmtpsa (Exim 4.98.2 #2 (Red Hat Linux))
- id 1wHThl-00000000BoX-109a; Mon, 27 Apr 2026 21:41:25 +0000
+ id 1wHQr9-0000000HaWS-2Bzz; Mon, 27 Apr 2026 18:38:55 +0000
 From: Randy Dunlap <rdunlap@infradead.org>
 To: dri-devel@lists.freedesktop.org
 Cc: Randy Dunlap <rdunlap@infradead.org>,
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
  Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
  amd-gfx@lists.freedesktop.org,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>
-Subject: [PATCH 2/3 v2] drm/amd/display: dmub_cmd.h: correct all kernel-doc
- prototype warnings
-Date: Mon, 27 Apr 2026 14:41:20 -0700
-Message-ID: <20260427214122.784024-2-rdunlap@infradead.org>
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+Subject: [PATCH v3] drm/amdgpu: amdgpu{_reset}.h: fix all kernel-doc warnings
+Date: Mon, 27 Apr 2026 11:38:53 -0700
+Message-ID: <20260427183854.672967-1-rdunlap@infradead.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260427214122.784024-1-rdunlap@infradead.org>
-References: <20260427214122.784024-1-rdunlap@infradead.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -64,148 +61,221 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Correct all typedef, struct, and union prototype warnings in
-dmub_cmd.h by using the matching names or "typedef" keyword:
+Fix all kernel-doc warnings in amdgpu.h and amdgpu_reset.h:
+- Use the struct keyword for kernel-doc struct comments.
+- Use the correct enum names in enum amd_reset_method.
 
-Warning: drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h:961 cannot understand function prototype: 'typedef uint32_t dmub_trace_code_t;'
-Warning: drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h:1183 expecting prototype for union dmub_shared_state_ips_fw. Prototype was for union dmub_shared_state_ips_fw_signals instead
-Warning: drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h:1203 expecting prototype for union dmub_shared_state_ips_signals. Prototype was for union dmub_shared_state_ips_driver_signals instead
-Warning: drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h:1253 expecting prototype for struct dmub_shared_state_cursor_offload_v1. Prototype was for struct dmub_shared_state_cursor_offload_stream_v1 instead
-Warning: drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h:1269 struct dmub_shared
-_state_feature_common { uint32_t padding[62]; };: error: Cannot parse enum!
-Warning: drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h:1278 struct dmub_shared
-_state_feature_header { uint16_t id;  uint16_t version;  uint32_t reserved;  };:
- error: Cannot parse enum!
-Warning: drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h:2001 expecting prototype for struct dmub_cmd_read_modify_write_sequence. Prototype was for struct dmub_rb_cmd_read_modify_write instead
-Warning: drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h:2191 expecting prototype for struct dmub_rb_cmd_cab. Prototype was for struct dmub_rb_cmd_cab_for_ss instead
-Warning: drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h:2875 expecting prototype for struct dmub_cmd_set_pixel_clock_data. Prototype was for struct dmub_rb_cmd_set_pixel_clock instead
-Warning: drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h:3398 expecting prototype for union dpia_notify_data_type. Prototype was for union dpia_notification_data instead
-Warning: drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h:3447 expecting prototype for struct dmub_rb_cmd_hpd_sense_notify. Prototype was for struct dmub_rb_cmd_hpd_sense_notify_data instead
-Warning: drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h:6267 expecting prototype for struct dmub_cmd_cable_id_input. Prototype was for struct dmub_cmd_cable_id_output instead
+This eliminates these warnings:
+
+Warning: drivers/gpu/drm/amd/amdgpu/amdgpu.h:477 cannot understand
+ function prototype: 'struct amdgpu_wb'
+Warning: drivers/gpu/drm/amd/amdgpu/amdgpu.h:576 Enum value
+ 'AMD_RESET_METHOD_LEGACY' not described in enum 'amd_reset_method'
+Warning: drivers/gpu/drm/amd/amdgpu/amdgpu.h:576 Enum value
+ 'AMD_RESET_METHOD_MODE0' not described in enum 'amd_reset_method'
+Warning: drivers/gpu/drm/amd/amdgpu/amdgpu.h:576 Enum value
+ 'AMD_RESET_METHOD_MODE1' not described in enum 'amd_reset_method'
+Warning: drivers/gpu/drm/amd/amdgpu/amdgpu.h:576 Enum value
+ 'AMD_RESET_METHOD_MODE2' not described in enum 'amd_reset_method'
+Warning: drivers/gpu/drm/amd/amdgpu/amdgpu.h:576 Enum value
+ 'AMD_RESET_METHOD_LINK' not described in enum 'amd_reset_method'
+Warning: drivers/gpu/drm/amd/amdgpu/amdgpu.h:576 Enum value
+ 'AMD_RESET_METHOD_BACO' not described in enum 'amd_reset_method'
+Warning: drivers/gpu/drm/amd/amdgpu/amdgpu.h:576 Enum value
+ 'AMD_RESET_METHOD_PCI' not described in enum 'amd_reset_method'
+Warning: drivers/gpu/drm/amd/amdgpu/amdgpu.h:576 Enum value
+ 'AMD_RESET_METHOD_ON_INIT' not described in enum 'amd_reset_method'
+Warning: drivers/gpu/drm/amd/amdgpu/amdgpu.h:576 Excess enum value
+ '@AMD_RESET_LEGACY' description in 'amd_reset_method'
+Warning: drivers/gpu/drm/amd/amdgpu/amdgpu.h:576 Excess enum value
+ '@AMD_RESET_MODE0' description in 'amd_reset_method'
+Warning: drivers/gpu/drm/amd/amdgpu/amdgpu.h:576 Excess enum value
+ '@AMD_RESET_MODE1' description in 'amd_reset_method'
+Warning: drivers/gpu/drm/amd/amdgpu/amdgpu.h:576 Excess enum value
+ '@AMD_RESET_MODE2' description in 'amd_reset_method'
+Warning: drivers/gpu/drm/amd/amdgpu/amdgpu.h:576 Excess enum value
+ '@AMD_RESET_LINK' description in 'amd_reset_method'
+Warning: drivers/gpu/drm/amd/amdgpu/amdgpu.h:576 Excess enum value
+ '@AMD_RESET_BACO' description in 'amd_reset_method'
+Warning: drivers/gpu/drm/amd/amdgpu/amdgpu.h:576 Excess enum value
+ '@AMD_RESET_PCI' description in 'amd_reset_method'
+
+Also move the enum to amdgpu_reset.h and eventually only forward declare
+it in amdgpu.h. (Christian)
 
 Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
 ---
-v2: fix more warnings; rebase & resend
+v2: I moved the enum to amdgpu_reset.h and then #included amdgpu_reset.h
+    in amdgpu.h. The simpler method causes build errors.
+v3: rebase and resend
 
-Cc: Harry Wentland <harry.wentland@amd.com>
-Cc: Leo Li <sunpeng.li@amd.com>
-Cc: Rodrigo Siqueira <siqueira@igalia.com>
 Cc: Alex Deucher <alexander.deucher@amd.com>
 Cc: Christian König <christian.koenig@amd.com>
 Cc: amd-gfx@lists.freedesktop.org
 Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 Cc: Maxime Ripard <mripard@kernel.org>
 Cc: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: David Airlie <airlied@gmail.com>
+Cc: Simona Vetter <simona@ffwll.ch>
 
- drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h |   24 +++++++-------
- 1 file changed, 12 insertions(+), 12 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h       |   42 ------------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h |   69 +++++++++++++++-----
+ 2 files changed, 58 insertions(+), 53 deletions(-)
 
---- linux-next-20260427.orig/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h
-+++ linux-next-20260427/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h
-@@ -958,7 +958,7 @@ union dmub_fw_meta {
- //==============================================================================
- #if !defined(TENSILICA) && !defined(DMUB_TRACE_ENTRY_DEFINED)
- /**
-- * dmub_trace_code_t - firmware trace code, 32-bits
-+ * typedef dmub_trace_code_t - firmware trace code, 32-bits
-  */
- typedef uint32_t dmub_trace_code_t;
+--- linux-next-20260427.orig/drivers/gpu/drm/amd/amdgpu/amdgpu.h
++++ linux-next-20260427/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+@@ -464,7 +464,7 @@ int amdgpu_file_to_fpriv(struct file *fi
+ #define AMDGPU_MAX_WB 1024	/* Reserve at most 1024 WB slots for amdgpu-owned rings. */
  
-@@ -1170,7 +1170,7 @@ enum dmub_shared_state_feature_id {
+ /**
+- * amdgpu_wb - This struct is used for small GPU memory allocation.
++ * struct amdgpu_wb - This struct is used for small GPU memory allocation.
+  *
+  * This struct is used to allocate a small amount of GPU memory that can be
+  * used to shadow certain states into the memory. This is especially useful for
+@@ -538,44 +538,6 @@ struct amdgpu_allowed_register_entry {
+ 	bool grbm_indexed;
  };
  
- /**
-- * struct dmub_shared_state_ips_fw - Firmware signals for IPS.
-+ * struct dmub_shared_state_ips_fw_signals - Firmware signals for IPS.
+-/**
+- * enum amd_reset_method - Methods for resetting AMD GPU devices
+- *
+- * @AMD_RESET_METHOD_NONE: The device will not be reset.
+- * @AMD_RESET_LEGACY: Method reserved for SI, CIK and VI ASICs.
+- * @AMD_RESET_MODE0: Reset the entire ASIC. Not currently available for the
+- *                   any device.
+- * @AMD_RESET_MODE1: Resets all IP blocks on the ASIC (SDMA, GFX, VCN, etc.)
+- *                   individually. Suitable only for some discrete GPU, not
+- *                   available for all ASICs.
+- * @AMD_RESET_MODE2: Resets a lesser level of IPs compared to MODE1. Which IPs
+- *                   are reset depends on the ASIC. Notably doesn't reset IPs
+- *                   shared with the CPU on APUs or the memory controllers (so
+- *                   VRAM is not lost). Not available on all ASICs.
+- * @AMD_RESET_LINK: Triggers SW-UP link reset on other GPUs
+- * @AMD_RESET_BACO: BACO (Bus Alive, Chip Off) method powers off and on the card
+- *                  but without powering off the PCI bus. Suitable only for
+- *                  discrete GPUs.
+- * @AMD_RESET_PCI: Does a full bus reset using core Linux subsystem PCI reset
+- *                 and does a secondary bus reset or FLR, depending on what the
+- *                 underlying hardware supports.
+- *
+- * Methods available for AMD GPU driver for resetting the device. Not all
+- * methods are suitable for every device. User can override the method using
+- * module parameter `reset_method`.
+- */
+-enum amd_reset_method {
+-	AMD_RESET_METHOD_NONE = -1,
+-	AMD_RESET_METHOD_LEGACY = 0,
+-	AMD_RESET_METHOD_MODE0,
+-	AMD_RESET_METHOD_MODE1,
+-	AMD_RESET_METHOD_MODE2,
+-	AMD_RESET_METHOD_LINK,
+-	AMD_RESET_METHOD_BACO,
+-	AMD_RESET_METHOD_PCI,
+-	AMD_RESET_METHOD_ON_INIT,
+-};
+-
+ struct amdgpu_video_codec_info {
+ 	u32 codec_type;
+ 	u32 max_width;
+@@ -1373,6 +1335,8 @@ int emu_soc_asic_init(struct amdgpu_devi
+ #define RBIOS16(i) (RBIOS8(i) | (RBIOS8((i)+1) << 8))
+ #define RBIOS32(i) ((RBIOS16(i)) | (RBIOS16((i)+2) << 16))
+ 
++#include "amdgpu_reset.h"
++
+ /*
+  * ASICs macro.
   */
- union dmub_shared_state_ips_fw_signals {
- 	struct {
-@@ -1185,7 +1185,7 @@ union dmub_shared_state_ips_fw_signals {
+--- linux-next-20260427.orig/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h
++++ linux-next-20260427/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h
+@@ -46,6 +46,47 @@ enum AMDGPU_RESET_SRCS {
+ 	AMDGPU_RESET_SRC_USERQ,
  };
  
- /**
-- * struct dmub_shared_state_ips_signals - Firmware signals for IPS.
-+ * struct dmub_shared_state_ips_driver_signals - Firmware signals for IPS.
-  */
- union dmub_shared_state_ips_driver_signals {
- 	struct {
-@@ -1247,7 +1247,7 @@ struct dmub_shared_state_ips_driver {
- }; /* 248-bytes, fixed */
- 
- /**
-- * struct dmub_shared_state_cursor_offload_v1 - Header metadata for cursor offload.
-+ * struct dmub_shared_state_cursor_offload_stream_v1 - Header metadata for cursor offload.
-  */
- struct dmub_shared_state_cursor_offload_stream_v1 {
- 	uint32_t last_write_idx; /**< Last write index */
-@@ -1263,14 +1263,14 @@ struct dmub_shared_state_cursor_offload_
- }; /* 248-bytes, fixed */
- 
- /**
-- * enum dmub_shared_state_feature_common - Generic payload.
-+ * struct dmub_shared_state_feature_common - Generic payload.
-  */
- struct dmub_shared_state_feature_common {
- 	uint32_t padding[62];
- }; /* 248-bytes, fixed */
- 
- /**
-- * enum dmub_shared_state_feature_header - Feature description.
-+ * struct dmub_shared_state_feature_header - Feature description.
-  */
- struct dmub_shared_state_feature_header {
- 	uint16_t id; /**< Feature ID */
-@@ -1990,7 +1990,7 @@ struct dmub_cmd_read_modify_write_sequen
- #define DMUB_READ_MODIFY_WRITE_SEQ__MAX 5
- 
- /**
-- * struct dmub_cmd_read_modify_write_sequence - Read modify write command.
-+ * struct dmub_rb_cmd_read_modify_write - Read modify write command.
-  */
- struct dmub_rb_cmd_read_modify_write {
- 	struct dmub_cmd_header header;  /**< command header */
-@@ -2182,7 +2182,7 @@ enum dmub_cmd_cab_type {
++/**
++ * enum amd_reset_method - Methods for resetting AMD GPU devices
++ *
++ * @AMD_RESET_METHOD_NONE: The device will not be reset.
++ * @AMD_RESET_METHOD_LEGACY: Method reserved for SI, CIK and VI ASICs.
++ * @AMD_RESET_METHOD_MODE0: Reset the entire ASIC. Not currently available for
++ *                          the any device.
++ * @AMD_RESET_METHOD_MODE1: Resets all IP blocks on the ASIC (SDMA, GFX, VCN,
++ *                   etc.) individually. Suitable only for some discrete GPU,
++ *                   not available for all ASICs.
++ * @AMD_RESET_METHOD_MODE2: Resets a lesser level of IPs compared to MODE1.
++ *                   Which IPs are reset depends on the ASIC. Notably doesn't
++ *                   reset IPs shared with the CPU on APUs or the memory
++ *                   controllers (so VRAM is not lost). Not available on all
++ *                   ASICs.
++ * @AMD_RESET_METHOD_LINK: Triggers SW-UP link reset on other GPUs
++ * @AMD_RESET_METHOD_BACO: BACO (Bus Alive, Chip Off) method powers off and on
++ *                   the card but without powering off the PCI bus. Suitable
++ *                   only for discrete GPUs.
++ * @AMD_RESET_METHOD_PCI: Does a full bus reset using core Linux subsystem
++ *                   PCI reset and does a secondary bus reset or FLR,
++ *                   depending on what the underlying hardware supports.
++ * @AMD_RESET_METHOD_ON_INIT: Does a device reset during the driver init
++ *                   sequence.
++ *
++ * Methods available for AMD GPU driver for resetting the device. Not all
++ * methods are suitable for every device. User can override the method using
++ * module parameter `reset_method`.
++ */
++enum amd_reset_method {
++	AMD_RESET_METHOD_NONE = -1,
++	AMD_RESET_METHOD_LEGACY = 0,
++	AMD_RESET_METHOD_MODE0,
++	AMD_RESET_METHOD_MODE1,
++	AMD_RESET_METHOD_MODE2,
++	AMD_RESET_METHOD_LINK,
++	AMD_RESET_METHOD_BACO,
++	AMD_RESET_METHOD_PCI,
++	AMD_RESET_METHOD_ON_INIT,
++};
++
+ struct amdgpu_reset_context {
+ 	enum amd_reset_method method;
+ 	struct amdgpu_device *reset_req_dev;
+@@ -56,6 +97,20 @@ struct amdgpu_reset_context {
+ 	enum AMDGPU_RESET_SRCS src;
  };
  
- /**
-- * struct dmub_rb_cmd_cab - CAB command data.
-+ * struct dmub_rb_cmd_cab_for_ss - CAB command data.
-  */
- struct dmub_rb_cmd_cab_for_ss {
- 	struct dmub_cmd_header header;
-@@ -2867,7 +2867,7 @@ struct dmub_cmd_set_pixel_clock_data {
++struct amdgpu_reset_control {
++	void *handle;
++	struct work_struct reset_work;
++	struct mutex reset_lock;
++	struct amdgpu_reset_handler *(
++		*reset_handlers)[AMDGPU_RESET_MAX_HANDLERS];
++	atomic_t in_reset;
++	enum amd_reset_method active_reset;
++	struct amdgpu_reset_handler *(*get_reset_handler)(
++		struct amdgpu_reset_control *reset_ctl,
++		struct amdgpu_reset_context *context);
++	void (*async_reset)(struct work_struct *work);
++};
++
+ struct amdgpu_reset_handler {
+ 	enum amd_reset_method reset_method;
+ 	int (*prepare_env)(struct amdgpu_reset_control *reset_ctl,
+@@ -72,20 +127,6 @@ struct amdgpu_reset_handler {
+ 	int (*do_reset)(struct amdgpu_device *adev);
  };
  
- /**
-- * struct dmub_cmd_set_pixel_clock_data - Set pixel clock command.
-+ * struct dmub_rb_cmd_set_pixel_clock - Set pixel clock command.
-  */
- struct dmub_rb_cmd_set_pixel_clock {
- 	struct dmub_cmd_header header; /**< header */
-@@ -3383,7 +3383,7 @@ struct dpia_bw_allocation_notify_data {
- };
+-struct amdgpu_reset_control {
+-	void *handle;
+-	struct work_struct reset_work;
+-	struct mutex reset_lock;
+-	struct amdgpu_reset_handler *(
+-		*reset_handlers)[AMDGPU_RESET_MAX_HANDLERS];
+-	atomic_t in_reset;
+-	enum amd_reset_method active_reset;
+-	struct amdgpu_reset_handler *(*get_reset_handler)(
+-		struct amdgpu_reset_control *reset_ctl,
+-		struct amdgpu_reset_context *context);
+-	void (*async_reset)(struct work_struct *work);
+-};
+-
  
- /**
-- * union dpia_notify_data_type - DPIA Notification in Outbox command
-+ * union dpia_notification_data - DPIA Notification in Outbox command
-  */
- union dpia_notification_data {
- 	/**
-@@ -3439,7 +3439,7 @@ struct dmub_rb_cmd_query_hpd_state {
- };
- 
- /**
-- * struct dmub_rb_cmd_hpd_sense_notify - HPD sense notification data.
-+ * struct dmub_rb_cmd_hpd_sense_notify_data - HPD sense notification data.
-  */
- struct dmub_rb_cmd_hpd_sense_notify_data {
- 	uint32_t old_hpd_sense_mask; /**< Old HPD sense mask */
-@@ -6318,7 +6318,7 @@ struct dmub_cmd_cable_id_input {
- };
- 
- /**
-- * struct dmub_cmd_cable_id_input - Defines the output of DMUB_CMD_GET_USBC_CABLE_ID command.
-+ * struct dmub_cmd_cable_id_output - Defines the output of DMUB_CMD_GET_USBC_CABLE_ID command.
-  */
- struct dmub_cmd_cable_id_output {
- 	uint8_t UHBR10_20_CAPABILITY	:2; /**< b'01 for UHBR10 support, b'10 for both UHBR10 and UHBR20 support */
+ enum amdgpu_reset_domain_type {
+ 	SINGLE_DEVICE,
