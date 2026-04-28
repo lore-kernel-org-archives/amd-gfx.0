@@ -4,55 +4,96 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1565DFF8868
-	for <amd-gfx@archiver.kernel.org>; Tue, 28 Apr 2026 10:42:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 30EB4FF8868
+	for <amd-gfx@archiver.kernel.org>; Tue, 28 Apr 2026 10:42:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A97DE10EAD8;
-	Tue, 28 Apr 2026 10:42:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C4A7A10EAE4;
+	Tue, 28 Apr 2026 10:42:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="t6TdL7Xe";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="snr5N5Si";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CF79310EAD8;
- Tue, 28 Apr 2026 10:42:48 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id B5AEE448A2;
- Tue, 28 Apr 2026 10:42:48 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C818C2BCAF;
- Tue, 28 Apr 2026 10:42:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1777372968;
- bh=ftFBoeUNo9XvxtsYcnDiXdJCUTvZ3/oDkUO0Odx4Rr0=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=t6TdL7XeQ0c6Jskuz/zrPlQc3z/Msb1czQ8OiQQ307k3m4ZkE0/yDiLxgxtJW4ztp
- S10L8fcKzTqBZ+Atpo+jSlo4YaSJoR5AZYHMTOgDrJlxIn3IrkGaZIr7V03cWto6hJ
- fjE90uLPbCp2MuZk7q1XC0JuNuSj9oSCGJQizxi6OVRN0WGXB0Noa45KyWX7vWY9No
- a/90s17kxx2JhlVtUZv2y642dpqfp+OLV+5RFMWLA9lObvcMR3J2VwxHgKYK44fKLI
- VZdkIDgX/s3drxIQObDxpveqD7xFXYvcwld/QKr7OK7bKnjTyggDDJoWEQXRnmSO4Y
- VzU1OVgpmbKvw==
-From: Sasha Levin <sashal@kernel.org>
-To: patches@lists.linux.dev,
-	stable@vger.kernel.org
-Cc: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
- Austin Zheng <austin.zheng@amd.com>, Roman Li <roman.li@amd.com>,
- Dan Wheeler <daniel.wheeler@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
- harry.wentland@amd.com, sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com,
- christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
- daniel@ffwll.ch, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 7.0-6.18] drm/amd/display: Fix HostVMMinPageSize unit
- mismatch in DML2.1
-Date: Tue, 28 Apr 2026 06:41:03 -0400
-Message-ID: <20260428104133.2858589-52-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260428104133.2858589-1-sashal@kernel.org>
-References: <20260428104133.2858589-1-sashal@kernel.org>
+Received: from CY7PR03CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11010069.outbound.protection.outlook.com
+ [40.93.198.69])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6550210EAE3
+ for <amd-gfx@lists.freedesktop.org>; Tue, 28 Apr 2026 10:42:53 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=w+gNiG0lDFU+DLuZqg0Jc+ppsJjGzaNQRNilpNfs+ozRu5DcHwNsmwP+Q+jP+1zC/09cJGriN5WFeWN+d34aXY3cxerYxvhO5RF2wTDOh/DeDzgl1cVnCEhHqdOzWskqRyxX0BlLXRqJ20YaWzqZA+ge1ztpswz9+UQh7Rbt59b7y3m+MkQD/LbGASw+jx64NnmDsGRJSGZj7iUAFG8q/+YlU62cnBSgTh5WoNPAhx970OgzDbC8K6yGXP80py8/GxkAx0hIMx4nRRz85E0j6uql8qoGeB7Y1kwYAibpHeUKkQG7AJxM2NHZTiCn9pYlUc1xEJwfEDDbkvCbOu8jrA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=3/rNNqpZOZqguVVE9NacgtK48/gmmNVpQVE1V8wz24Y=;
+ b=tk61s3fexn0IuMi+Qv2/1r514EJcxvSZYRAmB8FVs6UI7iP/0cNqvBlQzQ5t6AlCVrQ6GRyv4NspTofN5bCfsf+qk0c+FHK4THDMs+rdGz4i2lO8baGcaXORAGVUb6o8+M/Yz6dUj0UfgDayU7qFMf6vDBkHgRA3bsDZ/l1CUNGDq+yrcR5eAxr/ufTYQUmERpI9Evfp4xcNxfFov6frt+oVRXfev3I6fCO2VInikBduGgHahhmHYugwkdomh5NSW1euYMC61UhE1Ic0u3Q7Ic2EP4dO4ue+dRqdiUJuRga3sAvhSigCiuUfIOCZLpAQn51V78qIV9G96gptRhVE1A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=3/rNNqpZOZqguVVE9NacgtK48/gmmNVpQVE1V8wz24Y=;
+ b=snr5N5Si0gnGvkLHvS/iP/C+Ti25jUNU4j7P5zsCllpnjU4afIKBtRlD3Y1AX+hw+d8PuBrR0z4cpyKKKZpSKbX3jO1heN0xYIrPnrHJv5oyibz1Mb7S3dIsPJhr+oNm5Ar5yjJ7oPvjX+6inSLZnGi62RfHeLrsuMi4B6qjEnQ=
+Received: from BYAPR06CA0037.namprd06.prod.outlook.com (2603:10b6:a03:14b::14)
+ by PH0PR12MB8125.namprd12.prod.outlook.com (2603:10b6:510:293::6)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.17; Tue, 28 Apr
+ 2026 10:42:49 +0000
+Received: from SJ1PEPF00002316.namprd03.prod.outlook.com
+ (2603:10b6:a03:14b:cafe::57) by BYAPR06CA0037.outlook.office365.com
+ (2603:10b6:a03:14b::14) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9846.26 via Frontend Transport; Tue,
+ 28 Apr 2026 10:42:48 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SJ1PEPF00002316.mail.protection.outlook.com (10.167.242.170) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9846.18 via Frontend Transport; Tue, 28 Apr 2026 10:42:48 +0000
+Received: from chonglidebug.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Tue, 28 Apr
+ 2026 05:42:46 -0500
+From: chong li <chongli2@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <Emily.Deng@amd.com>, <haijun.chang@amd.com>, chong li <chongli2@amd.com>
+Subject: [PATCH] drm/amdgpu: Sync the pf2vf message info structure
+Date: Tue, 28 Apr 2026 18:42:34 +0800
+Message-ID: <20260428104234.428945-1-chongli2@amd.com>
+X-Mailer: git-send-email 2.48.1
 MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
-X-stable-base: Linux 7.0.2
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PEPF00002316:EE_|PH0PR12MB8125:EE_
+X-MS-Office365-Filtering-Correlation-Id: f17b6461-0518-4c48-b5cf-08dea512e40f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|376014|82310400026|36860700016|18002099003|56012099003;
+X-Microsoft-Antispam-Message-Info: yvA67Nj3ZPdRiPRBeym3fy9aJAnLSrRournTDGmA1usRmPQr3ALPI4cwIWCdHjfdVsHpkv4dLWJatAaanu+rQCPbpwq2/O4+zB4bi9YVXSTfRyeqglD04Dz4BlDSuu1TQUB3mwWhmXTeSVNdEPWv1wpcCSFviWoXWO7CL0ga+sfBobZT7vIIOcSqrAPj7AfOtOI86eyCTWsMgo9Cg2N8xIggBEpZ9LWzzK7Fy4cyW9sV4o7VW8DuGcsTncLuULcsUcWWxc7J6oWP51z8p9Zl2ObL3/8Us1C3VT+SmiXeFNKoDyFIYyW6sgflfVSpo4WaDgQDCaQsUEREJu0WB/5h1nMyRvCHPiPrMQepvo1LrrpLihXxwnas+K+idyLCeitIa2O6XEh88R6lWScaK5Zfp1ar5LVBGcuwsJZ1XiqVgUhGki9WqXzJb+UvsgwdVoCFEdgGX3qb0+TlYqYEmmggdIUtE6+dIkZeH++mmU+txVP7eWUfALU1D7Dg95u6QVouYHke0qIkgag387DkRfcjWPD7CmH5MYXmUaQruKJy5d3JCcdvg9WQMmEYN1aiK+J9wOo/BU30+4j37ZQlsw2vfucGLciFMWWcoOyni5nN3S26LpfoY8Xapme4Mv0YU7Dm3cXuhZnK81Hl20tcEjkGDiNRzVcukLByoJCUlmc+MTRT2edMEmT/PpYfpWS2jYqBJVckE/1Ob8jiWTm9pB9k8tx9pGeV4cRBo7HvG+4hn7gdcIYAu4Gg0doGXcRf/yNOF5uYKbTZ8cWBCUeih1Eo0w==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(82310400026)(36860700016)(18002099003)(56012099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: /38y6X4PdDlsk3pWmlt79FDg2oHakRhB2q2UVMBI/I+6ZdIYw0d91jEzmGW1xuTUbV6fxt+P3FxYST52/FNNnPywpEpgEzuoEZWoP38qkDHjsyt/sj/GuJWW+7ou04r918x13nqPe/SqcSAqUwWxGtKKT4imJ9t3Kvjd4aMf9dK3CyiVNKLLYP53eknd7LErsMKt8g7A1cTLrv47ZH56zBXLBD4gxwnI9vLHXlDzUjHJCjIDHWCzhtw8BbjDXxCJLHsUaYKa9QnMFgnrU7YNDolosfSbt/+SKqsriwbBcIuA0wdjolStgmPUCyp4cqmSkUfIANEKjXFgQvswzWfHfSDGRwX5iD8sIDXWTdUfacnSSjIpq8vhRt/jLPxi30+ljd/2mg1Ly/mWxD6IewA7F76M22JTmzQhU6HkeBX5MM3i/Slw2TW2mi3scREm//6U
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Apr 2026 10:42:48.6080 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f17b6461-0518-4c48-b5cf-08dea512e40f
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF00002316.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB8125
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,394 +108,76 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+There are gaps in the pf2vf message structure
+betiween the guest driver and the host driver.
+The pf2vf message info structure must be kept in sync
+between both sides to ensure correct interpretation of fields.
 
-[ Upstream commit 5721b5b9c9c792233d7817239bd81925fb3ad9d1 ]
-
-[Why]
-This was found back on DML2 but was missed when creating DML2.1.
-
-The bottom layer calculation (CalculateHostVMDynamicLevels) expects
-a value in bytes, not KB, but we pass in the value in KB (eg. 4).
-
-This causes an extra page table level to be required in the prefetch
-bytes which can be significant overhead - preventing some modes
-from being supported that should otherwise be.
-
-[How]
-Correct the units by multiplying the input and override values by 1024.
-
-Reviewed-by: Austin Zheng <austin.zheng@amd.com>
-Signed-off-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
-Signed-off-by: Roman Li <roman.li@amd.com>
-Tested-by: Dan Wheeler <daniel.wheeler@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: chong li <chongli2@amd.com>
 ---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h    |  4 ++++
+ drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h | 12 ++++++++++--
+ 2 files changed, 14 insertions(+), 2 deletions(-)
 
-LLM Generated explanations, may be completely bogus:
-
-Based on my comprehensive analysis, I have enough information to make a
-decision. Let me compile my findings.
-
-## Phase 1: Commit Message Forensics
-
-**Step 1.1:** Subject parsing
-Record: [drm/amd/display] [Fix] [HostVMMinPageSize unit mismatch in
-DML2.1]
-
-**Step 1.2:** Tags
-Record:
-- Reviewed-by: Austin Zheng (AMD)
-- Signed-off-by: Nicholas Kazlauskas (author, AMD), Roman Li (AMD DC
-  submaintainer), Alex Deucher (AMD GPU maintainer)
-- Tested-by: Dan Wheeler (AMD test engineer)
-- No Fixes: tag, no Cc: stable tag (expected for review candidates)
-
-**Step 1.3:** Body analysis
-Record: The bug is that `CalculateHostVMDynamicLevels` expects
-HostVMMinPageSize in bytes (thresholds 2048 and 1048576 = 2KB and 1MB),
-but DML2.1 passes the value in KB (e.g., 4 for 4KB). This causes wrong
-branch selection and adds an extra page table level to prefetch
-overhead, "preventing some modes from being supported that should
-otherwise be." Failure mode = display mode unnecessarily rejected by
-validator.
-
-**Step 1.4:** Hidden bug fix detection
-Record: Not hidden - clearly described as a fix for a unit mismatch. The
-verb "Fix" is explicit.
-
-## Phase 2: Diff Analysis
-
-**Step 2.1:** Inventory
-Record: Single file `dml2_core_dcn4_calcs.c`, 6 lines changed (+6/-6), 6
-hunks. All in `dml_core_ms_prefetch_check`, `dml_core_mode_support`,
-`dml_core_mode_programming`. Scope: surgical single-file fix.
-
-**Step 2.2:** Code flow
-Record: Each hunk replaces `hostvm_min_page_size_kbytes` (a value in KB)
-with `hostvm_min_page_size_kbytes * 1024` (converting to bytes). Affects
-calls to `CalculateExtraLatency`,
-`CalculatePrefetchSchedule_params->HostVMMinPageSize`, and
-`CalculateVMRowAndSwath_params->HostVMMinPageSize`.
-
-**Step 2.3:** Bug mechanism
-Record: Type/unit bug. The receiving function checks `< 2048`, `>= 2048
-&& < 1048576`, `>= 1048576` (bytes thresholds). With KB input (e.g., 4),
-every value falls into the first branch, causing maximum page table
-levels to be added incorrectly, which inflates prefetch bandwidth
-requirements.
-
-**Step 2.4:** Fix quality
-Record: Trivially correct - just multiplying by a constant. No
-regression risk from the fix itself. Same fix pattern was historically
-applied to DML2.0 (commit 22136ff27c4e0/dcf6cd7f35de5) with `Cc:
-stable`.
-
-## Phase 3: Git History Investigation
-
-**Step 3.1:** File history
-Record: File introduced in commit `70839da636050` (2024-04-19, v6.11)
-"drm/amd/display: Add new DCN401 sources". Bug present since v6.11.
-
-**Step 3.2:** Fixes: tag follow-up
-Record: No Fixes: tag, but commit message references DML2 history. Found
-related history:
-- `22136ff27c4e0`/`dcf6cd7f35de5` (Nov 2023): Original DML2 fix with Cc:
-  stable - did exactly this multiplication
-- `d0f639c586939`/`a409c053b0b0c` (Dec 2023): Reverted, claimed spec
-  said KB
-- `bf282eb92b8` (Dec 2023): Re-applied the *1024 fix because revert
-  "causes failure to light up for 1080p eDP + 8k HDMI panel combo"
-This proves the *1024 IS the correct value.
-
-**Step 3.3:** File history for related changes
-Record: Related patches in same April 2 patch series include:
-- Patch 13: `df9228624afde` "Pass min page size from SOC BB to dml2_1
-  plane config" - related fix but independent
-- Patch 14: `90b05672b7f0e` "Fix DCN42 gpuvm_min_page_size_kbytes in SOC
-  BB" - related but independent
-This patch (11) is self-contained.
-
-**Step 3.4:** Author context
-Record: Nicholas Kazlauskas is a regular DC contributor and authored the
-related DCN35/DCN401 fixes. Reviewer Austin Zheng is also DC
-contributor. Submitter Roman Li is DC submaintainer.
-
-**Step 3.5:** Dependencies
-Record: Standalone fix. Multiplication by 1024 is purely a numeric
-correction at call sites. No dependencies.
-
-## Phase 4: Mailing List Research
-
-**Step 4.1:** b4 dig
-Record: b4 dig could not find a match (commit too recent / not yet
-indexed). Found via direct lore search at
-`https://lists.freedesktop.org/archives/amd-gfx/2026-April/142246.html`.
-Posted as PATCH 11/22 of "DC Patches April 02, 2026" by Roman Li on Thu
-Apr 2 18:33:03 UTC 2026.
-
-**Step 4.2:** Reviewers
-Record: Reviewed by Austin Zheng (AMD DC). Sent to amd-gfx list with
-appropriate maintainer CC.
-
-**Step 4.3:** Bug reports
-Record: No specific Reported-by, no syzbot link, no bugzilla link. Bug
-found internally by AMD when reviewing DML2.1 vs DML2 differences.
-
-**Step 4.4:** Series context
-Record: Part of "DC Patches April 02, 2026" with 22 patches. The
-Nicholas Kazlauskas DML2.1 cluster (patches 11-15) addresses related but
-independent issues. This patch (11) does not depend on the others.
-
-**Step 4.5:** Stable history
-Record: No discussion on stable@vger.kernel.org. Original DML2 fix was
-Cc'd to stable; this DML2.1 version was not.
-
-## Phase 5: Code Semantic Analysis
-
-**Step 5.1:** Functions modified
-Record: 3 functions: `dml_core_ms_prefetch_check`,
-`dml_core_mode_support`, `dml_core_mode_programming`. All are core mode
-validation/programming entry points called from DML2.1.
-
-**Step 5.2:** Callers
-Record: Called from `dml21_create`/`dml21_reinit`, which are called when
-`using_dml21=true && dce_version >= DCN_VERSION_4_01`. This means:
-DCN401 (RDNA4 / RX 9000 series GPUs) and DCN42 hardware. Reachable from
-every display mode validation.
-
-**Step 5.3:** Callees
-Record: `CalculateExtraLatency` and via params,
-`CalculateHostVMDynamicLevels` (line 1565) which has the byte-threshold
-checks (`< 2048`, `< 1048576`).
-
-**Step 5.4:** Reachability
-Record: Every kernel modeset path on DCN401/DCN42 hardware. Highly
-reachable from userspace via DRM modeset ioctls.
-
-**Step 5.5:** Similar patterns
-Record: Same fix pattern was previously applied to DML2.0 in current
-mainline (`drivers/gpu/drm/amd/display/dc/dml2_0/display_mode_core.c`
-has `* 1024` at the same kind of call sites).
-
-## Phase 6: Cross-Referencing
-
-**Step 6.1:** Code in stable trees
-Record: Buggy code present in v6.11 through v6.18 (and v7.0). Verified
-with `git show v6.18:drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_
-core/dml2_core_dcn4_calcs.c | grep "soc.hostvm_min_page_size_kbytes,"` -
-bug exists.
-
-**Step 6.2:** Backport complications
-Record: Path was renamed from `dml2/dml21/` to `dml2_0/dml21/` in commit
-`e6a8a000cfe6a` (2025-10-21). For stable trees v6.11-v6.18, the file is
-at `drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_core/dml2_core_dc
-n4_calcs.c`. Each `* 1024` change applies cleanly with path translation
-- line numbers vary by tree but contexts are stable. Minor manual rework
-needed for path.
-
-**Step 6.3:** Related fixes already in stable
-Record: No, the DML2.1 version of this fix has not been backported to
-any stable tree.
-
-## Phase 7: Subsystem Context
-
-**Step 7.1:** Subsystem criticality
-Record: drivers/gpu/drm/amd/display - PERIPHERAL (driver-specific) but
-affects display output, which is user-visible. Users of DCN401 (Navi 4x
-discrete GPUs) and DCN42 (newer APUs) can lose display mode
-availability.
-
-**Step 7.2:** Subsystem activity
-Record: Highly active subsystem with frequent DC patch series.
-
-## Phase 8: Impact and Risk
-
-**Step 8.1:** Affected population
-Record: DRIVER-SPECIFIC: Users with AMD DCN401 (RX 9070, RX 9060XT etc.)
-or DCN42 hardware running v6.11+. As DCN401 is the Navi 4x architecture
-(recent consumer GPU), this is a meaningful but smaller user base than
-core fixes.
-
-**Step 8.2:** Trigger conditions
-Record: Triggered on every display mode validation when
-`using_dml21=true` (default). Bug manifests as "mode rejected" only when
-the actual page table level overhead matters, i.e., for high-bandwidth
-modes (high resolution + high refresh rate, multi-display). The DML2
-history shows real-world failure with "1080p eDP + 8k HDMI" combo.
-
-**Step 8.3:** Failure mode severity
-Record: MEDIUM-HIGH. Failure mode is display modes being rejected that
-should work. Not a crash or data corruption, but user-visible feature
-loss (e.g., user cannot enable their monitor's native resolution/refresh
-rate). On laptops with eDP + external display, may prevent multi-monitor
-configurations.
-
-**Step 8.4:** Risk-benefit
-Record:
-- BENEFIT: enables previously-rejected display modes for DCN401/DCN42
-  users (real-world impact demonstrated in DML2 history)
-- RISK: very low - 6 lines of arithmetic correction, well-tested in
-  mainline, identical pattern proven correct in DML2.0
-- Ratio: clearly favors backport
-
-## Phase 9: Final Synthesis
-
-**Step 9.1:** Evidence
-FOR backporting:
-- Small, surgical, obviously correct fix (just `* 1024`)
-- Bug present in stable trees v6.11+
-- Same fix pattern proven correct via DML2.0 history (revert/re-apply
-  cycle confirmed `*1024` is right)
-- Tested-by, Reviewed-by from AMD team
-- Real user-visible impact demonstrated historically (modes failing to
-  light up)
-- Bug already in mainline since April 2026
-- Fix is mathematical - no behavioral risk
-
-AGAINST:
-- No Cc: stable tag from authors
-- Smaller user base (DCN401/DCN42 specific hardware)
-- Path requires translation for older stable trees (`dml2_0/dml21/` ->
-  `dml2/dml21/`)
-- The DML2 version of this fix had a turbulent revert history (though
-  ultimately confirmed correct)
-
-UNRESOLVED:
-- Could not run b4 dig successfully (patch too recent for indexing)
-- Could not verify whether AMD will explicitly nominate this for stable
-  in a follow-up
-
-**Step 9.2:** Stable rules checklist
-1. Obviously correct? YES - simple multiplication, function clearly
-   expects bytes (thresholds in bytes)
-2. Fixes real bug affecting users? YES - mode validation incorrectly
-   rejects valid modes
-3. Important issue? MEDIUM - prevents some display modes from working,
-   similar pattern caused 1080p+8k failure in DML2
-4. Small and contained? YES - 6 lines, single file
-5. No new features/APIs? YES - pure fix
-6. Applies to stable? YES with minor path translation for v6.11-v6.18
-
-**Step 9.3:** Exception categories
-Not in special exception categories, but qualifies as a regular bug fix.
-
-**Step 9.4:** Decision
-The fix is small, surgical, obviously correct, well-tested, and
-addresses a real bug that affects users of recent AMD GPU/APU hardware.
-The historical precedent in DML2.0 (where the same `*1024` correction
-was eventually applied to stable after extensive testing confirmed it
-was right) strengthens confidence. The risk of regression is minimal
-given the trivial nature of the change.
-
-## Verification
-
-- [Phase 1] Parsed tags: Reviewed-by (Austin Zheng), Tested-by (Dan
-  Wheeler), no Fixes/Cc:stable - verified by reading commit message
-- [Phase 2] Diff analysis: confirmed 6 hunks, all `* 1024` multiplier
-  additions in single file - verified by reading patch
-- [Phase 3] git log + git show: bug code present since `70839da636050`
-  (v6.11, 2024-04-19) - verified
-- [Phase 3] git show 22136ff27c4e0: original DML2 fix with `Cc:
-  stable@vger.kernel.org` did same `*1024` change - verified
-- [Phase 3] git show bf282eb92b8: revert-of-revert for DML2 because
-  *1024 absence broke "1080p eDP + 8k HDMI" - verified
-- [Phase 3] git show e6a8a000cfe6a: path renamed `dml2/dml21/` ->
-  `dml2_0/dml21/` in 2025-10-21 - verified
-- [Phase 3] Local file read at line 1565: `CalculateHostVMDynamicLevels`
-  checks `< 2048`, `< 1048576` (bytes thresholds) - verified
-- [Phase 4] WebFetch lore archive: found patch 11/22 of "DC Patches
-  April 02, 2026" thread - verified
-- [Phase 4] b4 dig -c bd8001acfa62b: failed to find (patch too recent) -
-  acknowledged
-- [Phase 5] Grep for using_dml21: confirmed DML2.1 active for
-  DCN401/DCN42 with `dce_version >= DCN_VERSION_4_01` - verified
-- [Phase 6] git show
-  v6.18:.../dml2/dml21/src/.../dml2_core_dcn4_calcs.c: bug present in
-  v6.18 - verified
-- [Phase 6] git show
-  v6.12:.../dml2/dml21/src/.../dml2_core_dcn4_calcs.c: bug present in
-  v6.12 - verified
-- [Phase 6] dml2_0/display_mode_core.c grep: confirmed `*1024` already
-  applied for DML2.0 - verified
-- [Phase 7] DCN_VERSION_4_01 grep: confirmed dce_version usage gates
-  DML2.1 to DCN401+ hardware - verified
-- UNVERIFIED: Exact mailing list discussion URL - the patch is indexed
-  at lists.freedesktop.org (got the patch text), but lore.kernel.org has
-  not yet indexed it (b4 dig failure)
-- UNVERIFIED: Whether reviewers explicitly suggested stable backport -
-  did not find direct discussion
-
-The fix meets all stable kernel criteria: it is obviously correct, fixes
-a real bug affecting users of recent AMD hardware, is small and
-contained (6 lines, one file), introduces no new features, and applies
-to stable with only minor path translation. The historical DML2
-precedent strongly supports correctness and the user-visible impact.
-
-**YES**
-
- .../dml21/src/dml2_core/dml2_core_dcn4_calcs.c       | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn4_calcs.c b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn4_calcs.c
-index ca5ac3c0deb56..cdd7c771afff9 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn4_calcs.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn4_calcs.c
-@@ -7381,7 +7381,7 @@ static noinline_for_stack void dml_core_ms_prefetch_check(struct dml2_core_inter
- 		s->tdlut_bytes_per_group,
- 		s->HostVMInefficiencyFactor,
- 		s->HostVMInefficiencyFactorPrefetch,
--		mode_lib->soc.hostvm_min_page_size_kbytes,
-+		mode_lib->soc.hostvm_min_page_size_kbytes * 1024,
- 		mode_lib->soc.qos_parameters.qos_type,
- 		!(display_cfg->overrides.max_outstanding_when_urgent_expected_disable),
- 		mode_lib->soc.max_outstanding_reqs,
-@@ -7477,7 +7477,7 @@ static noinline_for_stack void dml_core_ms_prefetch_check(struct dml2_core_inter
- 			CalculatePrefetchSchedule_params->OutputFormat = display_cfg->stream_descriptors[display_cfg->plane_descriptors[k].stream_index].output.output_format;
- 			CalculatePrefetchSchedule_params->MaxInterDCNTileRepeaters = mode_lib->ip.max_inter_dcn_tile_repeaters;
- 			CalculatePrefetchSchedule_params->VStartup = s->MaximumVStartup[k];
--			CalculatePrefetchSchedule_params->HostVMMinPageSize = mode_lib->soc.hostvm_min_page_size_kbytes;
-+			CalculatePrefetchSchedule_params->HostVMMinPageSize = mode_lib->soc.hostvm_min_page_size_kbytes * 1024;
- 			CalculatePrefetchSchedule_params->DynamicMetadataEnable = display_cfg->plane_descriptors[k].dynamic_meta_data.enable;
- 			CalculatePrefetchSchedule_params->DynamicMetadataVMEnabled = mode_lib->ip.dynamic_metadata_vm_enabled;
- 			CalculatePrefetchSchedule_params->DynamicMetadataLinesBeforeActiveRequired = display_cfg->plane_descriptors[k].dynamic_meta_data.lines_before_active_required;
-@@ -8965,7 +8965,7 @@ static bool dml_core_mode_support(struct dml2_core_calcs_mode_support_ex *in_out
- 	CalculateVMRowAndSwath_params->MALLAllocatedForDCN = mode_lib->soc.mall_allocated_for_dcn_mbytes;
- 	CalculateVMRowAndSwath_params->SwathWidthY = mode_lib->ms.SwathWidthY;
- 	CalculateVMRowAndSwath_params->SwathWidthC = mode_lib->ms.SwathWidthC;
--	CalculateVMRowAndSwath_params->HostVMMinPageSize = mode_lib->soc.hostvm_min_page_size_kbytes;
-+	CalculateVMRowAndSwath_params->HostVMMinPageSize = mode_lib->soc.hostvm_min_page_size_kbytes * 1024;
- 	CalculateVMRowAndSwath_params->DCCMetaBufferSizeBytes = mode_lib->ip.dcc_meta_buffer_size_bytes;
- 	CalculateVMRowAndSwath_params->mrq_present = mode_lib->ip.dcn_mrq_present;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
+index 9da0c6e9b869..5f889382fe4a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
+@@ -163,6 +163,8 @@ enum AMDGIM_FEATURE_FLAG {
+ 	AMDGIM_FEATURE_RAS_CPER = (1 << 11),
+ 	AMDGIM_FEATURE_XGMI_TA_EXT_PEER_LINK = (1 << 12),
+ 	AMDGIM_FEATURE_XGMI_CONNECTED_TO_CPU = (1 << 13),
++	AMDGIM_FEATURE_PTL_SUPPORT = (1 << 14),
++	AMDGIM_FEATURE_UNITID = (1 << 15),
+ };
  
-@@ -10755,7 +10755,7 @@ static bool dml_core_mode_programming(struct dml2_core_calcs_mode_programming_ex
- 	CalculateVMRowAndSwath_params->MALLAllocatedForDCN = mode_lib->soc.mall_allocated_for_dcn_mbytes;
- 	CalculateVMRowAndSwath_params->SwathWidthY = mode_lib->mp.SwathWidthY;
- 	CalculateVMRowAndSwath_params->SwathWidthC = mode_lib->mp.SwathWidthC;
--	CalculateVMRowAndSwath_params->HostVMMinPageSize = mode_lib->soc.hostvm_min_page_size_kbytes;
-+	CalculateVMRowAndSwath_params->HostVMMinPageSize = mode_lib->soc.hostvm_min_page_size_kbytes * 1024;
- 	CalculateVMRowAndSwath_params->DCCMetaBufferSizeBytes = mode_lib->ip.dcc_meta_buffer_size_bytes;
- 	CalculateVMRowAndSwath_params->mrq_present = mode_lib->ip.dcn_mrq_present;
+ enum AMDGIM_REG_ACCESS_FLAG {
+@@ -441,6 +443,8 @@ static inline bool is_virtual_machine(void)
+ 	((adev)->virt.gim_feature & AMDGIM_FEATURE_VCN_RB_DECOUPLE)
+ #define amdgpu_sriov_is_mes_info_enable(adev) \
+ 	((adev)->virt.gim_feature & AMDGIM_FEATURE_MES_INFO_ENABLE)
++#define amdgpu_sriov_is_unitid_support(adev) \
++	((adev)->virt.gim_feature & AMDGIM_FEATURE_UNITID)
  
-@@ -10971,7 +10971,7 @@ static bool dml_core_mode_programming(struct dml2_core_calcs_mode_programming_ex
- 		s->tdlut_bytes_per_group,
- 		s->HostVMInefficiencyFactor,
- 		s->HostVMInefficiencyFactorPrefetch,
--		mode_lib->soc.hostvm_min_page_size_kbytes,
-+		mode_lib->soc.hostvm_min_page_size_kbytes * 1024,
- 		mode_lib->soc.qos_parameters.qos_type,
- 		!(display_cfg->overrides.max_outstanding_when_urgent_expected_disable),
- 		mode_lib->soc.max_outstanding_reqs,
-@@ -11264,7 +11264,7 @@ static bool dml_core_mode_programming(struct dml2_core_calcs_mode_programming_ex
- 			CalculatePrefetchSchedule_params->OutputFormat = display_cfg->stream_descriptors[display_cfg->plane_descriptors[k].stream_index].output.output_format;
- 			CalculatePrefetchSchedule_params->MaxInterDCNTileRepeaters = mode_lib->ip.max_inter_dcn_tile_repeaters;
- 			CalculatePrefetchSchedule_params->VStartup = s->MaxVStartupLines[k];
--			CalculatePrefetchSchedule_params->HostVMMinPageSize = mode_lib->soc.hostvm_min_page_size_kbytes;
-+			CalculatePrefetchSchedule_params->HostVMMinPageSize = mode_lib->soc.hostvm_min_page_size_kbytes * 1024;
- 			CalculatePrefetchSchedule_params->DynamicMetadataEnable = display_cfg->plane_descriptors[k].dynamic_meta_data.enable;
- 			CalculatePrefetchSchedule_params->DynamicMetadataVMEnabled = mode_lib->ip.dynamic_metadata_vm_enabled;
- 			CalculatePrefetchSchedule_params->DynamicMetadataLinesBeforeActiveRequired = display_cfg->plane_descriptors[k].dynamic_meta_data.lines_before_active_required;
+ #define amdgpu_virt_xgmi_migrate_enabled(adev) \
+ 	((adev)->virt.is_xgmi_node_migrate_enabled && (adev)->gmc.xgmi.node_segment_size != 0)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h b/drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h
+index 847cfd1fd004..7af60c704722 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h
+@@ -162,7 +162,9 @@ union amd_sriov_msg_feature_flags {
+ 		uint32_t ras_cper		: 1;
+ 		uint32_t xgmi_ta_ext_peer_link	: 1;
+ 		uint32_t xgmi_connected_to_cpu  : 1;
+-		uint32_t reserved		: 18;
++		uint32_t ptl_support		: 1;
++		uint32_t unitid_support		: 1;
++		uint32_t reserved		: 16;
+ 	} flags;
+ 	uint32_t all;
+ };
+@@ -256,7 +258,7 @@ struct amd_sriov_msg_pf2vf_info_header {
+ 	uint32_t reserved[2];
+ };
+ 
+-#define AMD_SRIOV_MSG_PF2VF_INFO_FILLED_SIZE (55)
++#define AMD_SRIOV_MSG_PF2VF_INFO_FILLED_SIZE (59)
+ struct amd_sriov_msg_pf2vf_info {
+ 	/* header contains size and version */
+ 	struct amd_sriov_msg_pf2vf_info_header header;
+@@ -314,6 +316,12 @@ struct amd_sriov_msg_pf2vf_info {
+ 	uint32_t more_bp;	//Reserved for future use.
+ 	union amd_sriov_ras_caps ras_en_caps;
+ 	union amd_sriov_ras_caps ras_telemetry_en_caps;
++	/* PTL status response for guest */
++	uint32_t ptl_enabled;        // PTL enable status: 0=disabled, 1=enabled
++	uint32_t ptl_pref_format1;   // Current preferred format 1
++	uint32_t ptl_pref_format2;   // Current preferred format 2
++	uint8_t unitid;
++	uint8_t padding[3];  //use the 3 bytes to align
+ 
+ 	/* reserved */
+ 	uint32_t reserved[256 - AMD_SRIOV_MSG_PF2VF_INFO_FILLED_SIZE];
 -- 
-2.53.0
+2.48.1
 
