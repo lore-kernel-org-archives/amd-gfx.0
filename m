@@ -4,124 +4,95 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0CBB0FF885A
-	for <amd-gfx@archiver.kernel.org>; Tue, 28 Apr 2026 15:22:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 97F69FF885A
+	for <amd-gfx@archiver.kernel.org>; Tue, 28 Apr 2026 15:38:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9A48910E33F;
-	Tue, 28 Apr 2026 15:22:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DB6E810E339;
+	Tue, 28 Apr 2026 15:38:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="tWlBSkUA";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="gTZde/yT";
 	dkim-atps=neutral
-Received: from CH1PR05CU001.outbound.protection.outlook.com
- (mail-northcentralusazon11010049.outbound.protection.outlook.com
- [52.101.193.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BB9F810E33F
- for <amd-gfx@lists.freedesktop.org>; Tue, 28 Apr 2026 15:22:53 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=onXLye4OME2K9Zmx7r3v8b4hGX/YUXHx5WejBT17aNzlt/z63d+F7tSEzY41IhHDgJlF8PPVsPMNx5+BB6+9Y1tOlR1h2XNuTIdPZ6BihWTMJoaPgJbP+jaXNuELSofMMiAOg14S6tL+VW8x1huD3GYe5WX6AdWoJthFEprhHWs/wsiX0DzeaQQZ3cK+C/QTfv9WgWNyrq0Z7W3MFH5AQCiwDZUe9l2+DIey+o/7PjcAjYj3/I+mwzKuTotFOprrCGUvPfgEv2k4kXI4zpE/mSqjy+ekXzQeliP2n817Z0F2BXfpGlhUGdcPsxn6QOCR/thoHKOkQ4FQL06tcpyLwg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Mr5YrD8zTaa9bTpGessHbhW/TKniQB+zBEJHqyZ/HmI=;
- b=a7NsyPAJel8TOYVg+Lb1YKhmsYkyZhoT9eshpmWwgPpWHLKHx8QXQ417hrVlzDppejjwDRQ4dSokkQhrPg1I1I2Exwh22ttndZa2yoO963/47H8AqgyYerWVnffLhXw+6uZxsDzReamJCOq/wO854G1lBbsV4Lo1FYhWfBv9wtFRU7r8E/OZ7ej0zmOGt2Oy6tOEIsIzf+UpVdVk8TPGssQg2x8Sfp8NGBiSNlKhJIix3yV0xADBMBl7PoiCVLmKz26m4PXeM+6VJQE9oQG2rTkAvEsZAdA9TtWmI5E+CRV8lGq4aUTY7d8sxwfJrSihIKcho7ukXvPZRcAl7CFkxg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Mr5YrD8zTaa9bTpGessHbhW/TKniQB+zBEJHqyZ/HmI=;
- b=tWlBSkUArAkE+q7y5kH4QfYP6F7rRhEg8BIDSIzW4aVLaS6sUqkyxl1/KjuC6W9ybnqHEzFhUNys2dM2D8LZ+tfKYl6mh3Zqi8Z11T8r7o8TXXRZ/MMTnnthnOn8S4P0mQv2fITZbSJCniP26zHe53pz6+ryMEr9Z9ms0lw+4sE=
-Received: from BL1PR12MB5898.namprd12.prod.outlook.com (2603:10b6:208:396::7)
- by PH0PR12MB999090.namprd12.prod.outlook.com (2603:10b6:510:38c::21)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.16; Tue, 28 Apr
- 2026 15:22:50 +0000
-Received: from BL1PR12MB5898.namprd12.prod.outlook.com
- ([fe80::914d:6a80:1477:4ed0]) by BL1PR12MB5898.namprd12.prod.outlook.com
- ([fe80::914d:6a80:1477:4ed0%4]) with mapi id 15.20.9870.013; Tue, 28 Apr 2026
- 15:22:49 +0000
-From: "Russell, Kent" <Kent.Russell@amd.com>
-To: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "timur.kristof@gmail.com" <timur.kristof@gmail.com>
-CC: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-Subject: RE: [PATCH 2/3] drm/amdgpu/pm: align Hawaii mclk workaround with
- radeon
-Thread-Topic: [PATCH 2/3] drm/amdgpu/pm: align Hawaii mclk workaround with
- radeon
-Thread-Index: AQHc1x9FHYXwIRNP7UODZUeU+Bvw1rX0l1oA
-Date: Tue, 28 Apr 2026 15:22:49 +0000
-Message-ID: <BL1PR12MB589817B73290014EE6D24D7D85372@BL1PR12MB5898.namprd12.prod.outlook.com>
-References: <20260428145620.1480646-1-alexander.deucher@amd.com>
- <20260428145620.1480646-2-alexander.deucher@amd.com>
-In-Reply-To: <20260428145620.1480646-2-alexander.deucher@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_Enabled=True;
- MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_SetDate=2026-04-28T15:22:24.0000000Z;
- MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_Name=AMD Public
- v26; MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_ContentBits=3;
- MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_Method=Privileged
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BL1PR12MB5898:EE_|PH0PR12MB999090:EE_
-x-ms-office365-filtering-correlation-id: 2b23d31f-0063-4b37-3a4c-08dea53a021c
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|366016|1800799024|376014|38070700021|22082099003|56012099003|18002099003;
-x-microsoft-antispam-message-info: 4alXxjHtPSPXYAJ3Lh8jLOIfmSY3+kZYgBB4179Ro0U9wGsr48kYJEWeLx6RlGVTiIMVh6AyrAp2AWklLFvnhvFwT6/5bIub3SCdmsBSQGgN7f5nDrEGSxyDkrk06T1Id/u3DndVhiuSkgBlVCbGi8ntZ76QRhXVNZ2X5wGAV7AqtBNO7/qpT1rAqnZYZTxVFXFgqgUS87n61Nv/UYS6zPs3GyP1H31eojDQiltMtuBCCS9QEdplSJDewkm7FuIObBBzc4g/R7hX2wuC5+P61r61LOFNLr7USh4QkZuk6+5vUli5bBSWx/Od8nXoxy3Vi7YxJbTlHSd/sxnTAxUKzIwqw79q9FXD6/KBmIjX3VlmpWNhiRAXFymcBhK6xEzzP3xnfbX2vI6pR6YOAr/FJxR9J/ACaeONNRfwbDuPFlpp974mFfgpbwzcH+S4wRucIgKqn82wuSe5mMO1IQNMBFKi3EDGpmD1c9Lglq35yIaGF64s2ZI5tacFQ7UfMAcZ4munyYgMp/vjcn0smwyLJXokl17P7jnhM8JijP8KFqnQ6Ozf35xZhtzNpCmP1cKuS58a6WRkBW+hV+QHAJu0+8FS8NhotoGbcGUhVDmua998fAXNMGjEU/WCZTGH0jZNAAitA0SS331y3FD0YsCXinJZj/HNmQQw0VdRV259KLw7wIRt+aUTrLzTwuv5XJnJo0hgMAYbAWt9B1M1GJ5cC1/I2qIL+jNTgCj4R7mISsItB0PU+xujxwmayv1KNNij
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BL1PR12MB5898.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014)(38070700021)(22082099003)(56012099003)(18002099003);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?VasCcXtW8Ha8UUteF/Zc9LOP+Agx+dhs8JCjh3q1rd692i9ZRZEK9YWac0+o?=
- =?us-ascii?Q?EbDSqNw4eE66L/DWvMjE2ysVnfbE/jURx8oMB4DCG2uCJcWHvdnU9kfAyLST?=
- =?us-ascii?Q?qzGOYHw6xABWmHusMTjiNiTtDj4b0BhcKVQqiPRuhvFoXkfoJNHgEgVcov9j?=
- =?us-ascii?Q?D1SXoUyX7/7PiLnQlLQnkTzQvfmlaUyWYi9Xo5Klz2le5FcBjqDUc4LKD9+e?=
- =?us-ascii?Q?ytptdTmOWt6+4xgnoNN33ulox90W3L1BZfcanHGpcvT5bfw8IHa08F73xAs9?=
- =?us-ascii?Q?n18sMgHwfdAcXdnvPLijMtq5oG7rGZqbpbJfcIYRnbQIvco0azEUt0xpxf9G?=
- =?us-ascii?Q?DBuILsC3w45mO06ryFXI7Vbp98F3bphNnp139MIR4xRUAgGUFNae1Zuxjlng?=
- =?us-ascii?Q?3LWKpJUzPXUbBZTUvjCRqp6fLQmIJtj0GihLbYK6hWkJes05/7y7FFsdR6/2?=
- =?us-ascii?Q?lMSgjtirdCtiSGvWIGtEb1L8GcWqJTco5a6EEcpwrBhxd/SrCk0pvhKkHOKW?=
- =?us-ascii?Q?K6oOJ19KVh3IYhSyr2VvKrVHfBYPk72lMCVnS/9p/5SBo3NFe060DsEu0UAc?=
- =?us-ascii?Q?+Vzjjj9VLIyI9vW/10MqaAZn4WuMSy63/BzOSDoqUJuTxeOxMaGAm5WStSe1?=
- =?us-ascii?Q?+d4rb9IyONVkwpZpe2IWUS8gOuocDUGBadfNYApqBtIx1JIfW03HkqXVpX+Y?=
- =?us-ascii?Q?f6nySESNtl5r0YdEJD7bYT6R0qKY04ssL8+jcrYgem+TXGux5BOhWm6LYO23?=
- =?us-ascii?Q?obkOuLxaUSIyTAPea5Fb7FnruCZWsrJKrgmc4pNa6cUWkmEOYmdokATV3F+9?=
- =?us-ascii?Q?0RwcqRqtjtZj4gzHs4lSWWZCKlxQt9xfPeLfGderBOQGXVeIbsEyk3q3sMEu?=
- =?us-ascii?Q?B3W4/Rgcq/ee6IVMPqHpVNoE4nXriajQZ9zEsMajAv3UzhUn5twHveh+2Ubz?=
- =?us-ascii?Q?eyCrzHeDaUnHh5qMJPOac6ZvKdI+CwdrPpNTGn6rquolCQyQf5WF1ju3V79o?=
- =?us-ascii?Q?uW+Op4xl4G1n7GaaMicpAjdbA5QGvu2PsIEaTfjF3cWe/sLin2Gh8vLo/c4C?=
- =?us-ascii?Q?Pk0nj76l9in7LNWjvHC8MtcL+m1gF8fpkm4i/5/zgvXoTVrPAxFzqepKwW8v?=
- =?us-ascii?Q?mFabrS/3j16TpyTnBMdvI6cPEueCaHS/O9uk/SgSbXNonzx7WGt0d3fUQdV4?=
- =?us-ascii?Q?IRPUOTHpNZ8RcSa0yRq+zV1gWFq2vgvKdLyzpfQ2y5gmnk2dOsD+5FUvvilf?=
- =?us-ascii?Q?91aYSpklp2JhC1OG3H2nRXuvdVyxeiAogYewBcIhiRRvvDHET8vfZABwBgif?=
- =?us-ascii?Q?OIL0bxPpxK+QwbAbjNX8a0Ngmj7uC3TqgOzHT2h4kOe81HfaqZDFT42PK+XE?=
- =?us-ascii?Q?yijS6Dwwq+FBMRXHZSZVdY74lbsTm1Y2topTpDu+CSHABn7E3fhSq2hSI0AQ?=
- =?us-ascii?Q?+tsIVsaEzuO8RwCoKDs7E/b5ehl7tH38hGxCP/hdAduJYoLgRIpA6lla/JnZ?=
- =?us-ascii?Q?9+eshg4XMCGa13ZDRnsE2iinW8S1W7cPj/JKu/QCpbeO7ItZcINL0j2CwaFj?=
- =?us-ascii?Q?hh4ZBYPfuEPuriq4If9FmxaZ9kGp/8UH8lBV+2lKTysMv5peDnnsS3/L9imx?=
- =?us-ascii?Q?SXNeGYSu3HE+EhOcc8UqfmE0cLIdfNRzQRN2ZTQMixLGkWwWCeIdZEhVSunv?=
- =?us-ascii?Q?EfSajnSaK7NhLChUB/dPKlzOpxWV2qSO5F0N6t/jqIv5XDt9?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Received: from mail-dl1-f45.google.com (mail-dl1-f45.google.com [74.125.82.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AA14B10E339
+ for <amd-gfx@lists.freedesktop.org>; Tue, 28 Apr 2026 15:38:34 +0000 (UTC)
+Received: by mail-dl1-f45.google.com with SMTP id
+ a92af1059eb24-12c87f1f8c8so757558c88.2
+ for <amd-gfx@lists.freedesktop.org>; Tue, 28 Apr 2026 08:38:34 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1777390714; cv=none;
+ d=google.com; s=arc-20240605;
+ b=FY/ZSDq6tD19i7W7g4fiOy3sQ6J9c9seYODmk9SnYih/9Zob4Aj18gK4Mdns3l9jc5
+ c85MHQYqmtZNDSkqapBFDTSj0XaHi+clDDNPl3LmSUrghVtUMLvA4WooSPY3rjbMzlJq
+ qqIeHOMZiwguWGw9feqkNde+A0IDPKuUohEoawfwBqLCRypaIY5qQiTXnFwAUn6KK/Uz
+ W97cG5hun9DJsuI6yISTvfAcoaN2TSHefSVEucgDlid76iS7svVpaIgDnM69MDmnFPR7
+ ZCGO0ekAsJ9cHw+4uzCcZTvKptXPzVx9QZyvHsH83cpZE/K7tvS03UrWKIPjU8wgL4eK
+ ZDnw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=1vlxp0DeZ8GEsmjpDNkyWpeuN9UMYViYowsvdGI/rnY=;
+ fh=4EZMVWf3LwlV5EAXNlkE8jHnJbWP8LID0bIrjs8Shr4=;
+ b=ZI23fZKeEPfrI9GfZ9AqnjYAaV67KUyUHa6Vuc2MTW7nfbfOQGzAZCjK3/mz12i6/Y
+ iQY/bxQPYREPCH8LG1Cwiw5OXnO6tQ/71/bKvaiTXKrdxKkmAp0UdwxyIFh+bN2NMWLc
+ RCGs35Vp5xUB/cljtOTyfFDA5vczXviK+9ELPqq8iET50dWAapPqhlTuLdCzGohT7En6
+ 4E0lUzgX6XqciGt/b01n7tx7J5cSbGzmZz6XnbFJvWzcy7khDzAmlYcN8BcPJAHBpsO8
+ OvDCXCVbd/7DrvL+NsPycv7ryEHRiwfC3BsywVSyzulZgeMPZpXf6s9HnX4MLtL5RMxr
+ TFwg==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1777390714; x=1777995514; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=1vlxp0DeZ8GEsmjpDNkyWpeuN9UMYViYowsvdGI/rnY=;
+ b=gTZde/yTQL7o16HDd5pXWj10b2nbLa0FySws567YBsXHgx6HZ1CccJsrcJVyDZtE0+
+ lmxReQsa0gThf0E/BEi62kY2izkzAlvjpenfbZj7PUJzSyO9Vbqze9fb6Ju6+m0JkHx/
+ zgNnA+aHrztnuSVQiW7nOkH8h1VBNjkE+x+f2RMZgCIlFpkuRCaeCJziGPn5qHfaHsQb
+ 1fSs+euhD+6WIulc9zG5uOhEFhvjMkoVSQNa+dUl8JOXKkneT9zHJY1WR3VnnjFwoxWv
+ g0zmkAzUveT4LScXD5Fjlz5Xd//N0hKcwwVSAXULjXZmCjaFu8uTGbtZXvoztmuSkHeP
+ b+Fw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1777390714; x=1777995514;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=1vlxp0DeZ8GEsmjpDNkyWpeuN9UMYViYowsvdGI/rnY=;
+ b=XpAHXJFT0pa4rEdSp1Pi/a9jDDtRZ1m0wfhgVeUJS9nja3aIF91pQ8OquECu4Nyfzi
+ IchEbvyD4LzCn0wm2C4JkNvTfsk8iUAITyeyfOJYcadb83u+O6jX4ol3UoJB4YnJLhfz
+ gw5pnCri94zkq9t9ccGW1h3Ve912BXCWO+5vGfW+scSs1tdkJqLmIbkUxMTtHA3/PA85
+ bbhB3S16zpMeTcSClPJ6vlJmUuJHq8CuNYTcxefDYroabTlU2hM+zNIjlqlEWIt5EjlM
+ lWrTaYFVTbQHgMv2GaAO8GcLkdDgRmC2IpkAgvfh/dty4OguK0XxklGlpMnNNPaKtW9w
+ Jdaw==
+X-Gm-Message-State: AOJu0YzY4X2eFftVQxMCDLuvOg51Bq7OkSs6c3aUBQ2/t1TBBx6GQPXr
+ Z/fNAjntrATmYVR0qTJVqxUARLXEYfdv02f2jkNt83CcfOAygNgWfrWDuZKQkyQjjkkvhdQin3T
+ yETCX13SnIWg3si2vrYpma/YNVvpsuQg=
+X-Gm-Gg: AeBDies07T//aOY2ZHc4z93yNcc7Jv4IjeEQzuQFo32UXyfOdapXb1+Ufs9uci0U251
+ bh8UpGyjysfZ+u2KXTKPoGEf3MXQI8VX5rq1M4GqRrhQWKu/zQVcOf95iQHP0jYZLcWRfsB+zZO
+ uKe7IERcCu7fokFbj1kE7XqLk6umMu+ttAjP8eGMUM0tq9ONuidaCm3vTmmDpAqZZJuD2uWFKV2
+ uZCNepA3yp/mXcJ6FSBtYDf+GXJvEkDwxWxNViGQU3KysEHMRW3fxkgHHSp1Usg+QvZEyP0NLJQ
+ WYLEZdnknaO9GZHNWXnH4SAmW7PmVbPIQsvV7CBLqnlrV/HiluOfbIhEDWJMte2Ggrt8ABFRKI4
+ TzPol
+X-Received: by 2002:a05:7022:f8c:b0:12d:b4e2:f566 with SMTP id
+ a92af1059eb24-12ddd539d5cmr797006c88.4.1777390713829; Tue, 28 Apr 2026
+ 08:38:33 -0700 (PDT)
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5898.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2b23d31f-0063-4b37-3a4c-08dea53a021c
-X-MS-Exchange-CrossTenant-originalarrivaltime: 28 Apr 2026 15:22:49.4908 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: uy1YaiRr6caEhqOjKRgHvnN3t6yKAgIn7R4fX4Kx1yYm4CqGcTUr/tDGNp428XOUp0YV9zrob/53SGSzUYUAOw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB999090
+References: <20260428114045.40710-1-timur.kristof@gmail.com>
+ <20260428114045.40710-7-timur.kristof@gmail.com>
+In-Reply-To: <20260428114045.40710-7-timur.kristof@gmail.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 28 Apr 2026 11:38:21 -0400
+X-Gm-Features: AVHnY4JcdkVLSy6WQhKwW0YjE7dxwsny9-4AjjahpuQELnTsnXUakPyQ9tTCr9Q
+Message-ID: <CADnq5_OQotcyrffGbo+ThzUmzkBjJYnSSYvfBucnytRPmU+R3g@mail.gmail.com>
+Subject: Re: [PATCH 6/6] drm/amd/display: Use EDID from VBIOS embedded panel
+ info
+To: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>
+Cc: amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com, 
+ Alex Hung <alex.hung@amd.com>, Harry Wentland <Harry.Wentland@amd.com>,
+ Roman Li <Roman.Li@amd.com>, 
+ Leo Li <sunpeng.li@amd.com>, Mario Limonciello <mario.limonciello@amd.com>, 
+ Ivan Lipski <ivan.lipski@amd.com>, Melissa Wen <mwen@igalia.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,57 +107,103 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Public
+Applied the series!
 
-Reviewed-by: Kent Russell <kent.russell@amd.com>
+Thanks,
 
+Alex
 
-
-> -----Original Message-----
-> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Alex
-> Deucher
-> Sent: Tuesday, April 28, 2026 10:56 AM
-> To: amd-gfx@lists.freedesktop.org; timur.kristof@gmail.com
-> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>
-> Subject: [PATCH 2/3] drm/amdgpu/pm: align Hawaii mclk workaround with rad=
-eon
+On Tue, Apr 28, 2026 at 7:59=E2=80=AFAM Timur Krist=C3=B3f <timur.kristof@g=
+mail.com> wrote:
 >
-> Align the hawaii mclk workaround with radeon and windows.
+> When an embedded panel has no DDC, read the EDID from
+> the VBIOS embedded panel info and use that.
 >
-> Link: https://gitlab.freedesktop.org/drm/amd/-/work_items/1816
-> Fixes: 9f4b35411cfe ("drm/amd/powerplay: add CI asics support to smumgr (=
-v3)")
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> Fixes: 7c7f5b15be65 ("drm/amd/display: Refactor edid read.")
+> Link: https://gitlab.freedesktop.org/drm/amd/-/work_items/5192
+> Signed-off-by: Timur Krist=C3=B3f <timur.kristof@gmail.com>
 > ---
->  drivers/gpu/drm/amd/pm/powerplay/smumgr/ci_smumgr.c | 8 ++++----
->  1 file changed, 4 insertions(+), 4 deletions(-)
+>  .../amd/display/amdgpu_dm/amdgpu_dm_helpers.c | 44 +++++++++++++++++++
+>  1 file changed, 44 insertions(+)
 >
-> diff --git a/drivers/gpu/drm/amd/pm/powerplay/smumgr/ci_smumgr.c
-> b/drivers/gpu/drm/amd/pm/powerplay/smumgr/ci_smumgr.c
-> index 6e89a032e3dcf..aea3ad523cc03 100644
-> --- a/drivers/gpu/drm/amd/pm/powerplay/smumgr/ci_smumgr.c
-> +++ b/drivers/gpu/drm/amd/pm/powerplay/smumgr/ci_smumgr.c
-> @@ -1336,10 +1336,10 @@ static int ci_populate_all_memory_levels(struct
-> pp_hwmgr *hwmgr)
->       if ((dpm_table->mclk_table.count >=3D 2) &&
->           ((dev_id =3D=3D 0x67B0) ||  (dev_id =3D=3D 0x67B1)) &&
->           (adev->pdev->revision =3D=3D 0)) {
-> -             smu_data->smc_state_table.MemoryLevel[1].MinVddci =3D
-> -                             smu_data-
-> >smc_state_table.MemoryLevel[0].MinVddci;
-> -             smu_data->smc_state_table.MemoryLevel[1].MinMvdd =3D
-> -                             smu_data-
-> >smc_state_table.MemoryLevel[0].MinMvdd;
-> +             smu_data->smc_state_table.MemoryLevel[1].MinVddc =3D
-> +                             smu_data-
-> >smc_state_table.MemoryLevel[0].MinVddc;
-> +             smu_data->smc_state_table.MemoryLevel[1].MinVddcPhases =3D
-> +                             smu_data-
-> >smc_state_table.MemoryLevel[0].MinVddcPhases;
->       }
->       smu_data->smc_state_table.MemoryLevel[0].ActivityLevel =3D 0x1F;
->       CONVERT_FROM_HOST_TO_SMC_US(smu_data-
-> >smc_state_table.MemoryLevel[0].ActivityLevel);
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c b/=
+drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+> index c53230cdfdc57..c491af21a34c6 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+> @@ -1032,6 +1032,45 @@ dm_helpers_read_acpi_edid(struct amdgpu_dm_connect=
+or *aconnector)
+>         return drm_edid_read_custom(connector, dm_helpers_probe_acpi_edid=
+, connector);
+>  }
+>
+> +static const struct drm_edid *
+> +dm_helpers_read_vbios_hardcoded_edid(struct dc_link *link, struct amdgpu=
+_dm_connector *aconnector)
+> +{
+> +       struct dc_bios *bios =3D link->ctx->dc_bios;
+> +       struct embedded_panel_info info;
+> +       const struct drm_edid *edid;
+> +       enum bp_result r;
+> +
+> +       if (!dc_is_embedded_signal(link->connector_signal) ||
+> +           !bios->funcs->get_embedded_panel_info)
+> +               return NULL;
+> +
+> +       memset(&info, 0, sizeof(info));
+> +       r =3D bios->funcs->get_embedded_panel_info(bios, &info);
+> +
+> +       if (r !=3D BP_RESULT_OK) {
+> +               dm_error("Error when reading embedded panel info: %u\n", =
+r);
+> +               return NULL;
+> +       }
+> +
+> +       if (!info.fake_edid || !info.fake_edid_size) {
+> +               dm_error("Embedded panel info doesn't contain an EDID\n")=
+;
+> +               return NULL;
+> +       }
+> +
+> +       edid =3D drm_edid_alloc(info.fake_edid, info.fake_edid_size);
+> +
+> +       if (!drm_edid_valid(edid)) {
+> +               dm_error("EDID from embedded panel info is invalid\n");
+> +               drm_edid_free(edid);
+> +               return NULL;
+> +       }
+> +
+> +       aconnector->base.display_info.width_mm =3D info.panel_width_mm;
+> +       aconnector->base.display_info.height_mm =3D info.panel_height_mm;
+> +
+> +       return edid;
+> +}
+> +
+>  void populate_hdmi_info_from_connector(struct drm_hdmi_info *hdmi, struc=
+t dc_edid_caps *edid_caps)
+>  {
+>         edid_caps->scdc_present =3D hdmi->scdc.supported;
+> @@ -1052,6 +1091,9 @@ enum dc_edid_status dm_helpers_read_local_edid(
+>
+>         if (link->aux_mode)
+>                 ddc =3D &aconnector->dm_dp_aux.aux.ddc;
+> +       else if (link->ddc_hw_inst =3D=3D GPIO_DDC_LINE_UNKNOWN &&
+> +                dc_is_embedded_signal(link->connector_signal))
+> +               ddc =3D NULL;
+>         else
+>                 ddc =3D &aconnector->i2c->base;
+>
+> @@ -1065,6 +1107,8 @@ enum dc_edid_status dm_helpers_read_local_edid(
+>                 drm_edid =3D dm_helpers_read_acpi_edid(aconnector);
+>                 if (drm_edid)
+>                         drm_info(connector->dev, "Using ACPI provided EDI=
+D for %s\n", connector->name);
+> +               else if (!ddc)
+> +                       drm_edid =3D dm_helpers_read_vbios_hardcoded_edid=
+(link, aconnector);
+>                 else
+>                         drm_edid =3D drm_edid_read_ddc(connector, ddc);
+>                 drm_edid_connector_update(connector, drm_edid);
 > --
 > 2.53.0
-
+>
