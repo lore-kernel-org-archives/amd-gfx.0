@@ -4,50 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6D529FF885D
-	for <amd-gfx@archiver.kernel.org>; Tue, 28 Apr 2026 10:42:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1565DFF8868
+	for <amd-gfx@archiver.kernel.org>; Tue, 28 Apr 2026 10:42:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0AABD10EAD4;
-	Tue, 28 Apr 2026 10:42:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A97DE10EAD8;
+	Tue, 28 Apr 2026 10:42:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="m0ANKoGh";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="t6TdL7Xe";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7677310EAD4;
- Tue, 28 Apr 2026 10:42:26 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CF79310EAD8;
+ Tue, 28 Apr 2026 10:42:48 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 5E146448D9;
- Tue, 28 Apr 2026 10:42:26 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 16686C2BCB5;
- Tue, 28 Apr 2026 10:42:25 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id B5AEE448A2;
+ Tue, 28 Apr 2026 10:42:48 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C818C2BCAF;
+ Tue, 28 Apr 2026 10:42:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1777372946;
- bh=YYIkqQ9a4OfiF9mbQz1HCnpw6DUneyXAQGZOQZZE1VQ=;
+ s=k20201202; t=1777372968;
+ bh=ftFBoeUNo9XvxtsYcnDiXdJCUTvZ3/oDkUO0Odx4Rr0=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=m0ANKoGh+LyZJNtdfctZEjcmeg+yu4QtSdJ6HGk4oM0AChO+2VQLiuLlyR1Ohfri0
- hD6dSmG6rS0gdYRjxS+9PLOpBBxHqtLfL9tX9ALwKz9P6xGLb/LCIlEiouwa1f0UJA
- aMKfzHuDsEPUXEhq1pipOjrii4atz0ImIsQF+EbHdQNomDGvETO/mBdajuBSkxAK7N
- PqwETkbtPwkfeXnELGO6c+zD2pxE1/kwcLR3n10O8UQxHZWwA+N2NUjlKO3l6ToWPH
- mY9e4UTdsrEK6IA7CQIcInb8BTLwyz90CuIGnr3I9MFKXoaRKg3aJNns31VU5fB2/g
- d+iTdvnMBBvPw==
+ b=t6TdL7XeQ0c6Jskuz/zrPlQc3z/Msb1czQ8OiQQ307k3m4ZkE0/yDiLxgxtJW4ztp
+ S10L8fcKzTqBZ+Atpo+jSlo4YaSJoR5AZYHMTOgDrJlxIn3IrkGaZIr7V03cWto6hJ
+ fjE90uLPbCp2MuZk7q1XC0JuNuSj9oSCGJQizxi6OVRN0WGXB0Noa45KyWX7vWY9No
+ a/90s17kxx2JhlVtUZv2y642dpqfp+OLV+5RFMWLA9lObvcMR3J2VwxHgKYK44fKLI
+ VZdkIDgX/s3drxIQObDxpveqD7xFXYvcwld/QKr7OK7bKnjTyggDDJoWEQXRnmSO4Y
+ VzU1OVgpmbKvw==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Prike Liang <Prike.Liang@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Sasha Levin <sashal@kernel.org>, Xinhui.Pan@amd.com, airlied@gmail.com,
+Cc: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
+ Austin Zheng <austin.zheng@amd.com>, Roman Li <roman.li@amd.com>,
+ Dan Wheeler <daniel.wheeler@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
+ harry.wentland@amd.com, sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com,
+ christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
  daniel@ffwll.ch, amd-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 7.0-6.18] drm/amdgpu: drop userq fence driver refs out
- of fence process()
-Date: Tue, 28 Apr 2026 06:40:48 -0400
-Message-ID: <20260428104133.2858589-37-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 7.0-6.18] drm/amd/display: Fix HostVMMinPageSize unit
+ mismatch in DML2.1
+Date: Tue, 28 Apr 2026 06:41:03 -0400
+Message-ID: <20260428104133.2858589-52-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260428104133.2858589-1-sashal@kernel.org>
 References: <20260428104133.2858589-1-sashal@kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 X-stable: review
 X-Patchwork-Hint: Ignore
 X-stable-base: Linux 7.0.2
@@ -66,410 +67,394 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Prike Liang <Prike.Liang@amd.com>
+From: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
 
-[ Upstream commit dd88d42d9ca0dd7a4ed327dd33f6ead76cedf726 ]
+[ Upstream commit 5721b5b9c9c792233d7817239bd81925fb3ad9d1 ]
 
-amdgpu_userq_wait_ioctl() takes extra references on waited-on fence
-drivers and stores them in waitq->fence_drv_xa. When a new userq fence is
-created, those references are transferred into userq_fence->fence_drv_array
-so they can be released when the fence completes.
+[Why]
+This was found back on DML2 but was missed when creating DML2.1.
 
-However, those inherited references are currently only dropped from
-amdgpu_userq_fence_driver_process(). If a fence never reaches that path,
-such as it is already signaled when created, so we need to explicitly release
-those fences in that case.
+The bottom layer calculation (CalculateHostVMDynamicLevels) expects
+a value in bytes, not KB, but we pass in the value in KB (eg. 4).
 
-v2: use a list(list_cut_before) for managing the signal userq driver fences.(Christian)
-    Link: https://patchwork.freedesktop.org/patch/718078/?series=164763&rev=2
-v3: Doesn't cache the userq first unsignaled fence and use the cut before list
-    head directly.(Christian)
+This causes an extra page table level to be required in the prefetch
+bytes which can be significant overhead - preventing some modes
+from being supported that should otherwise be.
 
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Prike Liang <Prike.Liang@amd.com>
-Reviewed-by: Christian König <christian.koenig@amd.com>
+[How]
+Correct the units by multiplying the input and override values by 1024.
+
+Reviewed-by: Austin Zheng <austin.zheng@amd.com>
+Signed-off-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+Signed-off-by: Roman Li <roman.li@amd.com>
+Tested-by: Dan Wheeler <daniel.wheeler@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-Now I have a complete picture. Let me write the final analysis.
+Based on my comprehensive analysis, I have enough information to make a
+decision. Let me compile my findings.
 
-## Analysis
+## Phase 1: Commit Message Forensics
 
-### PHASE 1: COMMIT MESSAGE FORENSICS
+**Step 1.1:** Subject parsing
+Record: [drm/amd/display] [Fix] [HostVMMinPageSize unit mismatch in
+DML2.1]
 
-**Step 1.1:** Subsystem: `drm/amdgpu`. Action verb: "drop"
-(release/cleanup). One-line summary: drop userq fence driver references
-out of the fence-process path so they get released even when a fence is
-already signaled at creation.
-Record: drm/amdgpu drop - releases fence driver refs on the signaled-at-
-create path.
+**Step 1.2:** Tags
+Record:
+- Reviewed-by: Austin Zheng (AMD)
+- Signed-off-by: Nicholas Kazlauskas (author, AMD), Roman Li (AMD DC
+  submaintainer), Alex Deucher (AMD GPU maintainer)
+- Tested-by: Dan Wheeler (AMD test engineer)
+- No Fixes: tag, no Cc: stable tag (expected for review candidates)
 
-**Step 1.2:** Tags found:
-- `Cc: Alex Deucher` - co-author/maintainer notification
-- `Signed-off-by: Prike Liang` - author at AMD
-- `Reviewed-by: Christian König` - AMD subsystem maintainer
-- `Signed-off-by: Alex Deucher` - applied via Alex's tree
-- `Link:
-  https://patchwork.freedesktop.org/patch/718078/?series=164763&rev=2` -
-  v2 reference
-- v3 noted, no Cc: stable, no Fixes:, no Reported-by
+**Step 1.3:** Body analysis
+Record: The bug is that `CalculateHostVMDynamicLevels` expects
+HostVMMinPageSize in bytes (thresholds 2048 and 1048576 = 2KB and 1MB),
+but DML2.1 passes the value in KB (e.g., 4 for 4KB). This causes wrong
+branch selection and adds an extra page table level to prefetch
+overhead, "preventing some modes from being supported that should
+otherwise be." Failure mode = display mode unnecessarily rejected by
+validator.
 
-Record: Reviewed and signed by maintainers; no syzbot/stable tags;
-passed through 3 review iterations.
+**Step 1.4:** Hidden bug fix detection
+Record: Not hidden - clearly described as a fix for a unit mismatch. The
+verb "Fix" is explicit.
 
-**Step 1.3:** Bug description: `amdgpu_userq_wait_ioctl()` takes
-references on each waited-on fence driver and stores them in
-`waitq->fence_drv_xa`. When a new fence is later created via
-`amdgpu_userq_fence_create()`, those references are transferred into
-`userq_fence->fence_drv_array`. The releases of those refs happen
-exclusively in `amdgpu_userq_fence_driver_process()`. If the fence is
-already signaled at creation time (HW already advanced past wptr), the
-fence is never linked into `fence_drv->fences` and therefore never goes
-through `amdgpu_userq_fence_driver_process()`, so the inherited
-`fence_drv` references are leaked.
+## Phase 2: Diff Analysis
 
-**Step 1.4:** This is clearly described as a leak fix; not disguised as
-cleanup.
+**Step 2.1:** Inventory
+Record: Single file `dml2_core_dcn4_calcs.c`, 6 lines changed (+6/-6), 6
+hunks. All in `dml_core_ms_prefetch_check`, `dml_core_mode_support`,
+`dml_core_mode_programming`. Scope: surgical single-file fix.
 
-### PHASE 2: DIFF ANALYSIS
+**Step 2.2:** Code flow
+Record: Each hunk replaces `hostvm_min_page_size_kbytes` (a value in KB)
+with `hostvm_min_page_size_kbytes * 1024` (converting to bytes). Affects
+calls to `CalculateExtraLatency`,
+`CalculatePrefetchSchedule_params->HostVMMinPageSize`, and
+`CalculateVMRowAndSwath_params->HostVMMinPageSize`.
 
-**Step 2.1:** Single file:
-`drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c`, +33/-14. Functions
-changed: new helper `amdgpu_userq_fence_put_fence_drv_array()`, modifies
-`amdgpu_userq_fence_driver_process()` and `amdgpu_userq_fence_create()`.
-Surgical single-file fix.
+**Step 2.3:** Bug mechanism
+Record: Type/unit bug. The receiving function checks `< 2048`, `>= 2048
+&& < 1048576`, `>= 1048576` (bytes thresholds). With KB input (e.g., 4),
+every value falls into the first branch, causing maximum page table
+levels to be added incorrectly, which inflates prefetch bandwidth
+requirements.
 
-**Step 2.2:** Three change clusters:
-1. New helper `amdgpu_userq_fence_put_fence_drv_array()` to put each
-   entry of the inherited fence_drv array.
-2. `amdgpu_userq_fence_driver_process()` reworked to: walk under
-   spinlock to find the boundary, `list_cut_before()` to splice signaled
-   entries to a local `to_be_signaled` list, drop the spinlock, then
-   signal & put refs outside the lock. This avoids dropping `fence_drv`
-   refs (which can call destroy → take various locks) while holding
-   `fence_list_lock`.
-3. `amdgpu_userq_fence_create()`: when the fence is already signaled at
-   creation, set a `signaled = true` flag and call the new helper after
-   releasing the spinlock to drop the inherited refs.
+**Step 2.4:** Fix quality
+Record: Trivially correct - just multiplying by a constant. No
+regression risk from the fix itself. Same fix pattern was historically
+applied to DML2.0 (commit 22136ff27c4e0/dcf6cd7f35de5) with `Cc:
+stable`.
 
-**Step 2.3:** Bug category: (b) reference counting / resource leak fix.
-Specific mechanism: The inherited `fence_drv` references in
-`userq_fence->fence_drv_array` were only released in the fence-list
-processing path (signal+remove). When the fence was already signaled at
-creation, the inherited refs leaked. Each leaked ref pins an
-`amdgpu_userq_fence_driver` (which holds GPU memory via seq64). Plus a
-structural improvement: putting refs outside `fence_list_lock` is needed
-because the put can chain into destroy callbacks.
+## Phase 3: Git History Investigation
 
-**Step 2.4:** Fix is logically correct (verified `list_cut_before`
-semantics: when iterator points at head after the loop completes,
-`cut_before(head)` moves all entries; when iterator is the first non-
-signaled entry, `cut_before(entry)` moves correct prefix; empty list is
-no-op). Minor risk: changes locking discipline in
-`fence_driver_process()` - now releases & signals outside the lock. This
-is safer wrt deadlock but is a behavioral change that could expose new
-races if any caller assumes the function holds the lock through signal.
+**Step 3.1:** File history
+Record: File introduced in commit `70839da636050` (2024-04-19, v6.11)
+"drm/amd/display: Add new DCN401 sources". Bug present since v6.11.
 
-### PHASE 3: GIT HISTORY INVESTIGATION
+**Step 3.2:** Fixes: tag follow-up
+Record: No Fixes: tag, but commit message references DML2 history. Found
+related history:
+- `22136ff27c4e0`/`dcf6cd7f35de5` (Nov 2023): Original DML2 fix with Cc:
+  stable - did exactly this multiplication
+- `d0f639c586939`/`a409c053b0b0c` (Dec 2023): Reverted, claimed spec
+  said KB
+- `bf282eb92b8` (Dec 2023): Re-applied the *1024 fix because revert
+  "causes failure to light up for 1080p eDP + 8k HDMI panel combo"
+This proves the *1024 IS the correct value.
 
-**Step 3.1:** The buggy mechanism (`fence_drv_array` transfer + only-
-release-in-process) was introduced in `e7cf21fbb2773` (Oct 2024) and the
-userq feature itself in `a292fdecd7283` (Oct 2024), both first appearing
-in v6.16. Bug present in all v6.16+ kernels.
+**Step 3.3:** File history for related changes
+Record: Related patches in same April 2 patch series include:
+- Patch 13: `df9228624afde` "Pass min page size from SOC BB to dml2_1
+  plane config" - related fix but independent
+- Patch 14: `90b05672b7f0e` "Fix DCN42 gpuvm_min_page_size_kbytes in SOC
+  BB" - related but independent
+This patch (11) is self-contained.
 
-**Step 3.2:** No `Fixes:` tag. Underlying buggy code is in v6.16,
-present in stable trees 6.18.y and 7.0.y (6.16/6.17 are EOL).
+**Step 3.4:** Author context
+Record: Nicholas Kazlauskas is a regular DC contributor and authored the
+related DCN35/DCN401 fixes. Reviewer Austin Zheng is also DC
+contributor. Submitter Roman Li is DC submaintainer.
 
-**Step 3.3:** Many related fixes recently:
-- `8e051e38a8d45 drm/amdgpu/userq: Fix fence reference leak on queue
-  teardown v2` — already in 6.18.y/7.0.y stable
-- `48c33af0b62d8 drm/amdgpu: make userq fence_drv drop explicit in queue
-  destroy` — Mar 2026, NOT in stable
-- `34f31fe40f3a1 drm/amdgpu: rework userq fence driver alloc/destroy` —
-  Mar 2026, NOT in stable
-- `a1371d9f0e611 drm/amdgpu: rework amdgpu_userq_wait_ioctl v4` — 582
-  lines, NOT in stable
-20 commits to this file have landed in master since the 7.0.y branch
-point.
+**Step 3.5:** Dependencies
+Record: Standalone fix. Multiplication by 1024 is purely a numeric
+correction at call sites. No dependencies.
 
-**Step 3.4:** Author Prike Liang is an AMD engineer with multiple recent
-userq commits. Reviewer Christian König is the dma-fence/amdgpu
-maintainer.
+## Phase 4: Mailing List Research
 
-**Step 3.5:** The diff context shows references to `userq->last_fence =
-NULL;` and a comment "Drop the queue's ownership reference to fence_drv
-explicitly" that come from earlier reworks NOT in stable, but those are
-*context lines* only - the actual hunks don't depend on them.
+**Step 4.1:** b4 dig
+Record: b4 dig could not find a match (commit too recent / not yet
+indexed). Found via direct lore search at
+`https://lists.freedesktop.org/archives/amd-gfx/2026-April/142246.html`.
+Posted as PATCH 11/22 of "DC Patches April 02, 2026" by Roman Li on Thu
+Apr 2 18:33:03 UTC 2026.
 
-### PHASE 4: MAILING LIST RESEARCH
+**Step 4.2:** Reviewers
+Record: Reviewed by Austin Zheng (AMD DC). Sent to amd-gfx list with
+appropriate maintainer CC.
 
-**Step 4.1:** `b4 dig -c dd88d42d9ca0d` could not find the patch on lore
-(likely hosted on amd-gfx archives at lists.freedesktop.org rather than
-indexed on lore). The commit message points to patchwork.freedesktop.org
-(Anubis-protected from automated fetches). Web searches didn't surface
-explicit stable nominations or NAKs for v3.
+**Step 4.3:** Bug reports
+Record: No specific Reported-by, no syzbot link, no bugzilla link. Bug
+found internally by AMD when reviewing DML2.1 vs DML2 differences.
 
-**Step 4.2/4.3/4.4/4.5:** Could not directly fetch the discussion due to
-access restrictions. The commit went through 3 revisions with explicit
-review feedback from Christian König incorporated each iteration.
+**Step 4.4:** Series context
+Record: Part of "DC Patches April 02, 2026" with 22 patches. The
+Nicholas Kazlauskas DML2.1 cluster (patches 11-15) addresses related but
+independent issues. This patch (11) does not depend on the others.
 
-### PHASE 5: CODE SEMANTIC ANALYSIS
+**Step 4.5:** Stable history
+Record: No discussion on stable@vger.kernel.org. Original DML2 fix was
+Cc'd to stable; this DML2.1 version was not.
 
-**Step 5.1:** Functions: `amdgpu_userq_fence_driver_process`,
-`amdgpu_userq_fence_create`, new
-`amdgpu_userq_fence_put_fence_drv_array`.
+## Phase 5: Code Semantic Analysis
 
-**Step 5.2:** Callers:
-- `amdgpu_userq_fence_driver_process` — called from interrupt handlers
-  (`gfx_v11_0_eop_irq`, `gfx_v12_0_eop_irq`) and from
-  `amdgpu_userq_fence_driver_force_completion` (process context). Hot
-  path.
-- `amdgpu_userq_fence_create` — called from `amdgpu_userq_signal_ioctl`
-  (userspace ioctl).
+**Step 5.1:** Functions modified
+Record: 3 functions: `dml_core_ms_prefetch_check`,
+`dml_core_mode_support`, `dml_core_mode_programming`. All are core mode
+validation/programming entry points called from DML2.1.
 
-**Step 5.3:** The functions interact with `dma_fence`, the per-userq
-fence list, and the per-userq `fence_drv_xa` xarray.
+**Step 5.2:** Callers
+Record: Called from `dml21_create`/`dml21_reinit`, which are called when
+`using_dml21=true && dce_version >= DCN_VERSION_4_01`. This means:
+DCN401 (RDNA4 / RX 9000 series GPUs) and DCN42 hardware. Reachable from
+every display mode validation.
 
-**Step 5.4:** Reachable from userspace via
-`DRM_IOCTL_AMDGPU_USERQ_SIGNAL` and `DRM_IOCTL_AMDGPU_USERQ_WAIT`
-ioctls. Any application using user-mode queues on RDNA3+/Navi3X+ AMD
-GPUs can hit it.
+**Step 5.3:** Callees
+Record: `CalculateExtraLatency` and via params,
+`CalculateHostVMDynamicLevels` (line 1565) which has the byte-threshold
+checks (`< 2048`, `< 1048576`).
 
-**Step 5.5:** The leak pattern — only releasing inherited refs in one
-specific path — is unique to this code; no sibling pattern needs the
-same fix.
+**Step 5.4:** Reachability
+Record: Every kernel modeset path on DCN401/DCN42 hardware. Highly
+reachable from userspace via DRM modeset ioctls.
 
-### PHASE 6: CROSS-REFERENCING AND STABLE TREE ANALYSIS
+**Step 5.5:** Similar patterns
+Record: Same fix pattern was previously applied to DML2.0 in current
+mainline (`drivers/gpu/drm/amd/display/dc/dml2_0/display_mode_core.c`
+has `* 1024` at the same kind of call sites).
 
-**Step 6.1:** Buggy code in 6.18.y, 6.19.y, 7.0.y. Not in 6.12.y or
-earlier (userq feature didn't exist).
+## Phase 6: Cross-Referencing
 
-**Step 6.2:** Verified the patch applies cleanly with a 4-line offset to
-both `stable/linux-6.18.y` and `stable/linux-7.0.y`:
+**Step 6.1:** Code in stable trees
+Record: Buggy code present in v6.11 through v6.18 (and v7.0). Verified
+with `git show v6.18:drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_
+core/dml2_core_dcn4_calcs.c | grep "soc.hostvm_min_page_size_kbytes,"` -
+bug exists.
 
-```text
-Hunk #1 succeeded at 151 (offset 6 lines).
-Hunk #2 succeeded at 174 (offset 6 lines).
-Hunk #3 succeeded at 256 (offset 14 lines).
-Hunk #4 succeeded at 303-304 (offset 14-15 lines).
-```
+**Step 6.2:** Backport complications
+Record: Path was renamed from `dml2/dml21/` to `dml2_0/dml21/` in commit
+`e6a8a000cfe6a` (2025-10-21). For stable trees v6.11-v6.18, the file is
+at `drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_core/dml2_core_dc
+n4_calcs.c`. Each `* 1024` change applies cleanly with path translation
+- line numbers vary by tree but contexts are stable. Minor manual rework
+needed for path.
 
-**Step 6.3:** No earlier/different fix for this exact leak in stable.
-Related leak fix `8e051e38a8d45` (last_fence leak on teardown) is
-already in stable.
+**Step 6.3:** Related fixes already in stable
+Record: No, the DML2.1 version of this fix has not been backported to
+any stable tree.
 
-### PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
+## Phase 7: Subsystem Context
 
-**Step 7.1:** drm/amdgpu, IMPORTANT level - widely deployed driver, but
-the userq feature is gated to specific newer GPUs.
+**Step 7.1:** Subsystem criticality
+Record: drivers/gpu/drm/amd/display - PERIPHERAL (driver-specific) but
+affects display output, which is user-visible. Users of DCN401 (Navi 4x
+discrete GPUs) and DCN42 (newer APUs) can lose display mode
+availability.
 
-**Step 7.2:** Highly active subsystem; userq is in heavy flux (over 20
-commits to this file since the 7.0 branch point).
+**Step 7.2:** Subsystem activity
+Record: Highly active subsystem with frequent DC patch series.
 
-### PHASE 8: IMPACT AND RISK ASSESSMENT
+## Phase 8: Impact and Risk
 
-**Step 8.1:** Affected: users of AMD RDNA3+ GPUs (Navi3X family and
-newer) using user-mode queues - this includes Mesa with the new UMD
-path. CONFIG_DRM_AMDGPU_NAVI3X_USERQ was removed in v6.16, so it's
-unconditionally available.
+**Step 8.1:** Affected population
+Record: DRIVER-SPECIFIC: Users with AMD DCN401 (RX 9070, RX 9060XT etc.)
+or DCN42 hardware running v6.11+. As DCN401 is the Navi 4x architecture
+(recent consumer GPU), this is a meaningful but smaller user base than
+core fixes.
 
-**Step 8.2:** Trigger conditions:
-- App uses userq wait+signal ioctl pattern (typical of Mesa with UMD)
-- HW completes the new fence's seqno before the create path checks
-  `dma_fence_is_signaled()`
-- This is realistic for fast HW - the wptr is read, then a fence is
-  constructed, and HW can advance during that window.
-- Each occurrence leaks one or more fence_drv references (depending on
-  how many fences the wait-on set had).
+**Step 8.2:** Trigger conditions
+Record: Triggered on every display mode validation when
+`using_dml21=true` (default). Bug manifests as "mode rejected" only when
+the actual page table level overhead matters, i.e., for high-bandwidth
+modes (high resolution + high refresh rate, multi-display). The DML2
+history shows real-world failure with "1080p eDP + 8k HDMI" combo.
 
-**Step 8.3:** Failure mode: kernel + GPU memory leak. Not a crash, not a
-security issue. Severity MEDIUM — accumulates over long-running graphics
-workloads. Each leaked `fence_drv` retains:
-- The fence_drv struct itself
-- A seq64 GPU memory allocation
-- An entry in `adev->userq_xa`
+**Step 8.3:** Failure mode severity
+Record: MEDIUM-HIGH. Failure mode is display modes being rejected that
+should work. Not a crash or data corruption, but user-visible feature
+loss (e.g., user cannot enable their monitor's native resolution/refresh
+rate). On laptops with eDP + external display, may prevent multi-monitor
+configurations.
 
-**Step 8.4:** Benefit: MEDIUM (real leak in user-reachable path on
-common workloads for this hardware). Risk: MEDIUM-LOW — 47-line change
-but well-contained, reviewed through 3 iterations, applies cleanly. The
-locking restructure also fixes a latent concern (dropping refs inside
-the spinlock could chain into destroy callbacks).
+**Step 8.4:** Risk-benefit
+Record:
+- BENEFIT: enables previously-rejected display modes for DCN401/DCN42
+  users (real-world impact demonstrated in DML2 history)
+- RISK: very low - 6 lines of arithmetic correction, well-tested in
+  mainline, identical pattern proven correct in DML2.0
+- Ratio: clearly favors backport
 
-### PHASE 9: FINAL SYNTHESIS
+## Phase 9: Final Synthesis
 
-**Step 9.1:** Evidence FOR: real reachable memory leak (kernel + GPU
-memory), reviewed by subsystem maintainer through v1/v2/v3, applies
-cleanly to active stable trees containing the bug, sibling fix
-`8e051e38a8d45` was backported, the affected feature ships
-unconditionally in 6.18+. Evidence AGAINST: no `Fixes:` or `Cc: stable`
-tag, structural change rather than minimal one-liner, userq feature
-still in heavy flux.
+**Step 9.1:** Evidence
+FOR backporting:
+- Small, surgical, obviously correct fix (just `* 1024`)
+- Bug present in stable trees v6.11+
+- Same fix pattern proven correct via DML2.0 history (revert/re-apply
+  cycle confirmed `*1024` is right)
+- Tested-by, Reviewed-by from AMD team
+- Real user-visible impact demonstrated historically (modes failing to
+  light up)
+- Bug already in mainline since April 2026
+- Fix is mathematical - no behavioral risk
 
-**Step 9.2:** Stable rules:
-1. Obviously correct/tested — Yes, reviewed by maintainer, multi-version
-2. Real bug — Yes, reference/memory leak
-3. Important — Medium: accumulating leak, not crash
-4. Small — Borderline: 47 lines, single file, three logical changes
-5. No new features — Correct
-6. Apply cleanly — Yes, verified for 6.18 and 7.0
+AGAINST:
+- No Cc: stable tag from authors
+- Smaller user base (DCN401/DCN42 specific hardware)
+- Path requires translation for older stable trees (`dml2_0/dml21/` ->
+  `dml2/dml21/`)
+- The DML2 version of this fix had a turbulent revert history (though
+  ultimately confirmed correct)
 
-**Step 9.3:** No exception category needed - this is a straightforward
-bug fix.
+UNRESOLVED:
+- Could not run b4 dig successfully (patch too recent for indexing)
+- Could not verify whether AMD will explicitly nominate this for stable
+  in a follow-up
 
-**Step 9.4:** Decision: The fix targets a real leak in user-reachable
-code (userq signal/wait ioctl on AMD GPUs), is properly reviewed,
-applies cleanly to active stable trees, and follows the same pattern as
-previously-backported sibling fixes. The structural rework is necessary
-to drop refs safely outside the spinlock. The userq subsystem is
-volatile, but this change is self-contained and addresses an unambiguous
-defect. Tilts toward backport-worthy.
+**Step 9.2:** Stable rules checklist
+1. Obviously correct? YES - simple multiplication, function clearly
+   expects bytes (thresholds in bytes)
+2. Fixes real bug affecting users? YES - mode validation incorrectly
+   rejects valid modes
+3. Important issue? MEDIUM - prevents some display modes from working,
+   similar pattern caused 1080p+8k failure in DML2
+4. Small and contained? YES - 6 lines, single file
+5. No new features/APIs? YES - pure fix
+6. Applies to stable? YES with minor path translation for v6.11-v6.18
 
-### Verification
+**Step 9.3:** Exception categories
+Not in special exception categories, but qualifies as a regular bug fix.
 
-- [Phase 1] Parsed tags: Reviewed-by Christian König (subsystem
-  maintainer), no Cc:stable, no Fixes:, v1→v3 evolution noted in commit
-  message.
-- [Phase 2] Diff inspected with `git show dd88d42d9ca0d`: 4 hunks, 33
-  added / 14 removed, single file. Manually traced `list_cut_before`
-  semantics including empty list and full-iterate-without-break corner
-  cases - logic correct.
-- [Phase 3] `git tag --contains
-  a292fdecd72834b3bec380baa5db1e69e7f70679` — userq feature first in
-  v6.16. `git tag --contains e7cf21fbb2773` — fence_drv_array transfer
-  mechanism first in v6.16.
-- [Phase 3] `git log --oneline stable/linux-7.0.y..origin/master --
-  drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c` shows 20 commits not
-  in 7.0.y stable; surveyed 8e051e38a8d45 (sibling backported fix),
-  48c33af0b62d8, 34f31fe40f3a1 (not yet in stable, but our patch's hunks
-  don't depend on them).
-- [Phase 4] `b4 dig -c dd88d42d9ca0d` - no lore match (commit was on
-  amd-gfx fdo list, points to patchwork). Web searches confirmed there's
-  a v2 and v3 with Christian's review feedback.
-- [Phase 5] Verified callers via Grep on the file:
-  `amdgpu_userq_fence_driver_process` is called from
-  `gfx_v11_0_eop_irq`/`gfx_v12_0_eop_irq` (irq) and
-  `amdgpu_userq_fence_driver_force_completion`.
-  `amdgpu_userq_fence_create` only from `amdgpu_userq_signal_ioctl`.
-- [Phase 6] Read content of file in `stable/linux-7.0.y` and
-  `stable/linux-6.18.y`: same vulnerable pattern
-  (`fence_drv_array_count` only released in `fence_driver_process`).
-- [Phase 6] `git apply --check` against stable 7.0.y and 6.18.y file
-  contents - applies cleanly with offsets 6/6/14/14-15.
-- [Phase 8] Failure mode: persistent memory leak (kernel struct + GPU
-  seq64 + userq_xa entry) per occurrence. Not crash; not security.
-- UNVERIFIED: Could not directly fetch the original lore/freedesktop
-  discussion due to Anubis bot protection; relied on patchwork link in
-  commit message and prior commits' patterns.
-- UNVERIFIED: Could not run the patched code; correctness of the rework
-  was reasoned from kernel `list_cut_before` semantics in source.
+**Step 9.4:** Decision
+The fix is small, surgical, obviously correct, well-tested, and
+addresses a real bug that affects users of recent AMD GPU/APU hardware.
+The historical precedent in DML2.0 (where the same `*1024` correction
+was eventually applied to stable after extensive testing confirmed it
+was right) strengthens confidence. The risk of regression is minimal
+given the trivial nature of the change.
 
-The fix addresses a real, user-reachable, ongoing GPU+kernel memory leak
-with proper review, applies cleanly to active stable trees with the bug,
-and matches the pattern of previously-backported sibling fixes in the
-same file.
+## Verification
+
+- [Phase 1] Parsed tags: Reviewed-by (Austin Zheng), Tested-by (Dan
+  Wheeler), no Fixes/Cc:stable - verified by reading commit message
+- [Phase 2] Diff analysis: confirmed 6 hunks, all `* 1024` multiplier
+  additions in single file - verified by reading patch
+- [Phase 3] git log + git show: bug code present since `70839da636050`
+  (v6.11, 2024-04-19) - verified
+- [Phase 3] git show 22136ff27c4e0: original DML2 fix with `Cc:
+  stable@vger.kernel.org` did same `*1024` change - verified
+- [Phase 3] git show bf282eb92b8: revert-of-revert for DML2 because
+  *1024 absence broke "1080p eDP + 8k HDMI" - verified
+- [Phase 3] git show e6a8a000cfe6a: path renamed `dml2/dml21/` ->
+  `dml2_0/dml21/` in 2025-10-21 - verified
+- [Phase 3] Local file read at line 1565: `CalculateHostVMDynamicLevels`
+  checks `< 2048`, `< 1048576` (bytes thresholds) - verified
+- [Phase 4] WebFetch lore archive: found patch 11/22 of "DC Patches
+  April 02, 2026" thread - verified
+- [Phase 4] b4 dig -c bd8001acfa62b: failed to find (patch too recent) -
+  acknowledged
+- [Phase 5] Grep for using_dml21: confirmed DML2.1 active for
+  DCN401/DCN42 with `dce_version >= DCN_VERSION_4_01` - verified
+- [Phase 6] git show
+  v6.18:.../dml2/dml21/src/.../dml2_core_dcn4_calcs.c: bug present in
+  v6.18 - verified
+- [Phase 6] git show
+  v6.12:.../dml2/dml21/src/.../dml2_core_dcn4_calcs.c: bug present in
+  v6.12 - verified
+- [Phase 6] dml2_0/display_mode_core.c grep: confirmed `*1024` already
+  applied for DML2.0 - verified
+- [Phase 7] DCN_VERSION_4_01 grep: confirmed dce_version usage gates
+  DML2.1 to DCN401+ hardware - verified
+- UNVERIFIED: Exact mailing list discussion URL - the patch is indexed
+  at lists.freedesktop.org (got the patch text), but lore.kernel.org has
+  not yet indexed it (b4 dig failure)
+- UNVERIFIED: Whether reviewers explicitly suggested stable backport -
+  did not find direct discussion
+
+The fix meets all stable kernel criteria: it is obviously correct, fixes
+a real bug affecting users of recent AMD hardware, is small and
+contained (6 lines, one file), introduces no new features, and applies
+to stable with only minor path translation. The historical DML2
+precedent strongly supports correctness and the user-visible impact.
 
 **YES**
 
- .../gpu/drm/amd/amdgpu/amdgpu_userq_fence.c   | 47 +++++++++++++------
- 1 file changed, 33 insertions(+), 14 deletions(-)
+ .../dml21/src/dml2_core/dml2_core_dcn4_calcs.c       | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
-index 5239b06b9ab03..147d3cbab7a88 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
-@@ -151,13 +151,22 @@ amdgpu_userq_fence_driver_free(struct amdgpu_usermode_queue *userq)
- 	amdgpu_userq_fence_driver_put(userq->fence_drv);
- }
+diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn4_calcs.c b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn4_calcs.c
+index ca5ac3c0deb56..cdd7c771afff9 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn4_calcs.c
++++ b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn4_calcs.c
+@@ -7381,7 +7381,7 @@ static noinline_for_stack void dml_core_ms_prefetch_check(struct dml2_core_inter
+ 		s->tdlut_bytes_per_group,
+ 		s->HostVMInefficiencyFactor,
+ 		s->HostVMInefficiencyFactorPrefetch,
+-		mode_lib->soc.hostvm_min_page_size_kbytes,
++		mode_lib->soc.hostvm_min_page_size_kbytes * 1024,
+ 		mode_lib->soc.qos_parameters.qos_type,
+ 		!(display_cfg->overrides.max_outstanding_when_urgent_expected_disable),
+ 		mode_lib->soc.max_outstanding_reqs,
+@@ -7477,7 +7477,7 @@ static noinline_for_stack void dml_core_ms_prefetch_check(struct dml2_core_inter
+ 			CalculatePrefetchSchedule_params->OutputFormat = display_cfg->stream_descriptors[display_cfg->plane_descriptors[k].stream_index].output.output_format;
+ 			CalculatePrefetchSchedule_params->MaxInterDCNTileRepeaters = mode_lib->ip.max_inter_dcn_tile_repeaters;
+ 			CalculatePrefetchSchedule_params->VStartup = s->MaximumVStartup[k];
+-			CalculatePrefetchSchedule_params->HostVMMinPageSize = mode_lib->soc.hostvm_min_page_size_kbytes;
++			CalculatePrefetchSchedule_params->HostVMMinPageSize = mode_lib->soc.hostvm_min_page_size_kbytes * 1024;
+ 			CalculatePrefetchSchedule_params->DynamicMetadataEnable = display_cfg->plane_descriptors[k].dynamic_meta_data.enable;
+ 			CalculatePrefetchSchedule_params->DynamicMetadataVMEnabled = mode_lib->ip.dynamic_metadata_vm_enabled;
+ 			CalculatePrefetchSchedule_params->DynamicMetadataLinesBeforeActiveRequired = display_cfg->plane_descriptors[k].dynamic_meta_data.lines_before_active_required;
+@@ -8965,7 +8965,7 @@ static bool dml_core_mode_support(struct dml2_core_calcs_mode_support_ex *in_out
+ 	CalculateVMRowAndSwath_params->MALLAllocatedForDCN = mode_lib->soc.mall_allocated_for_dcn_mbytes;
+ 	CalculateVMRowAndSwath_params->SwathWidthY = mode_lib->ms.SwathWidthY;
+ 	CalculateVMRowAndSwath_params->SwathWidthC = mode_lib->ms.SwathWidthC;
+-	CalculateVMRowAndSwath_params->HostVMMinPageSize = mode_lib->soc.hostvm_min_page_size_kbytes;
++	CalculateVMRowAndSwath_params->HostVMMinPageSize = mode_lib->soc.hostvm_min_page_size_kbytes * 1024;
+ 	CalculateVMRowAndSwath_params->DCCMetaBufferSizeBytes = mode_lib->ip.dcc_meta_buffer_size_bytes;
+ 	CalculateVMRowAndSwath_params->mrq_present = mode_lib->ip.dcn_mrq_present;
  
-+static void
-+amdgpu_userq_fence_put_fence_drv_array(struct amdgpu_userq_fence *userq_fence)
-+{
-+	unsigned long i;
-+	for (i = 0; i < userq_fence->fence_drv_array_count; i++)
-+		amdgpu_userq_fence_driver_put(userq_fence->fence_drv_array[i]);
-+	userq_fence->fence_drv_array_count = 0;
-+}
-+
- void amdgpu_userq_fence_driver_process(struct amdgpu_userq_fence_driver *fence_drv)
- {
- 	struct amdgpu_userq_fence *userq_fence, *tmp;
-+	LIST_HEAD(to_be_signaled);
- 	struct dma_fence *fence;
- 	unsigned long flags;
- 	u64 rptr;
--	int i;
+@@ -10755,7 +10755,7 @@ static bool dml_core_mode_programming(struct dml2_core_calcs_mode_programming_ex
+ 	CalculateVMRowAndSwath_params->MALLAllocatedForDCN = mode_lib->soc.mall_allocated_for_dcn_mbytes;
+ 	CalculateVMRowAndSwath_params->SwathWidthY = mode_lib->mp.SwathWidthY;
+ 	CalculateVMRowAndSwath_params->SwathWidthC = mode_lib->mp.SwathWidthC;
+-	CalculateVMRowAndSwath_params->HostVMMinPageSize = mode_lib->soc.hostvm_min_page_size_kbytes;
++	CalculateVMRowAndSwath_params->HostVMMinPageSize = mode_lib->soc.hostvm_min_page_size_kbytes * 1024;
+ 	CalculateVMRowAndSwath_params->DCCMetaBufferSizeBytes = mode_lib->ip.dcc_meta_buffer_size_bytes;
+ 	CalculateVMRowAndSwath_params->mrq_present = mode_lib->ip.dcn_mrq_present;
  
- 	if (!fence_drv)
- 		return;
-@@ -165,21 +174,26 @@ void amdgpu_userq_fence_driver_process(struct amdgpu_userq_fence_driver *fence_d
- 	spin_lock_irqsave(&fence_drv->fence_list_lock, flags);
- 	rptr = amdgpu_userq_fence_read(fence_drv);
- 
--	list_for_each_entry_safe(userq_fence, tmp, &fence_drv->fences, link) {
--		fence = &userq_fence->base;
--
--		if (rptr < fence->seqno)
-+	list_for_each_entry(userq_fence, &fence_drv->fences, link) {
-+		if (rptr < userq_fence->base.seqno)
- 			break;
-+	}
- 
--		dma_fence_signal(fence);
--
--		for (i = 0; i < userq_fence->fence_drv_array_count; i++)
--			amdgpu_userq_fence_driver_put(userq_fence->fence_drv_array[i]);
-+	list_cut_before(&to_be_signaled, &fence_drv->fences,
-+				&userq_fence->link);
-+	spin_unlock_irqrestore(&fence_drv->fence_list_lock, flags);
- 
--		list_del(&userq_fence->link);
-+	list_for_each_entry_safe(userq_fence, tmp, &to_be_signaled, link) {
-+		fence = &userq_fence->base;
-+		list_del_init(&userq_fence->link);
-+		dma_fence_signal(fence);
-+		/* Drop fence_drv_array outside fence_list_lock
-+		 * to avoid the recursion lock.
-+		 */
-+		amdgpu_userq_fence_put_fence_drv_array(userq_fence);
- 		dma_fence_put(fence);
- 	}
--	spin_unlock_irqrestore(&fence_drv->fence_list_lock, flags);
-+
- }
- 
- void amdgpu_userq_fence_driver_destroy(struct kref *ref)
-@@ -242,6 +256,7 @@ static int amdgpu_userq_fence_create(struct amdgpu_usermode_queue *userq,
- 	struct amdgpu_userq_fence_driver *fence_drv;
- 	struct dma_fence *fence;
- 	unsigned long flags;
-+	bool signaled = false;
- 
- 	fence_drv = userq->fence_drv;
- 	if (!fence_drv)
-@@ -288,13 +303,17 @@ static int amdgpu_userq_fence_create(struct amdgpu_usermode_queue *userq,
- 
- 	/* Check if hardware has already processed the job */
- 	spin_lock_irqsave(&fence_drv->fence_list_lock, flags);
--	if (!dma_fence_is_signaled(fence))
-+	if (!dma_fence_is_signaled(fence)) {
- 		list_add_tail(&userq_fence->link, &fence_drv->fences);
--	else
-+	} else {
-+		signaled = true;
- 		dma_fence_put(fence);
--
-+	}
- 	spin_unlock_irqrestore(&fence_drv->fence_list_lock, flags);
- 
-+	if (signaled)
-+		amdgpu_userq_fence_put_fence_drv_array(userq_fence);
-+
- 	*f = fence;
- 
- 	return 0;
+@@ -10971,7 +10971,7 @@ static bool dml_core_mode_programming(struct dml2_core_calcs_mode_programming_ex
+ 		s->tdlut_bytes_per_group,
+ 		s->HostVMInefficiencyFactor,
+ 		s->HostVMInefficiencyFactorPrefetch,
+-		mode_lib->soc.hostvm_min_page_size_kbytes,
++		mode_lib->soc.hostvm_min_page_size_kbytes * 1024,
+ 		mode_lib->soc.qos_parameters.qos_type,
+ 		!(display_cfg->overrides.max_outstanding_when_urgent_expected_disable),
+ 		mode_lib->soc.max_outstanding_reqs,
+@@ -11264,7 +11264,7 @@ static bool dml_core_mode_programming(struct dml2_core_calcs_mode_programming_ex
+ 			CalculatePrefetchSchedule_params->OutputFormat = display_cfg->stream_descriptors[display_cfg->plane_descriptors[k].stream_index].output.output_format;
+ 			CalculatePrefetchSchedule_params->MaxInterDCNTileRepeaters = mode_lib->ip.max_inter_dcn_tile_repeaters;
+ 			CalculatePrefetchSchedule_params->VStartup = s->MaxVStartupLines[k];
+-			CalculatePrefetchSchedule_params->HostVMMinPageSize = mode_lib->soc.hostvm_min_page_size_kbytes;
++			CalculatePrefetchSchedule_params->HostVMMinPageSize = mode_lib->soc.hostvm_min_page_size_kbytes * 1024;
+ 			CalculatePrefetchSchedule_params->DynamicMetadataEnable = display_cfg->plane_descriptors[k].dynamic_meta_data.enable;
+ 			CalculatePrefetchSchedule_params->DynamicMetadataVMEnabled = mode_lib->ip.dynamic_metadata_vm_enabled;
+ 			CalculatePrefetchSchedule_params->DynamicMetadataLinesBeforeActiveRequired = display_cfg->plane_descriptors[k].dynamic_meta_data.lines_before_active_required;
 -- 
 2.53.0
 
