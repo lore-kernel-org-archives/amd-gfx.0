@@ -4,71 +4,116 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9292CFF885D
-	for <amd-gfx@archiver.kernel.org>; Tue, 28 Apr 2026 12:54:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 85404FF8876
+	for <amd-gfx@archiver.kernel.org>; Tue, 28 Apr 2026 12:54:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A41AB10EBF6;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 618E68924B;
 	Tue, 28 Apr 2026 12:54:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="W4HvSzy9";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="AuPavHym";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DC62010EA24;
- Tue, 28 Apr 2026 07:31:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1777361513; x=1808897513;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=xglVrOoG47NkSF6SOaAIKSNjwEuZJu1bGAlwDUSuOWU=;
- b=W4HvSzy9yIdMUUJxgRb+rz3rNYidL+yIQGprtEXjnK4Y8+BUybBwVFtg
- /orSuSeiQ6Sn756JQ+X+9EUdFQJvzr1yfFHC92U7OYLe8kYnHIP4D5v5n
- tFIzGKegozQUZYnbW7M7Xnqf2cRqPTpDXHA5Bsi1x8MlW/72WkvUX8xPi
- WqgFBH+09g3uAwpU/Im803gDAurKShXbH+79/8TWRGiuoXs2iGtXcRjFB
- 0Thm3iMwxE9mP0z0UhVpIZSedxOeh2tKypcE1IMrgArohkcBmbBzq3Cpb
- 32+aWNlovf5rNwB4RpwWSUzU9HNpGp1RcUxeH5AK8CpOQypBnHKEN6BAA g==;
-X-CSE-ConnectionGUID: MI0c/iG3RtSKFroqNQ14jg==
-X-CSE-MsgGUID: 5p8a5uX8Tdmj66Iwczm35Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11769"; a="103722062"
-X-IronPort-AV: E=Sophos;i="6.23,203,1770624000"; d="scan'208";a="103722062"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
- by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Apr 2026 00:31:53 -0700
-X-CSE-ConnectionGUID: NXBGumxGRbmzOGFjDeSCWQ==
-X-CSE-MsgGUID: ViuuTdp6QFe705CMU9VqiA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,203,1770624000"; d="scan'208";a="230716284"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO fedora)
- ([10.245.244.161])
- by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Apr 2026 00:31:48 -0700
-From: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-To: intel-xe@lists.freedesktop.org
-Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Natalie Vock <natalie.vock@gmx.de>, Johannes Weiner <hannes@cmpxchg.org>,
- Tejun Heo <tj@kernel.org>,
- =?UTF-8?q?Michal=20Koutn=C3=BD?= <mkoutny@suse.com>,
- cgroups@vger.kernel.org, Huang Rui <ray.huang@amd.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Matthew Auld <matthew.auld@intel.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Simona Vetter <simona@ffwll.ch>,
- David Airlie <airlied@gmail.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+Received: from BN1PR04CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11010012.outbound.protection.outlook.com [52.101.56.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4E15910E9FC;
+ Tue, 28 Apr 2026 02:35:43 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=mu2mFh/L4SHptnH6mxgss+cmpwPam1Y3Ia3VSW5Eb4dF2u20fHsV9w69HilFtmKDsdHakujjp418SbPNncLJKD6B9wnW5EgKixneEGNVgL+97wwveFFfvJv/MJ9NH/+7bg0ZkOAqvqcK9Qzd/BoxOKvnIT14rvfPQvyZuv7kDQouDnmmOiZdTPr/uMnbtRtXKbPYR2iqRfTlTgHV3oeDW+5eZ4fEhtbJQgSIG578vKZppMvvkkf0+ovVZAAG6tOYcDowxGDsS5KTQKl9wBTc3hcGo5WAjLnv4c5FbSCmGHi5UbGPxXP4d9IJmhfwUMOVfJpQNjO/J0p30Qc6hLUewQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=mswZ9XIgqEvFPnMTw8GEKaRRnR8In/I260QHyCGjAPE=;
+ b=mQzwecd1lpFMVNUNWt1vXX2qNeDDRD64kwjeQOJenwL93ADB8EEe7s64yHUfqNoRzmN2mPoPO4ZTFv9OYwAFxsi1UTCcroig8GMiPJsplxKcNNCee2kKnulErkbzAFOTJVjs4pZKE+N+/xqoBXY0862gtYs2jFl2GQFYUz9xl5pZWMhEF7iuU1M8YWoHDvD5XaawSf1P49Nng8XH0wjzJSkALQA8FZvCR+rIW8ps3GeywuRsuynYu1i3hwIvrTfm4beuJph0z62jhW+7Qq1/8AHUrxGru2RfR25mQERv2jJP/VWW5EDJiiW0YsyLSK/TX/L0VQSU8yUaim58GAneKA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=mswZ9XIgqEvFPnMTw8GEKaRRnR8In/I260QHyCGjAPE=;
+ b=AuPavHymy6tG2Hmir0tYb0IZZkhg2nIWe9aUBzXnJ8DGxMnctJHGIUCwZ/GJYboiemB459mua5kx9ZEZ8uLUTFjWwUtUZrEAJrD/akaQydNauBUDtPPlcTnUogdboq2Mw7608JUxN3tKcS6N0oX0Ho/C7dMGI2d97fsNqtvWCQ6gZa+NXNLYzNFb1MztORw1bjinOieq/S5xDTL6YQCszdIhNJL9bmmZxhLfTNgs03Oo+AUdw5tQfCPyYd3KbY2hOefeVdE/sffcMhBGkQLYSNOJNJHvYW/1uXtfugEkMnXguG6zDwmWl3+upRp6uIoWbgJxFzri85XimaxV/Jf8ow==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from CY8PR12MB8300.namprd12.prod.outlook.com (2603:10b6:930:7d::16)
+ by PH7PR12MB8107.namprd12.prod.outlook.com (2603:10b6:510:2bb::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.15; Tue, 28 Apr
+ 2026 02:35:39 +0000
+Received: from CY8PR12MB8300.namprd12.prod.outlook.com
+ ([fe80::ce75:8187:3ac3:c5de]) by CY8PR12MB8300.namprd12.prod.outlook.com
+ ([fe80::ce75:8187:3ac3:c5de%3]) with mapi id 15.20.9870.013; Tue, 28 Apr 2026
+ 02:35:39 +0000
+From: Yury Norov <ynorov@nvidia.com>
+To: Felix Kuehling <Felix.Kuehling@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v2 1/4] cgroup/dmem: Add reclaim callback for lowering max
- below current usage
-Date: Tue, 28 Apr 2026 09:31:13 +0200
-Message-ID: <20260428073116.15687-2-thomas.hellstrom@linux.intel.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260428073116.15687-1-thomas.hellstrom@linux.intel.com>
-References: <20260428073116.15687-1-thomas.hellstrom@linux.intel.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Cc: Yury Norov <ynorov@nvidia.com>
+Subject: [PATCH v2] drm/amdgpu: use bitmap_clear() in
+ amdgpu_amdkfd_device_init()
+Date: Mon, 27 Apr 2026 22:35:35 -0400
+Message-ID: <20260428023536.449877-1-ynorov@nvidia.com>
+X-Mailer: git-send-email 2.51.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: BN9PR03CA0980.namprd03.prod.outlook.com
+ (2603:10b6:408:109::25) To CY8PR12MB8300.namprd12.prod.outlook.com
+ (2603:10b6:930:7d::16)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY8PR12MB8300:EE_|PH7PR12MB8107:EE_
+X-MS-Office365-Filtering-Correlation-Id: 02fed187-1d75-427e-1051-08dea4ced5b4
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|10070799003|366016|376014|1800799024|56012099003|18002099003; 
+X-Microsoft-Antispam-Message-Info: 3tk70V6DS1uVdjkkl7XfSwXFd54uUEff0sSaQrng3Os/TvxLJYlxdpKitwCk+CCtm2+zDoahTCp7HLz6cSTZwlD9dNtWE05ax+QBIYZd2QQkaVks5k1XeFttxfETU4kUnm0IDfco6s3RdtfKZpNTrA8cGC1lifsiVPR57IRqj06c1C6Uwgdh+0fwKVU1HW5U1bWKwIGoQ3wSB2zZxT90rSodtOI5zIJuC4mkJrYyakt74GZT9oeUyxE2J0VpOe/JK1jxHKjCbAlromYBbeDxR75SE7/yZFPSDf0E4YXZQLv4+vXA9YC961gKKPQ/87qRNagU21HxsYhtWH/c1voPJi6sO9ST+fkCAKCJ2Uj4t8q7PCsBiqcSonx2GkQpAxLTQA3tNPG3Ro/5ujY6mIWZ1Z7awg6IY9jItqJCgfJ/W000txVTeGAfevjV8fKyoUXq/nnEglW8gSacVynzK1F4dLUBH+KcPOa+pgUlv7mrt4O8lbZEn49KcTZTKPBHjvZLolrfe3AdJP8ALo1hw8+53JZ+Pm/FStF8mwFF5BgTYa5D+lh3TO/YKyT8KXRqV5Tr6rlXmnKAOjhQ/Pz4xCWNKTHwLGWUNdTPJRQNrSq8xK5samuuSvDxPjCjpQs3FdK1yeNC9NflXRoeNDszSXTq4H0W93gReErcG8VrNRbIjEhq8tWQvBwhrrKheV0g5q0kK/SAjxb5CdvWPxbYXfUt0sfxpFQrTdW7/nu5fiZqFjM=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CY8PR12MB8300.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(10070799003)(366016)(376014)(1800799024)(56012099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?ugWNcJC46Ugs7ATZaNqD/SoASrImtM3EPTkXS8fK9e3MguyJJqTbTgA3DDnQ?=
+ =?us-ascii?Q?p9BHMIGthnbt5yRSnOGnxgeAOLqo5Wjigz5P/i3amQaLBZU7zvr3CH7VV6W0?=
+ =?us-ascii?Q?yNg/kvLw9bwyUBs74DxSqnBAWOyK2YIyRJy/TM0GIy60xLRdR2xOCi3yUrNz?=
+ =?us-ascii?Q?7FvKpsZSyIDNL0WCRQx558uivBdozuoah7/c453EQXWdkS6jgJJNWqRA4oz+?=
+ =?us-ascii?Q?aKKD90IPE+c0DS65KCszQMHKlVZJ3Vh/71z2RPQKqGFt6tFLSPvh6Kh1SUus?=
+ =?us-ascii?Q?WcoBh5Ud95Wi5iVTXTJF8EtTxj8Z94jkYomrMJBwAKKsHsdgl7aM9nv3sYm0?=
+ =?us-ascii?Q?koDrWhUdVolvXkd9yiAV8KhD56nR6PPBQKSQOORvmsNdz8fgPMqzrOfyhpo6?=
+ =?us-ascii?Q?LrIyMh13p1nb71KsnW564RWrNra3AbZrm8ximFs6FheckiCW0z0BjvmR/OTP?=
+ =?us-ascii?Q?KTqsKZgMgDqAqm4HUIToKp/qy4pAFzSMM7KcJoicQgpzXWIEnNqdT3xX8lJJ?=
+ =?us-ascii?Q?mVrWYzdGq+PvVOVvPWtSa0+iGeHi9Mi6pF6/e6DR8l9YSsLMEr/Q87rKY+ky?=
+ =?us-ascii?Q?RPcy7D5+EOoxdNXbvGHYqmIZiJrHpADdkHeOD1kyq2/CYRBXgvHGE/reMrrd?=
+ =?us-ascii?Q?xRJWz4oWoBZaJHHVHZYuxGACyEzb3NcIDwSnlaCjDHBRSAPVkG7bkGSaKAon?=
+ =?us-ascii?Q?62jEImUgAHhiGRLX1WLvNWDVzIpeE+ACxp8u5PjY2EMffu7Gnbn+IC/h36cg?=
+ =?us-ascii?Q?bAwrnnq2LzcDyebqnHiNmpnHFJFSyOg2uwTUjIA1noQQoT6bsg/YQgmmi10I?=
+ =?us-ascii?Q?GHRACrDzYrPxS36kvlE7Xk6kW1kqQk9SH8MzVPZwvHvBM8AjTOnqv6o2rcdC?=
+ =?us-ascii?Q?GeDefvVLNxYp58wLbL9bNXapO7TejBhEdnAsXxehYXqFXNUA9mhGDv013mGa?=
+ =?us-ascii?Q?PMGYPKjA/LDinMkDuD2tXQe5RhAvTCn426pRZTF+quUfBUSA81GHMfwABNnp?=
+ =?us-ascii?Q?D4dA6yzzf5pieYK1c1tiwwcK1+z6Z3qLpbSg6fRe5UaEEDFEQaJ+4Wwgjblm?=
+ =?us-ascii?Q?q81FsbZtaKnKeGk9dkyJy0DFOZe/ClMOVAPY2/rPBRfa3/fDMSpHWOwR3qmm?=
+ =?us-ascii?Q?kWqrSi3b1eSruJWwCwJPoTNIw72L88oCzMFuNhXxkeFrJizVG0dQUQM0xzia?=
+ =?us-ascii?Q?8yK1gFDNR7v+Kfl/vKMWBp7xnDoemIyyv5zvpweHo8anE18cU3XfG1z4/RT7?=
+ =?us-ascii?Q?Pm4jmMxgm22uNdGB3LTbqbOPusHtsDImiltP3RwP1QxSDYjkyLdExFJSgK/V?=
+ =?us-ascii?Q?B+LkKw26I0bxhZXNAVaCeRQwuediO6UKiqQC3pfiGSJjhYq81WaMyNaG/YEs?=
+ =?us-ascii?Q?ZAygTkLJ0cg2Ih/k5UbMiTOE/ZBBq13AwxPQXPCNJ3zpgXBaVQ0nowvNIdNm?=
+ =?us-ascii?Q?oweeh7iXNaNI5FFfvIpnwUuFClvFiXWCAYAI6OLuzMrX+6Pz7OK4lafvN1HI?=
+ =?us-ascii?Q?80QeVxjyJ9pQdSUtksTAxIAbRCm4Xql9nOaag2nJXA++u6YCfvEeTnflmngF?=
+ =?us-ascii?Q?z8je+W7oXM5v+/7E3UwtIXnZMOCg1k+5E24AdC16sejD3gRXpsGel8g/wTl5?=
+ =?us-ascii?Q?TSJsiC9A8DgPzPQT1gUbYQMVs41TBBA2Ytd/fwDOn/2x+7L3ZQwog49cWrdj?=
+ =?us-ascii?Q?BUOR/CU5A9kP1pQ5Seucj43aaz/Jw3dhKz0loDy+PsBZz7vhO3iJjD52+SBu?=
+ =?us-ascii?Q?P29RdivpH3uPQqcP7CH7KWdLaqGVThxPPiGJUcrZrTo8N2fT/iYt?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 02fed187-1d75-427e-1051-08dea4ced5b4
+X-MS-Exchange-CrossTenant-AuthSource: CY8PR12MB8300.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Apr 2026 02:35:39.0017 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: /Q5uSe77TtNPY3pfz4dBS/dQxGSXaFNogEA/QgW3Ea1bOjPeRwmEYAS5sI2H2gDyie7JYc2OBSEcW+NU3RDrcA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB8107
 X-Mailman-Approved-At: Tue, 28 Apr 2026 12:54:19 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -84,206 +129,49 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add an optional reclaim callback to struct dmem_cgroup_region. When
-dmem.max is set below the current usage of a cgroup pool, the new limit
-is applied immediately (so that concurrent allocations are throttled
-while reclaim is in progress) and then the driver is asked to evict
-memory to bring usage back below the limit.
+The bitmap_clear() works OK with both compile- and runtime nbits. But the
+comment says it doesn't work, and opencodes the call for nothing.
+Drop the misleading comment, and use bitmap_clear() as it should.
 
-Reclaim is attempted up to a bounded number of times. No error is
-returned to userspace if usage remains above the limit after reclaim,
-and a pending signal will abort the reclaim loop early. This matches
-the behavior of memory.max in the memory cgroup controller.
+As a side effect, the patch switches from a series of atomics to
+a single non-atomic operation, which is easier on caches.
 
-Also honor O_NONBLOCK so that if that flag is set during the
-max value write, no reclaim is initiated. The idea is to avoid
-charging the reclaim cost to the writer of he max value.
-
-v2:
-- Write max before reclaim is attempted (Maarten)
-- Let signals abort the reclaim without error (Maarten)
-- If a new max value is written with the O_NONBLOCK flag,
-  reclaim is not attempted (Maarten)
-- Extract region from the pool parameter rather than
-  passing it explicitly to set_resource_xxx().
-
-Assisted-by: GitHub Copilot:claude-sonnet-4.6
-Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+Signed-off-by: Yury Norov <ynorov@nvidia.com>
 ---
- include/linux/cgroup_dmem.h | 11 +++++
- kernel/cgroup/dmem.c        | 83 +++++++++++++++++++++++++++++++++----
- 2 files changed, 85 insertions(+), 9 deletions(-)
+v2: don't declare 'i' in the new implementation.
 
-diff --git a/include/linux/cgroup_dmem.h b/include/linux/cgroup_dmem.h
-index dd4869f1d736..61520a431740 100644
---- a/include/linux/cgroup_dmem.h
-+++ b/include/linux/cgroup_dmem.h
-@@ -26,6 +26,10 @@ bool dmem_cgroup_state_evict_valuable(struct dmem_cgroup_pool_state *limit_pool,
- 				      bool ignore_low, bool *ret_hit_low);
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c | 8 ++------
+ 1 file changed, 2 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
+index d9e283f3b57d..500976d9087a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
+@@ -167,7 +167,6 @@ int amdgpu_amdkfd_drm_client_create(struct amdgpu_device *adev)
  
- void dmem_cgroup_pool_state_put(struct dmem_cgroup_pool_state *pool);
-+void dmem_cgroup_region_set_reclaim(struct dmem_cgroup_region *region,
-+				    int (*reclaim)(struct dmem_cgroup_pool_state *pool,
-+						   u64 target_bytes, void *priv),
-+				    void *priv);
- #else
- static inline __printf(2,3) struct dmem_cgroup_region *
- dmem_cgroup_register_region(u64 size, const char *name_fmt, ...)
-@@ -62,5 +66,12 @@ bool dmem_cgroup_state_evict_valuable(struct dmem_cgroup_pool_state *limit_pool,
- static inline void dmem_cgroup_pool_state_put(struct dmem_cgroup_pool_state *pool)
- { }
- 
-+static inline void
-+dmem_cgroup_region_set_reclaim(struct dmem_cgroup_region *region,
-+			       int (*reclaim)(struct dmem_cgroup_pool_state *pool,
-+					      u64 target_bytes, void *priv),
-+			       void *priv)
-+{ }
-+
- #endif
- #endif	/* _CGROUP_DMEM_H */
-diff --git a/kernel/cgroup/dmem.c b/kernel/cgroup/dmem.c
-index 1ab1fb47f271..56e698e2d1c9 100644
---- a/kernel/cgroup/dmem.c
-+++ b/kernel/cgroup/dmem.c
-@@ -51,6 +51,18 @@ struct dmem_cgroup_region {
- 	 * No new pools should be added to the region afterwards.
- 	 */
- 	bool unregistered;
-+
-+	/**
-+	 * @reclaim: Optional callback invoked when dmem.max is set below the
-+	 * current usage of a pool. The driver should attempt to free at least
-+	 * @target_bytes from @pool. May be called multiple times if usage
-+	 * remains above the limit after returning.
-+	 */
-+	int (*reclaim)(struct dmem_cgroup_pool_state *pool, u64 target_bytes,
-+		       void *priv);
-+
-+	/** @reclaim_priv: Private data passed to @reclaim. */
-+	void *reclaim_priv;
- };
- 
- struct dmemcg_state {
-@@ -145,21 +157,46 @@ static void free_cg_pool(struct dmem_cgroup_pool_state *pool)
- }
- 
- static void
--set_resource_min(struct dmem_cgroup_pool_state *pool, u64 val)
-+set_resource_min(struct dmem_cgroup_pool_state *pool, u64 val, bool nonblock)
+ void amdgpu_amdkfd_device_init(struct amdgpu_device *adev)
  {
- 	page_counter_set_min(&pool->cnt, val);
- }
+-	int i;
+ 	int last_valid_bit;
  
- static void
--set_resource_low(struct dmem_cgroup_pool_state *pool, u64 val)
-+set_resource_low(struct dmem_cgroup_pool_state *pool, u64 val, bool nonblock)
- {
- 	page_counter_set_low(&pool->cnt, val);
- }
+ 	amdgpu_amdkfd_gpuvm_init_mem_limits();
+@@ -194,14 +193,11 @@ void amdgpu_amdkfd_device_init(struct amdgpu_device *adev)
+ 				  adev->gfx.mec_bitmap[0].queue_bitmap,
+ 				  AMDGPU_MAX_QUEUES);
  
- static void
--set_resource_max(struct dmem_cgroup_pool_state *pool, u64 val)
-+set_resource_max(struct dmem_cgroup_pool_state *pool, u64 val, bool nonblock)
- {
--	page_counter_set_max(&pool->cnt, val);
-+	struct dmem_cgroup_region *region = pool->region;
-+
-+	/*
-+	 * Always update the limit, even if usage currently exceeds it.
-+	 * Concurrent allocations will be throttled against the new limit
-+	 * while reclaim is in progress.
-+	 */
-+	xchg(&pool->cnt.max, (unsigned long)val);
-+
-+	if (nonblock || !region->reclaim)
-+		return;
-+
-+	for (int retries = 5; retries > 0; retries--) {
-+		u64 usage = page_counter_read(&pool->cnt);
-+
-+		if (usage <= val)
-+			break;
-+
-+		if (signal_pending(current))
-+			break;
-+
-+		if (region->reclaim(pool, usage - val, region->reclaim_priv))
-+			break;
-+
-+		cond_resched();
-+	}
- }
+-		/* According to linux/bitmap.h we shouldn't use bitmap_clear if
+-		 * nbits is not compile time constant
+-		 */
+ 		last_valid_bit = 1 /* only first MEC can have compute queues */
+ 				* adev->gfx.mec.num_pipe_per_mec
+ 				* adev->gfx.mec.num_queue_per_pipe;
+-		for (i = last_valid_bit; i < AMDGPU_MAX_QUEUES; ++i)
+-			clear_bit(i, gpu_resources.cp_queue_bitmap);
++		bitmap_clear(gpu_resources.cp_queue_bitmap, last_valid_bit,
++					AMDGPU_MAX_QUEUES - last_valid_bit);
  
- static u64 get_resource_low(struct dmem_cgroup_pool_state *pool)
-@@ -184,9 +221,9 @@ static u64 get_resource_current(struct dmem_cgroup_pool_state *pool)
- 
- static void reset_all_resource_limits(struct dmem_cgroup_pool_state *rpool)
- {
--	set_resource_min(rpool, 0);
--	set_resource_low(rpool, 0);
--	set_resource_max(rpool, PAGE_COUNTER_MAX);
-+	set_resource_min(rpool, 0, false);
-+	set_resource_low(rpool, 0, false);
-+	set_resource_max(rpool, PAGE_COUNTER_MAX, false);
- }
- 
- static void dmemcs_offline(struct cgroup_subsys_state *css)
-@@ -568,6 +605,32 @@ void dmem_cgroup_pool_state_put(struct dmem_cgroup_pool_state *pool)
- }
- EXPORT_SYMBOL_GPL(dmem_cgroup_pool_state_put);
- 
-+/**
-+ * dmem_cgroup_region_set_reclaim - Register a reclaim callback on a region.
-+ * @region: The region to register the callback for.
-+ * @reclaim: Callback to invoke when dmem.max is set below current usage.
-+ *           Called with the pool that needs reclaiming and the number of
-+ *           bytes to free. Returns 0 on progress, negative on failure.
-+ * @priv: Opaque pointer passed back to @reclaim.
-+ *
-+ * When dmem.max is lowered below the current usage of a cgroup pool, the
-+ * dmem controller will call @reclaim with a target number of bytes to free.
-+ * After @reclaim returns the controller retries setting the limit; if usage
-+ * is still too high it calls @reclaim again, up to a bounded retry count.
-+ */
-+void dmem_cgroup_region_set_reclaim(struct dmem_cgroup_region *region,
-+				    int (*reclaim)(struct dmem_cgroup_pool_state *pool,
-+						   u64 target_bytes, void *priv),
-+				    void *priv)
-+{
-+	if (!region)
-+		return;
-+
-+	region->reclaim = reclaim;
-+	region->reclaim_priv = priv;
-+}
-+EXPORT_SYMBOL_GPL(dmem_cgroup_region_set_reclaim);
-+
- static struct dmem_cgroup_pool_state *
- get_cg_pool_unlocked(struct dmemcg_state *cg, struct dmem_cgroup_region *region)
- {
-@@ -725,9 +788,10 @@ static int dmemcg_parse_limit(char *options, u64 *new_limit)
- 
- static ssize_t dmemcg_limit_write(struct kernfs_open_file *of,
- 				 char *buf, size_t nbytes, loff_t off,
--				 void (*apply)(struct dmem_cgroup_pool_state *, u64))
-+				 void (*apply)(struct dmem_cgroup_pool_state *, u64, bool))
- {
- 	struct dmemcg_state *dmemcs = css_to_dmemcs(of_css(of));
-+	bool nonblock = of->file->f_flags & O_NONBLOCK;
- 	int err = 0;
- 
- 	while (buf && !err) {
-@@ -772,7 +836,8 @@ static ssize_t dmemcg_limit_write(struct kernfs_open_file *of,
- 		}
- 
- 		/* And commit */
--		apply(pool, new_limit);
-+		apply(pool, new_limit, nonblock);
-+
- 		dmemcg_pool_put(pool);
- 
- out_put:
+ 		amdgpu_doorbell_get_kfd_info(adev,
+ 				&gpu_resources.doorbell_physical_address,
 -- 
-2.53.0
+2.51.0
 
