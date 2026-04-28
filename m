@@ -4,112 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1A1C3FF8873
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9292CFF885D
 	for <amd-gfx@archiver.kernel.org>; Tue, 28 Apr 2026 12:54:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2381910EBF2;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A41AB10EBF6;
 	Tue, 28 Apr 2026 12:54:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="RQEGFp9o";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="W4HvSzy9";
 	dkim-atps=neutral
-Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com
- [209.85.218.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A8CFF10E96D
- for <amd-gfx@lists.freedesktop.org>; Mon, 27 Apr 2026 21:52:26 +0000 (UTC)
-Received: by mail-ej1-f54.google.com with SMTP id
- a640c23a62f3a-ba7a1cc0380so1769897066b.2
- for <amd-gfx@lists.freedesktop.org>; Mon, 27 Apr 2026 14:52:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linux-foundation.org; s=google; t=1777326745; x=1777931545;
- darn=lists.freedesktop.org; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=eodThUBj1SnOvacXe/3ftYxEWQMFbYqc4B0FCa9Alx4=;
- b=RQEGFp9odf24Yt/w+kqr1+LS3ScvAZjzhvsZmvmnlnZs/81FuhxwIBx2VAIzK/WgZx
- UuBBhqtNpPqk1CaUtGOVbblXSS21Z55+neZa1b5RMM8RxMoICRycTZYiLavD+T8r92J/
- O+r9fPnlEKRxQHmKPV3/4nVJ/oYDaqZhN3yjM=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1777326745; x=1777931545;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=eodThUBj1SnOvacXe/3ftYxEWQMFbYqc4B0FCa9Alx4=;
- b=Qajc8rA+98cJRKt1otIahg6MlDdujLXQ/2/vlwGnJzzJIUBjZW6MOTW+APm8aPEUXe
- jNyuSH5L96xVnowjj0mcnnOI8j0D86OY3Tc9N7zDg6EBS0TprcSW5kzQahV1v/J13P9V
- 2dFFAipTzzCjoYUu5WC6TRzgyza0I+XETYGwo2M/tt5GiEoYS/up+9GE73YIG+wjRjGc
- tXBB7jdOQeBrlmW0+0+tsBjFyxCZAMOgs2epl+ODjFuSNdL7dCZT9Z9Rcy6DloEyauQT
- fTybHvYnPOHYLOkEaDe7si/yyfjN/N3HctPJhzERnDRvbNWEP7qFxt3fLR5b5wSOg+Iy
- Uy6A==
-X-Forwarded-Encrypted: i=1;
- AFNElJ+p478s4UzkkaFaoMdvh5JSNfqob/JMrI4QT7sde8liPzeeSHmeXgNJvELuKlRQgxrS+HK9NXWJ@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwZ9s6EmBrVbzUaV4AFtOEs/Ib84xP/bk/yNTd5ccIr6FfUqVdn
- 9Ke3aUXKyjPBX1S4TUM+1CuAQcCwRe68RwL0yVKf9acSe6hbFFsTMID33sHQQfm3WEvuMfdq+FP
- /zHikj49+Fw==
-X-Gm-Gg: AeBDiev6X0ooWpk1v/839DFDF6m8vGhhCj9WTkjNPVGF06wxFkZcO1CALdSLa4Ms9r9
- nIwXS/UqvERridsi3eYpu1W6wHWL+dXheq4AEhD3mSHv0Dk3yuQpZreAg3OjURLRkgybb+fj9S8
- +j5an97gCnTECA13l4eDU40VwR7AjV1PZQb/jbMxTD5mC+iqLiA1LUeuSZCpXX1ojOnNMaouoAJ
- eP0azHcPSpElKr4AdzcNNkhpySk6t7AZmFUMIhZc67jF2Lg4+Z5IAyPSE1PFOUgz6TLxP/IdIWX
- mjrfcIASHKEBroDDtWSLl03+cBhMHXc2anpTpPsxU/44cukn7dFbqxabvXLJW3EANdkpECugE2i
- Dydi6/fgwMMY7JiJtthn2JrKqsbUKJgAdJ/gIULM3yonTeAmCv8aHjGOD8wr9sc7FXqjdCt5D58
- ohi0bDdpjrBIoWkWP80sw74Ej6qnPXOHRWUHhrZug4s4HRZFa1qu4ocT7+uF1+Kzq8aE1uEbYqF
- rCiyWNEvqs=
-X-Received: by 2002:a17:907:a191:b0:bac:707f:494a with SMTP id
- a640c23a62f3a-bb804440fc2mr19944666b.47.1777326744684; 
- Mon, 27 Apr 2026 14:52:24 -0700 (PDT)
-Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com.
- [209.85.208.54]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-bb80c57f559sm9784966b.61.2026.04.27.14.52.22
- for <amd-gfx@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 27 Apr 2026 14:52:23 -0700 (PDT)
-Received: by mail-ed1-f54.google.com with SMTP id
- 4fb4d7f45d1cf-677f7c29af6so9392458a12.2
- for <amd-gfx@lists.freedesktop.org>; Mon, 27 Apr 2026 14:52:22 -0700 (PDT)
-X-Forwarded-Encrypted: i=1;
- AFNElJ+R3uj5VkIx0qSBCpUWL8R/Au5YMjdn4p3dQKF14HTz1xzyeW0HfE9i2isrdwjz6bLg3RZX0g/4@lists.freedesktop.org
-X-Received: by 2002:a05:6402:35c2:b0:677:270f:6f4b with SMTP id
- 4fb4d7f45d1cf-679bb04a8a7mr185115a12.1.1777326742385; Mon, 27 Apr 2026
- 14:52:22 -0700 (PDT)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DC62010EA24;
+ Tue, 28 Apr 2026 07:31:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1777361513; x=1808897513;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=xglVrOoG47NkSF6SOaAIKSNjwEuZJu1bGAlwDUSuOWU=;
+ b=W4HvSzy9yIdMUUJxgRb+rz3rNYidL+yIQGprtEXjnK4Y8+BUybBwVFtg
+ /orSuSeiQ6Sn756JQ+X+9EUdFQJvzr1yfFHC92U7OYLe8kYnHIP4D5v5n
+ tFIzGKegozQUZYnbW7M7Xnqf2cRqPTpDXHA5Bsi1x8MlW/72WkvUX8xPi
+ WqgFBH+09g3uAwpU/Im803gDAurKShXbH+79/8TWRGiuoXs2iGtXcRjFB
+ 0Thm3iMwxE9mP0z0UhVpIZSedxOeh2tKypcE1IMrgArohkcBmbBzq3Cpb
+ 32+aWNlovf5rNwB4RpwWSUzU9HNpGp1RcUxeH5AK8CpOQypBnHKEN6BAA g==;
+X-CSE-ConnectionGUID: MI0c/iG3RtSKFroqNQ14jg==
+X-CSE-MsgGUID: 5p8a5uX8Tdmj66Iwczm35Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11769"; a="103722062"
+X-IronPort-AV: E=Sophos;i="6.23,203,1770624000"; d="scan'208";a="103722062"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+ by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Apr 2026 00:31:53 -0700
+X-CSE-ConnectionGUID: NXBGumxGRbmzOGFjDeSCWQ==
+X-CSE-MsgGUID: ViuuTdp6QFe705CMU9VqiA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,203,1770624000"; d="scan'208";a="230716284"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO fedora)
+ ([10.245.244.161])
+ by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Apr 2026 00:31:48 -0700
+From: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
+To: intel-xe@lists.freedesktop.org
+Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Natalie Vock <natalie.vock@gmx.de>, Johannes Weiner <hannes@cmpxchg.org>,
+ Tejun Heo <tj@kernel.org>,
+ =?UTF-8?q?Michal=20Koutn=C3=BD?= <mkoutny@suse.com>,
+ cgroups@vger.kernel.org, Huang Rui <ray.huang@amd.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Matthew Auld <matthew.auld@intel.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Simona Vetter <simona@ffwll.ch>,
+ David Airlie <airlied@gmail.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [PATCH v2 1/4] cgroup/dmem: Add reclaim callback for lowering max
+ below current usage
+Date: Tue, 28 Apr 2026 09:31:13 +0200
+Message-ID: <20260428073116.15687-2-thomas.hellstrom@linux.intel.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260428073116.15687-1-thomas.hellstrom@linux.intel.com>
+References: <20260428073116.15687-1-thomas.hellstrom@linux.intel.com>
 MIME-Version: 1.0
-References: <cover.1777306795.git.chleroy@kernel.org>
- <0ee46bb228d97163fbdc14f2a7c52b93d8bc34ce.1777306795.git.chleroy@kernel.org>
- <ae-j2_QirCySZD02@yury> <63a4d0f6-0eb3-48cd-9f98-bf7b223b2606@kernel.org>
- <ae-2yLWSGnfeTvh1@yury>
-In-Reply-To: <ae-2yLWSGnfeTvh1@yury>
-From: Linus Torvalds <torvalds@linux-foundation.org>
-Date: Mon, 27 Apr 2026 14:52:05 -0700
-X-Gmail-Original-Message-ID: <CAHk-=wgPrLy0FR3sEWBYQuNAac1axDASYMnTuPuxEU0WytzL7w@mail.gmail.com>
-X-Gm-Features: AVHnY4LQUFWo9ODz4M3q2vZC9Gn8nsdYr95Nd4ky5ERVHHxIyN_9ZXY5zjebfdc
-Message-ID: <CAHk-=wgPrLy0FR3sEWBYQuNAac1axDASYMnTuPuxEU0WytzL7w@mail.gmail.com>
-Subject: Re: [RFC PATCH v1 7/9] x86: Add unsafe_copy_from_user()
-To: Yury Norov <ynorov@nvidia.com>
-Cc: "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>, 
- David Laight <david.laight.linux@gmail.com>,
- Thomas Gleixner <tglx@linutronix.de>, 
- linux-alpha@vger.kernel.org, Yury Norov <yury.norov@gmail.com>, 
- linux-kernel@vger.kernel.org, linux-snps-arc@lists.infradead.org, 
- linux-arm-kernel@lists.infradead.org, linux-mips@vger.kernel.org, 
- linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org, 
- linux-riscv@lists.infradead.org, linux-s390@vger.kernel.org, 
- sparclinux@vger.kernel.org, linux-um@lists.infradead.org, 
- dmaengine@vger.kernel.org, linux-efi@vger.kernel.org, 
- linux-fsi@lists.ozlabs.org, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
- linux-wpan@vger.kernel.org, netdev@vger.kernel.org, 
- linux-wireless@vger.kernel.org, linux-spi@vger.kernel.org, 
- linux-media@vger.kernel.org, linux-staging@lists.linux.dev, 
- linux-serial@vger.kernel.org, linux-usb@vger.kernel.org, 
- xen-devel@lists.xenproject.org, linux-fsdevel@vger.kernel.org, 
- ocfs2-devel@lists.linux.dev, bpf@vger.kernel.org, kasan-dev@googlegroups.com, 
- linux-mm@kvack.org, linux-x25@vger.kernel.org, rust-for-linux@vger.kernel.org, 
- linux-sound@vger.kernel.org, sound-open-firmware@alsa-project.org, 
- linux-csky@vger.kernel.org, linux-hexagon@vger.kernel.org, 
- loongarch@lists.linux.dev, linux-m68k@lists.linux-m68k.org, 
- linux-openrisc@vger.kernel.org, linux-parisc@vger.kernel.org, 
- linux-sh@vger.kernel.org, linux-arch@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-X-Mailman-Approved-At: Tue, 28 Apr 2026 12:54:20 +0000
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Tue, 28 Apr 2026 12:54:19 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -124,22 +84,206 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, 27 Apr 2026 at 12:19, Yury Norov <ynorov@nvidia.com> wrote:
->
-> This is what Linus said when added x86 implementation for copy_from_user()
-> in c512c69187197:
+Add an optional reclaim callback to struct dmem_cgroup_region. When
+dmem.max is set below the current usage of a cgroup pool, the new limit
+is applied immediately (so that concurrent allocations are throttled
+while reclaim is in progress) and then the driver is asked to evict
+memory to bring usage back below the limit.
 
-Note that some things have happily changed in the six+ years since...
+Reclaim is attempted up to a bounded number of times. No error is
+returned to userspace if usage remains above the limit after reclaim,
+and a pending signal will abort the reclaim loop early. This matches
+the behavior of memory.max in the memory cgroup controller.
 
->   That's partly because we have no current users of it, but also partly
->   because the copy_from_user() case is slightly different and cannot
->   efficiently be implemented in terms of a unsafe_get_user() loop (because
->   gcc can't do asm goto with outputs).
+Also honor O_NONBLOCK so that if that flag is set during the
+max value write, no reclaim is initiated. The idea is to avoid
+charging the reclaim cost to the writer of he max value.
 
-now everybody can do asm goto with outputs.
+v2:
+- Write max before reclaim is attempted (Maarten)
+- Let signals abort the reclaim without error (Maarten)
+- If a new max value is written with the O_NONBLOCK flag,
+  reclaim is not attempted (Maarten)
+- Extract region from the pool parameter rather than
+  passing it explicitly to set_resource_xxx().
 
-Yes, it's disabled on older versions, so it's not *always* available,
-but all modern versions do it. And if you care about performance, you
-won't be using an old compiler.
+Assisted-by: GitHub Copilot:claude-sonnet-4.6
+Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+---
+ include/linux/cgroup_dmem.h | 11 +++++
+ kernel/cgroup/dmem.c        | 83 +++++++++++++++++++++++++++++++++----
+ 2 files changed, 85 insertions(+), 9 deletions(-)
 
-             Linus
+diff --git a/include/linux/cgroup_dmem.h b/include/linux/cgroup_dmem.h
+index dd4869f1d736..61520a431740 100644
+--- a/include/linux/cgroup_dmem.h
++++ b/include/linux/cgroup_dmem.h
+@@ -26,6 +26,10 @@ bool dmem_cgroup_state_evict_valuable(struct dmem_cgroup_pool_state *limit_pool,
+ 				      bool ignore_low, bool *ret_hit_low);
+ 
+ void dmem_cgroup_pool_state_put(struct dmem_cgroup_pool_state *pool);
++void dmem_cgroup_region_set_reclaim(struct dmem_cgroup_region *region,
++				    int (*reclaim)(struct dmem_cgroup_pool_state *pool,
++						   u64 target_bytes, void *priv),
++				    void *priv);
+ #else
+ static inline __printf(2,3) struct dmem_cgroup_region *
+ dmem_cgroup_register_region(u64 size, const char *name_fmt, ...)
+@@ -62,5 +66,12 @@ bool dmem_cgroup_state_evict_valuable(struct dmem_cgroup_pool_state *limit_pool,
+ static inline void dmem_cgroup_pool_state_put(struct dmem_cgroup_pool_state *pool)
+ { }
+ 
++static inline void
++dmem_cgroup_region_set_reclaim(struct dmem_cgroup_region *region,
++			       int (*reclaim)(struct dmem_cgroup_pool_state *pool,
++					      u64 target_bytes, void *priv),
++			       void *priv)
++{ }
++
+ #endif
+ #endif	/* _CGROUP_DMEM_H */
+diff --git a/kernel/cgroup/dmem.c b/kernel/cgroup/dmem.c
+index 1ab1fb47f271..56e698e2d1c9 100644
+--- a/kernel/cgroup/dmem.c
++++ b/kernel/cgroup/dmem.c
+@@ -51,6 +51,18 @@ struct dmem_cgroup_region {
+ 	 * No new pools should be added to the region afterwards.
+ 	 */
+ 	bool unregistered;
++
++	/**
++	 * @reclaim: Optional callback invoked when dmem.max is set below the
++	 * current usage of a pool. The driver should attempt to free at least
++	 * @target_bytes from @pool. May be called multiple times if usage
++	 * remains above the limit after returning.
++	 */
++	int (*reclaim)(struct dmem_cgroup_pool_state *pool, u64 target_bytes,
++		       void *priv);
++
++	/** @reclaim_priv: Private data passed to @reclaim. */
++	void *reclaim_priv;
+ };
+ 
+ struct dmemcg_state {
+@@ -145,21 +157,46 @@ static void free_cg_pool(struct dmem_cgroup_pool_state *pool)
+ }
+ 
+ static void
+-set_resource_min(struct dmem_cgroup_pool_state *pool, u64 val)
++set_resource_min(struct dmem_cgroup_pool_state *pool, u64 val, bool nonblock)
+ {
+ 	page_counter_set_min(&pool->cnt, val);
+ }
+ 
+ static void
+-set_resource_low(struct dmem_cgroup_pool_state *pool, u64 val)
++set_resource_low(struct dmem_cgroup_pool_state *pool, u64 val, bool nonblock)
+ {
+ 	page_counter_set_low(&pool->cnt, val);
+ }
+ 
+ static void
+-set_resource_max(struct dmem_cgroup_pool_state *pool, u64 val)
++set_resource_max(struct dmem_cgroup_pool_state *pool, u64 val, bool nonblock)
+ {
+-	page_counter_set_max(&pool->cnt, val);
++	struct dmem_cgroup_region *region = pool->region;
++
++	/*
++	 * Always update the limit, even if usage currently exceeds it.
++	 * Concurrent allocations will be throttled against the new limit
++	 * while reclaim is in progress.
++	 */
++	xchg(&pool->cnt.max, (unsigned long)val);
++
++	if (nonblock || !region->reclaim)
++		return;
++
++	for (int retries = 5; retries > 0; retries--) {
++		u64 usage = page_counter_read(&pool->cnt);
++
++		if (usage <= val)
++			break;
++
++		if (signal_pending(current))
++			break;
++
++		if (region->reclaim(pool, usage - val, region->reclaim_priv))
++			break;
++
++		cond_resched();
++	}
+ }
+ 
+ static u64 get_resource_low(struct dmem_cgroup_pool_state *pool)
+@@ -184,9 +221,9 @@ static u64 get_resource_current(struct dmem_cgroup_pool_state *pool)
+ 
+ static void reset_all_resource_limits(struct dmem_cgroup_pool_state *rpool)
+ {
+-	set_resource_min(rpool, 0);
+-	set_resource_low(rpool, 0);
+-	set_resource_max(rpool, PAGE_COUNTER_MAX);
++	set_resource_min(rpool, 0, false);
++	set_resource_low(rpool, 0, false);
++	set_resource_max(rpool, PAGE_COUNTER_MAX, false);
+ }
+ 
+ static void dmemcs_offline(struct cgroup_subsys_state *css)
+@@ -568,6 +605,32 @@ void dmem_cgroup_pool_state_put(struct dmem_cgroup_pool_state *pool)
+ }
+ EXPORT_SYMBOL_GPL(dmem_cgroup_pool_state_put);
+ 
++/**
++ * dmem_cgroup_region_set_reclaim - Register a reclaim callback on a region.
++ * @region: The region to register the callback for.
++ * @reclaim: Callback to invoke when dmem.max is set below current usage.
++ *           Called with the pool that needs reclaiming and the number of
++ *           bytes to free. Returns 0 on progress, negative on failure.
++ * @priv: Opaque pointer passed back to @reclaim.
++ *
++ * When dmem.max is lowered below the current usage of a cgroup pool, the
++ * dmem controller will call @reclaim with a target number of bytes to free.
++ * After @reclaim returns the controller retries setting the limit; if usage
++ * is still too high it calls @reclaim again, up to a bounded retry count.
++ */
++void dmem_cgroup_region_set_reclaim(struct dmem_cgroup_region *region,
++				    int (*reclaim)(struct dmem_cgroup_pool_state *pool,
++						   u64 target_bytes, void *priv),
++				    void *priv)
++{
++	if (!region)
++		return;
++
++	region->reclaim = reclaim;
++	region->reclaim_priv = priv;
++}
++EXPORT_SYMBOL_GPL(dmem_cgroup_region_set_reclaim);
++
+ static struct dmem_cgroup_pool_state *
+ get_cg_pool_unlocked(struct dmemcg_state *cg, struct dmem_cgroup_region *region)
+ {
+@@ -725,9 +788,10 @@ static int dmemcg_parse_limit(char *options, u64 *new_limit)
+ 
+ static ssize_t dmemcg_limit_write(struct kernfs_open_file *of,
+ 				 char *buf, size_t nbytes, loff_t off,
+-				 void (*apply)(struct dmem_cgroup_pool_state *, u64))
++				 void (*apply)(struct dmem_cgroup_pool_state *, u64, bool))
+ {
+ 	struct dmemcg_state *dmemcs = css_to_dmemcs(of_css(of));
++	bool nonblock = of->file->f_flags & O_NONBLOCK;
+ 	int err = 0;
+ 
+ 	while (buf && !err) {
+@@ -772,7 +836,8 @@ static ssize_t dmemcg_limit_write(struct kernfs_open_file *of,
+ 		}
+ 
+ 		/* And commit */
+-		apply(pool, new_limit);
++		apply(pool, new_limit, nonblock);
++
+ 		dmemcg_pool_put(pool);
+ 
+ out_put:
+-- 
+2.53.0
+
