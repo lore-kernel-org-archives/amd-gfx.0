@@ -4,96 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8CE94FF8868
-	for <amd-gfx@archiver.kernel.org>; Tue, 28 Apr 2026 16:22:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A9578FF8868
+	for <amd-gfx@archiver.kernel.org>; Tue, 28 Apr 2026 16:53:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1DEC810E33A;
-	Tue, 28 Apr 2026 16:22:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 48BD110EBDB;
+	Tue, 28 Apr 2026 16:53:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="zTWLl01i";
+	dkim=pass (1024-bit key; unprotected) header.d=xwax.org header.i=@xwax.org header.b="clXwujdL";
 	dkim-atps=neutral
-Received: from CO1PR03CU002.outbound.protection.outlook.com
- (mail-westus2azon11010010.outbound.protection.outlook.com [52.101.46.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6991A10E33A
- for <amd-gfx@lists.freedesktop.org>; Tue, 28 Apr 2026 16:22:43 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=V3/HL9L9AZ3/l0rbibMrxLnq1gUIQGq6SqQNsyZhp2T5aL7muWGRUtwebiWiwTZhveAiAqYJdQfm2iD2N1uQ+e2T52Sg90im+xE8O6KJ3DJgpE6flfLydRkSOABJlAqsH4mZ5fhrlafX57sUQ6WiKzffA7OpkU2dZ2CZLXFgmT82CjNEM00g6D05G6HMe0lhEQhS0R+L0eCD/Eu8kaVkcVZH7bATuP+2os5BcRfKnZk1Dv6sSzU7ooFHEO7S924lNAX3Cw9Rrm08aC4bawoeRc+w388VBA/+PUCEDLPhIKCdNjZG3KR2w8q0yiVvjb9qbLVb/gG0jyY796kQ/OrotQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Gz+4VnFvQnR3u9rdTWhdC7y94WmtJDjwe8EDIMuirAc=;
- b=v/IBh4U4sqjI471Sq3NMbEjkC/wNovUbpoi1HYdcEeTaaIf3CgSj+1k7XECMmaz2QiD7qtBbjyGRyXo7+ERiEuDK42KBkoy/Hq18c4JZ50E1blYk+xfxJvJ4SYN2pCVLnPoLYC+Gh0JsEYI2YU87lM/nOFdfHefEUP2QU4qWSwRzTj7NEC7iMGNEpra5Frh5hyVNO0nNmLTXZ1MtAySDGWPH3BvpdV9xNWvC83tY9kEBx5dKk5OBM0+O+7cfrPuuQIUqSWs0tf64Aj9J+2+OYCR2YrPInDZvcRQg/apGJT9tW68ebHHhGpcirhzwKciQ+ZN0uACYa+viWtamzLxXoA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Gz+4VnFvQnR3u9rdTWhdC7y94WmtJDjwe8EDIMuirAc=;
- b=zTWLl01iUvk+z7FwAAFDQo+f4jB3bQfZl51OrZ1deuPYovjSHp0MmE2R62OhRHcDJe5iBzuShwNvBw+WrQoSSNr1EUsDoAQ900ySGzHraYfEwE+Z7KtFvNpFqYNrExtnPu0ZwJ2oONclTfsvXKBdcWUONxl+XTmNr6tud/pv7Lc=
-Received: from CH2PR17CA0026.namprd17.prod.outlook.com (2603:10b6:610:53::36)
- by SJ5PPF28EF61683.namprd12.prod.outlook.com
- (2603:10b6:a0f:fc02::98e) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.26; Tue, 28 Apr
- 2026 16:22:39 +0000
-Received: from CY4PEPF0000E9D0.namprd03.prod.outlook.com
- (2603:10b6:610:53:cafe::a9) by CH2PR17CA0026.outlook.office365.com
- (2603:10b6:610:53::36) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9846.29 via Frontend Transport; Tue,
- 28 Apr 2026 16:22:38 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- CY4PEPF0000E9D0.mail.protection.outlook.com (10.167.241.135) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9846.18 via Frontend Transport; Tue, 28 Apr 2026 16:22:37 +0000
-Received: from Philip-Dev.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Tue, 28 Apr
- 2026 11:22:36 -0500
-From: Philip Yang <Philip.Yang@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <christian.koenig@amd.com>, <felix.kuehling@amd.com>, Philip Yang
- <Philip.Yang@amd.com>
-Subject: [PATCH] drm/amdgpu: zero-initialize GART table on allocation
-Date: Tue, 28 Apr 2026 12:22:19 -0400
-Message-ID: <20260428162219.3761327-1-Philip.Yang@amd.com>
-X-Mailer: git-send-email 2.50.1
+Received: from disco.pogo.org.uk (disco.pogo.org.uk [93.93.128.62])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 74A1D10EBDB
+ for <amd-gfx@lists.freedesktop.org>; Tue, 28 Apr 2026 16:53:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xwax.org;
+ s=swing; h=Content-Type:MIME-Version:References:Message-ID:In-Reply-To:
+ Subject:cc:To:From:Date:Reply-To:Content-Transfer-Encoding:Content-ID:
+ Content-Description; bh=pkC0TMhSk8sVwi6d06/aJ6hWhX0USnbqNfZ0R99DDAI=; b=clXwu
+ jdLyHFdjvnOK8oMmnB72XcX6Yg5KIMjKTQX80ixUYWKKiAvKqAndERF6MAJn0/lAL0smAyu+ekoyq
+ RWZKrwDuUoHCn85wfKZ7KgKrrJtsKmcH55dbxy+icchiQCziby3CtehIDm5pUPm5dMcMPFp3A39ez
+ obkATJWFNBMk=;
+Received: from cpc93786-hari17-2-0-cust786.20-2.cable.virginm.net
+ ([82.36.99.19] helo=tamla)
+ by disco.pogo.org.uk with esmtps  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+ (Exim 4.98.2 (FreeBSD)) (envelope-from <mark@xwax.org>)
+ id 1wHlgu-000000001cB-0Le5; Tue, 28 Apr 2026 17:53:44 +0100
+Received: from localhost (tamla.pogo.org.uk [local])
+ by tamla.pogo.org.uk (OpenSMTPD) with ESMTPA id e1092892;
+ Tue, 28 Apr 2026 17:53:42 +0100 (BST)
+Date: Tue, 28 Apr 2026 17:53:42 +0100 (BST)
+From: Mark Hills <mark@xwax.org>
+To: Alex Deucher <alexdeucher@gmail.com>
+cc: amd-gfx@lists.freedesktop.org
+Subject: Re: Radeon Pro WX7100 regression since v6.19, no display
+In-Reply-To: <CADnq5_Px_vh0OLLjT9vohcp07yK9m_5NNLPvHz=KMfo564gJTQ@mail.gmail.com>
+Message-ID: <b9eae938-a558-8614-7fea-aa25cceea3f1@xwax.org>
+References: <832b0927-fff2-90b3-538c-8e1890f3f42c@xwax.org>
+ <CADnq5_Px_vh0OLLjT9vohcp07yK9m_5NNLPvHz=KMfo564gJTQ@mail.gmail.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000E9D0:EE_|SJ5PPF28EF61683:EE_
-X-MS-Office365-Filtering-Correlation-Id: a57fa4e8-cffd-4a34-17de-08dea5425cac
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|1800799024|36860700016|82310400026|18002099003|56012099003;
-X-Microsoft-Antispam-Message-Info: LlwXSx4AQE9+64vdE6aPSry7L/bcXgmvwpVL2oWM6kFOoYUU2m615kXtpc/97faaBBYjVBio5rVNYHOLbu/lTuFahllmD7GQP4wlK0cjqPBxYZr44Wf4c9m04ZbJFtqRMNALE+/ZGoub/rnIAsLsgiTBu3dOVGLlrmz3zbc0IpJJbQS/FFz7gdtkj1ix7sBuZWuQPRdFeGE5zsDf5fTmJxjfUHlhkk2BWBaD7UG/h2oNpPM44phRnWoz8myo50VYgvuZZIPFR6BM5XkS2dB52fHcXbcGn+CbQIEUTuSU/h0sHgBPcIGWRV6gpsG2VrHMr7M5kGh7afCDMYVttRMXONgPkEv06tqspAmjCn40APdLQQx1qlzAccB81sx5MJL0LA85PWzLXxiJcSJKVRcscIFU59dgU2pE1wGp3KSv5i3ahUERAFS9+P1FQjF3ddZZMfSmDqfbADOSddvSrKdIgx+cjCzms9LPSVSD7Jje90rwv1JVniMeoj0bl2S3pJPkVV+ajKpnmp5Q4ol2JeAQ9wv/jZzVal5JuwTmlEfSk4b5Fpu+dcXSDAK3thsvYtYDTbfzPRPRetrWGoC0R765aHrBvHtg86WSedZ92nkOv/GjRLmvCvTlpmZY1rnzR3N4hczzXOEu6vK3AWXdkumjLv+pCrbxX+MHR2S2IEtUgpMZOQOIM2lV3lv6WHQci6PkH78+RODPTYhoy4SKyR7xLfa/um7RpK5DNtUO4ruSj+WK7Dv73iQW6GRhPcAFSDgRiG2bO5wlOrS5fcgCKZ2qvA==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(36860700016)(82310400026)(18002099003)(56012099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: PliVWIzCPlhc1QZ7GzQ1QdI8bZjb6L95dNTNWHKkE2wsVlUyUvrqtOF0inUx4Wof0HkOcp7KLaJw+S1Ra91nq6Z1xrpvRkt1ZHQ/tT/eYUV+m/OwYNha5j+T4SqUybECetogi1bok0/zap2F+HOtFP9NsOnMhTO5M/74OjreNjBYt0m6Ek8B+cfLq7tiawZdASot4dUY+p1UW2HoJuxtgzqOI7DUkRx2ciXrypcbW4emR3pI7jufQ7bkdNSD4uzFa4TrzylrOwtQOUcIpemePLJPkQ6ZL6PMpA26Flz5u4h2OgicJE7eWDLjEXH+jxGJ1ZQp5GQWpzNlRJ69P//91rEdhFIQr+1HfQfkdrl5x6KDvXEDT3azG78eG71tTmWrT2rL20zHKt6t9qwEJ5z5VPKTlAUHRBb5CMVT1VOevU9geSSncVg3OmjelfSjSy+u
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Apr 2026 16:22:37.3507 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: a57fa4e8-cffd-4a34-17de-08dea5425cac
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000E9D0.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ5PPF28EF61683
+Content-Type: multipart/mixed; boundary=0894690600177739522214211
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,51 +55,107 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-GART TLB is flushed after unmapping but not after mapping. Since
-amdgpu_bo_create_kernel() does not zero-initialize the buffer, when a
-single PTE is written the TLB may speculatively load other uninitialized
-entries from the same cacheline. Those garbage entries can appear valid,
-and a subsequent write to another PTE in the same cacheline may cause the
-GPU to use a stale garbage PTE from the TLB.
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-Fix this by calling memset() to zero-initialize the GART table with
-gart_pte_flags immediately after allocation.
+--0894690600177739522214211
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: QUOTED-PRINTABLE
 
-Using AMDGPU_GEM_CREATE_VRAM_CLEARED (SDMA-based clear) was considered,
-but is overkill here: the table is only ~1MB and initialized only once.
+On Tue, 28 Apr 2026, Alex Deucher wrote:
 
-Signed-off-by: Philip Yang <Philip.Yang@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c | 13 ++++++++++---
- 1 file changed, 10 insertions(+), 3 deletions(-)
+> On Tue, Apr 28, 2026 at 7:44=E2=80=AFAM Mark Hills <mark@xwax.org> wrote:
+> >
+> > The last kernel I have been able to use is v6.19.3, because shortly aft=
+er
+> > I lose functionality of my Radeon Pro WX7100.
+> >
+> > Normally around the point udevd is run, I see a switch from "BIOS"-styl=
+e
+> > console to some kind of framebuffer one, followed by launching Xorg.
+> >
+> > With later kernels, around the time of udevd the displays (LG DualUp,
+> > DisplayPort) freeze and swich to "no signal". The host is alive to SSH.
+[...]
+> Looks like you built your kernel without CONFIG_DRM_AMD_DC=3Dy.  That is
+> necessary for the display hardware support to be built into your
+> kernel.  7.0.x dropped support for the old legacy display support
+> since it's deprecated for years and has much less functionality
+> compared to DC.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c
-index 4d884180cf61..f09337bac0e5 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c
-@@ -262,12 +262,19 @@ void amdgpu_gart_table_ram_free(struct amdgpu_device *adev)
-  */
- int amdgpu_gart_table_vram_alloc(struct amdgpu_device *adev)
- {
-+	int r;
-+
- 	if (adev->gart.bo != NULL)
- 		return 0;
- 
--	return amdgpu_bo_create_kernel(adev,  adev->gart.table_size, PAGE_SIZE,
--				       AMDGPU_GEM_DOMAIN_VRAM, &adev->gart.bo,
--				       NULL, (void *)&adev->gart.ptr);
-+	r = amdgpu_bo_create_kernel(adev,  adev->gart.table_size, PAGE_SIZE,
-+				    AMDGPU_GEM_DOMAIN_VRAM, &adev->gart.bo,
-+				    NULL, (void *)&adev->gart.ptr);
-+	if (r)
-+		return r;
-+
-+	memset(adev->gart.ptr, adev->gart.gart_pte_flags, adev->gart.table_size);
-+	return 0;
- }
- 
- /**
--- 
-2.50.1
+Thanks, guess I'm behind the times by assuming a GPU implies there=20
+is some display hardware :-)
 
+More seriously, I carried the .config forward and so probably carried=20
+these defaults. I note that /dev/fb0 was a red-herring as this was never=20
+present. FWIW it was pre 7.0 that it stopped working.
+
+But yes, that fixed the problem. Thank you.
+
+The new dmesg is below for reference. I note that there is no longer any=20
+conector information, but I expect this is intended.
+
+--=20
+Mark
+
+
+$ dmesg | cut -c 16-1000 | grep -E '(amdgpu|drm|fb|fbcon)'
+Command line: root=3D/dev/sda2 fbcon=3Drotate_all:1 BOOT_IMAGE=3Dvmlinuz=20
+Kernel command line: root=3D/dev/sda2 fbcon=3Drotate_all:1 BOOT_IMAGE=3Dvml=
+inuz=20
+Unknown kernel command line parameters "fbcon=3Drotate_all:1", will be pass=
+ed to user space.
+pci 0000:00:1c.4:   bridge window [mem 0xefb00000-0xefbfffff]
+pci 0000:0b:00.0: BAR 0 [mem 0xefb00000-0xefb03fff 64bit]
+pci 0000:00:1c.4:   bridge window [mem 0xefb00000-0xefbfffff]
+pci_bus 0000:0b: resource 1 [mem 0xefb00000-0xefbfffff]
+    fbcon=3Drotate_all:1
+ACPI: bus type drm_connector registered
+amdgpu 0000:01:00.0: initializing kernel modesetting (POLARIS10 0x1002:0x67=
+C4 0x1002:0x0B0D 0x00).
+amdgpu 0000:01:00.0: register mmio base: 0xEFE00000
+amdgpu 0000:01:00.0: register mmio size: 262144
+amdgpu 0000:01:00.0: detected ip block number 0 <common_v1_0_0> (vi_common)
+amdgpu 0000:01:00.0: detected ip block number 1 <gmc_v8_1_0> (gmc_v8_0)
+amdgpu 0000:01:00.0: detected ip block number 2 <ih_v3_0_0> (tonga_ih)
+amdgpu 0000:01:00.0: detected ip block number 3 <gfx_v8_0_0> (gfx_v8_0)
+amdgpu 0000:01:00.0: detected ip block number 4 <sdma_v3_1_0> (sdma_v3_0)
+amdgpu 0000:01:00.0: detected ip block number 5 <smu_v1_0_0> (powerplay)
+amdgpu 0000:01:00.0: detected ip block number 6 <dce_v1_0_0> (dm)
+amdgpu 0000:01:00.0: detected ip block number 7 <uvd_v6_3_0> (uvd_v6_0)
+amdgpu 0000:01:00.0: detected ip block number 8 <vce_v3_4_0> (vce_v3_0)
+amdgpu 0000:01:00.0: No more image in the PCI ROM
+amdgpu 0000:01:00.0: Fetched VBIOS from ROM BAR
+amdgpu 0000:01:00.0: [drm] ATOM BIOS: 113-C9540101-103
+amdgpu 0000:01:00.0: [drm] UVD is enabled in VM mode
+amdgpu 0000:01:00.0: [drm] UVD ENC is enabled in VM mode
+amdgpu 0000:01:00.0: Found VCE firmware Version: 53.26 Binary ID: 3
+amdgpu 0000:01:00.0: [drm] VCE enabled in VM mode
+amdgpu 0000:01:00.0: vgaarb: deactivate vga console
+amdgpu 0000:01:00.0: Trusted Memory Zone (TMZ) feature not supported
+amdgpu 0000:01:00.0: vm size is 128 GB, 2 levels, block size is 10-bit, fra=
+gment size is 9-bit
+amdgpu 0000:01:00.0: System can't access extended configuration space, plea=
+se check!!
+amdgpu 0000:01:00.0: VRAM: 8192M 0x000000F400000000 - 0x000000F5FFFFFFFF (8=
+192M used)
+amdgpu 0000:01:00.0: GART: 256M 0x000000FF00000000 - 0x000000FF0FFFFFFF
+amdgpu 0000:01:00.0: [drm] Detected VRAM RAM=3D8192M, BAR=3D256M
+amdgpu 0000:01:00.0: [drm] RAM width 256bits GDDR5
+amdgpu 0000:01:00.0:  8192M of VRAM memory ready
+amdgpu 0000:01:00.0:  20047M of GTT memory ready.
+amdgpu 0000:01:00.0: [drm] GART: num cpu pages 65536, num gpu pages 65536
+amdgpu 0000:01:00.0: [drm] PCIE GART of 256M enabled (table at 0x000000F400=
+900000).
+amdgpu 0000:01:00.0: [drm] Chained IB support enabled!
+amdgpu: hwmgr_sw_init smu backed is polaris10_smu
+amdgpu 0000:01:00.0: [drm] Found UVD firmware Version: 1.130 Family ID: 16
+amdgpu 0000:01:00.0: [drm] Display Core v3.2.369 initialized on DCE 11.2
+amdgpu 0000:01:00.0: [drm] UVD and UVD ENC initialized successfully.
+amdgpu 0000:01:00.0: [drm] VCE initialized successfully.
+amdgpu 0000:01:00.0: SE 4, SH per SE 1, CU per SH 9, active_cu_number 36
+amdgpu 0000:01:00.0: Using BACO for runtime pm
+[drm] Initialized amdgpu 3.64.0 for 0000:01:00.0 on minor 0
+fbcon: amdgpudrmfb (fb0) is primary device
+amdgpu 0000:01:00.0: [drm] fb0: amdgpudrmfb frame buffer device
+--0894690600177739522214211--
