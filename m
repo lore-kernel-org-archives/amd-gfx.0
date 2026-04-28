@@ -4,72 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A5E7AFF8868
-	for <amd-gfx@archiver.kernel.org>; Tue, 28 Apr 2026 10:20:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6A8EFFF885D
+	for <amd-gfx@archiver.kernel.org>; Tue, 28 Apr 2026 10:29:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 39FC510E32D;
-	Tue, 28 Apr 2026 10:20:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E642A10E337;
+	Tue, 28 Apr 2026 10:29:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="oCcPm1gH";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="eO5UbwRF";
 	dkim-atps=neutral
-Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com
- [209.85.218.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3DB5110E32D
- for <amd-gfx@lists.freedesktop.org>; Tue, 28 Apr 2026 10:20:50 +0000 (UTC)
-Received: by mail-ej1-f45.google.com with SMTP id
- a640c23a62f3a-b8f97c626aaso939991266b.2
- for <amd-gfx@lists.freedesktop.org>; Tue, 28 Apr 2026 03:20:50 -0700 (PDT)
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com
+ [209.85.128.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0692210E337
+ for <amd-gfx@lists.freedesktop.org>; Tue, 28 Apr 2026 10:29:42 +0000 (UTC)
+Received: by mail-wm1-f52.google.com with SMTP id
+ 5b1f17b1804b1-488b3f8fa2bso114348145e9.1
+ for <amd-gfx@lists.freedesktop.org>; Tue, 28 Apr 2026 03:29:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1777371649; x=1777976449; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1777372180; x=1777976980; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=rEcSM6duMh0crQ17Olr83ZKHna1cjEFoGG+FAN8fjUg=;
- b=oCcPm1gHfEZ3B0sJIaOkBwBizGqsBmL4qQZUYFuKXRu6+Sc8nlgzEDCZm9nrf9dIbV
- VAXztzIKzs9lREF65qdxuhsgaoBYsTH5jSkUcGH83XtvqrjxS/zZ4X/xe+H9PL3M5cXr
- VLR+OaHnwUhvof5w+pq5vhXdWmAPcFBWNb62vB6VRanROFzLlM1njeI/TV4MxixpvmF9
- O+Wkx8D4Mx5vU4jbkMmpJJ5ZxLw1G1bLFXMHUtGuLiPLAa7QfKhn6hgEBxWO3TJ2NN/F
- UOzvjo+11Xg6UgofnVXGoxNIs/ejFAZ5dSY/jr3N3V4/Y6RRVX8CKUeWClYJVlIWAW1y
- +GHg==
+ bh=wkbhnpVV9o6AAz/ksQ7onN22h9OeVQgTUfHZAdHIN8Q=;
+ b=eO5UbwRFq2SXKQAr+kMI+JtdSkckMgPnh7UwNBc5d4PfPqmhOU6KSG83+BEo2Z0VZ9
+ hiCJtUVvpl2hPxiVeM5L12ptFwSKi1Vpo+frcsqchEjNrXTb54ZxUlQZNJMvfszDw5cG
+ lz4+HRzxHFOZV/cufEMr4/B6RmFxzG5VYYvCAWhAerYhQwCT3+RGXWrhG95A10Eg0jIW
+ XugVq0iLEsmpH3SufA2Wn3asYfVcUJIa10fRTclCiXYcxktPK7QSXppxeBKeW0OPWWZS
+ /fwnyx/+nNddyHxHcE3tzd/XIDyVBAb2fZQ4kxPo5SbJxadvD+fimTj/dwKWwNt3GVji
+ Tn6g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1777371649; x=1777976449;
+ d=1e100.net; s=20251104; t=1777372180; x=1777976980;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=rEcSM6duMh0crQ17Olr83ZKHna1cjEFoGG+FAN8fjUg=;
- b=TLJlCvTsNP9ERgU7U/AAy/qCIra/HndQkaW9G90/r26JvEDoYWlcah9rbV0KQbIA3L
- Pxck5ru8Ro7g9ix0Dh3d3Ci0pZpnWGTDvdVv7Pkj9VvU6rtwLmAWP9dDTUIs/jKE0dr2
- xrwIWot9/3NiT/7R3Ya+5me27mdf1IHpTXwTI6aDjfYq0fSsYuTWMxTYuh4enYJdvDGW
- 7nV7I8xYjikCFo+5jpG7kh33G1Ok/bsr+M/PCfe5hsyHrkoK0hCPyWe4ahJh0KS0TB/V
- lKsyc1s+ONdw6XJbBnopCFfY5CKm0/gV20Oidvp7i3gvbmuPbtRv+l9XUooG6JKiZ8Rf
- XuSQ==
-X-Gm-Message-State: AOJu0Yxj6FKLIRrjW/XgokmFVhnwwS6z9kQr6oqyAlKHYPBeGF2W2jTM
- 6BY6zdqGW9cOYytJGLX3mNhiC1bDVIaCgdO9O+pSDN3n0h3/uHR1sEScbJJzqw==
-X-Gm-Gg: AeBDies6QXCHpb0Lw/3alkKrKFNCTiMIhG03kTfJEPvFUW3tkK9QC/fd6iW6ETAWb2p
- zcwAQI9Ye4l1lQyCK6SaGIbm0SV1FAN829dXCi0LE5fhnD1H819NIXZo2gxp8eU/EQHhS0zk3Cf
- 46gyH5dar3uvaeDQ0chsTIW18ikFaG3hQN0IUdDeawt6wErAuQb001FjBUawOTXAvbo3WHH8mAX
- kd3FNnBPzcQAKR2SDvsAH/qXDzL6lSEuPmRt8yR8YJHcxDNP22HJdVSDvzrASTiydHIPKKTT8gD
- YT9Asje88CyaOOAL3uedMDOezW35xkXkGHw8CWpRBIxxi5cRPQVu2p2/hs1CvDOqVXPYYaqmD1g
- 5l5GPI1rXbIN1gGlXF/cvYcdONtoMJx+jpvtn37L+s/XMjMJ4GRwd3kbSeLEUTb3CRzl4X08KhR
- x1bxg+wI6Jjfrl+NknwEdAcGBNSGOMIUt4PHKKRN62HrxWFZvhVRL/5yF39lVSzwo5Abc4puIYn
- 66SBT2HKGmp4GJ5lJsb
-X-Received: by 2002:a17:906:ef05:b0:bad:8491:85f3 with SMTP id
- a640c23a62f3a-bb804c32754mr132989166b.34.1777371648287; 
- Tue, 28 Apr 2026 03:20:48 -0700 (PDT)
+ bh=wkbhnpVV9o6AAz/ksQ7onN22h9OeVQgTUfHZAdHIN8Q=;
+ b=fGZJ90dtxbi6S10eM5HoyHFKVVgij76IpWy9KsXF79tndZVDH7h7igGszC1ikBEPKM
+ PiU4sSq799GieD1f9ha0tdNsacH7L1Tsvi6d/uB3xN0WLZbxh9loaoG21fzt71vM2K3o
+ xmpjZ92ONW6Hmjh4qKcWcyEJ3fqJsTZvTKaJ5N3kfJhMbIIY24t9hvTkhbLtPclR7rLv
+ sM3JNIGgOitEU4qsgrKRLlinRpRdBt7Wrmz5YZMCCg1R6HBTl3IHdouu+lVyWSPIQe9X
+ x4zi3yd37YEBfwT8lGfG5oNV2K8e3FoMUy/Kft18kBxTBoRD5TjbLlLBwMH0bZ+Jqu6+
+ jv4g==
+X-Gm-Message-State: AOJu0YwcwYkjrWJwmA5ayn4rc9wlGuxLemvmVLlpLZt827oJety1espo
+ 6yLMzaBqlsay8zCqH03eqiUB0ohkfzDQn2pRfD6qaK1xSUMEJ2eLCXZicVR1Vw==
+X-Gm-Gg: AeBDieumistO6KrDLVcIF9+KzgtahtoH8+tncBLmERVkC+l/xmnBHYSB7AsQaLYb/Bw
+ Q5ZGnHvL4cIoklNtgT5SgadvhrZTbxIT3peJKqZEsS0N+6fxxinakCKFJ2UsPe5shF8c54l/W6R
+ n67LfyLC91ZJez9VtBQRaUxDs7AHb5jutjj5UtXExwyqiSUE0uvAoSoz24+X6KvfVNadYl/med+
+ OHXoi/juExKhxNJufONU7MpfH/Si5vAntyyJ5BLVizgLSf3HkbgFJwNDgm6f3ZlOGXKZyzxqz61
+ J0kCx4FMH+oQQsNyCvzYGmfUlIWw27HNmmPb6xfd/MRWgqlHb2NWcMAMKTbSJr0H26Ws1r4VAdm
+ 2cKmM9rdJ5X8AEkaoA3E/1wt6/Xp5Bh81uXCxvfM/AHiTsIUi4wIS2Bt80eFQv+LBZv3MbxRepO
+ KXJuAbuML5Y02vc7AN5iuMwEEd0YuwJW8SUKkcKgr0o2TerenxplMRHAUYgNHOgTRvvQnMqSVul
+ TjUNR2fcw==
+X-Received: by 2002:a05:600c:3ba6:b0:489:1baf:8c03 with SMTP id
+ 5b1f17b1804b1-48a78a43734mr30640055e9.11.1777372180283; 
+ Tue, 28 Apr 2026 03:29:40 -0700 (PDT)
 Received: from timur-hyperion.localnet (5401DFC2.dsl.pool.telekom.hu.
  [84.1.223.194]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-679b6843509sm565723a12.18.2026.04.28.03.20.47
+ 5b1f17b1804b1-48a7748f32dsm20777495e9.2.2026.04.28.03.29.39
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 28 Apr 2026 03:20:47 -0700 (PDT)
+ Tue, 28 Apr 2026 03:29:39 -0700 (PDT)
 From: Timur =?UTF-8?B?S3Jpc3TDs2Y=?= <timur.kristof@gmail.com>
 To: amd-gfx@lists.freedesktop.org
 Cc: Alex Deucher <alexander.deucher@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>
-Subject: Re: [PATCH 1/2] drm/amdgpu/pm: add missing revision check for CI
-Date: Tue, 28 Apr 2026 12:20:46 +0200
-Message-ID: <3692901.dWV9SEqChM@timur-hyperion>
-In-Reply-To: <20260427173103.1020723-1-alexander.deucher@amd.com>
+Subject: Re: [PATCH 2/2] drm/radeon: add missing revision check for CI
+Date: Tue, 28 Apr 2026 12:29:39 +0200
+Message-ID: <2010090.7Z3S40VBb9@timur-hyperion>
+In-Reply-To: <20260427173103.1020723-2-alexander.deucher@amd.com>
 References: <20260427173103.1020723-1-alexander.deucher@amd.com>
+ <20260427173103.1020723-2-alexander.deucher@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset="utf-8"
@@ -87,71 +88,80 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Alex,
-
-On Monday, April 27, 2026 7:31:02=E2=80=AFPM Central European Summer Time A=
+On Monday, April 27, 2026 7:31:03=E2=80=AFPM Central European Summer Time A=
 lex Deucher=20
 wrote:
-> The ci_populate_all_memory_levels() workaround only
-> applies to revision 0 SKUs.
-
-This makes good sense. Looking at issue 1816, seems that the affected GPU i=
-s=20
-revision 80, and looking at my Hawaii card, it seems to be also 80:
-
-01:00.0 VGA compatible controller [0300]: Advanced Micro Devices, Inc. [AMD/
-ATI] Hawaii XT / Grenada XT [Radeon R9 290X/390X] [1002:67b0] (rev 80) (pro=
-g-
-if 00 [VGA controller])
-
-Can you please add a few tags for additional context?
-Link: https://gitlab.freedesktop.org/drm/amd/-/work_items/1816
-=46ixes: 9f4b35411cfe ("drm/amd/powerplay: add CI asics support to smumgr (=
-v3)")
-
+> The memory level workarounds only apply to revision 0 SKUs.
 >=20
 > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> ---
->  drivers/gpu/drm/amd/pm/powerplay/smumgr/ci_smumgr.c | 5 +++--
->  1 file changed, 3 insertions(+), 2 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/amd/pm/powerplay/smumgr/ci_smumgr.c
-> b/drivers/gpu/drm/amd/pm/powerplay/smumgr/ci_smumgr.c index
-> 69d8b05ef2457..6e89a032e3dcf 100644
-> --- a/drivers/gpu/drm/amd/pm/powerplay/smumgr/ci_smumgr.c
-> +++ b/drivers/gpu/drm/amd/pm/powerplay/smumgr/ci_smumgr.c
-> @@ -1333,8 +1333,9 @@ static int ci_populate_all_memory_levels(struct
-> pp_hwmgr *hwmgr)
->=20
->  	dev_id =3D adev->pdev->device;
->=20
-> -	if ((dpm_table->mclk_table.count >=3D 2)
-> -		&& ((dev_id =3D=3D 0x67B0) ||  (dev_id =3D=3D 0x67B1))) {
-> +	if ((dpm_table->mclk_table.count >=3D 2) &&
-> +	    ((dev_id =3D=3D 0x67B0) ||  (dev_id =3D=3D 0x67B1)) &&
-> +	    (adev->pdev->revision =3D=3D 0)) {
->  		smu_data->smc_state_table.MemoryLevel[1].MinVddci =3D
->  				smu_data-
->smc_state_table.MemoryLevel[0].MinVddci;
->  		smu_data->smc_state_table.MemoryLevel[1].MinMvdd =3D
 
-It looks like amdgpu and radeon behave differently here: radeon overwrites =
-the=20
-MinVddc and MinVddcPhases vs. amdgpu overwrites MinVddci and MinMvdd.
+It is important that stable kernels (and stable distros) pick up this patch=
+=2E=20
+Can you please add a few tags to this commit to give extra context?
 
-Without knowing more details of what the workaround was trying to achieve,=
-=20
-it's hard to judge whether radeon or amdgpu was correct, but it would be ni=
-ce=20
-to make them consistent. If radeon was correct, could you adjust the amdgpu=
-=20
-code here to do the same? (Or vice versa if amdgpu was correct.)
+Link: https://gitlab.freedesktop.org/drm/amd/-/work_items/1816
+=46ixes: 127e056e2a82 ("drm/radeon: fix mclk vddc configuration for cards f=
+or=20
+hawaii")
+=46ixes: 21b8a369046f ("drm/radeon: fix dram timing for certain hawaii boar=
+ds")
+=46ixes: 90b2fee35cb9 ("drm/radeon: fix dpm mc init for certain hawaii boar=
+ds")
 
-With that, the series is:
+With that, this patch is also:
 Reviewed-by: Timur Krist=C3=B3f <timur.kristof@gmail.com>
 
 Thanks & best regards,
 Timur
+
+> ---
+>  drivers/gpu/drm/radeon/ci_dpm.c | 9 ++++++---
+>  1 file changed, 6 insertions(+), 3 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/radeon/ci_dpm.c
+> b/drivers/gpu/drm/radeon/ci_dpm.c index ba8db1d07c070..b47b91272b244 1006=
+44
+> --- a/drivers/gpu/drm/radeon/ci_dpm.c
+> +++ b/drivers/gpu/drm/radeon/ci_dpm.c
+> @@ -2461,7 +2461,8 @@ static void ci_register_patching_mc_arb(struct
+> radeon_device *rdev,
+>=20
+>  	if (patch &&
+>  	    ((rdev->pdev->device =3D=3D 0x67B0) ||
+> -	     (rdev->pdev->device =3D=3D 0x67B1))) {
+> +	     (rdev->pdev->device =3D=3D 0x67B1)) &&
+> +	    (rdev->pdev->revision =3D=3D 0)) {
+>  		if ((memory_clock > 100000) && (memory_clock <=3D=20
+125000)) {
+>  			tmp2 =3D (((0x31 * engine_clock) / 125000) -=20
+1) & 0xff;
+>  			*dram_timimg2 &=3D ~0x00ff0000;
+> @@ -3304,7 +3305,8 @@ static int ci_populate_all_memory_levels(struct
+> radeon_device *rdev) pi->smc_state_table.MemoryLevel[0].EnabledForActivity
+> =3D 1;
+>=20
+>  	if ((dpm_table->mclk_table.count >=3D 2) &&
+> -	    ((rdev->pdev->device =3D=3D 0x67B0) || (rdev->pdev->device =3D=3D=20
+0x67B1))) {
+> +	    ((rdev->pdev->device =3D=3D 0x67B0) || (rdev->pdev->device =3D=3D=20
+0x67B1)) &&
+> +	    (rdev->pdev->revision =3D=3D 0)) {
+>  		pi->smc_state_table.MemoryLevel[1].MinVddc =3D
+>  			pi->smc_state_table.MemoryLevel[0].MinVddc;
+>  		pi->smc_state_table.MemoryLevel[1].MinVddcPhases =3D
+> @@ -4493,7 +4495,8 @@ static int ci_register_patching_mc_seq(struct
+> radeon_device *rdev,
+>=20
+>  	if (patch &&
+>  	    ((rdev->pdev->device =3D=3D 0x67B0) ||
+> -	     (rdev->pdev->device =3D=3D 0x67B1))) {
+> +	     (rdev->pdev->device =3D=3D 0x67B1)) &&
+> +	    (rdev->pdev->revision =3D=3D 0)) {
+>  		for (i =3D 0; i < table->last; i++) {
+>  			if (table->last >=3D=20
+SMU7_DISCRETE_MC_REGISTER_ARRAY_SIZE)
+>  				return -EINVAL;
+
 
 
 
