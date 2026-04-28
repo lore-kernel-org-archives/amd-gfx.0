@@ -4,65 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DD029FF8864
-	for <amd-gfx@archiver.kernel.org>; Tue, 28 Apr 2026 03:17:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1C765FF8864
+	for <amd-gfx@archiver.kernel.org>; Tue, 28 Apr 2026 03:17:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7AA5510EA11;
-	Tue, 28 Apr 2026 03:17:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B0DD610EA0A;
+	Tue, 28 Apr 2026 03:17:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ccatWBlg";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="NJ2Kz8uR";
 	dkim-atps=neutral
-Received: from CH1PR05CU001.outbound.protection.outlook.com
- (mail-northcentralusazon11010063.outbound.protection.outlook.com
- [52.101.193.63])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F387210EA0A
- for <amd-gfx@lists.freedesktop.org>; Tue, 28 Apr 2026 03:16:59 +0000 (UTC)
+Received: from DM1PR04CU001.outbound.protection.outlook.com
+ (mail-centralusazon11010021.outbound.protection.outlook.com [52.101.61.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D181310EA0A
+ for <amd-gfx@lists.freedesktop.org>; Tue, 28 Apr 2026 03:17:08 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Vk9IFZiwFUTftDttRuAqJYdnQ13hdyqdNvic7VRNDRC4s1oxnimiFxV6OpsWqijbxVcYSRN5b9xvJQIJANTJpz/JrcuY/Jgf7XHrcKU1/z+Je7rA0ZwEdRsaaC/ofyAnmYZaQ/3vuJhhGXsnyQX03uK+O1+awqDqG6hri1X1tDRg8M1EkVJ81zg6DFMGLQWWlP8FgX62jCQz0JBOKT/TH0iffpcqa00SDOLpK/DMr0ax+QOag/ACOzVxr1rvKwFFDoexNAOdjtGo1TOZjYDMw2vNFh+9+LO6o0KKZw9lyMOrXquNxucR35dbSFbp8IwRWzkXxLHr7dsBbzF7tvPBSQ==
+ b=iUE/5iKD9+uzAUCTE+ozgbc4+zmP9O+FF3wr/4rVoX84LwqiP75C6aqVyJBSdl40q8+7ELm9pcX0PGqVZwpZiFvBAkEP5S/Naq388Rrz0Vv+bCJi0P67QWuloYG5YL634uTjlPp5+Zc5Wa46v1krNB6QO3HbkMtHyVLT5gv/2j5u+TmkNSCtLc/gT7uvLIJepedTwkTLc0vZ7nlp5KdgsgaqJmLI752mapnfiZbOq8e68mgCELXiToQsWX5VpriyRaxrJbG9poR/QhBG8jOnitcyIKNHCbwBd84ayBD6tU6rchrmwV5vPiFd2j/EeSkZyfu/BXpgHWmRD70qYROiyw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=tZOKqdVsRZVp2lW7kvLvzlviV1ceOOEWF9Ny8IC1uU8=;
- b=m9eyOhiQ+UpHqybENDmv+YQO27hM0OuQnO2CUwLMxRVDRNEmd/dcXq48OhwUfJeHWrtSZCQfQYI7w11htWfr6PEg3EsjTiZLNwxfBelbpU4I2eD6ms/au/cEuuLyNY3eJtzLs+TnbWFmdLBpDqOHl0C9mDLzfn/JPEU+Ory369gJDGj9BzyVJE+TUGXl3rzFjJMmvPnaL9oq/W/QhkacLC1WYnqfWcxgXF6xyKFiKIgBkbOr11C2S0V/BasQqjXC4BSUyaFF3kCLNV+4j+AGEv05fThRzcH8toDYSE5v07eOUEzYcPxyFzaIbJPnK55nRCDYyM6jaHf0Q57Z7hPo9w==
+ bh=VQ3V3OoQkJV+ihJYhULIq7MK3vFf8IppXU8PWUeKEHA=;
+ b=XPMwNrqyXE7ibDSsODDm3wp3IIUkhNcFvQjizJBiEBcnNlGYIDiAxzWpZXwzmbjRENuhLOphu8Ak7ITOy6RYqjCQesIc1kvgGIQ3hQux6DP/44aqgPXrK2ZWwc0yzpL0im4NvRAMrZldKFdLUC9bDOlcMW7LUZq8aRWGjsVVaqpLx0qRxjjlh/y5nSaXixG+WQNDwZANmxmtiTjmPlDCv4zclW3ovivfAKeKdugCBKy9R8/nCfPtLVjKCgsRKuhWNsQhbFb8wDQiXn2lK0Yom6JZsd6HIPcyzDkOWfzHHZBNQ3UfLkOcv6GIp4e2JdtzIiCmksaQPth1UOB/RMwdKQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=tZOKqdVsRZVp2lW7kvLvzlviV1ceOOEWF9Ny8IC1uU8=;
- b=ccatWBlggT5j3WvaxP1ky+g2hlNofT/tgV4qRysVf0hqTpMPffRUKZBUrRshh9cXPPsb7Orh97NkvsuWO6GhWkOlHtTCKpeZNowKSperHCi9GQoznPDWCA9CleuxO14F1f4NVI8yx23zbOX5vlRybI4jq8EQockVXdZ2EOzZsNc=
+ bh=VQ3V3OoQkJV+ihJYhULIq7MK3vFf8IppXU8PWUeKEHA=;
+ b=NJ2Kz8uRQV7SmmKSG8Xbgx3GCHSnf1N+MbHTAWZXjiEjZrKnseG/Hk5JFGWMQUIgP9OmwPqNUiw5sT4Spaiy6IEG0nL9E/WhCwq5sryzmdaWiGOttEAv3esivtpjerSrgq3eU+BqNdco7DKms1IE2GVYJ10lw/C2TFYwr6G0VlA=
 Received: from BY5PR12MB4179.namprd12.prod.outlook.com (2603:10b6:a03:211::8)
  by SN7PR12MB7201.namprd12.prod.outlook.com (2603:10b6:806:2a8::22)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.16; Tue, 28 Apr
- 2026 03:16:56 +0000
+ 2026 03:17:05 +0000
 Received: from BY5PR12MB4179.namprd12.prod.outlook.com
  ([fe80::2036:e8b:9b3:f325]) by BY5PR12MB4179.namprd12.prod.outlook.com
  ([fe80::2036:e8b:9b3:f325%6]) with mapi id 15.20.9870.016; Tue, 28 Apr 2026
- 03:16:56 +0000
+ 03:17:05 +0000
 From: "Ma, Bing" <Bing.Ma@amd.com>
 To: "Zhu, James" <James.Zhu@amd.com>, "amd-gfx@lists.freedesktop.org"
  <amd-gfx@lists.freedesktop.org>, "Deucher, Alexander"
  <Alexander.Deucher@amd.com>, "Francis, David" <David.Francis@amd.com>
 CC: "Zhang, Jesse(Jie)" <Jesse.Zhang@amd.com>, "Liu, Jenny (Jing)"
  <Jenny-Jing.Liu@amd.com>
-Subject: RE: [PATCH v2 10/17] drm/amdgpu: add profiler/spm operation
- AMDGPU_SPM_OP_ACQUIRE
-Thread-Topic: [PATCH v2 10/17] drm/amdgpu: add profiler/spm operation
- AMDGPU_SPM_OP_ACQUIRE
-Thread-Index: AQHcu9QX3UNuihQjukGmVIHFINNV/rX0Az/Q
-Date: Tue, 28 Apr 2026 03:16:55 +0000
-Message-ID: <BY5PR12MB4179C3AEC70B3370501A370EFD372@BY5PR12MB4179.namprd12.prod.outlook.com>
+Subject: RE: [PATCH v2 11/17] drm/amdgpu: add profiler/spm operation
+ AMDGPU_SPM_OP_SET_DEST_BUF
+Thread-Topic: [PATCH v2 11/17] drm/amdgpu: add profiler/spm operation
+ AMDGPU_SPM_OP_SET_DEST_BUF
+Thread-Index: AQHcu9Qaj7Gte1ieL0OwrERi5/okprX0A00w
+Date: Tue, 28 Apr 2026 03:17:04 +0000
+Message-ID: <BY5PR12MB4179A6EBC3AC2FE13BB8B4C3FD372@BY5PR12MB4179.namprd12.prod.outlook.com>
 References: <20260324212030.822932-1-James.Zhu@amd.com>
- <20260324212030.822932-11-James.Zhu@amd.com>
-In-Reply-To: <20260324212030.822932-11-James.Zhu@amd.com>
+ <20260324212030.822932-12-James.Zhu@amd.com>
+In-Reply-To: <20260324212030.822932-12-James.Zhu@amd.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
 msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
  MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-04-28T03:16:49.0000000Z;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-04-28T03:17:01.0000000Z;
  MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD General
  v26; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=3;
  MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard
@@ -70,58 +69,58 @@ authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 x-ms-publictraffictype: Email
 x-ms-traffictypediagnostic: BY5PR12MB4179:EE_|SN7PR12MB7201:EE_
-x-ms-office365-filtering-correlation-id: 80a73f6c-b0a6-4665-a9fb-08dea4d49a28
+x-ms-office365-filtering-correlation-id: 55926b77-8b9d-43a8-6ff5-08dea4d49f92
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
  ARA:13230040|1800799024|366016|376014|18002099003|22082099003|56012099003|38070700021;
-x-microsoft-antispam-message-info: 6ey5V3lBVNCGcGxWwo1YbrIqlpDJNM9RGZkIwUx2hO1xz4gWd6d45RVzTY0TYAjy8nwFNGVSNykmW3PnWbyamusK513cV6hRR+WyswuInaaW4IHMPOoVub27wXSOPDd+9JaZukN+s64zTSEtg8zyp1Wtwc+e3kYWNwslN3DoM0pPJfnkP8cE0JUlJ0E9dw+dbcX3QC4CcKQXrb5FwPtrB158GLkr6KW4cUAbzJMZFUq1lTfGh8+XMlWKTdOv4T98IWqX7Uq0Yoyc2Ldfx/KMg2ojAVZGKljxlxj5c7IKU5vl2aEHLG8Q9gX4m2yNMkczHXsC3xbTmuUmVVXjux+ruWAvbH0XErtlF7r2/0hQ2Rg/NlYCsx0k9PmewXXmhIhST82HzzDBQFMSLKXCxDkUiiKkrD8yWAK1N38YTlQ32Zgm9G70jDKEBJ2lXCr0Ic89YAcDxOayAfFh6q4VstXKBjF8ReazCO+GWj//TSHjcnnSloSeDhb33bOiCGHHavT78D/3Bg51f+/UBF1lDgeyLkDyPMejBoJw9uoNfQUAlmUuwmYqqw2aq5qJhn5Qd/8bkT4wbMREUkIh9wAl+bcudvrkqzHW5DZlWG5MDE+E1Ziv4EOrD23LgB/zAMZ2ufQCrG0yDDVOY5ce9IJ6p7Hr1MTU5bCx6SZdBKV8KsuJ87/j/HJjwHirIJRb0YEdIz9an7hr7HSSyHPQs4dNvzXIX+pX506BGwV7x/iF/3t70TbIJpJ5HR6YWCnSmRCXb1PIZzbD5/dgW0mp3F9UyRnNL7vRV4w5Ny/xMZoYPYoDalU=
+x-microsoft-antispam-message-info: rsInoAi2IluACwIkraMoD5+DcRVuCPsIM46EN774MqR1HFsMCug8Fg5g9uCaqloCLaJQbCwGjjyaLWdpvb6HVkBVfo9hndcMjdbPwD/wFSkAbboAzYYCu8Iij01zhJGz9aj0TUH0AD/AOi65dLPei4rZp3VYR0gi5OuaNDmw8ILojxcQCgUQigHKtNCYyYYbzHfuAgTOPFSiXyHKwlxt2CyELBuJiou4WOoVX6PqiO58NVCliWjsi0gZW39UbazqAbdttntGXjcCsBGZ6+TvIMBkPGHzBDSTq6RfcAZ43wrHVL+AZr2bOnGrR1uwullYe5wrxTsRENGhDXTGqFdDkzcjRymd6Bu/a7wBCLuIa9rB6d20jHuccatKMZu3IbuSyzF7D5ScNVOOliD38S5LyCELebL+eF2r880u4mOhoLrN7NzDQR6ZWjcvsrJx9SG5fsXehKW/CAfv1XgE7RsAlXkLz2Xb1ivMV6XW9CffyZbB4WC5VUy280Zbvx+ORMnxoTPDV41oHIx9Ck+O6jmrKDj53LXb+febzN9BUXBhSF+7FxaOuYRZIsE61jtf7/8TFoucjTkS10O2q0vfAYb7HVyPBF5tDFfMFFx/ZPdbI7YyzNQenR3WzJRGnI7NEMvio7iZsrERUAuodK+EmFK4oFWhbbNsJcAnPUoXYM75+9USvIpGu8vvWrxFd90PykGQhJfb56Qw4y7XhYYbfj8Jy7hHc7iNmCZvJ+P2ESVIVpsad2FcYsmAN1jLdgGP7yMtbWrm3unG36lu9orHE75ymOLWOF48PM0emFrdazpxe0s=
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:BY5PR12MB4179.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFS:(13230040)(1800799024)(366016)(376014)(18002099003)(22082099003)(56012099003)(38070700021);
  DIR:OUT; SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?3GpoKAhfAzzXnuSjcX5/zu2q3zngXsz0iqZ8+O4HOYv2vSpmgLOiMH2QJGyQ?=
- =?us-ascii?Q?laL0IuBA/IktKNm50SC0uPIj0//ZRRpG2Aih1Ieora4mmczBa13G3VvT9rYN?=
- =?us-ascii?Q?m3vpUjUhhh+4T3Pc1UjUJkVoX6SsuNDRgidjiy5A1L8S+4EZ9XAotrp0Iw33?=
- =?us-ascii?Q?InPs7B30QGY9ZjDB7TYIMWKRKMafUIWr8BHZNyBZ14D1YBoEFIUzs2dhEoFu?=
- =?us-ascii?Q?O6TJx2pR2HU9jeEcrzEZnOEaJt1s/fiS7mSblANMhBfT9ZNzt2dP80hfp68H?=
- =?us-ascii?Q?snMh2OgsMsnZkm8bnMUI7mY03RIiN0ARJPqTTWMLYlaiYOb1hh/SopYUQuxF?=
- =?us-ascii?Q?Hx2j1vzBYoT4hL2MTbfRYbRQ6F3cZkkHm9Y2ifB04Zg0wWD/b3XqcrA2TuYc?=
- =?us-ascii?Q?BYfCYJs5ODiDfbvNyGRgLsymO6b5Vkc8jX+vjrdYHNlfHwG1QM4kaeArNh6V?=
- =?us-ascii?Q?Ve6NiyQpLQ0jvBnt4wVuOJMaZhQGRWPZ7gFy2ZVUcmSRSuTaELl1Kgf+iVGZ?=
- =?us-ascii?Q?GIh89FA990PzpZ9qAky3cLi/FN9tHPBMDSvg1rG2uttZiTrFiKxP6+3PxJLl?=
- =?us-ascii?Q?WLtyh/aU2GchcRBM+Ihtj5RwrQ3LSntKb0Rk/cKFSKBVv7mEGxusskO4+n7k?=
- =?us-ascii?Q?2Oq4mb/KeBA1q3Od80MD7vP9k6B+/i2rv1i4jIJJ+Wr+IPv487a8lUjn0QB0?=
- =?us-ascii?Q?ELH/pD4tSaqkoXLXGYFSrflqFlGxjhPKaYsXNtocAG2RmIgA2QPKk93sYC38?=
- =?us-ascii?Q?oIVjfJMPLy9vzvbpECag8iA6YVEr91sEfCop/vuo00Av2+FXfgkwv8ezX+eM?=
- =?us-ascii?Q?0GT350FlqtpkggxBelsVH0Iw22CoOExgh5SA0jZ6idCGxoFzroFpFvQAv+Qm?=
- =?us-ascii?Q?Xt7rC/whcrJzc3Kz3tAO09bCfRFsFcsouy7z/RkLAPLecpqM9RBuEygMHV9f?=
- =?us-ascii?Q?gdKpRqAinqc40o2C/ZQMpMhFLuQJupsMnEmcmxxMfHnSg/A/ErmAgd8kqw9R?=
- =?us-ascii?Q?pNgVVyjxoe0VzHo5/dNDBA7ruMCt/weiSG5rUvhAmRiHhI1+fj1ac/D6XxD2?=
- =?us-ascii?Q?wr1REFPGmpJmtmPyeIeuaPflVi6kqn4telslmTaFeFQ0HA8bthROJr5vfxF4?=
- =?us-ascii?Q?B7am9NAl+NFZRCquBtXDpIxL82scrFgY1ApAYEKhQ5AfBGcAeeJF6pipH6oc?=
- =?us-ascii?Q?NuuPOjT/YJc+kDp9Ei+MlbWYaCvUyCWGxrh29lR61K0eYe4Fw/MB7nbfT1MF?=
- =?us-ascii?Q?lIWKqccf6ZaTb07B4NZvZASAih0Ft0sVR4caw2DaEw42ilM+cKwhauRc+ren?=
- =?us-ascii?Q?y32vv2UDungqJvlX3eIQ8idjpfz7RybkwpT46WaUPa1KApSrdYL3Q5bNxXNy?=
- =?us-ascii?Q?C10OJ2bfTlV//YC6+99Jq1sNBQlW7ANh8d0fIXsFHrtee66As7N4kV1HLg/2?=
- =?us-ascii?Q?JCSw33Hnue4z02NDqYe8SXJRDmixB9405wYGa+aK64koLQmgg63Jtt36B/M2?=
- =?us-ascii?Q?kYbevqLPWql5VrPbNycc8CWlk4NBEMDseXWm45UUiPj/te2tUMoH4+tgp4gv?=
- =?us-ascii?Q?e3RxiK55xTKZyOgBvciDYck27yEH839k0dVSub9vFaOepbl1LJkn9pcgLaFy?=
- =?us-ascii?Q?YPoVC/28GdL6yiCUrioI32LT0Hgbeb8VhgIaJvGNdVYHa7j7ql8dzPshrBX6?=
- =?us-ascii?Q?54eNkZnhiD7UXNC52gSfrQmlgKbv804XeCEHsN5fFJowrPNJ?=
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?FB7yIqTeKnM6HLu6mOww1MCflHaCQEvuJ1NbIC/GCcT0FFdHeGGxqW9sS+5G?=
+ =?us-ascii?Q?9ZAG98fvyuxJvKWHoa5VuUOf+lF9cieWxmTRXAnyrsqEm07BtrmrkxEnIxLc?=
+ =?us-ascii?Q?1iPTGDBrPukk7hUsFPfn4zVWKYbas6M5tW1j7P5E06kthwhhCWYwROQIuJhu?=
+ =?us-ascii?Q?CF6Hw7SOHnYUSVRRLOCvkHboZQ6XxMFsVkqZGwv6O87VvJRs/+KhJ9VOqEH6?=
+ =?us-ascii?Q?0ijkw5Mm3t1WFh0cZ6MU+k0QrJhH3Wkfu1L1Fax0VhdxykKZFYoyZ9OPVsa1?=
+ =?us-ascii?Q?VlY/fXA4ZJ3C1F9QEC45wCpIrZL4FGWdND856Ls0vM37F2oASyGdCjCuuuLs?=
+ =?us-ascii?Q?NcQ+hOyIcr+6Q0fxs75uILw/9XJGeRBpKSlmk7GLA4Co6TZfmswuHwrMIkGH?=
+ =?us-ascii?Q?L0aPnh4TY14QH8yj1cQ4jcZPxscdsFOqezeOO7pjoxOMi0DJ850zYcTrX7oK?=
+ =?us-ascii?Q?8Y2eybc8AGWr38RkJkLLQMUhcwkSMh/64eXIszET3I82x2IQmeoTfchCbbFM?=
+ =?us-ascii?Q?20gUSjD/J2J0pJgQFykI4hE8dYYhRzkqVRzSYXL+9X3WLqOe047Mhd077teE?=
+ =?us-ascii?Q?lu0I8xqMfoWMTjLa6sy22yBaVbLzKUEnBCnsiiX1FvkI1Wk4NqF+mcvwXKBY?=
+ =?us-ascii?Q?NfGI3zIsyprJyrKFpNJ2F3J4c8wy+rHkhDwD9iGPQ841AqIRjrgZ6qlw1OhZ?=
+ =?us-ascii?Q?k1fdYnIIW8bEk9GYZQXZb2TYOJEcu26Zn4xYwWKSOx1hvEFsBjFTgiFLKZME?=
+ =?us-ascii?Q?UDppRIs/hb1dedPf32T3NTnz8OGYw44ZxnH2OwHHLICVnFZsynvy7ZoNaHxN?=
+ =?us-ascii?Q?G6BNuHJXd9EqBN1e1wPe/Are0ya21qnMEaX2VHMJXog3Kw9gXNvw7iEYUb7v?=
+ =?us-ascii?Q?CvhfeInHW1c7U4sVL6Kp8Vw9t4IMn03HEwoG1gYOVmJn1Qbqd9wjEYlh1RyS?=
+ =?us-ascii?Q?1apZ/3uosawPIkcSba+BIKeVAkY5d8sL2KAIbGUPtNliKGU03fvPn5sDvDHF?=
+ =?us-ascii?Q?03jsyJ7BzYA+7HS3f8lhsfTY6OrJcbtxmg1cf2RqIvARqSpTrFcIhMAWi0Ha?=
+ =?us-ascii?Q?croN8XVhfa7lqTK8PtqwA0dVRM2JEj7iwGW/Sl4CgfMeiqFGwItZB38u+zUU?=
+ =?us-ascii?Q?e7+jXz3T5NqNqOFrtFTZlxhM681YPn5SOHax2HDAfMwUfVGqA7PWug+Vs3tG?=
+ =?us-ascii?Q?8pyO1uiFpsyzw7SI1F1AtD0Ci4jcPFAaAX7gfXPrTIfT92OUYlf1/937Bkl3?=
+ =?us-ascii?Q?qTATtnmHeFa8Ww6A0T1XMslc1NUcquX42BOw+2yvWcouXOwJQ7F4GVnl7ZWW?=
+ =?us-ascii?Q?//buJa7JE9eWxEqyCNuTikup6ZhNNyi+gAID5wNjW7A+AaWdsicq2aiPC2vI?=
+ =?us-ascii?Q?9K3PRqaKwBnuXqBJn3tm78ZSfNV+nkOEFcC1Pa0I+/5zBFQMOCAzG+gYy496?=
+ =?us-ascii?Q?UfGuboL74228ZV1LMXdOXz6MDQhIngOiyDZ5KFE3y3agMt/gLpbiiTNkBySz?=
+ =?us-ascii?Q?mHakXENWRUwjLWPLyuJwD6TMkRgfEmogGGaJ15BePvQFBdkkfBlFRMdvXypr?=
+ =?us-ascii?Q?cAAi6FZBL5GbugWWrJwEG8FXGQrXsD+XU+89JJ7hvPPesykwzYJ6Y6A/cMC1?=
+ =?us-ascii?Q?jvCfjTCS6x4p8J72cgB7xk6c3omwExy6pawq4tGtG4olSHUKUiGlt5xrTYI1?=
+ =?us-ascii?Q?HwDyv6gxs9ODSrQHd+NNdVj/B+QC8Wz3o18ZZ//t8eK5Pz3y?=
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: BY5PR12MB4179.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 80a73f6c-b0a6-4665-a9fb-08dea4d49a28
-X-MS-Exchange-CrossTenant-originalarrivaltime: 28 Apr 2026 03:16:55.8942 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 55926b77-8b9d-43a8-6ff5-08dea4d49f92
+X-MS-Exchange-CrossTenant-originalarrivaltime: 28 Apr 2026 03:17:04.9737 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: S/wDck9rhLnYj9yK4+63GYh4DSH6FPeBCF+zhTtbt84aKnmRHUKBr9y3VNzEci/qFwVs7uyb0FIMHLHKTa3bdQ==
+X-MS-Exchange-CrossTenant-userprincipalname: JA+ffMYpAZqDpoBy5VB9utihkW7h95WQcE9iqknFUHkZdU8fejde0pnsxGriXdylws2qhQki8q9uwVFxigyK/A==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7201
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -148,288 +147,413 @@ To: amd-gfx@lists.freedesktop.org; Deucher, Alexander <Alexander.Deucher@am=
 d.com>; Ma, Bing <Bing.Ma@amd.com>; Francis, David <David.Francis@amd.com>
 Cc: Zhang, Jesse(Jie) <Jesse.Zhang@amd.com>; Liu, Jenny (Jing) <Jenny-Jing.=
 Liu@amd.com>; Zhu, James <James.Zhu@amd.com>
-Subject: [PATCH v2 10/17] drm/amdgpu: add profiler/spm operation AMDGPU_SPM=
-_OP_ACQUIRE
+Subject: [PATCH v2 11/17] drm/amdgpu: add profiler/spm operation AMDGPU_SPM=
+_OP_SET_DEST_BUF
 
-to implement AMDGPU_SPM_OP_ACQUIRE, which grants a process exclusive access=
- to the SPM hardware on its XCP partition and allocates the per-XCC ring bu=
-ffers used for streaming performance counter data.
+to implement AMDGPU_SPM_OP_SET_DEST_BUF, which registers a user-space desti=
+nation buffer for SPM data streaming, optionally waits for the previous buf=
+fer to be filled, and starts or stops the SPM hardware per XCC instance.
 
-Data structures:
-  struct amdgpu_spm_base (amdgpu_spm.h):
-    Holds the per-XCC ring buffer state: GTT BO handle (spm_obj),
-    GPU virtual address (gpu_addr), kernel virtual address (cpu_addr),
-    and effective ring size (ring_size).
+Data structure additions (amdgpu_spm.h):
+  struct spm_user_buf:
+    Tracks the current user-space destination buffer per XCC: the
+    adjusted user_addr (offset past the drm_amdgpu_spm_buffer_header)
+    and remaining ubufsize in bytes.
 
-  struct amdgpu_spm_cntr (amdgpu_spm.h):
-    Contains an array of amdgpu_spm_base[MAX_XCP] (one per XCC) and a
-    spm_worker_mutex to serialize worker operations. Allocated on first
-    ACQUIRE and freed on RELEASE.
+  amdgpu_spm_base extended with:
+    ubuf (spm_user_buf), ring_rptr, size_copied, has_data_loss,
+    has_user_buf (buffer registered), is_user_buf_filled (buffer full),
+    is_spm_started (SPM HW running).
 
-  struct amdgpu_spm_mgr (amdgpu_spm.h):
-    Extended with lead_thread (the acquiring process's thread group
-    leader), spm_cntr pointer, and spm_work work_struct for the deferred
-    ring buffer drain worker.
+  amdgpu_spm_cntr extended with:
+    spm_use_cnt (number of active XCC ring buffers), have_users_buf_cnt
+    (number of XCCs with a registered user buffer), are_users_buf_filled
+    (true when all registered buffers are full), spm_buf_wq (wait queue
+    head for blocking on buffer fill).
 
-ACQUIRE flow (amdgpu_spm_acquire):
-  1. Takes the per-XCP prof_xcp_mgr->mutex to serialize concurrent
-     ACQUIRE attempts.
-  2. Returns -EBUSY if spm_cntr is already allocated (another process
-     holds SPM).
-  3. Allocates spm_cntr via kzalloc and records current->group_leader
-     as lead_thread.
-  4. For each XCC in AMDGPU_XCC_MASK(adev), calls _amdgpu_spm_acquire():
-     - Allocates a 4 MiB GTT ring buffer via amdgpu_bo_alloc_gtt_mem().
-     - Programs the ring buffer into the RLC hardware via
-       amdgpu_rlc_spm_acquire(), which also reserves a VMID for the
-       caller's VM.
-     - Subtracts 0x20 bytes (8 DWORDs) from ring_size to exclude the
-       hardware-defined metadata area at the end of the buffer.
-     - On failure, frees the GTT BO and clears the spm_base entry.
-  5. Initializes spm_worker_mutex and INIT_WORK for amdgpu_spm_work.
-  6. Records the drm_file pointer in spm_mgr->file.
-  7. On any per-XCC failure, rolls back all already-acquired XCCs via
-     _amdgpu_spm_release() (stub, TODO) and frees spm_cntr.
+  amdgpu_spm_mgr extended with:
+    spm_irq_lock (spinlock protecting is_spm_started and ring_rptr
+    against concurrent IRQ handler access).
 
-amdgpu_spm_work (work_struct handler):
-  Attaches the lead_thread's mm_struct via kthread_use_mm() to enable
-  user-space copy operations, then detaches and releases the mm. The
-  actual ring buffer drain to user space is a TODO for a later patch.
+SET_DEST_BUF flow (amdgpu_set_dest_buffer):
+  1. Validates spm_cntr is allocated and spm_use_cnt > 0.
+  2. Splits the caller-supplied buf_size evenly across all active XCCs
+     (spm_use_cnt), rounded down to 32-byte alignment. Returns -EINVAL
+     if the per-XCC slice cannot accommodate a drm_amdgpu_spm_buffer_header
+  3. If timeout > 0 and a previous buffer is still being filled,
+     blocks on spm_buf_wq via wait_event_interruptible_timeout().
+     On -ERESTARTSYS the remaining timeout is computed and returned so
+     the syscall can be transparently restarted by user space. On
+     -ETIME (timeout expired), the work queue is flushed immediately
+     to capture any partial data, and the call returns success.
+     If timeout =3D=3D 0 and a previous buffer exists, the work queue is
+     flushed immediately without waiting.
+  4. For each XCC in AMDGPU_XCC_MASK(adev), calls spm_update_dest_info():
+     - If a previous user buffer was registered (has_user_buf), writes
+       the drm_amdgpu_spm_buffer_header (SPM version, bytes_copied,
+       has_data_loss to the reserved header slot just before ubuf.user_addr
+       via copy_to_user(), accumulates bytes_copied and has_data_loss into
+       the ioctl output args, and decrements have_users_buf_cnt.
+     - If a new dest_buf is provided, advances the internal user_addr
+       past the header, records ubufsize, resets size_copied, has_data_loss
+       and is_user_buf_filled, sets has_user_buf, and increments
+       have_users_buf_cnt.
+  5. If dest_buf !=3D NULL and the XCC's SPM is not yet started:
+     calls amdgpu_rlc_spm_cntl(start), resets ring_rptr to 0 under
+     spm_irq_lock (since amdgpu_rlc_spm_cntl() resets wptr to 0),
+     and sets is_spm_started. If SPM was already running, sets
+     need_schedule to drain existing ring data after the mutex is
+     released.
+  6. If dest_buf =3D=3D NULL: stops the SPM hardware via
+     amdgpu_rlc_spm_cntl(stop), clears is_spm_started and ring_rptr
+     under spm_irq_lock.
+  7. After releasing the XCP mutex, schedules the work queue if
+     need_schedule is set.
 
-Three new navigation macros are added in amdgpu_profiler.h:
-  - to_prof_xcp_mgr(x, y): container_of from a member y to
-    amdgpu_profiler_xcp_mgr.
-  - xcp_to_prof_mgr(x, y): container_of from prof_xcp_mgr[] element to
-    amdgpu_profiler_mgr.
-  - mgr_to_adev(x, y): compound statement combining the two above to
-    reach amdgpu_device from any embedded manager pointer.
-
-AMDGPU_XCC_MASK(adev) is added using GENMASK() to safely produce a bitmask =
-of active XCC instances from NUM_XCC(adev->gfx.xcc_mask).
-
-In amdgpu_spm_ioctl(), the per-XCP spm_mgr is now resolved from fpriv using=
- AMDGPU_XCP_ID() before dispatching to sub-operation handlers.
+amdgpu_spm_interrupt() stub is implemented: resolves the xcp_id from xcc_id=
+ using amdgpu_xcp_get_partition() (defaulting to 0 on non- partitioned devi=
+ces), looks up the corresponding spm_mgr, and under spm_irq_lock schedules =
+the work queue if SPM is active on that XCC.
 
 Signed-off-by: James Zhu <James.Zhu@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_profiler.h |  13 +++
- drivers/gpu/drm/amd/amdgpu/amdgpu_spm.c      | 114 ++++++++++++++++++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_spm.h      |  17 +++
- 3 files changed, 143 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_spm.c | 217 +++++++++++++++++++++++-  dr=
+ivers/gpu/drm/amd/amdgpu/amdgpu_spm.h |  18 ++
+ 2 files changed, 233 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_profiler.h b/drivers/gpu/drm=
-/amd/amdgpu/amdgpu_profiler.h
-index ea62a4dee364..587adadaedb8 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_profiler.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_profiler.h
-@@ -27,6 +27,7 @@
-
- #include "amdgpu_spm.h"
-
-+#define AMDGPU_XCC_MASK(adev) GENMASK(NUM_XCC(adev->gfx.xcc_mask) - 1,
-+0)
- #define AMDGPU_XCP_ID(x) (x =3D=3D AMDGPU_XCP_NO_PARTITION ? 0 : x)  #defi=
-ne fpriv_to_prof_mgr(fpriv) (&(fpriv)->userq_mgr.adev->prof_mgr)
- #define fpriv_to_adev(fpriv) ((fpriv)->userq_mgr.adev) @@ -34,6 +35,18 @@ =
- #define prof_mgr_to_adev(x) \
-        container_of(x, struct amdgpu_device, prof_mgr)
-
-+#define to_prof_xcp_mgr(x, y) \
-+       container_of(x, struct amdgpu_profiler_xcp_mgr, y)
-+
-+#define xcp_to_prof_mgr(x, y) \
-+       container_of(x, struct amdgpu_profiler_mgr, y)
-+
-+#define mgr_to_adev(x, y) \
-+({     struct amdgpu_profiler_xcp_mgr *prof_xcp_mgr =3D to_prof_xcp_mgr(x,=
- y); \
-+       struct amdgpu_profiler_mgr *prof_mgr =3D \
-+               xcp_to_prof_mgr(prof_xcp_mgr, prof_xcp_mgr[prof_xcp_mgr->xc=
-p_id]);\
-+       prof_mgr_to_adev(prof_mgr); })
-+
- struct amdgpu_profiler_xcp_mgr {
-        struct mutex                   mutex;
-        uint32_t                       xcp_id;
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_spm.c b/drivers/gpu/drm/amd/=
 amdgpu/amdgpu_spm.c
-index 6ff88dfabf1c..e58b89ccd83f 100644
+index e58b89ccd83f..896a0fef576c 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_spm.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_spm.c
-@@ -30,10 +30,28 @@
+@@ -29,6 +29,9 @@
+  * 0.1 - Initial revision
   */
 
++#define AMDGPU_SPM_MAJOR_VERSION       0
++#define AMDGPU_SPM_MINOR_VERSION       1
++
  static int amdgpu_spm_release(struct amdgpu_spm_mgr *spm_mgr, struct drm_f=
-ile *filp);
-+static void _amdgpu_spm_release(struct amdgpu_spm_mgr *spm_mgr, int
-+inst, struct drm_file *filp);
-+
-+static void amdgpu_spm_work(struct work_struct *work) {
-+       struct amdgpu_spm_mgr *spm_mgr =3D container_of(work, struct amdgpu=
-_spm_mgr, spm_work);
-+       struct mm_struct *mm =3D NULL;
-+
-+       mm =3D get_task_mm(spm_mgr->lead_thread);
-+       if (mm) {
-+               kthread_use_mm(mm);
-+               { /* attach mm */
-+                       /* TODO: dump spm ring buffer to user buffer */
-+               } /* detach mm */
-+               kthread_unuse_mm(mm);
-+               /* release the mm structure */
-+               mmput(mm);
-+       }
-+}
+ile *filp);  static void _amdgpu_spm_release(struct amdgpu_spm_mgr *spm_mgr=
+, int inst, struct drm_file *filp);
 
- static void amdgpu_spm_init_device(struct amdgpu_spm_mgr *spm_mgr)  {
--       /* TODO */
-+       spm_mgr->spm_cntr =3D NULL;
+@@ -120,12 +123,16 @@ static int amdgpu_spm_acquire(struct amdgpu_spm_mgr *=
+spm_mgr, struct drm_file *f
+                ret =3D _amdgpu_spm_acquire(spm_mgr, inst, filp);
+                if (ret)
+                        goto acquire_spm_failure;
++               spm_mgr->spm_cntr->spm_use_cnt++;
+        }
+
++       spm_mgr->spm_cntr->have_users_buf_cnt =3D 0;
+        mutex_init(&spm_mgr->spm_cntr->spm_worker_mutex);
+
++       init_waitqueue_head(&spm_mgr->spm_cntr->spm_buf_wq);
+        INIT_WORK(&spm_mgr->spm_work, amdgpu_spm_work);
+
++       spin_lock_init(&spm_mgr->spm_irq_lock);
+        spm_mgr->file =3D filp;
+
+        goto out;
+@@ -153,6 +160,197 @@ static int amdgpu_spm_release(struct amdgpu_spm_mgr *=
+spm_mgr, struct drm_file *f
+        return 0;
  }
 
- static void amdgpu_spm_release_device(struct amdgpu_spm_mgr *spm_mgr, stru=
-ct drm_file *filp) @@ -41,6 +59,94 @@ static void amdgpu_spm_release_device=
-(struct amdgpu_spm_mgr *spm_mgr, struct drm
-        amdgpu_spm_release(spm_mgr, filp);
- }
-
-+static int _amdgpu_spm_acquire(struct amdgpu_spm_mgr *spm_mgr, int
-+inst, struct drm_file *filp) {
-+       struct amdgpu_device *adev =3D mgr_to_adev(spm_mgr, spm_mgr);
++static int spm_update_dest_info(struct amdgpu_spm_mgr *spm_mgr,
++                               int inst, struct drm_amdgpu_spm_args *user_=
+spm_data,
++                               struct drm_amdgpu_spm_args *user_spm_ptr) {
 +       struct amdgpu_spm_base *spm =3D &(spm_mgr->spm_cntr->spm[inst]);
 +       int ret =3D 0;
 +
-+       /* allocate 4M spm ring buffer */
-+       spm->ring_size =3D 4 * 1024 * 1024;
++       mutex_lock(&spm_mgr->spm_cntr->spm_worker_mutex);
++       if (spm->has_user_buf) {
++               struct drm_amdgpu_spm_buffer_header spm_header;
++               uint64_t __user *user_address;
 +
-+       ret =3D amdgpu_bo_alloc_gtt_mem(adev,
-+                       spm->ring_size, &spm->spm_obj,
-+                       &spm->gpu_addr, (void *)&spm->cpu_addr,
-+                       false, false);
++               user_spm_ptr->bytes_copied +=3D spm->size_copied;
++               user_spm_ptr->has_data_loss +=3D spm->has_data_loss;
 +
-+       if (ret)
-+               goto out;
++               memset(&spm_header, 0, sizeof(spm_header));
++               user_address =3D (uint64_t *)((uint64_t)spm->ubuf.user_addr=
+ - sizeof(spm_header));
++               spm_header.version =3D AMDGPU_SPM_MAJOR_VERSION << 24 |
++                                       AMDGPU_SPM_MINOR_VERSION;
++               spm_header.bytes_copied =3D spm->size_copied;
++               spm_header.has_data_loss =3D spm->has_data_loss;
++               spm->has_user_buf =3D false;
++               spm_mgr->spm_cntr->have_users_buf_cnt--;
 +
-+       ret =3D amdgpu_rlc_spm_acquire(adev, inst, drm_priv_to_vm(filp),
-+                       spm->gpu_addr, spm->ring_size);
-+       if (ret)
-+               goto rlc_spm_acquire_failure;
-+
-+       /*
-+        * By definition, the last 8 DWs of the buffer are not part of the =
-rings
-+        *  and are instead part of the Meta data area.
-+        */
-+       spm->ring_size -=3D 0x20;
-+
-+       goto out;
-+
-+rlc_spm_acquire_failure:
-+       amdgpu_bo_free_gtt_mem(adev, &spm->spm_obj);
-+       memset(spm, 0, sizeof(*spm));
++               ret =3D copy_to_user(user_address, &spm_header, sizeof(spm_=
+header));
++               if (ret) {
++                       ret =3D -EFAULT;
++                       goto out;
++               }
++       }
++       if (user_spm_data->dest_buf) {
++               spm->ubuf.user_addr =3D (uint64_t *)user_spm_data->dest_buf=
+;
++               spm->ubuf.ubufsize =3D user_spm_data->buf_size;
++               /* reserve space for drm_amdgpu_spm_buffer_header */
++               spm->ubuf.user_addr =3D (uint64_t *)((uint64_t)spm->ubuf.us=
+er_addr +
++                                       sizeof(struct drm_amdgpu_spm_buffer=
+_header));
++               spm->ubuf.ubufsize -=3D sizeof(struct drm_amdgpu_spm_buffer=
+_header);
++               spm->has_data_loss =3D 0;
++               spm->size_copied =3D 0;
++               spm->is_user_buf_filled =3D false;
++               spm->has_user_buf =3D true;
++               spm_mgr->spm_cntr->are_users_buf_filled =3D false;
++               spm_mgr->spm_cntr->have_users_buf_cnt++;
++       }
 +out:
++       mutex_unlock(&spm_mgr->spm_cntr->spm_worker_mutex);
 +       return ret;
 +}
 +
-+static int amdgpu_spm_acquire(struct amdgpu_spm_mgr *spm_mgr, struct
-+drm_file *filp) {
++static int spm_wait_for_fill_awake(struct amdgpu_spm_cntr *spm_cntr,
++                       struct drm_amdgpu_spm_args *user_spm_data) {
++       int ret =3D 0;
++
++       long timeout =3D msecs_to_jiffies(user_spm_data->timeout);
++       unsigned long start_jiffies =3D jiffies;
++
++       ret =3D wait_event_interruptible_timeout(spm_cntr->spm_buf_wq,
++                                (READ_ONCE(spm_cntr->are_users_buf_filled)=
+ =3D=3D true),
++                                timeout);
++
++       switch (ret) {
++       case -ERESTARTSYS:
++               /* Subtract elapsed time from timeout so we wait that much
++                * less when the call gets restarted.
++                */
++               timeout -=3D (jiffies - start_jiffies);
++               if (timeout <=3D 0) {
++                       ret =3D -ETIME;
++                       timeout =3D 0;
++                       pr_debug("[%s] interrupted by signal\n", __func__);
++               }
++               break;
++
++       case 0:
++       default:
++               timeout =3D ret;
++               ret =3D 0;
++               break;
++       }
++       user_spm_data->timeout =3D jiffies_to_msecs(timeout);
++
++       return ret;
++}
++
++static int amdgpu_set_dest_buffer(struct amdgpu_spm_mgr *spm_mgr, void
++*data) {
 +       struct amdgpu_device *adev =3D mgr_to_adev(spm_mgr, spm_mgr);
++       struct drm_amdgpu_spm_args user_spm_data, *user_spm_ptr;
++       struct amdgpu_spm_cntr *spm_cntr;
++       bool need_schedule =3D false;
++       unsigned long flags;
++       u32 ubufsize;
 +       int ret =3D 0;
 +       int inst;
 +
++       dev_dbg(adev->dev, "SPM start to set new destination buffer.");
 +       mutex_lock(&(to_prof_xcp_mgr(spm_mgr, spm_mgr)->mutex));
-+
-+       if (spm_mgr->spm_cntr) {
-+               ret =3D -EBUSY;
++       spm_cntr =3D spm_mgr->spm_cntr;
++       if (spm_cntr =3D=3D NULL ||
++               !spm_cntr->spm_use_cnt) {
++               ret =3D -EINVAL;
 +               goto out;
 +       }
 +
-+       spm_mgr->spm_cntr =3D kzalloc(sizeof(struct amdgpu_spm_cntr), GFP_K=
-ERNEL);
-+       if (!spm_mgr->spm_cntr) {
-+               ret =3D -ENOMEM;
++       user_spm_ptr =3D (struct drm_amdgpu_spm_args *) data;
++       ubufsize =3D user_spm_ptr->buf_size / spm_cntr->spm_use_cnt;
++       ubufsize =3D rounddown(ubufsize, 32);
++
++       if (ubufsize  <=3D sizeof(struct drm_amdgpu_spm_buffer_header)) {
++               ret =3D -EINVAL;
 +               goto out;
 +       }
-+       spm_mgr->lead_thread =3D current->group_leader;
 +
++       memcpy(&user_spm_data, user_spm_ptr, sizeof(user_spm_data));
++       user_spm_data.buf_size =3D ubufsize;
++
++       if (user_spm_data.timeout && spm_cntr->have_users_buf_cnt &&
++           !READ_ONCE(spm_cntr->are_users_buf_filled)) {
++               dev_dbg(adev->dev, "SPM waiting for fill awake, timeout =3D=
+ %d ms.",
++                               user_spm_data.timeout);
++               ret =3D spm_wait_for_fill_awake(spm_cntr, &user_spm_data);
++               if (ret =3D=3D -ETIME) {
++                       /* Copy (partial) data to user buffer after a timeo=
+ut */
++                       schedule_work(&spm_mgr->spm_work);
++                       flush_work(&spm_mgr->spm_work);
++                       /* This is not an error */
++                       ret =3D 0;
++               } else if (ret) {
++                       /* handle other errors normally, including -ERESTAR=
+TSYS */
++                       goto out;
++               }
++       } else if (!user_spm_data.timeout && spm_cntr->have_users_buf_cnt) =
+{
++               /* Copy (partial) data to user buffer */
++               schedule_work(&spm_mgr->spm_work);
++               flush_work(&spm_mgr->spm_work);
++       }
++
++       user_spm_ptr->bytes_copied =3D 0;
++       user_spm_ptr->has_data_loss =3D 0;
 +       for_each_inst(inst, AMDGPU_XCC_MASK(adev)) {
-+               ret =3D _amdgpu_spm_acquire(spm_mgr, inst, filp);
-+               if (ret)
-+                       goto acquire_spm_failure;
++               struct amdgpu_spm_base *spm =3D &(spm_cntr->spm[inst]);
++
++               if (spm->has_user_buf || user_spm_data.dest_buf) {
++                       /* Get info about filled space in previous output b=
+uffer.
++                        * Setup new dest buf if provided.
++                        */
++                       ret =3D spm_update_dest_info(spm_mgr, inst, &user_s=
+pm_data, user_spm_ptr);
++                       if (ret)
++                               goto out;
++               }
++
++               if (user_spm_data.dest_buf) {
++                       /* Start SPM if necessary*/
++                       if (spm->is_spm_started =3D=3D false) {
++                               amdgpu_rlc_spm_cntl(adev, inst, 1);
++                               spin_lock_irqsave(&spm_mgr->spm_irq_lock, f=
+lags);
++                               spm->is_spm_started =3D true;
++                               /* amdgpu_rlc_spm_cntl() will reset SPM and
++                                * wptr will become 0, adjust rptr accordin=
+gly.
++                                */
++                               spm->ring_rptr =3D 0;
++                               spin_unlock_irqrestore(&spm_mgr->spm_irq_lo=
+ck, flags);
++                       } else {
++                               /* If SPM was already started, there may al=
+ready
++                                * be data in the ring-buffer that needs to=
+ be read.
++                                */
++                               need_schedule =3D true;
++                       }
++                       user_spm_data.dest_buf +=3D ubufsize;
++               } else {
++                       amdgpu_rlc_spm_cntl(adev, inst, 0);
++                       spin_lock_irqsave(&spm_mgr->spm_irq_lock, flags);
++                       spm->is_spm_started =3D false;
++                       /* amdgpu_rlc_spm_cntl() will reset SPM and wptr wi=
+ll become 0.
++                        * Adjust rptr accordingly
++                        */
++                       spm->ring_rptr =3D 0;
++                       spin_unlock_irqrestore(&spm_mgr->spm_irq_lock, flag=
+s);
++               }
 +       }
-+
-+       mutex_init(&spm_mgr->spm_cntr->spm_worker_mutex);
-+
-+       INIT_WORK(&spm_mgr->spm_work, amdgpu_spm_work);
-+
-+       spm_mgr->file =3D filp;
-+
-+       goto out;
-+
-+acquire_spm_failure:
-+       for_each_inst(inst, AMDGPU_XCC_MASK(adev))
-+               _amdgpu_spm_release(spm_mgr, inst, filp);
-+       kfree(spm_mgr->spm_cntr);
-+       spm_mgr->spm_cntr =3D NULL;
 +
 +out:
 +       mutex_unlock(&(to_prof_xcp_mgr(spm_mgr, spm_mgr)->mutex));
++       if (need_schedule)
++               schedule_work(&spm_mgr->spm_work);
++
++       dev_dbg(adev->dev, "SPM finish to set new destination buffer, ret =
+=3D %d.", ret);
 +       return ret;
 +}
 +
-+static void _amdgpu_spm_release(struct amdgpu_spm_mgr *spm_mgr, int
-+inst, struct drm_file *filp) {
-+       /* TODO: */
-+
-+}
-+
- static int amdgpu_spm_release(struct amdgpu_spm_mgr *spm_mgr, struct drm_f=
-ile *filp)  {
-        /* TODO */
-@@ -52,9 +158,15 @@ int amdgpu_spm_ioctl(struct drm_device *dev, void *data=
-,  {
-        struct amdgpu_fpriv *fpriv =3D filp->driver_priv;
-        struct amdgpu_device *adev =3D fpriv_to_adev(fpriv);
-+       struct amdgpu_profiler_mgr *prof_mgr =3D fpriv_to_prof_mgr(fpriv);
-        struct drm_amdgpu_spm_args *args =3D data;
-+       struct amdgpu_spm_mgr *spm_mgr =3D
-+               &(prof_mgr->prof_xcp_mgr[AMDGPU_XCP_ID(fpriv->xcp_id)].spm_=
-mgr);
+ int amdgpu_spm_ioctl(struct drm_device *dev, void *data,
+                       struct drm_file *filp)
+ {
+@@ -167,10 +365,13 @@ int amdgpu_spm_ioctl(struct drm_device *dev, void *da=
+ta,
+        case AMDGPU_SPM_OP_ACQUIRE:
+                return amdgpu_spm_acquire(spm_mgr, filp);
 
-        switch (args->op) {
-+       case AMDGPU_SPM_OP_ACQUIRE:
-+               return amdgpu_spm_acquire(spm_mgr, filp);
++       case AMDGPU_SPM_OP_SET_DEST_BUF:
++               return amdgpu_set_dest_buffer(spm_mgr, data);
 +
         default:
                 dev_dbg(adev->dev, "Invalid option: %i\n", args->op);
-                return -EINVAL;
+-               return -EINVAL;
+        }
++       return -EINVAL;
+ }
+
+ int amdgpu_spm_mgr_init(struct amdgpu_spm_mgr *spm_mgr) @@ -189,5 +390,17 =
+@@ void amdgpu_spm_mgr_fini(struct amdgpu_spm_mgr *spm_mgr)
+
+ void amdgpu_spm_interrupt(struct amdgpu_device *adev, int xcc_id)  {
+-       /* TODO */
++       uint8_t  xcp_id;
++       unsigned long flags;
++       struct amdgpu_spm_mgr *spm_mgr;
++
++       xcp_id =3D adev->xcp_mgr ?
++               fls(amdgpu_xcp_get_partition(adev->xcp_mgr, AMDGPU_XCP_GFX,=
+ xcc_id))
++- 1 : 0;
++
++       spm_mgr =3D &(adev->prof_mgr.prof_xcp_mgr[xcp_id].spm_mgr);
++
++       spin_lock_irqsave(&spm_mgr->spm_irq_lock, flags);
++       if (spm_mgr->spm_cntr && spm_mgr->spm_cntr->spm[xcc_id].is_spm_star=
+ted)
++               schedule_work(&spm_mgr->spm_work);
++       spin_unlock_irqrestore(&spm_mgr->spm_irq_lock, flags);
+ }
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_spm.h b/drivers/gpu/drm/amd/=
 amdgpu/amdgpu_spm.h
-index dc55d2a8f016..9db89fd6154d 100644
+index 9db89fd6154d..5eed6aa6482a 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_spm.h
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_spm.h
-@@ -24,8 +24,25 @@
+@@ -24,15 +24,32 @@
  #ifndef AMDGPU_SPM_H_
  #define AMDGPU_SPM_H_
 
-+struct amdgpu_spm_base {
-+       u64    gpu_addr;
-+       u32    ring_size;
-+       u32    *cpu_addr;
-+       void   *spm_obj;
-+};
-+struct amdgpu_spm_cntr {
-+       struct amdgpu_spm_base spm[MAX_XCP];
-+       struct mutex spm_worker_mutex;
++struct spm_user_buf {
++       uint64_t __user *user_addr;
++       u32 ubufsize;
 +};
 +
+ struct amdgpu_spm_base {
++       struct spm_user_buf ubuf;
+        u64    gpu_addr;
+        u32    ring_size;
++       u32    ring_rptr;
++       u32    size_copied;
++       u32    has_data_loss;
+        u32    *cpu_addr;
+        void   *spm_obj;
++       bool   has_user_buf;
++       bool   is_user_buf_filled;
++       bool   is_spm_started;
+ };
++
+ struct amdgpu_spm_cntr {
+        struct amdgpu_spm_base spm[MAX_XCP];
++       int spm_use_cnt;
+        struct mutex spm_worker_mutex;
++       wait_queue_head_t spm_buf_wq;
++       u32   have_users_buf_cnt;
++       bool  are_users_buf_filled;
+ };
+
  struct amdgpu_spm_mgr {
-        struct drm_file *file;
-+
-+       struct task_struct *lead_thread;
-+
-+       /* spm data */
-+       struct amdgpu_spm_cntr *spm_cntr;
-+       struct work_struct spm_work;
+@@ -43,6 +60,7 @@ struct amdgpu_spm_mgr {
+        /* spm data */
+        struct amdgpu_spm_cntr *spm_cntr;
+        struct work_struct spm_work;
++       spinlock_t spm_irq_lock;
  };
 
  int amdgpu_spm_ioctl(struct drm_device *dev, void *data,
