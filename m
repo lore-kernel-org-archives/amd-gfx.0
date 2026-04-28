@@ -4,90 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D62E2FF885A
-	for <amd-gfx@archiver.kernel.org>; Tue, 28 Apr 2026 16:00:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 83359FF885A
+	for <amd-gfx@archiver.kernel.org>; Tue, 28 Apr 2026 16:07:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 70F0510E338;
-	Tue, 28 Apr 2026 16:00:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0908B10E352;
+	Tue, 28 Apr 2026 16:07:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="mekTfX0j";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ONQcPx1B";
 	dkim-atps=neutral
-Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com
- [74.125.82.176])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 076A610E338
- for <amd-gfx@lists.freedesktop.org>; Tue, 28 Apr 2026 16:00:00 +0000 (UTC)
-Received: by mail-dy1-f176.google.com with SMTP id
- 5a478bee46e88-2dd52990758so737506eec.1
- for <amd-gfx@lists.freedesktop.org>; Tue, 28 Apr 2026 09:00:00 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1777391999; cv=none;
+Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com
+ [74.125.82.179])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1774B10E352
+ for <amd-gfx@lists.freedesktop.org>; Tue, 28 Apr 2026 16:07:52 +0000 (UTC)
+Received: by mail-dy1-f179.google.com with SMTP id
+ 5a478bee46e88-2e92c54ba73so631291eec.2
+ for <amd-gfx@lists.freedesktop.org>; Tue, 28 Apr 2026 09:07:52 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1777392471; cv=none;
  d=google.com; s=arc-20240605;
- b=X2aQ2OKm/dm4/oGRuzzMMaFbSLn11Vla45OxU4hQuXo0kVGm/9eECyIqcUCCeVBm2e
- UrRiASN7YwXDxNwdXLvx8DVUpWj/yNbX0tC+4CwrZWkPfZG/8WDfCyMvtSWXZTNezU+A
- 6nkEZFjYXHF7T1wXGveTeAmO5LKqbdw6XbvX9dnPysIqXjh5KRvQdPnHV4GtpDn8XSNU
- HlCwfPxMiQIuzncuIRb3wM0t/KOb5fmxBQ1/aYkBUUdLOL99qJ38N8t+VnrRz1quT21p
- CfOYY/retH5R4O/P5QWgqGK5wwFWXs0hNlWDDrFvyshrWKSrZcSVj+W0A+BDTycemkxj
- yoLA==
+ b=FIzC+OCtALYAZgEduRiNFLc51cVcq0DiNrYz46sLYqQ3AhD4itiY3mxOEFfzHUoQ5W
+ 07YnzBYnO8h3do+5a/kqHHlQmaIhPS0YUAEXda2YMA2yN86/F47AwC/2UYoKLTXO4xnS
+ o8WRzB2D945yNJH+RSu9bl7yGn7YVECPgx9q1I95p6LZXImmFx2tjm9sbjHDDLAppJW7
+ 1IRQDxHnBgTyqdFZVdAtDNs9zAtwnVY81MIArJvPJX9pam2F+MLj/9E7AntFuZZ+R6Jk
+ o/diOFXweDjg/EgOgtRhRbQ322bDnfJSDgtsEqak31cC2avYb+s2y1ZYubCndbTlq+Ci
+ kyNQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20240605; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=8D1ogOAlkuJx9BglhMeCnWPKrGZm+swKUWP8ip4Ejic=;
- fh=vwH+z4rW0AhcHXbAs3qH4QlXhPdlWOpRz+aKiYkebl8=;
- b=W+UZ6TLt7+f2aOXtIiOUkEOieszjmp+zVrPmMBQX10RdMddCSX5ld7LcTZaefunQIC
- pQ5TyskxWZVbwRdSRZfHseQCdWD6kcVhnc771dpKnSYLhx6Kgl3PiCRR7EKT2kjGEtv5
- 3K2xhr1jHbgs0qvtBHt+cVGnKLea+tjbYXRvGRsZI23P8qPxw8j9Enx190Qm5JiBOgwo
- zIfe67PWVjtx6AEHFMaAS/S/6KvZURDNgC3wbk2QFQ8Mw2hi3qGsLZZFWcjkXza+gfze
- hzLBW12upj4VeYTdOlYWmOnhuNiSZr+nmf9KK/Eh88dSXQGG3xImfzWu6/p/1S2x6yop
- KoVw==; darn=lists.freedesktop.org
+ bh=olDeWjloYaeTL1PBheI0cu9IruPda14JwSB8bRKtTy8=;
+ fh=KuTVmZRp4oJZJj9SgzgBZ1Cv0rVJ4LoHCwEhp8iKJyQ=;
+ b=jntl0btaFFdb1Ubc7BSmQjXsDZuO38GEMEnjl/a/Vx906PS1dnI7HYlsKGiLYQzQvB
+ nJufyQt/qzKnGNwd/WRAM0CgX0SCRfllf3WkXDmWhSz/vMh2CPqktF7g1GpfCSvMzzdh
+ w3RXnRzmpkIfMmYQGV26LI1cC2iNljQad9l7Nop677CV/d8mP01YB63ZXQwjI8/6KmWH
+ 5j0pR2KLeeLm1eIwn5CTn58iPclRvTil+wYmcAhLfDbvCvQYexEHdQLrBc3TV/SB8qC5
+ zO9RBELsxeKvd6XV3oIRv1LiIZZM9119K1iuxqz5JRCjtNbLnDEhpWKOnHFdJmZRoshJ
+ G7Bw==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1777391999; x=1777996799; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1777392471; x=1777997271; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=8D1ogOAlkuJx9BglhMeCnWPKrGZm+swKUWP8ip4Ejic=;
- b=mekTfX0juJNGhd3HbjCviudZB7t9agTb7a8ImRRzZfdSe6gCPjqMqYXWZEK4EJuVm4
- p/voBM+uxxSyYHOI1b0vetntblamaWwtwQJTDzbHfr+PLaNRH7y5D+aigwsPXcmzuz2y
- KKjfguCvifAs7U/X4GT2hXWKJervXJnm/QGXe6sp/C+gDtV6puLUmIbffcLsjOLgjwVm
- ppTPFtMwvIutZv0FGgXQ1Q69NXWiityNyIi7IAXk19huZDuYOtKwKoMyeRKWZWjV/ELv
- Xr0ME7gv7DZxxkhcU5e//jMU6PB7ngBY2cdyTd3u1Ee8MpUVSzuYY0zDR6Ans7jwZHbr
- LAdA==
+ bh=olDeWjloYaeTL1PBheI0cu9IruPda14JwSB8bRKtTy8=;
+ b=ONQcPx1BJSmYLAvvvngSfrk4hDd7v5sHgy3bIM+0tTAiCNHtj/kMzS+bhO2blgrZXe
+ IqZOSAN6WwtZiZ04FEst/aNwf/kC3wb0Loc4c00p+hDOq6lBrDnyY6Nigpyn+5ShLKmm
+ Yqh6BP6w2QwUqAhdOnwNvjBQpCkqoxQklpA8jXMsbxKmunGGmMMoVBLgXExQdSTTEch7
+ M0xOHYa4PgCiRuKMkFmp4gsM6KKikoZVzqVjg6R4bdtP5l3+NdAOzSlcgjNcSxCw+bhy
+ YQIQG14xdCiUEVDeJOgtRQJyuqxFdSEZhzEgli2mlxp9zs5igK8bxo+UJE1OkGRv6Gg+
+ hmfw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1777391999; x=1777996799;
+ d=1e100.net; s=20251104; t=1777392471; x=1777997271;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=8D1ogOAlkuJx9BglhMeCnWPKrGZm+swKUWP8ip4Ejic=;
- b=CTffOJBL8p8O4qahVy+h0rkgp6yagxHH/Y0+5104vNytjxlXJjWpOyJEQyYTcU9udx
- NhXdaG1CXKD6XIH8vb1c5o5H8G8FjHwjncEMXQwq7qjpCAjsLHuzDlRovMg9xqP5Lo8J
- HWN0/he5uxXMHoCUao3TBe1UgMAWEGcUfeNKqKX/Q5L3UZx2DJZz2ikgXzMz/zYjT5nE
- JLtAzNiJRM9Q6DwX5N++I98dEEeyeDMQuygF6yU/Ut/feQmn55N6/+1SEp+onHGhnquz
- PWPFiGaY6ypCAKPfysp9SIFsvRKTt5ngqFvKPLEnu0ESbV65bkwTYeALcysAGWAapppN
- V50A==
-X-Gm-Message-State: AOJu0YyufvVO/TikLQtvaEUs0HKzrRL2gbi4IRkrJhRs6MzsrkOYqmHp
- 1VR9jIPxjOQfwxkcI8dLAycU1iATN739V1A9GIcGoceqSxofkL2ZfLt01+8TTu0utcEo8pgwz8e
- BIrRWMFrJXaI7vmHxIXMDbvO4EceFEYU=
-X-Gm-Gg: AeBDietOkv1s2541aB2CP0tUnFMTkYoHnUe1T0N4qx0nD78baLItM9QFapkkKYLgrl+
- KLh5Sz+WszCNRYjuUM/dpSdNq/XDXkoWCmeO6IGFxrWEA7pthaqRB96iq9DeJ4ydWT9F5ZmmBPG
- LwyhTYE6SpHuG6/QXjOsjWHm0rVXWfnwDNIYJCwZXeafHSFihavCf4iq1XbQPHJw+Pwdm8uVxPy
- idUTL3TaMrJk4xxQrefj5BzYDi/1YeqXrs21gtJkauyG5aaOOIFlB52w4Uv684ftF1P+9vLlSfc
- RGyrONBWpl72WZg7uaVGef6ioM+nB7VSoL1lNfOKZdmxR4+wE1zKAF7pFHT8o1tpEZ2WY3O/bzc
- cRJuR
-X-Received: by 2002:a05:7022:1e11:b0:119:e56b:c3f3 with SMTP id
- a92af1059eb24-12ddd539b3dmr781861c88.3.1777391998832; Tue, 28 Apr 2026
- 08:59:58 -0700 (PDT)
+ bh=olDeWjloYaeTL1PBheI0cu9IruPda14JwSB8bRKtTy8=;
+ b=AI1A6EJikqGU8eXhSabVY5SzrSj0xRzIj5iq6V0OJmbdvx57XCS/FfaFnIDwrHPl2l
+ XAR/+Y6+XU9txUZ4KTLZDRvBAIi5odrJZuJtzUgkG1uBvsazj+4tLApd9wkrGnn3Tahk
+ 124ARKFAb4eZ2Shn+zkR5qp+ix5HiLaEAT162utMZqwcNfYpag/0d/MLknLIwIe95y/a
+ dXDx/2fMOt/JPZru2A/rwSlkH2Grh1BWMbSwufbSSCSVFhOjdInnt6KT9hWTU+IgPkvs
+ HFkjRQpu5CAsvpylwOWfGiE9SIbAvI5kfgRHUGVr3shMVmMKxIQClnWDjP/oWFBthK0o
+ fOjg==
+X-Gm-Message-State: AOJu0YwjlsbMviXLoeA1RoOTyko+Gn+fJSbcM/ZcILULA0DRbCEqu+DV
+ VZD1D72C1cCgEqtvVfiYwjXDn8H7yV6Y9ESc0PUtbJUgXwBUjNNucvLSs4UmPECcbnYKUI8kvTs
+ nxVaYyRBj1sBJV8UTsWIreesngNCXM4lX4mLB
+X-Gm-Gg: AeBDietvo1T8moWvWQ9Pay1oVoQhjgu1qDUyPLbr3E5dDsGa0A8rxSHD8qvIK3XDUUp
+ BhqDvbFkF0hoW0/moCaZBE1W95w2eyeigv5XjgmZtVqz0Dq2RP74cyL09UGRVnh0C/v/fkomUIZ
+ git1qQYsEMqVYL3zkYlWeaKTcvnr1weK/OOjRInSBXy0e5gEsu01fzfIh2+++a0XF7Flya5C5eV
+ oFucWxhqRGg3e6WxZB4vGmO4FE9NRkI+Xf+QJEKbT1UCl0chyTdJuwc8LHxnkc8IBc53yiz7b4l
+ wXBGWEw1Lpf177BOuBF9p9iyKDe+gac0t/AO9oQ+D//VTuFZFf328S1lyf5w3U3sgzoIZ49pUQX
+ Mgqtw
+X-Received: by 2002:a05:7022:618c:b0:12d:c389:ae54 with SMTP id
+ a92af1059eb24-12ddd4e12admr991605c88.2.1777392470725; Tue, 28 Apr 2026
+ 09:07:50 -0700 (PDT)
 MIME-Version: 1.0
-References: <20260428100239.1609179-1-Jesse.Zhang@amd.com>
-In-Reply-To: <20260428100239.1609179-1-Jesse.Zhang@amd.com>
+References: <832b0927-fff2-90b3-538c-8e1890f3f42c@xwax.org>
+In-Reply-To: <832b0927-fff2-90b3-538c-8e1890f3f42c@xwax.org>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 28 Apr 2026 11:59:45 -0400
-X-Gm-Features: AVHnY4LqpblzeDB5SL1Yp6irU6BS88bkfisl2mUI_qsagjuwnTvB8k3YTnPqoBo
-Message-ID: <CADnq5_NxjD9X3295RdrMROa9xyoKUVEwm6v2JU7OqwmdreiM=w@mail.gmail.com>
-Subject: Re: [PATCH v3 01/11] drm/amdgpu/sdma: add SDMA usermode-queue
- doorbell pool infra
-To: Jesse Zhang <Jesse.Zhang@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com, 
- Christian Koenig <christian.koenig@amd.com>, Prike Liang <Prike.Liang@amd.com>
+Date: Tue, 28 Apr 2026 12:07:37 -0400
+X-Gm-Features: AVHnY4JnL761aUjr8rIQp3TjLa0xldU2lMjVnqOmbt3l6sYH8LxDW3DrYlwZhtM
+Message-ID: <CADnq5_Px_vh0OLLjT9vohcp07yK9m_5NNLPvHz=KMfo564gJTQ@mail.gmail.com>
+Subject: Re: Radeon Pro WX7100 regression since v6.19, no display
+To: Mark Hills <mark@xwax.org>
+Cc: amd-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -104,335 +102,363 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Apr 28, 2026 at 6:09=E2=80=AFAM Jesse Zhang <Jesse.Zhang@amd.com> w=
-rote:
+On Tue, Apr 28, 2026 at 7:44=E2=80=AFAM Mark Hills <mark@xwax.org> wrote:
 >
-> Add a per-device qword-slot pool covering the firmware-managed NBIO
-> SDMA decode window (BAR dwords [sdma_engine[0],
-> sdma_engine[0] + sdma_doorbell_range * num_instances)) =E2=80=94 the only
-> range whose writes are routed to the SDMA back-end.  Kernel SDMA ring
-> slots are pre-masked at init.
+> The last kernel I have been able to use is v6.19.3, because shortly after
+> I lose functionality of my Radeon Pro WX7100.
 >
-> Exposed to userspace via a fixed mmap pgoff sentinel
-> (AMDGPU_USERQ_DOORBELL_MMAP_OFFSET, bit 56 of the offset, well above
-> DRM's vma_offset_manager range so it can never collide with a real GEM
-> mmap offset).  amdgpu_sdma_userq_doorbell_mmap() does
-> io_remap_pfn_range() straight into the SDMA decode window.  The
-> pgoff-sentinel dispatcher in amdgpu_drm_mmap() and the
-> AMDGPU_INFO_USERQ_DOORBELL ioctl that hands the offset to userspace
-> land in subsequent patches.  Same general pattern as KFD's
-> KFD_MMAP_TYPE_* .
+> Normally around the point udevd is run, I see a switch from "BIOS"-style
+> console to some kind of framebuffer one, followed by launching Xorg.
 >
-> Slots are allocated/freed via amdgpu_sdma_userq_doorbell_alloc/free.
-> The init/fini hooks land in the per-engine sdma6/sdma7 patches.
+> With later kernels, around the time of udevd the displays (LG DualUp,
+> DisplayPort) freeze and swich to "no signal". The host is alive to SSH.
+>
+> I can boot the last 'good' kernel (v6.19.3) and today (v7.0.1), with the
+> diff shown below.
+>
+> There doesn't seem to be an obvious or visible error to investigate,
+> mostly:
+>
+> * No longer any information printed about connected displays
+>
+> * The bad kernel is printing initialisation "successful" messages in a
+>   slow loop, which I presume is Xorg re-starting
+>
+> * The missing "fb0: amdgpudrmfb frame buffer device" which is
+>   presumably by Xorg complains about no /dev/fb0
+>
+> I hope this is a credible bug report and perhaps clear what's going on to
+> those who understand how the parts (drm,amdgpu,fb,fbcon,modesetting) fit
+> together.
+>
+> At this stage a "bisect" would be quite involved, but not ruled out.
+>
+> System is i5-6500, losely based on Slackware-current, I run my own kernel
+> and rc scripts, with no initrd.
 
-This shouldn't be necessary.  The doorbell offsets are relative to
-each 4K page in the doorbell aperture.
+Looks like you built your kernel without CONFIG_DRM_AMD_DC=3Dy.  That is
+necessary for the display hardware support to be built into your
+kernel.  7.0.x dropped support for the old legacy display support
+since it's deprecated for years and has much less functionality
+compared to DC.
 
 Alex
 
 >
-> Suggested-by: Prike Liang <Prike.Liang@amd.com>
-> Suggested-by: Christian K=C3=B6nig <christian.koenig@amd.com>
-> Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c | 154 +++++++++++++++++++++++
->  drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h |  61 +++++++++
->  2 files changed, 215 insertions(+)
+> Thanks
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_sdma.c
-> index 321310ba2c08..be7e9de0630e 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
-> @@ -22,6 +22,8 @@
->   */
->
->  #include <linux/firmware.h>
-> +#include <linux/io.h>
-> +#include <linux/mm.h>
->  #include "amdgpu.h"
->  #include "amdgpu_sdma.h"
->  #include "amdgpu_ras.h"
-> @@ -200,6 +202,158 @@ void amdgpu_sdma_destroy_inst_ctx(struct amdgpu_dev=
-ice *adev,
->                sizeof(struct amdgpu_sdma_instance) * AMDGPU_MAX_SDMA_INST=
-ANCES);
->  }
->
-> +int amdgpu_sdma_userq_doorbell_init(struct amdgpu_device *adev)
-> +{
-> +       struct amdgpu_sdma_userq_db *db;
-> +       u32 base_dw, size_dw, nslots, ring_dw;
-> +       int i;
-> +
-> +       if (!adev->userq_funcs[AMDGPU_HW_IP_DMA])
-> +               return 0;
-> +
-> +       base_dw =3D adev->doorbell_index.sdma_engine[0] << 1;
-> +       size_dw =3D adev->doorbell_index.sdma_doorbell_range *
-> +                 adev->sdma.num_instances;
-> +       nslots  =3D size_dw / 2;  /* qword slots */
-> +       if (!nslots)
-> +               return 0;
-> +
-> +       db =3D kzalloc(sizeof(*db), GFP_KERNEL);
-> +       if (!db)
-> +               return -ENOMEM;
-> +
-> +       db->phys_base =3D adev->doorbell.base +
-> +                       (resource_size_t)base_dw * sizeof(u32);
-> +       db->size      =3D size_dw * sizeof(u32);
-> +
-> +       mutex_init(&adev->sdma.userq_db_mutex);
-> +       adev->sdma.userq_db_bitmap =3D bitmap_zalloc(nslots, GFP_KERNEL);
-> +       if (!adev->sdma.userq_db_bitmap) {
-> +               kfree(db);
-> +               return -ENOMEM;
-> +       }
-> +
-> +       adev->sdma.userq_db        =3D db;
-> +       adev->sdma.userq_db_nslots =3D nslots;
-> +
-> +       /*
-> +        * Mask out the qword slots used by the kernel SDMA rings
-> +        * (sdma_engine[i] << 1 in absolute BAR dwords =E2=87=92 qword sl=
-ot
-> +        * (sdma_engine[i] - sdma_engine[0]) within this window).
-> +        */
-> +       for (i =3D 0; i < adev->sdma.num_instances; i++) {
-> +               ring_dw =3D adev->doorbell_index.sdma_engine[i] << 1;
-> +               if (ring_dw >=3D base_dw && ring_dw < base_dw + size_dw)
-> +                       set_bit((ring_dw - base_dw) / 2,
-> +                               adev->sdma.userq_db_bitmap);
-> +       }
-> +
-> +       dev_info(adev->dev,
-> +                "SDMA UMQ doorbell pool: %u qword slots in BAR dword [%u=
-, %u)\n",
-> +                nslots, base_dw, base_dw + size_dw);
-> +       return 0;
-> +}
-> +
-> +void amdgpu_sdma_userq_doorbell_fini(struct amdgpu_device *adev)
-> +{
-> +       if (!adev->sdma.userq_db)
-> +               return;
-> +       bitmap_free(adev->sdma.userq_db_bitmap);
-> +       adev->sdma.userq_db_bitmap =3D NULL;
-> +       adev->sdma.userq_db_nslots =3D 0;
-> +       kfree(adev->sdma.userq_db);
-> +       adev->sdma.userq_db =3D NULL;
-> +}
-> +
-> +/*
-> + * Allocate one qword doorbell slot.  On success, *out_slot receives the
-> + * slot id (also the qword index inside the userspace mmap of the window=
-)
-> + * which the caller passes back to free.
-> + */
-> +int amdgpu_sdma_userq_doorbell_alloc(struct amdgpu_device *adev, u32 *ou=
-t_slot)
-> +{
-> +       u32 slot;
-> +
-> +       if (!adev->sdma.userq_db || !adev->sdma.userq_db_nslots)
-> +               return -ENODEV;
-> +
-> +       mutex_lock(&adev->sdma.userq_db_mutex);
-> +       slot =3D find_first_zero_bit(adev->sdma.userq_db_bitmap,
-> +                                  adev->sdma.userq_db_nslots);
-> +       if (slot >=3D adev->sdma.userq_db_nslots) {
-> +               mutex_unlock(&adev->sdma.userq_db_mutex);
-> +               return -ENOSPC;
-> +       }
-> +       set_bit(slot, adev->sdma.userq_db_bitmap);
-> +       mutex_unlock(&adev->sdma.userq_db_mutex);
-> +
-> +       *out_slot =3D slot;
-> +       return 0;
-> +}
-> +
-> +void amdgpu_sdma_userq_doorbell_free(struct amdgpu_device *adev, u32 slo=
-t)
-> +{
-> +       if (!adev->sdma.userq_db)
-> +               return;
-> +       if (slot >=3D adev->sdma.userq_db_nslots)
-> +               return;
-> +       mutex_lock(&adev->sdma.userq_db_mutex);
-> +       clear_bit(slot, adev->sdma.userq_db_bitmap);
-> +       mutex_unlock(&adev->sdma.userq_db_mutex);
-> +}
-> +
-> +/*
-> + * Report the fake mmap offset/size for the SDMA UMQ doorbell window.
-> + *
-> + * No drm_gem_object, no GEM handle.  Userspace passes the returned offs=
-et
-> + * directly to mmap(drm_fd, ...); amdgpu_drm_mmap() recognises the
-> + * sentinel pgoff and routes the call to amdgpu_sdma_userq_doorbell_mmap=
-()
-> + * below, which io_remap_pfn_range()s the routable SDMA doorbell BAR win=
-dow.
-> + *
-> + * Same pattern KFD uses for KFD_MMAP_TYPE_DOORBELL =E2=80=94 the doorbe=
-ll window
-> + * is unreachable from any drm_gem_object_lookup() / gem_to_amdgpu_bo()
-> + * code path because it never enters the GEM object space at all.
-> + */
-> +int amdgpu_sdma_userq_doorbell_get_mmap(struct amdgpu_device *adev,
-> +                                       u64 *mmap_offset, u64 *mmap_size)
-> +{
-> +       if (!adev->sdma.userq_db)
-> +               return -ENODEV;
-> +
-> +       *mmap_offset =3D AMDGPU_USERQ_DOORBELL_MMAP_OFFSET;
-> +       *mmap_size   =3D adev->sdma.userq_db->size;
-> +       return 0;
-> +}
-> +
-> +bool amdgpu_sdma_userq_doorbell_is_our_pgoff(unsigned long pgoff)
-> +{
-> +       return pgoff =3D=3D (AMDGPU_USERQ_DOORBELL_MMAP_OFFSET >> PAGE_SH=
-IFT);
-> +}
-> +
-> +int amdgpu_sdma_userq_doorbell_mmap(struct file *filp,
-> +                                   struct vm_area_struct *vma)
-> +{
-> +       struct drm_file *file_priv =3D filp->private_data;
-> +       struct drm_device *dev =3D file_priv->minor->dev;
-> +       struct amdgpu_device *adev =3D drm_to_adev(dev);
-> +       struct amdgpu_sdma_userq_db *db =3D adev->sdma.userq_db;
-> +
-> +       if (!db)
-> +               return -ENODEV;
-> +
-> +       if (vma->vm_end - vma->vm_start > round_up(db->size, PAGE_SIZE))
-> +               return -EINVAL;
-> +
-> +       vm_flags_set(vma, VM_IO | VM_DONTCOPY | VM_DONTEXPAND | VM_NORESE=
-RVE |
-> +                         VM_DONTDUMP | VM_PFNMAP);
-> +       vma->vm_page_prot =3D pgprot_noncached(vma->vm_page_prot);
-> +
-> +       return io_remap_pfn_range(vma, vma->vm_start,
-> +                                 db->phys_base >> PAGE_SHIFT,
-> +                                 vma->vm_end - vma->vm_start,
-> +                                 vma->vm_page_prot);
-> +}
-> +
->  int amdgpu_sdma_init_microcode(struct amdgpu_device *adev,
->                                u32 instance, bool duplicate)
->  {
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_sdma.h
-> index 2bf365609775..a308d5e6ee54 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h
-> @@ -146,6 +146,20 @@ struct amdgpu_sdma {
->         bool                    disable_uq;
->         void (*get_csa_info)(struct amdgpu_device *adev,
->                              struct amdgpu_sdma_csa_info *csa_info);
-> +
-> +       /*
-> +        * SDMA usermode-queue doorbell pool.  The window covers
-> +        * BAR dwords [sdma_engine[0], sdma_engine[0] +
-> +        * sdma_doorbell_range * num_instances) =E2=80=94 the only range =
-that NBIO
-> +        * routes to the SDMA back-end.  Each bit in the bitmap represent=
-s
-> +        * one qword slot; kernel SDMA ring slots are pre-masked at init.
-> +        * Exposed to userspace via a fixed mmap pgoff sentinel handled b=
-y
-> +        * amdgpu_drm_mmap() =E2=80=94 see AMDGPU_USERQ_DOORBELL_MMAP_OFF=
-SET below.
-> +        */
-> +       struct amdgpu_sdma_userq_db *userq_db;
-> +       struct mutex            userq_db_mutex;
-> +       unsigned long           *userq_db_bitmap;
-> +       u32                     userq_db_nslots;        /* qword slots */
->  };
->
->  /*
-> @@ -185,6 +199,42 @@ struct amdgpu_buffer_funcs {
->                                  uint32_t byte_count);
->  };
->
-> +/*
-> + * SDMA usermode-queue doorbell pool.
-> + *
-> + * The pool re-uses qword doorbell slots inside the firmware-managed NBI=
-O
-> + * SDMA decode window (BAR dwords [sdma_engine[0],
-> + * sdma_engine[0] + sdma_doorbell_range * num_instances)) =E2=80=94 that=
- range is
-> + * the only one whose writes are routed to the SDMA back-end.  The kerne=
-l
-> + * SDMA ring slots are pre-marked so they keep working alongside any
-> + * number of SDMA UMQs.
-> + *
-> + * Exposed to userspace via a fixed mmap pgoff sentinel
-> + * (AMDGPU_USERQ_DOORBELL_MMAP_OFFSET) handled in amdgpu_drm_mmap()'s
-> + * dispatcher =E2=80=94 same pattern KFD uses for KFD_MMAP_TYPE_DOORBELL=
-.  No
-> + * drm_gem_object, no GEM handle, no GEM consumer can ever look this
-> + * up via drm_gem_object_lookup() / gem_to_amdgpu_bo().
-> + */
-> +
-> +struct amdgpu_sdma_userq_db {
-> +       resource_size_t         phys_base;      /* BAR phys addr of windo=
-w start */
-> +       u32                     size;           /* window size in bytes *=
-/
-> +};
-> +
-> +/*
-> + * Fake mmap offsets returned to userspace for amdgpu private mmap regio=
-ns.
-> + *
-> + * The high bits (>=3D bit 56) form a "type" field that amdgpu_drm_mmap(=
-)
-> + * uses to dispatch to a private handler instead of drm_gem_mmap().  Liv=
-es
-> + * well above DRM's vma_offset_manager range so any sentinel can never
-> + * collide with a real GEM mmap offset.  Internal-only =E2=80=94 userspa=
-ce MUST
-> + * get the value via AMDGPU_INFO_USERQ_DOORBELL.  Same general pattern
-> + * as KFD's KFD_MMAP_TYPE_* (kfd_priv.h).
-> + */
-> +#define AMDGPU_USERQ_MMAP_TYPE_MASK            (0xFULL << 56)
-> +#define AMDGPU_USERQ_MMAP_TYPE_SDMA_DOORBELL   (0x1ULL << 56)
-> +#define AMDGPU_USERQ_DOORBELL_MMAP_OFFSET      AMDGPU_USERQ_MMAP_TYPE_SD=
-MA_DOORBELL
-> +
->  int amdgpu_sdma_reset_engine(struct amdgpu_device *adev, uint32_t instan=
-ce_id,
->                              bool caller_handles_kernel_queues);
->
-> @@ -205,6 +255,17 @@ int amdgpu_sdma_process_ecc_irq(struct amdgpu_device=
- *adev,
->                                       struct amdgpu_iv_entry *entry);
->  int amdgpu_sdma_init_microcode(struct amdgpu_device *adev, u32 instance,
->                                bool duplicate);
-> +struct file;
-> +struct vm_area_struct;
-> +int amdgpu_sdma_userq_doorbell_init(struct amdgpu_device *adev);
-> +void amdgpu_sdma_userq_doorbell_fini(struct amdgpu_device *adev);
-> +int amdgpu_sdma_userq_doorbell_alloc(struct amdgpu_device *adev, u32 *ou=
-t_slot);
-> +void amdgpu_sdma_userq_doorbell_free(struct amdgpu_device *adev, u32 slo=
-t);
-> +int amdgpu_sdma_userq_doorbell_get_mmap(struct amdgpu_device *adev,
-> +                                       u64 *mmap_offset, u64 *mmap_size)=
-;
-> +bool amdgpu_sdma_userq_doorbell_is_our_pgoff(unsigned long pgoff);
-> +int  amdgpu_sdma_userq_doorbell_mmap(struct file *filp,
-> +                                    struct vm_area_struct *vma);
->  void amdgpu_sdma_destroy_inst_ctx(struct amdgpu_device *adev,
->          bool duplicate);
->  int amdgpu_sdma_ras_sw_init(struct amdgpu_device *adev);
 > --
-> 2.49.0
+> Mark
+>
+>
+> $ diff -up <(grep -E '(amdgpu|drm|fb|fbcon)' dmesg.good) <(grep -E '(amdg=
+pu|drm|fb|fbcon)' dmesg.bad)
+> --- /dev/fd/63  2026-04-28 11:18:51.152662564 +0100
+> +++ /dev/fd/62  2026-04-28 11:18:51.152662564 +0100
+> @@ -1,77 +1,75 @@
+> +Command line: root=3D/dev/sda2 fbcon=3Drotate_all:1 BOOT_IMAGE=3Dvmlinuz
+> +Kernel command line: root=3D/dev/sda2 fbcon=3Drotate_all:1 BOOT_IMAGE=3D=
+vmlinuz
+> +Unknown kernel command line parameters "fbcon=3Drotate_all:1", will be p=
+assed to user space.
+>  pci 0000:00:1c.4:   bridge window [mem 0xefb00000-0xefbfffff]
+>  pci 0000:0b:00.0: BAR 0 [mem 0xefb00000-0xefb03fff 64bit]
+>  pci 0000:00:1c.4:   bridge window [mem 0xefb00000-0xefbfffff]
+>  pci_bus 0000:0b: resource 1 [mem 0xefb00000-0xefbfffff]
+> +    fbcon=3Drotate_all:1
+>  ACPI: bus type drm_connector registered
+> -[drm] amdgpu kernel modesetting enabled.
+> -[drm] initializing kernel modesetting (POLARIS10 0x1002:0x67C4 0x1002:0x=
+0B0D 0x00).
+> -[drm] register mmio base: 0xEFE00000
+> -[drm] register mmio size: 262144
+> -amdgpu 0000:01:00.0: amdgpu: detected ip block number 0 <vi_common>
+> -amdgpu 0000:01:00.0: amdgpu: detected ip block number 1 <gmc_v8_0>
+> -amdgpu 0000:01:00.0: amdgpu: detected ip block number 2 <tonga_ih>
+> -amdgpu 0000:01:00.0: amdgpu: detected ip block number 3 <gfx_v8_0>
+> -amdgpu 0000:01:00.0: amdgpu: detected ip block number 4 <sdma_v3_0>
+> -amdgpu 0000:01:00.0: amdgpu: detected ip block number 5 <powerplay>
+> -amdgpu 0000:01:00.0: amdgpu: detected ip block number 6 <dce_v11_0>
+> -amdgpu 0000:01:00.0: amdgpu: detected ip block number 7 <uvd_v6_0>
+> -amdgpu 0000:01:00.0: amdgpu: detected ip block number 8 <vce_v3_0>
+> +amdgpu 0000:01:00.0: initializing kernel modesetting (POLARIS10 0x1002:0=
+x67C4 0x1002:0x0B0D 0x00).
+> +amdgpu 0000:01:00.0: register mmio base: 0xEFE00000
+> +amdgpu 0000:01:00.0: register mmio size: 262144
+> +amdgpu 0000:01:00.0: detected ip block number 0 <common_v1_0_0> (vi_comm=
+on)
+> +amdgpu 0000:01:00.0: detected ip block number 1 <gmc_v8_1_0> (gmc_v8_0)
+> +amdgpu 0000:01:00.0: detected ip block number 2 <ih_v3_0_0> (tonga_ih)
+> +amdgpu 0000:01:00.0: detected ip block number 3 <gfx_v8_0_0> (gfx_v8_0)
+> +amdgpu 0000:01:00.0: detected ip block number 4 <sdma_v3_1_0> (sdma_v3_0=
+)
+> +amdgpu 0000:01:00.0: detected ip block number 5 <smu_v1_0_0> (powerplay)
+> +amdgpu 0000:01:00.0: detected ip block number 6 <uvd_v6_3_0> (uvd_v6_0)
+> +amdgpu 0000:01:00.0: detected ip block number 7 <vce_v3_4_0> (vce_v3_0)
+>  amdgpu 0000:01:00.0: No more image in the PCI ROM
+> -amdgpu 0000:01:00.0: amdgpu: Fetched VBIOS from ROM BAR
+> -amdgpu: ATOM BIOS: 113-C9540101-103
+> -[drm] UVD is enabled in VM mode
+> -[drm] UVD ENC is enabled in VM mode
+> -[drm] VCE enabled in VM mode
+> +amdgpu 0000:01:00.0: Fetched VBIOS from ROM BAR
+> +amdgpu 0000:01:00.0: [drm] ATOM BIOS: 113-C9540101-103
+> +amdgpu 0000:01:00.0: [drm] UVD is enabled in VM mode
+> +amdgpu 0000:01:00.0: [drm] UVD ENC is enabled in VM mode
+> +amdgpu 0000:01:00.0: Found VCE firmware Version: 53.26 Binary ID: 3
+> +amdgpu 0000:01:00.0: [drm] VCE enabled in VM mode
+>  amdgpu 0000:01:00.0: vgaarb: deactivate vga console
+> -amdgpu 0000:01:00.0: amdgpu: Trusted Memory Zone (TMZ) feature not suppo=
+rted
+> -[drm] vm size is 128 GB, 2 levels, block size is 10-bit, fragment size i=
+s 9-bit
+> -[drm] System can't access extended configuration space, please check!!
+> -amdgpu 0000:01:00.0: BAR 2 [mem 0xe0000000-0xe01fffff 64bit pref]: relea=
+sing
+> -amdgpu 0000:01:00.0: BAR 0 [mem 0xd0000000-0xdfffffff 64bit pref]: relea=
+sing
+> -amdgpu 0000:01:00.0: BAR 0 [mem 0xd0000000-0xdfffffff 64bit pref]: assig=
+ned
+> -amdgpu 0000:01:00.0: BAR 2 [mem 0xe0000000-0xe01fffff 64bit pref]: assig=
+ned
+> -amdgpu 0000:01:00.0: amdgpu: VRAM: 8192M 0x000000F400000000 - 0x000000F5=
+FFFFFFFF (8192M used)
+> -amdgpu 0000:01:00.0: amdgpu: GART: 256M 0x000000FF00000000 - 0x000000FF0=
+FFFFFFF
+> -[drm] Detected VRAM RAM=3D8192M, BAR=3D256M
+> -[drm] RAM width 256bits GDDR5
+> -[drm] amdgpu: 8192M of VRAM memory ready
+> -[drm] amdgpu: 20047M of GTT memory ready.
+> -[drm] GART: num cpu pages 65536, num gpu pages 65536
+> -[drm] PCIE GART of 256M enabled (table at 0x000000F400900000).
+> -[drm] Chained IB support enabled!
+> +amdgpu 0000:01:00.0: Trusted Memory Zone (TMZ) feature not supported
+> +amdgpu 0000:01:00.0: vm size is 128 GB, 2 levels, block size is 10-bit, =
+fragment size is 9-bit
+> +amdgpu 0000:01:00.0: System can't access extended configuration space, p=
+lease check!!
+> +amdgpu 0000:01:00.0: VRAM: 8192M 0x000000F400000000 - 0x000000F5FFFFFFFF=
+ (8192M used)
+> +amdgpu 0000:01:00.0: GART: 256M 0x000000FF00000000 - 0x000000FF0FFFFFFF
+> +amdgpu 0000:01:00.0: [drm] Detected VRAM RAM=3D8192M, BAR=3D256M
+> +amdgpu 0000:01:00.0: [drm] RAM width 256bits GDDR5
+> +amdgpu 0000:01:00.0:  8192M of VRAM memory ready
+> +amdgpu 0000:01:00.0:  20047M of GTT memory ready.
+> +amdgpu 0000:01:00.0: [drm] GART: num cpu pages 65536, num gpu pages 6553=
+6
+> +amdgpu 0000:01:00.0: [drm] PCIE GART of 256M enabled (table at 0x000000F=
+400900000).
+> +amdgpu 0000:01:00.0: [drm] Chained IB support enabled!
+>  amdgpu: hwmgr_sw_init smu backed is polaris10_smu
+> -[drm] AMDGPU Display Connectors
+> -[drm] Connector 0:
+> -[drm]   DP-1
+> -[drm]   HPD6
+> -[drm]   DDC: 0x4868 0x4868 0x4869 0x4869 0x486a 0x486a 0x486b 0x486b
+> -[drm]   Encoders:
+> -[drm]     DFP1: INTERNAL_UNIPHY2
+> -[drm] Connector 1:
+> -[drm]   DP-2
+> -[drm]   HPD4
+> -[drm]   DDC: 0x4870 0x4870 0x4871 0x4871 0x4872 0x4872 0x4873 0x4873
+> -[drm]   Encoders:
+> -[drm]     DFP2: INTERNAL_UNIPHY2
+> -[drm] Connector 2:
+> -[drm]   DP-3
+> -[drm]   HPD1
+> -[drm]   DDC: 0x486c 0x486c 0x486d 0x486d 0x486e 0x486e 0x486f 0x486f
+> -[drm]   Encoders:
+> -[drm]     DFP3: INTERNAL_UNIPHY1
+> -[drm] Connector 3:
+> -[drm]   DP-4
+> -[drm]   HPD3
+> -[drm]   DDC: 0x4874 0x4874 0x4875 0x4875 0x4876 0x4876 0x4877 0x4877
+> -[drm]   Encoders:
+> -[drm]     DFP4: INTERNAL_UNIPHY
+> -[drm] Found UVD firmware Version: 1.130 Family ID: 16
+> -[drm] Found VCE firmware Version: 53.26 Binary ID: 3
+> -[drm] UVD and UVD ENC initialized successfully.
+> -[drm] VCE initialized successfully.
+> -amdgpu 0000:01:00.0: amdgpu: SE 4, SH per SE 1, CU per SH 9, active_cu_n=
+umber 36
+> -amdgpu 0000:01:00.0: amdgpu: Using BACO for runtime pm
+> +amdgpu 0000:01:00.0: [drm] Found UVD firmware Version: 1.130 Family ID: =
+16
+> +amdgpu 0000:01:00.0: [drm] UVD and UVD ENC initialized successfully.
+> +amdgpu 0000:01:00.0: [drm] VCE initialized successfully.
+> +amdgpu 0000:01:00.0: SE 4, SH per SE 1, CU per SH 9, active_cu_number 36
+> +amdgpu 0000:01:00.0: Using BACO for runtime pm
+>  [drm] Initialized amdgpu 3.64.0 for 0000:01:00.0 on minor 0
+> -fbcon: amdgpudrmfb (fb0) is primary device
+> -amdgpu 0000:01:00.0: [drm] fb0: amdgpudrmfb frame buffer device
+>  EXT4-fs (dm-9): mounted filesystem 21691fb4-85ac-422e-b598-3443874357d4 =
+r/w with ordered data mode. Quota mode: disabled.
+> +amdgpu 0000:01:00.0: [drm] PCIE GART of 256M enabled (table at 0x000000F=
+400900000).
+> +amdgpu 0000:01:00.0: [drm] UVD and UVD ENC initialized successfully.
+> +amdgpu 0000:01:00.0: [drm] VCE initialized successfully.
+> +amdgpu 0000:01:00.0: [drm] PCIE GART of 256M enabled (table at 0x000000F=
+400900000).
+> +amdgpu 0000:01:00.0: [drm] UVD and UVD ENC initialized successfully.
+> +amdgpu 0000:01:00.0: [drm] VCE initialized successfully.
+> +amdgpu 0000:01:00.0: [drm] PCIE GART of 256M enabled (table at 0x000000F=
+400900000).
+> +amdgpu 0000:01:00.0: [drm] UVD and UVD ENC initialized successfully.
+> +amdgpu 0000:01:00.0: [drm] VCE initialized successfully.
+> +amdgpu 0000:01:00.0: [drm] PCIE GART of 256M enabled (table at 0x000000F=
+400900000).
+> +amdgpu 0000:01:00.0: [drm] UVD and UVD ENC initialized successfully.
+> +amdgpu 0000:01:00.0: [drm] VCE initialized successfully.
+> +amdgpu 0000:01:00.0: [drm] PCIE GART of 256M enabled (table at 0x000000F=
+400900000).
+> +amdgpu 0000:01:00.0: [drm] UVD and UVD ENC initialized successfully.
+> +amdgpu 0000:01:00.0: [drm] VCE initialized successfully.
+> +amdgpu 0000:01:00.0: [drm] PCIE GART of 256M enabled (table at 0x000000F=
+400900000).
+> +amdgpu 0000:01:00.0: [drm] UVD and UVD ENC initialized successfully.
+> +amdgpu 0000:01:00.0: [drm] VCE initialized successfully.
+> +amdgpu 0000:01:00.0: [drm] PCIE GART of 256M enabled (table at 0x000000F=
+400900000).
+> +amdgpu 0000:01:00.0: [drm] UVD and UVD ENC initialized successfully.
+> +amdgpu 0000:01:00.0: [drm] VCE initialized successfully.
+> +amdgpu 0000:01:00.0: [drm] PCIE GART of 256M enabled (table at 0x000000F=
+400900000).
+> +amdgpu 0000:01:00.0: [drm] UVD and UVD ENC initialized successfully.
+> +amdgpu 0000:01:00.0: [drm] VCE initialized successfully.
+> +amdgpu 0000:01:00.0: [drm] PCIE GART of 256M enabled (table at 0x000000F=
+400900000).
+> +amdgpu 0000:01:00.0: [drm] UVD and UVD ENC initialized successfully.
+> +amdgpu 0000:01:00.0: [drm] VCE initialized successfully.
+>
+>
+> $ grep -E '(amdgpu|EE|modeset)' /var/log/Xorg.0.log
+> [  1537.962] Current Operating System: Linux stax 7.0.2-mh #187 SMP PREEM=
+PT Tue Apr 28 10:05:44 BST 2026 x86_64
+>         (WW) warning, (EE) error, (NI) not implemented, (??) unknown.
+> [  1537.963] (EE) dbus-core: error connecting to system bus: org.freedesk=
+top.DBus.Error.NoServer (Failed to connect to socket /var/run/dbus/system_b=
+us_socket: Connection refused)
+> [  1537.965] (=3D=3D) Matched modesetting as autoconfigured driver 1
+> [  1537.966] (II) LoadModule: "amdgpu"
+> [  1537.966] (WW) Warning, couldn't open module amdgpu
+> [  1537.966] (EE) Failed to load module "amdgpu" (module does not exist, =
+0)
+> [  1537.966] (II) LoadModule: "modesetting"
+> [  1537.966] (II) Loading /usr/lib64/xorg/modules/drivers/modesetting_drv=
+.so
+> [  1537.966] (II) Module modesetting: vendor=3D"X.Org Foundation"
+> [  1537.966] (II) modesetting: Driver for Modesetting Kernel Drivers: kms
+> [  1537.966] (II) modeset(0): using drv /dev/dri/card0
+> [  1537.967] (EE) open /dev/fb0: No such file or directory
+> [  1537.967] (II) modeset(0): Using 24bpp hw front buffer with 32bpp shad=
+ow
+> [  1537.967] (II) modeset(0): Creating default Display subsection in Scre=
+en section
+> [  1537.967] (=3D=3D) modeset(0): Depth 24, (=3D=3D) framebuffer bpp 32
+> [  1537.967] (=3D=3D) modeset(0): RGB weight 888
+> [  1537.967] (=3D=3D) modeset(0): Default visual is TrueColor
+> [  1537.967] (**) modeset(0): Cannot use glamor with 24bpp packed fb
+> [  1537.967] (II) modeset(0): ShadowFB: preferred YES, enabled FORCE
+> [  1537.967] (II) modeset(0): Double-buffered shadow updates: off
+> [  1537.967] (WW) modeset(0): TearFree requires Glamor acceleration
+> [  1537.967] (WW) modeset(0): No outputs definitely connected, trying aga=
+in...
+> [  1537.967] (WW) modeset(0): Unable to find connected outputs - setting =
+1024x768 initial framebuffer
+> [  1537.967] (=3D=3D) modeset(0): Using gamma correction (1.0, 1.0, 1.0)
+> [  1537.967] (EE) modeset(0): No modes.
+> [  1537.967] (II) UnloadModule: "modesetting"
+> [  1537.967] (EE) Screen(s) found, but none have a usable configuration.
+> [  1537.967] (EE)
+> [  1537.967] (EE) no screens found(EE)
+> [  1537.967] (EE)
+> [  1537.967] (EE) Please also check the log file at "/var/log/Xorg.0.log"=
+ for additional information.
+> [  1537.967] (EE)
+> [  1537.967] (EE) Server terminated with error (1). Closing log file.
+>
+>
+> stax$ lsmod | grep -E '(amdgpu|fb|drm)'
+> amdgpu               5550080  0
+> drm_ttm_helper         16384  1 amdgpu
+> syscopyarea            12288  1 drm_ttm_helper
+> ttm                    77824  2 amdgpu,drm_ttm_helper
+> sysfillrect            12288  1 drm_ttm_helper
+> sysimgblt              12288  1 drm_ttm_helper
+> fb_sys_fops            12288  1 drm_ttm_helper
+> drm_client_lib         16384  1 amdgpu
+> amdxcp                 12288  1 amdgpu
+> drm_exec               12288  1 amdgpu
+> gpu_sched              49152  1 amdgpu
+> drm_buddy              16384  1 amdgpu
+> drm_suballoc_helper    16384  1 amdgpu
+> drm_display_helper    155648  1 amdgpu
+> drm_kms_helper        151552  4 drm_display_helper,amdgpu,drm_ttm_helper,=
+drm_client_lib
+> drm                   524288  12 gpu_sched,drm_kms_helper,drm_exec,drm_su=
+balloc_helper,drm_display_helper,drm_buddy,amdgpu,drm_ttm_helper,drm_client=
+_lib,ttm,amdxcp
+> drm_panel_orientation_quirks    32768  1 drm
+> i2c_algo_bit           12288  1 amdgpu
+> fb                    114688  2 drm_kms_helper,drm_ttm_helper
+> video                  69632  1 amdgpu
+> font                   16384  1 fb
+> backlight              16384  4 video,drm_display_helper,amdgpu,drm
+> i2c_core               81920  6 i2c_algo_bit,drm_display_helper,i2c_smbus=
+,amdgpu,i2c_i801,drm
+>
+>
+> $ zcat /proc/config.gz | grep -iE '(amdgpu|drm|fb)' | grep -v 'not set'
+> CONFIG_DRM=3Dm
+> # DRM debugging options
+> # end of DRM debugging options
+> CONFIG_DRM_KMS_HELPER=3Dm
+> CONFIG_DRM_CLIENT=3Dy
+> CONFIG_DRM_CLIENT_LIB=3Dm
+> CONFIG_DRM_CLIENT_SELECTION=3Dm
+> CONFIG_DRM_CLIENT_SETUP=3Dy
+> # Supported DRM clients
+> CONFIG_DRM_FBDEV_EMULATION=3Dy
+> CONFIG_DRM_FBDEV_OVERALLOC=3D100
+> CONFIG_DRM_CLIENT_DEFAULT_FBDEV=3Dy
+> CONFIG_DRM_CLIENT_DEFAULT=3D"fbdev"
+> # end of Supported DRM clients
+> CONFIG_DRM_DISPLAY_HELPER=3Dm
+> CONFIG_DRM_DISPLAY_DP_HELPER=3Dy
+> CONFIG_DRM_DISPLAY_DSC_HELPER=3Dy
+> CONFIG_DRM_DISPLAY_HDCP_HELPER=3Dy
+> CONFIG_DRM_DISPLAY_HDMI_HELPER=3Dy
+> CONFIG_DRM_TTM=3Dm
+> CONFIG_DRM_EXEC=3Dm
+> CONFIG_DRM_BUDDY=3Dm
+> CONFIG_DRM_TTM_HELPER=3Dm
+> CONFIG_DRM_SUBALLOC_HELPER=3Dm
+> CONFIG_DRM_SCHED=3Dm
+> CONFIG_DRM_PANEL_BACKLIGHT_QUIRKS=3Dm
+> CONFIG_DRM_AMDGPU=3Dm
+> CONFIG_DRM_AMDGPU_CIK=3Dy
+> CONFIG_DRM_BRIDGE=3Dy
+> CONFIG_DRM_PANEL_BRIDGE=3Dy
+> CONFIG_DRM_PANEL=3Dy
+> CONFIG_DRM_PANEL_ORIENTATION_QUIRKS=3Dm
+> CONFIG_FB=3Dm
+> CONFIG_FB_RADEON=3Dm
+> CONFIG_FB_RADEON_I2C=3Dy
+> CONFIG_FB_CORE=3Dm
+> CONFIG_FB_NOTIFY=3Dy
+> CONFIG_FB_DDC=3Dm
+> CONFIG_FB_CFB_FILLRECT=3Dm
+> CONFIG_FB_CFB_COPYAREA=3Dm
+> CONFIG_FB_CFB_IMAGEBLIT=3Dm
+> CONFIG_FB_SYS_FILLRECT=3Dm
+> CONFIG_FB_SYS_COPYAREA=3Dm
+> CONFIG_FB_SYS_IMAGEBLIT=3Dm
+> CONFIG_FB_SYSMEM_FOPS=3Dm
+> CONFIG_FB_DEFERRED_IO=3Dy
+> CONFIG_FB_IOMEM_FOPS=3Dm
+> CONFIG_FB_IOMEM_HELPERS=3Dy
+> CONFIG_FB_SYSMEM_HELPERS=3Dy
+> CONFIG_FB_SYSMEM_HELPERS_DEFERRED=3Dy
+> CONFIG_FB_MODE_HELPERS=3Dy
+> CONFIG_CRYPTO_LIB_AESCFB=3Dm
 >
