@@ -4,139 +4,121 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E8E02FF8867
-	for <amd-gfx@archiver.kernel.org>; Wed, 29 Apr 2026 09:56:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E5C0EFF8867
+	for <amd-gfx@archiver.kernel.org>; Wed, 29 Apr 2026 09:58:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5880A10E3C1;
-	Wed, 29 Apr 2026 09:56:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 829A710EF0B;
+	Wed, 29 Apr 2026 09:58:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="SnZFkBNc";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="SNlC7eYv";
 	dkim-atps=neutral
-Received: from SN4PR2101CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11012031.outbound.protection.outlook.com
- [40.93.195.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9ABA810E3C1;
- Wed, 29 Apr 2026 09:56:42 +0000 (UTC)
+Received: from CH4PR04CU002.outbound.protection.outlook.com
+ (mail-northcentralusazon11013012.outbound.protection.outlook.com
+ [40.107.201.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 13BFB10EEFF
+ for <amd-gfx@lists.freedesktop.org>; Wed, 29 Apr 2026 09:58:56 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=F8gji3TG9c1Kb0a9uA7p6h0/h4Zare2Sii/PT41P9TVfIIk0p3wSjiRM/Erc6H1as9o0VzFt51ykMtZLVmvVpYxAX1HlwoqSYxruupPFEVxaIhgjznecVsWDfYq6E1vdLYZ8mf6QbiTd/DSVnpI8iLJjLiewTH7WnpzVs38ag7ik9W0wn7eve8heIAnWAqa9cIYpVMt+RZXarVoG4coXvDRxFvkSQ84409s/p1LkqSOEtKU8UzCiJkxJK5ocZ6wU0YE1RCnh76l6tm+BCPB7M/Pz5CdlQGT3uKLbPfwQYPUI29NMKlDT+kuiJlMIGEywHIdC3cQHkgFYFyPa+7vccg==
+ b=PV/fd6cJYMT33xqkwF9Lc18xbka11s/KyQq/5rX0Qlw6WULySvFqHCAOZ/Kc9yw0XnE03bINSq7s+yy2dOeuwx9R6O7vWbDT4JVJQjDeFIK674gYVSLpYjjT/alFz/9UDo4hms1aeyalpcNgJ+7Vwq2+V/nYbdVOhX+Wyq7+JJoFf/Wd+Fre0sf89QhsKsYNbR6bJlfKOn18mj9ZQRgTLGZaXMNlxhcRwtj7QMRb/LEdQklXgfRAhTu2mPOMqUoPxkrmsz9MBb/TEvE7sKCXRppDN8qq6jFdS2vcyVE/YTXy72CvZO/6bKUGvEji+qhTtSfd53XFKY5NJpefuy1Qjg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=1z+LA0eMFHBdqmBVxO3mCdC7TPIAje98Vb0pGS6iGM8=;
- b=wFchY/qFS8tvBFsZHNK11jjd6K9Ro/V33XBAfvvMcatWUvR8utN/QXgdM/N24gVCr54rd08APqz46hrLjYdnnFk54261WAGQHsomWZmPHg0FiujRLzwKFIjVISpGiftNPC3JE3/WApO7T6B2QPZMRO2JClZrNBCuN//5H20tZ0Wl8IzgugOf6QR2HFHaCnbfTRNE3+vGsMGVU0Q157edpgSu1GRqFpxMIv/hzVnHnjEOwP2u0B835/3s6LM91PLEfftB7WDh/nCQ4cg04b8uUeqd0K4o02glaeiy5OF9j7YT+OGKeALnBStHIDmxprr0S+rtOUCDC7glTf974JOb+A==
+ bh=hresKaTLNpkYDKtSiMsirB/Bj/jE2d2OVMJzcoxgAnM=;
+ b=BDUKK/oopvZaMNpw9oTK/nX3QuRg++nl4YJNiS/qJRvxgdRf2zXhS+0l1DXDqLBEjF6od6nxw8bujW2BOC9QsAh4O10SWH/D8Y8MmbGByJ9MCc3f7d/6HNGrKuUP3jnfoiVIvxEXwwLwpqwB/hw72Nhw0xrpDwQfeZ4ZFkgUqC3V+9rYfWikuY7/xZmyCsTNtoIC7UeCVUyP3xk1uo6BJjbyOEjGSkHpUbUNIOLWgQTD5APERSFoqAYoDgfgog+PvzyyPSGalvwNtDVBQlFAwpXAYHwd9eNPEjGfc0Lz0VjpVNFr5IrxEYZDOg2cTY3yZuWJFBvAjR+VP492mdT5GQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1z+LA0eMFHBdqmBVxO3mCdC7TPIAje98Vb0pGS6iGM8=;
- b=SnZFkBNcFsntGcMe5kZVkx75DXlmtUiSJrO58kiWmu3ItnG89ANQ2B2GRhqqVkmYKP/rWVnHyJnddpKD2fgeIY4B9vL7qraRaiUUkPAkMmPjh3zJeMqDaTKHoCFN5KKZFloxP+FyCBqq/mE8gLkoTJy1kLzc5e/+05993eYAoFM=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from IA1PR12MB6435.namprd12.prod.outlook.com (2603:10b6:208:3ad::10)
- by SN7PR12MB6861.namprd12.prod.outlook.com (2603:10b6:806:266::14)
+ bh=hresKaTLNpkYDKtSiMsirB/Bj/jE2d2OVMJzcoxgAnM=;
+ b=SNlC7eYvbYtM3YAUgTqydg2t/Uvb09ulntlbmQ1Dum9uEjioFQrUhc99RRGxnI82lo0WEtoIGal6WT4o5NYIgeqJFTW98562D42R96EKDP310s+pqbffAFJttaDAhrmSs7g/VM8seo5DW+ouQhezpNb+qOwuy1Z2ib0E+xntRaM=
+Received: from MW4PR12MB6803.namprd12.prod.outlook.com (2603:10b6:303:20e::10)
+ by MN0PR12MB5763.namprd12.prod.outlook.com (2603:10b6:208:376::8)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.19; Wed, 29 Apr
- 2026 09:56:38 +0000
-Received: from IA1PR12MB6435.namprd12.prod.outlook.com
- ([fe80::8b77:7cdb:b17a:a8e2]) by IA1PR12MB6435.namprd12.prod.outlook.com
- ([fe80::8b77:7cdb:b17a:a8e2%5]) with mapi id 15.20.9870.016; Wed, 29 Apr 2026
- 09:56:37 +0000
-Message-ID: <5e44f013-a1c1-4621-9eea-e4f2459f223e@amd.com>
-Date: Wed, 29 Apr 2026 17:56:27 +0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC/POC PATCH 00/12] POC SVM implementation in AMDGPU based on
- drm_gpusvm
-From: "Huang, Honglei1" <honghuan@amd.com>
-To: Matthew Brost <matthew.brost@intel.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Felix.Kuehling@amd.com, Philip.Yang@amd.com
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Alexander.Deucher@amd.com, Honglei Huang <honglei1.huang@amd.com>,
- Oak.Zeng@amd.com, Jenny-Jing.Liu@amd.com, Xiaogang.Chen@amd.com,
- Ray.Huang@amd.com, Lingshan.Zhu@amd.com, Junhua.Shen@amd.com,
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Danilo Krummrich <dakr@kernel.org>,
- Alice Ryhl <aliceryhl@google.com>
-References: <20260317112958.2925370-1-honglei1.huang@amd.com>
- <e21e8e1a-4d2e-40e9-bbb7-2764cf33e760@amd.com>
- <ae5fe946-4756-43b4-848f-3b545ac61ba7@amd.com>
- <abuE0KBPtAZM9Bo0@lstrano-desk.jf.intel.com>
- <098d5d68-f218-4cee-8b73-201e7012a287@amd.com>
- <acDeRhCTh/ehOUyu@lstrano-desk.jf.intel.com>
- <a9d979e7-6ff1-47c5-87c5-b905e5c84ded@amd.com>
- <aenBy61U66DkSZUl@gsse-cloud1.jf.intel.com>
- <7a1ba278-1201-4585-b35b-3fb2cec6035f@amd.com>
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.16; Wed, 29 Apr
+ 2026 09:58:52 +0000
+Received: from MW4PR12MB6803.namprd12.prod.outlook.com
+ ([fe80::c193:ef2e:260f:dcfd]) by MW4PR12MB6803.namprd12.prod.outlook.com
+ ([fe80::c193:ef2e:260f:dcfd%7]) with mapi id 15.20.9870.016; Wed, 29 Apr 2026
+ 09:58:52 +0000
+From: "Feng, Kenneth" <Kenneth.Feng@amd.com>
+To: "Wang, Yang(Kevin)" <KevinYang.Wang@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+CC: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Zhang, Hawking"
+ <Hawking.Zhang@amd.com>
+Subject: RE: [PATCH 0/4] drm/amd/pm: add and use the SMU multi-msgs helper
+Thread-Topic: [PATCH 0/4] drm/amd/pm: add and use the SMU multi-msgs helper
+Thread-Index: AQHc1hhC4GPSzRHa0kq5s/dnwVFf4rX10VUg
+Date: Wed, 29 Apr 2026 09:58:51 +0000
+Message-ID: <MW4PR12MB6803E58980E1939F1555B3EE8E342@MW4PR12MB6803.namprd12.prod.outlook.com>
+References: <20260427073355.3363500-1-kevinyang.wang@amd.com>
+In-Reply-To: <20260427073355.3363500-1-kevinyang.wang@amd.com>
+Accept-Language: en-US, zh-CN
 Content-Language: en-US
-In-Reply-To: <7a1ba278-1201-4585-b35b-3fb2cec6035f@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: KUZPR02CA0022.apcprd02.prod.outlook.com
- (2603:1096:d10:31::7) To IA1PR12MB6435.namprd12.prod.outlook.com
- (2603:10b6:208:3ad::10)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA1PR12MB6435:EE_|SN7PR12MB6861:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5ad1b0bb-ac71-450a-01d3-08dea5d59aa6
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|366016|376014|56012099003|18002099003|22082099003; 
-X-Microsoft-Antispam-Message-Info: /MxvW2vE9VxZBPGOybEftjhbDHmLwGvuUl/UL1G1L3BCKxzhVJHcEwfQEnRkwnHSmgF4kWGTlTeoe5p3JUm7sMKAIPVq0kV0G4LlUI88Oya6GQ4z7yy3nZyOnIFFLYCCAHS/vQ0rFePPQRnBwjyBdAPO3JBbNXW56TAfRbaGtNnYH5k4cG4g6TfnE0+fSvRiJel9AHkzy5i3uxzdHZ9QaZZ2kfkuL9pCNyR1LESCOyqO2KE8tEw4nwu6opCQ8cys6CC2R/CHXX7iQqgry6DF1HDo0LpzHC1tHajY4eDmna4R1xfBkXg8YdHaO9LEfqtJQzbInfThpwMQsPGJesCt9+a8tDGQSYCLmQG4L8a04gbD5NufAmnu6163aBNrusAxLy9axoyD/YEeVlMNYpMQ8Mc8l7vitO9TRK97jRW2IxrRIWXuDIkPAUAlcKxjBgZTLqrd8AnRVlfCKB4/T9l5iTXRdMZ6SGfy6zZWULkASLcAFaqTlnkVmcI8jGmJYLXfrZHsCGGS4Au09kO6edjM6fq4rcKUHdubclSt6v0Poto/ucnUrOxDG8W6qS8JZZ/KuS5LOFWpsn7bJ3ehrckavfsthvQtGeGlp2+giRUbcNoUck6L3O9moJJB4IgrRlUsiY35ObBMFaMp+Zov4r/5qi3LNt+Q3Bqx3GP5ePTtpCMCR/t5hd73r81eMdswRCSk
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:IA1PR12MB6435.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014)(56012099003)(18002099003)(22082099003);
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-04-29T09:58:43.0000000Z;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD General
+ v26; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=3;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: MW4PR12MB6803:EE_|MN0PR12MB5763:EE_
+x-ms-office365-filtering-correlation-id: 7f1e6270-23dc-412e-e786-08dea5d5eae6
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|366016|376014|1800799024|22082099003|56012099003|18002099003|38070700021;
+x-microsoft-antispam-message-info: ppyHa78eRHVyejgYI6D3IIFGTFQ5ryoLOvha8G/sFezpKTMXsJ+zYD4isTXklhs89RY/jZV/c16m4K1rk8re4sYNqUckj/xcjRw1ySUbjYipClbyCbyvlWDtV49KVP/mugvckNqJmeRIxSGobmyM8exE1mi554PmYtcrjLGRMLMQJ6bxK10qzA2IkU9BLJjVeKwLzx4C6HhIT1X1iXxeAkan72o/yiQfB9WrwCmbHxdbczGUEMcpOv8iUDO7VSvYyUbBjsC9GueBDwf91SfKorLzeZs5ipS2Uff7HU6uXK/P00eAxLbpi0ODcvAMH6d7dNvRj7J+ZtOUvKrnivyXaQbQd7+RSAc6WUrXBfbmM1PkpCUjnWTSCfEF9JeGNZCIy29bBBmwfUlDnBL8x0KRcugiuX5nHOAcOWDfauOG/TzfPAY9MaW+Snr+YbUgkaSAG7f4eAypmAaf3W5y85AyecvBe5cG0Z9xcBgKUdpvf0XX+1+mvPMQXbqvA1AT/QfWmOWnPKvqGyPnZwgon/qJlLzT5m0AHkDb8dhkpCnWELy2EQTD5GJaU8nqcPGcxA9BbJHYt+x4EZGt9ZERswk6tfwDR2RSBvBF73HuZ5/noD44FDQFg2aIMMYm3Jf3LvgN1GSuEifFLMVpZ19xzbj/YHqbvdPoPv68IyTAwpC+vdegA1Om+3yuMxNkrvv78dR2RfG2QazJWHflFep4GNiVFlA/7E5r0BdoGwCjaVY6NwqdtJDwfJEJ05nBqwZryg+iVECi7aiys+edwAWUttTMoEFUrpJ4ilzyG4nXHi03DxQ=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MW4PR12MB6803.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(376014)(1800799024)(22082099003)(56012099003)(18002099003)(38070700021);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MkhIbzNYcHBYaThmNW9uNlZSNEFGRlZsaGNEZmJmaFBYNkhSbXROMkdrTFc2?=
- =?utf-8?B?STdYb2ZjVkZkUVc5MEQvVEVoNFp6R2tNR0lWWGxyY1RoODRYc3Q0T2NQcXpS?=
- =?utf-8?B?ZWM5ZVFzaXd5Z1NJZWpOb0VBSkxzRnhZOFdTcVFHN3UrZ3dSMzZBOTlxaytG?=
- =?utf-8?B?dDUyRW15SCtpRXR1eTJESGFPUkdDQkJjR2lqSHRCMUxuYm9LYmpld0tQTVFS?=
- =?utf-8?B?cEJmcnBWdGoyWVdCcTF1TzNGQnFKWTV6T2pUeTh4Y1kycVo2b1F3VmNIajdY?=
- =?utf-8?B?NW5QMUZSUGRPQnlGTStsNmx1THFPNWFjUm5BcWd3WVNaMHRRVTlPRjVDMTA1?=
- =?utf-8?B?MmVkZ2U4TVRHcWxkRmd0aEZPYzhZUUhhTTFoSWMxNm1JdC84N0JOMlVNRTFi?=
- =?utf-8?B?c0wxT0kvcE9PM00wY2FpZ3RVb0tGTnUyaFNyeUlQWUxyOG44MzI1ZEZIOGhU?=
- =?utf-8?B?N2Rva0loTHNZQXNaMXd0N0tyRWorNlBHSjdRQmYvUWhqY3dYMFlRenJ0enFw?=
- =?utf-8?B?cStQM2JXQm9mK2RUbkFOcnRLUTJjbjhORXhPbjlMaTdkVjkreWZ1ZGh5VFJn?=
- =?utf-8?B?cDdJdFppUGIvYndieEk3eFg1OHZiMWsxNVk2U01kS2dGOFZyZ295NHdKUlh2?=
- =?utf-8?B?eWphcHN4UENLdGRCYlMreDh3UHEwRktlTGZ0MnZiYXE4L3VUSXI2VjlKM3F3?=
- =?utf-8?B?N05iNzBNeEJ0ZzM2OTNncDR1aTFDSzhpamhGM3YrM2hIVlVQZ2hHQ0FWbE1o?=
- =?utf-8?B?ekh3ejN0NHdCR3kwYXNRQ2pRSXQ3SnErVjk0Tzh3WndWemJVa2l5cVdJY3gz?=
- =?utf-8?B?WGF0ZWMyRXR4cSs2OXRuYlM3SERUOUpVQks1Z0dtTzBoMlorNFR5MWtvMStD?=
- =?utf-8?B?NEEzeWVuVzRwb2JMczlaLzRLR2NFRytudVJmZCtZT3l2eTJkdFZpRElza0tT?=
- =?utf-8?B?aXNlLzBSeG9yYUdkZ2JTMTk5QTN1MDNOOUwzTXcxM0hPZll6RlVMWkIyQmY3?=
- =?utf-8?B?RGtGb0lTVWdJQkRrazUvcVJiVEZHUlU3TFp5dmpvWkNYVVVYNnA2dlFQYmdT?=
- =?utf-8?B?UDVtMzRiRmhOYzdJbVF1NUJqamR2OFJoZ01qN3JiekxYT2xLRVV2eWNNY252?=
- =?utf-8?B?cisrMjREcjF5S1VqS1QySCs3bTlvYU5GaCtDYlhSenBQaVdIWE80d21POVRO?=
- =?utf-8?B?Mks0NnVWL2hYZEliQS9zQXNHanRUUnJIQjlpTGRWTmVRWEVKaGNwaCtXMXBt?=
- =?utf-8?B?eEc1Wi9SQmlpS2NKS1UzR25tMFhRNnlvaGVndTMxZk51MjBzaTB0aDVuTHJH?=
- =?utf-8?B?cTNZc2tnZjA4WHhjSUtudWdhTkZIQ0VqR1NMcElXUU11THAwQWxZMzAvckVP?=
- =?utf-8?B?OERTc1Q1ZU9hR0MxcmJLODR0WHkvOWRVa2l6SnZ0ekdIcHNwRnlLTkRIb2o5?=
- =?utf-8?B?Q0p2N1gvRUU4SHpIWnB5MjR4SFYyeVpWYTNJWS9DNmRrMEZmVENsYkFrL1JR?=
- =?utf-8?B?a0hReVFTV3VneWZ4WUZwZytPcStEWnVqdFl0cDQweUttMmtqLzZSeFBTaDd0?=
- =?utf-8?B?R0w2TmpiZEx5a25oOXE2LzdndzVkY21FcHY5RVUzeGZMdUh3VmUrN3AvaXFQ?=
- =?utf-8?B?VUJ0a3hwZEowWU5PWVJNV2lRK3dLRTgvaDNxUS9QR252K0ZsVzJSWDR3ZWhS?=
- =?utf-8?B?aWFWbzdiM2ZjL2R3b21ueTlKNUFPbnRubHBSTEd3VFFvM2NPQlJjaWhIRUx5?=
- =?utf-8?B?S1JTanZhWTdGd3BzM2pqMFo1cGxZelBsalJrZlVITlZRRjRYTGVXUld1bVJt?=
- =?utf-8?B?M2FCa0dPQzBSOHRabjA3anhWeXpXK1g4bmxZRWMrZUhDYTFlaC8wRUk4Q0JX?=
- =?utf-8?B?NWc0ZERweW5iV21GcXhxQVhIa0hjeFhmWmVPNTQranhkZjFvSUlMZlFxTndw?=
- =?utf-8?B?ZlF4Y0NQNWFtQy85cDdvRXlaeXRhYk05bVZnU0laUTZZb203OW01eS9BZlN5?=
- =?utf-8?B?NDc1TnRaKzU0ejQySW5sOXNweTBtN1ZmazRCOFIvdFRmYkpYUDZuZFBQcXRn?=
- =?utf-8?B?R2hYL1V0a0lacEtCeGhmeUhiQmoyYTg1YlNoamlqVXlET1BaQjRsVFI4YklN?=
- =?utf-8?B?eXpGRlAyQW1NMXBCM21kSElhRFc5VXJhSG40OGR1UEhWYTkvNDRZM1JkU0d4?=
- =?utf-8?B?ZXh1QXBrdnhVcTBXaXowb1JtekJ5RDVmaEMyTWNBY0VKYnA1Vm9HY2JnTG5p?=
- =?utf-8?B?ZWN5dEJRMml1ZSsrdVpqc2gwUVg1QXZHTElRb0c4WXE0L09nNm8yRGNHcms2?=
- =?utf-8?Q?ov7ufSynddVAosywLX?=
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?2N6NP5IdHRGskUERAQbeBQ5kEnr/JGo5wDwOP6le09lEpY8bIBVWFqIqeAf5?=
+ =?us-ascii?Q?RxSDBNnqXX3KNXSszXhx0+busLUa3QVthcQhjbNC43RLuIlG4+DtWf1kkBRv?=
+ =?us-ascii?Q?3q4W0V9qGsnyDUbAcylOkI91eMjt55hiFO/uuuU1Uq9IDOLPH515e6lAOCR9?=
+ =?us-ascii?Q?B2fFsrGkGExL9x+/U2S9aiqEICPKBgupdo3VdsVSTLqvvQS37MKDqVasfDCH?=
+ =?us-ascii?Q?tQdcYwjEmUVo5r/fBXvPBzxogAARHRF6drYpSvAqWj4bVJ6Z6MYxbiOL9+Qb?=
+ =?us-ascii?Q?cb/uaI9UAizUJUaHaQ7zF1t51EL1IUQydegkCbV1YEv/dUy9Mk32ACzaVlLq?=
+ =?us-ascii?Q?wusTW3NwGlNwd/m+evPjrPLJNp0WdTncfw5KXpVEw0mJ6cFKutC651dtmNDd?=
+ =?us-ascii?Q?m06J8F/oJgE15LsIvc2STGb0B0G6Zna5eHOkz27ehFRLWuADZ5oL4lYSXH8D?=
+ =?us-ascii?Q?X2Df4AYHwjNV/ukkPGIDqJFb52FaX3xc4vcQbd0jYVXWS+rpLN1QhGxLftKQ?=
+ =?us-ascii?Q?ijWLpuM/K2pqq0BS2hAWz3QnXrK5OyGLC1FqyD1cA/uLhF3syFWRDRHAjVBu?=
+ =?us-ascii?Q?Sa6E59yxAbkxlYlatEZYN4sQDIk5aO/xBSMDEPZJ2iNJhhH3ZHRVikKttSes?=
+ =?us-ascii?Q?9t2ZZ9iBQg+4vxv7A82LgODCr1OLoH5isPjfct1VExGa2EvUriUTJPimpnvQ?=
+ =?us-ascii?Q?ODjjD95PGCxsf6EJhh13pkFaEuP04vqE1uGkSWdPmS51O37poIFWlDinU7cK?=
+ =?us-ascii?Q?RgBef4Z/lxu6vgSzEuoT4M4GzNkMkaxfeGMZiwzHXP2ysjMCpe3k/7m5v+me?=
+ =?us-ascii?Q?u2J+Ec/uHQcI84pxvxVa+6q/8fUgrvy0KhbQX54hbvZMhimrMlG5ZeIAlupk?=
+ =?us-ascii?Q?sDsCFExoyjmQ0bzV07G90Xkq2zhyieMrM4E9J495NEoxCTY3/msEbD5Lgr4e?=
+ =?us-ascii?Q?yKvPIWj4JUZhBlgxobHa6cixvOtm++xgwjOUnPOvzqzMsddbLCDicpPUBeN/?=
+ =?us-ascii?Q?t3fo1ZGsq9kKhrgkEO1umcEIabtU94JA7kLmX40aM7+bVFv16BlnoC8YQwBA?=
+ =?us-ascii?Q?u7ZHjvUvtLTPdF+HZcs4uvOWFpuE90tp36/BWsB1PHnoszemYBFAWfS/qX9/?=
+ =?us-ascii?Q?scclD26RFvgyGvV5ckUkm2+21BhRG56ZTGErw1jO4fzwLrzE1saZxT4c36t5?=
+ =?us-ascii?Q?O+vThxaddDFWwwxv3n90uZrj+NjGJ8ZDfqaWpcnvPtVm7ekGj9TICJ8t6Zd+?=
+ =?us-ascii?Q?hIabcNvAc5QFMLeBKKLzXUI934fbhIeO8vc1YTEspnTPCjpa0sK5lDoG56U7?=
+ =?us-ascii?Q?ZHURHZIGeJXZwysx4MkzhPe0uEozKfAwwEVpUp0iG2Ow83kTSe4qrVxq7QSc?=
+ =?us-ascii?Q?uhn+t53V8wRrkCz1P9PnU9+/slKSuoK0Dw2xrD6hJk7dtsPVoUxcThn/uJUX?=
+ =?us-ascii?Q?j07MorXiMalt6FF3Mj7fe6gDQW77UVOeRPPfNAhbq6Qx7hDtiA2QMePftexG?=
+ =?us-ascii?Q?+goJIsv53NccMcnUCA6MLtnWKnIhtRSbX5hwhAaJ03dUg4B/jC5vhF4mfuQA?=
+ =?us-ascii?Q?pWM/KlnT0sIFojw1q7s6TuBphnShL4EZajtKfuwgYMj9wp3aep704fvuJ4AT?=
+ =?us-ascii?Q?yjV3rc77UdOhgR/gqm0hmF6iztWzFCrDvljRNVLITMRVB65gS03E7046z6HN?=
+ =?us-ascii?Q?UuHcuaJJ1mAw36FpizZpn9OEYLT2nR563Ket1AfQDahSaQhd?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5ad1b0bb-ac71-450a-01d3-08dea5d59aa6
-X-MS-Exchange-CrossTenant-AuthSource: IA1PR12MB6435.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Apr 2026 09:56:37.8836 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: vRWLbdrXbjZox62l/vx/Dqrdjd3Lu7Bjczu0VaFESHWLWC8qw3RaJgPvmS8XrlplLyFcJQ41gRF4XGTwYVboGg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB6861
+X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6803.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7f1e6270-23dc-412e-e786-08dea5d5eae6
+X-MS-Exchange-CrossTenant-originalarrivaltime: 29 Apr 2026 09:58:52.0386 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 2w70Lip4DAuurPZTWHz2V1rtNzYF3QmcG0S23bR4akMJUzS12c36w7f3NlcpuShR
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB5763
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -151,183 +133,49 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+AMD General
+
+Series is Reviewed-by: Kenneth Feng <kenneth.feng@amd.com>
+Thanks.
 
 
-On 4/23/2026 4:22 PM, Huang, Honglei1 wrote:
-...
->>>>>>>>>
->>>>>>>>> This patch series implements basic SVM support with the 
->>>>>>>>> following features:
->>>>>>>>>
->>>>>>>>>       1. attributes sepatarated from physical page management:
->>>>>>>>>
->>>>>>>>>         - Attribute layer (amdgpu_svm_attr_tree): a driver side 
->>>>>>>>> interval
->>>>>>>>>           tree that stores SVM attributes. Managed through the 
->>>>>>>>> SET_ATTR,
->>>>>>>>>           and mmu notifier callback.
->>>>>>
->>>>>> Can you explain the mmu notifier callback interaction here? See 
->>>>>> below in
->>>>>> Xe the attribute tree is existing VMA tree (gpuvm).
->>>>>>
->>>>>
->>>>> Let me try to explain, apologies if the description is not fully
->>>>> precise.
->>>>>
->>>>> In current implementation, the MMU notifier callback interacts with 
->>>>> the attr
->>>>> tree only in the munmap path remove the corresponding attribute
->>>>> entries from the attr tree so that stale attributes do not persist for
->>>>> freed address space.
->>>>>
->>>>
->>>> Ah, yes. We reset our attributes upon munmap too. We actually don't 
->>>> this
->>>> 100% correct quite either and series in flight to fix [1].
->>>>
->>>> [1] https://patchwork.freedesktop.org/series/161815/
->>>
->>> Hi matt,
->>>
->>> It seems like you are tring to modify the implementation into remove the
->>> attributes when munmap.
->>>
->>> Actuall we have a discussion internally that does the driver need to 
->>> remove
->>> the attributes when munmap.
->>>
->>> So there servel ideas:
->>>
->>> 1. attribute need keep: attributes may be needed again when a new VMA
->>> appears or on subsequent faults.
->>> 2.attribute need keep: attributes can be set independent of whether 
->>> memory
->>> is currently mapped; attributes persist and are modified explicitly via
->>> ioctl, not implicitly by notifier callbacks.
->>> 3. attribute need remove: casue VMA is gone, driver can do nothing 
->>> without
->>> VMA.
->>>
->>> and I saw xe_svm set default attribute in the previous version, this 
->>> is also
->>> a option.
->>>
->>> Can you please help to give some information that why xe_svm is 
->>> turing to
->>> remove the attribute when munmap? And does keeping attribute is a 
->>> valid way?
->>>
->>
->> This is a semantic choice, and we’re trying to match the semantics of
->> CPU madvise. I believe any semantic an individual driver stack wants to
->> define is valid, but if vendors mismatch sematics this will create a
->> level of vendor lock in which may (cough Nvidia, CUDA) or may not (open
->> source) be desired.
->>
->> AFAIK, if you do something like this in C (a CPU-only program):
->>
->> mmap(addr_range);
->> madvise(addr_range, some_flags);
->> munmap(addr_range);
->>
->> mmap(addr_range); /* Here the madvise attributes are reset */
->>
->> Also, AFAIK, the CUDA GPU madvise API works this way as well.
->>
->> That said, making this work 100% reliably is quite difficult, especially
->> with a rude user.
->>
->> For example:
->>
->> mmap(addr_range);
->> gpu_madvise(addr_range, some_flags);
->> /* GPU never actually touches memory */
->> munmap(addr_range);
->>
->> So we have an opt-in VM bind flag,
->> DRM_XE_VM_BIND_FLAG_MADVISE_AUTORESET, which we’re working on to mostly
->> handle the “rude” case above. Maybe we can reach 100% correctness, but
->> again, this is a difficult problem is WIP.
->>
-> 
-> I think the current amdgpu SVM draft version also has the issue for the 
-> rude user situlation. Maybe this is caused by the separation of 
-> attribute layer and physical layer. Seems like KFD_SVM doesn't have this 
-> issue.
-> 
-> Maybe driver can find_or_insert in madvise ioctl path, to add a MMU 
-> notifier but do not to get_page, and then clean the attribyte in mmu 
-> notifier callback instead of GC. This is just my thought.
-> 
-> And really thanks for the information, and waiting for other's comments.
-> 
+-----Original Message-----
+From: Wang, Yang(Kevin) <KevinYang.Wang@amd.com>
+Sent: Monday, April 27, 2026 3:34 PM
+To: amd-gfx@lists.freedesktop.org
+Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Zhang, Hawking <Hawking=
+.Zhang@amd.com>; Feng, Kenneth <Kenneth.Feng@amd.com>
+Subject: [PATCH 0/4] drm/amd/pm: add and use the SMU multi-msgs helper
 
-Hi Matt,
+SMU15 introduced driver messages that can carry multiple input parameters a=
+nd return values, but callers still have to build struct smu_msg_args direc=
+tly.
 
-I'd like to share a concrete bug we hit in the amdgpu SVM 
-implementation/tests about stale attributes.
+Add common SMU multi-msgs helpers in smu_cmn and switch the first SMU15 use=
+rs over to them. This keeps multi-parameter messages and multi-return queri=
+es on one helper path while leaving the older single-parameter interface un=
+changed.
 
-In short it is stale attr_range overlaps with VM_PFNMAP VMA
+Patch 1 adds the common helpers and updates the shared path.
+Patch 2 converts the SMU15 base table address messages.
+Patch 3 converts the SMU15.0.0 table transfer and enabled-feature query.
+Patch 4 converts the SMU15.0.8 enabled-feature query.
 
-1: User allocates memory and sets GPU attributes but never use/fault it.
+No functional change intended.
 
-    CPU VMA (anonymous):
-    |<── 0x1000 ── 0x5000 ──>|
+Yang Wang (4):
+  drm/amd/pm: add SMU multi-msgs helpers
+  drm/amd/pm: use the SMU multi-msgs helper in smu_v15_0
+  drm/amd/pm: use the SMU multi-msgs helper in smu_v15_0_0
+  drm/amd/pm: use the SMU multi-msgs helper in smu_v15_0_8
 
-    attr_range:
-    |<── 0x1000 ── 0x5000 ──>|
+ .../gpu/drm/amd/pm/swsmu/smu15/smu_v15_0.c    | 47 ++++-----
+ .../drm/amd/pm/swsmu/smu15/smu_v15_0_0_ppt.c  | 38 +++-----  .../drm/amd/p=
+m/swsmu/smu15/smu_v15_0_8_ppt.c  | 14 ++-
+ drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c        | 96 +++++++++++++------
+ drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h        | 22 +++++
+ 5 files changed, 130 insertions(+), 87 deletions(-)
 
-2: User munmaps the region, attr_range is NOT cleaned up
+--
+2.47.3
 
-    CPU VMA: (gone)
-
-    attr_range:           stale
-    |<── 0x1000 ── 0x5000  ─>|
-
-    No gpusvm_range existed, No MMU notifier, No GC, No cleanup
-
-
-3: User mmaps new memory for device pfn remap  partially overlapping the 
-old range,
-and new memory for GPU set attribute
-
-
-    CPU VMAs:
-    |<── 0x1000 ── 0x2000 ──>|<── 0x2000 ── 0x4000 ──>|
-    |   VM_PFNMAP                  |   anonymous (new alloc)      |
-
-    attr_range:              STILL STALE
-    |<────── 0x1000 ─── 0x5000 ─────────────>|
-
-
-4: GPU faults at address 0x3000
-
-    Fault handler finds the stale attr_range [0x1000, 0x5000):
-      gpuva_start = 0x1000  (from stale attr_range)
-      gpuva_end   = 0x5000  (from stale attr_range)
-
-    drm_gpusvm_range_chunk_size()  find the  chunk: 0x0000-0x5000 cover 
-the VM_PFNMAP area
-
-    |<── 0x1000 ── 0x2000 ──>|<── 0x2000 ──── 0x4000 ───>|
-    |   VM_PFNMAP                  |                                    |
-     hmm_range_fault fails
-     or vma check:
-     VM_PFNMAP -> -EOPNOTSUPP
-
-I think it is caused by of the stale attribute.
-Or is this considered as an invalid userspace behavior?
-
-Regards,
-Honglei
-
-> Regards,
-> Honglei
-> 
-> 
->> Matt
->>
->>>
->>> Regards,
->>> Honglei...
