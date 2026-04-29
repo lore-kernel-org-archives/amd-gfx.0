@@ -4,108 +4,121 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1CC16CCFA18
-	for <amd-gfx@archiver.kernel.org>; Wed, 29 Apr 2026 04:11:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 734C3FF8867
+	for <amd-gfx@archiver.kernel.org>; Wed, 29 Apr 2026 08:21:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D0FD410EE50;
-	Wed, 29 Apr 2026 04:11:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 10F9210EEC6;
+	Wed, 29 Apr 2026 08:21:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="rqqlEyWc";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="mPuDE2FJ";
 	dkim-atps=neutral
-Received: from BL2PR02CU003.outbound.protection.outlook.com
- (mail-eastusazon11011017.outbound.protection.outlook.com [52.101.52.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EE1D710EE41;
- Wed, 29 Apr 2026 04:10:50 +0000 (UTC)
+Received: from BL0PR03CU003.outbound.protection.outlook.com
+ (mail-eastusazon11012056.outbound.protection.outlook.com [52.101.53.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E98BA10EEC6
+ for <amd-gfx@lists.freedesktop.org>; Wed, 29 Apr 2026 08:21:25 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=MF/xVueifXtdE2p2VxsDITe+29Qqo879/XzpVa3OZO2wRfytkqGb7+hD8UiOE0I5MKHK5WAHs9Q7FJvDhFFw7e224diJMU3z47Fnls2zWcC3/WDWvs03FAl1vkyygcwxBoMnZ4eOABgT1p92cp9vfDqTBc5DNGMm9snbhWZci6erTo/rexxz++hP9yu3y0TFvL7iyWMXxMEBbdJ0KOVsqb50eqEdLjBCzslrO5WbVCjvqY7VquHLuVsAgZ4vbNABszsQKHU5oSnUIMpa9j2umPRwcc1PIPY2tbkd6+4KAeelMjns8ok/gHn8ojJXnWiZolsV1KaZ2QtciAXA2SNUdw==
+ b=wQR1qK5HZUGv+Wxzrx3IIhNd77Q5aMFpgHHXFuB6+2Iw9dSHHIkNnu0CHa9cWWd7XZ3BX+GKzDD4RW89Z4rUjM5n4zbCZaWN2l2t96Wn/Sf8uAQgHI+6SbJcA+ZqaIQG3JBwYe4KH4wtgdY1u7sKRfvv18nFWPK5npY2c3Sc/h7UMZGjPvQKX80vni7AZHxHxFpWTsIK5DkrlFGHFDgQ69m2n4jAizjasWSle7NGCYcaHoRDg1vnqJnG5VLF0rknQDf1zlb2oipC72wIosUDNqxA8EQzYnSMuEYCsABfgMuJpVZHZqiwBXKenidgfGjGBIl8dIbo0aNgMVAn/h8TnQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Kq/AD1iJ722E+P5lMwWd7hd1P4P16Ufau6FAoLEPIdw=;
- b=e0L4HzybPDkZFXC7yp0xvmy8hBiegvimbBGT9NhSQLMs068cgwT2NPHckVEz4kLiR1Ww2+UbsIXRQCQVPiDPA6wCEE32gzyir5YUmvfuksFQWZWUjnej1XV5/QiW6xULlT9X9VbVjCQRUmE8xxPnMoOCnZlmOeQC0kd2naBOv/PAeNahgoedBgpLMImlEr99gmyu+bUargphs0RNppesSCwwM46dpbhaQ50auRWien6iCJ1APpqMcmforIIwlU0xXjUR3oCDKofGOAUoSYi9sXFNNKxnNupG7TjfqTIdiwKqpBuwKFNJ0k0u4oTUOLVr4a2HPOWmxtQzUmWl/zdYTw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=ffwll.ch smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
+ bh=LQeKXTrra3GzPVxCLCrlezFc7pz5UgdMdzIe38g5c10=;
+ b=nCqBnXELjoCoDn98OCkF+Z+e31QK2Sq2vUdozvilN8oFLyZuieS3LQTzzwFW9pc0LEGv9nZt10vfhcUtx8fv+py7r7YMXsDJgJ4A5obummtSg0xpNC76DKcBJiRHmhne9JGQ+Njl255vN8MRqDAghxfr95FZt+AsX6xEgQ9qMqJ/m4YSq+qmd4WrogmprSauEqjwjp1dwVB/t8dW9c0G0pwrxERh7hWHJZIdj9cl+D7kF/1HFZ6DHEXMvhh0TKoE/Kliwt/bqB0iNrpc7zjPqAB2jVQbJoeweIETnRS+CdtgFk6tKuYR+LLVUpAiyzXbA0kwTJgV8W3h3jCCFF1QEA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Kq/AD1iJ722E+P5lMwWd7hd1P4P16Ufau6FAoLEPIdw=;
- b=rqqlEyWc8r2GvQ3vKdUlh3eDl7OWleVtcc32drzLDQF9qe997mTBin/L2EM6JJyDbt+8b/1E2Z3JNlkWyU6Vcs1FedvATk6PiacanImar5HZn1h8bR4bE2ACIZySGteclpOJZCRmSg99HIO9+hntW+bwOgKsWeYgS8UVE82k1OU=
-Received: from PH7P221CA0006.NAMP221.PROD.OUTLOOK.COM (2603:10b6:510:32a::19)
- by DS0PR12MB6440.namprd12.prod.outlook.com (2603:10b6:8:c8::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.18; Wed, 29 Apr
- 2026 04:10:42 +0000
-Received: from SA2PEPF00003F62.namprd04.prod.outlook.com
- (2603:10b6:510:32a:cafe::f0) by PH7P221CA0006.outlook.office365.com
- (2603:10b6:510:32a::19) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9846.28 via Frontend Transport; Wed,
- 29 Apr 2026 04:10:41 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- SA2PEPF00003F62.mail.protection.outlook.com (10.167.248.37) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9846.18 via Frontend Transport; Wed, 29 Apr 2026 04:10:41 +0000
-Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Tue, 28 Apr
- 2026 23:10:36 -0500
-Received: from honglei-remote.amd.com (10.180.168.240) by satlexmb09.amd.com
- (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Tue, 28 Apr
- 2026 21:07:35 -0700
-From: Honglei Huang <honglei1.huang@amd.com>
-To: <Alexander.Deucher@amd.com>, <Felix.Kuehling@amd.com>,
- <Christian.Koenig@amd.com>, <Oak.Zeng@amd.com>, <Jenny-Jing.Liu@amd.com>,
- <Philip.Yang@amd.com>, <Xiaogang.Chen@amd.com>, <Ray.Huang@amd.com>,
- <Lingshan.Zhu@amd.com>, <Junhua.Shen@amd.com>, <sima@ffwll.ch>,
- <matthew.brost@intel.com>, <rodrigo.vivi@intel.com>,
- <thomas.hellstrom@linux.intel.com>, <dakr@kernel.org>, <aliceryhl@google.com>
-CC: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <honghuan@amd.com>
-Subject: [RFC V4 11/12] drm/amdgpu: add SVM ioctl entry and fault handler
- module
-Date: Wed, 29 Apr 2026 12:06:27 +0800
-Message-ID: <20260429040628.853079-12-honglei1.huang@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260429040628.853079-1-honglei1.huang@amd.com>
-References: <20260429040628.853079-1-honglei1.huang@amd.com>
-MIME-Version: 1.0
+ bh=LQeKXTrra3GzPVxCLCrlezFc7pz5UgdMdzIe38g5c10=;
+ b=mPuDE2FJLG8TZ0RSh995D8hdlsccmsU0meZfVLxMHs3wSrAvQB8tpcfgKHukHmhMlOj9BPPwOq5qreTxP4UIOPRb6G/aoeUlZcJiLBQFxzyLF0LNDuuPDeIpFV0KiJBX0HpQY9SJxoIpImvQnzgWx7z4BYn4LRJTRfrgOyJiS3U=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by CH3PR12MB9732.namprd12.prod.outlook.com (2603:10b6:610:253::17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.15; Wed, 29 Apr
+ 2026 08:21:23 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.20.9870.016; Wed, 29 Apr 2026
+ 08:21:23 +0000
+Message-ID: <ac567435-2fbc-49d5-b4c2-7dfb6139f4eb@amd.com>
+Date: Wed, 29 Apr 2026 10:21:18 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amdgpu: zero-initialize GART table on allocation
+To: Philip Yang <Philip.Yang@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: felix.kuehling@amd.com, "Deucher, Alexander" <Alexander.Deucher@amd.com>
+References: <20260428162219.3761327-1-Philip.Yang@amd.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20260428162219.3761327-1-Philip.Yang@amd.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb09.amd.com
- (10.181.42.218)
-X-EOPAttributedMessage: 0
+X-ClientProxiedBy: FR0P281CA0052.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:48::20) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
+MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA2PEPF00003F62:EE_|DS0PR12MB6440:EE_
-X-MS-Office365-Filtering-Correlation-Id: 40a8b54b-2dd0-438b-9a9b-08dea5a54764
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|CH3PR12MB9732:EE_
+X-MS-Office365-Filtering-Correlation-Id: 938911d1-ff72-4d0f-0815-08dea5c84c93
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|82310400026|376014|36860700016|921020|56012099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: QW0ACkR8gwoXWu/UlcJ86cLJrBDQ40GWFSwDGH/++YSiVoTVWfbe97w77PAEKiWzxP+V+eNiR3M5QhG2o8dXdGZ8iWd/0sS2oso2f0htxmZEgSHchtzAgjn56XmnIwYovCpHpTfiAP+O6grxSueBu2/8w1gtJvsmb1b6QY08Hm4hzOCLrUP5Zs+AjnGw/XB0ilq4JPpRCVYnY3VfSUbmKJZ2UzrWE1yLoolx9nkwBMqSjPqFo7YKtW9ayn8IQjTdtF91boxhk61sF7ieM7Zmx6BlK+nAKZSrXw/mz7KCm7dIrXiX9h8imGdihut0mSsvKYegC47cGquGlaVSdhH0c24FjRR+ZDYZ9ijmB/YqwFL+MnLkvfiVdMnccgmOcWc29xZwfaFYCL595fWYqAUeBFhYrhhH2Q+BKm3792v0u2XV9K4LsHDtt2BKBNQ3y3/QNnGxovGdWrCjsX0ab95jZpGzfuXQcTb7GagSoqg0jpHgN3cO31MeWtmQGYWR3CgVZjl7qmv55/9Ypy1nAZA8kVdTl2QUCWUk6aD72MK48ku13+WyDLENOiMXUSeq/cFEkMZHmcKAz6BPRsTadfhGq92BO3gSnl2HloDPqeJuB2UcyZ8GuJpKy/r64jVM1EVMog+lgT5FyPH/Wc4egL493+6urPGtN5OjLw7W18s+Eco9u4nNGlNa50UQnAQbZzM9YYap48IzRxaJk903kcDdRqROLVLkDBZu6357Tgi2tNbawQDDkRYV61SYL6GA5VzPbxruD1BQZo0aVquGxcuLxr9HL0iBHAbF7XF0th/0P2+WCEO2iUMEzqU0alqpSPLh
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(82310400026)(376014)(36860700016)(921020)(56012099003)(18002099003)(22082099003);
+ ARA:13230040|1800799024|366016|376014|56012099003|18002099003|22082099003; 
+X-Microsoft-Antispam-Message-Info: 5ODRCPvN81XmIYFdTVz3gQPDxfGNV8QFw3DK4H3PQAnWUssd+R2yEgZdix3ppx/AUNzjVBA5bQH5oNhUadYdiYO9bQAIExl2+fbTiWt8OwFz1YGkYnMx4kYBMXCY5h8axVzZm0MZ3OKMsgNSQR19u+EnmQyhghC98rp963ksmXsLuwNDJwEuLXWx6cRPJGIJpSD2IMjapm40GfIKkfqe8xHi1TUD+SV4v6bW7PTlGl0zWmMgqZJ0NOJG/9PvDwHOlq4oMn+RZXLJDNNK43MXzPm/yZVLwnOMvxiep2wKR43K+5UbSiiaKcFxh6k0ztlDUb3Gp74QJTJBqZcttBEu0EI60X/5vV3eqad2DF8N/iTjWunsnDuVs6qpcmBv4K2kZDAo0y64/fwcv3K7IkhuP2nFiJC9gkZyFVSOif5WMm5EF+mbYy10vXQdY/MX8BajB82Jep1D1r4SICEXpSqBCPU/71CC/9ejzgibJLRquq0LaxHFfbuUDqflC9lmzoQEurFxNey/Ah3G7adIgcNsx8GyvzKokZvS+9Euwy9FAKgsmVqjwpXqcTijjfYUceD6W6oOWPf5YYl74LO92EpBvnCSmbyvIl7xcUC9iN8oQ9dvl2aq0v99yuyYD0HFJtlee0e5kjPzHj2/PkIqcSBzWoOfX2Pfk+3ODJ77d8zVSpKOd6tSg0siAbeL4isVPd6A0jdRnHJGvtCyOR/eLUg0LlH4txkt5XVJ+o7nKwTjP2E=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(376014)(56012099003)(18002099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: aeU6fdwiqqm9DW0U+LQTRG+OgONteIAvUf4aUn5o8Gdxd2Nctzc2iJix6f+koEkf187kHzSuXCVw/6ph7jM+XfPEbfjg57nHAg4QxO49TcXZwY1HhU5IGV9by4ZatFwIwlaJz+NkCrlgl8ClxRKyfUrOEkrjycm36+B2MA9n7UUr2n80umAQkxXwUXiQaARXGQAWp72rwOZ4r/HxRCZaNTSQT+d9u/qMFdXtTYI1fs8+KFR4F+RphjDWTButdWCJCn/wTEjicyqMcGhOztdUJYTWF2wkjDvli6xDXWwtEviPhRAftwjNWNhUYHVaWHGsacbZ9RtHWDiYGFDdJ6zNadijjP4oWE7nbnEJG5hvKj5quhjXXOEtpI3n2Ndvdf0vomViYZr9qx34FpTjezItEym2Mlmm0+4ytXsV5GkWs0ud53RhmFhuTetzjpOk9BAP
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?S3BoZVBCeU83QTlsUDZ6TUpUSEU4MzNJYTFNUmtKKy9RY2o1M3IyRFdGdUJV?=
+ =?utf-8?B?WVAzNHZBOC9mcUJsRCtuYmR0VTdDdjZ1VU9sR3Y2OEpHaXpjTjdwRmZqck5w?=
+ =?utf-8?B?QnpZQWJwR2lJMGtBRUZQM3pRdU9BQ1ZoS3p2Nnd6cXpWcEFwTzFJU3R4RG5k?=
+ =?utf-8?B?UTVmOFBrMnlqQTZzaEJiejZUWUNUUng0NkFFcXQyb3VkVm1KTjFDUTUrVWFU?=
+ =?utf-8?B?T1lObkp6bEw2T1lXQTVXTjVCM3gzWFVjQnp5eE1xK0JZYjFhZXpTV3BXd1Ja?=
+ =?utf-8?B?MnFDNXFrSy9PZWI5eXlIVlZqK0tEQjZkRUhrOTFqWTZEaVl2Qnl5UmVXUjh6?=
+ =?utf-8?B?cDZtNFh1MHVqTzlyR2NtS2JPOWJoNi92N1F5ZnBFWDNCcDdKKzRoQWQrN0pJ?=
+ =?utf-8?B?SFVwc0xpZlR2Y28vcmVXREY1ZGMvSVJQbkkxSGJkSTNVb01pa3ZOWnZNN2NO?=
+ =?utf-8?B?NGtqR2F0UllTZEJmZVNMUk1YLzdXL2FDU1FlRFpmbEV2TFltbzJsbldxYktD?=
+ =?utf-8?B?WktOMTJvWG5wUThPKzRhMmNVdnBPV0RoNEZydmtCRi85Qk9BKzJNbElOaTQ5?=
+ =?utf-8?B?b1FCbTc5Q2djZkMxYTFEMFptKzZGOU9FMmlULzZvUG9jY0d3Rk1LM2RMRUFZ?=
+ =?utf-8?B?OE5EaHFMbndIZnNsVmRzQ01XRmZObFBobDlnU2k5dVVCOUxXSklOeXZObGdU?=
+ =?utf-8?B?V3hmRmZEOG9JejNhMm9mc1J0TXZBblRZeHpVT1NYZzNYQ3YvalE5SkdhK2Zr?=
+ =?utf-8?B?UmF5M1dCWWtMck5ZSWFmS0ozRU43ZUk3czhZUHQ5Sy8rYWNqU25FMFZXVDJY?=
+ =?utf-8?B?NzFpaG81RVRXZ2I2dGRQUG1meStDRExPdzM1VHQybDcxcUpxQWFUeE8yM3lH?=
+ =?utf-8?B?Wnpwa3RVL3Q4VWkyWHdNSzV6YU1GM29KRzlrbTh4Qzh5VS95elhoOWdvMnBM?=
+ =?utf-8?B?SEltK09QNDZmZWVRNTF1TW1OZGw3TkFzNUxKa0ltQVRpQVpwendPemJpdmVV?=
+ =?utf-8?B?WWE1NzNSSXhMSGdrNERoSWVEQWRCUDB4SVR3d3NiQWNwd0hxOW5BVmFZYk1h?=
+ =?utf-8?B?UHB0a09ES2l5OGs2YStkNVluanJ0SUNWRDdyVzNXY1VFRHdkOTcvVFpBS1ll?=
+ =?utf-8?B?ZzBVQmsrdmtoVVZsdWltTlY4cXltbTdlZkhVV0NjMjZhT1Z2L2o0ZjZGTitW?=
+ =?utf-8?B?UGZlRnNGR2VCUUcrY1J6NHptdHQ2ME5VM3EyOXIxVXcvTklPckNlUFNSemZB?=
+ =?utf-8?B?Mjdvalk3cm5XMkRIUXNMRGhDU3lHbmxZL2JDaXlhSHZUckJkdlF0eGhORk5J?=
+ =?utf-8?B?RGVmdEI3d3V0SVJwbWZocVZKbllneGIvditZSFJNdTZ6Y0dMOWhZK3ZOUkZH?=
+ =?utf-8?B?SmxlN3IweW1YN0dRaVc1djJHOTl6U29DOFJsSGhjaGJ6U21Xdm5CL1NtYjlW?=
+ =?utf-8?B?aHlQS2pielBrV0cxeUVvN0IrcjdNODZwc0ZndGJ2VWwxL0hpbFA0b2luZXg2?=
+ =?utf-8?B?b1YvZTFSNG9QSW5zcG96bnFsamN6cEZ4SVE5dGtDUm5UVlR3Nld3YUN5SXdk?=
+ =?utf-8?B?SUs1UDRkTGtFMW1XUjF6YXZOZ3ZqRTdzMlR6VnFUU1FENDBIaGs2Mi9ZRzJn?=
+ =?utf-8?B?VXhpZ0J5bEpFUXpTU2RRMzdkMVQzaHQrWS9GRFpnK0tWaVdoYXlMQkcrSkxr?=
+ =?utf-8?B?OGd5alJqQktYU3lud1dOTkEvYlFkU05YSlFFRzNrdm16MGNtUGpTL3J5NEJH?=
+ =?utf-8?B?VnNVNG1HZEdmTkpYVk16NmM2WlRLWml0bHh3dVBLNUdJdHd1ZmEwSTJnN3V5?=
+ =?utf-8?B?eXZaVE5oZ1cxeVNHU1JuaGNGeTlPUThKUVR3RGdpMGR0VndPSDJkVDRMekFM?=
+ =?utf-8?B?d1hyZnZmOUxsc21MTEZ3UFFYbTNZQWNlTEhBcHBzcC9MYzEreElHd09QMHJk?=
+ =?utf-8?B?UFVhbVJVSlRnamZHc0xmT3VYeVpZdEU3RWhQaGxaeGFaazhZUWluYkF0Q2JV?=
+ =?utf-8?B?VEp3OTgzSUdwVDR2YjVYU1g5L0JNeWg1ZTVJRHdyZVd4aDB0RE5iTGhUMklW?=
+ =?utf-8?B?Z3h4MC81UnpBSDRCbkpvVGZjanNmekEvYVYzSHo5dkY3ZHhuV0ZJVlBxcmNO?=
+ =?utf-8?B?dUZNeDgwMFRKam92M0cyNzJEWjBRQUtlOWNaekFhalE1S0d4RGQzYXVmRHdI?=
+ =?utf-8?B?VzQ5bS83WllFNmRHK2psOXJsTlVrbDVrSTVVNjJVbnV6TjVFOHlTUVlTN0VK?=
+ =?utf-8?B?WkJjV3ZCWXlLNVVVWTc5OUE4RWpQdVZyV09jaHBveWo0NnRJY2xBa0JTdW8x?=
+ =?utf-8?Q?WMrwCDEkPMEEW0EJI9?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Apr 2026 04:10:41.8448 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 40a8b54b-2dd0-438b-9a9b-08dea5a54764
+X-MS-Exchange-CrossTenant-Network-Message-Id: 938911d1-ff72-4d0f-0815-08dea5c84c93
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Apr 2026 08:21:23.2206 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SA2PEPF00003F62.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB6440
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Aci0DeIgVyGkLdTlqQakFqw4zdWiyhcTacK+DM8GS/7YZZOvlopTTMoHwEB2Vjnm
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB9732
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -120,597 +133,61 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Honglei Huang <honghuan@amd.com>
+On 4/28/26 18:22, Philip Yang wrote:
+> GART TLB is flushed after unmapping but not after mapping. Since
+> amdgpu_bo_create_kernel() does not zero-initialize the buffer, when a
+> single PTE is written the TLB may speculatively load other uninitialized
+> entries from the same cacheline. Those garbage entries can appear valid,
+> and a subsequent write to another PTE in the same cacheline may cause the
+> GPU to use a stale garbage PTE from the TLB.
+> 
+> Fix this by calling memset() to zero-initialize the GART table with
+> gart_pte_flags immediately after allocation.
 
-Add ioctl entry point (SET_ATTR/GET_ATTR dispatch), GC work handler
-with range cleanup, and amdgpu_svm_fault.c with fault mapping logic,
-access validation, retry, and PASID-based SVM lookup.
+I'm surprised that we didn't previously had clearing of the GART table during initialization.
 
-Signed-off-by: Honglei Huang <honghuan@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_svm.c       | 149 +++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_svm_fault.c | 368 ++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_svm_fault.h |  39 ++
- 3 files changed, 556 insertions(+)
- create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_svm_fault.c
- create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_svm_fault.h
+> Using AMDGPU_GEM_CREATE_VRAM_CLEARED (SDMA-based clear) was considered,
+> but is overkill here: the table is only ~1MB and initialized only once.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_svm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_svm.c
-index e21b562ad..81d874e46 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_svm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_svm.c
-@@ -316,3 +316,152 @@ bool amdgpu_svm_is_enabled(struct amdgpu_vm *vm)
- 	return vm->svm != NULL;
- }
- 
-+static int amdgpu_svm_copy_attrs(const struct drm_amdgpu_gem_svm *args,
-+					   struct drm_amdgpu_svm_attribute **attrs,
-+					   size_t *size)
-+{
-+	if (!args->nattr || args->nattr > AMDGPU_SVM_MAX_ATTRS)
-+		return -EINVAL;
-+	if (!args->attrs_ptr)
-+		return -EINVAL;
-+
-+	*size = args->nattr * sizeof(**attrs);
-+	*attrs = memdup_user(u64_to_user_ptr(args->attrs_ptr), *size);
-+
-+	return PTR_ERR_OR_ZERO(*attrs);
-+}
-+
-+int amdgpu_svm_garbage_collector(struct amdgpu_svm *svm)
-+{
-+	int ret;
-+	struct amdgpu_svm_range_op_ctx op_ctx;
-+
-+	lockdep_assert_held_write(&svm->svm_lock);
-+
-+	spin_lock(&svm->work_lock);
-+	while (amdgpu_svm_range_dequeue_locked(svm, &svm->gc.list, &op_ctx)) {
-+		spin_unlock(&svm->work_lock);
-+
-+		if (UNMAP_WORK(op_ctx.pending_ops)) {
-+			ret = amdgpu_svm_attr_clear_pages(
-+				svm->attr_tree, op_ctx.start_page, op_ctx.last_page);
-+			if (ret)
-+				return ret;
-+
-+			drm_gpusvm_range_remove(&svm->gpusvm,
-+						&op_ctx.range->base);
-+		}
-+
-+		amdgpu_svm_range_put_if_dequeued(svm, op_ctx.range);
-+		spin_lock(&svm->work_lock);
-+	}
-+	spin_unlock(&svm->work_lock);
-+	return 0;
-+}
-+
-+void
-+amdgpu_svm_range_clean_queue(struct amdgpu_svm *svm,
-+			     struct list_head *work_list)
-+{
-+	struct amdgpu_svm_range_op_ctx op_ctx;
-+
-+	spin_lock(&svm->work_lock);
-+	while (amdgpu_svm_range_dequeue_locked(svm, work_list,
-+				    &op_ctx)) {
-+		spin_unlock(&svm->work_lock);
-+		amdgpu_svm_range_put_if_dequeued(svm, op_ctx.range);
-+		spin_lock(&svm->work_lock);
-+	}
-+	spin_unlock(&svm->work_lock);
-+}
-+
-+static void amdgpu_svm_garbage_collector_work_func(struct work_struct *w)
-+{
-+	struct amdgpu_svm_gc *gc = container_of(w, struct amdgpu_svm_gc, work);
-+	struct amdgpu_svm *svm = container_of(gc, struct amdgpu_svm, gc);
-+
-+	down_write(&svm->svm_lock);
-+	amdgpu_svm_garbage_collector(svm);
-+	up_write(&svm->svm_lock);
-+}
-+
-+int amdgpu_svm_gc_init(struct amdgpu_svm *svm)
-+{
-+	svm->gc.wq = alloc_workqueue(AMDGPU_SVM_GC_WQ_NAME,
-+					WQ_UNBOUND | WQ_HIGHPRI | WQ_MEM_RECLAIM, 0);
-+	if (!svm->gc.wq)
-+		return -ENOMEM;
-+
-+	INIT_LIST_HEAD(&svm->gc.list);
-+	INIT_WORK(&svm->gc.work, amdgpu_svm_garbage_collector_work_func);
-+
-+	return 0;
-+}
-+
-+void amdgpu_svm_gc_fini(struct amdgpu_svm *svm)
-+{
-+	flush_work(&svm->gc.work);
-+	amdgpu_svm_range_clean_queue(svm, &svm->gc.list);
-+	destroy_workqueue(svm->gc.wq);
-+	svm->gc.wq = NULL;
-+}
-+
-+void amdgpu_svm_gc_flush(struct amdgpu_svm *svm)
-+{
-+	flush_work(&svm->gc.work);
-+}
-+
-+int amdgpu_gem_svm_ioctl(struct drm_device *dev, void *data,
-+			 struct drm_file *filp)
-+{
-+	struct amdgpu_fpriv *fpriv = filp->driver_priv;
-+	struct amdgpu_device *adev = drm_to_adev(dev);
-+	struct drm_amdgpu_gem_svm *args = data;
-+	struct drm_amdgpu_svm_attribute *attrs = NULL;
-+	struct amdgpu_vm *vm;
-+	size_t attrs_size = 0;
-+	int ret = 0;
-+
-+	AMDGPU_SVM_TRACE("ioctl op=%u va:[0x%llx-0x%llx)-0x%llx nattr=%u\n",
-+			 args->operation, args->start_addr, args->start_addr + args->size,
-+			 args->size, args->nattr);
-+
-+	vm = &fpriv->vm;
-+	if (!amdgpu_svm_is_enabled(vm)) {
-+		ret = amdgpu_svm_init(adev, vm);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	if ((args->start_addr & ~PAGE_MASK) || (args->size & ~PAGE_MASK))
-+		return -EINVAL;
-+
-+	if (!args->start_addr || !args->size)
-+		return -EINVAL;
-+
-+	ret = amdgpu_svm_copy_attrs(args, &attrs, &attrs_size);
-+	if (ret)
-+		return ret;
-+
-+	switch (args->operation) {
-+	case AMDGPU_SVM_OP_SET_ATTR:
-+		ret = amdgpu_svm_op_set_attr(vm, args->start_addr, args->size,
-+					 args->nattr, attrs);
-+		break;
-+	case AMDGPU_SVM_OP_GET_ATTR:
-+		ret = amdgpu_svm_op_get_attr(vm, args->start_addr, args->size,
-+					 args->nattr, attrs);
-+		if (!ret && copy_to_user(u64_to_user_ptr(args->attrs_ptr),
-+					 attrs, attrs_size))
-+			ret = -EFAULT;
-+		break;
-+	default:
-+		ret = -EINVAL;
-+		break;
-+	}
-+
-+	kvfree(attrs);
-+	return ret;
-+}
-+
-+#endif /* CONFIG_DRM_AMDGPU_SVM */
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_svm_fault.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_svm_fault.c
-new file mode 100644
-index 000000000..073c7b631
---- /dev/null
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_svm_fault.c
-@@ -0,0 +1,368 @@
-+/* SPDX-License-Identifier: GPL-2.0 OR MIT */
-+/*
-+ * Copyright 2026 Advanced Micro Devices, Inc.
-+ *
-+ * Permission is hereby granted, free of charge, to any person obtaining a
-+ * copy of this software and associated documentation files (the "Software"),
-+ * to deal in the Software without restriction, including without limitation
-+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
-+ * and/or sell copies of the Software, and to permit persons to whom the
-+ * Software is furnished to do so, subject to the following conditions:
-+ *
-+ * The above copyright notice and this permission notice shall be included in
-+ * all copies or substantial portions of the Software.
-+ *
-+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-+ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
-+ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-+ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-+ * OTHER DEALINGS IN THE SOFTWARE.
-+ *
-+ */
-+
-+#include "amdgpu_svm.h"
-+#include "amdgpu_svm_attr.h"
-+#include "amdgpu_svm_fault.h"
-+#include "amdgpu_svm_range.h"
-+#include "amdgpu.h"
-+#include "amdgpu_vm.h"
-+#include "amdgpu_gmc.h"
-+#include "amdgpu_ih.h"
-+
-+#include <drm/drm_exec.h>
-+#include <drm/drm_gpusvm.h>
-+
-+#include <linux/delay.h>
-+#include <linux/mm.h>
-+#include <linux/sched/mm.h>
-+
-+#if IS_ENABLED(CONFIG_DRM_AMDGPU_SVM)
-+
-+#define AMDGPU_SVM_RANGE_RETRY_FAULT_PENDING	(2UL * NSEC_PER_MSEC)
-+
-+static int amdgpu_svm_range_get_unregistered_attrs(struct amdgpu_svm *svm,
-+					    unsigned long fault_addr,
-+					    unsigned long attr_start_page,
-+					    unsigned long attr_last_page,
-+					    struct amdgpu_svm_attr_range **out)
-+{
-+	struct amdgpu_svm_attr_tree *attr_tree = svm->attr_tree;
-+	struct amdgpu_svm_attr_range *range;
-+	struct amdgpu_svm_attrs attrs;
-+	struct mm_struct *mm = svm->gpusvm.mm;
-+	struct vm_area_struct *vma;
-+	unsigned long fault_page = fault_addr >> PAGE_SHIFT;
-+	unsigned long start_page, last_page;
-+	unsigned long vma_start_page, vma_last_page;
-+
-+	amdgpu_svm_attr_set_default(svm, &attrs);
-+
-+	mmap_read_lock(mm);
-+
-+	vma = amdgpu_svm_check_vma(mm, fault_addr);
-+	if (IS_ERR(vma)) {
-+		mmap_read_unlock(mm);
-+		AMDGPU_SVM_ERR("get_unregistered_attrs: invalid VMA for fault_addr=0x%lx\n",
-+		       fault_addr);
-+		return PTR_ERR(vma);
-+	}
-+	vma_start_page = vma->vm_start >> PAGE_SHIFT;
-+	vma_last_page = (vma->vm_end >> PAGE_SHIFT) - 1;
-+
-+	if (vma_is_initial_heap(vma) || vma_is_initial_stack(vma))
-+		attrs.preferred_loc = AMDGPU_SVM_LOCATION_SYSMEM;
-+
-+	mmap_read_unlock(mm);
-+
-+	start_page = max(vma_start_page,
-+		    (unsigned long)ALIGN_DOWN(fault_page, 1UL << attrs.granularity));
-+	last_page = min(vma_last_page,
-+		   (unsigned long)ALIGN(fault_page + 1, 1UL << attrs.granularity) - 1);
-+
-+	start_page = max(start_page, attr_start_page);
-+	last_page = min(last_page, attr_last_page);
-+
-+	mutex_lock(&attr_tree->lock);
-+	range = amdgpu_svm_attr_range_alloc(start_page, last_page, &attrs);
-+	if (!range) {
-+		mutex_unlock(&attr_tree->lock);
-+		return -ENOMEM;
-+	}
-+	amdgpu_svm_attr_range_insert_locked(attr_tree, range);
-+	mutex_unlock(&attr_tree->lock);
-+
-+	AMDGPU_SVM_TRACE(
-+		"Created unregistered range for fault_addr=0x%lx: attr range=[0x%lx-0x%lx] size: 0x%lx attrs={preferred_loc=%d, prefetch_loc=%d, flags=0x%x, granularity=%u, access=%u}\n",
-+		fault_addr, amdgpu_svm_attr_start_page(range),
-+		amdgpu_svm_attr_last_page(range) + 1,
-+		amdgpu_svm_attr_last_page(range) -
-+			amdgpu_svm_attr_start_page(range) + 1,
-+		range->attrs.preferred_loc, range->attrs.prefetch_loc,
-+		range->attrs.flags, range->attrs.granularity,
-+		range->attrs.access);
-+
-+	*out = range;
-+	return 0;
-+}
-+
-+static int svm_check_fault_allowed(struct amdgpu_svm *svm,
-+				   unsigned long fault_addr, bool write_fault)
-+{
-+	struct mm_struct *mm = svm->gpusvm.mm;
-+	struct vm_area_struct *vma;
-+	unsigned long requested = VM_READ;
-+	int ret = 0;
-+
-+	if (write_fault)
-+		requested |= VM_WRITE;
-+
-+	mmap_read_lock(mm);
-+	vma = vma_lookup(mm, fault_addr);
-+	if (vma && (vma->vm_flags & requested) != requested) {
-+		AMDGPU_SVM_ERR("fault addr 0x%lx no %s permission\n",
-+			 fault_addr, write_fault ? "write" : "read");
-+		ret = -EPERM;
-+	}
-+	mmap_read_unlock(mm);
-+
-+	return ret;
-+}
-+
-+static int amdgpu_svm_range_map_fault(struct amdgpu_svm *svm,
-+			       unsigned long fault_addr,
-+			       const struct amdgpu_svm_attr_range *attr_range,
-+			       bool write_fault)
-+{
-+	const struct amdgpu_svm_attrs *attrs = &attr_range->attrs;
-+	bool devmem_possible = amdgpu_svm_attr_devmem_possible(svm, attrs);
-+	bool need_vram_migration = amdgpu_svm_attr_prefer_vram(svm, attrs);
-+	devmem_possible = false; /* TODO: add migration */
-+	struct drm_gpusvm_ctx map_ctx = {
-+		.read_only = !!(attrs->flags & AMDGPU_SVM_ATTR_BIT_GPU_RO),
-+		.devmem_possible = devmem_possible,
-+		.check_pages_threshold = devmem_possible ? SZ_64K : 0,
-+		.devmem_only = need_vram_migration && devmem_possible,
-+		.timeslice_ms = need_vram_migration && devmem_possible ? 5 : 0,
-+	};
-+	struct amdgpu_svm_range *range;
-+	ktime_t timestamp = ktime_get_boottime();
-+	uint64_t range_pte_flags;
-+	int retry_count = 3;
-+	int ret;
-+
-+	lockdep_assert_held_write(&svm->svm_lock);
-+	WARN_ON(!svm->xnack_enabled);
-+
-+retry:
-+	ret = amdgpu_svm_garbage_collector(svm);
-+	if (ret) {
-+		AMDGPU_SVM_ERR(
-+			"fault garbage collector failed: ret=%d, fault_addr=0x%lx\n",
-+			ret, fault_addr);
-+		return ret;
-+	}
-+
-+	ret = svm_check_fault_allowed(svm, fault_addr, write_fault);
-+	if (ret)
-+		return ret;
-+
-+	range = amdgpu_svm_range_find_or_insert(svm, fault_addr,
-+						 attr_range, &map_ctx);
-+	if (IS_ERR(range)) {
-+		ret = PTR_ERR(range);
-+		AMDGPU_SVM_ERR("map_fault: range_find_or_insert failed: fault=0x%lx ret=%d\n",
-+				 fault_addr, ret);
-+		/*
-+		 * -EINVAL: fault_addr out of gpusvm range, or no chunk size
-+		 *          fits within VMA/notifier/attr_range bounds.
-+		 * -EFAULT: mmget_not_zero failed.
-+		 * -ENOENT: No VMA at fault_addr.
-+		 * -ENOMEM: Notifier or range allocation failed.
-+		 */
-+		if (ret == -EFAULT || ret == -ENOENT) {
-+			AMDGPU_SVM_ERR("no vma or mm is dying: 0x%lx, ret=%d\n",
-+					 fault_addr, ret);
-+			ret = 0;
-+		}
-+
-+		return ret;
-+	}
-+
-+	if (ktime_before(timestamp, ktime_add_ns(range->validate_timestamp,
-+					 AMDGPU_SVM_RANGE_RETRY_FAULT_PENDING))) {
-+		AMDGPU_SVM_TRACE("already restored, skip: fault=0x%lx range=[0x%lx-0x%lx)\n",
-+				 fault_addr, drm_gpusvm_range_start(&range->base),
-+				 drm_gpusvm_range_end(&range->base));
-+		goto out;
-+	}
-+
-+	range_pte_flags = amdgpu_svm_range_attr_pte_flags(
-+					svm, attrs, map_ctx.read_only);
-+
-+	if (!(write_fault && map_ctx.read_only) &&
-+	    amdgpu_svm_range_is_valid(svm, range, attrs, range_pte_flags)) {
-+		AMDGPU_SVM_TRACE("valid range, skip: fault=0x%lx range=[0x%lx-0x%lx)\n",
-+				 fault_addr, drm_gpusvm_range_start(&range->base),
-+				 drm_gpusvm_range_end(&range->base));
-+		goto out;
-+	}
-+
-+	AMDGPU_SVM_RANGE_DEBUG(range, "PAGE FAULT");
-+	/* TODO: add migration*/
-+
-+	AMDGPU_SVM_RANGE_DEBUG(range, "GET PAGES");
-+	ret = amdgpu_svm_range_get_pages(svm, &range->base, &map_ctx);
-+	if (ret == -EOPNOTSUPP || ret == -EFAULT) {
-+		/*
-+		* -EOPNOTSUPP  Mixed page types within range.
-+		* -EFAULT      (a) mm is dying.
-+		*              (b) range was unmapped.
-+		*              (c) DMA mapping failed.
-+		*              (d) devmem_only requested but system page encountered.
-+		*              (e) hmm_range_fault: no VMA, page fault error, bad pte/pmd.
-+		* -EBUSY       HMM retry loop timed out.
-+		* -ENOMEM      PFN or DMA address array allocation failed.
-+		* -EINVAL      hmm_range_fault: invalid VMA type.
-+		*/
-+		map_ctx.timeslice_ms <<= 1;
-+		if (!map_ctx.devmem_only && --retry_count > 0) {
-+			AMDGPU_SVM_ERR("start retry: get_pages failed with %d, retries_left=%d: fault=0x%lx range=[0x%lx-0x%lx)\n",
-+					 ret, retry_count, fault_addr,
-+					 drm_gpusvm_range_start(&range->base),
-+					 drm_gpusvm_range_end(&range->base));
-+			goto retry;
-+		} else {
-+			AMDGPU_SVM_ERR("map_fault: get_pages failed with %d, devmem fallback allowed, but no devmem pages: fault=0x%lx range=[0x%lx-0x%lx)\n",
-+					 ret, fault_addr, drm_gpusvm_range_start(&range->base),
-+					 drm_gpusvm_range_end(&range->base));
-+		}
-+	}
-+
-+	if (ret == -EPERM) {
-+		AMDGPU_SVM_ERR("get_pages -EPERM: fault=0x%lx range=[0x%lx-0x%lx)\n",
-+			       fault_addr, drm_gpusvm_range_start(&range->base),
-+				       drm_gpusvm_range_end(&range->base));
-+		return ret;
-+	}
-+
-+	if (ret) {
-+		AMDGPU_SVM_RANGE_DEBUG(range, "PAGE FAULT - FAIL PAGE COLLECT");
-+		goto out;
-+	}
-+
-+	AMDGPU_SVM_RANGE_DEBUG(range, "PAGE FAULT - GPU MAP");
-+
-+	ret = amdgpu_svm_range_update_mapping(svm, range,
-+					      range_pte_flags, attrs->flags,
-+					      false, false, false);
-+
-+	if (ret)
-+		goto err_out;
-+
-+out:
-+	return 0;
-+
-+err_out:
-+	if (ret == -EAGAIN && --retry_count > 0) {
-+		map_ctx.timeslice_ms <<= 1;
-+		AMDGPU_SVM_RANGE_DEBUG(range, "PAGE FAULT - RETRY GPU MAP");
-+		goto retry;
-+	}
-+
-+	return ret;
-+}
-+
-+int amdgpu_svm_handle_fault(struct amdgpu_device *adev, uint32_t pasid,
-+			    uint64_t fault_addr, uint64_t ts,
-+			    bool write_fault)
-+{
-+	struct amdgpu_svm *svm;
-+	struct amdgpu_svm_attr_range *attr_range;
-+	unsigned long attr_start_page, attr_last_page;
-+	unsigned long fault_page;
-+	uint64_t ckpt;
-+	int ret;
-+
-+	fault_addr = fault_addr << PAGE_SHIFT;
-+	fault_page = fault_addr >> PAGE_SHIFT;
-+
-+	svm = amdgpu_svm_lookup_by_pasid(adev, pasid);
-+	if (!svm) {
-+		AMDGPU_SVM_ERR("handle_fault: no SVM context for pasid %u\n", pasid);
-+		return -EOPNOTSUPP;
-+	}
-+
-+	if (atomic_read(&svm->exiting)) {
-+		AMDGPU_SVM_ERR("handle_fault: SVM context is exiting for pasid %u\n", pasid);
-+		ret = -EAGAIN;
-+		goto out_put;
-+	}
-+
-+	if (!svm->xnack_enabled) {
-+		AMDGPU_SVM_ERR("handle_fault: SVM context does not have xnack enabled for pasid %u\n", pasid);
-+		ret = -EOPNOTSUPP;
-+		goto out_put;
-+	}
-+
-+	ckpt = READ_ONCE(svm->checkpoint_ts);
-+	if (ckpt != 0) {
-+		if (amdgpu_ih_ts_after_or_equal(ts, ckpt)) {
-+			AMDGPU_SVM_TRACE(
-+			"handle_fault: draining stale retry fault, drop fault 0x%llx ts=%llu checkpoint=%llu\n",
-+				fault_addr, ts, ckpt);
-+			amdgpu_gmc_filter_faults_remove(
-+				adev, fault_addr >> PAGE_SHIFT, pasid);
-+			ret = 0;
-+			goto out_put;
-+		} else {
-+			WRITE_ONCE(svm->checkpoint_ts, 0);
-+		}
-+	}
-+
-+	down_write(&svm->svm_lock);
-+
-+retry:
-+	mutex_lock(&svm->attr_tree->lock);
-+	attr_range = amdgpu_svm_attr_get_bounds_locked(svm->attr_tree,
-+						       fault_page,
-+						       &attr_start_page, &attr_last_page);
-+	mutex_unlock(&svm->attr_tree->lock);
-+	if (!attr_range) {
-+		ret = amdgpu_svm_range_get_unregistered_attrs(svm, fault_addr,
-+							      attr_start_page,
-+							      attr_last_page,
-+							      &attr_range);
-+		if (ret) {
-+			if (ret == -EFAULT)
-+				goto out_no_vma;
-+			goto out_unlock;
-+		}
-+	}
-+	ret = amdgpu_svm_range_map_fault(svm, fault_addr, attr_range,
-+					 write_fault);
-+
-+	if (ret == -EAGAIN) {
-+		AMDGPU_SVM_ERR("handle_fault: got -EAGAIN: fault=0x%llx\n",
-+			       fault_addr);
-+		amdgpu_gmc_filter_faults_remove(adev, fault_addr>>PAGE_SHIFT, pasid);
-+		goto retry;
-+	}
-+
-+	goto out_unlock;
-+
-+out_no_vma:
-+	AMDGPU_SVM_ERR("handle_fault: no VMA for fault=0x%llx (stale retry or GPU NULL deref)\n",
-+		 fault_addr);
-+	ret = 0;
-+
-+out_unlock:
-+	up_write(&svm->svm_lock);
-+
-+out_put:
-+	amdgpu_svm_put(svm);
-+	return ret;
-+}
-+
-+#endif /* CONFIG_DRM_AMDGPU_SVM */
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_svm_fault.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_svm_fault.h
-new file mode 100644
-index 000000000..1c8f6c15e
---- /dev/null
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_svm_fault.h
-@@ -0,0 +1,39 @@
-+/* SPDX-License-Identifier: GPL-2.0 OR MIT */
-+/*
-+ * Copyright 2026 Advanced Micro Devices, Inc.
-+ *
-+ * Permission is hereby granted, free of charge, to any person obtaining a
-+ * copy of this software and associated documentation files (the "Software"),
-+ * to deal in the Software without restriction, including without limitation
-+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
-+ * and/or sell copies of the Software, and to permit persons to whom the
-+ * Software is furnished to do so, subject to the following conditions:
-+ *
-+ * The above copyright notice and this permission notice shall be included in
-+ * all copies or substantial portions of the Software.
-+ *
-+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-+ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
-+ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-+ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-+ * OTHER DEALINGS IN THE SOFTWARE.
-+ *
-+ */
-+
-+#ifndef __AMDGPU_SVM_FAULT_H__
-+#define __AMDGPU_SVM_FAULT_H__
-+
-+#include <linux/types.h>
-+
-+struct amdgpu_device;
-+struct amdgpu_svm;
-+struct amdgpu_svm_attr_range;
-+struct amdgpu_svm_attrs;
-+
-+int amdgpu_svm_handle_fault(struct amdgpu_device *adev, uint32_t pasid,
-+			    uint64_t fault_addr, uint64_t ts,
-+			    bool write_fault);
-+
-+#endif /* __AMDGPU_SVM_FAULT_H__ */
--- 
-2.34.1
+Well the main problem is that the SDMA needs the GART to be initialized to work.
+
+> 
+> Signed-off-by: Philip Yang <Philip.Yang@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c | 13 ++++++++++---
+>  1 file changed, 10 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c
+> index 4d884180cf61..f09337bac0e5 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c
+> @@ -262,12 +262,19 @@ void amdgpu_gart_table_ram_free(struct amdgpu_device *adev)
+>   */
+>  int amdgpu_gart_table_vram_alloc(struct amdgpu_device *adev)
+>  {
+> +	int r;
+> +
+>  	if (adev->gart.bo != NULL)
+>  		return 0;
+>  
+> -	return amdgpu_bo_create_kernel(adev,  adev->gart.table_size, PAGE_SIZE,
+> -				       AMDGPU_GEM_DOMAIN_VRAM, &adev->gart.bo,
+> -				       NULL, (void *)&adev->gart.ptr);
+> +	r = amdgpu_bo_create_kernel(adev,  adev->gart.table_size, PAGE_SIZE,
+> +				    AMDGPU_GEM_DOMAIN_VRAM, &adev->gart.bo,
+> +				    NULL, (void *)&adev->gart.ptr);
+> +	if (r)
+> +		return r;
+> +
+> +	memset(adev->gart.ptr, adev->gart.gart_pte_flags, adev->gart.table_size);
+
+Please use memset_io() here, apart from that Reviewed-by: Christian König <christian.koenig@amd.com>
+
+Regards,
+Christian.
+
+> +	return 0;
+>  }
+>  
+>  /**
 
