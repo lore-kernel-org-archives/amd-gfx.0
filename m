@@ -4,75 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C8E42FF8875
-	for <amd-gfx@archiver.kernel.org>; Thu, 30 Apr 2026 07:38:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BFE44CD3420
+	for <amd-gfx@archiver.kernel.org>; Thu, 30 Apr 2026 07:38:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5AB9810F258;
-	Thu, 30 Apr 2026 07:38:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 146DB10F263;
+	Thu, 30 Apr 2026 07:38:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="oAvkUQod";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="PiBZtVYu";
 	dkim-atps=neutral
-Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com
- [74.125.82.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 016F710E02B
- for <amd-gfx@lists.freedesktop.org>; Thu, 30 Apr 2026 01:04:41 +0000 (UTC)
-Received: by mail-dy1-f172.google.com with SMTP id
- 5a478bee46e88-2ba895adfeaso546762eec.0
- for <amd-gfx@lists.freedesktop.org>; Wed, 29 Apr 2026 18:04:41 -0700 (PDT)
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com
+ [209.85.128.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5BE3510E41B
+ for <amd-gfx@lists.freedesktop.org>; Wed, 29 Apr 2026 21:04:12 +0000 (UTC)
+Received: by mail-wm1-f52.google.com with SMTP id
+ 5b1f17b1804b1-4852a9c6309so1561105e9.0
+ for <amd-gfx@lists.freedesktop.org>; Wed, 29 Apr 2026 14:04:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1777511081; x=1778115881; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1777496651; x=1778101451; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=Xj+Q6F5F+cZDdWH6frNMQBdZyXrMvEZgcQYJAjUh6Z4=;
- b=oAvkUQodhoTtI6dDL5iM0iLjsNaLdITt5K8AC8lgRS42jVRQifVeoIcxhVo3Ub5bHc
- 0WyVmE/1oRYrRixs8O/FN4lX4nNqHqcHrEkTzDMX5S5I3pmzyOyYz5AfwUS2e/9AlIfm
- mmIXlK77YEV4gKk+auixTHvQvW/S6+WG/WKunwW03DyObNDAvBozK7a5R7E5YMbwOgu1
- iskEEhhsniA2ZYy7FZgZlwAs3ZrwIJObs5Ira1/8CjVyfXaisD+W/mnYIH9EWHYdZBSZ
- mMDinbMbII3yggQF9yXapuqhYggQjYxHCCv86jDBXcJCNaaONvWCQ2V8sITSeWFAI4Ff
- ZKXw==
+ bh=87wY3atp/xRru7rN04VKTsllcBHojWcPtTLSUldgpCk=;
+ b=PiBZtVYuH/rnZ3sS+HxPVlpQ8UlAE1jqfCGt1JC8x5nQO/r7E5TrMmXQC3coDGYAyl
+ ZGUg5Fx533xpMDZEqfcTZwMjLGJmsqJmlpveMfNvlcXdQfhLnzYeqygX0JCcif5G+g8P
+ zIMWnBi4wKvsXlL2KLzxnvdnqN4bZ43F2afJ7oywTtBHKZRTEaN7P+L1CqZtGlYXm3DO
+ xF70m0laJLTQlLau5sHRWmznrU5sbaHCxiwPnSbalx4lsXCVkCxP1p0llqYVqkNju3LQ
+ nFBprIsVNy6AQ+yhs/LF0w2DZvfKmI4hecDK666KiC/MR024GEHXlfzmNWFx/zYmOBwn
+ KZhg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1777511081; x=1778115881;
+ d=1e100.net; s=20251104; t=1777496651; x=1778101451;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=Xj+Q6F5F+cZDdWH6frNMQBdZyXrMvEZgcQYJAjUh6Z4=;
- b=q7v4R7Jz/YLyzRNkCV6z8g8zZWga31Pj/tOqDNY+ddGwYKxfaROpNiO1qSTPIuP0k/
- CSP9IJPp70aJZebFrc0fqNpoHOyVcYRLW7UjWjd/nvHKrYQbFvr3jPu9bAsHXbPO1U1i
- wDBu8sDZOOObcwk+bOuKU1APBYzK9DVbMDQzf2w3BT6D1RYTU/WiBZ7OLtLQPiRIkHE8
- FxbyOb1JuJHecm46aZwxoyvZqTQP5XniZyVACl+oLLfz++uE79nP+zpFARLd0jKxohSZ
- +v33r7Cw/uPCQlGfIGIzqkpE8VxfpakZSNknmZC5jkh+sYtLTj7AewOfNDbZp38X5Let
- cF9A==
+ bh=87wY3atp/xRru7rN04VKTsllcBHojWcPtTLSUldgpCk=;
+ b=YrxM8eLaSFEYxim6Y0OcAd+E0GoBSY7LUnPTdVV2S59R5b78nYb94H1m8oe4k75sYt
+ D4kiPH44qFuChtTfqQ2NJOkAAyJyloXMMx1eic2so1L/XjohR5HQiRg1r+k3eyOrmiMh
+ zXIbUPTBPNIApFMnH43cOtdR5E/7MhmFd58WKr9znQ35vmYwnokEw7uoUu62ZGkETlop
+ 9/JDgw38ZneCHwEZPD3tQOrEBJdJG7DW3myKzUbdCg/Un2L8g41WVQe0ipRkJv6nOzej
+ RxUDnlWeJCUmLBEf/djsySUpyIf0gcoadfzbpmID+qpEpQ51pbs/OU9pJFfzAVbzo+cC
+ wlJQ==
 X-Forwarded-Encrypted: i=1;
- AFNElJ+0l87Imvs61XfB/ZSOG2hftYTIS1S/ESbVy5r3SOQiJ3WL/UD7dJDaHx69G4mAjSPHxZUpSzMM@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YykpHXLOYETHBLVRH8qL+ohtFgeHkNyivwHuRHkkjJfvdjZDXbB
- OEvVJus3psoZ0svTReFornL6GLbVb75qvMRmtZlSmnehHYcBEK0E/qhZ
-X-Gm-Gg: AeBDiesZR1hrcjw4eP+Vx8wXmVuVyxxTpItgf9T8KGVZjV00oAOaCDS3zLrifinocpZ
- tCCKACQLnrAjSTlrcsMQHgsq2X673wgW9BZEInggtD5GVaDfONsYh4+MMRMsi9o2L0JFkiEJ46q
- BjhfhSDlJyjwVUVWdK69N0jzRU1cMrvKPJ+5wcq1gePLoOKkaIKEFMA5kF4C9AH6XGsjliRFQ8e
- HkBRsbM8ntOaUQaO2o160ZCVBOzdjEVmrXMYvTkMAOEKMrmuOZi6vWEZbeno97LLEh2IEORPJNI
- fKJymAs4dEyysyVgZD7oHrEhmWSp8XzOJx1EaBSG9+PdQIrKdPJQ5oE+OKeN5huYhKm5WLDMqY1
- ulmr5Lo9CkxWHRc+0FH5WA1lIDuCMMq0JrS14NjDWXJKeATcGqua1HGotAffFUuy3ksY3G7zXXY
- +Crxs2Wgv/z1WEd3cxGwQdRu+DEyeLd6lWuLtjfQXH
-X-Received: by 2002:a05:7300:324d:b0:2d1:9b35:4eec with SMTP id
- 5a478bee46e88-2ed3c4d51f5mr222411eec.2.1777511081095; 
- Wed, 29 Apr 2026 18:04:41 -0700 (PDT)
-Received: from localhost ([2804:1b3:8302:9360:6bc7:11b1:cec5:a693])
+ AFNElJ/xp2K88nb/J1tupFJAbRnuD06c8Nr/CFVxnwRMRghsxd4nJ0u5iMw/RHB0OghpS5FRYzUMOVgW@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyqgcivM+/7jMiOLBtJhcdtMR90gYFpaPuIsNvazIVzf9st4t3E
+ 20dH+37Dm677z/7VeS8PVd8y/pFshBLAMDjCUB7pC9kc72sMeVOmZRy3
+X-Gm-Gg: AeBDievGSpuXBrbfnS63E2YZkxiEw4cPwC9foyBWotazXQb8vgoJ/7I3PAd/3+hcuTp
+ SiJRAQnilNAkG5I3XvaKr7KxUWuRdyYkBj4qYoqMO8iwYzA6xscUHu+AP0qub4Ljo4gufuE1fnj
+ t8OK6gFuuIaB7+8FNaXKnYuvIeqEkvXZ8dxGHl4KG32u5e0XsKZ9tQ70YtENQc69wXde4yQdtY3
+ fKYzxMA60LO+hTrQ7j34fHhz/KY1a/VKa76HHnHttuLXF2M/oxvxHCllkAU/NztytWae6UghtKm
+ LXBYkwKMO2FKjFFf2hVMMzhEigJL+OJ2gsSo+QPoFxj4JGOuLPlYrTFhQxWsKd0Bi0Z6KXHYXtR
+ 0qp7OTsdu5FUTkKJHMlGlNjHG8GRMo8smBIolxkzYeVqEORHPdvoSEscpQZWo7b5wyTeWmpBuNE
+ 3iISvOT5cTAlT92A+wHHWW26gcIzqmwwLXC/eJGxKaTl+U0uIqJDn6WT7nidmE/FwGxJb7j537j
+ jcVSYvT0jQTN4odj13bVVrRzQxK4Q8PNDu8xdCKnPGQSA==
+X-Received: by 2002:a05:600c:5254:b0:486:fbdb:b718 with SMTP id
+ 5b1f17b1804b1-48a8445f451mr3880135e9.25.1777496650606; 
+ Wed, 29 Apr 2026 14:04:10 -0700 (PDT)
+Received: from fedora.homenet.telecomitalia.it
+ (host-79-27-7-133.retail.telecomitalia.it. [79.27.7.133])
  by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-2ed1bf8e268sm4534653eec.12.2026.04.29.18.04.40
+ 5b1f17b1804b1-48a7b91b2bdsm29382575e9.7.2026.04.29.14.04.09
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 29 Apr 2026 18:04:40 -0700 (PDT)
-From: Kenner de Azevedo dos Santos Miranda <kenner.linuxdev@gmail.com>
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: Rodrigo Siqueira <siqueira@igalia.com>, amd-gfx@lists.freedesktop.org,
+ Wed, 29 Apr 2026 14:04:10 -0700 (PDT)
+From: Adriano Vero <adri.vero.dev@gmail.com>
+To: austin.zheng@amd.com, jun.lei@amd.com, harry.wentland@amd.com,
+ sunpeng.li@amd.com
+Cc: siqueira@igalia.com, alexander.deucher@amd.com, christian.koenig@amd.com,
+ airlied@gmail.com, simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Kenner de Azevedo dos Santos Miranda <kenner.linuxdev@gmail.com>
-Subject: [PATCH] Fix kernel-doc for amdgpu_display_manager
-Date: Wed, 29 Apr 2026 21:04:05 -0400
-Message-ID: <20260430010405.52591-1-kenner.linuxdev@gmail.com>
-X-Mailer: git-send-email 2.43.0
+ Adriano Vero <adri.vero.dev@gmail.com>
+Subject: [PATCH] drm/amd/display: clean up reversed type specifiers in
+ dml2_core
+Date: Wed, 29 Apr 2026 23:02:09 +0200
+Message-ID: <20260429210209.42737-1-adri.vero.dev@gmail.com>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 30 Apr 2026 07:38:12 +0000
@@ -90,33 +92,114 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The struct boot_time_crc_info is not described in amdgpu_display_manager.
+Replace non-standard reversed type specifiers with canonical C ordering:
+- 'int unsigned' -> 'unsigned int'
+- 'long int unsigned' cast -> 'unsigned long'
 
-Running the `make htmldocs` is showing the following warning :
+Affected sites:
+- dml2_core_utils.c: function return type, parameter type, local
+  variable, and two viewport height casts
+- dml2_core_utils.h: matching declarations for the above functions
+- dml2_core_dcn4.c: two viewport height casts and one local variable
 
-WARNING: ./drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h:715 struct member 'boot_time_crc_info' not described in 'amdgpu_display_manager'
+No functional change.
 
-i added the description that fix the warning and describe the struct.
-
-The warning is not showing anymore in make htmldocs after change.
-
-Signed-off-by: Kenner de Azevedo dos Santos Miranda <kenner.linuxdev@gmail.com>
+Signed-off-by: Adriano Vero <adri.vero.dev@gmail.com>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h | 1 +
- 1 file changed, 1 insertion(+)
+ .../dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn4.c   |  6 +++---
+ .../dc/dml2_0/dml21/src/dml2_core/dml2_core_utils.c  | 12 +++++++-----
+ .../dc/dml2_0/dml21/src/dml2_core/dml2_core_utils.h  |  6 ++++--
+ 3 files changed, 14 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-index 74a8fe1a1999..201b4796b591 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-@@ -347,6 +347,7 @@ struct hpd_rx_irq_offload_work {
-  * @dmub_aux_transfer_done: struct completion used to indicate when DMUB
-  * 			    transfers are done
-  * @delayed_hpd_wq: work queue used to delay DMUB HPD work
-+ * @boot_time_crc_info: Stores CRC information collected during boot
-  */
- struct amdgpu_display_manager {
+diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn4.c b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn4.c
+index 858e7bbc511f..ad03e66f963d 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn4.c
++++ b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn4.c
+@@ -287,10 +287,10 @@ static void create_phantom_plane_from_main_plane(struct dml2_plane_parameters *p
+ 	phantom->stream_index = phantom_stream_index;
+ 	phantom->overrides.refresh_from_mall = dml2_refresh_from_mall_mode_override_force_disable;
+ 	phantom->overrides.legacy_svp_config = dml2_svp_mode_override_phantom_pipe_no_data_return;
+-	phantom->composition.viewport.plane0.height = (long int unsigned) math_min2(math_ceil2(
++	phantom->composition.viewport.plane0.height = (unsigned long) math_min2(math_ceil2(
+ 		(double)main->composition.scaler_info.plane0.v_ratio * (double)phantom_stream->timing.v_active, 16.0),
+ 		(double)main->composition.viewport.plane0.height);
+-	phantom->composition.viewport.plane1.height = (long int unsigned) math_min2(math_ceil2(
++	phantom->composition.viewport.plane1.height = (unsigned long) math_min2(math_ceil2(
+ 		(double)main->composition.scaler_info.plane1.v_ratio * (double)phantom_stream->timing.v_active, 16.0),
+ 		(double)main->composition.viewport.plane1.height);
+ 	phantom->immediate_flip = false;
+@@ -527,7 +527,7 @@ bool core_dcn4_mode_support(struct dml2_core_mode_support_in_out *in_out)
  
+ 	bool result;
+ 	unsigned int i, stream_index, stream_bitmask;
+-	int unsigned odm_count, num_odm_output_segments, dpp_count;
++	unsigned int odm_count, num_odm_output_segments, dpp_count;
+ 
+ 	expand_implict_subvp(in_out->display_cfg, &l->svp_expanded_display_cfg, &core->scratch);
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_utils.c b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_utils.c
+index 4f5533dc0430..77044c77fa44 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_utils.c
++++ b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_utils.c
+@@ -384,7 +384,9 @@ unsigned int dml2_core_utils_round_to_multiple(unsigned int num, unsigned int mu
+ 		return (num - remainder);
+ }
+ 
+-unsigned int dml2_core_util_get_num_active_pipes(int unsigned num_planes, const struct core_display_cfg_support_info *cfg_support_info)
++unsigned int
++dml2_core_util_get_num_active_pipes(unsigned int num_planes,
++				    const struct core_display_cfg_support_info *cfg_support_info)
+ {
+ 	unsigned int num_active_pipes = 0;
+ 
+@@ -480,9 +482,9 @@ bool dml2_core_utils_is_vertical_rotation(enum dml2_rotation_angle Scan)
+ 	return is_vert;
+ }
+ 
+-int unsigned dml2_core_utils_get_gfx_version(enum dml2_swizzle_mode sw_mode)
++unsigned int dml2_core_utils_get_gfx_version(enum dml2_swizzle_mode sw_mode)
+ {
+-	int unsigned version = 0;
++	unsigned int version = 0;
+ 
+ 	if (sw_mode == dml2_sw_linear ||
+ 		sw_mode == dml2_sw_256b_2d ||
+@@ -594,10 +596,10 @@ static void create_phantom_plane_from_main_plane(struct dml2_plane_parameters *p
+ 	phantom->stream_index = phantom_stream_index;
+ 	phantom->overrides.refresh_from_mall = dml2_refresh_from_mall_mode_override_force_disable;
+ 	phantom->overrides.legacy_svp_config = dml2_svp_mode_override_phantom_pipe_no_data_return;
+-	phantom->composition.viewport.plane0.height = (long int unsigned) math_min2(math_ceil2(
++	phantom->composition.viewport.plane0.height = (unsigned long) math_min2(math_ceil2(
+ 		(double)main->composition.scaler_info.plane0.v_ratio * (double)phantom_stream->timing.v_active, 16.0),
+ 		(double)main->composition.viewport.plane0.height);
+-	phantom->composition.viewport.plane1.height = (long int unsigned) math_min2(math_ceil2(
++	phantom->composition.viewport.plane1.height = (unsigned long) math_min2(math_ceil2(
+ 		(double)main->composition.scaler_info.plane1.v_ratio * (double)phantom_stream->timing.v_active, 16.0),
+ 		(double)main->composition.viewport.plane1.height);
+ 	phantom->immediate_flip = false;
+diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_utils.h b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_utils.h
+index 60fa2abfef85..2a2177ad7cd9 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_utils.h
++++ b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_utils.h
+@@ -17,14 +17,16 @@ void dml2_core_utils_print_mode_support_info(const struct dml2_core_internal_mod
+ const char *dml2_core_utils_internal_soc_state_type_str(enum dml2_core_internal_soc_state_type dml2_core_internal_soc_state_type);
+ void dml2_core_utils_get_stream_output_bpp(double *out_bpp, const struct dml2_display_cfg *display_cfg);
+ unsigned int dml2_core_utils_round_to_multiple(unsigned int num, unsigned int multiple, bool up);
+-unsigned int dml2_core_util_get_num_active_pipes(int unsigned num_planes, const struct core_display_cfg_support_info *cfg_support_info);
++unsigned int
++dml2_core_util_get_num_active_pipes(unsigned int num_planes,
++				    const struct core_display_cfg_support_info *cfg_support_info);
+ void dml2_core_utils_pipe_plane_mapping(const struct core_display_cfg_support_info *cfg_support_info, unsigned int *pipe_plane);
+ bool dml2_core_utils_is_phantom_pipe(const struct dml2_plane_parameters *plane_cfg);
+ unsigned int dml2_core_utils_get_tile_block_size_bytes(enum dml2_swizzle_mode sw_mode, unsigned int byte_per_pixel);
+ bool dml2_core_utils_get_segment_horizontal_contiguous(enum dml2_swizzle_mode sw_mode, unsigned int byte_per_pixel);
+ bool dml2_core_utils_is_vertical_rotation(enum dml2_rotation_angle Scan);
+ bool dml2_core_utils_is_linear(enum dml2_swizzle_mode sw_mode);
+-int unsigned dml2_core_utils_get_gfx_version(enum dml2_swizzle_mode sw_mode);
++unsigned int dml2_core_utils_get_gfx_version(enum dml2_swizzle_mode sw_mode);
+ unsigned int dml2_core_utils_get_qos_param_index(unsigned long uclk_freq_khz, const struct dml2_dcn4_uclk_dpm_dependent_qos_params *per_uclk_dpm_params);
+ unsigned int dml2_core_utils_get_active_min_uclk_dpm_index(unsigned long uclk_freq_khz, const struct dml2_soc_state_table *clk_table);
+ bool dml2_core_utils_is_dual_plane(enum dml2_source_format_class source_format);
 -- 
-2.43.0
+2.53.0
 
