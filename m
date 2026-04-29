@@ -4,64 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0E146FF885A
-	for <amd-gfx@archiver.kernel.org>; Wed, 29 Apr 2026 01:54:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 047F0FF885A
+	for <amd-gfx@archiver.kernel.org>; Wed, 29 Apr 2026 01:54:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9377610E3AE;
-	Wed, 29 Apr 2026 01:54:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9706210E45F;
+	Wed, 29 Apr 2026 01:54:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="5PrE0aQI";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="zVX/Yo4o";
 	dkim-atps=neutral
-Received: from DM5PR21CU001.outbound.protection.outlook.com
- (mail-centralusazon11011031.outbound.protection.outlook.com [52.101.62.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D8FEC10E3D7
- for <amd-gfx@lists.freedesktop.org>; Wed, 29 Apr 2026 01:54:21 +0000 (UTC)
+Received: from CY7PR03CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11010071.outbound.protection.outlook.com
+ [40.93.198.71])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7523010E45F
+ for <amd-gfx@lists.freedesktop.org>; Wed, 29 Apr 2026 01:54:28 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=NpgSYqmX+Hk2d1ji53LiCv7ZwQ1DH8D2eTuQqXoQCpIrOKZUeR2DqH/+o+oCR52xoBYP5QXU9bjyHv2zyhdITzODSBq1zcX7VO6/4z3M9w41c+lUovE7fOjkPDWlnd3nh0nMvP8aajMLycPxWxDYJuYjXqWIU+6POTuBRma/nEFiCy1X6VHrqFIzklAiv0LKVRGIQ6KegrIp4UKffaD45hWSu4qm6jzCDwIgghnipcs5+T+2/mHkZ6hoOQbQK/xi17L9JofobHUc0XCG/e7K8Nck7t2fQvUwjfOL1smr79Da2AyKSW5thUYdGybQwWqi4qCp8Z/gDc6a1ht5+r4/QA==
+ b=kRhjR2F2/9GL9C2PvYisDUD1ScTXnOJa3TjeVVqo8h1VLI0MTACLPZpBL5Rs0uAiYr6AycdApWIRd7VqSuRoGln+kjygDi3wKjllOoi8ztVDYK5Mpo7t88I0+vZisa7+CO0nclfnnnXAl43ZstlAQ3dJLwrTFTMMRH16AbHjdI59E2C0y2r1UUuNJCCoNjGwbHlYabA21tuhSBTutMgmF/3U2k/W2V9kT8HcZ2KCzVaHr2ppDOP/aWEAqUrPLM86On/PAf2SVoOg7p1iO0Ju85mTyFJmDC6cv9YWVZW94oDXebWCx9ekGHX2Wcts0JA+4DvRtYGJqolqoQVl0V6kSA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5baeFMnoZMSmSrt3bDlwenGyLJybf3LPdfF6L2tadSw=;
- b=w0LtslliPb5INuq3aipZFdvfU6ZRNkDrjLqg5jXEKLISkkF/YLUMEyHabNjYPUs8KDx1cQAoeUnn9R409G9cI30nsVJVQofnr5y0Np2F2RgYq+EflSZDhPQxIZ84qT89TsS9gRbnkW4TYpsfJtCStr689IipC7cpYRtU05iNwfsWrLhI9X0HlvGZ6G7Bb9CXTnQvHujcbSdrD+lLvDl6/LGaMjqoj4+lfvuhIesFgCNN5/Av7Wh5Lfu3ROysMQRu0B4Ko1WEgmnN8p7J/oRYhWNilMWP6HNgcqsxMEWxs2QrxFQQkeAtrsYrN5behDDlYyI5ytkxXuhI3J4BosTpSw==
+ bh=ydo/Rl15pwj2oMqMdMSa5WOKlKWmtJp1O+26f6oorXo=;
+ b=n3i5ss/IS6zUdm8nmLxx9F3rqz3Xug6f3c8mWhHVgyTbBLM68PmLCIpOc1AvTFDbrx8ZNC9pkGGNLEOq7+Ubzt3JkT30xi5AXTWhOK13xVDsVmpjj5bQY+VU4JyV4RhzXoDvcu3F1qLpSG/rYGgazZsPnTyv0BkctG6nWahFxw/j2t6zoKRP3j+/uoBDXqPseAay9AkBkw+1k5mpe8VY9/flCuYmU4Dvg0EMjZno9Gs/LiiX0Q/Xz1in9pyJ3y8eJ6/rNtdiG3OsE976uiuyAaZ643KoZYggLTk7JfZMHTrdc6w6HV8CdsWMgVYyZ6nqeiFDGfmumnJjFSLnPbo+CA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5baeFMnoZMSmSrt3bDlwenGyLJybf3LPdfF6L2tadSw=;
- b=5PrE0aQIGC9ssWRFwBzroyLaqloF2Ls3/6lO7/9jwLiwgHM5ylf65a+JVKQ5h/+0VwRtMROF0mqdYXH3tOdUyyvhnSZ1qSKnu4ygN/666hMcCveqAZj7BvKP63JcS/jLxZDvsoqx4Ujr6wuPzCUJN3c15VBUi4I/kMvCt/wXSbg=
-Received: from BL1PR13CA0197.namprd13.prod.outlook.com (2603:10b6:208:2be::22)
- by SA3PR12MB9090.namprd12.prod.outlook.com (2603:10b6:806:397::11)
+ bh=ydo/Rl15pwj2oMqMdMSa5WOKlKWmtJp1O+26f6oorXo=;
+ b=zVX/Yo4o6wavIIeB4RPnBS336iDsnDvZGn+DDmXC5Qil2PtKkdtq8tsL3H76MPThpn9fdo3P7D30rtFuH4ua/smJpIf/kmlhlraYIRatlpia/pIojwRSFs0nwBb8jMEErcyCgofGj13HuheLU9y3AfoWOFmRyyUf19LWMvlFR34=
+Received: from BN9PR03CA0982.namprd03.prod.outlook.com (2603:10b6:408:109::27)
+ by IA0PR12MB8087.namprd12.prod.outlook.com (2603:10b6:208:401::5)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.17; Wed, 29 Apr
- 2026 01:54:14 +0000
-Received: from BL6PEPF0001AB4D.namprd04.prod.outlook.com
- (2603:10b6:208:2be:cafe::71) by BL1PR13CA0197.outlook.office365.com
- (2603:10b6:208:2be::22) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9846.26 via Frontend Transport; Wed,
- 29 Apr 2026 01:54:14 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.18; Wed, 29 Apr
+ 2026 01:54:22 +0000
+Received: from BN1PEPF00006001.namprd05.prod.outlook.com
+ (2603:10b6:408:109:cafe::dc) by BN9PR03CA0982.outlook.office365.com
+ (2603:10b6:408:109::27) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9846.30 via Frontend Transport; Wed,
+ 29 Apr 2026 01:54:22 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- BL6PEPF0001AB4D.mail.protection.outlook.com (10.167.242.71) with Microsoft
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BN1PEPF00006001.mail.protection.outlook.com (10.167.243.233) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9846.18 via Frontend Transport; Wed, 29 Apr 2026 01:54:13 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.17; Tue, 28 Apr
- 2026 20:54:13 -0500
-Received: from satlexmb07.amd.com (10.181.42.216) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 28 Apr
- 2026 20:54:13 -0500
+ 15.20.9846.18 via Frontend Transport; Wed, 29 Apr 2026 01:54:22 +0000
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Tue, 28 Apr
+ 2026 20:54:22 -0500
 Received: from james-Birman-PHX.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.17 via
- Frontend Transport; Tue, 28 Apr 2026 20:54:04 -0500
+ Frontend Transport; Tue, 28 Apr 2026 20:54:13 -0500
 From: James Lin <PingLei.Lin@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -70,44 +67,43 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
  <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
- <Chen-Yu.Chen@amd.com>, Alvin Lee <Alvin.Lee2@amd.com>, Rafal Ostrowski
- <rafal.ostrowski@amd.com>, James Lin <pinglei.lin@amd.com>
-Subject: [PATCH 15/17] drm/amd/display: Update tmz field for LSDMA
-Date: Wed, 29 Apr 2026 09:19:24 +0800
-Message-ID: <20260429012055.2065869-16-PingLei.Lin@amd.com>
+ <Chen-Yu.Chen@amd.com>, Wenjing Liu <wenjing.liu@amd.com>, Dillon Varone
+ <dillon.varone@amd.com>, James Lin <pinglei.lin@amd.com>
+Subject: [PATCH 16/17] drm/amd/display: add max bandwidth budget to QoS
+ interface
+Date: Wed, 29 Apr 2026 09:19:25 +0800
+Message-ID: <20260429012055.2065869-17-PingLei.Lin@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260429012055.2065869-1-PingLei.Lin@amd.com>
 References: <20260429012055.2065869-1-PingLei.Lin@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-Received-SPF: None (SATLEXMB04.amd.com: PingLei.Lin@amd.com does not designate
- permitted sender hosts)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB4D:EE_|SA3PR12MB9090:EE_
-X-MS-Office365-Filtering-Correlation-Id: b683370b-83a4-4ac8-555a-08dea59236de
+X-MS-TrafficTypeDiagnostic: BN1PEPF00006001:EE_|IA0PR12MB8087:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6dc3fb5d-5fa2-49a4-8fa1-08dea5923c20
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|82310400026|1800799024|36860700016|56012099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: MEu7RVqcmVwU6lQPIHFlwbs3nsJUhtNRSyu2QwDw1SIE5em7ROHgGKITtkI7gxoL+ssmauYHHQjwEKZoXa7cYahHR7X+ypjQ4MKpy/5/GbTIAn9497waZ/bolZwFytundT6HBKs54uRS2Gzopoc1uI0ORWzsUlSFBl20BXXMLW90RbzFrHwJ7/MC2B0C2JiZEkshbImLR1mfIFwhMplkcpYCYBMM+o2qcDgIqLeM7KiGKY4lxQT/gMoBRHEZyaYZwfDNdfqA6sbPz6X5enEMyYkAYiWqY2xpRhcBSsl/b2BAnQHHIsp4OclA9dpo+LVVQtj9so0MinoHCO5CEMogVApvZk+HiLsZsfj6q6/DugPay+Q/Q6fMTUuAEA/WgrJ7pv044M/PRZldOH/c9yF/KpCz86I2zwm7+oogusLmyXxj29EXefnPbh0I/w658n23V1yoAjE3/m56VLNjK+onXCewM8zZHW34PZyV7TY9VLDpOA7mnOtw8STaeCAlPz5+YfZh8ULg6BCUfHSFg3v1a2CtyZaOKGTOMx2EvqZy6PSG6M3fpOnlYvT06XWbx1DUfwl5X2l7RvZ0v3GSVq83ZfG2M6B9TZF0IVSqjjz+5YYMn+zRJQK7cQFC2G8kcnzAK1bVzDXSPXhhtu/18wqEFkEYAHX8ilvNMqFvVv5yp5RGTB9iiauzgYett0+la3/KnPrmNinztVud/rDwZG1+iRxTrALsZLsCwzI1DBJk2cf3Suv9bkCXW2aJDVAnj+gmC2Bx7rYvtw3UnttiF63g8w==
+ ARA:13230040|376014|82310400026|36860700016|1800799024|18002099003|22082099003|56012099003;
+X-Microsoft-Antispam-Message-Info: f2kJ6Ri9MjNNVdimDoKOG2aRyDxHwIj01J9pzrrJhmUFOxDedO1LMh5F6sMWJTY3ANI3UnLXZ3+0fP3MBFLCQF8M2UpfjPc+UQJNHB9zOaEqYKk3ItkvxZe6AnUF1HlV1omR5oGoAbN4rb0BAOaCZyt5gUe/rQOw7lC7oOJaA/KowvV/+OIv8Yhbs1Xz2Xxtdy3L2VJVAYoAdoqUtwAUp1sxZy/ixMwU/o4y/mHNO+K54QxSk+DvCzOabKhB8N3UYc3t64dCsGYfkDh70veFBfPClEFmdHJ9CIr8lq14pUEdDNMY0il5xv3w3N4zKzIZnhdCWYf+KY2h2xREv8fuHT7aAj2mD/aT80AXGoC8NDZmSwShRnQj+G7u3wvFMmZCS2xRuZTeWmlfRtMc47fvOKZ7AIntfIHiIX7omxy4hTtL+y02UbJnFNAYE3yfX345cy0dFsQB0QF3U9wHHjDaT4T3YlTTEbYBu07pfVduH+gN5CULOmHD463z+YbBpP91OxY9MGSjydppObnjxL3K9QTL0rZp8h3YPrw/2zgxhU+gpGqr/2GFP1qJ+3LqKn17l8pDEk8KI9X4yc94PnZXBwskbkRd2MdLrdQPpKyCPHNWKTJ+sNkZg9hBzkXEqBRf7pnQjzrfuF7q+vhj13Isxnc34KCnQuQlNOgOUTA2rhEKHj9P+1KApc+7wVgzk36N0Mm3FH0tsWG1k+yFOeuSS3ETqIowSGWkaggVMMHtvn+GCNjcO1wNAqmtwSAY4iwUv5Km77yBlph0VQBHAN4ntQ==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(82310400026)(1800799024)(36860700016)(56012099003)(18002099003)(22082099003);
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(82310400026)(36860700016)(1800799024)(18002099003)(22082099003)(56012099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 2KqhcEb9b/AbGYwimm6BHJZLoPB5XGo1Bjk5vG7OSbc2FIKQAl9G4phZvBJ3TM6PTAsTYt3F28evXx37NnXY+fIthK9rEdHevOOSWjbYWKPif2DeoEfE+kBqy5giKgOdKiLvY8XoVUCRQgvQ0G66N5kjMC4RoH1cJ9vU2OE90HOd4hNMUuEGmpFZPZhOGNVlc1XYZ+yyGcqqYs9GFXbfo7FrmRkEVW7I0iStDFEqTaj9oQtC9VSSUGN/L/Hurge4ismmufo2fxZDe0+So5eeb+5zNsKCaKqVSP7CCVIpvvAu4ipy+pCAd7Udre9XXR/b6q2jyGohGh9wpsCMMmYYWEJshtkRf/1Z9TmwDqaOYEe5Xy1GiQ8De92DceRY4tUB/PO7YAyOXDjXnRxCV0EvwF/Kz218M5Y3hV0qXyWL4ccOAKMUZG0/ghE97fXz1suM
+X-MS-Exchange-AntiSpam-MessageData-0: dzewW1l10Ke1+QUNM86oG56dZqdGfzZJdT3afNYD7J10Hjw9aCX+SekfcwLFT/SeOS34BJszDYhARyNTQkd3AR5Oqp4ypzK+jnstyGXQeaSeQs5xsxzjIj7Ye2iQF89U21JzXQz7Nl46NdDfwJ42MKITYcVtuTAzK/s78b7Ur4jgzR1bt8pkudB/jRu0hgYLkAv9EvfathqqPwb5JKAKoazDfJtLvt0dENHT/X8B5APXeIWzKC+6Xy7RKzU/ibhztCX186Q0eGRPFwJ2cSueKYvVLJ/fs5sbOeSkKtnmfryL2vMlq2jkR3J/CYJn56sc4K/eI9SFTxNiK4dSDtHpmXlYGLCE1tmJ+RygGX5kT6+oWfH4YezVaiWszqeMjpxshiJZhB1a5gVvEuqdG1feBfxxUiXynwUjBca7EhPEOiLf4QaLcb3WzJbV5FxXhetj
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Apr 2026 01:54:13.7097 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: b683370b-83a4-4ac8-555a-08dea59236de
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Apr 2026 01:54:22.5370 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6dc3fb5d-5fa2-49a4-8fa1-08dea5923c20
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF0001AB4D.namprd04.prod.outlook.com
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN1PEPF00006001.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB9090
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8087
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -122,68 +118,175 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Alvin Lee <Alvin.Lee2@amd.com>
+From: Wenjing Liu <wenjing.liu@amd.com>
 
-[Why & How]
-TMZ field should be 4-bits wide instead of 1.
-Also add missing src/dst_cache_policy fields to
-tiled copy struct.
+[Why]
+The QoS reporting interface lacked a field to expose the maximum
+active memory bandwidth budget. Adding this field allows callers to
+observe the effective bandwidth ceiling.
 
-Reviewed-by: Rafal Ostrowski <rafal.ostrowski@amd.com>
-Signed-off-by: Alvin Lee <Alvin.Lee2@amd.com>
+[How]
+Rename struct memory_qos to dc_measured_memory_qos and introduce
+a new struct dc_requested_memory_qos holding bandwidth lower bound,
+calculated average bandwidth, latency upper bounds, and max bandwidth
+budget. Add a get_requested_memory_qos function pointer to
+clk_mgr_funcs. Update dc_get_qos_info to call through the new
+function pointer and populate all requested QoS fields including
+qos_max_bw_budget_in_mbps in dc_qos_info.
+
+Reviewed-by: Dillon Varone <dillon.varone@amd.com>
+Signed-off-by: Wenjing Liu <wenjing.liu@amd.com>
 Signed-off-by: James Lin <pinglei.lin@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c | 2 ++
- drivers/gpu/drm/amd/display/dc/dc_dmub_srv.h | 9 +++++----
- 2 files changed, 7 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/amd/display/dc/core/dc.c      | 28 ++++++++++++-------
+ drivers/gpu/drm/amd/display/dc/dc.h           |  1 +
+ .../drm/amd/display/dc/hwss/hw_sequencer.h    |  8 +++---
+ .../gpu/drm/amd/display/dc/inc/core_types.h   | 10 ++++++-
+ .../gpu/drm/amd/display/dc/inc/hw/clk_mgr.h   | 10 +++++++
+ 5 files changed, 42 insertions(+), 15 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c b/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c
-index 7c8d179e3554..af487fa0db03 100644
---- a/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c
-+++ b/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c
-@@ -2255,6 +2255,8 @@ bool dmub_lsdma_send_tiled_to_tiled_copy_command(
- 	lsdma_data->u.tiled_copy_data.data_format      = params.data_format;
- 	lsdma_data->u.tiled_copy_data.max_com          = params.max_com;
- 	lsdma_data->u.tiled_copy_data.max_uncom        = params.max_uncom;
-+	lsdma_data->u.tiled_copy_data.cache_policy_src = params.src_cache_policy;
-+	lsdma_data->u.tiled_copy_data.cache_policy_dst = params.dst_cache_policy;
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
+index 222053af63a0..09868145d2de 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
+@@ -7602,7 +7602,8 @@ void dc_log_preos_dmcub_info(const struct dc *dc)
+ bool dc_get_qos_info(struct dc *dc, struct dc_qos_info *info)
+ {
+ 	const struct dc_clocks *clk = &dc->current_state->bw_ctx.bw.dcn.clk;
+-	struct memory_qos qos;
++	struct dc_measured_memory_qos measured = {};
++	struct dc_requested_memory_qos requested = {};
  
- 	result = dc_wake_and_execute_dmub_cmd(dc_ctx, &cmd, wait_type);
+ 	memset(info, 0, sizeof(*info));
  
-diff --git a/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.h b/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.h
-index 6579cf9cce3c..ebcaf49e5961 100644
---- a/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.h
-@@ -240,11 +240,11 @@ struct lsdma_linear_sub_window_copy_params {
- 	uint32_t src_slice_pitch;
- 	uint32_t dst_slice_pitch;
+@@ -7611,16 +7612,23 @@ bool dc_get_qos_info(struct dc *dc, struct dc_qos_info *info)
+ 		return false;
+ 	}
  
--	uint32_t tmz              : 1;
-+	uint32_t tmz              : 4;
- 	uint32_t element_size     : 3;
- 	uint32_t src_cache_policy : 3;
- 	uint32_t dst_cache_policy : 3;
--	uint32_t padding          : 22;
-+	uint32_t padding          : 19;
+-	// Call unified measurement function
+-	dc->hwss.measure_memory_qos(dc, &qos);
++	dc->hwss.measure_memory_qos(dc, &measured);
+ 
+-	// Populate info from measured qos
+-	info->actual_peak_bw_in_mbps = qos.peak_bw_mbps;
+-	info->actual_avg_bw_in_mbps = qos.avg_bw_mbps;
+-	info->actual_min_latency_in_ns = qos.min_latency_ns;
+-	info->actual_max_latency_in_ns = qos.max_latency_ns;
+-	info->actual_avg_latency_in_ns = qos.avg_latency_ns;
+-	info->dcn_bandwidth_ub_in_mbps = (uint32_t)(clk->fclk_khz / 1000 * 64);
++	info->actual_peak_bw_in_mbps    = measured.peak_bw_mbps;
++	info->actual_avg_bw_in_mbps     = measured.avg_bw_mbps;
++	info->actual_min_latency_in_ns  = measured.min_latency_ns;
++	info->actual_max_latency_in_ns  = measured.max_latency_ns;
++	info->actual_avg_latency_in_ns  = measured.avg_latency_ns;
++	info->dcn_bandwidth_ub_in_mbps  = (uint32_t)(clk->fclk_khz / 1000 * 64);
++
++	if (dc->clk_mgr && dc->clk_mgr->funcs->get_requested_memory_qos) {
++		dc->clk_mgr->funcs->get_requested_memory_qos(dc->clk_mgr, &requested);
++		info->qos_bandwidth_lb_in_mbps    = requested.bandwidth_lb_in_mbps;
++		info->calculated_avg_bw_in_mbps   = requested.calculated_avg_bw_in_mbps;
++		info->qos_max_latency_ub_in_ns    = requested.max_latency_ub_in_ns;
++		info->qos_avg_latency_ub_in_ns    = requested.avg_latency_ub_in_ns;
++		info->qos_max_bw_budget_in_mbps   = requested.max_bw_budget_in_mbps;
++	}
+ 
+ 	return true;
+ }
+diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
+index 2bb11296ee6a..cc288eb19d04 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc.h
++++ b/drivers/gpu/drm/amd/display/dc/dc.h
+@@ -971,6 +971,7 @@ struct dc_qos_info {
+ 	uint32_t actual_avg_latency_in_ns;
+ 	uint32_t qos_avg_latency_ub_in_ns;
+ 	uint32_t dcn_bandwidth_ub_in_mbps;
++	uint32_t qos_max_bw_budget_in_mbps;
  };
  
- bool dmub_lsdma_send_linear_sub_window_copy_command(
-@@ -286,12 +286,13 @@ struct lsdma_send_tiled_to_tiled_copy_command_params {
- 	uint32_t swizzle_mode     : 5;
- 	uint32_t element_size     : 3;
- 	uint32_t dcc              : 1;
--	uint32_t tmz              : 1;
-+	uint32_t tmz              : 4;
- 	uint32_t read_compress    : 2;
- 	uint32_t write_compress   : 2;
- 	uint32_t max_com          : 2;
- 	uint32_t max_uncom        : 1;
--	uint32_t padding          : 9;
-+	uint32_t src_cache_policy : 3;
-+	uint32_t dst_cache_policy : 3;
+ struct dc_state;
+diff --git a/drivers/gpu/drm/amd/display/dc/hwss/hw_sequencer.h b/drivers/gpu/drm/amd/display/dc/hwss/hw_sequencer.h
+index 7f0743de1b14..4b9fcb87e60d 100644
+--- a/drivers/gpu/drm/amd/display/dc/hwss/hw_sequencer.h
++++ b/drivers/gpu/drm/amd/display/dc/hwss/hw_sequencer.h
+@@ -53,7 +53,7 @@ struct drr_params;
+ struct dc_underflow_debug_data;
+ struct dsc_optc_config;
+ struct vm_system_aperture_param;
+-struct memory_qos;
++struct dc_measured_memory_qos;
+ struct stream_encoder;
+ struct hpo_dp_stream_encoder;
+ struct hpo_frl_stream_encoder;
+@@ -1516,12 +1516,12 @@ struct hw_sequencer_funcs {
+ 	/**
+ 	 * measure_memory_qos - Measure memory QoS metrics
+ 	 * @dc: DC structure
+-	 * @qos: Pointer to memory_qos struct to populate with measured values
++	 * @qos: Pointer to dc_measured_memory_qos struct to populate with measured values
+ 	 *
+-	 * Populates the provided memory_qos struct with peak bandwidth, average bandwidth,
++	 * Populates the provided dc_measured_memory_qos struct with peak bandwidth, average bandwidth,
+ 	 * max latency, min latency, and average latency from hardware performance counters.
+ 	 */
+-	void (*measure_memory_qos)(struct dc *dc, struct memory_qos *qos);
++	void (*measure_memory_qos)(struct dc *dc, struct dc_measured_memory_qos *qos);
+ 
  };
  
- bool dmub_lsdma_send_tiled_to_tiled_copy_command(
+diff --git a/drivers/gpu/drm/amd/display/dc/inc/core_types.h b/drivers/gpu/drm/amd/display/dc/inc/core_types.h
+index e960ca9062ad..a99e1937f8ce 100644
+--- a/drivers/gpu/drm/amd/display/dc/inc/core_types.h
++++ b/drivers/gpu/drm/amd/display/dc/inc/core_types.h
+@@ -707,7 +707,7 @@ struct dc_bounding_box_max_clk {
+ 	int max_phyclk_mhz;
+ };
+ 
+-struct memory_qos {
++struct dc_measured_memory_qos {
+ 	uint32_t peak_bw_mbps;
+ 	uint32_t avg_bw_mbps;
+ 	uint32_t max_latency_ns;
+@@ -715,4 +715,12 @@ struct memory_qos {
+ 	uint32_t avg_latency_ns;
+ };
+ 
++struct dc_requested_memory_qos {
++	uint32_t bandwidth_lb_in_mbps;
++	uint32_t calculated_avg_bw_in_mbps;
++	uint32_t max_latency_ub_in_ns;
++	uint32_t avg_latency_ub_in_ns;
++	uint32_t max_bw_budget_in_mbps;
++};
++
+ #endif /* _CORE_TYPES_H_ */
+diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw/clk_mgr.h b/drivers/gpu/drm/amd/display/dc/inc/hw/clk_mgr.h
+index eab25efea76b..dcce81e3d97c 100644
+--- a/drivers/gpu/drm/amd/display/dc/inc/hw/clk_mgr.h
++++ b/drivers/gpu/drm/amd/display/dc/inc/hw/clk_mgr.h
+@@ -28,6 +28,7 @@
+ #define __DAL_CLK_MGR_H__
+ 
+ #include "dc.h"
++#include "core_types.h"
+ #include "dm_pp_smu.h"
+ 
+ /* Constants */
+@@ -374,6 +375,15 @@ struct clk_mgr_funcs {
+ 	unsigned int (*override_memory_bandwidth_request)(
+ 			struct clk_mgr *clk_mgr,
+ 			unsigned int bw_kbps);
++	/**
++	 * get_requested_memory_qos - Retrieve current QoS request from the clock manager's
++	 *     current clock state, reflecting any active bandwidth overrides.
++	 * @clk_mgr: clock manager instance
++	 * @qos: pointer to dc_requested_memory_qos structure to populate
++	 */
++	void (*get_requested_memory_qos)(
++			struct clk_mgr *clk_mgr,
++			struct dc_requested_memory_qos *qos);
+ };
+ 
+ struct clk_mgr {
 -- 
 2.43.0
 
