@@ -4,47 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F41B7FF8877
-	for <amd-gfx@archiver.kernel.org>; Wed, 29 Apr 2026 13:07:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EDF79FF8867
+	for <amd-gfx@archiver.kernel.org>; Wed, 29 Apr 2026 13:12:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7E73F10EFFA;
-	Wed, 29 Apr 2026 13:07:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8D49F10E233;
+	Wed, 29 Apr 2026 13:12:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="petG/QiB";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="kXSQF8Iv";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8615B10E3D1;
- Wed, 29 Apr 2026 13:07:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
- Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=U15y+TfzRWZWdZcKULVBgo3XI8PC08rXu4Ucxe0F7OY=; b=petG/QiBpO5c6zcXeAG9HVDcdV
- XsXXhpoxsyG7ueH2SKRRGNOEdomK4h+LMyR4VXZlq7Mdg/Ur/v/xvhqhPB+tonnLva8sUeEpHVg1V
- Xz/H7cZqWf8BrWZRug0CWxyp8KiUAqcEqY38BDPPZ5J91b1Lsckso1fZsW2uL7FRUSgr9jIP9O4O6
- mjU94krOilwm7VoQyq3VuRruJjbFwj8I2Fxpx2c7HNHMzUBL0zydtbroG1vzmUcXJB4xdDiiNk/P9
- q35Owiy/hLT3WWjTEdarV6Qbv+DBSla41YPBt5eybVnotOtVPwCndjGSqVo3HYpwzX1vFLb70CZCI
- 9nd7Quow==;
-Received: from [90.240.106.137] (helo=localhost)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wI4d5-003wVB-Gg; Wed, 29 Apr 2026 15:07:02 +0200
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-To: amd-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org
-Cc: kernel-dev@igalia.com,
-	Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Subject: [RFC 2/2] drm/amdgpu: Wire up DRM memory stats reporting
-Date: Wed, 29 Apr 2026 14:06:53 +0100
-Message-ID: <20260429130653.73854-3-tvrtko.ursulin@igalia.com>
-X-Mailer: git-send-email 2.52.0
-In-Reply-To: <20260429130653.73854-1-tvrtko.ursulin@igalia.com>
-References: <20260429130653.73854-1-tvrtko.ursulin@igalia.com>
+Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com
+ [74.125.82.178])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ED5F710E233
+ for <amd-gfx@lists.freedesktop.org>; Wed, 29 Apr 2026 13:12:38 +0000 (UTC)
+Received: by mail-dy1-f178.google.com with SMTP id
+ 5a478bee46e88-2d935b4b15aso743679eec.2
+ for <amd-gfx@lists.freedesktop.org>; Wed, 29 Apr 2026 06:12:38 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1777468358; cv=none;
+ d=google.com; s=arc-20240605;
+ b=PIdfn2ns4C1xuK9ZuPdjO8e9NohfGMZbhBZf53IniYb2szlhcUqRKLgxRmtcRz0IEV
+ nERY+HywCHRZJDQNY/4EYtBR13bVK+seZFdup0qo/zAXIjfdgUCUQ00Ae7z2kJWe7LI/
+ 9kl06BvosPfQuUGHRoaizsJk6aLTmLi4Y4C85EQTx9OFoZsLxxUDNLCopX8x2C7Zea2I
+ e5Hk3UCCI5eH1ghiAp7qkfEzt6NBiQJi2iF1dEzVcuH7Sa9qKmLkIVcdpQ+Gy56c4QF8
+ n1KyDdOKbXPSCNvVjPbp3JV02L2Fe6V57Z2QhBAhCa6qfGnCIulihgDDehHqgQxmEOO7
+ 8Bfg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=ALnrd3bX3x8lnMlEgtUxXTuL/tkwVbMlHZPPe8kg6w4=;
+ fh=tHaW2Dnoj02vwIx2N49MV9LA78qZTpeHLM8fBIf8vts=;
+ b=EcB+pfuGIB8mnpl11/FYVw/H+Vqwa6EuDfIFbiWG0ntBWYbjoFLHGHH1BuGKPzPHKE
+ dZi7w+nh0FV1CitO9u2TkFbqENRzjtPQQhu7p/I1mIET9Oa69j0Toyy2cJ1JaFD4Wejc
+ KWBFJBsYXOsLEaJ54jNm8KSW41t8q2rGImBt0S7q54goQxYM/yhBbFQ4ndpXVnW66IxE
+ YY7Or5PU4xEAOf18TG+soFLlxP0JngJ4QhgV6SCQT8W5QepKlvAbosOjq14nfhncyOvP
+ wAZI9dBI7WX9WVpqt165/mZgeUErvTw9PpCxG4lO6RIufrfv9n87r87N7GxjhPqnsUpV
+ w6Ag==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1777468358; x=1778073158; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=ALnrd3bX3x8lnMlEgtUxXTuL/tkwVbMlHZPPe8kg6w4=;
+ b=kXSQF8Ivgmsxe5TqwCeLE6v5G8r2IARLQX80xrSaSxAOdXzXZy3ok2uEdVBveeGC2j
+ jdQWBln7roJGZwHHvsGxZ8gexhPJ6DCnqOefgUWTDjuFz7RYeqadbkZSnvW8Fghn5pUh
+ zhmONAqsKRs4oN+ePFB9evExEiArF1Hg1wDBdL5Ti2vMzMZiISHKOmT0+DzQRgzb0Rdb
+ A6DeScbtBAgR/KmRI3cC3QdnpqsoTjarpQ21nJNm0fScJx5nD1Mdl27Kn+2zC4wYqg4G
+ RaXUBZxd2tC2MmJiD7AnhOGnnSve1Vxr4fUgYEgKThZJv7KYzbPIYoRFy9toP0BuRmGk
+ gbLA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1777468358; x=1778073158;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=ALnrd3bX3x8lnMlEgtUxXTuL/tkwVbMlHZPPe8kg6w4=;
+ b=cMwpOhT9lHSjV2SWc5mWtJo4Ug8cSxBNIArGkefF2PmjFDUnmqhZB+i/QIm2gdvVMW
+ /5ApF0D4J9nkNW58/fajGAqYy27599wbNUrtO7GHWdxpC2JaG/DYxbgJkiGi1NEA/UwI
+ VizY2Ld47ECGqFpWEORixQ0XKTjdbGvfOAFHj4W2qAUJoFo8koWHzdKTkbFRIgri+ys5
+ ZKRkwdJcfSxMO1Ssj4KJLIoS/KS4kp1kB0b6p3iM0BaCdopsLFcxt/8ZXdcHsIuf/d+s
+ Hcj9ozVZTYZWxH8LyVWlHczDJ8xzRsfYwWktGhTOuFswjhAw0WpOO7vwYfKH3GrjN2fA
+ kRgA==
+X-Gm-Message-State: AOJu0Yx74abPHXGENb0OnV/uzkMfDFvHtQTQLszp/yi4mhXVAQBolQcj
+ DJQSKM5926bGi17ycwRewUTMs25cM4dyK1ci6A8xdl7LSYqtYkh+MJCeLROJLQ56RjJtdumGgTn
+ gCaNa0Ih/uEExSOYMLLBSxQkYjvbq5Yw=
+X-Gm-Gg: AeBDiet6g5nIEysEQFA2xY2Tv/QS6KVaR/C2gCGbPlQ44pOXx/Y5CPLLVuy37PZVDAS
+ HUqVgnhRym8gUcZI+ELYASs+YvPXYb5Rp/P1qF/MK25zHER96OoD44BaJNG8gV0co7nm+GSqTQi
+ Rf7XmPtIwTpxRFnEyjcenTSqSiO6BcUNtL1IZ/4rL6W0fdka+LXRfqIz3MzS6fiqFYzhKMh95Dk
+ iSPw3/lAG2c3q2q+ST9W4xGMYbH/Rj4hjm9Tb7TGSC5wROpbGPXW8K3Yo7F3XyJquRkVntLb8JH
+ PiLr7T91mgoprJoSIUiFgoxz93/v4wuIB3zZXtwPdthmRd7+RTjZdDwZ/GUaDyXO0fnuxCwEc83
+ k3LaQ
+X-Received: by 2002:a05:7022:e1e:b0:12c:888b:aaab with SMTP id
+ a92af1059eb24-12ddd46c3ecmr1486268c88.0.1777468357925; Wed, 29 Apr 2026
+ 06:12:37 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260428215618.3596608-1-Harish.Kasiviswanathan@amd.com>
+In-Reply-To: <20260428215618.3596608-1-Harish.Kasiviswanathan@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Wed, 29 Apr 2026 09:12:26 -0400
+X-Gm-Features: AVHnY4JlwCpYVKwLI0I0UdxQA_Om1_BEgkvKjYlQvV6PCTEwQeT-MIGlhFF-Osg
+Message-ID: <CADnq5_O+VZ1E37Rvg-7=k7WPnKmAyzrAYZHvHvhWn0tOUszFmw@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: amdgpu_device_is_peer_accessible to support
+ all BARs
+To: Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>
+Cc: amd-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,188 +103,204 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Wire up the driver agnostic DRM memory reporting for the VRAM and GTT
-memory regions.
+On Tue, Apr 28, 2026 at 6:04=E2=80=AFPM Harish Kasiviswanathan
+<Harish.Kasiviswanathan@amd.com> wrote:
+>
+> amdgpu_device_is_peer_accessible was initially written to check peer
+> VRAM access, however, it is getting called for DOORBELL & MMIO range.
+> Add support for these also
+>
+> Change-Id: I0ec4d85ad505e0a1369e2d4d9fb6421664df41a1
+> Signed-off-by: Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu.h           |  3 +-
+>  .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  | 15 +++-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    | 71 +++++++++++++++----
+>  drivers/gpu/drm/amd/amdkfd/kfd_topology.c     |  2 +-
+>  4 files changed, 72 insertions(+), 19 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/am=
+dgpu/amdgpu.h
+> index 39894e38fee4..d41d608d03b5 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> @@ -1442,7 +1442,8 @@ bool amdgpu_device_supports_smart_shift(struct amdg=
+pu_device *adev);
+>  int amdgpu_device_supports_baco(struct amdgpu_device *adev);
+>  void amdgpu_device_detect_runtime_pm_mode(struct amdgpu_device *adev);
+>  bool amdgpu_device_is_peer_accessible(struct amdgpu_device *adev,
+> -                                     struct amdgpu_device *peer_adev);
+> +                                     struct amdgpu_device *peer_adev,
+> +                                     int pcie_bar);
+>  int amdgpu_device_baco_enter(struct amdgpu_device *adev);
+>  int amdgpu_device_baco_exit(struct amdgpu_device *adev);
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/g=
+pu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+> index 7c01492e69dd..e5e3f437ad3f 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+> @@ -900,8 +900,19 @@ static int kfd_mem_attach(struct amdgpu_device *adev=
+, struct kgd_mem *mem,
+>              (mem->alloc_flags & KFD_IOC_ALLOC_MEM_FLAGS_MMIO_REMAP))) {
+>                 if (mem->domain =3D=3D AMDGPU_GEM_DOMAIN_VRAM)
+>                         same_hive =3D amdgpu_xgmi_same_hive(adev, bo_adev=
+);
+> -               if (!same_hive && !amdgpu_device_is_peer_accessible(bo_ad=
+ev, adev))
+> -                       return -EINVAL;
+> +               if (!same_hive) {
+> +                       int bar;
+> +
+> +                       if (mem->alloc_flags & KFD_IOC_ALLOC_MEM_FLAGS_DO=
+ORBELL)
+> +                               bar =3D 2;
+> +                       else if (mem->alloc_flags & KFD_IOC_ALLOC_MEM_FLA=
+GS_MMIO_REMAP)
+> +                               bar =3D 5;
+> +                       else
+> +                               bar =3D 0;
 
-As the list of regions and their stats needs to be returned to the DRM
-core for inspection and remain valid after the callback had existed, the
-persistent storage is kept at the device level and updated on each query.
+Can you use an enum for the bar values rather than magic numbers?
+That will make it more clear what the caller is specifying.
 
-The current list of memory region names as reported for fdinfo memory
-stats is exported as a helper in order to achieve standardized names, as
-required by the DRM contract.
+Alex
 
-Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu.h        |  6 ++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c    |  2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c | 40 +++++++++++++++-------
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c    | 37 ++++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h    |  3 ++
- 5 files changed, 75 insertions(+), 13 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-index 8bc591deb546..03a77cf649ac 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-@@ -1195,6 +1195,9 @@ struct amdgpu_device {
- 
- 	struct amdgpu_uma_carveout_info uma_info;
- 
-+	struct drm_memory_info		memory_info;
-+	struct drm_memory_region_info	__memory_region_info[2]; /* Storage for memory_info */
-+
- 	/* KFD
- 	 * Must be last --ends in a flexible-array member.
- 	 */
-@@ -1665,4 +1668,7 @@ void amdgpu_device_set_uid(struct amdgpu_uid *uid_info,
- 			   uint64_t uid);
- uint64_t amdgpu_device_get_uid(struct amdgpu_uid *uid_info,
- 			       enum amdgpu_uid_type type, uint8_t inst);
-+
-+const struct drm_memory_info *amdgpu_drm_memory_info(struct drm_device *drm);
-+
- #endif
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-index 1ec5ba3ab0ed..e0e192558098 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-@@ -3085,7 +3085,7 @@ static const struct drm_driver amdgpu_kms_driver = {
- #ifdef CONFIG_PROC_FS
- 	.show_fdinfo = amdgpu_show_fdinfo,
- #endif
--
-+	.get_memory_info = amdgpu_drm_memory_info,
- 	.gem_prime_import = amdgpu_gem_prime_import,
- 
- 	.name = DRIVER_NAME,
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c
-index b349bb3676d5..3bbd053cd9f7 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c
-@@ -55,14 +55,9 @@ static const char *amdgpu_ip_name[AMDGPU_HW_IP_NUM] = {
- 	[AMDGPU_HW_IP_VPE]	=	"vpe",
- };
- 
--void amdgpu_show_fdinfo(struct drm_printer *p, struct drm_file *file)
-+const char *amdgpu_ttm_pl_to_name(unsigned int placement)
- {
--	struct amdgpu_fpriv *fpriv = file->driver_priv;
--	struct amdgpu_vm *vm = &fpriv->vm;
--
--	struct amdgpu_mem_stats stats[__AMDGPU_PL_NUM];
--	ktime_t usage[AMDGPU_HW_IP_NUM];
--	const char *pl_name[] = {
-+	static const char *names[] = {
- 		[TTM_PL_VRAM] = "vram",
- 		[TTM_PL_TT] = "gtt",
- 		[TTM_PL_SYSTEM] = "cpu",
-@@ -72,6 +67,30 @@ void amdgpu_show_fdinfo(struct drm_printer *p, struct drm_file *file)
- 		[AMDGPU_PL_DOORBELL] = "doorbell",
- 		[AMDGPU_PL_MMIO_REMAP] = "mmioremap",
- 	};
-+
-+	if (WARN_ON_ONCE(placement >= ARRAY_SIZE(names)))
-+		return "unknown";
-+
-+	return names[placement];
-+}
-+
-+void amdgpu_show_fdinfo(struct drm_printer *p, struct drm_file *file)
-+{
-+	struct amdgpu_fpriv *fpriv = file->driver_priv;
-+	struct amdgpu_vm *vm = &fpriv->vm;
-+
-+	struct amdgpu_mem_stats stats[__AMDGPU_PL_NUM];
-+	ktime_t usage[AMDGPU_HW_IP_NUM];
-+	static const unsigned int regions[] = {
-+		TTM_PL_VRAM,
-+		TTM_PL_TT,
-+		TTM_PL_SYSTEM,
-+		AMDGPU_PL_GDS,
-+		AMDGPU_PL_GWS,
-+		AMDGPU_PL_OA,
-+		AMDGPU_PL_DOORBELL,
-+		AMDGPU_PL_MMIO_REMAP,
-+	};
- 	unsigned int hw_ip, i;
- 
- 	amdgpu_vm_get_memory(vm, stats);
-@@ -85,15 +104,12 @@ void amdgpu_show_fdinfo(struct drm_printer *p, struct drm_file *file)
- 
- 	drm_printf(p, "pasid:\t%u\n", fpriv->vm.pasid);
- 
--	for (i = 0; i < ARRAY_SIZE(pl_name); i++) {
--		if (!pl_name[i])
--			continue;
--
-+	for (i = 0; i < ARRAY_SIZE(regions); i++) {
- 		drm_print_memory_stats(p,
- 				       &stats[i].drm,
- 				       DRM_GEM_OBJECT_RESIDENT |
- 				       DRM_GEM_OBJECT_PURGEABLE,
--				       pl_name[i]);
-+				       amdgpu_ttm_pl_to_name(regions[i]));
- 	}
- 
- 	/* Legacy amdgpu keys, alias to drm-resident-memory-: */
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-index 0dc68fb9d88e..bff3101e7e0b 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-@@ -2917,3 +2917,40 @@ void amdgpu_ttm_debugfs_init(struct amdgpu_device *adev)
- 
- #endif
- }
-+
-+const struct drm_memory_info *amdgpu_drm_memory_info(struct drm_device *drm)
-+{
-+	struct amdgpu_device *adev = drm_to_adev(drm);
-+	struct drm_memory_info *info = &adev->memory_info;
-+	static const unsigned int regions[] = {
-+		TTM_PL_VRAM,
-+		TTM_PL_TT,
-+	};
-+	struct drm_memory_region_info *region;
-+	struct ttm_resource_manager *man;
-+	unsigned int i;
-+
-+	if (WARN_ON_ONCE(ARRAY_SIZE(adev->__memory_region_info) !=
-+			 ARRAY_SIZE(regions)))
-+		return NULL;
-+
-+	if (!info->num_regions) {
-+		for (i = 0; i < ARRAY_SIZE(regions); i++) {
-+			region = &info->region[i];
-+			strscpy(region->name,
-+				amdgpu_ttm_pl_to_name(regions[i]),
-+				sizeof(region->name));
-+			man = ttm_manager_type(&adev->mman.bdev, regions[i]);
-+			region->total_mb = man->size >> 20;
-+			info->num_regions++;
-+		}
-+	}
-+
-+	for (i = 0; i < ARRAY_SIZE(regions); i++) {
-+		region = &info->region[i];
-+		man = ttm_manager_type(&adev->mman.bdev, regions[i]);
-+		region->used_mb = ttm_resource_manager_usage(man) >> 20;
-+	}
-+
-+	return &adev->memory_info;
-+}
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-index f2f23a42b3cc..91fc807ee1be 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-@@ -269,4 +269,7 @@ void amdgpu_ttm_mmio_remap_free_sgt(struct device *dev,
- 				    enum dma_data_direction dir,
- 				    struct sg_table *sgt);
- 
-+const char *amdgpu_ttm_pl_to_name(unsigned int placement);
-+const struct drm_memory_info *amdgpu_drm_memory_info(struct drm_device *drm);
-+
- #endif
--- 
-2.52.0
-
+> +
+> +                       if (!amdgpu_device_is_peer_accessible(bo_adev, ad=
+ev, bar))
+> +                               return -EINVAL;
+> +               }
+>         }
+>
+>         for (i =3D 0; i <=3D is_aql; i++) {
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm=
+/amd/amdgpu/amdgpu_device.c
+> index 073f632f295a..65709a2c53be 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> @@ -6177,36 +6177,77 @@ static void amdgpu_device_get_pcie_info(struct am=
+dgpu_device *adev)
+>   *
+>   * @adev: amdgpu_device pointer
+>   * @peer_adev: amdgpu_device pointer for peer device trying to access @a=
+dev
+> + * @pcie_bar: PCIe BAR index to check accessibility for:
+> + *            0 =3D VRAM aperture (BAR 0)
+> + *            2 =3D Doorbell aperture (BAR 2)
+> + *            5 =3D MMIO remap aperture (BAR 5)
+> + *
+> + * Return true if @peer_adev can access (DMA) @adev through the specifie=
+d
+> + * PCIe BAR. For VRAM (BAR 0), @adev must be "large BAR" and the BAR mus=
+t
+> + * match the DMA mask of @peer_adev. For doorbell and MMIO BARs, only th=
+e
+> + * DMA addressability and P2P chipset support are checked.
+> + *
+> + * @note: CONFIG_HSA_AMD_P2P indicates support for P2P DMA mappings. Que=
+ry
+> + * P2PDMA distance only if the kernel has all the prerequisites for P2P =
+DMA
+> + * support. Otherwise fall back to the less reliable legacy P2P support =
+to
+> + * avoid regressions.
+>   *
+> - * Return true if @peer_adev can access (DMA) @adev through the PCIe
+> - * BAR, i.e. @adev is "large BAR" and the BAR matches the DMA mask of
+> - * @peer_adev.
+>   */
+>  bool amdgpu_device_is_peer_accessible(struct amdgpu_device *adev,
+> -                                     struct amdgpu_device *peer_adev)
+> +                                     struct amdgpu_device *peer_adev,
+> +                                     int pcie_bar)
+>  {
+>  #ifdef CONFIG_HSA_AMD_P2P
+> -       bool p2p_access =3D
+> -               !adev->gmc.xgmi.connected_to_cpu &&
+> +       bool p2p_access =3D true;
+> +       bool p2p_addressable =3D false;
+> +       resource_size_t bar_base, bar_size;
+> +
+> +       /* VRAM requires large BAR (full VRAM visible) for P2P access */
+> +       if (pcie_bar =3D=3D 0) {
+> +               if (!adev->gmc.visible_vram_size ||
+> +                   adev->gmc.real_vram_size !=3D adev->gmc.visible_vram_=
+size)
+> +                       return false;
+> +
+> +               /* VRAM on CPU-connected xGMI devices is accessed via
+> +                * coherent fabric, not PCIe BAR P2P
+> +                */
+> +               if (adev->gmc.xgmi.connected_to_cpu)
+> +                       return false;
+> +       }
+> +
+> +       switch (pcie_bar) {
+> +       case 2:
+> +               bar_base =3D adev->doorbell.base;
+> +               bar_size =3D adev->doorbell.size;
+> +               break;
+> +       case 5:
+> +               bar_base =3D adev->rmmio_base;
+> +               bar_size =3D adev->rmmio_size;
+> +               break;
+> +       case 0:
+> +       default:
+> +               bar_base =3D adev->gmc.aper_base;
+> +               bar_size =3D adev->gmc.aper_size;
+> +               break;
+> +       }
+> +
+> +       p2p_access =3D
+>                 !(pci_p2pdma_distance(adev->pdev, peer_adev->dev, false) =
+< 0);
+>         if (!p2p_access)
+>                 dev_info(adev->dev, "PCIe P2P access from peer device %s =
+is not supported by the chipset\n",
+>                         pci_name(peer_adev->pdev));
+> -
+> -       bool is_large_bar =3D adev->gmc.visible_vram_size &&
+> -               adev->gmc.real_vram_size =3D=3D adev->gmc.visible_vram_si=
+ze;
+> -       bool p2p_addressable =3D amdgpu_device_check_iommu_remap(peer_ade=
+v);
+> +       p2p_addressable =3D amdgpu_device_check_iommu_remap(peer_adev);
+>
+>         if (!p2p_addressable) {
+>                 uint64_t address_mask =3D peer_adev->dev->dma_mask ?
+>                         ~*peer_adev->dev->dma_mask : ~((1ULL << 32) - 1);
+> -               resource_size_t aper_limit =3D
+> -                       adev->gmc.aper_base + adev->gmc.aper_size - 1;
+> +               resource_size_t bar_limit =3D bar_base + bar_size - 1;
+>
+> -               p2p_addressable =3D !(adev->gmc.aper_base & address_mask =
+||
+> -                                    aper_limit & address_mask);
+> +               p2p_addressable =3D !(bar_base & address_mask ||
+> +                                    bar_limit & address_mask);
+>         }
+> -       return pcie_p2p && is_large_bar && p2p_access && p2p_addressable;
+> +
+> +       return p2p_access && p2p_addressable;
+>  #else
+>         return false;
+>  #endif
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c b/drivers/gpu/drm/=
+amd/amdkfd/kfd_topology.c
+> index 4dc9f9aa3a2e..24fb565fa53c 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+> @@ -1496,7 +1496,7 @@ static int kfd_add_peer_prop(struct kfd_topology_de=
+vice *kdev,
+>
+>         if (!amdgpu_device_is_peer_accessible(
+>                                 kdev->gpu->adev,
+> -                               peer->gpu->adev))
+> +                               peer->gpu->adev, 0))
+>                 return ret;
+>
+>         if (list_empty(&kdev->io_link_props))
+> --
+> 2.43.0
+>
