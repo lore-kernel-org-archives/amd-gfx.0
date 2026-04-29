@@ -4,61 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A8B0BFF8875
-	for <amd-gfx@archiver.kernel.org>; Wed, 29 Apr 2026 19:04:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 97B69FF8875
+	for <amd-gfx@archiver.kernel.org>; Wed, 29 Apr 2026 20:03:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3B47010E3F4;
-	Wed, 29 Apr 2026 19:04:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 32C2310F151;
+	Wed, 29 Apr 2026 20:03:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="k2QUmowe";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="SdEgYyNd";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 52C6310E3F4;
- Wed, 29 Apr 2026 19:04:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1777489486; x=1809025486;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=tsidYZBHseBKOISqltd/eKHnliZi9ZyEiXutHjbxvS0=;
- b=k2QUmowePQJYtexxH//yyHi8DUMMJF/dHdT01a7gK0DIdqkmM9J6XjC9
- /iEjVdMSCyxW1JuaCyD11ST3CIxh1i84mJP9oqkSNirrhao/LxUKVWsQr
- Pp9yH6vTlhLsxUrJzJ4++H7zaKuOdG1QWQR1d0FbPF/cJOc/XVsXdkAas
- By3cZv6YUQ30kng1fi0CACMzc9h4tIGVs3++8b9T4mpSTUzvD1eSj5hh5
- 23G0vts2pj4jxs1rkLxkrIe/9QwRUZM0+57vISpXPz9niCerdbuupHQ4c
- 5PbKIRsxo7augUoimnjisWGZb7Fmin2JuJZyCPz7vbH6vcYwjP4enTKSI w==;
-X-CSE-ConnectionGUID: Mjdtlg9+Q7qm2hRJHWCKwA==
-X-CSE-MsgGUID: 7pXjNAXEQ62fPmaxGEr6RQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11771"; a="78536924"
-X-IronPort-AV: E=Sophos;i="6.23,206,1770624000"; d="scan'208";a="78536924"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
- by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Apr 2026 12:04:45 -0700
-X-CSE-ConnectionGUID: wUoF0Hs8Tr2pd2NJYUbiCg==
-X-CSE-MsgGUID: 1aNgzHMcQSSPenipv5Uycg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,206,1770624000"; d="scan'208";a="272481706"
-Received: from lkp-server01.sh.intel.com (HELO aa799cca880d) ([10.239.97.150])
- by orviesa001.jf.intel.com with ESMTP; 29 Apr 2026 12:04:42 -0700
-Received: from kbuild by aa799cca880d with local (Exim 4.98.2)
- (envelope-from <lkp@intel.com>) id 1wIAD7-00000000BRA-48UD;
- Wed, 29 Apr 2026 19:04:37 +0000
-Date: Thu, 30 Apr 2026 03:04:13 +0800
-From: kernel test robot <lkp@intel.com>
-To: Evgenii Burenchev <evg28bur@yandex.ru>, stable@vger.kernel.org,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: oe-kbuild-all@lists.linux.dev, Evgenii Burenchev <evg28bur@yandex.ru>,
- alexander.deucher@amd.com, christian.koenig@amd.com,
- airlied@gmail.com, simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] drm/radeon/rs780: prevent division by zero in refresh
- rate calculation
-Message-ID: <202604300247.Gzeia1bh-lkp@intel.com>
-References: <20260428190318.34413-1-evg28bur@yandex.ru>
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 67E2A10F151
+ for <amd-gfx@lists.freedesktop.org>; Wed, 29 Apr 2026 20:03:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:Cc:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=aNb49UJ78D7UNISZZR9j6LOgljRFanSrMof4HNayWSk=; b=SdEgYyNdzOEp2b7l/INuGOZBpZ
+ Z6ltx7/JJV1BBxw9gJmBLMBi0P6P1ZLtsqnXny+dSqf1D4yhtUw3LijT98vstWpy3VqRlaPx91lm1
+ aK7NnnE77JIgqRCXy3DFIeICD+AorK/hr+7fepWbzj8iJf9ncbkLqLYCb/DIJ3v4LsPAsgjcqesEH
+ DDtFPp3jQXqx69K0a9GpQPLjGRpZ9441k5YWhBvXhT44T8NjGz1mOVsTgk+JfKY/rhKQ2tSLP8FKB
+ 1WMw5D1WM4++a9RxOxrLf8xkZrQkjoektKSAzmI5HBzk8OuEFLjlaYRS5sbe20ILihyOTvv+Adr96
+ egr4i+bg==;
+Received: from [186.208.73.228] (helo=[192.168.18.14])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1wIB7e-0046da-Kn; Wed, 29 Apr 2026 22:03:02 +0200
+Message-ID: <48ae398c-f679-4b35-bd2a-0b4c177cad5c@igalia.com>
+Date: Wed, 29 Apr 2026 17:02:57 -0300
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260428190318.34413-1-evg28bur@yandex.ru>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 01/14] drm/amd/display: Delete unimplemented
+ dm_pp_apply_power_level_change_request()
+To: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>,
+ amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com,
+ Alex Hung <alex.hung@amd.com>, Harry Wentland <Harry.Wentland@amd.com>,
+ Roman Li <Roman.Li@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ David Airlie <airlied@gmail.com>,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ Ivan Lipski <ivan.lipski@amd.com>
+References: <20260423191519.73127-1-timur.kristof@gmail.com>
+ <20260423191519.73127-2-timur.kristof@gmail.com>
+Content-Language: en-US
+From: Melissa Wen <mwen@igalia.com>
+In-Reply-To: <20260423191519.73127-2-timur.kristof@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,70 +66,134 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Evgenii,
-
-kernel test robot noticed the following build warnings:
-
-[auto build test WARNING on drm-misc/drm-misc-next]
-[also build test WARNING on linus/master v7.1-rc1 next-20260428]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
-
-url:    https://github.com/intel-lab-lkp/linux/commits/Evgenii-Burenchev/drm-radeon-rs780-prevent-division-by-zero-in-refresh-rate-calculation/20260429-055830
-base:   https://gitlab.freedesktop.org/drm/misc/kernel.git drm-misc-next
-patch link:    https://lore.kernel.org/r/20260428190318.34413-1-evg28bur%40yandex.ru
-patch subject: [PATCH] drm/radeon/rs780: prevent division by zero in refresh rate calculation
-config: parisc-defconfig (https://download.01.org/0day-ci/archive/20260430/202604300247.Gzeia1bh-lkp@intel.com/config)
-compiler: hppa-linux-gcc (GCC) 15.2.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260430/202604300247.Gzeia1bh-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202604300247.Gzeia1bh-lkp@intel.com/
-
-All warnings (new ones prefixed by >>):
-
-   drivers/gpu/drm/radeon/rs780_dpm.c: In function 'rs780_get_pm_mode_parameters':
->> drivers/gpu/drm/radeon/rs780_dpm.c:66:25: warning: this 'if' clause does not guard... [-Wmisleading-indentation]
-      66 |                         if (crtc->mode.htotal && crtc->mode.vtotal)
-         |                         ^~
-   drivers/gpu/drm/radeon/rs780_dpm.c:68:33: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
-      68 |                                 if (pi->refresh_rate == 0)
-         |                                 ^~
 
 
-vim +/if +66 drivers/gpu/drm/radeon/rs780_dpm.c
+On 23/04/2026 16:15, Timur Kristóf wrote:
+> dm_pp_apply_power_level_change_request() was called from old
+> DCE clock manager implementations on DCE6, 8, 10, 11.2
+> but has not been implemented ever since the beginning of DC.
+>
+> Affected GPUs have been working fine without that implementation
+> for many years. Let's delete it now.
+Reviewed-by: Melissa Wen <mwen@igalia.com>
+>
+> Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
+> ---
+>   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c | 8 --------
+>   .../gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c  | 9 ---------
+>   .../drm/amd/display/dc/clk_mgr/dce110/dce110_clk_mgr.c   | 9 ---------
+>   .../drm/amd/display/dc/clk_mgr/dce112/dce112_clk_mgr.c   | 9 ---------
+>   drivers/gpu/drm/amd/display/dc/dm_services.h             | 4 ----
+>   5 files changed, 39 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c
+> index 11b2ea6edf953..17f42201ab862 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c
+> @@ -417,14 +417,6 @@ bool dm_pp_notify_wm_clock_changes(
+>   	return false;
+>   }
+>   
+> -bool dm_pp_apply_power_level_change_request(
+> -	const struct dc_context *ctx,
+> -	struct dm_pp_power_level_change_request *level_change_req)
+> -{
+> -	/* TODO: to be implemented */
+> -	return false;
+> -}
+> -
+>   bool dm_pp_apply_clock_for_voltage_request(
+>   	const struct dc_context *ctx,
+>   	struct dm_pp_clock_for_voltage_req *clock_for_voltage_req)
+> diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c
+> index 6d41df52d7c9b..ffb70120362e7 100644
+> --- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c
+> +++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c
+> @@ -431,19 +431,10 @@ static void dce_update_clocks(struct clk_mgr *clk_mgr_base,
+>   			bool safe_to_lower)
+>   {
+>   	struct clk_mgr_internal *clk_mgr_dce = TO_CLK_MGR_INTERNAL(clk_mgr_base);
+> -	struct dm_pp_power_level_change_request level_change_req;
+>   	const int max_disp_clk =
+>   		clk_mgr_dce->max_clks_by_state[DM_PP_CLOCKS_STATE_PERFORMANCE].display_clk_khz;
+>   	int patched_disp_clk = MIN(max_disp_clk, context->bw_ctx.bw.dce.dispclk_khz);
+>   
+> -	level_change_req.power_level = dce_get_required_clocks_state(clk_mgr_base, context);
+> -	/* get max clock state from PPLIB */
+> -	if ((level_change_req.power_level < clk_mgr_dce->cur_min_clks_state && safe_to_lower)
+> -			|| level_change_req.power_level > clk_mgr_dce->cur_min_clks_state) {
+> -		if (dm_pp_apply_power_level_change_request(clk_mgr_base->ctx, &level_change_req))
+> -			clk_mgr_dce->cur_min_clks_state = level_change_req.power_level;
+> -	}
+> -
+>   	if (should_set_clock(safe_to_lower, patched_disp_clk, clk_mgr_base->clks.dispclk_khz)) {
+>   		patched_disp_clk = dce_set_clock(clk_mgr_base, patched_disp_clk);
+>   		clk_mgr_base->clks.dispclk_khz = patched_disp_clk;
+> diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dce110/dce110_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dce110/dce110_clk_mgr.c
+> index 13296c6ec08f4..ae922f1a31ff8 100644
+> --- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dce110/dce110_clk_mgr.c
+> +++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dce110/dce110_clk_mgr.c
+> @@ -257,21 +257,12 @@ static void dce11_update_clocks(struct clk_mgr *clk_mgr_base,
+>   			bool safe_to_lower)
+>   {
+>   	struct clk_mgr_internal *clk_mgr_dce = TO_CLK_MGR_INTERNAL(clk_mgr_base);
+> -	struct dm_pp_power_level_change_request level_change_req;
+>   	int patched_disp_clk = context->bw_ctx.bw.dce.dispclk_khz;
+>   
+>   	/*TODO: W/A for dal3 linux, investigate why this works */
+>   	if (!clk_mgr_dce->dfs_bypass_active)
+>   		patched_disp_clk = patched_disp_clk * 115 / 100;
+>   
+> -	level_change_req.power_level = dce_get_required_clocks_state(clk_mgr_base, context);
+> -	/* get max clock state from PPLIB */
+> -	if ((level_change_req.power_level < clk_mgr_dce->cur_min_clks_state && safe_to_lower)
+> -			|| level_change_req.power_level > clk_mgr_dce->cur_min_clks_state) {
+> -		if (dm_pp_apply_power_level_change_request(clk_mgr_base->ctx, &level_change_req))
+> -			clk_mgr_dce->cur_min_clks_state = level_change_req.power_level;
+> -	}
+> -
+>   	if (should_set_clock(safe_to_lower, patched_disp_clk, clk_mgr_base->clks.dispclk_khz)) {
+>   		context->bw_ctx.bw.dce.dispclk_khz = dce_set_clock(clk_mgr_base, patched_disp_clk);
+>   		clk_mgr_base->clks.dispclk_khz = patched_disp_clk;
+> diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dce112/dce112_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dce112/dce112_clk_mgr.c
+> index 1f36ad8a7de46..48393c69735b6 100644
+> --- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dce112/dce112_clk_mgr.c
+> +++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dce112/dce112_clk_mgr.c
+> @@ -193,21 +193,12 @@ static void dce112_update_clocks(struct clk_mgr *clk_mgr_base,
+>   			bool safe_to_lower)
+>   {
+>   	struct clk_mgr_internal *clk_mgr_dce = TO_CLK_MGR_INTERNAL(clk_mgr_base);
+> -	struct dm_pp_power_level_change_request level_change_req;
+>   	int patched_disp_clk = context->bw_ctx.bw.dce.dispclk_khz;
+>   
+>   	/*TODO: W/A for dal3 linux, investigate why this works */
+>   	if (!clk_mgr_dce->dfs_bypass_active)
+>   		patched_disp_clk = patched_disp_clk * 115 / 100;
+>   
+> -	level_change_req.power_level = dce_get_required_clocks_state(clk_mgr_base, context);
+> -	/* get max clock state from PPLIB */
+> -	if ((level_change_req.power_level < clk_mgr_dce->cur_min_clks_state && safe_to_lower)
+> -			|| level_change_req.power_level > clk_mgr_dce->cur_min_clks_state) {
+> -		if (dm_pp_apply_power_level_change_request(clk_mgr_base->ctx, &level_change_req))
+> -			clk_mgr_dce->cur_min_clks_state = level_change_req.power_level;
+> -	}
+> -
+>   	if (should_set_clock(safe_to_lower, patched_disp_clk, clk_mgr_base->clks.dispclk_khz)) {
+>   		patched_disp_clk = dce112_set_clock(clk_mgr_base, patched_disp_clk);
+>   		clk_mgr_base->clks.dispclk_khz = patched_disp_clk;
+> diff --git a/drivers/gpu/drm/amd/display/dc/dm_services.h b/drivers/gpu/drm/amd/display/dc/dm_services.h
+> index fbbf9c757b3c3..1395d36bfabe9 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dm_services.h
+> +++ b/drivers/gpu/drm/amd/display/dc/dm_services.h
+> @@ -224,10 +224,6 @@ bool dm_pp_apply_display_requirements(
+>   	const struct dc_context *ctx,
+>   	const struct dm_pp_display_configuration *pp_display_cfg);
+>   
+> -bool dm_pp_apply_power_level_change_request(
+> -	const struct dc_context *ctx,
+> -	struct dm_pp_power_level_change_request *level_change_req);
+> -
+>   bool dm_pp_apply_clock_for_voltage_request(
+>   	const struct dc_context *ctx,
+>   	struct dm_pp_clock_for_voltage_req *clock_for_voltage_req);
 
-9d67006e6ebc6c Alex Deucher      2013-04-12  48  
-9d67006e6ebc6c Alex Deucher      2013-04-12  49  static void rs780_get_pm_mode_parameters(struct radeon_device *rdev)
-9d67006e6ebc6c Alex Deucher      2013-04-12  50  {
-9d67006e6ebc6c Alex Deucher      2013-04-12  51  	struct igp_power_info *pi = rs780_get_pi(rdev);
-9d67006e6ebc6c Alex Deucher      2013-04-12  52  	struct radeon_mode_info *minfo = &rdev->mode_info;
-9d67006e6ebc6c Alex Deucher      2013-04-12  53  	struct drm_crtc *crtc;
-9d67006e6ebc6c Alex Deucher      2013-04-12  54  	struct radeon_crtc *radeon_crtc;
-9d67006e6ebc6c Alex Deucher      2013-04-12  55  	int i;
-9d67006e6ebc6c Alex Deucher      2013-04-12  56  
-9d67006e6ebc6c Alex Deucher      2013-04-12  57  	/* defaults */
-9d67006e6ebc6c Alex Deucher      2013-04-12  58  	pi->crtc_id = 0;
-9d67006e6ebc6c Alex Deucher      2013-04-12  59  	pi->refresh_rate = 60;
-9d67006e6ebc6c Alex Deucher      2013-04-12  60  
-9d67006e6ebc6c Alex Deucher      2013-04-12  61  	for (i = 0; i < rdev->num_crtc; i++) {
-9d67006e6ebc6c Alex Deucher      2013-04-12  62  		crtc = (struct drm_crtc *)minfo->crtcs[i];
-9d67006e6ebc6c Alex Deucher      2013-04-12  63  		if (crtc && crtc->enabled) {
-9d67006e6ebc6c Alex Deucher      2013-04-12  64  			radeon_crtc = to_radeon_crtc(crtc);
-9d67006e6ebc6c Alex Deucher      2013-04-12  65  			pi->crtc_id = radeon_crtc->crtc_id;
-9d67006e6ebc6c Alex Deucher      2013-04-12 @66  			if (crtc->mode.htotal && crtc->mode.vtotal)
-c3eaa088277709 Alex Deucher      2013-09-13  67  				pi->refresh_rate = drm_mode_vrefresh(&crtc->mode);
-0d99a77de43b3f Evgenii Burenchev 2026-04-28  68  				if (pi->refresh_rate == 0)
-0d99a77de43b3f Evgenii Burenchev 2026-04-28  69  					pi->refresh_rate = 60;
-9d67006e6ebc6c Alex Deucher      2013-04-12  70  			break;
-9d67006e6ebc6c Alex Deucher      2013-04-12  71  		}
-9d67006e6ebc6c Alex Deucher      2013-04-12  72  	}
-9d67006e6ebc6c Alex Deucher      2013-04-12  73  }
-9d67006e6ebc6c Alex Deucher      2013-04-12  74  
-
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
