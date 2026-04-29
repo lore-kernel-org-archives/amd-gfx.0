@@ -4,95 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2633DFF8875
-	for <amd-gfx@archiver.kernel.org>; Wed, 29 Apr 2026 10:11:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B305AFF8867
+	for <amd-gfx@archiver.kernel.org>; Wed, 29 Apr 2026 10:26:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A4DF410EF43;
-	Wed, 29 Apr 2026 10:11:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2EEE610EF70;
+	Wed, 29 Apr 2026 10:26:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="uSEc8r5v";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="nNUI5PFk";
 	dkim-atps=neutral
-Received: from PH0PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11011066.outbound.protection.outlook.com [40.107.208.66])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 177E510EF43
- for <amd-gfx@lists.freedesktop.org>; Wed, 29 Apr 2026 10:11:24 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=r8+6sscd1OEgd0RgLD17Sb0LYjVB0e6fjwZ7DUKaJRQn1QBNPnqIAdUVSW0Ghh7wJeNeotgv6uDUSNTWgTcilGE/iV9jyYYmYYsywK5Y5e/HT+RvwBL06nmOy2aJ+JkvtxihkiBu8RYBGKITOwmb54RUi7B6j3sy+azLAzXEuEDQXS11XLM812yC4yyn5Rph1FPTcqzkfPkr6G5fSGPjjD8Tv3y5XR6BRgqdEb9sP8WS/jMaO4gFCYNG1hlCbMcXZSiivs3KOwisXV+SZevcdQzbnGkf4u15pMyiNyRyr8G6gUTEvkxqqtaldDAPOx9s0r0+m5OEQEzfuJ+NDWDycg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=iNrqjgVfCSsmz81+52+TxjXD2FuKXgROIzE1RGQQz3A=;
- b=HbMKahWh6ACb+WOSCBjwtB5KuIMkB9a/6Ewe0cbUDOwVNQDSGXqC6PkNLNue+GPiye6XkHQGWrbc1KtXkPl58plKAoswc8NP1tUk1Kl0D8xamXlDB/xjYD+kuoj42qxazMgQQFGMeyJl4dhMlXv9lwrILsr8SZo9DSa7xlDJMYQ7lvnG5hKVgeuhBRI4qt95Krn7fmGf+kDgNK6iIsD7vbqDkdTbWrgMGXscqxECldFV0NQPmbQJglznak4+QuMPWnIk5eaHkF648ySEuNQtiL86OaC8SSSI4nb6c1QqlEbJkxlpT38Z+THQ/FJscjW7mASIhHJojuUZ9OjsU/HAfA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=iNrqjgVfCSsmz81+52+TxjXD2FuKXgROIzE1RGQQz3A=;
- b=uSEc8r5vnu7yDXqZUVSLfmjcYGxUrI9x/hLz9K1pR92JunFGkhnIzat9KD+EBzHQM4aV+jeFMUYZyhGo5WhXPMrB/ENeMehcVO1ZS1iO9Fx16WRzVlVRYQ1Mt2CZAViQ8BPL/RXq/rClme1ieB37xdWXqh2GpSVDqEqZYyxS3TI=
-Received: from BLAPR05CA0032.namprd05.prod.outlook.com (2603:10b6:208:335::13)
- by DS7PR12MB5767.namprd12.prod.outlook.com (2603:10b6:8:76::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.20; Wed, 29 Apr
- 2026 10:11:20 +0000
-Received: from BL02EPF0002992A.namprd02.prod.outlook.com
- (2603:10b6:208:335:cafe::eb) by BLAPR05CA0032.outlook.office365.com
- (2603:10b6:208:335::13) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9870.20 via Frontend Transport; Wed,
- 29 Apr 2026 10:11:19 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BL02EPF0002992A.mail.protection.outlook.com (10.167.249.55) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9846.18 via Frontend Transport; Wed, 29 Apr 2026 10:11:19 +0000
-Received: from mlse-blrlinux-ll.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Wed, 29 Apr
- 2026 05:11:18 -0500
-From: Lijo Lazar <lijo.lazar@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <Hawking.Zhang@amd.com>, <Alexander.Deucher@amd.com>, <candice.li@amd.com>
-Subject: [PATCH] drm/amdgpu: Prefer ROM BAR for default VGA device
-Date: Wed, 29 Apr 2026 15:41:00 +0530
-Message-ID: <20260429101100.3893004-1-lijo.lazar@amd.com>
-X-Mailer: git-send-email 2.49.0
+Received: from mail-oo1-f44.google.com (mail-oo1-f44.google.com
+ [209.85.161.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9E4AE10E03A
+ for <amd-gfx@lists.freedesktop.org>; Wed, 29 Apr 2026 03:26:25 +0000 (UTC)
+Received: by mail-oo1-f44.google.com with SMTP id
+ 006d021491bc7-679b072ed3aso5772495eaf.1
+ for <amd-gfx@lists.freedesktop.org>; Tue, 28 Apr 2026 20:26:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1777433185; x=1778037985; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=fDq0+Om8CwqznPOpM1JgAcMFcBij3v4uN7yEeX42s6A=;
+ b=nNUI5PFkp7GDroM81vNLdzGbR76BIF+mNcfng9kan3zzgAtlLl+ctk/kND8DoCdKxO
+ nF5cDVc8gTbr5yFdLLgJi9L6kKvp6sti/ZoaBCrcCt3VLaubuZZNnzKuf960ZWyR9P/8
+ NaX+hbv8pygD2FEGTK1m4canmjPaNYhiv6j/1egdKtkUBL13x+tBEsl6rKyZSAiBUwXD
+ XtNjdRs26ogmMWikvB1Lt082HNZEYCDO0XbBnLmw2R7AnvZUtwzEpiHS829bCvoqKJ3e
+ COScVA1aYAqO63ThiOx53JkQuOZNznCRdCYCyg2Ebl8kqp31djMNlTVPVGKHOKiAikJV
+ bYWg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1777433185; x=1778037985;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=fDq0+Om8CwqznPOpM1JgAcMFcBij3v4uN7yEeX42s6A=;
+ b=qPPcJLuXMXAP7J3CuqmGVzyN3SsaE8yh4tx0jIV1+QqwSusjEIs/FahQzjpEGL2+zs
+ mWcrSLw8X8GxdCRX2ii5kFXiAeTs0VC2pk485itxFlU6NaIP1YPzHv8JakPZ+8GN06BR
+ GqFBss4zFXa1igTdKQWF0KJO4aKjWCX8ZllWpcY0vDDfUFIZu3t5pa1rJilZKAt4z9XU
+ UKMliOoRD/uAfV9Dy52LHlP/qzqJArr1G0NDvJ06+TF8dS3baUNa/pPQ06UkweGrZTJ7
+ jGkqNE/j5qc/sa+YZ40GFFlN+dbmqpnk3v6gnW27JQhDLaEigO04QuzW7Iroe6JTOCNR
+ kFdw==
+X-Gm-Message-State: AOJu0YwrZkmq3aC67lEr42kgzTeLPDY9PNqSUixWIBNHSO++8F8vlQGD
+ XG5+cEUPtKzA1qMwGpb1WV9jDBWDkgoHyPlaNfkPURuowaSEQkvkvQs=
+X-Gm-Gg: AeBDiesW3B7hzQekjS8K97SdISPwFxBDA2vW5N3av6e3PxqLf8E8/kKLtYWDTonE+oR
+ zfj8T+IEzgtJVbcRMWvUxixxfaB0QRrg1zcjxv1mJnbfW8Lv9B57JM6TzYTSIt+m6lddEwtYZqV
+ FuAYdTn35x9Ve/Day1PPauEvPq32g9qOuF1xTQa8OgI9C08APeNNRG5RoPyugtsNiS48LEtAmPq
+ jvl2+2VOVWEe3IooUMSWdq+7JzJ5rCt8TDMd4RYlBkzdc+Q3b/G2b/AHqb4GefCAVbAMgH4LRD/
+ 1Z+l5aTegJmI7jQPuYUwWjk/nu9mh0U6fIHg7KskWTDOtiB2DgKnh16F1cI230dOLUwYvX6c3fQ
+ VL9UaKkPmLAv2MrUhxIg3CL7I3Q7FQgmROQADHosbmftkMjPKmYJIa8J5aqcyWZZvKaeOcR8yCJ
+ /afQT5EgOuj7UdMOQ6dr4+wN5habl1RG2DGAcGWEAte+b23eFox51QF0qOwk9PucxkM53Wvv42p
+ 3AAE3TdSml6wXnKCAc7W20+M9ag9Zn45l4=
+X-Received: by 2002:a4a:e903:0:b0:696:1413:496a with SMTP id
+ 006d021491bc7-6965ca8527dmr3146109eaf.17.1777433184671; 
+ Tue, 28 Apr 2026 20:26:24 -0700 (PDT)
+Received: from localhost.localdomain ([47.188.191.104])
+ by smtp.gmail.com with ESMTPSA id
+ 006d021491bc7-6966bc3be04sm405156eaf.8.2026.04.28.20.26.23
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 28 Apr 2026 20:26:24 -0700 (PDT)
+From: "John B. Moore" <jbmoore61@gmail.com>
+To: christian.koenig@amd.com,
+	alexander.deucher@amd.com
+Cc: amd-gfx@lists.freedesktop.org,
+	jbmoore61@gmail.com
+Subject: [PATCH v4 2/2] drm/amdgpu/ring: extract kiq_read_clock to common
+ HW-agnostic code
+Date: Tue, 28 Apr 2026 22:26:21 -0500
+Message-ID: <20260429032621.10888-2-jbmoore61@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260429032621.10888-1-jbmoore61@gmail.com>
+References: <20260429032621.10888-1-jbmoore61@gmail.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF0002992A:EE_|DS7PR12MB5767:EE_
-X-MS-Office365-Filtering-Correlation-Id: 10a7677f-7983-4551-814b-08dea5d7a8a5
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|82310400026|36860700016|1800799024|56012099003|18002099003;
-X-Microsoft-Antispam-Message-Info: NDxkwWfH9jNO8+n5QKp4il/IoGkoRGDBrb0Z6V6VkkpEJXSrc8FPC7vvCYsxy0JbCSCw1y4QdeklhcXkTyVQxU2iwTbqctBoL8r6wTQYPWacugXkrkpPMOEndvq+pIpDbetNpSerMu4gufqTCutkXFM8Q5y0eUcvcofu3ouIOUt+wN7H1JLKlt6+pjyvao+AtAJiIDDZhtq1odT72OxFORNaijRBPs5P96fMHjDAwl60/YULpFF7PdYl9uDiQ3hXU0ghJm1O2fr9Of04ldxto97OCFZiHTGa5un7vD6/hKYfmg6KTnf/y0nxyUnUvkpY+UNBUPJlJDVgy/O621Pr47LeL4HFATbh+3ggExBBNJeff7A/oMmZh/O1TzsUuEhz89CBlILhdiE8Y5xmNQlrDSA+A7k79ZzD85LZWOvWL+SLKcveE8BxxZ+eJWtgQXAQWsYZsx99jQvPRgJujcc55ZAc0qwZ9agnaNF+bLxUR+EBzCKVHD8g1Ez+xbGTTr1oKaP/W5O1raj3jVPBMFK7FoMXQWbKItW8/iUH+SLGri7tpYLDDVwNypfCSVkMTvg6uvhwWUuNI5Pm1eq0SKpD0CQJo+hj9XIeZZb3OlMsRYOB16y+QcTdnO6YEnHG7emNEPi8Iu/Qc7mV/bpXjKu+4shN+N0eFZFUrATeAQZtmXoT0yubYlOuv2ltPDdlXwP7sfwgLKNpW5+i5g0tg+x0t4vPiFrX+v+DuLU9BeYlEdStVqueZVF3ygOJe8CHP65kewBkXdLJR4uIiWdy3mlcvQ==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(82310400026)(36860700016)(1800799024)(56012099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: GYyM0HyfRMMehW3VAHydnB/x2B8Ry9uzMX5zb1TdLulXmX9Se3qTQtwZJ72teWFtieVoA42G7bAz++GBF2NOdz8tHm1AzsZV7WjHlUv0w58VhgzG4V0u/T43wM/uOflnDII/LWP6pzbCEOGgREAblSVC3tEaqwJZ+kJ4LbgsX/K7EttlrL/QBd7OPsbqh/dxOGr0tQAWVG9uYf12ReYhcx3lZGrIOtsgeI52EK4jKG1+fqOLm9fWXgEgFJBAvG/g1BACaI0qqelrvz8x2I0bh00wTl6tqJCHkpB6J60ykwC3+6GtMmBywBmylOoYtdR1n/d/UYtOWhR+iFtfHyAmhT5fNHEYUn+5ZnSsm0BPt2tbwqf3++axEh2Qh9tEacPYVFONrT2OZmVDa/ny+sf4Xy8Ne8eQWlRIGRpnIJ3Awr/wBN568jNvPTk+0LCl+u3P
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Apr 2026 10:11:19.8802 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 10a7677f-7983-4551-814b-08dea5d7a8a5
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL02EPF0002992A.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB5767
+X-Mailman-Approved-At: Wed, 29 Apr 2026 10:25:59 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,36 +91,227 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Fetching from platform ROM doesn't work with hybrid ROM images. For
-default VGA devices also prefer ROM BAR.
+Move gfx_v9_0_kiq_read_clock() from gfx_v9_0.c to amdgpu_ring.c
+as amdgpu_kiq_read_clock(). The function uses PACKET3_COPY_DATA to
+read the GPU clock counter via the KIQ ring and is not in any way
+HW generation dependent -- it can be reused by any GFX IP version
+that needs KIQ-based clock reads in SRIOV environments.
 
-Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
+Preserve the original block comment explaining the gpu_recover()
+deadlock avoidance logic for the reset-path bail-out.
+
+Requested-by: Christian König <christian.koenig@amd.com>
+Signed-off-by: John B. Moore <jbmoore61@gmail.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h      |  1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c | 85 ++++++++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c    | 74 +--------------------
+ 3 files changed, 88 insertions(+), 72 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
-index 35d04e69aec0..aa039e148a5e 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
-@@ -33,6 +33,7 @@
- #include <linux/pci.h>
- #include <linux/slab.h>
- #include <linux/acpi.h>
-+#include <linux/vgaarb.h>
- /*
-  * BIOS.
-  */
-@@ -467,7 +468,8 @@ static bool amdgpu_prefer_rom_resource(struct amdgpu_device *adev)
- {
- 	struct resource *res = &adev->pdev->resource[PCI_ROM_RESOURCE];
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+index 447e734c3..75e200211 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+@@ -524,6 +524,7 @@ struct amdgpu_wb {
  
--	return (res->flags & IORESOURCE_ROM_SHADOW);
-+	return (res->flags & IORESOURCE_ROM_SHADOW) ||
-+	       adev->pdev == vga_default_device();
+ int amdgpu_device_wb_get(struct amdgpu_device *adev, u32 *wb);
+ void amdgpu_device_wb_free(struct amdgpu_device *adev, u32 wb);
++uint64_t amdgpu_kiq_read_clock(struct amdgpu_device *adev);
+ 
+ /*
+  * Benchmarking
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+index 4638a686a..6049215ce 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+@@ -35,6 +35,7 @@
+ #include "amdgpu.h"
+ #include "amdgpu_ras_mgr.h"
+ #include "atom.h"
++#include "sid.h"
+ 
+ /*
+  * Rings
+@@ -926,3 +927,87 @@ bool amdgpu_ring_is_reset_type_supported(struct amdgpu_ring *ring,
+ 	}
+ 	return false;
+ }
++
++/**
++ * amdgpu_kiq_read_clock - read GPU clock via KIQ ring
++ *
++ * @adev: amdgpu_device pointer
++ *
++ * Use the KIQ (Kernel Interface Queue) to issue a COPY_DATA packet
++ * that reads the GPU clock counter into a writeback buffer.
++ * This is HW-generation agnostic and can be used by any IP that
++ * needs to read the GPU clock via KIQ in SRIOV environments.
++ *
++ * Returns the 64-bit GPU clock value, or ~0 on failure.
++ */
++uint64_t amdgpu_kiq_read_clock(struct amdgpu_device *adev)
++{
++	signed long r, cnt = 0;
++	unsigned long flags;
++	uint32_t seq, reg_val_offs = 0;
++	uint64_t value = 0;
++	struct amdgpu_kiq *kiq = &adev->gfx.kiq[0];
++	struct amdgpu_ring *ring = &kiq->ring;
++
++	spin_lock_irqsave(&kiq->ring_lock, flags);
++	if (amdgpu_device_wb_get(adev, &reg_val_offs)) {
++		pr_err("critical bug! too many kiq readers\n");
++		goto failed_unlock;
++	}
++	amdgpu_ring_alloc(ring, 32);
++	amdgpu_ring_write(ring, PACKET3(PACKET3_COPY_DATA, 4));
++	amdgpu_ring_write(ring, 9 |		/* src: GPU clock */
++				(5 << 8) |	/* dst: memory */
++				(1 << 16) |	/* count sel */
++				(1 << 20));	/* write confirm */
++	amdgpu_ring_write(ring, 0);
++	amdgpu_ring_write(ring, 0);
++	amdgpu_ring_write(ring, lower_32_bits(adev->wb.gpu_addr +
++				reg_val_offs * 4));
++	amdgpu_ring_write(ring, upper_32_bits(adev->wb.gpu_addr +
++				reg_val_offs * 4));
++	r = amdgpu_fence_emit_polling(ring, &seq, MAX_KIQ_REG_WAIT);
++	if (r)
++		goto failed_undo;
++
++	amdgpu_ring_commit(ring);
++	spin_unlock_irqrestore(&kiq->ring_lock, flags);
++
++	r = amdgpu_fence_wait_polling(ring, seq, MAX_KIQ_REG_WAIT);
++
++	/* don't wait anymore for gpu reset case because this way may
++	 * block gpu_recover() routine forever, e.g. this virt_kiq_rreg
++	 * is triggered in TTM and ttm_bo_lock_delayed_workqueue() will
++	 * never return if we keep waiting in virt_kiq_rreg, which cause
++	 * gpu_recover() hang there.
++	 *
++	 * also don't wait anymore for IRQ context
++	 * */
++	if (r < 1 && (amdgpu_in_reset(adev)))
++		goto failed_kiq_read;
++
++	might_sleep();
++	while (r < 1 && cnt++ < MAX_KIQ_REG_TRY) {
++		msleep(MAX_KIQ_REG_BAILOUT_INTERVAL);
++		r = amdgpu_fence_wait_polling(ring, seq, MAX_KIQ_REG_WAIT);
++	}
++
++	if (cnt > MAX_KIQ_REG_TRY)
++		goto failed_kiq_read;
++
++	mb();
++	value = (uint64_t)adev->wb.wb[reg_val_offs] |
++		(uint64_t)adev->wb.wb[reg_val_offs + 1] << 32ULL;
++	amdgpu_device_wb_free(adev, reg_val_offs);
++	return value;
++
++failed_undo:
++	amdgpu_ring_undo(ring);
++failed_unlock:
++	spin_unlock_irqrestore(&kiq->ring_lock, flags);
++failed_kiq_read:
++	if (reg_val_offs)
++		amdgpu_device_wb_free(adev, reg_val_offs);
++	pr_err("failed to read gpu clock\n");
++	return ~0;
++}
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+index 1153121e0..9ae55b060 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+@@ -4205,77 +4205,7 @@ static int gfx_v9_0_soft_reset(struct amdgpu_ip_block *ip_block)
+ 	return 0;
  }
  
- static bool amdgpu_get_bios_dgpu(struct amdgpu_device *adev)
+-static uint64_t gfx_v9_0_kiq_read_clock(struct amdgpu_device *adev)
+-{
+-	signed long r, cnt = 0;
+-	unsigned long flags;
+-	uint32_t seq, reg_val_offs = 0;
+-	uint64_t value = 0;
+-	struct amdgpu_kiq *kiq = &adev->gfx.kiq[0];
+-	struct amdgpu_ring *ring = &kiq->ring;
+-
+-	spin_lock_irqsave(&kiq->ring_lock, flags);
+-	if (amdgpu_device_wb_get(adev, &reg_val_offs)) {
+-		pr_err("critical bug! too many kiq readers\n");
+-		goto failed_unlock;
+-	}
+-	amdgpu_ring_alloc(ring, 32);
+-	amdgpu_ring_write(ring, PACKET3(PACKET3_COPY_DATA, 4));
+-	amdgpu_ring_write(ring, 9 |	/* src: register*/
+-				(5 << 8) |	/* dst: memory */
+-				(1 << 16) |	/* count sel */
+-				(1 << 20));	/* write confirm */
+-	amdgpu_ring_write(ring, 0);
+-	amdgpu_ring_write(ring, 0);
+-	amdgpu_ring_write(ring, lower_32_bits(adev->wb.gpu_addr +
+-				reg_val_offs * 4));
+-	amdgpu_ring_write(ring, upper_32_bits(adev->wb.gpu_addr +
+-				reg_val_offs * 4));
+-	r = amdgpu_fence_emit_polling(ring, &seq, MAX_KIQ_REG_WAIT);
+-	if (r)
+-		goto failed_undo;
+-
+-	amdgpu_ring_commit(ring);
+-	spin_unlock_irqrestore(&kiq->ring_lock, flags);
+-
+-	r = amdgpu_fence_wait_polling(ring, seq, MAX_KIQ_REG_WAIT);
+-
+-	/* don't wait anymore for gpu reset case because this way may
+-	 * block gpu_recover() routine forever, e.g. this virt_kiq_rreg
+-	 * is triggered in TTM and ttm_bo_lock_delayed_workqueue() will
+-	 * never return if we keep waiting in virt_kiq_rreg, which cause
+-	 * gpu_recover() hang there.
+-	 *
+-	 * also don't wait anymore for IRQ context
+-	 * */
+-	if (r < 1 && (amdgpu_in_reset(adev)))
+-		goto failed_kiq_read;
+-
+-	might_sleep();
+-	while (r < 1 && cnt++ < MAX_KIQ_REG_TRY) {
+-		msleep(MAX_KIQ_REG_BAILOUT_INTERVAL);
+-		r = amdgpu_fence_wait_polling(ring, seq, MAX_KIQ_REG_WAIT);
+-	}
+-
+-	if (cnt > MAX_KIQ_REG_TRY)
+-		goto failed_kiq_read;
+-
+-	mb();
+-	value = (uint64_t)adev->wb.wb[reg_val_offs] |
+-		(uint64_t)adev->wb.wb[reg_val_offs + 1 ] << 32ULL;
+-	amdgpu_device_wb_free(adev, reg_val_offs);
+-	return value;
+-
+-failed_undo:
+-	amdgpu_ring_undo(ring);
+-failed_unlock:
+-	spin_unlock_irqrestore(&kiq->ring_lock, flags);
+-failed_kiq_read:
+-	if (reg_val_offs)
+-		amdgpu_device_wb_free(adev, reg_val_offs);
+-	pr_err("failed to read gpu clock\n");
+-	return ~0;
+-}
++/* kiq_read_clock moved to amdgpu_ring.c as amdgpu_kiq_read_clock() */
+ 
+ static uint64_t gfx_v9_0_get_gpu_clock_counter(struct amdgpu_device *adev)
+ {
+@@ -4303,7 +4233,7 @@ static uint64_t gfx_v9_0_get_gpu_clock_counter(struct amdgpu_device *adev)
+ 		if (amdgpu_ip_version(adev, GC_HWIP, 0) ==
+ 			    IP_VERSION(9, 0, 1) &&
+ 		    amdgpu_sriov_runtime(adev)) {
+-			clock = gfx_v9_0_kiq_read_clock(adev);
++			clock = amdgpu_kiq_read_clock(adev);
+ 		} else {
+ 			WREG32_SOC15(GC, 0, mmRLC_CAPTURE_GPU_CLOCK_COUNT, 1);
+ 			clock = (uint64_t)RREG32_SOC15(GC, 0, mmRLC_GPU_CLOCK_COUNT_LSB) |
 -- 
-2.49.0
+2.43.0
 
