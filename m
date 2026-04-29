@@ -4,71 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D9A6FCD13D2
-	for <amd-gfx@archiver.kernel.org>; Wed, 29 Apr 2026 10:26:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 04C6DCCFA13
+	for <amd-gfx@archiver.kernel.org>; Wed, 29 Apr 2026 10:26:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 40D1F10EF7B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D22AC10EF7E;
 	Wed, 29 Apr 2026 10:26:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ll64YMHV";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="gcQOMDwf";
 	dkim-atps=neutral
-Received: from mail-ot1-f44.google.com (mail-ot1-f44.google.com
- [209.85.210.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D484C10E03A
- for <amd-gfx@lists.freedesktop.org>; Wed, 29 Apr 2026 03:26:24 +0000 (UTC)
-Received: by mail-ot1-f44.google.com with SMTP id
- 46e09a7af769-7dcdaf06498so5541141a34.2
- for <amd-gfx@lists.freedesktop.org>; Tue, 28 Apr 2026 20:26:24 -0700 (PDT)
+Received: from mail-oo1-f44.google.com (mail-oo1-f44.google.com
+ [209.85.161.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 83A3610ED0C
+ for <amd-gfx@lists.freedesktop.org>; Wed, 29 Apr 2026 02:07:26 +0000 (UTC)
+Received: by mail-oo1-f44.google.com with SMTP id
+ 006d021491bc7-662efd1bdd4so203328eaf.0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 28 Apr 2026 19:07:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1777433184; x=1778037984; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1777428445; x=1778033245; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=40JxlhhqZWV8GMu2G5Kn5Dej6BzcRUpmj8d/0CBVtY8=;
- b=ll64YMHVhf1VGmOnIFL3epUstL2L6hY+b8bp2mpasS4TGUjT/RVxQYFepQoguu8l0g
- vQcAj+Z4czYfQmc6Fb9wWsluFadHfxoCeWDkg8O83osp8IF0u2fKN6N4tzyj3ktpyTV8
- 8fEPxM3w6ppRLE0aG3UikQuCdXoYMyxJM5PLDmL6F3n2njA1wQjLS4zHe2mZ0DzYkVjR
- Xw3EBnRI6+3snUxVUyZ66Y665D3ZS932ALzY6MSK15Iw1JMJ9IPHfcyKiwmrkeJuK+Cg
- Bg4Nzhz9khoe5Ts6XzsI36JCFj9HIh6tDGMj+ZmaD47j6MFzM3CBQMO7ZxLFkQXXEvhb
- 9kUg==
+ bh=y2w0ci/3nfogT9TVWzSGKqAaPzS8O2uQ/Ty6gdAnz4I=;
+ b=gcQOMDwf7QjiBlEGQjkGc8qF2GO7TPKkLDvnDT13jUJA76++8JsAmsJLjnfE/EUm+u
+ zr6pYsTU/YjJfnhUHuM3LY1AEPfOPLSoFZG0jLdgCKBXstlyuiHCL4UZ38Yv+t2MM5By
+ DepfKQt8CRWFmlmkiFgIISjrLYW4kRjYX7664wKIbPL/XZVhY+PVISZs1CAhkJxB9BA1
+ kUQnCW5NlEteBBr9KpBJ8jwgtUYZ80jfY2NKqk9X+UZ2OlL030RmzOg66rdEE/VFptiJ
+ iBk3El8UZcSjEHpse6lBQoekxjzEgwfd1l5Ha/6tim0IP/smB//APTkZHzmk0Odi1l57
+ nc9g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1777433184; x=1778037984;
+ d=1e100.net; s=20251104; t=1777428445; x=1778033245;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=40JxlhhqZWV8GMu2G5Kn5Dej6BzcRUpmj8d/0CBVtY8=;
- b=D9W6/F4YwYpQuTM8y21HALrE0ey/L6lPnQd6O0tzNUKUVGZ1WD3SRC2jh4d/uPdG/Y
- LCCQH+9Dt01DI9/Ulvx9bK12+dvl7t+oLVGh+Vo+NbCQfBg6ui9EjhhGbJ6X0aLJH+v7
- CNdVLemGZcbf3fqKTV9jm/UFXpwMGq7QDNDzJ/5xwHr4QZWiMXUv4GlARy6Iqb+S20MF
- ay47mLEiHDajO1kzvZ1OzLp5cYmEcojwUXHkO0wUXOM15BF+t4cuM8NpkDlp29z1a9BY
- pvo6nppaYwsFI6AhIr6g6rJtABTxgrxanFgwFbGKCThgePsttTp57RUDKlpqO9HxvhrL
- IcnQ==
-X-Gm-Message-State: AOJu0YweS2oQdydzFE3CCXy4fz3JocczLREZuv31iMRCpLUa2JntU8UM
- FJGnhqde/lWzPSBTXhKXspGAkOBd+TDhR/O072oUDxFcaS5u551YwXU=
-X-Gm-Gg: AeBDievUpIDcjPMvkfOSvxPYd9DoEX2TibEn3wbxqVZePDxC0Tj1ocJzF75kTB/+Y8D
- 54y60jgWUAWqgl76y0qA0D601P9oyi1ov5mtO02oPPqUE8loYLWevEA4o6TSTTk+HxvZuVSFbie
- mW62DdiPia84gocHfWOxRpr5ml6gRn1f46GrG1BYb18dFH5j42k6+k02bUDRq/SZq73mrvdXtLH
- zyNELvUnqevz84FF66Q2CCg23oWSxj11NWdTOOJqgAucie21uI5SFaihMELTtHHIBQnTUhCLLIh
- K5XsC4BZbLzl8JmHFEZeB2Blpy++6PuGGx8kbBM/LmIZeCrwm9Gs/14NKOdgRFClyjN+FyiF8Hq
- /T23eEN/h5j8gFlhF8qzn/7AFW9JhX5M50FVn8vGJJ/EoG8fJqfV8GYtse645ZROhPwBfp754FV
- sNmnrCvGwxGRAkD6iEby93EvBZ36DBXY4YHfPSLMcCWrSHlQwKQuL+eqibwGbwLZ14PpP+LIATO
- cHOenNcNwpLalAD4YtZh71+vWMPxcKzhKQ=
-X-Received: by 2002:a4a:ee07:0:b0:696:248f:807a with SMTP id
- 006d021491bc7-6965cb96417mr3063406eaf.40.1777433183875; 
- Tue, 28 Apr 2026 20:26:23 -0700 (PDT)
+ bh=y2w0ci/3nfogT9TVWzSGKqAaPzS8O2uQ/Ty6gdAnz4I=;
+ b=tXshEQgeVHLnnOHaSp0QrKrGylaBDLSSOgmbxzXMfZuQm7uJKrZhQ7XjZQ30P//dRe
+ Q7obvM5XjfCqEMob9MXJDgBz7tqBxmBulEryhlTWYSwGZvDq21NkCjg/R+ZiPq3ePAG+
+ W2u/KvEGic+fc7DuLLwAKgG1DoYhCIgd7v4ydUwbJ/qx3E5ezgFzGR372NPrIXktZ5zT
+ h3rJ0moVP6oRK2X3ctm7v1ygLVvz/efjG7NCHJowHsgx5QFimclDI4HnqBiSMDdHYl6H
+ t7/dGyN6H53gG6v9SgqriVSL5enoZJHSyM2BZpDD54L8GtSow1Vi82AzvucUF69cUT+x
+ GkDg==
+X-Gm-Message-State: AOJu0YxAlppCyoU8/ds1L+OqZ+PtrVUNBKKH1LrPu01vsMSaknca//gL
+ XBfL1RuoZxD7QRt9Z4RpyNT6sZNh/1Om33upexIoezMBxG2dlivyBCI=
+X-Gm-Gg: AeBDietkOPwSjy81Qzbh0nHGyNnARyiTTZYCFfEEeCRRqCc1nPTbL4DEu7d5a5RAa0Q
+ wfvphCnd0U/Kjfx6y4ysCmyIoi+Ir1WxvaeaKtrzVLJr4ykzSWS77GCOQXzr6tMYZmBb92uLGuB
+ bpeHdB90qwn/SMXMoMJRwQzoHNlFieeDU28FFVyF2PmhWqTJnbMY4ukfrmJuYJnKWXea/J0/hHo
+ aOEsYglbJnrNex8u3N7auIIkrCF0a3k09Z8x7HpepkBGSEub98hYh/Bh7yDrHwEtlgE03uxaq9M
+ D3rdxC+MuWYK6FdNASO+fahUyI5tmgxYVxLAASMamfeh5O/L6czzc3XLX62pdCcBHFFvMbAmWl2
+ lBvquofPsW3XjvL+erFb16nWf2UJLNW72r9m1y+eP/m/PTQOPdrug3mHfjmt+Aqq2t70kYpXdaC
+ QOPCNlsCV2bVqMWorDJAjyB0oacs1rLemV654zBqqkbNOaEEAIm4D8mkmb6N5tsyNHTwSdQkjPy
+ rzd8XrE6IL5rTArQu+bMpckh2URIH5Hbd0=
+X-Received: by 2002:a05:6820:1388:b0:694:8e28:fd7a with SMTP id
+ 006d021491bc7-696699fa5afmr593877eaf.25.1777428445461; 
+ Tue, 28 Apr 2026 19:07:25 -0700 (PDT)
 Received: from localhost.localdomain ([47.188.191.104])
  by smtp.gmail.com with ESMTPSA id
- 006d021491bc7-6966bc3be04sm405156eaf.8.2026.04.28.20.26.22
+ 006d021491bc7-6966bdefcf5sm290243eaf.11.2026.04.28.19.07.24
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 28 Apr 2026 20:26:23 -0700 (PDT)
+ Tue, 28 Apr 2026 19:07:24 -0700 (PDT)
 From: "John B. Moore" <jbmoore61@gmail.com>
-To: christian.koenig@amd.com,
-	alexander.deucher@amd.com
-Cc: amd-gfx@lists.freedesktop.org,
-	jbmoore61@gmail.com
-Subject: [PATCH v4 1/2] drm/amdgpu/gfx9: replace BUG_ON/BUG with WARN_ON_ONCE
- in ring emission
-Date: Tue, 28 Apr 2026 22:26:20 -0500
-Message-ID: <20260429032621.10888-1-jbmoore61@gmail.com>
+To: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Alexander Deucher <alexander.deucher@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, "John B. Moore" <jbmoore61@gmail.com>,
+ stable@vger.kernel.org
+Subject: [PATCH v3] drm/amdgpu/gfx9: replace BUG_ON/BUG with WARN_ON_ONCE in
+ ring emission
+Date: Tue, 28 Apr 2026 21:07:23 -0500
+Message-ID: <20260429020723.33301-1-jbmoore61@gmail.com>
 X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -88,40 +88,49 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Replace all BUG_ON() and BUG() assertions in the gfx_v9_0 ring
-emission paths with WARN_ON_ONCE() and graceful recovery, or proper
-error returns.
+Replace BUG_ON() and BUG() assertions in the gfx_v9_0 ring emission
+and support paths with WARN_ON_ONCE() and graceful recovery.  Nine
+sites are converted across wait_reg_mem, gpu_early_init,
+parse_ind_reg_list, init_rlc_save_restore_list, emit_ib_gfx,
+emit_ib_compute, emit_fence, get_wptr_compute, and set_wptr_compute.
 
-Nine sites are converted across wait_reg_mem, gpu_early_init,
-parse_ind_reg_list, init_rlc_save_restore_list, kiq_read_clock,
-emit_ib_gfx, emit_ib_compute, emit_fence, and get/set_wptr_compute.
+These assertions guard conditions that are either:
+- Address alignment checks on a deprecated byte-swap encoding from
+  legacy pre-amdgpu hardware (bits [1:0] must be zero), or
+- Switch-case defaults that should be unreachable but are better
+  handled with dev_err + return -EINVAL than a kernel panic.
 
-Changes since v3 (incorporating Christian König's review):
-- gfx_v9_1_init_rlc_save_restore_list: return -EINVAL and kfree()
-  instead of WARN_ON_ONCE + break, to properly abort driver loading.
-  Caller gfx_v9_0_init_pg now checks the return value.
-- gfx_v9_0_kiq_read_clock: drop the BUG_ON(!emit_rreg) check entirely
-  rather than converting to WARN_ON. If KIQ cannot emit registers the
-  driver would never have loaded in the first place.
-- gfx_v9_0_ring_get/set_wptr_compute: drop the if (ring->use_doorbell)
-  guard entirely since gfx9 compute always uses doorbell. Replace
-  atomic64_read/set with READ_ONCE/WRITE_ONCE since wptr_cpu_addr
-  points to system memory, not MMIO.
+Several of the address alignment BUG_ON sites in the IB emission
+paths (emit_ib_gfx, emit_ib_compute) are reachable from unprivileged
+userspace via crafted DRM_IOCTL_AMDGPU_CS submissions, causing a
+fatal kernel panic in a scheduler worker thread.
 
-The remaining BUG_ON in emit_fence_kiq (64-bit flag) is addressed
-separately in the KIQ fence flag patch series.
+For address checks, clear the reserved bits and proceed.  For
+unreachable switch defaults, log the error and return.  For the
+doorbell-only wptr paths, log with WARN_ONCE and return zero /
+no-op.  For init_rlc_save_restore_list, return -EINVAL to abort
+driver loading.  Ring emission callbacks return void, so
+force-aligning and proceeding is the accepted pattern.
+
+The kiq_read_clock BUG_ON is handled separately as it requires
+a larger refactor (moving to amdgpu_ring.c as common code).
 
 Found by a custom amdgpu DRM ioctl fuzzer.
 
-Fixes: b1023571479020e9 ("drm/amdgpu: implement GFX 9.0 support (v2)")
 Signed-off-by: John B. Moore <jbmoore61@gmail.com>
 Cc: stable@vger.kernel.org
 ---
- drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c | 60 ++++++++++++++-------------
- 1 file changed, 31 insertions(+), 29 deletions(-)
+Changes v2 -> v3:
+  - Dropped kiq_read_clock hunk (separate refactor per review)
+  - init_rlc_save_restore_list: return -EINVAL instead of break,
+    to abort driver loading (per Christian König review)
+  - Dropped Fixes tag (issue predates the referenced commit)
+
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c | 49 ++++++++++++++++++-----------
+ 1 file changed, 30 insertions(+), 19 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-index 7e9d753f4..1153121e0 100644
+index 2eb32f92a..47e81c33d 100644
 --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
 +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
 @@ -1182,8 +1182,8 @@ static void gfx_v9_0_wait_reg_mem(struct amdgpu_ring *ring, int eng_sel,
@@ -158,42 +167,17 @@ index 7e9d753f4..1153121e0 100644
  
  			if (!unique_indirect_regs[idx])
  				unique_indirect_regs[idx] = register_list_format[indirect_offset];
-@@ -2885,7 +2888,11 @@ static int gfx_v9_1_init_rlc_save_restore_list(struct amdgpu_device *adev)
+@@ -2885,7 +2888,8 @@ static int gfx_v9_1_init_rlc_save_restore_list(struct amdgpu_device *adev)
  			}
  		}
  
 -		BUG_ON(j >= unique_indirect_reg_count);
-+		if (j >= unique_indirect_reg_count) {
-+			dev_err(adev->dev, "init_rlc_save_restore_list: indirect reg not found in unique list\n");
-+			kfree(register_list_format);
++		if (WARN_ON_ONCE(j >= unique_indirect_reg_count))
 +			return -EINVAL;
-+		}
  
  		i++;
  	}
-@@ -3103,8 +3110,10 @@ static void gfx_v9_0_init_pg(struct amdgpu_device *adev)
- 	if (adev->gfx.rlc.is_rlc_v2_1) {
- 		if (amdgpu_ip_version(adev, GC_HWIP, 0) ==
- 			    IP_VERSION(9, 2, 1) ||
--		    (adev->apu_flags & AMD_APU_IS_RAVEN2))
--			gfx_v9_1_init_rlc_save_restore_list(adev);
-+		    (adev->apu_flags & AMD_APU_IS_RAVEN2)) {
-+			if (gfx_v9_1_init_rlc_save_restore_list(adev))
-+				return;
-+		}
- 		gfx_v9_0_enable_save_restore_machine(adev);
- 	}
- 
-@@ -4205,8 +4214,6 @@ static uint64_t gfx_v9_0_kiq_read_clock(struct amdgpu_device *adev)
- 	struct amdgpu_kiq *kiq = &adev->gfx.kiq[0];
- 	struct amdgpu_ring *ring = &kiq->ring;
- 
--	BUG_ON(!ring->funcs->emit_rreg);
--
- 	spin_lock_irqsave(&kiq->ring_lock, flags);
- 	if (amdgpu_device_wb_get(adev, &reg_val_offs)) {
- 		pr_err("critical bug! too many kiq readers\n");
-@@ -5427,7 +5434,8 @@ static void gfx_v9_0_ring_emit_ib_gfx(struct amdgpu_ring *ring,
+@@ -5431,7 +5435,8 @@ static void gfx_v9_0_ring_emit_ib_gfx(struct amdgpu_ring *ring,
  	}
  
  	amdgpu_ring_write(ring, header);
@@ -203,7 +187,7 @@ index 7e9d753f4..1153121e0 100644
  	amdgpu_ring_write(ring,
  #ifdef __BIG_ENDIAN
  		(2 << 0) |
-@@ -5523,7 +5531,8 @@ static void gfx_v9_0_ring_emit_ib_compute(struct amdgpu_ring *ring,
+@@ -5527,7 +5532,8 @@ static void gfx_v9_0_ring_emit_ib_compute(struct amdgpu_ring *ring,
  	}
  
  	amdgpu_ring_write(ring, PACKET3(PACKET3_INDIRECT_BUFFER, 2));
@@ -213,7 +197,7 @@ index 7e9d753f4..1153121e0 100644
  	amdgpu_ring_write(ring,
  #ifdef __BIG_ENDIAN
  				(2 << 0) |
-@@ -5563,10 +5572,13 @@ static void gfx_v9_0_ring_emit_fence(struct amdgpu_ring *ring, u64 addr,
+@@ -5567,10 +5573,13 @@ static void gfx_v9_0_ring_emit_fence(struct amdgpu_ring *ring, u64 addr,
  	 * the address should be Qword aligned if 64bit write, Dword
  	 * aligned if only send 32bit data low (discard data high)
  	 */
@@ -231,37 +215,35 @@ index 7e9d753f4..1153121e0 100644
  	amdgpu_ring_write(ring, lower_32_bits(addr));
  	amdgpu_ring_write(ring, upper_32_bits(addr));
  	amdgpu_ring_write(ring, lower_32_bits(seq));
-@@ -5632,14 +5644,8 @@ static u64 gfx_v9_0_ring_get_rptr_compute(struct amdgpu_ring *ring)
+@@ -5639,10 +5648,13 @@ static u64 gfx_v9_0_ring_get_wptr_compute(struct amdgpu_ring *ring)
+ 	u64 wptr;
  
- static u64 gfx_v9_0_ring_get_wptr_compute(struct amdgpu_ring *ring)
- {
--	u64 wptr;
--
  	/* XXX check if swapping is necessary on BE */
 -	if (ring->use_doorbell)
--		wptr = atomic64_read((atomic64_t *)ring->wptr_cpu_addr);
++	if (ring->use_doorbell) {
+ 		wptr = atomic64_read((atomic64_t *)ring->wptr_cpu_addr);
 -	else
 -		BUG();
--	return wptr;
-+	return READ_ONCE(*(u64 *)ring->wptr_cpu_addr);
++	} else {
++		WARN_ONCE(1, "gfx_v9_0: non-doorbell wptr read on ring %s, only doorbell method supported on gfx9\n",
++			  ring->name);
++		wptr = 0;
++	}
+ 	return wptr;
  }
  
- static void gfx_v9_0_ring_set_wptr_compute(struct amdgpu_ring *ring)
-@@ -5647,12 +5653,8 @@ static void gfx_v9_0_ring_set_wptr_compute(struct amdgpu_ring *ring)
- 	struct amdgpu_device *adev = ring->adev;
- 
- 	/* XXX check if swapping is necessary on BE */
--	if (ring->use_doorbell) {
--		atomic64_set((atomic64_t *)ring->wptr_cpu_addr, ring->wptr);
--		WDOORBELL64(ring->doorbell_index, ring->wptr);
+@@ -5654,8 +5666,8 @@ static void gfx_v9_0_ring_set_wptr_compute(struct amdgpu_ring *ring)
+ 	if (ring->use_doorbell) {
+ 		atomic64_set((atomic64_t *)ring->wptr_cpu_addr, ring->wptr);
+ 		WDOORBELL64(ring->doorbell_index, ring->wptr);
 -	} else{
 -		BUG(); /* only DOORBELL method supported on gfx9 now */
--	}
-+	WRITE_ONCE(*(u64 *)ring->wptr_cpu_addr, ring->wptr);
-+	WDOORBELL64(ring->doorbell_index, ring->wptr);
++	} else {
++		WARN_ONCE(1, "gfx_v9_0: non-doorbell wptr write on ring %s, only doorbell method supported on gfx9\n",
++			  ring->name);
+ 	}
  }
  
- static void gfx_v9_0_ring_emit_fence_kiq(struct amdgpu_ring *ring, u64 addr,
 -- 
 2.43.0
 
