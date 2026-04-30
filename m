@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CA265CD13D3
-	for <amd-gfx@archiver.kernel.org>; Thu, 30 Apr 2026 16:12:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EBB4FCD13D3
+	for <amd-gfx@archiver.kernel.org>; Thu, 30 Apr 2026 16:12:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6612310F3B3;
-	Thu, 30 Apr 2026 16:12:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 940AF10F3B4;
+	Thu, 30 Apr 2026 16:12:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="QQ+uPxGp";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="pwcCNmaG";
 	dkim-atps=neutral
-Received: from SN4PR2101CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11012056.outbound.protection.outlook.com
- [40.93.195.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3238810F3B3
- for <amd-gfx@lists.freedesktop.org>; Thu, 30 Apr 2026 16:12:41 +0000 (UTC)
+Received: from BN8PR05CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11011032.outbound.protection.outlook.com [52.101.57.32])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 32A7510F3B4
+ for <amd-gfx@lists.freedesktop.org>; Thu, 30 Apr 2026 16:12:55 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=XfDqLAaqcaSaAT+DU74j2NVctKGA3sPUKjlwhqbE1p3dXiTUe8i0lwk+K7ceRRZ3UhkvpM7HvwhsljqBKZv71MIwE/EOulGfqgnHWEHS/jBUExMKJ4RN5YKVh+Y9ogGV50yfDdvUXri4woWp6c6gxFxz4uUb9Gg1hWJwWJm7uO+Mw72LkxmotPe9oDHEAuIlkISoDlWRx9x36tz1yyLNI5psqT++LZxqfqKrlKhmEroKPrXOVYYbFHh6IyM6Iyyj7E1gnwhEggo6gnXpXk+ogTc7COfmvlSrwhUb6u1XfVv1JteNoBNMEzXrYDX8mN3LigrENFC9UJcQ1pn+4f9Ebw==
+ b=C07zNYQLhrMqKI1ztBn2VGJ0CKMGO/JFzhqIhOnDmeGAhNM/If1EYHTf1ZdjkbMg3YISwLH5stTXkjFnbVda0y363pr6WBI6vHYztqSn6ZWoqWN+AxKQsH6A9FkyUulPmFQwnyYBRh9Zi5vPmHinHfKSbmlAeQmetfQo0GNf8oOHaBdLBYwBxrr/IfuJMNlxFYdBV29ochUwysTr6ixtcVnJ4uYC9Io/G661dg+e3ur3iSRr5DEu3Qagr0P9yTSJ7qCD+CjZ6vgv9YJZpIdpWvunx9MXA9D4TenSGsG0Pzy9aCezkPMPZxr9kLgLsvETidlUWreNMThncbH1GffBEw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=kPBYMtzOvgwvlrqks48Ffr+jP1O0c/6pFe77oJfkW9s=;
- b=A0a9SJID87J5133dQaHXwM11GrKOdr144EUZ2kXPtKVpVjmdD0ekLqMytFiaoBdeK9Zq1aqAMbiDmyxP4u//sHioikN42mmoRKy+VFy72XROo2j4BaSWT3QS1jsFqeVxv0emQTUljwwF4I+ODuSI7Avixmmh7vBiUroA6WicYshnEvofRRlFRiY2e7JEXGZQoujelISVZULJaNsyJhdn6Muq4vd8NqqIQMX/Tb2aQre7PDE8vDOnhYKe1ol7Yp4MhzTv4syJA0nhtEkC0B7JZyFHwEQZknoNRgZKwBbrr57GyuSnkxfnivKgIhlPXNGZ0Vy0uGRHzEZ8ZrxjXqEM7A==
+ bh=MYMP9M2cCV9T8sp/gFzGNoYjFwTw7qEEcXfHdp5/eFk=;
+ b=h9JzeghbUlPyeHhDGxYREYnJexWrRGRoM9K1GhTxNptOpv1UNgz5g2VcbrzAdtJV3DXvkZZ2qdL+BGthoy48axkmgEq2UTXfJnK+OD5DyAd/mvNvRh38pX4KW8prlZ7wZNGkq/3LZKcLUMWcSTLmA39eOxWFJJVtRTEjJRvs4e3eYGA9hCOyNDkTC0YltHDT5P2zlK4+KYPB+iUzp8FoqmZaaIp3MJoaEqqjA204IZ0D9GgjroXRtcpz9u/9eks6RQh2cHr02ETNgs19dB8gHzx9lZI2JwxiAFp82cADXrqw/NAdHS9PsxcQ3JvV0znurYhrEBi/dA1XlPy8Uc0xrQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=kPBYMtzOvgwvlrqks48Ffr+jP1O0c/6pFe77oJfkW9s=;
- b=QQ+uPxGprya2DtzqwixDF8d21wo2C+C0olkiR3kH8bf0FIkcJ2v+WxCh/8iSq12CGLWIpR8/YURAP/s1G/E2Y5UZouHwy/8VDMLNZCIGyndHmxhptAxcz/bS73CGzWJhhFH0jHQZ8AyHDNnGFXtVf01L3+K9P7NjTzMG6tb8LA8=
-Received: from BN1PR14CA0014.namprd14.prod.outlook.com (2603:10b6:408:e3::19)
- by SJ1PR12MB6340.namprd12.prod.outlook.com (2603:10b6:a03:453::17)
+ bh=MYMP9M2cCV9T8sp/gFzGNoYjFwTw7qEEcXfHdp5/eFk=;
+ b=pwcCNmaG6jBv2TKnufNRPuFmT5+wv6O3JAUR9ffAtYZrsrgE5ngVe9M35eYESMfNk2+BBMCq4AZDeNF3Clw/OehrzZkxVdwsh7SrJoXiPo5YRZoj3WgPFDIEo+6AzKVSD4rNy0P7tg0Y+43K3tpeQwi9QjxTjZ2ZIBBeDpmwhB0=
+Received: from BN9PR03CA0050.namprd03.prod.outlook.com (2603:10b6:408:fb::25)
+ by PH7PR12MB7284.namprd12.prod.outlook.com (2603:10b6:510:20b::18)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.20; Thu, 30 Apr
- 2026 16:12:36 +0000
-Received: from BL6PEPF00022574.namprd02.prod.outlook.com
- (2603:10b6:408:e3:cafe::2b) by BN1PR14CA0014.outlook.office365.com
- (2603:10b6:408:e3::19) with Microsoft SMTP Server (version=TLS1_3,
+ 2026 16:12:48 +0000
+Received: from BL6PEPF0002256E.namprd02.prod.outlook.com
+ (2603:10b6:408:fb:cafe::10) by BN9PR03CA0050.outlook.office365.com
+ (2603:10b6:408:fb::25) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.20.9846.30 via Frontend Transport; Thu,
- 30 Apr 2026 16:12:35 +0000
+ 30 Apr 2026 16:12:47 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -49,58 +48,62 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
 Received: from satlexmb08.amd.com (165.204.84.17) by
- BL6PEPF00022574.mail.protection.outlook.com (10.167.249.42) with Microsoft
+ BL6PEPF0002256E.mail.protection.outlook.com (10.167.249.36) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9870.22 via Frontend Transport; Thu, 30 Apr 2026 16:12:35 +0000
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
+ 15.20.9870.22 via Frontend Transport; Thu, 30 Apr 2026 16:12:47 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Thu, 30 Apr
- 2026 11:12:34 -0500
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.17; Thu, 30 Apr
+ 2026 11:12:47 -0500
+Received: from satlexmb08.amd.com (10.181.42.217) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 30 Apr
+ 2026 11:12:46 -0500
 Received: from JesseDEV.amd.com (10.180.168.240) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
- Transport; Thu, 30 Apr 2026 11:12:27 -0500
+ Transport; Thu, 30 Apr 2026 11:12:35 -0500
 From: Jesse Zhang <Jesse.Zhang@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <Alexander.Deucher@amd.com>, Christian Koenig <christian.koenig@amd.com>, 
- =?UTF-8?q?Christian=20K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
- "Alex
- Deucher" <alexander.deucher@amd.com>, Leo Liu <leo.liu@amd.com>, Ruijing Dong
- <ruijing.dong@amd.com>, "David (Ming Qiang) Wu" <David.Wu3@amd.com>,
- Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-Subject: [PATCH v4 07/10] drm/amdgpu: Add AMDGPU_GEM_OP_OPEN_GLOBAL
-Date: Fri, 1 May 2026 00:03:35 +0800
-Message-ID: <20260430161146.2851078-7-Jesse.Zhang@amd.com>
+ Jesse.zhang <Jesse.zhang@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
+ Jesse Zhang <Jesse.Zhang@amd.com>
+Subject: [PATCH v4 08/10] drm/amdgpu/mes: route NORMAL aggregated doorbell
+ through global agdb_bo
+Date: Fri, 1 May 2026 00:03:36 +0800
+Message-ID: <20260430161146.2851078-8-Jesse.Zhang@amd.com>
 X-Mailer: git-send-email 2.49.0
 In-Reply-To: <20260430161146.2851078-1-Jesse.Zhang@amd.com>
 References: <20260430161146.2851078-1-Jesse.Zhang@amd.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+Received-SPF: None (SATLEXMB04.amd.com: Jesse.Zhang@amd.com does not designate
+ permitted sender hosts)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL6PEPF00022574:EE_|SJ1PR12MB6340:EE_
-X-MS-Office365-Filtering-Correlation-Id: ea3f2151-414e-4abc-69f8-08dea6d34a9c
+X-MS-TrafficTypeDiagnostic: BL6PEPF0002256E:EE_|PH7PR12MB7284:EE_
+X-MS-Office365-Filtering-Correlation-Id: b8518d9a-ed38-4937-58bf-08dea6d351d2
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|1800799024|36860700016|82310400026|18002099003|56012099003|22082099003;
-X-Microsoft-Antispam-Message-Info: B2PvHS0Fs3id79mWU0wBFXkisvryNQKsh9Gx6b9PYAQVS6h6PiT4yusefBXwtif7PVzAXFCJXI1F2Sr5IMHg8nJPAl2UtNGgqUQ6x+lTuYEwcGqydfs5yFF0THs5mcqtxu2lhR9Py5XWhZvSeuNlchX1xLmKfmdAJn8AevysBqsKaxAsp1VcpfOlmrIM04FJy1mdbQnUSlBJxpWcA6ZfeA34BDpIwhSxW4eey2Q+gc0cTh2DZcyYBiiZLcBG4lLO9Wsuf/yD3HUiXe6TzzpaiVvaIjGNAe0BsxH0/kbVxtC+15P8U/ZCKONEysNIlWnP+vkOoPwOv303RXDSM3EFctzOYzchSwQXJ1oRJn6qvf5zG3RSd3TKuvokGuBg2KnvqLGo0YWOJykyLqfiQzHWVhczWnQtAoQWAu0L/OzIm90qK2tWt6aYjHmK8qZnN2JgrB8ZY4FuSt1VxIEK0g6sNG+A6KByoaCNPl77F5TGgni/rVGHIz+9NjIY6yfcKOl+KYBNfqYJ/OoiUTSlH2vJEEMGSnTuTTBoX4h9K5H2+OHYFBuuDiYe9o6UCJguq9nxcSxPDsL6+E6zzSpT5s1oG1AuB5nfHD4mdxgj6S4v6GVS30nldU2QzLAhogi3akcr5LFREKLnrusPIj6hk77iEqxmvIugie/3kfgYxL4xbsk9dN50OxpvLEWFrlmhV2U0AmUt9wd9SsgjR2S6iokpPAuJh8Os+HIjDJfS+j6+N8Qgbzsska73DaN1MdrJ+YdcPxcqdDdzB0R1Qubt8Wavkg==
+ ARA:13230040|376014|1800799024|82310400026|36860700016|18002099003|22082099003|56012099003;
+X-Microsoft-Antispam-Message-Info: vJO77WutkPcI1ss7EQ7imfCMWFnjwdhM9Z/gJ/k9AOjMMqu2KEFvFdqJW0WwKCmT0JvQhrtpm0XTJLEXYlahzbOdI+CDDb4+Qw0MGaEpDnYngSXkbkZiHH16kL1lMF9YaAZkWfc8Wr0h5bySlnqpVmxq1xLqy9JCblydAkwqO6sYhCzny/GJOOi1nEspB0tknYBqVkOINIIkLCay3UZPodNYmBajDkwtcbNkeZ9/fcZ9vs5HD8w9XjrSWXSsZQ9wy57MqKs1K5KLk0gF26akn9251kBZ4+KJce1QaT17RHJHJ6Ugrd+77kZtQD/SrgCXkP3QV6djIqqVLLjJf28WjxxoJywid0EvuaBpGRUQn0WfRuDW4q6JrCGHjGXIELTDAS32gz2c9MvV6yi/GpDY5+5W/XEpOiIL23GPCP5prlmW+v8A3wgP3wBSvoMIfKmtXK7bBPxAsgHoSvOiHDW+giOG24EjQNkwJ6l0bhTnjdyk7vaejmLQ2MfEjDVi6iSLFMMUMkrpKs75Fs5Pv6Oe76Q1iub0gDl3zhAyzTuRl3sUuoP+icILGLsQegqJrUy0tEvULei6P+qVXLYJxzPbuHA73m29MSHmq+zqw6BxHCR5Bb3oIaU7q8NDkFLwVBQ/XdvfTo2M3S5dCXssTChSzexl/0m0b7JmnXfYRlmlriNXZXwHC+7dv9xzxz0rse1LVCgjiPppHXyHPMeUJYgPv8uOcxodsCUzdG1a5pSHNmRe13DX57VWVQYqr12mqxMozxpXp6N4AB8PUuXChslxuQ==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(36860700016)(82310400026)(18002099003)(56012099003)(22082099003);
+ SFS:(13230040)(376014)(1800799024)(82310400026)(36860700016)(18002099003)(22082099003)(56012099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: FwdlX9QlCACTSypgtfYMLgzfCwnBIlFhA6QbFugjSiek2ppucQYTJMzY8em0+qPrycW5TjAaFxEFkwp6xEjw/rpc55sM4t7f0oUOsV+lddY7TwuYI5x/WZ2YvPxhZ6po6x/uIJCRciiRGnfoH4CTA4Xah+HL+wsCKj3cCFMCKnIRDHN8GoMZc64f1fVJZcjCGPEagD6FtFyZQXP6cvUo1bNfawoiZ13+kyZBvD8PvfCSW3XbC2L84tFBbg5XtxxvyifvxLsTt2NrDG8/4PDMYuEsrLfMv1JjvpD6UKQzloTE2k/dY8tKR1jJmTSgGFDMO3cWP4yxNK6rUrdI2AMi3G9/U/s+4RltCNADoJhVWnFDkqHOPjBIpR1YrYrK0yqDZEsM4DLj91SBm7RgqJRGH0jP/M9V+tNbAb+TmV/DZQ1z2gd/qS2/9MvbCmkNNwAs
+X-MS-Exchange-AntiSpam-MessageData-0: 2NEfwGijrcqJiXk0sGBQgMls7te1Mt3JoGO4Z+LyxRos9uMUtRenXQk5TDn2Aj4dYzLYDMbdfjiXXvzgi6XAAZpt7o07A9HPVYcXZGLrnAvaEDspQa+kQkumlBhY9mtZWJlB3SOCdIahfFS7qWLDB2woDHPPKLbJc7DZhxyBVuK6tFuu/9MAs4Ze7KA7hfSSXZXXIbjWS2SVT0c1WxNZdJamM/ckq0D5qpKa5sg/uo8rBe2iGenwRn9CV94IjLruFqBAVMOqbWYVbi1X2MgrLFhLBUn8RKg5XxTARhnjLMv50CSIq2RJFD1aJ+Y0gKkZdGLBCkHic562rDThzpuSnVpRWNMx/4STctckT5mHl1if7rIuDU9jfE0G4q+B8Jaw54aPOiKqGx0Cl8KLzgQJC0Hjd0tQS/IH9O20cyA8JA3aNyxp3ov128Pg3hyuejPL
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Apr 2026 16:12:35.2790 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ea3f2151-414e-4abc-69f8-08dea6d34a9c
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Apr 2026 16:12:47.3802 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b8518d9a-ed38-4937-58bf-08dea6d351d2
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF00022574.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF0002256E.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR12MB6340
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7284
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,157 +118,91 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Christian König <ckoenig.leichtzumerken@gmail.com>
+From: "Jesse.zhang" <Jesse.zhang@amd.com>
 
-Instead of abusing the create IOCTL to open global BO add a new
-AMDGPU_GEM_OP_OPEN_GLOBAL functionality.
+SDMA UMQ submits cannot reliably wake the SDMA engine via the per-queue
+doorbell because LSDMA programs the HQD-slot DOORBELL_OFFSET register
+asynchronously after MES MAP_QUEUE — early rings hit a stale slot and
+get silently dropped.  Going through the MES aggregated doorbell works,
+but today's slot lives inside the MES kernel doorbell page, which is
+not user-mappable.  This forces every SDMA UMQ submit through
+amdgpu_userq_signal_ioctl just so the kernel can WDOORBELL32() the
+agg slot — defeating the purpose of user mode queues.
 
-The new AMDGPU_GEM_OP_OPEN_GLOBAL functionality expects an enum which
-tells it which global BO to open and copies the information about the BO
-to userspace similar to the AMDGPU_GEM_OP_GET_GEM_CREATE_INFO operation.
+Allocate the NORMAL-priority aggregated doorbell inside the global
+adev->agdb_bo.  MES is told via SET_HW_RESOURCES to monitor the new
+location — code unchanged because it reads
+mes->aggregated_doorbells[NORMAL] which now points into agdb_bo.
 
-The advantage is that we don't start overloading the create IOCTL with
-tons of special cases and opening the global BOs doesn't requires
-knowing the exact size and parameters of it in userspace any more.
-
-This keeps the GEM create path simpler and avoids exposing internal
-allocation details to userspace.
-
-v2 (Srini):
-- Centralize global BO ID to BO mapping into a helper.
-- Return -EOPNOTSUPP if the requested global BO is not available.
-- Allow args->value == 0 for AMDGPU_GEM_OP_OPEN_GLOBAL so callers that
-  only need a handle can skip the create_info copy_to_user().
-- Clarify the input/output semantics of the handle field for OPEN_GLOBAL
-  in the UAPI documentation.
-- Avoid potential NULL dereference for MMIO_REMAP on unsupported
-  hardware. (David)
-
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: Christian König <christian.koenig@amd.com>
-Cc: Leo Liu <leo.liu@amd.com>
-Cc: Ruijing Dong <ruijing.dong@amd.com>
-Cc: David (Ming Qiang) Wu <David.Wu3@amd.com>
-Signed-off-by: Christian König <christian.koenig@amd.com>
-Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+Suggested-by:  Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c | 44 +++++++++++++++++++++----
- include/uapi/drm/amdgpu_drm.h           |  8 ++++-
- 2 files changed, 45 insertions(+), 7 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c  | 24 ++++++++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h |  9 +++++++++
+ 2 files changed, 33 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-index 0071d6957828..3b486f2bb2e9 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-@@ -999,25 +999,44 @@ int amdgpu_gem_va_ioctl(struct drm_device *dev, void *data,
- 	return r;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
+index bdf2561b5404..974dd7a3fc4f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
+@@ -28,6 +28,7 @@
+ #include "amdgpu.h"
+ #include "soc15_common.h"
+ #include "amdgpu_mes_ctx.h"
++#include "amdgpu_doorbell.h"
+ 
+ #define AMDGPU_MES_MAX_NUM_OF_QUEUES_PER_PROCESS 1024
+ #define AMDGPU_ONE_DOORBELL_SIZE 8
+@@ -57,6 +58,29 @@ static int amdgpu_mes_doorbell_init(struct amdgpu_device *adev)
+ 		set_bit(i, mes->doorbell_bitmap);
+ 	}
+ 
++	/*
++	 * Relocate the NORMAL-priority aggregated doorbell into the global
++	 * aggregated-doorbell BO so userspace SDMA UMQs can mmap it (via
++	 * AMDGPU_GEM_GLOBAL_AGGREGATED_DOORBELL) and ring it directly,
++	 * bypassing signal_ioctl.  GFX/COMPUTE NORMAL queues are unaffected
++	 * functionally — they don't actively ring the agg doorbell; the HW
++	 * CP_UNMAPPED_DOORBELL intercept wakes MES for them.  SDMA has no
++	 * such intercept and needs an explicit wake path.  Other priorities
++	 * stay in the MES kernel doorbell page.
++	 */
++	if (adev->agdb_bo) {
++		int r = amdgpu_bo_reserve(adev->agdb_bo, true);
++
++		if (r)
++			return r;
++		adev->sdma.agdb_offset = AMDGPU_NAVI10_DOORBELL_sDMA_ENGINE0 << 1;
++		adev->mes.aggregated_doorbells[AMDGPU_MES_PRIORITY_LEVEL_NORMAL] =
++			amdgpu_doorbell_index_on_bar(adev, adev->agdb_bo,
++						     adev->sdma.agdb_offset,
++						     sizeof(u32));
++		amdgpu_bo_unreserve(adev->agdb_bo);
++	}
++
+ 	return 0;
  }
  
-+static struct amdgpu_bo *
-+amdgpu_get_global_bo(struct amdgpu_device *adev, u32 id)
-+{
-+	switch (id) {
-+	case AMDGPU_GEM_GLOBAL_AGGREGATED_DOORBELL:
-+		return adev->agdb_bo;
-+	default:
-+		return NULL;
-+	}
-+}
-+
- int amdgpu_gem_op_ioctl(struct drm_device *dev, void *data,
- 			struct drm_file *filp)
- {
-+	struct amdgpu_fpriv *fpriv = filp->driver_priv;
- 	struct drm_amdgpu_gem_op *args = data;
- 	struct drm_gem_object *gobj;
- 	struct amdgpu_vm_bo_base *base;
- 	struct amdgpu_bo *robj;
- 	struct drm_exec exec;
--	struct amdgpu_fpriv *fpriv = filp->driver_priv;
- 	int r;
- 
- 	if (args->padding)
- 		return -EINVAL;
- 
--	gobj = drm_gem_object_lookup(filp, args->handle);
--	if (!gobj)
--		return -ENOENT;
-+	if (args->op == AMDGPU_GEM_OP_OPEN_GLOBAL) {
-+		robj = amdgpu_get_global_bo(drm_to_adev(dev), args->handle);
-+		if (!robj)
-+			return -EOPNOTSUPP;
-+		gobj = &robj->tbo.base;
-+		drm_gem_object_get(gobj);
-+	} else {
-+		gobj = drm_gem_object_lookup(filp, args->handle);
-+		if (!gobj)
-+			return -ENOENT;
- 
--	robj = gem_to_amdgpu_bo(gobj);
-+		robj = gem_to_amdgpu_bo(gobj);
-+	}
- 
- 	drm_exec_init(&exec, DRM_EXEC_INTERRUPTIBLE_WAIT |
- 			  DRM_EXEC_IGNORE_DUPLICATES, 0);
-@@ -1036,17 +1055,27 @@ int amdgpu_gem_op_ioctl(struct drm_device *dev, void *data,
- 	}
- 
- 	switch (args->op) {
-+	case AMDGPU_GEM_OP_OPEN_GLOBAL:
- 	case AMDGPU_GEM_OP_GET_GEM_CREATE_INFO: {
- 		struct drm_amdgpu_gem_create_in info;
--		void __user *out = u64_to_user_ptr(args->value);
-+		void __user *out = NULL;
- 
- 		info.bo_size = robj->tbo.base.size;
- 		info.alignment = robj->tbo.page_alignment << PAGE_SHIFT;
- 		info.domains = robj->preferred_domains;
- 		info.domain_flags = robj->flags;
- 		drm_exec_fini(&exec);
-+		/*
-+		 * For OPEN_GLOBAL, allow args->value == 0 when the caller
-+		 * only wants a handle and does not need the create_info.
-+		 */
-+		if (args->op == AMDGPU_GEM_OP_OPEN_GLOBAL && !args->value)
-+			break;
-+
-+		out = u64_to_user_ptr(args->value);
- 		if (copy_to_user(out, &info, sizeof(info)))
- 			r = -EFAULT;
-+
- 		break;
- 	}
- 	case AMDGPU_GEM_OP_SET_PLACEMENT:
-@@ -1130,6 +1159,9 @@ int amdgpu_gem_op_ioctl(struct drm_device *dev, void *data,
- 		r = -EINVAL;
- 	}
- 
-+	if (!r && args->op == AMDGPU_GEM_OP_OPEN_GLOBAL)
-+		r = drm_gem_handle_create(filp, gobj, &args->handle);
-+
- 	drm_gem_object_put(gobj);
- 	return r;
- out_exec:
-diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h
-index 3ffdd2f8c418..1e04771ed3e5 100644
---- a/include/uapi/drm/amdgpu_drm.h
-+++ b/include/uapi/drm/amdgpu_drm.h
-@@ -827,7 +827,13 @@ struct drm_amdgpu_gem_vm_entry {
- 
- /* Sets or returns a value associated with a buffer. */
- struct drm_amdgpu_gem_op {
--	/** GEM object handle */
-+	/**
-+	 * GEM object handle or AMDGPU_GEM_GLOBAL_*.
-+	 *
-+	 * For AMDGPU_GEM_OP_OPEN_GLOBAL:
-+	 *  - input:  handle = AMDGPU_GEM_GLOBAL_* ID
-+	 *  - output: handle = per-file GEM handle to that global BO
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h
+index 2bf365609775..11cefb4c3a27 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h
+@@ -144,6 +144,15 @@ struct amdgpu_sdma {
+ 	struct list_head	reset_callback_list;
+ 	bool			no_user_submission;
+ 	bool			disable_uq;
++	/*
++	 * Dword offset within adev->agdb_bo for the SDMA UMQ aggregated
++	 * doorbell.  MES is told via SET_HW_RESOURCES to monitor this slot
++	 * for NORMAL priority wakes.  Userspace mmaps adev->agdb_bo (via
++	 * AMDGPU_GEM_GLOBAL_AGGREGATED_DOORBELL) and writes WPTR here to
++	 * wake SDMA UMQs without going through signal_ioctl.  Reported via
++	 * AMDGPU_INFO_DOORBELL with query_hw_ip.type = AMDGPU_HW_IP_DMA.
 +	 */
- 	__u32	handle;
- 	/** AMDGPU_GEM_OP_* */
- 	__u32	op;
++	uint32_t		agdb_offset;
+ 	void (*get_csa_info)(struct amdgpu_device *adev,
+ 			     struct amdgpu_sdma_csa_info *csa_info);
+ };
 -- 
 2.49.0
 
