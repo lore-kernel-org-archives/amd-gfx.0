@@ -4,127 +4,125 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2071AFF886F
-	for <amd-gfx@archiver.kernel.org>; Fri,  1 May 2026 00:50:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6A3D8FF885A
+	for <amd-gfx@archiver.kernel.org>; Fri,  1 May 2026 07:11:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7E74110E1EB;
-	Fri,  1 May 2026 00:50:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DC04B10E0F6;
+	Fri,  1 May 2026 07:11:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="cFhSEVgJ";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="IsqwQunP";
 	dkim-atps=neutral
-Received: from SN4PR2101CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11012055.outbound.protection.outlook.com
- [40.93.195.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5BD8910E1EB
- for <amd-gfx@lists.freedesktop.org>; Fri,  1 May 2026 00:50:38 +0000 (UTC)
+Received: from DM1PR04CU001.outbound.protection.outlook.com
+ (mail-centralusazon11010038.outbound.protection.outlook.com [52.101.61.38])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A10EE10E4A1
+ for <amd-gfx@lists.freedesktop.org>; Fri,  1 May 2026 06:22:06 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=nqOYT40YJMyCXp0Qoni7s8P7nvFWBoUvTG4vYOq1z7Bq8RhAgMk6BRQ07XIlCrC82g4zDPq8tyYBYUhJGsQkEDjyxDhFlckVAF25BZa5Oj0LhLbbuGYY5SMZIDaO5aCeHkmKPDI0ckouspqdPwEIbZZcQNfL3qvAuTqV+cf450CnLt6qACVzGqlr3bFgpB9sdEmu9qHqmK81+15KkXvWJ+iXtoVAp05asdF2ZFPu8HBax8QdJ9SCqG0vcmwbyYAYL0XbW+klb2wNHxAZZZBhrsozdDKIkVow2QWcinMkcaRqKfZ1IZpTGUxNhakKq2FhwmoWEFJdTOyfWZ92oWxFMA==
+ b=f/rna/0eMHfsBXxLO9naH+YyZEvhUo3NHhoeCtgftBptP4Y16eedOPBtjHiqxl/J5Gge+55Guw+W8m7jmagbSd+sCB7BZa7Pp35Rds6oKCLy+W8T9kT5vhES6vxefnN8BDr6sNnUUVF5/dmKJ3jzUv+UWdLLM4WFvowan8RZF5cmSjJGQsUoSh5OpqTh94MJTKGL90G4udpTxf6g++Id1aKK+OkWeLn1RtP7J36T0HgKsGB4njh8zdX2oKTFk7g8c/KkV1pbZVVFeD62lxa1A6Vcc5GiRcgpef8xXcAyQKDrq3A8KsqZhlsUH9HsJ8RJ2klrcPzWJURGVnh3wajn0A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=0U9Dc27e7fFaD54eWZZEx9kMPt5jvsv0ygBJjxzpyfc=;
- b=AzV/2/VyTXnUAMhOE+fr4ICjnGhT0yl13fdlDqtyRiizW33NdEKP8ytJ/fdIUbfSWqdy3LiJaH3yRRfp8BKnFhXUMZwsBQgchMnyJzq28vQzj1xJcm/zbl28MDkEnQ2ZbwI2F2iJQHZQMJDPHGpXPAOMi+Qiah61fiwxiaEdpFvpzmgkcOdfkfZyGWPv2HUCamTs34v26u13j/MntOHW42DwkyGqiS++NyC2XakNACIfc0E9jHeSRnlCtqUjK2fNrjxKkGTq6Hpd0dYRDu7QHlMsxPwCZ7wMMvhejUMMdQy/wztN8hF9YD0ep8j4Hs0rb0AlV4a5YuLtsbGsndyIFA==
+ bh=h5H7NJBa6jmvF4PPoOr2geJZLxMAPTi0SfGrS+TDFMY=;
+ b=xsVG5UTz/BTTbkplK75oXRI2Dv2nCYKx0OtCJg3PP4u2BJe00DOKBo9+AuTRGKzKKacAyR/i6MNqSrWe0P1aG8QNUzQ7a0b97jVWN8OVvT0bgxDJyk5ebZV92vhuShkYJWmYZDQw0ko6zIlIuCfDft6ywIKBN6O2OsyHiy0zKBhjyr+EGb61lBRdOgESyTIvXW5kehmqHH13YiIiiRAjRy9f3uFEOx41VBnChEo9Xx7dksNbVDicGbiLq0uudXhP2McRoDpBMMRHgViBoZIE3ykxYHqXQ21bV31KgALJn+E8Y9xUcmIA/ftZuK2xyYw0y8CKe5Ar1caycIr/FXc+6g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0U9Dc27e7fFaD54eWZZEx9kMPt5jvsv0ygBJjxzpyfc=;
- b=cFhSEVgJcxjvLmJlX3F5xBUvw1Uj78YxNz4AZAh1gFDS65XnSukPKc1JHcrg/6Aw7RIa5jbqd16pwZKmyxqlKvLfkMY2TbZLInV3QsLtKOQcVGX3T0X0cxnn5+S9gnwUrVPk0KAINcIpwn9QDRRZ0aSLm7uELTo0kxNBCP6vt6w=
+ bh=h5H7NJBa6jmvF4PPoOr2geJZLxMAPTi0SfGrS+TDFMY=;
+ b=IsqwQunP6KHKt2f7+/7HEK6sJahfw19fEZYmZhy785D1Fkab3PpZ2c1E0fmQycbBUqqV87BWNRoObL+B9FiCVPW1Ubae01I+uwyBqPCH+hr5IXhHxrwY3mSHXwkmnQb92xuWETxfkHe0XagGK8NBdAUM1EW/mRgmUrbh3gEKzpJrKe8bqLCTPZyRJo6vTrkB4CMLE2xRLVpP+lr5BampwbB59+tE1PpuKGazTWaJQFPkA8K5D3nY0P0Eh/wRQHnUYlgd7LdUIPKH8iTMjmhG1tQolSpchXvfEMlQLnUkQvMHYuMeckLTWUMRdjq4S9OseIj7CeqGdU4qOH7VteDPaw==
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from MW4PR12MB5667.namprd12.prod.outlook.com (2603:10b6:303:18a::10)
- by CH3PR12MB9454.namprd12.prod.outlook.com (2603:10b6:610:1c7::16)
- with Microsoft SMTP Server (version=TLS1_2,
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from CY8PR12MB7705.namprd12.prod.outlook.com (2603:10b6:930:84::9)
+ by SJ0PR12MB8165.namprd12.prod.outlook.com (2603:10b6:a03:4e4::6) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.20; Fri, 1 May
- 2026 00:50:34 +0000
-Received: from MW4PR12MB5667.namprd12.prod.outlook.com
- ([fe80::715:65fb:c3fa:9c26]) by MW4PR12MB5667.namprd12.prod.outlook.com
- ([fe80::715:65fb:c3fa:9c26%5]) with mapi id 15.20.9870.020; Fri, 1 May 2026
- 00:50:34 +0000
-Message-ID: <452f98fc-4990-43ce-b0f3-759d95b62c44@amd.com>
-Date: Thu, 30 Apr 2026 20:50:30 -0400
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/3] drm/amdkfd: Add input validation for SET_XNACK_MODE
- ioctl
-To: "Kuehling, Felix" <felix.kuehling@amd.com>, vitaly.prosyak@amd.com,
- amd-gfx@lists.freedesktop.org
-Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, Jesse Zhang <jesse.zhang@amd.com>
-References: <20260430201803.90458-1-vitaly.prosyak@amd.com>
- <20260430201803.90458-3-vitaly.prosyak@amd.com>
- <1c1b5033-9624-4989-8353-441655139fc6@amd.com>
-Content-Language: en-US
-From: vitaly prosyak <vprosyak@amd.com>
-In-Reply-To: <1c1b5033-9624-4989-8353-441655139fc6@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YT4P288CA0052.CANP288.PROD.OUTLOOK.COM
- (2603:10b6:b01:d2::7) To MW4PR12MB5667.namprd12.prod.outlook.com
- (2603:10b6:303:18a::10)
+ 2026 06:22:01 +0000
+Received: from CY8PR12MB7705.namprd12.prod.outlook.com
+ ([fe80::4457:c7f7:6ed2:3dcf]) by CY8PR12MB7705.namprd12.prod.outlook.com
+ ([fe80::4457:c7f7:6ed2:3dcf%6]) with mapi id 15.20.9870.020; Fri, 1 May 2026
+ 06:22:01 +0000
+Date: Fri, 1 May 2026 16:21:36 +1000
+From: Alistair Popple <apopple@nvidia.com>
+To: Arsen =?utf-8?Q?Arsenovi=C4=87?= <aarsenovic@baylibre.com>
+Cc: amd-gfx@lists.freedesktop.org, linux-mm@kvack.org, 
+ cs-tech-ext@baylibre.com
+Subject: Re: [BUG] Frequent hangs or WARNINGs when using heterogeneous memory
+ with an AMD MI210 GPU
+Message-ID: <afREaF6hcka_cxnY@nvdebian.thelocal>
+References: <86ecjz2hhr.fsf@baylibre.com>
+ <86tssu0w8p.fsf@baylibre.com>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <86tssu0w8p.fsf@baylibre.com>
+X-ClientProxiedBy: SY5PR01CA0010.ausprd01.prod.outlook.com
+ (2603:10c6:10:1fa::19) To DS0PR12MB7726.namprd12.prod.outlook.com
+ (2603:10b6:8:130::6)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW4PR12MB5667:EE_|CH3PR12MB9454:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2fdcd87f-3ccf-4d74-1a51-08dea71ba6b8
+X-MS-TrafficTypeDiagnostic: CY8PR12MB7705:EE_|SJ0PR12MB8165:EE_
+X-MS-Office365-Filtering-Correlation-Id: d4da904e-6ce7-4914-9165-08dea749ed5a
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|1800799024|376014|18002099003|56012099003|22082099003; 
-X-Microsoft-Antispam-Message-Info: Z3PT9w+wYhchkl5FJRfHEwOc8VVhBjiWa4TYZxOf5CD4SOG1P7opZ6/ecicOGA9JH8FCmI/ayYlT51+8ZH77JdlLUwk3Q+EJsT4CM55y44t7nTw8NjEbMUc3pHCEnYy8d1qDWdTGPeEv279Sd/3bigjv7O/CgaiwjObTwF2dOcI8rH7NRHUqnnvD3CnAB/yzsknvkwKDC/RZmkitJgdQXE7dH6Fw0WGO0Yw7S7xD91deQe3Jj8fabj5a/Y9CVzfUU0RkFT2f0czdfg4A+ln57xZQ71CIADSeLx6W/x1fz9r3vY1PGnbCJNrkQI5nSrqNAmWSJC7tjkZz89vlMOvKqXtdvftMtQMmi/tJh9fSZ2KN81p1eTzbFlyXhGeSaqRKNAXqk1WflMYKJaJnGNl8j5JTRxh2u/NpKKNihlymsu8xyCXoB0lsa5ySelbEvKFDVTux1HAedeOan0BIjbJHsYagX2uxG4GgacMHVkC5mxrKqGBUddlVUr657P1q5Xj9owiXUQixxjpIAN463ksrk4HUgdilUyA1fEz48QF3EIal21wFiQKLpm6zRrLW0AbIRwu3okuliv9FsZ6LPJ5uva6rzWyxLlhjYhwlegH/2neEhI5E8DW7IFlSWG8eLVrMnBPZLjso9DdffDgcvjrgJt3Jt37Um6MRMLbVrLKZQMsW9XkKJGIBNUcnlMYITSql
+ ARA:13230040|366016|1800799024|376014|56012099003|18002099003|22082099003; 
+X-Microsoft-Antispam-Message-Info: yGfYR8AOVetzkBd3uw9alADToltb9bTX7e63JO3qCowTAJatypeuUpDYeiJBo9CScVlYyOxOa9++oM1HH8yJv5yHakQ32PhOGp98iDMDK8chF/xJ7p8a/P0jlAfsjGDYEsY94HLvsu2GKQ+oH7M2BgQqhoFsgE7n6IyciiJVg0oQeS/e426x1vKO9AjZ40pYxbMjXYH9817PutZReadQlxdkSJmXPP4x7qqa88zHN+vOOVFYLcpVWmlp68JgXZsRybJ3C2R08c/Pas5bMV3TCfYLSVUWxOgaECNLGqGEf2XiJLjwdY+u7Z5W4/aKpQt7xfDc8WAcAAAA5jrrvigipVsdqowNo6ybbn7SECLsY8rHr3BeVIpJ/BzBBDZPvMdUqnyI3mmzWIO/NanTe++OnEdIpq4+mIvD9LKCLcDnUe97wyYkk8dPrtkBTWlnJS3IMnlcNQ3+WRGF2AFwuhRJ57iFF2X04CgBg/TBf8xbO2gN0fP30Mp3hCV9mVw5baWPjQG/SaDP62BUMNhlFQKkr9BReogRjfX8oYizgUBfgmCuFS+ELmdB5dhsE756YUKj2su6IjZOC4+CbWnORaOxi8aPJyWy0x7A+KwEFj4sRbDwrcVOGP6XmWB6Rf66Bu8HUlLlr6ea8MdZye4a3uHYGOHGEDpkqIKjlevlTg+5vWGAnLhUr9ADImcYn3qRLWCz
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MW4PR12MB5667.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014)(18002099003)(56012099003)(22082099003);
+ IPV:NLI; SFV:NSPM; H:CY8PR12MB7705.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(376014)(56012099003)(18002099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZFZ1OTFueXUwRDZVVHdqdERMM0YrNk1ZL1JqQTVmQmxzK1FVNlhlSFZ6ZzhU?=
- =?utf-8?B?eGZ2Q1h0UEhEWWZkVVgxV0pZSUhzcVIwT1R1Q2J2azdGaTB1STJJREkxTnNq?=
- =?utf-8?B?NGNhazdTL0oyb3VIcnc3WFhzK296eUV0Qkk3VVFYL0ZJRjNXRWJiZVNjQUMr?=
- =?utf-8?B?RDU1OU14dHNVRnFHaHVCRDlseDhWUEYxOTN4dDVuU2NjSElzUEh0WWl6Z25h?=
- =?utf-8?B?TXRTc1hBWnhuQXlNaFVPdDFQeWNJL21RT3Q2K2FTYi9uSzF1T3kreTFtMVUy?=
- =?utf-8?B?R2FFTk1WYlk0RTR4ZzJHcmRnQ0dxM1dWSmJSRHdEcWUwbzd2Tm1GeWgzTWwv?=
- =?utf-8?B?US9LMW5DQ204eG52RXVnK2htdUlYTFlZbUt3VUt5Wm9QanpWUys1a1F6dEpu?=
- =?utf-8?B?ME9hYWtadjhTNlQ1NytiNUwweUhnWUZGdVR0ZGVjK1dUMUpPNC9KWDR1QUJp?=
- =?utf-8?B?QWk3Y0QwMXlodlZhV1lsQXlQbkJSbC9ybGEzZHFVR0h1dTh6TUJEWVNlVFZi?=
- =?utf-8?B?T2ZiRU5DSVhoVlRBdnBoYXFhV0E4TDFMcldjVXpTaHZvcXptZ2tiOHFmSlYv?=
- =?utf-8?B?MEppQnRzQ1dCa2VzZ3dCd3kxYTBPTUQ5NWR4NEZHYzhiNmw1cWo4d1FUUDVF?=
- =?utf-8?B?UHVrUDZQZ2ZqeG9zMjVlc0RuSnBuRkl0eFBtNlo0dk5mVk10Zk5ESngrZFE3?=
- =?utf-8?B?TWZwMExMWGNJN2wwdklRSGFNNXBVelJuK2lBSjZzd1VOS1owMml6dG1yUVdT?=
- =?utf-8?B?YUJWK1FFb3QvTkJodHo5U0kzbUN2anlXNmw4VGxTSERwM2NhTHZyMklMY1NR?=
- =?utf-8?B?cngyajQycU9aRzdmQlozaVkzOU9JVHU0dTlEcG02ZTR0YUd0UnFhbFFsNjdh?=
- =?utf-8?B?VXFFZm1KZllndTFZK291OVNtdUR6VkE1VHpvUjhwN2ZIb2VMZk1MMlcvclpL?=
- =?utf-8?B?K1BVV2o2S3EwNzkvN1lXam1hYUF2TlZyOFY3T3h0d240QzhST1grUTV6VXBy?=
- =?utf-8?B?cE5odkRNN1ZXaUFjSXVBMjc1bjhxYktCVzJERFcvdmsra1RzcThYQ3JUd0FJ?=
- =?utf-8?B?WjhLTGpFQldDdXlRVTUycUxiSjg1VHg5eWZ6NmtOaDBBWHdDczJmRE91dmJl?=
- =?utf-8?B?c21uaXoyNytEZ3dXa1hHZHRtVTVMK1B1enQzbVVXQzRhd1IvcHdlaStrT2NM?=
- =?utf-8?B?b1JzektVbzU3ZjJzbmpyTDl3VlBUc3RhUGltVEZHMU42bHVrMEdSVElIcXln?=
- =?utf-8?B?MW5nVDd4UkdqMC9TVk9lTDFQRkVQYk5STE1ENDVQTHdTdmx6L1dzYkhqMVRt?=
- =?utf-8?B?V0dBZXArbkd3c1A5OEh6VzBmcGpWVlo2cTNIZk04Y3FmcmdoTVc2ZGdPQkZt?=
- =?utf-8?B?ZnN5YTQ3K2VrT2c3VDZ6RFExVjRhNjQ0NldrQnhWM0NlMWZBc0xOaU1WUnMz?=
- =?utf-8?B?cWFHc1FrK1NyY09OVkJtQ3B1eEh1WGJHZy9vNitOOFoyanltekt4UmxjWDVX?=
- =?utf-8?B?Ym92Zk10RVJHRkNTUzJKTklraG0rMmtHTk82Tm9jV3pxdC9abVVWTzhPdkc4?=
- =?utf-8?B?Vlk1aEhQclZkS2J2NG83MCtuK2NXVmtSR3hiNTNDOTJxNVIzaXladlBHTVFk?=
- =?utf-8?B?cGltMm85V3lJb29tRXV3VE13TXpFQUVkWGhhcVYrdlp1eEFnMFZhWDU1T3Zu?=
- =?utf-8?B?d2RjRVVnVzlaQXY0RHVrcmJHbGUrV096am9IVDh6a0RmdG8wRjd2bGxuZHp1?=
- =?utf-8?B?azRtRzROYUJIOGJWdHA4bUhCT0FBLzRoeFJSYzFsRm5ra0xGQzRTRDkyeThQ?=
- =?utf-8?B?aWpTOTZHNlJGVU1SVmlNZ0ozWi9LQVZrbkJVQkZ0bXNNMy9KK0lqUE9sSXVS?=
- =?utf-8?B?dzZKdEFoTnU2K0tHdzRHcGJrdHJyWWN0eFhMM3oyb0FBUnhWZHVRcGt3QmFz?=
- =?utf-8?B?SHV0YXI0UmlqNi9Lb0M0SE9PSlFsNzRINXVkMlBUc0tKZEhXSjFNclRVSTNo?=
- =?utf-8?B?L0p6WWx6TlIySnNWeitrZ3JOaHZVeUtZSXQvQlpZNXhRV2d0S2I1OEZkbWVX?=
- =?utf-8?B?WjhxbWtpQk9BbTkwa2lFNWMvQlNuR1VuaFcrUzljZkE5ZVpoWm54QmUyeDh5?=
- =?utf-8?B?OWxOL0pkT0daTGJoVHVJc0lGNmM5VHRJbkFzMWFiOFBvMXJTSGs1eStvTm9h?=
- =?utf-8?B?dzVOaTFTVnNobTRLYVAzK0VLVzB3ZUFJaGVDZE9GMWlsSXJqYks4SDcxQXV3?=
- =?utf-8?B?R2FrQ21WSmFFTEN2Q00wS2Z5Si9Hc1NpSjZ2dnp6ZEExSXJIVHB0b09kTGox?=
- =?utf-8?B?c0s2QUNMV3B5elJnYWd1ZjkzanNqbWFvWGZiZ0VKczdxc3llNGVZQT09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2fdcd87f-3ccf-4d74-1a51-08dea71ba6b8
-X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB5667.namprd12.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZUtpZStrQ2cyYUxpVUNRY3ZiMWl0c3JTc1lja0NpWlNWRFFKMkozZ2IzMGFL?=
+ =?utf-8?B?MUVERFd0N3E5Q2Rza00zTTV4NGpLT2ZTZDFjUmVsSUdhVy94TGFTWmJacGR6?=
+ =?utf-8?B?Q2U2N1FzQWlocVhGNjFqNTN5c2o3T1l6Q0g1aEFrYlJVVEt2Y3loK2ZTbXEx?=
+ =?utf-8?B?R2xoOHo1MURxR0ttWERuM0YzUFJBTGlYZis2RDZTWlJxWHZtdDZQdVhkWHdv?=
+ =?utf-8?B?V1JqZGRGZk80aDBvV0Z6VWo0TkFJQTRzTktRWXpPTlAvaGJzUzF0cjhBMk9i?=
+ =?utf-8?B?eElwSWlLVlNQTmhPRUV6UCtVRkxyRElLREZZTzQ1TEdCWnhSTnd4RFlHdjZo?=
+ =?utf-8?B?UDBzVmVoRTZhcnA4aGpseDNmZ21IUzZ4bnZ2c0xaT0xCTkRRM1FrQ1hnKzBY?=
+ =?utf-8?B?amt2RlNndjRvRTdrWUYyMVllVU1rZy92bVhyd3JtV2J6Tzh5M3NLc1Z1cUpH?=
+ =?utf-8?B?bTlzK1duUmNiK1V0S1NGTjhpVjdWNVpNalRQMkg5eVhkWERSelJqaFNTSnZ6?=
+ =?utf-8?B?SnNmcDJ0YWpyT1F1Uy9tSHhyWEIwRGNRMG5FNzlQazdPTWR6dFhTQXhQS2pF?=
+ =?utf-8?B?ZDAwZU5MTlNzVnR3VW1yUmtTWnFRSGl5bXBIMVVIZHBDZzFJMDZhVkV1Qmo0?=
+ =?utf-8?B?NjZ3NXVTa1FURm9KVXVOUlovNkdUR2lmZVlpUk9IdXZZOWNMdEUrNS9EK3Fi?=
+ =?utf-8?B?N05lZTBPYmw3VFNSVWRIdDY4YnZtT2hXVkQ4NEtxTWNRaTZUTFlJSTZJSzVn?=
+ =?utf-8?B?ZlhnQ3o3MUJnZVZqY0J3Z04zaWdaeDVORXNnM21XMldCTzVCODB5UWNIb2tL?=
+ =?utf-8?B?N015akJCWWNqU0JZSWJsbk9ycS9DZWxPdGVpL1o0dlFXcXZzSEp3VU1KdkhV?=
+ =?utf-8?B?bFFPbjIxbmMzRmxJN0RjRmZDdWcyVGw5Z0M1bXRtdDBxdTlZbXVBVEZMQXZ5?=
+ =?utf-8?B?OG5MWnpOanJ5WkR4VjVqNmhmc254anhGTlBNVE1YM1VDYS9zNG9tZEkyV0Mx?=
+ =?utf-8?B?cnAzcE5MVUk4MVJadkVYWXBIWmFTM1l1TnV6MW1mM0dJSmNvbm44VWJ2S2dI?=
+ =?utf-8?B?VjVhcnZENk9zOERGWHJ6Zk82dFd3K25iMThSenBRR2FIQlViN0JwZ0N6UEhC?=
+ =?utf-8?B?Q0Z4UE9Pd09xbk56a0dweVZ0aUxoaVE3cjFtL1NMU2lKZ0htMGJYZDk1ZlBo?=
+ =?utf-8?B?aGoxdHJVV3ZDZnBhNlZURG1SblZUem4wNWdFNDI1QjI1VkJEaHVWTWpycXFh?=
+ =?utf-8?B?dHJhWkNtL1I5T2NPK0JyRVI4S2tyUGJqb3JIWXRZSWp5Mk5RSmlSL2VZeW9h?=
+ =?utf-8?B?R0JlOW4wcFQ0YnQwWjQxUDlNZUszSjc3Y1B5UnpHOFJwbHdjV0NhdE02SEtP?=
+ =?utf-8?B?U24zYStBUEJDQTVMVG9iV3Nyek9CeHJsaWV2TkJsTWF4d0tOSHhlOUxqd0hw?=
+ =?utf-8?B?TGQ5UFNDVDFRQWZBeEVFMmVZaXBZRVM4eGZtL1BrdUk3a04wQ2QxUm1lWGNM?=
+ =?utf-8?B?cE5mVW9aNTV2eUZRYTdTT0FGc0xOUm5yWDFxY3VSMmVEcnA0dEc1Nitsb2FT?=
+ =?utf-8?B?RWNxYjlFc2NmQjFjRkpNeklwcGF2eTlERms2T1B3NW0waTdLUldhL3FmT2tp?=
+ =?utf-8?B?MUloMERVY2k2U2JqSmFUY1NTbnZiY0xud0NEREhlejVCK3p4WTFOSjhtQVg2?=
+ =?utf-8?B?WUJUN2VMNTlGOFQ1cThhUTVkaGYzQmdXUlRlT05WQ01LNHNVQTV4Qi9Gdld4?=
+ =?utf-8?B?V1RGUXpNYzlCdGwyWjQ0aGlXdWIyeE96ajF2NUVqc25BK0FqOWhxK3Jzbi84?=
+ =?utf-8?B?Z3hQZ1RCdUthaG53R0tMdUNBc1ArcjA5ZWNZdWtxMUlIZW9vMng4V1lKVTNr?=
+ =?utf-8?B?UVVTbi9KeVlSR3VvZVM0MXBKdFA1Z2ZxQ1g2V1dLQmNPa0QzN25IOXdMd0J4?=
+ =?utf-8?B?cTMzdlJtVG1rYU9FWWZXdHVpZEd3Z3JSanlpcWc2R0YzWmdyNENGZFVNdXow?=
+ =?utf-8?B?RTlFYVJ4SnFRaEM3bTAwUlZNZ0VwNWhhdmV2c3JRTjFSQWQ3VzJpLzRldEtK?=
+ =?utf-8?B?VWlJN2s0ekYwSWF6anZnQnNVOGlXVmllTWR6bmliMDZ3V200Y2YrZjFNVUdN?=
+ =?utf-8?B?SUFncVllM0lUaS9ML1JBbFdzQTVkTFArOTM4SmROaWYzOWJNblhkSGxibjdO?=
+ =?utf-8?B?N29KZDZ6NE5meU8yMEsraGtIdkNXMmlkcGM0cGpzTlBKTWswYkpJOFJFMVZB?=
+ =?utf-8?B?c2VBNk9uekh4YWorejhuYlRWYTk3TU80NTVINEpBRVdqVGpZbGtMdFhYckVt?=
+ =?utf-8?B?d2R5TUorUjBrWm9MZjZWUFhLMnlEWVQvOVVZRUJqeXc5ZGExNjcvZz09?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d4da904e-6ce7-4914-9165-08dea749ed5a
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB7726.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 May 2026 00:50:33.9321 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 May 2026 06:22:01.2451 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: cpNEiPEQAr1z9NmsmrDInPihPeto5ziUlKzl/ZRGVFgAo73/geqApO1zxAs+QDm480TWXOhQOfmfY2ndz3fzJw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB9454
+X-MS-Exchange-CrossTenant-UserPrincipalName: pfQPdY2ZESkT9M8ADMJkP3BRWOOIpMe8vPlSnrdEsRAlBC4OFMuqbv1rxvPlryCeXP0BF0K2SegOzpaLqcw7eA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB8165
+X-Mailman-Approved-At: Fri, 01 May 2026 07:11:26 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -139,80 +137,154 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+On 2026-04-29 at 22:47 +1000, Arsen Arsenovi=C4=87 <aarsenovic@baylibre.com=
+> wrote...
+> Arsen Arsenovi=C4=87 <aarsenovic@baylibre.com> writes:
+>=20
+> > We get this by running the following OpenMP program built for offloadin=
+g
+> > onto an AMD GPU:
+> >
+> >   https://gcc.gnu.org/cgit/gcc/tree/libgomp/testsuite/libgomp.c++/pr119=
+692-1-4.C
+> >
+> > ... built by:
+> >
+> >   x86_64-none-linux-gnu-g++ pr119692-1-4.C -foffload=3D-march=3Dgfx90a =
+\
+> >     -Wl,-rpath,/opt/rocm/lib -fopenmp -O2 \
+> >     -DDEFAULT=3D'defaultmap(firstprivate)' \
+> >     -lm -o ./pr119692-1-4.exe
+> >
+> > ... using trunk GCC configured for amdgcn-amdhsa offloading[1] and
+> > executed as:
+> >
+> >   timeout --verbose 10s env HSA_XNACK=3D1 LD_LIBRARY_PATH=3D. ./pr11969=
+2-1-4.exe
+> >
+> > ... when the timeout happens (i.e. the program gets stuck for 10 second=
+s
+> > and then, when 10 seconds pass, timeout sends a SIGTERM to a.out, and
+> > results in the crash above).
+>=20
+> I've now confirmed that it is possible to reproduce this specific issue
+> also on bare metal, also with kernel 7.0.2 and ROCm 7.2.2 (using the
+> rocm/dev-ubuntu-22.04:7.2.2 Docker image):
+>=20
+>   [ 1171.959571] ------------[ cut here ]------------
+>   [ 1171.959577] WARNING: mm/memory.c:1753 at unmap_page_range+0x10d5/0x1=
+bc0, CPU#247: pr119692-1-4.ex/143761
 
-On 2026-04-30 16:55, Kuehling, Felix wrote:
-> On 2026-04-30 16:14, vitaly.prosyak@amd.com wrote:
->> From: Vitaly Prosyak <vitaly.prosyak@amd.com>
->>
->> The AMDKFD_IOC_SET_XNACK_MODE ioctl accepts any arbitrary 32-bit value
->> without validation. According to the UAPI documentation, only three values
->> are valid:
->>    -1: Query current XNACK mode (read-only operation)
->>     0: Disable XNACK mode
->>     1: Enable XNACK mode
->>
->> Currently, the ioctl accepts invalid values like 0xDEADBEEF, 0xFFFFFFFF,
->> 0x7FFFFFFF without returning an error. While the kernel internally treats
->> any positive value as "enabled", accepting garbage values violates the
->> principle of strict input validation at the kernel/userspace boundary.
-> I disagree with this statement. E.g. for boolean, it's common that 0 
-> means false and anything non-0 means true. In this case it's extended to 
-> 0: disable, positive: enable, negative: query. This is also how the API 
-> is documented in kfd_ioctl.h. I don't see why accepting values outside 
-> the range -1..1 is a bad thing as long as that doesn't cause undefined 
-> behaviour.
->
-> Your patch is changing the API semantics. If you really want to do that, 
-> you should also update the API documentation in kfd_ioctl.h and consider 
-> whether that may break existing user mode.
+I don't know the AMD driver well enough to comment definitively but chances=
+ are
+this warning is spurious. I have been meaning to put togeather a fix for it=
+.
+The problem is that migrate_vma_setup() etc. allow for migration of anonymo=
+us
+folios, which is subtly different from only allowing migration of anonymous
+VMA's.
 
-Thank you for the  feedback and clarification on the API semantics.
+Specifically migrate_vma checks for folio_test_anon() which returns true fo=
+r
+private file-backed VMAs while the warning is based on vma_is_anonymous()
+which is false for such mappings. So it is possible for the driver to migra=
+te a
+private filebacked mapping to GPU memory which will trigger this warning du=
+ring
+teardown if the page wasn't migrated back.
 
-You're  right - I misinterpreted the UAPI documentation. After reviewing again the actual comment in kfd_ioctl.h 
+ - Alistair
 
-"0 means disabled, positive means enabled, negative means leave unchanged"
+>   [ 1171.959613] Modules linked in: xt_iprange xt_LOG nf_log_syslog xt_co=
+mment amdgpu amdxcp drm_ttm_helper ttm drm_exec drm_panel_backlight_quirks =
+gpu_sched drm_suballoc_helper video drm_buddy drm_display_helper cec rc_cor=
+e iptable_nat iptable_filter vhost_vsock vmw_vsock_virtio_transport_common =
+vsock vhost vhost_iotlb nf_conntrack_netlink xt_nat veth vxlan ip6_udp_tunn=
+el udp_tunnel xt_policy xt_mark xt_bpf xt_tcpudp br_netfilter xt_conntrack =
+xt_MASQUERADE xfrm_user xfrm_algo xt_set ip_set nft_chain_nat nf_nat nf_con=
+ntrack nf_defrag_ipv6 nf_defrag_ipv4 xt_addrtype nft_compat nfsv3 nfs netfs=
+ overlay 8021q garp mrp bridge stp llc bonding tls nf_tables nfnetlink binf=
+mt_misc nls_iso8859_1 intel_rapl_msr intel_rapl_common amd64_edac edac_mce_=
+amd kvm_amd ipmi_ssif kvm irqbypass rapl wmi_bmof pcspkr ccp input_leds joy=
+dev mac_hid acpi_ipmi ptdma ipmi_si k10temp ipmi_devintf ipmi_msghandler nf=
+sd auth_rpcgss nfs_acl lockd sch_fq_codel dm_multipath grace scsi_dh_rdac s=
+csi_dh_emc scsi_dh_alua sunrpc msr efi_pstore ip_tables x_tables
+>   [ 1171.959847]  autofs4 btrfs libblake2b raid10 raid456 async_raid6_rec=
+ov async_memcpy async_pq async_xor async_tx xor raid6_pq raid1 raid0 hid_ge=
+neric usbmouse igb bnxt_en ghash_clmulni_intel usbhid ast rndis_host ahci c=
+dc_ether libahci dca usbnet hid i2c_algo_bit mii i2c_piix4 i2c_smbus wmi ae=
+sni_intel
+>   [ 1171.959939] CPU: 247 UID: 0 PID: 143761 Comm: pr119692-1-4.ex Not ta=
+inted 7.0.2-instinct-arsen #3 PREEMPT(lazy)
+>   [ 1171.959947] Hardware name: Supermicro AS -4124GS-TNR/H12DSG-O-CPU, B=
+IOS 2.8 01/26/2024
+>   [ 1171.959951] RIP: 0010:unmap_page_range+0x10d5/0x1bc0
+>   [ 1171.959959] Code: 2e 2e 2e 31 c0 4c 39 b5 50 ff ff ff 0f 85 72 f2 ff=
+ ff e9 b1 fd ff ff 48 8b 45 90 48 8b 53 18 48 83 78 48 00 0f 84 28 f9 ff ff=
+ <0f> 0b e9 21 f9 ff ff a9 ff 0f 00 00 0f 85 cb fb ff ff 48 8b 10 83
+>   [ 1171.959964] RSP: 0018:ffffce40ffc87920 EFLAGS: 00010286
+>   [ 1171.959969] RAX: ffff8e18cb2ee900 RBX: fffff3333ffb6a00 RCX: 0000000=
+000000000
+>   [ 1171.959973] RDX: ffff8e18de1b18c9 RSI: 0000000000000005 RDI: 0000000=
+000000000
+>   [ 1171.959976] RBP: ffffce40ffc87a30 R08: 0000000000000000 R09: 0000000=
+000000000
+>   [ 1171.959979] R10: 0000000000000000 R11: 0000000000000000 R12: ffffce4=
+0ffc87b90
+>   [ 1171.959983] R13: fffff3333ffb6a00 R14: 0000000000000001 R15: ffff8e1=
+8ba912018
+>   [ 1171.959986] FS:  0000000000000000(0000) GS:ffff8e57ac3da000(0000) kn=
+lGS:0000000000000000
+>   [ 1171.959990] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+>   [ 1171.959994] CR2: 000070d717bfe920 CR3: 0000004169a48002 CR4: 0000000=
+000f70ef0
+>   [ 1171.960000] PKRU: 55555554
+>   [ 1171.960004] Call Trace:
+>   [ 1171.960008]  <TASK>
+>   [ 1171.960022]  unmap_single_vma+0x96/0x110
+>   [ 1171.960031]  unmap_vmas+0xa5/0x180
+>   [ 1171.960041]  exit_mmap+0x13b/0x400
+>   [ 1171.960060]  __mmput+0x45/0x170
+>   [ 1171.960068]  mmput+0x31/0x40
+>   [ 1171.960074]  do_exit+0x285/0xad0
+>   [ 1171.960083]  do_group_exit+0x2d/0xb0
+>   [ 1171.960090]  get_signal+0x86a/0x930
+>   [ 1171.960099]  ? kfd_ioctl+0x4ad/0x5c0 [amdgpu]
+>   [ 1171.960563]  ? srso_alias_return_thunk+0x5/0xfbef5
+>   [ 1171.960570]  ? __x64_sys_ioctl+0xbd/0x100
+>   [ 1171.960580]  arch_do_signal_or_restart+0x3a/0x250
+>   [ 1171.960608]  exit_to_user_mode_loop+0x8f/0x500
+>   [ 1171.960618]  do_syscall_64+0x2cd/0x14b0
+>   [ 1171.960626]  ? srso_alias_return_thunk+0x5/0xfbef5
+>   [ 1171.960631]  ? handle_mm_fault+0x1e8/0x2f0
+>   [ 1171.960640]  ? srso_alias_return_thunk+0x5/0xfbef5
+>   [ 1171.960646]  ? do_user_addr_fault+0x2ee/0x830
+>   [ 1171.960655]  ? srso_alias_return_thunk+0x5/0xfbef5
+>   [ 1171.960660]  ? irqentry_exit+0xa5/0x600
+>   [ 1171.960670]  ? srso_alias_return_thunk+0x5/0xfbef5
+>   [ 1171.960676]  ? exc_page_fault+0x94/0x1e0
+>   [ 1171.960682]  ? ret_from_fork+0x1b2/0x3a0
+>   [ 1171.960691]  entry_SYSCALL_64_after_hwframe+0x76/0x7e
+>   [ 1171.960697] RIP: 0033:0x70d718dab9cf
+>   [ 1171.960704] Code: Unable to access opcode bytes at 0x70d718dab9a5.
+>   [ 1171.960708] RSP: 002b:000070d717bfda90 EFLAGS: 00000246 ORIG_RAX: 00=
+00000000000010
+>   [ 1171.960716] RAX: fffffffffffffffc RBX: 0000000000000003 RCX: 000070d=
+718dab9cf
+>   [ 1171.960720] RDX: 000070d717bfdb60 RSI: 00000000c0184b0c RDI: 0000000=
+000000003
+>   [ 1171.960725] RBP: 00000000c0184b0c R08: 0000000040000001 R09: 000070d=
+708000dd0
+>   [ 1171.960728] R10: 000070d71902bc68 R11: 0000000000000246 R12: 000070d=
+717bfdc10
+>   [ 1171.960732] R13: 000070d717bfdb60 R14: 0000000031050b60 R15: 000070d=
+708000dd0
+>   [ 1171.960741]  </TASK>
+>   [ 1171.960746] ---[ end trace 0000000000000000 ]---
+>=20
+> I'll try the other testcase we had (omptests t-unified-* all running in
+> parallel) later also.
+> --=20
+> Arsen Arsenovi=C4=87
 
-My patch would have broken existing usermode that relies on this behavior, which is unacceptable.
 
-I am withdrawing this patch and will drop the corresponding subtest from the IGT amd_fuzzing_kfd test suite.
-
-Thanks, Vitaly
-
-> Regards,
->    Felix
->
->
->> This patch adds validation to reject values outside the documented range
->> [-1, 1], improving robustness and catching potential userspace bugs early.
->>
->> Discovery: Found through systematic fuzzing of KFD IOCTLs using the
->> IGT amd_fuzzing_kfd test, which revealed that all fuzz patterns
->> (0xDEADBEEF, 0xFFFFFFFF, etc.) were accepted without error.
->>
->> Cc: Felix Kuehling <felix.kuehling@amd.com>
->> Cc: Christian König <christian.koenig@amd.com>
->> Cc: Alex Deucher <alexander.deucher@amd.com>
->> Cc: Jesse Zhang <jesse.zhang@amd.com>
->> Signed-off-by: Vitaly Prosyak <vprosyak@amd.com>
->> ---
->>   drivers/gpu/drm/amd/amdkfd/kfd_chardev.c | 7 +++++++
->>   1 file changed, 7 insertions(+)
->>
->> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
->> index 881ea252b3ad..57bd1e78b3e5 100644
->> --- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
->> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
->> @@ -1716,6 +1716,13 @@ static int kfd_ioctl_set_xnack_mode(struct file *filep,
->>   	struct kfd_ioctl_set_xnack_mode_args *args = data;
->>   	int r = 0;
->>   
->> +	/* Validate input: only -1 (query), 0 (disable), or 1 (enable) allowed */
->> +	if (args->xnack_enabled < -1 || args->xnack_enabled > 1) {
->> +		pr_debug("Invalid xnack_enabled value: %d (must be -1, 0, or 1)\n",
->> +			 args->xnack_enabled);
->> +		return -EINVAL;
->> +	}
->> +
->>   	mutex_lock(&p->mutex);
->>   	if (args->xnack_enabled >= 0) {
->>   		if (!list_empty(&p->pqm.queues)) {
