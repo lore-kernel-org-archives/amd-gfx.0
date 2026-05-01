@@ -4,87 +4,87 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F09BBCCFA13
-	for <amd-gfx@archiver.kernel.org>; Fri,  1 May 2026 13:31:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8B443CCFA13
+	for <amd-gfx@archiver.kernel.org>; Fri,  1 May 2026 13:36:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 72F7610F523;
-	Fri,  1 May 2026 13:31:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 07B0A10F528;
+	Fri,  1 May 2026 13:36:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="NFPTSdye";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ZBYxQDh5";
 	dkim-atps=neutral
-Received: from mail-dl1-f53.google.com (mail-dl1-f53.google.com [74.125.82.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C286210F523
- for <amd-gfx@lists.freedesktop.org>; Fri,  1 May 2026 13:31:01 +0000 (UTC)
-Received: by mail-dl1-f53.google.com with SMTP id
- a92af1059eb24-12c750eaf4cso177939c88.0
- for <amd-gfx@lists.freedesktop.org>; Fri, 01 May 2026 06:31:01 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1777642261; cv=none;
+Received: from mail-dl1-f43.google.com (mail-dl1-f43.google.com [74.125.82.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9D73B10F52F
+ for <amd-gfx@lists.freedesktop.org>; Fri,  1 May 2026 13:36:08 +0000 (UTC)
+Received: by mail-dl1-f43.google.com with SMTP id
+ a92af1059eb24-12734af2cdcso110933c88.0
+ for <amd-gfx@lists.freedesktop.org>; Fri, 01 May 2026 06:36:08 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1777642568; cv=none;
  d=google.com; s=arc-20240605;
- b=OKGx1CDDhseILQjeigbPvzJRcsb8VdH/1pu7hJIrSljwn90p03UUkN7yMSGGq4eHzP
- L/dQkjF2PbVqwIKhqQIOtXNMkNug02Aby35iVjoixgcz4YGVSGxKUJSDnktLV9K1Xi/E
- 1Pqyq/mLNZa/GeB/mixxzogHtDRhFh31XnDaK/TvxZCO1PiEFf6QytZboxn4L0yrqKFr
- GpIQ6Cq3Oq8i3WFSHCFcey62MzIkScDdBTnTMUhjO3OfUV1PDmA+2j9q0OOWKWCWG+0S
- xvivEtpBFZWJY2UtQ11MRdaO/PG46V3Acq/WlfpcaMLSDAMKHJ4QqUrfBpZ6JNrM+ZqE
- lHIg==
+ b=NpD75nokSxOcryqsCCq76xGFdFMJ3pfxeBb4Jdb0rr9rUbO7T4EioR3bnc1aOTUzDP
+ mUUpcMEsHC0mVuJ+FMxyg63TiZVTyILRj1k1JXHp3O4nxSffDkWhlopHrFJ0BFC73Vl8
+ /sl+psDSDFUy5P1XJx2s0XejjV8OwU4VoKIEIKnaPj/XvN52V9aAO9y/PZJ4pAM7yQY4
+ TdFQNXrhgUhyI0Jj/NRpRnw0TZTR+vquVRNNLNZfn/MM2IJZGcXC1ZNmf4S0yZrcxG8L
+ IU7RbjiujNEhps5LHVXgeUI0eU1Q/HO4TOf09tijhahL0XHpm1azlPZoxSM8cEy4lmFh
+ /kSw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20240605; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=YOTzbWB9arxgbaCh+41rNSLKEkG4JzChkSbzgWU/u7Y=;
+ bh=AXu3Yp9XpZNE8yKAauzcnHFv3EF9+0OSIXsRf1B4DGE=;
  fh=pVXkSRI4iWxMX2nwzh6GHNF3uSMfA8RBUzqfkxIWt8U=;
- b=RYAhfR2zbssbjpbQv+U5fJsvHupHxohB8qhaAjG/GF/jJoW002iEefzIxToTGl6IX9
- n3fI93ahehwvtfFlkrwF9+iQKmMCK/DLdORGsngwkUSwrY/ZuTw1cYyHawHK8bARos6L
- VUKAkPvmyR3qFtkySajx+xFkK1CgeAcVvUmvPEASUoL8mN/fSil6ElP6kiqH3H/58fyD
- Ou0mpe4vTmL0+e9jbqhDWTzN2NGoE+janjvcIxZw6wif0rd+pUUq4Mdsw6kVCV1vvIZX
- xhjSeFYtzU8EONSC1YYnDYHLvHnI+SW9iC3HBYtyeLZ68h8nXosdW3dfeWQ9TVskHAQe
- m+YA==; darn=lists.freedesktop.org
+ b=Ov9QdVecYj/uCGDQ94J5T8LPEUPU3TbJIiIG7vXcoW3i/5lftpL4uculDYXDeCP0wz
+ sIFM3BY6wevC9Kq8zW9IMP+aiQ6d/lWmZOvNZJS+Rw9fCgpVPCG7HS4AF75xf94p8ZPg
+ 2u6eGtuippjqGCHkzwTNRNCokseforUk68eYh+MY9+e5kkOPihdMNqAnDvZtovEMvmmb
+ GenAzs7DCtSxCZlbdkfY6hsjVMDiQN2OvqOiPUhv7t7olJbPZrMpbu8OoMI4fqSYnqjl
+ kaGxjD2CanxVywLePH/6Bj2d6x/3gkG3TB3E/rqWp+tFVuI1IZZzlPguUZqyd8s37tiy
+ YJKw==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1777642261; x=1778247061; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1777642568; x=1778247368; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=YOTzbWB9arxgbaCh+41rNSLKEkG4JzChkSbzgWU/u7Y=;
- b=NFPTSdye06zXkGAeNvNVdx5QSNq5ghTm195FSGgnYxJDp9VuFFrnorliqNigu6yGVe
- bZcpLe19pIMwudYc52QvuFh6726q3fEOf/RuM1Bbv+ntKUg8u6LhCuMiTX9qqVQHgC6H
- YeN9o4vOHmG5S6BehiqH6TBIB7s5mBrn8QOyJG/Xxls6kGHxcNa1amcLoqpjQEDv8bJw
- RZ/0vkC2xVF3Kvk1S0O2XHSS2CUAeDFM+feou5SBb225U5AIQj6IUZYaDGm/EfesX4V7
- COZHnQ6r2MRRuGO2hdKJNNTdFusQzEAfq6CpI5ShjMx5onh0RHFtVlG8uIqoiyc3sxSa
- 3mfA==
+ bh=AXu3Yp9XpZNE8yKAauzcnHFv3EF9+0OSIXsRf1B4DGE=;
+ b=ZBYxQDh5bwoZEuaC9/+Aaa2yv4XAG2QZrCA7mDj3m1t4azC70Th3GIfAXcvTMGUqQ/
+ EdSa3tPezAvMTcpROzH7Ze3bQMLZBnjv+heuuYwOgSWRUjuFH2Qsv+LDvK6nggS0R+xd
+ a45srpCD9gis7KyqHb3TFoIrLiUMI4kMt+Z3UXdWdoA61Fe6rbcJ/u1EDri1kVFOFdPb
+ xq+AbDd3gIZK1eSukI95MJRrOvtXAQ/Ptr8nsAU9ZWo7x/dlOe1qBrUEphc/sdwgT+Un
+ q4uCy7ntQW7O+hBbRFY9i5BO4ACCpusuyxy9tdMgiPv+t2B4Jc8yhK/gwH7FN7r8CB9P
+ PL+w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1777642261; x=1778247061;
+ d=1e100.net; s=20251104; t=1777642568; x=1778247368;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=YOTzbWB9arxgbaCh+41rNSLKEkG4JzChkSbzgWU/u7Y=;
- b=ZWNCzwd9xGqgnjDN2kMVGPIX58ZHoUYGNhrwZ0jki7mRkhow2JeXVxpg8m1Sw+RatC
- lXkg44SsrJEeAZYqri5V9DnFTmAQ/LKeggGNRMUvjX6XwqIGr7KCJfxXUwETivH2nHts
- 5b+7zNHCWN95sexGOpCP2eQuwbCMk71O2UUhj2ddEdAY+FgvlbgDk1k1lZQ+c/WQPR5I
- 0r0GQDpE6Mfxt+rog6h0s3QHOHsrRav6vw3OHN1OMIp7ZYQxP8Q3OSp6BITk5RJ6L4mv
- mybr3yv6h4x3lYEwnJkz+DMnSigr8rhlmhVFV7FB8kknHJBcdfaJlUEze3s/hciN6oZo
- O/MQ==
-X-Gm-Message-State: AOJu0YwXzhZDkxid2VbJ6XG/Rj9ffbo0vYRc/6K5LrQiWCXoSxXLYPWc
- RMbqK2RT2OBSamOvgGpkfMKR8eDHn4R+jqEM39nYBCg+q0MhkumhGNZI1bWPklkqxLYO//HUmwl
- 9RlkH271mLNQDG7xw0mfD+CygRs9STus=
-X-Gm-Gg: AeBDietxpX52RaoCC2dMpGVjCvHlyDRuu+szn4cY3CfaEDoo6JTY7wkAzW9YYm3STiN
- nc5+ks8lQH/xwflhslxmZ8quyrTdM1As/P08rtKre7Gr/upLAHG6d+tLj+0omyJE39CibQYhIIR
- 3SMSSOAmWVXi6n/hoOrLx2O4fXLc2VE/BrD1TtanD99SNTdFVaCMoyaUwQPEZgoBhzepB048Q0e
- BjMedrHqtoPx+JXjDSxMO4xIEvgVJFisdji+MUjQNmelbNAf0caU3Y0oqv+dmw1xZKM60YTF2us
- oW1fgjzTrS/sgpOCx3GqGbczWqnQcSkzAjyhWFe0lgTXM5GXBdNY/RQU7PZOZFwBqlW+6uyOIpv
- bvoar
-X-Received: by 2002:a05:7022:f94:b0:12c:20b9:80fc with SMTP id
- a92af1059eb24-12dead567ccmr1428155c88.7.1777642260854; Fri, 01 May 2026
- 06:31:00 -0700 (PDT)
+ bh=AXu3Yp9XpZNE8yKAauzcnHFv3EF9+0OSIXsRf1B4DGE=;
+ b=iDwYqDh1kYBaUB9f+dVOF3J80jHoH7PE1znBHkpZ/w6VbZkwZxW+b953270a66I7m+
+ Te0++Ig8tZSwIlzyRU6IUu21eHXyd1KIZDs5CuW/w0spSp2NrQ7mxDccC6s9eCiS49ER
+ GidjSO/kPRIaL1UlA2/xzD4InNo9dv93RCgmajvKN5on5P1phR9akabAsrvaspvw7FSa
+ cc8tsvnPqJhc2ASVRn5AsV9bXQrN00nKYniVnNURuEvptCB8JFUt8bY8CtamczG4TBrC
+ FzxPAuojBmIRUq5MKXmGnI921ASp+Ut1Z4a+VfKu2sBX1TTanV5MItCxsJEXJfxahLUo
+ 18iQ==
+X-Gm-Message-State: AOJu0YwADuRk+pfMUWm83XBubCa5kphBChqEjm0T/F2+Uq0R7bMo8VdQ
+ GTLq+p5s26vED2LoRsm9B66bgZy4nFN1zKydzQMtvAxONnuD5FBtaYbV+m4jkwnG8ZzHtANI3DD
+ 5o1Yc6IkV9uwBmYgDpL08gvgcQKvgvvi4yowJ
+X-Gm-Gg: AeBDieusnsUcs3uTZDHgk2gx0rLR1aGi7Zm45zdLyNup4YQKae1o1ysUwtH+V8+u3dN
+ rAQijz3Fysjfd0LoVnC6bzazLArk6k7PtpVeof7EuFFYY1yXAtQudMJiZMne8uew58g44pxi9cr
+ yfhc0TIB1w6OYzUyzCunrMxb88/RHAnjEgF4do1AXfhW140AjBn8PqCgny8DODnI2LeautsbZzb
+ mnmske7ANnqEr69V1pU90x4g99l5xMkfrzT4b+DamZDosWpeHsdJTKS8eAdtKvdo9e259a0uuJ1
+ OzzJHbmhudtAtvnn5++SW9TD1MLoUjg2G6QVBxqD0DuZd2VEAUzHGTnPyE41NZAnBt1clfjfohX
+ H6Dpa
+X-Received: by 2002:a05:7022:6291:b0:12d:b654:8180 with SMTP id
+ a92af1059eb24-12deac6a39cmr1801807c88.2.1777642567789; Fri, 01 May 2026
+ 06:36:07 -0700 (PDT)
 MIME-Version: 1.0
 References: <20260430161146.2851078-1-Jesse.Zhang@amd.com>
- <20260430161146.2851078-10-Jesse.Zhang@amd.com>
-In-Reply-To: <20260430161146.2851078-10-Jesse.Zhang@amd.com>
+ <20260430161146.2851078-9-Jesse.Zhang@amd.com>
+In-Reply-To: <20260430161146.2851078-9-Jesse.Zhang@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 1 May 2026 09:30:48 -0400
-X-Gm-Features: AVHnY4Ih3najnKcB83DxqgNZYo0IVED3jf1sehtZMh0S4bJawg_f_2xxb-Bo2hA
-Message-ID: <CADnq5_N_PwKyX4-gmDc7xWWB3AL0CVYJXzomgOXER0c72-c_oA@mail.gmail.com>
-Subject: Re: [PATCH v4 10/10] drm/amdgpu/userq_fence: NOTIFY MES on SDMA UMQ
- submit
+Date: Fri, 1 May 2026 09:35:55 -0400
+X-Gm-Features: AVHnY4IToKiII0Gv7yVIwBdrFdfwYaYQ1FBu0Dnp5km8wexDnOWyFsw3wU7_C5k
+Message-ID: <CADnq5_NCSXtqJrgnXH3UiD=MkxEo+hJQjknAaO4LNmQToYH1VA@mail.gmail.com>
+Subject: Re: [PATCH v4 09/10] drm/amdgpu/userq: report SDMA UMQ doorbell info
+ via AMDGPU_INFO_DOORBELL
 To: Jesse Zhang <Jesse.Zhang@amd.com>
 Cc: amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com, 
  Christian Koenig <christian.koenig@amd.com>
@@ -104,78 +104,74 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Apr 30, 2026 at 12:29=E2=80=AFPM Jesse Zhang <Jesse.Zhang@amd.com> =
+On Thu, Apr 30, 2026 at 12:19=E2=80=AFPM Jesse Zhang <Jesse.Zhang@amd.com> =
 wrote:
 >
 > From: "Jesse.zhang" <Jesse.zhang@amd.com>
 >
-> Pair the userspace aggregated-doorbell ring (added by the
-> AMDGPU_INFO_DOORBELL / AMDGPU_GEM_GLOBAL_AGGREGATED_DOORBELL ABI in
-> the previous patches) with a kernel-side
-> MES_MISC_OP_NOTIFY_WORK_ON_UNMAPPED_QUEUE in amdgpu_userq_signal_ioctl
-> for SDMA UMQs.
+> Extend AMDGPU_INFO_DOORBELL with an AMDGPU_HW_IP_DMA case so userspace
+> can discover:
+>
+>   - The SDMA UMQ doorbell BAR range (index_start..index_end), used to
+>     validate per-queue doorbell offsets.
+>   - Whether an aggregated doorbell slot exists in adev->agdb_bo
+>     (agdb_enable) and its dword offset within that BO (agdb_offset).
+>
+> A user-mode driver opens the global aggregated-doorbell BO via
+> AMDGPU_GEM_OP_OPEN_GLOBAL with AMDGPU_GEM_GLOBAL_AGGREGATED_DOORBELL,
+> mmaps it, and writes the queue's 32-bit WPTR at the byte offset
+> agdb_offset * 4 to wake MES =E2=80=94 bypassing amdgpu_userq_signal_ioctl
+> entirely.
+>
+> This is the user-visible half of moving the SDMA UMQ wake path out of
+> the kernel.  The kernel-side wake is removed in a follow-up patch.
 >
 > Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
+> --->  drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c | 11 +++++++++++
+>  1 file changed, 11 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_kms.c
+> index a3beeff800bf..1c6368d25b7d 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> @@ -1437,6 +1437,17 @@ int amdgpu_info_ioctl(struct drm_device *dev, void=
+ *data, struct drm_file *filp)
+>                         doorbell_info.index_start =3D adev->doorbell_inde=
+x.vcn.vcn_ring0_1 << 1;
+>                         doorbell_info.index_end =3D (adev->doorbell_index=
+.vcn.vcn_ring6_7 << 1) + 1;
+>                         break;
+> +               case AMDGPU_HW_IP_DMA:
+> +                       if (adev->agdb_bo) {
 
-How will this work if the user doesn't use this IOCTL?  protected
-fences are optional.  An application can create a user queue and never
-use a protected fence.  Why don't KFD SDMA queues need this special
-treatment?
+I think this IOCTL should return an error adev->agdb_bo is NULL.  We
+probably also need a per-IP flag to determine if the aggregated
+doorbell is required or not.  That way we can easily support other IP
+versions that may not require the aggregated doorbell.
+
+Can you also add a patch to add doorbell info support for compute and
+gfx for consistency?
+
+Thanks,
 
 Alex
 
-> ---
->  .../gpu/drm/amd/amdgpu/amdgpu_userq_fence.c   | 29 +++++++++++++++++++
->  1 file changed, 29 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c b/drivers/gp=
-u/drm/amd/amdgpu/amdgpu_userq_fence.c
-> index a58342c2ac44..50e275b51c9e 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
-> @@ -598,6 +598,35 @@ int amdgpu_userq_signal_ioctl(struct drm_device *dev=
-, void *data,
->         /* drop the reference acquired in fence creation function */
->         dma_fence_put(fence);
->
-> +       /*
-> +        * SDMA UMQ wake: SDMA has no CP_UNMAPPED_DOORBELL HW intercept, =
-so
-> +        * once MES gangs the queue out (after the first IB's PROTECTED_F=
-ENCE
-> +        * idles the queue), per-queue doorbell rings hit a mapped-out HW
-> +        * slot and are silently dropped =E2=80=94 FENCE IRQ never fires.
-> +        *
-> +        * Userspace rings the priority's MES aggregated doorbell directl=
-y
-> +        * via the agdb_bo mmap (see AMDGPU_INFO_DOORBELL +
-> +        * AMDGPU_GEM_GLOBAL_AGGREGATED_DOORBELL).  That alone, however, =
-is
-> +        * not enough on current MES12 firmware =E2=80=94 MES will not sc=
-an the
-> +        * priority's queue list unless its hasReadyQueues flag is set.
-> +        * NOTIFY_WORK_ON_UNMAPPED_QUEUE flips that flag, so MES then
-> +        * processes the doorbell ring and re-MAP_QUEUEs the SDMA UMQ.
-> +        *
-> +        * This is a kernel-side companion to the userspace agg doorbell
-> +        * ring; remove once firmware learns to wake on bare aggregated
-> +        * doorbell.
-> +        */
-> +       if (queue && queue->queue_type =3D=3D AMDGPU_HW_IP_DMA &&
-> +           adev->enable_mes && adev->mes.funcs->misc_op) {
-> +               struct mes_misc_op_input op =3D { 0 };
-> +
-> +               op.op =3D MES_MISC_OP_NOTIFY_WORK_ON_UNMAPPED_QUEUE;
-> +               op.notify_work.priority_level =3D AMDGPU_MES_PRIORITY_LEV=
-EL_NORMAL;
-> +               amdgpu_mes_lock(&adev->mes);
-> +               (void)adev->mes.funcs->misc_op(&adev->mes, &op);
-> +               amdgpu_mes_unlock(&adev->mes);
-> +       }
-> +
->  exec_fini:
->         drm_exec_fini(&exec);
->  put_gobj_write:
+
+> +                               doorbell_info.agdb_enable =3D 1;
+> +                               doorbell_info.agdb_offset =3D adev->sdma.=
+agdb_offset;
+> +                       }
+> +                       doorbell_info.index_start =3D
+> +                               adev->doorbell_index.sdma_engine[0] << 1;
+> +                       doorbell_info.index_end =3D
+> +                               (adev->doorbell_index.sdma_engine[adev->s=
+dma.num_instances - 1]
+> +                                << 1) + 1;
+> +                       break;
+>                 default:
+>                         return -EINVAL;
+>                 }
 > --
 > 2.49.0
 >
