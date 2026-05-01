@@ -4,77 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4AD02CD343A
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1591AFF886F
 	for <amd-gfx@archiver.kernel.org>; Mon,  4 May 2026 12:42:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8B1C210E69C;
-	Mon,  4 May 2026 12:42:22 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=baylibre-com.20251104.gappssmtp.com header.i=@baylibre-com.20251104.gappssmtp.com header.b="KRD3pgMc";
-	dkim-atps=neutral
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com
- [209.85.128.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B092C10E1D2
- for <amd-gfx@lists.freedesktop.org>; Fri,  1 May 2026 14:25:58 +0000 (UTC)
-Received: by mail-wm1-f52.google.com with SMTP id
- 5b1f17b1804b1-4852a9c6309so16246245e9.0
- for <amd-gfx@lists.freedesktop.org>; Fri, 01 May 2026 07:25:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=baylibre-com.20251104.gappssmtp.com; s=20251104; t=1777645557; x=1778250357;
- darn=lists.freedesktop.org; 
- h=mime-version:message-id:date:user-agent:references:organization
- :in-reply-to:subject:cc:to:from:from:to:cc:subject:date:message-id
- :reply-to; bh=DYv/GlnIowzYK/Y+vOhHbB/BH7X8bAFCbDKncVCH2Ls=;
- b=KRD3pgMcyJWmTzUySZUJ88SGPbfcfIJHzlZatOJrKN/iddWj5hik40rTa2FFFevl/s
- oejvEmbs8BM92YBhSS0DvFFLDdrQnFClbFh3e4nMZcYcSAE+GIEiz2AgVdftTGDbMEd7
- qxFjJ72cY9jeL7qmwpbU7fhjY/a7Wm0lKonDBzH2CZRmc56CQn2ajnh+w49mvfAJUJkw
- sdl8+fIy/SQj9M2vzHbEG66qRZrfNlrLcndfXvHgLg+kwK8z+YSXlTiVJA5AWX10kNGU
- Gr68CeqAZ7hUDdzkYn3tc02eO3V4GzjOSDxBIwfBZDkokhEtEl+X09a+cKAk0m732dFY
- iIMg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1777645557; x=1778250357;
- h=mime-version:message-id:date:user-agent:references:organization
- :in-reply-to:subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to;
- bh=DYv/GlnIowzYK/Y+vOhHbB/BH7X8bAFCbDKncVCH2Ls=;
- b=Dw2Go2FOgRPSStl7ItHTSthSEGcrBZDdqOQZiSFYMMGC5QEE31M4yQ4Z10SWH1Czta
- 1fdHiNsX5wCDk8sA39NJpANTTg9wbj2IeHW62E00YU5MdlBGfmsdc1IOgwBuqiSBf88h
- V4s6wdlYM8QQC195rBjRrvvm1LvsAgFE106vaZnRixT73a5JYey5i81xZ4Tf9dY/APEP
- ZQK+MlcHEQUSta7bF0HEuVwZ0xl9syn9rp+NFNIlp7g81YY5YvK7NCxVMvpj5ndrgbgu
- 64s2hZ+D92ekJPSn3y00YerAUPirf5lc5L1nLDbPJo9jVbDOAMsbHiZFOx3dsdxQuRht
- YAfg==
-X-Gm-Message-State: AOJu0Yw2HZypE00T8urACX+aeDp4o1yJxxH4lK2WuPzfwKByOEl3ExGP
- umUlweKojNZy6saDqkJQrsAy48W3IR9FJKF6rr+8Dz/ZCYrye7ji+SzE4+8NkqmrZYw=
-X-Gm-Gg: AeBDievNGnXhzC4euTPuYNjy1NbpDTCdnjRFb/ii2BN3Z8JCjw1pDc4wuOJ1zZBvElH
- TZ0oVRPytT7zovUtc/43jLa0zVQW2PMABck73cBS1P7LsAg/fjOAzx+AHThE1sfEeOeSEtHf2z6
- ejW/jVBd1LrPsGNRt/H/Pfi/twknY2i9sKOz483uTmUjYxu3AyECARx+oqVGK44FUHfeRGDG9h+
- +Op6LJvJatmjgESpJGPM5bHt+Uc9URkTHKrAItZe+mwvAyQP5LB6zhSxOThFmdFcZKNMvYWudfh
- ZGcxx8xjPjCvFPQq+CZ6VbrKsM/6e2WU6/rApZXX3JzOcV/EnZRgjYHuUY/5Q1/BO7WVUrOBdoV
- Q0qiVl88ugyjnxrJxVlvsAagK0hkh9Wa5dhU/9SPO7oEeGHHG69Hc357BEOYQ+jKqcsLl77Lw8T
- lEEkBx9WIqRxXgdnMKS2HdX6jx2K1D
-X-Received: by 2002:a05:600c:1f83:b0:48a:674d:e756 with SMTP id
- 5b1f17b1804b1-48a84458f63mr116689945e9.20.1777645556755; 
- Fri, 01 May 2026 07:25:56 -0700 (PDT)
-Received: from bstg ([146.70.193.12]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-48a8eba8487sm51896485e9.11.2026.05.01.07.25.55
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 01 May 2026 07:25:56 -0700 (PDT)
-From: =?utf-8?Q?Arsen_Arsenovi=C4=87?= <aarsenovic@baylibre.com>
-To: Alistair Popple <apopple@nvidia.com>
-Cc: amd-gfx@lists.freedesktop.org,  linux-mm@kvack.org,
- cs-tech-ext@baylibre.com
-Subject: Re: [BUG] Frequent hangs or WARNINGs when using heterogeneous
- memory with an AMD MI210 GPU
-In-Reply-To: <afREaF6hcka_cxnY@nvdebian.thelocal>
-Organization: BayLibre
-References: <86ecjz2hhr.fsf@baylibre.com> <86tssu0w8p.fsf@baylibre.com>
- <afREaF6hcka_cxnY@nvdebian.thelocal>
-User-Agent: mu4e 1.14.0; emacs 31.0.50
-Date: Fri, 01 May 2026 16:25:53 +0200
-Message-ID: <86340bp5ou.fsf@baylibre.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 31DFE10E6A3;
+	Mon,  4 May 2026 12:42:23 +0000 (UTC)
+X-Greylist: delayed 717 seconds by postgrey-1.36 at gabe;
+ Fri, 01 May 2026 20:49:00 UTC
+Received: from h7.fbrelay.privateemail.com (h7.fbrelay.privateemail.com
+ [162.0.218.230])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2438810F5FB
+ for <amd-gfx@lists.freedesktop.org>; Fri,  1 May 2026 20:49:00 +0000 (UTC)
+Received: from MTA-08-4.privateemail.com (mta-08.privateemail.com
+ [198.54.118.215])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ (No client certificate requested)
+ by h7.fbrelay.privateemail.com (Postfix) with ESMTPSA id 4g6jXK4rqTz2xKS;
+ Fri,  1 May 2026 16:37:37 -0400 (EDT)
+Received: from mta-08.privateemail.com (localhost [127.0.0.1])
+ by mta-08.privateemail.com (Postfix) with ESMTP id 4g6jXH4kKxz3hhTp;
+ Fri,  1 May 2026 16:37:35 -0400 (EDT)
+Received: from localhost.localdomain
+ (bras-base-toroon4332w-grc-26-174-91-51-28.dsl.bell.ca [174.91.51.28])
+ by mta-08.privateemail.com (Postfix) with ESMTPA;
+ Fri,  1 May 2026 16:37:01 -0400 (EDT)
+From: Hamza Mahfooz <someguy@effective-light.com>
+To: dri-devel@lists.freedesktop.org
+Cc: Hamza Mahfooz <someguy@effective-light.com>,
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ Alex Hung <alex.hung@amd.com>, Ray Wu <ray.wu@amd.com>,
+ Wayne Lin <Wayne.Lin@amd.com>, Aurabindo Pillai <aurabindo.pillai@amd.com>,
+ =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>,
+ "Mario Limonciello (AMD)" <superm1@kernel.org>,
+ Ivan Lipski <ivan.lipski@amd.com>, Chenyu Chen <chen-yu.chen@amd.com>,
+ Matthew Schwartz <matthew.schwartz@linux.dev>,
+ Yussuf Khalil <dev@pp3345.net>, Tom Chung <chiahsuan.chung@amd.com>,
+ Colin Ian King <colin.i.king@gmail.com>,
+ Charlene Liu <charlene.liu@amd.com>, amd-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH v5 2/2] drm/amd/display: add DMU timeout recovery support
+Date: Fri,  1 May 2026 16:35:44 -0400
+Message-ID: <20260501203552.749080-2-someguy@effective-light.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260501203552.749080-1-someguy@effective-light.com>
+References: <20260501203552.749080-1-someguy@effective-light.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="=-=-=";
- micalg=pgp-sha512; protocol="application/pgp-signature"
+Content-Transfer-Encoding: 8bit
+X-Virus-Scanned: ClamAV using ClamSMTP
 X-Mailman-Approved-At: Mon, 04 May 2026 12:42:21 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -90,60 +75,134 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---=-=-=
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+DMU already has robust hung state tracking, but timeout recovery
+was never hooked up, so do so now.
 
-Alistair Popple <apopple@nvidia.com> writes:
+Signed-off-by: Hamza Mahfooz <someguy@effective-light.com>
+---
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 23 ++++++++++++++-----
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |  1 +
+ .../amd/display/amdgpu_dm/amdgpu_dm_helpers.c | 12 ++++++++--
+ 3 files changed, 28 insertions(+), 8 deletions(-)
 
-> I don't know the AMD driver well enough to comment definitively but
-> chances are this warning is spurious. I have been meaning to put
-> togeather a fix for it.  The problem is that migrate_vma_setup()
-> etc. allow for migration of anonymous folios, which is subtly
-> different from only allowing migration of anonymous VMA's.
->
-> Specifically migrate_vma checks for folio_test_anon() which returns
-> true for private file-backed VMAs while the warning is based on
-> vma_is_anonymous() which is false for such mappings. So it is possible
-> for the driver to migrate a private filebacked mapping to GPU memory
-> which will trigger this warning during teardown if the page wasn't
-> migrated back.
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index e96a12ff2d31..7be4ebee1cb7 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -1246,7 +1246,7 @@ static  void amdgpu_dm_audio_eld_notify(struct amdgpu_device *adev, int pin)
+ 	}
+ }
+ 
+-static int dm_dmub_hw_init(struct amdgpu_device *adev)
++int amdgpu_dm_dmub_hw_init(struct amdgpu_device *adev)
+ {
+ 	const struct dmcub_firmware_header_v1_0 *hdr;
+ 	struct dmub_srv *dmub_srv = adev->dm.dmub_srv;
+@@ -1315,7 +1315,7 @@ static int dm_dmub_hw_init(struct amdgpu_device *adev)
+ 	/* if adev->firmware.load_type == AMDGPU_FW_LOAD_PSP,
+ 	 * amdgpu_ucode_init_single_fw will load dmub firmware
+ 	 * fw_inst_const part to cw0; otherwise, the firmware back door load
+-	 * will be done by dm_dmub_hw_init
++	 * will be done by amdgpu_dm_dmub_hw_init().
+ 	 */
+ 	if (adev->firmware.load_type != AMDGPU_FW_LOAD_PSP) {
+ 		memcpy(fb_info->fb[DMUB_WINDOW_0_INST_CONST].cpu_addr, fw_inst_const,
+@@ -1457,7 +1457,7 @@ static void dm_dmub_hw_resume(struct amdgpu_device *adev)
+ 			drm_warn(adev_to_drm(adev), "Wait for DMUB auto-load failed: %d\n", status);
+ 	} else {
+ 		/* Perform the full hardware initialization. */
+-		r = dm_dmub_hw_init(adev);
++		r = amdgpu_dm_dmub_hw_init(adev);
+ 		if (r)
+ 			drm_err(adev_to_drm(adev), "DMUB interface failed to initialize: status=%d\n", r);
+ 	}
+@@ -2041,6 +2041,9 @@ static int amdgpu_dm_init(struct amdgpu_device *adev)
+ 		goto error;
+ 	}
+ 
++	adev->dm.dc->debug.enable_dmu_recovery =
++		amdgpu_device_should_recover_gpu(adev);
++
+ 	if (amdgpu_dc_debug_mask & DC_DISABLE_PIPE_SPLIT) {
+ 		adev->dm.dc->debug.force_single_disp_pipe_split = false;
+ 		adev->dm.dc->debug.pipe_split_policy = MPC_SPLIT_AVOID;
+@@ -2090,7 +2093,7 @@ static int amdgpu_dm_init(struct amdgpu_device *adev)
+ 	if (adev->dm.dc->caps.dp_hdmi21_pcon_support)
+ 		drm_info(adev_to_drm(adev), "DP-HDMI FRL PCON supported\n");
+ 
+-	r = dm_dmub_hw_init(adev);
++	r = amdgpu_dm_dmub_hw_init(adev);
+ 	if (r) {
+ 		drm_err(adev_to_drm(adev), "DMUB interface failed to initialize: status=%d\n", r);
+ 		goto error;
+@@ -3604,7 +3607,7 @@ static int dm_resume(struct amdgpu_ip_block *ip_block)
+ 		 */
+ 		link_enc_cfg_copy(adev->dm.dc->current_state, dc_state);
+ 
+-		r = dm_dmub_hw_init(adev);
++		r = amdgpu_dm_dmub_hw_init(adev);
+ 		if (r) {
+ 			drm_err(adev_to_drm(adev), "DMUB interface failed to initialize: status=%d\n", r);
+ 			return r;
+@@ -9623,7 +9626,15 @@ static void prepare_flip_isr(struct amdgpu_crtc *acrtc)
+ {
+ 
+ 	assert_spin_locked(&acrtc->base.dev->event_lock);
+-	WARN_ON(acrtc->event);
++
++	/*
++	 * Compositors will refuse to make forward progress unless we send
++	 * the previous flip's completion event.
++	 */
++	if (WARN_ON(acrtc->event)) {
++		drm_crtc_send_vblank_event(&acrtc->base, acrtc->event);
++		drm_crtc_vblank_put(&acrtc->base);
++	}
+ 
+ 	acrtc->event = acrtc->base.state->event;
+ 
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+index 74a8fe1a1999..dc808ee83c2a 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+@@ -1086,6 +1086,7 @@ int amdgpu_dm_verify_lut3d_size(struct amdgpu_device *adev,
+ #define MAX_COLOR_LEGACY_LUT_ENTRIES 256
+ 
+ void amdgpu_dm_init_color_mod(void);
++int amdgpu_dm_dmub_hw_init(struct amdgpu_device *adev);
+ int amdgpu_dm_create_color_properties(struct amdgpu_device *adev);
+ int amdgpu_dm_verify_lut_sizes(const struct drm_crtc_state *crtc_state);
+ int amdgpu_dm_update_crtc_color_mgmt(struct dm_crtc_state *crtc);
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+index 3b8ae7798a93..8f10117483e2 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+@@ -33,6 +33,7 @@
+ #include <drm/drm_atomic.h>
+ #include <drm/drm_probe_helper.h>
+ #include <drm/amdgpu_drm.h>
++#include <drm/drm_drv.h>
+ #include <drm/drm_edid.h>
+ #include <drm/drm_fixed.h>
+ 
+@@ -1165,8 +1166,15 @@ void dm_set_dcn_clocks(struct dc_context *ctx, struct dc_clocks *clks)
+ 
+ void dm_helpers_dmu_timeout(struct dc_context *ctx)
+ {
+-	// TODO:
+-	//amdgpu_device_gpu_recover(dc_context->driver-context, NULL);
++	struct amdgpu_device *adev = ctx->driver_context;
++
++	lockdep_assert_held(&adev->dm.dc_lock);
++
++	drm_info(adev_to_drm(adev), "attempting firmware reset\n");
++	if (amdgpu_dm_dmub_hw_init(adev))
++		drm_dev_wedged_event(adev_to_drm(adev),
++				     DRM_WEDGE_RECOVERY_REBIND |
++				     DRM_WEDGE_RECOVERY_BUS_RESET, NULL);
+ }
+ 
+ void dm_helpers_smu_timeout(struct dc_context *ctx, unsigned int msg_id, unsigned int param, unsigned int timeout_us)
+-- 
+2.54.0
 
-Ah, if it is spurious, that is quite unfortunate.  We were hoping it's
-the same issue as the one the rest of the email was describing (those
-hangs, unkillable processes, and bad page states), since that means we
-have a good reproducer for it.
-
-FWIW, that sounds like a plausible explanation; the program is using
-dynamic_cast, so typeinfo will need to be accessed.  The typeinfo is
-mmap-ped from the executable, so it's file-backed.  I don't see any
-reason for this page to be thrown out of the GPU later, so it stays
-mapped until exit, and causes the warning.
-
-The trigger for the latter is significantly harder to reproduce, and far
-less self-contained.
-
-So, I suppose we're left with a bug for which the reproducer "run more
-than nproc of parallel AMDGPU&HMM-utilizing processes in a loop and
-cross fingers".  :/
-
-Thank you very much for fixing the WARN_ON!
-
-Have a lovely day.
-=2D-=20
-Arsen Arsenovi=C4=87
-
---=-=-=
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEKBAEWCgCyFiEE/uKz0RP8AKMWLWBhUsKUMB6ixJMFAmn0t/EbFIAAAAAABAAO
-bWFudTIsMi41KzEuMTIsMiwyXxSAAAAAAC4AKGlzc3Vlci1mcHJAbm90YXRpb25z
-Lm9wZW5wZ3AuZmlmdGhob3JzZW1hbi5uZXRGRUUyQjNEMTEzRkMwMEEzMTYyRDYw
-NjE1MkMyOTQzMDFFQTJDNDkzGBxhYXJzZW5vdmljQGJheWxpYnJlLmNvbQAKCRBS
-wpQwHqLEk5KiAP9PMMBwrhXRhH/toIRa9Gd89OXC/klbJT/ORaNbQLu4ZAD/fjQY
-F8L55iUDPgzIF3dph1C7Td/BL6/SbmcILMaW4QY=
-=+HE3
------END PGP SIGNATURE-----
---=-=-=--
