@@ -4,72 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2CDC6FF885A
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DE943CD343C
 	for <amd-gfx@archiver.kernel.org>; Mon,  4 May 2026 12:42:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3A53710E6A4;
-	Mon,  4 May 2026 12:42:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2B22410E6A6;
+	Mon,  4 May 2026 12:42:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="SKor3FrM";
+	dkim=pass (2048-bit key; secure) header.d=dyllankobal.com header.i=@dyllankobal.com header.b="uAOQG8hA";
 	dkim-atps=neutral
-Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com
- [209.85.215.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1161710F5FB
- for <amd-gfx@lists.freedesktop.org>; Fri,  1 May 2026 20:48:57 +0000 (UTC)
-Received: by mail-pg1-f172.google.com with SMTP id
- 41be03b00d2f7-c7971d0d97dso1309674a12.1
- for <amd-gfx@lists.freedesktop.org>; Fri, 01 May 2026 13:48:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1777668536; x=1778273336; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=TDTG+3/DnSLNqGWEZBCoD/zuD/bmDCvWNrNY2zLrKIk=;
- b=SKor3FrMmrKkQ3hMO6dR0R6dxxfFx19eivvQsKQ5/3EERogtHty+l68OdlQ9alFUbh
- nWuuB5FPUi6PS2kiLO3LJ/sARzsEJKVM61cE+o8n+c611x8vaLjIAtF8uYTts+o7u9R2
- NwUBOvbNHldLaC9/tKQa/jbOv0dvFdKYJye8m8sybTj0FcJvui4n5PBRgMWeDG4EY9Q1
- dmawA+z0Dq5u8wXZANPn7QasV7bZPprCqpUKpEINPmiO8KhnwvLriDc8RnwAibp/MIfm
- zGyS2RjoXrSDMGBuDnLNIPbYUm2+1T2qlr/bLY89Bj41DoMHYu8FtnSOG/lAxf/1O3Wa
- Bbqw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1777668536; x=1778273336;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=TDTG+3/DnSLNqGWEZBCoD/zuD/bmDCvWNrNY2zLrKIk=;
- b=d2+mceihqWLJyGOOcM+DJ/R1awkk3QD9pitLRCVv5D5ClvHXh7SoeX1aRQY2lxGBiE
- FAaZA50E0G6Jlmj4VUK2SCoV7djf/WPu1DnS8YINmRdLZ5W3IbeSF0o4nWOA4GclEJcr
- ys4irGzZPJ9FgJIZtNWwOfHNyjbRoB1NFM5ayDD5sryMMK7GMLsjp8GO+XMlO6Fnc3W+
- 0m3bzUvkcRpbrXFwC2yq7R/On3tDZHfaEl9OoBbFsEU5z9XcpxlJKU/1HeVTeDhajqIf
- Qbdsk4RQ9SUJlnNRWpYHYNvJJ5jkrTwjHJrL63+xmulOQjrVfT3C//L4Gepido08v9Vx
- mVAw==
-X-Gm-Message-State: AOJu0Yyl3cKitj1tZio34RRhzYdFteeLMAl76r+TSTzcV8TYq2suscyh
- AE3El5rpF6xNDcbu3Z5ECl7xSZvorJs8MDEckQ8uXeqgXO8DJ0pNYyfcnT1Xrk3ezX4TLQ==
-X-Gm-Gg: AeBDievnKHnDKh3Ph7lCB6nK1sm2JH7moO0p18VGKXfrdsr7jE2Z1mtZuc5bbjAti+Q
- fzfMh/U8poC2OgcHsvinFUUgViflwboY1UAKuGdwj3etO6d7+SwZleftQMMDB6sQt5TyFOJDceO
- wbFkD3hTT21/mhqEPEYmHI7ZkkM9lZpYHJ9hIxHN79Fr9P2riwuUcNbMUuN9hz4oFJ1kw7asQIT
- sgu7DWNgjUbilDLLqcrClj5GMzGOQAfCXD301eyBRMrW/M6d3rpDy1H8J8XDGNJuzVB2dfB2WLW
- I0OTKWG+dN5M20D0siDQYR524HN7zueiwxQdPBlSfMdkKy5Ys4D1gkzUHuN8RuddDt9/Cd7FoPe
- TksUPW7c0tmGsVhetkp3SNxDhV2+r9kcW/RDTG9eijp6yNn6Uv/VOTa4eMUtDs6DcTyeCgRiJAA
- ZpMWyHFnV7J2HW04KgftTHtyxJlg6kG5GZ
-X-Received: by 2002:a05:6a21:6da2:b0:394:5513:ce5 with SMTP id
- adf61e73a8af0-3a7f1fd1314mr559712637.51.1777668536068; 
- Fri, 01 May 2026 13:48:56 -0700 (PDT)
-Received: from archbox ([2401:4900:1c0a:5b5d:d61f:366a:2e4:3109])
- by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-c7ffbc6f511sm2878652a12.16.2026.05.01.13.48.52
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 01 May 2026 13:48:55 -0700 (PDT)
-From: Daksh Sahni <swizzguy76@gmail.com>
-To: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Cc: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
- simona@ffwll.ch, Daksh Sahni <swizzguy76@gmail.com>
-Subject: [PATCH] drm/amd: Fix spelling mistakes in comments
-Date: Fri,  1 May 2026 16:48:32 -0400
-Message-ID: <20260501204832.66251-1-swizzguy76@gmail.com>
-X-Mailer: git-send-email 2.54.0
+Received: from mail-4321.protonmail.ch (mail-4321.protonmail.ch [185.70.43.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A6D3910E269
+ for <amd-gfx@lists.freedesktop.org>; Sat,  2 May 2026 14:08:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dyllankobal.com;
+ s=protonmail2; t=1777730917; x=1777990117;
+ bh=YazXJnLTAIYakDPX+ixQ+9woMpswAij5bhueE+qQUQ8=;
+ h=Date:To:From:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+ Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+ b=uAOQG8hAj0FQjOkYhP+UkwYxz/+n0+uTtdQbzFn9AEKycmR2LMPApFaJCd2Ffvjja
+ kBdA9SAs0sCsK+8hdh9TxGqfExvWb7oANfPZbyhCkUuEF64yz7u/qtOLMnyE9qvQgh
+ bJknQIUE5Uxlt+jodH2bLv7BIFo8yO3Wv4RiNXTRd0SIgeQzKnWtGWB5RWAjKJTvOd
+ IRBIY9ynAI0oBTQmsH7JTglR4wiKWPOKAfvsTGBH9qXvCUZP/PJI4ROmvWNHu1Fafg
+ N0alsPq3NoaVJqVA6UIs+/zCxvmCBbr3cRgLEP0yHY74qB3wrNML18ti+sV/aN87jq
+ LwEOuWrUGatKg==
+Date: Sat, 02 May 2026 14:08:31 +0000
+To: amd-gfx@lists.freedesktop.org, Harry Wentland <harry.wentland@amd.com>
+From: Dyllan Kobal <dyllan@dyllankobal.com>
+Subject: Re: [PATCH 15/21] drm/amd/display: Tie FRL programming together in
+ HWSS
+Message-ID: <20260502140825.705534-1-dyllan@dyllankobal.com>
+Feedback-ID: 33529580:user:proton
+X-Pm-Message-ID: 251e24dab77d27eb816dae6c09af1a167ad513a1
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Mon, 04 May 2026 12:42:21 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -85,88 +52,82 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Fix several instances of "occurred" and "separate" in comments.
+From: Dyllan Kobal <dk@zetier.com>
 
-Signed-off-by: Daksh Sahni <swizzguy76@gmail.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c           | 2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c           | 4 ++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_job.h           | 2 +-
- drivers/gpu/drm/amd/display/dc/dcn20/dcn20_vmid.c | 2 +-
- drivers/gpu/drm/amd/display/dmub/dmub_srv.h       | 2 +-
- 5 files changed, 6 insertions(+), 6 deletions(-)
+Hi Harry, Rodrigo, Jerry,
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
-index 7af86a32c0c5..e5884bb4d63a 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
-@@ -564,7 +564,7 @@ static int amdgpu_ctx_query(struct amdgpu_device *adev,
- 	out->state.flags = 0x0;
- 	out->state.hangs = 0x0;
- 
--	/* determine if a GPU reset has occured since the last call */
-+	/* determine if a GPU reset has occurred since the last call */
- 	reset_counter = atomic_read(&adev->gpu_reset_counter);
- 	/* TODO: this should ideally return NO, GUILTY, or INNOCENT. */
- 	if (ctx->reset_counter_query == reset_counter)
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
-index 124fb38eb465..095ab609623f 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
-@@ -161,12 +161,12 @@ void amdgpu_pasid_free_delayed(struct dma_resv *resv,
-  */
- 
- /**
-- * amdgpu_vmid_had_gpu_reset - check if reset occured since last use
-+ * amdgpu_vmid_had_gpu_reset - check if reset occurred since last use
-  *
-  * @adev: amdgpu_device pointer
-  * @id: VMID structure
-  *
-- * Check if GPU reset occured since last use of the VMID.
-+ * Check if GPU reset occurred since last use of the VMID.
-  */
- bool amdgpu_vmid_had_gpu_reset(struct amdgpu_device *adev,
- 			       struct amdgpu_vmid *id)
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h
-index 56a88e14a044..bc011b4639f2 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h
-@@ -31,7 +31,7 @@
- #define AMDGPU_PREAMBLE_IB_PRESENT          (1 << 0)
- /* bit set means preamble IB is first presented in belonging context */
- #define AMDGPU_PREAMBLE_IB_PRESENT_FIRST    (1 << 1)
--/* bit set means context switch occured */
-+/* bit set means context switch occurred */
- #define AMDGPU_HAVE_CTX_SWITCH              (1 << 2)
- /* bit set means IB is preempted */
- #define AMDGPU_IB_PREEMPTED                 (1 << 3)
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_vmid.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_vmid.c
-index 5bc3bc60a2ac..ebbe7900205e 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_vmid.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_vmid.c
-@@ -46,7 +46,7 @@ static void dcn20_wait_for_vmid_ready(struct dcn20_vmid *vmid)
- 	/* According the hardware spec, we need to poll for the lowest
- 	 * bit of PAGE_TABLE_BASE_ADDR_LO32 = 1 any time a GPUVM
- 	 * context is updated. We can't use REG_WAIT here since we
--	 * don't have a seperate field to wait on.
-+	 * don't have a separate field to wait on.
- 	 *
- 	 * TODO: Confirm timeout / poll interval with hardware team
- 	 */
-diff --git a/drivers/gpu/drm/amd/display/dmub/dmub_srv.h b/drivers/gpu/drm/amd/display/dmub/dmub_srv.h
-index c18ff8f00bb8..43b05e56679c 100644
---- a/drivers/gpu/drm/amd/display/dmub/dmub_srv.h
-+++ b/drivers/gpu/drm/amd/display/dmub/dmub_srv.h
-@@ -355,7 +355,7 @@ struct dmub_srv_hw_params {
- 
- /**
-  * struct dmub_srv_debug - Debug info for dmub_srv
-- * @timeout_occured: Indicates a timeout occured on any message from driver to dmub
-+ * @timeout_occured: Indicates a timeout occurred on any message from driver to dmub
-  * @timeout_cmd: first cmd sent from driver that timed out - subsequent timeouts are not stored
-  */
- struct dmub_timeout_info {
--- 
-2.54.0
+Tested this series on Navi 22 (RX 6700 XT class, DCN 3.0.2) with a
+Sony Bravia 8 II as the HDMI sink. Hit a NULL deref at amdgpu probe:
+
+  BUG: kernel NULL pointer dereference, address: 0000000000000000
+  #PF: supervisor instruction fetch in kernel mode
+  Oops: Oops: 0010 [#1] SMP NOPTI
+  CPU: 14 UID: 0 PID: 568 Comm: (udev-worker) Not tainted 6.19.0+
+  RIP: 0010:0x0
+  Call Trace:
+   <TASK>
+   hdmi_frl_perform_link_training_with_fallback+0x64/0x110 [amdgpu]
+   hdmi_frl_verify_link_cap+0x24e/0x5d0 [amdgpu]
+   link_detect+0x4b4/0x550 [amdgpu]
+   amdgpu_dm_initialize_drm_device+0x73f/0xb21 [amdgpu]
+   amdgpu_dm_init.cold+0x734/0x86c [amdgpu]
+   dm_hw_init+0x1b/0x90 [amdgpu]
+   amdgpu_device_ip_init+0x690/0x7fe [amdgpu]
+   amdgpu_device_init.cold+0x460/0x781 [amdgpu]
+   amdgpu_driver_load_kms+0x19/0x80 [amdgpu]
+   amdgpu_pci_probe+0x19b/0x550 [amdgpu]
+
+Cause: this patch wires .setup_hdmi_frl_link into the dcn314, dcn32,
+dcn35, dcn351, dcn401 and dcn42 hwss tables, but not into dcn30's.
+The dcn30 family (dcn30/302/303 =E2=80=94 Navi 21/22/23) does get FRL
+resource creation per patches 16/17, so hdmi_frl_verify_link_cap()
+runs on these ASICs and dispatches through the NULL
+hwss.setup_hdmi_frl_link inside hdmi_frl_perform_link_training_with_fallbac=
+k().
+amdgpu probe is fatally aborted with no display.
+
+Fix locally:
+
+--- a/drivers/gpu/drm/amd/display/dc/hwss/dcn30/dcn30_init.c
++++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn30/dcn30_init.c
+@@ -105,6 +105,7 @@ static const struct hw_sequencer_funcs dcn30_funcs =3D =
+{
+        .enable_tmds_link_output =3D dce110_enable_tmds_link_output,
+        .enable_dp_link_output =3D dce110_enable_dp_link_output,
+        .disable_link_output =3D dce110_disable_link_output,
++       .setup_hdmi_frl_link =3D dcn30_setup_hdmi_frl_link,
+        .set_disp_pattern_generator =3D dcn30_set_disp_pattern_generator,
+        .get_dcc_en_bits =3D dcn10_get_dcc_en_bits,
+        .update_visual_confirm_color =3D dcn10_update_visual_confirm_color,
+
+With that one-line fix folded in, the Bravia comes up at 4K@120Hz
+10bpc RGB native FRL on cold boot. Live register state confirms the
+HPO HDMI block is what is driving the link, not legacy TMDS:
+
+  - All legacy DIG[0-5] show DIG_BE_EN_CNTL.DIG_ENABLE =3D 0
+  - All legacy SYMCLK[A-E] show CLOCK_ENABLE =3D 0
+  - DIG0_HDMI_CONTROL.HDMI_DATA_SCRAMBLE_EN =3D 0
+    (HDMI 2.0 TMDS scramble path is provably idle)
+  - HPO_TOP_CLOCK_CONTROL.HPO_HDMISTREAMCLK_GATE_DIS =3D 1
+    (HPO HDMI stream clock is forced on)
+  - PHYASYMCLK_CLOCK_CNTL.PHYASYMCLK_FORCE_EN =3D 1,
+    PHYASYMCLK_FORCE_SRC_SEL =3D 1 (FRL signaling source selected)
+
+Worth noting: the public dcn_3_0_2 ASIC register headers in tree do
+not expose any of the HPO HDMI / HDMI_FRL_ENC / HDMI_LINK_ENC
+register offsets =E2=80=94 they only define HPO_HDMISTREAMCLK_GATE_DIS as a
+single bit field inside HPO_TOP_CLOCK_CONTROL. Despite that, the
+silicon clearly decodes the rest of the block (the relative offsets
+from dcn_3_1_2 evidently land at usable addresses on dcn_3_0_2).
+This is the first time, to my knowledge, that native HDMI 2.1 FRL
+has been demonstrated working on a Navi 22-class card on Linux.
+
+Happy to retest a v2 if you fold the fix in.
+
+Reported-by: Dyllan Kobal <dk@zetier.com>
+Tested-by: Dyllan Kobal <dk@zetier.com>  # Navi 22 + Bravia 8 II, 4K@120 10=
+bpc RGB
+
+Thanks,
+-Dyllan
 
