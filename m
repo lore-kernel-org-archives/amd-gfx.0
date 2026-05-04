@@ -4,123 +4,102 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7C61BCD3427
-	for <amd-gfx@archiver.kernel.org>; Mon,  4 May 2026 18:22:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 13FD0CD3427
+	for <amd-gfx@archiver.kernel.org>; Mon,  4 May 2026 18:37:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9056410E0B6;
-	Mon,  4 May 2026 18:22:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A6C6610E0EA;
+	Mon,  4 May 2026 18:37:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="MBO37Tcu";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="mDuT2Fgh";
 	dkim-atps=neutral
-Received: from SJ2PR03CU001.outbound.protection.outlook.com
- (mail-westusazon11012035.outbound.protection.outlook.com [52.101.43.35])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EF4D710E0B6;
- Mon,  4 May 2026 18:22:02 +0000 (UTC)
+Received: from PH7PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11010068.outbound.protection.outlook.com [52.101.201.68])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A5F6110E0EA
+ for <amd-gfx@lists.freedesktop.org>; Mon,  4 May 2026 18:37:40 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Nafy94CaWFyR/dCYy4oVM+Ddt+dPm5L0jyQnLvGEaXRZI1JDNoBOOUUYcoG44p2IzfeQhQdHUrFO2YToVE6WukMZUhugBhfcs38cIA+IBBIibRydhjJ1mbi7SVV2B4i+yZq+1BPzBg2IAobihlEWXDO95FVb60i8HLc4a08g3mRZoEF8uxfPsp6jNchtFOVpnvdRtbWD0OXc4lnHwHCgmzYAceJ9faQVyWfQiofZCsbN+pnAjOlh8ITKocQZ0IG19ffmaPjMB4nkDExGVrEu8RCdf5YtEapjKMLzL9W/X1cZ/yGPEleAskEKbNpsSOJnBNytu4pgu/AQ5Our5/KxIA==
+ b=jfP3WOv2keHfYCTfL/vs46e3D+aSnJDTnbWU2lOWSo0btCtYazxno8AL0XLovbGzyx3HzcKI9nnjj46finoRodD+qZ6fO5wEh7wOvov1bEz76SPgIF7jPQPpS6oEBHA6ULG9m2oUiMNajfNGSKUuQqBDWYjjs7zbTx0LlgAjSzrOH+rnucB36CyTts4ogCRYD7qidskrsy/N+v9FkckzqEYzOlAV+fSBNj0c7t3c2hWhGxx+Iw5eWQK2QDU3w38xtD/Vjx74d2iImHtmzz50EHGfYc2Fhv+4hei7vxGmvRhFc98kIwJ6G8wxHbuXZPCQpLyqTo+9nNQHaPohsqkxbA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=QRZ36WuMFdp8nkU1IKgrlxJCY91Aiz2ZtUSwXUVcs5M=;
- b=kBpPq8G2+CS+4IxNc3f6+kFFooDd3G7XZRuETDzWLsA41FOGu6n29j0Gdc4ee0bm8kLDi41wO75YFCoTfJ8q+q+5lzrLmDAcq5HSx0ZraGmJNu6FCDWXDz0M896I9k0OqpsU3FhqxyInTOw8AXY/zLaBva5QN6OQ1IdQrEPpfFo57dmpak4J97nenALd3PUUsWCgJ4c0JWrfM29YJA+0JwMqcJNPZolkRPE61G2Z/FSkiNfLFxzKcigNPg+w4WgIzrjXGqwSMg8y/AiYynHcxh7CIK+cgZmDu+W+ZvSEdulnNS/SHcMcPYavciicambwRnUCSmcor00JpFSbOxjaeg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=2c2owPhahvLE1yrEh3SOAEP5m2UjBoCV+njqLsaP9z8=;
+ b=WFf5K2gYkfb8h0SkGlCVaU2BLcslPJxAK8wnDXaNraWJWewODX91BtgaOBkICgVjlsBfQdwG12SxkzuM2uHSSjzotCUh/0O97tWStO+o7MvoX/Dzc92xm605TVAm3Vt4acyfz0BHuJCFaJaPiiuCxo+iflY6P40CTx2Gwjp2NNYf5jW+e6c3OvzYjLw7rwFSagLx0H63Ws541rRQYxEhGwKbTtLTZtgkiyApQ6kAKS/n9z90BSnon8Hstms6htvbjtDHzzkBnXY68bw3ZwrN1+wZZ+GZK0I4UHAg0UkxcgiFogTE+IJWlUssgAlMoA6k3+yW2ufYeYk8uCAR8GNIwg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=QRZ36WuMFdp8nkU1IKgrlxJCY91Aiz2ZtUSwXUVcs5M=;
- b=MBO37Tcu176r7e7YqW/mJpHTj1k/GjzR7B3XrS1k/B5uvSAJXt7+9iDCYxjr8UayH/LDmSvpsYVi6IVdqA58npKj03MA9oeBK6S+xWfv0oOjz5l6Ci6jTrrvPe9QJGqH0aTv15XDHBjvyLxpqvF5JN6oeNz7Rd51D+zNiDj/iWo=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from SA0PR12MB4557.namprd12.prod.outlook.com (2603:10b6:806:9d::10)
- by SN7PR12MB7024.namprd12.prod.outlook.com (2603:10b6:806:26e::6)
+ bh=2c2owPhahvLE1yrEh3SOAEP5m2UjBoCV+njqLsaP9z8=;
+ b=mDuT2Fgh+Vh6dOP6Q8PtzdwT3dyU1pDy6JVJ9tQ1881CmayZwrAIMVuJ5jz8FugtMRpdY/NneRmWxyDdFgX5aSvNMOjMyXOF5a/oZks+dxNurt9tHKFefUqmd0bTR6sPmkTHU1GlRMWUmwpKcJ9fd3KcSzoSbz4R62sEPXIr/Lo=
+Received: from BY5PR04CA0013.namprd04.prod.outlook.com (2603:10b6:a03:1d0::23)
+ by CH0PR12MB8531.namprd12.prod.outlook.com (2603:10b6:610:181::8)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.25; Mon, 4 May
- 2026 18:21:59 +0000
-Received: from SA0PR12MB4557.namprd12.prod.outlook.com
- ([fe80::885a:79b3:8288:287]) by SA0PR12MB4557.namprd12.prod.outlook.com
- ([fe80::885a:79b3:8288:287%5]) with mapi id 15.20.9870.023; Mon, 4 May 2026
- 18:21:59 +0000
-Message-ID: <34992e5f-ac4b-4a0a-a8d9-8b6edd8abe0a@amd.com>
-Date: Mon, 4 May 2026 13:21:57 -0500
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 0/8] Add support for a DRM backlight capability
-Content-Language: en-US
-To: Louis Chauvet <louis.chauvet@bootlin.com>, dri-devel@lists.freedesktop.org
-Cc: harry.wentland@amd.com, Xaver Hugl <xaver.hugl@gmail.com>,
- amd-gfx@lists.freedesktop.org, Mario Limonciello <superm1@kernel.org>
-References: <20260424220953.167058-1-mario.limonciello@amd.com>
- <0f5cf41c-99d5-4427-86fe-18c4f1e2c95e@bootlin.com>
-From: Mario Limonciello <mario.limonciello@amd.com>
-In-Reply-To: <0f5cf41c-99d5-4427-86fe-18c4f1e2c95e@bootlin.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: SA0PR11CA0034.namprd11.prod.outlook.com
- (2603:10b6:806:d0::9) To SA0PR12MB4557.namprd12.prod.outlook.com
- (2603:10b6:806:9d::10)
+ 2026 18:37:33 +0000
+Received: from SJ1PEPF00001CE1.namprd05.prod.outlook.com
+ (2603:10b6:a03:1d0:cafe::a4) by BY5PR04CA0013.outlook.office365.com
+ (2603:10b6:a03:1d0::23) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9870.25 via Frontend Transport; Mon,
+ 4 May 2026 18:37:33 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SJ1PEPF00001CE1.mail.protection.outlook.com (10.167.242.9) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9891.9 via Frontend Transport; Mon, 4 May 2026 18:37:33 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Mon, 4 May
+ 2026 13:37:32 -0500
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Mon, 4 May
+ 2026 13:37:32 -0500
+Received: from thonkpad.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
+ Transport; Mon, 4 May 2026 13:37:32 -0500
+From: <sunpeng.li@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <Harry.Wentland@amd.com>, <Aurabindo.Pillai@amd.com>,
+ <mario.limonciello@amd.com>, <wiagn233@outlook.com>, <sysdadmin@m1k.cloud>,
+ Leo Li <sunpeng.li@amd.com>
+Subject: [PATCH] drm/amd/display: Use vline2 interrupt on DCN instead of
+ vstartup
+Date: Mon, 4 May 2026 14:36:49 -0400
+Message-ID: <20260504183649.165131-1-sunpeng.li@amd.com>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA0PR12MB4557:EE_|SN7PR12MB7024:EE_
-X-MS-Office365-Filtering-Correlation-Id: 34774b86-1a1b-40c8-8a9a-08deaa0a07f3
+X-MS-TrafficTypeDiagnostic: SJ1PEPF00001CE1:EE_|CH0PR12MB8531:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9b44d9c4-ef7a-4aa1-1973-08deaa0c34b6
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|1800799024|376014|56012099003|22082099003|18002099003; 
-X-Microsoft-Antispam-Message-Info: dop3ZOgyNOEIOrkcAgiVd9/ujavhy7wz5QLdJXshnzpTOpNUk1GS77zIYN2VGMb/Xj6+UqYjGKltJ5qfvlBmlqOjqy7tOcYe0YwvvqEaXvZSCOKkuct++VxeRVke8xxPE06GAjTIaESw5QE4UZ7Q+Bwk0Br9TlAujpmCXDmMFl3WnkyI5uTnU4rAkWb3x66q3pJBJ9CKdEDEdvo5SEtm8BmgMXiLqY2POhgrxCLXTJ5BItCN33CD/VGSv3sx2Uf6lYwZtS5zYaYdCLSXZR00O1nW1220nMoNQivLjW2buVlz2o9wwlhRkhj09tlBn+a8yjnWQzKEmNT8HswfVoC3maIex9bhEQGAZ0VbEjHO6Djg9ADIwXd9wITtj3zy4YQ3Dcnc+C2S2UsBtYbaPuFpqStdVAYIJZLQ7KVqYc9VYAI1YA8Kz/oobW/TNvnmI1u+nUH4IE/KRa50f8VK23CfPr146p/JBneA7FYsldDGMpyMx5qpl4n9C4n/Vd9SPHPsyfzh42HYDqQGcZtg71MMrHAZlEBNVxIslg+NlIiW+z63mY5zANnGDfeNNuzxQdPOOzehxLOuWmFrllD3SgakmwGESb74W0uH96Q4jHL8z0nE3jnHvJTzEtLJ1CCi5JxCvRLDgfTdGngovawFAx9T0Hp1sK54zbtIQ8685/UU9PrlwChwe28diI9AXeR+QxUe
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SA0PR12MB4557.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014)(56012099003)(22082099003)(18002099003);
+ ARA:13230040|32650700020|82310400026|376014|36860700016|1800799024|56012099003|18002099003;
+X-Microsoft-Antispam-Message-Info: qZHYbIiqgXvCNZB9UKlq5yeC52n1ukMWHqgfv1kcu5NvIMJoLFna9/CRfYCUh8UjCW/FZlq0TOe3ZTOrER7IqJIllPSsInwGZ5J7ykqJnyGDYMdTlR4KSJn4dwAvtHwoVAVYm740hh9PmDZoJUHs/2csmDHI2f6n2S3w1JcW62jRQ63yWxw7qlbK4nUJw10SOR84O/B3LV6CMl+XZmYvOtdB3quAEhjIgOA2rS1XX1uiEScAWJdb4witfKr/q9LlVh+GqFNR1w8RnM6dkj/x4arE/uflpixJhFYNe1h1McaWhux02Pp23E7VuoYDg9KlcVwbtAqGVuJaFUO+1xCUDTr3ywXOx8eJ91zZfeWC+gkgZAOQCgGr0MiaPq2hh51G4c1mhp8lNAgfgjsNlCEU1+l83XX1Fo1DOp7Cm3X43+DUzfxte9QzmIfJCcEsO5time0NdwJqzjso/ZPFsDyorEwlHENmzBZnG29mF0TeCD8q136Ne8byAWh1NCZtO3t6MdbYOqcoQSWjHVG9ktjd+69tJ7Lp+WAfOsl8p7r5iJVvZ59rvbf4+rBq2esGSAiCfTWG7Y6ZZEFmepX9n4h6lY/G9PpfhA2Z8qiZzXET5qWk1DUm7ShDP/vWngI7AaJ9ifuql9pO2+T9tjDvp2JUGqxahI1vaPLso65mHUvAXZu7Kd50Uwn5Ho5A8PkyCJj6Xj3dGkZggfDqzL2w3uOHbIQZDVSd9kCZIKCXjz5evdI=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(32650700020)(82310400026)(376014)(36860700016)(1800799024)(56012099003)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cWVDVDF0VURBdEFLcHE0SHRUcVZTelhINVZnVDZlUk5KckFTZUtlckh0Si9J?=
- =?utf-8?B?L0NURGhQMTdZZzJhQmdwTnhtTUx5TmpCMmxtRzRVT2FvMWt0ZHl3RkFCTVhG?=
- =?utf-8?B?SDQ4YkFzQVNoSUVrMHI5K3NtNDhScmhLMU5GZkJRQ3NWSllrZXJCOHFjMkhu?=
- =?utf-8?B?RnVmNCtJOGR3WGEydmR2Mm5nSFhSYkJaUnJFWXlndndWOHRESExZeGtjUWpC?=
- =?utf-8?B?OU9pZ2oyTFJHb3FNV2NkdW9PN2RZWGVZQk1QZUZabHU5VWJIVzJNU3FFOTZi?=
- =?utf-8?B?VnhxZ1dSL3FWenZaOHp6dUJIc2ltOE13QldiR2hKMkNMYnBTVThoUDBEdEh3?=
- =?utf-8?B?dWpoK3VWdW84S0hKa3AweEhoQkJyQWY1ZklSbGdDMXRwUlRvamhEVDhmZVBz?=
- =?utf-8?B?Qk5icEFOZzRMOVkxeitvRE5pSnFFRGZWdDVtbDRsSVkzd3lTNmZoZ0F2bFRN?=
- =?utf-8?B?Q2hkRXNIV0lycno3c2ZzQTBlZUtoYjRDajM4V2Mva3NFR3VPalowdjlMdkZi?=
- =?utf-8?B?SytXaTBsRWxnWDl5QmxJelQvLzVZMmVyVXpsaTVZK05qWGNNcWtRaC9iZGJK?=
- =?utf-8?B?MHc2V2YyeDJxWENIY2xoU1o3NWY4Y25XdFpnU1lBMXZIem5VaU0yenZkR1ll?=
- =?utf-8?B?M2ZUbk1yMG51VHMrR0x3d2RDM3pwVklsdWV0OGdRSzVVYnAzVld5VmVnd1M1?=
- =?utf-8?B?TjRPSHFUc3k3WWdCWVl3bkxCcVk3SjVhbDFOQzkzblN6anNkRy9hc1pHMm1G?=
- =?utf-8?B?NzJETmNjTHUySWR1Z0dpVy9tcU9pR3RnaXdYUzRIeDcwOUNiT09SZzNOMEJv?=
- =?utf-8?B?OXVSUnEyOCtWTkN1dXIvVzcvY2cvUzZSRnV4N09pam9YZERvays1Rzh2b2Vz?=
- =?utf-8?B?Q3BWUzVJSmc0TldqTmJCMG9LakRGdUd3U09RQ3NvbSt4WXIrKzlhOUlnOHpQ?=
- =?utf-8?B?QjlvWWRqeWFuc1lnZU9PV01RNTlaaEhoakVpenN3R0hqUjBXUW4rMzdhb1pF?=
- =?utf-8?B?Ry8zdCtlU0R3UVJmRWUvVXJDY3NVdTRiSlBnbTFlZmVqMnZYdFFsT1hGZUhX?=
- =?utf-8?B?MDVuc3NGZk1rdHRjbFJGVm80Vk54eTRTMXNtYmF3N1RubUdmdmlOeStPRzdF?=
- =?utf-8?B?NXdLZGdtOWkxV1pidFU2U3pKUFpqNkh4M3VNVkhGcW55b0JRVnpGVU96Z0sr?=
- =?utf-8?B?eG9VRmJRdWdmY0t1TnQyN29QZXExdExFUjgzeGh1QzFVR3IyL2Q1V0I5eDRY?=
- =?utf-8?B?aXlzVDR6emFaZzk5N0ZtVllJTnZxV0tITjYvNmVsLzY0VjVwdTJFMWJoVzVP?=
- =?utf-8?B?QXZEQmZYdDRsUHQ5a0Y4ZThuWlJianc4MXdydkJFbk4zenN0QllqK2ZGUzNj?=
- =?utf-8?B?Z2lvYTVwVmNxNlEvT2hQOTRheWQwU3NhNkVucXczVVBBT3VNMVRqRkhUTzUr?=
- =?utf-8?B?b0FTV2JnNXJTWXhVYktyaEMyd0tzb1JVc0ZWSGsxZmZCZkxva2YwU1lCQWRv?=
- =?utf-8?B?M1owajRnOGVkKzljQks4V2pxNzZoSHJNZnB1ZmdKUnJnVGVrY0JIWnljQVUv?=
- =?utf-8?B?Q3NOVjVIN0MwMkY5VkJjLytEeVpsZnZhVzZyRGEzSG16bEFOT3NoQXVCV1Qz?=
- =?utf-8?B?MjdiUXdMTmFZcUE2bFllREFwNjg5SXpscVJ5eGJ1VlZtOXVhOU5RMEEvQ3oz?=
- =?utf-8?B?M1RWSEduTCt6UmdMamZGZnBzTjVNNTVKRmNRWlk5TVNLbU4vdkFJWElMSVVw?=
- =?utf-8?B?ekFxTjNja2dFTlRtV0pRenhMazdjQk8rd2VwS09QTEtNZWFUa1dRL3BqL1Jm?=
- =?utf-8?B?M0d0KzB5aUppZEgxWDJjZllzeEhFMFB0Q2k1T0xXTXJrdi9TbWswbEpwTUFK?=
- =?utf-8?B?aStNZHJNQzlMTjBuaGhCSnRybU1qTGc5dE5NS0JyZ2Y4VHphd1dEU2dzYzlO?=
- =?utf-8?B?OTdmZmUvdFZNVWx4dGtFUTY0RDljMzZrNkpBenJGWlErdmdQbkFvS2MweFA2?=
- =?utf-8?B?NEJlZ3BZb1p0WHhPVzJDMTMrd25kM2ZZTHltcis5dExyT1BMV1lSRFo3a2R1?=
- =?utf-8?B?aGVEUHFYQ2VaSUNyRFViL2FmMjNMZ0c3bG91VFNJdUNWV280THFod2lUY1Zs?=
- =?utf-8?B?VjN3bDlUNnY0SThNd0xqQi9XalpieVd4VXlsTUxscmtGYU9JamVQWWJCNHlF?=
- =?utf-8?B?dDlFWlNyRFJQazMzaEF3ZVQrQVplZURkWVhRck1lKzRNRWYyZG5uRk5mRENY?=
- =?utf-8?B?YnJDaDlPTi9xNDFaYzk0Nkh2N1NBN0Vab3p5eXpLTTR3R2E5aFk1bmdCSzFK?=
- =?utf-8?B?Ti9heTZrS0JJR1ExWHRuZlZpd0gwM05IMTNNY3lVMjByNERuVW0zZz09?=
+X-MS-Exchange-AntiSpam-MessageData-0: 9sK4migvk3NsMCXv0MG7arjcoF4IQBFyDGn39bD/MMVC5aD9KK+kF48EVrbHdKaHBvESjMkYwXJHyS0FVQgB45TbrkYewJYmOYud8saGu0C3jdKUZJ7W8gN0rup5wz/AX1wg94zlHKlIJCbMEs3uRGI2KVLJLqlKurdWRUfVddIqNWHQVGHrY+E2DcJzg79/yP+1cZ7hoOqKia2IUhAD0UW5DvawkeHmrY2EYRLlKUgJFMcrmrhXgP+o++mGHJfGshrhG9E7TR0y1yZPfZtSvklK+DoLUXIXRmRf7NCDcqbliSSOA1YiNp0Da2xANJxTS1JJzZ0FAEerNHYkk6NWAic9IvT8a1ILlriSjimkCXKO/VhwpMoEuFaiY1zFP0U0HQFBheEz78socw3Gp1c3vql1hmukzG9UjivPwV9tucaa7cpsZz501/IuVszPgMdU
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 34774b86-1a1b-40c8-8a9a-08deaa0a07f3
-X-MS-Exchange-CrossTenant-AuthSource: SA0PR12MB4557.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 May 2026 18:21:59.4928 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 May 2026 18:37:33.2506 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9b44d9c4-ef7a-4aa1-1973-08deaa0c34b6
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 6Dyq39/G0DeZivxCgRt8kn5eT+O9cApiPvlh/KFjmh6gQmH+EK8+HIVjYV9hPe7E/qL7PVvB5xecb79AYrSuRA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7024
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF00001CE1.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR12MB8531
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,112 +114,1758 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+From: Leo Li <sunpeng.li@amd.com>
 
+[Why]
 
-On 5/4/26 08:55, Louis Chauvet wrote:
-> [You don't often get email from louis.chauvet@bootlin.com. Learn why 
-> this is important at https://aka.ms/LearnAboutSenderIdentification ]
-> 
-> On 4/25/26 00:09, Mario Limonciello wrote:
->> From: Mario Limonciello (AMD) <superm1@kernel.org>
->>
->> At Display Next Hackfest 2025 we discussed the renewed need for moving
->> brightness control into the DRM connector properties.  I've taken the
->> previous efforts from David and Marta, rebased and adjusted for the
->> current kernel.
->>
->> The legacy sysfs interface is synchronized with the DRM connector 
->> (although
->> the scale may be different as DRM connector property is u16).
->>
->> Later after this has been adopted by enough userspace, it may make 
->> sense to
->> configure the legacy sysfs interface to be configurable so that only
->> DRM master controls backlight.
->>
->> I've done a first implementation with amdgpu with eDP connectors; but
->> conceivably this can be extended to other connectors like DP for displays
->> that can be controlled via DDC as well later.
->>
->> I have also used DRM review prompts to review this series and fix some 
->> bugs
->> which were caught with two different Claude models.  The fixes are 
->> squashed
->> into the patches.
->>
->> Assisted-by: Claude Opus
->> Assisted-by: Claude Sonnet
->>
->> For ease of testing; this series is also available on this branch:
->> https://git.kernel.org/pub/scm/linux/kernel/git/superm1/linux.git/ 
->> log/?h=superm1/backlight-property-v3
-> 
-> Hello,
-> 
-> thanks for this work, I am very interested in this progress so I can
-> help you to test / implement more features.
+VStartup is an OTG event that fires when the pixel pipeline prepares for
+pixel scanout of the next frame. It was previously used to deliver
+vblank events for commits that do not trigger a fb address update, and
+hence a pflip interrupt (hw cursor updates, for example).
 
-Thanks!  I have a few other series I'm juggling in other subsystems, but 
-will try to get another spin this cycle.
+The issue with vstartup is that HW can mask the interrupt in cases where
+idle optimizations are enabled or when a HW lock is active. This could
+the explain the range of flip_done timeouts frequently seen in the wild.
 
-> 
-> I think you forgot to include the revert of "backlight: Remove notifier"
-> in your series, it can't be applied without it.
-> 
+DCN hardware provides 3 generic OTG interrupts that can be programmed to
+fire on a specific line. Vline 0 and 1 are currently reserved, with
+vline2 available to use for event delivery. These interrupts cannot
+be masked, as long as the OTG is active.
 
-Yes - thanks for catching this.  It's on my tree at 
-https://git.kernel.org/pub/scm/linux/kernel/git/superm1/linux.git/log/?h=superm1/backlight-property-v3 
-but I forgot it when I built the series to get that one.
+[How]
 
-> I will take a look and see if I can create a VKMS implementation of your
-> work.
+Switch to vline2 for vblank handling. Today, DC will program the
+vline2 position to at vupdate -- the point at which HW latches to
+double-buffered registers.
 
-Cool!  Please take a look at the IGT patches I did too if you didn't see 
-them.  This should hopefully work once you glue it to VKMS.
+Since all the vline interrupt types share the same interrupt src_id,
+refactor the existing vline0 infrastructure to allow for all the vline0,
+1, and 2 types.
 
-https://lore.kernel.org/dri-devel/20260424221021.167179-1-mario.limonciello@amd.com/
+Since this is intended to replace vstartup for DCN, use the same handler
+logic, but be careful to leave DCE on vstartup.
 
-> 
-> Thanks for this work,
-> 
->> David Rheinsberg (1):
->>    backlight: add kernel-internal backlight API
->>
->> Mario Limonciello (6):
->>    drm: link connectors to backlight devices
->>    DRM: Add support for client and driver indicating support for
->>      luminance
->>    drm/amd/display: Pass up errors reading actual brightness
->>    drm/amd: Indicate driver supports luminance
->>    drm/amd/display: Allow backlight registration to fail
->>    drm/amd/display: use drm backlight
->>
->> Marta Lofstedt (1):
->>    backlight: expose the current brightness in the new kernel API
->>
->>   drivers/gpu/drm/Kconfig                       |   1 +
->>   drivers/gpu/drm/Makefile                      |   2 +
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       |   1 +
->>   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  88 +++-
->>   drivers/gpu/drm/drm_atomic_uapi.c             |  24 ++
->>   drivers/gpu/drm/drm_backlight.c               | 406 ++++++++++++++++++
->>   drivers/gpu/drm/drm_connector.c               |  12 +
->>   drivers/gpu/drm/drm_drv.c                     |   8 +
->>   drivers/gpu/drm/drm_ioctl.c                   |  10 +
->>   drivers/gpu/drm/drm_mode_config.c             |   7 +
->>   drivers/gpu/drm/drm_mode_object.c             |  66 ++-
->>   drivers/gpu/drm/drm_sysfs.c                   |  54 +++
->>   drivers/video/backlight/backlight.c           |  83 ++++
->>   include/drm/drm_backlight.h                   |  45 ++
->>   include/drm/drm_connector.h                   |   8 +
->>   include/drm/drm_drv.h                         |   7 +
->>   include/drm/drm_file.h                        |   8 +
->>   include/drm/drm_mode_config.h                 |   5 +
->>   include/linux/backlight.h                     |  30 ++
->>   include/uapi/drm/drm.h                        |  10 +
->>   20 files changed, 852 insertions(+), 23 deletions(-)
->>   create mode 100644 drivers/gpu/drm/drm_backlight.c
->>   create mode 100644 include/drm/drm_backlight.h
->>
-> 
+Signed-off-by: Leo Li <sunpeng.li@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h           |   2 +-
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 165 ++++++++++++------
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |   9 +
+ .../amd/display/amdgpu_dm/amdgpu_dm_crtc.c    |  20 ++-
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c |  99 +++++++++--
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_irq.h |   7 +
+ .../display/dc/irq/dcn10/irq_service_dcn10.c  |  44 +++--
+ .../display/dc/irq/dcn20/irq_service_dcn20.c  |  43 +++--
+ .../dc/irq/dcn201/irq_service_dcn201.c        |  24 ++-
+ .../display/dc/irq/dcn21/irq_service_dcn21.c  |  44 +++--
+ .../display/dc/irq/dcn30/irq_service_dcn30.c  |  44 +++--
+ .../dc/irq/dcn302/irq_service_dcn302.c        |  43 +++--
+ .../dc/irq/dcn303/irq_service_dcn303.c        |  24 ++-
+ .../display/dc/irq/dcn31/irq_service_dcn31.c  |  44 +++--
+ .../dc/irq/dcn314/irq_service_dcn314.c        |  44 +++--
+ .../dc/irq/dcn315/irq_service_dcn315.c        |  44 +++--
+ .../display/dc/irq/dcn32/irq_service_dcn32.c  |  26 +--
+ .../display/dc/irq/dcn35/irq_service_dcn35.c  |  41 +++--
+ .../dc/irq/dcn351/irq_service_dcn351.c        |  43 +++--
+ .../display/dc/irq/dcn36/irq_service_dcn36.c  |  41 +++--
+ .../dc/irq/dcn401/irq_service_dcn401.c        |  25 +--
+ .../display/dc/irq/dcn42/irq_service_dcn42.c  |  26 +--
+ .../gpu/drm/amd/display/dc/irq/irq_service.h  |  23 +++
+ 23 files changed, 673 insertions(+), 252 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+index 39894e38fee45..0d84293705107 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+@@ -947,7 +947,7 @@ struct amdgpu_device {
+ 	/* For pre-DCE11. DCE11 and later are in "struct amdgpu_device->dm" */
+ 	struct delayed_work         hotplug_work;
+ 	struct amdgpu_irq_src		crtc_irq;
+-	struct amdgpu_irq_src		vline0_irq;
++	struct amdgpu_irq_src		vline_irq;
+ 	struct amdgpu_irq_src		vupdate_irq;
+ 	struct amdgpu_irq_src		pageflip_irq;
+ 	struct amdgpu_irq_src		hpd_irq;
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 3fa4dbda4517c..429f8df17c5d1 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -646,7 +646,8 @@ static void dm_vupdate_high_irq(void *interrupt_params)
+  * Handles the CRTC/VSYNC interrupt by notfying DRM's VBLANK
+  * event handler.
+  */
+-static void dm_crtc_high_irq(void *interrupt_params)
++static void __dm_crtc_high_irq(void *interrupt_params,
++			     int otg_inst)
+ {
+ 	struct common_irq_params *irq_params = interrupt_params;
+ 	struct amdgpu_device *adev = irq_params->adev;
+@@ -655,7 +656,7 @@ static void dm_crtc_high_irq(void *interrupt_params)
+ 	unsigned long flags;
+ 	int vrr_active;
+ 
+-	acrtc = get_crtc_by_otg_inst(adev, irq_params->irq_src - IRQ_TYPE_VBLANK);
++	acrtc = get_crtc_by_otg_inst(adev, otg_inst);
+ 	if (!acrtc)
+ 		return;
+ 
+@@ -755,6 +756,13 @@ static void dm_crtc_high_irq(void *interrupt_params)
+ 	spin_unlock_irqrestore(&adev_to_drm(adev)->event_lock, flags);
+ }
+ 
++static void dm_crtc_high_irq(void *interrupt_params)
++{
++	struct common_irq_params *irq_params = interrupt_params;
++	__dm_crtc_high_irq(interrupt_params,
++			   irq_params->irq_src - DC_IRQ_SOURCE_VBLANK1);
++}
++
+ #if defined(CONFIG_DRM_AMD_SECURE_DISPLAY)
+ /**
+  * dm_dcn_vertical_interrupt0_high_irq() - Handles OTG Vertical interrupt0 for
+@@ -778,6 +786,17 @@ static void dm_dcn_vertical_interrupt0_high_irq(void *interrupt_params)
+ }
+ #endif /* CONFIG_DRM_AMD_SECURE_DISPLAY */
+ 
++
++/**
++ * Same as dm_crtc_high_irq, but driven by the vline2 interrupt instead.
++ */
++static void dm_dcn_vertical_interrupt2_high_irq(void *interrupt_params)
++{
++	struct common_irq_params *irq_params = interrupt_params;
++	__dm_crtc_high_irq(interrupt_params,
++			   irq_params->irq_src - DC_IRQ_SOURCE_DC1_VLINE2);
++}
++
+ /**
+  * dmub_aux_setconfig_callback - Callback for AUX or SET_CONFIG command.
+  * @adev: amdgpu_device pointer
+@@ -4752,15 +4771,13 @@ static int dce110_register_irq_handlers(struct amdgpu_device *adev)
+ 	return r;
+ }
+ 
+-/* Register IRQ sources and initialize IRQ callbacks */
+-static int dcn10_register_irq_handlers(struct amdgpu_device *adev)
++
++static int dcn10_register_vline_irq_handlers(struct amdgpu_device *adev)
+ {
+ 	struct dc *dc = adev->dm.dc;
+ 	struct common_irq_params *c_irq_params;
+ 	struct dc_interrupt_params int_params = {0};
+-	int r;
+-	int i;
+-#if defined(CONFIG_DRM_AMD_SECURE_DISPLAY)
++	int r, i;
+ 	static const unsigned int vrtl_int_srcid[] = {
+ 		DCN_1_0__SRCID__OTG1_VERTICAL_INTERRUPT0_CONTROL,
+ 		DCN_1_0__SRCID__OTG2_VERTICAL_INTERRUPT0_CONTROL,
+@@ -4769,89 +4786,127 @@ static int dcn10_register_irq_handlers(struct amdgpu_device *adev)
+ 		DCN_1_0__SRCID__OTG5_VERTICAL_INTERRUPT0_CONTROL,
+ 		DCN_1_0__SRCID__OTG6_VERTICAL_INTERRUPT0_CONTROL
+ 	};
++#if defined(CONFIG_DRM_AMD_SECURE_DISPLAY)
++	static const unsigned int vrtl0_int_ctxid[] = {
++		DCN_1_0__CTXID__OTG1_VERTICAL_INTERRUPT0_CONTROL,
++		DCN_1_0__CTXID__OTG2_VERTICAL_INTERRUPT0_CONTROL,
++		DCN_1_0__CTXID__OTG3_VERTICAL_INTERRUPT0_CONTROL,
++		DCN_1_0__CTXID__OTG4_VERTICAL_INTERRUPT0_CONTROL,
++		DCN_1_0__CTXID__OTG5_VERTICAL_INTERRUPT0_CONTROL,
++		DCN_1_0__CTXID__OTG6_VERTICAL_INTERRUPT0_CONTROL
++	};
+ #endif
++	static const unsigned int vrtl2_int_ctxid[] = {
++		DCN_1_0__CTXID__OTG1_VERTICAL_INTERRUPT2_CONTROL,
++		DCN_1_0__CTXID__OTG2_VERTICAL_INTERRUPT2_CONTROL,
++		DCN_1_0__CTXID__OTG3_VERTICAL_INTERRUPT2_CONTROL,
++		DCN_1_0__CTXID__OTG4_VERTICAL_INTERRUPT2_CONTROL,
++		DCN_1_0__CTXID__OTG5_VERTICAL_INTERRUPT2_CONTROL,
++		DCN_1_0__CTXID__OTG6_VERTICAL_INTERRUPT2_CONTROL
++	};
+ 
+ 	int_params.requested_polarity = INTERRUPT_POLARITY_DEFAULT;
+ 	int_params.current_polarity = INTERRUPT_POLARITY_DEFAULT;
+ 
+-	/*
+-	 * Actions of amdgpu_irq_add_id():
+-	 * 1. Register a set() function with base driver.
+-	 *    Base driver will call set() function to enable/disable an
+-	 *    interrupt in DC hardware.
+-	 * 2. Register amdgpu_dm_irq_handler().
+-	 *    Base driver will call amdgpu_dm_irq_handler() for ALL interrupts
+-	 *    coming from DC hardware.
+-	 *    amdgpu_dm_irq_handler() will re-direct the interrupt to DC
+-	 *    for acknowledging and handling.
+-	 */
+-
+-	/* Use VSTARTUP interrupt */
+-	for (i = DCN_1_0__SRCID__DC_D1_OTG_VSTARTUP;
+-			i <= DCN_1_0__SRCID__DC_D1_OTG_VSTARTUP + adev->mode_info.num_crtc - 1;
+-			i++) {
+-		r = amdgpu_irq_add_id(adev, SOC15_IH_CLIENTID_DCE, i, &adev->crtc_irq);
++	for (i = 0; i <= adev->mode_info.num_crtc - 1; i++) {
++		r = amdgpu_irq_add_id(adev, SOC15_IH_CLIENTID_DCE,
++				vrtl_int_srcid[i], &adev->vline_irq);
+ 
+ 		if (r) {
+-			drm_err(adev_to_drm(adev), "Failed to add crtc irq id!\n");
++			drm_err(adev_to_drm(adev),
++				"Failed to add vline0/1/2 irq id!\n");
+ 			return r;
+ 		}
+ 
++#if defined(CONFIG_DRM_AMD_SECURE_DISPLAY)
++		/* Register vline0 */
+ 		int_params.int_context = INTERRUPT_HIGH_IRQ_CONTEXT;
+ 		int_params.irq_source =
+-			dc_interrupt_to_irq_source(dc, i, 0);
++			dc_interrupt_to_irq_source(dc,
++						   vrtl_int_srcid[i],
++						   vrtl0_int_ctxid[i]);
+ 
+ 		if (int_params.irq_source == DC_IRQ_SOURCE_INVALID ||
+-			int_params.irq_source  < DC_IRQ_SOURCE_VBLANK1 ||
+-			int_params.irq_source  > DC_IRQ_SOURCE_VBLANK6) {
+-			drm_err(adev_to_drm(adev), "Failed to register vblank irq!\n");
++			int_params.irq_source < DC_IRQ_SOURCE_DC1_VLINE0 ||
++			int_params.irq_source > DC_IRQ_SOURCE_DC6_VLINE0) {
++			drm_err(adev_to_drm(adev),
++				"Failed to register vline0 irq!\n");
+ 			return -EINVAL;
+ 		}
+ 
+-		c_irq_params = &adev->dm.vblank_params[int_params.irq_source - DC_IRQ_SOURCE_VBLANK1];
++		c_irq_params = &adev->dm.vline0_params[int_params.irq_source
++					- DC_IRQ_SOURCE_DC1_VLINE0];
+ 
+ 		c_irq_params->adev = adev;
+ 		c_irq_params->irq_src = int_params.irq_source;
+ 
+ 		if (!amdgpu_dm_irq_register_interrupt(adev, &int_params,
+-			dm_crtc_high_irq, c_irq_params))
++			dm_dcn_vertical_interrupt0_high_irq,
++			c_irq_params))
+ 			return -ENOMEM;
+-	}
+-
+-	/* Use otg vertical line interrupt */
+-#if defined(CONFIG_DRM_AMD_SECURE_DISPLAY)
+-	for (i = 0; i <= adev->mode_info.num_crtc - 1; i++) {
+-		r = amdgpu_irq_add_id(adev, SOC15_IH_CLIENTID_DCE,
+-				vrtl_int_srcid[i], &adev->vline0_irq);
+-
+-		if (r) {
+-			drm_err(adev_to_drm(adev), "Failed to add vline0 irq id!\n");
+-			return r;
+-		}
+-
++#endif
++		/*
++		 * vline2 shares the same srcids as vline0, but different ctxid.
++		 */
+ 		int_params.int_context = INTERRUPT_HIGH_IRQ_CONTEXT;
+ 		int_params.irq_source =
+-			dc_interrupt_to_irq_source(dc, vrtl_int_srcid[i], 0);
++			dc_interrupt_to_irq_source(dc,
++						   vrtl_int_srcid[i],
++						   vrtl2_int_ctxid[i]);
+ 
+ 		if (int_params.irq_source == DC_IRQ_SOURCE_INVALID ||
+-			int_params.irq_source < DC_IRQ_SOURCE_DC1_VLINE0 ||
+-			int_params.irq_source > DC_IRQ_SOURCE_DC6_VLINE0) {
+-			drm_err(adev_to_drm(adev), "Failed to register vline0 irq!\n");
++			int_params.irq_source < DC_IRQ_SOURCE_DC1_VLINE2 ||
++			int_params.irq_source > DC_IRQ_SOURCE_DC6_VLINE2) {
++			drm_err(adev_to_drm(adev),
++				"Failed to register vline2 irq!\n");
+ 			return -EINVAL;
+ 		}
+ 
+-		c_irq_params = &adev->dm.vline0_params[int_params.irq_source
+-					- DC_IRQ_SOURCE_DC1_VLINE0];
++		c_irq_params = &adev->dm.vline2_params[int_params.irq_source
++					- DC_IRQ_SOURCE_DC1_VLINE2];
+ 
+ 		c_irq_params->adev = adev;
+ 		c_irq_params->irq_src = int_params.irq_source;
+ 
+ 		if (!amdgpu_dm_irq_register_interrupt(adev, &int_params,
+-			dm_dcn_vertical_interrupt0_high_irq,
++			dm_dcn_vertical_interrupt2_high_irq,
+ 			c_irq_params))
+ 			return -ENOMEM;
+ 	}
+-#endif
++
++	return 0;
++}
++
++/* Register IRQ sources and initialize IRQ callbacks */
++static int dcn10_register_irq_handlers(struct amdgpu_device *adev)
++{
++	struct dc *dc = adev->dm.dc;
++	struct common_irq_params *c_irq_params;
++	struct dc_interrupt_params int_params = {0};
++	int r;
++	int i;
++
++	int_params.requested_polarity = INTERRUPT_POLARITY_DEFAULT;
++	int_params.current_polarity = INTERRUPT_POLARITY_DEFAULT;
++
++	/*
++	 * Actions of amdgpu_irq_add_id():
++	 * 1. Register a set() function with base driver.
++	 *    Base driver will call set() function to enable/disable an
++	 *    interrupt in DC hardware.
++	 * 2. Register amdgpu_dm_irq_handler().
++	 *    Base driver will call amdgpu_dm_irq_handler() for ALL interrupts
++	 *    coming from DC hardware.
++	 *    amdgpu_dm_irq_handler() will re-direct the interrupt to DC
++	 *    for acknowledging and handling.
++	 */
++
++	r = dcn10_register_vline_irq_handlers(adev);
++	if (r) {
++		drm_err(adev_to_drm(adev),
++			"Failed to register vline interrupts\n");
++		return r;
++	}
+ 
+ 	/* Use VUPDATE_NO_LOCK interrupt on DCN, which seems to correspond to
+ 	 * the regular VUPDATE interrupt on DCE. We want DC_IRQ_SOURCE_VUPDATEx
+@@ -9541,7 +9596,8 @@ static void manage_dm_interrupts(struct amdgpu_device *adev,
+ 			if (amdgpu_irq_get(adev, &adev->pageflip_irq, irq_type))
+ 				drm_err(dev, "DM_IRQ: Cannot get pageflip irq!\n");
+ #if defined(CONFIG_DRM_AMD_SECURE_DISPLAY)
+-			if (amdgpu_irq_get(adev, &adev->vline0_irq, irq_type))
++			if (amdgpu_irq_get(adev, &adev->vline_irq,
++					   DM_VLINE_IRQ(adev, 0, irq_type)))
+ 				drm_err(dev, "DM_IRQ: Cannot get vline0 irq!\n");
+ #endif
+ 		}
+@@ -9554,7 +9610,8 @@ static void manage_dm_interrupts(struct amdgpu_device *adev,
+ 		case IP_VERSION(3, 0, 3):
+ 		case IP_VERSION(3, 2, 0):
+ #if defined(CONFIG_DRM_AMD_SECURE_DISPLAY)
+-			if (amdgpu_irq_put(adev, &adev->vline0_irq, irq_type))
++			if (amdgpu_irq_put(adev, &adev->vline_irq,
++					   DM_VLINE_IRQ(adev, 0, irq_type)))
+ 				drm_err(dev, "DM_IRQ: Cannot put vline0 irq!\n");
+ #endif
+ 			if (amdgpu_irq_put(adev, &adev->pageflip_irq, irq_type))
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+index 1e0ccf58cdb8d..b4e785784a882 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+@@ -543,6 +543,15 @@ struct amdgpu_display_manager {
+ 	struct common_irq_params
+ 	vline0_params[DC_IRQ_SOURCE_DC6_VLINE0 - DC_IRQ_SOURCE_DC1_VLINE0 + 1];
+ 
++	/**
++	 * @vline2_params:
++	 *
++	 * OTG vertical interrupt0 IRQ parameters, passed to registered
++	 * handlers when triggered.
++	 */
++	struct common_irq_params
++	vline2_params[DC_IRQ_SOURCE_DC6_VLINE2 - DC_IRQ_SOURCE_DC1_VLINE2 + 1];
++
+ 	/**
+ 	 * @vupdate_params:
+ 	 *
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
+index efb19f675b0c2..0821b0996a85f 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
+@@ -28,6 +28,7 @@
+ 
+ #include "dc.h"
+ #include "amdgpu.h"
++#include "amdgpu_dm_irq.h"
+ #include "amdgpu_dm_psr.h"
+ #include "amdgpu_dm_replay.h"
+ #include "amdgpu_dm_crtc.h"
+@@ -290,10 +291,19 @@ static inline int amdgpu_dm_crtc_set_vblank(struct drm_crtc *crtc, bool enable)
+ 
+ 	/* crtc vblank or vstartup interrupt */
+ 	if (enable) {
+-		rc = amdgpu_irq_get(adev, &adev->crtc_irq, irq_type);
++		/* vline only available on DCN+ */
++		if (amdgpu_ip_version(adev, DCE_HWIP, 0) == 0)
++			rc = amdgpu_irq_get(adev, &adev->crtc_irq, irq_type);
++		else
++			rc = amdgpu_irq_get(adev, &adev->vline_irq,
++					    DM_VLINE_IRQ(adev, 2, irq_type));
+ 		drm_dbg_vbl(crtc->dev, "Get crtc_irq ret=%d\n", rc);
+ 	} else {
+-		rc = amdgpu_irq_put(adev, &adev->crtc_irq, irq_type);
++		if (amdgpu_ip_version(adev, DCE_HWIP, 0) == 0)
++			rc = amdgpu_irq_put(adev, &adev->crtc_irq, irq_type);
++		else
++			rc = amdgpu_irq_put(adev, &adev->vline_irq,
++					    DM_VLINE_IRQ(adev, 2, irq_type));
+ 		drm_dbg_vbl(crtc->dev, "Put crtc_irq ret=%d\n", rc);
+ 	}
+ 
+@@ -323,10 +333,12 @@ static inline int amdgpu_dm_crtc_set_vblank(struct drm_crtc *crtc, bool enable)
+ 	/* crtc vline0 interrupt, only available on DCN+ */
+ 	if (amdgpu_ip_version(adev, DCE_HWIP, 0) != 0) {
+ 		if (enable) {
+-			rc = amdgpu_irq_get(adev, &adev->vline0_irq, irq_type);
++			rc = amdgpu_irq_get(adev, &adev->vline_irq,
++					    DM_VLINE_IRQ(adev, 0, irq_type));
+ 			drm_dbg_vbl(crtc->dev, "Get vline0_irq ret=%d\n", rc);
+ 		} else {
+-			rc = amdgpu_irq_put(adev, &adev->vline0_irq, irq_type);
++			rc = amdgpu_irq_put(adev, &adev->vline_irq,
++					    DM_VLINE_IRQ(adev, 0, irq_type));
+ 			drm_dbg_vbl(crtc->dev, "Put vline0_irq ret=%d\n", rc);
+ 		}
+ 
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c
+index 5948e2a6219e3..757529af72ceb 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c
+@@ -769,18 +769,86 @@ static int amdgpu_dm_set_crtc_irq_state(struct amdgpu_device *adev,
+ 		__func__);
+ }
+ 
+-static int amdgpu_dm_set_vline0_irq_state(struct amdgpu_device *adev,
+-					struct amdgpu_irq_src *source,
+-					unsigned int crtc_id,
+-					enum amdgpu_interrupt_state state)
++/**
++ * amdgpu_dm_set_vline_irq_state: Set interrupt state for vline
++ *
++ * Map base driver amdgpu_irq_update() -- called per interrupt src ID -- to
++ * their corresponding dc_irq_source, then set then to the requested state.
++ *
++ * Since all the vline0/1/2 interrupts have the same src_id, the standard
++ * amdgpu_irq_src.num_types mapping to the number of OTGs won't work. For vline,
++ * num_types will have to cover (number of different vline interrupt types) *
++ * (number of OTGs) types. For example, if there are 6 OTGS, then num_types =
++ * 3*6 = 18.
++ *
++ * This is only needed for the amdgpu_irq_src_funcs.set_irq implementation; the
++ * .process implementation is provided the interrupt vector, which contains both
++ * the src_id and ctx_id to uniquely map to the dc_irq_source.
++ *
++ * The vline_otg_id mapping is first by vline num, then by OTG num:
++ *
++ * | vline_otg_id | vline num | otg num |
++ * |--------------|-----------|---------|
++ * | 0            | 0         | 0       |
++ * | 1            | 0         | 1       |
++ * | ...          | ...       | ...     |
++ * | 5            | 0         | 5       |
++ * | 6            | 1         | 0       |
++ * | ...          | ...       | ...     |
++ * | 11           | 1         | 5       |
++ * | 12           | 2         | 0       |
++ * | ...          | ...       | ...     |
++ * | 17           | 2         | 5       |
++ */
++static int amdgpu_dm_set_vline_irq_state(struct amdgpu_device *adev,
++					 struct amdgpu_irq_src *source,
++					 unsigned int vline_otg_id,
++					 enum amdgpu_interrupt_state state)
+ {
+-	return dm_irq_state(
+-		adev,
+-		source,
+-		crtc_id,
+-		state,
+-		IRQ_TYPE_VLINE0,
+-		__func__);
++	bool st;
++	unsigned int vline_num, otg_num;
++	enum dc_irq_source irq_source;
++	struct dc *dc = adev->dm.dc;
++	struct amdgpu_crtc *acrtc;
++
++	if (vline_otg_id >= 3 * adev->mode_info.num_crtc) {
++		drm_err(adev_to_drm(adev),
++			"Invalid vline map_id :%d\n", vline_otg_id);
++		return -EINVAL;
++	}
++
++	vline_num = vline_otg_id / adev->mode_info.num_crtc;
++	otg_num = vline_otg_id % adev->mode_info.num_crtc;
++	acrtc = adev->mode_info.crtcs[otg_num];
++
++	if (!acrtc) {
++		drm_err(adev_to_drm(adev),
++			"crtc is NULL at id : %d\n", otg_num);
++		return 0;
++	}
++
++	if (acrtc->otg_inst == -1)
++		return 0;
++
++	if (vline_num == 0)
++		irq_source = IRQ_TYPE_VLINE0 + otg_num;
++	else if (vline_num == 1)
++		irq_source = IRQ_TYPE_VLINE1 + otg_num;
++	else if (vline_num == 2)
++		irq_source = IRQ_TYPE_VLINE2 + otg_num;
++	else {
++		drm_err(adev_to_drm(adev),
++			"Invalid vline num :%d\n", vline_num);
++		return -EINVAL;
++	}
++
++	st = (state == AMDGPU_IRQ_STATE_ENABLE);
++
++	if (dc && dc->caps.ips_support && dc->idle_optimizations_allowed)
++		dc_allow_idle_optimizations(dc, false);
++
++	dc_interrupt_set(adev->dm.dc, irq_source, st);
++	return 0;
+ }
+ 
+ static int amdgpu_dm_set_dmub_outbox_irq_state(struct amdgpu_device *adev,
+@@ -826,8 +894,8 @@ static const struct amdgpu_irq_src_funcs dm_crtc_irq_funcs = {
+ 	.process = amdgpu_dm_irq_handler,
+ };
+ 
+-static const struct amdgpu_irq_src_funcs dm_vline0_irq_funcs = {
+-	.set = amdgpu_dm_set_vline0_irq_state,
++static const struct amdgpu_irq_src_funcs dm_vline_irq_funcs = {
++	.set = amdgpu_dm_set_vline_irq_state,
+ 	.process = amdgpu_dm_irq_handler,
+ };
+ 
+@@ -861,8 +929,9 @@ void amdgpu_dm_set_irq_funcs(struct amdgpu_device *adev)
+ 	adev->crtc_irq.num_types = adev->mode_info.num_crtc;
+ 	adev->crtc_irq.funcs = &dm_crtc_irq_funcs;
+ 
+-	adev->vline0_irq.num_types = adev->mode_info.num_crtc;
+-	adev->vline0_irq.funcs = &dm_vline0_irq_funcs;
++	/* Number of vline types * num OTGs */
++	adev->vline_irq.num_types = 3 * adev->mode_info.num_crtc;
++	adev->vline_irq.funcs = &dm_vline_irq_funcs;
+ 
+ 	adev->dmub_outbox_irq.num_types = 1;
+ 	adev->dmub_outbox_irq.funcs = &dm_dmub_outbox_irq_funcs;
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.h
+index 4f6b58f4f90d7..a672b58b0f760 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.h
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.h
+@@ -27,6 +27,13 @@
+ 
+ #include "irq_types.h" /* DAL irq definitions */
+ 
++/*
++ * Get OTG vline irq id from vline num and otg num. See also
++ * amdgpu_dm_set_vline_irq_state()
++ */
++#define DM_VLINE_IRQ(adev, vline_num, otg_num) \
++	adev->mode_info.num_crtc * vline_num + otg_num
++
+ /*
+  * Display Manager IRQ-related interfaces (for use by DAL).
+  */
+diff --git a/drivers/gpu/drm/amd/display/dc/irq/dcn10/irq_service_dcn10.c b/drivers/gpu/drm/amd/display/dc/irq/dcn10/irq_service_dcn10.c
+index 7dff8731f414e..a72fefb531e99 100644
+--- a/drivers/gpu/drm/amd/display/dc/irq/dcn10/irq_service_dcn10.c
++++ b/drivers/gpu/drm/amd/display/dc/irq/dcn10/irq_service_dcn10.c
+@@ -58,18 +58,6 @@ static enum dc_irq_source to_dal_irq_source_dcn10(struct irq_service *irq_servic
+ 		return DC_IRQ_SOURCE_VBLANK5;
+ 	case DCN_1_0__SRCID__DC_D6_OTG_VSTARTUP:
+ 		return DC_IRQ_SOURCE_VBLANK6;
+-	case DCN_1_0__SRCID__OTG1_VERTICAL_INTERRUPT0_CONTROL:
+-		return DC_IRQ_SOURCE_DC1_VLINE0;
+-	case DCN_1_0__SRCID__OTG2_VERTICAL_INTERRUPT0_CONTROL:
+-		return DC_IRQ_SOURCE_DC2_VLINE0;
+-	case DCN_1_0__SRCID__OTG3_VERTICAL_INTERRUPT0_CONTROL:
+-		return DC_IRQ_SOURCE_DC3_VLINE0;
+-	case DCN_1_0__SRCID__OTG4_VERTICAL_INTERRUPT0_CONTROL:
+-		return DC_IRQ_SOURCE_DC4_VLINE0;
+-	case DCN_1_0__SRCID__OTG5_VERTICAL_INTERRUPT0_CONTROL:
+-		return DC_IRQ_SOURCE_DC5_VLINE0;
+-	case DCN_1_0__SRCID__OTG6_VERTICAL_INTERRUPT0_CONTROL:
+-		return DC_IRQ_SOURCE_DC6_VLINE0;
+ 	case DCN_1_0__SRCID__OTG0_IHC_V_UPDATE_NO_LOCK_INTERRUPT:
+ 		return DC_IRQ_SOURCE_VUPDATE1;
+ 	case DCN_1_0__SRCID__OTG1_IHC_V_UPDATE_NO_LOCK_INTERRUPT:
+@@ -95,6 +83,19 @@ static enum dc_irq_source to_dal_irq_source_dcn10(struct irq_service *irq_servic
+ 	case DCN_1_0__SRCID__HUBP5_FLIP_INTERRUPT:
+ 		return DC_IRQ_SOURCE_PFLIP6;
+ 
++	case DCN_VINT_SRCID(1, 0):
++		DCN_VINT_TO_DC_IRQSRC(1, ext_id);
++	case DCN_VINT_SRCID(2, 0):
++		DCN_VINT_TO_DC_IRQSRC(2, ext_id);
++	case DCN_VINT_SRCID(3, 0):
++		DCN_VINT_TO_DC_IRQSRC(3, ext_id);
++	case DCN_VINT_SRCID(4, 0):
++		DCN_VINT_TO_DC_IRQSRC(4, ext_id);
++	case DCN_VINT_SRCID(5, 0):
++		DCN_VINT_TO_DC_IRQSRC(5, ext_id);
++	case DCN_VINT_SRCID(6, 0):
++		DCN_VINT_TO_DC_IRQSRC(6, ext_id);
++
+ 	case DCN_1_0__SRCID__DC_HPD1_INT:
+ 		/* generic src_id for all HPD and HPDRX interrupts */
+ 		switch (ext_id) {
+@@ -157,6 +158,11 @@ static struct irq_source_info_funcs vline0_irq_info_funcs = {
+ 	.ack = NULL
+ };
+ 
++static struct irq_source_info_funcs vline2_irq_info_funcs = {
++	.set = NULL,
++	.ack = NULL
++};
++
+ static struct irq_source_info_funcs vupdate_no_lock_irq_info_funcs = {
+ 	.set = NULL,
+ 	.ack = NULL
+@@ -239,6 +245,14 @@ static struct irq_source_info_funcs vupdate_no_lock_irq_info_funcs = {
+ 		.funcs = &vline0_irq_info_funcs\
+ 	}
+ 
++#define vline2_int_entry(reg_num)\
++	[DC_IRQ_SOURCE_DC1_VLINE2 + reg_num] = {\
++		IRQ_REG_ENTRY(OTG, reg_num,\
++			OTG_VERTICAL_INTERRUPT2_CONTROL, OTG_VERTICAL_INTERRUPT2_INT_ENABLE,\
++			OTG_VERTICAL_INTERRUPT2_CONTROL, OTG_VERTICAL_INTERRUPT2_CLEAR),\
++		.funcs = &vline2_irq_info_funcs\
++	}
++
+ #define dummy_irq_entry() \
+ 	{\
+ 		.funcs = &dummy_irq_info_funcs\
+@@ -353,6 +367,12 @@ irq_source_info_dcn10[DAL_IRQ_SOURCES_NUMBER] = {
+ 	vline0_int_entry(3),
+ 	vline0_int_entry(4),
+ 	vline0_int_entry(5),
++	vline2_int_entry(0),
++	vline2_int_entry(1),
++	vline2_int_entry(2),
++	vline2_int_entry(3),
++	vline2_int_entry(4),
++	vline2_int_entry(5),
+ };
+ 
+ static const struct irq_service_funcs irq_service_funcs_dcn10 = {
+diff --git a/drivers/gpu/drm/amd/display/dc/irq/dcn20/irq_service_dcn20.c b/drivers/gpu/drm/amd/display/dc/irq/dcn20/irq_service_dcn20.c
+index 34f9e8a9f488f..cbf65367cba5c 100644
+--- a/drivers/gpu/drm/amd/display/dc/irq/dcn20/irq_service_dcn20.c
++++ b/drivers/gpu/drm/amd/display/dc/irq/dcn20/irq_service_dcn20.c
+@@ -59,18 +59,6 @@ static enum dc_irq_source to_dal_irq_source_dcn20(
+ 		return DC_IRQ_SOURCE_VBLANK5;
+ 	case DCN_1_0__SRCID__DC_D6_OTG_VSTARTUP:
+ 		return DC_IRQ_SOURCE_VBLANK6;
+-	case DCN_1_0__SRCID__OTG1_VERTICAL_INTERRUPT0_CONTROL:
+-		return DC_IRQ_SOURCE_DC1_VLINE0;
+-	case DCN_1_0__SRCID__OTG2_VERTICAL_INTERRUPT0_CONTROL:
+-		return DC_IRQ_SOURCE_DC2_VLINE0;
+-	case DCN_1_0__SRCID__OTG3_VERTICAL_INTERRUPT0_CONTROL:
+-		return DC_IRQ_SOURCE_DC3_VLINE0;
+-	case DCN_1_0__SRCID__OTG4_VERTICAL_INTERRUPT0_CONTROL:
+-		return DC_IRQ_SOURCE_DC4_VLINE0;
+-	case DCN_1_0__SRCID__OTG5_VERTICAL_INTERRUPT0_CONTROL:
+-		return DC_IRQ_SOURCE_DC5_VLINE0;
+-	case DCN_1_0__SRCID__OTG6_VERTICAL_INTERRUPT0_CONTROL:
+-		return DC_IRQ_SOURCE_DC6_VLINE0;
+ 	case DCN_1_0__SRCID__HUBP0_FLIP_INTERRUPT:
+ 		return DC_IRQ_SOURCE_PFLIP1;
+ 	case DCN_1_0__SRCID__HUBP1_FLIP_INTERRUPT:
+@@ -96,6 +84,19 @@ static enum dc_irq_source to_dal_irq_source_dcn20(
+ 	case DCN_1_0__SRCID__OTG5_IHC_V_UPDATE_NO_LOCK_INTERRUPT:
+ 		return DC_IRQ_SOURCE_VUPDATE6;
+ 
++	case DCN_VINT_SRCID(1, 0):
++		DCN_VINT_TO_DC_IRQSRC(1, ext_id);
++	case DCN_VINT_SRCID(2, 0):
++		DCN_VINT_TO_DC_IRQSRC(2, ext_id);
++	case DCN_VINT_SRCID(3, 0):
++		DCN_VINT_TO_DC_IRQSRC(3, ext_id);
++	case DCN_VINT_SRCID(4, 0):
++		DCN_VINT_TO_DC_IRQSRC(4, ext_id);
++	case DCN_VINT_SRCID(5, 0):
++		DCN_VINT_TO_DC_IRQSRC(5, ext_id);
++	case DCN_VINT_SRCID(6, 0):
++		DCN_VINT_TO_DC_IRQSRC(6, ext_id);
++
+ 	case DCN_1_0__SRCID__DC_HPD1_INT:
+ 		/* generic src_id for all HPD and HPDRX interrupts */
+ 		switch (ext_id) {
+@@ -163,6 +164,11 @@ static struct irq_source_info_funcs vline0_irq_info_funcs = {
+ 	.ack = NULL
+ };
+ 
++static struct irq_source_info_funcs vline2_irq_info_funcs = {
++	.set = NULL,
++	.ack = NULL
++};
++
+ #undef BASE_INNER
+ #define BASE_INNER(seg) DCN_BASE__INST0_SEG ## seg
+ 
+@@ -244,6 +250,13 @@ static struct irq_source_info_funcs vline0_irq_info_funcs = {
+ 		.funcs = &vline0_irq_info_funcs\
+ 	}
+ 
++#define vline2_int_entry(reg_num)\
++	[DC_IRQ_SOURCE_DC1_VLINE2 + reg_num] = {\
++		IRQ_REG_ENTRY(OTG, reg_num,\
++			OTG_VERTICAL_INTERRUPT2_CONTROL, OTG_VERTICAL_INTERRUPT2_INT_ENABLE,\
++			OTG_VERTICAL_INTERRUPT2_CONTROL, OTG_VERTICAL_INTERRUPT2_CLEAR),\
++		.funcs = &vline2_irq_info_funcs\
++	}
+ #define dummy_irq_entry() \
+ 	{\
+ 		.funcs = &dummy_irq_info_funcs\
+@@ -358,6 +371,12 @@ irq_source_info_dcn20[DAL_IRQ_SOURCES_NUMBER] = {
+ 	vline0_int_entry(3),
+ 	vline0_int_entry(4),
+ 	vline0_int_entry(5),
++	vline2_int_entry(0),
++	vline2_int_entry(1),
++	vline2_int_entry(2),
++	vline2_int_entry(3),
++	vline2_int_entry(4),
++	vline2_int_entry(5),
+ };
+ 
+ static const struct irq_service_funcs irq_service_funcs_dcn20 = {
+diff --git a/drivers/gpu/drm/amd/display/dc/irq/dcn201/irq_service_dcn201.c b/drivers/gpu/drm/amd/display/dc/irq/dcn201/irq_service_dcn201.c
+index 6417011d22463..7ab8317961734 100644
+--- a/drivers/gpu/drm/amd/display/dc/irq/dcn201/irq_service_dcn201.c
++++ b/drivers/gpu/drm/amd/display/dc/irq/dcn201/irq_service_dcn201.c
+@@ -47,10 +47,6 @@ static enum dc_irq_source to_dal_irq_source_dcn201(
+ 		return DC_IRQ_SOURCE_VBLANK1;
+ 	case DCN_1_0__SRCID__DC_D2_OTG_VSTARTUP:
+ 		return DC_IRQ_SOURCE_VBLANK2;
+-	case DCN_1_0__SRCID__OTG1_VERTICAL_INTERRUPT0_CONTROL:
+-		return DC_IRQ_SOURCE_DC1_VLINE0;
+-	case DCN_1_0__SRCID__OTG2_VERTICAL_INTERRUPT0_CONTROL:
+-		return DC_IRQ_SOURCE_DC2_VLINE0;
+ 	case DCN_1_0__SRCID__HUBP0_FLIP_INTERRUPT:
+ 		return DC_IRQ_SOURCE_PFLIP1;
+ 	case DCN_1_0__SRCID__HUBP1_FLIP_INTERRUPT:
+@@ -59,6 +55,12 @@ static enum dc_irq_source to_dal_irq_source_dcn201(
+ 		return DC_IRQ_SOURCE_VUPDATE1;
+ 	case DCN_1_0__SRCID__OTG1_IHC_V_UPDATE_NO_LOCK_INTERRUPT:
+ 		return DC_IRQ_SOURCE_VUPDATE2;
++
++	case DCN_VINT_SRCID(1, 0):
++		DCN_VINT_TO_DC_IRQSRC(1, ext_id);
++	case DCN_VINT_SRCID(2, 0):
++		DCN_VINT_TO_DC_IRQSRC(2, ext_id);
++
+ 	case DCN_1_0__SRCID__DC_HPD1_INT:
+ 		/* generic src_id for all HPD and HPDRX interrupts */
+ 		switch (ext_id) {
+@@ -104,6 +106,11 @@ static struct irq_source_info_funcs vline0_irq_info_funcs = {
+ 	.set = NULL,
+ 	.ack = NULL
+ };
++
++static struct irq_source_info_funcs vline2_irq_info_funcs = {
++	.set = NULL,
++	.ack = NULL
++};
+ static struct irq_source_info_funcs vupdate_no_lock_irq_info_funcs = {
+ 	.set = NULL,
+ 	.ack = NULL
+@@ -195,6 +202,13 @@ static struct irq_source_info_funcs vupdate_no_lock_irq_info_funcs = {
+ 		.funcs = &vline0_irq_info_funcs\
+ 	}
+ 
++#define vline2_int_entry(reg_num)\
++	[DC_IRQ_SOURCE_DC1_VLINE2 + reg_num] = {\
++		IRQ_REG_ENTRY(OTG, reg_num,\
++			OTG_VERTICAL_INTERRUPT2_CONTROL, OTG_VERTICAL_INTERRUPT2_INT_ENABLE,\
++			OTG_VERTICAL_INTERRUPT2_CONTROL, OTG_VERTICAL_INTERRUPT2_CLEAR),\
++		.funcs = &vline2_irq_info_funcs\
++	}
+ #define dummy_irq_entry() \
+ 	{\
+ 		.funcs = &dummy_irq_info_funcs\
+@@ -309,6 +323,8 @@ irq_source_info_dcn201[DAL_IRQ_SOURCES_NUMBER] = {
+ 	dummy_irq_entry(),
+ 	dummy_irq_entry(),
+ 	dummy_irq_entry(),
++	vline2_int_entry(0),
++	vline2_int_entry(1),
+ };
+ 
+ static const struct irq_service_funcs irq_service_funcs_dcn201 = {
+diff --git a/drivers/gpu/drm/amd/display/dc/irq/dcn21/irq_service_dcn21.c b/drivers/gpu/drm/amd/display/dc/irq/dcn21/irq_service_dcn21.c
+index 05f7877d2d6c8..da1ebb9467c9d 100644
+--- a/drivers/gpu/drm/amd/display/dc/irq/dcn21/irq_service_dcn21.c
++++ b/drivers/gpu/drm/amd/display/dc/irq/dcn21/irq_service_dcn21.c
+@@ -60,18 +60,6 @@ static enum dc_irq_source to_dal_irq_source_dcn21(struct irq_service *irq_servic
+ 		return DC_IRQ_SOURCE_VBLANK6;
+ 	case DCN_1_0__SRCID__DMCUB_OUTBOX_LOW_PRIORITY_READY_INT:
+ 		return DC_IRQ_SOURCE_DMCUB_OUTBOX;
+-	case DCN_1_0__SRCID__OTG1_VERTICAL_INTERRUPT0_CONTROL:
+-		return DC_IRQ_SOURCE_DC1_VLINE0;
+-	case DCN_1_0__SRCID__OTG2_VERTICAL_INTERRUPT0_CONTROL:
+-		return DC_IRQ_SOURCE_DC2_VLINE0;
+-	case DCN_1_0__SRCID__OTG3_VERTICAL_INTERRUPT0_CONTROL:
+-		return DC_IRQ_SOURCE_DC3_VLINE0;
+-	case DCN_1_0__SRCID__OTG4_VERTICAL_INTERRUPT0_CONTROL:
+-		return DC_IRQ_SOURCE_DC4_VLINE0;
+-	case DCN_1_0__SRCID__OTG5_VERTICAL_INTERRUPT0_CONTROL:
+-		return DC_IRQ_SOURCE_DC5_VLINE0;
+-	case DCN_1_0__SRCID__OTG6_VERTICAL_INTERRUPT0_CONTROL:
+-		return DC_IRQ_SOURCE_DC6_VLINE0;
+ 	case DCN_1_0__SRCID__HUBP0_FLIP_INTERRUPT:
+ 		return DC_IRQ_SOURCE_PFLIP1;
+ 	case DCN_1_0__SRCID__HUBP1_FLIP_INTERRUPT:
+@@ -97,6 +85,19 @@ static enum dc_irq_source to_dal_irq_source_dcn21(struct irq_service *irq_servic
+ 	case DCN_1_0__SRCID__OTG5_IHC_V_UPDATE_NO_LOCK_INTERRUPT:
+ 		return DC_IRQ_SOURCE_VUPDATE6;
+ 
++	case DCN_VINT_SRCID(1, 0):
++		DCN_VINT_TO_DC_IRQSRC(1, ext_id);
++	case DCN_VINT_SRCID(2, 0):
++		DCN_VINT_TO_DC_IRQSRC(2, ext_id);
++	case DCN_VINT_SRCID(3, 0):
++		DCN_VINT_TO_DC_IRQSRC(3, ext_id);
++	case DCN_VINT_SRCID(4, 0):
++		DCN_VINT_TO_DC_IRQSRC(4, ext_id);
++	case DCN_VINT_SRCID(5, 0):
++		DCN_VINT_TO_DC_IRQSRC(5, ext_id);
++	case DCN_VINT_SRCID(6, 0):
++		DCN_VINT_TO_DC_IRQSRC(6, ext_id);
++
+ 	case DCN_1_0__SRCID__DC_HPD1_INT:
+ 		/* generic src_id for all HPD and HPDRX interrupts */
+ 		switch (ext_id) {
+@@ -170,6 +171,11 @@ static struct irq_source_info_funcs vline0_irq_info_funcs = {
+ 	.ack = NULL
+ };
+ 
++static struct irq_source_info_funcs vline2_irq_info_funcs = {
++	.set = NULL,
++	.ack = NULL
++};
++
+ #undef BASE_INNER
+ #define BASE_INNER(seg) DMU_BASE__INST0_SEG ## seg
+ 
+@@ -266,6 +272,14 @@ static struct irq_source_info_funcs vline0_irq_info_funcs = {
+ 		.funcs = &vline0_irq_info_funcs\
+ 	}
+ 
++#define vline2_int_entry(reg_num)\
++	[DC_IRQ_SOURCE_DC1_VLINE2 + reg_num] = {\
++		IRQ_REG_ENTRY(OTG, reg_num,\
++			OTG_VERTICAL_INTERRUPT2_CONTROL, OTG_VERTICAL_INTERRUPT2_INT_ENABLE,\
++			OTG_VERTICAL_INTERRUPT2_CONTROL, OTG_VERTICAL_INTERRUPT2_CLEAR),\
++		.funcs = &vline2_irq_info_funcs\
++	}
++
+ #define dmub_outbox_int_entry()\
+ 	[DC_IRQ_SOURCE_DMCUB_OUTBOX] = {\
+ 		IRQ_REG_ENTRY_DMUB(DMCUB_INTERRUPT_ENABLE, DMCUB_OUTBOX1_READY_INT_EN,\
+@@ -385,6 +399,12 @@ irq_source_info_dcn21[DAL_IRQ_SOURCES_NUMBER] = {
+ 	vline0_int_entry(3),
+ 	vline0_int_entry(4),
+ 	vline0_int_entry(5),
++	vline2_int_entry(0),
++	vline2_int_entry(1),
++	vline2_int_entry(2),
++	vline2_int_entry(3),
++	vline2_int_entry(4),
++	vline2_int_entry(5),
+ 	dmub_outbox_int_entry(),
+ };
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/irq/dcn30/irq_service_dcn30.c b/drivers/gpu/drm/amd/display/dc/irq/dcn30/irq_service_dcn30.c
+index 3a7f76364000e..d4af3555d14ef 100644
+--- a/drivers/gpu/drm/amd/display/dc/irq/dcn30/irq_service_dcn30.c
++++ b/drivers/gpu/drm/amd/display/dc/irq/dcn30/irq_service_dcn30.c
+@@ -68,18 +68,6 @@ static enum dc_irq_source to_dal_irq_source_dcn30(
+ 		return DC_IRQ_SOURCE_VBLANK6;
+ 	case DCN_1_0__SRCID__DMCUB_OUTBOX_HIGH_PRIORITY_READY_INT:
+ 		return DC_IRQ_SOURCE_DMCUB_OUTBOX0;
+-	case DCN_1_0__SRCID__OTG1_VERTICAL_INTERRUPT0_CONTROL:
+-		return DC_IRQ_SOURCE_DC1_VLINE0;
+-	case DCN_1_0__SRCID__OTG2_VERTICAL_INTERRUPT0_CONTROL:
+-		return DC_IRQ_SOURCE_DC2_VLINE0;
+-	case DCN_1_0__SRCID__OTG3_VERTICAL_INTERRUPT0_CONTROL:
+-		return DC_IRQ_SOURCE_DC3_VLINE0;
+-	case DCN_1_0__SRCID__OTG4_VERTICAL_INTERRUPT0_CONTROL:
+-		return DC_IRQ_SOURCE_DC4_VLINE0;
+-	case DCN_1_0__SRCID__OTG5_VERTICAL_INTERRUPT0_CONTROL:
+-		return DC_IRQ_SOURCE_DC5_VLINE0;
+-	case DCN_1_0__SRCID__OTG6_VERTICAL_INTERRUPT0_CONTROL:
+-		return DC_IRQ_SOURCE_DC6_VLINE0;
+ 	case DCN_1_0__SRCID__HUBP0_FLIP_INTERRUPT:
+ 		return DC_IRQ_SOURCE_PFLIP1;
+ 	case DCN_1_0__SRCID__HUBP1_FLIP_INTERRUPT:
+@@ -105,6 +93,19 @@ static enum dc_irq_source to_dal_irq_source_dcn30(
+ 	case DCN_1_0__SRCID__OTG5_IHC_V_UPDATE_NO_LOCK_INTERRUPT:
+ 		return DC_IRQ_SOURCE_VUPDATE6;
+ 
++	case DCN_VINT_SRCID(1, 0):
++		DCN_VINT_TO_DC_IRQSRC(1, ext_id);
++	case DCN_VINT_SRCID(2, 0):
++		DCN_VINT_TO_DC_IRQSRC(2, ext_id);
++	case DCN_VINT_SRCID(3, 0):
++		DCN_VINT_TO_DC_IRQSRC(3, ext_id);
++	case DCN_VINT_SRCID(4, 0):
++		DCN_VINT_TO_DC_IRQSRC(4, ext_id);
++	case DCN_VINT_SRCID(5, 0):
++		DCN_VINT_TO_DC_IRQSRC(5, ext_id);
++	case DCN_VINT_SRCID(6, 0):
++		DCN_VINT_TO_DC_IRQSRC(6, ext_id);
++
+ 	case DCN_1_0__SRCID__DC_HPD1_INT:
+ 		/* generic src_id for all HPD and HPDRX interrupts */
+ 		switch (ext_id) {
+@@ -177,6 +178,11 @@ static struct irq_source_info_funcs vline0_irq_info_funcs = {
+ 	.ack = NULL
+ };
+ 
++static struct irq_source_info_funcs vline2_irq_info_funcs = {
++	.set = NULL,
++	.ack = NULL
++};
++
+ #undef BASE_INNER
+ #define BASE_INNER(seg) DCN_BASE__INST0_SEG ## seg
+ 
+@@ -280,6 +286,14 @@ static struct irq_source_info_funcs vline0_irq_info_funcs = {
+ 		.funcs = &vline0_irq_info_funcs\
+ 	}
+ 
++#define vline2_int_entry(reg_num)\
++	[DC_IRQ_SOURCE_DC1_VLINE2 + reg_num] = {\
++		IRQ_REG_ENTRY(OTG, reg_num,\
++			OTG_VERTICAL_INTERRUPT2_CONTROL, OTG_VERTICAL_INTERRUPT2_INT_ENABLE,\
++			OTG_VERTICAL_INTERRUPT2_CONTROL, OTG_VERTICAL_INTERRUPT2_CLEAR),\
++		.funcs = &vline2_irq_info_funcs\
++	}
++
+ #define dummy_irq_entry() \
+ 	{\
+ 		.funcs = &dummy_irq_info_funcs\
+@@ -394,6 +408,12 @@ irq_source_info_dcn30[DAL_IRQ_SOURCES_NUMBER] = {
+ 	vline0_int_entry(3),
+ 	vline0_int_entry(4),
+ 	vline0_int_entry(5),
++	vline2_int_entry(0),
++	vline2_int_entry(1),
++	vline2_int_entry(2),
++	vline2_int_entry(3),
++	vline2_int_entry(4),
++	vline2_int_entry(5),
+ 	dmub_trace_int_entry(),
+ };
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/irq/dcn302/irq_service_dcn302.c b/drivers/gpu/drm/amd/display/dc/irq/dcn302/irq_service_dcn302.c
+index f4dfc96310c73..14631b78715a0 100644
+--- a/drivers/gpu/drm/amd/display/dc/irq/dcn302/irq_service_dcn302.c
++++ b/drivers/gpu/drm/amd/display/dc/irq/dcn302/irq_service_dcn302.c
+@@ -55,18 +55,6 @@ static enum dc_irq_source to_dal_irq_source_dcn302(struct irq_service *irq_servi
+ 		return DC_IRQ_SOURCE_VBLANK6;
+ 	case DCN_1_0__SRCID__DMCUB_OUTBOX_HIGH_PRIORITY_READY_INT:
+ 		return DC_IRQ_SOURCE_DMCUB_OUTBOX0;
+-	case DCN_1_0__SRCID__OTG1_VERTICAL_INTERRUPT0_CONTROL:
+-		return DC_IRQ_SOURCE_DC1_VLINE0;
+-	case DCN_1_0__SRCID__OTG2_VERTICAL_INTERRUPT0_CONTROL:
+-		return DC_IRQ_SOURCE_DC2_VLINE0;
+-	case DCN_1_0__SRCID__OTG3_VERTICAL_INTERRUPT0_CONTROL:
+-		return DC_IRQ_SOURCE_DC3_VLINE0;
+-	case DCN_1_0__SRCID__OTG4_VERTICAL_INTERRUPT0_CONTROL:
+-		return DC_IRQ_SOURCE_DC4_VLINE0;
+-	case DCN_1_0__SRCID__OTG5_VERTICAL_INTERRUPT0_CONTROL:
+-		return DC_IRQ_SOURCE_DC5_VLINE0;
+-	case DCN_1_0__SRCID__OTG6_VERTICAL_INTERRUPT0_CONTROL:
+-		return DC_IRQ_SOURCE_DC6_VLINE0;
+ 	case DCN_1_0__SRCID__HUBP0_FLIP_INTERRUPT:
+ 		return DC_IRQ_SOURCE_PFLIP1;
+ 	case DCN_1_0__SRCID__HUBP1_FLIP_INTERRUPT:
+@@ -92,6 +80,19 @@ static enum dc_irq_source to_dal_irq_source_dcn302(struct irq_service *irq_servi
+ 	case DCN_1_0__SRCID__OTG5_IHC_V_UPDATE_NO_LOCK_INTERRUPT:
+ 		return DC_IRQ_SOURCE_VUPDATE6;
+ 
++	case DCN_VINT_SRCID(1, 0):
++		DCN_VINT_TO_DC_IRQSRC(1, ext_id);
++	case DCN_VINT_SRCID(2, 0):
++		DCN_VINT_TO_DC_IRQSRC(2, ext_id);
++	case DCN_VINT_SRCID(3, 0):
++		DCN_VINT_TO_DC_IRQSRC(3, ext_id);
++	case DCN_VINT_SRCID(4, 0):
++		DCN_VINT_TO_DC_IRQSRC(4, ext_id);
++	case DCN_VINT_SRCID(5, 0):
++		DCN_VINT_TO_DC_IRQSRC(5, ext_id);
++	case DCN_VINT_SRCID(6, 0):
++		DCN_VINT_TO_DC_IRQSRC(6, ext_id);
++
+ 	case DCN_1_0__SRCID__DC_HPD1_INT:
+ 		/* generic src_id for all HPD and HPDRX interrupts */
+ 		switch (ext_id) {
+@@ -164,6 +165,11 @@ static struct irq_source_info_funcs vline0_irq_info_funcs = {
+ 	.ack = NULL
+ };
+ 
++static struct irq_source_info_funcs vline2_irq_info_funcs = {
++	.set = NULL,
++	.ack = NULL
++};
++
+ #undef BASE_INNER
+ #define BASE_INNER(seg) DCN_BASE__INST0_SEG ## seg
+ 
+@@ -262,6 +268,14 @@ static struct irq_source_info_funcs vline0_irq_info_funcs = {
+ 		.funcs = &vline0_irq_info_funcs\
+ 	}
+ 
++#define vline2_int_entry(reg_num)\
++	[DC_IRQ_SOURCE_DC1_VLINE2 + reg_num] = {\
++		IRQ_REG_ENTRY(OTG, reg_num,\
++			OTG_VERTICAL_INTERRUPT2_CONTROL, OTG_VERTICAL_INTERRUPT2_INT_ENABLE,\
++			OTG_VERTICAL_INTERRUPT2_CONTROL, OTG_VERTICAL_INTERRUPT2_CLEAR),\
++		.funcs = &vline2_irq_info_funcs\
++	}
++
+ #define dummy_irq_entry() { .funcs = &dummy_irq_info_funcs }
+ 
+ #define i2c_int_entry(reg_num) \
+@@ -363,6 +377,11 @@ static const struct irq_source_info irq_source_info_dcn302[DAL_IRQ_SOURCES_NUMBE
+ 		vline0_int_entry(2),
+ 		vline0_int_entry(3),
+ 		vline0_int_entry(4),
++		vline2_int_entry(0),
++		vline2_int_entry(1),
++		vline2_int_entry(2),
++		vline2_int_entry(3),
++		vline2_int_entry(4),
+ 		dmub_trace_int_entry(),
+ };
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/irq/dcn303/irq_service_dcn303.c b/drivers/gpu/drm/amd/display/dc/irq/dcn303/irq_service_dcn303.c
+index fdc7624461ac2..bd4768afafe43 100644
+--- a/drivers/gpu/drm/amd/display/dc/irq/dcn303/irq_service_dcn303.c
++++ b/drivers/gpu/drm/amd/display/dc/irq/dcn303/irq_service_dcn303.c
+@@ -46,10 +46,6 @@ static enum dc_irq_source to_dal_irq_source_dcn303(struct irq_service *irq_servi
+ 		return DC_IRQ_SOURCE_VBLANK1;
+ 	case DCN_1_0__SRCID__DC_D2_OTG_VSTARTUP:
+ 		return DC_IRQ_SOURCE_VBLANK2;
+-	case DCN_1_0__SRCID__OTG1_VERTICAL_INTERRUPT0_CONTROL:
+-		return DC_IRQ_SOURCE_DC1_VLINE0;
+-	case DCN_1_0__SRCID__OTG2_VERTICAL_INTERRUPT0_CONTROL:
+-		return DC_IRQ_SOURCE_DC2_VLINE0;
+ 	case DCN_1_0__SRCID__HUBP0_FLIP_INTERRUPT:
+ 		return DC_IRQ_SOURCE_PFLIP1;
+ 	case DCN_1_0__SRCID__HUBP1_FLIP_INTERRUPT:
+@@ -59,6 +55,11 @@ static enum dc_irq_source to_dal_irq_source_dcn303(struct irq_service *irq_servi
+ 	case DCN_1_0__SRCID__OTG1_IHC_V_UPDATE_NO_LOCK_INTERRUPT:
+ 		return DC_IRQ_SOURCE_VUPDATE2;
+ 
++	case DCN_VINT_SRCID(1, 0):
++		DCN_VINT_TO_DC_IRQSRC(1, ext_id);
++	case DCN_VINT_SRCID(2, 0):
++		DCN_VINT_TO_DC_IRQSRC(2, ext_id);
++
+ 	case DCN_1_0__SRCID__DC_HPD1_INT:
+ 		/* generic src_id for all HPD and HPDRX interrupts */
+ 		switch (ext_id) {
+@@ -110,6 +111,11 @@ static struct irq_source_info_funcs vline0_irq_info_funcs = {
+ 	.ack = NULL
+ };
+ 
++static struct irq_source_info_funcs vline2_irq_info_funcs = {
++	.set = NULL,
++	.ack = NULL
++};
++
+ #undef BASE_INNER
+ #define BASE_INNER(seg) DCN_BASE__INST0_SEG ## seg
+ 
+@@ -186,6 +192,14 @@ static struct irq_source_info_funcs vline0_irq_info_funcs = {
+ 		.funcs = &vline0_irq_info_funcs\
+ 	}
+ 
++#define vline2_int_entry(reg_num)\
++	[DC_IRQ_SOURCE_DC1_VLINE2 + reg_num] = {\
++		IRQ_REG_ENTRY(OTG, reg_num,\
++			OTG_VERTICAL_INTERRUPT2_CONTROL, OTG_VERTICAL_INTERRUPT2_INT_ENABLE,\
++			OTG_VERTICAL_INTERRUPT2_CONTROL, OTG_VERTICAL_INTERRUPT2_CLEAR),\
++		.funcs = &vline2_irq_info_funcs\
++	}
++
+ #define dummy_irq_entry() { .funcs = &dummy_irq_info_funcs }
+ 
+ #define i2c_int_entry(reg_num) \
+@@ -260,6 +274,8 @@ static const struct irq_source_info irq_source_info_dcn303[DAL_IRQ_SOURCES_NUMBE
+ 		vblank_int_entry(1),
+ 		vline0_int_entry(0),
+ 		vline0_int_entry(1),
++		vline2_int_entry(0),
++		vline2_int_entry(1),
+ };
+ 
+ static const struct irq_service_funcs irq_service_funcs_dcn303 = {
+diff --git a/drivers/gpu/drm/amd/display/dc/irq/dcn31/irq_service_dcn31.c b/drivers/gpu/drm/amd/display/dc/irq/dcn31/irq_service_dcn31.c
+index 5fecd03f94999..9704f90cd0407 100644
+--- a/drivers/gpu/drm/amd/display/dc/irq/dcn31/irq_service_dcn31.c
++++ b/drivers/gpu/drm/amd/display/dc/irq/dcn31/irq_service_dcn31.c
+@@ -56,18 +56,6 @@ static enum dc_irq_source to_dal_irq_source_dcn31(struct irq_service *irq_servic
+ 		return DC_IRQ_SOURCE_VBLANK5;
+ 	case DCN_1_0__SRCID__DC_D6_OTG_VSTARTUP:
+ 		return DC_IRQ_SOURCE_VBLANK6;
+-	case DCN_1_0__SRCID__OTG1_VERTICAL_INTERRUPT0_CONTROL:
+-		return DC_IRQ_SOURCE_DC1_VLINE0;
+-	case DCN_1_0__SRCID__OTG2_VERTICAL_INTERRUPT0_CONTROL:
+-		return DC_IRQ_SOURCE_DC2_VLINE0;
+-	case DCN_1_0__SRCID__OTG3_VERTICAL_INTERRUPT0_CONTROL:
+-		return DC_IRQ_SOURCE_DC3_VLINE0;
+-	case DCN_1_0__SRCID__OTG4_VERTICAL_INTERRUPT0_CONTROL:
+-		return DC_IRQ_SOURCE_DC4_VLINE0;
+-	case DCN_1_0__SRCID__OTG5_VERTICAL_INTERRUPT0_CONTROL:
+-		return DC_IRQ_SOURCE_DC5_VLINE0;
+-	case DCN_1_0__SRCID__OTG6_VERTICAL_INTERRUPT0_CONTROL:
+-		return DC_IRQ_SOURCE_DC6_VLINE0;
+ 	case DCN_1_0__SRCID__HUBP0_FLIP_INTERRUPT:
+ 		return DC_IRQ_SOURCE_PFLIP1;
+ 	case DCN_1_0__SRCID__HUBP1_FLIP_INTERRUPT:
+@@ -94,6 +82,20 @@ static enum dc_irq_source to_dal_irq_source_dcn31(struct irq_service *irq_servic
+ 		return DC_IRQ_SOURCE_VUPDATE6;
+ 	case DCN_1_0__SRCID__DMCUB_OUTBOX_LOW_PRIORITY_READY_INT:
+ 		return DC_IRQ_SOURCE_DMCUB_OUTBOX;
++
++	case DCN_VINT_SRCID(1, 0):
++		DCN_VINT_TO_DC_IRQSRC(1, ext_id);
++	case DCN_VINT_SRCID(2, 0):
++		DCN_VINT_TO_DC_IRQSRC(2, ext_id);
++	case DCN_VINT_SRCID(3, 0):
++		DCN_VINT_TO_DC_IRQSRC(3, ext_id);
++	case DCN_VINT_SRCID(4, 0):
++		DCN_VINT_TO_DC_IRQSRC(4, ext_id);
++	case DCN_VINT_SRCID(5, 0):
++		DCN_VINT_TO_DC_IRQSRC(5, ext_id);
++	case DCN_VINT_SRCID(6, 0):
++		DCN_VINT_TO_DC_IRQSRC(6, ext_id);
++
+ 	case DCN_1_0__SRCID__DC_HPD1_INT:
+ 		/* generic src_id for all HPD and HPDRX interrupts */
+ 		switch (ext_id) {
+@@ -166,6 +168,11 @@ static struct irq_source_info_funcs vline0_irq_info_funcs = {
+ 	.ack = NULL
+ };
+ 
++static struct irq_source_info_funcs vline2_irq_info_funcs = {
++	.set = NULL,
++	.ack = NULL
++};
++
+ #undef BASE_INNER
+ #define BASE_INNER(seg) DCN_BASE__INST0_SEG ## seg
+ 
+@@ -260,6 +267,15 @@ static struct irq_source_info_funcs vline0_irq_info_funcs = {
+ 			OTG_VERTICAL_INTERRUPT0_CONTROL, OTG_VERTICAL_INTERRUPT0_CLEAR),\
+ 		.funcs = &vline0_irq_info_funcs\
+ 	}
++
++#define vline2_int_entry(reg_num)\
++	[DC_IRQ_SOURCE_DC1_VLINE2 + reg_num] = {\
++		IRQ_REG_ENTRY(OTG, reg_num,\
++			OTG_VERTICAL_INTERRUPT2_CONTROL, OTG_VERTICAL_INTERRUPT2_INT_ENABLE,\
++			OTG_VERTICAL_INTERRUPT2_CONTROL, OTG_VERTICAL_INTERRUPT2_CLEAR),\
++		.funcs = &vline2_irq_info_funcs\
++	}
++
+ #define dmub_outbox_int_entry()\
+ 	[DC_IRQ_SOURCE_DMCUB_OUTBOX] = {\
+ 		IRQ_REG_ENTRY_DMUB(\
+@@ -376,6 +392,10 @@ irq_source_info_dcn31[DAL_IRQ_SOURCES_NUMBER] = {
+ 	vline0_int_entry(3),
+ 	[DC_IRQ_SOURCE_DC5_VLINE1] = dummy_irq_entry(),
+ 	[DC_IRQ_SOURCE_DC6_VLINE1] = dummy_irq_entry(),
++	vline2_int_entry(0),
++	vline2_int_entry(1),
++	vline2_int_entry(2),
++	vline2_int_entry(3),
+ 	dmub_outbox_int_entry(),
+ };
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/irq/dcn314/irq_service_dcn314.c b/drivers/gpu/drm/amd/display/dc/irq/dcn314/irq_service_dcn314.c
+index a214f13c5a978..afa4a17ce2f0e 100644
+--- a/drivers/gpu/drm/amd/display/dc/irq/dcn314/irq_service_dcn314.c
++++ b/drivers/gpu/drm/amd/display/dc/irq/dcn314/irq_service_dcn314.c
+@@ -58,18 +58,6 @@ static enum dc_irq_source to_dal_irq_source_dcn314(struct irq_service *irq_servi
+ 		return DC_IRQ_SOURCE_VBLANK5;
+ 	case DCN_1_0__SRCID__DC_D6_OTG_VSTARTUP:
+ 		return DC_IRQ_SOURCE_VBLANK6;
+-	case DCN_1_0__SRCID__OTG1_VERTICAL_INTERRUPT0_CONTROL:
+-		return DC_IRQ_SOURCE_DC1_VLINE0;
+-	case DCN_1_0__SRCID__OTG2_VERTICAL_INTERRUPT0_CONTROL:
+-		return DC_IRQ_SOURCE_DC2_VLINE0;
+-	case DCN_1_0__SRCID__OTG3_VERTICAL_INTERRUPT0_CONTROL:
+-		return DC_IRQ_SOURCE_DC3_VLINE0;
+-	case DCN_1_0__SRCID__OTG4_VERTICAL_INTERRUPT0_CONTROL:
+-		return DC_IRQ_SOURCE_DC4_VLINE0;
+-	case DCN_1_0__SRCID__OTG5_VERTICAL_INTERRUPT0_CONTROL:
+-		return DC_IRQ_SOURCE_DC5_VLINE0;
+-	case DCN_1_0__SRCID__OTG6_VERTICAL_INTERRUPT0_CONTROL:
+-		return DC_IRQ_SOURCE_DC6_VLINE0;
+ 	case DCN_1_0__SRCID__HUBP0_FLIP_INTERRUPT:
+ 		return DC_IRQ_SOURCE_PFLIP1;
+ 	case DCN_1_0__SRCID__HUBP1_FLIP_INTERRUPT:
+@@ -96,6 +84,20 @@ static enum dc_irq_source to_dal_irq_source_dcn314(struct irq_service *irq_servi
+ 		return DC_IRQ_SOURCE_VUPDATE6;
+ 	case DCN_1_0__SRCID__DMCUB_OUTBOX_LOW_PRIORITY_READY_INT:
+ 		return DC_IRQ_SOURCE_DMCUB_OUTBOX;
++
++	case DCN_VINT_SRCID(1, 0):
++		DCN_VINT_TO_DC_IRQSRC(1, ext_id);
++	case DCN_VINT_SRCID(2, 0):
++		DCN_VINT_TO_DC_IRQSRC(2, ext_id);
++	case DCN_VINT_SRCID(3, 0):
++		DCN_VINT_TO_DC_IRQSRC(3, ext_id);
++	case DCN_VINT_SRCID(4, 0):
++		DCN_VINT_TO_DC_IRQSRC(4, ext_id);
++	case DCN_VINT_SRCID(5, 0):
++		DCN_VINT_TO_DC_IRQSRC(5, ext_id);
++	case DCN_VINT_SRCID(6, 0):
++		DCN_VINT_TO_DC_IRQSRC(6, ext_id);
++
+ 	case DCN_1_0__SRCID__DC_HPD1_INT:
+ 		/* generic src_id for all HPD and HPDRX interrupts */
+ 		switch (ext_id) {
+@@ -168,6 +170,11 @@ static struct irq_source_info_funcs vline0_irq_info_funcs = {
+ 	.ack = NULL
+ };
+ 
++static struct irq_source_info_funcs vline2_irq_info_funcs = {
++	.set = NULL,
++	.ack = NULL
++};
++
+ #undef BASE_INNER
+ #define BASE_INNER(seg) DCN_BASE__INST0_SEG ## seg
+ 
+@@ -262,6 +269,15 @@ static struct irq_source_info_funcs vline0_irq_info_funcs = {
+ 			OTG_VERTICAL_INTERRUPT0_CONTROL, OTG_VERTICAL_INTERRUPT0_CLEAR),\
+ 		.funcs = &vline0_irq_info_funcs\
+ 	}
++
++#define vline2_int_entry(reg_num)\
++	[DC_IRQ_SOURCE_DC1_VLINE2 + reg_num] = {\
++		IRQ_REG_ENTRY(OTG, reg_num,\
++			OTG_VERTICAL_INTERRUPT2_CONTROL, OTG_VERTICAL_INTERRUPT2_INT_ENABLE,\
++			OTG_VERTICAL_INTERRUPT2_CONTROL, OTG_VERTICAL_INTERRUPT2_CLEAR),\
++		.funcs = &vline2_irq_info_funcs\
++	}
++
+ #define dmub_outbox_int_entry()\
+ 	[DC_IRQ_SOURCE_DMCUB_OUTBOX] = {\
+ 		IRQ_REG_ENTRY_DMUB(\
+@@ -378,6 +394,10 @@ irq_source_info_dcn314[DAL_IRQ_SOURCES_NUMBER] = {
+ 	vline0_int_entry(3),
+ 	[DC_IRQ_SOURCE_DC5_VLINE1] = dummy_irq_entry(),
+ 	[DC_IRQ_SOURCE_DC6_VLINE1] = dummy_irq_entry(),
++	vline2_int_entry(0),
++	vline2_int_entry(1),
++	vline2_int_entry(2),
++	vline2_int_entry(3),
+ 	dmub_outbox_int_entry(),
+ };
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/irq/dcn315/irq_service_dcn315.c b/drivers/gpu/drm/amd/display/dc/irq/dcn315/irq_service_dcn315.c
+index dc2dced7db85d..b64fada140fb0 100644
+--- a/drivers/gpu/drm/amd/display/dc/irq/dcn315/irq_service_dcn315.c
++++ b/drivers/gpu/drm/amd/display/dc/irq/dcn315/irq_service_dcn315.c
+@@ -63,18 +63,6 @@ static enum dc_irq_source to_dal_irq_source_dcn315(
+ 		return DC_IRQ_SOURCE_VBLANK5;
+ 	case DCN_1_0__SRCID__DC_D6_OTG_VSTARTUP:
+ 		return DC_IRQ_SOURCE_VBLANK6;
+-	case DCN_1_0__SRCID__OTG1_VERTICAL_INTERRUPT0_CONTROL:
+-		return DC_IRQ_SOURCE_DC1_VLINE0;
+-	case DCN_1_0__SRCID__OTG2_VERTICAL_INTERRUPT0_CONTROL:
+-		return DC_IRQ_SOURCE_DC2_VLINE0;
+-	case DCN_1_0__SRCID__OTG3_VERTICAL_INTERRUPT0_CONTROL:
+-		return DC_IRQ_SOURCE_DC3_VLINE0;
+-	case DCN_1_0__SRCID__OTG4_VERTICAL_INTERRUPT0_CONTROL:
+-		return DC_IRQ_SOURCE_DC4_VLINE0;
+-	case DCN_1_0__SRCID__OTG5_VERTICAL_INTERRUPT0_CONTROL:
+-		return DC_IRQ_SOURCE_DC5_VLINE0;
+-	case DCN_1_0__SRCID__OTG6_VERTICAL_INTERRUPT0_CONTROL:
+-		return DC_IRQ_SOURCE_DC6_VLINE0;
+ 	case DCN_1_0__SRCID__HUBP0_FLIP_INTERRUPT:
+ 		return DC_IRQ_SOURCE_PFLIP1;
+ 	case DCN_1_0__SRCID__HUBP1_FLIP_INTERRUPT:
+@@ -101,6 +89,20 @@ static enum dc_irq_source to_dal_irq_source_dcn315(
+ 		return DC_IRQ_SOURCE_VUPDATE6;
+ 	case DCN_1_0__SRCID__DMCUB_OUTBOX_LOW_PRIORITY_READY_INT:
+ 		return DC_IRQ_SOURCE_DMCUB_OUTBOX;
++
++	case DCN_VINT_SRCID(1, 0):
++		DCN_VINT_TO_DC_IRQSRC(1, ext_id);
++	case DCN_VINT_SRCID(2, 0):
++		DCN_VINT_TO_DC_IRQSRC(2, ext_id);
++	case DCN_VINT_SRCID(3, 0):
++		DCN_VINT_TO_DC_IRQSRC(3, ext_id);
++	case DCN_VINT_SRCID(4, 0):
++		DCN_VINT_TO_DC_IRQSRC(4, ext_id);
++	case DCN_VINT_SRCID(5, 0):
++		DCN_VINT_TO_DC_IRQSRC(5, ext_id);
++	case DCN_VINT_SRCID(6, 0):
++		DCN_VINT_TO_DC_IRQSRC(6, ext_id);
++
+ 	case DCN_1_0__SRCID__DC_HPD1_INT:
+ 		/* generic src_id for all HPD and HPDRX interrupts */
+ 		switch (ext_id) {
+@@ -173,6 +175,11 @@ static struct irq_source_info_funcs vline0_irq_info_funcs = {
+ 	.ack = NULL
+ };
+ 
++static struct irq_source_info_funcs vline2_irq_info_funcs = {
++	.set = NULL,
++	.ack = NULL
++};
++
+ #undef BASE_INNER
+ #define BASE_INNER(seg) DCN_BASE__INST0_SEG ## seg
+ 
+@@ -267,6 +274,15 @@ static struct irq_source_info_funcs vline0_irq_info_funcs = {
+ 			OTG_VERTICAL_INTERRUPT0_CONTROL, OTG_VERTICAL_INTERRUPT0_CLEAR),\
+ 		.funcs = &vline0_irq_info_funcs\
+ 	}
++
++#define vline2_int_entry(reg_num)\
++	[DC_IRQ_SOURCE_DC1_VLINE2 + reg_num] = {\
++		IRQ_REG_ENTRY(OTG, reg_num,\
++			OTG_VERTICAL_INTERRUPT2_CONTROL, OTG_VERTICAL_INTERRUPT2_INT_ENABLE,\
++			OTG_VERTICAL_INTERRUPT2_CONTROL, OTG_VERTICAL_INTERRUPT2_CLEAR),\
++		.funcs = &vline2_irq_info_funcs\
++	}
++
+ #define dmub_outbox_int_entry()\
+ 	[DC_IRQ_SOURCE_DMCUB_OUTBOX] = {\
+ 		IRQ_REG_ENTRY_DMUB(\
+@@ -383,6 +399,10 @@ irq_source_info_dcn315[DAL_IRQ_SOURCES_NUMBER] = {
+ 	vline0_int_entry(3),
+ 	[DC_IRQ_SOURCE_DC5_VLINE1] = dummy_irq_entry(),
+ 	[DC_IRQ_SOURCE_DC6_VLINE1] = dummy_irq_entry(),
++	vline2_int_entry(0),
++	vline2_int_entry(1),
++	vline2_int_entry(2),
++	vline2_int_entry(3),
+ 	dmub_outbox_int_entry(),
+ };
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/irq/dcn32/irq_service_dcn32.c b/drivers/gpu/drm/amd/display/dc/irq/dcn32/irq_service_dcn32.c
+index 3090ceb664332..f347e2ab7ced3 100644
+--- a/drivers/gpu/drm/amd/display/dc/irq/dcn32/irq_service_dcn32.c
++++ b/drivers/gpu/drm/amd/display/dc/irq/dcn32/irq_service_dcn32.c
+@@ -57,18 +57,6 @@ static enum dc_irq_source to_dal_irq_source_dcn32(
+ 		return DC_IRQ_SOURCE_VBLANK5;
+ 	case DCN_1_0__SRCID__DC_D6_OTG_VSTARTUP:
+ 		return DC_IRQ_SOURCE_VBLANK6;
+-	case DCN_1_0__SRCID__OTG1_VERTICAL_INTERRUPT0_CONTROL:
+-		return DC_IRQ_SOURCE_DC1_VLINE0;
+-	case DCN_1_0__SRCID__OTG2_VERTICAL_INTERRUPT0_CONTROL:
+-		return DC_IRQ_SOURCE_DC2_VLINE0;
+-	case DCN_1_0__SRCID__OTG3_VERTICAL_INTERRUPT0_CONTROL:
+-		return DC_IRQ_SOURCE_DC3_VLINE0;
+-	case DCN_1_0__SRCID__OTG4_VERTICAL_INTERRUPT0_CONTROL:
+-		return DC_IRQ_SOURCE_DC4_VLINE0;
+-	case DCN_1_0__SRCID__OTG5_VERTICAL_INTERRUPT0_CONTROL:
+-		return DC_IRQ_SOURCE_DC5_VLINE0;
+-	case DCN_1_0__SRCID__OTG6_VERTICAL_INTERRUPT0_CONTROL:
+-		return DC_IRQ_SOURCE_DC6_VLINE0;
+ 	case DCN_1_0__SRCID__HUBP0_FLIP_INTERRUPT:
+ 		return DC_IRQ_SOURCE_PFLIP1;
+ 	case DCN_1_0__SRCID__HUBP1_FLIP_INTERRUPT:
+@@ -95,6 +83,20 @@ static enum dc_irq_source to_dal_irq_source_dcn32(
+ 		return DC_IRQ_SOURCE_VUPDATE6;
+ 	case DCN_1_0__SRCID__DMCUB_OUTBOX_LOW_PRIORITY_READY_INT:
+ 		return DC_IRQ_SOURCE_DMCUB_OUTBOX;
++
++	case DCN_VINT_SRCID(1, 0):
++		DCN_VINT_TO_DC_IRQSRC(1, ext_id);
++	case DCN_VINT_SRCID(2, 0):
++		DCN_VINT_TO_DC_IRQSRC(2, ext_id);
++	case DCN_VINT_SRCID(3, 0):
++		DCN_VINT_TO_DC_IRQSRC(3, ext_id);
++	case DCN_VINT_SRCID(4, 0):
++		DCN_VINT_TO_DC_IRQSRC(4, ext_id);
++	case DCN_VINT_SRCID(5, 0):
++		DCN_VINT_TO_DC_IRQSRC(5, ext_id);
++	case DCN_VINT_SRCID(6, 0):
++		DCN_VINT_TO_DC_IRQSRC(6, ext_id);
++
+ 	case DCN_1_0__SRCID__DC_HPD1_INT:
+ 		/* generic src_id for all HPD and HPDRX interrupts */
+ 		switch (ext_id) {
+diff --git a/drivers/gpu/drm/amd/display/dc/irq/dcn35/irq_service_dcn35.c b/drivers/gpu/drm/amd/display/dc/irq/dcn35/irq_service_dcn35.c
+index 27289279b21ca..d70754f6ac0b6 100644
+--- a/drivers/gpu/drm/amd/display/dc/irq/dcn35/irq_service_dcn35.c
++++ b/drivers/gpu/drm/amd/display/dc/irq/dcn35/irq_service_dcn35.c
+@@ -55,18 +55,6 @@ static enum dc_irq_source to_dal_irq_source_dcn35(
+ 		return DC_IRQ_SOURCE_VBLANK5;
+ 	case DCN_1_0__SRCID__DC_D6_OTG_VSTARTUP:
+ 		return DC_IRQ_SOURCE_VBLANK6;
+-	case DCN_1_0__SRCID__OTG1_VERTICAL_INTERRUPT0_CONTROL:
+-		return DC_IRQ_SOURCE_DC1_VLINE0;
+-	case DCN_1_0__SRCID__OTG2_VERTICAL_INTERRUPT0_CONTROL:
+-		return DC_IRQ_SOURCE_DC2_VLINE0;
+-	case DCN_1_0__SRCID__OTG3_VERTICAL_INTERRUPT0_CONTROL:
+-		return DC_IRQ_SOURCE_DC3_VLINE0;
+-	case DCN_1_0__SRCID__OTG4_VERTICAL_INTERRUPT0_CONTROL:
+-		return DC_IRQ_SOURCE_DC4_VLINE0;
+-	case DCN_1_0__SRCID__OTG5_VERTICAL_INTERRUPT0_CONTROL:
+-		return DC_IRQ_SOURCE_DC5_VLINE0;
+-	case DCN_1_0__SRCID__OTG6_VERTICAL_INTERRUPT0_CONTROL:
+-		return DC_IRQ_SOURCE_DC6_VLINE0;
+ 	case DCN_1_0__SRCID__HUBP0_FLIP_INTERRUPT:
+ 		return DC_IRQ_SOURCE_PFLIP1;
+ 	case DCN_1_0__SRCID__HUBP1_FLIP_INTERRUPT:
+@@ -93,6 +81,20 @@ static enum dc_irq_source to_dal_irq_source_dcn35(
+ 		return DC_IRQ_SOURCE_VUPDATE6;
+ 	case DCN_1_0__SRCID__DMCUB_OUTBOX_LOW_PRIORITY_READY_INT:
+ 		return DC_IRQ_SOURCE_DMCUB_OUTBOX;
++
++	case DCN_VINT_SRCID(1, 0):
++		DCN_VINT_TO_DC_IRQSRC(1, ext_id);
++	case DCN_VINT_SRCID(2, 0):
++		DCN_VINT_TO_DC_IRQSRC(2, ext_id);
++	case DCN_VINT_SRCID(3, 0):
++		DCN_VINT_TO_DC_IRQSRC(3, ext_id);
++	case DCN_VINT_SRCID(4, 0):
++		DCN_VINT_TO_DC_IRQSRC(4, ext_id);
++	case DCN_VINT_SRCID(5, 0):
++		DCN_VINT_TO_DC_IRQSRC(5, ext_id);
++	case DCN_VINT_SRCID(6, 0):
++		DCN_VINT_TO_DC_IRQSRC(6, ext_id);
++
+ 	case DCN_1_0__SRCID__DC_HPD1_INT:
+ 		/* generic src_id for all HPD and HPDRX interrupts */
+ 		switch (ext_id) {
+@@ -165,6 +167,11 @@ static struct irq_source_info_funcs vline0_irq_info_funcs = {
+ 	.ack = NULL
+ };
+ 
++static struct irq_source_info_funcs vline2_irq_info_funcs = {
++	.set = NULL,
++	.ack = NULL
++};
++
+ #undef BASE_INNER
+ #define BASE_INNER(seg) ctx->dcn_reg_offsets[seg]
+ 
+@@ -249,6 +256,12 @@ static struct irq_source_info_funcs vline0_irq_info_funcs = {
+ 			OTG_VERTICAL_INTERRUPT0_CONTROL, OTG_VERTICAL_INTERRUPT0_CLEAR),\
+ 		REG_STRUCT[DC_IRQ_SOURCE_DC1_VLINE0 + reg_num].funcs = &vline0_irq_info_funcs\
+ 
++#define vline2_int_entry(reg_num)\
++		IRQ_REG_ENTRY(DC_IRQ_SOURCE_DC1_VLINE2, OTG, reg_num,\
++			OTG_VERTICAL_INTERRUPT2_CONTROL, OTG_VERTICAL_INTERRUPT2_INT_ENABLE,\
++			OTG_VERTICAL_INTERRUPT2_CONTROL, OTG_VERTICAL_INTERRUPT2_CLEAR),\
++		REG_STRUCT[DC_IRQ_SOURCE_DC1_VLINE2 + reg_num].funcs = &vline2_irq_info_funcs\
++
+ #define dmub_outbox_int_entry()\
+ 		IRQ_REG_ENTRY_DMUB(DC_IRQ_SOURCE_DMCUB_OUTBOX, \
+ 			DMCUB_INTERRUPT_ENABLE, DMCUB_OUTBOX1_READY_INT_EN,\
+@@ -362,6 +375,10 @@ static struct irq_source_info_funcs dummy_irq_info_funcs = {
+ 	vline0_int_entry(3); \
+ 	dummy_irq_entry(DC_IRQ_SOURCE_DC5_VLINE1); \
+ 	dummy_irq_entry(DC_IRQ_SOURCE_DC6_VLINE1); \
++	vline2_int_entry(0); \
++	vline2_int_entry(1); \
++	vline2_int_entry(2); \
++	vline2_int_entry(3); \
+ 	dmub_outbox_int_entry()
+ 
+ #define dcn35_irq_init() \
+diff --git a/drivers/gpu/drm/amd/display/dc/irq/dcn351/irq_service_dcn351.c b/drivers/gpu/drm/amd/display/dc/irq/dcn351/irq_service_dcn351.c
+index 7404b572a4e96..8948cbb03011e 100644
+--- a/drivers/gpu/drm/amd/display/dc/irq/dcn351/irq_service_dcn351.c
++++ b/drivers/gpu/drm/amd/display/dc/irq/dcn351/irq_service_dcn351.c
+@@ -4,8 +4,6 @@
+ #include "dm_services.h"
+ #include "include/logger_interface.h"
+ #include "../dce110/irq_service_dce110.h"
+-
+-
+ #include "dcn/dcn_3_5_1_offset.h"
+ #include "dcn/dcn_3_5_1_sh_mask.h"
+ 
+@@ -34,18 +32,6 @@ static enum dc_irq_source to_dal_irq_source_dcn351(
+ 		return DC_IRQ_SOURCE_VBLANK5;
+ 	case DCN_1_0__SRCID__DC_D6_OTG_VSTARTUP:
+ 		return DC_IRQ_SOURCE_VBLANK6;
+-	case DCN_1_0__SRCID__OTG1_VERTICAL_INTERRUPT0_CONTROL:
+-		return DC_IRQ_SOURCE_DC1_VLINE0;
+-	case DCN_1_0__SRCID__OTG2_VERTICAL_INTERRUPT0_CONTROL:
+-		return DC_IRQ_SOURCE_DC2_VLINE0;
+-	case DCN_1_0__SRCID__OTG3_VERTICAL_INTERRUPT0_CONTROL:
+-		return DC_IRQ_SOURCE_DC3_VLINE0;
+-	case DCN_1_0__SRCID__OTG4_VERTICAL_INTERRUPT0_CONTROL:
+-		return DC_IRQ_SOURCE_DC4_VLINE0;
+-	case DCN_1_0__SRCID__OTG5_VERTICAL_INTERRUPT0_CONTROL:
+-		return DC_IRQ_SOURCE_DC5_VLINE0;
+-	case DCN_1_0__SRCID__OTG6_VERTICAL_INTERRUPT0_CONTROL:
+-		return DC_IRQ_SOURCE_DC6_VLINE0;
+ 	case DCN_1_0__SRCID__HUBP0_FLIP_INTERRUPT:
+ 		return DC_IRQ_SOURCE_PFLIP1;
+ 	case DCN_1_0__SRCID__HUBP1_FLIP_INTERRUPT:
+@@ -72,6 +58,20 @@ static enum dc_irq_source to_dal_irq_source_dcn351(
+ 		return DC_IRQ_SOURCE_VUPDATE6;
+ 	case DCN_1_0__SRCID__DMCUB_OUTBOX_LOW_PRIORITY_READY_INT:
+ 		return DC_IRQ_SOURCE_DMCUB_OUTBOX;
++
++	case DCN_VINT_SRCID(1, 0):
++		DCN_VINT_TO_DC_IRQSRC(1, ext_id);
++	case DCN_VINT_SRCID(2, 0):
++		DCN_VINT_TO_DC_IRQSRC(2, ext_id);
++	case DCN_VINT_SRCID(3, 0):
++		DCN_VINT_TO_DC_IRQSRC(3, ext_id);
++	case DCN_VINT_SRCID(4, 0):
++		DCN_VINT_TO_DC_IRQSRC(4, ext_id);
++	case DCN_VINT_SRCID(5, 0):
++		DCN_VINT_TO_DC_IRQSRC(5, ext_id);
++	case DCN_VINT_SRCID(6, 0):
++		DCN_VINT_TO_DC_IRQSRC(6, ext_id);
++
+ 	case DCN_1_0__SRCID__DC_HPD1_INT:
+ 		/* generic src_id for all HPD and HPDRX interrupts */
+ 		switch (ext_id) {
+@@ -144,6 +144,11 @@ static struct irq_source_info_funcs vline0_irq_info_funcs = {
+ 	.ack = NULL
+ };
+ 
++static struct irq_source_info_funcs vline2_irq_info_funcs = {
++	.set = NULL,
++	.ack = NULL
++};
++
+ #undef BASE_INNER
+ #define BASE_INNER(seg) ctx->dcn_reg_offsets[seg]
+ 
+@@ -228,6 +233,12 @@ static struct irq_source_info_funcs vline0_irq_info_funcs = {
+ 			OTG_VERTICAL_INTERRUPT0_CONTROL, OTG_VERTICAL_INTERRUPT0_CLEAR),\
+ 		REG_STRUCT[DC_IRQ_SOURCE_DC1_VLINE0 + reg_num].funcs = &vline0_irq_info_funcs\
+ 
++#define vline2_int_entry(reg_num)\
++		IRQ_REG_ENTRY(DC_IRQ_SOURCE_DC1_VLINE2, OTG, reg_num,\
++			OTG_VERTICAL_INTERRUPT2_CONTROL, OTG_VERTICAL_INTERRUPT2_INT_ENABLE,\
++			OTG_VERTICAL_INTERRUPT2_CONTROL, OTG_VERTICAL_INTERRUPT2_CLEAR),\
++		REG_STRUCT[DC_IRQ_SOURCE_DC1_VLINE2 + reg_num].funcs = &vline2_irq_info_funcs\
++
+ #define dmub_outbox_int_entry()\
+ 		IRQ_REG_ENTRY_DMUB(DC_IRQ_SOURCE_DMCUB_OUTBOX, \
+ 			DMCUB_INTERRUPT_ENABLE, DMCUB_OUTBOX1_READY_INT_EN,\
+@@ -342,6 +353,10 @@ static struct irq_source_info_funcs dummy_irq_info_funcs = {
+ 	vline0_int_entry(3); \
+ 	dummy_irq_entry(DC_IRQ_SOURCE_DC5_VLINE1); \
+ 	dummy_irq_entry(DC_IRQ_SOURCE_DC6_VLINE1); \
++	vline2_int_entry(0); \
++	vline2_int_entry(1); \
++	vline2_int_entry(2); \
++	vline2_int_entry(3); \
+ 	dmub_outbox_int_entry(); \
+ }
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/irq/dcn36/irq_service_dcn36.c b/drivers/gpu/drm/amd/display/dc/irq/dcn36/irq_service_dcn36.c
+index 3dd47a99f568d..5525a69d0ffd2 100644
+--- a/drivers/gpu/drm/amd/display/dc/irq/dcn36/irq_service_dcn36.c
++++ b/drivers/gpu/drm/amd/display/dc/irq/dcn36/irq_service_dcn36.c
+@@ -33,18 +33,6 @@ static enum dc_irq_source to_dal_irq_source_dcn36(
+ 		return DC_IRQ_SOURCE_VBLANK5;
+ 	case DCN_1_0__SRCID__DC_D6_OTG_VSTARTUP:
+ 		return DC_IRQ_SOURCE_VBLANK6;
+-	case DCN_1_0__SRCID__OTG1_VERTICAL_INTERRUPT0_CONTROL:
+-		return DC_IRQ_SOURCE_DC1_VLINE0;
+-	case DCN_1_0__SRCID__OTG2_VERTICAL_INTERRUPT0_CONTROL:
+-		return DC_IRQ_SOURCE_DC2_VLINE0;
+-	case DCN_1_0__SRCID__OTG3_VERTICAL_INTERRUPT0_CONTROL:
+-		return DC_IRQ_SOURCE_DC3_VLINE0;
+-	case DCN_1_0__SRCID__OTG4_VERTICAL_INTERRUPT0_CONTROL:
+-		return DC_IRQ_SOURCE_DC4_VLINE0;
+-	case DCN_1_0__SRCID__OTG5_VERTICAL_INTERRUPT0_CONTROL:
+-		return DC_IRQ_SOURCE_DC5_VLINE0;
+-	case DCN_1_0__SRCID__OTG6_VERTICAL_INTERRUPT0_CONTROL:
+-		return DC_IRQ_SOURCE_DC6_VLINE0;
+ 	case DCN_1_0__SRCID__HUBP0_FLIP_INTERRUPT:
+ 		return DC_IRQ_SOURCE_PFLIP1;
+ 	case DCN_1_0__SRCID__HUBP1_FLIP_INTERRUPT:
+@@ -71,6 +59,20 @@ static enum dc_irq_source to_dal_irq_source_dcn36(
+ 		return DC_IRQ_SOURCE_VUPDATE6;
+ 	case DCN_1_0__SRCID__DMCUB_OUTBOX_LOW_PRIORITY_READY_INT:
+ 		return DC_IRQ_SOURCE_DMCUB_OUTBOX;
++
++	case DCN_VINT_SRCID(1, 0):
++		DCN_VINT_TO_DC_IRQSRC(1, ext_id);
++	case DCN_VINT_SRCID(2, 0):
++		DCN_VINT_TO_DC_IRQSRC(2, ext_id);
++	case DCN_VINT_SRCID(3, 0):
++		DCN_VINT_TO_DC_IRQSRC(3, ext_id);
++	case DCN_VINT_SRCID(4, 0):
++		DCN_VINT_TO_DC_IRQSRC(4, ext_id);
++	case DCN_VINT_SRCID(5, 0):
++		DCN_VINT_TO_DC_IRQSRC(5, ext_id);
++	case DCN_VINT_SRCID(6, 0):
++		DCN_VINT_TO_DC_IRQSRC(6, ext_id);
++
+ 	case DCN_1_0__SRCID__DC_HPD1_INT:
+ 		/* generic src_id for all HPD and HPDRX interrupts */
+ 		switch (ext_id) {
+@@ -143,6 +145,11 @@ static struct irq_source_info_funcs vline0_irq_info_funcs = {
+ 	.ack = NULL
+ };
+ 
++static struct irq_source_info_funcs vline2_irq_info_funcs = {
++	.set = NULL,
++	.ack = NULL
++};
++
+ #undef BASE_INNER
+ #define BASE_INNER(seg) ctx->dcn_reg_offsets[seg]
+ 
+@@ -227,6 +234,12 @@ static struct irq_source_info_funcs vline0_irq_info_funcs = {
+ 			OTG_VERTICAL_INTERRUPT0_CONTROL, OTG_VERTICAL_INTERRUPT0_CLEAR),\
+ 		REG_STRUCT[DC_IRQ_SOURCE_DC1_VLINE0 + reg_num].funcs = &vline0_irq_info_funcs\
+ 
++#define vline2_int_entry(reg_num)\
++		IRQ_REG_ENTRY(DC_IRQ_SOURCE_DC1_VLINE2, OTG, reg_num,\
++			OTG_VERTICAL_INTERRUPT2_CONTROL, OTG_VERTICAL_INTERRUPT2_INT_ENABLE,\
++			OTG_VERTICAL_INTERRUPT2_CONTROL, OTG_VERTICAL_INTERRUPT2_CLEAR),\
++		REG_STRUCT[DC_IRQ_SOURCE_DC1_VLINE2 + reg_num].funcs = &vline2_irq_info_funcs\
++
+ #define dmub_outbox_int_entry()\
+ 		IRQ_REG_ENTRY_DMUB(DC_IRQ_SOURCE_DMCUB_OUTBOX, \
+ 			DMCUB_INTERRUPT_ENABLE, DMCUB_OUTBOX1_READY_INT_EN,\
+@@ -339,6 +352,10 @@ static struct irq_source_info_funcs dummy_irq_info_funcs = {
+ 	vline0_int_entry(1); \
+ 	vline0_int_entry(2); \
+ 	vline0_int_entry(3); \
++	vline2_int_entry(0); \
++	vline2_int_entry(1); \
++	vline2_int_entry(2); \
++	vline2_int_entry(3); \
+ 	dummy_irq_entry(DC_IRQ_SOURCE_DC5_VLINE1); \
+ 	dummy_irq_entry(DC_IRQ_SOURCE_DC6_VLINE1); \
+ 	dmub_outbox_int_entry(); \
+diff --git a/drivers/gpu/drm/amd/display/dc/irq/dcn401/irq_service_dcn401.c b/drivers/gpu/drm/amd/display/dc/irq/dcn401/irq_service_dcn401.c
+index 42d9d42ba0b99..ce264333e3cf4 100644
+--- a/drivers/gpu/drm/amd/display/dc/irq/dcn401/irq_service_dcn401.c
++++ b/drivers/gpu/drm/amd/display/dc/irq/dcn401/irq_service_dcn401.c
+@@ -36,18 +36,6 @@ static enum dc_irq_source to_dal_irq_source_dcn401(
+ 		return DC_IRQ_SOURCE_VBLANK5;
+ 	case DCN_1_0__SRCID__DC_D6_OTG_VSTARTUP:
+ 		return DC_IRQ_SOURCE_VBLANK6;
+-	case DCN_1_0__SRCID__OTG1_VERTICAL_INTERRUPT0_CONTROL:
+-		return DC_IRQ_SOURCE_DC1_VLINE0;
+-	case DCN_1_0__SRCID__OTG2_VERTICAL_INTERRUPT0_CONTROL:
+-		return DC_IRQ_SOURCE_DC2_VLINE0;
+-	case DCN_1_0__SRCID__OTG3_VERTICAL_INTERRUPT0_CONTROL:
+-		return DC_IRQ_SOURCE_DC3_VLINE0;
+-	case DCN_1_0__SRCID__OTG4_VERTICAL_INTERRUPT0_CONTROL:
+-		return DC_IRQ_SOURCE_DC4_VLINE0;
+-	case DCN_1_0__SRCID__OTG5_VERTICAL_INTERRUPT0_CONTROL:
+-		return DC_IRQ_SOURCE_DC5_VLINE0;
+-	case DCN_1_0__SRCID__OTG6_VERTICAL_INTERRUPT0_CONTROL:
+-		return DC_IRQ_SOURCE_DC6_VLINE0;
+ 	case DCN_1_0__SRCID__HUBP0_FLIP_INTERRUPT:
+ 		return DC_IRQ_SOURCE_PFLIP1;
+ 	case DCN_1_0__SRCID__HUBP1_FLIP_INTERRUPT:
+@@ -75,6 +63,19 @@ static enum dc_irq_source to_dal_irq_source_dcn401(
+ 	case DCN_1_0__SRCID__DMCUB_OUTBOX_LOW_PRIORITY_READY_INT:
+ 		return DC_IRQ_SOURCE_DMCUB_OUTBOX;
+ 
++	case DCN_VINT_SRCID(1, 0):
++		DCN_VINT_TO_DC_IRQSRC(1, ext_id);
++	case DCN_VINT_SRCID(2, 0):
++		DCN_VINT_TO_DC_IRQSRC(2, ext_id);
++	case DCN_VINT_SRCID(3, 0):
++		DCN_VINT_TO_DC_IRQSRC(3, ext_id);
++	case DCN_VINT_SRCID(4, 0):
++		DCN_VINT_TO_DC_IRQSRC(4, ext_id);
++	case DCN_VINT_SRCID(5, 0):
++		DCN_VINT_TO_DC_IRQSRC(5, ext_id);
++	case DCN_VINT_SRCID(6, 0):
++		DCN_VINT_TO_DC_IRQSRC(6, ext_id);
++
+ 	case DCN_1_0__SRCID__DC_HPD1_INT:
+ 		/* generic src_id for all HPD and HPDRX interrupts */
+ 		switch (ext_id) {
+diff --git a/drivers/gpu/drm/amd/display/dc/irq/dcn42/irq_service_dcn42.c b/drivers/gpu/drm/amd/display/dc/irq/dcn42/irq_service_dcn42.c
+index f4d1ce9079ded..f9113d9f3c3ee 100644
+--- a/drivers/gpu/drm/amd/display/dc/irq/dcn42/irq_service_dcn42.c
++++ b/drivers/gpu/drm/amd/display/dc/irq/dcn42/irq_service_dcn42.c
+@@ -35,18 +35,6 @@ static enum dc_irq_source to_dal_irq_source_dcn42(
+ 		return DC_IRQ_SOURCE_VBLANK5;
+ 	case DCN_1_0__SRCID__DC_D6_OTG_VSTARTUP:
+ 		return DC_IRQ_SOURCE_VBLANK6;
+-	case DCN_1_0__SRCID__OTG1_VERTICAL_INTERRUPT0_CONTROL:
+-		return DC_IRQ_SOURCE_DC1_VLINE0;
+-	case DCN_1_0__SRCID__OTG2_VERTICAL_INTERRUPT0_CONTROL:
+-		return DC_IRQ_SOURCE_DC2_VLINE0;
+-	case DCN_1_0__SRCID__OTG3_VERTICAL_INTERRUPT0_CONTROL:
+-		return DC_IRQ_SOURCE_DC3_VLINE0;
+-	case DCN_1_0__SRCID__OTG4_VERTICAL_INTERRUPT0_CONTROL:
+-		return DC_IRQ_SOURCE_DC4_VLINE0;
+-	case DCN_1_0__SRCID__OTG5_VERTICAL_INTERRUPT0_CONTROL:
+-		return DC_IRQ_SOURCE_DC5_VLINE0;
+-	case DCN_1_0__SRCID__OTG6_VERTICAL_INTERRUPT0_CONTROL:
+-		return DC_IRQ_SOURCE_DC6_VLINE0;
+ 	case DCN_1_0__SRCID__HUBP0_FLIP_INTERRUPT:
+ 		return DC_IRQ_SOURCE_PFLIP1;
+ 	case DCN_1_0__SRCID__HUBP1_FLIP_INTERRUPT:
+@@ -73,6 +61,20 @@ static enum dc_irq_source to_dal_irq_source_dcn42(
+ 		return DC_IRQ_SOURCE_VUPDATE6;
+ 	case DCN_1_0__SRCID__DMCUB_OUTBOX_LOW_PRIORITY_READY_INT:
+ 		return DC_IRQ_SOURCE_DMCUB_OUTBOX;
++
++	case DCN_VINT_SRCID(1, 0):
++		DCN_VINT_TO_DC_IRQSRC(1, ext_id);
++	case DCN_VINT_SRCID(2, 0):
++		DCN_VINT_TO_DC_IRQSRC(2, ext_id);
++	case DCN_VINT_SRCID(3, 0):
++		DCN_VINT_TO_DC_IRQSRC(3, ext_id);
++	case DCN_VINT_SRCID(4, 0):
++		DCN_VINT_TO_DC_IRQSRC(4, ext_id);
++	case DCN_VINT_SRCID(5, 0):
++		DCN_VINT_TO_DC_IRQSRC(5, ext_id);
++	case DCN_VINT_SRCID(6, 0):
++		DCN_VINT_TO_DC_IRQSRC(6, ext_id);
++
+ 	case DCN_1_0__SRCID__DC_HPD1_INT:
+ 		/* generic src_id for all HPD and HPDRX interrupts */
+ 		switch (ext_id) {
+diff --git a/drivers/gpu/drm/amd/display/dc/irq/irq_service.h b/drivers/gpu/drm/amd/display/dc/irq/irq_service.h
+index bbcef3d2fe334..ba2bca88e4ccb 100644
+--- a/drivers/gpu/drm/amd/display/dc/irq/irq_service.h
++++ b/drivers/gpu/drm/amd/display/dc/irq/irq_service.h
+@@ -30,6 +30,29 @@
+ 
+ #include "irq_types.h"
+ 
++/*
++ * Helper to get vertical interrupt src/ctx id by OTG instance and vint number
++ */
++#define DCN_VINT_SRCID(otg_inst, vint_num) \
++	DCN_1_0__SRCID__OTG ## otg_inst ## _VERTICAL_INTERRUPT ## vint_num ## _CONTROL
++#define DCN_VINT_CTXID(otg_inst, vint_num) \
++	DCN_1_0__CTXID__OTG ## otg_inst ## _VERTICAL_INTERRUPT ## vint_num ## _CONTROL
++#define DC_VINT_IRQSRC(otg_inst, vint_num) \
++	DC_IRQ_SOURCE_DC ## otg_inst ## _VLINE ## vint_num
++
++/* Helper to map vertical interrupt src/ctx id to DC irq source enum */
++#define DCN_VINT_TO_DC_IRQSRC(otg_inst, ext_id) \
++	switch (ext_id) { \
++	case DCN_VINT_CTXID(otg_inst, 0): \
++		return DC_VINT_IRQSRC(otg_inst, 0); \
++	case DCN_VINT_CTXID(otg_inst, 1): \
++		return DC_VINT_IRQSRC(otg_inst, 1); \
++	case DCN_VINT_CTXID(otg_inst, 2): \
++		return DC_VINT_IRQSRC(otg_inst, 2); \
++	default: \
++		return DC_IRQ_SOURCE_INVALID; \
++	}
++
+ struct irq_service;
+ struct irq_source_info;
+ 
+-- 
+2.53.0
 
