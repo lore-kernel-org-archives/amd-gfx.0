@@ -4,125 +4,123 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5E164CD3427
-	for <amd-gfx@archiver.kernel.org>; Mon,  4 May 2026 17:55:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7C61BCD3427
+	for <amd-gfx@archiver.kernel.org>; Mon,  4 May 2026 18:22:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EDDFE10E408;
-	Mon,  4 May 2026 17:55:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9056410E0B6;
+	Mon,  4 May 2026 18:22:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="vmICSO4L";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="MBO37Tcu";
 	dkim-atps=neutral
-Received: from PH8PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11012056.outbound.protection.outlook.com [40.107.209.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1D53B10E408;
- Mon,  4 May 2026 17:55:32 +0000 (UTC)
+Received: from SJ2PR03CU001.outbound.protection.outlook.com
+ (mail-westusazon11012035.outbound.protection.outlook.com [52.101.43.35])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EF4D710E0B6;
+ Mon,  4 May 2026 18:22:02 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Icz0r5HgjLs56S6+7C+NgyXq1uBo1TRu0yqJO42HuoaelZIbKoPUjOHC/ffJNwiJA74E0bw9s/xY3SFfcEYU/WDfrAJBgRNe/1kEQ58YI836gtHVJzz0SVqVsgHoW126TjETcgf96sfFlxdqshn0W1IjZ8D0bnsX8Vh7IqcYOEVxK3mRnnOAaEuQNbQcqaoF4uGOUqxpecxXf0mQb4FG6+c4UHCf56AwKOsI3g9558qUz8sMNibjiqk+hXWHVlJb/nXZp6yFbWmk41yFQoqnp2gLa4++nvqmoGyDqIZP1sFBysLltx6PJxripNtIkG9TB78R9aHaYVtL+ultEqaszA==
+ b=Nafy94CaWFyR/dCYy4oVM+Ddt+dPm5L0jyQnLvGEaXRZI1JDNoBOOUUYcoG44p2IzfeQhQdHUrFO2YToVE6WukMZUhugBhfcs38cIA+IBBIibRydhjJ1mbi7SVV2B4i+yZq+1BPzBg2IAobihlEWXDO95FVb60i8HLc4a08g3mRZoEF8uxfPsp6jNchtFOVpnvdRtbWD0OXc4lnHwHCgmzYAceJ9faQVyWfQiofZCsbN+pnAjOlh8ITKocQZ0IG19ffmaPjMB4nkDExGVrEu8RCdf5YtEapjKMLzL9W/X1cZ/yGPEleAskEKbNpsSOJnBNytu4pgu/AQ5Our5/KxIA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=I9I6PI0kxVmzG3Za8AzTPfMVeN9Y4TjFLFh4BGidBYk=;
- b=T8SqGBCxr//lDBF2OOHD1i0igOFu9xyLDgFveNa2yRT24WbFItdnlw1TpWwdAN6Raj9OxdzdFdzNhGgc6+Ejqe+8Tr5owl6Vmh1hY304tJxZ54q6d62YPiCxSqVo6k7K+INuNtLH79RgbmZiFgdv8LhUVoYs/3/VHhy4Iian8A1J39n711kiAi+P5wIubngoAKkYfb1iRcMGlGWG+tbsEID4OMSjg50pcQtokZbfWBfURHsbVN53hkWyYPxFURf5TrjO/IaT575ulw9uRt++B1nizEaadW9DYgOW2Q8yJ9IVjW/qYXsuEzXJ9MuV8KylIjbGUj3EwfmEfOhbGukxGw==
+ bh=QRZ36WuMFdp8nkU1IKgrlxJCY91Aiz2ZtUSwXUVcs5M=;
+ b=kBpPq8G2+CS+4IxNc3f6+kFFooDd3G7XZRuETDzWLsA41FOGu6n29j0Gdc4ee0bm8kLDi41wO75YFCoTfJ8q+q+5lzrLmDAcq5HSx0ZraGmJNu6FCDWXDz0M896I9k0OqpsU3FhqxyInTOw8AXY/zLaBva5QN6OQ1IdQrEPpfFo57dmpak4J97nenALd3PUUsWCgJ4c0JWrfM29YJA+0JwMqcJNPZolkRPE61G2Z/FSkiNfLFxzKcigNPg+w4WgIzrjXGqwSMg8y/AiYynHcxh7CIK+cgZmDu+W+ZvSEdulnNS/SHcMcPYavciicambwRnUCSmcor00JpFSbOxjaeg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=I9I6PI0kxVmzG3Za8AzTPfMVeN9Y4TjFLFh4BGidBYk=;
- b=vmICSO4Lmoi5VFm9wOhqyuSKCrdLK99ZgPjnsxbxylA6H7z7eOupYD6i9Q8xUjgamott2E47wGr7nRM3mAzaosXyJTrJoRQQf4dm3ZYShSOWzFIzmwE0BBU9a4XDkczT0poegrn4NW5xiyZpM6cwD2odwiXAUoz191j11ekESow=
+ bh=QRZ36WuMFdp8nkU1IKgrlxJCY91Aiz2ZtUSwXUVcs5M=;
+ b=MBO37Tcu176r7e7YqW/mJpHTj1k/GjzR7B3XrS1k/B5uvSAJXt7+9iDCYxjr8UayH/LDmSvpsYVi6IVdqA58npKj03MA9oeBK6S+xWfv0oOjz5l6Ci6jTrrvPe9QJGqH0aTv15XDHBjvyLxpqvF5JN6oeNz7Rd51D+zNiDj/iWo=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from SA0PR12MB4557.namprd12.prod.outlook.com (2603:10b6:806:9d::10)
- by SJ2PR12MB7896.namprd12.prod.outlook.com (2603:10b6:a03:4c6::5)
+ by SN7PR12MB7024.namprd12.prod.outlook.com (2603:10b6:806:26e::6)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.23; Mon, 4 May
- 2026 17:55:28 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.25; Mon, 4 May
+ 2026 18:21:59 +0000
 Received: from SA0PR12MB4557.namprd12.prod.outlook.com
  ([fe80::885a:79b3:8288:287]) by SA0PR12MB4557.namprd12.prod.outlook.com
  ([fe80::885a:79b3:8288:287%5]) with mapi id 15.20.9870.023; Mon, 4 May 2026
- 17:55:28 +0000
-Message-ID: <d2e0852e-006d-4d30-b754-7fe597b9b4f0@amd.com>
-Date: Mon, 4 May 2026 12:55:26 -0500
+ 18:21:59 +0000
+Message-ID: <34992e5f-ac4b-4a0a-a8d9-8b6edd8abe0a@amd.com>
+Date: Mon, 4 May 2026 13:21:57 -0500
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/8] backlight: add kernel-internal backlight API
+Subject: Re: [PATCH v3 0/8] Add support for a DRM backlight capability
 Content-Language: en-US
 To: Louis Chauvet <louis.chauvet@bootlin.com>, dri-devel@lists.freedesktop.org
 Cc: harry.wentland@amd.com, Xaver Hugl <xaver.hugl@gmail.com>,
- amd-gfx@lists.freedesktop.org, David Herrmann <dh.herrmann@gmail.com>,
- Marta Lofstedt <marta.lofstedt@intel.com>
+ amd-gfx@lists.freedesktop.org, Mario Limonciello <superm1@kernel.org>
 References: <20260424220953.167058-1-mario.limonciello@amd.com>
- <20260424220953.167058-2-mario.limonciello@amd.com>
- <b1a09658-ff19-4331-a184-b1a5457b7f69@bootlin.com>
+ <0f5cf41c-99d5-4427-86fe-18c4f1e2c95e@bootlin.com>
 From: Mario Limonciello <mario.limonciello@amd.com>
-In-Reply-To: <b1a09658-ff19-4331-a184-b1a5457b7f69@bootlin.com>
+In-Reply-To: <0f5cf41c-99d5-4427-86fe-18c4f1e2c95e@bootlin.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: SN6PR2101CA0008.namprd21.prod.outlook.com
- (2603:10b6:805:106::18) To SA0PR12MB4557.namprd12.prod.outlook.com
+X-ClientProxiedBy: SA0PR11CA0034.namprd11.prod.outlook.com
+ (2603:10b6:806:d0::9) To SA0PR12MB4557.namprd12.prod.outlook.com
  (2603:10b6:806:9d::10)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA0PR12MB4557:EE_|SJ2PR12MB7896:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8c9217da-5160-42fa-146c-08deaa06536c
+X-MS-TrafficTypeDiagnostic: SA0PR12MB4557:EE_|SN7PR12MB7024:EE_
+X-MS-Office365-Filtering-Correlation-Id: 34774b86-1a1b-40c8-8a9a-08deaa0a07f3
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|376014|1800799024|18002099003|22082099003|56012099003; 
-X-Microsoft-Antispam-Message-Info: hfy9hDXf3QHTFh3tk5kSq+95u3tbXKM1wwTD24VuwLoqUC9QT9jLYrVbGXwduhtXOuFd0cssSYtuVZ0kFE3w5wOBdVlku+0aunMBEN5mArg4mPWWnYpdLy0L/FUPfzmu+baZoX1cc9l+xhBc/B5Mfw3IsWF3PB7+hwuoiXyQv09pVYN2JhdFErb+orYdOYk3f8u+aVcknvAdZyNYdBZ2ekfLNzvE2eBro1/iKId/j83ogyU3qq0S7MVSI29P4M7C1sWIahGXAI3J9SQZPQFXJDPiKAR8exojaDv64+FnyK6sdx4vBHiMuwZW+LVkNwfuEYhiLnjxLJZzyrRn1kQ+56zmABUpRt+O2+OL4Xv8P+vwD20EkQfwwaU06Uz5LIDM/E1mYJKzwlLEA4om22/fLCL4k/qe0VAzF4c+cpuqvgLLN39/VMtReXU6hjWyK/c+8HQU1RCfP2hdpFeaD3CGvp3wvdz9zhm6xn7YUCFZkGwmjfv3qLPHOhy0j5PLDqth8r+YTqxJhsXS3xaqsDaaf8Ip53N3+zsCieTKCKKbWt4obmUxVqrTj7P2dfpPu+qwi4Ghlk8QbFrbt5ZM10a5BE9yAEjvwOyweYNutAmrbijNrwG6XgDIxFray0KtkPEX8KluZEd/SKVcHhoeqBHXWOBqCVkhJNf+eXFqITMZmBMal1Vh+dja79dLHtuo88w9
+ ARA:13230040|366016|1800799024|376014|56012099003|22082099003|18002099003; 
+X-Microsoft-Antispam-Message-Info: dop3ZOgyNOEIOrkcAgiVd9/ujavhy7wz5QLdJXshnzpTOpNUk1GS77zIYN2VGMb/Xj6+UqYjGKltJ5qfvlBmlqOjqy7tOcYe0YwvvqEaXvZSCOKkuct++VxeRVke8xxPE06GAjTIaESw5QE4UZ7Q+Bwk0Br9TlAujpmCXDmMFl3WnkyI5uTnU4rAkWb3x66q3pJBJ9CKdEDEdvo5SEtm8BmgMXiLqY2POhgrxCLXTJ5BItCN33CD/VGSv3sx2Uf6lYwZtS5zYaYdCLSXZR00O1nW1220nMoNQivLjW2buVlz2o9wwlhRkhj09tlBn+a8yjnWQzKEmNT8HswfVoC3maIex9bhEQGAZ0VbEjHO6Djg9ADIwXd9wITtj3zy4YQ3Dcnc+C2S2UsBtYbaPuFpqStdVAYIJZLQ7KVqYc9VYAI1YA8Kz/oobW/TNvnmI1u+nUH4IE/KRa50f8VK23CfPr146p/JBneA7FYsldDGMpyMx5qpl4n9C4n/Vd9SPHPsyfzh42HYDqQGcZtg71MMrHAZlEBNVxIslg+NlIiW+z63mY5zANnGDfeNNuzxQdPOOzehxLOuWmFrllD3SgakmwGESb74W0uH96Q4jHL8z0nE3jnHvJTzEtLJ1CCi5JxCvRLDgfTdGngovawFAx9T0Hp1sK54zbtIQ8685/UU9PrlwChwe28diI9AXeR+QxUe
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:SA0PR12MB4557.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(1800799024)(18002099003)(22082099003)(56012099003);
+ SFS:(13230040)(366016)(1800799024)(376014)(56012099003)(22082099003)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MWlQczk3QzRNRVNjWWQvZlVic010ek1ieWJtRXZFUzVGek14VzJab1d4Mit4?=
- =?utf-8?B?VElaN2l0RjNtL0hPbjY0Y0hhYXpYOVJZV09VYUVoNDg3VzUzV0RYOVZLRmxW?=
- =?utf-8?B?WTJHbGhndmV3VmlORGpCR0dmWGZyUGV5bVNNK1R1N1hOWU9WV1hDSGtsMnRH?=
- =?utf-8?B?RnBFTTVPMXl6K29SUThwbWxCSHRaTDVycHlvbFdWZitFQzc1RDhZWm1DODhS?=
- =?utf-8?B?QlpJMFh5M05FaGZVejJ0ZUpoMnZmV1Qwb3ZoUkhtQllyOUMrOENHeER3U1ow?=
- =?utf-8?B?MGZoRzV5OTZiUWtCT0tKbnRCSzhQQmZWaWVsNW01UVE4UzEyalpROU5uZ2JO?=
- =?utf-8?B?SWd4bVFQNzZQbTZDSGtycnNROTh4VG0ycGxEZC8yY0RMeldyUWNEVm1HZHVT?=
- =?utf-8?B?Ny8wN2FPZEI2V2FhMUM3cUxzRXhHTG1jU0lva0FjSHB3U1dwTHU3WnN4TDQv?=
- =?utf-8?B?RDdNVzRWYnpnckxLajMvbUpYL0UyR0lpaWY1NkxiRU1RRGdyQUFweC9JNTQ5?=
- =?utf-8?B?WjF6eStxNFJsT3BCczdhVE1YLzFUaWdyU3JXK2IyZWtZd3RoeUdJWURtcVRw?=
- =?utf-8?B?TUYwL3F2dmNiMXRqTUV0YmxPenVOM2FXMlRSMnJCcmF4cW5GVTlyU3hPN3Zo?=
- =?utf-8?B?eXcrWXNVK0ZvekpoMWh2aWNaNG1qbXJOb01ENWNwOHczc014SkJNNTZEc2dP?=
- =?utf-8?B?V1pzR2EwdlI4bkZCa0dxZEltL0FyL3RnS2dIeVVzSG9rcjJDQUppYjFqVEkr?=
- =?utf-8?B?UUdrRGZGUkgySDQ0NVVFbS94S1hTSFh3ZU5ycnhPNWkwK1hJc2tLbTBsMWdh?=
- =?utf-8?B?bm8wdCthaW1BVGNxUWtoa25vNlBjdjdNckdIbks4Zk1rT1R4ZmU3UmhSQkRj?=
- =?utf-8?B?Z3BSZi83VWpRRkYzS1JBS2F3WkRNYi9xeEIzMWZpSGJnNE1RMWhQNkJEUHUr?=
- =?utf-8?B?Qm4yZDZjc0cyMkh2Q1BtajU4bW9TWTBtc3BxQTF1bFZudUkrZXdhVmlkaCs2?=
- =?utf-8?B?d2dEeTlNdDBMZ3cydi9ZZ2RoOG1kNFE1Q3dMbWVnRDgwejRGSm5rS1hNMWVB?=
- =?utf-8?B?dUtFZkRieU11SFVFMG4vbXhieU1PYUJRR2lUOFY1ZXdwT2RZdGVwanZHTWNX?=
- =?utf-8?B?N3ViSEFvNzM4WTlZYm1RMTVtK3BYd1VsL1pBb2ExV252TG5TMXJxNmEyK2dl?=
- =?utf-8?B?TDZwemtCcys2T1ZXMkdtYlN2SVNTYWE3ZFBOdjI1TWpPMnlVRmNUY2wzMmFS?=
- =?utf-8?B?RTRXSm1SMUc4M0JFNkU5SGNUV1BQYUU3d3FEN241Y1lpbWFwVUsrZythRi9w?=
- =?utf-8?B?SnYyQkxoRURVQ1VVeHJnWGlUWGdhUVY1L1R6NHZUN3ExbldCdGZmMi83elJS?=
- =?utf-8?B?RzMxVEJKWjVJNHlTcm92aTZ3L1lCM3hqaVhrT0UwRVUzeW1VR3VDUWNMWnRp?=
- =?utf-8?B?ZEJ4dDdoL08zQi9EdUxqUjJITFNYb0ttNTVuWmtSTk4vcFNHQnlHakRGaUt2?=
- =?utf-8?B?b0J2ZmFJSDh3dEh0amFsZVJ5d21QSTNseC9xY2wvTDZ1WGI3RnZPVkUxcVda?=
- =?utf-8?B?Q0FOVjhFWWdsdjIwQlV0U0laV2Y5UkNsOXFxdDFxcU1xYnpOQWRNazJPZThJ?=
- =?utf-8?B?ZkQyc3dCeHg5N2pRQXlja0lrc3BqS2R2M3hiWTlscSsvOVd0RnhCQmQ0YjdW?=
- =?utf-8?B?Vnhhc05vSC9ydnU3M3J0MWxTVm9vT3JxNDN1RkxHWlp0Zm5iUGlOZVh1MmZT?=
- =?utf-8?B?b2pTMG5lY1Ixekg3Tk44bzZ1eTF1YmdSMFJNckMzU3NzU3hUMy9OQmF2bDdC?=
- =?utf-8?B?eUVOOXUvVlBLYTYvY3dzYk9jTFFwVkdnaFBpS1dEQ1NTbTBQUkNETEJaOFFT?=
- =?utf-8?B?Z2pHczdlY0xINExFaWR1ZjF1OHdOaDV6MFh2SVMySE9reVRZeHV0TFhVb25O?=
- =?utf-8?B?MTRhM3kzaUFWaFFwbUFlcnFwVzBLTnZSVXRhQ1JwRGxIbW41SktLZjZYNm9T?=
- =?utf-8?B?Y2dDZnZsVmEvcnp5Wm50SUt0UVZpbXVKb1hDa2xVWndDQ01TeWNJZUx6VlBJ?=
- =?utf-8?B?bHNjalVwdU1wd3hUbFVzd1Fub1NOdCtqc2tpNTZvNUpIU2h6RkhXcDllVzBo?=
- =?utf-8?B?VkliMGRUUU0ySXYwbGE2U2NZR09sUXdEcVNKZjY0VXUxVWNCMDNLbmJzYnJl?=
- =?utf-8?B?QUgrU29RTm92WVo5MTNjMjYzOVBpVGpQTllyb1VETkpXZWxLVU03SG1EbWFo?=
- =?utf-8?B?TzRWNEF2U1dHR0Q1alQzTjJxVVAyYU5mMXdkYTRoNUlvd2xoTkRZUTVrem5V?=
- =?utf-8?Q?gM2O543ht7ccKfmkcs?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cWVDVDF0VURBdEFLcHE0SHRUcVZTelhINVZnVDZlUk5KckFTZUtlckh0Si9J?=
+ =?utf-8?B?L0NURGhQMTdZZzJhQmdwTnhtTUx5TmpCMmxtRzRVT2FvMWt0ZHl3RkFCTVhG?=
+ =?utf-8?B?SDQ4YkFzQVNoSUVrMHI5K3NtNDhScmhLMU5GZkJRQ3NWSllrZXJCOHFjMkhu?=
+ =?utf-8?B?RnVmNCtJOGR3WGEydmR2Mm5nSFhSYkJaUnJFWXlndndWOHRESExZeGtjUWpC?=
+ =?utf-8?B?OU9pZ2oyTFJHb3FNV2NkdW9PN2RZWGVZQk1QZUZabHU5VWJIVzJNU3FFOTZi?=
+ =?utf-8?B?VnhxZ1dSL3FWenZaOHp6dUJIc2ltOE13QldiR2hKMkNMYnBTVThoUDBEdEh3?=
+ =?utf-8?B?dWpoK3VWdW84S0hKa3AweEhoQkJyQWY1ZklSbGdDMXRwUlRvamhEVDhmZVBz?=
+ =?utf-8?B?Qk5icEFOZzRMOVkxeitvRE5pSnFFRGZWdDVtbDRsSVkzd3lTNmZoZ0F2bFRN?=
+ =?utf-8?B?Q2hkRXNIV0lycno3c2ZzQTBlZUtoYjRDajM4V2Mva3NFR3VPalowdjlMdkZi?=
+ =?utf-8?B?SytXaTBsRWxnWDl5QmxJelQvLzVZMmVyVXpsaTVZK05qWGNNcWtRaC9iZGJK?=
+ =?utf-8?B?MHc2V2YyeDJxWENIY2xoU1o3NWY4Y25XdFpnU1lBMXZIem5VaU0yenZkR1ll?=
+ =?utf-8?B?M2ZUbk1yMG51VHMrR0x3d2RDM3pwVklsdWV0OGdRSzVVYnAzVld5VmVnd1M1?=
+ =?utf-8?B?TjRPSHFUc3k3WWdCWVl3bkxCcVk3SjVhbDFOQzkzblN6anNkRy9hc1pHMm1G?=
+ =?utf-8?B?NzJETmNjTHUySWR1Z0dpVy9tcU9pR3RnaXdYUzRIeDcwOUNiT09SZzNOMEJv?=
+ =?utf-8?B?OXVSUnEyOCtWTkN1dXIvVzcvY2cvUzZSRnV4N09pam9YZERvays1Rzh2b2Vz?=
+ =?utf-8?B?Q3BWUzVJSmc0TldqTmJCMG9LakRGdUd3U09RQ3NvbSt4WXIrKzlhOUlnOHpQ?=
+ =?utf-8?B?QjlvWWRqeWFuc1lnZU9PV01RNTlaaEhoakVpenN3R0hqUjBXUW4rMzdhb1pF?=
+ =?utf-8?B?Ry8zdCtlU0R3UVJmRWUvVXJDY3NVdTRiSlBnbTFlZmVqMnZYdFFsT1hGZUhX?=
+ =?utf-8?B?MDVuc3NGZk1rdHRjbFJGVm80Vk54eTRTMXNtYmF3N1RubUdmdmlOeStPRzdF?=
+ =?utf-8?B?NXdLZGdtOWkxV1pidFU2U3pKUFpqNkh4M3VNVkhGcW55b0JRVnpGVU96Z0sr?=
+ =?utf-8?B?eG9VRmJRdWdmY0t1TnQyN29QZXExdExFUjgzeGh1QzFVR3IyL2Q1V0I5eDRY?=
+ =?utf-8?B?aXlzVDR6emFaZzk5N0ZtVllJTnZxV0tITjYvNmVsLzY0VjVwdTJFMWJoVzVP?=
+ =?utf-8?B?QXZEQmZYdDRsUHQ5a0Y4ZThuWlJianc4MXdydkJFbk4zenN0QllqK2ZGUzNj?=
+ =?utf-8?B?Z2lvYTVwVmNxNlEvT2hQOTRheWQwU3NhNkVucXczVVBBT3VNMVRqRkhUTzUr?=
+ =?utf-8?B?b0FTV2JnNXJTWXhVYktyaEMyd0tzb1JVc0ZWSGsxZmZCZkxva2YwU1lCQWRv?=
+ =?utf-8?B?M1owajRnOGVkKzljQks4V2pxNzZoSHJNZnB1ZmdKUnJnVGVrY0JIWnljQVUv?=
+ =?utf-8?B?Q3NOVjVIN0MwMkY5VkJjLytEeVpsZnZhVzZyRGEzSG16bEFOT3NoQXVCV1Qz?=
+ =?utf-8?B?MjdiUXdMTmFZcUE2bFllREFwNjg5SXpscVJ5eGJ1VlZtOXVhOU5RMEEvQ3oz?=
+ =?utf-8?B?M1RWSEduTCt6UmdMamZGZnBzTjVNNTVKRmNRWlk5TVNLbU4vdkFJWElMSVVw?=
+ =?utf-8?B?ekFxTjNja2dFTlRtV0pRenhMazdjQk8rd2VwS09QTEtNZWFUa1dRL3BqL1Jm?=
+ =?utf-8?B?M0d0KzB5aUppZEgxWDJjZllzeEhFMFB0Q2k1T0xXTXJrdi9TbWswbEpwTUFK?=
+ =?utf-8?B?aStNZHJNQzlMTjBuaGhCSnRybU1qTGc5dE5NS0JyZ2Y4VHphd1dEU2dzYzlO?=
+ =?utf-8?B?OTdmZmUvdFZNVWx4dGtFUTY0RDljMzZrNkpBenJGWlErdmdQbkFvS2MweFA2?=
+ =?utf-8?B?NEJlZ3BZb1p0WHhPVzJDMTMrd25kM2ZZTHltcis5dExyT1BMV1lSRFo3a2R1?=
+ =?utf-8?B?aGVEUHFYQ2VaSUNyRFViL2FmMjNMZ0c3bG91VFNJdUNWV280THFod2lUY1Zs?=
+ =?utf-8?B?VjN3bDlUNnY0SThNd0xqQi9XalpieVd4VXlsTUxscmtGYU9JamVQWWJCNHlF?=
+ =?utf-8?B?dDlFWlNyRFJQazMzaEF3ZVQrQVplZURkWVhRck1lKzRNRWYyZG5uRk5mRENY?=
+ =?utf-8?B?YnJDaDlPTi9xNDFaYzk0Nkh2N1NBN0Vab3p5eXpLTTR3R2E5aFk1bmdCSzFK?=
+ =?utf-8?B?Ti9heTZrS0JJR1ExWHRuZlZpd0gwM05IMTNNY3lVMjByNERuVW0zZz09?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8c9217da-5160-42fa-146c-08deaa06536c
+X-MS-Exchange-CrossTenant-Network-Message-Id: 34774b86-1a1b-40c8-8a9a-08deaa0a07f3
 X-MS-Exchange-CrossTenant-AuthSource: SA0PR12MB4557.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 May 2026 17:55:28.0166 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 May 2026 18:21:59.4928 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 6cp/09OGy6FIjmNkl9nJZRA6C9lCqxDvIhx3SBSsrgOziQsh0Pq7iXzMk7MGyRZ2TUdGJ8+tTpKm2yz1VCZdBQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB7896
+X-MS-Exchange-CrossTenant-UserPrincipalName: 6Dyq39/G0DeZivxCgRt8kn5eT+O9cApiPvlh/KFjmh6gQmH+EK8+HIVjYV9hPe7E/qL7PVvB5xecb79AYrSuRA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7024
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -144,188 +142,105 @@ On 5/4/26 08:55, Louis Chauvet wrote:
 > this is important at https://aka.ms/LearnAboutSenderIdentification ]
 > 
 > On 4/25/26 00:09, Mario Limonciello wrote:
->> From: David Herrmann <dh.herrmann@gmail.com>
+>> From: Mario Limonciello (AMD) <superm1@kernel.org>
 >>
->> So far backlights have only been controlled via sysfs. However, sysfs is
->> not a proper user-space API for runtime modifications, and never was
->> intended to provide such. The DRM drivers are now prepared to provide
->> such a backlight link so user-space can control backlight via DRM
->> connector properties. This allows us to employ the same access-management
->> we use for mode-setting.
+>> At Display Next Hackfest 2025 we discussed the renewed need for moving
+>> brightness control into the DRM connector properties.  I've taken the
+>> previous efforts from David and Marta, rebased and adjusted for the
+>> current kernel.
 >>
->> This patch adds few kernel-internal backlight helpers so we can modify
->> backlights from within DRM.
+>> The legacy sysfs interface is synchronized with the DRM connector 
+>> (although
+>> the scale may be different as DRM connector property is u16).
 >>
->> Signed-off-by: David Herrmann <dh.herrmann@gmail.com>
+>> Later after this has been adopted by enough userspace, it may make 
+>> sense to
+>> configure the legacy sysfs interface to be configurable so that only
+>> DRM master controls backlight.
 >>
->> V2: Marta Lofstedt <marta.lofstedt@intel.com>
->> - rebase
->> - minor edit for checkpatch warning
+>> I've done a first implementation with amdgpu with eDP connectors; but
+>> conceivably this can be extended to other connectors like DP for displays
+>> that can be controlled via DDC as well later.
 >>
->> Signed-off-by: Marta Lofstedt <marta.lofstedt@intel.com>
+>> I have also used DRM review prompts to review this series and fix some 
+>> bugs
+>> which were caught with two different Claude models.  The fixes are 
+>> squashed
+>> into the patches.
 >>
->> V3: Mario Limonciello <mario.limonciello@amd.com>
->>   - rebase
->>   - Use guard(mutex)
+>> Assisted-by: Claude Opus
+>> Assisted-by: Claude Sonnet
 >>
->> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
->> ---
->>   drivers/video/backlight/backlight.c | 60 +++++++++++++++++++++++++++++
->>   include/linux/backlight.h           | 16 ++++++++
->>   2 files changed, 76 insertions(+)
->>
->> diff --git a/drivers/video/backlight/backlight.c b/drivers/video/ 
->> backlight/backlight.c
->> index ab87a5e3dbf70..c3673bee6d9cf 100644
->> --- a/drivers/video/backlight/backlight.c
->> +++ b/drivers/video/backlight/backlight.c
->> @@ -513,6 +513,66 @@ static int devm_backlight_device_match(struct 
->> device *dev, void *res,
->>       return *r == data;
->>   }
->>
->> +/**
->> + * backlight_device_lookup - find a backlight device
->> + * @name: sysname of the backlight device
->> + *
->> + * @return Reference to the backlight device, NULL if not found.
->> + *
->> + * This searches through all registered backlight devices for a 
->> device with the
->> + * given device name. In case none is found, NULL is returned, 
->> otherwise a
->> + * new reference to the backlight device is returned. You must drop this
->> + * reference via backlight_device_unref() once done.
->> + * Note that the devices might get unregistered at any time. You need 
->> to lock
->> + * around this lookup and inside of your backlight-notifier if you 
->> need to know
->> + * when a device gets unregistered.
->> + *
->> + * This function can be safely called from IRQ context.
->> + */
->> +struct backlight_device *backlight_device_lookup(const char *name)
->> +{
->> +     struct backlight_device *bd;
->> +     const char *t;
->> +
->> +     guard(mutex)(&backlight_dev_list_mutex);
->> +     list_for_each_entry(bd, &backlight_dev_list, entry) {
->> +             t = dev_name(&bd->dev);
->> +             if (t && !strcmp(t, name)) {
->> +                     backlight_device_ref(bd);
->> +                     return bd;
->> +             }
->> +     }
->> +
->> +     return NULL;
->> +}
->> +EXPORT_SYMBOL_GPL(backlight_device_lookup);
->>
+>> For ease of testing; this series is also available on this branch:
+>> https://git.kernel.org/pub/scm/linux/kernel/git/superm1/linux.git/ 
+>> log/?h=superm1/backlight-property-v3
 > 
 > Hello,
 > 
-> I think this function can be repalced with backlight_device_get_by_name.
+> thanks for this work, I am very interested in this progress so I can
+> help you to test / implement more features.
 
-Yes; good call.
+Thanks!  I have a few other series I'm juggling in other subsystems, but 
+will try to get another spin this cycle.
 
 > 
->> +/**
->> + * backlight_set_brightness - set brightness on a backlight device
->> + * @bd: backlight device to operate on
->> + * @value: brightness value to set on the device
->> + * @reason: backlight-change reason to use for notifications
->> + *
->> + * This is the in-kernel API equivalent of writing into the 
->> 'brightness' sysfs
->> + * file. It calls into the underlying backlight driver to change the 
->> brightness
->> + * value. The value is clamped according to device bounds.
->> + * A uevent notification is sent with the reason set to @reason.
->> + */
->> +void backlight_set_brightness(struct backlight_device *bd, unsigned 
->> int value,
->> +                           enum backlight_update_reason reason)
->> +{
->> +     guard(mutex)(&bd->ops_lock);
->> +     if (bd->ops) {
->> +             value = clamp(value, 0U,
->> +                           (unsigned int)bd->props.max_brightness);
-> 
-> Why did you use a clamping here? I think it is better to return error
-> instead.
+> I think you forgot to include the revert of "backlight: Remove notifier"
+> in your series, it can't be applied without it.
 > 
 
-This is called from a work queue.  This is the call path:
+Yes - thanks for catching this.  It's on my tree at 
+https://git.kernel.org/pub/scm/linux/kernel/git/superm1/linux.git/log/?h=superm1/backlight-property-v3 
+but I forgot it when I built the series to get that one.
 
-__drm_backlight_worker().
--> __drm_backlight_schedule()
-->-> __drm_backlight_prop_changed()
-->->-> drm_backlight_set_luminance().
+> I will take a look and see if I can create a VKMS implementation of your
+> work.
 
-So - I suppose that actually what you are suggesting is to plumb an 
-error all the way from the work queue up to all the callers.  That might 
-for a change to make things synchronous that weren't 'intended' to be 
-synchronous.
+Cool!  Please take a look at the IGT patches I did too if you didn't see 
+them.  This should hopefully work once you glue it to VKMS.
 
-Maybe a better solution is to try to look at the max brightness 
-'directly' in drm_backlight_set_luminance() and then reject it before 
-going down the work queue path.
+https://lore.kernel.org/dri-devel/20260424221021.167179-1-mario.limonciello@amd.com/
 
-Thoughts?
-
->> +             dev_dbg(&bd->dev, "set brightness to %u\n", value);
->> +             bd->props.brightness = value;
->> +             backlight_update_status(bd);
->> +     }
->> +     backlight_generate_event(bd, reason);
->> +}
->> +EXPORT_SYMBOL_GPL(backlight_set_brightness);
+> 
+> Thanks for this work,
+> 
+>> David Rheinsberg (1):
+>>    backlight: add kernel-internal backlight API
+>>
+>> Mario Limonciello (6):
+>>    drm: link connectors to backlight devices
+>>    DRM: Add support for client and driver indicating support for
+>>      luminance
+>>    drm/amd/display: Pass up errors reading actual brightness
+>>    drm/amd: Indicate driver supports luminance
+>>    drm/amd/display: Allow backlight registration to fail
+>>    drm/amd/display: use drm backlight
+>>
+>> Marta Lofstedt (1):
+>>    backlight: expose the current brightness in the new kernel API
+>>
+>>   drivers/gpu/drm/Kconfig                       |   1 +
+>>   drivers/gpu/drm/Makefile                      |   2 +
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       |   1 +
+>>   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  88 +++-
+>>   drivers/gpu/drm/drm_atomic_uapi.c             |  24 ++
+>>   drivers/gpu/drm/drm_backlight.c               | 406 ++++++++++++++++++
+>>   drivers/gpu/drm/drm_connector.c               |  12 +
+>>   drivers/gpu/drm/drm_drv.c                     |   8 +
+>>   drivers/gpu/drm/drm_ioctl.c                   |  10 +
+>>   drivers/gpu/drm/drm_mode_config.c             |   7 +
+>>   drivers/gpu/drm/drm_mode_object.c             |  66 ++-
+>>   drivers/gpu/drm/drm_sysfs.c                   |  54 +++
+>>   drivers/video/backlight/backlight.c           |  83 ++++
+>>   include/drm/drm_backlight.h                   |  45 ++
+>>   include/drm/drm_connector.h                   |   8 +
+>>   include/drm/drm_drv.h                         |   7 +
+>>   include/drm/drm_file.h                        |   8 +
+>>   include/drm/drm_mode_config.h                 |   5 +
+>>   include/linux/backlight.h                     |  30 ++
+>>   include/uapi/drm/drm.h                        |  10 +
+>>   20 files changed, 852 insertions(+), 23 deletions(-)
+>>   create mode 100644 drivers/gpu/drm/drm_backlight.c
+>>   create mode 100644 include/drm/drm_backlight.h
 >>
 > 
-> I think this could be nice to update backlight_device_set_brightness to
-> avoid code duplication:
-> 
-> int backlight_device_set_brightness(...) {
->         return backlight_set_brightness(..., BACKLIGHT_UPDATE_SYSFS);
-> }
-
-OK.
-
-> 
->>   /**
->>    * backlight_register_notifier - get notified of backlight 
->> (un)registration
->>    * @nb: notifier block with the notifier to call on backlight 
->> (un)registration
->> diff --git a/include/linux/backlight.h b/include/linux/backlight.h
->> index d905173c7f73c..7e4fee65fddd9 100644
->> --- a/include/linux/backlight.h
->> +++ b/include/linux/backlight.h
->> @@ -429,6 +429,22 @@ static inline void 
->> backlight_notify_blank_all(struct device *display_dev,
->>   { }
->>   #endif
->>
->> +struct backlight_device *backlight_device_lookup(const char *name);
->> +void backlight_set_brightness(struct backlight_device *bd, unsigned 
->> int value,
->> +                           enum backlight_update_reason reason);
->> +
->> +static inline void backlight_device_ref(struct backlight_device *bd)
->> +{
->> +     if (bd)
->> +             get_device(&bd->dev);
->> +}
->> +
->> +static inline void backlight_device_unref(struct backlight_device *bd)
->> +{
->> +     if (bd)
->> +             put_device(&bd->dev);
->> +}
->> +
-> Most of the kernel use _put and _get functions, I think it could be nice
-> to keep the same naming.
-
-OK.
 
