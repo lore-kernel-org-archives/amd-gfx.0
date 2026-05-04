@@ -4,38 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4AE7BCD3430
-	for <amd-gfx@archiver.kernel.org>; Tue,  5 May 2026 07:15:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 63680CD343B
+	for <amd-gfx@archiver.kernel.org>; Tue,  5 May 2026 07:15:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7DE0F10E991;
+	by gabe.freedesktop.org (Postfix) with ESMTP id CE67410E992;
 	Tue,  5 May 2026 07:15:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="mklxHqQK";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="0Wy3QgOr";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E05E310E389;
- Mon,  4 May 2026 12:50:05 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 05F5510E6B2;
+ Mon,  4 May 2026 13:03:03 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id A2BF260126;
- Mon,  4 May 2026 12:50:04 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B37AC2BCB8;
- Mon,  4 May 2026 12:50:03 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 93A7544232;
+ Mon,  4 May 2026 13:03:03 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 287BDC2BCB9;
+ Mon,  4 May 2026 13:03:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1777899004;
- bh=ltySbE6omjecHMIWCv/GqNZm1TK5vXHGR5GZIhmqWTE=;
+ s=korg; t=1777899783;
+ bh=0xV1fzIiPeqbjuh6H1i0Zuv/r1eXL+P8XlbIAHSFay8=;
  h=Subject:To:Cc:From:Date:From;
- b=mklxHqQKE3MlhrZKKbxF/Ad9sCBifX31p4lpyNIT+ooH55/O72I+4289Oy+xckN08
- wb1vZMEqWoUoV2nwSyBMUImYhdQzyFRRxtzZoJ2JoE92TqA+3jZS1HPWwZgFlMgghb
- 0j0yqskjR0ZXfs9AhHNA8HoOv3YPQieQhOE2AbqY=
+ b=0Wy3QgOra7KAKf3zeclpZ/H1Hx2ft+cN115NiMHHis8JkFL0apUy7geHWRIDPkl3U
+ 896s0eIT9EcwXK5ntoOSBn1xR9B5acKRazKp8LgdA4o0ZUl9h/73yADlsXY6LtBp3x
+ 0hmdCIncc1H+QYXbSaVfU/9fngyXSZLp8Vvuay1w=
 Subject: Patch "drm/amdgpu: fix zero-size GDS range init on RDNA4" has been
- added to the 7.0-stable tree
+ added to the 6.18-stable tree
 To: alexander.deucher@amd.com, amd-gfx@lists.freedesktop.org,
  arjan@linux.intel.com, christian.koenig@amd.com,
  dri-devel@lists.freedesktop.org, gregkh@linuxfoundation.org
 Cc: <stable-commits@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 04 May 2026 14:49:51 +0200
-Message-ID: <2026050451-dicing-ramp-9a3e@gregkh>
+Date: Mon, 04 May 2026 15:02:50 +0200
+Message-ID: <2026050450-stained-blizzard-577d@gregkh>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -61,12 +61,12 @@ This is a note to let you know that I've just added the patch titled
 
     drm/amdgpu: fix zero-size GDS range init on RDNA4
 
-to the 7.0-stable tree which can be found at:
+to the 6.18-stable tree which can be found at:
     http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
 
 The filename of the patch is:
      drm-amdgpu-fix-zero-size-gds-range-init-on-rdna4.patch
-and it can be found in the queue-7.0 subdirectory.
+and it can be found in the queue-6.18 subdirectory.
 
 If you, or anyone else, feels it should not be added to the stable tree,
 please let <stable@vger.kernel.org> know about it.
@@ -140,4 +140,4 @@ Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 
 Patches currently in stable-queue which might be from arjan@linux.intel.com are
 
-queue-7.0/drm-amdgpu-fix-zero-size-gds-range-init-on-rdna4.patch
+queue-6.18/drm-amdgpu-fix-zero-size-gds-range-init-on-rdna4.patch
