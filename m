@@ -4,43 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C478CD3440
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E6E44CD343F
 	for <amd-gfx@archiver.kernel.org>; Tue,  5 May 2026 07:15:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 591DB10E99B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8329110E99C;
 	Tue,  5 May 2026 07:15:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="JFaAzPW+";
+	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="gy/TYIKo";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 321BC10E6D3;
- Mon,  4 May 2026 13:16:12 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DCE4A10E71D;
+ Mon,  4 May 2026 14:28:30 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id A507D6014C;
- Mon,  4 May 2026 13:16:11 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B3E4C2BCB8;
- Mon,  4 May 2026 13:16:10 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id EE7C761119;
+ Mon,  4 May 2026 14:28:29 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 55965C2BCB8;
+ Mon,  4 May 2026 14:28:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1777900571;
- bh=dsLpsWND3Jg0nOmKryJJdro+vGf9Wq8bfjtOamQenf8=;
- h=Subject:To:Cc:From:Date:From;
- b=JFaAzPW+GZ5pEmlCCtoMZnDao6hF8GGYQXo5JWQycUUP9ehHXBgmwTLvVjO2//k+Z
- 6QIoy0wXpJEp7ghwp1tcBav/eV5nOyWI6e/aVEvFMrceZiQJsqmwg9jhlJWcUhKYj8
- vAA5r7osLLtTON0LjZUdq7w9IhXvgwQwKeHAjXoI=
-Subject: Patch "drm/amdgpu: fix zero-size GDS range init on RDNA4" has been
- added to the 6.12-stable tree
-To: alexander.deucher@amd.com, amd-gfx@lists.freedesktop.org,
- arjan@linux.intel.com, christian.koenig@amd.com,
- dri-devel@lists.freedesktop.org, gregkh@linuxfoundation.org
-Cc: <stable-commits@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Mon, 04 May 2026 15:15:56 +0200
-Message-ID: <2026050456-grandpa-stiffly-7998@gregkh>
+ s=korg; t=1777904909;
+ bh=k8xvZoIidptCSrYPe5OMfqqKr0f2UR19oxWDoVxZ5ik=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=gy/TYIKoEqLn7BY/JRPtB6OoVO76sc02rlzKfxTTF0F8VWnA0xlVc6Pa0gTIsuOqL
+ s0bzm1Ea/mlFuQUzbgfTjXwbkxHrherex9fEVyOKblsbJmBvdtnanPgsfOrrlcNwY0
+ uIPLk8DfdE+Tfxl7hN9mrGF2Yttl7oResuJ4l+s4=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, patches@lists.linux.dev,
+ Arjan van de Ven <arjan@linux.intel.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH 6.12 212/215] drm/amdgpu: fix zero-size GDS range init on RDNA4
+Date: Mon,  4 May 2026 15:53:51 +0200
+Message-ID: <20260504135138.567903851@linuxfoundation.org>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260504135130.169210693@linuxfoundation.org>
+References: <20260504135130.169210693@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-stable: commit
-X-Patchwork-Hint: ignore 
 X-Mailman-Approved-At: Tue, 05 May 2026 07:15:38 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -56,29 +62,9 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+6.12-stable review patch.  If anyone has any objections, please let me know.
 
-This is a note to let you know that I've just added the patch titled
-
-    drm/amdgpu: fix zero-size GDS range init on RDNA4
-
-to the 6.12-stable tree which can be found at:
-    http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
-
-The filename of the patch is:
-     drm-amdgpu-fix-zero-size-gds-range-init-on-rdna4.patch
-and it can be found in the queue-6.12 subdirectory.
-
-If you, or anyone else, feels it should not be added to the stable tree,
-please let <stable@vger.kernel.org> know about it.
-
-
-From 095a8b0ad3c3b5cdc3850d961adb8a8f735220bb Mon Sep 17 00:00:00 2001
-From: Arjan van de Ven <arjan@linux.intel.com>
-Date: Mon, 20 Apr 2026 14:57:15 -0700
-Subject: drm/amdgpu: fix zero-size GDS range init on RDNA4
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+------------------
 
 From: Arjan van de Ven <arjan@linux.intel.com>
 
@@ -138,6 +124,3 @@ Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
  }
 
 
-Patches currently in stable-queue which might be from arjan@linux.intel.com are
-
-queue-6.12/drm-amdgpu-fix-zero-size-gds-range-init-on-rdna4.patch
