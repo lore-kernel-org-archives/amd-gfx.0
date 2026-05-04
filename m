@@ -4,98 +4,125 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BF58ACD3427
-	for <amd-gfx@archiver.kernel.org>; Sat,  2 May 2026 21:29:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DEE11CD3423
+	for <amd-gfx@archiver.kernel.org>; Mon,  4 May 2026 09:01:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EB15B10E2D2;
-	Sat,  2 May 2026 21:29:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 597AF10E065;
+	Mon,  4 May 2026 09:01:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="DRrp7Jya";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="RNZceS+6";
 	dkim-atps=neutral
-Received: from BN1PR04CU002.outbound.protection.outlook.com
- (mail-eastus2azon11010005.outbound.protection.outlook.com [52.101.56.5])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4DB1F10E2D0
- for <amd-gfx@lists.freedesktop.org>; Sat,  2 May 2026 21:29:22 +0000 (UTC)
+Received: from CH4PR04CU002.outbound.protection.outlook.com
+ (mail-northcentralusazon11013019.outbound.protection.outlook.com
+ [40.107.201.19])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 514BA10E065
+ for <amd-gfx@lists.freedesktop.org>; Mon,  4 May 2026 09:01:28 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=qR8END7m8sMa7gIDN5dFITSUgcqQunB9B3ovJd8+E2tGq+XlfKveREHBz6RmtIf8RuXrfIO8sKP7OsxetbF4GqlrquhoKd8YNs3nro5zp30r6jdAWNh7OyVQmgFBdW0T3XlMWtSmmEtqrYN4KG7oRQjNA9R/4+TCqG+nI311FwrbcIZ0IHmVG7ayKGThN4AIVv1htiEdenS5K7gQ6NuWx3/YbxdVKCDm7SZyqFQy/6PdSc0yWtAr3F024bn8xOiLmgw65Bjh4fbjp9c+6mg94qhJeRDQxU2Jgrsjh9tLjsdYu5UhdCjz4FyKaq57R9sClzIN7nmnFAjKIPq/FZEY4Q==
+ b=V8CwPtu3hUUa0UsGORMlAYmDCNEYv1v8rEuSPCHTMvQiIdnUlwCAabf4PHI8vTERhvxudGp+YpCr9eUFz76P5BtHYtQuC6j2awYhs9XS/3zbKg3fNOxVCQOh8t1LBwfSoNeX4QirXnLPv06UfwcEnbM+vWar7jARDgHHMYKqtbPq4USk1LADkHLiIeCUqZEuF0OUURgZeCoFRCWhn8RA/AW4YZcKnG2lcOdB+c2X/7NyHhkyORQGiaTBl875P9NYSGv6Kkb0X2F+zylWVj35MOpg0bl6XtlxCEL6Vm16PP1A15yWHvvr+hgzxPXRXKfFjqHP3XeaDY3yPsmud+hBWA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=XFK4Unqw/o132dAguZO16m0g51KDruiY8aoJwnQXVBU=;
- b=kUv1/gw7A00uE7P9FhW80lvJg+RrBV/rFreE6ahkR87WiNTxbGvAdXlxZrm3qNUJ9kYaSkGlO6MHpW4FY/L5I9JoFC79/Bk837VAgTiO5ue5pRIJ+aLGH9Ww3MUTpvVoiPQMg7u8Wgef9eNaGnPxzKM1tZjDNbm6Bh+fQYRGxUwoJLWfC8cYx7OvgYlDneM7uY+oK0lA5O/aGFcmdsjIwfgE32KCJovzxhW57eM98nbUpzcc92ajDAWjxmBpsASGO0yHI2SURwgJfGWb1qlTzGY0EDRS8yBEr5I54mltBpMlB+dq/YDsJkafadm/vbLficW8ECjsB95yu42lrVfAqQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
+ bh=nP/XVfTziXdXWn87l+cKgGm4WfWIqmb5juHx26RpLoM=;
+ b=kmAmZvHvYA487uYcgVXz3Pg4OP+HAziqpOTdTlUYPQpt5R4GQKFzkdJ6UBX9c6s98scFyY6Z8BBujBr99g9UXyndthF1ZJSfWttCafsJAL0VtQwpMl196Na0qfSMqmCTeLjckZAo4zCcVWBSzBcZlCrCSeqVcRDvLYlQT6Svlrds/4i4fbu8ZVKXKrHq6AOMosNjqR8gi/x38+Y3a20syVtBgcChk/ttGpRrRA+mwqn/ZGdGWBcuRUXRL2Lu/8+blwie+Aivy0IaPYTs/I8xg/bYU7CJCYe44oc3FO/XIstxBjfGpj/qwQcxlsTGZ/pZiUcxIntRlV7JmjCe4ajTQg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=XFK4Unqw/o132dAguZO16m0g51KDruiY8aoJwnQXVBU=;
- b=DRrp7JyaI0ZRGKe6WUYfHwv/XBIrc56k8b7nNEIEJrchkTTRNnVPsaC405F8OxMXk6tle7VkVvd6HZpZloc63HYsp2yp46G/oqC/bHeoMzQkZvilCvvjHd2nVSnpFTmsIeriECopca8QdEFddYU5c+9g0PUU+krJLYQo4M9ArDw=
-Received: from CY5PR19CA0121.namprd19.prod.outlook.com (2603:10b6:930:64::26)
- by PH8PR12MB6674.namprd12.prod.outlook.com (2603:10b6:510:1c1::18)
+ bh=nP/XVfTziXdXWn87l+cKgGm4WfWIqmb5juHx26RpLoM=;
+ b=RNZceS+6yU6FCHuEGwAbPUhuN8YpmaAcBjcxoW9JGFdKvPmk/stKb4UnSwGZJqDR35CT+SKXwiS1nebs0F7x5kNyIm66GYomgEouW3QUiVRrggW47Bl+b2xvs75MRN+/KF+/wr26b9JJ000igJ0CH8n/zMbRM9EJVGRrwMvrHFY=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by DS0PR12MB999080.namprd12.prod.outlook.com (2603:10b6:8:2fe::6)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.23; Sat, 2 May
- 2026 21:29:16 +0000
-Received: from CH1PEPF0000AD83.namprd04.prod.outlook.com
- (2603:10b6:930:64:cafe::c3) by CY5PR19CA0121.outlook.office365.com
- (2603:10b6:930:64::26) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9870.24 via Frontend Transport; Sat,
- 2 May 2026 21:29:16 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- CH1PEPF0000AD83.mail.protection.outlook.com (10.167.244.85) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9891.9 via Frontend Transport; Sat, 2 May 2026 21:29:15 +0000
-Received: from harish-base-compute.amd.com (10.180.168.240) by
- satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.17; Sat, 2 May 2026 16:29:14 -0500
-From: Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>
-Subject: [PATCH 2/2] drm/amdgpu: amdgpu_device_is_peer_accessible to support
- all BARs
-Date: Sat, 2 May 2026 17:28:57 -0400
-Message-ID: <20260502212857.85677-2-Harish.Kasiviswanathan@amd.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260502212857.85677-1-Harish.Kasiviswanathan@amd.com>
-References: <20260502212857.85677-1-Harish.Kasiviswanathan@amd.com>
-MIME-Version: 1.0
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.25; Mon, 4 May
+ 2026 09:01:25 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.20.9870.023; Mon, 4 May 2026
+ 09:01:24 +0000
+Message-ID: <dcd83794-5387-4892-991f-4933845048db@amd.com>
+Date: Mon, 4 May 2026 11:01:17 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 10/10] drm/amdgpu/userq_fence: NOTIFY MES on SDMA UMQ
+ submit
+To: Alex Deucher <alexdeucher@gmail.com>, Jesse Zhang <Jesse.Zhang@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com
+References: <20260430161146.2851078-1-Jesse.Zhang@amd.com>
+ <20260430161146.2851078-10-Jesse.Zhang@amd.com>
+ <CADnq5_N_PwKyX4-gmDc7xWWB3AL0CVYJXzomgOXER0c72-c_oA@mail.gmail.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <CADnq5_N_PwKyX4-gmDc7xWWB3AL0CVYJXzomgOXER0c72-c_oA@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
+X-ClientProxiedBy: FR2P281CA0064.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:93::12) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
+MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH1PEPF0000AD83:EE_|PH8PR12MB6674:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5fe7e4c6-1cf4-4836-f972-08dea891dc58
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DS0PR12MB999080:EE_
+X-MS-Office365-Filtering-Correlation-Id: 11a686e6-2f7a-46ed-fe9a-08dea9bbb7f5
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|82310400026|36860700016|1800799024|56012099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: qdFKJO2kZHJuG4qhht6unZY+UmHYkrUCkmcDJKwM4SjQ0AhzN6Cc/+SsVlC/Ulxq+AoatHwRHcP5uZG7QWpXhvUIs5yLlneWYjUs2lxZLD7gu3a2zxIdp3jklKeJEfr3L5dd6Ov0yIWxeuhzInU9SVzjHnMaKjmm4R7ROUxnIRHG1xQtTxkfbXDq8a534DxnS4LA+JAOy4ogmBnhZcbIEU0Abe5xlt+QYn34oVVhnd8EgxzU28RjDtJFE+h5wkm8N3yQGz8H69+9lv6iqNs6s6P01coTz0qYT8cZzvK/KSWs2aY4gnsQNEbZo6JJRAd8NyF4+hTcqfGXGCpBav7U3U69RWAwYPbpUy0d5A3idCKlan8wKAtgHwXU+MBfkpMf/3iBbco3JzJUWpxDgR7DnD1sJRVGofGZUeoKkgpKoO9hA0ruVlDm4+q22kVgFZ6TSbcHVpYLmXIU7SqIeRnQaPgsEuOUWWoreJHO6BgFpLDLgX96PVrSehbGuMIRDIpYnWnK2gMWbvCxVu7MSYSKCJ3Ej9tXyYDxUNo5UVSH1z01t/wPCGh+qV2CsxM6lIUDeOADQfIb6FB+1mJkKpx7XCHvhjhUJnhe00rpnHQLeBUjSKrEHBPNFnggGxw12p82OLYwey511KJZLyufErCy6Q/QtvtBAah/8RPS0L0wxwsrj7fNN6ghT68rEubxC0TlvY3qlxIcDvUtksKkbhyskUTLwbeH+p9cDcLXfJZkt2E=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(82310400026)(36860700016)(1800799024)(56012099003)(18002099003)(22082099003);
+ ARA:13230040|1800799024|366016|376014|18002099003|22082099003|56012099003; 
+X-Microsoft-Antispam-Message-Info: +NmO8N2fWgq3gF0c8DLnITEA4IKiyUdqI8gsNDO73DI8x4VmYoufIccxIrem8FYEdAE3DpJRabJrq68+ZUZfuOPSuTskHZIKU873Rkpwuyy+TfreddDrJoI4yh0d8c3UP3dq5F6GSTVdpDdIlG7OHkxpTBPjuo1hHDZJst4taNn65ne3CPpx5lUJ1H8bMhEMM5dlWHC/5o8UbnO2b9VA2I1PXzYQ+hD02+9sR1DN6hsaCFSK0QSgFlKCd2iJfK825w1c7pU0yzXGnvDZaZtRl/x/96sIExoZU5/IsySXj/+5814ZemYIccNDTSgWu3FETFfSiUW3PNSsaozcfzrpjAuXItpqnFkB31ucaUb5v2MH4R14kcyLhl9KRjI87ua1FA3RgDtJY7F8T8PLEPtGICZlgb0GDUMbRK05Z8OTFL3j+kIyOluiWjhHRYntlGZSQoD5DCHIJPePfw+Vxx0/rv6G5J8ciAy4aZr+y7b9tGNHuCExhqkZehg1EZOvjNrHc+ruM/gCAGcmYCzHoYMucd7D+mR5Aj+4nT13FKty2LIodCfi0kqwOMWC6FwgV/UFkaTXNNp1CyCQHBXEIas9TvHg08WwoXA9YRqEPJItpDWu8paP8jz44fZv3KCCYQYN5Yj/b+HTRSlzkzkiP5rYMq5zFEm7XZy8+N8+QrLBA6DEHJWQzU+SDQj1c4rmZZpn
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(376014)(18002099003)(22082099003)(56012099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: jS3NGKpA50wQneXbYNKPRD5myLoFRrVCa8b03uFQ6tJDRhWtuJS3cK6E935IsPI/KrXBkXUV0A1i1j+x6cGbMpTgceXwTRANmAQ++jLJz8Z8ToX8pN7zGbT4koYqnUDNcaV5jEgJQr26lMbgIyJma4+PzJLdjKZ0Z3fmjdvrzKaTLP420enX9P9tMB3Cuq8JvUcvIX66ydt4SBz9MQ8VeC8IShYiRfwaK+phzpt01x1LF6N9Bpe2o2ke36O0pSb3kwAxOYsO5tr2gN2VvDCV/9TMJlAa8vBpJ8qY8n3YpcafD1Ncl1YvVwoTSFpYeq5e78EvKCGXhxeKuvuty7rS1fVAVtoqFTJ+h+/5P14V7jtiiNUy6xgN7d9W3D1WQGFy2NhDdoOpeq9nj5aHGz1WgjSQ9DWw+je7SV7emhE0SEzT9dvAni6thqkHAeEA4lRM
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?d09qem8zNkR5cHJPQ2o4SzV6T2RCYkpXblJMZGZ6ZjVwSFVmQmdNMVRZNHhl?=
+ =?utf-8?B?YmxwelFlSlY4L01OMEF1QzVnc25iVlJ0QmIxb0FUZ1VoTlF1MURzb05TWjRW?=
+ =?utf-8?B?TG9aeC8ySE9VM1RqdW1jOE9KRFltR1E4NWlDMllRRlREN25za3NXdDRrbGxB?=
+ =?utf-8?B?bDAxd3p0OG9HL2cwM0hpdUlTRDZ3RW1VZGhwZVZnNVdYWjhxQUdsNERINkRP?=
+ =?utf-8?B?Tzg5akNUbkN3cDMrQmFOY2YydjVCLzNrb3RuYmcybVBBQmZsNHhkbmQxeUxJ?=
+ =?utf-8?B?MHNGRDljbm9xYkp3L0hQSVlINzlOK09KNy9EREh4UHk3V0Mxbnk5QmhXeEN4?=
+ =?utf-8?B?RjArM3huNWh5ZUF0d0JNM2pCeVJKWWkxQlRFeWF5bTlGNXZPMmNvV0QzTVJI?=
+ =?utf-8?B?VGdVYjZaSG9XV0FGZGEzOFpIVWlrQTdrcHF0MEg2cHVzZmdPZlB3M280SkJW?=
+ =?utf-8?B?WlluRmdESmUvMUYrakM0TnJDbmJUblVFL3N4MERFYWozbW5IUmdGekUxS3p1?=
+ =?utf-8?B?cXJFVGFuaHN4ejltYVJlWVh4THUvQTNmVXFMLzFhcjZ3RzlZS01SYnk3MTY3?=
+ =?utf-8?B?NFZmcjBWN0diYlJjeWlHakxRYzlCSlNIbnU5eUtuTUo0SWZDdUplOGFnUTZu?=
+ =?utf-8?B?QmNHNXBUVUM3WExnVjJSMzdDdlk1V1RXKzdqQ0FJdDVabVplSStiLytBSG5C?=
+ =?utf-8?B?eWVSZUtTT21tdzZNWUkwN0pOZHdMRjBPRm52bTY1U1ZDVmRaYk8rTHpxSWhY?=
+ =?utf-8?B?c3VvYnFYcmdQMW9Yb25FYm9CUmdsRHdmQVRLWlJubXZLTkEwejlicC8waEFv?=
+ =?utf-8?B?SW8xQWMwOTErNXc4bXVJV0ZFOWtJSEhPajQ4cG9FOXRiOTg2ckMxSm1oREhX?=
+ =?utf-8?B?ZHltU2QrQ3g1RXUwVGhPQ2p6Y25kK3Y4MmVxdFY1K0F0c0ppd1J2K1J4eHhE?=
+ =?utf-8?B?ZktyekFCcHhscEJZQ3JGRUNHdEVWOUJQWmF5YWt6dmpsNHpnUFR1R25OSStX?=
+ =?utf-8?B?RWdmYTNKUlpwcnBjL2V1UGNlYkFVQUl5Mm95VjB1L205TThPVVVCY3dZV0lW?=
+ =?utf-8?B?alpNOHNGcVNHakNxY3M2ZWgyemVJTVdrTkFqbXBMMU9IRmFWL3Z2Q2VpaHQ4?=
+ =?utf-8?B?anlGMTBXSTJ3RFlkb240dkc1VTQ1Z0thU0hza3dyQ29hemg2THQ4RUpqclNF?=
+ =?utf-8?B?OXpvZG1jYzh0Sm9TMDRMcHhsRlVaQ054SzdBeXRqNGxXQWxVVWRzdnBiRTRJ?=
+ =?utf-8?B?eXd1TG9Xd0JldWRxejFNUDZjeUFEeEtENVVLbmZRNUFmR0YrZnh1cmMycEY5?=
+ =?utf-8?B?TE9BNUlHVmNaQTA1VXgwZ0tGVUw4cnR5RkdNNmh3RVQ5bDYzdVZGQmViallV?=
+ =?utf-8?B?UmFyRGRIV1RvR3BWQ0VpOTgrWFY2QkcxRENXREd6N24vTTl3QVF5UDZjVGd3?=
+ =?utf-8?B?cE1VaTdOMWRCM1BZYm5RY3luYm81VzZlZVNyUis5NVc5S0V2L3NUUWNGRDlp?=
+ =?utf-8?B?cHhsTG9DQWJwclk5T0tFSlc0MGdVNjZUek9BOUFwYzIySk02WVlVMGxyWHZY?=
+ =?utf-8?B?dHRMeWlLdVBXN0xMaFlyQ3RoWUx5WTRVV1dieGh1Z1Q2UUplbzhDa2xxNTUr?=
+ =?utf-8?B?OFAzQnFjN2w4bVRKbUhWeXVnMzVXaDQxQ1VuM1hHM1VNY3hiUGpXeVozS1lk?=
+ =?utf-8?B?TzJ6VnFKTVluUnZReUtiSU1Fa2wxZGpjWmVJTHZVVUNBNWt5WjV1VWlqazJF?=
+ =?utf-8?B?L09qLzR3ZGhGTXRBeVVFallsNXQ5UkNxZlF3M0JLUUJJOTQxOGZMZVVkcXBi?=
+ =?utf-8?B?d2FUdzBlSXhnVkUyS2FtUXptUlg3NlBZNmpQUkREanl4ZU5BSUhrOEFGSU9J?=
+ =?utf-8?B?dmlWcEFDakQ4UnJGdVJQNGs0bCtZMksrQkh4QWhxaGoxajdQVU1kVjJ4RElU?=
+ =?utf-8?B?ODY5aThwMExFcXROVmZhVDc2K2o5WDhlZ25BQUpKSXBIL2tXTXg2K251UzdS?=
+ =?utf-8?B?TWdzTkdjMWgrQWd0bVU3SGV1blByNDVvSkdZR2ZsM1Y5cFlkcThQeC9LbS93?=
+ =?utf-8?B?Wi94TXpWQllPVVpCVkhGeDJEU1BaeTdQN2hqaHNhb0k2OHpVbEhIZGk0WEx4?=
+ =?utf-8?B?TDl2UGV5ak8ycnpMOVY1cHBod2ExWWQ0V0ZmbjBkVXcyTFpoYmN3dnN5QUU0?=
+ =?utf-8?B?d0wzWHJGN0NtWStTRm1oNWNpMDFvcVFCVFBoQ1AyZHU5NjRMeXV3Smo1a0FX?=
+ =?utf-8?B?Y0VHRXo2cG1qSEtwN3o3Ty9JNzVwQVVGbVo1Zm5jaU14TW9sTDJxVG9SSmJm?=
+ =?utf-8?Q?nzirApl46HwpfMfs6f?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 May 2026 21:29:15.3186 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5fe7e4c6-1cf4-4836-f972-08dea891dc58
+X-MS-Exchange-CrossTenant-Network-Message-Id: 11a686e6-2f7a-46ed-fe9a-08dea9bbb7f5
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 May 2026 09:01:24.7356 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CH1PEPF0000AD83.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB6674
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: fJ2+m+w2QhhdnCUb05Pix+ClmB1oRtzJPnIg1MWpbavpptnoTQLFyEonUFLGP8po
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB999080
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,174 +137,79 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-amdgpu_device_is_peer_accessible was initially written to check peer
-VRAM access, however, it is getting called for DOORBELL & MMIO range.
-Add support for these also
+On 5/1/26 15:30, Alex Deucher wrote:
+> On Thu, Apr 30, 2026 at 12:29 PM Jesse Zhang <Jesse.Zhang@amd.com> wrote:
+>>
+>> From: "Jesse.zhang" <Jesse.zhang@amd.com>
+>>
+>> Pair the userspace aggregated-doorbell ring (added by the
+>> AMDGPU_INFO_DOORBELL / AMDGPU_GEM_GLOBAL_AGGREGATED_DOORBELL ABI in
+>> the previous patches) with a kernel-side
+>> MES_MISC_OP_NOTIFY_WORK_ON_UNMAPPED_QUEUE in amdgpu_userq_signal_ioctl
+>> for SDMA UMQs.
+>>
+>> Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
+> 
+> How will this work if the user doesn't use this IOCTL?  protected
+> fences are optional.  An application can create a user queue and never
+> use a protected fence.  Why don't KFD SDMA queues need this special
+> treatment?
 
-Signed-off-by: Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu.h           |  3 +-
- .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  | 15 +++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    | 77 +++++++++++++++----
- drivers/gpu/drm/amd/amdkfd/kfd_topology.c     |  2 +-
- 4 files changed, 78 insertions(+), 19 deletions(-)
+Yeah agree that whole approach doesn't work.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-index 6b9d103fbff1..b67d42d7f8a7 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-@@ -1455,7 +1455,8 @@ enum amdgpu_pcie_bar {
- };
- 
- bool amdgpu_device_is_peer_accessible(struct amdgpu_device *adev,
--				      struct amdgpu_device *peer_adev);
-+				      struct amdgpu_device *peer_adev,
-+				      enum amdgpu_pcie_bar pcie_bar);
- int amdgpu_device_baco_enter(struct amdgpu_device *adev);
- int amdgpu_device_baco_exit(struct amdgpu_device *adev);
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-index 7c01492e69dd..a9be242c6bfa 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-@@ -900,8 +900,19 @@ static int kfd_mem_attach(struct amdgpu_device *adev, struct kgd_mem *mem,
- 	     (mem->alloc_flags & KFD_IOC_ALLOC_MEM_FLAGS_MMIO_REMAP))) {
- 		if (mem->domain == AMDGPU_GEM_DOMAIN_VRAM)
- 			same_hive = amdgpu_xgmi_same_hive(adev, bo_adev);
--		if (!same_hive && !amdgpu_device_is_peer_accessible(bo_adev, adev))
--			return -EINVAL;
-+		if (!same_hive) {
-+			int bar;
-+
-+			if (mem->alloc_flags & KFD_IOC_ALLOC_MEM_FLAGS_DOORBELL)
-+				bar = AMDGPU_PCIE_BAR_DOORBELL;
-+			else if (mem->alloc_flags & KFD_IOC_ALLOC_MEM_FLAGS_MMIO_REMAP)
-+				bar = AMDGPU_PCIE_BAR_MMIO;
-+			else
-+				bar = AMDGPU_PCIE_BAR_VRAM;
-+
-+			if (!amdgpu_device_is_peer_accessible(bo_adev, adev, bar))
-+				return -EINVAL;
-+		}
- 	}
- 
- 	for (i = 0; i <= is_aql; i++) {
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index 5c14fdbc1847..a5c1160cdd03 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -6185,36 +6185,83 @@ static void amdgpu_device_get_pcie_info(struct amdgpu_device *adev)
-  *
-  * @adev: amdgpu_device pointer
-  * @peer_adev: amdgpu_device pointer for peer device trying to access @adev
-+ * @pcie_bar: PCIe BAR index to check accessibility for:
-+ *            0 = VRAM aperture (BAR 0)
-+ *            2 = Doorbell aperture (BAR 2)
-+ *            5 = MMIO remap aperture (BAR 5)
-+ *
-+ * Return true if @peer_adev can access (DMA) @adev through the specified
-+ * PCIe BAR. For VRAM (BAR 0), @adev must be "large BAR" and the BAR must
-+ * match the DMA mask of @peer_adev. For doorbell and MMIO BARs, only the
-+ * DMA addressability and P2P chipset support are checked.
-+ *
-+ * @note: CONFIG_HSA_AMD_P2P indicates support for P2P DMA mappings. Query
-+ * P2PDMA distance only if the kernel has all the prerequisites for P2P DMA
-+ * support. Otherwise fall back to the less reliable legacy P2P support to
-+ * avoid regressions.
-  *
-- * Return true if @peer_adev can access (DMA) @adev through the PCIe
-- * BAR, i.e. @adev is "large BAR" and the BAR matches the DMA mask of
-- * @peer_adev.
-  */
- bool amdgpu_device_is_peer_accessible(struct amdgpu_device *adev,
--				      struct amdgpu_device *peer_adev)
-+				      struct amdgpu_device *peer_adev,
-+				      enum amdgpu_pcie_bar pcie_bar)
- {
- #ifdef CONFIG_HSA_AMD_P2P
--	bool p2p_access =
--		!adev->gmc.xgmi.connected_to_cpu &&
-+	bool p2p_access = true;
-+	bool p2p_addressable = false;
-+	resource_size_t bar_base = 0, bar_size = 0;
-+
-+	/* VRAM requires large BAR (full VRAM visible) for P2P access */
-+	if (pcie_bar == AMDGPU_PCIE_BAR_VRAM) {
-+		if (!adev->gmc.visible_vram_size ||
-+		    adev->gmc.real_vram_size != adev->gmc.visible_vram_size)
-+			return false;
-+
-+		/* VRAM on CPU-connected xGMI devices is accessed via
-+		 * coherent fabric, not PCIe BAR P2P
-+		 */
-+		if (adev->gmc.xgmi.connected_to_cpu)
-+			return false;
-+	}
-+
-+	switch (pcie_bar) {
-+	case AMDGPU_PCIE_BAR_DOORBELL:
-+		bar_base = adev->doorbell.base;
-+		bar_size = adev->doorbell.size;
-+		break;
-+	case AMDGPU_PCIE_BAR_MMIO:
-+		bar_base = adev->rmmio_base;
-+		bar_size = adev->rmmio_size;
-+		break;
-+	case AMDGPU_PCIE_BAR_VRAM:
-+	default:
-+		bar_base = adev->gmc.aper_base;
-+		bar_size = adev->gmc.aper_size;
-+		break;
-+	}
-+
-+	if (!bar_base || !bar_size) {
-+		dev_dbg(adev->dev, "Invalid BAR%d configuration for P2P access\n",
-+			pcie_bar);
-+		return false;
-+	}
-+
-+	p2p_access =
- 		!(pci_p2pdma_distance(adev->pdev, peer_adev->dev, false) < 0);
- 	if (!p2p_access)
- 		dev_info(adev->dev, "PCIe P2P access from peer device %s is not supported by the chipset\n",
- 			pci_name(peer_adev->pdev));
--
--	bool is_large_bar = adev->gmc.visible_vram_size &&
--		adev->gmc.real_vram_size == adev->gmc.visible_vram_size;
--	bool p2p_addressable = amdgpu_device_check_iommu_remap(peer_adev);
-+	p2p_addressable = amdgpu_device_check_iommu_remap(peer_adev);
- 
- 	if (!p2p_addressable) {
- 		uint64_t address_mask = peer_adev->dev->dma_mask ?
- 			~*peer_adev->dev->dma_mask : ~((1ULL << 32) - 1);
--		resource_size_t aper_limit =
--			adev->gmc.aper_base + adev->gmc.aper_size - 1;
-+		resource_size_t bar_limit = bar_base + bar_size - 1;
- 
--		p2p_addressable = !(adev->gmc.aper_base & address_mask ||
--				     aper_limit & address_mask);
-+		p2p_addressable = !(bar_base & address_mask ||
-+				     bar_limit & address_mask);
- 	}
--	return pcie_p2p && is_large_bar && p2p_access && p2p_addressable;
-+
-+	return p2p_access && p2p_addressable;
- #else
- 	return false;
- #endif
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-index 4dc9f9aa3a2e..0b50a35b79a5 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-@@ -1496,7 +1496,7 @@ static int kfd_add_peer_prop(struct kfd_topology_device *kdev,
- 
- 	if (!amdgpu_device_is_peer_accessible(
- 				kdev->gpu->adev,
--				peer->gpu->adev))
-+				peer->gpu->adev, AMDGPU_PCIE_BAR_VRAM))
- 		return ret;
- 
- 	if (list_empty(&kdev->io_link_props))
--- 
-2.43.0
+What we could do is similar to the MM queues that userspace need to signal both a per queue doorbell and an aggregated one for the queue type.
+
+Regards,
+Christian.
+
+> 
+> Alex
+> 
+>> ---
+>>  .../gpu/drm/amd/amdgpu/amdgpu_userq_fence.c   | 29 +++++++++++++++++++
+>>  1 file changed, 29 insertions(+)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
+>> index a58342c2ac44..50e275b51c9e 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
+>> @@ -598,6 +598,35 @@ int amdgpu_userq_signal_ioctl(struct drm_device *dev, void *data,
+>>         /* drop the reference acquired in fence creation function */
+>>         dma_fence_put(fence);
+>>
+>> +       /*
+>> +        * SDMA UMQ wake: SDMA has no CP_UNMAPPED_DOORBELL HW intercept, so
+>> +        * once MES gangs the queue out (after the first IB's PROTECTED_FENCE
+>> +        * idles the queue), per-queue doorbell rings hit a mapped-out HW
+>> +        * slot and are silently dropped — FENCE IRQ never fires.
+>> +        *
+>> +        * Userspace rings the priority's MES aggregated doorbell directly
+>> +        * via the agdb_bo mmap (see AMDGPU_INFO_DOORBELL +
+>> +        * AMDGPU_GEM_GLOBAL_AGGREGATED_DOORBELL).  That alone, however, is
+>> +        * not enough on current MES12 firmware — MES will not scan the
+>> +        * priority's queue list unless its hasReadyQueues flag is set.
+>> +        * NOTIFY_WORK_ON_UNMAPPED_QUEUE flips that flag, so MES then
+>> +        * processes the doorbell ring and re-MAP_QUEUEs the SDMA UMQ.
+>> +        *
+>> +        * This is a kernel-side companion to the userspace agg doorbell
+>> +        * ring; remove once firmware learns to wake on bare aggregated
+>> +        * doorbell.
+>> +        */
+>> +       if (queue && queue->queue_type == AMDGPU_HW_IP_DMA &&
+>> +           adev->enable_mes && adev->mes.funcs->misc_op) {
+>> +               struct mes_misc_op_input op = { 0 };
+>> +
+>> +               op.op = MES_MISC_OP_NOTIFY_WORK_ON_UNMAPPED_QUEUE;
+>> +               op.notify_work.priority_level = AMDGPU_MES_PRIORITY_LEVEL_NORMAL;
+>> +               amdgpu_mes_lock(&adev->mes);
+>> +               (void)adev->mes.funcs->misc_op(&adev->mes, &op);
+>> +               amdgpu_mes_unlock(&adev->mes);
+>> +       }
+>> +
+>>  exec_fini:
+>>         drm_exec_fini(&exec);
+>>  put_gobj_write:
+>> --
+>> 2.49.0
+>>
 
