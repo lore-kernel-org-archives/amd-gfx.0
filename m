@@ -4,38 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4168ECD343E
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C478CD3440
 	for <amd-gfx@archiver.kernel.org>; Tue,  5 May 2026 07:15:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3B64E10E99A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 591DB10E99B;
 	Tue,  5 May 2026 07:15:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="kPkHN7j4";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="JFaAzPW+";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DA57A10E6BA;
- Mon,  4 May 2026 13:27:10 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 321BC10E6D3;
+ Mon,  4 May 2026 13:16:12 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 4645160125;
- Mon,  4 May 2026 13:27:10 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A17F2C2BCB9;
- Mon,  4 May 2026 13:27:09 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id A507D6014C;
+ Mon,  4 May 2026 13:16:11 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B3E4C2BCB8;
+ Mon,  4 May 2026 13:16:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1777901230;
- bh=s70jjW1ZXGHNza3oEYpgJW08TXw5/O1euC7AjsuAT4Y=;
+ s=korg; t=1777900571;
+ bh=dsLpsWND3Jg0nOmKryJJdro+vGf9Wq8bfjtOamQenf8=;
  h=Subject:To:Cc:From:Date:From;
- b=kPkHN7j4w/HrhmfDWckkkSpCWA4MZlzId96v2qEEzW3LTVk1xEhKfVMi9Aiv8+5Zb
- 9eyLMEo8IMQUauxToY2tVkG4D6iAxqAJsME+yZtZfHz63Rl96DRv9xxjQjJJVX7g6a
- p65NWCsBBNLFwY7/QsqpKfr0TJ4fhNCHQJKXGysE=
+ b=JFaAzPW+GZ5pEmlCCtoMZnDao6hF8GGYQXo5JWQycUUP9ehHXBgmwTLvVjO2//k+Z
+ 6QIoy0wXpJEp7ghwp1tcBav/eV5nOyWI6e/aVEvFMrceZiQJsqmwg9jhlJWcUhKYj8
+ vAA5r7osLLtTON0LjZUdq7w9IhXvgwQwKeHAjXoI=
 Subject: Patch "drm/amdgpu: fix zero-size GDS range init on RDNA4" has been
- added to the 6.6-stable tree
+ added to the 6.12-stable tree
 To: alexander.deucher@amd.com, amd-gfx@lists.freedesktop.org,
  arjan@linux.intel.com, christian.koenig@amd.com,
  dri-devel@lists.freedesktop.org, gregkh@linuxfoundation.org
 Cc: <stable-commits@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 04 May 2026 15:27:04 +0200
-Message-ID: <2026050403-snitch-rearrange-3a8a@gregkh>
+Date: Mon, 04 May 2026 15:15:56 +0200
+Message-ID: <2026050456-grandpa-stiffly-7998@gregkh>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -61,12 +61,12 @@ This is a note to let you know that I've just added the patch titled
 
     drm/amdgpu: fix zero-size GDS range init on RDNA4
 
-to the 6.6-stable tree which can be found at:
+to the 6.12-stable tree which can be found at:
     http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
 
 The filename of the patch is:
      drm-amdgpu-fix-zero-size-gds-range-init-on-rdna4.patch
-and it can be found in the queue-6.6 subdirectory.
+and it can be found in the queue-6.12 subdirectory.
 
 If you, or anyone else, feels it should not be added to the stable tree,
 please let <stable@vger.kernel.org> know about it.
@@ -140,4 +140,4 @@ Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 
 Patches currently in stable-queue which might be from arjan@linux.intel.com are
 
-queue-6.6/drm-amdgpu-fix-zero-size-gds-range-init-on-rdna4.patch
+queue-6.12/drm-amdgpu-fix-zero-size-gds-range-init-on-rdna4.patch
