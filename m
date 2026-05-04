@@ -4,127 +4,122 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9BBBCFF885A
-	for <amd-gfx@archiver.kernel.org>; Mon,  4 May 2026 13:00:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6BAC7FF885A
+	for <amd-gfx@archiver.kernel.org>; Mon,  4 May 2026 13:05:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3665D10E3FC;
-	Mon,  4 May 2026 13:00:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 026C610E38B;
+	Mon,  4 May 2026 13:05:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="u8dmvh/n";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="UnYb01OR";
 	dkim-atps=neutral
-Received: from SN4PR0501CU005.outbound.protection.outlook.com
- (mail-southcentralusazon11011023.outbound.protection.outlook.com
- [40.93.194.23])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B7A9910E3FC
- for <amd-gfx@lists.freedesktop.org>; Mon,  4 May 2026 13:00:03 +0000 (UTC)
+Received: from SJ2PR03CU001.outbound.protection.outlook.com
+ (mail-westusazon11012028.outbound.protection.outlook.com [52.101.43.28])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D5A3A10E38B
+ for <amd-gfx@lists.freedesktop.org>; Mon,  4 May 2026 13:05:52 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=yR0Ue7wB7F5TK/it8fpbKRVGaZBa160FcuTQECw/YuuY4kkGVYZ5D07Urg51jnurX+sM48q+J+De2Vn7zpCU5/8CZh+zk2KWG1ZxgD9roHquwz/PVT5o48pNYHOlGMhU5h7OgKUlDsoEQjKaBOy4SZw4oXAJrrlflWwwCy90QfBiKaItrtQEMqS7xtbfL7efIcQu9YmrDq8V9lVzq1/kixvzpB3as2z4o9H9qm4eIhSs5od+UCORyrTSPyMttVzqKgYzpOI+7pByBrTDJrzuGCEx1U/rkX671MuiqiFZnQeCg+sS/nJjNbYYqXRlHCBL1kObLBpF2wDbU9pk+huRCQ==
+ b=c+QgYcMB+KxpbttWpKywGs3q+uWKL/6FpvT77WMvor17/4jnt6x6NE+eH6zsT9+ew2UF8xWCjZO8gQyyw9BRO2ST5vKE2KEaXm9jLj+DBYDrP3/f9UsJwG6n4s4DQmeVUIlo7pDjT7xH/83bBq2WzFJqgwwvTDc9HnMCov4xHHP286qyMCRHCT15l6BGgThyiWBCxpIuw9pSDObmTKnZKGc4aHB3IIC5ps02cOaTeNbRCDGcur5mzU9Q/AE9fqMi4F14rm1tIRjwBYWsWwWHqy5xx5JY0O6Kw3y0JQ6zBg9VdQQ/L1XGFRL0E92JCLOxYC+kV9My+XgaCdMh0W33Tg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=QgNB6dNZ2mTDHkabCR8zwV4GFDUjFD1hZ8G/4pApst0=;
- b=Ms5D2FVJY0ru47eMxfMc/wEvZZIyH9nTJPoLyiHQ1RJWd08W3wKbnt9Rxph2YDsKb55p150X/9u4fIFLm1K5tUTfdYiHGMkKabdgrMOEmmECzmtMnC2buUM3wmCTZlX4LM4nQrjx3/jEl2bD8/fUN4luBvKS/RWYkJaJfwi1j1EqTytWtH6IQ2z/O35PpPEqXVHBco7PoCOuLj+hna/CjnRDQQ2QDphtyh9rzhu+fZnxT1iX4mcSQf6kxoS3jtthGMWWrZX/q/nu8jaFEO8YblLuUZS8rcTtXafcgH/qLGG69wR7JiwmeeiaEmGZZyg3scNTl1y3bPe3++m0YlWanQ==
+ bh=AAsxirdlST1omibA/2Yk6aTI0dvK7MTgU16ImD/6PDU=;
+ b=XOOk7YtFiZkv94CQOsDfncKcbDFRHjP31yGfHCFecGDaHhgNeLL4lcsadAk82zRLQFSSwJf1PoM1UojvpsANC8f9GcXnmuROhPTTpF/b2HbtAAddgzrTHhjgqHY92pWDDBnKvW/dOQUVIvN2NlEwbSjJXNqReLx/dGIZbxeCsa+IeIN64td10e2PrTshHp/CmwODGPjlgxXUUA+t+D920nPTCLUJ79ygkx1FuWQNQ3fPzvvKPZMXi/3/lVE4OAvjHNx7rhERlNc16w92KkHn7pLeDNxnxTeOw10HSsUgl+UxLRrpXr33lMjv5HluVys5RUMPGuFOfCE+6B2bmJRCnw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=QgNB6dNZ2mTDHkabCR8zwV4GFDUjFD1hZ8G/4pApst0=;
- b=u8dmvh/njjdonnAK5/MJY5IKGci4MhKgDADT/MK0mt8JIWke4ISfhcaIIeQtJdYDXM2cTU20IKPbwrZBAj6Zr2htv9TVZPpfJeRYiEt1tAe5aucFBVj6I26/2IyxShw8YMYdB2SZybFTtrgSHn2LM1R+G1RdTktlWwl/wo2MUkg=
-Received: from DS0PR12MB6534.namprd12.prod.outlook.com (2603:10b6:8:c1::19) by
- CY8PR12MB7290.namprd12.prod.outlook.com (2603:10b6:930:55::13) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9870.25; Mon, 4 May 2026 12:59:59 +0000
-Received: from DS0PR12MB6534.namprd12.prod.outlook.com
- ([fe80::b2e1:64e5:3b9e:738a]) by DS0PR12MB6534.namprd12.prod.outlook.com
- ([fe80::b2e1:64e5:3b9e:738a%4]) with mapi id 15.20.9870.023; Mon, 4 May 2026
- 12:59:59 +0000
-From: "Wheeler, Daniel" <Daniel.Wheeler@amd.com>
-To: "Lin, Ping Lei" <PingLei.Lin@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-CC: "Wentland, Harry" <Harry.Wentland@amd.com>, "Li, Sun peng (Leo)"
- <Sunpeng.Li@amd.com>, "Pillai, Aurabindo" <Aurabindo.Pillai@amd.com>, "Li,
- Roman" <Roman.Li@amd.com>, "Lin, Wayne" <Wayne.Lin@amd.com>, "Chung,
- ChiaHsuan (Tom)" <ChiaHsuan.Chung@amd.com>, "Zuo, Jerry" <Jerry.Zuo@amd.com>, 
- "Wu, Ray" <Ray.Wu@amd.com>, "LIPSKI, IVAN" <IVAN.LIPSKI@amd.com>, "Hung,
- Alex" <Alex.Hung@amd.com>, "Lin, Ping Lei" <PingLei.Lin@amd.com>, "Chen,
- Chen-Yu" <Chen-Yu.Chen@amd.com>
-Subject: RE: [PATCH 00/17] DC Patches May 4 2026
-Thread-Topic: [PATCH 00/17] DC Patches May 4 2026
-Thread-Index: AQHc13rEeFw32HVr9keU/dpaek20KLX93Gmw
-Date: Mon, 4 May 2026 12:59:59 +0000
-Message-ID: <DS0PR12MB653441BD17BF3A302448032A9C312@DS0PR12MB6534.namprd12.prod.outlook.com>
-References: <20260429012055.2065869-1-PingLei.Lin@amd.com>
-In-Reply-To: <20260429012055.2065869-1-PingLei.Lin@amd.com>
-Accept-Language: en-CA, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_Enabled=True;
- MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_SetDate=2026-05-04T12:58:46.0000000Z;
- MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_Name=AMD Public
- v26; MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_ContentBits=3;
- MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_Method=Privileged
-authentication-results: dkim=none (message not signed)
+ bh=AAsxirdlST1omibA/2Yk6aTI0dvK7MTgU16ImD/6PDU=;
+ b=UnYb01ORUIRC/gK9l3pTnXdaYGFKfDO599CzjpeaIkofT/IW+heKRWJur3MUfwQvFTQnt77xv9FbP2qtBf5VEcfMXB4i4ADBhcL0jnzNZIBeLzyHZoe0OW11NJMLebdc8Xp8DTuhsvR0qHZ5F/T2GASJTplFPJ+2b8Y4VFdvdvs=
+Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DS0PR12MB6534:EE_|CY8PR12MB7290:EE_
-x-ms-office365-filtering-correlation-id: 2a0560f7-bf34-4f95-4791-08dea9dd0c44
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|376014|1800799024|366016|38070700021|56012099003|22082099003|18002099003;
-x-microsoft-antispam-message-info: 5JWkRSMEfa6ZGx6wtYowvH+94TzLPE6oKofs4Nur3nTSQ6Ce2/YPABBrPhlLhSSuN2u01vnkE+rwQy+TJ+PdwRhz/81F9C+/lca2V5GrCi0X6JPUeb96wwfyh/vIKQ9/HegDaly6Z0bGDW0TpGJC2QdTBo2iJWXLbcQL+3l+yRW26OSfWhvwr5tvY4p0MHIuW50Vh76SL4J/trJRSyKAIpRIUx9eVasSk0yia1XD+BtgC5fLjc8dAeCB4w4UQbBjcs2Ah/b1Z7QguWc/UJsroLxGfiiUjdjUpoUBC42ght7spHKCBHNUVVm6ONJ/GpLTfvFlazR81LgxLviEX8+LyydJUfkjkBVB1bHDZybHG2EktdkErWi/hoVKkOuquVjTLWbIuJBUCIodQ1LEUgDWBQE3jsU6E2cI+dorNydVG7Zp6WXWw85S+JRBNuK1OgqCO6kl7QjP6ImHuindEOIyJtERaA2+OhBwR7SG2ltewYSQ57Ri+wbtDD5OAZdHjBsyQgZmrKqWXEKoGforvnDNXcnfY6ck7VOj8e0gID7SSmpY27iE6tILZCggE48bCFkkF3KG03QsxRhVVNfsP/R1AuPsuve+bWDeFsIz6LHgn4uFvj3Xya+/sxrA91CAgDUaeIgVY7Tfltq2yZ2Nzt22obu9iizV/oHbiRQbsvR46u+GZq/AlVlVBqe9e0DLHOagmh5ByAxS+qYRKlPyMmKW3DAomDGV+C8DXIoa77bbmEc9hfcYjI987ZAc0Tt2rwE8
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS0PR12MB6534.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(366016)(38070700021)(56012099003)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?3o84qpEYEh18TS47pbyThq1XkQp4x4nysTkxyiwY/OK2R3ymtZ4VkGEVLm?=
- =?iso-8859-1?Q?/4QYcR4ET1CCYqBSbwrqdhB445dzHJgA19jw7YXt0Ay4LXQ5ociw+mRPw4?=
- =?iso-8859-1?Q?+pJS4jYFxZUoS9bv9BF1KR1RbjL2KbkkWXXJjdJ9Hkg/aPsWIxSl+2zrbI?=
- =?iso-8859-1?Q?83YMPxTcoiuI/iF2QYNDcnzp3tk+p3060cRO+Yk5jV1fUBpju1lSKmQoNF?=
- =?iso-8859-1?Q?kHRJ3dkOjGJuE0fR0lEXaXcBMLN0CYLWwWwfrlVaPCZ1uWrBVdXZ6sgGMW?=
- =?iso-8859-1?Q?q5zJH/6omoMmMG+JctEnFywFZ58Qv0Vu7WDLB279CGF2yajElJ3UjH5qXD?=
- =?iso-8859-1?Q?OUJAlPQo1A5u4zUZJRt1E5C6E1pPDR9ee7cLR3+c1etHYm4DGfZEJY5s0M?=
- =?iso-8859-1?Q?hIPI54ORHGFLadnm6Z4NYIkG3h1I5Vy4nc5nnEEpulpkjS3gN2XkSTcb4M?=
- =?iso-8859-1?Q?l7N/qAGfv1ehLGKc/PhQNAEqWfrzJLqeyAPI4N+gaNjJWWrdhcZbybGanx?=
- =?iso-8859-1?Q?8JqtQN5awuduFbmIe21DkkMVdWTdOqI2p+iomDjuPj8M/l4r4jRW1uFuKy?=
- =?iso-8859-1?Q?DVPrZAgL5PoLR82a+OV5VYxg4Owaxa4VOXr6aSliY1H5G/xO84KkgQogvG?=
- =?iso-8859-1?Q?SoQduihzKfNOjK+W+nGFg/k8t//5P/qT0fKNZdHRrDAdO25aomkvLjcvIj?=
- =?iso-8859-1?Q?nyiZPdQzirBWPxORx1wwa1STg5VRV4N/rynHXOI03orE7nWcbwDP2WMV3H?=
- =?iso-8859-1?Q?TN/XWYSHLK/caV4YUILA8nwu/z/+aOgKZLuMFAFAQT4iBzmjO4cDeaoLIj?=
- =?iso-8859-1?Q?frfahLkhd2patOuyU/ZDofZvRPjj2eURHlKEtQqVmMSZVWcvPiPWMquam1?=
- =?iso-8859-1?Q?nJFHXSBoXAMi9WLM6+VOqlrWiKpp05CFA9EJbuGXK7h57AAq4dmoyJwjhi?=
- =?iso-8859-1?Q?XaygJ81gUT2EKMzE2fb/z204X3m6cN9fz0pvGyhFwwO+orBDIob0Gasqs7?=
- =?iso-8859-1?Q?VZ6ALB0eCe/i14pu3U0Z2zVPCAWnsAH4+Td5fLTKjOIe+vkLPepRv8qyKe?=
- =?iso-8859-1?Q?7iCC7He+kovk3+oS933uOOIgAtp3TXupSPuWMMZxMU1SecXcLjLFY9bh4o?=
- =?iso-8859-1?Q?KnguoEqrQpGbzegvkt296AOZu0VklRTzkhbZXRdPNglu5XBZ8efBz0eGeg?=
- =?iso-8859-1?Q?JFv6C38sIhQb6YHnRSVjVIov17p0t8ipqmtSu4KIIlwiab0ghUeAQVsxDF?=
- =?iso-8859-1?Q?HZPqTw2EkglApTm/6luOY7GxNP08BS8hBcE1sMIHmLC6LdhNn2iZr+f43K?=
- =?iso-8859-1?Q?JGoP2BgIp221G4oiIxf2+QAl0SPwnpLQTTN0DOMiH4fa/26wNOQTYyebhS?=
- =?iso-8859-1?Q?6oMb3Y6wG0FiZBAGNUIm0UC/g7kCeTm123QOMiEvSM1KTwdg9zvMDsdx91?=
- =?iso-8859-1?Q?mzinZXUryEz3/IjNUO++kl6mMCcf7raNxRnCTORkepkw44Z8iIrts+wSDp?=
- =?iso-8859-1?Q?zv/Hq9GcXONFgRAglg4l7TmuJTuvwzyfyGmbOxW+1q0R+oevcVystTaRez?=
- =?iso-8859-1?Q?tcerRWrF6KkV9qXRybfGwIpG+8TtDCncg2KkOaPqAJt2oORGTJL93fbBP7?=
- =?iso-8859-1?Q?lboMEb+5pkrBjTmG3VZX0vkwbGv0/VNP6R0nkA8itMfrCb7hbarXLxAW4Q?=
- =?iso-8859-1?Q?PzhpEekoV7KHtjc5ri5OdgK9ieZkbq/tgmNl4pEZG0MhIchCA6kFuHf02O?=
- =?iso-8859-1?Q?SdGs7RYZaOvqKntW3xcPYUOTc7OdzkRFVMtV0Vm2m1OJVo?=
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by DS7PR12MB9475.namprd12.prod.outlook.com (2603:10b6:8:251::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.25; Mon, 4 May
+ 2026 13:05:50 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.20.9870.023; Mon, 4 May 2026
+ 13:05:49 +0000
+Message-ID: <ff00838c-128b-40be-b215-4f21012376cd@amd.com>
+Date: Mon, 4 May 2026 15:05:44 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amdgpu/userq: fix access to stale wptr mapping
+To: Sunil Khatri <sunil.khatri@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>
+Cc: amd-gfx@lists.freedesktop.org
+References: <20260504125645.91836-1-sunil.khatri@amd.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20260504125645.91836-1-sunil.khatri@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR4P281CA0303.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:f6::16) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DS7PR12MB9475:EE_
+X-MS-Office365-Filtering-Correlation-Id: 25503146-387d-4d4a-50c0-08dea9dddca4
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|1800799024|376014|18002099003|22082099003|56012099003; 
+X-Microsoft-Antispam-Message-Info: aZB77A3fWWObeHH3mx1M9Z5G8Qd5u+beONMriHPdPXf3IF/qATR5xRknrwA3cWtv7RQY1GLO+iB3ahbxa1RajlrijZXWog2EbffOe+6BFp1bkeufrpT+urvVBUpgxH64eOPGPOz5LlUdNNcyPD4gCsaItDw4SJJUpxrRfel+map7roH7TYrFAHQ9f5V6Tvh7to+trjxYgt5D3MUq040ca8ox1DO+UulWf5zeb8JRHg1bUqcqA8CjFWsHItefQ6GWX7oPMvyW4mk55NPhXkzJWSigILyx/mqHoVyTva9puIotbjetJXvxkewZehNdeY5SzGwzn7ZF5S9PFPnMrP93uCRSESueF/f/jd6w9Zn8ATnBTug2ktnIyZVjcFn7vLuzFrTFKd/FJcXKVRMcAWPt9YSVOQN4PjPMWthx0bzwQDl4WAzy1X4bBxCbu5PrFFGvlE32KhVoZOWSd26T5zsks5uqeMrfauLnB7YwqfUSg+8MElJc3xTuUK23xlcH+HMbg4auPeKYVDUsGoW7GW99YQ7vqvLcztIlScOGE2fyxs0ERwm6SF+hdYriRCYHC/7C4WMXoGRbT7GWtfTl6eFjkbQgYMynWofN4pIlvDy2ldfQPbdnLOOuUJOI8ApP7O37/U6LQoqC2kmOh1Nhn3Y1Fu4FktnFVI316UcHJMDajaP2LsF5+KLO58NUtITSIAj6
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(376014)(18002099003)(22082099003)(56012099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dlpPRGUzcVVwSUVVN2x2TnptVkNxQ1RBRVBoTXFCMlcvVnpyNjFBVUc2amJR?=
+ =?utf-8?B?VUl0UFlVWkExbmZuSWpJRGVUanE1TW4rS2pWNGc1OHRjRUJJVGJ5Y0FVcnVH?=
+ =?utf-8?B?amtEeDErb211bXBMN0VMdjF1RjhRdW5YZFl4OUdhZWNNUkpVL2k0T0hIbGxt?=
+ =?utf-8?B?dTRTS3N4eUdDSVg4SERCaHpTajZrcDJHaURqejZUNW9GZ3J3NXlPQnhzRnh4?=
+ =?utf-8?B?NzJ2aW5HMWlmV1d2WmVyWWp4allmS1BpUkxsa0cxaFBJL09FZmV1MVNKb2dH?=
+ =?utf-8?B?VWVMeWs4YUhLYjNhVWNFcUNMQ2tnNE5MZDVSaTlheVRKTzQxVUpvVk5wRVd4?=
+ =?utf-8?B?QnFFK2YxNVFCWFBubVhoaXNLcTUxRDNXY2xPR3drRktJVC90ek9paE1HaTkr?=
+ =?utf-8?B?T1NubTFPNXF4T1hqWGpHTGoyUHg2VmFIK0tkNXBKSEZienVoZHFUSjJjVGtE?=
+ =?utf-8?B?RHFvcDE2VjJQbnJaK2hVQWdoOHJlRzR5ZWF0ZFhKWmg5V3lEVGxneVR3bEFZ?=
+ =?utf-8?B?YTdXVm1lb3RobEpDbG9BSDIvN3pKYWZVdk5UTXo0SU5TSUtjc1N5K3pka1lH?=
+ =?utf-8?B?Y2djWHpRSzFFUkR2YnM5dW03d2oydTB1Z2VDRVlsTk9PZFlDUDJicUFrc0tv?=
+ =?utf-8?B?SnNib3plSDlPL2JEUnk1WGxYODF5RWFNdXRaenRHK2VOU010dGxTazhDQ1ZN?=
+ =?utf-8?B?aldnbkdybDFBWmc4Q2U0V1ZhRzBscDAxSjBlVk1HeElNWmV4dEdYLzMzdzN1?=
+ =?utf-8?B?U3FoVWlkZ24vbldObTVuTVV5STVDaGR6aTRDb3E2U1BrVHRHN0IxVEx4dk1M?=
+ =?utf-8?B?VnRQS3NnVEx0elA0VnZXVGxwRjVjeUp5US8raG9pUE1MUE1USS9xanloVWZz?=
+ =?utf-8?B?elRlWHRWZW9lR1kvOUtTOS9zWngvbWZDMy9Ga1NkSlYvaVNBUFU0WDJBd3FI?=
+ =?utf-8?B?dkFMREhvaTlWUGZjVTRLM3VkZWltTnB1dE5IUE5WYzdkMkQxc1VXWFlITEVF?=
+ =?utf-8?B?OFprc1FBbzdrblJBc0dGVmE2clNtbkRVVUdpSGhaVU1pOTExbCtCdHZCRS81?=
+ =?utf-8?B?c1IrZFVuTlRKQktIdFZiRGVlbXVEZzQ5RkFiT0Z6eENRQkJja0d4YXZIaW5s?=
+ =?utf-8?B?czk5c2JRdEpFZTNWNHZ0SG1oQUtEcGdJTWg4L2cyNVJrL1dhVHJ1dDVjUktS?=
+ =?utf-8?B?MjVGZ2tvMEV1WVJnK1BXeFBzcGo3djFsVlozQjUyTWVPSkJ1OFFXMmZhSi9C?=
+ =?utf-8?B?d3dUSVdNK25nc3luQVU1VnovL1FqNEVabG9YQmR2OFlHb3FYdndMZWc5U0ZS?=
+ =?utf-8?B?cXRjUFFaMVJMYTlBcWR4UVZTdFBFWThqTTdLUUpzclQ5Qnk2M3ZPY0xVL2x3?=
+ =?utf-8?B?MWVsa2xMbWhWUDh2WHpFZHQyU29YNzhCdDRLd3lTNjBOZVRITS9Wa2ZiTGo0?=
+ =?utf-8?B?VmhXTXdISUIwdDRmWnNtdXJhRTRRTmlMQUtwdzhvdGN2d3VGbHFLMnFvTXhO?=
+ =?utf-8?B?SGtxamd5QmYxUUlwTEdQMUVyZ2hDT28vRUZmemhlTXFtWElZM3Mwa0tKSlNZ?=
+ =?utf-8?B?ZXJodzk1alJVdmxNeERaenZveXo5K2dtcGt0SkZKSE1zTWNtS1EzSnNMYkpx?=
+ =?utf-8?B?ZkxiR0dFUlNDSjBoWE9OQzhuTGxxNG40d0pVMWJkbS9KRUJ3SkN6SEs1b1A2?=
+ =?utf-8?B?WUFsN05xYnRuODRVZUoxNGVFWUdkSjRxZnhkTTRMNi84eTRnZDhYaTlLbHc1?=
+ =?utf-8?B?WWd5aUVwVFR2aW1uck05TG92TzBEaGE1emU5emhSZ1pSRi9WT0pFZ0NEdzVE?=
+ =?utf-8?B?TDhRWjFFeHJaMCt5ODJINTJQZ0E2bWxTUURFK2UzUG1GSUlxZmJzUXNQbXF5?=
+ =?utf-8?B?b0s0RmxleEhOcVlLejVIVmp0cVZDZFd6d0lxUlhXVFBTT1JOTXovSFNjVlVr?=
+ =?utf-8?B?Tm50clFueDZScHFscFBHYVl5cEdNZHFMZU9iVlEzd25DVU9hTHRDME9yZXBu?=
+ =?utf-8?B?SVF1MmpMWUxIMWp3VE9aTjZENkdhY2pIb1ZZQ0sxQ3YzMjN2Q2wxT3B2OWVN?=
+ =?utf-8?B?eEo4NkVRVDJ3eDA5MThIK0RSY243NWpQSWxyMHdIWVhIQXpKNTg5aHcwQ0RE?=
+ =?utf-8?B?Q1MwRytyZ1RWUVpSSVNlM3VoM3NCT0FjSjNnYW0xZjdkcy9xTE0zSTdEUUFX?=
+ =?utf-8?B?Ym1zb0FreldpOUFVV2FRYktpZzBUZW5wWTVoZlZ4L1BmWjNhdTEvTjVTTXgz?=
+ =?utf-8?B?ZERxTjdGRTNwejYvSnFoMkxxNTZ1WmorUzlMVmdyLy9IY1BlQ21mblREb0lu?=
+ =?utf-8?Q?8v2f5nwjJ3Af2ycLwc?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 25503146-387d-4d4a-50c0-08dea9dddca4
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6534.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2a0560f7-bf34-4f95-4791-08dea9dd0c44
-X-MS-Exchange-CrossTenant-originalarrivaltime: 04 May 2026 12:59:59.1676 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: CAP6Mtpxy2/GNWCQz58l1uMOXHBMcugIrvvksSBEyB1qTbUFQsnTNfhQ16rxR7HBi3PGmHIWzGdN3GOXHfFPrQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7290
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 May 2026 13:05:49.5472 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: knHaUJL9PAwKxVAGemWqFhgurVyz+5DgxfcFjS1K67kwee5PFLvi7jwvZvN/Lro4
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB9475
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -139,283 +134,209 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Public
+On 5/4/26 14:56, Sunil Khatri wrote:
+> Use drm_exec to take both locks i.e vm root bo and
+> wptr_obj bo to access the mapping data properly.
+> 
+> This fixes the security issue of unmap the wptr_obj while
+> a queue creation is in progress and passing other
+> bo at same address.
+> 
+> Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/mes_userqueue.c | 122 ++++++++++-----------
+>  1 file changed, 57 insertions(+), 65 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c b/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
+> index 501e2e10b4a6..3d4f83015488 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
+> @@ -30,34 +30,6 @@
+>  #define AMDGPU_USERQ_PROC_CTX_SZ PAGE_SIZE
+>  #define AMDGPU_USERQ_GANG_CTX_SZ PAGE_SIZE
+>  
+> -static int
+> -mes_userq_map_gtt_bo_to_gart(struct amdgpu_bo *bo)
+> -{
+> -	int ret;
+> -
+> -	ret = amdgpu_bo_reserve(bo, true);
+> -	if (ret) {
+> -		DRM_ERROR("Failed to reserve bo. ret %d\n", ret);
+> -		goto err_reserve_bo_failed;
+> -	}
+> -
+> -	ret = amdgpu_ttm_alloc_gart(&bo->tbo);
+> -	if (ret) {
+> -		DRM_ERROR("Failed to bind bo to GART. ret %d\n", ret);
+> -		goto err_map_bo_gart_failed;
+> -	}
+> -
+> -	amdgpu_bo_unreserve(bo);
+> -	bo = amdgpu_bo_ref(bo);
+> -
+> -	return 0;
+> -
+> -err_map_bo_gart_failed:
+> -	amdgpu_bo_unreserve(bo);
+> -err_reserve_bo_failed:
+> -	return ret;
+> -}
+> -
+>  static int
+>  mes_userq_create_wptr_mapping(struct amdgpu_device *adev,
+>  			      struct amdgpu_userq_mgr *uq_mgr,
+> @@ -65,55 +37,75 @@ mes_userq_create_wptr_mapping(struct amdgpu_device *adev,
+>  			      uint64_t wptr)
+>  {
+>  	struct amdgpu_bo_va_mapping *wptr_mapping;
+> -	struct amdgpu_vm *wptr_vm;
+>  	struct amdgpu_userq_obj *wptr_obj = &queue->wptr_obj;
+> +	struct amdgpu_bo *obj;
+> +	struct amdgpu_vm *vm = queue->vm;
+> +	struct drm_exec exec;
+>  	int ret;
+>  
+> -	wptr_vm = queue->vm;
+> -	ret = amdgpu_bo_reserve(wptr_vm->root.bo, false);
+> -	if (ret)
+> -		return ret;
+> -
+>  	wptr &= AMDGPU_GMC_HOLE_MASK;
+> -	wptr_mapping = amdgpu_vm_bo_lookup_mapping(wptr_vm, wptr >> PAGE_SHIFT);
+> -	amdgpu_bo_unreserve(wptr_vm->root.bo);
+> -	if (!wptr_mapping) {
+> -		DRM_ERROR("Failed to lookup wptr bo\n");
+> -		return -EINVAL;
+> -	}
+>  
+> -	wptr_obj->obj = wptr_mapping->bo_va->base.bo;
+> -	if (wptr_obj->obj->tbo.base.size > PAGE_SIZE) {
+> -		DRM_ERROR("Requested GART mapping for wptr bo larger than one page\n");
+> -		return -EINVAL;
+> -	}
+> +	drm_exec_init(&exec, DRM_EXEC_IGNORE_DUPLICATES, 0);
 
-Hi all,
+This should probably be 2 instead of 0.
 
-This week this patchset was tested on 4 systems, two dGPU and two APU based=
-, and tested across multiple display and connection types.
+> +	drm_exec_until_all_locked(&exec) {
+> +		ret = amdgpu_vm_lock_pd(vm, &exec, 1);
+> +		drm_exec_retry_on_contention(&exec);
+> +		if (unlikely(ret))
+> +			goto fail_lock;
+> +
+> +		wptr_mapping = amdgpu_vm_bo_lookup_mapping(vm, wptr >> PAGE_SHIFT);
+> +		if (!wptr_mapping) {
+> +			DRM_ERROR("Failed to lock up wptr bo\n");
 
-APU
-        * Single Display eDP -> 1080p 60hz, 1920x1200 165hz, 3840x2400 60hz
-        * Single Display DP (SST DSC) -> 4k144hz, 4k240hz
-        * Multi display -> eDP + DP/HDMI/USB-C -> 1080p 60hz eDP + 4k 144hz=
-, 4k 240hz (Includes USB-C to DP/HDMI adapters)
-        * Thunderbolt -> LG Ultrafine 5k
-        * MST DSC -> Cable Matters 101075 (DP to 3x DP) with 3x 4k60hz disp=
-lays, HP Hook G2 with 2x 4k60hz displays
-        * USB 4 -> HP Hook G4, Lenovo Thunderbolt Dock, both with 2x 4k60hz=
- DP and 1x 4k60hz HDMI displays
-        * SST PCON -> Club3D CAC-1085 + 1x 4k 144hz, FRL3, at a max resolut=
-ion supported by the dongle of 4k 120hz YUV420 12bpc.
-        * MST PCON -> 1x 4k 144hz, FRL3, at a max resolution supported by t=
-he adapter of 4k 120hz RGB 8bpc.
+Please drop that error message. It can spam the logs when userspace intentionally gives incorrect values.
 
-DGPU
-        * Single Display DP (SST DSC) -> 4k144hz, 4k240hz
-        * Multiple Display DP -> 4k240hz + 4k144hz
-        * MST (Startech MST14DP123DP [DP to 3x DP] and 2x 4k 60hz displays)
-        * MST DSC (with Cable Matters 101075 [DP to 3x DP] with 3x 4k60hz d=
-isplays)
+> +			ret = -EINVAL;
+> +			goto fail_lock;
+> +		}
+>  
+> -	ret = mes_userq_map_gtt_bo_to_gart(wptr_obj->obj);
+> -	if (ret) {
+> -		DRM_ERROR("Failed to map wptr bo to GART\n");
+> -		return ret;
+> -	}
+> +		obj = wptr_mapping->bo_va->base.bo;
+> +		ret = drm_exec_prepare_obj(&exec, &obj->tbo.base, 1);
 
-The testing is a mix of automated and manual tests. Manual testing includes=
- (but is not limited to)
-        * Changing display configurations and settings
-        * Video/Audio playback
-        * Benchmark testing
-        * Suspend/Resume testing
-        * Feature testing (Freesync, HDCP, etc.)
+Using drm_exec_lock_obj() should be sufficient.
 
-Automated testing includes (but is not limited to)
-        * Script testing (scripts to automate some of the manual checks)
-        * IGT testing
+We don't need a fence slot for this use case.
 
-The testing is mainly tested on the following displays, but occasionally th=
-ere are tests with other displays
-        * Samsung G8 Neo 4k240hz
-        * Samsung QN55QN95B 4k 120hz
-        * Acer XV322QKKV 4k144hz
-        * HP U27 4k Wireless 4k60hz
-        * LG 27UD58B 4k60hz
-        * LG 32UN650WA 4k60hz
-        * LG Ultrafine 5k 5k60hz
-        * AU Optronics B140HAN01.1 1080p 60hz eDP
-        * AU Optronics B160UAN01.J 1920x1200 165hz eDP
-        * Samsung ATNA60YV02-0 3840x2400 60Hz OLED eDP
+> +		drm_exec_retry_on_contention(&exec);
+> +		if (unlikely(ret)) {
+> +			DRM_ERROR("Failed to prepare wptr bo\n");
+
+Same here, that this can fail is normal handling. The worst case is OOM and that is already printed in the logs.
+
+> +			goto fail_lock;
+> +		}
+
+We got all the locks now, so the drm_exec_until_all_locked() loop can be closed here.
+
+>  
+> -	ret = amdgpu_bo_reserve(wptr_obj->obj, true);
+> -	if (ret) {
+> -		DRM_ERROR("Failed to reserve wptr bo\n");
+> -		return ret;
+> -	}
 
 
-The patchset consists of the amd-staging-drm-next branch (Head commit - 539=
-967e4c9779aa65da1122fb24e7a777f4bc1c9 -> drm/amd/display: Promote DC to 3.2=
-.380) with new patches added on top of it.
+> +		/* mapping now should be stable since both the locks are held */
+> +		wptr_mapping = amdgpu_vm_bo_lookup_mapping(vm, wptr >> PAGE_SHIFT);
+> +		if (!wptr_mapping) {
+> +			DRM_ERROR("Failed to lock up wptr bo\n");
+> +			ret = -EINVAL;
+> +			goto fail_lock;
+> +		}
 
-Tested on Ubuntu 24.04.4, on Wayland and X11, using Gnome.
+Doing that again is unecessary. We are holding the VM lock above while doing the lockup.
 
-Tested-by: Dan Wheeler <daniel.wheeler@amd.com>
+>  
+> -	/* TODO use eviction fence instead of pinning. */
+> -	ret = amdgpu_bo_pin(wptr_obj->obj, AMDGPU_GEM_DOMAIN_GTT);
+> -	if (ret) {
+> -		drm_file_err(uq_mgr->file, "[Usermode queues] Failed to pin wptr bo\n");
+> -		goto unresv_bo;
+> -	}
+> +		wptr_obj->obj = amdgpu_bo_ref(wptr_mapping->bo_va->base.bo);
 
-Thank you,
+That is now unecessary as well.
 
-Dan Wheeler
-Sr. Technologist | AMD
-SW Display
----------------------------------------------------------------------------=
----------------------------------------
-1 Commerce Valley Dr E, Thornhill, ON L3T 7X6
-amd.com
+> +
+> +		if (wptr_obj->obj->tbo.base.size > PAGE_SIZE) {
+> +			DRM_ERROR("Requested wptr bo size is larger than one page\n");
 
+Same, please drop that error message.
 
------Original Message-----
-From: James Lin <PingLei.Lin@amd.com>
-Sent: Tuesday, April 28, 2026 9:19 PM
-To: amd-gfx@lists.freedesktop.org
-Cc: Wentland, Harry <Harry.Wentland@amd.com>; Li, Sun peng (Leo) <Sunpeng.L=
-i@amd.com>; Pillai, Aurabindo <Aurabindo.Pillai@amd.com>; Li, Roman <Roman.=
-Li@amd.com>; Lin, Wayne <Wayne.Lin@amd.com>; Chung, ChiaHsuan (Tom) <ChiaHs=
-uan.Chung@amd.com>; Zuo, Jerry <Jerry.Zuo@amd.com>; Wheeler, Daniel <Daniel=
-.Wheeler@amd.com>; Wu, Ray <Ray.Wu@amd.com>; LIPSKI, IVAN <IVAN.LIPSKI@amd.=
-com>; Hung, Alex <Alex.Hung@amd.com>; Lin, Ping Lei <PingLei.Lin@amd.com>; =
-Chen, Chen-Yu <Chen-Yu.Chen@amd.com>
-Subject: [PATCH 00/17] DC Patches May 4 2026
+> +			ret = -EINVAL;
+> +			goto fail_map;
+> +		}
+> +
+> +		ret = amdgpu_ttm_alloc_gart(&wptr_obj->obj->tbo);
+> +		if (ret) {
+> +			DRM_ERROR("Failed to bind bo to GART. ret %d\n", ret);
 
-Start from:
-3bba7c80f8576f0cf68753abe25c1ca2a0f17018
-SWDEV-553782 - test/diags: tcd-tts mapping - keyword search (#28664)
+That error message is useful.
 
-Stopped at:
-6ee9f5160ad6e0bf672329f7680398e718fc56f5
-SWDEV-114487 - modules: [BACKPORT] drm/amd/display: Fix divide by zero in c=
-alc_psr_num_static_frames
+> +			goto fail_map;
+> +		}
+> +
+> +		/* TODO use eviction fence instead of pinning. */
+> +		ret = amdgpu_bo_pin(wptr_obj->obj, AMDGPU_GEM_DOMAIN_GTT);
 
-This version brings along following update:
--add max bandwidth budget to QoS interface -Update tmz field for LSDMA -fix=
- buffer overruns warnings -add memory bandwidth override debug interface -F=
-ind link encoder for flexible DIG mapping cases -Fix type mismatches using =
-guards and explicit casts -Fix type mismatches in DC and DMUB modules -Skip=
- HDR metadata update when Smart Power OLED enabled -Rename backlight_proper=
-ties to pwr_backlight_properties -remove watermark range notify -Clean Up L=
-egacy DML Content -Implement block sequencing infrastructure for modular ha=
-rdware operations. -Do DML float narrowing explicit -Fix type mismatches in=
- DML and normalize loop bounds -Remove unused state param from enable_link_=
-analog -Fix Color Manager (3DLUT, Shaper, Blend)
+Oh! The piun needs to come before the alloc_gart! That's wrong in the existing code as well.
 
-Alex Hung (1):
-  drm/amd/display: Remove unused state param from enable_link_analog
+> +		if (ret) {
+> +			DRM_ERROR("Failed to pin wptr bo. ret %d\n", ret);
 
-Alvin Lee (1):
-  drm/amd/display: Update tmz field for LSDMA
+That error message makes sense.
 
-Bhuvanachandra Pinninti (1):
-  drm/amd/display: Implement block sequencing infrastructure for modular
-    hardware operations.
+Regards,
+Christian.
 
-Charlene Liu (1):
-  drm/amd/display: remove watermark range notify
-
-Dillon Varone (1):
-  drm/amd/display: Fix Color Manager (3DLUT, Shaper, Blend)
-
-Gaghik Khachatrian (5):
-  drm/amd/display: Fix type mismatches in DML and normalize loop bounds
-  drm/amd/display: Do DML float narrowing explicit
-  drm/amd/display: Fix type mismatches in DC and DMUB modules
-  drm/amd/display: Fix type mismatches using guards and explicit casts
-  drm/amd/display: fix buffer overruns warnings
-
-Ian Chen (1):
-  drm/amd/display: Skip HDR metadata update when Smart Power OLED
-    enabled
-
-Ovidiu Bunea (1):
-  drm/amd/display: Find link encoder for flexible DIG mapping cases
-
-Ray Wu (1):
-  drm/amd/display: Rename backlight_properties to
-    pwr_backlight_properties
-
-Taimur Hassan (1):
-  drm/amd/display: Promote DC to 3.2.381
-
-Wenjing Liu (2):
-  drm/amd/display: add memory bandwidth override debug interface
-  drm/amd/display: add max bandwidth budget to QoS interface
-
-Zheng, Austin (1):
-  drm/amd/display: Clean Up Legacy DML Content
-
- .../drm/amd/display/dc/basics/conversion.c    |   2 +-
- .../gpu/drm/amd/display/dc/basics/dce_calcs.c |   4 +-
- .../dc/clk_mgr/dce110/dce110_clk_mgr.c        |   6 +-
- .../display/dc/clk_mgr/dcn10/rv1_clk_mgr.c    |   2 +-
- .../display/dc/clk_mgr/dcn20/dcn20_clk_mgr.c  |  11 +-  .../amd/display/dc=
-/clk_mgr/dcn21/rn_clk_mgr.c |  30 +-  .../display/dc/clk_mgr/dcn30/dcn30_cl=
-k_mgr.c  |  17 +-
- .../display/dc/clk_mgr/dcn301/vg_clk_mgr.c    |  30 +-
- .../display/dc/clk_mgr/dcn31/dcn31_clk_mgr.c  |  41 +-
- .../dc/clk_mgr/dcn314/dcn314_clk_mgr.c        |  55 +-
- .../dc/clk_mgr/dcn315/dcn315_clk_mgr.c        |  53 +-
- .../dc/clk_mgr/dcn316/dcn316_clk_mgr.c        |  43 +-
- .../display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c  |  21 +-  .../display/dc/clk=
-_mgr/dcn35/dcn35_clk_mgr.c  | 111 +--
- .../dc/clk_mgr/dcn401/dcn401_clk_mgr.c        |  19 +-
- .../display/dc/clk_mgr/dcn42/dcn42_clk_mgr.c  |  26 +-
- drivers/gpu/drm/amd/display/dc/core/dc.c      | 643 +++++++++++++++---
- .../drm/amd/display/dc/core/dc_hw_sequencer.c | 597 ++++++++++++++--  .../=
-drm/amd/display/dc/core/dc_link_enc_cfg.c |  11 +-  .../gpu/drm/amd/display=
-/dc/core/dc_resource.c |  67 +-
- .../gpu/drm/amd/display/dc/core/dc_state.c    |   4 +-
- .../gpu/drm/amd/display/dc/core/dc_stream.c   |  14 +-
- .../gpu/drm/amd/display/dc/core/dc_surface.c  |   6 +-
- drivers/gpu/drm/amd/display/dc/dc.h           |  74 +-
- drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c  |  11 +-
- drivers/gpu/drm/amd/display/dc/dc_dmub_srv.h  |   9 +-
- drivers/gpu/drm/amd/display/dc/dc_helper.c    |   4 +-
- drivers/gpu/drm/amd/display/dc/dc_stream.h    |   1 +
- drivers/gpu/drm/amd/display/dc/dc_types.h     |  24 -
- drivers/gpu/drm/amd/display/dc/dce/dce_ipp.c  |   2 +-
- .../drm/amd/display/dc/dce/dce_link_encoder.c |   3 +-
- .../drm/amd/display/dc/dce/dce_transform.c    |   4 +-
- .../gpu/drm/amd/display/dc/dce/dmub_abm_lcd.c |   2 +-
- .../amd/display/dc/dcn10/dcn10_cm_common.c    |  12 +-
- .../dc/dcn10/dcn10_hw_sequencer_debug.c       |  22 +-
- .../drm/amd/display/dc/dcn20/dcn20_dwb_scl.c  |   2 +-
- .../amd/display/dc/dcn30/dcn30_cm_common.c    |   8 +-
- .../display/dc/dio/dcn10/dcn10_link_encoder.c |  11 +-
- .../dc/dio/dcn30/dcn30_dio_stream_encoder.c   |   6 +-
- .../drm/amd/display/dc/dml/calcs/dcn_calcs.c  |   9 +-
- .../drm/amd/display/dc/dml/dcn20/dcn20_fpu.c  |  34 +-
- .../dc/dml/dcn20/display_mode_vba_20.c        |  36 +-
- .../dc/dml/dcn20/display_mode_vba_20v2.c      |  36 +-
- .../dc/dml/dcn21/display_mode_vba_21.c        |  36 +-
- .../drm/amd/display/dc/dml/dcn30/dcn30_fpu.c  |  14 +-
- .../dc/dml/dcn30/display_mode_vba_30.c        |  83 +--
- .../amd/display/dc/dml/dcn301/dcn301_fpu.c    |   5 +-
- .../amd/display/dc/dml/dcn302/dcn302_fpu.c    |   2 +-
- .../amd/display/dc/dml/dcn303/dcn303_fpu.c    |   2 +-
- .../drm/amd/display/dc/dml/dcn31/dcn31_fpu.c  |  15 +-
- .../dc/dml/dcn31/display_mode_vba_31.c        | 121 ++--
- .../amd/display/dc/dml/dcn314/dcn314_fpu.c    |   5 +-
- .../dc/dml/dcn314/display_mode_vba_314.c      | 129 ++--
- .../drm/amd/display/dc/dml/dcn32/dcn32_fpu.c  |  75 +-
- .../dc/dml/dcn32/display_mode_vba_32.c        |  21 +-
- .../dc/dml/dcn32/display_mode_vba_util_32.c   |   2 +-
- .../amd/display/dc/dml/dcn321/dcn321_fpu.c    |  46 +-
- .../drm/amd/display/dc/dml/dcn35/dcn35_fpu.c  |   5 +-
- .../amd/display/dc/dml/dcn351/dcn351_fpu.c    |   5 +-
- .../drm/amd/display/dc/dml/display_mode_vba.c |   4 +-
- .../drm/amd/display/dc/dml/dml_inline_defs.h  |  18 +-
- .../dml21/src/dml2_mcg/dml2_mcg_dcn42.c       |   2 +-
- .../dml21/src/dml2_top/dml2_top_legacy.h      |   9 -
- .../amd/display/dc/dpp/dcn10/dcn10_dpp_cm.c   |   2 +-
- .../amd/display/dc/dpp/dcn10/dcn10_dpp_dscl.c |   2 +-
- .../drm/amd/display/dc/dpp/dcn30/dcn30_dpp.c  |  13 +-
- .../amd/display/dc/dpp/dcn401/dcn401_dpp_cm.c |   2 +-
- .../display/dc/dpp/dcn401/dcn401_dpp_dscl.c   |   2 +-
- drivers/gpu/drm/amd/display/dc/dsc/dc_dsc.c   |  13 +-
- .../drm/amd/display/dc/dsc/dcn20/dcn20_dsc.c  |   3 +-
- .../amd/display/dc/dsc/dcn401/dcn401_dsc.c    |   3 +-
- .../hpo/dcn31/dcn31_hpo_dp_stream_encoder.c   |   2 +-
- .../display/dc/hubbub/dcn401/dcn401_hubbub.c  |   7 +-
- .../display/dc/hubbub/dcn42/dcn42_hubbub.c    |   5 +-
- .../amd/display/dc/hubp/dcn20/dcn20_hubp.c    |   2 +-
- .../amd/display/dc/hubp/dcn401/dcn401_hubp.c  | 201 ++----  .../amd/displa=
-y/dc/hubp/dcn401/dcn401_hubp.h  |  23 +-
- .../amd/display/dc/hubp/dcn42/dcn42_hubp.c    |  78 +--
- .../amd/display/dc/hubp/dcn42/dcn42_hubp.h    |  10 +-
- .../amd/display/dc/hwss/dce110/dce110_hwseq.c |  38 +-
- .../amd/display/dc/hwss/dcn10/dcn10_hwseq.c   |  55 +-
- .../amd/display/dc/hwss/dcn20/dcn20_hwseq.c   |  34 +-
- .../amd/display/dc/hwss/dcn21/dcn21_hwseq.c   |   2 +-
- .../amd/display/dc/hwss/dcn30/dcn30_hwseq.c   |  15 +-
- .../amd/display/dc/hwss/dcn31/dcn31_hwseq.c   |  12 +-
- .../amd/display/dc/hwss/dcn32/dcn32_hwseq.c   |  32 +-
- .../amd/display/dc/hwss/dcn35/dcn35_hwseq.c   |  68 +-
- .../amd/display/dc/hwss/dcn351/dcn351_hwseq.c |   2 +-
- .../amd/display/dc/hwss/dcn401/dcn401_hwseq.c | 432 ++++++++----
- .../amd/display/dc/hwss/dcn42/dcn42_hwseq.c   | 520 ++++++++++++--
- .../amd/display/dc/hwss/dcn42/dcn42_hwseq.h   |   9 +-
- .../drm/amd/display/dc/hwss/hw_sequencer.h    | 353 ++++++++--
- .../gpu/drm/amd/display/dc/inc/core_types.h   |  10 +-
- .../gpu/drm/amd/display/dc/inc/hw/clk_mgr.h   |  22 +
- drivers/gpu/drm/amd/display/dc/inc/hw/hubp.h  |  35 +-
- drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h   |  79 +--
- .../amd/display/dc/inc/hw/stream_encoder.h    |   1 +
- .../display/dc/inc/soc_and_ip_translator.h    |  19 +-
- .../drm/amd/display/dc/link/link_detection.c  |   6 +-
- .../gpu/drm/amd/display/dc/link/link_dpms.c   |  10 +-
- .../drm/amd/display/dc/link/link_factory.c    |   2 +-
- .../drm/amd/display/dc/link/link_validation.c |   4 +-
- .../dc/link/protocols/link_dp_capability.c    |   4 +-
- .../dc/link/protocols/link_dp_dpia_bw.c       |   2 +-
- .../dc/link/protocols/link_dp_irq_handler.c   |   2 +-
- .../dc/link/protocols/link_dp_training.c      |   4 +-
- .../drm/amd/display/dc/mpc/dcn10/dcn10_mpc.c  |   2 +-
- .../amd/display/dc/mpc/dcn401/dcn401_mpc.c    | 177 +++--
- .../amd/display/dc/mpc/dcn401/dcn401_mpc.h    |  25 +-
- .../drm/amd/display/dc/mpc/dcn42/dcn42_mpc.c  | 388 ++++++++++-  .../drm/a=
-md/display/dc/mpc/dcn42/dcn42_mpc.h  |  49 +-
- .../amd/display/dc/optc/dcn10/dcn10_optc.c    |   2 +-
- .../amd/display/dc/pg/dcn35/dcn35_pg_cntl.c   |   6 +-
- .../amd/display/dc/pg/dcn42/dcn42_pg_cntl.c   |   4 +-
- .../dc/resource/dcn42/dcn42_resource.c        |   1 -
- .../dcn42/dcn42_soc_and_ip_translator.c       |   6 +-
- .../drm/amd/display/dmub/src/dmub_dcn401.c    |   2 +-
- .../gpu/drm/amd/display/dmub/src/dmub_dcn42.c |   2 +-
- .../amd/display/modules/color/color_gamma.c   |  12 +-
- .../gpu/drm/amd/display/modules/power/power.c |  28 +-
- .../gpu/drm/amd/display/modules/vmid/vmid.c   |   6 +-
- 121 files changed, 3870 insertions(+), 1702 deletions(-)  delete mode 1006=
-44 drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_top/dml2_top_legacy=
-.h
-
---
-2.43.0
+> +			goto fail_map;
+> +		}
+>  
+> -	queue->wptr_obj.gpu_addr = amdgpu_bo_gpu_offset(wptr_obj->obj);
+> -	amdgpu_bo_unreserve(wptr_obj->obj);
+> +		queue->wptr_obj.gpu_addr = amdgpu_bo_gpu_offset(wptr_obj->obj);
+> +	}
+>  
+> +	drm_exec_fini(&exec);
+>  	return 0;
+>  
+> -unresv_bo:
+> -	amdgpu_bo_unreserve(wptr_obj->obj);
+> +fail_map:
+> +	amdgpu_bo_unref(&wptr_obj->obj);
+> +fail_lock:
+> +	drm_exec_fini(&exec);
+>  	return ret;
+>  
+>  }
 
