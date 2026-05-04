@@ -4,120 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9AD17CD3427
-	for <amd-gfx@archiver.kernel.org>; Mon,  4 May 2026 18:48:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D36B3FF885A
+	for <amd-gfx@archiver.kernel.org>; Mon,  4 May 2026 20:19:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3A1CE10E7F8;
-	Mon,  4 May 2026 18:48:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5F8ED10E85C;
+	Mon,  4 May 2026 20:19:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Ona53lyv";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ZiMzlx8S";
 	dkim-atps=neutral
-Received: from BL2PR02CU003.outbound.protection.outlook.com
- (mail-eastusazon11011023.outbound.protection.outlook.com [52.101.52.23])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A087110E7F8
- for <amd-gfx@lists.freedesktop.org>; Mon,  4 May 2026 18:48:44 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=eJXiw2+jEUo3q1A/sSdKcdo90sgNWacnhrHhDr/nVlf33LQbxTUKBt93L/zMxGcDX4WWZgJvo9jy9kr7W5HKhzXTlcdp8G1eC+buqT+BsVeiSGlNcmz9aWEUwPWL5IgfSt+Crj1Z3p2KdoOR8q+sxKEUN2SQ+3wphQbURvu1eDRyOXsDGtqlEzfsQk5xwNv7G5Ce+/Mv3lFksdmVhjEdw5t+4S8dB4KzW75QlmdYmSXNLFb8wulMgTfB7uLyP1V7iAKsT8LSwZcM+xsbp0zJRCdRFB01WgT4jASjDjszJi2v8jLHS9O1RgQ3UYPkh2Eq8yk5NG4qr4ky0RFpZJQRBw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=0suEX+yBg7iP8RdGJwO53jHgIchf/CBjc5+uoRE5kHk=;
- b=QTLu1fzFjszpDMe6dlTsyfVLE59jIQSV6HqhbcNfXnpkA349wIXt3a5vH87oSyI/f9GBTv2s2v1HjRaEatUH+L41sjnJYujJnMTu/zTp/gvgEZvas7ntG9MINKGzMh/8XfWKPs4pbQBaqe2llA3TE7V3P6fMIXpRYP7QPzxwWeSVxP20s5HJOmaaZYoWwepFohnRL8r6I53g//YJ0jy3Tm2ECoQY+DoQx23YFPDPRpBx8k0vKNSJm2ceLFdZcD9ouO3QJ8snChJ82d0BSI6goSC8HvfZ94HL5wnzSrFC0sHIc7HsYcCUgrWx0d6pux6mu8Ia4runujqn+lihcsYnFw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=m1k.cloud smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0suEX+yBg7iP8RdGJwO53jHgIchf/CBjc5+uoRE5kHk=;
- b=Ona53lyvEWUOTaAXE60uiG6zPfIsCjHbH9jzVXWD5ZKxWWXYzPRhVh80Xegs3bNCY4uxmZUJyKHmGKlBS4bm1zAqY+o+1DRbLkKxMLAKAesf4U+ZJp6yklydih2UNZ0sPr/hT1z2nUqjzSzMsbqRMW68cEGib5PVLleJc8LY6Bg=
-Received: from DS7PR03CA0051.namprd03.prod.outlook.com (2603:10b6:5:3b5::26)
- by DM4PR12MB5793.namprd12.prod.outlook.com (2603:10b6:8:60::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.15; Mon, 4 May
- 2026 18:48:39 +0000
-Received: from DS3PEPF0000C37B.namprd04.prod.outlook.com
- (2603:10b6:5:3b5:cafe::f8) by DS7PR03CA0051.outlook.office365.com
- (2603:10b6:5:3b5::26) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9870.25 via Frontend Transport; Mon,
- 4 May 2026 18:48:39 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- DS3PEPF0000C37B.mail.protection.outlook.com (10.167.23.5) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9891.9 via Frontend Transport; Mon, 4 May 2026 18:48:39 +0000
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Mon, 4 May
- 2026 13:48:38 -0500
-Received: from [10.4.13.76] (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
- Transport; Mon, 4 May 2026 13:48:38 -0500
-Message-ID: <9c37520f-ad9a-4fac-bd21-e92f2107ca36@amd.com>
-Date: Mon, 4 May 2026 14:48:38 -0400
+Received: from mail-lj1-f171.google.com (mail-lj1-f171.google.com
+ [209.85.208.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E3AC610E00A
+ for <amd-gfx@lists.freedesktop.org>; Mon,  4 May 2026 20:19:12 +0000 (UTC)
+Received: by mail-lj1-f171.google.com with SMTP id
+ 38308e7fff4ca-39393c1b5aaso17710351fa.3
+ for <amd-gfx@lists.freedesktop.org>; Mon, 04 May 2026 13:19:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1777925951; x=1778530751; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=0tOD8/6djJ4pMyTuanqYIEyAgeWg4xBI8A3+BKBgiYE=;
+ b=ZiMzlx8SAeCj7wNk8aXTUAlS7tOcVnIs0fd15/6bFm4JaXAcat04BkO73yYYkCbFT1
+ nDhy3sP0kUn0adHU2fZVh14Ucd5iQrdFbC5Fv6OJZZ6pIIvHGd0jPhzAQePx/kR0iVsZ
+ 2RcEqz/9yss/8CNMgcNWZ9EAqybd4ExrqmmDiLv7bdTRYkO9qbuFcAcEWIxBDOd+is48
+ c7enJdrSOaZXc/Rq41ZKlgsqVr97tknb13YzV2PXLh0UAvQW7tdrrYrQfzOYYo7xa3Zr
+ lQT1yuKI5DSVt0UT3JAFM8PnhC76IUkDZ6RF2WRl+lvzQ8zFgxVyostAj44fC2IHwYhU
+ lw5g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1777925951; x=1778530751;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=0tOD8/6djJ4pMyTuanqYIEyAgeWg4xBI8A3+BKBgiYE=;
+ b=nDNcIHYtJAbJVsmVJ7WgEd/pgxqPwhIct/DIuaOw6Xt77K1RFDMHShBtvLyfnSa5Oy
+ zHUR6I3YX3JM+TczrjwETFpuHifWu5pC/igLhJGEB5Bmu8nE1Gm+8MOkanNeENfpu9Bl
+ OrWes7LiVJJDaPYl/yyczyybx1Tavk+WkwVbZ0tLOubIvlcbnfJ2WMFZiiYm0aeb4rrs
+ sZfCDNXSvlQr3qVacD0PYhXKFsi5BqeZHlxKCPdp3Pa+eyFKarEmfkx/qeyrJ3V8tUbu
+ w7Pkc0r58O6OFZ0iGNmTHJAHEViPiaovCba3KWnl9Sw3ofhynv3qnhff9tGY3ruIKJua
+ M8QQ==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ+yuRbRIuCftPHtkAMYNuTz9eq680mTMDwjvHmbx2yYPseRxdkilduFouWbLYG7rNgFZ5SgLYKw@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwqqoU2/KZ7O9s7PjUMg128lHTS+/hRR/aHY2wZJMx9sE89MIxd
+ SXdnCNqkyQppwHFSyLP+evJYWdb/gEeh6s/8iIZ5+zicp5sByH9LlBue
+X-Gm-Gg: AeBDietnoOLg9pvfGHecLCePVpbWm0f1gi3QtlSscChOMG60PPPnc1+q+gufT5TEbko
+ itRchr4FnpXTQt14GqhB9gI4yxfgORJGrFbO3+6DlYqZbhoaHoe7WmsthnuLUDMVgzHYiXJnUFQ
+ Wt/w+p5UWXL/X/ZDQfXRFYfvWj6hHEI/ian+nUvJQ8LYvFLRXLuCnnvMPyfG4PnKBDAXhzH7pzO
+ oHT1RScarz2MTjoOWFptp0SGoighoCP+X8zHLUmSJZpACT6JKKoS755UluLNZ1ih8LKH9wJEiVH
+ w0g552LzyIMuZK47f2M5kIlV+UehVhoICF29U6yEV4Im0VYk4LFt6jiBigQnCijrp6IlMVW8q12
+ Nii3BNKLDDM4+YtFJybK+sceMnm7gf9OfifeD972y5t6Ko1Jz9N0TNlvis8mpxn/L6VpJQ17KSw
+ jrDva8KfXUl5CmNYZRASAeplXEhrNk7w+d9xkrpL5s5CZl
+X-Received: by 2002:a05:6512:3f02:b0:5a4:175d:21a with SMTP id
+ 2adb3069b0e04-5a862ec2566mr3851306e87.2.1777925950756; 
+ Mon, 04 May 2026 13:19:10 -0700 (PDT)
+Received: from localhost ([188.234.148.119]) by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-5a85c230c68sm3245638e87.19.2026.05.04.13.19.09
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 04 May 2026 13:19:10 -0700 (PDT)
+From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+To: harry.wentland@amd.com, sunpeng.li@amd.com, alexander.deucher@amd.com,
+ christian.koenig@amd.com
+Cc: siqueira@igalia.com, airlied@gmail.com, simona@ffwll.ch, ardb@kernel.org,
+ hamza.mahfooz@amd.com, aurabindo.pillai@amd.com, Roman.Li@amd.com,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+Subject: [PATCH] drm/amd/display: Wrap DCN32 phantom-plane allocation in
+ DC_RUN_WITH_PREEMPTION_ENABLED
+Date: Tue,  5 May 2026 01:19:05 +0500
+Message-ID: <20260504201905.90667-1-mikhail.v.gavrilov@gmail.com>
+X-Mailer: git-send-email 2.54.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/1] drm/amd/display: complete cursor vblank events
- immediately
-To: Michele Palazzi <sysdadmin@m1k.cloud>
-CC: <amd-gfx@lists.freedesktop.org>, <harry.wentland@amd.com>,
- <alexander.deucher@amd.com>, <christian.koenig@amd.com>,
- <siqueira@igalia.com>, =?UTF-8?Q?Michel_D=C3=A4nzer?=
- <michel.daenzer@mailbox.org>, Shengyu Qu <wiagn233@outlook.com>
-References: <20260217191632.1243826-1-sysdadmin@m1k.cloud>
- <TY4PR01MB14432450DA5BDEFA272476A2F987FA@TY4PR01MB14432.jpnprd01.prod.outlook.com>
- <49434297-d6e8-4eaf-b4c7-ce14134d7869@amd.com>
- <96f4df42-2675-4bda-b0f2-753b09f7a80d@m1k.cloud>
- <ca869a77-4bdc-47b7-a8f3-788224be48be@amd.com>
- <fdb2d4ad-10e5-43ca-92db-f1dad48b7890@amd.com>
- <c4cae811-e3a4-4aae-8501-6de0977566a5@m1k.cloud>
- <6e1f5a30-82c3-4872-add3-7d46a266c37c@m1k.cloud>
- <6ac9fc7f-0493-446f-97e8-760a54e209d8@amd.com>
- <7fdc3c4f-c321-48f5-93f9-17a1a8ded9f8@m1k.cloud>
- <1356e93b-af76-47f3-afc5-29535a9518bb@amd.com>
- <aa3891fb-ed89-48e6-bfb8-86e704447a2e@m1k.cloud>
- <51219a7b-eeec-43f2-a335-06710809415c@m1k.cloud>
- <7a148774-3364-4ce2-9f55-2e77889bfb53@amd.com>
- <a8a3d8d1-ee55-4fc0-ac98-45d70ad0bd6a@amd.com>
- <deb792f8-70a5-41f9-bcf8-1425994aad14@m1k.cloud>
- <4e48ec7b-ac73-4637-9e42-9c328067ed72@amd.com>
- <fe88c29c-3fc3-48b5-b6a2-ee4c210e7a83@m1k.cloud>
- <e415c38b-4102-40e4-a195-0256caf34802@m1k.cloud>
-Content-Language: en-US
-From: Leo Li <sunpeng.li@amd.com>
-In-Reply-To: <e415c38b-4102-40e4-a195-0256caf34802@m1k.cloud>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS3PEPF0000C37B:EE_|DM4PR12MB5793:EE_
-X-MS-Office365-Filtering-Correlation-Id: 87c5c3be-ee9e-4d69-c3c9-08deaa0dc194
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700016|376014|82310400026|32650700020|42112799006|1800799024|30052699003|13003099007|18002099003|56012099003|22082099003;
-X-Microsoft-Antispam-Message-Info: vThjZ2ex3GC0BDGcbppnHGU6KeiJhGjBsumVybOV1sORwvQnoBaZgtNa1ptE0by11h9halK+waMyOungkIwF3fQurUtjYgKtTeaLdZSw9jJs59jmvveYPyP4XQHEO8kTupUNcXDPKui/4MuaFtu7mq/9jSw/gX6nYLfsk8ef3dscwgDUniB/lQLPj7HeSur2I0sO5/0OInUzwT6sS4RDqpO3+vyiWnR5REu+QfhQ5yJ8f67roS9XSFX74/RpcCvsGNLM+q5IIf9U14RA6Fgzjp5iVLX6pGMVLzI4OXCnpQ6tQZ0ImS2gKdhKjkk/53u4uDlF8FpONOcNXIB6VdSBXoDHhQQISZgqU7Z7lz/1Af0a2CzfnXdyYDWOmV2u1ZARn8qtMimGMN2rvbIpSNnAJTfzHc30qKRuCyYD0krMVTGCwjoeb88qmWOmFmaA3xHoVBNaukS1BKxQ2wK9o2VfUMtETmvf8DY5FezUymKaWcWtwHpIdzBxX0Z/x0FQN7sNnqibJytoIbCG57rGhWPrZ+aqHCBNKgnURUZHvDWZoVy7HaXbZwk8hKcf52pN6/616HnMxPLq9wOyuV3gZxdgYXJHxGVLzX2O1ZxUoB8uw5shjTkTRFJAO18Um1YeBu/ErK2fePfA0rPX/rU+6STMLBkpSymUgHlow7aVCJdg1AJHKGkbFC7dji5Tc6h0XXqFrsZynEfmzV6gZLXV59HLO+2IUMAaTgtDwlfcudiWziY=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700016)(376014)(82310400026)(32650700020)(42112799006)(1800799024)(30052699003)(13003099007)(18002099003)(56012099003)(22082099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: oBftHWsEIKtSH/WS0cBI88OTKZi8Z0AvBqDLM0wMTWwZe6iAySDqn8/+902LKYEkG3Yq7SyoXWk3/H8/51YPv76qSOctIoDvQUa/m+T1fiHUwJTJEFB06mKJ9Yuy2rg9xRfWgCoyRhXHw89TjsyWcrYViOImYer0ntWIoBqtrH0AjwkZQkFllpNA7BVyccDtyXO84ceFb9aV3biMut2gwSJcOak/mAbXrH+GPCjR9yqxAsGSI7tl20i5cFSh53zIdnbn6/MYOrltI77jZLnE1j6Vq9EE0E5VnPlRNw8Hd0NQZC1wIXdC98OEuf5Jvueryqw3MGRUx61KSGHcB8vYJN1KLu6LA7gzsZB6mMbiCBJOln0Wf9GiQmJROetXLcBDLMJp/+M5M0o0JPbr39+Z3eBtk6H6538UNMcJT51TLljEMa8SxjCrCBV/zL5Ed+wi
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 May 2026 18:48:39.1440 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 87c5c3be-ee9e-4d69-c3c9-08deaa0dc194
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DS3PEPF0000C37B.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5793
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,25 +89,103 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+dcn32_validate_bandwidth() wraps dcn32_internal_validate_bw() with
+DC_FP_START()/DC_FP_END(). On x86 non-RT, DC_FP_START expands into
+kernel_fpu_begin() which takes fpregs_lock(), i.e. local_bh_disable().
+Allocations done inside this region must therefore not sleep.
 
+The legacy DML1 path through dcn32_full_validate_bw_helper() ->
+dcn32_add_phantom_pipes() -> dcn32_enable_phantom_plane() unconditionally
+calls dc_state_create_phantom_plane() -> dc_create_plane_state(), which
+performs kvzalloc(sizeof(struct dc_plane_state)). On a recent kernel
+sizeof(struct dc_plane_state) is 343736 bytes (335 KiB), well above the
+PAGE_ALLOC_COSTLY_ORDER threshold, so __kvmalloc_node() takes the vmalloc
+path. __get_vm_area_node() then trips its BUG_ON(in_interrupt()) because
+SOFTIRQ_DISABLE_OFFSET is set in preempt_count:
 
-On 2026-03-31 08:57, Michele Palazzi wrote:
->> On 3/20/26 01:52, Leo Li wrote:
-> 
->>> Did you happen to try disabling some idle optimization features mentioned in a previous reply?
->>> https://lore.kernel.org/amd-gfx/1356e93b-af76-47f3- afc5-29535a9518bb@amd.com/
->>
-> 
-> 
-> Sorry for the delay i have been away due to business travel, anyway since resuming testing i can't seem to reproduce the timeout with idle optimization features disabled.
+  kernel BUG at mm/vmalloc.c:3206!
+  RIP: __get_vm_area_node+0x257/0x2d0
+  Workqueue: events_unbound commit_work
+  Call Trace:
+   __vmalloc_node_range_noprof+0x22b/0x570
+   __kvmalloc_node_noprof+0x3d0/0xb40
+   dc_create_plane_state+0x35/0x290 [amdgpu]
+   dc_state_create_phantom_plane+0x1a/0x120 [amdgpu]
+   dcn32_enable_phantom_plane+0x101/0x780 [amdgpu]
+   dcn32_add_phantom_pipes+0x47/0x460 [amdgpu]
+   dcn32_full_validate_bw_helper.constprop.0+0xa46/0x1d70 [amdgpu]
+   dcn32_internal_validate_bw+0x49c/0x1600 [amdgpu]
+   dml1_validate+0x20f/0x800 [amdgpu]
+   dcn32_validate_bandwidth+0x317/0x540 [amdgpu]
+   dc_validate_with_context+0xd34/0x1d30 [amdgpu]
+   dc_commit_streams+0x7ca/0x1810 [amdgpu]
+   amdgpu_dm_commit_streams+0xfd4/0x1e60 [amdgpu]
+   amdgpu_dm_atomic_commit_tail+0x29e/0x3520 [amdgpu]
+   commit_tail+0x204/0x4b0
+   process_one_work+0x8fd/0x16a0
 
-Hi Michel, Shengyu,
+Per-CPU __preempt_count on the crashing CPU at panic time was 0x202:
+SOFTIRQ_DISABLE_OFFSET (0x200) from fpregs_lock() plus two preempt holds
+from dc_fpu_begin() and kernel_fpu_begin().
 
-I sent out a potential fix here: https://lore.kernel.org/amd-gfx/20260504183649.165131-1-sunpeng.li@amd.com/T/#u
-If you get a chance, can you give it a spin and let me know the results(*)? The issue remains elusive on my end.
+The DML2 paths already wrap their large vzalloc()s in
+DC_RUN_WITH_PREEMPTION_ENABLED() to handle this case (see
+drivers/gpu/drm/amd/display/dc/dml2_0/dml21/dml21_wrapper.c:26 and
+drivers/gpu/drm/amd/display/dc/dml2_0/dml2_wrapper.c:24). Apply the same
+guard to the DML1 phantom-plane allocation in dcn32_enable_phantom_plane().
 
-(*) Of course, make sure the Restore 5s vbl offdelay change is not applied, and that no other debug patch/kernel cmdline are applied.
+This is a separate class of issue from "drm/amd/display: Fix unsafe uses
+of kernel mode FPU" by Ard Biesheuvel, which addressed callers entering
+DC FP compilation units without DC_FP_START. The bug fixed here is the
+inverse: a sleeping allocator invoked from within an active DC_FP_START
+region.
 
-Thanks,
-Leo
+Reproducer (RX 7900 XTX, single 4K HDMI display, DCN 3.2): launch any
+workload that produces rapid atomic modeset commits. The most reliable
+trigger observed is launching Rise of the Tomb Raider via Proton and
+repeatedly pressing the Super key during the level loading screen;
+crash occurs within ~4 minutes uptime. Random crashes are also observed
+during routine fullscreen toggles (image viewers, chat applications).
+
+Hardware verified clean: memtest86+ 4 passes, stressapptest -W -m 32
+4 hours, both pass with 0 errors. KASAN active, no reports under load.
+
+Fixes: 235c67634230 ("drm/amd/display: add DCN32/321 specific files for Display Core")
+Cc: stable@vger.kernel.org # v6.0+
+Signed-off-by: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+---
+ .../drm/amd/display/dc/resource/dcn32/dcn32_resource.c    | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c
+index 82f81b586986..3751f7a94a05 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c
+@@ -92,9 +92,14 @@
+ #include "dml/dcn32/dcn32_fpu.h"
+ 
+ #include "dc_state_priv.h"
++#include "dc_fpu.h"
+ 
+ #include "dml2_0/dml2_wrapper.h"
+ 
++#if !defined(DC_RUN_WITH_PREEMPTION_ENABLED)
++#define DC_RUN_WITH_PREEMPTION_ENABLED(code) code
++#endif
++
+ #define DC_LOGGER_INIT(logger)
+ 
+ enum dcn32_clk_src_array_id {
+@@ -1684,7 +1689,8 @@ static void dcn32_enable_phantom_plane(struct dc *dc,
+ 		if (curr_pipe->top_pipe && curr_pipe->top_pipe->plane_state == curr_pipe->plane_state)
+ 			phantom_plane = prev_phantom_plane;
+ 		else
+-			phantom_plane = dc_state_create_phantom_plane(dc, context, curr_pipe->plane_state);
++			DC_RUN_WITH_PREEMPTION_ENABLED(phantom_plane =
++				dc_state_create_phantom_plane(dc, context, curr_pipe->plane_state));
+ 
+ 		if (!phantom_plane)
+ 			continue;
+-- 
+2.54.0
 
