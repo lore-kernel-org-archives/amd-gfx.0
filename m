@@ -4,53 +4,160 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8A2AEFF885A
-	for <amd-gfx@archiver.kernel.org>; Tue,  5 May 2026 09:53:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 918B6CD342F
+	for <amd-gfx@archiver.kernel.org>; Tue,  5 May 2026 10:17:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1A1B110EA2C;
-	Tue,  5 May 2026 09:53:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EB22310EA4F;
+	Tue,  5 May 2026 10:17:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="IBCDcP3I";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="CGZTcQyT";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8472010EA2C;
- Tue,  5 May 2026 09:53:22 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 287E04080B;
- Tue,  5 May 2026 09:53:22 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 070F2C2BCB4;
- Tue,  5 May 2026 09:53:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1777974802;
- bh=XQCROlKft5wVj5I9yTAn2YjpISfn8SpYZY1bJexHqxI=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=IBCDcP3ISBaVcx4upCyMln9GHHVc6P7dLw7QOAcqm8KshUBDANb2Yo5481ns19S1W
- u2Y7LI+LmM40tQQXLpKmMVI/R7Q/JXwwt7nQQVC8iXkJ4HBWFhChWitCW+YyaA9ZMe
- 6mq/KlQRK6n4w1a95Vz5H7Cr4U5e3YC90AuPmS+LZtLwx2vH09jNiIySmhwtdZ8z/7
- ogDqwMjRE3EIOLc80Fuotk2g5JMkGbBOd1IGH7qPXsk7R7wTGj/toU+KQc5R9mHQ1+
- k6i0fGyM7z7HbSCt8T8baQUOTluvfFEmNzfdztSRQd8ARfG8vUnc0L6B05caC8Uxsl
- yxySiO3iBKhqA==
-From: Sasha Levin <sashal@kernel.org>
-To: patches@lists.linux.dev,
-	stable@vger.kernel.org
-Cc: YuanShang <YuanShang.Mao@amd.com>, Philip Yang <philip.yang@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
- Felix.Kuehling@amd.com, christian.koenig@amd.com, airlied@gmail.com,
- simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 7.0] drm/amdkfd: check if vm ready in svm map and
- unmap to gpu
-Date: Tue,  5 May 2026 05:51:45 -0400
-Message-ID: <20260505095149.512052-29-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260505095149.512052-1-sashal@kernel.org>
-References: <20260505095149.512052-1-sashal@kernel.org>
-MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
-X-stable-base: Linux 7.0.3
-Content-Type: text/plain; charset=UTF-8
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C0D5610EA46;
+ Tue,  5 May 2026 10:17:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1777976242; x=1809512242;
+ h=message-id:date:subject:to:references:from:in-reply-to:
+ content-transfer-encoding:mime-version;
+ bh=Mf4MJXHGSeVu2JwzCTV2RWBzLDOX68bqudYXNKnGn+A=;
+ b=CGZTcQyTt8+K1IAaqVdaYk/toooRqD9jxxZ1lNVicoiF7Gqk5q3l72hK
+ TVFFGCSHolMBs/4x8Fv1mvoOTTs6+P9oV0MyElG62pVyK1QL9kJ6xBcZh
+ NregCO5CGZBiIFk0oMyihSwRv5Bpgq122FAm62ep+c7p7L0sKsJ+wAylY
+ dIkXiqAfwxZd/Y/aUDJCXI0FJV07IccqDQPup+Zq6kb7zV+jD8TD1krpW
+ FTfZMtZ+aCcejeDO7+dMP/mkl22BNGx2NK5renj5l48rKtSPgb4ML1Y19
+ CIt0VGJGDyilleWlrZGJgs2xzWUmK8bD3ovynlbRB81xA+8FzKNbe41/j A==;
+X-CSE-ConnectionGUID: 2NaT64daS4eqJjOyUxKD9w==
+X-CSE-MsgGUID: 9L97A2XBQfOPOCE7Ja7OOw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11776"; a="89540078"
+X-IronPort-AV: E=Sophos;i="6.23,217,1770624000"; d="scan'208";a="89540078"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+ by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 May 2026 03:17:21 -0700
+X-CSE-ConnectionGUID: IQKnAjRQS3qsswxwqvUdoA==
+X-CSE-MsgGUID: Jqc8ZnOiRy6skGE5JkhVlg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,217,1770624000"; d="scan'208";a="235647159"
+Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
+ by orviesa008.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 May 2026 03:17:21 -0700
+Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
+ fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37; Tue, 5 May 2026 03:17:20 -0700
+Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
+ FMSMSX901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37 via Frontend Transport; Tue, 5 May 2026 03:17:20 -0700
+Received: from SN4PR0501CU005.outbound.protection.outlook.com (40.93.194.57)
+ by edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37; Tue, 5 May 2026 03:17:20 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=hyd2tgoy1l47OpNYWTGsf9II0TSIChBr4m6mEeMHSevguaMz5GtxNHmSo3UMMwQn/v2E88I7MPVCdF8I9EcB+Yj9KZtDP9nXcA8AqQk4tliK7y2HBBUbpeqi5uSWXJ+AdUvt8vLlCCJlepnuY0zhwrqsIemxYXcTyS2jhzBf8Nv7R9TDAE7veA3NFcOUQcz5i6vrlKILZXFRD/onLXfERZEtcLfBHWUNxWSvmJsjSh2xMTJjNT7PWDKQvEJoBvk/71iMqL1SiO9vdjmX6fSNaHF0+HxpxSEphjIi+DBFxBaLL5PZ5upKdKSzHIY9bsk2wj1uzKv28rz99Vt/PysHFA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=dsSGInnynjIyo9pRy7SYmzHHMCloTvYLb5bk+2mZXU4=;
+ b=jVOyt3djNcOXu0p91hF8MiZ7icWllUmR06OSQuXds44vS9+pDAT9GTiTRb2ySclCmxEG4jzN8olyOk1AinLmR6jWCzhUPZvE88X7ginNRewhUQdKxHt7irQCYfWGGIzmldMzZE9yDPO78aUEZpsEc71TYt/zeDIFKUKWorCowXXjLvscrhiDzvMBKbxMJ17soL6iYrtjmsP56xoAYLEsvs5nY6gWC1YbORrfXplionFd9d5lzJf5QcfupOyY0/SX37tUWOYwZL4oMtXyyNn2TUCmkV1SZSfLMs/UXoxAqTkIMjTB738emP9TXVIOr93mibFoDrHJfKhhMXtUKzt+pw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from SJ1PR11MB6129.namprd11.prod.outlook.com (2603:10b6:a03:488::12)
+ by CH3PR11MB7772.namprd11.prod.outlook.com (2603:10b6:610:120::5)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.25; Tue, 5 May
+ 2026 10:17:18 +0000
+Received: from SJ1PR11MB6129.namprd11.prod.outlook.com
+ ([fe80::45f:5907:efdb:cb5b]) by SJ1PR11MB6129.namprd11.prod.outlook.com
+ ([fe80::45f:5907:efdb:cb5b%3]) with mapi id 15.20.9870.023; Tue, 5 May 2026
+ 10:17:18 +0000
+Message-ID: <bcf8f79b-33c7-4c42-9914-64d7b0c72018@intel.com>
+Date: Tue, 5 May 2026 15:47:11 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH v2 2/9] drm/colorop: Add limited-range YUV-to-RGB CSC
+ FF enum values
+Content-Language: en-GB
+To: Harry Wentland <harry.wentland@amd.com>,
+ <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>
+References: <20260330153451.99472-1-harry.wentland@amd.com>
+ <20260330153451.99472-3-harry.wentland@amd.com>
+ <1fe865c5-3f82-4178-a88e-88a6837a4819@intel.com>
+ <7acc6e90-63e7-4c09-9944-502006c77f28@amd.com>
+From: "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>
+In-Reply-To: <7acc6e90-63e7-4c09-9944-502006c77f28@amd.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: MAXPR01CA0116.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:a00:5d::34) To SJ1PR11MB6129.namprd11.prod.outlook.com
+ (2603:10b6:a03:488::12)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PR11MB6129:EE_|CH3PR11MB7772:EE_
+X-MS-Office365-Filtering-Correlation-Id: ad65159e-913a-4a08-d9b0-08deaa8f7c6e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|376014|366016|18002099003|22082099003|56012099003; 
+X-Microsoft-Antispam-Message-Info: vzDlhNpyUpPa0C32Uu3z4N2eQSmV90cv7/8amlcDQnwcgnW/3eKh/fmZlPE5wUj+X6WGxE1RgzpUScPOaA5HqWBJTU9if2Wltq1oXcI0H9sOmR190Hke+LWV9/oDjExApOYpI1643s79h1uc3wMIUPFOcf6JO5ynk1Gquz0SsgX7mFCGgdngpIbpPnEIcwBzpL8fTCmz5PfUtt8i7jjMDznnuyP1cpxVm6bqKLoKU40GfarIw9fWzkXeYX1PUG5u0xquGXR9+ksd9+Txmv9HQwRinyG8ZKyJt3Jw6+GLQ7Z0VfutLFPjSI2U9RFbhlHj6Y3rZTag/Ddded+Zd6GxywahrCFpdpYlzoR4ZVfDieyXXTAKYiLWG+YBQhgpk0aTo6DWpyqhGF1uQ7vOEERaxG54OLf6PYT9r8iykbgRHfVNIelBvWnSYxOCbBbPgAH6QXedBg4mE1wvViHJHvxRdUUjFQy3ripa1gCIh+hbiF4F0jBtlT2Xz6rwpvCpq5V2YfemNf9rDL8JhWlCcrYawcFR8Nm5lC+qFs2NS7dhlY1Y3ue6grqekW3zfMI/eIElMrbB4Mcb3BrCkIyUH68AdWJScnWKcGcKiqH7ydQFwWHbe61Mr5OaF9e+KJ06mvgrI3U5Zz+Qoq2T2RfknP45x6F7uT3tF8cdQqb+/0REh2cXbOZLr7RtF7D4jDAFsH4h
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SJ1PR11MB6129.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(366016)(18002099003)(22082099003)(56012099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?M0ZrQ2RQUlpvbkdNMTJKMmxYZFRId2NtNStuNUVhM0twUjBCNnJqQ0FINlhr?=
+ =?utf-8?B?N3hqbXJZQU9xaGdxeHQ5dWNYaU1IN3M5dFFIL2p6UVdmOExTV2pveXptdFE0?=
+ =?utf-8?B?RnRIVWpCQUY3clpqdEN5OTBSeHNGTkx6WVBoTkZJSFNlTUROQkhqWmRSQmJE?=
+ =?utf-8?B?d1pXbUlSTWZVZTgyekJGNWhjVkoyQ25zRFFETndwV0lLc3RvUUF3TldFQUNs?=
+ =?utf-8?B?aDVmUG5uRnNwVW1CMDZsSjl1TUZ2TnpjR3huWkNicnBWbjc2VVNrTlVvTzVD?=
+ =?utf-8?B?OWQ5R3oySkdhTkJKMmxHZzRMM29yOVFEZ3JnT2VFNDI5UkJWL0dxcmZXOWEv?=
+ =?utf-8?B?Nm9ISXd6bUV2M3IrdHg4akRtOEd1UXhIdzZxMEFOYVk1WlE4eVRvdlZJcCtR?=
+ =?utf-8?B?TjVDWHVjeDBvZ2pya2VDK0dTZW1DeVVsVGdWV0taejI5WXlYM09DN1lLVXVM?=
+ =?utf-8?B?ZmVUekpqRCs0eUFNK1NQTkplUzQzWkZNamNwZXhQY05WTStVTG5KaXpZalpN?=
+ =?utf-8?B?WnRqWENtN0RpMWVBSmdZYkY2QUNHNmJ6SGQyQWpObjJhdW5SZzd0OHMxRGti?=
+ =?utf-8?B?WnNyTktRMFdKaWJQcVRrTGJNbTcwa0lXLytXbDhFTDR3MkZkS0ltd010Q2do?=
+ =?utf-8?B?dWZtd2FqeFJqNkN1eFcxa2x6V1lTbld0REFQZXM4WllZNnJlNG5waDduZy9i?=
+ =?utf-8?B?YXU4T3BwKzBKYmlEVzdQQ0FONzZSQjRBVC9Zd1owLzV5Zk95dHZTYnowcnZ0?=
+ =?utf-8?B?RUtkQVEzMWkyMGJuZTU4RnN0Q1p3MkdidVhNNEhFaFlMWUQ2VVR4cC9HVW5o?=
+ =?utf-8?B?WkE5dmVZVDQ5Vno1VFdheWM1VTlDVVZjczBSM2oyWjFuUlZETGZNL3F1TDRW?=
+ =?utf-8?B?UU5JbWV4cEt3WTNKODB0eTQ1aTlDZEhyOHcrZVRXQVRKNEZyMi9pWXhXS2hP?=
+ =?utf-8?B?YStKblpzalZpa0NPQXpwWkJxcmtYcDNSREQvOUxFYUMxOC90Mjc4RFZzekFB?=
+ =?utf-8?B?QTlNVlBHK3BpRXVhMm1yckYzRTg4RHhiWUduQnVOYTNIVFVWYlhmYytMSHJC?=
+ =?utf-8?B?blVHekhUQkxROUlaNENOc3VYcUZLYWFlRHM5WExwZFNYRmxYekpIcHRVTE1s?=
+ =?utf-8?B?N0VlVi96TGpheDdSemJYYXNVZk1rTytQOXJ4L2tJZEhvWjlPd0tCdmxyTlVh?=
+ =?utf-8?B?bFFsUU12VW9zd2JMT0RTaUZDZGwrakFJS0pRMXdQaWNaa1U4bUFwRlVEU01i?=
+ =?utf-8?B?bTNROUJiR2JwWFVoRHZpNXkrMk1relpQN2JwOWRDM3RONnlRcTJKMlhsSGNJ?=
+ =?utf-8?B?NXdMM1J3Qm85ZklsWlRXT1RQNkpDKzF1QXkwWXg0czdaNXMxblo5dFB0VFk4?=
+ =?utf-8?B?d3VFZGJVaWFhM05yOENmbXBzZ1J5a20rMHcwbU9jNWpMNFd6WTlKbnNMcnQ1?=
+ =?utf-8?B?S3FZVzh2QUJicmZydHJteTNvR3ZCTjVCelVyeVVuQlRSdVA3dXQ4K2JaanpB?=
+ =?utf-8?B?RGs5RDFKWEIzdXlEZ1J6b2hzQnBPVFVTdVhsem9melRHTjJtT21YR2pUUGxH?=
+ =?utf-8?B?T3hzdGZlVnJLMFY1Wlc5MVlVYlhBOUZ4SGRsZng4aTh5Vmp3Tk94T3ZFaXlH?=
+ =?utf-8?B?blg1UjZTMHgwZmhYdGNmcU1TQ0s1eXpCdUIveXNnVk5ubGs2cjF4L1VERC9h?=
+ =?utf-8?B?ckZHOVpBbnFzMmswSmo3UTRLRml4WXBqQ1lORFZ4UXJSL1ArSG1uTW5TL2di?=
+ =?utf-8?B?UFZzSVV3YUZLK0V6QUw2MldJZUlBMWt5NjJmZzR1ZHZ2ditHQVdwTEJGZ3Nj?=
+ =?utf-8?B?Vk43UkxhM2VMakdZRThmYkYyVWdnVFNRbWdWd2djUmV4aGRza3JGN2dJblQ1?=
+ =?utf-8?B?ZjUzcjFITG1uN3VJUjNrR3UySjBZaVhYUU5uV05KNFJ5bEgrdzRiV21yV21W?=
+ =?utf-8?B?K2pzTVF1cWFYa0ZLV0xHcUpyM09nQTNzTnVEVEg0QndBNzJBdGdxakRqRzRF?=
+ =?utf-8?B?blhRZjYzLzRGVE9nRG1PRy8vTWVjeEZ6eDZVQlBWVkV1UjJhUDVhTXAxajhj?=
+ =?utf-8?B?dEduTENkMFpoMVI5Uy84bUlaRVQyNGw1YzZoS1c1WWQrQ3E3NVZWYmNQbnc2?=
+ =?utf-8?B?RG5IejJGRUdFU3M1a1N6dlRmanJKZW9YVDlSWFBzRTZiN3ZNeG85Wk5rRmdI?=
+ =?utf-8?B?dSs3dzJoSWp6RHJOeEpnc3ZjYUxaak02d0tCT1Z3ZVBNanp0VFdyWHpqSjVL?=
+ =?utf-8?B?VlZISlR3UGxvZmZtVG1hUUpYQmpmWUJaRm9XanRCL1J5em15OXVIdktjdnlk?=
+ =?utf-8?B?b1hDYWFnUkF6OVpQTHZRL251emxLRk8vN2Y1ajZJNzVnS0NBUk1VMjJSQzJp?=
+ =?utf-8?Q?rnoEdLLvlppSWqnA=3D?=
+X-Exchange-RoutingPolicyChecked: ZhKxZEm1nl2p4RpVVI2Zxq6YfSVVJl74L5UTJCixnbaW2X2wCqqSImqTHvlmQI7ARdkJloAl39phBRrSLXU2SVi1FIvbjrz2MGc+V2/DWTrwJdHlUBUtcuy5MjE91z+SKriySfjQtqOI+NyrPgN5GaqnmcBJx+4SVIYcA7SHnwCDGfx+UBlAYI9TUCKbbwIihMMxYYwmOC83WMdyUezpBrNXkQKFzzF1+95oiZayViaBj1LH63EGs94edwkccQRFPDL+tIJRYyvxvk0KmBx2zu+BOUXw5YEtPG52z5C6P5cgJbvP5Pjkefe96Dr1X+VnHxERHdlWvaybuTNfdPdTXw==
+X-MS-Exchange-CrossTenant-Network-Message-Id: ad65159e-913a-4a08-d9b0-08deaa8f7c6e
+X-MS-Exchange-CrossTenant-AuthSource: SJ1PR11MB6129.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 May 2026 10:17:18.1365 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: cMImrrYDunijER6WaBY1U8I72lyB8wRRqWs8r/izt5W/D5ThxW7PMRlXWq0NfkYMKqTgeRrnyUz0LCG5H51UdVdCsDcoFurqOuoKZl6coQI=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR11MB7772
+X-OriginatorOrg: intel.com
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,278 +172,150 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: YuanShang <YuanShang.Mao@amd.com>
 
-[ Upstream commit d0f5711fa14a09c010537375cf34893cd33bc2ee ]
 
-Don't map or unmap svm range to gpu if vm is not ready for updates.
+On 4/30/2026 11:49 PM, Harry Wentland wrote:
+> 
+> 
+> On 2026-04-23 05:34, Borah, Chaitanya Kumar wrote:
+>>
+>>
+>> On 3/30/2026 9:04 PM, Harry Wentland wrote:
+>>> Add three new limited-range YUV-to-RGB conversion presets to the
+>>> CSC Fixed-Function colorop enum:
+>>>
+>>>     - DRM_COLOROP_CSC_FF_YUV601_LIMITED_RGB601
+>>>     - DRM_COLOROP_CSC_FF_YUV709_LIMITED_RGB709
+>>>     - DRM_COLOROP_CSC_FF_YUV2020_LIMITED_RGB2020
+>>>
+>>> The existing full-range enums (YUV601_RGB601, YUV709_RGB709,
+>>> YUV2020_RGB2020) are kept as-is. The limited-range variants are
+>>> inserted after their corresponding full-range entries.
+>>>
+>>> This gives drivers the ability to advertise support for both full
+>>> and limited range YCbCr framebuffers via the color pipeline,
+>>> replacing the need for separate COLOR_ENCODING and COLOR_RANGE
+>>> properties on the CSC colorop.
+>>>
+>>> Assisted-by Claude:claude-opus-4.6
+>>>
+>>> Signed-off-by: Harry Wentland <harry.wentland@amd.com>
+>>> ---
+>>>    drivers/gpu/drm/drm_colorop.c | 11 +++++----
+>>>    include/drm/drm_colorop.h     | 42 ++++++++++++++++++++++++++++++-----
+>>>    2 files changed, 43 insertions(+), 10 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/drm_colorop.c b/drivers/gpu/drm/drm_colorop.c
+>>> index 6a345e2e8b15..f0d11cf7e3cd 100644
+>>> --- a/drivers/gpu/drm/drm_colorop.c
+>>> +++ b/drivers/gpu/drm/drm_colorop.c
+>>> @@ -92,10 +92,13 @@ static const struct drm_prop_enum_list drm_colorop_lut3d_interpolation_list[] =
+>>>    };
+>>>      static const char * const colorop_csc_ff_type_names[] = {
+>>> -    [DRM_COLOROP_CSC_FF_YUV601_RGB601]   = "YUV601 to RGB601",
+>>> -    [DRM_COLOROP_CSC_FF_YUV709_RGB709]   = "YUV709 to RGB709",
+>>> -    [DRM_COLOROP_CSC_FF_YUV2020_RGB2020] = "YUV2020 to RGB2020",
+>>> -    [DRM_COLOROP_CSC_FF_RGB709_RGB2020]  = "RGB709 to RGB2020",
+>>> +    [DRM_COLOROP_CSC_FF_YUV601_RGB601]           = "YUV601 to RGB601",
+>>> +    [DRM_COLOROP_CSC_FF_YUV601_LIMITED_RGB601]    = "YUV601 Limited to RGB601",
+>>> +    [DRM_COLOROP_CSC_FF_YUV709_RGB709]            = "YUV709 to RGB709",
+>>> +    [DRM_COLOROP_CSC_FF_YUV709_LIMITED_RGB709]    = "YUV709 Limited to RGB709",
+>>> +    [DRM_COLOROP_CSC_FF_YUV2020_RGB2020]          = "YUV2020 to RGB2020",
+>>> +    [DRM_COLOROP_CSC_FF_YUV2020_LIMITED_RGB2020]  = "YUV2020 Limited to RGB2020",
+>>> +    [DRM_COLOROP_CSC_FF_RGB709_RGB2020]           = "RGB709 to RGB2020",
+>>
+>> As I understand, all combinations of input/output ranges are mathematically valid (e.g., “YCbCr XXX Limited → RGB Limited” or “YCbCr XXX Full → RGB Limited”).
+>>
+>> I am not sure how widespread such use-cases are but will it be prudent to have the enums be named as "YCbCrXXX <range> to RGB <range>"?
+> 
+> I'm not sure how likely it would be that anyone would need to convert to RGB limited. I'd prefer to keep things simpler for now. If anyone does need to add enums for conversion to limited RGB they could always add _RGB_LIMITED variations of the enums in the future.
+> 
 
-Why: DRM entity may already be killed when the svm worker try to
-update gpu vm.
+Alright makes sense, I will stick to the "RGB" == "RGB Full" nomencature.
 
-Signed-off-by: YuanShang <YuanShang.Mao@amd.com>
-Reviewed-by: Philip Yang <philip.yang@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit 55f8e366c326980174a4f2b9501b524d8eb25135)
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
+Thank you.
 
-LLM Generated explanations, may be completely bogus:
+==
 
-## Phase 1: Commit Message Forensics
-Step 1.1 Record: Subsystem `drm/amdkfd`, action verb `check`, intent:
-avoid SVM GPU VM map/unmap when the AMDGPU VM cannot accept updates.
+Chaitanya
 
-Step 1.2 Record: Tags found in the actual commit: `Signed-off-by:
-YuanShang <YuanShang.Mao@amd.com>`, `Reviewed-by: Philip Yang
-<philip.yang@amd.com>`, `Signed-off-by: Alex Deucher
-<alexander.deucher@amd.com>`. No `Fixes:`, no `Reported-by:`, no
-`Tested-by:`, no `Cc: stable`.
-
-Step 1.3 Record: The commit says the SVM worker may try to update a GPU
-VM after the DRM scheduler entity has already been killed. The user-
-visible symptom was verified from the lore thread: “Trying to push to a
-killed entity”, SDMA timeout, GPU reset, and a hung
-`svm_range_restore_work` kworker blocked in `dma_fence_wait_timeout()`
-via `svm_range_validate_and_map()`.
-
-Step 1.4 Record: This is a hidden bug fix despite the neutral “check”
-wording. It prevents submitting VM update jobs to a stopped/killed VM
-update entity, which otherwise can leave fences unsignaled and hang
-worker context.
-
-## Phase 2: Diff Analysis
-Step 2.1 Record: One file changed:
-`drivers/gpu/drm/amd/amdkfd/kfd_svm.c`, 11 insertions. Modified
-functions: `svm_range_unmap_from_gpu()` and `svm_range_map_to_gpu()`.
-Scope: single-file surgical fix.
-
-Step 2.2 Record: Before, both SVM unmap and map directly called
-`amdgpu_vm_update_range()`. After, both first call `amdgpu_vm_ready(vm)`
-and return `-EINVAL` if the VM is not ready. Affected path is VM page
-table update submission from SVM map/unmap, including restore worker and
-MMU notifier/unmap paths.
-
-Step 2.3 Record: Bug category is synchronization/lifetime correctness
-around process teardown. `amdgpu_vm_ready()` in current mainline
-verifies the VM is not evicting, has no evicted PTs, and its
-immediate/delayed VM update scheduler entities are not stopped. The fix
-avoids queueing jobs after those entities are killed.
-
-Step 2.4 Record: Fix quality is good: 11 lines, no new API, no feature,
-no data structure changes. Regression risk is low, mainly early
-returning `-EINVAL` when VM updates cannot run anyway. Backport risk is
-higher for older trees because `amdgpu_vm_ready()` only gained stopped-
-entity checks in commit `f101c13a8720c7`; older stable trees need that
-or an equivalent prerequisite for this patch to address the killed-
-entity failure.
-
-## Phase 3: Git History Investigation
-Step 3.1 Record: Blame shows SVM map/unmap infrastructure was introduced
-by `f80fe9d3c114` (“drm/amdkfd: map svm range to GPUs”, first in
-`v5.14-rc1`) and later reshaped by commits including `6c1a7867734`
-(`v5.18-rc1`). The missing readiness guard has existed in these SVM
-paths for a long time.
-
-Step 3.2 Record: No `Fixes:` tag, so no direct target to follow.
-
-Step 3.3 Record: Recent file history contains many SVM fixes, including
-UAF, address conversion, PTE clearing, restore work, and retry-fault
-race fixes. Related commit `597eb70f7ff7` / upstream `10c382ec6c6d`
-(“drm/amdkfd: Don’t clear PT after process killed”) added an
-`amdgpu_vm_ready()` guard in a different KFD GPUVM path and was
-explicitly stable-tagged.
-
-Step 3.4 Record: `git log --author='YuanShang' -10 --
-drivers/gpu/drm/amd/amdkfd` produced no reachable prior commits in this
-checkout. The patch was reviewed by Philip Yang, a regular AMD KFD
-contributor, and committed by Alex Deucher.
-
-Step 3.5 Record: Dependency identified: `f101c13a8720c7` (“drm/amdgpu:
-fix task hang from failed job submission during process kill”) teaches
-`amdgpu_vm_ready()` to check stopped VM update entities. Without it,
-this candidate’s guard does not fully detect the killed-entity condition
-in older stable trees.
-
-## Phase 4: Mailing List And External Research
-Step 4.1 Record: `b4 dig -c 55f8e366c326...` found the original
-submission at `https://patch.msgid.link/20260326103656.487304-1-
-YuanShang.Mao@amd.com`. `b4 dig -a` found only v1, standalone. WebFetch
-to lore was blocked by Anubis, but `b4 dig -m` retrieved the mbox
-successfully.
-
-Step 4.2 Record: `b4 dig -w` showed original recipients were YuanShang
-and `amd-gfx@lists.freedesktop.org`. The thread later included Christian
-König and Philip Yang.
-
-Step 4.3 Record: No separate bugzilla/syzbot link. The thread itself
-contains the bug log: killed entity error, SDMA timeout, GPU reset,
-recovered wedge, and hung kworker in `svm_range_restore_work`.
-
-Step 4.4 Record: Philip Yang stated the earlier “Don’t clear PT after
-process killed” patch fixed one path and this patch fixes another path,
-then gave `Reviewed-by: Philip Yang <philip.yang@amd.com>`. No NAKs
-found.
-
-Step 4.5 Record: Stable-specific web search could not be verified
-because WebFetch to lore/stable timed out or hit Anubis. No stable
-nomination for this exact patch found in the mbox.
-
-## Phase 5: Code Semantic Analysis
-Step 5.1 Record: Key functions: `svm_range_unmap_from_gpu()`,
-`svm_range_map_to_gpu()`.
-
-Step 5.2 Record: Callers verified: `svm_range_unmap_from_gpu()` is
-called by `svm_range_unmap_from_gpus()`, reached from CPU unmap/MMU
-notifier handling and SVM validation with PROT_NONE.
-`svm_range_map_to_gpu()` is called by `svm_range_map_to_gpus()`, reached
-from `svm_range_validate_and_map()`.
-
-Step 5.3 Record: Key callees: both changed functions call
-`amdgpu_vm_update_range()`. For SDMA VM updates, that path
-allocates/submits an AMDGPU job; `amdgpu_job_submit()` arms the
-scheduler job and calls `drm_sched_entity_push_job()`.
-
-Step 5.4 Record: Reachability verified: `svm_range_restore_work()` calls
-`svm_range_validate_and_map()`, which calls `svm_range_map_to_gpus()`
-and then `svm_range_map_to_gpu()`. The lore log shows exactly this call
-chain in a hung kworker. GPU page fault and MMU notifier paths also
-reach the same validation/unmap functions.
-
-Step 5.5 Record: Similar pattern verified: `amdgpu_amdkfd_gpuvm.c`
-already has an `amdgpu_vm_ready()` guard with the comment “VM entity
-stopped if process killed”; `amdgpu_cs.c` and `amdgpu_gem.c` also check
-VM readiness before clearing freed mappings.
-
-## Phase 6: Stable Tree Analysis
-Step 6.1 Record: The SVM map/unmap functions exist in `v5.15`, `v6.1`,
-`v6.6`, and `v6.8`, and none of those extracted versions had the new
-guards. The reported log was from Ubuntu `6.8.0-90-generic`, confirming
-a stable-derived affected kernel.
-
-Step 6.2 Record: Backport difficulty: minor to moderate. `v6.8`, `v6.6`,
-and `v6.1` have the same conceptual functions but older
-`amdgpu_vm_update_range()` signatures. `v5.15` uses older
-`amdgpu_vm_bo_update_mapping()` in this path. Older trees also need
-`f101c13a8720c7` or equivalent stopped-entity readiness logic.
-
-Step 6.3 Record: Related fix `597eb70f7ff7`/`10c382ec6c6d` addresses a
-different process-kill VM update path and was stable-tagged. It does not
-cover SVM map/unmap; Philip Yang explicitly confirmed this patch fixes
-another path.
-
-## Phase 7: Subsystem Context
-Step 7.1 Record: Subsystem is AMDGPU KFD SVM/HMM GPU memory management.
-Criticality: important, affecting AMD compute users using KFD SVM, GPU
-page faults, migration, and process teardown.
-
-Step 7.2 Record: Subsystem is active; recent history shows many SVM
-correctness fixes. The bug is in a mature path present since `v5.14+`,
-not just brand-new code.
-
-## Phase 8: Impact And Risk
-Step 8.1 Record: Affected population is driver/config/hardware specific:
-AMDGPU KFD users with SVM-capable compute workloads.
-
-Step 8.2 Record: Trigger requires SVM VM update work racing with forced
-process kill or teardown after VM scheduler entities are stopped. The
-lore log verifies a real trigger. Whether it is fully unprivileged
-depends on render/KFD device permissions and was not independently
-verified.
-
-Step 8.3 Record: Failure mode is severe: verified killed-entity error,
-SDMA ring timeout, GPU reset, recovered device wedge, and hung kworker
-for more than 245 seconds. Severity: HIGH, arguably CRITICAL for
-affected systems.
-
-Step 8.4 Record: Benefit is high for affected AMD KFD users because it
-avoids a real hung-task/GPU-reset failure. Risk is low in mainline-
-shaped code because the fix only refuses impossible VM updates. Risk for
-older stable trees is manageable but requires prerequisite/backport care
-around `amdgpu_vm_ready()` semantics.
-
-## Phase 9: Final Synthesis
-Step 9.1 Record: Evidence for backporting: real user log, severe
-hang/GPU reset, small surgical fix, reviewed by Philip Yang, related
-already-stable process-kill fix shows same class of bug, affected code
-exists in stable-derived kernels. Evidence against: no `Fixes:` or `Cc:
-stable`, and older trees need dependency/backport adjustment.
-Unresolved: exact clean-apply status for every active stable branch was
-not tested.
-
-Step 9.2 Record: Stable rules checklist: obviously correct and reviewed:
-yes, with dependency caveat. Fixes real bug: yes, verified by lore log.
-Important issue: yes, hung task/GPU reset. Small and contained: yes, 11
-lines in one file. No new feature/API: yes. Applies to stable: likely
-needs minor backport adjustment and `f101c13a8720c7` or equivalent for
-older trees.
-
-Step 9.3 Record: No exception category applies; this is not a device ID,
-quirk, DT, build, or documentation-only patch.
-
-Step 9.4 Record: Decision is to backport, but not as an isolated blind
-cherry-pick to older stable trees. It should be taken with the stopped-
-entity readiness prerequisite/backport so `amdgpu_vm_ready()` actually
-detects the process-kill condition.
-
-## Verification
-- Phase 1: Parsed target commit with `git show`; confirmed tags and no
-  `Fixes:`/stable tag.
-- Phase 2: Diff verified as 11 insertions in
-  `svm_range_unmap_from_gpu()` and `svm_range_map_to_gpu()`.
-- Phase 3: `git blame` verified SVM map/unmap history; `git describe
-  --contains` placed the original SVM mapping in `v5.14-rc1` and later
-  function reshaping in `v5.18-rc1`.
-- Phase 3: `git show f101c13a8720c7` verified `amdgpu_vm_ready()` gained
-  stopped-entity checks.
-- Phase 3: `git show 597eb70f7ff7` verified the related stable-tagged
-  “Don’t clear PT after process killed” guard in another path.
-- Phase 4: `b4 dig`, `b4 dig -a`, `b4 dig -w`, and decoded mbox verified
-  the lore thread, single v1 patch, recipients, log, Christian’s “Looks
-  correct”, and Philip’s `Reviewed-by`.
-- Phase 5: `rg` and file reads traced map/unmap callers through
-  `svm_range_validate_and_map()` and `svm_range_restore_work()`.
-- Phase 6: Extracted `v5.15`, `v6.1`, `v6.6`, and `v6.8` files; verified
-  the affected SVM functions exist without the new guard.
-- Phase 8: Lore log verified severity: killed entity, SDMA timeout, GPU
-  reset, device wedge recovery, and hung kworker.
-- UNVERIFIED: WebFetch lore/stable searches were blocked/timed out, and
-  I did not test applying the patch to each stable branch.
-
-**YES**
-
- drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 11 +++++++++++
- 1 file changed, 11 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-index 080242f9981b0..addb86803d9ae 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-@@ -1363,6 +1363,12 @@ svm_range_unmap_from_gpu(struct amdgpu_device *adev, struct amdgpu_vm *vm,
- 
- 	pr_debug("CPU[0x%llx 0x%llx] -> GPU[0x%llx 0x%llx]\n", start, last,
- 		gpu_start, gpu_end);
-+
-+	if (!amdgpu_vm_ready(vm)) {
-+		pr_debug("VM not ready, canceling unmap\n");
-+		return -EINVAL;
-+	}
-+
- 	return amdgpu_vm_update_range(adev, vm, false, true, true, false, NULL, gpu_start,
- 				      gpu_end, init_pte_value, 0, 0, NULL, NULL,
- 				      fence);
-@@ -1440,6 +1446,11 @@ svm_range_map_to_gpu(struct kfd_process_device *pdd, struct svm_range *prange,
- 	pr_debug("svms 0x%p [0x%lx 0x%lx] readonly %d\n", prange->svms,
- 		 last_start, last_start + npages - 1, readonly);
- 
-+	if (!amdgpu_vm_ready(vm)) {
-+		pr_debug("VM not ready, canceling map\n");
-+		return -EINVAL;
-+	}
-+
- 	for (i = offset; i < offset + npages; i++) {
- 		uint64_t gpu_start;
- 		uint64_t gpu_end;
--- 
-2.53.0
+> Harry
+> 
+>>
+>> ==
+>> Chaitanya
+>>
+>>>    };
+>>>      /* Init Helpers */
+>>> diff --git a/include/drm/drm_colorop.h b/include/drm/drm_colorop.h
+>>> index 2cd8e0779c2a..c414b9070afb 100644
+>>> --- a/include/drm/drm_colorop.h
+>>> +++ b/include/drm/drm_colorop.h
+>>> @@ -145,31 +145,61 @@ enum drm_colorop_csc_ff_type {
+>>>         *
+>>>         * enum string "YUV601 to RGB601"
+>>>         *
+>>> -     * Selects the fixed-function CSC preset that converts YUV
+>>> -     * (BT.601) colorimetry to RGB (BT.601).
+>>> +     * Selects the fixed-function CSC preset that converts full-range
+>>> +     * YUV (BT.601) colorimetry to RGB (BT.601).
+>>>         */
+>>>        DRM_COLOROP_CSC_FF_YUV601_RGB601,
+>>>    +    /**
+>>> +     * @DRM_COLOROP_CSC_FF_YUV601_LIMITED_RGB601:
+>>> +     *
+>>> +     * enum string "YUV601 Limited to RGB601"
+>>> +     *
+>>> +     * Selects the fixed-function CSC preset that converts limited-range
+>>> +     * YUV (BT.601) colorimetry to RGB (BT.601).
+>>> +     */
+>>> +    DRM_COLOROP_CSC_FF_YUV601_LIMITED_RGB601,
+>>> +
+>>>        /**
+>>>         * @DRM_COLOROP_CSC_FF_YUV709_RGB709:
+>>>         *
+>>>         * enum string "YUV709 to RGB709"
+>>>         *
+>>> -     * Selects the fixed-function CSC preset that converts YUV
+>>> -     * (BT.709) colorimetry to RGB (BT.709).
+>>> +     * Selects the fixed-function CSC preset that converts full-range
+>>> +     * YUV (BT.709) colorimetry to RGB (BT.709).
+>>>         */
+>>>        DRM_COLOROP_CSC_FF_YUV709_RGB709,
+>>>    +    /**
+>>> +     * @DRM_COLOROP_CSC_FF_YUV709_LIMITED_RGB709:
+>>> +     *
+>>> +     * enum string "YUV709 Limited to RGB709"
+>>> +     *
+>>> +     * Selects the fixed-function CSC preset that converts limited-range
+>>> +     * YUV (BT.709) colorimetry to RGB (BT.709).
+>>> +     */
+>>> +    DRM_COLOROP_CSC_FF_YUV709_LIMITED_RGB709,
+>>> +
+>>>        /**
+>>>         * @DRM_COLOROP_CSC_FF_YUV2020_RGB2020:
+>>>         *
+>>>         * enum string "YUV2020 to RGB2020"
+>>>         *
+>>> -     * Selects the fixed-function CSC preset that converts YUV
+>>> -     * (BT.2020) colorimetry to RGB (BT.2020).
+>>> +     * Selects the fixed-function CSC preset that converts full-range
+>>> +     * YUV (BT.2020) colorimetry to RGB (BT.2020).
+>>>         */
+>>>        DRM_COLOROP_CSC_FF_YUV2020_RGB2020,
+>>>    +    /**
+>>> +     * @DRM_COLOROP_CSC_FF_YUV2020_LIMITED_RGB2020:
+>>> +     *
+>>> +     * enum string "YUV2020 Limited to RGB2020"
+>>> +     *
+>>> +     * Selects the fixed-function CSC preset that converts limited-range
+>>> +     * YUV (BT.2020) colorimetry to RGB (BT.2020).
+>>> +     */
+>>> +    DRM_COLOROP_CSC_FF_YUV2020_LIMITED_RGB2020,
+>>> +
+>>>        /**
+>>>         * @DRM_COLOROP_CSC_FF_RGB709_RGB2020:
+>>>         *
+>>
+> 
 
