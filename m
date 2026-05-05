@@ -4,43 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5A7B7FF885A
-	for <amd-gfx@archiver.kernel.org>; Tue,  5 May 2026 09:52:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8A2AEFF885A
+	for <amd-gfx@archiver.kernel.org>; Tue,  5 May 2026 09:53:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E794C10EA26;
-	Tue,  5 May 2026 09:52:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1A1B110EA2C;
+	Tue,  5 May 2026 09:53:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="CiQl8tax";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="IBCDcP3I";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CC6E210E10D;
- Tue,  5 May 2026 09:52:00 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8472010EA2C;
+ Tue,  5 May 2026 09:53:22 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 3108360139;
- Tue,  5 May 2026 09:52:00 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0517BC2BCB4;
- Tue,  5 May 2026 09:51:56 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 287E04080B;
+ Tue,  5 May 2026 09:53:22 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 070F2C2BCB4;
+ Tue,  5 May 2026 09:53:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1777974720;
- bh=0qV4cOztwSvvWGGKaqSmfSyQWpKz4dYQwUC37FZ5STg=;
+ s=k20201202; t=1777974802;
+ bh=XQCROlKft5wVj5I9yTAn2YjpISfn8SpYZY1bJexHqxI=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=CiQl8taxKU0fmnrf3fQ9S1MwRNL2Fvty49yYhxu/HTr1jUZT7JulOnsQmuN55QBKU
- Miv97ef42Vm5cnjcrrDlJGk1hExO3jObYqHhCiUnU9lzbi3ByaFto8DS19+UnggCFt
- s/5uO6cbMhs9dopu9heMaKcF+5VtK2gidI+HvAss6qWXLOi3xNmczvJtZs5/V6jB36
- ShB18KtplzwNd0IW/7DxfZhI5OMcZ2jenLX6Ov+gWDk3F4hyz0Eac0vrs4ztod1Jwu
- BSM+pvrqA7JoZ0ICc/MqJvCcTuTtYzyfu7RXmM/9I5+iYjHsYdj7wkWz5JByXmZZWa
- xIUhj1Fv2FhBQ==
+ b=IBCDcP3ISBaVcx4upCyMln9GHHVc6P7dLw7QOAcqm8KshUBDANb2Yo5481ns19S1W
+ u2Y7LI+LmM40tQQXLpKmMVI/R7Q/JXwwt7nQQVC8iXkJ4HBWFhChWitCW+YyaA9ZMe
+ 6mq/KlQRK6n4w1a95Vz5H7Cr4U5e3YC90AuPmS+LZtLwx2vH09jNiIySmhwtdZ8z/7
+ ogDqwMjRE3EIOLc80Fuotk2g5JMkGbBOd1IGH7qPXsk7R7wTGj/toU+KQc5R9mHQ1+
+ k6i0fGyM7z7HbSCt8T8baQUOTluvfFEmNzfdztSRQd8ARfG8vUnc0L6B05caC8Uxsl
+ yxySiO3iBKhqA==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Lijo Lazar <lijo.lazar@amd.com>, Asad Kamal <asad.kamal@amd.com>,
+Cc: YuanShang <YuanShang.Mao@amd.com>, Philip Yang <philip.yang@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
- kenneth.feng@amd.com, christian.koenig@amd.com, airlied@gmail.com,
+ Felix.Kuehling@amd.com, christian.koenig@amd.com, airlied@gmail.com,
  simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 7.0] drm/amd/pm: Update emit clock logic
-Date: Tue,  5 May 2026 05:51:19 -0400
-Message-ID: <20260505095149.512052-3-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 7.0] drm/amdkfd: check if vm ready in svm map and
+ unmap to gpu
+Date: Tue,  5 May 2026 05:51:45 -0400
+Message-ID: <20260505095149.512052-29-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260505095149.512052-1-sashal@kernel.org>
 References: <20260505095149.512052-1-sashal@kernel.org>
@@ -48,6 +49,7 @@ MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 X-stable-base: Linux 7.0.3
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -63,246 +65,278 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Lijo Lazar <lijo.lazar@amd.com>
+From: YuanShang <YuanShang.Mao@amd.com>
 
-[ Upstream commit d6b99885b122528651d554a7bd907211a81579c2 ]
+[ Upstream commit d0f5711fa14a09c010537375cf34893cd33bc2ee ]
 
-If only one level is enabled in clock table, there is no need to
-follow the fine grained clock logic which expects a minimum of
-two levels (min/max).
+Don't map or unmap svm range to gpu if vm is not ready for updates.
 
-Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
-Reviewed-by: Asad Kamal <asad.kamal@amd.com>
+Why: DRM entity may already be killed when the svm worker try to
+update gpu vm.
+
+Signed-off-by: YuanShang <YuanShang.Mao@amd.com>
+Reviewed-by: Philip Yang <philip.yang@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit 7f19097af1496dd908a044ca95862f32d05f02df)
+(cherry picked from commit 55f8e366c326980174a4f2b9501b524d8eb25135)
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
 ## Phase 1: Commit Message Forensics
-Step 1.1 Record: subsystem `drm/amd/pm`; action verb `Update`; claimed
-intent is to change AMD SMU clock-level sysfs emission when a DPM clock
-table has only one enabled level.
+Step 1.1 Record: Subsystem `drm/amdkfd`, action verb `check`, intent:
+avoid SVM GPU VM map/unmap when the AMDGPU VM cannot accept updates.
 
-Step 1.2 Record: tags present are `Signed-off-by: Lijo Lazar
-<lijo.lazar@amd.com>`, `Reviewed-by: Asad Kamal <asad.kamal@amd.com>`,
-`Signed-off-by: Alex Deucher <alexander.deucher@amd.com>`, and a cherry-
-pick marker for `7f19097af149...`. No `Fixes:`, `Reported-by:`, `Tested-
-by:`, `Link:`, or `Cc: stable@vger.kernel.org` tag was present in the
-supplied commit message.
+Step 1.2 Record: Tags found in the actual commit: `Signed-off-by:
+YuanShang <YuanShang.Mao@amd.com>`, `Reviewed-by: Philip Yang
+<philip.yang@amd.com>`, `Signed-off-by: Alex Deucher
+<alexander.deucher@amd.com>`. No `Fixes:`, no `Reported-by:`, no
+`Tested-by:`, no `Cc: stable`.
 
-Step 1.3 Record: the body says fine-grained clock logic expects two
-levels, min and max, so it should not be used when the table has only
-one level. Symptom is incorrect sysfs clock-level emission for that one-
-level case; no crash, stack trace, affected version, or reproducer is
-described.
+Step 1.3 Record: The commit says the SVM worker may try to update a GPU
+VM after the DRM scheduler entity has already been killed. The user-
+visible symptom was verified from the lore thread: “Trying to push to a
+killed entity”, SDMA timeout, GPU reset, and a hung
+`svm_range_restore_work` kworker blocked in `dma_fence_wait_timeout()`
+via `svm_range_validate_and_map()`.
 
-Step 1.4 Record: this is a hidden logic/correctness bug fix, not a
-cleanup. The bug is that a one-level table can be treated as fine-
-grained min/max output.
+Step 1.4 Record: This is a hidden bug fix despite the neutral “check”
+wording. It prevents submitting VM update jobs to a stopped/killed VM
+update entity, which otherwise can leave fences unsignaled and hang
+worker context.
 
 ## Phase 2: Diff Analysis
-Step 2.1 Record: one file changed,
-`drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c`; one-line condition change in
-`smu_cmn_print_dpm_clk_levels()`. Scope is a single-file surgical driver
-fix.
+Step 2.1 Record: One file changed:
+`drivers/gpu/drm/amd/amdkfd/kfd_svm.c`, 11 insertions. Modified
+functions: `svm_range_unmap_from_gpu()` and `svm_range_map_to_gpu()`.
+Scope: single-file surgical fix.
 
-Step 2.2 Record: before, any table marked `SMU_DPM_TABLE_FINE_GRAINED`
-used the fine-grained path, which forces `count = 2` and emits min/max-
-style output. After, `count == 1` tables use the discrete-table path and
-emit exactly the real table entries.
+Step 2.2 Record: Before, both SVM unmap and map directly called
+`amdgpu_vm_update_range()`. After, both first call `amdgpu_vm_ready(vm)`
+and return `-EINVAL` if the VM is not ready. Affected path is VM page
+table update submission from SVM map/unmap, including restore worker and
+MMU notifier/unmap paths.
 
-Step 2.3 Record: bug category is logic/correctness in user-visible sysfs
-output. The specific broken mechanism is the fine-grained display path
-assuming two levels even when `dpm_table->count` is one.
+Step 2.3 Record: Bug category is synchronization/lifetime correctness
+around process teardown. `amdgpu_vm_ready()` in current mainline
+verifies the VM is not evicting, has no evicted PTs, and its
+immediate/delayed VM update scheduler entities are not stopped. The fix
+avoids queueing jobs after those entities are killed.
 
-Step 2.4 Record: fix quality is high: it preserves all existing behavior
-except the verified `is_fine_grained && count == 1` case. Regression
-risk is very low because non-fine-grained tables and fine-grained tables
-with more than one level are unchanged.
+Step 2.4 Record: Fix quality is good: 11 lines, no new API, no feature,
+no data structure changes. Regression risk is low, mainly early
+returning `-EINVAL` when VM updates cannot run anyway. Backport risk is
+higher for older trees because `amdgpu_vm_ready()` only gained stopped-
+entity checks in commit `f101c13a8720c7`; older stable trees need that
+or an equivalent prerequisite for this patch to address the killed-
+entity failure.
 
 ## Phase 3: Git History Investigation
-Step 3.1 Record: `git blame` shows `smu_cmn_print_dpm_clk_levels()` and
-the original `if (!is_fine_grained)` condition came from
-`a08ea4bc7711f8` (`drm/amd/pm: Add a helper to show dpm table`). Later
-fine-grained formatting changes came from `d81e52fc61fb9` (`drm/amd/pm:
-fix issue of missing '*' on pp_dpm_xxx nodes`). `a08ea4bc7711f8` is
-contained in `v7.0`, `v7.0.1`, `v7.0.2`, and `v7.0.3`, but not `v6.19`.
+Step 3.1 Record: Blame shows SVM map/unmap infrastructure was introduced
+by `f80fe9d3c114` (“drm/amdkfd: map svm range to GPUs”, first in
+`v5.14-rc1`) and later reshaped by commits including `6c1a7867734`
+(`v5.18-rc1`). The missing readiness guard has existed in these SVM
+paths for a long time.
 
-Step 3.2 Record: no `Fixes:` tag is present, so there was no Fixes
-target to follow. Related history identifies `a08ea4bc7711f8` as the
-likely introducing commit.
+Step 3.2 Record: No `Fixes:` tag, so no direct target to follow.
 
-Step 3.3 Record: recent file history shows a series of AMD PM
-helper/refactor commits, including `a08ea4bc7711f8` and `d81e52fc61fb9`.
-The target patch is standalone on top of code present in `v7.0.y`.
+Step 3.3 Record: Recent file history contains many SVM fixes, including
+UAF, address conversion, PTE clearing, restore work, and retry-fault
+race fixes. Related commit `597eb70f7ff7` / upstream `10c382ec6c6d`
+(“drm/amdkfd: Don’t clear PT after process killed”) added an
+`amdgpu_vm_ready()` guard in a different KFD GPUVM path and was
+explicitly stable-tagged.
 
-Step 3.4 Record: Lijo Lazar authored the helper introduction and has
-multiple recent commits under `drivers/gpu/drm/amd/pm`, so the author is
-an active AMD PM contributor.
+Step 3.4 Record: `git log --author='YuanShang' -10 --
+drivers/gpu/drm/amd/amdkfd` produced no reachable prior commits in this
+checkout. The patch was reviewed by Philip Yang, a regular AMD KFD
+contributor, and committed by Alex Deucher.
 
-Step 3.5 Record: dependency is the helper itself. The affected function
-is absent in `v6.19`, so older stable trees do not need this patch. For
-`v7.0.y`, the context exists and the backport should be trivial.
+Step 3.5 Record: Dependency identified: `f101c13a8720c7` (“drm/amdgpu:
+fix task hang from failed job submission during process kill”) teaches
+`amdgpu_vm_ready()` to check stopped VM update entities. Without it,
+this candidate’s guard does not fully detect the killed-entity condition
+in older stable trees.
 
 ## Phase 4: Mailing List And External Research
-Step 4.1 Record: `b4 dig -c 7f19097af149...`, `-a`, and `-w` all failed
-because the local repository does not contain that commit object.
-`WebFetch` to lore and git.kernel.org was blocked by Anubis. Web
-searches by exact subject/hash/body did not find the original target
-patch.
+Step 4.1 Record: `b4 dig -c 55f8e366c326...` found the original
+submission at `https://patch.msgid.link/20260326103656.487304-1-
+YuanShang.Mao@amd.com`. `b4 dig -a` found only v1, standalone. WebFetch
+to lore was blocked by Anubis, but `b4 dig -m` retrieved the mbox
+successfully.
 
-Step 4.2 Record: b4 recipient data could not be obtained. The only
-verified review signal is the commit-message `Reviewed-by: Asad Kamal`.
+Step 4.2 Record: `b4 dig -w` showed original recipients were YuanShang
+and `amd-gfx@lists.freedesktop.org`. The thread later included Christian
+König and Philip Yang.
 
-Step 4.3 Record: no bug-report link or reporter tag exists. No syzbot,
-Bugzilla, or user-report evidence was found.
+Step 4.3 Record: No separate bugzilla/syzbot link. The thread itself
+contains the bug log: killed entity error, SDMA timeout, GPU reset,
+recovered wedge, and hung kworker in `svm_range_restore_work`.
 
-Step 4.4 Record: related external context found the earlier AMD PM
-`Remove print_clock_levels` series and a `Use one level table if dpm not
-enabled` patch, but not this exact patch. These support the broader area
-of clock table/sysfs work but are not direct evidence for this commit.
+Step 4.4 Record: Philip Yang stated the earlier “Don’t clear PT after
+process killed” patch fixed one path and this patch fixes another path,
+then gave `Reviewed-by: Philip Yang <philip.yang@amd.com>`. No NAKs
+found.
 
-Step 4.5 Record: stable-list search via lore was blocked; web search
-found no stable-specific discussion.
+Step 4.5 Record: Stable-specific web search could not be verified
+because WebFetch to lore/stable timed out or hit Anubis. No stable
+nomination for this exact patch found in the mbox.
 
 ## Phase 5: Code Semantic Analysis
-Step 5.1 Record: modified function is `smu_cmn_print_dpm_clk_levels()`.
+Step 5.1 Record: Key functions: `svm_range_unmap_from_gpu()`,
+`svm_range_map_to_gpu()`.
 
-Step 5.2 Record: callers found in AMD SMU ppt files include
-`smu_v14_0_2_ppt.c`, `smu_v13_0_7_ppt.c`, `smu_v13_0_6_ppt.c`,
-`smu_v13_0_0_ppt.c`, `aldebaran_ppt.c`, `sienna_cichlid_ppt.c`,
-`navi10_ppt.c`, and `arcturus_ppt.c`.
+Step 5.2 Record: Callers verified: `svm_range_unmap_from_gpu()` is
+called by `svm_range_unmap_from_gpus()`, reached from CPU unmap/MMU
+notifier handling and SVM validation with PROT_NONE.
+`svm_range_map_to_gpu()` is called by `svm_range_map_to_gpus()`, reached
+from `svm_range_validate_and_map()`.
 
-Step 5.3 Record: key callees/macros are `sysfs_emit_at()`,
-`smu_cmn_freqs_match()`, `SMU_DPM_TABLE_MIN()`, and
-`SMU_DPM_TABLE_MAX()`.
+Step 5.3 Record: Key callees: both changed functions call
+`amdgpu_vm_update_range()`. For SDMA VM updates, that path
+allocates/submits an AMDGPU job; `amdgpu_job_submit()` arms the
+scheduler job and calls `drm_sched_entity_push_job()`.
 
-Step 5.4 Record: verified call chain is sysfs read path
-`amdgpu_get_pp_dpm_clock()` / `amdgpu_get_pp_od_clk_voltage()` ->
-`amdgpu_dpm_emit_clock_levels()` -> `smu_emit_ppclk_levels()` -> ASIC-
-specific `emit_clk_levels()` -> `smu_cmn_print_dpm_clk_levels()`. The
-buggy path is reachable through AMDGPU PM sysfs clock-level reads.
+Step 5.4 Record: Reachability verified: `svm_range_restore_work()` calls
+`svm_range_validate_and_map()`, which calls `svm_range_map_to_gpus()`
+and then `svm_range_map_to_gpu()`. The lore log shows exactly this call
+chain in a hung kworker. GPU page fault and MMU notifier paths also
+reach the same validation/unmap functions.
 
-Step 5.5 Record: similar one-level DPM table setup exists in multiple
-AMD SMU ppt files, and fine-grained flags are set in several SMU
-generations. This verifies that `count == 1` and fine-grained clock-
-table handling are both real local patterns.
+Step 5.5 Record: Similar pattern verified: `amdgpu_amdkfd_gpuvm.c`
+already has an `amdgpu_vm_ready()` guard with the comment “VM entity
+stopped if process killed”; `amdgpu_cs.c` and `amdgpu_gem.c` also check
+VM readiness before clearing freed mappings.
 
 ## Phase 6: Stable Tree Analysis
-Step 6.1 Record: `git grep` confirmed `smu_cmn_print_dpm_clk_levels()`
-is absent from `v6.19` and present in `v7.0`. Tags containing the helper
-include `v7.0` through `v7.0.3`.
+Step 6.1 Record: The SVM map/unmap functions exist in `v5.15`, `v6.1`,
+`v6.6`, and `v6.8`, and none of those extracted versions had the new
+guards. The reported log was from Ubuntu `6.8.0-90-generic`, confirming
+a stable-derived affected kernel.
 
-Step 6.2 Record: expected backport difficulty to `v7.0.y` is clean or
-near-clean: the patch changes one existing condition in code verified
-present in `v7.0`.
+Step 6.2 Record: Backport difficulty: minor to moderate. `v6.8`, `v6.6`,
+and `v6.1` have the same conceptual functions but older
+`amdgpu_vm_update_range()` signatures. `v5.15` uses older
+`amdgpu_vm_bo_update_mapping()` in this path. Older trees also need
+`f101c13a8720c7` or equivalent stopped-entity readiness logic.
 
-Step 6.3 Record: local `git log --grep` searches did not find this exact
-target commit in current, `stable/linux-7.0.y`, `master`, or `graphics-
-next`. Related fix `d81e52fc61fb9` is already in `v7.0`.
+Step 6.3 Record: Related fix `597eb70f7ff7`/`10c382ec6c6d` addresses a
+different process-kill VM update path and was stable-tagged. It does not
+cover SVM map/unmap; Philip Yang explicitly confirmed this patch fixes
+another path.
 
 ## Phase 7: Subsystem Context
-Step 7.1 Record: subsystem is DRM AMDGPU power management. Criticality
-is driver-specific but important for affected AMD GPU users because it
-affects exported PM sysfs clock-level state.
+Step 7.1 Record: Subsystem is AMDGPU KFD SVM/HMM GPU memory management.
+Criticality: important, affecting AMD compute users using KFD SVM, GPU
+page faults, migration, and process teardown.
 
-Step 7.2 Record: `drivers/gpu/drm/amd/pm/swsmu` is actively developed;
-recent history shows many AMD PM and SMU changes.
+Step 7.2 Record: Subsystem is active; recent history shows many SVM
+correctness fixes. The bug is in a mature path present since `v5.14+`,
+not just brand-new code.
 
 ## Phase 8: Impact And Risk
-Step 8.1 Record: affected users are AMDGPU users on SMU generations
-using `smu_cmn_print_dpm_clk_levels()` with a fine-grained DPM table
-whose count is one.
+Step 8.1 Record: Affected population is driver/config/hardware specific:
+AMDGPU KFD users with SVM-capable compute workloads.
 
-Step 8.2 Record: trigger is reading relevant AMDGPU PM sysfs files such
-as `pp_dpm_*` / OD clock output. Whether unprivileged users can read
-every affected node was not verified.
+Step 8.2 Record: Trigger requires SVM VM update work racing with forced
+process kill or teardown after VM scheduler entities are stopped. The
+lore log verifies a real trigger. Whether it is fully unprivileged
+depends on render/KFD device permissions and was not independently
+verified.
 
-Step 8.3 Record: verified failure mode is incorrect sysfs clock-level
-reporting: the old code can emit min/max-style two-level output for a
-one-level table. I verified the paired write path parses numeric levels
-and some fine-grained force-clock paths clamp to level 0/1 without
-checking `count`, but I did not verify a concrete hardware failure from
-writing the falsely advertised level.
+Step 8.3 Record: Failure mode is severe: verified killed-entity error,
+SDMA ring timeout, GPU reset, recovered device wedge, and hung kworker
+for more than 245 seconds. Severity: HIGH, arguably CRITICAL for
+affected systems.
 
-Step 8.4 Record: benefit is moderate for affected AMD GPU users because
-it fixes misleading PM sysfs state. Risk is very low because the patch
-is one conditional change and leaves all other cases unchanged.
+Step 8.4 Record: Benefit is high for affected AMD KFD users because it
+avoids a real hung-task/GPU-reset failure. Risk is low in mainline-
+shaped code because the fix only refuses impossible VM updates. Risk for
+older stable trees is manageable but requires prerequisite/backport care
+around `amdgpu_vm_ready()` semantics.
 
 ## Phase 9: Final Synthesis
-Evidence for backporting: real user-visible logic bug, one-line fix,
-reviewed by an AMD PM developer, authored by the contributor who
-introduced the helper, code exists in `v7.0.y`, and regression risk is
-very low.
+Step 9.1 Record: Evidence for backporting: real user log, severe
+hang/GPU reset, small surgical fix, reviewed by Philip Yang, related
+already-stable process-kill fix shows same class of bug, affected code
+exists in stable-derived kernels. Evidence against: no `Fixes:` or `Cc:
+stable`, and older trees need dependency/backport adjustment.
+Unresolved: exact clean-apply status for every active stable branch was
+not tested.
 
-Evidence against backporting: no verified crash, security issue, data
-corruption, deadlock, reporter, reproducer, `Fixes:` tag, `Cc: stable`,
-or accessible lore discussion. It is not relevant to stable trees older
-than `v7.0`.
+Step 9.2 Record: Stable rules checklist: obviously correct and reviewed:
+yes, with dependency caveat. Fixes real bug: yes, verified by lore log.
+Important issue: yes, hung task/GPU reset. Small and contained: yes, 11
+lines in one file. No new feature/API: yes. Applies to stable: likely
+needs minor backport adjustment and `f101c13a8720c7` or equivalent for
+older trees.
 
-Stable rules checklist: obviously correct: yes by local code inspection.
-Tested: no `Tested-by`, but reviewed. Real bug: yes, wrong sysfs clock-
-level output. Important: borderline, but it affects a stable user-
-visible PM interface and can advertise a non-real level.
-Small/contained: yes, one line in one driver helper. No new
-features/APIs: yes. Applies to stable: yes for `v7.0.y`; no need for
-older stable trees lacking the helper.
+Step 9.3 Record: No exception category applies; this is not a device ID,
+quirk, DT, build, or documentation-only patch.
 
-Exception category: none.
+Step 9.4 Record: Decision is to backport, but not as an isolated blind
+cherry-pick to older stable trees. It should be taken with the stopped-
+entity readiness prerequisite/backport so `amdgpu_vm_ready()` actually
+detects the process-kill condition.
 
 ## Verification
-- Phase 1: parsed supplied subject/body/tags; confirmed no reporter,
-  link, Fixes, Tested, or stable tag in the supplied message.
-- Phase 2: inspected the supplied diff and current
-  `smu_cmn_print_dpm_clk_levels()` implementation.
-- Phase 3: ran `git blame` on the affected lines; identified
-  `a08ea4bc7711f8` and `d81e52fc61fb9`.
-- Phase 3: ran `git show a08ea4bc7711f8` and `git show d81e52fc61fb9`;
-  confirmed helper introduction and related missing-star fix.
-- Phase 3/6: ran tag/ancestor checks; confirmed helper is in `v7.0*`
-  tags and not in `v6.19`.
-- Phase 4: ran `b4 dig` variants; all failed because the commit object
-  was not locally resolvable.
-- Phase 4: attempted lore/git.kernel.org fetches; blocked by Anubis.
-- Phase 4: searched web by exact subject/hash/body; did not find the
-  target discussion.
-- Phase 5: searched callers with `rg`; confirmed multiple AMD SMU ppt
-  callers.
-- Phase 5: read sysfs call chain in `amdgpu_pm.c`, `amdgpu_dpm.c`, and
-  `amdgpu_smu.c`.
-- Phase 5/8: inspected write-path parsing and force-clock logic;
-  verified possible level 0/1 handling, but not a concrete hardware
-  failure.
-- Phase 7: ran recent `git log` for `drivers/gpu/drm/amd/pm/swsmu`;
-  confirmed active subsystem churn.
-- UNVERIFIED: exact upstream lore discussion, all review comments, exact
-  commit date of `7f19097af149...`, and concrete hardware impact beyond
-  incorrect sysfs output.
-
-This should be backported to stable trees that contain the helper,
-especially `v7.0.y`; it should not be applied to older stable trees
-where the helper does not exist.
+- Phase 1: Parsed target commit with `git show`; confirmed tags and no
+  `Fixes:`/stable tag.
+- Phase 2: Diff verified as 11 insertions in
+  `svm_range_unmap_from_gpu()` and `svm_range_map_to_gpu()`.
+- Phase 3: `git blame` verified SVM map/unmap history; `git describe
+  --contains` placed the original SVM mapping in `v5.14-rc1` and later
+  function reshaping in `v5.18-rc1`.
+- Phase 3: `git show f101c13a8720c7` verified `amdgpu_vm_ready()` gained
+  stopped-entity checks.
+- Phase 3: `git show 597eb70f7ff7` verified the related stable-tagged
+  “Don’t clear PT after process killed” guard in another path.
+- Phase 4: `b4 dig`, `b4 dig -a`, `b4 dig -w`, and decoded mbox verified
+  the lore thread, single v1 patch, recipients, log, Christian’s “Looks
+  correct”, and Philip’s `Reviewed-by`.
+- Phase 5: `rg` and file reads traced map/unmap callers through
+  `svm_range_validate_and_map()` and `svm_range_restore_work()`.
+- Phase 6: Extracted `v5.15`, `v6.1`, `v6.6`, and `v6.8` files; verified
+  the affected SVM functions exist without the new guard.
+- Phase 8: Lore log verified severity: killed entity, SDMA timeout, GPU
+  reset, device wedge recovery, and hung kworker.
+- UNVERIFIED: WebFetch lore/stable searches were blocked/timed out, and
+  I did not test applying the patch to each stable branch.
 
 **YES**
 
- drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
-index 6fd50c2fd20e0..37de6022581ed 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
-@@ -1310,7 +1310,7 @@ int smu_cmn_print_dpm_clk_levels(struct smu_context *smu,
- 		level_index = 1;
- 	}
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+index 080242f9981b0..addb86803d9ae 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+@@ -1363,6 +1363,12 @@ svm_range_unmap_from_gpu(struct amdgpu_device *adev, struct amdgpu_vm *vm,
  
--	if (!is_fine_grained) {
-+	if (!is_fine_grained || count == 1) {
- 		for (i = 0; i < count; i++) {
- 			freq_match = !is_deep_sleep &&
- 				     smu_cmn_freqs_match(
+ 	pr_debug("CPU[0x%llx 0x%llx] -> GPU[0x%llx 0x%llx]\n", start, last,
+ 		gpu_start, gpu_end);
++
++	if (!amdgpu_vm_ready(vm)) {
++		pr_debug("VM not ready, canceling unmap\n");
++		return -EINVAL;
++	}
++
+ 	return amdgpu_vm_update_range(adev, vm, false, true, true, false, NULL, gpu_start,
+ 				      gpu_end, init_pte_value, 0, 0, NULL, NULL,
+ 				      fence);
+@@ -1440,6 +1446,11 @@ svm_range_map_to_gpu(struct kfd_process_device *pdd, struct svm_range *prange,
+ 	pr_debug("svms 0x%p [0x%lx 0x%lx] readonly %d\n", prange->svms,
+ 		 last_start, last_start + npages - 1, readonly);
+ 
++	if (!amdgpu_vm_ready(vm)) {
++		pr_debug("VM not ready, canceling map\n");
++		return -EINVAL;
++	}
++
+ 	for (i = offset; i < offset + npages; i++) {
+ 		uint64_t gpu_start;
+ 		uint64_t gpu_end;
 -- 
 2.53.0
 
