@@ -4,78 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 843BCCD342C
-	for <amd-gfx@archiver.kernel.org>; Wed,  6 May 2026 22:03:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E587DCD342C
+	for <amd-gfx@archiver.kernel.org>; Wed,  6 May 2026 22:17:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 014FA10EEDD;
-	Wed,  6 May 2026 22:03:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 65ABA10EEEC;
+	Wed,  6 May 2026 22:17:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="rMRe/5rL";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="FYYVQUlU";
 	dkim-atps=neutral
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com
- [209.85.221.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DE65210EEDD
- for <amd-gfx@lists.freedesktop.org>; Wed,  6 May 2026 22:03:06 +0000 (UTC)
-Received: by mail-wr1-f48.google.com with SMTP id
- ffacd0b85a97d-449de065cb3so170286f8f.2
- for <amd-gfx@lists.freedesktop.org>; Wed, 06 May 2026 15:03:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1778104985; x=1778709785; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=Pp3EGtMWh4es5zgnmIQKBzlo4VRMQnZNGpWv2pjf1KI=;
- b=rMRe/5rLTwB2wo9Et4DMlK1M7Cl3r3U4MOy3Kg+a1M6s1WqL/IEjmlIGbwGVspw0oQ
- AZKQofW5Eaj75UQwBiKJ9lKlS+Qswwh55C/o2et5jk9F820cwLrt6bKAvaKoFjIi5f8e
- p+VSqqlkaLLSDmxVkSdtagRISBDDvJhPiFLyrFL8DuDaKI4Q8WHyyMzvHq9RqHuPdpw1
- o+5oKm3xBDmA3A0inV2s0sPrmIgAb8PpAIMOEDuxtS8S5PzAVGqRwgbhueDyacwKj/zH
- CUSr1FZ0N8Go3IZI76GgX1opfXgRYaUeVNjcnig5G+nV1VyKcjtlx7shRnpu+ZJ+U6Am
- Wj0A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1778104985; x=1778709785;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=Pp3EGtMWh4es5zgnmIQKBzlo4VRMQnZNGpWv2pjf1KI=;
- b=JLkjngh6KvJQb5XUDIixgdWngQbwDpFHIb2rtUTdXxvw/lCVVBuYSevJSR0hvzz7a9
- /KLI2d+/GMteJXqOw3OVeqslu7pUnEEkXIwEpCfCFqzZj3hQerEPbfMvw2Z+7gPQNnP4
- Twu7kXnqsSFzJpJxNkPSBhEmUzTzRgdmOUMDAhIfSv21rrLemI/b8fJECQhDtF2DV388
- kG20YGcn1LDbwzFb5bdExtUKZYRiMwSCxB3lapnXb+kVrUoXkq87UnjWGlMlX2D6wJKN
- Y85Je5y0l622x7dXSm6HpbiTDkzYZ2awjWwB++ymqIU8f0wib48ZpQM4pMXp3CCwyBNp
- 73iQ==
-X-Gm-Message-State: AOJu0YwfdX2z+ZoejywoJpa7BcxgAq2e+laa34NC8xfbiOafcFnABXsA
- PQAPw43ertZH0MNYjRPwXW1ElrBlEw9Rj8ppsiNwSDpaojSzYhA4+Rbds0/Ulw==
-X-Gm-Gg: AeBDietTTNA6iBSZx3S11KPi+/Bgu6GQ+snka27MOuvFBUNSOEZsG/NpIxjwGAMgzNI
- QD6SyVa3kEATcABAja3UziIuxTNaMmlMSjY1aWNNF/usKNH1L1pVMy6cuypCf2jC24YMpvnsWrg
- sLwZ86nPVgySJ0CzTFLpZ5XMzbwY9VXW5jHhNfjOmWpMkaUuc+GlFkSHwxIunU4GKDGdh+eRXSs
- GBTXuR6u67YCErQviIjlVyZw+E3zOMSw8rFpXyYiv7ppUOcFjcWoK0rbfRH38V8gt6fGi/mrGYO
- LtS7Iw/m42xTBnNAzWvn7Us8GKQRn7Z+dKT1y74svuHJmVuLDKGvmmJpwRt0cGIQ3KLKIkmGsms
- BVprk3QIuqXLkHJjgwSEQ48t74hpltdImVNvZHhP8UaNZYmegnE+PcQlxLrAt46zDVQT4ZLvjqo
- 3QErDs3Go/kKP1VRpnKDrhIRxS3gOc9E4DIepRLG09SITkqwI6GgUDhAxWKA4Zq38RLcVXP/EkL
- /ZxkFd9v6NfErXYtbA9
-X-Received: by 2002:a05:6000:2507:b0:43f:e7c4:a36e with SMTP id
- ffacd0b85a97d-4515b525d56mr8844493f8f.16.1778104985158; 
- Wed, 06 May 2026 15:03:05 -0700 (PDT)
-Received: from timur-hyperion.localnet (5401DFC2.dsl.pool.telekom.hu.
- [84.1.223.194]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-4511d8cd160sm10698350f8f.8.2026.05.06.15.03.04
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 06 May 2026 15:03:04 -0700 (PDT)
-From: Timur =?UTF-8?B?S3Jpc3TDs2Y=?= <timur.kristof@gmail.com>
-To: amd-gfx@lists.freedesktop.org, Leo Li <sunpeng.li@amd.com>
-Cc: Harry.Wentland@amd.com, Aurabindo.Pillai@amd.com,
- mario.limonciello@amd.com, wiagn233@outlook.com, sysdadmin@m1k.cloud
-Subject: Re: [PATCH] drm/amd/display: Use vline2 interrupt on DCN instead of
- vstartup
-Date: Thu, 07 May 2026 00:03:03 +0200
-Message-ID: <2381512.vFx2qVVIhK@timur-hyperion>
-In-Reply-To: <d988ded3-92e5-4900-b6d1-887a96891852@amd.com>
-References: <20260504183649.165131-1-sunpeng.li@amd.com>
- <2349271.vFx2qVVIhK@timur-hyperion>
- <d988ded3-92e5-4900-b6d1-887a96891852@amd.com>
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D935C10EEE9;
+ Wed,  6 May 2026 22:17:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1778105854; x=1809641854;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=sSBdSxsfHapwhnk8JWsFU92IVShCY53vUe1hkAP78Xk=;
+ b=FYYVQUlUuOdgu6QOMScu03H4VqahhfCgK8iUGrroFE3kHmH/N1ER7+mq
+ iMX7/L3AvyXxUXa8boelSbeYNu8H+R5toB5MJdw4bbHyb/eu/EtYF7STK
+ udJsvFXLHf+9UAGd2LUjf7GRZLlOSfIqig76nMMn4rxIt8L4RdbOreFVr
+ 0AcVFQag1uLSXQEtKY2zY70+wDYszcEtVX3qlI0y5kdELX2hTnTLj3c1L
+ 0L7IK60piEPjr+EEGC0X9MrndzHI7nGohIGsPkiiimQxeFSOGj6s38S2y
+ 4FpfNOxA4wPdKU++tpPT5cnV97joS91Zu57LtoI8hFJT7IykWx8wVxpj4 w==;
+X-CSE-ConnectionGUID: rENedALCQO2uuvr/tNzeTg==
+X-CSE-MsgGUID: pekZhiNwRjelBQbOUtTrQQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11778"; a="89638198"
+X-IronPort-AV: E=Sophos;i="6.23,220,1770624000"; d="scan'208";a="89638198"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+ by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 May 2026 15:16:42 -0700
+X-CSE-ConnectionGUID: JIThJWJVRKuSM5IItQBo2Q==
+X-CSE-MsgGUID: 8T928h7nSWWvXYEh0v5dug==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,220,1770624000"; d="scan'208";a="238072298"
+Received: from lkp-server01.sh.intel.com (HELO 9ec114424ce8) ([10.239.97.150])
+ by fmviesa004.fm.intel.com with ESMTP; 06 May 2026 15:16:36 -0700
+Received: from kbuild by 9ec114424ce8 with local (Exim 4.98.2)
+ (envelope-from <lkp@intel.com>) id 1wKkXg-000000001Gz-27pO;
+ Wed, 06 May 2026 22:16:32 +0000
+Date: Thu, 7 May 2026 06:15:55 +0800
+From: kernel test robot <lkp@intel.com>
+To: Melissa Wen <mwen@igalia.com>, airlied@gmail.com,
+ alexander.deucher@amd.com, christian.koenig@amd.com,
+ harry.wentland@amd.com, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, simona@ffwll.ch, siqueira@igalia.com,
+ sunpeng.li@amd.com, tzimmermann@suse.de
+Cc: oe-kbuild-all@lists.linux.dev, Alex Hung <alex.hung@amd.com>,
+ Simon Ser <contact@emersion.fr>, Uma Shankar <uma.shankar@intel.com>,
+ Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>,
+ Xaver Hugl <xaver.hugl@kde.org>,
+ Pekka Paalanen <pekka.paalanen@collabora.com>,
+ Louis Chauvet <louis.chauvet@bootlin.com>,
+ Matthew Schwartz <matthew.schwartz@linux.dev>,
+ amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH v4 6/6] drm/amd/display: use plane color_mgmt_changed to
+ track colorop changes
+Message-ID: <202605070624.Fss9vEZt-lkp@intel.com>
+References: <20260501132527.522320-7-mwen@igalia.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260501132527.522320-7-mwen@igalia.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,148 +87,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wednesday, May 6, 2026 10:00:12=E2=80=AFPM Central European Summer Time =
-Leo Li=20
-wrote:
-> On 2026-05-04 16:54, Timur Krist=C3=B3f wrote:
-> > On Monday, May 4, 2026 8:36:49=E2=80=AFPM Central European Summer Time
-> >=20
-> > sunpeng.li@amd.com wrote:
-> >> From: Leo Li <sunpeng.li@amd.com>
-> >>=20
-> >> [Why]
-> >>=20
-> >> VStartup is an OTG event that fires when the pixel pipeline prepares f=
-or
-> >> pixel scanout of the next frame. It was previously used to deliver
-> >> vblank events for commits that do not trigger a fb address update, and
-> >> hence a pflip interrupt (hw cursor updates, for example).
-> >>=20
-> >> The issue with vstartup is that HW can mask the interrupt in cases whe=
-re
-> >> idle optimizations are enabled or when a HW lock is active. This could
-> >> the explain the range of flip_done timeouts frequently seen in the wil=
-d.
-> >=20
-> > Can you help me understand how that could happen with vstartup?
-> > Specifically, what is a "HW lock" and when is it active?
->=20
-> Hi Timur,
->=20
-> I should've prefaced this patch to say that this is a theoretical fix. I
-> haven't been able to reproduce the timeout issues myself, and this patch
-> came out of internal discussions with folks more familiar with the HW. I
-> don't think this will fix *all* cases of flip_done timeouts, but it may
-> address some of them.
+Hi Melissa,
 
-I see.
-Yeah, I've only very rarely seen that issue myself. Seems that the bug avoi=
-ds=20
-driver devs, but it's very popular among end users.
+kernel test robot noticed the following build warnings:
 
->=20
-> (But timeouts aside, we *should* transition to vline since it's more
-> reliable than vstartup.)
+[auto build test WARNING on drm-misc/drm-misc-next]
+[also build test WARNING on linus/master v7.1-rc2]
+[cannot apply to next-20260506]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-I agree.
+url:    https://github.com/intel-lab-lkp/linux/commits/Melissa-Wen/drm-atomic-only-add-colorop-state-from-active-color-pipeline/20260504-102820
+base:   https://gitlab.freedesktop.org/drm/misc/kernel.git drm-misc-next
+patch link:    https://lore.kernel.org/r/20260501132527.522320-7-mwen%40igalia.com
+patch subject: [PATCH v4 6/6] drm/amd/display: use plane color_mgmt_changed to track colorop changes
+config: alpha-allyesconfig (https://download.01.org/0day-ci/archive/20260507/202605070624.Fss9vEZt-lkp@intel.com/config)
+compiler: alpha-linux-gcc (GCC) 15.2.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260507/202605070624.Fss9vEZt-lkp@intel.com/reproduce)
 
->=20
-> To answer your questions: depending on the DCN generation, there can be a
-> few things that affects vstartup firing:
->=20
-> * DPG - DCN can Dynamically Power Gate parts of the display pipe when a
->   self-refresh capable eDP is connected. DPG is engaged when there's enou=
-gh
->   static frames (detected thru drm_vblank_off) Once gated, even though the
-> OTG (output timing generator) is still enabled, vstartup is masked. vline
-> is unaffected.
->=20
-> * GSL - Driver can use the Global Sync Lock to block HW from latching onto
->   double-buffered registers during programming, to prevent HW from latchi=
-ng
-> onto a partially programmed state. This will mask vstartup, but vline is
-> unaffected. See dcn20_pipe_control_lock()
->=20
-> * MALL - A DCN accessible cache introduced in DCN32+ DGPUs that can store=
- fb
-> data to allow for longer DRAM sleep. When scanning out from MALL, vstartup
-> is masked, vline is unaffected.
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202605070624.Fss9vEZt-lkp@intel.com/
 
-Thanks for the explanation.
-Just one more question: does DCN always mask the VSTARTUP interrupt under=20
-those conditions or is that configurable?
+All warnings (new ones prefixed by >>):
 
->=20
-> > Many users have experienced flip_done timeouts while playing games.
-> > In that scenario, would any idle optimization be enabled or is there a =
-"HW
-> > lock"?
->=20
-> If the game stops submitting frames for ~15 refresh cycles, it's possible
-> that PSR kicks in. Though I know there are plenty of reporters running on
-> external without PSR support. If it's DGPUs, it's very likely due to MALL.
-> A reporter I was debugging with said disabling MALL showed good results[1=
-].
-> If it's an APU with an external monitor, then that's less clear.
->=20
-> A lot of the reporters seem to be running Phoenix (DCN314), with a common
-> symptom of DMUB timing out[2]. If a self-refresh panel is involved, then =
-I'm
-> curious if this vline2 patch would help. Hamza's recent patch[3] that
-> enables various levels of reset may help to mitigate, but it doesn't fix
-> the root-cause. I'm planning a branch with this patch and [3], along with
-> debug dumps on flip_done timeouts for reporters to try.
->=20
+>> Warning: drivers/gpu/drm/drm_atomic.c:1625 function parameter 'plane_state' not described in 'drm_atomic_add_affected_colorops'
+>> Warning: drivers/gpu/drm/drm_atomic.c:1625 function parameter 'plane_state' not described in 'drm_atomic_add_affected_colorops'
 
-That's very nice to hear. I'm crossing my fingers that it works out.
-
-> [1]https://lore.kernel.org/amd-gfx/e415c38b-4102-40e4-a195-0256caf34802@m=
-1k.
-> cloud/ [2]https://gitlab.freedesktop.org/drm/amd/-/work_items/4831
-> [3]https://lore.kernel.org/lkml/20260505182105.420525-2-someguy@effective=
-=2Dli
-> ght.com/
-> >> DCN hardware provides 3 generic OTG interrupts that can be programmed
-> >> to>> fire on a specific line. Vline 0 and 1 are currently reserved, wi=
-th
-> >> vline2 available to use for event delivery. These interrupts cannot be
-> >> masked, as long as the OTG is active.
-> >>=20
-> >> [How]
-> >>=20
-> >> Switch to vline2 for vblank handling. Today, DC will program the
-> >> vline2 position to at vupdate -- the point at which HW latches to
-> >> double-buffered registers.
-> >>=20
-> >> Since all the vline interrupt types share the same interrupt src_id,
-> >> refactor the existing vline0 infrastructure to allow for all the vline=
-0,
-> >> 1, and 2 types.
-> >>=20
-> >> Since this is intended to replace vstartup for DCN, use the same handl=
-er
-> >> logic, but be careful to leave DCE on vstartup.
-> >=20
-> > Why not also switch DCE?
-> > Does DCE not have the vline interrupts or does it not have the same iss=
-ue
-> > with the vstartup interrupt?
->=20
-> I didn't want to touch DCE since I don't have information on how these
-> interrupts behave on them, and I didn't want to regress anything. Would n=
-eed
-> to do some digging to find out.
->=20
-
-Do we have any reports of these page flip timeouts on DCE?
-Maybe it's better to leave DCE well enough alone if the issue doesn't exist=
-=20
-there. (I have never seen one, but that doesn't mean it doesn't exist.)
-
-Best regards,
-Timur
-
-
-
-
-
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
