@@ -4,78 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D96CBCD3439
-	for <amd-gfx@archiver.kernel.org>; Wed,  6 May 2026 18:47:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D5D4ECD342C
+	for <amd-gfx@archiver.kernel.org>; Wed,  6 May 2026 19:16:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BA50F10E55F;
-	Wed,  6 May 2026 18:47:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3E4C310E57A;
+	Wed,  6 May 2026 19:16:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ZxXcdMC/";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="GpHqL5E4";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9B90F10E1EE;
- Wed,  6 May 2026 18:47:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1778093237; x=1809629237;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=3xpbKJPzqoU1Z63eak0Nx7FiPMzzURfEUudld2qqJTU=;
- b=ZxXcdMC/fatLn/BOtuZE5v7iCPX/572DkxaDDSPtG+Jzjas9GOVppDU2
- BAR59Q7IgDGBBWi8H0bfaM6aXo+OAgQGZQ0mVlrfxngkAQsovugEDDMBx
- 578Z4PNLw88LzBI5df7m3JzCxZIIQDBXQpC7LQaiFRGB0KhLKdkJVfSIR
- i4c+grI9+NG9Xm7b8fttRjzvCLyUHDQxgLu40yj8ZWqmXwUK2t5FAlOXC
- 9zLoIOZH7M5iRO1eETTZCA+5L3JpEGBlbbZOlmR4BA2I+XvO/9bCjt5Mk
- en5ykbxoOF4/TjJ7Zhcj9oLVU5/GJlpebGY6rDZBSr3t0iF9sVP4wnerV A==;
-X-CSE-ConnectionGUID: HjhATKS+RC2ZdR2cBHTOVQ==
-X-CSE-MsgGUID: UxZudTMBR2y8r4JjiHU0pA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11778"; a="66566774"
-X-IronPort-AV: E=Sophos;i="6.23,220,1770624000"; d="scan'208";a="66566774"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
- by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 May 2026 11:47:16 -0700
-X-CSE-ConnectionGUID: h5WmaH2FTjeC1v/DIqpSdg==
-X-CSE-MsgGUID: wyaab4rqQyeoF1LpeBAujA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,220,1770624000"; d="scan'208";a="236137464"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost)
- ([10.245.245.47])
- by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 May 2026 11:47:09 -0700
-Date: Wed, 6 May 2026 21:47:05 +0300
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Hamza Mahfooz <someguy@effective-light.com>
-Cc: dri-devel@lists.freedesktop.org, Harry Wentland <harry.wentland@amd.com>,
- Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Mario Limonciello <mario.limonciello@amd.com>,
- Alex Hung <alex.hung@amd.com>, Wayne Lin <Wayne.Lin@amd.com>,
- Timur =?iso-8859-1?Q?Krist=F3f?= <timur.kristof@gmail.com>,
- Aurabindo Pillai <aurabindo.pillai@amd.com>,
- "Mario Limonciello (AMD)" <superm1@kernel.org>,
- Ivan Lipski <ivan.lipski@amd.com>, Chenyu Chen <chen-yu.chen@amd.com>,
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6464B10E57F;
+ Wed,  6 May 2026 19:16:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
+ Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=KULPWTSaGUqqUtwef27b10JhBMrOgEU4AiWufFKRIb4=; b=GpHqL5E43+vfK0f3yWjQ5LK/LP
+ Dy4GNI3YcNdgbKguR9X88CY0R2piJofQqgSh7xYB2jaarEIWNB8ii8FVUJ5lolZ5DBAohrD6/ZEJ9
+ WC9bl9OmlulCAVDBOsKaZVGrWU2eJ3fgQUwuRqkWR1YAjHWepdbQNvBi9Aexs5u9VkfZ3XPLLOUGD
+ qIb7lq1yd8G8ZSxsyfKml7qkkjqIxefGiWIvsX29x3W7imfLGfgUT+mXnlvjkjUHJww3FIPHey3ei
+ dAnUvWlaMLCUOh/rd0Xd1x7mhlwkMIwBur6d5an/vUrUUS5+6Upop8iFW0TAJhe3UL4GkRMImX04E
+ Z5vcV2YQ==;
+Received: from [186.208.73.228] (helo=killbill.home)
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1wKhjO-0072Pg-I7; Wed, 06 May 2026 21:16:26 +0200
+From: Melissa Wen <mwen@igalia.com>
+To: airlied@gmail.com, alexander.deucher@amd.com, christian.koenig@amd.com,
+ harry.wentland@amd.com, simona@ffwll.ch, siqueira@igalia.com,
+ sunpeng.li@amd.com
+Cc: Krunoslav Kovac <Krunoslav.Kovac@amd.com>,
+ "Dr . David Alan Gilbert" <linux@treblig.org>,
+ Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>,
+ Alex Hung <alex.hung@amd.com>, Aurabindo Pillai <Aurabindo.Pillai@amd.com>,
  Matthew Schwartz <matthew.schwartz@linux.dev>,
- Tom Chung <chiahsuan.chung@amd.com>, Roman Li <Roman.Li@amd.com>,
- Takashi Iwai <tiwai@suse.de>, Colin Ian King <colin.i.king@gmail.com>,
- Charlene Liu <charlene.liu@amd.com>, Kees Cook <kees@kernel.org>,
- amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v6 1/2] drm/atomic: attempt full modeset on page flip
- timeout
-Message-ID: <afuMqXoBt2oIFRm9@intel.com>
-References: <20260505182105.420525-1-someguy@effective-light.com>
+ pekka.paalanen@collabora.com, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, kernel-dev@igalia.com
+Subject: [PATCH v2 1/5] drm/amd/display: use GAMCOR for degamma private props
+ in subsampled format
+Date: Wed,  6 May 2026 16:11:48 -0300
+Message-ID: <20260506191606.15022-2-mwen@igalia.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260506191606.15022-1-mwen@igalia.com>
+References: <20260506191606.15022-1-mwen@igalia.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260505182105.420525-1-someguy@effective-light.com>
-X-Patchwork-Hint: comment
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,99 +66,60 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, May 05, 2026 at 02:20:57PM -0400, Hamza Mahfooz wrote:
-> We should try to recover from page flip timeouts. Forcing
-> a full modeset should be generic across all atomic KMS drivers,
-> so try that first.
-> 
-> Signed-off-by: Hamza Mahfooz <someguy@effective-light.com>
-> ---
->  drivers/gpu/drm/drm_atomic_helper.c | 49 +++++++++++++++++++++++++++--
->  1 file changed, 46 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/drm_atomic_helper.c b/drivers/gpu/drm/drm_atomic_helper.c
-> index a768398a1884..7ee9d52f63c5 100644
-> --- a/drivers/gpu/drm/drm_atomic_helper.c
-> +++ b/drivers/gpu/drm/drm_atomic_helper.c
-> @@ -1926,6 +1926,43 @@ drm_atomic_helper_wait_for_vblanks(struct drm_device *dev,
->  }
->  EXPORT_SYMBOL(drm_atomic_helper_wait_for_vblanks);
->  
-> +static int force_full_modeset(struct drm_crtc *crtc)
-> +{
-> +	struct drm_modeset_acquire_ctx ctx;
-> +	struct drm_crtc_state *crtc_state;
-> +	struct drm_atomic_state *state;
-> +	int ret;
-> +	int err;
-> +
-> +	if (drm_atomic_crtc_needs_modeset(crtc->state))
-> +		return -EBUSY;
-> +
-> +	DRM_MODESET_LOCK_ALL_BEGIN(crtc->dev, ctx, 0, err);
-> +	state = drm_atomic_state_alloc(crtc->dev);
-> +	if (!state)
-> +		return -ENOMEM;
-> +
-> +	state->acquire_ctx = &ctx;
-> +
-> +	crtc_state = drm_atomic_get_crtc_state(state, crtc);
-> +	if (IS_ERR(crtc_state)) {
-> +		ret = PTR_ERR(crtc_state);
-> +		goto out;
-> +	}
-> +
-> +	crtc_state->mode_changed = true;
-> +
-> +	drm_info(crtc->dev,
-> +		 "[CRTC:%d:%s] Attempting force full modeset...\n",
-> +		 crtc->base.id, crtc->name);
-> +
-> +	ret = drm_atomic_commit(state);
-> +out:
-> +	drm_atomic_state_put(state);
-> +	DRM_MODESET_LOCK_ALL_END(crtc->dev, ctx, err);
-> +	return ret;
-> +}
-> +
->  /**
->   * drm_atomic_helper_wait_for_flip_done - wait for all page flips to be done
->   * @dev: DRM device
-> @@ -1949,17 +1986,23 @@ void drm_atomic_helper_wait_for_flip_done(struct drm_device *dev,
->  
->  	for (i = 0; i < dev->mode_config.num_crtc; i++) {
->  		struct drm_crtc_commit *commit = state->crtcs[i].commit;
-> -		int ret;
->  
->  		crtc = state->crtcs[i].ptr;
->  
->  		if (!crtc || !commit)
->  			continue;
->  
-> -		ret = wait_for_completion_timeout(&commit->flip_done, 10 * HZ);
-> -		if (ret == 0)
-> +		if (!wait_for_completion_timeout(&commit->flip_done, 10 * HZ)) {
-> +			int ret;
->  			drm_err(dev, "[CRTC:%d:%s] flip_done timed out\n",
->  				crtc->base.id, crtc->name);
-> +
-> +			ret = force_full_modeset(crtc);
+When setting plane degamma TF via AMD driver-specific color properties,
+the driver uses PRE_DEGAM color block (ROM). However, this block cannot
+be used with subsampled formats as it affects the linearity of color
+space in which HW scaler operates. For subsampled format, use the AMD
+color module to map plane degamma predefined curve to LUT and use GAMCOR
+block instead (RAM).
 
-This looks like some kind of ugly hack to paper over a driver bug.
-I really don't want this for i915/xe because all it'll end up doing
-is make it harder to debug any real issues.
+This is based on Harry's implementation for Fixed Matrix Colorop.
 
-> +			if (ret)
-> +				drm_err(dev,
-> +					"[CRTC:%d:%s] force full modeset failed! ret=%d\n",
-> +					crtc->base.id, crtc->name, ret);
-> +		}
->  	}
->  
->  	if (state->fake_commit)
-> -- 
-> 2.54.0
+Link: https://lore.kernel.org/dri-devel/20260330153451.99472-1-harry.wentland@amd.com/
+Co-developed-by: Harry Wentland <harry.wentland@amd.com>
+Signed-off-by: Harry Wentland <harry.wentland@amd.com>
+Signed-off-by: Melissa Wen <mwen@igalia.com>
+---
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_color.c  | 16 ++++++++++++----
+ 1 file changed, 12 insertions(+), 4 deletions(-)
 
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
+index 20a76d81d532..4e5b664bbec0 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
+@@ -1424,7 +1424,7 @@ __set_dm_plane_degamma(struct drm_plane_state *plane_state,
+ 	const struct drm_color_lut *degamma_lut;
+ 	enum amdgpu_transfer_function tf = AMDGPU_TRANSFER_FUNCTION_DEFAULT;
+ 	uint32_t degamma_size;
+-	bool has_degamma_lut;
++	bool has_degamma_lut, is_subsampled_format;
+ 	int ret;
+ 
+ 	degamma_lut = __extract_blob_lut(dm_plane_state->degamma_lut,
+@@ -1454,12 +1454,20 @@ __set_dm_plane_degamma(struct drm_plane_state *plane_state,
+ 		if (ret)
+ 			return ret;
+        } else {
+-		dc_plane_state->in_transfer_func.type =
+-			TF_TYPE_PREDEFINED;
++	       /* Check if format requires post-scale color processing (subsampled formats) */
++		is_subsampled_format = (dc_plane_state->format >= SURFACE_PIXEL_FORMAT_VIDEO_BEGIN &&
++					dc_plane_state->format < SURFACE_PIXEL_FORMAT_SUBSAMPLE_END);
++
++		dc_plane_state->in_transfer_func.type = TF_TYPE_PREDEFINED;
+ 
+ 		if (!mod_color_calculate_degamma_params(color_caps,
+-		    &dc_plane_state->in_transfer_func, NULL, false))
++							&dc_plane_state->in_transfer_func,
++							NULL,
++							is_subsampled_format)) {
++			drm_err(plane_state->state->dev,
++				"Failed to calculate degamma params.\n");
+ 			return -ENOMEM;
++		}
+ 	}
+ 	return 0;
+ }
 -- 
-Ville Syrjälä
-Intel
+2.53.0
+
