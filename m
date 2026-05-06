@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1C767CD3424
-	for <amd-gfx@archiver.kernel.org>; Wed,  6 May 2026 07:04:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D71BCD3424
+	for <amd-gfx@archiver.kernel.org>; Wed,  6 May 2026 07:04:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B14DB10ECCD;
-	Wed,  6 May 2026 07:04:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1C1E610ECDE;
+	Wed,  6 May 2026 07:04:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="2fayDK7o";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="1uZOv5Ur";
 	dkim-atps=neutral
-Received: from SN4PR2101CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11012048.outbound.protection.outlook.com
- [40.93.195.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 34F4710ECCD
- for <amd-gfx@lists.freedesktop.org>; Wed,  6 May 2026 07:04:35 +0000 (UTC)
+Received: from SN4PR0501CU005.outbound.protection.outlook.com
+ (mail-southcentralusazon11011010.outbound.protection.outlook.com
+ [40.93.194.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 569FA10ECDE
+ for <amd-gfx@lists.freedesktop.org>; Wed,  6 May 2026 07:04:43 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Qaoaom6yxJGD4bTpXe9C5ACj0ijX2RB5jB4gPVdIyLXERcLSed++iYNTG/9Jm7yfiYFyT5iKZ3v744p7hw6m05gx7EGTLXXkj6073u7/9lneg8R/lpG6ZpZyebxobNZRuLlru+5BlacSYEjzPQ4wpVqYz72epjKJ2GSfzpBUJce5N7gX53SnDDBAkBBN30rdaG+Ttfdr9dZMxgspkkg1d7A+xYMh5AQNljHwOgXBYcOMWH0uKk+bYUneFJa7SEIIc7fMiFdU68P785Yvlv+9zwMZ8U5oupjaPXTVBf4NHPhZHbndkgY5by63jWv4OZ3BQE80MV9TG/opkPy4hSyy/A==
+ b=Fcp7rzHzhJbAPFdh+GSKU3AMiPFpQYcFYFMSKA1FZkMj0DNowB9xuPjLDk9YiO6kdj1fCXzGjYWrt8C45qzCosD0j1n8WpsqSO5MIam0Fgbp61jqFG27iI3DvsVU51nAqtD8/xoIxNElxLcFWSbLPSyH4a0sKwqFkRxB4oVMgwr+xA+gPnmP38+mjWUF5YIUDZ7ucIvFueK6ZLsUWj07BkgBE96ppDAyhZ3+A7fClDp5oF6v4g/fNW+RXil3G2T/WynMs+YaF6Qm/E3YfsAwNP7bxIqbev0irFjYaR3UQHolo7fUCHqRMzfBsoBYBWiwhQCF9JkXDWvAP51ASms8HA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=b/m5or+oj4sDfdn6+06nafw85VIwb7h2NFI3DoezjMM=;
- b=tLr5KveF9Hynhd/fVE6FLAkFANTKLtZT9+H54wNor6zvt+5S8ZN0iZ+YFtbH74GounDpLAsRIKObBdD3aS4AlaLAmDgJTzOcHJg5qV6VKl4fYpHOkFXlacE5qC+q2coa2HR+eHgNmCGQgxOexEdeavwrDGMGeGbJSOE6dkQuMbL7lC2NPgrNstzanSzoBAC3Rd5mOUGdBmmuAa4DweLYFM2m9jAlDOztzOo3G8lwfjHWlzkQ3SztcVAIhFOeWimbr0hFwn2DN2oRTjhj2ZG+7IDR5CrARq4v7j2wwEvIRTS2bDbWl6wcohZSJ8vau/GzgxQ3d3vZa/LiYpu7Pfos7Q==
+ bh=H0caNdV3bkIJXdpgpVqfCeCWkTEDKQaNE2yBz5BFygo=;
+ b=WazgFpkiHIneLiifGxdJUWZPkpIZRGS7wKE6PD93LHCaP3tROJhD3R2dhHonEcSFX+SRaWHQYO7dbI3ZImgS99XfMKES2aNVQa1UHacuFyiqq/CR5MCI6TBWpRAmih0jybgH7nax5TG16HKUAmMWn+yfk/543RHe55nNqQlbg6G8InF4dnXir7f3+V5Y7yAmtLZ4euLHRc7vMYwAYJYuuVbUDNhKPitLLtLUuKFKptfiXoaVqawaJlpGR/GOXhvRhc76InPYvFEt9ZpaKeCLWfEShPDDlRw+d5QC2S3FTN73eNtFf1XyqK4gdHTKXmTGTwayjLZ3nKdvJk8TABS8yg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=b/m5or+oj4sDfdn6+06nafw85VIwb7h2NFI3DoezjMM=;
- b=2fayDK7oZKWzKrIo5VjEPUzexqCrEcAPCXnxkctErVzfFhQVSk2IlGzgUCUdJK6rHS/Qjnlrmyy45xIZwTSiy2FcYk8WtEGi7Q6kZt4gwu6/P5HncL4d0Ad4n2j1PjX7TWJkGBMratgPypjI8PdaxX2HO5FbFqjxrjnSsbtd5w0=
-Received: from MN2PR03CA0013.namprd03.prod.outlook.com (2603:10b6:208:23a::18)
- by DM4PR12MB6133.namprd12.prod.outlook.com (2603:10b6:8:ae::7) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9891.17; Wed, 6 May 2026 07:04:29 +0000
-Received: from BL6PEPF0001AB58.namprd02.prod.outlook.com
- (2603:10b6:208:23a:cafe::42) by MN2PR03CA0013.outlook.office365.com
- (2603:10b6:208:23a::18) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9870.27 via Frontend Transport; Wed,
- 6 May 2026 07:04:29 +0000
+ bh=H0caNdV3bkIJXdpgpVqfCeCWkTEDKQaNE2yBz5BFygo=;
+ b=1uZOv5UrZRgXmBPUvo0RVMpdng5VdvyR+PBRBE8vzKr7FqYiIw5gz/wBh4/EcGGm/aBHZ/aqdLOBrUnDMQOlrboNBpq4xMvM+fsaGAe08S6wW8NzEnk9WQZGXfjUxs44ozzxNsg+jRJ8SeQnm1IdjaSlvyihqDLfbRoXaxlC9no=
+Received: from BLAPR03CA0004.namprd03.prod.outlook.com (2603:10b6:208:32b::9)
+ by DM4PR12MB6375.namprd12.prod.outlook.com (2603:10b6:8:a2::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9891.15; Wed, 6 May
+ 2026 07:04:39 +0000
+Received: from BL6PEPF0001AB54.namprd02.prod.outlook.com
+ (2603:10b6:208:32b:cafe::bd) by BLAPR03CA0004.outlook.office365.com
+ (2603:10b6:208:32b::9) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9870.25 via Frontend Transport; Wed,
+ 6 May 2026 07:04:39 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -49,20 +49,20 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- BL6PEPF0001AB58.mail.protection.outlook.com (10.167.241.10) with Microsoft
+ BL6PEPF0001AB54.mail.protection.outlook.com (10.167.241.6) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9891.9 via Frontend Transport; Wed, 6 May 2026 07:04:29 +0000
+ 15.20.9891.9 via Frontend Transport; Wed, 6 May 2026 07:04:39 +0000
 Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Wed, 6 May
- 2026 02:04:29 -0500
+ 2026 02:04:38 -0500
 Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
  (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Wed, 6 May
- 2026 02:04:28 -0500
+ 2026 02:04:37 -0500
 Received: from james-Birman-PHX.amd.com (10.180.168.240) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.17 via
- Frontend Transport; Wed, 6 May 2026 02:04:19 -0500
+ Frontend Transport; Wed, 6 May 2026 02:04:29 -0500
 From: James Lin <PingLei.Lin@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -71,12 +71,11 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
  <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
- <Chen-Yu.Chen@amd.com>, Matthew Stewart <Matthew.Stewart2@amd.com>, "Nevenko
- Stupar" <nevenko.stupar@amd.com>, Gabe Teeger <gabe.teeger@amd.com>, "James
- Lin" <pinglei.lin@amd.com>
-Subject: [PATCH 09/20] drm/amd/display: Refactor dc_link_aux_transfer_raw
-Date: Wed, 6 May 2026 12:31:07 +0800
-Message-ID: <20260506043342.2164710-10-PingLei.Lin@amd.com>
+ <Chen-Yu.Chen@amd.com>, Gaghik Khachatrian <gaghik.khachatrian@amd.com>, Aric
+ Cyr <aric.cyr@amd.com>, James Lin <pinglei.lin@amd.com>
+Subject: [PATCH 10/20] drm/amd/display: always-true lower-bound assert
+Date: Wed, 6 May 2026 12:31:08 +0800
+Message-ID: <20260506043342.2164710-11-PingLei.Lin@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260506043342.2164710-1-PingLei.Lin@amd.com>
 References: <20260506043342.2164710-1-PingLei.Lin@amd.com>
@@ -85,29 +84,29 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB58:EE_|DM4PR12MB6133:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7c6ebb64-9fb7-4bfa-9f7b-08deab3db79c
+X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB54:EE_|DM4PR12MB6375:EE_
+X-MS-Office365-Filtering-Correlation-Id: ba9fcc08-953f-431d-992f-08deab3dbd76
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|376014|36860700016|1800799024|18002099003|22082099003|56012099003;
-X-Microsoft-Antispam-Message-Info: BsTfwMksNHLi5BS/WobnU+q6jB7v04p3G8kEokxI3r9on+FY8dLaxuRrSqCNmy9SCxoOXWNY6Jo2OO6s1Nk7/CJOgLdIYsOqldBe9vrS+ciIMXDBwj0kqepFGv/bsMT0iElxTabxpEb8PeEgrU9StXjOOqCrMDwMgYSaayn+cOhwHAzQ3nopI4j4QGZZ2+wgkEZ04eA4ecDtkCFqJP58kju5KoT6pZfzpYPEuqReVwIs0XFJcUmTpHZ01ddC4L5+mbahANqN3r7t/9hGlJkHAO1+2isIVOgXCHrDc245RV0/54SxY6R7D6+bCRrgZl0pVZzAQCJZoJ27fQSUw6h7+0JrVHjxhd4RErrt5sN6tPReGvNcTA1u4r5lozWqTgfny7WR1JLLiEcrV+n7uhSd//3GPD3GzsGkNifhnS93PQDZlA1QCn+GQ4yJ8Pl6f6wDiQHmA2XZdlmfa3s8fcHegGI4xWHISQOLRiIEUGh6YHLhKXpspzvANgg6Tvz6w+/t3p8WrJqy4C3wFehN9lqMxG3gaVJFwEjklJ/eba0CP6dkOL5JUoTGowugxb1Fj5UWqNxwoSzcDs2bQcsTXRBCtIUHFTYB2QfIwCB4RqgSRcP9bWhjUj+85q5vu1uhQg8HszmKmBCZSG4ibUW1q2+KU7E19tE6q4RP93IGBw71Ty8fOdhInNfeGa1GbDZyz3wOSc3FytsMiv61H2ke0F8D38+t9cL3KPEmJDp5Fv1OGEA=
+ ARA:13230040|36860700016|1800799024|376014|82310400026|22082099003|56012099003|18002099003;
+X-Microsoft-Antispam-Message-Info: 9wdPUrp0G3KVMrVCm+Od1YZb2B4yBpCqJ9WWGy28f68S9/GJ6XnAkClMX6JETlIFeCxZI5BvjP38JR8dzeoXvHpsBT9gcn2RkkvbnTkWV9QwN11IkvIfnh6owZ/EC8oGZeWdIZv2o1sjtpX+H02U4+hnG0xxCUumOGcB4CCJWX92riCjht4vRVMXdyTG5fIsRCy/Z15lJiGu4cY2NVZEWu6XfOv4GeJpiKo9uq3RTRpcBmEB6IUkVKr7hrl57+KcNiRjurEUKK9UJiVY70rYDyEt5IBzJ82hfhKsxpxXXwzuke02rNCGNKnIU7AOWQ3jY+eki2kiK05dkW3gJ7xeSuMyPbHIFDTZe5Mfe5NPJihX5OG+cZCZbEsf98Wtmit3PbBudsR8rtm5KjaiT7s6jO6mr5zEzayWaF2asXJCDFXSNX0I0nQELhND22McXenFAw8bdzup0Eo+lBdpEQvuylXrbkcqNWOJKaGwQfJet9h47VIx8vdN7WvuXiED5nMlntiRSpIuvK/2qK6mE8gg7xm9pPXfAMh0Dl4Uz8Ir83Qi5MsILdFEtDTM/RVaWb0mxOTAGxT/K+0V0fKDtiMmMRiiney2PGmRMZ5B7wOZ7cygaeBKpp6t1MTSfSgenUjY8hENkoSWqUFjiQ8fsaj2/D3wfLPTo2gzfCfqDo3p16RsHX3Ruirdo0z85S/xileJWQ3xiJr+DfKTC0OBjUUSenuejatw7oz0PVUqf8tu6TQ=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(376014)(36860700016)(1800799024)(18002099003)(22082099003)(56012099003);
+ SFS:(13230040)(36860700016)(1800799024)(376014)(82310400026)(22082099003)(56012099003)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: Q8eaKhHg+PU2dgDgRIuQgDr42U0tHxrUju6Tqpu5DnF00YDSrbrV7rYOo9luNLKM63ZTcdLoXEkHVvVLAeuthkG7S1gOXQRfIdoH1T9/kOiYDTplFj0FS0D/hJiup0nTqB+NZz4KTElNVwy1ihMWcIReUR4vWOjQaFrTTw6Ty/J2qa43/cbhs5G64Vta/t94yX5QJxbpwZ7p3f2ZHiiJwsj1YHWcO7YxEYCEjkzvHuQYJow+/IcTDRMDl8y6UVRPfHfTYtVA1B6sCrcbZXPu43LtreGDB81Sxe2tmL1OErPB/awwzvdmENO7bjqs75rnOi4PN685v/cQKTa5SExzP3JzGCmsPkP0EtVlV7jQQKLHmcq8eH0M3WhOtVXtrt/0m1MktsQV0mag8wkyzykbifwz4vOwNaRywuTT96DLURjTfbiTzmRFvIbIZV+hD9UK
+X-MS-Exchange-AntiSpam-MessageData-0: 9PdUel50M/JIVITNBnmxzZSjeo8XlBF3VzyauUsNrDo9a5Te+25TOal4T6OPlKAn5pXX130hL/0VVl1f06m6Mdb/AW9S5UKKgsOMST/MQe4gIKGgePyGeIJUvQdgg5d1lYoS9Y8veNY/5NmO9lmWz7QG1m+Km5z5m0B68i9/kF+SEwjDSyQ077jn0yls9Fi/V3COF5WaD1R+9iTY00z/ewhFW3G/sH0/kr0Kcw4H33DekQfKXyGoL23RqG5NB3D1ztrRe0K+LLf4N9WfD/ht2W0lcos5ddihOltL6Tqv6rz0hqMwOiOyFnGlbTxdTsW8sxi2ij5KUib9dp01yaqCIaE3d2KExBhGS2GXC4U7vmTThq+nR1afFOAY6Egks2AAmElP6OLNdYDYBq+pWaXAXZsdsptcnTjYUvC77l/rInfhS/k38DT1U1b5EA4FYrRG
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 May 2026 07:04:29.4604 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7c6ebb64-9fb7-4bfa-9f7b-08deab3db79c
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 May 2026 07:04:39.2853 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: ba9fcc08-953f-431d-992f-08deab3dbd76
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF0001AB58.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF0001AB54.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6133
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6375
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -122,96 +121,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Matthew Stewart <Matthew.Stewart2@amd.com>
+From: Gaghik Khachatrian <gaghik.khachatrian@amd.com>
 
-[Why & How]
-The logic for choosing between the dce_aux_transfer function variants is
-moved into dce_aux.c rather than link_ddc.c.
+[Why]
+A recent type change made the lower-bound part of the OTG instance
+assert redundant, which can trigger static-analysis noise and distract
+from actionable diagnostics.
 
-The "dce_aux_transfer_with_retries" function now uses
-dce_aux_transfer_raw in its implementation as the logic is equivalent.
+[How]
+Kept the meaningful upper-bound range validation required for safe
+narrowing to uint8_t. Removed the redundant non-negative portion of the
+assert so the check matches current type semantics. Revalidated with the
+latest debug build log: no warnings and no build-failure markers.
 
-Reviewed-by: Nevenko Stupar <nevenko.stupar@amd.com>
-Reviewed-by: Gabe Teeger <gabe.teeger@amd.com>
-Signed-off-by: Matthew Stewart <Matthew.Stewart2@amd.com>
+Reviewed-by: Aric Cyr <aric.cyr@amd.com>
+Signed-off-by: Gaghik Khachatrian <gaghik.khachatrian@amd.com>
 Signed-off-by: James Lin <pinglei.lin@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/dce/dce_aux.c  | 20 ++++++++++++-------
- drivers/gpu/drm/amd/display/dc/dce/dce_aux.h  |  4 ++++
- .../amd/display/dc/link/protocols/link_ddc.c  |  7 +------
- 3 files changed, 18 insertions(+), 13 deletions(-)
+ drivers/gpu/drm/amd/display/dc/dml2_0/dml2_utils.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_aux.c b/drivers/gpu/drm/amd/display/dc/dce/dce_aux.c
-index eee58f946fae..181944ce77ab 100644
---- a/drivers/gpu/drm/amd/display/dc/dce/dce_aux.c
-+++ b/drivers/gpu/drm/amd/display/dc/dce/dce_aux.c
-@@ -559,6 +559,18 @@ static enum i2caux_transaction_action i2caux_action_from_payload(struct aux_payl
- int dce_aux_transfer_raw(struct ddc_service *ddc,
- 		struct aux_payload *payload,
- 		enum aux_return_code_type *operation_result)
-+{
-+	if (ddc->ctx->dc->debug.enable_dmub_aux_for_legacy_ddc ||
-+	    !ddc->ddc_pin) {
-+		return dce_aux_transfer_dmub_raw(ddc, payload, operation_result);
-+	} else {
-+		return dce_aux_transfer_raw_with_ddc_pin(ddc, payload, operation_result);
-+	}
-+}
-+
-+int dce_aux_transfer_raw_with_ddc_pin(struct ddc_service *ddc,
-+		struct aux_payload *payload,
-+		enum aux_return_code_type *operation_result)
- {
- 	struct ddc *ddc_pin = ddc->ddc_pin;
- 	struct dce_aux *aux_engine;
-@@ -740,13 +752,7 @@ bool dce_aux_transfer_with_retries(struct ddc_service *ddc,
- 		if (payload->write)
- 			dce_aux_log_payload("  write", payload->data, payload->length, 16);
+diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/dml2_utils.c b/drivers/gpu/drm/amd/display/dc/dml2_0/dml2_utils.c
+index 1bc81e26a11f..5ed14f694fb0 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml2_0/dml2_utils.c
++++ b/drivers/gpu/drm/amd/display/dc/dml2_0/dml2_utils.c
+@@ -255,7 +255,7 @@ static void populate_pipe_ctx_dlg_params_from_dml(struct pipe_ctx *pipe_ctx, str
+ 	pipe_ctx->pipe_dlg_param.vupdate_width = dml_get_vupdate_width(mode_lib, pipe_idx);
+ 	pipe_ctx->pipe_dlg_param.vready_offset = dml_get_vready_offset(mode_lib, pipe_idx);
  
--		/* Check whether aux to be processed via dmub or dcn directly */
--		if (ddc->ctx->dc->debug.enable_dmub_aux_for_legacy_ddc
--			|| ddc->ddc_pin == NULL) {
--			ret = dce_aux_transfer_dmub_raw(ddc, payload, &operation_result);
--		} else {
--			ret = dce_aux_transfer_raw(ddc, payload, &operation_result);
--		}
-+		ret = dce_aux_transfer_raw(ddc, payload, &operation_result);
+-	ASSERT(pipe_ctx->stream_res.tg->inst >= 0 && pipe_ctx->stream_res.tg->inst <= 0xFF);
++	ASSERT(pipe_ctx->stream_res.tg->inst <= 0xFF);
+ 	pipe_ctx->pipe_dlg_param.otg_inst = (unsigned char)pipe_ctx->stream_res.tg->inst;
  
- 		DC_TRACE_LEVEL_MESSAGE(DAL_TRACE_LEVEL_INFORMATION,
- 					LOG_FLAG_I2cAux_DceAux,
-diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_aux.h b/drivers/gpu/drm/amd/display/dc/dce/dce_aux.h
-index c850ed49281f..8f4745694016 100644
---- a/drivers/gpu/drm/amd/display/dc/dce/dce_aux.h
-+++ b/drivers/gpu/drm/amd/display/dc/dce/dce_aux.h
-@@ -304,6 +304,10 @@ int dce_aux_transfer_raw(struct ddc_service *ddc,
- 		struct aux_payload *cmd,
- 		enum aux_return_code_type *operation_result);
- 
-+int dce_aux_transfer_raw_with_ddc_pin(struct ddc_service *ddc,
-+		struct aux_payload *cmd,
-+		enum aux_return_code_type *operation_result);
-+
- int dce_aux_transfer_dmub_raw(struct ddc_service *ddc,
- 		struct aux_payload *payload,
- 		enum aux_return_code_type *operation_result);
-diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_ddc.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_ddc.c
-index ef9306686b14..70f854cca029 100644
---- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_ddc.c
-+++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_ddc.c
-@@ -401,12 +401,7 @@ int link_aux_transfer_raw(struct ddc_service *ddc,
- 		struct aux_payload *payload,
- 		enum aux_return_code_type *operation_result)
- {
--	if (ddc->ctx->dc->debug.enable_dmub_aux_for_legacy_ddc ||
--	    !ddc->ddc_pin) {
--		return dce_aux_transfer_dmub_raw(ddc, payload, operation_result);
--	} else {
--		return dce_aux_transfer_raw(ddc, payload, operation_result);
--	}
-+	return dce_aux_transfer_raw(ddc, payload, operation_result);
- }
- 
- uint32_t link_get_fixed_vs_pe_retimer_write_address(struct dc_link *link)
+ 	pipe_ctx->pipe_dlg_param.hactive = hactive;
 -- 
 2.43.0
 
