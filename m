@@ -4,63 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2746CCD3442
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4EB99CD3427
 	for <amd-gfx@archiver.kernel.org>; Thu,  7 May 2026 10:13:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ADCF310F039;
+	by gabe.freedesktop.org (Postfix) with ESMTP id CFD9110F049;
 	Thu,  7 May 2026 10:13:29 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=linutronix.de header.i=@linutronix.de header.b="wbZoa8vJ";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="AxqgQ+t4";
-	dkim-atps=neutral
-X-Greylist: delayed 572 seconds by postgrey-1.36 at gabe;
- Wed, 06 May 2026 19:50:54 UTC
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DB9EC10E280
- for <amd-gfx@lists.freedesktop.org>; Wed,  6 May 2026 19:50:54 +0000 (UTC)
-From: Thomas Gleixner <tglx@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020; t=1778096481;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=Ijqy2/d6J8ZQPVUOuj/buCO3IPceYWbMDmJ2lSlKffY=;
- b=wbZoa8vJnVAQzN2n9Gg5pRURCxDLtKvidUT4grPOrcMuLMSOKLzaq5tOQU0NcII8yqWBKb
- TFwq2hnf0Gf2h+pT2GIv8md19OB0XZBiHur6hvjoA25F9+6buV1w7hTL7DheTlaWsjikoU
- Cz8bPA+I0r0zYl2WkV3z9BAZV6GDhJgVuP3t6dbAxUfESeBXzXT2obJQG8wY1lSLt2MeJz
- TlWktHoifpgmlvKDdFOFnvNRwaL9bJhIre5Hv6jyTKFQGv2DGITHrCbvIiwBROUSxd/MGo
- 3Hm/wFCjXIPY/JPKJMU7kdQIW7z4P8c9ODCPTEGhMa3DDyFfctYyfeqgLtrRrQ==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020e; t=1778096481;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=Ijqy2/d6J8ZQPVUOuj/buCO3IPceYWbMDmJ2lSlKffY=;
- b=AxqgQ+t48lMxky7rv8Yzqy0Y9V1z+YhT8BmuILKMsKY3RHcl6vAFmkfG+H6hXSzUS/JgKV
- F4Sd8RByCEUoItBg==
-To: "Ostrowski, Rafal" <Rafal.Ostrowski@amd.com>, Bert Karwatzki
- <spasswolf@web.de>
-Cc: "Varone, Dillon" <Dillon.Varone@amd.com>, "Hung, Alex"
- <Alex.Hung@amd.com>, "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "linux-next@vger.kernel.org" <linux-next@vger.kernel.org>,
- "linux-rt-devel@lists.linux.dev" <linux-rt-devel@lists.linux.dev>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Subject: Re: kernel panic when resuming from hibernate in next-20260406 with
- PREEMPT_RT
-In-Reply-To: <IA1PR12MB630726FFADF30847A8496012F8362@IA1PR12MB6307.namprd12.prod.outlook.com>
-References: <20260409131411.10598-1-spasswolf@web.de>
- <IA1PR12MB6307858BAECC7CC3AE8AA958F8582@IA1PR12MB6307.namprd12.prod.outlook.com>
- <a67b9159f69e8788a598fb459d8e6d99d1776f2f.camel@web.de>
- <IA1PR12MB6307AC51F4C6E4A77BCB5EDDF8582@IA1PR12MB6307.namprd12.prod.outlook.com>
- <IA1PR12MB630789B32C2104D1FAC2B761F8592@IA1PR12MB6307.namprd12.prod.outlook.com>
- <a1c86a3b83e26d86f95068e8005ce4b2efdca23a.camel@web.de>
- <IA1PR12MB630726FFADF30847A8496012F8362@IA1PR12MB6307.namprd12.prod.outlook.com>
-Date: Wed, 06 May 2026 21:41:20 +0200
-Message-ID: <87ik90wckf.ffs@tglx>
+Received: from h6.fbrelay.privateemail.com (h6.fbrelay.privateemail.com
+ [162.0.218.229])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 456E110E21A;
+ Thu,  7 May 2026 00:23:12 +0000 (UTC)
+Received: from MTA-13-4.privateemail.com (mta-13-1.privateemail.com
+ [198.54.122.107])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ (No client certificate requested)
+ by h5.fbrelay.privateemail.com (Postfix) with ESMTPSA id 4g9tJF5n7mz2xBd;
+ Thu,  7 May 2026 00:23:09 +0000 (UTC)
+Received: from mta-13.privateemail.com (localhost [127.0.0.1])
+ by mta-13.privateemail.com (Postfix) with ESMTP id 4g9tJB64Szz3hhTD;
+ Wed,  6 May 2026 20:23:06 -0400 (EDT)
+Received: from hal-station.localdomain (unknown [174.91.51.28])
+ by mta-13.privateemail.com (Postfix) with ESMTPA;
+ Wed,  6 May 2026 20:22:32 -0400 (EDT)
+Date: Wed, 6 May 2026 20:22:26 -0400
+From: Hamza Mahfooz <someguy@effective-light.com>
+To: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+Cc: dri-devel@lists.freedesktop.org, Harry Wentland <harry.wentland@amd.com>,
+ Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ Alex Hung <alex.hung@amd.com>, Wayne Lin <Wayne.Lin@amd.com>,
+ Timur =?iso-8859-1?Q?Krist=F3f?= <timur.kristof@gmail.com>,
+ Aurabindo Pillai <aurabindo.pillai@amd.com>,
+ "Mario Limonciello (AMD)" <superm1@kernel.org>,
+ Ivan Lipski <ivan.lipski@amd.com>, Chenyu Chen <chen-yu.chen@amd.com>,
+ Matthew Schwartz <matthew.schwartz@linux.dev>,
+ Tom Chung <chiahsuan.chung@amd.com>, Roman Li <Roman.Li@amd.com>,
+ Takashi Iwai <tiwai@suse.de>, Colin Ian King <colin.i.king@gmail.com>,
+ Charlene Liu <charlene.liu@amd.com>, Kees Cook <kees@kernel.org>,
+ amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v6 1/2] drm/atomic: attempt full modeset on page flip
+ timeout
+Message-ID: <afvbQkKW3vo-d55q@hal-station.localdomain>
+References: <20260505182105.420525-1-someguy@effective-light.com>
+ <afuMqXoBt2oIFRm9@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <afuMqXoBt2oIFRm9@intel.com>
+X-Virus-Scanned: ClamAV using ClamSMTP
+X-Rspamd-Queue-Id: 4g9tJF5n7mz2xBd
 X-Mailman-Approved-At: Thu, 07 May 2026 10:13:28 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -76,19 +75,105 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Rafal!
+On Wed, May 06, 2026 at 09:47:05PM +0300, Ville Syrjälä wrote:
+> On Tue, May 05, 2026 at 02:20:57PM -0400, Hamza Mahfooz wrote:
+> > We should try to recover from page flip timeouts. Forcing
+> > a full modeset should be generic across all atomic KMS drivers,
+> > so try that first.
+> > 
+> > Signed-off-by: Hamza Mahfooz <someguy@effective-light.com>
+> > ---
+> >  drivers/gpu/drm/drm_atomic_helper.c | 49 +++++++++++++++++++++++++++--
+> >  1 file changed, 46 insertions(+), 3 deletions(-)
+> > 
+> > diff --git a/drivers/gpu/drm/drm_atomic_helper.c b/drivers/gpu/drm/drm_atomic_helper.c
+> > index a768398a1884..7ee9d52f63c5 100644
+> > --- a/drivers/gpu/drm/drm_atomic_helper.c
+> > +++ b/drivers/gpu/drm/drm_atomic_helper.c
+> > @@ -1926,6 +1926,43 @@ drm_atomic_helper_wait_for_vblanks(struct drm_device *dev,
+> >  }
+> >  EXPORT_SYMBOL(drm_atomic_helper_wait_for_vblanks);
+> >  
+> > +static int force_full_modeset(struct drm_crtc *crtc)
+> > +{
+> > +	struct drm_modeset_acquire_ctx ctx;
+> > +	struct drm_crtc_state *crtc_state;
+> > +	struct drm_atomic_state *state;
+> > +	int ret;
+> > +	int err;
+> > +
+> > +	if (drm_atomic_crtc_needs_modeset(crtc->state))
+> > +		return -EBUSY;
+> > +
+> > +	DRM_MODESET_LOCK_ALL_BEGIN(crtc->dev, ctx, 0, err);
+> > +	state = drm_atomic_state_alloc(crtc->dev);
+> > +	if (!state)
+> > +		return -ENOMEM;
+> > +
+> > +	state->acquire_ctx = &ctx;
+> > +
+> > +	crtc_state = drm_atomic_get_crtc_state(state, crtc);
+> > +	if (IS_ERR(crtc_state)) {
+> > +		ret = PTR_ERR(crtc_state);
+> > +		goto out;
+> > +	}
+> > +
+> > +	crtc_state->mode_changed = true;
+> > +
+> > +	drm_info(crtc->dev,
+> > +		 "[CRTC:%d:%s] Attempting force full modeset...\n",
+> > +		 crtc->base.id, crtc->name);
+> > +
+> > +	ret = drm_atomic_commit(state);
+> > +out:
+> > +	drm_atomic_state_put(state);
+> > +	DRM_MODESET_LOCK_ALL_END(crtc->dev, ctx, err);
+> > +	return ret;
+> > +}
+> > +
+> >  /**
+> >   * drm_atomic_helper_wait_for_flip_done - wait for all page flips to be done
+> >   * @dev: DRM device
+> > @@ -1949,17 +1986,23 @@ void drm_atomic_helper_wait_for_flip_done(struct drm_device *dev,
+> >  
+> >  	for (i = 0; i < dev->mode_config.num_crtc; i++) {
+> >  		struct drm_crtc_commit *commit = state->crtcs[i].commit;
+> > -		int ret;
+> >  
+> >  		crtc = state->crtcs[i].ptr;
+> >  
+> >  		if (!crtc || !commit)
+> >  			continue;
+> >  
+> > -		ret = wait_for_completion_timeout(&commit->flip_done, 10 * HZ);
+> > -		if (ret == 0)
+> > +		if (!wait_for_completion_timeout(&commit->flip_done, 10 * HZ)) {
+> > +			int ret;
+> >  			drm_err(dev, "[CRTC:%d:%s] flip_done timed out\n",
+> >  				crtc->base.id, crtc->name);
+> > +
+> > +			ret = force_full_modeset(crtc);
+> 
+> This looks like some kind of ugly hack to paper over a driver bug.
+> I really don't want this for i915/xe because all it'll end up doing
+> is make it harder to debug any real issues.
 
-On Mon, Apr 27 2026 at 09:23, Rafal Ostrowski wrote:
-> I am glad to hear that mentioned patch fixed your issue.
-> Small clarification - amdgpu is not designed to support
-> PREEMPT_RT flag, but it was still worth to fix as obvious regression.
+In that case, would you be okay with having
+drm_atomic_helper_wait_for_flip_done() return an error code, or did you
+have something else in mind?
 
-PREEMPT_RT is not a flag. It's a valid supported preemption model and
-you have to support it whether you like it or not. 
-
-Please fix your CI to test with CONFIG_PREEMPT_RT=y so future issues
-like that can be avoided.
-
-Thanks,
-
-        tglx
+> 
+> > +			if (ret)
+> > +				drm_err(dev,
+> > +					"[CRTC:%d:%s] force full modeset failed! ret=%d\n",
+> > +					crtc->base.id, crtc->name, ret);
+> > +		}
+> >  	}
+> >  
+> >  	if (state->fake_commit)
+> > -- 
+> > 2.54.0
+> 
+> -- 
+> Ville Syrjälä
+> Intel
