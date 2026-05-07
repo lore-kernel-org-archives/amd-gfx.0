@@ -4,103 +4,103 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1C85FCD343F
-	for <amd-gfx@archiver.kernel.org>; Thu,  7 May 2026 15:52:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 74357CD37AC
+	for <amd-gfx@archiver.kernel.org>; Thu,  7 May 2026 15:52:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9B9CE10F1EB;
-	Thu,  7 May 2026 15:52:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 023EB10F1EC;
+	Thu,  7 May 2026 15:52:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="1di9SFfC";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="UK3fGboe";
 	dkim-atps=neutral
-Received: from DM1PR04CU001.outbound.protection.outlook.com
- (mail-centralusazon11010030.outbound.protection.outlook.com [52.101.61.30])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 64EA510F1EC
- for <amd-gfx@lists.freedesktop.org>; Thu,  7 May 2026 15:52:22 +0000 (UTC)
+Received: from CY3PR05CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11013000.outbound.protection.outlook.com
+ [40.93.201.0])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 23C7710F1F0
+ for <amd-gfx@lists.freedesktop.org>; Thu,  7 May 2026 15:52:21 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=pe+MD1Rc8YpokjK1jvoGoyR43PXjJshSpb5r2qg432hMl3Agw6YRbnocKVVJVjgCUIh8IdumO7Cb6XTpip2sGLWSGPkK9P3kR7U2nmNBMdBYFYWUDKFJ0AGMVamRoTQBNOgTZN9rPa4Tm23JDIOj8Ps21/ytYclSB7y4l2gQKRkndVDgcLkXe1PAItzSVpHwoKhXy/u72JaOVmQFf2vCiya8/T7msb0EKnhZTfXJtKFvE7nJc59d0QBY1WWqrz7GdCTJ6rCREM59mPzQ75ED8Ys4KwdZMjugzpu83WXCLgFeSX1UcNMXfgVGlWGRaxqXQJnw4NJcw4dHhvBhGJ0A6g==
+ b=VUNEVatpKgxJhPgq0TwOowizTGW/6YO/TWbyiWLIN+TRqOcwQBm8kFx9wSld2WUfPmKeO+8qQgSIqEeWOeqSQJHzE4a8SkvXPW5QAcP5eyJsy1GNu+Pe64/W6yaS99Z5zujouubv+aLSHQW/DHsXTu+QxvChPSx+kC2YRRXbhoNOQia9QnKPl9duOfWpU3ZbliuaIY+TZIASnGcxfpoObErOQ/aGZvKIaAzCB73tSIW6A4wm/6B2p1xsupAztgCHv/heJahi6Vzn8m44izydKyxjQz42aqHG8wml9Mo0UsSEfL4pTzTklYtUVP4ABmwNY5JwHbU/BxzYDBVZ4bWM/w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=yxPlSN0mLxaKq3kJrTKY6bcR82mnV+KbCc2tUsurE5o=;
- b=OPuYuySwf+6sC60ACN4yO6heW9jHbrfLsziWp2Kp6ciYjnne0OMQQNUdzBkWNCYQFSYn/ogy1K3CsxsB8l3MtxSP4Dc6bU4fzpIuXm6yZ9nxyoHDdlJHKdrs1qN/OhY/ODC9R1IZ5zid9fQKIqK4wd3NI2rXqwyIGg7aXORkEjRFIuetps2aw5dL4J252A9TD+ufaorfBCNz7kk/GQbb4CZKeRMrZ1/fm6w65kcWvhV5KXWK84BkdmQGXFnm2E/l6IYxe/C+T8CnbW8opgeEGBe2zZacp5CKXK0swuHMo1B8NGpFw3Svqlk2SHROkqPGSomf9qW3ier5ZLfRJSnk6A==
+ bh=akVvAd1RzF2CNTMWDSJHCHcwFnAUD8eECBfLax80FkA=;
+ b=GPkymOOicckEqkp+2PAu5PGELzQO2Onbey3H7c/8bt722AHb9NipvOPPUT/twjifXnawjYLhqZpMEcSlZ5aycXcwf25LS/lMpZ+K5sA4/pTLYe2XvvM0D+UAmKypqVCnDrUinvKk+Ee5q1KqwBH3HWep2PifXUAMoW73Xx9Y63Xq6aFgPSF7IcfuDQTmrTzkpGkncw3koBodGa+VceJGbtISoin2BKsx1Vk2BZyBf1PxVF/L8yZ/7X8j49KL7skskCqKl6czuTlQZFhtxsgmya/nhJrv//jvnU0I9BF0LvTwn/SFPwGzAVh7cyuQEmxvPY9qVwxZcZ3quSzelkVERg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=yxPlSN0mLxaKq3kJrTKY6bcR82mnV+KbCc2tUsurE5o=;
- b=1di9SFfCcQwsCS5tnGHAQDPpy1PiTtu1uen9/WV9YMHTzKUWAjV/64TaB0erVDCfb/B00nrnIb7NmBI/WQVAASEXydnn3XOmx/5neQ/OQeqKVZjGBgc1w44ZuxRs/6vzbrqne4SMYmKQx+7wFBA5xRsCDVDlJIybgpA91ku41EA=
-Received: from CY5PR22CA0070.namprd22.prod.outlook.com (2603:10b6:930:80::14)
- by SA3PR12MB9160.namprd12.prod.outlook.com (2603:10b6:806:399::9)
+ bh=akVvAd1RzF2CNTMWDSJHCHcwFnAUD8eECBfLax80FkA=;
+ b=UK3fGboeY8NM/v2mcfON307TdaWGrTyEiM0dz+9vqzf3TncY5hZbZ7DjXd9m84Q1m+1V2hYyfGXK6JrU+7nvnfwVHovA8VYDeV+pUyl+9SQczMr9PNUcAlRLsJkvYclFraL1ODQ9koOcj109M7Z8ZducPx+F0d6XnZ6bdMrxfNI=
+Received: from SJ0PR03CA0390.namprd03.prod.outlook.com (2603:10b6:a03:3a1::35)
+ by PH7PR12MB8427.namprd12.prod.outlook.com (2603:10b6:510:242::8)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9891.17; Thu, 7 May
- 2026 15:52:17 +0000
-Received: from CY4PEPF0000EE37.namprd05.prod.outlook.com
- (2603:10b6:930:80:cafe::7b) by CY5PR22CA0070.outlook.office365.com
- (2603:10b6:930:80::14) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9891.18 via Frontend Transport; Thu,
- 7 May 2026 15:52:16 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9891.16; Thu, 7 May
+ 2026 15:52:09 +0000
+Received: from SJ5PEPF000001CA.namprd05.prod.outlook.com
+ (2603:10b6:a03:3a1:cafe::61) by SJ0PR03CA0390.outlook.office365.com
+ (2603:10b6:a03:3a1::35) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9891.16 via Frontend Transport; Thu,
+ 7 May 2026 15:52:09 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- CY4PEPF0000EE37.mail.protection.outlook.com (10.167.242.43) with Microsoft
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ SJ5PEPF000001CA.mail.protection.outlook.com (10.167.242.39) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9891.9 via Frontend Transport; Thu, 7 May 2026 15:52:16 +0000
-Received: from SATLEXMB03.amd.com (10.181.40.144) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.17; Thu, 7 May
- 2026 10:52:03 -0500
-Received: from satlexmb07.amd.com (10.181.42.216) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 7 May
- 2026 10:52:03 -0500
+ 15.20.9891.9 via Frontend Transport; Thu, 7 May 2026 15:52:09 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Thu, 7 May
+ 2026 10:51:58 -0500
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Thu, 7 May
+ 2026 10:51:57 -0500
 Received: from hwentlanryzen (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
- Transport; Thu, 7 May 2026 10:52:02 -0500
+ Transport; Thu, 7 May 2026 10:51:57 -0500
 From: Harry Wentland <harry.wentland@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>
-Subject: [PATCH v2 22/22] drm/amd/display: add HDMI 2.1 DSC over FRL support
-Date: Thu, 7 May 2026 11:51:44 -0400
-Message-ID: <20260507155147.182540-23-harry.wentland@amd.com>
+Subject: [PATCH v2 13/22] drm/amd/display: Add DCCG DIO, HPO, OPP,
+ and OPTC support for FRL
+Date: Thu, 7 May 2026 11:51:35 -0400
+Message-ID: <20260507155147.182540-14-harry.wentland@amd.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260507155147.182540-1-harry.wentland@amd.com>
 References: <20260507155147.182540-1-harry.wentland@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-Received-SPF: None (SATLEXMB03.amd.com: harry.wentland@amd.com does not
- designate permitted sender hosts)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000EE37:EE_|SA3PR12MB9160:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8acbc919-12df-4f2e-ebd6-08deac509d3e
+X-MS-TrafficTypeDiagnostic: SJ5PEPF000001CA:EE_|PH7PR12MB8427:EE_
+X-MS-Office365-Filtering-Correlation-Id: 18150c96-5042-4757-b5f2-08deac5098c9
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|82310400026|36860700016|1800799024|3023799003|56012099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: kf1Nkf2qsvlaVVTweYHO5O42s8uZek3BzjKV6gyWjXHd6Yd+WR05INe4B8rDEv0aeMcD4TYU8r8tzAtRDICWiMl+trXlJq7bMSEAFXcDTWdKenHpC0gkfLSlLWNL4rIL58LNyqMJ9EhwGD5n3O/lKrWnFnq9fherGv+KbdQYepISjZItTKZWg8dBek+/jmFtwfKsi7ts01CD1edAf5A8PZ9p4US64FBBKhTw1WOwc1BJ6MQ09+6hAVXmcBAauT0Ad1sbx3h0myznrChlHNS2ur1gS+ABESqCVVdoMiycJqEWIla9UDAYRq8/9vVumNWEgITLMiQCXF/FnAEMK+LBhHLjhsFTAlPClpWAJwO0tYufmtFoUg6w5ecIL2/zCwsJ2vi/aJ4PVpKeOULMZClpwST/8830iuE85RUODwxFq240HVAvnHwMXvlOIGpIVyUihTmvppd8oLm0Uv1u8Fy+mgCZ/uW962L4eQHPQtKJvy6kZLga1utkts1o4Sqp6dpDRPM+dWgV3X5qwIxnBMS5VmTlcmcvP6JRoCIBUkQdTq8fiG562l65rEBCPsS1QLI9CQOvHFqdHZxvMyp0kiTee58edwfwb+wZEB4isZWA9vGNcvYBRNQTl3LWODR9vdpswqNHEZL0a23MM6amHx7CneGJQK+rc65u40Pq5T+abh68in8MChirH/6TzgUV9ta8bBrA/JnL+G0UzKIBy3vBx0czOtPa5C0+jW2uZ6QqnWs=
+ ARA:13230040|82310400026|1800799024|376014|36860700016|18002099003|3023799003|22082099003|56012099003;
+X-Microsoft-Antispam-Message-Info: fpsxBgKOun2aG+meIvdtqL+UcRc1zSr/6yPJaPrBqz9CsvSzvIFXeh66x7cA2RVzj5X8kd6LZTSbyvveKspYFC2PuL3K3NgHpd1nFMsb4rCEq+WLUCllTO5aK6VhjJr5n+o5nmECHfgdWc8IwrwMgFpZS6p4J8vdtdcAoec9nDyHE62u43mZUNNZGHaOelhn/G+j7cEEUsVV1EaQjMsVjCJ5+5pC+gIaqw2G0mdjgFabFUHScLlVX5x296xQmnVIphtooye4nXd2jjFNFiTqGS33ycpbRJuFML2KWrp07ZYdWdWFLI4eYzIhS/FM0hRsREQV2QTJozm5JhbNkUi5BkDqTWG2KdjUUVOmPVt921Lmfebsc6jYhYlGSTKhI4TZ1hlaTs8I9+7eYadUkpnCWALjCU1b7nQmektOSVUFJPUVKY9JuqyJ1pRP92mjbg49XBF4H5yRK9+lRaU42vSCQrCINhHzLsPiuLGfIJ07tlnIxNyXoead1xnUkPJ0GR7nBWF8QVGX0YpLkRmRrBCayDmW27N0qng9xCWKhgHvyh3+Op1tdLJl81uitL8VbQsmmxt7DbMkA+Uzzs6MRbLJCmXd6EpGY+tfMDlwGcG20umvmRdHLD+CMIGjqqTOZxG2LZkn7kEiRq0TUWFNeivGbZRcHcv6o5yi3E7S3iCE4F3wWyq9oN4M0kpEn8z5d7KsEe2V33+dWi2+V1ov0MBKGEushl8sD0H7zci6uyFBvm0=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(82310400026)(36860700016)(1800799024)(3023799003)(56012099003)(22082099003)(18002099003);
+ IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(1800799024)(376014)(36860700016)(18002099003)(3023799003)(22082099003)(56012099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: ZbSGeuA7VCfiNBpKsq/b5q2aBDCmqlkd7mwlcwOzmaN2eYkYcBfT8zWthFq3KDGvLZW+nrry2DoHSU0RXdYoso2m0WEQDIzaOOd3BfZ0vVpu8IrcP176mFKvYEmMTJ+qIcA2HaDvj2jia+YXz8L9soTY2t1qZzzsFWr25YK4uzRSAIAwGqkG77o76aRLrD3gy1/y2YDYD0DVA1nCWqJEqkUfqWxz3Ppe9JagYRD6CJAXSOd9Hy0tsBYwB3pTzfDte/PhGbOWlsuKrZwuUbXrXQpoG6GnFYnoQWxn7Kf1o7qUD0G/igcJvmOEkJfJ+uiR/47N4w8tDAiiT0v0ja8QaftR7omoj1GxSUM0xiMM4Z5qn0/TxWbjmGHgj+OhRIj5X548M8NfGvpNMYrUiKJ0MEbk1jik/MZdCnMrRsezzKcrMM/c/efJjyXHbOxeboRd
+X-MS-Exchange-AntiSpam-MessageData-0: Y+l7yMSlk+OlCTW7IIXPkVHpIBruQpV+CqPkzpEKJPHHggqCIL2ex0r4OtI5e3SWy1nsGDV6xNrOfqe7I4h8PxmwTo41iS5ThyNAlhtmPmzMk2RU1SJbh2I1/nPDOFW5dXEXgo7pSMyq9chE9EHbFsFrEo2VfFNusoZpmCRr50X/WiDjQi1xz/NxwTM3Y5ezOaTzjwBlDAyljxKQHhvGV0pGnCXiXnm3uAdBZXQcTGl7BnAX+OSOIH+4hW9i667/V57G7Stt5iaJoMe2BZb7ErsOen0SW0ceCPApMpnP0MkXGP7e91GTK/T9qh2tumIwFfocmjk8EJPy9jJ7WgFdBQnXIUe4KvZm53tMm27aU4Mis1lnWGxiLmUu+SCq274Ax+NNUcfbdwxtLe0jRNVWtYSPJXckSwtpAu5mAnUyIRIeZy39g2rYYMWVTVCG+5lp
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 May 2026 15:52:16.8075 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8acbc919-12df-4f2e-ebd6-08deac509d3e
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 May 2026 15:52:09.2771 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 18150c96-5042-4757-b5f2-08deac5098c9
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000EE37.namprd05.prod.outlook.com
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF000001CA.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB9160
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB8427
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,1724 +115,4547 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add all the bits to enable DSC over FRL.
+This adds support to HW block programming for the core blocks
+for HDMI FRL:
+- DIO
+- HPO
+- OPP
+- OPTC
 
 Signed-off-by: Harry Wentland <harry.wentland@amd.com>
 ---
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  74 +-
- .../amd/display/amdgpu_dm/amdgpu_dm_helpers.c |  91 ++-
- .../display/amdgpu_dm/amdgpu_dm_mst_types.c   |  12 +
- drivers/gpu/drm/amd/display/dc/core/dc.c      |   6 +
- .../drm/amd/display/dc/core/dc_hw_sequencer.c |  13 +
- .../gpu/drm/amd/display/dc/core/dc_resource.c |  54 ++
- .../gpu/drm/amd/display/dc/core/dc_stream.c   |   2 +-
- drivers/gpu/drm/amd/display/dc/dc.h           |   7 +
- drivers/gpu/drm/amd/display/dc/dc_dsc.h       |   8 +
- .../gpu/drm/amd/display/dc/dc_hdmi_types.h    |   2 +
- .../drm/amd/display/dc/dml/dcn30/dcn30_fpu.c  |  40 +-
- .../dc/dml/dcn30/display_mode_vba_30.c        |   3 +
- .../dc/dml/dcn31/display_mode_vba_31.c        |   3 +
- .../dc/dml/dcn314/display_mode_vba_314.c      |   3 +
- .../dc/dml/dcn32/display_mode_vba_util_32.c   |   3 +
- .../drm/amd/display/dc/dml/dml1_frl_cap_chk.c | 197 +++++
- .../drm/amd/display/dc/dml/dml1_frl_cap_chk.h |   9 +
- drivers/gpu/drm/amd/display/dc/dsc/dc_dsc.c   | 704 ++++++++++++++++++
- .../hpo/dcn30/dcn30_hpo_frl_stream_encoder.c  | 105 +++
- .../dcn401/dcn401_hpo_frl_stream_encoder.c    |   1 +
- .../hpo/dcn42/dcn42_hpo_frl_stream_encoder.c  |   1 +
- .../amd/display/dc/hwss/dcn30/dcn30_hwseq.c   |   9 +
- .../amd/display/dc/hwss/dcn30/dcn30_init.c    |   1 +
- .../amd/display/dc/hwss/dcn31/dcn31_init.c    |   1 +
- .../amd/display/dc/hwss/dcn314/dcn314_init.c  |   1 +
- .../amd/display/dc/hwss/dcn32/dcn32_init.c    |   1 +
- .../amd/display/dc/hwss/dcn35/dcn35_init.c    |   1 +
- .../amd/display/dc/hwss/dcn351/dcn351_init.c  |   1 +
- .../amd/display/dc/hwss/dcn401/dcn401_init.c  |   1 +
- .../amd/display/dc/hwss/dcn42/dcn42_init.c    |   1 +
- .../drm/amd/display/dc/hwss/hw_sequencer.h    |   5 +
- .../amd/display/dc/inc/hw/stream_encoder.h    |   4 +
- .../gpu/drm/amd/display/dc/link/link_dpms.c   |  38 +
- .../display/dc/link/protocols/link_hdmi_frl.c |  38 +
- .../amd/display/dc/optc/dcn30/dcn30_optc.c    |  30 +-
- .../amd/display/dc/optc/dcn30/dcn30_optc.h    |   1 +
- .../amd/display/dc/optc/dcn31/dcn31_optc.c    |   1 +
- .../amd/display/dc/optc/dcn314/dcn314_optc.c  |   1 +
- .../amd/display/dc/optc/dcn32/dcn32_optc.c    |   1 +
- .../amd/display/dc/optc/dcn35/dcn35_optc.c    |   1 +
- .../amd/display/dc/optc/dcn401/dcn401_optc.c  |   1 +
- .../amd/display/dc/optc/dcn42/dcn42_optc.c    |   1 +
- 42 files changed, 1460 insertions(+), 17 deletions(-)
+ .../amd/display/dc/dccg/dcn30/dcn30_dccg.c    |  40 +
+ .../amd/display/dc/dccg/dcn30/dcn30_dccg.h    |   8 +
+ .../amd/display/dc/dccg/dcn31/dcn31_dccg.c    |  88 ++
+ .../amd/display/dc/dccg/dcn31/dcn31_dccg.h    |  13 +
+ .../amd/display/dc/dccg/dcn314/dcn314_dccg.c  |  25 +
+ .../amd/display/dc/dccg/dcn32/dcn32_dccg.c    |  68 ++
+ .../amd/display/dc/dccg/dcn35/dcn35_dccg.c    | 321 ++++++
+ .../amd/display/dc/dccg/dcn401/dcn401_dccg.c  |  73 ++
+ .../amd/display/dc/dccg/dcn401/dcn401_dccg.h  |   4 +
+ .../amd/display/dc/dccg/dcn42/dcn42_dccg.c    |  33 +
+ .../display/dc/dio/dcn10/dcn10_link_encoder.c |   3 +-
+ .../display/dc/dio/dcn20/dcn20_link_encoder.h |   1 +
+ .../dc/dio/dcn30/dcn30_dio_link_encoder.c     | 250 +++++
+ .../dc/dio/dcn30/dcn30_dio_link_encoder.h     |  17 +
+ .../dc/dio/dcn301/dcn301_dio_link_encoder.c   |  18 +
+ .../dc/dio/dcn31/dcn31_dio_link_encoder.c     | 114 +++
+ .../dc/dio/dcn31/dcn31_dio_link_encoder.h     |   8 +
+ .../dc/dio/dcn32/dcn32_dio_link_encoder.c     | 214 ++++
+ .../dc/dio/dcn32/dcn32_dio_link_encoder.h     |  16 +
+ .../dc/dio/dcn321/dcn321_dio_link_encoder.c   |  20 +
+ .../dc/dio/dcn35/dcn35_dio_link_encoder.c     |  21 +
+ .../dc/dio/dcn401/dcn401_dio_link_encoder.c   | 220 ++++
+ .../dc/dio/dcn401/dcn401_dio_link_encoder.h   |  16 +
+ .../dc/dio/dcn42/dcn42_dio_link_encoder.c     |  21 +
+ drivers/gpu/drm/amd/display/dc/hpo/Makefile   |  10 +
+ .../dc/hpo/dcn30/dcn30_hpo_frl_link_encoder.c | 286 ++++++
+ .../dc/hpo/dcn30/dcn30_hpo_frl_link_encoder.h | 146 +++
+ .../hpo/dcn30/dcn30_hpo_frl_stream_encoder.c  | 938 ++++++++++++++++++
+ .../hpo/dcn30/dcn30_hpo_frl_stream_encoder.h  | 436 ++++++++
+ .../dcn401/dcn401_hpo_frl_stream_encoder.c    | 906 +++++++++++++++++
+ .../dcn401/dcn401_hpo_frl_stream_encoder.h    | 335 +++++++
+ .../hpo/dcn42/dcn42_hpo_frl_stream_encoder.c  | 206 ++++
+ .../hpo/dcn42/dcn42_hpo_frl_stream_encoder.h  |  59 ++
+ .../drm/amd/display/dc/opp/dcn10/dcn10_opp.c  |   1 +
+ .../amd/display/dc/optc/dcn10/dcn10_optc.h    |   5 +-
+ .../amd/display/dc/optc/dcn30/dcn30_optc.h    |   8 +-
+ .../amd/display/dc/optc/dcn31/dcn31_optc.c    |   2 +
+ .../amd/display/dc/optc/dcn401/dcn401_optc.c  |   2 +
+ 38 files changed, 4948 insertions(+), 4 deletions(-)
+ create mode 100644 drivers/gpu/drm/amd/display/dc/hpo/dcn30/dcn30_hpo_frl_link_encoder.c
+ create mode 100644 drivers/gpu/drm/amd/display/dc/hpo/dcn30/dcn30_hpo_frl_link_encoder.h
+ create mode 100644 drivers/gpu/drm/amd/display/dc/hpo/dcn30/dcn30_hpo_frl_stream_encoder.c
+ create mode 100644 drivers/gpu/drm/amd/display/dc/hpo/dcn30/dcn30_hpo_frl_stream_encoder.h
+ create mode 100644 drivers/gpu/drm/amd/display/dc/hpo/dcn401/dcn401_hpo_frl_stream_encoder.c
+ create mode 100644 drivers/gpu/drm/amd/display/dc/hpo/dcn401/dcn401_hpo_frl_stream_encoder.h
+ create mode 100644 drivers/gpu/drm/amd/display/dc/hpo/dcn42/dcn42_hpo_frl_stream_encoder.c
+ create mode 100644 drivers/gpu/drm/amd/display/dc/hpo/dcn42/dcn42_hpo_frl_stream_encoder.h
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index be4b66b00be9..007f099ffbb5 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -7323,12 +7323,30 @@ static void update_dsc_caps(struct amdgpu_dm_connector *aconnector,
+diff --git a/drivers/gpu/drm/amd/display/dc/dccg/dcn30/dcn30_dccg.c b/drivers/gpu/drm/amd/display/dc/dccg/dcn30/dcn30_dccg.c
+index adec7c3c2d49..180175693e0e 100644
+--- a/drivers/gpu/drm/amd/display/dc/dccg/dcn30/dcn30_dccg.c
++++ b/drivers/gpu/drm/amd/display/dc/dccg/dcn30/dcn30_dccg.c
+@@ -42,8 +42,48 @@
+ #define DC_LOGGER \
+ 	dccg->ctx->logger
  
- 	if (aconnector->dc_link && (sink->sink_signal == SIGNAL_TYPE_DISPLAY_PORT ||
- 	    sink->sink_signal == SIGNAL_TYPE_EDP)) {
--		if (sink->link->dpcd_caps.dongle_type == DISPLAY_DONGLE_NONE ||
--			sink->link->dpcd_caps.dongle_type == DISPLAY_DONGLE_DP_HDMI_CONVERTER)
-+		if (sink->link->dpcd_caps.dongle_type == DISPLAY_DONGLE_NONE)
- 			dc_dsc_parse_dsc_dpcd(aconnector->dc_link->ctx->dc,
- 				aconnector->dc_link->dpcd_caps.dsc_caps.dsc_basic_caps.raw,
- 				aconnector->dc_link->dpcd_caps.dsc_caps.dsc_branch_decoder_caps.raw,
- 				dsc_caps);
-+		else if (sink->link->dpcd_caps.dongle_type == DISPLAY_DONGLE_DP_HDMI_CONVERTER) {
-+			if (aconnector->dc_link->dpcd_caps.dsc_caps.dsc_basic_caps.fields.dsc_support.DSC_PASSTHROUGH_SUPPORT &&
-+					!aconnector->dsc_settings.dsc_force_disable_passthrough &&
-+					aconnector->dc_link->dpcd_caps.dongle_caps.dp_hdmi_frl_max_link_bw_in_kbps > 0 &&
-+					sink->edid_caps.frl_dsc_support &&
-+					sink->edid_caps.max_frl_rate > 0 &&
-+					sink->edid_caps.frl_dsc_max_frl_rate > 0)
-+				dc_dsc_parse_dsc_edid(aconnector->dc_link->ctx->dc, &sink->edid_caps, dsc_caps);
-+			else
-+				dc_dsc_parse_dsc_dpcd(aconnector->dc_link->ctx->dc,
-+				      aconnector->dc_link->dpcd_caps.dsc_caps.dsc_basic_caps.raw,
-+				      aconnector->dc_link->dpcd_caps.dsc_caps.dsc_branch_decoder_caps.raw,
-+				      dsc_caps);
-+		}
-+	} else if (aconnector->dc_link && sink->sink_signal == SIGNAL_TYPE_HDMI_FRL) {
-+		if (sink->edid_caps.frl_dsc_support &&
-+				sink->edid_caps.max_frl_rate > 0 &&
-+				sink->edid_caps.frl_dsc_max_frl_rate > 0)
-+			dc_dsc_parse_dsc_edid(aconnector->dc_link->ctx->dc, &sink->edid_caps, dsc_caps);
- 	}
- }
- 
-@@ -7402,6 +7420,10 @@ static void apply_dsc_policy_for_stream(struct amdgpu_dm_connector *aconnector,
- 	struct drm_connector *drm_connector = &aconnector->base;
- 	u32 link_bandwidth_kbps;
- 	struct dc *dc = sink->ctx->dc;
-+	const struct dc_hdmi_frl_link_settings *frl_verified_link_cap = NULL;
-+	u32 converter_bw_in_kbps;
-+	u32 sink_bw_in_kbps;
-+	u32 dsc_sink_bw_in_kbps;
- 	u32 max_supported_bw_in_kbps, timing_bw_in_kbps;
- 	u32 dsc_max_supported_bw_in_kbps;
- 	u32 max_dsc_target_bpp_limit_override =
-@@ -7440,8 +7462,18 @@ static void apply_dsc_policy_for_stream(struct amdgpu_dm_connector *aconnector,
- 		} else if (sink->link->dpcd_caps.dongle_type == DISPLAY_DONGLE_DP_HDMI_CONVERTER) {
- 			timing_bw_in_kbps = dc_bandwidth_in_kbps_from_timing(&stream->timing,
- 					dc_link_get_highest_encoding_format(aconnector->dc_link));
--			max_supported_bw_in_kbps = link_bandwidth_kbps;
--			dsc_max_supported_bw_in_kbps = link_bandwidth_kbps;
-+			converter_bw_in_kbps = aconnector->dc_link->dpcd_caps.dongle_caps.dp_hdmi_frl_max_link_bw_in_kbps;
-+			sink_bw_in_kbps = dc_link_bw_kbps_from_raw_frl_link_rate_data(dc, sink->edid_caps.max_frl_rate);
-+			dsc_sink_bw_in_kbps = dc_link_bw_kbps_from_raw_frl_link_rate_data(dc, sink->edid_caps.frl_dsc_max_frl_rate);
-+
-+			if (dsc_caps->is_frl) {
-+				max_supported_bw_in_kbps = min(link_bandwidth_kbps, converter_bw_in_kbps);
-+				max_supported_bw_in_kbps = min(max_supported_bw_in_kbps, sink_bw_in_kbps);
-+				dsc_max_supported_bw_in_kbps = min(max_supported_bw_in_kbps, dsc_sink_bw_in_kbps);
-+			} else {
-+				max_supported_bw_in_kbps = link_bandwidth_kbps;
-+				dsc_max_supported_bw_in_kbps = link_bandwidth_kbps;
-+			}
- 
- 			if (timing_bw_in_kbps > max_supported_bw_in_kbps &&
- 					max_supported_bw_in_kbps > 0 &&
-@@ -7454,11 +7486,41 @@ static void apply_dsc_policy_for_stream(struct amdgpu_dm_connector *aconnector,
- 						dc_link_get_highest_encoding_format(aconnector->dc_link),
- 						&stream->timing.dsc_cfg)) {
- 					stream->timing.flags.DSC = 1;
--					drm_dbg_driver(drm_connector->dev, "%s: SST_DSC [%s] DSC is selected from DP-HDMI PCON\n",
--									 __func__, drm_connector->name);
-+					drm_dbg_driver(drm_connector->dev, "%s: SST_DSC [%s] DSC is selected from %s\n",
-+							__func__, drm_connector->name,
-+							(dsc_caps->is_frl == 1) ? "HDMI FRL RX" : "DP-HDMI PCON");
- 				}
- 		}
- 	}
-+	else if (aconnector->dc_link && sink->sink_signal == SIGNAL_TYPE_HDMI_FRL) {
-+		struct dc_dsc_policy dsc_policy = {0};
-+
-+		frl_verified_link_cap = dc_link_get_frl_link_cap(stream->link);
-+		if (frl_verified_link_cap->frl_link_rate != HDMI_FRL_LINK_RATE_DISABLE &&
-+			aconnector->dc_link->frl_flags.force_frl_dsc) {
-+			dc_dsc_policy_set_enable_dsc_when_not_needed(true);
-+			dc_dsc_get_policy_for_timing(&stream->timing, 0, &dsc_policy, dc_link_get_highest_encoding_format(stream->link));
-+		}
-+
-+		timing_bw_in_kbps = dc_bandwidth_in_kbps_from_timing(&stream->timing, DC_LINK_ENCODING_HDMI_FRL);
-+		link_bandwidth_kbps = dc_link_frl_bandwidth_kbps(stream->link, frl_verified_link_cap->frl_link_rate);
-+		dsc_sink_bw_in_kbps = dc_link_bw_kbps_from_raw_frl_link_rate_data(dc, sink->edid_caps.frl_dsc_max_frl_rate);
-+
-+		if ((timing_bw_in_kbps > link_bandwidth_kbps && dsc_sink_bw_in_kbps > 0) ||
-+		    (dsc_policy.enable_dsc_when_not_needed || dsc_options.force_dsc_when_not_needed)) {
-+			if (dc_dsc_compute_config(aconnector->dc_link->ctx->dc->res_pool->dscs[0],
-+					dsc_caps,
-+					&dsc_options,
-+					dsc_sink_bw_in_kbps,
-+					&stream->timing,
-+					dc_link_get_highest_encoding_format(aconnector->dc_link),
-+					&stream->timing.dsc_cfg)) {
-+				stream->timing.flags.DSC = 1;
-+				drm_dbg_driver(drm_connector->dev, "%s: HDMI_FRL_DSC [%s] DSC is selected from HDMI FRL RX\n",
-+						__func__, drm_connector->name);
-+			}
-+		}
-+	}
- 
- 	/* Overwrite the stream flag if DSC is enabled through debugfs */
- 	if (aconnector->dsc_settings.dsc_force_enable == DSC_CLK_FORCE_ENABLE)
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-index 05f9a01f223c..e14980271c96 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-@@ -178,8 +178,15 @@ enum dc_edid_status dm_helpers_parse_edid_caps(
- 
- 	edid_caps->edid_hdmi = connector->display_info.is_hdmi;
- 
--	if (edid_caps->edid_hdmi)
-+	if (edid_caps->edid_hdmi) {
- 		populate_hdmi_info_from_connector(&connector->display_info.hdmi, edid_caps);
-+		drm_dbg_driver(connector->dev, "%s: HDMI_FRL [%s] max_frl_rate %d\n", __func__, connector->name, edid_caps->max_frl_rate);
-+		if (edid_caps->frl_dsc_support)
-+			drm_dbg_driver(connector->dev, "%s: HDMI_FRL_DSC [%s] frl_dsc_10bpc %d, frl_dsc_12bpc %d, frl_dsc_all_bpp %d, frl_dsc_native_420 %d, frl_dsc_max_slices %d, frl_dsc_max_frl_rate %d, frl_dsc_total_chunk_kbytes %d\n",
-+					__func__, connector->name, edid_caps->frl_dsc_10bpc, edid_caps->frl_dsc_12bpc, \
-+					edid_caps->frl_dsc_all_bpp, edid_caps->frl_dsc_native_420, edid_caps->frl_dsc_max_slices, \
-+					edid_caps->frl_dsc_max_frl_rate, edid_caps->frl_dsc_total_chunk_kbytes);
-+	}
- 
- 	apply_edid_quirks(dev, edid_buf, edid_caps);
- 
-@@ -896,8 +903,23 @@ bool dm_helpers_dp_write_dsc_enable(
- 		port = aconnector->mst_output_port;
- 
- 		if (enable) {
--			if (port->passthrough_aux) {
--				ret = drm_dp_dpcd_write(port->passthrough_aux,
-+			if (port->passthrough_aux
-+			    || (stream->timing.dsc_cfg.is_frl &&
-+				(!stream->sink->dsc_caps.dsc_dec_caps.is_frl ||
-+				(stream->sink->dsc_caps.dsc_dec_caps.is_frl &&
-+				aconnector->mst_downstream_port_present.fields.PORT_PRESENT &&
-+				aconnector->mst_downstream_port_caps.bytes.byte0.bits.DWN_STRM_PORTX_TYPE ==
-+				DOWN_STREAM_DETAILED_HDMI)))
-+			    ) {
-+				if (!stream->sink->dsc_caps.dsc_dec_caps.is_frl)
-+					/* DSC passthrough to DP receiver */
-+					enable_passthrough = DSC_DECODING;
-+				else if (aconnector->mst_downstream_port_present.fields.PORT_PRESENT &&
-+					 aconnector->mst_downstream_port_caps.bytes.byte0.bits.DWN_STRM_PORTX_TYPE ==
-+					 DOWN_STREAM_DETAILED_HDMI)
-+					/* DSC passthrough to FRL sink */
-+					enable_passthrough = DSC_PASSTHROUGH;
-+				ret = drm_dp_dpcd_write(&aconnector->mst_output_port->aux,
- 							DP_DSC_ENABLE,
- 							&enable_passthrough, 1);
- 				drm_dbg_dp(dev,
-@@ -921,8 +943,13 @@ bool dm_helpers_dp_write_dsc_enable(
- 				   "virtual dpcd",
- 				   ret);
- 
--			if (port->passthrough_aux) {
--				ret = drm_dp_dpcd_write(port->passthrough_aux,
-+			if (port->passthrough_aux
-+			    || (stream->timing.dsc_cfg.is_frl &&
-+				(!stream->sink->dsc_caps.dsc_dec_caps.is_frl ||
-+				 (aconnector->mst_downstream_port_present.fields.PORT_PRESENT &&
-+				  aconnector->mst_downstream_port_caps.bytes.byte0.bits.DWN_STRM_PORTX_TYPE ==
-+				  DOWN_STREAM_DETAILED_HDMI)))) {
-+				ret = drm_dp_dpcd_write(&aconnector->mst_output_port->aux,
- 							DP_DSC_ENABLE,
- 							&enable_passthrough, 1);
- 				drm_dbg_dp(dev,
-@@ -939,10 +966,22 @@ bool dm_helpers_dp_write_dsc_enable(
- 				   "SST_DSC Send DSC %s to SST RX\n",
- 				   enable_dsc ? "enable" : "disable");
- 		} else if (stream->sink->link->dpcd_caps.dongle_type == DISPLAY_DONGLE_DP_HDMI_CONVERTER) {
-+			if (enable) {
-+				if (stream->timing.dsc_cfg.is_frl) {
-+					enable_dsc = DSC_PASSTHROUGH;
-+				} else {
-+					enable_dsc = DSC_DECODING;
-+				}
-+				drm_dbg_dp(dev,
-+					  "SST_DSC Sent DSC decoding enable to %s port, ret = %u\n",
-+					  (port->passthrough_aux) ?
-+					  "remote HDMI FRL RX" :
-+					  "DP-HDMI PCON", ret);
-+			} else {
-+				enable_dsc = DSC_DISABLE;
-+				drm_dbg_dp(dev, "SST_DSC Send DSC disable to DP-HDMI PCON\n");
-+			}
- 			ret = dm_helpers_dp_write_dpcd(ctx, stream->link, DP_DSC_ENABLE, &enable_dsc, 1);
--			drm_dbg_dp(dev,
--				   "SST_DSC Send DSC %s to DP-HDMI PCON\n",
--				   enable_dsc ? "enable" : "disable");
- 		}
- 	}
- 
-@@ -1054,10 +1093,46 @@ static uint8_t get_max_frl_rate(uint8_t max_lanes, uint8_t max_rate_per_lane)
- 	return max_frl_rate;
- }
- 
-+static uint8_t get_dsc_max_slices(uint8_t max_slices, int clk_per_slice)
++void dccg3_enable_hdmicharclk(struct dccg *dccg, int hpo_inst, int phypll_inst)
 +{
-+	uint8_t dsc_max_slices;
++	struct dcn_dccg *dccg_dcn = TO_DCN_DCCG(dccg);
 +
-+	if ((max_slices == 1) && (clk_per_slice == 340))
-+		dsc_max_slices = 1;
-+	else if ((max_slices == 2) && (clk_per_slice == 340))
-+		dsc_max_slices = 2;
-+	else if ((max_slices == 4) && (clk_per_slice == 340))
-+		dsc_max_slices = 3;
-+	else if ((max_slices == 8) && (clk_per_slice == 340))
-+		dsc_max_slices = 4;
-+	else if ((max_slices == 8) && (clk_per_slice == 400))
-+		dsc_max_slices = 5;
-+	else if ((max_slices == 12) && (clk_per_slice == 400))
-+		dsc_max_slices = 6;
-+	else if ((max_slices == 16) && (clk_per_slice == 400))
-+		dsc_max_slices = 7;
-+	else
-+		dsc_max_slices = 0;
++	ASSERT(hpo_inst >= 0 && phypll_inst >= 0);
++	REG_UPDATE_2(HDMICHARCLK_CLOCK_CNTL[hpo_inst],
++			HDMICHARCLK0_EN, 1,
++			HDMICHARCLK0_SRC_SEL, phypll_inst);
 +
-+	return dsc_max_slices;
-+}
-+
- void populate_hdmi_info_from_connector(struct drm_hdmi_info *hdmi, struct dc_edid_caps *edid_caps)
- {
- 	edid_caps->scdc_present = hdmi->scdc.supported;
- 	edid_caps->max_frl_rate = get_max_frl_rate(hdmi->max_lanes, hdmi->max_frl_rate_per_lane);
-+	edid_caps->frl_dsc_support = hdmi->dsc_cap.v_1p2;
-+	if (edid_caps->frl_dsc_support) {
-+		if (hdmi->dsc_cap.bpc_supported == 10)
-+			edid_caps->frl_dsc_10bpc = true;
-+		else if (hdmi->dsc_cap.bpc_supported == 12)
-+			edid_caps->frl_dsc_12bpc = true;
-+		edid_caps->frl_dsc_all_bpp = hdmi->dsc_cap.all_bpp;
-+		edid_caps->frl_dsc_native_420 = hdmi->dsc_cap.native_420;
-+		edid_caps->frl_dsc_max_slices = get_dsc_max_slices(hdmi->dsc_cap.max_slices, hdmi->dsc_cap.clk_per_slice);
-+		edid_caps->frl_dsc_max_frl_rate = get_max_frl_rate(hdmi->dsc_cap.max_lanes, hdmi->dsc_cap.max_frl_rate_per_lane);
-+		edid_caps->frl_dsc_total_chunk_kbytes = hdmi->dsc_cap.total_chunk_kbytes;
-+	}
- }
- 
- enum dc_edid_status dm_helpers_read_local_edid(
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-index 8e2a8c2c1d84..bc5a9e1663ba 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-@@ -295,6 +295,17 @@ static bool validate_dsc_caps_on_connector(struct amdgpu_dm_connector *aconnecto
- 	if (!aconnector->dsc_aux)
- 		return false;
- 
-+	if (port->passthrough_aux &&
-+	    aconnector->dc_link->dc->caps.dp_hdmi21_pcon_support &&
-+	    dc_sink->edid_caps.frl_dsc_support &&
-+	    dc_sink->edid_caps.max_frl_rate > 0 &&
-+	    dc_sink->edid_caps.frl_dsc_max_frl_rate > 0) {
-+		dc_dsc_parse_dsc_edid(aconnector->dc_link->ctx->dc,
-+				      &dc_sink->edid_caps, &dc_sink->dsc_caps.dsc_dec_caps);
-+		DRM_DEBUG_DRIVER("%s: [%s] DSC is selected from FRL RX\n", __func__, aconnector->base.name);
-+		return true;
-+	} else {
-+		DRM_DEBUG_DRIVER("%s: [%s] DSC is selected from DP-HDMI PCON\n", __func__, aconnector->base.name);
- 	if (drm_dp_dpcd_read(aconnector->dsc_aux, DP_DSC_SUPPORT, dsc_caps, 16) < 0)
- 		return false;
- 
-@@ -307,6 +318,7 @@ static bool validate_dsc_caps_on_connector(struct amdgpu_dm_connector *aconnecto
- 				  &dc_sink->dsc_caps.dsc_dec_caps))
- 		return false;
- 
-+	}
- 	return true;
- }
- #endif
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
-index b4ad3ec0f029..517844a99451 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
-@@ -4050,6 +4050,12 @@ static void add_link_update_dsc_config_sequence(
- 					pipe_ctx->stream_res.stream_enc,
- 					true, dsc_packed_pps, false);
- 		}
-+		else if (dc_is_hdmi_frl_signal(stream->signal)) {
-+			hwss_add_hpo_frl_stream_enc_set_dsc_config(seq_state,
-+				pipe_ctx->stream_res.hpo_frl_stream_enc,
-+				&stream->timing,
-+				dsc_packed_pps);
-+		}
- 	}
- }
- 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c b/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c
-index c0c35d6653a5..ad01ffdc73c3 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c
-@@ -1642,6 +1642,9 @@ void hwss_execute_sequence(struct dc *dc,
- 		case STREAM_ENC_DP_SET_DSC_PPS_INFO_PACKET:
- 			hwss_stream_enc_dp_set_dsc_pps_info_packet(params);
- 			break;
-+		case HPO_FRL_STREAM_ENC_SET_DSC_CONFIG:
-+			hwss_hpo_frl_stream_enc_set_dsc_config(params);
-+			break;
- 		case DP_TRACE_SOURCE_SEQUENCE:
- 			hwss_dp_trace_source_sequence(params);
- 			break;
-@@ -3734,6 +3737,16 @@ void hwss_stream_enc_dp_set_dsc_pps_info_packet(union block_sequence_params *par
- 			params->stream_enc_dp_set_dsc_pps_info_packet_params.pps_sdp_stream);
- }
- 
-+void hwss_hpo_frl_stream_enc_set_dsc_config(union block_sequence_params *params)
-+{
-+	if (params->hpo_frl_stream_enc_set_dsc_config_params.hpo_frl_stream_enc &&
-+	    params->hpo_frl_stream_enc_set_dsc_config_params.hpo_frl_stream_enc->funcs->hdmi_frl_set_dsc_config)
-+		params->hpo_frl_stream_enc_set_dsc_config_params.hpo_frl_stream_enc->funcs->hdmi_frl_set_dsc_config(
-+			params->hpo_frl_stream_enc_set_dsc_config_params.hpo_frl_stream_enc,
-+			(struct dc_crtc_timing *)params->hpo_frl_stream_enc_set_dsc_config_params.timing,
-+			params->hpo_frl_stream_enc_set_dsc_config_params.dsc_packed_pps);
-+}
-+
- void hwss_set_dmdata_attributes(union block_sequence_params *params)
- {
- 	struct hubp *hubp = params->set_dmdata_attributes_params.hubp;
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
-index 2457b563e6c8..0815400468ed 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
-@@ -4592,6 +4592,38 @@ enum dc_status dc_validate_with_context(struct dc *dc,
- }
- 
- #if defined(CONFIG_DRM_AMD_DC_FP)
-+/**
-+ * dc_update_modified_pix_clock_for_dsc_with_padding() - update pix_clk for dsc with padding
-+ *
-+ * @dc_stream_state: Pointer to the stream structure.
-+ * @dc_crtc_timing: Pointer to the stream dc_crtc_timing structure.
-+ * @dsc_padding_params: Pointer to the DSC padding parameters structure.
-+ *
-+ * This function updated the pix_clk for dsc with padding stored in pipe_ctx
-+ * such that the OTG h_active time fits withing the expected compressed active
-+ * time calculated according to HDMI spec. H_total is then increased to
-+ * maintain the same OTG line time as before the increased pix_clk.
-+ */
-+static void dc_update_modified_pix_clock_for_dsc_with_padding(const struct dc_stream_state *stream,
-+		const struct dc_crtc_timing *timing, struct dsc_padding_params *dsc_padding_params)
-+{
-+	DC_FP_START();
-+	frl_modified_pix_clock_for_dsc_padding(stream->link->frl_verified_link_cap.borrow_params.hc_active_target,
-+	stream->link->frl_verified_link_cap.borrow_params.hc_blank_target,
-+	stream->link->frl_verified_link_cap.frl_num_lanes,
-+	timing->pix_clk_100hz,
-+	stream->link->frl_verified_link_cap.frl_link_rate,
-+	timing->h_addressable,
-+	timing->h_border_left,
-+	timing->h_border_right,
-+	timing->h_total,
-+	(timing->h_addressable + dsc_padding_params->dsc_hactive_padding),
-+	&dsc_padding_params->dsc_pix_clk_100hz,
-+	&dsc_padding_params->dsc_htotal_padding);
-+	DC_FP_END();
-+
-+	dsc_padding_params->dsc_htotal_padding = dsc_padding_params->dsc_htotal_padding - timing->h_total;
-+}
- #endif /* CONFIG_DRM_AMD_DC_FP */
- 
- /**
-@@ -4618,6 +4650,28 @@ static void calculate_timing_params_for_dsc_with_padding(struct pipe_ctx *pipe_c
- 	if (stream)
- 		pipe_ctx->dsc_padding_params.dsc_pix_clk_100hz = stream->timing.pix_clk_100hz;
- 
-+	uint32_t hactive;
-+	uint32_t ceil_slice_width;
-+	if (stream && stream->timing.flags.DSC) {
-+		hactive = stream->timing.h_addressable + stream->timing.h_border_left + stream->timing.h_border_right;
-+
-+		/* Assume if determined slices does not divide Hactive evenly, Hborrow is needed for padding*/
-+		if (hactive % stream->timing.dsc_cfg.num_slices_h != 0) {
-+			ceil_slice_width = (hactive / stream->timing.dsc_cfg.num_slices_h) + 1;
-+
-+			/* If YCBCR420 slice width must be even */
-+			if (stream->timing.pixel_encoding == PIXEL_ENCODING_YCBCR420 && ceil_slice_width % 2 != 0)
-+				ceil_slice_width++;
-+
-+			pipe_ctx->dsc_padding_params.dsc_hactive_padding =
-+				(uint8_t)(ceil_slice_width * stream->timing.dsc_cfg.num_slices_h - hactive);
-+
-+			if (stream->timing.h_total - hactive - pipe_ctx->dsc_padding_params.dsc_hactive_padding < 32)
-+				pipe_ctx->dsc_padding_params.dsc_hactive_padding = 0;
-+
-+			dc_update_modified_pix_clock_for_dsc_with_padding(stream, &stream->timing, &pipe_ctx->dsc_padding_params);
-+		}
-+	}
- }
- 
- /**
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_stream.c b/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
-index f694c6ad6e98..c1984ebe0ef1 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
-@@ -99,7 +99,7 @@ void update_stream_signal(struct dc_stream_state *stream, struct dc_sink *sink)
- 
- 		if (stream->link->frl_flags.force_frl_always ||
- 				stream->link->frl_flags.force_frl_max
--				)
-+				|| stream->link->frl_flags.force_frl_dsc)
- 			stream->signal = SIGNAL_TYPE_HDMI_FRL;
- 	}
- }
-diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
-index 965fa9830355..4c75595a5742 100644
---- a/drivers/gpu/drm/amd/display/dc/dc.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc.h
-@@ -121,6 +121,12 @@ struct frl_cap_chk_params_fixed31_32 {
- 
- 	bool     compressed;              /* set to true if DSC is enabled */
- 	bool     bypass_hc_target_calc;   /* debug only */
-+	bool     allow_all_bpp;           /* dsc_all_bpp */
-+
-+	/* DSC parameters */
-+	int      slices;
-+	int      slice_width;
-+	struct fixed31_32   bpp_target;
- 	int      layout;
- 	int      acat;    /* not supported */
- 
-@@ -1151,6 +1157,7 @@ struct dc_debug_options {
- 	int  select_ffe;
- 	int  limit_ffe;
- 	bool force_frl_always;
-+	bool force_frl_dsc;
- 	bool force_frl_max;
- 	bool apply_vsdb_rcc_wa;
- 	bool enable_hdmi_idcc;
-diff --git a/drivers/gpu/drm/amd/display/dc/dc_dsc.h b/drivers/gpu/drm/amd/display/dc/dc_dsc.h
-index 101bce6b8de6..c0564167c587 100644
---- a/drivers/gpu/drm/amd/display/dc/dc_dsc.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc_dsc.h
-@@ -63,11 +63,19 @@ struct dc_dsc_config_options {
- 	bool force_dsc_when_not_needed;
- };
- 
-+struct dc_dsc_primary_bpp {
-+	uint32_t vic;
-+	uint32_t target_bpp;
-+};
- bool dc_dsc_parse_dsc_dpcd(const struct dc *dc,
- 		const uint8_t *dpcd_dsc_basic_data,
- 		const uint8_t *dpcd_dsc_ext_data,
- 		struct dsc_dec_dpcd_caps *dsc_sink_caps);
- 
-+bool dc_dsc_parse_dsc_edid(const struct dc *dc,
-+		const struct dc_edid_caps *edid_caps,
-+		struct dsc_dec_dpcd_caps *dsc_sink_caps);
-+
- bool dc_dsc_compute_bandwidth_range(
- 		const struct display_stream_compressor *dsc,
- 		uint32_t dsc_min_slice_height_override,
-diff --git a/drivers/gpu/drm/amd/display/dc/dc_hdmi_types.h b/drivers/gpu/drm/amd/display/dc/dc_hdmi_types.h
-index afd21eb6bbcd..5923a5f112a9 100644
---- a/drivers/gpu/drm/amd/display/dc/dc_hdmi_types.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc_hdmi_types.h
-@@ -138,6 +138,7 @@ union hdmi_scdc_status_flags_data {
- 		uint8_t LANE3_LOCKED:1;
- 		uint8_t RESERVED:1;
- 		uint8_t FLT_READY:1;
-+		uint8_t DSC_DECODEFAIL:1;
- 	} fields;
- };
- 
-@@ -270,6 +271,7 @@ struct dc_hdmi_frl_flags {
- 	int  select_ffe;
- 	int  limit_ffe;
- 	bool force_frl_always;
-+	bool force_frl_dsc;
- 	bool force_frl_max;
- 	bool apply_vsdb_rcc_wa;
- };
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn30/dcn30_fpu.c b/drivers/gpu/drm/amd/display/dc/dml/dcn30/dcn30_fpu.c
-index 58479bea9976..523d8261be94 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn30/dcn30_fpu.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn30/dcn30_fpu.c
-@@ -780,6 +780,38 @@ void hpo_fpu_enc3_validate_hdmi_frl_output_link(struct hpo_frl_stream_encoder *e
- 		break;
- 	}
- 
-+	if (timing->flags.DSC &&
-+			(unsigned int)frl_link_settings->frl_link_rate > dsc_max_rate) {
-+		if (dsc_max_rate < HDMI_FRL_LINK_RATE_6GBPS_4LANE) {
-+			frl_params->lanes = 3;
-+		} else {
-+			frl_params->lanes = 4;
-+		}
-+
-+		switch (dsc_max_rate) {
-+		case HDMI_FRL_LINK_RATE_3GBPS:
-+			frl_params->r_bit_nominal = 3.0e9;
-+			break;
-+		case HDMI_FRL_LINK_RATE_6GBPS:
-+		case HDMI_FRL_LINK_RATE_6GBPS_4LANE:
-+			frl_params->r_bit_nominal = 6.0e9;
-+			break;
-+		case HDMI_FRL_LINK_RATE_8GBPS:
-+			frl_params->r_bit_nominal = 8.0e9;
-+			break;
-+		case HDMI_FRL_LINK_RATE_10GBPS:
-+		default:
-+			frl_params->r_bit_nominal = 10.0e9;
-+			break;
-+		case HDMI_FRL_LINK_RATE_12GBPS:
-+			frl_params->r_bit_nominal = 12.0e9;
-+			break;
-+		}
-+	}
-+
-+	if (timing->flags.DSC && timing->rid > 0)
-+		frl_params->is_ovt = true;
-+
- 	frl_params->f_pixel_clock_nominal = (double)timing->pix_clk_100hz * 100;
- 	frl_params->h_active = timing->h_addressable + timing->h_border_left + timing->h_border_right;
- 	frl_params->h_blank = timing->h_total - frl_params->h_active;
-@@ -795,6 +827,12 @@ void hpo_fpu_enc3_validate_hdmi_frl_output_timing(
- 
- 	if (timing->flags.DSC) {
- 		frl_params->compressed = true;
-+		frl_params->slices = timing->dsc_cfg.num_slices_h;
-+		frl_params->slice_width = (frl_params->h_active + frl_params->slices - 1) / frl_params->slices;
-+		// If YCBCR420 slice width must be even
-+		if (timing->pixel_encoding == PIXEL_ENCODING_YCBCR420 && frl_params->slice_width % 2 != 0)
-+			frl_params->slice_width++;
-+		frl_params->bpp_target = timing->dsc_cfg.bits_per_pixel / 16.0;
- 	} else {
- 		frl_params->compressed = false;
- 	}
-@@ -826,5 +864,5 @@ enum frl_cap_chk_result frl_fpu_cap_chk_compressed(struct hpo_frl_stream_encoder
- 						   struct frl_cap_chk_intermediates *inter)
- {
- 	(void)enc;
--	return -5;
-+	return dml1_frl_cap_chk_compressed(params, inter);
- }
-\ No newline at end of file
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_mode_vba_30.c b/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_mode_vba_30.c
-index b54d24cdfbe2..55db25437952 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_mode_vba_30.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_mode_vba_30.c
-@@ -3358,6 +3358,9 @@ static double TruncToValidBPP(
- 	hdmifrlparams.h_active = HActive;
- 	hdmifrlparams.h_blank = HTotal - HActive;
- 	hdmifrlparams.compressed = DSCEnable;
-+	hdmifrlparams.slices = DSCSlices;
-+	hdmifrlparams.slice_width = (int)dml_ceil((double) HActive / DSCSlices, 1.0);
-+	hdmifrlparams.bpp_target = DesiredBPP;
- 
- 	if (Format == dm_420) {
- 		NonDSCBPP0 = 12;
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn31/display_mode_vba_31.c b/drivers/gpu/drm/amd/display/dc/dml/dcn31/display_mode_vba_31.c
-index 96fdb3f6fa37..3216fd10ad04 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn31/display_mode_vba_31.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn31/display_mode_vba_31.c
-@@ -3665,6 +3665,9 @@ static double TruncToValidBPP(
- 	hdmifrlparams.h_active = HActive;
- 	hdmifrlparams.h_blank = HTotal - HActive;
- 	hdmifrlparams.compressed = DSCEnable;
-+	hdmifrlparams.slices = DSCSlices;
-+	hdmifrlparams.slice_width = (int)dml_ceil((double) HActive / DSCSlices, 1.0);
-+	hdmifrlparams.bpp_target = DesiredBPP;
- 
- 	if (Format == dm_420) {
- 		NonDSCBPP0 = 12;
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn314/display_mode_vba_314.c b/drivers/gpu/drm/amd/display/dc/dml/dcn314/display_mode_vba_314.c
-index 50c217413abf..2f412cee57c7 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn314/display_mode_vba_314.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn314/display_mode_vba_314.c
-@@ -3771,6 +3771,9 @@ static double TruncToValidBPP(
- 	hdmifrlparams.h_active = HActive;
- 	hdmifrlparams.h_blank = HTotal - HActive;
- 	hdmifrlparams.compressed = DSCEnable;
-+	hdmifrlparams.slices = DSCSlices;
-+	hdmifrlparams.slice_width = (int)dml_ceil((double) HActive / DSCSlices, 1.0);
-+	hdmifrlparams.bpp_target = DesiredBPP;
- 
- 	if (Format == dm_420) {
- 		NonDSCBPP0 = 12;
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.c b/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.c
-index 530f6fdc8df3..2ddc30d08b73 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.c
-@@ -1702,6 +1702,9 @@ double dml32_TruncToValidBPP(
- 	hdmifrlparams.h_blank = HTotal - HActive;
- 	hdmifrlparams.bpc = (int)(DesiredBPP / 3);
- 	hdmifrlparams.compressed = DSCEnable;
-+	hdmifrlparams.slices = DSCSlices;
-+	hdmifrlparams.slice_width = (int)dml_ceil((double) HActive / DSCSlices, 1.0);
-+	hdmifrlparams.bpp_target = DesiredBPP;
- 
- 	if (Format == dm_420) {
- 		NonDSCBPP0 = 12;
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dml1_frl_cap_chk.c b/drivers/gpu/drm/amd/display/dc/dml/dml1_frl_cap_chk.c
-index 9dde4e56f237..327d89b66613 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dml1_frl_cap_chk.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dml1_frl_cap_chk.c
-@@ -430,10 +430,207 @@ enum frl_cap_chk_result dml1_frl_cap_chk_uncompressed(struct frl_cap_chk_params
- 	return FRL_CAP_CHK_OK;
- }
- 
-+enum frl_cap_chk_result dml1_frl_cap_chk_compressed(struct frl_cap_chk_params *params,
-+						    struct frl_cap_chk_intermediates *inter)
-+{
-+	enum frl_cap_chk_result res;
-+	int      c_frl_available;
-+#if defined(DEBUG_FRL_CAP_CHK)
-+	int      c_frl_active_available;
-+	int      c_frl_blank_available;
-+#endif
-+	int      bytes_target = 0;
-+	int      hc_active_target;
-+	int      hc_blank_target_est1;
-+	int      hc_blank_target_est2;
-+	int      hc_blank_target = 0;
-+	int      c_frl_actual_target_payload;
-+	double   utilization_targeted;
-+	double   margin_target;
-+	double   f_tb_average;
-+	double   t_active_ref;
-+	double   t_blank_ref;
-+	double   t_active_target;
-+	double   t_blank_target;
-+	double   tb_borrowed;
-+#ifdef DEBUG_FRL_CAP_CHK
-+	double   tb_delta;
-+	double   tb_delta_limit;
-+	int      tb_worst;
-+#endif
-+	int table_size_444 = ARRAY_SIZE(prim_format_444);
-+	int table_size_422 = ARRAY_SIZE(prim_format_422);
-+	int table_size_420 = ARRAY_SIZE(prim_format_420);
-+	int i;
-+	bool hc_active_blank_predefined = false;
-+
-+	dc_assert_fp_enabled();
-+
-+	res = dml1_frl_cap_chk_common(inter, params);
-+
-+	if (res != FRL_CAP_CHK_OK)
-+		return res;
-+
-+	c_frl_available        = (int)dml_floor((1 - inter->overhead_max) * inter->c_frl_line, 1);
-+#if defined(DEBUG_FRL_CAP_CHK)
-+	c_frl_active_available = dml_floor(c_frl_available * ((double)params->h_active / (params->h_active + params->h_blank)), 1);
-+	c_frl_blank_available  = dml_floor(c_frl_available * ((double)params->h_blank / (params->h_active + params->h_blank)), 1);
-+#endif
-+	bytes_target           = (int)(params->slices * dml_ceil(params->bpp_target * params->slice_width / 8.0, 1));
-+
-+	if (!params->bypass_hc_target_calc)
-+			hc_active_target = (int)dml_ceil(bytes_target / 3.0, 1);
-+	else
-+		hc_active_target = params->borrow_params.hc_active_target;
-+
-+	if (!params->allow_all_bpp && params->vic != 0) {
-+		if (params->pixel_encoding == HDMI_FRL_PIXEL_ENCODING_444) {
-+			for (i = 0; i < table_size_444 ; i++) {
-+				if (prim_format_444[i].vic == params->vic) {
-+					params->borrow_params.hc_active_target = prim_format_444[i].hc_active;
-+					params->borrow_params.hc_blank_target  = prim_format_444[i].hc_blank;
-+					hc_active_blank_predefined = true;
-+					break;
-+				}
-+			}
-+		} else if (params->pixel_encoding == HDMI_FRL_PIXEL_ENCODING_422) {
-+			for (i = 0; i < table_size_422 ; i++) {
-+				if (prim_format_422[i].vic == params->vic) {
-+					params->borrow_params.hc_active_target = prim_format_422[i].hc_active;
-+					params->borrow_params.hc_blank_target  = prim_format_422[i].hc_blank;
-+					hc_active_blank_predefined = true;
-+					break;
-+				}
-+			}
-+		} else if (params->pixel_encoding == HDMI_FRL_PIXEL_ENCODING_420) {
-+			for (i = 0; i < table_size_420 ; i++) {
-+				if (prim_format_420[i].vic == params->vic) {
-+					params->borrow_params.hc_active_target = prim_format_420[i].hc_active;
-+					params->borrow_params.hc_blank_target  = prim_format_420[i].hc_blank;
-+					hc_active_blank_predefined = true;
-+					break;
-+				}
-+			}
-+		}
-+
-+		if (hc_active_blank_predefined) {
-+			hc_active_target = params->borrow_params.hc_active_target;
-+			hc_blank_target = params->borrow_params.hc_blank_target;
-+		}
-+	}
-+
-+	hc_blank_target_est1 = (int)dml_ceil(hc_active_target * ((double)params->h_blank / params->h_active), 1);
-+	hc_blank_target_est2 = (int)dml_max(hc_blank_target_est1, inter->blank_audio_min);
-+
-+	if (!hc_active_blank_predefined) {
-+		if (!params->bypass_hc_target_calc) {
-+			hc_blank_target = (int)(4 * dml_floor(dml_min(hc_blank_target_est2, c_frl_available - 3.0 / 2.0 * hc_active_target) / 4.0, 1));
-+
-+			params->borrow_params.hc_active_target = hc_active_target;
-+			params->borrow_params.hc_blank_target  = hc_blank_target;
-+		} else {
-+			hc_blank_target  = params->borrow_params.hc_blank_target;
-+		}
-+	}
-+
-+#ifdef DEBUG_FRL_CAP_CHK
-+	{
-+		frl_dump_var("%i", c_frl_available);
-+		frl_dump_var("%i", c_frl_active_available);
-+		frl_dump_var("%i", c_frl_blank_available);
-+		frl_dump_var("%i", bytes_target);
-+		frl_dump_var("%i", hc_active_target);
-+		frl_dump_var("%i", hc_blank_target_est1);
-+		frl_dump_var("%i", hc_blank_target_est2);
-+		frl_dump_var("%i", hc_blank_target);
-+	}
-+#endif
-+
-+	if (!(inter->blank_audio_min <= hc_blank_target)) {
-+		frl_dump_var("%i", inter->blank_audio_min);
-+		frl_dump_var("%i", hc_blank_target);
-+		return FRL_CAP_CHK_ERROR_AUDIO_BW;
-+	}
-+
-+	f_tb_average    = inter->f_pixel_clock_max / (params->h_active + params->h_blank) * (hc_active_target + hc_blank_target);
-+	t_active_ref    = inter->t_line * ((double)params->h_active / (params->h_active + params->h_blank));
-+	t_blank_ref     = inter->t_line - t_active_ref; // * ((double) params->h_blank / (params->h_active + params->h_blank));
-+	t_active_target = dml_max((hc_active_target / f_tb_average),
-+				  (3.0 / 2.0 * hc_active_target) /
-+				  (params->lanes * inter->r_frl_char_min * (1.0 - inter->overhead_max)));
-+	t_blank_target  = inter->t_line - t_active_target;
-+
-+	tb_borrowed     = t_active_target * f_tb_average - hc_active_target;
-+#ifdef DEBUG_FRL_CAP_CHK
-+	tb_delta        = dcn_bw_fabs(t_active_target - t_active_ref) * (hc_active_target + hc_blank_target_est1) / inter->t_line;
-+
-+	{
-+		frl_dump_var("%le", f_tb_average);
-+		frl_dump_var("%le", t_active_ref);
-+		frl_dump_var("%le", t_blank_ref);
-+		frl_dump_var("%le", t_active_target);
-+		frl_dump_var("%le", t_blank_target);
-+		frl_dump_var("%le", tb_delta);
-+	}
-+#endif
-+
-+	if (t_blank_target - t_blank_ref > DBL_EPSILON) {
-+#ifdef DEBUG_FRL_CAP_CHK
-+		tb_delta_limit = (t_active_ref - hc_active_target / f_tb_average) * (hc_active_target + hc_blank_target_est1) / inter->t_line;
-+#endif
-+		params->borrow_params.borrow_mode = FRL_BORROW_MODE_FROM_ACTIVE;
-+	} else if (t_active_target - t_active_ref > DBL_EPSILON) {
-+#ifdef DEBUG_FRL_CAP_CHK
-+		tb_delta_limit = tb_delta;
-+#endif
-+		params->borrow_params.borrow_mode = FRL_BORROW_MODE_FROM_BLANK;
-+	} else {
-+#ifdef DEBUG_FRL_CAP_CHK
-+		tb_delta_limit = 0;
-+#endif
-+		params->borrow_params.borrow_mode = FRL_BORROW_MODE_NONE;
-+	}
-+
-+#ifdef DEBUG_FRL_CAP_CHK
-+	tb_worst = dml_ceil(dml_max(tb_borrowed, tb_delta_limit), 1);
-+
-+	{
-+		frl_dump_var("%le", tb_delta_limit);
-+		frl_dump_var("%le", tb_borrowed);
-+		frl_dump_var("%i", params->borrow_params.borrow_mode);
-+		frl_dump_var("%i", tb_worst);
-+	}
-+#endif
-+
-+	if (!(tb_borrowed <= TB_BORROWED_MAX))
-+		return FRL_CAP_CHK_ERROR_MAX_BORROW;
-+
-+	c_frl_actual_target_payload = (int)(dml_ceil(3.0 / 2.0 * hc_active_target, 1) + hc_blank_target);
-+	utilization_targeted        = c_frl_actual_target_payload / inter->c_frl_line;
-+	margin_target               = 1.0 - (utilization_targeted + inter->overhead_max);
-+
-+#ifdef DEBUG_FRL_CAP_CHK
-+	{
-+		frl_dump_var("%i",  c_frl_actual_target_payload);
-+		frl_dump_var("%le", utilization_targeted);
-+		frl_dump_var("%le", margin_target);
-+	}
-+#endif
-+
-+	// oversubscribed bandwidth relative to margin
-+	if (margin_target < 0 && dcn_bw_fabs(margin_target) > EPSILON)
-+		return FRL_CAP_CHK_ERROR_MARGIN;
-+
-+	return FRL_CAP_CHK_OK;
-+}
-+
- enum frl_cap_chk_result dml1_frl_cap_chk(struct frl_cap_chk_params *params)
- {
- 	struct frl_cap_chk_intermediates inter;
- 
-+	if (params->compressed)
-+		return dml1_frl_cap_chk_compressed(params, &inter);
-+
- 	return dml1_frl_cap_chk_inter(params, &inter);
- }
- 
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dml1_frl_cap_chk.h b/drivers/gpu/drm/amd/display/dc/dml/dml1_frl_cap_chk.h
-index 545f498ea396..debe4c1dc0f7 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dml1_frl_cap_chk.h
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dml1_frl_cap_chk.h
-@@ -119,6 +119,13 @@ struct frl_cap_chk_params {
- 
- 	bool     compressed;              /* set to true if DSC is enabled */
- 	bool     bypass_hc_target_calc;   /* debug only */
-+	bool     allow_all_bpp;           /* dsc_all_bpp */
-+
-+	/* DSC parameters */
-+	int      slices;
-+	int      slice_width;
-+	double   bpp_target;
-+	bool     is_ovt;
- 	int      layout;
- 	int      acat;    /* not supported */
- 
-@@ -138,6 +145,8 @@ enum frl_cap_chk_result dml1_frl_cap_chk_common(struct frl_cap_chk_intermediates
- enum frl_cap_chk_result dml1_frl_cap_chk_uncompressed(struct frl_cap_chk_params *params,
- 						      struct frl_cap_chk_intermediates *inter);
- 
-+enum frl_cap_chk_result dml1_frl_cap_chk_compressed(struct frl_cap_chk_params *params,
-+						    struct frl_cap_chk_intermediates *inter);
- #endif
- 
- void frl_modified_pix_clock_for_dsc_padding(const int hc_active_target,
-diff --git a/drivers/gpu/drm/amd/display/dc/dsc/dc_dsc.c b/drivers/gpu/drm/amd/display/dc/dsc/dc_dsc.c
-index 8dfb6dd14eb2..c0f489ccf5e1 100644
---- a/drivers/gpu/drm/amd/display/dc/dsc/dc_dsc.c
-+++ b/drivers/gpu/drm/amd/display/dc/dsc/dc_dsc.c
-@@ -151,6 +151,166 @@ uint32_t dc_bandwidth_in_kbps_from_timing(
- 	return kbps;
- }
- 
-+const struct dc_dsc_primary_bpp prim_bpp_444[] = {
-+	/* VIC/BPP */
-+	{64,  192}, /* 1920x1080 @ 100 */
-+	{77,  192}, /* 1920x1080 @ 100 */
-+	{63,  192}, /* 1920x1080 @ 120 */
-+	{78,  192}, /* 1920x1080 @ 120 */
-+	{93,  192}, /* 3840x2160 @ 24 */
-+	{103, 192}, /* 3840x2160 @ 24 */
-+	{94,  192}, /* 3840x2160 @ 25 */
-+	{104, 192}, /* 3840x2160 @ 25 */
-+	{95,  192}, /* 3840x2160 @ 30 */
-+	{105, 192}, /* 3840x2160 @ 30 */
-+	{114, 192}, /* 3840x2160 @ 48 */
-+	{116, 192}, /* 3840x2160 @ 48 */
-+	{96,  192}, /* 3840x2160 @ 50 */
-+	{106, 192}, /* 3840x2160 @ 50 */
-+	{97,  192}, /* 3840x2160 @ 60 */
-+	{107, 192}, /* 3840x2160 @ 60 */
-+	{117, 192}, /* 3840x2160 @ 100 */
-+	{119, 192}, /* 3840x2160 @ 100 */
-+	{118, 192}, /* 3840x2160 @ 120 */
-+	{120, 192}, /* 3840x2160 @ 120 */
-+	{98,  192}, /* 4096x2160 @ 24 */
-+	{99,  192}, /* 4096x2160 @ 25 */
-+	{100, 192}, /* 4096x2160 @ 30 */
-+	{115, 192}, /* 4096x2160 @ 48 */
-+	{101, 192}, /* 4096x2160 @ 50 */
-+	{102, 192}, /* 4096x2160 @ 60 */
-+	{218, 192}, /* 4096x2160 @ 100 */
-+	{219, 192}, /* 4096x2160 @ 120 */
-+	{121, 192}, /* 5120x2160 @ 24 */
-+	{122, 192}, /* 5120x2160 @ 25 */
-+	{123, 192}, /* 5120x2160 @ 30 */
-+	{124, 192}, /* 5120x2160 @ 48 */
-+	{125, 192}, /* 5120x2160 @ 50 */
-+	{126, 173}, /* 5120x2160 @ 60 */
-+	{127, 192}, /* 5120x2160 @ 100 */
-+	{193, 175}, /* 5120x2160 @ 120 */
-+	{194, 192}, /* 7680x2160 @ 24 */
-+	{202, 192}, /* 7680x2160 @ 24 */
-+	{195, 192}, /* 7680x2160 @ 25 */
-+	{203, 192}, /* 7680x2160 @ 25 */
-+	{196, 192}, /* 7680x2160 @ 30 */
-+	{204, 192}, /* 7680x2160 @ 30 */
-+	{197, 157}, /* 7680x2160 @ 48 */
-+	{205, 157}, /* 7680x2160 @ 48 */
-+	{198, 157}, /* 7680x2160 @ 50 */
-+	{206, 157}, /* 7680x2160 @ 50 */
-+	{199, 159}, /* 7680x2160 @ 60 */
-+	{207, 159}, /* 7680x2160 @ 60 */
-+	{200, 134}, /* 7680x2160 @ 100 */
-+	{208, 134}, /* 7680x2160 @ 100 */
-+	{201, 130}, /* 7680x2160 @ 120 */
-+	{209, 130}, /* 7680x2160 @ 120 */
-+	{210, 182}, /* 10240x4320 @ 24 */
-+	{211, 181}, /* 10240x4320 @ 25 */
-+	{212, 177}, /* 10240x4320 @ 30 */
-+	{213, 163}, /* 10240x4320 @ 48 */
-+	{214, 162}, /* 10240x4320 @ 50 */
-+	{215, 157}, /* 10240x4320 @ 60 */
-+};
-+const struct dc_dsc_primary_bpp prim_bpp_422[] = {
-+	/* VIC/BPP */
-+	{114, 192}, /* 3840x2160 @ 48 */
-+	{116, 192}, /* 3840x2160 @ 48 */
-+	{96,  192}, /* 3840x2160 @ 50 */
-+	{106, 192}, /* 3840x2160 @ 50 */
-+	{97,  192}, /* 3840x2160 @ 60 */
-+	{107, 192}, /* 3840x2160 @ 60 */
-+	{117, 137}, /* 3840x2160 @ 100 */
-+	{119, 137}, /* 3840x2160 @ 100 */
-+	{118, 113}, /* 3840x2160 @ 120 */
-+	{120, 113}, /* 3840x2160 @ 120 */
-+	{115, 192}, /* 4096x2160 @ 48 */
-+	{101, 192}, /* 4096x2160 @ 50 */
-+	{102, 192}, /* 4096x2160 @ 60 */
-+	{218, 192}, /* 4096x2160 @ 100 */
-+	{219, 192}, /* 4096x2160 @ 120 */
-+	{121, 192}, /* 5120x2160 @ 24 */
-+	{122, 192}, /* 5120x2160 @ 25 */
-+	{123, 192}, /* 5120x2160 @ 30 */
-+	{124, 192}, /* 5120x2160 @ 48 */
-+	{125, 192}, /* 5120x2160 @ 50 */
-+	{126, 173}, /* 5120x2160 @ 60 */
-+	{127, 192}, /* 5120x2160 @ 100 */
-+	{193, 175}, /* 5120x2160 @ 120 */
-+	{194, 123}, /* 7680x2160 @ 24 */
-+	{202, 123}, /* 7680x2160 @ 24 */
-+	{195, 123}, /* 7680x2160 @ 25 */
-+	{203, 123}, /* 7680x2160 @ 25 */
-+	{196, 118}, /* 7680x2160 @ 30 */
-+	{204, 118}, /* 7680x2160 @ 30 */
-+	{197, 123}, /* 7680x2160 @ 48 */
-+	{205, 123}, /* 7680x2160 @ 48 */
-+	{198, 123}, /* 7680x2160 @ 50 */
-+	{206, 123}, /* 7680x2160 @ 50 */
-+	{199, 119}, /* 7680x2160 @ 60 */
-+	{207, 119}, /* 7680x2160 @ 60 */
-+	{200, 134}, /* 7680x2160 @ 100 */
-+	{208, 134}, /* 7680x2160 @ 100 */
-+	{201, 130}, /* 7680x2160 @ 120 */
-+	{209, 130}, /* 7680x2160 @ 120 */
-+	{210, 182}, /* 10240x4320 @ 24 */
-+	{211, 181}, /* 10240x4320 @ 25 */
-+	{212, 177}, /* 10240x4320 @ 30 */
-+	{213, 126}, /* 10240x4320 @ 48 */
-+	{214, 125}, /* 10240x4320 @ 50 */
-+	{215, 117}, /* 10240x4320 @ 60 */
-+	{216, 125}, /* 10240x4320 @ 100 */
-+	{217, 117}, /* 10240x4320 @ 120 */
-+};
-+
-+const struct dc_dsc_primary_bpp prim_bpp_420[] = {
-+	/* VIC/BPP */
-+	{114, 192}, /* 3840x2160 @ 48 */
-+	{116, 192}, /* 3840x2160 @ 48 */
-+	{96,  192}, /* 3840x2160 @ 50 */
-+	{106, 192}, /* 3840x2160 @ 50 */
-+	{97,  192}, /* 3840x2160 @ 60 */
-+	{107, 192}, /* 3840x2160 @ 60 */
-+	{117, 137}, /* 3840x2160 @ 100 */
-+	{119, 137}, /* 3840x2160 @ 100 */
-+	{118, 113}, /* 3840x2160 @ 120 */
-+	{120, 113}, /* 3840x2160 @ 120 */
-+	{115, 192}, /* 4096x2160 @ 48 */
-+	{101, 192}, /* 4096x2160 @ 50 */
-+	{102, 192}, /* 4096x2160 @ 60 */
-+	{218, 129}, /* 4096x2160 @ 100 */
-+	{219, 106}, /* 4096x2160 @ 120 */
-+	{124, 192}, /* 5120x2160 @ 48 */
-+	{125, 192}, /* 5120x2160 @ 50 */
-+	{126, 173}, /* 5120x2160 @ 60 */
-+	{127, 192}, /* 5120x2160 @ 100 */
-+	{193, 175}, /* 5120x2160 @ 120 */
-+	{194, 123}, /* 7680x4320 @ 24 */
-+	{202, 123}, /* 7680x4320 @ 24 */
-+	{195, 123}, /* 7680x4320 @ 25 */
-+	{203, 123}, /* 7680x4320 @ 25 */
-+	{196, 118}, /* 7680x4320 @ 30 */
-+	{204, 118}, /* 7680x4320 @ 30 */
-+	{197, 123}, /* 7680x4320 @ 48 */
-+	{205, 123}, /* 7680x4320 @ 48 */
-+	{198, 123}, /* 7680x4320 @ 50 */
-+	{206, 123}, /* 7680x4320 @ 50 */
-+	{199, 119}, /* 7680x4320 @ 60 */
-+	{207, 119}, /* 7680x4320 @ 60 */
-+	{200, 112}, /* 7680x4320 @ 100 */
-+	{208, 112}, /* 7680x4320 @ 100 */
-+	{201, 103}, /* 7680x4320 @ 120 */
-+	{209, 103}, /* 7680x4320 @ 120 */
-+	{210,  98}, /* 10240x4320 @ 24 */
-+	{211,  98}, /* 10240x4320 @ 25 */
-+	{212, 177}, /* 10240x4320 @ 30 */
-+	{213,  98}, /* 10240x4320 @ 48 */
-+	{214, 125}, /* 10240x4320 @ 50 */
-+	{215, 117}, /* 10240x4320 @ 60 */
-+	{216, 107}, /* 10240x4320 @ 100 */
-+	{217,  97}, /* 10240x4320 @ 120 */
-+};
-+
- /* Forward Declerations */
- static unsigned int get_min_dsc_slice_count_for_odm(
- 		const struct display_stream_compressor *dsc,
-@@ -194,6 +354,15 @@ static bool setup_dsc_config(
- 		int min_slice_count,
- 		struct dc_dsc_config *dsc_cfg);
- 
-+static bool convert_bandwidth_to_frl_params(
-+	int bandwidth_kbps,
-+	int *num_lanes,
-+	int *frl_rate);
-+
-+static uint32_t compute_bpp_x16_from_frl_params(
-+		const struct dc_crtc_timing *timing,
-+		const uint32_t num_slices_h,
-+		const struct dsc_enc_caps *dsc_caps);
- static bool dsc_buff_block_size_from_dpcd(int dpcd_buff_block_size, int *buff_block_size)
- {
- 
-@@ -328,6 +497,207 @@ static bool dsc_bpp_increment_div_from_dpcd(uint8_t bpp_increment_dpcd, uint32_t
- 
- 
- 
-+static bool get_vic_preset_bpp(
-+		const struct dc_crtc_timing *timing,
-+		int *preset_bpp)
-+{
-+	bool preset_found = false;
-+	uint32_t table_size_444 = ARRAY_SIZE(prim_bpp_444);
-+	uint32_t table_size_422 = ARRAY_SIZE(prim_bpp_422);
-+	uint32_t table_size_420 = ARRAY_SIZE(prim_bpp_420);
-+	uint32_t i;
-+	uint32_t vid_id;
-+
-+	if (timing->vic == 0 && timing->hdmi_vic == 0)
-+		return false;
-+
-+	vid_id = timing->vic;
-+	switch (timing->hdmi_vic) {
++	/* Enable FORCE_EN for SYMCLK */
++	switch (phypll_inst) {
++	case 0:
++		REG_UPDATE_2(PHYASYMCLK_CLOCK_CNTL,
++				PHYASYMCLK_FORCE_EN, 1,
++				PHYASYMCLK_FORCE_SRC_SEL, 1);
++		break;
 +	case 1:
-+		vid_id = 95;
++		REG_UPDATE_2(PHYBSYMCLK_CLOCK_CNTL,
++				PHYBSYMCLK_FORCE_EN, 1,
++				PHYBSYMCLK_FORCE_SRC_SEL, 1);
 +		break;
 +	case 2:
-+		vid_id = 94;
++		REG_UPDATE_2(PHYCSYMCLK_CLOCK_CNTL,
++				PHYCSYMCLK_FORCE_EN, 1,
++				PHYCSYMCLK_FORCE_SRC_SEL, 1);
++		break;
++	default:
++		BREAK_TO_DEBUGGER();
++		return;
++	}
++}
++
++void dccg3_disable_hdmicharclk(struct dccg *dccg, int hpo_inst)
++{
++	struct dcn_dccg *dccg_dcn = TO_DCN_DCCG(dccg);
++
++	REG_WRITE(HDMICHARCLK_CLOCK_CNTL[hpo_inst], 0);
++}
+ 
+ static const struct dccg_funcs dccg3_funcs = {
++	.enable_hdmicharclk = dccg3_enable_hdmicharclk,
++	.disable_hdmicharclk = dccg3_disable_hdmicharclk,
+ 	.update_dpp_dto = dccg2_update_dpp_dto,
+ 	.get_dccg_ref_freq = dccg2_get_dccg_ref_freq,
+ 	.set_fifo_errdet_ovr_en = dccg2_set_fifo_errdet_ovr_en,
+diff --git a/drivers/gpu/drm/amd/display/dc/dccg/dcn30/dcn30_dccg.h b/drivers/gpu/drm/amd/display/dc/dccg/dcn30/dcn30_dccg.h
+index 3f1da7f3a91c..379fe94734ba 100644
+--- a/drivers/gpu/drm/amd/display/dc/dccg/dcn30/dcn30_dccg.h
++++ b/drivers/gpu/drm/amd/display/dc/dccg/dcn30/dcn30_dccg.h
+@@ -63,4 +63,12 @@ struct dccg *dccg30_create(
+ 	const struct dccg_shift *dccg_shift,
+ 	const struct dccg_mask *dccg_mask);
+ 
++void dccg3_enable_hdmicharclk(
++	struct dccg *dccg,
++	int hpo_inst,
++	int phypll_inst);
++
++void dccg3_disable_hdmicharclk(
++	struct dccg *dccg,
++	int hpo_inst);
+ #endif //__DCN30_DCCG_H__
+diff --git a/drivers/gpu/drm/amd/display/dc/dccg/dcn31/dcn31_dccg.c b/drivers/gpu/drm/amd/display/dc/dccg/dcn31/dcn31_dccg.c
+index 1f5a4a8bf691..a4f6faaf97fb 100644
+--- a/drivers/gpu/drm/amd/display/dc/dccg/dcn31/dcn31_dccg.c
++++ b/drivers/gpu/drm/amd/display/dc/dccg/dcn31/dcn31_dccg.c
+@@ -664,6 +664,87 @@ void dccg31_set_dispclk_change_mode(
+ 		   change_mode == DISPCLK_CHANGE_MODE_RAMPING ? 2 : 0);
+ }
+ 
++void dccg31_set_hdmistreamclk(
++		struct dccg *dccg,
++		enum streamclk_source src,
++		uint32_t otg_inst)
++{
++	(void)otg_inst;
++	struct dcn_dccg *dccg_dcn = TO_DCN_DCCG(dccg);
++
++	if (src == REFCLK) {
++		REG_UPDATE_2(HDMISTREAMCLK_CNTL,
++				HDMISTREAMCLK0_SRC_SEL, 0,        /* SEL_REFCLK0 */
++				HDMISTREAMCLK0_DTO_FORCE_DIS, 1); /* DTO_FORCE_BYPASS */
++	} else {
++		REG_UPDATE_2(HDMISTREAMCLK_CNTL,
++				HDMISTREAMCLK0_SRC_SEL, 1,        /* SEL_DTBCLK0 */
++				HDMISTREAMCLK0_DTO_FORCE_DIS, 1); /* DTO_FORCE_BYPASS */
++	}
++}
++
++static void dccg31_disable_hdmistreamclk(struct dccg *dccg)
++{
++	struct dcn_dccg *dccg_dcn = TO_DCN_DCCG(dccg);
++
++	if (dccg->ctx->dc->debug.root_clock_optimization.bits.hdmistream)
++		REG_UPDATE_2(HDMISTREAMCLK0_DTO_PARAM,
++			HDMISTREAMCLK0_DTO_PHASE, 0,
++			HDMISTREAMCLK0_DTO_MODULO, 1);
++}
++
++void dccg31_enable_hdmicharclk(struct dccg *dccg, int hpo_inst, int phypll_inst)
++{
++	struct dcn_dccg *dccg_dcn = TO_DCN_DCCG(dccg);
++
++	ASSERT(hpo_inst >= 0 && phypll_inst >= 0);
++	if (dccg->ctx->dc->debug.root_clock_optimization.bits.hdmichar) {
++		REG_UPDATE(DCCG_GATE_DISABLE_CNTL4,
++			HDMICHARCLK0_ROOT_GATE_DISABLE, 1);
++		REG_UPDATE(DCCG_GATE_DISABLE_CNTL2,
++			HDMICHARCLK0_GATE_DISABLE, 1);
++	}
++
++	REG_UPDATE_2(HDMICHARCLK_CLOCK_CNTL[hpo_inst],
++			HDMICHARCLK0_EN, 1,
++			HDMICHARCLK0_SRC_SEL, phypll_inst);
++
++	/* Enable FORCE_EN for SYMCLK */
++	switch (phypll_inst) {
++	case 0:
++		REG_UPDATE_2(PHYASYMCLK_CLOCK_CNTL,
++				PHYASYMCLK_FORCE_EN, 1,
++				PHYASYMCLK_FORCE_SRC_SEL, 1);
++		break;
++	case 1:
++		REG_UPDATE_2(PHYBSYMCLK_CLOCK_CNTL,
++				PHYBSYMCLK_FORCE_EN, 1,
++				PHYBSYMCLK_FORCE_SRC_SEL, 1);
++		break;
++	case 2:
++		REG_UPDATE_2(PHYCSYMCLK_CLOCK_CNTL,
++				PHYCSYMCLK_FORCE_EN, 1,
++				PHYCSYMCLK_FORCE_SRC_SEL, 1);
++		break;
++	default:
++		BREAK_TO_DEBUGGER();
++		return;
++	}
++}
++
++void dccg31_disable_hdmicharclk(struct dccg *dccg, int hpo_inst)
++{
++	struct dcn_dccg *dccg_dcn = TO_DCN_DCCG(dccg);
++
++	REG_WRITE(HDMICHARCLK_CLOCK_CNTL[hpo_inst], 0);
++	if (dccg->ctx->dc->debug.root_clock_optimization.bits.hdmichar) {
++		REG_UPDATE(DCCG_GATE_DISABLE_CNTL2,
++			HDMICHARCLK0_GATE_DISABLE, 0);
++		REG_UPDATE(DCCG_GATE_DISABLE_CNTL4,
++			HDMICHARCLK0_ROOT_GATE_DISABLE, 0);
++	}
++}
++
+ void dccg31_init(struct dccg *dccg)
+ {
+ 	/* Set HPO stream encoder to use refclk to avoid case where PHY is
+@@ -692,6 +773,10 @@ void dccg31_init(struct dccg *dccg)
+ 		dccg31_set_physymclk(dccg, 3, PHYSYMCLK_FORCE_SRC_SYMCLK, false);
+ 		dccg31_set_physymclk(dccg, 4, PHYSYMCLK_FORCE_SRC_SYMCLK, false);
+ 	}
++	dccg31_disable_hdmistreamclk(dccg);
++
++	if (dccg->ctx->dc->debug.root_clock_optimization.bits.hdmichar)
++		dccg31_disable_hdmicharclk(dccg, 0);
+ }
+ 
+ void dccg31_otg_add_pixel(struct dccg *dccg,
+@@ -835,6 +920,9 @@ void dccg31_read_reg_state(struct dccg *dccg, struct dcn_dccg_reg_state *dccg_re
+ }
+ 
+ static const struct dccg_funcs dccg31_funcs = {
++	.enable_hdmicharclk = dccg31_enable_hdmicharclk,
++	.disable_hdmicharclk = dccg31_disable_hdmicharclk,
++	.set_hdmistreamclk = dccg31_set_hdmistreamclk,
+ 	.update_dpp_dto = dccg31_update_dpp_dto,
+ 	.get_dccg_ref_freq = dccg31_get_dccg_ref_freq,
+ 	.dccg_init = dccg31_init,
+diff --git a/drivers/gpu/drm/amd/display/dc/dccg/dcn31/dcn31_dccg.h b/drivers/gpu/drm/amd/display/dc/dccg/dcn31/dcn31_dccg.h
+index b5e3849ef12a..2c2d682a82c2 100644
+--- a/drivers/gpu/drm/amd/display/dc/dccg/dcn31/dcn31_dccg.h
++++ b/drivers/gpu/drm/amd/display/dc/dccg/dcn31/dcn31_dccg.h
+@@ -202,6 +202,19 @@ void dccg31_set_physymclk(
+ void dccg31_set_audio_dtbclk_dto(
+ 		struct dccg *dccg,
+ 		const struct dtbclk_dto_params *params);
++void dccg31_enable_hdmicharclk(
++	struct dccg *dccg,
++	int hpo_inst,
++	int phypll_inst);
++
++void dccg31_disable_hdmicharclk(
++	struct dccg *dccg,
++	int hpo_inst);
++
++void dccg31_set_hdmistreamclk(
++	struct dccg *dccg,
++	enum streamclk_source src,
++	uint32_t otg_inst);
+ 
+ void dccg31_update_dpp_dto(
+ 	struct dccg *dccg,
+diff --git a/drivers/gpu/drm/amd/display/dc/dccg/dcn314/dcn314_dccg.c b/drivers/gpu/drm/amd/display/dc/dccg/dcn314/dcn314_dccg.c
+index 2e9c4b13988a..410e914c720c 100644
+--- a/drivers/gpu/drm/amd/display/dc/dccg/dcn314/dcn314_dccg.c
++++ b/drivers/gpu/drm/amd/display/dc/dccg/dcn314/dcn314_dccg.c
+@@ -286,6 +286,28 @@ void dccg314_set_dpstreamclk(
+ 	}
+ }
+ 
++static void dccg314_set_hdmistreamclk(
++		struct dccg *dccg,
++		enum streamclk_source src,
++		uint32_t otg_inst)
++{
++	struct dcn_dccg *dccg_dcn = TO_DCN_DCCG(dccg);
++
++	/* set the dtbclk_p source */
++	dccg314_set_dtbclk_p_src(dccg, src, otg_inst);
++
++	if (src == REFCLK) {
++		REG_UPDATE_2(HDMISTREAMCLK_CNTL,
++				HDMISTREAMCLK0_EN, 0,             /* SEL_REFCLK */
++				HDMISTREAMCLK0_DTO_FORCE_DIS, 1); /* DTO_FORCE_BYPASS */
++	} else {
++		REG_UPDATE_3(HDMISTREAMCLK_CNTL,
++				HDMISTREAMCLK0_EN, 1,             /* selects one of the dtbclk_p as per HDMISTREAMCLK0_SRC_SEL */
++				HDMISTREAMCLK0_SRC_SEL, otg_inst, /* Selects dtbclk_p as source for hdmistreamclk */
++				HDMISTREAMCLK0_DTO_FORCE_DIS, 1); /* DTO_FORCE_BYPASS */
++	}
++}
++
+ static void dccg314_init(struct dccg *dccg)
+ {
+ 	int otg_inst;
+@@ -355,6 +377,9 @@ static void dccg314_dpp_root_clock_control(
+ }
+ 
+ static const struct dccg_funcs dccg314_funcs = {
++	.enable_hdmicharclk = dccg31_enable_hdmicharclk,
++	.disable_hdmicharclk = dccg31_disable_hdmicharclk,
++	.set_hdmistreamclk = dccg314_set_hdmistreamclk,
+ 	.update_dpp_dto = dccg31_update_dpp_dto,
+ 	.dpp_root_clock_control = dccg314_dpp_root_clock_control,
+ 	.get_dccg_ref_freq = dccg31_get_dccg_ref_freq,
+diff --git a/drivers/gpu/drm/amd/display/dc/dccg/dcn32/dcn32_dccg.c b/drivers/gpu/drm/amd/display/dc/dccg/dcn32/dcn32_dccg.c
+index d2752dd8f81f..c81362876774 100644
+--- a/drivers/gpu/drm/amd/display/dc/dccg/dcn32/dcn32_dccg.c
++++ b/drivers/gpu/drm/amd/display/dc/dccg/dcn32/dcn32_dccg.c
+@@ -329,7 +329,75 @@ static void dccg32_otg_drop_pixel(struct dccg *dccg,
+ 			OTG_DROP_PIXEL[otg_inst], 1);
+ }
+ 
++static void dccg32_set_hdmistreamclk(struct dccg *dccg,
++				     enum streamclk_source src,
++				     uint32_t otg_inst)
++{
++	struct dcn_dccg *dccg_dcn = TO_DCN_DCCG(dccg);
++
++	/* set the dtbclk_p source */
++	/* always program refclk as DTBCLK. No use-case expected to require DPREFCLK as refclk */
++	dccg32_set_dtbclk_p_src(dccg, DTBCLK0, otg_inst);
++
++	if (src == REFCLK) {
++		REG_UPDATE_2(HDMISTREAMCLK_CNTL,
++				HDMISTREAMCLK0_EN, 0,             /* SEL_REFCLK */
++				HDMISTREAMCLK0_DTO_FORCE_DIS, 1); /* DTO_FORCE_BYPASS */
++	} else {
++		REG_UPDATE_3(HDMISTREAMCLK_CNTL,
++				HDMISTREAMCLK0_EN, 1,             /* selects one of the dtbclk_p as per HDMISTREAMCLK0_SRC_SEL */
++				HDMISTREAMCLK0_SRC_SEL, otg_inst, /* Selects dtbclk_p as source for hdmistreamclk */
++				HDMISTREAMCLK0_DTO_FORCE_DIS, 1); /* DTO_FORCE_BYPASS */
++	}
++}
++
++static void dccg32_enable_hdmicharclk(struct dccg *dccg, int hpo_inst,
++				      int phypll_inst)
++{
++	struct dcn_dccg *dccg_dcn = TO_DCN_DCCG(dccg);
++
++	ASSERT(hpo_inst >= 0 && phypll_inst >= 0);
++	REG_UPDATE_2(HDMICHARCLK_CLOCK_CNTL[hpo_inst],
++			HDMICHARCLK0_EN, 1,
++			HDMICHARCLK0_SRC_SEL, phypll_inst);
++
++	/* Enable FORCE_EN for SYMCLK */
++	switch (phypll_inst) {
++	case 0:
++		REG_UPDATE_2(PHYASYMCLK_CLOCK_CNTL,
++				PHYASYMCLK_FORCE_EN, 1,
++				PHYASYMCLK_FORCE_SRC_SEL, 1);
++		break;
++	case 1:
++		REG_UPDATE_2(PHYBSYMCLK_CLOCK_CNTL,
++				PHYBSYMCLK_FORCE_EN, 1,
++				PHYBSYMCLK_FORCE_SRC_SEL, 1);
++		break;
++	case 2:
++		REG_UPDATE_2(PHYCSYMCLK_CLOCK_CNTL,
++				PHYCSYMCLK_FORCE_EN, 1,
++				PHYCSYMCLK_FORCE_SRC_SEL, 1);
 +		break;
 +	case 3:
-+		vid_id = 93;
++		REG_UPDATE_2(PHYDSYMCLK_CLOCK_CNTL,
++				PHYDSYMCLK_FORCE_EN, 1,
++				PHYDSYMCLK_FORCE_SRC_SEL, 1);
 +		break;
 +	case 4:
-+		vid_id = 98;
++		REG_UPDATE_2(PHYESYMCLK_CLOCK_CNTL,
++				PHYESYMCLK_FORCE_EN, 1,
++				PHYESYMCLK_FORCE_SRC_SEL, 1);
++		break;
++	default:
++		BREAK_TO_DEBUGGER();
++		return;
++	}
++}
++
+ static const struct dccg_funcs dccg32_funcs = {
++	.enable_hdmicharclk = dccg32_enable_hdmicharclk,
++	.disable_hdmicharclk = dccg3_disable_hdmicharclk,
++	.set_hdmistreamclk = dccg32_set_hdmistreamclk,
+ 	.update_dpp_dto = dccg2_update_dpp_dto,
+ 	.get_dccg_ref_freq = dccg32_get_dccg_ref_freq,
+ 	.dccg_init = dccg31_init,
+diff --git a/drivers/gpu/drm/amd/display/dc/dccg/dcn35/dcn35_dccg.c b/drivers/gpu/drm/amd/display/dc/dccg/dcn35/dcn35_dccg.c
+index 33418ee1fa62..83589777f1ca 100644
+--- a/drivers/gpu/drm/amd/display/dc/dccg/dcn35/dcn35_dccg.c
++++ b/drivers/gpu/drm/amd/display/dc/dccg/dcn35/dcn35_dccg.c
+@@ -495,6 +495,92 @@ static void dccg35_set_smclk32_se_rcg(
+ 	}
+ }
+ 
++static void dccg35_set_hdmistreamclk_rcg(
++		struct dccg *dccg,
++		int inst,
++		bool enable)
++{
++	struct dcn_dccg *dccg_dcn = TO_DCN_DCCG(dccg);
++
++	if (!dccg->ctx->dc->debug.root_clock_optimization.bits.hdmistream && enable)
++		return;
++
++	switch (inst) {
++	case 0:
++			REG_UPDATE(DCCG_GATE_DISABLE_CNTL3, HDMISTREAMCLK0_GATE_DISABLE, enable ? 0 : 1);
++			REG_UPDATE(DCCG_GATE_DISABLE_CNTL6, HDMISTREAMCLK0_ROOT_GATE_DISABLE, enable ? 0 : 1);
++		break;
++	default:
++		BREAK_TO_DEBUGGER();
++		return;
++	}
++}
++
++static void dccg35_set_hdmi_char_clk_rcg(
++		struct dccg *dccg,
++		int inst,
++		bool enable)
++{
++	struct dcn_dccg *dccg_dcn = TO_DCN_DCCG(dccg);
++
++	/* Only 1 HPO in DCN35 */
++	if (!dccg->ctx->dc->debug.root_clock_optimization.bits.hdmichar && enable)
++		return;
++
++	switch (inst) {
++	case 0:
++			REG_UPDATE(DCCG_GATE_DISABLE_CNTL2, HDMICHARCLK0_GATE_DISABLE, enable ? 0 : 1);
++			REG_UPDATE(DCCG_GATE_DISABLE_CNTL4, HDMICHARCLK0_ROOT_GATE_DISABLE, enable ? 0 : 1);
++		break;
++	default:
++		BREAK_TO_DEBUGGER();
++		return;
++	}
++}
++
++static void dccg35_set_hdmi_char_clk_src_new(
++	struct dccg *dccg,
++	enum hdmi_char_clk src,
++	int inst)
++{
++	struct dcn_dccg *dccg_dcn = TO_DCN_DCCG(dccg);
++
++	/* If DTBCLK_P#_EN is 0 refclock is selected as functional clock
++	 * If DTBCLK_P#_EN is 1 functional clock is selected as DTBCLK_P#_SRC_SEL
++	 */
++
++	switch (inst) {
++	case 0:
++		REG_UPDATE_2(HDMICHARCLK_CLOCK_CNTL[0],
++					 HDMICHARCLK0_SRC_SEL, (src == HDMI_CHAR_REFCLK) ? 0 : src,
++					 HDMICHARCLK0_EN, (src == HDMI_CHAR_REFCLK) ? 0 : 1);
++		break;
++	default:
++		BREAK_TO_DEBUGGER();
++		return;
++	}
++}
++
++static void dccg35_set_hdmistreamclk_src_new(
++	struct dccg *dccg,
++	enum hdmi_stream_clk_source src,
++	int inst)
++{
++	struct dcn_dccg *dccg_dcn = TO_DCN_DCCG(dccg);
++
++	switch (inst) {
++	case 0:
++		REG_UPDATE_2(HDMISTREAMCLK_CNTL, HDMISTREAMCLK0_EN,
++					 (src == HDMI_STREAM_REFCLK) ? 0 : 1,
++					 DPSTREAMCLK0_SRC_SEL,
++					 (src == HDMI_STREAM_REFCLK) ? 0 : src);
++		break;
++	default:
++		BREAK_TO_DEBUGGER();
++		return;
++	}
++}
++
+ static void dccg35_set_dsc_clk_src_new(struct dccg *dccg, int inst, enum dsc_clk_source src)
+ {
+ 	struct dcn_dccg *dccg_dcn = TO_DCN_DCCG(dccg);
+@@ -1107,6 +1193,35 @@ static void dccg35_enable_dpstreamclk_new(struct dccg *dccg,
+ 	dccg35_set_dpstreamclk_src_new(dccg, src, inst);
+ }
+ 
++static void dccg35_disable_hdmistreamclk_new(
++	struct dccg *dccg,
++	int inst)
++{
++	dccg35_set_hdmistreamclk_src_new(dccg, HDMI_STREAM_REFCLK, inst);
++	dccg35_set_hdmistreamclk_rcg(dccg, inst, true);
++}
++
++static void dccg35_enable_hdmistreamclk_new(struct dccg *dccg,
++								enum hdmi_stream_clk_source src,
++								int inst)
++{
++	dccg35_set_hdmistreamclk_rcg(dccg, inst, false);
++	dccg35_set_hdmistreamclk_src_new(dccg, src, inst);
++}
++
++static void dccg35_enable_hdmicharclk_new(struct dccg *dccg, enum hdmi_char_clk src,
++										  int inst)
++{
++	dccg35_set_hdmi_char_clk_rcg(dccg, inst, false);
++	dccg35_set_hdmi_char_clk_src_new(dccg, src, inst);
++}
++
++static void dccg35_disable_hdmicharclk_new(struct dccg *dccg, int inst)
++{
++	dccg35_set_hdmi_char_clk_src_new(dccg, HDMI_CHAR_REFCLK, inst);
++	dccg35_set_hdmi_char_clk_rcg(dccg, inst, true);
++}
++
+ void dccg35_trigger_dio_fifo_resync(struct dccg *dccg)
+ {
+ 	struct dcn_dccg *dccg_dcn = TO_DCN_DCCG(dccg);
+@@ -1539,6 +1654,88 @@ void dccg35_set_dpstreamclk_root_clock_gating(struct dccg *dccg, int dp_hpo_inst
+ 
+ 
+ 
++static void dccg35_set_hdmistreamclk(
++		struct dccg *dccg,
++		enum streamclk_source src,
++		uint32_t otg_inst)
++{
++	struct dcn_dccg *dccg_dcn = TO_DCN_DCCG(dccg);
++
++	/* set the dtbclk_p source */
++	dccg35_set_dtbclk_p_src(dccg, src, otg_inst);
++
++	if (src == REFCLK) {
++		REG_UPDATE(HDMISTREAMCLK_CNTL,
++				HDMISTREAMCLK0_EN, 0);             /* SEL_REFCLK */
++	} else {
++		REG_UPDATE_2(HDMISTREAMCLK_CNTL,
++				HDMISTREAMCLK0_EN, 1,              /* selects one of the dtbclk_p as per HDMISTREAMCLK0_SRC_SEL */
++				HDMISTREAMCLK0_SRC_SEL, otg_inst); /* Selects dtbclk_p as source for hdmistreamclk */
++	}
++	DC_LOG_DEBUG("%s: OTG%d HDMISTREAMCLK_EN = %d, HDMISTREAMCLK_SRC_SEL = %d\n",
++			__func__, otg_inst, (src == REFCLK) ? 0 : 1, otg_inst);
++}
++
++void dccg35_set_hdmistreamclk_root_clock_gating(struct dccg *dccg, bool enable)
++{
++	struct dcn_dccg *dccg_dcn = TO_DCN_DCCG(dccg);
++
++	if (dccg->ctx->dc->debug.root_clock_optimization.bits.hdmistream)
++		REG_UPDATE(DCCG_GATE_DISABLE_CNTL6, HDMISTREAMCLK0_ROOT_GATE_DISABLE, enable ? 1 : 0);
++
++	DC_LOG_DEBUG("%s: HDMISTREAMCLK0_ROOT_GATE_DISABLE = %d\n", __func__, enable ? 1 : 0);
++}
++
++static void dccg35_enable_hdmicharclk(struct dccg *dccg, int hpo_inst,
++				      int phypll_inst)
++{
++	struct dcn_dccg *dccg_dcn = TO_DCN_DCCG(dccg);
++
++	if (dccg->ctx->dc->debug.root_clock_optimization.bits.hdmichar) {
++		REG_UPDATE(DCCG_GATE_DISABLE_CNTL4,
++			HDMICHARCLK0_ROOT_GATE_DISABLE, 1);
++		REG_UPDATE(DCCG_GATE_DISABLE_CNTL2,
++			HDMICHARCLK0_GATE_DISABLE, 1);
++	}
++
++	ASSERT(hpo_inst >= 0 && phypll_inst >= 0);
++	REG_UPDATE_2(HDMICHARCLK_CLOCK_CNTL[hpo_inst],
++			HDMICHARCLK0_EN, 1,
++			HDMICHARCLK0_SRC_SEL, phypll_inst);
++
++	/* Enable FORCE_EN for SYMCLK */
++	switch (phypll_inst) {
++	case 0:
++		REG_UPDATE_2(PHYASYMCLK_CLOCK_CNTL,
++				PHYASYMCLK_EN, 1,
++				PHYASYMCLK_SRC_SEL, 1);
++		break;
++	case 1:
++		REG_UPDATE_2(PHYBSYMCLK_CLOCK_CNTL,
++				PHYBSYMCLK_EN, 1,
++				PHYBSYMCLK_SRC_SEL, 1);
++		break;
++	case 2:
++		REG_UPDATE_2(PHYCSYMCLK_CLOCK_CNTL,
++				PHYCSYMCLK_EN, 1,
++				PHYCSYMCLK_SRC_SEL, 1);
++		break;
++	case 3:
++		REG_UPDATE_2(PHYDSYMCLK_CLOCK_CNTL,
++				PHYDSYMCLK_EN, 1,
++				PHYDSYMCLK_SRC_SEL, 1);
++		break;
++	case 4:
++		REG_UPDATE_2(PHYESYMCLK_CLOCK_CNTL,
++				PHYESYMCLK_EN, 1,
++				PHYESYMCLK_SRC_SEL, 1);
++		break;
++	default:
++		BREAK_TO_DEBUGGER();
++		return;
++	}
++}
++
+ static void dccg35_set_physymclk_root_clock_gating(
+ 		struct dccg *dccg,
+ 		int phy_inst,
+@@ -1756,6 +1953,33 @@ void dccg35_disable_symclk32_se(struct dccg *dccg, int hpo_se_inst)
+ 
+ }
+ 
++static void dccg35_disable_hdmistreamclk(struct dccg *dccg)
++{
++	struct dcn_dccg *dccg_dcn = TO_DCN_DCCG(dccg);
++
++	if (dccg->ctx->dc->debug.root_clock_optimization.bits.hdmistream) {
++//		REG_UPDATE_2(HDMISTREAMCLK0_DTO_PARAM,
++//			HDMISTREAMCLK0_DTO_PHASE, 0,
++//			HDMISTREAMCLK0_DTO_MODULO, 1);
++		REG_UPDATE(DCCG_GATE_DISABLE_CNTL6, HDMISTREAMCLK0_ROOT_GATE_DISABLE, 0);
++
++	}
++}
++
++static void dccg35_disable_hdmicharclk(struct dccg *dccg, int hpo_inst)
++{
++	struct dcn_dccg *dccg_dcn = TO_DCN_DCCG(dccg);
++
++	REG_WRITE(HDMICHARCLK_CLOCK_CNTL[hpo_inst], 0);
++	if (dccg->ctx->dc->debug.root_clock_optimization.bits.hdmichar) {
++		REG_UPDATE(DCCG_GATE_DISABLE_CNTL2,
++			HDMICHARCLK0_GATE_DISABLE, 0);
++		REG_UPDATE(DCCG_GATE_DISABLE_CNTL4,
++			HDMICHARCLK0_ROOT_GATE_DISABLE, 0);
++		DC_LOG_DEBUG("%s: HDMICHARCLK0_ROOT_GATE_DISABLE = 0\n", __func__);
++	}
++}
++
+ static void dccg35_init_cb(struct dccg *dccg)
+ {
+ 	(void)dccg;
+@@ -1793,6 +2017,9 @@ void dccg35_init(struct dccg *dccg)
+ 					__func__, otg_inst);
+ 		}
+ 
++	dccg35_disable_hdmistreamclk(dccg);
++	if (dccg->ctx->dc->debug.root_clock_optimization.bits.hdmichar)
++		dccg35_disable_hdmicharclk(dccg, 0);
+ /*
+ 	dccg35_enable_global_fgcg_rep(
+ 		dccg, dccg->ctx->dc->debug.enable_fine_grain_clock_gating.bits
+@@ -2088,6 +2315,92 @@ void dccg35_disable_symclk_se(struct dccg *dccg, uint32_t stream_enc_inst, uint3
+ 	}
+ }
+ 
++static void dccg35_enable_hdmicharclk_cb(struct dccg *dccg, int hpo_inst, int phypll_inst)
++{
++	ASSERT(hpo_inst >= 0 && phypll_inst >= 0);
++
++	/* Note that this is now done in DMU as part of phy fsm enable sequence,
++	 * this function does not get called on x86
++	 */
++	enum hdmi_char_clk src = (enum hdmi_char_clk) phypll_inst;
++
++	dccg35_enable_hdmicharclk_new(dccg, src, hpo_inst);
++
++	/* Select PHYD18 as final SYMCLK going to the PHY from DCCG */
++	dccg35_set_physymclk_src_new(dccg, phypll_inst, PHYSYMCLK_PHYD18CLK);
++}
++
++static void dccg35_disable_hdmicharclk_cb(struct dccg *dccg, int hpo_inst)
++{
++	ASSERT(hpo_inst >= 0);
++
++	/* Note that this is now done in DMU as part of phy fsm disable sequence,
++	 * this function does not get called on x86
++	 */
++	dccg35_disable_hdmicharclk_new(dccg, hpo_inst);
++
++	/* TBD Optionally check if SYMCLK is active and disable it */
++}
++
++static void dccg35_set_hdmistreamclk_cb(
++		struct dccg *dccg,
++		enum streamclk_source src,
++		uint32_t otg_inst)
++{
++	enum dtbclk_source dtb_clk_src;
++	enum hdmi_stream_clk_source hdmi_stream_clk_src;
++
++	switch (src) {
++	case REFCLK:
++		dtb_clk_src = DTBCLK_REFCLK;
++		hdmi_stream_clk_src = HDMI_STREAM_REFCLK;
++		break;
++	case DPREFCLK:
++		dtb_clk_src = DTBCLK_DPREFCLK;
++		hdmi_stream_clk_src = (enum hdmi_stream_clk_source)otg_inst;
++		break;
++	case DTBCLK0:
++		dtb_clk_src = DTBCLK_DTBCLK0;
++		hdmi_stream_clk_src = (enum hdmi_stream_clk_source)otg_inst;
++		break;
++	default:
++		BREAK_TO_DEBUGGER();
++		return;
++	}
++
++	if (dtb_clk_src == DTBCLK_REFCLK &&
++		hdmi_stream_clk_src == HDMI_STREAM_REFCLK) {
++		dccg35_disable_dtbclk_p_new(dccg, otg_inst);
++		dccg35_disable_hdmistreamclk_new(dccg, 0);
++	} else {
++		dccg35_enable_dtbclk_p_new(dccg, dtb_clk_src, otg_inst);
++		dccg35_enable_hdmistreamclk_new(dccg,
++										hdmi_stream_clk_src,
++										0);
++	}
++}
++
++static void dccg35_set_hdmistreamclk_root_clock_gating_cb(
++	struct dccg *dccg,
++	bool power_on)
++{
++	/* power_on set indicates we need to ungate
++	 * Currently called from optimize_bandwidth and prepare_bandwidth calls
++	 * Since clock source is not passed restore to refclock on ungate
++	 * Instance 0 is implied here since only one streamclock resource
++	 * Redundant as gating when enabled is acheived through set_hdmistreamclk
++	 */
++	if (power_on) {
++		dccg35_enable_hdmicharclk_new(dccg, HDMI_CHAR_REFCLK, 0);
++		dccg35_enable_hdmistreamclk_new(dccg,
++										HDMI_STREAM_REFCLK,
++										0);
++	} else {
++		dccg35_disable_hdmistreamclk_new(dccg, 0);
++		dccg35_disable_hdmicharclk_new(dccg, 0);
++	}
++}
++
+ static void dccg35_set_dpstreamclk_cb(
+ 		struct dccg *dccg,
+ 		enum streamclk_source src,
+@@ -2386,6 +2699,10 @@ void dccg35_root_gate_disable_control(struct dccg *dccg, uint32_t pipe_idx, uint
+ }
+ 
+ static const struct dccg_funcs dccg35_funcs_new = {
++	.enable_hdmicharclk = dccg35_enable_hdmicharclk_cb,
++	.disable_hdmicharclk = dccg35_disable_hdmicharclk_cb,
++	.set_hdmistreamclk = dccg35_set_hdmistreamclk_cb,
++	.set_hdmistreamclk_root_clock_gating = dccg35_set_hdmistreamclk_root_clock_gating_cb,
+ 	.update_dpp_dto = dccg35_update_dpp_dto_cb,
+ 	.dpp_root_clock_control = dccg35_dpp_root_clock_control_cb,
+ 	.get_dccg_ref_freq = dccg31_get_dccg_ref_freq,
+@@ -2421,6 +2738,10 @@ static const struct dccg_funcs dccg35_funcs_new = {
+ };
+ 
+ static const struct dccg_funcs dccg35_funcs = {
++	.enable_hdmicharclk = dccg35_enable_hdmicharclk,
++	.disable_hdmicharclk = dccg35_disable_hdmicharclk,
++	.set_hdmistreamclk = dccg35_set_hdmistreamclk,
++	.set_hdmistreamclk_root_clock_gating = dccg35_set_hdmistreamclk_root_clock_gating,
+ 	.update_dpp_dto = dccg35_update_dpp_dto,
+ 	.dpp_root_clock_control = dccg35_dpp_root_clock_control,
+ 	.get_dccg_ref_freq = dccg31_get_dccg_ref_freq,
+diff --git a/drivers/gpu/drm/amd/display/dc/dccg/dcn401/dcn401_dccg.c b/drivers/gpu/drm/amd/display/dc/dccg/dcn401/dcn401_dccg.c
+index d49689baa7ca..b9c88bc436e0 100644
+--- a/drivers/gpu/drm/amd/display/dc/dccg/dcn401/dcn401_dccg.c
++++ b/drivers/gpu/drm/amd/display/dc/dccg/dcn401/dcn401_dccg.c
+@@ -381,6 +381,72 @@ static void dccg401_otg_drop_pixel(struct dccg *dccg,
+ 			OTG_DROP_PIXEL[otg_inst], 1);
+ }
+ 
++void dccg401_set_hdmistreamclk(
++		struct dccg *dccg,
++		enum streamclk_source src,
++		uint32_t otg_inst)
++{
++	struct dcn_dccg *dccg_dcn = TO_DCN_DCCG(dccg);
++
++	if (src == REFCLK) {
++		REG_UPDATE(HDMISTREAMCLK_CNTL,
++				HDMISTREAMCLK0_EN, 0);             /* SEL_REFCLK */
++	} else {
++		REG_UPDATE_2(HDMISTREAMCLK_CNTL,
++				HDMISTREAMCLK0_EN, 1,              /* selects one of the dtbclk_p as per HDMISTREAMCLK0_SRC_SEL */
++				HDMISTREAMCLK0_SRC_SEL, otg_inst); /* Selects dtbclk_p as source for hdmistreamclk */
++	}
++}
++
++void dccg401_enable_hdmicharclk(struct dccg *dccg, int hpo_inst, int phypll_inst)
++{
++	struct dcn_dccg *dccg_dcn = TO_DCN_DCCG(dccg);
++
++	ASSERT(hpo_inst >= 0 && phypll_inst >= 0);
++	if (dccg->ctx->dc->debug.root_clock_optimization.bits.hdmichar) {
++		REG_UPDATE(DCCG_GATE_DISABLE_CNTL4,
++			HDMICHARCLK0_ROOT_GATE_DISABLE, 1);
++		REG_UPDATE(DCCG_GATE_DISABLE_CNTL2,
++			HDMICHARCLK0_GATE_DISABLE, 1);
++	}
++
++	REG_UPDATE_2(HDMICHARCLK_CLOCK_CNTL[hpo_inst],
++			HDMICHARCLK0_EN, 1,
++			HDMICHARCLK0_SRC_SEL, phypll_inst);
++
++	/* Enable FORCE_EN for SYMCLK */
++	dccg401_set_physymclk(dccg, phypll_inst, PHYSYMCLK_FORCE_SRC_PHYD18CLK, true);
++}
++
++void dccg401_disable_hdmicharclk(struct dccg *dccg, int hpo_inst)
++{
++	struct dcn_dccg *dccg_dcn = TO_DCN_DCCG(dccg);
++	//int phypll_inst = 0;
++
++	ASSERT(hpo_inst >= 0);
++	//REG_GET(dccg, HDMICHARCLK_CLOCK_CNTL[hpo_inst], HDMICHARCLK0_SRC_SEL, &phypll_inst);
++	REG_WRITE(HDMICHARCLK_CLOCK_CNTL[hpo_inst], 0);
++
++	/* TODO should we also disable physymclk? */
++	/* Disable FORCE_EN for SYMCLK */
++	//dccg401_set_physymclk(dccg, phypll_inst, PHYSYMCLK_FORCE_SRC_PHYD18CLK, true);
++
++	if (dccg->ctx->dc->debug.root_clock_optimization.bits.hdmichar) {
++		REG_UPDATE(DCCG_GATE_DISABLE_CNTL2,
++			HDMICHARCLK0_GATE_DISABLE, 0);
++		REG_UPDATE(DCCG_GATE_DISABLE_CNTL4,
++			HDMICHARCLK0_ROOT_GATE_DISABLE, 0);
++	}
++}
++
++static void dccg401_disable_hdmistreamclk(struct dccg *dccg)
++{
++	struct dcn_dccg *dccg_dcn = TO_DCN_DCCG(dccg);
++
++	REG_UPDATE_2(HDMISTREAMCLK_CNTL,
++				HDMISTREAMCLK0_EN, 0,
++				HDMISTREAMCLK0_SRC_SEL, 0);
++}
+ void dccg401_enable_symclk32_le(
+ 		struct dccg *dccg,
+ 		int hpo_le_inst,
+@@ -721,6 +787,10 @@ void dccg401_init(struct dccg *dccg)
+ 		dccg401_set_physymclk(dccg, 2, PHYSYMCLK_FORCE_SRC_SYMCLK, false);
+ 		dccg401_set_physymclk(dccg, 3, PHYSYMCLK_FORCE_SRC_SYMCLK, false);
+ 	}
++	dccg401_disable_hdmistreamclk(dccg);
++
++	if (dccg->ctx->dc->debug.root_clock_optimization.bits.hdmichar)
++		dccg401_disable_hdmicharclk(dccg, 0);
+ }
+ 
+ void dccg401_set_dto_dscclk(struct dccg *dccg, uint32_t inst, uint32_t num_slices_h)
+@@ -881,6 +951,9 @@ void dccg401_disable_symclk_se(struct dccg *dccg, uint32_t stream_enc_inst, uint
+ }
+ 
+ static const struct dccg_funcs dccg401_funcs = {
++	.enable_hdmicharclk = dccg401_enable_hdmicharclk,
++	.disable_hdmicharclk = dccg401_disable_hdmicharclk,
++	.set_hdmistreamclk = dccg401_set_hdmistreamclk,
+ 	.update_dpp_dto = dccg401_update_dpp_dto,
+ 	.get_dccg_ref_freq = dccg401_get_dccg_ref_freq,
+ 	.dccg_init = dccg401_init,
+diff --git a/drivers/gpu/drm/amd/display/dc/dccg/dcn401/dcn401_dccg.h b/drivers/gpu/drm/amd/display/dc/dccg/dcn401/dcn401_dccg.h
+index 5947a35363aa..95f0602466d3 100644
+--- a/drivers/gpu/drm/amd/display/dc/dccg/dcn401/dcn401_dccg.h
++++ b/drivers/gpu/drm/amd/display/dc/dccg/dcn401/dcn401_dccg.h
+@@ -246,4 +246,8 @@ void dccg401_set_physymclk(
+ 	enum physymclk_clock_source clk_src,
+ 	bool force_enable);
+ 
++void dccg401_set_hdmistreamclk(struct dccg *dccg, enum streamclk_source src, uint32_t otg_inst);
++void dccg401_enable_hdmicharclk(struct dccg *dccg, int hpo_inst, int phypll_inst);
++void dccg401_disable_hdmicharclk(struct dccg *dccg, int hpo_inst);
++
+ #endif //__DCN401_DCCG_H__
+diff --git a/drivers/gpu/drm/amd/display/dc/dccg/dcn42/dcn42_dccg.c b/drivers/gpu/drm/amd/display/dc/dccg/dcn42/dcn42_dccg.c
+index 9612f4498ef6..e57242f8bc12 100644
+--- a/drivers/gpu/drm/amd/display/dc/dccg/dcn42/dcn42_dccg.c
++++ b/drivers/gpu/drm/amd/display/dc/dccg/dcn42/dcn42_dccg.c
+@@ -181,6 +181,32 @@ void dccg42_set_physymclk(
+ 	}
+ }
+ 
++static void dccg42_disable_hdmistreamclk(struct dccg *dccg)
++{
++	struct dcn_dccg *dccg_dcn = TO_DCN_DCCG(dccg);
++
++	REG_UPDATE_2(HDMISTREAMCLK_CNTL,
++				HDMISTREAMCLK0_EN, 0,
++				HDMISTREAMCLK0_SRC_SEL, 0);
++
++	REG_UPDATE(DCCG_GATE_DISABLE_CNTL6,
++				HDMISTREAMCLK0_ROOT_GATE_DISABLE,
++				dccg->ctx->dc->debug.root_clock_optimization.bits.hdmistream ? 0 : 1);
++}
++
++static void dccg42_disable_hdmicharclk(struct dccg *dccg, int hpo_inst)
++{
++	struct dcn_dccg *dccg_dcn = TO_DCN_DCCG(dccg);
++
++	ASSERT(hpo_inst >= 0);
++	REG_WRITE(HDMICHARCLK_CLOCK_CNTL[hpo_inst], 0);
++
++	REG_UPDATE(DCCG_GATE_DISABLE_CNTL2,
++			HDMICHARCLK0_GATE_DISABLE, 0);
++	REG_UPDATE(DCCG_GATE_DISABLE_CNTL4,
++			HDMICHARCLK0_ROOT_GATE_DISABLE, dccg->ctx->dc->debug.root_clock_optimization.bits.hdmichar ? 0 : 1);
++}
++
+ void dccg42_set_pixel_rate_div(
+ 		struct dccg *dccg,
+ 		uint32_t otg_inst,
+@@ -270,10 +296,17 @@ static void dccg42_init(struct dccg *dccg)
+ 			PHYDSYMCLK_ROOT_GATE_DISABLE, 1,
+ 			PHYESYMCLK_ROOT_GATE_DISABLE, 1);
+ 	}
++	dccg42_disable_hdmistreamclk(dccg);
++	if (dccg->ctx->dc->debug.root_clock_optimization.bits.hdmichar)
++		dccg42_disable_hdmicharclk(dccg, 0);
+ }
+ 
+ 
+ static const struct dccg_funcs dccg42_funcs = {
++	.enable_hdmicharclk = dccg401_enable_hdmicharclk,
++	.disable_hdmicharclk = dccg42_disable_hdmicharclk,
++	.set_hdmistreamclk = dccg401_set_hdmistreamclk,
++	.set_hdmistreamclk_root_clock_gating = dccg35_set_hdmistreamclk_root_clock_gating,
+ 	.update_dpp_dto = dccg35_update_dpp_dto,
+ 	.dpp_root_clock_control = dccg35_dpp_root_clock_control,
+ 	.get_dccg_ref_freq = dccg401_get_dccg_ref_freq,
+diff --git a/drivers/gpu/drm/amd/display/dc/dio/dcn10/dcn10_link_encoder.c b/drivers/gpu/drm/amd/display/dc/dio/dcn10/dcn10_link_encoder.c
+index 13e14aad3daa..f97ec72f8aba 100644
+--- a/drivers/gpu/drm/amd/display/dc/dio/dcn10/dcn10_link_encoder.c
++++ b/drivers/gpu/drm/amd/display/dc/dio/dcn10/dcn10_link_encoder.c
+@@ -1065,7 +1065,8 @@ void dcn10_link_encoder_disable_output(
+ 	struct bp_transmitter_control cntl = { 0 };
+ 	enum bp_result result;
+ 
+-	if (enc->funcs->is_dig_enabled && !enc->funcs->is_dig_enabled(enc)) {
++	if (!dc_is_hdmi_frl_signal(signal) &&
++	    (enc->funcs->is_dig_enabled && !enc->funcs->is_dig_enabled(enc))) {
+ 		/* OF_SKIP_POWER_DOWN_INACTIVE_ENCODER */
+ 	/*in DP_Alt_No_Connect case, we turn off the dig already,
+ 	after excuation the PHY w/a sequence, not allow touch PHY any more*/
+diff --git a/drivers/gpu/drm/amd/display/dc/dio/dcn20/dcn20_link_encoder.h b/drivers/gpu/drm/amd/display/dc/dio/dcn20/dcn20_link_encoder.h
+index 762c579fcb44..1beba9c7d3f9 100644
+--- a/drivers/gpu/drm/amd/display/dc/dio/dcn20/dcn20_link_encoder.h
++++ b/drivers/gpu/drm/amd/display/dc/dio/dcn20/dcn20_link_encoder.h
+@@ -291,6 +291,7 @@ struct dpcssys_phy_seq_cfg {
+ 	bool use_calibration_setting;
+ 	struct mpll_cfg mpll_cfg;
+ 	bool load_sram_fw;
++	bool tx_hdmi_frl_mode;
+ #if 0
+ 
+ 	bool hdmimode_enable;
+diff --git a/drivers/gpu/drm/amd/display/dc/dio/dcn30/dcn30_dio_link_encoder.c b/drivers/gpu/drm/amd/display/dc/dio/dcn30/dcn30_dio_link_encoder.c
+index 57b9ae5fca1d..8c4010c5b2e7 100644
+--- a/drivers/gpu/drm/amd/display/dc/dio/dcn30/dcn30_dio_link_encoder.c
++++ b/drivers/gpu/drm/amd/display/dc/dio/dcn30/dcn30_dio_link_encoder.c
+@@ -48,11 +48,240 @@
+ 	(enc10->link_regs->index)
+ 
+ 
++static bool dcn30_link_encoder_validate_hdmi_frl_output(
++	const struct dcn10_link_encoder *enc10,
++	const struct dc_crtc_timing *crtc_timing)
++{
++	enum dc_color_depth max_deep_color =
++			enc10->base.features.max_hdmi_deep_color;
++
++	if (!enc10->base.features.flags.bits.IS_HDMI_FRL_CAPABLE)
++		return false;
++
++	if (max_deep_color < crtc_timing->display_color_depth)
++		return false;
++
++	if (crtc_timing->display_color_depth < COLOR_DEPTH_888)
++		return false;
++
++	/* TODO: check if hdmi_charclk is above ASIC cap (10 GBS for DCN3AG) */
++
++	return true;
++}
++
+ bool dcn30_link_encoder_validate_output_with_stream(
+ 	struct link_encoder *enc,
+ 	const struct dc_stream_state *stream)
+ {
++	if (dc_is_hdmi_frl_signal(stream->signal)) {
++		struct dcn10_link_encoder *enc10 = TO_DCN10_LINK_ENC(enc);
++
++		return dcn30_link_encoder_validate_hdmi_frl_output(enc10, &stream->timing);
++	} else {
+ 		return dcn10_link_encoder_validate_output_with_stream(enc, stream);
++	}
++}
++
++//---------------------------------------------------
++// Task: Program EQ setting
++// Note:
++//      EQ setting can be dont during P2 state or P0 state
++//      If set in P0 state, The values are latched in a single
++//      cycle of txX_clk but will take maximum of 40 txX_clk symbols
++//      to be reflected on the output. During this period the
++//      analog serial lines might have a transitional behavior.
++//---------------------------------------------------
++void dpcs30_program_eq_setting(
++		struct link_encoder *enc,
++		uint8_t FFE_Level,
++		bool de_emphasis_only,
++		bool pre_shoot_only,
++		bool no_ffe,
++		const struct dc_hdmi_frl_link_settings *link_settings)
++{
++	(void)link_settings;
++	struct dcn10_link_encoder *enc10 = TO_DCN10_LINK_ENC(enc);
++	/* EQ setting for DP lane0 */
++	uint32_t eq_main;
++	uint32_t eq_pre;
++	uint32_t eq_post;
++
++	if (enc10->base.ctx->dc->debug.ignore_ffe)
++		return;
++
++	if (FFE_Level < 0x5)
++		enc10->base.txffe_state = FFE_Level;
++
++	if (FFE_Level == 0xEE) {
++		enc10->base.txffe_state++;
++		if (enc10->base.txffe_state > 3)
++			enc10->base.txffe_state = 0;
++	}
++
++	switch (enc10->base.txffe_state) {
++	case 0:
++		eq_main = 0x31;
++		if (de_emphasis_only)
++			eq_main = 0x36;
++		if (pre_shoot_only)
++			eq_main = 0x39;
++		eq_pre = 0x5;
++		eq_post = 0x8;
++		break;
++	case 1:
++		eq_main = 0x2F;
++		if (de_emphasis_only)
++			eq_main = 0x34;
++		if (pre_shoot_only)
++			eq_main = 0x39;
++		eq_pre = 0x5;
++		eq_post = 0xA;
++		break;
++	case 2:
++		eq_main = 0x2C;
++		if (de_emphasis_only)
++			eq_main = 0x31;
++		if (pre_shoot_only)
++			eq_main = 0x39;
++		eq_pre = 0x5;
++		eq_post = 0xD;
++		break;
++	case 3:
++		eq_main = 0x29;
++		if (de_emphasis_only)
++			eq_main = 0x2E;
++		if (pre_shoot_only)
++			eq_main = 0x39;
++		eq_pre = 0x5;
++		eq_post = 0x10;
++		break;
++	default:
++		return;
++	}
++
++	eq_pre = de_emphasis_only ? 0 : eq_pre;
++	eq_post = pre_shoot_only ? 0 : eq_post;
++
++	if (no_ffe) {
++		eq_pre = 0;
++		eq_post = 0;
++		eq_main = 0x3E;
++	}
++
++	REG_UPDATE_3(RDPCSTX_PHY_FUSE0,
++			RDPCS_PHY_DP_TX0_EQ_MAIN, eq_main,
++			RDPCS_PHY_DP_TX0_EQ_PRE, eq_pre,
++			RDPCS_PHY_DP_TX0_EQ_POST, eq_post);
++
++	REG_UPDATE_3(RDPCSTX_PHY_FUSE1,
++			RDPCS_PHY_DP_TX1_EQ_MAIN, eq_main,
++			RDPCS_PHY_DP_TX1_EQ_PRE, eq_pre,
++			RDPCS_PHY_DP_TX1_EQ_POST, eq_post);
++
++	REG_UPDATE_3(RDPCSTX_PHY_FUSE2,
++			RDPCS_PHY_DP_TX2_EQ_MAIN, eq_main,
++			RDPCS_PHY_DP_TX2_EQ_PRE, eq_pre,
++			RDPCS_PHY_DP_TX2_EQ_POST, eq_post);
++
++	REG_UPDATE_3(RDPCSTX_PHY_FUSE3,
++			RDPCS_PHY_DP_TX3_EQ_MAIN, eq_main,
++			RDPCS_PHY_DP_TX3_EQ_PRE, eq_pre,
++			RDPCS_PHY_DP_TX3_EQ_POST, eq_post);
++}
++
++void dpcs30_get_txffe(
++		struct link_encoder *enc,
++		struct frl_txffe *lane_settings)
++{
++	struct dcn10_link_encoder *enc10 = TO_DCN10_LINK_ENC(enc);
++	/* EQ setting for DP lane0 */
++	uint32_t eq_main;
++	uint32_t eq_pre;
++	uint32_t eq_post;
++
++	REG_GET_3(RDPCSTX_PHY_FUSE0,
++			RDPCS_PHY_DP_TX0_EQ_MAIN, &eq_main,
++			RDPCS_PHY_DP_TX0_EQ_PRE, &eq_pre,
++			RDPCS_PHY_DP_TX0_EQ_POST, &eq_post);
++
++	lane_settings->amplitude[0] = eq_main;
++	lane_settings->pre_emphasis[0] = eq_pre;
++	lane_settings->post_emphasis[0] = eq_post;
++
++	REG_GET_3(RDPCSTX_PHY_FUSE1,
++			RDPCS_PHY_DP_TX1_EQ_MAIN, &eq_main,
++			RDPCS_PHY_DP_TX1_EQ_PRE, &eq_pre,
++			RDPCS_PHY_DP_TX1_EQ_POST, &eq_post);
++
++	lane_settings->amplitude[1] = eq_main;
++	lane_settings->pre_emphasis[1] = eq_pre;
++	lane_settings->post_emphasis[1] = eq_post;
++
++	REG_GET_3(RDPCSTX_PHY_FUSE2,
++			RDPCS_PHY_DP_TX2_EQ_MAIN, &eq_main,
++			RDPCS_PHY_DP_TX2_EQ_PRE, &eq_pre,
++			RDPCS_PHY_DP_TX2_EQ_POST, &eq_post);
++
++	lane_settings->amplitude[2] = eq_main;
++	lane_settings->pre_emphasis[2] = eq_pre;
++	lane_settings->post_emphasis[2] = eq_post;
++
++	REG_GET_3(RDPCSTX_PHY_FUSE3,
++			RDPCS_PHY_DP_TX3_EQ_MAIN, &eq_main,
++			RDPCS_PHY_DP_TX3_EQ_PRE, &eq_pre,
++			RDPCS_PHY_DP_TX3_EQ_POST, &eq_post);
++
++	lane_settings->amplitude[3] = eq_main;
++	lane_settings->pre_emphasis[3] = eq_pre;
++	lane_settings->post_emphasis[3] = eq_post;
++
++}
++
++void dpcs30_set_txffe(
++		struct link_encoder *enc,
++		struct frl_txffe *lane_settings)
++{
++	struct dcn10_link_encoder *enc10 = TO_DCN10_LINK_ENC(enc);
++	/* EQ setting for DP lane0 */
++	uint32_t eq_main;
++	uint32_t eq_pre;
++	uint32_t eq_post;
++
++	eq_main = lane_settings->amplitude[0];
++	eq_pre = lane_settings->pre_emphasis[0];
++	eq_post = lane_settings->post_emphasis[0];
++
++	REG_UPDATE_3(RDPCSTX_PHY_FUSE0,
++			RDPCS_PHY_DP_TX0_EQ_MAIN, eq_main,
++			RDPCS_PHY_DP_TX0_EQ_PRE, eq_pre,
++			RDPCS_PHY_DP_TX0_EQ_POST, eq_post);
++
++	eq_main = lane_settings->amplitude[1];
++	eq_pre = lane_settings->pre_emphasis[1];
++	eq_post = lane_settings->post_emphasis[1];
++
++	REG_UPDATE_3(RDPCSTX_PHY_FUSE1,
++			RDPCS_PHY_DP_TX1_EQ_MAIN, eq_main,
++			RDPCS_PHY_DP_TX1_EQ_PRE, eq_pre,
++			RDPCS_PHY_DP_TX1_EQ_POST, eq_post);
++
++	eq_main = lane_settings->amplitude[2];
++	eq_pre = lane_settings->pre_emphasis[2];
++	eq_post = lane_settings->post_emphasis[2];
++
++	REG_UPDATE_3(RDPCSTX_PHY_FUSE2,
++			RDPCS_PHY_DP_TX2_EQ_MAIN, eq_main,
++			RDPCS_PHY_DP_TX2_EQ_PRE, eq_pre,
++			RDPCS_PHY_DP_TX2_EQ_POST, eq_post);
++
++	eq_main = lane_settings->amplitude[3];
++	eq_pre = lane_settings->pre_emphasis[3];
++	eq_post = lane_settings->post_emphasis[3];
++
++	REG_UPDATE_3(RDPCSTX_PHY_FUSE3,
++			RDPCS_PHY_DP_TX3_EQ_MAIN, eq_main,
++			RDPCS_PHY_DP_TX3_EQ_PRE, eq_pre,
++			RDPCS_PHY_DP_TX3_EQ_POST, eq_post);
+ }
+ 
+ static const struct link_encoder_funcs dcn30_link_enc_funcs = {
+@@ -84,6 +313,15 @@ static const struct link_encoder_funcs dcn30_link_enc_funcs = {
+ 	.get_dig_mode = dcn10_get_dig_mode,
+ 	.is_in_alt_mode = dcn20_link_encoder_is_in_alt_mode,
+ 	.get_max_link_cap = dcn20_link_encoder_get_max_link_cap,
++	.dpcstx_set_order_invert_18_bit = NULL,
++	.set_phy_source = NULL,
++	.dpcs_initialize_phy = NULL,
++	.dpcs_configure_phypll = NULL,
++	.dpcs_configure_dpcs = NULL,
++	.dpcs_enable_dpcs = NULL,
++	.prog_eq_setting = dpcs30_program_eq_setting,
++	.get_txffe = dpcs30_get_txffe,
++	.set_txffe = dpcs30_set_txffe,
+ 	.get_hpd_state = dcn10_get_hpd_state,
+ 	.program_hpd_filter = dcn10_program_hpd_filter,
+ };
+@@ -198,6 +436,12 @@ void dcn30_link_encoder_construct(
+ 		enc10->base.features.flags.bits.IS_UHBR20_CAPABLE = bp_cap_info.DP_UHBR20_EN;
+ 		enc10->base.features.flags.bits.DP_IS_USB_C =
+ 				bp_cap_info.DP_IS_USB_C;
++
++		enc10->base.features.flags.bits.IS_HDMI_FRL_CAPABLE = bp_cap_info.IS_HDMI_FRL_CAPABLE;
++		enc10->base.features.flags.bits.IS_FRL_8G_CAPABLE = bp_cap_info.FRL_8G_EN;
++		enc10->base.features.flags.bits.IS_FRL_10G_CAPABLE = bp_cap_info.FRL_10G_EN;
++		enc10->base.features.flags.bits.IS_FRL_12G_CAPABLE = bp_cap_info.FRL_12G_EN;
++		enc10->base.txffe_state = 0;
+ 	} else {
+ 		DC_LOG_WARNING("%s: Failed to get encoder_cap_info from VBIOS with error code %d!\n",
+ 				__func__,
+@@ -206,6 +450,12 @@ void dcn30_link_encoder_construct(
+ 	if (enc10->base.ctx->dc->debug.hdmi20_disable) {
+ 		enc10->base.features.flags.bits.HDMI_6GB_EN = 0;
+ 	}
++	if (enc10->base.ctx->dc->config.force_hdmi21_frl_enc_enable) {
++		enc10->base.features.flags.bits.IS_HDMI_FRL_CAPABLE = 1;
++		enc10->base.features.flags.bits.IS_FRL_8G_CAPABLE = 1;
++		enc10->base.features.flags.bits.IS_FRL_10G_CAPABLE = 1;
++		enc10->base.features.flags.bits.IS_FRL_12G_CAPABLE = 1;
++	}
+ }
+ 
+ #define AUX_REG(reg)\
+diff --git a/drivers/gpu/drm/amd/display/dc/dio/dcn30/dcn30_dio_link_encoder.h b/drivers/gpu/drm/amd/display/dc/dio/dcn30/dcn30_dio_link_encoder.h
+index 5b6177c2ae98..4fc0915a5dc5 100644
+--- a/drivers/gpu/drm/amd/display/dc/dio/dcn30/dcn30_dio_link_encoder.h
++++ b/drivers/gpu/drm/amd/display/dc/dio/dcn30/dcn30_dio_link_encoder.h
+@@ -60,6 +60,8 @@
+ 
+ #define DPCS_DCN3_MASK_SH_LIST(mask_sh)\
+ 	DPCS_DCN2_MASK_SH_LIST(mask_sh),\
++	LE_SF(DPCSTX0_DPCSTX_TX_CNTL, DPCS_TX_HDMI_FRL_MODE, mask_sh),\
++	LE_SF(DPCSTX0_DPCSTX_TX_CNTL, DPCS_TX_DATA_SWAP_10_BIT, mask_sh),\
+ 	LE_SF(DPCSTX0_DPCSTX_TX_CNTL, DPCS_TX_DATA_ORDER_INVERT_18_BIT, mask_sh),\
+ 	LE_SF(RDPCSTX0_RDPCSTX_PHY_CNTL0, RDPCS_PHY_TX_VBOOST_LVL, mask_sh),\
+ 	LE_SF(RDPCSTX0_RDPCSTX_CLOCK_CNTL, RDPCS_TX_CLK_EN, mask_sh),\
+@@ -83,4 +85,19 @@ bool dcn30_link_encoder_validate_output_with_stream(
+ 	struct link_encoder *enc,
+ 	const struct dc_stream_state *stream);
+ 
++void dpcs30_program_eq_setting(
++		struct link_encoder *enc,
++		uint8_t FFE_Level,
++		bool de_emphasis_only,
++		bool pre_shoot_only,
++		bool no_ffe,
++		const struct dc_hdmi_frl_link_settings *link_settings);
++
++void dpcs30_get_txffe(
++		struct link_encoder *enc,
++		struct frl_txffe *lane_settings);
++
++void dpcs30_set_txffe(
++		struct link_encoder *enc,
++		struct frl_txffe *lane_settings);
+ #endif /* __DC_LINK_ENCODER__DCN30_H__ */
+diff --git a/drivers/gpu/drm/amd/display/dc/dio/dcn301/dcn301_dio_link_encoder.c b/drivers/gpu/drm/amd/display/dc/dio/dcn301/dcn301_dio_link_encoder.c
+index 47d84a2a48ce..02fb844670f9 100644
+--- a/drivers/gpu/drm/amd/display/dc/dio/dcn301/dcn301_dio_link_encoder.c
++++ b/drivers/gpu/drm/amd/display/dc/dio/dcn301/dcn301_dio_link_encoder.c
+@@ -73,6 +73,13 @@ static const struct link_encoder_funcs dcn301_link_enc_funcs = {
+ 	.get_dig_mode = dcn10_get_dig_mode,
+ 	.is_in_alt_mode = dcn20_link_encoder_is_in_alt_mode,
+ 	.get_max_link_cap = dcn20_link_encoder_get_max_link_cap,
++	.dpcstx_set_order_invert_18_bit = NULL,
++	.set_phy_source = NULL,
++	.dpcs_initialize_phy = NULL,
++	.dpcs_configure_phypll = NULL,
++	.dpcs_configure_dpcs = NULL,
++	.dpcs_enable_dpcs = NULL,
++	.prog_eq_setting = NULL,
+ 	.get_hpd_state = dcn10_get_hpd_state,
+ 	.program_hpd_filter = dcn10_program_hpd_filter,
+ };
+@@ -183,6 +190,11 @@ void dcn301_link_encoder_construct(
+ 		enc10->base.features.flags.bits.HDMI_6GB_EN = bp_cap_info.HDMI_6GB_EN;
+ 		enc10->base.features.flags.bits.DP_IS_USB_C =
+ 				bp_cap_info.DP_IS_USB_C;
++		enc10->base.features.flags.bits.IS_HDMI_FRL_CAPABLE = bp_cap_info.IS_HDMI_FRL_CAPABLE;
++		enc10->base.features.flags.bits.IS_FRL_8G_CAPABLE = bp_cap_info.FRL_8G_EN;
++		enc10->base.features.flags.bits.IS_FRL_10G_CAPABLE = bp_cap_info.FRL_10G_EN;
++		enc10->base.features.flags.bits.IS_FRL_12G_CAPABLE = bp_cap_info.FRL_12G_EN;
++		enc10->base.txffe_state = 0;
+ 	} else {
+ 		DC_LOG_WARNING("%s: Failed to get encoder_cap_info from VBIOS with error code %d!\n",
+ 				__func__,
+@@ -191,4 +203,10 @@ void dcn301_link_encoder_construct(
+ 	if (enc10->base.ctx->dc->debug.hdmi20_disable) {
+ 		enc10->base.features.flags.bits.HDMI_6GB_EN = 0;
+ 	}
++	if (enc10->base.ctx->dc->config.force_hdmi21_frl_enc_enable) {
++		enc10->base.features.flags.bits.IS_HDMI_FRL_CAPABLE = 1;
++		enc10->base.features.flags.bits.IS_FRL_8G_CAPABLE = 1;
++		enc10->base.features.flags.bits.IS_FRL_10G_CAPABLE = 1;
++		enc10->base.features.flags.bits.IS_FRL_12G_CAPABLE = 1;
++	}
+ }
+diff --git a/drivers/gpu/drm/amd/display/dc/dio/dcn31/dcn31_dio_link_encoder.c b/drivers/gpu/drm/amd/display/dc/dio/dcn31/dcn31_dio_link_encoder.c
+index 07d362ef0daf..bcb791d74189 100644
+--- a/drivers/gpu/drm/amd/display/dc/dio/dcn31/dcn31_dio_link_encoder.c
++++ b/drivers/gpu/drm/amd/display/dc/dio/dcn31/dcn31_dio_link_encoder.c
+@@ -67,6 +67,17 @@
+ #define MIN(X, Y) ((X) < (Y) ? (X) : (Y))
+ #endif
+ 
++// HDMI FRL EQ Setting masks/shifts
++// EQ level 0-32 bits[0:1]
++#define HDMI_FRL_EQ__LEVEL__SHIFT 0x0
++#define HDMI_FRL_EQ__LEVEL__MASK 0x3
++// Enable no preshoot bit[5]
++#define HDMI_FRL_EQ__NO_PRE__SHIFT 0x5
++// Enable no demphasis bit[6]
++#define HDMI_FRL_EQ__NO_DEMPH__SHIFT 0x6
++// Enable no FFE bit[4]
++#define HDMI_FRL_EQ__NO_FFE__SHIFT 0x4
++
+ static uint8_t phy_id_from_transmitter(enum transmitter t)
+ {
+ 	uint8_t phy_id;
+@@ -246,6 +257,89 @@ void enc31_hw_init(struct link_encoder *enc)
+ 	dcn10_aux_initialize(enc10);
+ }
+ 
++static enum bp_result link_transmitter_control(
++	struct dcn10_link_encoder *enc10,
++	struct bp_transmitter_control *cntl)
++{
++	enum bp_result result;
++	struct dc_bios *bp = enc10->base.ctx->dc_bios;
++
++	result = bp->funcs->transmitter_control(bp, cntl);
++
++	return result;
++}
++//---------------------------------------------------
++// Task: Program EQ setting in HDMI FRL mode
++// Note:
++//      EQ setting can be dont during P2 state or P0 state
++//      If set in P0 state, The values are latched in a single
++//      cycle of txX_clk but will take maximum of 40 txX_clk symbols
++//      to be reflected on the output. During this period the
++//      analog serial lines might have a transitional behavior.
++//---------------------------------------------------
++void dpcs31_program_eq_setting(
++		struct link_encoder *enc,
++		uint8_t FFE_Level,
++		bool de_emphasis_only,
++		bool pre_shoot_only,
++		bool no_ffe,
++		const struct dc_hdmi_frl_link_settings *link_settings)
++{
++	struct dcn10_link_encoder *enc10 = TO_DCN10_LINK_ENC(enc);
++	struct bp_transmitter_control cntl = { 0 };
++	/* EQ setting for DP lane0 */
++
++	if (enc10->base.ctx->dc->debug.ignore_ffe)
++		return;
++
++	if (FFE_Level < 0x5)
++		enc10->base.txffe_state = FFE_Level;
++
++	if (FFE_Level == 0xEE) {
++		enc10->base.txffe_state++;
++		if (enc10->base.txffe_state > 3)
++			enc10->base.txffe_state = 0;
++	}
++
++	if (no_ffe) {
++		de_emphasis_only = true;
++		pre_shoot_only = true;
++	}
++	/* Pass on the input params to DMCUB for proper calc of eq settings */
++	cntl.lane_settings = ((de_emphasis_only ? 1 : 0) << HDMI_FRL_EQ__NO_PRE__SHIFT) |
++						 ((pre_shoot_only ? 1 : 0) << HDMI_FRL_EQ__NO_DEMPH__SHIFT) |
++						 ((enc10->base.txffe_state & HDMI_FRL_EQ__LEVEL__MASK)
++						  << HDMI_FRL_EQ__LEVEL__SHIFT);
++	cntl.lane_select = 0;
++	cntl.action = TRANSMITTER_CONTROL_SET_VOLTAGE_AND_PREEMPASIS;
++	cntl.transmitter = enc10->base.transmitter;
++	cntl.connector_obj_id = enc10->base.connector;
++	cntl.lanes_number = link_settings->frl_num_lanes;
++	cntl.hpd_sel = enc10->base.hpd_source;
++	/* Use below or dc_link_frl_bandwidth_kbps()? */
++	switch (link_settings->frl_link_rate) {
++	case HDMI_FRL_LINK_RATE_3GBPS:
++		cntl.pixel_clock = 166667 / 10;
++		break;
++	case HDMI_FRL_LINK_RATE_6GBPS:
++	case HDMI_FRL_LINK_RATE_6GBPS_4LANE:
++		cntl.pixel_clock = 333333 / 10;
++		break;
++	case HDMI_FRL_LINK_RATE_8GBPS:
++		cntl.pixel_clock = 444444 / 10;
++		break;
++	case HDMI_FRL_LINK_RATE_10GBPS:
++		cntl.pixel_clock = 555555 / 10;
++		break;
++	case HDMI_FRL_LINK_RATE_12GBPS:
++	default:
++		cntl.pixel_clock = 666667 / 10;
++		break;
++	}
++	/* call VBIOS table to set eq settings - voltage swing and pre-emphasis */
++	link_transmitter_control(enc10, &cntl);
++}
++
+ static const struct link_encoder_funcs dcn31_link_enc_funcs = {
+ 	.read_state = link_enc2_read_state,
+ 	.validate_output_with_stream =
+@@ -275,6 +369,15 @@ static const struct link_encoder_funcs dcn31_link_enc_funcs = {
+ 	.get_dig_mode = dcn10_get_dig_mode,
+ 	.is_in_alt_mode = dcn31_link_encoder_is_in_alt_mode,
+ 	.get_max_link_cap = dcn31_link_encoder_get_max_link_cap,
++	.dpcstx_set_order_invert_18_bit = NULL,
++	.set_phy_source = NULL,
++	.dpcs_initialize_phy = NULL,
++	.dpcs_configure_phypll = NULL,
++	.dpcs_configure_dpcs = NULL,
++	.dpcs_enable_dpcs = NULL,
++	.prog_eq_setting = dpcs31_program_eq_setting,
++	.get_txffe = dpcs30_get_txffe,
++	.set_txffe = dpcs30_set_txffe,
+ 	.set_dio_phy_mux = dcn31_link_encoder_set_dio_phy_mux,
+ 	.get_hpd_state = dcn10_get_hpd_state,
+ 	.program_hpd_filter = dcn10_program_hpd_filter,
+@@ -387,6 +490,11 @@ void dcn31_link_encoder_construct(
+ 		enc10->base.features.flags.bits.IS_UHBR20_CAPABLE = bp_cap_info.DP_UHBR20_EN;
+ 		enc10->base.features.flags.bits.DP_IS_USB_C =
+ 				bp_cap_info.DP_IS_USB_C;
++		enc10->base.features.flags.bits.IS_HDMI_FRL_CAPABLE = bp_cap_info.IS_HDMI_FRL_CAPABLE;
++		enc10->base.features.flags.bits.IS_FRL_8G_CAPABLE = bp_cap_info.FRL_8G_EN;
++		enc10->base.features.flags.bits.IS_FRL_10G_CAPABLE = bp_cap_info.FRL_10G_EN;
++		enc10->base.features.flags.bits.IS_FRL_12G_CAPABLE = bp_cap_info.FRL_12G_EN;
++		enc10->base.txffe_state = 0;
+ 	} else {
+ 		DC_LOG_WARNING("%s: Failed to get encoder_cap_info from VBIOS with error code %d!\n",
+ 				__func__,
+@@ -395,6 +503,12 @@ void dcn31_link_encoder_construct(
+ 	if (enc10->base.ctx->dc->debug.hdmi20_disable) {
+ 		enc10->base.features.flags.bits.HDMI_6GB_EN = 0;
+ 	}
++	if (enc10->base.ctx->dc->config.force_hdmi21_frl_enc_enable) {
++		enc10->base.features.flags.bits.IS_HDMI_FRL_CAPABLE = 1;
++		enc10->base.features.flags.bits.IS_FRL_8G_CAPABLE = 1;
++		enc10->base.features.flags.bits.IS_FRL_10G_CAPABLE = 1;
++		enc10->base.features.flags.bits.IS_FRL_12G_CAPABLE = 1;
++	}
+ }
+ 
+ void dcn31_link_encoder_construct_minimal(
+diff --git a/drivers/gpu/drm/amd/display/dc/dio/dcn31/dcn31_dio_link_encoder.h b/drivers/gpu/drm/amd/display/dc/dio/dcn31/dcn31_dio_link_encoder.h
+index ee78ba80797c..3cf587527991 100644
+--- a/drivers/gpu/drm/amd/display/dc/dio/dcn31/dcn31_dio_link_encoder.h
++++ b/drivers/gpu/drm/amd/display/dc/dio/dcn31/dcn31_dio_link_encoder.h
+@@ -285,6 +285,14 @@ bool dcn31_link_encoder_is_in_alt_mode(
+ void dcn31_link_encoder_get_max_link_cap(struct link_encoder *enc,
+ 	struct dc_link_settings *link_settings);
+ 
++void dpcs31_program_eq_setting(
++		struct link_encoder *enc,
++		uint8_t FFE_Level,
++		bool de_emphasis_only,
++		bool pre_shoot_only,
++		bool no_ffe,
++		const struct dc_hdmi_frl_link_settings *link_settings);
++
+ void enc31_hw_init(struct link_encoder *enc);
+ 
+ #endif /* __DC_LINK_ENCODER__DCN31_H__ */
+diff --git a/drivers/gpu/drm/amd/display/dc/dio/dcn32/dcn32_dio_link_encoder.c b/drivers/gpu/drm/amd/display/dc/dio/dcn32/dcn32_dio_link_encoder.c
+index 65d28cb07b04..68e0dc93ae7d 100644
+--- a/drivers/gpu/drm/amd/display/dc/dio/dcn32/dcn32_dio_link_encoder.c
++++ b/drivers/gpu/drm/amd/display/dc/dio/dcn32/dcn32_dio_link_encoder.c
+@@ -62,6 +62,17 @@
+ #define AUX_REG_WRITE(reg_name, val) \
+ 			dm_write_reg(CTX, AUX_REG(reg_name), val)
+ 
++// HDMI FRL EQ Setting masks/shifts
++// EQ level 0-32 bits[0:1]
++#define HDMI_FRL_EQ__LEVEL__SHIFT 0x0
++#define HDMI_FRL_EQ__LEVEL__MASK 0x3
++// Enable no preshoot bit[5]
++#define HDMI_FRL_EQ__NO_PRE__SHIFT 0x5
++// Enable no demphasis bit[6]
++#define HDMI_FRL_EQ__NO_DEMPH__SHIFT 0x6
++// Enable no FFE bit[4]
++#define HDMI_FRL_EQ__NO_FFE__SHIFT 0x4
++
+ static uint8_t phy_id_from_transmitter(enum transmitter t)
+ {
+ 	uint8_t phy_id;
+@@ -203,6 +214,188 @@ void dcn32_link_encoder_get_max_link_cap(struct link_encoder *enc,
+ }
+ 
+ 
++static enum bp_result link_transmitter_control(
++	struct dcn10_link_encoder *enc10,
++	struct bp_transmitter_control *cntl)
++{
++	enum bp_result result;
++	struct dc_bios *bp = enc10->base.ctx->dc_bios;
++
++	result = bp->funcs->transmitter_control(bp, cntl);
++
++	return result;
++}
++//---------------------------------------------------
++// Task: Program EQ setting
++// Note:
++//      EQ setting can be dont during P2 state or P0 state
++//      If set in P0 state, The values are latched in a single
++//      cycle of txX_clk but will take maximum of 40 txX_clk symbols
++//      to be reflected on the output. During this period the
++//      analog serial lines might have a transitional behavior.
++//---------------------------------------------------
++void dpcs32_program_eq_setting(
++		struct link_encoder *enc,
++		uint8_t FFE_Level,
++		bool de_emphasis_only,
++		bool pre_shoot_only,
++		bool no_ffe,
++		const struct dc_hdmi_frl_link_settings *link_settings)
++{
++	struct dcn10_link_encoder *enc10 = TO_DCN10_LINK_ENC(enc);
++	struct bp_transmitter_control cntl = { 0 };
++	/* EQ setting for DP lane0 */
++
++	if (enc10->base.ctx->dc->debug.ignore_ffe)
++		return;
++
++	if (FFE_Level < 0x5)
++		enc10->base.txffe_state = FFE_Level;
++
++	if (FFE_Level == 0xEE) {
++		enc10->base.txffe_state++;
++		if (enc10->base.txffe_state > 3)
++			enc10->base.txffe_state = 0;
++	}
++
++	if (no_ffe) {
++		de_emphasis_only = true;
++		pre_shoot_only = true;
++	}
++	/* Pass on the input params to DMCUB for proper calc of eq settings */
++	cntl.lane_settings = ((de_emphasis_only ? 1 : 0) << HDMI_FRL_EQ__NO_PRE__SHIFT) |
++						 ((pre_shoot_only ? 1 : 0) << HDMI_FRL_EQ__NO_DEMPH__SHIFT) |
++						 ((enc10->base.txffe_state & HDMI_FRL_EQ__LEVEL__MASK)
++						  << HDMI_FRL_EQ__LEVEL__SHIFT);
++	cntl.lane_select = 0;
++	cntl.action = TRANSMITTER_CONTROL_SET_VOLTAGE_AND_PREEMPASIS;
++	cntl.transmitter = enc10->base.transmitter;
++	cntl.connector_obj_id = enc10->base.connector;
++	cntl.lanes_number = link_settings->frl_num_lanes;
++	cntl.hpd_sel = enc10->base.hpd_source;
++	/* Use below or dc_link_frl_bandwidth_kbps()? */
++	switch (link_settings->frl_link_rate) {
++	case HDMI_FRL_LINK_RATE_3GBPS:
++		cntl.pixel_clock = 166667 / 10;
++		break;
++	case HDMI_FRL_LINK_RATE_6GBPS:
++	case HDMI_FRL_LINK_RATE_6GBPS_4LANE:
++		cntl.pixel_clock = 333333 / 10;
++		break;
++	case HDMI_FRL_LINK_RATE_8GBPS:
++		cntl.pixel_clock = 444444 / 10;
++		break;
++	case HDMI_FRL_LINK_RATE_10GBPS:
++		cntl.pixel_clock = 555555 / 10;
++		break;
++	case HDMI_FRL_LINK_RATE_12GBPS:
++	default:
++		cntl.pixel_clock = 666667 / 10;
++		break;
++	}
++	/* call VBIOS table to set eq settings - voltage swing and pre-emphasis */
++	link_transmitter_control(enc10, &cntl);
++}
++
++void dpcs32_get_txffe(
++		struct link_encoder *enc,
++		struct frl_txffe *lane_settings)
++{
++	(void)enc;
++	/* EQ setting for DP lane0 */
++	uint32_t eq_main = 0;
++	uint32_t eq_pre = 0;
++	uint32_t eq_post = 0;
++
++	/* TODO */
++	//REG_GET_3(RDPCSTX_PHY_FUSE0,
++	//		RDPCS_PHY_DP_TX0_EQ_MAIN, &eq_main,
++	//		RDPCS_PHY_DP_TX0_EQ_PRE, &eq_pre,
++	//		RDPCS_PHY_DP_TX0_EQ_POST, &eq_post);
++
++	lane_settings->amplitude[0] = eq_main;
++	lane_settings->pre_emphasis[0] = eq_pre;
++	lane_settings->post_emphasis[0] = eq_post;
++
++	//REG_GET_3(RDPCSTX_PHY_FUSE1,
++	//		RDPCS_PHY_DP_TX1_EQ_MAIN, &eq_main,
++	//		RDPCS_PHY_DP_TX1_EQ_PRE, &eq_pre,
++	//		RDPCS_PHY_DP_TX1_EQ_POST, &eq_post);
++
++	lane_settings->amplitude[1] = eq_main;
++	lane_settings->pre_emphasis[1] = eq_pre;
++	lane_settings->post_emphasis[1] = eq_post;
++
++	//REG_GET_3(RDPCSTX_PHY_FUSE2,
++	//		RDPCS_PHY_DP_TX2_EQ_MAIN, &eq_main,
++	//		RDPCS_PHY_DP_TX2_EQ_PRE, &eq_pre,
++	//		RDPCS_PHY_DP_TX2_EQ_POST, &eq_post);
++
++	lane_settings->amplitude[2] = eq_main;
++	lane_settings->pre_emphasis[2] = eq_pre;
++	lane_settings->post_emphasis[2] = eq_post;
++
++	//REG_GET_3(RDPCSTX_PHY_FUSE3,
++	//		RDPCS_PHY_DP_TX3_EQ_MAIN, &eq_main,
++	//		RDPCS_PHY_DP_TX3_EQ_PRE, &eq_pre,
++	//		RDPCS_PHY_DP_TX3_EQ_POST, &eq_post);
++
++	lane_settings->amplitude[3] = eq_main;
++	lane_settings->pre_emphasis[3] = eq_pre;
++	lane_settings->post_emphasis[3] = eq_post;
++
++}
++
++void dpcs32_set_txffe(
++		struct link_encoder *enc,
++		struct frl_txffe *lane_settings)
++{
++	(void)enc;
++	(void)lane_settings;
++	/* EQ setting for DP lane0 */
++	//uint32_t eq_main;
++	//uint32_t eq_pre;
++	//uint32_t eq_post;
++
++	//eq_main = lane_settings->amplitude[0];
++	//eq_pre = lane_settings->pre_emphasis[0];
++	//eq_post = lane_settings->post_emphasis[0];
++
++	/* TODO */
++	//REG_UPDATE_3(RDPCSTX_PHY_FUSE0,
++	//		RDPCS_PHY_DP_TX0_EQ_MAIN, eq_main,
++	//		RDPCS_PHY_DP_TX0_EQ_PRE, eq_pre,
++	//		RDPCS_PHY_DP_TX0_EQ_POST, eq_post);
++
++	//eq_main = lane_settings->amplitude[1];
++	//eq_pre = lane_settings->pre_emphasis[1];
++	//eq_post = lane_settings->post_emphasis[1];
++
++	//REG_UPDATE_3(RDPCSTX_PHY_FUSE1,
++	//		RDPCS_PHY_DP_TX1_EQ_MAIN, eq_main,
++	//		RDPCS_PHY_DP_TX1_EQ_PRE, eq_pre,
++	//		RDPCS_PHY_DP_TX1_EQ_POST, eq_post);
++
++	//eq_main = lane_settings->amplitude[2];
++	//eq_pre = lane_settings->pre_emphasis[2];
++	//eq_post = lane_settings->post_emphasis[2];
++
++	//REG_UPDATE_3(RDPCSTX_PHY_FUSE2,
++	//		RDPCS_PHY_DP_TX2_EQ_MAIN, eq_main,
++	//		RDPCS_PHY_DP_TX2_EQ_PRE, eq_pre,
++	//		RDPCS_PHY_DP_TX2_EQ_POST, eq_post);
++
++	//1eq_main = lane_settings->amplitude[3];
++	//eq_pre = lane_settings->pre_emphasis[3];
++	//eq_post = lane_settings->post_emphasis[3];
++
++	//REG_UPDATE_3(RDPCSTX_PHY_FUSE3,
++	//		RDPCS_PHY_DP_TX3_EQ_MAIN, eq_main,
++	//		RDPCS_PHY_DP_TX3_EQ_PRE, eq_pre,
++	//		RDPCS_PHY_DP_TX3_EQ_POST, eq_post);
++}
++
++
+ static const struct link_encoder_funcs dcn32_link_enc_funcs = {
+ 	.read_state = link_enc2_read_state,
+ 	.validate_output_with_stream =
+@@ -232,6 +425,15 @@ static const struct link_encoder_funcs dcn32_link_enc_funcs = {
+ 	.get_dig_mode = dcn10_get_dig_mode,
+ 	.is_in_alt_mode = dcn32_link_encoder_is_in_alt_mode,
+ 	.get_max_link_cap = dcn32_link_encoder_get_max_link_cap,
++	.dpcstx_set_order_invert_18_bit = NULL,
++	.set_phy_source = NULL,
++	.dpcs_initialize_phy = NULL,
++	.dpcs_configure_phypll = NULL,
++	.dpcs_configure_dpcs = NULL,
++	.dpcs_enable_dpcs = NULL,
++	.prog_eq_setting = dpcs32_program_eq_setting,
++	.get_txffe = dpcs32_get_txffe,
++	.set_txffe = dpcs32_set_txffe,
+ 	.set_dio_phy_mux = dcn31_link_encoder_set_dio_phy_mux,
+ 	.get_hpd_state = dcn10_get_hpd_state,
+ 	.program_hpd_filter = dcn10_program_hpd_filter,
+@@ -329,6 +531,12 @@ void dcn32_link_encoder_construct(
+ 		enc10->base.features.flags.bits.IS_UHBR10_CAPABLE = bp_cap_info.DP_UHBR10_EN;
+ 		enc10->base.features.flags.bits.IS_UHBR13_5_CAPABLE = bp_cap_info.DP_UHBR13_5_EN;
+ 		enc10->base.features.flags.bits.IS_UHBR20_CAPABLE = bp_cap_info.DP_UHBR20_EN;
++
++		enc10->base.features.flags.bits.IS_HDMI_FRL_CAPABLE = 1;
++		enc10->base.features.flags.bits.IS_FRL_8G_CAPABLE = bp_cap_info.FRL_8G_EN;
++		enc10->base.features.flags.bits.IS_FRL_10G_CAPABLE = bp_cap_info.FRL_10G_EN;
++		enc10->base.features.flags.bits.IS_FRL_12G_CAPABLE = bp_cap_info.FRL_12G_EN;
++		enc10->base.txffe_state = 0;
+ 	} else {
+ 		DC_LOG_WARNING("%s: Failed to get encoder_cap_info from VBIOS with error code %d!\n",
+ 				__func__,
+@@ -337,4 +545,10 @@ void dcn32_link_encoder_construct(
+ 	if (enc10->base.ctx->dc->debug.hdmi20_disable) {
+ 		enc10->base.features.flags.bits.HDMI_6GB_EN = 0;
+ 	}
++	if (enc10->base.ctx->dc->config.force_hdmi21_frl_enc_enable) {
++		enc10->base.features.flags.bits.IS_HDMI_FRL_CAPABLE = 1;
++		enc10->base.features.flags.bits.IS_FRL_8G_CAPABLE = 1;
++		enc10->base.features.flags.bits.IS_FRL_10G_CAPABLE = 1;
++		enc10->base.features.flags.bits.IS_FRL_12G_CAPABLE = 1;
++	}
+ }
+diff --git a/drivers/gpu/drm/amd/display/dc/dio/dcn32/dcn32_dio_link_encoder.h b/drivers/gpu/drm/amd/display/dc/dio/dcn32/dcn32_dio_link_encoder.h
+index 35d23d9db45e..262796819a63 100644
+--- a/drivers/gpu/drm/amd/display/dc/dio/dcn32/dcn32_dio_link_encoder.h
++++ b/drivers/gpu/drm/amd/display/dc/dio/dcn32/dcn32_dio_link_encoder.h
+@@ -50,4 +50,20 @@ bool dcn32_link_encoder_is_in_alt_mode(struct link_encoder *enc);
+ void dcn32_link_encoder_get_max_link_cap(struct link_encoder *enc,
+ 	struct dc_link_settings *link_settings);
+ 
++void dpcs32_program_eq_setting(
++		struct link_encoder *enc,
++		uint8_t FFE_Level,
++		bool de_emphasis_only,
++		bool pre_shoot_only,
++		bool no_ffe,
++		const struct dc_hdmi_frl_link_settings *link_settings);
++
++void dpcs32_get_txffe(
++		struct link_encoder *enc,
++		struct frl_txffe *lane_settings);
++
++void dpcs32_set_txffe(
++		struct link_encoder *enc,
++		struct frl_txffe *lane_settings);
++
+ #endif /* __DC_LINK_ENCODER__DCN32_H__ */
+diff --git a/drivers/gpu/drm/amd/display/dc/dio/dcn321/dcn321_dio_link_encoder.c b/drivers/gpu/drm/amd/display/dc/dio/dcn321/dcn321_dio_link_encoder.c
+index 968f89295b64..4108fd0f4380 100644
+--- a/drivers/gpu/drm/amd/display/dc/dio/dcn321/dcn321_dio_link_encoder.c
++++ b/drivers/gpu/drm/amd/display/dc/dio/dcn321/dcn321_dio_link_encoder.c
+@@ -88,6 +88,15 @@ static const struct link_encoder_funcs dcn321_link_enc_funcs = {
+ 	.get_dig_mode = dcn10_get_dig_mode,
+ 	.is_in_alt_mode = dcn20_link_encoder_is_in_alt_mode,
+ 	.get_max_link_cap = dcn20_link_encoder_get_max_link_cap,
++	.dpcstx_set_order_invert_18_bit = NULL,
++	.set_phy_source = NULL,
++	.dpcs_initialize_phy = NULL,
++	.dpcs_configure_phypll = NULL,
++	.dpcs_configure_dpcs = NULL,
++	.dpcs_enable_dpcs = NULL,
++	.prog_eq_setting = dpcs32_program_eq_setting,
++	.get_txffe = dpcs32_get_txffe,
++	.set_txffe = dpcs32_set_txffe,
+ 	.set_dio_phy_mux = dcn31_link_encoder_set_dio_phy_mux,
+ 	.get_hpd_state = dcn10_get_hpd_state,
+ 	.program_hpd_filter = dcn10_program_hpd_filter,
+@@ -183,6 +192,11 @@ void dcn321_link_encoder_construct(
+ 		enc10->base.features.flags.bits.IS_UHBR10_CAPABLE = bp_cap_info.DP_UHBR10_EN;
+ 		enc10->base.features.flags.bits.IS_UHBR13_5_CAPABLE = bp_cap_info.DP_UHBR13_5_EN;
+ 		enc10->base.features.flags.bits.IS_UHBR20_CAPABLE = bp_cap_info.DP_UHBR20_EN;
++		enc10->base.features.flags.bits.IS_HDMI_FRL_CAPABLE = 1;
++		enc10->base.features.flags.bits.IS_FRL_8G_CAPABLE = bp_cap_info.FRL_8G_EN;
++		enc10->base.features.flags.bits.IS_FRL_10G_CAPABLE = bp_cap_info.FRL_10G_EN;
++		enc10->base.features.flags.bits.IS_FRL_12G_CAPABLE = bp_cap_info.FRL_12G_EN;
++		enc10->base.txffe_state = 0;
+ 	} else {
+ 		DC_LOG_WARNING("%s: Failed to get encoder_cap_info from VBIOS with error code %d!\n",
+ 				__func__,
+@@ -190,4 +204,10 @@ void dcn321_link_encoder_construct(
+ 	}
+ 	if (enc10->base.ctx->dc->debug.hdmi20_disable)
+ 		enc10->base.features.flags.bits.HDMI_6GB_EN = 0;
++	if (enc10->base.ctx->dc->config.force_hdmi21_frl_enc_enable) {
++		enc10->base.features.flags.bits.IS_HDMI_FRL_CAPABLE = 1;
++		enc10->base.features.flags.bits.IS_FRL_8G_CAPABLE = 1;
++		enc10->base.features.flags.bits.IS_FRL_10G_CAPABLE = 1;
++		enc10->base.features.flags.bits.IS_FRL_12G_CAPABLE = 1;
++	}
+ }
+diff --git a/drivers/gpu/drm/amd/display/dc/dio/dcn35/dcn35_dio_link_encoder.c b/drivers/gpu/drm/amd/display/dc/dio/dcn35/dcn35_dio_link_encoder.c
+index 20bf04dac609..8fa9b8c500f2 100644
+--- a/drivers/gpu/drm/amd/display/dc/dio/dcn35/dcn35_dio_link_encoder.c
++++ b/drivers/gpu/drm/amd/display/dc/dio/dcn35/dcn35_dio_link_encoder.c
+@@ -158,6 +158,15 @@ static const struct link_encoder_funcs dcn35_link_enc_funcs = {
+ 	.get_dig_mode = dcn35_get_dig_mode,
+ 	.is_in_alt_mode = dcn31_link_encoder_is_in_alt_mode,
+ 	.get_max_link_cap = dcn31_link_encoder_get_max_link_cap,
++	.dpcstx_set_order_invert_18_bit = NULL,
++	.set_phy_source = NULL,
++	.dpcs_initialize_phy = NULL,
++	.dpcs_configure_phypll = NULL,
++	.dpcs_configure_dpcs = NULL,
++	.dpcs_enable_dpcs = NULL,
++	.prog_eq_setting = dpcs32_program_eq_setting,
++	.get_txffe = dpcs32_get_txffe,
++	.set_txffe = dpcs32_set_txffe,
+ 	.set_dio_phy_mux = dcn31_link_encoder_set_dio_phy_mux,
+ 	.enable_dpia_output = dcn35_link_encoder_enable_dpia_output,
+ 	.disable_dpia_output = dcn35_link_encoder_disable_dpia_output,
+@@ -261,6 +270,12 @@ void dcn35_link_encoder_construct(
+ 		enc10->base.features.flags.bits.IS_UHBR13_5_CAPABLE = bp_cap_info.DP_UHBR13_5_EN;
+ 		enc10->base.features.flags.bits.IS_UHBR20_CAPABLE = bp_cap_info.DP_UHBR20_EN;
+ 
++		enc10->base.features.flags.bits.IS_HDMI_FRL_CAPABLE =
++				bp_cap_info.FRL_8G_EN || bp_cap_info.FRL_10G_EN || bp_cap_info.FRL_12G_EN;
++		enc10->base.features.flags.bits.IS_FRL_8G_CAPABLE = bp_cap_info.FRL_8G_EN;
++		enc10->base.features.flags.bits.IS_FRL_10G_CAPABLE = bp_cap_info.FRL_10G_EN;
++		enc10->base.features.flags.bits.IS_FRL_12G_CAPABLE = bp_cap_info.FRL_12G_EN;
++		enc10->base.txffe_state = 0;
+ 	} else {
+ 		DC_LOG_WARNING("%s: Failed to get encoder_cap_info from VBIOS with error code %d!\n",
+ 				__func__,
+@@ -268,6 +283,12 @@ void dcn35_link_encoder_construct(
+ 	}
+ 	if (enc10->base.ctx->dc->debug.hdmi20_disable)
+ 		enc10->base.features.flags.bits.HDMI_6GB_EN = 0;
++	if (enc10->base.ctx->dc->config.force_hdmi21_frl_enc_enable) {
++		enc10->base.features.flags.bits.IS_HDMI_FRL_CAPABLE = 1;
++		enc10->base.features.flags.bits.IS_FRL_8G_CAPABLE = 1;
++		enc10->base.features.flags.bits.IS_FRL_10G_CAPABLE = 1;
++		enc10->base.features.flags.bits.IS_FRL_12G_CAPABLE = 1;
++	}
+ 
+ }
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/dio/dcn401/dcn401_dio_link_encoder.c b/drivers/gpu/drm/amd/display/dc/dio/dcn401/dcn401_dio_link_encoder.c
+index e1f0a1bf1075..2aaf06d48771 100644
+--- a/drivers/gpu/drm/amd/display/dc/dio/dcn401/dcn401_dio_link_encoder.c
++++ b/drivers/gpu/drm/amd/display/dc/dio/dcn401/dcn401_dio_link_encoder.c
+@@ -65,6 +65,17 @@
+ #define MIN(X, Y) ((X) < (Y) ? (X) : (Y))
+ #endif
+ 
++// HDMI FRL EQ Setting masks/shifts
++// EQ level 0-32 bits[0:1]
++#define HDMI_FRL_EQ__LEVEL__SHIFT 0x0
++#define HDMI_FRL_EQ__LEVEL__MASK 0x3
++// Enable no preshoot bit[5]
++#define HDMI_FRL_EQ__NO_PRE__SHIFT 0x5
++// Enable no demphasis bit[6]
++#define HDMI_FRL_EQ__NO_DEMPH__SHIFT 0x6
++// Enable no FFE bit[4]
++#define HDMI_FRL_EQ__NO_FFE__SHIFT 0x4
++
+ void enc401_hw_init(struct link_encoder *enc)
+ {
+ 	struct dcn10_link_encoder *enc10 = TO_DCN10_LINK_ENC(enc);
+@@ -120,6 +131,194 @@ void dcn401_link_encoder_enable_dp_output(
+ 	}
+ }
+ 
++static enum bp_result link_transmitter_control(
++	struct dcn10_link_encoder *enc10,
++	struct bp_transmitter_control *cntl)
++{
++	enum bp_result result;
++	struct dc_bios *bp = enc10->base.ctx->dc_bios;
++
++	result = bp->funcs->transmitter_control(bp, cntl);
++
++	return result;
++}
++//---------------------------------------------------
++// Task: Program EQ setting
++// Note:
++//      EQ setting can be dont during P2 state or P0 state
++//      If set in P0 state, The values are latched in a single
++//      cycle of txX_clk but will take maximum of 40 txX_clk symbols
++//      to be reflected on the output. During this period the
++//      analog serial lines might have a transitional behavior.
++//---------------------------------------------------
++
++void dpcs401_program_eq_setting(
++		struct link_encoder *enc,
++		uint8_t FFE_Level,
++		bool de_emphasis_only,
++		bool pre_shoot_only,
++		bool no_ffe,
++		const struct dc_hdmi_frl_link_settings *link_settings)
++{
++	struct dcn10_link_encoder *enc10 = TO_DCN10_LINK_ENC(enc);
++	struct bp_transmitter_control cntl = { 0 };
++
++	if (enc10->base.ctx->dc->debug.ignore_ffe)
++		return;
++
++	if (FFE_Level < 0x5)
++		enc10->base.txffe_state = FFE_Level;
++
++	if (enc10->base.ctx->dc->debug.select_ffe)
++		enc10->base.txffe_state =
++				(uint8_t)enc10->base.ctx->dc->debug.select_ffe;
++
++	if (FFE_Level == 0xEE) {
++		enc10->base.txffe_state++;
++		if (enc10->base.txffe_state > 3)
++			enc10->base.txffe_state = 0;
++	}
++
++	if (no_ffe) {
++		de_emphasis_only = true;
++		pre_shoot_only = true;
++	}
++	/* Pass on the input params to DMCUB for proper calc of eq settings */
++	cntl.lane_settings = ((de_emphasis_only ? 1 : 0) << HDMI_FRL_EQ__NO_PRE__SHIFT) |
++						 ((pre_shoot_only ? 1 : 0) << HDMI_FRL_EQ__NO_DEMPH__SHIFT) |
++						 ((enc10->base.txffe_state & HDMI_FRL_EQ__LEVEL__MASK)
++						  << HDMI_FRL_EQ__LEVEL__SHIFT);
++	cntl.lane_select = 0;
++	cntl.action = TRANSMITTER_CONTROL_SET_VOLTAGE_AND_PREEMPASIS;
++	cntl.transmitter = enc10->base.transmitter;
++	cntl.connector_obj_id = enc10->base.connector;
++	cntl.lanes_number = link_settings->frl_num_lanes;
++	cntl.hpd_sel = enc10->base.hpd_source;
++	/* Use below or dc_link_frl_bandwidth_kbps()? */
++	switch (link_settings->frl_link_rate) {
++	case HDMI_FRL_LINK_RATE_3GBPS:
++		cntl.pixel_clock = 166667 / 10;
++		break;
++	case HDMI_FRL_LINK_RATE_6GBPS:
++	case HDMI_FRL_LINK_RATE_6GBPS_4LANE:
++		cntl.pixel_clock = 333333 / 10;
++		break;
++	case HDMI_FRL_LINK_RATE_8GBPS:
++		cntl.pixel_clock = 444444 / 10;
++		break;
++	case HDMI_FRL_LINK_RATE_10GBPS:
++		cntl.pixel_clock = 555555 / 10;
++		break;
++	case HDMI_FRL_LINK_RATE_12GBPS:
++	default:
++		cntl.pixel_clock = 666667 / 10;
++		break;
++	}
++	/* call VBIOS table to set eq settings - voltage swing and pre-emphasis */
++	link_transmitter_control(enc10, &cntl);
++}
++
++void dpcs401_get_txffe(
++		struct link_encoder *enc,
++		struct frl_txffe *lane_settings)
++{
++	(void)enc;
++	/* EQ setting for DP lane0 */
++	uint32_t eq_main = 0;
++	uint32_t eq_pre = 0;
++	uint32_t eq_post = 0;
++
++	/* TODO */
++	//REG_GET_3(RDPCSTX_PHY_FUSE0,
++	//		RDPCS_PHY_DP_TX0_EQ_MAIN, &eq_main,
++	//		RDPCS_PHY_DP_TX0_EQ_PRE, &eq_pre,
++	//		RDPCS_PHY_DP_TX0_EQ_POST, &eq_post);
++
++	lane_settings->amplitude[0] = eq_main;
++	lane_settings->pre_emphasis[0] = eq_pre;
++	lane_settings->post_emphasis[0] = eq_post;
++
++	//REG_GET_3(RDPCSTX_PHY_FUSE1,
++	//		RDPCS_PHY_DP_TX1_EQ_MAIN, &eq_main,
++	//		RDPCS_PHY_DP_TX1_EQ_PRE, &eq_pre,
++	//		RDPCS_PHY_DP_TX1_EQ_POST, &eq_post);
++
++	lane_settings->amplitude[1] = eq_main;
++	lane_settings->pre_emphasis[1] = eq_pre;
++	lane_settings->post_emphasis[1] = eq_post;
++
++	//REG_GET_3(RDPCSTX_PHY_FUSE2,
++	//		RDPCS_PHY_DP_TX2_EQ_MAIN, &eq_main,
++	//		RDPCS_PHY_DP_TX2_EQ_PRE, &eq_pre,
++	//		RDPCS_PHY_DP_TX2_EQ_POST, &eq_post);
++
++	lane_settings->amplitude[2] = eq_main;
++	lane_settings->pre_emphasis[2] = eq_pre;
++	lane_settings->post_emphasis[2] = eq_post;
++
++	//REG_GET_3(RDPCSTX_PHY_FUSE3,
++	//		RDPCS_PHY_DP_TX3_EQ_MAIN, &eq_main,
++	//		RDPCS_PHY_DP_TX3_EQ_PRE, &eq_pre,
++	//		RDPCS_PHY_DP_TX3_EQ_POST, &eq_post);
++
++	lane_settings->amplitude[3] = eq_main;
++	lane_settings->pre_emphasis[3] = eq_pre;
++	lane_settings->post_emphasis[3] = eq_post;
++
++}
++
++void dpcs401_set_txffe(
++		struct link_encoder *enc,
++		struct frl_txffe *lane_settings)
++{
++	(void)enc;
++	(void)lane_settings;
++	//struct dcn10_link_encoder *enc10 = TO_DCN10_LINK_ENC(enc);
++	/* EQ setting for DP lane0 */
++	//TODO: Unused
++	//uint32_t eq_main;
++	//uint32_t eq_pre;
++	//uint32_t eq_post;
++
++	//eq_main = lane_settings->amplitude[0];
++	//eq_pre = lane_settings->pre_emphasis[0];
++	//eq_post = lane_settings->post_emphasis[0];
++
++	/* TODO */
++	//REG_UPDATE_3(RDPCSTX_PHY_FUSE0,
++	//		RDPCS_PHY_DP_TX0_EQ_MAIN, eq_main,
++	//		RDPCS_PHY_DP_TX0_EQ_PRE, eq_pre,
++	//		RDPCS_PHY_DP_TX0_EQ_POST, eq_post);
++
++	//eq_main = lane_settings->amplitude[1];
++	//eq_pre = lane_settings->pre_emphasis[1];
++	//eq_post = lane_settings->post_emphasis[1];
++
++	//REG_UPDATE_3(RDPCSTX_PHY_FUSE1,
++	//		RDPCS_PHY_DP_TX1_EQ_MAIN, eq_main,
++	//		RDPCS_PHY_DP_TX1_EQ_PRE, eq_pre,
++	//		RDPCS_PHY_DP_TX1_EQ_POST, eq_post);
++
++	//eq_main = lane_settings->amplitude[2];
++	//eq_pre = lane_settings->pre_emphasis[2];
++	//eq_post = lane_settings->post_emphasis[2];
++
++	//REG_UPDATE_3(RDPCSTX_PHY_FUSE2,
++	//		RDPCS_PHY_DP_TX2_EQ_MAIN, eq_main,
++	//		RDPCS_PHY_DP_TX2_EQ_PRE, eq_pre,
++	//		RDPCS_PHY_DP_TX2_EQ_POST, eq_post);
++
++	//eq_main = lane_settings->amplitude[3];
++	//eq_pre = lane_settings->pre_emphasis[3];
++	//eq_post = lane_settings->post_emphasis[3];
++
++	//REG_UPDATE_3(RDPCSTX_PHY_FUSE3,
++	//		RDPCS_PHY_DP_TX3_EQ_MAIN, eq_main,
++	//		RDPCS_PHY_DP_TX3_EQ_PRE, eq_pre,
++	//		RDPCS_PHY_DP_TX3_EQ_POST, eq_post);
++}
++
++
+ void dcn401_link_encoder_setup(
+ 	struct link_encoder *enc,
+ 	enum signal_type signal)
+@@ -214,6 +413,15 @@ static const struct link_encoder_funcs dcn401_link_enc_funcs = {
+ 	.get_dig_mode = dcn401_get_dig_mode,
+ 	.is_in_alt_mode = dcn32_link_encoder_is_in_alt_mode,
+ 	.get_max_link_cap = dcn32_link_encoder_get_max_link_cap,
++	.dpcstx_set_order_invert_18_bit = NULL,
++	.set_phy_source = NULL,
++	.dpcs_initialize_phy = NULL,
++	.dpcs_configure_phypll = NULL,
++	.dpcs_configure_dpcs = NULL,
++	.dpcs_enable_dpcs = NULL,
++	.prog_eq_setting = dpcs401_program_eq_setting,
++	.get_txffe = dpcs401_get_txffe,
++	.set_txffe = dpcs401_set_txffe,
+ 	.set_dio_phy_mux = dcn31_link_encoder_set_dio_phy_mux,
+ 	.get_hpd_state = dcn10_get_hpd_state,
+ 	.program_hpd_filter = dcn10_program_hpd_filter,
+@@ -314,6 +522,12 @@ void dcn401_link_encoder_construct(
+ 		enc10->base.features.flags.bits.IS_UHBR10_CAPABLE = bp_cap_info.DP_UHBR10_EN;
+ 		enc10->base.features.flags.bits.IS_UHBR13_5_CAPABLE = bp_cap_info.DP_UHBR13_5_EN;
+ 		enc10->base.features.flags.bits.IS_UHBR20_CAPABLE = bp_cap_info.DP_UHBR20_EN;
++		enc10->base.features.flags.bits.IS_HDMI_FRL_CAPABLE =
++				bp_cap_info.FRL_8G_EN || bp_cap_info.FRL_10G_EN || bp_cap_info.FRL_12G_EN;
++		enc10->base.features.flags.bits.IS_FRL_8G_CAPABLE = bp_cap_info.FRL_8G_EN;
++		enc10->base.features.flags.bits.IS_FRL_10G_CAPABLE = bp_cap_info.FRL_10G_EN;
++		enc10->base.features.flags.bits.IS_FRL_12G_CAPABLE = bp_cap_info.FRL_12G_EN;
++		enc10->base.txffe_state = 0;
+ 	} else {
+ 		DC_LOG_WARNING("%s: Failed to get encoder_cap_info from VBIOS with error code %d!\n",
+ 				__func__,
+@@ -322,4 +536,10 @@ void dcn401_link_encoder_construct(
+ 	if (enc10->base.ctx->dc->debug.hdmi20_disable) {
+ 		enc10->base.features.flags.bits.HDMI_6GB_EN = 0;
+ 	}
++	if (enc10->base.ctx->dc->config.force_hdmi21_frl_enc_enable) {
++		enc10->base.features.flags.bits.IS_HDMI_FRL_CAPABLE = 1;
++		enc10->base.features.flags.bits.IS_FRL_8G_CAPABLE = 1;
++		enc10->base.features.flags.bits.IS_FRL_10G_CAPABLE = 1;
++		enc10->base.features.flags.bits.IS_FRL_12G_CAPABLE = 1;
++	}
+ }
+diff --git a/drivers/gpu/drm/amd/display/dc/dio/dcn401/dcn401_dio_link_encoder.h b/drivers/gpu/drm/amd/display/dc/dio/dcn401/dcn401_dio_link_encoder.h
+index 6baab8302b81..a40c479fada8 100644
+--- a/drivers/gpu/drm/amd/display/dc/dio/dcn401/dcn401_dio_link_encoder.h
++++ b/drivers/gpu/drm/amd/display/dc/dio/dcn401/dcn401_dio_link_encoder.h
+@@ -121,6 +121,22 @@ void dcn401_link_encoder_enable_dp_output(
+ 	const struct dc_link_settings *link_settings,
+ 	enum clock_source_id clock_source);
+ 
++void dpcs401_program_eq_setting(
++		struct link_encoder *enc,
++		uint8_t FFE_Level,
++		bool de_emphasis_only,
++		bool pre_shoot_only,
++		bool no_ffe,
++		const struct dc_hdmi_frl_link_settings *link_settings);
++
++void dpcs401_get_txffe(
++		struct link_encoder *enc,
++		struct frl_txffe *lane_settings);
++
++void dpcs401_set_txffe(
++		struct link_encoder *enc,
++		struct frl_txffe *lane_settings);
++
+ void dcn401_link_encoder_setup(
+ 	struct link_encoder *enc,
+ 	enum signal_type signal);
+diff --git a/drivers/gpu/drm/amd/display/dc/dio/dcn42/dcn42_dio_link_encoder.c b/drivers/gpu/drm/amd/display/dc/dio/dcn42/dcn42_dio_link_encoder.c
+index 35dfe3bb0c55..fae49b3b170e 100644
+--- a/drivers/gpu/drm/amd/display/dc/dio/dcn42/dcn42_dio_link_encoder.c
++++ b/drivers/gpu/drm/amd/display/dc/dio/dcn42/dcn42_dio_link_encoder.c
+@@ -93,6 +93,15 @@ static const struct link_encoder_funcs dcn42_link_enc_funcs = {
+ 	.get_dig_mode = dcn401_get_dig_mode,
+ 	.is_in_alt_mode = dcn32_link_encoder_is_in_alt_mode,
+ 	.get_max_link_cap = dcn32_link_encoder_get_max_link_cap,
++	.dpcstx_set_order_invert_18_bit = NULL,
++	.set_phy_source = NULL,
++	.dpcs_initialize_phy = NULL,
++	.dpcs_configure_phypll = NULL,
++	.dpcs_configure_dpcs = NULL,
++	.dpcs_enable_dpcs = NULL,
++	.prog_eq_setting = dpcs401_program_eq_setting,
++	.get_txffe = dpcs401_get_txffe,
++	.set_txffe = dpcs401_set_txffe,
+ 	.set_dio_phy_mux = dcn31_link_encoder_set_dio_phy_mux,
+ 	.enable_dpia_output = dcn35_link_encoder_enable_dpia_output,
+ 	.disable_dpia_output = dcn35_link_encoder_disable_dpia_output,
+@@ -194,6 +203,12 @@ void dcn42_link_encoder_construct(
+ 		enc10->base.features.flags.bits.IS_UHBR10_CAPABLE = bp_cap_info.DP_UHBR10_EN;
+ 		enc10->base.features.flags.bits.IS_UHBR13_5_CAPABLE = bp_cap_info.DP_UHBR13_5_EN;
+ 		enc10->base.features.flags.bits.IS_UHBR20_CAPABLE = bp_cap_info.DP_UHBR20_EN;
++		enc10->base.features.flags.bits.IS_HDMI_FRL_CAPABLE =
++				bp_cap_info.FRL_8G_EN || bp_cap_info.FRL_10G_EN || bp_cap_info.FRL_12G_EN;
++		enc10->base.features.flags.bits.IS_FRL_8G_CAPABLE = bp_cap_info.FRL_8G_EN;
++		enc10->base.features.flags.bits.IS_FRL_10G_CAPABLE = bp_cap_info.FRL_10G_EN;
++		enc10->base.features.flags.bits.IS_FRL_12G_CAPABLE = bp_cap_info.FRL_12G_EN;
++		enc10->base.txffe_state = 0;
+ 	} else {
+ 		DC_LOG_WARNING("%s: Failed to get encoder_cap_info from VBIOS with error code %d!\n",
+ 				__func__,
+@@ -202,4 +217,10 @@ void dcn42_link_encoder_construct(
+ 	if (enc10->base.ctx->dc->debug.hdmi20_disable) {
+ 		enc10->base.features.flags.bits.HDMI_6GB_EN = 0;
+ 	}
++	if (enc10->base.ctx->dc->config.force_hdmi21_frl_enc_enable) {
++		enc10->base.features.flags.bits.IS_HDMI_FRL_CAPABLE = 1;
++		enc10->base.features.flags.bits.IS_FRL_8G_CAPABLE = 1;
++		enc10->base.features.flags.bits.IS_FRL_10G_CAPABLE = 1;
++		enc10->base.features.flags.bits.IS_FRL_12G_CAPABLE = 1;
++	}
+ }
+diff --git a/drivers/gpu/drm/amd/display/dc/hpo/Makefile b/drivers/gpu/drm/amd/display/dc/hpo/Makefile
+index 25b196714bd8..db60564b9cfd 100644
+--- a/drivers/gpu/drm/amd/display/dc/hpo/Makefile
++++ b/drivers/gpu/drm/amd/display/dc/hpo/Makefile
+@@ -27,6 +27,7 @@ ifdef CONFIG_DRM_AMD_DC_FP
+ ###############################################################################
+ # DCN30
+ ###############################################################################
++HPO_DCN30 = dcn30_hpo_frl_link_encoder.o dcn30_hpo_frl_stream_encoder.o
+ 
+ AMD_DAL_HPO_DCN30 = $(addprefix $(AMDDALPATH)/dc/hpo/dcn30/,$(HPO_DCN30))
+ 
+@@ -48,10 +49,19 @@ AMD_DAL_HPO_DCN32 = $(addprefix $(AMDDALPATH)/dc/hpo/dcn32/,$(HPO_DCN32))
+ 
+ AMD_DISPLAY_FILES += $(AMD_DAL_HPO_DCN32)
+ 
++###############################################################################
++# DCN401
++###############################################################################
++HPO_DCN401 = dcn401_hpo_frl_stream_encoder.o
++
++AMD_DAL_HPO_DCN401 = $(addprefix $(AMDDALPATH)/dc/hpo/dcn401/,$(HPO_DCN401))
++
++AMD_DISPLAY_FILES += $(AMD_DAL_HPO_DCN401)
+ ###############################################################################
+ # DCN42
+ ###############################################################################
+ HPO_DCN42 = dcn42_hpo_dp_link_encoder.o
++HPO_DCN42 += dcn42_hpo_frl_stream_encoder.o
+ 
+ AMD_DAL_HPO_DCN42 = $(addprefix $(AMDDALPATH)/dc/hpo/dcn42/,$(HPO_DCN42))
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/hpo/dcn30/dcn30_hpo_frl_link_encoder.c b/drivers/gpu/drm/amd/display/dc/hpo/dcn30/dcn30_hpo_frl_link_encoder.c
+new file mode 100644
+index 000000000000..56e753d2f43d
+--- /dev/null
++++ b/drivers/gpu/drm/amd/display/dc/hpo/dcn30/dcn30_hpo_frl_link_encoder.c
+@@ -0,0 +1,286 @@
++/*
++ * Copyright 2019 Advanced Micro Devices, Inc.
++ *
++ * Permission is hereby granted, free of charge, to any person obtaining a
++ * copy of this software and associated documentation files (the "Software"),
++ * to deal in the Software without restriction, including without limitation
++ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
++ *  and/or sell copies of the Software, and to permit persons to whom the
++ * Software is furnished to do so, subject to the following conditions:
++ *
++ * The above copyright notice and this permission notice shall be included in
++ * all copies or substantial portions of the Software.
++ *
++ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
++ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
++ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
++ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
++ * OTHER DEALINGS IN THE SOFTWARE.
++ *
++ * Authors: AMD
++ *
++ */
++
++
++#include "core_types.h"
++#include "dc_bios_types.h"
++#include "dcn30_hpo_frl_link_encoder.h"
++#include "reg_helper.h"
++#include "dcn10/dcn10_link_encoder.h"
++
++#define DC_LOGGER enc3->base.ctx->logger
++
++#define REG(reg) (enc3->regs->reg)
++
++#undef FN
++#define FN(reg_name, field_name) enc3->hpo_le_shift->field_name, enc3->hpo_le_mask->field_name
++
++#define CTX enc3->base.ctx
++
++void hpo_frl_link_enc3_setup_link_encoder(struct hpo_frl_link_encoder *enc,
++						 int lane_count)
++{
++	struct dcn30_hpo_frl_link_encoder *enc3 = DCN30_HPO_FRL_LINK_ENC_FROM_HPO_FRL_LINK_ENC(enc);
++
++	DC_LOG_DEBUG("Entering [%s]\n", __func__);
++
++	if (enc->ctx->dc->caps.ips_v2_support) {
++		REG_UPDATE(HDMI_FRL_ENC_MEM_CTRL,
++			METERBUFFER_MEM_PWR_DIS, 1);
++		REG_WAIT(HDMI_FRL_ENC_MEM_CTRL,	METERBUFFER_MEM_PWR_STATE, 0, 1, 100);
++	}
++	/* Enable Link encoder clock */
++	REG_UPDATE(HDMI_LINK_ENC_CLK_CTRL,
++		   HDMI_LINK_ENC_CLOCK_EN, 1);
++
++	/* Configure lane count of FRL encoder */
++	REG_UPDATE(HDMI_FRL_ENC_CONFIG,
++		   HDMI_LINK_LANE_COUNT, lane_count == 3 ? 0 : 1);
++
++	/* Reset link encoder */
++	REG_UPDATE_2(HDMI_LINK_ENC_CONTROL,
++		     HDMI_LINK_ENC_ENABLE, 0,
++		     HDMI_LINK_ENC_SOFT_RESET, 1);
++
++	REG_UPDATE(HDMI_LINK_ENC_CONTROL,
++		   HDMI_LINK_ENC_SOFT_RESET, 0);
++
++	/* Enable link encoder */
++	REG_UPDATE(HDMI_LINK_ENC_CONTROL,
++		   HDMI_LINK_ENC_ENABLE, 1);
++
++	DC_LOG_HDMI_FRL("Exiting [%s]\n", __func__);
++}
++
++void hpo_frl_link_enc3_set_training_pattern(struct hpo_frl_link_encoder *enc,
++						   uint32_t lane0_pattern,
++						   uint32_t lane1_pattern,
++						   uint32_t lane2_pattern,
++						   uint32_t lane3_pattern)
++{
++	struct dcn30_hpo_frl_link_encoder *enc3 = DCN30_HPO_FRL_LINK_ENC_FROM_HPO_FRL_LINK_ENC(enc);
++
++	/* Configure lane count of FRL encoder */
++	REG_UPDATE(HDMI_FRL_ENC_CONFIG,
++		   HDMI_LINK_TRAINING_ENABLE, 1);
++
++	if (lane0_pattern < 8)
++		REG_UPDATE(HDMI_FRL_ENC_CONFIG,
++			   HDMI_LINK_LANE0_TRAINING_PATTERN, lane0_pattern);
++
++	if (lane1_pattern < 8)
++		REG_UPDATE(HDMI_FRL_ENC_CONFIG,
++			   HDMI_LINK_LANE1_TRAINING_PATTERN, lane1_pattern);
++
++	if (lane2_pattern < 8)
++		REG_UPDATE(HDMI_FRL_ENC_CONFIG,
++			   HDMI_LINK_LANE2_TRAINING_PATTERN, lane2_pattern);
++
++	if (lane3_pattern < 8)
++		REG_UPDATE(HDMI_FRL_ENC_CONFIG,
++			   HDMI_LINK_LANE3_TRAINING_PATTERN, lane3_pattern);
++}
++
++void hpo_frl_link_enc3_get_training_pattern(struct hpo_frl_link_encoder *enc,
++						   uint32_t *lane0_pattern,
++						   uint32_t *lane1_pattern,
++						   uint32_t *lane2_pattern,
++						   uint32_t *lane3_pattern)
++{
++	struct dcn30_hpo_frl_link_encoder *enc3 = DCN30_HPO_FRL_LINK_ENC_FROM_HPO_FRL_LINK_ENC(enc);
++
++	/* Configure lane count of FRL encoder */
++	REG_GET_4(HDMI_FRL_ENC_CONFIG,
++		  HDMI_LINK_LANE0_TRAINING_PATTERN, lane0_pattern,
++		  HDMI_LINK_LANE1_TRAINING_PATTERN, lane1_pattern,
++		  HDMI_LINK_LANE2_TRAINING_PATTERN, lane2_pattern,
++		  HDMI_LINK_LANE3_TRAINING_PATTERN, lane3_pattern);
++}
++
++static enum bp_result link_transmitter_control(struct dcn10_link_encoder *enc10,
++					       struct bp_transmitter_control *cntl)
++{
++	struct dc_bios *bp = enc10->base.ctx->dc_bios;
++
++	return bp->funcs->transmitter_control(bp, cntl);
++}
++
++static void hpo_frl_link_enc3_enable_phy_output(struct hpo_frl_link_encoder *hpo_enc,
++						struct link_encoder *enc,
++						enum clock_source_id clock_source,
++						enum hdmi_frl_link_rate frl_link_rate)
++{
++	struct dcn30_hpo_frl_link_encoder *enc3 = DCN30_HPO_FRL_LINK_ENC_FROM_HPO_FRL_LINK_ENC(hpo_enc);
++	struct dcn10_link_encoder *enc10 = TO_DCN10_LINK_ENC(enc);
++	struct bp_transmitter_control cntl = { 0 };
++	enum bp_result result;
++
++	/* Enable the PHY */
++	cntl.action = TRANSMITTER_CONTROL_ENABLE;
++	cntl.engine_id = enc->preferred_engine;
++	cntl.transmitter = enc10->base.transmitter;
++	cntl.pll_id = clock_source;
++	cntl.signal = SIGNAL_TYPE_HDMI_FRL;
++	cntl.hpd_sel = enc10->base.hpd_source;
++
++	switch (frl_link_rate) {
++	case HDMI_FRL_LINK_RATE_3GBPS:
++		cntl.pixel_clock = 166667;
++		break;
++	case HDMI_FRL_LINK_RATE_6GBPS:
++	case HDMI_FRL_LINK_RATE_6GBPS_4LANE:
++		cntl.pixel_clock = 333333;
++		break;
++	case HDMI_FRL_LINK_RATE_8GBPS:
++		cntl.pixel_clock = 444444;
++		break;
++	case HDMI_FRL_LINK_RATE_10GBPS:
++		cntl.pixel_clock = 555555;
++		break;
++	case HDMI_FRL_LINK_RATE_12GBPS:
++	default:
++		cntl.pixel_clock = 666667;
++		break;
++	}
++
++	cntl.hpo_engine_id = enc3->base.inst + ENGINE_ID_HPO_0;
++
++	if (frl_link_rate <= HDMI_FRL_LINK_RATE_6GBPS)
++		cntl.lanes_number = 3;
++	else
++		cntl.lanes_number = 4;
++
++	result = link_transmitter_control(enc10, &cntl);
++
++	if (result != BP_RESULT_OK) {
++		DC_LOG_HDMI_FRL("%s: Failed to execute VBIOS command table!\n", __func__);
++		BREAK_TO_DEBUGGER();
++	}
++}
++
++void hpo_frl_link_enc3_enable_output(struct hpo_frl_link_encoder *enc)
++{
++	struct dcn30_hpo_frl_link_encoder *enc3 = DCN30_HPO_FRL_LINK_ENC_FROM_HPO_FRL_LINK_ENC(enc);
++
++	DC_LOG_HDMI_FRL("Entering [%s]\n", __func__);
++
++	/* Enable FRL packet transmission */
++	REG_UPDATE(HDMI_FRL_ENC_CONFIG,
++		   HDMI_LINK_TRAINING_ENABLE, 0);
++	DC_LOG_HDMI_FRL("Exiting [%s]\n", __func__);
++}
++
++void hpo_frl_link_enc3_disable(struct hpo_frl_link_encoder *enc)
++{
++	struct dcn30_hpo_frl_link_encoder *enc3 = DCN30_HPO_FRL_LINK_ENC_FROM_HPO_FRL_LINK_ENC(enc);
++
++	DC_LOG_HDMI_FRL("Entering [%s]\n", __func__);
++
++	REG_UPDATE_5(HDMI_FRL_ENC_CONFIG,
++		     HDMI_LINK_TRAINING_ENABLE, 1,
++		     HDMI_LINK_LANE0_TRAINING_PATTERN, 0,
++		     HDMI_LINK_LANE1_TRAINING_PATTERN, 0,
++		     HDMI_LINK_LANE2_TRAINING_PATTERN, 0,
++		     HDMI_LINK_LANE3_TRAINING_PATTERN, 0);
++
++	/* Disable link encoder */
++	REG_UPDATE(HDMI_LINK_ENC_CONTROL,
++		   HDMI_LINK_ENC_ENABLE, 0);
++
++	/* Disable Link encoder clock */
++	REG_UPDATE(HDMI_LINK_ENC_CLK_CTRL,
++		   HDMI_LINK_ENC_CLOCK_EN, 0);
++	REG_UPDATE(HDMI_FRL_ENC_CONFIG2,
++		   HDMI_LINK_RC_COMPRESS_DISABLE, 0);
++
++	DC_LOG_HDMI_FRL("Exiting [%s]\n", __func__);
++}
++
++void hpo_frl_link_enc3_read_state(struct hpo_frl_link_encoder *enc,
++					 struct hpo_frl_link_enc_state *state)
++{
++	struct dcn30_hpo_frl_link_encoder *enc3 = DCN30_HPO_FRL_LINK_ENC_FROM_HPO_FRL_LINK_ENC(enc);
++	unsigned int link_training_enabled;
++	unsigned int lane_count_field;
++
++	ASSERT(state);
++	REG_GET(HDMI_LINK_ENC_CONTROL,
++		HDMI_LINK_ENC_ENABLE, &state->link_enc_enabled);
++
++	REG_GET_2(HDMI_FRL_ENC_CONFIG,
++		  HDMI_LINK_TRAINING_ENABLE, &link_training_enabled,
++			  HDMI_LINK_LANE_COUNT, &lane_count_field);
++
++	state->link_active = link_training_enabled == 1;
++
++	if (lane_count_field == 1)
++		state->lane_count = 4;
++	else
++		state->lane_count = 3;
++}
++
++void hpo_frl_link_enc3_destroy(struct hpo_frl_link_encoder **enc)
++{
++	kfree(DCN30_HPO_FRL_LINK_ENC_FROM_HPO_FRL_LINK_ENC(*enc));
++	*enc = NULL;
++}
++
++void hpo_frl_link_enc3_apply_vsdb_rcc_wa(struct hpo_frl_link_encoder *enc)
++{
++	struct dcn30_hpo_frl_link_encoder *enc3 =
++			DCN30_HPO_FRL_LINK_ENC_FROM_HPO_FRL_LINK_ENC(enc);
++
++	REG_UPDATE(HDMI_FRL_ENC_CONFIG2,
++			HDMI_LINK_RC_COMPRESS_DISABLE, 1);
++}
++
++static struct hpo_frl_link_encoder_funcs dcn30_hpo_frl_link_encoder_funcs = {
++	.setup_link_encoder = hpo_frl_link_enc3_setup_link_encoder,
++	.set_hdmi_training_pattern = hpo_frl_link_enc3_set_training_pattern,
++	.get_hdmi_training_pattern = hpo_frl_link_enc3_get_training_pattern,
++	.enable_frl_phy_output = hpo_frl_link_enc3_enable_phy_output,
++	.enable_output = hpo_frl_link_enc3_enable_output,
++	.disable_link_encoder = hpo_frl_link_enc3_disable,
++	.read_state = hpo_frl_link_enc3_read_state,
++	.destroy = hpo_frl_link_enc3_destroy,
++	.apply_vsdb_rcc_wa = hpo_frl_link_enc3_apply_vsdb_rcc_wa
++};
++
++void hpo_frl_link_encoder3_construct(struct dcn30_hpo_frl_link_encoder *enc3,
++				     struct dc_context *ctx,
++				     uint32_t inst,
++				     const struct dcn30_hpo_frl_link_encoder_registers *hpo_le_regs,
++				     const struct dcn30_hpo_frl_link_encoder_shift *hpo_le_shift,
++				     const struct dcn30_hpo_frl_link_encoder_mask *hpo_le_mask)
++{
++	enc3->base.ctx = ctx;
++
++	enc3->base.inst = inst;
++	enc3->base.funcs = &dcn30_hpo_frl_link_encoder_funcs;
++
++	enc3->regs = hpo_le_regs;
++	enc3->hpo_le_shift = hpo_le_shift;
++	enc3->hpo_le_mask = hpo_le_mask;
++}
+diff --git a/drivers/gpu/drm/amd/display/dc/hpo/dcn30/dcn30_hpo_frl_link_encoder.h b/drivers/gpu/drm/amd/display/dc/hpo/dcn30/dcn30_hpo_frl_link_encoder.h
+new file mode 100644
+index 000000000000..9626793812b8
+--- /dev/null
++++ b/drivers/gpu/drm/amd/display/dc/hpo/dcn30/dcn30_hpo_frl_link_encoder.h
+@@ -0,0 +1,146 @@
++/*
++ * Copyright 2019 Advanced Micro Devices, Inc.
++ *
++ * Permission is hereby granted, free of charge, to any person obtaining a
++ * copy of this software and associated documentation files (the "Software"),
++ * to deal in the Software without restriction, including without limitation
++ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
++ * and/or sell copies of the Software, and to permit persons to whom the
++ * Software is furnished to do so, subject to the following conditions:
++ *
++ * The above copyright notice and this permission notice shall be included in
++ * all copies or substantial portions of the Software.
++ *
++ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
++ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
++ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
++ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
++ * OTHER DEALINGS IN THE SOFTWARE.
++ *
++ * Authors: AMD
++ *
++ */
++
++#ifndef __DAL_DCN30_HPO_FRL_LINK_ENCODER_H__
++#define __DAL_DCN30_HPO_FRL_LINK_ENCODER_H__
++
++#include "link_encoder.h"
++
++
++#define DCN30_HPO_FRL_LINK_ENC_FROM_HPO_FRL_LINK_ENC(hpo_frl_link_encoder)\
++	container_of(hpo_frl_link_encoder, struct dcn30_hpo_frl_link_encoder, base)
++
++
++#define DCN3_0_HPO_FRL_LINK_ENC_REG_LIST(id) \
++	SR(HDMI_LINK_ENC_CLK_CTRL), \
++	SR(HDMI_LINK_ENC_CONTROL), \
++	SR(HDMI_FRL_ENC_CONFIG), \
++	SR(HDMI_FRL_ENC_CONFIG2),\
++	SR(HDMI_FRL_ENC_MEM_CTRL)
++
++struct dcn30_hpo_frl_link_encoder_registers {
++	uint32_t HDMI_LINK_ENC_CLK_CTRL;
++	uint32_t HDMI_LINK_ENC_CONTROL;
++	uint32_t HDMI_FRL_ENC_CONFIG;
++	uint32_t HDMI_FRL_ENC_CONFIG2;
++	uint32_t HDMI_FRL_ENC_MEM_CTRL;
++};
++
++#define DCN3_0_HPO_FRL_LINK_ENC_MASK_SH_LIST(mask_sh)\
++	SE_SF(HDMI_LINK_ENC_CLK_CTRL, HDMI_LINK_ENC_CLOCK_EN, mask_sh),\
++	SE_SF(HDMI_LINK_ENC_CONTROL, HDMI_LINK_ENC_ENABLE, mask_sh),\
++	SE_SF(HDMI_LINK_ENC_CONTROL, HDMI_LINK_ENC_SOFT_RESET, mask_sh),\
++	SE_SF(HDMI_FRL_ENC_MEM_CTRL, METERBUFFER_MEM_PWR_DIS, mask_sh),\
++	SE_SF(HDMI_FRL_ENC_MEM_CTRL, METERBUFFER_MEM_PWR_FORCE, mask_sh),\
++	SE_SF(HDMI_FRL_ENC_MEM_CTRL, METERBUFFER_MEM_PWR_STATE, mask_sh),\
++	SE_SF(HDMI_FRL_ENC_MEM_CTRL, METERBUFFER_MEM_DEFAULT_MEM_LOW_POWER_STATE, mask_sh),\
++	SE_SF(HDMI_FRL_ENC_CONFIG, HDMI_LINK_LANE_COUNT, mask_sh),\
++	SE_SF(HDMI_FRL_ENC_CONFIG, HDMI_LINK_TRAINING_ENABLE, mask_sh),\
++	SE_SF(HDMI_FRL_ENC_CONFIG, HDMI_LINK_LANE0_TRAINING_PATTERN, mask_sh),\
++	SE_SF(HDMI_FRL_ENC_CONFIG, HDMI_LINK_LANE1_TRAINING_PATTERN, mask_sh),\
++	SE_SF(HDMI_FRL_ENC_CONFIG, HDMI_LINK_LANE2_TRAINING_PATTERN, mask_sh),\
++	SE_SF(HDMI_FRL_ENC_CONFIG, HDMI_LINK_LANE3_TRAINING_PATTERN, mask_sh),\
++	SE_SF(HDMI_FRL_ENC_CONFIG2, HDMI_LINK_MAX_JITTER_VALUE, mask_sh),\
++	SE_SF(HDMI_FRL_ENC_CONFIG2, HDMI_LINK_JITTER_THRESHOLD, mask_sh),\
++	SE_SF(HDMI_FRL_ENC_CONFIG2, HDMI_LINK_JITTER_CAL_EN, mask_sh),\
++	SE_SF(HDMI_FRL_ENC_CONFIG2, HDMI_LINK_RC_COMPRESS_DISABLE, mask_sh),\
++	SE_SF(HDMI_FRL_ENC_CONFIG2, HDMI_FRL_HDMISTREAMCLK_DB_SEL, mask_sh),\
++	SE_SF(HDMI_FRL_ENC_CONFIG2, HDMI_LINK_MAX_JITTER_VALUE_RESET, mask_sh),\
++	SE_SF(HDMI_FRL_ENC_CONFIG2, HDMI_LINK_JITTER_EXCEED_STATUS, mask_sh),\
++	SE_SF(HDMI_FRL_ENC_CONFIG2, HDMI_LINK_METER_BUFFER_OVERFLOW_STATUS, mask_sh)
++
++#define HPO_FRL_LINK_ENC_DCN3_REG_FIELD_LIST(type) \
++	type HDMI_LINK_ENC_CLOCK_EN;\
++	type HDMI_LINK_ENC_ENABLE;\
++	type HDMI_LINK_ENC_SOFT_RESET;\
++	type HDMI_LINK_LANE_COUNT;\
++	type HDMI_LINK_TRAINING_ENABLE;\
++	type HDMI_LINK_LANE0_TRAINING_PATTERN;\
++	type HDMI_LINK_LANE1_TRAINING_PATTERN;\
++	type HDMI_LINK_LANE2_TRAINING_PATTERN;\
++	type HDMI_LINK_LANE3_TRAINING_PATTERN;\
++	type HDMI_LINK_MAX_JITTER_VALUE;\
++	type HDMI_LINK_JITTER_THRESHOLD;\
++	type HDMI_LINK_JITTER_CAL_EN;\
++	type HDMI_LINK_RC_COMPRESS_DISABLE;\
++	type METERBUFFER_MEM_PWR_DIS;\
++	type METERBUFFER_MEM_PWR_STATE;\
++	type METERBUFFER_MEM_PWR_FORCE;\
++	type METERBUFFER_MEM_DEFAULT_MEM_LOW_POWER_STATE;\
++	type HDMI_FRL_HDMISTREAMCLK_DB_SEL;\
++	type HDMI_LINK_MAX_JITTER_VALUE_RESET;\
++	type HDMI_LINK_JITTER_EXCEED_STATUS;\
++	type HDMI_LINK_METER_BUFFER_OVERFLOW_STATUS
++
++
++struct dcn30_hpo_frl_link_encoder_shift {
++	HPO_FRL_LINK_ENC_DCN3_REG_FIELD_LIST(uint8_t);
++};
++
++struct dcn30_hpo_frl_link_encoder_mask {
++	HPO_FRL_LINK_ENC_DCN3_REG_FIELD_LIST(uint32_t);
++};
++
++struct dcn30_hpo_frl_link_encoder {
++	struct hpo_frl_link_encoder base;
++	const struct dcn30_hpo_frl_link_encoder_registers *regs;
++	const struct dcn30_hpo_frl_link_encoder_shift *hpo_le_shift;
++	const struct dcn30_hpo_frl_link_encoder_mask *hpo_le_mask;
++};
++
++void hpo_frl_link_enc3_setup_link_encoder(struct hpo_frl_link_encoder *enc,
++						 int lane_count);
++
++void hpo_frl_link_enc3_set_training_pattern(struct hpo_frl_link_encoder *enc,
++						uint32_t lane0_pattern,
++						uint32_t lane1_pattern,
++						uint32_t lane2_pattern,
++						uint32_t lane3_pattern);
++
++void hpo_frl_link_enc3_get_training_pattern(struct hpo_frl_link_encoder *enc,
++						uint32_t *lane0_pattern,
++						uint32_t *lane1_pattern,
++						uint32_t *lane2_pattern,
++						uint32_t *lane3_pattern);
++
++void hpo_frl_link_enc3_enable_output(struct hpo_frl_link_encoder *enc);
++
++void hpo_frl_link_enc3_disable(struct hpo_frl_link_encoder *enc);
++
++void hpo_frl_link_enc3_read_state(struct hpo_frl_link_encoder *enc,
++					 struct hpo_frl_link_enc_state *state);
++
++void hpo_frl_link_enc3_destroy(struct hpo_frl_link_encoder **enc);
++
++void hpo_frl_link_enc3_apply_vsdb_rcc_wa(struct hpo_frl_link_encoder *enc);
++
++void hpo_frl_link_encoder3_construct(struct dcn30_hpo_frl_link_encoder *enc3,
++				     struct dc_context *ctx,
++				     uint32_t inst,
++				     const struct dcn30_hpo_frl_link_encoder_registers *hpo_le_regs,
++				     const struct dcn30_hpo_frl_link_encoder_shift *hpo_le_shift,
++				     const struct dcn30_hpo_frl_link_encoder_mask *hpo_le_mask);
++
++#endif
+diff --git a/drivers/gpu/drm/amd/display/dc/hpo/dcn30/dcn30_hpo_frl_stream_encoder.c b/drivers/gpu/drm/amd/display/dc/hpo/dcn30/dcn30_hpo_frl_stream_encoder.c
+new file mode 100644
+index 000000000000..cd7d2bb661e5
+--- /dev/null
++++ b/drivers/gpu/drm/amd/display/dc/hpo/dcn30/dcn30_hpo_frl_stream_encoder.c
+@@ -0,0 +1,938 @@
++/*
++ * Copyright 2019 Advanced Micro Devices, Inc.
++ *
++ * Permission is hereby granted, free of charge, to any person obtaining a
++ * copy of this software and associated documentation files (the "Software"),
++ * to deal in the Software without restriction, including without limitation
++ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
++ *  and/or sell copies of the Software, and to permit persons to whom the
++ * Software is furnished to do so, subject to the following conditions:
++ *
++ * The above copyright notice and this permission notice shall be included in
++ * all copies or substantial portions of the Software.
++ *
++ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
++ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
++ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
++ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
++ * OTHER DEALINGS IN THE SOFTWARE.
++ *
++ * Authors: AMD
++ *
++ */
++
++
++#include "dc_bios_types.h"
++#include "core_types.h"
++#include "dcn30_hpo_frl_stream_encoder.h"
++#include "reg_helper.h"
++#include "hw_shared.h"
++#include "dcn_calc_math.h"
++#include "dml/dcn30/dcn30_fpu.h"
++
++#undef DC_LOGGER
++#define DC_LOGGER enc3->base.ctx->logger
++
++#define DTRACE(str, ...) {DC_LOG_HDMI_FRL(str, ##__VA_ARGS__); }
++
++#define DEBUG_FRL_CAP_CHK 1
++
++#define REG(reg) (enc3->regs->reg)
++
++#undef FN
++#define FN(reg_name, field_name) enc3->hpo_se_shift->field_name, enc3->hpo_se_mask->field_name
++
++#define CTX enc3->base.ctx
++
++#define VBI_LINE_0 0
++
++void hpo_enc3_enable(struct hpo_frl_stream_encoder *enc, int otg_inst)
++{
++	struct dcn30_hpo_frl_stream_encoder *enc3 = DCN30_HPO_FRL_STRENC_FROM_HPO_FRL_STRENC(enc);
++
++	DC_LOG_HDMI_FRL("Entering [%s]\n", __func__);
++
++	/* Enable DISPCLK, SOCCLK, and HDMISTREAMCLK */
++	REG_UPDATE(HDMI_STREAM_ENC_CLOCK_CONTROL,
++		   HDMI_STREAM_ENC_CLOCK_EN, 1);
++
++	/* Reset */
++	REG_UPDATE_2(HDMI_TB_ENC_CONTROL,
++		     HDMI_RESET, 1,
++		     HDMI_TB_ENC_EN, 0);
++	REG_WAIT(HDMI_TB_ENC_CONTROL, HDMI_RESET_DONE,
++		 1, 10, 100);
++	REG_UPDATE(HDMI_TB_ENC_CONTROL,
++		   HDMI_RESET, 0);
++
++	/* FOR DEBUG:  enable CRC */
++	REG_UPDATE_2(HDMI_TB_ENC_CRC_CNTL,
++		     HDMI_CRC_EN, 1,
++		     HDMI_CRC_CONT_EN, 1);
++
++	REG_UPDATE(HDMI_STREAM_ENC_CLOCK_RAMP_ADJUSTER_FIFO_STATUS_CONTROL2,
++		   FIFO_DB_DISABLE, 1);
++
++	/* TODO: confirm if need to set HDMI_DB_DISABLE -- HW team only setting FIFO_DB_DISABLE */
++	REG_UPDATE(HDMI_TB_ENC_DB_CONTROL,
++		   HDMI_DB_DISABLE, 1);
++
++	/* Set the input mux to select OTG source */
++	REG_UPDATE(HDMI_STREAM_ENC_INPUT_MUX_CONTROL,
++		   HDMI_STREAM_ENC_INPUT_MUX_SOURCE_SEL, otg_inst);
++
++	DC_LOG_HDMI_FRL("Exiting [%s]\n", __func__);
++}
++
++void hpo_enc3_unblank(struct hpo_frl_stream_encoder *enc, int otg_inst)
++{
++	(void)otg_inst;
++	struct dcn30_hpo_frl_stream_encoder *enc3 = DCN30_HPO_FRL_STRENC_FROM_HPO_FRL_STRENC(enc);
++
++	DC_LOG_HDMI_FRL("Entering [%s]\n", __func__);
++
++	/*make sure FIFO_VIDEO_STREAM_ACTIVE =1*/
++	REG_UPDATE(HDMI_STREAM_ENC_CLOCK_RAMP_ADJUSTER_FIFO_STATUS_CONTROL0,
++		   FIFO_ENABLE, 0);
++
++	/* Reset */
++	REG_UPDATE(HDMI_STREAM_ENC_CLOCK_RAMP_ADJUSTER_FIFO_STATUS_CONTROL0,
++		   FIFO_RESET, 1);
++	REG_WAIT(HDMI_STREAM_ENC_CLOCK_RAMP_ADJUSTER_FIFO_STATUS_CONTROL0, FIFO_RESET_DONE,
++		 1, 10, 1000);
++	REG_UPDATE(HDMI_STREAM_ENC_CLOCK_RAMP_ADJUSTER_FIFO_STATUS_CONTROL0,
++		   FIFO_RESET, 0);
++	REG_WAIT(HDMI_STREAM_ENC_CLOCK_RAMP_ADJUSTER_FIFO_STATUS_CONTROL0, FIFO_RESET_DONE,
++		 0, 10, 1000);
++
++	/* Enable HDMI Tribyte Encoder */
++	REG_UPDATE(HDMI_TB_ENC_CONTROL,
++		   HDMI_TB_ENC_EN, 1);
++
++	/* Enable Clock Ramp Adjuster FIFO */
++	REG_UPDATE(HDMI_STREAM_ENC_CLOCK_RAMP_ADJUSTER_FIFO_STATUS_CONTROL0,
++		   FIFO_ENABLE, 1);
++
++	DC_LOG_HDMI_FRL("Exiting [%s]\n", __func__);
++}
++
++bool hpo_enc3_fifo_odm_enabled(struct hpo_frl_stream_encoder *enc)
++{
++	struct dcn30_hpo_frl_stream_encoder *enc3 = DCN30_HPO_FRL_STRENC_FROM_HPO_FRL_STRENC(enc);
++	uint32_t fifo_odm_combine_mode;
++
++	REG_GET(HDMI_STREAM_ENC_CLOCK_RAMP_ADJUSTER_FIFO_STATUS_CONTROL0,
++			FIFO_ODM_COMBINE_MODE, &fifo_odm_combine_mode);
++
++	return (fifo_odm_combine_mode != 0);
++}
++
++void hpo_enc3_blank(struct hpo_frl_stream_encoder *enc)
++{
++	struct dcn30_hpo_frl_stream_encoder *enc3 = DCN30_HPO_FRL_STRENC_FROM_HPO_FRL_STRENC(enc);
++
++	/* Disable Clock Ramp Adjuster FIFO */
++	REG_UPDATE_2(HDMI_STREAM_ENC_CLOCK_RAMP_ADJUSTER_FIFO_STATUS_CONTROL0,
++		   FIFO_ENABLE, 0,
++		   FIFO_ODM_COMBINE_MODE, 0);
++
++	/* Disable HDMI Tribyte Encoder */
++	REG_UPDATE(HDMI_TB_ENC_CONTROL,
++		   HDMI_TB_ENC_EN, 0);
++
++	/* Disable DISPCLK, SOCCLK, and HDMISTREAMCLK */
++	REG_UPDATE(HDMI_STREAM_ENC_CLOCK_CONTROL,
++		   HDMI_STREAM_ENC_CLOCK_EN, 0);
++}
++
++/* Setup stream encoder in hdmi mode
++ * - Precondition: link is trained
++ */
++void hpo_enc3_set_hdmi_stream_attribute(struct hpo_frl_stream_encoder *enc,
++					struct dc_crtc_timing *crtc_timing,
++					struct frl_borrow_params *borrow_params,
++					int odm_combine_num_segments)
++{
++	struct dcn30_hpo_frl_stream_encoder *enc3 = DCN30_HPO_FRL_STRENC_FROM_HPO_FRL_STRENC(enc);
++	uint32_t h_active;
++	uint32_t h_blank;
++
++	DC_LOG_HDMI_FRL("Entering [%s]\n", __func__);
++
++	/* Configure pixel encoding */
++	switch (crtc_timing->pixel_encoding) {
++	case PIXEL_ENCODING_YCBCR422:
++		REG_UPDATE(HDMI_TB_ENC_PIXEL_FORMAT,
++			   HDMI_PIXEL_ENCODING, 1);
++		REG_UPDATE(HDMI_STREAM_ENC_CLOCK_RAMP_ADJUSTER_FIFO_STATUS_CONTROL0,
++			   FIFO_PIXEL_ENCODING, 1);
++		break;
++	case PIXEL_ENCODING_YCBCR420:
++		REG_UPDATE(HDMI_TB_ENC_PIXEL_FORMAT,
++			   HDMI_PIXEL_ENCODING, 2);
++		REG_UPDATE(HDMI_STREAM_ENC_CLOCK_RAMP_ADJUSTER_FIFO_STATUS_CONTROL0,
++			   FIFO_PIXEL_ENCODING, 2);
++		break;
++	default:
++		REG_UPDATE(HDMI_TB_ENC_PIXEL_FORMAT,
++			   HDMI_PIXEL_ENCODING, 0);
++		REG_UPDATE(HDMI_STREAM_ENC_CLOCK_RAMP_ADJUSTER_FIFO_STATUS_CONTROL0,
++			   FIFO_PIXEL_ENCODING, 0);
++		break;
++	}
++
++	/* Configure color depth */
++	switch (crtc_timing->display_color_depth) {
++	case COLOR_DEPTH_888:
++		REG_UPDATE_2(HDMI_TB_ENC_PIXEL_FORMAT,
++			     HDMI_DEEP_COLOR_DEPTH, 0,
++			     HDMI_DEEP_COLOR_ENABLE, 0);
++		break;
++	case COLOR_DEPTH_101010:
++		if (crtc_timing->pixel_encoding == PIXEL_ENCODING_YCBCR422) {
++			REG_UPDATE_2(HDMI_TB_ENC_PIXEL_FORMAT,
++				     HDMI_DEEP_COLOR_DEPTH, 1,
++				     HDMI_DEEP_COLOR_ENABLE, 0);
++		} else {
++			REG_UPDATE_2(HDMI_TB_ENC_PIXEL_FORMAT,
++				     HDMI_DEEP_COLOR_DEPTH, 1,
++				     HDMI_DEEP_COLOR_ENABLE, 1);
++		}
++		break;
++	case COLOR_DEPTH_121212:
++		if (crtc_timing->pixel_encoding == PIXEL_ENCODING_YCBCR422) {
++			REG_UPDATE_2(HDMI_TB_ENC_PIXEL_FORMAT,
++				     HDMI_DEEP_COLOR_DEPTH, 2,
++				     HDMI_DEEP_COLOR_ENABLE, 0);
++		} else {
++			REG_UPDATE_2(HDMI_TB_ENC_PIXEL_FORMAT,
++				     HDMI_DEEP_COLOR_DEPTH, 2,
++				     HDMI_DEEP_COLOR_ENABLE, 1);
++		}
 +		break;
 +	default:
 +		break;
 +	}
 +
-+	if (timing->pixel_encoding == PIXEL_ENCODING_RGB ||
-+			timing->pixel_encoding == PIXEL_ENCODING_YCBCR444) {
-+		for (i = 0; i < table_size_444 ; i++) {
-+			if (prim_bpp_444[i].vic == vid_id) {
-+				preset_found = true;
-+				*preset_bpp = prim_bpp_444[i].target_bpp;
-+				break;
-+			}
-+		}
-+	} else if (timing->pixel_encoding == PIXEL_ENCODING_YCBCR422) {
-+		for (i = 0; i < table_size_422 ; i++) {
-+			if (prim_bpp_422[i].vic == vid_id) {
-+				preset_found = true;
-+				*preset_bpp = prim_bpp_422[i].target_bpp;
-+				break;
-+			}
-+		}
-+	} else if (timing->pixel_encoding == PIXEL_ENCODING_YCBCR420) {
-+		for (i = 0; i < table_size_420 ; i++) {
-+			if (prim_bpp_420[i].vic == vid_id) {
-+				preset_found = true;
-+				*preset_bpp = prim_bpp_420[i].target_bpp;
-+				break;
-+			}
-+		}
-+	} else {
-+		return false;
-+	}
-+
-+	return preset_found;
-+}
-+
-+static int hdmi_dsc_get_num_slices(const struct dc_crtc_timing *timing)
-+{
-+	int k_slice_adjust = 1;
-+	int adj_pix_clk_mhz;
-+	int min_slices;
-+	int slice_target;
-+	int slice_width = timing->h_addressable;
-+	int h_ratio_adj_pix_clk_mhz;
-+
-+	if (timing->pixel_encoding == PIXEL_ENCODING_RGB ||
-+			timing->pixel_encoding == PIXEL_ENCODING_YCBCR444)
-+		k_slice_adjust = 2;
-+
-+	adj_pix_clk_mhz = k_slice_adjust * timing->pix_clk_100hz / 10000 / 2;
-+	h_ratio_adj_pix_clk_mhz = adj_pix_clk_mhz * timing->h_addressable / timing->h_total;
-+	if (adj_pix_clk_mhz <= 2720) {
-+		min_slices = adj_pix_clk_mhz / 340;
-+		if (adj_pix_clk_mhz % 340 != 0)
-+			min_slices++;
-+	} else if (adj_pix_clk_mhz <= 4800) {
-+		min_slices = adj_pix_clk_mhz / 400;
-+		if (adj_pix_clk_mhz % 400 != 0)
-+			min_slices++;
-+	} else if (h_ratio_adj_pix_clk_mhz <= 4800) {
-+		min_slices = h_ratio_adj_pix_clk_mhz / 600;
-+		if (h_ratio_adj_pix_clk_mhz % 600 != 0)
-+			min_slices++;
-+	} else {
-+		min_slices = h_ratio_adj_pix_clk_mhz / 900;
-+		if (h_ratio_adj_pix_clk_mhz % 900 != 0)
-+			min_slices++;
-+	}
-+
-+	do {
-+		if (min_slices <= 1)
-+			slice_target = 1;
-+		else if (min_slices <= 2)
-+			slice_target = 2;
-+		else if (min_slices <= 4)
-+			slice_target = 4;
-+		else if (min_slices <= 8)
-+			slice_target = 8;
-+		else if (min_slices <= 12)
-+			slice_target = 12;
-+		else if (min_slices <= 16)
-+			slice_target = 16;
-+		else
-+			return 0;
-+
-+		slice_width = timing->h_addressable / slice_target;
-+		min_slices++;
-+	} while (slice_width > 2720);
-+
-+	return slice_target;
-+}
-+
-+static int hdmi_dsc_get_bpp(const struct dc_crtc_timing *timing,
-+		const struct dsc_enc_caps *dsc_common_caps)
-+{
-+	int max_dsc_bpp, min_dsc_bpp;
-+	int target_bytes;
-+	bool bpp_found = false;
-+	int bpp_decrement_x16;
-+	int src_fractional_bpp = dsc_common_caps->bpp_increment_div;
-+	int bpp_target;
-+	int bpp_target_x16;
-+	int bpc_factor = 8;
-+	int slice_width;
-+	int num_slices;
-+	bool hdmi_all_bpp = dsc_common_caps->is_vic_all_bpp;
-+	int hdmi_max_chunk_bytes = dsc_common_caps->total_chunk_kbytes;
-+
-+	int preset_bpp;
-+	bool preset_found = false;
-+
-+	if (timing->display_color_depth == COLOR_DEPTH_101010)
-+		bpc_factor = 10;
-+	if (timing->display_color_depth == COLOR_DEPTH_121212)
-+		bpc_factor = 12;
-+
-+	/* Assuming: bpc as 8*/
-+	if (timing->pixel_encoding == PIXEL_ENCODING_RGB ||
-+			timing->pixel_encoding == PIXEL_ENCODING_YCBCR444) {
-+		min_dsc_bpp = 8;
-+		max_dsc_bpp = 3 * bpc_factor;
-+	} else if (timing->pixel_encoding == PIXEL_ENCODING_YCBCR422) {
-+		min_dsc_bpp = 7;
-+		max_dsc_bpp = 2 * bpc_factor;
-+	} else {
-+		min_dsc_bpp = 6;
-+		max_dsc_bpp = 3 * bpc_factor / 2;
-+	}
-+
-+	if (!hdmi_all_bpp)
-+		max_dsc_bpp = min(max_dsc_bpp, 12);
-+
-+
-+	num_slices = hdmi_dsc_get_num_slices(timing);
-+	if (num_slices == 0)
-+		return 0;
-+
-+	slice_width = timing->h_addressable / num_slices;
-+
-+	bpp_target = max_dsc_bpp;
-+	bpp_decrement_x16 = 16 / src_fractional_bpp;
-+	bpp_target_x16 = (bpp_target * 16) - bpp_decrement_x16;
-+	if (!hdmi_all_bpp)
-+			bpp_target_x16 = (bpp_target * 16);
-+
-+	/* check if byte target is below allowed Kbytes */
-+	while (bpp_target_x16 > (min_dsc_bpp * 16)) {
-+		target_bytes = num_slices * slice_width * bpp_target_x16 / 16 / 8;
-+		if (target_bytes <= hdmi_max_chunk_bytes) {
-+			bpp_found = true;
-+			break;
-+		}
-+		bpp_target_x16 -= bpp_decrement_x16;
-+	}
-+
-+	if (bpp_found) {
-+		if (!hdmi_all_bpp) {
-+			/* Get preset bpp for CTA modes */
-+			preset_found = get_vic_preset_bpp(timing, &preset_bpp);
-+			if (preset_found) {
-+				bpp_target_x16 = preset_bpp;
-+				target_bytes =
-+						num_slices * slice_width * bpp_target_x16 / 16 / 8;
-+				if (target_bytes > hdmi_max_chunk_bytes)
-+					return 0;
-+			}
-+		}
-+		return bpp_target_x16;
-+	}
-+
-+	return 0;
-+}
-+
- bool dc_dsc_parse_dsc_dpcd(const struct dc *dc,
- 		const uint8_t *dpcd_dsc_basic_data,
- 		const uint8_t *dpcd_dsc_branch_decoder_caps,
-@@ -450,6 +820,104 @@ bool dc_dsc_parse_dsc_dpcd(const struct dc *dc,
- 	dsc_sink_caps->is_dp = true;
- 	return true;
- }
-+bool dc_dsc_parse_dsc_edid(const struct dc *dc, const struct dc_edid_caps *edid_caps,
-+		struct dsc_dec_dpcd_caps *dsc_sink_caps)
-+{
-+	(void)dc;
-+	dsc_sink_caps->is_dsc_supported = edid_caps->frl_dsc_support;
-+	if (!edid_caps->frl_dsc_support)
-+		return false;
-+
-+	dsc_sink_caps->dsc_version = 0x21;
-+	dsc_sink_caps->is_frl = true;
-+	dsc_sink_caps->is_dp = false;
-+
-+	switch (edid_caps->frl_dsc_max_slices) {
-+	case 0:
-+		break;
++	/* Configure ODM combine mode */
++	switch (odm_combine_num_segments) {
 +	case 1:
-+		dsc_sink_caps->slice_caps1.bits.NUM_SLICES_1 = 1;
-+		dsc_sink_caps->throughput_mode_0_mps = 340;
-+		dsc_sink_caps->throughput_mode_1_mps = 680;
++		REG_UPDATE(HDMI_STREAM_ENC_CLOCK_RAMP_ADJUSTER_FIFO_STATUS_CONTROL0,
++			   FIFO_ODM_COMBINE_MODE, 0);
++
++		if (enc3->hpo_se_mask->HDMI_ODM_COMBINE_MODE)
++			REG_UPDATE(HDMI_TB_ENC_PIXEL_FORMAT,
++				   HDMI_ODM_COMBINE_MODE, 0);
 +		break;
 +	case 2:
-+		dsc_sink_caps->slice_caps1.bits.NUM_SLICES_1 = 1;
-+		dsc_sink_caps->slice_caps1.bits.NUM_SLICES_2 = 1;
-+		dsc_sink_caps->throughput_mode_0_mps = 340;
-+		dsc_sink_caps->throughput_mode_1_mps = 680;
-+		break;
-+	case 3:
-+		dsc_sink_caps->slice_caps1.bits.NUM_SLICES_1 = 1;
-+		dsc_sink_caps->slice_caps1.bits.NUM_SLICES_2 = 1;
-+		dsc_sink_caps->slice_caps1.bits.NUM_SLICES_4 = 1;
-+		dsc_sink_caps->throughput_mode_0_mps = 340;
-+		dsc_sink_caps->throughput_mode_1_mps = 680;
++		REG_UPDATE(HDMI_STREAM_ENC_CLOCK_RAMP_ADJUSTER_FIFO_STATUS_CONTROL0,
++			   FIFO_ODM_COMBINE_MODE, 1);
++
++		if (enc3->hpo_se_mask->HDMI_ODM_COMBINE_MODE)
++			REG_UPDATE(HDMI_TB_ENC_PIXEL_FORMAT,
++				   HDMI_ODM_COMBINE_MODE, 1);
 +		break;
 +	case 4:
-+		dsc_sink_caps->slice_caps1.bits.NUM_SLICES_1 = 1;
-+		dsc_sink_caps->slice_caps1.bits.NUM_SLICES_2 = 1;
-+		dsc_sink_caps->slice_caps1.bits.NUM_SLICES_4 = 1;
-+		dsc_sink_caps->slice_caps1.bits.NUM_SLICES_8 = 1;
-+		dsc_sink_caps->throughput_mode_0_mps = 340;
-+		dsc_sink_caps->throughput_mode_1_mps = 680;
++		REG_UPDATE(HDMI_STREAM_ENC_CLOCK_RAMP_ADJUSTER_FIFO_STATUS_CONTROL0,
++			   FIFO_ODM_COMBINE_MODE, 3);
++		break;
++	default:
++		break;
++	}
++
++	/* Configure horizontal active and blank size */
++	h_active = crtc_timing->h_addressable + crtc_timing->h_border_left + crtc_timing->h_border_right;
++	h_blank = crtc_timing->h_total - h_active;
++
++	if (crtc_timing->pixel_encoding == PIXEL_ENCODING_YCBCR420 ||
++	    crtc_timing->pixel_encoding == PIXEL_ENCODING_YCBCR422) {
++		h_active /= 2;
++		h_blank /= 2;
++	}
++
++
++	REG_SET_2(HDMI_TB_ENC_H_ACTIVE_BLANK, 0,
++		  HDMI_H_ACTIVE, h_active,
++		  HDMI_H_BLANK, h_blank);
++
++	/* Configure borrow parameters */
++	REG_UPDATE(HDMI_TB_ENC_MODE,
++		   HDMI_BORROW_MODE, borrow_params->borrow_mode);
++
++	REG_UPDATE(HDMI_TB_ENC_PACKET_CONTROL,
++		   HDMI_MAX_PACKETS_PER_LINE, borrow_params->audio_packets_line);
++
++	REG_SET_2(HDMI_TB_ENC_HC_ACTIVE_BLANK, 0,
++		  HDMI_HC_ACTIVE, borrow_params->hc_active_target,
++		  HDMI_HC_BLANK, borrow_params->hc_blank_target);
++
++	/* Enable transmission of General Control packet on every frame */
++	REG_UPDATE_2(HDMI_TB_ENC_VBI_PACKET_CONTROL1,
++		     HDMI_GC_CONT, 1,
++		     HDMI_GC_SEND, 1);
++
++	/* Disable Audio Content Protection packet transmission */
++	/* TODO: review if this needs to be here */
++	REG_UPDATE(HDMI_TB_ENC_VBI_PACKET_CONTROL1,
++		   HDMI_ACP_SEND, 0);
++
++	/* Enable Audio InfoFrame packet transmission. */
++	REG_UPDATE(HDMI_TB_ENC_VBI_PACKET_CONTROL1,
++		   HDMI_AUDIO_INFO_SEND, 1);
++
++	/* update double-buffered AUDIO_INFO registers immediately */
++	ASSERT(enc->afmt);
++	enc->afmt->funcs->audio_info_immediate_update(enc->afmt);
++
++	/* Select line number on which to send Audio InfoFrame packets */
++	REG_UPDATE(HDMI_TB_ENC_VBI_PACKET_CONTROL1, HDMI_AUDIO_INFO_LINE,
++		   VBI_LINE_0 + 2);
++
++	/* set HDMI GC AVMUTE */
++	REG_UPDATE(HDMI_TB_ENC_GC_CONTROL,
++		   HDMI_GC_AVMUTE, 0);
++
++	DC_LOG_HDMI_FRL("Exiting [%s]\n", __func__);
++}
++
++void hpo_enc3_update_hdmi_info_packets(struct hpo_frl_stream_encoder *enc,
++				       const struct encoder_info_frame *info_frame)
++{
++	struct dcn30_hpo_frl_stream_encoder *enc3 = DCN30_HPO_FRL_STRENC_FROM_HPO_FRL_STRENC(enc);
++
++	hpo_enc3_update_hdmi_info_packet(enc3, 0, &info_frame->avi);
++	hpo_enc3_update_hdmi_info_packet(enc3, 1, &info_frame->vendor);
++	hpo_enc3_update_hdmi_info_packet(enc3, 2, &info_frame->gamut);
++	hpo_enc3_update_hdmi_info_packet(enc3, 3, &info_frame->spd);
++	hpo_enc3_update_hdmi_info_packet(enc3, 4, &info_frame->hdrsmd);
++
++	/* 5-10 used by dsc */
++	hpo_enc3_update_hdmi_info_packet(enc3, 11, &info_frame->hfvsif);
++	hpo_enc3_update_hdmi_info_packet(enc3, 12, &info_frame->vtem);
++}
++
++void hpo_enc3_update_hdmi_info_packet(struct dcn30_hpo_frl_stream_encoder *enc3,
++				      uint32_t packet_index,
++				      const struct dc_info_packet *info_packet)
++{
++	uint32_t cont, send, line;
++
++	if (info_packet->valid) {
++		enc3->base.vpg->funcs->update_generic_info_packet(
++				enc3->base.vpg,
++				packet_index,
++				info_packet,
++				true);
++
++		/* enable transmission of packet(s) -
++		 * packet transmission begins on the next frame */
++		cont = 1;
++		/* send packet(s) every frame */
++		send = 1;
++		/* select line number to send packets on */
++		/* TODO: check if line 2 is correct */
++		line = 2;
++	} else {
++		cont = 0;
++		send = 0;
++		line = 0;
++	}
++
++	/* TODO: set bit to indicate if packet is Extended Metadata Packet. */
++	/* TODO: In DCN3, there are 0-14 generic packets */
++
++	/* choose which generic packet control to use */
++	switch (packet_index) {
++	case 0:
++		REG_UPDATE_2(HDMI_TB_ENC_GENERIC_PACKET_CONTROL0,
++			     HDMI_GENERIC0_CONT, cont,
++			     HDMI_GENERIC0_SEND, send);
++		REG_UPDATE(HDMI_TB_ENC_GENERIC_PACKET0_1_LINE,
++			   HDMI_GENERIC0_LINE, line);
++		break;
++	case 1:
++		REG_UPDATE_2(HDMI_TB_ENC_GENERIC_PACKET_CONTROL0,
++			     HDMI_GENERIC1_CONT, cont,
++			     HDMI_GENERIC1_SEND, send);
++		REG_UPDATE(HDMI_TB_ENC_GENERIC_PACKET0_1_LINE,
++			   HDMI_GENERIC1_LINE, line);
++		break;
++	case 2:
++		REG_UPDATE_2(HDMI_TB_ENC_GENERIC_PACKET_CONTROL0,
++			     HDMI_GENERIC2_CONT, cont,
++			     HDMI_GENERIC2_SEND, send);
++		REG_UPDATE(HDMI_TB_ENC_GENERIC_PACKET2_3_LINE,
++			   HDMI_GENERIC2_LINE, line);
++		break;
++	case 3:
++		REG_UPDATE_2(HDMI_TB_ENC_GENERIC_PACKET_CONTROL0,
++			     HDMI_GENERIC3_CONT, cont,
++			     HDMI_GENERIC3_SEND, send);
++		REG_UPDATE(HDMI_TB_ENC_GENERIC_PACKET2_3_LINE,
++			   HDMI_GENERIC3_LINE, line);
++		break;
++	case 4:
++		REG_UPDATE_2(HDMI_TB_ENC_GENERIC_PACKET_CONTROL0,
++			     HDMI_GENERIC4_CONT, cont,
++			     HDMI_GENERIC4_SEND, send);
++		REG_UPDATE(HDMI_TB_ENC_GENERIC_PACKET4_5_LINE,
++			   HDMI_GENERIC4_LINE, line);
 +		break;
 +	case 5:
-+		dsc_sink_caps->slice_caps1.bits.NUM_SLICES_1 = 1;
-+		dsc_sink_caps->slice_caps1.bits.NUM_SLICES_2 = 1;
-+		dsc_sink_caps->slice_caps1.bits.NUM_SLICES_4 = 1;
-+		dsc_sink_caps->slice_caps1.bits.NUM_SLICES_8 = 1;
-+		dsc_sink_caps->throughput_mode_0_mps = 400;
-+		dsc_sink_caps->throughput_mode_1_mps = 800;
++		REG_UPDATE_2(HDMI_TB_ENC_GENERIC_PACKET_CONTROL0,
++			     HDMI_GENERIC5_CONT, cont,
++			     HDMI_GENERIC5_SEND, send);
++		REG_UPDATE(HDMI_TB_ENC_GENERIC_PACKET4_5_LINE,
++			   HDMI_GENERIC5_LINE, line);
 +		break;
 +	case 6:
-+		dsc_sink_caps->slice_caps1.bits.NUM_SLICES_1 = 1;
-+		dsc_sink_caps->slice_caps1.bits.NUM_SLICES_2 = 1;
-+		dsc_sink_caps->slice_caps1.bits.NUM_SLICES_4 = 1;
-+		dsc_sink_caps->slice_caps1.bits.NUM_SLICES_8 = 1;
-+		dsc_sink_caps->slice_caps1.bits.NUM_SLICES_12 = 1;
-+		dsc_sink_caps->throughput_mode_0_mps = 400;
-+		dsc_sink_caps->throughput_mode_1_mps = 800;
++		REG_UPDATE_2(HDMI_TB_ENC_GENERIC_PACKET_CONTROL0,
++			     HDMI_GENERIC6_CONT, cont,
++			     HDMI_GENERIC6_SEND, send);
++		REG_UPDATE(HDMI_TB_ENC_GENERIC_PACKET6_7_LINE,
++			   HDMI_GENERIC6_LINE, line);
 +		break;
 +	case 7:
-+		dsc_sink_caps->slice_caps1.bits.NUM_SLICES_1 = 1;
-+		dsc_sink_caps->slice_caps1.bits.NUM_SLICES_2 = 1;
-+		dsc_sink_caps->slice_caps1.bits.NUM_SLICES_4 = 1;
-+		dsc_sink_caps->slice_caps1.bits.NUM_SLICES_8 = 1;
-+		dsc_sink_caps->slice_caps1.bits.NUM_SLICES_12 = 1;
-+		dsc_sink_caps->throughput_mode_0_mps = 600;
-+		dsc_sink_caps->throughput_mode_1_mps = 1200;
++		REG_UPDATE_2(HDMI_TB_ENC_GENERIC_PACKET_CONTROL0,
++			     HDMI_GENERIC7_CONT, cont,
++			     HDMI_GENERIC7_SEND, send);
++		REG_UPDATE(HDMI_TB_ENC_GENERIC_PACKET6_7_LINE,
++			   HDMI_GENERIC7_LINE, line);
 +		break;
 +	case 8:
-+	default:
-+		dsc_sink_caps->slice_caps1.bits.NUM_SLICES_1 = 1;
-+		dsc_sink_caps->slice_caps1.bits.NUM_SLICES_2 = 1;
-+		dsc_sink_caps->slice_caps1.bits.NUM_SLICES_4 = 1;
-+		dsc_sink_caps->slice_caps1.bits.NUM_SLICES_8 = 1;
-+		dsc_sink_caps->slice_caps1.bits.NUM_SLICES_12 = 1;
-+		dsc_sink_caps->throughput_mode_0_mps = 900;
-+		dsc_sink_caps->throughput_mode_1_mps = 1800;
++		REG_UPDATE_2(HDMI_TB_ENC_GENERIC_PACKET_CONTROL1,
++			     HDMI_GENERIC8_CONT, cont,
++			     HDMI_GENERIC8_SEND, send);
++		REG_UPDATE(HDMI_TB_ENC_GENERIC_PACKET8_9_LINE,
++			   HDMI_GENERIC8_LINE, line);
 +		break;
-+	}
-+	dsc_sink_caps->lb_bit_depth = 13; //Table 7-25
-+	dsc_sink_caps->is_block_pred_supported = true; //Table 7-25
-+	dsc_sink_caps->color_formats.bits.RGB = 1;
-+	dsc_sink_caps->color_formats.bits.YCBCR_444 = 1;
-+	dsc_sink_caps->color_formats.bits.YCBCR_NATIVE_422 = 1;
-+	dsc_sink_caps->color_formats.bits.YCBCR_NATIVE_420 =
-+			(edid_caps->frl_dsc_native_420 == true) ? 1 : 0;
-+	dsc_sink_caps->color_depth.bits.COLOR_DEPTH_8_BPC = 1;
-+	dsc_sink_caps->color_depth.bits.COLOR_DEPTH_10_BPC =
-+			(edid_caps->frl_dsc_10bpc == true) ? 1 : 0;
-+	dsc_sink_caps->color_depth.bits.COLOR_DEPTH_12_BPC =
-+			(edid_caps->frl_dsc_12bpc == true) ? 1 : 0;
-+	dsc_sink_caps->max_slice_width = 2560;
-+	dsc_sink_caps->bpp_increment_div = 16; /* bpp increment divisor, e.g. if 16, it's 1/16th of a bit */
-+	dsc_sink_caps->is_vic_all_bpp = edid_caps->frl_dsc_all_bpp;
-+	dsc_sink_caps->total_chunk_kbytes =
-+			1024 * (1 + edid_caps->frl_dsc_total_chunk_kbytes);
-+
-+	return true;
-+}
- 
- /* If DSC is possbile, get DSC bandwidth range based on [min_bpp, max_bpp] target bitrate range and
-  * timing's pixel clock and uncompressed bandwidth.
-@@ -757,6 +1225,9 @@ static bool intersect_dsc_caps(
- 	if (pixel_encoding == PIXEL_ENCODING_YCBCR422 || pixel_encoding == PIXEL_ENCODING_YCBCR420)
- 		dsc_common_caps->bpp_increment_div = min(dsc_common_caps->bpp_increment_div, (uint32_t)8);
- 
-+	dsc_common_caps->is_frl = dsc_sink_caps->is_frl;
-+	dsc_common_caps->is_vic_all_bpp = dsc_sink_caps->is_vic_all_bpp;
-+	dsc_common_caps->total_chunk_kbytes = dsc_sink_caps->total_chunk_kbytes;
- 	dsc_common_caps->edp_sink_max_bits_per_pixel = dsc_sink_caps->edp_max_bits_per_pixel;
- 	dsc_common_caps->is_dp = dsc_sink_caps->is_dp;
- 	return true;
-@@ -786,6 +1257,191 @@ static uint32_t compute_bpp_x16_from_target_bandwidth(
- 	return dc_fixpt_floor(bpp_x16);
- }
- 
-+static bool convert_bandwidth_to_frl_params(
-+	int bandwidth_kbps,
-+	int *num_lanes,
-+	int *frl_rate)
-+{
-+	if (bandwidth_kbps == 0)
-+		return false;
-+
-+	switch (bandwidth_kbps) {
-+	case 9000000:
-+		*num_lanes = 3;
-+		*frl_rate = 3000;
++	case 9:
++		REG_UPDATE_2(HDMI_TB_ENC_GENERIC_PACKET_CONTROL1,
++			     HDMI_GENERIC9_CONT, cont,
++			     HDMI_GENERIC9_SEND, send);
++		REG_UPDATE(HDMI_TB_ENC_GENERIC_PACKET8_9_LINE,
++			   HDMI_GENERIC9_LINE, line);
 +		break;
-+	case 18000000:
-+		*num_lanes = 3;
-+		*frl_rate = 6000;
++	case 10:
++		REG_UPDATE_2(HDMI_TB_ENC_GENERIC_PACKET_CONTROL1,
++			     HDMI_GENERIC10_CONT, cont,
++			     HDMI_GENERIC10_SEND, send);
++		REG_UPDATE(HDMI_TB_ENC_GENERIC_PACKET10_11_LINE,
++			   HDMI_GENERIC10_LINE, line);
 +		break;
-+	case 24000000:
-+		*num_lanes = 4;
-+		*frl_rate = 6000;
++	case 11:
++		REG_UPDATE_2(HDMI_TB_ENC_GENERIC_PACKET_CONTROL1,
++			     HDMI_GENERIC11_CONT, cont,
++			     HDMI_GENERIC11_SEND, send);
++		REG_UPDATE(HDMI_TB_ENC_GENERIC_PACKET10_11_LINE,
++			   HDMI_GENERIC11_LINE, line);
 +		break;
-+	case 32000000:
-+		*num_lanes = 4;
-+		*frl_rate = 8000;
++	case 12:
++		REG_UPDATE_2(HDMI_TB_ENC_GENERIC_PACKET_CONTROL1,
++			     HDMI_GENERIC12_CONT, cont,
++			     HDMI_GENERIC12_SEND, send);
++		REG_UPDATE(HDMI_TB_ENC_GENERIC_PACKET12_13_LINE,
++			   HDMI_GENERIC12_LINE, line);
 +		break;
-+	case 40000000:
-+		*num_lanes = 4;
-+		*frl_rate = 10000;
++	case 13:
++		REG_UPDATE_2(HDMI_TB_ENC_GENERIC_PACKET_CONTROL1,
++			     HDMI_GENERIC13_CONT, cont,
++			     HDMI_GENERIC13_SEND, send);
++		REG_UPDATE(HDMI_TB_ENC_GENERIC_PACKET12_13_LINE,
++			   HDMI_GENERIC13_LINE, line);
 +		break;
-+	case 48000000:
-+		*num_lanes = 4;
-+		*frl_rate = 12000;
++	case 14:
++		REG_UPDATE_2(HDMI_TB_ENC_GENERIC_PACKET_CONTROL1,
++			     HDMI_GENERIC14_CONT, cont,
++			     HDMI_GENERIC14_SEND, send);
++		REG_UPDATE(HDMI_TB_ENC_GENERIC_PACKET14_LINE,
++			   HDMI_GENERIC14_LINE, line);
 +		break;
 +	default:
-+		return false;
++		/* invalid HW packet index */
++		DC_LOG_WARNING("Invalid HW packet index: %s()\n", __func__);
++		return;
 +	}
-+	return true;
 +}
 +
-+static uint32_t compute_bpp_x16_from_frl_params(
-+		const struct dc_crtc_timing *timing,
-+		const uint32_t num_slices_h,
-+		const struct dsc_enc_caps *dsc_caps)
++void hpo_enc3_stop_hdmi_info_packets(
++	struct hpo_frl_stream_encoder *enc)
 +{
-+	struct fixed31_32 pixel_clock;
-+	uint32_t num_lanes = dsc_caps->num_lanes;
-+	uint32_t frl_rate = dsc_caps->frl_rate;
-+	uint32_t h_active = timing->h_addressable;
-+	uint32_t h_blank = timing->h_total - timing->h_addressable;
-+	uint32_t bpp_target_x16;
-+	struct fixed31_32 r_bit;
-+	uint32_t f_audio = 48000;
-+	struct fixed31_32 pixel_rate_tolerance;
-+	uint32_t audio_tolerance = 1000;
-+	uint32_t frl_bit_tolerance = 300;
-+	uint32_t acr_rate_max = 1500;
-+	uint32_t c_frl_cb = 510;
-+	uint32_t c_frl_sb;
-+	struct fixed31_32 overhead_sb;
-+	struct fixed31_32 overhead_rs;
-+	struct fixed31_32 overhead_map;
-+	struct fixed31_32 overhead_min;
-+	struct fixed31_32 overhead_m;
-+	struct fixed31_32 overhead_max;
-+	struct fixed31_32 pixel_clock_max;
-+	struct fixed31_32 t_line;
-+	struct fixed31_32 r_bit_min;
-+	struct fixed31_32 r_frl_char_min;
-+	struct fixed31_32 c_frl_line;
-+	uint32_t c_frl_line_int;
-+	struct fixed31_32 c_frl_available;
-+	uint32_t c_frl_av_int;
-+	struct fixed31_32 c_frl_active_av;
-+	struct fixed31_32 c_frl_blank_av;
-+	uint32_t acat_ap = 4;
-+	struct fixed31_32 r_ap;
-+	struct fixed31_32 max_audio_tol_rate;
-+	struct fixed31_32 avg_audio_packets_line;
-+	uint32_t avg_audio_packets_line_int;
-+	int hc_blank_audio_min;
-+	uint32_t bytes_target;
-+	uint32_t hc_active_target;
-+	uint32_t hc_blank_target_est1;
-+	uint32_t hc_blank_target_est2;
-+	struct fixed31_32 hc_blank_target_bandwidth;
-+	int hc_blank_target;
-+	uint32_t bpc_factor = 8;
-+	uint32_t min_dsc_bpp_x16;
-+	uint32_t max_dsc_bpp_x16;
-+	bool hdmi_all_bpp = dsc_caps->is_vic_all_bpp;
-+	uint32_t slice_width;
++	struct dcn30_hpo_frl_stream_encoder *enc3 = DCN30_HPO_FRL_STRENC_FROM_HPO_FRL_STRENC(enc);
 +
-+	if (timing->display_color_depth == COLOR_DEPTH_101010)
-+		bpc_factor = 10;
-+	if (timing->display_color_depth == COLOR_DEPTH_121212)
-+		bpc_factor = 12;
++	/* TODO: should also set extended metadata packet bit back to 0? */
 +
-+	/* Assuming: bpc as 8*/
-+	if (timing->pixel_encoding == PIXEL_ENCODING_RGB ||
-+			timing->pixel_encoding == PIXEL_ENCODING_YCBCR444) {
-+		min_dsc_bpp_x16 = 8 * 16;
-+		max_dsc_bpp_x16 = 3 * 16 * bpc_factor;
-+	} else if (timing->pixel_encoding == PIXEL_ENCODING_YCBCR422) {
-+		min_dsc_bpp_x16 = 7 * 16;
-+		max_dsc_bpp_x16 = 2 * 16 * bpc_factor;
++	/* stop generic packets 0,1 on HDMI */
++	REG_SET_4(HDMI_TB_ENC_GENERIC_PACKET_CONTROL0, 0,
++		HDMI_GENERIC0_CONT, 0,
++		HDMI_GENERIC0_SEND, 0,
++		HDMI_GENERIC1_CONT, 0,
++		HDMI_GENERIC1_SEND, 0);
++	REG_SET_2(HDMI_TB_ENC_GENERIC_PACKET0_1_LINE, 0,
++		HDMI_GENERIC0_LINE, 0,
++		HDMI_GENERIC1_LINE, 0);
++
++	/* stop generic packets 2,3 on HDMI */
++	REG_SET_4(HDMI_TB_ENC_GENERIC_PACKET_CONTROL0, 0,
++		HDMI_GENERIC2_CONT, 0,
++		HDMI_GENERIC2_SEND, 0,
++		HDMI_GENERIC3_CONT, 0,
++		HDMI_GENERIC3_SEND, 0);
++	REG_SET_2(HDMI_TB_ENC_GENERIC_PACKET2_3_LINE, 0,
++		HDMI_GENERIC2_LINE, 0,
++		HDMI_GENERIC3_LINE, 0);
++
++	/* stop generic packets 4,5 on HDMI */
++	REG_SET_4(HDMI_TB_ENC_GENERIC_PACKET_CONTROL0, 0,
++		HDMI_GENERIC4_CONT, 0,
++		HDMI_GENERIC4_SEND, 0,
++		HDMI_GENERIC5_CONT, 0,
++		HDMI_GENERIC5_SEND, 0);
++	REG_SET_2(HDMI_TB_ENC_GENERIC_PACKET4_5_LINE, 0,
++		HDMI_GENERIC4_LINE, 0,
++		HDMI_GENERIC5_LINE, 0);
++
++	/* stop generic packets 6,7 on HDMI */
++	REG_SET_4(HDMI_TB_ENC_GENERIC_PACKET_CONTROL0, 0,
++		HDMI_GENERIC6_CONT, 0,
++		HDMI_GENERIC6_SEND, 0,
++		HDMI_GENERIC7_CONT, 0,
++		HDMI_GENERIC7_SEND, 0);
++	REG_SET_2(HDMI_TB_ENC_GENERIC_PACKET6_7_LINE, 0,
++		HDMI_GENERIC6_LINE, 0,
++		HDMI_GENERIC7_LINE, 0);
++
++	/* stop generic packets 8,9 on HDMI */
++	REG_SET_4(HDMI_TB_ENC_GENERIC_PACKET_CONTROL1, 0,
++		HDMI_GENERIC8_CONT, 0,
++		HDMI_GENERIC8_SEND, 0,
++		HDMI_GENERIC9_CONT, 0,
++		HDMI_GENERIC9_SEND, 0);
++	REG_SET_2(HDMI_TB_ENC_GENERIC_PACKET8_9_LINE, 0,
++		HDMI_GENERIC8_LINE, 0,
++		HDMI_GENERIC9_LINE, 0);
++
++	/* stop generic packets 10,11 on HDMI */
++	REG_SET_4(HDMI_TB_ENC_GENERIC_PACKET_CONTROL1, 0,
++		HDMI_GENERIC10_CONT, 0,
++		HDMI_GENERIC10_SEND, 0,
++		HDMI_GENERIC11_CONT, 0,
++		HDMI_GENERIC11_SEND, 0);
++	REG_SET_2(HDMI_TB_ENC_GENERIC_PACKET10_11_LINE, 0,
++		HDMI_GENERIC10_LINE, 0,
++		HDMI_GENERIC11_LINE, 0);
++
++	/* stop generic packets 12,13 on HDMI */
++	REG_SET_4(HDMI_TB_ENC_GENERIC_PACKET_CONTROL1, 0,
++		HDMI_GENERIC12_CONT, 0,
++		HDMI_GENERIC12_SEND, 0,
++		HDMI_GENERIC13_CONT, 0,
++		HDMI_GENERIC13_SEND, 0);
++	REG_SET_2(HDMI_TB_ENC_GENERIC_PACKET12_13_LINE, 0,
++		HDMI_GENERIC12_LINE, 0,
++		HDMI_GENERIC13_LINE, 0);
++
++	/* stop generic packets 14 on HDMI */
++	REG_SET_2(HDMI_TB_ENC_GENERIC_PACKET_CONTROL1, 0,
++		HDMI_GENERIC14_CONT, 0,
++		HDMI_GENERIC14_SEND, 0);
++	REG_SET(HDMI_TB_ENC_GENERIC_PACKET14_LINE, 0,
++		HDMI_GENERIC14_LINE, 0);
++
++}
++
++//Covered both, rounding up or rounding down from FRL Link Rate /18.
++static const struct frl_audio_clock_info frl_audio_clock_info_table[10] = {
++	{166666, 4224, 171875, 5292, 156250, 5760, 156250},
++	{166667, 4224, 171875, 5292, 156250, 5760, 156250},
++	{333333, 4032, 328125, 5292, 312500, 6048, 328125},
++	{333334, 4032, 328125, 5292, 312500, 6048, 328125},
++	{444444, 4032, 437500, 3969, 312500, 6048, 437500},
++	{444445, 4032, 437500, 3969, 312500, 6048, 437500},
++	{555555, 3456, 468750, 3969, 390625, 5184, 468750},
++	{555556, 3456, 468750, 3969, 390625, 5184, 468750},
++	{666666, 3072, 500000, 3969, 468750, 4752, 515625},
++	{666667, 3072, 500000, 3969, 468750, 4752, 515625}
++};
++
++static void get_audio_clock_info(
++	enum dc_color_depth color_depth,
++	uint32_t frl_character_clock_kHz,
++	struct frl_audio_clock_info *audio_clock_info)
++{
++	(void)color_depth;
++	const struct frl_audio_clock_info *clock_info;
++	uint32_t index;
++	uint32_t audio_array_size;
++
++	clock_info = frl_audio_clock_info_table;
++	audio_array_size = ARRAY_SIZE(
++			frl_audio_clock_info_table);
++
++	if (clock_info != NULL) {
++		/* search for exact frl character clock in table */
++		for (index = 0; index < audio_array_size; index++) {
++			if (clock_info[index].frl_character_clock_kHz >
++				frl_character_clock_kHz)
++				break;  /* not match */
++			else if (clock_info[index].frl_character_clock_kHz ==
++					frl_character_clock_kHz) {
++				/* match found */
++				*audio_clock_info = clock_info[index];
++				return;
++			}
++		}
++	}
++	/*Only 3, 6, 8, 10 and 12 Gbps are used for FRL Link rates with character
++	 *clocks of 166.667, 333.333, 444.444, 555.555 and 666.667 MHz are used
++	 *so entry should be found in above table if no bugs */
++	BREAK_TO_DEBUGGER();
++}
++
++void hpo_enc3_setup_hdmi_audio(
++	struct hpo_frl_stream_encoder *enc,
++	const struct audio_crtc_info *crtc_info)
++{
++	struct dcn30_hpo_frl_stream_encoder *enc3 = DCN30_HPO_FRL_STRENC_FROM_HPO_FRL_STRENC(enc);
++	struct frl_audio_clock_info audio_clock_info = {0};
++
++	DC_LOG_DEBUG("Entering [%s]\n", __func__);
++
++	/* TODO:  HDMI_AUDIO_DELAY_EN bit only in DIG -- not in HPO? */
++	/* HDMI_AUDIO_PACKET_CONTROL */
++	//REG_UPDATE(HDMI_AUDIO_PACKET_CONTROL,
++	//		HDMI_AUDIO_DELAY_EN, 1);
++
++	/* Setup audio in AFMT - program AFMT block associated with HPO */
++	ASSERT (enc->afmt);
++	enc->afmt->funcs->setup_hdmi_audio(enc->afmt);
++
++	/* TODO: Same programming, but using HDMI_TB_ENC register */
++	/* HDMI_ACR_PACKET_CONTROL */
++	REG_UPDATE_3(HDMI_TB_ENC_ACR_PACKET_CONTROL,
++			HDMI_ACR_AUTO_SEND, 1,
++			HDMI_ACR_SOURCE, 0,
++			HDMI_ACR_AUDIO_PRIORITY, 0);
++
++	/* N/CTS computed relative to FRL rate instead of video rate (TMDS character clock). */
++	/* Program audio clock sample/regeneration parameters */
++	get_audio_clock_info(crtc_info->color_depth,
++			     crtc_info->frl_character_clock_kHz,
++			     &audio_clock_info);
++	DC_LOG_HW_AUDIO(
++			"\n%s:Input::requested_pixel_clock_100Hz = %d"	\
++			"calculated_pixel_clock_100Hz = %d \n", __func__,	\
++			crtc_info->requested_pixel_clock_100Hz,		\
++			crtc_info->calculated_pixel_clock_100Hz);
++
++	/* Same register definition, but using HDMI_TB_ENC register */
++	/* HDMI_ACR_32_0__HDMI_ACR_CTS_32_MASK */
++	REG_UPDATE(HDMI_TB_ENC_ACR_32_0, HDMI_ACR_CTS_32, audio_clock_info.cts_32khz);
++
++	/* HDMI_ACR_32_1__HDMI_ACR_N_32_MASK */
++	REG_UPDATE(HDMI_TB_ENC_ACR_32_1, HDMI_ACR_N_32, audio_clock_info.n_32khz);
++
++	/* HDMI_ACR_44_0__HDMI_ACR_CTS_44_MASK */
++	REG_UPDATE(HDMI_TB_ENC_ACR_44_0, HDMI_ACR_CTS_44, audio_clock_info.cts_44khz);
++
++	/* HDMI_ACR_44_1__HDMI_ACR_N_44_MASK */
++	REG_UPDATE(HDMI_TB_ENC_ACR_44_1, HDMI_ACR_N_44, audio_clock_info.n_44khz);
++
++	/* HDMI_ACR_48_0__HDMI_ACR_CTS_48_MASK */
++	REG_UPDATE(HDMI_TB_ENC_ACR_48_0, HDMI_ACR_CTS_48, audio_clock_info.cts_48khz);
++
++	/* HDMI_ACR_48_1__HDMI_ACR_N_48_MASK */
++	REG_UPDATE(HDMI_TB_ENC_ACR_48_1, HDMI_ACR_N_48, audio_clock_info.n_48khz);
++
++
++	/* TODO: HDMI_TB_ENC_ACR_PACKET_CONTROL::ACR_N_MULTIPLE
++	 *       Same register definition, but using HDMI_TB_ENC register*/
++
++	/* Video driver cannot know in advance which sample rate will
++	 * be used by HD Audio driver
++	 * HDMI_ACR_PACKET_CONTROL__HDMI_ACR_N_MULTIPLE field is
++	 * programmed below in interrupt callback
++	 */
++	DC_LOG_DEBUG("Exiting [%s]\n", __func__);
++}
++
++void hpo_enc3_hdmi_audio_setup(
++	struct hpo_frl_stream_encoder *enc,
++	unsigned int az_inst,
++	struct audio_info *info,
++	struct audio_crtc_info *audio_crtc_info)
++{
++	hpo_enc3_setup_hdmi_audio(enc, audio_crtc_info);
++	ASSERT (enc->afmt);
++	enc->afmt->funcs->se_audio_setup(enc->afmt, az_inst, info);
++}
++
++void hpo_enc3_hdmi_audio_disable(
++	struct hpo_frl_stream_encoder *enc)
++{
++	ASSERT(enc->afmt);
++	if (enc->afmt->funcs->afmt_powerdown)
++		enc->afmt->funcs->afmt_powerdown(enc->afmt);
++}
++
++void hpo_enc3_audio_mute_control(
++	struct hpo_frl_stream_encoder *enc,
++	bool mute)
++{
++	ASSERT (enc->afmt);
++	enc->afmt->funcs->audio_mute_control(enc->afmt, mute);
++}
++
++void enc3_stream_encoder_set_avmute(
++	struct hpo_frl_stream_encoder *enc,
++	bool enable)
++{
++	struct dcn30_hpo_frl_stream_encoder *enc3 = DCN30_HPO_FRL_STRENC_FROM_HPO_FRL_STRENC(enc);
++	unsigned int value = enable ? 1 : 0;
++
++	REG_UPDATE(HDMI_TB_ENC_GC_CONTROL, HDMI_GC_AVMUTE, value);
++}
++
++static enum frl_cap_chk_result frl_cap_chk_uncompressed(
++		struct hpo_frl_stream_encoder *enc,
++		struct frl_cap_chk_params *params,
++		struct frl_cap_chk_intermediates *inter)
++{
++	int res;
++	DC_FP_START();
++	res = frl_fpu_cap_chk_uncompressed(enc, params, inter);
++	DC_FP_END();
++	return res;
++}
++
++static enum frl_cap_chk_result frl_cap_chk_compressed(
++		struct hpo_frl_stream_encoder *enc,
++		struct frl_cap_chk_params *params,
++		struct frl_cap_chk_intermediates *inter)
++{
++	int res;
++	DC_FP_START();
++	res = frl_fpu_cap_chk_compressed(enc, params, inter);
++	DC_FP_END();
++	return res;
++}
++
++static bool hpo_enc3_frl_cap_chk(
++		struct hpo_frl_stream_encoder *enc,
++		struct frl_cap_chk_params *params)
++{
++	struct frl_cap_chk_intermediates   inter;
++	enum frl_cap_chk_result res;
++
++	if (params->compressed)
++		res = frl_cap_chk_compressed(enc, params, &inter);
++	else
++		res = frl_cap_chk_uncompressed(enc, params, &inter);
++
++	return (res == FRL_CAP_CHK_OK);
++}
++
++bool hpo_enc3_validate_hdmi_frl_output(
++	struct hpo_frl_stream_encoder *enc,
++	const struct dc_crtc_timing *timing,
++	const struct audio_check *audio,
++	struct dc_hdmi_frl_link_settings *frl_link_settings,
++	unsigned int dsc_max_rate)
++{
++	struct frl_cap_chk_params frl_params = {0};
++	bool frl_check_res = false;
++
++	/* Set inputs for FRL check */
++	frl_params.lanes = frl_link_settings->frl_num_lanes;
++	DC_FP_START();
++	hpo_fpu_enc3_validate_hdmi_frl_output_link(enc,
++						   frl_link_settings,
++						   &frl_params,
++						   timing,
++						   dsc_max_rate);
++	DC_FP_END();
++
++	if (timing->display_color_depth == COLOR_DEPTH_888)
++		frl_params.bpc = 8;
++	else if (timing->display_color_depth == COLOR_DEPTH_101010)
++		frl_params.bpc = 10;
++	else
++		frl_params.bpc = 12;
++
++	switch (timing->hdmi_vic) {
++	case 1:
++		frl_params.vic = 95;
++		break;
++	case 2:
++		frl_params.vic = 94;
++		break;
++	case 3:
++		frl_params.vic = 93;
++		break;
++	case 4:
++		frl_params.vic = 98;
++		break;
++	default:
++		break;
++	}
++	if (timing->pixel_encoding == PIXEL_ENCODING_YCBCR420)
++		frl_params.pixel_encoding = HDMI_FRL_PIXEL_ENCODING_420;
++	else if (timing->pixel_encoding == PIXEL_ENCODING_YCBCR422)
++		frl_params.pixel_encoding = HDMI_FRL_PIXEL_ENCODING_422;
++	else
++		frl_params.pixel_encoding = HDMI_FRL_PIXEL_ENCODING_444;
++	/* Audio parameters */
++	/* TODO: set Audio parameters */
++
++	if (audio->audio_packet_type == 2) {
++		if (audio->max_channel_count <= 2
++			  || (timing->v_addressable + timing->v_border_top + timing->v_border_bottom) <= 576)
++			frl_params.layout = 0;
++		else
++			frl_params.layout = 1;
++
++	}
++
++	/* Check HDMI FRL Capacity and compute borrow parameters */
++	frl_check_res = hpo_enc3_frl_cap_chk(enc, &frl_params);
++	/* Save borrow parameters and average tribyte rate (for capture sideband) */
++	if (frl_check_res) {
++		frl_link_settings->borrow_params.audio_packets_line =
++				frl_params.borrow_params.audio_packets_line;
++		frl_link_settings->borrow_params.hc_active_target =
++				frl_params.borrow_params.hc_active_target;
++		frl_link_settings->borrow_params.hc_blank_target =
++				frl_params.borrow_params.hc_blank_target;
++		frl_link_settings->borrow_params.borrow_mode =
++				(unsigned int) frl_params.borrow_params.borrow_mode;
++		frl_link_settings->average_tribyte_rate = frl_params.average_tribyte_rate;
++	}
++
++	return frl_check_res;
++}
++
++void hpo_enc3_read_state(
++	struct hpo_frl_stream_encoder *enc,
++	struct hpo_frl_stream_encoder_state *state)
++{
++	int pixel_encoding;
++	int color_depth;
++	int odm_combine;
++	struct dcn30_hpo_frl_stream_encoder *enc3 = DCN30_HPO_FRL_STRENC_FROM_HPO_FRL_STRENC(enc);
++
++	ASSERT(state);
++
++	REG_GET(HDMI_TB_ENC_CONTROL,
++			HDMI_TB_ENC_EN, &state->stream_enc_enabled);
++
++	REG_GET(HDMI_STREAM_ENC_INPUT_MUX_CONTROL,
++			HDMI_STREAM_ENC_INPUT_MUX_SOURCE_SEL, &state->otg_inst);
++
++	REG_GET_2(HDMI_TB_ENC_PIXEL_FORMAT,
++			HDMI_PIXEL_ENCODING, &pixel_encoding,
++			HDMI_DEEP_COLOR_DEPTH, &color_depth);
++
++	REG_GET(HDMI_STREAM_ENC_CLOCK_RAMP_ADJUSTER_FIFO_STATUS_CONTROL0,
++			FIFO_ODM_COMBINE_MODE, &odm_combine);
++
++	REG_GET_2(HDMI_TB_ENC_H_ACTIVE_BLANK,
++			HDMI_H_ACTIVE, &state->h_active,
++			HDMI_H_BLANK, &state->h_blank);
++
++	REG_GET(HDMI_TB_ENC_MODE,
++			HDMI_BORROW_MODE, &state->borrow_mode);
++
++	if (pixel_encoding == 0)
++		state->pixel_format = PIXEL_ENCODING_YCBCR444;
++	else if (pixel_encoding == 1)
++		state->pixel_format = PIXEL_ENCODING_YCBCR422;
++	else
++		state->pixel_format = PIXEL_ENCODING_YCBCR420;
++
++	if (color_depth == 0)
++		state->color_depth = 8;
++	else if (color_depth == 1)
++		state->color_depth = 10;
++	else
++		state->color_depth = 12;
++
++	state->num_odm_segments = odm_combine + 1;
++}
++
++/* Set Dynamic Metadata-configuration.
++ *   enable_dme:         TRUE: enables Dynamic Metadata Enfine, FALSE: disables DME
++ *   hubp_requestor_id:  HUBP physical instance that is the source of dynamic metadata
++ *                       only needs to be set when enable_dme is TRUE
++ *   dmdata_mode:        dynamic metadata packet type: DP, HDMI, or Dolby Vision
++ *
++ *   Ensure the OTG master update lock is set when changing DME configuration.
++ */
++void hpo_enc3_set_dynamic_metadata(struct hpo_frl_stream_encoder *enc,
++	bool enable_dme,
++	uint32_t hubp_requestor_id,
++	enum dynamic_metadata_mode dmdata_mode)
++{
++	struct dcn30_hpo_frl_stream_encoder *enc3 = DCN30_HPO_FRL_STRENC_FROM_HPO_FRL_STRENC(enc);
++
++	if (enable_dme) {
++		REG_UPDATE_2(DME_CONTROL,
++			METADATA_HUBP_REQUESTOR_ID, hubp_requestor_id,
++			METADATA_STREAM_TYPE, (dmdata_mode == dmdata_dolby_vision) ? 1 : 0);
++
++		REG_UPDATE_3(HDMI_TB_ENC_METADATA_PACKET_CONTROL,
++			HDMI_METADATA_PACKET_ENABLE, 1,
++			HDMI_METADATA_PACKET_LINE_REFERENCE, 0,
++			HDMI_METADATA_PACKET_LINE, 2);
++
++		REG_UPDATE(DME_CONTROL,
++			METADATA_ENGINE_EN, 1);
 +	} else {
-+		min_dsc_bpp_x16 = 6 * 16;
-+		max_dsc_bpp_x16 = 3 * 16 * bpc_factor / 2;
++		REG_UPDATE(DME_CONTROL,
++			METADATA_ENGINE_EN, 0);
++
++		REG_UPDATE(HDMI_TB_ENC_METADATA_PACKET_CONTROL,
++			HDMI_METADATA_PACKET_ENABLE, 0);
 +	}
-+
-+	max_dsc_bpp_x16 = MIN(max_dsc_bpp_x16, 256);
-+	if (!hdmi_all_bpp)
-+		max_dsc_bpp_x16 = MIN(max_dsc_bpp_x16, 192);
-+
-+	c_frl_sb = 4 * c_frl_cb + num_lanes;
-+	pixel_clock = dc_fixpt_div_int(dc_fixpt_from_int(timing->pix_clk_100hz), 10000);
-+	r_bit = dc_fixpt_from_int(frl_rate);
-+	pixel_rate_tolerance = dc_fixpt_div_int(dc_fixpt_from_int(5), 1000);
-+	overhead_sb = dc_fixpt_div_int(dc_fixpt_from_int(num_lanes), c_frl_sb);
-+	overhead_rs = dc_fixpt_div_int(dc_fixpt_from_int(32), c_frl_sb);
-+	overhead_map = dc_fixpt_div_int(dc_fixpt_from_int(25), (c_frl_sb * 10));
-+	overhead_min = dc_fixpt_add(overhead_sb, overhead_rs);
-+	overhead_min = dc_fixpt_add(overhead_min, overhead_map);
-+	overhead_m = dc_fixpt_div_int(dc_fixpt_from_int(3), 1000);
-+	overhead_max = dc_fixpt_add(overhead_min, overhead_m);
-+	pixel_rate_tolerance = dc_fixpt_add_int(pixel_rate_tolerance, 1);
-+	pixel_clock_max = dc_fixpt_mul(pixel_clock, pixel_rate_tolerance);
-+	t_line = dc_fixpt_div(dc_fixpt_from_int(h_active + h_blank), pixel_clock_max);
-+	r_bit_min = dc_fixpt_div_int(dc_fixpt_from_int(frl_bit_tolerance), 1000000);
-+	r_bit_min = dc_fixpt_sub(dc_fixpt_from_int(1), r_bit_min);
-+	r_bit_min = dc_fixpt_mul(r_bit, r_bit_min);
-+	r_frl_char_min = dc_fixpt_div_int(r_bit_min, 18);
-+	c_frl_line = dc_fixpt_mul(t_line, r_frl_char_min);
-+	c_frl_line = dc_fixpt_mul_int(c_frl_line, num_lanes);
-+	c_frl_line_int = dc_fixpt_floor(c_frl_line);
-+	c_frl_available = dc_fixpt_sub(dc_fixpt_from_int(1), overhead_max);
-+	c_frl_available = dc_fixpt_mul_int(c_frl_available, c_frl_line_int);
-+	c_frl_av_int = dc_fixpt_floor(c_frl_available);
-+	c_frl_active_av = dc_fixpt_mul_int(dc_fixpt_from_int(c_frl_av_int), h_active);
-+	c_frl_active_av = dc_fixpt_div_int(c_frl_active_av, (h_active + h_blank));
-+	c_frl_blank_av = dc_fixpt_mul_int(dc_fixpt_from_int(c_frl_av_int), h_blank);
-+	c_frl_blank_av =  dc_fixpt_div_int(c_frl_blank_av, (h_active + h_blank));
-+	r_ap = dc_fixpt_max(dc_fixpt_from_int(192000),
-+			dc_fixpt_from_int(f_audio * acat_ap));
-+	r_ap = dc_fixpt_add(r_ap, dc_fixpt_from_int(2 * acr_rate_max));
-+	max_audio_tol_rate =  dc_fixpt_div_int(dc_fixpt_from_int(audio_tolerance), 1000000);
-+	max_audio_tol_rate =  dc_fixpt_add(dc_fixpt_from_int(1), max_audio_tol_rate);
-+	r_ap = dc_fixpt_mul(r_ap, max_audio_tol_rate);
-+	avg_audio_packets_line = dc_fixpt_mul(r_ap, t_line);
-+	avg_audio_packets_line = dc_fixpt_div_int(avg_audio_packets_line, 1000000);
-+	avg_audio_packets_line_int = dc_fixpt_ceil(avg_audio_packets_line);
-+	hc_blank_audio_min = 32 + 32 * avg_audio_packets_line_int;
-+	slice_width = dc_fixpt_ceil(dc_fixpt_div_int(
-+			dc_fixpt_from_int(h_active), num_slices_h));
-+
-+	/* Slice width for 420 must be even */
-+	if (timing->pixel_encoding == PIXEL_ENCODING_YCBCR420 && slice_width % 2 != 0) {
-+		slice_width++;
-+	}
-+
-+	for (uint32_t i = max_dsc_bpp_x16; i >= min_dsc_bpp_x16; i--) {
-+		bpp_target_x16 = i;
-+		bytes_target = num_slices_h * dc_fixpt_ceil(dc_fixpt_div_int(
-+				dc_fixpt_from_int(bpp_target_x16 * slice_width), 8 * 16));
-+		hc_active_target = dc_fixpt_ceil(dc_fixpt_div_int(
-+				dc_fixpt_from_int(bytes_target), 3));
-+		hc_blank_target_est1 = dc_fixpt_ceil(dc_fixpt_div_int(
-+				dc_fixpt_from_int(hc_active_target * h_blank), h_active));
-+		hc_blank_target_est2 = dc_fixpt_floor(dc_fixpt_max(
-+				dc_fixpt_from_int(hc_blank_target_est1),
-+				dc_fixpt_from_int(hc_blank_audio_min)));
-+		hc_blank_target_bandwidth = dc_fixpt_div_int(dc_fixpt_from_int(3), 2);
-+		hc_blank_target_bandwidth = dc_fixpt_mul(hc_blank_target_bandwidth,
-+				dc_fixpt_from_int(hc_active_target));
-+		hc_blank_target_bandwidth = dc_fixpt_sub(dc_fixpt_from_int(c_frl_av_int),
-+				hc_blank_target_bandwidth);
-+		hc_blank_target_bandwidth = dc_fixpt_min(hc_blank_target_bandwidth,
-+				dc_fixpt_from_int(hc_blank_target_est2));
-+		hc_blank_target_bandwidth = dc_fixpt_div_int(hc_blank_target_bandwidth, 4);
-+		hc_blank_target = dc_fixpt_floor(hc_blank_target_bandwidth) * 4;
-+		if (hc_blank_target >= hc_blank_audio_min)
-+			return bpp_target_x16;
-+	}
-+	return 0;
 +}
- /* Decide DSC bandwidth range based on signal, timing, specs specific and input min and max
-  * requirements.
-  * The range output includes decided min/max target bpp, the respective bandwidth requirements
-@@ -812,6 +1468,30 @@ static bool decide_dsc_bandwidth_range(
- 			range->min_target_bpp_x16 = preferred_bpp_x16;
- 		}
- 	}
-+	else if (dsc_caps->is_frl) {
-+		uint32_t specs_preferred_bpp_x16 = hdmi_dsc_get_bpp(timing, dsc_caps);
-+		uint32_t specs_calculated_bpp_x16 = 0;
 +
-+		if (timing->vic) {
-+			/* For CTA timing, we should strictly follow HDMI spec. */
-+			range->max_target_bpp_x16 = specs_preferred_bpp_x16;
-+			if (dsc_caps->is_vic_all_bpp || dsc_caps->is_dp)
-+				range->min_target_bpp_x16 = min_bpp_x16;
-+			else
-+				range->min_target_bpp_x16 = specs_preferred_bpp_x16;
++static const struct hpo_frl_stream_encoder_funcs dcn30_str_enc_funcs = {
++	.hdmi_frl_enable		= hpo_enc3_enable,
++	.hdmi_frl_unblank		= hpo_enc3_unblank,
++	.hdmi_frl_blank			= hpo_enc3_blank,
++	.hdmi_frl_set_stream_attribute	= hpo_enc3_set_hdmi_stream_attribute,
++	.update_hdmi_info_packets	= hpo_enc3_update_hdmi_info_packets,
++	.stop_hdmi_info_packets		= hpo_enc3_stop_hdmi_info_packets,
++	.audio_mute_control		= hpo_enc3_audio_mute_control,
++	.hdmi_audio_setup		= hpo_enc3_hdmi_audio_setup,
++	.hdmi_audio_disable		= hpo_enc3_hdmi_audio_disable,
++	.set_avmute			= enc3_stream_encoder_set_avmute,
++	.validate_hdmi_frl_output	= hpo_enc3_validate_hdmi_frl_output,
++	.read_state			= hpo_enc3_read_state,
++	.set_dynamic_metadata           = hpo_enc3_set_dynamic_metadata,
++	.hdmi_frl_fifo_odm_enabled = hpo_enc3_fifo_odm_enabled,
++};
++
++void dcn30_hpo_frl_stream_encoder_construct(
++	struct dcn30_hpo_frl_stream_encoder *enc3,
++	struct dc_context *ctx,
++	struct dc_bios *bp,
++	enum engine_id eng_id,
++	struct vpg *vpg,
++	struct afmt *afmt,
++	const struct dcn30_hpo_frl_stream_enc_registers *regs,
++	const struct dcn30_hpo_frl_stream_encoder_shift *hpo_se_shift,
++	const struct dcn30_hpo_frl_stream_encoder_mask *hpo_se_mask)
++{
++	enc3->base.funcs = &dcn30_str_enc_funcs;
++	enc3->base.ctx = ctx;
++	enc3->base.id = eng_id;
++	enc3->base.bp = bp;
++	enc3->base.vpg = vpg;
++	enc3->base.afmt = afmt;
++	enc3->regs = regs;
++	enc3->hpo_se_shift = hpo_se_shift;
++	enc3->hpo_se_mask = hpo_se_mask;
++	enc3->base.stream_enc_inst = vpg->inst;
++}
+diff --git a/drivers/gpu/drm/amd/display/dc/hpo/dcn30/dcn30_hpo_frl_stream_encoder.h b/drivers/gpu/drm/amd/display/dc/hpo/dcn30/dcn30_hpo_frl_stream_encoder.h
+new file mode 100644
+index 000000000000..c00be852aa17
+--- /dev/null
++++ b/drivers/gpu/drm/amd/display/dc/hpo/dcn30/dcn30_hpo_frl_stream_encoder.h
+@@ -0,0 +1,436 @@
++/*
++ * Copyright 2019 Advanced Micro Devices, Inc.
++ *
++ * Permission is hereby granted, free of charge, to any person obtaining a
++ * copy of this software and associated documentation files (the "Software"),
++ * to deal in the Software without restriction, including without limitation
++ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
++ *  and/or sell copies of the Software, and to permit persons to whom the
++ * Software is furnished to do so, subject to the following conditions:
++ *
++ * The above copyright notice and this permission notice shall be included in
++ * all copies or substantial portions of the Software.
++ *
++ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
++ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
++ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
++ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
++ * OTHER DEALINGS IN THE SOFTWARE.
++ *
++ * Authors: AMD
++ *
++ */
++
++#ifndef __DC_HPO_FRL_STREAM_ENCODER_DCN30_H__
++#define __DC_HPO_FRL_STREAM_ENCODER_DCN30_H__
++
++#include "dcn30/dcn30_vpg.h"
++#include "dcn30/dcn30_afmt.h"
++#include "stream_encoder.h"
++#include "dml/dml1_frl_cap_chk.h"
++
++#define DCN30_HPO_FRL_STRENC_FROM_HPO_FRL_STRENC(hpo_frl_stream_encoder)\
++	container_of(hpo_frl_stream_encoder, struct dcn30_hpo_frl_stream_encoder, base)
++
++#define SE_SF(reg_name, field_name, post_fix)\
++	.field_name = reg_name ## __ ## field_name ## post_fix
++
++#define DCN3_0_HDMI_STREAM_ENC_REG_LIST \
++	SR(HDMI_STREAM_ENC_CLOCK_CONTROL), \
++	SR(HDMI_STREAM_ENC_INPUT_MUX_CONTROL), \
++	SR(HDMI_STREAM_ENC_CLOCK_RAMP_ADJUSTER_FIFO_STATUS_CONTROL0), \
++	SR(HDMI_STREAM_ENC_CLOCK_RAMP_ADJUSTER_FIFO_STATUS_CONTROL2)
++
++#define DCN3_0_HDMI_TB_ENC_REG_LIST \
++	SR(HDMI_TB_ENC_CONTROL), \
++	SR(HDMI_TB_ENC_H_ACTIVE_BLANK), \
++	SR(HDMI_TB_ENC_HC_ACTIVE_BLANK), \
++	SR(HDMI_TB_ENC_MODE), \
++	SR(HDMI_TB_ENC_PACKET_CONTROL), \
++	SR(HDMI_TB_ENC_DB_CONTROL), \
++	SR(HDMI_TB_ENC_PIXEL_FORMAT), \
++	SR(HDMI_TB_ENC_VBI_PACKET_CONTROL1), \
++	SR(HDMI_TB_ENC_GC_CONTROL), \
++	SR(HDMI_TB_ENC_GENERIC_PACKET_CONTROL0), \
++	SR(HDMI_TB_ENC_GENERIC_PACKET_CONTROL1), \
++	SR(HDMI_TB_ENC_GENERIC_PACKET0_1_LINE), \
++	SR(HDMI_TB_ENC_GENERIC_PACKET2_3_LINE), \
++	SR(HDMI_TB_ENC_GENERIC_PACKET4_5_LINE), \
++	SR(HDMI_TB_ENC_GENERIC_PACKET6_7_LINE), \
++	SR(HDMI_TB_ENC_GENERIC_PACKET8_9_LINE), \
++	SR(HDMI_TB_ENC_GENERIC_PACKET10_11_LINE), \
++	SR(HDMI_TB_ENC_GENERIC_PACKET12_13_LINE), \
++	SR(HDMI_TB_ENC_GENERIC_PACKET14_LINE), \
++	SR(HDMI_TB_ENC_ACR_PACKET_CONTROL), \
++	SR(HDMI_TB_ENC_ACR_32_0), \
++	SR(HDMI_TB_ENC_ACR_32_1), \
++	SR(HDMI_TB_ENC_ACR_44_0), \
++	SR(HDMI_TB_ENC_ACR_44_1), \
++	SR(HDMI_TB_ENC_ACR_48_0), \
++	SR(HDMI_TB_ENC_ACR_48_1), \
++	SR(HDMI_TB_ENC_CRC_CNTL),\
++	SR(HDMI_TB_ENC_METADATA_PACKET_CONTROL)
++
++#define DCN3_0_HPO_FRL_STREAM_ENC_REG_LIST(id) \
++	DCN3_0_HDMI_STREAM_ENC_REG_LIST, \
++	DCN3_0_HDMI_TB_ENC_REG_LIST
++
++#define DCN3_0_HPO_STREAM_ENC_DME_REG_LIST(id, offset) \
++	[id - offset]SRI(DME_CONTROL, DME, id)
++
++
++struct dcn30_hpo_frl_stream_enc_registers {
++	uint32_t HDMI_STREAM_ENC_CLOCK_CONTROL;
++	uint32_t HDMI_STREAM_ENC_INPUT_MUX_CONTROL;
++	uint32_t HDMI_STREAM_ENC_CLOCK_RAMP_ADJUSTER_FIFO_STATUS_CONTROL0;
++	uint32_t HDMI_STREAM_ENC_CLOCK_RAMP_ADJUSTER_FIFO_STATUS_CONTROL2;
++	uint32_t HDMI_STREAM_ENC_AUDIO_CONTROL;
++	uint32_t HDMI_TB_ENC_CONTROL;
++	uint32_t HDMI_TB_ENC_MODE;
++	uint32_t HDMI_TB_ENC_H_ACTIVE_BLANK;
++	uint32_t HDMI_TB_ENC_HC_ACTIVE_BLANK;
++	uint32_t HDMI_TB_ENC_PACKET_CONTROL;
++	uint32_t HDMI_TB_ENC_DB_CONTROL;
++	uint32_t HDMI_TB_ENC_PIXEL_FORMAT;
++	uint32_t HDMI_TB_ENC_VBI_PACKET_CONTROL1;
++	uint32_t HDMI_TB_ENC_GC_CONTROL;
++	uint32_t HDMI_TB_ENC_GENERIC_PACKET_CONTROL0;
++	uint32_t HDMI_TB_ENC_GENERIC_PACKET_CONTROL1;
++	uint32_t HDMI_TB_ENC_GENERIC_PACKET0_1_LINE;
++	uint32_t HDMI_TB_ENC_GENERIC_PACKET2_3_LINE;
++	uint32_t HDMI_TB_ENC_GENERIC_PACKET4_5_LINE;
++	uint32_t HDMI_TB_ENC_GENERIC_PACKET6_7_LINE;
++	uint32_t HDMI_TB_ENC_GENERIC_PACKET8_9_LINE;
++	uint32_t HDMI_TB_ENC_GENERIC_PACKET10_11_LINE;
++	uint32_t HDMI_TB_ENC_GENERIC_PACKET12_13_LINE;
++	uint32_t HDMI_TB_ENC_GENERIC_PACKET14_LINE;
++	uint32_t HDMI_TB_ENC_ACR_PACKET_CONTROL;
++	uint32_t HDMI_TB_ENC_ACR_32_0;
++	uint32_t HDMI_TB_ENC_ACR_32_1;
++	uint32_t HDMI_TB_ENC_ACR_44_0;
++	uint32_t HDMI_TB_ENC_ACR_44_1;
++	uint32_t HDMI_TB_ENC_ACR_48_0;
++	uint32_t HDMI_TB_ENC_ACR_48_1;
++	uint32_t HDMI_TB_ENC_CRC_CNTL;
++	uint32_t DME_CONTROL;
++	uint32_t HDMI_TB_ENC_METADATA_PACKET_CONTROL;
++	uint32_t HDMI_TB_ENC_MEM_CTRL;
++	uint32_t HDMI_FRL_ENC_MEM_CTRL;
++};
++
++#define DCN3_0_HDMI_STREAM_ENC_MASK_SH_LIST(mask_sh)\
++	SE_SF(HDMI_STREAM_ENC_INPUT_MUX_CONTROL, HDMI_STREAM_ENC_INPUT_MUX_SOURCE_SEL, mask_sh),\
++	SE_SF(HDMI_STREAM_ENC_CLOCK_RAMP_ADJUSTER_FIFO_STATUS_CONTROL0, FIFO_ENABLE, mask_sh),\
++	SE_SF(HDMI_STREAM_ENC_CLOCK_RAMP_ADJUSTER_FIFO_STATUS_CONTROL0, FIFO_RESET, mask_sh),\
++	SE_SF(HDMI_STREAM_ENC_CLOCK_RAMP_ADJUSTER_FIFO_STATUS_CONTROL0, FIFO_RESET_DONE, mask_sh),\
++	SE_SF(HDMI_STREAM_ENC_CLOCK_RAMP_ADJUSTER_FIFO_STATUS_CONTROL0, FIFO_PIXEL_ENCODING, mask_sh),\
++	SE_SF(HDMI_STREAM_ENC_CLOCK_CONTROL, HDMI_STREAM_ENC_CLOCK_EN, mask_sh),\
++	SE_SF(HDMI_STREAM_ENC_CLOCK_RAMP_ADJUSTER_FIFO_STATUS_CONTROL0, FIFO_ODM_COMBINE_MODE, mask_sh),\
++	SE_SF(HDMI_STREAM_ENC_CLOCK_RAMP_ADJUSTER_FIFO_STATUS_CONTROL0, FIFO_DSC_MODE, mask_sh),\
++	SE_SF(HDMI_STREAM_ENC_CLOCK_RAMP_ADJUSTER_FIFO_STATUS_CONTROL2, FIFO_DB_DISABLE, mask_sh),\
++	SE_SF(HDMI_STREAM_ENC_CLOCK_RAMP_ADJUSTER_FIFO_STATUS_CONTROL2, FIFO_DB_DISABLE, mask_sh),\
++	SE_SF(DME0_DME_CONTROL, METADATA_HUBP_REQUESTOR_ID, mask_sh),\
++	SE_SF(DME0_DME_CONTROL, METADATA_ENGINE_EN, mask_sh),\
++	SE_SF(DME0_DME_CONTROL, METADATA_STREAM_TYPE, mask_sh),\
++	SE_SF(HDMI_TB_ENC_MEM_CTRL, BORROWBUFFER_MEM_PWR_DIS, mask_sh),\
++	SE_SF(HDMI_TB_ENC_MEM_CTRL, BORROWBUFFER_MEM_PWR_FORCE, mask_sh),\
++	SE_SF(HDMI_TB_ENC_MEM_CTRL, BORROWBUFFER_MEM_PWR_STATE, mask_sh),\
++	SE_SF(HDMI_TB_ENC_MEM_CTRL, BORROWBUFFER_MEM_DEFAULT_MEM_LOW_POWER_STATE, mask_sh),\
++	SE_SF(HDMI_TB_ENC_METADATA_PACKET_CONTROL, HDMI_METADATA_PACKET_ENABLE, mask_sh),\
++	SE_SF(HDMI_TB_ENC_METADATA_PACKET_CONTROL, HDMI_METADATA_PACKET_LINE_REFERENCE, mask_sh),\
++	SE_SF(HDMI_TB_ENC_METADATA_PACKET_CONTROL, HDMI_METADATA_PACKET_MISSED, mask_sh),\
++	SE_SF(HDMI_TB_ENC_METADATA_PACKET_CONTROL, HDMI_METADATA_PACKET_LINE, mask_sh)
++
++#define DCN3_0_HDMI_TB_ENC_MASK_SH_LIST(mask_sh)\
++	SE_SF(HDMI_TB_ENC_CONTROL, HDMI_TB_ENC_EN, mask_sh),\
++	SE_SF(HDMI_TB_ENC_CONTROL, HDMI_RESET, mask_sh),\
++	SE_SF(HDMI_TB_ENC_CONTROL, HDMI_RESET_DONE, mask_sh),\
++	SE_SF(HDMI_TB_ENC_MODE, HDMI_BORROW_MODE, mask_sh),\
++	SE_SF(HDMI_TB_ENC_H_ACTIVE_BLANK, HDMI_H_ACTIVE, mask_sh),\
++	SE_SF(HDMI_TB_ENC_H_ACTIVE_BLANK, HDMI_H_BLANK, mask_sh),\
++	SE_SF(HDMI_TB_ENC_HC_ACTIVE_BLANK, HDMI_HC_ACTIVE, mask_sh),\
++	SE_SF(HDMI_TB_ENC_HC_ACTIVE_BLANK, HDMI_HC_BLANK, mask_sh),\
++	SE_SF(HDMI_TB_ENC_PACKET_CONTROL, HDMI_MAX_PACKETS_PER_LINE, mask_sh),\
++	SE_SF(HDMI_TB_ENC_DB_CONTROL, HDMI_DB_DISABLE, mask_sh),\
++	SE_SF(HDMI_TB_ENC_PIXEL_FORMAT, HDMI_PIXEL_ENCODING, mask_sh),\
++	SE_SF(HDMI_TB_ENC_PIXEL_FORMAT, HDMI_DEEP_COLOR_DEPTH, mask_sh),\
++	SE_SF(HDMI_TB_ENC_PIXEL_FORMAT, HDMI_DEEP_COLOR_ENABLE, mask_sh),\
++	SE_SF(HDMI_TB_ENC_PIXEL_FORMAT, HDMI_DSC_MODE, mask_sh),\
++	SE_SF(HDMI_TB_ENC_VBI_PACKET_CONTROL1, HDMI_GC_CONT, mask_sh),\
++	SE_SF(HDMI_TB_ENC_VBI_PACKET_CONTROL1, HDMI_GC_SEND, mask_sh),\
++	SE_SF(HDMI_TB_ENC_VBI_PACKET_CONTROL1, HDMI_ACP_SEND, mask_sh),\
++	SE_SF(HDMI_TB_ENC_VBI_PACKET_CONTROL1, HDMI_AUDIO_INFO_SEND, mask_sh),\
++	SE_SF(HDMI_TB_ENC_VBI_PACKET_CONTROL1, HDMI_AUDIO_INFO_LINE, mask_sh),\
++	SE_SF(HDMI_TB_ENC_GC_CONTROL, HDMI_GC_AVMUTE, mask_sh),\
++	SE_SF(HDMI_TB_ENC_GENERIC_PACKET_CONTROL0, HDMI_GENERIC0_CONT, mask_sh),\
++	SE_SF(HDMI_TB_ENC_GENERIC_PACKET_CONTROL0, HDMI_GENERIC1_CONT, mask_sh),\
++	SE_SF(HDMI_TB_ENC_GENERIC_PACKET_CONTROL0, HDMI_GENERIC2_CONT, mask_sh),\
++	SE_SF(HDMI_TB_ENC_GENERIC_PACKET_CONTROL0, HDMI_GENERIC3_CONT, mask_sh),\
++	SE_SF(HDMI_TB_ENC_GENERIC_PACKET_CONTROL0, HDMI_GENERIC4_CONT, mask_sh),\
++	SE_SF(HDMI_TB_ENC_GENERIC_PACKET_CONTROL0, HDMI_GENERIC5_CONT, mask_sh),\
++	SE_SF(HDMI_TB_ENC_GENERIC_PACKET_CONTROL0, HDMI_GENERIC6_CONT, mask_sh),\
++	SE_SF(HDMI_TB_ENC_GENERIC_PACKET_CONTROL0, HDMI_GENERIC7_CONT, mask_sh),\
++	SE_SF(HDMI_TB_ENC_GENERIC_PACKET_CONTROL1, HDMI_GENERIC8_CONT, mask_sh),\
++	SE_SF(HDMI_TB_ENC_GENERIC_PACKET_CONTROL1, HDMI_GENERIC9_CONT, mask_sh),\
++	SE_SF(HDMI_TB_ENC_GENERIC_PACKET_CONTROL1, HDMI_GENERIC10_CONT, mask_sh),\
++	SE_SF(HDMI_TB_ENC_GENERIC_PACKET_CONTROL1, HDMI_GENERIC11_CONT, mask_sh),\
++	SE_SF(HDMI_TB_ENC_GENERIC_PACKET_CONTROL1, HDMI_GENERIC12_CONT, mask_sh),\
++	SE_SF(HDMI_TB_ENC_GENERIC_PACKET_CONTROL1, HDMI_GENERIC13_CONT, mask_sh),\
++	SE_SF(HDMI_TB_ENC_GENERIC_PACKET_CONTROL1, HDMI_GENERIC14_CONT, mask_sh),\
++	SE_SF(HDMI_TB_ENC_GENERIC_PACKET_CONTROL0, HDMI_GENERIC0_SEND, mask_sh),\
++	SE_SF(HDMI_TB_ENC_GENERIC_PACKET_CONTROL0, HDMI_GENERIC1_SEND, mask_sh),\
++	SE_SF(HDMI_TB_ENC_GENERIC_PACKET_CONTROL0, HDMI_GENERIC2_SEND, mask_sh),\
++	SE_SF(HDMI_TB_ENC_GENERIC_PACKET_CONTROL0, HDMI_GENERIC3_SEND, mask_sh),\
++	SE_SF(HDMI_TB_ENC_GENERIC_PACKET_CONTROL0, HDMI_GENERIC4_SEND, mask_sh),\
++	SE_SF(HDMI_TB_ENC_GENERIC_PACKET_CONTROL0, HDMI_GENERIC5_SEND, mask_sh),\
++	SE_SF(HDMI_TB_ENC_GENERIC_PACKET_CONTROL0, HDMI_GENERIC6_SEND, mask_sh),\
++	SE_SF(HDMI_TB_ENC_GENERIC_PACKET_CONTROL0, HDMI_GENERIC7_SEND, mask_sh),\
++	SE_SF(HDMI_TB_ENC_GENERIC_PACKET_CONTROL1, HDMI_GENERIC8_SEND, mask_sh),\
++	SE_SF(HDMI_TB_ENC_GENERIC_PACKET_CONTROL1, HDMI_GENERIC9_SEND, mask_sh),\
++	SE_SF(HDMI_TB_ENC_GENERIC_PACKET_CONTROL1, HDMI_GENERIC10_SEND, mask_sh),\
++	SE_SF(HDMI_TB_ENC_GENERIC_PACKET_CONTROL1, HDMI_GENERIC11_SEND, mask_sh),\
++	SE_SF(HDMI_TB_ENC_GENERIC_PACKET_CONTROL1, HDMI_GENERIC12_SEND, mask_sh),\
++	SE_SF(HDMI_TB_ENC_GENERIC_PACKET_CONTROL1, HDMI_GENERIC13_SEND, mask_sh),\
++	SE_SF(HDMI_TB_ENC_GENERIC_PACKET_CONTROL1, HDMI_GENERIC14_SEND, mask_sh),\
++	SE_SF(HDMI_TB_ENC_GENERIC_PACKET0_1_LINE, HDMI_GENERIC0_LINE, mask_sh),\
++	SE_SF(HDMI_TB_ENC_GENERIC_PACKET0_1_LINE, HDMI_GENERIC1_LINE, mask_sh),\
++	SE_SF(HDMI_TB_ENC_GENERIC_PACKET2_3_LINE, HDMI_GENERIC2_LINE, mask_sh),\
++	SE_SF(HDMI_TB_ENC_GENERIC_PACKET2_3_LINE, HDMI_GENERIC3_LINE, mask_sh),\
++	SE_SF(HDMI_TB_ENC_GENERIC_PACKET4_5_LINE, HDMI_GENERIC4_LINE, mask_sh),\
++	SE_SF(HDMI_TB_ENC_GENERIC_PACKET4_5_LINE, HDMI_GENERIC5_LINE, mask_sh),\
++	SE_SF(HDMI_TB_ENC_GENERIC_PACKET6_7_LINE, HDMI_GENERIC6_LINE, mask_sh),\
++	SE_SF(HDMI_TB_ENC_GENERIC_PACKET6_7_LINE, HDMI_GENERIC7_LINE, mask_sh),\
++	SE_SF(HDMI_TB_ENC_GENERIC_PACKET8_9_LINE, HDMI_GENERIC8_LINE, mask_sh),\
++	SE_SF(HDMI_TB_ENC_GENERIC_PACKET8_9_LINE, HDMI_GENERIC9_LINE, mask_sh),\
++	SE_SF(HDMI_TB_ENC_GENERIC_PACKET10_11_LINE, HDMI_GENERIC10_LINE, mask_sh),\
++	SE_SF(HDMI_TB_ENC_GENERIC_PACKET10_11_LINE, HDMI_GENERIC11_LINE, mask_sh),\
++	SE_SF(HDMI_TB_ENC_GENERIC_PACKET12_13_LINE, HDMI_GENERIC12_LINE, mask_sh),\
++	SE_SF(HDMI_TB_ENC_GENERIC_PACKET12_13_LINE, HDMI_GENERIC13_LINE, mask_sh),\
++	SE_SF(HDMI_TB_ENC_GENERIC_PACKET14_LINE, HDMI_GENERIC14_LINE, mask_sh),\
++	SE_SF(HDMI_TB_ENC_ACR_PACKET_CONTROL, HDMI_ACR_AUTO_SEND, mask_sh),\
++	SE_SF(HDMI_TB_ENC_ACR_PACKET_CONTROL, HDMI_ACR_SOURCE, mask_sh),\
++	SE_SF(HDMI_TB_ENC_ACR_PACKET_CONTROL, HDMI_ACR_AUDIO_PRIORITY, mask_sh),\
++	SE_SF(HDMI_TB_ENC_ACR_32_0, HDMI_ACR_CTS_32, mask_sh),\
++	SE_SF(HDMI_TB_ENC_ACR_32_1, HDMI_ACR_N_32, mask_sh),\
++	SE_SF(HDMI_TB_ENC_ACR_44_0, HDMI_ACR_CTS_44, mask_sh),\
++	SE_SF(HDMI_TB_ENC_ACR_44_1, HDMI_ACR_N_44, mask_sh),\
++	SE_SF(HDMI_TB_ENC_ACR_48_0, HDMI_ACR_CTS_48, mask_sh),\
++	SE_SF(HDMI_TB_ENC_ACR_48_1, HDMI_ACR_N_48, mask_sh),\
++	SE_SF(HDMI_TB_ENC_CRC_CNTL, HDMI_CRC_EN, mask_sh),\
++	SE_SF(HDMI_TB_ENC_CRC_CNTL, HDMI_CRC_CONT_EN, mask_sh)
++
++#define DCN3_0_HPO_STREAM_ENC_MASK_SH_LIST(mask_sh)\
++	DCN3_0_HDMI_STREAM_ENC_MASK_SH_LIST(mask_sh),\
++	DCN3_0_HDMI_TB_ENC_MASK_SH_LIST(mask_sh)
++
++
++
++
++#define DCN3_HDMI_TB_ENC_REG_FIELD_LIST(type) \
++	type HDMI_TB_ENC_EN;\
++	type HDMI_RESET;\
++	type HDMI_RESET_DONE;\
++	type HDMI_STREAM_ENC_CLOCK_EN;\
++	type HDMI_STREAM_ENC_INPUT_MUX_SOURCE_SEL;\
++	type HDMI_MAX_PACKETS_PER_LINE;\
++	type FIFO_ENABLE;\
++	type FIFO_RESET;\
++	type FIFO_RESET_DONE;\
++	type FIFO_PIXEL_ENCODING;\
++	type FIFO_ODM_COMBINE_MODE;\
++	type FIFO_DSC_MODE;\
++	type FIFO_DB_DISABLE;\
++	type HDMI_BORROW_MODE;\
++	type HDMI_H_ACTIVE;\
++	type HDMI_H_BLANK;\
++	type HDMI_HC_ACTIVE;\
++	type HDMI_HC_BLANK;\
++	type HDMI_DB_DISABLE;\
++	type HDMI_PIXEL_ENCODING;\
++	type HDMI_DEEP_COLOR_DEPTH;\
++	type HDMI_DEEP_COLOR_ENABLE;\
++	type HDMI_ODM_COMBINE_MODE;\
++	type HDMI_DSC_MODE;\
++	type HDMI_GC_CONT;\
++	type HDMI_GC_SEND;\
++	type HDMI_ACP_SEND;\
++	type HDMI_AUDIO_INFO_SEND;\
++	type HDMI_AUDIO_INFO_LINE;\
++	type HDMI_GC_AVMUTE;\
++	type HDMI_GENERIC0_CONT;\
++	type HDMI_GENERIC0_SEND;\
++	type HDMI_GENERIC0_LINE;\
++	type HDMI_GENERIC1_CONT;\
++	type HDMI_GENERIC1_SEND;\
++	type HDMI_GENERIC1_LINE;\
++	type HDMI_GENERIC2_CONT;\
++	type HDMI_GENERIC2_SEND;\
++	type HDMI_GENERIC2_LINE;\
++	type HDMI_GENERIC3_CONT;\
++	type HDMI_GENERIC3_SEND;\
++	type HDMI_GENERIC3_LINE;\
++	type HDMI_GENERIC4_CONT;\
++	type HDMI_GENERIC4_SEND;\
++	type HDMI_GENERIC4_LINE;\
++	type HDMI_GENERIC5_CONT;\
++	type HDMI_GENERIC5_SEND;\
++	type HDMI_GENERIC5_LINE;\
++	type HDMI_GENERIC6_CONT;\
++	type HDMI_GENERIC6_SEND;\
++	type HDMI_GENERIC6_LINE;\
++	type HDMI_GENERIC7_CONT;\
++	type HDMI_GENERIC7_SEND;\
++	type HDMI_GENERIC7_LINE;\
++	type HDMI_GENERIC8_CONT;\
++	type HDMI_GENERIC8_SEND;\
++	type HDMI_GENERIC8_LINE;\
++	type HDMI_GENERIC9_CONT;\
++	type HDMI_GENERIC9_SEND;\
++	type HDMI_GENERIC9_LINE;\
++	type HDMI_GENERIC10_CONT;\
++	type HDMI_GENERIC10_SEND;\
++	type HDMI_GENERIC10_LINE;\
++	type HDMI_GENERIC11_CONT;\
++	type HDMI_GENERIC11_SEND;\
++	type HDMI_GENERIC11_LINE;\
++	type HDMI_GENERIC12_CONT;\
++	type HDMI_GENERIC12_SEND;\
++	type HDMI_GENERIC12_LINE;\
++	type HDMI_GENERIC13_CONT;\
++	type HDMI_GENERIC13_SEND;\
++	type HDMI_GENERIC13_LINE;\
++	type HDMI_GENERIC14_CONT;\
++	type HDMI_GENERIC14_SEND;\
++	type HDMI_GENERIC14_LINE;\
++	type HDMI_ACR_AUTO_SEND;\
++	type HDMI_ACR_SOURCE;\
++	type HDMI_ACR_AUDIO_PRIORITY;\
++	type HDMI_ACR_CTS_32;\
++	type HDMI_ACR_N_32;\
++	type HDMI_ACR_CTS_44;\
++	type HDMI_ACR_N_44;\
++	type HDMI_ACR_CTS_48;\
++	type HDMI_ACR_N_48;\
++	type HDMI_CRC_EN;\
++	type HDMI_CRC_CONT_EN;\
++	type METADATA_HUBP_REQUESTOR_ID;\
++	type METADATA_ENGINE_EN;\
++	type METADATA_STREAM_TYPE;\
++	type HDMI_METADATA_PACKET_ENABLE;\
++	type HDMI_METADATA_PACKET_LINE_REFERENCE;\
++	type HDMI_METADATA_PACKET_MISSED;\
++	type HDMI_METADATA_PACKET_LINE;\
++	type BORROWBUFFER_MEM_PWR_DIS;\
++	type BORROWBUFFER_MEM_PWR_FORCE;\
++	type BORROWBUFFER_MEM_PWR_STATE;\
++	type BORROWBUFFER_MEM_DEFAULT_MEM_LOW_POWER_STATE
++
++
++struct dcn30_hpo_frl_stream_encoder_shift {
++	DCN3_HDMI_TB_ENC_REG_FIELD_LIST(uint8_t);
++};
++
++struct dcn30_hpo_frl_stream_encoder_mask {
++	DCN3_HDMI_TB_ENC_REG_FIELD_LIST(uint32_t);
++};
++
++struct dcn30_hpo_frl_stream_encoder {
++	struct hpo_frl_stream_encoder base;
++	const struct dcn30_hpo_frl_stream_enc_registers *regs;
++	const struct dcn30_hpo_frl_stream_encoder_shift *hpo_se_shift;
++	const struct dcn30_hpo_frl_stream_encoder_mask *hpo_se_mask;
++};
++
++void hpo_enc3_enable(
++	struct hpo_frl_stream_encoder *enc,
++	int otg_inst);
++
++void hpo_enc3_unblank(
++	struct hpo_frl_stream_encoder *enc,
++	int otg_inst);
++
++void hpo_enc3_read_state(
++	struct hpo_frl_stream_encoder *enc,
++	struct hpo_frl_stream_encoder_state *state);
++
++bool hpo_enc3_fifo_odm_enabled(
++	struct hpo_frl_stream_encoder *enc);
++
++void hpo_enc3_blank(
++	struct hpo_frl_stream_encoder *enc);
++
++void hpo_enc3_set_hdmi_stream_attribute(
++	struct hpo_frl_stream_encoder *enc,
++	struct dc_crtc_timing *crtc_timing,
++	struct frl_borrow_params *borrow_params,
++	int odm_combine_num_segments);
++
++void hpo_enc3_update_hdmi_info_packet(
++	struct dcn30_hpo_frl_stream_encoder *enc3,
++	uint32_t packet_index,
++	const struct dc_info_packet *info_packet);
++
++void hpo_enc3_update_hdmi_info_packets(
++	struct hpo_frl_stream_encoder *enc,
++	const struct encoder_info_frame *info_frame);
++
++void hpo_enc3_hdmi_set_dsc_config(
++	struct hpo_frl_stream_encoder *enc,
++	struct dc_crtc_timing *timing,
++	uint8_t *dsc_packed_pps);
++
++void hpo_enc3_stop_hdmi_info_packets(
++	struct hpo_frl_stream_encoder *enc);
++
++void hpo_enc3_setup_hdmi_audio(
++	struct hpo_frl_stream_encoder *enc,
++	const struct audio_crtc_info *crtc_info);
++
++void hpo_enc3_hdmi_audio_setup(
++	struct hpo_frl_stream_encoder *enc,
++	unsigned int az_inst,
++	struct audio_info *info,
++	struct audio_crtc_info *audio_crtc_info);
++
++void hpo_enc3_hdmi_audio_disable(
++	struct hpo_frl_stream_encoder *enc);
++
++void hpo_enc3_audio_mute_control(
++	struct hpo_frl_stream_encoder *enc,
++	bool mute);
++
++void enc3_stream_encoder_set_avmute(
++	struct hpo_frl_stream_encoder *enc,
++	bool enable);
++
++bool hpo_enc3_validate_hdmi_frl_output(
++	struct hpo_frl_stream_encoder *enc,
++	const struct dc_crtc_timing *timing,
++	const struct audio_check *audio,
++	struct dc_hdmi_frl_link_settings *frl_link_settings,
++	unsigned int dsc_max_rate);
++
++void hpo_enc3_set_dynamic_metadata(
++	struct hpo_frl_stream_encoder *enc,
++	bool enable_dme,
++	uint32_t hubp_requestor_id,
++	enum dynamic_metadata_mode dmdata_mode);
++
++void dcn30_hpo_frl_stream_encoder_construct(
++	struct dcn30_hpo_frl_stream_encoder *enc3,
++	struct dc_context *ctx,
++	struct dc_bios *bp,
++	enum engine_id eng_id,
++	struct vpg *vpg,
++	struct afmt *afmt,
++	const struct dcn30_hpo_frl_stream_enc_registers *regs,
++	const struct dcn30_hpo_frl_stream_encoder_shift *hpo_se_shift,
++	const struct dcn30_hpo_frl_stream_encoder_mask *hpo_se_mask);
++
++void convert_dc_info_packet_to_128(
++	const struct dc_info_packet *info_packet,
++	struct dc_info_packet_128 *info_packet_128);
++
++#endif
+diff --git a/drivers/gpu/drm/amd/display/dc/hpo/dcn401/dcn401_hpo_frl_stream_encoder.c b/drivers/gpu/drm/amd/display/dc/hpo/dcn401/dcn401_hpo_frl_stream_encoder.c
+new file mode 100644
+index 000000000000..27f7ffd89629
+--- /dev/null
++++ b/drivers/gpu/drm/amd/display/dc/hpo/dcn401/dcn401_hpo_frl_stream_encoder.c
+@@ -0,0 +1,906 @@
++/*
++ * Copyright 2019 Advanced Micro Devices, Inc.
++ *
++ * Permission is hereby granted, free of charge, to any person obtaining a
++ * copy of this software and associated documentation files (the "Software"),
++ * to deal in the Software without restriction, including without limitation
++ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
++ *  and/or sell copies of the Software, and to permit persons to whom the
++ * Software is furnished to do so, subject to the following conditions:
++ *
++ * The above copyright notice and this permission notice shall be included in
++ * all copies or substantial portions of the Software.
++ *
++ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
++ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
++ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
++ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
++ * OTHER DEALINGS IN THE SOFTWARE.
++ *
++ * Authors: AMD
++ *
++ */
++
++
++#include "dc_bios_types.h"
++#include "core_types.h"
++#include "dcn401_hpo_frl_stream_encoder.h"
++#include "dcn30/dcn30_hpo_frl_stream_encoder.h"
++#include "reg_helper.h"
++#include "hw_shared.h"
++#include "dcn_calc_math.h"
++#include "dml/dcn30/dcn30_fpu.h"
++
++#undef DC_LOGGER
++#define DC_LOGGER \
++		enc401->base.ctx->logger
++
++#define DTRACE(str, ...) {DC_LOG_HDMI_FRL(str, ##__VA_ARGS__); }
++
++#define DEBUG_FRL_CAP_CHK 1
++
++#define REG(reg)\
++	(enc401->regs->reg)
++
++#undef FN
++#define FN(reg_name, field_name) \
++	enc401->hpo_se_shift->field_name, enc401->hpo_se_mask->field_name
++
++
++#define CTX \
++	enc401->base.ctx
++
++
++#define VBI_LINE_0 0
++
++void hpo_enc401_enable(
++	struct hpo_frl_stream_encoder *enc,
++	int otg_inst)
++{
++	struct dcn401_hpo_frl_stream_encoder *enc401 = DCN401_HPO_FRL_STRENC_FROM_HPO_FRL_STRENC(enc);
++
++	DC_LOG_DEBUG("Entering [%s]\n", __func__);
++
++	/* Enable DISPCLK, SOCCLK, and HDMISTREAMCLK */
++	REG_UPDATE(HDMI_STREAM_ENC_CLOCK_CONTROL, HDMI_STREAM_ENC_CLOCK_EN, 1);
++
++	/* Reset */
++	REG_UPDATE_2(HDMI_TB_ENC_CONTROL,
++			HDMI_RESET, 1,
++			HDMI_TB_ENC_EN, 0);
++	REG_WAIT(HDMI_TB_ENC_CONTROL, HDMI_RESET_DONE,
++			1, 10, 100);
++	REG_UPDATE(HDMI_TB_ENC_CONTROL,
++			HDMI_RESET, 0);
++
++	/* FOR DEBUG:  enable CRC */
++	REG_UPDATE_2(HDMI_TB_ENC_CRC_CNTL,
++			HDMI_CRC_EN, 1,
++			HDMI_CRC_CONT_EN, 1);
++
++//	REG_UPDATE(HDMI_STREAM_ENC_CLOCK_RAMP_ADJUSTER_FIFO_STATUS_CONTROL2, FIFO_DB_DISABLE, 1);
++	/* TODO: confirm if need to set HDMI_DB_DISABLE -- HW team only setting FIFO_DB_DISABLE */
++	REG_UPDATE(HDMI_TB_ENC_DB_CONTROL, HDMI_DB_DISABLE, 1);
++
++	/* Set the input mux to select OTG source */
++	REG_UPDATE(HDMI_STREAM_ENC_INPUT_MUX_CONTROL, HDMI_STREAM_ENC_INPUT_MUX_SOURCE_SEL, otg_inst);
++
++	DC_LOG_DEBUG("Exiting [%s]\n", __func__);
++}
++
++void hpo_enc401_unblank(struct hpo_frl_stream_encoder *enc, int otg_inst)
++{
++	(void)otg_inst;
++	struct dcn401_hpo_frl_stream_encoder *enc401 = DCN401_HPO_FRL_STRENC_FROM_HPO_FRL_STRENC(enc);
++
++	DC_LOG_HDMI_FRL("Entering [%s]\n", __func__);
++
++	/*make sure FIFO_VIDEO_STREAM_ACTIVE =1*/
++	REG_UPDATE(HDMI_STREAM_ENC_CLOCK_RAMP_ADJUSTER_FIFO_STATUS_CONTROL0,
++		   FIFO_ENABLE, 0);
++
++	/* Reset */
++	REG_UPDATE(HDMI_STREAM_ENC_CLOCK_RAMP_ADJUSTER_FIFO_STATUS_CONTROL0,
++		   FIFO_RESET, 1);
++	REG_WAIT(HDMI_STREAM_ENC_CLOCK_RAMP_ADJUSTER_FIFO_STATUS_CONTROL0, FIFO_RESET_DONE,
++		 1, 10, 1000);
++	REG_UPDATE(HDMI_STREAM_ENC_CLOCK_RAMP_ADJUSTER_FIFO_STATUS_CONTROL0,
++		   FIFO_RESET, 0);
++	REG_WAIT(HDMI_STREAM_ENC_CLOCK_RAMP_ADJUSTER_FIFO_STATUS_CONTROL0, FIFO_RESET_DONE,
++		 0, 10, 1000);
++
++	/* Enable HDMI Tribyte Encoder */
++	REG_UPDATE(HDMI_TB_ENC_CONTROL,
++		   HDMI_TB_ENC_EN, 1);
++
++	/* Enable Clock Ramp Adjuster FIFO */
++	REG_UPDATE(HDMI_STREAM_ENC_CLOCK_RAMP_ADJUSTER_FIFO_STATUS_CONTROL0,
++		   FIFO_ENABLE, 1);
++
++	DC_LOG_HDMI_FRL("Exiting [%s]\n", __func__);
++}
++
++void hpo_enc401_blank(struct hpo_frl_stream_encoder *enc)
++{
++	struct dcn401_hpo_frl_stream_encoder *enc401 = DCN401_HPO_FRL_STRENC_FROM_HPO_FRL_STRENC(enc);
++
++	/* Disable Clock Ramp Adjuster FIFO */
++	REG_UPDATE(HDMI_STREAM_ENC_CLOCK_RAMP_ADJUSTER_FIFO_STATUS_CONTROL0,
++		   FIFO_ENABLE, 0);
++
++	/* Disable HDMI Tribyte Encoder */
++	REG_UPDATE(HDMI_TB_ENC_CONTROL,
++		   HDMI_TB_ENC_EN, 0);
++
++	/* Disable DISPCLK, SOCCLK, and HDMISTREAMCLK */
++	REG_UPDATE(HDMI_STREAM_ENC_CLOCK_CONTROL,
++		   HDMI_STREAM_ENC_CLOCK_EN, 0);
++}
++
++void hpo_enc401_read_state(
++	struct hpo_frl_stream_encoder *enc,
++	struct hpo_frl_stream_encoder_state *state)
++{
++	int pixel_encoding;
++	int color_depth;
++//	int odm_combine;
++	struct dcn401_hpo_frl_stream_encoder *enc401 = DCN401_HPO_FRL_STRENC_FROM_HPO_FRL_STRENC(enc);
++
++	ASSERT(state);
++
++	REG_GET(HDMI_TB_ENC_CONTROL,
++			HDMI_TB_ENC_EN, &state->stream_enc_enabled);
++
++	REG_GET(HDMI_STREAM_ENC_INPUT_MUX_CONTROL,
++			HDMI_STREAM_ENC_INPUT_MUX_SOURCE_SEL, &state->otg_inst);
++
++	REG_GET_2(HDMI_TB_ENC_PIXEL_FORMAT,
++			HDMI_PIXEL_ENCODING, &pixel_encoding,
++			HDMI_DEEP_COLOR_DEPTH, &color_depth);
++
++//	REG_GET(HDMI_STREAM_ENC_CLOCK_RAMP_ADJUSTER_FIFO_STATUS_CONTROL0,
++	//		FIFO_ODM_COMBINE_MODE, &odm_combine);
++
++	REG_GET_2(HDMI_TB_ENC_H_ACTIVE_BLANK,
++			HDMI_H_ACTIVE, &state->h_active,
++			HDMI_H_BLANK, &state->h_blank);
++
++	REG_GET(HDMI_TB_ENC_MODE,
++			HDMI_BORROW_MODE, &state->borrow_mode);
++
++	if (pixel_encoding == 0)
++		state->pixel_format = PIXEL_ENCODING_YCBCR444;
++	else if (pixel_encoding == 1)
++		state->pixel_format = PIXEL_ENCODING_YCBCR422;
++	else
++		state->pixel_format = PIXEL_ENCODING_YCBCR420;
++
++	if (color_depth == 0)
++		state->color_depth = 8;
++	else if (color_depth == 1)
++		state->color_depth = 10;
++	else
++		state->color_depth = 12;
++
++//	state->num_odm_segments = odm_combine + 1;
++}
++
++/* setup stream encoder in hdmi mode */
++/* Precondition: link is trained */
++void hpo_enc401_set_hdmi_stream_attribute(
++	struct hpo_frl_stream_encoder *enc,
++	struct dc_crtc_timing *crtc_timing,
++	struct frl_borrow_params *borrow_params,
++	int odm_combine_num_segments)
++{
++	(void)odm_combine_num_segments;
++	uint32_t h_active;
++	uint32_t h_blank;
++	struct dcn401_hpo_frl_stream_encoder *enc401 = DCN401_HPO_FRL_STRENC_FROM_HPO_FRL_STRENC(enc);
++
++	DC_LOG_DEBUG("Entering [%s]\n", __func__);
++
++	/* Configure pixel encoding */
++	switch (crtc_timing->pixel_encoding) {
++	case PIXEL_ENCODING_YCBCR422:
++		REG_UPDATE(HDMI_TB_ENC_PIXEL_FORMAT,
++				HDMI_PIXEL_ENCODING, 1);
++		REG_UPDATE(HDMI_STREAM_ENC_CLOCK_RAMP_ADJUSTER_FIFO_STATUS_CONTROL0,
++				FIFO_UNCOMPRESSED_PIXEL_FORMAT, 0);
++		break;
++	case PIXEL_ENCODING_YCBCR420:
++		REG_UPDATE(HDMI_TB_ENC_PIXEL_FORMAT,
++				HDMI_PIXEL_ENCODING, 2);
++		REG_UPDATE(HDMI_STREAM_ENC_CLOCK_RAMP_ADJUSTER_FIFO_STATUS_CONTROL0,
++				FIFO_UNCOMPRESSED_PIXEL_FORMAT, 1);
++		break;
++	default:
++		REG_UPDATE(HDMI_TB_ENC_PIXEL_FORMAT,
++				HDMI_PIXEL_ENCODING, 0);
++		REG_UPDATE(HDMI_STREAM_ENC_CLOCK_RAMP_ADJUSTER_FIFO_STATUS_CONTROL0,
++				FIFO_UNCOMPRESSED_PIXEL_FORMAT, 0);
++		break;
++	}
++
++	/* Configure color depth */
++	switch (crtc_timing->display_color_depth) {
++	case COLOR_DEPTH_888:
++		REG_UPDATE_2(HDMI_TB_ENC_PIXEL_FORMAT,
++				HDMI_DEEP_COLOR_DEPTH, 0,
++				HDMI_DEEP_COLOR_ENABLE, 0);
++		break;
++	case COLOR_DEPTH_101010:
++		if (crtc_timing->pixel_encoding == PIXEL_ENCODING_YCBCR422) {
++			REG_UPDATE_2(HDMI_TB_ENC_PIXEL_FORMAT,
++					HDMI_DEEP_COLOR_DEPTH, 1,
++					HDMI_DEEP_COLOR_ENABLE, 0);
 +		} else {
-+			if (timing->vic == 0 && timing->hdmi_vic == 0)
-+				specs_calculated_bpp_x16 = compute_bpp_x16_from_frl_params(
-+						timing, num_slices_h, dsc_caps);
-+
-+			if (specs_calculated_bpp_x16 != 0)
-+				specs_preferred_bpp_x16 = MIN(specs_calculated_bpp_x16,
-+						specs_preferred_bpp_x16);
-+
-+			range->max_target_bpp_x16 = MIN(max_bpp_x16, specs_preferred_bpp_x16);
-+			range->min_target_bpp_x16 = min_bpp_x16;
++			REG_UPDATE_2(HDMI_TB_ENC_PIXEL_FORMAT,
++					HDMI_DEEP_COLOR_DEPTH, 1,
++					HDMI_DEEP_COLOR_ENABLE, 1);
 +		}
-+	}
- 	/* TODO - make this value generic to all signal types */
- 	else if (dsc_caps->edp_sink_max_bits_per_pixel) {
- 		/* apply max bpp limitation from edp sink */
-@@ -877,6 +1557,10 @@ static bool decide_dsc_target_bpp_x16(
- 					dsc_common_caps->bpp_increment_div,
- 					dsc_common_caps->is_dp);
- 		}
-+		/* Assign minimum bpp and validate TB borrow scenario later */
-+		if (target_bandwidth_kbps < range.min_kbps)
-+			if (dsc_common_caps->is_frl)
-+				*target_bpp_x16 = range.min_target_bpp_x16;
- 	}
- 
- 	return *target_bpp_x16 != 0;
-@@ -1061,6 +1745,8 @@ static bool setup_dsc_config(
- 	int pic_height;
- 	int slice_height;
- 	struct dc_dsc_policy policy;
-+	int num_lanes;
-+	int frl_rate;
- 
- 	memset(dsc_cfg, 0, sizeof(struct dc_dsc_config));
- 
-@@ -1078,6 +1764,11 @@ static bool setup_dsc_config(
- 	is_dsc_possible = intersect_dsc_caps(dsc_sink_caps, dsc_enc_caps, timing->pixel_encoding, &dsc_common_caps);
- 	if (!is_dsc_possible)
- 		goto done;
-+	if (convert_bandwidth_to_frl_params(
-+					target_bandwidth_kbps, &num_lanes, &frl_rate)) {
-+		dsc_common_caps.num_lanes = num_lanes;
-+		dsc_common_caps.frl_rate = frl_rate;
-+	}
- 
- 	sink_per_slice_throughput_mps = 0;
- 
-@@ -1201,6 +1892,8 @@ static bool setup_dsc_config(
- 		else
- 			is_dsc_possible = false;
- 	}
-+	if (dsc_sink_caps->is_frl)
-+		num_slices_h = hdmi_dsc_get_num_slices(timing);
- 	// When we force ODM, num dsc h slices must be divisible by num odm h slices
- 	switch (options->dsc_force_odm_hslice_override) {
- 	case 0:
-@@ -1279,6 +1972,11 @@ static bool setup_dsc_config(
- 	dsc_cfg->block_pred_enable = dsc_common_caps.is_block_pred_supported;
- 	dsc_cfg->linebuf_depth = dsc_common_caps.lb_bit_depth;
- 	dsc_cfg->version_minor = (dsc_common_caps.dsc_version & 0xf0) >> 4;
-+	dsc_cfg->is_frl = dsc_sink_caps->is_frl;
-+	if (dsc_cfg->is_frl)
-+		dsc_cfg->num_slices_h = num_slices_h;
-+	dsc_cfg->is_vic_all_bpp = dsc_sink_caps->is_vic_all_bpp;
-+	dsc_cfg->total_chunk_kbytes = dsc_sink_caps->total_chunk_kbytes;
- 	dsc_cfg->is_dp = dsc_sink_caps->is_dp;
- 
- done:
-@@ -1405,6 +2103,12 @@ void dc_dsc_get_policy_for_timing(const struct dc_crtc_timing *timing,
- 		/* DP specs limits to 3 x bpc */
- 		policy->max_target_bpp = 3 * bpc;
- 		policy->ycbcr422_simple = true;
-+		if (timing->pixel_encoding == PIXEL_ENCODING_YCBCR422 && link_encoding == DC_LINK_ENCODING_HDMI_FRL) {
-+			/* HDMI FRL YCbCr422 native support */
-+			policy->min_target_bpp = 7;
-+			policy->max_target_bpp = 2 * bpc;
-+			policy->ycbcr422_simple = false;
++		break;
++	case COLOR_DEPTH_121212:
++		if (crtc_timing->pixel_encoding == PIXEL_ENCODING_YCBCR422) {
++			REG_UPDATE_2(HDMI_TB_ENC_PIXEL_FORMAT,
++					HDMI_DEEP_COLOR_DEPTH, 2,
++					HDMI_DEEP_COLOR_ENABLE, 0);
++		} else {
++			REG_UPDATE_2(HDMI_TB_ENC_PIXEL_FORMAT,
++					HDMI_DEEP_COLOR_DEPTH, 2,
++					HDMI_DEEP_COLOR_ENABLE, 1);
 +		}
- 		break;
- 	case PIXEL_ENCODING_YCBCR420:
- 		/* DP specs limits to 6 */
-diff --git a/drivers/gpu/drm/amd/display/dc/hpo/dcn30/dcn30_hpo_frl_stream_encoder.c b/drivers/gpu/drm/amd/display/dc/hpo/dcn30/dcn30_hpo_frl_stream_encoder.c
-index cd7d2bb661e5..cff5c95a771c 100644
---- a/drivers/gpu/drm/amd/display/dc/hpo/dcn30/dcn30_hpo_frl_stream_encoder.c
-+++ b/drivers/gpu/drm/amd/display/dc/hpo/dcn30/dcn30_hpo_frl_stream_encoder.c
-@@ -216,6 +216,16 @@ void hpo_enc3_set_hdmi_stream_attribute(struct hpo_frl_stream_encoder *enc,
- 		break;
- 	}
- 
++		break;
++	default:
++		break;
++	}
++
 +	/* When compression active, CD/PP/Phase field shall be zero in GCP */
 +	if (crtc_timing->flags.DSC) {
 +		REG_UPDATE_2(HDMI_TB_ENC_PIXEL_FORMAT,
 +				HDMI_DEEP_COLOR_DEPTH, 0,
 +				HDMI_DEEP_COLOR_ENABLE, 0);
-+	} else {
-+		REG_UPDATE(HDMI_TB_ENC_PIXEL_FORMAT,
-+			HDMI_DSC_MODE, 0);
 +	}
 +
- 	/* Configure ODM combine mode */
- 	switch (odm_combine_num_segments) {
- 	case 1:
-@@ -457,6 +467,94 @@ void hpo_enc3_update_hdmi_info_packet(struct dcn30_hpo_frl_stream_encoder *enc3,
- 	}
- }
- 
-+void hpo_enc3_hdmi_set_dsc_config(
++	/* Configure horizontal active and blank size */
++	h_active = crtc_timing->h_addressable + crtc_timing->h_border_left + crtc_timing->h_border_right;
++	h_blank = crtc_timing->h_total - h_active;
++
++	if (crtc_timing->pixel_encoding == PIXEL_ENCODING_YCBCR420 ||
++			crtc_timing->pixel_encoding == PIXEL_ENCODING_YCBCR422) {
++		h_active /= 2;
++		h_blank /= 2;
++	}
++
++
++	REG_SET_2(HDMI_TB_ENC_H_ACTIVE_BLANK, 0,
++			HDMI_H_ACTIVE, h_active,
++			HDMI_H_BLANK, h_blank);
++
++	/* Configure borrow parameters */
++	REG_UPDATE(HDMI_TB_ENC_MODE,
++			HDMI_BORROW_MODE, borrow_params->borrow_mode);
++	REG_UPDATE(HDMI_TB_ENC_PACKET_CONTROL,
++			HDMI_MAX_PACKETS_PER_LINE, borrow_params->audio_packets_line);
++	REG_SET_2(HDMI_TB_ENC_HC_ACTIVE_BLANK, 0,
++			HDMI_HC_ACTIVE, borrow_params->hc_active_target,
++			HDMI_HC_BLANK, borrow_params->hc_blank_target);
++
++	/* Enable transmission of General Control packet on every frame */
++	REG_UPDATE_2(HDMI_TB_ENC_VBI_PACKET_CONTROL1,
++		HDMI_GC_CONT, 1,
++		HDMI_GC_SEND, 1);
++
++	/* Disable Audio Content Protection packet transmission */
++	/* TODO: review if this needs to be here */
++	REG_UPDATE(HDMI_TB_ENC_VBI_PACKET_CONTROL1, HDMI_ACP_SEND, 0);
++
++
++	/* Enable Audio InfoFrame packet transmission. */
++	REG_UPDATE(HDMI_TB_ENC_VBI_PACKET_CONTROL1, HDMI_AUDIO_INFO_SEND, 1);
++
++	/* update double-buffered AUDIO_INFO registers immediately */
++	if (enc->afmt && enc->afmt->funcs->audio_info_immediate_update)
++		enc->afmt->funcs->audio_info_immediate_update(enc->afmt);
++
++	/* Select line number on which to send Audio InfoFrame packets */
++	REG_UPDATE(HDMI_TB_ENC_VBI_PACKET_CONTROL1, HDMI_AUDIO_INFO_LINE,
++				VBI_LINE_0 + 2);
++
++	/* set HDMI GC AVMUTE */
++	REG_UPDATE(HDMI_TB_ENC_GC_CONTROL, HDMI_GC_AVMUTE, 0);
++
++	DC_LOG_DEBUG("Exiting [%s]\n", __func__);
++}
++
++void hpo_enc401_update_hdmi_info_packet(
++	struct dcn401_hpo_frl_stream_encoder *enc401,
++	uint32_t packet_index,
++	const struct dc_info_packet *info_packet)
++{
++	uint32_t cont, send, line;
++
++	if (info_packet->valid) {
++		enc401->base.vpg->funcs->update_generic_info_packet(
++				enc401->base.vpg,
++				packet_index,
++				info_packet,
++				true);
++
++		/* enable transmission of packet(s) -
++		 * packet transmission begins on the next frame
++		 */
++		cont = 1;
++		/* send packet(s) every frame */
++		send = 1;
++		/* select line number to send packets on */
++		/* TODO: check if line 2 is correct */
++		line = 2;
++	} else {
++		cont = 0;
++		send = 0;
++		line = 0;
++	}
++
++	/* TODO: set bit to indicate if packet is Extended Metadata Packet. */
++	/* TODO: In DCN3, there are 0-14 generic packets */
++
++	/* choose which generic packet control to use */
++	switch (packet_index) {
++	case 0:
++		REG_UPDATE_2(HDMI_TB_ENC_GENERIC_PACKET_CONTROL0,
++				HDMI_GENERIC0_CONT, cont,
++				HDMI_GENERIC0_SEND, send);
++		REG_UPDATE(HDMI_TB_ENC_GENERIC_PACKET0_1_LINE,
++				HDMI_GENERIC0_LINE, line);
++		break;
++	case 1:
++		REG_UPDATE_2(HDMI_TB_ENC_GENERIC_PACKET_CONTROL0,
++				HDMI_GENERIC1_CONT, cont,
++				HDMI_GENERIC1_SEND, send);
++		REG_UPDATE(HDMI_TB_ENC_GENERIC_PACKET0_1_LINE,
++				HDMI_GENERIC1_LINE, line);
++		break;
++	case 2:
++		REG_UPDATE_2(HDMI_TB_ENC_GENERIC_PACKET_CONTROL0,
++				HDMI_GENERIC2_CONT, cont,
++				HDMI_GENERIC2_SEND, send);
++		REG_UPDATE(HDMI_TB_ENC_GENERIC_PACKET2_3_LINE,
++				HDMI_GENERIC2_LINE, line);
++		break;
++	case 3:
++		REG_UPDATE_2(HDMI_TB_ENC_GENERIC_PACKET_CONTROL0,
++				HDMI_GENERIC3_CONT, cont,
++				HDMI_GENERIC3_SEND, send);
++		REG_UPDATE(HDMI_TB_ENC_GENERIC_PACKET2_3_LINE,
++				HDMI_GENERIC3_LINE, line);
++		break;
++	case 4:
++		REG_UPDATE_2(HDMI_TB_ENC_GENERIC_PACKET_CONTROL0,
++				HDMI_GENERIC4_CONT, cont,
++				HDMI_GENERIC4_SEND, send);
++		REG_UPDATE(HDMI_TB_ENC_GENERIC_PACKET4_5_LINE,
++				HDMI_GENERIC4_LINE, line);
++		break;
++	case 5:
++		REG_UPDATE_2(HDMI_TB_ENC_GENERIC_PACKET_CONTROL0,
++				HDMI_GENERIC5_CONT, cont,
++				HDMI_GENERIC5_SEND, send);
++		REG_UPDATE(HDMI_TB_ENC_GENERIC_PACKET4_5_LINE,
++				HDMI_GENERIC5_LINE, line);
++		break;
++	case 6:
++		REG_UPDATE_2(HDMI_TB_ENC_GENERIC_PACKET_CONTROL0,
++				HDMI_GENERIC6_CONT, cont,
++				HDMI_GENERIC6_SEND, send);
++		REG_UPDATE(HDMI_TB_ENC_GENERIC_PACKET6_7_LINE,
++				HDMI_GENERIC6_LINE, line);
++		break;
++	case 7:
++		REG_UPDATE_2(HDMI_TB_ENC_GENERIC_PACKET_CONTROL0,
++				HDMI_GENERIC7_CONT, cont,
++				HDMI_GENERIC7_SEND, send);
++		REG_UPDATE(HDMI_TB_ENC_GENERIC_PACKET6_7_LINE,
++				HDMI_GENERIC7_LINE, line);
++		break;
++	case 8:
++		REG_UPDATE_2(HDMI_TB_ENC_GENERIC_PACKET_CONTROL1,
++				HDMI_GENERIC8_CONT, cont,
++				HDMI_GENERIC8_SEND, send);
++		REG_UPDATE(HDMI_TB_ENC_GENERIC_PACKET8_9_LINE,
++				HDMI_GENERIC8_LINE, line);
++		break;
++	case 9:
++		REG_UPDATE_2(HDMI_TB_ENC_GENERIC_PACKET_CONTROL1,
++				HDMI_GENERIC9_CONT, cont,
++				HDMI_GENERIC9_SEND, send);
++		REG_UPDATE(HDMI_TB_ENC_GENERIC_PACKET8_9_LINE,
++				HDMI_GENERIC9_LINE, line);
++		break;
++	case 10:
++		REG_UPDATE_2(HDMI_TB_ENC_GENERIC_PACKET_CONTROL1,
++				HDMI_GENERIC10_CONT, cont,
++				HDMI_GENERIC10_SEND, send);
++		REG_UPDATE(HDMI_TB_ENC_GENERIC_PACKET10_11_LINE,
++				HDMI_GENERIC10_LINE, line);
++		break;
++	case 11:
++		REG_UPDATE_2(HDMI_TB_ENC_GENERIC_PACKET_CONTROL1,
++				HDMI_GENERIC11_CONT, cont,
++				HDMI_GENERIC11_SEND, send);
++		REG_UPDATE(HDMI_TB_ENC_GENERIC_PACKET10_11_LINE,
++				HDMI_GENERIC11_LINE, line);
++		break;
++	case 12:
++		REG_UPDATE_2(HDMI_TB_ENC_GENERIC_PACKET_CONTROL1,
++				HDMI_GENERIC12_CONT, cont,
++				HDMI_GENERIC12_SEND, send);
++		REG_UPDATE(HDMI_TB_ENC_GENERIC_PACKET12_13_LINE,
++				HDMI_GENERIC12_LINE, line);
++		break;
++	case 13:
++		REG_UPDATE_2(HDMI_TB_ENC_GENERIC_PACKET_CONTROL1,
++				HDMI_GENERIC13_CONT, cont,
++				HDMI_GENERIC13_SEND, send);
++		REG_UPDATE(HDMI_TB_ENC_GENERIC_PACKET12_13_LINE,
++				HDMI_GENERIC13_LINE, line);
++		break;
++	case 14:
++		REG_UPDATE_2(HDMI_TB_ENC_GENERIC_PACKET_CONTROL1,
++				HDMI_GENERIC14_CONT, cont,
++				HDMI_GENERIC14_SEND, send);
++		REG_UPDATE(HDMI_TB_ENC_GENERIC_PACKET14_LINE,
++				HDMI_GENERIC14_LINE, line);
++		break;
++	default:
++		/* invalid HW packet index */
++		DC_LOG_WARNING(
++			"Invalid HW packet index: %s()\n",
++			__func__);
++		return;
++	}
++}
++
++void hpo_enc401_update_hdmi_info_packets(struct hpo_frl_stream_encoder *enc,
++				       const struct encoder_info_frame *info_frame)
++{
++	struct dcn401_hpo_frl_stream_encoder *enc401 = DCN401_HPO_FRL_STRENC_FROM_HPO_FRL_STRENC(enc);
++
++	hpo_enc401_update_hdmi_info_packet(enc401, 0, &info_frame->avi);
++	hpo_enc401_update_hdmi_info_packet(enc401, 1, &info_frame->vendor);
++	hpo_enc401_update_hdmi_info_packet(enc401, 2, &info_frame->gamut);
++	hpo_enc401_update_hdmi_info_packet(enc401, 3, &info_frame->spd);
++	hpo_enc401_update_hdmi_info_packet(enc401, 4, &info_frame->hdrsmd);
++
++	/* 5-10 used by dsc */
++	hpo_enc401_update_hdmi_info_packet(enc401, 11, &info_frame->hfvsif);
++	hpo_enc401_update_hdmi_info_packet(enc401, 12, &info_frame->vtem);
++}
++
++void hpo_enc401_hdmi_set_dsc_config(
 +	struct hpo_frl_stream_encoder *enc,
 +	struct dc_crtc_timing *timing,
 +	uint8_t *dsc_packed_pps)
 +{
-+	struct dcn30_hpo_frl_stream_encoder *enc3 = DCN30_HPO_FRL_STRENC_FROM_HPO_FRL_STRENC(enc);
++	struct dcn401_hpo_frl_stream_encoder *enc401 = DCN401_HPO_FRL_STRENC_FROM_HPO_FRL_STRENC(enc);
 +	enum optc_dsc_mode dsc_mode = OPTC_DSC_DISABLED;
 +	uint8_t i;
 +
@@ -1845,8 +4668,23 @@ index cd7d2bb661e5..cff5c95a771c 100644
 +			dsc_mode = OPTC_DSC_ENABLED_444;
 +	}
 +
-+	REG_UPDATE(HDMI_STREAM_ENC_CLOCK_RAMP_ADJUSTER_FIFO_STATUS_CONTROL0,
-+			FIFO_DSC_MODE, dsc_mode);
++	switch (dsc_mode) {
++	case OPTC_DSC_DISABLED:
++		REG_UPDATE_2(HDMI_STREAM_ENC_CLOCK_RAMP_ADJUSTER_FIFO_STATUS_CONTROL0,
++				FIFO_PIXEL_ENCODING_TYPE, 0,
++				FIFO_COMPRESSED_PIXEL_FORMAT, 0);
++		break;
++	case OPTC_DSC_ENABLED_NATIVE_SUBSAMPLED:
++		REG_UPDATE_2(HDMI_STREAM_ENC_CLOCK_RAMP_ADJUSTER_FIFO_STATUS_CONTROL0,
++				FIFO_PIXEL_ENCODING_TYPE, 1,
++				FIFO_COMPRESSED_PIXEL_FORMAT, 1);
++		break;
++	case OPTC_DSC_ENABLED_444:
++		REG_UPDATE_2(HDMI_STREAM_ENC_CLOCK_RAMP_ADJUSTER_FIFO_STATUS_CONTROL0,
++				FIFO_PIXEL_ENCODING_TYPE, 1,
++				FIFO_COMPRESSED_PIXEL_FORMAT, 0);
++		break;
++	}
 +
 +	REG_UPDATE(HDMI_TB_ENC_PIXEL_FORMAT,
 +			HDMI_DSC_MODE, dsc_mode);
@@ -1855,13 +4693,23 @@ index cd7d2bb661e5..cff5c95a771c 100644
 +	/* TODO: do we change new bit to 0 after first transmission? Do we set End bit when exiting dsc? */
 +	if (dsc_mode != OPTC_DSC_DISABLED) {
 +		struct dc_info_packet emp_packet = {0};
-+		uint32_t dsc_pic_width = timing->h_addressable + timing->h_border_left + timing->h_border_right;
-+		uint32_t h_back = timing->h_total - dsc_pic_width - timing->h_sync_width - timing->h_front_porch;
++		/* Need to find the padded h_total to recover the expected h_back*/
++		uint32_t h_active_padding = timing->h_addressable % timing->dsc_cfg.num_slices_h;
++		if (h_active_padding != 0)
++			h_active_padding = timing->dsc_cfg.num_slices_h - h_active_padding;
++		/* if YCBCR420, ensure slice width is even */
++		uint32_t slice_width = (timing->h_addressable + h_active_padding) / timing->dsc_cfg.num_slices_h;
++		if (timing->pixel_encoding == PIXEL_ENCODING_YCBCR420 &&
++			slice_width % 2 != 0)
++			h_active_padding += timing->dsc_cfg.num_slices_h;
++		uint32_t dsc_pic_width = timing->h_addressable + timing->h_border_left + timing->h_border_right + h_active_padding;
++		uint32_t h_back = timing->h_total - dsc_pic_width - timing->h_sync_width - timing->h_front_porch + h_active_padding;
 +		/* HCactivebytes = Slices * ceil(SliceWidth * bpp/8)
-+		 * use ... + 15) / 16 to achieve ceil since bpp is stored as 16x actual value
++		 * Since bpp is stored as 16x actual value do (sliceWidth * bpp + 127) / 128 to ceil
 +		 */
 +		uint32_t h_cactive_bytes = timing->dsc_cfg.num_slices_h * (
-+				(dsc_pic_width / timing->dsc_cfg.num_slices_h * timing->dsc_cfg.bits_per_pixel / 8 + 15) / 16);
++				(dsc_pic_width /
++						timing->dsc_cfg.num_slices_h * timing->dsc_cfg.bits_per_pixel + 127) / 128);
 +
 +		/* Packet 0 */
 +		emp_packet.valid = true;
@@ -1873,14 +4721,14 @@ index cd7d2bb661e5..cff5c95a771c 100644
 +		emp_packet.sb[4] = 2; /* Data_Set_Tag(LSB) = 2*/
 +		emp_packet.sb[6] = 136; /* Data_Set_Length(LSB) = 136*/
 +		memcpy(&emp_packet.sb[7], dsc_packed_pps, 21);
-+		hpo_enc3_update_hdmi_info_packet(enc3, 5, &emp_packet);
++		hpo_enc401_update_hdmi_info_packet(enc401, 5, &emp_packet);
 +
 +		/* Packets 1-3 */
 +		emp_packet.hb1 = 0; /* Not first or last*/
 +		for (i = 1; i < 4; i++) {
 +			emp_packet.hb2 = i; /* Sequence index */
 +			memcpy(&emp_packet.sb[0], &dsc_packed_pps[21 + 28 * (i - 1)], 28);
-+			hpo_enc3_update_hdmi_info_packet(enc3, 5 + i, &emp_packet);
++			hpo_enc401_update_hdmi_info_packet(enc401, 5 + i, &emp_packet);
 +		}
 +
 +		/* Packet 4 */
@@ -1891,7 +4739,7 @@ index cd7d2bb661e5..cff5c95a771c 100644
 +		emp_packet.sb[25] = (uint8_t)timing->h_sync_width; /* Hsync[7:0] */
 +		emp_packet.sb[26] = (uint8_t)(timing->h_sync_width >> 8); /* Hsync[15:8] */
 +		emp_packet.sb[27] = (uint8_t)h_back; /* Hback[7:0] */
-+		hpo_enc3_update_hdmi_info_packet(enc3, 9, &emp_packet);
++		hpo_enc401_update_hdmi_info_packet(enc401, 9, &emp_packet);
 +
 +		/* Packet 5 */
 +		emp_packet.hb1 = (1 << 6); /* Last */
@@ -1899,7 +4747,7 @@ index cd7d2bb661e5..cff5c95a771c 100644
 +		emp_packet.sb[0] = (uint8_t)(h_back >> 8); /* Hback[15:8] */
 +		emp_packet.sb[1] = (uint8_t)h_cactive_bytes; /* HCactive_bytes[7:0] */
 +		emp_packet.sb[2] = (uint8_t)(h_cactive_bytes >> 8); /* HCactive_bytes[15:8] */
-+		hpo_enc3_update_hdmi_info_packet(enc3, 10, &emp_packet);
++		hpo_enc401_update_hdmi_info_packet(enc401, 10, &emp_packet);
 +
 +		/* Packet 0 - Clear New[7] */
 +		emp_packet.valid = true;
@@ -1911,534 +4759,1027 @@ index cd7d2bb661e5..cff5c95a771c 100644
 +		emp_packet.sb[4] = 2; /* Data_Set_Tag(LSB) = 2*/
 +		emp_packet.sb[6] = 136; /* Data_Set_Length(LSB) = 136*/
 +		memcpy(&emp_packet.sb[7], dsc_packed_pps, 21);
-+		hpo_enc3_update_hdmi_info_packet(enc3, 5, &emp_packet);
++		hpo_enc401_update_hdmi_info_packet(enc401, 5, &emp_packet);
 +	}
 +}
 +
- void hpo_enc3_stop_hdmi_info_packets(
- 	struct hpo_frl_stream_encoder *enc)
- {
-@@ -777,12 +875,18 @@ bool hpo_enc3_validate_hdmi_frl_output(
- 	default:
- 		break;
- 	}
-+	frl_params.allow_all_bpp = timing->dsc_cfg.is_vic_all_bpp;
- 	if (timing->pixel_encoding == PIXEL_ENCODING_YCBCR420)
- 		frl_params.pixel_encoding = HDMI_FRL_PIXEL_ENCODING_420;
- 	else if (timing->pixel_encoding == PIXEL_ENCODING_YCBCR422)
- 		frl_params.pixel_encoding = HDMI_FRL_PIXEL_ENCODING_422;
- 	else
- 		frl_params.pixel_encoding = HDMI_FRL_PIXEL_ENCODING_444;
-+	/* DSC parameters */
-+	frl_params.bypass_hc_target_calc = false;
-+	DC_FP_START();
-+	hpo_fpu_enc3_validate_hdmi_frl_output_timing(timing, audio, &frl_params);
-+	DC_FP_END();
- 	/* Audio parameters */
- 	/* TODO: set Audio parameters */
- 
-@@ -910,6 +1014,7 @@ static const struct hpo_frl_stream_encoder_funcs dcn30_str_enc_funcs = {
- 	.set_avmute			= enc3_stream_encoder_set_avmute,
- 	.validate_hdmi_frl_output	= hpo_enc3_validate_hdmi_frl_output,
- 	.read_state			= hpo_enc3_read_state,
-+	.hdmi_frl_set_dsc_config	= hpo_enc3_hdmi_set_dsc_config,
- 	.set_dynamic_metadata           = hpo_enc3_set_dynamic_metadata,
- 	.hdmi_frl_fifo_odm_enabled = hpo_enc3_fifo_odm_enabled,
- };
-diff --git a/drivers/gpu/drm/amd/display/dc/hpo/dcn401/dcn401_hpo_frl_stream_encoder.c b/drivers/gpu/drm/amd/display/dc/hpo/dcn401/dcn401_hpo_frl_stream_encoder.c
-index 27f7ffd89629..28cb14dc87b0 100644
---- a/drivers/gpu/drm/amd/display/dc/hpo/dcn401/dcn401_hpo_frl_stream_encoder.c
-+++ b/drivers/gpu/drm/amd/display/dc/hpo/dcn401/dcn401_hpo_frl_stream_encoder.c
-@@ -879,6 +879,7 @@ static const struct hpo_frl_stream_encoder_funcs dcn401_str_enc_funcs = {
- 	.hdmi_audio_disable		= hpo_enc401_hdmi_audio_disable,
- 	.set_avmute			= enc401_stream_encoder_set_avmute,
- 	.read_state			= hpo_enc401_read_state,
-+	.hdmi_frl_set_dsc_config	= hpo_enc401_hdmi_set_dsc_config,
- 	.set_dynamic_metadata           = hpo_enc401_set_dynamic_metadata,
- };
- 
-diff --git a/drivers/gpu/drm/amd/display/dc/hpo/dcn42/dcn42_hpo_frl_stream_encoder.c b/drivers/gpu/drm/amd/display/dc/hpo/dcn42/dcn42_hpo_frl_stream_encoder.c
-index 0ec386347f80..d4f66e62c729 100644
---- a/drivers/gpu/drm/amd/display/dc/hpo/dcn42/dcn42_hpo_frl_stream_encoder.c
-+++ b/drivers/gpu/drm/amd/display/dc/hpo/dcn42/dcn42_hpo_frl_stream_encoder.c
-@@ -179,6 +179,7 @@ static const struct hpo_frl_stream_encoder_funcs dcn42_str_enc_funcs = {
- 	.hdmi_audio_disable		= hpo_enc42_hdmi_audio_disable,
- 	.set_avmute			= enc401_stream_encoder_set_avmute,
- 	.read_state			= hpo_enc401_read_state,
-+	.hdmi_frl_set_dsc_config	= hpo_enc401_hdmi_set_dsc_config,
- 	.set_dynamic_metadata           = hpo_enc401_set_dynamic_metadata,
- };
- 
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn30/dcn30_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn30/dcn30_hwseq.c
-index cfca7af6cd1f..a416efcc9325 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn30/dcn30_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn30/dcn30_hwseq.c
-@@ -955,6 +955,15 @@ enum dc_status dcn30_setup_hdmi_frl_link(
- 	return status;
- }
- 
-+void dcn30_hw_set_vstartup_dsc_frl(struct dc *dc,
-+		struct pipe_ctx *pipe_ctx)
++void hpo_enc401_stop_hdmi_info_packets(
++	struct hpo_frl_stream_encoder *enc)
 +{
-+	(void)dc;
-+	if (pipe_ctx->stream_res.tg->funcs->set_vstartup_dsc_frl)
-+		pipe_ctx->stream_res.tg->funcs->set_vstartup_dsc_frl(
-+			pipe_ctx->stream_res.tg);
++	struct dcn401_hpo_frl_stream_encoder *enc401 = DCN401_HPO_FRL_STRENC_FROM_HPO_FRL_STRENC(enc);
++
++	/* TODO: should also set extended metadata packet bit back to 0? */
++
++	/* stop generic packets 0,1 on HDMI */
++	REG_SET_4(HDMI_TB_ENC_GENERIC_PACKET_CONTROL0, 0,
++		HDMI_GENERIC0_CONT, 0,
++		HDMI_GENERIC0_SEND, 0,
++		HDMI_GENERIC1_CONT, 0,
++		HDMI_GENERIC1_SEND, 0);
++	REG_SET_2(HDMI_TB_ENC_GENERIC_PACKET0_1_LINE, 0,
++		HDMI_GENERIC0_LINE, 0,
++		HDMI_GENERIC1_LINE, 0);
++
++	/* stop generic packets 2,3 on HDMI */
++	REG_SET_4(HDMI_TB_ENC_GENERIC_PACKET_CONTROL0, 0,
++		HDMI_GENERIC2_CONT, 0,
++		HDMI_GENERIC2_SEND, 0,
++		HDMI_GENERIC3_CONT, 0,
++		HDMI_GENERIC3_SEND, 0);
++	REG_SET_2(HDMI_TB_ENC_GENERIC_PACKET2_3_LINE, 0,
++		HDMI_GENERIC2_LINE, 0,
++		HDMI_GENERIC3_LINE, 0);
++
++	/* stop generic packets 4,5 on HDMI */
++	REG_SET_4(HDMI_TB_ENC_GENERIC_PACKET_CONTROL0, 0,
++		HDMI_GENERIC4_CONT, 0,
++		HDMI_GENERIC4_SEND, 0,
++		HDMI_GENERIC5_CONT, 0,
++		HDMI_GENERIC5_SEND, 0);
++	REG_SET_2(HDMI_TB_ENC_GENERIC_PACKET4_5_LINE, 0,
++		HDMI_GENERIC4_LINE, 0,
++		HDMI_GENERIC5_LINE, 0);
++
++	/* stop generic packets 6,7 on HDMI */
++	REG_SET_4(HDMI_TB_ENC_GENERIC_PACKET_CONTROL0, 0,
++		HDMI_GENERIC6_CONT, 0,
++		HDMI_GENERIC6_SEND, 0,
++		HDMI_GENERIC7_CONT, 0,
++		HDMI_GENERIC7_SEND, 0);
++	REG_SET_2(HDMI_TB_ENC_GENERIC_PACKET6_7_LINE, 0,
++		HDMI_GENERIC6_LINE, 0,
++		HDMI_GENERIC7_LINE, 0);
++
++	/* stop generic packets 8,9 on HDMI */
++	REG_SET_4(HDMI_TB_ENC_GENERIC_PACKET_CONTROL1, 0,
++		HDMI_GENERIC8_CONT, 0,
++		HDMI_GENERIC8_SEND, 0,
++		HDMI_GENERIC9_CONT, 0,
++		HDMI_GENERIC9_SEND, 0);
++	REG_SET_2(HDMI_TB_ENC_GENERIC_PACKET8_9_LINE, 0,
++		HDMI_GENERIC8_LINE, 0,
++		HDMI_GENERIC9_LINE, 0);
++
++	/* stop generic packets 10,11 on HDMI */
++	REG_SET_4(HDMI_TB_ENC_GENERIC_PACKET_CONTROL1, 0,
++		HDMI_GENERIC10_CONT, 0,
++		HDMI_GENERIC10_SEND, 0,
++		HDMI_GENERIC11_CONT, 0,
++		HDMI_GENERIC11_SEND, 0);
++	REG_SET_2(HDMI_TB_ENC_GENERIC_PACKET10_11_LINE, 0,
++		HDMI_GENERIC10_LINE, 0,
++		HDMI_GENERIC11_LINE, 0);
++
++	/* stop generic packets 12,13 on HDMI */
++	REG_SET_4(HDMI_TB_ENC_GENERIC_PACKET_CONTROL1, 0,
++		HDMI_GENERIC12_CONT, 0,
++		HDMI_GENERIC12_SEND, 0,
++		HDMI_GENERIC13_CONT, 0,
++		HDMI_GENERIC13_SEND, 0);
++	REG_SET_2(HDMI_TB_ENC_GENERIC_PACKET12_13_LINE, 0,
++		HDMI_GENERIC12_LINE, 0,
++		HDMI_GENERIC13_LINE, 0);
++
++	/* stop generic packets 14 on HDMI */
++	REG_SET_2(HDMI_TB_ENC_GENERIC_PACKET_CONTROL1, 0,
++		HDMI_GENERIC14_CONT, 0,
++		HDMI_GENERIC14_SEND, 0);
++	REG_SET(HDMI_TB_ENC_GENERIC_PACKET14_LINE, 0,
++		HDMI_GENERIC14_LINE, 0);
++
 +}
 +
- bool dcn30_apply_idle_power_optimizations(struct dc *dc, bool enable)
- {
- 	union dmub_rb_cmd cmd;
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn30/dcn30_init.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn30/dcn30_init.c
-index 26c7386a8a36..cd151c75f59e 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn30/dcn30_init.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn30/dcn30_init.c
-@@ -106,6 +106,7 @@ static const struct hw_sequencer_funcs dcn30_funcs = {
- 	.enable_dp_link_output = dce110_enable_dp_link_output,
- 	.disable_link_output = dce110_disable_link_output,
- 	.setup_hdmi_frl_link = dcn30_setup_hdmi_frl_link,
-+	.set_vstartup_dsc_frl = dcn30_hw_set_vstartup_dsc_frl,
- 	.set_disp_pattern_generator = dcn30_set_disp_pattern_generator,
- 	.get_dcc_en_bits = dcn10_get_dcc_en_bits,
- 	.update_visual_confirm_color = dcn10_update_visual_confirm_color,
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn31/dcn31_init.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn31/dcn31_init.c
-index 23b30d6f3956..69b8e7030fa4 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn31/dcn31_init.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn31/dcn31_init.c
-@@ -99,6 +99,7 @@ static const struct hw_sequencer_funcs dcn31_funcs = {
- 	.get_vupdate_offset_from_vsync = dcn10_get_vupdate_offset_from_vsync,
- 	.calc_vupdate_position = dcn10_calc_vupdate_position,
- 	.setup_hdmi_frl_link = dcn30_setup_hdmi_frl_link,
-+	.set_vstartup_dsc_frl = dcn30_hw_set_vstartup_dsc_frl,
- 	.set_backlight_level = dcn21_set_backlight_level,
- 	.set_abm_immediate_disable = dcn21_set_abm_immediate_disable,
- 	.set_pipe = dcn21_set_pipe,
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn314/dcn314_init.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn314/dcn314_init.c
-index 98771fc443c7..8c50604a4895 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn314/dcn314_init.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn314/dcn314_init.c
-@@ -101,6 +101,7 @@ static const struct hw_sequencer_funcs dcn314_funcs = {
- 	.get_vupdate_offset_from_vsync = dcn10_get_vupdate_offset_from_vsync,
- 	.calc_vupdate_position = dcn10_calc_vupdate_position,
- 	.setup_hdmi_frl_link = dcn30_setup_hdmi_frl_link,
-+	.set_vstartup_dsc_frl = dcn30_hw_set_vstartup_dsc_frl,
- 	.set_backlight_level = dcn21_set_backlight_level,
- 	.set_abm_immediate_disable = dcn21_set_abm_immediate_disable,
- 	.set_pipe = dcn21_set_pipe,
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_init.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_init.c
-index 0b3e8512ebf1..203c4f7ecd2b 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_init.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_init.c
-@@ -98,6 +98,7 @@ static const struct hw_sequencer_funcs dcn32_funcs = {
- 	.get_vupdate_offset_from_vsync = dcn10_get_vupdate_offset_from_vsync,
- 	.calc_vupdate_position = dcn10_calc_vupdate_position,
- 	.setup_hdmi_frl_link = dcn30_setup_hdmi_frl_link,
-+	.set_vstartup_dsc_frl = dcn30_hw_set_vstartup_dsc_frl,
- 	.get_max_dispclk_mhz = dcn32_get_max_dispclk_mhz,
- 	.apply_idle_power_optimizations = dcn32_apply_idle_power_optimizations,
- 	.does_plane_fit_in_mall = NULL,
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn35/dcn35_init.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn35/dcn35_init.c
-index fc18d2207711..c0cefeff6e85 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn35/dcn35_init.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn35/dcn35_init.c
-@@ -108,6 +108,7 @@ static const struct hw_sequencer_funcs dcn35_funcs = {
- 	.get_vupdate_offset_from_vsync = dcn10_get_vupdate_offset_from_vsync,
- 	.calc_vupdate_position = dcn10_calc_vupdate_position,
- 	.setup_hdmi_frl_link = dcn30_setup_hdmi_frl_link,
-+	.set_vstartup_dsc_frl = dcn30_hw_set_vstartup_dsc_frl,
- 	.set_backlight_level = dcn31_set_backlight_level,
- 	.set_abm_immediate_disable = dcn21_set_abm_immediate_disable,
- 	.set_pipe = dcn21_set_pipe,
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn351/dcn351_init.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn351/dcn351_init.c
-index 19ec5b4edfdc..a852a2345296 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn351/dcn351_init.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn351/dcn351_init.c
-@@ -101,6 +101,7 @@ static const struct hw_sequencer_funcs dcn351_funcs = {
- 	.get_vupdate_offset_from_vsync = dcn10_get_vupdate_offset_from_vsync,
- 	.calc_vupdate_position = dcn10_calc_vupdate_position,
- 	.setup_hdmi_frl_link = dcn30_setup_hdmi_frl_link,
-+	.set_vstartup_dsc_frl = dcn30_hw_set_vstartup_dsc_frl,
- 	.set_backlight_level = dcn31_set_backlight_level,
- 	.set_abm_immediate_disable = dcn21_set_abm_immediate_disable,
- 	.set_pipe = dcn21_set_pipe,
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_init.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_init.c
-index d24a352937b4..e1cc16aa207c 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_init.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_init.c
-@@ -85,6 +85,7 @@ static const struct hw_sequencer_funcs dcn401_funcs = {
- 	.get_vupdate_offset_from_vsync = dcn10_get_vupdate_offset_from_vsync,
- 	.calc_vupdate_position = dcn10_calc_vupdate_position,
- 	.setup_hdmi_frl_link = dcn30_setup_hdmi_frl_link,
-+	.set_vstartup_dsc_frl = dcn30_hw_set_vstartup_dsc_frl,
- 	.apply_idle_power_optimizations = dcn401_apply_idle_power_optimizations,
- 	.does_plane_fit_in_mall = NULL,
- 	.set_backlight_level = dcn31_set_backlight_level,
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn42/dcn42_init.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn42/dcn42_init.c
-index 49c13611a518..e54d814b3ea9 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn42/dcn42_init.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn42/dcn42_init.c
-@@ -86,6 +86,7 @@ static const struct hw_sequencer_funcs dcn42_funcs = {
- 	.get_vupdate_offset_from_vsync = dcn10_get_vupdate_offset_from_vsync,
- 	.calc_vupdate_position = dcn10_calc_vupdate_position,
- 	.setup_hdmi_frl_link = dcn30_setup_hdmi_frl_link,
-+	.set_vstartup_dsc_frl = dcn30_hw_set_vstartup_dsc_frl,
- 	.apply_idle_power_optimizations = dcn35_apply_idle_power_optimizations,
- 	.does_plane_fit_in_mall = NULL,
- 	.set_backlight_level = dcn31_set_backlight_level,
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/hw_sequencer.h b/drivers/gpu/drm/amd/display/dc/hwss/hw_sequencer.h
-index 7e65ccd11386..34e386e16d0c 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/hw_sequencer.h
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/hw_sequencer.h
-@@ -1437,6 +1437,9 @@ struct hw_sequencer_funcs {
- 	unsigned int (*get_max_dispclk_mhz)(struct dc *dc,
- 			struct dc_state *context);
- 
-+	void (*set_vstartup_dsc_frl)(struct dc *dc,
-+			struct pipe_ctx *pipe_ctx);
++//Covered both, rounding up or rounding down from FRL Link Rate /18.
++static const struct frl_audio_clock_info frl_audio_clock_info_table[10] = {
++	{166666, 4224, 171875, 5292, 156250, 5760, 156250},
++	{166667, 4224, 171875, 5292, 156250, 5760, 156250},
++	{333333, 4032, 328125, 5292, 312500, 6048, 328125},
++	{333334, 4032, 328125, 5292, 312500, 6048, 328125},
++	{444444, 4032, 437500, 3969, 312500, 6048, 437500},
++	{444445, 4032, 437500, 3969, 312500, 6048, 437500},
++	{555555, 3456, 468750, 3969, 390625, 5184, 468750},
++	{555556, 3456, 468750, 3969, 390625, 5184, 468750},
++	{666666, 3072, 500000, 3969, 468750, 4752, 515625},
++	{666667, 3072, 500000, 3969, 468750, 4752, 515625}
++};
 +
- 	/* Idle Optimization Related */
- 	bool (*apply_idle_power_optimizations)(struct dc *dc, bool enable);
- 
-@@ -1710,6 +1713,8 @@ void hwss_hpo_dp_stream_enc_dp_set_dsc_pps_info_packet(union block_sequence_para
- 
- void hwss_stream_enc_dp_set_dsc_pps_info_packet(union block_sequence_params *params);
- 
-+void hwss_hpo_frl_stream_enc_set_dsc_config(union block_sequence_params *params);
++void frl_get_audio_clock_info(
++	enum dc_color_depth color_depth,
++	uint32_t frl_character_clock_kHz,
++	struct frl_audio_clock_info *audio_clock_info)
++{
++	(void)color_depth;
++	const struct frl_audio_clock_info *clock_info;
++	uint32_t index;
++	uint32_t audio_array_size;
 +
- void hwss_set_dmdata_attributes(union block_sequence_params *params);
- 
- void hwss_dp_trace_source_sequence(union block_sequence_params *params);
-diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw/stream_encoder.h b/drivers/gpu/drm/amd/display/dc/inc/hw/stream_encoder.h
-index 1800b1929b16..570c45c7830f 100644
---- a/drivers/gpu/drm/amd/display/dc/inc/hw/stream_encoder.h
-+++ b/drivers/gpu/drm/amd/display/dc/inc/hw/stream_encoder.h
-@@ -368,6 +368,10 @@ struct hpo_frl_stream_encoder {
-  * stream interfaces for setup the FRL stream encoder.
-  */
- struct hpo_frl_stream_encoder_funcs {
-+	void (*hdmi_frl_set_dsc_config)(
-+		struct hpo_frl_stream_encoder *enc,
-+		struct dc_crtc_timing *timing,
-+		uint8_t *dsc_packed_pps);
- 	/**
- 	 * @hdmi_frl_enable:
- 	 *
-diff --git a/drivers/gpu/drm/amd/display/dc/link/link_dpms.c b/drivers/gpu/drm/amd/display/dc/link/link_dpms.c
-index ca56854dc9f1..1cd4a882f66d 100644
---- a/drivers/gpu/drm/amd/display/dc/link/link_dpms.c
-+++ b/drivers/gpu/drm/amd/display/dc/link/link_dpms.c
-@@ -549,6 +549,8 @@ static void update_psp_stream_config(struct pipe_ctx *pipe_ctx, bool dpms_off)
- 
- 	/* dig front end */
- 	config.dig_fe = (uint8_t) pipe_ctx->stream_res.stream_enc->stream_enc_inst;
-+	if (dc_is_hdmi_frl_signal(pipe_ctx->stream->signal))
-+		config.dig_fe = (uint8_t)pipe_ctx->stream_res.hpo_frl_stream_enc->stream_enc_inst;
- 
- 	/* stream encoder index */
- 	config.stream_enc_idx = (uint8_t)(pipe_ctx->stream_res.stream_enc->id - ENGINE_ID_DIGA);
-@@ -785,6 +787,22 @@ void link_set_dsc_on_stream(struct pipe_ctx *pipe_ctx, bool enable)
- 
- 			/* PPS SDP is set elsewhere because it has to be done after DIG FE is connected to DIG BE */
- 		}
-+		else if (dc_is_hdmi_frl_signal(stream->signal)) {
-+			uint8_t dsc_packed_pps[128];
-+			struct dc_crtc_timing patched_crtc_timing = stream->timing;
++	clock_info = frl_audio_clock_info_table;
++	audio_array_size = ARRAY_SIZE(
++			frl_audio_clock_info_table);
 +
-+			DC_LOG_DSC("Setting stream encoder DSC config for engine %d:", (int)pipe_ctx->stream_res.hpo_frl_stream_enc->id);
-+			dsc_optc_config_log(dsc, &dsc_optc_cfg);
-+
-+			/* if we are borrowing from hblank, h_addressable and  pic_width need to be adjusted */
-+			if (dc->debug.enable_hblank_borrow) {
-+				dsc_cfg.pic_width = stream->timing.h_addressable;
++	if (clock_info != NULL) {
++		/* search for exact frl character clock in table */
++		for (index = 0; index < audio_array_size; index++) {
++			if (clock_info[index].frl_character_clock_kHz >
++				frl_character_clock_kHz)
++				break;  /* not match */
++			else if (clock_info[index].frl_character_clock_kHz ==
++					frl_character_clock_kHz) {
++				/* match found */
++				*audio_clock_info = clock_info[index];
++				return;
 +			}
-+
-+			dsc->funcs->dsc_get_packed_pps(dsc, &dsc_cfg, &dsc_packed_pps[0]);
-+			pipe_ctx->stream_res.hpo_frl_stream_enc->funcs->hdmi_frl_set_dsc_config(
-+					pipe_ctx->stream_res.hpo_frl_stream_enc, &patched_crtc_timing, &dsc_packed_pps[0]);
 +		}
- 
- 		/* Enable DSC in OPTC */
- 		DC_LOG_DSC("Setting optc DSC config for tg instance %d:", pipe_ctx->stream_res.tg->inst);
-@@ -816,6 +834,9 @@ void link_set_dsc_on_stream(struct pipe_ctx *pipe_ctx, bool enable)
- 							pipe_ctx->stream_res.stream_enc, false, NULL, true);
- 			}
- 		}
-+		else if (dc_is_hdmi_frl_signal(stream->signal))
-+			pipe_ctx->stream_res.hpo_frl_stream_enc->funcs->hdmi_frl_set_dsc_config(
-+					pipe_ctx->stream_res.hpo_frl_stream_enc, &stream->timing, NULL);
- 
- 		/* disable DSC block */
- 		for (odm_pipe = pipe_ctx; odm_pipe; odm_pipe = odm_pipe->next_odm_pipe) {
-@@ -903,6 +924,12 @@ bool link_set_dsc_pps_packet(struct pipe_ctx *pipe_ctx, bool enable, bool immedi
- 						&dsc_packed_pps[0],
- 						immediate_update);
- 		}
-+		else if (dc_is_hdmi_frl_signal(stream->signal)) {
-+			//TODO: bring HDMI FRL in line with DP
-+			DC_LOG_DSC("Setting stream encoder DSC PPS SDP for engine %d\n", (int)pipe_ctx->stream_res.hpo_frl_stream_enc->id);
-+			pipe_ctx->stream_res.hpo_frl_stream_enc->funcs->hdmi_frl_set_dsc_config(
-+					pipe_ctx->stream_res.hpo_frl_stream_enc, &stream->timing, &dsc_packed_pps[0]);
-+		}
- 	} else {
- 		/* disable DSC PPS in stream encoder */
- 		memset(&stream->dsc_packed_pps[0], 0, sizeof(stream->dsc_packed_pps));
-@@ -917,6 +944,10 @@ bool link_set_dsc_pps_packet(struct pipe_ctx *pipe_ctx, bool enable, bool immedi
- 				pipe_ctx->stream_res.stream_enc->funcs->dp_set_dsc_pps_info_packet(
- 						pipe_ctx->stream_res.stream_enc, false, NULL, true);
- 		}
-+		else if (dc_is_hdmi_frl_signal(stream->signal))
-+			//TODO: bring HDMI FRL in line with DP
-+			pipe_ctx->stream_res.hpo_frl_stream_enc->funcs->hdmi_frl_set_dsc_config(
-+					pipe_ctx->stream_res.hpo_frl_stream_enc, &stream->timing, NULL);
- 	}
- 
- 	return true;
-@@ -2426,6 +2457,8 @@ void link_set_dpms_off(struct pipe_ctx *pipe_ctx)
- 	if (pipe_ctx->stream->timing.flags.DSC) {
- 		if (dc_is_dp_signal(pipe_ctx->stream->signal))
- 			link_set_dsc_enable(pipe_ctx, false);
-+		else if (dc_is_hdmi_frl_signal(pipe_ctx->stream->signal))
-+			link_set_dsc_on_stream(pipe_ctx, false);
- 	}
- 	if (dp_is_128b_132b_signal(pipe_ctx)) {
- 		if (pipe_ctx->stream_res.tg->funcs->set_out_mux)
-@@ -2606,6 +2639,11 @@ void link_set_dpms_on(
- 		}
- 	}
- 
-+	if (pipe_ctx->stream->timing.flags.DSC &&
-+			dc_is_hdmi_frl_signal(pipe_ctx->stream->signal))
-+			//TODO: bring HDMI FRL in line with DP
-+			link_set_dsc_on_stream(pipe_ctx, true);
-+
- 	/* turn off otg test pattern if enable */
- 	if (pipe_ctx->stream_res.tg->funcs->set_test_pattern)
- 		pipe_ctx->stream_res.tg->funcs->set_test_pattern(pipe_ctx->stream_res.tg,
-diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_hdmi_frl.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_hdmi_frl.c
-index 6db1f07fdb79..decc3061c58c 100644
---- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_hdmi_frl.c
-+++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_hdmi_frl.c
-@@ -92,6 +92,25 @@ static void hdmi_return_preeshoot_and_deemphasis(struct dc_link *link,
- 	}
- }
- 
-+static bool hdmi_frl_test_dsc_max_rate(struct ddc_service *ddc_service)
-+{
-+	uint8_t slave_address = HDMI_SCDC_ADDRESS;
-+	uint8_t offset = HDMI_SCDC_SOURCE_TEST_REQ;
-+	union hdmi_scdc_source_test_req test_req = {0};
-+
-+	DC_LOGGER_INIT(ddc_service->link->ctx->logger);
-+
-+	link_query_ddc_data(ddc_service, slave_address,
-+					&offset, sizeof(offset), &test_req.byte,
-+					sizeof(test_req.byte));
-+	if (test_req.fields.DSC_FRL_MAX) {
-+		FRL_INFO("FRL TEST REQ:  DSC_FRL_MAX = 1");
-+		return true;
 +	}
-+
-+	return false;
++	/*Only 3, 6, 8, 10 and 12 Gbps are used for FRL Link rates with character
++	 *clocks of 166.667, 333.333, 444.444, 555.555 and 666.667 MHz are used
++	 *so entry should be found in above table if no bugs */
++	BREAK_TO_DEBUGGER();
 +}
 +
- enum clock_source_id hdmi_frl_find_matching_phypll(
- 		struct dc_link *link)
- {
-@@ -767,6 +786,9 @@ void hdmi_frl_verify_link_cap(struct dc_link *link,
- 			link->preferred_hdmi_frl_settings.force_frl_max ||
- 			link->ctx->dc->debug.force_frl_max ? true :
- 			hdmi_frl_test_max_rate(link->ddc);
-+	link->frl_flags.force_frl_dsc =
-+			link->ctx->dc->debug.force_frl_dsc ? true :
-+			hdmi_frl_test_dsc_max_rate(link->ddc);
- 	link->frl_flags.apply_vsdb_rcc_wa =
- 			link->ctx->dc->debug.apply_vsdb_rcc_wa;
- 
-@@ -778,8 +800,16 @@ void hdmi_frl_verify_link_cap(struct dc_link *link,
- 			link->frl_flags.force_frl_always = true;
- 
- 	if (!link->frl_flags.force_frl_max &&
-+			!link->frl_flags.force_frl_dsc &&
- 			link->local_sink->edid_caps.panel_patch.hdmi_comp_auto) {
- 		link->frl_flags.force_frl_max = true;
-+		link->frl_flags.force_frl_dsc = true;
-+	}
-+
-+	if (link->frl_flags.force_frl_max &&
-+			!link->frl_flags.force_frl_dsc &&
-+			link->local_sink->edid_caps.panel_patch.hdmi_comp_auto) {
-+		link->frl_flags.force_frl_dsc = true;
- 	}
- 
- 	if (link->local_sink &&
-@@ -996,6 +1026,9 @@ void hdmi_frl_set_preferred_link_settings(struct dc *dc,
- 			resource_build_info_frame(pipe);
- 			link_stream->ctx->dc->hwss.update_info_frame(pipe);
- 
-+			if (link_stream->timing.flags.DSC)
-+				link_set_dsc_on_stream(pipe, true);
-+
- 			link_stream->ctx->dc->hwss.enable_audio_stream(pipe);
- 			link_stream->ctx->dc->hwss.enable_stream(pipe);
- 			link_stream->ctx->dc->hwss.unblank_stream(pipe,
-@@ -1104,6 +1137,10 @@ void hdmi_frl_decide_link_settings(struct dc_stream_state *stream,
- 		*frl_link_settings = stream->link->frl_verified_link_cap;
- 		return;
- 	}
-+	if (stream->link->frl_flags.force_frl_dsc) {
-+		*frl_link_settings = stream->link->frl_verified_link_cap;
-+		return;
-+	}
- 
- 	if (stream->link->local_sink)
- 		if (stream->link->local_sink->edid_caps.panel_patch.hdmi_spe_handling) {
-@@ -1126,6 +1163,7 @@ void hdmi_frl_decide_link_settings(struct dc_stream_state *stream,
- 	} while (!success);
- 
- 	*frl_link_settings = temp_settings;
-+	update_borrow_mode_from_dsc_padding(dsc_padding_params, &stream->timing, frl_link_settings);
- }
- 
- void hdmi_frl_write_read_request_enable(struct ddc_service *ddc_service)
-diff --git a/drivers/gpu/drm/amd/display/dc/optc/dcn30/dcn30_optc.c b/drivers/gpu/drm/amd/display/dc/optc/dcn30/dcn30_optc.c
-index d72574db1f07..78fd8d262de3 100644
---- a/drivers/gpu/drm/amd/display/dc/optc/dcn30/dcn30_optc.c
-+++ b/drivers/gpu/drm/amd/display/dc/optc/dcn30/dcn30_optc.c
-@@ -189,7 +189,13 @@ void optc3_set_dsc_config(struct timing_generator *optc,
- 	struct optc *optc1 = DCN10TG_FROM_TG(optc);
- 
- 	optc2_set_dsc_config(optc, dsc_mode, dsc_bytes_per_pixel, dsc_slice_width);
--	REG_UPDATE(OTG_V_SYNC_A_CNTL, OTG_V_SYNC_MODE, 0);
-+
-+	if (dsc_mode != OPTC_DSC_DISABLED
-+			&& optc1->signal == SIGNAL_TYPE_HDMI_FRL) {
-+		REG_UPDATE(OTG_V_SYNC_A_CNTL, OTG_V_SYNC_MODE, 1);
-+	} else {
-+		REG_UPDATE(OTG_V_SYNC_A_CNTL, OTG_V_SYNC_MODE, 0);
-+	}
- }
- 
- void optc3_set_odm_bypass(struct timing_generator *optc,
-@@ -314,6 +320,27 @@ bool optc3_get_pipe_update_pending(struct timing_generator *optc)
- 	return (flip_pending == 1 || dc_update_pending == 1);
- }
- 
-+void optc3_set_vstartup_dsc_frl(struct timing_generator *optc)
++void hpo_enc401_setup_hdmi_audio(
++	struct hpo_frl_stream_encoder *enc,
++	const struct audio_crtc_info *crtc_info)
 +{
-+	struct optc *optc1 = DCN10TG_FROM_TG(optc);
-+	unsigned int vblank_end = 0;
-+	unsigned int vstartup_start = 0;
++	struct dcn401_hpo_frl_stream_encoder *enc401 = DCN401_HPO_FRL_STRENC_FROM_HPO_FRL_STRENC(enc);
++	struct frl_audio_clock_info audio_clock_info = {0};
 +
-+	REG_GET(OTG_V_BLANK_START_END, OTG_V_BLANK_END, &vblank_end);
-+	REG_GET(OTG_VSTARTUP_PARAM, VSTARTUP_START, &vstartup_start);
++	DC_LOG_DEBUG("Entering [%s]\n", __func__);
 +
-+	/* In FRL+DSC mode the VSYNC is generated in OTG at start of HBALNK
-+	 * before frame start (VCOUNT=0 and HCOUNT=0). We need to program
-+	 *  VSTARTUP at least one line before frame start to ensure the VSYNC
-+	 *  will be generated in VRR mode. We need to program
-+	 *  VSTARTUP_START >= V_BLANK_END + 1.
-+	 *  When fullscreen = false,
-+	 *  global_sync will restore VSTARTUP_START to normal value
++	/* TODO:  HDMI_AUDIO_DELAY_EN bit only in DIG -- not in HPO? */
++	/* HDMI_AUDIO_PACKET_CONTROL */
++	//REG_UPDATE(HDMI_AUDIO_PACKET_CONTROL,
++	//		HDMI_AUDIO_DELAY_EN, 1);
++
++	/* Setup audio in AFMT - program AFMT block associated with HPO */
++	ASSERT (enc->afmt);
++	enc->afmt->funcs->setup_hdmi_audio(enc->afmt);
++
++	/* TODO: Same programming, but using HDMI_TB_ENC register */
++	/* HDMI_ACR_PACKET_CONTROL */
++	REG_UPDATE_3(HDMI_TB_ENC_ACR_PACKET_CONTROL,
++			HDMI_ACR_AUTO_SEND, 1,
++			HDMI_ACR_SOURCE, 0,
++			HDMI_ACR_AUDIO_PRIORITY, 0);
++
++	/* N/CTS computed relative to FRL rate instead of video rate (TMDS character clock). */
++	/* Program audio clock sample/regeneration parameters */
++	frl_get_audio_clock_info(crtc_info->color_depth,
++			     crtc_info->frl_character_clock_kHz,
++			     &audio_clock_info);
++	DC_LOG_HW_AUDIO(
++			"\n%s:Input::requested_pixel_clock_100Hz = %d"	\
++			"calculated_pixel_clock_100Hz = %d \n", __func__,	\
++			crtc_info->requested_pixel_clock_100Hz,		\
++			crtc_info->calculated_pixel_clock_100Hz);
++
++	/* Same register definition, but using HDMI_TB_ENC register */
++	/* HDMI_ACR_32_0__HDMI_ACR_CTS_32_MASK */
++	REG_UPDATE(HDMI_TB_ENC_ACR_32_0, HDMI_ACR_CTS_32, audio_clock_info.cts_32khz);
++
++	/* HDMI_ACR_32_1__HDMI_ACR_N_32_MASK */
++	REG_UPDATE(HDMI_TB_ENC_ACR_32_1, HDMI_ACR_N_32, audio_clock_info.n_32khz);
++
++	/* HDMI_ACR_44_0__HDMI_ACR_CTS_44_MASK */
++	REG_UPDATE(HDMI_TB_ENC_ACR_44_0, HDMI_ACR_CTS_44, audio_clock_info.cts_44khz);
++
++	/* HDMI_ACR_44_1__HDMI_ACR_N_44_MASK */
++	REG_UPDATE(HDMI_TB_ENC_ACR_44_1, HDMI_ACR_N_44, audio_clock_info.n_44khz);
++
++	/* HDMI_ACR_48_0__HDMI_ACR_CTS_48_MASK */
++	REG_UPDATE(HDMI_TB_ENC_ACR_48_0, HDMI_ACR_CTS_48, audio_clock_info.cts_48khz);
++
++	/* HDMI_ACR_48_1__HDMI_ACR_N_48_MASK */
++	REG_UPDATE(HDMI_TB_ENC_ACR_48_1, HDMI_ACR_N_48, audio_clock_info.n_48khz);
++
++
++	/* TODO: HDMI_TB_ENC_ACR_PACKET_CONTROL::ACR_N_MULTIPLE
++	 *       Same register definition, but using HDMI_TB_ENC register*/
++
++	/* Video driver cannot know in advance which sample rate will
++	 * be used by HD Audio driver
++	 * HDMI_ACR_PACKET_CONTROL__HDMI_ACR_N_MULTIPLE field is
++	 * programmed below in interrupt callback
 +	 */
-+	if (vblank_end >= vstartup_start)
-+		REG_SET(OTG_VSTARTUP_PARAM, 0, VSTARTUP_START,
-+				vblank_end+1);
++	DC_LOG_DEBUG("Exiting [%s]\n", __func__);
 +}
- /**
-  * optc3_set_timing_double_buffer() - DRR double buffering control
-  *
-@@ -409,6 +436,7 @@ static const struct timing_generator_funcs dcn30_tg_funcs = {
- 		.get_optc_source = optc2_get_optc_source,
- 		.set_out_mux = optc3_set_out_mux,
- 		.set_drr_trigger_window = optc3_set_drr_trigger_window,
-+		.set_vstartup_dsc_frl = optc3_set_vstartup_dsc_frl,
- 		.set_vtotal_change_limit = optc3_set_vtotal_change_limit,
- 		.set_gsl = optc2_set_gsl,
- 		.set_gsl_source_select = optc2_set_gsl_source_select,
++
++void hpo_enc401_hdmi_audio_setup(
++	struct hpo_frl_stream_encoder *enc,
++	unsigned int az_inst,
++	struct audio_info *info,
++	struct audio_crtc_info *audio_crtc_info)
++{
++	hpo_enc401_setup_hdmi_audio(enc, audio_crtc_info);
++	ASSERT (enc->afmt);
++	enc->afmt->funcs->se_audio_setup(enc->afmt, az_inst, info);
++}
++
++void hpo_enc401_hdmi_audio_disable(
++	struct hpo_frl_stream_encoder *enc)
++{
++	ASSERT(enc->afmt);
++	if (enc->afmt->funcs->afmt_powerdown)
++		enc->afmt->funcs->afmt_powerdown(enc->afmt);
++}
++
++void hpo_enc401_audio_mute_control(
++	struct hpo_frl_stream_encoder *enc,
++	bool mute)
++{
++	ASSERT (enc->afmt);
++	enc->afmt->funcs->audio_mute_control(enc->afmt, mute);
++}
++
++void enc401_stream_encoder_set_avmute(
++	struct hpo_frl_stream_encoder *enc,
++	bool enable)
++{
++	struct dcn401_hpo_frl_stream_encoder *enc401 = DCN401_HPO_FRL_STRENC_FROM_HPO_FRL_STRENC(enc);
++	unsigned int value = enable ? 1 : 0;
++
++	REG_UPDATE(HDMI_TB_ENC_GC_CONTROL, HDMI_GC_AVMUTE, value);
++}
++
++/* Set Dynamic Metadata-configuration.
++ *   enable_dme:         TRUE: enables Dynamic Metadata Enfine, FALSE: disables DME
++ *   hubp_requestor_id:  HUBP physical instance that is the source of dynamic metadata
++ *                       only needs to be set when enable_dme is TRUE
++ *   dmdata_mode:        dynamic metadata packet type: DP, HDMI, or Dolby Vision
++ *
++ *   Ensure the OTG master update lock is set when changing DME configuration.
++ */
++void hpo_enc401_set_dynamic_metadata(struct hpo_frl_stream_encoder *enc,
++	bool enable_dme,
++	uint32_t hubp_requestor_id,
++	enum dynamic_metadata_mode dmdata_mode)
++{
++	struct dcn401_hpo_frl_stream_encoder *enc401 = DCN401_HPO_FRL_STRENC_FROM_HPO_FRL_STRENC(enc);
++
++	if (enable_dme) {
++		REG_UPDATE_2(DME_CONTROL,
++			METADATA_HUBP_REQUESTOR_ID, hubp_requestor_id,
++			METADATA_STREAM_TYPE, (dmdata_mode == dmdata_dolby_vision) ? 1 : 0);
++
++		REG_UPDATE_3(HDMI_TB_ENC_METADATA_PACKET_CONTROL,
++			HDMI_METADATA_PACKET_ENABLE, 1,
++			HDMI_METADATA_PACKET_LINE_REFERENCE, 0,
++			HDMI_METADATA_PACKET_LINE, 2);
++
++		REG_UPDATE(DME_CONTROL,
++			METADATA_ENGINE_EN, 1);
++	} else {
++		REG_UPDATE(DME_CONTROL,
++			METADATA_ENGINE_EN, 0);
++
++		REG_UPDATE(HDMI_TB_ENC_METADATA_PACKET_CONTROL,
++			HDMI_METADATA_PACKET_ENABLE, 0);
++	}
++}
++
++static const struct hpo_frl_stream_encoder_funcs dcn401_str_enc_funcs = {
++	.hdmi_frl_enable		= hpo_enc401_enable,
++	.hdmi_frl_unblank		= hpo_enc401_unblank,
++	.hdmi_frl_blank			= hpo_enc401_blank,
++	.hdmi_frl_set_stream_attribute	= hpo_enc401_set_hdmi_stream_attribute,
++	.validate_hdmi_frl_output	= hpo_enc3_validate_hdmi_frl_output,
++	.update_hdmi_info_packets	= hpo_enc401_update_hdmi_info_packets,
++	.stop_hdmi_info_packets		= hpo_enc401_stop_hdmi_info_packets,
++	.audio_mute_control		= hpo_enc401_audio_mute_control,
++	.hdmi_audio_setup		= hpo_enc401_hdmi_audio_setup,
++	.hdmi_audio_disable		= hpo_enc401_hdmi_audio_disable,
++	.set_avmute			= enc401_stream_encoder_set_avmute,
++	.read_state			= hpo_enc401_read_state,
++	.set_dynamic_metadata           = hpo_enc401_set_dynamic_metadata,
++};
++
++void dcn401_hpo_frl_stream_encoder_construct(
++	struct dcn401_hpo_frl_stream_encoder *enc401,
++	struct dc_context *ctx,
++	struct dc_bios *bp,
++	enum engine_id eng_id,
++	struct vpg *vpg,
++	struct afmt *afmt,
++	const struct dcn30_hpo_frl_stream_enc_registers *regs,
++	const struct dcn401_hpo_frl_stream_encoder_shift *hpo_se_shift,
++	const struct dcn401_hpo_frl_stream_encoder_mask *hpo_se_mask)
++{
++	enc401->base.funcs = &dcn401_str_enc_funcs;
++	enc401->base.ctx = ctx;
++	enc401->base.id = eng_id;
++	enc401->base.bp = bp;
++	enc401->base.vpg = vpg;
++	enc401->base.afmt = afmt;
++	enc401->regs = regs;
++	enc401->hpo_se_shift = hpo_se_shift;
++	enc401->hpo_se_mask = hpo_se_mask;
++	enc401->base.stream_enc_inst = vpg->inst;
++}
+diff --git a/drivers/gpu/drm/amd/display/dc/hpo/dcn401/dcn401_hpo_frl_stream_encoder.h b/drivers/gpu/drm/amd/display/dc/hpo/dcn401/dcn401_hpo_frl_stream_encoder.h
+new file mode 100644
+index 000000000000..b47ba55b9a68
+--- /dev/null
++++ b/drivers/gpu/drm/amd/display/dc/hpo/dcn401/dcn401_hpo_frl_stream_encoder.h
+@@ -0,0 +1,335 @@
++/*
++ * Copyright 2023 Advanced Micro Devices, Inc.
++ *
++ * Permission is hereby granted, free of charge, to any person obtaining a
++ * copy of this software and associated documentation files (the "Software"),
++ * to deal in the Software without restriction, including without limitation
++ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
++ *  and/or sell copies of the Software, and to permit persons to whom the
++ * Software is furnished to do so, subject to the following conditions:
++ *
++ * The above copyright notice and this permission notice shall be included in
++ * all copies or substantial portions of the Software.
++ *
++ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
++ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
++ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
++ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
++ * OTHER DEALINGS IN THE SOFTWARE.
++ *
++ * Authors: AMD
++ *
++ */
++
++#ifndef __DC_HPO_FRL_STREAM_ENCODER_DCN401_H__
++#define __DC_HPO_FRL_STREAM_ENCODER_DCN401_H__
++
++#include "dcn30/dcn30_vpg.h"
++#include "dcn30/dcn30_afmt.h"
++#include "dcn30/dcn30_hpo_frl_stream_encoder.h"
++#include "stream_encoder.h"
++#include "dml/dml1_frl_cap_chk.h"
++
++#define DCN401_HPO_FRL_STRENC_FROM_HPO_FRL_STRENC(hpo_frl_stream_encoder)\
++	container_of(hpo_frl_stream_encoder, struct dcn401_hpo_frl_stream_encoder, base)
++
++#define SE_SF(reg_name, field_name, post_fix)\
++	.field_name = reg_name ## __ ## field_name ## post_fix
++
++#define DCN401_HDMI_STREAM_ENC_MASK_SH_LIST(mask_sh)\
++	SE_SF(HDMI_STREAM_ENC_INPUT_MUX_CONTROL, HDMI_STREAM_ENC_INPUT_MUX_SOURCE_SEL, mask_sh),\
++	SE_SF(HDMI_STREAM_ENC_CLOCK_RAMP_ADJUSTER_FIFO_STATUS_CONTROL0, FIFO_ENABLE, mask_sh),\
++	SE_SF(HDMI_STREAM_ENC_CLOCK_RAMP_ADJUSTER_FIFO_STATUS_CONTROL0, FIFO_RESET, mask_sh),\
++	SE_SF(HDMI_STREAM_ENC_CLOCK_RAMP_ADJUSTER_FIFO_STATUS_CONTROL0, FIFO_PIXEL_ENCODING_TYPE, mask_sh),\
++	SE_SF(HDMI_STREAM_ENC_CLOCK_RAMP_ADJUSTER_FIFO_STATUS_CONTROL0, FIFO_UNCOMPRESSED_PIXEL_FORMAT, mask_sh),\
++	SE_SF(HDMI_STREAM_ENC_CLOCK_RAMP_ADJUSTER_FIFO_STATUS_CONTROL0, FIFO_COMPRESSED_PIXEL_FORMAT, mask_sh),\
++	SE_SF(HDMI_STREAM_ENC_CLOCK_RAMP_ADJUSTER_FIFO_STATUS_CONTROL0, FIFO_RESET_DONE, mask_sh),\
++	SE_SF(HDMI_STREAM_ENC_CLOCK_CONTROL, HDMI_STREAM_ENC_CLOCK_EN, mask_sh),\
++	SE_SF(DME0_DME_CONTROL, METADATA_HUBP_REQUESTOR_ID, mask_sh),\
++	SE_SF(DME0_DME_CONTROL, METADATA_ENGINE_EN, mask_sh),\
++	SE_SF(DME0_DME_CONTROL, METADATA_STREAM_TYPE, mask_sh),\
++	SE_SF(HDMI_TB_ENC_METADATA_PACKET_CONTROL, HDMI_METADATA_PACKET_ENABLE, mask_sh),\
++	SE_SF(HDMI_TB_ENC_METADATA_PACKET_CONTROL, HDMI_METADATA_PACKET_LINE_REFERENCE, mask_sh),\
++	SE_SF(HDMI_TB_ENC_METADATA_PACKET_CONTROL, HDMI_METADATA_PACKET_MISSED, mask_sh),\
++	SE_SF(HDMI_TB_ENC_METADATA_PACKET_CONTROL, HDMI_METADATA_PACKET_LINE, mask_sh)
++
++#define DCN401_HDMI_TB_ENC_MASK_SH_LIST(mask_sh)\
++	SE_SF(HDMI_TB_ENC_CONTROL, HDMI_TB_ENC_EN, mask_sh),\
++	SE_SF(HDMI_TB_ENC_CONTROL, HDMI_RESET, mask_sh),\
++	SE_SF(HDMI_TB_ENC_CONTROL, HDMI_RESET_DONE, mask_sh),\
++	SE_SF(HDMI_TB_ENC_MODE, HDMI_BORROW_MODE, mask_sh),\
++	SE_SF(HDMI_TB_ENC_H_ACTIVE_BLANK, HDMI_H_ACTIVE, mask_sh),\
++	SE_SF(HDMI_TB_ENC_H_ACTIVE_BLANK, HDMI_H_BLANK, mask_sh),\
++	SE_SF(HDMI_TB_ENC_HC_ACTIVE_BLANK, HDMI_HC_ACTIVE, mask_sh),\
++	SE_SF(HDMI_TB_ENC_HC_ACTIVE_BLANK, HDMI_HC_BLANK, mask_sh),\
++	SE_SF(HDMI_TB_ENC_PACKET_CONTROL, HDMI_MAX_PACKETS_PER_LINE, mask_sh),\
++	SE_SF(HDMI_TB_ENC_DB_CONTROL, HDMI_DB_DISABLE, mask_sh),\
++	SE_SF(HDMI_TB_ENC_PIXEL_FORMAT, HDMI_PIXEL_ENCODING, mask_sh),\
++	SE_SF(HDMI_TB_ENC_PIXEL_FORMAT, HDMI_DEEP_COLOR_DEPTH, mask_sh),\
++	SE_SF(HDMI_TB_ENC_PIXEL_FORMAT, HDMI_DEEP_COLOR_ENABLE, mask_sh),\
++	SE_SF(HDMI_TB_ENC_PIXEL_FORMAT, HDMI_DSC_MODE, mask_sh),\
++	SE_SF(HDMI_TB_ENC_VBI_PACKET_CONTROL1, HDMI_GC_CONT, mask_sh),\
++	SE_SF(HDMI_TB_ENC_VBI_PACKET_CONTROL1, HDMI_GC_SEND, mask_sh),\
++	SE_SF(HDMI_TB_ENC_VBI_PACKET_CONTROL1, HDMI_ACP_SEND, mask_sh),\
++	SE_SF(HDMI_TB_ENC_VBI_PACKET_CONTROL1, HDMI_AUDIO_INFO_SEND, mask_sh),\
++	SE_SF(HDMI_TB_ENC_VBI_PACKET_CONTROL1, HDMI_AUDIO_INFO_LINE, mask_sh),\
++	SE_SF(HDMI_TB_ENC_GC_CONTROL, HDMI_GC_AVMUTE, mask_sh),\
++	SE_SF(HDMI_TB_ENC_GENERIC_PACKET_CONTROL0, HDMI_GENERIC0_CONT, mask_sh),\
++	SE_SF(HDMI_TB_ENC_GENERIC_PACKET_CONTROL0, HDMI_GENERIC1_CONT, mask_sh),\
++	SE_SF(HDMI_TB_ENC_GENERIC_PACKET_CONTROL0, HDMI_GENERIC2_CONT, mask_sh),\
++	SE_SF(HDMI_TB_ENC_GENERIC_PACKET_CONTROL0, HDMI_GENERIC3_CONT, mask_sh),\
++	SE_SF(HDMI_TB_ENC_GENERIC_PACKET_CONTROL0, HDMI_GENERIC4_CONT, mask_sh),\
++	SE_SF(HDMI_TB_ENC_GENERIC_PACKET_CONTROL0, HDMI_GENERIC5_CONT, mask_sh),\
++	SE_SF(HDMI_TB_ENC_GENERIC_PACKET_CONTROL0, HDMI_GENERIC6_CONT, mask_sh),\
++	SE_SF(HDMI_TB_ENC_GENERIC_PACKET_CONTROL0, HDMI_GENERIC7_CONT, mask_sh),\
++	SE_SF(HDMI_TB_ENC_GENERIC_PACKET_CONTROL1, HDMI_GENERIC8_CONT, mask_sh),\
++	SE_SF(HDMI_TB_ENC_GENERIC_PACKET_CONTROL1, HDMI_GENERIC9_CONT, mask_sh),\
++	SE_SF(HDMI_TB_ENC_GENERIC_PACKET_CONTROL1, HDMI_GENERIC10_CONT, mask_sh),\
++	SE_SF(HDMI_TB_ENC_GENERIC_PACKET_CONTROL1, HDMI_GENERIC11_CONT, mask_sh),\
++	SE_SF(HDMI_TB_ENC_GENERIC_PACKET_CONTROL1, HDMI_GENERIC12_CONT, mask_sh),\
++	SE_SF(HDMI_TB_ENC_GENERIC_PACKET_CONTROL1, HDMI_GENERIC13_CONT, mask_sh),\
++	SE_SF(HDMI_TB_ENC_GENERIC_PACKET_CONTROL1, HDMI_GENERIC14_CONT, mask_sh),\
++	SE_SF(HDMI_TB_ENC_GENERIC_PACKET_CONTROL0, HDMI_GENERIC0_SEND, mask_sh),\
++	SE_SF(HDMI_TB_ENC_GENERIC_PACKET_CONTROL0, HDMI_GENERIC1_SEND, mask_sh),\
++	SE_SF(HDMI_TB_ENC_GENERIC_PACKET_CONTROL0, HDMI_GENERIC2_SEND, mask_sh),\
++	SE_SF(HDMI_TB_ENC_GENERIC_PACKET_CONTROL0, HDMI_GENERIC3_SEND, mask_sh),\
++	SE_SF(HDMI_TB_ENC_GENERIC_PACKET_CONTROL0, HDMI_GENERIC4_SEND, mask_sh),\
++	SE_SF(HDMI_TB_ENC_GENERIC_PACKET_CONTROL0, HDMI_GENERIC5_SEND, mask_sh),\
++	SE_SF(HDMI_TB_ENC_GENERIC_PACKET_CONTROL0, HDMI_GENERIC6_SEND, mask_sh),\
++	SE_SF(HDMI_TB_ENC_GENERIC_PACKET_CONTROL0, HDMI_GENERIC7_SEND, mask_sh),\
++	SE_SF(HDMI_TB_ENC_GENERIC_PACKET_CONTROL1, HDMI_GENERIC8_SEND, mask_sh),\
++	SE_SF(HDMI_TB_ENC_GENERIC_PACKET_CONTROL1, HDMI_GENERIC9_SEND, mask_sh),\
++	SE_SF(HDMI_TB_ENC_GENERIC_PACKET_CONTROL1, HDMI_GENERIC10_SEND, mask_sh),\
++	SE_SF(HDMI_TB_ENC_GENERIC_PACKET_CONTROL1, HDMI_GENERIC11_SEND, mask_sh),\
++	SE_SF(HDMI_TB_ENC_GENERIC_PACKET_CONTROL1, HDMI_GENERIC12_SEND, mask_sh),\
++	SE_SF(HDMI_TB_ENC_GENERIC_PACKET_CONTROL1, HDMI_GENERIC13_SEND, mask_sh),\
++	SE_SF(HDMI_TB_ENC_GENERIC_PACKET_CONTROL1, HDMI_GENERIC14_SEND, mask_sh),\
++	SE_SF(HDMI_TB_ENC_GENERIC_PACKET0_1_LINE, HDMI_GENERIC0_LINE, mask_sh),\
++	SE_SF(HDMI_TB_ENC_GENERIC_PACKET0_1_LINE, HDMI_GENERIC1_LINE, mask_sh),\
++	SE_SF(HDMI_TB_ENC_GENERIC_PACKET2_3_LINE, HDMI_GENERIC2_LINE, mask_sh),\
++	SE_SF(HDMI_TB_ENC_GENERIC_PACKET2_3_LINE, HDMI_GENERIC3_LINE, mask_sh),\
++	SE_SF(HDMI_TB_ENC_GENERIC_PACKET4_5_LINE, HDMI_GENERIC4_LINE, mask_sh),\
++	SE_SF(HDMI_TB_ENC_GENERIC_PACKET4_5_LINE, HDMI_GENERIC5_LINE, mask_sh),\
++	SE_SF(HDMI_TB_ENC_GENERIC_PACKET6_7_LINE, HDMI_GENERIC6_LINE, mask_sh),\
++	SE_SF(HDMI_TB_ENC_GENERIC_PACKET6_7_LINE, HDMI_GENERIC7_LINE, mask_sh),\
++	SE_SF(HDMI_TB_ENC_GENERIC_PACKET8_9_LINE, HDMI_GENERIC8_LINE, mask_sh),\
++	SE_SF(HDMI_TB_ENC_GENERIC_PACKET8_9_LINE, HDMI_GENERIC9_LINE, mask_sh),\
++	SE_SF(HDMI_TB_ENC_GENERIC_PACKET10_11_LINE, HDMI_GENERIC10_LINE, mask_sh),\
++	SE_SF(HDMI_TB_ENC_GENERIC_PACKET10_11_LINE, HDMI_GENERIC11_LINE, mask_sh),\
++	SE_SF(HDMI_TB_ENC_GENERIC_PACKET12_13_LINE, HDMI_GENERIC12_LINE, mask_sh),\
++	SE_SF(HDMI_TB_ENC_GENERIC_PACKET12_13_LINE, HDMI_GENERIC13_LINE, mask_sh),\
++	SE_SF(HDMI_TB_ENC_GENERIC_PACKET14_LINE, HDMI_GENERIC14_LINE, mask_sh),\
++	SE_SF(HDMI_TB_ENC_ACR_PACKET_CONTROL, HDMI_ACR_AUTO_SEND, mask_sh),\
++	SE_SF(HDMI_TB_ENC_ACR_PACKET_CONTROL, HDMI_ACR_SOURCE, mask_sh),\
++	SE_SF(HDMI_TB_ENC_ACR_PACKET_CONTROL, HDMI_ACR_AUDIO_PRIORITY, mask_sh),\
++	SE_SF(HDMI_TB_ENC_ACR_32_0, HDMI_ACR_CTS_32, mask_sh),\
++	SE_SF(HDMI_TB_ENC_ACR_32_1, HDMI_ACR_N_32, mask_sh),\
++	SE_SF(HDMI_TB_ENC_ACR_44_0, HDMI_ACR_CTS_44, mask_sh),\
++	SE_SF(HDMI_TB_ENC_ACR_44_1, HDMI_ACR_N_44, mask_sh),\
++	SE_SF(HDMI_TB_ENC_ACR_48_0, HDMI_ACR_CTS_48, mask_sh),\
++	SE_SF(HDMI_TB_ENC_ACR_48_1, HDMI_ACR_N_48, mask_sh),\
++	SE_SF(HDMI_TB_ENC_CRC_CNTL, HDMI_CRC_EN, mask_sh),\
++	SE_SF(HDMI_TB_ENC_CRC_CNTL, HDMI_CRC_CONT_EN, mask_sh)
++
++#define DCN401_HDMI_TB_ENC_REG_FIELD_LIST(type) \
++	type HDMI_TB_ENC_EN;\
++	type HDMI_RESET;\
++	type HDMI_RESET_DONE;\
++	type HDMI_STREAM_ENC_CLOCK_EN;\
++	type HDMI_STREAM_ENC_INPUT_MUX_SOURCE_SEL;\
++	type HDMI_MAX_PACKETS_PER_LINE;\
++	type FIFO_ENABLE;\
++	type FIFO_RESET;\
++	type FIFO_PIXEL_ENCODING_TYPE;\
++	type FIFO_UNCOMPRESSED_PIXEL_FORMAT;\
++	type FIFO_COMPRESSED_PIXEL_FORMAT;\
++	type FIFO_RESET_DONE;\
++	type HDMI_BORROW_MODE;\
++	type HDMI_H_ACTIVE;\
++	type HDMI_H_BLANK;\
++	type HDMI_HC_ACTIVE;\
++	type HDMI_HC_BLANK;\
++	type HDMI_DB_DISABLE;\
++	type HDMI_PIXEL_ENCODING;\
++	type HDMI_DEEP_COLOR_DEPTH;\
++	type HDMI_DEEP_COLOR_ENABLE;\
++	type HDMI_ODM_COMBINE_MODE;\
++	type HDMI_DSC_MODE;\
++	type HDMI_GC_CONT;\
++	type HDMI_GC_SEND;\
++	type HDMI_ACP_SEND;\
++	type HDMI_AUDIO_INFO_SEND;\
++	type HDMI_AUDIO_INFO_LINE;\
++	type HDMI_GC_AVMUTE;\
++	type HDMI_GENERIC0_CONT;\
++	type HDMI_GENERIC0_SEND;\
++	type HDMI_GENERIC0_LINE;\
++	type HDMI_GENERIC1_CONT;\
++	type HDMI_GENERIC1_SEND;\
++	type HDMI_GENERIC1_LINE;\
++	type HDMI_GENERIC2_CONT;\
++	type HDMI_GENERIC2_SEND;\
++	type HDMI_GENERIC2_LINE;\
++	type HDMI_GENERIC3_CONT;\
++	type HDMI_GENERIC3_SEND;\
++	type HDMI_GENERIC3_LINE;\
++	type HDMI_GENERIC4_CONT;\
++	type HDMI_GENERIC4_SEND;\
++	type HDMI_GENERIC4_LINE;\
++	type HDMI_GENERIC5_CONT;\
++	type HDMI_GENERIC5_SEND;\
++	type HDMI_GENERIC5_LINE;\
++	type HDMI_GENERIC6_CONT;\
++	type HDMI_GENERIC6_SEND;\
++	type HDMI_GENERIC6_LINE;\
++	type HDMI_GENERIC7_CONT;\
++	type HDMI_GENERIC7_SEND;\
++	type HDMI_GENERIC7_LINE;\
++	type HDMI_GENERIC8_CONT;\
++	type HDMI_GENERIC8_SEND;\
++	type HDMI_GENERIC8_LINE;\
++	type HDMI_GENERIC9_CONT;\
++	type HDMI_GENERIC9_SEND;\
++	type HDMI_GENERIC9_LINE;\
++	type HDMI_GENERIC10_CONT;\
++	type HDMI_GENERIC10_SEND;\
++	type HDMI_GENERIC10_LINE;\
++	type HDMI_GENERIC11_CONT;\
++	type HDMI_GENERIC11_SEND;\
++	type HDMI_GENERIC11_LINE;\
++	type HDMI_GENERIC12_CONT;\
++	type HDMI_GENERIC12_SEND;\
++	type HDMI_GENERIC12_LINE;\
++	type HDMI_GENERIC13_CONT;\
++	type HDMI_GENERIC13_SEND;\
++	type HDMI_GENERIC13_LINE;\
++	type HDMI_GENERIC14_CONT;\
++	type HDMI_GENERIC14_SEND;\
++	type HDMI_GENERIC14_LINE;\
++	type HDMI_ACR_AUTO_SEND;\
++	type HDMI_ACR_SOURCE;\
++	type HDMI_ACR_AUDIO_PRIORITY;\
++	type HDMI_ACR_CTS_32;\
++	type HDMI_ACR_N_32;\
++	type HDMI_ACR_CTS_44;\
++	type HDMI_ACR_N_44;\
++	type HDMI_ACR_CTS_48;\
++	type HDMI_ACR_N_48;\
++	type HDMI_CRC_EN;\
++	type HDMI_CRC_CONT_EN;\
++	type METADATA_HUBP_REQUESTOR_ID;\
++	type METADATA_ENGINE_EN;\
++	type METADATA_STREAM_TYPE;\
++	type HDMI_METADATA_PACKET_ENABLE;\
++	type HDMI_METADATA_PACKET_LINE_REFERENCE;\
++	type HDMI_METADATA_PACKET_MISSED;\
++	type HDMI_METADATA_PACKET_LINE
++
++#define DCN401_HPO_STREAM_ENC_MASK_SH_LIST(mask_sh)\
++	DCN401_HDMI_STREAM_ENC_MASK_SH_LIST(mask_sh),\
++	DCN401_HDMI_TB_ENC_MASK_SH_LIST(mask_sh)
++
++#define DCN42_HDMI_TB_ENC_REG_FIELD_LIST(type) \
++	type HDMI_STREAM_ENC_INPUT_MUX_AUDIO_STREAM_SOURCE_SEL;\
++	type HDMI_STREAM_ENC_APG_CLOCK_EN
++
++struct dcn401_hpo_frl_stream_encoder_shift {
++	DCN401_HDMI_TB_ENC_REG_FIELD_LIST(uint8_t);
++	DCN42_HDMI_TB_ENC_REG_FIELD_LIST(uint8_t);
++};
++
++struct dcn401_hpo_frl_stream_encoder_mask {
++	DCN401_HDMI_TB_ENC_REG_FIELD_LIST(uint32_t);
++	DCN42_HDMI_TB_ENC_REG_FIELD_LIST(uint32_t);
++};
++
++struct dcn401_hpo_frl_stream_encoder {
++	struct hpo_frl_stream_encoder base;
++	const struct dcn30_hpo_frl_stream_enc_registers *regs;
++	const struct dcn401_hpo_frl_stream_encoder_shift *hpo_se_shift;
++	const struct dcn401_hpo_frl_stream_encoder_mask *hpo_se_mask;
++};
++
++void hpo_enc401_enable(
++		struct hpo_frl_stream_encoder *enc,
++		int otg_inst);
++
++void hpo_enc401_unblank(
++	struct hpo_frl_stream_encoder *enc,
++	int otg_inst);
++
++void hpo_enc401_read_state(
++		struct hpo_frl_stream_encoder *enc,
++		struct hpo_frl_stream_encoder_state *state);
++
++void hpo_enc401_blank(
++	struct hpo_frl_stream_encoder *enc);
++
++void hpo_enc401_set_hdmi_stream_attribute(
++	struct hpo_frl_stream_encoder *enc,
++	struct dc_crtc_timing *crtc_timing,
++	struct frl_borrow_params *borrow_params,
++	int odm_combine_num_segments);
++
++void hpo_enc401_update_hdmi_info_packet(
++	struct dcn401_hpo_frl_stream_encoder *enc401,
++	uint32_t packet_index,
++	const struct dc_info_packet *info_packet);
++
++void hpo_enc401_update_hdmi_info_packets(
++	struct hpo_frl_stream_encoder *enc,
++	const struct encoder_info_frame *info_frame);
++
++void hpo_enc401_hdmi_set_dsc_config(
++  struct hpo_frl_stream_encoder *enc,
++  struct dc_crtc_timing *timing,
++  uint8_t *dsc_packed_pps);
++
++void hpo_enc401_stop_hdmi_info_packets(
++	struct hpo_frl_stream_encoder *enc);
++
++void hpo_enc401_setup_hdmi_audio(
++	struct hpo_frl_stream_encoder *enc,
++	const struct audio_crtc_info *crtc_info);
++
++void hpo_enc401_hdmi_audio_setup(
++	struct hpo_frl_stream_encoder *enc,
++	unsigned int az_inst,
++	struct audio_info *info,
++	struct audio_crtc_info *audio_crtc_info);
++
++void hpo_enc401_hdmi_audio_disable(
++	struct hpo_frl_stream_encoder *enc);
++
++void hpo_enc401_audio_mute_control(
++	struct hpo_frl_stream_encoder *enc,
++	bool mute);
++
++void enc401_stream_encoder_set_avmute(
++	struct hpo_frl_stream_encoder *enc,
++	bool enable);
++
++void hpo_enc401_set_dynamic_metadata(
++	struct hpo_frl_stream_encoder *enc,
++	bool enable_dme,
++	uint32_t hubp_requestor_id,
++	enum dynamic_metadata_mode dmdata_mode);
++void frl_get_audio_clock_info(
++	enum dc_color_depth color_depth,
++	uint32_t frl_character_clock_kHz,
++	struct frl_audio_clock_info *audio_clock_info);
++
++void dcn401_hpo_frl_stream_encoder_construct(
++	struct dcn401_hpo_frl_stream_encoder *enc401,
++	struct dc_context *ctx,
++	struct dc_bios *bp,
++	enum engine_id eng_id,
++	struct vpg *vpg,
++	struct afmt *afmt,
++	const struct dcn30_hpo_frl_stream_enc_registers *regs,
++	const struct dcn401_hpo_frl_stream_encoder_shift *hpo_se_shift,
++	const struct dcn401_hpo_frl_stream_encoder_mask *hpo_se_mask);
++
++#endif
+diff --git a/drivers/gpu/drm/amd/display/dc/hpo/dcn42/dcn42_hpo_frl_stream_encoder.c b/drivers/gpu/drm/amd/display/dc/hpo/dcn42/dcn42_hpo_frl_stream_encoder.c
+new file mode 100644
+index 000000000000..0ec386347f80
+--- /dev/null
++++ b/drivers/gpu/drm/amd/display/dc/hpo/dcn42/dcn42_hpo_frl_stream_encoder.c
+@@ -0,0 +1,206 @@
++// SPDX-License-Identifier: MIT
++//
++// Copyright 2025 Advanced Micro Devices, Inc.
++
++#include "dc_bios_types.h"
++#include "core_types.h"
++#include "dcn42_hpo_frl_stream_encoder.h"
++#include "dcn31/dcn31_apg.h"
++#include "dcn401/dcn401_hpo_frl_stream_encoder.h"
++#include "dcn30/dcn30_hpo_frl_stream_encoder.h"
++#include "reg_helper.h"
++#include "hw_shared.h"
++#include "dcn_calc_math.h"
++#include "dml/dcn30/dcn30_fpu.h"
++
++#undef DC_LOGGER
++#define DC_LOGGER \
++		enc401->base.ctx->logger
++
++#define DTRACE(str, ...) {DC_LOG_HDMI_FRL(str, ##__VA_ARGS__); }
++
++#define DEBUG_FRL_CAP_CHK 1
++
++#define REG(reg)\
++	(enc401->regs->reg)
++
++#undef FN
++#define FN(reg_name, field_name) \
++	enc401->hpo_se_shift->field_name, enc401->hpo_se_mask->field_name
++
++#define CTX \
++	enc401->base.ctx
++
++#define VBI_LINE_0 0
++
++void hpo_enc42_unblank(struct hpo_frl_stream_encoder *enc, int otg_inst)
++{
++	(void)otg_inst;
++	struct dcn401_hpo_frl_stream_encoder *enc401 = DCN401_HPO_FRL_STRENC_FROM_HPO_FRL_STRENC(enc);
++
++	DC_LOG_HDMI_FRL("Entering [%s]\n", __func__);
++
++	/*make sure FIFO_VIDEO_STREAM_ACTIVE =1*/
++	REG_UPDATE(HDMI_STREAM_ENC_CLOCK_RAMP_ADJUSTER_FIFO_STATUS_CONTROL0,
++		   FIFO_ENABLE, 0);
++
++	/* Reset */
++	REG_UPDATE(HDMI_STREAM_ENC_CLOCK_RAMP_ADJUSTER_FIFO_STATUS_CONTROL0,
++		   FIFO_RESET, 1);
++	REG_WAIT(HDMI_STREAM_ENC_CLOCK_RAMP_ADJUSTER_FIFO_STATUS_CONTROL0, FIFO_RESET_DONE,
++		 1, 10, 1000);
++	REG_UPDATE(HDMI_STREAM_ENC_CLOCK_RAMP_ADJUSTER_FIFO_STATUS_CONTROL0,
++		   FIFO_RESET, 0);
++	REG_WAIT(HDMI_STREAM_ENC_CLOCK_RAMP_ADJUSTER_FIFO_STATUS_CONTROL0, FIFO_RESET_DONE,
++		 0, 10, 1000);
++
++	/* Enable HDMI Tribyte Encoder */
++	REG_UPDATE(HDMI_TB_ENC_CONTROL,
++		   HDMI_TB_ENC_EN, 1);
++
++	/* Enable Clock Ramp Adjuster FIFO */
++	REG_UPDATE(HDMI_STREAM_ENC_CLOCK_RAMP_ADJUSTER_FIFO_STATUS_CONTROL0,
++		   FIFO_ENABLE, 1);
++
++	DC_LOG_HDMI_FRL("Exiting [%s]\n", __func__);
++}
++
++void hpo_enc42_setup_hdmi_audio(
++	struct hpo_frl_stream_encoder *enc,
++	const struct audio_crtc_info *crtc_info)
++{
++	struct dcn401_hpo_frl_stream_encoder *enc401 = DCN401_HPO_FRL_STRENC_FROM_HPO_FRL_STRENC(enc);
++	struct frl_audio_clock_info audio_clock_info = {0};
++
++	DC_LOG_DEBUG("Entering [%s]\n", __func__);
++
++	/* TODO:  HDMI_AUDIO_DELAY_EN bit only in DIG -- not in HPO? */
++	/* HDMI_AUDIO_PACKET_CONTROL */
++	//REG_UPDATE(HDMI_AUDIO_PACKET_CONTROL,
++	//		HDMI_AUDIO_DELAY_EN, 1);
++
++	/* Setup audio in APG - program APG block associated with HPO */
++	ASSERT(enc->apg);
++
++	/* HDMI_ACR_PACKET_CONTROL */
++	REG_UPDATE_3(HDMI_TB_ENC_ACR_PACKET_CONTROL,
++			HDMI_ACR_AUTO_SEND, 1,
++			HDMI_ACR_SOURCE, 0,
++			HDMI_ACR_AUDIO_PRIORITY, 0);
++
++	/* N/CTS computed relative to FRL rate instead of video rate (TMDS character clock). */
++	/* Program audio clock sample/regeneration parameters */
++	frl_get_audio_clock_info(crtc_info->color_depth,
++			     crtc_info->frl_character_clock_kHz,
++			     &audio_clock_info);
++	DC_LOG_HW_AUDIO(
++			"\n%s:Input::requested_pixel_clock_100Hz = %d"	\
++			"calculated_pixel_clock_100Hz = %d \n", __func__,	\
++			crtc_info->requested_pixel_clock_100Hz,		\
++			crtc_info->calculated_pixel_clock_100Hz);
++
++	/* Same register definition, but using HDMI_TB_ENC register */
++	/* HDMI_ACR_32_0__HDMI_ACR_CTS_32_MASK */
++	REG_UPDATE(HDMI_TB_ENC_ACR_32_0, HDMI_ACR_CTS_32, audio_clock_info.cts_32khz);
++
++	/* HDMI_ACR_32_1__HDMI_ACR_N_32_MASK */
++	REG_UPDATE(HDMI_TB_ENC_ACR_32_1, HDMI_ACR_N_32, audio_clock_info.n_32khz);
++
++	/* HDMI_ACR_44_0__HDMI_ACR_CTS_44_MASK */
++	REG_UPDATE(HDMI_TB_ENC_ACR_44_0, HDMI_ACR_CTS_44, audio_clock_info.cts_44khz);
++
++	/* HDMI_ACR_44_1__HDMI_ACR_N_44_MASK */
++	REG_UPDATE(HDMI_TB_ENC_ACR_44_1, HDMI_ACR_N_44, audio_clock_info.n_44khz);
++
++	/* HDMI_ACR_48_0__HDMI_ACR_CTS_48_MASK */
++	REG_UPDATE(HDMI_TB_ENC_ACR_48_0, HDMI_ACR_CTS_48, audio_clock_info.cts_48khz);
++
++	/* HDMI_ACR_48_1__HDMI_ACR_N_48_MASK */
++	REG_UPDATE(HDMI_TB_ENC_ACR_48_1, HDMI_ACR_N_48, audio_clock_info.n_48khz);
++
++
++	/* TODO: HDMI_TB_ENC_ACR_PACKET_CONTROL::ACR_N_MULTIPLE
++	 *       Same register definition, but using HDMI_TB_ENC register*/
++
++	/* Video driver cannot know in advance which sample rate will
++	 * be used by HD Audio driver
++	 * HDMI_ACR_PACKET_CONTROL__HDMI_ACR_N_MULTIPLE field is
++	 * programmed below in interrupt callback
++	 */
++	DC_LOG_DEBUG("Exiting [%s]\n", __func__);
++}
++
++void hpo_enc42_hdmi_audio_setup(
++	struct hpo_frl_stream_encoder *enc,
++	unsigned int az_inst,
++	struct audio_info *info,
++	struct audio_crtc_info *audio_crtc_info)
++{
++	struct dcn401_hpo_frl_stream_encoder *enc401 = DCN401_HPO_FRL_STRENC_FROM_HPO_FRL_STRENC(enc);
++
++	REG_UPDATE_2(HDMI_STREAM_ENC_AUDIO_CONTROL,
++			HDMI_STREAM_ENC_INPUT_MUX_AUDIO_STREAM_SOURCE_SEL, az_inst,
++			HDMI_STREAM_ENC_APG_CLOCK_EN, 1);
++
++	hpo_enc42_setup_hdmi_audio(enc, audio_crtc_info);
++	ASSERT (enc->apg);
++	enc->apg->funcs->se_audio_setup(enc->apg, az_inst, info);
++}
++
++void hpo_enc42_hdmi_audio_disable(
++	struct hpo_frl_stream_encoder *enc)
++{
++	ASSERT(enc->apg);
++	if (enc->apg->funcs->disable_apg)
++		enc->apg->funcs->disable_apg(enc->apg);
++}
++
++void hpo_enc42_audio_mute_control(
++	struct hpo_frl_stream_encoder *enc,
++	bool mute)
++{
++	ASSERT (enc->apg);
++	if (mute)
++		enc->apg->funcs->disable_apg(enc->apg);
++	else
++		enc->apg->funcs->enable_apg(enc->apg);
++}
++
++static const struct hpo_frl_stream_encoder_funcs dcn42_str_enc_funcs = {
++	.hdmi_frl_enable		= hpo_enc401_enable,
++	.hdmi_frl_unblank		= hpo_enc42_unblank,
++	.hdmi_frl_blank			= hpo_enc401_blank,
++	.hdmi_frl_set_stream_attribute	= hpo_enc401_set_hdmi_stream_attribute,
++	.validate_hdmi_frl_output	= hpo_enc3_validate_hdmi_frl_output,
++	.update_hdmi_info_packets	= hpo_enc401_update_hdmi_info_packets,
++	.stop_hdmi_info_packets		= hpo_enc401_stop_hdmi_info_packets,
++	.audio_mute_control		= hpo_enc42_audio_mute_control,
++	.hdmi_audio_setup		= hpo_enc42_hdmi_audio_setup,
++	.hdmi_audio_disable		= hpo_enc42_hdmi_audio_disable,
++	.set_avmute			= enc401_stream_encoder_set_avmute,
++	.read_state			= hpo_enc401_read_state,
++	.set_dynamic_metadata           = hpo_enc401_set_dynamic_metadata,
++};
++
++void dcn42_hpo_frl_stream_encoder_construct(
++	struct dcn42_hpo_frl_stream_encoder *enc42,
++	struct dc_context *ctx,
++	struct dc_bios *bp,
++	enum engine_id eng_id,
++	struct vpg *vpg,
++	struct apg *apg,
++	const struct dcn30_hpo_frl_stream_enc_registers *regs,
++	const struct dcn401_hpo_frl_stream_encoder_shift *hpo_se_shift,
++	const struct dcn401_hpo_frl_stream_encoder_mask *hpo_se_mask)
++{
++	enc42->base.funcs = &dcn42_str_enc_funcs;
++	enc42->base.ctx = ctx;
++	enc42->base.id = eng_id;
++	enc42->base.bp = bp;
++	enc42->base.vpg = vpg;
++	enc42->base.apg = apg;
++	enc42->regs = regs;
++	enc42->hpo_se_shift = hpo_se_shift;
++	enc42->hpo_se_mask = hpo_se_mask;
++	enc42->base.stream_enc_inst = vpg->inst;
++}
+diff --git a/drivers/gpu/drm/amd/display/dc/hpo/dcn42/dcn42_hpo_frl_stream_encoder.h b/drivers/gpu/drm/amd/display/dc/hpo/dcn42/dcn42_hpo_frl_stream_encoder.h
+new file mode 100644
+index 000000000000..ff8218bed753
+--- /dev/null
++++ b/drivers/gpu/drm/amd/display/dc/hpo/dcn42/dcn42_hpo_frl_stream_encoder.h
+@@ -0,0 +1,59 @@
++// SPDX-License-Identifier: MIT
++//
++// Copyright 2025 Advanced Micro Devices, Inc.
++
++#ifndef __DC_HPO_FRL_STREAM_ENCODER_DCN42_H__
++#define __DC_HPO_FRL_STREAM_ENCODER_DCN42_H__
++
++#include "dcn30/dcn30_vpg.h"
++#include "dcn31/dcn31_apg.h"
++#include "dcn30/dcn30_hpo_frl_stream_encoder.h"
++#include "dcn401/dcn401_hpo_frl_stream_encoder.h"
++
++#include "stream_encoder.h"
++#include "dml/dml1_frl_cap_chk.h"
++
++#define DCN42_HDMI_STREAM_ENC_MASK_SH_LIST(mask_sh)\
++	DCN401_HPO_STREAM_ENC_MASK_SH_LIST(mask_sh),\
++	SE_SF(HDMI_STREAM_ENC_AUDIO_CONTROL, HDMI_STREAM_ENC_INPUT_MUX_AUDIO_STREAM_SOURCE_SEL, mask_sh),\
++	SE_SF(HDMI_STREAM_ENC_AUDIO_CONTROL, HDMI_STREAM_ENC_APG_CLOCK_EN, mask_sh)
++struct dcn42_hpo_frl_stream_encoder {
++	struct hpo_frl_stream_encoder base;
++	const struct dcn30_hpo_frl_stream_enc_registers *regs;
++	const struct dcn401_hpo_frl_stream_encoder_shift *hpo_se_shift;
++	const struct dcn401_hpo_frl_stream_encoder_mask *hpo_se_mask;
++};
++
++void hpo_enc42_unblank(
++	struct hpo_frl_stream_encoder *enc,
++	int otg_inst);
++
++void hpo_enc42_setup_hdmi_audio(
++	struct hpo_frl_stream_encoder *enc,
++	const struct audio_crtc_info *crtc_info);
++
++void hpo_enc42_hdmi_audio_setup(
++	struct hpo_frl_stream_encoder *enc,
++	unsigned int az_inst,
++	struct audio_info *info,
++	struct audio_crtc_info *audio_crtc_info);
++
++void hpo_enc42_hdmi_audio_disable(
++	struct hpo_frl_stream_encoder *enc);
++
++void hpo_enc42_audio_mute_control(
++	struct hpo_frl_stream_encoder *enc,
++	bool mute);
++
++void dcn42_hpo_frl_stream_encoder_construct(
++	struct dcn42_hpo_frl_stream_encoder *enc42,
++	struct dc_context *ctx,
++	struct dc_bios *bp,
++	enum engine_id eng_id,
++	struct vpg *vpg,
++	struct apg *apg,
++	const struct dcn30_hpo_frl_stream_enc_registers *regs,
++	const struct dcn401_hpo_frl_stream_encoder_shift *hpo_se_shift,
++	const struct dcn401_hpo_frl_stream_encoder_mask *hpo_se_mask);
++
++#endif /* __DC_HPO_STREAM_ENCODER_DCN42_H__ */
+diff --git a/drivers/gpu/drm/amd/display/dc/opp/dcn10/dcn10_opp.c b/drivers/gpu/drm/amd/display/dc/opp/dcn10/dcn10_opp.c
+index b49bd155cad4..98335a53ca52 100644
+--- a/drivers/gpu/drm/amd/display/dc/opp/dcn10/dcn10_opp.c
++++ b/drivers/gpu/drm/amd/display/dc/opp/dcn10/dcn10_opp.c
+@@ -263,6 +263,7 @@ void opp1_set_dyn_expansion(
+ 	/*00 - 10-bit -> 12-bit dynamic expansion*/
+ 	/*01 - 8-bit  -> 12-bit dynamic expansion*/
+ 	if (signal == SIGNAL_TYPE_HDMI_TYPE_A ||
++		signal == SIGNAL_TYPE_HDMI_FRL ||
+ 		signal == SIGNAL_TYPE_DISPLAY_PORT ||
+ 		signal == SIGNAL_TYPE_DISPLAY_PORT_MST ||
+ 		signal == SIGNAL_TYPE_VIRTUAL) {
+diff --git a/drivers/gpu/drm/amd/display/dc/optc/dcn10/dcn10_optc.h b/drivers/gpu/drm/amd/display/dc/optc/dcn10/dcn10_optc.h
+index 138081e6cc97..bceefb5320eb 100644
+--- a/drivers/gpu/drm/amd/display/dc/optc/dcn10/dcn10_optc.h
++++ b/drivers/gpu/drm/amd/display/dc/optc/dcn10/dcn10_optc.h
+@@ -266,6 +266,7 @@
+ 
+ struct dcn_optc_registers {
+ 	OPTC_REG_VARIABLE_LIST_DCN;
++	uint32_t OTG_DRR_V_TOTAL_REACH_RANGE;
+ 	OPTC_REG_VARIABLE_LIST_DCN42;
+ };
+ 
+@@ -595,7 +596,9 @@ struct dcn_optc_registers {
+ 	type MANUAL_FLOW_CONTROL;\
+ 	type MANUAL_FLOW_CONTROL_SEL;
+ 
+-#define V_TOTAL_REGS(type)
++#define V_TOTAL_REGS(type) \
++	type OTG_DRR_V_TOTAL_REACH_LOWER_RANGE;\
++	type OTG_DRR_V_TOTAL_REACH_UPPER_RANGE;
+ 
+ #define TG_REG_FIELD_LIST(type) \
+ 	TG_REG_FIELD_LIST_DCN1_0(type)\
 diff --git a/drivers/gpu/drm/amd/display/dc/optc/dcn30/dcn30_optc.h b/drivers/gpu/drm/amd/display/dc/optc/dcn30/dcn30_optc.h
-index 16c5610b49ac..8a88867f4361 100644
+index e2303f9eaf13..16c5610b49ac 100644
 --- a/drivers/gpu/drm/amd/display/dc/optc/dcn30/dcn30_optc.h
 +++ b/drivers/gpu/drm/amd/display/dc/optc/dcn30/dcn30_optc.h
-@@ -349,6 +349,7 @@ void optc3_triplebuffer_lock(struct timing_generator *optc);
- void optc3_program_blank_color(struct timing_generator *optc,
- 		const struct tg_color *blank_color);
+@@ -28,7 +28,9 @@
  
-+void optc3_set_vstartup_dsc_frl(struct timing_generator *optc);
- void optc3_set_vtotal_change_limit(struct timing_generator *optc,
- 		uint32_t limit);
+ #include "dcn20/dcn20_optc.h"
  
+-#define V_TOTAL_REGS_DCN30_SRI(inst)
++#define V_TOTAL_REGS_DCN30_SRI(inst) \
++	SRI(OTG_V_TOTAL_MID, OTG, inst),\
++	SRI(OTG_DRR_V_TOTAL_REACH_RANGE, OTG, inst),
+ 
+ #define OPTC_COMMON_REG_LIST_DCN3_BASE(inst) \
+ 	SRI(OTG_VSTARTUP_PARAM, OTG, inst),\
+@@ -112,7 +114,9 @@
+ 	SR(DWB_SOURCE_SELECT),\
+ 	SRI(OTG_PIPE_UPDATE_STATUS, OTG, inst)
+ 
+-#define DCN30_VTOTAL_REGS_SF(mask_sh)
++#define DCN30_VTOTAL_REGS_SF(mask_sh)\
++	SF(OTG0_OTG_DRR_V_TOTAL_REACH_RANGE, OTG_DRR_V_TOTAL_REACH_LOWER_RANGE, mask_sh),\
++	SF(OTG0_OTG_DRR_V_TOTAL_REACH_RANGE, OTG_DRR_V_TOTAL_REACH_UPPER_RANGE, mask_sh),
+ 
+ #define OPTC_COMMON_MASK_SH_LIST_DCN3_BASE(mask_sh)\
+ 	SF(OTG0_OTG_VSTARTUP_PARAM, VSTARTUP_START, mask_sh),\
 diff --git a/drivers/gpu/drm/amd/display/dc/optc/dcn31/dcn31_optc.c b/drivers/gpu/drm/amd/display/dc/optc/dcn31/dcn31_optc.c
-index 98aaa22ce81c..bbf703777f72 100644
+index 5f53f8747812..98aaa22ce81c 100644
 --- a/drivers/gpu/drm/amd/display/dc/optc/dcn31/dcn31_optc.c
 +++ b/drivers/gpu/drm/amd/display/dc/optc/dcn31/dcn31_optc.c
-@@ -500,6 +500,7 @@ static const struct timing_generator_funcs dcn31_tg_funcs = {
- 		.get_optc_source = optc2_get_optc_source,
- 		.set_out_mux = optc3_set_out_mux,
- 		.set_drr_trigger_window = optc3_set_drr_trigger_window,
-+		.set_vstartup_dsc_frl = optc3_set_vstartup_dsc_frl,
- 		.set_vtotal_change_limit = optc3_set_vtotal_change_limit,
- 		.set_gsl = optc2_set_gsl,
- 		.set_gsl_source_select = optc2_set_gsl_source_select,
-diff --git a/drivers/gpu/drm/amd/display/dc/optc/dcn314/dcn314_optc.c b/drivers/gpu/drm/amd/display/dc/optc/dcn314/dcn314_optc.c
-index a7cf34937b2f..4d4b517575e2 100644
---- a/drivers/gpu/drm/amd/display/dc/optc/dcn314/dcn314_optc.c
-+++ b/drivers/gpu/drm/amd/display/dc/optc/dcn314/dcn314_optc.c
-@@ -244,6 +244,7 @@ static const struct timing_generator_funcs dcn314_tg_funcs = {
- 		.get_optc_source = optc2_get_optc_source,
- 		.set_out_mux = optc3_set_out_mux,
- 		.set_drr_trigger_window = optc3_set_drr_trigger_window,
-+		.set_vstartup_dsc_frl = optc3_set_vstartup_dsc_frl,
- 		.set_vtotal_change_limit = optc3_set_vtotal_change_limit,
- 		.set_gsl = optc2_set_gsl,
- 		.set_gsl_source_select = optc2_set_gsl_source_select,
-diff --git a/drivers/gpu/drm/amd/display/dc/optc/dcn32/dcn32_optc.c b/drivers/gpu/drm/amd/display/dc/optc/dcn32/dcn32_optc.c
-index 60e546b69a05..99258b2fb14e 100644
---- a/drivers/gpu/drm/amd/display/dc/optc/dcn32/dcn32_optc.c
-+++ b/drivers/gpu/drm/amd/display/dc/optc/dcn32/dcn32_optc.c
-@@ -354,6 +354,7 @@ static const struct timing_generator_funcs dcn32_tg_funcs = {
- 		.get_optc_source = optc2_get_optc_source,
- 		.set_out_mux = optc3_set_out_mux,
- 		.set_drr_trigger_window = optc3_set_drr_trigger_window,
-+		.set_vstartup_dsc_frl = optc3_set_vstartup_dsc_frl,
- 		.set_vtotal_change_limit = optc3_set_vtotal_change_limit,
- 		.set_gsl = optc2_set_gsl,
- 		.set_gsl_source_select = optc2_set_gsl_source_select,
-diff --git a/drivers/gpu/drm/amd/display/dc/optc/dcn35/dcn35_optc.c b/drivers/gpu/drm/amd/display/dc/optc/dcn35/dcn35_optc.c
-index a880e4a6d165..f6183c2e78e4 100644
---- a/drivers/gpu/drm/amd/display/dc/optc/dcn35/dcn35_optc.c
-+++ b/drivers/gpu/drm/amd/display/dc/optc/dcn35/dcn35_optc.c
-@@ -595,6 +595,7 @@ static const struct timing_generator_funcs dcn35_tg_funcs = {
- 		.set_h_timing_div_manual_mode = optc32_set_h_timing_div_manual_mode,
- 		.set_out_mux = optc3_set_out_mux,
- 		.set_drr_trigger_window = optc3_set_drr_trigger_window,
-+		.set_vstartup_dsc_frl = optc3_set_vstartup_dsc_frl,
- 		.set_vtotal_change_limit = optc3_set_vtotal_change_limit,
- 		.set_gsl = optc2_set_gsl,
- 		.set_gsl_source_select = optc2_set_gsl_source_select,
+@@ -320,6 +320,8 @@ void optc31_read_reg_state(struct timing_generator *optc, struct dcn_optc_reg_st
+ {
+ 	struct optc *optc1 = DCN10TG_FROM_TG(optc);
+ 
++	optc_reg_state->otg_drr_v_total_reach_range = REG_READ(OTG_DRR_V_TOTAL_REACH_RANGE);
++
+ 	optc_reg_state->optc_bytes_per_pixel = REG_READ(OPTC_BYTES_PER_PIXEL);
+ 	optc_reg_state->optc_data_format_control = REG_READ(OPTC_DATA_FORMAT_CONTROL);
+ 	optc_reg_state->optc_data_source_select = REG_READ(OPTC_DATA_SOURCE_SELECT);
 diff --git a/drivers/gpu/drm/amd/display/dc/optc/dcn401/dcn401_optc.c b/drivers/gpu/drm/amd/display/dc/optc/dcn401/dcn401_optc.c
-index a6d76f451cf8..581517c9cec4 100644
+index a8e978d1fae8..a6d76f451cf8 100644
 --- a/drivers/gpu/drm/amd/display/dc/optc/dcn401/dcn401_optc.c
 +++ b/drivers/gpu/drm/amd/display/dc/optc/dcn401/dcn401_optc.c
-@@ -521,6 +521,7 @@ static const struct timing_generator_funcs dcn401_tg_funcs = {
- 		.get_optc_source = optc2_get_optc_source,
- 		.set_out_mux = optc401_set_out_mux,
- 		.set_drr_trigger_window = optc3_set_drr_trigger_window,
-+		.set_vstartup_dsc_frl = optc3_set_vstartup_dsc_frl,
- 		.set_vtotal_change_limit = optc3_set_vtotal_change_limit,
- 		.set_gsl = optc2_set_gsl,
- 		.set_gsl_source_select = optc2_set_gsl_source_select,
-diff --git a/drivers/gpu/drm/amd/display/dc/optc/dcn42/dcn42_optc.c b/drivers/gpu/drm/amd/display/dc/optc/dcn42/dcn42_optc.c
-index ed66a2bbb8ae..f5280bc3c7ec 100644
---- a/drivers/gpu/drm/amd/display/dc/optc/dcn42/dcn42_optc.c
-+++ b/drivers/gpu/drm/amd/display/dc/optc/dcn42/dcn42_optc.c
-@@ -250,6 +250,7 @@ static struct timing_generator_funcs dcn42_tg_funcs = {
- 		.wait_otg_disable = optc35_wait_otg_disable,
- 		.set_out_mux = optc401_set_out_mux,
- 		.set_drr_trigger_window = optc3_set_drr_trigger_window,
-+		.set_vstartup_dsc_frl = optc3_set_vstartup_dsc_frl,
- 		.set_vtotal_change_limit = optc3_set_vtotal_change_limit,
- 		.set_gsl = optc2_set_gsl,
- 		.set_gsl_source_select = optc2_set_gsl_source_select,
+@@ -378,6 +378,8 @@ void optc401_set_out_mux(struct timing_generator *optc, enum otg_out_mux_dest de
+ 	   01 - OTG_CONTROL_OTG_OUT_MUX_1 : Reserved.
+ 	   02 - OTG_CONTROL_OTG_OUT_MUX_2 : Connects to HPO.
+ 	*/
++	if (dest  == OUT_MUX_HPO_FRL)
++		dest = OUT_MUX_HPO_DP;
+ 	REG_UPDATE(OTG_CONTROL, OTG_OUT_MUX, dest);
+ }
+ 
 -- 
 2.54.0
 
