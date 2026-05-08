@@ -4,63 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 94FF9CD3427
-	for <amd-gfx@archiver.kernel.org>; Fri,  8 May 2026 03:06:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 344A0CD3427
+	for <amd-gfx@archiver.kernel.org>; Fri,  8 May 2026 03:14:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 16D2710E2DD;
-	Fri,  8 May 2026 03:06:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8BE8510E2EA;
+	Fri,  8 May 2026 03:14:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="zlLFpEZg";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="eS+tp8Au";
 	dkim-atps=neutral
-Received: from BL2PR02CU003.outbound.protection.outlook.com
- (mail-eastusazon11011059.outbound.protection.outlook.com [52.101.52.59])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 04CC610E2DD
- for <amd-gfx@lists.freedesktop.org>; Fri,  8 May 2026 03:06:25 +0000 (UTC)
+Received: from PH7PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11010014.outbound.protection.outlook.com [52.101.201.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0E92210E2EA
+ for <amd-gfx@lists.freedesktop.org>; Fri,  8 May 2026 03:14:17 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=cXLwWA0FDsy3MbRLhHhvC9CDZZpKDyQKiGo/r501IAj74pWksv1JNfhfMo3rrSS+v8m5BWs1dDeh6DnXLPuFk5RJpaKSWXlv4ZaSdTponft3pAgWILDXZ2N7/bIZhn8G35mQ426qsr3UES3NvOUxpisNqvmNtoZEiACd+L65GEv6e6D3ZJoLNb4q4SjmTPf/Rx9DTQ/H8bf0CGmw4n2KkAq1o7McaUQAQwPX8f4CYoimSUPn6welG8i9FWqsSyrYCW4xLbJmTiQNTk5TrPVe3TXurTV1lwXBezIyu7kowgW0a3fl/zVZ4GPr6EBF7wfsVbS5XbrEUFIgU5VpYv4rTA==
+ b=cRHPrpmEe73zcD6ajLa3rWGsDZRMUBg9xMoWgIT+A0uQLIsAq4FDHJf4/gMMFb/fYeLq3zXd1JjTMe+epPOwJKU7PLuvMujReLJmdEI16b3JFzLTjzlqBFMQDdg/3tD36WBUapIks7zA0ttcdu/1PkObOPpsIGahfzX00LnFBNj1HfibcPLpDzj+u+xwx8h2kgkMlPyLmNTq/zamPg0nOafjLiT7X+3BmCe4ZVYs1QFXGiSkQ1FkD1syJNCypa6nmwqlvM+A8Yq/QDW0/slSe/vpWrHf35lFrElTN5fiujsJSzo+CWYIJMPsEnffV5PkIN1Qlci0tROhx0wOGnZ68A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=jBRQ/3lgK7iG9jEP0txGaSmAeVX3+oL7O0t/a99YPgk=;
- b=DVTJ/hur0cGQpLvh8RqvR/U0WXUbPEqqejLRv/tfk7R23OIuMdKXDh+Qx/i7a2ak0zOLv68LAtlqP5IiRRhqduzqTlBTZGe93sLQhvEbLh25Ieo7vA/vjF5o/xFp7urULGHCqm+nhWr5WJunQvKk5yaum8fKtAeCCsYIjX8I/zLU0nT6ZDbeNxMZEss2srAaVxnhJopvvZHjm5Z57wv5yhIyy04xeboWnMfGguTPbjfJXSNNF1GPYo0dJV+Kcj0gyUhnkQmyP+bz7+fzpG8sMc2P6Mme0Tl2C7afpxtnUk9y/G+FdI2hIvvWSyOUmJYdUlRs8tcrObwyUdSp7b0KVQ==
+ bh=r2zTR7i05917cVK4HnLE/HY4Q8plu4kcvFUYdNTmqrA=;
+ b=UiXhnFLul2UJzX/beVoAXC39i+yCcBSL00dCTpJhXEpWgkouQSn6Jb3idUVVL7QW56N7GV3kgJ6xDIIHCqtAe7nGJW+xSL7VQfWycSAKS5b3zV5GTzE5c5h8jwmyPpr62aTV09VuVs4D2sc9uDbadfZNagQ06AFaJ+8AiGxlEXV9cL3kYpfhKMSFKvmoVxbcuKLSAusAdgyInIM9WahB8dbGdTHrF2f+eDisZvRB2PYGgqKo7KdwC4i3d5iB2mqgrBd5ZI00YBfAcI5QjorEgU88Lswsgoxaa3J1cf6MPwj0mtNIwCKeukGl8ehn4TX3Lq7K/cvmTOW357vnvDFqHA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=jBRQ/3lgK7iG9jEP0txGaSmAeVX3+oL7O0t/a99YPgk=;
- b=zlLFpEZgVM6YT8rTYl1liGKhcnUFUrp0otQR4JDK5aBijKQTQACn4DXcf5H0mL4MOOF73QXdK2DdkPsjNl6r5goZi2PPAuXup4hhmYUoxfe+rQu3IxHRa6ci4QJEwix4a9tO7h3o5rk0r6PoFq8/jyxkKgiW1YDPBS2CqfQrE2c=
+ bh=r2zTR7i05917cVK4HnLE/HY4Q8plu4kcvFUYdNTmqrA=;
+ b=eS+tp8AuWn5STzFTJ8aWFMpxsgMSMCSZoLp7HFZkg6phMmY/ISqvqf5hNYzrdunpeXZTA4gYCCGZksve+DFuy2CL61XpWqDgixPMnGQCrZ7wAWV/SE+EV8AUfWkl9MKktTqv9f+Scx5f0U1aIXe9T2kAqpV00C/9+pdhZ5IBq1U=
 Received: from BN9PR12MB5306.namprd12.prod.outlook.com (2603:10b6:408:103::12)
  by IA1PR12MB8517.namprd12.prod.outlook.com (2603:10b6:208:449::8)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9891.15; Fri, 8 May
- 2026 03:06:22 +0000
+ 2026 03:14:12 +0000
 Received: from BN9PR12MB5306.namprd12.prod.outlook.com
  ([fe80::9976:3768:a636:3c3d]) by BN9PR12MB5306.namprd12.prod.outlook.com
  ([fe80::9976:3768:a636:3c3d%2]) with mapi id 15.20.9891.008; Fri, 8 May 2026
- 03:06:22 +0000
+ 03:14:11 +0000
 From: "Chai, Thomas" <YiPeng.Chai@amd.com>
 To: "Xie, Chenglei" <Chenglei.Xie@amd.com>, "amd-gfx@lists.freedesktop.org"
  <amd-gfx@lists.freedesktop.org>
 CC: "Chan, Hing Pong" <Jeffrey.Chan@amd.com>, "Luo, Zhigang"
- <Zhigang.Luo@amd.com>, "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- "Xie, Chenglei" <Chenglei.Xie@amd.com>
-Subject: RE: [PATCH] drm/amdgpu: fix OOB risk parsing virt RAS batch trace
- replies on the VF
-Thread-Topic: [PATCH] drm/amdgpu: fix OOB risk parsing virt RAS batch trace
- replies on the VF
-Thread-Index: AQHc3mA/TIwew2yApUqL1bf7Q2HSk7YDbUlA
-Date: Fri, 8 May 2026 03:06:22 +0000
-Message-ID: <BN9PR12MB5306BCE04148F44EA9212B34FC3D2@BN9PR12MB5306.namprd12.prod.outlook.com>
-References: <20260507202929.110177-1-Chenglei.Xie@amd.com>
-In-Reply-To: <20260507202929.110177-1-Chenglei.Xie@amd.com>
+ <Zhigang.Luo@amd.com>, "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Lu, 
+ Victor Cheng Chi (Victor)" <VictorChengChi.Lu@amd.com>
+Subject: RE: [PATCH] drm/amdgpu: bound bad-page list writes to allocated
+ capacity
+Thread-Topic: [PATCH] drm/amdgpu: bound bad-page list writes to allocated
+ capacity
+Thread-Index: AQHc3jAdk3K7++MxI0Ka64HOhLGnVrYC/3IAgAB0g2A=
+Date: Fri, 8 May 2026 03:14:11 +0000
+Message-ID: <BN9PR12MB5306BE73CDDAAEDA37B3A0F1FC3D2@BN9PR12MB5306.namprd12.prod.outlook.com>
+References: <20260507144449.25778-1-Chenglei.Xie@amd.com>
+ <SJ1PR12MB6121C866664DDBE850559F22803C2@SJ1PR12MB6121.namprd12.prod.outlook.com>
+In-Reply-To: <SJ1PR12MB6121C866664DDBE850559F22803C2@SJ1PR12MB6121.namprd12.prod.outlook.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
 msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
  MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-05-08T02:47:32.0000000Z;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-05-07T20:09:32.0000000Z;
  MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD General
  v26; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=3;
  MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard
@@ -68,58 +69,58 @@ authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 x-ms-publictraffictype: Email
 x-ms-traffictypediagnostic: BN9PR12MB5306:EE_|IA1PR12MB8517:EE_
-x-ms-office365-filtering-correlation-id: 0f494281-af8f-4a3c-dba2-08deacaec891
+x-ms-office365-filtering-correlation-id: e1eee4e4-3447-4f9c-45a6-08deacafe084
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
  ARA:13230040|1800799024|376014|366016|56012099003|22082099003|18002099003|38070700021;
-x-microsoft-antispam-message-info: EglrHT2Ex4E6vFEOzUJdec8dTGgxhCWQZsgtB6T+8om86yB5O+ar9Ovsp9kznQttwmV+VYvxv6PsHF8RZr5H9HF9L8gt8fmVcT8thmRACtJjDK8OMhxEKB0SRNVtjxJsdu5zg+u+C8A4gn0aNEvc1LPacXrcqR5PVBkqBw8VCUbz4wDGMrxTN38NDOxYJnIQY5ht9ilpOzQCy+S79epfq9mezXKlSu5tigCCWYafpbRkcsv3JPTbOuMng/dxlwKtQAcNube6MEskpptdvJw10GW6opR1k06v7Dtet0gy1X9SG5HxyzRO6/iBkx3SUzjt6nLK1rlkdWwbldyowTMgjgtfmD8GNq+x3rpOoBmAaPt0YjI4GGCpEwT+J0Lb0c7wb2yXMAQgjqk6/2nVT7fkKSfxzsHL5kRe2HixZRzi00MYAI7Q7TY2gIzKJjT2guZEbIJXpTd/CD21fg5CFhP22+cksSRe3E/0ByHEV79pjG2uiJgumtO0jJtFnyRGwfN2VG7J6KWJWa8SXjaTG+Jdbj1ZapT/WYn3ynKTwuzcJZc20N9k1ZfqyLxAa1tjSgLU+EQePzcPwYcX9stN0Kd7LYLdDEDHuVoQUCgrq9xLVqueRNw/tYOiY4jj7U4FHMDDmnDAA6PQkSQPEjqtVyj/+9nDbeSBrXRuIvEuSSy+R6tnwR4HHj76/EJxcpH/0bYT8u+ua9G0IFZrpr9dq4gfP1dKwHuzhmBgzXlWpbGcpmRonbeyIEth3wCLqquka+6a
+x-microsoft-antispam-message-info: /DlLNu/K7PUfSuH7fK6oXY+VQRfoLphUJTGYgvgBQuAK4X66HakpoHU7ZXfloaPNrNjfWT2R1H0UtTraaFLhDQV1wyvOz3wjj7a1zVMXaPBKzTjmoKMvKy6W/hgezwd1YFnFKb7OfZY5yWfzDXnEIww/2aQd/9RRWI2ZmmiArPWoNoilMtFeniJXvLaO5YL7iiGjh3ciZORq0Qf4dC2CDSenriYb6WdgL3QnnLRvfeXM+Ve9/pIN7m3jopFa/QdwfiY5DJ35ZWfczpEiMgKnYAxlg1l3MAB5rMOdhtDyVYaILL+wjKivqRTwLRxYi+2VlCbQns72oM00woL/LkqfH2qz+GB24yZ4pQgnCCMIqemAcMuW5Qu7aHbSBEktMkWGIsTEQax+cWyZ8Lw6Thi3QqC6o7YbuOuGze3tNAhk8gsIpevbtNbfaDKYdYIzAeYYwkheyAJjlyPk3f8XblISEpFus5tN7NnkhwB8XjJX7SoxtBCGUhdqY+La/4axTQxVc5/Z5aSEkT2C14hizLHUmUSQU5XlRQTWHniG8mj0UJrhs+4UOP/OVbY1JuguxnekH+2sbwpv2MmGyC/QxgIRgas1GwjGZekwH07GJc2fuB5zwEapR61MwGhnAdQs7qv6Gnmao1ynPPeGhDuCshcE9XtFVxViykBS9C30yHwVJubLX5DDKakMkVCN5CutjN9QnzcHwHWRe6G351jbUEdvyuSfp7wdsQrjctODzyoba/sKgxwVrwFEMmDScRXgcsha
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:BN9PR12MB5306.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFS:(13230040)(1800799024)(376014)(366016)(56012099003)(22082099003)(18002099003)(38070700021);
  DIR:OUT; SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?b0XVqoi9mFIPqG8zW2XO34nyK/DsLFLYXxxJUghOg0Yjh+tsnxWVkMdQGNON?=
- =?us-ascii?Q?S4/89QI4djN/04tuYBnJB8Tq3pT6NTOIfI77AQHEYIqWxK4rBMAoDjSQf9Nm?=
- =?us-ascii?Q?tLP0H1i7YPsZQrmGhpAHPAWkwKE6Ur1A2RPC1zXVqtyf5n7h3IRwFn8w5e1h?=
- =?us-ascii?Q?28jrbUJYWrl0BmU7owozNypNLnozIM3hyzoDvYkqHN7ofYyUiwQTM9MN9/Oh?=
- =?us-ascii?Q?LpS4Z58Siq4Qw+V9fv+g/5r5tcfBJIje2TRzrsGz8VyhCziKSQO0j6Hm3/yl?=
- =?us-ascii?Q?PQn9+Mz4muZO8zIHeTz/DktLP7UkrmlywKAWRemc8tImlTIhWQxAF8D6Oies?=
- =?us-ascii?Q?5stja/gOSz/AbMzk+lOPVCrzJv4t2rAyoIE6MmyTVbYbKPMp5fnBJAquqXw0?=
- =?us-ascii?Q?Nd2YnA8+FxehXEl9tasempUTLuhTqlo6iSD1pUqNxOs5JtJj0vzYxkxkz6WL?=
- =?us-ascii?Q?vpy9yqyH2Rg9XGk0MQGQSri9Q/268HE4v6a9IrHq6FWe4t7ZX/8RtaA3nspl?=
- =?us-ascii?Q?VPNjf5EMhhcdr939/KdxNdSsb67iYcWQgc8M5rsx1ljsjK3JZobCcN/QrxRl?=
- =?us-ascii?Q?ynPMKkl44SydjMBcDGwYMeQYBkFEICHxmzM9k2PY+YUikVd5LY9YIWKjblmJ?=
- =?us-ascii?Q?6OSq4G/zzbaHV/ZJiBWGPjoESg8UJW+1TZt2HBMaXoBwgdC+w1e7vO7ZCePV?=
- =?us-ascii?Q?+G6LsVN7m/hjiH4HA9nnEWne3hytuque0tVnSzqTC34AWJL0kRen9MqFs22o?=
- =?us-ascii?Q?axPDIP8vM/JKdc5zE0PKdqDjXfyhmNQU6v+w04VyB+QozIOcD3RoAB+d4UN9?=
- =?us-ascii?Q?5HrEYDdZF6vcbcg5cJ1hp6yqFF/pLQkqFlK/46SY/Lt3Nk04I6Lf/N3AqMlW?=
- =?us-ascii?Q?rEFUX9Q9N/kRLOkWSWCo/NDLlW+fT3OK1fACiuoqBkWnqTj9LnwGmWR4BmRG?=
- =?us-ascii?Q?/b5yLneaCudGOYHRmmne8lhPRHWNOtHTbrmMKGOujJRLJQRbatyJ0jFtC/RO?=
- =?us-ascii?Q?6pY+mwpq/YxjkKxTDC1UlUq0HEB+ZbXF6JmJqT/LU+ME3kI/oslhEkbPQ0o9?=
- =?us-ascii?Q?nRrCcJbUciOutpmR+YyXuLNXsr3Mj3ueipYLM/ccYYLiWwpUceBSVASnWGIY?=
- =?us-ascii?Q?3Ch3QkmUQxF8z2rMK6xT5fMAnYEtOyaqtysdAqQJVhHcd4Vo+9u+Hh5IJdse?=
- =?us-ascii?Q?+AnBUijAJyfG8CGtdPkcf0ddLZd/1U6NpxmM6j+GczZeJMAoRiIryj1wNxe5?=
- =?us-ascii?Q?1Vntp+MRBs6dxVmcdUBLYoRyJlRUxuZ3qTxdJl54pTQSFXXby38mQObvftI3?=
- =?us-ascii?Q?bm3mG6Ub2TOD2qG4zBVErbXXs6DKISePOUF3BsVa9YtMwflyPDsFUTky8WO2?=
- =?us-ascii?Q?5crLwY/lR71jrixWn9VgABKXO8ZtGDsgAkLixclyYcWKs7YKhtJ/08pq+zpD?=
- =?us-ascii?Q?X74LmJL/z0Fd0pPu8qbXQvH8Al86f9tADSWGqOlaylJ7iQRiR4UBuu8Ma0TZ?=
- =?us-ascii?Q?MzCFNFDyAo51Lb8LzAwUbEKHy79kbApBWqVPGROoQMUpk5+my6w+Qweklxzt?=
- =?us-ascii?Q?vod0azRtmLN/VxrWD9AJ2r08JXADj1uRF7xYhfYTRIUy9Z6CPNkQ1jDdKt3x?=
- =?us-ascii?Q?1c2uNKJBNMF73OHK9Ttrba48ZGtVOZYXPxHFf+wu+yJzJMVK9bI6nLLakHb0?=
- =?us-ascii?Q?ifDzdZaTTtAWDd0dwBa66oB95nK32nFnH0RfOnRRVswSdZfH?=
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?pV2T9krrg5oCvV7wpNCVAKo5Qj+HUlTpu/+7wwaGygwxDAQlrcewoD2wDLwL?=
+ =?us-ascii?Q?0RR0ByxdxkUvBACkWQ513hZtKFebPmqak9b2OlyC5kaRlaE5ZskJCSwZ4jQB?=
+ =?us-ascii?Q?zs+WxDXLg8+cxtI4eRjgr/DBEgWEvPSZpoaeF9Xczq/i0WeO8frEWnHbeDBu?=
+ =?us-ascii?Q?GQVQMy6NfkBI2upOdtzKEGl1YGqe4zYh2ayI4F+Efjy3C8IanKX5TasZlIlC?=
+ =?us-ascii?Q?24xivYYccXmIkt0+wW8AtjDg6zMGXzRjA8VykUAqo/l5G2eZZ/2x60NrXDBe?=
+ =?us-ascii?Q?qF0F34zdI25xdd7CcX44OfOaYJw4psv+nfeGNhryxtIaOiy3KcZBljnRDN7D?=
+ =?us-ascii?Q?mxJY4p3f1dZB5yt3C3riIVT8N1+i9ny9MbSDczsZBjJUIcpPLVzF1fDINjwt?=
+ =?us-ascii?Q?K8blDoNCbIx6aJ3rbDFHHFOAh15oRZtoGqKXlq4/pKcMjjCKzk5YZTyfiRbs?=
+ =?us-ascii?Q?CVkjQARMVuC0mchOpw3BLCeAwmfmgvPfr873A7T+ZWiloWB88mzXzmHq1NcF?=
+ =?us-ascii?Q?9d4suxew6MEzixWsyC1bqzFAO7I4r+Dkua8Cx7pGQAXrqrzaooAm8j/6u7uq?=
+ =?us-ascii?Q?P1ixDvI5+rhgckYNWEyms7M361AEEKtk/ikLeOeQt2Xw6boHbjYMcDX11wFN?=
+ =?us-ascii?Q?B3ETMUOJnqosZa1AsiPSPCYVtqbLHlLzZ36t/yo3hnhE5Oc/ppiEBJfme67Y?=
+ =?us-ascii?Q?VfkJsPpekZpAaNG7O+FGRXZavH65rjLJZUIR9njsVYU2kxy7VyEsycQDfkM9?=
+ =?us-ascii?Q?VloTuRwwX0WYgf0KuPXxxq4j50x/mzRBM8edihFRGYoZo9YfMdr8i5ViRQEO?=
+ =?us-ascii?Q?E4kjQBVQ8dEfq+zSREDw99GvtrBrE5RGxpRZpsMwvyAltMxKpE8KjHRYXlga?=
+ =?us-ascii?Q?cDHp105VDrQqa8FW5g33Y0Y9Fd60HGPVuSYL/393I+WwisvCPEejChSkUJBE?=
+ =?us-ascii?Q?Qdc+J8x2IYPc4zLFwefku+xuxcBO9gGEXwytzmaR6eh65jgK/sHJ3YdmRZZ2?=
+ =?us-ascii?Q?Z9kMTGQ6mC26grRs+0ltkAIpPsqeacSs0zsMr0sm8xbxH4ZSTAp9eGU5CeMi?=
+ =?us-ascii?Q?OyCfw/o3lND1dEPha/9LqEMy45z3ymV6oVdBQCb2WsVz8wUH39ri+Qg3LOnp?=
+ =?us-ascii?Q?9uhSVHmKYTAafd9T0KZJwAbY40muFMRW4T8r35Gr/uguEx2lQsCWy32CPSON?=
+ =?us-ascii?Q?9ToQ3IIs3TavPsdmqUG7ku8fROK3dNGycgq7SxijtTG4uC6VX5maj09GBVLi?=
+ =?us-ascii?Q?4Zy49Kpso5r9hT1LRCsFJklFjMxZ30Fn19Wem6cFSjMoZG6bX/M6PiUInNJ8?=
+ =?us-ascii?Q?gICzCYmjC6Uh6ZNBLZvYuKmfY5AZ5tYMBDhpnwjYIxx1aqKYnVWI3rwL1J1S?=
+ =?us-ascii?Q?KsH+BXXDe/jKMaryyMZLBdqe0kImpdmHbfLJKzwOwYa3Xb5XYopnojwzHEX+?=
+ =?us-ascii?Q?CVa0dD6YFdOJ73I+aSoXvuBbptjkFvwRbninZqFvvB2R5RV0wN0sdTiODhH0?=
+ =?us-ascii?Q?05aD7qAu90LnCCDQB2iW7ykgcSDBRqb1LiL08wcVEwE8sJJ/IyY5kmMtmXDu?=
+ =?us-ascii?Q?zH2wc7j0+ZDoj9wOqYY/G62bQrwlkD06f45zRF58J6t+X/8ga+wGyJKx8mT2?=
+ =?us-ascii?Q?EIIHMpmtI8/8Eg9YIJU0iIL1Fr41nQ5sazkR4vJaTHfjeCsWD6jm3zTN95ND?=
+ =?us-ascii?Q?8HfOYKwXiNVMMxFD1Ya3Br5eals48OgowX+/Flu05U3gX84g?=
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5306.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0f494281-af8f-4a3c-dba2-08deacaec891
-X-MS-Exchange-CrossTenant-originalarrivaltime: 08 May 2026 03:06:22.2137 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e1eee4e4-3447-4f9c-45a6-08deacafe084
+X-MS-Exchange-CrossTenant-originalarrivaltime: 08 May 2026 03:14:11.8729 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: HhIUBRdHAPOJwnpd9NOlLCaFbZCZeeD5eCt+DPsc/F12NRb9FNm76FhPH7Mdi5Qk1whswJEJvtfC6smCbiYIlQ==
+X-MS-Exchange-CrossTenant-userprincipalname: WdSHnpaSadGweG+XBgpZPu6VICs87BKtgb84lxHj74c0cxMPtpUZVDxWfQH7yH10YHHSUPH6LDGtZb5y+YB84g==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8517
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -140,116 +141,170 @@ AMD General
 Best Regards,
 Thomas
 -----Original Message-----
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Chenglei=
- Xie
-Sent: Friday, May 8, 2026 4:29 AM
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Xie, Che=
+nglei
+Sent: Friday, May 8, 2026 4:13 AM
+To: amd-gfx@lists.freedesktop.org
+Cc: Chan, Hing Pong <Jeffrey.Chan@amd.com>; Luo, Zhigang <Zhigang.Luo@amd.c=
+om>; Deucher, Alexander <Alexander.Deucher@amd.com>; Lu, Victor Cheng Chi (=
+Victor) <VictorChengChi.Lu@amd.com>
+Subject: RE: [PATCH] drm/amdgpu: bound bad-page list writes to allocated ca=
+pacity
+
+AMD General
+
+Hi team,
+
+Could anyone help review this security bug fix patch for https://ontrack-in=
+ternal.amd.com/browse/SWDEV-589525.
+
+Thanks,
+Chenglei
+
+-----Original Message-----
+From: Xie, Chenglei <Chenglei.Xie@amd.com>
+Sent: Thursday, May 7, 2026 10:45 AM
 To: amd-gfx@lists.freedesktop.org
 Cc: Chan, Hing Pong <Jeffrey.Chan@amd.com>; Luo, Zhigang <Zhigang.Luo@amd.c=
 om>; Deucher, Alexander <Alexander.Deucher@amd.com>; Xie, Chenglei <Chengle=
 i.Xie@amd.com>
-Subject: [PATCH] drm/amdgpu: fix OOB risk parsing virt RAS batch trace repl=
-ies on the VF
+Subject: [PATCH] drm/amdgpu: bound bad-page list writes to allocated capaci=
+ty
 
-The VF copied ras_cmd_batch_trace_record_rsp from shared memory without ful=
-ly constraining real_batch_num, the cache window, or per-batch offset/trace=
-_num. A hostile or corrupted buffer could make batch_id - start_batch_id in=
-dex past batchs[], make start_batch_id + real_batch_num wrap in uint64_t an=
-d confuse the refetch logic, or make
-offset+trace_num walk past records[].
+PF2VF bad-page data can provide more entries than the VF-side bad-page buff=
+er can hold. amdgpu_virt_ras_add_bps() copied entries without checking rema=
+ining capacity, which can overrun the 512-entry allocation.
 
-Validate the response like the PF path. single helper for the cache window =
-using subtraction and a real_batch_num cap, bounds on trace_num and offset+=
-trace_num, re-check after the RPC, and memset the cache when invalid. Retur=
-n -EIO for bad layout and -ENODATA for a batch_id slot mismatch.
+Add an explicit max bad-page constant, validate pages against remaining spa=
+ce before memcpy(), and make the helper return bool so the caller stops pro=
+cessing when the buffer is full. This preserves normal behavior while preve=
+nting overwrite from malformed or malicious input.
 
 Signed-off-by: Chenglei Xie <Chenglei.Xie@amd.com>
-Change-Id: I6455e9f14914d1b07945b7a57fcb3695435ded64
+Change-Id: I924d2b5e369bef007eb1577f287a2274ec83d5a9
 ---
- .../drm/amd/ras/ras_mgr/amdgpu_virt_ras_cmd.c | 38 ++++++++++++++-----
- 1 file changed, 29 insertions(+), 9 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c | 53 +++++++++++++++---------
+ 1 file changed, 33 insertions(+), 20 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_virt_ras_cmd.c b/driver=
-s/gpu/drm/amd/ras/ras_mgr/amdgpu_virt_ras_cmd.c
-index 838eb91aef391..fcb421d39f87d 100644
---- a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_virt_ras_cmd.c
-+++ b/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_virt_ras_cmd.c
-@@ -192,6 +192,16 @@ static int amdgpu_virt_ras_get_cper_snapshot(struct ra=
-s_core_context *ras_core,
-        return RAS_CMD__SUCCESS;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c b/drivers/gpu/drm/amd=
+/amdgpu/amdgpu_virt.c
+index 6974b1c5b56c2..8ac808d70356c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+@@ -283,14 +283,12 @@ unsigned int amd_sriov_msg_checksum(void *obj,
+        return ret;
  }
 
-+/* rsp contents are copied from shared memory; validate before
-+indexing. */ static bool amdgpu_virt_ras_batch_trace_rsp_covers(struct ras=
-_cmd_batch_trace_record_rsp *rsp,
-+                                      uint64_t batch_id)
-+{
-+       return rsp->real_batch_num &&
-+              rsp->real_batch_num <=3D RAS_CMD_MAX_BATCH_NUM &&
-+              batch_id >=3D rsp->start_batch_id &&
-+              (batch_id - rsp->start_batch_id) < rsp->real_batch_num; }
++#define AMDGPU_VIRT_RAS_MAX_BAD_PAGES 512
 +
+[Thomas]   This may not be sufficient. Suggest switching to a dynamically g=
+rowing allocation instead.
 
-[Thomas]  This function is checking whether the batch_id has already been c=
-ached, suggest renaming it to amdgpu_virt_ras_check_batch_cached.
 
- static int amdgpu_virt_ras_get_batch_records(struct ras_core_context *ras_=
-core, uint64_t batch_id,
-                        struct ras_log_info **trace_arr, uint32_t arr_num,
-                        struct ras_cmd_batch_trace_record_rsp *rsp_cache) @=
-@ -204,27 +214,37 @@ static int amdgpu_virt_ras_get_batch_records(struct ra=
-s_core_context *ras_core,
-        struct batch_ras_trace_info *batch;
-        int ret =3D 0;
-        uint32_t i;
-+       uint32_t idx;
+ static int amdgpu_virt_init_ras_err_handler_data(struct amdgpu_device *ade=
+v)  {
+        struct amdgpu_virt *virt =3D &adev->virt;
+        struct amdgpu_virt_ras_err_handler_data **data =3D &virt->virt_eh_d=
+ata;
+-       /* GPU will be marked bad on host if bp count more then 10,
+-        * so alloc 512 is enough.
+-        */
+-       unsigned int align_space =3D 512;
+        void *bps =3D NULL;
+        struct amdgpu_bo **bps_bo =3D NULL;
 
--       if (!rsp->real_batch_num || (batch_id < rsp->start_batch_id) ||
--               (batch_id >=3D  (rsp->start_batch_id + rsp->real_batch_num)=
-)) {
--
-+       if (!amdgpu_virt_ras_batch_trace_rsp_covers(rsp, batch_id)) {
-                memset(rsp, 0, sizeof(*rsp));
-                ret =3D amdgpu_virt_ras_send_remote_cmd(ras_core, RAS_CMD__=
-GET_BATCH_TRACE_RECORD,
-                        &req, sizeof(req), rsp, sizeof(*rsp));
-                if (ret)
-                        return -EPIPE;
-+
-+               if (!amdgpu_virt_ras_batch_trace_rsp_covers(rsp, batch_id))=
+@@ -298,11 +296,14 @@ static int amdgpu_virt_init_ras_err_handler_data(stru=
+ct amdgpu_device *adev)
+        if (!*data)
+                goto data_failure;
+
+-       bps =3D kmalloc_array(align_space, sizeof(*(*data)->bps), GFP_KERNE=
+L);
++       /* GPU will be marked bad on host if bp count more then 10,
++        * so alloc 512 is enough.
++        */
++       bps =3D kmalloc_array(AMDGPU_VIRT_RAS_MAX_BAD_PAGES,
++sizeof(*(*data)->bps), GFP_KERNEL);
+        if (!bps)
+                goto bps_failure;
+
+-       bps_bo =3D kmalloc_array(align_space, sizeof(*(*data)->bps_bo), GFP=
+_KERNEL);
++       bps_bo =3D kmalloc_array(AMDGPU_VIRT_RAS_MAX_BAD_PAGES,
++sizeof(*(*data)->bps_bo), GFP_KERNEL);
+        if (!bps_bo)
+                goto bps_bo_failure;
+
+@@ -361,17 +362,27 @@ void amdgpu_virt_release_ras_err_handler_data(struct =
+amdgpu_device *adev)
+        virt->virt_eh_data =3D NULL;
+ }
+
+-static void amdgpu_virt_ras_add_bps(struct amdgpu_device *adev,
+-               struct eeprom_table_record *bps, int pages)
++static bool amdgpu_virt_ras_add_bps(struct amdgpu_device *adev,
++               const struct eeprom_table_record *bps, int pages)
  {
-+                       memset(rsp, 0, sizeof(*rsp));
-+                       return -EIO;
-+               }
-        }
+        struct amdgpu_virt *virt =3D &adev->virt;
+        struct amdgpu_virt_ras_err_handler_data *data =3D virt->virt_eh_dat=
+a;
 
--       batch =3D &rsp->batchs[batch_id - rsp->start_batch_id];
--       if (batch_id !=3D batch->batch_id)
-+       idx =3D (uint32_t)(batch_id - rsp->start_batch_id);
-+       batch =3D &rsp->batchs[idx];
-+       if (batch_id !=3D batch->batch_id) {
-+               memset(rsp, 0, sizeof(*rsp));
-                return -ENODATA;
+        if (!data)
+-               return;
++               return false;
++
++       if (pages > AMDGPU_VIRT_RAS_MAX_BAD_PAGES - data->count) {
++               dev_warn_ratelimited(adev->dev,
++                                    "RAS WARN: bad page buffer full, count=
+=3D%d pages=3D%d max=3D%d\n",
++                                    data->count, pages,
++                                    AMDGPU_VIRT_RAS_MAX_BAD_PAGES);
++               return false;
 +       }
 
--       for (i =3D 0; i < batch->trace_num; i++) {
--               if (i >=3D arr_num)
--                       break;
--               trace_arr[i] =3D &rsp->records[batch->offset + i];
-+       if (batch->trace_num > MAX_RECORD_PER_BATCH ||
-+           (uint32_t)batch->offset + batch->trace_num > RAS_CMD_MAX_TRACE_=
-NUM) {
-+               memset(rsp, 0, sizeof(*rsp));
-+               return -EIO;
-        }
-
-[Thomas] The batch data validation here could be consolidated with the earl=
-ier "if (batch_id !=3D batch->batch_id)" check above, to keep the batch-rel=
-ated checks together and improve readability.
-
-+       for (i =3D 0; i < batch->trace_num && i < arr_num; i++)
-+               trace_arr[i] =3D &rsp->records[batch->offset + i];
+        memcpy(&data->bps[data->count], bps, pages * sizeof(*data->bps));
+        data->count +=3D pages;
 +
-        return i;
++       return true;
+ }
+
+ static void amdgpu_virt_ras_reserve_bps(struct amdgpu_device *adev) @@ -44=
+3,20 +454,22 @@ static void amdgpu_virt_add_bad_page(struct amdgpu_device *=
+adev,
+
+        memset(&bp, 0, sizeof(bp));
+
+-       if (bp_block_size) {
+-               bp_cnt =3D bp_block_size / sizeof(uint64_t);
+-               for (bp_idx =3D 0; bp_idx < bp_cnt; bp_idx++) {
+-                       retired_page =3D *(uint64_t *)(vram_usage_va +
+-                                       bp_block_offset + bp_idx * sizeof(u=
+int64_t));
+-                       bp.retired_page =3D retired_page;
++       if (!bp_block_size)
++               return;
+
+-                       if (amdgpu_virt_ras_check_bad_page(adev, retired_pa=
+ge))
+-                               continue;
++       bp_cnt =3D bp_block_size / sizeof(uint64_t);
++       for (bp_idx =3D 0; bp_idx < bp_cnt; bp_idx++) {
++               retired_page =3D *(uint64_t *)(vram_usage_va +
++                               bp_block_offset + bp_idx * sizeof(uint64_t)=
+);
++               bp.retired_page =3D retired_page;
+
+-                       amdgpu_virt_ras_add_bps(adev, &bp, 1);
++               if (amdgpu_virt_ras_check_bad_page(adev, retired_page))
++                       continue;
+
+-                       amdgpu_virt_ras_reserve_bps(adev);
+-               }
++               if (!amdgpu_virt_ras_add_bps(adev, &bp, 1))
++                       break;
++
++               amdgpu_virt_ras_reserve_bps(adev);
+        }
  }
 
 --
