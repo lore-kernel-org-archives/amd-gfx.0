@@ -4,91 +4,123 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 02DEDCD3436
-	for <amd-gfx@archiver.kernel.org>; Fri,  8 May 2026 13:42:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 270A4CD37A7
+	for <amd-gfx@archiver.kernel.org>; Fri,  8 May 2026 13:53:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 94D6310F4CB;
-	Fri,  8 May 2026 13:42:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D3D9810F4D6;
+	Fri,  8 May 2026 13:53:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="nOpDTp6F";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="okxX4MWs";
 	dkim-atps=neutral
-Received: from mail-vs1-f48.google.com (mail-vs1-f48.google.com
- [209.85.217.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 61E4910F4CB
- for <amd-gfx@lists.freedesktop.org>; Fri,  8 May 2026 13:42:28 +0000 (UTC)
-Received: by mail-vs1-f48.google.com with SMTP id
- ada2fe7eead31-63146151764so13332137.3
- for <amd-gfx@lists.freedesktop.org>; Fri, 08 May 2026 06:42:28 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1778247747; cv=none;
- d=google.com; s=arc-20240605;
- b=cE+xnKToqaxbbi2MIHirOXqNTutDaUAQ/cNzl/ra15EPOMFKUkn0MSNrNqCAAplDx2
- 8gt3oydB2QgdQ9VJzU+vITFSqvBEFIXA9sQSvis85eIzZ2or+UClMTJWhjF8+6P/sCoG
- 23tJY8vZubtVBOyQqWIIdvZ/IIa5JWawCDeSgq9yntJ5fZfcVxjSPH2lEQE+qHmgCn20
- 9qdABUBAtR26vgV91LTdafuUA9CkYQgsm1u5WoM1JOj9i/A7tCXUikNBNc2N/s0/m8Pe
- LsURbo5CWXUy21Qbus7a4A4RcjqhrOTvhF+8oYcmtgky4Gc14TboFkWgszs2JwLVo/Ax
- FHTw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=us15Pwh2cK3D6lBgx+sifezEQ5mxvDZxOi2s1DJNE5I=;
- fh=W1eZMmFCQzUTPA4y9+cWRftzxeLRWlTTzJrsdW3PRoU=;
- b=VBqcNkOQZbJ9nglNsqDwNg3U1JumIWC6P2hsJSn7M6JTG3NoumbSAegqum6lKRIhDa
- 1cFQVEQNe1VhEPzuQ46r9BSeGM+1kCKy/nqCVT84YDuTQ7VXgyvP2rX3Jj5BlM1C2OEh
- Otz6MHZpbKM/J5sCnd5C6kidgb6KOfX1ZBx0KwlVAp2e5tmyJSQp/zDFw8szl3X2HYNk
- D+IAdYIeZTib9OnMrLYLIC0NU0Xf5A/0BK6ek8MQ4OWXu4H1AlqkXeKYQAs7JEyTgKj6
- 22eacWny4wyie9NpmTb8aHU/U4tzuHoDComAKSMlu4ftaQctxQlOFQwp0Db1i16AKHGi
- NapA==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1778247747; x=1778852547; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=us15Pwh2cK3D6lBgx+sifezEQ5mxvDZxOi2s1DJNE5I=;
- b=nOpDTp6F+vnZsde6SqmfwQ03ekRzJjJa93tOCvbwqiTsehPvxaPvt3V5p0TDQX9Ivi
- E9YMEbZKSQs0HOoAWo9P9jr+RWfMQLpFaeNGmVljg/H3m34x9JU5dVsEYrintD/fNz2h
- 24EKUGSkRa65wcdgOzrXPxADrrLpNlKsgPWbV9z8K+mn3F2m7seXT/1HduprS+XpVJ1Z
- ZNlW1Y392EhV8mEV5l4B3umZedgoA8+0aejHbZku9NvCCBlPLArav+GL2VxB8we61Lk1
- R3Ae9S/vLpbt67uXK18gGY/q0VzEty0iLl4RLDykn0zKAVQBmRlNyebyqJ3olaGlXMNN
- MvpQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1778247747; x=1778852547;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=us15Pwh2cK3D6lBgx+sifezEQ5mxvDZxOi2s1DJNE5I=;
- b=pW3IjQHwT+Z5apjo5ALqF+ONJw5eMgcs2dxWV4ivp4Cz2udf33EhJRDTPTQxX0tz+b
- TFhGPqgT77Un/7s0gE6Fhczey5eRsArTH5Fhm1jyL9DGuryWrZM1hPzFBZA/esxTIReE
- zk0EflebyjJ7QsBRhwgKF3+HhYRGyjYfs832EsxV7XaevGdQIFCz7NSrsXPLixWMvZ3Z
- dKErjVlS36iTWdpy2zRUWjPYSxYfYKI8zmYlQGERcyHKG11+GkmDjpQk2i0iWFa+5/sl
- +oif/QRKTRd4sbW9PaxFiQwPtev/UPhu4P/sSIVRMMV7xd25hXYFqvJlMEEJtj2j+s0g
- C09Q==
-X-Gm-Message-State: AOJu0YzipMVpR6vh8iz8K2FhVBZEoF3ka7AWBPfuVlgG15F00XMQhrmE
- kr5mXZFRAPzjoVQlfN+HzesaAaLlQ7AIVVRzWrzy4uiHCzRQOUoa+Nk3bzzRi8OPNsS9IAdMqi7
- 83YqjDnRObvbHjHO3Cl19Mpz1Co3dlwA=
-X-Gm-Gg: Acq92OFjj0esy1Nm2/rV32TX6S0jQ7myJrAlXAUcRAISyO+lk+tjc13MzhhtHRCt4wh
- sJEr3qy9QdoB7a4HgGEhsmwV2SNfY8KldfBX60LHQGLVgYOMdYIUnMls/ciXoc1z57P5wfpccdS
- TPNUvA81a7VLwY0827z94lAIU4wUQlcxrI9scx3hRrdPszvDgUySc4+R9FN3tJMekRXUG1jA54u
- SnSCyki4AJS3TxoEvRPD8jiR9fhwPg3c45ysHpZVN96r8bJs7VgtZF3+A+x86tzXqjdgKgO4wLC
- FIEJ9gZU9ZFP4aXPAVf9THEkHqHESlc5M5WrtvGcHtRwXReUBg1U2o4Qnh0Z5Xyr03HiBA==
-X-Received: by 2002:a05:6102:66d0:b0:62f:2e5d:11d6 with SMTP id
- ada2fe7eead31-630f8c1fdeemr2088900137.0.1778247747336; Fri, 08 May 2026
- 06:42:27 -0700 (PDT)
+Received: from BL2PR02CU003.outbound.protection.outlook.com
+ (mail-eastusazon11011052.outbound.protection.outlook.com [52.101.52.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C51B810F4D0;
+ Fri,  8 May 2026 13:53:25 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=bQSMKvh4t9K0u6nIupgUnPhFW9Dy/BXp6WzWXejqqGLqvXLCVNGX3DW8CUBQzwXDe5UHtGNATp5fyNMwyccClNpFIUnTQ9G4pTPz7utRlQQ3r2yyYT3yiujeMj7eSHI7HQwOjoZLQsQODdsKezo/x33UXzJOFEJYHBpjiJJjGVQXr2wfIH+1DiZpmIV69hUNM78gTEqERENteLrWjlCsLRIJvSMQ41MlOW6dKpfN13zBDRIu6GtgmPvjQMJ37t70fFEL4lLy2mlN8KEVFfsIrDgUV18+wMnI74Yoo+FDvufLpmmGiKsgTp/sZmAnI0E8PntHcsPMU7A8lEKYTpmByw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=V9nQA7OSmz8t6oAlaWJHAXojZRLwt+Ww/Q1A6XhOWE0=;
+ b=KfBUL2qKh/3zMKUAEtB2J+90x4nAaz21Q7cSd4GJOWBA6KO0RybAjhqDJqMTM0cxUw3l1VnGD7h0NZolo8eI4D2wRT7OyoEwrqf/QMpWjC9TAigY9jDpXWHvPW2tvjRM4H1L5YqZiZz0EiflmNwZbkAdsmZhLQD/BpR/qrDNoK0rwanswLYLntVlPq0rMiVP2UkXJFrFsf3Bo80roY1ESlgR/3vTpmXiQXGm/pNlrt8sMCfzdxfefL0yxy+EdDzNlh87I7pToEAR8MP4Oj897M5BQI4xRSPTrmPhLv00Ah0sgj/LUWj7IY7iIV7ApK8hBWHE//fmopM6yuSEyN0ebQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=V9nQA7OSmz8t6oAlaWJHAXojZRLwt+Ww/Q1A6XhOWE0=;
+ b=okxX4MWsYDU2/GirLwdG9fc86Zs9BqufVADAwb2UXduRN20ajZagvyOEECYH97ySYi65iSB7QNc1rvu+5yjeGZDNlbvhTJILaCn4vV+mNOJmmD1uMFrkNlmMFaRRxY+n1g22n1pPFsDkHja/ZHBX/GCvwBM+/ov2dwhNw2DKw+s=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH8PR12MB7301.namprd12.prod.outlook.com (2603:10b6:510:222::12)
+ by CY5PR12MB6429.namprd12.prod.outlook.com (2603:10b6:930:3b::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9891.20; Fri, 8 May
+ 2026 13:53:22 +0000
+Received: from PH8PR12MB7301.namprd12.prod.outlook.com
+ ([fe80::8434:dc50:a68d:7bdd]) by PH8PR12MB7301.namprd12.prod.outlook.com
+ ([fe80::8434:dc50:a68d:7bdd%2]) with mapi id 15.20.9891.019; Fri, 8 May 2026
+ 13:53:21 +0000
+Message-ID: <6d65ee6a-47ec-4065-ab50-dab223e9a34b@amd.com>
+Date: Fri, 8 May 2026 19:23:15 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH V2] drm/buddy: Integrate lockdep annotations for gpu buddy
+ manager
+To: Tejas Upadhyay <tejas.upadhyay@intel.com>, intel-xe@lists.freedesktop.org
+Cc: matthew.auld@intel.com, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, Matthew Brost <matthew.brost@intel.com>
+References: <20260508065544.4049240-2-tejas.upadhyay@intel.com>
+Content-Language: en-US
+From: Arunpravin Paneer Selvam <arunpravin.paneerselvam@amd.com>
+In-Reply-To: <20260508065544.4049240-2-tejas.upadhyay@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MA0PR01CA0121.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:a01:11d::11) To PH8PR12MB7301.namprd12.prod.outlook.com
+ (2603:10b6:510:222::12)
 MIME-Version: 1.0
-References: <20260508071351.442816-1-Jesse.Zhang@amd.com>
-In-Reply-To: <20260508071351.442816-1-Jesse.Zhang@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 8 May 2026 09:42:14 -0400
-X-Gm-Features: AVHnY4KMEYmFP4tP5V621sozO6Y15xOcmhuuu2xm0nLIHrk14RDA6vis3oKofBA
-Message-ID: <CADnq5_P3FgGjgrsXt9C0izPsre5+jA4jyQSdRpuB1rL5uVZ5Qw@mail.gmail.com>
-Subject: Re: [PATCH 1/4] drm/amdgpu: add MEC pipe reset helpers
-To: Jesse Zhang <Jesse.Zhang@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com, 
- Christian Koenig <christian.koenig@amd.com>,
- Manu Rastogi <manu.rastogi@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH8PR12MB7301:EE_|CY5PR12MB6429:EE_
+X-MS-Office365-Filtering-Correlation-Id: c08192b4-1f03-4cd5-3c98-08dead092a73
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|366016|376014|18002099003|56012099003|22082099003; 
+X-Microsoft-Antispam-Message-Info: 7Q1eTqTxkbEejb1aL+hlP3+bAugrvg/NjAZS7rvpPHbJgR8LTTCoESExEKCLuxp+10bb17BbnwtV2m3Qt0v/Ul4hJns7JYXwJZgSGoMlovjWaeDoFrPuHrKjQ3gkizUvdI/Kc0hls6WXU4x0hRZkDh6QPXafLr0lMGm5+DJwJDiAiH0uNJu5DiUREv1m9ynnuyuQ2JsbvdbAt96TS6T5jY+tyA0lAh8Lz9sBDyfpsv6aOoL23JjxqbcSgqRGn7eouvpmLe+l2BDEBxxDt9WZSwv8hBsyLah5ntf8YblJtEBK6Kka5CCb+bhhgFtJ0UTRvjmYK/AymnfQeHe9DIK3+J7IUxcsD2z2QFjc4s2WIBMd/xF5BQMnv0DOu6XcvVMCM4tIxTMh0N0aHa3uw+RTo8PZfvQ5TzpcrhBrBQekY/5XgxLWUXWi4mM2LhX7aUzt4CHMR8CTBNhCP/0B87VubPBvSY4hVcttoOg447iWetqpMtmbwNNSv8DFxDEze9ksohY+p2QUPf9tnYO8omXZo9MwvvkQ6QxYsJ86Bp/UWg5hY7UCf6jUG/PRioiRsU52Uj628acKKPev1sAjys7Jn8ubX2ND3B9knmzdcyTnlrmRiY/VNpBC+7EElMy+QXK3SDbB1EdgW6ViIVjwoA2EB1yGQ/lTMjoH4GjvpQoEIwLBTRKn3d3e1+f/uua5DxL2
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH8PR12MB7301.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(376014)(18002099003)(56012099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Yjc2QkNzd0h4SnQ0bGVQOUpOVXdBNzZaL2h5M01Oa08yU1dSR1VYZnRZcmxp?=
+ =?utf-8?B?SVd2NURzZ1NQQkNmcFlIT1FDNVo0K2RydDUycHlhMmxjT3BpY2lCNFN4NDY3?=
+ =?utf-8?B?eWZXN3FXd1VuTnMzOHp3L3RneUlKU202bkxDdkFmdTBrN3gzREFTamlTM01Z?=
+ =?utf-8?B?eVBLME8zWlV5N3JnT3NhZGJ1RWxuWXAzcS93eUtFcWI2NGxzbUJqVWMvdmtZ?=
+ =?utf-8?B?eklGS1dYdXRETEZ4N05ielNsWXlsQ1RTQ0lyeFBOTXJRQ1F1OTRBSlNuaUhz?=
+ =?utf-8?B?aFRjdExiVWFyNTF4VGxLWHhGSFVIN2xLZzA0SUh5VUxmMDU2cVJvOGFvajhB?=
+ =?utf-8?B?Q0lQbTEwRzc4RWVEK2RXdTlTZzhkVWhXTDNZQWZEN05HZUJ4YytJem1USFdj?=
+ =?utf-8?B?cGVKV3p2VkNVeHZ0bFljQTBsU1BRVk50SnkvbGsxK05yNXNpS25TdXNxWUIy?=
+ =?utf-8?B?eGNGWDIwcUo0dk9iV3NQYXlMcU5pRTNFWlZiK3JFdGhFSUpYNDhQSlhySkkr?=
+ =?utf-8?B?d0YrUTZQVGhJWGRPdEkrVitoa0pObENLQjZ0a2FzTEptNW9ma2JiZ1ZmbHAz?=
+ =?utf-8?B?MWwyNGhZRXBMWFJDaVFOQ01ybGdxa082NkVVTG51ak5sZG1BV2g0aENRaFMr?=
+ =?utf-8?B?Ykd4WGNtcW16eDRFRVp2Z3lsYVhjRXBsa1AyajZ1eWJvcFEyNHhCd2dXcmtm?=
+ =?utf-8?B?blUvWEVOMXJxYVJvQ1dQV3RhK043K1o0S1JTWW5vanRBSXJETUZPNnhxaVY1?=
+ =?utf-8?B?aXU0VHNkc3pBT1BSYVBVd2NzYW8rbVc2OVlVdUxEZFR3bUllbkhTUHRybnFU?=
+ =?utf-8?B?L0Z1b2ZRTGVsbHZCbXJ0bEhsOXpBMDV6T01MbzltaitESUlmMzR3Sm5YbHhr?=
+ =?utf-8?B?ekRnZFZuWUJBTU1PSE1ucTFLclVzeFNkUEJjTXIybnBhSGVOMGdnU05RcEE1?=
+ =?utf-8?B?L28zNmRBanVVZzBuV1BXYXdEdS9JRHFZVCtmNEs5bU9DUW1JY2tuVi9sa1Iy?=
+ =?utf-8?B?K1ZTQ2hsVWpwSEg3M01pODB6bnJtdnUrZWtQMzNXMDRaMmVrNWVvTlBSZC9t?=
+ =?utf-8?B?TVhQZnlxSDFib0daSzNUdzFKc3NzV3BUOGIvWlB2eUxwbjhPcFhSaGFseFFj?=
+ =?utf-8?B?VXp3YUtYYk1qNlhpMGcwWEJGMklNUEJSSnVqOVdFV1RKS0pGSTg1SEVmMFVR?=
+ =?utf-8?B?N3hPOUFGaVhQb2ptbGRqU1d4RU5hcUIxdy9NWjJoM0o3TnlkWVBLQ3dNQnF6?=
+ =?utf-8?B?RGdhYi9UQjhkOEM4b01pRjU2bnVEMVduRURFcEJHS2ovVmIwcDRCQ1E0dDBH?=
+ =?utf-8?B?eVVHVXhVc0paaDlzcm15ZHhBOFZwbkJjbkhXVWwwWUhqd1VMa3BpNmZ6ejlW?=
+ =?utf-8?B?aVhqNC93SHBkWm0vM00xZjY5SHBIdHRZTkZxT1R2UTFrU3dHaFVETUlDUU0w?=
+ =?utf-8?B?d2k4STI1QmFLRzk2bS85OUxxSERLMmFxUjVDaVFsVDFhR2FCUnJMV25LaFc1?=
+ =?utf-8?B?S0F5NXcyV2NLVjU5SlYvcndaUm5kRm1zUVRpUCs5VkRMUDRXY1V5UHp3SkIw?=
+ =?utf-8?B?RngyWUlEVGIzL0N6N2FoYTV0MGc5a2x4R0V4UGVYV05oaE16clpxN3BqTkUr?=
+ =?utf-8?B?ZlkrcXpScTlEekdRb1FKK1NvcG9LQTF1R1BaejVWNzlZRkxHbnUzekEvc3JM?=
+ =?utf-8?B?K0tzOEt3bUc1WmtIaGljbUVUMHF1eHYzMTNpamYrYVRyYXJhNU1CaENrZytS?=
+ =?utf-8?B?UThwaTBscmMvLzVjTXl3NlRpb3ZLbWh4cDNvNTErc01CcklZQTEzTGxQK2dS?=
+ =?utf-8?B?NVk3bk90ckRHK1pOMnBQK21uSzJnWFpBVktDY21RcUh4dllJTG1FWGo4dW9B?=
+ =?utf-8?B?UlJjajYwZ25iaHoycXdNTW9pZDJlWjhTTnF1UGIxcEpVVE9zUTVJemxoYitT?=
+ =?utf-8?B?a0RhWFZwS0NHMFJrWE8za1NxYlIxNTBLSisxTnhZK29GcXVkUFpDcnc1YVc3?=
+ =?utf-8?B?b2x0RHhuZmlpMXVMd1RUWXVnakh1T0hYOURIc2pjSTdzQ1kzWXFrQU5aOUE4?=
+ =?utf-8?B?bzFIZ1JVdnBDTnpldk1BVHpRejNlNzJMTUtpYTltbTZCODBSTEp6MGkrOWFl?=
+ =?utf-8?B?T0JiUXFMSWhkTUFxNnBsWDFCNlNkR1pPeVh4VERTOUJIYWRKL2d5L3FHYVFG?=
+ =?utf-8?B?QkRPdTBpSDlkUXhrbjJvaGpwWm54YzA2SnRkaHRkZkJnT2JlMDdCc0V1UytJ?=
+ =?utf-8?B?UTdMbjlaWngwZ0FFNDhGNXpnTGNBWDNOdkZiOUlMQlUwZk1qNXdDenYyL3F2?=
+ =?utf-8?B?em8vTTNMU2s1SUx3YVhMdnN2Vm1UQjZxeWdmcndMdDU4NWtxemN1QT09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c08192b4-1f03-4cd5-3c98-08dead092a73
+X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB7301.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 May 2026 13:53:21.6694 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: XDDJKI7Eo/YE2PB3HQf8L4ikC86AaXucvY+X81MKNTwuj+1l89kl3zvfuh5GgLTE6O9z3OT1hCYq8gnegGt38g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6429
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,213 +135,184 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, May 8, 2026 at 3:14=E2=80=AFAM Jesse Zhang <Jesse.Zhang@amd.com> wr=
-ote:
+I merged this patch into drm-misc-next branch.
+
+Thanks,
+Arun.
+
+On 5/8/2026 12:25 PM, Tejas Upadhyay wrote:
+> gpu_buddy APIs are expected to be called with the driver-provided lock
+> held, but there is no runtime enforcement of this contract. Add lockdep
+> annotations to catch locking violations early.
 >
-> Add IP-agnostic helpers to coordinate a MEC pipe reset across all KCQs on
-> the same (me, pipe): prepare (back up siblings, stop schedulers, stop KFD=
-),
-> restart_schedulers, and recover_queues (re-init/remap KCQs and run
-> amdgpu_ring_reset_helper_end on each =E2=80=94 guilty gets the timeout fe=
-nce,
-> siblings get a synthetic context so collateral work is reemitted).
+> Introduce gpu_buddy_driver_set_lock() for the driver to register the
+> lock that protects the buddy manager. Add gpu_buddy_driver_lock_held()
+> assertions to all exported gpu_buddy and drm_buddy APIs that
+> access/modify the manager state. The lock_dep_map field is only compiled
+> in when CONFIG_LOCKDEP is enabled, adding zero overhead to production
+> builds.
 >
-> Suggested-by: Manu Rastogi <manu.rastogi@amd.com>
-> Suggested-by: Alex Deucher <alexander.deucher@amd.com>
-> Signed-off-by: Jesse Zhang <jesse.zhang@amd.com>
+> Wire up xe_ttm_vram_mgr to register its mutex with the buddy manager
+> after initialization.
+>
+> Assisted-by: Copilot:claude-opus-4.6
+> Suggested-by: Matthew Brost <matthew.brost@intel.com>
+> Signed-off-by: Tejas Upadhyay <tejas.upadhyay@intel.com>
+> Reviewed-by: Matthew Auld <matthew.auld@intel.com>
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | 115 ++++++++++++++++++++++++
->  drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h |  11 +++
->  2 files changed, 126 insertions(+)
+>   drivers/gpu/buddy.c                  | 11 ++++++++
+>   drivers/gpu/drm/drm_buddy.c          |  1 +
+>   drivers/gpu/drm/xe/xe_ttm_vram_mgr.c |  1 +
+>   include/linux/gpu_buddy.h            | 41 ++++++++++++++++++++++++++++
+>   4 files changed, 54 insertions(+)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_gfx.c
-> index 515cc4a2aeb4..8cfb73fda4bb 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-> @@ -69,6 +69,121 @@ void amdgpu_queue_mask_bit_to_mec_queue(struct amdgpu=
-_device *adev, int bit,
->
->  }
->
-> +static bool amdgpu_gfx_ring_on_mec_pipe(struct amdgpu_ring *ring, u32 me=
-, u32 pipe)
-> +{
-> +       if (!ring || !ring->funcs || ring->funcs->type !=3D AMDGPU_RING_T=
-YPE_COMPUTE)
-> +               return false;
-> +       if (ring->no_scheduler)
-> +               return false;
+> diff --git a/drivers/gpu/buddy.c b/drivers/gpu/buddy.c
+> index 52686672e99f..eb1457376307 100644
+> --- a/drivers/gpu/buddy.c
+> +++ b/drivers/gpu/buddy.c
+> @@ -437,6 +437,9 @@ int gpu_buddy_init(struct gpu_buddy *mm, u64 size, u64 chunk_size)
+>   		root_count++;
+>   	} while (size);
+>   
+> +#ifdef CONFIG_LOCKDEP
+> +	mm->lock_dep_map = NULL;
+> +#endif
+>   	return 0;
+>   
+>   out_free_roots:
+> @@ -538,6 +541,7 @@ void gpu_buddy_reset_clear(struct gpu_buddy *mm, bool is_clear)
+>   	unsigned int order;
+>   	int i;
+>   
+> +	gpu_buddy_driver_lock_held(mm);
+>   	size = mm->size;
+>   	for (i = 0; i < mm->n_roots; ++i) {
+>   		order = ilog2(size) - ilog2(mm->chunk_size);
+> @@ -580,6 +584,7 @@ EXPORT_SYMBOL(gpu_buddy_reset_clear);
+>   void gpu_buddy_free_block(struct gpu_buddy *mm,
+>   			  struct gpu_buddy_block *block)
+>   {
+> +	gpu_buddy_driver_lock_held(mm);
+>   	BUG_ON(!gpu_buddy_block_is_allocated(block));
+>   	mm->avail += gpu_buddy_block_size(mm, block);
+>   	if (gpu_buddy_block_is_clear(block))
+> @@ -633,6 +638,7 @@ void gpu_buddy_free_list(struct gpu_buddy *mm,
+>   {
+>   	bool mark_clear = flags & GPU_BUDDY_CLEARED;
+>   
+> +	gpu_buddy_driver_lock_held(mm);
+>   	__gpu_buddy_free_list(mm, objects, mark_clear, !mark_clear);
+>   }
+>   EXPORT_SYMBOL(gpu_buddy_free_list);
+> @@ -1172,6 +1178,8 @@ int gpu_buddy_block_trim(struct gpu_buddy *mm,
+>   	u64 new_start;
+>   	int err;
+>   
+> +	gpu_buddy_driver_lock_held(mm);
 > +
-> +       return ring->me =3D=3D me && ring->pipe =3D=3D pipe;
+>   	if (!list_is_singular(blocks))
+>   		return -EINVAL;
+>   
+> @@ -1287,6 +1295,8 @@ int gpu_buddy_alloc_blocks(struct gpu_buddy *mm,
+>   	unsigned long pages;
+>   	int err;
+>   
+> +	gpu_buddy_driver_lock_held(mm);
+> +
+>   	if (size < mm->chunk_size)
+>   		return -EINVAL;
+>   
+> @@ -1475,6 +1485,7 @@ void gpu_buddy_print(struct gpu_buddy *mm)
+>   {
+>   	int order;
+>   
+> +	gpu_buddy_driver_lock_held(mm);
+>   	pr_info("chunk_size: %lluKiB, total: %lluMiB, free: %lluMiB, clear_free: %lluMiB\n",
+>   		mm->chunk_size >> 10, mm->size >> 20, mm->avail >> 20, mm->clear_avail >> 20);
+>   
+> diff --git a/drivers/gpu/drm/drm_buddy.c b/drivers/gpu/drm/drm_buddy.c
+> index 841f3de5f307..faa025498de4 100644
+> --- a/drivers/gpu/drm/drm_buddy.c
+> +++ b/drivers/gpu/drm/drm_buddy.c
+> @@ -42,6 +42,7 @@ void drm_buddy_print(struct gpu_buddy *mm, struct drm_printer *p)
+>   {
+>   	int order;
+>   
+> +	gpu_buddy_driver_lock_held(mm);
+>   	drm_printf(p, "chunk_size: %lluKiB, total: %lluMiB, free: %lluMiB, clear_free: %lluMiB\n",
+>   		   mm->chunk_size >> 10, mm->size >> 20, mm->avail >> 20, mm->clear_avail >> 20);
+>   
+> diff --git a/drivers/gpu/drm/xe/xe_ttm_vram_mgr.c b/drivers/gpu/drm/xe/xe_ttm_vram_mgr.c
+> index 6ba47996bc7c..9f67df646955 100644
+> --- a/drivers/gpu/drm/xe/xe_ttm_vram_mgr.c
+> +++ b/drivers/gpu/drm/xe/xe_ttm_vram_mgr.c
+> @@ -322,6 +322,7 @@ int __xe_ttm_vram_mgr_init(struct xe_device *xe, struct xe_ttm_vram_mgr *mgr,
+>   	if (err)
+>   		return err;
+>   
+> +	gpu_buddy_driver_set_lock(&mgr->mm, &mgr->lock);
+>   	ttm_set_driver_manager(&xe->ttm, mem_type, &mgr->manager);
+>   	ttm_resource_manager_set_used(&mgr->manager, true);
+>   
+> diff --git a/include/linux/gpu_buddy.h b/include/linux/gpu_buddy.h
+> index 5fa917ba5450..71941a039648 100644
+> --- a/include/linux/gpu_buddy.h
+> +++ b/include/linux/gpu_buddy.h
+> @@ -154,6 +154,7 @@ struct gpu_buddy_block {
+>    * @avail: Total free space currently available for allocation in bytes.
+>    * @clear_avail: Free space available in the clear tree (zeroed memory) in bytes.
+>    *               This is a subset of @avail.
+> + * @lock_dep_map: Annotates gpu_buddy API with a driver provided lock.
+>    */
+>   struct gpu_buddy {
+>   /* private: */
+> @@ -179,8 +180,48 @@ struct gpu_buddy {
+>   	u64 size;
+>   	u64 avail;
+>   	u64 clear_avail;
+> +#ifdef CONFIG_LOCKDEP
+> +	struct lockdep_map *lock_dep_map;
+> +#endif
+>   };
+>   
+> +#ifdef CONFIG_LOCKDEP
+> +/**
+> + * gpu_buddy_driver_set_lock() - Set the lock protecting accesses to GPU BUDDY
+> + * @mm: Pointer to GPU buddy structure.
+> + * @lock: the lock used to protect the gpu buddy. The locking primitive
+> + * must contain a dep_map field.
+> + *
+> + * Call this to annotate gpu_buddy APIs which access/modify gpu_buddy manager
+> + */
+> +#define gpu_buddy_driver_set_lock(mm, lock) \
+> +	do { \
+> +		struct gpu_buddy *__mm = (mm); \
+> +		if (!WARN(__mm->lock_dep_map, "GPU BUDDY MM lock should be set only once.")) \
+> +			__mm->lock_dep_map = &(lock)->dep_map; \
+> +	} while (0)
+> +#else
+> +#define gpu_buddy_driver_set_lock(mm, lock) do { (void)(mm); (void)(lock); } while (0)
+> +#endif
+> +
+> +#ifdef CONFIG_LOCKDEP
+> +/**
+> + * gpu_buddy_driver_lock_held() - Assert GPU BUDDY manager lock is held
+> + * @mm: Pointer to the GPU BUDDY structure.
+> + *
+> + * Ensure driver lock is held.
+> + */
+> +static inline void gpu_buddy_driver_lock_held(struct gpu_buddy *mm)
+> +{
+> +	if (mm->lock_dep_map)
+> +		lockdep_assert(lock_is_held_type(mm->lock_dep_map, 0));
 > +}
-> +
-> +static unsigned int amdgpu_gfx_mec_pipe_compute_ring_base(struct amdgpu_=
-device *adev,
-> +                                                        u32 xcc_id)
+> +#else
+> +static inline void gpu_buddy_driver_lock_held(struct gpu_buddy *mm)
 > +{
-> +       int num_xcc =3D adev->gfx.xcc_mask ? NUM_XCC(adev->gfx.xcc_mask) =
-: 1;
-> +
-> +       if (num_xcc <=3D 1)
-> +               return 0;
-> +       return xcc_id * adev->gfx.num_compute_rings;
 > +}
+> +#endif
 > +
-> +void amdgpu_gfx_mec_pipe_reset_prepare(struct amdgpu_device *adev,
-> +                                      struct amdgpu_ring *guilty)
-> +{
-> +       struct amdgpu_ring *r;
-> +       unsigned int j, base;
-> +
-> +       base =3D amdgpu_gfx_mec_pipe_compute_ring_base(adev, guilty->xcc_=
-id);
-> +       for (j =3D 0; j < adev->gfx.num_compute_rings; j++) {
-> +               r =3D &adev->gfx.compute_ring[base + j];
-> +               if (!amdgpu_gfx_ring_on_mec_pipe(r, guilty->me, guilty->p=
-ipe))
-> +                       continue;
-> +               if (r !=3D guilty)
-> +                       amdgpu_ring_backup_unprocessed_commands(r, NULL);
-> +               if (amdgpu_ring_sched_ready(r))
-> +                       drm_sched_wqueue_stop(&r->sched);
-> +       }
-> +
-> +       if (adev->kfd.init_complete)
-> +               amdgpu_amdkfd_stop_sched(adev, guilty->xcc_id);
-> +}
-> +
-> +void amdgpu_gfx_mec_pipe_restart_schedulers(struct amdgpu_device *adev,
-> +                                           u32 me, u32 pipe, u32 xcc_id)
-> +{
-> +       struct amdgpu_ring *r;
-> +       unsigned int j, base;
-> +
-> +       base =3D amdgpu_gfx_mec_pipe_compute_ring_base(adev, xcc_id);
-> +       for (j =3D 0; j < adev->gfx.num_compute_rings; j++) {
-> +               r =3D &adev->gfx.compute_ring[base + j];
-> +               if (!amdgpu_gfx_ring_on_mec_pipe(r, me, pipe))
-> +                       continue;
-> +               if (amdgpu_ring_sched_ready(r))
-> +                       drm_sched_wqueue_start(&r->sched);
-> +       }
-> +
-> +       if (adev->kfd.init_complete)
-> +               amdgpu_amdkfd_start_sched(adev, xcc_id);
-> +}
-> +
-> +int amdgpu_gfx_mec_pipe_reset_recover_queues(struct amdgpu_device *adev,
-> +                                            struct amdgpu_ring *guilty,
-> +                                            struct amdgpu_fence *timedou=
-t_fence,
-> +                                            amdgpu_gfx_kcq_init_queue_t =
-kcq_init)
-> +{
-> +       struct amdgpu_fence collateral_reemit =3D {};
-> +       struct amdgpu_ring *r;
-> +       unsigned int j, base;
-> +       int err =3D 0;
-> +
-> +       if (!timedout_fence)
-> +               return -EINVAL;
-> +
-> +       collateral_reemit.context =3D (u64)-1;
-> +
-> +       base =3D amdgpu_gfx_mec_pipe_compute_ring_base(adev, guilty->xcc_=
-id);
-> +       for (j =3D 0; j < adev->gfx.num_compute_rings; j++) {
-> +               r =3D &adev->gfx.compute_ring[base + j];
-> +               if (!amdgpu_gfx_ring_on_mec_pipe(r, guilty->me, guilty->p=
-ipe))
-> +                       continue;
-> +
-> +               err =3D kcq_init(r, true);
-> +               if (err)
-> +                       goto err_sched;
-> +               err =3D amdgpu_mes_map_legacy_queue(adev, r, 0);
-> +               if (err)
-> +                       goto err_sched;
-> +       }
-> +
-> +       amdgpu_gfx_mec_pipe_restart_schedulers(adev, guilty->me, guilty->=
-pipe,
-> +                                              guilty->xcc_id);
-> +
-> +       for (j =3D 0; j < adev->gfx.num_compute_rings; j++) {
-> +               r =3D &adev->gfx.compute_ring[base + j];
-> +               if (!amdgpu_gfx_ring_on_mec_pipe(r, guilty->me, guilty->p=
-ipe))
-> +                       continue;
-> +
-> +               err =3D amdgpu_ring_reset_helper_end(
-> +                       r, r =3D=3D guilty ? timedout_fence : &collateral=
-_reemit);
+>   static inline u64
+>   gpu_buddy_block_offset(const struct gpu_buddy_block *block)
+>   {
 
-I don't think this will work.  We don't actually know which job hung
-the pipe so we can't resubmit all of the jobs.  We either need to
-discard all jobs (amdgpu_fence_driver_force_completion()) or just the
-ones associated with the context from the earliest job on the queue.
-Rather than stopping the jobs and doing all of the resets here, it
-might be cleaner to have a worker thread which schedules a call to
-drm_sched_fault() for all of the affected queues.  Then each queue
-reset will run sequentially.  You need to be careful however since you
-could get into a loop where each reset ends up scheduling more resets
-if we end up falling back to the pipe reset handler for some reason.
-
-Alex
-
-
-> +               if (err) {
-> +                       dev_err(adev->dev,
-> +                               "ring %s failed recover after MEC pipe re=
-set (%d)\n",
-> +                               r->name, err);
-> +                       return err;
-> +               }
-> +       }
-> +
-> +       return 0;
-> +
-> +err_sched:
-> +       amdgpu_gfx_mec_pipe_restart_schedulers(adev, guilty->me, guilty->=
-pipe,
-> +                                              guilty->xcc_id);
-> +       return err;
-> +}
-> +
->  bool amdgpu_gfx_is_mec_queue_enabled(struct amdgpu_device *adev,
->                                      int xcc_id, int mec, int pipe, int q=
-ueue)
->  {
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_gfx.h
-> index 77050f9884f2..38b317b91bbe 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-> @@ -603,6 +603,17 @@ int amdgpu_gfx_mec_queue_to_bit(struct amdgpu_device=
- *adev, int mec,
->                                 int pipe, int queue);
->  void amdgpu_queue_mask_bit_to_mec_queue(struct amdgpu_device *adev, int =
-bit,
->                                  int *mec, int *pipe, int *queue);
-> +
-> +typedef int (*amdgpu_gfx_kcq_init_queue_t)(struct amdgpu_ring *ring, boo=
-l clear);
-> +
-> +void amdgpu_gfx_mec_pipe_reset_prepare(struct amdgpu_device *adev,
-> +                                      struct amdgpu_ring *guilty);
-> +void amdgpu_gfx_mec_pipe_restart_schedulers(struct amdgpu_device *adev,
-> +                                           u32 me, u32 pipe, u32 xcc_id)=
-;
-> +int amdgpu_gfx_mec_pipe_reset_recover_queues(
-> +       struct amdgpu_device *adev, struct amdgpu_ring *guilty,
-> +       struct amdgpu_fence *timedout_fence,
-> +       amdgpu_gfx_kcq_init_queue_t kcq_init);
->  bool amdgpu_gfx_is_mec_queue_enabled(struct amdgpu_device *adev, int xcc=
-_id,
->                                      int mec, int pipe, int queue);
->  bool amdgpu_gfx_is_high_priority_compute_queue(struct amdgpu_device *ade=
-v,
-> --
-> 2.49.0
->
