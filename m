@@ -4,125 +4,122 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 28579CD342F
-	for <amd-gfx@archiver.kernel.org>; Fri,  8 May 2026 04:10:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 243F3CD342F
+	for <amd-gfx@archiver.kernel.org>; Fri,  8 May 2026 04:35:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BB5CC10F32C;
-	Fri,  8 May 2026 04:10:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A46E110E2E2;
+	Fri,  8 May 2026 04:35:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Rma6oAL/";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="lOylMGKK";
 	dkim-atps=neutral
-Received: from PH7PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11010020.outbound.protection.outlook.com [52.101.201.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7601610F32C
- for <amd-gfx@lists.freedesktop.org>; Fri,  8 May 2026 04:10:38 +0000 (UTC)
+Received: from BL2PR02CU003.outbound.protection.outlook.com
+ (mail-eastusazon11011011.outbound.protection.outlook.com [52.101.52.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 223FB10E2E2
+ for <amd-gfx@lists.freedesktop.org>; Fri,  8 May 2026 04:35:15 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Wiqdv4R6qskxytQOVtsF2U+fPwXtlSwcCpxgYMXXlGPpDjUYx9ceaDNZ4owzby0GOvYOhbWtoaq9fb/F8LJcyYGv6MW3J84RA2z7qiew04jmTq54UsgkIbxnDT4v9TnU0/JrreHu8ds9FZ55s1ViM78ZaUzpgTf62G0H+XWIiJWpcMdmIGlcz7iLL3WYTD443kM2LA/aZpc2q7bwdY/PxxywVYLC3FSF3GdaqkMXlWTwjPSc/4rSng2V6da9teH/ip9Dcfji26HOr1RjR8cZ1M1zohu4K0iow0p9Mb/zf6HHIMJSjoRqiKKLFJCu99wMtyXckb78ezyYC8+FGknJJQ==
+ b=qSI6VH+7ZBXtkcWEGjx65Nrd9djP5BeoPaLoKLxBn/+SMeN/7KzSSJrjEeDe3Vlqx4tN1viRJmCzGRkgnD0s+Q+ZZhHBueVYe/Yqo+MBeEzZwz4oC5AEpAm50/xX7ZF+zKyga6mv6Cmu1ovQZPZXEBRGSpO1/bOF1c3G8zklp1kunYI3RphgaEnpSrKZ73vFMWclyMAEJZMW9vP8b/m6HcxZO7/I7Fv3rpVwGtx5PB3GIUHokSmF3dDyZ+owVs+79VsQdPMJzicmFr+p52250pYz2IFDqCUZnv+Kh52JMGKTGcUvAs/28kGQioyj87OiG5e5eyaq/L6wynC9J/agXg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/NswZ50q2q+kFoJ2zOmj4lGa0AV859hg6d9NdPitIMM=;
- b=LzYaAoF2YfyAZZMsJRKTQ/ILc4knJkQdqGoevjV8bhvF77K5sqPhzBWNRAYyct8NN+Vx5RwUcxMMTlJ451QQqTavYoBE2khDEw/anyUmWgApLF62WbHG5wK9Tk4u38Gf33lwjINAHdbNTFxKjzCcAgMNO8OTRJPuujtCxdVg9shV3mXPR1Q/fnWlYrhTLs07cX2u4izQiGrybJBhkGbJxF2r2I8qy6GP38NH5tuqWvxa+tB6Uej3ZvjFO5mPToHPfiNDPMc/uqMs+H9rWhJEdgq73xDJNr1QZXf6ILOaIeegE5jtSxshyGEM1XQRrtdP2RbbK4MgVaPTjiXRQpc3hg==
+ bh=IlatX5iucJ5K6Pfr5x7vyP/hF59pg9TuWbdjAmUedtM=;
+ b=huWSotGjdP/JdTqwwWk+744AZcdG+UAKKgoIC4Xe4hCb6uLThmwln9F6XCx6gEjY1ZLiVSUqWzzfCsTt5A7M9SZF/9q8r8PMR5cQcHdljPVvhzlCBp1hLBhNbUO6MG9AFMh996aZ7IhJX+OeAvkyOvT8msF4oBvdNA/EQ5baLGaAQX1VVWTPIVMldlXOYEtBJXxqVxOt9xErnHD4W3Y0jAwZ31yk0dqQGs6s+5hg6hjZCyEY/X4hLDvJJscI34D/hl1/fICV1kmG7sJ7429iZ1n5HyZni20hvM2L5JApXnFUSGBe72QmDDnR/1iNCmgK0v1JgZNLO0/riMcbPAh7NA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/NswZ50q2q+kFoJ2zOmj4lGa0AV859hg6d9NdPitIMM=;
- b=Rma6oAL/2b4rZzz92sdT2EcdpmZJC6+h+JYrsOduods5OiVzgXVkoCasTdX0PxeDl3zcH9hPwa+LFi+rj2dlz28HUUHr0pbZpDozt1B6r/earaJO3+ttp9vW9gTPieig/jVMvn5Ob0RKUp/lVgxj0ZYLBNuVI2u8bJBCK4pa67k=
-Received: from DM6PR12MB2972.namprd12.prod.outlook.com (2603:10b6:5:39::31) by
- DS0PR12MB7679.namprd12.prod.outlook.com (2603:10b6:8:134::5) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9891.19; Fri, 8 May 2026 04:10:34 +0000
-Received: from DM6PR12MB2972.namprd12.prod.outlook.com
- ([fe80::574d:7c2d:4d0a:855e]) by DM6PR12MB2972.namprd12.prod.outlook.com
- ([fe80::574d:7c2d:4d0a:855e%6]) with mapi id 15.20.9891.015; Fri, 8 May 2026
- 04:10:33 +0000
-From: "Wang, Yang(Kevin)" <KevinYang.Wang@amd.com>
-To: "Kamal, Asad" <Asad.Kamal@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-CC: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Zhang, Hawking"
- <Hawking.Zhang@amd.com>, "Feng, Kenneth" <Kenneth.Feng@amd.com>
+ bh=IlatX5iucJ5K6Pfr5x7vyP/hF59pg9TuWbdjAmUedtM=;
+ b=lOylMGKKcInOCFzy0IAZeBr13akSSc5AOe/Jurj0XZBb+pfLWOZerOd5X/7i+uMJxVC7Ga3L4aPqn5rmLlogqZzcIo2gLGI9M/DpqgeSTypb+0zgpYccI62jR3ZKD0huxja/5VzwIs3zMZ0t99M/6K+eTGRIIZuAF89ysPDtifQ=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from SA0PR12MB7091.namprd12.prod.outlook.com (2603:10b6:806:2d5::17)
+ by DS7PR12MB6095.namprd12.prod.outlook.com (2603:10b6:8:9c::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.25; Fri, 8 May
+ 2026 04:35:11 +0000
+Received: from SA0PR12MB7091.namprd12.prod.outlook.com
+ ([fe80::ec33:1213:cfd8:63bc]) by SA0PR12MB7091.namprd12.prod.outlook.com
+ ([fe80::ec33:1213:cfd8:63bc%3]) with mapi id 15.20.9891.019; Fri, 8 May 2026
+ 04:35:11 +0000
+Message-ID: <dcfc25a2-5aaa-4c62-b684-a70f97f82516@amd.com>
+Date: Fri, 8 May 2026 10:05:00 +0530
+User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH] drm/amd/pm: update dpm clock pm attributes for aldebaran
  (gc 9.4.2)
-Thread-Topic: [PATCH] drm/amd/pm: update dpm clock pm attributes for aldebaran
- (gc 9.4.2)
-Thread-Index: AQHc3pmu+DrUhsRdEkSk2VnZnwL4H7YDgEUAgAAB/xQ=
-Date: Fri, 8 May 2026 04:10:33 +0000
-Message-ID: <DM6PR12MB2972F4288EB98A661DD2F95A823D2@DM6PR12MB2972.namprd12.prod.outlook.com>
+To: Yang Wang <kevinyang.wang@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: alexander.deucher@amd.com, hawking.zhang@amd.com, kenneth.feng@amd.com
 References: <20260508032019.1617320-1-kevinyang.wang@amd.com>
- <DS7PR12MB607129C7685D7FE30F7272EE8E3D2@DS7PR12MB6071.namprd12.prod.outlook.com>
-In-Reply-To: <DS7PR12MB607129C7685D7FE30F7272EE8E3D2@DS7PR12MB6071.namprd12.prod.outlook.com>
-Accept-Language: en-US, zh-CN
 Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-05-08T03:51:13.0000000Z;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD General
- v26; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=3;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard
-x-ms-reactions: allow
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DM6PR12MB2972:EE_|DS0PR12MB7679:EE_
-x-ms-office365-filtering-correlation-id: c4d4bbe6-bfbc-413c-d5d2-08deacb7c042
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|376014|1800799024|366016|38070700021|8096899003|56012099003|22082099003|3023799003|18002099003;
-x-microsoft-antispam-message-info: g1zpHR4oksSW/1sArfteaKJVJ28qo9+j0J6b0MaGC++LV3wsJoScGYwQbZZmymDMYJYOe+Ey9GJT8Pm/md77soHnTYJV9o92QELyNWZo5Clu57asJzMYq+8s5Q9oEqPKjqaMtbSVI7OLlIBJp2r00+4baVHl2YAyS2G8FFZUfWi4uJYrCmGfc292kBgZ6JtQ7xLgHNScwWMyAAawJ3P+c8TPspEGGSLDXoXQbtsDxeHHASSl16duwTD+m+YKliwL97ASqX8gUNRn1A+Y9wB/JbGsnbiRQw6hJGElzC8c9iPS1HrhJu5b949wrajJ30I3ObVJYnfrMbluotZwdm11LrhKbmHAbJkiKEfrqpXFM/4OlQeGl85gE2vhMI88geZ2rrdC4yi+yvTJXudWRHpEZ/TB5AgGGGRnZ3vjvFFUsRV7ZsMEFVYJnqV6C3NF1cbVxfkCuPX5ECZ2zzyEEbk0CxXk7YvI3P/fbvV3on4Uyo3BRPhPEFuRi92olDSc/FzFdzP6BJ3fFxZBHV6JFE4xFdnw73svBVDOyX2w3c/ftrFD+Ci5BBoCCLY7v+QFSZlKXFUOcSpJO+lZVwkJ9Ey0CAOfMDuFOZ29x5bVyBgUaZdett+T8xykdGE59Kc3wc6Wupj4nU9ne6NxhqwDwVcncV4O9BqvuK/WmLRrUBZ+3jlXzFMUDKkxvNejtO6leeGyCRlmpC7TRvG7FD7OReCBkjeDFqH4C6deIj9fGoGdl1a/cs7FVUvVJkQ7og9gQQJt
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB2972.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(366016)(38070700021)(8096899003)(56012099003)(22082099003)(3023799003)(18002099003);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?Lp9ndFv1aIbBK9tJJky0ROmx4TxL0fRyO6QMfRQ7TSGzij6Y/oIw7IVh5z8l?=
- =?us-ascii?Q?QlfU+G8Vp3zlE9R0nagF8LJ1P1y5+UiWQOq4xlzzJ0uabq86M1RmvjYcKKr8?=
- =?us-ascii?Q?8ZGRgAxZPxJ3CE2XBL9I0cp1GzeuJz8QctOBiheS5b5XIbboY/GewT+7+jX5?=
- =?us-ascii?Q?DPVqROPwnmD0/MapgoiQgDjLyKpFkZ0mErg8BJAiChyvD/T7AU0DUSbeRe5M?=
- =?us-ascii?Q?/okRlIncRQEnsPj+B4K6zsypD/mjW/gSJgmDO0gMco53BSmsUTP8bNZN6cTP?=
- =?us-ascii?Q?E6XuWXuyCsTqwrg9m/e3kaasLZzik2+swY0BLAzICo5fS2BCFOBsyFIzcXal?=
- =?us-ascii?Q?NDtPIXGcauIJ8jVLyBYRfH2UYyTByezU1HhOwcoASyV7Bc8JK/cYcv6lESdU?=
- =?us-ascii?Q?Stlskn0lhQlDR+w49bkh7JEDAMj4GJJbPsN42i+t30sxdrjSL6D/N14yPmwc?=
- =?us-ascii?Q?WZgOQXdeKksZSeS5oM+I66hg99yd6bLq0PPSu2qFvESVwEzbRDhhlp8PawdF?=
- =?us-ascii?Q?p2FFaEfRZcgffDpY6H6zq3s0D4FSFzwKoH1n4RMYveV0Zg1LUEAQh0N6aJuF?=
- =?us-ascii?Q?LsDQg7pG6qZOLBlkRCqTdwgvGcFGL3tf3Lyv23ytr9hMpR62dzVs1k4SUrjy?=
- =?us-ascii?Q?ZN2B/kbgPJLof8FEwJBL4qKEJqRYwcmxQQADmBIPA6+2cBsHzf/jjMX0HyQt?=
- =?us-ascii?Q?xYvlKnT5pg6INlUAX/bXjvHGWIDoeNH1BjF487ijjGs3PhaGAvgz7vTsLE+7?=
- =?us-ascii?Q?YlTqDnf0kVdcW0jaaaTF5k07yld7NR0lvLiEOCzyXUyKoaUAO9iwuO00tJx+?=
- =?us-ascii?Q?+1rXaKsCbasgtsa5Qt//ksnAMb1X3GDI6KEr1BCqTvUYUVazBvg6xeaXhkvq?=
- =?us-ascii?Q?bqvChnoxgsoExq6L5htsRJNlPpFWDdPi5/lv1dBsF0W3m3vYdpRxcoS+p+j9?=
- =?us-ascii?Q?nHEGbUMAG9HMmH/b3v1NiBlE7b/KlckT7OOz8eB+ba2OLKZ6ekysAf11wW30?=
- =?us-ascii?Q?+wRNN+Y3waSmhW08SSOXSr4yaNMH0R+Tw0xzxWyRk4zEOLELIfUhmWdqiL1u?=
- =?us-ascii?Q?dYSta54cIV6CkU/odj05zxvGdMSuO2IzBZYnchDNv0te442JIp4HTv4l/eEb?=
- =?us-ascii?Q?o6mzq4j20+f1gSnhhOk3PYEahhb/rgdTP0ew78/Q69SDe8Uun/FOtd79WC0g?=
- =?us-ascii?Q?etLZrFO3HJq35ImJcUjiYYPWJ2Kt6/HRZB38TlE9VPFRBIyqV1oalUr/4i2N?=
- =?us-ascii?Q?EJwlNHPxjDTSPbd9Ks/yCQDODTKNQmWP9O5zWHNIJia/kE160JP/nD31bRaC?=
- =?us-ascii?Q?GB2zFarnwvTwsdjtdTGtGz6fVoAEjS+ZsyAiebzZXgj94UKk1Bg+hCmqpYlw?=
- =?us-ascii?Q?HFPB4bM5PBHsPzTvcgl138AQ+J+Eo1PuTb66/PdFuLmI4+N/6D2Wf3J7lPOU?=
- =?us-ascii?Q?WyFfg8jk7vfN7+hPK0ICHUWd0jaFumwAJvN7PSrXYYOzeDGvDe6pY3Rbpho3?=
- =?us-ascii?Q?YYhphyvTQkvKalXORH23TcNVFpN2pGDpN2lKl1wXDT8xI8lHgQi4GLUUrw7+?=
- =?us-ascii?Q?e003fS/WJyFC6XxNArEWI4b/USATlstrUDwqJh8FrwWkYnLqXgfXpqEZIsn5?=
- =?us-ascii?Q?iAMosaiISMtu7JmErHmOb8OkZqCEm0AimU0S69ItxOklZwTCK6fYJWcZLG9c?=
- =?us-ascii?Q?bnlPVVY2OMszG+RC3Xs6SPjV4kPuWEhBU/S9lBkL6Uq9IPCIcPjp4VRv2+yI?=
- =?us-ascii?Q?Y4oIlvRynQ=3D=3D?=
-Content-Type: multipart/alternative;
- boundary="_000_DM6PR12MB2972F4288EB98A661DD2F95A823D2DM6PR12MB2972namp_"
+From: "Lazar, Lijo" <lijo.lazar@amd.com>
+In-Reply-To: <20260508032019.1617320-1-kevinyang.wang@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MA0PR01CA0114.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:a01:11d::12) To SA0PR12MB7091.namprd12.prod.outlook.com
+ (2603:10b6:806:2d5::17)
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SA0PR12MB7091:EE_|DS7PR12MB6095:EE_
+X-MS-Office365-Filtering-Correlation-Id: 80b13cd3-98cf-4b57-e334-08deacbb3067
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|376014|1800799024|18002099003|22082099003|56012099003|3023799003;
+X-Microsoft-Antispam-Message-Info: qig3MJ1srn2qogFMZYDc8sLZMGLHOUs3yXATb6ljX13QMj+eYo0loIK1q3T8lqEz9e5hUfe+ZOOKAhnFHuRyAo8JK1VIO/nrb5QXBkaYnW3CltgJITNG8VAHVcBqLfPCwHVg1TLV9/GVzLzGfExvJZATSKVyrGRfU2NYPILZYz9JJKx+0tM7keMV5HDcH27Puls1T1c16Bz87zDUPBneVP3UIrc+6wiZ6cdpD1cqJR1Q9djbre06e/RLqK5Zh5dYiExNewj/rX5d49Hl4/vhLtWectt24uHMyNIDhpPFJW8dsKaJkhdsFSw6s4vC3+sIPPcJli3UB2Fl5gg7UAjuk9qTQKC/r9677JHSOiCOJol6UJnZDdx0l5iA7atcyYKOMZ/QnXH0pCkfBu2dC3G4Ccp4SQ0rlST20jQLULq+AECbyyR1EddQ5f/7Fw5S8y0ANhytJQYgg0QTZP2Ow9JntyH9icYvHTyAr4EPadLGysbYUZU+I1FcI4MoUC77c6Kd9YMp98f4GlsR1n/7VXPXIvZB10Pzk7cK48GkFsEYipJSMxXYXDxtblEFCatGJrralyhCMWsIgjNFAtk4PW9p3F5H2U+DOThAqfDN3+Hf2hT4McMds4uAeTJ46aIbv+zA0iMA144F2/3SjBySHUiMy5kBjhpH79Whs5Ce0q7yl8Z4gQpeUrbGqWzmq0aVgeb0
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SA0PR12MB7091.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(376014)(1800799024)(18002099003)(22082099003)(56012099003)(3023799003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?alovOHJWelZUMWhzSjU3WnJwR1N3YXh1aGdrYllIZ1IwOHFPS21sRklUYWVS?=
+ =?utf-8?B?YWdDS0puU3BuWmJUTW51SDJWUlVITHN0WWVpc2RMOU5kNXR5aThZcmJaQ1BH?=
+ =?utf-8?B?VDhyNmhIc1A1VW9yWDQ0VGZRb0ZjMHhBQ0Q4SzVSR1JWdGdlT2djWGlsU1Vh?=
+ =?utf-8?B?WGN4TVR5eEN3S2xHaTVEQXFMOElDZi9GSGgzbkl3R3dLMmNWWXY3YnBuUCtk?=
+ =?utf-8?B?anVzaUZzemJPYm9SYmZsY0QvZXNJWTZYVVBBdEtmRW9HS1N5RXhsajEycE5J?=
+ =?utf-8?B?WFU4d241QWZVTTBLZ1BJRzVZLzFHaVhmOXcrUDRxNWZlUk8vSnZwNFRvdWFL?=
+ =?utf-8?B?NzYyMW5LQzdud3ppVk1UMlJxZGlxTTVLclFKZ0JTMWpzcmlDSG94OWlveFRW?=
+ =?utf-8?B?cmsvSS9xOHBhSTluTURoWkpMY0h4cU9WUFlxVFFFekJrOEM4c29NS2UyT2NC?=
+ =?utf-8?B?Y3pDZUVzTHZOeUZCcDFqRGVydzdXU1FqZ3VRYkV1K3IzNHp6WjloKzhSQVd2?=
+ =?utf-8?B?NmwwL1BYVVZSTmMrU0ZxSWlmcTVQOUJPMkxiUTVOanpta2k1ZlI4Y3BkNUNw?=
+ =?utf-8?B?R0FrN3FxbVFlYVlWVEFEMmlMWFVGQ3VjbG4wZmlxbkQ1bFoyOTRzSDExNkVQ?=
+ =?utf-8?B?OWZkWm5qUG9IazNKTU9HZU1RYjhISDhTR3lORDdoRGYrMkk3RXoxSVh2K1JZ?=
+ =?utf-8?B?TWsrcEQ3elJvL2FEWXFlVHpFYThqdGRPVDYzSXA2L2dBdnBNL2NqaGRiR28v?=
+ =?utf-8?B?VjBDSU5jNUhlbEFnM2U3SHRkbytnWVFZcGNPMlFPN2xzT3MvTGpMSWR2dUkr?=
+ =?utf-8?B?cFZzaktYalpGL3JHVEZlWXBCZFZURmFQNVRwNzNLdVVoSXhsdlE1eDAveHFZ?=
+ =?utf-8?B?Mi9VTk43SVRCazFHcDdaTUdEOWhCeHRvOUt6VS85RUlzSldnSGJHVXg2TTE1?=
+ =?utf-8?B?Ukl2aXBWbHQ1MWhZN0xMWSt2MGZkcFhNTXEvL0R3TUtac0FUWjJRVVJsTUdu?=
+ =?utf-8?B?b3Qva1NCcmRENWgrQmRWdVBhSDVjWlYwakx3RUh0Zm91ZlVScGVHL1pHQmxJ?=
+ =?utf-8?B?b21vN3k3N0hvN0kxZ0JxSzZ1R2tpNTdGWWJ4L3QwdGh0MmVNNm43MUFYVmFM?=
+ =?utf-8?B?R21JcGt0cEV0K0lNeGdPSXBsbEhoWXFSdEpyTHAvUGsySmlNbER6QkpGQnBD?=
+ =?utf-8?B?M09aK25pdFBaUjBnUWttVWQwUmYxQm81RTJ3TUhmUlNwT3ZaWVltaXpKZkhx?=
+ =?utf-8?B?N0JvSEdXOURGOVlJTWVyeG14YXBjaHFmZmQ0V3I3S2pRZjlKcXNuQzZSb1RT?=
+ =?utf-8?B?ZjVtdXFLejdSTTZJVXdFa3VFcm1hb0lKNjB1L3N0RkQyN3pUemkyMndrYmlp?=
+ =?utf-8?B?QjRsdWdNejNKR0RlaGsyd2UxMXRnSlBCY1BsOE1JOEEvZTNSZXlRSjU0ajVa?=
+ =?utf-8?B?eGRRYkdnZXR1WllCK0I0bzZNVGNZck5kSi80eG43NERuQmlTUWE3U3pFR1J3?=
+ =?utf-8?B?WUN5c2lVTytnV3pFcml6em9sZnBtaWF5cjhUUXNjNjRISk1vWS9RSXNGSEZ6?=
+ =?utf-8?B?OXZ6ckp0cWJWYUFiQUQrVGZoMWh5YXJ4OHNEbTh5QlNMVVVLRXpvQlNJYlJK?=
+ =?utf-8?B?MWMwRGpPcDh4YlNRelArS1RFazExMGdBdTZkeWJVQmYxSFpoWnBZcm5OdVE5?=
+ =?utf-8?B?SExFM0FJOGw2Qy9UL0pCdzNwV05CUHkyL05na00rZU52QkhCb3F0emppdnBT?=
+ =?utf-8?B?cndXM3pvSUcvVlc5blAwS0RpUWoyVDE5QWZnNTg4S0F4bnMxQmkrUG9GVVlR?=
+ =?utf-8?B?bVoxd0xYSVFwRHlNTXRwbnRYTGozeGR3akE3Qmx3NFRUb2FyMWxUY1Bic2Nm?=
+ =?utf-8?B?UlN5Yk9wTmNsSVRZMFpMUnAyOGVLLzdESWlRMGJsSlRoZVJ2SU9aeWxFVi84?=
+ =?utf-8?B?L2J4UU1RaTRkc3JwekVXaTl3WUQxWU1rTWo3MHBxUEtac2syaFZ2eTZ2QXo5?=
+ =?utf-8?B?ckNBMU53YncrYS9sa2dvUmVtOUh2NlhjK1RsOUJ4ZUdvdmdGUFV5OURWN2FO?=
+ =?utf-8?B?OCtDSHFVK044ZnZaK1k3cWNvYittMWYrUW5tL0NqNmR0OVVVbXJ6QzlRSk5G?=
+ =?utf-8?B?a2FqeUxIL21CNWNWRjVYVGpneXJrSnpGdXplVDIxbG5xdjdldmUxclIvNkM0?=
+ =?utf-8?B?QXVuSmhRTEZYbDJmQVZDL0t2bDFaTVo4OG45b1Zxck1MUDVJK3lQcmhHUEYz?=
+ =?utf-8?B?VDlvdTUvY0RxZVN6cktWNGpKY2I3VlIydk5tbEM0WU9GWWhxSDdqb05RbmdI?=
+ =?utf-8?B?c2UxaWw2aWVJN1N5ZEpoUHJlZVBRc1k2eFNXK3lmK2FXVmpPQnEvUT09?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 80b13cd3-98cf-4b57-e334-08deacbb3067
+X-MS-Exchange-CrossTenant-AuthSource: SA0PR12MB7091.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB2972.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c4d4bbe6-bfbc-413c-d5d2-08deacb7c042
-X-MS-Exchange-CrossTenant-originalarrivaltime: 08 May 2026 04:10:33.7467 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: QcnGVV4nR3huhvulE+x4fxCvX6tndEhPV/3mOfturiq8Z/iqR4W9ZRrjx5JF2XM/
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7679
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 May 2026 04:35:10.8565 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: zg1aEjAByxCemJAecPjtNDYVAWPDPSLla67coyIUZ6Rc8AqnlZQjDKXxESQ7YI9i
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6095
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,316 +134,76 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_DM6PR12MB2972F4288EB98A661DD2F95A823D2DM6PR12MB2972namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-AMD General
 
 
-________________________________
-From: Kamal, Asad <Asad.Kamal@amd.com>
-Sent: Friday, May 8, 2026 11:57 AM
-To: Wang, Yang(Kevin) <KevinYang.Wang@amd.com>; amd-gfx@lists.freedesktop.o=
-rg <amd-gfx@lists.freedesktop.org>
-Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Zhang, Hawking <Hawking=
-.Zhang@amd.com>; Feng, Kenneth <Kenneth.Feng@amd.com>
-Subject: RE: [PATCH] drm/amd/pm: update dpm clock pm attributes for aldebar=
-an (gc 9.4.2)
+On 08-May-26 8:50 AM, Yang Wang wrote:
+> Split and correct DPM clock attribute constraints for GFX 9.4.1 (Arcturus)
+> and 9.4.2 (Aldebaran) ASICs:
+> 
+> - Arcturus (9.4.1): Keep restrictions for mclk/socclk/fclk, update comment
+> - Aldebaran (9.4.2): Add dedicated per-clock constraints:
+>    * mclk/socclk: Only support voltage control, disable level setting
+>    * fclk: Mark as fully unsupported
+>    * pcie: Move multi-AID check into 9.4.2 case, disable level setting
+> 
+> Signed-off-by: Yang Wang <kevinyang.wang@amd.com>
+> ---
+>   drivers/gpu/drm/amd/pm/amdgpu_pm.c | 26 ++++++++++++++++++++------
+>   1 file changed, 20 insertions(+), 6 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+> index fd2e63530e8c..9ee3053973cf 100644
+> --- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+> +++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+> @@ -2033,16 +2033,11 @@ static int pp_dpm_clk_default_attr_update(struct amdgpu_device *adev, struct amd
+>   		       gc_ver == IP_VERSION(11, 0, 2) ||
+>   		       gc_ver == IP_VERSION(11, 0, 3)) && adev->vcn.num_vcn_inst >= 2))
+>   			*states = ATTR_STATE_UNSUPPORTED;
+> -	} else if (DEVICE_ATTR_IS(pp_dpm_pcie)) {
+> -		if (gc_ver == IP_VERSION(9, 4, 2) ||
+> -		    amdgpu_is_multi_aid(adev))
+> -			*states = ATTR_STATE_UNSUPPORTED;
+>   	}
+>   
+>   	switch (gc_ver) {
+>   	case IP_VERSION(9, 4, 1):
+> -	case IP_VERSION(9, 4, 2):
+> -		/* the Mi series card does not support standalone mclk/socclk/fclk level setting */
+> +		/* Arcturus does not support standalone mclk/socclk/fclk level setting */
+>   		if (DEVICE_ATTR_IS(pp_dpm_mclk) ||
+>   		    DEVICE_ATTR_IS(pp_dpm_socclk) ||
+>   		    DEVICE_ATTR_IS(pp_dpm_fclk)) {
+> @@ -2050,6 +2045,25 @@ static int pp_dpm_clk_default_attr_update(struct amdgpu_device *adev, struct amd
+>   			dev_attr->store = NULL;
+>   		}
+>   		break;
+> +	case IP_VERSION(9, 4, 2):
+> +		if (DEVICE_ATTR_IS(pp_dpm_mclk) ||
+> +		    DEVICE_ATTR_IS(pp_dpm_socclk)) {
+> +			/* Aldebaran mclk/socclk DPM only supports voltage control,
+> +			 * not allow to set dpm level directly */
+> +			dev_attr->attr.mode &= ~S_IWUGO;
+> +			dev_attr->store = NULL;
+> +		} else if (DEVICE_ATTR_IS(pp_dpm_pcie)) {
+> +			if (amdgpu_is_multi_aid(adev)) {
+> +				*states = ATTR_STATE_UNSUPPORTED;
+> +			} else {
+> +				dev_attr->attr.mode &= ~S_IWUGO;
+> +				dev_attr->store = NULL;
+> +			}
+> +		} else if (DEVICE_ATTR_IS(pp_dpm_fclk)) {
+> +			/* Aldebaran does not support fclk dpm */
+> +			*states = ATTR_STATE_UNSUPPORTED;
 
-AMD General
+I see FCLK reporting is supported in aldebaran - 
+aldebaran_get_current_clk_freq_by_table.
 
------Original Message-----
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Yang Wan=
-g
-Sent: Friday, May 8, 2026 8:50 AM
-To: amd-gfx@lists.freedesktop.org
-Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Zhang, Hawking <Hawking=
-.Zhang@amd.com>; Feng, Kenneth <Kenneth.Feng@amd.com>
-Subject: [PATCH] drm/amd/pm: update dpm clock pm attributes for aldebaran (=
-gc 9.4.2)
+That may also be kept as read-only then.
 
-Split and correct DPM clock attribute constraints for GFX 9.4.1 (Arcturus) =
-and 9.4.2 (Aldebaran) ASICs:
+Thanks,
+Lijo> +		}
+> +		break;
+>   	default:
+>   		break;
+>   	}
 
-- Arcturus (9.4.1): Keep restrictions for mclk/socclk/fclk, update comment
-- Aldebaran (9.4.2): Add dedicated per-clock constraints:
-  * mclk/socclk: Only support voltage control, disable level setting
-  * fclk: Mark as fully unsupported
-  * pcie: Move multi-AID check into 9.4.2 case, disable level setting
-
-Signed-off-by: Yang Wang <kevinyang.wang@amd.com>
----
- drivers/gpu/drm/amd/pm/amdgpu_pm.c | 26 ++++++++++++++++++++------
- 1 file changed, 20 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/am=
-dgpu_pm.c
-index fd2e63530e8c..9ee3053973cf 100644
---- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-+++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-@@ -2033,16 +2033,11 @@ static int pp_dpm_clk_default_attr_update(struct am=
-dgpu_device *adev, struct amd
-                       gc_ver =3D=3D IP_VERSION(11, 0, 2) ||
-                       gc_ver =3D=3D IP_VERSION(11, 0, 3)) && adev->vcn.num=
-_vcn_inst >=3D 2))
-                        *states =3D ATTR_STATE_UNSUPPORTED;
--       } else if (DEVICE_ATTR_IS(pp_dpm_pcie)) {
--               if (gc_ver =3D=3D IP_VERSION(9, 4, 2) ||
--                   amdgpu_is_multi_aid(adev))
--                       *states =3D ATTR_STATE_UNSUPPORTED;
-        }
- AK: With the global pp_dpm_pcie block removed, amdgpu_is_multi_aid(adev) i=
-s only evaluated inside case IP_VERSION(9, 4, 2). For any other GFX version=
-, pp_dpm_pcie is no longer forced to ATTR_STATE_UNSUPPORTED on multi-AID. T=
-hat includes 9.4.3 / 9.4.4 / 9.5.0
-[kevin]: thanks, will make v2 to fix it.
-Best Regards.
-Kevin
-
-Thanks & Regards
-Asad
-
-        switch (gc_ver) {
-        case IP_VERSION(9, 4, 1):
--       case IP_VERSION(9, 4, 2):
--               /* the Mi series card does not support standalone mclk/socc=
-lk/fclk level setting */
-+               /* Arcturus does not support standalone mclk/socclk/fclk le=
-vel
-+setting */
-                if (DEVICE_ATTR_IS(pp_dpm_mclk) ||
-                    DEVICE_ATTR_IS(pp_dpm_socclk) ||
-                    DEVICE_ATTR_IS(pp_dpm_fclk)) {
-@@ -2050,6 +2045,25 @@ static int pp_dpm_clk_default_attr_update(struct amd=
-gpu_device *adev, struct amd
-                        dev_attr->store =3D NULL;
-                }
-                break;
-+       case IP_VERSION(9, 4, 2):
-+               if (DEVICE_ATTR_IS(pp_dpm_mclk) ||
-+                   DEVICE_ATTR_IS(pp_dpm_socclk)) {
-+                       /* Aldebaran mclk/socclk DPM only supports voltage =
-control,
-+                        * not allow to set dpm level directly */
-+                       dev_attr->attr.mode &=3D ~S_IWUGO;
-+                       dev_attr->store =3D NULL;
-+               } else if (DEVICE_ATTR_IS(pp_dpm_pcie)) {
-+                       if (amdgpu_is_multi_aid(adev)) {
-+                               *states =3D ATTR_STATE_UNSUPPORTED;
-+                       } else {
-+                               dev_attr->attr.mode &=3D ~S_IWUGO;
-+                               dev_attr->store =3D NULL;
-+                       }
-+               } else if (DEVICE_ATTR_IS(pp_dpm_fclk)) {
-+                       /* Aldebaran does not support fclk dpm */
-+                       *states =3D ATTR_STATE_UNSUPPORTED;
-+               }
-+               break;
-        default:
-                break;
-        }
---
-2.47.3
-
-
---_000_DM6PR12MB2972F4288EB98A661DD2F95A823D2DM6PR12MB2972namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-</head>
-<body>
-<p style=3D"font-family:Calibri;font-size:10pt;color:#0000FF;margin:5pt;fon=
-t-style:normal;font-weight:normal;text-decoration:none;" align=3D"Left">
-AMD General<br>
-</p>
-<br>
-<div>
-<div dir=3D"ltr" style=3D"font-family: Aptos, Aptos_MSFontService, -apple-s=
-ystem, Roboto, Arial, Helvetica, sans-serif; font-size: 12pt; color: rgb(0,=
- 0, 0);">
-<br>
-</div>
-<div id=3D"mail-editor-reference-message-container" class=3D"ms-outlook-mob=
-ile-reference-message">
-<div id=3D"mail-editor-reference-message-container">
-<hr style=3D"display: inline-block; width: 98%;">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><span style=3D"font-family: Calibri, =
-sans-serif;"><b>From:</b>&nbsp;Kamal, Asad &lt;Asad.Kamal@amd.com&gt;<br>
-<b>Sent:</b>&nbsp;Friday, May 8, 2026 11:57 AM<br>
-<b>To:</b>&nbsp;Wang, Yang(Kevin) &lt;KevinYang.Wang@amd.com&gt;; amd-gfx@l=
-ists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&gt;<br>
-<b>Cc:</b>&nbsp;Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;; Zhang=
-, Hawking &lt;Hawking.Zhang@amd.com&gt;; Feng, Kenneth &lt;Kenneth.Feng@amd=
-.com&gt;<br>
-<b>Subject:</b>&nbsp;RE: [PATCH] drm/amd/pm: update dpm clock pm attributes=
- for aldebaran (gc 9.4.2)</span>
-<div style=3D"font-family: Calibri, sans-serif;">&nbsp;</div>
-</div>
-<meta name=3D"Generator" content=3D"Microsoft Exchange Server">
-<span style=3D"font-family: &quot;Times New Roman&quot;; font-size: 12pt;">=
-<a name=3D"BM_BEGIN"></a></span>
-<div style=3D"font-family: &quot;Times New Roman&quot;; font-size: 11pt;">A=
-MD General<br>
-<br>
------Original Message-----<br>
-From: amd-gfx &lt;amd-gfx-bounces@lists.freedesktop.org&gt; On Behalf Of Ya=
-ng Wang<br>
-Sent: Friday, May 8, 2026 8:50 AM<br>
-To: amd-gfx@lists.freedesktop.org<br>
-Cc: Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;; Zhang, Hawking &l=
-t;Hawking.Zhang@amd.com&gt;; Feng, Kenneth &lt;Kenneth.Feng@amd.com&gt;<br>
-Subject: [PATCH] drm/amd/pm: update dpm clock pm attributes for aldebaran (=
-gc 9.4.2)<br>
-<br>
-Split and correct DPM clock attribute constraints for GFX 9.4.1 (Arcturus) =
-and 9.4.2 (Aldebaran) ASICs:<br>
-<br>
-- Arcturus (9.4.1): Keep restrictions for mclk/socclk/fclk, update comment<=
-br>
-- Aldebaran (9.4.2): Add dedicated per-clock constraints:<br>
-&nbsp; * mclk/socclk: Only support voltage control, disable level setting<b=
-r>
-&nbsp; * fclk: Mark as fully unsupported<br>
-&nbsp; * pcie: Move multi-AID check into 9.4.2 case, disable level setting<=
-br>
-<br>
-Signed-off-by: Yang Wang &lt;kevinyang.wang@amd.com&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/pm/amdgpu_pm.c | 26 ++++++++++++++++++++------<br=
->
-&nbsp;1 file changed, 20 insertions(+), 6 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/am=
-dgpu_pm.c<br>
-index fd2e63530e8c..9ee3053973cf 100644<br>
---- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c<br>
-+++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c<br>
-@@ -2033,16 +2033,11 @@ static int pp_dpm_clk_default_attr_update(struct am=
-dgpu_device *adev, struct amd<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gc_ver =3D=3D IP_=
-VERSION(11, 0, 2) ||<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gc_ver =3D=3D IP_=
-VERSION(11, 0, 3)) &amp;&amp; adev-&gt;vcn.num_vcn_inst &gt;=3D 2))<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *states =3D=
- ATTR_STATE_UNSUPPORTED;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else if (DEVICE_ATTR_IS(pp_dpm_pcie=
-)) {<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; if (gc_ver =3D=3D IP_VERSION(9, 4, 2) ||<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_is_multi_aid(adev))<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *states =3D ATTR=
-_STATE_UNSUPPORTED;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;AK: With the global pp_dpm_pcie block removed, amdgpu_is_multi_aid(ad=
-ev) is only evaluated inside case IP_VERSION(9, 4, 2). For any other GFX ve=
-rsion, pp_dpm_pcie is no longer forced to ATTR_STATE_UNSUPPORTED on multi-A=
-ID. That includes 9.4.3 / 9.4.4 / 9.5.0<br>
-[kevin]: thanks, will make v2 to fix it.</div>
-<div style=3D"font-family: &quot;Times New Roman&quot;; font-size: 11pt;">B=
-est Regards.</div>
-<div style=3D"font-family: &quot;Times New Roman&quot;; font-size: 11pt;">K=
-evin</div>
-<div style=3D"font-family: &quot;Times New Roman&quot;; font-size: 11pt;"><=
-br>
-Thanks &amp; Regards<br>
-Asad<br>
-<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; switch (gc_ver) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case IP_VERSION(9, 4, 1):<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case IP_VERSION(9, 4, 2):<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; /* the Mi series card does not support standalone mclk/socclk/fc=
-lk level setting */<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; /* Arcturus does not support standalone mclk/socclk/fclk level<b=
-r>
-+setting */<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp; if (DEVICE_ATTR_IS(pp_dpm_mclk) ||<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DEVICE_ATTR_IS(pp_dpm_socclk) ||<br=
->
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DEVICE_ATTR_IS(pp_dpm_fclk)) {<br>
-@@ -2050,6 +2045,25 @@ static int pp_dpm_clk_default_attr_update(struct amd=
-gpu_device *adev, struct amd<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dev_attr-&g=
-t;store =3D NULL;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp; }<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp; break;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case IP_VERSION(9, 4, 2):<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; if (DEVICE_ATTR_IS(pp_dpm_mclk) ||<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DEVICE_ATTR_IS(pp_dpm_socclk)) {<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Aldebaran mcl=
-k/socclk DPM only supports voltage control,<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * not allo=
-w to set dpm level directly */<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dev_attr-&gt;att=
-r.mode &amp;=3D ~S_IWUGO;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dev_attr-&gt;sto=
-re =3D NULL;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; } else if (DEVICE_ATTR_IS(pp_dpm_pcie)) {<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_is_mu=
-lti_aid(adev)) {<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *states =3D ATTR_STATE_UNSUPPORTED;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else {<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dev_attr-&gt;attr.mode &amp;=3D ~S_IWUGO;<b=
-r>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dev_attr-&gt;store =3D NULL;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; } else if (DEVICE_ATTR_IS(pp_dpm_fclk)) {<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Aldebaran doe=
-s not support fclk dpm */<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *states =3D ATTR=
-_STATE_UNSUPPORTED;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; }<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; break;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; default:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp; break;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
---<br>
-2.47.3<br>
-<br>
-</div>
-</div>
-</div>
-</div>
-</body>
-</html>
-
---_000_DM6PR12MB2972F4288EB98A661DD2F95A823D2DM6PR12MB2972namp_--
