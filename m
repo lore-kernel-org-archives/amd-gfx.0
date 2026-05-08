@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 52149CD3445
-	for <amd-gfx@archiver.kernel.org>; Fri,  8 May 2026 18:07:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 05462CD342F
+	for <amd-gfx@archiver.kernel.org>; Fri,  8 May 2026 18:28:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DDF6810F598;
-	Fri,  8 May 2026 18:07:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ECAC210F5A1;
+	Fri,  8 May 2026 18:28:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="IW6E6KNO";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="SmOEFdZL";
 	dkim-atps=neutral
-Received: from CH1PR05CU001.outbound.protection.outlook.com
- (mail-northcentralusazon11010018.outbound.protection.outlook.com
- [52.101.193.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8DF8F10F598
- for <amd-gfx@lists.freedesktop.org>; Fri,  8 May 2026 18:07:19 +0000 (UTC)
+Received: from PH8PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11012040.outbound.protection.outlook.com [40.107.209.40])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 394CA10F5A1
+ for <amd-gfx@lists.freedesktop.org>; Fri,  8 May 2026 18:28:20 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=K0eFzQeAJefkp+HXQFAHPVKjvhmOFhzPBf61ZW4IZNEGKuIqd7BpOOEXOPu0oc5VhQTuxi1aSeHfFHPWXZg2r14Cakx5r59MffNCKBI+USrqSJqVKDtJO7ILTzGJt0NA/VzrC0hgs5wgs3eXLfj9vqmDZ6GnrpPn6ocOue2B/eLd2TFI2ZnROemQeCRiTYm1apmwXckM2sopK8IkVmYKF5Fq3moAcf9iWCFHW92uNcFsxeKF+Vtr4abiwGtqZQWiKFmpde1+9b7n8iyBtF6ZA4DL7dJq8JqqVA6axDx95v0fl2Bru0EVqD9R7wUFpwBLaiOG5KLvMouxijkddEJZbg==
+ b=rwihwqDMxXUrLv7gRQ78dJcaR10fTqGcXVHS8r5Yq8flu3D15Lpx+jo0u+MlHOUtpegnF1xJbABoJwlJ8Q/0MPb1Gaq7dehO7FcwOzu1yOXKWujQtQG9m2FrVK+suiV+tc+sntWnY0T37NUiySLNV8sDKGpsxq9DV/UVCKMhHLwqwqPc/P5WSjmFmBFea30CrGF1fHN5zpK4pZLXuWcs8bhRAO28QDGufrh5Psl/yECxyFHOH09LkEPosvuXQ9yyQBXiq9cskv9UCXq/Kl1RfaWAvpxGxlEZ/OqS3yX2hQKRiW9DI+JmiF2zhNRDNa27D3LcM4vT66XyGR7drsoiqA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=OHsWVHEYvvYT9RuSgPcnkC7/E43Vxu3JlE6pmukpc7U=;
- b=QzUz6uNNcgbqRv5za3zyq7hH5/bGvv4E5PfLHGnIl8OMXjHnS8OBG6IP7iYXvps0fLvq14wgM+5SBj0kKfkw54+qiQBRaVJ25LVlfkE5YfFuO3zd8menkFc35U8m2Xh9BKrlNqoTyA8HP5Be0Ltelikao2XD3eFzeieQe48ld2YOH6KaG9TiBFXwKTTS/crr1rEZ7dk8KHEzCMM2JtGghjYoeRcPiKEGVpN0vf9Zv0utdMZOnrUeXXcfiA4VkBtWVY09sOVngBBoouqOjdVq1Pq89Ik1+kM50z6lBcsI9hbIOh4JujVyf0v4wbRlbvYbR1v2e+2t4+BDt4U6ymwt0g==
+ bh=kNB+CV2ipL1E1PPeIp6Jo9/xXqiz9OoEnPpKvBzhDdU=;
+ b=BKcd+5XyNrsZDs9yk2EGPf1sVY5TaUeoYxE89VO61UXuBa2AjRbc3DHBlx+aU+pNPDAvdNYF6TBkySAhip+K47fzPGr0DsuAqM4Bgy5eWm3CpJSJgO0Ipa9u4rkyjGaCF60vhDIxZk6ojyzxAKrt0mWLcoY8au8hWoNm056ZBNd3YdMh4f+3iIqoqxhz77LnORUo9IWaTbvmJqfspYB8+adWnFNcuhbO/XKkwnNZFIwwTbR8RwDnD6VATWvS7BaEczC/b42Pv6MqkF9JZ9oWsZffSqIoKVhrUyW63steAZD2VLeIQEvAg18trZZbASQaVWrSo6W2qrzKt0kqAZMJ1g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=OHsWVHEYvvYT9RuSgPcnkC7/E43Vxu3JlE6pmukpc7U=;
- b=IW6E6KNO/aJ2Bio6q3h03MXomq0Xi+thLQ3cYowjfutXk51E3fxiyXS0bzU9eJzLAMUDmNEpXhsV7bDs0DACdo21uBj2c6STNCnGqHfMTh+HVjQBNz54vM3Uf/O9HSz1gJ+2b6lPhUrzcFeWmtonYwlAARci9VVO60kP/46bwdA=
-Received: from PH7PR03CA0014.namprd03.prod.outlook.com (2603:10b6:510:339::10)
- by SA1PR12MB5614.namprd12.prod.outlook.com (2603:10b6:806:228::7)
+ bh=kNB+CV2ipL1E1PPeIp6Jo9/xXqiz9OoEnPpKvBzhDdU=;
+ b=SmOEFdZLzQdrdWCehkQj9do6XF1jHhmR/Tg9gvZQbZcjlbzXVOriH2vp8/J73FyxgYKdWMLpvMxkHpS0j0G2Vz75PdGlBDXZXUGDsic7IyKPM9eDrmaeabyApp0f9StgR1dem5CKYHD1k71lznaLQJ0JHnPzhJ/ex/EuUeco9Rw=
+Received: from MW4PR03CA0023.namprd03.prod.outlook.com (2603:10b6:303:8f::28)
+ by CH3PR12MB8330.namprd12.prod.outlook.com (2603:10b6:610:12c::22)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9891.19; Fri, 8 May
- 2026 18:07:12 +0000
-Received: from SN1PEPF0002529F.namprd05.prod.outlook.com
- (2603:10b6:510:339:cafe::6d) by PH7PR03CA0014.outlook.office365.com
- (2603:10b6:510:339::10) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9891.15; Fri, 8 May
+ 2026 18:28:16 +0000
+Received: from CO1PEPF00012E80.namprd03.prod.outlook.com
+ (2603:10b6:303:8f:cafe::1c) by MW4PR03CA0023.outlook.office365.com
+ (2603:10b6:303:8f::28) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.20.9891.19 via Frontend Transport; Fri,
- 8 May 2026 18:07:12 +0000
+ 8 May 2026 18:28:16 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -49,57 +48,60 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- SN1PEPF0002529F.mail.protection.outlook.com (10.167.242.6) with Microsoft
+ CO1PEPF00012E80.mail.protection.outlook.com (10.167.249.55) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9891.9 via Frontend Transport; Fri, 8 May 2026 18:07:12 +0000
-Received: from MKM-D1-FRANKSU9.amd.com (10.180.168.240) by satlexmb07.amd.com
+ 15.20.9913.8 via Frontend Transport; Fri, 8 May 2026 18:28:15 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Fri, 8 May
- 2026 13:07:11 -0500
-From: Chenglei Xie <Chenglei.Xie@amd.com>
-To: <amd-gfx@lists.freedesktop.org>, <yipeng.chai@amd.com>
-CC: <jeffrey.chan@amd.com>, <zhigang.luo@amd.com>,
- <alexander.deucher@amd.com>, <chenglei.xie@amd.com>
-Subject: [PATCH v2] drm/amdgpu: grow SR-IOV RAS bad-page tables dynamically
- The VF RAS error handler stored bad pages in fixed-size arrays. If the PF2VF
- block described more entries than fit,
- amdgpu_virt_ras_add_bps() could memcpy past the end of those arrays.
-Date: Fri, 8 May 2026 14:07:05 -0400
-Message-ID: <20260508180705.217683-1-Chenglei.Xie@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <BN9PR12MB5306BE73CDDAAEDA37B3A0F1FC3D2@BN9PR12MB5306.namprd12.prod.outlook.com>
-References: <BN9PR12MB5306BE73CDDAAEDA37B3A0F1FC3D2@BN9PR12MB5306.namprd12.prod.outlook.com>
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.17; Fri, 8 May
+ 2026 13:28:15 -0500
+Received: from satlexmb08.amd.com (10.181.42.217) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 8 May
+ 2026 13:28:15 -0500
+Received: from hwentlanryzen (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
+ Transport; Fri, 8 May 2026 13:28:14 -0500
+From: Harry Wentland <harry.wentland@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Harry Wentland <harry.wentland@amd.com>
+Subject: [PATCH v3 05/14] drm/amd/display: Add FRL support to clk_mgr, dsc,
+ hdcp
+Date: Fri, 8 May 2026 14:27:57 -0400
+Message-ID: <20260508182808.520863-6-harry.wentland@amd.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260508182808.520863-1-harry.wentland@amd.com>
+References: <20260508182808.520863-1-harry.wentland@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
+Received-SPF: None (SATLEXMB04.amd.com: harry.wentland@amd.com does not
+ designate permitted sender hosts)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN1PEPF0002529F:EE_|SA1PR12MB5614:EE_
-X-MS-Office365-Filtering-Correlation-Id: 05838cad-7f05-4e23-d05e-08dead2ca0dd
+X-MS-TrafficTypeDiagnostic: CO1PEPF00012E80:EE_|CH3PR12MB8330:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3f78a39e-a0c6-480a-6b70-08dead2f9224
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|36860700016|1800799024|82310400026|56012099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: mjXqrEEMtQicMBX6ndYj8xDQ91YyGzXDtFJijjzp4bdzymM3J7niOlfQl22MkVwauA+cF/173fal7drt9R0+SgUwEaCPA8omrTRYQG3G6eKrlAjx0gD95/TDzRC3y8Hab1hqRJgc+DPI9Xd8S2baY+CA2JDIjux4PaEpHq+gv53FSzsrABj7DFN/6mvhgWfCtExxPb3n6Wv0t8p3N8UGCMKf+rPVplmPglYZXqeG51XBEPXEfKAm7rCV/yvDi/MKV6DINdzvtrGERKu6uxBSElCwj8wj8mx79RYAK8xc2/+WHipaofu4NiPrXvVuU6H1bkO0xn5sfaq7hXWfDv94keV1rgVaQOQfNKwGMDff8dmCVHE7+dzUQSX2XmuYLXtmRoNVZEVUFKWeCenrfp49ozLhqOrrQFN4oYGE/eaJ8tWqrRQLKF5delevEBVj6XxdEmciX4xDTuGmrg32fM0MERGl4kmJ/P0ZEwuqYA4wzH6PLhhlAPajzTw0UDFY1qw+VOz/gmnRckwAFRuNAa81AVN0Mx+kwktt2Cij/xj0FBoPJ3WvFMbz89h9BkeM8C16LaGnL2SsGsvvvSToGQfL6b0mReyVDCafjAQZGol6ijk8s+emV7QnIIV7vTpjNNSKUNODZYUO1mDBtJMg7wxgJ+79EPOzb+l0G+OYr++EjvlCxi4GXE7Jb+xNTQFBxWlJpdCAT5WlhvOFKgznvFqGPt+5ivnQVZQrzBeGqtfVAbM=
+ ARA:13230040|1800799024|36860700016|376014|82310400026|56012099003|22082099003|18002099003|20052099010;
+X-Microsoft-Antispam-Message-Info: +MCHOMeR/KQHTzKM5AD/FrBvhBRiQvgOz5SZsBrR1zUEqPYjtcP/S4k+lKrJWsmO+e002BfHcXvFmgmh0mMTEQPSi6zIuQ+/m4sC1cxFaJxYBxOp7oqY7pLfeZVSRI67Q0hNJePjynL751wd3YQn9+Xjr8rmo9dNgNDDEod3+GrZfcIaCxUkHi2veaTgeZO5cjOB08h18seSk8Hc6b+Nut1NpKRUOJShREbmMQxyQTOShQnvwLbzw1lXBeKK71sZtV4V2kDNLh1nIrrmhSS2JqGUv2h/WAlEFN6KDxLrrMewoOY6RBFjF02clVEl3eaP5BB5OWS8fdt5poPM1rKwoxIlggdAjKO1V6L72/3rCJ1OK08CDivCQ5NWjkZ1t83m5CG2uDxioFtvza2oL8lvltFv5oUmXEgOnZx/dQP7/NMXDM0fFOTf4PGImCTOvl15WhfzrInxrDFYICBt8Qo0fs6gy6TRqvTC41GcQ8f9xk2gf/HQMbpNQKyhIZrkpOasqf7Ssg8/w2qKEHWuOgcfTPVXRQ5apc2ank4wa7unE05WRSrHprm26D5418QNN3P93WrPovMcYoiDqxPFoDHk8vDNXZu/lPHu/+ntapAVt4VHoZr7I0nTxRt2L6JIOoS+lwG8mHszVyfhmukZnj804rYBRwTu/E9QgUJQuiVQ5RGyqhTKjlnJdrWlb2M/1uOZOLtAZXqCItCJ2jaMuJzHhgu+FV+w8Duk5NVbNhpN8aA=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(36860700016)(1800799024)(82310400026)(56012099003)(18002099003)(22082099003);
+ SFS:(13230040)(1800799024)(36860700016)(376014)(82310400026)(56012099003)(22082099003)(18002099003)(20052099010);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: LkNTj33DFGdewud9SCHpdjdFeUsbM+FTMY3BSKezgLJOBwhiaTvDfAjmS0YS3VNZYvIn6pCD4rpHtaq1JfFASp9gDesC268TuaaZNZFxCEz+R1xwF2EILT2AS2mCekeIHgzp8A8u1gXKXCQakQGSVbAtxq8qKP11G/lwoEkSC0uYRHSu3AvN4FCBbWE1JZvkVyr34UrDIUjdGzt09ZrhvBkqQvABPvG4FCuQ26vqZ0d1nmEFULKrVE/ZZIA0Dyrazeyw3+s4utgpwtvT5Bw9yz+PpAVtvjGpg5vDiLuUFDwss890UZMK9VYoTam9kBwyxh/fFUSJxP7kAo3lo4WDswVGq7l7dEQKjWqmf2gE0EDdt3f0Kc/AgooXUM7q/yT2GG8Hn+kEPDPBHC0Y4ByIpkBN1QTQXyydRHBaMzTl1n5WbhqNufjgLRoVYHPv1i0d
+X-MS-Exchange-AntiSpam-MessageData-0: WkIw2h+6VEMZB7aeXSYeCWeUe9YmBCrT3kS3K/7BTNOJSpj8bxkrgEMuNvul7j3Kuf4Yo84fovFZSSnS9dKDMCn8gUsYNwjRq3NVDB22qJpWKE7BPeFcCgfGqbeuFizvgu3EGz/m7dueHiuypF6iviSJpLRi1f74XDlT4CsK18EyYm+qCv9YH6oZjw9EcVKlssiS71UmzIJZE/Qd+259MU3vRpQLw9wIE9My8YHrO+Tyr09ZAZ7kK72Fwr5yJF9OYewsH3Uy0GJm0e8rsFHRDkeLtjf/Ltq8nKH2Da+DdeersXHIYYnnEjR1wXR+hB0+mXdPkQeAPYZ5Xp5X1h8glmXDTW6JlIqrErJu+lGEsXl96Bjwwzna3ectQGPi7/Ug5LIm4bZsmjOV+5scLnGIaPLojERFcYSrABK0N1QnQ32YbgCPxgXRuKBQ8ziiMstc
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 May 2026 18:07:12.1584 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 05838cad-7f05-4e23-d05e-08dead2ca0dd
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 May 2026 18:28:15.9326 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3f78a39e-a0c6-480a-6b70-08dead2f9224
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF0002529F.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF00012E80.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB5614
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8330
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,202 +116,204 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Track table length in a capacity field, allocate a small initial table,
-and grow bps / bps_bo together when count + pages would exceed capacity.
-Keep amdgpu_virt_ras_add_bps() as the single append path: validate the
-addition, grow if needed, then memcpy and bump count.
+This adds a few, relatively minor, changes for FRL to
+clk_mgr, DSC, and HDCP blocks.
 
-On allocation failure the existing tables are left unchanged and the
-caller stops ingesting more bad pages from the message.
-
-Signed-off-by: Chenglei Xie <Chenglei.Xie@amd.com>
-Change-Id: I924d2b5e369bef007eb1577f287a2274ec83d5a9
+Signed-off-by: Harry Wentland <harry.wentland@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c | 114 ++++++++++++++++++-----
- drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h |   2 +
- 2 files changed, 95 insertions(+), 21 deletions(-)
+ .../display/dc/clk_mgr/dcn31/dcn31_clk_mgr.c   |  3 +++
+ .../display/dc/clk_mgr/dcn314/dcn314_clk_mgr.c |  3 +++
+ .../display/dc/clk_mgr/dcn315/dcn315_clk_mgr.c |  3 +++
+ .../display/dc/clk_mgr/dcn316/dcn316_clk_mgr.c |  3 +++
+ .../display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c   | 12 ++++++++++++
+ .../display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c   | 14 ++++++++++++++
+ .../display/dc/clk_mgr/dcn401/dcn401_clk_mgr.c | 18 ++++++++++++++++++
+ drivers/gpu/drm/amd/display/dc/dsc/dsc.h       |  5 +++++
+ drivers/gpu/drm/amd/display/dc/hdcp/hdcp_msg.c |  1 +
+ 9 files changed, 62 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
-index 6974b1c5b56c2..8d4f30e3be212 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
-@@ -283,14 +283,68 @@ unsigned int amd_sriov_msg_checksum(void *obj,
- 	return ret;
- }
+diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn31/dcn31_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn31/dcn31_clk_mgr.c
+index 68a121dbb489..e88355c15bfa 100644
+--- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn31/dcn31_clk_mgr.c
++++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn31/dcn31_clk_mgr.c
+@@ -93,6 +93,9 @@ static int dcn31_get_active_display_cnt_wa(
+ 		if (dc_is_dp_signal(stream->signal) && !stream->dpms_off)
+ 			display_count++;
  
-+#define AMDGPU_VIRT_RAS_BAD_PAGE_TABLE_INIT_CAPACITY	16
-+
-+/**
-+ * amdgpu_virt_ras_grow_bad_page_table - grow bad-page arrays if needed
-+ * @adev: amdgpu device
-+ * @eh: RAS error handler data for the VF
-+ * @min_capacity: minimum number of bad-page slots required (bps[] / bps_bo[] length)
-+ *
-+ * Returns 0 if @eh already has room for @min_capacity slots or growth succeeded.
-+ * Returns -ENOMEM if allocation failed (existing tables are left unchanged).
-+ */
-+static int amdgpu_virt_ras_grow_bad_page_table(struct amdgpu_device *adev,
-+		struct amdgpu_virt_ras_err_handler_data *eh,
-+		int min_capacity)
-+{
-+	struct eeprom_table_record *new_bps;
-+	struct amdgpu_bo **new_bo;
-+	int new_capacity;
-+	unsigned long doubled;
-+
-+	if (min_capacity <= eh->capacity)
-+		return 0;
-+
-+	new_capacity = eh->capacity ? eh->capacity : AMDGPU_VIRT_RAS_BAD_PAGE_TABLE_INIT_CAPACITY;
-+	while (new_capacity < min_capacity) {
-+		doubled = (unsigned long)new_capacity * 2UL;
-+		if (doubled < (unsigned long)new_capacity || doubled > INT_MAX) {
-+			new_capacity = min_capacity;
-+			break;
-+		}
-+		new_capacity = (int)doubled;
-+	}
-+	if (new_capacity < min_capacity)
-+		new_capacity = min_capacity;
-+
-+	new_bps = kmalloc_array(new_capacity, sizeof(*eh->bps), GFP_KERNEL);
-+	new_bo = kcalloc(new_capacity, sizeof(*eh->bps_bo), GFP_KERNEL);
-+	if (!new_bps || !new_bo) {
-+		kfree(new_bps);
-+		kfree(new_bo);
-+		dev_warn_ratelimited(adev->dev,
-+				     "RAS WARN: failed to grow bad page table to %d slots\n",
-+				     new_capacity);
-+		return -ENOMEM;
-+	}
-+
-+	memcpy(new_bps, eh->bps, eh->count * sizeof(*eh->bps));
-+	memcpy(new_bo, eh->bps_bo, eh->count * sizeof(*eh->bps_bo));
-+
-+	kfree(eh->bps);
-+	kfree(eh->bps_bo);
-+	eh->bps = new_bps;
-+	eh->bps_bo = new_bo;
-+	eh->capacity = new_capacity;
-+
-+	return 0;
-+}
-+
- static int amdgpu_virt_init_ras_err_handler_data(struct amdgpu_device *adev)
- {
- 	struct amdgpu_virt *virt = &adev->virt;
- 	struct amdgpu_virt_ras_err_handler_data **data = &virt->virt_eh_data;
--	/* GPU will be marked bad on host if bp count more then 10,
--	 * so alloc 512 is enough.
--	 */
--	unsigned int align_space = 512;
- 	void *bps = NULL;
- 	struct amdgpu_bo **bps_bo = NULL;
- 
-@@ -298,16 +352,17 @@ static int amdgpu_virt_init_ras_err_handler_data(struct amdgpu_device *adev)
- 	if (!*data)
- 		goto data_failure;
- 
--	bps = kmalloc_array(align_space, sizeof(*(*data)->bps), GFP_KERNEL);
-+	bps = kmalloc_array(AMDGPU_VIRT_RAS_BAD_PAGE_TABLE_INIT_CAPACITY, sizeof(*(*data)->bps), GFP_KERNEL);
- 	if (!bps)
- 		goto bps_failure;
- 
--	bps_bo = kmalloc_array(align_space, sizeof(*(*data)->bps_bo), GFP_KERNEL);
-+	bps_bo = kcalloc(AMDGPU_VIRT_RAS_BAD_PAGE_TABLE_INIT_CAPACITY, sizeof(*(*data)->bps_bo), GFP_KERNEL);
- 	if (!bps_bo)
- 		goto bps_bo_failure;
- 
- 	(*data)->bps = bps;
- 	(*data)->bps_bo = bps_bo;
-+	(*data)->capacity = AMDGPU_VIRT_RAS_BAD_PAGE_TABLE_INIT_CAPACITY;
- 	(*data)->count = 0;
- 	(*data)->last_reserved = 0;
- 
-@@ -361,17 +416,32 @@ void amdgpu_virt_release_ras_err_handler_data(struct amdgpu_device *adev)
- 	virt->virt_eh_data = NULL;
- }
- 
--static void amdgpu_virt_ras_add_bps(struct amdgpu_device *adev,
--		struct eeprom_table_record *bps, int pages)
-+static bool amdgpu_virt_ras_add_bps(struct amdgpu_device *adev,
-+		const struct eeprom_table_record *bps, int pages)
- {
- 	struct amdgpu_virt *virt = &adev->virt;
- 	struct amdgpu_virt_ras_err_handler_data *data = virt->virt_eh_data;
-+	int need;
- 
--	if (!data)
--		return;
-+	if (!data || pages <= 0)
-+		return false;
-+
-+	if (pages > INT_MAX - data->count) {
-+		dev_warn_ratelimited(adev->dev,
-+				     "RAS WARN: bad page table size overflow (count=%d pages=%d)\n",
-+				     data->count, pages);
-+		return false;
-+	}
-+
-+	need = data->count + pages;
-+	if (need > data->capacity &&
-+	    amdgpu_virt_ras_grow_bad_page_table(adev, data, need))
-+		return false;
- 
- 	memcpy(&data->bps[data->count], bps, pages * sizeof(*data->bps));
- 	data->count += pages;
-+
-+	return true;
- }
- 
- static void amdgpu_virt_ras_reserve_bps(struct amdgpu_device *adev)
-@@ -443,20 +513,22 @@ static void amdgpu_virt_add_bad_page(struct amdgpu_device *adev,
- 
- 	memset(&bp, 0, sizeof(bp));
- 
--	if (bp_block_size) {
--		bp_cnt = bp_block_size / sizeof(uint64_t);
--		for (bp_idx = 0; bp_idx < bp_cnt; bp_idx++) {
--			retired_page = *(uint64_t *)(vram_usage_va +
--					bp_block_offset + bp_idx * sizeof(uint64_t));
--			bp.retired_page = retired_page;
-+	if (!bp_block_size)
-+		return;
- 
--			if (amdgpu_virt_ras_check_bad_page(adev, retired_page))
--				continue;
-+	bp_cnt = bp_block_size / sizeof(uint64_t);
-+	for (bp_idx = 0; bp_idx < bp_cnt; bp_idx++) {
-+		retired_page = *(uint64_t *)(vram_usage_va +
-+				bp_block_offset + bp_idx * sizeof(uint64_t));
-+		bp.retired_page = retired_page;
- 
--			amdgpu_virt_ras_add_bps(adev, &bp, 1);
-+		if (amdgpu_virt_ras_check_bad_page(adev, retired_page))
-+			continue;
- 
--			amdgpu_virt_ras_reserve_bps(adev);
--		}
-+		if (!amdgpu_virt_ras_add_bps(adev, &bp, 1))
-+			break;
-+
-+		amdgpu_virt_ras_reserve_bps(adev);
++		/* FRL can't be tracked by DIG enablement */
++		if (dc_is_hdmi_frl_signal(stream->signal))
++			display_count++;
  	}
- }
  
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
-index 9da0c6e9b8695..af2acf8eee6e2 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
-@@ -263,6 +263,8 @@ struct amdgpu_virt_ras_err_handler_data {
- 	struct eeprom_table_record *bps;
- 	/* point to reserved bo array */
- 	struct amdgpu_bo **bps_bo;
-+	/* number of slots in bps[] / bps_bo[] (always >= count) */
-+	int capacity;
- 	/* the count of entries */
- 	int count;
- 	/* last reserved entry's index + 1 */
+ 	for (i = 0; i < dc->link_count; i++) {
+diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn314/dcn314_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn314/dcn314_clk_mgr.c
+index 0d5892266112..21ab94b09c10 100644
+--- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn314/dcn314_clk_mgr.c
++++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn314/dcn314_clk_mgr.c
+@@ -127,6 +127,9 @@ static int dcn314_get_active_display_cnt_wa(
+ 		if (dc_is_dp_signal(stream->signal) && !stream->dpms_off)
+ 			display_count++;
+ 
++		/* FRL can't be tracked by DIG enablement */
++		if (dc_is_hdmi_frl_signal(stream->signal))
++			display_count++;
+ 	}
+ 
+ 	for (i = 0; i < dc->link_count; i++) {
+diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn315/dcn315_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn315/dcn315_clk_mgr.c
+index ef184f28e426..b88e5ebe66ad 100644
+--- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn315/dcn315_clk_mgr.c
++++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn315/dcn315_clk_mgr.c
+@@ -69,6 +69,9 @@ static int dcn315_get_active_display_cnt_wa(
+ 				stream->signal == SIGNAL_TYPE_DVI_SINGLE_LINK ||
+ 				stream->signal == SIGNAL_TYPE_DVI_DUAL_LINK)
+ 			tmds_present = true;
++		/* FRL can't be tracked by DIG enablement */
++		if (dc_is_hdmi_frl_signal(stream->signal))
++			display_count++;
+ 	}
+ 
+ 	for (i = 0; i < dc->link_count; i++) {
+diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn316/dcn316_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn316/dcn316_clk_mgr.c
+index aa8f2a5edc21..a591cb45f4fa 100644
+--- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn316/dcn316_clk_mgr.c
++++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn316/dcn316_clk_mgr.c
+@@ -81,6 +81,9 @@ static int dcn316_get_active_display_cnt_wa(
+ 				stream->signal == SIGNAL_TYPE_DVI_SINGLE_LINK ||
+ 				stream->signal == SIGNAL_TYPE_DVI_DUAL_LINK)
+ 			tmds_present = true;
++		/* FRL can't be tracked by DIG enablement */
++		if (dc_is_hdmi_frl_signal(stream->signal))
++			display_count++;
+ 	}
+ 
+ 	for (i = 0; i < dc->link_count; i++) {
+diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c
+index 8773a8321735..68d86b949c03 100644
+--- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c
++++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c
+@@ -283,6 +283,18 @@ static void dcn32_update_clocks_update_dtb_dto(struct clk_mgr_internal *clk_mgr,
+ 			dto_params.otg_inst = pipe_ctx->stream_res.tg->inst;
+ 			dto_params.ref_dtbclk_khz = ref_dtbclk_khz;
+ 
++			if (dc_is_hdmi_frl_signal(pipe_ctx->stream->signal) ||
++					dccg->ctx->dc->link_srv->dp_is_128b_132b_signal(pipe_ctx)) {
++				dto_params.pixclk_khz = pipe_ctx->stream->timing.pix_clk_100hz / 10;
++
++				if (pipe_ctx->stream_res.audio != NULL)
++					dto_params.req_audio_dtbclk_khz = 24000;
++			}
++
++			if (dc_is_hdmi_signal(pipe_ctx->stream->signal) ||
++					dc_is_dvi_signal(pipe_ctx->stream->signal))
++				dto_params.is_hdmi = true;
++
+ 			dccg->funcs->set_dtbclk_dto(clk_mgr->dccg, &dto_params);
+ 			//dccg->funcs->set_audio_dtbclk_dto(clk_mgr->dccg, &dto_params);
+ 		}
+diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c
+index ddcde2433211..85dcfa67fe17 100644
+--- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c
++++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c
+@@ -232,6 +232,8 @@ void dcn35_disable_otg_wa(struct clk_mgr *clk_mgr_base, struct dc_state *context
+ 		if (old_pipe->stream && new_pipe->stream && old_pipe->stream == new_pipe->stream) {
+ 			has_active_hpo =  dccg->ctx->dc->link_srv->dp_is_128b_132b_signal(old_pipe) &&
+ 			dccg->ctx->dc->link_srv->dp_is_128b_132b_signal(new_pipe);
++				has_active_hpo = has_active_hpo || (old_pipe->stream->signal == SIGNAL_TYPE_HDMI_FRL &&
++				new_pipe->stream->signal == SIGNAL_TYPE_HDMI_FRL);
+ 
+ 		}
+ 
+@@ -271,6 +273,18 @@ static void dcn35_update_clocks_update_dtb_dto(struct clk_mgr_internal *clk_mgr,
+ 			dto_params.otg_inst = pipe_ctx->stream_res.tg->inst;
+ 			dto_params.ref_dtbclk_khz = ref_dtbclk_khz;
+ 
++			if (dc_is_hdmi_frl_signal(pipe_ctx->stream->signal) ||
++					dccg->ctx->dc->link_srv->dp_is_128b_132b_signal(pipe_ctx)) {
++				dto_params.pixclk_khz = pipe_ctx->stream->timing.pix_clk_100hz / 10;
++
++				if (pipe_ctx->stream_res.audio != NULL)
++					dto_params.req_audio_dtbclk_khz = 24000;
++			}
++
++			if (dc_is_hdmi_signal(pipe_ctx->stream->signal) ||
++					dc_is_dvi_signal(pipe_ctx->stream->signal))
++				dto_params.is_hdmi = true;
++
+ 			dccg->funcs->set_dtbclk_dto(clk_mgr->dccg, &dto_params);
+ 			//dccg->funcs->set_audio_dtbclk_dto(clk_mgr->dccg, &dto_params);
+ 		}
+diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn401/dcn401_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn401/dcn401_clk_mgr.c
+index 2b7718336135..860215e0f191 100644
+--- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn401/dcn401_clk_mgr.c
++++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn401/dcn401_clk_mgr.c
+@@ -542,6 +542,7 @@ static void dcn401_update_clocks_update_dtb_dto(struct clk_mgr_internal *clk_mgr
+ 		ASSERT(otg_master->stream_res.pix_clk_params.controller_id >= CONTROLLER_ID_D0);
+ 
+ 		use_hpo_encoder = dccg->ctx->dc->link_srv->dp_is_128b_132b_signal(otg_master);
++		use_hpo_encoder |= dc_is_hdmi_frl_signal(otg_master->stream->signal);
+ 		if (!use_hpo_encoder)
+ 			continue;
+ 
+@@ -1092,6 +1093,9 @@ static unsigned int dcn401_build_update_display_clocks_sequence(
+ 	bool update_dispclk = false;
+ 	bool update_dppclk = false;
+ 	bool dppclk_lowered = false;
++	struct pipe_ctx *otg_master;
++	bool frl_present = false;
++	unsigned int i;
+ 
+ 	unsigned int num_steps = 0;
+ 
+@@ -1124,6 +1128,20 @@ static unsigned int dcn401_build_update_display_clocks_sequence(
+ 		/* DCCG requires KHz precision for DTBCLK */
+ 		block_sequence[num_steps].params.update_hardmin_params.ppclk = PPCLK_DTBCLK;
+ 		block_sequence[num_steps].params.update_hardmin_params.freq_mhz = (uint16_t)khz_to_mhz_ceil(new_clocks->ref_dtbclk_khz);
++		for (i = 0; i < context->stream_count; i++) {
++			otg_master = resource_get_otg_master_for_stream(
++					&context->res_ctx, context->streams[i]);
++			if (otg_master != NULL &&
++					otg_master->stream != NULL &&
++					dc_is_hdmi_frl_signal(otg_master->stream->signal)) {
++				 frl_present = true;
++				 break;
++			}
++		}
++		if (frl_present)
++			block_sequence[num_steps].params.update_hardmin_params.freq_mhz =
++				(uint16_t)clk_mgr_base->bw_params->clk_table.entries[
++					clk_mgr_base->bw_params->clk_table.num_entries_per_clk.num_dtbclk_levels - 1].dtbclk_mhz;
+ 		block_sequence[num_steps].params.update_hardmin_params.response = &clk_mgr_base->clks.ref_dtbclk_khz;
+ 		block_sequence[num_steps].func = CLK_MGR401_UPDATE_HARDMIN_PPCLK;
+ 		num_steps++;
+diff --git a/drivers/gpu/drm/amd/display/dc/dsc/dsc.h b/drivers/gpu/drm/amd/display/dc/dsc/dsc.h
+index a16c60d8532f..ab37a7eaaf01 100644
+--- a/drivers/gpu/drm/amd/display/dc/dsc/dsc.h
++++ b/drivers/gpu/drm/amd/display/dc/dsc/dsc.h
+@@ -102,6 +102,11 @@ struct dsc_enc_caps {
+ 	int32_t max_total_throughput_mps; /* Maximum total throughput with all the slices combined */
+ 	int32_t max_slice_width;
+ 	uint32_t bpp_increment_div; /* bpp increment divisor, e.g. if 16, it's 1/16th of a bit */
++	bool is_frl;
++	bool is_vic_all_bpp;
++	uint32_t total_chunk_kbytes;
++	uint32_t num_lanes;
++	uint32_t frl_rate;
+ 	uint32_t edp_sink_max_bits_per_pixel;
+ 	bool is_dp;
+ };
+diff --git a/drivers/gpu/drm/amd/display/dc/hdcp/hdcp_msg.c b/drivers/gpu/drm/amd/display/dc/hdcp/hdcp_msg.c
+index 73a1e6a03719..34fc9f56dbef 100644
+--- a/drivers/gpu/drm/amd/display/dc/hdcp/hdcp_msg.c
++++ b/drivers/gpu/drm/amd/display/dc/hdcp/hdcp_msg.c
+@@ -365,6 +365,7 @@ static const struct protection_properties *get_protection_properties_by_signal(
+ 		case SIGNAL_TYPE_DVI_SINGLE_LINK:
+ 		case SIGNAL_TYPE_DVI_DUAL_LINK:
+ 		case SIGNAL_TYPE_HDMI_TYPE_A:
++		case SIGNAL_TYPE_HDMI_FRL:
+ 			return &hdmi_14_protection; //todo version2.2
+ 		case SIGNAL_TYPE_DISPLAY_PORT:
+ 		case SIGNAL_TYPE_DISPLAY_PORT_MST:
 -- 
-2.34.1
+2.54.0
 
