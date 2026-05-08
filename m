@@ -4,103 +4,104 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2EF75CD342F
-	for <amd-gfx@archiver.kernel.org>; Fri,  8 May 2026 07:14:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DA513CD3436
+	for <amd-gfx@archiver.kernel.org>; Fri,  8 May 2026 07:14:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A893A10F36F;
-	Fri,  8 May 2026 07:14:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7761110F37E;
+	Fri,  8 May 2026 07:14:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="NIMFL6lQ";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="piSec2GB";
 	dkim-atps=neutral
-Received: from SN4PR2101CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11012056.outbound.protection.outlook.com
- [40.93.195.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3FE7110F36F
- for <amd-gfx@lists.freedesktop.org>; Fri,  8 May 2026 07:14:10 +0000 (UTC)
+Received: from BL0PR03CU003.outbound.protection.outlook.com
+ (mail-eastusazon11012023.outbound.protection.outlook.com [52.101.53.23])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ED85E10F37E
+ for <amd-gfx@lists.freedesktop.org>; Fri,  8 May 2026 07:14:23 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ptEgQHxKoW26FWw6lTdfdvCw0RF7OFpnW/qWI/5FH4zkZv7c79gatemwCVaD9Su18eDmRs5O1F7EyUPLKoPM+tyO4tgS3Eb3H4mDSnoPQslO3oLv0nxD0D4jSr8GBh3Twm8OYEgp4Snbrs2NQO8Dr+c8+sITWkruO10gPovSoNct9tF4yX0Z1ZC9T756LrxfokdLEwLk06H61GEKERZGuD11QuDivDSXhyDS089IJglMrFzFosPLPf14qsyu17pU6r2+zMeZh7iGbyjDiNHVojHy189vv1B/MO5tZK5CXV1vuF32UDWOiAn0oUBWjkXhfPbGp4sBqqdscajcyAU6lw==
+ b=Ovy0zOzYSHVc0F7xAqky2ttUyPNIqTP1zRdJpc+LR0iWVzSE6tUZkOk+Da0lT0Qjh7eipqPtnYrDX4nAxLBfp0QT8NCd41HwbwC9fdTyP8c8uHhhTjwtkxcHCuOPr0r2rE+BPmALHd1HZKSz2wNvPWk/RCJ78eSwDgz46t2T9NK6xNqSuw3URTpaBP5jSg0CIJEIH/ncUsqxZaQNF9rE4Q+3un+wjEsNZgIg7PnOK4VkOAohM0qY5VVn9ZnaptCY31xTio+0FYKXMYzlWf9pcbeCmgHXjS3qPHESAxPuD0u/xKgzNk4jwwYj2cInMpXigQyY0gs6qWUbEOwG5tGMNA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=jtHmE3muEB4ytbG/aG4TlXSHXMboLMI4I4KGckVHj10=;
- b=NH0aPS7dk1aqQMyQS432TFbLyG97uPixqpUkx/DevtdrqwFhYG2TME93PtBglm0EwFkECO8yBv79IskjLUXqSi2ipNFoV/1ri6WBV86MOeJ10rqPOzNHLXCFwbiay4hOgNVodt/ujggbnKf8jxQ61k5MRrwjqWo+j/bhad8qbs4a6VtuZWhtsimpJd+lWD7l8GItgcFXnfsA1DgfAzyofJqxvjvfCTkPn+Vr89M+Wy8jyz9BzFVwxmf8bZDA5E8gfyHdMVPbvlp2sPzhUktUmk7sdaONPxAq35kGJqAufzoeXAG1dOA0IciDZX0pu412SNKKnAkS6qC8/lm7I9OzBQ==
+ bh=My3zSF9Y7O8ALCdwjMEnkS12azlUf6KsTU8vWwPCLs8=;
+ b=Ksr1kjYDlmINYLHW82HeX6gMDb4N8zjiRhxezX50LOwXQz7SaLvSw6CQHyh9l2qeb34ZxSbMn+1FgB2c8ugh+cRnrF4HIdBZk7/lFpFFB9NZSjCnqX2YVN1S9WiHd4K4MYMgVm5x67HrwDUuJo4EE8pxWFkyOKIM6vCEpVcV6oEEoVN9hxdEOyVsgFMK+Ls7TskmlajM3dhjuuHV0q24jk6EFoD4+S7MMCeCEmnzRZ4DayX8bTSMkHUF5FmPNcrHLFWMMMb5U1hbBcKGnp9MCtgrNK55bAShWaH7j9kRFKgaCX2o/omK1WZ6FUNacIZTO444goLPwthVrHBVMlFUJA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=jtHmE3muEB4ytbG/aG4TlXSHXMboLMI4I4KGckVHj10=;
- b=NIMFL6lQKBc6Z10rDHZtqrjk0LTjUw6dq5xIq9HWvTojKSADJ69sajuI5fFdQNM91PYmxsUBD/c/kq0SHS8eKW7Xr5Q6z5NUkiMojwD0b8btXKgMpaM6maNNA/GOxaGLOFeMnmC4iupTfVyYLScPd8ZVmADRNaurN7V9ruJ4b3Q=
-Received: from CY5PR19CA0112.namprd19.prod.outlook.com (2603:10b6:930:64::12)
- by IA0PPFA8EB66EE9.namprd12.prod.outlook.com
- (2603:10b6:20f:fc04::bde) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.26; Fri, 8 May
- 2026 07:14:04 +0000
-Received: from CH2PEPF00000145.namprd02.prod.outlook.com
- (2603:10b6:930:64:cafe::34) by CY5PR19CA0112.outlook.office365.com
- (2603:10b6:930:64::12) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9891.19 via Frontend Transport; Fri,
- 8 May 2026 07:14:04 +0000
+ bh=My3zSF9Y7O8ALCdwjMEnkS12azlUf6KsTU8vWwPCLs8=;
+ b=piSec2GBl/mxHuQmwCAt78Rct4STdslD0KcozV0fqTjQJ1GIGXt7YpPW0jQLtGgIoispQaKEA4D+1V0wuOYiF7SwOmAXq+IDznxjUvUCxCiOALe2xU3BOemIFJgxvUfUDp/YCPr8GJ0D3NgPyqMYpcKrK0CA7tSo82rxEtDKE1c=
+Received: from BN9PR03CA0396.namprd03.prod.outlook.com (2603:10b6:408:111::11)
+ by DM3PR12MB9413.namprd12.prod.outlook.com (2603:10b6:8:1af::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9891.17; Fri, 8 May
+ 2026 07:14:18 +0000
+Received: from BN2PEPF000055DE.namprd21.prod.outlook.com
+ (2603:10b6:408:111:cafe::f4) by BN9PR03CA0396.outlook.office365.com
+ (2603:10b6:408:111::11) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9891.18 via Frontend Transport; Fri,
+ 8 May 2026 07:14:17 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- CH2PEPF00000145.mail.protection.outlook.com (10.167.244.102) with Microsoft
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BN2PEPF000055DE.mail.protection.outlook.com (10.167.245.8) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9891.9 via Frontend Transport; Fri, 8 May 2026 07:14:04 +0000
-Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ 15.21.25.1 via Frontend Transport; Fri, 8 May 2026 07:14:17 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Fri, 8 May
- 2026 02:14:04 -0500
+ 2026 02:14:16 -0500
 Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb09.amd.com
  (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Fri, 8 May
- 2026 00:14:03 -0700
+ 2026 00:14:15 -0700
 Received: from JesseDEV.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
- Transport; Fri, 8 May 2026 02:13:52 -0500
+ Transport; Fri, 8 May 2026 02:14:04 -0500
 From: Jesse Zhang <Jesse.Zhang@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <Alexander.Deucher@amd.com>, Christian Koenig <christian.koenig@amd.com>, 
  Jesse Zhang <Jesse.Zhang@amd.com>, Manu Rastogi <manu.rastogi@amd.com>,
  "Alex
  Deucher" <alexander.deucher@amd.com>, Jesse Zhang <jesse.zhang@amd.com>
-Subject: [PATCH 1/4] drm/amdgpu: add MEC pipe reset helpers
-Date: Fri, 8 May 2026 15:13:33 +0800
-Message-ID: <20260508071351.442816-1-Jesse.Zhang@amd.com>
+Subject: [PATCH 2/4] drm/amdgpu/gfx_v11_0: fix GFX11 MEC pipe reset ordering
+Date: Fri, 8 May 2026 15:13:34 +0800
+Message-ID: <20260508071351.442816-2-Jesse.Zhang@amd.com>
 X-Mailer: git-send-email 2.49.0
+In-Reply-To: <20260508071351.442816-1-Jesse.Zhang@amd.com>
+References: <20260508071351.442816-1-Jesse.Zhang@amd.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PEPF00000145:EE_|IA0PPFA8EB66EE9:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7e3b23d9-6e4d-4bee-3327-08deacd16328
+X-MS-TrafficTypeDiagnostic: BN2PEPF000055DE:EE_|DM3PR12MB9413:EE_
+X-MS-Office365-Filtering-Correlation-Id: cc3cbcd5-a0bd-4199-ca07-08deacd16ae0
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|36860700016|376014|82310400026|18002099003|56012099003|3023799003;
-X-Microsoft-Antispam-Message-Info: t3/ygAn6HK+XuozPdBy/kikVDWa2D3qpnT0lQVQ4l6PzoqOmtTG8MUAAoYJNIulHQaKcIRFLOkzyfKxpntxnBt1YlVFzIoTK3dWT4r3eH9L/Zv8gPHL2mxihBv84t743RN5+aCEBaQtcS21P/q/NffHBCIb8hV+93D+lG1H4FJBS8w3Yd14l5OqoLgQAncUB6v3eQFPs7V6e/OH+fV1aSw4wfcgRc0JC0WNenU0hNIAF/3gaiYUXcv+jN1N0GsNxhme1oyOhe1CucZbW8yJMR2WpT2lXithvMHKFuYYe4Gcl5FZBtBJh453PUz3VQpednNIAZPl7kkwRjsLuIyyw87xyDRyseULB9BC3Dh8LF5b2xe8eOIidqFvr4mDb9WanBqsShjhe6oIJNg7fn+xVxFwS4kVG3PrYt58y8kUSFsoUwbMhxQ58IjeTMlq59Nm/PlebG5Q1o8suzMVAykARdPVAEHxEobuyNm7amd3Aol77xRSv+GvnZSw1NGAzC4PjtziNCMJbiCfLX483lCWQmohkuCWLjAsOIiuwHWg9xQnxXCzECH70eNEg3J1GN9nr+NrELq85pzEgPI4BBn+5sOQzVGu0tuMXPw465pybqL+zL0bm7PoVO0Ko3sY8/vniDehVtYAPNPmcG0aAHMtznCaeoSSC+5FWSaP/8dzP67G44npSmfgZGhl749R8+MP990jxbE5lTkfCUATc9UjscfpwB1LEefZQiiLvKunbnN4=
+ ARA:13230040|1800799024|36860700016|376014|82310400026|56012099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: 36AT8BKGUQY6n9LVNuw3rom0b8BgDkNWARNxzI/c3Qa0Sm6Qw2a39GbzLCtEqQ55EApjZ+WnM37w3oldasAT8EYTbmTA/O+8NdwrxVAnpSZcrNBxA3dlJ4DR0yWwnUv6thCqtPJAqC+Ea6KEDywVaTjlbKYVTv5S6r4Dmy7+08MRLtQidvYlKL9lxG4f/5Vq4Nj6ilgPbO/YD7Cki9xUpbSzoP8IVILJcyl/0QAfhatiqgiwH0H/g+3D8r0xBav/vQTl66Iha+2aGkgYgghu8xmwJKBMvK86GsIVAFtS1JYlDJdehmQYP+DDzlvnUxzyNgfAUUxXMsRiPj5sEKHT2huBlZT4LFCMGRk837lSC+qjNypY36UH+aJMPlrriQvoJXOhwVyII3VbwvuO0crcBwD2mYt2PU5OwmqrG8Txq/cjAcYIASqdgbG8r6d16gC0trJqTtBzzY3dqE+5QLp6pO8vq6SwpG4U2j4PwdzhScWQqbOP9kwH7Nt1q/GEDFRCpJ8CMyolJpZlUPhDo/Gurch1t4kdzzenXDXB8tOahYfsKcm4c76wSmAF5M7Y2TahOiB1R1g2T/EqPTCZEu3hliUY8piCRIk8me6bYuEDXwcqYSxXHtsZd5+bJ4JHqvTVWbHj1VzwWP42rDk0gfBTk5nec0YSWi7YrLRBqBcYMoz9H9IYMbBGGgBmUp92hIsJaNnkT3mhtnZaV0v0rWifEeHibEILgnbvA3QtcGQygJQ=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(36860700016)(376014)(82310400026)(18002099003)(56012099003)(3023799003);
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(36860700016)(376014)(82310400026)(56012099003)(22082099003)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: rAY8eC5cGFHW3J+acOqp4YAuFCxReVyk3+v8RZuU1eczYSD1fg5m7E5Gqne1ATiCRTDROIKgwob53xc8L7Kf7gAQ+WrAA2YiZPsW3V9pEWHZuE9WWXTzseY4W3fjjHEim35hh3ba/t8FPc5t6msDIEqEav6XaWHXz7VauHH1QSCSguVCw1M51KA8iljBwCiu64verFvvWzr7uvVwm9tc+1ieJKFfOhnK6TsUPjulmfN8Kp/CBO7olcm+N3Pzfdm559VnT0DGpBKqxwiTFH9f5CNcKgqlUZzYHauQOe7+5tQQpC9+zEPeyKFOeIosFHNeAPUuGwCkceuE19ZeoHIzhBYvVU5XeN0n6ewgflJ45CTuHuEQ5WRvh9XDZNPWpqC+J6L5y9aBHhhQh08K9W3sINkQlI2lbH0+/p60vywmI+5J9PM4VQlG2/Quo6L61Yo/
+X-MS-Exchange-AntiSpam-MessageData-0: 6UKkH+xvjA/+nxGyR9smSpLdcGFqrV8ffHDZnk+HqsQuKgRGMG4JJPERQHgn9ZvgowpT6no7OEJp+f0vNtFL/WFVT2z0lDEF79GK/KaZ6RFww3ut2vjsH8VskeItzT5Trw5rQcHMDMoG3yPS0I4SUzXxQAjxlDTHLmAGhERNY1WYuLJ4Ptw9lpPPIbQSdEQMnSW37CRwDKN54M6/kburX1+kCqk2gVOpJuJq5RRX8WR50v+Ow17opcWlj+ieg6XHCEh1BjKXG0US1NMtWIzTP6IBHzYHa52ZpVszhzqu9dEW35fZ8rRDpXwKdRXUQpWPcpW5z1r4ZqgLnMn5Txiv1jxASpyf/uVNoHplFphXc5pK5wj3dJUEpN5Lo2+nQY6e2ub378q1420iKgY9BgKGkOXItjZVblpjH5SBAYCq3XDEY5oZZbzh7CYHKw91akBr
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 May 2026 07:14:04.4367 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7e3b23d9-6e4d-4bee-3327-08deacd16328
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 May 2026 07:14:17.4015 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: cc3cbcd5-a0bd-4199-ca07-08deacd16ae0
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CH2PEPF00000145.namprd02.prod.outlook.com
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF000055DE.namprd21.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PPFA8EB66EE9
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM3PR12MB9413
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,168 +116,259 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add IP-agnostic helpers to coordinate a MEC pipe reset across all KCQs on
-the same (me, pipe): prepare (back up siblings, stop schedulers, stop KFD),
-restart_schedulers, and recover_queues (re-init/remap KCQs and run
-amdgpu_ring_reset_helper_end on each — guilty gets the timeout fence,
-siblings get a synthetic context so collateral work is reemitted).
+Hold MEC pipe reset asserted, walk every queue on that (me, pipe) and tear
+down CP_HQD_ACTIVE / CP_HQD_DEQUEUE_REQUEST via
+gfx_v11_0_clear_hqds_on_mec_pipe(), then deassert reset. Avoids releasing
+pipe reset while HQDs may still be active.
+
+Legacy (non-RS64) path: read CP_MEC_CNTL for the reset mask instead of
+reusing CP_MEC_RS64_CNTL state.
+
+Wire reset_kcq into the new amdgpu_gfx_mec_pipe_reset_{prepare,
+recover_queues} helpers so sibling KCQs on the same pipe are stopped,
+restarted, and have their fences handled correctly.
 
 Suggested-by: Manu Rastogi <manu.rastogi@amd.com>
 Suggested-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Jesse Zhang <jesse.zhang@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | 115 ++++++++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h |  11 +++
- 2 files changed, 126 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c | 151 +++++++++++++++----------
+ 1 file changed, 93 insertions(+), 58 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-index 515cc4a2aeb4..8cfb73fda4bb 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-@@ -69,6 +69,121 @@ void amdgpu_queue_mask_bit_to_mec_queue(struct amdgpu_device *adev, int bit,
- 
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+index fabdbbd0abb7..0e79336807de 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+@@ -6874,11 +6874,34 @@ static int gfx_v11_0_reset_kgq(struct amdgpu_ring *ring,
+ 	return amdgpu_ring_reset_helper_end(ring, timedout_fence);
  }
  
-+static bool amdgpu_gfx_ring_on_mec_pipe(struct amdgpu_ring *ring, u32 me, u32 pipe)
++/* Caller must hold adev->srbm_mutex; pipe reset must be asserted. */
++static void gfx_v11_0_clear_hqds_on_mec_pipe(struct amdgpu_device *adev, u32 me,
++					     u32 pipe)
 +{
-+	if (!ring || !ring->funcs || ring->funcs->type != AMDGPU_RING_TYPE_COMPUTE)
-+		return false;
-+	if (ring->no_scheduler)
-+		return false;
++	unsigned int q;
++	int j;
 +
-+	return ring->me == me && ring->pipe == pipe;
-+}
-+
-+static unsigned int amdgpu_gfx_mec_pipe_compute_ring_base(struct amdgpu_device *adev,
-+							 u32 xcc_id)
-+{
-+	int num_xcc = adev->gfx.xcc_mask ? NUM_XCC(adev->gfx.xcc_mask) : 1;
-+
-+	if (num_xcc <= 1)
-+		return 0;
-+	return xcc_id * adev->gfx.num_compute_rings;
-+}
-+
-+void amdgpu_gfx_mec_pipe_reset_prepare(struct amdgpu_device *adev,
-+				       struct amdgpu_ring *guilty)
-+{
-+	struct amdgpu_ring *r;
-+	unsigned int j, base;
-+
-+	base = amdgpu_gfx_mec_pipe_compute_ring_base(adev, guilty->xcc_id);
-+	for (j = 0; j < adev->gfx.num_compute_rings; j++) {
-+		r = &adev->gfx.compute_ring[base + j];
-+		if (!amdgpu_gfx_ring_on_mec_pipe(r, guilty->me, guilty->pipe))
-+			continue;
-+		if (r != guilty)
-+			amdgpu_ring_backup_unprocessed_commands(r, NULL);
-+		if (amdgpu_ring_sched_ready(r))
-+			drm_sched_wqueue_stop(&r->sched);
-+	}
-+
-+	if (adev->kfd.init_complete)
-+		amdgpu_amdkfd_stop_sched(adev, guilty->xcc_id);
-+}
-+
-+void amdgpu_gfx_mec_pipe_restart_schedulers(struct amdgpu_device *adev,
-+					    u32 me, u32 pipe, u32 xcc_id)
-+{
-+	struct amdgpu_ring *r;
-+	unsigned int j, base;
-+
-+	base = amdgpu_gfx_mec_pipe_compute_ring_base(adev, xcc_id);
-+	for (j = 0; j < adev->gfx.num_compute_rings; j++) {
-+		r = &adev->gfx.compute_ring[base + j];
-+		if (!amdgpu_gfx_ring_on_mec_pipe(r, me, pipe))
-+			continue;
-+		if (amdgpu_ring_sched_ready(r))
-+			drm_sched_wqueue_start(&r->sched);
-+	}
-+
-+	if (adev->kfd.init_complete)
-+		amdgpu_amdkfd_start_sched(adev, xcc_id);
-+}
-+
-+int amdgpu_gfx_mec_pipe_reset_recover_queues(struct amdgpu_device *adev,
-+					     struct amdgpu_ring *guilty,
-+					     struct amdgpu_fence *timedout_fence,
-+					     amdgpu_gfx_kcq_init_queue_t kcq_init)
-+{
-+	struct amdgpu_fence collateral_reemit = {};
-+	struct amdgpu_ring *r;
-+	unsigned int j, base;
-+	int err = 0;
-+
-+	if (!timedout_fence)
-+		return -EINVAL;
-+
-+	collateral_reemit.context = (u64)-1;
-+
-+	base = amdgpu_gfx_mec_pipe_compute_ring_base(adev, guilty->xcc_id);
-+	for (j = 0; j < adev->gfx.num_compute_rings; j++) {
-+		r = &adev->gfx.compute_ring[base + j];
-+		if (!amdgpu_gfx_ring_on_mec_pipe(r, guilty->me, guilty->pipe))
-+			continue;
-+
-+		err = kcq_init(r, true);
-+		if (err)
-+			goto err_sched;
-+		err = amdgpu_mes_map_legacy_queue(adev, r, 0);
-+		if (err)
-+			goto err_sched;
-+	}
-+
-+	amdgpu_gfx_mec_pipe_restart_schedulers(adev, guilty->me, guilty->pipe,
-+					       guilty->xcc_id);
-+
-+	for (j = 0; j < adev->gfx.num_compute_rings; j++) {
-+		r = &adev->gfx.compute_ring[base + j];
-+		if (!amdgpu_gfx_ring_on_mec_pipe(r, guilty->me, guilty->pipe))
-+			continue;
-+
-+		err = amdgpu_ring_reset_helper_end(
-+			r, r == guilty ? timedout_fence : &collateral_reemit);
-+		if (err) {
-+			dev_err(adev->dev,
-+				"ring %s failed recover after MEC pipe reset (%d)\n",
-+				r->name, err);
-+			return err;
++	for (q = 0; q < adev->gfx.mec.num_queue_per_pipe; q++) {
++		soc21_grbm_select(adev, me, pipe, q, 0);
++		WREG32_SOC15(GC, 0, regCP_HQD_ACTIVE, 0);
++		if (RREG32_SOC15(GC, 0, regCP_HQD_ACTIVE) & 1) {
++			WREG32_SOC15(GC, 0, regCP_HQD_DEQUEUE_REQUEST, 1);
++			for (j = 0; j < adev->usec_timeout; j++) {
++				if (!(RREG32_SOC15(GC, 0, regCP_HQD_ACTIVE) & 1))
++					break;
++				udelay(1);
++			}
 +		}
++
++		WREG32_SOC15(GC, 0, regCP_HQD_DEQUEUE_REQUEST, 0);
 +	}
-+
-+	return 0;
-+
-+err_sched:
-+	amdgpu_gfx_mec_pipe_restart_schedulers(adev, guilty->me, guilty->pipe,
-+					       guilty->xcc_id);
-+	return err;
 +}
 +
- bool amdgpu_gfx_is_mec_queue_enabled(struct amdgpu_device *adev,
- 				     int xcc_id, int mec, int pipe, int queue)
+ static int gfx_v11_0_reset_compute_pipe(struct amdgpu_ring *ring)
  {
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-index 77050f9884f2..38b317b91bbe 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-@@ -603,6 +603,17 @@ int amdgpu_gfx_mec_queue_to_bit(struct amdgpu_device *adev, int mec,
- 				int pipe, int queue);
- void amdgpu_queue_mask_bit_to_mec_queue(struct amdgpu_device *adev, int bit,
- 				 int *mec, int *pipe, int *queue);
+ 
+ 	struct amdgpu_device *adev = ring->adev;
+-	uint32_t reset_pipe = 0, clean_pipe = 0;
++	uint32_t reset_val, clean_val;
+ 	int r;
+ 
+ 	if (!gfx_v11_pipe_reset_support(adev))
+@@ -6888,69 +6911,73 @@ static int gfx_v11_0_reset_compute_pipe(struct amdgpu_ring *ring)
+ 	mutex_lock(&adev->srbm_mutex);
+ 	soc21_grbm_select(adev, ring->me, ring->pipe, ring->queue, 0);
+ 
+-	reset_pipe = RREG32_SOC15(GC, 0, regCP_MEC_RS64_CNTL);
+-	clean_pipe = reset_pipe;
+-
+ 	if (adev->gfx.rs64_enable) {
++		reset_val = RREG32_SOC15(GC, 0, regCP_MEC_RS64_CNTL);
++		clean_val = reset_val;
+ 
+ 		switch (ring->pipe) {
+ 		case 0:
+-			reset_pipe = REG_SET_FIELD(reset_pipe, CP_MEC_RS64_CNTL,
+-						   MEC_PIPE0_RESET, 1);
+-			clean_pipe = REG_SET_FIELD(clean_pipe, CP_MEC_RS64_CNTL,
+-						   MEC_PIPE0_RESET, 0);
++			reset_val = REG_SET_FIELD(reset_val, CP_MEC_RS64_CNTL,
++						  MEC_PIPE0_RESET, 1);
++			clean_val = REG_SET_FIELD(clean_val, CP_MEC_RS64_CNTL,
++						  MEC_PIPE0_RESET, 0);
+ 			break;
+ 		case 1:
+-			reset_pipe = REG_SET_FIELD(reset_pipe, CP_MEC_RS64_CNTL,
+-						   MEC_PIPE1_RESET, 1);
+-			clean_pipe = REG_SET_FIELD(clean_pipe, CP_MEC_RS64_CNTL,
+-						   MEC_PIPE1_RESET, 0);
++			reset_val = REG_SET_FIELD(reset_val, CP_MEC_RS64_CNTL,
++						  MEC_PIPE1_RESET, 1);
++			clean_val = REG_SET_FIELD(clean_val, CP_MEC_RS64_CNTL,
++						  MEC_PIPE1_RESET, 0);
+ 			break;
+ 		case 2:
+-			reset_pipe = REG_SET_FIELD(reset_pipe, CP_MEC_RS64_CNTL,
+-						   MEC_PIPE2_RESET, 1);
+-			clean_pipe = REG_SET_FIELD(clean_pipe, CP_MEC_RS64_CNTL,
+-						   MEC_PIPE2_RESET, 0);
++			reset_val = REG_SET_FIELD(reset_val, CP_MEC_RS64_CNTL,
++						  MEC_PIPE2_RESET, 1);
++			clean_val = REG_SET_FIELD(clean_val, CP_MEC_RS64_CNTL,
++						  MEC_PIPE2_RESET, 0);
+ 			break;
+ 		case 3:
+-			reset_pipe = REG_SET_FIELD(reset_pipe, CP_MEC_RS64_CNTL,
+-						   MEC_PIPE3_RESET, 1);
+-			clean_pipe = REG_SET_FIELD(clean_pipe, CP_MEC_RS64_CNTL,
+-						   MEC_PIPE3_RESET, 0);
++			reset_val = REG_SET_FIELD(reset_val, CP_MEC_RS64_CNTL,
++						  MEC_PIPE3_RESET, 1);
++			clean_val = REG_SET_FIELD(clean_val, CP_MEC_RS64_CNTL,
++						  MEC_PIPE3_RESET, 0);
+ 			break;
+ 		default:
+ 			break;
+ 		}
+-		WREG32_SOC15(GC, 0, regCP_MEC_RS64_CNTL, reset_pipe);
+-		WREG32_SOC15(GC, 0, regCP_MEC_RS64_CNTL, clean_pipe);
++		WREG32_SOC15(GC, 0, regCP_MEC_RS64_CNTL, reset_val);
++		gfx_v11_0_clear_hqds_on_mec_pipe(adev, ring->me, ring->pipe);
++		soc21_grbm_select(adev, ring->me, ring->pipe, ring->queue, 0);
++		WREG32_SOC15(GC, 0, regCP_MEC_RS64_CNTL, clean_val);
+ 		r = (RREG32_SOC15(GC, 0, regCP_MEC_RS64_INSTR_PNTR) << 2) -
+ 					RS64_FW_UC_START_ADDR_LO;
+ 	} else {
++		reset_val = RREG32_SOC15(GC, 0, regCP_MEC_CNTL);
++		clean_val = reset_val;
 +
-+typedef int (*amdgpu_gfx_kcq_init_queue_t)(struct amdgpu_ring *ring, bool clear);
-+
-+void amdgpu_gfx_mec_pipe_reset_prepare(struct amdgpu_device *adev,
-+				       struct amdgpu_ring *guilty);
-+void amdgpu_gfx_mec_pipe_restart_schedulers(struct amdgpu_device *adev,
-+					    u32 me, u32 pipe, u32 xcc_id);
-+int amdgpu_gfx_mec_pipe_reset_recover_queues(
-+	struct amdgpu_device *adev, struct amdgpu_ring *guilty,
-+	struct amdgpu_fence *timedout_fence,
-+	amdgpu_gfx_kcq_init_queue_t kcq_init);
- bool amdgpu_gfx_is_mec_queue_enabled(struct amdgpu_device *adev, int xcc_id,
- 				     int mec, int pipe, int queue);
- bool amdgpu_gfx_is_high_priority_compute_queue(struct amdgpu_device *adev,
+ 		if (ring->me == 1) {
+ 			switch (ring->pipe) {
+ 			case 0:
+-				reset_pipe = REG_SET_FIELD(reset_pipe, CP_MEC_CNTL,
+-							   MEC_ME1_PIPE0_RESET, 1);
+-				clean_pipe = REG_SET_FIELD(clean_pipe, CP_MEC_CNTL,
+-							   MEC_ME1_PIPE0_RESET, 0);
++				reset_val = REG_SET_FIELD(reset_val, CP_MEC_CNTL,
++							  MEC_ME1_PIPE0_RESET, 1);
++				clean_val = REG_SET_FIELD(clean_val, CP_MEC_CNTL,
++							  MEC_ME1_PIPE0_RESET, 0);
+ 				break;
+ 			case 1:
+-				reset_pipe = REG_SET_FIELD(reset_pipe, CP_MEC_CNTL,
+-							   MEC_ME1_PIPE1_RESET, 1);
+-				clean_pipe = REG_SET_FIELD(clean_pipe, CP_MEC_CNTL,
+-							   MEC_ME1_PIPE1_RESET, 0);
++				reset_val = REG_SET_FIELD(reset_val, CP_MEC_CNTL,
++							  MEC_ME1_PIPE1_RESET, 1);
++				clean_val = REG_SET_FIELD(clean_val, CP_MEC_CNTL,
++							  MEC_ME1_PIPE1_RESET, 0);
+ 				break;
+ 			case 2:
+-				reset_pipe = REG_SET_FIELD(reset_pipe, CP_MEC_CNTL,
+-							   MEC_ME1_PIPE2_RESET, 1);
+-				clean_pipe = REG_SET_FIELD(clean_pipe, CP_MEC_CNTL,
+-							   MEC_ME1_PIPE2_RESET, 0);
++				reset_val = REG_SET_FIELD(reset_val, CP_MEC_CNTL,
++							  MEC_ME1_PIPE2_RESET, 1);
++				clean_val = REG_SET_FIELD(clean_val, CP_MEC_CNTL,
++							  MEC_ME1_PIPE2_RESET, 0);
+ 				break;
+ 			case 3:
+-				reset_pipe = REG_SET_FIELD(reset_pipe, CP_MEC_CNTL,
+-							   MEC_ME1_PIPE3_RESET, 1);
+-				clean_pipe = REG_SET_FIELD(clean_pipe, CP_MEC_CNTL,
+-							   MEC_ME1_PIPE3_RESET, 0);
++				reset_val = REG_SET_FIELD(reset_val, CP_MEC_CNTL,
++							  MEC_ME1_PIPE3_RESET, 1);
++				clean_val = REG_SET_FIELD(clean_val, CP_MEC_CNTL,
++							  MEC_ME1_PIPE3_RESET, 0);
+ 				break;
+ 			default:
+ 				break;
+@@ -6959,36 +6986,38 @@ static int gfx_v11_0_reset_compute_pipe(struct amdgpu_ring *ring)
+ 		} else {
+ 			switch (ring->pipe) {
+ 			case 0:
+-				reset_pipe = REG_SET_FIELD(reset_pipe, CP_MEC_CNTL,
+-							   MEC_ME2_PIPE0_RESET, 1);
+-				clean_pipe = REG_SET_FIELD(clean_pipe, CP_MEC_CNTL,
+-							   MEC_ME2_PIPE0_RESET, 0);
++				reset_val = REG_SET_FIELD(reset_val, CP_MEC_CNTL,
++							  MEC_ME2_PIPE0_RESET, 1);
++				clean_val = REG_SET_FIELD(clean_val, CP_MEC_CNTL,
++							  MEC_ME2_PIPE0_RESET, 0);
+ 				break;
+ 			case 1:
+-				reset_pipe = REG_SET_FIELD(reset_pipe, CP_MEC_CNTL,
+-							   MEC_ME2_PIPE1_RESET, 1);
+-				clean_pipe = REG_SET_FIELD(clean_pipe, CP_MEC_CNTL,
+-							   MEC_ME2_PIPE1_RESET, 0);
++				reset_val = REG_SET_FIELD(reset_val, CP_MEC_CNTL,
++							  MEC_ME2_PIPE1_RESET, 1);
++				clean_val = REG_SET_FIELD(clean_val, CP_MEC_CNTL,
++							  MEC_ME2_PIPE1_RESET, 0);
+ 				break;
+ 			case 2:
+-				reset_pipe = REG_SET_FIELD(reset_pipe, CP_MEC_CNTL,
+-							   MEC_ME2_PIPE2_RESET, 1);
+-				clean_pipe = REG_SET_FIELD(clean_pipe, CP_MEC_CNTL,
+-							   MEC_ME2_PIPE2_RESET, 0);
++				reset_val = REG_SET_FIELD(reset_val, CP_MEC_CNTL,
++							  MEC_ME2_PIPE2_RESET, 1);
++				clean_val = REG_SET_FIELD(clean_val, CP_MEC_CNTL,
++							  MEC_ME2_PIPE2_RESET, 0);
+ 				break;
+ 			case 3:
+-				reset_pipe = REG_SET_FIELD(reset_pipe, CP_MEC_CNTL,
+-							   MEC_ME2_PIPE3_RESET, 1);
+-				clean_pipe = REG_SET_FIELD(clean_pipe, CP_MEC_CNTL,
+-							   MEC_ME2_PIPE3_RESET, 0);
++				reset_val = REG_SET_FIELD(reset_val, CP_MEC_CNTL,
++							  MEC_ME2_PIPE3_RESET, 1);
++				clean_val = REG_SET_FIELD(clean_val, CP_MEC_CNTL,
++							  MEC_ME2_PIPE3_RESET, 0);
+ 				break;
+ 			default:
+ 				break;
+ 			}
+ 			/* mec2 fw pc: CP:CP_MEC2_INSTR_PNTR */
+ 		}
+-		WREG32_SOC15(GC, 0, regCP_MEC_CNTL, reset_pipe);
+-		WREG32_SOC15(GC, 0, regCP_MEC_CNTL, clean_pipe);
++		WREG32_SOC15(GC, 0, regCP_MEC_CNTL, reset_val);
++		gfx_v11_0_clear_hqds_on_mec_pipe(adev, ring->me, ring->pipe);
++		soc21_grbm_select(adev, ring->me, ring->pipe, ring->queue, 0);
++		WREG32_SOC15(GC, 0, regCP_MEC_CNTL, clean_val);
+ 		r = RREG32(SOC15_REG_OFFSET(GC, 0, regCP_MEC1_INSTR_PNTR));
+ 	}
+ 
+@@ -6996,7 +7025,7 @@ static int gfx_v11_0_reset_compute_pipe(struct amdgpu_ring *ring)
+ 	mutex_unlock(&adev->srbm_mutex);
+ 	gfx_v11_0_unset_safe_mode(adev, 0);
+ 
+-	dev_info(adev->dev, "The ring %s pipe resets to MEC FW start PC: %s\n", ring->name,
++	dev_dbg(adev->dev, "The ring %s pipe resets to MEC FW start PC: %s\n", ring->name,
+ 			r == 0 ? "successfully" : "failed");
+ 	/*FIXME:Sometimes driver can't cache the MEC firmware start PC correctly, so the pipe
+ 	 * reset status relies on the compute ring test result.
+@@ -7016,9 +7045,15 @@ static int gfx_v11_0_reset_kcq(struct amdgpu_ring *ring,
+ 	r = amdgpu_mes_reset_legacy_queue(ring->adev, ring, vmid, true, 0);
+ 	if (r) {
+ 		dev_warn(adev->dev, "fail(%d) to reset kcq and try pipe reset\n", r);
++		amdgpu_gfx_mec_pipe_reset_prepare(adev, ring);
+ 		r = gfx_v11_0_reset_compute_pipe(ring);
+-		if (r)
++		if (r) {
++			amdgpu_gfx_mec_pipe_restart_schedulers(adev, ring->me, ring->pipe,
++							       ring->xcc_id);
+ 			return r;
++		}
++		return amdgpu_gfx_mec_pipe_reset_recover_queues(adev, ring, timedout_fence,
++								gfx_v11_0_kcq_init_queue);
+ 	}
+ 
+ 	r = gfx_v11_0_kcq_init_queue(ring, true);
 -- 
 2.49.0
 
