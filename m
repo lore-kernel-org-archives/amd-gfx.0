@@ -4,125 +4,102 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AD7B2CD37A7
-	for <amd-gfx@archiver.kernel.org>; Fri,  8 May 2026 16:26:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 52149CD3445
+	for <amd-gfx@archiver.kernel.org>; Fri,  8 May 2026 18:07:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 96A0610F560;
-	Fri,  8 May 2026 16:26:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DDF6810F598;
+	Fri,  8 May 2026 18:07:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="x5iUk9QC";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="IW6E6KNO";
 	dkim-atps=neutral
-Received: from BN8PR05CU002.outbound.protection.outlook.com
- (mail-eastus2azon11011045.outbound.protection.outlook.com [52.101.57.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1A92C10F558;
- Fri,  8 May 2026 16:26:26 +0000 (UTC)
+Received: from CH1PR05CU001.outbound.protection.outlook.com
+ (mail-northcentralusazon11010018.outbound.protection.outlook.com
+ [52.101.193.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8DF8F10F598
+ for <amd-gfx@lists.freedesktop.org>; Fri,  8 May 2026 18:07:19 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=MWsY1Ita3vagt6GnC40oxGdUtb6K4hJTPvI+sVuNrEknIjaBWDhMOUsn+F+iccY26dhxoAo9dwP548JW0VJ4W3zFRqlJqEFBDnWbaMhlZ73IR+JsxHB3RP0/9uYfh+J2ZDknK5eaEr5AXBuNhuFQhIN/WIL+H6JAQtNoiuIIJCKDi+oSjTdgIdvi69k9ptrFHHdKFpJr8XK1QQkmbT0+cFR9Vsf66FnkcORYVKRqwMTP1aO/uhvbQOh4WJNbZBlaq/sYQD9gPzt0l4uXJu7MXPsaOqcxkqAINEX6x079ECo61TgV6XjPjKrJj6TkpLmQCi+FBbK7GnXk8SCFYKUZVg==
+ b=K0eFzQeAJefkp+HXQFAHPVKjvhmOFhzPBf61ZW4IZNEGKuIqd7BpOOEXOPu0oc5VhQTuxi1aSeHfFHPWXZg2r14Cakx5r59MffNCKBI+USrqSJqVKDtJO7ILTzGJt0NA/VzrC0hgs5wgs3eXLfj9vqmDZ6GnrpPn6ocOue2B/eLd2TFI2ZnROemQeCRiTYm1apmwXckM2sopK8IkVmYKF5Fq3moAcf9iWCFHW92uNcFsxeKF+Vtr4abiwGtqZQWiKFmpde1+9b7n8iyBtF6ZA4DL7dJq8JqqVA6axDx95v0fl2Bru0EVqD9R7wUFpwBLaiOG5KLvMouxijkddEJZbg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+8Npaa/iscXqhahM2pCg/dN2oWJozDUC3ibuPT6gjSk=;
- b=faAUmTENgQ/CuRYU+BMiFuX3WCaAE7hQiBz++fHa6GYFhFBogYOyoPLpcWrsvkDMACqkn/nLPZyD/DOUVF7Xq9DQ21lvivJBU1Wp2dy6NuLupymz5rc6ru+6xCtWbyKflMyuH31/8Ww3xAD+aAQ8jCKAb2aYVWHxFFLQaxM/omteMuGW5FbrSU9beX/1SiPkBEaenbmjbGNe3dlfYWN1q66dDyiTtNaawY0vamwX/xqAx9LYsJ48fMAU7lAIsFLFaGU6HWBJ0S2VdVlU0BE1bwH/BOyp/YaFAmURmUlaruE0Md5dsG+WYpkTC+OdR1lvNQkqo2DOcFqxsChMzl4gqQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=OHsWVHEYvvYT9RuSgPcnkC7/E43Vxu3JlE6pmukpc7U=;
+ b=QzUz6uNNcgbqRv5za3zyq7hH5/bGvv4E5PfLHGnIl8OMXjHnS8OBG6IP7iYXvps0fLvq14wgM+5SBj0kKfkw54+qiQBRaVJ25LVlfkE5YfFuO3zd8menkFc35U8m2Xh9BKrlNqoTyA8HP5Be0Ltelikao2XD3eFzeieQe48ld2YOH6KaG9TiBFXwKTTS/crr1rEZ7dk8KHEzCMM2JtGghjYoeRcPiKEGVpN0vf9Zv0utdMZOnrUeXXcfiA4VkBtWVY09sOVngBBoouqOjdVq1Pq89Ik1+kM50z6lBcsI9hbIOh4JujVyf0v4wbRlbvYbR1v2e+2t4+BDt4U6ymwt0g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+8Npaa/iscXqhahM2pCg/dN2oWJozDUC3ibuPT6gjSk=;
- b=x5iUk9QCdYdAQMOVGj6qPLjVps1J2xnrGzry6zwZeoV0MPYPPCtcrTw5eM7MWA7NObChZIcQFE5GOC3LSPIrsyof2JssXTwzk5X/ETAysTxXq/i4auKOEdSwJQwvnGvWl51KwnM5SJdP/Mh1BoeXT6NfM/P/BVBC/laH35khNak=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH8PR12MB7301.namprd12.prod.outlook.com (2603:10b6:510:222::12)
- by DS5PPFB297DAF97.namprd12.prod.outlook.com (2603:10b6:f:fc00::65d)
+ bh=OHsWVHEYvvYT9RuSgPcnkC7/E43Vxu3JlE6pmukpc7U=;
+ b=IW6E6KNO/aJ2Bio6q3h03MXomq0Xi+thLQ3cYowjfutXk51E3fxiyXS0bzU9eJzLAMUDmNEpXhsV7bDs0DACdo21uBj2c6STNCnGqHfMTh+HVjQBNz54vM3Uf/O9HSz1gJ+2b6lPhUrzcFeWmtonYwlAARci9VVO60kP/46bwdA=
+Received: from PH7PR03CA0014.namprd03.prod.outlook.com (2603:10b6:510:339::10)
+ by SA1PR12MB5614.namprd12.prod.outlook.com (2603:10b6:806:228::7)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.26; Fri, 8 May
- 2026 16:26:21 +0000
-Received: from PH8PR12MB7301.namprd12.prod.outlook.com
- ([fe80::8434:dc50:a68d:7bdd]) by PH8PR12MB7301.namprd12.prod.outlook.com
- ([fe80::8434:dc50:a68d:7bdd%2]) with mapi id 15.20.9891.019; Fri, 8 May 2026
- 16:26:21 +0000
-Message-ID: <099f171a-2aa2-46f3-8a82-5360cf24a2f5@amd.com>
-Date: Fri, 8 May 2026 21:56:15 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] gpu/buddy: replace dual-tree/force_merge with
- decoupled clear tracker
-To: Matthew Auld <matthew.auld@intel.com>, christian.koenig@amd.com,
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-Cc: alexander.deucher@amd.com
-References: <20260504111055.262964-1-Arunpravin.PaneerSelvam@amd.com>
- <75bcbaac-c5f9-4dc6-af1e-4d9ed66d5f16@intel.com>
-Content-Language: en-US
-From: Arunpravin Paneer Selvam <arunpravin.paneerselvam@amd.com>
-In-Reply-To: <75bcbaac-c5f9-4dc6-af1e-4d9ed66d5f16@intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: MA5PR01CA0067.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a01:1b7::6) To PH8PR12MB7301.namprd12.prod.outlook.com
- (2603:10b6:510:222::12)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9891.19; Fri, 8 May
+ 2026 18:07:12 +0000
+Received: from SN1PEPF0002529F.namprd05.prod.outlook.com
+ (2603:10b6:510:339:cafe::6d) by PH7PR03CA0014.outlook.office365.com
+ (2603:10b6:510:339::10) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9891.19 via Frontend Transport; Fri,
+ 8 May 2026 18:07:12 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SN1PEPF0002529F.mail.protection.outlook.com (10.167.242.6) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9891.9 via Frontend Transport; Fri, 8 May 2026 18:07:12 +0000
+Received: from MKM-D1-FRANKSU9.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Fri, 8 May
+ 2026 13:07:11 -0500
+From: Chenglei Xie <Chenglei.Xie@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <yipeng.chai@amd.com>
+CC: <jeffrey.chan@amd.com>, <zhigang.luo@amd.com>,
+ <alexander.deucher@amd.com>, <chenglei.xie@amd.com>
+Subject: [PATCH v2] drm/amdgpu: grow SR-IOV RAS bad-page tables dynamically
+ The VF RAS error handler stored bad pages in fixed-size arrays. If the PF2VF
+ block described more entries than fit,
+ amdgpu_virt_ras_add_bps() could memcpy past the end of those arrays.
+Date: Fri, 8 May 2026 14:07:05 -0400
+Message-ID: <20260508180705.217683-1-Chenglei.Xie@amd.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <BN9PR12MB5306BE73CDDAAEDA37B3A0F1FC3D2@BN9PR12MB5306.namprd12.prod.outlook.com>
+References: <BN9PR12MB5306BE73CDDAAEDA37B3A0F1FC3D2@BN9PR12MB5306.namprd12.prod.outlook.com>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH8PR12MB7301:EE_|DS5PPFB297DAF97:EE_
-X-MS-Office365-Filtering-Correlation-Id: 25ca03b2-3e81-4d9d-6f1e-08dead1e89fc
+X-MS-TrafficTypeDiagnostic: SN1PEPF0002529F:EE_|SA1PR12MB5614:EE_
+X-MS-Office365-Filtering-Correlation-Id: 05838cad-7f05-4e23-d05e-08dead2ca0dd
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|366016|1800799024|56012099003|18002099003|22082099003; 
-X-Microsoft-Antispam-Message-Info: LL75Twm+YIcZXIn7C7/eS9cDiPPCGCbg0nNTSNyUsoV8eeh5//Nvhn7iP/2CMmUhu31ZR8fZesypnNXGdWEuc1dYL80odsZHq86Hf9n8qPGjbde3lLAR2tKjhRs0DzlBMzGqXb6c7ix0untV9ccvxUfsrKD8cP3HWLzVAw+K+d03D9CbnIKqzSq5JUrl31agtRr7DLc0+5XaTyrXulVrB2faZCbe7ghQ1g0aihHVVZ0HNFV3QGRWCjJAOGeckl/grx5s2HBKzyboF2MUlYaUtCy1mPIKid3jio3eugWRDJkRmPcPIEX4lITvzNOWLeqUt6NW24zwlHPAIBIOmeu4NJ/9ttvOrK3UJwIP8le5wd9YHaR76T8lPvPltrsRvJQubm5N3vaTbzydbh52WkojdGBQ9ujENNU2RaOPeqDdIdGeJlfKBwoMN3Q26AExC5aCWl22aFszdQiIYAFhBA6YGhaAKjLl2zxQnW8XLATpG6+Xt+PtnofJowpCJKXkTVPu4gI4wUGBG56VKxw7o2UJ/63CoLOIQwzikRdyShKLIJUcRBtVEKEXe1iVxW0Q1GXboLqgWB1b31hEN1+Em+LONdfa0R+NnJj2ndY+Kzr+/igVK/StvimbUckkmo/3AL0vu6c0AyDrBaokE+eGlRVxjg==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH8PR12MB7301.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(1800799024)(56012099003)(18002099003)(22082099003);
+ ARA:13230040|376014|36860700016|1800799024|82310400026|56012099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: mjXqrEEMtQicMBX6ndYj8xDQ91YyGzXDtFJijjzp4bdzymM3J7niOlfQl22MkVwauA+cF/173fal7drt9R0+SgUwEaCPA8omrTRYQG3G6eKrlAjx0gD95/TDzRC3y8Hab1hqRJgc+DPI9Xd8S2baY+CA2JDIjux4PaEpHq+gv53FSzsrABj7DFN/6mvhgWfCtExxPb3n6Wv0t8p3N8UGCMKf+rPVplmPglYZXqeG51XBEPXEfKAm7rCV/yvDi/MKV6DINdzvtrGERKu6uxBSElCwj8wj8mx79RYAK8xc2/+WHipaofu4NiPrXvVuU6H1bkO0xn5sfaq7hXWfDv94keV1rgVaQOQfNKwGMDff8dmCVHE7+dzUQSX2XmuYLXtmRoNVZEVUFKWeCenrfp49ozLhqOrrQFN4oYGE/eaJ8tWqrRQLKF5delevEBVj6XxdEmciX4xDTuGmrg32fM0MERGl4kmJ/P0ZEwuqYA4wzH6PLhhlAPajzTw0UDFY1qw+VOz/gmnRckwAFRuNAa81AVN0Mx+kwktt2Cij/xj0FBoPJ3WvFMbz89h9BkeM8C16LaGnL2SsGsvvvSToGQfL6b0mReyVDCafjAQZGol6ijk8s+emV7QnIIV7vTpjNNSKUNODZYUO1mDBtJMg7wxgJ+79EPOzb+l0G+OYr++EjvlCxi4GXE7Jb+xNTQFBxWlJpdCAT5WlhvOFKgznvFqGPt+5ivnQVZQrzBeGqtfVAbM=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(36860700016)(1800799024)(82310400026)(56012099003)(18002099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RlUxclhuY2V0ZkRQZ0t6blFSRzRUQlFlQXN1TXEzNUUwUklaMFNicGRZVlhL?=
- =?utf-8?B?MzRlK1ZVVGFvaFVyYkNXdmlWemNzMTlKbkN1cHFmbW1GeEh5YjZlSk1OdSt0?=
- =?utf-8?B?TkFUcGpGdzRCemNubWhtSGFxY0FzR3BpL0JmdW0yU1dtTjRxbmFpaVhEdHFV?=
- =?utf-8?B?Y0c5WTBNWUJYK3lzaGtCTHBmOWN5dENEVkpFc2szSFJUMUlFaFdXcC9lY3pP?=
- =?utf-8?B?dEtsS0RJZkJDUCtUWlhKRytoYk9HVFhxcTVLT3FRQld0cXpvYndHb2JFdGlL?=
- =?utf-8?B?Z1J3ZmEwVDU4alNFbnNwK096cFlyUy9JOU5SdnhqUWVCYmNRSldqaDduMUR5?=
- =?utf-8?B?T1JMOXBCU2NNcnlqanhGYWZITngrUDQ0TUF2cUc5cTh5SVkvem9uNVJKdHRI?=
- =?utf-8?B?MHNqeFdPc1hGZEFXUFV6d3E4UWg5bnhBOVBsTEdXL09sTExuY3NnWUNyREht?=
- =?utf-8?B?K0F1VEVUcjlxVUs5UktCVGw2OGFiVVJSSTU4d0dObFBHTWxocGJ4Qit6MW9Y?=
- =?utf-8?B?eFVWQXByUHJKNGVzTC9PQ2dLVFd1SHZUWVZTU0dFY3FkQTJnNHlOQ1h2VGFa?=
- =?utf-8?B?elYxSUdKZjFuM1pDN3BENGZaRHVqaE9pTUdidmQ3ZTRPRkFPa1BOVEl5b0xo?=
- =?utf-8?B?Tmh5eW5VY2lGTTRIMDZzWmQvOEpDMXhmSitRMlRTTGVhVXV1bWRReXBnQks4?=
- =?utf-8?B?Q2E1RHNSem96NEVNbE9MTE50WDRnaEVQZXEvY1pscUFNYVQvRjc3V0pvWVM5?=
- =?utf-8?B?WFFMUmFqaG1nS1Bldkd3Q1VPc0lYS0ZxekdiemZ4blVmWmJKcisxWUtqelgy?=
- =?utf-8?B?NG9ydGMwZ0tDZERHdW1qUXNMTlhaZXFuRTdxSG5IaHFseEpKeCtLczRpYW8x?=
- =?utf-8?B?K0RxSHNieU9HS2lNTGp4MnZ0dWlZTEFBNU5vTWFvWjBSU2RtVVNBcXF1Z3A1?=
- =?utf-8?B?QUorYWdJZXZsZFJCK0dYSU1Lb283MGQ2eVQ1Q2VYK0lacXhYc2R3cHd2SjNo?=
- =?utf-8?B?T0hmN25oK3JqUll3ZEVqRzdsMlpOOHdidzhSZ2RLWFNhMDJ1anB4VTA0VGcy?=
- =?utf-8?B?RGZuUGFEcmFwYllwMlUrWHA4K2t4QkFXOHFZWkRaWndKM0FQUHVzMlRvZlI2?=
- =?utf-8?B?ZDg0ZTBpUU5rbTRWU2FUaW5aV1BLS1pINjkrQ0MwVVU1VlE5VDQ3eWxKMTF0?=
- =?utf-8?B?ZEU4OEQ4bDgrcXVMVjc2Q1lMMW1uSHN5TWFBVHlJb0FHdktqSk42MDZxWGFH?=
- =?utf-8?B?Z04vNjNSL2tmVXF0YjN0ZExpOGhVWUVHV2pIMnVPNGFwNndWT0xRNS9CRHVB?=
- =?utf-8?B?ZFNyUUxoZVRPNEpXSk12LzA4cnh5UWNxbVhMc1YvM2hzbkVDYTVoZVo5MjR6?=
- =?utf-8?B?bEhDc0wrcWFxY0J3K2FCYUtncUlUOTFRZjlsTzBpOGZwWWtBUjN0V1BPMU83?=
- =?utf-8?B?L2swODNqRC9BV3hUYlVGdkVhdHBKenFuVXBJTk00dmNNckxhOW1wcC9iMm9T?=
- =?utf-8?B?Nm5GMnFGN0hIOHgwNnU2SEczdzRGNWJaSGF0OVVKMEsvcFo2VFdmUkt4U2VN?=
- =?utf-8?B?REVMUG53b1JMeGd5SytSMlJHSEtFY0M4aGRIMmllOGZheDNldklVU3oyNTVV?=
- =?utf-8?B?eFlNTHE3THUzL3pHKzZxcnVaem8xOTdWUVVqaHkxVFlJaGNPYXlFWkdDNVBF?=
- =?utf-8?B?R3Q4NVZwT1F4NHhHN2piWUxGRmQvNFRnRmJQS21QYkkwSklzQUxrUGxtRWw0?=
- =?utf-8?B?S0c5UTZ1M25WdW42dXdHaTlrRHBEMml3NUJBa0U3MzFlVkFQTHVUZXNweXNF?=
- =?utf-8?B?SUZ4R1dwK1hIWXRubjlTb0p6U3J0bHJYNS9tSmQyTmVpMzlrMTBpWSs5d0Q4?=
- =?utf-8?B?L3FKOVczSE5Xcy9HbXdONDB0cFJZWlpaakNGcmJOWUhEbG00bHJoZWJaS0FD?=
- =?utf-8?B?YWxKeTN5OGJJbkpUYmxDN0YwY3dsaGhtekxqN3pZRWE1TXd3bERFaVQ2OFpx?=
- =?utf-8?B?ZUZtWVdkZ1gyTWhYOHhFcVpYLzd4a05GK2Z0TUdGNVIyT2lIZU1xY0tkTzlU?=
- =?utf-8?B?TzF4VDNJR3BwSXJYUEQzNnU1SkpVVXJmYmhWaFBhRjdSUU03d1k1ZXJGS1A1?=
- =?utf-8?B?RjdxeWJUMDVQN0dxT1dFMzEvVWN5Zk8vNWJ2TDNOeE1mYnM3SDVJOWVKVFJp?=
- =?utf-8?B?MXEwMkZDRUhrRjBINDd1WU9CYktjQnFGckhvaXliTCs4bzhPZkFpdEpUZnBS?=
- =?utf-8?B?RkR3OWU3Yk9XSzFxMDFpSnVRVWlNQ2FBakdZeUZnZU5oOEJzaUJJZ0pZemJL?=
- =?utf-8?B?TGtFMHIwQTFHWUViNE5HOHJ4SXZVcXBRUk02eEZSUXlXd2gvMGpDUT09?=
+X-MS-Exchange-AntiSpam-MessageData-0: LkNTj33DFGdewud9SCHpdjdFeUsbM+FTMY3BSKezgLJOBwhiaTvDfAjmS0YS3VNZYvIn6pCD4rpHtaq1JfFASp9gDesC268TuaaZNZFxCEz+R1xwF2EILT2AS2mCekeIHgzp8A8u1gXKXCQakQGSVbAtxq8qKP11G/lwoEkSC0uYRHSu3AvN4FCBbWE1JZvkVyr34UrDIUjdGzt09ZrhvBkqQvABPvG4FCuQ26vqZ0d1nmEFULKrVE/ZZIA0Dyrazeyw3+s4utgpwtvT5Bw9yz+PpAVtvjGpg5vDiLuUFDwss890UZMK9VYoTam9kBwyxh/fFUSJxP7kAo3lo4WDswVGq7l7dEQKjWqmf2gE0EDdt3f0Kc/AgooXUM7q/yT2GG8Hn+kEPDPBHC0Y4ByIpkBN1QTQXyydRHBaMzTl1n5WbhqNufjgLRoVYHPv1i0d
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 25ca03b2-3e81-4d9d-6f1e-08dead1e89fc
-X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB7301.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 May 2026 16:26:21.0697 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 May 2026 18:07:12.1584 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 05838cad-7f05-4e23-d05e-08dead2ca0dd
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Hiy7kAiICXE3/KP4XA2D2WhXcPIbSfOmMWnaGhEIgJGaExHAxzfxEziWQFCChqjCdYZaxFszTFHrKdOUmXhpAA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS5PPFB297DAF97
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF0002529F.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB5614
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,101 +114,202 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Matthew,
+Track table length in a capacity field, allocate a small initial table,
+and grow bps / bps_bo together when count + pages would exceed capacity.
+Keep amdgpu_virt_ras_add_bps() as the single append path: validate the
+addition, grow if needed, then memcpy and bump count.
 
-On 5/8/2026 8:49 PM, Matthew Auld wrote:
-> On 04/05/2026 12:10, Arunpravin Paneer Selvam wrote:
->> The current buddy allocator maintains separate clear_tree[] and
->> dirty_tree[] rbtrees per order, preventing coalescing between cleared
->> and dirty buddies. Under mixed workloads, this creates a merge barrier:
->> adjacent buddies frequently end up split across trees, forcing reliance
->> on __force_merge() during allocation.
->>
->> __force_merge() performs an O(N x max_order) scan under the VRAM manager
->> lock, leading to allocation stalls and failures for large contiguous
->> requests even when sufficient total free memory is available.
->>
->> Solution
->>
->> Replace the dual-tree design with:
->> - A single free_tree[order] rbtree for dirty and mixed free blocks
->>    (fully cleared free blocks float outside this tree)
->> - A lightweight out-of-band clear tracker (gpu_clear_tracker)
->>
->> Fully cleared free blocks are tracked outside the buddy trees using an
->> augmented interval rbtree, enabling O(log E) lookup of the largest
->> cleared extents.
->>
->> Buddy coalescing is now unconditional in __gpu_buddy_free(), regardless
->> of clear/dirty state. This removes the merge barrier and eliminates the
->> need for __force_merge().
->>
->> Benefits
->>
->> - Correct high-order allocations after mixed clear/dirty workloads
->> - Elimination of O(N x max_order) merge cost from the allocation path
->> - O(log E) cleared-extent lookup replacing O(N) scans
->> - Predictable allocation latency under fragmentation
->> - Reduced complexity with a single tree per order
->>
->> Test:
->> dEQP-VK.memory.allocation.basic.size_8KiB.reverse.count_4000
->>
->> Below data is from /sys/kernel/debug/dri/1/amdgpu_vram_mm:
->>
->> Base (dual-tree), before VKCTS test:
->>    order- 6 free:   6 MiB,  blocks: 26
->>    order- 5 free:   1 MiB,  blocks: 15
->>    order- 4 free: 960 KiB,  blocks: 15
->>    order- 3 free:   5 MiB,  blocks: 171
->>    order- 2 free:   2 MiB,  blocks: 176
->>    order- 1 free:   1 MiB,  blocks: 165
->>    order- 0 free:  16 KiB,  blocks: 4
->>
->> Base (dual-tree), after VKCTS test:
->>    order- 6 free: 768 KiB,  blocks: 3
->>    order- 5 free: 499 MiB,  blocks: 3999
->>    order- 4 free: 250 MiB,  blocks: 4001
->>    order- 3 free: 129 MiB,  blocks: 4157
->>    order- 2 free:  65 MiB,  blocks: 4161
->>    order- 1 free:  63 MiB,  blocks: 8138
->>    order- 0 free:  20 KiB,  blocks: 5
->>
->> Clear tracker, before VKCTS test:
->>    order- 6 free:   4 MiB,  blocks: 19
->>    order- 5 free:   2 MiB,  blocks: 18
->>    order- 4 free: 704 KiB,  blocks: 11
->>    order- 3 free:   5 MiB,  blocks: 168
->>    order- 2 free:   2 MiB,  blocks: 174
->>    order- 1 free:   1 MiB,  blocks: 167
->>    order- 0 free:  32 KiB,  blocks: 8
->>
->> Clear tracker, after VKCTS test:
->>    order- 6 free:   4 MiB,  blocks: 19
->>    order- 5 free:   2 MiB,  blocks: 18
->>    order- 4 free: 704 KiB,  blocks: 11
->>    order- 3 free:   5 MiB,  blocks: 168
->>    order- 2 free:   2 MiB,  blocks: 174
->>    order- 1 free:   1 MiB,  blocks: 167
->>    order- 0 free:  28 KiB,  blocks: 7
->>
->> v2:
->>   - Code-style cleanup and minor refactoring
->>   - Renamed locals for clarity
->>
->> Cc: Matthew Auld <matthew.auld@intel.com>
->> Cc: Christian König <christian.koenig@amd.com>
->> Signed-off-by: Arunpravin Paneer Selvam 
->> <Arunpravin.PaneerSelvam@amd.com>
->
-> Still need some more time to fully go over this, but in the meantime 
-> there is some feedback here from sashiko, which might be worth a look:
->
-> https://sashiko.dev/#/patchset/20260504111055.262964-1-Arunpravin.PaneerSelvam%40amd.com 
->
-I have sent the v3. Please go through it. I will check the Sashiko 
-review comments.
+On allocation failure the existing tables are left unchanged and the
+caller stops ingesting more bad pages from the message.
 
-Regards,
-Arun.
+Signed-off-by: Chenglei Xie <Chenglei.Xie@amd.com>
+Change-Id: I924d2b5e369bef007eb1577f287a2274ec83d5a9
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c | 114 ++++++++++++++++++-----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h |   2 +
+ 2 files changed, 95 insertions(+), 21 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+index 6974b1c5b56c2..8d4f30e3be212 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+@@ -283,14 +283,68 @@ unsigned int amd_sriov_msg_checksum(void *obj,
+ 	return ret;
+ }
+ 
++#define AMDGPU_VIRT_RAS_BAD_PAGE_TABLE_INIT_CAPACITY	16
++
++/**
++ * amdgpu_virt_ras_grow_bad_page_table - grow bad-page arrays if needed
++ * @adev: amdgpu device
++ * @eh: RAS error handler data for the VF
++ * @min_capacity: minimum number of bad-page slots required (bps[] / bps_bo[] length)
++ *
++ * Returns 0 if @eh already has room for @min_capacity slots or growth succeeded.
++ * Returns -ENOMEM if allocation failed (existing tables are left unchanged).
++ */
++static int amdgpu_virt_ras_grow_bad_page_table(struct amdgpu_device *adev,
++		struct amdgpu_virt_ras_err_handler_data *eh,
++		int min_capacity)
++{
++	struct eeprom_table_record *new_bps;
++	struct amdgpu_bo **new_bo;
++	int new_capacity;
++	unsigned long doubled;
++
++	if (min_capacity <= eh->capacity)
++		return 0;
++
++	new_capacity = eh->capacity ? eh->capacity : AMDGPU_VIRT_RAS_BAD_PAGE_TABLE_INIT_CAPACITY;
++	while (new_capacity < min_capacity) {
++		doubled = (unsigned long)new_capacity * 2UL;
++		if (doubled < (unsigned long)new_capacity || doubled > INT_MAX) {
++			new_capacity = min_capacity;
++			break;
++		}
++		new_capacity = (int)doubled;
++	}
++	if (new_capacity < min_capacity)
++		new_capacity = min_capacity;
++
++	new_bps = kmalloc_array(new_capacity, sizeof(*eh->bps), GFP_KERNEL);
++	new_bo = kcalloc(new_capacity, sizeof(*eh->bps_bo), GFP_KERNEL);
++	if (!new_bps || !new_bo) {
++		kfree(new_bps);
++		kfree(new_bo);
++		dev_warn_ratelimited(adev->dev,
++				     "RAS WARN: failed to grow bad page table to %d slots\n",
++				     new_capacity);
++		return -ENOMEM;
++	}
++
++	memcpy(new_bps, eh->bps, eh->count * sizeof(*eh->bps));
++	memcpy(new_bo, eh->bps_bo, eh->count * sizeof(*eh->bps_bo));
++
++	kfree(eh->bps);
++	kfree(eh->bps_bo);
++	eh->bps = new_bps;
++	eh->bps_bo = new_bo;
++	eh->capacity = new_capacity;
++
++	return 0;
++}
++
+ static int amdgpu_virt_init_ras_err_handler_data(struct amdgpu_device *adev)
+ {
+ 	struct amdgpu_virt *virt = &adev->virt;
+ 	struct amdgpu_virt_ras_err_handler_data **data = &virt->virt_eh_data;
+-	/* GPU will be marked bad on host if bp count more then 10,
+-	 * so alloc 512 is enough.
+-	 */
+-	unsigned int align_space = 512;
+ 	void *bps = NULL;
+ 	struct amdgpu_bo **bps_bo = NULL;
+ 
+@@ -298,16 +352,17 @@ static int amdgpu_virt_init_ras_err_handler_data(struct amdgpu_device *adev)
+ 	if (!*data)
+ 		goto data_failure;
+ 
+-	bps = kmalloc_array(align_space, sizeof(*(*data)->bps), GFP_KERNEL);
++	bps = kmalloc_array(AMDGPU_VIRT_RAS_BAD_PAGE_TABLE_INIT_CAPACITY, sizeof(*(*data)->bps), GFP_KERNEL);
+ 	if (!bps)
+ 		goto bps_failure;
+ 
+-	bps_bo = kmalloc_array(align_space, sizeof(*(*data)->bps_bo), GFP_KERNEL);
++	bps_bo = kcalloc(AMDGPU_VIRT_RAS_BAD_PAGE_TABLE_INIT_CAPACITY, sizeof(*(*data)->bps_bo), GFP_KERNEL);
+ 	if (!bps_bo)
+ 		goto bps_bo_failure;
+ 
+ 	(*data)->bps = bps;
+ 	(*data)->bps_bo = bps_bo;
++	(*data)->capacity = AMDGPU_VIRT_RAS_BAD_PAGE_TABLE_INIT_CAPACITY;
+ 	(*data)->count = 0;
+ 	(*data)->last_reserved = 0;
+ 
+@@ -361,17 +416,32 @@ void amdgpu_virt_release_ras_err_handler_data(struct amdgpu_device *adev)
+ 	virt->virt_eh_data = NULL;
+ }
+ 
+-static void amdgpu_virt_ras_add_bps(struct amdgpu_device *adev,
+-		struct eeprom_table_record *bps, int pages)
++static bool amdgpu_virt_ras_add_bps(struct amdgpu_device *adev,
++		const struct eeprom_table_record *bps, int pages)
+ {
+ 	struct amdgpu_virt *virt = &adev->virt;
+ 	struct amdgpu_virt_ras_err_handler_data *data = virt->virt_eh_data;
++	int need;
+ 
+-	if (!data)
+-		return;
++	if (!data || pages <= 0)
++		return false;
++
++	if (pages > INT_MAX - data->count) {
++		dev_warn_ratelimited(adev->dev,
++				     "RAS WARN: bad page table size overflow (count=%d pages=%d)\n",
++				     data->count, pages);
++		return false;
++	}
++
++	need = data->count + pages;
++	if (need > data->capacity &&
++	    amdgpu_virt_ras_grow_bad_page_table(adev, data, need))
++		return false;
+ 
+ 	memcpy(&data->bps[data->count], bps, pages * sizeof(*data->bps));
+ 	data->count += pages;
++
++	return true;
+ }
+ 
+ static void amdgpu_virt_ras_reserve_bps(struct amdgpu_device *adev)
+@@ -443,20 +513,22 @@ static void amdgpu_virt_add_bad_page(struct amdgpu_device *adev,
+ 
+ 	memset(&bp, 0, sizeof(bp));
+ 
+-	if (bp_block_size) {
+-		bp_cnt = bp_block_size / sizeof(uint64_t);
+-		for (bp_idx = 0; bp_idx < bp_cnt; bp_idx++) {
+-			retired_page = *(uint64_t *)(vram_usage_va +
+-					bp_block_offset + bp_idx * sizeof(uint64_t));
+-			bp.retired_page = retired_page;
++	if (!bp_block_size)
++		return;
+ 
+-			if (amdgpu_virt_ras_check_bad_page(adev, retired_page))
+-				continue;
++	bp_cnt = bp_block_size / sizeof(uint64_t);
++	for (bp_idx = 0; bp_idx < bp_cnt; bp_idx++) {
++		retired_page = *(uint64_t *)(vram_usage_va +
++				bp_block_offset + bp_idx * sizeof(uint64_t));
++		bp.retired_page = retired_page;
+ 
+-			amdgpu_virt_ras_add_bps(adev, &bp, 1);
++		if (amdgpu_virt_ras_check_bad_page(adev, retired_page))
++			continue;
+ 
+-			amdgpu_virt_ras_reserve_bps(adev);
+-		}
++		if (!amdgpu_virt_ras_add_bps(adev, &bp, 1))
++			break;
++
++		amdgpu_virt_ras_reserve_bps(adev);
+ 	}
+ }
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
+index 9da0c6e9b8695..af2acf8eee6e2 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
+@@ -263,6 +263,8 @@ struct amdgpu_virt_ras_err_handler_data {
+ 	struct eeprom_table_record *bps;
+ 	/* point to reserved bo array */
+ 	struct amdgpu_bo **bps_bo;
++	/* number of slots in bps[] / bps_bo[] (always >= count) */
++	int capacity;
+ 	/* the count of entries */
+ 	int count;
+ 	/* last reserved entry's index + 1 */
+-- 
+2.34.1
 
