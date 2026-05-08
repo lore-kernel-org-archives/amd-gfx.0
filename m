@@ -4,78 +4,129 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CAD73CD37AA
-	for <amd-gfx@archiver.kernel.org>; Fri,  8 May 2026 07:56:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4869ACD342F
+	for <amd-gfx@archiver.kernel.org>; Fri,  8 May 2026 08:11:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 396E410F3C0;
-	Fri,  8 May 2026 07:56:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E4AF310E5D0;
+	Fri,  8 May 2026 08:11:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=usp.br header.i=@usp.br header.b="PNU8H5dP";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="VqhJfZ8L";
 	dkim-atps=neutral
-Received: from mail-dl1-f45.google.com (mail-dl1-f45.google.com [74.125.82.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EBFE510F30F
- for <amd-gfx@lists.freedesktop.org>; Fri,  8 May 2026 02:48:57 +0000 (UTC)
-Received: by mail-dl1-f45.google.com with SMTP id
- a92af1059eb24-130b2295ed0so4640431c88.0
- for <amd-gfx@lists.freedesktop.org>; Thu, 07 May 2026 19:48:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=usp.br; s=usp-google; t=1778208537; x=1778813337; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=Vi7JmfvF0Dj77MW1QUs1e0pA+dGxpN5ALhf0rwynnn0=;
- b=PNU8H5dPYz/nnpc5bWksX3fV4jGyRn7JmU9RMvOcJLtXZ9t8mY5G/LqdgzWJ2iGt8q
- plc+QVKRYk/yfXYAJ91flnFKa3bhvemYd03xL6Cq8SI9iLfioLqdw5GnpXyZkftkoXBV
- 4CoXsVYS6ceHnpaytzZr3EtRzCpBIWrgwh5l/Buu+tnZsUrN8AibZ6vKLSCLmUoHLwgL
- DrnWMzfiG5svdVjTnsqxZNOqaGEP4Wmwlg+N/7xPmnN3udKkbONbpo7NE/fzi2MvuR1V
- GUN2Skxijf7u93rrVfWce1ruduxG797fXJMIS8CtyX3B2yzbsiKVKS5V9b7D6PQjUjzX
- nEww==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1778208537; x=1778813337;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=Vi7JmfvF0Dj77MW1QUs1e0pA+dGxpN5ALhf0rwynnn0=;
- b=ZGA6aDbpudLwcid/juF+2LaKeUY29K0hvICRpzgJeE/NI/byiTGuW/BO2Zez3dOal7
- zaWtPNL9SXllr1yPQMZnXxlWUWzImm/keSJ8ZxeXErYu973hc0zxSaFIQmq6rVAUnnYb
- /I1DGyfM701FMS0sm3NRsdHVijI60ABob3q6S13PSaIejWU5kqB1/JhplO33gCLQHiTe
- UQoLoXbDuiwzKNLsiczXtFaKiPjy1hbt7Z2e5/JlOx9E1KL6w6g4Kf4WqKmCyGjAl0DG
- MRop+wtKvDYVQSu3AVFu30/M1E25/XZ7LEcz/aQTk9aAa6pd3Ygclwi4iEmAY/fGL13l
- geWQ==
-X-Forwarded-Encrypted: i=1;
- AFNElJ8s6/j/nRvtEDQE14jbFp6cfV5twjL0K2b1JShgAT61IEcaG4DsGP8hfyAH53/NUSlIMy1v82ps@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxHIe5ut69/Mc95y8LO9eI2eJgYYluvAsvtQgQxTmSS49Uq+0Ko
- HrbsCHCvuZemCa1hKjo13GP8WKsUMqlD5FE/LSo7BW+ryZ1Yt1EoOSfdhzrhDnX8Kf4=
-X-Gm-Gg: Acq92OHGxCEQh8x4SCqKjca7E7bmkvQBRjH8h21XgEaAYfYxXxJR/7g322Y/1r3US7w
- UrB7E3/Z7zkozZH5dAeNALWFj6RKXJT96nl93GR9kOtRIQr94FXGnisyWAcbhWjX+5khx0/h3rq
- LT7VbvCvA4VXwOMUyuJmrPSdPVmeRP2+IBm7HjStKSz+icrbCMZMX26gL76ucJInQQCGOMDAcSj
- eYvebCDE2LRsMTvDFLcUq7K1z/oAR6tj9f3QLazm8QiPJ5HoTScTdcLoggwwVBUiTLH1sswof6K
- aeR3/XFahj58VYtrw1ENHSVSk5X77ubeNoSMxzBsRcgxB1cAVt1oxdrQfiOS1QCeD/1GKi4qAhN
- DQ9JGVywzFgNn0BZXhiiwu5fWtGXGBX4kFTjyUJOq/al+Rzi+cu2IZH0d9n5rS8MgBc2xmLIKwD
- 4sfpCtHj5rQ1oownKIhKY7xHwlg/2gIs5Pi4ZaeAoogfLKYcSaATAR/Y0+RI8hiU7b1/jyy4ezF
- arB6E9E
-X-Received: by 2002:a05:7301:4289:b0:2d4:62f0:b2d4 with SMTP id
- 5a478bee46e88-2f54948f51dmr3444068eec.13.1778208536736; 
- Thu, 07 May 2026 19:48:56 -0700 (PDT)
-Received: from DontFreeze.tail1d9320.ts.net (201-68-218-231.dsl.telesp.net.br.
- [201.68.218.231]) by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-2f885edb83fsm455669eec.7.2026.05.07.19.48.54
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 07 May 2026 19:48:56 -0700 (PDT)
-From: Andre Hirata <andrejhirata@usp.br>
-To: kenneth.feng@amd.com, alexander.deucher@amd.com, christian.koenig@amd.com,
- airlied@gmail.com, simona@ffwll.ch
-Cc: Andre Jun Hirata <andrejhirata@usp.br>,
- Gabriel Dimant <gabriel.dimant@usp.br>,
- Guilherme Gabriel <guilhermesangabriel@usp.br>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Subject: [PATCH RESEND] drm/amd/pm: Use guard(mutex) instead of manual
- lock+unlock
-Date: Thu,  7 May 2026 23:47:42 -0300
-Message-ID: <20260508024744.6523-1-andrejhirata@usp.br>
-X-Mailer: git-send-email 2.43.0
-MIME-Version: 1.0
+Received: from PH0PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11011053.outbound.protection.outlook.com [40.107.208.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CF86010E5D0
+ for <amd-gfx@lists.freedesktop.org>; Fri,  8 May 2026 08:11:46 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=A6u43bU3A7MET8iebFSvq/xdMW6rlPa+SQDPScxAawLQ3+P+DiMK1nP7I0lLnczl8ARmr4q7mH5797xw0+pFUsmJRfAd5MQV4RDJf5B51q1W4lJ68cLsdtooNoxlThqqCkkkR6dIMuWtuYmQ1NqURoRybzc2V6O+txQxGe2JB3DSBtLsaYXf36sHlK2JEAbb+gs0foHD2CyiDweJrfyEIF6d4PehQEH3hzEKutE15cgzKSqVM5PXijsgInNNj1AFxRngOHgfokMaa2g/pm52zXIWHZVu4u8NfO9OkuGgodiWyBnuUdpe6qevvav4oBUg+QP3GDOAv8goWTIKHSFAZw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=VvPc+RvkiGe2Qcnj1Sa77ffFEjdY2efmfiqUFmnTt6k=;
+ b=Av31Hp56fciLY27Lsy7jj4d9YgYLAkhpkONZnVokZSQIGwLBqFerwoayHnrrXz1Y62m/Imyqy0sAsZxBvlXh8alkSQh2XtnlhJ/Vd2VuDHMfa5RgDDAbZZ+hRq28nWo16HkvBizLg0sGBuDpESFb5VYoMsPo864fmOz8uJzn13m26P5PGI8fBuSkf264nqex6z0alhIGauX9tMGjhEnQZl2x0O7kZHjip/o2RkPtAKr1fw31imcmhpjfjPc7ltAR9K3vigjauwq1YtXM6h7MWt/+RwdWBta3Fbl5QTkBBMCCzWqOIIlsTmD/Ca9ewneCTplalAxAwiqNjeL2BQLb5A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=VvPc+RvkiGe2Qcnj1Sa77ffFEjdY2efmfiqUFmnTt6k=;
+ b=VqhJfZ8Lx6ZzUVCdk6xQmsWg0WOYQ/LMM3yQDRo4oqqK6ROizQQVkC13KFChON8qkajddLpzkC3eLH3+2ZJksi2Fap4HmEQ7YRwp/bZNCI4+Yv5yNEAZSRl1rsW9tpLrHkWgrDvCI8o+dQyouBf8ynaeA4AqGOV8pZbu4csNB20=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by DS2PR12MB9616.namprd12.prod.outlook.com (2603:10b6:8:275::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9891.19; Fri, 8 May
+ 2026 08:11:40 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.20.9870.023; Fri, 8 May 2026
+ 08:11:40 +0000
+Message-ID: <6c7785d5-4619-4348-9772-9de8c30bce21@amd.com>
+Date: Fri, 8 May 2026 10:11:32 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amdgpu: unmap all user mappings of framebuffer and
+ doorbell before mode1 reset
+To: Alex Deucher <alexdeucher@gmail.com>
+Cc: Yifan Zhang <yifan1.zhang@amd.com>, amd-gfx@lists.freedesktop.org,
+ "Kuehling, Felix" <Felix.Kuehling@amd.com>,
+ Philipp Stanner <phasta@kernel.org>,
+ "Honglei1.Huang@amd.com" <honghuan@amd.com>, Alexander.Deucher@amd.com,
+ Perry.Yuan@amd.com, =?UTF-8?Q?Thomas_Hellstr=C3=B6m?=
+ <thomas.hellstrom@linux.intel.com>
+References: <20260507140934.1001909-1-yifan1.zhang@amd.com>
+ <d1e60cfa-2e93-48ff-9af6-72366aba7e06@amd.com>
+ <CADnq5_P=UYFyxiFaxj2YQdfyaJCSYhHHT9shk4LxfPa+XMV-7Q@mail.gmail.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <CADnq5_P=UYFyxiFaxj2YQdfyaJCSYhHHT9shk4LxfPa+XMV-7Q@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Fri, 08 May 2026 07:55:58 +0000
+X-ClientProxiedBy: BL1PR13CA0388.namprd13.prod.outlook.com
+ (2603:10b6:208:2c0::33) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DS2PR12MB9616:EE_
+X-MS-Office365-Filtering-Correlation-Id: 58fbe5ec-8ca2-4b6e-9dae-08deacd96e9f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|366016|1800799024|56012099003|18002099003|22082099003|8126099003|3023799003;
+X-Microsoft-Antispam-Message-Info: 4teOAt2ckM9B5j2kEBm+iDCAPT5C00kRnxwR5rsvCJHxzTL9pcWa7CqUk9QEnaR9Vghe0FyZt6ueC60AjaMQm+T5ecxSRxKQfugMrU38LaZjUOcbw82/engacWga+Qa8f7wbrNzBAQiBKsNPwNQ+StEEtnDGhwJzhFzV9S9wBoZf0k+K/M2dgm4jzw6DrBgECeeRcIMbBJaI60q9FwFzwOF9AAI/NhCpDKirg3okiE5uvy0Svlv8dNt6vKfzIaa3K9FZnMH81L5eWoBI9AQKvD5HUVvR6GjZS/KBhvPHye4a/9mvLYIoYlB9N71/k82K6aEXu9ANGCHgw9xY6A4PE92tVUDl2werY3s2cwd4D1l/qoUoxLJ4GdCTfCbYKVLp2XAhKQR7VjMg7pv7QysY4FukODXP5lRFojMqpic3ocdVBd7dDVhS7HZlPC1BVUPJIqgQqNnZT/NiKPH+RcPgpMvkPAjN49gY5jpQyqtws/BNNAQqfZdpOo1HmWzkuSPxTA22RwqjuA92qTbYL+6H1qD3S8mUjaXJUuCMe2JdfZLTartTVbXq7Nph/nqJKFD8o/jCkMidYcSbnr77JX3x4hgtDK5mX74JBzz1k9S8zMI26RPBYi6c8TJZgsR29lMeiDCSg5UhpSdUpEDcBRr18Hhm6NxU2/m2eYYJsQNOFCIdmJZEGiFT0OkOWpV5dVX8
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(366016)(1800799024)(56012099003)(18002099003)(22082099003)(8126099003)(3023799003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Rmgybjc0c2U1V002em5CUkxXeGNKR2NVRGhMTnlEa0prUUpVMWNCMG9mUHJx?=
+ =?utf-8?B?cS9qY1EvQ1hNblNlSUJpOWJrZHdGb05YNVdyUGhlZkkwSm8vTmJCNlNLeEx6?=
+ =?utf-8?B?WHpycGlDTkRVL1IwM3VjQ0JPZC8vNS96OHBWR2ZNRFh2REtzUCtONFZUUDVs?=
+ =?utf-8?B?TjlJdzRnOENVdHdnT1Rsb1dlOXVaTm5FelpTOERScmovMmMzTkNEYXJ1TnR4?=
+ =?utf-8?B?bWN0UHVSUk9FYmQ0K0lEbzduNjcxZVRsQkFlZGh1TnAvaWdNaS9ZTlNDOEI3?=
+ =?utf-8?B?T2ltZXR6M3ArUThTcXlyL251KzFLSmNUOUZpMmpOeHp6VG5TUitDT1RBYzI0?=
+ =?utf-8?B?aEEyM2tPakJ1d1Z0NkVzREd3YUFLYVlXb1dtTjVJL2k5M1dHNEJJa21uODc3?=
+ =?utf-8?B?cm9VbHNrU2xma1hHU0JzTTZ6VkJZaHpwRUpoZStrbmhJRGF5UlBKYm9ZelEr?=
+ =?utf-8?B?aTRhWCtpMFNJSGZJWDlSWlBaQVdyUGhndWdOSGNPWFc2NGtwa2hJUW91cmZN?=
+ =?utf-8?B?dmRTQnl5N0J6c0ZSZFhnY2NuMVhOdzU2Ly9uSjN5TERRSFR3RzNlSms3emhW?=
+ =?utf-8?B?UGlhV2swY29nL2dFeVNyS3BVSnRPU2FrK05LejJvZGxrK3liZlIzR3JGZWk0?=
+ =?utf-8?B?WVZTVEN6YTE3WjY5aUZyQTc1TlhpREg2d3lod3piLzlIZCtIamlJeEhQcmVF?=
+ =?utf-8?B?REVKVC8rT1E5V243NjdHeHhGYlRLNDZXOWR3aTg0UTFjQWw2MlJCTXQ3QlR2?=
+ =?utf-8?B?dG02Ri9pWVM4eHJieXRtQXlrNko1ckdYRTJtTlB5RndxL3V0bmRxUElRNDNp?=
+ =?utf-8?B?Y0o2R0U5Rmd6MEJiamhlV2hNSzFTd2ltVEh2TXpKWGo2QnoxS0FaeE9LZ0lr?=
+ =?utf-8?B?eXJYU2lCa3BDT3k3djJEYzU2VURHZUNvZW1JYStYS2pKb1J2UGp6VTJzaWYx?=
+ =?utf-8?B?WVlrTkh3dHRZSVZ5cDRYWUJ4MmVWSkZTZ29CS3RhWEZjYVpQSUVKK3F0Q0M3?=
+ =?utf-8?B?Nkw5SUk4dC9EWkNHSEhxVG53THNNd1htUVJqckdUTDE2WktSS1JSRUlvaWha?=
+ =?utf-8?B?N3J5NGdFeEc3MkEwQW1tcVphTkVmbUNNdlRHZUpkQmJQL3FwU1RSRUM5MzdP?=
+ =?utf-8?B?UTNGbHRhSUdzYzNlWEZqWWdDODl1elhVb1A3cTI5Q2hiTTFMRHo0aXFrNDF4?=
+ =?utf-8?B?U2NzYVZhNVNlT2FHUFlXcnFEbThnMFVuaTNZaUN5L2V2L2EwbW0yYm5PRU5n?=
+ =?utf-8?B?YUhCWUxCMEhqeXVPc2ZnaEp5SXRSS0lnY0RFQ244bVVKM3JHOUpqc0pWUTBD?=
+ =?utf-8?B?UnhqR1NBdVk5WFpZQnUzWEo1QUlJdWxHN0dzbEJsWmdwaVhuRGk5ekM3UXow?=
+ =?utf-8?B?cjA5U3M2YUtuWXV1Yk9KL084R3pSWmoxTmpzaytlQ0lQSCt0MGhkZjFtSnpy?=
+ =?utf-8?B?elZFcC9tSWtoaUQwNGptanVOQnFBRjhrVndMUmgzR2RubkFtckl4VXVFVzlJ?=
+ =?utf-8?B?RkFxUGdld24xTm5nSlhnTkhMbjlsdGxYeFo5RTJvQTdqUjY4a3BTQWdZK0VR?=
+ =?utf-8?B?K3Z5RDUxazJZUDNXY0tSMFRwZ05TZ3h5dk1yKzRZKzZrTHRoaDQwWkU5Y3BF?=
+ =?utf-8?B?aXhWOHN2SW5rdjZNMXNLenFsZ2VoUHdjNndkcGE2Z3o1MVBURjdzZVozaE5l?=
+ =?utf-8?B?SUVCTUJ1NmNWRitTa3BJL1IxcXVXRllLclV2OVVjRlR2eTZhSjJuVU4yZnNR?=
+ =?utf-8?B?OUlyRVVrZWJNT3hTSFBGdzRlY3p0am9ZazRkRHhtUXFZWmhJU1FtMmREU1VC?=
+ =?utf-8?B?VW1yMVhLdWR1QmFLVTZiWWlESFR3cUVJYjIvMG92Q3d2OUxjNEJNMnpJaG92?=
+ =?utf-8?B?ZFB5aUd5T0pyYkwvcEZuc0NLUzY5OFFkbWpVeFNxT3F3TXlCbmZXa0tLemxz?=
+ =?utf-8?B?eklVc2VlOG8zSThWb1RWODhaVWxRbCtyUmZPQi9nM1pxRHFzQW9MbE44QkQr?=
+ =?utf-8?B?cmZuckxRcUZ2dnJrNjFtdUJ0ODdHSEhnbW52Vld1NXBoRTRyaW5xNlVRcGI5?=
+ =?utf-8?B?S2hJQmlzS3lzTGFBeDhEVVNFcE4wdWU1cUtPMW1NM1JJNjdDeld5enVBOFJi?=
+ =?utf-8?B?TWZ0dnRJaGtaZ285NXZaUVZlVmVZYVEvNFpDNTNEVnIrSjI2S0FEMXFERWsy?=
+ =?utf-8?B?dlNxVklHaDRxdGNoaWc2blo1NVp5dVh2bitnejZFbmJIM3ppa2xuaTU1amRC?=
+ =?utf-8?B?MXV5ZW5ObFB0Ykd5bkFVOUlzOCtUZmsyMU85LzhwVWlGVjdNUDNiaVFtMTBY?=
+ =?utf-8?Q?OKB2qb4HWhug4rfJHW?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 58fbe5ec-8ca2-4b6e-9dae-08deacd96e9f
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 May 2026 08:11:39.9446 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ujuijbtScj2FQv//LrTxZ/zPuX9/MpgCGIDq7YlOzXcAOsOUEEHJEombD/iATRcb
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS2PR12MB9616
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,1356 +141,214 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Andre Jun Hirata <andrejhirata@usp.br>
+On 5/7/26 17:05, Alex Deucher wrote:
+> On Thu, May 7, 2026 at 10:54 AM Christian König
+> <christian.koenig@amd.com> wrote:
+>>
+>> On 5/7/26 16:09, Yifan Zhang wrote:
+>>> During Mode 1 reset, the ASIC undergoes a reset cycle and becomes temporarily
+>>> inaccessible via PCIe. Any attempt to access framebuffer or MMIO registers during
+>>> this window can result in uncompleted PCIe transactions, leading to NMI panics or
+>>> system hangs.
+>>>
+>>> To prevent this, Unmap all of the applications mappings of the framebuffer
+>>> and doorbell BARs before mode1 reset. Also prevent new mappings from coming in
+>>> during the reset process.
+>>
+>> I think putting the inode into the kfd_dev would break userspace, so that is a no-go and needs a different solution.
+>>
+>> But apart from that the patch looks like what I suggested before.
+>>
+>> Question is since when does that issue exists? Previously we didn't had to take care of that.
+> 
+> It's always existed, I guess generally there are not often CPU
+> accesses to VRAM during a reset.  It depends on the platform and what
+> level of PCIe error handling it enables.
 
-Use guard() and scoped_guard() for handling mutex lock instead of
-manually locking and unlocking the mutex. This prevents forgotten
-locks due to early exits and removes the need of gotos.
+Yeah I feared that. Yesterday I've gone through that step by step and came to the conclusion that our approach here won't work at all.
 
-Signed-off-by: Andre Jun Hirata <andrejhirata@usp.br>
-Co-developed-by: Gabriel Dimant <gabriel.dimant@usp.br>
-Signed-off-by: Gabriel Dimant <gabriel.dimant@usp.br>
-Co-developed-by: Guilherme Gabriel <guilhermesangabriel@usp.br>
-Signed-off-by: Guilherme Gabriel <guilhermesangabriel@usp.br>
----
- drivers/gpu/drm/amd/pm/amdgpu_dpm.c | 384 ++++++++++------------------
- 1 file changed, 135 insertions(+), 249 deletions(-)
+The problem is that vmf_insert_pfn_prot() can cycle back and wait for the GPU reset to complete.
 
-diff --git a/drivers/gpu/drm/amd/pm/amdgpu_dpm.c b/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
-index feadf604b..fc8f137a2 100644
---- a/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
-+++ b/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
-@@ -30,6 +30,7 @@
- #include "amd_pcie.h"
- #include "amdgpu_display.h"
- #include "hwmgr.h"
-+#include <linux/cleanup.h>
- #include <linux/power_supply.h>
- #include "amdgpu_smu.h"
- 
-@@ -46,10 +47,9 @@ int amdgpu_dpm_get_sclk(struct amdgpu_device *adev, bool low)
- 	if (!pp_funcs->get_sclk)
- 		return 0;
- 
--	mutex_lock(&adev->pm.mutex);
-+	guard(mutex)(&adev->pm.mutex);
- 	ret = pp_funcs->get_sclk((adev)->powerplay.pp_handle,
- 				 low);
--	mutex_unlock(&adev->pm.mutex);
- 
- 	return ret;
- }
-@@ -62,10 +62,9 @@ int amdgpu_dpm_get_mclk(struct amdgpu_device *adev, bool low)
- 	if (!pp_funcs->get_mclk)
- 		return 0;
- 
--	mutex_lock(&adev->pm.mutex);
-+	guard(mutex)(&adev->pm.mutex);
- 	ret = pp_funcs->get_mclk((adev)->powerplay.pp_handle,
- 				 low);
--	mutex_unlock(&adev->pm.mutex);
- 
- 	return ret;
- }
-@@ -80,13 +79,12 @@ int amdgpu_dpm_set_powergating_by_smu(struct amdgpu_device *adev,
- 	enum ip_power_state pwr_state = gate ? POWER_STATE_OFF : POWER_STATE_ON;
- 	bool is_vcn = block_type == AMD_IP_BLOCK_TYPE_VCN;
- 
--	mutex_lock(&adev->pm.mutex);
--
-+	guard(mutex)(&adev->pm.mutex);
- 	if (atomic_read(&adev->pm.pwr_state[block_type]) == pwr_state &&
- 			(!is_vcn || adev->vcn.num_vcn_inst == 1)) {
- 		dev_dbg(adev->dev, "IP block%d already in the target %s state!",
- 				block_type, gate ? "gate" : "ungate");
--		goto out_unlock;
-+		return ret;
- 	}
- 
- 	switch (block_type) {
-@@ -115,9 +113,6 @@ int amdgpu_dpm_set_powergating_by_smu(struct amdgpu_device *adev,
- 	if (!ret)
- 		atomic_set(&adev->pm.pwr_state[block_type], pwr_state);
- 
--out_unlock:
--	mutex_unlock(&adev->pm.mutex);
--
- 	return ret;
- }
- 
-@@ -126,9 +121,9 @@ int amdgpu_dpm_set_gfx_power_up_by_imu(struct amdgpu_device *adev)
- 	struct smu_context *smu = adev->powerplay.pp_handle;
- 	int ret = -EOPNOTSUPP;
- 
--	mutex_lock(&adev->pm.mutex);
--	ret = smu_set_gfx_power_up_by_imu(smu);
--	mutex_unlock(&adev->pm.mutex);
-+	scoped_guard(mutex, &adev->pm.mutex) {
-+		ret = smu_set_gfx_power_up_by_imu(smu);
-+	}
- 
- 	msleep(10);
- 
-@@ -144,13 +139,10 @@ int amdgpu_dpm_baco_enter(struct amdgpu_device *adev)
- 	if (!pp_funcs || !pp_funcs->set_asic_baco_state)
- 		return -ENOENT;
- 
--	mutex_lock(&adev->pm.mutex);
--
-+	guard(mutex)(&adev->pm.mutex);
- 	/* enter BACO state */
- 	ret = pp_funcs->set_asic_baco_state(pp_handle, 1);
- 
--	mutex_unlock(&adev->pm.mutex);
--
- 	return ret;
- }
- 
-@@ -163,13 +155,10 @@ int amdgpu_dpm_baco_exit(struct amdgpu_device *adev)
- 	if (!pp_funcs || !pp_funcs->set_asic_baco_state)
- 		return -ENOENT;
- 
--	mutex_lock(&adev->pm.mutex);
--
-+	guard(mutex)(&adev->pm.mutex);
- 	/* exit BACO state */
- 	ret = pp_funcs->set_asic_baco_state(pp_handle, 0);
- 
--	mutex_unlock(&adev->pm.mutex);
--
- 	return ret;
- }
- 
-@@ -184,13 +173,10 @@ int amdgpu_dpm_set_mp1_state(struct amdgpu_device *adev,
- 		if (amdgpu_sriov_vf(adev))
- 			adev->pm.dpm_enabled = false;
- 	} else if (pp_funcs && pp_funcs->set_mp1_state) {
--		mutex_lock(&adev->pm.mutex);
--
-+		guard(mutex)(&adev->pm.mutex);
- 		ret = pp_funcs->set_mp1_state(
- 				adev->powerplay.pp_handle,
- 				mp1_state);
--
--		mutex_unlock(&adev->pm.mutex);
- 	}
- 
- 	return ret;
-@@ -216,12 +202,9 @@ int amdgpu_dpm_is_baco_supported(struct amdgpu_device *adev)
- 	if (adev->in_s3)
- 		return 0;
- 
--	mutex_lock(&adev->pm.mutex);
--
-+	guard(mutex)(&adev->pm.mutex);
- 	ret = pp_funcs->get_asic_baco_capability(pp_handle);
- 
--	mutex_unlock(&adev->pm.mutex);
--
- 	return ret;
- }
- 
-@@ -234,12 +217,9 @@ int amdgpu_dpm_mode2_reset(struct amdgpu_device *adev)
- 	if (!pp_funcs || !pp_funcs->asic_reset_mode_2)
- 		return -ENOENT;
- 
--	mutex_lock(&adev->pm.mutex);
--
-+	guard(mutex)(&adev->pm.mutex);
- 	ret = pp_funcs->asic_reset_mode_2(pp_handle);
- 
--	mutex_unlock(&adev->pm.mutex);
--
- 	return ret;
- }
- 
-@@ -252,12 +232,9 @@ int amdgpu_dpm_enable_gfx_features(struct amdgpu_device *adev)
- 	if (!pp_funcs || !pp_funcs->asic_reset_enable_gfx_features)
- 		return -ENOENT;
- 
--	mutex_lock(&adev->pm.mutex);
--
-+	guard(mutex)(&adev->pm.mutex);
- 	ret = pp_funcs->asic_reset_enable_gfx_features(pp_handle);
- 
--	mutex_unlock(&adev->pm.mutex);
--
- 	return ret;
- }
- 
-@@ -270,18 +247,15 @@ int amdgpu_dpm_baco_reset(struct amdgpu_device *adev)
- 	if (!pp_funcs || !pp_funcs->set_asic_baco_state)
- 		return -ENOENT;
- 
--	mutex_lock(&adev->pm.mutex);
-+	guard(mutex)(&adev->pm.mutex);
- 
- 	/* enter BACO state */
- 	ret = pp_funcs->set_asic_baco_state(pp_handle, 1);
- 	if (ret)
--		goto out;
-+		return ret;
- 
- 	/* exit BACO state */
- 	ret = pp_funcs->set_asic_baco_state(pp_handle, 0);
--
--out:
--	mutex_unlock(&adev->pm.mutex);
- 	return ret;
- }
- 
-@@ -291,9 +265,8 @@ bool amdgpu_dpm_is_mode1_reset_supported(struct amdgpu_device *adev)
- 	bool support_mode1_reset = false;
- 
- 	if (is_support_sw_smu(adev)) {
--		mutex_lock(&adev->pm.mutex);
-+		guard(mutex)(&adev->pm.mutex);
- 		support_mode1_reset = smu_mode1_reset_is_support(smu);
--		mutex_unlock(&adev->pm.mutex);
- 	}
- 
- 	return support_mode1_reset;
-@@ -305,9 +278,8 @@ int amdgpu_dpm_mode1_reset(struct amdgpu_device *adev)
- 	int ret = -EOPNOTSUPP;
- 
- 	if (is_support_sw_smu(adev)) {
--		mutex_lock(&adev->pm.mutex);
-+		guard(mutex)(&adev->pm.mutex);
- 		ret = smu_mode1_reset(smu);
--		mutex_unlock(&adev->pm.mutex);
- 	}
- 
- 	return ret;
-@@ -319,9 +291,8 @@ bool amdgpu_dpm_is_link_reset_supported(struct amdgpu_device *adev)
- 	bool support_link_reset = false;
- 
- 	if (is_support_sw_smu(adev)) {
--		mutex_lock(&adev->pm.mutex);
-+		guard(mutex)(&adev->pm.mutex);
- 		support_link_reset = smu_link_reset_is_support(smu);
--		mutex_unlock(&adev->pm.mutex);
- 	}
- 
- 	return support_link_reset;
-@@ -333,9 +304,8 @@ int amdgpu_dpm_link_reset(struct amdgpu_device *adev)
- 	int ret = -EOPNOTSUPP;
- 
- 	if (is_support_sw_smu(adev)) {
--		mutex_lock(&adev->pm.mutex);
-+		guard(mutex)(&adev->pm.mutex);
- 		ret = smu_link_reset(smu);
--		mutex_unlock(&adev->pm.mutex);
- 	}
- 
- 	return ret;
-@@ -352,10 +322,9 @@ int amdgpu_dpm_switch_power_profile(struct amdgpu_device *adev,
- 		return 0;
- 
- 	if (pp_funcs && pp_funcs->switch_power_profile) {
--		mutex_lock(&adev->pm.mutex);
-+		guard(mutex)(&adev->pm.mutex);
- 		ret = pp_funcs->switch_power_profile(
- 			adev->powerplay.pp_handle, type, en);
--		mutex_unlock(&adev->pm.mutex);
- 	}
- 
- 	return ret;
-@@ -371,10 +340,9 @@ int amdgpu_dpm_pause_power_profile(struct amdgpu_device *adev,
- 		return 0;
- 
- 	if (pp_funcs && pp_funcs->pause_power_profile) {
--		mutex_lock(&adev->pm.mutex);
-+		guard(mutex)(&adev->pm.mutex);
- 		ret = pp_funcs->pause_power_profile(
- 			adev->powerplay.pp_handle, pause);
--		mutex_unlock(&adev->pm.mutex);
- 	}
- 
- 	return ret;
-@@ -387,10 +355,9 @@ int amdgpu_dpm_set_xgmi_pstate(struct amdgpu_device *adev,
- 	int ret = 0;
- 
- 	if (pp_funcs && pp_funcs->set_xgmi_pstate) {
--		mutex_lock(&adev->pm.mutex);
-+		guard(mutex)(&adev->pm.mutex);
- 		ret = pp_funcs->set_xgmi_pstate(adev->powerplay.pp_handle,
- 								pstate);
--		mutex_unlock(&adev->pm.mutex);
- 	}
- 
- 	return ret;
-@@ -404,9 +371,8 @@ int amdgpu_dpm_set_df_cstate(struct amdgpu_device *adev,
- 	void *pp_handle = adev->powerplay.pp_handle;
- 
- 	if (pp_funcs && pp_funcs->set_df_cstate) {
--		mutex_lock(&adev->pm.mutex);
-+		guard(mutex)(&adev->pm.mutex);
- 		ret = pp_funcs->set_df_cstate(pp_handle, cstate);
--		mutex_unlock(&adev->pm.mutex);
- 	}
- 
- 	return ret;
-@@ -419,9 +385,8 @@ ssize_t amdgpu_dpm_get_pm_policy_info(struct amdgpu_device *adev,
- 	int ret = -EOPNOTSUPP;
- 
- 	if (is_support_sw_smu(adev)) {
--		mutex_lock(&adev->pm.mutex);
-+		guard(mutex)(&adev->pm.mutex);
- 		ret = smu_get_pm_policy_info(smu, p_type, buf);
--		mutex_unlock(&adev->pm.mutex);
- 	}
- 
- 	return ret;
-@@ -434,9 +399,8 @@ int amdgpu_dpm_set_pm_policy(struct amdgpu_device *adev, int policy_type,
- 	int ret = -EOPNOTSUPP;
- 
- 	if (is_support_sw_smu(adev)) {
--		mutex_lock(&adev->pm.mutex);
-+		guard(mutex)(&adev->pm.mutex);
- 		ret = smu_set_pm_policy(smu, policy_type, policy_level);
--		mutex_unlock(&adev->pm.mutex);
- 	}
- 
- 	return ret;
-@@ -450,9 +414,8 @@ int amdgpu_dpm_enable_mgpu_fan_boost(struct amdgpu_device *adev)
- 	int ret = 0;
- 
- 	if (pp_funcs && pp_funcs->enable_mgpu_fan_boost) {
--		mutex_lock(&adev->pm.mutex);
-+		guard(mutex)(&adev->pm.mutex);
- 		ret = pp_funcs->enable_mgpu_fan_boost(pp_handle);
--		mutex_unlock(&adev->pm.mutex);
- 	}
- 
- 	return ret;
-@@ -467,10 +430,9 @@ int amdgpu_dpm_set_clockgating_by_smu(struct amdgpu_device *adev,
- 	int ret = 0;
- 
- 	if (pp_funcs && pp_funcs->set_clockgating_by_smu) {
--		mutex_lock(&adev->pm.mutex);
-+		guard(mutex)(&adev->pm.mutex);
- 		ret = pp_funcs->set_clockgating_by_smu(pp_handle,
- 						       msg_id);
--		mutex_unlock(&adev->pm.mutex);
- 	}
- 
- 	return ret;
-@@ -485,10 +447,9 @@ int amdgpu_dpm_smu_i2c_bus_access(struct amdgpu_device *adev,
- 	int ret = -EOPNOTSUPP;
- 
- 	if (pp_funcs && pp_funcs->smu_i2c_bus_access) {
--		mutex_lock(&adev->pm.mutex);
-+		guard(mutex)(&adev->pm.mutex);
- 		ret = pp_funcs->smu_i2c_bus_access(pp_handle,
- 						   acquire);
--		mutex_unlock(&adev->pm.mutex);
- 	}
- 
- 	return ret;
-@@ -497,7 +458,7 @@ int amdgpu_dpm_smu_i2c_bus_access(struct amdgpu_device *adev,
- void amdgpu_pm_acpi_event_handler(struct amdgpu_device *adev)
- {
- 	if (adev->pm.dpm_enabled) {
--		mutex_lock(&adev->pm.mutex);
-+		guard(mutex)(&adev->pm.mutex);
- 		if (power_supply_is_system_supplied() > 0)
- 			adev->pm.ac_power = true;
- 		else
-@@ -510,7 +471,6 @@ void amdgpu_pm_acpi_event_handler(struct amdgpu_device *adev)
- 		if (is_support_sw_smu(adev))
- 			smu_set_ac_dc(adev->powerplay.pp_handle);
- 
--		mutex_unlock(&adev->pm.mutex);
- 	}
- }
- 
-@@ -524,12 +484,11 @@ int amdgpu_dpm_read_sensor(struct amdgpu_device *adev, enum amd_pp_sensors senso
- 		return -EINVAL;
- 
- 	if (pp_funcs && pp_funcs->read_sensor) {
--		mutex_lock(&adev->pm.mutex);
-+		guard(mutex)(&adev->pm.mutex);
- 		ret = pp_funcs->read_sensor(adev->powerplay.pp_handle,
- 					    sensor,
- 					    data,
- 					    size);
--		mutex_unlock(&adev->pm.mutex);
- 	}
- 
- 	return ret;
-@@ -541,9 +500,8 @@ int amdgpu_dpm_get_apu_thermal_limit(struct amdgpu_device *adev, uint32_t *limit
- 	int ret = -EOPNOTSUPP;
- 
- 	if (pp_funcs && pp_funcs->get_apu_thermal_limit) {
--		mutex_lock(&adev->pm.mutex);
-+		guard(mutex)(&adev->pm.mutex);
- 		ret = pp_funcs->get_apu_thermal_limit(adev->powerplay.pp_handle, limit);
--		mutex_unlock(&adev->pm.mutex);
- 	}
- 
- 	return ret;
-@@ -555,9 +513,8 @@ int amdgpu_dpm_set_apu_thermal_limit(struct amdgpu_device *adev, uint32_t limit)
- 	int ret = -EOPNOTSUPP;
- 
- 	if (pp_funcs && pp_funcs->set_apu_thermal_limit) {
--		mutex_lock(&adev->pm.mutex);
-+		guard(mutex)(&adev->pm.mutex);
- 		ret = pp_funcs->set_apu_thermal_limit(adev->powerplay.pp_handle, limit);
--		mutex_unlock(&adev->pm.mutex);
- 	}
- 
- 	return ret;
-@@ -583,9 +540,8 @@ void amdgpu_dpm_compute_clocks(struct amdgpu_device *adev)
- 			amdgpu_fence_wait_empty(ring);
- 	}
- 
--	mutex_lock(&adev->pm.mutex);
-+	guard(mutex)(&adev->pm.mutex);
- 	pp_funcs->pm_compute_clocks(adev->powerplay.pp_handle);
--	mutex_unlock(&adev->pm.mutex);
- }
- 
- void amdgpu_dpm_enable_uvd(struct amdgpu_device *adev, bool enable)
-@@ -593,14 +549,14 @@ void amdgpu_dpm_enable_uvd(struct amdgpu_device *adev, bool enable)
- 	int ret = 0;
- 
- 	if (adev->family == AMDGPU_FAMILY_SI) {
--		mutex_lock(&adev->pm.mutex);
--		if (enable) {
--			adev->pm.dpm.uvd_active = true;
--			adev->pm.dpm.state = POWER_STATE_TYPE_INTERNAL_UVD;
--		} else {
--			adev->pm.dpm.uvd_active = false;
-+		scoped_guard(mutex, &adev->pm.mutex) {
-+			if (enable) {
-+				adev->pm.dpm.uvd_active = true;
-+				adev->pm.dpm.state = POWER_STATE_TYPE_INTERNAL_UVD;
-+			} else {
-+				adev->pm.dpm.uvd_active = false;
-+			}
- 		}
--		mutex_unlock(&adev->pm.mutex);
- 
- 		amdgpu_dpm_compute_clocks(adev);
- 		return;
-@@ -627,15 +583,15 @@ void amdgpu_dpm_enable_vce(struct amdgpu_device *adev, bool enable)
- 	int ret = 0;
- 
- 	if (adev->family == AMDGPU_FAMILY_SI) {
--		mutex_lock(&adev->pm.mutex);
--		if (enable) {
--			adev->pm.dpm.vce_active = true;
--			/* XXX select vce level based on ring/task */
--			adev->pm.dpm.vce_level = AMD_VCE_LEVEL_AC_ALL;
--		} else {
--			adev->pm.dpm.vce_active = false;
-+		scoped_guard(mutex, &adev->pm.mutex) {
-+			if (enable) {
-+				adev->pm.dpm.vce_active = true;
-+				/* XXX select vce level based on ring/task */
-+				adev->pm.dpm.vce_level = AMD_VCE_LEVEL_AC_ALL;
-+			} else {
-+				adev->pm.dpm.vce_active = false;
-+			}
- 		}
--		mutex_unlock(&adev->pm.mutex);
- 
- 		amdgpu_dpm_compute_clocks(adev);
- 		return;
-@@ -670,25 +626,23 @@ void amdgpu_dpm_enable_vpe(struct amdgpu_device *adev, bool enable)
- int amdgpu_pm_load_smu_firmware(struct amdgpu_device *adev, uint32_t *smu_version)
- {
- 	const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
--	int r = 0;
-+	int ret = 0;
- 
- 	if (!pp_funcs || !pp_funcs->load_firmware ||
- 	    (is_support_sw_smu(adev) && (adev->flags & AMD_IS_APU)))
- 		return 0;
- 
--	mutex_lock(&adev->pm.mutex);
--	r = pp_funcs->load_firmware(adev->powerplay.pp_handle);
--	if (r) {
-+	guard(mutex)(&adev->pm.mutex);
-+	ret = pp_funcs->load_firmware(adev->powerplay.pp_handle);
-+	if (ret) {
- 		pr_err("smu firmware loading failed\n");
--		goto out;
-+		return ret;
- 	}
- 
- 	if (smu_version)
- 		*smu_version = adev->pm.fw_version;
- 
--out:
--	mutex_unlock(&adev->pm.mutex);
--	return r;
-+	return ret;
- }
- 
- int amdgpu_dpm_handle_passthrough_sbr(struct amdgpu_device *adev, bool enable)
-@@ -696,10 +650,9 @@ int amdgpu_dpm_handle_passthrough_sbr(struct amdgpu_device *adev, bool enable)
- 	int ret = 0;
- 
- 	if (is_support_sw_smu(adev)) {
--		mutex_lock(&adev->pm.mutex);
-+		guard(mutex)(&adev->pm.mutex);
- 		ret = smu_handle_passthrough_sbr(adev->powerplay.pp_handle,
- 						 enable);
--		mutex_unlock(&adev->pm.mutex);
- 	}
- 
- 	return ret;
-@@ -713,9 +666,8 @@ int amdgpu_dpm_send_hbm_bad_pages_num(struct amdgpu_device *adev, uint32_t size)
- 	if (!is_support_sw_smu(adev))
- 		return -EOPNOTSUPP;
- 
--	mutex_lock(&adev->pm.mutex);
-+	guard(mutex)(&adev->pm.mutex);
- 	ret = smu_send_hbm_bad_pages_num(smu, size);
--	mutex_unlock(&adev->pm.mutex);
- 
- 	return ret;
- }
-@@ -728,9 +680,8 @@ int amdgpu_dpm_send_hbm_bad_channel_flag(struct amdgpu_device *adev, uint32_t si
- 	if (!is_support_sw_smu(adev))
- 		return -EOPNOTSUPP;
- 
--	mutex_lock(&adev->pm.mutex);
-+	guard(mutex)(&adev->pm.mutex);
- 	ret = smu_send_hbm_bad_channel_flag(smu, size);
--	mutex_unlock(&adev->pm.mutex);
- 
- 	return ret;
- }
-@@ -743,9 +694,8 @@ int amdgpu_dpm_send_rma_reason(struct amdgpu_device *adev)
- 	if (!is_support_sw_smu(adev))
- 		return -EOPNOTSUPP;
- 
--	mutex_lock(&adev->pm.mutex);
-+	guard(mutex)(&adev->pm.mutex);
- 	ret = smu_send_rma_reason(smu);
--	mutex_unlock(&adev->pm.mutex);
- 
- 	return ret;
- }
-@@ -766,9 +716,8 @@ bool amdgpu_dpm_reset_sdma_is_supported(struct amdgpu_device *adev)
- 	if (!is_support_sw_smu(adev))
- 		return false;
- 
--	mutex_lock(&adev->pm.mutex);
-+	guard(mutex)(&adev->pm.mutex);
- 	ret = smu_reset_sdma_is_supported(smu);
--	mutex_unlock(&adev->pm.mutex);
- 
- 	return ret;
- }
-@@ -781,9 +730,8 @@ int amdgpu_dpm_reset_sdma(struct amdgpu_device *adev, uint32_t inst_mask)
- 	if (!is_support_sw_smu(adev))
- 		return -EOPNOTSUPP;
- 
--	mutex_lock(&adev->pm.mutex);
-+	guard(mutex)(&adev->pm.mutex);
- 	ret = smu_reset_sdma(smu, inst_mask);
--	mutex_unlock(&adev->pm.mutex);
- 
- 	return ret;
- }
-@@ -796,9 +744,8 @@ int amdgpu_dpm_reset_vcn(struct amdgpu_device *adev, uint32_t inst_mask)
- 	if (!is_support_sw_smu(adev))
- 		return -EOPNOTSUPP;
- 
--	mutex_lock(&adev->pm.mutex);
-+	guard(mutex)(&adev->pm.mutex);
- 	ret = smu_reset_vcn(smu, inst_mask);
--	mutex_unlock(&adev->pm.mutex);
- 
- 	return ret;
- }
-@@ -811,9 +758,8 @@ bool amdgpu_dpm_reset_vcn_is_supported(struct amdgpu_device *adev)
- 	if (!is_support_sw_smu(adev))
- 		return false;
- 
--	mutex_lock(&adev->pm.mutex);
-+	guard(mutex)(&adev->pm.mutex);
- 	ret = smu_reset_vcn_is_supported(smu);
--	mutex_unlock(&adev->pm.mutex);
- 
- 	return ret;
- }
-@@ -831,12 +777,11 @@ int amdgpu_dpm_get_dpm_freq_range(struct amdgpu_device *adev,
- 	if (!is_support_sw_smu(adev))
- 		return -EOPNOTSUPP;
- 
--	mutex_lock(&adev->pm.mutex);
-+	guard(mutex)(&adev->pm.mutex);
- 	ret = smu_get_dpm_freq_range(adev->powerplay.pp_handle,
- 				     SMU_SCLK,
- 				     min,
- 				     max);
--	mutex_unlock(&adev->pm.mutex);
- 
- 	return ret;
- }
-@@ -867,9 +812,8 @@ int amdgpu_dpm_write_watermarks_table(struct amdgpu_device *adev)
- 	if (!is_support_sw_smu(adev))
- 		return 0;
- 
--	mutex_lock(&adev->pm.mutex);
-+	guard(mutex)(&adev->pm.mutex);
- 	ret = smu_write_watermarks_table(smu);
--	mutex_unlock(&adev->pm.mutex);
- 
- 	return ret;
- }
-@@ -884,9 +828,8 @@ int amdgpu_dpm_wait_for_event(struct amdgpu_device *adev,
- 	if (!is_support_sw_smu(adev))
- 		return -EOPNOTSUPP;
- 
--	mutex_lock(&adev->pm.mutex);
-+	guard(mutex)(&adev->pm.mutex);
- 	ret = smu_wait_for_event(smu, event, event_arg);
--	mutex_unlock(&adev->pm.mutex);
- 
- 	return ret;
- }
-@@ -899,9 +842,8 @@ int amdgpu_dpm_set_residency_gfxoff(struct amdgpu_device *adev, bool value)
- 	if (!is_support_sw_smu(adev))
- 		return -EOPNOTSUPP;
- 
--	mutex_lock(&adev->pm.mutex);
-+	guard(mutex)(&adev->pm.mutex);
- 	ret = smu_set_residency_gfxoff(smu, value);
--	mutex_unlock(&adev->pm.mutex);
- 
- 	return ret;
- }
-@@ -914,9 +856,8 @@ int amdgpu_dpm_get_residency_gfxoff(struct amdgpu_device *adev, u32 *value)
- 	if (!is_support_sw_smu(adev))
- 		return -EOPNOTSUPP;
- 
--	mutex_lock(&adev->pm.mutex);
-+	guard(mutex)(&adev->pm.mutex);
- 	ret = smu_get_residency_gfxoff(smu, value);
--	mutex_unlock(&adev->pm.mutex);
- 
- 	return ret;
- }
-@@ -929,9 +870,8 @@ int amdgpu_dpm_get_entrycount_gfxoff(struct amdgpu_device *adev, u64 *value)
- 	if (!is_support_sw_smu(adev))
- 		return -EOPNOTSUPP;
- 
--	mutex_lock(&adev->pm.mutex);
-+	guard(mutex)(&adev->pm.mutex);
- 	ret = smu_get_entrycount_gfxoff(smu, value);
--	mutex_unlock(&adev->pm.mutex);
- 
- 	return ret;
- }
-@@ -944,9 +884,8 @@ int amdgpu_dpm_get_status_gfxoff(struct amdgpu_device *adev, uint32_t *value)
- 	if (!is_support_sw_smu(adev))
- 		return -EOPNOTSUPP;
- 
--	mutex_lock(&adev->pm.mutex);
-+	guard(mutex)(&adev->pm.mutex);
- 	ret = smu_get_status_gfxoff(smu, value);
--	mutex_unlock(&adev->pm.mutex);
- 
- 	return ret;
- }
-@@ -969,12 +908,11 @@ uint64_t amdgpu_dpm_get_thermal_throttling_counter(struct amdgpu_device *adev)
- void amdgpu_dpm_gfx_state_change(struct amdgpu_device *adev,
- 				 enum gfx_change_state state)
- {
--	mutex_lock(&adev->pm.mutex);
-+	guard(mutex)(&adev->pm.mutex);
- 	if (adev->powerplay.pp_funcs &&
- 	    adev->powerplay.pp_funcs->gfx_state_change_set)
- 		((adev)->powerplay.pp_funcs->gfx_state_change_set(
- 			(adev)->powerplay.pp_handle, state));
--	mutex_unlock(&adev->pm.mutex);
- }
- 
- int amdgpu_dpm_get_ecc_info(struct amdgpu_device *adev,
-@@ -986,9 +924,8 @@ int amdgpu_dpm_get_ecc_info(struct amdgpu_device *adev,
- 	if (!is_support_sw_smu(adev))
- 		return -EOPNOTSUPP;
- 
--	mutex_lock(&adev->pm.mutex);
-+	guard(mutex)(&adev->pm.mutex);
- 	ret = smu_get_ecc_info(smu, umc_ecc);
--	mutex_unlock(&adev->pm.mutex);
- 
- 	return ret;
- }
-@@ -1002,10 +939,9 @@ struct amd_vce_state *amdgpu_dpm_get_vce_clock_state(struct amdgpu_device *adev,
- 	if (!pp_funcs->get_vce_clock_state)
- 		return NULL;
- 
--	mutex_lock(&adev->pm.mutex);
-+	guard(mutex)(&adev->pm.mutex);
- 	vstate = pp_funcs->get_vce_clock_state(adev->powerplay.pp_handle,
- 					       idx);
--	mutex_unlock(&adev->pm.mutex);
- 
- 	return vstate;
- }
-@@ -1015,11 +951,11 @@ void amdgpu_dpm_get_current_power_state(struct amdgpu_device *adev,
- {
- 	const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
- 
--	mutex_lock(&adev->pm.mutex);
-+	guard(mutex)(&adev->pm.mutex);
- 
- 	if (!pp_funcs->get_current_power_state) {
- 		*state = adev->pm.dpm.user_state;
--		goto out;
-+		return;
- 	}
- 
- 	*state = pp_funcs->get_current_power_state(adev->powerplay.pp_handle);
-@@ -1027,16 +963,15 @@ void amdgpu_dpm_get_current_power_state(struct amdgpu_device *adev,
- 	    *state > POWER_STATE_TYPE_INTERNAL_3DPERF)
- 		*state = adev->pm.dpm.user_state;
- 
--out:
--	mutex_unlock(&adev->pm.mutex);
-+	return;
- }
- 
- void amdgpu_dpm_set_power_state(struct amdgpu_device *adev,
- 				enum amd_pm_state_type state)
- {
--	mutex_lock(&adev->pm.mutex);
--	adev->pm.dpm.user_state = state;
--	mutex_unlock(&adev->pm.mutex);
-+	scoped_guard(mutex, &adev->pm.mutex) {
-+		adev->pm.dpm.user_state = state;
-+	}
- 
- 	if (is_support_sw_smu(adev))
- 		return;
-@@ -1055,12 +990,11 @@ enum amd_dpm_forced_level amdgpu_dpm_get_performance_level(struct amdgpu_device
- 	if (!pp_funcs)
- 		return AMD_DPM_FORCED_LEVEL_AUTO;
- 
--	mutex_lock(&adev->pm.mutex);
-+	guard(mutex)(&adev->pm.mutex);
- 	if (pp_funcs->get_performance_level)
- 		level = pp_funcs->get_performance_level(adev->powerplay.pp_handle);
- 	else
- 		level = adev->pm.dpm.forced_level;
--	mutex_unlock(&adev->pm.mutex);
- 
- 	return level;
- }
-@@ -1156,10 +1090,9 @@ int amdgpu_dpm_get_pp_num_states(struct amdgpu_device *adev,
- 	if (!pp_funcs->get_pp_num_states)
- 		return -EOPNOTSUPP;
- 
--	mutex_lock(&adev->pm.mutex);
-+	guard(mutex)(&adev->pm.mutex);
- 	ret = pp_funcs->get_pp_num_states(adev->powerplay.pp_handle,
- 					  states);
--	mutex_unlock(&adev->pm.mutex);
- 
- 	return ret;
- }
-@@ -1174,11 +1107,10 @@ int amdgpu_dpm_dispatch_task(struct amdgpu_device *adev,
- 	if (!pp_funcs->dispatch_tasks)
- 		return -EOPNOTSUPP;
- 
--	mutex_lock(&adev->pm.mutex);
-+	guard(mutex)(&adev->pm.mutex);
- 	ret = pp_funcs->dispatch_tasks(adev->powerplay.pp_handle,
- 				       task_id,
- 				       user_state);
--	mutex_unlock(&adev->pm.mutex);
- 
- 	return ret;
- }
-@@ -1194,10 +1126,9 @@ int amdgpu_dpm_get_pp_table(struct amdgpu_device *adev, char **table)
- 	if (amdgpu_sriov_vf(adev) || !pp_funcs->get_pp_table || adev->scpm_enabled)
- 		return -EOPNOTSUPP;
- 
--	mutex_lock(&adev->pm.mutex);
-+	guard(mutex)(&adev->pm.mutex);
- 	ret = pp_funcs->get_pp_table(adev->powerplay.pp_handle,
- 				     table);
--	mutex_unlock(&adev->pm.mutex);
- 
- 	return ret;
- }
-@@ -1213,12 +1144,11 @@ int amdgpu_dpm_set_fine_grain_clk_vol(struct amdgpu_device *adev,
- 	if (!pp_funcs->set_fine_grain_clk_vol)
- 		return 0;
- 
--	mutex_lock(&adev->pm.mutex);
-+	guard(mutex)(&adev->pm.mutex);
- 	ret = pp_funcs->set_fine_grain_clk_vol(adev->powerplay.pp_handle,
- 					       type,
- 					       input,
- 					       size);
--	mutex_unlock(&adev->pm.mutex);
- 
- 	return ret;
- }
-@@ -1234,12 +1164,11 @@ int amdgpu_dpm_odn_edit_dpm_table(struct amdgpu_device *adev,
- 	if (!pp_funcs->odn_edit_dpm_table)
- 		return 0;
- 
--	mutex_lock(&adev->pm.mutex);
-+	guard(mutex)(&adev->pm.mutex);
- 	ret = pp_funcs->odn_edit_dpm_table(adev->powerplay.pp_handle,
- 					   type,
- 					   input,
- 					   size);
--	mutex_unlock(&adev->pm.mutex);
- 
- 	return ret;
- }
-@@ -1255,12 +1184,11 @@ int amdgpu_dpm_emit_clock_levels(struct amdgpu_device *adev,
- 	if (!pp_funcs->emit_clock_levels)
- 		return -ENOENT;
- 
--	mutex_lock(&adev->pm.mutex);
-+	guard(mutex)(&adev->pm.mutex);
- 	ret = pp_funcs->emit_clock_levels(adev->powerplay.pp_handle,
- 					   type,
- 					   buf,
- 					   offset);
--	mutex_unlock(&adev->pm.mutex);
- 
- 	return ret;
- }
-@@ -1274,10 +1202,9 @@ int amdgpu_dpm_set_ppfeature_status(struct amdgpu_device *adev,
- 	if (!pp_funcs->set_ppfeature_status)
- 		return 0;
- 
--	mutex_lock(&adev->pm.mutex);
-+	guard(mutex)(&adev->pm.mutex);
- 	ret = pp_funcs->set_ppfeature_status(adev->powerplay.pp_handle,
- 					     ppfeature_masks);
--	mutex_unlock(&adev->pm.mutex);
- 
- 	return ret;
- }
-@@ -1290,10 +1217,9 @@ int amdgpu_dpm_get_ppfeature_status(struct amdgpu_device *adev, char *buf)
- 	if (!pp_funcs->get_ppfeature_status)
- 		return 0;
- 
--	mutex_lock(&adev->pm.mutex);
-+	guard(mutex)(&adev->pm.mutex);
- 	ret = pp_funcs->get_ppfeature_status(adev->powerplay.pp_handle,
- 					     buf);
--	mutex_unlock(&adev->pm.mutex);
- 
- 	return ret;
- }
-@@ -1308,11 +1234,10 @@ int amdgpu_dpm_force_clock_level(struct amdgpu_device *adev,
- 	if (!pp_funcs->force_clock_level)
- 		return 0;
- 
--	mutex_lock(&adev->pm.mutex);
-+	guard(mutex)(&adev->pm.mutex);
- 	ret = pp_funcs->force_clock_level(adev->powerplay.pp_handle,
- 					  type,
- 					  mask);
--	mutex_unlock(&adev->pm.mutex);
- 
- 	return ret;
- }
-@@ -1325,9 +1250,8 @@ int amdgpu_dpm_get_sclk_od(struct amdgpu_device *adev)
- 	if (!pp_funcs->get_sclk_od)
- 		return -EOPNOTSUPP;
- 
--	mutex_lock(&adev->pm.mutex);
-+	guard(mutex)(&adev->pm.mutex);
- 	ret = pp_funcs->get_sclk_od(adev->powerplay.pp_handle);
--	mutex_unlock(&adev->pm.mutex);
- 
- 	return ret;
- }
-@@ -1339,10 +1263,10 @@ int amdgpu_dpm_set_sclk_od(struct amdgpu_device *adev, uint32_t value)
- 	if (is_support_sw_smu(adev))
- 		return -EOPNOTSUPP;
- 
--	mutex_lock(&adev->pm.mutex);
--	if (pp_funcs->set_sclk_od)
--		pp_funcs->set_sclk_od(adev->powerplay.pp_handle, value);
--	mutex_unlock(&adev->pm.mutex);
-+	scoped_guard(mutex, &adev->pm.mutex) {
-+		if (pp_funcs->set_sclk_od)
-+			pp_funcs->set_sclk_od(adev->powerplay.pp_handle, value);
-+	}
- 
- 	if (amdgpu_dpm_dispatch_task(adev,
- 				     AMD_PP_TASK_READJUST_POWER_STATE,
-@@ -1362,9 +1286,8 @@ int amdgpu_dpm_get_mclk_od(struct amdgpu_device *adev)
- 	if (!pp_funcs->get_mclk_od)
- 		return -EOPNOTSUPP;
- 
--	mutex_lock(&adev->pm.mutex);
-+	guard(mutex)(&adev->pm.mutex);
- 	ret = pp_funcs->get_mclk_od(adev->powerplay.pp_handle);
--	mutex_unlock(&adev->pm.mutex);
- 
- 	return ret;
- }
-@@ -1376,10 +1299,10 @@ int amdgpu_dpm_set_mclk_od(struct amdgpu_device *adev, uint32_t value)
- 	if (is_support_sw_smu(adev))
- 		return -EOPNOTSUPP;
- 
--	mutex_lock(&adev->pm.mutex);
--	if (pp_funcs->set_mclk_od)
--		pp_funcs->set_mclk_od(adev->powerplay.pp_handle, value);
--	mutex_unlock(&adev->pm.mutex);
-+	scoped_guard(mutex, &adev->pm.mutex) {
-+		if (pp_funcs->set_mclk_od)
-+			pp_funcs->set_mclk_od(adev->powerplay.pp_handle, value);
-+	}
- 
- 	if (amdgpu_dpm_dispatch_task(adev,
- 				     AMD_PP_TASK_READJUST_POWER_STATE,
-@@ -1400,10 +1323,9 @@ int amdgpu_dpm_get_power_profile_mode(struct amdgpu_device *adev,
- 	if (!pp_funcs->get_power_profile_mode)
- 		return -EOPNOTSUPP;
- 
--	mutex_lock(&adev->pm.mutex);
-+	guard(mutex)(&adev->pm.mutex);
- 	ret = pp_funcs->get_power_profile_mode(adev->powerplay.pp_handle,
- 					       buf);
--	mutex_unlock(&adev->pm.mutex);
- 
- 	return ret;
- }
-@@ -1417,11 +1339,10 @@ int amdgpu_dpm_set_power_profile_mode(struct amdgpu_device *adev,
- 	if (!pp_funcs->set_power_profile_mode)
- 		return 0;
- 
--	mutex_lock(&adev->pm.mutex);
-+	guard(mutex)(&adev->pm.mutex);
- 	ret = pp_funcs->set_power_profile_mode(adev->powerplay.pp_handle,
- 					       input,
- 					       size);
--	mutex_unlock(&adev->pm.mutex);
- 
- 	return ret;
- }
-@@ -1434,10 +1355,9 @@ int amdgpu_dpm_get_gpu_metrics(struct amdgpu_device *adev, void **table)
- 	if (!pp_funcs->get_gpu_metrics)
- 		return 0;
- 
--	mutex_lock(&adev->pm.mutex);
-+	guard(mutex)(&adev->pm.mutex);
- 	ret = pp_funcs->get_gpu_metrics(adev->powerplay.pp_handle,
- 					table);
--	mutex_unlock(&adev->pm.mutex);
- 
- 	return ret;
- }
-@@ -1451,10 +1371,9 @@ ssize_t amdgpu_dpm_get_pm_metrics(struct amdgpu_device *adev, void *pm_metrics,
- 	if (!pp_funcs->get_pm_metrics)
- 		return -EOPNOTSUPP;
- 
--	mutex_lock(&adev->pm.mutex);
-+	guard(mutex)(&adev->pm.mutex);
- 	ret = pp_funcs->get_pm_metrics(adev->powerplay.pp_handle, pm_metrics,
- 				       size);
--	mutex_unlock(&adev->pm.mutex);
- 
- 	return ret;
- }
-@@ -1468,10 +1387,9 @@ int amdgpu_dpm_get_fan_control_mode(struct amdgpu_device *adev,
- 	if (!pp_funcs->get_fan_control_mode)
- 		return -EOPNOTSUPP;
- 
--	mutex_lock(&adev->pm.mutex);
-+	guard(mutex)(&adev->pm.mutex);
- 	ret = pp_funcs->get_fan_control_mode(adev->powerplay.pp_handle,
- 					     fan_mode);
--	mutex_unlock(&adev->pm.mutex);
- 
- 	return ret;
- }
-@@ -1485,10 +1403,9 @@ int amdgpu_dpm_set_fan_speed_pwm(struct amdgpu_device *adev,
- 	if (!pp_funcs->set_fan_speed_pwm)
- 		return -EOPNOTSUPP;
- 
--	mutex_lock(&adev->pm.mutex);
-+	guard(mutex)(&adev->pm.mutex);
- 	ret = pp_funcs->set_fan_speed_pwm(adev->powerplay.pp_handle,
- 					  speed);
--	mutex_unlock(&adev->pm.mutex);
- 
- 	return ret;
- }
-@@ -1502,10 +1419,9 @@ int amdgpu_dpm_get_fan_speed_pwm(struct amdgpu_device *adev,
- 	if (!pp_funcs->get_fan_speed_pwm)
- 		return -EOPNOTSUPP;
- 
--	mutex_lock(&adev->pm.mutex);
-+	guard(mutex)(&adev->pm.mutex);
- 	ret = pp_funcs->get_fan_speed_pwm(adev->powerplay.pp_handle,
- 					  speed);
--	mutex_unlock(&adev->pm.mutex);
- 
- 	return ret;
- }
-@@ -1519,10 +1435,9 @@ int amdgpu_dpm_get_fan_speed_rpm(struct amdgpu_device *adev,
- 	if (!pp_funcs->get_fan_speed_rpm)
- 		return -EOPNOTSUPP;
- 
--	mutex_lock(&adev->pm.mutex);
-+	guard(mutex)(&adev->pm.mutex);
- 	ret = pp_funcs->get_fan_speed_rpm(adev->powerplay.pp_handle,
- 					  speed);
--	mutex_unlock(&adev->pm.mutex);
- 
- 	return ret;
- }
-@@ -1536,10 +1451,9 @@ int amdgpu_dpm_set_fan_speed_rpm(struct amdgpu_device *adev,
- 	if (!pp_funcs->set_fan_speed_rpm)
- 		return -EOPNOTSUPP;
- 
--	mutex_lock(&adev->pm.mutex);
-+	guard(mutex)(&adev->pm.mutex);
- 	ret = pp_funcs->set_fan_speed_rpm(adev->powerplay.pp_handle,
- 					  speed);
--	mutex_unlock(&adev->pm.mutex);
- 
- 	return ret;
- }
-@@ -1553,10 +1467,9 @@ int amdgpu_dpm_set_fan_control_mode(struct amdgpu_device *adev,
- 	if (!pp_funcs->set_fan_control_mode)
- 		return -EOPNOTSUPP;
- 
--	mutex_lock(&adev->pm.mutex);
-+	guard(mutex)(&adev->pm.mutex);
- 	ret = pp_funcs->set_fan_control_mode(adev->powerplay.pp_handle,
- 					     mode);
--	mutex_unlock(&adev->pm.mutex);
- 
- 	return ret;
- }
-@@ -1572,12 +1485,11 @@ int amdgpu_dpm_get_power_limit(struct amdgpu_device *adev,
- 	if (!pp_funcs->get_power_limit)
- 		return -EOPNOTSUPP;
- 
--	mutex_lock(&adev->pm.mutex);
-+	guard(mutex)(&adev->pm.mutex);
- 	ret = pp_funcs->get_power_limit(adev->powerplay.pp_handle,
- 					limit,
- 					pp_limit_level,
- 					power_type);
--	mutex_unlock(&adev->pm.mutex);
- 
- 	return ret;
- }
-@@ -1592,10 +1504,9 @@ int amdgpu_dpm_set_power_limit(struct amdgpu_device *adev,
- 	if (!pp_funcs->set_power_limit)
- 		return -EINVAL;
- 
--	mutex_lock(&adev->pm.mutex);
-+	guard(mutex)(&adev->pm.mutex);
- 	ret = pp_funcs->set_power_limit(adev->powerplay.pp_handle,
- 					limit_type, limit);
--	mutex_unlock(&adev->pm.mutex);
- 
- 	return ret;
- }
-@@ -1607,9 +1518,8 @@ int amdgpu_dpm_is_cclk_dpm_supported(struct amdgpu_device *adev)
- 	if (!is_support_sw_smu(adev))
- 		return false;
- 
--	mutex_lock(&adev->pm.mutex);
-+	guard(mutex)(&adev->pm.mutex);
- 	cclk_dpm_supported = is_support_cclk_dpm(adev);
--	mutex_unlock(&adev->pm.mutex);
- 
- 	return (int)cclk_dpm_supported;
- }
-@@ -1622,10 +1532,9 @@ int amdgpu_dpm_debugfs_print_current_performance_level(struct amdgpu_device *ade
- 	if (!pp_funcs->debugfs_print_current_performance_level)
- 		return -EOPNOTSUPP;
- 
--	mutex_lock(&adev->pm.mutex);
-+	guard(mutex)(&adev->pm.mutex);
- 	pp_funcs->debugfs_print_current_performance_level(adev->powerplay.pp_handle,
- 							  m);
--	mutex_unlock(&adev->pm.mutex);
- 
- 	return 0;
- }
-@@ -1640,11 +1549,10 @@ int amdgpu_dpm_get_smu_prv_buf_details(struct amdgpu_device *adev,
- 	if (!pp_funcs->get_smu_prv_buf_details)
- 		return -ENOSYS;
- 
--	mutex_lock(&adev->pm.mutex);
-+	guard(mutex)(&adev->pm.mutex);
- 	ret = pp_funcs->get_smu_prv_buf_details(adev->powerplay.pp_handle,
- 						addr,
- 						size);
--	mutex_unlock(&adev->pm.mutex);
- 
- 	return ret;
- }
-@@ -1706,11 +1614,10 @@ int amdgpu_dpm_set_pp_table(struct amdgpu_device *adev,
- 	if (amdgpu_sriov_vf(adev) || !pp_funcs->set_pp_table || adev->scpm_enabled)
- 		return -EOPNOTSUPP;
- 
--	mutex_lock(&adev->pm.mutex);
-+	guard(mutex)(&adev->pm.mutex);
- 	ret = pp_funcs->set_pp_table(adev->powerplay.pp_handle,
- 				     buf,
- 				     size);
--	mutex_unlock(&adev->pm.mutex);
- 
- 	return ret;
- }
-@@ -1742,10 +1649,9 @@ int amdgpu_dpm_display_configuration_change(struct amdgpu_device *adev,
- 	if (!pp_funcs->display_configuration_change)
- 		return 0;
- 
--	mutex_lock(&adev->pm.mutex);
-+	guard(mutex)(&adev->pm.mutex);
- 	ret = pp_funcs->display_configuration_change(adev->powerplay.pp_handle,
- 						     input);
--	mutex_unlock(&adev->pm.mutex);
- 
- 	return ret;
- }
-@@ -1760,11 +1666,10 @@ int amdgpu_dpm_get_clock_by_type(struct amdgpu_device *adev,
- 	if (!pp_funcs->get_clock_by_type)
- 		return 0;
- 
--	mutex_lock(&adev->pm.mutex);
-+	guard(mutex)(&adev->pm.mutex);
- 	ret = pp_funcs->get_clock_by_type(adev->powerplay.pp_handle,
- 					  type,
- 					  clocks);
--	mutex_unlock(&adev->pm.mutex);
- 
- 	return ret;
- }
-@@ -1778,10 +1683,9 @@ int amdgpu_dpm_get_display_mode_validation_clks(struct amdgpu_device *adev,
- 	if (!pp_funcs->get_display_mode_validation_clocks)
- 		return 0;
- 
--	mutex_lock(&adev->pm.mutex);
-+	guard(mutex)(&adev->pm.mutex);
- 	ret = pp_funcs->get_display_mode_validation_clocks(adev->powerplay.pp_handle,
- 							   clocks);
--	mutex_unlock(&adev->pm.mutex);
- 
- 	return ret;
- }
-@@ -1796,11 +1700,10 @@ int amdgpu_dpm_get_clock_by_type_with_latency(struct amdgpu_device *adev,
- 	if (!pp_funcs->get_clock_by_type_with_latency)
- 		return 0;
- 
--	mutex_lock(&adev->pm.mutex);
-+	guard(mutex)(&adev->pm.mutex);
- 	ret = pp_funcs->get_clock_by_type_with_latency(adev->powerplay.pp_handle,
- 						       type,
- 						       clocks);
--	mutex_unlock(&adev->pm.mutex);
- 
- 	return ret;
- }
-@@ -1815,11 +1718,10 @@ int amdgpu_dpm_get_clock_by_type_with_voltage(struct amdgpu_device *adev,
- 	if (!pp_funcs->get_clock_by_type_with_voltage)
- 		return 0;
- 
--	mutex_lock(&adev->pm.mutex);
-+	guard(mutex)(&adev->pm.mutex);
- 	ret = pp_funcs->get_clock_by_type_with_voltage(adev->powerplay.pp_handle,
- 						       type,
- 						       clocks);
--	mutex_unlock(&adev->pm.mutex);
- 
- 	return ret;
- }
-@@ -1833,10 +1735,9 @@ int amdgpu_dpm_set_watermarks_for_clocks_ranges(struct amdgpu_device *adev,
- 	if (!pp_funcs->set_watermarks_for_clocks_ranges)
- 		return -EOPNOTSUPP;
- 
--	mutex_lock(&adev->pm.mutex);
-+	guard(mutex)(&adev->pm.mutex);
- 	ret = pp_funcs->set_watermarks_for_clocks_ranges(adev->powerplay.pp_handle,
- 							 clock_ranges);
--	mutex_unlock(&adev->pm.mutex);
- 
- 	return ret;
- }
-@@ -1850,10 +1751,9 @@ int amdgpu_dpm_display_clock_voltage_request(struct amdgpu_device *adev,
- 	if (!pp_funcs->display_clock_voltage_request)
- 		return -EOPNOTSUPP;
- 
--	mutex_lock(&adev->pm.mutex);
-+	guard(mutex)(&adev->pm.mutex);
- 	ret = pp_funcs->display_clock_voltage_request(adev->powerplay.pp_handle,
- 						      clock);
--	mutex_unlock(&adev->pm.mutex);
- 
- 	return ret;
- }
-@@ -1867,10 +1767,9 @@ int amdgpu_dpm_get_current_clocks(struct amdgpu_device *adev,
- 	if (!pp_funcs->get_current_clocks)
- 		return -EOPNOTSUPP;
- 
--	mutex_lock(&adev->pm.mutex);
-+	guard(mutex)(&adev->pm.mutex);
- 	ret = pp_funcs->get_current_clocks(adev->powerplay.pp_handle,
- 					   clocks);
--	mutex_unlock(&adev->pm.mutex);
- 
- 	return ret;
- }
-@@ -1882,9 +1781,8 @@ void amdgpu_dpm_notify_smu_enable_pwe(struct amdgpu_device *adev)
- 	if (!pp_funcs->notify_smu_enable_pwe)
- 		return;
- 
--	mutex_lock(&adev->pm.mutex);
-+	guard(mutex)(&adev->pm.mutex);
- 	pp_funcs->notify_smu_enable_pwe(adev->powerplay.pp_handle);
--	mutex_unlock(&adev->pm.mutex);
- }
- 
- int amdgpu_dpm_set_active_display_count(struct amdgpu_device *adev,
-@@ -1896,10 +1794,9 @@ int amdgpu_dpm_set_active_display_count(struct amdgpu_device *adev,
- 	if (!pp_funcs->set_active_display_count)
- 		return -EOPNOTSUPP;
- 
--	mutex_lock(&adev->pm.mutex);
-+	guard(mutex)(&adev->pm.mutex);
- 	ret = pp_funcs->set_active_display_count(adev->powerplay.pp_handle,
- 						 count);
--	mutex_unlock(&adev->pm.mutex);
- 
- 	return ret;
- }
-@@ -1913,10 +1810,9 @@ int amdgpu_dpm_set_min_deep_sleep_dcefclk(struct amdgpu_device *adev,
- 	if (!pp_funcs->set_min_deep_sleep_dcefclk)
- 		return -EOPNOTSUPP;
- 
--	mutex_lock(&adev->pm.mutex);
-+	guard(mutex)(&adev->pm.mutex);
- 	ret = pp_funcs->set_min_deep_sleep_dcefclk(adev->powerplay.pp_handle,
- 						   clock);
--	mutex_unlock(&adev->pm.mutex);
- 
- 	return ret;
- }
-@@ -1929,10 +1825,9 @@ void amdgpu_dpm_set_hard_min_dcefclk_by_freq(struct amdgpu_device *adev,
- 	if (!pp_funcs->set_hard_min_dcefclk_by_freq)
- 		return;
- 
--	mutex_lock(&adev->pm.mutex);
-+	guard(mutex)(&adev->pm.mutex);
- 	pp_funcs->set_hard_min_dcefclk_by_freq(adev->powerplay.pp_handle,
- 					       clock);
--	mutex_unlock(&adev->pm.mutex);
- }
- 
- void amdgpu_dpm_set_hard_min_fclk_by_freq(struct amdgpu_device *adev,
-@@ -1943,10 +1838,9 @@ void amdgpu_dpm_set_hard_min_fclk_by_freq(struct amdgpu_device *adev,
- 	if (!pp_funcs->set_hard_min_fclk_by_freq)
- 		return;
- 
--	mutex_lock(&adev->pm.mutex);
-+	guard(mutex)(&adev->pm.mutex);
- 	pp_funcs->set_hard_min_fclk_by_freq(adev->powerplay.pp_handle,
- 					    clock);
--	mutex_unlock(&adev->pm.mutex);
- }
- 
- int amdgpu_dpm_display_disable_memory_clock_switch(struct amdgpu_device *adev,
-@@ -1958,11 +1852,9 @@ int amdgpu_dpm_display_disable_memory_clock_switch(struct amdgpu_device *adev,
- 	if (!pp_funcs->display_disable_memory_clock_switch)
- 		return 0;
- 
--	mutex_lock(&adev->pm.mutex);
-+	guard(mutex)(&adev->pm.mutex);
- 	ret = pp_funcs->display_disable_memory_clock_switch(adev->powerplay.pp_handle,
- 							    disable_memory_clock_switch);
--	mutex_unlock(&adev->pm.mutex);
--
- 	return ret;
- }
- 
-@@ -1975,10 +1867,9 @@ int amdgpu_dpm_get_max_sustainable_clocks_by_dc(struct amdgpu_device *adev,
- 	if (!pp_funcs->get_max_sustainable_clocks_by_dc)
- 		return -EOPNOTSUPP;
- 
--	mutex_lock(&adev->pm.mutex);
-+	guard(mutex)(&adev->pm.mutex);
- 	ret = pp_funcs->get_max_sustainable_clocks_by_dc(adev->powerplay.pp_handle,
- 							 max_clocks);
--	mutex_unlock(&adev->pm.mutex);
- 
- 	return ret;
- }
-@@ -1993,11 +1884,10 @@ enum pp_smu_status amdgpu_dpm_get_uclk_dpm_states(struct amdgpu_device *adev,
- 	if (!pp_funcs->get_uclk_dpm_states)
- 		return -EOPNOTSUPP;
- 
--	mutex_lock(&adev->pm.mutex);
-+	guard(mutex)(&adev->pm.mutex);
- 	ret = pp_funcs->get_uclk_dpm_states(adev->powerplay.pp_handle,
- 					    clock_values_in_khz,
- 					    num_states);
--	mutex_unlock(&adev->pm.mutex);
- 
- 	return ret;
- }
-@@ -2011,10 +1901,9 @@ int amdgpu_dpm_get_dpm_clock_table(struct amdgpu_device *adev,
- 	if (!pp_funcs->get_dpm_clock_table)
- 		return -EOPNOTSUPP;
- 
--	mutex_lock(&adev->pm.mutex);
-+	guard(mutex)(&adev->pm.mutex);
- 	ret = pp_funcs->get_dpm_clock_table(adev->powerplay.pp_handle,
- 					    clock_table);
--	mutex_unlock(&adev->pm.mutex);
- 
- 	return ret;
- }
-@@ -2043,9 +1932,8 @@ ssize_t amdgpu_dpm_get_temp_metrics(struct amdgpu_device *adev,
- 	    !amdgpu_dpm_is_temp_metrics_supported(adev, type))
- 		return -EOPNOTSUPP;
- 
--	mutex_lock(&adev->pm.mutex);
-+	guard(mutex)(&adev->pm.mutex);
- 	ret = pp_funcs->get_temp_metrics(adev->powerplay.pp_handle, type, table);
--	mutex_unlock(&adev->pm.mutex);
- 
- 	return ret;
- }
-@@ -2070,10 +1958,9 @@ bool amdgpu_dpm_is_temp_metrics_supported(struct amdgpu_device *adev,
- 		return support_temp_metrics;
- 
- 	if (is_support_sw_smu(adev)) {
--		mutex_lock(&adev->pm.mutex);
-+		guard(mutex)(&adev->pm.mutex);
- 		support_temp_metrics =
- 			pp_funcs->temp_metrics_is_supported(adev->powerplay.pp_handle, type);
--		mutex_unlock(&adev->pm.mutex);
- 	}
- 
- 	return support_temp_metrics;
-@@ -2103,10 +1990,9 @@ ssize_t amdgpu_dpm_get_xcp_metrics(struct amdgpu_device *adev, int xcp_id,
- 	if (!pp_funcs->get_xcp_metrics)
- 		return 0;
- 
--	mutex_lock(&adev->pm.mutex);
-+	guard(mutex)(&adev->pm.mutex);
- 	ret = pp_funcs->get_xcp_metrics(adev->powerplay.pp_handle, xcp_id,
- 					table);
--	mutex_unlock(&adev->pm.mutex);
- 
- 	return ret;
- }
--- 
-2.43.0
+So when we are now holding adev->reset_domain->sem to prevent new mapping while calling vmf_insert_pfn_prot() we can run into a deadlock.
+
+I don't see how we can solve this except for switching TTMs fault handling over to apply_to_page_range() and then holding the lock while calling set_pte().
+
+I tried to do that a while back because it would also improve TTMs mapping performance quite a bit, but that was rejected from upstream because of restrictions around apply_to_page_range().
+
+Anyway this can only be done with a *huge* change to TTM and KFD. I fear we will need multiple month for that.
+
+Regards,
+Christian.
+
+> 
+> Alex
+> 
+>>
+>> Regards,
+>> Christian.
+>>
+>>>
+>>> Signed-off-by: Yifan Zhang <yifan1.zhang@amd.com>
+>>> ---
+>>>  drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h      |  1 +
+>>>  .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c    | 12 ++++++++++++
+>>>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c      |  7 ++++++-
+>>>  drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c         | 17 +++++++++++++++--
+>>>  drivers/gpu/drm/amd/amdkfd/kfd_chardev.c        | 10 ++++++++++
+>>>  drivers/gpu/drm/amd/amdkfd/kfd_priv.h           |  3 +++
+>>>  6 files changed, 47 insertions(+), 3 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
+>>> index 2bf6a31c194d..5333e052d56d 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
+>>> @@ -360,6 +360,7 @@ int amdgpu_amdkfd_reserve_mem_limit(struct amdgpu_device *adev,
+>>>               uint64_t size, u32 alloc_flag, int8_t xcp_id);
+>>>  void amdgpu_amdkfd_unreserve_mem_limit(struct amdgpu_device *adev,
+>>>               uint64_t size, u32 alloc_flag, int8_t xcp_id);
+>>> +void amdgpu_amdkfd_clear_kfd_mapping(struct amdgpu_device *adev);
+>>>
+>>>  u64 amdgpu_amdkfd_xcp_memory_size(struct amdgpu_device *adev, int xcp_id);
+>>>
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+>>> index 7c01492e69dd..3ac2bd86c08b 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+>>> @@ -139,6 +139,18 @@ void amdgpu_amdkfd_reserve_system_mem(uint64_t size)
+>>>       kfd_mem_limit.system_mem_used += size;
+>>>  }
+>>>
+>>> +void amdgpu_amdkfd_clear_kfd_mapping(struct amdgpu_device *adev)
+>>> +{
+>>> +     if (adev->kfd.dev && adev->kfd.dev->inode &&
+>>> +             adev->kfd.dev->inode->i_mapping) {
+>>> +             unmap_mapping_range(adev->kfd.dev->inode->i_mapping,
+>>> +                     KFD_MMAP_TYPE_DOORBELL, kfd_doorbell_process_slice(adev->kfd.dev), 1);
+>>> +             unmap_mapping_range(adev->kfd.dev->inode->i_mapping,
+>>> +                     KFD_MMAP_TYPE_MMIO, PAGE_SIZE, 1);
+>>> +     }
+>>> +}
+>>> +
+>>> +
+>>>  /* Estimate page table size needed to represent a given memory size
+>>>   *
+>>>   * With 4KB pages, we need one 8 byte PTE for each 4KB of memory
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>>> index 073f632f295a..c67936d1fb0d 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>>> @@ -5019,7 +5019,6 @@ int amdgpu_device_mode1_reset(struct amdgpu_device *adev)
+>>>
+>>>       /* disable BM */
+>>>       pci_clear_master(adev->pdev);
+>>> -
+>>>       if (amdgpu_dpm_is_mode1_reset_supported(adev)) {
+>>>               dev_info(adev->dev, "GPU smu mode1 reset\n");
+>>>               ret = amdgpu_dpm_mode1_reset(adev);
+>>> @@ -5840,6 +5839,12 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
+>>>       /* We need to lock reset domain only once both for XGMI and single device */
+>>>       amdgpu_device_recovery_get_reset_lock(adev, &device_list);
+>>>
+>>> +     /* unmap all the mappings of doorbell and framebuffer to prevent user space from
+>>> +      * accessing them
+>>> +      */
+>>> +     unmap_mapping_range(adev->ddev.anon_inode->i_mapping, 0, 0, 1);
+>>> +     amdgpu_amdkfd_clear_kfd_mapping(adev);
+>>> +
+>>>       amdgpu_device_halt_activities(adev, job, reset_context, &device_list,
+>>>                                     hive, need_emergency_restart);
+>>>       if (need_emergency_restart)
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+>>> index 0071d6957828..1dd343f0219f 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+>>> @@ -46,6 +46,7 @@
+>>>  #include "amdgpu_hmm.h"
+>>>  #include "amdgpu_xgmi.h"
+>>>  #include "amdgpu_vm.h"
+>>> +#include "amdgpu_reset.h"
+>>>
+>>>  static int
+>>>  amdgpu_gem_add_input_fence(struct drm_file *filp,
+>>> @@ -118,13 +119,21 @@ amdgpu_gem_update_timeline_node(struct drm_file *filp,
+>>>  static vm_fault_t amdgpu_gem_fault(struct vm_fault *vmf)
+>>>  {
+>>>       struct ttm_buffer_object *bo = vmf->vma->vm_private_data;
+>>> +     struct amdgpu_device *adev = amdgpu_ttm_adev(bo->bdev);
+>>>       struct drm_device *ddev = bo->base.dev;
+>>>       vm_fault_t ret;
+>>>       int idx;
+>>>
+>>> +     /* Prevent new mappings from coming in during reset */
+>>> +
+>>> +     if (!down_read_trylock(&adev->reset_domain->sem))
+>>> +             return VM_FAULT_SIGSEGV;
+>>> +
+>>>       ret = ttm_bo_vm_reserve(bo, vmf);
+>>> -     if (ret)
+>>> +     if (ret) {
+>>> +             up_read(&adev->reset_domain->sem);
+>>>               return ret;
+>>> +     }
+>>>
+>>>       if (drm_dev_enter(ddev, &idx)) {
+>>>               ret = amdgpu_bo_fault_reserve_notify(bo);
+>>> @@ -140,11 +149,15 @@ static vm_fault_t amdgpu_gem_fault(struct vm_fault *vmf)
+>>>       } else {
+>>>               ret = ttm_bo_vm_dummy_page(vmf, vmf->vma->vm_page_prot);
+>>>       }
+>>> -     if (ret == VM_FAULT_RETRY && !(vmf->flags & FAULT_FLAG_RETRY_NOWAIT))
+>>> +     if (ret == VM_FAULT_RETRY && !(vmf->flags & FAULT_FLAG_RETRY_NOWAIT)) {
+>>> +             up_read(&adev->reset_domain->sem);
+>>>               return ret;
+>>> +     }
+>>>
+>>>  unlock:
+>>>       dma_resv_unlock(bo->base.resv);
+>>> +     up_read(&adev->reset_domain->sem);
+>>> +
+>>>       return ret;
+>>>  }
+>>>
+>>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+>>> index 84b9bde7f371..d5bf5ba73ca0 100644
+>>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+>>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+>>> @@ -130,11 +130,21 @@ void kfd_chardev_exit(void)
+>>>  static int kfd_open(struct inode *inode, struct file *filep)
+>>>  {
+>>>       struct kfd_process *process;
+>>> +     struct kfd_node *node;
+>>>       bool is_32bit_user_mode;
+>>> +     int i;
+>>>
+>>>       if (iminor(inode) != 0)
+>>>               return -ENODEV;
+>>>
+>>> +     /* Save inode in kfd_dev for unmap_mapping_range */
+>>> +     for (i = 0; kfd_topology_enum_kfd_devices(i, &node) == 0; i++) {
+>>> +             if (node && node->kfd && !node->kfd->inode) {
+>>> +                     node->kfd->inode = inode;
+>>> +                     break;
+>>> +             }
+>>> +     }
+>>> +
+>>>       is_32bit_user_mode = in_compat_syscall();
+>>>
+>>>       if (is_32bit_user_mode) {
+>>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+>>> index a6ff1db477f9..bfdd7d3bc7cb 100644
+>>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+>>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+>>> @@ -373,6 +373,9 @@ struct kfd_dev {
+>>>
+>>>       struct workqueue_struct *ih_wq;
+>>>
+>>> +     /* kfd inode */
+>>> +     struct inode *inode;
+>>> +
+>>>       /* Kernel doorbells for KFD device */
+>>>       struct amdgpu_bo *doorbells;
+>>>
+>>
 
