@@ -4,91 +4,100 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C96F3CD3445
-	for <amd-gfx@archiver.kernel.org>; Fri,  8 May 2026 14:07:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0AF1FCD37A7
+	for <amd-gfx@archiver.kernel.org>; Fri,  8 May 2026 14:48:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1A68410E5E2;
-	Fri,  8 May 2026 14:07:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9B35610F52E;
+	Fri,  8 May 2026 14:48:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="dfZ8ANVK";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="x/7a9bs7";
 	dkim-atps=neutral
-Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com
- [74.125.82.180])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4F31710E5E2
- for <amd-gfx@lists.freedesktop.org>; Fri,  8 May 2026 14:07:40 +0000 (UTC)
-Received: by mail-dy1-f180.google.com with SMTP id
- 5a478bee46e88-2eeafc50c87so149778eec.2
- for <amd-gfx@lists.freedesktop.org>; Fri, 08 May 2026 07:07:40 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1778249259; cv=none;
- d=google.com; s=arc-20240605;
- b=SwG5Fy91D9R3+kknDrgiAW/Gkh1qoXtSJfHNWZFQD9LgqnJTuSRAq0T4X4jyVW2Por
- HgxzEnOGlkDNoeEJBjf5WvyuftvmlsO4XffUCR99jsxjfHBDmiiAs4eSmaIkyge+Lp7C
- rMNSkcC6uGCfIqZCvPGaaOJ1gChGBoCT51uURt+RPHFFzq6udjog6hm35hx4GO29deil
- 9vygmzPIn1BusGGxuWXncU7xizJOQj7aKowT6xixRvRY44kGq4nnquRxLoQWPFOBq/Vm
- 4BJBKS6tcul4TeoKw07ZTEnXMltk+zRNtCwR/i9IYMze69QcMJ1L+3Rt49wQ2mX1jafU
- 3h9w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=OWKVi1tbC2z5Okn9L1nkfgnz1z9pqgvimn6uEdDTLHA=;
- fh=SzwJ8M4vuZOafN9CbziCPTZVOheyUSbdXs8RxOMZby4=;
- b=lCbup2hVQ4KF9LB3UVSb2TXX+fES3jvvMCPam8o0Teh7rI1nBz7I7DBdXdL3BE8UT/
- r+c9DwalguYcv9KuQGT0jSuVMFETGqmV6vnumLpE+Fquuvf2SooTV6ID1z401cheodZI
- EczZZApI/sKOCuxsc4czTB3qMalGEdAedhc1/v+KZhiKApGDYA4TAVkpvIrgMaGrAZj2
- OrX/Cd/Ygds1ZYqiF8nh0wRn7FYwmb17XmqZm2DKV4nGD3dTjHAB6SwAgI9QHLtiewoQ
- Z8HLIsQ5YptSODBIysmwohi10mxxaBil/yg3jPfyMBH4G11x409p+OkJdrFmZht4JoYz
- jVwQ==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1778249259; x=1778854059; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=OWKVi1tbC2z5Okn9L1nkfgnz1z9pqgvimn6uEdDTLHA=;
- b=dfZ8ANVKkBFpS85xNmnGVfDHHUehX0s9Wzn7CYVZG/TCybNttkdpXxNMUFE+NWQz14
- USrvsbzXT1ash84BVjBfIL6gLx+D9IoQY4DQCGfkiQpvui+Lt4jx1/8iv6zbb8or2I7G
- H5SeiuVYOn6CRGLbGXPozrQBWv+UfD8gZT4xcAGaiQjEhPQh/W2CLOch6emrO+6kr3se
- v/8wzkLEphZjAbZ6eE1p7rbn9DvqxaLQ4vkR7cAevzg74trJvhDfBitupJTj1eNdSWRl
- 9XNpyTXPchetZ4vo92O2xy7Y+XKZymIgtkQoMWBGfo6Gzjogf0GOUyQqQKIJgH63dInG
- QUqQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1778249259; x=1778854059;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=OWKVi1tbC2z5Okn9L1nkfgnz1z9pqgvimn6uEdDTLHA=;
- b=NF9O+pJhvZg6Zf79Vn9p4VgZJe+/4Y2QJUCeeE99qGqy4x6NJIs7sCHiF08DS4EcFm
- RXBFF8d0m88940+o7t/Y3zyvbF+M9rcaP4mDI6EHenqKkBgQTaKvJYo0pf89cAT+teF5
- QRAK+J56ayauFyokSqPM8h77ZhCMchsMxFs+Q9tBUl8ySqBG0PXWjsR6YZjiyq0yMwGO
- Pn37aGuQio+1BzvBg1jOqqZhjQ1AaFXF2WIdzX+EPi8Ee78PM/YfMGVAUGw3r/e9zTwW
- N51ENiAtoP5BxKO+dvqTFTLbgRZ8kM9uU72GgxYgW5+7PcJhIAVUg1G/9nYPVYOvPTY2
- yedA==
-X-Gm-Message-State: AOJu0Yxh+T6Y18I1oKE7SmB70/rilOaH6yJRLnXMvGjiWXlgjSUMKWyb
- xHvpnnJ+r20PveNI7MfDsRWFqlRTRsjoE9Ah4oVyO5WFCszu9eRPdX1ZvepWCmoc8NudRHCILE2
- oqbSvj9eFMBfNp3GiBrY/nIE5EUVHr2YM9g==
-X-Gm-Gg: AeBDieugXFNM8YA22CpHxUNb4Irar+7V8KWcoSYykLVapgkLedesedpGonfjJYMtDoz
- PU0SPa04TKqyR/fFz6j61f9fUUk00xzHHleUg4GkeN7l3a7UEilS0PSv3DN1I3iGkJI/ga5lcBx
- zOWw6lT/E20PXNQmGiMOukYx+A0iWZLUrtCzmsjDsMHcLapEMvtlTkmuBHmwCVQBmJablhn8XWN
- xEM2BVjLwOF4wwCJWPsUww7vn9KXwA/gbjXw+vUjI7xy7GIXTmuCjFMfLQmrI+UdRx18kcokszT
- YjOTUP1EqUUQK9kse2lQWTHsa4PgomA3fYTvcajI99bUmB4eTn0Vg5ty+lYECcaCJ0q5E77pcwR
- cpy2t
-X-Received: by 2002:a05:7022:226:b0:12c:888b:aaab with SMTP id
- a92af1059eb24-132030ecb31mr2684798c88.0.1778249259353; Fri, 08 May 2026
- 07:07:39 -0700 (PDT)
+Received: from CY7PR03CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11010047.outbound.protection.outlook.com
+ [40.93.198.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A671010F52E
+ for <amd-gfx@lists.freedesktop.org>; Fri,  8 May 2026 14:48:41 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=wCYTXd/qIEIWJ7pKI2ozq8a8oo54xmYkvV/NbNiLnprtif/WjX178tSUAo+QeoGpzkXfUDU9MHIK5j90Qn2BImbEGVsUB97RP8kbsHQurFQpKVn2xduizwTADzZp5UvJq5KiNVE3JI2MrK6IHmiLW07BdQxwRZ/Auj0fp0e5ke1cmHOWqpekNtA/YCvVrZOmlMdZGYpwU0XgnWAsADjExwjhXoKkUMcIfnft6Bh7JnLAPtnCB8EdBKdArVqbzm5lyFMhiywRn+iO5DdBr5hSW8Vy6OQP7y6c0Wz+JMCY0z9pardPihWwBxCbJlAeZiy5xrfrt/837NOTnuxABmowng==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=BEvK8YLwhOhTSHlMsLTusZHQmLaG7k+Tx+rD15gyy24=;
+ b=kHDFw42yyzoDJ+411DfcpN6/bB89fN2yyN2Cm4/2a3/7YYowLbIUXl4z3nBMr9bf49JUC1nfRg+pnkI3SZsvUSISPtcvxelBgJws23CpfFBYdJtxDBkhStmZmmo95xoFYQFkHp28pR1jtYpUHRV4BLjfRhi3aLumuYdIAVAZ5WbZUQGecZbKNL6j2E7A2bgzZnpF0humSHLDpTBcIW70auu+3q7sELaAyHGkVRoMkaYwa2tZ2VXXXzwCY8hWBOgeRaV59MjmQxWmqCoLCmWiMJ//EZxJAnTa8yikQ0uxJqZVnoRf0LsrockOFi8OfeRpzA6bWuc+ayCW/xvAvIo6KQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=BEvK8YLwhOhTSHlMsLTusZHQmLaG7k+Tx+rD15gyy24=;
+ b=x/7a9bs7rwpdJee8gIK3zNAPTppIoerJyp+P5iioobc91yQk0ScE1rUBb39c335oKXoyBqi/oMM8FUJPwUAy0wwmY08JOvRbQ9EJJ/9zmzNCl7ba3/ZjA48cO5C0K5dbwabrarMSm+/4lLMmJe1zSek2wIqVIHT0/ASmyqecRAk=
+Received: from SJ0PR13CA0124.namprd13.prod.outlook.com (2603:10b6:a03:2c6::9)
+ by DM3PR12MB9391.namprd12.prod.outlook.com (2603:10b6:0:3d::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9891.17; Fri, 8 May
+ 2026 14:48:37 +0000
+Received: from MWH0EPF000C6194.namprd02.prod.outlook.com
+ (2603:10b6:a03:2c6:cafe::98) by SJ0PR13CA0124.outlook.office365.com
+ (2603:10b6:a03:2c6::9) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.25.10 via Frontend Transport; Fri, 8
+ May 2026 14:48:37 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ MWH0EPF000C6194.mail.protection.outlook.com (10.167.249.104) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9891.9 via Frontend Transport; Fri, 8 May 2026 14:48:36 +0000
+Received: from MKM-D1-FRANKSU9.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Fri, 8 May
+ 2026 09:48:35 -0500
+From: Chenglei Xie <Chenglei.Xie@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <yipeng.chai@amd.com>
+CC: <jeffrey.chan@amd.com>, <zhigang.luo@amd.com>,
+ <alexander.deucher@amd.com>, <chenglei.xie@amd.com>
+Subject: [PATCH v2] drm/amdgpu: fix OOB risk parsing virt RAS batch trace
+ replies on the VF
+Date: Fri, 8 May 2026 10:48:30 -0400
+Message-ID: <20260508144830.215417-1-Chenglei.Xie@amd.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <BN9PR12MB5306BCE04148F44EA9212B34FC3D2@BN9PR12MB5306.namprd12.prod.outlook.com>
+References: <BN9PR12MB5306BCE04148F44EA9212B34FC3D2@BN9PR12MB5306.namprd12.prod.outlook.com>
 MIME-Version: 1.0
-References: <20260507172946.2048931-1-amir.shetaia@amd.com>
-In-Reply-To: <20260507172946.2048931-1-amir.shetaia@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 8 May 2026 10:07:27 -0400
-X-Gm-Features: AVHnY4Iz11qv_Ljl9MO8K0eoOE0dAKGHeIkhD9eshAqH0qGxBDZAx-lEZavdgIw
-Message-ID: <CADnq5_OUDbj9WZQW6uqZWamXeNf+RMu63R94bUVLj5vQq6kMSQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: reject non-user addresses early in
- GEM_USERPTR ioctl
-To: Amir Shetaia <amir.shetaia@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, harish.kasiviswanathan@amd.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MWH0EPF000C6194:EE_|DM3PR12MB9391:EE_
+X-MS-Office365-Filtering-Correlation-Id: b167d50c-2d84-444f-3b72-08dead10e2e1
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|82310400026|36860700016|1800799024|22082099003|18002099003|56012099003;
+X-Microsoft-Antispam-Message-Info: BKX+KuZCqRStFaO+dkxjvdjVNeyciXLAfMz6Rg9MlIwWGukf582gDGuaReZa+4zmzdRIK1WY0liwj/z6a7uQOI3YncZDKL/NqgdXQ6r98RC32P+888mETg58YBx99dC+llZ76Aij+NNRXCV/qRxr+JXy6YAZRqbIpztD0HnaCJsIfQK+JthDhE0lvypDDiLtqhcchzE2z571JV0odyHuK4bKoQ+ZdDowzPyoHq//+kV/XrJ6He2t1C+XtZ55QDG0VN3kC++wBp1DJyE1QOgjHjSK7FYpNWPwIx+nUIKQwRKMqaeVM9j1KWZCPJ86VgakNrPV8A7nsIAL+tdc1ZCjVk1yTuKNgMYEPEtBDpG0fgF5plUGqxNn2c5Xsa50rY9c+lfMfboJjLxRNwJlZGPen4ZJ1GLZQrxuS8x6EZZ+0esorooshIoxE1is9XPuHydzL06qAmBHtoWcWLWylp8NX8YeCPExW5xL1faMpKKxjAzL/d8oDu0c6TuGVHD2gzqkza2aLnwTg4EdRxxEyJ5642PMymu0+if5H5WhGB+Siva9EfbyOeq/g6qEFFS0Go+1/geuGi0xGlwgDvB/FGYPKXGTc/AynJivuXyFVCkJGToBWszVLGsDii2wazzjYT5S/VYUPyLauDPcvGlqwhB250ywhcWZobyfsI6ikOn170vwMZfM7ul9Sk4vIoQ2skAneUWKDO198Wr6DkZjW6pOgeId9Xre0Jut9yMmspOqJgw=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(82310400026)(36860700016)(1800799024)(22082099003)(18002099003)(56012099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: AIWUW1eb8j4yH5COjsjMH6fYNNohBzpYOjRbXXmqaapNOMEEv8bfXGyrpo40GZlfocQP0jacluO9ov02x8qZVroBaqfdTjb09mQ7dophvojXXPpvUfJUXpdLoa5BrctcHHkjAR1Y939SssOqTDtznPcHA45D/85Z14qywonNcIvvsEF7T610rpy4VMa7duPQiQ9OtKPwct/J1WF6xEJ8U4hZH4FemzD8KiXpDCz6EgiJ0qe0mFO97IKxBzQQdkoDfn/2miR6Bg0T5UsBidLehPoHzPgKHShUd3EmgzdwIAWI+W6xaLneGzFlvyQjFNSr9t9FLRx3eFDiuOQY0kO+4SR1WZHuZ1TvJZK60f2eOCcUwZzwarKe0HIYB+T1HRKcLG7szniXtcAqRt8/cTiGxrknscxHDkp30RWHrq38o+qK5pK6Fy5Dq2I6kfOzAS2G
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 May 2026 14:48:36.9336 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b167d50c-2d84-444f-3b72-08dead10e2e1
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: MWH0EPF000C6194.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM3PR12MB9391
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,64 +112,88 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, May 7, 2026 at 1:39=E2=80=AFPM Amir Shetaia <amir.shetaia@amd.com> =
-wrote:
->
-> From: Amir Shetaia <Amir.Shetaia@amd.com>
->
-> amdgpu_gem_userptr_ioctl() currently accepts any value of args->addr
-> and only discovers an out-of-range pointer much later, inside
-> amdgpu_gem_object_create() and the HMM mirror registration path.
-> Userspace can drive that path with kernel-side virtual addresses;
-> the get_user_pages() layer rejects them, but only after the driver
-> has already allocated a GEM object and started wiring up notifier
-> state that then has to be torn down on failure.
->
-> Add an access_ok() guard at the top of the ioctl, right after the
-> existing page-alignment check and before flag validation, so any
-> address that does not lie within the calling task's user address
-> range is rejected with -EFAULT before any allocation occurs. No
-> legitimate ROCm/HSA userspace passes kernel-mode pointers through
-> this interface, so this is defense-in-depth rather than a behaviour
-> change for valid callers; -EFAULT matches the convention already
-> used by other uaccess-style rejections in the kernel.
->
-> Also add an explicit #include <linux/uaccess.h>; access_ok() is
-> otherwise only available transitively through other headers in
-> this translation unit.
->
-> Signed-off-by: Amir Shetaia <Amir.Shetaia@amd.com>
+amdgpu_virt_ras_get_batch_records() indexed batchs[] and records[]
+from ras_cmd_batch_trace_record_rsp copied out of shared memory without
+fully bounding the cache window or per-batch offset/trace_num. A
+tampered or corrupted buffer could set real_batch_num past the array,
+make a naive start_batch_id + real_batch_num comparison wrap in
+uint64_t, or point offset+trace_num past records[].
 
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+Add amdgpu_virt_ras_check_batch_cached() for a subtraction-based window
+with a real_batch_num cap, re-run it after GET_BATCH_TRACE_RECORD, and
+use an explicit batch index into batchs[]. Consolidate batch_id,
+trace_num, and offset+trace_num checks; on any failure memset the cache
+and return -EIO so the next call refetches.
 
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c | 4 ++++
->  1 file changed, 4 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_gem.c
-> index 0071d6957828..ad3d371ad7b9 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-> @@ -32,6 +32,7 @@
->  #include <linux/pci.h>
->  #include <linux/dma-buf.h>
->  #include <linux/dma-fence-unwrap.h>
-> +#include <linux/uaccess.h>
->
->  #include <drm/amdgpu_drm.h>
->  #include <drm/drm_drv.h>
-> @@ -509,6 +510,9 @@ int amdgpu_gem_userptr_ioctl(struct drm_device *dev, =
-void *data,
->         if (offset_in_page(args->addr | args->size))
->                 return -EINVAL;
->
-> +       if (!access_ok((void __user *)(uintptr_t)args->addr, args->size))
-> +               return -EFAULT;
-> +
->         /* reject unknown flag values */
->         if (args->flags & ~(AMDGPU_GEM_USERPTR_READONLY |
->             AMDGPU_GEM_USERPTR_ANONONLY | AMDGPU_GEM_USERPTR_VALIDATE |
-> --
-> 2.43.0
->
+Signed-off-by: Chenglei Xie <Chenglei.Xie@amd.com>
+Change-Id: I6455e9f14914d1b07945b7a57fcb3695435ded64
+---
+ .../drm/amd/ras/ras_mgr/amdgpu_virt_ras_cmd.c | 35 +++++++++++++------
+ 1 file changed, 25 insertions(+), 10 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_virt_ras_cmd.c b/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_virt_ras_cmd.c
+index 838eb91aef391..7ec5287daf7f1 100644
+--- a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_virt_ras_cmd.c
++++ b/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_virt_ras_cmd.c
+@@ -192,6 +192,15 @@ static int amdgpu_virt_ras_get_cper_snapshot(struct ras_core_context *ras_core,
+ 	return RAS_CMD__SUCCESS;
+ }
+ 
++static bool amdgpu_virt_ras_check_batch_cached(struct ras_cmd_batch_trace_record_rsp *rsp,
++				       uint64_t batch_id)
++{
++	return rsp->real_batch_num &&
++	       rsp->real_batch_num <= RAS_CMD_MAX_BATCH_NUM &&
++	       batch_id >= rsp->start_batch_id &&
++	       (batch_id - rsp->start_batch_id) < rsp->real_batch_num;
++}
++
+ static int amdgpu_virt_ras_get_batch_records(struct ras_core_context *ras_core, uint64_t batch_id,
+ 			struct ras_log_info **trace_arr, uint32_t arr_num,
+ 			struct ras_cmd_batch_trace_record_rsp *rsp_cache)
+@@ -204,26 +213,32 @@ static int amdgpu_virt_ras_get_batch_records(struct ras_core_context *ras_core,
+ 	struct batch_ras_trace_info *batch;
+ 	int ret = 0;
+ 	uint32_t i;
++	uint32_t idx;
+ 
+-	if (!rsp->real_batch_num || (batch_id < rsp->start_batch_id) ||
+-		(batch_id >=  (rsp->start_batch_id + rsp->real_batch_num))) {
+-
++	if (!amdgpu_virt_ras_check_batch_cached(rsp, batch_id)) {
+ 		memset(rsp, 0, sizeof(*rsp));
+ 		ret = amdgpu_virt_ras_send_remote_cmd(ras_core, RAS_CMD__GET_BATCH_TRACE_RECORD,
+ 			&req, sizeof(req), rsp, sizeof(*rsp));
+ 		if (ret)
+ 			return -EPIPE;
++
++		if (!amdgpu_virt_ras_check_batch_cached(rsp, batch_id)) {
++			memset(rsp, 0, sizeof(*rsp));
++			return -EIO;
++		}
+ 	}
+ 
+-	batch = &rsp->batchs[batch_id - rsp->start_batch_id];
+-	if (batch_id != batch->batch_id)
+-		return -ENODATA;
++	idx = (uint32_t)(batch_id - rsp->start_batch_id);
++	batch = &rsp->batchs[idx];
++	if (batch_id != batch->batch_id ||
++	    batch->trace_num > MAX_RECORD_PER_BATCH ||
++	    (uint32_t)batch->offset + batch->trace_num > RAS_CMD_MAX_TRACE_NUM) {
++		memset(rsp, 0, sizeof(*rsp));
++		return -EIO;
++	}
+ 
+-	for (i = 0; i < batch->trace_num; i++) {
+-		if (i >= arr_num)
+-			break;
++	for (i = 0; i < batch->trace_num && i < arr_num; i++)
+ 		trace_arr[i] = &rsp->records[batch->offset + i];
+-	}
+ 
+ 	return i;
+ }
+-- 
+2.34.1
+
