@@ -4,97 +4,103 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 10042CD342F
-	for <amd-gfx@archiver.kernel.org>; Fri,  8 May 2026 18:28:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 56BC8CD37AC
+	for <amd-gfx@archiver.kernel.org>; Fri,  8 May 2026 18:28:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9992210F5AF;
-	Fri,  8 May 2026 18:28:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D042210F5B6;
+	Fri,  8 May 2026 18:28:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="AYCvvM8/";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="rtuUwYuA";
 	dkim-atps=neutral
-Received: from SJ2PR03CU001.outbound.protection.outlook.com
- (mail-westusazon11012051.outbound.protection.outlook.com [52.101.43.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5BEFF10F5B4
- for <amd-gfx@lists.freedesktop.org>; Fri,  8 May 2026 18:28:25 +0000 (UTC)
+Received: from PH8PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11012065.outbound.protection.outlook.com [40.107.209.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 58E6910F5AF
+ for <amd-gfx@lists.freedesktop.org>; Fri,  8 May 2026 18:28:26 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Z8P+QOCtmn+bY3wnFIh1CFCgDZ+eyAcY/KXK19JsbPsSl2DizH7IlC+RYfcszLnMLd7fBuXAu8KSGHSGD7hWps/ZFBY6Q3ET7fKACZ8JZCJaKshq+DM4rqxgxVI1MqPOF+ZNTf8i2uAjDveMMbXhlyTQfyXVMNsi58BMazd7Tm7vwmKnlA4AZuzvgwyb0zs9rcjvQj7sS+JHJN2IPDYbwHRqF9cUPwaZN+F72KSsTKmPVwrJEM2Hh+s14I16l6qfXDbupbmY1uiOqADnIuT3VYSUfeU1/9+SCkOfslrHDe8GWagI7bENBYeFo4GaeCgZvlmHVO/zUjGQAvK4Smwvfg==
+ b=nIzP+ingjapJ1KdpioZ75LBJ/RmpjDcQawDshOZb7dZkbeznWYwsRkj3dSIj8/kU2C/qCczx6zqm9TQpIOlnPCl5mm6thBfun1CCkYTeLhLmTJK1s+l63L6NyrUeyuAhRYFL4L8Q5Ebfb4zWS8fSImLZD+3O6drbwHYR6Dx1I5AMSmlOm9KaOvcpwpGUmLMtvSZCsr3P/re2n+E3n2hs+qeAXBOJGvhNEe0YouVt1FXRWp3rMPalggCbSn/o/IdIBhyHw5BKwaYFW2HQru7aRP/ySqwgJ4tHXUOQv0r36vZfgxX+72HaKDDMOrRHB2dxVdYeExKU1pop/HohBC2dpw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+HIMOMZoN5/Lp5josTdgavImROtkykgAJd6hmuxJOtU=;
- b=W6pigWVXWYIVHIodQNe1obcmEWZjHMC5w7OhzNhHneDGmZN3xrkhP2GkreWuo2SBCYNPjwbMz8wZTJiyyiTnJ4+RT+dUOWUNBSPzJ9rcgXvI9Wa0ENpp6lObHOil0FY09G//wYCoiSifNhtOR3eLkISmjPUcc+U63S6VQaiufrMShX3W83PP6nDf1bqu9/A77FAmxcy1J7ZZ4ET6h7NOXE/DZY2ZsCfYNsZtjyqtqUvyPXCiH3oWmmmZup2RZSmMQ+m3m8HO6UEU/1oZ3Vu4SkvU85My86RPDd3ForixKbQg8zLIGJPJiyFTPiceUo9Y5n5YdZHbm7K1d9YacG3wSQ==
+ bh=q1y3YPNokVtKxxrjRaE1RVtcnuKMc+i411wA/G0tBGk=;
+ b=p3FKnViouxunhfC4FJJnNkQMwEPlEDsCGDXkqp+7gi42Ibu8xkg73QBZzLVIEJiGk2zc5sSShuwIhOO+uzuhxvc/XwhqfblGMjPG1dLlc65udd1b6ARHM0p+Ebi4gvHnVEZ8fORrp3gPvdHSkHVTZvbykKKT0gjfL3XHlCX/uTmMPpdCQwtf3qYYbL8oqLSUZ8LaXkWZiET2EYZViD9vsjgtn2qWaNd2QflFdsavh0e2UfamUE6qgLGizt3Ma4Ny8gTPNmrPxHE5Pe68kxr1rKI9pNbYidiqZPOw17M957SgLlgCD2SPgFfP6VIxLME44WQPdAb4DvjahzgOpitEfQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+HIMOMZoN5/Lp5josTdgavImROtkykgAJd6hmuxJOtU=;
- b=AYCvvM8/BszP4yaO3BdZhVLUvgxNyKVXc0H411r5e9nRjSkadG5Rzl2wvZdzQCqhDsf1MIXUp3Fq+fDnaXObt/fsV+tJ0mCKfyFKEJADAHcMelY0uJrQ9fxYmlo/84G6jVU8Xzyp6YMRUqM4GHWaAE3LU6XS1pnEnfntw6gJHXc=
-Received: from MN2PR03CA0015.namprd03.prod.outlook.com (2603:10b6:208:23a::20)
- by PH7PR12MB8037.namprd12.prod.outlook.com (2603:10b6:510:27d::16)
+ bh=q1y3YPNokVtKxxrjRaE1RVtcnuKMc+i411wA/G0tBGk=;
+ b=rtuUwYuAbIkL5+sdEUNTjlxtLDNUaH8KOCFl3Qdh8/cQi4MI8mnMf6M3Bpwwu2HD1V6Rjt9UtBWiSUwKoBNlovfPRAQQrfgM9OjFnQ6qKY1RZnad4jcKC+4TYHOHA50yxZ8w+rYsq/m/Ace5XES4OE+0u+Udyf7vPYIKTe8zUYg=
+Received: from MW4PR03CA0006.namprd03.prod.outlook.com (2603:10b6:303:8f::11)
+ by BY5PR12MB4275.namprd12.prod.outlook.com (2603:10b6:a03:20a::18)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9891.18; Fri, 8 May
- 2026 18:28:18 +0000
-Received: from BL6PEPF0001AB55.namprd02.prod.outlook.com
- (2603:10b6:208:23a:cafe::ef) by MN2PR03CA0015.outlook.office365.com
- (2603:10b6:208:23a::20) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9891.20 via Frontend Transport; Fri,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9891.20; Fri, 8 May
+ 2026 18:28:19 +0000
+Received: from CO1PEPF00012E80.namprd03.prod.outlook.com
+ (2603:10b6:303:8f:cafe::c9) by MW4PR03CA0006.outlook.office365.com
+ (2603:10b6:303:8f::11) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9891.19 via Frontend Transport; Fri,
  8 May 2026 18:28:18 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- BL6PEPF0001AB55.mail.protection.outlook.com (10.167.241.7) with Microsoft
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ CO1PEPF00012E80.mail.protection.outlook.com (10.167.249.55) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9891.9 via Frontend Transport; Fri, 8 May 2026 18:28:17 +0000
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Fri, 8 May
- 2026 13:28:12 -0500
+ 15.20.9913.8 via Frontend Transport; Fri, 8 May 2026 18:28:18 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.17; Fri, 8 May
+ 2026 13:28:18 -0500
+Received: from satlexmb08.amd.com (10.181.42.217) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 8 May
+ 2026 13:28:17 -0500
 Received: from hwentlanryzen (10.180.168.240) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
- Transport; Fri, 8 May 2026 13:28:11 -0500
+ Transport; Fri, 8 May 2026 13:28:17 -0500
 From: Harry Wentland <harry.wentland@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-CC: Harry Wentland <harry.wentland@amd.com>, Rodrigo Siqueira
- <siqueira@igalia.com>, "Zuo, Jerry" <Jerry.Zuo@amd.com>,
- =?UTF-8?q?Tomasz=20Paku=C5=82a?= <tomasz.pakula.oficjalny@gmail.com>
-Subject: [PATCH v3 00/14] HDMI FRL and DSC Support for amdgpu
-Date: Fri, 8 May 2026 14:27:52 -0400
-Message-ID: <20260508182808.520863-1-harry.wentland@amd.com>
+CC: Harry Wentland <harry.wentland@amd.com>
+Subject: [PATCH v3 09/14] drm/amd/display: Add support for FRL to DC core
+Date: Fri, 8 May 2026 14:28:01 -0400
+Message-ID: <20260508182808.520863-10-harry.wentland@amd.com>
 X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260508182808.520863-1-harry.wentland@amd.com>
+References: <20260508182808.520863-1-harry.wentland@amd.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+Received-SPF: None (SATLEXMB04.amd.com: harry.wentland@amd.com does not
+ designate permitted sender hosts)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB55:EE_|PH7PR12MB8037:EE_
-X-MS-Office365-Filtering-Correlation-Id: bc006166-b215-4e82-6079-08dead2f9351
+X-MS-TrafficTypeDiagnostic: CO1PEPF00012E80:EE_|BY5PR12MB4275:EE_
+X-MS-Office365-Filtering-Correlation-Id: c4312f20-99e0-40e3-69cb-08dead2f93d5
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|82310400026|36860700016|18002099003|56012099003|3023799003;
-X-Microsoft-Antispam-Message-Info: KH6o0PnH0FN9Wp1MCY41/3g5yE9dXZtUY/sMxFGbkXXHOIWHjsl6eSafnpKCQDGPr7nT47FQRXro0VvOVx20yzHaoplxIH4Jdxa2jm0g+ZRuelpyLoFYBnIg+p0Q3iG1uUw1OiAsCMa+M0MRL+XEf6zArNwzQbm7RlHwB+q5YBFd9bTTvwylmj3WE1oHCblp5ALS0c8ZVkETtB7dOmDugBCDwDrRStHT0KlS1VmfQd74nAS8/Z7AwBXNkuSRQbJ7FAIK4C0ET6VQJFnN1leEHeGkZ4OXn3rfzPVKxuF8Bm44yodcJnE9I5O4bkdJYnx+y0JV8gOO3R716FXUXurjrec9ZS8QdODuPFp0ls5+FSYLrCLVXQ8PZYKag4igBd1F+ApcwTqRWByyLvCS0kDBawr+nNvBKGzV7CPYTf/w9ITCo9O8hVNfj6Glk82gcIZpiLlMAKAOIssAfsIVXHdzOukB6SI1pk5vIN2GeeHcs4DZRhixsh7nlZvo3KNXhUW8ZKyzOBx0RYUFzBk5Dl/r7cDmeIxNNWKOyBuYi5FL6hs3fokhmrr35PfWfyng0k4dmB6FD0XrwKY2bap1/mx9mOgN8Lc6EtBVprjm+jph4MZr5pk6tWmFnyxnB2/IK56h6adDoiKq+OQtOA7TtS3MzYroHcA6y/ZFu3Fg7ej4VKH0XzRZdp2RcqRqNodN+vzVRvA/OasYbXCce3RwkB8CW+WdX5tWsnoLmcyiPuSKdAo=
+ ARA:13230040|376014|36860700016|82310400026|1800799024|18002099003|56012099003|22082099003|20052099010|3023799003;
+X-Microsoft-Antispam-Message-Info: 7gUYNsgjmvnAzUue/yuadg2b2ULHMkleRDRVXYk3K05xh2AJ0HbGfcxisx0KOGqD4gfoYazwHoN45pI1J2mTNXDx5bdUdjKTYfZXHDb234xjAbqe6s4JFEbbaopfc9puNqhvmnyb3zswOGcvJgFWcYTw2RVdvGIIblHSA7khcMxUHc0GnVuSW0u4I4HbLChMOsGX2EgohpjtoGjFFUrSzn+By6+R0KarMrZMhJZ4SYkumvliGZQ7nDTItqiMUBX3eR2wKVNXtgA/JD+4+KsTeBgrqhwUKWvWOcGYMXlEnnvYFuIKA9LKkRphBJrB0tLt5miGvigtHq7MkZSmJd0gWdlEfelO4gWCZVm5/Fx125MfSd5eIQHpFlVN9fk5Rn9rh2vAfzr4U09j7cp32NSeQsP1OThTO/Nh66lCFWZ6KgKMH0S+io6R2SQsOOOBMmKjixTRSPDhnZAP7pkdSSIbWxs8JkWCKkoDpPSKpO0uqp2+5gw39WXl8KYRKOk+IwpD7ufZtXutNSsnynpV5So7iE2AcjEAtg9cKs5ZaZWSD18IwxGgIhESrl21JOOvK5ckgxSfYEKNitGBV+PywCTrO68SHkbGv7r5+GHJUsbcDaBhif5MbumlKqBDlCM7NUqYStn3mVYj1s7HDIE3Z+axjVvyg5E3kT1XgRavODKjKYwmz/CuUq0m3B0GHnoFKXiXqaS5a0yYtLTpuIKy7waGWPzKmakvrz/shlBYOMovRLc=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(82310400026)(36860700016)(18002099003)(56012099003)(3023799003);
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(36860700016)(82310400026)(1800799024)(18002099003)(56012099003)(22082099003)(20052099010)(3023799003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: Y8K9Jpkpzg5pWB7IPGVG+ciE+MLGMIUh+wF+7VV/M/fW2rLdLagkCQl0pvxSYM9fo7B8JFxcd9Zjs0NHm5YaDNl5YpCCwYsDyBELgwR/aIo8qdy+9pvJDD40SY1vXXSw/e0ZpMuEpTAcVXX2deBEIXAIsAIOYAM/6ZGr8NEeY/5PPbZEVKJPsu8lQH+wh7EpL/A95cx+evHkaoIDm89SZxq/mnX4dd8G9sh736fVeXAqoSRMaJ0mD8Fk6qswSzF2wP7PA4cEOWizqGBIaUvUScvafGyfxwBl92N1uzS/blAAHzhnyF4Py8oh8MicpW12jWdCnXh2OJTqrdwLBU02BMn++OdsobVtRcBKgIzatpPMgUcLSINDGzfCxCSUrvMP5JhLEr3xSQMGzA7bKMoA8m4k2x0mdmWz/ECGK5Iwhf0ElleFYFuWHfurSuJRfQf7
+X-MS-Exchange-AntiSpam-MessageData-0: N6lJNjo0d4o3glewNN1VHwZ+3zLWkI2c7Y2Do03QQVKm5ADS7UZsyqc5/dN1V3nzcnkWG31UP7QQZkUMB5umaZzmg/1mUa6bgWhItlo/bflRysyRtRtL2rZmc4ebH4euT6fkabWiO07kYAuYm07VjbeNz03a4LPbrOSg0o5k4O31CFrdlEw+9PyOX6Fo7/mO9sJo0IoWJmKjUsoGWS8k0M+we2X5utp9Thkt5NevYe2iOFh+FsJfBQk5xCbjj6ic2VaWdKFxDkUdnBt8KhaaGubUsCSr6rn665LiIeuGvD3HVM3LClgqr5JazDkphO2FadNSVsYtsA8/A1KZ42trd7zEdFs8PmSBW8283rYcW54L9YfaPLiUzyZ5fzfbd4bw0KC+9adny9s47Okf+Gh8zr/1p5vX3WUg8h2yeSHmfMz+EtvpMm5kYh9r8RWnathg
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 May 2026 18:28:17.9413 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: bc006166-b215-4e82-6079-08dead2f9351
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 May 2026 18:28:18.7166 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: c4312f20-99e0-40e3-69cb-08dead2f93d5
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF0001AB55.namprd02.prod.outlook.com
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF00012E80.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB8037
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4275
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,253 +115,856 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This patch series adds HDMI FRL and FRL DSC support to the amdgpu
-display driver.
+Here we add support for reading BIOS caps and tie FRL bits
+into the rest of DC core.
 
-This work passed a representative subset of HDMI compliance and a full
-compliance run on this branch is in the works. We don't expect the full
-run to show any failures since it passes in other environments.
+Signed-off-by: Harry Wentland <harry.wentland@amd.com>
+---
+ .../drm/amd/display/dc/bios/bios_parser2.c    |  21 ++
+ .../drm/amd/display/dc/bios/command_table2.c  |   6 +
+ .../dce112/command_table_helper2_dce112.c     |   3 +
+ .../bios/dce112/command_table_helper_dce112.c |   3 +
+ drivers/gpu/drm/amd/display/dc/core/dc.c      |  26 +-
+ .../gpu/drm/amd/display/dc/core/dc_debug.c    |   4 +
+ .../drm/amd/display/dc/core/dc_hw_sequencer.c |  36 +++
+ .../drm/amd/display/dc/core/dc_link_enc_cfg.c |   3 +
+ .../drm/amd/display/dc/core/dc_link_exports.c |  45 ++++
+ .../gpu/drm/amd/display/dc/core/dc_resource.c | 233 ++++++++++++++++++
+ .../gpu/drm/amd/display/dc/core/dc_stream.c   |  35 +++
+ .../gpu/drm/amd/display/dc/dce/dce_audio.c    |   8 +
+ .../drm/amd/display/dc/dce/dce_clock_source.c |  30 ++-
+ .../gpu/drm/amd/display/dmub/inc/dmub_cmd.h   |   5 +-
+ 14 files changed, 450 insertions(+), 8 deletions(-)
 
-Thanks to Siqueira who prepared this work a couple years back and
-unfortunately didn't manage to send them while he was still working
-at AMD.
-
-Thanks to Jerry who has been making this code solid on Linux and
-running the compliance tests.
-
-The first patch in the series isn't related to HDMI 2.1 but included
-here because it moved the code around some key bits of the HDMI 2.1
-stuff around too much. It will land with the next DC Patch series.
-
-v3:
-- Add missing DML2 bits
-- Merged register headers to asdn and removed from patchset
-
-v2:
-- Add missing function pointers on DCN 3.x
-- Add DSC
-
-Cc: Rodrigo Siqueira <siqueira@igalia.com>
-Cc: Zuo, Jerry <Jerry.Zuo@amd.com>
-Cc: Tomasz Pakuła <tomasz.pakula.oficjalny@gmail.com>
-
-Fangzhi Zuo (1):
-  drm/amd/display: add HDMI 2.1 Compliance Support
-
-Harry Wentland (13):
-  drm/amd/display: Add HDMI FRL definitions to includes
-  drm/amd/display: Add DML changes to support HDMI FRL
-  drm/amd/display: add HDMI 2.1 FRL base support to DML 2.0
-  drm/amd/display: Add DCCG DIO, HPO, OPP, and OPTC support for FRL
-  drm/amd/display: Add FRL support to clk_mgr, dsc, hdcp
-  drm/amd/display: Tie FRL programming together in HWSS
-  drm/amd/display: Add DC resource support for FRL
-  drm/amd/display Add DC link support for FRL
-  drm/amd/display: Add support for FRL to DC core
-  drm/amd/display: Update HDCP and info_packet modules for FRL
-  drm/amd/display: Tie FRL support into amdgpu_dm
-  drm/amd/display: add HDMI 2.1 DSC over FRL support
-  fixup! drm/amd/display: add HDMI 2.1 DSC over FRL support
-
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  160 ++-
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |   11 +
- .../amd/display/amdgpu_dm/amdgpu_dm_debugfs.c |   28 +
- .../amd/display/amdgpu_dm/amdgpu_dm_hdcp.c    |    2 +
- .../amd/display/amdgpu_dm/amdgpu_dm_helpers.c |  114 +-
- .../display/amdgpu_dm/amdgpu_dm_mst_types.c   |   91 ++
- .../drm/amd/display/dc/bios/bios_parser2.c    |   21 +
- .../drm/amd/display/dc/bios/command_table2.c  |    6 +
- .../dce112/command_table_helper2_dce112.c     |    3 +
- .../bios/dce112/command_table_helper_dce112.c |    3 +
- .../display/dc/clk_mgr/dcn31/dcn31_clk_mgr.c  |    3 +
- .../dc/clk_mgr/dcn314/dcn314_clk_mgr.c        |    3 +
- .../dc/clk_mgr/dcn315/dcn315_clk_mgr.c        |    3 +
- .../dc/clk_mgr/dcn316/dcn316_clk_mgr.c        |    3 +
- .../display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c  |   12 +
- .../display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c  |   14 +
- .../dc/clk_mgr/dcn401/dcn401_clk_mgr.c        |   18 +
- drivers/gpu/drm/amd/display/dc/core/dc.c      |   32 +-
- .../gpu/drm/amd/display/dc/core/dc_debug.c    |    4 +
- .../drm/amd/display/dc/core/dc_hw_sequencer.c |   49 +
- .../drm/amd/display/dc/core/dc_link_enc_cfg.c |    3 +
- .../drm/amd/display/dc/core/dc_link_exports.c |   45 +
- .../gpu/drm/amd/display/dc/core/dc_resource.c |  287 ++++
- .../gpu/drm/amd/display/dc/core/dc_stream.c   |   35 +
- drivers/gpu/drm/amd/display/dc/dc.h           |  128 ++
- drivers/gpu/drm/amd/display/dc/dc_dsc.h       |    8 +
- .../gpu/drm/amd/display/dc/dc_hdmi_types.h    |  164 ++-
- drivers/gpu/drm/amd/display/dc/dc_hw_types.h  |    8 +
- drivers/gpu/drm/amd/display/dc/dc_types.h     |   24 +
- .../amd/display/dc/dccg/dcn30/dcn30_dccg.c    |   40 +
- .../amd/display/dc/dccg/dcn30/dcn30_dccg.h    |    8 +
- .../amd/display/dc/dccg/dcn31/dcn31_dccg.c    |   88 ++
- .../amd/display/dc/dccg/dcn31/dcn31_dccg.h    |   13 +
- .../amd/display/dc/dccg/dcn314/dcn314_dccg.c  |   25 +
- .../amd/display/dc/dccg/dcn32/dcn32_dccg.c    |   68 +
- .../amd/display/dc/dccg/dcn35/dcn35_dccg.c    |  321 +++++
- .../amd/display/dc/dccg/dcn401/dcn401_dccg.c  |   73 +
- .../amd/display/dc/dccg/dcn401/dcn401_dccg.h  |    4 +
- .../amd/display/dc/dccg/dcn42/dcn42_dccg.c    |   33 +
- .../gpu/drm/amd/display/dc/dce/dce_audio.c    |    8 +
- .../drm/amd/display/dc/dce/dce_clock_source.c |   30 +-
- .../display/dc/dio/dcn10/dcn10_link_encoder.c |    3 +-
- .../display/dc/dio/dcn20/dcn20_link_encoder.h |    1 +
- .../dc/dio/dcn30/dcn30_dio_link_encoder.c     |  250 ++++
- .../dc/dio/dcn30/dcn30_dio_link_encoder.h     |   17 +
- .../dc/dio/dcn301/dcn301_dio_link_encoder.c   |   18 +
- .../dc/dio/dcn31/dcn31_dio_link_encoder.c     |  114 ++
- .../dc/dio/dcn31/dcn31_dio_link_encoder.h     |    8 +
- .../dc/dio/dcn32/dcn32_dio_link_encoder.c     |  214 +++
- .../dc/dio/dcn32/dcn32_dio_link_encoder.h     |   16 +
- .../dc/dio/dcn321/dcn321_dio_link_encoder.c   |   20 +
- .../dc/dio/dcn35/dcn35_dio_link_encoder.c     |   21 +
- .../dc/dio/dcn401/dcn401_dio_link_encoder.c   |  220 +++
- .../dc/dio/dcn401/dcn401_dio_link_encoder.h   |   16 +
- .../dc/dio/dcn42/dcn42_dio_link_encoder.c     |   21 +
- drivers/gpu/drm/amd/display/dc/dm_cp_psp.h    |    1 +
- .../drm/amd/display/dc/dm_services_types.h    |    1 +
- drivers/gpu/drm/amd/display/dc/dml/Makefile   |    3 +
- .../drm/amd/display/dc/dml/dcn20/dcn20_fpu.c  |    5 +
- .../drm/amd/display/dc/dml/dcn30/dcn30_fpu.c  |  127 ++
- .../drm/amd/display/dc/dml/dcn30/dcn30_fpu.h  |   22 +
- .../dc/dml/dcn30/display_mode_vba_30.c        |  280 +++-
- .../amd/display/dc/dml/dcn302/dcn302_fpu.c    |    1 +
- .../amd/display/dc/dml/dcn303/dcn303_fpu.c    |    1 +
- .../dc/dml/dcn31/display_mode_vba_31.c        |  243 ++++
- .../dc/dml/dcn314/display_mode_vba_314.c      |  241 ++++
- .../drm/amd/display/dc/dml/dcn32/dcn32_fpu.c  |   10 +
- .../drm/amd/display/dc/dml/dcn32/dcn32_fpu.h  |    2 +
- .../dc/dml/dcn32/display_mode_vba_32.c        |   16 +-
- .../dc/dml/dcn32/display_mode_vba_util_32.c   |  127 +-
- .../amd/display/dc/dml/display_mode_enums.h   |    1 +
- .../drm/amd/display/dc/dml/dml1_frl_cap_chk.c |  786 +++++++++++
- .../drm/amd/display/dc/dml/dml1_frl_cap_chk.h |  173 +++
- .../gpu/drm/amd/display/dc/dml2_0/Makefile    |    2 +
- .../amd/display/dc/dml2_0/display_mode_core.c |  104 +-
- .../amd/display/dc/dml2_0/display_mode_util.c |    3 +
- .../dml2_0/dml21/dml21_translation_helper.c   |    4 +
- .../dml21/src/dml2_core/dml2_core_dcn4.c      |    1 +
- .../src/dml2_core/dml2_core_dcn4_calcs.c      |   29 +-
- .../src/dml2_core/dml2_core_shared_types.h    |    3 +
- .../lib_frl_cap_check.c                       |  396 ++++++
- .../lib_frl_cap_check.h                       |   90 ++
- .../dc/dml2_0/dml2_translation_helper.c       |    4 +
- .../drm/amd/display/dc/dml2_0/dml2_utils.c    |    2 +
- .../amd/display/dc/dml2_0/dml_frl_cap_chk.c   |  413 ++++++
- .../amd/display/dc/dml2_0/dml_frl_cap_chk.h   |  109 ++
- drivers/gpu/drm/amd/display/dc/dsc/dc_dsc.c   |  704 ++++++++++
- drivers/gpu/drm/amd/display/dc/dsc/dsc.h      |    5 +
- .../gpu/drm/amd/display/dc/hdcp/hdcp_msg.c    |    1 +
- drivers/gpu/drm/amd/display/dc/hpo/Makefile   |   10 +
- .../dc/hpo/dcn30/dcn30_hpo_frl_link_encoder.c |  286 ++++
- .../dc/hpo/dcn30/dcn30_hpo_frl_link_encoder.h |  146 ++
- .../hpo/dcn30/dcn30_hpo_frl_stream_encoder.c  | 1043 +++++++++++++++
- .../hpo/dcn30/dcn30_hpo_frl_stream_encoder.h  |  436 ++++++
- .../dcn401/dcn401_hpo_frl_stream_encoder.c    |  907 +++++++++++++
- .../dcn401/dcn401_hpo_frl_stream_encoder.h    |  335 +++++
- .../hpo/dcn42/dcn42_hpo_frl_stream_encoder.c  |  207 +++
- .../hpo/dcn42/dcn42_hpo_frl_stream_encoder.h  |   59 +
- .../amd/display/dc/hwss/dce110/dce110_hwseq.c |   99 +-
- .../amd/display/dc/hwss/dcn10/dcn10_hwseq.c   |   37 +
- .../amd/display/dc/hwss/dcn20/dcn20_hwseq.c   |   19 +-
- .../amd/display/dc/hwss/dcn30/dcn30_hwseq.c   |   49 +-
- .../amd/display/dc/hwss/dcn30/dcn30_hwseq.h   |   13 +
- .../amd/display/dc/hwss/dcn30/dcn30_init.c    |    1 +
- .../amd/display/dc/hwss/dcn31/dcn31_hwseq.c   |   13 +-
- .../amd/display/dc/hwss/dcn31/dcn31_init.c    |    1 +
- .../amd/display/dc/hwss/dcn314/dcn314_hwseq.c |    3 +-
- .../amd/display/dc/hwss/dcn314/dcn314_init.c  |    1 +
- .../amd/display/dc/hwss/dcn32/dcn32_hwseq.c   |   13 +-
- .../amd/display/dc/hwss/dcn32/dcn32_init.c    |    3 +
- .../amd/display/dc/hwss/dcn35/dcn35_hwseq.c   |   42 +
- .../amd/display/dc/hwss/dcn35/dcn35_hwseq.h   |    2 +
- .../amd/display/dc/hwss/dcn35/dcn35_init.c    |    2 +
- .../amd/display/dc/hwss/dcn351/dcn351_init.c  |    2 +
- .../amd/display/dc/hwss/dcn401/dcn401_hwseq.c |   13 +
- .../amd/display/dc/hwss/dcn401/dcn401_init.c  |    1 +
- .../amd/display/dc/hwss/dcn42/dcn42_hwseq.c   |   38 +-
- .../amd/display/dc/hwss/dcn42/dcn42_init.c    |    2 +
- .../drm/amd/display/dc/hwss/hw_sequencer.h    |   34 +
- .../display/dc/hwss/hw_sequencer_private.h    |    3 +
- .../gpu/drm/amd/display/dc/inc/core_status.h  |    2 +
- .../gpu/drm/amd/display/dc/inc/core_types.h   |   12 +
- drivers/gpu/drm/amd/display/dc/inc/hw/dccg.h  |   10 +
- .../gpu/drm/amd/display/dc/inc/hw/hw_shared.h |    1 +
- .../drm/amd/display/dc/inc/hw/link_encoder.h  |  176 +++
- .../amd/display/dc/inc/hw/stream_encoder.h    |  231 ++++
- .../amd/display/dc/inc/hw/timing_generator.h  |    5 +
- .../gpu/drm/amd/display/dc/inc/link_service.h |   15 +
- drivers/gpu/drm/amd/display/dc/inc/resource.h |    7 +
- drivers/gpu/drm/amd/display/dc/link/Makefile  |    2 +
- .../display/dc/link/hwss/link_hwss_hpo_frl.c  |  113 ++
- .../display/dc/link/hwss/link_hwss_hpo_frl.h  |   34 +
- .../drm/amd/display/dc/link/link_detection.c  |  111 ++
- .../gpu/drm/amd/display/dc/link/link_dpms.c   |  223 +++-
- .../gpu/drm/amd/display/dc/link/link_dpms.h   |    1 +
- .../drm/amd/display/dc/link/link_factory.c    |   44 +
- .../drm/amd/display/dc/link/link_validation.c |  298 +++++
- .../drm/amd/display/dc/link/link_validation.h |   13 +
- .../amd/display/dc/link/protocols/link_ddc.c  |   90 ++
- .../amd/display/dc/link/protocols/link_ddc.h  |    4 +
- .../display/dc/link/protocols/link_hdmi_frl.c | 1185 +++++++++++++++++
- .../display/dc/link/protocols/link_hdmi_frl.h |   53 +
- .../amd/display/dc/link/protocols/link_hpd.c  |    1 +
- .../drm/amd/display/dc/opp/dcn10/dcn10_opp.c  |    1 +
- .../amd/display/dc/optc/dcn10/dcn10_optc.h    |    5 +-
- .../amd/display/dc/optc/dcn30/dcn30_optc.c    |    8 +-
- .../amd/display/dc/optc/dcn30/dcn30_optc.h    |    8 +-
- .../amd/display/dc/optc/dcn31/dcn31_optc.c    |    2 +
- .../amd/display/dc/optc/dcn401/dcn401_optc.c  |    2 +
- .../dc/resource/dce112/dce112_resource.c      |    3 +
- .../dc/resource/dcn30/dcn30_resource.c        |  126 ++
- .../dc/resource/dcn301/dcn301_resource.c      |    1 +
- .../dc/resource/dcn302/dcn302_resource.c      |  109 ++
- .../dc/resource/dcn303/dcn303_resource.c      |  109 ++
- .../dc/resource/dcn31/dcn31_resource.c        |  127 ++
- .../dc/resource/dcn314/dcn314_resource.c      |  127 ++
- .../dc/resource/dcn315/dcn315_resource.c      |  128 ++
- .../dc/resource/dcn316/dcn316_resource.c      |  126 ++
- .../dc/resource/dcn32/dcn32_resource.c        |  131 ++
- .../dc/resource/dcn32/dcn32_resource.h        |   79 +-
- .../dc/resource/dcn321/dcn321_resource.c      |  132 ++
- .../dc/resource/dcn35/dcn35_resource.c        |  121 ++
- .../dc/resource/dcn351/dcn351_resource.c      |  121 ++
- .../dc/resource/dcn36/dcn36_resource.c        |  121 ++
- .../dc/resource/dcn401/dcn401_resource.c      |  121 ++
- .../dc/resource/dcn42/dcn42_resource.c        |  121 ++
- .../gpu/drm/amd/display/dmub/inc/dmub_cmd.h   |    5 +-
- .../gpu/drm/amd/display/include/audio_types.h |    1 +
- .../amd/display/include/bios_parser_types.h   |   14 +-
- .../drm/amd/display/include/logger_types.h    |    2 +
- .../drm/amd/display/include/signal_types.h    |   12 +-
- .../gpu/drm/amd/display/modules/hdcp/hdcp.c   |    2 +
- .../gpu/drm/amd/display/modules/hdcp/hdcp.h   |    6 +
- .../drm/amd/display/modules/hdcp/hdcp_psp.c   |    2 +
- .../drm/amd/display/modules/hdcp/hdcp_psp.h   |    2 +
- .../amd/display/modules/inc/mod_freesync.h    |    3 +
- .../drm/amd/display/modules/inc/mod_hdcp.h    |    1 +
- .../amd/display/modules/inc/mod_info_packet.h |    2 +-
- .../display/modules/info_packet/info_packet.c |  122 +-
- 179 files changed, 15176 insertions(+), 120 deletions(-)
- create mode 100644 drivers/gpu/drm/amd/display/dc/dml/dml1_frl_cap_chk.c
- create mode 100644 drivers/gpu/drm/amd/display/dc/dml/dml1_frl_cap_chk.h
- create mode 100644 drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_standalone_libraries/lib_frl_cap_check.c
- create mode 100644 drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_standalone_libraries/lib_frl_cap_check.h
- create mode 100644 drivers/gpu/drm/amd/display/dc/dml2_0/dml_frl_cap_chk.c
- create mode 100644 drivers/gpu/drm/amd/display/dc/dml2_0/dml_frl_cap_chk.h
- create mode 100644 drivers/gpu/drm/amd/display/dc/hpo/dcn30/dcn30_hpo_frl_link_encoder.c
- create mode 100644 drivers/gpu/drm/amd/display/dc/hpo/dcn30/dcn30_hpo_frl_link_encoder.h
- create mode 100644 drivers/gpu/drm/amd/display/dc/hpo/dcn30/dcn30_hpo_frl_stream_encoder.c
- create mode 100644 drivers/gpu/drm/amd/display/dc/hpo/dcn30/dcn30_hpo_frl_stream_encoder.h
- create mode 100644 drivers/gpu/drm/amd/display/dc/hpo/dcn401/dcn401_hpo_frl_stream_encoder.c
- create mode 100644 drivers/gpu/drm/amd/display/dc/hpo/dcn401/dcn401_hpo_frl_stream_encoder.h
- create mode 100644 drivers/gpu/drm/amd/display/dc/hpo/dcn42/dcn42_hpo_frl_stream_encoder.c
- create mode 100644 drivers/gpu/drm/amd/display/dc/hpo/dcn42/dcn42_hpo_frl_stream_encoder.h
- create mode 100644 drivers/gpu/drm/amd/display/dc/link/hwss/link_hwss_hpo_frl.c
- create mode 100644 drivers/gpu/drm/amd/display/dc/link/hwss/link_hwss_hpo_frl.h
- create mode 100644 drivers/gpu/drm/amd/display/dc/link/protocols/link_hdmi_frl.c
- create mode 100644 drivers/gpu/drm/amd/display/dc/link/protocols/link_hdmi_frl.h
-
---
+diff --git a/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c b/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c
+index b4dd8219b8f0..135556b8fd87 100644
+--- a/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c
++++ b/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c
+@@ -2126,6 +2126,12 @@ static enum bp_result get_firmware_info_v3_5(
+ 	return BP_RESULT_OK;
+ }
+ 
++/* TODO: Remove this temp define after atomfirmware.h is updated */
++#define ATOM_ENCODER_CAP_RECORD_HDMI_FRL_TEMP  0x200
++#define ATOM_ENCODER_CAP_RECORD_HDMI_FRL_8GbEn_TEMP 0x400        // HDMI FRL 8Gb support
++#define ATOM_ENCODER_CAP_RECORD_HDMI_FRL_10GbEn_TEMP 0x800        // HDMI FRL 10Gb support
++#define ATOM_ENCODER_CAP_RECORD_HDMI_FRL_12GbEn_TEMP 0x1000       // HDMI FRL 12Gb support
++
+ static enum bp_result bios_parser_get_encoder_cap_info(
+ 	struct dc_bios *dcb,
+ 	struct graphics_object_id object_id,
+@@ -2173,6 +2179,15 @@ static enum bp_result bios_parser_get_encoder_cap_info(
+ 	info->DP_IS_USB_C = (record->encodercaps &
+ 			ATOM_ENCODER_CAP_RECORD_USB_C_TYPE) ? 1 : 0;
+ 	DC_LOG_BIOS("\t info->DP_IS_USB_C %d", info->DP_IS_USB_C);
++	info->IS_HDMI_FRL_CAPABLE = (record->encodercaps &
++			ATOM_ENCODER_CAP_RECORD_HDMI_FRL_TEMP) ? 1 : 0;
++	info->FRL_8G_EN = (record->encodercaps &
++			ATOM_ENCODER_CAP_RECORD_HDMI_FRL_8GbEn_TEMP) ? 1 : 0;
++	info->FRL_10G_EN = (record->encodercaps &
++			ATOM_ENCODER_CAP_RECORD_HDMI_FRL_10GbEn_TEMP) ? 1 : 0;
++	info->FRL_12G_EN = (record->encodercaps &
++			ATOM_ENCODER_CAP_RECORD_HDMI_FRL_12GbEn_TEMP) ? 1 : 0;
++	DC_LOG_BIOS("\t info->IS_HDMI_FRL_CAPABLE %d\n", info->IS_HDMI_FRL_CAPABLE);
+ 
+ 	return BP_RESULT_OK;
+ }
+@@ -2401,6 +2416,12 @@ static enum bp_result bios_parser_get_connector_speed_cap_info(
+ 	info->DP_UHBR10_EN = (record->connector_max_speed >= 10000) ? 1 : 0;
+ 	info->DP_UHBR13_5_EN = (record->connector_max_speed >= 13500) ? 1 : 0;
+ 	info->DP_UHBR20_EN = (record->connector_max_speed >= 20000) ? 1 : 0;
++	info->FRL_8G_EN = (record->connector_max_speed >= 8000) ? 1 : 0;
++	info->FRL_10G_EN = (record->connector_max_speed >= 10000) ? 1 : 0;
++	info->FRL_12G_EN = (record->connector_max_speed >= 12000) ? 1 : 0;
++	info->FRL_16G_EN = (record->connector_max_speed >= 16000) ? 1 : 0;
++	info->FRL_20G_EN = (record->connector_max_speed >= 20000) ? 1 : 0;
++	info->FRL_24G_EN = (record->connector_max_speed >= 24000) ? 1 : 0;
+ 	return BP_RESULT_OK;
+ }
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/bios/command_table2.c b/drivers/gpu/drm/amd/display/dc/bios/command_table2.c
+index 88625daf5378..5bca5e534277 100644
+--- a/drivers/gpu/drm/amd/display/dc/bios/command_table2.c
++++ b/drivers/gpu/drm/amd/display/dc/bios/command_table2.c
+@@ -371,6 +371,10 @@ static enum bp_result transmitter_control_v1_7(
+ 	if (cntl->action == TRANSMITTER_CONTROL_ENABLE ||
+ 		cntl->action == TRANSMITTER_CONTROL_ACTIAVATE ||
+ 		cntl->action == TRANSMITTER_CONTROL_DEACTIVATE) {
++		if (dc_is_hdmi_frl_signal(cntl->signal))
++			DC_LOG_BIOS("%s:dig_v1_7.symclk_units.symclk_Hz = %d\n",
++			__func__, dig_v1_7.symclk_units.symclk_Hz);
++		else
+ 			DC_LOG_BIOS("%s:dig_v1_7.symclk_units.symclk_10khz = %d\n",
+ 			__func__, dig_v1_7.symclk_units.symclk_10khz);
+ 	}
+@@ -395,6 +399,8 @@ static enum bp_result transmitter_control_v1_7(
+ 				process_phy_transition_init_params.sym_clock_10khz          = dig_v1_7.symclk_units.symclk_10khz;
+ 				process_phy_transition_init_params.display_port_link_rate   = link->cur_link_settings.link_rate;
+ 				process_phy_transition_init_params.transition_bitmask       = link->phy_transition_bitmask;
++				process_phy_transition_init_params.hdmi_frl_num_lanes       = link->frl_link_settings.frl_num_lanes;
++				process_phy_transition_init_params.hdmi_frl_link_rate       = link->frl_link_settings.frl_link_rate;
+ 			}
+ 			dig_v1_7.skip_phy_ssc_reduction = link->wa_flags.skip_phy_ssc_reduction;
+ 		}
+diff --git a/drivers/gpu/drm/amd/display/dc/bios/dce112/command_table_helper2_dce112.c b/drivers/gpu/drm/amd/display/dc/bios/dce112/command_table_helper2_dce112.c
+index 478465fba224..642bc52dcc40 100644
+--- a/drivers/gpu/drm/amd/display/dc/bios/dce112/command_table_helper2_dce112.c
++++ b/drivers/gpu/drm/amd/display/dc/bios/dce112/command_table_helper2_dce112.c
+@@ -49,6 +49,9 @@ static uint8_t signal_type_to_atom_dig_mode(enum signal_type s)
+ 	case SIGNAL_TYPE_HDMI_TYPE_A:
+ 		atom_dig_mode = ATOM_TRANSMITTER_DIGMODE_V6_HDMI;
+ 		break;
++	case SIGNAL_TYPE_HDMI_FRL:
++		atom_dig_mode = 4;
++		break;
+ 	case SIGNAL_TYPE_DISPLAY_PORT_MST:
+ 		atom_dig_mode = ATOM_TRANSMITTER_DIGMODE_V6_DP_MST;
+ 		break;
+diff --git a/drivers/gpu/drm/amd/display/dc/bios/dce112/command_table_helper_dce112.c b/drivers/gpu/drm/amd/display/dc/bios/dce112/command_table_helper_dce112.c
+index 6b8a87f2c49e..41d11d8410a0 100644
+--- a/drivers/gpu/drm/amd/display/dc/bios/dce112/command_table_helper_dce112.c
++++ b/drivers/gpu/drm/amd/display/dc/bios/dce112/command_table_helper_dce112.c
+@@ -47,6 +47,9 @@ static uint8_t signal_type_to_atom_dig_mode(enum signal_type s)
+ 	case SIGNAL_TYPE_HDMI_TYPE_A:
+ 		atom_dig_mode = ATOM_TRANSMITTER_DIGMODE_V6_HDMI;
+ 		break;
++	case SIGNAL_TYPE_HDMI_FRL:
++		atom_dig_mode = 4;
++		break;
+ 	case SIGNAL_TYPE_DISPLAY_PORT_MST:
+ 		atom_dig_mode = ATOM_TRANSMITTER_DIGMODE_V6_DP_MST;
+ 		break;
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
+index ad927e63c207..0448130fa6ba 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
+@@ -3893,17 +3893,20 @@ static void add_update_info_frame_sequence(
+ {
+ 	bool is_hdmi_tmds;
+ 	bool is_dp;
++	bool is_hdmi_frl;
+ 
+ 	if (!pipe_ctx || !pipe_ctx->stream)
+ 		return;
+ 
+-	if (pipe_ctx->stream_res.stream_enc == NULL)
++	if (pipe_ctx->stream_res.stream_enc == NULL &&
++			pipe_ctx->stream_res.hpo_frl_stream_enc == NULL)
+ 		return;
+ 
+ 	is_hdmi_tmds = dc_is_hdmi_tmds_signal(pipe_ctx->stream->signal);
+ 	is_dp = dc_is_dp_signal(pipe_ctx->stream->signal);
+ 
+-	if (!is_hdmi_tmds && !is_dp)
++	is_hdmi_frl = dc_is_hdmi_frl_signal(pipe_ctx->stream->signal);
++	if (!is_hdmi_tmds && !is_dp && !is_hdmi_frl)
+ 		return;
+ 
+ 	if (is_hdmi_tmds) {
+@@ -3911,6 +3914,11 @@ static void add_update_info_frame_sequence(
+ 		return;
+ 	}
+ 
++	if (is_hdmi_frl) {
++		hwss_add_hpo_frl_stream_enc_update_hdmi_info_packets(seq_state, pipe_ctx);
++		return;
++	}
++
+ 	if (is_dp) {
+ 		if (dp_is_128b_132b_signal(pipe_ctx)) {
+ 			hwss_add_hpo_dp_stream_enc_update_dp_info_packets_sdp_line_num(seq_state, pipe_ctx);
+@@ -7442,6 +7450,20 @@ bool dc_capture_register_software_state(struct dc *dc, struct dc_register_softwa
+ 			state->dccg.symclk32_le_enable[i] = 0; /* Default: disabled */
+ 		}
+ 
++		/* Check for active HPO usage that affects symclk32_le */
++		for (unsigned int pipe_idx = 0; pipe_idx < MAX_PIPES && pipe_idx < dc->res_pool->pipe_count; pipe_idx++) {
++			struct pipe_ctx *pipe_ctx = &res_ctx->pipe_ctx[pipe_idx];
++			if (!pipe_ctx->stream)
++				continue;
++
++			/* HPO FRL (HDMI FRL) streams use symclk32_le */
++			if (pipe_ctx->stream_res.hpo_frl_stream_enc && pipe_ctx->link_res.hpo_frl_link_enc) {
++				int hpo_le_inst = pipe_ctx->link_res.hpo_frl_link_enc->inst;
++				if (hpo_le_inst >= 0 && hpo_le_inst < 2) {
++					state->dccg.symclk32_le_enable[hpo_le_inst] = 1;
++				}
++			}
++		}
+ 	}
+ 
+ 	/* Capture essential DSC configuration for underflow analysis */
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_debug.c b/drivers/gpu/drm/amd/display/dc/core/dc_debug.c
+index bbce751b485f..deb7f419e26c 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_debug.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_debug.c
+@@ -250,6 +250,10 @@ char *dc_status_to_str(enum dc_status status)
+ 		return "No DSC resource";
+ 	case DC_FAIL_UNSUPPORTED_1:
+ 		return "Unsupported";
++	case DC_FAIL_HDMI_FRL_LINK_TRAINING:
++		return "HDMI frl link training failure";
++	case DC_NO_HDMI_FRL_LINK_BANDWIDTH:
++		return "No DHMI frl link bandwidth";
+ 	case DC_FAIL_CLK_EXCEED_MAX:
+ 		return "Clk exceed max failure";
+ 	case DC_FAIL_CLK_BELOW_MIN:
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c b/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c
+index b3a5935e3811..c0c35d6653a5 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c
+@@ -1615,6 +1615,9 @@ void hwss_execute_sequence(struct dc *dc,
+ 		case STREAM_ENC_UPDATE_HDMI_INFO_PACKETS:
+ 			hwss_stream_enc_update_hdmi_info_packets(params);
+ 			break;
++		case HPO_FRL_STREAM_ENC_UPDATE_HDMI_INFO_PACKETS:
++			hwss_hpo_frl_stream_enc_update_hdmi_info_packets(params);
++			break;
+ 		case HPO_DP_STREAM_ENC_UPDATE_DP_INFO_PACKETS_SDP_LINE_NUM:
+ 			hwss_hpo_dp_stream_enc_update_dp_info_packets_sdp_line_num(params);
+ 			break;
+@@ -3642,6 +3645,15 @@ void hwss_stream_enc_update_hdmi_info_packets(union block_sequence_params *param
+ 			&params->stream_enc_update_hdmi_info_packets_params.pipe_ctx->stream_res.encoder_info_frame);
+ }
+ 
++void hwss_hpo_frl_stream_enc_update_hdmi_info_packets(union block_sequence_params *params)
++{
++	if (params->hpo_frl_stream_enc_update_hdmi_info_packets_params.pipe_ctx->stream_res.hpo_frl_stream_enc &&
++	    params->hpo_frl_stream_enc_update_hdmi_info_packets_params.pipe_ctx->stream_res.hpo_frl_stream_enc->funcs->update_hdmi_info_packets)
++		params->hpo_frl_stream_enc_update_hdmi_info_packets_params.pipe_ctx->stream_res.hpo_frl_stream_enc->funcs->update_hdmi_info_packets(
++			params->hpo_frl_stream_enc_update_hdmi_info_packets_params.pipe_ctx->stream_res.hpo_frl_stream_enc,
++			&params->hpo_frl_stream_enc_update_hdmi_info_packets_params.pipe_ctx->stream_res.encoder_info_frame);
++}
++
+ void hwss_hpo_dp_stream_enc_update_dp_info_packets_sdp_line_num(union block_sequence_params *params)
+ {
+ 	if (params->hpo_dp_stream_enc_update_dp_info_packets_sdp_line_num_params.pipe_ctx->stream_res.hpo_dp_stream_enc &&
+@@ -4865,6 +4877,16 @@ void hwss_add_stream_enc_update_hdmi_info_packets(struct block_sequence_state *s
+ 	}
+ }
+ 
++void hwss_add_hpo_frl_stream_enc_update_hdmi_info_packets(struct block_sequence_state *seq_state,
++		struct pipe_ctx *pipe_ctx)
++{
++	if (*seq_state->num_steps < MAX_HWSS_BLOCK_SEQUENCE_SIZE) {
++		seq_state->steps[*seq_state->num_steps].func = HPO_FRL_STREAM_ENC_UPDATE_HDMI_INFO_PACKETS;
++		seq_state->steps[*seq_state->num_steps].params.hpo_frl_stream_enc_update_hdmi_info_packets_params.pipe_ctx = pipe_ctx;
++		(*seq_state->num_steps)++;
++	}
++}
++
+ void hwss_add_hpo_dp_stream_enc_update_dp_info_packets_sdp_line_num(struct block_sequence_state *seq_state,
+ 		struct pipe_ctx *pipe_ctx)
+ {
+@@ -4963,6 +4985,20 @@ void hwss_add_stream_enc_dp_set_dsc_pps_info_packet(struct block_sequence_state
+ 	}
+ }
+ 
++void hwss_add_hpo_frl_stream_enc_set_dsc_config(struct block_sequence_state *seq_state,
++		struct hpo_frl_stream_encoder *hpo_frl_stream_enc,
++		const struct dc_crtc_timing *timing,
++		uint8_t *dsc_packed_pps)
++{
++	if (*seq_state->num_steps < MAX_HWSS_BLOCK_SEQUENCE_SIZE) {
++		seq_state->steps[*seq_state->num_steps].func = HPO_FRL_STREAM_ENC_SET_DSC_CONFIG;
++		seq_state->steps[*seq_state->num_steps].params.hpo_frl_stream_enc_set_dsc_config_params.hpo_frl_stream_enc = hpo_frl_stream_enc;
++		seq_state->steps[*seq_state->num_steps].params.hpo_frl_stream_enc_set_dsc_config_params.timing = timing;
++		seq_state->steps[*seq_state->num_steps].params.hpo_frl_stream_enc_set_dsc_config_params.dsc_packed_pps = dsc_packed_pps;
++		(*seq_state->num_steps)++;
++	}
++}
++
+ void hwss_add_setup_periodic_interrupt(struct block_sequence_state *seq_state,
+ 		struct dc *dc,
+ 		struct pipe_ctx *pipe_ctx)
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_enc_cfg.c b/drivers/gpu/drm/amd/display/dc/core/dc_link_enc_cfg.c
+index deb23d20bca6..6c3d442587a4 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_link_enc_cfg.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_enc_cfg.c
+@@ -45,6 +45,9 @@ static bool is_dig_link_enc_stream(struct dc_stream_state *stream)
+ 			 */
+ 			if (link_enc && ((uint32_t)stream->link->connector_signal & link_enc->output_signals)) {
+ 				is_dig_stream = true;
++				/* If stream is HDMI FRL, then it is not a DIG stream. */
++				if (dc_is_hdmi_frl_signal(stream->signal))
++					is_dig_stream = false;
+ 				break;
+ 			}
+ 		}
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_exports.c b/drivers/gpu/drm/amd/display/dc/core/dc_link_exports.c
+index f4e99ca7918f..ef9b7ab6eddf 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_link_exports.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_exports.c
+@@ -126,6 +126,19 @@ uint32_t dc_link_bandwidth_kbps(
+ 	return link->dc->link_srv->dp_link_bandwidth_kbps(link, link_settings);
+ }
+ 
++uint32_t dc_link_frl_bandwidth_kbps(const struct dc_link *link, enum hdmi_frl_link_rate link_rate)
++{
++	return link->dc->link_srv->frl_link_bandwidth_kbps(link_rate);
++}
++
++bool dc_link_frl_margin_check_uncompressed_video(
++		const struct dc_link *link,
++		struct frl_cap_chk_params_fixed31_32 *params,
++		struct frl_cap_chk_intermediates_fixed31_32 *inter)
++{
++	return link->dc->link_srv->frl_margin_check_uncompressed_video(params, inter);
++}
++
+ uint32_t dc_link_required_hblank_size_bytes(
+ 	const struct dc_link *link,
+ 	struct dp_audio_bandwidth_params *audio_params)
+@@ -144,6 +157,11 @@ void dc_restore_link_res_map(const struct dc *dc, uint32_t *map)
+ 	dc->link_srv->restore_res_map(dc, map);
+ }
+ 
++void dc_link_wait_for_unlocked(struct dc_link *link)
++{
++	link->dc->link_srv->wait_for_unlocked(link);
++}
++
+ bool dc_link_update_dsc_config(struct pipe_ctx *pipe_ctx)
+ {
+ 	struct dc_link *link = pipe_ctx->stream->link;
+@@ -345,6 +363,14 @@ enum dc_link_encoding_format dc_link_get_highest_encoding_format(const struct dc
+ 				DP_128b_132b_ENCODING)
+ 			return DC_LINK_ENCODING_DP_128b_132b;
+ 	} else if (dc_is_hdmi_signal(link->connector_signal)) {
++		const struct dc_hdmi_frl_link_settings *frl_link_settings =
++				&link->frl_verified_link_cap;
++
++		if (frl_link_settings->frl_link_rate == HDMI_FRL_LINK_RATE_DISABLE)
++			return DC_LINK_ENCODING_HDMI_TMDS;
++		else if (frl_link_settings->frl_link_rate >= HDMI_FRL_LINK_RATE_3GBPS &&
++				frl_link_settings->frl_link_rate <= HDMI_FRL_LINK_RATE_12GBPS)
++			return DC_LINK_ENCODING_HDMI_FRL;
+ 	}
+ 
+ 	return DC_LINK_ENCODING_UNSPECIFIED;
+@@ -518,6 +544,25 @@ bool dc_link_wait_for_t12(struct dc_link *link)
+ 	return link->dc->link_srv->edp_wait_for_t12(link);
+ }
+ 
++bool dc_link_frl_poll_status_flag(struct dc_link *link)
++{
++	return link->dc->link_srv->hdmi_frl_poll_status_flag(link);
++}
++
++struct dc_hdmi_frl_link_settings *dc_link_get_frl_link_cap(
++		struct dc_link *link)
++{
++	return link->dc->link_srv->hdmi_frl_get_verified_link_cap(link);
++}
++
++void dc_link_set_preferred_frl_link_settings(struct dc *dc,
++		struct dc_hdmi_frl_link_settings *link_setting,
++		struct dc_hdmi_frl_link_training_overrides *lt_overrides,
++		struct dc_link *link)
++{
++	link->dc->link_srv->hdmi_frl_set_preferred_link_settings(dc, link_setting, lt_overrides, link);
++}
++
+ bool dc_link_get_hpd_state(struct dc_link *link)
+ {
+ 	return link->dc->link_srv->get_hpd_state(link);
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
+index 19526a278b2a..2457b563e6c8 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
+@@ -96,6 +96,8 @@
+ #define DC_LOGGER \
+ 	dc->ctx->logger
+ #define DC_LOGGER_INIT(logger)
++#include "link/hwss/link_hwss_hpo_frl.h"
++#include "dml/dml1_frl_cap_chk.h"
+ #include "dml2_0/dml2_wrapper.h"
+ 
+ #define UNABLE_TO_SPLIT -1
+@@ -497,6 +499,25 @@ bool resource_construct(
+ 		}
+ 	}
+ 
++	pool->hpo_frl_stream_enc_count = 0;
++	if (create_funcs->create_hpo_frl_stream_encoder) {
++		for (i = 0; i < (unsigned int)caps->num_hpo_frl; i++) {
++			pool->hpo_frl_stream_enc[i] = create_funcs->create_hpo_frl_stream_encoder(i+ENGINE_ID_HPO_0, ctx);
++			if (pool->hpo_frl_stream_enc[i] == NULL)
++				DC_ERR("DC: failed to create HPO FRL stream encoder!\n");
++			pool->hpo_frl_stream_enc_count++;
++
++		}
++	}
++	pool->hpo_frl_link_enc_count = 0;
++	if (create_funcs->create_hpo_frl_link_encoder) {
++		for (i = 0; i < (unsigned int)caps->num_hpo_frl; i++) {
++			pool->hpo_frl_link_enc[i] = create_funcs->create_hpo_frl_link_encoder(i+ENGINE_ID_HPO_0, ctx);
++			if (pool->hpo_frl_link_enc[i] == NULL)
++				DC_ERR("DC: failed to create HPO FRL link encoder!\n");
++			pool->hpo_frl_link_enc_count++;
++		}
++	}
+ 	pool->hpo_dp_stream_enc_count = 0;
+ 	if (create_funcs->create_hpo_dp_stream_encoder) {
+ 		for (i = 0; i < caps->num_hpo_dp_stream_encoder; i++) {
+@@ -2648,6 +2669,164 @@ static void update_stream_engine_usage(
+ 	}
+ }
+ 
++static void update_hpo_frl_stream_engine_usage(
++		struct resource_context *res_ctx,
++		const struct resource_pool *pool,
++		struct hpo_frl_stream_encoder *hpo_frl_stream_enc,
++		bool acquired)
++{
++	unsigned int i;
++
++	for (i = 0; i < pool->hpo_frl_stream_enc_count; i++) {
++		if (pool->hpo_frl_stream_enc[i] == hpo_frl_stream_enc)
++			res_ctx->is_hpo_frl_stream_enc_acquired[i] = acquired;
++	}
++}
++
++static struct hpo_frl_stream_encoder *find_first_free_match_hpo_frl_stream_enc_for_link(
++		struct resource_context *res_ctx,
++		const struct resource_pool *pool,
++		struct dc_stream_state *stream)
++{
++	(void)stream;
++	unsigned int i;
++
++	for (i = 0; i < pool->hpo_frl_stream_enc_count; i++) {
++		if (!res_ctx->is_hpo_frl_stream_enc_acquired[i] &&
++				pool->hpo_frl_stream_enc[i]) {
++
++			return pool->hpo_frl_stream_enc[i];
++		}
++	}
++
++	return NULL;
++}
++
++static inline int find_acquired_hpo_frl_link_enc_for_link(
++		const struct resource_context *res_ctx,
++		const struct dc_link *link)
++{
++	int i;
++
++	for (i = 0; i < ARRAY_SIZE(res_ctx->hpo_frl_link_enc_to_link_idx); i++)
++		if (res_ctx->hpo_frl_link_enc_ref_cnts[i] > 0 &&
++				res_ctx->hpo_frl_link_enc_to_link_idx[i] == link->link_index)
++			return i;
++
++	return -1;
++}
++
++static inline int find_free_hpo_frl_link_enc(const struct resource_context *res_ctx,
++		const struct resource_pool *pool)
++{
++	unsigned int i;
++
++	for (i = 0; i < ARRAY_SIZE(res_ctx->hpo_frl_link_enc_ref_cnts); i++)
++		if (res_ctx->hpo_frl_link_enc_ref_cnts[i] == 0)
++			break;
++
++	return (i < ARRAY_SIZE(res_ctx->hpo_frl_link_enc_ref_cnts) &&
++			i < pool->hpo_frl_link_enc_count) ? (int)i : -1;
++}
++
++static inline void acquire_hpo_frl_link_enc(
++		struct resource_context *res_ctx,
++		unsigned int link_index,
++		int enc_index)
++{
++	res_ctx->hpo_frl_link_enc_to_link_idx[enc_index] = link_index;
++	res_ctx->hpo_frl_link_enc_ref_cnts[enc_index] = 1;
++}
++
++static inline void retain_hpo_frl_link_enc(
++		struct resource_context *res_ctx,
++		int enc_index)
++{
++	res_ctx->hpo_frl_link_enc_ref_cnts[enc_index]++;
++}
++
++static inline void release_hpo_frl_link_enc(
++		struct resource_context *res_ctx,
++		int enc_index)
++{
++	ASSERT(res_ctx->hpo_frl_link_enc_ref_cnts[enc_index] > 0);
++	res_ctx->hpo_frl_link_enc_ref_cnts[enc_index]--;
++}
++
++static bool add_hpo_frl_link_enc_to_ctx(struct resource_context *res_ctx,
++		const struct resource_pool *pool,
++		struct pipe_ctx *pipe_ctx,
++		struct dc_stream_state *stream)
++{
++	int enc_index;
++
++	enc_index = find_acquired_hpo_frl_link_enc_for_link(res_ctx, stream->link);
++
++	if (enc_index >= 0) {
++		retain_hpo_frl_link_enc(res_ctx, enc_index);
++	} else {
++		enc_index = find_free_hpo_frl_link_enc(res_ctx, pool);
++		if (enc_index >= 0)
++			acquire_hpo_frl_link_enc(res_ctx, stream->link->link_index, enc_index);
++	}
++
++	if (enc_index >= 0)
++		pipe_ctx->link_res.hpo_frl_link_enc = pool->hpo_frl_link_enc[enc_index];
++
++	return pipe_ctx->link_res.hpo_frl_link_enc != NULL;
++}
++
++static void remove_hpo_frl_link_enc_from_ctx(struct resource_context *res_ctx,
++		struct pipe_ctx *pipe_ctx,
++		struct dc_stream_state *stream)
++{
++	int enc_index;
++
++	enc_index = find_acquired_hpo_frl_link_enc_for_link(res_ctx, stream->link);
++
++	if (enc_index >= 0) {
++		release_hpo_frl_link_enc(res_ctx, enc_index);
++		pipe_ctx->link_res.hpo_frl_link_enc = NULL;
++	}
++}
++
++static struct hpo_frl_link_encoder *get_temp_hpo_frl_link_enc(
++		const struct resource_context *res_ctx,
++		const struct resource_pool *const pool,
++		const struct dc_link *link)
++{
++	struct hpo_frl_link_encoder *hpo_frl_link_enc = NULL;
++	int enc_index;
++
++	enc_index = find_acquired_hpo_frl_link_enc_for_link(res_ctx, link);
++
++	if (enc_index < 0)
++		enc_index = find_free_hpo_frl_link_enc(res_ctx, pool);
++
++	if (enc_index >= 0)
++		hpo_frl_link_enc = pool->hpo_frl_link_enc[enc_index];
++
++	return hpo_frl_link_enc;
++}
++
++bool get_temp_frl_link_res(struct dc_link *link,
++		struct link_resource *link_res)
++{
++	const struct dc *dc  = link->dc;
++	const struct resource_context *res_ctx = &dc->current_state->res_ctx;
++
++	memset(link_res, 0, sizeof(*link_res));
++	link_res->hpo_frl_link_enc = get_temp_hpo_frl_link_enc(res_ctx, dc->res_pool, link);
++	if (!link_res->hpo_frl_link_enc)
++		return false;
++
++	link_res->dio_link_enc = get_temp_dio_link_enc(res_ctx,
++			dc->res_pool, link);
++	if (!link_res->dio_link_enc)
++		return false;
++
++	return true;
++}
+ static void update_hpo_dp_stream_engine_usage(
+ 		struct resource_context *res_ctx,
+ 		const struct resource_pool *pool,
+@@ -2969,6 +3148,15 @@ void resource_remove_otg_master_for_stream_output(struct dc_state *context,
+ 			otg_master->stream_res.stream_enc,
+ 			false);
+ 
++	if (dc_is_hdmi_frl_signal(stream->signal)) {
++		update_hpo_frl_stream_engine_usage(
++			&context->res_ctx, pool,
++			otg_master->stream_res.hpo_frl_stream_enc,
++			false);
++		remove_hpo_frl_link_enc_from_ctx(
++			&context->res_ctx, otg_master, stream);
++		remove_dio_link_enc_from_ctx(&context->res_ctx, otg_master, stream);
++	}
+ 	if (stream->ctx->dc->link_srv->dp_is_128b_132b_signal(otg_master)) {
+ 		update_hpo_dp_stream_engine_usage(
+ 			&context->res_ctx, pool,
+@@ -4016,6 +4204,33 @@ enum dc_status resource_map_pool_resources(
+ 		pipe_ctx->stream_res.stream_enc,
+ 		true);
+ 
++	if (dc_is_hdmi_frl_signal(stream->signal)) {
++		is_dio_encoder = false;
++		pipe_ctx->stream_res.hpo_frl_stream_enc =
++			find_first_free_match_hpo_frl_stream_enc_for_link(
++				&context->res_ctx, pool, stream);
++
++		if (!pipe_ctx->stream_res.hpo_frl_stream_enc)
++			if (stream->timing.pix_clk_100hz < 6000000)
++				stream->signal = SIGNAL_TYPE_HDMI_TYPE_A;
++			else
++				return DC_NO_STREAM_ENC_RESOURCE;
++		else {
++			update_hpo_frl_stream_engine_usage(
++				&context->res_ctx, pool,
++				pipe_ctx->stream_res.hpo_frl_stream_enc,
++				true);
++			pipe_ctx->link_res.hpo_frl_link_enc =
++				pipe_ctx->stream->link->hpo_frl_link_enc;
++			if (!pipe_ctx->link_res.hpo_frl_link_enc) {
++				if (!add_hpo_frl_link_enc_to_ctx(&context->res_ctx, pool, pipe_ctx, stream))
++					return DC_NO_LINK_ENC_RESOURCE;
++			}
++			if (!add_dio_link_enc_to_ctx(dc, context, pool, pipe_ctx, stream))
++				return DC_NO_LINK_ENC_RESOURCE;
++		}
++	}
++
+ 	/* Allocate DP HPO Stream Encoder based on signal, hw capabilities
+ 	 * and link settings
+ 	 */
+@@ -4081,6 +4296,8 @@ enum dc_status resource_map_pool_resources(
+ 		if (context->streams[i] == stream) {
+ 			context->stream_status[i].primary_otg_inst = pipe_ctx->stream_res.tg->inst;
+ 			context->stream_status[i].stream_enc_inst = pipe_ctx->stream_res.stream_enc->stream_enc_inst;
++			if (pipe_ctx->stream_res.hpo_frl_stream_enc != NULL)
++				context->stream_status[i].stream_enc_inst = pipe_ctx->stream_res.hpo_frl_stream_enc->stream_enc_inst;
+ 			context->stream_status[i].audio_inst =
+ 				pipe_ctx->stream_res.audio ? pipe_ctx->stream_res.audio->inst : -1;
+ 
+@@ -4923,6 +5140,9 @@ void resource_build_info_frame(struct pipe_ctx *pipe_ctx)
+ 
+ 		set_hdr_static_info_packet(&info->hdrsmd, pipe_ctx->stream);
+ 
++		if (dc_is_hdmi_frl_signal(signal)) {
++			/* TODO: additional packets for HDMI 2.1 */
++		}
+ 	} else if (dc_is_dp_signal(signal)) {
+ 		set_vsc_info_packet(&info->vsc, pipe_ctx->stream);
+ 
+@@ -5020,6 +5240,8 @@ bool pipe_need_reprogram(
+ 	if (pipe_ctx_old->stream_res.dsc != pipe_ctx->stream_res.dsc)
+ 		return true;
+ 
++	if (pipe_ctx_old->stream_res.hpo_frl_stream_enc != pipe_ctx->stream_res.hpo_frl_stream_enc)
++		return true;
+ 	if (pipe_ctx_old->stream_res.hpo_dp_stream_enc != pipe_ctx->stream_res.hpo_dp_stream_enc)
+ 		return true;
+ 	if (pipe_ctx_old->link_res.hpo_dp_link_enc != pipe_ctx->link_res.hpo_dp_link_enc)
+@@ -5282,10 +5504,13 @@ void get_audio_check(struct audio_info *aud_modes,
+ 		audio_chk->audio_packet_type = 0x2;/*audio sample packet AP = .25 for layout0, 1 for layout1*/
+ 
+ 		audio_chk->max_audiosample_rate = 0;
++		audio_chk->max_channel_count = 0;
+ 		for (i = 0; i < aud_modes->mode_count; i++) {
+ 			max_sample_rate = get_max_audio_sample_rate(&aud_modes->modes[i]);
+ 			if (audio_chk->max_audiosample_rate < max_sample_rate)
+ 				audio_chk->max_audiosample_rate = max_sample_rate;
++			if (audio_chk->max_channel_count < aud_modes->modes[i].channel_count)
++				audio_chk->max_channel_count = aud_modes->modes[i].channel_count;
+ 			/*dts takes the same as type 2: AP = 0.25*/
+ 		}
+ 		/*check which one take more bandwidth*/
+@@ -5497,6 +5722,8 @@ const struct link_hwss *get_link_hwss(const struct dc_link *link,
+ 		 */
+ 		return (requires_fixed_vs_pe_retimer_hpo_link_hwss(link) ?
+ 				get_hpo_fixed_vs_pe_retimer_dp_link_hwss() : get_hpo_dp_link_hwss());
++	else if (can_use_hpo_frl_link_hwss(link, link_res))
++		return get_hpo_frl_link_hwss();
+ 	else if (can_use_dpia_link_hwss(link, link_res))
+ 		return get_dpia_link_hwss();
+ 	else if (can_use_dio_link_hwss(link, link_res))
+@@ -5724,5 +5951,11 @@ bool resource_is_hpo_acquired(struct dc_state *context)
+ 		}
+ 	}
+ 
++	for (i = 0; i < MAX_HDMI_FRL_ENCODERS; i++) {
++		if (context->res_ctx.is_hpo_frl_stream_enc_acquired[i]) {
++			return true;
++		}
++	}
++
+ 	return false;
+ }
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_stream.c b/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
+index 9c1d721011ca..f694c6ad6e98 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
+@@ -54,6 +54,7 @@
+  ******************************************************************************/
+ void update_stream_signal(struct dc_stream_state *stream, struct dc_sink *sink)
+ {
++	unsigned int pix_clk;
+ 	if (sink->sink_signal == SIGNAL_TYPE_NONE)
+ 		stream->signal = stream->link->connector_signal;
+ 	else
+@@ -67,6 +68,40 @@ void update_stream_signal(struct dc_stream_state *stream, struct dc_sink *sink)
+ 		else
+ 			stream->signal = SIGNAL_TYPE_DVI_SINGLE_LINK;
+ 	}
++	if (dc_is_hdmi_frl_signal(stream->signal)) {
++		pix_clk = stream->timing.pix_clk_100hz / 10;
++		if (stream->timing.pixel_encoding == PIXEL_ENCODING_YCBCR420)
++			pix_clk /= 2;
++
++		// YCbCr422 to use assume 12-bit interface always, clock stays the same
++		if (stream->timing.pixel_encoding != PIXEL_ENCODING_YCBCR422) {
++			switch (stream->timing.display_color_depth) {
++			case COLOR_DEPTH_666:
++			case COLOR_DEPTH_888:
++				break;
++			case COLOR_DEPTH_101010:
++				pix_clk = pix_clk * 10 / 8;
++				break;
++			case COLOR_DEPTH_121212:
++				pix_clk = pix_clk * 12 / 8;
++				break;
++			default:
++				break;
++			}
++		}
++		if (pix_clk != 0 && pix_clk < HDMI2_TMDS_MAX_PIXEL_CLOCK)
++			stream->signal = SIGNAL_TYPE_HDMI_TYPE_A;
++		if (stream->timing.pixel_encoding == PIXEL_ENCODING_YCBCR420 &&
++				stream->timing.h_addressable > 4096)
++			stream->signal = SIGNAL_TYPE_HDMI_FRL;
++		if (stream->timing.rid != 0)
++			stream->signal = SIGNAL_TYPE_HDMI_FRL;
++
++		if (stream->link->frl_flags.force_frl_always ||
++				stream->link->frl_flags.force_frl_max
++				)
++			stream->signal = SIGNAL_TYPE_HDMI_FRL;
++	}
+ }
+ 
+ bool dc_stream_construct(struct dc_stream_state *stream,
+diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_audio.c b/drivers/gpu/drm/amd/display/dc/dce/dce_audio.c
+index 8af8e2c17134..239ba2b352a1 100644
+--- a/drivers/gpu/drm/amd/display/dc/dce/dce_audio.c
++++ b/drivers/gpu/drm/amd/display/dc/dce/dce_audio.c
+@@ -535,6 +535,7 @@ static void check_audio_bandwidth(
+ {
+ 	switch (signal) {
+ 	case SIGNAL_TYPE_HDMI_TYPE_A:
++	case SIGNAL_TYPE_HDMI_FRL:
+ 		check_audio_bandwidth_hdmi(
+ 			crtc_info, channel_count, sample_rates);
+ 		break;
+@@ -738,6 +739,7 @@ void dce_aud_az_configure(
+ 	/* set audio for output signal */
+ 	switch (signal) {
+ 	case SIGNAL_TYPE_HDMI_TYPE_A:
++	case SIGNAL_TYPE_HDMI_FRL:
+ 		set_reg_field_value(value,
+ 			1,
+ 			AZALIA_F0_CODEC_PIN_CONTROL_CHANNEL_SPEAKER,
+@@ -798,6 +800,12 @@ void dce_aud_az_configure(
+ 			/* adjust specific properties */
+ 			switch (audio_format_code) {
+ 			case AUDIO_FORMAT_CODE_LINEARPCM: {
++				if (signal == SIGNAL_TYPE_HDMI_FRL
++						&& channel_count > 2
++						&& crtc_info != NULL
++						&& crtc_info->v_active <= 576) {
++					channel_count = 2;
++				}
+ 
+ 				check_audio_bandwidth(
+ 					crtc_info,
+diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c b/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c
+index b97b4cd23eaa..7a0caace1604 100644
+--- a/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c
++++ b/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c
+@@ -981,7 +981,9 @@ static bool dcn31_program_pix_clk(
+ 		dp_dto_ref_khz = clock_source->ctx->dc->clk_mgr->dp_dto_source_clock_in_khz;
+ 
+ 	// For these signal types Driver to program DP_DTO without calling VBIOS Command table
+-	if (dc_is_dp_signal(pix_clk_params->signal_type) || dc_is_virtual_signal(pix_clk_params->signal_type)) {
++	if (dc_is_hdmi_frl_signal(pix_clk_params->signal_type) ||
++			dc_is_virtual_signal(pix_clk_params->signal_type) ||
++			dc_is_dp_signal(pix_clk_params->signal_type)) {
+ 		if (e) {
+ 			/* Set DTO values: phase = target clock, modulo = reference clock*/
+ 			REG_WRITE(PHASE[inst], e->target_pixel_rate_khz * e->mult_factor);
+@@ -997,6 +999,10 @@ static bool dcn31_program_pix_clk(
+ 				REG_UPDATE_2(PIXEL_RATE_CNTL[inst],
+ 						DP_DTO0_ENABLE, 1,
+ 						PIPE0_DTO_SRC_SEL, 2);
++			else if (dc_is_hdmi_frl_signal(pix_clk_params->signal_type) || encoding == DP_128b_132b_ENCODING)
++				REG_UPDATE_2(PIXEL_RATE_CNTL[inst],
++						DP_DTO0_ENABLE, 0,
++						PIPE0_DTO_SRC_SEL, 2);
+ 			else
+ 				REG_UPDATE_2(PIXEL_RATE_CNTL[inst],
+ 						DP_DTO0_ENABLE, 1,
+@@ -1084,8 +1090,14 @@ static bool dcn401_program_pix_clk(
+ 	if (!dc_is_tmds_signal(pix_clk_params->signal_type)) {
+ 		long long dtbclk_p_src_clk_khz;
+ 
+-		dtbclk_p_src_clk_khz = clock_source->ctx->dc->clk_mgr->dprefclk_khz;
+-		dto_params.clk_src = DPREFCLK;
++		/* if signal is HDMI FRL dtbclk_p_src is DTBCLK else DPREFCLK */
++		if (dc_is_hdmi_frl_signal(pix_clk_params->signal_type)) {
++			dtbclk_p_src_clk_khz = clock_source->ctx->dc->clk_mgr->funcs->get_dtb_ref_clk_frequency(clock_source->ctx->dc->clk_mgr);
++			dto_params.clk_src = DTBCLK0;
++		} else {
++			dtbclk_p_src_clk_khz = clock_source->ctx->dc->clk_mgr->dprefclk_khz;
++			dto_params.clk_src = DPREFCLK;
++		}
+ 
+ 		if (e) {
+ 			dto_params.pixclk_hz = e->target_pixel_rate_khz;
+@@ -1103,7 +1115,15 @@ static bool dcn401_program_pix_clk(
+ 		clock_source->ctx->dc->res_pool->dccg->funcs->set_dp_dto(
+ 				clock_source->ctx->dc->res_pool->dccg,
+ 				&dto_params);
+-
++		if (clock_source->ctx->dc->caps.is_apu &&
++			pix_clk_params->requested_pix_clk_100hz &&
++			dc_is_hdmi_frl_signal(pix_clk_params->signal_type)) {
++			/*need hdmistreamclk before vpg block register access*/
++			clock_source->ctx->dc->res_pool->dccg->funcs->set_hdmistreamclk(
++				clock_source->ctx->dc->res_pool->dccg,
++				DTBCLK0,
++				pix_clk_params->controller_id - 1);
++		}
+ 	} else {
+ 		if (pll_settings->actual_pix_clk_100hz > 6000000UL)
+ 			return false;
+@@ -1335,7 +1355,7 @@ static bool dcn3_program_pix_clk(
+ 			look_up_in_video_optimized_rate_tlb(pix_clk_params->requested_pix_clk_100hz / 10);
+ 
+ 	// For these signal types Driver to program DP_DTO without calling VBIOS Command table
+-	if (dc_is_dp_signal(pix_clk_params->signal_type)) {
++	if ((pix_clk_params->signal_type == SIGNAL_TYPE_HDMI_FRL) || dc_is_dp_signal(pix_clk_params->signal_type)) {
+ 		if (e) {
+ 			/* Set DTO values: phase = target clock, modulo = reference clock*/
+ 			REG_WRITE(PHASE[inst], e->target_pixel_rate_khz * e->mult_factor);
+diff --git a/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h b/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h
+index fe9431cea3e5..29986ee3fd2b 100644
+--- a/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h
++++ b/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h
+@@ -2898,16 +2898,19 @@ struct dmub_dig_transmitter_control_data_v1_7 {
+ 	union {
+ 		uint8_t digmode; /**< enum atom_encode_mode_def */
+ 		uint8_t dplaneset; /**< DP voltage swing and pre-emphasis value, "DP_LANE_SET__xDB_y_zV" */
++		uint8_t txffe; /**< TxFFE settings for HDMI 2.1 */
+ 	} mode_laneset;
+ 	uint8_t lanenum; /**< Number of lanes */
+ 	union {
+ 		uint32_t symclk_10khz; /**< Symbol Clock in 10Khz */
++		uint32_t symclk_Hz; /**< Symbol clock in Hz for FRL */
+ 	} symclk_units;
+ 	uint8_t hpdsel; /**< =1: HPD1, =2: HPD2, ..., =6: HPD6, =0: HPD is not assigned */
+ 	uint8_t digfe_sel; /**< DIG front-end selection, bit0 means DIG0 FE is enabled */
+ 	uint8_t connobj_id; /**< Connector Object Id defined in ObjectId.h */
+ 	uint8_t HPO_instance; /**< HPO instance (0: inst0, 1: inst1) */
+-	uint8_t reserved1; /**< For future use */
++	uint8_t TxFFELaneSel; /**< TxFFE lane select [3:0]
++				(bit0: lane0, bit1: lane1, bit2: lane3, bit3: lane3) */
+ 	uint8_t skip_phy_ssc_reduction;
+ 	uint8_t reserved2[2]; /**< For future use */
+ 	uint32_t reserved3[11]; /**< For future use */
+-- 
 2.54.0
 
