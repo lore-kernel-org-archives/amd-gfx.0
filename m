@@ -4,54 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5D3A8CD37AC
-	for <amd-gfx@archiver.kernel.org>; Mon, 11 May 2026 07:30:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 62641CD4844
+	for <amd-gfx@archiver.kernel.org>; Mon, 11 May 2026 07:30:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AFA0710E4D5;
-	Mon, 11 May 2026 07:30:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 03DFC10E4DD;
+	Mon, 11 May 2026 07:30:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=xry111.site header.i=@xry111.site header.b="nIp+GL+A";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Z89L4ZST";
 	dkim-atps=neutral
-Received: from xry111.site (xry111.site [89.208.246.23])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ABA3D10E303
- for <amd-gfx@lists.freedesktop.org>; Fri,  8 May 2026 08:57:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=xry111.site;
- s=default; t=1778230650;
- bh=XTE2ScLz1R6lNx0b4ZmJP0j2jlKQ/OYwUr1wLMduU0k=;
- h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
- b=nIp+GL+A97EeFGk0DucWBu7j/eOJdnkDhdrrw58KvU2hSYRydXE3AroxFLk8VTyRc
- rJW2oZYsunH06AIk6M3UKDlAuACKE7XBzNg0mdkxl72f2g7HQzNqFxYMBhQgEl1Vhu
- myWhrZ/QzQawOhfDkXk7/3hSghm2bxqbCruevkdo=
-Received: from [IPv6:2409:8a4c:e1f:d2d0:3663:3ffe:842d:4c31] (unknown
- [IPv6:2409:8a4c:e1f:d2d0:3663:3ffe:842d:4c31])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (prime256v1) server-signature ECDSA (secp384r1)
- server-digest SHA384) (Client did not present a certificate)
- (Authenticated sender: xry111@xry111.site)
- by xry111.site (Postfix) with ESMTPSA id EAF3865997;
- Fri,  8 May 2026 04:57:24 -0400 (EDT)
-Message-ID: <d0765c9131d74bbe89e2ae7df38f63f0b413aa3d.camel@xry111.site>
-Subject: Re: [PATCH v2 24/30] drm/amd/display: Move FPU Guards From DML To
- DC - Part 2
-From: Xi Ruoyao <xry111@xry111.site>
-To: ChuanYu Tseng <ChuanYu.Tseng@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
- Aurabindo Pillai <aurabindo.pillai@amd.com>, Roman Li <roman.li@amd.com>,
- Wayne Lin <wayne.lin@amd.com>, Tom Chung	 <chiahsuan.chung@amd.com>,
- Fangzhi Zuo <jerry.zuo@amd.com>, Dan Wheeler	 <daniel.wheeler@amd.com>, Ray
- Wu <Ray.Wu@amd.com>, Ivan Lipski	 <ivan.lipski@amd.com>, Alex Hung
- <alex.hung@amd.com>, Rafal Ostrowski	 <rafal.ostrowski@amd.com>, Dillon
- Varone <dillon.varone@amd.com>, Mingcong Bai	 <jeffbai@aosc.io>, xinmu
- <xinmu@xinmu.moe>
-Date: Fri, 08 May 2026 16:57:19 +0800
-In-Reply-To: <df24e57df62dc4d0a9385a20f6476808b133be71.camel@xry111.site>
-References: <20260326030153.406612-1-ChuanYu.Tseng@amd.com>
- <20260326030153.406612-25-ChuanYu.Tseng@amd.com>
- <df24e57df62dc4d0a9385a20f6476808b133be71.camel@xry111.site>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.1 
+Received: from mail-dy1-f196.google.com (mail-dy1-f196.google.com
+ [74.125.82.196])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0CFE610E062
+ for <amd-gfx@lists.freedesktop.org>; Sat,  9 May 2026 02:04:12 +0000 (UTC)
+Received: by mail-dy1-f196.google.com with SMTP id
+ 5a478bee46e88-2ee990e8597so4551722eec.1
+ for <amd-gfx@lists.freedesktop.org>; Fri, 08 May 2026 19:04:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1778292251; x=1778897051; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=tqUPrapJmfk162jOprC1A32Q+Yo8c7HKbfTLBNJ4ZkA=;
+ b=Z89L4ZSTY3YynYeQccIBQoBWvtEc02wrpuJ65Q17FYmNDcBitWBClfUMop04yOjof4
+ 35EiwORDEV9RKOmL1mbugI2RJSvLgFp7tM9pyZQMcHnHIpaEH5iDgfdtzchIpmz6PNVg
+ s5uBwi81pZ5GBJkpuXP/la+AfsBu34SGq/LlolWCOMnwYw4/b2jEwqoplL0Rpqi0S0KD
+ nQ/8YwKAjDzA9xtA6HRCTA7QfJ3dZdq7mDgrMwARlJc3NoMHE7ruYNjBjEm+bemiwicK
+ /N6M/nSAU6t6qjZssXhh0AWZy2HfdFsVN7rhQNzHsbwiMwTltr9wtyf4UVbCtiXmNMZ8
+ uGyw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1778292251; x=1778897051;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=tqUPrapJmfk162jOprC1A32Q+Yo8c7HKbfTLBNJ4ZkA=;
+ b=oad4BSok/o5O4VOC515YcTKH+ISYTFecpQ6RGHruDJvkGaCT27/tiftsCR5f0ygA4u
+ lqvDskgjyTyxmzNHmhFv5b93ZR/M3aYJttS+udo0h3KGlMc+bAn04Fy2anWoPLi9hFDo
+ 5HQKp7+zIksn6KO4oGfVxvkh67KRJzBBWPWMIrcHps8hrfU15op5gbxM1sPvU0hx6QRT
+ mEN9XX4zuC1V9VASM1tc9hTK8+yiWfc089DqEOWLenCcro2NUFksB9AA8F1dsrdAK3+p
+ hezGjC7o7YEcxUVYMvCs4Wss5FP23KI+dRG8k8Hz8OIjNbWOFrPzP2SnUMmVRX6SE6M2
+ LRoQ==
+X-Gm-Message-State: AOJu0YzQOVre6jIqwDnBFPkuV8CaPe+cwj5JOzdLJasHHQvsflqjQ+EQ
+ Bwq+fLXMr8vTqyQ0/mHz7DwfsEfZdjny1Pd9KJLdLesrRot/H6kEU8mQvmg0C7zSDKY=
+X-Gm-Gg: AeBDievkjIR41Hmp9bQ/zq+D2+Qwa8/TM2zBRc4Rlq3uACTB7m7vU8r5XP+hhc3FByb
+ zOaU6T2Ds2/Qc3e/toyAdDzrXZBOjVWBP02/EeeX7PEBNdeIe3XvvpTD9wBET7/Xrp3bGhGUnP0
+ Orsm4XJ95BmmJLt/QUqnpkHdqeWLmXIS70H/0sKzeDQ8nT7PV4radJVy8C2IxC46xVdkvtiFJAe
+ qPP/xN2hdg6Evi4S0q+2LuCXMYYRs/SjGORsoExgg4es/QPArjNZoxg9xQEXl8aa6ti6MJA80I0
+ K1UAUXooZU/LGy9PiDNp6hkpgTOU9rX9KbZrb6lI14NelddtrGt3NbdvJjBylQ6OmfVkAIPYU1S
+ LNQk2Rpqjii6HY4tcuZc4eGQoWxlkwHowt365yWR0CJ9xHPFZc2c+sYMJDo+G9PrQu0cnpSgBfz
+ HutE5zkSYjrm7BGcjY2ZsFqbGXwSFNzmOdfaNWSz/ARtZ3oVn4TOaZ
+X-Received: by 2002:a05:7300:bc1a:b0:2c7:ea98:da0 with SMTP id
+ 5a478bee46e88-2f54ac74b5fmr6826709eec.19.1778292250853; 
+ Fri, 08 May 2026 19:04:10 -0700 (PDT)
+Received: from localhost.localdomain ([2804:1b3:a540:acd8:1326:c2e7:da88:93e])
+ by smtp.gmail.com with ESMTPSA id
+ 5a478bee46e88-2f8859eafcdsm5895619eec.6.2026.05.08.19.04.08
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 08 May 2026 19:04:10 -0700 (PDT)
+From: Andre Luiz Batista Bueno <andrebueno.mac@gmail.com>
+To: amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com,
+ christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch
+Cc: enzo.spinella@usp.br, Andre Luiz Batista Bueno <andrebueno.mac@gmail.com>,
+ dri-devel@lists.freedesktop.org
+Subject: [PATCH V1 RESEND] drm/amdgpu: deduplicate JPEG v5.0 interrupt routine
+Date: Fri,  8 May 2026 23:03:35 -0300
+Message-ID: <20260509020339.262889-1-andrebueno.mac@gmail.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 11 May 2026 07:30:27 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -67,80 +85,274 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, 2026-05-08 at 16:11 +0800, Xi Ruoyao wrote:
-> On Thu, 2026-03-26 at 10:57 +0800, ChuanYu Tseng wrote:
->=20
-> > FPU guards (DC_FP_START/DC_FP_END) are required to wrap around code tha=
-t
-> > can manipulates floats. To do this properly, the FPU guards must be use=
-d
-> > in a file that is not compiled as a FPU unit. If the guards are used in
-> > a file that is a FPU unit, other sections in the file that aren't guard=
-ed
-> > may be end up being compiled to use FPU operations.
->=20
-> /* snip */
->=20
-> > diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/dml2_wrapper.c b/dri=
-vers/gpu/drm/amd/display/dc/dml2_0/dml2_wrapper.c
->=20
-> We have:
->=20
-> CFLAGS_$(AMDDALPATH)/dc/dml2_0/dml2_wrapper.o :=3D $(dml2_rcflags)
->=20
-> and
->=20
-> dml2_rcflags :=3D $(CC_FLAGS_NO_FPU)
->=20
-> so this file isn't compiled as a FPU unit.=C2=A0 Why removing the guards
-> here?
+Both jpeg_v5_0_1.c and jpeg_v5_0_2.c implement identical
+interrupt processing routines. To avoid code duplication,
+extract this implementation into a shared common function
+in new jpeg_v5_0_interrupt.c and .h files.
 
->=20
-> /* snip */
->=20
-> > index 408559d6fb2d..f8250c80be02 100644
-> > --- a/drivers/gpu/drm/amd/display/dc/dml2_0/dml2_wrapper.c
-> > +++ b/drivers/gpu/drm/amd/display/dc/dml2_0/dml2_wrapper.c
-> > @@ -6,7 +6,20 @@
-> > =C2=A0 */
-> > =C2=A0
-> > =C2=A0#include "dml2_internal_types.h"
-> > +#include "dml2_wrapper.h"
-> > =C2=A0#include "dml2_wrapper_fpu.h"
-> > +#include "dml21_wrapper.h"
-> > +#include "dml21_wrapper_fpu.h"
-> > +
-> > +#include "dc_fpu.h"
-> > +
-> > +struct dml2_context *dml2_allocate_memory(void)
-> > +{
-> > +	struct dml2_context *dml2;
-> > +
-> > +	DC_RUN_WITH_PREEMPTION_ENABLED(dml2 =3D vzalloc(sizeof(struct dml2_co=
-ntext)));
-> > +	return dml2;
-> > +}
-> > =C2=A0
-> > =C2=A0bool dml2_validate(const struct dc *in_dc, struct dc_state *conte=
-xt, struct dml2_context *dml2,
-> > =C2=A0	enum dc_validate_mode validate_mode)
-> > @@ -23,16 +36,12 @@ bool dml2_validate(const struct dc *in_dc, struct d=
-c_state *context, struct dml2
-> > =C2=A0		return out;
-> > =C2=A0	}
-> > =C2=A0
-> > -	DC_FP_START();
->=20
-> Notably the removal of this is causing:
->=20
-> [=C2=A0=C2=A0=C2=A0 3.943927] do_fpu invoked from kernel context![#1]:
-> [=C2=A0=C2=A0=C2=A0 3.948860] CPU: 0 UID: 0 PID: 11 Comm: kworker/0:1 Not=
- tainted 7.0.3-aosc-main-4k #2 PREEMPT(lazy)
+Signed-off-by: Andre Luiz Batista Bueno <andrebueno.mac@gmail.com>
+Co-developed-by: Enzo Furegatti Spinella <enzo.spinella@usp.br>
+Signed-off-by: Enzo Furegatti Spinella <enzo.spinella@usp.br>
+---
+ drivers/gpu/drm/amd/amdgpu/Makefile           |  1 +
+ drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_1.c      | 57 +----------------
+ drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_2.c      | 57 +----------------
+ .../gpu/drm/amd/amdgpu/jpeg_v5_0_interrupt.c  | 64 +++++++++++++++++++
+ .../gpu/drm/amd/amdgpu/jpeg_v5_0_interrupt.h  | 12 ++++
+ 5 files changed, 83 insertions(+), 108 deletions(-)
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_interrupt.c
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_interrupt.h
 
-Oh, I didn't expect the code path of 7.0.3 is so different from the
-mainline (7.1-rc1).  The mainline has guarded this elsewhere and the
-breakage on 7.0.3 is caused by some difference reason that I'm still
-trying to figure out...
+diff --git a/drivers/gpu/drm/amd/amdgpu/Makefile b/drivers/gpu/drm/amd/amdgpu/Makefile
+index db66c6372199..69e5e55e1a2b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/Makefile
++++ b/drivers/gpu/drm/amd/amdgpu/Makefile
+@@ -229,6 +229,7 @@ amdgpu-y += \
+ 	jpeg_v5_0_0.o \
+ 	jpeg_v5_0_1.o \
+ 	jpeg_v5_0_2.o \
++	jpeg_v5_0_interrupt.o \
+ 	jpeg_v5_3_0.o
+ 
+ # add VPE block
+diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_1.c b/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_1.c
+index edecbfe66c79..6e5611921eda 100644
+--- a/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_1.c
++++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_1.c
+@@ -34,6 +34,8 @@
+ #include "vcn/vcn_5_0_0_sh_mask.h"
+ #include "ivsrcid/vcn/irqsrcs_vcn_5_0.h"
+ 
++#include "jpeg_v5_0_interrupt.h"
++
+ static int jpeg_v5_0_1_start_sriov(struct amdgpu_device *adev);
+ static void jpeg_v5_0_1_set_dec_ring_funcs(struct amdgpu_device *adev);
+ static void jpeg_v5_0_1_set_irq_funcs(struct amdgpu_device *adev);
+@@ -759,60 +761,7 @@ static int jpeg_v5_0_1_process_interrupt(struct amdgpu_device *adev,
+ 					 struct amdgpu_irq_src *source,
+ 					 struct amdgpu_iv_entry *entry)
+ {
+-	u32 i, inst;
+-
+-	i = node_id_to_phys_map[entry->node_id];
+-	DRM_DEV_DEBUG(adev->dev, "IH: JPEG TRAP\n");
+-
+-	for (inst = 0; inst < adev->jpeg.num_jpeg_inst; ++inst)
+-		if (adev->jpeg.inst[inst].aid_id == i)
+-			break;
+-
+-	if (inst >= adev->jpeg.num_jpeg_inst) {
+-		dev_WARN_ONCE(adev->dev, 1,
+-			      "Interrupt received for unknown JPEG instance %d",
+-			      entry->node_id);
+-		return 0;
+-	}
+-
+-	switch (entry->src_id) {
+-	case VCN_5_0__SRCID__JPEG_DECODE:
+-		amdgpu_fence_process(&adev->jpeg.inst[inst].ring_dec[0]);
+-		break;
+-	case VCN_5_0__SRCID__JPEG1_DECODE:
+-		amdgpu_fence_process(&adev->jpeg.inst[inst].ring_dec[1]);
+-		break;
+-	case VCN_5_0__SRCID__JPEG2_DECODE:
+-		amdgpu_fence_process(&adev->jpeg.inst[inst].ring_dec[2]);
+-		break;
+-	case VCN_5_0__SRCID__JPEG3_DECODE:
+-		amdgpu_fence_process(&adev->jpeg.inst[inst].ring_dec[3]);
+-		break;
+-	case VCN_5_0__SRCID__JPEG4_DECODE:
+-		amdgpu_fence_process(&adev->jpeg.inst[inst].ring_dec[4]);
+-		break;
+-	case VCN_5_0__SRCID__JPEG5_DECODE:
+-		amdgpu_fence_process(&adev->jpeg.inst[inst].ring_dec[5]);
+-		break;
+-	case VCN_5_0__SRCID__JPEG6_DECODE:
+-		amdgpu_fence_process(&adev->jpeg.inst[inst].ring_dec[6]);
+-		break;
+-	case VCN_5_0__SRCID__JPEG7_DECODE:
+-		amdgpu_fence_process(&adev->jpeg.inst[inst].ring_dec[7]);
+-		break;
+-	case VCN_5_0__SRCID__JPEG8_DECODE:
+-		amdgpu_fence_process(&adev->jpeg.inst[inst].ring_dec[8]);
+-		break;
+-	case VCN_5_0__SRCID__JPEG9_DECODE:
+-		amdgpu_fence_process(&adev->jpeg.inst[inst].ring_dec[9]);
+-		break;
+-	default:
+-		DRM_DEV_ERROR(adev->dev, "Unhandled interrupt: %d %d\n",
+-			      entry->src_id, entry->src_data[0]);
+-		break;
+-	}
+-
+-	return 0;
++	return jpeg_v5_0_process_interrupt_common(adev, entry);
+ }
+ 
+ static void jpeg_v5_0_1_core_stall_reset(struct amdgpu_ring *ring)
+diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_2.c b/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_2.c
+index 285c459379c4..daea95907639 100644
+--- a/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_2.c
++++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_2.c
+@@ -34,6 +34,8 @@
+ #include "vcn/vcn_5_0_0_sh_mask.h"
+ #include "ivsrcid/vcn/irqsrcs_vcn_5_0.h"
+ 
++#include "jpeg_v5_0_interrupt.h"
++
+ static void jpeg_v5_0_2_set_dec_ring_funcs(struct amdgpu_device *adev);
+ static void jpeg_v5_0_2_set_irq_funcs(struct amdgpu_device *adev);
+ static int jpeg_v5_0_2_set_powergating_state(struct amdgpu_ip_block *ip_block,
+@@ -587,60 +589,7 @@ static int jpeg_v5_0_2_process_interrupt(struct amdgpu_device *adev,
+ 					 struct amdgpu_irq_src *source,
+ 					 struct amdgpu_iv_entry *entry)
+ {
+-	u32 i, inst;
+-
+-	i = node_id_to_phys_map[entry->node_id];
+-	DRM_DEV_DEBUG(adev->dev, "IH: JPEG TRAP\n");
+-
+-	for (inst = 0; inst < adev->jpeg.num_jpeg_inst; ++inst)
+-		if (adev->jpeg.inst[inst].aid_id == i)
+-			break;
+-
+-	if (inst >= adev->jpeg.num_jpeg_inst) {
+-		dev_WARN_ONCE(adev->dev, 1,
+-			      "Interrupt received for unknown JPEG instance %d",
+-			      entry->node_id);
+-		return 0;
+-	}
+-
+-	switch (entry->src_id) {
+-	case VCN_5_0__SRCID__JPEG_DECODE:
+-		amdgpu_fence_process(&adev->jpeg.inst[inst].ring_dec[0]);
+-		break;
+-	case VCN_5_0__SRCID__JPEG1_DECODE:
+-		amdgpu_fence_process(&adev->jpeg.inst[inst].ring_dec[1]);
+-		break;
+-	case VCN_5_0__SRCID__JPEG2_DECODE:
+-		amdgpu_fence_process(&adev->jpeg.inst[inst].ring_dec[2]);
+-		break;
+-	case VCN_5_0__SRCID__JPEG3_DECODE:
+-		amdgpu_fence_process(&adev->jpeg.inst[inst].ring_dec[3]);
+-		break;
+-	case VCN_5_0__SRCID__JPEG4_DECODE:
+-		amdgpu_fence_process(&adev->jpeg.inst[inst].ring_dec[4]);
+-		break;
+-	case VCN_5_0__SRCID__JPEG5_DECODE:
+-		amdgpu_fence_process(&adev->jpeg.inst[inst].ring_dec[5]);
+-		break;
+-	case VCN_5_0__SRCID__JPEG6_DECODE:
+-		amdgpu_fence_process(&adev->jpeg.inst[inst].ring_dec[6]);
+-		break;
+-	case VCN_5_0__SRCID__JPEG7_DECODE:
+-		amdgpu_fence_process(&adev->jpeg.inst[inst].ring_dec[7]);
+-		break;
+-	case VCN_5_0__SRCID__JPEG8_DECODE:
+-		amdgpu_fence_process(&adev->jpeg.inst[inst].ring_dec[8]);
+-		break;
+-	case VCN_5_0__SRCID__JPEG9_DECODE:
+-		amdgpu_fence_process(&adev->jpeg.inst[inst].ring_dec[9]);
+-		break;
+-	default:
+-		DRM_DEV_ERROR(adev->dev, "Unhandled interrupt: %d %d\n",
+-			      entry->src_id, entry->src_data[0]);
+-		break;
+-	}
+-
+-	return 0;
++	return jpeg_v5_0_process_interrupt_common(adev, entry);
+ }
+ 
+ static void jpeg_v5_0_2_core_stall_reset(struct amdgpu_ring *ring)
+diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_interrupt.c b/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_interrupt.c
+new file mode 100644
+index 000000000000..a76ee6586b63
+--- /dev/null
++++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_interrupt.c
+@@ -0,0 +1,64 @@
++// SPDX-License-Identifier: GPL-2.0 OR MIT
++
++#include "amdgpu.h"
++#include "ivsrcid/vcn/irqsrcs_vcn_5_0.h"
++#include "jpeg_v5_0_interrupt.h"
++
++int jpeg_v5_0_process_interrupt_common(struct amdgpu_device *adev,
++				       struct amdgpu_iv_entry *entry)
++{
++	u32 i, inst;
++
++	i = node_id_to_phys_map[entry->node_id];
++	DRM_DEV_DEBUG(adev->dev, "IH: JPEG TRAP\n");
++
++	for (inst = 0; inst < adev->jpeg.num_jpeg_inst; ++inst)
++		if (adev->jpeg.inst[inst].aid_id == i)
++			break;
++
++	if (inst >= adev->jpeg.num_jpeg_inst) {
++		dev_WARN_ONCE(adev->dev, 1,
++			      "Interrupt received for unknown JPEG instance %d",
++			      entry->node_id);
++		return 0;
++	}
++
++	switch (entry->src_id) {
++	case VCN_5_0__SRCID__JPEG_DECODE:
++		amdgpu_fence_process(&adev->jpeg.inst[inst].ring_dec[0]);
++		break;
++	case VCN_5_0__SRCID__JPEG1_DECODE:
++		amdgpu_fence_process(&adev->jpeg.inst[inst].ring_dec[1]);
++		break;
++	case VCN_5_0__SRCID__JPEG2_DECODE:
++		amdgpu_fence_process(&adev->jpeg.inst[inst].ring_dec[2]);
++		break;
++	case VCN_5_0__SRCID__JPEG3_DECODE:
++		amdgpu_fence_process(&adev->jpeg.inst[inst].ring_dec[3]);
++		break;
++	case VCN_5_0__SRCID__JPEG4_DECODE:
++		amdgpu_fence_process(&adev->jpeg.inst[inst].ring_dec[4]);
++		break;
++	case VCN_5_0__SRCID__JPEG5_DECODE:
++		amdgpu_fence_process(&adev->jpeg.inst[inst].ring_dec[5]);
++		break;
++	case VCN_5_0__SRCID__JPEG6_DECODE:
++		amdgpu_fence_process(&adev->jpeg.inst[inst].ring_dec[6]);
++		break;
++	case VCN_5_0__SRCID__JPEG7_DECODE:
++		amdgpu_fence_process(&adev->jpeg.inst[inst].ring_dec[7]);
++		break;
++	case VCN_5_0__SRCID__JPEG8_DECODE:
++		amdgpu_fence_process(&adev->jpeg.inst[inst].ring_dec[8]);
++		break;
++	case VCN_5_0__SRCID__JPEG9_DECODE:
++		amdgpu_fence_process(&adev->jpeg.inst[inst].ring_dec[9]);
++		break;
++	default:
++		DRM_DEV_ERROR(adev->dev, "Unhandled interrupt: %d %d\n",
++			      entry->src_id, entry->src_data[0]);
++		break;
++	}
++
++	return 0;
++}
+diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_interrupt.h b/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_interrupt.h
+new file mode 100644
+index 000000000000..046bcb4a3906
+--- /dev/null
++++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_interrupt.h
+@@ -0,0 +1,12 @@
++/* SPDX-License-Identifier: GPL-2.0 OR MIT */
++
++#ifndef __JPEG_V5_0_INTERRUPT_H__
++#define __JPEG_V5_0_INTERRUPT_H__
++
++struct amdgpu_device;
++struct amdgpu_iv_entry;
++
++int jpeg_v5_0_process_interrupt_common(struct amdgpu_device *adev,
++				       struct amdgpu_iv_entry *entry);
++
++#endif /* __JPEG_V5_0_INTERRUPT_H__ */
+-- 
+2.43.0
 
---=20
-Xi Ruoyao <xry111@xry111.site>
