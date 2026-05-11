@@ -4,98 +4,93 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6CE9ACD37AC
-	for <amd-gfx@archiver.kernel.org>; Mon, 11 May 2026 14:23:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 14601CD37AC
+	for <amd-gfx@archiver.kernel.org>; Mon, 11 May 2026 14:55:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 09FFA10E78B;
-	Mon, 11 May 2026 14:23:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A29A810E4F1;
+	Mon, 11 May 2026 14:55:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="PnB9WX/r";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="rWaGlnKH";
 	dkim-atps=neutral
-Received: from DM1PR04CU001.outbound.protection.outlook.com
- (mail-centralusazon11010027.outbound.protection.outlook.com [52.101.61.27])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D547510E78B
- for <amd-gfx@lists.freedesktop.org>; Mon, 11 May 2026 14:23:26 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=BdPnU3Latj4FQxqxQ2zzQ67ctaJcUuVbImkNJEF3iz58Njs7fPDW9MDQ+5KCGpKs9B/4CCUl0zdJ4GUvz+4EWDeee815m9rabH+6KzwozQ5g0e8mHZKYZVrVXfSShedpJmaLaUwXu6FjIq5CzuPL2SsDxmgOHiG+m/Xa3vvx+IP4k2Jad87wv484Q3Gtu+4L81l7yRoTFfZnrGL+7/eHxEC99sXQnQjDQANfGBcap/DBQnVH9hhKVnSbhNIDI3tqJgb7457Y3oftqxCoGIvCe0a5+rImlVbFqaGQ6U4NDaMaZ0W9ifP0KwY8s48Y23VulqFus0A9KfmeLpEDxq9y7A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Db5ZMRvlXPEjT1p/8Ma9V1ndpdOz0V/r8Cc2CnXqm7o=;
- b=KtnlwnIiq3gupZoOlzzFIoJJ0WN7SnL0t/LOCfHWYOzQ1EN/dpYWBtKDkrq5O7tZ+rxyIZJP2fEvccI15D7Sr3U+OBsIRciIA9CjfHHj3csEVjnFZ33DsYZmE644bX98iJi23DQ8M/JXfe5RB/FY0vOutWp1NCQ/n3hkvgC/5Y5xXuzAZrDwREGbEpKo3xBwxWRSwZisTpOcFXsP3cBLXtfAFXrktlxyzBuHwQe/nsUAci6Fnjh8rJg66uaJaxWG7nVc6052TA1anyfpIlE+PFs84GPASHGSTij2HyOwIkaUf65R5pjrbJNQXa4Bk1tzKst+BQif8Zgx7x7E2DGlHQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Db5ZMRvlXPEjT1p/8Ma9V1ndpdOz0V/r8Cc2CnXqm7o=;
- b=PnB9WX/rie22vcAtW/57hGYKVqIPnXyfDX7M/mM8OJs1ZEa8Y8ZSxW1uHCyaIKqcYlE/9zN+TO8owihGgS6GMF7lDk6YyyJo5VlstNjPWGwiEbCzpRAHh0MH367wG/uU6jmGJuI/7pVcCxzgS4CiS6ZtaysI0sabJZWejzZe/OQ=
-Received: from SJ0PR03CA0199.namprd03.prod.outlook.com (2603:10b6:a03:2ef::24)
- by MW6PR12MB8835.namprd12.prod.outlook.com (2603:10b6:303:240::7)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9891.23; Mon, 11 May
- 2026 14:23:21 +0000
-Received: from SJ1PEPF00002322.namprd03.prod.outlook.com
- (2603:10b6:a03:2ef:cafe::f8) by SJ0PR03CA0199.outlook.office365.com
- (2603:10b6:a03:2ef::24) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9891.23 via Frontend Transport; Mon,
- 11 May 2026 14:23:21 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- SJ1PEPF00002322.mail.protection.outlook.com (10.167.242.84) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.25.13 via Frontend Transport; Mon, 11 May 2026 14:23:20 +0000
-Received: from yifan.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Mon, 11 May
- 2026 09:23:17 -0500
-From: Yifan Zhang <yifan1.zhang@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <Alexander.Deucher@amd.com>, <christian.koenig@amd.com>,
- <Felix.Kuehling@amd.com>, <Perry.Yuan@amd.com>, Yifan Zhang
- <yifan1.zhang@amd.com>
-Subject: [PATCH v3] drm/amdgpu: unmap all user mappings of framebuffer and
- doorbell before mode1 reset
-Date: Mon, 11 May 2026 22:22:59 +0800
-Message-ID: <20260511142259.1424915-1-yifan1.zhang@amd.com>
-X-Mailer: git-send-email 2.43.0
+Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com
+ [74.125.82.170])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D777910E7B8
+ for <amd-gfx@lists.freedesktop.org>; Mon, 11 May 2026 14:55:56 +0000 (UTC)
+Received: by mail-dy1-f170.google.com with SMTP id
+ 5a478bee46e88-2f16c892babso180675eec.0
+ for <amd-gfx@lists.freedesktop.org>; Mon, 11 May 2026 07:55:56 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1778511356; cv=none;
+ d=google.com; s=arc-20240605;
+ b=KZ401SucGPvBY4Dj0sUOBbsTAG9s00yCWbsvEbOEA06njuSk/uZc/9wkBOFfMkeYxM
+ 025EWc7lseO0+/VMMT5EoUBAn1Mqj/68BV5LcsD8QalNHCN07tvzZ7DVU321C2sGZf9+
+ BwdWYiL9Wr/NFghHD88iq19DsgwJNVmJeXj/Ad0W2f5XqO3Zgvdxe5DnrbM3ma1JQrMi
+ drbfu/Mp9Yw0wzZ0jfGdFnp7xcnx+7/y98Ksy43+tgOSELtimhuQOVAKSTMBfMoHj7Cu
+ pnAyG0i/R5Ui13DRSNMw/FY+3K9qZ9/M06/aGR04vVkeGBmaSgUusjcq9MXFq+kkICMm
+ 1EDQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=HHlD5OTyHtfAYM76phsY/ZqvgweuPXTS9NKTApgHnkI=;
+ fh=ElDNM5Tv8IUviZg4xNga0syPq6dgNyK0sWvFeWyjLFQ=;
+ b=T1qahosDF0XEcGgj3pfs4263TdLL+Yx1WIBSXs7gDk6CGQPW6y7kmUCIMW5MRa1SrF
+ rDoTOgpqTW0ame9+tkqAzBVcxsOktruf6zMZMGd3yIH7Gl0fIDqmAnYDRYnL2wL3ysg6
+ 5wVbPm8r1AZFpUgncDL2RIhG5nuPZy0OT1qiKizJGGdvG8K/Bj5cIWxTNWOs5QJMHI8K
+ KsHAOtz79HECF39cXCBKOT85ENCVcwRLJMOFcp97kPfXb8j+7ZG/hrLYRESi3RpH+HoK
+ TI7uTA6FAkt1LDxicQwCnw6XhJc64YF7F+EPAsgPyTwXwiqmHRPIbvsx3LBABucrHHZZ
+ 3U1Q==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1778511356; x=1779116156; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=HHlD5OTyHtfAYM76phsY/ZqvgweuPXTS9NKTApgHnkI=;
+ b=rWaGlnKHpDPNPKXBd0SzDgPzQ0/Bq6JRumwEUsHfnLEiE601IvKZDO/Oxr7aOaYEkJ
+ P840HGl+h9HAAHXiUJhJe21PEghSriH8daBlSZMlIXMuGtiqis3/mxBBOzKKpm4DoI/S
+ dGOh1h3up+uWqFj1w5v0XBFHlInstfZkJZPnaWZ6oZU2/+g15yV3ktBL+i2gXHk10J6Q
+ P7APwFLWdOJSYWFRHO9sd2CrmVKtm7LnjLsbe2hIClLjvtiJINGUhV7sSi6xrag2Qo7/
+ rLltXNVq/cmByPh0rAW3xZsx2n4bq7EYx5CNUZ2fgeBoirKyTpahRQMA6A0Pg3WvnGS4
+ B9NA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1778511356; x=1779116156;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=HHlD5OTyHtfAYM76phsY/ZqvgweuPXTS9NKTApgHnkI=;
+ b=oj3SFAXXOVDvfZMiFkwtbCRF2ESeGIyKZviU8isHiMTmbUia0ZtSit9LGU2Cm7V+ZY
+ kcnHzSCwqzxKBha7qi1MoMnHZb5MjpChpnDYqowy9OfNQ9dSODFtk4Jn6P9a9H97j07N
+ dLyTC+SuCRveQkvGQrWFeZxuLEt42QWcwVOeUioWSfrtHX9NnOgNtbycQ8Q666jL8lfW
+ 2OppkqJ0oQHn+hoJ4mblOrUK/S8RA6xQ7xEfY8znZa4CGb87FxFI7aZWluq8LKFRK5Nl
+ qLyOErPJrKVxz/FVDIemWLoAkt7sN46GGoWcqFymeZ07zu5wDmWmQ+Fvxo9AL5T+hun8
+ +cRQ==
+X-Gm-Message-State: AOJu0Yx0igxNYb9Fxb21VgEQixu/A460/exZVHxJp2MrUJndyot8/gxj
+ 8AWxtBnVf/VprAODuNR+9RTUef2ueU2zdCjA7KCpItEDcaINGFrbnjiuk8Tt3vdcwkpsMLSA3JZ
+ Ckqcf+VbBSnp2qeD+hOFms1TOsxMA2KI=
+X-Gm-Gg: Acq92OFvbi0QK50g1+f4Ta0jCoOHs0be80y4uqmwtfPDtWjGSHd7CphhdDJQNWP57pR
+ A92QPieQclb2LAsc96SzwZR2BgnLHxpXimoB1Li10Eq+SQCvJDckoQusBmBUGzEQuoIUnUgtkEN
+ 1yt6ZmR/B8BYNP+rQ+2rqU6RsWKhdgK743tqfIxczxALuQxenWht8C8SutFzV7fAvait7DQKT4Y
+ yrGaDPHfHoMir5quyKNPENu50gvnvatjYcqvgi0/z1+aDDnn7G0vi4/YT/BlldF8HZsald7AdZq
+ AyOYTPZc40cpCDhMYMc2FOMuAiUcms8Teog2X5uxOaTauU3Heqz4kdFMwVPa/uEABbpe1SBF+Ua
+ MCKzO
+X-Received: by 2002:a05:7300:3b08:b0:2f3:3835:2010 with SMTP id
+ 5a478bee46e88-2f54c37e2eamr5585309eec.6.1778511355948; Mon, 11 May 2026
+ 07:55:55 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF00002322:EE_|MW6PR12MB8835:EE_
-X-MS-Office365-Filtering-Correlation-Id: a3218224-dd29-41e9-5e83-08deaf68da01
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|36860700016|1800799024|82310400026|11063799003|56012099003|18002099003;
-X-Microsoft-Antispam-Message-Info: gHgk5DWY0nYGPDLV7BYijGB/PPn8B/gFgzzO70JQJN7Tkt3PMeswV2udNMBgi+ceVCBua2CbaISCNJQapeE7S+/oMLPerw5MA0ZRBoGf67JG57pb4E4oiEuD9h91AMhwF4Vklv85EO03HZ+lMoAdZRXtTkUQXNk5flTvaJqlZbnwXK2d/ij5ypVm5Oz74WZCafRGAgI+XgXV54Tta67nH4A1dzh9pfadHFQ27/bDYlZOTdcPvPvdqvisDmMqtTAvQM/ouZgdfpsokzEAxGoR4DF/4VgHdlFVVwcbRpSLSn1ZBd+inpZL6/jW/oAaULUhuXnbd5GYG9j3adkcig+41deWNRz7WGhYrJhzhnlHBLuzYJTuZ3Nh82zr73SMZnUD5c1CAMvnu1HfsSCC2/TsC5VDRLg5706u45c8hLJtFJYcapeJsrv4TqvJg30pyMQsX/uWkOseNN5FfhvWKnzRFvG5BoMl9sUcN1sP5zaCI4ObcubZP/Hcnm0P6LDbWlsSougpglHfWDa4NjMuWjiyuQQl2b6Q6YVLptGepwEii+oA7rS+rrv1rFKtR/i8O7+NF7cFPVTyoYFYO97vNByoh3PE5zoLa/LAQc1cv/7fHNhM8TesEpqgzDFWvzQptG7PxrAR+VodkwZ2oT9d9eBxywQotuuWY5BUujXViCaFUzbpMgNnZIp2OqMIoIX+3DJ/sxWpY9PXDcBVmaa4yQ5Al4loRFxuFtdZi3iuH9vOKzk=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(36860700016)(1800799024)(82310400026)(11063799003)(56012099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: Fx+XkaXNSv9VEGfYNT/AbvPH3EfCZ410Tpsx/9WonTbi52mGBMNJ+RRAcZyWWLvrBBcCmgoVJ3s3xehpqobwh34dSooK+QSz7YXBkwBW6eQMNlNbN51chHpTFWma/80XAxTE0zzeb0Log2mr49BdiGVLieoQPe5aY5mFitKYK3V0OGL84slAgv2QWvlGetjXOqj3cBleWjTGm46nslONSk/woLcdu2lU2Zw3JMTzGcdIsjU+dk9ICeRJj1kGBBJHPpjVQu7wFbroWqqgH1Du29Ii2tgyuRNZWaZrG6xl+msuI1/WnBAKT8ILUNL9txNRNCrDtnXYkB5vKmejX84zx3v9DC/TeC4S2EtBHryvJ26p+Fs58D1iLwNOHVmSk3Km147PKH34pJz93eclWKqTcbpTyr/Ey41bXy2LjANQJDzMSNlAY3ERXCtkxRzOKVoV
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 May 2026 14:23:20.1359 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: a3218224-dd29-41e9-5e83-08deaf68da01
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF00002322.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR12MB8835
+References: <20260509020339.262889-1-andrebueno.mac@gmail.com>
+In-Reply-To: <20260509020339.262889-1-andrebueno.mac@gmail.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 11 May 2026 10:55:44 -0400
+X-Gm-Features: AVHnY4K4GV4mA1OKBu9p19GDepiceXFJ3wxCdlXzKKTfJ9oZ1hXbKk39wjb4GTs
+Message-ID: <CADnq5_POUhiOuusWBXgZMLCUhoRutMoH0NaLJgjWqapXd0eRcw@mail.gmail.com>
+Subject: Re: [PATCH V1 RESEND] drm/amdgpu: deduplicate JPEG v5.0 interrupt
+ routine
+To: Andre Luiz Batista Bueno <andrebueno.mac@gmail.com>
+Cc: amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com, 
+ christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch, 
+ enzo.spinella@usp.br, dri-devel@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,148 +105,298 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-During Mode 1 reset, the ASIC undergoes a reset cycle and becomes temporarily
-inaccessible via PCIe. Any attempt to access framebuffer or MMIO registers during
-this window can result in uncompleted PCIe transactions, leading to NMI panics or
-system hangs.
+On Sun, May 10, 2026 at 6:14=E2=80=AFAM Andre Luiz Batista Bueno
+<andrebueno.mac@gmail.com> wrote:
+>
+> Both jpeg_v5_0_1.c and jpeg_v5_0_2.c implement identical
+> interrupt processing routines. To avoid code duplication,
+> extract this implementation into a shared common function
+> in new jpeg_v5_0_interrupt.c and .h files.
+>
+> Signed-off-by: Andre Luiz Batista Bueno <andrebueno.mac@gmail.com>
+> Co-developed-by: Enzo Furegatti Spinella <enzo.spinella@usp.br>
+> Signed-off-by: Enzo Furegatti Spinella <enzo.spinella@usp.br>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/Makefile           |  1 +
+>  drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_1.c      | 57 +----------------
+>  drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_2.c      | 57 +----------------
+>  .../gpu/drm/amd/amdgpu/jpeg_v5_0_interrupt.c  | 64 +++++++++++++++++++
+>  .../gpu/drm/amd/amdgpu/jpeg_v5_0_interrupt.h  | 12 ++++
+>  5 files changed, 83 insertions(+), 108 deletions(-)
+>  create mode 100644 drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_interrupt.c
+>  create mode 100644 drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_interrupt.h
 
-To prevent this, Unmap all of the applications mappings of the framebuffer
-and doorbell BARs before mode1 reset. Also prevent new mappings from coming in
-during the reset process.
+This is not common to jpeg v5.  jpeg_v5_0_0.c has a different
+interrupt handler, although it could probably be shared with that as
+well.  I think the additional fields in the IH should be 0s so it
+should work correctly, but we'd need to verify.  If you do want to
+share this, I would just make the implementation in jpeg_v5_0_1.c
+non-static and then just use it directly in jpeg_v5_0_2.c.
 
-v2: remove inode in kfd_dev (Christian)
-v3: correct unmap offset (Felix), remove prevent new mappings part to avoid deadlock (Christian)
+Alex
 
-Signed-off-by: Yifan Zhang <yifan1.zhang@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c | 22 ++++++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h |  1 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  6 ++++++
- drivers/gpu/drm/amd/amdkfd/kfd_chardev.c   | 22 ++++++++++++++++++++++
- drivers/gpu/drm/amd/amdkfd/kfd_priv.h      |  1 +
- 5 files changed, 52 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-index 7b10bbe28caf..d1dac3412a66 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-@@ -36,6 +36,7 @@
- #include "amdgpu_ras.h"
- #include "amdgpu_umc.h"
- #include "amdgpu_reset.h"
-+#include "kfd_priv.h"
- 
- /* Total memory size in system memory and all GPU VRAM. Used to
-  * estimate worst case amount of memory to reserve for page tables
-@@ -320,6 +321,27 @@ void amdgpu_amdkfd_gpu_reset(struct amdgpu_device *adev)
- 		(void)amdgpu_reset_domain_schedule(adev->reset_domain, &adev->kfd.reset_work);
- }
- 
-+void amdgpu_amdkfd_clear_kfd_mapping(struct amdgpu_device *adev)
-+{
-+	struct kfd_dev *kfd = adev->kfd.dev;
-+	unsigned int i;
-+
-+	if (!kfd)
-+		return;
-+
-+	for (i = 0; i < kfd->num_nodes; i++) {
-+		struct kfd_node *node = kfd->nodes[i];
-+
-+		kfd_dev_unmap_mapping_range(KFD_MMAP_TYPE_DOORBELL |
-+					    KFD_MMAP_GPU_ID(node->id),
-+					    kfd_doorbell_process_slice(kfd));
-+		kfd_dev_unmap_mapping_range(KFD_MMAP_TYPE_MMIO |
-+					    KFD_MMAP_GPU_ID(node->id),
-+					    PAGE_SIZE);
-+	}
-+}
-+
-+
- int amdgpu_amdkfd_alloc_kernel_mem(struct amdgpu_device *adev, size_t size,
- 				u32 domain, void **mem_obj, uint64_t *gpu_addr,
- 				void **cpu_ptr, bool cp_mqd_gfx9)
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-index 2bf6a31c194d..5333e052d56d 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-@@ -360,6 +360,7 @@ int amdgpu_amdkfd_reserve_mem_limit(struct amdgpu_device *adev,
- 		uint64_t size, u32 alloc_flag, int8_t xcp_id);
- void amdgpu_amdkfd_unreserve_mem_limit(struct amdgpu_device *adev,
- 		uint64_t size, u32 alloc_flag, int8_t xcp_id);
-+void amdgpu_amdkfd_clear_kfd_mapping(struct amdgpu_device *adev);
- 
- u64 amdgpu_amdkfd_xcp_memory_size(struct amdgpu_device *adev, int xcp_id);
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index 1202a72ff063..6760c9331f46 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -5844,6 +5844,12 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
- 	/* We need to lock reset domain only once both for XGMI and single device */
- 	amdgpu_device_recovery_get_reset_lock(adev, &device_list);
- 
-+	/* unmap all the mappings of doorbell and framebuffer to prevent user space from
-+	 * accessing them
-+	 */
-+	unmap_mapping_range(adev->ddev.anon_inode->i_mapping, 0, 0, 1);
-+	amdgpu_amdkfd_clear_kfd_mapping(adev);
-+
- 	amdgpu_device_halt_activities(adev, job, reset_context, &device_list,
- 				      hive, need_emergency_restart);
- 	if (need_emergency_restart)
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-index 84b9bde7f371..1be1b1dd2341 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-@@ -69,6 +69,21 @@ static const struct class kfd_class = {
- 	.name = kfd_dev_name,
- };
- 
-+/*
-+ * Cache the address space of the chardev on first open so that the reset
-+ * path can drop all userspace mappings of doorbell and MMIO ranges via
-+ * unmap_mapping_range().
-+ */
-+static struct address_space *kfd_dev_mapping;
-+
-+void kfd_dev_unmap_mapping_range(loff_t const holebegin, loff_t const holelen)
-+{
-+	struct address_space *mapping = READ_ONCE(kfd_dev_mapping);
-+
-+	if (mapping)
-+		unmap_mapping_range(mapping, holebegin, holelen, 1);
-+}
-+
- static inline struct kfd_process_device *kfd_lock_pdd_by_id(struct kfd_process *p, __u32 gpu_id)
- {
- 	struct kfd_process_device *pdd;
-@@ -135,6 +150,13 @@ static int kfd_open(struct inode *inode, struct file *filep)
- 	if (iminor(inode) != 0)
- 		return -ENODEV;
- 
-+	/*
-+	 * /dev/kfd is a single chardev so all opens share one inode. Cache
-+	 * its address_space on the first open for use by the reset path.
-+	 */
-+	if (!READ_ONCE(kfd_dev_mapping))
-+		cmpxchg(&kfd_dev_mapping, NULL, inode->i_mapping);
-+
- 	is_32bit_user_mode = in_compat_syscall();
- 
- 	if (is_32bit_user_mode) {
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-index a6ff1db477f9..f037062c33ea 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-@@ -399,6 +399,7 @@ enum kfd_mempool {
- /* Character device interface */
- int kfd_chardev_init(void);
- void kfd_chardev_exit(void);
-+void kfd_dev_unmap_mapping_range(loff_t const holebegin, loff_t const holelen);
- 
- /**
-  * enum kfd_unmap_queues_filter - Enum for queue filters.
--- 
-2.43.0
-
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/Makefile b/drivers/gpu/drm/amd/am=
+dgpu/Makefile
+> index db66c6372199..69e5e55e1a2b 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/Makefile
+> +++ b/drivers/gpu/drm/amd/amdgpu/Makefile
+> @@ -229,6 +229,7 @@ amdgpu-y +=3D \
+>         jpeg_v5_0_0.o \
+>         jpeg_v5_0_1.o \
+>         jpeg_v5_0_2.o \
+> +       jpeg_v5_0_interrupt.o \
+>         jpeg_v5_3_0.o
+>
+>  # add VPE block
+> diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_1.c b/drivers/gpu/drm/a=
+md/amdgpu/jpeg_v5_0_1.c
+> index edecbfe66c79..6e5611921eda 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_1.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_1.c
+> @@ -34,6 +34,8 @@
+>  #include "vcn/vcn_5_0_0_sh_mask.h"
+>  #include "ivsrcid/vcn/irqsrcs_vcn_5_0.h"
+>
+> +#include "jpeg_v5_0_interrupt.h"
+> +
+>  static int jpeg_v5_0_1_start_sriov(struct amdgpu_device *adev);
+>  static void jpeg_v5_0_1_set_dec_ring_funcs(struct amdgpu_device *adev);
+>  static void jpeg_v5_0_1_set_irq_funcs(struct amdgpu_device *adev);
+> @@ -759,60 +761,7 @@ static int jpeg_v5_0_1_process_interrupt(struct amdg=
+pu_device *adev,
+>                                          struct amdgpu_irq_src *source,
+>                                          struct amdgpu_iv_entry *entry)
+>  {
+> -       u32 i, inst;
+> -
+> -       i =3D node_id_to_phys_map[entry->node_id];
+> -       DRM_DEV_DEBUG(adev->dev, "IH: JPEG TRAP\n");
+> -
+> -       for (inst =3D 0; inst < adev->jpeg.num_jpeg_inst; ++inst)
+> -               if (adev->jpeg.inst[inst].aid_id =3D=3D i)
+> -                       break;
+> -
+> -       if (inst >=3D adev->jpeg.num_jpeg_inst) {
+> -               dev_WARN_ONCE(adev->dev, 1,
+> -                             "Interrupt received for unknown JPEG instan=
+ce %d",
+> -                             entry->node_id);
+> -               return 0;
+> -       }
+> -
+> -       switch (entry->src_id) {
+> -       case VCN_5_0__SRCID__JPEG_DECODE:
+> -               amdgpu_fence_process(&adev->jpeg.inst[inst].ring_dec[0]);
+> -               break;
+> -       case VCN_5_0__SRCID__JPEG1_DECODE:
+> -               amdgpu_fence_process(&adev->jpeg.inst[inst].ring_dec[1]);
+> -               break;
+> -       case VCN_5_0__SRCID__JPEG2_DECODE:
+> -               amdgpu_fence_process(&adev->jpeg.inst[inst].ring_dec[2]);
+> -               break;
+> -       case VCN_5_0__SRCID__JPEG3_DECODE:
+> -               amdgpu_fence_process(&adev->jpeg.inst[inst].ring_dec[3]);
+> -               break;
+> -       case VCN_5_0__SRCID__JPEG4_DECODE:
+> -               amdgpu_fence_process(&adev->jpeg.inst[inst].ring_dec[4]);
+> -               break;
+> -       case VCN_5_0__SRCID__JPEG5_DECODE:
+> -               amdgpu_fence_process(&adev->jpeg.inst[inst].ring_dec[5]);
+> -               break;
+> -       case VCN_5_0__SRCID__JPEG6_DECODE:
+> -               amdgpu_fence_process(&adev->jpeg.inst[inst].ring_dec[6]);
+> -               break;
+> -       case VCN_5_0__SRCID__JPEG7_DECODE:
+> -               amdgpu_fence_process(&adev->jpeg.inst[inst].ring_dec[7]);
+> -               break;
+> -       case VCN_5_0__SRCID__JPEG8_DECODE:
+> -               amdgpu_fence_process(&adev->jpeg.inst[inst].ring_dec[8]);
+> -               break;
+> -       case VCN_5_0__SRCID__JPEG9_DECODE:
+> -               amdgpu_fence_process(&adev->jpeg.inst[inst].ring_dec[9]);
+> -               break;
+> -       default:
+> -               DRM_DEV_ERROR(adev->dev, "Unhandled interrupt: %d %d\n",
+> -                             entry->src_id, entry->src_data[0]);
+> -               break;
+> -       }
+> -
+> -       return 0;
+> +       return jpeg_v5_0_process_interrupt_common(adev, entry);
+>  }
+>
+>  static void jpeg_v5_0_1_core_stall_reset(struct amdgpu_ring *ring)
+> diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_2.c b/drivers/gpu/drm/a=
+md/amdgpu/jpeg_v5_0_2.c
+> index 285c459379c4..daea95907639 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_2.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_2.c
+> @@ -34,6 +34,8 @@
+>  #include "vcn/vcn_5_0_0_sh_mask.h"
+>  #include "ivsrcid/vcn/irqsrcs_vcn_5_0.h"
+>
+> +#include "jpeg_v5_0_interrupt.h"
+> +
+>  static void jpeg_v5_0_2_set_dec_ring_funcs(struct amdgpu_device *adev);
+>  static void jpeg_v5_0_2_set_irq_funcs(struct amdgpu_device *adev);
+>  static int jpeg_v5_0_2_set_powergating_state(struct amdgpu_ip_block *ip_=
+block,
+> @@ -587,60 +589,7 @@ static int jpeg_v5_0_2_process_interrupt(struct amdg=
+pu_device *adev,
+>                                          struct amdgpu_irq_src *source,
+>                                          struct amdgpu_iv_entry *entry)
+>  {
+> -       u32 i, inst;
+> -
+> -       i =3D node_id_to_phys_map[entry->node_id];
+> -       DRM_DEV_DEBUG(adev->dev, "IH: JPEG TRAP\n");
+> -
+> -       for (inst =3D 0; inst < adev->jpeg.num_jpeg_inst; ++inst)
+> -               if (adev->jpeg.inst[inst].aid_id =3D=3D i)
+> -                       break;
+> -
+> -       if (inst >=3D adev->jpeg.num_jpeg_inst) {
+> -               dev_WARN_ONCE(adev->dev, 1,
+> -                             "Interrupt received for unknown JPEG instan=
+ce %d",
+> -                             entry->node_id);
+> -               return 0;
+> -       }
+> -
+> -       switch (entry->src_id) {
+> -       case VCN_5_0__SRCID__JPEG_DECODE:
+> -               amdgpu_fence_process(&adev->jpeg.inst[inst].ring_dec[0]);
+> -               break;
+> -       case VCN_5_0__SRCID__JPEG1_DECODE:
+> -               amdgpu_fence_process(&adev->jpeg.inst[inst].ring_dec[1]);
+> -               break;
+> -       case VCN_5_0__SRCID__JPEG2_DECODE:
+> -               amdgpu_fence_process(&adev->jpeg.inst[inst].ring_dec[2]);
+> -               break;
+> -       case VCN_5_0__SRCID__JPEG3_DECODE:
+> -               amdgpu_fence_process(&adev->jpeg.inst[inst].ring_dec[3]);
+> -               break;
+> -       case VCN_5_0__SRCID__JPEG4_DECODE:
+> -               amdgpu_fence_process(&adev->jpeg.inst[inst].ring_dec[4]);
+> -               break;
+> -       case VCN_5_0__SRCID__JPEG5_DECODE:
+> -               amdgpu_fence_process(&adev->jpeg.inst[inst].ring_dec[5]);
+> -               break;
+> -       case VCN_5_0__SRCID__JPEG6_DECODE:
+> -               amdgpu_fence_process(&adev->jpeg.inst[inst].ring_dec[6]);
+> -               break;
+> -       case VCN_5_0__SRCID__JPEG7_DECODE:
+> -               amdgpu_fence_process(&adev->jpeg.inst[inst].ring_dec[7]);
+> -               break;
+> -       case VCN_5_0__SRCID__JPEG8_DECODE:
+> -               amdgpu_fence_process(&adev->jpeg.inst[inst].ring_dec[8]);
+> -               break;
+> -       case VCN_5_0__SRCID__JPEG9_DECODE:
+> -               amdgpu_fence_process(&adev->jpeg.inst[inst].ring_dec[9]);
+> -               break;
+> -       default:
+> -               DRM_DEV_ERROR(adev->dev, "Unhandled interrupt: %d %d\n",
+> -                             entry->src_id, entry->src_data[0]);
+> -               break;
+> -       }
+> -
+> -       return 0;
+> +       return jpeg_v5_0_process_interrupt_common(adev, entry);
+>  }
+>
+>  static void jpeg_v5_0_2_core_stall_reset(struct amdgpu_ring *ring)
+> diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_interrupt.c b/drivers/g=
+pu/drm/amd/amdgpu/jpeg_v5_0_interrupt.c
+> new file mode 100644
+> index 000000000000..a76ee6586b63
+> --- /dev/null
+> +++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_interrupt.c
+> @@ -0,0 +1,64 @@
+> +// SPDX-License-Identifier: GPL-2.0 OR MIT
+> +
+> +#include "amdgpu.h"
+> +#include "ivsrcid/vcn/irqsrcs_vcn_5_0.h"
+> +#include "jpeg_v5_0_interrupt.h"
+> +
+> +int jpeg_v5_0_process_interrupt_common(struct amdgpu_device *adev,
+> +                                      struct amdgpu_iv_entry *entry)
+> +{
+> +       u32 i, inst;
+> +
+> +       i =3D node_id_to_phys_map[entry->node_id];
+> +       DRM_DEV_DEBUG(adev->dev, "IH: JPEG TRAP\n");
+> +
+> +       for (inst =3D 0; inst < adev->jpeg.num_jpeg_inst; ++inst)
+> +               if (adev->jpeg.inst[inst].aid_id =3D=3D i)
+> +                       break;
+> +
+> +       if (inst >=3D adev->jpeg.num_jpeg_inst) {
+> +               dev_WARN_ONCE(adev->dev, 1,
+> +                             "Interrupt received for unknown JPEG instan=
+ce %d",
+> +                             entry->node_id);
+> +               return 0;
+> +       }
+> +
+> +       switch (entry->src_id) {
+> +       case VCN_5_0__SRCID__JPEG_DECODE:
+> +               amdgpu_fence_process(&adev->jpeg.inst[inst].ring_dec[0]);
+> +               break;
+> +       case VCN_5_0__SRCID__JPEG1_DECODE:
+> +               amdgpu_fence_process(&adev->jpeg.inst[inst].ring_dec[1]);
+> +               break;
+> +       case VCN_5_0__SRCID__JPEG2_DECODE:
+> +               amdgpu_fence_process(&adev->jpeg.inst[inst].ring_dec[2]);
+> +               break;
+> +       case VCN_5_0__SRCID__JPEG3_DECODE:
+> +               amdgpu_fence_process(&adev->jpeg.inst[inst].ring_dec[3]);
+> +               break;
+> +       case VCN_5_0__SRCID__JPEG4_DECODE:
+> +               amdgpu_fence_process(&adev->jpeg.inst[inst].ring_dec[4]);
+> +               break;
+> +       case VCN_5_0__SRCID__JPEG5_DECODE:
+> +               amdgpu_fence_process(&adev->jpeg.inst[inst].ring_dec[5]);
+> +               break;
+> +       case VCN_5_0__SRCID__JPEG6_DECODE:
+> +               amdgpu_fence_process(&adev->jpeg.inst[inst].ring_dec[6]);
+> +               break;
+> +       case VCN_5_0__SRCID__JPEG7_DECODE:
+> +               amdgpu_fence_process(&adev->jpeg.inst[inst].ring_dec[7]);
+> +               break;
+> +       case VCN_5_0__SRCID__JPEG8_DECODE:
+> +               amdgpu_fence_process(&adev->jpeg.inst[inst].ring_dec[8]);
+> +               break;
+> +       case VCN_5_0__SRCID__JPEG9_DECODE:
+> +               amdgpu_fence_process(&adev->jpeg.inst[inst].ring_dec[9]);
+> +               break;
+> +       default:
+> +               DRM_DEV_ERROR(adev->dev, "Unhandled interrupt: %d %d\n",
+> +                             entry->src_id, entry->src_data[0]);
+> +               break;
+> +       }
+> +
+> +       return 0;
+> +}
+> diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_interrupt.h b/drivers/g=
+pu/drm/amd/amdgpu/jpeg_v5_0_interrupt.h
+> new file mode 100644
+> index 000000000000..046bcb4a3906
+> --- /dev/null
+> +++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_interrupt.h
+> @@ -0,0 +1,12 @@
+> +/* SPDX-License-Identifier: GPL-2.0 OR MIT */
+> +
+> +#ifndef __JPEG_V5_0_INTERRUPT_H__
+> +#define __JPEG_V5_0_INTERRUPT_H__
+> +
+> +struct amdgpu_device;
+> +struct amdgpu_iv_entry;
+> +
+> +int jpeg_v5_0_process_interrupt_common(struct amdgpu_device *adev,
+> +                                      struct amdgpu_iv_entry *entry);
+> +
+> +#endif /* __JPEG_V5_0_INTERRUPT_H__ */
+> --
+> 2.43.0
+>
