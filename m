@@ -4,97 +4,82 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BBB60CD37BE
-	for <amd-gfx@archiver.kernel.org>; Mon, 11 May 2026 19:29:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 67673CD484E
+	for <amd-gfx@archiver.kernel.org>; Mon, 11 May 2026 23:12:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 400A110E8A2;
-	Mon, 11 May 2026 19:29:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CA35C10E902;
+	Mon, 11 May 2026 23:12:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="NzrUabWu";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="hkAeUVRc";
 	dkim-atps=neutral
-Received: from MW6PR02CU001.outbound.protection.outlook.com
- (mail-westus2azon11012033.outbound.protection.outlook.com [52.101.48.33])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AD0E710E889
- for <amd-gfx@lists.freedesktop.org>; Mon, 11 May 2026 19:29:31 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=iQin5Td1gl10ZTASGWyKksqms2HCjQ4ANb+udMD6A6tN3IfUfCZwASpaNSIHAa3pd5CSlmCdJjeYnl/1HWB9aWZ+E7KPjm+VQcM4wDsOpRBqD1Bgz2/HjPgMz6Zf+4tuLDigIV6h5IJhxcq/z89PKsCUQQfyPzsvVJn3AoKcAlo1hFq50gOykfnpTD6OkaWnO6C0viPvzmR5tjLrADkPpzO1EBk1GflihJK7MVnwYXhYOLdNWgscZEtePYLj/vsc6OGxrYbWyZCpM6mD1U6lFe65PRPzyi0TN9ae3FwMxQvUP7Jyxc/ta0jlFFgmbsqsMyowDSSN9acUnw/ywcjOwg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=EFOePZW6GXhRffwp3Kwpo6tm9cH3AOOA0piQkVquKzQ=;
- b=YVXzBE7sfwLf3IPkzpupAR0M8fZ7OJXrv8zrf2oOrER12JoPY4ulIhTN2QEB9cKmPjrzOEyhOZcDSylMPvrnkl/pIOZjWjPylPrBD88OKLL62V39n4RvvG0YeVwLuEm4HHwwHJ+b1CK6kMjVIqLXD2q8K/hRP2eA9KnD8bUnaC7KcN8zB82cgdwrbv1cGPS7YfC7d5Tp3cqe08xq9UxyYYYW4NDcZrmrvWFKi1PbC/xlhmAgVt2DhjQp7440wOLwVq9/uAjCHUUluPSrBK3ckzWGBnyBEKxnTkciTdIrpQ+54Pve7F13EgoZBa0I1Noo+PxlCpcESOGZ574r66RovQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=EFOePZW6GXhRffwp3Kwpo6tm9cH3AOOA0piQkVquKzQ=;
- b=NzrUabWuz3wC3F3qfaGTWrChpZF6EWL4UEBGr9w9lB8h7QCVSfZZgsrqpZf5MEzebARJduzNOC8zDP1VVWIfXAnYDZV4FtPaBqwXfkYnQC5rvTu+pnIpQsbIqhH+fMZfZPidy7u0n0bopFaH4jZ9b5uuus5/DgwJarkbdhe4dEk=
-Received: from MN0P221CA0021.NAMP221.PROD.OUTLOOK.COM (2603:10b6:208:52a::25)
- by DS7PR12MB6239.namprd12.prod.outlook.com (2603:10b6:8:95::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9891.22; Mon, 11 May
- 2026 19:29:24 +0000
-Received: from MN1PEPF0000ECD6.namprd02.prod.outlook.com
- (2603:10b6:208:52a:cafe::60) by MN0P221CA0021.outlook.office365.com
- (2603:10b6:208:52a::25) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9891.23 via Frontend Transport; Mon,
- 11 May 2026 19:29:19 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- MN1PEPF0000ECD6.mail.protection.outlook.com (10.167.242.135) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.25.13 via Frontend Transport; Mon, 11 May 2026 19:29:19 +0000
-Received: from MKM-D1-FRANKSU9.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Mon, 11 May
- 2026 14:29:18 -0500
-From: Chenglei Xie <Chenglei.Xie@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <jeffrey.chan@amd.com>, <zhigang.luo@amd.com>,
- <alexander.deucher@amd.com>, <chenglei.xie@amd.com>, <YiPeng.Chai@amd.com>
-Subject: [PATCH] drm/amdgpu: bound SR-IOV RAS CPER dump parsing against
- used_size
-Date: Mon, 11 May 2026 15:29:12 -0400
-Message-ID: <20260511192912.55862-1-Chenglei.Xie@amd.com>
-X-Mailer: git-send-email 2.34.1
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4B24910E902
+ for <amd-gfx@lists.freedesktop.org>; Mon, 11 May 2026 23:12:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1778541122;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=0UCe28zV972AZiRYDMg8zfbzIHf06WRxGbzFTsKV4rk=;
+ b=hkAeUVRcKy3yWV2CGUpfZPTR4wJoP1l4mwMV6z3RCpTFSEs4QH9b5UemYXB6DbHO5uWtrA
+ nJLkEwJAM9HJfw2WwnXZk/nx9M7+E9XDv3ROdy1tvOLrGKNsKYBl3ejzpEKsSe/q20CHcP
+ QQ1nZRSpJTDYMz+p6JpyOE7QAJac55E=
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com
+ [209.85.216.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-669-OomPuNxGOyaKQzYYT-xx4Q-1; Mon, 11 May 2026 19:12:01 -0400
+X-MC-Unique: OomPuNxGOyaKQzYYT-xx4Q-1
+X-Mimecast-MFC-AGG-ID: OomPuNxGOyaKQzYYT-xx4Q_1778541120
+Received: by mail-pj1-f71.google.com with SMTP id
+ 98e67ed59e1d1-367fd7b8825so2301919a91.0
+ for <amd-gfx@lists.freedesktop.org>; Mon, 11 May 2026 16:12:01 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1778541120; x=1779145920;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=0UCe28zV972AZiRYDMg8zfbzIHf06WRxGbzFTsKV4rk=;
+ b=eEwrsRYBMBfBtEDRmA9kHLcm3xdU8CEXQkmMJoe66kljiRngwxuwrhFWDzd/c98Dc5
+ +PGdfc/ib/0D1uM1ZDyeFrs9VKLKWWRDmSbak1Ea9VjjqfrBy8m7CCFioo9h9NQFg/2K
+ UmEbCgu+/CCT2zkgusJNHxjq9xFitaOYz+4+NWyr+PXMNJaFlk+nVHKjID5gjCjxbjg8
+ 79tTT48nqoWXLRVXCqFV5Pp8GQ854tj/oTPeZo6bgmaainmXwAG9t9GpVp+uIptmbdrF
+ bF5v/bxA0uuTKiUq4MDGqQI7Xvg4zTinOZ5T6/kYwWGDkDIWQH50jHKQIwBBM7Ue2fjO
+ NH6A==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ/AO9U8ikqyFDM9EL65LY/ZK5/QZv58D6XnM9tXcEfUww6q8jZa4yKQ012nXurZtta3WcGR6nJB@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yxc14kZ0vko8l+FLBdsncNiEn+p2vTt9JePiACOvmDYG6hVuOKS
+ 7urPwkGpAATpkxB2DKcGg8a1tS9N4UseVwYyZJs+FvJFjeTdxbGxFLI/aLajIvwkB1gM7gJgDSr
+ F5VmUY9i5CrkGCJJrUbFWy6xj5lbIXtonES8weZvyXioQH7EqU9+S5C6HgH6TQmJfRPQywxcWM8
+ X1JclRKCxnd7i4ucP3gjcervj1WGFGLtWfXijs7fALmQ==
+X-Gm-Gg: Acq92OEmtXHr+VGmfg5lkJVpg4E8Tg4/0is0QkLXzVizl7C7D8ASgvLP9T+VgEE7LjA
+ sAYpDy5mqaEKAaxDZuL2iITNSFWdzLJee/FqMe8ZTuR0huvzPSMroAzVAGC2jZnDRl5FugX3qXa
+ eXl5vAsdSbPqr8EDrQYQqh+iHE26I8Xi5Kj1MiokAI13NMgPLB3GIvgqGYpUjyO2ST9WHB+1dR1
+ GKwcpxZ4hqxdI2OivsONefk0TFPbmLWXZ5wPzY=
+X-Received: by 2002:a17:90b:3c0e:b0:366:4a47:f26d with SMTP id
+ 98e67ed59e1d1-367d4890ab9mr11754009a91.14.1778541119966; 
+ Mon, 11 May 2026 16:11:59 -0700 (PDT)
+X-Received: by 2002:a17:90b:3c0e:b0:366:4a47:f26d with SMTP id
+ 98e67ed59e1d1-367d4890ab9mr11753982a91.14.1778541119467; Mon, 11 May 2026
+ 16:11:59 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN1PEPF0000ECD6:EE_|DS7PR12MB6239:EE_
-X-MS-Office365-Filtering-Correlation-Id: 83bc65d3-c191-42ff-3475-08deaf9398db
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|376014|36860700016|1800799024|56012099003|18002099003|11063799003;
-X-Microsoft-Antispam-Message-Info: 3QZrxo4nc2WEBFfoSyEUZOVF/uIpCAo6pKxy+rOSUJIgcFHF/zMyYZNSiR2DQxVdL9fcFMZjfkdX0CDqvXR0DQscC70XAQtuocKbr4Wg0mIc1fBF4B05BePWIuNRhWe1IJv3ZWOxv3omFFPW7uPqoVN50iqLGgvW05Q1Ekv1rpJ2nh71Rg2VwSKJSDu3N1S7T7rcSyPpTWFvSgXPLIy3n7fPPAtquruPruXPB97aApBJQN4F9K34XWOhlDxvwkxDpDSnUWpa8zBqp/HlSL55Pw6YSEN7T4uAMp1KV/QotzjsfBeQnEQSRolpuLMzOTzh9XS0sjclPi9ak2rn8WWCG7I4B/1YWcss5wZmsDAPJ51tA3AqMSh9TsqR6R1+/5o39jhsqIFr9UTrQZCMA8WDVtzEtJ+2GHQyDmMnUFo47TqCVvIyS3Q2m1tpnwD0eVxF9EKCGkI5v04DLGfr/s9xKkQTcjaix0Vk2rSTDqZPS3aCe28OEnK3MpUGtmR/8ptC6JSBvGBjbVC2usr/dRPhMnivmW6fIK6XdHS3koxvdoAj8J/8QM2l8jvC1HHX43CUR9JtUALg2BD9u+K4NbabbIVTLto1Z5fFYqgFgpwFENjvYngs3EEpvyfH8EV9KwdS9bwXcXWLxR+TzDAiP/6gTx5QWQui7XjuTqn9VvWmCLu7oCQpEkd+2xhWs88XRjqMtGOmcHK+D7132xEMv/ZXEXQKhANwxgR6q+rphovN2wU=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(376014)(36860700016)(1800799024)(56012099003)(18002099003)(11063799003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: XyrvDc5YEwvLwCYhoMQn6ahCsV4P3RogrZ0VbXb9DQSqLv9qUMNFwNpEn2Nb/wAQVXvgQJdpD1st39eEZ/Yr0YrgrW70PByfsDCmpHQl6SLdYhgsGKSvFOKbyEX6lkaoRUq4xfZ1dHeyEu8FGi3yxshSH9R3ZbarWhCTlxeGHyIvWtiWriMCqD1Dxv+IwQxU6uYg1hkmmO0Eya7bhDrVoEF+ThXjWCgHnKCZJTcguw1rcK3sjuUt++aeE3O6X591af+vwbtIoOgBVuc99xdhZ5/KCBzENPmcrRuL9TkvQfLHDt918m+G3dXk5Ynmv2cFc6SUK9Rs5rwhsGahvplMdaw+QFLWTxO5e8USf/YEVaU3k2xBh/0oxjgt4akyH7KVrYkmxjchl9+Z5R6mf2/RoVgYSjP23kJS+luq4iM91s1cOx0Jvj3oAGHGIupk5dyU
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 May 2026 19:29:19.2309 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 83bc65d3-c191-42ff-3475-08deaf9398db
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: MN1PEPF0000ECD6.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6239
+References: <20260424220953.167058-1-mario.limonciello@amd.com>
+In-Reply-To: <20260424220953.167058-1-mario.limonciello@amd.com>
+From: Sebastian Wick <sebastian.wick@redhat.com>
+Date: Tue, 12 May 2026 01:11:48 +0200
+X-Gm-Features: AVHnY4Lm9uuWDwEERXpiOWtAgRKphjtR16AykzOhcOiW8C0tKuItbULL4Vrthtk
+Message-ID: <CA+hFU4wEODFP=oPw522MyQs1asGq+KyYw6rcKpxxxj0y75fPXg@mail.gmail.com>
+Subject: Re: [PATCH v3 0/8] Add support for a DRM backlight capability
+To: Mario Limonciello <mario.limonciello@amd.com>
+Cc: dri-devel@lists.freedesktop.org, harry.wentland@amd.com, 
+ Xaver Hugl <xaver.hugl@gmail.com>, amd-gfx@lists.freedesktop.org, 
+ Mario Limonciello <superm1@kernel.org>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: MfAjRQ6EB9YHlVuovTpIKR3ZCNdg5bNSldbfpn5oZsQ_1778541120
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,70 +94,100 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The VF copies a PF-provided CPER telemetry blob and walks records using
-cper_dump->count and each entry's record_length. count is u64 while the
-loop used u32, so a large count could loop indefinitely. record_length was
-not limited to the kmemdup'd region, so the first iteration could read far
-past the allocation; record_length == 0 could spin forever on the same
-entry. Together that allowed a malicious hypervisor to leak heap past the
-blob into the CPER ring or hang the guest.
+On Sat, Apr 25, 2026 at 12:10=E2=80=AFAM Mario Limonciello
+<mario.limonciello@amd.com> wrote:
+>
+> From: Mario Limonciello (AMD) <superm1@kernel.org>
+>
+> At Display Next Hackfest 2025 we discussed the renewed need for moving
+> brightness control into the DRM connector properties.  I've taken the
+> previous efforts from David and Marta, rebased and adjusted for the
+> current kernel.
 
-Require used_size to cover the fixed header before buf and stay within the
-telemetry cap. Track remaining bytes in buf, cap iterations with u64 and
-CPER_MAX_ALLOWED_COUNT, and reject record_length outside
-[sizeof(cper_hdr), remaining] before writing to the ring.
+Thanks a lot for this!
 
-Signed-off-by: Chenglei Xie <Chenglei.Xie@amd.com>
-Change-Id: Ic21f4523eebc6c4b4f8c6b62b84104b18cf86a48
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c | 20 +++++++++++++++-----
- 1 file changed, 15 insertions(+), 5 deletions(-)
+I've wired it up for mutter but I don't have a machine with AMD
+graphics and an internal panel, so I can't really test it.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
-index 6974b1c5b56c2..c8bec62bdffb2 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
-@@ -1798,13 +1798,15 @@ amdgpu_virt_write_cpers_to_ring(struct amdgpu_device *adev,
- 	struct amd_sriov_ras_cper_dump *cper_dump = NULL;
- 	struct cper_hdr *entry = NULL;
- 	struct amdgpu_ring *ring = &adev->cper.ring_buf;
--	uint32_t checksum, used_size, i;
-+	uint32_t checksum, used_size;
-+	u64 remaining, cnt, i;
- 	int ret = 0;
- 
- 	checksum = host_telemetry->header.checksum;
- 	used_size = host_telemetry->header.used_size;
- 
--	if (used_size > (AMD_SRIOV_MSG_RAS_TELEMETRY_SIZE_KB_V1 << 10))
-+	if (used_size < offsetof(struct amd_sriov_ras_cper_dump, buf) ||
-+	    used_size > (AMD_SRIOV_MSG_RAS_TELEMETRY_SIZE_KB_V1 << 10))
- 		return -EINVAL;
- 
- 	cper_dump = kmemdup(&host_telemetry->body.cper_dump, used_size, GFP_KERNEL);
-@@ -1829,11 +1831,19 @@ amdgpu_virt_write_cpers_to_ring(struct amdgpu_device *adev,
- 	}
- 
- 	entry = (struct cper_hdr *)&cper_dump->buf[0];
-+	remaining = (u64)used_size - offsetof(struct amd_sriov_ras_cper_dump, buf);
-+	cnt = min_t(u64, cper_dump->count, CPER_MAX_ALLOWED_COUNT);
-+
-+	for (i = 0; i < cnt; i++) {
-+		if (entry->record_length < sizeof(struct cper_hdr) ||
-+		    entry->record_length > remaining) {
-+			ret = -EINVAL;
-+			goto out;
-+		}
- 
--	for (i = 0; i < cper_dump->count; i++) {
- 		amdgpu_cper_ring_write(ring, entry, entry->record_length);
--		entry = (struct cper_hdr *)((char *)entry +
--					    entry->record_length);
-+		remaining -= entry->record_length;
-+		entry = (struct cper_hdr *)((char *)entry + entry->record_length);
- 	}
- 
- 	if (cper_dump->overflow_count)
--- 
-2.34.1
+https://gitlab.gnome.org/swick/mutter/-/commits/wip/kms-luminance-prop
+
+I've also noticed a few things while doing so:
+
+1. There isn't a bit of information which tells user space if the
+property is actually backed by anything
+2. A fixed range from 0 to uint16_t max might be problematic for
+backlights with very few steps
+
+Could maybe fix both of those issues by making the range dynamic to
+the actual numbers of steps, where zero means that there isn't any
+backing backlight device.
+
+> The legacy sysfs interface is synchronized with the DRM connector (althou=
+gh
+> the scale may be different as DRM connector property is u16).
+>
+> Later after this has been adopted by enough userspace, it may make sense =
+to
+> configure the legacy sysfs interface to be configurable so that only
+> DRM master controls backlight.
+>
+> I've done a first implementation with amdgpu with eDP connectors; but
+> conceivably this can be extended to other connectors like DP for displays
+> that can be controlled via DDC as well later.
+>
+> I have also used DRM review prompts to review this series and fix some bu=
+gs
+> which were caught with two different Claude models.  The fixes are squash=
+ed
+> into the patches.
+>
+> Assisted-by: Claude Opus
+> Assisted-by: Claude Sonnet
+>
+> For ease of testing; this series is also available on this branch:
+> https://git.kernel.org/pub/scm/linux/kernel/git/superm1/linux.git/log/?h=
+=3Dsuperm1/backlight-property-v3
+>
+> David Rheinsberg (1):
+>   backlight: add kernel-internal backlight API
+>
+> Mario Limonciello (6):
+>   drm: link connectors to backlight devices
+>   DRM: Add support for client and driver indicating support for
+>     luminance
+>   drm/amd/display: Pass up errors reading actual brightness
+>   drm/amd: Indicate driver supports luminance
+>   drm/amd/display: Allow backlight registration to fail
+>   drm/amd/display: use drm backlight
+>
+> Marta Lofstedt (1):
+>   backlight: expose the current brightness in the new kernel API
+>
+>  drivers/gpu/drm/Kconfig                       |   1 +
+>  drivers/gpu/drm/Makefile                      |   2 +
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       |   1 +
+>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  88 +++-
+>  drivers/gpu/drm/drm_atomic_uapi.c             |  24 ++
+>  drivers/gpu/drm/drm_backlight.c               | 406 ++++++++++++++++++
+>  drivers/gpu/drm/drm_connector.c               |  12 +
+>  drivers/gpu/drm/drm_drv.c                     |   8 +
+>  drivers/gpu/drm/drm_ioctl.c                   |  10 +
+>  drivers/gpu/drm/drm_mode_config.c             |   7 +
+>  drivers/gpu/drm/drm_mode_object.c             |  66 ++-
+>  drivers/gpu/drm/drm_sysfs.c                   |  54 +++
+>  drivers/video/backlight/backlight.c           |  83 ++++
+>  include/drm/drm_backlight.h                   |  45 ++
+>  include/drm/drm_connector.h                   |   8 +
+>  include/drm/drm_drv.h                         |   7 +
+>  include/drm/drm_file.h                        |   8 +
+>  include/drm/drm_mode_config.h                 |   5 +
+>  include/linux/backlight.h                     |  30 ++
+>  include/uapi/drm/drm.h                        |  10 +
+>  20 files changed, 852 insertions(+), 23 deletions(-)
+>  create mode 100644 drivers/gpu/drm/drm_backlight.c
+>  create mode 100644 include/drm/drm_backlight.h
+>
+> --
+> 2.53.0
+>
 
