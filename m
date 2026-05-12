@@ -4,75 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 93004CD4F35
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B64A4CD4F3D
 	for <amd-gfx@archiver.kernel.org>; Wed, 13 May 2026 07:56:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A698310ED23;
+	by gabe.freedesktop.org (Postfix) with ESMTP id AD0ED10ED24;
 	Wed, 13 May 2026 07:56:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=usp.br header.i=@usp.br header.b="Z/SusmNw";
+	dkim=pass (2048-bit key; secure) header.d=usp.br header.i=@usp.br header.b="zfmqfX0E";
 	dkim-atps=neutral
-Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com
- [74.125.82.177])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C453D10E215
- for <amd-gfx@lists.freedesktop.org>; Tue, 12 May 2026 14:01:53 +0000 (UTC)
-Received: by mail-dy1-f177.google.com with SMTP id
- 5a478bee46e88-2f53c6af46eso386892eec.1
- for <amd-gfx@lists.freedesktop.org>; Tue, 12 May 2026 07:01:53 -0700 (PDT)
+Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com
+ [74.125.82.179])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D7CC110E5B2
+ for <amd-gfx@lists.freedesktop.org>; Tue, 12 May 2026 19:01:02 +0000 (UTC)
+Received: by mail-dy1-f179.google.com with SMTP id
+ 5a478bee46e88-2ff5472f263so1988600eec.1
+ for <amd-gfx@lists.freedesktop.org>; Tue, 12 May 2026 12:01:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=usp.br; s=usp-google; t=1778594513; x=1779199313; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=vlzeRCGXQHDoiU445JgrUjhM/Fxu9dKmbf7Dmmy0kyk=;
- b=Z/SusmNwF31P68pAKe2k8W39rXvuugNryDxWSPItsAOlULDYvjhtdgeCXh1UgGxYXx
- x2X9VsX5DcGWBGGl7l0EQquK+Xbxd7Tlbg8x1z79MkheyYwT4z6pLFp4mBbaHkEcrh7m
- TB/4d47gidyqXO2ZfNmYX0QZ9D5sLnk0M6n81e90Zt3zRg9FTFgQGQ49nmR/xyKPQ11L
- mOb/2djxdwlvkTWL5GDdqG2Jcgm6RjWQrGGS4+DWsU0sWU1pC/gWNM+9Um6rVFvem/FA
- PpAIPKHN/XsmfnUr1SfcilmtbrnjaB2l+597mloAM8oVnuo3Qn409vgCDNvrADfOxkQo
- 0/uw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1778594513; x=1779199313;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=usp.br; s=usp-google; t=1778612462; x=1779217262; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=vlzeRCGXQHDoiU445JgrUjhM/Fxu9dKmbf7Dmmy0kyk=;
- b=muwHyvTrEkR65z3ZJ0Nw5l6EPSB1Rxo2oDCmxFiOmttZaBuMdTC0uLUuH+W1En48yU
- 6b6LQDNO1KjIwyrAlxaQouXVoyUR4XD7rlnEbwf/v56CwGq56D/N6Fap6+6kOht8zwl+
- SD0EtYl9hW3GWy+d8jJW8O94DhlW8+ltLOuTQhphYZlRABg+CZltM7RQvLZMnrqZDrP2
- Vnzf3w+IBow8pohjOdN7sveI2Si2m3uH2G27bHVIr/b3ccW+b80tLmFLYw9FTL1lISy+
- K1zb0dG481qCAGUo6fH9ULzdBKlA6NMuVN1DGFge05uSr3po0kqzBYzNzolD+c2ngvXB
- Ckdw==
+ bh=9mtB9iQDbC1TK2yGUTmHv+9UWkJZ55RDgRtxQiWv2Ig=;
+ b=zfmqfX0E1gt/hfPCwm0loK+f98KfmUJ2bWvCxAadOQ3Zj/lqC2qFbae430r+lWLieC
+ 0StMlnpHkq/A6BAH4OnxMXWB0Pe1qF7In88Oc2NV3m9Pi2vTbgvVjrvsSEjJ5BpYpVax
+ +8RweTZqOmWyybHXACNOV9juRdmDbFxVgNaQ9VUCVN7ngKPoIo9LvNg0drHyxlImv35b
+ xM+y1/NMgfmqKjrSAg5csR5ce41L7MfDOXELPyeqFmBKmXr14uwxEZ4ysW77qoG97k8c
+ 7TpISZC1RiWwcIjkxpOCNApdBWve7zswxhf3Ksmz8TxLPI+/BgHh8e+e+06UWclocmh6
+ N2qg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1778612462; x=1779217262;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=9mtB9iQDbC1TK2yGUTmHv+9UWkJZ55RDgRtxQiWv2Ig=;
+ b=Q3UlP5emDaWRI2OLPBA5atkdXrs2tZUg5QkLPYCepmRNa80vPkg0fyj38BPea2i5kN
+ EvBT9g1YQ0wcpggfLG+liyqW3yRsKSYKtO43jBSnQozi2L9N/d12o3VoJatZxLEyz3FJ
+ LRcC/7O98EbhKAXjSePKW8XGxophxJzg0eJtBmuAILWROL5QdXCuc2fygn85wWNQwT3b
+ 6lI/+QApasH5WxiPrpWzep/QgTdQ42GpHxqy3DU1S1lIdz2BbgKccjuY2FniDPUQoS+r
+ CqmbiEtxn4ez1ipRu4GRq/qxnNdlOx+eiHWNY25lp+nP1WnywVS/4i1CXz8FpSNcuyHQ
+ 0E0A==
 X-Forwarded-Encrypted: i=1;
- AFNElJ8dbogy7qhxjK5jv+3sS20mmIImMnzm8v0LZZzn40Cu06yAWH+xGrXZgnxa4lRYhvv+Xm19DFJJ@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxrrIDNycRgo0ggTS9rGkmTv2cyUnH3DWUI60KtyRC43fJaJd06
- z9Jqo3lplReduCsLQrB/5Tudnul7S/YNUmE5TE/yN87t681O/VChnRevEU1jxGtM14Q=
-X-Gm-Gg: Acq92OHlNAxo02Q4A7I6Xn0LYwInl00JoecVuArE6YH6QEoRHR0aWecIwE0qG1zcDHu
- aMiht2/Nftjl8ah1lxirdDUCbKlLOlazCtKvkYQnxkv1Uufz0yA7vF3TTOGyjeY0rJM36CQokGk
- PxAQpYqrHZNQyWKS5efnmGFWPntK9x0dDJ8vT8gUfqurIHq+YRQ0ldGrPNhhrDQczluz5MYKY/L
- JjV3HjANLCVbYwfwSxLUaokWx5exhhhF1K16u2VLYau1E5xH3KFGNNT3qtvN0LJXvpaFYKieqUs
- PPPDZMH28zB/W9BGthtw/tPHksPKIU3keZY99O71k/OTL9Ca3I+e0HlMy4eYp+6oq+V5/uHswN5
- yDdQ6idxrJqu8QFaX8+pO+y0CiPMx1L4mFcwKq4FvtqSonQEAD6zp29Luye7p49yee0DP2L5KJ1
- 9+cUK7+NNTwzTBIqy/rKO6+3zMjGAWTNoftLRJRI6blAiPK0cuIA==
-X-Received: by 2002:a05:693c:2c02:b0:2d4:62f0:b2e1 with SMTP id
- 5a478bee46e88-2f564430643mr5786104eec.0.1778594512263; 
- Tue, 12 May 2026 07:01:52 -0700 (PDT)
-Received: from Haru.. ([2804:1b1:f980:4df5:7d73:b89a:b932:2c0f])
+ AFNElJ87KcBo+3NMDlrU9F/CBaX/kJU0mKJZB9JsvwzM14RwStfdu5GBgmuG7skCBYqYUva1IZ4c6kAu@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwuG0X/+MVIax76n6kbU8m5slaUxgqHZ9SurpCiQ0peOKMc/sLU
+ CARPqTSmK/aWigArIeiBYLSiCZ+XmhFRr7zvfUWQB/Kh4ETanhHQLvxMAygRbOMzZzI=
+X-Gm-Gg: Acq92OE1s47w8Iw7MiDAkNCwCL7XTr8Ojp5TVbZx5FfH3l6uO/MV4R6mWHSLVoziXZR
+ kCIXwxO9JUoh5xhZBfQ/iUIKP9//gQBmy+CFiR10Iw8+FSvDgI9ra+lMy1ED4GuTl1m/Dt3tlXJ
+ rCTk+1L89CtdhIL787OmkBGJZWltG8Ec8v7GZz4ix+cfyi2/tUarqf67x4mgGsKpJLq1x6yDzos
+ l8RHSxdX0aGXuSyjmvcsF38NGJxXtbPNPoFJcTlmLBnz3eYRiOqO+j6fVkWbWBy58d6R0NhEdhj
+ f5TV7ICACFoKV2St3v3Qr3eQQ+JZR2+0LC42y44zL9Tx8PyORZwAQEd0cmPdOYd5CfUwB3/tdKb
+ 4WTrevRFAkZfxsgUgRwOwqKIZBlv0yVNLjcrnRibr0XrNOLQnHgSIfxN/JshcxabKYWgmspD2hw
+ v+j8ctERdd/FQBpzC0s5eX8LuUFBHFBTPDtI3Ul+8U2gt3xx1bhRf2S3EkFta/yutvVX8xBpLe/
+ RS6Cug/OZOM6biatzHVomYce7z0T2koFuQ32nkW05D0un9+lFw7ZRvFYSE=
+X-Received: by 2002:a05:7300:c618:b0:2ff:c611:82c7 with SMTP id
+ 5a478bee46e88-301174807e8mr222994eec.12.1778612461972; 
+ Tue, 12 May 2026 12:01:01 -0700 (PDT)
+Received: from gui-host.Dlink ([177.140.77.53])
  by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-2f888c3b301sm22377608eec.23.2026.05.12.07.01.48
+ 5a478bee46e88-2f88914523csm18716616eec.29.2026.05.12.12.00.58
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 12 May 2026 07:01:51 -0700 (PDT)
-From: Leonardo Cesar <leonardocesar@usp.br>
-To: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
- simona@ffwll.ch
-Cc: Leonardo Cesar <leonardocesar@usp.br>, kernel test robot <lkp@intel.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Subject: [PATCH] drm/amdgpu: fix inconsistent indenting in
- amdgpu_gfx_ring_preempt_ib
-Date: Tue, 12 May 2026 11:01:29 -0300
-Message-ID: <20260512140142.6610-1-leonardocesar@usp.br>
-X-Mailer: git-send-email 2.43.0
+ Tue, 12 May 2026 12:01:01 -0700 (PDT)
+From: Guilherme Ivo Bozi <guilherme.bozi@usp.br>
+To: airlied@gmail.com, alexander.deucher@amd.com, christian.koenig@amd.com,
+ harry.wentland@amd.com, simona@ffwll.ch, siqueira@igalia.com,
+ sunpeng.li@amd.com
+Cc: Guilherme Ivo Bozi <guilherme.bozi@usp.br>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Subject: [PATCH 1/9] drm/amd/display: add GPIO HW translation helpers
+Date: Tue, 12 May 2026 15:59:44 -0300
+Message-ID: <20260512190019.228440-2-guilherme.bozi@usp.br>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260512190019.228440-1-guilherme.bozi@usp.br>
+References: <20260512190019.228440-1-guilherme.bozi@usp.br>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 13 May 2026 07:56:32 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -89,29 +92,212 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Fixes a whitespace indentation issue reported by the smatch static
-checker tool.
+Add generic helpers and lookup table types for GPIO hardware
+translation.
 
-Reported-by: kernel test robot <lkp@intel.com>
-Closes: https://lore.kernel.org/oe-kbuild-all/202605081621.Euvx7ORX-lkp@intel.com/
-Signed-off-by: Leonardo César <leonardocesar@usp.br>
+The new helpers provide reusable conversions between GPIO IDs,
+register offsets and DDC lines, allowing ASIC-specific drivers
+to replace large switch statements with static lookup tables.
+
+No functional changes intended.
+
+Signed-off-by: Guilherme Ivo Bozi <guilherme.bozi@usp.br>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ .../drm/amd/display/dc/gpio/hw_translate.c    | 86 +++++++++++++++++++
+ .../drm/amd/display/dc/gpio/hw_translate.h    | 21 +++++
+ .../gpu/drm/amd/display/include/gpio_types.h  | 48 +++++++++++
+ 3 files changed, 155 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-index f7ebead09..d213a0cdd 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-@@ -2725,7 +2725,7 @@ int amdgpu_gfx_ring_preempt_ib(struct amdgpu_ring *ring)
+diff --git a/drivers/gpu/drm/amd/display/dc/gpio/hw_translate.c b/drivers/gpu/drm/amd/display/dc/gpio/hw_translate.c
+index e6e36a912b13..18f14f9f244c 100644
+--- a/drivers/gpu/drm/amd/display/dc/gpio/hw_translate.c
++++ b/drivers/gpu/drm/amd/display/dc/gpio/hw_translate.c
+@@ -129,3 +129,89 @@ bool dal_hw_translate_init(
+ 		return false;
  	}
+ }
++
++bool dal_hw_translate_gpio_offset_to_id(
++	const struct gpio_id_offset_entry *table,
++	uint32_t table_size,
++	uint32_t offset,
++	uint32_t mask,
++	enum gpio_id *id,
++	uint32_t *en)
++{
++	uint32_t i;
++
++	for (i = 0; i < table_size; i++) {
++		const struct gpio_id_offset_entry *entry = &table[i];
++
++		if (entry->offset != offset)
++			continue;
++
++		if (entry->check_mask && entry->mask != mask)
++			continue;
++
++		*id = entry->id;
++		*en = entry->en;
++
++		return true;
++	}
++
++	return false;
++}
++
++/* we don't care about the GPIO_ID for DDC
++ * in DdcHandle it will use GPIO_ID_DDC_DATA/GPIO_ID_DDC_CLOCK
++ * directly in the create method
++ */
++bool dal_hw_translate_gpio_ddc_offset_to_id(
++	const struct gpio_ddc_offset_entry *table,
++	uint32_t table_size,
++	uint32_t offset,
++	uint32_t *en)
++{
++	uint32_t i;
++
++	for (i = 0; i < table_size; i++) {
++		const struct gpio_ddc_offset_entry *entry = &table[i];
++
++		if (entry->offset != offset)
++			continue;
++
++		*en = entry->en;
++
++		return true;
++	}
++
++	return false;
++}
++
++bool dal_hw_translate_id_to_offset(
++	const struct gpio_pin_entry *table,
++	uint32_t table_size,
++	enum gpio_id id,
++	uint32_t en,
++	struct gpio_pin_info *info)
++{
++	uint32_t i;
++
++	for (i = 0; i < table_size; i++) {
++		const struct gpio_pin_entry *entry = &table[i];
++
++		if (entry->id != id || entry->en != en)
++			continue;
++
++		info->offset = entry->offset;
++		info->mask = entry->mask;
++
++		info->offset_y = info->offset + 2;
++		info->offset_en = info->offset + 1;
++		info->offset_mask = info->offset - 1;
++
++		info->mask_y = info->mask;
++		info->mask_en = info->mask;
++		info->mask_mask = info->mask;
++
++		return true;
++	}
++
++	return false;
++}
+diff --git a/drivers/gpu/drm/amd/display/dc/gpio/hw_translate.h b/drivers/gpu/drm/amd/display/dc/gpio/hw_translate.h
+index 3a7d89ca1605..339e381f8fde 100644
+--- a/drivers/gpu/drm/amd/display/dc/gpio/hw_translate.h
++++ b/drivers/gpu/drm/amd/display/dc/gpio/hw_translate.h
+@@ -47,4 +47,25 @@ bool dal_hw_translate_init(
+ 	enum dce_version dce_version,
+ 	enum dce_environment dce_environment);
  
- 	/* deassert preemption condition */
--    amdgpu_ring_set_preempt_cond_exec(ring, true);
-+	amdgpu_ring_set_preempt_cond_exec(ring, true);
++bool dal_hw_translate_gpio_offset_to_id(
++	const struct gpio_id_offset_entry *table,
++	uint32_t table_size,
++	uint32_t offset,
++	uint32_t mask,
++	enum gpio_id *id,
++	uint32_t *en);
++
++bool dal_hw_translate_gpio_ddc_offset_to_id(
++	const struct gpio_ddc_offset_entry *table,
++	uint32_t table_size,
++	uint32_t offset,
++	uint32_t *en);
++
++bool dal_hw_translate_id_to_offset(
++	const struct gpio_pin_entry *table,
++	uint32_t table_size,
++	enum gpio_id id,
++	uint32_t en,
++	struct gpio_pin_info *info);
++
+ #endif
+diff --git a/drivers/gpu/drm/amd/display/include/gpio_types.h b/drivers/gpu/drm/amd/display/include/gpio_types.h
+index 8dd46ed799e5..afd3fc73a911 100644
+--- a/drivers/gpu/drm/amd/display/include/gpio_types.h
++++ b/drivers/gpu/drm/amd/display/include/gpio_types.h
+@@ -277,6 +277,49 @@ enum gpio_config_type {
+ 	GPIO_CONFIG_TYPE_I2C_AUX_DUAL_MODE
+ };
  
- 	if (i >= adev->usec_timeout) {
- 		DRM_ERROR("ring %d failed to preempt ib\n", ring->idx);
++struct gpio_id_offset_entry {
++	uint32_t offset;
++	uint32_t mask;
++
++	bool check_mask;
++
++	enum gpio_id id;
++	uint32_t en;
++};
++
++#define GPIO_ENTRY(_offset, _id, _en) \
++	{ \
++		.offset = REG(_offset), \
++		.check_mask = false, \
++		.id = (_id), \
++		.en = (_en), \
++	}
++
++#define GPIO_MASK_ENTRY(_offset, _mask, _id, _en) \
++	{ \
++		.offset = REG(_offset), \
++		.mask = (_mask), \
++		.check_mask = true, \
++		.id = (_id), \
++		.en = (_en), \
++	}
++
++struct gpio_pin_entry {
++	enum gpio_id id;
++	uint32_t en;
++
++	uint32_t offset;
++	uint32_t mask;
++};
++
++#define GPIO_PIN_ENTRY(_id, _en, _offset, _mask) \
++	{ \
++		.id = (_id), \
++		.en = (_en), \
++		.offset = REG(_offset), \
++		.mask = (_mask), \
++	}
++
+ /* DDC configuration */
+ 
+ enum gpio_ddc_config_type {
+@@ -293,6 +336,11 @@ struct gpio_ddc_config {
+ 	bool clock_en_bit_present;
+ };
+ 
++struct gpio_ddc_offset_entry {
++	uint32_t offset;
++	uint32_t en;
++};
++
+ /* HPD configuration */
+ 
+ struct gpio_hpd_config {
 -- 
-2.43.0
+2.47.3
 
