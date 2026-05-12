@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DB847CD4F3C
-	for <amd-gfx@archiver.kernel.org>; Tue, 12 May 2026 14:23:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB6DDCD4F25
+	for <amd-gfx@archiver.kernel.org>; Tue, 12 May 2026 14:23:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 74C2710EB66;
-	Tue, 12 May 2026 14:23:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6109E10EB63;
+	Tue, 12 May 2026 14:23:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="J2r95AY3";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="5rumImQR";
 	dkim-atps=neutral
-Received: from CY7PR03CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11010017.outbound.protection.outlook.com
- [40.93.198.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 532EE10EB60
- for <amd-gfx@lists.freedesktop.org>; Tue, 12 May 2026 14:23:33 +0000 (UTC)
+Received: from CY3PR05CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11013065.outbound.protection.outlook.com
+ [40.93.201.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D16E410EB5B
+ for <amd-gfx@lists.freedesktop.org>; Tue, 12 May 2026 14:23:31 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=r92yKzXO9udfAbdT9gynaFoEG7bdFj2Z1H9IER6b+hVRC19pqrDFJGpYfNBL+PiN7SDk5qN/78IHZdjaBiYXfaR8UUHZvl/lTu74VlJsWddxruIIBnNDd/Ds69lVMih2116xg+AXqJAU+VFZ35p0+HlNJMPYgnJWLC6GaWFiepmgO/87jGfyspsnJ7++QXo69fPkLbREmruY2m+78nMY5gxHH3Et373Z6u7DDm2i0AXkrBXXIXEMK7N7XacnoqaZgvlF6/VbYMGdEzSof1x3YYrLs6nhhEArvovvLU9MNrYPAT1sI8zlEhEinj8OKf57YoTOfUD2Zrn7BAHqYe5fhA==
+ b=fhbV0M/KKdcm5ZwSX5RGjeLzeRdCZ7BsLx5pjrZUU7E/7dWFSNCzQopF/+z1V0p2b/NqLXzUGqs0wufaulGPj+Vn5k9rYgZjOP9efFSoNB0NKCp0/8C6xyLH+xxt1KMNO+p4YJmETTOWdtuYuACpbWl2jo4vDgVdJxtsRrgXfcFVfSL6dmv8t89lL7uEiQe39fp/cLWCpYTRZTNHccUtAUYIe8IEYClg1Q/hJQj83Va0o6UFRpTSKMlt78jFy/pATOHcqA2QM8o78+CS8add4Fr7Wueu/B9T8ht/y7LHJyEQd+9xxCw7W2N6F8z8uYGqcvsZSIv0uYX6HTH+TeFomg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=CPn1gIQniGU6/dbbBQKWMbKGELcjI/Pn/7jUsJ0IYy0=;
- b=RbQ0Jhsptk6THuBF64l/E2o/yJB9g8UyebQdJ4Rou/SuH8BJh216TkcVkNoGZfPy/Af5Jnh97WNT8DdyEsTShIwH/4BwMogtD+ZSXEdJYeG9QtxaptBn+xbq/zxkWPvwLCg6A/KbztXHoD6nCNTKlF2A5Rffh5pSR4lAdY1NRAK8kdaBGpfop14PHCvNZMxKYW06dwaZtdGWL6EOrjc6ib11YFk2vy7Gko/KNAVP8wFDBM62reiGXUlXKEImmzxKsXVai4ApYVOJLjqhjWZCTZ01SzonlEwftsbxTAqTQiTiYeJY0rbG6c8ZP0IpTjCkAviqnpfW2s1AuNdThcrN8A==
+ bh=gqr2r4GTrnK6mznMrio1h3tFpyj4wF5CR5pDl1un92U=;
+ b=eMdF57bOBT/SWYJe1OXcnI9XxqhKVIGaU/wpJ0+ffsSnayR0Kj4w/vgZXc5MjqFnJqG9mrESlHPXJZ0I+3foBBRqhyoWYhz0O6+MzcubWLP+TfG4XWXGPAvST4fVJ44Bid6cB8I3/n+cPZloDZpp3u9kyZokhxbTraAC0nwoo0jviTK8HHC8Xsgouyh9k4JqYsUWxLe5V/j8sTPT2xAJyNCMYiz3c7L/zT3Es9/BchJChH6V4JSAyjelIet9/GEnlAIq41iEC6vhqWs+/nUzjuhvrCWb12nv/9tFMtTw9WDTfmMnLBEHhYsFenhI5uULTFLjjELIOsZonVF4ppJk1A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=CPn1gIQniGU6/dbbBQKWMbKGELcjI/Pn/7jUsJ0IYy0=;
- b=J2r95AY3ioCv/wV2OyTBn5EMwVCyneJwUKFJRDjDmZBjmuj9KTxYzSCYO0s7K3Cbgyx5vIu0C/APawxxqWot0coRNPXRiMef2Gy9RwpHHFHn4OWemI+Bzstq9pF7Mn2LV/adcZZGU1fz5tNR6G/t/jRiKebYNk94vk0wWo8tUXU=
-Received: from SJ0PR13CA0168.namprd13.prod.outlook.com (2603:10b6:a03:2c7::23)
- by SA1PR12MB8095.namprd12.prod.outlook.com (2603:10b6:806:33f::19)
+ bh=gqr2r4GTrnK6mznMrio1h3tFpyj4wF5CR5pDl1un92U=;
+ b=5rumImQRNkOYgx+hzTqA/M+BEDdNjR5LbS2YDp4euQp9cXhlOKwVKe7buc9fNA7PbTRwXi8CZ3ZL8BQVHo73qdqcIIdy2UUML6hS9nsfFtF71sc/+6RSPqUbfD0QxKprdBH/Fu+907xwweh30hUCR//+hHXKygRjkaSMxPlt73w=
+Received: from SJ0PR13CA0156.namprd13.prod.outlook.com (2603:10b6:a03:2c7::11)
+ by DS5PPF7B9F1F8E0.namprd12.prod.outlook.com (2603:10b6:f:fc00::656)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9913.11; Tue, 12 May
- 2026 14:23:20 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9891.23; Tue, 12 May
+ 2026 14:23:23 +0000
 Received: from SJ5PEPF000001CE.namprd05.prod.outlook.com
- (2603:10b6:a03:2c7:cafe::66) by SJ0PR13CA0168.outlook.office365.com
- (2603:10b6:a03:2c7::23) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.25.16 via Frontend Transport; Tue, 12
- May 2026 14:23:19 +0000
+ (2603:10b6:a03:2c7:cafe::2f) by SJ0PR13CA0156.outlook.office365.com
+ (2603:10b6:a03:2c7::11) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.25.17 via Frontend Transport; Tue, 12
+ May 2026 14:23:23 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -51,56 +51,57 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from satlexmb08.amd.com (165.204.84.17) by
  SJ5PEPF000001CE.mail.protection.outlook.com (10.167.242.38) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.25.13 via Frontend Transport; Tue, 12 May 2026 14:23:19 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
+ 15.21.25.13 via Frontend Transport; Tue, 12 May 2026 14:23:23 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Tue, 12 May
- 2026 09:23:17 -0500
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Tue, 12 May
- 2026 09:23:17 -0500
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.41; Tue, 12 May
+ 2026 09:23:20 -0500
+Received: from satlexmb08.amd.com (10.181.42.217) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 12 May
+ 2026 09:23:20 -0500
 Received: from hwentlanryzen (10.180.168.240) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
- Transport; Tue, 12 May 2026 09:23:17 -0500
+ Transport; Tue, 12 May 2026 09:23:20 -0500
 From: Harry Wentland <harry.wentland@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <Jerry.Zuo@amd.com>, Harry Wentland <harry.wentland@amd.com>
-Subject: [PATCH v4 03/13] drm/amd/display: add HDMI 2.1 FRL base support to
- DML 2.0
-Date: Tue, 12 May 2026 10:22:57 -0400
-Message-ID: <20260512142308.131260-4-harry.wentland@amd.com>
+Subject: [PATCH v4 07/13] drm/amd/display: Add DC resource support for FRL
+Date: Tue, 12 May 2026 10:23:01 -0400
+Message-ID: <20260512142308.131260-8-harry.wentland@amd.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260512142308.131260-1-harry.wentland@amd.com>
 References: <20260512142308.131260-1-harry.wentland@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
+Received-SPF: None (SATLEXMB04.amd.com: harry.wentland@amd.com does not
+ designate permitted sender hosts)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF000001CE:EE_|SA1PR12MB8095:EE_
-X-MS-Office365-Filtering-Correlation-Id: c6208e82-c71d-469f-c270-08deb032040c
+X-MS-TrafficTypeDiagnostic: SJ5PEPF000001CE:EE_|DS5PPF7B9F1F8E0:EE_
+X-MS-Office365-Filtering-Correlation-Id: 32cd798c-af88-494f-d1da-08deb0320671
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|82310400026|376014|36860700016|3023799003|22082099003|18002099003|56012099003|11063799003;
-X-Microsoft-Antispam-Message-Info: uLVWN1Is4C2k5p6Nl6glo/0/NI++ikijmm77Tc5jIgfwP4bdUTPFikZS+DTFaYJYpp7J3P9apaSkifD05KuQDU0G8OKCTU16oWNzN3twbHDWmTg6MZSNbXNMWqtV72drSTvk7G341iJ1oVcGGFhlt1IZUkXCdpJkN6vaxyXgzcLhNBSBSjKCVhqpLmHuJJ2AP7lnzuOZT4zE4ys0wY2Zoq0UqvHw6l0VtoJM7hBDUCRrXHzAzeauNVgkrULz5Ytn7+FM7KFnTcFWv/owVEVyghH5NkX4As8J1XAHLGfpdGSxkWee0MiFG+KKpXRIc82qaDBeGA9jn0jzdys7sJ0e/uhJGasr5xdZeTfCRGFUTpt/wTMqfUhWBKICZkTkfw3C+xfsP5/b2+FroVlfJCDIT/SC5GinKWydQ1f/YnKaoSo8eHBzruCfhmjb/qx9DknSS4qPNtM4TbyaqrZzIpu1ludrFZpX4wSNASQDH+nYRY9dH/iB2WOMhB+cQt5KElD0X7eaRkKlp5cU4su+f22OQ5RBDoh2BWMgq2iuAxQDtJ0J8qKVxQBbIA9lKEJ8xnUkDsKtc4DwDqMIln71dF3nWE2j9Hrxrd+3efVO+XaQ9kTaN+aToejMq/X6WqWs+/IejAN+qrWD+11Tcwpid1VSGWNMSg5m9Yct3JodTenZxVo8csp+jSKeowGCUWyifrgGnc7iZD/Y6zazEmnPvomYl6hDf8bBqzK86nN/drMsgms=
+ ARA:13230040|376014|36860700016|1800799024|82310400026|18002099003|22082099003|11063799003|56012099003|3023799003;
+X-Microsoft-Antispam-Message-Info: 0QzaAqcLsJF0o3GdDplqdtzIBkQNFgFdMRkLgiyTIHvwcmXnStDXqD3SNAypt+HUuGCt22eI5Oj5djGojJY99DPH/l7iBMZQAF6O04P5B//idySGVWyox7lfkjiF0q5rH7P9txtIsCLcoTzng99YUN6Gt85v66TnRhMwcte67bnYVG6o92tJRPXdzXoUmUwsSz6vWABNi1rRu7RQ6ys7iNHUro92CQElaSOSDu7cqBHRBvAIWYfN6TWP2QhXFt5NUaWAXNnayirU0Z/oRkbcNkkZ9KnyEtv5MDlKFUXG0Hzlktckpxq2V2MmagHDqthO+7ci68AhZLoawS76nhEQMyqXTO1Mk2SgKx9X/t0VI4RTqjQcRYeVDXnx8THBSF78WBtNZ7hkFO1qr6eECElH13ZT1RPMw31aU0GNbqIYdGkdUaEjoQjRd0u41UNOo8qd2m1c2sBCO9o6mAEpOcqwr+gmMCexptjbgUKi17oE1IGhCyVmUcdR5GcFCOVo9sKWvl7OZkHJxVPmgHFNFrbxueGvucWqbjxLumzhXXc6fE9vA8e0SQGQM8D8MoaZyGhQq+2HPRA0kgtuSdk/euBPeoEGW1L/mnF05siOl7HThy9fELjmjdN+W37CZNQHQS/LfQYDPZ6zDTgpole3Y7n1zG0L+Kb58HHqxv3mUI8oy1G9Dswxa7frCJeg5vSq4Sur4FbbHW3T1s2jUbP10KU3ClnfXKIwziqCznYLC/wK6cM=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(82310400026)(376014)(36860700016)(3023799003)(22082099003)(18002099003)(56012099003)(11063799003);
+ SFS:(13230040)(376014)(36860700016)(1800799024)(82310400026)(18002099003)(22082099003)(11063799003)(56012099003)(3023799003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: yqQSkyQb5lebD6ZS+Qx5oe8FwlhDPL4Dpfdfjst8p1GxEmwP+/z2qwvxzs+zlUqZVGvXkYL9Zq6FiDUlzoV1ODlMquuKlzMpmnAgzNZ5FjJNndLYBDeKE2OD0qbGLh3zJEIikgiLsi6nHQSsidHdHY+cAMkzciQF+5/AOV3VJj45HHsUau8CsXWUoEB9kh0BTN43qqndvKYteC6gjbmbmOUB/VHuM8InBmH3Yx9RvwpUOEZ1qozqzWPRW5FEFV9thYgi8jS1rBfqkiAB3U4NArKUbdFhOruYngybeQQqJPu11tlqg/80M9w4/h+gR/U0/jMD/RptaEPxmAyfFaWydiHbI+X3Dxckkt68CHBI3lMgmdRlq/neWfxsaJDjaOeTQKV1uC8i63pRFMAwqx9h+ZU7YXDd5z+YOwdaBw9VwNC7wbiZDnowrJNSRbOnfR4s
+X-MS-Exchange-AntiSpam-MessageData-0: 2KkNxM1DkmrijU2x8DNAG8aOjRQuqMaywOEIoJo7fC6y3wg1Ykb8xmBuCDP5y/19obI9eAXYmYNgjvxr5gznHyjckzCBHfEx8gvdoPibcwtFPeN60bXxLYSBDlUq53OsKmB7fdrD2/7l3MoTrk0A/0eDsm4wM+dwBa6v+wd/71+id8deANLA/jDN5iiuKn5Rsf2SuIKv11u5sCpY3CLVdouxBA0c3Awkj50O5Da6qFQ6Ya5mkK/TmJL5CtsXUwNO3FOPxMacrpTvatGHXpkrCSg9uFph3CiiA5o3RjqXieQ185VXVzyNdPvJ+XJP7xbd8jKTxASLAeYgtW7qkw4xNpY0PmsEzkiTgr88YaMz/sPo79LkwXwpxHgUr4pVkGVHGBEvIGM6BhxZCkfWDlzcQZEtA0bwTzxLoH+Bplze7WKQ5f81kAlvQqC2RY/pUZl+
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 May 2026 14:23:19.4610 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c6208e82-c71d-469f-c270-08deb032040c
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 May 2026 14:23:23.4815 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 32cd798c-af88-494f-d1da-08deb0320671
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb08.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF000001CE.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8095
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS5PPF7B9F1F8E0
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,1448 +116,2781 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add HDMI FRL bits to DML 2.0
----
- .../gpu/drm/amd/display/dc/dml2_0/Makefile    |   2 +
- .../amd/display/dc/dml2_0/display_mode_core.c | 104 ++++-
- .../amd/display/dc/dml2_0/display_mode_util.c |   3 +
- .../dml2_0/dml21/dml21_translation_helper.c   |   4 +
- .../dml21/src/dml2_core/dml2_core_dcn4.c      |   1 +
- .../src/dml2_core/dml2_core_dcn4_calcs.c      |  29 +-
- .../src/dml2_core/dml2_core_shared_types.h    |   3 +
- .../lib_frl_cap_check.c                       | 396 +++++++++++++++++
- .../lib_frl_cap_check.h                       |  90 ++++
- .../dc/dml2_0/dml2_translation_helper.c       |   4 +
- .../drm/amd/display/dc/dml2_0/dml2_utils.c    |   2 +
- .../amd/display/dc/dml2_0/dml_frl_cap_chk.c   | 413 ++++++++++++++++++
- .../amd/display/dc/dml2_0/dml_frl_cap_chk.h   | 109 +++++
- 13 files changed, 1153 insertions(+), 7 deletions(-)
- create mode 100644 drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_standalone_libraries/lib_frl_cap_check.c
- create mode 100644 drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_standalone_libraries/lib_frl_cap_check.h
- create mode 100644 drivers/gpu/drm/amd/display/dc/dml2_0/dml_frl_cap_chk.c
- create mode 100644 drivers/gpu/drm/amd/display/dc/dml2_0/dml_frl_cap_chk.h
+Add support for FRL in DC resources. This is mostly the register
+macros, encoder creation, and HW capabilities.
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/Makefile b/drivers/gpu/drm/amd/display/dc/dml2_0/Makefile
-index 8a451c36fdb3..44e00c2b7ac7 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2_0/Makefile
-+++ b/drivers/gpu/drm/amd/display/dc/dml2_0/Makefile
-@@ -80,6 +80,7 @@ CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml2_0/dml21/dml21_wrapper.o := $(dml2_ccflags)
- DML2 = display_mode_core.o display_mode_util.o dml2_wrapper_fpu.o dml2_wrapper.o \
- 		dml2_utils.o dml2_policy.o dml2_translation_helper.o dml2_dc_resource_mgmt.o dml2_mall_phantom.o \
- 		dml_display_rq_dlg_calc.o
-+DML2 += dml_frl_cap_chk.o
+Signed-off-by: Harry Wentland <harry.wentland@amd.com>
+---
+ .../dc/resource/dce112/dce112_resource.c      |   3 +
+ .../dc/resource/dcn30/dcn30_resource.c        | 126 +++++++++++++++++
+ .../dc/resource/dcn301/dcn301_resource.c      |   1 +
+ .../dc/resource/dcn302/dcn302_resource.c      | 109 +++++++++++++++
+ .../dc/resource/dcn303/dcn303_resource.c      | 109 +++++++++++++++
+ .../dc/resource/dcn31/dcn31_resource.c        | 127 +++++++++++++++++
+ .../dc/resource/dcn314/dcn314_resource.c      | 127 +++++++++++++++++
+ .../dc/resource/dcn315/dcn315_resource.c      | 128 +++++++++++++++++
+ .../dc/resource/dcn316/dcn316_resource.c      | 126 +++++++++++++++++
+ .../dc/resource/dcn32/dcn32_resource.c        | 131 +++++++++++++++++
+ .../dc/resource/dcn32/dcn32_resource.h        |  79 +++++++++--
+ .../dc/resource/dcn321/dcn321_resource.c      | 132 ++++++++++++++++++
+ .../dc/resource/dcn35/dcn35_resource.c        | 121 ++++++++++++++++
+ .../dc/resource/dcn351/dcn351_resource.c      | 121 ++++++++++++++++
+ .../dc/resource/dcn36/dcn36_resource.c        | 121 ++++++++++++++++
+ .../dc/resource/dcn401/dcn401_resource.c      | 121 ++++++++++++++++
+ .../dc/resource/dcn42/dcn42_resource.c        | 121 ++++++++++++++++
+ 17 files changed, 1789 insertions(+), 14 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dce112/dce112_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dce112/dce112_resource.c
+index ad0214d99a45..6d49d6b70b21 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dce112/dce112_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dce112/dce112_resource.c
+@@ -981,6 +981,9 @@ enum dc_status resource_map_phy_clock_resources(
+ 		|| dc_is_virtual_signal(pipe_ctx->stream->signal))
+ 		pipe_ctx->clock_source =
+ 				dc->res_pool->dp_clock_source;
++	else if (pipe_ctx->stream->signal == SIGNAL_TYPE_HDMI_FRL)
++			pipe_ctx->clock_source =
++				dc->res_pool->dp_clock_source;
+ 	else {
+ 		if (stream && stream->link && stream->link->link_enc)
+ 			pipe_ctx->clock_source = find_matching_pll(
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn30/dcn30_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn30/dcn30_resource.c
+index e49728cb41d9..70eacb0edfd9 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dcn30/dcn30_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dcn30/dcn30_resource.c
+@@ -50,6 +50,8 @@
+ #include "dcn30/dcn30_vpg.h"
+ #include "dcn30/dcn30_afmt.h"
+ #include "dcn30/dcn30_dio_stream_encoder.h"
++#include "dcn30/dcn30_hpo_frl_stream_encoder.h"
++#include "dcn30/dcn30_hpo_frl_link_encoder.h"
+ #include "dcn30/dcn30_dio_link_encoder.h"
+ #include "dce/dce_clock_source.h"
+ #include "dce/dce_audio.h"
+@@ -400,6 +402,45 @@ static const struct dcn10_link_enc_mask le_mask = {
+ };
  
- AMD_DAL_DML2 = $(addprefix $(AMDDALPATH)/dc/dml2_0/,$(DML2))
  
-@@ -102,6 +103,7 @@ DML21 += src/dml2_pmo/dml2_pmo_factory.o
- DML21 += src/dml2_pmo/dml2_pmo_dcn4_fams2.o
- DML21 += src/dml2_pmo/dml2_pmo_dcn42.o
- DML21 += src/dml2_standalone_libraries/lib_float_math.o
-+DML21 += src/dml2_standalone_libraries/lib_frl_cap_check.o
- DML21 += dml21_translation_helper.o
- DML21 += dml21_wrapper.o
- DML21 += dml21_wrapper_fpu.o
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/display_mode_core.c b/drivers/gpu/drm/amd/display/dc/dml2_0/display_mode_core.c
-index 241406e9e85a..fb4ea2ee28b7 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2_0/display_mode_core.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml2_0/display_mode_core.c
-@@ -27,6 +27,8 @@
- #include "display_mode_core.h"
- #include "display_mode_util.h"
- #include "display_mode_lib_defines.h"
-+#include "dml_frl_cap_chk.h"
-+#include "lib_frl_cap_check.h"
- 
- #include "dml_assert.h"
- 
-@@ -864,7 +866,7 @@ static dml_uint_t dscceComputeDelay(
- 	// #all other modes operate at 1 pixel per clock
- 	else if (pixelFormat == dml_444)
- 		pixelsPerClock = 1;
--	else if (pixelFormat == dml_n422)
-+	else if (pixelFormat == dml_n422 || Output == dml_hdmifrl)
- 		pixelsPerClock = 2;
- 	else
- 		pixelsPerClock = 1;
-@@ -884,7 +886,7 @@ static dml_uint_t dscceComputeDelay(
- 	w = sliceWidth / pixelsPerClock;
- 
- 	//422 mode has an additional cycle of delay
--	if (pixelFormat == dml_420 || pixelFormat == dml_444 || pixelFormat == dml_n422)
-+	if (pixelFormat == dml_420 || pixelFormat == dml_444 || pixelFormat == dml_n422 || Output == dml_hdmifrl)
- 		s = 0;
- 	else
- 		s = 1;
-@@ -947,7 +949,7 @@ static dml_uint_t dscComputeDelay(enum dml_output_format_class pixelFormat, enum
- 		Delay = Delay + 1;
- 		// sft
- 		Delay = Delay + 1;
--	} else if (pixelFormat == dml_n422) {
-+	} else if (pixelFormat == dml_n422 || (Output == dml_hdmifrl && pixelFormat != dml_444)) {
- 	// sfr
- 	Delay = Delay + 2;
- 	// dsccif
-@@ -2741,20 +2743,44 @@ static dml_float_t TruncToValidBPP(
- 	dml_uint_t NonDSCBPP1;
- 	dml_uint_t NonDSCBPP2;
- 
-+	frl_cap_chk_result hdmifrlresult = FRL_CAP_CHK_OK;
-+	frl_cap_chk_params hdmifrlparams = { 0 };
-+	frl_cap_chk_intermediates hdmifrlinter = { 0 };
++#define hpo_frl_stream_encoder_reg_list(id)\
++[id] = {\
++	DCN3_0_HPO_FRL_STREAM_ENC_REG_LIST(id)\
++}
 +
-+	hdmifrlparams.lanes = Lanes;
-+	hdmifrlparams.f_pixel_clock_nominal = PixelClock * 1000000;
-+	hdmifrlparams.r_bit_nominal = LinkBitRate * 1000000;
-+	hdmifrlparams.layout = AudioLayout;
-+	hdmifrlparams.f_audio = AudioRate * 1000;
-+	hdmifrlparams.h_active = HActive;
-+	hdmifrlparams.h_blank = HTotal - HActive;
-+	hdmifrlparams.bpc = (dml_uint_t)(DesiredBPP / 3);
-+	hdmifrlparams.compressed = DSCEnable;
-+	hdmifrlparams.slices = DSCSlices;
-+	hdmifrlparams.slice_width = (dml_uint_t)(dml_ceil((dml_float_t) HActive / DSCSlices, 1.0));
-+	hdmifrlparams.bpp_target = DesiredBPP;
++#define hpo_frl_stream_encoder_dme_reg_list(id)\
++	DCN3_0_HPO_STREAM_ENC_DME_REG_LIST(id, 6)
 +
- 	if (Format == dml_420) {
- 		NonDSCBPP0 = 12;
- 		NonDSCBPP1 = 15;
- 		NonDSCBPP2 = 18;
- 		MinDSCBPP = 6;
- 		MaxDSCBPP = 1.5 * DSCInputBitPerComponent - 1.0 / 16;
-+		hdmifrlparams.pixel_encoding = PIXEL_ENCODING_420;
-+		hdmifrlparams.bpc = (dml_uint_t) (DesiredBPP / 1.5);
- 	} else if (Format == dml_444) {
- 		NonDSCBPP0 = 24;
- 		NonDSCBPP1 = 30;
- 		NonDSCBPP2 = 36;
- 		MinDSCBPP = 8;
- 		MaxDSCBPP = 3 * DSCInputBitPerComponent - 1.0 / 16;
-+		hdmifrlparams.pixel_encoding = PIXEL_ENCODING_444;
-+		hdmifrlparams.bpc = (dml_uint_t) (DesiredBPP / 3.0);
- 	} else {
--		if (Output == dml_hdmi) {
-+		hdmifrlparams.pixel_encoding = PIXEL_ENCODING_422;
-+		hdmifrlparams.bpc = (dml_uint_t) (DesiredBPP / 2.0);
 +
-+		if (Output == dml_hdmi || Output == dml_hdmifrl) {
- 			NonDSCBPP0 = 24;
- 			NonDSCBPP1 = 24;
- 			NonDSCBPP2 = 24;
-@@ -2763,7 +2789,7 @@ static dml_float_t TruncToValidBPP(
- 			NonDSCBPP1 = 20;
- 			NonDSCBPP2 = 24;
- 	}
--	if (Format == dml_n422) {
-+	if (Format == dml_n422 || Output == dml_hdmifrl) {
- 		MinDSCBPP = 7;
- 			MaxDSCBPP = 2 * DSCInputBitPerComponent - 1.0 / 16.0;
- 		} else {
-@@ -2772,7 +2798,11 @@ static dml_float_t TruncToValidBPP(
- 		}
- 	}
- 
--	if (Output == dml_dp2p0) {
-+	if (Output == dml_hdmifrl) {
-+		hdmifrlresult = frl_cap_chk_inter(&hdmifrlparams, &hdmifrlinter);
-+		MaxLinkBPP = (1 - hdmifrlinter.overhead_max) * dml_min(hdmifrlinter.r_frl_char_min * 16.0 * (dml_float_t) Lanes / hdmifrlinter.f_pixel_clock_max + 24.0 * (dml_float_t) TB_BORROWED_MAX / (dml_float_t) HActive,
-+														(hdmifrlinter.r_frl_char_min * 16.0 * (dml_float_t)Lanes / hdmifrlinter.f_pixel_clock_max * (dml_float_t) HTotal - 16.0 * (dml_float_t) hdmifrlinter.blank_audio_min) / (dml_float_t) HActive);
-+	} else if (Output == dml_dp2p0) {
- 		MaxLinkBPP = LinkBitRate * Lanes / PixelClock * 128.0 / 132.0 * 383.0 / 384.0 * 65536.0 / 65540.0;
- 	} else if (DSCEnable && Output == dml_dp) {
- 		MaxLinkBPP = LinkBitRate / 10.0 * 8.0 * Lanes / PixelClock * (1 - 2.4 / 100);
-@@ -2824,6 +2854,8 @@ static dml_float_t TruncToValidBPP(
- 		if (!((DSCEnable == false && (DesiredBPP == NonDSCBPP2 || DesiredBPP == NonDSCBPP1 || DesiredBPP == NonDSCBPP0)) ||
- 				(DSCEnable && DesiredBPP >= MinDSCBPP && DesiredBPP <= MaxDSCBPP))) {
- 			return __DML_DPP_INVALID__;
-+		} else if ((Output == dml_hdmifrl && hdmifrlresult != FRL_CAP_CHK_OK) || (Output != dml_hdmifrl && MaxLinkBPP < DesiredBPP)) {
-+			return __DML_DPP_INVALID__;
- 		} else {
- 			return DesiredBPP;
- 		}
-@@ -5516,6 +5548,66 @@ static void CalculateOutputLink(
- 					*OutputRate = dml_output_rate_dp_rate_hbr3;
- 				}
- 			}
-+		} else if (Output == dml_hdmifrl) {
-+			if (DSCEnable == dml_dsc_enable) {
-+				*RequiresDSC = true;
-+				LinkDSCEnable = true;
-+				*RequiresFEC = true;
-+			} else {
-+				*RequiresDSC = false;
-+				LinkDSCEnable = false;
-+				*RequiresFEC = false;
-+			}
-+			*OutBpp = 0;
-+			if (PHYCLKD18PerState >= 3000 / 18) {
-+				*OutBpp = TruncToValidBPP(3000, 3, HTotal, HActive, PixelClockBackEnd, ForcedOutputLinkBPP, LinkDSCEnable, Output, OutputFormat, DSCInputBitPerComponent, NumberOfDSCSlices, (dml_uint_t)AudioSampleRate, AudioSampleLayout, ODMModeNoDSC, ODMModeDSC, &dummy);
-+				//OutputTypeAndRate = Output & "3x3";
-+				*OutputType = dml_output_type_hdmifrl;
-+				*OutputRate = dml_output_rate_hdmi_rate_3x3;
-+			}
-+			if (*OutBpp == 0 && PHYCLKD18PerState >= 6000 / 18) {
-+				*OutBpp = TruncToValidBPP(6000, 3, HTotal, HActive, PixelClockBackEnd, ForcedOutputLinkBPP, LinkDSCEnable, Output, OutputFormat, DSCInputBitPerComponent, NumberOfDSCSlices, (dml_uint_t)AudioSampleRate, AudioSampleLayout, ODMModeNoDSC, ODMModeDSC, &dummy);
-+				//OutputTypeAndRate = Output & "6x3";
-+				*OutputType = dml_output_type_hdmifrl;
-+				*OutputRate = dml_output_rate_hdmi_rate_6x3;
-+			}
-+			if (*OutBpp == 0 && PHYCLKD18PerState >= 6000 / 18) {
-+				*OutBpp = TruncToValidBPP(6000, 4, HTotal, HActive, PixelClockBackEnd, ForcedOutputLinkBPP, LinkDSCEnable, Output, OutputFormat, DSCInputBitPerComponent, NumberOfDSCSlices, (dml_uint_t)AudioSampleRate, AudioSampleLayout, ODMModeNoDSC, ODMModeDSC, &dummy);
-+				//OutputTypeAndRate = Output & "6x4";
-+				*OutputType = dml_output_type_hdmifrl;
-+				*OutputRate = dml_output_rate_hdmi_rate_6x4;
-+			}
-+			if (*OutBpp == 0 && PHYCLKD18PerState >= 8000 / 18) {
-+				*OutBpp = TruncToValidBPP(8000, 4, HTotal, HActive, PixelClockBackEnd, ForcedOutputLinkBPP, LinkDSCEnable, Output, OutputFormat, DSCInputBitPerComponent, NumberOfDSCSlices, (dml_uint_t)AudioSampleRate, AudioSampleLayout, ODMModeNoDSC, ODMModeDSC, &dummy);
-+				//OutputTypeAndRate = Output & "8x4";
-+				*OutputType = dml_output_type_hdmifrl;
-+				*OutputRate = dml_output_rate_hdmi_rate_8x4;
-+			}
-+			if (*OutBpp == 0 && PHYCLKD18PerState >= 10000 / 18) {
-+				*OutBpp = TruncToValidBPP(10000, 4, HTotal, HActive, PixelClockBackEnd, ForcedOutputLinkBPP, LinkDSCEnable, Output, OutputFormat, DSCInputBitPerComponent, NumberOfDSCSlices, (dml_uint_t)AudioSampleRate, AudioSampleLayout, ODMModeNoDSC, ODMModeDSC, &dummy);
-+				if (*OutBpp == 0 && DSCEnable == dml_dsc_enable_if_necessary && ForcedOutputLinkBPP == 0 && PHYCLKD18PerState < 12000 / 18) {
-+					*RequiresDSC = true;
-+					LinkDSCEnable = true;
-+					*RequiresFEC = true;
-+					*OutBpp = TruncToValidBPP(10000, 4, HTotal, HActive, PixelClockBackEnd, ForcedOutputLinkBPP, LinkDSCEnable, Output, OutputFormat, DSCInputBitPerComponent, NumberOfDSCSlices, (dml_uint_t)AudioSampleRate, AudioSampleLayout, ODMModeNoDSC, ODMModeDSC, &dummy);
-+				}
-+				//OutputTypeAndRate = Output & "10x4";
-+				*OutputType = dml_output_type_hdmifrl;
-+				*OutputRate = dml_output_rate_hdmi_rate_10x4;
-+			}
++static const struct dcn30_hpo_frl_stream_enc_registers hpo_frl_stream_enc_regs[] = {
++	hpo_frl_stream_encoder_reg_list(0),
++	hpo_frl_stream_encoder_dme_reg_list(6),
++};
 +
-+			if (*OutBpp == 0 && PHYCLKD18PerState >= 12000 / 18) {
-+				*OutBpp = TruncToValidBPP(12000, 4, HTotal, HActive, PixelClockBackEnd, ForcedOutputLinkBPP, LinkDSCEnable, Output, OutputFormat, DSCInputBitPerComponent, NumberOfDSCSlices, (dml_uint_t)AudioSampleRate, AudioSampleLayout, ODMModeNoDSC, ODMModeDSC, &dummy);
-+				if (*OutBpp == 0 && DSCEnable == dml_dsc_enable_if_necessary && ForcedOutputLinkBPP == 0) {
-+					*RequiresDSC = true;
-+					LinkDSCEnable = true;
-+					*RequiresFEC = true;
-+					*OutBpp = TruncToValidBPP(12000, 4, HTotal, HActive, PixelClockBackEnd, ForcedOutputLinkBPP, LinkDSCEnable, Output, OutputFormat, DSCInputBitPerComponent, NumberOfDSCSlices, (dml_uint_t)AudioSampleRate, AudioSampleLayout, ODMModeNoDSC, ODMModeDSC, &dummy);
-+				}
-+				//OutputTypeAndRate = Output & "12x4";
-+				*OutputType = dml_output_type_hdmifrl;
-+				*OutputRate = dml_output_rate_hdmi_rate_12x4;
-+			}
- 		}
- 	}
++static const struct dcn30_hpo_frl_stream_encoder_shift hpo_se_shift = {
++	DCN3_0_HPO_STREAM_ENC_MASK_SH_LIST(__SHIFT)
++};
++
++static const struct dcn30_hpo_frl_stream_encoder_mask hpo_se_mask = {
++	DCN3_0_HPO_STREAM_ENC_MASK_SH_LIST(_MASK)
++};
++
++#define hpo_frl_link_encoder_reg_list(id)\
++[id] = {\
++	DCN3_0_HPO_FRL_LINK_ENC_REG_LIST(id)\
++}
++
++static const struct dcn30_hpo_frl_link_encoder_registers hpo_frl_link_enc_regs[] = {
++	hpo_frl_link_encoder_reg_list(0),
++};
++
++static const struct dcn30_hpo_frl_link_encoder_shift hpo_le_shift = {
++	DCN3_0_HPO_FRL_LINK_ENC_MASK_SH_LIST(__SHIFT)
++};
++
++static const struct dcn30_hpo_frl_link_encoder_mask hpo_le_mask = {
++	DCN3_0_HPO_FRL_LINK_ENC_MASK_SH_LIST(_MASK)
++};
++
+ static const struct dce_panel_cntl_registers panel_cntl_regs[] = {
+ 	{ DCN_PANEL_CNTL_REG_LIST() }
+ };
+@@ -673,6 +714,7 @@ static const struct resource_caps res_cap_dcn3 = {
+ 	.num_video_plane = 6,
+ 	.num_audio = 6,
+ 	.num_stream_encoder = 6,
++	.num_hpo_frl = 1,
+ 	.num_pll = 6,
+ 	.num_dwb = 1,
+ 	.num_ddc = 6,
+@@ -1075,6 +1117,69 @@ static struct stream_encoder *dcn30_stream_encoder_create(enum engine_id eng_id,
+ 	return &enc1->base;
  }
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/display_mode_util.c b/drivers/gpu/drm/amd/display/dc/dml2_0/display_mode_util.c
-index 3939a0d8b835..a8519f547dce 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2_0/display_mode_util.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml2_0/display_mode_util.c
-@@ -393,6 +393,7 @@ void dml_print_mode_support(struct display_mode_lib_st *mode_lib, dml_uint_t j)
- 	dml_print("DML: MODE SUPPORT:     DISPCLK DPPCLK Support                     : %s\n", mode_lib->ms.support.DISPCLK_DPPCLK_Support[j] == true ? "Supported" : "NOT Supported");
- 	dml_print("DML: MODE SUPPORT:     Total Available Pipes Support              : %s\n", mode_lib->ms.support.TotalAvailablePipesSupport[j] == true ? "Supported" : "NOT Supported");
- 	dml_print("DML: MODE SUPPORT:     Number Of OTG Support                      : %s\n", mode_lib->ms.support.NumberOfOTGSupport == true ? "Supported" : "NOT Supported");
-+	dml_print("DML: MODE SUPPORT:     Number Of HDMI FRL Support                 : %s\n", mode_lib->ms.support.NumberOfHDMIFRLSupport == true ? "Supported" : "NOT Supported");
- 	dml_print("DML: MODE SUPPORT:     Number Of DP2p0 Support                    : %s\n", mode_lib->ms.support.NumberOfDP2p0Support == true ? "Supported" : "NOT Supported");
- 	dml_print("DML: MODE SUPPORT:     Writeback Latency Support                  : %s\n", mode_lib->ms.support.WritebackLatencySupport == true ? "Supported" : "NOT Supported");
- 	dml_print("DML: MODE SUPPORT:     Writeback Scale Ratio And Taps Support     : %s\n", mode_lib->ms.support.WritebackScaleRatioAndTapsSupport == true ? "Supported" : "NOT Supported");
-@@ -451,6 +452,8 @@ void dml_print_dml_mode_support_info(const struct dml_mode_support_info_st *supp
- 		dml_print("DML: support: NotEnoughLanesForMSO = 0x%x\n", support->NotEnoughLanesForMSO);
- 	if (!fail_only || support->NumberOfOTGSupport == 0)
- 		dml_print("DML: support: NumberOfOTGSupport = 0x%x\n", support->NumberOfOTGSupport);
-+	if (!fail_only || support->NumberOfHDMIFRLSupport == 0)
-+		dml_print("DML: support: NumberOfHDMIFRLSupport = 0x%x\n", support->NumberOfHDMIFRLSupport);
- 	if (!fail_only || support->NumberOfDP2p0Support == 0)
- 		dml_print("DML: support: NumberOfDP2p0Support = 0x%x\n", support->NumberOfDP2p0Support);
- 	if (!fail_only || support->NonsupportedDSCInputBPC == 1)
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/dml21_translation_helper.c b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/dml21_translation_helper.c
-index 25557c99a28e..c86b45bbeb2b 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/dml21_translation_helper.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/dml21_translation_helper.c
-@@ -213,6 +213,9 @@ static void populate_dml21_output_config_from_stream_state(struct dml2_link_outp
- 	case SIGNAL_TYPE_DVI_DUAL_LINK:
- 		output->output_encoder = dml2_hdmi;
- 		break;
-+	case SIGNAL_TYPE_HDMI_FRL:
-+		output->output_encoder = dml2_hdmifrl;
-+		break;
- 	default:
- 			output->output_encoder = dml2_dp;
- 	}
-@@ -247,6 +250,7 @@ static void populate_dml21_output_config_from_stream_state(struct dml2_link_outp
- 	case SIGNAL_TYPE_DISPLAY_PORT_MST:
- 	case SIGNAL_TYPE_EDP:
- 	case SIGNAL_TYPE_VIRTUAL:
-+	case SIGNAL_TYPE_HDMI_FRL:
- 	default:
- 		output->output_dp_link_rate = dml2_dp_rate_na;
- 		break;
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn4.c b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn4.c
-index 858e7bbc511f..c983869e0fa3 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn4.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn4.c
-@@ -66,6 +66,7 @@ struct dml2_core_ip_params core_dcn4_ip_caps_base = {
- 	.cursor_64bpp_support = true,
- 	.dynamic_metadata_vm_enabled = false,
  
-+	.max_num_hdmi_frl_outputs = 1,
- 	.max_num_dp2p0_outputs = 4,
- 	.max_num_dp2p0_streams = 4,
- 	.imall_supported = 1,
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn4_calcs.c b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn4_calcs.c
-index 827bd9143c87..f338e733318e 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn4_calcs.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn4_calcs.c
-@@ -7,6 +7,7 @@
- #include "dml2_core_dcn4_calcs.h"
- #include "dml2_debug.h"
- #include "lib_float_math.h"
-+#include "lib_frl_cap_check.h"
- #include "dml_top_types.h"
- 
- #define DML2_MAX_FMT_420_BUFFER_WIDTH 4096
-@@ -1294,19 +1295,39 @@ static double TruncToValidBPP(
- 	unsigned int NonDSCBPP2;
- 	enum dml2_odm_mode ODMMode;
- 
-+	enum lib_frl_cap_check_status hdmifrlresult = LIB_FRL_CAP_CHECK_OK;
++static struct hpo_frl_stream_encoder *dcn30_hpo_frl_stream_encoder_create(enum engine_id eng_id,
++									  struct dc_context *ctx)
++{
++	struct dcn30_hpo_frl_stream_encoder *hpo_enc3;
++	struct afmt *afmt;
++	struct vpg *vpg;
++	int afmt_inst;
++	int vpg_inst;
 +
-+	l->hdmifrlparams.lanes = (int)Lanes;
-+	l->hdmifrlparams.f_pixel_clock_nominal = PixelClock * 1000000;
-+	l->hdmifrlparams.r_bit_nominal = LinkBitRate * 1000000;
-+	l->hdmifrlparams.layout = (int)AudioLayout;
-+	l->hdmifrlparams.f_audio = AudioRate * 1000;
-+	l->hdmifrlparams.h_active = (int)HActive;
-+	l->hdmifrlparams.h_blank = (int)(HTotal - HActive);
-+	l->hdmifrlparams.bpc = (int)(DesiredBPP / 3);
-+	l->hdmifrlparams.compressed = DSCEnable;
-+	l->hdmifrlparams.slices = (int)DSCSlices;
-+	l->hdmifrlparams.slice_width = (int)(math_ceil2((double)HActive / DSCSlices, 1.0));
-+	l->hdmifrlparams.bpp_target = DesiredBPP;
- 	if (Format == dml2_420) {
- 		NonDSCBPP0 = 12;
- 		NonDSCBPP1 = 15;
- 		NonDSCBPP2 = 18;
- 		MinDSCBPP = 6;
- 		MaxDSCBPP = 16;
-+		l->hdmifrlparams.pixel_encoding = LIB_FRL_CAP_CHECK_PIXEL_ENCODING_420;
-+		l->hdmifrlparams.bpc = (int)(DesiredBPP / 1.5);
- 	} else if (Format == dml2_444) {
- 		NonDSCBPP0 = 24;
- 		NonDSCBPP1 = 30;
- 		NonDSCBPP2 = 36;
- 		MinDSCBPP = 8;
- 		MaxDSCBPP = 16;
-+		l->hdmifrlparams.pixel_encoding = LIB_FRL_CAP_CHECK_PIXEL_ENCODING_444;
-+		l->hdmifrlparams.bpc = (int)(DesiredBPP / 3.0);
- 	} else {
-+		l->hdmifrlparams.pixel_encoding = LIB_FRL_CAP_CHECK_PIXEL_ENCODING_422;
-+		l->hdmifrlparams.bpc = (int)(DesiredBPP / 2.0);
++	/* Mapping of VPG, AFMT, DME register blocks to HPO block instance */
++	if (eng_id == ENGINE_ID_HPO_0) {
++		vpg_inst = 6;
++		afmt_inst = 6;
++	} else {
++		return NULL;
++	}
++
++	/* allocate HPO stream encoder and create VPG sub-block */
++	hpo_enc3 = kzalloc(sizeof(struct dcn30_hpo_frl_stream_encoder), GFP_KERNEL);
++	vpg = dcn30_vpg_create(ctx, vpg_inst);
++	afmt = dcn30_afmt_create(ctx, afmt_inst);
++
++	if (!hpo_enc3 || !vpg || !afmt) {
++		kfree(hpo_enc3);
++		kfree(vpg);
++		kfree(afmt);
++		return NULL;
++	}
++
++	dcn30_hpo_frl_stream_encoder_construct(hpo_enc3,
++					       ctx,
++					       ctx->dc_bios,
++					       eng_id,
++					       vpg,
++					       afmt,
++					       &hpo_frl_stream_enc_regs[eng_id - ENGINE_ID_HPO_0],
++					       &hpo_se_shift, &hpo_se_mask);
++
++	return &hpo_enc3->base;
++}
++
++static struct hpo_frl_link_encoder *dcn30_hpo_frl_link_encoder_create(enum engine_id eng_id,
++								      struct dc_context *ctx)
++{
++	struct dcn30_hpo_frl_link_encoder *hpo_enc3;
++
++	ASSERT((eng_id == ENGINE_ID_HPO_0) || (eng_id == ENGINE_ID_HPO_1));
++
++	/* allocate HPO link encoder */
++	hpo_enc3 = kzalloc(sizeof(struct dcn30_hpo_frl_link_encoder), GFP_KERNEL);
++	if (!hpo_enc3)
++		return NULL; /* out of memory */
++
++	hpo_frl_link_encoder3_construct(hpo_enc3,
++					ctx,
++					eng_id-ENGINE_ID_HPO_0,
++					&hpo_frl_link_enc_regs[eng_id - ENGINE_ID_HPO_0],
++					&hpo_le_shift,
++					&hpo_le_mask);
++
++	return &hpo_enc3->base;
++}
++
+ static struct dce_hwseq *dcn30_hwseq_create(struct dc_context *ctx)
+ {
+ 	struct dce_hwseq *hws = kzalloc(sizeof(struct dce_hwseq), GFP_KERNEL);
+@@ -1091,6 +1196,7 @@ static const struct resource_create_funcs res_create_funcs = {
+ 	.read_dce_straps = read_dce_straps,
+ 	.create_audio = dcn30_create_audio,
+ 	.create_stream_encoder = dcn30_stream_encoder_create,
++	.create_hpo_frl_stream_encoder = dcn30_hpo_frl_stream_encoder_create,
+ 	.create_hwseq = dcn30_hwseq_create,
+ };
  
- 		if (Output == dml2_hdmi || Output == dml2_hdmifrl) {
- 			NonDSCBPP0 = 24;
-@@ -1326,7 +1347,11 @@ static double TruncToValidBPP(
+@@ -1113,6 +1219,23 @@ static void dcn30_resource_destruct(struct dcn30_resource_pool *pool)
  		}
  	}
  
--	if (Output == dml2_dp2p0) {
-+	if (Output == dml2_hdmifrl) {
-+		hdmifrlresult = frl_cap_check_intermediates(&l->hdmifrlparams, &l->hdmifrlinter);
-+		MaxLinkBPP = (1 - l->hdmifrlinter.overhead_max) * math_min2(l->hdmifrlinter.r_frl_char_min * 16.0 * (double)Lanes / l->hdmifrlinter.f_pixel_clock_max + 24.0 * (double)DML2_FRL_CHK_TB_BORROWED_MAX / (double)HActive,
-+			(l->hdmifrlinter.r_frl_char_min * 16.0 * (double)Lanes / l->hdmifrlinter.f_pixel_clock_max * (double)HTotal - 16.0 * (double)l->hdmifrlinter.blank_audio_min) / (double)HActive);
-+	} else if (Output == dml2_dp2p0) {
- 		MaxLinkBPP = LinkBitRate * Lanes / PixelClock * 128.0 / 132.0 * 383.0 / 384.0 * 65536.0 / 65540.0;
- 	} else if (DSCEnable && Output == dml2_dp) {
- 		MaxLinkBPP = LinkBitRate / 10.0 * 8.0 * Lanes / PixelClock * (1 - 2.4 / 100);
-@@ -1364,6 +1389,8 @@ static double TruncToValidBPP(
- 		if (!((DSCEnable == false && (DesiredBPP == NonDSCBPP2 || DesiredBPP == NonDSCBPP1 || DesiredBPP == NonDSCBPP0)) ||
- 			(DSCEnable && DesiredBPP >= MinDSCBPP && DesiredBPP <= MaxDSCBPP))) {
- 			return __DML2_CALCS_DPP_INVALID__;
-+		} else if ((Output == dml2_hdmifrl && hdmifrlresult != LIB_FRL_CAP_CHECK_OK) || (Output != dml2_hdmifrl && MaxLinkBPP < DesiredBPP)) {
-+			return __DML2_CALCS_DPP_INVALID__;
- 		} else {
- 			return DesiredBPP;
++	for (i = 0; i < pool->base.hpo_frl_stream_enc_count; i++) {
++		if (pool->base.hpo_frl_stream_enc[i] != NULL) {
++			if (pool->base.hpo_frl_stream_enc[i]->vpg != NULL) {
++				kfree(DCN30_VPG_FROM_VPG(pool->base.hpo_frl_stream_enc[i]->vpg));
++				pool->base.hpo_frl_stream_enc[i]->vpg = NULL;
++			}
++
++			if (pool->base.hpo_frl_stream_enc[i]->afmt != NULL) {
++				kfree(DCN30_AFMT_FROM_AFMT(pool->base.hpo_frl_stream_enc[i]->afmt));
++				pool->base.hpo_frl_stream_enc[i]->afmt = NULL;
++			}
++
++			kfree(DCN30_HPO_FRL_STRENC_FROM_HPO_FRL_STRENC(pool->base.hpo_frl_stream_enc[i]));
++			pool->base.hpo_frl_stream_enc[i] = NULL;
++		}
++	}
++
+ 	for (i = 0; i < (unsigned int)pool->base.res_cap->num_dsc; i++) {
+ 		if (pool->base.dscs[i] != NULL)
+ 			dcn20_dsc_destroy(&pool->base.dscs[i]);
+@@ -2275,6 +2398,7 @@ static const struct resource_funcs dcn30_res_pool_funcs = {
+ 	.destroy = dcn30_destroy_resource_pool,
+ 	.link_enc_create = dcn30_link_encoder_create,
+ 	.panel_cntl_create = dcn30_panel_cntl_create,
++	.hpo_frl_link_enc_create = dcn30_hpo_frl_link_encoder_create,
+ 	.validate_bandwidth = dcn30_validate_bandwidth,
+ 	.calculate_wm_and_dlg = dcn30_calculate_wm_and_dlg,
+ 	.update_soc_for_wm_a = dcn30_update_soc_for_wm_a,
+@@ -2358,6 +2482,8 @@ static bool dcn30_resource_construct(
+ 	dc->caps.max_slave_rgb_planes = 2;
+ 	dc->caps.post_blend_color_processing = true;
+ 	dc->caps.force_dp_tps4_for_cp2520 = true;
++	dc->caps.hdmi_hpo = true;
++	dc->config.skip_frl_pretraining = true;
+ 	dc->caps.extended_aux_timeout_support = true;
+ 	dc->caps.dmcub_support = true;
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn301/dcn301_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn301/dcn301_resource.c
+index 69890c26a8b1..77f9e371f48e 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dcn301/dcn301_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dcn301/dcn301_resource.c
+@@ -644,6 +644,7 @@ static struct resource_caps res_cap_dcn301 = {
+ 	.num_video_plane = 4,
+ 	.num_audio = 4,
+ 	.num_stream_encoder = 4,
++	.num_hpo_frl = 0,
+ 	.num_pll = 4,
+ 	.num_dwb = 1,
+ 	.num_ddc = 4,
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn302/dcn302_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn302/dcn302_resource.c
+index db7de6036408..caeb001dd7de 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dcn302/dcn302_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dcn302/dcn302_resource.c
+@@ -32,6 +32,8 @@
+ #include "dcn30/dcn30_dio_stream_encoder.h"
+ #include "dcn30/dcn30_dwb.h"
+ #include "dcn30/dcn30_dpp.h"
++#include "dcn30/dcn30_hpo_frl_link_encoder.h"
++#include "dcn30/dcn30_hpo_frl_stream_encoder.h"
+ #include "dcn30/dcn30_hubbub.h"
+ #include "dcn30/dcn30_hubp.h"
+ #include "dcn30/dcn30_mmhubbub.h"
+@@ -129,6 +131,7 @@ static const struct resource_caps res_cap_dcn302 = {
+ 		.num_video_plane = 5,
+ 		.num_audio = 5,
+ 		.num_stream_encoder = 5,
++		.num_hpo_frl = 1,
+ 		.num_dwb = 1,
+ 		.num_ddc = 5,
+ 		.num_vmid = 16,
+@@ -451,6 +454,91 @@ static struct stream_encoder *dcn302_stream_encoder_create(enum engine_id eng_id
+ 	return &enc1->base;
+ }
+ 
++#define hpo_frl_stream_encoder_reg_list(id)\
++		[id] = { DCN3_0_HPO_FRL_STREAM_ENC_REG_LIST(id) }
++
++#define hpo_frl_stream_encoder_dme_reg_list(id)\
++		DCN3_0_HPO_STREAM_ENC_DME_REG_LIST(id, 5)
++
++static const struct dcn30_hpo_frl_stream_enc_registers hpo_frl_stream_enc_regs[] = {
++		hpo_frl_stream_encoder_reg_list(0),
++		hpo_frl_stream_encoder_dme_reg_list(5),
++};
++
++static const struct dcn30_hpo_frl_stream_encoder_shift hpo_se_shift = {
++		DCN3_0_HPO_STREAM_ENC_MASK_SH_LIST(__SHIFT)
++};
++
++static const struct dcn30_hpo_frl_stream_encoder_mask hpo_se_mask = {
++		DCN3_0_HPO_STREAM_ENC_MASK_SH_LIST(_MASK)
++};
++
++static struct hpo_frl_stream_encoder *dcn302_hpo_frl_stream_encoder_create(enum engine_id eng_id,
++		struct dc_context *ctx)
++{
++	struct dcn30_hpo_frl_stream_encoder *hpo_enc3;
++	struct vpg *vpg;
++	struct afmt *afmt;
++	int vpg_inst;
++	int afmt_inst;
++
++	/* Mapping of VPG, AFMT, DME register blocks to HPO block instance */
++	if (eng_id == ENGINE_ID_HPO_0) {
++		vpg_inst = 5;
++		afmt_inst = 5;
++	} else
++		return NULL;
++
++	/* allocate HPO stream encoder and create VPG sub-block */
++	hpo_enc3 = kzalloc(sizeof(struct dcn30_hpo_frl_stream_encoder), GFP_KERNEL);
++	vpg = dcn302_vpg_create(ctx, vpg_inst);
++	afmt = dcn302_afmt_create(ctx, afmt_inst);
++
++	if (!hpo_enc3 || !vpg || !afmt) {
++		kfree(hpo_enc3);
++		kfree(vpg);
++		kfree(afmt);
++		return NULL;
++	}
++
++	dcn30_hpo_frl_stream_encoder_construct(hpo_enc3, ctx, ctx->dc_bios, eng_id, vpg, afmt,
++			&hpo_frl_stream_enc_regs[eng_id-ENGINE_ID_HPO_0], &hpo_se_shift, &hpo_se_mask);
++
++	return &hpo_enc3->base;
++}
++
++#define hpo_frl_link_encoder_reg_list(id)\
++		[id] = { DCN3_0_HPO_FRL_LINK_ENC_REG_LIST(id) }
++
++static const struct dcn30_hpo_frl_link_encoder_registers hpo_frl_link_enc_regs[] = {
++		hpo_frl_link_encoder_reg_list(0),
++};
++
++static const struct dcn30_hpo_frl_link_encoder_shift hpo_le_shift = {
++		DCN3_0_HPO_FRL_LINK_ENC_MASK_SH_LIST(__SHIFT)
++};
++
++static const struct dcn30_hpo_frl_link_encoder_mask hpo_le_mask = {
++		DCN3_0_HPO_FRL_LINK_ENC_MASK_SH_LIST(_MASK)
++};
++
++static struct hpo_frl_link_encoder *dcn302_hpo_frl_link_encoder_create(enum engine_id eng_id, struct dc_context *ctx)
++{
++	struct dcn30_hpo_frl_link_encoder *hpo_enc3;
++
++	ASSERT((eng_id == ENGINE_ID_HPO_0) || (eng_id == ENGINE_ID_HPO_1));
++
++	/* allocate HPO link encoder */
++	hpo_enc3 = kzalloc(sizeof(struct dcn30_hpo_frl_link_encoder), GFP_KERNEL);
++	if (!hpo_enc3)
++		return NULL; /* out of memory */
++
++	hpo_frl_link_encoder3_construct(hpo_enc3, ctx, eng_id-ENGINE_ID_HPO_0,
++			&hpo_frl_link_enc_regs[eng_id-ENGINE_ID_HPO_0], &hpo_le_shift, &hpo_le_mask);
++
++	return &hpo_enc3->base;
++}
++
+ #define clk_src_regs(index, pllid)\
+ 		[index] = { CS_COMMON_REG_LIST_DCN3_02(index, pllid) }
+ 
+@@ -970,6 +1058,7 @@ static const struct resource_create_funcs res_create_funcs = {
+ 		.read_dce_straps = read_dce_straps,
+ 		.create_audio = dcn302_create_audio,
+ 		.create_stream_encoder = dcn302_stream_encoder_create,
++		.create_hpo_frl_stream_encoder = dcn302_hpo_frl_stream_encoder_create,
+ 		.create_hwseq = dcn302_hwseq_create,
+ };
+ 
+@@ -1036,6 +1125,23 @@ static void dcn302_resource_destruct(struct resource_pool *pool)
  		}
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_shared_types.h b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_shared_types.h
-index 080bc3c3d244..11e295253f72 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_shared_types.h
-+++ b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_shared_types.h
-@@ -8,6 +8,7 @@
- #include "dml2_external_lib_deps.h"
- #include "dml_top_display_cfg_types.h"
- #include "dml_top_types.h"
-+#include "lib_frl_cap_check.h"
+ 	}
  
- #define __DML_VBA_DEBUG__
- #define __DML2_CALCS_MAX_VRATIO_PRE_OTO__ 4.0 //<brief max vratio for one-to-one prefetch bw scheduling
-@@ -1522,6 +1523,8 @@ struct dml2_core_shared_CalculateSwathAndDETConfiguration_locals {
++	for (i = 0; i < pool->hpo_frl_stream_enc_count; i++) {
++		if (pool->hpo_frl_stream_enc[i] != NULL) {
++			if (pool->hpo_frl_stream_enc[i]->vpg != NULL) {
++				kfree(DCN30_VPG_FROM_VPG(pool->hpo_frl_stream_enc[i]->vpg));
++				pool->hpo_frl_stream_enc[i]->vpg = NULL;
++			}
++
++			if (pool->hpo_frl_stream_enc[i]->afmt != NULL) {
++				kfree(DCN30_AFMT_FROM_AFMT(pool->hpo_frl_stream_enc[i]->afmt));
++				pool->hpo_frl_stream_enc[i]->afmt = NULL;
++			}
++
++			kfree(DCN30_HPO_FRL_STRENC_FROM_HPO_FRL_STRENC(pool->hpo_frl_stream_enc[i]));
++			pool->hpo_frl_stream_enc[i] = NULL;
++		}
++	}
++
+ 	for (i = 0; i < (unsigned int)pool->res_cap->num_dsc; i++) {
+ 		if (pool->dscs[i] != NULL)
+ 			dcn20_dsc_destroy(&pool->dscs[i]);
+@@ -1172,6 +1278,7 @@ static struct resource_funcs dcn302_res_pool_funcs = {
+ 		.destroy = dcn302_destroy_resource_pool,
+ 		.link_enc_create = dcn302_link_encoder_create,
+ 		.panel_cntl_create = dcn302_panel_cntl_create,
++		.hpo_frl_link_enc_create = dcn302_hpo_frl_link_encoder_create,
+ 		.validate_bandwidth = dcn30_validate_bandwidth,
+ 		.calculate_wm_and_dlg = dcn30_calculate_wm_and_dlg,
+ 		.update_soc_for_wm_a = dcn30_update_soc_for_wm_a,
+@@ -1270,6 +1377,8 @@ static bool dcn302_resource_construct(
+ 	dc->caps.max_slave_rgb_planes = 2;
+ 	dc->caps.post_blend_color_processing = true;
+ 	dc->caps.force_dp_tps4_for_cp2520 = true;
++	dc->caps.hdmi_hpo = true;
++	dc->config.skip_frl_pretraining = true;
+ 	dc->caps.extended_aux_timeout_support = true;
+ 	dc->caps.dmcub_support = true;
+ 	dc->caps.max_v_total = (1 << 15) - 1;
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn303/dcn303_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn303/dcn303_resource.c
+index fc7353451e8f..58c314237ce6 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dcn303/dcn303_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dcn303/dcn303_resource.c
+@@ -32,6 +32,8 @@
+ #include "dcn30/dcn30_dio_stream_encoder.h"
+ #include "dcn30/dcn30_dpp.h"
+ #include "dcn30/dcn30_dwb.h"
++#include "dcn30/dcn30_hpo_frl_link_encoder.h"
++#include "dcn30/dcn30_hpo_frl_stream_encoder.h"
+ #include "dcn30/dcn30_hubbub.h"
+ #include "dcn30/dcn30_hubp.h"
+ #include "dcn30/dcn30_mmhubbub.h"
+@@ -126,6 +128,7 @@ static const struct resource_caps res_cap_dcn303 = {
+ 		.num_video_plane = 2,
+ 		.num_audio = 2,
+ 		.num_stream_encoder = 2,
++		.num_hpo_frl = 1,
+ 		.num_dwb = 1,
+ 		.num_ddc = 2,
+ 		.num_vmid = 16,
+@@ -438,6 +441,91 @@ static struct stream_encoder *dcn303_stream_encoder_create(enum engine_id eng_id
+ 	return &enc1->base;
+ }
+ 
++#define hpo_frl_stream_encoder_reg_list(id)\
++		[id] = { DCN3_0_HPO_FRL_STREAM_ENC_REG_LIST(id) }
++
++#define hpo_frl_stream_encoder_dme_reg_list(id)\
++		DCN3_0_HPO_STREAM_ENC_DME_REG_LIST(id, 2)
++
++static const struct dcn30_hpo_frl_stream_enc_registers hpo_frl_stream_enc_regs[] = {
++		hpo_frl_stream_encoder_reg_list(0),
++		hpo_frl_stream_encoder_dme_reg_list(2),
++};
++
++static const struct dcn30_hpo_frl_stream_encoder_shift hpo_se_shift = {
++		DCN3_0_HPO_STREAM_ENC_MASK_SH_LIST(__SHIFT)
++};
++
++static const struct dcn30_hpo_frl_stream_encoder_mask hpo_se_mask = {
++		DCN3_0_HPO_STREAM_ENC_MASK_SH_LIST(_MASK)
++};
++
++static struct hpo_frl_stream_encoder *dcn303_hpo_frl_stream_encoder_create(enum engine_id eng_id,
++		struct dc_context *ctx)
++{
++	struct dcn30_hpo_frl_stream_encoder *hpo_enc3;
++	struct vpg *vpg;
++	struct afmt *afmt;
++	int vpg_inst;
++	int afmt_inst;
++
++	/* Mapping of VPG, AFMT, DME register blocks to HPO block instance */
++	if (eng_id == ENGINE_ID_HPO_0) {
++		vpg_inst = 2;
++		afmt_inst = 2;
++	} else
++		return NULL;
++
++	/* allocate HPO stream encoder and create VPG sub-block */
++	hpo_enc3 = kzalloc(sizeof(struct dcn30_hpo_frl_stream_encoder), GFP_KERNEL);
++	vpg = dcn303_vpg_create(ctx, vpg_inst);
++	afmt = dcn303_afmt_create(ctx, afmt_inst);
++
++	if (!hpo_enc3 || !vpg || !afmt) {
++		kfree(hpo_enc3);
++		kfree(vpg);
++		kfree(afmt);
++		return NULL;
++	}
++
++	dcn30_hpo_frl_stream_encoder_construct(hpo_enc3, ctx, ctx->dc_bios, eng_id, vpg, afmt,
++			&hpo_frl_stream_enc_regs[eng_id-ENGINE_ID_HPO_0], &hpo_se_shift, &hpo_se_mask);
++
++	return &hpo_enc3->base;
++}
++
++#define hpo_frl_link_encoder_reg_list(id)\
++		[id] = { DCN3_0_HPO_FRL_LINK_ENC_REG_LIST(id) }
++
++static const struct dcn30_hpo_frl_link_encoder_registers hpo_frl_link_enc_regs[] = {
++		hpo_frl_link_encoder_reg_list(0),
++};
++
++static const struct dcn30_hpo_frl_link_encoder_shift hpo_le_shift = {
++		DCN3_0_HPO_FRL_LINK_ENC_MASK_SH_LIST(__SHIFT)
++};
++
++static const struct dcn30_hpo_frl_link_encoder_mask hpo_le_mask = {
++		DCN3_0_HPO_FRL_LINK_ENC_MASK_SH_LIST(_MASK)
++};
++
++static struct hpo_frl_link_encoder *dcn303_hpo_frl_link_encoder_create(enum engine_id eng_id, struct dc_context *ctx)
++{
++	struct dcn30_hpo_frl_link_encoder *hpo_enc3;
++
++	ASSERT((eng_id == ENGINE_ID_HPO_0) || (eng_id == ENGINE_ID_HPO_1));
++
++	/* allocate HPO link encoder */
++	hpo_enc3 = kzalloc(sizeof(struct dcn30_hpo_frl_link_encoder), GFP_KERNEL);
++	if (!hpo_enc3)
++		return NULL; /* out of memory */
++
++	hpo_frl_link_encoder3_construct(hpo_enc3, ctx, eng_id-ENGINE_ID_HPO_0,
++			&hpo_frl_link_enc_regs[eng_id-ENGINE_ID_HPO_0], &hpo_le_shift, &hpo_le_mask);
++
++	return &hpo_enc3->base;
++}
++
+ #define clk_src_regs(index, pllid)\
+ 		[index] = { CS_COMMON_REG_LIST_DCN3_03(index, pllid) }
+ 
+@@ -915,6 +1003,7 @@ static const struct resource_create_funcs res_create_funcs = {
+ 		.read_dce_straps = read_dce_straps,
+ 		.create_audio = dcn303_create_audio,
+ 		.create_stream_encoder = dcn303_stream_encoder_create,
++		.create_hpo_frl_stream_encoder = dcn303_hpo_frl_stream_encoder_create,
+ 		.create_hwseq = dcn303_hwseq_create,
  };
  
- struct dml2_core_shared_TruncToValidBPP_locals {
-+	struct lib_frl_cap_check_params hdmifrlparams;
-+	struct lib_frl_cap_check_intermediates hdmifrlinter;
+@@ -980,6 +1069,23 @@ static void dcn303_resource_destruct(struct resource_pool *pool)
+ 		}
+ 	}
+ 
++	for (i = 0; i < pool->hpo_frl_stream_enc_count; i++) {
++		if (pool->hpo_frl_stream_enc[i] != NULL) {
++			if (pool->hpo_frl_stream_enc[i]->vpg != NULL) {
++				kfree(DCN30_VPG_FROM_VPG(pool->hpo_frl_stream_enc[i]->vpg));
++				pool->hpo_frl_stream_enc[i]->vpg = NULL;
++			}
++
++			if (pool->hpo_frl_stream_enc[i]->afmt != NULL) {
++				kfree(DCN30_AFMT_FROM_AFMT(pool->hpo_frl_stream_enc[i]->afmt));
++				pool->hpo_frl_stream_enc[i]->afmt = NULL;
++			}
++
++			kfree(DCN30_HPO_FRL_STRENC_FROM_HPO_FRL_STRENC(pool->hpo_frl_stream_enc[i]));
++			pool->hpo_frl_stream_enc[i] = NULL;
++		}
++	}
++
+ 	for (i = 0; i < (unsigned int)pool->res_cap->num_dsc; i++) {
+ 		if (pool->dscs[i] != NULL)
+ 			dcn20_dsc_destroy(&pool->dscs[i]);
+@@ -1116,6 +1222,7 @@ static struct resource_funcs dcn303_res_pool_funcs = {
+ 		.destroy = dcn303_destroy_resource_pool,
+ 		.link_enc_create = dcn303_link_encoder_create,
+ 		.panel_cntl_create = dcn303_panel_cntl_create,
++		.hpo_frl_link_enc_create = dcn303_hpo_frl_link_encoder_create,
+ 		.validate_bandwidth = dcn30_validate_bandwidth,
+ 		.calculate_wm_and_dlg = dcn30_calculate_wm_and_dlg,
+ 		.update_soc_for_wm_a = dcn30_update_soc_for_wm_a,
+@@ -1214,6 +1321,8 @@ static bool dcn303_resource_construct(
+ 	dc->caps.max_slave_rgb_planes = 1;
+ 	dc->caps.post_blend_color_processing = true;
+ 	dc->caps.force_dp_tps4_for_cp2520 = true;
++	dc->caps.hdmi_hpo = true;
++	dc->config.skip_frl_pretraining = true;
+ 	dc->caps.extended_aux_timeout_support = true;
+ 	dc->caps.dmcub_support = true;
+ 	dc->caps.max_v_total = (1 << 15) - 1;
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn31/dcn31_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn31/dcn31_resource.c
+index 5925c40da6ee..15730fe1b9db 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dcn31/dcn31_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dcn31/dcn31_resource.c
+@@ -54,6 +54,8 @@
+ #include "dcn30/dcn30_vpg.h"
+ #include "dcn30/dcn30_afmt.h"
+ #include "dcn30/dcn30_dio_stream_encoder.h"
++#include "dcn30/dcn30_hpo_frl_stream_encoder.h"
++#include "dcn30/dcn30_hpo_frl_link_encoder.h"
+ #include "dcn31/dcn31_hpo_dp_stream_encoder.h"
+ #include "dcn31/dcn31_hpo_dp_link_encoder.h"
+ #include "dcn31/dcn31_apg.h"
+@@ -431,6 +433,45 @@ static const struct dcn10_link_enc_mask le_mask = {
+ 	DPCS_DCN31_MASK_SH_LIST(_MASK)
  };
  
- struct dml2_core_shared_CalculateDETBufferSize_locals {
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_standalone_libraries/lib_frl_cap_check.c b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_standalone_libraries/lib_frl_cap_check.c
-new file mode 100644
-index 000000000000..d62cdf8566cc
---- /dev/null
-+++ b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_standalone_libraries/lib_frl_cap_check.c
-@@ -0,0 +1,396 @@
-+// SPDX-License-Identifier: MIT
-+//
-+// Copyright 2024 Advanced Micro Devices, Inc.
-+
-+#include "lib_float_math.h"
-+#include "lib_frl_cap_check.h"
-+
-+#define frl_dump_var(fmt, var) {}
-+#define frl_print(fmt, ...) {}
-+
-+static const double   EPSILON = 0.01;
-+static const double   DBL_EPSILON = 2.2204460492503131e-16;
-+static const int      C_FRL_CB = 510;
-+static const double   OVERHEAD_M = 0.003;  /* %   */
-+static const double   TOLERANCE_PIXEL_CLOCK = 0.005;  /* %   */
-+static const double   TOLERANCE_AUDIO_CLOCK = 1000;   /* ppm */
-+static const int      TOLERANCE_FRL_BIT = 300;    /* ppm */
-+static const int      ACR_RATE_MAX = 1500;
-+const int             DML2_FRL_CHK_TB_BORROWED_MAX = 400;
-+
-+static enum lib_frl_cap_check_status frl_cap_check_common(struct lib_frl_cap_check_intermediates *inter, struct lib_frl_cap_check_params *params)
-+{
-+	double   audio_bw_reserve = (params->compressed ? 192000.0 : 0.0);
-+	/*
-+		if (getenv("DEBUG_FRL_CAP_CHK"))
-+		{
-+			printf("frl_cap_chk inputs:\n");
-+			printf("-------------------\n");
-+			frl_dump_var("%i", params->lanes);
-+			frl_dump_var("%le", params->f_pixel_clock_nominal);
-+			frl_dump_var("%le", params->r_bit_nominal);
-+			frl_dump_var("%i", params->audio_packet_type);
-+			frl_dump_var("%le", params->f_audio);
-+			frl_dump_var("%i", params->h_active);
-+			frl_dump_var("%i", params->h_blank);
-+			frl_dump_var("%i", params->bpc);
-+			frl_dump_var("%i", params->pixel_encoding);
-+			frl_dump_var("%i", params->compressed);
-+			frl_dump_var("%i", params->slices);
-+			frl_dump_var("%i", params->slice_width);
-+			frl_dump_var("%le", params->bpp_target);
-+			frl_dump_var("%i", params->layout);
-+			frl_dump_var("%i", params->acat);
-+			printf("frl_cap_chk outputs:\n");
-+			printf("---------------------\n");
-+		}
-+	*/
-+	inter->c_frl_sb = 4 * C_FRL_CB + params->lanes;
-+	inter->overhead_sb = (double)params->lanes / inter->c_frl_sb;
-+	inter->overhead_rs = 8.0 * 4.0 / inter->c_frl_sb;
-+	inter->overhead_map = 2.5 / inter->c_frl_sb;
-+	inter->overhead_min = inter->overhead_sb + inter->overhead_rs + inter->overhead_map;
-+	inter->overhead_max = inter->overhead_min + OVERHEAD_M;
-+	inter->f_pixel_clock_max = params->f_pixel_clock_nominal * (1.0 + TOLERANCE_PIXEL_CLOCK);
-+	inter->t_line = (params->h_active + params->h_blank) / inter->f_pixel_clock_max;
-+	inter->r_bit_min = params->r_bit_nominal * (1.0 - TOLERANCE_FRL_BIT / 1000000.0);
-+	inter->r_frl_char_min = inter->r_bit_min / 18.0;
-+	inter->c_frl_line = math_floor(inter->t_line * inter->r_frl_char_min * params->lanes);
-+	/*
-+		if (getenv("DEBUG_FRL_CAP_CHK"))
-+		{
-+			frl_dump_var("%i", inter->c_frl_sb);
-+			frl_dump_var("%le", inter->overhead_sb);
-+			frl_dump_var("%le", inter->overhead_rs);
-+			frl_dump_var("%le", inter->overhead_map);
-+			frl_dump_var("%le", inter->overhead_min);
-+			frl_dump_var("%le", inter->overhead_max);
-+			frl_dump_var("%le", inter->f_pixel_clock_max);
-+			frl_dump_var("%le", inter->t_line);
-+			frl_dump_var("%le", inter->r_bit_min);
-+			frl_dump_var("%le", inter->r_frl_char_min);
-+			frl_dump_var("%le", inter->c_frl_line);
-+		}
-+	*/
-+	switch (params->audio_packet_type) {
-+	case 0x02:
-+		/* unsupported
-+	case 0x07:
-+		*/
-+		if (params->layout == 0)
-+			inter->ap = 0.25;
-+		else if (params->layout == 1)
-+			inter->ap = 1.0;
-+		break;
-+	case 0x08:
-+		inter->ap = 0.25;
-+		break;
-+	case 0x09:
-+		/* unsupported
-+	case 0x0e:
-+	case 0x0f:
-+		*/
-+		inter->ap = 1.0;
-+		break;
-+		/* unsupported
-+	case 0x0b:
-+	case 0x0c:
-+		if (acat == 0x01)
-+			ap = 2.0;
-+		else if (acat == 0x02)
-+			ap = 3.0;
-+		else if (acat == 0x03)
-+			ap = 4.0;
-+		break;
-+		*/
-+	case 0x07:
-+	case 0x0e:
-+	case 0x0f:
-+	case 0x0b:
-+	case 0x0c:
-+		// Unsupported audio format
-+		return LIB_FRL_CAP_CHECK_ERROR_UNSUPPORTED_AUDIO;
-+	default:
-+		inter->ap = 0.0;
-+	}
-+
-+	inter->r_ap = (math_max2(audio_bw_reserve, params->f_audio * inter->ap) + 2 * ACR_RATE_MAX) * (1 + TOLERANCE_AUDIO_CLOCK / 1000000.0);
-+	inter->avg_audio_packets_line = inter->r_ap * inter->t_line;
-+	inter->audio_packets_line = (int)math_ceil(inter->avg_audio_packets_line);
-+	inter->blank_audio_min = 32 + 32 * inter->audio_packets_line; // h_blank_audio_min or hc_blank_audio_min
-+
-+	params->audio_packets_line = inter->audio_packets_line;
-+	/*
-+		if (getenv("DEBUG_FRL_CAP_CHK"))
-+		{
-+			frl_dump_var("%le", inter->ap);
-+			frl_dump_var("%le", inter->r_ap);
-+			frl_dump_var("%le", inter->avg_audio_packets_line);
-+			frl_dump_var("%i", inter->audio_packets_line);
-+			frl_dump_var("%i", inter->blank_audio_min);
-+		}
-+	*/
-+	return LIB_FRL_CAP_CHECK_OK;
++#define hpo_frl_stream_encoder_reg_list(id)\
++[id] = {\
++	DCN3_0_HPO_FRL_STREAM_ENC_REG_LIST(id)\
 +}
 +
++#define hpo_frl_stream_encoder_dme_reg_list(id)\
++	DCN3_0_HPO_STREAM_ENC_DME_REG_LIST(id, 6)
 +
-+static enum lib_frl_cap_check_status frl_cap_check_uncompressed(struct lib_frl_cap_check_params *params, struct lib_frl_cap_check_intermediates *inter)
-+{
-+	enum lib_frl_cap_check_status res;
 +
-+	int k_420;
-+	double k_cd;
-+	int c_frl_free;
-+	int c_frl_rc_margin;
-+	int c_frl_rc_savings;
-+	int bpp;
-+	double bytes_line;
-+	int tb_active;
-+	int tb_blank;
-+	double f_tb_average;
-+	double t_active_ref;
-+	double t_blank_ref;
-+	double t_active_min;
-+	double t_blank_min;
-+	double t_borrowed;
-+	double tb_borrowed;
-+	int c_frl_actual_payload;
-+	double utilization;
-+	double margin;
++static const struct dcn30_hpo_frl_stream_enc_registers hpo_frl_stream_enc_regs[] = {
++	hpo_frl_stream_encoder_reg_list(0),
++	hpo_frl_stream_encoder_dme_reg_list(6),
++};
 +
-+	res = frl_cap_check_common(inter, params);
-+	if (res != LIB_FRL_CAP_CHECK_OK) {
-+		return res;
-+	}
++static const struct dcn30_hpo_frl_stream_encoder_shift hpo_se_shift = {
++	DCN3_0_HPO_STREAM_ENC_MASK_SH_LIST(__SHIFT)
++};
 +
-+	k_420 = params->pixel_encoding == LIB_FRL_CAP_CHECK_PIXEL_ENCODING_420 ? 2 : 1;
-+	k_cd = params->pixel_encoding == LIB_FRL_CAP_CHECK_PIXEL_ENCODING_422 ? 1.0 : params->bpc / 8.0;
-+	c_frl_free = (int)math_max2(params->h_blank * k_cd / k_420 - 32 * (1 + inter->audio_packets_line) - 7, 0);
-+	c_frl_rc_margin = 4;
-+	c_frl_rc_savings = (int)math_floor(math_max2(((7.0 / 8.0) * c_frl_free) - c_frl_rc_margin, 0.0));
-+	bpp = (int)(24 * k_cd / k_420);
-+	bytes_line = bpp * params->h_active / 8.0;
-+	tb_active = (int)math_ceil(bytes_line / 3);
-+	tb_blank = (int)math_ceil(params->h_blank * k_cd / k_420);
-+	/*
-+		if (getenv("DEBUG_FRL_CAP_CHK"))
-+		{
-+			frl_dump_var("%i", k_420);
-+			frl_dump_var("%le", k_cd);
-+			frl_dump_var("%i", c_frl_free);
-+			frl_dump_var("%i", c_frl_rc_margin);
-+			frl_dump_var("%i", c_frl_rc_savings);
-+			frl_dump_var("%i", bpp);
-+			frl_dump_var("%le", bytes_line);
-+			frl_dump_var("%i", tb_active);
-+			frl_dump_var("%i", tb_blank);
-+		}
-+	*/
-+	if (!(inter->blank_audio_min <= tb_blank)) {
-+		frl_dump_var("%i", inter->blank_audio_min);
-+		frl_dump_var("%i", tb_blank);
-+		return LIB_FRL_CAP_CHECK_ERROR_AUDIO_BW;
-+	}
++static const struct dcn30_hpo_frl_stream_encoder_mask hpo_se_mask = {
++	DCN3_0_HPO_STREAM_ENC_MASK_SH_LIST(_MASK)
++};
 +
-+	f_tb_average = (inter->f_pixel_clock_max / (params->h_active + params->h_blank)) * (tb_active + tb_blank);
-+	t_active_ref = inter->t_line * ((double)params->h_active / (params->h_active + params->h_blank));
-+	t_blank_ref = inter->t_line * ((double)params->h_blank / (params->h_active + params->h_blank));
-+	t_active_min = (3.0 / 2.0) * tb_active / (params->lanes * inter->r_frl_char_min * (1.0 - inter->overhead_max));
-+	t_blank_min = tb_blank / (params->lanes * inter->r_frl_char_min * (1.0 - inter->overhead_max));
-+	/*
-+		if (getenv("DEBUG_FRL_CAP_CHK"))
-+		{
-+			frl_dump_var("%le", f_tb_average);
-+			frl_dump_var("%le", t_active_ref);
-+			frl_dump_var("%le", t_blank_ref);
-+			frl_dump_var("%le", t_active_min);
-+			frl_dump_var("%le", t_blank_min);
-+		}
-+	*/
-+	if ((t_active_ref >= t_active_min) && (t_blank_ref >= t_blank_min)) {
-+		t_borrowed = 0;
-+		params->borrow_mode = LIB_FRL_CAP_CHECK_BORROW_MODE_NONE;
-+	} else if ((t_active_ref < t_active_min) && (t_blank_ref >= t_blank_min)) {
-+		t_borrowed = t_active_min - t_active_ref;
-+		params->borrow_mode = LIB_FRL_CAP_CHECK_BORROW_MODE_FROM_BLANK;
-+	} else
-+		return LIB_FRL_CAP_CHECK_ERROR_BORROW;
-+
-+	tb_borrowed = math_ceil(t_borrowed * f_tb_average);
-+	/*
-+		if (getenv("DEBUG_FRL_CAP_CHK"))
-+		{
-+			frl_dump_var("%le", tb_borrowed);
-+			frl_dump_var("%i", params->borrow_mode);
-+	}
-+	*/
-+	if (!(tb_borrowed <= DML2_FRL_CHK_TB_BORROWED_MAX))
-+		return LIB_FRL_CAP_CHECK_ERROR_MAX_BORROW;
-+
-+	c_frl_actual_payload = (int)math_ceil((3.0 / 2.0) * tb_active) + tb_blank - c_frl_rc_savings;
-+	utilization = c_frl_actual_payload / inter->c_frl_line;
-+	margin = 1.0 - (utilization + inter->overhead_max);
-+	/*
-+		if (getenv("DEBUG_FRL_CAP_CHK"))
-+		{
-+			frl_dump_var("%i",  c_frl_actual_payload);
-+			frl_dump_var("%le", utilization);
-+			frl_dump_var("%le", margin);
-+		}
-+	*/
-+	if (margin < 0 && math_fabs(margin) > EPSILON)
-+		return LIB_FRL_CAP_CHECK_ERROR_MARGIN;
-+
-+	return LIB_FRL_CAP_CHECK_OK;
++#define hpo_frl_link_encoder_reg_list(id)\
++[id] = {\
++	DCN3_0_HPO_FRL_LINK_ENC_REG_LIST(id)\
 +}
 +
-+static enum lib_frl_cap_check_status frl_cap_check_compressed(struct lib_frl_cap_check_params *params, struct lib_frl_cap_check_intermediates *inter)
++static const struct dcn30_hpo_frl_link_encoder_registers hpo_frl_link_enc_regs[] = {
++	hpo_frl_link_encoder_reg_list(0),
++};
++
++static const struct dcn30_hpo_frl_link_encoder_shift hpo_le_shift = {
++	DCN3_0_HPO_FRL_LINK_ENC_MASK_SH_LIST(__SHIFT)
++};
++
++static const struct dcn30_hpo_frl_link_encoder_mask hpo_le_mask = {
++	DCN3_0_HPO_FRL_LINK_ENC_MASK_SH_LIST(_MASK)
++};
++
+ #define hpo_dp_stream_encoder_reg_list(id)\
+ [id] = {\
+ 	DCN3_1_HPO_DP_STREAM_ENC_REG_LIST(id)\
+@@ -833,6 +874,7 @@ static const struct resource_caps res_cap_dcn31 = {
+ 	.num_audio = 5,
+ 	.num_stream_encoder = 5,
+ 	.num_dig_link_enc = 5,
++	.num_hpo_frl = 1,
+ 	.num_hpo_dp_stream_encoder = 4,
+ 	.num_hpo_dp_link_encoder = 2,
+ 	.num_pll = 5,
+@@ -904,6 +946,7 @@ static const struct dc_debug_options debug_defaults_drv = {
+ 		}
+ 	},
+ 	.disable_z10 = true,
++	.max_frl_rate = HDMI_FRL_LINK_RATE_10GBPS,
+ 	.enable_z9_disable_interface = true, /* Allow support for the PMFW interface for disable Z9*/
+ 	.dml_hostvm_override = DML_HOSTVM_OVERRIDE_FALSE,
+ 	.using_dml2 = false,
+@@ -1283,6 +1326,69 @@ static struct stream_encoder *dcn31_stream_encoder_create(
+ 	return &enc1->base;
+ }
+ 
++static struct hpo_frl_stream_encoder *dcn31_hpo_frl_stream_encoder_create(enum engine_id eng_id,
++									  struct dc_context *ctx)
 +{
-+	enum lib_frl_cap_check_status res;
++	struct dcn30_hpo_frl_stream_encoder *hpo_enc3;
++	struct afmt *afmt;
++	struct vpg *vpg;
++	int afmt_inst;
++	int vpg_inst;
 +
-+	int      c_frl_available;
-+	int      c_frl_active_available;
-+	int      c_frl_blank_available;
-+	int      bytes_target;
-+	int      hc_active_target;
-+	int      hc_blank_target_est1;
-+	int      hc_blank_target_est2;
-+	int      hc_blank_target;
-+	double   f_tb_average;
-+	double   t_active_ref;
-+	double   t_blank_ref;
-+	double   t_active_target;
-+	double   t_blank_target;
-+	double   tb_borrowed;
-+	int      c_frl_actual_target_payload;
-+	double   utilization_targeted;
-+	double   margin_target;
-+#if defined(DEBUG_FRL_CAP_CHK)
-+	double   tb_delta;
-+	double   tb_delta_limit;
-+	int      tb_worst;
-+#endif
-+
-+	res = frl_cap_check_common(inter, params);
-+	if (res != LIB_FRL_CAP_CHECK_OK)
-+		return res;
-+
-+	c_frl_available = (int)math_floor((1 - inter->overhead_max) * inter->c_frl_line);
-+	c_frl_active_available = (int)math_floor(c_frl_available * ((double)params->h_active / (params->h_active + params->h_blank)));
-+	(void)c_frl_active_available;
-+	c_frl_blank_available = (int)math_floor(c_frl_available * ((double)params->h_blank / (params->h_active + params->h_blank)));
-+	(void)c_frl_blank_available;
-+	bytes_target = params->slices * (int)math_ceil(params->bpp_target * params->slice_width / 8.0);
-+
-+	if (!params->bypass_hc_target_calc)
-+		hc_active_target = (int)math_ceil(bytes_target / 3.0);
-+	else
-+		hc_active_target = params->hc_active_target;
-+
-+	hc_blank_target_est1 = (int)math_ceil(hc_active_target * ((double)params->h_blank / params->h_active));
-+	hc_blank_target_est2 = (int)math_max2(hc_blank_target_est1, inter->blank_audio_min);
-+
-+	if (!params->bypass_hc_target_calc) {
-+		hc_blank_target = 4 * (int)math_floor(math_min2(hc_blank_target_est2, c_frl_available - 3.0 / 2.0 * hc_active_target) / 4.0);
-+
-+		params->hc_active_target = hc_active_target;
-+		params->hc_blank_target = hc_blank_target;
++	/* Mapping of VPG, AFMT, DME register blocks to HPO block instance */
++	if (eng_id == ENGINE_ID_HPO_0) {
++		vpg_inst = 5;
++		afmt_inst = 5;
 +	} else {
-+		hc_blank_target = params->hc_blank_target;
-+	}
-+	/*
-+		if (getenv("DEBUG_FRL_CAP_CHK"))
-+		{
-+			frl_dump_var("%i", c_frl_available);
-+			frl_dump_var("%i", c_frl_active_available);
-+			frl_dump_var("%i", c_frl_blank_available);
-+			frl_dump_var("%i", bytes_target);
-+			frl_dump_var("%i", hc_active_target);
-+			frl_dump_var("%i", hc_blank_target_est1);
-+			frl_dump_var("%i", hc_blank_target_est2);
-+			frl_dump_var("%i", hc_blank_target);
-+		}
-+	*/
-+	if (!(inter->blank_audio_min <= hc_blank_target)) {
-+		frl_dump_var("%i", inter->blank_audio_min);
-+		frl_dump_var("%i", hc_blank_target);
-+		return LIB_FRL_CAP_CHECK_ERROR_AUDIO_BW;
++		return NULL;
 +	}
 +
-+	f_tb_average = inter->f_pixel_clock_max / (params->h_active + params->h_blank) * (hc_active_target + hc_blank_target);
-+	t_active_ref = inter->t_line * ((double)params->h_active / (params->h_active + params->h_blank));
-+	t_blank_ref = inter->t_line - t_active_ref; // * ((double) params->h_blank / (params->h_active + params->h_blank));
-+	t_active_target = math_max2((hc_active_target / f_tb_average), (3.0 / 2.0 * hc_active_target) / (params->lanes * inter->r_frl_char_min * (1.0 - inter->overhead_max)));
-+	t_blank_target = inter->t_line - t_active_target;
++	/* allocate HPO stream encoder and create VPG, AFMT sub-blocks */
++	hpo_enc3 = kzalloc(sizeof(struct dcn30_hpo_frl_stream_encoder), GFP_KERNEL);
++	vpg = dcn31_vpg_create(ctx, vpg_inst);
++	afmt = dcn31_afmt_create(ctx, afmt_inst);
 +
-+	tb_borrowed = t_active_target * f_tb_average - hc_active_target;
-+#if defined(DEBUG_FRL_CAP_CHK)
-+	tb_delta = math_fabs(t_active_target - t_active_ref) * (hc_active_target + hc_blank_target_est1) / inter->t_line;
-+		{
-+			frl_dump_var("%le", f_tb_average);
-+			frl_dump_var("%le", t_active_ref);
-+			frl_dump_var("%le", t_blank_ref);
-+			frl_dump_var("%le", t_active_target);
-+			frl_dump_var("%le", t_blank_target);
-+			frl_dump_var("%le", tb_delta);
-+		}
-+#endif
-+	if (t_blank_target - t_blank_ref > DBL_EPSILON) {
-+#if defined(DEBUG_FRL_CAP_CHK)
-+		tb_delta_limit = (t_active_ref - hc_active_target / f_tb_average) * (hc_active_target + hc_blank_target_est1) / inter->t_line;
-+#endif
-+		params->borrow_mode = LIB_FRL_CAP_CHECK_BORROW_MODE_FROM_ACTIVE;
-+	} else if (t_active_target - t_active_ref > DBL_EPSILON) {
-+#if defined(DEBUG_FRL_CAP_CHK)
-+		tb_delta_limit = tb_delta;
-+#endif
-+		params->borrow_mode = LIB_FRL_CAP_CHECK_BORROW_MODE_FROM_BLANK;
-+	} else {
-+#if defined(DEBUG_FRL_CAP_CHK)
-+		tb_delta_limit = 0;
-+#endif
-+		params->borrow_mode = LIB_FRL_CAP_CHECK_BORROW_MODE_NONE;
++	if (!hpo_enc3 || !vpg || !afmt) {
++		kfree(hpo_enc3);
++		kfree(vpg);
++		kfree(afmt);
++		return NULL;
 +	}
 +
-+#if defined(DEBUG_FRL_CAP_CHK)
-+	tb_worst = (int)math_ceil(math_max2(tb_borrowed, tb_delta_limit));
++	dcn30_hpo_frl_stream_encoder_construct(hpo_enc3,
++					       ctx,
++					       ctx->dc_bios,
++					       eng_id,
++					       vpg,
++					       afmt,
++					       &hpo_frl_stream_enc_regs[eng_id - ENGINE_ID_HPO_0],
++					       &hpo_se_shift, &hpo_se_mask);
 +
-+		{
-+			frl_dump_var("%le", tb_delta_limit);
-+			frl_dump_var("%le", tb_borrowed);
-+			frl_dump_var("%i", params->borrow_mode);
-+			frl_dump_var("%i", tb_worst);
-+		}
-+#endif
-+	if (!(tb_borrowed <= DML2_FRL_CHK_TB_BORROWED_MAX))
-+		return LIB_FRL_CAP_CHECK_ERROR_MAX_BORROW;
-+
-+	c_frl_actual_target_payload = (int)math_ceil(3.0 / 2.0 * hc_active_target) + hc_blank_target;
-+	utilization_targeted = c_frl_actual_target_payload / inter->c_frl_line;
-+	margin_target = 1.0 - (utilization_targeted + inter->overhead_max);
-+#if defined(DEBUG_FRL_CAP_CHK)
-+		{
-+			frl_dump_var("%i", c_frl_actual_target_payload);
-+			frl_dump_var("%le", utilization_targeted);
-+			frl_dump_var("%le", margin_target);
-+		}
-+#endif
-+	// oversubscribed bandwidth relative to margin
-+	if (margin_target < 0 && math_fabs(margin_target) > EPSILON)
-+		return LIB_FRL_CAP_CHECK_ERROR_MARGIN;
-+
-+	return LIB_FRL_CAP_CHECK_OK;
++	return &hpo_enc3->base;
 +}
 +
-+enum lib_frl_cap_check_status frl_cap_check(struct lib_frl_cap_check_params *params)
++static struct hpo_frl_link_encoder *dcn31_hpo_frl_link_encoder_create(enum engine_id eng_id,
++								      struct dc_context *ctx)
 +{
-+	struct lib_frl_cap_check_intermediates inter;
-+	return frl_cap_check_intermediates(params, &inter);
++	struct dcn30_hpo_frl_link_encoder *hpo_enc3;
++
++	ASSERT((eng_id == ENGINE_ID_HPO_0) || (eng_id == ENGINE_ID_HPO_1));
++
++	/* allocate HPO link encoder */
++	hpo_enc3 = kzalloc(sizeof(struct dcn30_hpo_frl_link_encoder), GFP_KERNEL);
++	if (!hpo_enc3)
++		return NULL; /* out of memory */
++
++	hpo_frl_link_encoder3_construct(hpo_enc3,
++					ctx,
++					eng_id - ENGINE_ID_HPO_0,
++					&hpo_frl_link_enc_regs[eng_id - ENGINE_ID_HPO_0],
++					&hpo_le_shift,
++					&hpo_le_mask);
++
++	return &hpo_enc3->base;
 +}
 +
-+enum lib_frl_cap_check_status frl_cap_check_intermediates(struct lib_frl_cap_check_params *params, struct lib_frl_cap_check_intermediates *inter)
-+{
-+	if (params->compressed)
-+		return frl_cap_check_compressed(params, inter);
-+	return frl_cap_check_uncompressed(params, inter);
-+}
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_standalone_libraries/lib_frl_cap_check.h b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_standalone_libraries/lib_frl_cap_check.h
-new file mode 100644
-index 000000000000..aa2764856546
---- /dev/null
-+++ b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_standalone_libraries/lib_frl_cap_check.h
-@@ -0,0 +1,90 @@
-+// SPDX-License-Identifier: MIT
-+//
-+// Copyright 2024 Advanced Micro Devices, Inc.
-+
-+#ifndef __LIB_FRL_CAP_CHECK_H__
-+#define __LIB_FRL_CAP_CHECK_H__
-+
-+#include "dml2_external_lib_deps.h"
-+
-+extern const int DML2_FRL_CHK_TB_BORROWED_MAX;
-+
-+enum lib_frl_cap_check_pixel_encoding {
-+	LIB_FRL_CAP_CHECK_PIXEL_ENCODING_444,
-+	LIB_FRL_CAP_CHECK_PIXEL_ENCODING_422,
-+	LIB_FRL_CAP_CHECK_PIXEL_ENCODING_420
-+};
-+
-+enum lib_frl_cap_check_borrow_mode {
-+	LIB_FRL_CAP_CHECK_BORROW_MODE_NONE,
-+	LIB_FRL_CAP_CHECK_BORROW_MODE_FROM_ACTIVE,
-+	LIB_FRL_CAP_CHECK_BORROW_MODE_FROM_BLANK
-+};
-+
-+enum lib_frl_cap_check_status {
-+	LIB_FRL_CAP_CHECK_OK = 0,
-+
-+	LIB_FRL_CAP_CHECK_ERROR_AUDIO_BW = -1,
-+	LIB_FRL_CAP_CHECK_ERROR_BORROW = -2,
-+	LIB_FRL_CAP_CHECK_ERROR_MAX_BORROW = -3,
-+	LIB_FRL_CAP_CHECK_ERROR_MARGIN = -4,
-+
-+	LIB_FRL_CAP_CHECK_ERROR_UNSUPPORTED_AUDIO = -1000
-+};
-+
-+struct lib_frl_cap_check_intermediates {
-+	int c_frl_sb;
-+	double overhead_sb;
-+	double overhead_rs;
-+	double overhead_map;
-+	double overhead_min;
-+	double overhead_max;
-+	double f_pixel_clock_max;
-+	double t_line;
-+	double r_bit_min;
-+	double r_frl_char_min;
-+	double c_frl_line;
-+	double ap;
-+	double r_ap;
-+	double avg_audio_packets_line;
-+	int audio_packets_line;
-+	int blank_audio_min;
-+};
-+
-+struct lib_frl_cap_check_params {
-+	int lanes;
-+	double f_pixel_clock_nominal; /* Pixel Clock rate (Hz) */
-+	double r_bit_nominal; /* FRL bitrate (bps) */
-+	int audio_packet_type;
-+	double f_audio; /* Audio rate (Hz) */
-+	int h_active; /* Active pixels per line */
-+	int h_blank; /* Blanking pixels per line */
-+	int bpc; /* Bits per component */
-+
-+	enum lib_frl_cap_check_pixel_encoding pixel_encoding;
-+
-+	bool compressed;
-+	bool bypass_hc_target_calc;
-+
-+	/* DSC parameters */
-+	int slices;
-+	int slice_width;
-+	double bpp_target;
-+
-+	int layout; /* not supported */
-+	int acat; /* not supported */
-+
-+	/* outputs */
-+	int audio_packets_line;
-+
-+	/* inputs or outputs */
-+	int hc_active_target;
-+	int hc_blank_target;
-+
-+	enum lib_frl_cap_check_borrow_mode borrow_mode;
-+};
-+
-+enum lib_frl_cap_check_status frl_cap_check(struct lib_frl_cap_check_params *params);
-+enum lib_frl_cap_check_status frl_cap_check_intermediates(struct lib_frl_cap_check_params *params, struct lib_frl_cap_check_intermediates *inter);
-+
-+#endif
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/dml2_translation_helper.c b/drivers/gpu/drm/amd/display/dc/dml2_0/dml2_translation_helper.c
-index 0d8ff236c6d0..166f10b8862f 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2_0/dml2_translation_helper.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml2_0/dml2_translation_helper.c
-@@ -808,6 +808,9 @@ static void populate_dml_output_cfg_from_stream_state(struct dml_output_cfg_st *
- 	case SIGNAL_TYPE_DVI_DUAL_LINK:
- 		out->OutputEncoder[location] = dml_hdmi;
- 		break;
-+	case SIGNAL_TYPE_HDMI_FRL:
-+		out->OutputEncoder[location] = dml_hdmifrl;
-+		break;
- 	default:
- 		out->OutputEncoder[location] = dml_dp;
+ static struct hpo_dp_stream_encoder *dcn31_hpo_dp_stream_encoder_create(
+ 	enum engine_id eng_id,
+ 	struct dc_context *ctx)
+@@ -1368,6 +1474,7 @@ static const struct resource_create_funcs res_create_funcs = {
+ 	.read_dce_straps = read_dce_straps,
+ 	.create_audio = dcn31_create_audio,
+ 	.create_stream_encoder = dcn31_stream_encoder_create,
++	.create_hpo_frl_stream_encoder = dcn31_hpo_frl_stream_encoder_create,
+ 	.create_hpo_dp_stream_encoder = dcn31_hpo_dp_stream_encoder_create,
+ 	.create_hpo_dp_link_encoder = dcn31_hpo_dp_link_encoder_create,
+ 	.create_hwseq = dcn31_hwseq_create,
+@@ -1392,6 +1499,23 @@ static void dcn31_resource_destruct(struct dcn31_resource_pool *pool)
+ 		}
  	}
-@@ -883,6 +886,7 @@ static void populate_dml_output_cfg_from_stream_state(struct dml_output_cfg_st *
- 	case SIGNAL_TYPE_DISPLAY_PORT_MST:
- 	case SIGNAL_TYPE_EDP:
- 	case SIGNAL_TYPE_VIRTUAL:
-+	case SIGNAL_TYPE_HDMI_FRL:
- 	default:
- 		out->OutputLinkDPRate[location] = dml_dp_rate_na;
- 		break;
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/dml2_utils.c b/drivers/gpu/drm/amd/display/dc/dml2_0/dml2_utils.c
-index 5ed14f694fb0..a3ce011612f7 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2_0/dml2_utils.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml2_0/dml2_utils.c
-@@ -173,6 +173,8 @@ bool is_dtbclk_required(const struct dc *dc, struct dc_state *context)
- 	for (i = 0; i < dc->res_pool->pipe_count; i++) {
- 		if (!context->res_ctx.pipe_ctx[i].stream)
- 			continue;
-+		if (dc_is_hdmi_frl_signal(context->res_ctx.pipe_ctx[i].stream->signal))
-+			return true;
- 		if (is_dp2p0_output_encoder(&context->res_ctx.pipe_ctx[i]))
- 			return true;
+ 
++	for (i = 0; i < pool->base.hpo_frl_stream_enc_count; i++) {
++		if (pool->base.hpo_frl_stream_enc[i] != NULL) {
++			if (pool->base.hpo_frl_stream_enc[i]->vpg != NULL) {
++				kfree(DCN30_VPG_FROM_VPG(pool->base.hpo_frl_stream_enc[i]->vpg));
++				pool->base.hpo_frl_stream_enc[i]->vpg = NULL;
++			}
++
++			if (pool->base.hpo_frl_stream_enc[i]->afmt != NULL) {
++				kfree(DCN30_AFMT_FROM_AFMT(pool->base.hpo_frl_stream_enc[i]->afmt));
++				pool->base.hpo_frl_stream_enc[i]->afmt = NULL;
++			}
++
++			kfree(DCN30_HPO_FRL_STRENC_FROM_HPO_FRL_STRENC(pool->base.hpo_frl_stream_enc[i]));
++			pool->base.hpo_frl_stream_enc[i] = NULL;
++		}
++	}
++
+ 	for (i = 0; i < pool->base.hpo_dp_stream_enc_count; i++) {
+ 		if (pool->base.hpo_dp_stream_enc[i] != NULL) {
+ 			if (pool->base.hpo_dp_stream_enc[i]->vpg != NULL) {
+@@ -1871,6 +1995,7 @@ static struct resource_funcs dcn31_res_pool_funcs = {
+ 	.link_enc_create_minimal = dcn31_link_enc_create_minimal,
+ 	.link_encs_assign = link_enc_cfg_link_encs_assign,
+ 	.link_enc_unassign = link_enc_cfg_link_enc_unassign,
++	.hpo_frl_link_enc_create = dcn31_hpo_frl_link_encoder_create,
+ 	.panel_cntl_create = dcn31_panel_cntl_create,
+ 	.validate_bandwidth = dcn31_validate_bandwidth,
+ 	.calculate_wm_and_dlg = dcn31_calculate_wm_and_dlg,
+@@ -1955,6 +2080,8 @@ static bool dcn31_resource_construct(
+ 	dc->caps.force_dp_tps4_for_cp2520 = true;
+ 	if (dc->config.forceHBR2CP2520)
+ 		dc->caps.force_dp_tps4_for_cp2520 = false;
++	dc->caps.hdmi_hpo = true;
++	dc->config.skip_frl_pretraining = true;
+ 	dc->caps.dp_hpo = true;
+ 	dc->caps.dp_hdmi21_pcon_support = true;
+ 	dc->caps.edp_dsc_support = true;
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn314/dcn314_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn314/dcn314_resource.c
+index 16eee0c6f4bc..fbfedfca211f 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dcn314/dcn314_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dcn314/dcn314_resource.c
+@@ -57,6 +57,8 @@
+ #include "dcn30/dcn30_afmt.h"
+ #include "dcn31/dcn31_dio_link_encoder.h"
+ #include "dcn314/dcn314_dio_stream_encoder.h"
++#include "dcn30/dcn30_hpo_frl_stream_encoder.h"
++#include "dcn30/dcn30_hpo_frl_link_encoder.h"
+ #include "dcn31/dcn31_hpo_dp_stream_encoder.h"
+ #include "dcn31/dcn31_hpo_dp_link_encoder.h"
+ #include "dcn31/dcn31_apg.h"
+@@ -438,6 +440,45 @@ static const struct dcn10_link_enc_mask le_mask = {
+ 	DPCS_DCN31_MASK_SH_LIST(_MASK)
+ };
+ 
++#define hpo_frl_stream_encoder_reg_list(id)\
++[id] = {\
++	DCN3_0_HPO_FRL_STREAM_ENC_REG_LIST(id)\
++}
++
++#define hpo_frl_stream_encoder_dme_reg_list(id)\
++	DCN3_0_HPO_STREAM_ENC_DME_REG_LIST(id, 6)
++
++
++static const struct dcn30_hpo_frl_stream_enc_registers hpo_frl_stream_enc_regs[] = {
++	hpo_frl_stream_encoder_reg_list(0),
++	hpo_frl_stream_encoder_dme_reg_list(6),
++};
++
++static const struct dcn30_hpo_frl_stream_encoder_shift hpo_se_shift = {
++	DCN3_0_HPO_STREAM_ENC_MASK_SH_LIST(__SHIFT)
++};
++
++static const struct dcn30_hpo_frl_stream_encoder_mask hpo_se_mask = {
++	DCN3_0_HPO_STREAM_ENC_MASK_SH_LIST(_MASK)
++};
++
++#define hpo_frl_link_encoder_reg_list(id)\
++[id] = {\
++	DCN3_0_HPO_FRL_LINK_ENC_REG_LIST(id)\
++}
++
++static const struct dcn30_hpo_frl_link_encoder_registers hpo_frl_link_enc_regs[] = {
++	hpo_frl_link_encoder_reg_list(0),
++};
++
++static const struct dcn30_hpo_frl_link_encoder_shift hpo_le_shift = {
++	DCN3_0_HPO_FRL_LINK_ENC_MASK_SH_LIST(__SHIFT)
++};
++
++static const struct dcn30_hpo_frl_link_encoder_mask hpo_le_mask = {
++	DCN3_0_HPO_FRL_LINK_ENC_MASK_SH_LIST(_MASK)
++};
++
+ #define hpo_dp_stream_encoder_reg_list(id)\
+ [id] = {\
+ 	DCN3_1_HPO_DP_STREAM_ENC_REG_LIST(id)\
+@@ -845,6 +886,7 @@ static const struct resource_caps res_cap_dcn314 = {
+ 	.num_audio = 5,
+ 	.num_stream_encoder = 5,
+ 	.num_dig_link_enc = 5,
++	.num_hpo_frl = 1,
+ 	.num_hpo_dp_stream_encoder = 4,
+ 	.num_hpo_dp_link_encoder = 2,
+ 	.num_pll = 5,
+@@ -1341,6 +1383,71 @@ static struct stream_encoder *dcn314_stream_encoder_create(
+ 	return &enc1->base;
+ }
+ 
++static struct hpo_frl_stream_encoder *dcn31_hpo_frl_stream_encoder_create(enum engine_id eng_id,
++									  struct dc_context *ctx)
++{
++	struct dcn30_hpo_frl_stream_encoder *hpo_enc3;
++	struct afmt *afmt;
++	struct vpg *vpg;
++	int afmt_inst;
++	int vpg_inst;
++
++	/* Mapping of VPG, AFMT, DME register blocks to HPO block instance */
++	if (eng_id == ENGINE_ID_HPO_0) {
++		//Maps to VPG INST 5, vpg_inst 5 reg offset padded to inst 9
++		vpg_inst = 9;
++		afmt_inst = 5;
++	} else {
++		return NULL;
++	}
++
++	/* allocate HPO stream encoder and create VPG, AFMT sub-blocks */
++	hpo_enc3 = kzalloc(sizeof(struct dcn30_hpo_frl_stream_encoder), GFP_KERNEL);
++	vpg = dcn31_vpg_create(ctx, vpg_inst);
++	afmt = dcn31_afmt_create(ctx, afmt_inst);
++
++	if (!hpo_enc3 || !vpg || !afmt) {
++		kfree(hpo_enc3);
++		kfree(vpg);
++		kfree(afmt);
++		return NULL;
++	}
++
++	dcn30_hpo_frl_stream_encoder_construct(hpo_enc3,
++					       ctx,
++					       ctx->dc_bios,
++					       eng_id,
++					       vpg,
++					       afmt,
++					       &hpo_frl_stream_enc_regs[eng_id - ENGINE_ID_HPO_0],
++					       &hpo_se_shift,
++					       &hpo_se_mask);
++
++	return &hpo_enc3->base;
++}
++
++static struct hpo_frl_link_encoder *dcn31_hpo_frl_link_encoder_create(enum engine_id eng_id,
++								      struct dc_context *ctx)
++{
++	struct dcn30_hpo_frl_link_encoder *hpo_enc3;
++
++	ASSERT((eng_id == ENGINE_ID_HPO_0) || (eng_id == ENGINE_ID_HPO_1));
++
++	/* allocate HPO link encoder */
++	hpo_enc3 = kzalloc(sizeof(struct dcn30_hpo_frl_link_encoder), GFP_KERNEL);
++	if (!hpo_enc3)
++		return NULL; /* out of memory */
++
++	hpo_frl_link_encoder3_construct(hpo_enc3,
++					ctx,
++					eng_id - ENGINE_ID_HPO_0,
++					&hpo_frl_link_enc_regs[eng_id - ENGINE_ID_HPO_0],
++					&hpo_le_shift,
++					&hpo_le_mask);
++
++	return &hpo_enc3->base;
++}
++
+ static struct hpo_dp_stream_encoder *dcn31_hpo_dp_stream_encoder_create(
+ 	enum engine_id eng_id,
+ 	struct dc_context *ctx)
+@@ -1427,6 +1534,7 @@ static const struct resource_create_funcs res_create_funcs = {
+ 	.read_dce_straps = read_dce_straps,
+ 	.create_audio = dcn31_create_audio,
+ 	.create_stream_encoder = dcn314_stream_encoder_create,
++	.create_hpo_frl_stream_encoder = dcn31_hpo_frl_stream_encoder_create,
+ 	.create_hpo_dp_stream_encoder = dcn31_hpo_dp_stream_encoder_create,
+ 	.create_hpo_dp_link_encoder = dcn31_hpo_dp_link_encoder_create,
+ 	.create_hwseq = dcn314_hwseq_create,
+@@ -1451,6 +1559,23 @@ static void dcn314_resource_destruct(struct dcn314_resource_pool *pool)
+ 		}
  	}
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/dml_frl_cap_chk.c b/drivers/gpu/drm/amd/display/dc/dml2_0/dml_frl_cap_chk.c
-new file mode 100644
-index 000000000000..a638c0d6d765
---- /dev/null
-+++ b/drivers/gpu/drm/amd/display/dc/dml2_0/dml_frl_cap_chk.c
-@@ -0,0 +1,413 @@
-+/*
-+ * Copyright 2022 Advanced Micro Devices, Inc.
-+ *
-+ * Permission is hereby granted, free of charge, to any person obtaining a
-+ * copy of this software and associated documentation files (the "Software"),
-+ * to deal in the Software without restriction, including without limitation
-+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
-+ * and/or sell copies of the Software, and to permit persons to whom the
-+ * Software is furnished to do so, subject to the following conditions:
-+ *
-+ * The above copyright notice and this permission notice shall be included in
-+ * all copies or substantial portions of the Software.
-+ *
-+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-+ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
-+ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-+ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-+ * OTHER DEALINGS IN THE SOFTWARE.
-+ *
-+ * Authors: AMD
-+ *
-+ */
+ 
++	for (i = 0; i < pool->base.hpo_frl_stream_enc_count; i++) {
++		if (pool->base.hpo_frl_stream_enc[i] != NULL) {
++			if (pool->base.hpo_frl_stream_enc[i]->vpg != NULL) {
++				kfree(DCN30_VPG_FROM_VPG(pool->base.hpo_frl_stream_enc[i]->vpg));
++				pool->base.hpo_frl_stream_enc[i]->vpg = NULL;
++			}
 +
-+#include "dml_frl_cap_chk.h"
-+#include "display_mode_util.h"
-+#include "lib_frl_cap_check.h"
++			if (pool->base.hpo_frl_stream_enc[i]->afmt != NULL) {
++				kfree(DCN30_AFMT_FROM_AFMT(pool->base.hpo_frl_stream_enc[i]->afmt));
++				pool->base.hpo_frl_stream_enc[i]->afmt = NULL;
++			}
 +
-+#define frl_dump_var(fmt, var) {}
-+#define frl_print(fmt, ...) {}
-+#include "dcn_calc_math.h"
-+#define fabs(var) dcn_bw_fabs(var)
-+#define floor(var) dcn_bw_floor(var)
-+#define ceil(var) dcn_bw_ceil(var)
-+
-+#if !defined(TB_BORROWED_MAX)
-+#define TB_BORROWED_MAX 400
-+#endif
-+
-+static const double   EPSILON               = 0.01;
-+static const double   DBL_EPSILON           = 2.2204460492503131e-16;
-+static const int      C_FRL_CB              = 510;
-+static const double   OVERHEAD_M            = 0.003;  /* %   */
-+static const double   TOLERANCE_PIXEL_CLOCK = 0.005;  /* %   */
-+static const double   TOLERANCE_AUDIO_CLOCK = 1000;   /* ppm */
-+static const int      TOLERANCE_FRL_BIT     = 300;    /* ppm */
-+static const int      ACR_RATE_MAX          = 1500;
-+
-+static frl_cap_chk_result frl_cap_chk_common(frl_cap_chk_intermediates *inter, frl_cap_chk_params *params)
-+{
-+	double   audio_bw_reserve = (params->compressed ? 192000.0 : 0.0);
-+/*
-+	if (getenv("DEBUG_FRL_CAP_CHK"))
-+	{
-+		printf("frl_cap_chk inputs:\n");
-+		printf("-------------------\n");
-+		frl_dump_var("%i", params->lanes);
-+		frl_dump_var("%le", params->f_pixel_clock_nominal);
-+		frl_dump_var("%le", params->r_bit_nominal);
-+		frl_dump_var("%i", params->audio_packet_type);
-+		frl_dump_var("%le", params->f_audio);
-+		frl_dump_var("%i", params->h_active);
-+		frl_dump_var("%i", params->h_blank);
-+		frl_dump_var("%i", params->bpc);
-+		frl_dump_var("%i", params->pixel_encoding);
-+		frl_dump_var("%i", params->compressed);
-+		frl_dump_var("%i", params->slices);
-+		frl_dump_var("%i", params->slice_width);
-+		frl_dump_var("%le", params->bpp_target);
-+		frl_dump_var("%i", params->layout);
-+		frl_dump_var("%i", params->acat);
-+		printf("frl_cap_chk outputs:\n");
-+		printf("---------------------\n");
-+	}
-+*/
-+	inter->c_frl_sb = 4 * C_FRL_CB + params->lanes;
-+	inter->overhead_sb = (double) params->lanes / inter->c_frl_sb;
-+	inter->overhead_rs = 8.0 * 4.0 / inter->c_frl_sb;
-+	inter->overhead_map = 2.5 / inter->c_frl_sb;
-+	inter->overhead_min = inter->overhead_sb + inter->overhead_rs + inter->overhead_map;
-+	inter->overhead_max = inter->overhead_min + OVERHEAD_M;
-+	inter->f_pixel_clock_max = params->f_pixel_clock_nominal * (1.0 + TOLERANCE_PIXEL_CLOCK);
-+	inter->t_line = (params->h_active + params->h_blank) / inter->f_pixel_clock_max;
-+	inter->r_bit_min = params->r_bit_nominal * (1.0 - TOLERANCE_FRL_BIT / 1000000.0);
-+	inter->r_frl_char_min = inter->r_bit_min / 18.0;
-+	inter->c_frl_line = floor(inter->t_line * inter->r_frl_char_min * params->lanes);
-+/*
-+	if (getenv("DEBUG_FRL_CAP_CHK"))
-+	{
-+		frl_dump_var("%i", inter->c_frl_sb);
-+		frl_dump_var("%le", inter->overhead_sb);
-+		frl_dump_var("%le", inter->overhead_rs);
-+		frl_dump_var("%le", inter->overhead_map);
-+		frl_dump_var("%le", inter->overhead_min);
-+		frl_dump_var("%le", inter->overhead_max);
-+		frl_dump_var("%le", inter->f_pixel_clock_max);
-+		frl_dump_var("%le", inter->t_line);
-+		frl_dump_var("%le", inter->r_bit_min);
-+		frl_dump_var("%le", inter->r_frl_char_min);
-+		frl_dump_var("%le", inter->c_frl_line);
-+	}
-+*/
-+	switch (params->audio_packet_type) {
-+	case 0x02:
-+		/* unsupported
-+	case 0x07:
-+		*/
-+		if (params->layout == 0)
-+			inter->ap = 0.25;
-+		else if (params->layout == 1)
-+			inter->ap = 1.0;
-+		break;
-+	case 0x08:
-+		inter->ap = 0.25;
-+		break;
-+	case 0x09:
-+		/* unsupported
-+	case 0x0e:
-+	case 0x0f:
-+		*/
-+		inter->ap = 1.0;
-+		break;
-+		/* unsupported
-+	case 0x0b:
-+	case 0x0c:
-+		if (acat == 0x01)
-+			ap = 2.0;
-+		else if (acat == 0x02)
-+			ap = 3.0;
-+		else if (acat == 0x03)
-+			ap = 4.0;
-+		break;
-+		*/
-+	case 0x07:
-+	case 0x0e:
-+	case 0x0f:
-+	case 0x0b:
-+	case 0x0c:
-+		// Unsupported audio format
-+		return FRL_CAP_CHK_ERROR_UNSUPPORTED_AUDIO;
-+	default:
-+		inter->ap = 0.0;
++			kfree(DCN30_HPO_FRL_STRENC_FROM_HPO_FRL_STRENC(pool->base.hpo_frl_stream_enc[i]));
++			pool->base.hpo_frl_stream_enc[i] = NULL;
++		}
 +	}
 +
-+	inter->r_ap                   = (dml_max(audio_bw_reserve, params->f_audio * inter->ap) + 2 * ACR_RATE_MAX) * (1 + TOLERANCE_AUDIO_CLOCK / 1000000.0);
-+	inter->avg_audio_packets_line = inter->r_ap * inter->t_line;
-+	inter->audio_packets_line     = (int)ceil(inter->avg_audio_packets_line);
-+	inter->blank_audio_min        = 32 + 32 * inter->audio_packets_line; // h_blank_audio_min or hc_blank_audio_min
-+
-+	params->audio_packets_line = inter->audio_packets_line;
-+/*
-+	if (getenv("DEBUG_FRL_CAP_CHK"))
-+	{
-+		frl_dump_var("%le", inter->ap);
-+		frl_dump_var("%le", inter->r_ap);
-+		frl_dump_var("%le", inter->avg_audio_packets_line);
-+		frl_dump_var("%i", inter->audio_packets_line);
-+		frl_dump_var("%i", inter->blank_audio_min);
-+	}
-+*/
-+	return FRL_CAP_CHK_OK;
+ 	for (i = 0; i < pool->base.hpo_dp_stream_enc_count; i++) {
+ 		if (pool->base.hpo_dp_stream_enc[i] != NULL) {
+ 			if (pool->base.hpo_dp_stream_enc[i]->vpg != NULL) {
+@@ -1797,6 +1922,7 @@ static struct resource_funcs dcn314_res_pool_funcs = {
+ 	.link_enc_create_minimal = dcn31_link_enc_create_minimal,
+ 	.link_encs_assign = link_enc_cfg_link_encs_assign,
+ 	.link_enc_unassign = link_enc_cfg_link_enc_unassign,
++	.hpo_frl_link_enc_create = dcn31_hpo_frl_link_encoder_create,
+ 	.panel_cntl_create = dcn31_panel_cntl_create,
+ 	.validate_bandwidth = dcn314_validate_bandwidth,
+ 	.calculate_wm_and_dlg = dcn31_calculate_wm_and_dlg,
+@@ -1883,6 +2009,7 @@ static bool dcn314_resource_construct(
+ 	dc->caps.force_dp_tps4_for_cp2520 = true;
+ 	if (dc->config.forceHBR2CP2520)
+ 		dc->caps.force_dp_tps4_for_cp2520 = false;
++	dc->caps.hdmi_hpo = true;
+ 	dc->caps.dp_hpo = true;
+ 	dc->caps.dp_hdmi21_pcon_support = true;
+ 	dc->caps.edp_dsc_support = true;
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn315/dcn315_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn315/dcn315_resource.c
+index 37404aa0edd9..0f800f586e08 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dcn315/dcn315_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dcn315/dcn315_resource.c
+@@ -53,6 +53,8 @@
+ #include "dcn30/dcn30_vpg.h"
+ #include "dcn30/dcn30_afmt.h"
+ #include "dcn30/dcn30_dio_stream_encoder.h"
++#include "dcn30/dcn30_hpo_frl_stream_encoder.h"
++#include "dcn30/dcn30_hpo_frl_link_encoder.h"
+ #include "dcn31/dcn31_hpo_dp_stream_encoder.h"
+ #include "dcn31/dcn31_hpo_dp_link_encoder.h"
+ #include "dcn31/dcn31_apg.h"
+@@ -433,6 +435,45 @@ static const struct dcn10_link_enc_mask le_mask = {
+ 	DPCS_DCN31_MASK_SH_LIST(_MASK)
+ };
+ 
++#define hpo_frl_stream_encoder_reg_list(id)\
++[id] = {\
++	DCN3_0_HPO_FRL_STREAM_ENC_REG_LIST(id)\
 +}
 +
++#define hpo_frl_stream_encoder_dme_reg_list(id)\
++	DCN3_0_HPO_STREAM_ENC_DME_REG_LIST(id, 6)
 +
-+static frl_cap_chk_result frl_cap_chk_uncompressed(frl_cap_chk_params *params, frl_cap_chk_intermediates *inter)
++
++static const struct dcn30_hpo_frl_stream_enc_registers hpo_frl_stream_enc_regs[] = {
++	hpo_frl_stream_encoder_reg_list(0),
++	hpo_frl_stream_encoder_dme_reg_list(6),
++};
++
++static const struct dcn30_hpo_frl_stream_encoder_shift hpo_se_shift = {
++	DCN3_0_HPO_STREAM_ENC_MASK_SH_LIST(__SHIFT)
++};
++
++static const struct dcn30_hpo_frl_stream_encoder_mask hpo_se_mask = {
++	DCN3_0_HPO_STREAM_ENC_MASK_SH_LIST(_MASK)
++};
++
++#define hpo_frl_link_encoder_reg_list(id)\
++[id] = {\
++	DCN3_0_HPO_FRL_LINK_ENC_REG_LIST(id)\
++}
++
++static const struct dcn30_hpo_frl_link_encoder_registers hpo_frl_link_enc_regs[] = {
++	hpo_frl_link_encoder_reg_list(0),
++};
++
++static const struct dcn30_hpo_frl_link_encoder_shift hpo_le_shift = {
++	DCN3_0_HPO_FRL_LINK_ENC_MASK_SH_LIST(__SHIFT)
++};
++
++static const struct dcn30_hpo_frl_link_encoder_mask hpo_le_mask = {
++	DCN3_0_HPO_FRL_LINK_ENC_MASK_SH_LIST(_MASK)
++};
++
+ #define hpo_dp_stream_encoder_reg_list(id)\
+ [id] = {\
+ 	DCN3_1_HPO_DP_STREAM_ENC_REG_LIST(id)\
+@@ -832,6 +873,7 @@ static const struct resource_caps res_cap_dcn31 = {
+ 	.num_audio = 5,
+ 	.num_stream_encoder = 5,
+ 	.num_dig_link_enc = 5,
++	.num_hpo_frl = 1,
+ 	.num_hpo_dp_stream_encoder = 4,
+ 	.num_hpo_dp_link_encoder = 2,
+ 	.num_pll = 5,
+@@ -903,6 +945,7 @@ static const struct dc_debug_options debug_defaults_drv = {
+ 			.afmt = true,
+ 		}
+ 	},
++	.max_frl_rate = HDMI_FRL_LINK_RATE_12GBPS,
+ 	.psr_power_use_phy_fsm = 0,
+ 	.using_dml2 = false,
+ 	.min_disp_clk_khz = 100000,
+@@ -1284,6 +1327,70 @@ static struct stream_encoder *dcn315_stream_encoder_create(
+ 	return &enc1->base;
+ }
+ 
++static struct hpo_frl_stream_encoder *dcn31_hpo_frl_stream_encoder_create(enum engine_id eng_id,
++									  struct dc_context *ctx)
 +{
-+	frl_cap_chk_result	res;
++	struct dcn30_hpo_frl_stream_encoder *hpo_enc3;
++	struct afmt *afmt;
++	struct vpg *vpg;
++	int afmt_inst;
++	int vpg_inst;
 +
-+	int k_420;
-+	double k_cd;
-+	int c_frl_free;
-+	int c_frl_rc_margin;
-+	int c_frl_rc_savings;
-+	int bpp;
-+	double bytes_line;
-+	int tb_active;
-+	int tb_blank ;
-+	double f_tb_average;
-+	double t_active_ref;
-+	double t_blank_ref;
-+	double t_active_min;
-+	double t_blank_min;
-+	double t_borrowed;
-+	double tb_borrowed;
-+	int c_frl_actual_payload;
-+	double utilization;
-+	double margin;
-+
-+	res = frl_cap_chk_common(inter, params);
-+	if (res != FRL_CAP_CHK_OK) {
-+		return res;
++	/* Mapping of VPG, AFMT, DME register blocks to HPO block instance */
++	if (eng_id == ENGINE_ID_HPO_0) {
++		vpg_inst = 5;
++		afmt_inst = 5;
++	} else {
++		return NULL;
 +	}
 +
-+	k_420 = params->pixel_encoding == PIXEL_ENCODING_420 ? 2 : 1;
-+	k_cd = params->pixel_encoding == PIXEL_ENCODING_422 ? 1.0 : params->bpc / 8.0;
-+	c_frl_free = (int)dml_max(params->h_blank * k_cd / k_420 - 32 * (1 + inter->audio_packets_line) - 7, 0);
-+	c_frl_rc_margin = 4;
-+	c_frl_rc_savings = (int)floor(dml_max(((7.0/8.0) * c_frl_free) - c_frl_rc_margin, 0.0));
-+	bpp = (int)(24 * k_cd / k_420);
-+	bytes_line = bpp * params->h_active / 8.0;
-+	tb_active = (int)ceil(bytes_line / 3);
-+	tb_blank = (int)ceil(params->h_blank * k_cd / k_420);
-+/*
-+	if (getenv("DEBUG_FRL_CAP_CHK"))
-+	{
-+		frl_dump_var("%i", k_420);
-+		frl_dump_var("%le", k_cd);
-+		frl_dump_var("%i", c_frl_free);
-+		frl_dump_var("%i", c_frl_rc_margin);
-+		frl_dump_var("%i", c_frl_rc_savings);
-+		frl_dump_var("%i", bpp);
-+		frl_dump_var("%le", bytes_line);
-+		frl_dump_var("%i", tb_active);
-+		frl_dump_var("%i", tb_blank);
-+	}
-+*/
-+	if (!(inter->blank_audio_min <= tb_blank)) {
-+		frl_dump_var("%i", inter->blank_audio_min);
-+		frl_dump_var("%i", tb_blank);
-+		return FRL_CAP_CHK_ERROR_AUDIO_BW;
++	/* allocate HPO stream encoder and create VPG, AFMT sub-blocks */
++	hpo_enc3 = kzalloc(sizeof(struct dcn30_hpo_frl_stream_encoder), GFP_KERNEL);
++	vpg = dcn31_vpg_create(ctx, vpg_inst);
++	afmt = dcn31_afmt_create(ctx, afmt_inst);
++
++	if (!hpo_enc3 || !vpg || !afmt) {
++		kfree(hpo_enc3);
++		kfree(vpg);
++		kfree(afmt);
++		return NULL;
 +	}
 +
-+	f_tb_average = (inter->f_pixel_clock_max / (params->h_active + params->h_blank)) * (tb_active + tb_blank);
-+	t_active_ref = inter->t_line * ((double) params->h_active / (params->h_active + params->h_blank));
-+	t_blank_ref  = inter->t_line * ((double) params->h_blank / (params->h_active + params->h_blank));
-+	t_active_min = (3.0 / 2.0) * tb_active / (params->lanes * inter->r_frl_char_min * (1.0 - inter->overhead_max));
-+	t_blank_min  = tb_blank / (params->lanes * inter->r_frl_char_min * (1.0 - inter->overhead_max));
-+/*
-+	if (getenv("DEBUG_FRL_CAP_CHK"))
-+	{
-+		frl_dump_var("%le", f_tb_average);
-+		frl_dump_var("%le", t_active_ref);
-+		frl_dump_var("%le", t_blank_ref);
-+		frl_dump_var("%le", t_active_min);
-+		frl_dump_var("%le", t_blank_min);
++	dcn30_hpo_frl_stream_encoder_construct(hpo_enc3,
++					       ctx,
++					       ctx->dc_bios,
++					       eng_id,
++					       vpg,
++					       afmt,
++					       &hpo_frl_stream_enc_regs[eng_id - ENGINE_ID_HPO_0],
++					       &hpo_se_shift,
++					       &hpo_se_mask);
++
++	return &hpo_enc3->base;
++}
++
++static struct hpo_frl_link_encoder *dcn31_hpo_frl_link_encoder_create(enum engine_id eng_id,
++								      struct dc_context *ctx)
++{
++	struct dcn30_hpo_frl_link_encoder *hpo_enc3;
++
++	ASSERT((eng_id == ENGINE_ID_HPO_0) || (eng_id == ENGINE_ID_HPO_1));
++
++	/* allocate HPO link encoder */
++	hpo_enc3 = kzalloc(sizeof(struct dcn30_hpo_frl_link_encoder), GFP_KERNEL);
++	if (!hpo_enc3)
++		return NULL; /* out of memory */
++
++	hpo_frl_link_encoder3_construct(hpo_enc3,
++					ctx,
++					eng_id - ENGINE_ID_HPO_0,
++					&hpo_frl_link_enc_regs[eng_id - ENGINE_ID_HPO_0],
++					&hpo_le_shift,
++					&hpo_le_mask);
++
++	return &hpo_enc3->base;
++}
++
+ static struct hpo_dp_stream_encoder *dcn31_hpo_dp_stream_encoder_create(
+ 	enum engine_id eng_id,
+ 	struct dc_context *ctx)
+@@ -1369,6 +1476,7 @@ static const struct resource_create_funcs res_create_funcs = {
+ 	.read_dce_straps = read_dce_straps,
+ 	.create_audio = dcn31_create_audio,
+ 	.create_stream_encoder = dcn315_stream_encoder_create,
++	.create_hpo_frl_stream_encoder = dcn31_hpo_frl_stream_encoder_create,
+ 	.create_hpo_dp_stream_encoder = dcn31_hpo_dp_stream_encoder_create,
+ 	.create_hpo_dp_link_encoder = dcn31_hpo_dp_link_encoder_create,
+ 	.create_hwseq = dcn31_hwseq_create,
+@@ -1393,6 +1501,23 @@ static void dcn315_resource_destruct(struct dcn315_resource_pool *pool)
+ 		}
+ 	}
+ 
++	for (i = 0; i < pool->base.hpo_frl_stream_enc_count; i++) {
++		if (pool->base.hpo_frl_stream_enc[i] != NULL) {
++			if (pool->base.hpo_frl_stream_enc[i]->vpg != NULL) {
++				kfree(DCN30_VPG_FROM_VPG(pool->base.hpo_frl_stream_enc[i]->vpg));
++				pool->base.hpo_frl_stream_enc[i]->vpg = NULL;
++			}
++
++			if (pool->base.hpo_frl_stream_enc[i]->afmt != NULL) {
++				kfree(DCN30_AFMT_FROM_AFMT(pool->base.hpo_frl_stream_enc[i]->afmt));
++				pool->base.hpo_frl_stream_enc[i]->afmt = NULL;
++			}
++
++			kfree(DCN30_HPO_FRL_STRENC_FROM_HPO_FRL_STRENC(pool->base.hpo_frl_stream_enc[i]));
++			pool->base.hpo_frl_stream_enc[i] = NULL;
++		}
 +	}
-+*/
-+	if ((t_active_ref >= t_active_min) && (t_blank_ref >= t_blank_min)) {
-+		t_borrowed = 0;
-+		params->borrow_mode = BORROW_MODE_NONE;
-+	} else if ((t_active_ref < t_active_min) && (t_blank_ref >= t_blank_min)) {
-+		t_borrowed = t_active_min - t_active_ref;
-+		params->borrow_mode = BORROW_MODE_FROM_BLANK;
++
+ 	for (i = 0; i < pool->base.hpo_dp_stream_enc_count; i++) {
+ 		if (pool->base.hpo_dp_stream_enc[i] != NULL) {
+ 			if (pool->base.hpo_dp_stream_enc[i]->vpg != NULL) {
+@@ -1867,6 +1992,7 @@ static struct resource_funcs dcn315_res_pool_funcs = {
+ 	.link_enc_create_minimal = dcn31_link_enc_create_minimal,
+ 	.link_encs_assign = link_enc_cfg_link_encs_assign,
+ 	.link_enc_unassign = link_enc_cfg_link_enc_unassign,
++	.hpo_frl_link_enc_create = dcn31_hpo_frl_link_encoder_create,
+ 	.panel_cntl_create = dcn31_panel_cntl_create,
+ 	.validate_bandwidth = dcn31_validate_bandwidth,
+ 	.calculate_wm_and_dlg = dcn31_calculate_wm_and_dlg,
+@@ -1930,6 +2056,8 @@ static bool dcn315_resource_construct(
+ 	dc->caps.force_dp_tps4_for_cp2520 = true;
+ 	if (dc->config.forceHBR2CP2520)
+ 		dc->caps.force_dp_tps4_for_cp2520 = false;
++	dc->caps.hdmi_hpo = true;
++	dc->config.skip_frl_pretraining = true;
+ 	dc->caps.dp_hpo = true;
+ 	dc->caps.dp_hdmi21_pcon_support = true;
+ 	dc->caps.edp_dsc_support = true;
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn316/dcn316_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn316/dcn316_resource.c
+index d946663f416a..efbc2a506046 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dcn316/dcn316_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dcn316/dcn316_resource.c
+@@ -53,6 +53,8 @@
+ #include "dcn30/dcn30_vpg.h"
+ #include "dcn30/dcn30_afmt.h"
+ #include "dcn30/dcn30_dio_stream_encoder.h"
++#include "dcn30/dcn30_hpo_frl_stream_encoder.h"
++#include "dcn30/dcn30_hpo_frl_link_encoder.h"
+ #include "dcn31/dcn31_hpo_dp_stream_encoder.h"
+ #include "dcn31/dcn31_hpo_dp_link_encoder.h"
+ #include "dcn31/dcn31_apg.h"
+@@ -421,6 +423,45 @@ static const struct dcn10_link_enc_mask le_mask = {
+ 	DPCS_DCN31_MASK_SH_LIST(_MASK)
+ };
+ 
++#define hpo_frl_stream_encoder_reg_list(id)\
++[id] = {\
++	DCN3_0_HPO_FRL_STREAM_ENC_REG_LIST(id)\
++}
++
++#define hpo_frl_stream_encoder_dme_reg_list(id)\
++	DCN3_0_HPO_STREAM_ENC_DME_REG_LIST(id, 6)
++
++
++static const struct dcn30_hpo_frl_stream_enc_registers hpo_frl_stream_enc_regs[] = {
++	hpo_frl_stream_encoder_reg_list(0),
++	hpo_frl_stream_encoder_dme_reg_list(6),
++};
++
++static const struct dcn30_hpo_frl_stream_encoder_shift hpo_se_shift = {
++	DCN3_0_HPO_STREAM_ENC_MASK_SH_LIST(__SHIFT)
++};
++
++static const struct dcn30_hpo_frl_stream_encoder_mask hpo_se_mask = {
++	DCN3_0_HPO_STREAM_ENC_MASK_SH_LIST(_MASK)
++};
++
++#define hpo_frl_link_encoder_reg_list(id)\
++[id] = {\
++	DCN3_0_HPO_FRL_LINK_ENC_REG_LIST(id)\
++}
++
++static const struct dcn30_hpo_frl_link_encoder_registers hpo_frl_link_enc_regs[] = {
++	hpo_frl_link_encoder_reg_list(0),
++};
++
++static const struct dcn30_hpo_frl_link_encoder_shift hpo_le_shift = {
++	DCN3_0_HPO_FRL_LINK_ENC_MASK_SH_LIST(__SHIFT)
++};
++
++static const struct dcn30_hpo_frl_link_encoder_mask hpo_le_mask = {
++	DCN3_0_HPO_FRL_LINK_ENC_MASK_SH_LIST(_MASK)
++};
++
+ 
+ 
+ #define hpo_dp_stream_encoder_reg_list(id)\
+@@ -827,6 +868,7 @@ static const struct resource_caps res_cap_dcn31 = {
+ 	.num_audio = 5,
+ 	.num_stream_encoder = 5,
+ 	.num_dig_link_enc = 5,
++	.num_hpo_frl = 1,
+ 	.num_hpo_dp_stream_encoder = 4,
+ 	.num_hpo_dp_link_encoder = 2,
+ 	.num_pll = 5,
+@@ -898,6 +940,7 @@ static const struct dc_debug_options debug_defaults_drv = {
+ 			.afmt = true,
+ 		}
+ 	},
++	.max_frl_rate = HDMI_FRL_LINK_RATE_10GBPS, /*same as dcn3.1 for now*/
+ 	.using_dml2 = false,
+ };
+ 
+@@ -1277,6 +1320,70 @@ static struct stream_encoder *dcn316_stream_encoder_create(
+ 	return &enc1->base;
+ }
+ 
++static struct hpo_frl_stream_encoder *dcn31_hpo_frl_stream_encoder_create(enum engine_id eng_id,
++									  struct dc_context *ctx)
++{
++	struct dcn30_hpo_frl_stream_encoder *hpo_enc3;
++	struct afmt *afmt;
++	struct vpg *vpg;
++	int afmt_inst;
++	int vpg_inst;
++
++	/* Mapping of VPG, AFMT, DME register blocks to HPO block instance */
++	if (eng_id == ENGINE_ID_HPO_0) {
++		vpg_inst = 5;
++		afmt_inst = 5;
++	} else {
++		return NULL;
++	}
++
++	/* allocate HPO stream encoder and create VPG, AFMT sub-blocks */
++	hpo_enc3 = kzalloc(sizeof(struct dcn30_hpo_frl_stream_encoder), GFP_KERNEL);
++	vpg = dcn31_vpg_create(ctx, vpg_inst);
++	afmt = dcn31_afmt_create(ctx, afmt_inst);
++
++	if (!hpo_enc3 || !vpg || !afmt) {
++		kfree(hpo_enc3);
++		kfree(vpg);
++		kfree(afmt);
++		return NULL;
++	}
++
++	dcn30_hpo_frl_stream_encoder_construct(hpo_enc3,
++					       ctx,
++					       ctx->dc_bios,
++					       eng_id,
++					       vpg,
++					       afmt,
++					       &hpo_frl_stream_enc_regs[eng_id - ENGINE_ID_HPO_0],
++					       &hpo_se_shift,
++					       &hpo_se_mask);
++
++	return &hpo_enc3->base;
++}
++
++static struct hpo_frl_link_encoder *dcn31_hpo_frl_link_encoder_create(enum engine_id eng_id,
++								      struct dc_context *ctx)
++{
++	struct dcn30_hpo_frl_link_encoder *hpo_enc3;
++
++	ASSERT((eng_id == ENGINE_ID_HPO_0) || (eng_id == ENGINE_ID_HPO_1));
++
++	/* allocate HPO link encoder */
++	hpo_enc3 = kzalloc(sizeof(struct dcn30_hpo_frl_link_encoder), GFP_KERNEL);
++	if (!hpo_enc3)
++		return NULL; /* out of memory */
++
++	hpo_frl_link_encoder3_construct(hpo_enc3,
++					ctx,
++					eng_id - ENGINE_ID_HPO_0,
++					&hpo_frl_link_enc_regs[eng_id - ENGINE_ID_HPO_0],
++					&hpo_le_shift,
++					&hpo_le_mask);
++
++	return &hpo_enc3->base;
++}
++
+ 
+ static struct hpo_dp_stream_encoder *dcn31_hpo_dp_stream_encoder_create(
+ 	enum engine_id eng_id,
+@@ -1364,6 +1471,7 @@ static const struct resource_create_funcs res_create_funcs = {
+ 	.read_dce_straps = read_dce_straps,
+ 	.create_audio = dcn31_create_audio,
+ 	.create_stream_encoder = dcn316_stream_encoder_create,
++	.create_hpo_frl_stream_encoder = dcn31_hpo_frl_stream_encoder_create,
+ 	.create_hpo_dp_stream_encoder = dcn31_hpo_dp_stream_encoder_create,
+ 	.create_hpo_dp_link_encoder = dcn31_hpo_dp_link_encoder_create,
+ 	.create_hwseq = dcn31_hwseq_create,
+@@ -1388,6 +1496,21 @@ static void dcn316_resource_destruct(struct dcn316_resource_pool *pool)
+ 		}
+ 	}
+ 
++	for (i = 0; i < pool->base.hpo_frl_stream_enc_count; i++) {
++		if (pool->base.hpo_frl_stream_enc[i] != NULL) {
++			if (pool->base.hpo_frl_stream_enc[i]->vpg != NULL) {
++				kfree(DCN30_VPG_FROM_VPG(pool->base.hpo_frl_stream_enc[i]->vpg));
++				pool->base.hpo_frl_stream_enc[i]->vpg = NULL;
++			}
++			if (pool->base.hpo_frl_stream_enc[i]->afmt != NULL) {
++				kfree(DCN30_AFMT_FROM_AFMT(pool->base.hpo_frl_stream_enc[i]->afmt));
++				pool->base.hpo_frl_stream_enc[i]->afmt = NULL;
++			}
++			kfree(DCN30_HPO_FRL_STRENC_FROM_HPO_FRL_STRENC(pool->base.hpo_frl_stream_enc[i]));
++			pool->base.hpo_frl_stream_enc[i] = NULL;
++		}
++	}
++
+ 	for (i = 0; i < pool->base.hpo_dp_stream_enc_count; i++) {
+ 		if (pool->base.hpo_dp_stream_enc[i] != NULL) {
+ 			if (pool->base.hpo_dp_stream_enc[i]->vpg != NULL) {
+@@ -1743,6 +1866,7 @@ static struct resource_funcs dcn316_res_pool_funcs = {
+ 	.link_enc_create_minimal = dcn31_link_enc_create_minimal,
+ 	.link_encs_assign = link_enc_cfg_link_encs_assign,
+ 	.link_enc_unassign = link_enc_cfg_link_enc_unassign,
++	.hpo_frl_link_enc_create = dcn31_hpo_frl_link_encoder_create,
+ 	.panel_cntl_create = dcn31_panel_cntl_create,
+ 	.validate_bandwidth = dcn31_validate_bandwidth,
+ 	.calculate_wm_and_dlg = dcn31_calculate_wm_and_dlg,
+@@ -1806,6 +1930,8 @@ static bool dcn316_resource_construct(
+ 	dc->caps.force_dp_tps4_for_cp2520 = true;
+ 	if (dc->config.forceHBR2CP2520)
+ 		dc->caps.force_dp_tps4_for_cp2520 = false;
++	dc->caps.hdmi_hpo = true;
++	dc->config.skip_frl_pretraining = true;
+ 	dc->caps.dp_hpo = true;
+ 	dc->caps.dp_hdmi21_pcon_support = true;
+ 	dc->caps.edp_dsc_support = true;
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c
+index 1bdb4ffd2921..e03dc966e121 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c
+@@ -55,6 +55,8 @@
+ #include "dcn30/dcn30_afmt.h"
+ #include "dcn30/dcn30_dio_stream_encoder.h"
+ #include "dcn32/dcn32_dio_stream_encoder.h"
++#include "dcn30/dcn30_hpo_frl_stream_encoder.h"
++#include "dcn30/dcn30_hpo_frl_link_encoder.h"
+ #include "dcn31/dcn31_hpo_dp_stream_encoder.h"
+ #include "dcn31/dcn31_hpo_dp_link_encoder.h"
+ #include "dcn32/dcn32_hpo_dp_link_encoder.h"
+@@ -144,6 +146,10 @@ enum dcn32_clk_src_array_id {
+ 	REG_STRUCT[id-1].reg_name = BASE(reg ## block ## id ## _ ## reg_name ## _BASE_IDX) + \
+ 		reg ## block ## id ## _ ## reg_name
+ 
++#define SRI_ARR_DME(reg_name, block, id, offset)\
++	REG_STRUCT[id - offset].reg_name = BASE(reg ## block ## id ## _ ## reg_name ## _BASE_IDX) + \
++		reg ## block ## id ## _ ## reg_name
++
+ #define SRI_ARR_ALPHABET(reg_name, block, index, id)\
+ 	REG_STRUCT[index].reg_name = BASE(reg ## block ## id ## _ ## reg_name ## _BASE_IDX) + \
+ 		reg ## block ## id ## _ ## reg_name
+@@ -338,6 +344,36 @@ static const struct dcn10_link_enc_mask le_mask = {
+ 	//DPCS_DCN31_MASK_SH_LIST(_MASK)
+ };
+ 
++#define hpo_frl_stream_encoder_reg_list(id)\
++	DCN3_0_HPO_FRL_STREAM_ENC_REG_LIST_RI(id)
++
++#define hpo_frl_stream_encoder_dme_reg_list(id)\
++	DCN3_0_HPO_STREAM_ENC_DME_REG_LIST_RI(id, 6)
++
++
++static struct dcn30_hpo_frl_stream_enc_registers hpo_frl_stream_enc_regs[2];
++
++static const struct dcn30_hpo_frl_stream_encoder_shift hpo_se_shift = {
++	DCN3_0_HPO_STREAM_ENC_MASK_SH_LIST(__SHIFT)
++};
++
++static const struct dcn30_hpo_frl_stream_encoder_mask hpo_se_mask = {
++	DCN3_0_HPO_STREAM_ENC_MASK_SH_LIST(_MASK)
++};
++
++#define hpo_frl_link_encoder_reg_list(id)\
++	DCN3_0_HPO_FRL_LINK_ENC_REG_LIST_RI(id)
++
++static struct dcn30_hpo_frl_link_encoder_registers hpo_frl_link_enc_regs[1];
++
++static const struct dcn30_hpo_frl_link_encoder_shift hpo_le_shift = {
++	DCN3_0_HPO_FRL_LINK_ENC_MASK_SH_LIST(__SHIFT)
++};
++
++static const struct dcn30_hpo_frl_link_encoder_mask hpo_le_mask = {
++	DCN3_0_HPO_FRL_LINK_ENC_MASK_SH_LIST(_MASK)
++};
++
+ #define hpo_dp_stream_encoder_reg_init(id)\
+ 	DCN3_1_HPO_DP_STREAM_ENC_REG_LIST_RI(id)
+ 
+@@ -668,6 +704,7 @@ static const struct resource_caps res_cap_dcn32 = {
+ 	.num_video_plane = 4,
+ 	.num_audio = 5,
+ 	.num_stream_encoder = 5,
++	.num_hpo_frl = 1,
+ 	.num_hpo_dp_stream_encoder = 4,
+ 	.num_hpo_dp_link_encoder = 2,
+ 	.num_pll = 5,
+@@ -1279,6 +1316,79 @@ static struct stream_encoder *dcn32_stream_encoder_create(
+ 	return &enc1->base;
+ }
+ 
++static struct hpo_frl_stream_encoder *dcn32_hpo_frl_stream_encoder_create(enum engine_id eng_id,
++									  struct dc_context *ctx)
++{
++	struct dcn30_hpo_frl_stream_encoder *hpo_enc3;
++	struct afmt *afmt;
++	struct vpg *vpg;
++	int afmt_inst;
++	int vpg_inst;
++
++#undef REG_STRUCT
++#define REG_STRUCT hpo_frl_stream_enc_regs
++	hpo_frl_stream_encoder_reg_list(0),
++	hpo_frl_stream_encoder_dme_reg_list(6);
++
++	/* Mapping of VPG, AFMT, DME register blocks to HPO block instance */
++	if (eng_id == ENGINE_ID_HPO_0) {
++		vpg_inst = 5;
++		afmt_inst = 5;
++	} else {
++		return NULL;
++	}
++
++	/* allocate HPO stream encoder and create VPG, AFMT sub-blocks */
++	hpo_enc3 = kzalloc(sizeof(struct dcn30_hpo_frl_stream_encoder), GFP_KERNEL);
++	vpg = dcn32_vpg_create(ctx, vpg_inst);
++	afmt = dcn32_afmt_create(ctx, afmt_inst);
++
++	if (!hpo_enc3 || !vpg || !afmt) {
++		kfree(hpo_enc3);
++		kfree(vpg);
++		kfree(afmt);
++		return NULL;
++	}
++
++	dcn30_hpo_frl_stream_encoder_construct(hpo_enc3,
++					       ctx,
++					       ctx->dc_bios,
++					       eng_id,
++					       vpg,
++					       afmt,
++					       &hpo_frl_stream_enc_regs[eng_id - ENGINE_ID_HPO_0],
++					       &hpo_se_shift,
++					       &hpo_se_mask);
++
++	return &hpo_enc3->base;
++}
++
++static struct hpo_frl_link_encoder *dcn32_hpo_frl_link_encoder_create(enum engine_id eng_id,
++								      struct dc_context *ctx)
++{
++	struct dcn30_hpo_frl_link_encoder *hpo_enc3;
++
++	ASSERT((eng_id == ENGINE_ID_HPO_0) || (eng_id == ENGINE_ID_HPO_1));
++
++#undef REG_STRUCT
++#define REG_STRUCT hpo_frl_link_enc_regs
++	hpo_frl_link_encoder_reg_list(0);
++
++	/* allocate HPO link encoder */
++	hpo_enc3 = kzalloc(sizeof(struct dcn30_hpo_frl_link_encoder), GFP_KERNEL);
++	if (!hpo_enc3)
++		return NULL; /* out of memory */
++
++	hpo_frl_link_encoder3_construct(hpo_enc3,
++					ctx,
++					eng_id - ENGINE_ID_HPO_0,
++					&hpo_frl_link_enc_regs[eng_id - ENGINE_ID_HPO_0],
++					&hpo_le_shift,
++					&hpo_le_mask);
++
++	return &hpo_enc3->base;
++}
++
+ static struct hpo_dp_stream_encoder *dcn32_hpo_dp_stream_encoder_create(
+ 	enum engine_id eng_id,
+ 	struct dc_context *ctx)
+@@ -1380,6 +1490,7 @@ static const struct resource_create_funcs res_create_funcs = {
+ 	.read_dce_straps = read_dce_straps,
+ 	.create_audio = dcn32_create_audio,
+ 	.create_stream_encoder = dcn32_stream_encoder_create,
++	.create_hpo_frl_stream_encoder = dcn32_hpo_frl_stream_encoder_create,
+ 	.create_hpo_dp_stream_encoder = dcn32_hpo_dp_stream_encoder_create,
+ 	.create_hpo_dp_link_encoder = dcn32_hpo_dp_link_encoder_create,
+ 	.create_hwseq = dcn32_hwseq_create,
+@@ -1404,6 +1515,23 @@ static void dcn32_resource_destruct(struct dcn32_resource_pool *pool)
+ 		}
+ 	}
+ 
++	for (i = 0; i < pool->base.hpo_frl_stream_enc_count; i++) {
++		if (pool->base.hpo_frl_stream_enc[i] != NULL) {
++			if (pool->base.hpo_frl_stream_enc[i]->vpg != NULL) {
++				kfree(DCN30_VPG_FROM_VPG(pool->base.hpo_frl_stream_enc[i]->vpg));
++				pool->base.hpo_frl_stream_enc[i]->vpg = NULL;
++			}
++
++			if (pool->base.hpo_frl_stream_enc[i]->afmt != NULL) {
++				kfree(DCN30_AFMT_FROM_AFMT(pool->base.hpo_frl_stream_enc[i]->afmt));
++				pool->base.hpo_frl_stream_enc[i]->afmt = NULL;
++			}
++
++			kfree(DCN30_HPO_FRL_STRENC_FROM_HPO_FRL_STRENC(pool->base.hpo_frl_stream_enc[i]));
++			pool->base.hpo_frl_stream_enc[i] = NULL;
++		}
++	}
++
+ 	for (i = 0; i < pool->base.hpo_dp_stream_enc_count; i++) {
+ 		if (pool->base.hpo_dp_stream_enc[i] != NULL) {
+ 			if (pool->base.hpo_dp_stream_enc[i]->vpg != NULL) {
+@@ -2139,6 +2267,7 @@ static struct resource_funcs dcn32_res_pool_funcs = {
+ 	.destroy = dcn32_destroy_resource_pool,
+ 	.link_enc_create = dcn32_link_encoder_create,
+ 	.link_enc_create_minimal = NULL,
++	.hpo_frl_link_enc_create = dcn32_hpo_frl_link_encoder_create,
+ 	.panel_cntl_create = dcn32_panel_cntl_create,
+ 	.validate_bandwidth = dcn32_validate_bandwidth,
+ 	.calculate_wm_and_dlg = dcn32_calculate_wm_and_dlg,
+@@ -2279,6 +2408,8 @@ static bool dcn32_resource_construct(
+ 	dc->caps.force_dp_tps4_for_cp2520 = true;
+ 	if (dc->config.forceHBR2CP2520)
+ 		dc->caps.force_dp_tps4_for_cp2520 = false;
++	dc->caps.hdmi_hpo = true;
++	dc->config.skip_frl_pretraining = true;
+ 	dc->caps.dp_hpo = true;
+ 	dc->caps.dp_hdmi21_pcon_support = true;
+ 	dc->caps.edp_dsc_support = true;
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.h b/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.h
+index 91be493e0bb6..68e7140f1505 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.h
++++ b/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.h
+@@ -323,20 +323,27 @@ unsigned int dcn32_get_max_hw_cursor_size(const struct dc *dc,
+ 		SRI_ARR(DC_HPD_TOGGLE_FILT_CNTL, HPD, id))
+ 
+ /* Link encoder */
+-#define LE_DCN3_REG_LIST_RI(id)                                                \
+-  SRI_ARR(DIG_BE_CNTL, DIG, id), SRI_ARR(DIG_BE_EN_CNTL, DIG, id),             \
+-      SRI_ARR(TMDS_CTL_BITS, DIG, id),                                         \
+-      SRI_ARR(TMDS_DCBALANCER_CONTROL, DIG, id), SRI_ARR(DP_CONFIG, DP, id),   \
+-      SRI_ARR(DP_DPHY_CNTL, DP, id), SRI_ARR(DP_DPHY_PRBS_CNTL, DP, id),       \
+-      SRI_ARR(DP_DPHY_SCRAM_CNTL, DP, id), SRI_ARR(DP_DPHY_SYM0, DP, id),      \
+-      SRI_ARR(DP_DPHY_SYM1, DP, id), SRI_ARR(DP_DPHY_SYM2, DP, id),            \
+-      SRI_ARR(DP_DPHY_TRAINING_PATTERN_SEL, DP, id),                           \
+-      SRI_ARR(DP_LINK_CNTL, DP, id), SRI_ARR(DP_LINK_FRAMING_CNTL, DP, id),    \
+-      SRI_ARR(DP_MSE_SAT0, DP, id), SRI_ARR(DP_MSE_SAT1, DP, id),              \
+-      SRI_ARR(DP_MSE_SAT2, DP, id), SRI_ARR(DP_MSE_SAT_UPDATE, DP, id),        \
+-      SRI_ARR(DP_SEC_CNTL, DP, id), SRI_ARR(DP_VID_STREAM_CNTL, DP, id),       \
+-      SRI_ARR(DP_DPHY_FAST_TRAINING, DP, id), SRI_ARR(DP_SEC_CNTL1, DP, id),   \
+-      SRI_ARR(DP_DPHY_BS_SR_SWAP_CNTL, DP, id),                                \
++#define LE_DCN3_REG_LIST_RI(id)                                      \
++      SRI_ARR(DIG_BE_CNTL, DIG, id),                                 \
++      SRI_ARR(DIG_BE_EN_CNTL, DIG, id),                              \
++      SRI_ARR(TMDS_CTL_BITS, DIG, id),                               \
++      SRI_ARR(TMDS_DCBALANCER_CONTROL, DIG, id),                     \
++      SRI_ARR(DP_CONFIG, DP, id), SRI_ARR(DP_DPHY_CNTL, DP, id),     \
++      SRI_ARR(DP_DPHY_PRBS_CNTL, DP, id),                            \
++      SRI_ARR(DP_DPHY_SCRAM_CNTL, DP, id),                           \
++      SRI_ARR(DP_DPHY_SYM0, DP, id), SRI_ARR(DP_DPHY_SYM1, DP, id),  \
++      SRI_ARR(DP_DPHY_SYM2, DP, id),                                 \
++      SRI_ARR(DP_DPHY_TRAINING_PATTERN_SEL, DP, id),                 \
++      SRI_ARR(DP_LINK_CNTL, DP, id),                                 \
++      SRI_ARR(DP_LINK_FRAMING_CNTL, DP, id),                         \
++      SRI_ARR(DP_MSE_SAT0, DP, id), SRI_ARR(DP_MSE_SAT1, DP, id),    \
++      SRI_ARR(DP_MSE_SAT2, DP, id),                                  \
++      SRI_ARR(DP_MSE_SAT_UPDATE, DP, id),                            \
++      SRI_ARR(DP_SEC_CNTL, DP, id),                                  \
++      SRI_ARR(DP_VID_STREAM_CNTL, DP, id),                           \
++      SRI_ARR(DP_DPHY_FAST_TRAINING, DP, id),                        \
++      SRI_ARR(DP_SEC_CNTL1, DP, id),                                 \
++      SRI_ARR(DP_DPHY_BS_SR_SWAP_CNTL, DP, id),                      \
+       SRI_ARR(DP_DPHY_HBR2_PATTERN_CONTROL, DP, id)
+ 
+ #define LE_DCN31_REG_LIST_RI(id)                                               \
+@@ -1281,4 +1288,48 @@ unsigned int dcn32_get_max_hw_cursor_size(const struct dc *dc,
+       I2C_HW_ENGINE_COMMON_REG_LIST_RI(id), SR_ARR_I2C(DIO_MEM_PWR_CTRL, id),  \
+       SR_ARR_I2C(DIO_MEM_PWR_STATUS, id)
+ 
++#define DCN3_0_HDMI_STREAM_ENC_REG_LIST_RI(id)                                 \
++  SR_ARR(HDMI_STREAM_ENC_CLOCK_CONTROL, id),                                   \
++      SR_ARR(HDMI_STREAM_ENC_INPUT_MUX_CONTROL, id),                          \
++      SR_ARR(HDMI_STREAM_ENC_CLOCK_RAMP_ADJUSTER_FIFO_STATUS_CONTROL0, id),    \
++      SR_ARR(HDMI_STREAM_ENC_CLOCK_RAMP_ADJUSTER_FIFO_STATUS_CONTROL2, id)
++
++#define DCN3_0_HDMI_TB_ENC_REG_LIST_RI(id)                                     \
++  SR_ARR(HDMI_TB_ENC_CONTROL, id), SR_ARR(HDMI_TB_ENC_H_ACTIVE_BLANK, id),     \
++      SR_ARR(HDMI_TB_ENC_HC_ACTIVE_BLANK, id), SR_ARR(HDMI_TB_ENC_MODE, id),   \
++      SR_ARR(HDMI_TB_ENC_PACKET_CONTROL, id),                                  \
++      SR_ARR(HDMI_TB_ENC_DB_CONTROL, id),                                      \
++      SR_ARR(HDMI_TB_ENC_PIXEL_FORMAT, id),                                    \
++      SR_ARR(HDMI_TB_ENC_VBI_PACKET_CONTROL1, id),                             \
++      SR_ARR(HDMI_TB_ENC_GC_CONTROL, id),                                      \
++      SR_ARR(HDMI_TB_ENC_GENERIC_PACKET_CONTROL0, id),                         \
++      SR_ARR(HDMI_TB_ENC_GENERIC_PACKET_CONTROL1, id),                         \
++      SR_ARR(HDMI_TB_ENC_GENERIC_PACKET0_1_LINE, id),                          \
++      SR_ARR(HDMI_TB_ENC_GENERIC_PACKET2_3_LINE, id),                          \
++      SR_ARR(HDMI_TB_ENC_GENERIC_PACKET4_5_LINE, id),                          \
++      SR_ARR(HDMI_TB_ENC_GENERIC_PACKET6_7_LINE, id),                          \
++      SR_ARR(HDMI_TB_ENC_GENERIC_PACKET8_9_LINE, id),                          \
++      SR_ARR(HDMI_TB_ENC_GENERIC_PACKET10_11_LINE, id),                        \
++      SR_ARR(HDMI_TB_ENC_GENERIC_PACKET12_13_LINE, id),                        \
++      SR_ARR(HDMI_TB_ENC_GENERIC_PACKET14_LINE, id),                           \
++      SR_ARR(HDMI_TB_ENC_ACR_PACKET_CONTROL, id),                              \
++      SR_ARR(HDMI_TB_ENC_ACR_32_0, id), SR_ARR(HDMI_TB_ENC_ACR_32_1, id),      \
++      SR_ARR(HDMI_TB_ENC_ACR_44_0, id), SR_ARR(HDMI_TB_ENC_ACR_44_1, id),      \
++      SR_ARR(HDMI_TB_ENC_ACR_48_0, id), SR_ARR(HDMI_TB_ENC_ACR_48_1, id),      \
++      SR_ARR(HDMI_TB_ENC_CRC_CNTL, id),                                        \
++      SR_ARR(HDMI_TB_ENC_METADATA_PACKET_CONTROL, id)
++
++#define DCN3_0_HPO_STREAM_ENC_DME_REG_LIST_RI(id, offset) \
++	SRI_ARR_DME(DME_CONTROL, DME, id, offset)
++
++#define DCN3_0_HPO_FRL_STREAM_ENC_REG_LIST_RI(id)                              \
++  DCN3_0_HDMI_STREAM_ENC_REG_LIST_RI(id), DCN3_0_HDMI_TB_ENC_REG_LIST_RI(id)
++
++#define DCN3_0_HPO_FRL_LINK_ENC_REG_LIST_RI(id) \
++	SR_ARR(HDMI_LINK_ENC_CLK_CTRL, id), \
++	SR_ARR(HDMI_LINK_ENC_CONTROL, id), \
++	SR_ARR(HDMI_FRL_ENC_CONFIG, id), \
++	SR_ARR(HDMI_FRL_ENC_CONFIG2, id),\
++	SR_ARR(HDMI_FRL_ENC_MEM_CTRL, id)
++
+ #endif /* _DCN32_RESOURCE_H_ */
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn321/dcn321_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn321/dcn321_resource.c
+index 296558258672..65f445f38cfb 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dcn321/dcn321_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dcn321/dcn321_resource.c
+@@ -57,6 +57,8 @@
+ #include "dcn30/dcn30_afmt.h"
+ #include "dcn30/dcn30_dio_stream_encoder.h"
+ #include "dcn32/dcn32_dio_stream_encoder.h"
++#include "dcn30/dcn30_hpo_frl_stream_encoder.h"
++#include "dcn30/dcn30_hpo_frl_link_encoder.h"
+ #include "dcn31/dcn31_hpo_dp_stream_encoder.h"
+ #include "dcn31/dcn31_hpo_dp_link_encoder.h"
+ #include "dcn32/dcn32_hpo_dp_link_encoder.h"
+@@ -139,6 +141,10 @@ enum dcn321_clk_src_array_id {
+ 	REG_STRUCT[id-1].reg_name = BASE(reg ## block ## id ## _ ## reg_name ## _BASE_IDX) + \
+ 		reg ## block ## id ## _ ## reg_name
+ 
++#define SRI_ARR_DME(reg_name, block, id, offset)\
++	REG_STRUCT[id - offset].reg_name = BASE(reg ## block ## id ## _ ## reg_name ## _BASE_IDX) + \
++		reg ## block ## id ## _ ## reg_name
++
+ #define SRI_ARR_ALPHABET(reg_name, block, index, id)\
+ 	REG_STRUCT[index].reg_name = BASE(reg ## block ## id ## _ ## reg_name ## _BASE_IDX) + \
+ 		reg ## block ## id ## _ ## reg_name
+@@ -332,6 +338,35 @@ static const struct dcn10_link_enc_mask le_mask = {
+ //	DPCS_DCN31_MASK_SH_LIST(_MASK)
+ };
+ 
++#define hpo_frl_stream_encoder_reg_list(id)\
++	DCN3_0_HPO_FRL_STREAM_ENC_REG_LIST_RI(id)
++
++#define hpo_frl_stream_encoder_dme_reg_list(id)\
++	DCN3_0_HPO_STREAM_ENC_DME_REG_LIST_RI(id, 6)
++
++static struct dcn30_hpo_frl_stream_enc_registers hpo_frl_stream_enc_regs[2];
++
++static const struct dcn30_hpo_frl_stream_encoder_shift hpo_se_shift = {
++	DCN3_0_HPO_STREAM_ENC_MASK_SH_LIST(__SHIFT)
++};
++
++static const struct dcn30_hpo_frl_stream_encoder_mask hpo_se_mask = {
++	DCN3_0_HPO_STREAM_ENC_MASK_SH_LIST(_MASK)
++};
++
++#define hpo_frl_link_encoder_reg_list(id)\
++	DCN3_0_HPO_FRL_LINK_ENC_REG_LIST_RI(id)
++
++static struct dcn30_hpo_frl_link_encoder_registers hpo_frl_link_enc_regs[1];
++
++static const struct dcn30_hpo_frl_link_encoder_shift hpo_le_shift = {
++	DCN3_0_HPO_FRL_LINK_ENC_MASK_SH_LIST(__SHIFT)
++};
++
++static const struct dcn30_hpo_frl_link_encoder_mask hpo_le_mask = {
++	DCN3_0_HPO_FRL_LINK_ENC_MASK_SH_LIST(_MASK)
++};
++
+ #define hpo_dp_stream_encoder_reg_init(id)\
+ 	DCN3_1_HPO_DP_STREAM_ENC_REG_LIST_RI(id)
+ 
+@@ -659,6 +694,7 @@ static const struct resource_caps res_cap_dcn321 = {
+ 	.num_video_plane = 4,
+ 	.num_audio = 5,
+ 	.num_stream_encoder = 5,
++	.num_hpo_frl = 1,
+ 	.num_hpo_dp_stream_encoder = 4,
+ 	.num_hpo_dp_link_encoder = 2,
+ 	.num_pll = 5,
+@@ -1255,6 +1291,79 @@ static struct stream_encoder *dcn321_stream_encoder_create(
+ 	return &enc1->base;
+ }
+ 
++static struct hpo_frl_stream_encoder *dcn321_hpo_frl_stream_encoder_create(enum engine_id eng_id,
++									   struct dc_context *ctx)
++{
++	struct dcn30_hpo_frl_stream_encoder *hpo_enc3;
++	struct afmt *afmt;
++	struct vpg *vpg;
++	int afmt_inst;
++	int vpg_inst;
++
++#undef REG_STRUCT
++#define REG_STRUCT hpo_frl_stream_enc_regs
++	hpo_frl_stream_encoder_reg_list(0),
++	hpo_frl_stream_encoder_dme_reg_list(6);
++
++	/* Mapping of VPG, AFMT, DME register blocks to HPO block instance */
++	if (eng_id == ENGINE_ID_HPO_0) {
++		vpg_inst = 5;
++		afmt_inst = 5;
++	} else {
++		return NULL;
++	}
++
++	/* allocate HPO stream encoder and create VPG, AFMT sub-blocks */
++	hpo_enc3 = kzalloc(sizeof(struct dcn30_hpo_frl_stream_encoder), GFP_KERNEL);
++	vpg = dcn321_vpg_create(ctx, vpg_inst);
++	afmt = dcn321_afmt_create(ctx, afmt_inst);
++
++	if (!hpo_enc3 || !vpg || !afmt) {
++		kfree(hpo_enc3);
++		kfree(vpg);
++		kfree(afmt);
++		return NULL;
++	}
++
++	dcn30_hpo_frl_stream_encoder_construct(hpo_enc3,
++					       ctx,
++					       ctx->dc_bios,
++					       eng_id,
++					       vpg,
++					       afmt,
++					       &hpo_frl_stream_enc_regs[eng_id - ENGINE_ID_HPO_0],
++					       &hpo_se_shift,
++					       &hpo_se_mask);
++
++	return &hpo_enc3->base;
++}
++
++static struct hpo_frl_link_encoder *dcn321_hpo_frl_link_encoder_create(enum engine_id eng_id,
++								       struct dc_context *ctx)
++{
++	struct dcn30_hpo_frl_link_encoder *hpo_enc3;
++
++	ASSERT((eng_id == ENGINE_ID_HPO_0) || (eng_id == ENGINE_ID_HPO_1));
++
++#undef REG_STRUCT
++#define REG_STRUCT hpo_frl_link_enc_regs
++	hpo_frl_link_encoder_reg_list(0);
++
++	/* allocate HPO link encoder */
++	hpo_enc3 = kzalloc(sizeof(struct dcn30_hpo_frl_link_encoder), GFP_KERNEL);
++	if (!hpo_enc3)
++		return NULL; /* out of memory */
++
++	hpo_frl_link_encoder3_construct(hpo_enc3,
++					ctx,
++					eng_id - ENGINE_ID_HPO_0,
++					&hpo_frl_link_enc_regs[eng_id - ENGINE_ID_HPO_0],
++					&hpo_le_shift,
++					&hpo_le_mask);
++
++	return &hpo_enc3->base;
++}
++
+ static struct hpo_dp_stream_encoder *dcn321_hpo_dp_stream_encoder_create(
+ 	enum engine_id eng_id,
+ 	struct dc_context *ctx)
+@@ -1356,6 +1465,7 @@ static const struct resource_create_funcs res_create_funcs = {
+ 	.read_dce_straps = read_dce_straps,
+ 	.create_audio = dcn321_create_audio,
+ 	.create_stream_encoder = dcn321_stream_encoder_create,
++	.create_hpo_frl_stream_encoder = dcn321_hpo_frl_stream_encoder_create,
+ 	.create_hpo_dp_stream_encoder = dcn321_hpo_dp_stream_encoder_create,
+ 	.create_hpo_dp_link_encoder = dcn321_hpo_dp_link_encoder_create,
+ 	.create_hwseq = dcn321_hwseq_create,
+@@ -1380,6 +1490,23 @@ static void dcn321_resource_destruct(struct dcn321_resource_pool *pool)
+ 		}
+ 	}
+ 
++	for (i = 0; i < pool->base.hpo_frl_stream_enc_count; i++) {
++		if (pool->base.hpo_frl_stream_enc[i] != NULL) {
++			if (pool->base.hpo_frl_stream_enc[i]->vpg != NULL) {
++				kfree(DCN30_VPG_FROM_VPG(pool->base.hpo_frl_stream_enc[i]->vpg));
++				pool->base.hpo_frl_stream_enc[i]->vpg = NULL;
++			}
++
++			if (pool->base.hpo_frl_stream_enc[i]->afmt != NULL) {
++				kfree(DCN30_AFMT_FROM_AFMT(pool->base.hpo_frl_stream_enc[i]->afmt));
++				pool->base.hpo_frl_stream_enc[i]->afmt = NULL;
++			}
++
++			kfree(DCN30_HPO_FRL_STRENC_FROM_HPO_FRL_STRENC(pool->base.hpo_frl_stream_enc[i]));
++			pool->base.hpo_frl_stream_enc[i] = NULL;
++		}
++	}
++
+ 	for (i = 0; i < pool->base.hpo_dp_stream_enc_count; i++) {
+ 		if (pool->base.hpo_dp_stream_enc[i] != NULL) {
+ 			if (pool->base.hpo_dp_stream_enc[i]->vpg != NULL) {
+@@ -1635,6 +1762,7 @@ static struct resource_funcs dcn321_res_pool_funcs = {
+ 	.destroy = dcn321_destroy_resource_pool,
+ 	.link_enc_create = dcn321_link_encoder_create,
+ 	.link_enc_create_minimal = NULL,
++	.hpo_frl_link_enc_create = dcn321_hpo_frl_link_encoder_create,
+ 	.panel_cntl_create = dcn32_panel_cntl_create,
+ 	.validate_bandwidth = dcn32_validate_bandwidth,
+ 	.calculate_wm_and_dlg = dcn32_calculate_wm_and_dlg,
+@@ -1772,6 +1900,8 @@ static bool dcn321_resource_construct(
+ 	dc->caps.max_slave_rgb_planes = 2;
+ 	dc->caps.post_blend_color_processing = true;
+ 	dc->caps.force_dp_tps4_for_cp2520 = true;
++	dc->caps.hdmi_hpo = true;
++	dc->config.skip_frl_pretraining = true;
+ 	dc->caps.dp_hpo = true;
+ 	dc->caps.dp_hdmi21_pcon_support = true;
+ 	dc->caps.edp_dsc_support = true;
+@@ -1814,6 +1944,8 @@ static bool dcn321_resource_construct(
+ 	dc->caps.color.mpc.ogam_rom_caps.hlg = 0;
+ 	dc->caps.color.mpc.ocsc = 1;
+ 	dc->caps.color.mpc.preblend = true;
++	/* HACK: Force FRL support until BIOS is ready. */
++	dc->config.force_hdmi21_frl_enc_enable = true;
+ 
+ 	/* Use pipe context based otg sync logic */
+ 	dc->config.use_pipe_ctx_sync_logic = true;
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn35/dcn35_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn35/dcn35_resource.c
+index c7fba9f39e19..ec92e8f7d173 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dcn35/dcn35_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dcn35/dcn35_resource.c
+@@ -58,6 +58,8 @@
+ #include "dcn30/dcn30_afmt.h"
+ #include "dcn31/dcn31_dio_link_encoder.h"
+ #include "dcn35/dcn35_dio_stream_encoder.h"
++#include "dcn30/dcn30_hpo_frl_stream_encoder.h"
++#include "dcn30/dcn30_hpo_frl_link_encoder.h"
+ #include "dcn31/dcn31_hpo_dp_stream_encoder.h"
+ #include "dcn31/dcn31_hpo_dp_link_encoder.h"
+ #include "dcn32/dcn32_hpo_dp_link_encoder.h"
+@@ -154,6 +156,10 @@ enum dcn35_clk_src_array_id {
+ 	REG_STRUCT[id-1].reg_name = BASE(reg ## block ## id ## _ ## reg_name ## _BASE_IDX) + \
+ 		reg ## block ## id ## _ ## reg_name
+ 
++#define SRI_ARR_DME(reg_name, block, id, offset)\
++	REG_STRUCT[id - offset].reg_name = BASE(reg ## block ## id ## _ ## reg_name ## _BASE_IDX) + \
++		reg ## block ## id ## _ ## reg_name
++
+ #define SRI_ARR_ALPHABET(reg_name, block, index, id)\
+ 	REG_STRUCT[index].reg_name = BASE(reg ## block ## id ## _ ## reg_name ## _BASE_IDX) + \
+ 		reg ## block ## id ## _ ## reg_name
+@@ -353,6 +359,35 @@ static const struct dcn10_link_enc_mask le_mask = {
+ 	//DPCS_DCN31_MASK_SH_LIST(_MASK)
+ };
+ 
++#define hpo_frl_stream_encoder_dme_reg_list(id)\
++	DCN3_0_HPO_STREAM_ENC_DME_REG_LIST_RI(id, 6)
++
++#define hpo_frl_stream_encoder_reg_list(id)\
++	DCN3_0_HPO_FRL_STREAM_ENC_REG_LIST_RI(id)
++
++static struct dcn30_hpo_frl_stream_enc_registers hpo_frl_stream_enc_regs[2];
++
++static const struct dcn30_hpo_frl_stream_encoder_shift hpo_se_shift = {
++	DCN3_0_HPO_STREAM_ENC_MASK_SH_LIST(__SHIFT)
++};
++
++static const struct dcn30_hpo_frl_stream_encoder_mask hpo_se_mask = {
++	DCN3_0_HPO_STREAM_ENC_MASK_SH_LIST(_MASK)
++};
++
++#define hpo_frl_link_encoder_reg_list(id)\
++	DCN3_0_HPO_FRL_LINK_ENC_REG_LIST_RI(id)
++
++static struct dcn30_hpo_frl_link_encoder_registers hpo_frl_link_enc_regs[1];
++
++static const struct dcn30_hpo_frl_link_encoder_shift hpo_le_shift = {
++	DCN3_0_HPO_FRL_LINK_ENC_MASK_SH_LIST(__SHIFT)
++};
++
++static const struct dcn30_hpo_frl_link_encoder_mask hpo_le_mask = {
++	DCN3_0_HPO_FRL_LINK_ENC_MASK_SH_LIST(_MASK)
++};
++
+ #define hpo_dp_stream_encoder_reg_init(id)\
+ 	DCN3_1_HPO_DP_STREAM_ENC_REG_LIST_RI(id)
+ 
+@@ -685,6 +720,7 @@ static const struct resource_caps res_cap_dcn35 = {
+ 	.num_audio = 5,
+ 	.num_stream_encoder = 5,
+ 	.num_dig_link_enc = 5,
++	.num_hpo_frl = 1,
+ 	.num_hpo_dp_stream_encoder = 4,
+ 	.num_hpo_dp_link_encoder = 2,
+ 	.num_pll = 4,/*1 c10 edp, 3xc20 combo PHY*/
+@@ -1337,6 +1373,72 @@ static struct stream_encoder *dcn35_stream_encoder_create(
+ 	return &enc1->base;
+ }
+ 
++static struct hpo_frl_stream_encoder *dcn31_hpo_frl_stream_encoder_create(
++	enum engine_id eng_id,
++	struct dc_context *ctx)
++{
++	struct dcn30_hpo_frl_stream_encoder *hpo_enc3;
++	struct vpg *vpg;
++	struct afmt *afmt;
++	int vpg_inst;
++	int afmt_inst;
++
++#undef REG_STRUCT
++#define REG_STRUCT hpo_frl_stream_enc_regs
++	hpo_frl_stream_encoder_reg_list(0),
++	hpo_frl_stream_encoder_dme_reg_list(6);
++
++	/* Mapping of VPG, AFMT, DME register blocks to HPO block instance */
++	if (eng_id == ENGINE_ID_HPO_0) {
++		vpg_inst = 5;
++		afmt_inst = 5;
 +	} else
-+		return FRL_CAP_CHK_ERROR_BORROW;
++		return NULL;
 +
-+	tb_borrowed = ceil(t_borrowed * f_tb_average);
-+/*
-+	if (getenv("DEBUG_FRL_CAP_CHK"))
-+	{
-+		frl_dump_var("%le", tb_borrowed);
-+		frl_dump_var("%i", params->borrow_mode);
-+}
-+*/
-+	if (!(tb_borrowed <= TB_BORROWED_MAX))
-+		return FRL_CAP_CHK_ERROR_MAX_BORROW;
++	/* allocate HPO stream encoder and create VPG, AFMT sub-blocks */
++	hpo_enc3 = kzalloc(sizeof(struct dcn30_hpo_frl_stream_encoder), GFP_KERNEL);
++	vpg = dcn31_vpg_create(ctx, vpg_inst);
++	afmt = dcn31_afmt_create(ctx, afmt_inst);
 +
-+	c_frl_actual_payload = (int)ceil((3.0/2.0) * tb_active) + tb_blank - c_frl_rc_savings;
-+	utilization          = c_frl_actual_payload / inter->c_frl_line;
-+	margin               = 1.0 - (utilization + inter->overhead_max);
-+/*
-+	if (getenv("DEBUG_FRL_CAP_CHK"))
-+	{
-+		frl_dump_var("%i",  c_frl_actual_payload);
-+		frl_dump_var("%le", utilization);
-+		frl_dump_var("%le", margin);
++	if (!hpo_enc3 || !vpg || !afmt) {
++		kfree(hpo_enc3);
++		kfree(vpg);
++		kfree(afmt);
++		return NULL;
 +	}
-+*/
-+	if (margin < 0 && fabs(margin) > EPSILON)
-+		return FRL_CAP_CHK_ERROR_MARGIN;
 +
-+	return FRL_CAP_CHK_OK;
++	dcn30_hpo_frl_stream_encoder_construct(hpo_enc3, ctx, ctx->dc_bios,
++					eng_id, vpg, afmt,
++					&hpo_frl_stream_enc_regs[eng_id-ENGINE_ID_HPO_0],
++					&hpo_se_shift, &hpo_se_mask);
++
++	return &hpo_enc3->base;
 +}
 +
-+
-+
-+static frl_cap_chk_result frl_cap_chk_compressed(frl_cap_chk_params *params, frl_cap_chk_intermediates *inter)
++static struct hpo_frl_link_encoder *dcn31_hpo_frl_link_encoder_create(
++	enum engine_id eng_id,
++	struct dc_context *ctx)
 +{
-+	frl_cap_chk_result          res;
++	struct dcn30_hpo_frl_link_encoder *hpo_enc3;
 +
-+	int      c_frl_available;
-+	int      c_frl_active_available;
-+	int      c_frl_blank_available;
-+	int      bytes_target;
-+	int      hc_active_target;
-+	int      hc_blank_target_est1;
-+	int      hc_blank_target_est2;
-+	int      hc_blank_target;
-+	double   f_tb_average;
-+	double   t_active_ref;
-+	double   t_blank_ref;
-+	double   t_active_target;
-+	double   t_blank_target;
-+	double   tb_borrowed;
-+	int      c_frl_actual_target_payload;
-+	double   utilization_targeted;
-+	double   margin_target;
++	ASSERT((eng_id == ENGINE_ID_HPO_0) || (eng_id == ENGINE_ID_HPO_1));
 +
-+	res = frl_cap_chk_common(inter, params);
-+	if (res != FRL_CAP_CHK_OK)
-+		return res;
++#undef REG_STRUCT
++#define REG_STRUCT hpo_frl_link_enc_regs
++	hpo_frl_link_encoder_reg_list(0);
 +
-+	c_frl_available        = (int)floor((1 - inter->overhead_max) * inter->c_frl_line);
-+	c_frl_active_available = (int)floor(c_frl_available * ((double) params->h_active / (params->h_active + params->h_blank)));
-+	(void) c_frl_active_available;
-+	c_frl_blank_available  = (int)floor(c_frl_available * ((double) params->h_blank / (params->h_active + params->h_blank)));
-+	(void) c_frl_blank_available;
-+	bytes_target           = params->slices * (int)ceil(params->bpp_target * params->slice_width / 8.0);
++	/* allocate HPO link encoder */
++	hpo_enc3 = kzalloc(sizeof(struct dcn30_hpo_frl_link_encoder), GFP_KERNEL);
++	if (!hpo_enc3)
++		return NULL; /* out of memory */
 +
-+	if (!params->bypass_hc_target_calc)
-+		hc_active_target = (int)ceil(bytes_target / 3.0);
-+	else
-+		hc_active_target = params->hc_active_target;
++	hpo_frl_link_encoder3_construct(hpo_enc3, ctx, eng_id-ENGINE_ID_HPO_0,
++					&hpo_frl_link_enc_regs[eng_id-ENGINE_ID_HPO_0],
++					&hpo_le_shift, &hpo_le_mask);
 +
-+	hc_blank_target_est1   = (int)ceil(hc_active_target * ((double) params->h_blank / params->h_active));
-+	hc_blank_target_est2   = (int)dml_max(hc_blank_target_est1, inter->blank_audio_min);
-+
-+	if (!params->bypass_hc_target_calc) {
-+		hc_blank_target = 4 * (int)floor(dml_min(hc_blank_target_est2, c_frl_available - 3.0/2.0 * hc_active_target) / 4.0);
-+
-+		params->hc_active_target = hc_active_target;
-+		params->hc_blank_target = hc_blank_target;
-+	} else {
-+		hc_blank_target  = params->hc_blank_target;
-+	}
-+/*
-+	if (getenv("DEBUG_FRL_CAP_CHK"))
-+	{
-+		frl_dump_var("%i", c_frl_available);
-+		frl_dump_var("%i", c_frl_active_available);
-+		frl_dump_var("%i", c_frl_blank_available);
-+		frl_dump_var("%i", bytes_target);
-+		frl_dump_var("%i", hc_active_target);
-+		frl_dump_var("%i", hc_blank_target_est1);
-+		frl_dump_var("%i", hc_blank_target_est2);
-+		frl_dump_var("%i", hc_blank_target);
-+	}
-+*/
-+	if (!(inter->blank_audio_min <= hc_blank_target)) {
-+		frl_dump_var("%i", inter->blank_audio_min);
-+		frl_dump_var("%i", hc_blank_target);
-+		return FRL_CAP_CHK_ERROR_AUDIO_BW;
-+	}
-+
-+	f_tb_average    = inter->f_pixel_clock_max / (params->h_active + params->h_blank) * (hc_active_target + hc_blank_target);
-+	t_active_ref    = inter->t_line * ((double) params->h_active / (params->h_active + params->h_blank));
-+	t_blank_ref     = inter->t_line - t_active_ref; // * ((double) params->h_blank / (params->h_active + params->h_blank));
-+	t_active_target = dml_max((hc_active_target / f_tb_average), (3.0/2.0 * hc_active_target)/(params->lanes * inter->r_frl_char_min * (1.0 - inter->overhead_max)));
-+	t_blank_target  = inter->t_line - t_active_target;
-+
-+	tb_borrowed     = t_active_target * f_tb_average - hc_active_target;
-+/*
-+	if (getenv("DEBUG_FRL_CAP_CHK"))
-+	{
-+		frl_dump_var("%le", f_tb_average);
-+		frl_dump_var("%le", t_active_ref);
-+		frl_dump_var("%le", t_blank_ref);
-+		frl_dump_var("%le", t_active_target);
-+		frl_dump_var("%le", t_blank_target);
-+		frl_dump_var("%le", tb_delta);
-+	}
-+*/
-+	if (t_blank_target - t_blank_ref > DBL_EPSILON) {
-+		params->borrow_mode = BORROW_MODE_FROM_ACTIVE;
-+	} else if (t_active_target - t_active_ref > DBL_EPSILON) {
-+		params->borrow_mode = BORROW_MODE_FROM_BLANK;
-+	} else {
-+		params->borrow_mode = BORROW_MODE_NONE;
-+	}
-+
-+/*
-+	if (getenv("DEBUG_FRL_CAP_CHK"))
-+	{
-+		frl_dump_var("%le", tb_delta_limit);
-+		frl_dump_var("%le", tb_borrowed);
-+		frl_dump_var("%i", params->borrow_mode);
-+		frl_dump_var("%i", tb_worst);
-+	}
-+*/
-+	if (!(tb_borrowed <= TB_BORROWED_MAX))
-+		return FRL_CAP_CHK_ERROR_MAX_BORROW;
-+
-+	c_frl_actual_target_payload = (int)ceil(3.0/2.0 * hc_active_target) + hc_blank_target;
-+	utilization_targeted        = c_frl_actual_target_payload / inter->c_frl_line;
-+	margin_target               = 1.0 - (utilization_targeted + inter->overhead_max);
-+/*
-+	if (getenv("DEBUG_FRL_CAP_CHK"))
-+	{
-+		frl_dump_var("%i", c_frl_actual_target_payload);
-+		frl_dump_var("%le", utilization_targeted);
-+		frl_dump_var("%le", margin_target);
-+	}
-+*/
-+	// oversubscribed bandwidth relative to margin
-+	if (margin_target < 0 && fabs(margin_target) > EPSILON)
-+		return FRL_CAP_CHK_ERROR_MARGIN;
-+
-+	return FRL_CAP_CHK_OK;
++	return &hpo_enc3->base;
 +}
 +
-+frl_cap_chk_result frl_cap_chk(frl_cap_chk_params *params)
+ static struct hpo_dp_stream_encoder *dcn31_hpo_dp_stream_encoder_create(
+ 	enum engine_id eng_id,
+ 	struct dc_context *ctx)
+@@ -1438,6 +1540,7 @@ static const struct resource_create_funcs res_create_funcs = {
+ 	.read_dce_straps = read_dce_straps,
+ 	.create_audio = dcn31_create_audio,
+ 	.create_stream_encoder = dcn35_stream_encoder_create,
++	.create_hpo_frl_stream_encoder = dcn31_hpo_frl_stream_encoder_create,
+ 	.create_hpo_dp_stream_encoder = dcn31_hpo_dp_stream_encoder_create,
+ 	.create_hpo_dp_link_encoder = dcn31_hpo_dp_link_encoder_create,
+ 	.create_hwseq = dcn35_hwseq_create,
+@@ -1462,6 +1565,21 @@ static void dcn35_resource_destruct(struct dcn35_resource_pool *pool)
+ 		}
+ 	}
+ 
++	for (i = 0; i < pool->base.hpo_frl_stream_enc_count; i++) {
++		if (pool->base.hpo_frl_stream_enc[i] != NULL) {
++			if (pool->base.hpo_frl_stream_enc[i]->vpg != NULL) {
++				kfree(DCN30_VPG_FROM_VPG(pool->base.hpo_frl_stream_enc[i]->vpg));
++				pool->base.hpo_frl_stream_enc[i]->vpg = NULL;
++			}
++			if (pool->base.hpo_frl_stream_enc[i]->afmt != NULL) {
++				kfree(DCN30_AFMT_FROM_AFMT(pool->base.hpo_frl_stream_enc[i]->afmt));
++				pool->base.hpo_frl_stream_enc[i]->afmt = NULL;
++			}
++			kfree(DCN30_HPO_FRL_STRENC_FROM_HPO_FRL_STRENC(pool->base.hpo_frl_stream_enc[i]));
++			pool->base.hpo_frl_stream_enc[i] = NULL;
++		}
++	}
++
+ 	for (i = 0; i < pool->base.hpo_dp_stream_enc_count; i++) {
+ 		if (pool->base.hpo_dp_stream_enc[i] != NULL) {
+ 			if (pool->base.hpo_dp_stream_enc[i]->vpg != NULL) {
+@@ -1826,6 +1944,7 @@ static struct resource_funcs dcn35_res_pool_funcs = {
+ 	.link_enc_create_minimal = dcn31_link_enc_create_minimal,
+ 	.link_encs_assign = link_enc_cfg_link_encs_assign,
+ 	.link_enc_unassign = link_enc_cfg_link_enc_unassign,
++	.hpo_frl_link_enc_create = dcn31_hpo_frl_link_encoder_create,
+ 	.panel_cntl_create = dcn31_panel_cntl_create,
+ 	.validate_bandwidth = dcn35_validate_bandwidth,
+ 	.calculate_wm_and_dlg = NULL,
+@@ -1912,6 +2031,8 @@ static bool dcn35_resource_construct(
+ 	dc->caps.force_dp_tps4_for_cp2520 = true;
+ 	if (dc->config.forceHBR2CP2520)
+ 		dc->caps.force_dp_tps4_for_cp2520 = false;
++	dc->caps.hdmi_hpo = true;
++	dc->config.skip_frl_pretraining = true;
+ 	dc->caps.dp_hpo = true;
+ 	dc->caps.dp_hdmi21_pcon_support = true;
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn351/dcn351_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn351/dcn351_resource.c
+index e9fc43abf342..4d2d26d64a56 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dcn351/dcn351_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dcn351/dcn351_resource.c
+@@ -37,6 +37,8 @@
+ 
+ #include "dcn31/dcn31_dio_link_encoder.h"
+ #include "dcn35/dcn35_dio_stream_encoder.h"
++#include "dcn30/dcn30_hpo_frl_stream_encoder.h"
++#include "dcn30/dcn30_hpo_frl_link_encoder.h"
+ #include "dcn31/dcn31_hpo_dp_stream_encoder.h"
+ #include "dcn31/dcn31_hpo_dp_link_encoder.h"
+ #include "dcn32/dcn32_hpo_dp_link_encoder.h"
+@@ -134,6 +136,10 @@ enum dcn351_clk_src_array_id {
+ 	REG_STRUCT[id-1].reg_name = BASE(reg ## block ## id ## _ ## reg_name ## _BASE_IDX) + \
+ 		reg ## block ## id ## _ ## reg_name
+ 
++#define SRI_ARR_DME(reg_name, block, id, offset)\
++	REG_STRUCT[id - offset].reg_name = BASE(reg ## block ## id ## _ ## reg_name ## _BASE_IDX) + \
++		reg ## block ## id ## _ ## reg_name
++
+ #define SRI_ARR_ALPHABET(reg_name, block, index, id)\
+ 	REG_STRUCT[index].reg_name = BASE(reg ## block ## id ## _ ## reg_name ## _BASE_IDX) + \
+ 		reg ## block ## id ## _ ## reg_name
+@@ -333,6 +339,35 @@ static const struct dcn10_link_enc_mask le_mask = {
+ 	//DPCS_DCN31_MASK_SH_LIST(_MASK)
+ };
+ 
++#define hpo_frl_stream_encoder_dme_reg_list(id)\
++	DCN3_0_HPO_STREAM_ENC_DME_REG_LIST_RI(id, 6)
++
++#define hpo_frl_stream_encoder_reg_list(id)\
++	DCN3_0_HPO_FRL_STREAM_ENC_REG_LIST_RI(id)
++
++static struct dcn30_hpo_frl_stream_enc_registers hpo_frl_stream_enc_regs[2];
++
++static const struct dcn30_hpo_frl_stream_encoder_shift hpo_se_shift = {
++	DCN3_0_HPO_STREAM_ENC_MASK_SH_LIST(__SHIFT)
++};
++
++static const struct dcn30_hpo_frl_stream_encoder_mask hpo_se_mask = {
++	DCN3_0_HPO_STREAM_ENC_MASK_SH_LIST(_MASK)
++};
++
++#define hpo_frl_link_encoder_reg_list(id)\
++	DCN3_0_HPO_FRL_LINK_ENC_REG_LIST_RI(id)
++
++static struct dcn30_hpo_frl_link_encoder_registers hpo_frl_link_enc_regs[1];
++
++static const struct dcn30_hpo_frl_link_encoder_shift hpo_le_shift = {
++	DCN3_0_HPO_FRL_LINK_ENC_MASK_SH_LIST(__SHIFT)
++};
++
++static const struct dcn30_hpo_frl_link_encoder_mask hpo_le_mask = {
++	DCN3_0_HPO_FRL_LINK_ENC_MASK_SH_LIST(_MASK)
++};
++
+ #define hpo_dp_stream_encoder_reg_init(id)\
+ 	DCN3_1_HPO_DP_STREAM_ENC_REG_LIST_RI(id)
+ 
+@@ -665,6 +700,7 @@ static const struct resource_caps res_cap_dcn351 = {
+ 	.num_audio = 5,
+ 	.num_stream_encoder = 5,
+ 	.num_dig_link_enc = 5,
++	.num_hpo_frl = 1,
+ 	.num_hpo_dp_stream_encoder = 4,
+ 	.num_hpo_dp_link_encoder = 2,
+ 	.num_pll = 4,/*1 c10 edp, 3xc20 combo PHY*/
+@@ -1317,6 +1353,72 @@ static struct stream_encoder *dcn35_stream_encoder_create(
+ 	return &enc1->base;
+ }
+ 
++static struct hpo_frl_stream_encoder *dcn31_hpo_frl_stream_encoder_create(
++	enum engine_id eng_id,
++	struct dc_context *ctx)
 +{
-+	frl_cap_chk_intermediates   inter;
-+	return frl_cap_chk_inter(params, &inter);
++	struct dcn30_hpo_frl_stream_encoder *hpo_enc3;
++	struct vpg *vpg;
++	struct afmt *afmt;
++	int vpg_inst;
++	int afmt_inst;
++
++#undef REG_STRUCT
++#define REG_STRUCT hpo_frl_stream_enc_regs
++	hpo_frl_stream_encoder_reg_list(0),
++	hpo_frl_stream_encoder_dme_reg_list(6);
++
++	/* Mapping of VPG, AFMT, DME register blocks to HPO block instance */
++	if (eng_id == ENGINE_ID_HPO_0) {
++		vpg_inst = 5;
++		afmt_inst = 5;
++	} else
++		return NULL;
++
++	/* allocate HPO stream encoder and create VPG, AFMT sub-blocks */
++	hpo_enc3 = kzalloc(sizeof(struct dcn30_hpo_frl_stream_encoder), GFP_KERNEL);
++	vpg = dcn31_vpg_create(ctx, vpg_inst);
++	afmt = dcn31_afmt_create(ctx, afmt_inst);
++
++	if (!hpo_enc3 || !vpg || !afmt) {
++		kfree(hpo_enc3);
++		kfree(vpg);
++		kfree(afmt);
++		return NULL;
++	}
++
++	dcn30_hpo_frl_stream_encoder_construct(hpo_enc3, ctx, ctx->dc_bios,
++					eng_id, vpg, afmt,
++					&hpo_frl_stream_enc_regs[eng_id-ENGINE_ID_HPO_0],
++					&hpo_se_shift, &hpo_se_mask);
++
++	return &hpo_enc3->base;
 +}
 +
-+frl_cap_chk_result frl_cap_chk_inter(frl_cap_chk_params *params, frl_cap_chk_intermediates *inter)
++static struct hpo_frl_link_encoder *dcn31_hpo_frl_link_encoder_create(
++	enum engine_id eng_id,
++	struct dc_context *ctx)
 +{
-+	if (params->compressed)
-+		return frl_cap_chk_compressed(params, inter);
-+	return frl_cap_chk_uncompressed(params, inter);
++	struct dcn30_hpo_frl_link_encoder *hpo_enc3;
++
++	ASSERT((eng_id == ENGINE_ID_HPO_0) || (eng_id == ENGINE_ID_HPO_1));
++
++#undef REG_STRUCT
++#define REG_STRUCT hpo_frl_link_enc_regs
++	hpo_frl_link_encoder_reg_list(0);
++
++	/* allocate HPO link encoder */
++	hpo_enc3 = kzalloc(sizeof(struct dcn30_hpo_frl_link_encoder), GFP_KERNEL);
++	if (!hpo_enc3)
++		return NULL; /* out of memory */
++
++	hpo_frl_link_encoder3_construct(hpo_enc3, ctx, eng_id-ENGINE_ID_HPO_0,
++					&hpo_frl_link_enc_regs[eng_id-ENGINE_ID_HPO_0],
++					&hpo_le_shift, &hpo_le_mask);
++
++	return &hpo_enc3->base;
 +}
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/dml_frl_cap_chk.h b/drivers/gpu/drm/amd/display/dc/dml2_0/dml_frl_cap_chk.h
-new file mode 100644
-index 000000000000..87ac9b94e98b
---- /dev/null
-+++ b/drivers/gpu/drm/amd/display/dc/dml2_0/dml_frl_cap_chk.h
-@@ -0,0 +1,109 @@
-+/*
-+ * Copyright 2022 Advanced Micro Devices, Inc.
-+ *
-+ * Permission is hereby granted, free of charge, to any person obtaining a
-+ * copy of this software and associated documentation files (the "Software"),
-+ * to deal in the Software without restriction, including without limitation
-+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
-+ * and/or sell copies of the Software, and to permit persons to whom the
-+ * Software is furnished to do so, subject to the following conditions:
-+ *
-+ * The above copyright notice and this permission notice shall be included in
-+ * all copies or substantial portions of the Software.
-+ *
-+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-+ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
-+ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-+ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-+ * OTHER DEALINGS IN THE SOFTWARE.
-+ *
-+ * Authors: AMD
-+ *
-+ */
 +
-+#ifndef __DML_FRL_CAP_CHK_H__
-+#define __DML_FRL_CAP_CHK_H__
+ static struct hpo_dp_stream_encoder *dcn31_hpo_dp_stream_encoder_create(
+ 	enum engine_id eng_id,
+ 	struct dc_context *ctx)
+@@ -1418,6 +1520,7 @@ static const struct resource_create_funcs res_create_funcs = {
+ 	.read_dce_straps = read_dce_straps,
+ 	.create_audio = dcn31_create_audio,
+ 	.create_stream_encoder = dcn35_stream_encoder_create,
++	.create_hpo_frl_stream_encoder = dcn31_hpo_frl_stream_encoder_create,
+ 	.create_hpo_dp_stream_encoder = dcn31_hpo_dp_stream_encoder_create,
+ 	.create_hpo_dp_link_encoder = dcn31_hpo_dp_link_encoder_create,
+ 	.create_hwseq = dcn351_hwseq_create,
+@@ -1442,6 +1545,21 @@ static void dcn351_resource_destruct(struct dcn351_resource_pool *pool)
+ 		}
+ 	}
+ 
++	for (i = 0; i < pool->base.hpo_frl_stream_enc_count; i++) {
++		if (pool->base.hpo_frl_stream_enc[i] != NULL) {
++			if (pool->base.hpo_frl_stream_enc[i]->vpg != NULL) {
++				kfree(DCN30_VPG_FROM_VPG(pool->base.hpo_frl_stream_enc[i]->vpg));
++				pool->base.hpo_frl_stream_enc[i]->vpg = NULL;
++			}
++			if (pool->base.hpo_frl_stream_enc[i]->afmt != NULL) {
++				kfree(DCN30_AFMT_FROM_AFMT(pool->base.hpo_frl_stream_enc[i]->afmt));
++				pool->base.hpo_frl_stream_enc[i]->afmt = NULL;
++			}
++			kfree(DCN30_HPO_FRL_STRENC_FROM_HPO_FRL_STRENC(pool->base.hpo_frl_stream_enc[i]));
++			pool->base.hpo_frl_stream_enc[i] = NULL;
++		}
++	}
 +
-+#include "os_types.h"
+ 	for (i = 0; i < pool->base.hpo_dp_stream_enc_count; i++) {
+ 		if (pool->base.hpo_dp_stream_enc[i] != NULL) {
+ 			if (pool->base.hpo_dp_stream_enc[i]->vpg != NULL) {
+@@ -1799,6 +1917,7 @@ static struct resource_funcs dcn351_res_pool_funcs = {
+ 	.link_enc_create_minimal = dcn31_link_enc_create_minimal,
+ 	.link_encs_assign = link_enc_cfg_link_encs_assign,
+ 	.link_enc_unassign = link_enc_cfg_link_enc_unassign,
++	.hpo_frl_link_enc_create = dcn31_hpo_frl_link_encoder_create,
+ 	.panel_cntl_create = dcn31_panel_cntl_create,
+ 	.validate_bandwidth = dcn351_validate_bandwidth,
+ 	.calculate_wm_and_dlg = NULL,
+@@ -1885,6 +2004,8 @@ static bool dcn351_resource_construct(
+ 	dc->caps.force_dp_tps4_for_cp2520 = true;
+ 	if (dc->config.forceHBR2CP2520)
+ 		dc->caps.force_dp_tps4_for_cp2520 = false;
++	dc->caps.hdmi_hpo = true;
++	dc->config.skip_frl_pretraining = true;
+ 	dc->caps.dp_hpo = true;
+ 	dc->caps.dp_hdmi21_pcon_support = true;
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn36/dcn36_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn36/dcn36_resource.c
+index eb597be989a6..4bab31fa2b96 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dcn36/dcn36_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dcn36/dcn36_resource.c
+@@ -37,6 +37,8 @@
+ #include "dcn30/dcn30_afmt.h"
+ #include "dcn31/dcn31_dio_link_encoder.h"
+ #include "dcn35/dcn35_dio_stream_encoder.h"
++#include "dcn30/dcn30_hpo_frl_stream_encoder.h"
++#include "dcn30/dcn30_hpo_frl_link_encoder.h"
+ #include "dcn31/dcn31_hpo_dp_stream_encoder.h"
+ #include "dcn31/dcn31_hpo_dp_link_encoder.h"
+ #include "dcn32/dcn32_hpo_dp_link_encoder.h"
+@@ -139,6 +141,10 @@ enum dcn36_clk_src_array_id {
+ 	REG_STRUCT[id-1].reg_name = BASE(reg ## block ## id ## _ ## reg_name ## _BASE_IDX) + \
+ 		reg ## block ## id ## _ ## reg_name
+ 
++#define SRI_ARR_DME(reg_name, block, id, offset)\
++	REG_STRUCT[id - offset].reg_name = BASE(reg ## block ## id ## _ ## reg_name ## _BASE_IDX) + \
++		reg ## block ## id ## _ ## reg_name
 +
-+typedef enum {
-+	PIXEL_ENCODING_444,
-+	PIXEL_ENCODING_422,
-+	PIXEL_ENCODING_420
-+} enum_pixel_encoding;
+ #define SRI_ARR_ALPHABET(reg_name, block, index, id)\
+ 	REG_STRUCT[index].reg_name = BASE(reg ## block ## id ## _ ## reg_name ## _BASE_IDX) + \
+ 		reg ## block ## id ## _ ## reg_name
+@@ -338,6 +344,35 @@ static const struct dcn10_link_enc_mask le_mask = {
+ 	//DPCS_DCN31_MASK_SH_LIST(_MASK)
+ };
+ 
++#define hpo_frl_stream_encoder_dme_reg_list(id)\
++	DCN3_0_HPO_STREAM_ENC_DME_REG_LIST_RI(id, 6)
 +
-+typedef enum {
-+	BORROW_MODE_NONE,
-+	BORROW_MODE_FROM_ACTIVE,
-+	BORROW_MODE_FROM_BLANK
-+} enum_borrow_mode;
++#define hpo_frl_stream_encoder_reg_list(id)\
++	DCN3_0_HPO_FRL_STREAM_ENC_REG_LIST_RI(id)
 +
-+typedef enum {
-+	FRL_CAP_CHK_OK = 0,
++static struct dcn30_hpo_frl_stream_enc_registers hpo_frl_stream_enc_regs[2];
 +
-+	FRL_CAP_CHK_ERROR_AUDIO_BW = -1,
-+	FRL_CAP_CHK_ERROR_BORROW = -2,
-+	FRL_CAP_CHK_ERROR_MAX_BORROW = -3,
-+	FRL_CAP_CHK_ERROR_MARGIN = -4,
++static const struct dcn30_hpo_frl_stream_encoder_shift hpo_se_shift = {
++	DCN3_0_HPO_STREAM_ENC_MASK_SH_LIST(__SHIFT)
++};
 +
-+	FRL_CAP_CHK_ERROR_UNSUPPORTED_AUDIO = -1000
-+} frl_cap_chk_result;
++static const struct dcn30_hpo_frl_stream_encoder_mask hpo_se_mask = {
++	DCN3_0_HPO_STREAM_ENC_MASK_SH_LIST(_MASK)
++};
 +
-+typedef struct {
-+	int c_frl_sb;
-+	double overhead_sb;
-+	double overhead_rs;
-+	double overhead_map;
-+	double overhead_min;
-+	double overhead_max;
-+	double f_pixel_clock_max;
-+	double t_line;
-+	double r_bit_min;
-+	double r_frl_char_min;
-+	double c_frl_line;
-+	double ap;
-+	double r_ap;
-+	double avg_audio_packets_line;
-+	int audio_packets_line;
-+	int blank_audio_min;
-+} frl_cap_chk_intermediates;
++#define hpo_frl_link_encoder_reg_list(id)\
++	DCN3_0_HPO_FRL_LINK_ENC_REG_LIST_RI(id)
 +
-+typedef struct {
-+	int lanes;
-+	double f_pixel_clock_nominal; /* Pixel Clock rate (Hz) */
-+	double r_bit_nominal; /* FRL bitrate (bps) */
-+	int audio_packet_type;
-+	double f_audio; /* Audio rate (Hz) */
-+	int h_active; /* Active pixels per line */
-+	int h_blank; /* Blanking pixels per line */
-+	int bpc; /* Bits per component */
++static struct dcn30_hpo_frl_link_encoder_registers hpo_frl_link_enc_regs[1];
 +
-+	enum_pixel_encoding pixel_encoding;
++static const struct dcn30_hpo_frl_link_encoder_shift hpo_le_shift = {
++	DCN3_0_HPO_FRL_LINK_ENC_MASK_SH_LIST(__SHIFT)
++};
 +
-+	bool compressed;
-+	bool bypass_hc_target_calc;
++static const struct dcn30_hpo_frl_link_encoder_mask hpo_le_mask = {
++	DCN3_0_HPO_FRL_LINK_ENC_MASK_SH_LIST(_MASK)
++};
 +
-+	/* DSC parameters */
-+	int slices;
-+	int slice_width;
-+	double bpp_target;
+ #define hpo_dp_stream_encoder_reg_init(id)\
+ 	DCN3_1_HPO_DP_STREAM_ENC_REG_LIST_RI(id)
+ 
+@@ -672,6 +707,7 @@ static const struct resource_caps res_cap_dcn36 = {
+ 	.num_audio = 5,
+ 	.num_stream_encoder = 5,
+ 	.num_dig_link_enc = 5,
++	.num_hpo_frl = 1,
+ 	.num_hpo_dp_stream_encoder = 4,
+ 	.num_hpo_dp_link_encoder = 2,
+ 	.num_pll = 4,/*1 c10 edp, 3xc20 combo PHY*/
+@@ -1324,6 +1360,72 @@ static struct stream_encoder *dcn35_stream_encoder_create(
+ 	return &enc1->base;
+ }
+ 
++static struct hpo_frl_stream_encoder *dcn31_hpo_frl_stream_encoder_create(
++	enum engine_id eng_id,
++	struct dc_context *ctx)
++{
++	struct dcn30_hpo_frl_stream_encoder *hpo_enc3;
++	struct vpg *vpg;
++	struct afmt *afmt;
++	int vpg_inst;
++	int afmt_inst;
 +
-+	int layout; /* not supported */
-+	int acat; /* not supported */
++#undef REG_STRUCT
++#define REG_STRUCT hpo_frl_stream_enc_regs
++	hpo_frl_stream_encoder_reg_list(0),
++	hpo_frl_stream_encoder_dme_reg_list(6);
 +
-+	/* outputs */
-+	int audio_packets_line;
++	/* Mapping of VPG, AFMT, DME register blocks to HPO block instance */
++	if (eng_id == ENGINE_ID_HPO_0) {
++		vpg_inst = 5;
++		afmt_inst = 5;
++	} else
++		return NULL;
 +
-+	/* inputs or outputs */
-+	int hc_active_target;
-+	int hc_blank_target;
++	/* allocate HPO stream encoder and create VPG, AFMT sub-blocks */
++	hpo_enc3 = kzalloc(sizeof(struct dcn30_hpo_frl_stream_encoder), GFP_KERNEL);
++	vpg = dcn31_vpg_create(ctx, vpg_inst);
++	afmt = dcn31_afmt_create(ctx, afmt_inst);
 +
-+	enum_borrow_mode borrow_mode;
-+} frl_cap_chk_params;
++	if (!hpo_enc3 || !vpg || !afmt) {
++		kfree(hpo_enc3);
++		kfree(vpg);
++		kfree(afmt);
++		return NULL;
++	}
 +
-+frl_cap_chk_result frl_cap_chk(frl_cap_chk_params *params);
-+frl_cap_chk_result frl_cap_chk_inter(frl_cap_chk_params *params, frl_cap_chk_intermediates *inter);
++	dcn30_hpo_frl_stream_encoder_construct(hpo_enc3, ctx, ctx->dc_bios,
++					eng_id, vpg, afmt,
++					&hpo_frl_stream_enc_regs[eng_id-ENGINE_ID_HPO_0],
++					&hpo_se_shift, &hpo_se_mask);
 +
-+#endif
++	return &hpo_enc3->base;
++}
++
++static struct hpo_frl_link_encoder *dcn31_hpo_frl_link_encoder_create(
++	enum engine_id eng_id,
++	struct dc_context *ctx)
++{
++	struct dcn30_hpo_frl_link_encoder *hpo_enc3;
++
++	ASSERT((eng_id == ENGINE_ID_HPO_0) || (eng_id == ENGINE_ID_HPO_1));
++
++#undef REG_STRUCT
++#define REG_STRUCT hpo_frl_link_enc_regs
++	hpo_frl_link_encoder_reg_list(0);
++
++	/* allocate HPO link encoder */
++	hpo_enc3 = kzalloc(sizeof(struct dcn30_hpo_frl_link_encoder), GFP_KERNEL);
++	if (!hpo_enc3)
++		return NULL; /* out of memory */
++
++	hpo_frl_link_encoder3_construct(hpo_enc3, ctx, eng_id-ENGINE_ID_HPO_0,
++					&hpo_frl_link_enc_regs[eng_id-ENGINE_ID_HPO_0],
++					&hpo_le_shift, &hpo_le_mask);
++
++	return &hpo_enc3->base;
++}
++
+ static struct hpo_dp_stream_encoder *dcn31_hpo_dp_stream_encoder_create(
+ 	enum engine_id eng_id,
+ 	struct dc_context *ctx)
+@@ -1425,6 +1527,7 @@ static const struct resource_create_funcs res_create_funcs = {
+ 	.read_dce_straps = read_dce_straps,
+ 	.create_audio = dcn31_create_audio,
+ 	.create_stream_encoder = dcn35_stream_encoder_create,
++	.create_hpo_frl_stream_encoder = dcn31_hpo_frl_stream_encoder_create,
+ 	.create_hpo_dp_stream_encoder = dcn31_hpo_dp_stream_encoder_create,
+ 	.create_hpo_dp_link_encoder = dcn31_hpo_dp_link_encoder_create,
+ 	.create_hwseq = dcn36_hwseq_create,
+@@ -1449,6 +1552,21 @@ static void dcn36_resource_destruct(struct dcn36_resource_pool *pool)
+ 		}
+ 	}
+ 
++	for (i = 0; i < pool->base.hpo_frl_stream_enc_count; i++) {
++		if (pool->base.hpo_frl_stream_enc[i] != NULL) {
++			if (pool->base.hpo_frl_stream_enc[i]->vpg != NULL) {
++				kfree(DCN30_VPG_FROM_VPG(pool->base.hpo_frl_stream_enc[i]->vpg));
++				pool->base.hpo_frl_stream_enc[i]->vpg = NULL;
++			}
++			if (pool->base.hpo_frl_stream_enc[i]->afmt != NULL) {
++				kfree(DCN30_AFMT_FROM_AFMT(pool->base.hpo_frl_stream_enc[i]->afmt));
++				pool->base.hpo_frl_stream_enc[i]->afmt = NULL;
++			}
++			kfree(DCN30_HPO_FRL_STRENC_FROM_HPO_FRL_STRENC(pool->base.hpo_frl_stream_enc[i]));
++			pool->base.hpo_frl_stream_enc[i] = NULL;
++		}
++	}
++
+ 	for (i = 0; i < pool->base.hpo_dp_stream_enc_count; i++) {
+ 		if (pool->base.hpo_dp_stream_enc[i] != NULL) {
+ 			if (pool->base.hpo_dp_stream_enc[i]->vpg != NULL) {
+@@ -1800,6 +1918,7 @@ static struct resource_funcs dcn36_res_pool_funcs = {
+ 	.link_enc_create_minimal = dcn31_link_enc_create_minimal,
+ 	.link_encs_assign = link_enc_cfg_link_encs_assign,
+ 	.link_enc_unassign = link_enc_cfg_link_enc_unassign,
++	.hpo_frl_link_enc_create = dcn31_hpo_frl_link_encoder_create,
+ 	.panel_cntl_create = dcn31_panel_cntl_create,
+ 	.validate_bandwidth = dcn35_validate_bandwidth,
+ 	.calculate_wm_and_dlg = NULL,
+@@ -1882,6 +2001,8 @@ static bool dcn36_resource_construct(
+ 	dc->caps.force_dp_tps4_for_cp2520 = true;
+ 	if (dc->config.forceHBR2CP2520)
+ 		dc->caps.force_dp_tps4_for_cp2520 = false;
++	dc->caps.hdmi_hpo = true;
++	dc->config.skip_frl_pretraining = true;
+ 	dc->caps.dp_hpo = true;
+ 	dc->caps.dp_hdmi21_pcon_support = true;
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn401/dcn401_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn401/dcn401_resource.c
+index 9498cbff2449..3fa82c4b7f92 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dcn401/dcn401_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dcn401/dcn401_resource.c
+@@ -35,6 +35,8 @@
+ #include "dcn30/dcn30_afmt.h"
+ #include "dcn30/dcn30_dio_stream_encoder.h"
+ #include "dcn401/dcn401_dio_stream_encoder.h"
++#include "dcn401/dcn401_hpo_frl_stream_encoder.h"
++#include "dcn30/dcn30_hpo_frl_link_encoder.h"
+ #include "dcn31/dcn31_hpo_dp_stream_encoder.h"
+ #include "dcn31/dcn31_hpo_dp_link_encoder.h"
+ #include "dcn32/dcn32_hpo_dp_link_encoder.h"
+@@ -126,6 +128,10 @@ enum dcn401_clk_src_array_id {
+ 	REG_STRUCT[id-1].reg_name = BASE(reg ## block ## id ## _ ## reg_name ## _BASE_IDX) + \
+ 		reg ## block ## id ## _ ## reg_name
+ 
++#define SRI_ARR_DME(reg_name, block, id, offset)\
++	REG_STRUCT[id - offset].reg_name = BASE(reg ## block ## id ## _ ## reg_name ## _BASE_IDX) + \
++		reg ## block ## id ## _ ## reg_name
++
+ #define SRI_ARR_ALPHABET(reg_name, block, index, id)\
+ 	REG_STRUCT[index].reg_name = BASE(reg ## block ## id ## _ ## reg_name ## _BASE_IDX) + \
+ 		reg ## block ## id ## _ ## reg_name
+@@ -313,6 +319,35 @@ static const struct dcn10_link_enc_mask le_mask = {
+ };
+ 
+ 
++#define hpo_frl_stream_encoder_reg_list(id)\
++	DCN3_0_HPO_FRL_STREAM_ENC_REG_LIST_RI(id)
++
++#define hpo_frl_stream_encoder_dme_reg_list(id)\
++	DCN3_0_HPO_STREAM_ENC_DME_REG_LIST_RI(id, 4)
++
++static struct dcn30_hpo_frl_stream_enc_registers hpo_frl_stream_enc_regs[2];
++
++static const struct dcn401_hpo_frl_stream_encoder_shift hpo_se_shift = {
++	DCN401_HPO_STREAM_ENC_MASK_SH_LIST(__SHIFT)
++};
++
++static const struct dcn401_hpo_frl_stream_encoder_mask hpo_se_mask = {
++	DCN401_HPO_STREAM_ENC_MASK_SH_LIST(_MASK)
++};
++
++#define hpo_frl_link_encoder_reg_list(id)\
++		DCN3_0_HPO_FRL_LINK_ENC_REG_LIST_RI(id)
++
++static struct dcn30_hpo_frl_link_encoder_registers hpo_frl_link_enc_regs[1];
++
++static const struct dcn30_hpo_frl_link_encoder_shift hpo_le_shift = {
++	DCN3_0_HPO_FRL_LINK_ENC_MASK_SH_LIST(__SHIFT)
++};
++
++static const struct dcn30_hpo_frl_link_encoder_mask hpo_le_mask = {
++	DCN3_0_HPO_FRL_LINK_ENC_MASK_SH_LIST(_MASK)
++};
++
+ #define hpo_dp_stream_encoder_reg_init(id)\
+ 	DCN3_1_HPO_DP_STREAM_ENC_REG_LIST_RI(id)
+ 
+@@ -657,6 +692,7 @@ static const struct resource_caps res_cap_dcn4_01 = {
+ 	.num_video_plane = 4,
+ 	.num_audio = 4,
+ 	.num_stream_encoder = 4,
++	.num_hpo_frl = 1,
+ 	.num_hpo_dp_stream_encoder = 4,
+ 	.num_hpo_dp_link_encoder = 4,
+ 	.num_pll = 4,
+@@ -1248,6 +1284,71 @@ static struct stream_encoder *dcn401_stream_encoder_create(
+ 	return &enc1->base;
+ }
+ 
++static struct hpo_frl_stream_encoder *dcn401_hpo_frl_stream_encoder_create(
++	enum engine_id eng_id,
++	struct dc_context *ctx)
++{
++	struct dcn401_hpo_frl_stream_encoder *hpo_enc401;
++	struct vpg *vpg;
++	struct afmt *afmt;
++	int vpg_inst;
++	int afmt_inst;
++
++#undef REG_STRUCT
++#define REG_STRUCT hpo_frl_stream_enc_regs
++	hpo_frl_stream_encoder_reg_list(0),
++	hpo_frl_stream_encoder_dme_reg_list(4);
++
++	/* Mapping of VPG, AFMT, DME register blocks to HPO block instance */
++	if (eng_id == ENGINE_ID_HPO_0) {
++		vpg_inst = 4;
++		afmt_inst = 4;
++	} else
++		return NULL;
++
++	/* allocate HPO stream encoder and create VPG, AFMT sub-blocks */
++	hpo_enc401 = kzalloc(sizeof(struct dcn401_hpo_frl_stream_encoder), GFP_KERNEL);
++	vpg = dcn401_vpg_create(ctx, vpg_inst);
++	afmt = dcn401_afmt_create(ctx, afmt_inst);
++
++	if (!hpo_enc401 || !vpg || !afmt) {
++		kfree(hpo_enc401);
++		kfree(vpg);
++		kfree(afmt);
++		return NULL;
++	}
++
++	dcn401_hpo_frl_stream_encoder_construct(hpo_enc401, ctx, ctx->dc_bios,
++					eng_id, vpg, afmt,
++					&hpo_frl_stream_enc_regs[eng_id-ENGINE_ID_HPO_0],
++					&hpo_se_shift, &hpo_se_mask);
++
++	return &hpo_enc401->base;
++}
++
++static struct hpo_frl_link_encoder *dcn401_hpo_frl_link_encoder_create(
++	enum engine_id eng_id,
++	struct dc_context *ctx)
++{
++	struct dcn30_hpo_frl_link_encoder *hpo_link_enc;
++	ASSERT((eng_id == ENGINE_ID_HPO_0) || (eng_id == ENGINE_ID_HPO_1));
++
++#undef REG_STRUCT
++#define REG_STRUCT hpo_frl_link_enc_regs
++	hpo_frl_link_encoder_reg_list(0);
++
++	/* allocate HPO link encoder */
++	hpo_link_enc = kzalloc(sizeof(struct dcn30_hpo_frl_link_encoder), GFP_KERNEL);
++	if (!hpo_link_enc)
++		return NULL; /* out of memory */
++
++	hpo_frl_link_encoder3_construct(hpo_link_enc, ctx, eng_id-ENGINE_ID_HPO_0,
++					&hpo_frl_link_enc_regs[eng_id-ENGINE_ID_HPO_0],
++					&hpo_le_shift, &hpo_le_mask);
++
++	return &hpo_link_enc->base;
++}
++
+ static struct hpo_dp_stream_encoder *dcn401_hpo_dp_stream_encoder_create(
+ 	enum engine_id eng_id,
+ 	struct dc_context *ctx)
+@@ -1375,6 +1476,7 @@ static const struct resource_create_funcs res_create_funcs = {
+ 	.read_dce_straps = read_dce_straps,
+ 	.create_audio = dcn401_create_audio,
+ 	.create_stream_encoder = dcn401_stream_encoder_create,
++	.create_hpo_frl_stream_encoder = dcn401_hpo_frl_stream_encoder_create,
+ 	.create_hpo_dp_stream_encoder = dcn401_hpo_dp_stream_encoder_create,
+ 	.create_hpo_dp_link_encoder = dcn401_hpo_dp_link_encoder_create,
+ 	.create_hwseq = dcn401_hwseq_create,
+@@ -1405,6 +1507,21 @@ static void dcn401_resource_destruct(struct dcn401_resource_pool *pool)
+ 		}
+ 	}
+ 
++	for (i = 0; i < pool->base.hpo_frl_stream_enc_count; i++) {
++		if (pool->base.hpo_frl_stream_enc[i] != NULL) {
++			if (pool->base.hpo_frl_stream_enc[i]->vpg != NULL) {
++				kfree(DCN31_VPG_FROM_VPG(pool->base.hpo_frl_stream_enc[i]->vpg));
++				pool->base.hpo_frl_stream_enc[i]->vpg = NULL;
++			}
++			if (pool->base.hpo_frl_stream_enc[i]->afmt != NULL) {
++				kfree(DCN30_AFMT_FROM_AFMT(pool->base.hpo_frl_stream_enc[i]->afmt));
++				pool->base.hpo_frl_stream_enc[i]->afmt = NULL;
++			}
++			kfree(DCN401_HPO_FRL_STRENC_FROM_HPO_FRL_STRENC(pool->base.hpo_frl_stream_enc[i]));
++			pool->base.hpo_frl_stream_enc[i] = NULL;
++		}
++	}
++
+ 	for (i = 0; i < pool->base.hpo_dp_stream_enc_count; i++) {
+ 		if (pool->base.hpo_dp_stream_enc[i] != NULL) {
+ 			if (pool->base.hpo_dp_stream_enc[i]->vpg != NULL) {
+@@ -1833,6 +1950,7 @@ static struct resource_funcs dcn401_res_pool_funcs = {
+ 	.destroy = dcn401_destroy_resource_pool,
+ 	.link_enc_create = dcn401_link_encoder_create,
+ 	.link_enc_create_minimal = NULL,
++	.hpo_frl_link_enc_create = dcn401_hpo_frl_link_encoder_create,
+ 	.panel_cntl_create = dcn32_panel_cntl_create,
+ 	.validate_bandwidth = dcn401_validate_bandwidth,
+ 	.calculate_wm_and_dlg = NULL,
+@@ -1970,6 +2088,7 @@ static bool dcn401_resource_construct(
+ 	dc->caps.max_slave_rgb_planes = 3;
+ 	dc->caps.post_blend_color_processing = true;
+ 	dc->caps.force_dp_tps4_for_cp2520 = true;
++	dc->caps.hdmi_hpo = true;
+ 	dc->caps.dp_hpo = true;
+ 	dc->caps.dp_hdmi21_pcon_support = true;
+ 	dc->caps.edp_dsc_support = true;
+@@ -2015,6 +2134,8 @@ static bool dcn401_resource_construct(
+ 	dc->caps.color.mpc.ogam_rom_caps.hlg = 0;
+ 	dc->caps.color.mpc.ocsc = 1;
+ 	dc->caps.color.mpc.preblend = true;
++	/* HACK: Force FRL support until BIOS is ready. */
++	dc->config.force_hdmi21_frl_enc_enable = true;
+ 	dc->config.use_spl = true;
+ 	dc->config.prefer_easf = true;
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn42/dcn42_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn42/dcn42_resource.c
+index 52a1996a654f..39a9724b9478 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dcn42/dcn42_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dcn42/dcn42_resource.c
+@@ -40,6 +40,9 @@
+ #include "dcn31/dcn31_vpg.h"
+ #include "dcn42/dcn42_dio_stream_encoder.h"
+ #include "dcn42/dcn42_pg_cntl.h"
++#include "dcn401/dcn401_hpo_frl_stream_encoder.h"
++#include "dcn42/dcn42_hpo_frl_stream_encoder.h"
++#include "dcn30/dcn30_hpo_frl_link_encoder.h"
+ #include "dcn31/dcn31_hpo_dp_stream_encoder.h"
+ #include "dcn31/dcn31_hpo_dp_link_encoder.h"
+ #include "dcn32/dcn32_hpo_dp_link_encoder.h"
+@@ -140,6 +143,9 @@ enum dcn401_clk_src_array_id {
+ 	REG_STRUCT[id - 1].reg_name = BASE(reg##block##id##_##reg_name##_BASE_IDX) + \
+ 								  reg##block##id##_##reg_name
+ 
++#define SRI_ARR_DME(reg_name, block, id, offset)                                      \
++	REG_STRUCT[id - offset].reg_name = BASE(reg##block##id##_##reg_name##_BASE_IDX) + \
++									   reg##block##id##_##reg_name
+ 
+ #define SRI_ARR_ALPHABET(reg_name, block, index, id)                            \
+ 	REG_STRUCT[index].reg_name = BASE(reg##block##id##_##reg_name##_BASE_IDX) + \
+@@ -297,6 +303,34 @@ static const struct dcn10_link_enc_shift le_shift = {
+ static const struct dcn10_link_enc_mask le_mask = {
+ 	LINK_ENCODER_MASK_SH_LIST_DCN42(_MASK)};
+ 
++#define hpo_frl_stream_encoder_reg_list(id) \
++	DCN42_HPO_FRL_STREAM_ENC_REG_LIST_RI(id)
++
++#define hpo_frl_stream_encoder_dme_reg_list(id) \
++	DCN3_0_HPO_STREAM_ENC_DME_REG_LIST_RI(id, 6)
++
++static struct dcn30_hpo_frl_stream_enc_registers hpo_frl_stream_enc_regs[2];
++
++static const struct dcn401_hpo_frl_stream_encoder_shift hpo_se_shift = {
++	DCN401_HPO_STREAM_ENC_MASK_SH_LIST(__SHIFT),
++	DCN42_HDMI_STREAM_ENC_MASK_SH_LIST(__SHIFT)
++};
++static const struct dcn401_hpo_frl_stream_encoder_mask hpo_se_mask = {
++	DCN401_HPO_STREAM_ENC_MASK_SH_LIST(_MASK),
++	DCN42_HDMI_STREAM_ENC_MASK_SH_LIST(_MASK)
++};
++
++#define hpo_frl_link_encoder_reg_list(id) \
++	DCN3_0_HPO_FRL_LINK_ENC_REG_LIST_RI(id)
++
++static struct dcn30_hpo_frl_link_encoder_registers hpo_frl_link_enc_regs[1];
++
++static const struct dcn30_hpo_frl_link_encoder_shift hpo_le_shift = {
++	DCN3_0_HPO_FRL_LINK_ENC_MASK_SH_LIST(__SHIFT)};
++
++static const struct dcn30_hpo_frl_link_encoder_mask hpo_le_mask = {
++	DCN3_0_HPO_FRL_LINK_ENC_MASK_SH_LIST(_MASK)};
++
+ #define hpo_dp_stream_encoder_reg_init(id) \
+ 	DCN42_HPO_DP_STREAM_ENC_REG_LIST_RI(id)
+ 
+@@ -658,6 +692,7 @@ static const struct resource_caps res_cap_dcn42 = {
+ 	.num_stream_encoder = 5,
+ 	.num_dig_link_enc = 5,
+ 	.num_usb4_dpia = 6,
++	.num_hpo_frl = 1,
+ 	.num_hpo_dp_stream_encoder = 4,
+ 	.num_hpo_dp_link_encoder = 4,
+ 	.num_pll = 5,
+@@ -1260,6 +1295,74 @@ static struct stream_encoder *dcn42_stream_encoder_create(
+ 	return &enc1->base;
+ }
+ 
++static struct hpo_frl_stream_encoder *dcn42_hpo_frl_stream_encoder_create(
++	enum engine_id eng_id,
++	struct dc_context *ctx)
++{
++	struct dcn42_hpo_frl_stream_encoder *hpo_enc42;
++	struct vpg *vpg;
++	struct apg *apg;
++
++	uint32_t vpg_inst;
++	uint32_t apg_inst;
++
++
++#undef REG_STRUCT
++#define REG_STRUCT hpo_frl_stream_enc_regs
++	hpo_frl_stream_encoder_reg_list(0),
++		hpo_frl_stream_encoder_dme_reg_list(6);
++
++	/* Mapping of VPG, DME register blocks to HPO block instance */
++	if (eng_id == ENGINE_ID_HPO_0) {
++		vpg_inst = 9; /*hw hard wired to inst 9, ref to dcn header file*/
++		apg_inst = 9;
++	} else
++		return NULL;
++
++	/* allocate HPO stream encoder and create VPG sub-block */
++	hpo_enc42 = kzalloc(sizeof(struct dcn42_hpo_frl_stream_encoder), GFP_KERNEL);
++	vpg = dcn42_vpg_create(ctx, vpg_inst);
++	apg = dcn42_apg_create(ctx, apg_inst);
++
++	if (!hpo_enc42 || !vpg || !apg) {
++		kfree(hpo_enc42);
++		kfree(vpg);
++		kfree(apg);
++		return NULL;
++	}
++
++	dcn42_hpo_frl_stream_encoder_construct(hpo_enc42, ctx, ctx->dc_bios,
++			eng_id, vpg, apg,
++			&hpo_frl_stream_enc_regs[eng_id - ENGINE_ID_HPO_0],
++			&hpo_se_shift, &hpo_se_mask);
++
++	return &hpo_enc42->base;
++}
++
++static struct hpo_frl_link_encoder *dcn42_hpo_frl_link_encoder_create(
++	enum engine_id eng_id,
++	struct dc_context *ctx)
++{
++	struct dcn30_hpo_frl_link_encoder *hpo_link_enc;
++
++	ASSERT((eng_id == ENGINE_ID_HPO_0) || (eng_id == ENGINE_ID_HPO_1));
++
++#undef REG_STRUCT
++#define REG_STRUCT hpo_frl_link_enc_regs
++	hpo_frl_link_encoder_reg_list(0);
++
++	/* allocate HPO link encoder */
++	hpo_link_enc = kzalloc(sizeof(struct dcn30_hpo_frl_link_encoder), GFP_KERNEL);
++	if (!hpo_link_enc)
++		return NULL; /* out of memory */
++
++	hpo_frl_link_encoder3_construct(hpo_link_enc, ctx, eng_id - ENGINE_ID_HPO_0,
++			&hpo_frl_link_enc_regs[eng_id - ENGINE_ID_HPO_0],
++			&hpo_le_shift, &hpo_le_mask);
++
++	return &hpo_link_enc->base;
++}
++
+ static struct hpo_dp_stream_encoder *dcn42_hpo_dp_stream_encoder_create(
+ 	enum engine_id eng_id,
+ 	struct dc_context *ctx)
+@@ -1365,6 +1468,7 @@ static const struct resource_create_funcs res_create_funcs = {
+ 	.read_dce_straps = read_dce_straps,
+ 	.create_audio = dcn42_create_audio,
+ 	.create_stream_encoder = dcn42_stream_encoder_create,
++	.create_hpo_frl_stream_encoder = dcn42_hpo_frl_stream_encoder_create,
+ 	.create_hpo_dp_stream_encoder = dcn42_hpo_dp_stream_encoder_create,
+ 	.create_hpo_dp_link_encoder = dcn42_hpo_dp_link_encoder_create,
+ 	.create_hwseq = dcn42_hwseq_create,
+@@ -1395,6 +1499,21 @@ static void dcn42_resource_destruct(struct dcn42_resource_pool *pool)
+ 		}
+ 	}
+ 
++	for (i = 0; i < pool->base.hpo_frl_stream_enc_count; i++) {
++		if (pool->base.hpo_frl_stream_enc[i] != NULL) {
++			if (pool->base.hpo_frl_stream_enc[i]->vpg != NULL) {
++				kfree(DCN31_VPG_FROM_VPG(pool->base.hpo_frl_stream_enc[i]->vpg));
++				pool->base.hpo_frl_stream_enc[i]->vpg = NULL;
++			}
++			if (pool->base.hpo_frl_stream_enc[i]->apg != NULL) {
++				kfree(DCN31_APG_FROM_APG(pool->base.hpo_frl_stream_enc[i]->apg));
++				pool->base.hpo_frl_stream_enc[i]->apg = NULL;
++			}
++			kfree(DCN401_HPO_FRL_STRENC_FROM_HPO_FRL_STRENC(pool->base.hpo_frl_stream_enc[i]));
++			pool->base.hpo_frl_stream_enc[i] = NULL;
++		}
++	}
++
+ 	for (i = 0; i < pool->base.hpo_dp_stream_enc_count; i++) {
+ 		if (pool->base.hpo_dp_stream_enc[i] != NULL) {
+ 			if (pool->base.hpo_dp_stream_enc[i]->vpg != NULL) {
+@@ -1791,6 +1910,7 @@ static struct resource_funcs dcn42_res_pool_funcs = {
+ 	.link_enc_create_minimal = dcn42_link_enc_create_minimal,
+ 	.link_encs_assign = link_enc_cfg_link_encs_assign,
+ 	.link_enc_unassign = link_enc_cfg_link_enc_unassign,
++	.hpo_frl_link_enc_create = dcn42_hpo_frl_link_encoder_create,
+ 	.panel_cntl_create = dcn32_panel_cntl_create,
+ 	.validate_bandwidth = dcn42_validate_bandwidth,
+ 	.calculate_wm_and_dlg = NULL,
+@@ -1909,6 +2029,7 @@ static bool dcn42_resource_construct(
+ 	dc->caps.force_dp_tps4_for_cp2520 = true;
+ 	if (dc->config.forceHBR2CP2520)
+ 		dc->caps.force_dp_tps4_for_cp2520 = false;
++	dc->caps.hdmi_hpo = true;
+ 	dc->caps.dp_hdmi21_pcon_support = true;
+ 	dc->caps.dp_hpo = true;
+ 	dc->caps.edp_dsc_support = true;
 -- 
 2.54.0
 
