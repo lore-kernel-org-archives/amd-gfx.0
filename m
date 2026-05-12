@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6D280CD4F41
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 91B77CD4F40
 	for <amd-gfx@archiver.kernel.org>; Tue, 12 May 2026 12:00:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DEB8110EA72;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E1C1810EA76;
 	Tue, 12 May 2026 12:00:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="TjeQZaay";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="a0IsP+ks";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C88DD10E862;
- Mon, 11 May 2026 17:31:02 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 51E3710E689;
+ Tue, 12 May 2026 08:24:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1778520663; x=1810056663;
+ t=1778574295; x=1810110295;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=+LnmobJh1DnauE2NercKhjcRavXPbcfXqJhkutDMYck=;
- b=TjeQZaayKth76rRy+4Xo/9ZAVU0LniylPYDWpum34pUMD6jQpJITNuo9
- 4WoGWxgZQNSRtWjL58CMbRtTMZpKLy4RV4AIT7gCxUKYDW6uiH0HkDPK3
- 0+PnKDU0RjSOqFGGwJdAArirYpWZytT8WGTJZ9lQdB5Es0YzglucgvCI/
- 3ZhwUrgouFd5wDAKAXKKvnlfH8bn9Fc0lpRDpwMX9v/KIlnVK23F2Knhn
- HEQjpWGythmkFZz2ak8AM7ipHIbHPVI9VpHdpCsy3ayybbg83vgxBLV5y
- bVs/68pp0h5zPFjtsAyugPhLofwuGXOy6OP7Ef2FckGliJh3flt3rVEg/ Q==;
-X-CSE-ConnectionGUID: MjsTQtI+QnCBtOdo7BUWRg==
-X-CSE-MsgGUID: g3jTV/a0Rr2YoB0LUm5yaQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11783"; a="79314251"
-X-IronPort-AV: E=Sophos;i="6.23,229,1770624000"; d="scan'208";a="79314251"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
- by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 May 2026 10:31:03 -0700
-X-CSE-ConnectionGUID: DvbSBq9sQdWWe7FxUzkH4A==
-X-CSE-MsgGUID: G/tszHa2SrybPgfcN93OIA==
+ bh=8Sxz1gQEQWkfKyhR1YiDU8YRuK607mnZzr+wJTJ9WSg=;
+ b=a0IsP+ksu32K/hpxPuejYwgmyOoejBzXI0bTlhB+kKff3TkWMtoFeIkd
+ kGG9Ib5RsD2BXvFXYZTNbbq3k3NHrGHf/w0VMzY1EJr4MBjiPjzymqwxW
+ i8aj12tZ21BHlzkCbpJ675ZEglrebwPGL5ibh1+skOUNf40QaJ9qjN4qj
+ 5vowGsLOo18s2YACkZrAfsOdyGGpeocoOq1GiGR//iEJ4vvL11GOBNG+S
+ hofnmCAPqsDUr+s9wPNVjvZ2iTDmzE25rfAfQExLZ4xqFxTPWkdEoUVNX
+ 4ooJx7JQaogMAJ3bgedi/8Tbyf+qOwAdVTXhNoa8Gv8cfRGjyEYq3czGY Q==;
+X-CSE-ConnectionGUID: H/TYFj+VQFqvFbj66HCJew==
+X-CSE-MsgGUID: neu2pfPUSnyfmTw9V3TQAw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11783"; a="79195035"
+X-IronPort-AV: E=Sophos;i="6.23,230,1770624000"; d="scan'208";a="79195035"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+ by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 May 2026 01:24:55 -0700
+X-CSE-ConnectionGUID: vga29cUKQb2hZpAYaqfUkw==
+X-CSE-MsgGUID: tuj7vXnJSYqtsBHPY9Cl1A==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,229,1770624000"; d="scan'208";a="261000497"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO fedora)
- ([10.245.244.248])
- by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 May 2026 10:30:58 -0700
+X-IronPort-AV: E=Sophos;i="6.23,230,1770624000"; d="scan'208";a="237945603"
+Received: from vpanait-mobl.ger.corp.intel.com (HELO fedora) ([10.245.245.172])
+ by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 May 2026 01:24:49 -0700
 From: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
 To: intel-xe@lists.freedesktop.org
 Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
@@ -59,17 +58,17 @@ Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
  Alex Deucher <alexander.deucher@amd.com>,
  Rodrigo Vivi <rodrigo.vivi@intel.com>, dri-devel@lists.freedesktop.org,
  amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v3 5/5] drm/amdgpu: Wire up dmem cgroup reclaim for VRAM
+Subject: [PATCH v4 5/5] drm/amdgpu: Wire up dmem cgroup reclaim for VRAM
  manager
-Date: Mon, 11 May 2026 19:30:08 +0200
-Message-ID: <20260511173008.36526-6-thomas.hellstrom@linux.intel.com>
+Date: Tue, 12 May 2026 10:24:06 +0200
+Message-ID: <20260512082406.44470-6-thomas.hellstrom@linux.intel.com>
 X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260511173008.36526-1-thomas.hellstrom@linux.intel.com>
-References: <20260511173008.36526-1-thomas.hellstrom@linux.intel.com>
+In-Reply-To: <20260512082406.44470-1-thomas.hellstrom@linux.intel.com>
+References: <20260512082406.44470-1-thomas.hellstrom@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Tue, 12 May 2026 12:00:45 +0000
+X-Mailman-Approved-At: Tue, 12 May 2026 12:00:46 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,10 +102,10 @@ Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
  2 files changed, 7 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-index 0dc68fb9d88e..334a177ae8d3 100644
+index 2740de94e93c..8cbcd33f51a5 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-@@ -1485,7 +1485,7 @@ static bool amdgpu_ttm_bo_eviction_valuable(struct ttm_buffer_object *bo,
+@@ -1488,7 +1488,7 @@ static bool amdgpu_ttm_bo_eviction_valuable(struct ttm_buffer_object *bo,
  	dma_resv_for_each_fence(&resv_cursor, bo->base.resv,
  				DMA_RESV_USAGE_BOOKKEEP, f) {
  		if (amdkfd_fence_check_mm(f, current->mm) &&
