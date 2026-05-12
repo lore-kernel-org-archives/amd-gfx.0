@@ -4,51 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8B315CD4F41
-	for <amd-gfx@archiver.kernel.org>; Wed, 13 May 2026 07:56:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5C84DCD4F47
+	for <amd-gfx@archiver.kernel.org>; Wed, 13 May 2026 07:56:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2E61410ECF3;
-	Wed, 13 May 2026 07:56:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 20CE910ED32;
+	Wed, 13 May 2026 07:56:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="XDBZQvvQ";
+	dkim=pass (2048-bit key; secure) header.d=usp.br header.i=@usp.br header.b="vhQ2s/zF";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1E76A10EC3F;
- Tue, 12 May 2026 21:52:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
- Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=TjblcfHm/Z46TgcNkCFh3FNOFhzy3el+viI7R4fWfic=; b=XDBZQvvQZws3SRE1omJM096P51
- RRLAQvpZO2SxY65qynXSXj/hDlsZcUkKUbfPU0d6+hpT+42VmHXMCu9Eo2NV07vgvHCMCot4PpEB7
- 5yscMFecKaEUZ1HAlkP98z8/dBGz3NN1G6A9Kwz1u7lFTYVe8eL0wXAnA2SsjbfjMhTdANKRcrTJT
- P6xXKhrZg6om2WprwSukWQN/UNG/w4BVwKp+wFu0bkRmarR3uFLpu8GusPJF4eokZDi3JzJJsFJ2q
- w9OPpKT4VXJglHXXs9bYxtkuUXckOszOzFSy2m3ilj2pUV2aQJaSBQVSbo8aYtVTvCPqD0K64iIbC
- ldGl9MYQ==;
-Received: from 179-242-241-236.3g.claro.net.br ([179.242.241.236]
- helo=quatroqueijos.cascardo.eti.br)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wMv1r-009frh-Ha; Tue, 12 May 2026 23:52:39 +0200
-From: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
-To: igt-dev@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org,
- Christian Koenig <christian.koenig@amd.com>,
- maarten.lankhorst@linux.intel.com,
- =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Natalie Vock <natalie.vock@gmx.de>, kernel-dev@igalia.com,
- Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
-Subject: [PATCH i-g-t 5/8] igt_dmem_driver: add amdgpu support
-Date: Tue, 12 May 2026 18:51:52 -0300
-Message-ID: <20260512215156.4083082-6-cascardo@igalia.com>
+Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com
+ [74.125.82.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 606AA10E59E
+ for <amd-gfx@lists.freedesktop.org>; Tue, 12 May 2026 19:00:41 +0000 (UTC)
+Received: by mail-dy1-f172.google.com with SMTP id
+ 5a478bee46e88-2ef8d6ba48bso3480231eec.1
+ for <amd-gfx@lists.freedesktop.org>; Tue, 12 May 2026 12:00:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=usp.br; s=usp-google; t=1778612441; x=1779217241; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=K1LUeqbzazsIc6mr20+RzO+gGoqsPMt05zm7tfAxS5c=;
+ b=vhQ2s/zFXCsc1c4h+/xOKpmwmSWn/ND+S9Wn3SsABlvgnbgKVPsBrxdGeDNlxoN5zQ
+ +p1bXU6Zw70S8RxAd2aVHFEprDOpIUOB15qc4oCBHnPzKAikxqO5RiQQib8/MpAvSIXk
+ EbHU2Ga2RKx6fsBzFyWzA280HLxIhHAfEo8WG4ulNYEEbmtONo9PTzxVTveKI2oEeCnM
+ U1GjWzR7SNQSJQFeucngt2BbNq/MlgZR8JGiONyWnHSQ9k9rEkrcg8/+IK5dI1yBmUFu
+ CM+TE7xOrv2gCOgwZEXNTpOY9CJBcRzbUayggmlVZmhyc5EFFzCFU8jzT3VJGwHNYP7R
+ +rJA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1778612441; x=1779217241;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=K1LUeqbzazsIc6mr20+RzO+gGoqsPMt05zm7tfAxS5c=;
+ b=NLEBbn9CTSE6Un46sUj7zJNxBHweGBqYGBz4GsoiSpj/SFiSYP1X1eCelmZ/uX6yXm
+ 4Z8qwQxiWE0yarl7oPE/PCQ/e5s9IkDTCo9jQT6F0GncVaW+wRr/rVPLaPEBOG17HL+q
+ Wfiu2/QiRJ1u7vktfUd4b6BjxsSdMcQI5v4buOBZFij1IJXgBC0WHsfpFPGB+rsJxD9G
+ aRiceO7VZuu7pBEJgcYC83mBOTaQJbLuvg7UaB+ip/Q9QOHVdMUtIFR+QBNPtGt6mCvE
+ mDmJT/u50O3BRX/O0jMeGhW/iwbioj63LPpgQcjD/sHNRt5nZaqFF1E+FZKmBNQCr3vs
+ FKSA==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ9VIseBxa9V4DQNj83TVtiuHWpW6fwEy817zAXqNoRqwoKZXOxmAntoayVWAqgGSIp4x/EFdN/x@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yw38eAqMTed+q0V37+mGDTZbVVvMqlWqDTKPDH5wTiAkxxLmoBx
+ 3qhn2qSPl2nDO+3HaRnJ9BTXr/WEE3vCr7pEm3K6jPpDqI4sFpTtqj2ENBqjY4pm7uY=
+X-Gm-Gg: Acq92OHTAR10EdyfysdpH1C5KepIKK6ZTynKwV5tDGpQ4qgzJ9sNsie/iWLEr5ba0qW
+ Oox48KmgSTkm9CkKl+5V8WNd6NWol+8qBWuD113WGNfhHhIB4nYQgf0Ne2872l84RgfOrlbBQ+9
+ ZUTR4B4zp04UgByniJRVlyYTEjcl8yyvl3iQjvGAtTXhYW2bteCi6Zq6aYqFWe0jAD7omp6+zUE
+ hQqCudWfpMcNlUVS2PXNMbbXDBMr53Q0PQpj30BaJ+Sou/eu6XxEa/4UG4AXmh5M/b5M+Px3dRI
+ 1F554CtKc+0sXEF2Tt89geAWh7xCbReIt9E9XjIVXN/+f8z+J0j1zDEwlSK9tx3GdpU8aZgknB7
+ S9MnjPay86qZp0bLeHhyW8a5/pziqUj7gFDGi9DxCTQ5/fndaG084lGNByuIUZQvwVcOp0kQs/q
+ WxseH82eEwEuE4XUbDhcS8bgQHvZ42EeGTu+5IC1DuqHQLKVk2Ag0mULznd5uFwzh4dXMMgs8nF
+ OAcsSQYHJHV3HgmWdjxWhIRDm3NngPwRgt8fF298IhcYkn3slRDqOsSgWk=
+X-Received: by 2002:a05:7300:fb91:b0:2ed:a58c:942 with SMTP id
+ 5a478bee46e88-30117a7ba4bmr167426eec.8.1778612441175; 
+ Tue, 12 May 2026 12:00:41 -0700 (PDT)
+Received: from gui-host.Dlink ([177.140.77.53])
+ by smtp.gmail.com with ESMTPSA id
+ 5a478bee46e88-2f88914523csm18716616eec.29.2026.05.12.12.00.36
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 12 May 2026 12:00:39 -0700 (PDT)
+From: Guilherme Ivo Bozi <guilherme.bozi@usp.br>
+To: airlied@gmail.com, alexander.deucher@amd.com, christian.koenig@amd.com,
+ harry.wentland@amd.com, simona@ffwll.ch, siqueira@igalia.com,
+ sunpeng.li@amd.com
+Cc: Guilherme Ivo Bozi <guilherme.bozi@usp.br>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Subject: [PATCH 0/9] drm/amd/display: convert GPIO translation logic to lookup
+ tables
+Date: Tue, 12 May 2026 15:59:43 -0300
+Message-ID: <20260512190019.228440-1-guilherme.bozi@usp.br>
 X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260512215156.4083082-1-cascardo@igalia.com>
-References: <20260512215156.4083082-1-cascardo@igalia.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 13 May 2026 07:56:32 +0000
@@ -66,165 +90,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Allocate a BO from VRAM domain. That will try to place BOs on VRAM, but may
-fallback to GTT. That can still be tracked with dmem.current.
+This series converts the GPIO HW translation logic used by
+multiple DCN generations from large switch statements to
+static lookup tables with shared helper functions.
 
-Signed-off-by: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
----
- lib/amdgpu/amd_dmem.c    | 94 ++++++++++++++++++++++++++++++++++++++++
- lib/igt_dmem_driver.h    |  1 +
- lib/meson.build          |  1 +
- tests/drv_dmem_cgroups.c |  6 ++-
- 4 files changed, 100 insertions(+), 2 deletions(-)
- create mode 100644 lib/amdgpu/amd_dmem.c
+The new implementation reduces duplicated translation logic
+across generations and makes the GPIO mappings easier to
+maintain and extend.
 
-diff --git a/lib/amdgpu/amd_dmem.c b/lib/amdgpu/amd_dmem.c
-new file mode 100644
-index 000000000000..1c0825af43b6
---- /dev/null
-+++ b/lib/amdgpu/amd_dmem.c
-@@ -0,0 +1,94 @@
-+// SPDX-License-Identifier: MIT
-+/*
-+ * Copyright 2026 Valve Corporation
-+ * Authors:
-+ *  Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
-+ */
-+
-+#include "igt_dmem_driver.h"
-+
-+#include <errno.h>
-+
-+#include "igt.h"
-+#include "igt_cgroup.h"
-+#include "lib/amdgpu/amd_memory.h"
-+
-+struct amdgpu_dmem_ctx {
-+	int fd;
-+	amdgpu_device_handle device;
-+	amdgpu_bo_handle *handles;
-+};
-+
-+static int amdgpu_dmem_init(void **ctx, int fd, int max_bo)
-+{
-+	struct amdgpu_dmem_ctx *actx;
-+	uint32_t major, minor;
-+	int err = -ENOMEM;
-+
-+	actx = malloc(sizeof(*actx));
-+	if (!actx)
-+		return -ENOMEM;
-+
-+	actx->handles = calloc(max_bo, sizeof(actx->handles[0]));
-+	if (!actx->handles)
-+		goto out;
-+
-+	err = amdgpu_device_initialize(fd, &major, &minor, &actx->device);
-+	if (err)
-+		goto out;
-+
-+	*ctx = actx;
-+
-+	return 0;
-+
-+out:
-+	if (actx->handles)
-+		free(actx->handles);
-+	free(actx);
-+
-+	return err;
-+}
-+
-+static void amdgpu_dmem_deinit(void *ctx)
-+{
-+	struct amdgpu_dmem_ctx *actx = ctx;
-+
-+	amdgpu_device_deinitialize(actx->device);
-+	free(actx->handles);
-+	free(actx);
-+}
-+
-+static int amdgpu_dmem_allocate_vram(void *ctx, int n_bo, size_t len)
-+{
-+	struct amdgpu_dmem_ctx *actx = ctx;
-+	amdgpu_bo_handle handle;
-+	int err;
-+
-+	err = amdgpu_bo_alloc_wrap(actx->device, len, 4096,
-+				   AMDGPU_GEM_DOMAIN_VRAM, 0, &handle);
-+	if (err)
-+		return err;
-+
-+	actx->handles[n_bo] = handle;
-+
-+	return 0;
-+}
-+
-+static void amdgpu_dmem_free_vram(void *ctx, int n_bo, size_t len)
-+{
-+	struct amdgpu_dmem_ctx *actx = ctx;
-+	int i;
-+	for (i = 0; i < n_bo; i++) {
-+		if (actx->handles[i])
-+			amdgpu_bo_free(actx->handles[i]);
-+	}
-+}
-+
-+const struct igt_dmem_driver amdgpu_dmem_driver = {
-+	.name = "amdgpu",
-+	.get_region_name = amdgpu_cgroup_region_name,
-+	.init = amdgpu_dmem_init,
-+	.deinit = amdgpu_dmem_deinit,
-+	.allocate_vram = amdgpu_dmem_allocate_vram,
-+	.free_vram = amdgpu_dmem_free_vram,
-+};
-diff --git a/lib/igt_dmem_driver.h b/lib/igt_dmem_driver.h
-index 869356fbf2c2..d43e5140d4f6 100644
---- a/lib/igt_dmem_driver.h
-+++ b/lib/igt_dmem_driver.h
-@@ -20,5 +20,6 @@ struct igt_dmem_driver {
- };
- 
- extern const struct igt_dmem_driver xe_dmem_driver;
-+extern const struct igt_dmem_driver amdgpu_dmem_driver;
- 
- #endif
-diff --git a/lib/meson.build b/lib/meson.build
-index 269f3b9f0af8..dd02d087875b 100644
---- a/lib/meson.build
-+++ b/lib/meson.build
-@@ -188,6 +188,7 @@ if libdrm_amdgpu.found()
- 		'amdgpu/amd_mmd_shared.c',
- 		'amdgpu/amd_jpeg_shared.c',
- 		'amdgpu/amd_utils.c',
-+		'amdgpu/amd_dmem.c',
- 		'amdgpu/amd_vcn_shared.c'
- 	]
- 	if libdrm_amdgpu.version().version_compare('> 2.4.99')
-diff --git a/tests/drv_dmem_cgroups.c b/tests/drv_dmem_cgroups.c
-index 6f4f779f3c2c..0e26b7e2bb9a 100644
---- a/tests/drv_dmem_cgroups.c
-+++ b/tests/drv_dmem_cgroups.c
-@@ -116,8 +116,9 @@ static int fill_vram(const struct igt_dmem_driver *drv, void *ctx, int fd, int m
- 			break;
- 	}
- 
--	igt_assert_f(err == -ENOMEM || err == -ENOSPC,
--		     "Expected -ENOMEM or -ENOSPC, got %d (%s)\n",
-+	/* amdgpu will fallback to GTT if it cannot allocate on VRAM */
-+	igt_assert_f(err == -ENOMEM || err == -ENOSPC || err == 0,
-+		     "Expected -ENOMEM,-ENOSPC or success, got %d (%s)\n",
- 		     err, strerror(-err));
- 
- 	return n_bo;
-@@ -236,6 +237,7 @@ static const struct {
- 	const struct igt_dmem_driver *driver;
- } drivers[] = {
- 	{ DRIVER_XE, &xe_dmem_driver },
-+	{ DRIVER_AMDGPU, &amdgpu_dmem_driver },
- 	{ },
- };
- 
+The series introduces generic GPIO translation helpers first,
+followed by per-generation conversions.
+
+The following generations were converted:
+
+  - dcn10
+  - dcn20
+  - dcn21
+  - dcn30
+  - dcn315
+  - dcn32
+  - dcn401
+  - dcn42
+
+The dce60, dce80, dce110 and dce120 implementations were
+left unchanged for now.
+
+dce60 and dce80 contain special switch-case handling paths
+that currently do not map cleanly to the new table-based
+representation, so they were intentionally excluded from
+this refactor.
+
+No functional changes intended.
+
+Guilherme Ivo Bozi (9):
+  drm/amd/display: add GPIO HW translation helpers
+  drm/amd/display: convert dcn10 GPIO translation to lookup tables
+  drm/amd/display: convert dcn20 GPIO translation to lookup tables
+  drm/amd/display: convert dcn21 GPIO translation to lookup tables
+  drm/amd/display: convert dcn30 GPIO translation to lookup tables
+  drm/amd/display: convert dcn315 GPIO translation to lookup tables
+  drm/amd/display: convert dcn32 GPIO translation to lookup tables
+  drm/amd/display: convert dcn401 GPIO translation to lookup tables
+  drm/amd/display: convert dcn42 GPIO translation to lookup tables
+
+ .../dc/gpio/dcn10/hw_translate_dcn10.c        | 484 +++++++-----------
+ .../dc/gpio/dcn20/hw_translate_dcn20.c        | 432 ++++++----------
+ .../dc/gpio/dcn21/hw_translate_dcn21.c        | 417 ++++++---------
+ .../dc/gpio/dcn30/hw_translate_dcn30.c        | 432 ++++++----------
+ .../dc/gpio/dcn315/hw_translate_dcn315.c      | 418 ++++++---------
+ .../dc/gpio/dcn32/hw_translate_dcn32.c        | 386 +++++---------
+ .../dc/gpio/dcn401/hw_translate_dcn401.c      | 392 +++++---------
+ .../dc/gpio/dcn42/hw_translate_dcn42.c        | 193 +++----
+ .../drm/amd/display/dc/gpio/hw_translate.c    |  86 ++++
+ .../drm/amd/display/dc/gpio/hw_translate.h    |  21 +
+ .../gpu/drm/amd/display/include/gpio_types.h  |  48 ++
+ 11 files changed, 1274 insertions(+), 2035 deletions(-)
+
 -- 
 2.47.3
 
