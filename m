@@ -4,70 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9EA8CCD4F3F
-	for <amd-gfx@archiver.kernel.org>; Wed, 13 May 2026 20:04:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2D380CD4F21
+	for <amd-gfx@archiver.kernel.org>; Wed, 13 May 2026 20:04:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2009110F053;
-	Wed, 13 May 2026 20:04:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BA23B10F04E;
+	Wed, 13 May 2026 20:04:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ntHdAc6O";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="OUl77BCb";
 	dkim-atps=neutral
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com
- [209.85.128.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1E02210F04A
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com
+ [209.85.221.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F31D510F04E
  for <amd-gfx@lists.freedesktop.org>; Wed, 13 May 2026 20:04:28 +0000 (UTC)
-Received: by mail-wm1-f43.google.com with SMTP id
- 5b1f17b1804b1-48d146705b4so86333635e9.3
+Received: by mail-wr1-f48.google.com with SMTP id
+ ffacd0b85a97d-44985f4ab0fso4247746f8f.0
  for <amd-gfx@lists.freedesktop.org>; Wed, 13 May 2026 13:04:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=gmail.com; s=20251104; t=1778702667; x=1779307467; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=UxYoehvwx6JnVvgyB4wpOmMQgYoOl/v9XfUQ8spxtu0=;
- b=ntHdAc6O7VW5FZ/TBtgIG0b5xhdtOcKOYkNDUi+oxJLF/V9HqwLUh2cbTbCr+AF6fk
- Chl1bmNjKk9FtDzU6KllWdWnfCu5WKMahYDefzhJo/hBaNRaZnqaK/tOgiFj6bh0i1SO
- PcmwyQJxoIqVINGVoD+ig65NXhCWRcaE81LNKxfMh/AnxShFOrPNmhaOEpxGlJByjReI
- CnTyq3b6t8W2ceNlAaxLyIKlqAok+++EwUbX/2U0Kk7qDlp9cQW8NAYDV/1W1M0tZXKP
- MZrOxiBWNSZF1iQRlVkfaewctN7RCoIIJn34K6V/0mPGAIAc00XfBMa18JZ51WgyVHGK
- NipQ==
+ bh=FYCmm8NK5Wtph6CtZuOtMAw45jWQX6uKEnuhmk4zeUQ=;
+ b=OUl77BCb5+wuOC1S0b4kxm5JZQkBFrkLxQdSIaIeiSrFR+pY39bFGAmKcrWZj20uSs
+ HB7pkE46SCkQA/Ns4VAIwRk5FRCKJqXHOwoNn2iIQXydq+bwp+lzsFExOLbfNUOS8Qp8
+ OEmsuigigx0a+Ep5ac29NYTjrGualkVnBXewYVf22/GGVsqc/8a9nqMgfrsB4T6Gi0j3
+ mJQ0DwPqD1Ofl/CvuQ1WFNHXYUpahgnaqhYkR6ecYIJLs5M9tPttfzcaUTSs7Y8oumew
+ jz412dR/sB/Jjqjymi9p/qr+bmYDCYdgJTTAKh5aIxXn9A2uurV57/iw9FnnjaLgSSMP
+ MWhg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20251104; t=1778702667; x=1779307467;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=UxYoehvwx6JnVvgyB4wpOmMQgYoOl/v9XfUQ8spxtu0=;
- b=iPiGC16eUVAHtmBen023qJudITrO1NWltzESymCEXHauS3UfvSsXfGNT5CX+jA0S1u
- 5Y3rothv+uIrIYnN3gYo3AIBHyLmwEOh6jmeJvvb1wnfM/1kUoT0+AgZYiYhZ0liXvw6
- IXV1PrtQIVYJEwR64wvCjCzNAkr/hZ8pphU9ibBgWhQ+TNXPUj9fvnZ8pbpl0OAMUffj
- D5VSo6Mr7b4YY7AX2z+sXMjovbVQ/7klvOjiC3AvpAFrZQNaJyB9xtlBnpmwEA/cGJU4
- CaTpGW1xMKqufilWPglXxAY/sW9OwGO4VLSbykGVTjKyLEp5bECF60rRQW3jr5IRoD01
- +TvQ==
-X-Gm-Message-State: AOJu0Yz/3unrFmsu7kBCLkNm/5b5YjWObPyj1KSpeSeuywTGrIWZpuLl
- ym7G2HeUgswy+9ZtrKaeYozl39EbNAApnVTWU3w8pjNSdsC7iL1XVVbOxWe7xg==
-X-Gm-Gg: Acq92OGMghxG5pJJ6lhJAOpPbp87SIGcN7QX8l/M09iKHwUEtp/TrWBJyTDmvjY9Tmp
- 5Pvc/hJBQT8eFN92UyLpeIELzHSrL8GXXzI2LJKvRsA40zV6q9nZaFoRZcOMvg9+f6vn66Kt7nc
- mcrufk2HxnN90B3fVh4HuyRa3zAwUDFeeUEXkvAN5vzO948IIp2wGMW9MrLLhaYc4DnvrbdxdC9
- m6cgcJ965OREkKfgkuWa6Opu6IkrZ4r03UBL2FtsWiDBgkeC3K4ncxIdqX7IO/EdC+tgHqXtq+2
- DBOUy/SMI7kCSO9Ka+6v9z0UycoH991yN1XqKuYUeiRrEkItY4veIC/KiT9CuaHC84GaHbipBTG
- zqda9zrbDtUfCv/fMXhYnMn+86RCyBBczBelnS/RoHmOZyJYYQ6BE5aq73Lm9WQ9ALIdQtKya5F
- yBATm9VTDJhuAKfq4exmagrJF+lsIC20daviKPa7zlaH7nmXRGnGZjZyLcTi0dEA6+
-X-Received: by 2002:a05:600c:4c29:b0:48f:d1b8:9ab1 with SMTP id
- 5b1f17b1804b1-48fd1b8a1ecmr31850945e9.9.1778702666514; 
- Wed, 13 May 2026 13:04:26 -0700 (PDT)
+ bh=FYCmm8NK5Wtph6CtZuOtMAw45jWQX6uKEnuhmk4zeUQ=;
+ b=qldtF+1uYd5sVQFBmJL8IHcvSRKgql1q+h1Xa7h4KzPOzHhHgncfwlkCiwSkVpbwHp
+ cCZt2guOxyGE6hgA5pPD9Pxcli5YthcaJxcXjO82QEs3TEf7fIPm/ESbh9lnXLarKyzf
+ jgaEWZKlPzBw4ynsxGWsSZeSDG4mltBTJBGJrn3n6jZ6UNBOYsbr6bdOGZ48OC2s6FKL
+ qb1ZTLDe505L7Zj9wl9aP5tkZe9421BbSMhjyp8LJWzBpn08Y/CBrFQ6FFYfR6sIaIfU
+ kD0aRw4gRDpri/z06Wd/uvF3fSbH8LtBFXLTA4NX/aw5Vf6f9JwVwYgBTiUWMhm1gSwX
+ auuQ==
+X-Gm-Message-State: AOJu0YynUHGCH8T+YQULdgMKzeJUrMZn8ZKt57AbK3mUW69Qo/KZ8N1B
+ JkkY6mG+CqJAwEvogrw1lIRpWvMYHvHH/qdFbv2ZfVd2CKSHXgjwwltuk19LSQ==
+X-Gm-Gg: Acq92OHoVwozzoCy6FKsrOKqCOQUY9xhUow9VfTgKKRz5wOxmX460FlFcxTrJHuSlDr
+ aJf9bolxRu7+3qTp/WWt/Lgnk63tjslbvYC4DM45FSkMH+BF+LhRh7Np1Y8WR/a8z9ul+pnDPG0
+ nCh/cW0/+98a8x/DSQ8D8GtdrMGH7zo4/CEkdR4uzFGRBNtC0fpujCyqvRi6xD1TAZK2BhmNBDY
+ 0TKkaGsEau1d4HWcYx/KKUiQg9zQYa/Bil2Lw7pQ4E7+VMIFHAUboHqrouIuANL8hJaRVqpDQ78
+ WVocIjz9pch57F88Ew2vB4eUIjSCqL83ztdJWpBFvk8RLXNQzgrRkKRXSwHYdTeK5TvDQLGNfwe
+ 8fR7Ugn9W+ptXTU4azI9vNmXn55UAGWxtls7b7vXb9sa8EALRf/DTfOFRAZoJJE91FMaax4GuuS
+ DO0fLbTYInG4mbT6nn9I/xyY29z8txAi43l8fC2VCxFByv74odqEgsI3POw7/Yo5+ctVaq5tf8/
+ yU=
+X-Received: by 2002:a05:6000:26cf:b0:455:cff5:9178 with SMTP id
+ ffacd0b85a97d-45c5859f0d8mr7576627f8f.9.1778702667428; 
+ Wed, 13 May 2026 13:04:27 -0700 (PDT)
 Received: from Timur-Hyperion.home (540017BE.dsl.pool.telekom.hu.
  [84.0.23.190]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-45d9e768c4fsm1257463f8f.8.2026.05.13.13.04.25
+ ffacd0b85a97d-45d9e768c4fsm1257463f8f.8.2026.05.13.13.04.26
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 13 May 2026 13:04:26 -0700 (PDT)
+ Wed, 13 May 2026 13:04:27 -0700 (PDT)
 From: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
 To: amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
  christian.koenig@amd.com, Natalie Vock <natalie.vock@gmx.de>
 Cc: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>,
  John Olender <john.olender@gmail.com>
-Subject: [PATCH 8/9] drm/amdgpu/vce2: Fix VCE 2 firmware size and offsets
-Date: Wed, 13 May 2026 22:04:15 +0200
-Message-ID: <20260513200416.35631-9-timur.kristof@gmail.com>
+Subject: [PATCH 9/9] drm/amdgpu/vce3: Fix VCE 3 firmware size and offsets
+Date: Wed, 13 May 2026 22:04:16 +0200
+Message-ID: <20260513200416.35631-10-timur.kristof@gmail.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260513200416.35631-1-timur.kristof@gmail.com>
 References: <20260513200416.35631-1-timur.kristof@gmail.com>
@@ -93,49 +94,26 @@ it was not calculated into the VCPU BO size.
 Subtract this from the FW size to make sure there is
 no out of bounds access.
 
-Additionally, increase the VCE_V2_0_DATA_SIZE to
-have extra space after the VCE handles.
-
-Also increase the data size used for each VCE handle.
-The FW needs 23744 bytes, use 24K to be safe.
-
-This fixes VM faults when using VCE 2.
+This may fix VM faults when using VCE 3.
 
 Cc: John Olender <john.olender@gmail.com>
-Closes: https://gitlab.freedesktop.org/drm/amd/-/work_items/4802
 Fixes: e98226221467 ("drm/amdgpu: recalculate VCE firmware BO size")
 Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
 Reviewed-by: Christian König <christian.koenig@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/vce_v2_0.c | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/vce_v3_0.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/vce_v2_0.c b/drivers/gpu/drm/amd/amdgpu/vce_v2_0.c
-index db149eda6204..3a6fc8604108 100644
---- a/drivers/gpu/drm/amd/amdgpu/vce_v2_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vce_v2_0.c
-@@ -37,9 +37,14 @@
- #include "oss/oss_2_0_d.h"
- #include "oss/oss_2_0_sh_mask.h"
- 
-+
-+/* Use 24K to be safe. The FW supposedly only requires 23744 bytes. */
-+#define VCE_V2_0_DATA_ENTRY_SIZE (24 * 1024)
-+
- #define VCE_V2_0_FW_SIZE	(256 * 1024)
- #define VCE_V2_0_STACK_SIZE	(64 * 1024)
--#define VCE_V2_0_DATA_SIZE	(23552 * AMDGPU_MAX_VCE_HANDLES)
-+#define VCE_V2_0_DATA_SIZE	(VCE_V2_0_DATA_ENTRY_SIZE * (AMDGPU_MAX_VCE_HANDLES + 1))
-+
- #define VCE_STATUS_VCPU_REPORT_FW_LOADED_MASK	0x02
- 
- static void vce_v2_0_set_ring_funcs(struct amdgpu_device *adev);
-@@ -183,7 +188,7 @@ static void vce_v2_0_mc_resume(struct amdgpu_device *adev)
- 	WREG32(mmVCE_LMI_VCPU_CACHE_40BIT_BAR, (adev->vce.gpu_addr >> 8));
- 
+diff --git a/drivers/gpu/drm/amd/amdgpu/vce_v3_0.c b/drivers/gpu/drm/amd/amdgpu/vce_v3_0.c
+index 03d79e464f04..c69f7d82060f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vce_v3_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/vce_v3_0.c
+@@ -574,7 +574,7 @@ static void vce_v3_0_mc_resume(struct amdgpu_device *adev, int idx)
+ 	} else
+ 		WREG32(mmVCE_LMI_VCPU_CACHE_40BIT_BAR, (adev->vce.gpu_addr >> 8));
  	offset = AMDGPU_VCE_FIRMWARE_OFFSET;
--	size = VCE_V2_0_FW_SIZE;
-+	size = VCE_V2_0_FW_SIZE - AMDGPU_VCE_FIRMWARE_OFFSET;
+-	size = VCE_V3_0_FW_SIZE;
++	size = VCE_V3_0_FW_SIZE - AMDGPU_VCE_FIRMWARE_OFFSET;
  	WREG32(mmVCE_VCPU_CACHE_OFFSET0, offset & 0x7fffffff);
  	WREG32(mmVCE_VCPU_CACHE_SIZE0, size);
  
