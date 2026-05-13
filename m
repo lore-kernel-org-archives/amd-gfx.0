@@ -4,65 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C2CE2CD4F24
-	for <amd-gfx@archiver.kernel.org>; Wed, 13 May 2026 14:33:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1A9F0CD4F21
+	for <amd-gfx@archiver.kernel.org>; Wed, 13 May 2026 14:33:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 553FF10EEDD;
-	Wed, 13 May 2026 14:33:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AD8A110EEE0;
+	Wed, 13 May 2026 14:33:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="5qbwBYfI";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="3hgPpDws";
 	dkim-atps=neutral
-Received: from SA9PR02CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11013050.outbound.protection.outlook.com
- [40.93.196.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C00CE10EEDC
- for <amd-gfx@lists.freedesktop.org>; Wed, 13 May 2026 14:33:53 +0000 (UTC)
+Received: from BL2PR02CU003.outbound.protection.outlook.com
+ (mail-eastusazon11011006.outbound.protection.outlook.com [52.101.52.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D746A10EEE2
+ for <amd-gfx@lists.freedesktop.org>; Wed, 13 May 2026 14:33:52 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=IQQHF+MdG15HVlT9W0Z4VYVNILDBdNRSllXD/UsOA955qmZr751DXYqpUByWe9gGt6lWrinilr48CeXQ4DLfFXl2CvTBoR7iZI0wwd0Gg6sSVzZZ0zg1g6qQ6DHmZXg7GeDUYVQ6og8yofYfs7a2nynf+jzbhQYOTc+WNBcteMtxCq3QxtGIyTFa5f2543dz3qCuPFrXckTDCBFDKNqSnzoc6QWXY9/FsOKXDc5FNIQt3Q+oH5I2SKp4LENPVOxPIYHNZbpul4j42uY0/hoZsUOobfCEjzXQiJ8COzWvKVJRhAMnSmEZNOv/XX6B09F4la3mcu6fBhOYIFxDfkGSaw==
+ b=irf705dU9kqR3eHw7h3ilSyfMujxmxsPeOXOsVnb3D7RrQJEtE2QqmALoErX26v3k5bwo5Oqp6EnrvDaEX7+Au6LfnaBVCXzoifQLpOVS3yYmTw4HFLHzmHdLdE0W3SnvCwqNTOiwEOQA6MOYA1wpbMZoXnTnVVRqMA+1/UzEEwgJ0k5SHhAxt1L2x9QwwuOsBYZnIGc65Pd9afRj/lqP0nUYj0zrUZm9vMiL4vmmGodsv5EP79TGUmi9W1+/Ijj/q4oWmCk1N3KELLyzVCJwIJ9pxA1jBzNgYRpb+4JsSbDeOrLn5BCMjxL5T45pSFjYk3biSDQnhzBpfYc17k3Dw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=7fIvO1mKUy1OvmPFk55ThgpfhdusTtfZsVRmyyYHIWA=;
- b=gCmqTgZslCX724Al9FxNNtz3GZphvASw4AIlg93sP6vVElyLvzGFyp3arA6WOP/I3w1GXDC7h8983Jp2P3IVrvHUDYzfv+LLBWjz0+QzKOmwMhftSQv3QKA8iqsz/TUpE5HqDLoCthVU+gJhKz/t6l0+QwC79HT0h7VA4I0iEyR9rQdihi0RpjuQ9Iw8ls7WC2MVg66jo6nvt3r+GokNncWTqnvQYrgtOBl1nThGt1BSW/o0SwYQcJGADsCcGbfnFIbJWba5/Oj0gFtTi+KFS2PGw4kwfZfgzv0HGu5vUA4jkq6zdY0PhqZ99Q5+O3T7nkYdqtSp7ThGWW8WbFP0Jw==
+ bh=YZpeztTNz337zGNGYPFA0KhAkJpN5YKWniAH4ZRTR/s=;
+ b=YLYg7NnOqmifmCJ7v0GlEUFMViPeELOMsgdSdDE+myYBkjgBThAA/tS5kvd3IsfqXvdbFENObfAaL2ZbEqTAOXjTa65E0+B+R208WBZdTqx/023okzLA6PwJR+6KXmFd+B5G/w7dPW67BO+x/qkKd4x6H2fUK55g9iZ/jyYtvIa/XdcnIdXuHAtiRa1NrEWIsdI1Pv+XG7s4VpJTaCSxmxxR/7pd57PRegSnC2V8A4fJIsKhEkJH7oub1c1P1BVf4VIqeLNJcUiQwZKtKhdM4xJXho81AMpi4Rb4E3RWhUOVoyXefACYO7zaJl8T9WpvbzoRst3yYzX8fLC09QEmNw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=7fIvO1mKUy1OvmPFk55ThgpfhdusTtfZsVRmyyYHIWA=;
- b=5qbwBYfIRO+5GkM431wcdEsRyrUTztDVvr3XmdGlXUP3biRrDcY3u+CKlEHr4wRrrGYT31jZCBHEduUp6FwNextD+3cVKdFrRMy7UspUoLeyK0pifUlEmCpJ7AnpLuEFj0Qi6oAo41ufH0kzhJ6R5/fqeygSucqkTp6nU+DH9AI=
-Received: from MW4PR02CA0011.namprd02.prod.outlook.com (2603:10b6:303:16d::28)
- by BL3PR12MB6428.namprd12.prod.outlook.com (2603:10b6:208:3b7::19)
+ bh=YZpeztTNz337zGNGYPFA0KhAkJpN5YKWniAH4ZRTR/s=;
+ b=3hgPpDws0hiHL3F8Rpz5tdx0V18wYnZgKTHYJ87bZ/enr4rkijf3koaCpmhp6qpkAfiMSlq8ZnADkQw4lKS0V6on02A/kGeeHkG0CuRfHQ4Md20A2KZchK2V8Th5vqzU1+/DasvyGMnDIETT/Efuq7kbKGiBFF8ExkmhQ+EA+zw=
+Received: from CH0PR13CA0036.namprd13.prod.outlook.com (2603:10b6:610:b2::11)
+ by SJ2PR12MB7800.namprd12.prod.outlook.com (2603:10b6:a03:4c1::18)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9913.11; Wed, 13 May
- 2026 14:33:40 +0000
-Received: from MWH0EPF000C6193.namprd02.prod.outlook.com
- (2603:10b6:303:16d:cafe::ee) by MW4PR02CA0011.outlook.office365.com
- (2603:10b6:303:16d::28) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.25.18 via Frontend Transport; Wed, 13
- May 2026 14:33:39 +0000
+ 2026 14:33:48 +0000
+Received: from CH1PEPF0000A349.namprd04.prod.outlook.com
+ (2603:10b6:610:b2:cafe::3d) by CH0PR13CA0036.outlook.office365.com
+ (2603:10b6:610:b2::11) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.25.17 via Frontend Transport; Wed, 13
+ May 2026 14:33:47 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- MWH0EPF000C6193.mail.protection.outlook.com (10.167.249.107) with Microsoft
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ CH1PEPF0000A349.mail.protection.outlook.com (10.167.244.9) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.25.13 via Frontend Transport; Wed, 13 May 2026 14:33:39 +0000
-Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ 15.21.25.13 via Frontend Transport; Wed, 13 May 2026 14:33:47 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Wed, 13 May
- 2026 09:33:30 -0500
+ 2026 09:33:40 -0500
 Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb09.amd.com
  (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Wed, 13 May
- 2026 07:33:30 -0700
+ 2026 07:33:40 -0700
 Received: from box-0.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
- Transport; Wed, 13 May 2026 09:33:24 -0500
+ Transport; Wed, 13 May 2026 09:33:39 -0500
 From: <IVAN.LIPSKI@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -71,10 +70,11 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
  <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
- <Chen-Yu.Chen@amd.com>, Ray Wu <ray.wu@amd.com>
-Subject: [PATCH 16/28] drm/amd/display: Fix ISM dc_lock deadlock during suspend
-Date: Wed, 13 May 2026 10:29:38 -0400
-Message-ID: <20260513143213.1852892-18-IVAN.LIPSKI@amd.com>
+ <Chen-Yu.Chen@amd.com>, <stable@vger.kernel.org>
+Subject: [PATCH 23/28] drm/amd/display: Validate GPIO pin LUT table size
+ before iterating
+Date: Wed, 13 May 2026 10:29:45 -0400
+Message-ID: <20260513143213.1852892-25-IVAN.LIPSKI@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260513143213.1852892-2-IVAN.LIPSKI@amd.com>
 References: <20260513143213.1852892-2-IVAN.LIPSKI@amd.com>
@@ -83,29 +83,29 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MWH0EPF000C6193:EE_|BL3PR12MB6428:EE_
-X-MS-Office365-Filtering-Correlation-Id: 50caa97a-c937-4992-d151-08deb0fca033
+X-MS-TrafficTypeDiagnostic: CH1PEPF0000A349:EE_|SJ2PR12MB7800:EE_
+X-MS-Office365-Filtering-Correlation-Id: 31a4311e-6c23-495b-9e0b-08deb0fca48a
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|376014|1800799024|36860700016|11063799003|18002099003|56012099003|22082099003;
-X-Microsoft-Antispam-Message-Info: jmwdYWFLmg6edGTsbZXJAz+XxPzm0nUJ2VVFH34aFWWu1P6kVcF0Ud3VfBk3VGGEEpZpdoKZ1//Q2XdmuwgkcrdTo9/OLDlczy14BDdYhGClmQrVfq2PPma94o0lmAxBuJkmuBFE2NfDfgoUWz9r3TE8JYaUt+Bc/d+j49E2+Nn8rU8pK7gPGe1HS3ocE0wBZ6g2SOhry00lTqurCO0VU616FfobCVRMrvBC/khPx1gjW0muXq9FUbutbSCwi+Ep+reEv7vLdjptn9kIzjaE9ibjvrcFxkDYb4GXbNiej4yCOWOdGi8yUhknpEYlhsv0zYgLGmsnRN9Yo6Kp/yEoO2uGnZnJsNoklNO/5okbXEyvlBv4J0QuIU5WTIRDYbps+50bqCWhP1pNp0DuKNBCp3xrTAP7AU+Ce7jeCZ3KcwLYMEtp0IGba2rms6aQS7qHj8KdlTJ3K1nb2PhzfviQVqUTQ+YjPwBX3EMQUkfjjwsZANaUjvkdW4tIDgynSxJ6JKEJ/rP4B1IZdDcaROwAAFK46bR8oDeFHdebpxY5WeWyUktcpQeJLtzx+5skXakvDuVgNW+9V/1yYvKrXpLrs9pcHxHUKZ3K+X1r6YCgCAfTBXpfEK96gjlYE7/dcCOiCOtRF1cn/ibJ/PkWBRX/QERDrAz05HOyQK3QnNatEvbTAmZj5MxqjEPKdnBscDFsK7cX7m7X8ZAEv4TEwRMbgFHqo49BYA/cGYNP0hYhRZQ=
+ ARA:13230040|1800799024|376014|82310400026|36860700016|22082099003|18002099003|56012099003|11063799003;
+X-Microsoft-Antispam-Message-Info: Urp/HliD5o7wGRkjlydZJ9ssmUzZyE8N0eZIqYhKIvJ0hghLfnAMQ/CdKrLzOWaSBLYGMreCBrkikf4InpC3v51fnIjQLhXemMuOjqSvW6hAfguPArUWj/vR986/GNXXBA5Zhk0Yqt008TLmJgGzkZlU+q0y5BXLD3H6I7A01rkhPuMPJBYwnv4MMo3PNvwwQJylbqOk7+oUzjNa9BqJGwnhk2iXHKCX7MEHJfAvaySddPX3JaJP5jThfkEUnN0MPKarE5It2vRQzOUnyXYaiUiFHgJUNY0bmcvrQbjc2Mm7GHNlt9tmKcG9gjHuap1h1eJEUPYbknex+FU2T0w7d3wLf/gAgkJmZNC4n9ySXeTsi6AUZ3hz8UMHrW4dFilo/bCzlcFLwF4EDhdHPCmahyGi+kzGJuqfNTeOw1cK+4ibMwOH8gcFNiIecJAAuk9BtVXuIIfHO/pn1Pq2qNf973C5hDms7CM9s1WB3SM5uZEanOxLJOrjVgSaMTjKxEBy5WvENArYefPMQQ2XRy90MyNpjJphSw+sPa/FELYu8f1BmZ8GV1v3NpsSARi5XSHKCi5vJUjtr0GaUCQgC+xhWV0NhauiJk2Icw2EQ+AXPADT5Xfe6BYfuCnWp9IGNqZY22uqH8caz8viSjNYXDNJZsv7khBeCAHPwIQG/G9ofCEyz0WWLnGiiPjCwHT1kHuBj+laekf/WMhGDLlJnk1PvUhQyosC+uRtcdsLDEnW5Mw=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(376014)(1800799024)(36860700016)(11063799003)(18002099003)(56012099003)(22082099003);
+ IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(82310400026)(36860700016)(22082099003)(18002099003)(56012099003)(11063799003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: yWbY0MA18jWRnzPI1rzbxxv6vQnnEGGqdI11FunOr9wVShEKAYfGHay1lbewbVIjA9Nr5QB88iaPG8pAO8G85qvdaxwbc7r7QKkGMk4oQ9n9nkmEkOdqMcxDixcLwMIaNKHqYxm+t8zs+teUxnZ69Hl32EUhEwlFAc3HrVhEKu7++DecAY6Z0qvgu3FxBFU7w104i7JGcjqBd99p+gp/LIm31cEO5JwBEFRGoUKauwS5UgB/YBRho0+yDs4QyItnO/3dZTBGRaZg4mZG3bdIXVWwI4X6/X/XOugSj9fnIAdzic0Xr4BWsrruJuGJDI4EtyyMeI4dHTxsUBH/7FG3F6v/dwJJI8Bv11wPEeti3jc6T3jyITx/Z9Bl5GsH+NE9k2mJ8AJkBDY/Kg7RrvdR+3/PjxLy2DOpIFacmKRXQRGu3slwJj2YgYfaz+Vvh60L
+X-MS-Exchange-AntiSpam-MessageData-0: LGbDflMASZfA/QAbx5DUgARDELZJz+KNi+oGMlaqpd28HCjMBrAZp0wgESzmBDT2ccbAAJ3a+t0XnwDvWAvqxH0DkW++/PrBzaTgFqicX2A7WexY1EF+rEdjSoSVS529AOsPxfPLjJDfTfJLEel1qOyTj6haVRyHJ2kc1cqNfPqmHu24PcyWYONHt2b0O3NhyZCPkBPcnuo3y6dCD9eDtWwAdrPuWEtHaTF+vOPkyOtyPWQlfJi5wDIU1bXZ+5nYnIQPVYda77ESXtEfNPv7l3fC9jiqhU7pxkE3fZPoJuE18RE2qjUXB0Ac4kocTtuDAONUWZH4WpeIYN1qa9moZ6dQG6k6Zg8YWzrnghqwWr5c2GcyHYMkxEUk8yo06vEJG4yVJYw+EqUZdW5bQDnQeZAI2UeR13j5XZ+3xEr2QtK0QElNx8nOUQd5O8Gub0sg
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 May 2026 14:33:39.8093 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 50caa97a-c937-4992-d151-08deb0fca033
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 May 2026 14:33:47.1726 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 31a4311e-6c23-495b-9e0b-08deb0fca48a
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: MWH0EPF000C6193.namprd02.prod.outlook.com
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CH1PEPF0000A349.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL3PR12MB6428
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB7800
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -120,186 +120,59 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Ray Wu <ray.wu@amd.com>
+From: Harry Wentland <harry.wentland@amd.com>
 
-[Why]
-System hang observed during suspend/resume while video is playing.
-amdgpu_dm_ism_disable() is called under dc_lock and waits for ISM
-delayed work via disable_delayed_work_sync(). The work handlers
-themselves take dc_lock, producing an ABBA deadlock when a worker is
-in flight at suspend time.
+[Why&How]
+The GPIO pin table parsers in get_gpio_i2c_info() and
+bios_parser_get_gpio_pin_info() derive an element count from the VBIOS
+table_header.structuresize field, then iterate over gpio_pin[] entries.
+However, GET_IMAGE() only validates that the table header itself fits
+within the BIOS image. If the VBIOS reports a structuresize larger than
+the actual mapped data, the loop reads past the end of the BIOS image,
+causing an out-of-bounds read.
 
-[How]
-Split the disable path into two phases with opposite locking
-contracts:
-  1. amdgpu_dm_ism_disable() -- quiesces workers, must NOT hold
-     dc_lock.
-  2. amdgpu_dm_ism_force_full_power() (new) -- drives the ISM FSM
-     back to FULL_POWER_RUNNING, must hold dc_lock.
+Fix this by calling bios_get_image() to validate that the full claimed
+structuresize is accessible within the BIOS image before entering the
+loop in both functions.
 
-Reviewed-by: Sun peng (Leo) Li <sunpeng.li@amd.com>
-Signed-off-by: Ray Wu <ray.wu@amd.com>
+Cc: stable@vger.kernel.org
+
+Assisted-by: GitHub Copilot:claude-opus-4-6 Mythos
+
+Reviewed-by: Alex Hung <alex.hung@amd.com>
+Signed-off-by: Harry Wentland <harry.wentland@amd.com>
 Signed-off-by: Ivan Lipski <ivan.lipski@amd.com>
 ---
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 25 +++++++--
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_ism.c | 56 ++++++++++++++++---
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_ism.h |  1 +
- 3 files changed, 70 insertions(+), 12 deletions(-)
+ drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index c41f017fe8f2..af0af7519517 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -2327,9 +2327,16 @@ static void amdgpu_dm_fini(struct amdgpu_device *adev)
- 		adev->dm.idle_workqueue = NULL;
- 	}
+diff --git a/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c b/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c
+index b4dd8219b8f0..39668db6d472 100644
+--- a/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c
++++ b/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c
+@@ -493,6 +493,10 @@ static enum bp_result get_gpio_i2c_info(
+ 			- sizeof(struct atom_common_table_header))
+ 				/ sizeof(struct atom_gpio_pin_assignment);
  
--	/* Disable ISM before dc_destroy() invalidates dm->dc */
-+	/*
-+	 * Disable ISM before dc_destroy() invalidates dm->dc.
-+	 *
-+	 * Quiesce workers first without dc_lock (they take dc_lock
-+	 * themselves, so syncing under it would deadlock), then drive the
-+	 * FSM back to FULL_POWER_RUNNING under dc_lock.
-+	 */
-+	amdgpu_dm_ism_disable(&adev->dm);
- 	scoped_guard(mutex, &adev->dm.dc_lock)
--		amdgpu_dm_ism_disable(&adev->dm);
-+		amdgpu_dm_ism_force_full_power(&adev->dm);
- 
- 	amdgpu_dm_destroy_drm_device(&adev->dm);
- 
-@@ -3362,9 +3369,14 @@ static int dm_suspend(struct amdgpu_ip_block *ip_block)
- 	if (amdgpu_in_reset(adev)) {
- 		enum dc_status res;
- 
-+		/* Quiesce ISM workers before taking dc_lock (workers take
-+		 * dc_lock themselves; syncing under it would deadlock).
-+		 */
-+		amdgpu_dm_ism_disable(dm);
++	if (!bios_get_image(&bp->base, DATA_TABLES(gpio_pin_lut),
++			    le16_to_cpu(header->table_header.structuresize)))
++		return BP_RESULT_BADBIOSTABLE;
 +
- 		mutex_lock(&dm->dc_lock);
+ 	pin = (struct atom_gpio_pin_assignment *) header->gpio_pin;
  
--		amdgpu_dm_ism_disable(dm);
-+		amdgpu_dm_ism_force_full_power(dm);
- 		dc_allow_idle_optimizations(adev->dm.dc, false);
- 
- 		dm->cached_dc_state = dc_state_create_copy(dm->dc->current_state);
-@@ -3398,8 +3410,13 @@ static int dm_suspend(struct amdgpu_ip_block *ip_block)
- 
- 	amdgpu_dm_irq_suspend(adev);
- 
-+	/*
-+	 * Quiesce ISM workers before taking dc_lock (workers take dc_lock
-+	 * themselves; syncing under it would deadlock).
-+	 */
-+	amdgpu_dm_ism_disable(dm);
- 	scoped_guard(mutex, &dm->dc_lock)
--		amdgpu_dm_ism_disable(dm);
-+		amdgpu_dm_ism_force_full_power(dm);
- 
- 	hpd_rx_irq_work_suspend(dm);
- 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_ism.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_ism.c
-index bc7db5e759d1..857c22007743 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_ism.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_ism.c
-@@ -524,13 +524,20 @@ static void dm_ism_sso_delayed_work_func(struct work_struct *work)
- }
- 
- /**
-- * amdgpu_dm_ism_disable - Disable the ISM
-+ * amdgpu_dm_ism_disable - Quiesce ISM workers
-  *
-  * @dm: The amdgpu display manager
-  *
-- * Disable the idle state manager by disabling any ISM work, canceling pending
-- * work, and waiting for in-progress work to finish. After disabling, the system
-- * is left in DM_ISM_STATE_FULL_POWER_RUNNING state.
-+ * Cancels and disables any pending or in-flight ISM delayed work and waits
-+ * for in-progress work to finish. After this returns, no ISM worker can run
-+ * and subsequent mod_delayed_work() calls become no-ops via
-+ * clear_pending_if_disabled().
-+ *
-+ * Must NOT be called with dc_lock held: the workers themselves take dc_lock,
-+ * so a synchronous wait under dc_lock would deadlock.
-+ *
-+ * The caller is responsible for driving the FSM back to FULL_POWER_RUNNING
-+ * (under dc_lock) by calling amdgpu_dm_ism_force_full_power().
-  */
- void amdgpu_dm_ism_disable(struct amdgpu_display_manager *dm)
- {
-@@ -538,21 +545,54 @@ void amdgpu_dm_ism_disable(struct amdgpu_display_manager *dm)
- 	struct amdgpu_crtc *acrtc;
- 	struct amdgpu_dm_ism *ism;
- 
--	ASSERT(mutex_is_locked(&dm->dc_lock));
-+	/*
-+	 * Caller must NOT hold dc_lock: the ISM delayed work handlers
-+	 * acquire dc_lock themselves, so waiting for them via
-+	 * disable_delayed_work_sync() while holding dc_lock would
-+	 * self-deadlock against an in-flight worker.
-+	 */
-+	lockdep_assert_not_held(&dm->dc_lock);
- 
- 	drm_for_each_crtc(crtc, dm->ddev) {
- 		acrtc = to_amdgpu_crtc(crtc);
- 		ism = &acrtc->ism;
- 
--		/* Cancel and disable any pending work */
- 		disable_delayed_work_sync(&ism->delayed_work);
- 		disable_delayed_work_sync(&ism->sso_delayed_work);
-+	}
-+}
+ 	for (table_index = 0; table_index < count; table_index++) {
+@@ -681,6 +685,11 @@ static enum bp_result bios_parser_get_gpio_pin_info(
+ 	count = (le16_to_cpu(header->table_header.structuresize)
+ 			- sizeof(struct atom_common_table_header))
+ 				/ sizeof(struct atom_gpio_pin_assignment);
 +
-+/**
-+ * amdgpu_dm_ism_force_full_power - Force every CRTC's ISM FSM to FULL_POWER
-+ *
-+ * @dm: The amdgpu display manager
-+ *
-+ * Sends DM_ISM_EVENT_EXIT_IDLE_REQUESTED to every CRTC's ISM, leaving each
-+ * FSM in FULL_POWER_RUNNING. Intended to be paired with
-+ * amdgpu_dm_ism_disable(): callers should first quiesce workers (without
-+ * dc_lock), then take dc_lock and call this helper.
-+ *
-+ * Must be called with dc_lock held.
-+ */
-+void amdgpu_dm_ism_force_full_power(struct amdgpu_display_manager *dm)
-+{
-+	struct drm_crtc *crtc;
-+	struct amdgpu_crtc *acrtc;
++	if (!bios_get_image(&bp->base, DATA_TABLES(gpio_pin_lut),
++			    le16_to_cpu(header->table_header.structuresize)))
++		return BP_RESULT_BADBIOSTABLE;
 +
-+	/*
-+	 * Caller must hold dc_lock: commit_event() drives the FSM and
-+	 * may touch dc state via dc_allow_idle_optimizations() etc.
-+	 */
-+	lockdep_assert_held(&dm->dc_lock);
-+
-+	drm_for_each_crtc(crtc, dm->ddev) {
-+		acrtc = to_amdgpu_crtc(crtc);
- 
- 		/*
- 		 * When disabled, leave in FULL_POWER_RUNNING state.
--		 * EXIT_IDLE will not queue any work
-+		 * EXIT_IDLE will not queue any work.
- 		 */
--		amdgpu_dm_ism_commit_event(ism,
-+		amdgpu_dm_ism_commit_event(&acrtc->ism,
- 					   DM_ISM_EVENT_EXIT_IDLE_REQUESTED);
- 	}
- }
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_ism.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_ism.h
-index 4df6a82972a8..72e2dac49e55 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_ism.h
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_ism.h
-@@ -146,6 +146,7 @@ void amdgpu_dm_ism_fini(struct amdgpu_dm_ism *ism);
- void amdgpu_dm_ism_commit_event(struct amdgpu_dm_ism *ism,
- 				enum amdgpu_dm_ism_event event);
- void amdgpu_dm_ism_disable(struct amdgpu_display_manager *dm);
-+void amdgpu_dm_ism_force_full_power(struct amdgpu_display_manager *dm);
- void amdgpu_dm_ism_enable(struct amdgpu_display_manager *dm);
- 
- #if IS_ENABLED(CONFIG_DRM_AMD_DC_KUNIT_TEST)
+ 	for (i = 0; i < count; ++i) {
+ 		if (header->gpio_pin[i].gpio_id != gpio_id)
+ 			continue;
 -- 
 2.43.0
 
