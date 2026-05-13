@@ -4,61 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AF413CD4F21
-	for <amd-gfx@archiver.kernel.org>; Wed, 13 May 2026 17:08:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3FDA3CD37AC
+	for <amd-gfx@archiver.kernel.org>; Wed, 13 May 2026 17:08:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 267EC10EF93;
-	Wed, 13 May 2026 17:08:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CF63610EF94;
+	Wed, 13 May 2026 17:08:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="hhzPaDdU";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="E3RlEk6E";
 	dkim-atps=neutral
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com
- [209.85.128.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AD82B10EF93
- for <amd-gfx@lists.freedesktop.org>; Wed, 13 May 2026 17:08:53 +0000 (UTC)
-Received: by mail-wm1-f53.google.com with SMTP id
- 5b1f17b1804b1-48a563e4ef7so64551745e9.0
- for <amd-gfx@lists.freedesktop.org>; Wed, 13 May 2026 10:08:53 -0700 (PDT)
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com
+ [209.85.128.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CBF0210EF94
+ for <amd-gfx@lists.freedesktop.org>; Wed, 13 May 2026 17:08:54 +0000 (UTC)
+Received: by mail-wm1-f49.google.com with SMTP id
+ 5b1f17b1804b1-48374014a77so62653325e9.3
+ for <amd-gfx@lists.freedesktop.org>; Wed, 13 May 2026 10:08:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1778692132; x=1779296932; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=5SEExv/DNWtRSM2cIE4kXWDYnmeTCWFOY79QVR+AhLw=;
- b=hhzPaDdUeZ1c4/RMxaOkw0wg+l+6MtqUKaOb1gsJ5AaHH0CplcPjgyof/VzKiIB6yv
- ov2OrTLvFIUXoeP+JjFur9sy6zj7vV5ZJelgSap1rkAG1RQeRHm261Wqp7Dwcy0CsLQD
- ySez9S41yrlY9rd0d/XVQsE/AA5GSPvpFc9NJN/BvqITqlwZ9NewNzLrs+q2O4SMt+og
- k62nCzd2UySPwCMoTZOQLRahhz+3TA0n0DFeXlioijbGAa/exU/Y+yney67SWMei/dfd
- he+jNMugFJsxNqXNHGmy4SoDsfF9T3iV9mSFMMKAppQ8NsScs+O0Hw1tHnqIh+q6I86K
- iTqA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1778692132; x=1779296932;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=gmail.com; s=20251104; t=1778692133; x=1779296933; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=5SEExv/DNWtRSM2cIE4kXWDYnmeTCWFOY79QVR+AhLw=;
- b=hdI/UG3GUbzxbUeIQ2FJ42UEOmVTGKLF4RTYnrHs2DjyT4QK9ID8O4LOrrL8jp/tJi
- XKU/1p4Ajw+fkg0gAZH3ASWjVavzL6w3+J/18BP6RdUJ9SOF/Z75GNiJ96WCXTvKjkOR
- d0Hb/5zifB2Sy3hmqaX11vjh7sm8eBpKOBy2REVoCCwNty9KWVcARzmTnN66yZ8CJ6lR
- fEmX5OUagErmxjXttYeyaAHa5dBixcr5yIQD8RSavYiOHW67PWLlcDtoAGabt7+nl6aW
- qQTIC/zT+HFrmySTvhCFqEkRAXgJWENKrYaSRYTe0zJ5vFLzGyi4q/Q1hQK/CkjRdLQM
- ansA==
-X-Gm-Message-State: AOJu0YxDvJOkuE8gIhvigLsYgtmuFPC6eG7MBZtk4qTC0Ixh4DAATZYQ
- fcQNQo0eIIytGPEmr5/UtCACmlKvyuaRGTj8K7Ueqn03vxi7Oe7sUSZh1/00woS8
-X-Gm-Gg: Acq92OGX7JMr6w3yQaT74eT93oRbT9GvkKw4/slDc1jnrUzcNqzP4gyZkkcSgFV0kmn
- U4DO2W3RgtZmH09XTve+v7bsUguuf+XmRoZC3TwQvL9ro52x4pxpzDUdjYu7/ZeQvTZk5ZtrI5H
- BC15Ku4j+IaOp0NvIbOMckUgMKwfVR7FtvMB8wO68NmmtZR3A4nPfjrbPgFUmFFHGHWj9sU/Lxn
- vscAGZg60LCE54VL9IZcbflDATYfPYeR4XmX7Hr3TXSGvEd7PfbGApTKe4O3H9RGujGaXOVWze0
- DtOK/QDQTPzHLrZrx0PdYEmnCdXoc64JH4TX99zW98ibBCzOhRy4PjRAB1o1ziI83egZGPCiK3f
- Nny19PwQbRAypfIx0IVb/TI/7PpAzE4tna6RUuCwuITMhengOQRbGgi3Kgu2GEtHK51fEnbDol2
- WG53RPS952D4O0Btxb2uELk0xe+dXvYqN+9tMCTdOi/gvj6LE1cbm7cLTAlQ==
-X-Received: by 2002:a05:600c:4fcb:b0:485:9a50:3370 with SMTP id
- 5b1f17b1804b1-48fc9a0ebc2mr64857655e9.8.1778692132130; 
- Wed, 13 May 2026 10:08:52 -0700 (PDT)
+ bh=pyuc+YUpWmNiaP1dIFaI3qSdNN+wsu+Uo6KUndOWvCc=;
+ b=E3RlEk6EI+WOUtGhwhfPODWiD/iVA0FoYjt4gdoIMkUhJ/z4VKltktRN4tv0Qtps4s
+ 3edZGBJ953JgKCDkouSAOjfDss3Hn2qxW9qzlLQ61vj7F0UPIKGO7brM/Z6y1+GxOBuI
+ kxqmnLa0brjag6ObrAGv9/jrOx6rM6Z5T29PloQuVHygToZNC4+ZO19wJXnh46qpQF67
+ +Uz3t6/5IMblVdguZu3RAsVBuZNMR2TPfXOS1YydthJChkQuBDiRF1c/ZwGkRfgRaTSz
+ sjXY8LBRlrjiYMCh+iyogRYEe+jMGe4CEivneWJqWui2+YrEIs9zhqPxf3EHuA0fLL2O
+ LptQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1778692133; x=1779296933;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=pyuc+YUpWmNiaP1dIFaI3qSdNN+wsu+Uo6KUndOWvCc=;
+ b=hyS4ozSpwoANEhm3Fsny0+OR5YVBeHjKRNMscn7i/Mo8Th0b972GQZADapJH+kQKgV
+ 9nQcBbsPPqQwF7wogJ+k7f0uN+UO3+79XPxQidepbQ8E0s3+YktRd/KkTio5OVaQd9u1
+ sg3HCuOof5lhGfoAHrVExtRxRmWwit2eyweoA7LW9DxFFgCo9P6C1WoB705qbEvangpD
+ UpcyBL20UFVqBc11TdsKZIiXktzt1D5HcQduHtiL714jAGJG73ZAQweXeIfYDWF/Gh5/
+ mUOFZYQJpMfr6IJutNQ/q6wBtCBNJsj9qLJ+XUDryGpEYKPVQHUU6aM/zQzklftyeXrG
+ 2TTA==
+X-Gm-Message-State: AOJu0Yz/LCgZQU+wD25zyiEnwXtRBH2e5hK9Iz+cmS15mmwQ1OX36ih+
+ Po026x7QglmerHBB28DIrexziFAK7VO+j/smMHTg2d3WCpFFz8TArufBoLyBfeLN
+X-Gm-Gg: Acq92OGUx0+UctN4vj4CWCjqQW+6LVq68YURtziJ0uh1EPHjMgdXx/sIzYhSuTF4IUD
+ FeFA8ucPu0tWMJta0bPBtYcnSnhWhTdrNgVtPb2Kx5BjZ8o7VVLErAKSnbIH7uLkbE7ADryjpsQ
+ jd9Tx+FzmnBRBa8FqQUWGGfEG4Sw1UNUkzoHIUciNUEO57Y1MRO/nfU+mBayJRoqi55iv4VoRIr
+ xPPyTOL2YB8v4bFNrX+2R+/v4r2ZugIhpePPS3sx2R4k41Y/cMiwAL037QHXUwOIb00oI/z7OkO
+ VcKXyH4N0gH10dg2yWXUP+IhuQMPjhvLlvX1XL56ONWFaH/shcP1FaFVRO9E8Ys9OQ1inJfd6d2
+ Grg4IqNkd6CkU/zHyShPvDRwSiJ2iDPnzWutgQsQD9pHcAAqkSqYU18taNRxphyJMe0lzQDdyK5
+ ej4munW7bnW7P96sTJX8OYZPEySoJtWogwxb4DHguuRvkzoPlwnx8dCGuCdg==
+X-Received: by 2002:a05:600c:4f53:b0:48e:8974:c377 with SMTP id
+ 5b1f17b1804b1-48fc9a53d16mr61120505e9.29.1778692133022; 
+ Wed, 13 May 2026 10:08:53 -0700 (PDT)
 Received: from Timur-Hyperion (540017BE.dsl.pool.telekom.hu. [84.0.23.190])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-48fd64a017esm4339175e9.9.2026.05.13.10.08.51
+ 5b1f17b1804b1-48fd64a017esm4339175e9.9.2026.05.13.10.08.52
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 13 May 2026 10:08:51 -0700 (PDT)
+ Wed, 13 May 2026 10:08:52 -0700 (PDT)
 From: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
 To: amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
  christian.koenig@amd.com,
@@ -66,10 +67,12 @@ To: amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
  Natalie Vock <natalie.vock@gmx.de>, Melissa Wen <mwen@igalia.com>,
  amir.shetaia@amd.com
 Cc: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
-Subject: [PATCH 0/3] Improve soft IH ring
-Date: Wed, 13 May 2026 19:08:46 +0200
-Message-ID: <20260513170849.27061-1-timur.kristof@gmail.com>
+Subject: [PATCH 1/3] amdgpu/ih6.1: Fix minor version
+Date: Wed, 13 May 2026 19:08:47 +0200
+Message-ID: <20260513170849.27061-2-timur.kristof@gmail.com>
 X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260513170849.27061-1-timur.kristof@gmail.com>
+References: <20260513170849.27061-1-timur.kristof@gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -87,32 +90,26 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The soft interrupt handler ring is used in scenarios
-when it is beneficial to not process some interrupts
-in the interrupt handler of the HW interrupts.
+Report the correct version of IH v6.1 (previously it showed v6.0).
 
-Fix some bugs in the soft IH ring, eg. the kernel should
-not access HW registers when working with the soft IH ring
-and improve its effectiveness by dispatching it on the
-unbound workqueue.
+Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
+---
+ drivers/gpu/drm/amd/amdgpu/ih_v6_1.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-These patches make it more feasible to use the soft IH
-ring for handling retry page faults on GPUs that don't
-have the filter CAM. The actual retry page fault
-improvements are in a separate series.
-
-Timur Kristóf (3):
-  amdgpu/ih6.1: Fix minor version
-  amdgpu/ih: Don't perturb HW registers when accessing soft IH ring
-  drm/amdgpu: Use system unbound workqueue for soft IH ring
-
- drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c | 2 +-
- drivers/gpu/drm/amd/amdgpu/ih_v6_0.c    | 7 +++++++
- drivers/gpu/drm/amd/amdgpu/ih_v6_1.c    | 9 ++++++++-
- drivers/gpu/drm/amd/amdgpu/ih_v7_0.c    | 7 +++++++
- drivers/gpu/drm/amd/amdgpu/navi10_ih.c  | 4 ++++
- 5 files changed, 27 insertions(+), 2 deletions(-)
-
+diff --git a/drivers/gpu/drm/amd/amdgpu/ih_v6_1.c b/drivers/gpu/drm/amd/amdgpu/ih_v6_1.c
+index 95b3f4e55ec3..699c274d357e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/ih_v6_1.c
++++ b/drivers/gpu/drm/amd/amdgpu/ih_v6_1.c
+@@ -790,7 +790,7 @@ static void ih_v6_1_set_interrupt_funcs(struct amdgpu_device *adev)
+ const struct amdgpu_ip_block_version ih_v6_1_ip_block = {
+ 	.type = AMD_IP_BLOCK_TYPE_IH,
+ 	.major = 6,
+-	.minor = 0,
++	.minor = 1,
+ 	.rev = 0,
+ 	.funcs = &ih_v6_1_ip_funcs,
+ };
 -- 
 2.54.0
 
