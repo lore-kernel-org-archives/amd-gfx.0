@@ -4,43 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2156BCD4F21
-	for <amd-gfx@archiver.kernel.org>; Wed, 13 May 2026 14:33:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BFA6ECD4F24
+	for <amd-gfx@archiver.kernel.org>; Wed, 13 May 2026 14:33:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A9DC610EED5;
-	Wed, 13 May 2026 14:33:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5BE2810EECD;
+	Wed, 13 May 2026 14:33:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="CF0al26b";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="iLP4dcA0";
 	dkim-atps=neutral
-Received: from BN8PR05CU002.outbound.protection.outlook.com
- (mail-eastus2azon11011001.outbound.protection.outlook.com [52.101.57.1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9F55F10EED1
- for <amd-gfx@lists.freedesktop.org>; Wed, 13 May 2026 14:33:20 +0000 (UTC)
+Received: from SN4PR0501CU005.outbound.protection.outlook.com
+ (mail-southcentralusazon11011007.outbound.protection.outlook.com
+ [40.93.194.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9F19910EEBC
+ for <amd-gfx@lists.freedesktop.org>; Wed, 13 May 2026 14:33:23 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=WLPm1ZFcNrtjoeikmoHon0O+rQ/a+CIEeTY6LCWgFOfH8lakgbOqv2bPjxTA2Llk3+K/d5KTmFXh/7uq6UydV8V+TndH6WuxYEABax0/Z9Fz6fXyyI0WrARHvzf9fc7DJbstzuQi5vikctog+Ufn/QSvK1LoiE0DkM/bh/bdkrXx4xl8OZDrvUwZXND6DhG3NSAw2iB6TjloJCSGYZRqHvyD61MnSOVWUuB1k7zVnLshQxahA6zLn1mVnvTMqkl+2bFPwijX6C/EHnUkS1xYcrUFFbZCP996Czgl5osIKRQeMJCWVgSA94R9uS4y5FZwD6GA2k34ubUuFK4L4lg98A==
+ b=KMcYNvnnL5XMFehExlxwQaotOHLYZ4i+mrHWfvdv11VNp308oAUvG4Yudkg9hOoHqm4TXYaw8yG5h1FxLgdteLtyEEzyFBJg1dtlMgSykATv8aciWbP2LIGcR4je7toEtGdn415GVixZ4gZnHmuLNLVaeqqzHJIhyPFHKank4mOC91MOs+/1UWoY5lWoFzy7i1ixeYUCk3gn8uC8CGc08Zs0W7n1+gKFNJJhNtVOweyN30O6wGQIFHUIdEG2WxXAYsz/Ji6s589Wkx2I2bePxdWVjEnczPLSHgJZkDhrw6TvREJPY9cdQzHPgdCREyrhaCkFYqjU1jZihirWOryCLw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=MW3bv14jjc6gF6DIaPylxzykY0i0394RnUd1LKmrYcY=;
- b=AVk7hcfelBgJ614n9F22tRhZx5qOKK3XrqJdy673oRRkUP8aXrroNYXLG6E+vACVrSYP8MqYtI/eMVFWwf1Si+jdvrjmPZ5yerTBs70/gm332F9v/AgGZQfNJz6uNeUHvWflc6oN4OuNYBr++4nByEN7+rM4JVTAq0EIpNoNoc+nr3Zn81BLey5Y871o40a0I9zutvcXnhsyJE4tbK+20oS0NT91tRAuKXXauVgdlhvByx/105QhaFgLdXxCnCGXidiVUVe3o9eV+rPSnCHpoEPf+7pdfMmJctXM2F3lvMA/rFEpxkdfKNceyD1haeZBTYCE8CH7jCjf3Hvf5yPS3Q==
+ bh=Xh2o+QU4Xa95t3O2w3RRHCYBGv0DKsOQ8G//q7698fA=;
+ b=NaLbK2Qqx2MoysX6nSLt2+qKQ0WNT5ucE2Vnxp7UeoMSW3rdQLWuTgcFT5aZBjOYqM6TG8y1lQrTqlRl6ymukibI8urBxi+Q4IkN2JPNK0NVKoPDUvUeclDAsKLtnMijepkThfvWK8hrnGPaK7vz9Ael9eKfEa+CCkXNisaZ3AJhnMgVNK7sq645/D/Xx/lsg2vV10sPro0Xv8Us/tOANwmeloSsphydxHOMetXzsiDvj4D6qDq5JHtGv4q+PX1Ni+p02T5kTYfoDYpYHwd+z7W9KvqlkX3FEyWyc5KQlwiUtLglGXC9nl0id+r8rsjfVdD77MGASv/CtFVOJ7bnMQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=MW3bv14jjc6gF6DIaPylxzykY0i0394RnUd1LKmrYcY=;
- b=CF0al26bISMa6ATNerUyw/RzRBCxINfJ9XYt/LJsBXsnIISVL53WPv7DBdD55ATeOffHoVsozAQ1cYsWOUH/NTXgVmgSVH35U6rTsHTrcb+Y8mlK6suJ6CKMsdmE+tcBUd75zt0lQ1FoiHnFL9Ioz0yOULlS3xkLCm1Wnhh/oCc=
-Received: from CH2PR18CA0042.namprd18.prod.outlook.com (2603:10b6:610:55::22)
- by CY3PR12MB9578.namprd12.prod.outlook.com (2603:10b6:930:109::16)
+ bh=Xh2o+QU4Xa95t3O2w3RRHCYBGv0DKsOQ8G//q7698fA=;
+ b=iLP4dcA0Mpf6beShTS1BPwpvt5PiL6HLyY0MGyg5R3WXB9Zruw7uH3WXCDcnakbK4O6LqwRnnbaTULWFHJ0/p+YQdXKcQ66OHyyAycb2OCoxmm+rWUpEKn/5hKOwGAYvId7E/fyHt83W9zurZDSnnkDJon08LG0WgkAZaFjEIto=
+Received: from CH2PR18CA0034.namprd18.prod.outlook.com (2603:10b6:610:55::14)
+ by LV3PR12MB9401.namprd12.prod.outlook.com (2603:10b6:408:21c::22)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9913.12; Wed, 13 May
- 2026 14:33:17 +0000
+ 2026 14:33:20 +0000
 Received: from CH1PEPF0000A348.namprd04.prod.outlook.com
- (2603:10b6:610:55:cafe::95) by CH2PR18CA0042.outlook.office365.com
- (2603:10b6:610:55::22) with Microsoft SMTP Server (version=TLS1_3,
+ (2603:10b6:610:55:cafe::db) by CH2PR18CA0034.outlook.office365.com
+ (2603:10b6:610:55::14) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.20.9913.12 via Frontend Transport; Wed,
- 13 May 2026 14:33:17 +0000
+ 13 May 2026 14:33:20 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -50,18 +51,18 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from satlexmb08.amd.com (165.204.84.17) by
  CH1PEPF0000A348.mail.protection.outlook.com (10.167.244.4) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.25.13 via Frontend Transport; Wed, 13 May 2026 14:33:16 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by satlexmb08.amd.com
+ 15.21.25.13 via Frontend Transport; Wed, 13 May 2026 14:33:19 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.41; Wed, 13 May
- 2026 09:33:16 -0500
-Received: from satlexmb07.amd.com (10.181.42.216) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 13 May
- 2026 09:33:16 -0500
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Wed, 13 May
+ 2026 09:33:18 -0500
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Wed, 13 May
+ 2026 09:33:18 -0500
 Received: from box-0.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
- Transport; Wed, 13 May 2026 09:33:10 -0500
+ Transport; Wed, 13 May 2026 09:33:17 -0500
 From: <IVAN.LIPSKI@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -70,45 +71,41 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
  <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
- <Chen-Yu.Chen@amd.com>, Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, James Lin <pinglei.lin@amd.com>
-Subject: [PATCH 02/28] Revert "drm/amd/display: dmub_cmd.h: add missing
- kernel-doc for enums"
-Date: Wed, 13 May 2026 10:29:24 -0400
-Message-ID: <20260513143213.1852892-4-IVAN.LIPSKI@amd.com>
+ <Chen-Yu.Chen@amd.com>
+Subject: [PATCH 05/28] drm/amd/display: Add KUnit test for CRC function
+Date: Wed, 13 May 2026 10:29:27 -0400
+Message-ID: <20260513143213.1852892-7-IVAN.LIPSKI@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260513143213.1852892-2-IVAN.LIPSKI@amd.com>
 References: <20260513143213.1852892-2-IVAN.LIPSKI@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-Received-SPF: None (SATLEXMB04.amd.com: IVAN.LIPSKI@amd.com does not designate
- permitted sender hosts)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH1PEPF0000A348:EE_|CY3PR12MB9578:EE_
-X-MS-Office365-Filtering-Correlation-Id: 19ed1ce8-c165-4525-7a9e-08deb0fc9257
+X-MS-TrafficTypeDiagnostic: CH1PEPF0000A348:EE_|LV3PR12MB9401:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3a24ca3e-0df8-4ca5-f5a5-08deb0fc9457
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|1800799024|376014|36860700016|11063799003|22082099003|18002099003|56012099003|3023799003;
-X-Microsoft-Antispam-Message-Info: SP0CZyuWxTO8gKQPMG1RHIYPuvkzmiPLDIWySayrSycVYltjKLnievo77Y6pRVBYe6I1HT4SLTrydhZF0wjpuKevy9z+DBiULCeAdqpgPMHWv85LIHa3Hf3IBVXVsD7lJqM5bB0yDI8koS51QLORU7pBPyA5DQheKsaneSfl2zuXlWasYWGxUidmAvFreokuPtzQTnQ0Pw5oe503+K0U5skFhbCIC9QMjy0dd5eyzu4asKn9ZTkByX/+rCZDJegMFhXr/GTN04dSgLsRSRlQWOOrQ2lXMHXQn8tzrvXXHfbEr1+PnnJF9IaAS3t5ZkQE1+EoVfy79IyeGpmP7ygKpmZT1l3cHCuRYxgjLJYzjMvj2fKoWUqw+uot4UG7Pi+JjtJ6V+rDOPXKGrDMbx/yfidMsFGMNJN9+VeNT4VzSq7CDZ7iWl5Juml7lWedZy6HRdX9bbZmxcWWryUDzQFMzEr4hbpsxNv54KiEVf5VynEgjJ7GBY7EENI1vlSvzDQyXVDtN4+sOd+QLz54g6ws82UNx1cu8KEMKyfGfth3lbohPqP/7h1BtZPMbGviPZLqngg87oWHJEpreqc6BLQUAESdDTV/PeLdpDAGTiU4oxYKcXPoN+0SfByqSeeB2HS2b6q+ut1Q4AvV3By6ODTEJQgrAZ+g1frLd5us2t1Lp/AHDFJGF0VQQthhyJ+DCxWi4J6PwGdnYTJXbKMT6Sc95q1Q0yBDzb+3+PZa1+lpNA8=
+ ARA:13230040|1800799024|82310400026|36860700016|376014|11063799003|56012099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: yG1Fh2hgWSjSPCqgwB1l8jffsXwBu4QQudOwzQsxt1Up6P4nsLBDocxr41LHJhztaHvjk1r0hh7AM16JORTc6w7USYborw736O7l1UAZRLNd5Pqb7yL+J2kIUbJMj+VHtJBrnY1iluyluoutkin56MR+hQxukAJNdRSsq7XnMhXUeEba1ffpXeXF6b/O/54FtcY1r2sRLWVlIimuNw5dG3WCi4F0cwWDU688OMjqFoBNCCAmEJtJPKs8m0NY77h5Tvlhg+8BFiUAc16hmeNKtYZjkXM2jvvbWP/Mw1Fehf9fmm9eqmPWT2WGKvUsSMVBzsotPASXBsbowzda8fe2eSJusBRB2cWsEHBJxLRWGSP6nqDoab/4xkgqVWf97xWSGMhtsfDlRHMBX3i+KP/0p60rHy9K+HsamhSVdGCNDBvC9hV8/sa4Q+mEDV+NvefvY1Xxbdk3IDseZAIGGKzUysyjdyUdKwSIE1mYOTOPhnMlyz2ONocaXop6QhMWu/6hYKi1uOdIA2VfL66h+/nYY64rZ0tme7RJ0WVazQg8d3sKuSOQ+R0ArvURLFFv2UQv2WyReI1Qxz3D4jZSDvxHQzNQUT5IDDYSJv7mcE2/JcHzHIjxcT3HGhz7FjuDy1LcvtArfv6esc5uCKj2g3cbL1rpdnBdW23teGE0k87ZP+C9ciuAwDsvYWIofp/hV1dRPibHgcWCdCxZnw3Pk8yVF3l6mDsyXw/rJr8MW0Xf3E4=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(1800799024)(376014)(36860700016)(11063799003)(22082099003)(18002099003)(56012099003)(3023799003);
+ SFS:(13230040)(1800799024)(82310400026)(36860700016)(376014)(11063799003)(56012099003)(22082099003)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: rdEym/KyRGl0YIWQYr2pzMBnbiJgvsxyCGsmPg+C8b2RwwB2YJEYRZe5feZH2YpCnMjl1g6OXi84MItBA0A5ESOzLZi6+VfP4YqdAHkv40b5YN1QxbaBel/5kBoD9MPYpwNZ3p8lbi2tegwsClRq7dtLhGoIRg60K3rtd0YHhEQ52qcegJdCU1N/ymPjWdnFYE2g7PnNSv1yOb7uClzjVls5QNOGownUYM3T67Vg1sBLbCxDhqZqUmY9xoJ5nXvXE/Wa0vVBkFVs0WdYduzdQnnENjhTrM/uCrMVPL3jIAMkgvY6gWxZ6aoirvAXIw00RfAOg456K8o1eHfOoKBfWNtf641b7UKjcZcg59QbZi9YRclK5Dfq5UtgO9XRNn2S40wRIWPWUguTRwP+ZwbvLYaOuN14xPr0T4T+Vt40euSD5gMZ3T8CcFMGrUkDADZw
+X-MS-Exchange-AntiSpam-MessageData-0: 4+BNCGLPZz4Zq+EvYA8UR815SMPtzf1y6heXgBK9zn2bfJ8Y1cL5Yq/aBx6j+06pmz2dpIiRPRsRP7XdRkZf95GKizdfiTcVG6oBLIxwiMZYYL+iMmMAtXqYYrYwdwwoVFEiXrpz8nko7cb7+6Nk83YnNQiPkuiByGkiQTCMJntSBJtb1EzO0jDg9z6kRBdl7f2RPOvDKuDgOG4UTknLESU4ut1XzSadRPu68IraLo4HgJhfa96unbibV1yPH7wN8qUQS+qiV7cilWykPtZ251pmJhsU20ZOK+AMUi351rhM5uY/OjxBpNoXWUfpLO3vo3S9C5ePsZmT/DdEbfLtCg56ogzG8V0T3agVzbpPq65YWumpEWMXRT7r14PCO8ay/dazCfbyxUUNMkIy25AaSpVoppp7ZinfsRc/gJgk3aWM8gLx5NQ7Lu4mIzp0IWNc
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 May 2026 14:33:16.6390 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 19ed1ce8-c165-4525-7a9e-08deb0fc9257
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 May 2026 14:33:19.9976 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3a24ca3e-0df8-4ca5-f5a5-08deb0fc9457
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb08.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: CH1PEPF0000A348.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY3PR12MB9578
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR12MB9401
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -123,424 +120,329 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: James Lin <PingLei.Lin@amd.com>
+From: Aurabindo Pillai <aurabindo.pillai@amd.com>
 
-[Why & How]
-This reverts commit 7d9d8fc1db837bdf39a8947b2928ec562dab83f1.
+DM CRC parsing functions are an easy candidate for exploring the use of
+KUnit unit-testing frameworks. Add a few tests for the same.
 
-1. Auto-generated Header: The file 'dmub_cmd.h' is an auto-generated header
-   managed in an external repository (dmu_stg). Manual changes made directly in
-   this repository will be overwritten and lost during the next automated weekly
-   synchronization.
+The test file and .kunitconfig are placed under amdgpu_dm/tests/ to
+follow the convention of keeping test code separate from production
+sources.
 
-2. Tooling Compatibility: This header is governed by internal AMD firmware
-   standards which require Doxygen formatting for cross-team documentation.
-   Moving to kernel-doc syntax may break internal documentation pipelines.
+Assisted-by: Copilot:Claude-Opus-4.6
 
-3. Suppressing Warnings: Current 'make htmldocs' and 'make W=1' builds
-   do not actively scan 'dmub_cmd.h' for kernel-doc compliance, thus no warnings
-   are triggered during standard compilation. To address warnings generated when
-   manually running './scripts/kernel-doc', we have added a notice at the file
-   header indicating that this is an auto-generated file that does not strictly
-   follow kernel-doc formatting. This ensures that any future linting tools or
-   manual checks recognize the formatting as intentional.
-
-Acked-by: Harry Wentland <harry.wentland@amd.com>
-Acked-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: James Lin <pinglei.lin@amd.com>
+Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+Signed-off-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
+Signed-off-by: Alex Hung <alex.hung@amd.com>
+Signed-off-by: Ivan Lipski <ivan.lipski@amd.com>
 ---
- .../gpu/drm/amd/display/dmub/inc/dmub_cmd.h   | 156 ++++++------------
- 1 file changed, 48 insertions(+), 108 deletions(-)
+ drivers/gpu/drm/amd/display/Kconfig           |  12 ++
+ .../gpu/drm/amd/display/amdgpu_dm/Makefile    |   5 +
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c |  17 ++-
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_crc.h |   7 +
+ .../amdgpu_dm/amdgpu_dm_kunit_helpers.h       |  19 +++
+ .../amd/display/amdgpu_dm/tests/.kunitconfig  |  14 ++
+ .../drm/amd/display/amdgpu_dm/tests/Makefile  |   7 +
+ .../amdgpu_dm/tests/amdgpu_dm_crc_test.c      | 121 ++++++++++++++++++
+ 8 files changed, 198 insertions(+), 4 deletions(-)
+ create mode 100644 drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_kunit_helpers.h
+ create mode 100644 drivers/gpu/drm/amd/display/amdgpu_dm/tests/.kunitconfig
+ create mode 100644 drivers/gpu/drm/amd/display/amdgpu_dm/tests/Makefile
+ create mode 100644 drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_crc_test.c
 
-diff --git a/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h b/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h
-index c1becd664cb9..2f68438000ea 100644
---- a/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h
-+++ b/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h
-@@ -1008,30 +1008,15 @@ union dmub_fw_boot_status {
-  * enum dmub_fw_boot_status_bit - Enum bit definitions for SCRATCH0.
-  */
- enum dmub_fw_boot_status_bit {
--	/** @DMUB_FW_BOOT_STATUS_BIT_DAL_FIRMWARE: 1 if DAL FW */
--	DMUB_FW_BOOT_STATUS_BIT_DAL_FIRMWARE = (1 << 0),
--	/** @DMUB_FW_BOOT_STATUS_BIT_MAILBOX_READY: 1 if mailbox ready */
--	DMUB_FW_BOOT_STATUS_BIT_MAILBOX_READY = (1 << 1),
--	/** @DMUB_FW_BOOT_STATUS_BIT_OPTIMIZED_INIT_DONE: 1 if init done */
--	DMUB_FW_BOOT_STATUS_BIT_OPTIMIZED_INIT_DONE = (1 << 2),
--	/** @DMUB_FW_BOOT_STATUS_BIT_RESTORE_REQUIRED: 1 if driver should call restore */
--	DMUB_FW_BOOT_STATUS_BIT_RESTORE_REQUIRED = (1 << 3),
--	/**
--	 * @DMUB_FW_BOOT_STATUS_BIT_DEFERRED_LOADED: 1 if VBIOS data is
--	 * deferred programmed
--	 */
--	DMUB_FW_BOOT_STATUS_BIT_DEFERRED_LOADED = (1 << 4),
--	/** @DMUB_FW_BOOT_STATUS_BIT_FAMS_ENABLED: 1 if FAMS is enabled */
--	DMUB_FW_BOOT_STATUS_BIT_FAMS_ENABLED = (1 << 5),
--	/**
--	 * @DMUB_FW_BOOT_STATUS_BIT_DETECTION_REQUIRED: 1 if detection needs
--	 * to be triggered by driver
--	 */
--	DMUB_FW_BOOT_STATUS_BIT_DETECTION_REQUIRED = (1 << 6),
--	/** @DMUB_FW_BOOT_STATUS_BIT_HW_POWER_INIT_DONE: 1 if hw power init is completed */
--	DMUB_FW_BOOT_STATUS_BIT_HW_POWER_INIT_DONE = (1 << 7),
--	/** @DMUB_FW_BOOT_STATUS_BIT_ONO_REGIONS_ENABLED: if ONO regions are enabled */
--	DMUB_FW_BOOT_STATUS_BIT_ONO_REGIONS_ENABLED = (1 << 8),
-+	DMUB_FW_BOOT_STATUS_BIT_DAL_FIRMWARE = (1 << 0), /**< 1 if DAL FW */
-+	DMUB_FW_BOOT_STATUS_BIT_MAILBOX_READY = (1 << 1), /**< 1 if mailbox ready */
-+	DMUB_FW_BOOT_STATUS_BIT_OPTIMIZED_INIT_DONE = (1 << 2), /**< 1 if init done */
-+	DMUB_FW_BOOT_STATUS_BIT_RESTORE_REQUIRED = (1 << 3), /**< 1 if driver should call restore */
-+	DMUB_FW_BOOT_STATUS_BIT_DEFERRED_LOADED = (1 << 4), /**< 1 if VBIOS data is deferred programmed */
-+	DMUB_FW_BOOT_STATUS_BIT_FAMS_ENABLED = (1 << 5), /**< 1 if FAMS is enabled*/
-+	DMUB_FW_BOOT_STATUS_BIT_DETECTION_REQUIRED = (1 << 6), /**< 1 if detection need to be triggered by driver*/
-+	DMUB_FW_BOOT_STATUS_BIT_HW_POWER_INIT_DONE = (1 << 7), /**< 1 if hw power init is completed */
-+	DMUB_FW_BOOT_STATUS_BIT_ONO_REGIONS_ENABLED = (1 << 8), /**< 1 if ONO regions are enabled */
+diff --git a/drivers/gpu/drm/amd/display/Kconfig b/drivers/gpu/drm/amd/display/Kconfig
+index abd3b6564373..38323e574c6b 100644
+--- a/drivers/gpu/drm/amd/display/Kconfig
++++ b/drivers/gpu/drm/amd/display/Kconfig
+@@ -56,4 +56,16 @@ config DRM_AMD_SECURE_DISPLAY
+ 	  This option enables the calculation of crc of specific region via
+ 	  debugfs. Cooperate with specific DMCU FW.
+ 
++config DRM_AMD_DC_KUNIT_TEST
++	tristate "KUnit tests for the AMD DC display driver" if !KUNIT_ALL_TESTS
++	depends on DRM_AMD_DC && KUNIT && DEBUG_FS
++	default KUNIT_ALL_TESTS
++	help
++	  This option enables KUnit tests for the AMD Display Core driver.
++	  These tests validate core functionality like CRC source parsing,
++	  color management, and other utility functions.
++
++	  For more information on KUnit and unit tests in general, please
++	  refer to the KUnit documentation in Documentation/dev-tools/kunit/.
++
+ endmenu
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/Makefile b/drivers/gpu/drm/amd/display/amdgpu_dm/Makefile
+index 89350aa9ca7e..914f89af047c 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/Makefile
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/Makefile
+@@ -59,3 +59,8 @@ AMDGPU_DM = $(addprefix $(AMDDALPATH)/amdgpu_dm/,$(AMDGPUDM))
+ 
+ AMD_DISPLAY_FILES += $(AMDGPU_DM)
+ endif
++
++# KUnit tests as separate module
++ifneq ($(CONFIG_DRM_AMD_DC_KUNIT_TEST),)
++obj-y += $(AMDDALPATH)/amdgpu_dm/tests/
++endif
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c
+index e9834d7b6534..3613e67d1085 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c
+@@ -33,6 +33,7 @@
+ #include "amdgpu_securedisplay.h"
+ #include "amdgpu_dm_psr.h"
+ #include "amdgpu_dm_replay.h"
++#include "amdgpu_dm_kunit_helpers.h"
+ 
+ static const char *const pipe_crc_sources[] = {
+ 	"none",
+@@ -43,7 +44,8 @@ static const char *const pipe_crc_sources[] = {
+ 	"auto",
  };
  
- /* Register bit definition for SCRATCH5 */
-@@ -1095,22 +1080,18 @@ enum dmub_ips_comand_type {
-  */
- enum dmub_cursor_offload_comand_type {
- 	/**
--	 * @DMUB_CMD__CURSOR_OFFLOAD_INIT:
- 	 * Initializes the cursor offload feature.
- 	 */
- 	DMUB_CMD__CURSOR_OFFLOAD_INIT = 0,
- 	/**
--	 * @DMUB_CMD__CURSOR_OFFLOAD_STREAM_ENABLE: Enables cursor offloading
--	 * for a stream and updates the timing parameters.
-+	 * Enables cursor offloading for a stream and updates the timing parameters.
- 	 */
- 	DMUB_CMD__CURSOR_OFFLOAD_STREAM_ENABLE = 1,
- 	/**
--	 * @DMUB_CMD__CURSOR_OFFLOAD_STREAM_DISABLE:
- 	 * Disables cursor offloading for a given stream.
- 	 */
- 	DMUB_CMD__CURSOR_OFFLOAD_STREAM_DISABLE = 2,
- 	/**
--	 * @DMUB_CMD__CURSOR_OFFLOAD_STREAM_PROGRAM:
- 	 * Programs the latest data for a given stream.
- 	 */
- 	DMUB_CMD__CURSOR_OFFLOAD_STREAM_PROGRAM = 3,
-@@ -1176,7 +1157,7 @@ enum dmub_fw_boot_options_bit {
-  * [Header (256 Bytes)][Feature 1 (256 Bytes)][Feature 2 (256 Bytes)]...
-  */
+-static enum amdgpu_dm_pipe_crc_source dm_parse_crc_source(const char *source)
++STATIC_IFN_KUNIT
++enum amdgpu_dm_pipe_crc_source dm_parse_crc_source(const char *source)
+ {
+ 	if (!source || !strcmp(source, "none"))
+ 		return AMDGPU_DM_PIPE_CRC_SOURCE_NONE;
+@@ -58,25 +60,32 @@ static enum amdgpu_dm_pipe_crc_source dm_parse_crc_source(const char *source)
  
--/*
-+/**
-  * enum dmub_shared_state_feature_id - List of shared state features.
-  */
- enum dmub_shared_state_feature_id {
-@@ -1933,36 +1914,30 @@ enum dmub_cmd_type {
-  */
- enum dmub_out_cmd_type {
- 	/**
--	 * @DMUB_OUT_CMD__NULL: Invalid outbox command, ignored.
-+	 * Invalid outbox command, ignored.
- 	 */
- 	DMUB_OUT_CMD__NULL = 0,
- 	/**
--	 * @DMUB_OUT_CMD__DP_AUX_REPLY:
- 	 * Command type used for DP AUX Reply data notification
- 	 */
- 	DMUB_OUT_CMD__DP_AUX_REPLY = 1,
- 	/**
--	 * @DMUB_OUT_CMD__DP_HPD_NOTIFY:
- 	 * Command type used for DP HPD event notification
- 	 */
- 	DMUB_OUT_CMD__DP_HPD_NOTIFY = 2,
- 	/**
--	 * @DMUB_OUT_CMD__SET_CONFIG_REPLY:
- 	 * Command type used for SET_CONFIG Reply notification
- 	 */
- 	DMUB_OUT_CMD__SET_CONFIG_REPLY = 3,
- 	/**
--	 * @DMUB_OUT_CMD__DPIA_NOTIFICATION:
- 	 * Command type used for USB4 DPIA notification
- 	 */
- 	DMUB_OUT_CMD__DPIA_NOTIFICATION = 5,
- 	/**
--	 * @DMUB_OUT_CMD__HPD_SENSE_NOTIFY:
- 	 * Command type used for HPD redetect notification
- 	 */
- 	DMUB_OUT_CMD__HPD_SENSE_NOTIFY = 6,
- 	/**
--	 * @DMUB_OUT_CMD__FUSED_IO:
- 	 * Command type used for Fused IO notification
- 	 */
- 	DMUB_OUT_CMD__FUSED_IO = 7,
-@@ -2154,19 +2129,19 @@ struct dmub_rb_cmd_PLAT_54186_wa {
-  */
- enum dmub_cmd_mall_type {
- 	/**
--	 * @DMUB_CMD__MALL_ACTION_ALLOW: Allows display refresh from MALL.
-+	 * Allows display refresh from MALL.
- 	 */
- 	DMUB_CMD__MALL_ACTION_ALLOW = 0,
- 	/**
--	 * @DMUB_CMD__MALL_ACTION_DISALLOW: Disallows display refresh from MALL.
-+	 * Disallows display refresh from MALL.
- 	 */
- 	DMUB_CMD__MALL_ACTION_DISALLOW = 1,
- 	/**
--	 * @DMUB_CMD__MALL_ACTION_COPY_CURSOR: Cursor copy for MALL.
-+	 * Cursor copy for MALL.
- 	 */
- 	DMUB_CMD__MALL_ACTION_COPY_CURSOR = 2,
- 	/**
--	 * @DMUB_CMD__MALL_ACTION_NO_DF_REQ: Controls DF requests.
-+	 * Controls DF requests.
- 	 */
- 	DMUB_CMD__MALL_ACTION_NO_DF_REQ = 3,
- };
-@@ -2195,21 +2170,18 @@ struct dmub_rb_cmd_mall {
-  */
- enum dmub_cmd_cab_type {
- 	/**
--	 * @DMUB_CMD__CAB_NO_IDLE_OPTIMIZATION:
- 	 * No idle optimizations (i.e. no CAB)
- 	 */
- 	DMUB_CMD__CAB_NO_IDLE_OPTIMIZATION = 0,
- 	/**
--	 * @DMUB_CMD__CAB_NO_DCN_REQ: No DCN requests for memory
-+	 * No DCN requests for memory
- 	 */
- 	DMUB_CMD__CAB_NO_DCN_REQ = 1,
- 	/**
--	 * @DMUB_CMD__CAB_DCN_SS_FIT_IN_CAB:
- 	 * Fit surfaces in CAB (i.e. CAB enable)
- 	 */
- 	DMUB_CMD__CAB_DCN_SS_FIT_IN_CAB = 2,
- 	/**
--	 * @DMUB_CMD__CAB_DCN_SS_NOT_FIT_IN_CAB:
- 	 * Do not fit surfaces in CAB (i.e. no CAB)
- 	 */
- 	DMUB_CMD__CAB_DCN_SS_NOT_FIT_IN_CAB = 3,
-@@ -2224,7 +2196,7 @@ struct dmub_rb_cmd_cab_for_ss {
- 	uint8_t debug_bits;     /* debug bits */
- };
+ 	return AMDGPU_DM_PIPE_CRC_SOURCE_INVALID;
+ }
++EXPORT_IF_KUNIT(dm_parse_crc_source);
  
--/*
-+/**
-  * Enum for indicating which MCLK switch mode per pipe
-  */
- enum mclk_switch_mode {
-@@ -2702,18 +2674,11 @@ struct dmub_fams2_stream_static_state_v1 {
-  * p-state request to allow latency
-  */
- enum dmub_fams2_allow_delay_check_mode {
--	/**
--	 * @FAMS2_ALLOW_DELAY_CHECK_NONE: No check for request to allow delay
--	 */
-+	/* No check for request to allow delay */
- 	FAMS2_ALLOW_DELAY_CHECK_NONE = 0,
--	/**
--	 * @FAMS2_ALLOW_DELAY_CHECK_FROM_START: Check for request to allow delay
--	 */
-+	/* Check for request to allow delay */
- 	FAMS2_ALLOW_DELAY_CHECK_FROM_START = 1,
--	/**
--	 * @FAMS2_ALLOW_DELAY_CHECK_FROM_PREPARE:
--	 * Check for prepare to allow delay
--	 */
-+	/* Check for prepare to allow delay */
- 	FAMS2_ALLOW_DELAY_CHECK_FROM_PREPARE = 2,
- };
+-static bool dm_is_crc_source_crtc(enum amdgpu_dm_pipe_crc_source src)
++STATIC_IFN_KUNIT
++bool dm_is_crc_source_crtc(enum amdgpu_dm_pipe_crc_source src)
+ {
+ 	return (src == AMDGPU_DM_PIPE_CRC_SOURCE_CRTC) ||
+ 	       (src == AMDGPU_DM_PIPE_CRC_SOURCE_CRTC_DITHER);
+ }
++EXPORT_IF_KUNIT(dm_is_crc_source_crtc);
  
-@@ -2785,28 +2750,27 @@ struct dmub_rb_cmd_ib {
-  */
- enum dmub_cmd_idle_opt_type {
- 	/**
--	 * @DMUB_CMD__IDLE_OPT_DCN_RESTORE: DCN hardware restore.
-+	 * DCN hardware restore.
- 	 */
- 	DMUB_CMD__IDLE_OPT_DCN_RESTORE = 0,
+-static bool dm_is_crc_source_dprx(enum amdgpu_dm_pipe_crc_source src)
++STATIC_IFN_KUNIT
++bool dm_is_crc_source_dprx(enum amdgpu_dm_pipe_crc_source src)
+ {
+ 	return (src == AMDGPU_DM_PIPE_CRC_SOURCE_DPRX) ||
+ 	       (src == AMDGPU_DM_PIPE_CRC_SOURCE_DPRX_DITHER);
+ }
++EXPORT_IF_KUNIT(dm_is_crc_source_dprx);
  
- 	/**
--	 * @DMUB_CMD__IDLE_OPT_DCN_SAVE_INIT: DCN hardware save.
-+	 * DCN hardware save.
- 	 */
- 	DMUB_CMD__IDLE_OPT_DCN_SAVE_INIT = 1,
+-static bool dm_need_crc_dither(enum amdgpu_dm_pipe_crc_source src)
++STATIC_IFN_KUNIT
++bool dm_need_crc_dither(enum amdgpu_dm_pipe_crc_source src)
+ {
+ 	return (src == AMDGPU_DM_PIPE_CRC_SOURCE_CRTC_DITHER) ||
+ 	       (src == AMDGPU_DM_PIPE_CRC_SOURCE_DPRX_DITHER) ||
+ 	       (src == AMDGPU_DM_PIPE_CRC_SOURCE_NONE);
+ }
++EXPORT_IF_KUNIT(dm_need_crc_dither);
  
- 	/**
--	 * @DMUB_CMD__IDLE_OPT_DCN_NOTIFY_IDLE: DCN hardware notify idle.
-+	 * DCN hardware notify idle.
- 	 */
- 	DMUB_CMD__IDLE_OPT_DCN_NOTIFY_IDLE = 2,
+ const char *const *amdgpu_dm_crtc_get_crc_sources(struct drm_crtc *crtc,
+ 						  size_t *count)
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.h
+index 8538513ea879..76731ee44e13 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.h
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.h
+@@ -148,4 +148,11 @@ void amdgpu_dm_crtc_secure_display_create_contexts(struct amdgpu_device *adev);
+ #define amdgpu_dm_crtc_secure_display_create_contexts(x)
+ #endif
  
- 	/**
--	 * @DMUB_CMD__IDLE_OPT_SET_DC_POWER_STATE:
- 	 * DCN hardware notify power state.
- 	 */
- 	DMUB_CMD__IDLE_OPT_SET_DC_POWER_STATE = 3,
- 
- 	/**
--	 * @DMUB_CMD__IDLE_OPT_RELEASE_HW: DCN notify to release HW.
-+	 * DCN notify to release HW.
- 	 */
- 	 DMUB_CMD__IDLE_OPT_RELEASE_HW = 4,
- };
-@@ -2835,7 +2799,7 @@ struct dmub_rb_cmd_idle_opt_dcn_notify_idle {
- 	struct dmub_dcn_notify_idle_cntl_data cntl_data;
- };
- 
--/*
-+/**
-  * enum dmub_idle_opt_dc_power_state - DC power states.
-  */
- enum dmub_idle_opt_dc_power_state {
-@@ -2877,7 +2841,7 @@ struct dmub_clocks {
-  */
- enum dmub_cmd_clk_mgr_type {
- 	/**
--	 * @DMUB_CMD__CLK_MGR_NOTIFY_CLOCKS: Notify DMCUB of clock update.
-+	 * Notify DMCUB of clock update.
- 	 */
- 	DMUB_CMD__CLK_MGR_NOTIFY_CLOCKS = 0,
- };
-@@ -3122,40 +3086,21 @@ struct dmub_rb_cmd_dpphy_init {
-  * 4 AUX request command bits are shifted to high nibble.
-  */
- enum dp_aux_request_action {
--	/**
--	 * @DP_AUX_REQ_ACTION_I2C_WRITE: I2C-over-AUX write request
--	 */
-+	/** I2C-over-AUX write request */
- 	DP_AUX_REQ_ACTION_I2C_WRITE		= 0x00,
--	/**
--	 * @DP_AUX_REQ_ACTION_I2C_READ: I2C-over-AUX read request
--	 */
-+	/** I2C-over-AUX read request */
- 	DP_AUX_REQ_ACTION_I2C_READ		= 0x10,
--	/**
--	 * @DP_AUX_REQ_ACTION_I2C_STATUS_REQ: I2C-over-AUX write status request
--	 */
-+	/** I2C-over-AUX write status request */
- 	DP_AUX_REQ_ACTION_I2C_STATUS_REQ	= 0x20,
--	/**
--	 * @DP_AUX_REQ_ACTION_I2C_WRITE_MOT:
--	 * I2C-over-AUX write request with MOT=1
--	 */
-+	/** I2C-over-AUX write request with MOT=1 */
- 	DP_AUX_REQ_ACTION_I2C_WRITE_MOT		= 0x40,
--	/**
--	 * @DP_AUX_REQ_ACTION_I2C_READ_MOT:
--	 * I2C-over-AUX read request with MOT=1
--	 */
-+	/** I2C-over-AUX read request with MOT=1 */
- 	DP_AUX_REQ_ACTION_I2C_READ_MOT		= 0x50,
--	/**
--	 * @DP_AUX_REQ_ACTION_I2C_STATUS_REQ_MOT:
--	 * I2C-over-AUX write status request with MOT=1
--	 */
-+	/** I2C-over-AUX write status request with MOT=1 */
- 	DP_AUX_REQ_ACTION_I2C_STATUS_REQ_MOT	= 0x60,
--	/**
--	 * @DP_AUX_REQ_ACTION_DPCD_WRITE: Native AUX write request
--	 */
-+	/** Native AUX write request */
- 	DP_AUX_REQ_ACTION_DPCD_WRITE		= 0x80,
--	/**
--	 * @DP_AUX_REQ_ACTION_DPCD_READ: Native AUX read request
--	 */
-+	/** Native AUX read request */
- 	DP_AUX_REQ_ACTION_DPCD_READ		= 0x90
- };
- 
-@@ -3163,21 +3108,21 @@ enum dp_aux_request_action {
-  * enum aux_return_code_type - DP AUX process return code listing.
-  */
- enum aux_return_code_type {
--	/** @AUX_RET_SUCCESS: AUX process succeeded */
-+	/** AUX process succeeded */
- 	AUX_RET_SUCCESS = 0,
--	/** @AUX_RET_ERROR_UNKNOWN: AUX process failed with unknown reason */
-+	/** AUX process failed with unknown reason */
- 	AUX_RET_ERROR_UNKNOWN,
--	/** @AUX_RET_ERROR_INVALID_REPLY: AUX process completed with invalid reply */
-+	/** AUX process completed with invalid reply */
- 	AUX_RET_ERROR_INVALID_REPLY,
--	/** @AUX_RET_ERROR_TIMEOUT: AUX process timed out */
-+	/** AUX process timed out */
- 	AUX_RET_ERROR_TIMEOUT,
--	/** @AUX_RET_ERROR_HPD_DISCON: HPD was low during AUX process */
-+	/** HPD was low during AUX process */
- 	AUX_RET_ERROR_HPD_DISCON,
--	/** @AUX_RET_ERROR_ENGINE_ACQUIRE: Failed to acquire AUX engine */
-+	/** Failed to acquire AUX engine */
- 	AUX_RET_ERROR_ENGINE_ACQUIRE,
--	/** @AUX_RET_ERROR_INVALID_OPERATION: AUX request not supported */
-+	/** AUX request not supported */
- 	AUX_RET_ERROR_INVALID_OPERATION,
--	/** @AUX_RET_ERROR_PROTOCOL_ERROR: AUX process not available */
-+	/** AUX process not available */
- 	AUX_RET_ERROR_PROTOCOL_ERROR,
- };
- 
-@@ -3185,9 +3130,9 @@ enum aux_return_code_type {
-  * enum aux_channel_type - DP AUX channel type listing.
-  */
- enum aux_channel_type {
--	/** @AUX_CHANNEL_LEGACY_DDC: AUX thru Legacy DP AUX */
-+	/** AUX thru Legacy DP AUX */
- 	AUX_CHANNEL_LEGACY_DDC,
--	/** @AUX_CHANNEL_DPIA: AUX thru DPIA DP tunneling */
-+	/** AUX thru DPIA DP tunneling */
- 	AUX_CHANNEL_DPIA
- };
- 
-@@ -3672,7 +3617,7 @@ enum phy_link_rate {
- 	 */
- };
- 
--/*
-+/**
-  * enum dmub_phy_fsm_state - PHY FSM states.
-  * PHY FSM state to transit to during PSR enable/disable.
-  */
-@@ -5949,11 +5894,10 @@ struct dmub_rb_cmd_abm_query_caps {
-  */
- enum dmub_abm_ace_curve_type {
- 	/**
--	 * @ABM_ACE_CURVE_TYPE__SW: ACE curve as defined by the SW layer.
-+	 * ACE curve as defined by the SW layer.
- 	 */
- 	ABM_ACE_CURVE_TYPE__SW = 0,
- 	/**
--	 * @ABM_ACE_CURVE_TYPE__SW_IF:
- 	 * ACE curve as defined by the SW to HW translation interface layer.
- 	 */
- 	ABM_ACE_CURVE_TYPE__SW_IF = 1,
-@@ -5964,11 +5908,10 @@ enum dmub_abm_ace_curve_type {
-  */
- enum dmub_abm_histogram_type {
- 	/**
--	 * @ABM_HISTOGRAM_TYPE__SW: ACE curve as defined by the SW layer.
-+	 * ACE curve as defined by the SW layer.
- 	 */
- 	ABM_HISTOGRAM_TYPE__SW = 0,
- 	/**
--	 * @ABM_HISTOGRAM_TYPE__SW_IF:
- 	 * ACE curve as defined by the SW to HW translation interface layer.
- 	 */
- 	ABM_HISTOGRAM_TYPE__SW_IF = 1,
-@@ -6174,17 +6117,14 @@ struct dmub_rb_cmd_get_visual_confirm_color {
-  */
- enum dmub_cmd_panel_cntl_type {
- 	/**
--	 * @DMUB_CMD__PANEL_CNTL_HW_INIT:
- 	 * Initializes embedded panel hardware blocks.
- 	 */
- 	DMUB_CMD__PANEL_CNTL_HW_INIT = 0,
- 	/**
--	 * @DMUB_CMD__PANEL_CNTL_QUERY_BACKLIGHT_INFO:
- 	 * Queries backlight info for the embedded panel.
- 	 */
- 	DMUB_CMD__PANEL_CNTL_QUERY_BACKLIGHT_INFO = 1,
- 	/**
--	 * @DMUB_CMD__PANEL_DEBUG_PWM_FREQ:
- 	 * Sets the PWM Freq as per user's requirement.
- 	 */
- 	DMUB_CMD__PANEL_DEBUG_PWM_FREQ = 2,
++#ifdef CONFIG_DRM_AMD_DC_KUNIT_TEST
++enum amdgpu_dm_pipe_crc_source dm_parse_crc_source(const char *source);
++bool dm_is_crc_source_crtc(enum amdgpu_dm_pipe_crc_source src);
++bool dm_is_crc_source_dprx(enum amdgpu_dm_pipe_crc_source src);
++bool dm_need_crc_dither(enum amdgpu_dm_pipe_crc_source src);
++#endif
++
+ #endif /* AMD_DAL_DEV_AMDGPU_DM_AMDGPU_DM_CRC_H_ */
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_kunit_helpers.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_kunit_helpers.h
+new file mode 100644
+index 000000000000..4b2864375105
+--- /dev/null
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_kunit_helpers.h
+@@ -0,0 +1,19 @@
++/* SPDX-License-Identifier: MIT */
++/*
++ * Copyright 2026 Advanced Micro Devices, Inc.
++ */
++
++#ifndef AMDGPU_DM_KUNIT_HELPERS_H
++#define AMDGPU_DM_KUNIT_HELPERS_H
++
++#if IS_ENABLED(CONFIG_DRM_AMD_DC_KUNIT_TEST)
++#define STATIC_IFN_KUNIT
++#define INLINE_IFN_KUNIT inline
++#define EXPORT_IF_KUNIT(symbol) EXPORT_SYMBOL(symbol)
++#else
++#define STATIC_IFN_KUNIT static
++#define INLINE_IFN_KUNIT
++#define EXPORT_IF_KUNIT(symbol)
++#endif
++
++#endif /* AMDGPU_DM_KUNIT_HELPERS_H */
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/.kunitconfig b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/.kunitconfig
+new file mode 100644
+index 000000000000..36676326ade4
+--- /dev/null
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/.kunitconfig
+@@ -0,0 +1,14 @@
++CONFIG_KUNIT=y
++CONFIG_PCI=y
++CONFIG_DRM=y
++CONFIG_DRM_AMDGPU=y
++CONFIG_DRM_AMD_DC=y
++CONFIG_DEBUG_FS=y
++CONFIG_DRM_AMD_DC_KUNIT_TEST=y
++CONFIG_FW_LOADER=y
++CONFIG_DRM_KMS_HELPER=y
++CONFIG_DRM_TTM=y
++CONFIG_HWMON=y
++CONFIG_I2C=y
++CONFIG_POWER_SUPPLY=y
++CONFIG_CRC16=y
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/Makefile b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/Makefile
+new file mode 100644
+index 000000000000..1238d8832fa3
+--- /dev/null
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/Makefile
+@@ -0,0 +1,7 @@
++# SPDX-License-Identifier: GPL-2.0
++#
++# Makefile for amdgpu_dm KUnit tests.
++
++ccflags-y += -I$(src)/..
++
++obj-$(CONFIG_DRM_AMD_DC_KUNIT_TEST) += amdgpu_dm_crc_test.o
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_crc_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_crc_test.c
+new file mode 100644
+index 000000000000..bba8b1a8fa1c
+--- /dev/null
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_crc_test.c
+@@ -0,0 +1,121 @@
++// SPDX-License-Identifier: GPL-2.0 OR MIT
++/*
++ * KUnit tests for amdgpu_dm_crc.c
++ *
++ * Copyright 2026 Advanced Micro Devices, Inc.
++ */
++
++#include <kunit/test.h>
++
++#include "amdgpu_dm_crc.h"
++
++static void dm_test_parse_crc_source_none(struct kunit *test)
++{
++	KUNIT_EXPECT_EQ(test, AMDGPU_DM_PIPE_CRC_SOURCE_NONE, dm_parse_crc_source("none"));
++	KUNIT_EXPECT_EQ(test, AMDGPU_DM_PIPE_CRC_SOURCE_NONE, dm_parse_crc_source(NULL));
++}
++
++static void dm_test_parse_crc_source_crtc(struct kunit *test)
++{
++	KUNIT_EXPECT_EQ(test, AMDGPU_DM_PIPE_CRC_SOURCE_CRTC, dm_parse_crc_source("crtc"));
++	KUNIT_EXPECT_EQ(test, AMDGPU_DM_PIPE_CRC_SOURCE_CRTC, dm_parse_crc_source("auto"));
++}
++
++static void dm_test_parse_crc_source_dprx(struct kunit *test)
++{
++	KUNIT_EXPECT_EQ(test, AMDGPU_DM_PIPE_CRC_SOURCE_DPRX, dm_parse_crc_source("dprx"));
++}
++
++static void dm_test_parse_crc_source_crtc_dither(struct kunit *test)
++{
++	KUNIT_EXPECT_EQ(test, AMDGPU_DM_PIPE_CRC_SOURCE_CRTC_DITHER,
++			dm_parse_crc_source("crtc dither"));
++}
++
++static void dm_test_parse_crc_source_dprx_dither(struct kunit *test)
++{
++	KUNIT_EXPECT_EQ(test, AMDGPU_DM_PIPE_CRC_SOURCE_DPRX_DITHER,
++			dm_parse_crc_source("dprx dither"));
++}
++
++static void dm_test_parse_crc_source_invalid(struct kunit *test)
++{
++	KUNIT_EXPECT_EQ(test, AMDGPU_DM_PIPE_CRC_SOURCE_INVALID,
++			dm_parse_crc_source("invalid"));
++	KUNIT_EXPECT_EQ(test, AMDGPU_DM_PIPE_CRC_SOURCE_INVALID,
++			dm_parse_crc_source("unknown"));
++	KUNIT_EXPECT_EQ(test, AMDGPU_DM_PIPE_CRC_SOURCE_INVALID,
++			dm_parse_crc_source(""));
++}
++
++static void dm_test_is_crc_source_crtc(struct kunit *test)
++{
++	KUNIT_EXPECT_TRUE(test, dm_is_crc_source_crtc(AMDGPU_DM_PIPE_CRC_SOURCE_CRTC));
++	KUNIT_EXPECT_TRUE(test, dm_is_crc_source_crtc(AMDGPU_DM_PIPE_CRC_SOURCE_CRTC_DITHER));
++
++	KUNIT_EXPECT_FALSE(test, dm_is_crc_source_crtc(AMDGPU_DM_PIPE_CRC_SOURCE_NONE));
++	KUNIT_EXPECT_FALSE(test, dm_is_crc_source_crtc(AMDGPU_DM_PIPE_CRC_SOURCE_DPRX));
++	KUNIT_EXPECT_FALSE(test, dm_is_crc_source_crtc(AMDGPU_DM_PIPE_CRC_SOURCE_DPRX_DITHER));
++	KUNIT_EXPECT_FALSE(test, dm_is_crc_source_crtc(AMDGPU_DM_PIPE_CRC_SOURCE_INVALID));
++}
++
++static void dm_test_is_crc_source_dprx(struct kunit *test)
++{
++	KUNIT_EXPECT_TRUE(test, dm_is_crc_source_dprx(AMDGPU_DM_PIPE_CRC_SOURCE_DPRX));
++	KUNIT_EXPECT_TRUE(test, dm_is_crc_source_dprx(AMDGPU_DM_PIPE_CRC_SOURCE_DPRX_DITHER));
++
++	KUNIT_EXPECT_FALSE(test, dm_is_crc_source_dprx(AMDGPU_DM_PIPE_CRC_SOURCE_NONE));
++	KUNIT_EXPECT_FALSE(test, dm_is_crc_source_dprx(AMDGPU_DM_PIPE_CRC_SOURCE_CRTC));
++	KUNIT_EXPECT_FALSE(test, dm_is_crc_source_dprx(AMDGPU_DM_PIPE_CRC_SOURCE_CRTC_DITHER));
++	KUNIT_EXPECT_FALSE(test, dm_is_crc_source_dprx(AMDGPU_DM_PIPE_CRC_SOURCE_INVALID));
++}
++
++static void dm_test_need_crc_dither(struct kunit *test)
++{
++	KUNIT_EXPECT_TRUE(test, dm_need_crc_dither(AMDGPU_DM_PIPE_CRC_SOURCE_NONE));
++	KUNIT_EXPECT_TRUE(test, dm_need_crc_dither(AMDGPU_DM_PIPE_CRC_SOURCE_CRTC_DITHER));
++	KUNIT_EXPECT_TRUE(test, dm_need_crc_dither(AMDGPU_DM_PIPE_CRC_SOURCE_DPRX_DITHER));
++
++	KUNIT_EXPECT_FALSE(test, dm_need_crc_dither(AMDGPU_DM_PIPE_CRC_SOURCE_CRTC));
++	KUNIT_EXPECT_FALSE(test, dm_need_crc_dither(AMDGPU_DM_PIPE_CRC_SOURCE_DPRX));
++	KUNIT_EXPECT_FALSE(test, dm_need_crc_dither(AMDGPU_DM_PIPE_CRC_SOURCE_INVALID));
++}
++
++static void dm_test_is_valid_crc_source(struct kunit *test)
++{
++	KUNIT_EXPECT_TRUE(test, amdgpu_dm_is_valid_crc_source(AMDGPU_DM_PIPE_CRC_SOURCE_CRTC));
++	KUNIT_EXPECT_TRUE(test, amdgpu_dm_is_valid_crc_source(AMDGPU_DM_PIPE_CRC_SOURCE_DPRX));
++	KUNIT_EXPECT_TRUE(test,
++			  amdgpu_dm_is_valid_crc_source(AMDGPU_DM_PIPE_CRC_SOURCE_CRTC_DITHER));
++	KUNIT_EXPECT_TRUE(test,
++			  amdgpu_dm_is_valid_crc_source(AMDGPU_DM_PIPE_CRC_SOURCE_DPRX_DITHER));
++
++	KUNIT_EXPECT_FALSE(test, amdgpu_dm_is_valid_crc_source(AMDGPU_DM_PIPE_CRC_SOURCE_NONE));
++	KUNIT_EXPECT_FALSE(test, amdgpu_dm_is_valid_crc_source(AMDGPU_DM_PIPE_CRC_SOURCE_MAX));
++	KUNIT_EXPECT_FALSE(test, amdgpu_dm_is_valid_crc_source(AMDGPU_DM_PIPE_CRC_SOURCE_INVALID));
++}
++
++static struct kunit_case dm_crc_test_cases[] = {
++	KUNIT_CASE(dm_test_parse_crc_source_none),
++	KUNIT_CASE(dm_test_parse_crc_source_crtc),
++	KUNIT_CASE(dm_test_parse_crc_source_dprx),
++	KUNIT_CASE(dm_test_parse_crc_source_crtc_dither),
++	KUNIT_CASE(dm_test_parse_crc_source_dprx_dither),
++	KUNIT_CASE(dm_test_parse_crc_source_invalid),
++	KUNIT_CASE(dm_test_is_crc_source_crtc),
++	KUNIT_CASE(dm_test_is_crc_source_dprx),
++	KUNIT_CASE(dm_test_need_crc_dither),
++	KUNIT_CASE(dm_test_is_valid_crc_source),
++	{}
++};
++
++static struct kunit_suite dm_crc_test_suite = {
++	.name = "amdgpu_dm_crc",
++	.test_cases = dm_crc_test_cases,
++};
++
++kunit_test_suite(dm_crc_test_suite);
++
++MODULE_LICENSE("Dual MIT/GPL");
++MODULE_DESCRIPTION("KUnit tests for amdgpu_dm_crc");
++MODULE_AUTHOR("AMD");
 -- 
 2.43.0
 
