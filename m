@@ -4,123 +4,122 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 86A4ACD4F21
-	for <amd-gfx@archiver.kernel.org>; Wed, 13 May 2026 13:55:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8E654CD4851
+	for <amd-gfx@archiver.kernel.org>; Wed, 13 May 2026 13:59:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1B9CE10EE9F;
-	Wed, 13 May 2026 13:55:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 18C9C10E34C;
+	Wed, 13 May 2026 13:59:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="0sUmPnvX";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="LU9+M2dC";
 	dkim-atps=neutral
-Received: from BL2PR02CU003.outbound.protection.outlook.com
- (mail-eastusazon11011042.outbound.protection.outlook.com [52.101.52.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4E09A10EEB5
- for <amd-gfx@lists.freedesktop.org>; Wed, 13 May 2026 13:55:28 +0000 (UTC)
+Received: from SN4PR0501CU005.outbound.protection.outlook.com
+ (mail-southcentralusazon11011059.outbound.protection.outlook.com
+ [40.93.194.59])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C0E0410E34C
+ for <amd-gfx@lists.freedesktop.org>; Wed, 13 May 2026 13:59:10 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=WlI+dhHZi0J6VKnMKwjlMMzpfKkV6NKZVIYhWgl+SWnBReUP/tSaMITr+Caa5FPZ1RJdDP4+ra5mfOqhDf9i3fkT+MNY2y+g0EnhqEPM1pKzOSqRihVEKoyY+DaE1UI8TCqa7gluzum0+i1rSnKyE31MZkUQuYjY2RVeXEsfNGFLorAViPWQul3PfbupbUiW4EejRUSs9M3GAmY27QMqMgJk4XDJjpqgw3qt8B5JKPok0X0uR0Zq8YJqQgHI0VFDDCT+WubjyUUH08DPwhLzFa4xscv/DaUx8Pdvtzj1VBMYiTkD8qCVR1ca1Ei9CvZpBXHeWgFiRXvN/sPAVniIeA==
+ b=j/ckhAr0oc1v5XQmnpGUaiKKhPo5xCmuDVe3hO7c6waH/JjO9pEXsM80X5+ozNEyouGpD8FOvHQe93a551t+7Kfw1/vyxEvSZ5mWu2Qwk8XON2VPXoTxBLb2YvZoVqpHjW8gCrq4kN/ohHcUDMPBtfKdvii/Q+6uV+zznKmVWcrPdlrfrtrdijFJxfI7Bh0BtY71AU+RoIYC8ppdI21+X7HjRXBIfenvIj+ZOJPqWuioNWIOD3msRuG2tE36sQokw//8EV4TMdAmWdsjfWFDwE63mm5uflsSAivpui97mD3/+uXqTNL++025eSWBkR3xvsy368IT+KlHeketqBOZpA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=iCFcqrQI2DsAO9x5bO3LpZlyeMd8jdpquOr+ddcvyvE=;
- b=AGpnz8npK+5edeG1C1UEa2xXxff0IVHb5bP/UFRVm5qGCYzi/ksWluTtLOlYLBab4jE3Ca4h2dgrKoNlLKC74C1aJpzBEih4JxmuiUrP0dhXoKG8bL/nA/FyBZjVLvX9zOihNhaQfkxf2dNJ59YgFSf6ZqFsXrbnr8p1Le6kZ6O1W28chPNyCEE5hHOQbvbj6NrUjJaKkrT2j0HIbEDi0NmcLz5lnsmA0mtFhYvEhuJkO3eZagxuYJIkh1qoX+ZddnSyPajn81oT9EAwWoxVGOZDlJYaIGRbPnFkrSVbLt05uESH+Jrr6Ge3aDE5E8Ho6QRZgF1DKlXVedN7tDA1nQ==
+ bh=aFnuxoCjVU4yveJH7Qjhcl2qYRdJhm2xAoQrnrvy4OQ=;
+ b=xJTe7o4GiPXM5z0nRjxDjDk5k9xRcA7xAi487rlhx+3kjoQzdeK6BWA1Fpnyc0F3DXPlrBgglcqI4jc8gRlCwHpMucYZlqjGQFOX1U2OP1lszDCTDZpuNw3o6H2D88isWGAvy1erxt0LaNyD7pIzeQx1UIRAvsUgiEGyLxy+vxmF1DrcSWc4OauGhQZMgmhP1IZ0kXSUpc7uJZkmA8/VcVQXshp6+4Dnl3X/84L3fT/kbhSBMSKETupdSc/EXli1IH6QrAWAtsP96emkISNf9IZ1z3B6cUIXRuXXqkd+DFT9v65xEdvpabXUYOaSe15ZbB1xIRwTTP+5gqn1lfHXVQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=iCFcqrQI2DsAO9x5bO3LpZlyeMd8jdpquOr+ddcvyvE=;
- b=0sUmPnvXQ+zS2haCiXxxkRcnZezLHAbEij9aZ9O56LMNUGPhJwg+RTKPWD698JUrWAlEWrsWUvKCcR+x99SEiq9e+ypV0Pe01TUkXHhHwMcpQFkS84dp8PB9A4wdsbY9NEQwUWQUD2Ny/gKvF/s4IrsHnQu/Gcl9I+URBXUKQnU=
+ bh=aFnuxoCjVU4yveJH7Qjhcl2qYRdJhm2xAoQrnrvy4OQ=;
+ b=LU9+M2dCyB1IiB6OEsl98wpIwOzgSAcmKngDC/LuzayFku75tt/q/S59HRZmFvHJEBqiPlYfzRwKwvXQS7eyXoWXhkuulBa3fnSTUY6r/ZKJUTtjaBq41z4AEBTXO1qzEpJCF/gcZdkX8y4Y2OH5dIvOjovSTS70QwPgL1svLes=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by MN2PR12MB4240.namprd12.prod.outlook.com (2603:10b6:208:1d3::14)
+ by BY5PR12MB4034.namprd12.prod.outlook.com (2603:10b6:a03:205::9)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9913.11; Wed, 13 May
- 2026 13:55:23 +0000
+ 2026 13:59:06 +0000
 Received: from PH7PR12MB5685.namprd12.prod.outlook.com
  ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
  ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.20.9891.021; Wed, 13 May 2026
- 13:55:23 +0000
-Message-ID: <bdaf26f1-ba62-4dbe-88ed-6ae85c0cb43c@amd.com>
-Date: Wed, 13 May 2026 15:55:18 +0200
+ 13:59:06 +0000
+Message-ID: <456757c7-3e05-494b-9a51-09796757e649@amd.com>
+Date: Wed, 13 May 2026 15:59:01 +0200
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] drm/amdgpu/userq: Fix reading timeline points in wait
- ioctl
-To: David Rosca <david.rosca@amd.com>, amd-gfx@lists.freedesktop.org,
- "Prosyak, Vitaly" <Vitaly.Prosyak@amd.com>,
- "Khatri, Sunil" <Sunil.Khatri@amd.com>
+Subject: Re: [PATCH 2/2] drm/amdgpu/userq: Add syncobj_points to signal ioctl
+To: David Rosca <david.rosca@amd.com>, amd-gfx@lists.freedesktop.org
 References: <20260513104710.9705-2-david.rosca@amd.com>
+ <20260513104710.9705-4-david.rosca@amd.com>
 Content-Language: en-US
 From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260513104710.9705-2-david.rosca@amd.com>
+In-Reply-To: <20260513104710.9705-4-david.rosca@amd.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR3P281CA0159.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:a2::19) To PH7PR12MB5685.namprd12.prod.outlook.com
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR2P281CA0039.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:92::10) To PH7PR12MB5685.namprd12.prod.outlook.com
  (2603:10b6:510:13c::22)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|MN2PR12MB4240:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2b9f98b9-6836-4e11-5323-08deb0f7470c
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|BY5PR12MB4034:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1ced946e-5782-4519-86ee-08deb0f7cbc5
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|366016|22082099003|18002099003|56012099003|11063799003;
-X-Microsoft-Antispam-Message-Info: etM37SK6f+dFirnLyUK+UuZlYi3jiuHuRjc9WlJRHXbIdQti+RviPWghC7RD11t8pNktdwdtvJuMihqYcL5iK+EqUUkx852ZbKh82x46uCrrEKNucUlO9Y61SR7tcIVtY1Zb1F+xI9OpNcspYZ+kzE3Ww0IxyYPw9jUL/iDvYrWfXuuclWumZj8aGbCOBVj/peFhwGmb+9Qy2QJLEqkQjIBn13Z7Ae5mj/QCUyh0QhSuGe+Zb2vV/8guw9rcSxaJPpkhkgVwvJ+1HtR3oxWWhIZGeD3AttyU+AapoEG+4E4runIgltTkpSmKpYP+pT1aqdmld3Grz+oxkw1vDTV5w+QNsQhgQWt0iBDxP6oUedamW8hz5uEQS5dgqDWFb2G+aFFvAVvixqUwxa3K4DFtNbf/dRizRvfRPvWKuaO+jdMS4+IucKA+8RnJ9d5LepTzn932FSeEZzw6JKUGFBUyVWahbNYBAWyHwcPlR6SEeh0NtKC/TThz2nj5PvPyW4nxADKu1vXF8bgVr/LyWTOQVftqVUd3RwUKVIi3JgLE195G8KfxT+hdnALMIPrONxmsm6mjapjlKoc2GWliB+1FuF8USovju3kKY2Zo4V1p4zpTVmaU4Ob7T/8BjEheqxjJNBAZWK2TCErm3P5aVHRcJA6hvSQdkV3/E4JfkDhU4QlTM+75saBDqcebTKeccwht
+ ARA:13230040|1800799024|366016|376014|56012099003|11063799003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: AnpWAhmnTnHHWT7XAZ7dtLqagnxtqeczt2wwwGkJiMYfzz7uLcM//SoOVe1l6rLfnSw4v0iTys5fBySm7fzSslL1rI+wPCEqSmbVIzwgnAxuf43VD3Wc/riIN3TmUwI70TLKAFu5qEtAukLmGfhMjjh/WLNgGpHYQar97mO9cen2RJVcyDn7k+8ZQKMHCsZJS8TKMM5t5ORRFqh6QdbYo+ih41yVjtzpVPBl3SWqUKWNaIUwgwz5mrOPg7qJiXyBInpDwiczpslyxqB1IGLklL7UixShfuPLlZ/CGJsrCmXVvwQknOgVCHCY23QeceOGQoUsNniux3hzgWuhvvo/lg7/5ehzXB3M3p4AyItkKhPkuNwgeg+5gHeSQWJx6qOon+8ptrf+skr7g9S8N/F50Fujx55sRiDS69HI3PsttGMpb/po6i+ExP23fXGGkINTmFOlKHl3Ef2jDNZGCsl6DN9ZHlANKPEd9IR7gOspKoAbVUvXsKMyBMkH3fTTR89HZVtRV4p0FCY5L3BU+uMLe9NpaY+WWSgiuxmxNj686kRpqFIgOf/zIz/faDdaaNrU+np9NtqKcb4x8zmi6J7UfJ0U/aT1IWcGjU48v0ZjEbvTAhF1GmqbwzhMbyrFCPB751wrScWowZ7oqr6G6m35tw==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(366016)(22082099003)(18002099003)(56012099003)(11063799003);
+ SFS:(13230040)(1800799024)(366016)(376014)(56012099003)(11063799003)(22082099003)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?N1h5dnBGdVgvVTg0RWNETXVvR0NTQkRDWDZRN0hDaFBrcGRnZmI5OUd0dlc3?=
- =?utf-8?B?b2xZMHNLZVdFU0cyeU91MkMvRTZVQnhxVmErN1VncVhvZzVpT3hHV2NTWnNX?=
- =?utf-8?B?bVR4N1EraHFST2c0SE4zMEdBWi9DQ0dvWHpQU29DdFF5QVdTbmp1S2Y4cXpq?=
- =?utf-8?B?enhrUGFYOE0vZ25ZTXpCVCtWOHNsMFk0SEM1a0RrNkQ3U0JMeW9BZkppYmV3?=
- =?utf-8?B?QUx5K3JXMXNqclhmb0FpVEExUm5zcnNZd2RZOHdMQkJ3V1NTbHd5a3Q3a3ZR?=
- =?utf-8?B?VHdjVXlaVm0vTVBLSVNPWjhUQnBmTE1XQ3BvS0ZzZDFKT21rbjVxS25vSlNV?=
- =?utf-8?B?a1o5aHB2cW1PMFZYaWt5eXFhSzFvU0RjbFZwa0lYNlhabmtpZXNBU2VvcFMr?=
- =?utf-8?B?WHhzUnVlZjk3VkxBTm5uczBPT2ZFS2pvOTAxTnNDZzRiOWFIeEJYSTErbU9s?=
- =?utf-8?B?YlVFVmlTZE9KdHFNc0NVMlFDRE5NNnl4Y2VUaUZzUzZYQWwvd1QveXgrenVU?=
- =?utf-8?B?RjdFSHdEODNPRWNYUGdTWUJWMUlFOEVNSS9PVHMyT2ljcDU5eUNrRnAyRVU1?=
- =?utf-8?B?TFFVWUlmUERxZ3N0WkwvSVEzRml4VUtCS09tVGVqVTRWMkN2SmwycjBHN21Z?=
- =?utf-8?B?a3dMNi93cENFakk2c09LdVluWjZmL0NpWkpsSWpOeVQ0MU9nRHBQQnQ5b2Y0?=
- =?utf-8?B?dkFIRVNwVUpIR0pxUG5SRjczd2VFdSt3S3B0QTEvR1FJd2lVNkFDS2JjNTJT?=
- =?utf-8?B?UTREQ2p3UWswM0R6eFZQMkdDeHZtbm1WdHcwSXNQb3NyUFJmWWtValZnMWJE?=
- =?utf-8?B?QmFSN3c5ZFZYUEJzVm9KWnRGSStJcTlleWtoQU1DZkR5MmZwejV6KzhBYWdN?=
- =?utf-8?B?bjcrTmpsVTZZeTQ5UWIxUndicDdOb1BXRTlyMUY5V3Nyc2w4YWRvdS9aUlJK?=
- =?utf-8?B?ZXgrNmRnNkU1emVPMEpNdEVPN1FXNDJsbnRackJ3ZVpobDE3clVpV1kwdy9y?=
- =?utf-8?B?SzVSVnNtbnBMVDRoR3BrdlZZc0x0OTFoTFYwcGw4VXd0dmNkTGpWT0o5ckE4?=
- =?utf-8?B?WHZQem9xWUV3cE4rQnU3Q2wxVkllazUrQ3BWdDNRSlVjWjlNL0o4emMzS3RQ?=
- =?utf-8?B?K3Q0VzAzNUZ0QWdhdG5RWVUyMHF6UkJPZnUzRzhzcWpQejdlRzVQQmdva2F3?=
- =?utf-8?B?anBST2tJb3E0MzRpNlVFTVlYNkRkaEowZEF4eEdSNk9NcHFYd3dPclJnZzNV?=
- =?utf-8?B?K1dUMzNMQmpKeGNEMHJwckZBNVc1WHhUdTJYUWFkcVp0REJ2QVZGWW42Y2Qv?=
- =?utf-8?B?eDlMNHBEUmRMNVAwTC9UY2N2SnhJcmplMVdsWDhZOEJqNG1lS1UzU1RZTHBX?=
- =?utf-8?B?M3hHd21ZUExGZnpqcExEZHN2dnFFdnVSWjh6WjlpRnBoN3orVDJhcFYzWlJV?=
- =?utf-8?B?RytRTEo2VTlwRThMZStsVU9NY1RTSUljaG5IVVRVUEpFWkE0YStzVEhYWHd6?=
- =?utf-8?B?Z29yS3dDRjE0Z01KdDhRZEFxVkhnVHZqSG9oR2lleUJYSXZPT1FaN29sTjQz?=
- =?utf-8?B?MlNzcVJxcXpaZUV5Ykp3NWl4eVNMT1ZWd2lpNnBQT2VKSzNQNnQ2R044ZWN5?=
- =?utf-8?B?TGVpZXdTVjVJb2N1OENRZzF6Z2lsZXNPN0ZHR0JURDYzSWRQY2FQVlVOZEpI?=
- =?utf-8?B?SWt6ZTZtQjcrcmZTSGpLcWhrR0p3ektHTmIxR21qYlZadWdUdys2OFFWZzJD?=
- =?utf-8?B?M3pZQ1dGSkF5czgzdzZGWEdweTYxbnM3VDhib3V0L0tjRkFMZklndGFicXpU?=
- =?utf-8?B?SEdtOHFkMEdscnErSTgzUmZYUFVoLyt1cEtMZzVVZ0pGSi9SekVIQjdrU0Vq?=
- =?utf-8?B?RnkwNnRVMWFwMEJmWlhPREJqSHVlekNYRUxDNjVyYmVERnlRV0FDajZicUMv?=
- =?utf-8?B?NmtIOVM1QVdGK2ozbm91cUUzSHlBdVpzcG5zYjZaenluNFNJd3IzNmZQeUdr?=
- =?utf-8?B?eGR3Q2d1OXFyN0xpQjhHUU5mSithdllScWxGU1RrNkpISlNiN0J4VW95WEhM?=
- =?utf-8?B?eCtGanN6VTUzMHNrNEdZL1o0T0V2aEdDRkFVTjNpbGFZS0NSOTFpUEZLVklm?=
- =?utf-8?B?Mi9YTzcxd09HazV2bHpSc0Y5a0ZxRGJMdWxRb1p2SFg3QmdHVmptWjRQTDFU?=
- =?utf-8?B?YzlLb2ZIa0ZtSzZXN0gzSnMxRkFUM0U3TEhENG9TZnNZSnRFYk9TVjgrcTNn?=
- =?utf-8?B?L1hpVGNid1Naa1oycjh4bEM2eGZ6YWpHRVd5YzNaemkyc0N3MHJrU0dFOTJG?=
- =?utf-8?Q?O6kARIZRIUo1tNoq8c?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TWRnOGorU0VyZk00VmFUZkYwWW9sdWNxNDBnc2tHYzBWNE9XekJsNHRXS1FV?=
+ =?utf-8?B?OGhBblNBOEJqUGNPU1N4eDlRWjk4OWdtSlRQRDRlbU9iWTRJSURhQkxxVDRi?=
+ =?utf-8?B?dmhLRGU0WG1XNFNoZGYzU0Q0WjZzdjQzY0xCVkJibURJM1ZBMFZyN1laZ0Mw?=
+ =?utf-8?B?WmtlRmpyZzdGWnV0VWJHZlpEdUFXYTgwUkhhZU1qZ3N2Qks5cU5weHJsUEth?=
+ =?utf-8?B?SUlSbmVNZC93NjZYc3ZGemJiMFV0cDliY1FGeTREeVB2TXIvdXVuNk5GRmw4?=
+ =?utf-8?B?R0k5VkRVdDlsQ2JUaVUrY1NxbU5qb1FTVk1vMll5NFNDM3B6RTBnNjU2MkFj?=
+ =?utf-8?B?TEdtb1U0U0NQUEptV3g0Z2dHTmdyc1V1RGtmb0k3TDh4U3JYdCsrU3VjZzc2?=
+ =?utf-8?B?TklFRU03bUZnVDJObTYvMVJKU2lKS0tWNlF4dnQ3eE9NcGZQa0VXNjR5RU9K?=
+ =?utf-8?B?cVZ3V09US2FzcTdVOVZXVUI2eVNwYlRoTGticDRUUHVaNWNmMnFTd3hlWjQx?=
+ =?utf-8?B?dmNPTnhuVnJ5bjkrUnRRQzdDaUJ2TUNQbnNJZXc2MmRrR3lSY3l2bkRLcytX?=
+ =?utf-8?B?VzZReUpFS1lpbVh1UlRJQng4OFhxU0tJTmlERFRwQ1ptSzdVcW5kYm1qUkNV?=
+ =?utf-8?B?M3pCODNiSlU4NXVwamNRNm40N01BQjE1WVpHZnFFSVljNWJGTjROY1h4bTA1?=
+ =?utf-8?B?YmVjS212dENmSHRNUWIvbUN1azdvY1YxUktaK2pESnZTclBaRGRDWDRXZUVI?=
+ =?utf-8?B?VnAwc21oeTNNdkh6b0F5N1VOLzNkcmcyUWJmczVPVWppZERucDM5MThvRnZS?=
+ =?utf-8?B?QlplVTUrV2RSbEY3OGpJYWt2MTJTVEZsQzNVMkdCeStiZHFJWDl5ZVF0dnZQ?=
+ =?utf-8?B?RkRVM2xnb0RzK0FMS0RNWDFoUGRYRi8wMHc1TFFncXkvM0p3NEFvTG0zRWhv?=
+ =?utf-8?B?ZU9UK093cm1ZZUVuQ0p0aDdBQ3IzWHNkdE5DR3BCRUVGY1RUTUFOSkQxUWhn?=
+ =?utf-8?B?Q3dtMnorOCtvWVdIWXg1eHdKR3QxN0M3TWR6Rzl4MitoNDRrOXRkUUpPVlZq?=
+ =?utf-8?B?ak04MmhJS3FicFBIdi9RVlVqZHBSS0dYNFl5WjcxcDNEaDJiMXRuMFpOblVw?=
+ =?utf-8?B?NmV0S0g1K3pQekpWUGxvSDJpamxCYmVOUE03aUovV2s0ZThza3NzUXBrRThH?=
+ =?utf-8?B?UlFxb0tadlRyd3lPbm9IN0xoK2xyQk96aXlIZThKRHJaUkNndHVObkRqVktJ?=
+ =?utf-8?B?MGtNRVVyS2tKS3krNG9pMDF6UHVGL1VCcyt1UDVZRkN0RjVHMXJSMGhiOTB6?=
+ =?utf-8?B?WnNRSXV4LzJZWkQwUHdrYk5sVVY5eS9zU3pWZHVyc2JRYjc1ejM5czMvS0M3?=
+ =?utf-8?B?aDU3ME02Mjk4RnJCcGJqc0Jrc01HdWpqV1FaU0l2K00wZGhDdDJFYUpSUXZt?=
+ =?utf-8?B?eUdMWWNUT0w1eWlPYzZUWFpnanNNREVabWltRzZ0YVBUY2tRN2ViRmVNSlZt?=
+ =?utf-8?B?clBrMkdpSTZjS3ZoOFhXaU92R1dYOXJWUlM5VkQ1K05kVUhJczVtVDJMNTdD?=
+ =?utf-8?B?K1pkQUNiMGtleEJKNDFhaWtkc3JkK3JZeUpDOHNRblRiY0M1emk1N20yQTZY?=
+ =?utf-8?B?dUo5TjhUanF3NmV2U3RIK2NFcER5d3pzT09NQXZkR1VtYVJOc3FkOTJlVlB5?=
+ =?utf-8?B?TG9tTElKZGNpV0dMcVBrZWI2Vk4yLzRrOG8zcXBWUjgySGFDZEdIQmRCckNk?=
+ =?utf-8?B?Vm1MeFhuMkRlVnQwaHU1cldnY1BkTkdkeW0vL2lXQTUxZ0hCMHU3eVdhM0xU?=
+ =?utf-8?B?MS9kQW9NV0lKOFhoSnUxSC9UYWFDMTZpVTh3YmZVZnVUSjhmTERtQUwxU2xo?=
+ =?utf-8?B?eXNVOXBmcDZwZDhFa1h4TExJOVZ6czV1ZG8wL1ZZOVFidCtyd1FJVnp2QVlC?=
+ =?utf-8?B?NVh2WlUvK1c0VjhzUXVrUjVFM211QUJFaGwxbmlaaTBzQ3lkYmpPTXJZcHYr?=
+ =?utf-8?B?VkpyblA0S3BLSmo1REF6VnpFR3lSK3lvTld5V0pDcUFaMEZSeG5CaWhUbkR6?=
+ =?utf-8?B?UFlSNzlRUnM2ZjQyV0JjaTgrR052YWY1ak1ZTmNKV2IzNnVEU1FjL21VRkRB?=
+ =?utf-8?B?UlBSNXJ5WFlxNTd1dUhPUXhkZnd0UXdLcDF1bW9hNjk1RGd1dzVyZ25YK1ZR?=
+ =?utf-8?B?dUlTbDRKMndUa1NMcDYzT0V2WHhxZWZXak9WZ1QzelNmQjMvUFNHUndEQW1z?=
+ =?utf-8?B?bE5vU0I0M2JPbmZyMFVNL0t4aUdPS1BQcURkYTdGdUdsczZzVDdJUkZ2SkZh?=
+ =?utf-8?Q?iTJdVbgGNz0qI5iSIk?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2b9f98b9-6836-4e11-5323-08deb0f7470c
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1ced946e-5782-4519-86ee-08deb0f7cbc5
 X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 May 2026 13:55:23.1812 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 May 2026 13:59:05.9592 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: HK5KkyhZyu8SslhiINbo6e6/V+Knvshw467RSs3EASt4b4AnOXPWR/1Lf+19tt8G
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4240
+X-MS-Exchange-CrossTenant-UserPrincipalName: blZXelDj6YCGm+izSywPEc+rHUDnCaxqSaJoUIMzZ3des+//pVGjvfpCk2I4c1OT
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4034
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,61 +134,137 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+
+
 On 5/13/26 12:47, David Rosca wrote:
-> Use correct u64 type.
+> Userspace patches:
+> 
+> * radeonsi NV_timeline_semaphore
+> https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/37335
+> 
+> * RADV user queues
+> https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/40808
 > 
 > Signed-off-by: David Rosca <david.rosca@amd.com>
-
-Good catch, Reviewed-by: Christian König <christian.koenig@amd.com>
-
-Vitaly and Sunil do we have an IGT test case for that? If not we should probably create one.
-
-Thanks,
-Christian.
-
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c | 9 +++++----
->  1 file changed, 5 insertions(+), 4 deletions(-)
+>  .../gpu/drm/amd/amdgpu/amdgpu_userq_fence.c   | 47 +++++++++++++++----
+>  include/uapi/drm/amdgpu_drm.h                 |  5 ++
+>  2 files changed, 44 insertions(+), 8 deletions(-)
 > 
 > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
-> index 008330a0d852..c0d68863fa17 100644
+> index c0d68863fa17..66c5fbba83f4 100644
 > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
 > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
-> @@ -593,7 +593,7 @@ int amdgpu_userq_signal_ioctl(struct drm_device *dev, void *data,
->  static int
->  amdgpu_userq_wait_count_fences(struct drm_file *filp,
->  			       struct drm_amdgpu_userq_wait *wait_info,
-> -			       u32 *syncobj_handles, u32 *timeline_points,
-> +			       u32 *syncobj_handles, u64 *timeline_points,
->  			       u32 *timeline_handles,
->  			       struct drm_gem_object **gobj_write,
->  			       struct drm_gem_object **gobj_read)
-> @@ -703,7 +703,7 @@ amdgpu_userq_wait_add_fence(struct drm_amdgpu_userq_wait *wait_info,
->  static int
->  amdgpu_userq_wait_return_fence_info(struct drm_file *filp,
->  				    struct drm_amdgpu_userq_wait *wait_info,
-> -				    u32 *syncobj_handles, u32 *timeline_points,
-> +				    u32 *syncobj_handles, u64 *timeline_points,
->  				    u32 *timeline_handles,
->  				    struct drm_gem_object **gobj_write,
->  				    struct drm_gem_object **gobj_read)
-> @@ -906,7 +906,8 @@ int amdgpu_userq_wait_ioctl(struct drm_device *dev, void *data,
->  			    struct drm_file *filp)
->  {
->  	int num_points, num_syncobj, num_read_bo_handles, num_write_bo_handles;
-> -	u32 *syncobj_handles, *timeline_points, *timeline_handles;
-> +	u32 *syncobj_handles, *timeline_handles;
-> +	u64 *timeline_points;
->  	struct drm_amdgpu_userq_wait *wait_info = data;
->  	struct drm_gem_object **gobj_write;
->  	struct drm_gem_object **gobj_read;
-> @@ -935,7 +936,7 @@ int amdgpu_userq_wait_ioctl(struct drm_device *dev, void *data,
+> @@ -460,9 +460,10 @@ int amdgpu_userq_signal_ioctl(struct drm_device *dev, void *data,
+>  
+>  	struct drm_gem_object **gobj_write, **gobj_read;
+>  	u32 *syncobj_handles, num_syncobj_handles;
+> +	u64 *syncobj_points = NULL;
+>  	struct amdgpu_usermode_queue *queue;
+>  	struct amdgpu_userq_fence *fence;
+> -	struct drm_syncobj **syncobj;
+> +	struct amdgpu_cs_post_dep *syncobj;
+
+We should probably rename the structure since this is no longer part of the kernel queue CS IOCTL.
+
+Apart from that looks good to me.
+
+Regards,
+Christian.
+
+>  	struct drm_exec exec;
+>  	void __user *ptr;
+>  	int r, i, entry;
+> @@ -482,19 +483,38 @@ int amdgpu_userq_signal_ioctl(struct drm_device *dev, void *data,
+>  	if (IS_ERR(syncobj_handles))
+>  		return PTR_ERR(syncobj_handles);
+>  
+> +	if (args->syncobj_points) {
+> +		ptr = u64_to_user_ptr(args->syncobj_points);
+> +		syncobj_points = memdup_array_user(ptr, num_syncobj_handles,
+> +					    sizeof(u64));
+> +		if (IS_ERR(syncobj_points)) {
+> +			r = PTR_ERR(syncobj_points);
+> +			goto free_syncobj_handles;
+> +		}
+> +	}
+> +
+>  	syncobj = kmalloc_array(num_syncobj_handles, sizeof(*syncobj),
+>  				GFP_KERNEL);
+>  	if (!syncobj) {
+>  		r = -ENOMEM;
+> -		goto free_syncobj_handles;
+> +		goto free_syncobj_points;
 >  	}
 >  
->  	ptr = u64_to_user_ptr(wait_info->syncobj_timeline_points);
-> -	timeline_points = memdup_array_user(ptr, num_points, sizeof(u32));
-> +	timeline_points = memdup_array_user(ptr, num_points, sizeof(u64));
->  	if (IS_ERR(timeline_points)) {
->  		r = PTR_ERR(timeline_points);
->  		goto free_timeline_handles;
+>  	for (entry = 0; entry < num_syncobj_handles; entry++) {
+> -		syncobj[entry] = drm_syncobj_find(filp, syncobj_handles[entry]);
+> -		if (!syncobj[entry]) {
+> +		syncobj[entry].chain = NULL;
+> +		syncobj[entry].syncobj = drm_syncobj_find(filp, syncobj_handles[entry]);
+> +		if (!syncobj[entry].syncobj) {
+>  			r = -ENOENT;
+>  			goto free_syncobj;
+>  		}
+> +		if (syncobj_points && syncobj_points[entry]) {
+> +			syncobj[entry].point = syncobj_points[entry];
+> +			syncobj[entry].chain = dma_fence_chain_alloc();
+> +			if (!syncobj[entry].chain) {
+> +				r = -ENOMEM;
+> +				goto free_syncobj;
+> +			}
+> +		}
+>  	}
+>  
+>  	ptr = u64_to_user_ptr(args->bo_read_handles);
+> @@ -561,8 +581,15 @@ int amdgpu_userq_signal_ioctl(struct drm_device *dev, void *data,
+>  		dma_resv_add_fence(gobj_write[i]->resv, &fence->base,
+>  				   DMA_RESV_USAGE_WRITE);
+>  
+> -	for (i = 0; i < num_syncobj_handles; i++)
+> -		drm_syncobj_replace_fence(syncobj[i], &fence->base);
+> +	for (i = 0; i < num_syncobj_handles; i++) {
+> +		if (syncobj[i].chain) {
+> +			drm_syncobj_add_point(syncobj[i].syncobj, syncobj[i].chain,
+> +					   &fence->base, syncobj[i].point);
+> +			syncobj[i].chain = NULL;
+> +		} else {
+> +			drm_syncobj_replace_fence(syncobj[i].syncobj, &fence->base);
+> +		}
+> +	}
+>  
+>  exec_fini:
+>  	/* drop the reference acquired in fence creation function */
+> @@ -580,9 +607,13 @@ int amdgpu_userq_signal_ioctl(struct drm_device *dev, void *data,
+>  		drm_gem_object_put(gobj_read[i]);
+>  	kvfree(gobj_read);
+>  free_syncobj:
+> -	while (entry-- > 0)
+> -		drm_syncobj_put(syncobj[entry]);
+> +	while (entry-- > 0) {
+> +		drm_syncobj_put(syncobj[entry].syncobj);
+> +		dma_fence_chain_free(syncobj[entry].chain);
+> +	}
+>  	kfree(syncobj);
+> +free_syncobj_points:
+> +	kfree(syncobj_points);
+>  free_syncobj_handles:
+>  	kfree(syncobj_handles);
+>  
+> diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h
+> index 9f3090db2f16..ad643b41982c 100644
+> --- a/include/uapi/drm/amdgpu_drm.h
+> +++ b/include/uapi/drm/amdgpu_drm.h
+> @@ -502,6 +502,11 @@ struct drm_amdgpu_userq_signal {
+>  	 * @bo_write_handles.
+>  	 */
+>  	__u32	num_bo_write_handles;
+> +	/**
+> +	 * @syncobj_points: The list of syncobj points submitted by the user queue job
+> +	 * for the corresponding @syncobj_handles.
+> +	 */
+> +	__u64	syncobj_points;
+>  };
+>  
+>  struct drm_amdgpu_userq_fence_info {
 
