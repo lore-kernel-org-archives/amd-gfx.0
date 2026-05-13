@@ -4,82 +4,121 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ADB94CD37AC
-	for <amd-gfx@archiver.kernel.org>; Wed, 13 May 2026 20:43:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E5EA2CD4F21
+	for <amd-gfx@archiver.kernel.org>; Wed, 13 May 2026 20:54:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D98C210F061;
-	Wed, 13 May 2026 20:43:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 80D5D10E0C0;
+	Wed, 13 May 2026 20:54:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="KiHLF5qX";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="sn2m4MWS";
 	dkim-atps=neutral
-Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com
- [209.85.221.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EE16A10F061
- for <amd-gfx@lists.freedesktop.org>; Wed, 13 May 2026 20:43:30 +0000 (UTC)
-Received: by mail-wr1-f52.google.com with SMTP id
- ffacd0b85a97d-43d76dd4ee8so6723392f8f.2
- for <amd-gfx@lists.freedesktop.org>; Wed, 13 May 2026 13:43:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1778705009; x=1779309809; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=9lazp6U03JBhzkXRmXdYYmFwBtMKHRY1kzAfL+o9qDI=;
- b=KiHLF5qXMmgiGrroqfukEjnLMhKGBGEZLYeXOGi9x5nBd2jeOQ/AiMMJZQUY21+Sw1
- 6yYL4pxooJbHhVqV+aI6RsyZDqyYUOth5YIUdTeY3bfy/ckj5AFzbygJtzZgMuSOiGvo
- 9EP4gdZu2FjdhxudKgnk77C52b8XT0CwsUa15pj4LzuFiAMTRDA8z0PQGFMMGx1h7KBR
- WZMPQ45Q/oXhX0C7QF0Hon/qCS+XZ9su+IHOWOpwVEweddOyBltjjva5N3fNiRbcMZhY
- vo5YSjsvgk4RWG0mJzsv/bQmOV17H/SyZtvE3L5oIAW+oEO74wzA3z2HbrE/pyphKp48
- fXLg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1778705009; x=1779309809;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=9lazp6U03JBhzkXRmXdYYmFwBtMKHRY1kzAfL+o9qDI=;
- b=mgBGi21UevRV69Pn5lQkkF21whHrcKMReyLmhC7w3rro9lp8z+Ni7MMeFGGZcpxY29
- T72Hdssokk7ZrJOB0o/KISP2jABLpwG5c1LNuf0o64H4wHQpDQ97n3aXnUgnC2xRILI1
- blQ5xOdUHuYq1FJV/h6LwQxFtL4vwhqwifOdOTfiSbgm4RdI0hiTpqQ8L1UNNAy6HNrG
- qHxKU1oIE+cfCqkWKp+LEPV8Jmg/LOuZjOJp3x/RJLnwuH+gSFFSRYoGmAyGet3LiojI
- w7NQCsi2dkP7Ua4xxMSxbcVDzwJdpN1zXxKx1F4j18oLTd4y9eLPO+1Gry/f0H0k3Q9+
- EyDA==
-X-Gm-Message-State: AOJu0Yy/ZoQqPmH7T+AufU9QLneR6DfvlFjpalZwx/SPCqHpaqGKR7oQ
- HY46URZcO9WBtdfHScQMkg8IshjikTJEh/WRSpwqcHkPM24gvkOUfrX1qceGr7kr
-X-Gm-Gg: Acq92OG6EJOSLTftcSuesm2QgiLG5Mu4yU6tS8ZspdQHkpJtpqH/xRf2NFU/y70X6bz
- Fy4SLQv+B3/EvsWKY7etQ9MN/Mf7XjhWOIcfgnM/JtCrlcZvVRKgSbA2EQhqF8uyQkCzaLUhSBv
- mY25j6gLOygXYfHqV6m6psiBc5b5cJvWfUd45B6ocdUqu7PBULf/Csw9ACHYD1/HJp16E8sqvpR
- uXTW6wav/CxpYPSxCc2WtmdmBjsT55r9rabPhCZbwX7bS1l4IXqcUGhZMYcl+Z92b+wtwIJqZi5
- kDfMWeMz09fNT0cSPpPcDFhQ5L4yAohmu+vdVs+6+7NVbKmbeDLi7bEEC6ANENsn7ILgK8ajqZq
- BtE9rwVdx/Bq3LdO76/AmcybzSgEcNIh8MlH0gwe4KDqfiPdV8rLA6kyxHKgnCVPe5k97+Y+jhM
- H/NAME1cW+/BjP5oPP0W7ebyapdSUCGYyzdcniQ7jDeYDf9gdrvpEuTAWBRJ6nKcN8
-X-Received: by 2002:a05:6000:288c:b0:445:eb07:f0bf with SMTP id
- ffacd0b85a97d-45c584a9048mr7527589f8f.16.1778705009261; 
- Wed, 13 May 2026 13:43:29 -0700 (PDT)
-Received: from Timur-Hyperion.home (540017BE.dsl.pool.telekom.hu.
- [84.0.23.190]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-45da0a19c2dsm1308356f8f.21.2026.05.13.13.43.28
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 13 May 2026 13:43:28 -0700 (PDT)
-From: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
-To: amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
- christian.koenig@amd.com,
- =?UTF-8?q?Marek=20Ol=C5=A1=C3=A1k?= <maraeo@gmail.com>,
- Natalie Vock <natalie.vock@gmx.de>, Melissa Wen <mwen@igalia.com>,
- Harry Wentland <Harry.Wentland@amd.com>, Alex Hung <alex.hung@amd.com>,
- Roman Li <Roman.Li@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Mario Limonciello <mario.limonciello@amd.com>,
- Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
-Cc: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>,
- Link Mauve <linkmauve@linkmauve.fr>
-Subject: [PATCH 3/4] drm/amd/display: Support DRM format modifiers on GFX6-8
-Date: Wed, 13 May 2026 22:43:21 +0200
-Message-ID: <20260513204322.73542-4-timur.kristof@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260513204322.73542-1-timur.kristof@gmail.com>
-References: <20260513204322.73542-1-timur.kristof@gmail.com>
+Received: from SA9PR02CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11013071.outbound.protection.outlook.com
+ [40.93.196.71])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6124710E343
+ for <amd-gfx@lists.freedesktop.org>; Wed, 13 May 2026 20:54:44 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=pcIaHiRuKFg6F7EjROcwPx1Jf4Smu9ATFLDnZYOd7A7cnkk3ljstpA6bx3ZJPhPtwu2FkwHOIsyd0ZNlBU+InuNAjhElU6Tt7G5xqEudUPah94RPoegdMnx1otTfudqDHXb5dSNjb0Hjwm+R32c0GvelbqngIlGzJ2kK9rHQ268axDFs4GqUxTpKksctsqq2vemxEZ3iSCnU8uYa5AdUXGMCFmZbvruJtOpOiSFk8pelaYXiC3YfLlNiyGSs8L9yl7qkomcv8e2q9dcuWBYPzb9jpkiQ9AC0dHZ9G/TbLP3fzb7XX7xvegjGuxLxLb4CySNSNp9FZgFOezmsjhFefQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=svfp9D3LdfA1WKr+8xDJrrW7Nv/OXXWLSJROtFDfFvE=;
+ b=LX4CyTXfqI15z625Abod7sV/6aCIbW++D2czWwM+HFlkwROX5l9RgRRYeJIbfnTMQfjjBEa2W6aZ8lSKsus9Jym90C+DqrYSY2/jBaRF1xGcf5VgePNop7ZHjGivaf7CpWJMmh1r+vffqMdRuW64P07nXzou4G0IMjHXKwjxbi+Q4zseqRV40AOwV/FA3xOR4KeahE6gc5Odc01g9sAYvnguBqSKyoR6F5T7nP3esKXEBKTm9sQokgS/OOVytErS6kbzUQRXsNjeiQeU37PN1J7qKOdX6E+wpIa9u7Q1RCH5ucaD9xJTOut4p6ND6iFx6BeuLppgZAzYDivMYRKXcQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=svfp9D3LdfA1WKr+8xDJrrW7Nv/OXXWLSJROtFDfFvE=;
+ b=sn2m4MWSPX6MGnzuY+nqBFf0krNQtV+N46aVOPGRUdgoqeY6hG3HzYS5h6NYD2K+lzUENj71P4nIXsp7au8LoJZ0VfzXDR5QB4dJ3u0ZiYl2dfGdDEeSyya87asLnQgIS2PME7JPWZlh2ugSc0rmx256ZrGgq/uHsu49mMsptUg=
+Received: from SJ2PR12MB8650.namprd12.prod.outlook.com (2603:10b6:a03:544::13)
+ by MN0PR12MB6001.namprd12.prod.outlook.com (2603:10b6:208:37d::6)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9913.11; Wed, 13 May
+ 2026 20:54:40 +0000
+Received: from SJ2PR12MB8650.namprd12.prod.outlook.com
+ ([fe80::574c:e97b:b0d8:3957]) by SJ2PR12MB8650.namprd12.prod.outlook.com
+ ([fe80::574c:e97b:b0d8:3957%6]) with mapi id 15.20.9913.009; Wed, 13 May 2026
+ 20:54:39 +0000
+From: "Kasiviswanathan, Harish" <Harish.Kasiviswanathan@amd.com>
+To: "Lazar, Lijo" <Lijo.Lazar@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: Re: [PATCH 1/2] drm/amdgpu: Use asic specific pa mask
+Thread-Topic: [PATCH 1/2] drm/amdgpu: Use asic specific pa mask
+Thread-Index: AQHc4kGu4QzgzKc+EUynxKQtbV+WnLYLtWEAgAC7BuA=
+Date: Wed, 13 May 2026 20:54:39 +0000
+Message-ID: <SJ2PR12MB865013D5352DF5147B40AE7C8C062@SJ2PR12MB8650.namprd12.prod.outlook.com>
+References: <20260512190047.655578-1-Harish.Kasiviswanathan@amd.com>
+ <39547ace-1a1f-464f-aea3-2b5a86c1e404@amd.com>
+In-Reply-To: <39547ace-1a1f-464f-aea3-2b5a86c1e404@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-05-13T20:54:39.728Z;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD
+ General; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=1;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Privileged; 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: SJ2PR12MB8650:EE_|MN0PR12MB6001:EE_
+x-ms-office365-filtering-correlation-id: 3516a399-d21f-4896-e294-08deb131d9be
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|1800799024|376014|366016|8096899003|4143699003|38070700021|22082099003|56012099003|18002099003|11063799003;
+x-microsoft-antispam-message-info: rlf2r2PrFsUxoKIYIrzmBamc9GSf88VOznr56hG3xMdD36JVdZEDRbsour2A1zYemy5D/dOKkfTgoz1b6ZRbiUS/crCrrWE65QPI0HpRQkM7LrgFBcXPvoaxmpSc8np9Yw2ymicE8XPDwIQvH9xqGz8j+zMnrl2fxIJ0H7IL0k5ySHq1tR+10xzm83/5bI1IAIJNiYmu1S3QF8ZWu6c5Q2ZaunqU4cMItundwmZ0uCDfkPAmTYxanY9zmawFpHFa8mh0CBF5EQuJFNtfIyQXLgOF5OPuCCdWekjTATdtuAkhW/38yzsr7x+oMIk8AlrdZv9W76FyNRrwjQLlua0UgJ5ldtL7wpj/I8V4Y4A2zx0OLB8a5F1KjX/3oeTFvPcNbRNgjwByx/PAIw14QC6xYig34EJ84ZI+hpCxUusOKwVXBPEDONCEiYSt0BLFUwfhT9EIK/Q/F4psvT1OBdQpWGn/TwYKw6hF5/Dsh37uKx1PW4NMs4t6kY32BwN6vPJ6H/Spba72AWc1yFZDkrhTqI9yNjQ3yC+JuMOpDucoCotHKBsFJjeW8hS+LwFFqSEh9PAkTTtE7QlRvjjE/cPAC1BY3NY1i8N1mG502FUhnPqq5nUYFZfWnRT8MMlzIn6SqhHDCeC2Ay2aWhYClfy7dJKbs6nFt0De44cfB47rVxyP/Ge323McNZR7Z32lXqQjPcignK55oIbCpD3qttL7iCPdsKuw99tLTofAExm6wbubDlNkQMsLhpbbZfxzqyNX
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SJ2PR12MB8650.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(366016)(8096899003)(4143699003)(38070700021)(22082099003)(56012099003)(18002099003)(11063799003);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?gWD396VwqMWvKs0SSxu7S6CdLKakrxm9+b6CFHfYJEe7TRduVrXqKymFG8?=
+ =?iso-8859-1?Q?XdmVgQt7IHc/7i74jf/+PHRdU1ZguKIq5aYXcvdKJHUL1J+Z0nHblMzpix?=
+ =?iso-8859-1?Q?q7pWIKAk1+sAwpCGK7p0LETITCla4MYFGj3Aw8epfFsLTDc3goPWVN45xj?=
+ =?iso-8859-1?Q?31pTc2zCuc86vdVQl/CF+h4/6qTSEJQK3c9z2dDnuThxTM+yjzrJWgeJ8w?=
+ =?iso-8859-1?Q?Xbaonsh7eTSssmRbOpvaXyEFslRH2UJnprrnKXx7ZcfNpYqYxVb+BFXn+B?=
+ =?iso-8859-1?Q?Ej8HVMhZfLctFZLELn7IE9tyvXO4jDspf/FCJWq/Ve/NBrc2DQK1vFUm1Y?=
+ =?iso-8859-1?Q?WmRnU+dSUdkY8uMAhPf/ZwREM5wHEeX/y8g83c1khjvLtClH7iICgHLSXz?=
+ =?iso-8859-1?Q?7zR58yB22cdt1TGipbHqKDvyQkbweVmcMmu5VaRvp8rBH10JE0TTJ6d2F/?=
+ =?iso-8859-1?Q?z5+M1svqTtiAOxHNVCASsi4ApTK/yDp2sl4Ql3J9nR05b52R3I2b2KBHvh?=
+ =?iso-8859-1?Q?SXWRrXq/EdpNcGCAI7UUrmchaDzKYjYpklv2IsvajxGicfnk4noI+gtb4d?=
+ =?iso-8859-1?Q?nWCB0Ub3ApGVERm+38dzU8w2cH9G3NlIBCrtrBKMYuXE3P6DXS2SYrLSHq?=
+ =?iso-8859-1?Q?M6+qFyNfAxtjwClf/ash2NjpeRXrIsHIJ+faoehCT1Ssyc8yiFwyUOQfUg?=
+ =?iso-8859-1?Q?qTJOX5u0wikrCXfVAy8/L3jlQVXvlmFqAVmR6drqzMoO9UevyZu+srg7y3?=
+ =?iso-8859-1?Q?/QwbcWn2qi2rgLqGQsrevRIxXUo5fteqYyXXIXM4JaNtsy3N6Ms2XZhmuh?=
+ =?iso-8859-1?Q?KzOBPCupupeffbgwXU4wh1csIhrmZypzRkIcjcPWWpYliE+G2CMRHV9od6?=
+ =?iso-8859-1?Q?/CEDLLOWXMwR3Fg4XqSD2mtpZ/jpIW5XjfveAxA7uEUBn62qzCkMcAbKzM?=
+ =?iso-8859-1?Q?96W7mB3qeDZuaNwfbU4kZST7wMeyP32cPDVFywqVeEC+TS5GR+MEn3Q1Cs?=
+ =?iso-8859-1?Q?PBlKfWmuJpMmwkyIoD1P0F81DoQCzGfUOZj8NN3u9vxr7lMABGj1BAHTO5?=
+ =?iso-8859-1?Q?bBIqKmR1PjQqdWjs8aHRxz+CvCZ7OU9BuK/ukpFL7FABi8seswhfktTA6K?=
+ =?iso-8859-1?Q?OfAjw/hN01Z9gcXCOYM7J6f48dj+6AfkkE07DthnQMOx83QXUXnlbYK/ub?=
+ =?iso-8859-1?Q?ECGJ1dZHPgWgQI4Md6ajLIy+cBjmCe5BDrqbrIokIKp5KfiRLiiDBj27p1?=
+ =?iso-8859-1?Q?l9SMvN+zF6pVXC5mKBuuYeOxp93iGbrjQLK/eLMJW/EDIDvtEfTxMa1q82?=
+ =?iso-8859-1?Q?H8JmpNlPabn/eCMw50ARLeA/JqHcbSusoFBd5enA8tQVp2F9WG2GxVdZJM?=
+ =?iso-8859-1?Q?oiw/LBWwPa/kaIVBGi+2Rpn0xTRK0lN8rkr0oDQcLKsZqjKEDKt7vHx3ja?=
+ =?iso-8859-1?Q?Sq50tQNI3NgNmAwbJZb6kRVNdJMBeNCNb3jt1JT8FND1Bflc3pQa5Buimv?=
+ =?iso-8859-1?Q?uAnGtCra9KLs+mGOtNDJAcudDzd7xBVwZn7WA8WRI9iAHpA93iZkf/+SAM?=
+ =?iso-8859-1?Q?bgNhHZEgTyxoeuxpFn1hHFT54GT4Cq5BVoum0ulcIL5iCGZBjAGVIsSctL?=
+ =?iso-8859-1?Q?qwyaKie/n3wQ5cvjB4bV5WjoIojhCfqQ+zw2Yh4iUFPjKIMlnMjU73ukt6?=
+ =?iso-8859-1?Q?jENYP25cfqoU0z4pReo4/R8mUx0VHW61N669+936G3PSUmpb+ius/aWDn7?=
+ =?iso-8859-1?Q?/H5scYmQRV3KLCnIAt1d52U2F2/BEY40GX87qyGExguH6t?=
+Content-Type: multipart/alternative;
+ boundary="_000_SJ2PR12MB865013D5352DF5147B40AE7C8C062SJ2PR12MB8650namp_"
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: SJ2PR12MB8650.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3516a399-d21f-4896-e294-08deb131d9be
+X-MS-Exchange-CrossTenant-originalarrivaltime: 13 May 2026 20:54:39.7660 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: Xzj8hnHJWHUppC4D1jG4XCmIz59NrdATurj0F4CnJi2jGsx98hGUbJq12zdKGDEVNv1WKRW4wFtpJwRExsMx4Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6001
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,406 +133,504 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Expose displayable DRM format modifiers based on which tiling
-modes are supported by the GFX block.
+--_000_SJ2PR12MB865013D5352DF5147B40AE7C8C062SJ2PR12MB8650namp_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 
-Technically, DCE could support all possible modes independently
-of what GFX supports, but it doesn't make sense to expose all
-possible permutations.
+AMD General
 
-The following modes will be advertised:
-- 2D_TILED_THIN1 + DISPLAY (macro tiled)
-- 1D_TILED_THIN1 + DISPLAY (micro tiled only)
-- LINEAR
 
-The macro tiling configuration depends on how many bits per pixel
-the given surface has.
 
-When sharing buffers between different GPUs, it is unlikely that
-they will support the same macro tile mode, so it will likely
-need to use the micro tiled only mode.
 
-Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
-Tested-by: Link Mauve <linkmauve@linkmauve.fr>
-Reviewed-by: Marek Olšák <maraeo@gmail.com>
----
- .../amd/display/amdgpu_dm/amdgpu_dm_plane.c   | 313 +++++++++++++++++-
- 1 file changed, 306 insertions(+), 7 deletions(-)
+________________________________
+From: Lazar, Lijo <Lijo.Lazar@amd.com>
+Sent: Wednesday, May 13, 2026 5:43 AM
+To: Kasiviswanathan, Harish <Harish.Kasiviswanathan@amd.com>; amd-gfx@lists=
+.freedesktop.org <amd-gfx@lists.freedesktop.org>
+Subject: Re: [PATCH 1/2] drm/amdgpu: Use asic specific pa mask
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-index 23a9faa2ea89..24e3510613ce 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-@@ -165,6 +165,18 @@ static void amdgpu_dm_plane_add_modifier(uint64_t **mods, uint64_t *size, uint64
- 	*size += 1;
- }
- 
-+static void amdgpu_dm_plane_add_modifier_dedup(uint64_t **mods, uint64_t *size,
-+					       uint64_t *cap, uint64_t mod)
-+{
-+	uint64_t i;
-+
-+	for (i = 0; i < *size; ++i)
-+		if ((*mods)[i] == mod)
-+			return;
-+
-+	amdgpu_dm_plane_add_modifier(mods, size, cap, mod);
-+}
-+
- static bool amdgpu_dm_plane_modifier_has_dcc(uint64_t modifier)
- {
- 	return IS_AMD_FMT_MOD(modifier) && AMD_FMT_MOD_GET(DCC, modifier);
-@@ -211,6 +223,39 @@ static void amdgpu_dm_plane_fill_gfx8_tiling_info_from_flags(struct dc_tiling_in
- 			AMDGPU_TILING_GET(tiling_flags, PIPE_CONFIG);
- }
- 
-+static int amdgpu_dm_plane_fill_gfx6_tiling_info_from_modifier(struct dc_tiling_info *tiling_info,
-+							       uint64_t modifier)
-+{
-+	if (modifier == DRM_FORMAT_MOD_LINEAR) {
-+		tiling_info->gfx8.array_mode = DC_ARRAY_LINEAR_GENERAL;
-+		tiling_info->gfxversion = DcGfxVersion8;
-+
-+		return 0;
-+	}
-+
-+	if (!IS_AMD_FMT_MOD(modifier))
-+		return -EINVAL;
-+
-+	if (AMD_FMT_MOD_GET(TILE_VERSION, modifier) != AMD_FMT_MOD_TILE_VER_GFX6)
-+		return -EINVAL;
-+
-+	tiling_info->gfx8.array_mode = AMD_FMT_MOD_GET(TILE, modifier);
-+	tiling_info->gfxversion = DcGfxVersion8;
-+	tiling_info->gfx8.tile_mode = AMD_FMT_MOD_GET(MICROTILE, modifier);
-+
-+	if (AMD_FMT_MOD_GET(TILE, modifier) < AMD_FMT_MOD_TILE_GFX6_2D_TILED_THIN1)
-+		return 0;
-+
-+	tiling_info->gfx8.pipe_config = AMD_FMT_MOD_GET(PIPE_CONFIG, modifier);
-+	tiling_info->gfx8.tile_split = AMD_FMT_MOD_GET(TILE_SPLIT, modifier);
-+	tiling_info->gfx8.bank_width = AMD_FMT_MOD_GET(BANK_WIDTH, modifier);
-+	tiling_info->gfx8.bank_height = AMD_FMT_MOD_GET(BANK_HEIGHT, modifier);
-+	tiling_info->gfx8.tile_aspect = AMD_FMT_MOD_GET(MACRO_TILE_ASPECT, modifier);
-+	tiling_info->gfx8.num_banks = AMD_FMT_MOD_GET(NUM_BANKS, modifier);
-+
-+	return 0;
-+}
-+
- static void amdgpu_dm_plane_fill_gfx9_tiling_info_from_device(const struct amdgpu_device *adev,
- 							      struct dc_tiling_info *tiling_info)
- {
-@@ -446,6 +491,246 @@ static void amdgpu_dm_plane_add_gfx10_1_modifiers(const struct amdgpu_device *ad
- 				     AMD_FMT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX9));
- }
- 
-+/**
-+ * amdgpu_dm_plane_get_gfx6_tile_idx() - Get tile mode index on GFX6-8
-+ *
-+ * @adev: amdgpu_device pointer
-+ * @bpp: bits per pixel in the image
-+ * @arr: array mode (aka. tile mode) of the image layout
-+ *
-+ * Select which tiling mode from the table is suitable for the given bits per pixel
-+ * using the given array mode, assuming the displayable micro tile mode is used.
-+ *
-+ * On GFX6-8, the GFX block can only use pre-programmed tiling modes from GB_TILE_MODEn
-+ * registers which are programmed by the kernel according to the tiling mode table.
-+ * Note that the tiling table is uAPI and userspace relies on specific modes being
-+ * present at specific indices.
-+ * See SiLib::HwlSetupTileInfo() and CiLib::HwlSetupTileInfo() in addrlib.
-+ */
-+static u32 amdgpu_dm_plane_get_gfx6_tile_idx(const struct amdgpu_device *adev,
-+					 const u32 bpp,
-+					 const enum array_mode_values arr)
-+{
-+	/* Assume that the microtile mode is DISPLAY. */
-+
-+	if (arr == DC_ARRAY_1D_TILED_THIN1)
-+		return 9;
-+
-+	ASSERT(arr == DC_ARRAY_2D_TILED_THIN1);
-+
-+	if (adev->family > AMDGPU_FAMILY_SI)
-+		return 10;
-+
-+	switch (bpp) {
-+	case 8:
-+		return 10;
-+	case 16:
-+		return 11;
-+	default:
-+		return 12;
-+	}
-+}
-+
-+/**
-+ * amdgpu_dm_plane_calc_gfx7_tile_split() - Calculate tile split on GFX7-8
-+ *
-+ * @adev: amdgpu_device pointer
-+ * @bpp: bits per pixel in the image
-+ * @gb_tile_mode: GB_TILE_MODEn register value for the current tiling mode
-+ *
-+ * Calculate the actual tile split value on GFX7-8, assuming 2D_TILED_THIN1 array mode
-+ * with a non-depth micro tile mode.
-+ *
-+ * On GFX7-8, SAMPLE_SPLIT holds a factor from which the actual tile split bytes
-+ * can be calculated. The TILE_SPLIT field is only used for the depth micro tile mode.
-+ * See CiLib::HwlComputeMacroModeIndex() in addrlib.
-+ */
-+static u32 amdgpu_dm_plane_calc_gfx7_tile_split(const struct amdgpu_device *adev,
-+						const u32 bpp,
-+						const u32 gb_tile_mode)
-+{
-+	/* Assume 2D_TILED_THIN1 mode with non-DEPTH microtiles */
-+	const u32 sample_split = (gb_tile_mode >> 25) & 0x3;
-+	const u32 thickness = 1;
-+	const u32 tile_size_pixels = 8 * 8;
-+	const u32 tile_bytes_1x = tile_size_pixels * bpp * thickness / 8;
-+	const u32 sample_split_factor = 1 << sample_split;
-+
-+	return clamp(tile_bytes_1x * sample_split_factor,
-+		     256,
-+		     adev->gfx.config.mem_row_size_in_kb * 1024);
-+}
-+
-+/**
-+ * amdgpu_dm_plane_get_gfx7_macro_tile_idx() - Get macro tile mode index on GFX7-8
-+ *
-+ * @bpp: bits per pixel in the image
-+ * @tile_split_bytes: actual tile split bytes, see amdgpu_dm_plane_calc_gfx7_tile_split()
-+ *
-+ * Select which macro tiling mode from the table is suitable for the given bits per pixel,
-+ * assuming 2D_TILED_THIN1 array mode and DISPLAY micro tile mode (and no multisampling).
-+ * Note that the tiling table is uAPI and userspace relies on specific modes being
-+ * present at specific indices.
-+ * See CiLib::HwlComputeMacroModeIndex() in addrlib.
-+ */
-+static u32 amdgpu_dm_plane_get_gfx7_macro_tile_idx(const u32 bpp, const u32 tile_split_bytes)
-+{
-+	const u32 tile_bytes = clamp(8 * 8 * bpp, 64, tile_split_bytes);
-+	const u32 macro_tile_idx = ilog2(tile_bytes / 64);
-+
-+	WARN_ON(macro_tile_idx >= 16);
-+
-+	return macro_tile_idx;
-+}
-+
-+/**
-+ * amdgpu_dm_plane_calc_gfx6_mod() - Calculate a DRM format modifier for GFX6-8
-+ *
-+ * @adev: amdgpu_device pointer
-+ * @bpp: bits per pixel in the image
-+ * @arr: array mode (aka. tile mode) of the image layout
-+ *
-+ * Select suitable micro and macro tile modes for the given bits per pixel,
-+ * and calculate the corresponding DRM format modifier.
-+ */
-+static u64 amdgpu_dm_plane_calc_gfx6_mod(const struct amdgpu_device *adev,
-+					 const u32 bpp,
-+					 const enum array_mode_values arr)
-+{
-+	u32 array_mode, micro_tile_mode, tile_split_bytes;
-+	u32 gb_macrotile_mode, macrotile_idx;
-+	u32 gb_tile_mode, tile_idx;
-+
-+	u64 modifier_base =
-+		AMD_FMT_MOD |
-+		AMD_FMT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX6) |
-+		AMD_FMT_MOD_SET(TILE, arr) |
-+		AMD_FMT_MOD_SET(MICROTILE, AMD_FMT_MOD_MICROTILE_DISPLAY);
-+
-+	if (arr < DC_ARRAY_2D_TILED_THIN1)
-+		return modifier_base;
-+
-+	tile_idx = amdgpu_dm_plane_get_gfx6_tile_idx(adev, bpp, arr);
-+	gb_tile_mode = adev->gfx.config.tile_mode_array[tile_idx];
-+	array_mode = (gb_tile_mode >> 2) & 0xf;
-+
-+	if (adev->family == AMDGPU_FAMILY_SI) {
-+		micro_tile_mode = (gb_tile_mode >> 0) & 0x3;
-+		tile_split_bytes = 64 << ((gb_tile_mode >> 11) & 0x7);
-+	} else {
-+		micro_tile_mode = (gb_tile_mode >> 22) & 0x7;
-+		tile_split_bytes = amdgpu_dm_plane_calc_gfx7_tile_split(adev, bpp, gb_tile_mode);
-+	}
-+
-+	ASSERT(array_mode == arr);
-+	ASSERT(micro_tile_mode == AMD_FMT_MOD_MICROTILE_DISPLAY);
-+
-+	modifier_base |=
-+		AMD_FMT_MOD_SET(PIPE_CONFIG, (gb_tile_mode >> 6) & 0x1f) |
-+		AMD_FMT_MOD_SET(TILE_SPLIT, ilog2(tile_split_bytes / 64));
-+
-+	if (adev->family == AMDGPU_FAMILY_SI)
-+		return modifier_base |
-+			AMD_FMT_MOD_SET(BANK_WIDTH, (gb_tile_mode >> 14) & 0x3) |
-+			AMD_FMT_MOD_SET(BANK_HEIGHT, (gb_tile_mode >> 16) & 0x3) |
-+			AMD_FMT_MOD_SET(MACRO_TILE_ASPECT, (gb_tile_mode >> 18) & 0x3) |
-+			AMD_FMT_MOD_SET(NUM_BANKS, (gb_tile_mode >> 20) & 0x3);
-+
-+	macrotile_idx = amdgpu_dm_plane_get_gfx7_macro_tile_idx(bpp, tile_split_bytes);
-+	gb_macrotile_mode = adev->gfx.config.macrotile_mode_array[macrotile_idx];
-+
-+	return modifier_base |
-+		AMD_FMT_MOD_SET(BANK_WIDTH, (gb_macrotile_mode >> 0) & 0x3) |
-+		AMD_FMT_MOD_SET(BANK_HEIGHT, (gb_macrotile_mode >> 2) & 0x3) |
-+		AMD_FMT_MOD_SET(MACRO_TILE_ASPECT, (gb_macrotile_mode >> 4) & 0x3) |
-+		AMD_FMT_MOD_SET(NUM_BANKS, (gb_macrotile_mode >> 6) & 0x3);
-+}
-+
-+/**
-+ * amdgpu_dm_plane_gfx6_format_mod_supported() - Check if a modifier is supported on GFX6-8
-+ *
-+ * @adev: amdgpu_device pointer
-+ * @bpp: bits per pixel in the image
-+ * @modifier: the modifier whose support we check
-+ *
-+ * On GFX6-8, not all DRM format modifier can be used with all image formats.
-+ * Check whether the specified modifier is supported with the given bits per pixel value.
-+ */
-+static bool amdgpu_dm_plane_gfx6_format_mod_supported(const struct amdgpu_device *adev,
-+						      const u32 bpp,
-+						      const u64 modifier)
-+{
-+	const u32 array_mode = AMD_FMT_MOD_GET(TILE, modifier);
-+	const u32 micro_tile_mode = AMD_FMT_MOD_GET(MICROTILE, modifier);
-+
-+	if (!IS_AMD_FMT_MOD(modifier))
-+		return false;
-+
-+	/* GFX9 and newer format modifiers are not supported on GFX6-8 yet. */
-+	if (AMD_FMT_MOD_GET(TILE_VERSION, modifier) != AMD_FMT_MOD_TILE_VER_GFX6)
-+		return false;
-+
-+	/* GFX8 and older format modifiers are not supported on GFX9+ yet. */
-+	if (adev->family >= AMDGPU_FAMILY_AI)
-+		return false;
-+
-+	/* GFX6-7 doesn't have any DCC, GFX8 doesn't have displayable DCC. */
-+	if (AMD_FMT_MOD_GET(DCC, modifier))
-+		return false;
-+
-+	/*
-+	 * For now, only expose 1D and 2D tiles THIN array modes.
-+	 * Linear is already exposed through DRM_FORMAT_MOD_LINEAR.
-+	 */
-+	if (array_mode != AMD_FMT_MOD_TILE_GFX6_1D_TILED_THIN1 &&
-+	    array_mode != AMD_FMT_MOD_TILE_GFX6_2D_TILED_THIN1)
-+		return false;
-+
-+	/*
-+	 * For now, only expose DISPLAY micro tile mode.
-+	 * THIN, DEPTH and THICK modes are not displayable.
-+	 * ROTATED has never been supported on Linux.
-+	 */
-+	if (micro_tile_mode != AMD_FMT_MOD_MICROTILE_DISPLAY)
-+		return false;
-+
-+	/* Verify that the modifier is the same that we'd expose for this bpp */
-+	return amdgpu_dm_plane_calc_gfx6_mod(adev, bpp, array_mode) == modifier;
-+}
-+
-+/**
-+ * amdgpu_dm_plane_add_gfx6_modifiers() - Expose modifiers for GFX6-8
-+ *
-+ * @adev: amdgpu_device pointer
-+ * @mods: Pointer to array of format modifiers
-+ * @size: Pointer to size of the array
-+ * @capacity: Pointer to capacity of the array
-+ *
-+ * Calculate a DRM format modifier for macro tiled modes for each supported
-+ * bits per pixel value. Use de-duplication because on some GPUs it may happen
-+ * that different bpp results in the exact same macro tiling mode, depending
-+ * on the tiling table.
-+ *
-+ * Also expose a micro tiled only mode. This is less optimal, but supported.
-+ */
-+static void amdgpu_dm_plane_add_gfx6_modifiers(const struct amdgpu_device *adev,
-+					       u64 **mods,
-+					       u64 *size,
-+					       u64 *capacity)
-+{
-+	/* 2D tiled displayable */
-+	amdgpu_dm_plane_add_modifier(mods, size, capacity,
-+		amdgpu_dm_plane_calc_gfx6_mod(adev, 16, DC_ARRAY_2D_TILED_THIN1));
-+	amdgpu_dm_plane_add_modifier_dedup(mods, size, capacity,
-+		amdgpu_dm_plane_calc_gfx6_mod(adev, 32, DC_ARRAY_2D_TILED_THIN1));
-+	amdgpu_dm_plane_add_modifier_dedup(mods, size, capacity,
-+		amdgpu_dm_plane_calc_gfx6_mod(adev, 64, DC_ARRAY_2D_TILED_THIN1));
-+
-+	/* 1D tiled displayable */
-+	amdgpu_dm_plane_add_modifier(mods, size, capacity,
-+		amdgpu_dm_plane_calc_gfx6_mod(adev, 0, DC_ARRAY_1D_TILED_THIN1));
-+}
-+
- static void amdgpu_dm_plane_add_gfx9_modifiers(const struct amdgpu_device *adev,
- 					       uint64_t **mods,
- 					       uint64_t *size,
-@@ -727,12 +1012,6 @@ static void amdgpu_dm_plane_add_gfx12_modifiers(struct amdgpu_device *adev,
- static int amdgpu_dm_plane_get_plane_modifiers(struct amdgpu_device *adev, unsigned int plane_type, uint64_t **mods)
- {
- 	uint64_t size = 0, capacity = 128;
--	*mods = NULL;
--
--	/* We have not hooked up any pre-GFX9 modifiers. */
--	if (adev->family < AMDGPU_FAMILY_AI)
--		return 0;
--
- 	*mods = kmalloc_array(capacity, sizeof(uint64_t), GFP_KERNEL);
- 
- 	if (plane_type == DRM_PLANE_TYPE_CURSOR) {
-@@ -742,6 +1021,13 @@ static int amdgpu_dm_plane_get_plane_modifiers(struct amdgpu_device *adev, unsig
- 	}
- 
- 	switch (adev->family) {
-+	case AMDGPU_FAMILY_SI:
-+	case AMDGPU_FAMILY_CI:
-+	case AMDGPU_FAMILY_KV:
-+	case AMDGPU_FAMILY_VI:
-+	case AMDGPU_FAMILY_CZ:
-+		amdgpu_dm_plane_add_gfx6_modifiers(adev, mods, &size, &capacity);
-+		break;
- 	case AMDGPU_FAMILY_AI:
- 	case AMDGPU_FAMILY_RV:
- 		amdgpu_dm_plane_add_gfx9_modifiers(adev, mods, &size, &capacity);
-@@ -916,8 +1202,13 @@ int amdgpu_dm_plane_fill_plane_buffer_attributes(struct amdgpu_device *adev,
- 										address);
- 		if (ret)
- 			return ret;
--	} else {
-+	} else if (!afb->base.modifier) {
- 		amdgpu_dm_plane_fill_gfx8_tiling_info_from_flags(tiling_info, tiling_flags);
-+	} else {
-+		ret = amdgpu_dm_plane_fill_gfx6_tiling_info_from_modifier(tiling_info,
-+									  afb->base.modifier);
-+		if (ret)
-+			return ret;
- 	}
- 
- 	return 0;
-@@ -1552,6 +1843,7 @@ static bool amdgpu_dm_plane_format_mod_supported(struct drm_plane *plane,
- {
- 	struct amdgpu_device *adev = drm_to_adev(plane->dev);
- 	const struct drm_format_info *info = drm_format_info(format);
-+	const u32 bpp = drm_format_info_bpp(info, 0);
- 	int i;
- 
- 	if (!info)
-@@ -1575,6 +1867,13 @@ static bool amdgpu_dm_plane_format_mod_supported(struct drm_plane *plane,
- 	if (i == plane->modifier_count)
- 		return false;
- 
-+	if (AMD_FMT_MOD_GET(TILE_VERSION, modifier) == AMD_FMT_MOD_TILE_VER_GFX6)
-+		return amdgpu_dm_plane_gfx6_format_mod_supported(adev, bpp, modifier);
-+
-+	/* GFX9+ modifers are not supported on GFX8 and older yet. */
-+	if (adev->family < AMDGPU_FAMILY_AI)
-+		return false;
-+
- 	/* GFX12 doesn't have these limitations. */
- 	if (AMD_FMT_MOD_GET(TILE_VERSION, modifier) <= AMD_FMT_MOD_TILE_VER_GFX11) {
- 		enum dm_micro_swizzle microtile = amdgpu_dm_plane_modifier_gfx9_swizzle_mode(modifier) & 3;
--- 
-2.54.0
 
+
+On 13-May-26 12:30 AM, Harish Kasiviswanathan wrote:
+> For PTE creation use asic specific physical page address mask
+>
+> Signed-off-by: Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c | 2 +-
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h | 1 +
+>   drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c  | 1 +
+>   drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c  | 1 +
+>   drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c  | 4 ++++
+>   drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c   | 1 +
+>   drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c   | 1 +
+>   drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c   | 1 +
+>   drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c   | 1 +
+>   9 files changed, 12 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_gmc.c
+> index 13bec8461cde..631c8a7cc99a 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+> @@ -170,7 +170,7 @@ int amdgpu_gmc_set_pte_pde(struct amdgpu_device *adev=
+, void *cpu_pt_addr,
+>        /*
+>         * The following is for PTE only. GART does not have PDEs.
+>        */
+> -     value =3D addr & 0x0000FFFFFFFFF000ULL;
+> +     value =3D addr & adev->gmc.pa_mask;
+>        value |=3D flags;
+>        writeq(value, ptr + (gpu_page_idx * 8));
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_gmc.h
+> index 676e3aaa1f27..886311fbc2d1 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
+> @@ -280,6 +280,7 @@ struct amdgpu_gmc {
+>        u64                     real_vram_size;
+>        int                     vram_mtrr;
+>        u64                     mc_mask;
+> +     uint64_t                pa_mask;
+>        const struct firmware   *fw;    /* MC firmware */
+>        uint32_t                fw_version;
+>        struct amdgpu_irq_src   vm_fault;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c b/drivers/gpu/drm/amd=
+/amdgpu/gmc_v10_0.c
+> index f2ccf30da324..1e98a9eb8e11 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+> @@ -843,6 +843,7 @@ static int gmc_v10_0_sw_init(struct amdgpu_ip_block *=
+ip_block)
+>         * internal address space.
+>         */
+>        adev->gmc.mc_mask =3D 0xffffffffffffULL; /* 48 bit MC */
+> +     adev->gmc.pa_mask =3D 0x0000FFFFFFFFF000ULL; /* 48 bit PA */
+
+This patch uses pa_mask as a value which represents the max PTE width.
+It doesn't represent tha actual physical address capability - as in this
+case it's only 44-bit. Suggest to change pa_mask to reflect actual
+capability or rename the variable.
+
+[HK] : Is pte_pa_mask better?
+
+Thanks,
+Lijo
+
+>
+>        r =3D dma_set_mask_and_coherent(adev->dev, DMA_BIT_MASK(44));
+>        if (r) {
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c b/drivers/gpu/drm/amd=
+/amdgpu/gmc_v11_0.c
+> index 93b1912e28c8..4b93afe7ac8b 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
+> @@ -818,6 +818,7 @@ static int gmc_v11_0_sw_init(struct amdgpu_ip_block *=
+ip_block)
+>         * internal address space.
+>         */
+>        adev->gmc.mc_mask =3D 0xffffffffffffULL; /* 48 bit MC */
+> +     adev->gmc.pa_mask =3D 0x0000FFFFFFFFF000ULL; /* 48 bit PA */
+>
+>        r =3D dma_set_mask_and_coherent(adev->dev, DMA_BIT_MASK(44));
+>        if (r) {
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c b/drivers/gpu/drm/amd=
+/amdgpu/gmc_v12_0.c
+> index 8bea8d0d16b4..a921e4c007ca 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
+> @@ -813,6 +813,7 @@ static int gmc_v12_0_sw_init(struct amdgpu_ip_block *=
+ip_block)
+>   {
+>        int r, vram_width =3D 0, vram_type =3D 0, vram_vendor =3D 0;
+>        struct amdgpu_device *adev =3D ip_block->adev;
+> +     uint64_t pa_mask =3D 0;
+>        int i;
+>
+>        adev->mmhub.funcs->init(adev);
+> @@ -842,6 +843,7 @@ static int gmc_v12_0_sw_init(struct amdgpu_ip_block *=
+ip_block)
+>                 * block size 512 (9bit)
+>                 */
+>                amdgpu_vm_adjust_size(adev, 256 * 1024, 9, 3, 48);
+> +             pa_mask =3D 0x0000FFFFFFFFF000ULL; /* 48 bit PA */
+>                break;
+>        case IP_VERSION(12, 1, 0):
+>                bitmap_set(adev->vmhubs_mask, AMDGPU_GFXHUB(0),
+> @@ -854,6 +856,7 @@ static int gmc_v12_0_sw_init(struct amdgpu_ip_block *=
+ip_block)
+>                 * block size 512 (9bit)
+>                 */
+>                amdgpu_vm_adjust_size(adev, 128 * 1024 * 1024, 9, 4, 57);
+> +             pa_mask =3D 0x000FFFFFFFFFF000ULL; /* 52 bit PA */
+>                break;
+>        default:
+>                break;
+> @@ -910,6 +913,7 @@ static int gmc_v12_0_sw_init(struct amdgpu_ip_block *=
+ip_block)
+>         * internal address space.
+>         */
+>        adev->gmc.mc_mask =3D AMDGPU_GMC_HOLE_MASK;
+> +     adev->gmc.pa_mask =3D pa_mask;
+>
+>        r =3D dma_set_mask_and_coherent(adev->dev, DMA_BIT_MASK(44));
+>        if (r) {
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c b/drivers/gpu/drm/amd/=
+amdgpu/gmc_v6_0.c
+> index b39f37597429..675e0fbec8cf 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
+> @@ -830,6 +830,7 @@ static int gmc_v6_0_sw_init(struct amdgpu_ip_block *i=
+p_block)
+>        amdgpu_vm_adjust_size(adev, 64, 9, 1, 40);
+>
+>        adev->gmc.mc_mask =3D 0xffffffffffULL;
+> +     adev->gmc.pa_mask =3D 0x000000FFFFFFF000ULL;
+>
+>        r =3D dma_set_mask_and_coherent(adev->dev, DMA_BIT_MASK(40));
+>        if (r) {
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c b/drivers/gpu/drm/amd/=
+amdgpu/gmc_v7_0.c
+> index eedd2006bec3..3eedd2b630c3 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
+> @@ -1010,6 +1010,7 @@ static int gmc_v7_0_sw_init(struct amdgpu_ip_block =
+*ip_block)
+>         * internal address space.
+>         */
+>        adev->gmc.mc_mask =3D 0xffffffffffULL; /* 40 bit MC */
+> +     adev->gmc.pa_mask =3D 0x000000FFFFFFF000ULL; /* 40 bit PA */
+>
+>        r =3D dma_set_mask_and_coherent(adev->dev, DMA_BIT_MASK(40));
+>        if (r) {
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c b/drivers/gpu/drm/amd/=
+amdgpu/gmc_v8_0.c
+> index 347259700dce..a281abb810f3 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
+> @@ -1125,6 +1125,7 @@ static int gmc_v8_0_sw_init(struct amdgpu_ip_block =
+*ip_block)
+>         * internal address space.
+>         */
+>        adev->gmc.mc_mask =3D 0xffffffffffULL; /* 40 bit MC */
+> +     adev->gmc.pa_mask =3D 0x000000FFFFFFF000ULL; /* 40 bit PA */
+>
+>        r =3D dma_set_mask_and_coherent(adev->dev, DMA_BIT_MASK(40));
+>        if (r) {
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/=
+amdgpu/gmc_v9_0.c
+> index 4cc3f2434677..0e485da0db8d 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+> @@ -1983,6 +1983,7 @@ static int gmc_v9_0_sw_init(struct amdgpu_ip_block =
+*ip_block)
+>         * internal address space.
+>         */
+>        adev->gmc.mc_mask =3D 0xffffffffffffULL; /* 48 bit MC */
+> +     adev->gmc.pa_mask =3D 0x0000FFFFFFFFF000ULL; /* 48 bit PA */
+>
+>        dma_addr_bits =3D amdgpu_ip_version(adev, GC_HWIP, 0) >=3D
+>                                        IP_VERSION(9, 4, 2) ?
+
+
+--_000_SJ2PR12MB865013D5352DF5147B40AE7C8C062SJ2PR12MB8650namp_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<div>
+<div style=3D"font-family: Calibri; text-align: left; color: rgb(0, 0, 255)=
+; margin-left: 5pt; font-size: 10pt;">
+AMD General</div>
+<br>
+</div>
+<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
+nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 11pt; c=
+olor: rgb(0, 0, 0);">
+<br>
+</div>
+<div><br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<hr style=3D"display: inline-block; width: 98%;">
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<b>From:</b>&nbsp;Lazar, Lijo &lt;Lijo.Lazar@amd.com&gt;<br>
+<b>Sent:</b>&nbsp;Wednesday, May 13, 2026 5:43 AM<br>
+<b>To:</b>&nbsp;Kasiviswanathan, Harish &lt;Harish.Kasiviswanathan@amd.com&=
+gt;; amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&gt;<br=
+>
+<b>Subject:</b>&nbsp;Re: [PATCH 1/2] drm/amdgpu: Use asic specific pa mask =
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div class=3D"elementToProof" style=3D"font-size: 11pt;"><br>
+<br>
+On 13-May-26 12:30 AM, Harish Kasiviswanathan wrote:<br>
+&gt; For PTE creation use asic specific physical page address mask<br>
+&gt;<br>
+&gt; Signed-off-by: Harish Kasiviswanathan &lt;Harish.Kasiviswanathan@amd.c=
+om&gt;<br>
+&gt; ---<br>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c | 2 +-<br>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h | 1 +<br>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c&nbsp; | 1 +<br>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c&nbsp; | 1 +<br>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c&nbsp; | 4 ++++<br>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c&nbsp;&nbsp; | 1 +<br=
+>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c&nbsp;&nbsp; | 1 +<br=
+>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c&nbsp;&nbsp; | 1 +<br=
+>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c&nbsp;&nbsp; | 1 +<br=
+>
+&gt;&nbsp;&nbsp; 9 files changed, 12 insertions(+), 1 deletion(-)<br>
+&gt;<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm=
+/amd/amdgpu/amdgpu_gmc.c<br>
+&gt; index 13bec8461cde..631c8a7cc99a 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c<br>
+&gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c<br>
+&gt; @@ -170,7 +170,7 @@ int amdgpu_gmc_set_pte_pde(struct amdgpu_device *a=
+dev, void *cpu_pt_addr,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /*<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * The following is for=
+ PTE only. GART does not have PDEs.<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; value =3D addr &amp; 0x0000FFFFFFFFF000ULL;<=
+br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; value =3D addr &amp; adev-&gt;gmc.pa_mask;<b=
+r>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; value |=3D flags;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; writeq(value, ptr + (gpu_pag=
+e_idx * 8));<br>
+&gt;&nbsp;&nbsp;<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h b/drivers/gpu/drm=
+/amd/amdgpu/amdgpu_gmc.h<br>
+&gt; index 676e3aaa1f27..886311fbc2d1 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h<br>
+&gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h<br>
+&gt; @@ -280,6 +280,7 @@ struct amdgpu_gmc {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u64&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp; real_vram_size;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp; vram_mtrr;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u64&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp; mc_mask;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; uint64_t&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pa_mask;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; const struct firmware&nbsp;&=
+nbsp; *fw;&nbsp;&nbsp;&nbsp; /* MC firmware */<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; fw_v=
+ersion;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_irq_src&nbsp;&=
+nbsp; vm_fault;<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c b/drivers/gpu/drm/=
+amd/amdgpu/gmc_v10_0.c<br>
+&gt; index f2ccf30da324..1e98a9eb8e11 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c<br>
+&gt; +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c<br>
+&gt; @@ -843,6 +843,7 @@ static int gmc_v10_0_sw_init(struct amdgpu_ip_bloc=
+k *ip_block)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * internal address spa=
+ce.<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;gmc.mc_mask =3D 0xf=
+fffffffffffULL; /* 48 bit MC */<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;gmc.pa_mask =3D 0x0000FFFFFFFFF000U=
+LL; /* 48 bit PA */<br>
+<br>
+This patch uses pa_mask as a value which represents the max PTE width.<br>
+It doesn't represent tha actual physical address capability - as in this<br=
+>
+case it's only 44-bit. Suggest to change pa_mask to reflect actual<br>
+capability or rename the variable.</div>
+<div class=3D"elementToProof" style=3D"font-size: 11pt;"><br>
+</div>
+<div class=3D"elementToProof" style=3D"font-size: 11pt;">[HK] : Is pte_pa_m=
+ask better?&nbsp;<br>
+<br>
+Thanks,<br>
+Lijo<br>
+<br>
+&gt;&nbsp;&nbsp;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D dma_set_mask_and_coher=
+ent(adev-&gt;dev, DMA_BIT_MASK(44));<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r) {<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c b/drivers/gpu/drm/=
+amd/amdgpu/gmc_v11_0.c<br>
+&gt; index 93b1912e28c8..4b93afe7ac8b 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c<br>
+&gt; +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c<br>
+&gt; @@ -818,6 +818,7 @@ static int gmc_v11_0_sw_init(struct amdgpu_ip_bloc=
+k *ip_block)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * internal address spa=
+ce.<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;gmc.mc_mask =3D 0xf=
+fffffffffffULL; /* 48 bit MC */<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;gmc.pa_mask =3D 0x0000FFFFFFFFF000U=
+LL; /* 48 bit PA */<br>
+&gt;&nbsp;&nbsp;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D dma_set_mask_and_coher=
+ent(adev-&gt;dev, DMA_BIT_MASK(44));<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r) {<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c b/drivers/gpu/drm/=
+amd/amdgpu/gmc_v12_0.c<br>
+&gt; index 8bea8d0d16b4..a921e4c007ca 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c<br>
+&gt; +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c<br>
+&gt; @@ -813,6 +813,7 @@ static int gmc_v12_0_sw_init(struct amdgpu_ip_bloc=
+k *ip_block)<br>
+&gt;&nbsp;&nbsp; {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int r, vram_width =3D 0, vra=
+m_type =3D 0, vram_vendor =3D 0;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev =
+=3D ip_block-&gt;adev;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; uint64_t pa_mask =3D 0;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int i;<br>
+&gt;&nbsp;&nbsp;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;mmhub.funcs-&gt;ini=
+t(adev);<br>
+&gt; @@ -842,6 +843,7 @@ static int gmc_v12_0_sw_init(struct amdgpu_ip_bloc=
+k *ip_block)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; * block size 512 (9bit)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; amdgpu_vm_adjust_size(adev, 256 * 1024, 9, 3, 48);<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; pa_mask =3D 0x0000FFFFFFFFF000ULL; /* 48 bit PA */<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; break;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case IP_VERSION(12, 1, 0):<b=
+r>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; bitmap_set(adev-&gt;vmhubs_mask, AMDGPU_GFXHUB(0),<br>
+&gt; @@ -854,6 +856,7 @@ static int gmc_v12_0_sw_init(struct amdgpu_ip_bloc=
+k *ip_block)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; * block size 512 (9bit)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; amdgpu_vm_adjust_size(adev, 128 * 1024 * 1024, 9, 4, 57=
+);<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; pa_mask =3D 0x000FFFFFFFFFF000ULL; /* 52 bit PA */<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; break;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; default:<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; break;<br>
+&gt; @@ -910,6 +913,7 @@ static int gmc_v12_0_sw_init(struct amdgpu_ip_bloc=
+k *ip_block)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * internal address spa=
+ce.<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;gmc.mc_mask =3D AMD=
+GPU_GMC_HOLE_MASK;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;gmc.pa_mask =3D pa_mask;<br>
+&gt;&nbsp;&nbsp;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D dma_set_mask_and_coher=
+ent(adev-&gt;dev, DMA_BIT_MASK(44));<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r) {<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c b/drivers/gpu/drm/a=
+md/amdgpu/gmc_v6_0.c<br>
+&gt; index b39f37597429..675e0fbec8cf 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c<br>
+&gt; +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c<br>
+&gt; @@ -830,6 +830,7 @@ static int gmc_v6_0_sw_init(struct amdgpu_ip_block=
+ *ip_block)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_vm_adjust_size(adev, =
+64, 9, 1, 40);<br>
+&gt;&nbsp;&nbsp;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;gmc.mc_mask =3D 0xf=
+fffffffffULL;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;gmc.pa_mask =3D 0x000000FFFFFFF000U=
+LL;<br>
+&gt;&nbsp;&nbsp;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D dma_set_mask_and_coher=
+ent(adev-&gt;dev, DMA_BIT_MASK(40));<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r) {<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c b/drivers/gpu/drm/a=
+md/amdgpu/gmc_v7_0.c<br>
+&gt; index eedd2006bec3..3eedd2b630c3 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c<br>
+&gt; +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c<br>
+&gt; @@ -1010,6 +1010,7 @@ static int gmc_v7_0_sw_init(struct amdgpu_ip_blo=
+ck *ip_block)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * internal address spa=
+ce.<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;gmc.mc_mask =3D 0xf=
+fffffffffULL; /* 40 bit MC */<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;gmc.pa_mask =3D 0x000000FFFFFFF000U=
+LL; /* 40 bit PA */<br>
+&gt;&nbsp;&nbsp;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D dma_set_mask_and_coher=
+ent(adev-&gt;dev, DMA_BIT_MASK(40));<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r) {<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c b/drivers/gpu/drm/a=
+md/amdgpu/gmc_v8_0.c<br>
+&gt; index 347259700dce..a281abb810f3 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c<br>
+&gt; +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c<br>
+&gt; @@ -1125,6 +1125,7 @@ static int gmc_v8_0_sw_init(struct amdgpu_ip_blo=
+ck *ip_block)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * internal address spa=
+ce.<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;gmc.mc_mask =3D 0xf=
+fffffffffULL; /* 40 bit MC */<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;gmc.pa_mask =3D 0x000000FFFFFFF000U=
+LL; /* 40 bit PA */<br>
+&gt;&nbsp;&nbsp;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D dma_set_mask_and_coher=
+ent(adev-&gt;dev, DMA_BIT_MASK(40));<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r) {<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/a=
+md/amdgpu/gmc_v9_0.c<br>
+&gt; index 4cc3f2434677..0e485da0db8d 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c<br>
+&gt; +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c<br>
+&gt; @@ -1983,6 +1983,7 @@ static int gmc_v9_0_sw_init(struct amdgpu_ip_blo=
+ck *ip_block)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * internal address spa=
+ce.<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;gmc.mc_mask =3D 0xf=
+fffffffffffULL; /* 48 bit MC */<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;gmc.pa_mask =3D 0x0000FFFFFFFFF000U=
+LL; /* 48 bit PA */<br>
+&gt;&nbsp;&nbsp;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dma_addr_bits =3D amdgpu_ip_=
+version(adev, GC_HWIP, 0) &gt;=3D<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; IP_VERSION(9, 4, 2) ?<br>
+<br>
+</div>
+</body>
+</html>
+
+--_000_SJ2PR12MB865013D5352DF5147B40AE7C8C062SJ2PR12MB8650namp_--
