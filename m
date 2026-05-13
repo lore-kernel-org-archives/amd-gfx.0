@@ -4,77 +4,93 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D8112CD4851
-	for <amd-gfx@archiver.kernel.org>; Wed, 13 May 2026 16:30:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 547D1CD4F21
+	for <amd-gfx@archiver.kernel.org>; Wed, 13 May 2026 16:36:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 669A510EF4C;
-	Wed, 13 May 2026 16:30:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DFF6A10EF6A;
+	Wed, 13 May 2026 16:36:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="rrqLDStX";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="NJTatM7N";
 	dkim-atps=neutral
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com
- [209.85.128.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D24AD10EF70
- for <amd-gfx@lists.freedesktop.org>; Wed, 13 May 2026 16:30:53 +0000 (UTC)
-Received: by mail-wm1-f45.google.com with SMTP id
- 5b1f17b1804b1-488ff90d6c7so62595855e9.2
- for <amd-gfx@lists.freedesktop.org>; Wed, 13 May 2026 09:30:53 -0700 (PDT)
+Received: from mail-dl1-f51.google.com (mail-dl1-f51.google.com [74.125.82.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CF3FC10EF4E
+ for <amd-gfx@lists.freedesktop.org>; Wed, 13 May 2026 16:36:14 +0000 (UTC)
+Received: by mail-dl1-f51.google.com with SMTP id
+ a92af1059eb24-12dc1c0b724so697770c88.1
+ for <amd-gfx@lists.freedesktop.org>; Wed, 13 May 2026 09:36:14 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1778690174; cv=none;
+ d=google.com; s=arc-20240605;
+ b=WGQ5GI9bx2mGceS81KNvanI8Yq7j7AufVkCnXYdz/E6c6ChoHpdVE8gWdzBlhWEn/8
+ Psu4Fbm0yIVL0omgjtrJinafx0MaAU/Wh5qZFIpAKhkApAMuF5BsXiAIKX6iWKlTRFI8
+ fsdQYLj6rnAW/0KMDFsAU4IVC+rpZ/VE+aOjpwEtEGhuQZ0CvVxAfpEBDgOMPCb6fj+f
+ 2EnbkJXM7H8IvA2Fs5xxsCdgCJVRMToGmhvtJwtugtmtOINAVAEbweDzX7tFwT/OlQs7
+ foBt8zB2hUW479pdjXDrPQ3nTS9VWjPhlN1G8quzsO1mG7pXT9bvlKIsZsFyY5DwDS1p
+ 4qWw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=BhWFPZ37eM1+qSaCF51aFPPJpfxrL/nJSH25HEWK+U8=;
+ fh=36OqtQPF1yizn8w+eX07KcK9DuU7O+Cvcb912TSH3JM=;
+ b=OWG7mquDhzNxDGsy1jkHCghdxsQoaANTWpDdpLgCE45fHSD37P5ylegxDt1sNuzHSN
+ EkRNbqerMCsenQPAJKAMBPahXj0JA6DXgwhutRkHR90d6E36Pqyh3GatCIqedQwv1U8I
+ G9kvVG8fpQAUGTv6rOLnEh22BK2Q1rmN7Jp12o2lTWlFZNkz3ygud/woXrrtNvN9TueX
+ uAI7Zcwwlji7fXbKjicbghPy0ryVbyhUEbIlboSL8iAwYtQUy3qHjw4KFVSsGIsX2oNp
+ OJ4lEre7vqL+To1ejkiUnNqblpbiWBqid/vfGkBFaAWw7EvHmryaxmci8IQrs0YS6tQv
+ UXaw==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1778689852; x=1779294652; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ d=gmail.com; s=20251104; t=1778690174; x=1779294974; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=xJu6SMu1v5icLTZuoKFGCejvwnBt1QXyQY4jbQr6tKI=;
- b=rrqLDStXNikRXHoiFOeGssA0PyjXO/JY3ikdKVvrlFmN5YwbBywIYbEGta3vgsVDAC
- iaPOFm0ATkvuKA2RJUZSVwlKWV6DLqPQP6y3bSFz8qD70AgsQ9hvizwBix540a14oO9u
- vc6y7ZlmstlhqbP06b6grD3vWDCrHYSmEfv02Fx8MgWIpWfv9OCFnumCd14BjW3oPvs3
- XUW89Y0LKUbMAuAnmnHqeLHRBoNJeiORrKTtV0czExmsboHjkqA1elINO/865DsInvQ8
- IPTjBJvyYM54XdqmxS75q603Hcaf7LDjG2L238A+xX1sdLvYthejqaqBBMDKBJ4G9vVy
- Ornw==
+ bh=BhWFPZ37eM1+qSaCF51aFPPJpfxrL/nJSH25HEWK+U8=;
+ b=NJTatM7NXtFDMBbBggd67jQLvKrNNq/f4VrBp4C8AC9H9zWHME4xFRFxIk8GtQJrlG
+ 5v3c69TVOGm23WcF2sjLpADPAopGyi23mns/fl2F0ZTyvY4iI6V2bddjfXeCFCdUZJeO
+ lsMwam8N9LH4rwoB1Wt9NWPIfyQao5AqSuQJSmfSzQO3uP4jCor3+1zPhBObV2Tq1Aqc
+ fP1/zXCwyufUl5y09ybuf1utdkdpSmWSgvDcIeSyyDav8XHKDvEOMneXt3n0sjYNsLay
+ uwnnsuwpTe9h0AQUtveIBkNU0k9xdyBeFOgPrwjB35MeOgI+RDQ+85U0GB253PtCH+WX
+ qpOA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1778689852; x=1779294652;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ d=1e100.net; s=20251104; t=1778690174; x=1779294974;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=xJu6SMu1v5icLTZuoKFGCejvwnBt1QXyQY4jbQr6tKI=;
- b=iqPS6EjVPEtoaw/so+sxmsD3iWc3DLiHne2iFE8H0ApgOV67xcn12k5QfV1l4outYQ
- LpTfXjJ4ZopOMlIyFlFCtEaXIK0bk+AH3KIECQxwBNjqRtxODGK2lIAPwLiFSLOU9wux
- USSB8NRNe0bbulEhuzg94Wja1q3N5gVF2byzj2UYZpaQHRtwc4k/zHITBmsElPOLIkQn
- 4GgN+/SkBJWInaS407lfltQf/r3YGiC0dd55jvoRSBJ8xYotWDl/0mdYlWYABsU11/kl
- K/bV8zJq3ZXSmjE4CQCPJQsbS5/mACk+63/pKHuYbtFq1JS3vRZmpjK99YW/K4DqlrOd
- XUGA==
-X-Gm-Message-State: AOJu0YzO42VuAfOh89v1GVXG+TkmIXGwT6ITHl18EpqDUKhVjC78aYz/
- 7XItY3nHBgnMcopc8K13AXkhnAXzKEIwW4HD+/GMZz1ywJIpfKQvRzgN2XmQ5Q==
-X-Gm-Gg: Acq92OEfA9B/8fdfaQUsyedI8aE/+ksiGjKzzaLoZSf8O7QepxwkmOYSRhwrM7LfxWU
- ZATYYoTLZ6RFUzHIJm8el7/gVJk5R16/2UL9Vxjk/JxOzwGzo0t5tNfcGvcPlI4cI9zLPh+bNrB
- JanuNVEH+dB0yNA7JAMUdW4Hl4EhE38fT2STWLsPOWB++vmEE47/0jsL/Jv7ehuUZNWVVIPXeRP
- rF1JU+lWEi/hzPNjVCoyIxfKccXGFTGi/A/h45NfauwUS9IxFI+tuIYxI5xC/BFDq2fXMzXWFEc
- 6tDBit+ncZfTDiB0MmoeVmYKlry3+fvPCJv0qJcpGsxDK8Mb5wrGEl9C67H86iIS8BR4PgpIHFm
- zF57KISyRGbJq7GlobQtJX0E1C7f//vtM3cQMrqwuNqclTO0KtliZ9eVL6pKuIiAVuxYROGgaxe
- +crcli51HfZFWoPfSzRiAeDy8j6YY5JEwgkfMuGzQ388ITNUeHH9dQFd/qxqsSxtgWK1FT
-X-Received: by 2002:a05:600c:4509:b0:48a:5821:5ffc with SMTP id
- 5b1f17b1804b1-48fce9b5ac4mr54741715e9.2.1778689852216; 
- Wed, 13 May 2026 09:30:52 -0700 (PDT)
-Received: from Timur-Hyperion (540017BE.dsl.pool.telekom.hu. [84.0.23.190])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-48fd64b5271sm1846385e9.14.2026.05.13.09.30.51
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 13 May 2026 09:30:51 -0700 (PDT)
-From: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
-To: amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
- christian.koenig@amd.com,
- =?UTF-8?q?Marek=20Ol=C5=A1=C3=A1k?= <maraeo@gmail.com>,
- Natalie Vock <natalie.vock@gmx.de>, Melissa Wen <mwen@igalia.com>
-Cc: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
-Subject: [PATCH 6/6] drm/amdgpu: Enable retry CAM on Navi 3 dGPUs
-Date: Wed, 13 May 2026 18:30:43 +0200
-Message-ID: <20260513163043.8725-7-timur.kristof@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260513163043.8725-1-timur.kristof@gmail.com>
-References: <20260513163043.8725-1-timur.kristof@gmail.com>
+ bh=BhWFPZ37eM1+qSaCF51aFPPJpfxrL/nJSH25HEWK+U8=;
+ b=VaGtdYpEiOjwk9IdrTvdB+9LtsVxMcDjfs1St+BvVRVEGFXh7xNwK98Js/r9E1MxyI
+ 81xEowyqo4/AAnt1quWijwuu88oF9awJMfrrug6db3SQtdc5KgQZUAXLQGTuGIHQdHYi
+ IZDk+UGT2uEWvA35p493L4QQKAYemeX1AxWsX2oUXSEq47GDX9hF4ccvPolq6sXJHBiz
+ ixdkBUo86I1Tert+2NqaqIlXwiZ0cwea+0myX+AQJ8+cPmaKv25DpqHY4tek6Xl3uR3+
+ Qlw6soJKJG5WC0IVUWx+6KakE1iv8dNTPTr8jaTtjeuuiqTgo0LErBrEG+GAlYH/7Fdp
+ jLMA==
+X-Gm-Message-State: AOJu0YyL/S+EQIyxtYwmySaqK1yfBzzXnoXl0LgYsZcJuQ49NGk+sFvO
+ jbFbkmCN6dCtVS6z1LPUmq0PyG7T2+MWRHL8buKvaQtAuAPEERpO3VLnkA4MIm7IWIL5MAzXdlo
+ pZB2UTxTs5BL1/1pQ2qQSb3s12Je2TFQ=
+X-Gm-Gg: Acq92OH1ElU9AHXMm5ZFBEI/nbRduPXl7BjjAGjjsJZOpFZ9KleiCOWC6AzXSu+SH6X
+ RBobFsRdicLHb5YU74MmM9ynt/ZuuZ8P0zDWfmg0Ir8JDDEUe8XOSPlShREDeo/vGGaa2yzGKFE
+ lumRMXpJylet/L2TvdJG6KTr2SGq4D+5AXp9ill8x7zwXZWaDMC8jus3ZEF8xcVdKqMajgK2U5B
+ 6RZqiqWl4XILs50S2RBclPkxyAmi5OoaQk1QVJE31NowS25zK/0j7kfo/FAv+dnlmMrcps404VB
+ 8XeXBZ3iMbbfGKjlPpXY7xdvY3bpDzppjzwMCw2Rquo1hd+nbA2lzQkY/pFLmqnO8JyRlOSjUGb
+ hqRJ1
+X-Received: by 2002:a05:7022:62a4:b0:133:4320:9365 with SMTP id
+ a92af1059eb24-13428a9992cmr1235063c88.0.1778690173944; Wed, 13 May 2026
+ 09:36:13 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20260513163043.8725-1-timur.kristof@gmail.com>
+In-Reply-To: <20260513163043.8725-1-timur.kristof@gmail.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Wed, 13 May 2026 12:36:02 -0400
+X-Gm-Features: AVHnY4I2a6I0h9vmZ-l0BAfpJZbjzHVA3hM3l424uIjoRVXSRBRPFDs5NofeBM8
+Message-ID: <CADnq5_Ot+iPKNtxTvA7rWvdsDie3vdrHN8ftwM84FY-+p3A_0g@mail.gmail.com>
+Subject: Re: [PATCH 0/6] drm/amdgpu: Improve retry fault handling
+To: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>, 
+ Amir Shetaia <amir.shetaia@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>, 
+ christian.koenig@amd.com,
+ =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>, 
+ Natalie Vock <natalie.vock@gmx.de>, Melissa Wen <mwen@igalia.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,83 +105,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The retry CAM can filter interrupts which occur repeatedly,
-such as page fault interrupts when retry faults are enabled.
-This makes processing those interrupts much more efficient,
-because the CPU won't have to deal with processing the same
-interrupt repeatedly.
++ Amir
 
-Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
----
- drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c |  5 ++++-
- drivers/gpu/drm/amd/amdgpu/ih_v6_0.c   | 18 +++++++++++++++++-
- 2 files changed, 21 insertions(+), 2 deletions(-)
+Amir may have some insights on navi4x as he was looking at this recently.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
-index 16388e3caea3..2a226b4c9e09 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
-@@ -108,13 +108,16 @@ static int gmc_v11_0_process_interrupt(struct amdgpu_device *adev,
- 	bool write_fault = !!(entry->src_data[1] &
- 			      AMDGPU_GMC9_FAULT_SOURCE_DATA_WRITE);
- 	uint32_t status = 0;
-+	uint32_t cam_index;
- 	u64 addr;
- 
- 	addr = (u64)entry->src_data[0] << 12;
- 	addr |= ((u64)entry->src_data[1] & 0xf) << 44;
- 
- 	if (retry_fault) {
--		int ret = amdgpu_gmc_handle_retry_fault(adev, entry, addr, 0, 0,
-+		cam_index = entry->src_data[2] & 0x3ff;
-+
-+		int ret = amdgpu_gmc_handle_retry_fault(adev, entry, addr, cam_index, 0,
- 							write_fault);
- 		/* Returning 1 here also prevents sending the IV to the KFD */
- 		if (ret == 1)
-diff --git a/drivers/gpu/drm/amd/amdgpu/ih_v6_0.c b/drivers/gpu/drm/amd/amdgpu/ih_v6_0.c
-index 333e9c30c091..0a87c3126d1e 100644
---- a/drivers/gpu/drm/amd/amdgpu/ih_v6_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/ih_v6_0.c
-@@ -307,6 +307,11 @@ static int ih_v6_0_enable_ring(struct amdgpu_device *adev,
- 	return 0;
- }
- 
-+static void ih_v6_0_retry_cam_ack(struct amdgpu_device *adev, u32 cam_index)
-+{
-+	WREG32_SOC15(OSSSYS, 0, regIH_RETRY_CAM_ACK, cam_index);
-+}
-+
- /**
-  * ih_v6_0_irq_init - init and enable the interrupt ring
-  *
-@@ -392,6 +397,16 @@ static int ih_v6_0_irq_init(struct amdgpu_device *adev)
- 
- 	pci_set_master(adev->pdev);
- 
-+	if (!(adev->flags & AMD_IS_APU)) {
-+		/* Enable IH Retry CAM */
-+		tmp = RREG32_SOC15(OSSSYS, 0, regIH_RETRY_INT_CAM_CNTL);
-+		tmp = REG_SET_FIELD(tmp, IH_RETRY_INT_CAM_CNTL, ENABLE, 1);
-+		tmp = REG_SET_FIELD(tmp, IH_RETRY_INT_CAM_CNTL, CAM_SIZE, 0xF);
-+		WREG32_SOC15(OSSSYS, 0, regIH_RETRY_INT_CAM_CNTL, tmp);
-+
-+		adev->irq.retry_cam_enabled = true;
-+	}
-+
- 	/* enable interrupts */
- 	ret = ih_v6_0_toggle_interrupts(adev, true);
- 	if (ret)
-@@ -800,7 +815,8 @@ static const struct amdgpu_ih_funcs ih_v6_0_funcs = {
- 	.get_wptr = ih_v6_0_get_wptr,
- 	.decode_iv = amdgpu_ih_decode_iv_helper,
- 	.decode_iv_ts = amdgpu_ih_decode_iv_ts_helper,
--	.set_rptr = ih_v6_0_set_rptr
-+	.set_rptr = ih_v6_0_set_rptr,
-+	.retry_cam_ack = ih_v6_0_retry_cam_ack,
- };
- 
- static void ih_v6_0_set_interrupt_funcs(struct amdgpu_device *adev)
--- 
-2.54.0
+Alex
 
+On Wed, May 13, 2026 at 12:30=E2=80=AFPM Timur Krist=C3=B3f <timur.kristof@=
+gmail.com> wrote:
+>
+> Fix some issues regarding retry fault handling,
+> such as enabling the retry fault interrupt (necessary
+> for retry faults to work) and such.
+>
+> Improve retry faults on Navi 3 dGPUs by enabling
+> the filter CAM, which can filter the repeated page
+> fault interrupts that happen when retry faults are
+> enabled, making the handling more efficient.
+>
+> With this series, the kernel is able to mitigate
+> most page faults on Navi 3 without causing a hang
+> and without a need to reset the GPU, when the
+> amdgpu.noretry=3D0 module parameter is set.
+>
+> Timur Krist=C3=B3f (6):
+>   drm/amdgpu: Use gmc->noretry instead of amdgpu_noretry directly
+>   drm/amdgpu/gfxhub: Enable retry fault interrupts when needed
+>   drm/amdgpu/gfxhub: Program CRASH_ON_*_FAULT bits to 0 as needed
+>   drm/amdgpu/gmc: Don't compare page fault timestamps with other
+>     interrupts
+>   drm/amdgpu/ih: Add retry_cam_ack IH function pointer
+>   drm/amdgpu: Enable retry CAM on Navi 3 dGPUs
+>
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c     |  7 +++++--
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h     |  1 +
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ih.h      |  1 +
+>  drivers/gpu/drm/amd/amdgpu/gfxhub_v11_5_0.c | 17 ++++++++++-------
+>  drivers/gpu/drm/amd/amdgpu/gfxhub_v12_0.c   | 17 ++++++++++-------
+>  drivers/gpu/drm/amd/amdgpu/gfxhub_v12_1.c   | 19 +++++++++++--------
+>  drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c    | 15 +++++++++------
+>  drivers/gpu/drm/amd/amdgpu/gfxhub_v1_2.c    | 15 +++++++++------
+>  drivers/gpu/drm/amd/amdgpu/gfxhub_v2_0.c    | 15 +++++++++------
+>  drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.c    | 15 +++++++++------
+>  drivers/gpu/drm/amd/amdgpu/gfxhub_v3_0.c    | 17 ++++++++++-------
+>  drivers/gpu/drm/amd/amdgpu/gfxhub_v3_0_3.c  | 17 ++++++++++-------
+>  drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c      |  5 ++++-
+>  drivers/gpu/drm/amd/amdgpu/ih_v6_0.c        | 18 +++++++++++++++++-
+>  drivers/gpu/drm/amd/amdgpu/ih_v7_0.c        |  6 ++++++
+>  drivers/gpu/drm/amd/amdgpu/mmhub_v3_0.c     |  2 +-
+>  drivers/gpu/drm/amd/amdgpu/mmhub_v3_0_1.c   |  2 +-
+>  drivers/gpu/drm/amd/amdgpu/mmhub_v3_0_2.c   |  2 +-
+>  drivers/gpu/drm/amd/amdgpu/mmhub_v3_3.c     |  2 +-
+>  drivers/gpu/drm/amd/amdgpu/mmhub_v4_1_0.c   |  2 +-
+>  drivers/gpu/drm/amd/amdgpu/mmhub_v4_2_0.c   |  2 +-
+>  drivers/gpu/drm/amd/amdgpu/vega20_ih.c      |  8 +++++++-
+>  22 files changed, 134 insertions(+), 71 deletions(-)
+>
+> --
+> 2.54.0
+>
