@@ -4,91 +4,87 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 25D6FCD4F25
-	for <amd-gfx@archiver.kernel.org>; Thu, 14 May 2026 17:19:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7384BCD4F3C
+	for <amd-gfx@archiver.kernel.org>; Thu, 14 May 2026 18:09:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 191A710E524;
-	Thu, 14 May 2026 17:19:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0978410F2BA;
+	Thu, 14 May 2026 18:09:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Ndb9J5KK";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="amB66ys0";
 	dkim-atps=neutral
-Received: from mail-dl1-f44.google.com (mail-dl1-f44.google.com [74.125.82.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0416210E4E6
- for <amd-gfx@lists.freedesktop.org>; Thu, 14 May 2026 17:19:29 +0000 (UTC)
-Received: by mail-dl1-f44.google.com with SMTP id
- a92af1059eb24-1325d6391a1so535249c88.2
- for <amd-gfx@lists.freedesktop.org>; Thu, 14 May 2026 10:19:28 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1778779168; cv=none;
+Received: from mail-dl1-f46.google.com (mail-dl1-f46.google.com [74.125.82.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 293A010F2BA
+ for <amd-gfx@lists.freedesktop.org>; Thu, 14 May 2026 18:09:52 +0000 (UTC)
+Received: by mail-dl1-f46.google.com with SMTP id
+ a92af1059eb24-12c8c3f48deso295245c88.2
+ for <amd-gfx@lists.freedesktop.org>; Thu, 14 May 2026 11:09:52 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1778782191; cv=none;
  d=google.com; s=arc-20240605;
- b=N6qtlYTGMcXZ9QQbFpDQLudvcarwE0XzJKK8UX4cdEG/s5SeqXXLnj42ROd7QCne8q
- 0s8GWV35Bezfqz6lgPldKSEKt8ySvqueqaJPcLJbVkVSznX7ph0Zh0yEYteQOCRaVSvu
- i22zTRcQ4sEjLZYSm9xxpHcO0UfJslY50CMpqhwyha7/PdvdCoUnwyzqT+GCe8SlVlTz
- 7p3HJ36BKhnf3cgeGwPA5GxHk2HXVJWiyX3MXZDUpH0SY3gF6YoWCeASFH/lkKdptFE0
- 0+0SSed3AEnX7Np/OIvffgmhWu5GvWrMMBVQfeN044DVuTLczS6YEAYr8Qr8dIgc2IEz
- HBcA==
+ b=HrSQk8RcBC6MevIHIZj4xvn4gDPQWedU12xW+eQNReSUw9uvR9s0ohx7mBRmh5DJeg
+ PcnBsHOvrzpxuhB/ndVvY6/9JnmED7MDXNKMWn4dgcqUSW52xn3lRaYSQfCMdTgH6aKi
+ 6WAcf7himZs/XMlvO2AsNrJn0J5hyij3y2ra3KM9Mz2SSVIuhd0+7kc30NNmgitSazad
+ kF0FTxuOHjlXSjykpve8ItVh3TLZeKE1o3bAXr9jZCcf2fTV/zUCYeCJfjlshfX2n+Ed
+ Rmo7YBjOR8YHpT10sldfI0loZwsbjM7Ef5kGq5Z0t6UtorEvP6VLSd9gxJcmL5j7f9PW
+ fCgw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20240605; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=+kgt6VghtXyCeOewAd2bBhxKrJ5EeB0MoPNkdQdR5b0=;
- fh=iN9eGREI21RO0V3tpbLKpeiyiCdirXoitc+kEPiEkys=;
- b=jgQUBdJnJ4uWo2Acz2xKfCHSMznMiQjACfGOeahOI71Aa1ZKfC+nGREnL6wyApydxt
- 3YiuWgmqlfGyouAZRvTcHgGKs6GtDhk7RWpz6I3y9zmpOfhrIIzFTXtlRBOCmGgYaphd
- l0hZzfHJ7c+Vcmpql75c8h090NTTH+DXsP8Cs/qsPzoUMfuOFNAh35qrGIAKBXJDs1XX
- sZd8xIgrS7mWaZATIXTdzau2O7UkTA/GPmPBBVUCTEV4ZAOtboO0jJr8msq4xYUQQOaR
- 1EujCiVdTlSPypIDi9jvGVhzDFtzUsH8s/+EN0lB9bLVWlmqcZKcXFpd4B6o353AgHcM
- xwsQ==; darn=lists.freedesktop.org
+ bh=nI2muwR20CfXo07nlBeWlSxlxBa4DApcs0qqA6MwymY=;
+ fh=8VlCKmlUX8T8hAmFOxUS/RpqIqraxAHr6XYs4UP6Pw8=;
+ b=M02VhApdxQ4oBsP8zwNIiElIYhwdYiiBtqw35ymYqq5CvsFOiOWjfYTZYp/qPtw6gK
+ rdgLPM/wHPQO6SKVRn3spqa2ZNknkD8QqRcG5HfER3IXMSYuvziWlDjuT2UOAOJze1Kr
+ wgTJk6l5S/PaDfn4A6JgWUyu59zsh2jH+uSoYjSF3wnP92pfyy7Fvgs8Ra1EuX283IvW
+ XDMZcYqfNv+O6rqJa33Fs57wvtXpzSXDhtsL/zmPV7vXnKhyHuGHnjpJuc/uoVwO5qPd
+ zWdiEyy4JwqkXPvLOW82HU48fF3vQzfrNHNBOf9tzWwZkjCt2jiyF9baSMfYBmpqzDY3
+ X47w==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1778779168; x=1779383968; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1778782191; x=1779386991; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=+kgt6VghtXyCeOewAd2bBhxKrJ5EeB0MoPNkdQdR5b0=;
- b=Ndb9J5KKqcBaOk4YLclWTT5qCrO8Qr+UYwAHhGOeddIDFdnQGSiDKcxoF5r+C5XiwN
- ESyvZ4iT4fZKoJKQ6XjUNK/WXbTwTf5gH7yPAWkC8nlBssC3B7rXiI5e29CIdgVWmPj+
- OSu9J3+Igk9tig0IIPhM/2zMEeXkDyy/e7rJHKpDMnTnG3zS/uDNzIA0KNCtF4OdmD9g
- cIRgPOPj3EPVT0xxbooytCeweFFWOJPPjwbvO5bvFJa9jg3RUW87C0US50uk0S+hhD6w
- qlBE/yiJP+PvFJXII7kcuMyFnh1o4g6z+uKLOFc44aJp0bzjA9qbXe6bXwSBsStlePly
- PvTA==
+ bh=nI2muwR20CfXo07nlBeWlSxlxBa4DApcs0qqA6MwymY=;
+ b=amB66ys0/Mdjok/PehDU6D7PiSCvZZhuBmVXEDwTIkccOcM0drLRGFrQY+RQdm+r92
+ kyWcU+6l4aJHK5PlfmVjXBb5Nd564evnx2Xj7EIQqPFkoGXqb6xzoYvMV/acJ35uWPgB
+ ekFNf+/T2eLOd2Q2YtdFOiHJ+fw5G0rMrGkhd7tXrxDLEYsq1xhiE38lWUInbSDfSosC
+ 8oVcEvsapZHIg54LPlhZqQuE8rGNAtGqqVVUWLrNFbcUxeBoHZmf7I2rp2+cIfV2n6Jj
+ keHdhqqxlntcQcKKyXtruNqFy2Bgg31IuN3Jl08kRobn6Tvj3WaGxi+v7bgMl8snBoVa
+ zgqQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1778779168; x=1779383968;
+ d=1e100.net; s=20251104; t=1778782191; x=1779386991;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=+kgt6VghtXyCeOewAd2bBhxKrJ5EeB0MoPNkdQdR5b0=;
- b=qmSDJicoVL7S+lez5rxVor2Dmnfw2IqFwGOrxjeW1QxHJ4+nhuSHAdYtxqop+ccMB3
- 5OWFfV9mysZQy8QpeIr4ViW3qAY34Nl5wccU7Zf4bJxq1DAKQglMNbOta/f7+wnnS6sy
- jo15VZPqc3eS1eZPF0GSFOm0sWVxt9ez+D7168kuu0wceOeimtD3SUL1CzDrfTPClS1a
- VeNO/AtLmWuN4qWfP314vWSQNysxWgOcrwNfVqbSzEycollgWZ3d1JJkd9eQyHFivUuL
- imUMOnK7CzjeA67c1p3HhzfguzBoqleYDqMbiwR/7IcFdAadxsB0eytliqqM0xN+15IB
- BAaA==
-X-Forwarded-Encrypted: i=1;
- AFNElJ/oGZCA0I97s+FtEWsNJ/bkQWzhbzaIeuvaT2J8+geL772+cVubTqCJSvvrUOrarqHsVxAZGZSC@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzLme1zWAydsDNDw7U7WZj6OZZqovJGLGioQOnBcQLuW1lIycfm
- AWKKYIniYCH3cRiUD0woL2A3Vit6qeRSkhef7SflVTw9ijPZukk/JQZOOWYsWkeeOU2PW3NMttU
- ql5t8yi/wrKxiE+hlHIvgABVphDiCUbM=
-X-Gm-Gg: Acq92OHAtDhS47JvXynxwe5FjJUfen2wF8W/W9oWLvuVG/i7q63YrMYGwo1BTvHf5sK
- S03QPHS28q/+e+g9Rujr4SlBl4pOmEv71fYbEvdLbsFNgWO1GOc9t+2bly5AV3Xw3nPuznYQ0EU
- AL2vYqzQhFs0Kr4sYHYiQsAkzmIBpgaYpXhUXokA0Tk+NNRNI17Y8EBAvZqd//o2W6xQr9YZF94
- eNl9vhGmL70qD+YO0iAihaTs90rJdPDZcUKBgh7ZJBGap2k4IFyPQKT5bxTOTZx17iHbj9VkvPi
- O+xZIu9taS52WQW37dnZpp14Bu86qFL+h1+LEYOGaCcYcQuCgaIJ6IupJ9xS8BEvX0AR6Q==
-X-Received: by 2002:a05:7022:60a9:b0:130:8ed9:203e with SMTP id
- a92af1059eb24-13503fe8579mr18309c88.0.1778779168197; Thu, 14 May 2026
- 10:19:28 -0700 (PDT)
+ bh=nI2muwR20CfXo07nlBeWlSxlxBa4DApcs0qqA6MwymY=;
+ b=mMY+VTH5vrFlqn2SxVblcCrJwJe9cBhYva4iigwclynITk7ItvqtzK9xnsDeatM6gz
+ 0B4SL4dZxtO5DpO+ED2eva0ns+xsd0liDnrqLhDk8OMOF3j5D+bdPgRIM2JByFCZq+WT
+ gmDSXFAW5G2iz/7g/Y3ijooB5ADnTlNejP9t5+kWbXzLWaU2E2BAylaEO3/7R/PulJ6n
+ agdTWq124vmAU3WAosDwhWGRCfKQwuGflKUDfyg1ZhaMEDqhGCQI3Q1wDOsAQmdgfG8q
+ MHlXdiX2K1kabAN7PfU7DjaSffGAJMzeerN43m5DDo4AGfj8A23Xk1E3nsbSAf36cnRe
+ twUw==
+X-Gm-Message-State: AOJu0YyhVA6SZK/dVJ6bRH5zFBYLUUK2jJpXl8IlQIlQP8APbGEGchcY
+ WWRTi3qgH4qgxWvj/z4XI4QQk6yEs6sD1gJV4RZF+dXimgATX4ZgC4gT7TdaNWIFXhlVU2gUiOB
+ LJUFGwO3ZEuwMO4kC8IAGClfOGmJNRT0=
+X-Gm-Gg: Acq92OH6QgDaIUy6zY2TIjr0J7vNzeYglghBMcv76SKGwfjzYohV4oPGpW0zJpKNad8
+ XbZLDRg4+F0aGtTB4b9XBtJDBrbulno1GEgcEIREqgDXQ7tJav5GMS5/u9MwE3+C/V4OtI5Nkp4
+ K6IeZHurT87I58uszc65edvDlt0zWwsSRk28HO99RCnLy+gYBhsIiNkCWTqBCNGZliv/SrLspxC
+ nBkq4dAakxqxF0h2qlcZNHqtixXGyqaRfDOSYLrKodtHmqB7g0tv5Pi0n4pnpwug2m1q/11zZqu
+ qzSmaXwGxu6J3WnCYWpjb2G+IiBLUr5IXttvixtHgiFSN9VcSmLoTOXwGj2V7Slv8ie2sA==
+X-Received: by 2002:a05:7022:4596:b0:12c:888b:aaab with SMTP id
+ a92af1059eb24-1350451b228mr49209c88.0.1778782190368; Thu, 14 May 2026
+ 11:09:50 -0700 (PDT)
 MIME-Version: 1.0
-References: <20260514170139.335618-1-alex.hung@amd.com>
-In-Reply-To: <20260514170139.335618-1-alex.hung@amd.com>
+References: <20260513200416.35631-1-timur.kristof@gmail.com>
+In-Reply-To: <20260513200416.35631-1-timur.kristof@gmail.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 14 May 2026 13:19:15 -0400
-X-Gm-Features: AVHnY4J4r3RZAvJcrVS79xkNwSaEe7tXxUwqGyTSplDANI65OpLuqquJItPOrTg
-Message-ID: <CADnq5_MZ=S-b3smHdHA_0_+hZq92Y66oKO=KCfzoG79F_fardA@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdkfd: Fix UML build guards for x86_64-only code
-To: Alex Hung <alex.hung@amd.com>
-Cc: Felix.Kuehling@amd.com, alexander.deucher@amd.com, 
- christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch, 
- harry.wentland@amd.com, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, kernel test robot <lkp@intel.com>
+Date: Thu, 14 May 2026 14:09:38 -0400
+X-Gm-Features: AVHnY4IJ9F8c_N9kRyK7mW-z0gJBemynLbhBAZeO8NpmlZRrD5-P-AyypriaSAo
+Message-ID: <CADnq5_Mgx2BWW9ijjzmkMfcJkGL9LdSM+dpduF3EN8nLYqUegA@mail.gmail.com>
+Subject: Re: [PATCH 0/9] VCE1 fixes (v3)
+To: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>
+Cc: amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>, 
+ christian.koenig@amd.com, Natalie Vock <natalie.vock@gmx.de>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -105,86 +101,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, May 14, 2026 at 1:03=E2=80=AFPM Alex Hung <alex.hung@amd.com> wrote=
-:
->
-> cpu_data().topo.apicid and kfd_fill_iolink_info_for_cpu() rely on
-> x86-specific structs not present on UML. The kfd_topology.c and
-> kfd_crat.c were guarded by CONFIG_X86_64 alone, causing build
-> failures when CONFIG_DRM_AMDGPU is selected on UML.
->
-> Update guards to '#if defined(CONFIG_X86_64) && !defined(CONFIG_UML)'
-> to ensure x86_64-only paths are excluded on UML builds.
->
-> Fixes: e6b71bcdc409 ("drm/amdgpu: Remove UML build exclusion from Kconfig=
-")
-> Reported-by: kernel test robot <lkp@intel.com>
-> Closes: https://lore.kernel.org/oe-kbuild-all/202605140506.TI8zPIBG-lkp@i=
-ntel.com/
-> Cc: Harry Wentland <harry.wentland@amd.com>
-> Assisted-by: Copilot:Claude-Sonnet-4.6
-> Signed-off-by: Alex Hung <alex.hung@amd.com>
+Applied the series.  Thanks!
 
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
-
-> ---
->  drivers/gpu/drm/amd/amdkfd/kfd_crat.c     | 6 +++---
->  drivers/gpu/drm/amd/amdkfd/kfd_topology.c | 2 +-
->  2 files changed, 4 insertions(+), 4 deletions(-)
+On Wed, May 13, 2026 at 4:04=E2=80=AFPM Timur Krist=C3=B3f <timur.kristof@g=
+mail.com> wrote:
 >
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c b/drivers/gpu/drm/amd/=
-amdkfd/kfd_crat.c
-> index a1087c13f241..cf7b1b038d5f 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
-> @@ -1821,7 +1821,7 @@ static int kfd_fill_mem_info_for_cpu(int numa_node_=
-id, int *avail_size,
->         return 0;
->  }
+> Fix various small issues regarding VCE1
+> and the workaround to ensure the VCPU BO
+> has a low 32-bit address.
 >
-> -#ifdef CONFIG_X86_64
-> +#if defined(CONFIG_X86_64) && !defined(CONFIG_UML)
->  static int kfd_fill_iolink_info_for_cpu(int numa_node_id, int *avail_siz=
-e,
->                                 uint32_t *num_entries,
->                                 struct crat_subtype_iolink *sub_type_hdr)
-> @@ -1880,7 +1880,7 @@ static int kfd_create_vcrat_image_cpu(void *pcrat_i=
-mage, size_t *size)
->         struct crat_subtype_generic *sub_type_hdr;
->         int avail_size =3D *size;
->         int numa_node_id;
-> -#ifdef CONFIG_X86_64
-> +#if defined(CONFIG_X86_64) && !defined(CONFIG_UML)
->         uint32_t entries =3D 0;
->  #endif
->         int ret =3D 0;
-> @@ -1945,7 +1945,7 @@ static int kfd_create_vcrat_image_cpu(void *pcrat_i=
-mage, size_t *size)
->                         sub_type_hdr->length);
+> These should be included in 7.1 because
+> that includes amdgpu_gtt_mgr_alloc_entries()
+> that exposed these bugs on VCE 1.
 >
->                 /* Fill in Subtype: IO Link */
-> -#ifdef CONFIG_X86_64
-> +#if defined(CONFIG_X86_64) && !defined(CONFIG_UML)
->                 ret =3D kfd_fill_iolink_info_for_cpu(numa_node_id, &avail=
-_size,
->                                 &entries,
->                                 (struct crat_subtype_iolink *)sub_type_hd=
-r);
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c b/drivers/gpu/drm/=
-amd/amdkfd/kfd_topology.c
-> index 46db0d65d242..87e13f021457 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-> @@ -2349,7 +2349,7 @@ static int kfd_cpumask_to_apic_id(const struct cpum=
-ask *cpumask)
->         first_cpu_of_numa_node =3D cpumask_first(cpumask);
->         if (first_cpu_of_numa_node >=3D nr_cpu_ids)
->                 return -1;
-> -#ifdef CONFIG_X86_64
-> +#if defined(CONFIG_X86_64) && !defined(CONFIG_UML)
->         return cpu_data(first_cpu_of_numa_node).topo.apicid;
->  #else
->         return first_cpu_of_numa_node;
+> Also fix an issue around firmware size
+> and offsets on all VCE versions.
+>
+> v3:
+> addressed review feedback,
+> dropped patches that were not reviewed
+>
+> Timur Krist=C3=B3f (9):
+>   drm/amdgpu: Align amdgpu_gtt_mgr entries to TLB size on Tahiti (v2)
+>   drm/amdgpu/vce1: Check that the GPU address is < 128 MiB
+>   drm/amdgpu/vce1: Remove superfluous address check
+>   drm/amdgpu/vce1: Check if VRAM address is lower than GART.
+>   drm/amdgpu/vce1: Don't repeat GTT MGR node allocation
+>   drm/amdgpu/vce1: Fix VCE 1 firmware size and offsets
+>   drm/amdgpu/vce1: Stop using amdgpu_vce_resume
+>   drm/amdgpu/vce2: Fix VCE 2 firmware size and offsets
+>   drm/amdgpu/vce3: Fix VCE 3 firmware size and offsets
+>
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c |  9 ++-
+>  drivers/gpu/drm/amd/amdgpu/vce_v1_0.c       | 64 +++++++++++++--------
+>  drivers/gpu/drm/amd/amdgpu/vce_v2_0.c       |  9 ++-
+>  drivers/gpu/drm/amd/amdgpu/vce_v3_0.c       |  2 +-
+>  4 files changed, 55 insertions(+), 29 deletions(-)
+>
 > --
-> 2.43.0
+> 2.54.0
 >
