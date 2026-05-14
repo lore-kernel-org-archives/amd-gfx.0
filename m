@@ -4,80 +4,102 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E8D19CD4F25
-	for <amd-gfx@archiver.kernel.org>; Thu, 14 May 2026 17:02:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AE178CD4851
+	for <amd-gfx@archiver.kernel.org>; Thu, 14 May 2026 17:02:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4846210E101;
-	Thu, 14 May 2026 17:02:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5FDCF10E3C7;
+	Thu, 14 May 2026 17:02:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="g3n4QxiO";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="KS3pxNmU";
 	dkim-atps=neutral
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com
- [209.85.128.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E92E310E101
- for <amd-gfx@lists.freedesktop.org>; Thu, 14 May 2026 17:02:47 +0000 (UTC)
-Received: by mail-wm1-f52.google.com with SMTP id
- 5b1f17b1804b1-488ad135063so67911945e9.0
- for <amd-gfx@lists.freedesktop.org>; Thu, 14 May 2026 10:02:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1778778166; x=1779382966; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=hB5rYSPWU3EShwv1tVPSx+ORHC+hWkuGmw6uwHcZkPY=;
- b=g3n4QxiOIbhfVNfYwtinJ2v+wtg8PrH4/EBZQLfw6bdQvdAUAO+0y+lczuzoSERhqW
- /mPAxGfyb+I3pP7M1E9Iyk3jAp+IIa4U7i9wo+i9gVkxrA5qDSvSLtEKRlEStf8CwV2S
- l7wQBXT6tb10fUmpqHnXiJeJ+737ITPUwdFzCD83cCtjyo/XNJq4gURBX4/YwY1EFTNa
- E8si0HEvNdrJHNMSoQJdkhbLufQyGiP1ygbj8+QfGNGTx3fMLu2Zr5/3l5g+Bt2qnCGl
- Q2UJa0HXWwgRENQ7QPVUT6FobDoIsAFocCffnTNWDMJO39XeKgKKglBofJubiwrvXQCG
- jnnA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1778778166; x=1779382966;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=hB5rYSPWU3EShwv1tVPSx+ORHC+hWkuGmw6uwHcZkPY=;
- b=L5oMOjXcT+L/zix13cFZ4jcLLUoKBOxkyuxMdrMTGb7qoNpRbxyG264bGYE3iQspkv
- 9/GUYSaNc1jjxA/lUtz4C0jsLMr9Mv1/hT/GaX5kEkcoRzGVzQDZi8WtvMhXSxpZEPDm
- 9ECjHJFnCWalGe8s1rFZ4RkdOovLrx4rcy70+ffOAUlv/wbeslzS7V2o6CjDcDhEZz7w
- WATg4JSv38KizeZBXsES+Pn4gGbWVSYbNnJ4JL+acRrdRhetxKeVzW2m0/ibmSLFCSpb
- 6pAVd6JbOIRO6dHnLaFX4xBduRJeb6SA1N6CaGReshvxq3xGl0GfKZ9/c8ju7y2yW0/0
- 9ocQ==
-X-Gm-Message-State: AOJu0YxhOdwD8Cr0rVg9vLlg6q/Mgec19bhrVW0r2Da5T1osErTOwR4j
- wEsd6onKEkDNCo5eDGIKTjjbd2WOlqDTz+1ohu6VCMdcZAUdow4ZV7C9
-X-Gm-Gg: Acq92OHWv0l9WNtu+gBI/2MiYCr4Tij8CRjRLUx1+lASpEh+36Gx1lA45XVmq/E/eaa
- WKOaswPa3cWZKefa8SaN2NpOufPhnvrHyOVxZqmxZgeKwJ3d4vYEUBZoL6YDlKGAOsCxMJ5a1DL
- nURcdHgRLQ1bfcmsd/tZ+UFOIp+/7NBqdT/lwu7HRuYoPdAdkgjknBWeA+2zq+1vqS1/sfj3Hv9
- ivTuB+/PRwGgr1fUmS6pEDol/esbbUZ2hVRDTRRQY8//sYMPBcd6y2qMnC9faeRSeOtbVNa0O9f
- FB7JKEAi0UZYKGxIqYCJ+YWiUwdwAzwWMZWjlCcSIFQ4cwQPkTBvNLHK++wSaCGEMweTq+zdxV3
- 86jWGhw5GjFcHcfetOXwDXrrRpg2guXMzAmjBZGTMTgl3gQgrfXie3oZw7Q5YmYuYHGRnon3XQK
- mIYr7VpCMXIXyfYsqR2VuKk9LUUoAKWI9t+RRukBOzVa613ci/dYfPf7+qGu2d02hfyh1TdA==
-X-Received: by 2002:a05:600c:4e55:b0:488:ac01:72de with SMTP id
- 5b1f17b1804b1-48fe60e510bmr3935265e9.5.1778778166099; 
- Thu, 14 May 2026 10:02:46 -0700 (PDT)
-Received: from timur-hyperion.localnet (540017BE.dsl.pool.telekom.hu.
- [84.0.23.190]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-48fe57944c1sm4635045e9.7.2026.05.14.10.02.44
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 14 May 2026 10:02:45 -0700 (PDT)
-From: Timur =?UTF-8?B?S3Jpc3TDs2Y=?= <timur.kristof@gmail.com>
-To: Alex Deucher <alexdeucher@gmail.com>,
- "Shetaia, Amir" <Amir.Shetaia@amd.com>
-Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- "Koenig, Christian" <Christian.Koenig@amd.com>,
- Marek =?UTF-8?B?T2zFocOhaw==?= <maraeo@gmail.com>,
- Natalie Vock <natalie.vock@gmx.de>, Melissa Wen <mwen@igalia.com>
-Subject: Re: [PATCH 0/6] drm/amdgpu: Improve retry fault handling
-Date: Thu, 14 May 2026 19:02:43 +0200
-Message-ID: <2342353.vFx2qVVIhK@timur-hyperion>
-In-Reply-To: <PH8PR12MB6889AD2B155E8D73FD5A7A1B87072@PH8PR12MB6889.namprd12.prod.outlook.com>
-References: <20260513163043.8725-1-timur.kristof@gmail.com>
- <4570266.UPlyArG6xL@timur-hyperion>
- <PH8PR12MB6889AD2B155E8D73FD5A7A1B87072@PH8PR12MB6889.namprd12.prod.outlook.com>
+Received: from SJ2PR03CU001.outbound.protection.outlook.com
+ (mail-westusazon11012004.outbound.protection.outlook.com [52.101.43.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9790710E3CA;
+ Thu, 14 May 2026 17:02:55 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ER5QfBArXa8ppSjP1odOyotK+6I6CtLucjUau9VTIX5XZzf5xHNDQf0hgtpt2O0eoxUAflp7qgJPaycZ/VBFMhqFGtA2SefyvJc+3vFxgDAscND3+KbWl9MmpZNZ4jzutWuhphWxxzKZH8tPugLInAQ/ukhOX7KOyFtqTBiAXez9d348HYTX7BJZHkXC2V3ZCg51vGlx7qgfejUGImD8JuSRftP2UnSDLJg9EM2d9h97IF24duN6HQRt6yEs8pP6NWoWaLJENsnmtcShs/FEIamat3DV8k6ctnYD4XS6rotA7PgA/e2jeW42d3EKb3PIO/DZSoQnOjFLjDwBzgaWcg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=BNBtypnnMPtjA2redigw9vdP+OHc++8G5ZSIEwEI9wY=;
+ b=aIQ7h2D9KyViS2RpAiYXwS/KWghiIYcRtLif1i64Rq/GA8ljqUojNft3uDp1a+rZpaW5VEYMBzFe+5JuOJnJx0ntaLvV/UCWcca1cy64vOhyg70XbSsP6KfKtqYZiezj4fKoi95QO0OD5jPElP/7F25A1TQ1T4TKxUYHa2Dimpdi1tVR+aWjc0aeAkOOiTFtZsU9EGtoHqUoEc6MKeBQlz/J/Mjem3aMtxhAAhsu/Pu4ab4jTExP9ILn2jusCXa7fqyyGsH9jrAOJPE0FaDR1B9vhyUD83jvG6BhIsERzwNAPoNCAUm8n0CBKhumPzh6BQIpYiycPIRTSIbdwltt4A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=gmail.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=BNBtypnnMPtjA2redigw9vdP+OHc++8G5ZSIEwEI9wY=;
+ b=KS3pxNmUQaEpz/0UA5Ws4lrN2Y7+8pEUKX7jlUA4JdQlJjlqp554YuphchezUSsu5zj93kl4MtFHg4sbQmGBFm6GoWenpQH5oEsrC9+821yYTCuPQ85ZhGrm43U04UruKL7DdEnfbW1oLO9+Arj5Ip6GOBekgVUcqbkjN9JQMUM=
+Received: from PH1PEPF0001330D.namprd07.prod.outlook.com (2603:10b6:518:1::1c)
+ by DS5PPF78FC67EBA.namprd12.prod.outlook.com (2603:10b6:f:fc00::655)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9913.12; Thu, 14 May
+ 2026 17:02:50 +0000
+Received: from CY4PEPF0000EDD7.namprd03.prod.outlook.com
+ (2a01:111:f403:f912::1) by PH1PEPF0001330D.outlook.office365.com
+ (2603:1036:903:47::9) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.25.17 via Frontend Transport; Thu, 14
+ May 2026 17:02:50 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ CY4PEPF0000EDD7.mail.protection.outlook.com (10.167.241.203) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.25.13 via Frontend Transport; Thu, 14 May 2026 17:02:49 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Thu, 14 May
+ 2026 12:02:49 -0500
+Received: from kylin.lan (10.180.168.240) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Thu, 14 May
+ 2026 10:02:47 -0700
+From: Alex Hung <alex.hung@amd.com>
+To: <Felix.Kuehling@amd.com>, <alexander.deucher@amd.com>,
+ <christian.koenig@amd.com>, <airlied@gmail.com>, <simona@ffwll.ch>,
+ <harry.wentland@amd.com>, <amd-gfx@lists.freedesktop.org>,
+ <dri-devel@lists.freedesktop.org>
+CC: <alex.hung@amd.com>, kernel test robot <lkp@intel.com>
+Subject: [PATCH] drm/amdkfd: Fix UML build guards for x86_64-only code
+Date: Thu, 14 May 2026 11:01:39 -0600
+Message-ID: <20260514170139.335618-1-alex.hung@amd.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb09.amd.com
+ (10.181.42.218)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000EDD7:EE_|DS5PPF78FC67EBA:EE_
+X-MS-Office365-Filtering-Correlation-Id: be88f994-2a5a-48c0-6376-08deb1daa122
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|376014|82310400026|36860700016|18002099003|56012099003|11063799003;
+X-Microsoft-Antispam-Message-Info: 4qqQJMrRij/cqwlEqSr1X0wDUKx08XieRI8YZOyRR4HOVf+fk8WUjM1eEeOZ9L7VY7A3BaffGic7rYGJbnWCMlzd6V5RYOaU3o6jimyJYBJWjDiCiiai1Al1X1w9cgizF0yS3wnbWzE9Ue6oToXx9iXGlJ9D44jT2U4LtcugvQRmY68bljKNe+uxp0W9WoB+HXyTirK5DV1cyGzIIIcn60K64HoIO4hnuUNjxWd5a30Yo/qhOZsAcZSwWscuBnKnmmgIT31/2cc7R7i+Hdkw6G/G7L9eT0tX7CkMDVDx6a0zqK4tVwhJOcwnXSX19Jm1j2LbexxIatGimrJ8TDaKeZh6FjbqqWGsV7z751uMnXjpaDsEWwnHnyfnNUVa7t8kbbGj6bUT7KQOzpRqn2hdJWIUy8i7a3VlXuUKgc4CtLRApkCwam36O3RSJO03ZHENZOY26Gs5x7vqFjxhfLHM6pUIuM9SxXSCsswXb6Bs1RgHIe6bdsonTe5HmC7mqLbB1IQGrtx4bNqqs5QtHK0xtsBj11AwVpol4PRh9ydzNv4bdcir2YjERB5c/zwDNN7Xizkbdkko0/eXQfNmg4UdvwiztXTr/5D4cEzN48Q9ZUCEiZex0El7Fo6yeGwQgt76Ug+tUkYSwQusIggq9VycyTzaMH9VFevDD5XPnX6ikozcjbm26bJioDONmoLzeUDMvlxVZk8RTqq70ByTVhEL1o7qqqI0Z6uccl1UCF0LOEI=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(82310400026)(36860700016)(18002099003)(56012099003)(11063799003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: yXIkLPSWO9xKT6AGSXlIG8Y4jM/9BvXZU55dz8irsYalxl45Lp00WdPdtl3wSBy3XP0OTzR9c3qETgpIC5a88nZ6rOMaLbVu1tewJmhaUqC5zS2e0G98GI+3kpQbPZuol2avA43/NTSMu1AokogRcqmrrnbztb1/7WDjrL5deQt1t/EEQU55oFaVbWsoQwH0IS9XD3Ec9gPue70Fl+kLwacIA+pq/AyvpxWYM6448kJzZG5yRX8WfAqEPHpJ+HsxGjTkSGy0xy9U5rf70kauLnAqJ3otj6V3syXjXusMr+T36BWgdOd4jXl/eYnZxnm7OMDqQI0M50nz9XqN+x/E4iToOWoKnM52rtNd1vKjqz0IXzHCNvOahlxKJj18JqO+CatEed1KTceNpIgzLqDevwaHvY1gbM4/cnFGgpofhKSKf8P5ihVamCXQGRMjT2YR
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 May 2026 17:02:49.6530 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: be88f994-2a5a-48c0-6376-08deb1daa122
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000EDD7.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS5PPF78FC67EBA
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,336 +114,69 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Amir,
+cpu_data().topo.apicid and kfd_fill_iolink_info_for_cpu() rely on
+x86-specific structs not present on UML. The kfd_topology.c and
+kfd_crat.c were guarded by CONFIG_X86_64 alone, causing build
+failures when CONFIG_DRM_AMDGPU is selected on UML.
 
-I pushed a work in progress branch here:
-https://gitlab.freedesktop.org/Venemo/linux/-/commits/ven_retry_faults_navi4
+Update guards to '#if defined(CONFIG_X86_64) && !defined(CONFIG_UML)'
+to ensure x86_64-only paths are excluded on UML builds.
 
-This contains the two series that I sent to the mailing list yesterday:
-"Improve retry fault handling"
-"Improve soft IH ring"
+Fixes: e6b71bcdc409 ("drm/amdgpu: Remove UML build exclusion from Kconfig")
+Reported-by: kernel test robot <lkp@intel.com>
+Closes: https://lore.kernel.org/oe-kbuild-all/202605140506.TI8zPIBG-lkp@intel.com/
+Cc: Harry Wentland <harry.wentland@amd.com>
+Assisted-by: Copilot:Claude-Sonnet-4.6
+Signed-off-by: Alex Hung <alex.hung@amd.com>
+---
+ drivers/gpu/drm/amd/amdkfd/kfd_crat.c     | 6 +++---
+ drivers/gpu/drm/amd/amdkfd/kfd_topology.c | 2 +-
+ 2 files changed, 4 insertions(+), 4 deletions(-)
 
-If we have to rely on the soft IH ring on Navi4, then we absolutely need th=
-e=20
-patches from "Improve soft IH ring", as it fixes a few bugs and switches th=
-e=20
-soft IH ring to use the system unbound workqueue. Otherwise it can happen t=
-hat=20
-the soft IH ring fills up even before your CPU can process anything in it.=
-=20
-(This is especially bad on HW that doesn't have the filter CAM enabled,
-eg. Strix Halo.)
-
-On top of that,
-
-There is a patch to solve the race condition and make sure that the retry C=
-AM=20
-is ACKed after the VM update is complete. On Navi 31, this works and=20
-successfully makes sure that the race is eliminated and each VM fault is on=
-ly=20
-processed once. I'd like to submit these if you guys agree on the approach.
-
-And finally, there is a very messy patch that contains what I tried to do t=
-o=20
-get it all working on Navi 48. This has a lot of comments with my notes dur=
-ing=20
-development, and some attempts I tried to fix the issue (without success).
-
-Basically, what I did was:
-
-=2D Enable the retry CAM the same way as I did on IH 6.0 exactly like you s=
-aid
-=2D Added the cam_index to gmc_v12_0_process_interrupt
-=2D Added a few bits to gfxhub_v12_0 and gfx_v12_0 to actually enable retry=
-=20
-faults (without that, the faults don't have the retry bit in src_data[1])
-
-Now, what I observe on Navi 48 is:
-
-1. Retry fault interrupt is triggered
-2. Dispatched on the soft IH ring
-3. The interrupt handler is called again on the soft IRQ ring
-4. The fault is mitigated by amdgpu_vm_handle_fault()
-5. Finally, the retry CAM is ACKed
-6. As soon as the CAM is ACKed, I get another interrupt for the same addres=
-s,=20
-and it goes on infinitely or until GPU reset is triggered.
-
-Attempts at fixing what I saw on Navi 48:
-
-=2D Tried to add a TLB flush to various places. Now that the race is mitiga=
-ted,=20
-the TLB flush doesn't make things worse anymore, but it's also not helping.
-=2D Tried to set the FORCE_MISS bits on various cache related registers, ho=
-ping=20
-that it would work around the possibility of the PTE/PDE not being updated =
-in=20
-the cache. This didn't help either.
-=2D Tried to use amdgpu.vm_update_mode=3D3 to use the CPU to update the pag=
-e=20
-tables, but that didn't help on Navi 48
-=2D Tried to halt the CP using CP_ME_CNTL to see if it would stop sending=20
-interrupts, but it didn't.
-=2D Using umr I tried to disable the L2 cache and reset it with the GRBM, b=
-ut=20
-that just broke the whole system.
-
-Other notes on the retry fault topic in general:
-
-=2D On GPUs that don't have the retry CAM (eg. Navi 1-2 and APUs) we'll nee=
-d to=20
-consider disabling the VM fault interrupt while processing the retry, becau=
-se=20
-the soft IH ring can fill up really quickly and the CPU may struggle to kee=
-p up=20
-with it.
-=2D In general (for all GPUs), I think it would be better to update a large=
-r VA=20
-range of subsequent pages rather than just a single page, in order to more=
-=20
-efficiently mitigate VM faults to neighbouring pages.
-=2D Currently all of the invalid accesses are redirected to the same dummy =
-page,=20
-which is a security hole because it means that a process that had an out of=
-=20
-bounds write can leak data to a process that does an out of bounds read. I=
-=20
-already talked to Christian about this, he has a few ideas how to fix it.
-
-Thanks & best regards,
-Timur
-
-
-On Thursday, May 14, 2026 5:04:00=E2=80=AFPM Central European Summer Time S=
-hetaia,=20
-Amir wrote:
-> AMD General
->=20
-> Hi Timur,
->=20
-> Thanks for clarifying. yes, please push the Navi 48 WIP branch when you h=
-ave
-> a chance, useful to compare side-by-side.
-=20
-> Patch 5 / WDOORBELL on ih_v7_0: I have been able to confirm that doorbell
-> ACK does not free the CAM slot on the NV4 family
- (gfx1200/1201). I
-> verified empirically, slots walk monotonically until the CAM fills, then =
-HW
-> silently drops retry events. MMIO write to regIH_RETRY_CAM_ACK does free
-> it. Almost certainly required for your Navi 48 attempt.=20
-> Why PTE update doesn't reach UTC L0: Most likely a race between the SDMA
-> PTE-update job completing and the CAM ACK firing the
- IRQ for re-handling.
-> Until SDMA finishes the write + invalidation propagates, UTC L0 keeps
-> getting the stale "invalid" reply which is exactly your symptom.=20
-> To inspect with umr: clone https://gitlab.freedesktop.org/tomstdenis/umr =
-and
-> use scripts/diag/dump_all_cpc_info.sh (needs
- halt_if_hws_hang=3D1
-> gpu_recovery=3D0). For UTC specifically: umr -i <gpu> -O bits -r
-> '*.*.regGCVM_L2_STATUS' (look at L2_BUSY and CONTEXT_DOMAIN_BUSY per-VMID
-> bits) and regGCVM_L2_PROTECTION_FAULT_STATUS (empty + busy =3D translation
-> timeout, not denial). Page-table walk to confirm PTE landed: sudo umr -i
-> <gpu> -vm <vmid>@<va> 1.=20
-> Your ACK-after-SDMA-fence idea: good catch. We hadn't dug into that race
-> because the BO-clear deadlock dominates on NV4, but
- the ordering bug is
-> almost certainly there too. Fence callback is the right shape, cleaner th=
-an
-> blocking the worker. Would be a generic fix benefiting both Navi 3 and 4.
-> Happy to review if you take a swing.=20
-> IH1 routing: fair point. I just inherited the existing IH0 path and haven=
-'t
-> tried IH1. On the list once CAM ACK and fence ordering are stable.
-=20
-> AMIR SHETAIA
-> Senior Software Development Engineer  |  AMD
-> Software Platform Architecture Team
-> -------------------------------------------------------------------------=
-=2D--
-> ------------------------------------------------------
- 1 Commerce Valley
-> Drive, Markham, ON L3T 7X6
-> LinkedIn  |  Instagram  |  X  |  amd.com
->=20
->=20
->=20
->=20
-> -----Original Message-----
-> From: Timur Krist=C3=B3f <timur.kristof@gmail.com>
-> Sent: Wednesday, May 13, 2026 6:12 PM
-> To: Alex Deucher <alexdeucher@gmail.com>; Shetaia, Amir
-> <Amir.Shetaia@amd.com>
- Cc: amd-gfx@lists.freedesktop.org; Deucher,
-> Alexander <Alexander.Deucher@amd.com>; Koenig, Christian
-> <Christian.Koenig@amd.com>; Marek Ol=C5=A1=C3=A1k <maraeo@gmail.com>; Nat=
-alie Vock
-> <natalie.vock@gmx.de>; Melissa Wen <mwen@igalia.com> Subject: Re: [PATCH
-> 0/6] drm/amdgpu: Improve retry fault handling=20
-> Hi Amir,
->=20
->=20
-> > Timur, you are right, I see your patch 6 already does the MMIO ACK for
-> > gmc_v11_0/ih_v6_0. I missed that. The gap is only in patch 5's ih_v7_0
-> > implementation, which still does WDOORBELL. that's where I'd suggest
-> > swapping in MMIO for NV4.
->=20
->=20
-> First, let me clear up a slight misunderstanding here. The patch series t=
-hat
-> I sent here only contains what I managed to get working on Navi 31, it do=
-es
-> not contain any code from my attempt at Navi 48.
-=20
-> The patch 5 is just a slight refactor of the pre-existing code and
-> (intentionally) doesn't contain any functional changes. It seems that IH =
-7.1
-> relies on the doorbell, so I didn't want to remove it, albeit I have no
-> means to verify if that actually works or not.
-=20
-> If you like, I can push a few WIP patches to a different branch tomorrow =
-to
-> show you exactly what I did on Navi 48. However, I wouldn't want to submit
-> that to the mailing list without first making sure that it works well.
-=20
->=20
-> > 1. "Fault never resolves on NV48" different shape from our
-> > broken-CAM-ACK symptom.
->=20
->=20
->=20
-> > You're right, those are different. Our cam-walk-monotonically symptom
-> > only shows up when CAM is enabled but the ACK is broken.
-> >=20
->  > On your NV48 setup CAM
-> >=20
-> > probably isn't enabled at all (your patch 6 only enables it for
-> > ih_v6_0_irq_init, no equivalent in ih_v7_0_irq_init)
->=20
->=20
-> For the attempt on Navi 48, I enabled the CAM in ih_v7_0 the same way I do
-> for
- ih_v6_0 in the series. But, because I couldn't get it fully working, I
-> didn't include any of that code in the series.=20
->=20
-> > so retries fire
-> > repeatedly on the IH ring instead of being deduped by CAM. That
-> > matches what you're seeing .. amdgpu_vm_handle_fault keeps being
-> > called but each call is on a fresh IRQ for the same address.
-> > Two things that could be happening underneath:
-> > - The fault handler runs but the updated PTE never reaches UTC L0 (TLB
-> > invalidation gap). On NV4 we see this as "valid PTEs failing to
-> > translate"
-> > in our UMR captures.
->=20
->=20
-> I think this explanation may fit what I saw.
-> Why is it not reaching UTC L0?
-> Also, how do you inspect this stuff in umr?
->=20
->=20
-> > 2. What bits we check on src_data[2]:
-> >
-> >
-> >
-> > Honestly, we don't use src_data[2] for retry detection. We use it only
-> > for
-> > the cam_index: cam_index =3D entry->src_data[2] & 0x3ff;   /* low 10 bi=
-ts =3D
-> > CAM slot */
->=20
->=20
->=20
-> > For retry detection we initially used the gfx9 constant on src_data[1]
-> > like you, but observed the bit cleared on a lot of NV4 events that
-> > should have been retries (waves were hung in xnack-stall but no IH event
-> > matched).
- So
-> > we just go through the retry path unconditionally on NV4
->=20
->=20
-> I see. I think I needed to change some gfxhub registers to get those
-> src_data bits that you are missing.
-=20
->=20
-> > and let
-> > amdgpu_vm_handle_fault sort it out via SVM range migration. May be
-> > specific to gfx1201 / our test path
->=20
->=20
-> My test case is a simple Vulkan shader which I am executing with vkrunner.
-> Each shader invocation does an out of bounds read from a different page. =
-=46or
-> Navi 31 (and Strix Halo), I started out with just 1 page fault, and once I
-> could mitigate that reliably, I turned it up to several hundred faults.
-=20
->=20
-> > 3. TLB flush making it worse .. clue about what to do:
-> >
-> >
-> >
-> > Honest answer: not really, not a SW-only fix. Our 1 GiB hang is an
-> > architectural deadlock ... ih_soft_work blocks on a dma_fence for an
-> > SDMA BO-clear, the BO-clear is stalled on a GCR (cache flush) request,
-> > and the GC cache block isn't ACK'ing the GCR while UTC L2 is saturated
-> > by the user shader's XNACK retry storm. Adding a TLB flush adds
-> > another translation request to the same saturated UTC, which is why it
-> > makes things worse.
->=20
->=20
-> This may be related to a flaw in amdgpu_gmc_handle_retry_fault():
-> what the function does is first call amdgpu_vm_handle_fault() which kicks
-> off an SDMA job to update page tables, and then it ACKs the filter CAM.
-> However, at the moment when the CAM is ACKed, the SDMA job is not finished
-> yet, so the CP sees that the page is still invalid and the page fault
-> interrupt is fired again. I actually noticed that on Navi 31 too, but it's
-> just not fatal there.
- It just basically handles the same page fault twice.
-> Once we solve this flaw, I would like to propose to enable retry faults by
-> default on Navi 3.=20
-> Here is an idea for a solution:
->=20
-> Instead of ACKing the CAM right away, we should do it after the SDMA fence
-> is signalled, ie. when we are sure the page tables are updated. Maybe we
-> can set a callback on the fence and do it there, though it would require a
-> slight code churn to get that to work.
-=20
-> What do you think?
->=20
->=20
-> > 4. IH1 ring on NV4:
-> >
-> >
-> >
-> > Same as you ... retry faults on NV4 always come in on IH0. We delegate
-> > from
-> > IH0 to ih.ring_soft (amdgpu_irq_delegate(adev, entry, 8)) so the
-> > SVM/migration path can sleep, but the original entry is on IH0. We
-> > haven't tried IH1 routing.
->=20
->=20
-> Why, though?
->=20
-> The ih_v7_0 code does set up the IH1 ring and configure it exactly the sa=
-me
-> as the ih_v6_0, so I don't see why it wouldn't work?
-=20
->=20
-> > Re your branch: thanks for the gitlab link, easier than digging
-> > through patchwork.
-> > I'll cherry-pick patches 1, 3, 4 into our test build to see if patch 4
-> > cleans up the timestamp filter delta we're seeing (97k entered / 2.8k
-> > completed at 1 GiB might be partly explained by your Strix Halo bug).
->=20
->=20
-> The timestamp issue actually gave me an endless headache when I first got
-> into this topic in December. I hope the patch helps!
-=20
-> Best regards,
-> Timur
->=20
->=20
-
-
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
+index a1087c13f241..cf7b1b038d5f 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
+@@ -1821,7 +1821,7 @@ static int kfd_fill_mem_info_for_cpu(int numa_node_id, int *avail_size,
+ 	return 0;
+ }
+ 
+-#ifdef CONFIG_X86_64
++#if defined(CONFIG_X86_64) && !defined(CONFIG_UML)
+ static int kfd_fill_iolink_info_for_cpu(int numa_node_id, int *avail_size,
+ 				uint32_t *num_entries,
+ 				struct crat_subtype_iolink *sub_type_hdr)
+@@ -1880,7 +1880,7 @@ static int kfd_create_vcrat_image_cpu(void *pcrat_image, size_t *size)
+ 	struct crat_subtype_generic *sub_type_hdr;
+ 	int avail_size = *size;
+ 	int numa_node_id;
+-#ifdef CONFIG_X86_64
++#if defined(CONFIG_X86_64) && !defined(CONFIG_UML)
+ 	uint32_t entries = 0;
+ #endif
+ 	int ret = 0;
+@@ -1945,7 +1945,7 @@ static int kfd_create_vcrat_image_cpu(void *pcrat_image, size_t *size)
+ 			sub_type_hdr->length);
+ 
+ 		/* Fill in Subtype: IO Link */
+-#ifdef CONFIG_X86_64
++#if defined(CONFIG_X86_64) && !defined(CONFIG_UML)
+ 		ret = kfd_fill_iolink_info_for_cpu(numa_node_id, &avail_size,
+ 				&entries,
+ 				(struct crat_subtype_iolink *)sub_type_hdr);
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+index 46db0d65d242..87e13f021457 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+@@ -2349,7 +2349,7 @@ static int kfd_cpumask_to_apic_id(const struct cpumask *cpumask)
+ 	first_cpu_of_numa_node = cpumask_first(cpumask);
+ 	if (first_cpu_of_numa_node >= nr_cpu_ids)
+ 		return -1;
+-#ifdef CONFIG_X86_64
++#if defined(CONFIG_X86_64) && !defined(CONFIG_UML)
+ 	return cpu_data(first_cpu_of_numa_node).topo.apicid;
+ #else
+ 	return first_cpu_of_numa_node;
+-- 
+2.43.0
 
