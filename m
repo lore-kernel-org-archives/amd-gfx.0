@@ -4,99 +4,102 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D3F5DCD343F
-	for <amd-gfx@archiver.kernel.org>; Fri, 15 May 2026 06:58:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DF96ECD343F
+	for <amd-gfx@archiver.kernel.org>; Fri, 15 May 2026 06:58:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6D44210F40E;
-	Fri, 15 May 2026 06:58:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 62B3D10F411;
+	Fri, 15 May 2026 06:58:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="yxaBM5rb";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Ty2SGteN";
 	dkim-atps=neutral
-Received: from PH0PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11011040.outbound.protection.outlook.com [40.107.208.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BDC8D10F40E
- for <amd-gfx@lists.freedesktop.org>; Fri, 15 May 2026 06:58:02 +0000 (UTC)
+Received: from BN8PR05CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11011001.outbound.protection.outlook.com [52.101.57.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C1A8310F411
+ for <amd-gfx@lists.freedesktop.org>; Fri, 15 May 2026 06:58:04 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=qLVpP9eEKt5L3QQP6+8AHTpuJoMTbGD/rlzmuKjY43re8ByX30D4IZz5JVk1bFP6IFs9jaCamaXm2XDPBOGo1iP7+4h9Vra1mVZrW8MntoA5s1rgGU98K7WmSLrOm3USYZNjx7/TDIenlAJeRDLFZSLGhsqfieSZLsGVEEBbD/MkSJx9zzAVrwqCH/gi0IUFzjsveQUWc4yl//jkL59m+r1/oGtxwzZAvNQjY0d+/keKCpeWs9hvwYZ1ownqXWyl5Jio2DS38kW8R9jVW+K1kc/IkaHfj5uXtv9uJ4ODJzqaJ2STOdi3hAim6uZzUWamgnLU9nkh9Kr2/HcHy27UpQ==
+ b=Sz5g8nxrQb7Ef30amZqhDqOZuenoreq/ab9GfR+cmvVx4I3DIG4fapRa/q7pZyMo56BDfQHkHQcg7bI6zq7C/3HC0h29F4cZuEZbZwd/9ZXtjUDXckzHOLcCDdVqWyp2LwZgpUhM7Yzx8ZkJWBe4CceApbfO9xJqbzh/hVIW17LinFQYGiikX5dAUu9XQ+ku/GmFsTN9xajCZkSEbqABdKjITU11XPZiW60fUHfj+ZHMcinJdcFs1XAbRDLRLX+r45wZSNPvDWGoF9mQovsVi1kSpmXSnkHb2VtbbRDECyKYJViRLMHbmhiJ4M79Stg01MaxoLCDQpf44csMWpzhsg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2quggVaYmW1gb419TZKmgnJnWWMqO4msm00ar8irnRM=;
- b=LyBrZVfVvmK82cEEwdL0CZMgFKy4lzC8tgrnrbLLKBi1pjJjWQ+sZZRDkXZsc5Xrpl945NES4UTRvOepW24o54npEDfCOV7kKQK79cgbWzzwCKV9Kl2+osD5JNm+EpyU8uHzOD4hQvLS9G1UQfTvvocgZYADfnsbKzAYTHvvhNhtliU1DKzNVJryCp2lAjGB24Ak77FzC6bRvRiiOajuJfqqTtTEd5Ht/M5i1/J523dfjQxkjnBiDuqNjxdMJpUnyIGKRa+EaTWWLtLwMg1aikf4I9h2OPUaF/44PZENokQeh6ZbMm8udvSf20R1nbZil7mowvfdGuGOm56MUnJS9Q==
+ bh=/UcbF5I/wjcidvKHSAZ8TXm3xFhx8tKM2Mrh1GAjFqg=;
+ b=N6qa6jlIH1mRBHPhOl/f9Plre0nPqo8+KWKU72S6ISpM2KlHvZinuki7GdQqtp0oOioKBN93cfn+0VxFWhKVk3OX5Q9MbyWNkPz5cFPs0hthFXdFEbxnF1r/lDHnqjqiBlUC1JnxCooFnNr70rTu9sIn6B3DcRJPVvawqFP/N2Yaur5lI9VwZn/Tze/bpnifYBbhsGWjz/Mkt3YG5849rNLDCoK4E/zZEGepUeO3MhabJcCt05qZ0i91xRRDTchFuA6cTmsduyMerAilhvmPLOQLPVLO0IqV5sb6w+/WtQBq8hvNlFamAzC0EyHzpwSD/L1kElWQCvtq6QuaEE4GYA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2quggVaYmW1gb419TZKmgnJnWWMqO4msm00ar8irnRM=;
- b=yxaBM5rb6DhM3AtKpP/LtBJ25sGx1ZPArVvv0BLLxUVfD2Pl0ZiRwhyDcDE+xtC1+RQF6pPKpb+NOmjgNWccClJSNqtr91V3kcxSe4fIJZ0MG1nRkU/D9pClHWAhXv39SA4vct2SmhmOI82LKjhMQ4i9mhe9GsvAtQTF/RgUFDA=
-Received: from SN6PR05CA0023.namprd05.prod.outlook.com (2603:10b6:805:de::36)
- by SAVPR12MB999119.namprd12.prod.outlook.com (2603:10b6:806:4e9::19)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9913.11; Fri, 15 May
- 2026 06:57:57 +0000
-Received: from SN1PEPF000397AF.namprd05.prod.outlook.com
- (2603:10b6:805:de:cafe::86) by SN6PR05CA0023.outlook.office365.com
- (2603:10b6:805:de::36) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.48.9 via Frontend Transport; Fri, 15
- May 2026 06:57:57 +0000
+ bh=/UcbF5I/wjcidvKHSAZ8TXm3xFhx8tKM2Mrh1GAjFqg=;
+ b=Ty2SGteNcvlTBmMBkVdp6K0bsTbMRIg7cBC714ml3Bc8nJrHB6+9pegbT8KjkjzmRCjZjAs/SanUAlzHLVORhENZ5OyOu2ztfooYQfi73zAty5ORkfPNzTkbnFmIC4Gfzjoyt69HtyXVfyJcuJLSYXrI3RGyBR5FScNMbarAC8w=
+Received: from DS7PR03CA0188.namprd03.prod.outlook.com (2603:10b6:5:3b6::13)
+ by CY5PR12MB6130.namprd12.prod.outlook.com (2603:10b6:930:26::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.25.19; Fri, 15 May
+ 2026 06:58:00 +0000
+Received: from CY4PEPF0000E9DC.namprd05.prod.outlook.com
+ (2603:10b6:5:3b6:cafe::67) by DS7PR03CA0188.outlook.office365.com
+ (2603:10b6:5:3b6::13) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9913.13 via Frontend Transport; Fri,
+ 15 May 2026 06:57:59 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- SN1PEPF000397AF.mail.protection.outlook.com (10.167.248.53) with Microsoft
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ CY4PEPF0000E9DC.mail.protection.outlook.com (10.167.241.75) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.25.13 via Frontend Transport; Fri, 15 May 2026 06:57:57 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ 15.21.25.13 via Frontend Transport; Fri, 15 May 2026 06:57:59 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Fri, 15 May
- 2026 01:57:56 -0500
+ 2026 01:57:58 -0500
 Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb10.amd.com
  (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Fri, 15 May
- 2026 01:57:56 -0500
+ 2026 01:57:58 -0500
 Received: from fc.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
- Transport; Fri, 15 May 2026 01:57:55 -0500
+ Transport; Fri, 15 May 2026 01:57:56 -0500
 From: Feifei Xu <Feifei.Xu@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <Feifei.Xu@amd.com>, <alexander.deucher@amd.com>, <Hawking.Zhang@amd.com>
-Subject: [PATCH 1/2] drm/amdgpu: Add size guard before copy discovery binary
-Date: Fri, 15 May 2026 14:57:52 +0800
-Message-ID: <20260515065753.3488208-1-Feifei.Xu@amd.com>
+Subject: [PATCH 2/2] drm/amdgpu: fix shift-out-bounds warning of
+ number_instance
+Date: Fri, 15 May 2026 14:57:53 +0800
+Message-ID: <20260515065753.3488208-2-Feifei.Xu@amd.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260515065753.3488208-1-Feifei.Xu@amd.com>
+References: <20260515065753.3488208-1-Feifei.Xu@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN1PEPF000397AF:EE_|SAVPR12MB999119:EE_
-X-MS-Office365-Filtering-Correlation-Id: e58da1aa-4c39-48a3-a7fc-08deb24f4b88
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000E9DC:EE_|CY5PR12MB6130:EE_
+X-MS-Office365-Filtering-Correlation-Id: 30d43ed0-e4a9-4148-4fa2-08deb24f4cc6
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700016|82310400026|376014|1800799024|18002099003|56012099003|11063799003;
-X-Microsoft-Antispam-Message-Info: qB0SH5uiWm7P5G2IFPVLrf+rZ3PS0Lq6G9J0L/KxwHA2QQ9iP1pEuyL5NbUz3k32FULbDhrcfYNxsd/KiT9TM97yqqf0g3ls0dAx8vGH9O0aAzHVJeF3ouMKKQiZH3VI1vxdwwCYNelDZHqU1uTWr5IdH6YNtT+UongWi+b+ZSwBDmcHWHZyrk5kQYNfxUEGkcaFQvRlUp8K+pBMNArCCCc4ufY8m03TyzOQbFCZpG5FVPNrxqguqze/pxQkTVawAeQK3VX3ODyR4w1JcFSdAY1aHTy41IopAiCp03Q0vqa3oTD0ySbCyf5slfu0I7HQD/8lQ9k40OOEcdDiG7mQ/QyYtciq2n5xRybpME7bxHH5OZHGq3AR79xUbgl3PuAMQ8SwLhhkxOve1JJBcMthtynmFSi/LR6lmeg3PxLQDJ8S1nPjV40cCz3gQcBMkW/djEVaOq0TbkrpG24QE71kWw7cA8bU7+rDf4JCQKFssc4gNs6oUKN1tBHdVrrb6KsIsHDsGp2QML9d7asaceub34a/MscB9X6Vmj+U36p1hUxuJWCHppfouXoxUUJFP0uxPvHHiO5IT7xMUzcCChYvQkSQtk7CGN8VTrzUTT2vnAvhtkYHTfMLbZqc3lrJ1WUgQH+kh1c+67JVPoNM/hkmeEVLo7Sw8f2Q7Pzwp1ObFczQ90a+rDmyPf3rnQLFvassQc4pZeQyC3wof7x43X/kePMcpgTq0cPsqdEyYpf97k4=
+ ARA:13230040|36860700016|82310400026|376014|1800799024|18002099003|56012099003|22082099003|11063799003;
+X-Microsoft-Antispam-Message-Info: VSrOw+YIUjccE2K4mWU7h9P66r5MspH3WPtKccrWXyQSgHpOBxFQEagxWbBU/AzkjfXc6H8Z4nU9S9k/UngLoZS8PC+TBX+F6Ew8IzVu2m8NsbjjZZBvVn6KDM6uVA1GWQh1Zefils0tpsLcHhlPCvEH1dMC6UNB9UXkqhigrXFzZwT5YW2tTPKZoqMSUBv9tucaOt5qE6HG3p3BKIpBMGKX30oPe4aJs9f8QHIjaZJ2IeSmQ8hUf203v2zh7KndUudk4pYlOunu++mTGwYj1We8Fo/wszyTH2tHzkdRopgFYhi/FHYl0TR/zIMe4oVuJh//IvBLQ4gUkZjRhnYGd7sXz+dZaSo5B+CJ9dwQvqoZEx0Ql39+fsKBpNFzXg+puDAPqjh4SuIR2H583j6MavDiC89MqODgAE1QEZMxRZA+O2NlsS2OcilErkXvpNOVYcJIL+RQTN3Rh1sFezWU5MfhDqk4twzPZ6BY0r7MDiF75ix+BtJVh8iiXLaxNERn29n8RoIubZfAOJp+zaUpcgy8u4Y+WJOt7v4nyRtkgSV0yK2EzKA9lYyTuwv4pe5E9/DOVvtnV5nyPk2/+CsjL5RVPWDTRyjemUfR1DZf3nUq/tif0j5tMUsl0o8qgTJzegIR/d7aOa3hfqsafqN4NWCJ33R4G227AXc/CdDQjepSgrExXXOG6UDGWz2JgOksjcPYl7lw+prz+QHgLQDjMNgkzmmdtNKZLrxOSI+se2o=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700016)(82310400026)(376014)(1800799024)(18002099003)(56012099003)(11063799003);
+ IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700016)(82310400026)(376014)(1800799024)(18002099003)(56012099003)(22082099003)(11063799003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: loq02KIgaDPWbfdCsR7ia8wdBmccax/2GbDQnx3Js3OWpeHlBSZDF1WENV9d7e0GA/k/i2GM0riuOuFOHnADZVf7Big6gbNyAmlS3ntKZjHN1HCeVoOw3Npiq+IS4xNp57ELHsgnO0OuZDSZWoEmuq1yX4vInn0X0mS16+HhB8w+ooOSqrn4/KmoRBdjtyrkGdAKhpx955B6Z7CtuyGzDWOSHtjxaagKpTpQGsaeOeCOb2do9irXLRdfmhC0b9sEv11+ArtIfdjfqrGStuH4cg2WXnr6oV+vZ63iyJ1pnIuhc/PeYlZP53tb+nNNLccwgcq64qtmbnWFobRWNjMDZfGJ0ED0Ma6/HqUWsCeVmnBpmw2YYQL4attnyM/E2Q2w5CEqBC4PIIg+Mt2hSEaOJ4OuPlfF5RY7csnADu06dD0VlmgQdpfAa1+kWSzGC8yz
+X-MS-Exchange-AntiSpam-MessageData-0: vKi1KqoD5G7baqa2uWpEINLGjW9uJddUtJy1i/eNhkjaUa4Hu5I/efP6e8xK9QR4WLvfY1j1+iGklDqAxceS/0jjNHvh/Xd+Ctts4Kl42kECtFDIiBxNgJ1U71bMaDG1EpLHoMTE0nqW6jKsOcooztBhom2gOSnGQC3x5+DlRyGaezT4aPmaYMXuVO767kl1FlBi1j8U+zBOOf3splgTK+NL2f/fUYUzTo1H6pnZBmPr1qJCZ1WIJLRHM9+CfoUIIKPPagr1X2ZrPpViDiHxGdej9xOjNAbxf2bEYq9hb6A3RNfhK2R0dUlYsiKTe74LrxibFKulA1p56pQbfiyW1Q7a0RDH46zIx1gQW+9VWm9Ns8ba7LYuunqtLCVWxp8INSAu22qWTL3OcLfzjuHO3TzX48Ui72ZMIlHTIu6A2fJUoP7qkAiTUIuZ6dDLb+XW
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 May 2026 06:57:57.1988 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e58da1aa-4c39-48a3-a7fc-08deb24f4b88
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 May 2026 06:57:59.2600 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 30d43ed0-e4a9-4148-4fa2-08deb24f4cc6
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF000397AF.namprd05.prod.outlook.com
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000E9DC.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SAVPR12MB999119
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6130
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,44 +114,82 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Fix the firmware blob copied into fixed-size buffer without length check.
+Clamp number_instance using BIT/BIT_ULL with the <32 check to avoid the
+shift-out-bounds warning.
 
 Signed-off-by: Feifei Xu <Feifei.Xu@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 20 +++++++++++++++++++
- 1 file changed, 20 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 40 ++++++++++---------
+ 1 file changed, 21 insertions(+), 19 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-index 8e3b6a4050e9..c9073935e1a4 100644
+index c9073935e1a4..314fe4a00002 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-@@ -396,6 +396,26 @@ static int amdgpu_discovery_read_binary_from_file(struct amdgpu_device *adev,
- 		return r;
- 	}
+@@ -840,42 +840,44 @@ static void amdgpu_discovery_read_from_harvest_table(struct amdgpu_device *adev,
+ 	harvest_info = (struct harvest_table *)(discovery_bin + offset);
  
-+	if (fw->size > adev->discovery.size) {
-+		dev_err(adev->dev,
-+			"ip discovery firmware \"%s\" too large (%zu > %u)\n",
-+			fw_name, fw->size, adev->discovery.size);
-+		release_firmware(fw);
-+		return -EINVAL;
-+	}
+ 	for (i = 0; i < 32; i++) {
+-		if (le16_to_cpu(harvest_info->list[i].hw_id) == 0)
++		u16 hw_id = le16_to_cpu(harvest_info->list[i].hw_id);
++		u8 inst = harvest_info->list[i].number_instance;
 +
-+	/* Ensure the firmware is at least large enough to contain the
-+	 * binary header fields.
-+	 */
-+	if (fw->size < offsetof(struct binary_header, binary_size) +
-+			sizeof(((struct binary_header *)0)->binary_size)) {
-+		dev_err(adev->dev,
-+			"ip discovery firmware \"%s\" too small (%zu)\n",
-+			fw_name, fw->size);
-+		release_firmware(fw);
-+		return -EINVAL;
-+	}
-+
- 	memcpy((u8 *)binary, (u8 *)fw->data, fw->size);
- 	release_firmware(fw);
++		if (hw_id == 0)
+ 			break;
  
+-		switch (le16_to_cpu(harvest_info->list[i].hw_id)) {
++		if (inst >= 32) {
++			dev_warn(adev->dev,
++				 "bogus harvest instance %u for hw_id %u\n",
++				 inst, hw_id);
++			continue;
++		}
++
++		switch (hw_id) {
+ 		case VCN_HWID:
+ 			(*vcn_harvest_count)++;
+-			adev->vcn.harvest_config |=
+-				(1 << harvest_info->list[i].number_instance);
+-			adev->jpeg.harvest_config |=
+-				(1 << harvest_info->list[i].number_instance);
+-
+-			adev->vcn.inst_mask &=
+-				~(1U << harvest_info->list[i].number_instance);
+-			adev->jpeg.inst_mask &=
+-				~(1U << harvest_info->list[i].number_instance);
++			adev->vcn.harvest_config |= BIT(inst);
++			adev->jpeg.harvest_config |= BIT(inst);
++
++			adev->vcn.inst_mask &= ~BIT(inst);
++			adev->jpeg.inst_mask &= ~BIT(inst);
+ 			break;
+ 		case DMU_HWID:
+ 			adev->harvest_ip_mask |= AMD_HARVEST_IP_DMU_MASK;
+ 			break;
+ 		case UMC_HWID:
+-			umc_harvest_config |=
+-				1 << (le16_to_cpu(harvest_info->list[i].number_instance));
++			umc_harvest_config |= BIT_ULL(inst);
+ 			(*umc_harvest_count)++;
+ 			break;
+ 		case GC_HWID:
+-			adev->gfx.xcc_mask &=
+-				~(1U << harvest_info->list[i].number_instance);
++			adev->gfx.xcc_mask &= ~BIT(inst);
+ 			break;
+ 		case SDMA0_HWID:
+-			adev->sdma.sdma_mask &=
+-				~(1U << harvest_info->list[i].number_instance);
++			adev->sdma.sdma_mask &= ~BIT(inst);
+ 			break;
+ #if defined(CONFIG_DRM_AMD_ISP)
+ 		case ISP_HWID:
+-			adev->isp.harvest_config |=
+-				~(1U << harvest_info->list[i].number_instance);
++			adev->isp.harvest_config |= ~BIT(inst);
+ 			break;
+ #endif
+ 		default:
 -- 
 2.34.1
 
