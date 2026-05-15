@@ -4,80 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E2A5BCD4F52
-	for <amd-gfx@archiver.kernel.org>; Mon, 18 May 2026 09:33:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 848BFCD4F3C
+	for <amd-gfx@archiver.kernel.org>; Mon, 18 May 2026 09:33:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2728E10E74A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 28C9E10E74C;
 	Mon, 18 May 2026 09:33:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="R5sdup77";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="hifzMWH6";
 	dkim-atps=neutral
-Received: from mail-qv1-f49.google.com (mail-qv1-f49.google.com
- [209.85.219.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2816110E09F
- for <amd-gfx@lists.freedesktop.org>; Sun, 17 May 2026 13:18:01 +0000 (UTC)
-Received: by mail-qv1-f49.google.com with SMTP id
- 6a1803df08f44-8acb09ddbf6so32440706d6.2
- for <amd-gfx@lists.freedesktop.org>; Sun, 17 May 2026 06:18:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1779023880; x=1779628680; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=8qmzV4OG/gwgrFg2WjVRa5yFfeYJiaj+u8zvgWP2oxA=;
- b=R5sdup77L4kbL+l8/kbVMfHt21OiXaBTOg0BH6iK9mgMGCChhl+7vf6JTKCdIzTX8g
- uK1kYo4wJ/EcXuIYMOmMeJ6jMlD6ktqu8zrHZ7DdW3rHf4eJDHfpo5yxgB7g0Cusgrw5
- 99aS/HRvr845CtRSAmheI5eTx5rx5dVegxHILKtMUtKjSfb805eIdB+tcrI8HIZ5uXNY
- 5CD+JrFXs6M1Hvk0FToZ/YfJve9oTrbodWcZwv8mEdgy4I3bx3r7yKtTR7M6nJWyuBac
- zj8LwV89qNqoaYVbdFfi9oRsnQrXqWx+WpKdSsBhaP2imGJSREff8i9fCFKgzrhIxR1y
- BBwg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779023880; x=1779628680;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=8qmzV4OG/gwgrFg2WjVRa5yFfeYJiaj+u8zvgWP2oxA=;
- b=SE5Vf2Wk3dxEyGWKkrp5/J48n71aKk6hYqlUv3clLsNcYp63gqbDE7kMoYGvATuCV8
- cDWkwc8oy02rw5RitfEiLEFae+CLtEaqFpDdC5yJwn9s2H6HDiDxXuzRmCDqnYN/MA2D
- Z68o+x5tao0kh/XRNFnDcz1+H+yrPhPhf+nAW03bkrcjJ1rUkpOMxuFwm3RxY8E8EFXw
- +IGNDEpfX8nusf2Rusxm7rnGJ9e6CbK3zXdm5G1IivgSnBRquN0ME3VV5XpeUeQs6SQJ
- 0c12xMnsMV0RpX2qoPiL4U6rnDBfmR6Hw6ktXAuwkFW4uD62W+cdZr15rdoLo6osZ2MX
- NK7Q==
-X-Forwarded-Encrypted: i=1;
- AFNElJ+sV7iymIhG0tPPau3RFR5t8LtY85Cyk6Y0mFa5nOjF7+dLC85NpntcW/Q1Jp6yvtS1+dLfnJvK@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwZYFIT0fQTctZrl9JkTQc00dYVFLVEV5DwU5kmfDEnOIyttwNx
- MMxtGw78WpS7lwU3mU1Mx9hSE+ls95sLTvVXTlhLl7enAiULDEb/dL5r
-X-Gm-Gg: Acq92OFnY1Kt+qSFkuJlI9lvTqjFLDr7Lr/BEh5PzUU10k5hgNHJ0z3bSjNpjj0h66s
- 8+nSvDDJlTCBB55i11vmDhVP2/gFdRdZnznp4r6fsdTFLypmbsQ+HzA1Ez4Qo2WrvT21GCCf+jS
- 5faZRNAFB+VPM1Vh8GizrpkRViss6EhEybQzJg0zTeom1LqYKR7RKBfjLUglwaPWylDEO3zJuhB
- umHFHQGi2gH4rdbpedT+hwOPbuKq7BOwI3Eg81V7V/5rLpa0OqUBHcRtFUCWtBqbs881iobOfCt
- XBWGGxsfpQWmVmVrrGA3rc1NrcphmyCu/lyFjgizj/J2Te9SSgVBkI75S3rZYjnXVxearoYewWu
- HByQ/gvXW/VJoiMsUHcfbs/618FdRVbpN/xU1L/VnnNbSbng+9cg1nO3PB5TK7ar1LMk1+4KhfV
- kk5PDsnUTWbCwBVZ0kmw6ey4YpED/7IN/jUTC8m/SsyJP0qLzmMQMzBJbSo8hmy2w2GrYV63xL7
- K9VjyBK8uHLlujFVwTfOHeL3cpEpeFfFaIYC083p/Q=
-X-Received: by 2002:ad4:4211:0:b0:8bd:6baa:6a0c with SMTP id
- 6a1803df08f44-8ca0f611b62mr138164296d6.11.1779023879979; 
- Sun, 17 May 2026 06:17:59 -0700 (PDT)
-Received: from server0.tail6e7dd.ts.net (c-68-48-65-54.hsd1.mi.comcast.net.
- [68.48.65.54]) by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-8ca3619c703sm22268846d6.33.2026.05.17.06.17.58
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 17 May 2026 06:17:59 -0700 (PDT)
-From: Michael Bommarito <michael.bommarito@gmail.com>
-To: Alex Deucher <alexander.deucher@amd.com>,
- Christian Koenig <christian.koenig@amd.com>,
- David Francis <David.Francis@amd.com>,
- Sumit Semwal <sumit.semwal@linaro.org>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org
-Cc: Ziyi Guo <n7l8m4@u.northwestern.edu>
-Subject: [PATCH] drm/amdgpu: fix lock leak on ENOMEM in
- AMDGPU_GEM_OP_GET_MAPPING_INFO
-Date: Sun, 17 May 2026 09:17:42 -0400
-Message-ID: <20260517131742.3435209-1-michael.bommarito@gmail.com>
-X-Mailer: git-send-email 2.53.0
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D41C710E627;
+ Fri, 15 May 2026 08:23:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1778833439; x=1810369439;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version;
+ bh=JooSF+Ek8Wh2AcqPvuqh7MQtdJ3jhfpYPcNoI0+xdrs=;
+ b=hifzMWH69x8/RlK8Ri0iR1LVtV8xyF8k6z9YlUvWrD8XEpsCYChoCdoV
+ kHjseIM6+f1B1FZZm8IRByyr2cVnRfSsmtNSbezeczA8VUXTHB6431Mbs
+ 0/++5KT2SBrl19eG3FCUUykhi1mr/29sj/uglauPCpAo0L6itOIumLBC/
+ t6qeSqe/VA0o2yUardZ3e2e+Iyq0rTitD7gKdYL89wQXbKFnnuBM2qL02
+ 3Iw6KLx8Ba15AejLouYPevrhH8VSCxoPr9RxSNp4uy69fK48soUYAVi0s
+ yJg8Q8OqCcBf6y6Wq3XVABdfcjmNUliFfWtIGql64UnMErTFN/ty05LTY A==;
+X-CSE-ConnectionGUID: lqC0zj79QLu5HgTWErz9TA==
+X-CSE-MsgGUID: SN0z5ECLRxmM+RoicsAYnA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11786"; a="78924230"
+X-IronPort-AV: E=Sophos;i="6.23,236,1770624000"; d="scan'208";a="78924230"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+ by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 May 2026 01:23:59 -0700
+X-CSE-ConnectionGUID: bRUy592fTIKJZZv9Wd+TfQ==
+X-CSE-MsgGUID: TMsUi3iARk+Mw3GjQ8LJig==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,236,1770624000"; d="scan'208";a="235994718"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost)
+ ([10.245.245.71])
+ by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 May 2026 01:23:56 -0700
+From: Jani Nikula <jani.nikula@intel.com>
+To: Chenyu Chen <chen-yu.chen@amd.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, Ray
+ Wu <Ray.Wu@amd.com>, Limonciello Mario <Mario.Limonciello@amd.com>, Chenyu
+ Chen <chen-yu.chen@amd.com>, Mario Limonciello <mario.limonciello@amd.com>
+Subject: Re: [PATCH 1/2] drm/edid: parse panel type from DisplayID 2.x
+ Display Parameters block
+In-Reply-To: <20260514065606.1151834-2-chen-yu.chen@amd.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <20260514065606.1151834-1-chen-yu.chen@amd.com>
+ <20260514065606.1151834-2-chen-yu.chen@amd.com>
+Date: Fri, 15 May 2026 11:23:54 +0300
+Message-ID: <8e0c6356a570c55e3df54be6c2d7952dfcee2a06@intel.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 X-Mailman-Approved-At: Mon, 18 May 2026 09:33:27 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -93,68 +74,188 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The AMDGPU_GEM_OP_GET_MAPPING_INFO branch of amdgpu_gem_op_ioctl()
-holds three cleanup-tracked resources before calling kvcalloc():
-the drm_gem_object reference from drm_gem_object_lookup(), the
-drm_exec lock on the looked-up GEM via drm_exec_lock_obj(), and
-the drm_exec lock on the per-process VM root page directory via
-amdgpu_vm_lock_pd().  All three are released by the out_exec
-label that every other error path in this function jumps to.
-The kvcalloc() failure path returns -ENOMEM directly, skipping
-out_exec and leaking all three.
+On Thu, 14 May 2026, Chenyu Chen <chen-yu.chen@amd.com> wrote:
+> Parse the Display Parameters Data Block (tag 0x21) defined in
+> DisplayID v2.1a Section 4.2.6. Extract the Display Device Technology
+> field from payload byte 27, bits [6:4], which indicates whether the
+> panel is LCD (001b) or OLED (010b).
+>
+> Store the result in drm_display_info.did_panel_type so that downstream
+> drivers can use it for panel-type-dependent behavior.
+>
+> Assisted-by: Copilot:Claude-Opus-4.6
+> Signed-off-by: Chenyu Chen <chen-yu.chen@amd.com>
+> Reviewed-by: Mario Limonciello <mario.limonciello@amd.com>
+> ---
+>  drivers/gpu/drm/drm_displayid_internal.h | 25 ++++++++++
+>  drivers/gpu/drm/drm_edid.c               | 61 +++++++++++++++++++-----
+>  include/drm/drm_connector.h              |  6 +++
+>  include/uapi/drm/drm_mode.h              |  1 +
+>  4 files changed, 82 insertions(+), 11 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/drm_displayid_internal.h b/drivers/gpu/drm/drm_displayid_internal.h
+> index 5b1b32f73516..e0f7c54d2987 100644
+> --- a/drivers/gpu/drm/drm_displayid_internal.h
+> +++ b/drivers/gpu/drm/drm_displayid_internal.h
+> @@ -142,6 +142,31 @@ struct displayid_formula_timing_block {
+>  	struct displayid_formula_timings_9 timings[];
+>  } __packed;
+>  
+> +/*
+> + * DisplayID v2.x Display Parameters Data Block (tag 0x21).
+> + *
+> + * Per VESA DisplayID v2.1a, Section 4.2.6, Table 4-14:
+> + * Offset 0x1E (payload byte 27) contains Native Color Depth and
+> + * Display Device Technology fields.
+> + *   bits [2:0] = Native Color Depth
+> + *   bit  [3]   = RESERVED
+> + *   bits [6:4] = Display Device Technology
+> + *     000b = not specified, 001b = LCD, 010b = OLED, others reserved
+> + *   bit  [7]   = Display Device Theme Preference
+> + */
+> +#define DISPLAYID_DISPLAY_PARAMS_DEVICE_TECH	GENMASK(6, 4)
+> +
+> +struct displayid_display_params_block {
+> +	struct displayid_block base;
+> +	u8 payload[27];
+> +	u8 device_tech_byte; /* bits [6:4] = Display Device Technology */
+> +	u8 reserved;
+> +} __packed;
+> +
+> +#define DISPLAYID_DISPLAY_PARAMS_MIN_LEN	\
+> +	(sizeof(struct displayid_display_params_block) -	\
+> +	 sizeof(struct displayid_block))
+> +
+>  #define DISPLAYID_VESA_MSO_OVERLAP	GENMASK(3, 0)
+>  #define DISPLAYID_VESA_MSO_MODE		GENMASK(6, 5)
+>  
+> diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
+> index 8031f021d4d0..9b160a878df4 100644
+> --- a/drivers/gpu/drm/drm_edid.c
+> +++ b/drivers/gpu/drm/drm_edid.c
+> @@ -6713,6 +6713,8 @@ static void drm_reset_display_info(struct drm_connector *connector)
+>  
+>  	info->source_physical_address = CEC_PHYS_ADDR_INVALID;
+>  	memset(&info->amd_vsdb, 0, sizeof(info->amd_vsdb));
+> +
+> +	info->did_panel_type = DRM_MODE_PANEL_TYPE_UNKNOWN;
+>  }
+>  
+>  static void update_displayid_info(struct drm_connector *connector,
+> @@ -6721,24 +6723,61 @@ static void update_displayid_info(struct drm_connector *connector,
+>  	struct drm_display_info *info = &connector->display_info;
+>  	const struct displayid_block *block;
+>  	struct displayid_iter iter;
+> +	const u8 *section = NULL;
+>  
+>  	displayid_iter_edid_begin(drm_edid, &iter);
+>  	displayid_iter_for_each(block, &iter) {
+> +		if (section != iter.section) {
+> +			drm_dbg_kms(connector->dev,
+> +				    "[CONNECTOR:%d:%s] DisplayID extension version 0x%02x, primary use 0x%02x\n",
+> +				    connector->base.id, connector->name,
+> +				    displayid_version(&iter),
+> +				    displayid_primary_use(&iter));
+> +			if (displayid_version(&iter) == DISPLAY_ID_STRUCTURE_VER_20 &&
+> +			    (displayid_primary_use(&iter) == PRIMARY_USE_HEAD_MOUNTED_VR ||
+> +			     displayid_primary_use(&iter) == PRIMARY_USE_HEAD_MOUNTED_AR))
+> +				info->non_desktop = true;
+> +			section = iter.section;
+> +		}
 
-The leaked per-process VM root PD dma_resv lock is the
-load-bearing leak: any subsequent operation on the same VM
-(further GEM ops, command-submission, eviction, TTM shrinker
-callbacks) blocks on the held lock.  DRM_IOCTL_AMDGPU_GEM_OP is
-DRM_AUTH | DRM_RENDER_ALLOW, so this is an unprivileged-local
-denial of service against the caller's GPU context, reachable
-by any process with /dev/dri/renderD* access.
+What is this even supposed to do?
 
-Route the failure through out_exec so drm_exec_fini() and
-drm_gem_object_put() run.
+> +
+>  		drm_dbg_kms(connector->dev,
+> -			    "[CONNECTOR:%d:%s] DisplayID extension version 0x%02x, primary use 0x%02x\n",
+> +			    "[CONNECTOR:%d:%s] DisplayID block tag 0x%02x, rev 0x%02x, size %u\n",
+>  			    connector->base.id, connector->name,
+> -			    displayid_version(&iter),
+> -			    displayid_primary_use(&iter));
+> +			    block->tag, block->rev, block->num_bytes);
+> +
+>  		if (displayid_version(&iter) == DISPLAY_ID_STRUCTURE_VER_20 &&
+> -		    (displayid_primary_use(&iter) == PRIMARY_USE_HEAD_MOUNTED_VR ||
+> -		     displayid_primary_use(&iter) == PRIMARY_USE_HEAD_MOUNTED_AR))
+> -			info->non_desktop = true;
+> +		    block->tag == DATA_BLOCK_2_DISPLAY_PARAMETERS) {
+> +			const struct displayid_display_params_block *params =
+> +				(const struct displayid_display_params_block *)block;
+> +			u8 tech;
+> +
+> +			if (block->num_bytes < DISPLAYID_DISPLAY_PARAMS_MIN_LEN) {
+> +				drm_dbg_kms(connector->dev,
+> +					    "[CONNECTOR:%d:%s] DisplayID Display Parameters block too short (%u < %zu)\n",
+> +					    connector->base.id, connector->name,
+> +					    block->num_bytes,
+> +					    DISPLAYID_DISPLAY_PARAMS_MIN_LEN);
+> +				continue;
+> +			}
+>  
+> -		/*
+> -		 * We're only interested in the base section here, no need to
+> -		 * iterate further.
+> -		 */
+> -		break;
+> +			tech = FIELD_GET(DISPLAYID_DISPLAY_PARAMS_DEVICE_TECH,
+> +					 params->device_tech_byte);
+> +
+> +			drm_dbg_kms(connector->dev,
+> +				    "[CONNECTOR:%d:%s] DisplayID Display Parameters: device technology %u\n",
+> +				    connector->base.id, connector->name, tech);
+> +
+> +			switch (tech) {
+> +			case 1: /* LCD */
+> +				info->did_panel_type = DRM_MODE_PANEL_TYPE_LCD;
+> +				break;
+> +			case 2: /* OLED */
+> +				info->did_panel_type = DRM_MODE_PANEL_TYPE_OLED;
+> +				break;
+> +			default:
+> +				break;
+> +			}
+> +		}
 
-Reproduced on stock 7.0.0-10, Ryzen 7 5700U / Radeon Vega
-(Lucienne): the failing ioctl returns -ENOMEM and a second
-GET_MAPPING_INFO on the same fd then blocks in
-drm_exec_lock_obj() on the leaked dma_resv.  SIGKILL on the
-caller does not reap the task; the fd-release path during
-process exit goes through amdgpu_gem_object_close() ->
-drm_exec_prepare_obj() on the same lock, leaving the task in D
-state until the box is rebooted.  The patched kernel was not
-rebuilt and re-tested on this hardware; the fix is mechanical.
-Tested on a single Lucienne / Vega box only.
+Please tell copilot to not add so much crap in the iterator block. Add
+functions. Add the first function as a refactor for non_desktop, add
+more stuff on top, i.e. split this into multiple patches.
 
-Ziyi Guo posted an independent INT_MAX-bound check for
-args->num_entries in the same branch [1]; the two patches are
-complementary and can land in either order.
+BR,
+Jani.
 
-Fixes: 4d82724f7f2b ("drm/amdgpu: Add mapping info option for GEM_OP ioctl")
-Cc: stable@vger.kernel.org
-Link: https://lore.kernel.org/all/20260208000255.4073363-1-n7l8m4@u.northwestern.edu/ # [1]
-Signed-off-by: Michael Bommarito <michael.bommarito@gmail.com>
-Assisted-by: Claude:claude-opus-4-7
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-index 9ef80bca4102..8224fb499fdf 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-@@ -1091,8 +1091,10 @@ int amdgpu_gem_op_ioctl(struct drm_device *dev, void *data,
- 		 * be retried.
- 		 */
- 		vm_entries = kvcalloc(args->num_entries, sizeof(*vm_entries), GFP_KERNEL);
--		if (!vm_entries)
--			return -ENOMEM;
-+		if (!vm_entries) {
-+			r = -ENOMEM;
-+			goto out_exec;
-+		}
- 
- 		amdgpu_vm_bo_va_for_each_valid_mapping(bo_va, mapping) {
- 			if (num_mappings < args->num_entries) {
+>  	}
+>  	displayid_iter_end(&iter);
+>  }
+> diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
+> index c398dbc68bbc..b95aec34ddb7 100644
+> --- a/include/drm/drm_connector.h
+> +++ b/include/drm/drm_connector.h
+> @@ -899,6 +899,12 @@ struct drm_display_info {
+>  	 * @amd_vsdb: AMD-specific VSDB information.
+>  	 */
+>  	struct drm_amd_vsdb_info amd_vsdb;
+> +
+> +	/**
+> +	 * @did_panel_type: Panel type from DisplayID Display Parameters
+> +	 * Data Block (tag 0x21). Uses DRM_MODE_PANEL_TYPE_* constants.
+> +	 */
+> +	u8 did_panel_type;
+>  };
+>  
+>  int drm_display_info_set_bus_formats(struct drm_display_info *info,
+> diff --git a/include/uapi/drm/drm_mode.h b/include/uapi/drm/drm_mode.h
+> index 3693d82b5279..d7ca1040b92e 100644
+> --- a/include/uapi/drm/drm_mode.h
+> +++ b/include/uapi/drm/drm_mode.h
+> @@ -169,6 +169,7 @@ extern "C" {
+>  /* Panel type property */
+>  #define DRM_MODE_PANEL_TYPE_UNKNOWN	0
+>  #define DRM_MODE_PANEL_TYPE_OLED	1
+> +#define DRM_MODE_PANEL_TYPE_LCD		2
+>  
+>  /*
+>   * DRM_MODE_ROTATE_<degrees>
+
 -- 
-2.53.0
-
+Jani Nikula, Intel
