@@ -4,51 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5D565CD4F3C
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CDC95CD4F52
 	for <amd-gfx@archiver.kernel.org>; Mon, 18 May 2026 09:33:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 94FF310E75F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3692810E75A;
 	Mon, 18 May 2026 09:33:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=lwn.net header.i=@lwn.net header.b="FkOaEQAi";
+	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="n0SBN5da";
 	dkim-atps=neutral
-Received: from ms.lwn.net (ms.lwn.net [45.79.88.28])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5C2D810E20C;
- Sat, 16 May 2026 14:09:44 +0000 (UTC)
-DKIM-Filter: OpenDKIM Filter v2.11.0 ms.lwn.net 950D2410B8
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lwn.net; s=20201203;
- t=1778940583; bh=ou8DOGO+SAzFBsITu8uOd2acXVesjslZQVd52PzTi6s=;
- h=From:To:Cc:Subject:In-Reply-To:References:Date:From;
- b=FkOaEQAiXekO5PIMvT466xeKe6fz+LPEpA0XS5Uag4J+nfmEdmU6HIrZGBJYOGQgm
- nuwVf4OtiaO81wyi8KFYxQ+6df+IvzsPQUUccFgd5n5jc2s7FOdOJ8os63dAN3mDLW
- QKDSFyA/Djymuje+VGi0MT05sb5JoHyLo6GfSya38SyF2KFfGpcI+STADgAHPiPGIo
- PqJZEVNhHxMc66G6LlBtZu7l917oDvGyX+zDlIPP5Umq/OozWiLWaNYNd8eGKCRiwN
- w9Kaop3t43V7SN3E72e/KnanMIcfPrtS+RH5lMCDGVTjjqB3QIUc0v0rgn3bPrhLkC
- e1RYQl4cVVeUA==
-Received: from localhost (unknown [IPv6:2601:280:4600:27b:67c:16ff:fe81:5f9b])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1)
- server-digest SHA256) (No client certificate requested)
- by ms.lwn.net (Postfix) with ESMTPSA id 950D2410B8;
- Sat, 16 May 2026 14:09:43 +0000 (UTC)
-From: Jonathan Corbet <corbet@lwn.net>
-To: Cheesecake <cheesecake2960@icloud.com>, Alex Deucher
- <alexander.deucher@amd.com>, Christian =?utf-8?Q?K=C3=B6nig?=
- <christian.koenig@amd.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David
- Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Shuah Khan
- <skhan@linuxfoundation.org>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, Cheesecake
- <cheesecake2960@icloud.com>
-Subject: Re: [PATCH] docs: fix typo in mpo-overview.rst
-In-Reply-To: <20260516100406.21070-1-cheesecake2960@icloud.com>
-References: <20260516100406.21070-1-cheesecake2960@icloud.com>
-Date: Sat, 16 May 2026 08:09:42 -0600
-Message-ID: <87se7rmont.fsf@trenco.lwn.net>
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1230110E429;
+ Fri, 15 May 2026 16:02:31 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id 1E553600FC;
+ Fri, 15 May 2026 16:02:30 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 78E9AC2BCB0;
+ Fri, 15 May 2026 16:02:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+ s=korg; t=1778860949;
+ bh=Ybhdlwl17g/ibRwOrXBYWWU4/dmzPrgYjTpDEqhzco4=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=n0SBN5da+qEjpSRzNKwalul5kMpONcjgi5tNyReFcUCRrzQHK2K8nAYxKdPCdn1ZK
+ Q9Ga72EZSRoHqBG9jDt10zAgmW7PRHTFCkJlADGt2A+U92AZ+tQDhyJy1jC8pX1U8u
+ IWjsIJuNDbSk34eU4yYAS6cQ8SIq2fInpvV+K3e8=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, patches@lists.linux.dev,
+ Arjan van de Ven <arjan@linux.intel.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH 6.6 140/474] drm/amdgpu: fix zero-size GDS range init on RDNA4
+Date: Fri, 15 May 2026 17:44:09 +0200
+Message-ID: <20260515154718.058012234@linuxfoundation.org>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260515154715.053014143@linuxfoundation.org>
+References: <20260515154715.053014143@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 18 May 2026 09:33:27 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -64,14 +62,65 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Cheesecake <cheesecake2960@icloud.com> writes:
+6.6-stable review patch.  If anyone has any objections, please let me know.
 
-> Replace "transparant" with "transparent"
->
-> Signed-off-by: Cheesecake <cheesecake2960@icloud.com>
+------------------
 
-Patches need a proper signoff with a real name, please.
+From: Arjan van de Ven <arjan@linux.intel.com>
 
-Thanks,
+commit 095a8b0ad3c3b5cdc3850d961adb8a8f735220bb upstream.
 
-jo
+RDNA4 (GFX 12) hardware removes the GDS, GWS, and OA on-chip memory
+resources. The gfx_v12_0 initialisation code correctly leaves
+adev->gds.gds_size, adev->gds.gws_size, and adev->gds.oa_size at
+zero to reflect this.
+
+amdgpu_ttm_init() unconditionally calls amdgpu_ttm_init_on_chip() for
+each of these resources regardless of size. When the size is zero,
+amdgpu_ttm_init_on_chip() forwards the call to ttm_range_man_init(),
+which calls drm_mm_init(mm, 0, 0). drm_mm_init() immediately fires
+DRM_MM_BUG_ON(start + size <= start) -- trivially true when size is
+zero -- crashing the kernel during modprobe of amdgpu on an RX 9070 XT.
+
+Guard against this by returning 0 early from
+amdgpu_ttm_init_on_chip() when size_in_page is zero. This skips TTM
+resource manager registration for hardware resources that are absent,
+without affecting any other GPU type.
+
+DRM_MM_BUG_ON() only asserts if CONFIG_DRM_DEBUG_MM is enabled in
+the kernel config.  This is apparently rarely enabled as these chips
+have been in the market for over a year and this issue was only reported
+now.
+
+Link: https://lore.kernel.org/all/bug-221376-2300@https.bugzilla.kernel.org%2F/
+Link: https://bugzilla.kernel.org/show_bug.cgi?id=221376
+Oops-Analysis: http://oops.fenrus.org/reports/bugzilla.korg/221376/report.html
+Assisted-by: GitHub Copilot:Claude Sonnet 4.6 linux-kernel-oops-x86.
+Signed-off-by: Arjan van de Ven <arjan@linux.intel.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: "Christian König" <christian.koenig@amd.com>
+Cc: amd-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org
+Cc: linux-kernel@vger.kernel.org
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+(cherry picked from commit 5719ce5865279cad4fd5f01011fe037168503f2d)
+Cc: stable@vger.kernel.org
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c |    3 +++
+ 1 file changed, 3 insertions(+)
+
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+@@ -75,6 +75,9 @@ static int amdgpu_ttm_init_on_chip(struc
+ 				    unsigned int type,
+ 				    uint64_t size_in_page)
+ {
++	if (!size_in_page)
++		return 0;
++
+ 	return ttm_range_man_init(&adev->mman.bdev, type,
+ 				  false, size_in_page);
+ }
+
+
