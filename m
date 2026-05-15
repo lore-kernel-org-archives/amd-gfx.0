@@ -4,73 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AF5F0CD4F3D
-	for <amd-gfx@archiver.kernel.org>; Fri, 15 May 2026 12:09:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7A418CD343F
+	for <amd-gfx@archiver.kernel.org>; Fri, 15 May 2026 12:09:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 19E3010F3BD;
-	Fri, 15 May 2026 12:09:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B5F7010F4F6;
+	Fri, 15 May 2026 12:09:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="tMDhHC+P";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="/PkUx1qH";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="tMDhHC+P";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="/PkUx1qH";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="ZrrxfK3Q";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="59nq6O2c";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="ZrrxfK3Q";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="59nq6O2c";
 	dkim-atps=neutral
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5486D10F4DD
- for <amd-gfx@lists.freedesktop.org>; Fri, 15 May 2026 12:09:26 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1F93810F4EC
+ for <amd-gfx@lists.freedesktop.org>; Fri, 15 May 2026 12:09:30 +0000 (UTC)
 Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 34F3D5EC2F;
+ by smtp-out1.suse.de (Postfix) with ESMTPS id F3DB65ED11;
  Fri, 15 May 2026 12:09:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1778846961; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1778846962; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=SQxpEXUNkwBwkxDkuuBRmg+eDo/hsdu5ZllOTWsjnNQ=;
- b=tMDhHC+Px+7xZudl9MIGD6453Uz+9h+yujT/CJU0S8G91N42SbXuNF9dt9ZimCrKU87FRc
- rZDAELJoDKNxgUX0myB567JxAhTtlEftGHcbdz/fSXBHiUtMG2CX/MKS5aJn4JQ8AbZRmX
- axE94ANuxdSPTBbXHJwHClch+xjXpJE=
+ bh=Yuh6TyilX4VWG6Zmg1V90Jch9YZvkfz6xDh17+YehGA=;
+ b=ZrrxfK3Q1F76T2qQp+4ymFzW9yjTurZZ1eWeMb0ZSJCdW1hlB+y66wOFzdUys31PMGVgdA
+ b4WHGmfc0HLK/KSVObWwHcjZG6PTT0pFdMi729f/hk6wdpmo68okaFiIzPOycXVZW2lHO5
+ 560SduVsmWyE9dXGKKbQEkV1JD8smXQ=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1778846961;
+ s=susede2_ed25519; t=1778846962;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=SQxpEXUNkwBwkxDkuuBRmg+eDo/hsdu5ZllOTWsjnNQ=;
- b=/PkUx1qHQohCyNBYWmgAwrPANSdmc+9pKHeul5qJXkcrQosaxzu0e/LnQ+C9cYTt21zZH3
- nJvskb6AmumpDVCw==
+ bh=Yuh6TyilX4VWG6Zmg1V90Jch9YZvkfz6xDh17+YehGA=;
+ b=59nq6O2cE8xjt2PT6Xxdj9W5m+yGWBz8gIFuPLWlIrCe1BtWVaZ0/uWGZyfMLnxzSEfg7X
+ LYcYLmlvsOzVU6CA==
 Authentication-Results: smtp-out1.suse.de;
 	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1778846961; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1778846962; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=SQxpEXUNkwBwkxDkuuBRmg+eDo/hsdu5ZllOTWsjnNQ=;
- b=tMDhHC+Px+7xZudl9MIGD6453Uz+9h+yujT/CJU0S8G91N42SbXuNF9dt9ZimCrKU87FRc
- rZDAELJoDKNxgUX0myB567JxAhTtlEftGHcbdz/fSXBHiUtMG2CX/MKS5aJn4JQ8AbZRmX
- axE94ANuxdSPTBbXHJwHClch+xjXpJE=
+ bh=Yuh6TyilX4VWG6Zmg1V90Jch9YZvkfz6xDh17+YehGA=;
+ b=ZrrxfK3Q1F76T2qQp+4ymFzW9yjTurZZ1eWeMb0ZSJCdW1hlB+y66wOFzdUys31PMGVgdA
+ b4WHGmfc0HLK/KSVObWwHcjZG6PTT0pFdMi729f/hk6wdpmo68okaFiIzPOycXVZW2lHO5
+ 560SduVsmWyE9dXGKKbQEkV1JD8smXQ=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1778846961;
+ s=susede2_ed25519; t=1778846962;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=SQxpEXUNkwBwkxDkuuBRmg+eDo/hsdu5ZllOTWsjnNQ=;
- b=/PkUx1qHQohCyNBYWmgAwrPANSdmc+9pKHeul5qJXkcrQosaxzu0e/LnQ+C9cYTt21zZH3
- nJvskb6AmumpDVCw==
+ bh=Yuh6TyilX4VWG6Zmg1V90Jch9YZvkfz6xDh17+YehGA=;
+ b=59nq6O2cE8xjt2PT6Xxdj9W5m+yGWBz8gIFuPLWlIrCe1BtWVaZ0/uWGZyfMLnxzSEfg7X
+ LYcYLmlvsOzVU6CA==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id D30AA593A9;
- Fri, 15 May 2026 12:09:20 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 9955C593A9;
+ Fri, 15 May 2026 12:09:21 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id qKhUMvAMB2rQFwAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Fri, 15 May 2026 12:09:20 +0000
+ by imap1.dmz-prg2.suse.org with ESMTPSA id WAI7JPEMB2rQFwAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Fri, 15 May 2026 12:09:21 +0000
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: simona@ffwll.ch, airlied@gmail.com, mdaenzer@redhat.com,
  pekka.paalanen@collabora.com, jadahl@gmail.com, contact@emersion.fr,
@@ -78,9 +78,9 @@ To: simona@ffwll.ch, airlied@gmail.com, mdaenzer@redhat.com,
 Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  linux-hyperv@vger.kernel.org, virtualization@lists.linux.dev,
  spice-devel@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>
-Subject: [PATCH 2/9] drm/vblank: Add DRM_VBLANK_FLAG_SIMULATED
-Date: Fri, 15 May 2026 13:55:07 +0200
-Message-ID: <20260515120916.333614-3-tzimmermann@suse.de>
+Subject: [PATCH 4/9] drm/bochs: Set DRM_VBLANK_FLAG_SIMULATED
+Date: Fri, 15 May 2026 13:55:09 +0200
+Message-ID: <20260515120916.333614-5-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260515120916.333614-1-tzimmermann@suse.de>
 References: <20260515120916.333614-1-tzimmermann@suse.de>
@@ -91,7 +91,7 @@ X-Spamd-Result: default: False [-6.80 / 50.00]; REPLY(-4.00)[];
  MID_CONTAINS_FROM(1.00)[]; R_MISSING_CHARSET(0.50)[];
  NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
  ARC_NA(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[ffwll.ch:email,suse.de:email,suse.de:mid,imap1.dmz-prg2.suse.org:helo];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid,suse.de:email,imap1.dmz-prg2.suse.org:helo];
  RCPT_COUNT_TWELVE(0.00)[14]; MIME_TRACE(0.00)[0:+];
  TO_DN_SOME(0.00)[]; FUZZY_RATELIMITED(0.00)[rspamd.com];
  FROM_HAS_DN(0.00)[];
@@ -115,56 +115,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add DRM_VBLANK_FLAG_SIMULATED for CRTCs that do not have a hardware
-vblank interrupt. Setting the flag tells DRM to not report vblank
-capabilities from the WAIT_VBLANK ioctl.
+Mark the vblank event on bochs as simulated, so that the WAIT_VBLANK
+ioctl fails with an error. The ioctl should not be supported because
+the output is not synchronized to a display refresh.
 
-DRM_IOCTL_WAIT_VBLANK queries timestamps from a vblank event or waits
-for the next vblank event to occur. DRM clients use this functionality
-to synchronize their output with the display's vblank phase. Hence this
-is only supported for hardware implementations.
-
-Software implementations are not synchronized to the display and merely
-act as a rate limiter for page-flip events. The WAIT_VBLANK ioctl thus
-should fail with an error.
-
-Suggested-by: Simona Vetter <simona@ffwll.ch>
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
 ---
- drivers/gpu/drm/drm_vblank.c | 3 +++
- include/drm/drm_vblank.h     | 5 +++++
- 2 files changed, 8 insertions(+)
+ drivers/gpu/drm/tiny/bochs.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/drm_vblank.c b/drivers/gpu/drm/drm_vblank.c
-index 21ca91b4c014..92b699a4e8be 100644
---- a/drivers/gpu/drm/drm_vblank.c
-+++ b/drivers/gpu/drm/drm_vblank.c
-@@ -1794,6 +1794,9 @@ int drm_wait_vblank_ioctl(struct drm_device *dev, void *data,
+diff --git a/drivers/gpu/drm/tiny/bochs.c b/drivers/gpu/drm/tiny/bochs.c
+index e2d957e51505..b5955ef39e31 100644
+--- a/drivers/gpu/drm/tiny/bochs.c
++++ b/drivers/gpu/drm/tiny/bochs.c
+@@ -677,7 +677,7 @@ static int bochs_kms_init(struct bochs_device *bochs)
+ 	drm_connector_attach_edid_property(connector);
+ 	drm_connector_attach_encoder(connector, encoder);
  
- 	vblank = drm_vblank_crtc(dev, pipe);
+-	ret = drm_vblank_init(dev, 1);
++	ret = drmm_vblank_init(dev, 1, DRM_VBLANK_FLAG_SIMULATED);
+ 	if (ret)
+ 		return ret;
  
-+	if (vblank->flags & DRM_VBLANK_FLAG_SIMULATED)
-+		return -EOPNOTSUPP;
-+
- 	/* If the counter is currently enabled and accurate, short-circuit
- 	 * queries to return the cached timestamp of the last vblank.
- 	 */
-diff --git a/include/drm/drm_vblank.h b/include/drm/drm_vblank.h
-index 39a201b83781..03fa7259b6ac 100644
---- a/include/drm/drm_vblank.h
-+++ b/include/drm/drm_vblank.h
-@@ -37,6 +37,11 @@ struct drm_device;
- struct drm_crtc;
- struct drm_vblank_work;
- 
-+/**
-+ * DRM_VBLANK_FLAG_SIMULATED - vblank uses a software timer
-+ */
-+#define DRM_VBLANK_FLAG_SIMULATED	BIT(1)
-+
- /**
-  * struct drm_pending_vblank_event - pending vblank event tracking
-  */
 -- 
 2.54.0
 
