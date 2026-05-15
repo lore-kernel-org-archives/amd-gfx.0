@@ -4,123 +4,97 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A4D14CD343F
-	for <amd-gfx@archiver.kernel.org>; Fri, 15 May 2026 05:08:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 777D3CD4F3C
+	for <amd-gfx@archiver.kernel.org>; Fri, 15 May 2026 05:30:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0BB6710F3CF;
-	Fri, 15 May 2026 05:08:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F3D7410F3D8;
+	Fri, 15 May 2026 05:30:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="qcA/CrCl";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="X9CTnlnB";
 	dkim-atps=neutral
-Received: from CY3PR05CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11013011.outbound.protection.outlook.com
- [40.93.201.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9E3B110F3CF
- for <amd-gfx@lists.freedesktop.org>; Fri, 15 May 2026 05:08:24 +0000 (UTC)
+Received: from CH4PR04CU002.outbound.protection.outlook.com
+ (mail-northcentralusazon11013001.outbound.protection.outlook.com
+ [40.107.201.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D954C10F3D8
+ for <amd-gfx@lists.freedesktop.org>; Fri, 15 May 2026 05:30:18 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=PZWScvGFp9vgrHTimabpVxplumP6kowj+/5MdU3lH6nzi0P0vIu+gCx3mC7IdOteKXZGNt8PieKdLdSH6ob8qsoe2O0/KkEJYcHH9GsG/vZAWwJKkwnIwJNXCQ3Q54Phzyc6ZxSPlydjQyhuHuGYx0iOEGMRXSGU6dkBSS5eRRA7+2r6WPf5kwz4sKvVDjNxBDzNUeYvo6ayAZ/tNKZvWIqqQGD+1Ynh39ePQ124E77dJoQ0gwPt77gP1AKKA/Re/4OMijAYgrHVz9IWEtn7GCVzld/esNsetEM7gmUOqzW87IR1irK52tcu5Z5MjVcSexvJgXy1pVb/cPJy5XgiUg==
+ b=oeYhOd5RqSYJIxNdrHlPtnS4Uvr4me0fGLoe6HUKnGLcfHjNMPxWb6KFS/pEy5uos9Vlz3fDqP2DBS8ZOyHQDKrwFf9ezHM8zs0tRUlQ9Oz/vijRKGS55m1ekdd3f046CdRUrYGn04tcudDvg7xxFlAhRZntTOXT7yMGfleK5Dk7L09ARitk9F+kdBMn7apHLIuuurARXgnCCE00Ln7jO+nAiKBAMo01i7lUkHxvyxIg4mSToARoI3YZntFTWMOmxo0vMK/vQs63gKo9Gr7StnnvSF+I24enq4QMz3Ns1rBMlt6yKDyT/AKlZ7v0B7FYXeWh8ftZNTqWKsp3iCDb9w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=r39BC2H4sgSf7Xy0U5eT3JysQ4TJCd1WBNwU2QHCUkA=;
- b=riY+1NBrkKV1dC0X5KZBth/WG5mUoYRJetkK4FCg5/3FmqriFsCKOo2XZ27aqmNqzBgoIqEBCURnLkC2eDHpj3C4y3NxrejeUBeUpu8C1cG0jBXV3zfaR5vE+bovMSX69TY4u5jGIQVKYJ+b7UihosuoIzr6fYrV8uGUjrFmO/vfq2ubGJ7f/5nK7zbxB5l7gaJMxVMGWk0RFZHCJUEYFyeSzZE5FDV11AreW6JfbACU2rLFuEVsXiZIAVmAH9pPr5BODZMyenUFc+0mYdV5SQXBWfWY8W9AwjaDWR/TkbgGi2FnuMtWRbtm/oOHwuYWPSbG2Qo9Yba+qkd43H761Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=gfo27aNZHMASfzTvyttQ+nJzCFpK2PetssBbEoBNhV4=;
+ b=EpUU6BRS9ku3JTmWiCXzhTSodtNqw5hZ7vSJ/Ej2XBwdHKn+aARH5MtPsZUN2/NaYCy4ARUPhG5IoR1M1iSmCTGj3KDZHQBDUwQvyzmdvwBr1GYUBdhf1u3zB2hskflic8AWqHkX81T9lAiXFbEEBJ2TKljNpA3oFv1oYZ/3x0ida2nHhqwqB0a33PbXV+MVKn4kvbyaYrjInDmCP2FI6wKd1HLUlisezUFg32wUi6DDXfCKlUJokojivaln4KdpjY+fpiimHN+tQUbrrPyghvNJrg4/5+mZ5rKKR8BFAtVtmnV8f9KX6PA/iIP9G99msv7Zdc4OoW8OBAMgbRyxkw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=r39BC2H4sgSf7Xy0U5eT3JysQ4TJCd1WBNwU2QHCUkA=;
- b=qcA/CrClzG4hnPc4RV14hF/2h/ldcK+xxlVBjXF8f3J4DdpKWnE93gIvaQJlEKkw6pjh2KvfpTBMndZMYZhUe0w62hotg5rUMkOW/E3lTnu3JjgsiYjkjJIbQDOii4JRCFhLmuGp2uAFE5qIKhLJRsd31GsF/LdO2SbfdCaOg+o=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB7794.namprd12.prod.outlook.com (2603:10b6:510:276::15)
- by IA0PR12MB8929.namprd12.prod.outlook.com (2603:10b6:208:484::8)
- with Microsoft SMTP Server (version=TLS1_2,
+ bh=gfo27aNZHMASfzTvyttQ+nJzCFpK2PetssBbEoBNhV4=;
+ b=X9CTnlnBQv3rSWwuTKBGeV6g6zy2aal2faq3MRfkwG0brXzxfSbf8fOZyeVF2M8qA/37MvXltZ08Ic5bzC7NKC10hnXZSzBPF7WY6K+QGQSWGuuuxBVRDtTTqoNFyr+Gk/8/XwsI0CQ9nrbN4+lT6y6Vc0FpFycGwBSsWSyV/6w=
+Received: from SJ0PR03CA0057.namprd03.prod.outlook.com (2603:10b6:a03:33e::32)
+ by SA5PPFD8C5D7E64.namprd12.prod.outlook.com
+ (2603:10b6:80f:fc04::8e3) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9913.11; Fri, 15 May
- 2026 05:08:20 +0000
-Received: from PH7PR12MB7794.namprd12.prod.outlook.com
- ([fe80::e0be:f851:96ea:cf85]) by PH7PR12MB7794.namprd12.prod.outlook.com
- ([fe80::e0be:f851:96ea:cf85%6]) with mapi id 15.20.9913.009; Fri, 15 May 2026
- 05:08:19 +0000
-Content-Type: multipart/alternative;
- boundary="------------zCDHJ6Oe0hzJzBbPTqVg0Gmw"
-Message-ID: <36b3d9e6-1600-400e-a509-ea6727569254@amd.com>
-Date: Fri, 15 May 2026 10:38:14 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] drm/amdgpu: clean up userq iVA mapping after removing
- userq from MES
-To: Prike Liang <Prike.Liang@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: Alexander.Deucher@amd.com, Christian.Koenig@amd.com
-References: <20260514124250.3833711-1-Prike.Liang@amd.com>
-Content-Language: en-US
-From: "Khatri, Sunil" <sukhatri@amd.com>
-In-Reply-To: <20260514124250.3833711-1-Prike.Liang@amd.com>
-X-ClientProxiedBy: PN3PR01CA0082.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:9a::17) To PH7PR12MB7794.namprd12.prod.outlook.com
- (2603:10b6:510:276::15)
+ 2026 05:30:14 +0000
+Received: from BY1PEPF0001AE16.namprd04.prod.outlook.com
+ (2603:10b6:a03:33e:cafe::7f) by SJ0PR03CA0057.outlook.office365.com
+ (2603:10b6:a03:33e::32) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9913.14 via Frontend Transport; Fri,
+ 15 May 2026 05:30:14 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BY1PEPF0001AE16.mail.protection.outlook.com (10.167.242.104) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.25.13 via Frontend Transport; Fri, 15 May 2026 05:30:13 +0000
+Received: from jeevana-X570-AORUS-ELITE.amd.com (10.180.168.240) by
+ satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.41; Fri, 15 May 2026 00:30:11 -0500
+From: Jeevana Muthyala <jmuthyal@amd.com>
+To: <Alexander.Deucher@amd.com>, <amd-gfx@lists.freedesktop.org>
+CC: Jeevana Muthyala <Jeevana.Muthyala2@amd.com>, Jeevana Muthyala
+ <jmuthyal@amd.com>
+Subject: [PATCH] drm/amdgpu/vcn5.0.0: enable secure submission on unified ring
+Date: Fri, 15 May 2026 11:00:02 +0530
+Message-ID: <20260515053002.1167167-1-jmuthyal@amd.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB7794:EE_|IA0PR12MB8929:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1f7592c5-7c39-4c20-b642-08deb23ffab4
+X-MS-TrafficTypeDiagnostic: BY1PEPF0001AE16:EE_|SA5PPFD8C5D7E64:EE_
+X-MS-Office365-Filtering-Correlation-Id: 517e0b73-e4b2-49cc-d438-08deb2430a63
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|376014|1800799024|18002099003|8096899003|22082099003|11063799003|56012099003;
-X-Microsoft-Antispam-Message-Info: NSMenYqq3oNjR5q5UCYjs89Pi/aK2tqX5NciuzsufaSdxPZ6yFnwkIJ7v/hBQ3+Sg9PARdqovunh+6kSUPQtmqxub4YGzOB5kh/qr+sHcTj0BCi5ELGP7MGXaYEpc8jdE28CKqH5TsMFzU/LcmUbkmj8uGS4KdkGbb+kvNmLPknIwRGY3CJuNmSoYkAXKAxcQDF5HHyQAiiujv+rw+hqXQkF6yMjb3PVzUe5m6d6Se91ZJphAUL/DsIemm1mD7/CZq2X4Bw76xuznPTlxyEvb2UCoXF1MZ49xL9T61z8kmcxnv4QbC1Phuh3mvDpsuLm4KzTvPuvMAkkjeDeHlCVs1bSvKjpU5fL+/+baV7Fa4818gggeBqrgzt8yjISwejUyyeTy3mfhMuiN7Wu0hLkg8PZvDk+cFhoa8vXYS93GVeAyM+m+8iObtn8a73VXDTn0MmYhbJ/r4A0wrB2SjAmmB4yS7LWUBI8QUkxuWM22s3rfO6VfEXoIWfvxpN8WiZhjzTanaUjeVwsHOFT/vP2ljaqIcIAF4YIhLUEwyBWareACIxi9rjgpyYvUo5TP/oEHqmL3WDGoy9sJt+YcUz6XRavpH5Xkh4z7BlAaxKD/kQmbC2MeX6jbiuQQMREcmYudNguaDGPFbFBLvoA+X+d8wNAfz066VEmbhhN7lrXfW9HifbMbvruFbUpi0ozlfuF
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB7794.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(1800799024)(18002099003)(8096899003)(22082099003)(11063799003)(56012099003);
+ ARA:13230040|376014|82310400026|36860700016|1800799024|18002099003|11063799003|56012099003;
+X-Microsoft-Antispam-Message-Info: HgBSbGOCTYqu1ktdVOTNjpq8s1GS+v7Sj1PULWikLpbK6LOpveh62WqyCsRDJjSFWBTvDP+InEJMqEkD61x/vt6ryx++Swa4XWWwbf7zyQ+u9U4Y8qbgkXaH0TQ5KrSrBjSaJ92rsf2fsOteW269+5g3RP6J1j5KCuVKJDIbjc3ENdUxOZQnhyXW+/CKa1KYV+1jk2IB90etXJt6MDYg9ERWmFLX+IQQjIy40y/CBXUdeTFAv52IshXHQsTMB7JfgHqvSOH9Qmo5QjPSN1KB3buvPCk2l94PG4FCcOVdw5GSdB3ZfqyfIrq+CNcRQooquvXljCDcAn1PcDLxhh3+mQfFcx+1d/DzO0U4Kx4yIwSjVU0t5T6KdiBgWrrtfulL4z+4yia9ettWTBMY6UtPjjzOdGnp5Roln+2O7guhmaRu+qUX0YPhe5BD+QyshpQa29rjf26VnYYkZdJVuJnrCZ+OTFamF5QAy8IcPxRrlXENnfn9ey5OmD13/0JD3N1dzcaXTR9xWuKgicbIV0FVXH9KlvfQPFJK8AVnKfUfW4OdHUFaqm+G3YUM5M3IvYSWBpkTZlpwfxqV9L9oAbtd+AHNc3+s2Aa/nx2gSTB5+etSDn5e5Mei7w9hhojDoYUSmDVS95/tl2efKy6qoy5DUO3/4NLzz9s8sbrpfvVO3yu+tXpIInv87Axk5mRczGNa3X1WPUig2QoLM2X96gZgO6pUSWhEYoQkpwL1w2PsNGU=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(82310400026)(36860700016)(1800799024)(18002099003)(11063799003)(56012099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZnkxUS9FSUpCMkIvZ2pKcmMxYjlkOXl4YnBHdWdRaXhiQmwvNXZ3TzVaS0tN?=
- =?utf-8?B?eUJlTy83ZWtSY2VjMHJ0RStsWXp3ck82d3l2NGN1bHNtamIrZGFiUXo1bFNu?=
- =?utf-8?B?VmcxMTNBT0ZaTy91SVpTS1B3TmVHVE05cExPbW5JWUZRUk1jR3lmSFB2ZzZr?=
- =?utf-8?B?Ui9yalZ0Qjl3T2ljSUFlZ3JxYzlDNlYwQkRoNEF2UU5CZmx5RjdjdFR6T3pO?=
- =?utf-8?B?aFdTTkJYbm8xN2s5czV1d1RQaTFlNFNTZWUwZVFWc09jQ0xpVmlLL0p2Vnlm?=
- =?utf-8?B?ZGkrazZpVTBJMTMzdHNoYUxhaXh5RXJvYmxtUkMxdExKVkczblJOYWVmMEhz?=
- =?utf-8?B?UGtpKzZoZEMzU3NlWGtMbzFuVW1UNGd5U25yRzJFQ293RklTdjBNam1uMHhi?=
- =?utf-8?B?WS82bXhjVjhCbS80WTkxbTkyb3lYN1doSEkrcng5VGVRd01oZGlHV0JHMS9U?=
- =?utf-8?B?NG1hTTc4Y3F4S1VWeVZYb3lXUm4rLzlwdjhhSTZKVnpjc1kwd0w5eDNSTE1q?=
- =?utf-8?B?NVRha1htUzg2c3hNdmVzMWxOUmJURnRnRFIxOUxHTUYveFp3eTgwLzNrdGZn?=
- =?utf-8?B?L0hTWXI0a2gvOXMyNGIwSEFFTFdxd1dwc1dCeFJtb1VNd0pRZ2c1a25RN2tR?=
- =?utf-8?B?ZlFUbFJmWFlPcjFSOEFCMzdKd0ZFMUk1aGFHQTRtQjQ5V202c0NhaGF3SGxQ?=
- =?utf-8?B?N0wyb0EyNGdudHhTT1YzMndVbTFNbXI0aWF3bk9zaDR0a2lhN0hmZE1LeHFP?=
- =?utf-8?B?alk3U3BFK2IyMUxoRmxVYlFrQ2FzRFBlM3hwOEhnWjBWK1diTTdQTURIeWNq?=
- =?utf-8?B?V1R6Wm1KNlZjUk9vNFY1Tjk4OVplUkdKQzlmay9zMHM4eFdIbmdiWTlackJO?=
- =?utf-8?B?RlZOdW5VK3lkK2IyRUlQdjZnMlcyTkcyUEdvWHMwalhTWHhVdUJ3WWJmWmo5?=
- =?utf-8?B?VnJwcHdORGtwTUZlRzg2akQzRDYwUjVMZzQ5SGpiM3U1ZUY1SkZhTG80VkdV?=
- =?utf-8?B?VHMyaStpYTZGbFhLSkxTWjErbVRINjVMTnFkQ2wxWGhEU0pXc0I1SzVweFl2?=
- =?utf-8?B?emFVeWE0UklpSy85VENGKzlBeVBER1RVNDJzd0hLNGhGcTMwTGxkNDlPYnpI?=
- =?utf-8?B?NmlZSGNkdjlnL3YveDA2UGRIMGxHVlc3amNUWEpwbldneGZFSVVINHlhZ1RW?=
- =?utf-8?B?NlNvbWVQa2s5RmpLNXp2OHNyYjRSSFU2QlZYN1VyUUE0aXFBVG1scjZ3L0ZD?=
- =?utf-8?B?ODdJUUZqdmdtNkFEV2VzTEo5NHY3eEljN0V5SE56SDhNNzdJUm9SMTVGYy9T?=
- =?utf-8?B?YUxjSk44aG9Rd3kwZlJJdmtrRlVoNERONlY5MmxtOVY5QlVNT3FrdExoR3dK?=
- =?utf-8?B?N2hmZ1VWUnp2czE0bUkzcmJpcEpIdHU2VGdtZmo2ZDFTT09uTzJEc0xUa3hz?=
- =?utf-8?B?SUo0NWZzd08rRlJpcHVod3RHK0lDNmtrNWtSSGc2dWNqYnFHemd0R0xBOHZP?=
- =?utf-8?B?emdibjl0RXpEeDIyVE9KV05FTlhKaENsajBqc3Y4RzgzVGhmeFVWUmUvT2Fo?=
- =?utf-8?B?ZVA5QTdZV0tObEE2a2lFQURGWVhqaVNGT3VhUjNrc1YxSWRiazcwZ0tXS2Vy?=
- =?utf-8?B?cHV5VzZENFhnUTIvcU41cGc4eHpodTNRelYvMmpPYnpYVHhoMHVrZHRIU0Jy?=
- =?utf-8?B?NC8yVkdLaWlOVVM2ZDFjckh6a2tHWXlXS0JNQUVKZ0dTdDNjd2hDeUZUUXFW?=
- =?utf-8?B?N1g1YW5FTDVoTWhYNmZNaFdwWFJJRHkwcVZzcjl3ME8rSkhiTGlaV01qbjJF?=
- =?utf-8?B?anU1b1ZNUTJUekJIbXZZL0tsaVB0UEVkTDR3STVrcmg2RDI3S0hVK2pjWWE5?=
- =?utf-8?B?STR4Vm5oREZBUHFSczY2SGFnUloyS1RuNnFLb3BmaEhFT1dhYXdjSTVHekxU?=
- =?utf-8?B?ZE1aR2VXNkpJMzFCNzJ3ZFp6WUpxYnE2SUJJRDF1YkRPZ1E5UGxoRWtvMHRS?=
- =?utf-8?B?anV1U053MHFXdHYydkZWV1VtRm1UMCtPWStzMnl0bXFXRkI3MGlvRXhtRlVx?=
- =?utf-8?B?eUxUSjU4ZUxUZUpROFhqRUVhYk5obllLbksrS0pmMkpsaEFXRXhiMDNjczU0?=
- =?utf-8?B?eXBkUjIzK2dhNnlRcktwZFFGZ01uTDdEQms5ZysxU3pLa2ZISVh2aERwbHA2?=
- =?utf-8?B?dHNjbFRDWHYycmlmTSs3ZW5NNEN5N21nY1pKYTBhMmdpakRBZElzZUNqekV3?=
- =?utf-8?B?Vk9iSnRXaEFEc1VUdXlYZE9xMkJxamdDRlJOd1N4ZFkzTWdqUlB2d3J2OTYx?=
- =?utf-8?B?clhsc2s1cjhhODUrbTlmdlpON011c3IrRFpEeGg5NGdyTFVrVXJBdz09?=
+X-MS-Exchange-AntiSpam-MessageData-0: eUyLg5cNdl/cfZuIkqWOxAAm++BdPqCGkRRsX5aaF0z2hFSGD9uBCFkNHz7YyCH/f/F5HjL337ZbSP62gTf1AgGltcr2kgxIGZncXjAzB42SEBIZFerffvl/zInPEV0KJac9SKmtjI4eiS6gv/BTwk9AJf7op1ZmcxsDmcxcquOoNs1F6omxsIj+NwDMH+8BcVP+UfP+nhlxgewXp95WngzVitgjBOkF87dYEpbaph2Xwkv0zLMXixYqL6nbl6QJaWGbMIyuGwHqqRQNfB6bPVW4rKoJw2RKkS43Ccy6rYiJ9WWLtEh/vCHSNPVN4HdiiSjH2DuJcn1e+/Zvosd/E9YqAICUVc8mIid2uvrggyhxxLA/inYwOsEo00VXpxR9mfwqLhKAh1QtJbyBFSIE/rh14EsjRhv/udaXAvMGyXaK8HFY4TS3XYrTl9POEIzq
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1f7592c5-7c39-4c20-b642-08deb23ffab4
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB7794.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 May 2026 05:08:19.5653 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 May 2026 05:30:13.9230 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 517e0b73-e4b2-49cc-d438-08deb2430a63
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: TKhLstnLojsY6oWI+9tug+VYsYZOJs1E7JNSQ5xAVJCNf7SRPtOBJaT27V7fLFYby57/NjuVUj1yoKLlFRLnLA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8929
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BY1PEPF0001AE16.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA5PPFD8C5D7E64
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,215 +109,25 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---------------zCDHJ6Oe0hzJzBbPTqVg0Gmw
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+From: Jeevana Muthyala <Jeevana.Muthyala2@amd.com>
 
-
-On 14-05-2026 06:12 pm, Prike Liang wrote:
-> User queue destroy removed the tracked queue VA mappings before removing
-> the HW queue from MES. If the queue still had active waves, HW like as TCP
-> could continue accessing queue backing memory after the VM mappings were
-> removed, resulting in gfxhub page faults.
->
-> So, that needs to move queue VA cleanup after HW queue unmap. Meanwhile,
-> if MES fails to remove the queue, then need to run reset recovery before
-> freeing queue resources.
->
-> Signed-off-by: Prike Liang<Prike.Liang@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 43 +++++++++++++++++------
->   1 file changed, 32 insertions(+), 11 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-> index 83aee0810513..2e3edb6dd506 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-> @@ -625,8 +625,7 @@ amdgpu_userq_destroy(struct amdgpu_userq_mgr *uq_mgr, struct amdgpu_usermode_que
->   	struct amdgpu_device *adev = uq_mgr->adev;
->   	struct amdgpu_fpriv *fpriv = uq_mgr_to_fpriv(uq_mgr);
->   	struct amdgpu_vm *vm = &fpriv->vm;
-> -
-> -	int r = 0;
-> +	int r = 0, tmp;
->   
->   	trace_amdgpu_userq_destroy_start(queue);
->   
-> @@ -635,15 +634,6 @@ amdgpu_userq_destroy(struct amdgpu_userq_mgr *uq_mgr, struct amdgpu_usermode_que
->   	/* Cancel any pending hang detection work and cleanup */
->   	cancel_delayed_work_sync(&queue->hang_detect_work);
->   
-> -	r = amdgpu_bo_reserve(vm->root.bo, false);
-> -	if (r) {
-> -		drm_file_err(uq_mgr->file, "Failed to reserve root bo during userqueue destroy\n");
-> -		trace_amdgpu_userq_destroy_end(queue, r);
-> -		return r;
-> -	}
-> -	amdgpu_userq_buffer_vas_list_cleanup(adev, queue);
-> -	amdgpu_bo_unreserve(vm->root.bo);
-> -
->   	mutex_lock(&uq_mgr->userq_mutex);
->   	amdgpu_userq_wait_for_last_fence(queue);
->   
-> @@ -651,6 +641,37 @@ amdgpu_userq_destroy(struct amdgpu_userq_mgr *uq_mgr, struct amdgpu_usermode_que
->   	debugfs_remove_recursive(queue->debugfs_queue);
->   #endif
->   	r = amdgpu_userq_unmap_helper(queue);
-> +
-> +	if (r) {
-> +		drm_file_err(uq_mgr->file,
-> +			     "Failed to unmap userqueue during destroy, ret=%d\n",
-> +			     r);
-> +		amdgpu_userq_fence_driver_force_completion(queue);
-We should be calling this before amdgpu_userq_unmap_helper because we 
-are in tear down and we want to finish all the work and their 
-corresponding fences and if unmap fails or not we should be cleaning up 
-the resources.
-> +		amdgpu_reset_domain_schedule(uq_mgr->adev->reset_domain,
-> +					     &uq_mgr->reset_work);
-
-reset at this stage during tear down seems like a bad idea, we are 
-infact waiting for if any reset thread if already scheduled.
-
-regards
-Sunil khatri
-
-> +		flush_work(&uq_mgr->reset_work);
-> +	}
-> +	mutex_unlock(&uq_mgr->userq_mutex);
-> +	/*
-> +	 * Drop the queue VA mappings only after the HW queue is removed (or
-> +	 * reset recovery has run). Removing the mappings first lets active TCP
-> +	 * waves fault on queue backing memory while MES is still trying to
-> +	 * process REMOVE_QUEUE.
-> +	 */
-> +	tmp = amdgpu_bo_reserve(vm->root.bo, false);
-> +	if (tmp) {
-> +		drm_file_err(uq_mgr->file,
-> +			     "Failed to reserve root bo during userqueue destroy\n");
-> +		if (!r)
-> +			r = tmp;
-> +	} else {
-> +		tmp = amdgpu_userq_buffer_vas_list_cleanup(adev, queue);
-> +		amdgpu_bo_unreserve(vm->root.bo);
-> +		if (tmp && !r)
-> +			r = tmp;
-> +	}
-> +
-> +	mutex_lock(&uq_mgr->userq_mutex);
->   	atomic_dec(&uq_mgr->userq_count[queue->queue_type]);
->   	amdgpu_userq_cleanup(queue);
->   	mutex_unlock(&uq_mgr->userq_mutex);
---------------zCDHJ6Oe0hzJzBbPTqVg0Gmw
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-<!DOCTYPE html><html><head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body>
-    <p><br>
-    </p>
-    <div class="moz-cite-prefix">On 14-05-2026 06:12 pm, Prike Liang
-      wrote:<br>
-    </div>
-    <blockquote type="cite" cite="mid:20260514124250.3833711-1-Prike.Liang@amd.com">
-      <pre wrap="" class="moz-quote-pre">User queue destroy removed the tracked queue VA mappings before removing
-the HW queue from MES. If the queue still had active waves, HW like as TCP
-could continue accessing queue backing memory after the VM mappings were
-removed, resulting in gfxhub page faults.
-
-So, that needs to move queue VA cleanup after HW queue unmap. Meanwhile,
-if MES fails to remove the queue, then need to run reset recovery before
-freeing queue resources.
-
-Signed-off-by: Prike Liang <a class="moz-txt-link-rfc2396E" href="mailto:Prike.Liang@amd.com">&lt;Prike.Liang@amd.com&gt;</a>
+Signed-off-by: Jeevana Muthyala <jmuthyal@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 43 +++++++++++++++++------
- 1 file changed, 32 insertions(+), 11 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-index 83aee0810513..2e3edb6dd506 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-@@ -625,8 +625,7 @@ amdgpu_userq_destroy(struct amdgpu_userq_mgr *uq_mgr, struct amdgpu_usermode_que
- 	struct amdgpu_device *adev = uq_mgr-&gt;adev;
- 	struct amdgpu_fpriv *fpriv = uq_mgr_to_fpriv(uq_mgr);
- 	struct amdgpu_vm *vm = &amp;fpriv-&gt;vm;
--
--	int r = 0;
-+	int r = 0, tmp;
- 
- 	trace_amdgpu_userq_destroy_start(queue);
- 
-@@ -635,15 +634,6 @@ amdgpu_userq_destroy(struct amdgpu_userq_mgr *uq_mgr, struct amdgpu_usermode_que
- 	/* Cancel any pending hang detection work and cleanup */
- 	cancel_delayed_work_sync(&amp;queue-&gt;hang_detect_work);
- 
--	r = amdgpu_bo_reserve(vm-&gt;root.bo, false);
--	if (r) {
--		drm_file_err(uq_mgr-&gt;file, &quot;Failed to reserve root bo during userqueue destroy\n&quot;);
--		trace_amdgpu_userq_destroy_end(queue, r);
--		return r;
--	}
--	amdgpu_userq_buffer_vas_list_cleanup(adev, queue);
--	amdgpu_bo_unreserve(vm-&gt;root.bo);
--
- 	mutex_lock(&amp;uq_mgr-&gt;userq_mutex);
- 	amdgpu_userq_wait_for_last_fence(queue);
- 
-@@ -651,6 +641,37 @@ amdgpu_userq_destroy(struct amdgpu_userq_mgr *uq_mgr, struct amdgpu_usermode_que
- 	debugfs_remove_recursive(queue-&gt;debugfs_queue);
- #endif
- 	r = amdgpu_userq_unmap_helper(queue);
-+
-+	if (r) {
-+		drm_file_err(uq_mgr-&gt;file,
-+			     &quot;Failed to unmap userqueue during destroy, ret=%d\n&quot;,
-+			     r);
-+		amdgpu_userq_fence_driver_force_completion(queue);</pre>
-    </blockquote>
-    We should be calling this before&nbsp;&nbsp;<span style="white-space: pre-wrap">amdgpu_userq_unmap_helper because we are in tear down and we want to finish all the work and their corresponding fences and if unmap fails or not we should be cleaning up the resources. </span>
-    <blockquote type="cite" cite="mid:20260514124250.3833711-1-Prike.Liang@amd.com">
-      <pre wrap="" class="moz-quote-pre">
-+		amdgpu_reset_domain_schedule(uq_mgr-&gt;adev-&gt;reset_domain,
-+					     &amp;uq_mgr-&gt;reset_work);</pre>
-    </blockquote>
-    <p>reset at this stage during tear down seems like a bad idea, we
-      are infact waiting for if any reset thread if already scheduled.</p>
-    <p>regards<br>
-      Sunil khatri</p>
-    <blockquote type="cite" cite="mid:20260514124250.3833711-1-Prike.Liang@amd.com">
-      <pre wrap="" class="moz-quote-pre">
-+		flush_work(&amp;uq_mgr-&gt;reset_work);
-+	}
-+	mutex_unlock(&amp;uq_mgr-&gt;userq_mutex);
-+	/*
-+	 * Drop the queue VA mappings only after the HW queue is removed (or
-+	 * reset recovery has run). Removing the mappings first lets active TCP
-+	 * waves fault on queue backing memory while MES is still trying to
-+	 * process REMOVE_QUEUE.
-+	 */
-+	tmp = amdgpu_bo_reserve(vm-&gt;root.bo, false);
-+	if (tmp) {
-+		drm_file_err(uq_mgr-&gt;file,
-+			     &quot;Failed to reserve root bo during userqueue destroy\n&quot;);
-+		if (!r)
-+			r = tmp;
-+	} else {
-+		tmp = amdgpu_userq_buffer_vas_list_cleanup(adev, queue);
-+		amdgpu_bo_unreserve(vm-&gt;root.bo);
-+		if (tmp &amp;&amp; !r)
-+			r = tmp;
-+	}
-+
-+	mutex_lock(&amp;uq_mgr-&gt;userq_mutex);
- 	atomic_dec(&amp;uq_mgr-&gt;userq_count[queue-&gt;queue_type]);
- 	amdgpu_userq_cleanup(queue);
- 	mutex_unlock(&amp;uq_mgr-&gt;userq_mutex);
-</pre>
-    </blockquote>
-  </body>
-</html>
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c
+index d5f49fa33bee..f875dbcd4f6d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c
+@@ -1207,6 +1207,7 @@ static const struct amdgpu_ring_funcs vcn_v5_0_0_unified_ring_vm_funcs = {
+ 	.type = AMDGPU_RING_TYPE_VCN_ENC,
+ 	.align_mask = 0x3f,
+ 	.nop = VCN_ENC_CMD_NO_OP,
++	.secure_submission_supported = true,
+ 	.no_user_fence = true,
+ 	.get_rptr = vcn_v5_0_0_unified_ring_get_rptr,
+ 	.get_wptr = vcn_v5_0_0_unified_ring_get_wptr,
+-- 
+2.43.0
 
---------------zCDHJ6Oe0hzJzBbPTqVg0Gmw--
