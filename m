@@ -4,110 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3A361CD4851
-	for <amd-gfx@archiver.kernel.org>; Fri, 15 May 2026 23:47:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 79E87CD4F25
+	for <amd-gfx@archiver.kernel.org>; Sat, 16 May 2026 09:25:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A775C10E444;
-	Fri, 15 May 2026 23:47:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E7E5110E0D4;
+	Sat, 16 May 2026 09:25:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="qIeesAWR";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="hBlxiza4";
 	dkim-atps=neutral
-Received: from CH1PR05CU001.outbound.protection.outlook.com
- (mail-northcentralusazon11010016.outbound.protection.outlook.com
- [52.101.193.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9B31510E444;
- Fri, 15 May 2026 23:47:15 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=bTCdAL9/PmydQJm2ttPncN+5HS+s0jR11ErzKorpWpdZxmKcyk4fL8edVvJX1sAl1QbiCppWfJegZMQuvrJYf/y0VjW/2EP8cxrV1m2RR4qB63KENh1Devyu6HJaAw1shCzDD7l+7bO5ftXibSdb5QB3HEakCucw2XN4vC95jEh6C3xRFW51Rm5Hyo8Dw9bylHb6fZo+uYc/sVnPneo/vgmbhV1StwB0gqozlJaA4f/9VNPypCMXgvrktqhF+jkUG+GyvBduGv0ckXnapcpweLNhDR3pyHXnLhsjl4F1SViR6dimyWFuZtF7JoVvEbttyJco1zB7xAP5sO5IPvg0hw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=MHG9CuFVoiL95bT/YH6cd3J31Y5mEV71zM4DNCY508o=;
- b=geMPKYmi7MR9YEEqRkwGBaoNskuGxcegRwqqR2enGZpAAemMKIMAUxaOOK5qk5o+ht/z0V4IjXpJ93dKAhiu3fBUFrmpMpIE0eBzwvNhoDgu8H562Wn/z1aVm6saUJiEUApnZCMTt2zpO1fZgGLpl5ExY9oH/MyjWxyuCqV1+zn1mve5Drq0V8w/OS7AydH/DGO5CdXNCtyVYMTCvTEuowYMfdMGeSh8yIxPstmR2O6vMiSKiasf+Gy70TYZKb4r4udMO6AvpaKgD+eQNJ9WdhFQfImaUgac4CAKETEVlJWcRjmG5NF3Dt6QEn0+tMvO/TNkFlGtPN8zcavVpdV3hQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=intel.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=MHG9CuFVoiL95bT/YH6cd3J31Y5mEV71zM4DNCY508o=;
- b=qIeesAWRb3gnuYnv+6hJc6csFbGuRKJtqWkf6DY5KHhSqPI3FNcFTqyqsujx0ZJBqlr47rLc6lj58KxcC/2IUNd9e++avxBVUf56WZrtSruCd07XEY8zcXstJvZuGEME0P07x747rq+JwlLuNV5SzD1MR3bneHZ4f6MS/feVy30=
-Received: from DS7P222CA0022.NAMP222.PROD.OUTLOOK.COM (2603:10b6:8:2e::25) by
- CH3PR12MB8076.namprd12.prod.outlook.com (2603:10b6:610:127::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.25.20; Fri, 15 May
- 2026 23:47:09 +0000
-Received: from DS2PEPF00003448.namprd04.prod.outlook.com
- (2603:10b6:8:2e:cafe::cb) by DS7P222CA0022.outlook.office365.com
- (2603:10b6:8:2e::25) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9913.12 via Frontend Transport; Fri,
- 15 May 2026 23:47:09 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- DS2PEPF00003448.mail.protection.outlook.com (10.167.17.75) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.25.13 via Frontend Transport; Fri, 15 May 2026 23:47:09 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.41; Fri, 15 May
- 2026 18:47:09 -0500
-Received: from satlexmb08.amd.com (10.181.42.217) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 15 May
- 2026 18:47:09 -0500
-Received: from [10.4.12.198] (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
- Transport; Fri, 15 May 2026 18:47:08 -0500
-Message-ID: <020f60b5-b2c4-494a-a16d-07a700d299f4@amd.com>
-Date: Fri, 15 May 2026 19:47:08 -0400
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com
+ [209.85.128.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9219810E0F6
+ for <amd-gfx@lists.freedesktop.org>; Sat, 16 May 2026 09:25:25 +0000 (UTC)
+Received: by mail-wm1-f42.google.com with SMTP id
+ 5b1f17b1804b1-48fde648a71so3364805e9.0
+ for <amd-gfx@lists.freedesktop.org>; Sat, 16 May 2026 02:25:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1778923523; x=1779528323; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=achqQyyIP4rnn7sCWNMLaWeFxphvcEeKGoSKkFPXgdA=;
+ b=hBlxiza4qEgMCrkBT8syjF77gc1wZkgD3D/uHoNZR4XM/yZPAqtd4i5sFqacpxwQhD
+ atku5YS5EQInc3ndpnwl7JjSyfC0/Vc/rCt5d1Jd5Crqtrv1cxKYAmQ8x30SELBpvkeY
+ 9RzFBEPyhgQ7S7tMbukfnlszrqnMa7xcop7xmulqmoO92hFS/Etp6g8/5vumwmHlTqn7
+ wQkgSsm+n2aN5cQi9WGhizieKXiLaRlqyBYRkszETy0h4ZI2kKnn6VhTPsuAYJzJx5cN
+ kT4TxwSOw4phcwjvWFdfc+PKtO5x3vflf+ZUKORGTO/2pwN7bvamjYbXVG7PYU4tktEx
+ ++VA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1778923523; x=1779528323;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=achqQyyIP4rnn7sCWNMLaWeFxphvcEeKGoSKkFPXgdA=;
+ b=b0RWQB4advL+XE82USV2EqRirv+I9BSK1uH+daWhJFzbaiHSnb/m6UKKPHn0yQb4DA
+ xzwkjL6k9Vv+G0W+zBJb8TbmFaNzTJUx8onlUyIpZ9Nbtu8d4xptlN7EMXeHond8aZtF
+ b3xZIdvtna0URt6y3L9xxPZWj18ojVAUvO3kAWPi3rf1TcTBD/sodJYDE1mTe4dmSgzJ
+ YApB0lY63Zl0HymltfLfp8vLSmuWjDN/oDOOmJ39udYYL0tv+msV8E1kN+UF3RrfIRks
+ NaGwufJkgvGsEyJeyGQ2wvZBXhwHhIa1k62hCaYB6EG3V1xc0kQCKzbpdex0PyUF+UN5
+ 5IIg==
+X-Gm-Message-State: AOJu0YxSacXEKxCAgzIDGeGhxStYLyipnI0DtftclVqgGM6Cp0IRV9uQ
+ fIo9MXcFon55OBrcL5BB6a70Nt5TjDgO5eis5A4WdWeZofYfKNMNqbbi
+X-Gm-Gg: Acq92OGvs8eeBKRNR8cNz2/F46RRoamI3HUWUWqjRwnPXMG/kbJpjwqOhzmKrRyJtYJ
+ lzi60TE2AQC2VQqfTCdWv53hVZ/lGBCy020kx9X40cSA8S/MSBv7ANHFwpc2jFV/XCimtaNDs3F
+ Uy9u1tpYSOo28+oAmrQlZiBbTHrj7uSEQXvh8KdIRaOVbqwqjkJ7wP4Mz28bvvMnilJIQ6EhZ4s
+ INQfGhzRNUINIos1d5g3nPeiEGY1094h8jo8kvc0+tS0bhtC2Qkw7vR9PDjUm+DDkMcN0j9IBUo
+ d/IXIlp4n+0xHyhzjNQtJsXrRNrpcY+DiKD/sqMWvLk1Q16gEDQhOTRlr6oXsWRKFSr6IgnVL0a
+ oA4bWwq8PXsGt4QGV8YdJ2lCanvXywrvcAhZwuXLxzDDCQqL4Oei8HYJv0cCcZY5PZpshQ8H2ZC
+ N/tpKj8Sffx/h8+Eb4OCbsSx7thtHZcOqQInKEAA==
+X-Received: by 2002:a05:600c:a30a:b0:48f:e230:29f4 with SMTP id
+ 5b1f17b1804b1-48fe53a4866mr76718055e9.15.1778923523124; 
+ Sat, 16 May 2026 02:25:23 -0700 (PDT)
+Received: from skylab.fritz.box ([2a06:4944:10fb:f400:77d:501a:25b2:e8f4])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-48febe83ba2sm32135175e9.35.2026.05.16.02.25.22
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 16 May 2026 02:25:22 -0700 (PDT)
+From: Gilles Risch <gilles.risch@gmail.com>
+To: alexander.deucher@amd.com
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ Gilles Risch <gilles.risch@gmail.com>
+Subject: [PATCH v2] drm/radeon: fix internal display on iMac11,
+ 1 (RV770/DCE3.1)
+Date: Sat, 16 May 2026 11:24:21 +0200
+Message-ID: <20260516092420.3579-2-gilles.risch@gmail.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260510185426.4264-1-gilles.risch@gmail.com>
+References: <20260510185426.4264-1-gilles.risch@gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] drm/edid: parse panel type from DisplayID 2.x Display
- Parameters block
-To: Jani Nikula <jani.nikula@intel.com>, Chenyu Chen <chen-yu.chen@amd.com>,
- <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>
-CC: Harry Wentland <harry.wentland@amd.com>, Ray Wu <Ray.Wu@amd.com>,
- Limonciello Mario <Mario.Limonciello@amd.com>
-References: <20260514065606.1151834-1-chen-yu.chen@amd.com>
- <20260514065606.1151834-2-chen-yu.chen@amd.com>
- <8e0c6356a570c55e3df54be6c2d7952dfcee2a06@intel.com>
-Content-Language: en-US
-From: Leo Li <sunpeng.li@amd.com>
-In-Reply-To: <8e0c6356a570c55e3df54be6c2d7952dfcee2a06@intel.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-Received-SPF: None (SATLEXMB04.amd.com: sunpeng.li@amd.com does not designate
- permitted sender hosts)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS2PEPF00003448:EE_|CH3PR12MB8076:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4f3d2ffc-4555-4840-496d-08deb2dc4786
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|42112799006|82310400026|36860700016|376014|3023799003|11063799003|22082099003|18002099003|56012099003|4143699003;
-X-Microsoft-Antispam-Message-Info: uADu3N/yhlX8Zdqjm2kiI7LSJbiV/AH5+h/NVYCzRF1p7upUfQS4vM8JhkX+UpiVESaR4BNFJYB7O42g/kaw+K6VKPp1sZVWZjdYgnM5Fzj7TjCc/pUbwkcXwF03audtn5HkY1MC+O9J2supdD1B8eKZUaHDNr7usJfSf3+Et9u3JavzOTbuA9H/G2+qUu2FuyhmzqQy+FNUG4RzT8HUR0iZa8FyThCQGjPUXP/RvQy+5rhNnTTVcqaS8RSpMXFNxzA5oNZhrOvGp3S+e3D3NC8pS9Hy+9fuYs1uS3SbihKHXEz3VTqbwF6bxIEOU/k+EQ4KZYBlbyrdVLwKTCPLq9DhgeeB9wBpZ/uUqowUusInd/+9DbkgcRKs+qVkb+RZyGo90yMqYegEqzzUG6asqeYZ9hr+qtxL/NJVtNxXSWq7lmasunOHmfjj+HCQfdo1b6foFv9D82PM/3TDBbhDox4UCSJJB+6Xw/s+djc4ASvt7+5B0zPO8sbJIVA5a9L8Km9gEfo4fcYDlZ0YL1YlFmdVz03BZmkb73BL8ep0f/xFap/vcIN97kihCq38G6/WmHbHiw1NCAmtY4fqdcgrPCmEjdXXovJOAo7ufU6KgV+Qzru5HATcBKCrF1mSpX5epbHTv/LfNsP59a6Mvmdgja4MiTINNXi82tx6qRByz/bGv7o0ejNc7GDLbGNKCCPo9IbLwUwxXUAsH1mepknN/U8osh6xAtksnIcX+Kjr/ag=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(42112799006)(82310400026)(36860700016)(376014)(3023799003)(11063799003)(22082099003)(18002099003)(56012099003)(4143699003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: HQuppyKh1YI+9da/wClSuUqWmFHu7QSaguotYsNlGE/F7jZ9uwjgTj5pOFTPmIVbHlJoKwGK01+z7kUf0skgXJ6uiDlKtIiFpxn8PkTws5JR8vxPcL3+u+UKkVP1h/tqjPDrR9WMqaHlFWBopeM5V1IaLXyKMFhkR2VFA+t2wOtpB3M7B4+UoDSmqSweGxg0jqOxV4LhKtImDX+BmtkJy2X3KgWsgAcVfdZRkbhPBPxkEhKUCrnvIs2xJuWFdopU/8vKZ35A6WgmkP+ukYp5XHYgTxK3UUBt1wT9lFycJpU0n2nsgeLVqNpj/WXgA19vDJqa3wlIu+bKDZAF0i/9OELLjfPgLpI3DYGlZcNsEaUc9SL6pLNI9vEftnzSPFo/S2C2BSM8qYgeeI02Zbhr5Vhf/1RvAfeE/0SfpCkVTKbHOI7c8oKodCPM/haP1Oh3
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 May 2026 23:47:09.5270 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4f3d2ffc-4555-4840-496d-08deb2dc4786
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DS2PEPF00003448.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8076
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -122,196 +87,97 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+The Apple iMac11,1 (late 2009) has an integrated ATI Mobility Radeon
+HD 4850 (RV770/M98L) with a 2560x1440 internal panel connected via an
+internal DisplayPort path. This machine suffers from a similar problem
+as the iMac10,1 (late 2009) and the iMac11,2 (mid 2010). Without this
+fix the display stays dark under KMS. Two issues are addressed:
 
+1. The RV770 implements DCE3.1 and not DCE3.2. ASIC_IS_DCE32() starts at
+   CHIP_RV730 which is newer than RV770, so the RV770 never matched the
+   DCE3.2 PLL and encoder logic. Introduce ASIC_IS_DCE31() starting at
+   CHIP_RV770 to fix this.
 
-On 2026-05-15 04:23, Jani Nikula wrote:
-> On Thu, 14 May 2026, Chenyu Chen <chen-yu.chen@amd.com> wrote:
->> Parse the Display Parameters Data Block (tag 0x21) defined in
->> DisplayID v2.1a Section 4.2.6. Extract the Display Device Technology
->> field from payload byte 27, bits [6:4], which indicates whether the
->> panel is LCD (001b) or OLED (010b).
->>
->> Store the result in drm_display_info.did_panel_type so that downstream
->> drivers can use it for panel-type-dependent behavior.
->>
->> Assisted-by: Copilot:Claude-Opus-4.6
->> Signed-off-by: Chenyu Chen <chen-yu.chen@amd.com>
->> Reviewed-by: Mario Limonciello <mario.limonciello@amd.com>
->> ---
->>  drivers/gpu/drm/drm_displayid_internal.h | 25 ++++++++++
->>  drivers/gpu/drm/drm_edid.c               | 61 +++++++++++++++++++-----
->>  include/drm/drm_connector.h              |  6 +++
->>  include/uapi/drm/drm_mode.h              |  1 +
->>  4 files changed, 82 insertions(+), 11 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/drm_displayid_internal.h b/drivers/gpu/drm/drm_displayid_internal.h
->> index 5b1b32f73516..e0f7c54d2987 100644
->> --- a/drivers/gpu/drm/drm_displayid_internal.h
->> +++ b/drivers/gpu/drm/drm_displayid_internal.h
->> @@ -142,6 +142,31 @@ struct displayid_formula_timing_block {
->>  	struct displayid_formula_timings_9 timings[];
->>  } __packed;
->>  
->> +/*
->> + * DisplayID v2.x Display Parameters Data Block (tag 0x21).
->> + *
->> + * Per VESA DisplayID v2.1a, Section 4.2.6, Table 4-14:
->> + * Offset 0x1E (payload byte 27) contains Native Color Depth and
->> + * Display Device Technology fields.
->> + *   bits [2:0] = Native Color Depth
->> + *   bit  [3]   = RESERVED
->> + *   bits [6:4] = Display Device Technology
->> + *     000b = not specified, 001b = LCD, 010b = OLED, others reserved
->> + *   bit  [7]   = Display Device Theme Preference
->> + */
->> +#define DISPLAYID_DISPLAY_PARAMS_DEVICE_TECH	GENMASK(6, 4)
->> +
->> +struct displayid_display_params_block {
->> +	struct displayid_block base;
->> +	u8 payload[27];
->> +	u8 device_tech_byte; /* bits [6:4] = Display Device Technology */
->> +	u8 reserved;
->> +} __packed;
->> +
->> +#define DISPLAYID_DISPLAY_PARAMS_MIN_LEN	\
->> +	(sizeof(struct displayid_display_params_block) -	\
->> +	 sizeof(struct displayid_block))
->> +
->>  #define DISPLAYID_VESA_MSO_OVERLAP	GENMASK(3, 0)
->>  #define DISPLAYID_VESA_MSO_MODE		GENMASK(6, 5)
->>  
->> diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
->> index 8031f021d4d0..9b160a878df4 100644
->> --- a/drivers/gpu/drm/drm_edid.c
->> +++ b/drivers/gpu/drm/drm_edid.c
->> @@ -6713,6 +6713,8 @@ static void drm_reset_display_info(struct drm_connector *connector)
->>  
->>  	info->source_physical_address = CEC_PHYS_ADDR_INVALID;
->>  	memset(&info->amd_vsdb, 0, sizeof(info->amd_vsdb));
->> +
->> +	info->did_panel_type = DRM_MODE_PANEL_TYPE_UNKNOWN;
->>  }
->>  
->>  static void update_displayid_info(struct drm_connector *connector,
->> @@ -6721,24 +6723,61 @@ static void update_displayid_info(struct drm_connector *connector,
->>  	struct drm_display_info *info = &connector->display_info;
->>  	const struct displayid_block *block;
->>  	struct displayid_iter iter;
->> +	const u8 *section = NULL;
->>  
->>  	displayid_iter_edid_begin(drm_edid, &iter);
->>  	displayid_iter_for_each(block, &iter) {
->> +		if (section != iter.section) {
->> +			drm_dbg_kms(connector->dev,
->> +				    "[CONNECTOR:%d:%s] DisplayID extension version 0x%02x, primary use 0x%02x\n",
->> +				    connector->base.id, connector->name,
->> +				    displayid_version(&iter),
->> +				    displayid_primary_use(&iter));
->> +			if (displayid_version(&iter) == DISPLAY_ID_STRUCTURE_VER_20 &&
->> +			    (displayid_primary_use(&iter) == PRIMARY_USE_HEAD_MOUNTED_VR ||
->> +			     displayid_primary_use(&iter) == PRIMARY_USE_HEAD_MOUNTED_AR))
->> +				info->non_desktop = true;
->> +			section = iter.section;
->> +		}
-> 
-> What is this even supposed to do?
-> 
+2. Apple routed the internal display through Link B of the DIG encoder
+   instead of Link A, as observed in the kernel display connector log.
+   The same quirk already exists for iMac10,1 and iMac11,2 - iMac11,1
+   was simply missing from the list.
 
-I think the intention is to log and process the DisplayID base section header only once instead on every
-iteration. Maybe a `bool header_processed` works better?
+Note: resume from suspend still results in a dark screen as the DP
+re-driver chips on the mainboard lose their state during power-off.
+This will be addressed in a follow-up patch.
 
-- Leo
+Fixes freedesktop issue 164
+Link: https://gitlab.freedesktop.org/xorg/driver/xf86-video-ati/-/issues/164
 
->> +
->>  		drm_dbg_kms(connector->dev,
->> -			    "[CONNECTOR:%d:%s] DisplayID extension version 0x%02x, primary use 0x%02x\n",
->> +			    "[CONNECTOR:%d:%s] DisplayID block tag 0x%02x, rev 0x%02x, size %u\n",
->>  			    connector->base.id, connector->name,
->> -			    displayid_version(&iter),
->> -			    displayid_primary_use(&iter));
->> +			    block->tag, block->rev, block->num_bytes);
->> +
->>  		if (displayid_version(&iter) == DISPLAY_ID_STRUCTURE_VER_20 &&
->> -		    (displayid_primary_use(&iter) == PRIMARY_USE_HEAD_MOUNTED_VR ||
->> -		     displayid_primary_use(&iter) == PRIMARY_USE_HEAD_MOUNTED_AR))
->> -			info->non_desktop = true;
->> +		    block->tag == DATA_BLOCK_2_DISPLAY_PARAMETERS) {
->> +			const struct displayid_display_params_block *params =
->> +				(const struct displayid_display_params_block *)block;
->> +			u8 tech;
->> +
->> +			if (block->num_bytes < DISPLAYID_DISPLAY_PARAMS_MIN_LEN) {
->> +				drm_dbg_kms(connector->dev,
->> +					    "[CONNECTOR:%d:%s] DisplayID Display Parameters block too short (%u < %zu)\n",
->> +					    connector->base.id, connector->name,
->> +					    block->num_bytes,
->> +					    DISPLAYID_DISPLAY_PARAMS_MIN_LEN);
->> +				continue;
->> +			}
->>  
->> -		/*
->> -		 * We're only interested in the base section here, no need to
->> -		 * iterate further.
->> -		 */
->> -		break;
->> +			tech = FIELD_GET(DISPLAYID_DISPLAY_PARAMS_DEVICE_TECH,
->> +					 params->device_tech_byte);
->> +
->> +			drm_dbg_kms(connector->dev,
->> +				    "[CONNECTOR:%d:%s] DisplayID Display Parameters: device technology %u\n",
->> +				    connector->base.id, connector->name, tech);
->> +
->> +			switch (tech) {
->> +			case 1: /* LCD */
->> +				info->did_panel_type = DRM_MODE_PANEL_TYPE_LCD;
->> +				break;
->> +			case 2: /* OLED */
->> +				info->did_panel_type = DRM_MODE_PANEL_TYPE_OLED;
->> +				break;
->> +			default:
->> +				break;
->> +			}
->> +		}
-> 
-> Please tell copilot to not add so much crap in the iterator block. Add
-> functions. Add the first function as a refactor for non_desktop, add
-> more stuff on top, i.e. split this into multiple patches.
-> 
-> BR,
-> Jani.
-> 
-> 
->>  	}
->>  	displayid_iter_end(&iter);
->>  }
->> diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
->> index c398dbc68bbc..b95aec34ddb7 100644
->> --- a/include/drm/drm_connector.h
->> +++ b/include/drm/drm_connector.h
->> @@ -899,6 +899,12 @@ struct drm_display_info {
->>  	 * @amd_vsdb: AMD-specific VSDB information.
->>  	 */
->>  	struct drm_amd_vsdb_info amd_vsdb;
->> +
->> +	/**
->> +	 * @did_panel_type: Panel type from DisplayID Display Parameters
->> +	 * Data Block (tag 0x21). Uses DRM_MODE_PANEL_TYPE_* constants.
->> +	 */
->> +	u8 did_panel_type;
->>  };
->>  
->>  int drm_display_info_set_bus_formats(struct drm_display_info *info,
->> diff --git a/include/uapi/drm/drm_mode.h b/include/uapi/drm/drm_mode.h
->> index 3693d82b5279..d7ca1040b92e 100644
->> --- a/include/uapi/drm/drm_mode.h
->> +++ b/include/uapi/drm/drm_mode.h
->> @@ -169,6 +169,7 @@ extern "C" {
->>  /* Panel type property */
->>  #define DRM_MODE_PANEL_TYPE_UNKNOWN	0
->>  #define DRM_MODE_PANEL_TYPE_OLED	1
->> +#define DRM_MODE_PANEL_TYPE_LCD		2
->>  
->>  /*
->>   * DRM_MODE_ROTATE_<degrees>
-> 
+Signed-off-by: Gilles Risch <gilles.risch@gmail.com>
+---
+v2: No code changes. Fixed commit message:
+    - Added drm/radeon: prefix to subject line
+    - Added empty line between subject and body
+    - Added technical description of the changes
+
+ drivers/gpu/drm/radeon/atombios_crtc.c     | 4 ++--
+ drivers/gpu/drm/radeon/atombios_encoders.c | 9 +++++----
+ drivers/gpu/drm/radeon/radeon.h            | 1 +
+ 3 files changed, 8 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/gpu/drm/radeon/atombios_crtc.c b/drivers/gpu/drm/radeon/atombios_crtc.c
+index 2fc0334e0d6c..3c6d332739e3 100644
+--- a/drivers/gpu/drm/radeon/atombios_crtc.c
++++ b/drivers/gpu/drm/radeon/atombios_crtc.c
+@@ -580,7 +580,7 @@ static u32 atombios_adjust_pll(struct drm_crtc *crtc,
+ 			radeon_crtc->pll_flags |= (/*RADEON_PLL_USE_FRAC_FB_DIV |*/
+ 				RADEON_PLL_PREFER_CLOSEST_LOWER);
+ 
+-		if (ASIC_IS_DCE32(rdev) && mode->clock > 200000)	/* range limits??? */
++		if (ASIC_IS_DCE31(rdev) && mode->clock > 200000)	/* range limits??? */
+ 			radeon_crtc->pll_flags |= RADEON_PLL_PREFER_HIGH_FB_DIV;
+ 		else
+ 			radeon_crtc->pll_flags |= RADEON_PLL_PREFER_LOW_REF_DIV;
+@@ -594,7 +594,7 @@ static u32 atombios_adjust_pll(struct drm_crtc *crtc,
+ 		if (((rdev->family == CHIP_RS780) || (rdev->family == CHIP_RS880))
+ 		    && !radeon_crtc->ss_enabled)
+ 			radeon_crtc->pll_flags |= RADEON_PLL_USE_FRAC_FB_DIV;
+-		if (ASIC_IS_DCE32(rdev) && mode->clock > 165000)
++		if (ASIC_IS_DCE31(rdev) && mode->clock > 165000)
+ 			radeon_crtc->pll_flags |= RADEON_PLL_USE_FRAC_FB_DIV;
+ 	} else {
+ 		radeon_crtc->pll_flags |= RADEON_PLL_LEGACY;
+diff --git a/drivers/gpu/drm/radeon/atombios_encoders.c b/drivers/gpu/drm/radeon/atombios_encoders.c
+index 5cfd8fcfa5e8..4e984973c043 100644
+--- a/drivers/gpu/drm/radeon/atombios_encoders.c
++++ b/drivers/gpu/drm/radeon/atombios_encoders.c
+@@ -2123,12 +2123,13 @@ int radeon_atom_pick_dig_encoder(struct drm_encoder *encoder, int fe_idx)
+ 	}
+ 
+ 	/*
+-	 * On DCE32 any encoder can drive any block so usually just use crtc id,
+-	 * but Apple thinks different at least on iMac10,1 and iMac11,2, so there use linkb,
+-	 * otherwise the internal eDP panel will stay dark.
++	 * On DCE31 and DCE32 any encoder can drive any block so usually just use crtc id,
++	 * but Apple thinks different at least on iMac10,1, iMac11,1 and iMac11,2,
++	 * so there use linkb, otherwise the internal eDP panel will stay dark.
+ 	 */
+-	if (ASIC_IS_DCE32(rdev)) {
++	if (ASIC_IS_DCE31(rdev)) {
+ 		if (dmi_match(DMI_PRODUCT_NAME, "iMac10,1") ||
++		    dmi_match(DMI_PRODUCT_NAME, "iMac11,1") ||
+ 		    dmi_match(DMI_PRODUCT_NAME, "iMac11,2"))
+ 			enc_idx = (dig->linkb) ? 1 : 0;
+ 		else
+diff --git a/drivers/gpu/drm/radeon/radeon.h b/drivers/gpu/drm/radeon/radeon.h
+index 527b9d19d730..6b7c0abe49fb 100644
+--- a/drivers/gpu/drm/radeon/radeon.h
++++ b/drivers/gpu/drm/radeon/radeon.h
+@@ -2625,6 +2625,7 @@ void r100_pll_errata_after_index(struct radeon_device *rdev);
+ 			    (rdev->family == CHIP_RS740)  ||	\
+ 			    (rdev->family >= CHIP_R600))
+ #define ASIC_IS_DCE3(rdev) ((rdev->family >= CHIP_RV620))
++#define ASIC_IS_DCE31(rdev) ((rdev->family >= CHIP_RV770))
+ #define ASIC_IS_DCE32(rdev) ((rdev->family >= CHIP_RV730))
+ #define ASIC_IS_DCE4(rdev) ((rdev->family >= CHIP_CEDAR))
+ #define ASIC_IS_DCE41(rdev) ((rdev->family >= CHIP_PALM) && \
+-- 
+2.47.3
 
