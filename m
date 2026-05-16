@@ -4,50 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 227EACD4F58
-	for <amd-gfx@archiver.kernel.org>; Mon, 18 May 2026 09:33:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0C6FECD4F55
+	for <amd-gfx@archiver.kernel.org>; Mon, 18 May 2026 09:33:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 940ED10E75E;
-	Mon, 18 May 2026 09:33:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8BAA810E081;
+	Mon, 18 May 2026 09:33:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=infradead.org header.i=@infradead.org header.b="4ELVILYo";
+	dkim=pass (2048-bit key; unprotected) header.d=icloud.com header.i=@icloud.com header.b="ZrEe2af6";
 	dkim-atps=neutral
-Received: from bombadil.infradead.org (bombadil.infradead.org
- [198.137.202.133])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6DA3D10E248;
- Sun, 17 May 2026 16:35:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
- Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
- Message-ID:Sender:Reply-To:Content-ID:Content-Description;
- bh=do72l8TBC+8Jj9AHwbmpNhWmI6qpXHRcwH0HVceqiQo=; b=4ELVILYolYp0dDoclVtxjrfzkh
- y2JUBaVKoaZYEVtU36+OkI7tKqClQn4ulgJXL4ktpUYIbCXpl9IW0LHJJQdBrkMpstxRI+zdtU1X6
- uxRNR4o7ojvxY207YOSWtAtnga1cecOBw0CT2/86aBM8Zi6DTyG0QTe9kcpmec8F63dRX/QkXN5/C
- V+1QJNa6erJI/CMMX51LevHoVweaRCEllmt9SVZcbE5lRAxBJBX5cjnm4C3TgDXOKSIMr5fr6tt5e
- 3QmDRkhCdpToyPh3sHhgTLy7NlFM55AUPv456ueGgcUeCREyxsy182VDEjoR6HpuK/8YDFlLSVz20
- XknKmy/Q==;
-Received: from [50.53.43.113] (helo=[192.168.254.34])
- by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
- id 1wOeSk-0000000D28F-3YTd; Sun, 17 May 2026 16:35:34 +0000
-Message-ID: <9cee25bf-c2ec-4e1c-9c21-bfe043dc6720@infradead.org>
-Date: Sun, 17 May 2026 09:35:34 -0700
+X-Greylist: delayed 46328 seconds by postgrey-1.36 at gabe;
+ Sat, 16 May 2026 23:13:58 UTC
+Received: from outbound.mr.icloud.com (mr-2002l-snip4-2.eps.apple.com
+ [57.103.68.215])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8C55710E1E3
+ for <amd-gfx@lists.freedesktop.org>; Sat, 16 May 2026 23:13:58 +0000 (UTC)
+Received: from outbound.mr.icloud.com (unknown [127.0.0.2])
+ by p00-icloudmta-asmtp-us-west-2a-60-percent-5 (Postfix) with ESMTPS id
+ 1EE231800133; Sat, 16 May 2026 23:13:54 +0000 (UTC)
+X-ICL-Out-Info: HUtFAUMEWwJACUgATUQeDx5WFlZNRAJCTQhKBUMDRQBBCFYBWANLVxQEG1sIUhhXE1gTVl8OXQIwUBtfAkIPHBNWFRMLU1ZRGFwdQAhUClkVC0EFXXcCURxWDVdDVARfUEsbDlwES1oVVRcOAkIfUB9MFldDWhkcGVoUXBhTRVEfVFhDGUVWaUELTx1dGVscQmRYVwkKAlEcVg1XQ1QEX1BUEVdQCwoAFlpAClRVRgJEDEkeWQNYBF1YTldfGlJTFAAaCw4FXQZAXDhaDlsERxQXG1wACUtGCUkdDgRUB10FXQ==
+Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=icloud.com; s=1a1hai;
+ t=1778973238; x=1781565238; bh=2B8kh88BmMcREPsTrqppXb4O6KSA0MQb13JMTQ3AyrA=;
+ h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type:x-icloud-hme;
+ b=ZrEe2af6nbuQLUs+52pG0Ub0MTF8KtiuYVacoOn6dz74pLF+6/Pl4gQ/MhNLkWHOL10lbfP5CRrbRLsR2qJp6nu9drE+xzNdYKEA4omdExVP7gHB6FJB2XU0gGIOdvKGERWr592TYXSJ9SATX/SJvvBE8fsKEz0KlcpPyfPzSOCNL3pkV3pJBbDy+SLb9qgv5YYrH7SWZLLPRntrGad2Kd1VrJ3f8g6UgF98Xz3Vjm8gkluC1b9DSh1YA3/IZnApksUo+PEBkMqNDz3Ypu7BkjT9PrKIEowCFRp3/2pdUe9C5UC/Xn6s6GR2zLvJ5mS5zrL29HrzXRYeDAhP/WYkbA==
+Received: from [192.168.1.34] (unknown [17.57.152.38])
+ by p00-icloudmta-asmtp-us-west-2a-60-percent-5 (Postfix) with ESMTPSA id
+ B13AC1800134; Sat, 16 May 2026 23:13:51 +0000 (UTC)
+Message-ID: <a2fc899b-0451-4436-a6d2-9ad9b8c2640e@icloud.com>
+Date: Sun, 17 May 2026 08:13:46 +0900
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] docs: gpu: fix spelling errors and remove duplicate
- sentence
-To: Elliot Tester <elliotctester1@gmail.com>, alexander.deucher@amd.com,
- christian.koenig@amd.com, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch,
- corbet@lwn.net
-Cc: skhan@linuxfoundation.org, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260517134122.38389-1-elliotctester1@gmail.com>
+Subject: Re: [PATCH] docs: fix typo in mpo-overview.rst
+To: Jonathan Corbet <corbet@lwn.net>, Alex Deucher
+ <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=C3=B6nig?=
+ <christian.koenig@amd.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Shuah Khan <skhan@linuxfoundation.org>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260516100406.21070-1-cheesecake2960@icloud.com>
+ <87se7rmont.fsf@trenco.lwn.net>
 Content-Language: en-US
-From: Randy Dunlap <rdunlap@infradead.org>
-In-Reply-To: <20260517134122.38389-1-elliotctester1@gmail.com>
-Content-Type: text/plain; charset=UTF-8
+From: Cheesecake <cheesecake2960@icloud.com>
+In-Reply-To: <87se7rmont.fsf@trenco.lwn.net>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTE2MDIzNyBTYWx0ZWRfX9afkiO/+L68K
+ 3sxyBWtZdDUI1yDvHkh0b4UTlPgwsu3RwLa8Mo3ujYiTphvnV/uUmoBYx1JP3i46lv0BV0UHJHF
+ OLxJeYT3im3fTXJzdbZNyKzNv6D0tFSpdJUYqZysp3xOX4Wfb+wh02QbDzaE7TEPBX6OkkwAXKS
+ fzVl02OvH/xfwgCQ7DJdhq8BCZmJgPh+DhGBaIrHoZnDVXERXTjI3RWbc9FvKFnyv0DJEJtYqAZ
+ nGhVlDYV0DwdjhFJ6stHN5JDZz6vrXufPbhatQnBBl9r6PT8S0RoDOLqh4RomCamLMWx6wUiyPA
+ t0KpAcfFhJ4BaypM5VZktEloHnBOHMvYP3xs3jAAuaXVic5FwnyfBj2S4TVMvQ=
+X-Authority-Info-Out: v=2.4 cv=BquQAIX5 c=1 sm=1 tr=0 ts=6a08fa34
+ cx=c_apl:c_pps:t_out a=9OgfyREA4BUYbbCgc0Y0oA==:117
+ a=9OgfyREA4BUYbbCgc0Y0oA==:17 a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10
+ a=x7bEGLp0ZPQA:10 a=sIGCgqHK338A:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=v3ZZPjhaAAAA:8 a=U4lEO9gh2w5_OOAwJnoA:9 a=QEXdDO2ut3YA:10 a=UzISIztuOb4A:10
+ a=zY0JdQc1-4EAyPf5TuXT:22
+X-Proofpoint-GUID: FockY6_NoY58eSZNn8CMSw7qhlzHuBrL
+X-Proofpoint-ORIG-GUID: FockY6_NoY58eSZNn8CMSw7qhlzHuBrL
 X-Mailman-Approved-At: Mon, 18 May 2026 09:33:27 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -63,145 +79,24 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+On 2026/05/16 23:09, Jonathan Corbet wrote:
+
+> Cheesecake <cheesecake2960@icloud.com> writes:
+>
+>> Replace "transparant" with "transparent"
+>>
+>> Signed-off-by: Cheesecake <cheesecake2960@icloud.com>
+> Patches need a proper signoff with a real name, please.
+>
+> Thanks,
+>
+> jo
 
 
-On 5/17/26 6:41 AM, Elliot Tester wrote:
-> Fix various spelling errors in GPU docs:
-> - indicies -> indices (userq.rst)
-> - umap -> unmap (userq.rst)
-> - pre-empt -> preempt (drm-compute.rst)
-> - buffer-leaks -> buffer leaks (drm-uapi.rst)
-> - Additionally to -> In addition to (drm-uapi.rst)
-> - unpriviledged -> unprivileged (drm-uapi.rst)
-> - fucntions -> functions (todo.rst)
-> - varios -> various (todo.rst)
-> - implementions -> implementations (todo.rst)
-> - complection -> completion (todo.rst)
-> 
-> Ale remove a duplicated sentance and stray "uff." in the todo.rst, add
-> missing period after drm_ioctl.c reference, and add missing newline at
-> end of drm-uapi.rst. Fixing this would make reading the docs just a
-> little bit easier.
-> 
-> Signed-off-by: Elliot Tester <elliotctester1@gmail.com>
+Thanks for pointing that out.
 
-LGTM. Thanks.
-Acked-by: Randy Dunlap <rdunlap@infradead.org>
+I accidentally sent this patch using an anonymous address/name.
+I'll resend it properly later.
 
-> ---
->  Documentation/gpu/amdgpu/userq.rst |  4 ++--
->  Documentation/gpu/drm-compute.rst  |  2 +-
->  Documentation/gpu/drm-uapi.rst     | 10 +++++-----
->  Documentation/gpu/todo.rst         | 11 +++++------
->  4 files changed, 13 insertions(+), 14 deletions(-)
-> 
-> diff --git a/Documentation/gpu/amdgpu/userq.rst b/Documentation/gpu/amdgpu/userq.rst
-> index 88f54393b..94427e18a 100644
-> --- a/Documentation/gpu/amdgpu/userq.rst
-> +++ b/Documentation/gpu/amdgpu/userq.rst
-> @@ -156,9 +156,9 @@ IOCTL Interfaces
->  GPU virtual addresses used for queues and related data (rptrs, wptrs, context
->  save areas, etc.) should be validated by the kernel mode driver to prevent the
->  user from specifying invalid GPU virtual addresses.  If the user provides
-> -invalid GPU virtual addresses or doorbell indicies, the IOCTL should return an
-> +invalid GPU virtual addresses or doorbell indices, the IOCTL should return an
->  error message.  These buffers should also be tracked in the kernel driver so
-> -that if the user attempts to unmap the buffer(s) from the GPUVM, the umap call
-> +that if the user attempts to unmap the buffer(s) from the GPUVM, the unmap call
->  would return an error.
->  
->  INFO
-> diff --git a/Documentation/gpu/drm-compute.rst b/Documentation/gpu/drm-compute.rst
-> index f90c3e63a..35cc8d654 100644
-> --- a/Documentation/gpu/drm-compute.rst
-> +++ b/Documentation/gpu/drm-compute.rst
-> @@ -7,7 +7,7 @@ seconds. (The time let the user wait before he reaches for the power button).
->  This means that other techniques need to be used to manage those workloads,
->  that cannot use fences.
->  
-> -Some hardware may schedule compute jobs, and have no way to pre-empt them, or
-> +Some hardware may schedule compute jobs, and have no way to preempt them, or
->  have their memory swapped out from them. Or they simply want their workload
->  not to be preempted or swapped out at all.
->  
-> diff --git a/Documentation/gpu/drm-uapi.rst b/Documentation/gpu/drm-uapi.rst
-> index 579e87cb9..0ef498bff 100644
-> --- a/Documentation/gpu/drm-uapi.rst
-> +++ b/Documentation/gpu/drm-uapi.rst
-> @@ -150,10 +150,10 @@ separate render node called renderD<num>. There will be one render node
->  per device. No ioctls except PRIME-related ioctls will be allowed on
->  this node. Especially GEM_OPEN will be explicitly prohibited. For a
->  complete list of driver-independent ioctls that can be used on render
-> -nodes, see the ioctls marked DRM_RENDER_ALLOW in drm_ioctl.c  Render
-> -nodes are designed to avoid the buffer-leaks, which occur if clients
-> +nodes, see the ioctls marked DRM_RENDER_ALLOW in drm_ioctl.c.  Render
-> +nodes are designed to avoid the buffer leaks, which occur if clients
->  guess the flink names or mmap offsets on the legacy interface.
-> -Additionally to this basic interface, drivers must mark their
-> +In addition to this basic interface, drivers must mark their
->  driver-dependent render-only ioctls as DRM_RENDER_ALLOW so render
->  clients can use them. Driver authors must be careful not to allow any
->  privileged ioctls on render nodes.
-> @@ -568,7 +568,7 @@ ENOSPC:
->  EPERM/EACCES:
->          Returned for an operation that is valid, but needs more privileges.
->          E.g. root-only or much more common, DRM master-only operations return
-> -        this when called by unpriviledged clients. There's no clear
-> +        this when called by unprivileged clients. There's no clear
->          difference between EACCES and EPERM.
->  
->  ENODEV:
-> @@ -761,4 +761,4 @@ Stable uAPI events
->  From ``drivers/gpu/drm/scheduler/gpu_scheduler_trace.h``
->  
->  .. kernel-doc::  drivers/gpu/drm/scheduler/gpu_scheduler_trace.h
-> -   :doc: uAPI trace events
-> \ No newline at end of file
-> +   :doc: uAPI trace events
-> diff --git a/Documentation/gpu/todo.rst b/Documentation/gpu/todo.rst
-> index bc9f14c8a..b13cd4347 100644
-> --- a/Documentation/gpu/todo.rst
-> +++ b/Documentation/gpu/todo.rst
-> @@ -55,7 +55,7 @@ There are still drivers that use drm_simple_display_pipe. The task here is to
->  convert them to use regular atomic helpers. Search for a driver that calls
->  drm_simple_display_pipe_init() and inline all helpers from drm_simple_kms_helper.c
->  into the driver, such that no simple-KMS interfaces are required. Please also
-> -rename all inlined fucntions according to driver conventions.
-> +rename all inlined functions according to driver conventions.
->  
->  Contact: Thomas Zimmermann, respective driver maintainer
->  
-> @@ -301,7 +301,7 @@ Various hold-ups:
->    valid formats for atomic drivers.
->  
->  - Many drivers subclass drm_framebuffer, we'd need a embedding compatible
-> -  version of the varios drm_gem_fb_create functions. Maybe called
-> +  version of the various drm_gem_fb_create functions. Maybe called
->    drm_gem_fb_create/_with_dirty/_with_funcs as needed.
->  
->  Contact: Simona Vetter
-> @@ -326,10 +326,9 @@ everything after it has done the write-protect/mkwrite trickery:
->  
->        vma->vm_page_prot = pgprot_wrprotect(vma->vm_page_prot);
->  
-> -- Set the mkwrite and fsync callbacks with similar implementions to the core
-> +- Set the mkwrite and fsync callbacks with similar implementations to the core
->    fbdev defio stuff. These should all work on plain ptes, they don't actually
-> -  require a struct page.  uff. These should all work on plain ptes, they don't
-> -  actually require a struct page.
-> +  require a struct page.
->  
->  - Track the dirty pages in a separate structure (bitfield with one bit per page
->    should work) to avoid clobbering struct page.
-> @@ -914,7 +913,7 @@ Querying errors from drm_syncobj
->  ================================
->  
->  The drm_syncobj container can be used by driver independent code to signal
-> -complection of submission.
-> +completion of submission.
->  
->  One minor feature still missing is a generic DRM IOCTL to query the error
->  status of binary and timeline drm_syncobj.
+Thank you for your time.
 
--- 
-~Randy
