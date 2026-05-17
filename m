@@ -4,62 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B5DC6CD4F57
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4C6EECD4F56
 	for <amd-gfx@archiver.kernel.org>; Mon, 18 May 2026 09:33:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 29E0B10E763;
-	Mon, 18 May 2026 09:33:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E048810E762;
+	Mon, 18 May 2026 09:33:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=icloud.com header.i=@icloud.com header.b="zzfi9vHz";
+	dkim=pass (2048-bit key; unprotected) header.d=icloud.com header.i=@icloud.com header.b="SxhRbiF0";
 	dkim-atps=neutral
-X-Greylist: delayed 600 seconds by postgrey-1.36 at gabe;
- Sun, 17 May 2026 07:59:32 UTC
-Received: from outbound.pv.icloud.com (pv-2006f-snip4-3.eps.apple.com
- [57.103.67.76])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 27F2810E1B6
- for <amd-gfx@lists.freedesktop.org>; Sun, 17 May 2026 07:59:32 +0000 (UTC)
-Received: from outbound.pv.icloud.com (unknown [127.0.0.2])
- by p00-icloudmta-asmtp-us-west-1a-100-percent-0 (Postfix) with ESMTPS id
- D7272180010D; Sun, 17 May 2026 07:40:37 +0000 (UTC)
-X-ICL-Out-Info: HUtFAUMEWwJACUgBTUQeDx5WFlZNRAJCTQhKBUMDRQBBCFYBWANLVxQEC0AFBlgARnkRUAFYHlZeWhdeTVEPDwNKEAJeBV1yGVoUXBhTRVEfVFhBDgpaBlBRHV8CCgRHBFsXRgNTRUIGFxFQAVgeVl5aF15NRx9ATWJJAVoZWxxAF0puTVMPDxlaFFwYU0VRH1RYXgRTVg5CCUoFXQJaBUAOTANfB0UHRgpLHlwaGEEYCEsBW3cCURxWDVdDVARfThkMSh1SVlsTVRdGCQ==
+X-Greylist: delayed 397 seconds by postgrey-1.36 at gabe;
+ Sun, 17 May 2026 03:05:57 UTC
+Received: from outbound.mr.icloud.com (mr-2001l-snip4-11.eps.apple.com
+ [57.103.68.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 58EBB10E232
+ for <amd-gfx@lists.freedesktop.org>; Sun, 17 May 2026 03:05:57 +0000 (UTC)
+Received: from outbound.mr.icloud.com (unknown [127.0.0.2])
+ by p00-icloudmta-asmtp-us-west-2a-10-percent-0 (Postfix) with ESMTPS id
+ 62D1A1800151; Sun, 17 May 2026 02:59:18 +0000 (UTC)
+X-ICL-Out-Info: HUtFAUMEWwJACUgBTUQeDx5WFlZNRAJCTQhKBUMDRQBBCFYBWANLVxQEC0AFBlgARnkRUAFYHlZeWhdeTVEPDwNKEAJeBV1yGVoUXBhTRVEfVFhBDgpaBlBRHV8CCgRHBFsXRgNTRV8CFxFQAVgeVl5aF15NRx9ATWJJAVoZWxxAF0puTVMPDxlaFFwYU0VRH1RYXgRTVg5CCUoFXQJaBUALTQteAEUDQQtBAEAGRkEDUUkAXwErWxNVF0YJGQhdHQdYRxRHDg8ZWhRcGFM=
 Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=icloud.com; s=1a1hai;
- t=1779003639; x=1781595639; bh=aNvb29xy+lV9pE+SL5VbNJWu0la3P/7Ev+VY2zxukOE=;
+ t=1778986760; x=1781578760; bh=lbmFNnPw4b27+6TTwJDsAGRBV+m0IoJWa8wcjEhbmjo=;
  h=From:To:Subject:Date:Message-ID:MIME-Version:x-icloud-hme;
- b=zzfi9vHzak2GMtTVMp2F0bk8evPbPRHSLgTTiSJITBLBBnf3S+vlIQz69aH0pjemLPGsSAoyv2bbq0rmdPPSkdHfLKF2eTUcjfxHuVEAjYEChsql6U8lYafDhHxv/2FBSEVofRcpXsR2NYcShn3JfpblAycuPPL+pgvm3gCG73vn2kOyZabm4QC7zsrfbU2pl9Y/mM3o6PQxZWH7iI69VO28D1G5c7od+2Q7JzYmD+OsTvO0ccmyrsnlyFzYJiT7zkp3RHslnr7HXE7nKynfn2sMdMznJqyvNMSgGze/Ufmzez4ObOekVWRIaax1MfHNY8/SPZiYZX4GbInxseojyg==
+ b=SxhRbiF0dcPzya1TBtjtNklY/whmYf3INvykbekPFcqu9v9ZZXIhyZd7GfMIpxlaSYChaa9NRdDnpjOaeerFcEkl75bFrY94OcDDvTZ/O8rvfGw8fuQOiZHDqVSuXbmy0MX4Mw0WyBSCgaPnWt+uaZK0b8AiB/QDjxhGx7w3Ra1wa/GhjBmRGiQ1zrMpnv78xhQydqUDghIEa+FqEBKDJJ8dDx1HoJf3qs9/0pDoooxUgAnWsyUcV1MPkJ70bmjWCj9pkgKF5XPDAMX5SogUWDmMaoT/GbjBKwDSX05TAaT/T7JJBDDyKOeQjoB73USC6AEGD7PjO0HWaUPJ3BAHjg==
 mail-alias-created-date: 1778972301885
-Received: from localhost.localdomain (unknown [17.56.9.36])
- by p00-icloudmta-asmtp-us-west-1a-100-percent-0 (Postfix) with ESMTPSA id
- 24A90180012E; Sun, 17 May 2026 07:40:33 +0000 (UTC)
+Received: from localhost.localdomain (unknown [17.57.152.38])
+ by p00-icloudmta-asmtp-us-west-2a-10-percent-0 (Postfix) with ESMTPSA id
+ BE1A518000BF; Sun, 17 May 2026 02:59:14 +0000 (UTC)
 From: Sakurai Shun <ssh1326@icloud.com>
 To: Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Jonathan Corbet <corbet@lwn.net>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Jonathan Corbet <corbet@lwn.net>,
  Shuah Khan <skhan@linuxfoundation.org>
 Cc: Sakurai Shun <ssh1326@icloud.com>, amd-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org,
  linux-kernel@vger.kernel.org
-Subject: [PATCH v2 RESEND] docs: fix typo in mpo-overview.rst
-Date: Sun, 17 May 2026 16:40:13 +0900
-Message-ID: <20260517074020.5633-1-ssh1326@icloud.com>
+Subject: [PATCH v2] Replace "transparant" with "transparent"
+Date: Sun, 17 May 2026 11:58:30 +0900
+Message-ID: <20260517025837.11293-1-ssh1326@icloud.com>
 X-Mailer: git-send-email 2.54.0
+In-Reply-To: <87se7rmont.fsf@trenco.lwn.net>
+References: <87se7rmont.fsf@trenco.lwn.net>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Authority-Info-Out: v=2.4 cv=aahsXBot c=1 sm=1 tr=0 ts=6a0970f6
- cx=c_apl:c_pps:t_out a=azHRBMxVc17uSn+fyuI/eg==:117
- a=azHRBMxVc17uSn+fyuI/eg==:17 a=NGcC8JguVDcA:10 a=x7bEGLp0ZPQA:10
+X-Authority-Info-Out: v=2.4 cv=F+Vat6hN c=1 sm=1 tr=0 ts=6a092f07
+ cx=c_apl:c_pps:t_out a=9OgfyREA4BUYbbCgc0Y0oA==:117
+ a=9OgfyREA4BUYbbCgc0Y0oA==:17 a=NGcC8JguVDcA:10 a=x7bEGLp0ZPQA:10
  a=ZxuoajvSgW0A:10 a=VkNPw1HP01LnGYTKEx00:22 a=v3ZZPjhaAAAA:8
- a=vi3RrHiwHXUnrlATKwIA:9 a=IxSG75etxsVYPPdR13TJ:22 a=lOdrInXjANxufYs0I0OZ:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTE3MDA4MCBTYWx0ZWRfX6mTTVoH5SiGQ
- aocRPE0aKlJMtW+3bXywpNlNeEAOpk4WyljpL7Q/aiJD/zNhycEmN+XKZOuGPguxaOSNuLMSIKH
- /18ohvGoNyTce5aZMOB4Nlg7XpaBqegdIj3XxyXUcEt5rTcDs4xOd62DwkAplQp4xnsl1PhMDrj
- cQmMbmlwspJKCqG39CQTyklbgwLwGRE6fjnuRLaYibrQN7klfBkt+mxA2OiaVlv7ASyis/WYQXm
- Z7ux6g2/mz/go3QZVhny641+vhZvLMFR0VvXTmn1fL5opuZP7+66Gb5vQjc0scQOg3KMTaXc9GT
- VS8SJLAe6SQZlAcf+B6PXYUVpzxnTHbX/HLnj/TSQNHZGRDUk7UM1ElAlZs+/0=
-X-Proofpoint-GUID: ja6PTfVLb1Z_-8LArzE4K9bA2Oo9Xayc
-X-Proofpoint-ORIG-GUID: ja6PTfVLb1Z_-8LArzE4K9bA2Oo9Xayc
+ a=wGL9MbAH5B13jT6XI7IA:9 a=IxSG75etxsVYPPdR13TJ:22 a=ZjDq3gu30spcOt8FOK9Q:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTE3MDAyOSBTYWx0ZWRfX2ESVug4rkVZ+
+ +/HvSi3VJGT+7jkHl8YmJeymKk97r9g68jswcPEC7tMxQ50wVKrVLA+5UmRa+fqtFa8zvvHOw2E
+ zc/T3HMbZqlQ2S0iL252uqJsg2DdGntaQqc+YMNZgZEg2vAvsZdHjif7vYPRSRFwmcYEB6j+iES
+ NAu3s8XTuog5Ooa32MHf0KObecuu23CiKlOSZMtkNjyeAR39KTCVrymV+pRMxPEeLtQMQ3/unsQ
+ L1ItrSOW3TU8DxLvUMQEfjwtplTepdfgWVQhuOp98okagmJF3iLdRDwwe2dD7e/OMMCAf8d2xap
+ PMJBUzdMikaWUcQFYgDDqfONkhkLJbmFemJ1J5v69GNWkzgFm33kq81tzhMC/s=
+X-Proofpoint-GUID: LfPKRJHDOC-8twZ-oDtANFH585lXsGr8
+X-Proofpoint-ORIG-GUID: LfPKRJHDOC-8twZ-oDtANFH585lXsGr8
 X-Apple-Category-Label: MjE0Nzk4NjU5NzY6JGNhdGVnb3J5JF9QZXJzb25hbCw=
 X-Mailman-Approved-At: Mon, 18 May 2026 09:33:27 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -75,8 +77,6 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-
-Replace "transparant" with "transparent"
 
 Signed-off-by: Sakurai Shun <ssh1326@icloud.com>
 ---
