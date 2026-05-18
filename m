@@ -4,98 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2CBA2CD4F4A
-	for <amd-gfx@archiver.kernel.org>; Mon, 18 May 2026 14:26:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 359CCCD4F4A
+	for <amd-gfx@archiver.kernel.org>; Mon, 18 May 2026 14:28:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BB67810E30B;
-	Mon, 18 May 2026 14:26:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A781E10E88F;
+	Mon, 18 May 2026 14:28:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="QhDjYmUM";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="isxrgDVA";
 	dkim-atps=neutral
-Received: from mail-dy1-f173.google.com (mail-dy1-f173.google.com
- [74.125.82.173])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3286C10E31C
- for <amd-gfx@lists.freedesktop.org>; Mon, 18 May 2026 14:26:36 +0000 (UTC)
-Received: by mail-dy1-f173.google.com with SMTP id
- 5a478bee46e88-2f16c892babso103204eec.0
- for <amd-gfx@lists.freedesktop.org>; Mon, 18 May 2026 07:26:36 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1779114395; cv=none;
+Received: from mail-dl1-f49.google.com (mail-dl1-f49.google.com [74.125.82.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D797710E88F
+ for <amd-gfx@lists.freedesktop.org>; Mon, 18 May 2026 14:28:46 +0000 (UTC)
+Received: by mail-dl1-f49.google.com with SMTP id
+ a92af1059eb24-12c87f1f8c8so122600c88.2
+ for <amd-gfx@lists.freedesktop.org>; Mon, 18 May 2026 07:28:46 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1779114526; cv=none;
  d=google.com; s=arc-20240605;
- b=DEw/8/46eeSC4LRNwe1qJWx4aRzA2TElyuIc+MRqx9ZAF4pXgygVqs/52L4EZ0rT/W
- 8div6c2g9nXE+uu6uE9jfyF3qa9WbiHTnJbBFdboJF4Ojht6NI5x38PELQh2czaAY5G+
- EGlMyaHKunl90ap0Fp/IEJzsNHuxK4zB9G0csxYQMhqlOGizzUqpLABK25XB3k9rftBI
- Vf3KJFqQW8W8ut94OqKW6IqEmAAJ/TWoUZREu5Pr7zRrcb4pxqyl6ScLkjsnV0RtlStg
- zucW4VmGOPerz0w/JrG+JJyFoB3Ie/RI7vCU9gIoMZS1v5/hYjf7g/YHKcXF/6lquQUj
- a5Fg==
+ b=fefr1GpTu2ATDE0LoiTl7FUq57Y7AeOKeaJGCfdnBO8bfCueNpIF67Up9gJAnUxSQ+
+ 5C5R6HWHPqnYQTA/PqgFnSfLKzhFatzqiszpRnb0wk0smCfvY+2tSbPJjpHX9i22XI5P
+ TiOI9hzH+3nwnZlRVDRy0s0SUQwlAQsgw3RXwo2yDbzzjXJtMxGgf3T3TscEwpw2F6ID
+ KGYI23yijKvMt451m+vAStrrkN4ls4abvCSi0bVPo4Y7rP4v51o/c/sPChY5ewR77WGk
+ nf/1wVTZUtBW3YTYPChvmQIE6BRYpwsKR0Vbr7v4EzGnHrhKhOH6DBd1htuvaqxuEExb
+ gOWA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20240605; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=E9ePutv8hI9TYI8G2iFJXpmM8At0fz3YEO455yV6PBM=;
- fh=8LiGOm1a7bQ8ToghhMxBM07lVrF6/1bJZSwOujKbRjs=;
- b=i2bpmcHhxQ4elwe4AUaHMqUOAOO8MSTLeTgA1nY7dZoc3DMWtmXnzXuLHC0aR2JrUR
- kE8qyGnPx2PpiNsFM6gQuLSLhlHn+r5mIYh3Z5hAOMRs3R3LFlUjRv6z1Vv0jJ6+Ke+l
- cm3RdARoPXEDdhhp7uJwF6sVBJj2DoqgegCX7smraO6Vzlo98cjaOYx/nrk12k5RmI/b
- lmjb5J5UzCitlehMwFR6fKkT6F/YjV5ySyphoGPJnpia/OtwlS2g106mY7mDc+Rd6PEr
- ldY0LUv5rDWK81HDaMs19bRN7CE4zztgEKJcss2yMM4vQtDNY/LTkVeaIfAv+61r0yqG
- J33w==; darn=lists.freedesktop.org
+ bh=eHp6HvgnAYfucxMy8r/T/zzkHFjLcckBg5P5ZMn7kls=;
+ fh=uCJ+Cn59moqhZgX9T88H24gKBHNH+vwyf/9HmOLRarE=;
+ b=PFuQZyByA79JDmGYB8OgvWCjzMbvB/MmplXGodeCOkBXfN8fkFxQJ+5xP1/KQ/5H6M
+ NX1J3FbUTla//lMe6rdNOvMMW88xqkI/JjayTA00nC/4segcDcUGJUzidZc1yHw/0EG4
+ 57kouTOmqjIjPmKBQdpyX07rTINYTGnZuBxISVLHaQWTOJRsCewFMsa5Um+2R5T0CBQH
+ RJ7nEG/KCyzGStzlWFgy2UDu1fPwsHS/2PZedO87NmuPTnjxl1QJX5DAegUAaCAl1HR7
+ X9o4jDGDyxFD6+UZmFdm7X8UqSBRGtMAz8/o4ree7DgPEcKasNjilmeUFEfjXODDlWlT
+ EeQw==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1779114395; x=1779719195; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1779114526; x=1779719326; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=E9ePutv8hI9TYI8G2iFJXpmM8At0fz3YEO455yV6PBM=;
- b=QhDjYmUM5/FkqxjjNCRdxyqIHpBG0fFUzem025ijL6yEvfw3ybSHWJz+OcAy1yEI1Z
- 2rEyFkAs2w0113Dpq3pNG/MZk+m5mD0FT5NILUUc4XvrtzPCPTAS1AAzmcMk0mhtvcsX
- 5uyGgfUS9KAdh1GAhvFIvCBRWLfCCiGIyvUHxo5wwp20WV0B5G5F6m1lAkBt+OpuPuXq
- pxYldm9KJDWAvQWxKdfr9g2hASMnEPAQ0GPOSL7ugm4EvAPNiUKmCg/Di3Rq6pjnQT0s
- Nm6NP4LZJr7r8Dwsf2fTMPNO93c1k5Ebyg3T3yD9XWZrmwrjD9UyB9BGh7RjxhPIUP3q
- KcVQ==
+ bh=eHp6HvgnAYfucxMy8r/T/zzkHFjLcckBg5P5ZMn7kls=;
+ b=isxrgDVAGDI1xylc1f5PZf6Nh2dAQ1PxcSHBTwJwikU3PCDZR1VOeO/z7/x3fvixjL
+ RiavIaQyRQg6QRXCOS8QwxP7KmEz8rWqROyZ8Hw78cnm2zpnHc/HoOK1Jacy5AT/S5aB
+ GpgDqlkMwt9STNdBNk2a1xRo1EgocKY3AZiCaiIm4kMFTE1okSocO7QDGoebBzmsLfPr
+ m+HylMsPdfIY9adrpv4jeJs0C8w8OWEM17myIbCGPIkFDGSFb1ESMr3vDobcG//CDBaU
+ vpjkCO88tP0tcCr26dqirEOmOWYcxcMP398hjWVf07iAJkOMFB3y3rfN1fQt+0GRCCpC
+ QJZg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779114395; x=1779719195;
+ d=1e100.net; s=20251104; t=1779114526; x=1779719326;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=E9ePutv8hI9TYI8G2iFJXpmM8At0fz3YEO455yV6PBM=;
- b=hixLoeM6KKa4jKu1AiMre0lyjnePPvENWde5vd9+xO2JjtTKto0AJfLaiNcO84c64v
- wQobntrT7IOUInfU6VxX+ZJ2GfdWhlm67LNZ060W0UJm2UzM4cqiQjxkP/sazavnC11x
- f/X/EyshuLr++L0gCEX94g9hXQ5/a4z0AUpIaIHrujCJyvWloLH5djW4ZZ3Qdka36+8d
- AB1xzshWfwBPSl0V4yleoByoRhBaRmHEKqtO92tXGatELlYe1B68swj5iPMgiFio99ui
- T46u0A09gJgGwd6NnodVWpuXBx9b0Tisn19gojTxh8WxfUoCFecJtzGHzziZRY2d6Mur
- Gj9w==
-X-Forwarded-Encrypted: i=1;
- AFNElJ+dNWDoEkTepzMqTENSD1sVecyqDguL5enUa52v+cdWOEnSDsUUKsTepdTyM35NH3UR3z//B29T@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwEOTMQ7vTH22sZk9qyDpJdj9dt18vaE/A1LZVuVDBOn4yWtaO2
- jFJSqlxey0pa/Ysi9sZZWAYQVCnxeKvw/blKrZNINA8Y1akzuSleHvO0jRZJbsf62wHhoD2MY2r
- VosHAARwXDj2nd/NTz7pkW0yGOrIvY+U=
-X-Gm-Gg: Acq92OFtVwTaXkhKcGrV55EgdtVQ3bw65JMIirKGBt/Nxivh3xO9f/V3IS8xx6RkqOy
- ZTk1vsu/kMj7MQrINQW4C6sOodN5efJruuG0/LyjqnFuL+DWpmtnPWGxhjMahPyrhbNAhP4aDjf
- ttaZSvbNEN1omGpx8t7KQodMRsZUhx8Wp8m/EYv8NTQEkAhIFW+W+2MILokYIe9ZjOx86jGNkze
- gfSLXWNLDNiXbX9AlDZYPakS26CukSjkeNnrmXbFPAZuDiwsWsyTVnNo2jIcTyyqPckpXKru8gA
- e6t3Dy7JFCNRB17QpJEeCp1uQ7Hf+zzZRoAus/yao/bD5Bk5hzE+aTdVUMuL0NO08xzhDg==
-X-Received: by 2002:a05:7022:2507:b0:12b:f616:1a31 with SMTP id
- a92af1059eb24-1350494fe45mr2848035c88.6.1779114395331; Mon, 18 May 2026
- 07:26:35 -0700 (PDT)
+ bh=eHp6HvgnAYfucxMy8r/T/zzkHFjLcckBg5P5ZMn7kls=;
+ b=YkJYmJkxFKgU+o63n4tIs3nV0UZus+uylfdAMdAgDsS2J/+b2PHfaeowqitOAh1XAm
+ j2uRTrIEWkjjXj0s75eDgQMsCdRWydfFncRzMkAdbYPRTSbjEETLf9mSemXrJlRIu1Nz
+ NZ/8kxt10Aa2iYysNOJyM2k/48xkHYO8w/oHKUCosD523G9KFEfTitaypO3lyRPVIUx9
+ Lc1wu/5NQ9193xjN8hYe9GH5S0G28SkB0TPGDXeuvDIC/DsDYUPbLYsDYRztvZRZJW4H
+ 9jfLvAwAQFgfNS+WN1xabEOi000HcbEPVhts2WGF/bbPqAg4y818CizcPpnALMxTkAQy
+ OQOA==
+X-Gm-Message-State: AOJu0Yx4jpIv2A054peL2y/IIi3ljw8lW1XOf2cOI5GwGlSOFgfvMPrf
+ l7xbmriHCxlUpN/68la3b4/gq3ZZq72PvP+XqH1cXSDxR/uEi5ua0eJ7XDkPbfCPjhYmOFq1XU0
+ RIuTrWJbdASL/WpOZm0CCgncRg78GqN4=
+X-Gm-Gg: Acq92OEDwLLDKyI7kHNMV8Ia8pm176IsEw9eOFZAMhNMlJ2nvyZjrA9yWud1EZSNX9T
+ zU5ScrSX8tZPuX7QxDBk7qoj+87FrukKwhv+cDL94SjIC1URh0d5WJC5nLY1Y9mJdKYkcBdRsFj
+ Z4P2nUroqXPDS5ugkGL0wUcdtZ1UC2EkHYSNQj15mt1kFtopBuAWYd8mRvTdb9DNRzVwVQ3Tv07
+ znnTpBxMjEAJbgXdibKlCx/8NKX11GiAQwV7afTY+xar3igS3tmNDjezxBJ6/Yo7dmIfkDVNgJo
+ zBP2dcqBCobVMnvP5F4WCuUf4iFXtI0OGsey03bhra6kdQnPolE+U5CoFbQybqharlDy0Q==
+X-Received: by 2002:a05:7022:6994:b0:119:e56b:c3f5 with SMTP id
+ a92af1059eb24-1350483f16cmr2766421c88.5.1779114526072; Mon, 18 May 2026
+ 07:28:46 -0700 (PDT)
 MIME-Version: 1.0
-References: <20260514103815.190628-1-marco.crivellari@suse.com>
- <20260514103815.190628-3-marco.crivellari@suse.com>
-In-Reply-To: <20260514103815.190628-3-marco.crivellari@suse.com>
+References: <20260515091054.529610-1-arnd@kernel.org>
+ <bcafbc27-9556-4891-94d1-ab81f707c127@triang3l.ru>
+In-Reply-To: <bcafbc27-9556-4891-94d1-ab81f707c127@triang3l.ru>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 18 May 2026 10:26:22 -0400
-X-Gm-Features: AVHnY4JdeStjA0W-g_sbQQfxFYHywAp-4OmUxt9niF4OTbAXFonBkSs6wkLrJlU
-Message-ID: <CADnq5_OZG_vsEuUWgTPJtz-4zf4s=bA9Q_r9-w+KMQVa4RkMzQ@mail.gmail.com>
-Subject: Re: [PATCH 2/2] drm/amdgpu: Replace use of system_unbound_wq with
- system_dfl_wq
-To: Marco Crivellari <marco.crivellari@suse.com>
-Cc: linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, Tejun Heo <tj@kernel.org>, 
- Lai Jiangshan <jiangshanlai@gmail.com>,
- Frederic Weisbecker <frederic@kernel.org>, 
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
- Michal Hocko <mhocko@suse.com>, Alex Deucher <alexander.deucher@amd.com>,
- Christian Konig <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Date: Mon, 18 May 2026 10:28:33 -0400
+X-Gm-Features: AVHnY4KEVCIFY2_WxOsoSrUG1gkZy82u0MLyGhmUX6PfRdrzTgyibhro0RIu6Yo
+Message-ID: <CADnq5_Mv1ZFcGDx-3gX9CiDCCQgn3=HA9POcBu59umkjrScXJQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/radeon/evergreen_cs: Add missing NULL prefix check in
+ surface check
+To: Vitaliy Triang3l Kuzmin <ml@triang3l.ru>
+Cc: amd-gfx@lists.freedesktop.org, Arnd Bergmann <arnd@kernel.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -112,63 +102,53 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, May 14, 2026 at 7:04=E2=80=AFAM Marco Crivellari
-<marco.crivellari@suse.com> wrote:
->
-> This patch continues the effort to refactor workqueue APIs, which has beg=
-un
-> with the changes introducing new workqueues and a new alloc_workqueue fla=
-g:
->
->    commit 128ea9f6ccfb ("workqueue: Add system_percpu_wq and system_dfl_w=
-q")
->    commit 930c2ea566af ("workqueue: Add new WQ_PERCPU flag")
->
-> The point of the refactoring is to eventually alter the default behavior =
-of
-> workqueues to become unbound by default so that their workload placement =
-is
-> optimized by the scheduler.
->
-> Before that to happen, workqueue users must be converted to the better na=
-med
-> new workqueues with no intended behaviour changes:
->
->    system_wq -> system_percpu_wq
->    system_unbound_wq -> system_dfl_wq
->
-> This way the old obsolete workqueues (system_wq, system_unbound_wq) can b=
-e
-> removed in the future.
->
-> Link: https://lore.kernel.org/all/20250221112003.1dSuoGyc@linutronix.de/
-> Suggested-by: Tejun Heo <tj@kernel.org>
-> Signed-off-by: Marco Crivellari <marco.crivellari@suse.com>
+Applied.  Thanks!
 
-Applied the series.  Thanks!
-
-Alex
-
+On Mon, May 18, 2026 at 6:29=E2=80=AFAM Vitaliy Triang3l Kuzmin <ml@triang3=
+l.ru> wrote:
+>
+> 'evergreen_surface_check' is called with a NULL warning prefix when
+> handling potentially recoverable issues or just to compute the alignment
+> requirements, and 'evergreen_surface_check' is called again in case of
+> failure (with the correct prefix, as opposed to NULL), therefore, the
+> initial check must not print a warning, because the surface may be
+> accepted successfully after having been corrected, however if it isn't,
+> the final check will print the warning anyway. The surface check
+> functions specific to array modes already implement this behavior, but
+> the 'evergreen_surface_check' function itself doesn't.
+>
+> This is also supposed to fix the "'%s' directive argument is null
+> [-Werror=3Dformat-overflow=3D]" compiler warning.
+>
+> Fixes: 285484e2d55e ("drm/radeon: add support for evergreen/ni tiling inf=
+ormations v11")
+> Reported-by: Arnd Bergmann <arnd@arndb.de>
+> Signed-off-by: Vitaliy Triang3l Kuzmin <ml@triang3l.ru>
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+>   drivers/gpu/drm/radeon/evergreen_cs.c | 6 ++++--
+>   1 file changed, 4 insertions(+), 2 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c b/drivers/g=
-pu/drm/amd/amdgpu/amdgpu_dev_coredump.c
-> index d386bc775d03..0811593fca7f 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c
-> @@ -586,7 +586,7 @@ void amdgpu_coredump(struct amdgpu_device *adev, bool=
- skip_vram_check,
->          */
->         adev->coredump =3D coredump;
->         /* Kick off coredump formatting to a worker thread. */
-> -       queue_work(system_unbound_wq, &adev->coredump_work);
-> +       queue_work(system_dfl_wq, &adev->coredump_work);
->
->         drm_info(dev, "AMDGPU device coredump file has been created\n");
->         drm_info(dev, "Check your /sys/class/drm/card%d/device/devcoredum=
-p/data\n",
+> diff --git a/drivers/gpu/drm/radeon/evergreen_cs.c b/drivers/gpu/drm/rade=
+on/evergreen_cs.c
+> index 3142ef4da7f4..9196f85db9ce 100644
+> --- a/drivers/gpu/drm/radeon/evergreen_cs.c
+> +++ b/drivers/gpu/drm/radeon/evergreen_cs.c
+> @@ -312,8 +312,10 @@ static int evergreen_surface_check(struct radeon_cs_=
+parser *p,
+>         case ARRAY_2D_TILED_THIN1:
+>                 return evergreen_surface_check_2d(p, surf, prefix);
+>         default:
+> -               dev_warn(p->dev, "%s:%d %s invalid array mode %d\n",
+> -                               __func__, __LINE__, prefix, surf->mode);
+> +               if (prefix) {
+> +                       dev_warn(p->dev, "%s:%d %s invalid array mode %d\=
+n",
+> +                                       __func__, __LINE__, prefix, surf-=
+>mode);
+> +               }
+>                 return -EINVAL;
+>         }
+>         return -EINVAL;
 > --
-> 2.54.0
+> 2.43.0
 >
