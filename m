@@ -4,28 +4,28 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BAE5CCD4F50
-	for <amd-gfx@archiver.kernel.org>; Mon, 18 May 2026 13:16:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1C7F5CD4F55
+	for <amd-gfx@archiver.kernel.org>; Mon, 18 May 2026 13:16:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 45FB210E829;
-	Mon, 18 May 2026 13:16:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8D03B10E833;
+	Mon, 18 May 2026 13:16:19 +0000 (UTC)
 Received: from rtg-sunil-navi33.amd.com (unknown [165.204.156.251])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4E82210E82E
- for <amd-gfx@lists.freedesktop.org>; Mon, 18 May 2026 13:16:14 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 11ECE10E529
+ for <amd-gfx@lists.freedesktop.org>; Mon, 18 May 2026 13:16:13 +0000 (UTC)
 Received: from rtg-sunil-navi33.amd.com (localhost [127.0.0.1])
  by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Debian-22ubuntu3) with ESMTP id
- 64IDG9383501484; Mon, 18 May 2026 18:46:09 +0530
+ 64IDG9D03501457; Mon, 18 May 2026 18:46:09 +0530
 Received: (from sunil@localhost)
- by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 64IDG9TR3501483;
+ by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 64IDG9W63501456;
  Mon, 18 May 2026 18:46:09 +0530
 From: Sunil Khatri <sunil.khatri@amd.com>
 To: Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Cc: amd-gfx@lists.freedesktop.org, Sunil Khatri <sunil.khatri@amd.com>
-Subject: [PATCH v2 5/6] drm/amdgpu/userq: clean up wptr_obj along with
- mqd_destroy
-Date: Mon, 18 May 2026 18:46:07 +0530
-Message-Id: <20260518131608.3501426-6-sunil.khatri@amd.com>
+Subject: [PATCH v2 1/6] drm/amdgpu/userq: Fix doorbell cleanup on queue
+ creation fail
+Date: Mon, 18 May 2026 18:46:03 +0530
+Message-Id: <20260518131608.3501426-2-sunil.khatri@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260518131608.3501426-1-sunil.khatri@amd.com>
 References: <20260518131608.3501426-1-sunil.khatri@amd.com>
@@ -45,30 +45,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-During queue creation failure, when we clean up mqd via
-mqd_destroy we arent doing the wptr_obj cleanup and hence
-adding that clean up.
+Unpin and unref the door bell obj if queue creation fails before
+initialization is complete.
 
 Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-index c07aad2c6a53..68efed47f412 100644
+index f1873f632547..4a50f6536f8d 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-@@ -851,6 +851,10 @@ amdgpu_userq_create(struct drm_file *filp, union drm_amdgpu_userq *args)
- clean_mqd:
- 	mutex_unlock(&uq_mgr->userq_mutex);
+@@ -782,7 +782,7 @@ amdgpu_userq_create(struct drm_file *filp, union drm_amdgpu_userq *args)
+ 	r = amdgpu_userq_fence_driver_alloc(adev, &queue->fence_drv);
+ 	if (r) {
+ 		drm_file_err(uq_mgr->file, "Failed to alloc fence driver\n");
+-		goto clean_mapping;
++		goto clean_doorbell;
+ 	}
+ 
+ 	r = uq_funcs->mqd_create(queue, &args->in);
+@@ -851,6 +851,11 @@ amdgpu_userq_create(struct drm_file *filp, union drm_amdgpu_userq *args)
  	uq_funcs->mqd_destroy(queue);
-+	amdgpu_bo_reserve(queue->wptr_obj.obj, true);
-+	amdgpu_bo_unpin(queue->wptr_obj.obj);
-+	amdgpu_bo_unreserve(queue->wptr_obj.obj);
-+	amdgpu_bo_unref(&queue->wptr_obj.obj);
  clean_fence_driver:
  	amdgpu_userq_fence_driver_free(queue);
- clean_doorbell:
++clean_doorbell:
++	amdgpu_bo_reserve(queue->db_obj.obj, true);
++	amdgpu_bo_unpin(queue->db_obj.obj);
++	amdgpu_bo_unreserve(queue->db_obj.obj);
++	amdgpu_bo_unref(&queue->db_obj.obj);
+ clean_mapping:
+ 	amdgpu_bo_reserve(fpriv->vm.root.bo, true);
+ 	amdgpu_userq_buffer_vas_list_cleanup(adev, queue);
 -- 
 2.34.1
 
