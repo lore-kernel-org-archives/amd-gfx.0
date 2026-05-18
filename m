@@ -4,47 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C8233CD5BA3
-	for <amd-gfx@archiver.kernel.org>; Tue, 19 May 2026 07:27:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CAB23CD4851
+	for <amd-gfx@archiver.kernel.org>; Tue, 19 May 2026 07:27:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9D29B10EAD0;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5631F10EACE;
 	Tue, 19 May 2026 07:27:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=disroot.org header.i=@disroot.org header.b="PGzfZMlU";
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="kCvTcmWi";
 	dkim-atps=neutral
-Received: from layka.disroot.org (layka.disroot.org [178.21.23.139])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 43C0810EA35;
- Tue, 19 May 2026 03:16:04 +0000 (UTC)
-Received: from mail01.disroot.lan (localhost [127.0.0.1])
- by disroot.org (Postfix) with ESMTP id 250A52744A;
- Tue, 19 May 2026 05:07:19 +0200 (CEST)
-X-Virus-Scanned: SPAM Filter at disroot.org
-Received: from layka.disroot.org ([127.0.0.1])
- by localhost (disroot.org [127.0.0.1]) (amavis, port 10024) with ESMTP
- id hkjozB0zKrzE; Tue, 19 May 2026 05:07:18 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=disroot.org; s=mail;
- t=1779160038; bh=3Tis3fmi1HNGdfTbzRUoTnqezjx0ZMIVE+MHFCSkM4Q=;
- h=From:To:Cc:Subject:Date;
- b=PGzfZMlUIf8KgF3KSIp4QrsXeSdAJ6aVFjIuc8VI4vw6+zfPopMBDusImfTgwFzib
- KIE8yV1CVNfVUFZHrrG/iqMmg1Qmv5fsO3wYm6q80gG73EV92GJbuy4/hBR86koJ35
- TD/T9t7GHKgFgpIv4eUmH3YFDGAaX+2Tz9ark464t7nMB6t/YwvU7WDeGgnpRb9ZKH
- SSElxfuTe8TafxnV3STCagJlq+H1SC0n8rmlcDHOJQOtUmj6fNkrAlMr6/V+SeSgyy
- vWUy+udL5zbj8aUTs+dLLxKTUnfWroSjfTSptjSJ3KL134qU2f3cVte+Jq8S6zq4dm
- amB//GCxqfcUw==
-From: Leorize <leorize+oss@disroot.org>
-To: linux-kernel@vger.kernel.org
-Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Leorize <leorize+oss@disroot.org>
-Subject: [PATCH 0/1] fixing dull colors in HDR for Polaris GPUs
-Date: Mon, 18 May 2026 20:06:18 -0700
-Message-ID: <20260519030624.51613-1-leorize+oss@disroot.org>
+Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E424D10E8CD;
+ Mon, 18 May 2026 15:01:56 +0000 (UTC)
+Received: from smtp102.mailbox.org (smtp102.mailbox.org [10.196.197.102])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4gK1H50xWcz9v50;
+ Mon, 18 May 2026 17:01:53 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; 
+ t=1779116513; h=from:from:reply-to:reply-to:subject:subject:date:date:
+ message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+ content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=mDUFG3QH/zn6Pfjyji/Qqlp3OYsc/LM+HLI24lCrrXk=;
+ b=kCvTcmWitl6r0wU+738S/qKBalalles5Mi9GzjMrsXjFkg8DvZXF0Af0391ujRu3ciuhV4
+ 6a+4JpyMUE1A2GNSC80Hzfu6K38OgWH51vjshjCehnSXDB8XqPusFyi9a4azpx1au6Wuw8
+ H+ssFYU/GA9cU0ggK6RpFQGq9vKhvD7iXjq0WnyTRkAolSpt6SqvwAt/2rPTNkOrqIneWL
+ ps599r2wMW8FpwzKnlhw4fJUQVbKjLX8uIw1dNFfdVUSxBfKdd7vdbsStlPC5gag+SH6SZ
+ sL4isC6las8iOF5BOx7Hib17nw5KI/sp1EA9v2YH5O0rNvimj4D/kb/8RqNlTg==
+Message-ID: <81783d0807a5ffac93f61eddba0d2f595d7f239f.camel@mailbox.org>
+Subject: Re: [PATCH v3 06/11] drm: Use trace_call__##name() at guarded
+ tracepoint call sites
+From: Philipp Stanner <phasta@mailbox.org>
+To: "Vineeth Pillai (Google)" <vineeth@bitbyteword.org>, Alex Deucher
+ <alexander.deucher@amd.com>, Christian =?ISO-8859-1?Q?K=F6nig?=
+ <christian.koenig@amd.com>, David Airlie <airlied@gmail.com>, Simona Vetter
+ <simona@ffwll.ch>, Harry Wentland <harry.wentland@amd.com>, Leo Li
+ <sunpeng.li@amd.com>, Matthew Brost <matthew.brost@intel.com>, Danilo
+ Krummrich <dakr@kernel.org>, Philipp Stanner <phasta@kernel.org>, Maarten
+ Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>,  Thomas Zimmermann <tzimmermann@suse.de>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, Steven
+ Rostedt <rostedt@goodmis.org>, linux-trace-kernel@vger.kernel.org, Peter
+ Zijlstra <peterz@infradead.org>
+Date: Mon, 18 May 2026 17:01:42 +0200
+In-Reply-To: <20260515135932.2238842-1-vineeth@bitbyteword.org>
+References: <20260515135932.2238842-1-vineeth@bitbyteword.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MBO-RS-ID: 1678094390674a1865d
+X-MBO-RS-META: pqim3bixj3ebt8cs9fmnjx4xowyx5n3y
 X-Mailman-Approved-At: Tue, 19 May 2026 07:27:26 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -57,41 +69,149 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: phasta@kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi,
+On Fri, 2026-05-15 at 09:59 -0400, Vineeth Pillai (Google) wrote:
+> From: Vineeth Pillai <vineeth@bitbyteword.org>
+>=20
+> Replace trace_foo() with the new trace_call__foo() at sites already
+> guarded by trace_foo_enabled(), avoiding a redundant
+> static_branch_unlikely() re-evaluation inside the tracepoint.
+> trace_call__foo() calls the tracepoint callbacks directly without
+> utilizing the static branch again.
 
-Quite awhile ago I reported
-https://gitlab.freedesktop.org/drm/amd/-/work_items/4849 and it appears
-that I'm the only unlucky soul to have this particular GPU/Display
-combo.
+The "foo" terminology is unusual I think? I always wrote it with regex,
+like "trace_*()".
 
-Having some time off I decided to put these new fangled LLMs (GPT-5.5)
-into the test, and it found the issue rather quickly: MISC1 bit 6 was
-not set, causing the display to prefer MSA colorimetry. In the case
-Windows was booted first, the Radeon driver there configured the sink
-correctly, and it would keep that state until the link is disconnected.
 
-The hypothesis was tested and verified by using `umr` to modify the
-`DP_MSA_MISC` register directly, following with a display power-cycle.
-The implementation was copied from the code path used for DCN-based
-GPUs, and extra register wiring was assisted by LLM.
 
-This is my very first patch into the kernel, and I don't have a lot of
-experience with GPUs, so guidance would be greatly appreciated. If
-possible, I would like this fix to go into the stable branch as well, so
-I don't have to wait until the next release to use my monitor :D
+>=20
+> Original v2 series:
+> https://lore.kernel.org/linux-trace-kernel/20260323160052.17528-1-vineeth=
+@bitbyteword.org/
 
--- Leorize
+I'd put this in a Link: tag section below.
 
-Leorize (1):
-  drm/amd/display: set MSA MISC1 bit 6 when using VSC SDP for DCE 11.x
+>=20
+> Parts of the original v2 series have already been merged in mainline.
+> This patch is being reposted as a follow-up cleanup for the remaining
+> unmerged pieces.
 
- .../drm/amd/display/dc/dce/dce_stream_encoder.c   | 15 ++++++++++++++-
- .../drm/amd/display/dc/dce/dce_stream_encoder.h   |  3 ++-
- 2 files changed, 16 insertions(+), 2 deletions(-)
+So this v3 series as a whole is a followup to that v2?
 
--- 
-2.54.0
+>=20
+> Suggested-by: Steven Rostedt <rostedt@goodmis.org>
+> Suggested-by: Peter Zijlstra <peterz@infradead.org>
+> Signed-off-by: Vineeth Pillai (Google) <vineeth@bitbyteword.org>
+> Assisted-by: Claude:claude-sonnet-4-6
+> ---
+> =C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 2 +-
+> =C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 4 ++--
+> =C2=A0drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 10 +++++-----
+> =C2=A0drivers/gpu/drm/scheduler/sched_entity.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 5 +++--
+> =C2=A04 files changed, 11 insertions(+), 10 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd=
+/amdgpu/amdgpu_cs.c
+> index b24d5d21be5f..cb0b5cb07d57 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+> @@ -1004,7 +1004,7 @@ static void trace_amdgpu_cs_ibs(struct amdgpu_cs_pa=
+rser *p)
+> =C2=A0		struct amdgpu_job *job =3D p->jobs[i];
+> =C2=A0
+> =C2=A0		for (j =3D 0; j < job->num_ibs; ++j)
+> -			trace_amdgpu_cs(p, job, &job->ibs[j]);
+> +			trace_call__amdgpu_cs(p, job, &job->ibs[j]);
+> =C2=A0	}
+> =C2=A0}
+> =C2=A0
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd=
+/amdgpu/amdgpu_vm.c
+> index 9ba9de16a27a..a36ae94c425f 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> @@ -1415,7 +1415,7 @@ int amdgpu_vm_bo_update(struct amdgpu_device *adev,=
+ struct amdgpu_bo_va *bo_va,
+> =C2=A0
+> =C2=A0	if (trace_amdgpu_vm_bo_mapping_enabled()) {
+> =C2=A0		list_for_each_entry(mapping, &bo_va->valids, list)
+> -			trace_amdgpu_vm_bo_mapping(mapping);
+> +			trace_call__amdgpu_vm_bo_mapping(mapping);
+> =C2=A0	}
+> =C2=A0
+> =C2=A0error_free:
+> @@ -2183,7 +2183,7 @@ void amdgpu_vm_bo_trace_cs(struct amdgpu_vm *vm, st=
+ruct ww_acquire_ctx *ticket)
+> =C2=A0				continue;
+> =C2=A0		}
+> =C2=A0
+> -		trace_amdgpu_vm_bo_cs(mapping);
+> +		trace_call__amdgpu_vm_bo_cs(mapping);
+> =C2=A0	}
+> =C2=A0}
+> =C2=A0
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/=
+gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index 5fc5d5608506..fbdc12cdd6bb 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -5263,11 +5263,11 @@ static void amdgpu_dm_backlight_set_level(struct =
+amdgpu_display_manager *dm,
+> =C2=A0	}
+> =C2=A0
+> =C2=A0	if (trace_amdgpu_dm_brightness_enabled()) {
+> -		trace_amdgpu_dm_brightness(__builtin_return_address(0),
+> -					=C2=A0=C2=A0 user_brightness,
+> -					=C2=A0=C2=A0 brightness,
+> -					=C2=A0=C2=A0 caps->aux_support,
+> -					=C2=A0=C2=A0 power_supply_is_system_supplied() > 0);
+> +		trace_call__amdgpu_dm_brightness(__builtin_return_address(0),
+> +						 user_brightness,
+> +						 brightness,
+> +						 caps->aux_support,
+> +						 power_supply_is_system_supplied() > 0);
+> =C2=A0	}
+> =C2=A0
+> =C2=A0	if (caps->aux_support) {
+> diff --git a/drivers/gpu/drm/scheduler/sched_entity.c b/drivers/gpu/drm/s=
+cheduler/sched_entity.c
+> index fe174a4857be..185a2636b599 100644
+> --- a/drivers/gpu/drm/scheduler/sched_entity.c
+> +++ b/drivers/gpu/drm/scheduler/sched_entity.c
+> @@ -429,7 +429,8 @@ static bool drm_sched_entity_add_dependency_cb(struct=
+ drm_sched_entity *entity,
+> =C2=A0
+> =C2=A0	if (trace_drm_sched_job_unschedulable_enabled() &&
+> =C2=A0	=C2=A0=C2=A0=C2=A0 !test_bit(DMA_FENCE_FLAG_SIGNALED_BIT, &entity-=
+>dependency->flags))
+> -		trace_drm_sched_job_unschedulable(sched_job, entity->dependency);
+> +		trace_call__drm_sched_job_unschedulable(sched_job,
+> +							entity->dependency);
+
+I would be more happy if you sacrifice a bit of space here and keep it
+a single line since the if condition is already quite convoluted and
+challenging to read.
+
+
+P.
+
+> =C2=A0
+> =C2=A0	if (!dma_fence_add_callback(entity->dependency, &entity->cb,
+> =C2=A0				=C2=A0=C2=A0=C2=A0 drm_sched_entity_wakeup))
+> @@ -586,7 +587,7 @@ void drm_sched_entity_push_job(struct drm_sched_job *=
+sched_job)
+> =C2=A0		unsigned long index;
+> =C2=A0
+> =C2=A0		xa_for_each(&sched_job->dependencies, index, entry)
+> -			trace_drm_sched_job_add_dep(sched_job, entry);
+> +			trace_call__drm_sched_job_add_dep(sched_job, entry);
+> =C2=A0	}
+> =C2=A0	atomic_inc(entity->rq->sched->score);
+> =C2=A0	WRITE_ONCE(entity->last_user, current->group_leader);
 
