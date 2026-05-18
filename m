@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E123ECD4F54
-	for <amd-gfx@archiver.kernel.org>; Mon, 18 May 2026 09:41:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CD11CCD4F3C
+	for <amd-gfx@archiver.kernel.org>; Mon, 18 May 2026 09:41:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 19D4910E776;
-	Mon, 18 May 2026 09:41:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6BEDF10E778;
+	Mon, 18 May 2026 09:41:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="KggwTH80";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="GoafC4ry";
 	dkim-atps=neutral
-Received: from MW6PR02CU001.outbound.protection.outlook.com
- (mail-westus2azon11012027.outbound.protection.outlook.com [52.101.48.27])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 871CE10E770
- for <amd-gfx@lists.freedesktop.org>; Mon, 18 May 2026 09:41:53 +0000 (UTC)
+Received: from SJ2PR03CU001.outbound.protection.outlook.com
+ (mail-westusazon11012037.outbound.protection.outlook.com [52.101.43.37])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E322010E778
+ for <amd-gfx@lists.freedesktop.org>; Mon, 18 May 2026 09:41:55 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=B5pMKbaF2St9HHQwOiYwPOEJdxuyZ3pAKN4HD/3YXqJ2F0nyeUOBbxeIfAfZM0Ontc6k1fFjWuzVAgnrOB+Hwjsxv/l/zYja0QPM6rspbIqiX6/6YweuOcjJO8TgP5ZLrsNoE4NW8XPR7n/igvzJbeRoX8dhr8Z53wALUivsip38X0F9LVYqlKINtFuZSBVwikcMkJPkr5L5KUzaACrlJeAyJ/ZvXhcmwxyYlaIRp2/dVTl4odVOQ0VqgerwlmBNJJJo2Sr52P4/p2yzqtrl9zJJ/C8NSU/9F1XVYxJ0TZBd8WJnpoJ3a86kOFA60cVQbxibXaVjaHDVys/2rxUudQ==
+ b=A3EpIJxRBpc1T/WK61qShWeUDYfR6togAhhiZEIY6XiOG5BUxUTr2M7npZJ/V2nmxUFTxvoUgVVduogpQ5w50hSrhsMlEBd0iF0/RNKnqYibhlTaEfpOstlN/Rgti951ElqzeHT/7/UsZHzfgrGUIaI6Ad55r5A5ilqJJlj/Kmq+NozFk732PtB7dWeXo91Cd73vTEkfCYv/hI5TxakzB8hZs+k+DzJuJhEKFj0u2Ga6IxmKV9cEv/XeqIbwyC2VfeBu29e9WNaoqTxXHzDUwm1TJE8N8tVIsYLY6rxLsVB2sPjWVeVpTZOiHvrt1eKdH0GyFoimWvpkhnSrQw5RSQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=A9yONWLM5f+GzPWrPu/X85C3WyJ1HgcVSCq0g72k/+E=;
- b=cDFE5qs14StNHs4KGyGysnreikNJWofSS6SKDxAwcAvEbeBvr2tkb1fzQaEDoAMwc+TfhjIjdM44mIso6C1z8NzE4YGQ9C+iH/rpEDFrRphN+Gq+GAa8QnNTuEgF7SFWq4RloiZA+mErNceZYNrq8Z0WYvLWE8hL73Ga+pXXmRoIoHtrvz+JEBJb7/ZZMo+tYdaQdWqycMhT6KhJa5B6wm36uBXoz9fuJrSq0iTrbVXiDFNbY0y8AWiT0lwMNg2GyTBMQOdtIlfDg69HENEwH1bXmCbD1Yaww2LN+IB56ObCZpMFwJVPt9V5S8tCom82Qe/we0pZqz4fD2GxIyzP4A==
+ bh=mPjHrvRlZHfW5CPsfXjQRN56KlAnLhYXd78lZMSTOWM=;
+ b=DnOmljjXj2gX7exxsC0jEVrkCJtGoBbpXU82YkwB/MyYvGYncRYpF97fs5OyUxDxKdub7A+2ByfTLLMkYCUFuebUkUTrOuIjfOkqp3OT9bBQMCMaNPcVvesmgpG6DPk4eVwrp4QBRQ1HuelpNn6Fuvoeaxrn2YZj9N+//lflxNdzjPHSr00s7x/0uoPAo4tlTV7/bT8EhUBduAVOFFrgt0cyNNNfR2ocqyHt7TSunw6sF3hh5ZbtNHkct4qrXdRAYvDdeZ00ND1x+6EZ0AH1MFM3pXO6bMpLTE2323YF9Mc0APsph3CWimiBmy76fUE/lKSY4Cq5ew58UwgwwI9Ilg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=A9yONWLM5f+GzPWrPu/X85C3WyJ1HgcVSCq0g72k/+E=;
- b=KggwTH80qWEwgAQsdI0Njz/ltQ4Sp8llAnpMDfE6ZwE3HcGklyrB2gSuS8o7N8WqxYEr9ICo8Y6bdFhujdRw1+Gd4X6jKhKqRB6VwmC5rKuJx/CVyH8xmrkMH/XGgBUJcpwuI+3Tv92VW27lY+4xsd9eiHGllBMsh0CZXUsZ8Hg=
-Received: from BLAP220CA0007.NAMP220.PROD.OUTLOOK.COM (2603:10b6:208:32c::12)
- by DS7PR12MB6263.namprd12.prod.outlook.com (2603:10b6:8:95::17) with
- Microsoft SMTP Server (version=TLS1_2,
+ bh=mPjHrvRlZHfW5CPsfXjQRN56KlAnLhYXd78lZMSTOWM=;
+ b=GoafC4ryjI/qqx41G40U93hpTf4jjfiI+X66rqybOx+D5s416dl5yan8+ewnr3WjVN80VAv/cD8I4hK1oy/StPvz/zdwM8jK0MTizXhMO7ojWif7zUHUqs8rnibnSy11X4CjJXZ40NyzCNwZmDQ9V9WuqQWucn/ivG4cm2G52/Y=
+Received: from BL1PR13CA0350.namprd13.prod.outlook.com (2603:10b6:208:2c6::25)
+ by BL4PR12MB9505.namprd12.prod.outlook.com (2603:10b6:208:591::16)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.25.23; Mon, 18 May
- 2026 09:41:48 +0000
-Received: from MN1PEPF0000ECDB.namprd02.prod.outlook.com
- (2603:10b6:208:32c:cafe::16) by BLAP220CA0007.outlook.office365.com
- (2603:10b6:208:32c::12) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.25.23 via Frontend Transport; Mon, 18
- May 2026 09:41:48 +0000
+ 2026 09:41:52 +0000
+Received: from MN1PEPF0000ECD7.namprd02.prod.outlook.com
+ (2603:10b6:208:2c6:cafe::87) by BL1PR13CA0350.outlook.office365.com
+ (2603:10b6:208:2c6::25) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.48.13 via Frontend Transport; Mon, 18
+ May 2026 09:41:52 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,20 +48,20 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- MN1PEPF0000ECDB.mail.protection.outlook.com (10.167.242.139) with Microsoft
+ MN1PEPF0000ECD7.mail.protection.outlook.com (10.167.242.136) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.48.11 via Frontend Transport; Mon, 18 May 2026 09:41:48 +0000
+ 15.21.48.11 via Frontend Transport; Mon, 18 May 2026 09:41:51 +0000
 Received: from stanley-test.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Mon, 18 May
- 2026 04:41:45 -0500
+ 2026 04:41:49 -0500
 From: Stanley.Yang <Stanley.Yang@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <Hawking.Zhang@amd.com>, <Tao.Zhou1@amd.com>, <YiPeng.Chai@amd.com>,
  <Candice.Li@amd.com>, Stanley.Yang <Stanley.Yang@amd.com>
-Subject: [PATCH 3/5] drm/amd/ras: cap pending_ecc_list size
-Date: Mon, 18 May 2026 17:40:19 +0800
-Message-ID: <20260518094021.280968-3-Stanley.Yang@amd.com>
+Subject: [PATCH 5/5] drm/amdgpu: harden FRU PIA parsing with bounded helpers
+Date: Mon, 18 May 2026 17:40:21 +0800
+Message-ID: <20260518094021.280968-5-Stanley.Yang@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260518094021.280968-1-Stanley.Yang@amd.com>
 References: <20260518094021.280968-1-Stanley.Yang@amd.com>
@@ -73,29 +73,29 @@ X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN1PEPF0000ECDB:EE_|DS7PR12MB6263:EE_
-X-MS-Office365-Filtering-Correlation-Id: 93174c77-955c-4c70-a7f7-08deb4c1ae66
+X-MS-TrafficTypeDiagnostic: MN1PEPF0000ECD7:EE_|BL4PR12MB9505:EE_
+X-MS-Office365-Filtering-Correlation-Id: f3646ca4-3310-4eb6-04a8-08deb4c1b0c2
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700016|376014|82310400026|1800799024|11063799003|18002099003|56012099003|22082099003;
-X-Microsoft-Antispam-Message-Info: Yq2DXjaQFA0NXLIJ5Q+FkE5sbGqBZk8LrWCgg+jNBaCSRaorKCi1f8cifGqZIaHO16qsM6tf9jESuuCbJfjNwIb9SADLwmuQBNT9rdW8jq7YqBH4n6KaPpEmHLn7tG43n3jAVCG/2yi3jTF0AAQmayNpekvnAM70IuR1UpI9fH7nutZbRfsdtkFcE+bMOFqSGfkZkV37C4zwiQWKv6OMhhpFgXiM3p0ObbnaY/F6yIediaiteNWbboD6kH59eiDO+5uCBjU4iKbmBfD3IleJhT+1uKRj9ElTbH2o/kZL6IJD8QC1JpJd6mE7adIhQqCfqeYp5EjuKqfswkChiRKPoBvGKOldSuLq/VEhwzzs5AwFFSukHWZQEbcYZ3Wk+ecIwnqr3WlsH1REFiI1wBtvUjkSf+H8BKHFp9584v95RxRnlnCjUuLiWLOMb0XGI2bMuZERd6fhLJhDHX8UYhq4X+/FvvrpfBEvPDTaddiqD+zKpLfj+2RqEv9a5LInub8WR41m7y6vNPhF0VGHEyHfpIl3qh9B2bYglTE7SaOUjfMlsmdr0TdlqAUxmP0kTVP2KMIEw9/rhnkw+wY79muLL7Ar46Hg7WpMco02jsK+YtB/UyJ/3xPYZgcRj6Cnur5o4MmH6vBtqG4OVTJ1cRMzAhXxaNTELa9GHG0U0vMJCW9FgEcES2QABCzFkc4LBlBHapKJ3qf3q1Uxmm5yXdL2LelfbD/sggPS2L6MO1wGqdA=
+ ARA:13230040|1800799024|82310400026|376014|36860700016|18002099003|22082099003|56012099003|11063799003;
+X-Microsoft-Antispam-Message-Info: mmZFULY5UODcrjTADrMH6yNctCb8blHf+R0xIfXKOgkJVgmK7z1yC54cDatoTSFKFF3mI0bOgjx6ecOEdnySbJHBrk6okvbTPNW5TTMW5FNyRidIGrh4cJA1zqg8hSFRA3m6i82RxLTOni2fCgpOYkE3kdzYAfzrDYY1Sh+AiFohOup6vnc4ZVjroAjxzCU1avh1nmwg8oJ//ddcoL5DCoL7/ARNCn/wDpFpfWTFmpKVA+UpmfmVYBqilXf0h7pXPhEqXa7mbjzY4LAXryEo0RveOAelQtnN9Lw87oOD7UoG6J9UFh//+87zGdzLE1bpqtWoWEIIRHBejBaZkPXMEdkATnvmUXLSrucXNF0pNqVp4sreUOYHu+ccMVCjAPqiRYhJf/aSe63YGaVr43SNqwoUSplxoW/4EhBYaoEOHxMc0+xxvYIbieJsclwuLRuWPGLqGgYm1kapJ5cijjgRTsGFeJwfsAoLI4E3Cf9hBX8T0yTM/9mO0/A6bVquMnlt35TLdD0P6aAnn/5I/uD1rxLnOOzZ+rwK02ZSytH4YTd4lk2I6bf7HMEsZe5/nOfIjnJprPaPj0cOVQo7H/XwDys4ZHJCOOU+vedvElxgFP0kto3T3bmFpRdeAqQnp++VSO3oxri5W0RQYUy7Ndr9Z2XEk1sFrS3JOHBQbrIoG3TWvX5Y5nwnzwblLr7kHMLDsX7fqyRXoXeVBLlRyKhYBmvMU6+Jc4EtdJKyfdRRRWQ=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700016)(376014)(82310400026)(1800799024)(11063799003)(18002099003)(56012099003)(22082099003);
+ SFS:(13230040)(1800799024)(82310400026)(376014)(36860700016)(18002099003)(22082099003)(56012099003)(11063799003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 3oo9hg7Hucs1jpDBGjvcH58+3FQIREutOMPy8v0BhLHKyvDxQj7q1Gj/GqYtkVygqxnxyJHe2ePsJ11lo72MkQBkKP168PZbgD6BPLhLVTuZdfV+MfhSxZ1B6GsjfgBTkjcQBotzIrqrhyD1Kd1gZ0Sap1fHyAqj7JeKb/M9Belb+iBb0SJtHau4ZEt9R0b7/MZgTMlhvEpFU+XgemUD7l+0D0q2yrtfS6FYnZZoWDioQ0VUp+dckreLUOD8PsswjOdHFGTTm1DwOwiabwJgFZI4L4PBVeVnB+4DgQqKkjJAnKYUZgrym2wdp32qF2wVGNgrffmCao+9k1UkPi/wlzAMxtOVC2W1IJDQ8j7/Ga1wN8jObVeNThz/XmL7G1UJl7nX5BS4rL+dE01GAtb//j0YkcliLo8IjkOwWSKXv0T+jun6L5jJcyODIkecQJLB
+X-MS-Exchange-AntiSpam-MessageData-0: 2uSLvhG6eR+Mq24FwCoKrLSb7kwWIG4qEEGRRM2ZN06sEtd1vrdudjZt0bUTqKUwhylu9h0SICfy6dncou9JtC0Rl0aVJ4lt6+YvTjTlQqmgcP/iIUxvAH5Q7vGnwK0N//zkgDv4g9g1wmF/4E/VUKRph0o+PA64rZd6Nse3zcZF3sdBAjjV0yxF+0Ri2Obk4a7aIVArCz7K62mBYOAfrMUnQuNMjB/a6+ygfOhyJxbqVq4GIsSLpeMPEZqBarW2CJ7BXT328dVkujTdQTflt24q4Q0Npf0jdYw0PuN+4RMHE6pSW55TqbuC+I2NAdZk9RyWRpR6omPHVL5Zt0mRlKjNzdWYoI4i8MFf9emmxQh+tDSAlmQP26RU+76W7qkUF6ooyWIQAU9LLywCO5cRansvz9jOy33P6hFDm3XL8Xduq6HVOtlq5PBYbhxTvSdB
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 May 2026 09:41:48.0384 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 93174c77-955c-4c70-a7f7-08deb4c1ae66
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 May 2026 09:41:51.9953 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f3646ca4-3310-4eb6-04a8-08deb4c1b0c2
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: MN1PEPF0000ECDB.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: MN1PEPF0000ECD7.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6263
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL4PR12MB9505
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,139 +110,143 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Drop new entries once pending_ecc_count hits RAS_UMC_PENDING_ECC_MAX
-(4096) so an ECC storm or repeated UMC error injection cannot exhaust
-kernel memory. Dropped events are counted and reported via a
-rate-limited warning.
+Replace the open-coded TLV walk with fru_pia_advance()
+and fru_pia_copy_field() helpers that bound every read
+by the actual EEPROM data length, preventing out-of-bounds
+reads on truncated or malformed FRU data.
 
 Signed-off-by: Stanley.Yang <Stanley.Yang@amd.com>
 ---
- drivers/gpu/drm/amd/ras/ras_mgr/ras_sys.h |  9 ++++++
- drivers/gpu/drm/amd/ras/rascore/ras_umc.c | 35 +++++++++++++++++++++++
- drivers/gpu/drm/amd/ras/rascore/ras_umc.h | 12 ++++++++
- 3 files changed, 56 insertions(+)
+ .../gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c    | 95 ++++++++++++-------
+ 1 file changed, 63 insertions(+), 32 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/ras/ras_mgr/ras_sys.h b/drivers/gpu/drm/amd/ras/ras_mgr/ras_sys.h
-index 8156531a7b63..f34dda7ce87b 100644
---- a/drivers/gpu/drm/amd/ras/ras_mgr/ras_sys.h
-+++ b/drivers/gpu/drm/amd/ras/ras_mgr/ras_sys.h
-@@ -46,6 +46,15 @@
- 			printk(KERN_WARNING fmt, ##__VA_ARGS__);                           \
- 	} while (0)
- 
-+#define RAS_DEV_WARN_RATELIMITED(device, fmt, ...)                                   \
-+	do {                                                                       \
-+		if (device)                                                              \
-+			dev_warn_ratelimited(((struct amdgpu_device *)device)->dev,        \
-+				fmt, ##__VA_ARGS__);                                            \
-+		else                                                                   \
-+			printk_ratelimited(KERN_WARNING fmt, ##__VA_ARGS__);               \
-+	} while (0)
-+
- #define RAS_DEV_INFO(device, fmt, ...)                                                 \
- 	do {                                                                         \
- 		if (device)                                                                \
-diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_umc.c b/drivers/gpu/drm/amd/ras/rascore/ras_umc.c
-index d4072350f48f..e8c13e42c2f8 100644
---- a/drivers/gpu/drm/amd/ras/rascore/ras_umc.c
-+++ b/drivers/gpu/drm/amd/ras/rascore/ras_umc.c
-@@ -193,12 +193,29 @@ static void ras_umc_reserve_eeprom_record(struct ras_core_context *ras_core,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c
+index c5178e2b794d..86b2d5a79993 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c
+@@ -115,6 +115,43 @@ static bool is_fru_eeprom_supported(struct amdgpu_device *adev, u32 *fru_addr)
+ 	}
  }
  
- /* When gpu reset is ongoing, ecc logging operations will be pended.
-+ *
-+ * The pending list is bounded by RAS_UMC_PENDING_ECC_MAX so that an ECC
-+ * storm or repeated UMC error injection cannot make this list (and the
-+ * kernel allocations behind it) grow without bound. Once the limit is
-+ * reached, additional events are dropped and counted in
-+ * pending_ecc_dropped, with a rate-limited warning emitted.
-  */
- int ras_umc_log_bad_bank_pending(struct ras_core_context *ras_core, struct ras_bank_ecc *bank)
- {
- 	struct ras_umc *ras_umc = &ras_core->ras_umc;
- 	struct ras_bank_ecc_node *ecc_node;
- 
-+	mutex_lock(&ras_umc->pending_ecc_lock);
-+	if (ras_umc->pending_ecc_count >= RAS_UMC_PENDING_ECC_MAX) {
-+		ras_umc->pending_ecc_dropped++;
-+		mutex_unlock(&ras_umc->pending_ecc_lock);
-+		RAS_DEV_WARN_RATELIMITED(ras_core->dev,
-+			"pending ECC list full (%u), dropping bad bank event (total dropped:%u)\n",
-+			RAS_UMC_PENDING_ECC_MAX, ras_umc->pending_ecc_dropped);
-+		return -ENOSPC;
-+	}
-+	mutex_unlock(&ras_umc->pending_ecc_lock);
-+
- 	ecc_node = kzalloc(sizeof(*ecc_node), GFP_KERNEL);
- 	if (!ecc_node)
- 		return -ENOMEM;
-@@ -206,7 +223,15 @@ int ras_umc_log_bad_bank_pending(struct ras_core_context *ras_core, struct ras_b
- 	memcpy(&ecc_node->ecc, bank, sizeof(ecc_node->ecc));
- 
- 	mutex_lock(&ras_umc->pending_ecc_lock);
-+	/* re-check under the lock to honor the cap across concurrent callers */
-+	if (ras_umc->pending_ecc_count >= RAS_UMC_PENDING_ECC_MAX) {
-+		ras_umc->pending_ecc_dropped++;
-+		mutex_unlock(&ras_umc->pending_ecc_lock);
-+		kfree(ecc_node);
-+		return -ENOSPC;
-+	}
- 	list_add_tail(&ecc_node->node, &ras_umc->pending_ecc_list);
-+	ras_umc->pending_ecc_count++;
- 	mutex_unlock(&ras_umc->pending_ecc_lock);
- 
- 	return 0;
-@@ -225,8 +250,16 @@ int ras_umc_log_pending_bad_bank(struct ras_core_context *ras_core)
- 		if (!ras_umc_log_bad_bank(ras_core, &ecc_node->ecc)) {
- 			list_del(&ecc_node->node);
- 			kfree(ecc_node);
-+			if (ras_umc->pending_ecc_count)
-+				ras_umc->pending_ecc_count--;
- 		}
- 	}
-+	if (ras_umc->pending_ecc_dropped) {
-+		RAS_DEV_WARN(ras_core->dev,
-+			"%u pending ECC bad-bank events were dropped during GPU reset\n",
-+			ras_umc->pending_ecc_dropped);
-+		ras_umc->pending_ecc_dropped = 0;
-+	}
- 	mutex_unlock(&ras_umc->pending_ecc_lock);
- 
- 	return 0;
-@@ -611,6 +644,8 @@ int ras_umc_sw_fini(struct ras_core_context *ras_core)
- 		list_del(&ecc_node->node);
- 		kfree(ecc_node);
- 	}
-+	ras_umc->pending_ecc_count = 0;
-+	ras_umc->pending_ecc_dropped = 0;
- 	mutex_unlock(&ras_umc->pending_ecc_lock);
- 
- 	mutex_destroy(&ras_umc->tree_lock);
-diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_umc.h b/drivers/gpu/drm/amd/ras/rascore/ras_umc.h
-index 1d3026be509b..237525b46b9b 100644
---- a/drivers/gpu/drm/amd/ras/rascore/ras_umc.h
-+++ b/drivers/gpu/drm/amd/ras/rascore/ras_umc.h
-@@ -139,8 +139,20 @@ struct ras_umc {
- 	struct mutex  pending_ecc_lock;
- 	struct ras_umc_err_data umc_err_data;
- 	struct list_head pending_ecc_list;
-+	/* number of entries currently queued on pending_ecc_list */
-+	u32 pending_ecc_count;
-+	/* number of entries dropped because pending_ecc_list was full */
-+	u32 pending_ecc_dropped;
- };
- 
 +/*
-+ * Upper bound on entries that can be queued on pending_ecc_list while a
-+ * GPU reset is in progress. Beyond this, new ECC events are dropped to
-+ * prevent unbounded kernel memory growth in case of an ECC storm or
-+ * malicious/repeated UMC error injection.
++ * IPMI FRU Product Info Area fields are TLV: one type/length byte
++ * (low 6 bits = data length) followed by that many data bytes. These
++ * helpers walk the cursor and copy a single field while bounding all
++ * accesses to the actual buffer length read from the EEPROM.
 + */
-+#define RAS_UMC_PENDING_ECC_MAX  8192
++#define FRU_FIELD_LEN(p, a)	((p)[a] & 0x3F)
 +
- int ras_umc_sw_init(struct ras_core_context *ras);
- int ras_umc_sw_fini(struct ras_core_context *ras);
- int ras_umc_hw_init(struct ras_core_context *ras);
++/* Advance cursor past the current TLV. Returns false if no more data. */
++static bool fru_pia_advance(u32 *addr, const unsigned char *pia, int len)
++{
++	if (*addr >= (u32)len)
++		return false;
++	*addr += 1 + FRU_FIELD_LEN(pia, *addr);
++	return true;
++}
++
++/*
++ * Copy the current TLV's data into dst (NUL-terminated). Returns false if
++ * the TLV header or data would read past the end of pia.
++ */
++static bool fru_pia_copy_field(char *dst, size_t dst_size,
++			       const unsigned char *pia, u32 addr, int len)
++{
++	size_t fl;
++
++	if (addr + 1 >= (u32)len)
++		return false;
++
++	fl = min3((size_t)FRU_FIELD_LEN(pia, addr),
++			  dst_size -1,
++			  (size_t)(len - addr - 1));
++	memcpy(dst, pia + addr + 1, fl);
++	dst[fl] = '\0';
++	return true;
++}
++
+ int amdgpu_fru_get_product_info(struct amdgpu_device *adev)
+ {
+ 	struct amdgpu_fru_info *fru_info;
+@@ -223,52 +260,46 @@ int amdgpu_fru_get_product_info(struct amdgpu_device *adev)
+ 	 * Read Manufacturer Name field whose length is [3].
+ 	 */
+ 	addr = 3;
+-	if (addr + 1 >= len)
++	if (!fru_pia_copy_field(fru_info->manufacturer_name,
++				sizeof(fru_info->manufacturer_name),
++				pia, addr, len))
+ 		goto Out;
+-	memcpy(fru_info->manufacturer_name, pia + addr + 1,
+-	       min_t(size_t, sizeof(fru_info->manufacturer_name),
+-		     pia[addr] & 0x3F));
+-	fru_info->manufacturer_name[sizeof(fru_info->manufacturer_name) - 1] =
+-		'\0';
+ 
+ 	/* Read Product Name field. */
+-	addr += 1 + (pia[addr] & 0x3F);
+-	if (addr + 1 >= len)
++	if (!fru_pia_advance(&addr, pia, len) ||
++	    !fru_pia_copy_field(fru_info->product_name,
++				sizeof(fru_info->product_name),
++				pia, addr, len))
+ 		goto Out;
+-	memcpy(fru_info->product_name, pia + addr + 1,
+-	       min_t(size_t, sizeof(fru_info->product_name), pia[addr] & 0x3F));
+-	fru_info->product_name[sizeof(fru_info->product_name) - 1] = '\0';
+ 
+ 	/* Go to the Product Part/Model Number field. */
+-	addr += 1 + (pia[addr] & 0x3F);
+-	if (addr + 1 >= len)
++	if (!fru_pia_advance(&addr, pia, len) ||
++	    !fru_pia_copy_field(fru_info->product_number,
++				sizeof(fru_info->product_number),
++				pia, addr, len))
+ 		goto Out;
+-	memcpy(fru_info->product_number, pia + addr + 1,
+-	       min_t(size_t, sizeof(fru_info->product_number),
+-		     pia[addr] & 0x3F));
+-	fru_info->product_number[sizeof(fru_info->product_number) - 1] = '\0';
+ 
+-	/* Go to the Product Version field. */
+-	addr += 1 + (pia[addr] & 0x3F);
++	/* Skip the Product Version field. */
++	if (!fru_pia_advance(&addr, pia, len))
++		goto Out;
+ 
+-	/* Go to the Product Serial Number field. */
+-	addr += 1 + (pia[addr] & 0x3F);
+-	if (addr + 1 >= len)
++	/* Read the Product Serial Number field. */
++	if (!fru_pia_advance(&addr, pia, len) ||
++	    !fru_pia_copy_field(fru_info->serial,
++				sizeof(fru_info->serial),
++				pia, addr, len))
+ 		goto Out;
+-	memcpy(fru_info->serial, pia + addr + 1,
+-	       min_t(size_t, sizeof(fru_info->serial), pia[addr] & 0x3F));
+-	fru_info->serial[sizeof(fru_info->serial) - 1] = '\0';
+ 
+-	/* Asset Tag field */
+-	addr += 1 + (pia[addr] & 0x3F);
++	/* Skip the Asset Tag field. */
++	if (!fru_pia_advance(&addr, pia, len))
++		goto Out;
+ 
+ 	/* FRU File Id field. This could be 'null'. */
+-	addr += 1 + (pia[addr] & 0x3F);
+-	if ((addr + 1 >= len) || !(pia[addr] & 0x3F))
++	if (!fru_pia_advance(&addr, pia, len) ||
++	    !fru_pia_copy_field(fru_info->fru_id,
++				sizeof(fru_info->fru_id),
++				pia, addr, len))
+ 		goto Out;
+-	memcpy(fru_info->fru_id, pia + addr + 1,
+-	       min_t(size_t, sizeof(fru_info->fru_id), pia[addr] & 0x3F));
+-	fru_info->fru_id[sizeof(fru_info->fru_id) - 1] = '\0';
+ 
+ Out:
+ 	kfree(pia);
 -- 
 2.43.0
 
