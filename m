@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C134ACD4F48
-	for <amd-gfx@archiver.kernel.org>; Mon, 18 May 2026 07:23:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CCEF0CD4F4A
+	for <amd-gfx@archiver.kernel.org>; Mon, 18 May 2026 07:23:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C432510E6C2;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E2B9110E6B7;
 	Mon, 18 May 2026 07:23:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="YEaKqpgr";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ZmJ84/FY";
 	dkim-atps=neutral
-Received: from BN1PR04CU002.outbound.protection.outlook.com
- (mail-eastus2azon11010035.outbound.protection.outlook.com [52.101.56.35])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DE3D010E6BF
+Received: from PH8PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11012068.outbound.protection.outlook.com [40.107.209.68])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4785C10E6B6
  for <amd-gfx@lists.freedesktop.org>; Mon, 18 May 2026 07:23:23 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=lZs1G3aKsKN+JyW6t2DusDxtu/b4+UcayBVX5TQwvQBSbLx8vbSE1HLG3yib37YA+PBF/dzeJGmvYJdgynZRTdZqpG5aOWkZ6W52CDUPD+TEn+80KRObXAKebK8Gl1wmM/DXB4DjZmOd+u/UL4ki6TW6cX7o9NKq1AG9eyF+2If+EfNNclZLzVnq71iipZZc8VXGI7G31qYfNXLy201ccMnZ8auZj5iwfZWLUTSomcXCGZua1q8ziZj68qZ/waVdVxT862u3w3+SUSQ2bPWXePYm0SEP2eag9mqejv7gu39Mjq3PcgrSL6mdDLTWDfRwmmXRFdgioQpYpjK57CH/3Q==
+ b=VzEw9sQ0WLCsxXQHG4rVnearLeyopjfqSpPl+LDruwC2da0oh5yTBGBA4A1p7k7n5Zuf0m1VaFRGntl+6Z3r6Z6lSyWoa+81s+dx0wd1h0zwdADt0IAJOclGOlTmDCAag0nfddSmDnmXjrDoY3vJVdqsk+3eUtfRWXVZa7v/hFhkXOLE2hmNJd3Up30DW2EBVzPBp5U9s2Tb8ipOzt6P/TyLQdM90pRKUfBb2+A6rS9qZpClAf6/6SoEoeIBItRFe5SARuvqzaLMr9Cbj6kJYuzxnUHrhvvqI5Pohtu/v5ubYfvrMOw5EP8Znviyoy/RN8xg+PxjoscrhAxq3FTr1w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Gq8BOEKUjBsDmfLWziJt9AC0gqA1vMlPgAJoLKU/95g=;
- b=YBG2LLX4GnH+MLrD2mPA/ZczBSDJdIjxeDprdKqnPgmZI0P4LnR/fOTm169BYBT85Fk8tHF8iy1ILN3p0A7xh3d8CHTmXK86tZBXWg+nt2GzS13p5xdmFzApHr3zLBuRzG3J/neLwk/QrLecrxrp2yyYUFXrJy3Rbtd6LtzTtiIsR1Xr2VO6cEyoD66ye5UVg0y3H2p8BvlK+jd7k2NUsC9hpv7F3CFsSgQ+l9BwINW1ynIKdUHwblEw2INcVei6ca9exwUgcDpA0R3DlaFp7B6QJXW15ktgAUmS28UVM6wADxGft9R0O/bvAqC6c06BShZZNExYGpLcL+J6R3SY3w==
+ bh=FgMUghewDWWXJFOn1oMF9GHoZix1rJTM8gzxliHi0Dc=;
+ b=k9Whh2bLdGa4CikXWCYRoz5gldG9huNB/Yu3ZGBmR2ChNEQTUEhyaWjQeF/xT774go1lZe60rw0z4o05r2Sm7CV4lNNqjm1HuxDZ1cng1srdPG1Ds2GbTyBPceGD0vs8Dep/8BbSdjAJKliNTmm5n8AdgOfNJEALwHqN1S6uijNDTSP1uzgXCMeBF5FJhE8R0fbHyy2ZEi0oeM0153+qyUrA4IFK233tlMLcIB+XJ+pVfDYFkXtPdsf2WU8MnH6EF2NIiIkT8z1LUfF7f+GRf3GyNxnjNyDA3209lWDKIccOm0LFRHoFRg3mUBTTXhEvERh2dONpJBClaH/s0Fy+Cg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Gq8BOEKUjBsDmfLWziJt9AC0gqA1vMlPgAJoLKU/95g=;
- b=YEaKqpgr5LoN+s3j88z0bYN+zyeud4k89XMvOBxWJTzjv+3q1CzoWKVsO48XM5JwUTcFLOwJtta6vFnP2Qi3DaHS4n49ooGARRjJ7dQXH+c6aIDw5FcxWmrEGgyehefTpRFHDV7PQ2gtd/l95cIeEpFBhQuyl1m/7MifbHHbp60=
-Received: from BN1PR12CA0026.namprd12.prod.outlook.com (2603:10b6:408:e1::31)
- by IA0PR12MB8748.namprd12.prod.outlook.com (2603:10b6:208:482::17)
+ bh=FgMUghewDWWXJFOn1oMF9GHoZix1rJTM8gzxliHi0Dc=;
+ b=ZmJ84/FYReKwtaceSAMcGBEMSZj3GrOhttD5p0ck8Q3xBvbj0+M2bZchb/mczmJrUuORoqjp1chuJSKoq6v/gtRhyQ2lmio+n8f9q1buK5vq/3rXglbLNVx+di105QPj6SfUUV1tNGmDPZxUqGP/2wqTL/je6fM4TgH7v8y9BPA=
+Received: from MN2PR16CA0065.namprd16.prod.outlook.com (2603:10b6:208:234::34)
+ by LVXPR12MB999197.namprd12.prod.outlook.com (2603:10b6:408:3dc::20)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.25.23; Mon, 18 May
- 2026 07:23:19 +0000
-Received: from BN2PEPF000044A5.namprd04.prod.outlook.com
- (2603:10b6:408:e1:cafe::6c) by BN1PR12CA0026.outlook.office365.com
- (2603:10b6:408:e1::31) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.25; Mon, 18 May
+ 2026 07:23:20 +0000
+Received: from BN2PEPF000044AC.namprd04.prod.outlook.com
+ (2603:10b6:208:234:cafe::2d) by MN2PR16CA0065.outlook.office365.com
+ (2603:10b6:208:234::34) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.25.23 via Frontend Transport; Mon, 18
- May 2026 07:23:18 +0000
+ May 2026 07:23:20 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,20 +48,20 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- BN2PEPF000044A5.mail.protection.outlook.com (10.167.243.104) with Microsoft
+ BN2PEPF000044AC.mail.protection.outlook.com (10.167.243.107) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.48.11 via Frontend Transport; Mon, 18 May 2026 07:23:18 +0000
+ 15.21.48.11 via Frontend Transport; Mon, 18 May 2026 07:23:20 +0000
 Received: from amd-03.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Mon, 18 May
- 2026 02:23:16 -0500
+ 2026 02:23:18 -0500
 From: YiPeng Chai <YiPeng.Chai@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <yipechai@amd.com>, <Hawking.Zhang@amd.com>, <Tao.Zhou1@amd.com>,
  <Stanley.Yang@amd.com>, YiPeng Chai <YiPeng.Chai@amd.com>
-Subject: [PATCH 3/7] drm/amd/ras: remove unused code
-Date: Mon, 18 May 2026 15:22:11 +0800
-Message-ID: <20260518072215.3647120-3-YiPeng.Chai@amd.com>
+Subject: [PATCH 4/7] drm/amd/ras: fix memory leak on ras sw_init failure
+Date: Mon, 18 May 2026 15:22:12 +0800
+Message-ID: <20260518072215.3647120-4-YiPeng.Chai@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260518072215.3647120-1-YiPeng.Chai@amd.com>
 References: <20260518072215.3647120-1-YiPeng.Chai@amd.com>
@@ -73,29 +73,29 @@ X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF000044A5:EE_|IA0PR12MB8748:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0d407aff-9ee2-4ad3-e79f-08deb4ae55cb
+X-MS-TrafficTypeDiagnostic: BN2PEPF000044AC:EE_|LVXPR12MB999197:EE_
+X-MS-Office365-Filtering-Correlation-Id: 32b87c14-992c-4e59-73e6-08deb4ae56cd
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|36860700016|82310400026|1800799024|11063799003|56012099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: dUFmr3NQPmIz7dAFDRxE//HCvH+0aBDKoyh/0Mv4V+MKGK+zfiCdljmdrJ1IMjhfweGzyY1PgMCO2aFH7IFjs8LcyyUpk+7SqLEWV8LmXBMAmgh16ZUy9O9rNmajszU6t2z086X1YHL1Hzbl51V1jl2cLwc988iakb5ZPZj+6GTlsJcmqK21xgGBSKzS/BALfJ/6fBX79ck0BVX/OPjRABpmQpxffVFXnprnRTg/x108nqkisZwRj0dUYPHVYCRjeayaOso62p9Uhh6+MhDMxnXcRaWN5dp2ZE9AwvDZz5ghn8DKILFt84Li/zEPeAyMVnDLcFxEtqg0Qnfm2R5XmJ4tLkpSTMHAi44VprkvPwJYDJXQCtj9APOwvmwxn53dKPZXZbEzsCbhCar2ZTC2dnr8Tys7prQZJzqTVBoC03SJqyPjUXIIaRowx1xlHlia4Pw+lU2y1dvHDKpWd+zNtaZ/LpxgDsOGQML3gd9ibwR1wLxG7PIqqelNJO9FgMbfnCZEh9sp2rFGUslEuDqWYMBhIWbkgaVihRl0oNubeLUYrU0Pc2x2biNy4on/WC6eRUXXkDvh3mHb9KOLZNXJkGPkDkn9B4MYK8b4x41u46hTABb3cx/cr5LPOLCppnVX6fPZ/LWB9j188hfBU2SmsyiUU0+/Zr4a54Qq4F39JchBJ+w9HRJQHqxJzPY13qxD+oDhjbtTG8/xhgwTmSZ6Vwt2EtH8kbaW8DdGW3av2cs=
+ ARA:13230040|1800799024|82310400026|376014|36860700016|56012099003|22082099003|18002099003|11063799003;
+X-Microsoft-Antispam-Message-Info: Sl0/UxLLD0x5Mg42gFUQAqka8aXu8Ymk+5boWqxXcH4xf9hgGknuN4Lp/BA0MTC0e/EkHQOAnQqIApNWCESuEpPa9zUeeWFwXBaYA8kxlKLP/6R70skD2CooUq3eQcrlaqfeYDI1judfR6EhY2A3GKaL2Yb788utL4AGEpNjbsgplpv0riZxSeLA2dsKZLLh0c9NSZrR/9u5qo/Xhqw2Szz7rJxtf87bh7m4RrHun8uvUII3QK7gVytxchgsXpoLPOZakIAgyq09XZ1WugbGxccc3SdNaLpJ/R4OdBUDrOUClelFuI9dlP5zu2N49CwhXvdcEFVI0CYBN49PjimcDx4Y6TMea6bvGCTPANfVH8GMKR55VpDryofk5psHcFovphnKWSa3TsluEKGmRq6mB7wo9z8EZH5FgQLHbtwxH5uGqEQmecT66ntrgrGPb5nh/uTTjYWYcbrGfJEXiml5rojfZCIMnQjrmEOB4wN3P63+R1SpP9bBCj8RqrM1hM7SXb65C7+nk9DO4Ml4/6YUiw/8XM9q6GQkGztyB5yj1OJG9MWyLUFjAUxEXzz7WDCa+OqCBEotLGK59pGywCKHxzC9JJYDZbEbKiGRrUMdDofpuFfhvMEpDxBOua1M+k9clsd9V4aqV4EJzp77b8MiWh0AcNrdIKVf/7PsmaneJZQApTDeMNk5rPaA5Z4U4URgPpockVGGPp++wSXtsiI9x1x8EwxTzJSiEuk1g6yUqck=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(36860700016)(82310400026)(1800799024)(11063799003)(56012099003)(18002099003)(22082099003);
+ SFS:(13230040)(1800799024)(82310400026)(376014)(36860700016)(56012099003)(22082099003)(18002099003)(11063799003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: EOeRspHRX9H22YGF4KqBUWij6mtraEo8BDYLhz94ZyphVfQA34ghD5Fy91MxSARxIFSYT7mrT3zQSy2NAoraq+QMq+RnbWWjd7g6BW51Ig72tvxg4X9NiYxXy+gQace/RtW8pbaiXf1xFyVq3HzZ2iL2tx5OfhHi4WVmgh3DtA2AhbHbG9C46s0uZ06evc+WuIF2WDWWO/STtE4S+beZfr68HoHyrT8ih72K6wvOtPvEJw1CXqrtY80gkj1rNzB117ZOs46FyRcfkSaNMyt/N6V1dnPM1JMNGXKVjXBN6RT5NHc1ptGk56NDyIpIPR15LYE5vAtCK315Evpkb5f0jiYM9A79uLKZSiIrKB9vnoZ+4i1a9MTaRYQfd4aJyewb7xDO+3PGanBW/MeDTUhQCbVW8m+joDMB0TkikN5Rh3k5LAOee9/m1INn+4WDyk6N
+X-MS-Exchange-AntiSpam-MessageData-0: 2itdxYtmqRZWBNbZqwnscbxXtuuqPzyGnoj/0sIdWQjVVn4DQnOvHSDqMuFCmJ2dR35hki9+XJeNW39O55LU7/xYeX/8Mc029mhkfVyOcdTWfGro804LRZvxZQRvaS8fDWIRcb/8hqDdORhxmbRBcW2eWLeH1U2wNPT0Is2YOTj204ZnH9oTnbLyAw+mE7a5VW/r2LD4GGSI0q9CxYuPOCi4Y/9WS9gvs9bLGvJE3hKkcXcVd2CyjnKYX5N3LcluD6lCDx32BU9yjNNhMYCMvXNI+J14s9c2KfhW9Fg7loqqirR1YRe4zs8rxJD/zZJkZVzeTwr1h+Pdr50OPlJU44im8joyjQaRaiR4bHanMdQ8dLt1L3FtDZMaL7p1/buBnP9VE1I/9SKMbMupmIOph5TkEvEFqx4bG75SeMH3UdVGmb07+DWVlpg8pVV+07f9
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 May 2026 07:23:18.9495 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0d407aff-9ee2-4ad3-e79f-08deb4ae55cb
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 May 2026 07:23:20.6371 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 32b87c14-992c-4e59-73e6-08deb4ae56cd
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF000044A5.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF000044AC.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8748
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LVXPR12MB999197
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,109 +110,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Remove unused code.
+Fix memory leak on ras sw_init failure.
 
 Signed-off-by: YiPeng Chai <YiPeng.Chai@amd.com>
 ---
- drivers/gpu/drm/amd/ras/rascore/ras.h     |  1 -
- drivers/gpu/drm/amd/ras/rascore/ras_cmd.c | 22 +---------------------
- drivers/gpu/drm/amd/ras/rascore/ras_cmd.h |  9 ---------
- 3 files changed, 1 insertion(+), 31 deletions(-)
+ .../gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.c  | 20 +++++++++++++++----
+ 1 file changed, 16 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/ras/rascore/ras.h b/drivers/gpu/drm/amd/ras/rascore/ras.h
-index 6449d7b8627d..c059fcebaf00 100644
---- a/drivers/gpu/drm/amd/ras/rascore/ras.h
-+++ b/drivers/gpu/drm/amd/ras/rascore/ras.h
-@@ -329,7 +329,6 @@ struct ras_core_context {
- 	struct ras_gfx ras_gfx;
- 	struct ras_mp1 ras_mp1;
- 	struct ras_process ras_proc;
--	struct ras_cmd_mgr ras_cmd;
- 	struct ras_log_ring ras_log_ring;
+diff --git a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.c b/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.c
+index 3a819c89e2fd..cf6ce21fb4dc 100644
+--- a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.c
++++ b/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.c
+@@ -307,13 +307,17 @@ static int amdgpu_ras_mgr_sw_init(struct amdgpu_ip_block *ip_block)
+ 	if (!ras_mgr->ras_core) {
+ 		RAS_DEV_ERR(adev, "Failed to create ras core!\n");
+ 		ret = -EINVAL;
+-		goto err;
++		goto err1;
+ 	}
  
- 	const struct ras_sys_func *sys_fn;
-diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_cmd.c b/drivers/gpu/drm/amd/ras/rascore/ras_cmd.c
-index 39136db34bb2..1136db9e29c4 100644
---- a/drivers/gpu/drm/amd/ras/rascore/ras_cmd.c
-+++ b/drivers/gpu/drm/amd/ras/rascore/ras_cmd.c
-@@ -28,20 +28,6 @@
- #define RAS_CMD_MINOR_VERSION 0
- #define RAS_CMD_VERSION  (((RAS_CMD_MAJOR_VERSION) << 10) | (RAS_CMD_MINOR_VERSION))
+ 	ras_mgr->ras_core->dev = adev;
  
--static int ras_cmd_add_device(struct ras_core_context *ras_core)
--{
--	INIT_LIST_HEAD(&ras_core->ras_cmd.head);
--	ras_core->ras_cmd.ras_core = ras_core;
--	ras_core->ras_cmd.dev_handle = (uintptr_t)ras_core ^ RAS_CMD_DEV_HANDLE_MAGIC;
--	return 0;
--}
--
--static int ras_cmd_remove_device(struct ras_core_context *ras_core)
--{
--	memset(&ras_core->ras_cmd, 0, sizeof(ras_core->ras_cmd));
--	return 0;
--}
--
- static int ras_get_block_ecc_info(struct ras_core_context *ras_core,
- 				struct ras_cmd_ctx *cmd, void *data)
- {
-@@ -483,12 +469,11 @@ int rascore_handle_cmd(struct ras_core_context *ras_core,
+ 	amdgpu_ras_process_init(adev);
+-	ras_core_sw_init(ras_mgr->ras_core);
++	ret = ras_core_sw_init(ras_mgr->ras_core);
++	if (ret) {
++		RAS_DEV_ERR(adev, "ras_core_sw_init failed! ret:%d\n", ret);
++		goto err2;
++	}
+ 	amdgpu_ras_mgr_init_event_mgr(ras_mgr->ras_core);
  
- int ras_cmd_init(struct ras_core_context *ras_core)
- {
--	return ras_cmd_add_device(ras_core);
-+	return 0;
- }
+ 	if (amdgpu_sriov_vf(adev)) {
+@@ -321,14 +325,22 @@ static int amdgpu_ras_mgr_sw_init(struct amdgpu_ip_block *ip_block)
+ 		if (ret) {
+ 			RAS_DEV_ERR(adev,
+ 				"Virt ras sw_init failed! ret:%d\n", ret);
+-			goto err;
++			goto err3;
+ 		}
+ 	}
  
- int ras_cmd_fini(struct ras_core_context *ras_core)
- {
--	ras_cmd_remove_device(ras_core);
  	return 0;
+ 
+-err:
++err3:
++	if (ras_mgr->ras_core)
++		ras_core_sw_fini(ras_mgr->ras_core);
++err2:
++	amdgpu_ras_process_fini(adev);
++	if (ras_mgr->ras_core)
++		ras_core_destroy(ras_mgr->ras_core);
++err1:
+ 	kfree(ras_mgr);
++	con->ras_mgr = NULL;
+ 	return ret;
  }
  
-@@ -537,8 +522,3 @@ int ras_cmd_translate_bank_to_soc_pa(struct ras_core_context *ras_core,
- 
- 	return ras_umc_translate_soc_pa_and_bank(ras_core, soc_pa, &umc_bank, true);
- }
--
--uint64_t ras_cmd_get_dev_handle(struct ras_core_context *ras_core)
--{
--	return ras_core->ras_cmd.dev_handle;
--}
-diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_cmd.h b/drivers/gpu/drm/amd/ras/rascore/ras_cmd.h
-index a1a73e6452e7..4f76c849865e 100644
---- a/drivers/gpu/drm/amd/ras/rascore/ras_cmd.h
-+++ b/drivers/gpu/drm/amd/ras/rascore/ras_cmd.h
-@@ -29,8 +29,6 @@
- #include "ras_log_ring.h"
- #include "ras_cper.h"
- 
--#define RAS_CMD_DEV_HANDLE_MAGIC 0xFEEDAD00UL
--
- #define RAS_CMD_MAX_IN_SIZE 256
- #define RAS_CMD_MAX_GPU_NUM 32
- #define RAS_CMD_MAX_BAD_PAGES_PER_GROUP 32
-@@ -107,12 +105,6 @@ enum ras_error_type {
- struct ras_core_context;
- struct ras_cmd_ctx;
- 
--struct ras_cmd_mgr {
--	struct list_head head;
--	struct ras_core_context *ras_core;
--	uint64_t dev_handle;
--};
--
- struct ras_cmd_func_map {
- 	uint32_t cmd_id;
- 	int (*func)(struct ras_core_context *ras_core,
-@@ -482,7 +474,6 @@ struct ras_cmd_blocks_ecc_rsp {
- int ras_cmd_init(struct ras_core_context *ras_core);
- int ras_cmd_fini(struct ras_core_context *ras_core);
- int rascore_handle_cmd(struct ras_core_context *ras_core, struct ras_cmd_ctx *cmd, void *data);
--uint64_t ras_cmd_get_dev_handle(struct ras_core_context *ras_core);
- int ras_cmd_query_interface_info(struct ras_core_context *ras_core,
- 	struct ras_query_interface_info_rsp *rsp);
- int ras_cmd_translate_soc_pa_to_bank(struct ras_core_context *ras_core,
 -- 
 2.43.0
 
