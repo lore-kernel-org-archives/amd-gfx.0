@@ -4,121 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A70A6CD4F3C
-	for <amd-gfx@archiver.kernel.org>; Mon, 18 May 2026 12:29:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D9DC8CD4F3C
+	for <amd-gfx@archiver.kernel.org>; Mon, 18 May 2026 13:01:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2FB7B10E318;
-	Mon, 18 May 2026 12:29:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 77F5E10E2FF;
+	Mon, 18 May 2026 13:01:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="xGap1o0G";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="l73z4DeQ";
 	dkim-atps=neutral
-Received: from MW6PR02CU001.outbound.protection.outlook.com
- (mail-westus2azon11012067.outbound.protection.outlook.com [52.101.48.67])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B357A10E318
- for <amd-gfx@lists.freedesktop.org>; Mon, 18 May 2026 12:29:18 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=S9+eqgLQDYeSRM0kClrgvPa05zcUuzcYlcjQ0MZoO+mlesnArB5Fa+ZeboBwqoWkylDrQCUjLnhuBCaSOps+Kss8dWg7G5zQ6/SoISgCi3x/zpz9e11XnA51jRTavTfGQcM7ppEX6fXiLFJTWb5GMrrU2/EQ6134oUnicC/Hr10I6XeKCHI1mFPCLTxZUo8fMJVphLQXfFxEH4JVSysfrElDpT0e0lHQOjkwcd5xupLd2hzuOCGEccBnETn38SEWwDnHyZafr+RsCIrjX+fbBNoEZZgYC9EQRJPpuY/051N0Swzz4Hp/gpCn7w+cu8L+Wj6ZzDVqxqjEAG3SO/kvyQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=9BissBLHW4Yp9rSjBv/FW+64IaQZjuG1iCGJecXw29U=;
- b=CoHrd9czULEbh39Px/awjKfUztf3FSocW3l7o/fVuXCXQszMTkGn9hTRyk9bthbO4qya5LaW0m6oJfHpvNy8UM8lfBxwX3NlYQdVU6vB1RYs6d2gggVG7dYoSt7dUEiGm1AoEfVRp7dN84KbYU25jR3h7gXuj/M9IEIhI5uVqi44FcxauRRgN41SJxnkAgS8tl6dQaw4t4T2M88pKXvmJZAvBYAhVDuv+QBHKzs0prgb2d0ITuSYeLnx+or8+avSoLRMDQgYJiipdfjNUL7tC/nZnOGFFtv5uH1+vzT+eMKX23RpvoDCksVzjoRnKmZZnZ7ibspfOHk5ixuLYwsAmg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9BissBLHW4Yp9rSjBv/FW+64IaQZjuG1iCGJecXw29U=;
- b=xGap1o0GVAT+FenPFs/ghqL/qfWnCYB1XTSAA0e/uukNMXgIWclfvPhlkvYRhydd1g17mB+jX+9hCbdn3nQPF/IGW8V87vUVRkR2XEXAGLeqzeEHfziS6SSolYOSvHHOWiUItdkMM783Xs12+q4z5K1RPUQwKKMFpVyfP5DmG3A=
-Received: from MW4PR12MB7431.namprd12.prod.outlook.com (2603:10b6:303:225::22)
- by DS7PR12MB8252.namprd12.prod.outlook.com (2603:10b6:8:ee::7) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.25.24; Mon, 18 May 2026 12:29:15 +0000
-Received: from MW4PR12MB7431.namprd12.prod.outlook.com
- ([fe80::34d1:4c70:8c65:ed21]) by MW4PR12MB7431.namprd12.prod.outlook.com
- ([fe80::34d1:4c70:8c65:ed21%5]) with mapi id 15.21.0025.022; Mon, 18 May 2026
- 12:29:13 +0000
-From: "Yang, Stanley" <Stanley.Yang@amd.com>
-To: "Liu, Xiang(Dean)" <Xiang.Liu@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-CC: "Zhang, Hawking" <Hawking.Zhang@amd.com>, "Zhou1, Tao"
- <Tao.Zhou1@amd.com>, "Chai, Thomas" <YiPeng.Chai@amd.com>
-Subject: RE: [PATCH 3/3] drm/amd/ras: Fix UMC error address allocation leak
-Thread-Topic: [PATCH 3/3] drm/amd/ras: Fix UMC error address allocation leak
-Thread-Index: AQHc5pKyo5ycmF/rNEeTqrl/JB4AJrYTtm8g
-Date: Mon, 18 May 2026 12:29:13 +0000
-Message-ID: <MW4PR12MB74315200A1582D328758600D9A032@MW4PR12MB7431.namprd12.prod.outlook.com>
-References: <20260518065030.2311-1-xiang.liu@amd.com>
- <20260518065030.2311-3-xiang.liu@amd.com>
-In-Reply-To: <20260518065030.2311-3-xiang.liu@amd.com>
-Accept-Language: en-US, zh-CN
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-05-18T12:28:11.0000000Z;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD General
- v26; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=3;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: MW4PR12MB7431:EE_|DS7PR12MB8252:EE_
-x-ms-office365-filtering-correlation-id: 39fd8942-8e66-4a31-2071-08deb4d91220
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|376014|366016|1800799024|22082099003|18002099003|56012099003|38070700021|11063799003|4143699003;
-x-microsoft-antispam-message-info: HbW7b1RPgtLnuuR7RekBDNU1K9ojAvMwZsNwrOHX40Y/k/pN5SYhKq2oxRwDX/W6Z/gv5q02grld5Dq6amhRHcvbEr3sc6IPn5UyBIxMmkSoyhWCm9gl5QVIb6wsZiS+g2Ylv7hvPcMOV0EXLicQABXcH/UR8nwQCVB4uCJn57Q0PRjJkmREGlf5ONTGkUeLrs0g07Q6H9x8YaGzffS1rm9BCt3D9l78o9jed6ptTv8MX/RpDAF+8GLlZAC6JJty9CZ2FzjDEpmJemSAFBf5LAZO6mkl5mAdsHB+GoclEI1oV7f/aQ+QnIvpr8yT1sC8urRQyl3eXklZk2AU/qhAhbliwuPepRxOxplcRncWyOBj4YvXVUq62OYP/AqYgkJpTtjAfuhoDMmwGjURst9iRxRdWxyXHBMYDbGH2p3SQAiosYfxKhvgtNE3gZrtkVUm+JvPSbojb8OuLnq08ZqcV9zW+pflG270ClJnhb0zMSTz3MB9xMalQZ4LYlEslGS2xnKU0HKTvnIo7AALdWDTc+8dMbG1aVD+KCEU62eymTbcrMnnW/e7ll+qByYH9DyQdoYx3uEwytPWvXguZbah2zEA1AFF/P8iviIDjctxEblheMaw05DIFivopC6E6GO+jeu6YYfX49ZbaNZb89bWo0Q/x4OMN2f6O8W6UY7/XdBkQDfzItyiy7W4TEfyreU2gUy/tVa55C3d5xtPTAmAfCG4L6dK5q+uftdgci5RllncvCCLXltOOnVM/qfln3fx
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MW4PR12MB7431.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(1800799024)(22082099003)(18002099003)(56012099003)(38070700021)(11063799003)(4143699003);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?yVmhJ812FSAlz2bkWSyfoszwOrb3Nmli/FQ7K6wZqjV1A60ssQIDVAhI+kZ4?=
- =?us-ascii?Q?3LaLBlvDG/IAfY6jPUvlnxKhEZO3Esfqun+GAShvKQ5Dq2uGFB+urAEmru04?=
- =?us-ascii?Q?qg95rJteWL7Q/PlTt4uvgxUXeaZOlCTVuoPNXS31qQlbODHT9AEjR1BSz5fS?=
- =?us-ascii?Q?a1Aq7Gpmi0+Kt8Z4hifUpGM8WPufkvA6SWBua3QFI4eKO6jaJNAH7qogc8jZ?=
- =?us-ascii?Q?4QUvgI5qMPakF6UE0Rt+LUCjDJ/Sf+i2nvYmogUxvblOWtctAkHwphzfeChf?=
- =?us-ascii?Q?1q9AS1ZmqpkRd8jxPb63auZ1HDrFoMvgx36S6npU8bO2bct3Rj6FVnEux5Zu?=
- =?us-ascii?Q?pMj7BZvEeh2A40QmjmdRLrHWmICdm8Sj1Tx2w2x8uIRUefg7U5+EYqwfrrMx?=
- =?us-ascii?Q?CYuJIVYb1EU2cfasbMWS7cwEoT3Yiq/sm6G60q20BRIA0z5C7dVn3lqh3SQQ?=
- =?us-ascii?Q?H58fVfw/qcuN5b9Op8QTdbtAMP51B5+nXa1zsJCbEGC2e5vjjjQ6a8RLzMmw?=
- =?us-ascii?Q?Ej12frK4pmn4LskxIjx5FGn6WDD2iRV61uLZb32oA+uLIPvFZkzefF0gACLa?=
- =?us-ascii?Q?7m4vytVmqo1Np6W45cGcmmS/y2qvIpxC2qliJRn0nGyTyjW4SrPHRbfk4nem?=
- =?us-ascii?Q?PyicyLUQtL/T21Z+Pqr4InaCSsMCM15mzktWl2fAZXARShBa9Rk+V0h4la1j?=
- =?us-ascii?Q?C09NJnVZrdRYABlx/8k9zvC0979csxRuivWCrXhxlqgo0ixXRfzRCQqTt1Gy?=
- =?us-ascii?Q?JJcBgiMQciGgHvJUJmUGwlD+wk9Hr0uJoIzOJnKJaqIupKPWCkkLgP+fdNZT?=
- =?us-ascii?Q?cma3hBTPpxPWeepIwhB1Oc/a7tO3r1O3IzCz/jFPJ9A9mvvxxgbxxFJXALvn?=
- =?us-ascii?Q?VghzQUBpMomvvqoYAPPitu4yiK6zeAGNAFczUt2gBzRpnzvHY85zLlLTbIOg?=
- =?us-ascii?Q?JPVziX+icfCPn/S8bca+z5iYYauhBe6gmk169ECNb53KBwYvu7/c+qpyfmIS?=
- =?us-ascii?Q?hFDFPeaIHAXyoEPic+Q6O8/CSUAW9LYZZbVRNdpgVBDbxyK9adY+T5bUkfcF?=
- =?us-ascii?Q?B57qekj2SXZ10776xRfXon7bqveiI8TdyQFk9tn+WntaVIzPG5gX5U9ILuBe?=
- =?us-ascii?Q?14I40zPcQ4r0CJ6nFC1WoBpy/ZAfY+MNaNRD6d3HkFbSkne2jmHE4oVHxCkt?=
- =?us-ascii?Q?dhAilpQUOkVAvK75quTGjeoVe43Rkp2jByoF2tvDk8xwXx6VafXkkluE8wO4?=
- =?us-ascii?Q?VJ0Z0o1Ngmr6JaHKw0gs5gZ4icd6rk8aj1q33WJWU2jgzui+oC1/uqVMCFgX?=
- =?us-ascii?Q?Q5URURFKOX2hRtAZwn7GsHOlxS54YQA1tQ0M6tELFtDoNMJJqXfUvse4zTY+?=
- =?us-ascii?Q?XpL5/K1sut1PuBT2Lk1eZkYuXjJWHOH608ylYwDtxwUJC+p7gnseGHmb6Pfe?=
- =?us-ascii?Q?JS51/BCjfSDY20T5Wx1ALi20lHiYnesX07CLC9R5ctWoKW9/6FBZa6HnNkwu?=
- =?us-ascii?Q?rzjHaKYRAzaV/GRrp+G5hQh5BvgQsCC8iKKaKRqig0hW68GhJ7SvN37YUwNP?=
- =?us-ascii?Q?zY1Ozt/skaY6ozY74NA0xHA6KDjnF34KQrsCYQ+rMmcaQG0oObjjT0cKjcQp?=
- =?us-ascii?Q?BC11NLNRXcbs7pJ2fChlRhPHW3Fk4mvBMSTa1GE+2L3o+DQS2ZYz4W0SIIKJ?=
- =?us-ascii?Q?nc+g5j8q8oFpQ0/IyNMM/AjT/KWcDtUDDkS4THsS9hg8ijgN?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Received: from mail-oa1-f45.google.com (mail-oa1-f45.google.com
+ [209.85.160.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5278D10E6F6
+ for <amd-gfx@lists.freedesktop.org>; Mon, 18 May 2026 08:08:49 +0000 (UTC)
+Received: by mail-oa1-f45.google.com with SMTP id
+ 586e51a60fabf-4042fe53946so706665fac.3
+ for <amd-gfx@lists.freedesktop.org>; Mon, 18 May 2026 01:08:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1779091728; x=1779696528; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=+QLmDk5oLv8YlQxU58cLUijUUkaHidAoC22pfi4gEsY=;
+ b=l73z4DeQgESN4Q54BEO4YFJMfG63zacncp7RtD6d9w7ekHWkAULVkUNUlQ2B17/gHJ
+ vwcXm8uhh07rvA5ZOx0Jauiyw2se67kH+VO6VL+gSkqEbYCZyByC9TQEH81hQaFZR5ex
+ HVnXGS0qT/6Qy185XvV2zrD5CVJg5Zo5FKCgIwwJEztGbsUYN/Foi/zUwBxlNlwlVSXI
+ J6rj+GeDLhFn1aCOfOTtUw8vu7WgTLVkHvHmaLtDFoPVgYHR9F+iQJmXcetbcgyNHEWm
+ FpeOJhrNKIkmXroDOjiVzTcJ8tIUzFttnOGQiduPO8E0kutnU4Zxe2U60gfu0X+h8xaQ
+ 31fQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1779091728; x=1779696528;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=+QLmDk5oLv8YlQxU58cLUijUUkaHidAoC22pfi4gEsY=;
+ b=Xy1oDl3m4lV/W/aDWaML284CKozpZTz8wNWb7V2cRacK/xpflILAjUEx9eUcxjxvBj
+ dFj+sp9CI5h7I2Rx+PxXK1BogZdYJvHrwsttncvpkYkrufj0ICOHr8WKm17sUMms8CHv
+ S6cL1wZ45e2IGmxeD/6CycDQKP81ysq5y34gpit1kalQU/e/7xtUpRV/D/X8MgrAoMzm
+ rcnM9TD5qk/FTGRHUNsm+uLniuHxmZoGOiLMqpyDGCB/xTjsV6t/J5QyrAne5SVNzF+a
+ rBIzWaAeImIa1Bvm2ltUOPGA+rWt3T/9MszoG6ThIAx5LmbNqD5Z1NtFHk3+9Odby8uc
+ Fqsg==
+X-Gm-Message-State: AOJu0YxbxQZQZbhJsyIughrtH1MQqtXv0FlVxXLuxCZ2gBVYi0u3qiNf
+ XjpT9SeoefsYUpdVrTfIj27NIX52jBmCTGHngxW7z98Ha0dHOqMFlex0
+X-Gm-Gg: Acq92OHJs0/FHD6IwBRHyD9vwJT3VjOsPqCb2nMbzGe9qbjG8tfpYAmN6ct1b2HnQjw
+ FMNyFIegO5NJsmjKbDlHrGCfGDvcQ/kEKrhn00mUUI2ZvEWbf6lJWM4R/66R85w7XLnkb3ZEuon
+ 6wLx4s1Y6EGR+8e01oWA9/kh2jiNf0/VBwtbUC8VhvJ8WyE36o3HsLxDIPSP4lzzq3IqeJkeaza
+ ZrCw8dULw63H7OLROsyuJGLWcjMTLNAQVvX5Nq/X9IfinzKPBhsfD9wT3Ad1yulVJFfV4GTg1gV
+ 0hjT7ZKLlZ+qh8HcJSGen5j/szMtyqp6AS3VZTqxSZ5sDN8A5eHc7z+7A0wuMUslXsQrPVHovFj
+ +Bg1DwbNZEJ83jJi84XIlLW9H3M2NRkeVfb+RV7V71wMNqgV8qiQn0qPZLSWhDZGOk9xCfqkcJw
+ 3sGmdrLRI8PYBer0A=
+X-Received: by 2002:a05:6871:b21:b0:42f:cd67:2b84 with SMTP id
+ 586e51a60fabf-43a2d9cb7damr8743171fac.9.1779091728336; 
+ Mon, 18 May 2026 01:08:48 -0700 (PDT)
+Received: from houminxi ([72.244.37.221]) by smtp.gmail.com with ESMTPSA id
+ 586e51a60fabf-43a957b84fdsm3602215fac.18.2026.05.18.01.08.44
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 18 May 2026 01:08:46 -0700 (PDT)
+From: Minxi Hou <houminxi@gmail.com>
+To: jwollrath@web.de
+Cc: amd-gfx@lists.freedesktop.org,
+	Minxi Hou <houminxi@gmail.com>
+Subject: Re: 7.0-rc4 dcn31_program_compbuf_size trace
+Date: Mon, 18 May 2026 16:08:35 +0800
+Message-ID: <20260518080835.100682-1-houminxi@gmail.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260316094232.6bb6f0bf@schienar>
+References: <20260316094232.6bb6f0bf@schienar>
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB7431.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 39fd8942-8e66-4a31-2071-08deb4d91220
-X-MS-Exchange-CrossTenant-originalarrivaltime: 18 May 2026 12:29:13.8157 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: se5otzCt4QUv0WwoHWQWAxgl1xF0zobwMFYXEavW8afcyzwqW+WDHfa0d5999TI2UjhRDIvXIb2EPIbsFWdbqQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB8252
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Mon, 18 May 2026 13:01:46 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,66 +87,49 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-AMD General
+On Mon, 16 Mar 2026 09:42:32 +0100, Julian Wollrath wrote:
+> when turning the display off via 'xset dpms force off' I observe the
+> following warning and trace under 7.0-rc4 with a AMD Ryzen 7 PRO 8840U
 
-The series is Reviewed-by: Stanley.Yang <Stanley.Yang@amd.com>
+I can reproduce the same warning on different hardware with a different
+trigger.
 
-Regards,
-Stanley
-> -----Original Message-----
-> From: Liu, Xiang(Dean) <Xiang.Liu@amd.com>
-> Sent: Monday, May 18, 2026 2:51 PM
-> To: amd-gfx@lists.freedesktop.org
-> Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Zhou1, Tao
-> <Tao.Zhou1@amd.com>; Yang, Stanley <Stanley.Yang@amd.com>; Chai,
-> Thomas <YiPeng.Chai@amd.com>; Liu, Xiang(Dean) <Xiang.Liu@amd.com>
-> Subject: [PATCH 3/3] drm/amd/ras: Fix UMC error address allocation leak
->
-> amdgpu_umc_handle_bad_pages() allocates err_data->err_addr before
-> querying UMC error information. In the direct and firmware query paths, t=
-he
-> pointer is reassigned to a fresh allocation before the original buffer is=
- released,
-> so the initial allocation is leaked on each handled event.
->
-> Free the existing buffer before replacing it in those query paths so the =
-function
-> exit cleanup only owns the active allocation.
->
-> Signed-off-by: Xiang Liu <xiang.liu@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c | 2 ++
->  1 file changed, 2 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c
-> index 1be722ba6c9e..a250109edb63 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c
-> @@ -130,6 +130,7 @@ void amdgpu_umc_handle_bad_pages(struct
-> amdgpu_device *adev,
->                       if (adev->umc.ras && adev->umc.ras-
-> >ras_block.hw_ops &&
->                           adev->umc.ras->ras_block.hw_ops-
-> >query_ras_error_address &&
->                           adev->umc.max_ras_err_cnt_per_query) {
-> +                             kfree(err_data->err_addr);
->                               err_data->err_addr =3D
->                                       kcalloc(adev-
-> >umc.max_ras_err_cnt_per_query,
->                                               sizeof(struct
-> eeprom_table_record), GFP_KERNEL); @@ -160,6 +161,7 @@ void
-> amdgpu_umc_handle_bad_pages(struct amdgpu_device *adev,
->                       if (adev->umc.ras &&
->                           adev->umc.ras->ecc_info_query_ras_error_address
-> &&
->                           adev->umc.max_ras_err_cnt_per_query) {
-> +                             kfree(err_data->err_addr);
->                               err_data->err_addr =3D
->                                       kcalloc(adev-
-> >umc.max_ras_err_cnt_per_query,
->                                               sizeof(struct
-> eeprom_table_record), GFP_KERNEL);
-> --
-> 2.54.0
+Machine: HP Z66 G6 14 (ProBook 4 G1ah), AMD Ryzen 7 H 255 (HawkPoint1),
+kernel 7.0.8-200.fc44.x86_64.
 
+Trigger: HDMI hotplug with an external 4K monitor. The Z66's HDMI port
+uses a DP-to-HDMI protocol converter with FRL support (dmesg shows
+"DP-HDMI FRL PCON supported"). Connecting the monitor at boot causes
+the first timeout during initialization; subsequent hotplug events
+repeat it at runtime.
+
+The call trace matches yours exactly:
+  dcn31_program_compbuf_size line:141
+  dcn20_optimize_bandwidth
+  dc_commit_state_no_check
+  dc_commit_streams
+  amdgpu_dm_atomic_commit_tail
+
+Not seen with 6.19.x. CachyOS community bisected this to:
+
+  commit 592c5b80110d5e9e50873b5364818cb6f401e26d
+  "drm/amd/display: Migrate HUBBUB register access from hwseq to hubbub component"
+
+One thing I noticed on my setup: the amdgpu driver defaults to
+max_bpc=16 for the HDMI connector. With a HDMI 2.0 monitor (BenQ
+EL2870U, Max TMDS 340 MHz) at 4K@60Hz, the higher color depth
+increases bandwidth demand during compbuf reprogramming and makes the
+timeout happen more often. Adding amdgpu.deep_color=0 helps but does
+not fix the root cause.
+
+Partial workaround:
+  amdgpu.runpm=0 amdgpu.gfx_off=0 amdgpu.deep_color=0
+
+A patch proposed by Giuseppe Ranieri in the CachyOS issue tracker [1]
+changes the REG_WAIT parameters from 1us*100 to 1000us*30 and resolves
+the warning for several users with DCN 3.1 hardware. Discussion there
+is ongoing about whether 2-10us*1000 would be a better fit.
+
+[1] https://github.com/CachyOS/linux-cachyos/issues/810
+
+Minxi Hou
