@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4E7AFCD4F49
-	for <amd-gfx@archiver.kernel.org>; Mon, 18 May 2026 08:26:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3600FCD4F3C
+	for <amd-gfx@archiver.kernel.org>; Mon, 18 May 2026 08:33:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C171E10E06A;
-	Mon, 18 May 2026 08:26:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CA6BF10E719;
+	Mon, 18 May 2026 08:33:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Ar9STGbR";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="JTL6NgGo";
 	dkim-atps=neutral
-Received: from SN4PR2101CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11012006.outbound.protection.outlook.com
- [40.93.195.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5B60E10E06A
- for <amd-gfx@lists.freedesktop.org>; Mon, 18 May 2026 08:26:17 +0000 (UTC)
+Received: from BN8PR05CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11011045.outbound.protection.outlook.com [52.101.57.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DFAB610E71F
+ for <amd-gfx@lists.freedesktop.org>; Mon, 18 May 2026 08:33:07 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=jRQsLiyKml3mOYioGVcDlWwWVVhpeXd2jJ6StyXr9GwKd714x12xBoZDn8H0QtYaDA2Jmjwm7PyFoTA0jNkytzBqfeIO8xuipxRVZFqPt29fBzxs9Kr4biJ1lNma0MB9vDQ7VTVsA4U5KTD0wHle9CQFGq7tuNydwlqDQLJk2TNnoRlnvBuQyzF0hJk7ecXcspsgyifUKJDmVq1y3Pk5dNylFbLai9v1Igx+RrzvyfTIDepWI2ef2mrEzzrZbWR8zaKHHCEZP1USvxTMcGh+IXGVgcvYSmPoKFUyoCx1k1oVe+dYsY5UrXT/mlosyMnI30FFwFFRPKZqZY6ycOMp3Q==
+ b=a0WcdBRrbJP+BLqRPDkgQ53vdBQ4+/ESmoRvV2QoVvR6intjIZ97tjzu6FU63FPRwe1+PvZPugapKrzNUd/YleNdJCQaDzd3CtpkmLPGdckqZfDVJoGQtbC0j4NFqB5/ZphiW6FfsGS74EAc9mfr3uTvdL6ZB4s+sq3r4SqFRvHQy3a0Qoad+5JKlK/PEYbPt3BToVeRBwzh1vtozC400TbMNjfQXPlvybc349D5xoMN5UM8ICSlpriQyh1TLLeDyZRJ9Vi6oP98TD2taL8apddoaYcQaFrbr3shL5pVyWgdQELk2y+BfoWUv2Q0B8zp+gfaOso6XIg8QZNfc9WaOA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=K2s2x3LPfBm6kbwTUmFbPNeEhebtEC7KYXbMpoZjv8A=;
- b=apgNBtGyjTNl/7vnqHLTvPVZNpwWc98YAaIdI5L/nAMz9LlPh3Cgol4Gf18xH4nCZ+SZiquMUvp1xjDc8LaD/yV9lEaURPTGXnTCzGIPmaagsAV2FYElcvNNsT2SdT2Mq1jcnZcJMDShPHP8onvy6+CuchPp12Q8r49Yhj4eDLQzaR+rGmIf3KvzBNLBAHKB6dMIyFwFJEeUGlrix7ICweV2cGLv9g16C3+IOnkFLgfYqjdJv/FaxJxLCzTrv1lejYm5zgEyTmzxYW4StjT9XwXohMcnT9in+g9Hy4k633Y3IBq8QIZuZolYVg8rIDjfrSdZJQZRETagvUWl2ntsHw==
+ bh=5oo0HgpJfS74KNgXHpSuaO6AKILfEqmSxExoC/8RY9s=;
+ b=FevlkYYvQIwAgE2jwUDav2sUtqns+Yka2zMbjB9ZTGIjPUjRW4bRwkaunyPZPlO+dWqjOmNxSpfYeWxFituUdE+bA68i2jrjs+B4aryEX6++PbXAEys/raLYB4PDzndTWAZzEh10tuYsBTY49D2Pd44tdllgrr5y261j+n9ekTYL6Y2OPyDpNie/eUhv3vGIaJcc+Kjoafv6qiQ1PrUPpWu+ECSEgVg+LUkZ71YC7PThujral9bHFBwUn/GcQjQmxcRJoo3U7icaxdDXAfruGbAlBWmy9rjiaTVQu+TC+pZwIUhlJAHAAQVHs+4pYWaBxngT4pPcnWAWRcUPVJP/wg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=K2s2x3LPfBm6kbwTUmFbPNeEhebtEC7KYXbMpoZjv8A=;
- b=Ar9STGbRQw98+pMfdmN6mVP3cqJjJCYVu050n5H/rADEqlJoXwSaIo87J3h+7lvLmY58lFt6ohkxakc0YkHBSNIEAYSHnl8FH3Ku/cn802xbQM8F26dgwbpZeToUAqSdphC9uUpf1eVpRv5y1cNegHS0inYLEkTc+sKnKcK1xcw=
-Received: from BL1PR13CA0220.namprd13.prod.outlook.com (2603:10b6:208:2bf::15)
- by MN2PR12MB4237.namprd12.prod.outlook.com (2603:10b6:208:1d6::7)
+ bh=5oo0HgpJfS74KNgXHpSuaO6AKILfEqmSxExoC/8RY9s=;
+ b=JTL6NgGozZha8gvwnFEoelqQxMyha3rYz2qYjgnl2Y/NrWQ99B9waKXAAP0Wm5R+CeYuwp6CHUdw7ahAtu8tfTMYvoQeluAy+nXw1/KVEgwKcZP8tzrObnFxeqrW+0KwXBTvCyOQMZHfT0HT10dg3vVHuwYaCf+CqDcDXP/ftIU=
+Received: from PH7P223CA0017.NAMP223.PROD.OUTLOOK.COM (2603:10b6:510:338::10)
+ by IA1PR12MB6625.namprd12.prod.outlook.com (2603:10b6:208:3a3::22)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.25.23; Mon, 18 May
- 2026 08:26:10 +0000
-Received: from BL6PEPF0001AB56.namprd02.prod.outlook.com
- (2603:10b6:208:2bf:cafe::8e) by BL1PR13CA0220.outlook.office365.com
- (2603:10b6:208:2bf::15) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.48.13 via Frontend Transport; Mon, 18
- May 2026 08:26:10 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.25.22; Mon, 18 May
+ 2026 08:33:02 +0000
+Received: from CY4PEPF0000EE39.namprd03.prod.outlook.com
+ (2603:10b6:510:338:cafe::1f) by PH7P223CA0017.outlook.office365.com
+ (2603:10b6:510:338::10) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.25.23 via Frontend Transport; Mon, 18
+ May 2026 08:33:01 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -49,53 +48,53 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- BL6PEPF0001AB56.mail.protection.outlook.com (10.167.241.8) with Microsoft
+ CY4PEPF0000EE39.mail.protection.outlook.com (10.167.242.11) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.48.11 via Frontend Transport; Mon, 18 May 2026 08:26:10 +0000
+ 15.21.48.11 via Frontend Transport; Mon, 18 May 2026 08:33:01 +0000
 Received: from canli-build.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Mon, 18 May
- 2026 03:26:05 -0500
+ 2026 03:32:59 -0500
 From: Candice Li <candice.li@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Hawking Zhang <Hawking.Zhang@amd.com>, Tao Zhou <tao.zhou1@amd.com>,
  Stanley Yang <stanley.yang@amd.com>, Thomas Chai <yipeng.chai@amd.com>,
  Candice Li <candice.li@amd.com>
-Subject: [PATCH 1/4] drm/amd/ras: bound CPER record fetch buffer size and count
-Date: Mon, 18 May 2026 16:25:43 +0800
-Message-ID: <20260518082543.786786-1-candice.li@amd.com>
+Subject: [PATCH 2/4] drm/amdgpu: cap ATOM command table nesting depth
+Date: Mon, 18 May 2026 16:32:45 +0800
+Message-ID: <20260518083245.789799-1-candice.li@amd.com>
 X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB56:EE_|MN2PR12MB4237:EE_
-X-MS-Office365-Filtering-Correlation-Id: 99dbca95-5cf2-4446-7655-08deb4b71dae
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000EE39:EE_|IA1PR12MB6625:EE_
+X-MS-Office365-Filtering-Correlation-Id: b163063e-7210-4d92-f875-08deb4b812ec
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|36860700016|1800799024|82310400026|18002099003|56012099003|11063799003;
-X-Microsoft-Antispam-Message-Info: mGwBdW5SF9XT3e92LhX62ah1ziVfeJgEi4un9KRHWhp2X8RuILBd41uu4nZM77ejKKBclaNG+SdiDEVrwQVCdUCkLIhQTTOxHza8rrb7IlolSlJqrOiWmUh/4hrUrQ5XEBriY+ihC5WOLRiTtNO/uBrpMQ+INLKg26nh+l0RP3c1ts1oJX4KYUQLP3vcixuuBmw83A/EeZYT50xAHUMLyhQQ2mL5XaL+L4gHSzSOKt0mXLHKNy7QRg9tZGKJQf2aePMOwoMD8wYEfQ13rpaPIfo8pQBesodo+4+Z4KZ5CXsSbxPYMukjQrDXESN/vBtGIbmbgGpImEr/Gk4bj1lxCXvxgjfHRJ1Pvwl12xz8XC1EQJucuwxz2uZlXB6xN32uANUzp0MV8WAUEKa4MU1+Nfqq0Mj+q3s7UKx+ryIRa3WLB99715ZEeck63TRssigpsqV5hO1UU48eAF4/jL3/yHQ0nDmTSYoXkKEjwZJSggXb+Lk3qC5Xm1GNqdLGLOH2lIc0iB/Qm+gfbvHRySFEWjv3WbG78VxO+uWOnTjcy4OoVsiZbVG6r7j/VsGR86RY77in7rN/9Fe6C344M/oyviZPaHbjoVchDCD1oTNbEWZFwKfSNcuPXHGw3qm2yeDEZqrYG3w8qIOBkrpEuCLIzP0UPGBPbD3t0loSZr4SZLrrXpd8wQjAcCWYQX+u0AjgSTsLMCtn/9qciHNFk7293SaySHjI4nHUxHpHuXKQ7aM=
+ ARA:13230040|82310400026|376014|1800799024|36860700016|18002099003|56012099003|11063799003;
+X-Microsoft-Antispam-Message-Info: 2DChVWfsTw3/b9aqjnakUzlA+GmAhvcLjaXbzNuppaDDaxyuZFoGR70DPZ9u96W8b2fBR6NYxo7NufTF9QBRc65mTDgRgwMECY8wvw7oXa8552NQ91LPCJ/iAT7Iur+cim+EvPYDfTEfo5S1q6x/oZ9lziJjO49C8qLdcQt93QWGHRXlggdnC0p0tlWJLq4d8GgVyQ50YvTtdXauyjY4Vs4ADzehHgZJGtbClmd8qhuZL3FzOyWxCQ8KyOZMtVuLN1tp9Bd0tyrCluJwfQJteMUlvpTSCmC0zAZYw/ojn4VqlpQFWAr9KRM4AS3/JZiDiYgLKICrsyP0K141qpVUh4HBvpoJqU3k2UJtF+5VFqQ5lGRADQGC8FDK7ReR8qpxJv9iP41lXr9+Snl2NM/bTLcOkjHGpcu3AGiKWTLriuTDmRh6FzR+l+zkjZzt0z5q5XXsW26DLTKa45yr1lVUtanNnPdc+W5Gog14C2XJNKPBo5jYyqISaoxoe93+rDhdxfw2e8Iy8qWgjsbo2TJjJYblf70no7Ra5+Ve1/xZ80SKzSr6cOluShvxzYr7vLjN4gZ2zdUijG4EPsgj1W402MZzZsJ8onU/Idoq6zfa+M9WrRrqf8ST2032RjG0r1b2iNxuB7hGdnP7/gfgI/zq7h4XwV8l0ox/HfaQQKaPrRHAp3jgJYGsOBkZnB29Wy+7HPOYnyHmtTwb3PClFUwQsiT+Il9tdw4ryCihWvmhrL4=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(36860700016)(1800799024)(82310400026)(18002099003)(56012099003)(11063799003);
+ SFS:(13230040)(82310400026)(376014)(1800799024)(36860700016)(18002099003)(56012099003)(11063799003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 45SxwYEZQcc0/QjorPL5HvrUq2Irh6iiJVYYTX15feYqIqHM//vO5R5ScHcBe+eZS383ej7MEjwIlBjRtRjpD75zOoeE974XlVZVGLvifxojy6ZFnsChh6MD0re0MBK3esY8K1aYCm38c79OkKff5kbhnG50qEyJKzyOb3nWIyS9/e86BCZPp7P0jwZ+bLHXqFEdBt6VX/2XCJA4vVDQ34nQkypuXgWKvVU34KsbDW1kQR+Nr+XI6DqMNKV/DEYlzfcFCBP2FedhWHdXOe0vVf6EfZaNp7/k8q/CUaGC5raYGfe1eKqZTc90l9Zs+DPATt3BYPivKK+N+jjiyVBDEoIh3dsdn5SLzBloF7/zx8ErhkXn/gwW1VC04T3CwXf4yN3eRVP+xHxW/M6nGb09MHu9LWPHHj63nXvj/9L8W2kVcHPUgg/6nTHQQF5Rx25p
+X-MS-Exchange-AntiSpam-MessageData-0: M2x1ivJquNiwdYhud+cVN+sleBXNeTwH2ygpUlvitWcOplZBJqRjtwHRfznKRHJReco0/EYiQUVIF+ZQCD0A4krD4tcpstmoec6M1pIvnckX1cj9DnV1aMNS93RyYjDK8ObvM7ZSFZMbA28mwtA/8UB+bKqEoUqqqr6d9X9f1J96SOVFbKj+zn/sbPX/7fvJM2DdPL/ojoCfh0VKXEpnD0qPlLKRy98sF0p5Ffi/zZ71f2Em2FnRom+15yWe3b28OiPtQRfjMxG5j4Sn7goz/iaaZ9KcXOZcvf7U/pQh5nY//bSaQLA8ct0vwNHqJYoRLzc6sBDj5iDuAjitFV3wPJnhUOmWAQGdKbaGrux54i/P7Niy5467kpcgmjDDNSUsZ+wKijQfUi9h400GfPkEKp43QHYzkl7u6ES+V9G9Zz0vASq9PO2XsVaAM3ahGELZ
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 May 2026 08:26:10.2829 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 99dbca95-5cf2-4446-7655-08deb4b71dae
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 May 2026 08:33:01.7052 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b163063e-7210-4d92-f875-08deb4b812ec
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF0001AB56.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000EE39.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4237
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6625
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,61 +109,65 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Limit RAS_CMD__GET_CPER_RECORD so buf_size and cper_num
-from userspace cannot force unbounded kzalloc or long loops.
+Cap nesting at 32 levels with execute_depth and
+return -ELOOP when exceeded.
 
 Signed-off-by: Candice Li <candice.li@amd.com>
 ---
- drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_virt_ras_cmd.c | 4 ++++
- drivers/gpu/drm/amd/ras/rascore/ras_cmd.c             | 4 ++++
- drivers/gpu/drm/amd/ras/rascore/ras_cmd.h             | 4 ++++
- 3 files changed, 12 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/atom.c | 11 +++++++++++
+ drivers/gpu/drm/amd/amdgpu/atom.h |  3 +++
+ 2 files changed, 14 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_virt_ras_cmd.c b/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_virt_ras_cmd.c
-index 7ec5287daf7f19..0a721d5d92344d 100644
---- a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_virt_ras_cmd.c
-+++ b/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_virt_ras_cmd.c
-@@ -267,6 +267,10 @@ static int amdgpu_virt_ras_get_cper_records(struct ras_core_context *ras_core,
- 	if (!req->buf_size || !req->buf_ptr || !req->cper_num)
- 		return RAS_CMD__ERROR_INVALID_INPUT_DATA;
+diff --git a/drivers/gpu/drm/amd/amdgpu/atom.c b/drivers/gpu/drm/amd/amdgpu/atom.c
+index cc5b6ea7f6d8b4..a40ce7555f287f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/atom.c
++++ b/drivers/gpu/drm/amd/amdgpu/atom.c
+@@ -59,6 +59,9 @@
  
-+	if (req->buf_size > RAS_CMD_MAX_CPER_BUF_SZ ||
-+	    req->cper_num > RAS_CMD_MAX_CPER_FETCH_NUM)
-+		return RAS_CMD__ERROR_INVALID_INPUT_DATA;
-+
- 	trace = kcalloc(MAX_RECORD_PER_BATCH, sizeof(*trace), GFP_KERNEL);
- 	if (!trace)
- 		return RAS_CMD__ERROR_GENERIC;
-diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_cmd.c b/drivers/gpu/drm/amd/ras/rascore/ras_cmd.c
-index 4f89810d85a15e..5c812f3d984140 100644
---- a/drivers/gpu/drm/amd/ras/rascore/ras_cmd.c
-+++ b/drivers/gpu/drm/amd/ras/rascore/ras_cmd.c
-@@ -217,6 +217,10 @@ static int ras_cmd_get_cper_records(struct ras_core_context *ras_core,
- 	if (!req->buf_size || !req->buf_ptr || !req->cper_num)
- 		return RAS_CMD__ERROR_INVALID_INPUT_DATA;
+ #define ATOM_CMD_TIMEOUT_SEC	20
  
-+	if (req->buf_size > RAS_CMD_MAX_CPER_BUF_SZ ||
-+	    req->cper_num > RAS_CMD_MAX_CPER_FETCH_NUM)
-+		return RAS_CMD__ERROR_INVALID_INPUT_DATA;
++/* Limit ATOM command table recursion (calltable) to avoid kernel stack overflow. */
++#define ATOM_EXECUTE_MAX_DEPTH	32
 +
- 	buffer = kzalloc(req->buf_size, GFP_KERNEL);
- 	if (!buffer)
- 		return RAS_CMD__ERROR_GENERIC;
-diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_cmd.h b/drivers/gpu/drm/amd/ras/rascore/ras_cmd.h
-index 7ea35a02898742..a1a73e6452e73d 100644
---- a/drivers/gpu/drm/amd/ras/rascore/ras_cmd.h
-+++ b/drivers/gpu/drm/amd/ras/rascore/ras_cmd.h
-@@ -405,6 +405,10 @@ struct batch_ras_trace_info {
+ typedef struct {
+ 	struct atom_context *ctx;
+ 	uint32_t *ps, *ws;
+@@ -1229,6 +1232,13 @@ static int amdgpu_atom_execute_table_locked(struct atom_context *ctx, int index,
+ 	if (!base)
+ 		return -EINVAL;
  
- #define RAS_CMD_MAX_BATCH_NUM  300
- #define RAS_CMD_MAX_TRACE_NUM  300
++	if (ctx->execute_depth >= ATOM_EXECUTE_MAX_DEPTH) {
++		DRM_ERROR("atombios command table nesting exceeded limit (%u)\n",
++			  ATOM_EXECUTE_MAX_DEPTH);
++		return -ELOOP;
++	}
++	ctx->execute_depth++;
 +
-+/* Upper bounds for RAS_CMD__GET_CPER_RECORD to limit kernel allocations and work. */
-+#define RAS_CMD_MAX_CPER_FETCH_NUM	RAS_CMD_MAX_BATCH_NUM
-+#define RAS_CMD_MAX_CPER_BUF_SZ	(1024U * 1024U) /* 1 MiB */
- struct ras_cmd_batch_trace_record_rsp {
- 	uint32_t version;
- 	uint16_t real_batch_num;
+ 	len = CU16(base + ATOM_CT_SIZE_PTR);
+ 	ws = CU8(base + ATOM_CT_WS_PTR);
+ 	ps = CU8(base + ATOM_CT_PS_PTR) & ATOM_CT_PS_MASK;
+@@ -1285,6 +1295,7 @@ static int amdgpu_atom_execute_table_locked(struct atom_context *ctx, int index,
+ free:
+ 	if (ws)
+ 		kfree(ectx.ws);
++	ctx->execute_depth--;
+ 	return ret;
+ }
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/atom.h b/drivers/gpu/drm/amd/amdgpu/atom.h
+index 825ff28731f52d..bb3d9eb7eb6b56 100644
+--- a/drivers/gpu/drm/amd/amdgpu/atom.h
++++ b/drivers/gpu/drm/amd/amdgpu/atom.h
+@@ -153,6 +153,9 @@ struct atom_context {
+ 	uint8_t vbios_ver_str[STRLEN_NORMAL];
+ 	uint8_t date[STRLEN_NORMAL];
+ 	uint8_t build_num[STRLEN_NORMAL];
++
++	/* Nesting depth for ATOM_OP_CALLTABLE */
++	unsigned int execute_depth;
+ };
+ 
+ extern int amdgpu_atom_debug;
 -- 
 2.25.1
 
