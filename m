@@ -4,125 +4,125 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D5711CD4F52
-	for <amd-gfx@archiver.kernel.org>; Tue, 19 May 2026 08:54:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B4BF0CD4F57
+	for <amd-gfx@archiver.kernel.org>; Tue, 19 May 2026 08:56:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1574210EB87;
-	Tue, 19 May 2026 08:54:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 610FF10EB6A;
+	Tue, 19 May 2026 08:56:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="wvMeCmue";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="CipY17/j";
 	dkim-atps=neutral
-Received: from BL0PR03CU003.outbound.protection.outlook.com
- (mail-eastusazon11012026.outbound.protection.outlook.com [52.101.53.26])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4126C10E3C3
- for <amd-gfx@lists.freedesktop.org>; Tue, 19 May 2026 08:54:18 +0000 (UTC)
+Received: from CO1PR03CU002.outbound.protection.outlook.com
+ (mail-westus2azon11010070.outbound.protection.outlook.com [52.101.46.70])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8F3B110EB6A
+ for <amd-gfx@lists.freedesktop.org>; Tue, 19 May 2026 08:56:16 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=mOvNGA9yqfaZz4412IxyH7SHajqsyBEsRNqQiOGNtCpkFh8a8tSEQyl2m3d8WhnPbz+l7GLfZI63HPoh4zKY0MzGxV0bY1DewKgIdurFCz1710AOVMYzcs6+Pf9I4HaCIcwSSWqGiXLF7x6coDlVu03ztchR1dZxBpbHMo4ZafQcY9D1Koy8lPd9laDbO72OuskNvxQ7jnMZMt555AvSos2looIelH3+mUHT+qMTO/iv8PW4lvj7p6bPHMsMJ1VBaKh7v5yRZEqVZTXiZuBO2JqCpGLJqDAOud+T8QGmZUcU+hq42lc8ySIMtCxz2Vn2yDW6AzRdmxSKk+DQCWqbBg==
+ b=lR/KlkBRbPOzrzTrCDFicq1AWrTWk6LyRfo1bWtdCzhpGodAlTXzgqAuICAaAcRe3hOOYFHnmMj7jbNbADw39DoNpqvVnDr4NcJS2dnee0KDsmhGln4CP7sziDjhXJszX6arIZTuNHPaeyQG46lBmQJeyUnYf333X+adawyR0ZFXizHlp2pZFUi3le/q1B474nWmiYIZmQYKf+U/jV177cLxmafB3NvnAat3AGwARFoQ55Fnk8+N3AIdJWRu3nhBnQk4trN12E1f/iwsbxmZNY3qbbuUKvwbNf863WNIqnoHFp68kzlk93kY6ZvecTGa8UOSe61Q1b9+hKHHuq8ZCw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=QtWqBn3TB6OVig4lf6djKPDhJoxxFzrPYjW+9BkwGqQ=;
- b=MC+0CnQVTGwzUU+mMw9wSbV90kQm1xg7/qKIsPdKNo66T0jBCOhk8IdpDBtdmU7Vt/fh0dfESlPvB6A+PSpAQI81ic7dwJ8pefucXdSWPWx+9NIGHtGU0dxqdPGtx2epCgeHG2inICT6Thi/V96O3fY4JcilnvfTsOKDX+5dYD3RzP2AA23Oq8Jj6jpTB9Zdw3sud1Ffnt+pSISwyUC5BakmfctZEOrVelpRgTPXQaNT06jcMcCeBbUPodwQOP4QpwUZLa3X9LEDZjBVzcs59Ez041miKL4gR3uv9aDkc3Rw4lxIvva0E6ihV56D6IBk0259z2492WJEmjrVuntaAw==
+ bh=6XZA1oSjxFDnpQndAVGhIVdQXAJuGZbNkZV9TbmOV6s=;
+ b=OW9D2sOvpVVekltIG7TJj2tbtFAvQIl747ZQBR2u/psJcgkE6XYR42W80PZLgZOAnnXDzgjnPKZEK5GN5tPdK7/Nlkokzk+5DF7Y0zHzvVCLt0FrI0XOhmMeqYjsHa2y4fgjyGXVV1GlOFtodY+SIJJ5IuFkVl21uWVoyXokmlWYXiQE8M84N7NcNFEGT4iHP3tPHDXRUBxXMOG996/pjdbqARdlk4henIRftlM2YSb5o/g/ckJJdhlXEsjKwqip25np1kNPgk4BtjgxqNBsvYDMiRds6g1z2WLfEhHOsxWw0QGfJhCUxq8NjouTtEQp/DRSW/CEczatkGnX6O790w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=QtWqBn3TB6OVig4lf6djKPDhJoxxFzrPYjW+9BkwGqQ=;
- b=wvMeCmuebe3HQ9GxHg761+69JEcD4Uw+JtDaSaSYounbUgfTAC1TV8xE5dvZnRPKFVfh2dKsikmKuwOwWerZ1q7kzGNLcnUgi0EVhw6g9+5TEQw1JidpiGDBoiiKaQns1h4+2axAkoQJXeCExnNmJ2TAmXdmG0SKcrMou83W8e4=
+ bh=6XZA1oSjxFDnpQndAVGhIVdQXAJuGZbNkZV9TbmOV6s=;
+ b=CipY17/jz72YHytZHgh3eSuLsLx/zY/9GOoVbHuMShlqi6iGA69SXux3caK8EtpMU5QR86WPswlF5Xp2JOl9LPdQU4xUKEDWmWcurSG3/TttO267iTKZ0VAkmISG4eFvf3KNjHlCzGwvccpxR5B2frOH4xkWXu4vl4+ta8CDV2k=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by CH2PR12MB4085.namprd12.prod.outlook.com (2603:10b6:610:79::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.48.14; Tue, 19 May
- 2026 08:54:15 +0000
+ by SA1PR12MB8094.namprd12.prod.outlook.com (2603:10b6:806:336::20)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.25.24; Tue, 19 May
+ 2026 08:56:14 +0000
 Received: from PH7PR12MB5685.namprd12.prod.outlook.com
  ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
  ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0025.022; Tue, 19 May 2026
- 08:54:14 +0000
-Message-ID: <69dcb4d8-1199-45f7-88dc-c77efb248542@amd.com>
-Date: Tue, 19 May 2026 10:54:10 +0200
+ 08:56:14 +0000
+Message-ID: <4cd8a28b-ecae-4fa0-a61a-77af8ef5cec1@amd.com>
+Date: Tue, 19 May 2026 10:56:09 +0200
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/5] drm/amdgpu: Use placements of 256M GART segments for
- SI/CIK
+Subject: Re: [PATCH 3/5] drm/amdgpu/uvd: Place VCPU BO only in VRAM for UVD
+ 4.x and older
 To: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>,
  amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
  Natalie Vock <natalie.vock@gmx.de>, John Olender <john.olender@gmail.com>,
  Liu Leo <Leo.Liu@amd.com>
 References: <20260519082204.60811-1-timur.kristof@gmail.com>
- <20260519082204.60811-3-timur.kristof@gmail.com>
+ <20260519082204.60811-4-timur.kristof@gmail.com>
 Content-Language: en-US
 From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260519082204.60811-3-timur.kristof@gmail.com>
+In-Reply-To: <20260519082204.60811-4-timur.kristof@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: BL0PR02CA0032.namprd02.prod.outlook.com
- (2603:10b6:207:3c::45) To PH7PR12MB5685.namprd12.prod.outlook.com
+X-ClientProxiedBy: BL1P221CA0032.NAMP221.PROD.OUTLOOK.COM
+ (2603:10b6:208:5b5::11) To PH7PR12MB5685.namprd12.prod.outlook.com
  (2603:10b6:510:13c::22)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|CH2PR12MB4085:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5d836852-be55-4c9a-6a98-08deb5843405
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SA1PR12MB8094:EE_
+X-MS-Office365-Filtering-Correlation-Id: cb652d7d-ed42-4d88-a77e-08deb5847b37
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|366016|376014|11063799006|18002099003|22082099003|56012099003|4143699003;
-X-Microsoft-Antispam-Message-Info: Lv+ssCm7LFkbJLTixWRBS2a/lGhJNrtNMXGUgRCMmezmeKgjLjKOoUFj8GmLuGLZv9aAzMrhOez3uVLdHIqrezO8SAKvsqghuTEdem7Di26RZ/Z9bMnPATSGiar8JYz3Iaoqvb41zisMdAdYou7VBbFbKfpI8sXx+MvVfWnHQjkPs1SCjaejSwVa062zTR4mVOCGeef5pKFet2Gnf1PoF+Af0juVtJ8gocD0H7Jf4FNuByTqlS1Y4Agl6NJB4/daEEYAFcvZ+moZfB9QnFPMgSGoOJOvz9fwqn/lxK6N9eybgnSA7jWBb6MYVm8FDXmMO9uUDihDjmQWxeb1Zjlv7CfT72DIjr7j58UNUsmaDl2dsDsVN0J5jNC7syXZDULNJqcugy8VirgPwfb3cpkf166GlAkD4HBHxEzK3jLmO1JE821bQOHSbR3s/0dt8GxbYrrp6pcbXZeQPmq3WStnjeujq9LZS21rCO415MZkqFw/+pwxqWPimlePtwQId+BQHweHgQBl++cSn/d0ltwayIiEWNy7VBji7TzOOzbdftOQqh5RWYGHLtEUokEviU5P4fLBDWLVdfMbIKuAj99cJONEJRf4W7I9xe6mFiDss0+SdM/ffiBEfJJgMcRqYZFahw931HFbzYZ+0zv/CqvGqQ==
+ ARA:13230040|376014|366016|1800799024|22082099003|18002099003|56012099003|11063799006|4143699003;
+X-Microsoft-Antispam-Message-Info: N7943NxHMV2Kf/AlqNbxepp8S0vP+ZMw08RJOXPhEtALtkGjw2QtCndb1s7Msgq4MNE8USDscxJAmRKYBlqyqLGzbt0/owlt+YWNkGuLjBqXiQh3adgyZPjl1+4J5QEDGWk+mM5PRCG3f6HkJF0JV0qFwk5GN3gIRKQ1Pi/VUy6Kd+67Y7vD2hqz/D30XRkuXg8tBUiD/fsU4dLU4F7PyLKFMVpkvwss/FGFTqx+VYtpd2B+izT5kuWLg4D5jQtFYY2AewuqqrJfgs1/x0L6HwOSEN7O7g58EKEMlMuYyH7sWWpDeoVaWUPw9gDmH9iD8ZxaToDqDSSB7B8oRxCakbVWp74fJELiWFIBxwdKu09glYJcjw5LBS24A7p3OwAhe25ITmwVPu2MWAwAQ0pGyZu2WJ64I9MtEJpcHtkZ68XYomRO9b9ZfSDvxUfhz2QMDJ0NKiKwup2sLEt+wQZ1Nv+y3+MwJx1Tf+Hai8eDUhkAm9+4Eu7DvR05ojk8cBxYHsY2yETyGWR4uJaaUk5DpK/kJfjTrwOCF5EQ5c/ZlgxiwcIXQnranR2UuVvZMPO+JvLMIC1IUX/RE9vmZATU9CyPqOOy3CqizPXwe4823QmYn4i6MQMZOr8cXDOM0zOFZvHLr6xwYVXmzxqZyfpljhrpOpTIsPfjo5+FXcBaHmQ7+wupa8kw62Xuj2cBjHlB
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014)(11063799006)(18002099003)(22082099003)(56012099003)(4143699003);
+ SFS:(13230040)(376014)(366016)(1800799024)(22082099003)(18002099003)(56012099003)(11063799006)(4143699003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZFpVT3ZZUHZ6ZUFHemhuNjlXSlZuU3dRNDdTOTgza0ttZzJJV3hvcFFYeGZB?=
- =?utf-8?B?S2JlUTA2MldaOWZ1eldXNWpPR0JlVWUyM3NvMXlHUmZwQ0x4OFNJQ0hvNFo3?=
- =?utf-8?B?bXo2Sk1LdUJqeXc0cEFoWExUc2xUS3lFditUOXpLTVJIRHo2ZDRGU05reW5E?=
- =?utf-8?B?YlJQL2ptdEwyZDR2bFMvQzNhc2JVRVdFQ0VEMWNMWnh2VFIydUQzWGwralRU?=
- =?utf-8?B?OC92SUtvc29kY3Z1L05YN3hyWHJiTE9IVGQ2eERyaUFqR1BOL3U2a09TK3BX?=
- =?utf-8?B?Z3ZUU01mNzBpQ2x5M0lrOWpvUHA1RXBvTHRBYUtNV3lNcjV6Y1pUWTVnekZn?=
- =?utf-8?B?NzlZZGdCZllRUjVlSVc5ak9wOFFRa2xoSVlScEdzZmJzU0g0MFYwaG5HK003?=
- =?utf-8?B?VEhLR001ZkkvK0RzcWtFY1VyWW9BM2p3V2h5TnBvb2JmdU53dDZkcnRJd2Z0?=
- =?utf-8?B?VWNXNy84UG5ZOWxyYmE3QUlGTk9ZdU81SnVzK1ZtMUpNaWtrV2ltNlh3ZnRD?=
- =?utf-8?B?dTV5RStVUW4reS9SRFZVZUEvVW5oUFFNUUMzK3hGTk84QUFyN2wrUTRHY1NC?=
- =?utf-8?B?Sitya2IzZUJ5enl4MDdCVTVGUE5ZRzNvOS85OCtUQ0JjZ3VNSkYzcGJLOGNH?=
- =?utf-8?B?UlBheElkSUNaZGV3SFZONUo4MkdacCthd3pmYmwrQmcvM3VvRE53TEdKdzNq?=
- =?utf-8?B?ZEJSQlVxdDJuUXJ0MWM4azVna1VSS3JkVzVsRnpDTFpxZmY0KzhFWVBpN0xK?=
- =?utf-8?B?TTZ1MlJydTlJYzZ4UXRVb2lnV2w4ZjYrdE0vcDlLZjNrOWkwd3JxUmprSFZo?=
- =?utf-8?B?STlieWRCeTVDaWdHUGpsQ1cyYXpSQytYRG1ZcWhxL2JhcnNKNGkwV1kyZm1F?=
- =?utf-8?B?dmh1WUpVblc2eTJiNEJYUDVsUEJ6QzIyQUpTdVM1RTdJMjgyZW92SHo0cjIx?=
- =?utf-8?B?YkprTWd4L21rcm4vbkNaOVUzVTRWWTcxWHJ6NW5pOUJzZXN5U0dYcUlEeDhu?=
- =?utf-8?B?T2paMEFRWnVKSytOeENLUXNxSVI3UmNmcGpiNTdYMGxqNlV6bHFIa3VFTnNy?=
- =?utf-8?B?Nlp1dXlQVVBZekVXSDBoVWZ4RUc2clN1U2JWeE8vY05rZThkbVJZMmtIZ0lH?=
- =?utf-8?B?NUhJOVQ5T05jYXNoUkRqYVl0QncxQTdvc3gvSXYrQStLSDJvMm5vMmFPdTlU?=
- =?utf-8?B?NVVaWmRRcllqQ3prcmVjQjRnTTYyL2U1M1FJelNwOXk4TmNscnhUUWFyR3hw?=
- =?utf-8?B?TkMzRnRXa1RLZFpoanZoWFZQOGFOTVR4bVRBUi9BMms0Yk51RWpqYkFBZ2tP?=
- =?utf-8?B?d2JCV2dlV2FrN1R3VmZLQXhqaXd2T1FBMnBhQWhnek1KeGg2cHZybTArdDJk?=
- =?utf-8?B?bUU0aVlVWUg4aUlENndhdk1DN1JJNDhDSzhGVW5KSjlreU56MjJ1THdQZkdD?=
- =?utf-8?B?M3BEN2U1ZVJWMGJKbEdacmxWSDJpNWNVQklaK0xjRG56WDY2K0JZbmYrUk92?=
- =?utf-8?B?Wlo0cG5aYjJIQjRndGQ5dzNiUndRemEyU2FWTUNWQWIxQ2Z2bmVrTE9URXY4?=
- =?utf-8?B?Vk91K0tWRmRaYzBWbFVlV3d1M2dxejFrNGgvYzVWRjRBZTZiL3BVbUpxcTdk?=
- =?utf-8?B?eTFmbDNscjd1RTl2UGFqM1dLZjVUVEJZN1E0WDczZjRiTTFPQllrYWZnM2VO?=
- =?utf-8?B?aDRNaEVUd2l6bHVUWWpQalRzbm80QUQ4S21sUENtRjNvY3E0WS9PRGdMczQ3?=
- =?utf-8?B?T0xWTzdSQ3pCWEwxbEtYdkxNbUNjRlRvM24wNHY5d1pyUmxoYXFKa2ZSOTZG?=
- =?utf-8?B?Q0JJUWJhTU03ZmhsUC9nL1R2TXlScy85V2xZMzVLOWJLYzhWcktlK1EvRzc0?=
- =?utf-8?B?cXFsdjZnVEhkejM1bkVmamphRDNuSWVJbTA1YnlQVGVVcEUwS050eFU2dkhC?=
- =?utf-8?B?SlZYS21YUkhDeHhXa3VKYm1uUXZFa0dROFdQaFpkVHVzcTNSRGphYXM0ZVdT?=
- =?utf-8?B?eEs1d2hnWFdMU1pkMDhEeXJKMlU0ZWFHQkZvalExKysrMzVkMGd4aUhoQVFG?=
- =?utf-8?B?dG1sTlplVDVyTzFyWEJ6OEkrZy9Ielc2TWV0bVc1bWxtL0YzS2NzTWhocjE2?=
- =?utf-8?B?T3hpSWN3VlIxMEs1dEVTV2ErajlvaW5WY2lzelJGUm9nemFMSS9SOHhFRGs5?=
- =?utf-8?B?OWVXdWo4eWZWRndxMjg2ZDFVT2ZPb2VGNUJjTUJuNGRZYVd4ekZXVVZrSzYz?=
- =?utf-8?B?VlBsYmlKbG9Jb2ZRbUd2dGFOQmp5dDBBbDdxc2Q1SXg4WEp4RGdsSk1aelh5?=
- =?utf-8?Q?l1sFzqJGGjmwBIiYvm?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NXR1MUFBaGJaWC9lcFQ3QWhQMkxnSFBab3JERXRVYWZmUTNHalcxQkllY0lY?=
+ =?utf-8?B?TDNmM0N0OFBwelU1ZUkyNkhYYWlISVJZRGliVjN2Q1g0STlIU1ZJVDRrNlZN?=
+ =?utf-8?B?bHNhc2pabGhoWVRRSU5tR1BOUzVPU0VYcStDZnlHVDg2TzJVdmE3VlRyRDRO?=
+ =?utf-8?B?SmJieVJ2Ymk3L0lnUFBiVU5NMTY2eUw4dDFkdGllQUg5QzhBYnBReHBnbFRy?=
+ =?utf-8?B?b21BeGpSYUtpVXEyTGJOZ0xBeGhoNUgzMnVFL2JCMlEyTk5TbGR4NDVSVG9t?=
+ =?utf-8?B?K1RVbjV6c3NVSm9OQk9BK2dTVlUrUDdzUXUyYlVDU29oNzFjeDlrMnU5Vk5I?=
+ =?utf-8?B?NXRXQmdoYkJWTkJkQ1BDcmxYeW5SaWdtUVNKRDNWQzJ6eGRlSSt6MUlIR2NC?=
+ =?utf-8?B?U1B0MlR4WGIwT3dDQUNPZWNEbFBmVDVvdXdmM200YWFNdktQOVFhcFQxdHp4?=
+ =?utf-8?B?S296M2xCYmdaVXZrbytQeURvQjZxZSs5ckt6RGxMNWNhNEJnMkVvQzZXSmJW?=
+ =?utf-8?B?aTN5cUoyZzVGM3dtSGxrekdHM1NCakRCakhaWVhISlNkQzlIeHA5VnlOcFBr?=
+ =?utf-8?B?SE9tUndDNnFudDZnS2FJS2JUTU1zNkE0VGtrUG1zMG5XbWhUQldpRnZoZVhS?=
+ =?utf-8?B?ZGVtUnd0bFJGZ3dickVtMXlGOFFGejVFekYvQTdFangxREZKSzFuVmNOelhr?=
+ =?utf-8?B?b2tOMXY0eHRTR09jTUV5SFo4T1FFczAwMkVORkNqRjdTUWZRWVYrQ0pWTHVG?=
+ =?utf-8?B?LzNiZnN1ZXkra1IzZTl5a3N4M1Q0YVBDbFArZ1JycnhWQmd2UzQ0emxCek9h?=
+ =?utf-8?B?ckRVYzdGcUkvTElXckJ2NjNKWjJqZWRlSWF0KzhtNzZiNWVBUWg5SHdjZ1Bv?=
+ =?utf-8?B?c1F0OTdEV3FRRG81cThoUHBLdGJ6WVRGYTN5MkNzcnpGbzlpN2hJUU5YeDZC?=
+ =?utf-8?B?UDcrZm9zcHV4bmJIK0V1ZG9WZVJYeFZkY2cxRExUakk5alRKMnRBazR0aUxx?=
+ =?utf-8?B?Um1CYkp2L0swMGZvQkIvNDBWMFR5eHJhNmgvMDZRNlovM1Y0ODBHaFRwNG8w?=
+ =?utf-8?B?dHBualJNWDcrb1gxZllST2tpaEtqWUdvaU95WkllRFhCTGx4RHF2NUlzOU1y?=
+ =?utf-8?B?c1JXa29mdFdiRXFOQ1o5T3hyak95a3JUYk51SnJCbENPMEw1VjdWLzNSeHFr?=
+ =?utf-8?B?akxpb2t1bWg5V004L3RRQmJIeXJYS1Y5aGwvVThPdUdwOGpsZkcwSUNqWlBF?=
+ =?utf-8?B?RHFCeWFjUEl0cWpmdUhIcGdaRWE2bU8yTmRnOXFOWkIwekJJV1o1UFhOOEdp?=
+ =?utf-8?B?UUZhdXZ5V01NNm1nQ2FiZFpWZThsaUhYWlRUMmdZK0psRFE4c3F6eTJXWVM0?=
+ =?utf-8?B?RDRZNW8xRWF5ZWFIQWttQ1ArRzlvVVRpTUswTk5TQlEyRThTY3RnaUNvdmg4?=
+ =?utf-8?B?amV3WXlHS1VSWEJzOXJvaG91bWVMTEUzUlpPOE1ib3NhbHdxV2RBeGJ6MFZl?=
+ =?utf-8?B?VXZXVEpGUFZXeUNTQ2lQdFg1OU9mb3pXS0pQSVdFY2txdGtHQVpnVVVoUUt5?=
+ =?utf-8?B?aG0wbVFoWWxTNTJQd3lRVExyU1VQSkdjVDZ6VnFjSmFHQXBzY1FHV29xT0Vy?=
+ =?utf-8?B?MDhVVkZiM1Z4bkp2dEt3ZTl1VUZFYTFpbkVRWFZvTGRSckpJVnpjSXlqUlFq?=
+ =?utf-8?B?czlESHo5SmFZSlArUUFScUFSZmNJWHUrRGVyWDUwbzBIb3RZTU9XN2g5OTI4?=
+ =?utf-8?B?cG9uTXhGa2hNdmdCMlRHRWMydkx1OGRvZUhONU53VStqcTJnV2tLSXpyd0VT?=
+ =?utf-8?B?WGJrUWV6ZzZveU5oTEQ2WXRzWURFT0U5ajFuTHhoYWhvUFM3QWV4amZtdStq?=
+ =?utf-8?B?NzJIQlcvV2x1bGt3SW1IMFVXZDJidVFLR1RHM0JHNEI1L2RCdGd0VlBmSmZk?=
+ =?utf-8?B?cjJyT0ZJcDlnaXU0cGY3TkxCV2dmazhaK1ZNbU5pcVR2SmM5U2VnVEZDZ25H?=
+ =?utf-8?B?SkVYTXpsMzhGQkpKVUw0WXZ6S1VQQjhPaVVPWU40M2gveWljOTBtZXZPN3Bi?=
+ =?utf-8?B?TXhwcWlWeWJzY1RYMlB5Q0ZpQ0hnU1dxa0JTN3NLSENoNFJCMEI0VER2cnFu?=
+ =?utf-8?B?OU1RNmxzcWpzVDdKdVMva0FNQ2JydkE2ZkEzcnd6MFg2TmlEaG82QmRtQlZa?=
+ =?utf-8?B?L2tXOFNNNFprcmtrcTJYOUJhZEJDdXZ4SGVYMnZCK1N5Wm52QzRCTUtKdHYv?=
+ =?utf-8?B?Zmd1d3Zuc1g4bFZtYmhNQUIyS1RuQ2tSRWZQZlc4eHBtTjZ3VFJTc2NjM1BJ?=
+ =?utf-8?Q?HrDGk6VdFQjCeIgAOg?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5d836852-be55-4c9a-6a98-08deb5843405
+X-MS-Exchange-CrossTenant-Network-Message-Id: cb652d7d-ed42-4d88-a77e-08deb5847b37
 X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 May 2026 08:54:14.8623 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 May 2026 08:56:14.2792 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Ce/VXiWPy+Qnr4lobcdo5lLVWhxJQe32NWUZoc8gIne7hlEi8TKkfm4li1DWMjp9
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4085
+X-MS-Exchange-CrossTenant-UserPrincipalName: yXC5Z6WFVfog86+Z9PKK/mS0+lTh824LLbQ/1H5jdKn2FHhy4hM4ZqITS5QcHccG
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8094
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,126 +137,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-
-
 On 5/19/26 10:22, Timur Kristóf wrote:
-> UVD 4.x and older require that BOs don't cross 256M segments.
-> We need to respect that in amdgpu_ttm_alloc_gart().
-> We can't move the BOs later because GTT->GTT moves are
-> not implemented. We also can't force all BOs to VRAM
-> because that becomes very problematic in low VRAM scenarios.
+> These UVD versions don't fully support GPUVM and are only
+> validated to work when their VCPU BO is placed in VRAM.
 > 
-> This fixes UVD CS BOs crossing 256M segments
-> when they are placed in the GART.
-
-Clear NAK for that approach.
-
-This is the general TTM interface function and shouldn't have any HW generation dependent code in it.
-
-Regards,
-Christian.
-
-> 
-> Closes: https://gitlab.freedesktop.org/drm/amd/-/work_items/4799
 > Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
+
+Reviewed-by: Christian König <christian.koenig@amd.com>
+
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 56 ++++++++++++++++++++++---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h |  3 ++
->  2 files changed, 53 insertions(+), 6 deletions(-)
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c | 17 +++++++++++------
+>  1 file changed, 11 insertions(+), 6 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> index 6c6ab4dd6ea9..a106c7e77e26 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> @@ -959,6 +959,40 @@ static int amdgpu_ttm_backend_bind(struct ttm_device *bdev,
->  	return 0;
->  }
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
+> index 3a3bc0d370fa..1e59ca924abe 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
+> @@ -188,6 +188,7 @@ int amdgpu_uvd_sw_init(struct amdgpu_device *adev)
+>  	const struct common_firmware_header *hdr;
+>  	unsigned int family_id;
+>  	int i, j, r;
+> +	u32 vcpu_bo_domain;
 >  
-> +/**
-> + * amdgpu_ttm_fill_gart_256M_placements() - Fill placements array with 256M GART segments
-> + *
-> + * @bo: TTM buffer objects whose placements should be filled
-> + * @placements: Pointer to an array of placements
-> + * @max_placements: Size of the placements array
-> + *
-> + * Fill the specified placements array with 256M GART segments,
-> + * starting from the highest address in order to reduce the
-> + * contention of the lowest segment.
-> + *
-> + * Returns the number of placements filled.
-> + */
-> +u32 amdgpu_ttm_fill_gart_256M_placements(struct ttm_buffer_object *bo,
-> +					 struct ttm_place *placements,
-> +					 u32 max_placements)
-> +{
-> +	struct amdgpu_device *adev = amdgpu_ttm_adev(bo->bdev);
-> +	u32 i;
-> +
-> +	/* Fill the placements array with 256M segments, starting from highest. */
-> +	for (i = 0; i < max_placements; ++i) {
-> +		if (i * SZ_256M >= adev->gmc.gart_size)
-> +			break;
-> +
-> +		placements[i].lpfn = (adev->gmc.gart_size - i * SZ_256M) >> PAGE_SHIFT;
-> +		placements[i].fpfn = ALIGN_DOWN(placements[i].lpfn - 1, SZ_256M >> PAGE_SHIFT);
-> +		placements[i].mem_type = TTM_PL_TT;
-> +		placements[i].flags = bo->resource->placement;
-> +	}
-> +
-> +	return i;
-> +}
-> +
->  /*
->   * amdgpu_ttm_alloc_gart - Make sure buffer object is accessible either
->   * through AGP or GART aperture.
-> @@ -973,7 +1007,7 @@ int amdgpu_ttm_alloc_gart(struct ttm_buffer_object *bo)
->  	struct ttm_operation_ctx ctx = { false, false };
->  	struct amdgpu_ttm_tt *gtt = ttm_to_amdgpu_ttm_tt(bo->ttm);
->  	struct ttm_placement placement;
-> -	struct ttm_place placements;
-> +	struct ttm_place placements[AMDGPU_BO_MAX_PLACEMENTS];
->  	struct ttm_resource *tmp;
->  	uint64_t addr, flags;
->  	int r;
-> @@ -987,11 +1021,21 @@ int amdgpu_ttm_alloc_gart(struct ttm_buffer_object *bo)
+>  	INIT_DELAYED_WORK(&adev->uvd.idle_work, amdgpu_uvd_idle_work_handler);
 >  
->  	/* allocate GART space */
->  	placement.num_placement = 1;
-> -	placement.placement = &placements;
-> -	placements.fpfn = 0;
-> -	placements.lpfn = adev->gmc.gart_size >> PAGE_SHIFT;
-> -	placements.mem_type = TTM_PL_TT;
-> -	placements.flags = bo->resource->placement;
-> +	placement.placement = &placements[0];
-> +	placements[0].fpfn = 0;
-> +	placements[0].lpfn = adev->gmc.gart_size >> PAGE_SHIFT;
-> +	placements[0].mem_type = TTM_PL_TT;
-> +	placements[0].flags = bo->resource->placement;
+> @@ -319,12 +320,20 @@ int amdgpu_uvd_sw_init(struct amdgpu_device *adev)
+>  	if (adev->firmware.load_type != AMDGPU_FW_LOAD_PSP)
+>  		bo_size += AMDGPU_GPU_PAGE_ALIGN(le32_to_cpu(hdr->ucode_size_bytes) + 8);
+>  
+> +	/* UVD 5.0 and newer HW can use 64 bit addressing. */
+> +	adev->uvd.address_64_bit =
+> +		!amdgpu_device_ip_block_version_cmp(adev, AMD_IP_BLOCK_TYPE_UVD, 5, 0);
 > +
-> +	/*
-> +	 * UVD 4.x and older require that BOs don't cross 256M segments.
-> +	 * We need to respect that here. We can't move the BO later
-> +	 * because GTT->GTT moves are not implemented.
-> +	 */
-> +	if (bo->base.size < SZ_256M && adev->family <= AMDGPU_FAMILY_KV)
-> +		placement.num_placement =
-> +			amdgpu_ttm_fill_gart_256M_placements(bo, placements,
-> +							     ARRAY_SIZE(placements));
+> +	vcpu_bo_domain = AMDGPU_GEM_DOMAIN_VRAM;
+> +	if (adev->uvd.address_64_bit)
+> +		vcpu_bo_domain |= AMDGPU_GEM_DOMAIN_GTT;
+> +
+>  	for (j = 0; j < adev->uvd.num_uvd_inst; j++) {
+>  		if (adev->uvd.harvest_config & (1 << j))
+>  			continue;
+> +
+>  		r = amdgpu_bo_create_kernel(adev, bo_size, PAGE_SIZE,
+> -					    AMDGPU_GEM_DOMAIN_VRAM |
+> -					    AMDGPU_GEM_DOMAIN_GTT,
+> +					    vcpu_bo_domain,
+>  					    &adev->uvd.inst[j].vcpu_bo,
+>  					    &adev->uvd.inst[j].gpu_addr,
+>  					    &adev->uvd.inst[j].cpu_addr);
+> @@ -339,10 +348,6 @@ int amdgpu_uvd_sw_init(struct amdgpu_device *adev)
+>  		adev->uvd.filp[i] = NULL;
+>  	}
 >  
->  	r = ttm_bo_mem_space(bo, &placement, &tmp, &ctx);
->  	if (unlikely(r))
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-> index 2d72fa217274..e9de628c8d2d 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-> @@ -202,6 +202,9 @@ int amdgpu_ttm_clear_buffer(struct amdgpu_ttm_buffer_entity *entity,
->  			    u64 k_job_id);
->  struct amdgpu_ttm_buffer_entity *amdgpu_ttm_next_clear_entity(struct amdgpu_device *adev);
->  
-> +u32 amdgpu_ttm_fill_gart_256M_placements(struct ttm_buffer_object *bo,
-> +					 struct ttm_place *placements,
-> +					 u32 max_placements);
->  int amdgpu_ttm_alloc_gart(struct ttm_buffer_object *bo);
->  void amdgpu_ttm_recover_gart(struct ttm_buffer_object *tbo);
->  uint64_t amdgpu_ttm_domain_start(struct amdgpu_device *adev, uint32_t type);
+> -	/* from uvd v5.0 HW addressing capacity increased to 64 bits */
+> -	if (!amdgpu_device_ip_block_version_cmp(adev, AMD_IP_BLOCK_TYPE_UVD, 5, 0))
+> -		adev->uvd.address_64_bit = true;
+> -
+>  	r = amdgpu_uvd_create_msg_bo_helper(adev, 128 << 10, &adev->uvd.ib_bo);
+>  	if (r)
+>  		return r;
 
