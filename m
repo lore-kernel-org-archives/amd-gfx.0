@@ -4,62 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5A3C7CD5BA4
-	for <amd-gfx@archiver.kernel.org>; Tue, 19 May 2026 10:21:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6862CCD4851
+	for <amd-gfx@archiver.kernel.org>; Tue, 19 May 2026 10:21:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A267610EBF8;
-	Tue, 19 May 2026 10:21:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0AD2010EBFB;
+	Tue, 19 May 2026 10:21:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="GFRhhjG9";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="rv1BEuHd";
 	dkim-atps=neutral
-Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com
- [209.85.221.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1530F10EBF4
- for <amd-gfx@lists.freedesktop.org>; Tue, 19 May 2026 10:21:29 +0000 (UTC)
-Received: by mail-wr1-f46.google.com with SMTP id
- ffacd0b85a97d-45297094718so2605095f8f.3
- for <amd-gfx@lists.freedesktop.org>; Tue, 19 May 2026 03:21:29 -0700 (PDT)
+Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com
+ [209.85.221.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3F20B10EBFB
+ for <amd-gfx@lists.freedesktop.org>; Tue, 19 May 2026 10:21:31 +0000 (UTC)
+Received: by mail-wr1-f43.google.com with SMTP id
+ ffacd0b85a97d-44c350a5b87so1989019f8f.3
+ for <amd-gfx@lists.freedesktop.org>; Tue, 19 May 2026 03:21:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1779186088; x=1779790888; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1779186090; x=1779790890; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=U16zJTSnbffX1dN21R+EflW0v6/pU9yFvzxByHGVqc0=;
- b=GFRhhjG9HG5Xcf6kTDcEAhJhaSZ4jJs3EcFR34TR1KKUlLlhpXnVdiqBZyEGNKpDNM
- qW/5FOadC5lPaASvqBAzl6d7y+r9uofg7L2eounLs6se07aAG+DvV0nJfDZvRUuvelix
- +1opYeoPsCovGJ5bAtseOewWkdBLHT9xrUBgQPoUXbYCBXOHe3FxIq1EZTEkXQM7nwnI
- NaiapyjSxKYFBGm2BrO0pn0wJmfCjCFJGoLbR2XEr8wKhzNC3uBeRjb+c7hwZ4L7aUDd
- CxYYgG4MQ4s1t3FWrEUEaEx7ogb6V8BDFPlIOjn3PSu7g0CqxNI3sOFi2xJg/Svpcgb2
- Rn7Q==
+ bh=YAoMNWS200z6XBGC8Yb0H0qoAX1NlIZAlj8acUvZrbM=;
+ b=rv1BEuHd+S1oUQLv+SOfmql2I1nqpniZ+ZnfF4mKo2mcqTryzOXsxMnZ4Nr2b8CY56
+ zkkZ7cjo2HkXhCkX6A6EqW9oHkJNJQhytljqRvvgV+ZLLBXkmtbOEQ8uqHBc8ihn35fb
+ X6Rd5kVoc4sSm7z/+4TlpVqV6PAmxxCC+LBgIF7dmOpOY+RNA0MA+qFt+VQcVML+CddC
+ Hr4DOSYgXqAsW7smn1KWXOxzV18DlShk1OvwSJ/BQIIeB7AyP3gccS0E8sBODHDyMDkO
+ aLDAICVy2aJ9QkGlUAjjn0bjEbDBgiZkzprRf3jMlJcbkv2yAUbxLRfKpZxG2WwsHHa7
+ Zc5Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779186088; x=1779790888;
+ d=1e100.net; s=20251104; t=1779186090; x=1779790890;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=U16zJTSnbffX1dN21R+EflW0v6/pU9yFvzxByHGVqc0=;
- b=gSMfx+grvuD4I7Bz/u/XN/W/EO+a8nOZYd9fobN2hKdk004abhwY9+pPqyTrh0s6GR
- FgjzmwczwssbgJ9qU/SYrtoyvxoU/kXAml48bk3e/0+c2Jm1DZvrTc+qKH6jgJ64orQ0
- 9OZgO8uFIuvXe1NSw+LyiOG5HGn2SxqTTmf7MBTo+o2pVu/wThxy5FR4QGwbezXu7Iyq
- 7ffqb6VVo+tyi/9CvyCq0iyDEhwYQ8YqW8FilKiaftRvUWTgb7w+17AdH30/0II1pZ7M
- J2Yco6QOQrc/ZWNxfAFwbv2bedQdfbeTP8y9jnn6uCIfcJsfPI53BsQ1ZeqQmmVCsZKq
- EiOg==
-X-Gm-Message-State: AOJu0Yy5fFGKsoMxSBg5kpMIRuI55IqZxIXtuNZk/lECWHNv399zmEhP
- KsaW1z+2op1RrHiXy/RyFlyZJSebj6h8CC0QPm/+5SpbkBLQKDD7wZcQHx29yqkt
-X-Gm-Gg: Acq92OGnjOZGva8wKMrFoRFIzW9JOJihksyY7ouVSGJi8/w5IAwrmbaUlGnuivXCSrj
- 9xYPnZIUN7DI9VBYRznPLGLOAPJxK53sXzbScLMKugZJB11rT/GjhfZCYVQ7XMIsAdzBzkb45Yy
- FlLWrh1EfXR9WkVJ7Lps4hAD9bhHZ//uFUX9TUHmplU4hk/EgFWTdwC3P0R7EsKfb0LXvhhVZiP
- VNl/EVJLMxh95YPKzUwX6eSRXZw9MSwsC2pp9xCxZWp9/AGdfk8moTjp4H/XUQAVnxehUdXAsj/
- julUuLdhAOPd4kOrzQdBFt+XWYHwo7n2Yj4Ncdlz8Wt951jb9tCU6gve01JQokKsIF6xrHbtyp1
- +Hs68qrRLrwwLJTaiOsPonuN7Fi7SQSQwBL/945zcuF7E141uiYEZM7fbICebwNgJkZHifuwV4h
- v6wTWZHZUn2Md3xS4ICDCBJmrlFk/Bm9TS9CkK9oTd2wtyyvyyYQu+HwP2ov+r8x8l
-X-Received: by 2002:a05:6000:2c03:b0:45e:7997:8b7a with SMTP id
- ffacd0b85a97d-45e79978bc7mr15731408f8f.16.1779186087392; 
- Tue, 19 May 2026 03:21:27 -0700 (PDT)
+ bh=YAoMNWS200z6XBGC8Yb0H0qoAX1NlIZAlj8acUvZrbM=;
+ b=e2CV1rgLZvt6Zh6bj65YDVh+atvMfD7VH4vptn8/ZAGXVVU9JcIpDpnA18o9dmlOxj
+ mux5nt2VvsP4nJYMB9pY+X3jcrKHGs+Rvn/+Bz2KCpo0QgwZz28ZNim3eRLvtH3xTB3S
+ qzOEMVdQXos8ar/65YUq3NUEEdlWotiQCM6mleOSQ9MDesO0KdVg6mpZcDylFYng9YiH
+ UQ08g2zZbBT3pfkcKNVq1bLNagCcYvYrlklvcSxhTZcFmO7Lqm6Jr/628dcLtO66Nw84
+ eBxOcFgKz0ykoh81SydFjvalaFZUaH8RoaEhaG+cetWLxdGv2lJAEctruXPlcjneZxQ9
+ B8nQ==
+X-Gm-Message-State: AOJu0YzoVmOMB9Mdfejn/FcmaKS6a9WL0aO5dmFttTPgiMT4jLCDGCAk
+ x90qk7X2GYpeFLQwrkm5mmF436f2lCGkVNKTL+l5v4dInVBEkoRk+Nu6k3R7T8jK
+X-Gm-Gg: Acq92OHoD30ofLWwRTwNJIzpOyYpFVeAZ8GlkjDY2QLZ0BACzykUPPLYp8JlfD650gi
+ 9ZmuNSCT3cTxHMUere986p3rCOH+b9Xb02OCGIwqRPGB6GZYcPtaGd49oTwVhHoKc48yBflhNm6
+ eVkVnIwLNIBoZnpfodc9lSDQkFCppWjlLCSmS5Ep5ARLrDTGQs79UDkLFTRIdkBsGQ3vnDknnE/
+ bIU2e4y+7Oen/TXY0gMgbT/KmT1tg3EJtO64c//EX1qEBOE6Dly6Hi9lKt9OIQK/b0f6qGAjMV+
+ wdnAu6Be095o1blg4v92kHzcmjbUVrNfUMo02/MZIGWeZyZdK+k9SXjbVBHbUu0sukpkGQ/7wCv
+ PbNOhThHGNrdwvx+Aod8V2WXHYKG+b60uIOskaCWbd3KbF4XJothGq/KHWyaroP9LtS5iIRGwf8
+ WIsiurwVVDKowYLc4wSprwZKT7FYyXgRjggxF+uAsLHXh+IaYnfok8T21kVpt5Gasm
+X-Received: by 2002:a05:600c:1512:b0:48f:e26a:1744 with SMTP id
+ 5b1f17b1804b1-48fe60ecd67mr175187155e9.9.1779186089738; 
+ Tue, 19 May 2026 03:21:29 -0700 (PDT)
 Received: from Timur-Hyperion.home (54001290.dsl.pool.telekom.hu.
  [84.0.18.144]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-45da0fe0fecsm41028224f8f.26.2026.05.19.03.21.26
+ ffacd0b85a97d-45da0fe0fecsm41028224f8f.26.2026.05.19.03.21.28
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 19 May 2026 03:21:27 -0700 (PDT)
+ Tue, 19 May 2026 03:21:29 -0700 (PDT)
 From: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
 To: amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
  christian.koenig@amd.com, Natalie Vock <natalie.vock@gmx.de>,
@@ -67,10 +67,9 @@ To: amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
  Alex Hung <alex.hung@amd.com>, Roman Li <Roman.Li@amd.com>,
  Leo Li <sunpeng.li@amd.com>, Mario Limonciello <mario.limonciello@amd.com>
 Cc: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
-Subject: [PATCH 06/14] drm/amd/display: Delete max_clks_by_state from DCE
- clock manager (v2)
-Date: Tue, 19 May 2026 12:21:10 +0200
-Message-ID: <20260519102118.246466-7-timur.kristof@gmail.com>
+Subject: [PATCH 08/14] drm/amd/display: Delete dm_pp_clocks_state
+Date: Tue, 19 May 2026 12:21:12 +0200
+Message-ID: <20260519102118.246466-9-timur.kristof@gmail.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260519102118.246466-1-timur.kristof@gmail.com>
 References: <20260519102118.246466-1-timur.kristof@gmail.com>
@@ -91,257 +90,49 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-It was not used by anything anymore.
-
-Note that the parts of DC that need this information actually
-already query it from the pplib and don't use the hardcoded
-information from max_clks_by_state.
-
-v2:
-- Also delete state_dependent_clocks
+It isn't used by anything anymore.
 
 Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
 Reviewed-by: Melissa Wen <mwen@igalia.com>
 ---
- .../display/dc/clk_mgr/dce100/dce_clk_mgr.c   | 71 -------------------
- .../dc/clk_mgr/dce110/dce110_clk_mgr.c        | 16 -----
- .../dc/clk_mgr/dce112/dce112_clk_mgr.c        | 17 -----
- .../dc/clk_mgr/dce120/dce120_clk_mgr.c        | 16 -----
- .../amd/display/dc/inc/hw/clk_mgr_internal.h  |  8 ---
- 5 files changed, 128 deletions(-)
+ .../drm/amd/display/dc/dm_services_types.h    | 23 -------------------
+ 1 file changed, 23 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c
-index 978bbc307991..d891b3bfe2a1 100644
---- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c
-+++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c
-@@ -62,32 +62,6 @@ static const struct clk_mgr_mask disp_clk_mask = {
- 		CLK_COMMON_MASK_SH_LIST_DCE_COMMON_BASE(_MASK)
+diff --git a/drivers/gpu/drm/amd/display/dc/dm_services_types.h b/drivers/gpu/drm/amd/display/dc/dm_services_types.h
+index f114ab819afd..b3505d93503f 100644
+--- a/drivers/gpu/drm/amd/display/dc/dm_services_types.h
++++ b/drivers/gpu/drm/amd/display/dc/dm_services_types.h
+@@ -36,30 +36,7 @@ struct dm_pp_clock_range {
+ 	int max_khz;
  };
  
--/* Max clock values for each state indexed by "enum clocks_state": */
--static const struct state_dependent_clocks dce60_max_clks_by_state[] = {
--/* ClocksStateInvalid - should not be used */
--{ .display_clk_khz = 0, .pixel_clk_khz = 0 },
--/* ClocksStateUltraLow - not expected to be used for DCE 6.0 */
--{ .display_clk_khz = 0, .pixel_clk_khz = 0 },
--/* ClocksStateLow */
--{ .display_clk_khz = 352000, .pixel_clk_khz = 330000},
--/* ClocksStateNominal */
--{ .display_clk_khz = 600000, .pixel_clk_khz = 400000 },
--/* ClocksStatePerformance */
--{ .display_clk_khz = 600000, .pixel_clk_khz = 400000 } };
+-enum dm_pp_clocks_state {
+-	DM_PP_CLOCKS_STATE_INVALID,
+-	DM_PP_CLOCKS_STATE_ULTRA_LOW,
+-	DM_PP_CLOCKS_STATE_LOW,
+-	DM_PP_CLOCKS_STATE_NOMINAL,
+-	DM_PP_CLOCKS_STATE_PERFORMANCE,
 -
--/* Max clock values for each state indexed by "enum clocks_state": */
--static const struct state_dependent_clocks dce80_max_clks_by_state[] = {
--/* ClocksStateInvalid - should not be used */
--{ .display_clk_khz = 0, .pixel_clk_khz = 0 },
--/* ClocksStateUltraLow - not expected to be used for DCE 8.0 */
--{ .display_clk_khz = 0, .pixel_clk_khz = 0 },
--/* ClocksStateLow */
--{ .display_clk_khz = 352000, .pixel_clk_khz = 330000},
--/* ClocksStateNominal */
--{ .display_clk_khz = 625000, .pixel_clk_khz = 400000 },
--/* ClocksStatePerformance */
--{ .display_clk_khz = 625000, .pixel_clk_khz = 400000 } };
+-	/* Starting from DCE11, Max 8 levels of DPM state supported. */
+-	DM_PP_CLOCKS_DPM_STATE_LEVEL_INVALID = DM_PP_CLOCKS_STATE_INVALID,
+-	DM_PP_CLOCKS_DPM_STATE_LEVEL_0,
+-	DM_PP_CLOCKS_DPM_STATE_LEVEL_1,
+-	DM_PP_CLOCKS_DPM_STATE_LEVEL_2,
+-	/* to be backward compatible */
+-	DM_PP_CLOCKS_DPM_STATE_LEVEL_3,
+-	DM_PP_CLOCKS_DPM_STATE_LEVEL_4,
+-	DM_PP_CLOCKS_DPM_STATE_LEVEL_5,
+-	DM_PP_CLOCKS_DPM_STATE_LEVEL_6,
+-	DM_PP_CLOCKS_DPM_STATE_LEVEL_7,
 -
- unsigned int dentist_get_divider_from_did(unsigned int did)
- {
- 	if (did < DENTIST_BASE_DID_1)
-@@ -268,7 +242,6 @@ static void dce_clock_read_integrated_info(struct clk_mgr_internal *clk_mgr_dce)
- {
- 	struct dc_debug_options *debug = &clk_mgr_dce->base.ctx->dc->debug;
- 	struct dc_bios *bp = clk_mgr_dce->base.ctx->dc_bios;
--	int i;
- 
- 	if (bp->integrated_info)
- 		clk_mgr_dce->base.dentist_vco_freq_khz = bp->integrated_info->dentist_vco_freq;
-@@ -278,40 +251,6 @@ static void dce_clock_read_integrated_info(struct clk_mgr_internal *clk_mgr_dce)
- 			clk_mgr_dce->base.dentist_vco_freq_khz = 3600000;
- 	}
- 
--	/*update the maximum display clock for each power state*/
--	for (i = 0; i < NUMBER_OF_DISP_CLK_VOLTAGE; ++i) {
--		enum dm_pp_clocks_state clk_state = DM_PP_CLOCKS_STATE_INVALID;
--
--		switch (i) {
--		case 0:
--			clk_state = DM_PP_CLOCKS_STATE_ULTRA_LOW;
--			break;
--
--		case 1:
--			clk_state = DM_PP_CLOCKS_STATE_LOW;
--			break;
--
--		case 2:
--			clk_state = DM_PP_CLOCKS_STATE_NOMINAL;
--			break;
--
--		case 3:
--			clk_state = DM_PP_CLOCKS_STATE_PERFORMANCE;
--			break;
--
--		default:
--			clk_state = DM_PP_CLOCKS_STATE_INVALID;
--			break;
--		}
--
--		/*Do not allow bad VBIOS/SBIOS to override with invalid values,
--		 * check for > 100MHz*/
--		if (bp->integrated_info)
--			if (bp->integrated_info->disp_clk_voltage[i].max_supported_clk >= 100000)
--				clk_mgr_dce->max_clks_by_state[clk_state].display_clk_khz =
--					bp->integrated_info->disp_clk_voltage[i].max_supported_clk;
--	}
--
- 	if (!debug->disable_dfs_bypass && bp->integrated_info)
- 		if (bp->integrated_info->gpu_cap_info & DFS_BYPASS_ENABLE)
- 			clk_mgr_dce->dfs_bypass_enabled = true;
-@@ -419,16 +358,6 @@ void dce_clk_mgr_construct(
- {
- 	struct clk_mgr *base = &clk_mgr->base;
- 
--	if (ctx->dce_version <= DCE_VERSION_6_4)
--		memcpy(clk_mgr->max_clks_by_state,
--			dce60_max_clks_by_state,
--			sizeof(dce60_max_clks_by_state));
--	else
--		memcpy(clk_mgr->max_clks_by_state,
--			dce80_max_clks_by_state,
--			sizeof(dce80_max_clks_by_state));
--
--
- 	base->ctx = ctx;
- 	base->funcs = &dce_funcs;
- 
-diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dce110/dce110_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dce110/dce110_clk_mgr.c
-index d3cd542063db..d52789ba2613 100644
---- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dce110/dce110_clk_mgr.c
-+++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dce110/dce110_clk_mgr.c
-@@ -51,18 +51,6 @@ static const struct clk_mgr_mask disp_clk_mask = {
- 		CLK_COMMON_MASK_SH_LIST_DCE_COMMON_BASE(_MASK)
- };
- 
--static const struct state_dependent_clocks dce110_max_clks_by_state[] = {
--/*ClocksStateInvalid - should not be used*/
--{ .display_clk_khz = 0, .pixel_clk_khz = 0 },
--/*ClocksStateUltraLow - currently by HW design team not supposed to be used*/
--{ .display_clk_khz = 352000, .pixel_clk_khz = 330000 },
--/*ClocksStateLow*/
--{ .display_clk_khz = 352000, .pixel_clk_khz = 330000 },
--/*ClocksStateNominal*/
--{ .display_clk_khz = 467000, .pixel_clk_khz = 400000 },
--/*ClocksStatePerformance*/
--{ .display_clk_khz = 643000, .pixel_clk_khz = 400000 } };
--
- static uint32_t determine_sclk_from_bounding_box(
- 		const struct dc *dc,
- 		uint32_t required_sclk)
-@@ -281,10 +269,6 @@ void dce110_clk_mgr_construct(
- {
- 	dce_clk_mgr_construct(ctx, clk_mgr);
- 
--	memcpy(clk_mgr->max_clks_by_state,
--		dce110_max_clks_by_state,
--		sizeof(dce110_max_clks_by_state));
--
- 	clk_mgr->regs = &disp_clk_regs;
- 	clk_mgr->clk_mgr_shift = &disp_clk_shift;
- 	clk_mgr->clk_mgr_mask = &disp_clk_mask;
-diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dce112/dce112_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dce112/dce112_clk_mgr.c
-index 0f3f8df4df96..08ed6f88025f 100644
---- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dce112/dce112_clk_mgr.c
-+++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dce112/dce112_clk_mgr.c
-@@ -53,19 +53,6 @@ static const struct clk_mgr_mask disp_clk_mask = {
- 		CLK_COMMON_MASK_SH_LIST_DCE_COMMON_BASE(_MASK)
- };
- 
--static const struct state_dependent_clocks dce112_max_clks_by_state[] = {
--/*ClocksStateInvalid - should not be used*/
--{ .display_clk_khz = 0, .pixel_clk_khz = 0 },
--/*ClocksStateUltraLow - currently by HW design team not supposed to be used*/
--{ .display_clk_khz = 389189, .pixel_clk_khz = 346672 },
--/*ClocksStateLow*/
--{ .display_clk_khz = 459000, .pixel_clk_khz = 400000 },
--/*ClocksStateNominal*/
--{ .display_clk_khz = 667000, .pixel_clk_khz = 600000 },
--/*ClocksStatePerformance*/
--{ .display_clk_khz = 1132000, .pixel_clk_khz = 600000 } };
--
--
- //TODO: remove use the two broken down functions
- int dce112_set_clock(struct clk_mgr *clk_mgr_base, int requested_clk_khz)
- {
-@@ -202,10 +189,6 @@ void dce112_clk_mgr_construct(
- {
- 	dce_clk_mgr_construct(ctx, clk_mgr);
- 
--	memcpy(clk_mgr->max_clks_by_state,
--		dce112_max_clks_by_state,
--		sizeof(dce112_max_clks_by_state));
--
- 	clk_mgr->regs = &disp_clk_regs;
- 	clk_mgr->clk_mgr_shift = &disp_clk_shift;
- 	clk_mgr->clk_mgr_mask = &disp_clk_mask;
-diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dce120/dce120_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dce120/dce120_clk_mgr.c
-index c9ba7b3fd2c3..f8ef3a4710fc 100644
---- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dce120/dce120_clk_mgr.c
-+++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dce120/dce120_clk_mgr.c
-@@ -32,18 +32,6 @@
- #include "dce100/dce_clk_mgr.h"
- #include "dce120/dce120_hwseq.h"
- 
--static const struct state_dependent_clocks dce120_max_clks_by_state[] = {
--/*ClocksStateInvalid - should not be used*/
--{ .display_clk_khz = 0, .pixel_clk_khz = 0 },
--/*ClocksStateUltraLow - currently by HW design team not supposed to be used*/
--{ .display_clk_khz = 0, .pixel_clk_khz = 0 },
--/*ClocksStateLow*/
--{ .display_clk_khz = 460000, .pixel_clk_khz = 400000 },
--/*ClocksStateNominal*/
--{ .display_clk_khz = 670000, .pixel_clk_khz = 600000 },
--/*ClocksStatePerformance*/
--{ .display_clk_khz = 1133000, .pixel_clk_khz = 600000 } };
--
- /**
-  * dce121_clock_patch_xgmi_ss_info() - Save XGMI spread spectrum info
-  * @clk_mgr_dce: clock manager internal structure
-@@ -129,10 +117,6 @@ void dce120_clk_mgr_construct(struct dc_context *ctx, struct clk_mgr_internal *c
- {
- 	dce_clk_mgr_construct(ctx, clk_mgr);
- 
--	memcpy(clk_mgr->max_clks_by_state,
--		dce120_max_clks_by_state,
--		sizeof(dce120_max_clks_by_state));
--
- 	clk_mgr->base.dprefclk_khz = 600000;
- 	clk_mgr->base.funcs = &dce120_funcs;
- }
-diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw/clk_mgr_internal.h b/drivers/gpu/drm/amd/display/dc/inc/hw/clk_mgr_internal.h
-index e01bf6bd7f3f..450bce3d8e02 100644
---- a/drivers/gpu/drm/amd/display/dc/inc/hw/clk_mgr_internal.h
-+++ b/drivers/gpu/drm/amd/display/dc/inc/hw/clk_mgr_internal.h
-@@ -405,12 +405,6 @@ enum clock_type {
- 	clock_type_dtbclk,
- };
- 
--
--struct state_dependent_clocks {
--	int display_clk_khz;
--	int pixel_clk_khz;
+-	DM_PP_CLOCKS_MAX_STATES
 -};
 -
- struct clk_mgr_internal {
- 	struct clk_mgr base;
- 	int smu_ver;
-@@ -429,8 +423,6 @@ struct clk_mgr_internal {
- 	const struct clk_mgr_shift *clk_mgr_shift;
- 	const struct clk_mgr_mask *clk_mgr_mask;
- 
--	struct state_dependent_clocks max_clks_by_state[DM_PP_CLOCKS_MAX_STATES];
--
- 	/*TODO: figure out which of the below fields should be here vs in asic specific portion */
- 	/* Cache the status of DFS-bypass feature*/
- 	bool dfs_bypass_enabled;
+ struct dm_pp_gpu_clock_range {
+-	enum dm_pp_clocks_state clock_state;
+ 	struct dm_pp_clock_range sclk;
+ 	struct dm_pp_clock_range mclk;
+ 	struct dm_pp_clock_range eclk;
 -- 
 2.54.0
 
