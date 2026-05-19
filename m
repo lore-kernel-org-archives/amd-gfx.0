@@ -4,28 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ABA32CD5BA4
-	for <amd-gfx@archiver.kernel.org>; Tue, 19 May 2026 10:18:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5E98CCD4F57
+	for <amd-gfx@archiver.kernel.org>; Tue, 19 May 2026 10:18:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9C38A10E394;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A55A710E397;
 	Tue, 19 May 2026 10:18:15 +0000 (UTC)
 Received: from rtg-sunil-navi33.amd.com (unknown [165.204.156.251])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C88DB10EBE5
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B40E410E39E
  for <amd-gfx@lists.freedesktop.org>; Tue, 19 May 2026 10:18:13 +0000 (UTC)
 Received: from rtg-sunil-navi33.amd.com (localhost [127.0.0.1])
  by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Debian-22ubuntu3) with ESMTP id
- 64JAI8gi871873; Tue, 19 May 2026 15:48:08 +0530
+ 64JAI8YF871899; Tue, 19 May 2026 15:48:08 +0530
 Received: (from sunil@localhost)
- by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 64JAI7PP871872;
- Tue, 19 May 2026 15:48:07 +0530
+ by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 64JAI81R871898;
+ Tue, 19 May 2026 15:48:08 +0530
 From: Sunil Khatri <sunil.khatri@amd.com>
 To: Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Cc: amd-gfx@lists.freedesktop.org, Sunil Khatri <sunil.khatri@amd.com>
-Subject: [PATCH v5 0/8] Fix some clean up during userq create/destroy
-Date: Tue, 19 May 2026 15:47:47 +0530
-Message-Id: <20260519101755.871750-1-sunil.khatri@amd.com>
+Subject: [PATCH v5 4/8] drm/amdgpu/userq: clean up wptr_obj along with
+ mqd_destroy
+Date: Tue, 19 May 2026 15:47:51 +0530
+Message-Id: <20260519101755.871750-5-sunil.khatri@amd.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260519101755.871750-1-sunil.khatri@amd.com>
+References: <20260519101755.871750-1-sunil.khatri@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -42,24 +45,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Fix the missing clean up during userq create and destroy. Also
-introduce the change which uses array for list for userq vas
+During queue creation failure, when we clean up mqd via
+mqd_destroy we arent doing the wptr_obj cleanup and hence
+adding that clean up.
 
-Sunil Khatri (8):
-  drm/amdgpu/userq: Fix doorbell object cleanup of queue
-  drm/amdgpu/userq: Fix the mutex_init cleanup for fence_drv_lock
-  drm/amdgpu: simplify return value in amdgpu_userq_get_doorbell_index
-  drm/amdgpu/userq: clean up wptr_obj along with mqd_destroy
-  drm/amdgpu/userq: add amdgpu_bo_unpin when amdgpu_ttm_alloc_gart fails
-  drm/amdgpu/userq: reserve root bo without interruption
-  drm/amdgpu/userq: make sure queue is valid in the hang_detect_work
-  drm/amdgpu/userq: user array to store userq vas
+Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
- drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c  | 86 +++++++++++-----------
- drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h  |  8 +-
- drivers/gpu/drm/amd/amdgpu/mes_userqueue.c |  4 +-
- 3 files changed, 48 insertions(+), 50 deletions(-)
-
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+index 0737636fac43..47a38fefad89 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+@@ -835,6 +835,10 @@ amdgpu_userq_create(struct drm_file *filp, union drm_amdgpu_userq *args)
+ erase_doorbell:
+ 	xa_erase_irq(&adev->userq_doorbell_xa, index);
+ clean_mqd:
++	amdgpu_bo_reserve(queue->wptr_obj.obj, true);
++	amdgpu_bo_unpin(queue->wptr_obj.obj);
++	amdgpu_bo_unreserve(queue->wptr_obj.obj);
++	amdgpu_bo_unref(&queue->wptr_obj.obj);
+ 	uq_funcs->mqd_destroy(queue);
+ clean_doorbell_bo:
+ 	amdgpu_bo_reserve(queue->db_obj.obj, true);
 -- 
 2.34.1
 
