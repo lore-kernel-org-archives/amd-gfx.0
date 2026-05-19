@@ -4,130 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B0F28CD4F5B
-	for <amd-gfx@archiver.kernel.org>; Tue, 19 May 2026 15:57:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 60F01CD4F3C
+	for <amd-gfx@archiver.kernel.org>; Tue, 19 May 2026 16:16:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3EFD710E38B;
-	Tue, 19 May 2026 15:57:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D2BFC10E5F0;
+	Tue, 19 May 2026 16:16:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="3pMjt8HF";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="gQ60T8Ek";
 	dkim-atps=neutral
-Received: from PH0PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11011016.outbound.protection.outlook.com [40.107.208.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B4CFD10E2E9;
- Tue, 19 May 2026 15:57:33 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=W0zO96LVmwrUjnNFYZvtx3grjzmxKGqJriLWYQ/5qPNiVTbkM4fJbNpoM6KOG+6B9fUgsDvRuHFcDyik2f0My8vqJ0QtOjzfFTPlm0XDLl7uYk6A7KGwXi1jiCd6OLBbX61/n0H6So5mBOtLTyR3Cmct5MPab2NYMQtySU1cexJIovfd74JWszNUiKWFpuK14Sh6H3ruci4aHgoL3Lo7W+jjmAhWibmy704lgpU5e6pSNioBruSVufy9Km/wwo+RDKO9nOal5AF/qtrnngKf3EG3829YjrrIWFW0CXzRkUhC9N2saxAw3hcErO5jrCWl892q9CI0EeYdsVvFko1wwg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=UGlRBFfYidSnJCABl/LM7PbrvIO+VremXWdFwRxikYI=;
- b=m4mVBpMWdthQEbHNNyJLW8Osg6NxnFQAesxIG52SCg/210tSbhC9TVIl9KqLwHUGIEnrKLJ8VrP/nkS2JoodODpnGX1SNFsIe0cg2vmmP7vgpnIhcJvhsaiB6uUPmtB6Usu7IjWFLol8c88xavK0OkowxFlDgFB94XexhCLgpcjwv/NLWjIItpt0jwmvaZsQoKtJn8BE4SUOOIS8zKSSW/ptRG3PQlmDQSOGqbDhe6gqI21+r5GxngEXTDjP3B5le0d3BfNNgOw+O1jB4Wo2vLNU3ZggWzujjPt9ij17k9uRp79SnwLvxsHFFRYbX7AUUoZ9/IbnV3WCYuCWgqjzEQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=UGlRBFfYidSnJCABl/LM7PbrvIO+VremXWdFwRxikYI=;
- b=3pMjt8HFbiJrpQz/jcSF+j2lFDmb7SE/A/mVnu5TKSleLcETt9b6iShfcxHW+3JzpydnUR3ewanXKxMQN38DP9Up+KzVkanp3+jlzmu50x+bcVdYKC/q4R90RQ6rP+hMrA0pxfaIm4H2Z5x4DyVHf/kUQ0T6unOWY7UUpzt83BU=
-Received: from CH0PR12MB5284.namprd12.prod.outlook.com (2603:10b6:610:d7::13)
- by LV9PR12MB9807.namprd12.prod.outlook.com (2603:10b6:408:2eb::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.25.23; Tue, 19 May
- 2026 15:57:28 +0000
-Received: from CH0PR12MB5284.namprd12.prod.outlook.com
- ([fe80::c1d5:bb14:abc3:7fd1]) by CH0PR12MB5284.namprd12.prod.outlook.com
- ([fe80::c1d5:bb14:abc3:7fd1%3]) with mapi id 15.21.0048.013; Tue, 19 May 2026
- 15:57:28 +0000
-From: "Pillai, Aurabindo" <Aurabindo.Pillai@amd.com>
-To: Antonio Quartulli <antonio@mandelbit.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-CC: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "Leung,
- Martin" <Martin.Leung@amd.com>, "Pinninti, Bhuvana Chandra"
- <BhuvanaChandra.Pinninti@amd.com>, "Ahmed, Muhammad"
- <Muhammad.Ahmed@amd.com>, "Chen, Karen" <Karen.Chen@amd.com>, "Chen, Leo"
- <Leo.Chen@amd.com>, "Khachatrian, Gaghik" <Gaghik.Khachatrian@amd.com>, "Li,
- Roman" <Roman.Li@amd.com>, "Lin, Wayne" <Wayne.Lin@amd.com>, "Kazlauskas,
- Nicholas" <Nicholas.Kazlauskas@amd.com>, "Koenig, Christian"
- <Christian.Koenig@amd.com>, "Deucher, Alexander" <Alexander.Deucher@amd.com>, 
- "siqueira@igalia.com" <siqueira@igalia.com>, "simona@ffwll.ch"
- <simona@ffwll.ch>, "airlied@gmail.com" <airlied@gmail.com>, "Li, Sun peng
- (Leo)" <Sunpeng.Li@amd.com>, "Wentland, Harry" <Harry.Wentland@amd.com>
-Subject: Re: [RFC] amdgpu: fix compressed buffer config routine waiting time
-Thread-Topic: [RFC] amdgpu: fix compressed buffer config routine waiting time
-Thread-Index: AQHc554zJM8I82nzKUupHdclU2zkArYVgO6g
-Date: Tue, 19 May 2026 15:57:28 +0000
-Message-ID: <CH0PR12MB52849BD9E94D9290EFB51B528B002@CH0PR12MB5284.namprd12.prod.outlook.com>
-References: <20260519144509.2646680-1-antonio@mandelbit.com>
-In-Reply-To: <20260519144509.2646680-1-antonio@mandelbit.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-05-19T15:57:27.394Z;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD
- General; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=1;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard; 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: CH0PR12MB5284:EE_|LV9PR12MB9807:EE_
-x-ms-office365-filtering-correlation-id: cc39c88e-71b3-45da-bd03-08deb5bf53b7
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|366016|1800799024|376014|8096899003|22082099003|56012099003|18002099003|3023799003|38070700021|13003099007|11063799006;
-x-microsoft-antispam-message-info: 9d0RlZ+RzWIlW8SSMJLJOZmi2EwuYXHu7t0uoj+5ssjMM8jkqH0V4naLxqomQoMxtwEjsJAhY5Wbx0SZ+rx/jQTolf0jlfxZhiktFbpoHsvgUFw8Et+TrsH18cCgdKVY0ID3Hf/D1LLY0bAyrRVEZ94zPCBb43FsD1Bktzf4wrjsS+osGDt3gtq1mNlcMulIpyDe9+XSZ8jgNY2Rvd0YbLxqCJSOwDkSTnW85GHFlsyyZ+2dF9JAT6ATifEtoFHE2QaRiLmQBPTaXAkcGerkgvB6kT48t/ycIniSlhE9HUfWiEuNh09imzUTCtrQHpCJzSetYIpe4S3A6V3soYjgQnSjfdBqedGju83cKNC/xi2+FeyxfKh/V2th9y2mzZQ1BYuw0MR3rHVeBzMlddzmpuxtua9xJu8wb3/kc2Q8god1gyHlCaD7ECedgZNKpoc0NDYx31Mxt+MI/U1wgmKnQrZ9XjYbavaHebGa83FeWqboXpRc+LkZXix0GHAVilRTG5AEOv+RtVjn/G8Ia6OtS0F18TBTa+BqS2UapBIOnsQxTRRQCwft1dv5vKrZU70bqUhbpwimaFFfxWT5LW3JZ7eBOOD93qUJmeubjF1k+IAfIClRNiLuDUF5myup7AFXc2n5IysnDb3WAd8W/MIi7/lvGJzGgeZVX8mGta9frPx4EdM7yJPf7ZvH0gwtWi2xFL1HqzRYO8osJd73gFGey5Aig2fZjyrihpnfFHF+NYdtP1HIlTuUdsojKuRXa+mc
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CH0PR12MB5284.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014)(8096899003)(22082099003)(56012099003)(18002099003)(3023799003)(38070700021)(13003099007)(11063799006);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?MaDuchZXP0NU2QUQvcPmSuWSZ0FN04EyJm5OKTXzSKn4y7IP6a6oVwd07fkx?=
- =?us-ascii?Q?vwwouqeKUP/O/JqEeNoFc7C4BVodjA3/RT5kNaVlBQZGPzlwtCYMLxeYagyn?=
- =?us-ascii?Q?k2GqHkinZy2nAhRSp5CrD/Z6gvhE0O1qlXWTVHpCtVfNW4Kx0zfb7XZBLx5v?=
- =?us-ascii?Q?BZh65f+mDs8VFE18uWwY0/95KodCYPwD5DFxQBAmoS2QMMwVjrPa+dhkuBf8?=
- =?us-ascii?Q?CIbjYAmy/gwVi2MUGbqpE358G272/EV4JtNIbjJaKeGK0mKrwKpvqnlp1h9V?=
- =?us-ascii?Q?mtEBWlpdOnzJ+sO2qhH+3QjSiEHFl4hJqYL0udIBCMUqEnct/P2GJyKCai8/?=
- =?us-ascii?Q?STc+/pN9g/LEGhXp9o/8iZODNBTMX6G6l9TPa/o4Ula+2d9eq2LA4gtzjmae?=
- =?us-ascii?Q?CdaxgRtvaw8hrRWDRSNGAW6oNCjGRUf+4KzyrJ0W2yrrJU42y4VaQAvu/7SD?=
- =?us-ascii?Q?Y/aZrIkWXVfjLBTbHHtBUeDTBvtZV4iisFAF9ylzLaVZJIRSCePBJQEJHLyP?=
- =?us-ascii?Q?qqdT2lMb0musAYPUjUsAA6EOuazGI59thEccxUBPQuDpINMj/3zhrJdN68gJ?=
- =?us-ascii?Q?HXQuhBerLSKExTp36ZQWJ763vg8Jroc9ptfn7skR7PSzCm9upugJksKNKuvc?=
- =?us-ascii?Q?r41nLr0ZTdv6OGSBCqQXCzTucJgkm15oUmrc5G1VO9fWY50Jexj/bZj4ZGKD?=
- =?us-ascii?Q?4KJxAHn+JS5daYytYpqNrrFvB0KLMk9cr7USoMIBAogynOfrGrt2o9PwdD1X?=
- =?us-ascii?Q?aB7qCfsCuWe/gkpDgu2Ao0BUNB6gp/e3r/r6515pNgM69GVBFTfv7tQ3C2RN?=
- =?us-ascii?Q?RrmRi8KmXQ34bU3N9BtTlb1B3RwYJXm99j/DIAO7XAnczNwLLs2qWUOStoY8?=
- =?us-ascii?Q?XTcDzxWTklFLgILB41oZFvvpza0U/0ZUy8DtoKu89AM0r5NQ6NDG2twk/rAW?=
- =?us-ascii?Q?jSGDVBSl1MhiS/qekVKH9MpPnARrjxodBsGPSvWzZkwZHFq8q+Pmt31ojc4S?=
- =?us-ascii?Q?P7Vg1Pa0mTrme7h2GLUwCKhQRUFKcKYhi5dK2DMJuu8+a35z5zqsX7JahTu3?=
- =?us-ascii?Q?MOjSHBy6ylKaRtK4ZH91DCPkqD9TYJKaFgQq0aIeKlgvdcVtrxnNKSx/3jri?=
- =?us-ascii?Q?J1uc6p0m4bZs06MzgOa4grOS9y1WQOfJqbta3eHJjNaYXOMFSgCqIrHHG5y7?=
- =?us-ascii?Q?Sbu3ndeSAXWBYvsjxXwBCZaWEaz3kEWviP30CH+3TqL4C6u2fm8FmM35iC16?=
- =?us-ascii?Q?viX0llFFZvpj+0PFl2jM2ai+bt6ocFW3Ho1xrEUgDCmcqa1U1F3GfTg8qpqA?=
- =?us-ascii?Q?hHzmikACeRjy2Mt3rRCht1O4ocA2cU3nnuVMbKM/2Z14nxNrsWn3Gon4GSLx?=
- =?us-ascii?Q?59ELJfapzXaPABTN590TJo1/Dqc1Lh/mqRsMBdXY1o4FcOFL2cYBReFn7NQQ?=
- =?us-ascii?Q?kSgjDR27iJtvHWH8LbfPqvi1SrIJ496s3PVQAyIpRylXAXmxL+DU4Kp6cELF?=
- =?us-ascii?Q?1uxr6xZco6uvnLv8LdfzW5HEj7hRKWPYP+YjL+fXvl2es+UAuvplPECZGEIq?=
- =?us-ascii?Q?Sv3cbtEx98NDb1cf2FhW5feHkI2SM7WlbJeo8Gkbayrj3CbkCXMYNWGjQ3xw?=
- =?us-ascii?Q?9r1u/ZhtQxUZlGgQi76EAjphjSFH0GnDggMZ9+/3G0TCj/Kw8xE6GEIEhA2N?=
- =?us-ascii?Q?YZohJIt8GEqXYKnVTHnniriT2qFKs8N9V6JSBEBVnRSw6bcr?=
-Content-Type: multipart/alternative;
- boundary="_000_CH0PR12MB52849BD9E94D9290EFB51B528B002CH0PR12MB5284namp_"
+Received: from mail-lj1-f177.google.com (mail-lj1-f177.google.com
+ [209.85.208.177])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6C31C10E3C6
+ for <amd-gfx@lists.freedesktop.org>; Tue, 19 May 2026 16:16:01 +0000 (UTC)
+Received: by mail-lj1-f177.google.com with SMTP id
+ 38308e7fff4ca-393925cb1baso44890191fa.0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 19 May 2026 09:16:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1779207360; x=1779812160; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=0uDjM1EcMOi30GaXc68xaMNS0uV90e3QyVWS7Pj4PBk=;
+ b=gQ60T8EkpEGfSP690ZVxHIpt5B5wue3fDarFlxPOKE57cxfxQTXoTJZY0F4NA0APdK
+ ckVIzkeZ5iiXuIxauH0fEXZPQEbG7u2JdRAY5mm0UNSSsL46sKNxDP1ty70JssNDaW4n
+ PszHfNLQEyzhMkQcMIW54k9kvcDNp7HJtoE1aiZ7zL7NdAHYXNuK4T3dxjRmzmGDYIiH
+ 0Qw0VBHb4NvN+UGSnSGvR8XSw9cPPdoQ0k0nZpSAFbOgvL7pmY3chCn+CrWQ82ZfXasa
+ 3ZG/h85lglMtXazNANI4qW4FArkPO92Xpmeoci9/S9I7ZiQtE8NkmVq/V3TEB1UXzXG9
+ yZXw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1779207360; x=1779812160;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=0uDjM1EcMOi30GaXc68xaMNS0uV90e3QyVWS7Pj4PBk=;
+ b=Y8my3fkrWXte+iKJSKQg8W4B62AsMjaN5C6yN7N+2xaU9VTt7NgZ+bs+04TYCCMs9l
+ 8xjJhWf+hm95TfpvLR/I/LenmX2RgJCkWpay+XB8NLQgOCf7IHtcL37EWdsLfEWM6LZ7
+ DSpNzMvp/nLSlscr4zE3FVZu7Te8k0KtnSjJS8uIyJK7hi+90fek/4viCzamd/4aLtvn
+ ewmNL+2yyZ8jbLZhrEsmmnPHPDWItR+tFWeE6/eHHsOxOFEa+ULlHO9cDwqSZU2VqzSz
+ bjCFPJowNAuLOEL76doaRbuYWWcVsFCvfSa+E1tT9E+Kz5b7PvyXnM84Q6amwlnJN7Vs
+ aoRg==
+X-Gm-Message-State: AOJu0YxZTsP4E3ZHHKlh6/kmLJEEJxCP2e7weHDaDrQhkTFEKuuJvjGb
+ xGgWqD4yCjBhk/LB6vqHno5Rx4ZWEEUY5FykMqJo/pWZJHRm0rZ+R2ShMgM2NWsLNzNcxX9x
+X-Gm-Gg: Acq92OHM5dFXomKVrpcALjrFXoR++VWTDP3xOYVgq8y5ZwMhq1CZ+Bylt2lXrvrWMlN
+ KUDB8zh3QR65S0p9t7F+OumhqtmeCdAUkUFNIpP6Cxqq1lDrfzl1P7ABbdOI1oLY0XnhKAu6ZOe
+ L0gcxSFnAXDfwGiK+pEZei/3AWKB90qV5n2fGVI4tuWeZFD2RGq4a86x3m3egvCbR54RvYCjnoH
+ 1alArKiRzCMCP1rEICHQTMI/J9mm9/NyGaOam4XeUd4F7bEMsemx75b2YlyV6KRVHVfnY3NzkPO
+ 2d5a6iy4NJc0Ag70ainQjhQwHn3gd2LBTIe7AkH06lf5WRj0yDrini7LpdJjQz6FPedNes20Ve7
+ tYIW3xJoqTukqV1GZMgYxfiTsbArDrZzrnfWEEKc+cA6ViBxTJGdtdoqAJcY+pvmQWMnTwNKtML
+ +goLsvGd6RjrAehhdfTwtU33XoXXTsHtRCaWaIrSIj3qo=
+X-Received: by 2002:a05:651c:1543:b0:393:77ef:9079 with SMTP id
+ 38308e7fff4ca-39561f57db0mr66667601fa.28.1779207359359; 
+ Tue, 19 May 2026 09:15:59 -0700 (PDT)
+Received: from localhost ([188.234.148.119]) by smtp.gmail.com with ESMTPSA id
+ 38308e7fff4ca-395882c41c1sm20823091fa.12.2026.05.19.09.15.56
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 19 May 2026 09:15:57 -0700 (PDT)
+From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+To: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Cc: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Sumit Semwal <sumit.semwal@linaro.org>,
+ Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
+ linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org
+Subject: [PATCH v2] drm/amdgpu: fix recursive ww_mutex acquire in
+ amdgpu_devcoredump_format
+Date: Tue, 19 May 2026 21:15:40 +0500
+Message-ID: <20260519161541.19994-1-mikhail.v.gavrilov@gmail.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260429143743.50743-1-mikhail.v.gavrilov@gmail.com>
+References: <20260429143743.50743-1-mikhail.v.gavrilov@gmail.com>
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CH0PR12MB5284.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: cc39c88e-71b3-45da-bd03-08deb5bf53b7
-X-MS-Exchange-CrossTenant-originalarrivaltime: 19 May 2026 15:57:28.0787 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: xCDhhZ52yyrnKTZRAjD7Gwcc1Bv8UxmuWjzPrzv2wGYEFMCslGfgxaX4nGZ3+hqx6AAdp4MXDUrKBBZXPD/nSg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV9PR12MB9807
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -142,336 +92,349 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_CH0PR12MB52849BD9E94D9290EFB51B528B002CH0PR12MB5284namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+When dumping IB contents from a hung job, amdgpu_devcoredump_format()
+acquires the VM root PD's reservation lock via amdgpu_vm_lock_by_pasid()
+and then, for each IB referenced by the job, calls amdgpu_bo_reserve()
+on the BO that backs the IB.  Both reservations are taken on
+reservation_ww_class_mutex objects but neither uses a ww_acquire_ctx,
+which trips lockdep:
 
-AMD General
+  WARNING: possible recursive locking detected
+  --------------------------------------------
+  kworker/u128:0 is trying to acquire lock:
+  ffff88838b16e1f0 (reservation_ww_class_mutex){+.+.}-{4:4},
+    at: amdgpu_devcoredump_format+0x1594/0x23f0 [amdgpu]
 
-Hi Antonio,
+  but task is already holding lock:
+  ffff8882f82681f0 (reservation_ww_class_mutex){+.+.}-{4:4},
+    at: amdgpu_devcoredump_format+0x1594/0x23f0 [amdgpu]
 
-Thanks for the patch. We'll add it to our weekly cycle for testing.
+   Possible unsafe locking scenario:
+         CPU0
+         ----
+    lock(reservation_ww_class_mutex);
+    lock(reservation_ww_class_mutex);
 
---
+   *** DEADLOCK ***
+   May be due to missing lock nesting notation
 
-Regards,
-Jay
-________________________________
-From: Antonio Quartulli <antonio@mandelbit.com>
-Sent: Tuesday, May 19, 2026 10:45 AM
-To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
-Cc: antonio@mandelbit.com <antonio@mandelbit.com>; linux-kernel@vger.kernel=
-.org <linux-kernel@vger.kernel.org>; dri-devel@lists.freedesktop.org <dri-d=
-evel@lists.freedesktop.org>; Leung, Martin <Martin.Leung@amd.com>; Pinninti=
-, Bhuvana Chandra <BhuvanaChandra.Pinninti@amd.com>; Pillai, Aurabindo <Aur=
-abindo.Pillai@amd.com>; Ahmed, Muhammad <Muhammad.Ahmed@amd.com>; Chen, Kar=
-en <Karen.Chen@amd.com>; Chen, Leo <Leo.Chen@amd.com>; Khachatrian, Gaghik =
-<Gaghik.Khachatrian@amd.com>; Li, Roman <Roman.Li@amd.com>; Lin, Wayne <Way=
-ne.Lin@amd.com>; Kazlauskas, Nicholas <Nicholas.Kazlauskas@amd.com>; Koenig=
-, Christian <Christian.Koenig@amd.com>; Deucher, Alexander <Alexander.Deuch=
-er@amd.com>; siqueira@igalia.com <siqueira@igalia.com>; simona@ffwll.ch <si=
-mona@ffwll.ch>; airlied@gmail.com <airlied@gmail.com>; Li, Sun peng (Leo) <=
-Sunpeng.Li@amd.com>; Wentland, Harry <Harry.Wentland@amd.com>
-Subject: [RFC] amdgpu: fix compressed buffer config routine waiting time
+  Workqueue: events_unbound amdgpu_devcoredump_deferred_work [amdgpu]
+  Call Trace:
+   __ww_mutex_lock.constprop.0
+   ww_mutex_lock
+   amdgpu_bo_reserve
+   amdgpu_devcoredump_format+0x1594 [amdgpu]
+   amdgpu_devcoredump_deferred_work+0xea [amdgpu]
 
-Starting with commit 592c5b80110d5 ("drm/amd/display: Migrate HUBBUB regist=
-er access from hwseq to hubbub component.")
-the amdgpu driver is reporting the following WARNING in the kernel log
-during boot time:
+The two reservations are on different BOs in the captured trace, so the
+splat is a lockdep-correctness warning, not an observed deadlock.  It
+becomes a real self-deadlock whenever the IB BO shares its dma_resv
+with the root PD (the always-valid case, see
+amdgpu_vm_is_bo_always_valid()): amdgpu_bo_reserve(abo) re-acquires the
+same ww_mutex without a ticket and blocks forever.
 
-[   15.464476] amdgpu 0000:0c:00.0: [drm] REG_WAIT timeout 1us * 100 tries =
-- dcn31_program_compbuf_size line:141
-[   15.464522] ------------[ cut here ]------------
-[   15.464523] !(generic_reg_get(hubbub2->base.ctx, hubbub2->regs->DCHUBBUB=
-_COMPBUF_CTRL, hubbub2->shifts->CONFIG_ERROR, hubbub2->masks->CONFIG_ERROR,=
- &compbuf_size_segments) && !compbuf_size_segments)
-[   15.464524] WARNING: drivers/gpu/drm/amd/amdgpu/../display/dc/hubbub/dcn=
-31/dcn31_hubbub.c:151 at dcn31_program_compbuf_size+0x20e/0x220 [amdgpu], C=
-PU#2: kworker/2:2/184
-[   15.464906] Workqueue: events drm_mode_rmfb_work_fn
-[   15.464910] RIP: 0010:dcn31_program_compbuf_size+0x20e/0x220 [amdgpu]
-[   15.465200]  <TASK>
-[   15.465202]  dcn20_optimize_bandwidth+0x110/0x210 [amdgpu]
-[   15.465556]  dc_commit_state_no_check+0x14ff/0x18a0 [amdgpu]
-[   15.465925]  dc_commit_streams+0x471/0x640 [amdgpu]
-[   15.466252]  amdgpu_dm_atomic_commit_tail+0x903/0x4430 [amdgpu]
-[   15.467401]  commit_tail+0x242/0x2e0
-[   15.467405]  drm_atomic_helper_commit+0x28b/0x2a0
-[   15.467407]  drm_atomic_commit+0xc3/0xf0
-[   15.467416]  drm_mode_rmfb_work_fn+0x85/0xb0
-[   15.467436]  ret_from_fork_asm+0x1a/0x30
-[   15.467441]  </TASK>
+Fix it in two steps:
 
-After boot this results in unstable video output, specifically after
-resuming from screen sleep. The video may not come back at all
-or may come up partly messed up.
+1. Collect per-IB BO references under the root PD's reservation, then
+   release the root before locking the IB BOs.  The walk over the VM
+   mapping tree must remain under the root lock (mappings can be torn
+   down without it), but the actual content copies do not.
 
-This problem seems to affect various people on AMD iGPU, as discussed
-on the related GitHub issue.
+2. Lock all the IB BOs together using drm_exec(9) with a single
+   ww_acquire_ctx.  DRM_EXEC_IGNORE_DUPLICATES handles the case where
+   IB BOs share a dma_resv (e.g. always-valid BOs).  Each lock attempt
+   is now a top-level acquire under one ticket, with retry-on-
+   contention handled by drm_exec; the recursive ww_mutex condition
+   is gone.
 
-Giuseppe Ranieri digged up the issue and suggested the proposed code
-change.
+The collect/lock/release logic is factored out into three small helpers
+(amdgpu_devcoredump_{collect,lock,release}_ib_refs) to keep the main
+function readable and within the kernel coding style indentation
+guideline.
 
-There was also a previous report on the amd-gfx ml (see related link below)
-but it got nowhere.
+This also fixes a BO refcount leak in the original code: when
+amdgpu_bo_reserve() failed, control jumped to free_ib_content without
+running amdgpu_bo_unref().  In the new structure the per-IB BO refs
+are released unconditionally in the cleanup helper.
 
-By looking at the offending commit I am not truly able to understand why
-it is breaking. Hence I am posting this patch as RFC only.
+Reproducer (~150 LoC libdrm_amdgpu): submit a single GFX IB containing
+PACKET3_INDIRECT_BUFFER chained at GPU VA 0 and wait for the fence.
+The TDR fires within ~10 s and the deferred coredump worker produces
+the splat above on every invocation.
 
-What I can say is that this fix has been solid on my platform running
-7.1.0-rc3 with this patch.
+v2: switch from per-IB amdgpu_bo_reserve() to drm_exec for the IB BO
+    locking as suggested by Christian König; the snapshot approach
+    for collecting BO references under the root PD's reservation is
+    retained.
 
-I am on:
-Gigabyte Technology Co., Ltd. B850M DS3H/B850M DS3H + AMD Ryzen 9 9950X
-
-Fixes: 592c5b80110d5 ("drm/amd/display: Migrate HUBBUB register access from=
- hwseq to hubbub component.")
-Link: https://github.com/CachyOS/linux-cachyos/issues/810
-Link: https://lore.kernel.org/amd-gfx/20260316094232.6bb6f0bf@schienar/
-Suggested-by: Giuseppe Ranieri
-Signed-off-by: Antonio Quartulli <antonio@mandelbit.com>
+Fixes: 7b15fc2d1f1a ("drm/amdgpu: dump job ibs in the devcoredump")
+Suggested-by: Christian König <christian.koenig@amd.com>
+Signed-off-by: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
 ---
- .../gpu/drm/amd/display/dc/hubbub/dcn31/dcn31_hubbub.c    | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ .../gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c  | 187 ++++++++++++++----
+ 1 file changed, 148 insertions(+), 39 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/hubbub/dcn31/dcn31_hubbub.c b/d=
-rivers/gpu/drm/amd/display/dc/hubbub/dcn31/dcn31_hubbub.c
-index 3c298192f3596..9dc1db4524500 100644
---- a/drivers/gpu/drm/amd/display/dc/hubbub/dcn31/dcn31_hubbub.c
-+++ b/drivers/gpu/drm/amd/display/dc/hubbub/dcn31/dcn31_hubbub.c
-@@ -138,10 +138,10 @@ static void dcn31_program_compbuf_size(struct hubbub =
-*hubbub, unsigned int compb
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c
+index d386bc775d03..9ac958cf09fd 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c
+@@ -24,6 +24,7 @@
+ 
+ #include <generated/utsrelease.h>
+ #include <linux/devcoredump.h>
++#include <drm/drm_exec.h>
+ #include "amdgpu_dev_coredump.h"
+ #include "atom.h"
+ 
+@@ -207,6 +208,108 @@ static void amdgpu_devcoredump_fw_info(struct amdgpu_device *adev,
+ 	}
+ }
+ 
++struct amdgpu_devcoredump_ib_ref {
++	struct amdgpu_bo	*bo;
++	u64			offset;
++};
++
++/*
++ * Walk the VM's mapping tree under the root PD's reservation to obtain the BO
++ * that backs each IB and pin it with a refcount. The root PD reservation is
++ * dropped before this function returns; the caller can then lock each IB BO
++ * via drm_exec without nesting reservations on reservation_ww_class_mutex.
++ *
++ * Returns an array of num_ibs entries (each ib_refs[i].bo may be NULL if its
++ * mapping was not found), or NULL on allocation failure / VM lookup failure.
++ * The caller must release the BO refs and free the array via
++ * amdgpu_devcoredump_release_ib_refs().
++ */
++static struct amdgpu_devcoredump_ib_ref *
++amdgpu_devcoredump_collect_ib_refs(struct amdgpu_device *adev,
++				   struct amdgpu_coredump_info *coredump)
++{
++	struct amdgpu_devcoredump_ib_ref *ib_refs;
++	struct amdgpu_bo_va_mapping *mapping;
++	struct amdgpu_bo *root;
++	struct amdgpu_vm *vm;
++	u64 va_start;
++
++	ib_refs = kcalloc(coredump->num_ibs, sizeof(*ib_refs), GFP_KERNEL);
++	if (!ib_refs)
++		return NULL;
++
++	vm = amdgpu_vm_lock_by_pasid(adev, &root, coredump->pasid);
++	if (!vm) {
++		kfree(ib_refs);
++		return NULL;
++	}
++
++	for (int i = 0; i < coredump->num_ibs; i++) {
++		va_start = coredump->ibs[i].gpu_addr & AMDGPU_GMC_HOLE_MASK;
++		mapping = amdgpu_vm_bo_lookup_mapping(vm, va_start / AMDGPU_GPU_PAGE_SIZE);
++		if (!mapping)
++			continue;
++
++		ib_refs[i].bo = amdgpu_bo_ref(mapping->bo_va->base.bo);
++		ib_refs[i].offset = va_start -
++				    mapping->start * AMDGPU_GPU_PAGE_SIZE;
++	}
++
++	amdgpu_bo_unreserve(root);
++	amdgpu_bo_unref(&root);
++
++	return ib_refs;
++}
++
++static void
++amdgpu_devcoredump_release_ib_refs(struct amdgpu_devcoredump_ib_ref *ib_refs,
++				   int num_ibs)
++{
++	if (!ib_refs)
++		return;
++
++	for (int i = 0; i < num_ibs; i++)
++		if (ib_refs[i].bo)
++			amdgpu_bo_unref(&ib_refs[i].bo);
++	kfree(ib_refs);
++}
++
++/*
++ * Lock all collected IB BOs together using a single drm_exec ticket. This
++ * eliminates the nested ww_mutex acquire that lockdep flags as recursive
++ * locking (and that becomes a real self-deadlock for IB BOs sharing their
++ * dma_resv with the root PD).
++ *
++ * Returns 0 if drm_exec was initialised and the BOs are locked; the caller
++ * must call drm_exec_fini() on success. Returns non-zero on failure, in which
++ * case drm_exec is already torn down.
++ */
++static int
++amdgpu_devcoredump_lock_ib_refs(struct drm_exec *exec,
++				struct amdgpu_devcoredump_ib_ref *ib_refs,
++				int num_ibs)
++{
++	int r = 0;
++
++	drm_exec_init(exec, DRM_EXEC_IGNORE_DUPLICATES, num_ibs);
++	drm_exec_until_all_locked(exec) {
++		r = 0;
++		for (int i = 0; i < num_ibs; i++) {
++			if (!ib_refs[i].bo)
++				continue;
++			r = drm_exec_lock_obj(exec, &ib_refs[i].bo->tbo.base);
++			drm_exec_retry_on_contention(exec);
++			if (r)
++				break;
++		}
++		if (r)
++			break;
++	}
++	if (r)
++		drm_exec_fini(exec);
++	return r;
++}
++
+ static ssize_t
+ amdgpu_devcoredump_format(char *buffer, size_t count, struct amdgpu_coredump_info *coredump)
+ {
+@@ -214,13 +317,9 @@ amdgpu_devcoredump_format(char *buffer, size_t count, struct amdgpu_coredump_inf
+ 	struct drm_printer p;
+ 	struct drm_print_iterator iter;
+ 	struct amdgpu_vm_fault_info *fault_info;
+-	struct amdgpu_bo_va_mapping *mapping;
+ 	struct amdgpu_ip_block *ip_block;
+ 	struct amdgpu_res_cursor cursor;
+-	struct amdgpu_bo *abo, *root;
+-	uint64_t va_start, offset;
+ 	struct amdgpu_ring *ring;
+-	struct amdgpu_vm *vm;
+ 	u32 *ib_content;
+ 	uint8_t *kptr;
+ 	int ver, i, j, r;
+@@ -343,43 +442,52 @@ amdgpu_devcoredump_format(char *buffer, size_t count, struct amdgpu_coredump_inf
+ 		drm_printf(&p, "VRAM is lost due to GPU reset!\n");
+ 
+ 	if (coredump->num_ibs) {
+-		/* Don't try to lookup the VM or map the BOs when calculating the
+-		 * size required to store the devcoredump.
++		struct amdgpu_devcoredump_ib_ref *ib_refs = NULL;
++		struct drm_exec exec;
++		bool ibs_locked = false;
++
++		/*
++		 * Collect the BO that backs each IB under the root PD's
++		 * reservation, drop the root reservation, then lock all the
++		 * IB BOs together in one drm_exec ticket. This avoids nesting
++		 * amdgpu_bo_reserve() inside the root PD's reservation, which
++		 * would be a recursive reservation_ww_class_mutex acquire
++		 * without a ww_acquire_ctx (lockdep splat, and a real
++		 * self-deadlock for always-valid BOs that share their dma_resv
++		 * with the root PD).
++		 *
++		 * Skip lookup/locking entirely on the sizing pass: it does not
++		 * write IB content, and the size estimate doesn't depend on
++		 * whether the BOs are reachable.
+ 		 */
+-		if (sizing_pass)
+-			vm = NULL;
+-		else
+-			vm = amdgpu_vm_lock_by_pasid(adev, &root, coredump->pasid);
++		if (!sizing_pass) {
++			ib_refs = amdgpu_devcoredump_collect_ib_refs(adev, coredump);
++			if (ib_refs) {
++				r = amdgpu_devcoredump_lock_ib_refs(&exec, ib_refs,
++								    coredump->num_ibs);
++				if (!r)
++					ibs_locked = true;
++			}
++		}
++
++		for (int i = 0; i < coredump->num_ibs; i++) {
++			struct amdgpu_bo *abo = ibs_locked ? ib_refs[i].bo : NULL;
++			u64 offset = ibs_locked ? ib_refs[i].offset : 0;
++			bool emit_content = sizing_pass;
+ 
+-		for (int i = 0; i < coredump->num_ibs && (sizing_pass || vm); i++) {
+ 			ib_content = kvmalloc_array(coredump->ibs[i].ib_size_dw, 4,
+ 						    GFP_KERNEL);
+ 			if (!ib_content)
+ 				continue;
+ 
+-			/* vm=NULL can only happen when 'sizing_pass' is true. Skip to the
+-			 * drm_printf() calls (ib_content doesn't need to be initialized
+-			 * as its content won't be written anywhere).
+-			 */
+-			if (!vm)
++			if (!abo)
+ 				goto output_ib_content;
+ 
+-			va_start = coredump->ibs[i].gpu_addr & AMDGPU_GMC_HOLE_MASK;
+-			mapping = amdgpu_vm_bo_lookup_mapping(vm, va_start / AMDGPU_GPU_PAGE_SIZE);
+-			if (!mapping)
+-				goto free_ib_content;
+-
+-			offset = va_start - (mapping->start * AMDGPU_GPU_PAGE_SIZE);
+-			abo = amdgpu_bo_ref(mapping->bo_va->base.bo);
+-			r = amdgpu_bo_reserve(abo, false);
+-			if (r)
+-				goto free_ib_content;
+-
+ 			if (abo->flags & AMDGPU_GEM_CREATE_NO_CPU_ACCESS) {
+ 				off = 0;
+ 
+ 				if (abo->tbo.resource->mem_type != TTM_PL_VRAM)
+-					goto unreserve_abo;
++					goto output_ib_content;
+ 
+ 				amdgpu_res_first(abo->tbo.resource, offset,
+ 						 coredump->ibs[i].ib_size_dw * 4,
+@@ -391,12 +499,13 @@ amdgpu_devcoredump_format(char *buffer, size_t count, struct amdgpu_coredump_inf
+ 					off += cursor.size;
+ 					amdgpu_res_next(&cursor, cursor.size);
+ 				}
++				emit_content = true;
+ 			} else {
+ 				r = ttm_bo_kmap(&abo->tbo, 0,
+ 						PFN_UP(abo->tbo.base.size),
+ 						&abo->kmap);
+ 				if (r)
+-					goto unreserve_abo;
++					goto output_ib_content;
+ 
+ 				kptr = amdgpu_bo_kptr(abo);
+ 				kptr += offset;
+@@ -404,23 +513,23 @@ amdgpu_devcoredump_format(char *buffer, size_t count, struct amdgpu_coredump_inf
+ 				       coredump->ibs[i].ib_size_dw * 4);
+ 
+ 				amdgpu_bo_kunmap(abo);
++				emit_content = true;
+ 			}
+ 
+ output_ib_content:
+ 			drm_printf(&p, "\nIB #%d 0x%llx %d dw\n",
+ 				   i, coredump->ibs[i].gpu_addr, coredump->ibs[i].ib_size_dw);
+-			for (int j = 0; j < coredump->ibs[i].ib_size_dw; j++)
+-				drm_printf(&p, "0x%08x\n", ib_content[j]);
+-unreserve_abo:
+-			if (vm)
+-				amdgpu_bo_unreserve(abo);
+-free_ib_content:
++			if (emit_content) {
++				for (int j = 0; j < coredump->ibs[i].ib_size_dw; j++)
++					drm_printf(&p, "0x%08x\n", ib_content[j]);
++			}
+ 			kvfree(ib_content);
+ 		}
+-		if (vm) {
+-			amdgpu_bo_unreserve(root);
+-			amdgpu_bo_unref(&root);
+-		}
++
++		if (ibs_locked)
++			drm_exec_fini(&exec);
++
++		amdgpu_devcoredump_release_ib_refs(ib_refs, coredump->num_ibs);
+ 	}
+ 
+ 	return count - iter.remain;
+-- 
+2.54.0
 
-         if (safe_to_increase || compbuf_size_segments <=3D hubbub2->compbu=
-f_size_segments) {
-                 if (compbuf_size_segments > hubbub2->compbuf_size_segments=
-) {
--                       REG_WAIT(DCHUBBUB_DET0_CTRL, DET0_SIZE_CURRENT, hub=
-bub2->det0_size, 1, 100);
--                       REG_WAIT(DCHUBBUB_DET1_CTRL, DET1_SIZE_CURRENT, hub=
-bub2->det1_size, 1, 100);
--                       REG_WAIT(DCHUBBUB_DET2_CTRL, DET2_SIZE_CURRENT, hub=
-bub2->det2_size, 1, 100);
--                       REG_WAIT(DCHUBBUB_DET3_CTRL, DET3_SIZE_CURRENT, hub=
-bub2->det3_size, 1, 100);
-+                       dcn31_wait_for_det_apply(hubbub, 0);
-+                       dcn31_wait_for_det_apply(hubbub, 1);
-+                       dcn31_wait_for_det_apply(hubbub, 2);
-+                       dcn31_wait_for_det_apply(hubbub, 3);
-                 }
-                 /* Should never be hit, if it is we have an erroneous hw c=
-onfig*/
-                 ASSERT(hubbub2->det0_size + hubbub2->det1_size + hubbub2->=
-det2_size
---
-2.53.0
-
-
---_000_CH0PR12MB52849BD9E94D9290EFB51B528B002CH0PR12MB5284namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
-nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
-olor: rgb(0, 0, 0);">
-<div>
-<div style=3D"font-family: Calibri; text-align: left; color: rgb(0, 0, 255)=
-; margin-left: 5pt; font-size: 10pt;">
-AMD General</div>
-<br>
-</div>
-Hi Antonio,</div>
-<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
-nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
-olor: rgb(0, 0, 0);">
-<br>
-</div>
-<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
-nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
-olor: rgb(0, 0, 0);">
-Thanks for the patch. We'll add it to our weekly cycle for testing.</div>
-<div id=3D"Signature" class=3D"elementToProof">
-<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
-nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
-olor: rgb(0, 0, 0);">
-<br>
-</div>
-<div class=3D"elementToProof" style=3D"font-family: Calibri, Arial, Helveti=
-ca, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
---</div>
-<div class=3D"elementToProof" style=3D"font-family: Calibri, Arial, Helveti=
-ca, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div class=3D"elementToProof" style=3D"font-family: Calibri, Arial, Helveti=
-ca, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
-Regards,</div>
-<div class=3D"elementToProof" style=3D"font-family: Calibri, Arial, Helveti=
-ca, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
-Jay<br>
-</div>
-</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Antonio Quartulli &lt=
-;antonio@mandelbit.com&gt;<br>
-<b>Sent:</b> Tuesday, May 19, 2026 10:45 AM<br>
-<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
-gt;<br>
-<b>Cc:</b> antonio@mandelbit.com &lt;antonio@mandelbit.com&gt;; linux-kerne=
-l@vger.kernel.org &lt;linux-kernel@vger.kernel.org&gt;; dri-devel@lists.fre=
-edesktop.org &lt;dri-devel@lists.freedesktop.org&gt;; Leung, Martin &lt;Mar=
-tin.Leung@amd.com&gt;; Pinninti, Bhuvana Chandra &lt;BhuvanaChandra.Pinnint=
-i@amd.com&gt;;
- Pillai, Aurabindo &lt;Aurabindo.Pillai@amd.com&gt;; Ahmed, Muhammad &lt;Mu=
-hammad.Ahmed@amd.com&gt;; Chen, Karen &lt;Karen.Chen@amd.com&gt;; Chen, Leo=
- &lt;Leo.Chen@amd.com&gt;; Khachatrian, Gaghik &lt;Gaghik.Khachatrian@amd.c=
-om&gt;; Li, Roman &lt;Roman.Li@amd.com&gt;; Lin, Wayne &lt;Wayne.Lin@amd.co=
-m&gt;;
- Kazlauskas, Nicholas &lt;Nicholas.Kazlauskas@amd.com&gt;; Koenig, Christia=
-n &lt;Christian.Koenig@amd.com&gt;; Deucher, Alexander &lt;Alexander.Deuche=
-r@amd.com&gt;; siqueira@igalia.com &lt;siqueira@igalia.com&gt;; simona@ffwl=
-l.ch &lt;simona@ffwll.ch&gt;; airlied@gmail.com &lt;airlied@gmail.com&gt;;
- Li, Sun peng (Leo) &lt;Sunpeng.Li@amd.com&gt;; Wentland, Harry &lt;Harry.W=
-entland@amd.com&gt;<br>
-<b>Subject:</b> [RFC] amdgpu: fix compressed buffer config routine waiting =
-time</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">Starting with commit 592c5b80110d5 (&quot;drm/amd/=
-display: Migrate HUBBUB register access from hwseq to hubbub component.&quo=
-t;)<br>
-the amdgpu driver is reporting the following WARNING in the kernel log<br>
-during boot time:<br>
-<br>
-[&nbsp;&nbsp; 15.464476] amdgpu 0000:0c:00.0: [drm] REG_WAIT timeout 1us * =
-100 tries - dcn31_program_compbuf_size line:141<br>
-[&nbsp;&nbsp; 15.464522] ------------[ cut here ]------------<br>
-[&nbsp;&nbsp; 15.464523] !(generic_reg_get(hubbub2-&gt;base.ctx, hubbub2-&g=
-t;regs-&gt;DCHUBBUB_COMPBUF_CTRL, hubbub2-&gt;shifts-&gt;CONFIG_ERROR, hubb=
-ub2-&gt;masks-&gt;CONFIG_ERROR, &amp;compbuf_size_segments) &amp;&amp; !com=
-pbuf_size_segments)<br>
-[&nbsp;&nbsp; 15.464524] WARNING: drivers/gpu/drm/amd/amdgpu/../display/dc/=
-hubbub/dcn31/dcn31_hubbub.c:151 at dcn31_program_compbuf_size+0x20e/0x220 [=
-amdgpu], CPU#2: kworker/2:2/184<br>
-[&nbsp;&nbsp; 15.464906] Workqueue: events drm_mode_rmfb_work_fn<br>
-[&nbsp;&nbsp; 15.464910] RIP: 0010:dcn31_program_compbuf_size+0x20e/0x220 [=
-amdgpu]<br>
-[&nbsp;&nbsp; 15.465200]&nbsp; &lt;TASK&gt;<br>
-[&nbsp;&nbsp; 15.465202]&nbsp; dcn20_optimize_bandwidth+0x110/0x210 [amdgpu=
-]<br>
-[&nbsp;&nbsp; 15.465556]&nbsp; dc_commit_state_no_check+0x14ff/0x18a0 [amdg=
-pu]<br>
-[&nbsp;&nbsp; 15.465925]&nbsp; dc_commit_streams+0x471/0x640 [amdgpu]<br>
-[&nbsp;&nbsp; 15.466252]&nbsp; amdgpu_dm_atomic_commit_tail+0x903/0x4430 [a=
-mdgpu]<br>
-[&nbsp;&nbsp; 15.467401]&nbsp; commit_tail+0x242/0x2e0<br>
-[&nbsp;&nbsp; 15.467405]&nbsp; drm_atomic_helper_commit+0x28b/0x2a0<br>
-[&nbsp;&nbsp; 15.467407]&nbsp; drm_atomic_commit+0xc3/0xf0<br>
-[&nbsp;&nbsp; 15.467416]&nbsp; drm_mode_rmfb_work_fn+0x85/0xb0<br>
-[&nbsp;&nbsp; 15.467436]&nbsp; ret_from_fork_asm+0x1a/0x30<br>
-[&nbsp;&nbsp; 15.467441]&nbsp; &lt;/TASK&gt;<br>
-<br>
-After boot this results in unstable video output, specifically after<br>
-resuming from screen sleep. The video may not come back at all<br>
-or may come up partly messed up.<br>
-<br>
-This problem seems to affect various people on AMD iGPU, as discussed<br>
-on the related GitHub issue.<br>
-<br>
-Giuseppe Ranieri digged up the issue and suggested the proposed code<br>
-change.<br>
-<br>
-There was also a previous report on the amd-gfx ml (see related link below)=
-<br>
-but it got nowhere.<br>
-<br>
-By looking at the offending commit I am not truly able to understand why<br=
->
-it is breaking. Hence I am posting this patch as RFC only.<br>
-<br>
-What I can say is that this fix has been solid on my platform running<br>
-7.1.0-rc3 with this patch.<br>
-<br>
-I am on:<br>
-Gigabyte Technology Co., Ltd. B850M DS3H/B850M DS3H + AMD Ryzen 9 9950X<br>
-<br>
-Fixes: 592c5b80110d5 (&quot;drm/amd/display: Migrate HUBBUB register access=
- from hwseq to hubbub component.&quot;)<br>
-Link: <a href=3D"https://github.com/CachyOS/linux-cachyos/issues/810">https=
-://github.com/CachyOS/linux-cachyos/issues/810</a><br>
-Link: <a href=3D"https://lore.kernel.org/amd-gfx/20260316094232.6bb6f0bf@sc=
-hienar/">
-https://lore.kernel.org/amd-gfx/20260316094232.6bb6f0bf@schienar/</a><br>
-Suggested-by: Giuseppe Ranieri<br>
-Signed-off-by: Antonio Quartulli &lt;antonio@mandelbit.com&gt;<br>
----<br>
-&nbsp;.../gpu/drm/amd/display/dc/hubbub/dcn31/dcn31_hubbub.c&nbsp;&nbsp;&nb=
-sp; | 8 ++++----<br>
-&nbsp;1 file changed, 4 insertions(+), 4 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/display/dc/hubbub/dcn31/dcn31_hubbub.c b/d=
-rivers/gpu/drm/amd/display/dc/hubbub/dcn31/dcn31_hubbub.c<br>
-index 3c298192f3596..9dc1db4524500 100644<br>
---- a/drivers/gpu/drm/amd/display/dc/hubbub/dcn31/dcn31_hubbub.c<br>
-+++ b/drivers/gpu/drm/amd/display/dc/hubbub/dcn31/dcn31_hubbub.c<br>
-@@ -138,10 +138,10 @@ static void dcn31_program_compbuf_size(struct hubbub =
-*hubbub, unsigned int compb<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (safe_to_increase || co=
-mpbuf_size_segments &lt;=3D hubbub2-&gt;compbuf_size_segments) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; if (compbuf_size_segments &gt; hubbub2-&gt;compbuf_si=
-ze_segments) {<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; REG_WAIT(DCHUBBU=
-B_DET0_CTRL, DET0_SIZE_CURRENT, hubbub2-&gt;det0_size, 1, 100);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; REG_WAIT(DCHUBBU=
-B_DET1_CTRL, DET1_SIZE_CURRENT, hubbub2-&gt;det1_size, 1, 100);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; REG_WAIT(DCHUBBU=
-B_DET2_CTRL, DET2_SIZE_CURRENT, hubbub2-&gt;det2_size, 1, 100);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; REG_WAIT(DCHUBBU=
-B_DET3_CTRL, DET3_SIZE_CURRENT, hubbub2-&gt;det3_size, 1, 100);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dcn31_wait_for_d=
-et_apply(hubbub, 0);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dcn31_wait_for_d=
-et_apply(hubbub, 1);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dcn31_wait_for_d=
-et_apply(hubbub, 2);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dcn31_wait_for_d=
-et_apply(hubbub, 3);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; /* Should never be hit, if it is we have an erroneous=
- hw config*/<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; ASSERT(hubbub2-&gt;det0_size + hubbub2-&gt;det1_size =
-+ hubbub2-&gt;det2_size<br>
--- <br>
-2.53.0<br>
-<br>
-</div>
-</span></font></div>
-</body>
-</html>
-
---_000_CH0PR12MB52849BD9E94D9290EFB51B528B002CH0PR12MB5284namp_--
