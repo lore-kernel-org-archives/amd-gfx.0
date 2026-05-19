@@ -4,123 +4,127 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 99821CD4F5B
-	for <amd-gfx@archiver.kernel.org>; Tue, 19 May 2026 14:06:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 34E17CD4F3C
+	for <amd-gfx@archiver.kernel.org>; Tue, 19 May 2026 14:07:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3624A10E113;
-	Tue, 19 May 2026 14:06:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C89AC10E3BB;
+	Tue, 19 May 2026 14:07:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="2qr20l31";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="dRFjLi3p";
 	dkim-atps=neutral
-Received: from PH0PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11011019.outbound.protection.outlook.com [40.107.208.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AC92410E113
- for <amd-gfx@lists.freedesktop.org>; Tue, 19 May 2026 14:06:30 +0000 (UTC)
+Received: from CY7PR03CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11010041.outbound.protection.outlook.com
+ [40.93.198.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5EA0010E0BA;
+ Tue, 19 May 2026 14:07:26 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=oc5XYQ88Iq1jwxiuTWmyxZTJkqz/crg7MJadZWYxqf+NCebBaSz3Kl+qucgHNqSlY8gSXkSMZdHEaSdvJX07qL01wYeI+d6MP6OFoZODQ9ZDulwCaU+Qr5i8e1l9QfVcP6f6xAXHlI6sh0a07TWpPUdNiuXczttd5jJUbdP7lWEEQzaVwifWnYCPLhWh4HoMbr3nnuNyPTq0+hrknjvR861bmUxBUOMdudzq5LXp8/lyO4kh0FYgeIW1NlfuD50sQq9yj2avkVI+2vmjqHcXO0+d2RkdnDyWvIb6/TtUWgEgDcS9ScJuukEbR9rQe8nCqKeU9nCyNlMgTBj2LFa3xQ==
+ b=LhuD0tAOonzSEGHsNlhoxGwsMOHh3bqschOZkOwBo29dOWMeLadAcQ4XSFz3DvgKoaXvSo+FnEp/zKMuqSNSHU1QY0YHn4H83JKEaqhLn9ajn4OgVAq62KwzxiqjpYwJ+diMPBVTSQ93yC6Sy5gwtd1PGmQrYJ6uz45CuX4fD+GrPqkHGkGXMIg+EfFF4syt5oTj6RtyI4rbFmRt+McLWZn7ffNSjz8rYkXlGXMH5zTvVASYwoGRKtSSKYtmYS/WDv5GLl9uWOPw2iia9Hr/09wTPFzWkpnSg/myCrlDI5b3qUv7EUj5M/J8Zcc68wwYxajdtlLu75WBbS7cqE7TOQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=a3I6Wek1vCZPKXgz1DgdZDW04WeC/9RA4ujsYkRcgao=;
- b=KOCGVGHS96ftRjXKOc6H+aFuSMqnJr3i/rG8anulqaTI9lNYcB/CvOnW6xKNHtiYUBmdaTXt028OIQ52VC2K8InpyIPZ+KEewh9HtfuGlgJF/cYx5evK5457cMcQTBHwVfLEQShFtqXNOP23nepbnXbLhemzfR3j4OOEnVX2hmWQsJ/C6mvApzTygRhz2iGtzM4sRwnaFCMiHo2hSSzXYEGa3x/tjB0cF71TWgt6S45/bAg2+tBmR3FM4ASJmGGAHxsxlT43i0qF1kihouia8B8vp1w4DaDycpHZNMSovSo4r4GTQq9WBggieKUcQ6CrIQEvh4CP+2ngfSqkPhNcyg==
+ bh=T51S6/baTjm3QrJWUj9GPEboqjxB+/09WQup7aBLWkQ=;
+ b=F/yEz/cmVA2JfV1wLsNrT2GOeBW7fCc5cJ6BP9aMu87XXuy3Ob9QMfEsTygvYop0tnloeBpIJn62uIq+mzPCp6GxgEaTj2gU+r3rfHwof6/oYqGSfwJZbL9ykAF/YjGTHpXZ+8RrNSQrEMuVUw/ETM9g4SMNFcHPk0CpxdLp/apRCSo+hU1PzvLBze/Q+pDJvxf1ml0QPTlfCpPo1eb4pRurP+8u34r2VvxOpQLUO3WnX0KXnyKPuum4AEt/Wd3S+jBVAK4WB+LVbxu/BH/Pl8/bwO19xy4DvjkgK+yd0MvrNjCWDOZJkgGBUFDCsro8bs4bgUZ2SfUJML2MdkcyDQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=a3I6Wek1vCZPKXgz1DgdZDW04WeC/9RA4ujsYkRcgao=;
- b=2qr20l31yrNwZd4VtbucxC5OOAy+2BFREk331a687/EisWym/hBh8RkxTPlEh2lk4qzctjHdifclnGikkmnU9EVxs20vPzbd4D6CEc9zRygc/lmcv6kAOuByVJgP1zQHWXGsimrSMIsYC5DBv7TaSywMC9KtsART9zoM5vPThbk=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by IA1PR12MB7590.namprd12.prod.outlook.com (2603:10b6:208:42a::5)
- with Microsoft SMTP Server (version=TLS1_2,
+ bh=T51S6/baTjm3QrJWUj9GPEboqjxB+/09WQup7aBLWkQ=;
+ b=dRFjLi3pucYnPDMoeXOdVV8Zz/CBQGg5HA9U9CbIL06BJxoFhBrLS+j83bOslboO5JBrfkWt844PKMWNFZqhxZTtqsCDhwLa017DT/SoNIZfww3JPJl/euW1UIS4UxVvGTDJXe1ulJF5Nr+tN/6k5sCRx8O5CG3Q8n3jlfPC/YE=
+Received: from DM4PR12MB8476.namprd12.prod.outlook.com (2603:10b6:8:17e::15)
+ by SJ0PR12MB7459.namprd12.prod.outlook.com (2603:10b6:a03:48d::14) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.48.14; Tue, 19 May
- 2026 14:06:23 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0025.022; Tue, 19 May 2026
- 14:06:22 +0000
-Message-ID: <1554081e-6322-49f8-8b17-381877ba9082@amd.com>
-Date: Tue, 19 May 2026 16:06:19 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 8/8] drm/amdgpu/userq: user array to store userq vas
-To: Sunil Khatri <sunil.khatri@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>
-Cc: amd-gfx@lists.freedesktop.org
-References: <20260519111801.1435954-1-sunil.khatri@amd.com>
- <20260519111801.1435954-8-sunil.khatri@amd.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260519111801.1435954-8-sunil.khatri@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR4P281CA0450.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:c6::11) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|IA1PR12MB7590:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5205d6e8-e16a-413f-7bc5-08deb5afceaa
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|366016|1800799024|11063799006|18002099003|22082099003|56012099003|4143699003;
-X-Microsoft-Antispam-Message-Info: Who+prNjoWNh4DIsa881bfhjmzYFx0ddLQMOqHowkg2mz30M2B/AKEy9NIbFwcD7PffupAciOOG+1fcGEv5k88jh5oWNo8NZZemmrr4OkXpAVoG4OhKi/SpJChIVrxWWRKuo6BBQ6WV71+JMLUykUTiaWoK1LWuUOic3ZY2RIm3n6rQfnATCKehNd3q5JNoKp6uv9doME5psw7PPkAl4akoK33ZWMK1d18nY5lcCY55NS0g/fHLSSV464kFTneX5ORY44Lc62hwrGiBUIeu/8Cgv05Rum//5fMpQ675MFksKh9njU/mu5JV+t7QMOYe6GAziYXvd9H3mnxsoP16C7TTpFanphjEYZ5pbIK5hT9MuPJYEtunoSJo+cfWiuiMYCgDxm2QKDl55kLJwn6C3mIWfFQH94Ab//DGqfUU2MwXTRK2j6z7h1e0CAfxFiWjcZi3p/YEc/M1a5cmaiyQv8RKr6ZvK0dTo7s/YAg3Ya017KdW/Sp9Joly5yXwX0D4b8c9fg0I6ibEUvfHVLssJVbXmXGqHobHzkSL/ctHzp080eDIkPPpD+UzOiP7jNfNbOtM/xlC6HBT/DVgDrSRh6RXWrsdEjd0KA6k4puJErhM6YzAcRvsc12rxyecpVtDzfGNym6KW29pSImYCFu/kMuNz5i62fb/V8iXRbDTF4B817goBov38sIufF+ugXRJF
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(1800799024)(11063799006)(18002099003)(22082099003)(56012099003)(4143699003);
+ 2026 14:07:21 +0000
+Received: from DM4PR12MB8476.namprd12.prod.outlook.com
+ ([fe80::2d79:122f:c62b:1cd8]) by DM4PR12MB8476.namprd12.prod.outlook.com
+ ([fe80::2d79:122f:c62b:1cd8%6]) with mapi id 15.21.0025.022; Tue, 19 May 2026
+ 14:07:21 +0000
+From: "Hung, Alex" <Alex.Hung@amd.com>
+To: "Koenig, Christian" <Christian.Koenig@amd.com>, "Deucher, Alexander"
+ <Alexander.Deucher@amd.com>, "airlied@gmail.com" <airlied@gmail.com>,
+ "simona@ffwll.ch" <simona@ffwll.ch>, "timur.kristof@gmail.com"
+ <timur.kristof@gmail.com>, "Nirujogi, Pratap" <Pratap.Nirujogi@amd.com>,
+ "Prosyak, Vitaly" <Vitaly.Prosyak@amd.com>, "Wentland, Harry"
+ <Harry.Wentland@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org"
+ <dri-devel@lists.freedesktop.org>
+Subject: Re: [PATCH] drm/amdgpu: Remove UML build exclusion from Kconfig
+Thread-Topic: [PATCH] drm/amdgpu: Remove UML build exclusion from Kconfig
+Thread-Index: AQHc3KsoaJiBLi+Si06FuivPs7v5jLYTinuAgAHtX08=
+Date: Tue, 19 May 2026 14:07:21 +0000
+Message-ID: <DM4PR12MB8476DC78F8A78F099FCF348BF7002@DM4PR12MB8476.namprd12.prod.outlook.com>
+References: <20260505162018.1755740-1-alex.hung@amd.com>
+ <94187a8c-45d9-4751-9fbf-ac6ecfc990a4@amd.com>
+In-Reply-To: <94187a8c-45d9-4751-9fbf-ac6ecfc990a4@amd.com>
+Accept-Language: en-GB, en-US
+Content-Language: en-GB
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-05-19T14:07:20.767Z;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD
+ General; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=1;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard; 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DM4PR12MB8476:EE_|SJ0PR12MB7459:EE_
+x-ms-office365-filtering-correlation-id: e196a6be-b38f-4948-d388-08deb5aff1cd
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|366016|376014|1800799024|56012099003|18002099003|22082099003|13003099007|4143699003|11063799006|38070700021|921020|8096899003;
+x-microsoft-antispam-message-info: 7mpHxRiHwK54iqA4ZpFA/V/g+A5oNENxLXLCnwvPgsdPplGLZ8pcxfZ7ZpQoq5XZrP2goRylxcLpshir/Cc+IQgyt0hCbHxOS+9AgS+wYUrfN1AApNPimxtwHQyFkR1e6hWJAwPT4QEO049qfbjX4HMAC9MqDMIOBg/tJOzRkFEr9VAVu1ISVQIKOMDp99W0XBykSC9N0P4NJCOnltHnamw7SoQH2ariD+LvjTlwlWx+obXrw1hAuBri3vveuNipG5P5gY+JZ/BstlFJGDqbdNqrbV41k8xwqkyzH22mPfHBklXHxye8RrVL6MepZNgRCy6HxYTK2QJx0mrSFVpKDlAbmAhsrEPRCAoPMD5hmt70g4TrIKuTvg7cj9s0EWFyViFc5FqwHpkybl0Ra0BOvE4VSrC5uWDjysu6VhqOmCMzf7ll+HaFnjDQTCn0pVA/wjOmhNAZfsw5ArVCi+4KxZzpxedsaV1Pd3qhW5fhF96tXXcLb+ubNZEMFNdYEAyhcuc03XrosPPW577Zcrj2o58oTvAHK4XbQR1AhzT0KAEi50zRYtPUwZU078fnxFEP0un9ktra5U1HtCVkzyoAaO12rW19zsQPtqyHGdjOM1nN3Bg9doYc7kFg+DpybeAfQFUF+nXvCPbzpYu4kVzOy/hsOA419s1pow/ubmEZsUjIfQjJJ9qvSEuD+RlRhX6nuJqikrgDHTglrcSZWC12hbr/pYV9kebpRDSROzlsyzo=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB8476.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(376014)(1800799024)(56012099003)(18002099003)(22082099003)(13003099007)(4143699003)(11063799006)(38070700021)(921020)(8096899003);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aHFMK3oxTGhNUTRoWDd5VHFzbkRDNVVIV3prRmlmZ1lSQlpIZ1l0am10VUJM?=
- =?utf-8?B?Y00ybVV0ZTNYTDIrRllHekFvWkM4ZjN1NVp4SjQ0NUplVU9rdWl3amlJODBV?=
- =?utf-8?B?SWxvY1NtRCtDclpsL3ZjaFVLSnNyQmI0cHg3Zi9vOUJTRUw1RldmdklsMHRC?=
- =?utf-8?B?RHhtZTMreDI3MEpNZVA1a2RiRGVTZWZUYmswR1NTT3dCbE53MU51bnhzcExZ?=
- =?utf-8?B?Nmc2WDI3dnJlZktzeVdiNy9rK1FoWVd1Q0htcmVpa3M3eW9KbWRzdStibkFn?=
- =?utf-8?B?cXc1aFNpeUd3VGRDaFFrMmxaalBSRW96a0VFMngyOExsZjFFaUhEZmJvdUdm?=
- =?utf-8?B?NEhKZVBTMkltN0V1cnlMQVFvVmVHVDJhOGtLbVBSSThRZisrZ0tteGFWQlg5?=
- =?utf-8?B?aUs5czg2bVhsWWJKd2JKN2phdlVuVTlWWGQyYUlvclNERERQZUFIWG4xOGFs?=
- =?utf-8?B?d3RtZEtybWR6ekEwTzh4Vjg2c3VvODRnbTlNRWRVS2g1N1hwanJ0VTB6TW9v?=
- =?utf-8?B?WVpvbFpGT0M2c3RlcGJKQ09rak55LzZZelczMzhIZ0NhdlhQdzNHZlhRS09N?=
- =?utf-8?B?a2V6R0Jsc3lpbm9GLzBEcTZrc3dkcElzOXcrNWpLYkhmQXlWYnd2QUorc2pa?=
- =?utf-8?B?dFUwTU9XdFFxWmN4Nks3dmlDR0hTMS9zWldINWdwUTdqUC9RTzdDK2VsSTQ2?=
- =?utf-8?B?bjR5NmhOYWYxN2creURCOTVFNGRTRk9ydkJrenlZQnVLaVZKRFpWUEJrZDhS?=
- =?utf-8?B?eXZlNlFrbm1nQUVqNGNLcUZPWTFjdEZ2dnJPT1UvTCs0b2h3YlpNcSs1SHJ0?=
- =?utf-8?B?TzV6TVE5ZkZyOEtydUEvVlFiVElBNklvVlhuWU9xTjZyS3RrUGpmWWV5bEUz?=
- =?utf-8?B?U0p0OEwwbFY0L3BNUGFJbDlIVVdoc2FHaERIbFFXY2JFQlk5SGZIRytnR0hw?=
- =?utf-8?B?cU9wNVJSU2JKSVN4RWlOeEdwVXExdW5La2t0a1V4OW40RHJOd2kvSlVXR1NQ?=
- =?utf-8?B?THRCa3JSZ00rdHB6cGNSOStzODQybmRGTmdTYnNmL255UkZMbWRyL2ZZaCth?=
- =?utf-8?B?K0ZFS2VWVVkrTmhVMzcraTJOQ0xNWm9uWHZMNmRIeFZSVzRDeFloZkRyQWNL?=
- =?utf-8?B?ZkxSQkVGenJmZkdJMzVRQmdpb2tnK1ZSbmV1WVlDM2lQMktYTUpsNTYzMjdh?=
- =?utf-8?B?UG9EdTEzWm41NTI5ZC9tZjlIWTRrTTNUUllhOE9oUThEQ2NUL1BqdTJMWjd6?=
- =?utf-8?B?R2o1dXNnZWlrQ0RDbTBmRllUd2tTb2RaM1l3aGZIRzVDRVloOVpMOWFVTGM5?=
- =?utf-8?B?czg4WEo3WVZnR3FXUGdjUUVNN1gzWHpGY1djZm1kcnhRMFRYcHpUTWFUNzZo?=
- =?utf-8?B?Wk96VkgxY3ViaUpuVEJudTlXZ0hVOVFWcXVDUHBPYWg0SFhjN0NwT1RlL2wy?=
- =?utf-8?B?bEhyd2xNVHZTVTdNMDhPelA4dnNtUUlEYmpGZjVsN2NpNjAwemg3R3hTNm91?=
- =?utf-8?B?dlJGQ2dIaGE3Y21RL3BMV1pHaHpUUVRkVHR2ckVVS0VjSlVTemJ5TXRSUlRw?=
- =?utf-8?B?b0Qya0NNdHlsNFp0RmtHSGpSb2JVbEo1SFRGQUxIS2QzL3F0U1hxdzdwSjVk?=
- =?utf-8?B?czlSbmhNTjR5Q2t4SFB4dEhaZktPcFQwaHFXSGVSb2hqL1NWRWQ4b1owSDZY?=
- =?utf-8?B?UG91Rk9nQzZ4ZGlNTVJIQUxYSUJ5QUIrVzVxM3I0bDhjM1Z3bmpFMkVRZ0J3?=
- =?utf-8?B?S0RHb0VZMjVmbm52dElzU1hPazE2cjVubTFhWjd6RGpzOVNmWVdzVG4rNk0r?=
- =?utf-8?B?UVphVU9hMDRuVStYak9qMkhCRk1lVzdLZDZtVHg0RXBtSkR4WldHL296WGJB?=
- =?utf-8?B?YzFGZGt4MytMSlJQTzl5SGxnREhQRU9tdVp0VUE5TE1wV1JTVitpNlhLc1p6?=
- =?utf-8?B?cklFMmkxSXRwVnhmRXVjNkdJdFdJS052MlViZUQ1NHhrTCtGRGllcllZSEVj?=
- =?utf-8?B?ZFJtV3A3MElycmxYL0xrdXViNkkwQkw1ZFAxNFNMbkpIK0RsNWRsOCtvSUNs?=
- =?utf-8?B?UkdGbGpMcUlmR2hVOXFpVzRDcmRWWHc2K2l1ZnF3Z0tiMGExMkxxUzg3SCtq?=
- =?utf-8?B?cS9HMHdVUFltL1c0Q1VxWkh2Y1FoZDhBTmthNkdPNm4rbGVWV2kySUo2b0tX?=
- =?utf-8?B?V25sNU1xT0JGV0s4LzlWRlN5N0tSU2RCa2lvWWtWeVVtM0RZSkljVTVWUnpm?=
- =?utf-8?B?UTFHK2RPVDNBWG9wNzFYRWRwZGRjZUEzUGNhOE42MTU5dklVdlJsSnRrd1FX?=
- =?utf-8?Q?8CKhwjG7aslnbMyOHX?=
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?hGYiKWWAq2Hn8WDXxIzJWVSUOmfJuf8dELdYSAsF46csi0MkcoNgpwo07k?=
+ =?iso-8859-1?Q?e491kwVUdyzuBoJ0W/tlfZsYPcO6wWlEWxVEpV/X9BTgtmU+2DTR+GhQwI?=
+ =?iso-8859-1?Q?iWm/dOzx6eXSAw3ZeA2CsjG2VeMkA142AHsgbp8ljdFMWa9LounBYRVGob?=
+ =?iso-8859-1?Q?dwoJggbZgkj/yOfMGsIhQMfoNwyIAfD2PYe2jS4EJ6T8UQyfnaskR8VqjH?=
+ =?iso-8859-1?Q?on1d3+2bXf0QpPINDKMBR0aCneSmv+AMAJkNzYhMMdojRY0caaYo4N9wPs?=
+ =?iso-8859-1?Q?+aHWVlddK9ba+MzqlLrKtUcBWbNPRACGX4LkuvRZhDlURauB3I8X4624a8?=
+ =?iso-8859-1?Q?uX9iY0qyaJUUzsI8b2HjSe3FmSWDP6mVMQ0DUElKkPlh+hosfhU27DcYxY?=
+ =?iso-8859-1?Q?BRVszZVyB80O1uVrKiiVxUEbPsLcGOLhvW4Zj3oFyuKOuaFKAHBYmcnCLR?=
+ =?iso-8859-1?Q?7wpAvhNsRDy6I0w8Ecuu/Lx9/rXRc+zHz88tWk9QGVVdtdggcVN6C2TKlA?=
+ =?iso-8859-1?Q?RTjwjLxW3DFuu/fxT2ZZT/PqXN8p/87O4/XFg+U1KJsWl0xgHUTRbSZ/9y?=
+ =?iso-8859-1?Q?LCfaijizLqmEy40lu8XmFIpwPySzff3Cpns8jhvxCz5gmtd/ost5/RkTN5?=
+ =?iso-8859-1?Q?PFCQl1Xmk7NHgYe8rmsex0155Nl547e4GG23ofiG88KCrjb8IOjD8upN6z?=
+ =?iso-8859-1?Q?mjEiuOFB42xNVwGhkWe6lUii0sJJ/qFG4nYcomb6bqHQbKp4mwr8fneEBW?=
+ =?iso-8859-1?Q?MaTiYr3l0vKVsZIPm/hFl/rsSkyAj/dVDcyThzsxc6OuigXx9GyJLV8pKn?=
+ =?iso-8859-1?Q?BHUvZYpDLayp1FTmJZ4aA6gevLzTm8KSHno3RzONX+PtCXjURYmHrvb60U?=
+ =?iso-8859-1?Q?9XsXn0lz8QtxmXZ/MXmtdZ5vhrQUfgknhwud694uPUQTDQm7nDEcHLFjsP?=
+ =?iso-8859-1?Q?SZLiYbdpxE1pyOtWPaEIZvcbZQyB/quGFK+x2EIqFI/wmezOW27UBvBh5Y?=
+ =?iso-8859-1?Q?BXiQEhu3a01cVVdzi+twbwOKpamxvc9O+QfEVpEj+12Hp6DRu1e11BousZ?=
+ =?iso-8859-1?Q?O/LmtMz+INHAw+7cnXf8SKbNaJfPQg7Qo5sBaUKcsr0++jDgwo+ygOqprn?=
+ =?iso-8859-1?Q?a2k0fhn2DZjDBLmOr0AyPPJ0Bq+8bZB5U47IBfseLQrIuBem2G2RckTdxO?=
+ =?iso-8859-1?Q?NnvaV3hBjL3SP4DIXaiJTZ7jWf5QKL80/IdfC4SRjko+J/AMx3zj48VkZM?=
+ =?iso-8859-1?Q?+QTYwCVyLQrOlsZzfM/dcHVTYAyfxwuTnQnAlthE+0c4ESKjBoWu/RQfiw?=
+ =?iso-8859-1?Q?kxgin+O4g1u9X6GSGf4HJj+gNtxGMg6wEtSu1Y3IrZ6kB+NVOdWQ2M4BKC?=
+ =?iso-8859-1?Q?Fe7woy2Irnq9B1JNvbSZBj35jcjXcrEupcj4JEDvxRIG+mvzsy+ZH4LnvZ?=
+ =?iso-8859-1?Q?N7mflEZb+vpbCocpiaqxhWkkHl4dOHzDc1mR/ZmgWXtWFkFr1HcjLI7NAy?=
+ =?iso-8859-1?Q?HYOhWcsja7NU68cbGa/omk6zuPvjGsANSssE4rW8v7/W5a/zrg4On6Y6Pw?=
+ =?iso-8859-1?Q?avWVHWl0QS+Xs95ahzesyVzHk76TYVpNvsMnrdwSyqnTI7or4aXh4lSFkc?=
+ =?iso-8859-1?Q?5hGOfc24oNIldY+fPwxZVQMHox0zZym36PEiTi1NDQ4mhJMKWjITByHDqp?=
+ =?iso-8859-1?Q?X9LADhsTZpAwu3wcAgyySODIPejj/WP4UAkm3BrGYBkX7lPFIOJZfBveaO?=
+ =?iso-8859-1?Q?XaIC7L0+6bqNcxCIQDRIbSOfDVvYY2KOkLOlN+fg+s1RjT?=
+Content-Type: multipart/alternative;
+ boundary="_000_DM4PR12MB8476DC78F8A78F099FCF348BF7002DM4PR12MB8476namp_"
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5205d6e8-e16a-413f-7bc5-08deb5afceaa
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 May 2026 14:06:22.6779 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 8dJizWzr2ab2src61B1qqGwekqRJLkjPsoq3cUJ1oKATA41Blc/izfZ00Fz0Rs3J
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB7590
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB8476.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e196a6be-b38f-4948-d388-08deb5aff1cd
+X-MS-Exchange-CrossTenant-originalarrivaltime: 19 May 2026 14:07:21.3776 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: k3H9YkylwKJxdDahZTZL1KhCohSSYjnV6oejhemzYZRrTjZbf33ZV9CT4H50/DB37GMFLq5HVuNJs+RXW6XJDw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB7459
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,146 +139,218 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 5/19/26 13:18, Sunil Khatri wrote:
-> Add per queue array to store userq vas and keep
-> size to accommodate vas of all types of queues
-> i.e gfx, compute and sdma.
+--_000_DM4PR12MB8476DC78F8A78F099FCF348BF7002DM4PR12MB8476namp_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 
-Yeah that's a start, but I think we should go a bit further.
+AMD General
 
-> 
-> Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 36 ++++++++---------------
->  drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h |  4 ++-
->  2 files changed, 16 insertions(+), 24 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-> index 7354c51ae83d..9ac7f18c903f 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-> @@ -218,18 +218,11 @@ void amdgpu_userq_process_fence_irq(struct amdgpu_device *adev, u32 doorbell)
->  static int amdgpu_userq_buffer_va_list_add(struct amdgpu_usermode_queue *queue,
->  					   struct amdgpu_bo_va_mapping *va_map, u64 addr)
->  {
+Hi,
 
-Completely nuke that function and it's caller.
+Thanks. I sent a patch to fix it: https://patchwork.freedesktop.org/patch/7=
+25171/?series=3D166586&rev=3D1, and no errors when I built locally.
+________________________________
+From: Koenig, Christian <Christian.Koenig@amd.com>
+Sent: 18 May 2026 02:39
+To: Hung, Alex <Alex.Hung@amd.com>; Deucher, Alexander <Alexander.Deucher@a=
+md.com>; airlied@gmail.com <airlied@gmail.com>; simona@ffwll.ch <simona@ffw=
+ll.ch>; timur.kristof@gmail.com <timur.kristof@gmail.com>; Nirujogi, Pratap=
+ <Pratap.Nirujogi@amd.com>; Prosyak, Vitaly <Vitaly.Prosyak@amd.com>; Wentl=
+and, Harry <Harry.Wentland@amd.com>; amd-gfx@lists.freedesktop.org <amd-gfx=
+@lists.freedesktop.org>; dri-devel@lists.freedesktop.org <dri-devel@lists.f=
+reedesktop.org>
+Subject: Re: [PATCH] drm/amdgpu: Remove UML build exclusion from Kconfig
 
-> -	struct amdgpu_userq_va_cursor *va_cursor;
-> -	struct userq_va_list;
-> -
-> -	va_cursor = kzalloc(sizeof(*va_cursor), GFP_KERNEL);
-> -	if (!va_cursor)
-> +	if (queue->userq_va_count >= ARRAY_SIZE(queue->userq_va))
->  		return -ENOMEM;
->  
-> -	INIT_LIST_HEAD(&va_cursor->list);
-> -	va_cursor->gpu_addr = addr;
-> +	queue->userq_va[queue->userq_va_count++] = addr;
->  	va_map->bo_va->userq_va_mapped = true;
-> -	list_add(&va_cursor->list, &queue->userq_va_list);
-> -
->  	return 0;
->  }
->  
-> @@ -284,14 +277,13 @@ static bool amdgpu_userq_buffer_va_mapped(struct amdgpu_vm *vm, u64 addr)
->  
->  static bool amdgpu_userq_buffer_vas_mapped(struct amdgpu_usermode_queue *queue)
->  {
-> -	struct amdgpu_userq_va_cursor *va_cursor, *tmp;
-> -	int r = 0;
-> +	int i, r = 0;
->  
-> -	list_for_each_entry_safe(va_cursor, tmp, &queue->userq_va_list, list) {
-> -		r += amdgpu_userq_buffer_va_mapped(queue->vm, va_cursor->gpu_addr);
-> +	for (i = 0; i < queue->userq_va_count; i++) {
-> +		r += amdgpu_userq_buffer_va_mapped(queue->vm, queue->userq_va[i]);
->  		dev_dbg(queue->userq_mgr->adev->dev,
->  			"validate the userq mapping:%p va:%llx r:%d\n",
-> -			queue, va_cursor->gpu_addr, r);
-> +			queue, queue->userq_va[i], r);
->  	}
->  
->  	if (r != 0)
-> @@ -303,19 +295,19 @@ static bool amdgpu_userq_buffer_vas_mapped(struct amdgpu_usermode_queue *queue)
->  static void amdgpu_userq_buffer_vas_list_cleanup(struct amdgpu_device *adev,
->  						 struct amdgpu_usermode_queue *queue)
 
-Drop that whole function.
 
->  {
-> -	struct amdgpu_userq_va_cursor *va_cursor, *tmp;
->  	struct amdgpu_bo_va_mapping *mapping;
-> +	int i;
->  
->  	/* Caller must hold vm->root.bo reservation */
->  	dma_resv_assert_held(queue->vm->root.bo->tbo.base.resv);
->  
-> -	list_for_each_entry_safe(va_cursor, tmp, &queue->userq_va_list, list) {
-> -		mapping = amdgpu_vm_bo_lookup_mapping(queue->vm, va_cursor->gpu_addr);
-> -		if (mapping)
-> +	for (i = 0; i < queue->userq_va_count; i++) {
-> +		mapping = amdgpu_vm_bo_lookup_mapping(queue->vm, queue->userq_va[i]);
-> +		if (mapping) {
-> +			mapping->bo_va->userq_va_mapped = false;
->  			dev_dbg(adev->dev, "delete the userq:%p va:%llx\n",
-> -				queue, va_cursor->gpu_addr);
-> -		list_del(&va_cursor->list);
-> -		kfree(va_cursor);
-> +				queue, queue->userq_va[i]);
-> +			}
->  	}
->  }
->  
-> @@ -633,7 +625,6 @@ amdgpu_userq_destroy(struct amdgpu_userq_mgr *uq_mgr, struct amdgpu_usermode_que
->  	amdgpu_bo_reserve(vm->root.bo, true);
->  	amdgpu_userq_buffer_vas_list_cleanup(adev, queue);
->  	amdgpu_bo_unreserve(vm->root.bo);
-> -	list_del(&queue->userq_va_list);
->  	queue->userq_mgr = NULL;
->  
->  	amdgpu_bo_reserve(queue->db_obj.obj, true);
-> @@ -738,7 +729,6 @@ amdgpu_userq_create(struct drm_file *filp, union drm_amdgpu_userq *args)
->  	}
->  
->  	kref_init(&queue->refcount);
-> -	INIT_LIST_HEAD(&queue->userq_va_list);
->  	queue->doorbell_handle = args->in.doorbell_handle;
->  	queue->queue_type = args->in.ip_type;
->  	queue->vm = &fpriv->vm;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
-> index 033b8a0de6b1..fdf4d878c894 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
-> @@ -93,7 +93,9 @@ struct amdgpu_usermode_queue {
->  	struct delayed_work	hang_detect_work;
->  	struct kref		refcount;
->  
-> -	struct list_head	userq_va_list;
-> +	/* User to store core bo's va addresses */
-> +	u64			userq_va[5];
-> +	int			userq_va_count;
+On 5/5/26 18:20, Alex Hung wrote:
+> From: Harry Wentland <harry.wentland@amd.com>
+>
+> The depends on !UML was added in commit dffe68131707 ("amdgpu: Avoid
+> building on UML") to work around build failures with allyesconfig on
+> UML. The original errors were:
+>
+>  - smu7_hwmgr.c: incompatible pointer type 'struct cpuinfo_um *' vs
+>    'struct cpuinfo_x86 *' in intel_core_rkl_chk()
+>  - kfd_topology.c: 'struct cpuinfo_um' has no member named 'apicid'
+>
+> Both issues have since been resolved independently:
+>  - intel_core_rkl_chk() has been removed entirely.
+>  - kfd_topology.c now uses a proper #ifdef CONFIG_X86_64 guard.
+>  - All other cpuinfo_x86/cpu_data() references in the driver are
+>    guarded by #if IS_ENABLED(CONFIG_X86) or #ifdef CONFIG_X86_64.
+>
+> Removing this exclusion allows CONFIG_DRM_AMDGPU to be selected on UML,
+> which in turn enables running KUnit tests (such as amdgpu_dm_crc_test)
+> under UML without needing a full hardware-capable kernel build.
 
-Make that look like this:
+Looks like a good idea but there are 5 automated reports from kernel test r=
+obots that the patch causes issues.
 
-union {
-	struct {
-		u64 queue_rb;
-		u64 wptr;
-		u64 rptr;
-		....
-	} va_names;
-	u64 va_array[];
-};
+It could be that the robots apply the patch to the wrong tree, but please d=
+ouble check.
 
-Unused entries should simply be zero.
-
-After amdgpu_userq_create() fills in the different VAs we just call amdgpu_userq_buffer_vas_mapped() to double check that they are valid before mapping the queue.
+With that done the patch is Reviewed-by: Christian K=F6nig <christian.koeni=
+g@amd.com>
 
 Regards,
 Christian.
 
->  };
->  
->  struct amdgpu_userq_funcs {
+>
+> Reviewed-by: Alex Hung <alex.hung@amd.com>
+> Assisted-by: Claude:claude-opus-4.6
+> Signed-off-by: Harry Wentland <harry.wentland@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/Kconfig | 1 -
+>  1 file changed, 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/Kconfig b/drivers/gpu/drm/amd/amd=
+gpu/Kconfig
+> index 0d4ce2ef9da6..49a7360f45ce 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/Kconfig
+> +++ b/drivers/gpu/drm/amd/amdgpu/Kconfig
+> @@ -3,7 +3,6 @@
+>  config DRM_AMDGPU
+>        tristate "AMD GPU"
+>        depends on DRM && PCI
+> -     depends on !UML
+>        select FW_LOADER
+>        select DRM_CLIENT
+>        select DRM_CLIENT_SELECTION
+> --
+> 2.43.0
+>
 
+
+--_000_DM4PR12MB8476DC78F8A78F099FCF348BF7002DM4PR12MB8476namp_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<div>
+<div style=3D"font-family: Calibri; text-align: left; color: rgb(0, 0, 255)=
+; margin-left: 5pt; font-size: 10pt;">
+AMD General</div>
+<br>
+</div>
+<div class=3D"elementToProof" style=3D"font-family: &quot;Segoe UI&quot;, &=
+quot;Segoe UI Web (West European)&quot;, &quot;Helvetica Neue&quot;, sans-s=
+erif; font-size: 12pt; color: rgb(0, 0, 0);">
+Hi,</div>
+<div class=3D"elementToProof" style=3D"font-family: &quot;Segoe UI&quot;, &=
+quot;Segoe UI Web (West European)&quot;, &quot;Helvetica Neue&quot;, sans-s=
+erif; font-size: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div class=3D"elementToProof" style=3D"font-family: &quot;Segoe UI&quot;, &=
+quot;Segoe UI Web (West European)&quot;, &quot;Helvetica Neue&quot;, sans-s=
+erif; font-size: 12pt; color: rgb(0, 0, 0);">
+Thanks. I sent a patch to fix it: <a href=3D"https://patchwork.freedesktop.=
+org/patch/725171/?series=3D166586&amp;rev=3D1">
+https://patchwork.freedesktop.org/patch/725171/?series=3D166586&amp;rev=3D1=
+</a>, and no errors when I built locally.&nbsp;</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Koenig, Christian &lt=
+;Christian.Koenig@amd.com&gt;<br>
+<b>Sent:</b> 18 May 2026 02:39<br>
+<b>To:</b> Hung, Alex &lt;Alex.Hung@amd.com&gt;; Deucher, Alexander &lt;Ale=
+xander.Deucher@amd.com&gt;; airlied@gmail.com &lt;airlied@gmail.com&gt;; si=
+mona@ffwll.ch &lt;simona@ffwll.ch&gt;; timur.kristof@gmail.com &lt;timur.kr=
+istof@gmail.com&gt;; Nirujogi, Pratap &lt;Pratap.Nirujogi@amd.com&gt;;
+ Prosyak, Vitaly &lt;Vitaly.Prosyak@amd.com&gt;; Wentland, Harry &lt;Harry.=
+Wentland@amd.com&gt;; amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freed=
+esktop.org&gt;; dri-devel@lists.freedesktop.org &lt;dri-devel@lists.freedes=
+ktop.org&gt;<br>
+<b>Subject:</b> Re: [PATCH] drm/amdgpu: Remove UML build exclusion from Kco=
+nfig</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText"><br>
+<br>
+On 5/5/26 18:20, Alex Hung wrote:<br>
+&gt; From: Harry Wentland &lt;harry.wentland@amd.com&gt;<br>
+&gt; <br>
+&gt; The depends on !UML was added in commit dffe68131707 (&quot;amdgpu: Av=
+oid<br>
+&gt; building on UML&quot;) to work around build failures with allyesconfig=
+ on<br>
+&gt; UML. The original errors were:<br>
+&gt; <br>
+&gt;&nbsp; - smu7_hwmgr.c: incompatible pointer type 'struct cpuinfo_um *' =
+vs<br>
+&gt;&nbsp;&nbsp;&nbsp; 'struct cpuinfo_x86 *' in intel_core_rkl_chk()<br>
+&gt;&nbsp; - kfd_topology.c: 'struct cpuinfo_um' has no member named 'apici=
+d'<br>
+&gt; <br>
+&gt; Both issues have since been resolved independently:<br>
+&gt;&nbsp; - intel_core_rkl_chk() has been removed entirely.<br>
+&gt;&nbsp; - kfd_topology.c now uses a proper #ifdef CONFIG_X86_64 guard.<b=
+r>
+&gt;&nbsp; - All other cpuinfo_x86/cpu_data() references in the driver are<=
+br>
+&gt;&nbsp;&nbsp;&nbsp; guarded by #if IS_ENABLED(CONFIG_X86) or #ifdef CONF=
+IG_X86_64.<br>
+&gt; <br>
+&gt; Removing this exclusion allows CONFIG_DRM_AMDGPU to be selected on UML=
+,<br>
+&gt; which in turn enables running KUnit tests (such as amdgpu_dm_crc_test)=
+<br>
+&gt; under UML without needing a full hardware-capable kernel build.<br>
+<br>
+Looks like a good idea but there are 5 automated reports from kernel test r=
+obots that the patch causes issues.<br>
+<br>
+It could be that the robots apply the patch to the wrong tree, but please d=
+ouble check.<br>
+<br>
+With that done the patch is Reviewed-by: Christian K=F6nig &lt;christian.ko=
+enig@amd.com&gt;<br>
+<br>
+Regards,<br>
+Christian.<br>
+<br>
+&gt; <br>
+&gt; Reviewed-by: Alex Hung &lt;alex.hung@amd.com&gt;<br>
+&gt; Assisted-by: Claude:claude-opus-4.6<br>
+&gt; Signed-off-by: Harry Wentland &lt;harry.wentland@amd.com&gt;<br>
+&gt; ---<br>
+&gt;&nbsp; drivers/gpu/drm/amd/amdgpu/Kconfig | 1 -<br>
+&gt;&nbsp; 1 file changed, 1 deletion(-)<br>
+&gt; <br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/Kconfig b/drivers/gpu/drm/amd/=
+amdgpu/Kconfig<br>
+&gt; index 0d4ce2ef9da6..49a7360f45ce 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdgpu/Kconfig<br>
+&gt; +++ b/drivers/gpu/drm/amd/amdgpu/Kconfig<br>
+&gt; @@ -3,7 +3,6 @@<br>
+&gt;&nbsp; config DRM_AMDGPU<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tristate &quot;AMD GPU&quot;=
+<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; depends on DRM &amp;&amp; PC=
+I<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; depends on !UML<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; select FW_LOADER<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; select DRM_CLIENT<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; select DRM_CLIENT_SELECTION<=
+br>
+&gt; --<br>
+&gt; 2.43.0<br>
+&gt; <br>
+<br>
+</div>
+</span></font></div>
+</body>
+</html>
+
+--_000_DM4PR12MB8476DC78F8A78F099FCF348BF7002DM4PR12MB8476namp_--
