@@ -4,28 +4,28 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 165C2CD5BA4
-	for <amd-gfx@archiver.kernel.org>; Tue, 19 May 2026 11:18:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 997F5CD4851
+	for <amd-gfx@archiver.kernel.org>; Tue, 19 May 2026 11:18:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 58B2610E3B3;
-	Tue, 19 May 2026 11:18:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3983110E3D5;
+	Tue, 19 May 2026 11:18:12 +0000 (UTC)
 Received: from rtg-sunil-navi33.amd.com (unknown [165.204.156.251])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 74E0710E521
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A995810EC59
  for <amd-gfx@lists.freedesktop.org>; Tue, 19 May 2026 11:18:08 +0000 (UTC)
 Received: from rtg-sunil-navi33.amd.com (localhost [127.0.0.1])
  by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Debian-22ubuntu3) with ESMTP id
- 64JBI3jP1436004; Tue, 19 May 2026 16:48:03 +0530
+ 64JBI4KQ1436024; Tue, 19 May 2026 16:48:04 +0530
 Received: (from sunil@localhost)
- by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 64JBI3rd1436003;
- Tue, 19 May 2026 16:48:03 +0530
+ by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 64JBI4wA1436023;
+ Tue, 19 May 2026 16:48:04 +0530
 From: Sunil Khatri <sunil.khatri@amd.com>
 To: Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Cc: amd-gfx@lists.freedesktop.org, Sunil Khatri <sunil.khatri@amd.com>
-Subject: [PATCH v6 3/8] drm/amdgpu: simplify return value in
- amdgpu_userq_get_doorbell_index
-Date: Tue, 19 May 2026 16:47:56 +0530
-Message-Id: <20260519111801.1435954-3-sunil.khatri@amd.com>
+Subject: [PATCH v6 7/8] drm/amdgpu/userq: make sure queue is valid in the
+ hang_detect_work
+Date: Tue, 19 May 2026 16:48:00 +0530
+Message-Id: <20260519111801.1435954-7-sunil.khatri@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260519111801.1435954-1-sunil.khatri@amd.com>
 References: <20260519111801.1435954-1-sunil.khatri@amd.com>
@@ -45,85 +45,65 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-amdgpu_userq_get_doorbell_index returns a uint64 type index
-as well as a int type failure values. Simplifying this and
-using a int type return value and getting the index in input pointer
-of type uint64 type.
+Thread 1: Running amdgpu_userq_destroy which eventually remove
+the queue from door bell and set userq_mgr = NULL.
 
-Also since it's used at once place making it static would be better.
+Thread2: An interrupt might have scheduled the hang_detect_work
+which still need userq_mgr to be valid but could get an NULL
+ptrs.
+
+To fix that make sure we cancel the hang_detect_work again before
+setting userq_mgr to NULL.
+
+Along with that we also need all the queue va to remain valid till
+we could be running anything on the queue and hence moving the
+userq_va post hang_detect handler is cancelled.
 
 Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 19 ++++++++++---------
- drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h |  4 ----
- 2 files changed, 10 insertions(+), 13 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 15 ++++++++-------
+ 1 file changed, 8 insertions(+), 7 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-index 3bfb9ae2cb3a..0737636fac43 100644
+index c8f7bb23e2c3..7354c51ae83d 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-@@ -536,12 +536,13 @@ void amdgpu_userq_destroy_object(struct amdgpu_userq_mgr *uq_mgr,
- 	amdgpu_bo_unref(&userq_obj->obj);
+@@ -427,8 +427,6 @@ static void amdgpu_userq_cleanup(struct amdgpu_usermode_queue *queue)
+ 	xa_erase_irq(&adev->userq_doorbell_xa, queue->doorbell_index);
+ 	amdgpu_userq_fence_driver_free(queue);
+ 	queue->fence_drv = NULL;
+-	queue->userq_mgr = NULL;
+-	list_del(&queue->userq_va_list);
+ 
+ 	up_read(&adev->reset_domain->sem);
  }
+@@ -619,11 +617,6 @@ amdgpu_userq_destroy(struct amdgpu_userq_mgr *uq_mgr, struct amdgpu_usermode_que
  
--uint64_t
-+static int
- amdgpu_userq_get_doorbell_index(struct amdgpu_userq_mgr *uq_mgr,
- 				struct amdgpu_db_info *db_info,
--				struct drm_file *filp)
-+				struct drm_file *filp,
-+				uint64_t *index)
- {
--	uint64_t index;
-+	uint64_t doorbell_index;
- 	struct drm_gem_object *gobj;
- 	struct amdgpu_userq_obj *db_obj = db_info->db_obj;
- 	int r, db_size;
-@@ -588,12 +589,13 @@ amdgpu_userq_get_doorbell_index(struct amdgpu_userq_mgr *uq_mgr,
- 		goto unpin_bo;
- 	}
- 
--	index = amdgpu_doorbell_index_on_bar(uq_mgr->adev, db_obj->obj,
-+	doorbell_index = amdgpu_doorbell_index_on_bar(uq_mgr->adev, db_obj->obj,
- 					     db_info->doorbell_offset, db_size);
- 	drm_dbg_driver(adev_to_drm(uq_mgr->adev),
--		       "[Usermode queues] doorbell index=%lld\n", index);
-+		       "[Usermode queues] doorbell index=%lld\n", doorbell_index);
- 	amdgpu_bo_unreserve(db_obj->obj);
--	return index;
-+	*index = doorbell_index;
-+	return 0;
- 
- unpin_bo:
- 	amdgpu_bo_unpin(db_obj->obj);
-@@ -776,10 +778,9 @@ amdgpu_userq_create(struct drm_file *filp, union drm_amdgpu_userq *args)
- 	db_info.doorbell_handle = queue->doorbell_handle;
- 	db_info.db_obj = &queue->db_obj;
- 	db_info.doorbell_offset = args->in.doorbell_offset;
--	index = amdgpu_userq_get_doorbell_index(uq_mgr, &db_info, filp);
--	if (index == (uint64_t)-EINVAL) {
-+	r = amdgpu_userq_get_doorbell_index(uq_mgr, &db_info, filp, &index);
-+	if (r) {
- 		drm_file_err(uq_mgr->file, "Failed to get doorbell for queue\n");
--		r = -EINVAL;
- 		goto clean_mapping;
- 	}
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
-index 49b33e2d6932..033b8a0de6b1 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
-@@ -163,10 +163,6 @@ void amdgpu_userq_evict(struct amdgpu_userq_mgr *uq_mgr);
- void amdgpu_userq_ensure_ev_fence(struct amdgpu_userq_mgr *userq_mgr,
- 				  struct amdgpu_eviction_fence_mgr *evf_mgr);
- 
--uint64_t amdgpu_userq_get_doorbell_index(struct amdgpu_userq_mgr *uq_mgr,
--					 struct amdgpu_db_info *db_info,
--					     struct drm_file *filp);
+ 	/* Cancel any pending hang detection work and cleanup */
+ 	cancel_delayed_work_sync(&queue->hang_detect_work);
 -
- u32 amdgpu_userq_get_supported_ip_mask(struct amdgpu_device *adev);
- bool amdgpu_userq_enabled(struct drm_device *dev);
+-	amdgpu_bo_reserve(vm->root.bo, true);
+-	amdgpu_userq_buffer_vas_list_cleanup(adev, queue);
+-	amdgpu_bo_unreserve(vm->root.bo);
+-
+ 	mutex_lock(&uq_mgr->userq_mutex);
+ 	amdgpu_userq_wait_for_last_fence(queue);
  
+@@ -635,6 +628,14 @@ amdgpu_userq_destroy(struct amdgpu_userq_mgr *uq_mgr, struct amdgpu_usermode_que
+ 	amdgpu_userq_cleanup(queue);
+ 	mutex_unlock(&uq_mgr->userq_mutex);
+ 
++	/* This is case an interrupt was fired and a hang detection work is pending */
++	cancel_delayed_work_sync(&queue->hang_detect_work);
++	amdgpu_bo_reserve(vm->root.bo, true);
++	amdgpu_userq_buffer_vas_list_cleanup(adev, queue);
++	amdgpu_bo_unreserve(vm->root.bo);
++	list_del(&queue->userq_va_list);
++	queue->userq_mgr = NULL;
++
+ 	amdgpu_bo_reserve(queue->db_obj.obj, true);
+ 	amdgpu_bo_unpin(queue->db_obj.obj);
+ 	amdgpu_bo_unreserve(queue->db_obj.obj);
 -- 
 2.34.1
 
