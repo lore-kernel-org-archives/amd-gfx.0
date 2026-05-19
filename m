@@ -4,28 +4,28 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3DB69CD5BA0
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8E81CCD4F54
 	for <amd-gfx@archiver.kernel.org>; Tue, 19 May 2026 06:21:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3275D10EA85;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3290C10EA86;
 	Tue, 19 May 2026 06:21:19 +0000 (UTC)
 Received: from rtg-sunil-navi33.amd.com (unknown [165.204.156.251])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8E7AE10EA83
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5364310EA65
  for <amd-gfx@lists.freedesktop.org>; Tue, 19 May 2026 06:21:16 +0000 (UTC)
 Received: from rtg-sunil-navi33.amd.com (localhost [127.0.0.1])
  by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Debian-22ubuntu3) with ESMTP id
- 64J6LBmi441609; Tue, 19 May 2026 11:51:11 +0530
+ 64J6LBL9441096; Tue, 19 May 2026 11:51:11 +0530
 Received: (from sunil@localhost)
- by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 64J6LBY3441492;
+ by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 64J6LBqV440988;
  Tue, 19 May 2026 11:51:11 +0530
 From: Sunil Khatri <sunil.khatri@amd.com>
 To: Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Cc: amd-gfx@lists.freedesktop.org, Sunil Khatri <sunil.khatri@amd.com>
-Subject: [PATCH v4 9/9] drm/amdgpu/userq: user array isntead of list for userq
- vas
-Date: Tue, 19 May 2026 11:51:07 +0530
-Message-Id: <20260519062107.438653-10-sunil.khatri@amd.com>
+Subject: [PATCH v4 8/9] drm/amdgpu/userq: make sure queue is valid in the
+ hang_detect_work
+Date: Tue, 19 May 2026 11:51:06 +0530
+Message-Id: <20260519062107.438653-9-sunil.khatri@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260519062107.438653-1-sunil.khatri@amd.com>
 References: <20260519062107.438653-1-sunil.khatri@amd.com>
@@ -45,117 +45,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add per queue array of maximum size which can hold bo
-vas of all types of queues i.e gfx, compute and sdma.
+Thread 1: Running amdgpu_userq_destroy which eventually remove
+the queue from door bell and set userq_mgr = NULL.
+
+Thread2: An interrupt might have scheduled the hang_detect_work
+which still need userq_mgr to be valid but could get an NULL
+ptrs.
+
+To fix that make sure we cancel the hang_detect_work again before
+setting userq_mgr to NULL.
 
 Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 36 ++++++++---------------
- drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h |  4 ++-
- 2 files changed, 16 insertions(+), 24 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-index 5c2e0c400d5f..f6cb91256330 100644
+index 8b0b53f80499..5c2e0c400d5f 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-@@ -218,18 +218,11 @@ void amdgpu_userq_process_fence_irq(struct amdgpu_device *adev, u32 doorbell)
- static int amdgpu_userq_buffer_va_list_add(struct amdgpu_usermode_queue *queue,
- 					   struct amdgpu_bo_va_mapping *va_map, u64 addr)
- {
--	struct amdgpu_userq_va_cursor *va_cursor;
--	struct userq_va_list;
--
--	va_cursor = kzalloc(sizeof(*va_cursor), GFP_KERNEL);
--	if (!va_cursor)
-+	if (queue->userq_va_count >= ARRAY_SIZE(queue->userq_va))
- 		return -ENOMEM;
- 
--	INIT_LIST_HEAD(&va_cursor->list);
--	va_cursor->gpu_addr = addr;
-+	queue->userq_va[queue->userq_va_count++] = addr;
- 	va_map->bo_va->userq_va_mapped = true;
--	list_add(&va_cursor->list, &queue->userq_va_list);
--
- 	return 0;
- }
- 
-@@ -284,14 +277,13 @@ static bool amdgpu_userq_buffer_va_mapped(struct amdgpu_vm *vm, u64 addr)
- 
- static bool amdgpu_userq_buffer_vas_mapped(struct amdgpu_usermode_queue *queue)
- {
--	struct amdgpu_userq_va_cursor *va_cursor, *tmp;
--	int r = 0;
-+	int i, r = 0;
- 
--	list_for_each_entry_safe(va_cursor, tmp, &queue->userq_va_list, list) {
--		r += amdgpu_userq_buffer_va_mapped(queue->vm, va_cursor->gpu_addr);
-+	for (i = 0; i < queue->userq_va_count; i++) {
-+		r += amdgpu_userq_buffer_va_mapped(queue->vm, queue->userq_va[i]);
- 		dev_dbg(queue->userq_mgr->adev->dev,
- 			"validate the userq mapping:%p va:%llx r:%d\n",
--			queue, va_cursor->gpu_addr, r);
-+			queue, queue->userq_va[i], r);
- 	}
- 
- 	if (r != 0)
-@@ -303,19 +295,19 @@ static bool amdgpu_userq_buffer_vas_mapped(struct amdgpu_usermode_queue *queue)
- static void amdgpu_userq_buffer_vas_list_cleanup(struct amdgpu_device *adev,
- 						 struct amdgpu_usermode_queue *queue)
- {
--	struct amdgpu_userq_va_cursor *va_cursor, *tmp;
- 	struct amdgpu_bo_va_mapping *mapping;
-+	int i;
- 
- 	/* Caller must hold vm->root.bo reservation */
- 	dma_resv_assert_held(queue->vm->root.bo->tbo.base.resv);
- 
--	list_for_each_entry_safe(va_cursor, tmp, &queue->userq_va_list, list) {
--		mapping = amdgpu_vm_bo_lookup_mapping(queue->vm, va_cursor->gpu_addr);
--		if (mapping)
-+	for (i = 0; i < queue->userq_va_count; i++) {
-+		mapping = amdgpu_vm_bo_lookup_mapping(queue->vm, queue->userq_va[i]);
-+		if (mapping) {
-+			mapping->bo_va->userq_va_mapped = false;
- 			dev_dbg(adev->dev, "delete the userq:%p va:%llx\n",
--				queue, va_cursor->gpu_addr);
--		list_del(&va_cursor->list);
--		kfree(va_cursor);
-+				queue, queue->userq_va[i]);
-+			}
- 	}
- }
- 
-@@ -427,7 +419,6 @@ static void amdgpu_userq_cleanup(struct amdgpu_usermode_queue *queue)
+@@ -427,7 +427,6 @@ static void amdgpu_userq_cleanup(struct amdgpu_usermode_queue *queue)
  	xa_erase_irq(&adev->userq_doorbell_xa, queue->doorbell_index);
  	amdgpu_userq_fence_driver_free(queue);
  	queue->fence_drv = NULL;
--	list_del(&queue->userq_va_list);
+-	queue->userq_mgr = NULL;
+ 	list_del(&queue->userq_va_list);
  
  	up_read(&adev->reset_domain->sem);
- }
-@@ -742,7 +733,6 @@ amdgpu_userq_create(struct drm_file *filp, union drm_amdgpu_userq *args)
- 		goto err_pm_runtime;
- 	}
+@@ -635,6 +634,10 @@ amdgpu_userq_destroy(struct amdgpu_userq_mgr *uq_mgr, struct amdgpu_usermode_que
+ 	amdgpu_userq_cleanup(queue);
+ 	mutex_unlock(&uq_mgr->userq_mutex);
  
--	INIT_LIST_HEAD(&queue->userq_va_list);
- 	queue->doorbell_handle = args->in.doorbell_handle;
- 	queue->queue_type = args->in.ip_type;
- 	queue->vm = &fpriv->vm;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
-index 9c4d4220c353..2d0f582f9005 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
-@@ -93,7 +93,9 @@ struct amdgpu_usermode_queue {
- 	struct delayed_work	hang_detect_work;
- 	struct kref		refcount;
- 
--	struct list_head	userq_va_list;
-+	/* User to store core bo's va addresses */
-+	u64			userq_va[5];
-+	int			userq_va_count;
- };
- 
- struct amdgpu_userq_funcs {
++	/* This is case an interrupt was fired and a hang detection work is pending */
++	cancel_delayed_work_sync(&queue->hang_detect_work);
++	queue->userq_mgr = NULL;
++
+ 	amdgpu_bo_reserve(queue->db_obj.obj, true);
+ 	amdgpu_bo_unpin(queue->db_obj.obj);
+ 	amdgpu_bo_unreserve(queue->db_obj.obj);
 -- 
 2.34.1
 
