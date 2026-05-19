@@ -4,63 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7F839CD5BA3
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 92658CD5BA4
 	for <amd-gfx@archiver.kernel.org>; Tue, 19 May 2026 10:21:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 09B0010EC02;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0D43D10EC03;
 	Tue, 19 May 2026 10:21:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="bD+6oRml";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ldK6yBab";
 	dkim-atps=neutral
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com
- [209.85.221.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7B3EB10EBE5
- for <amd-gfx@lists.freedesktop.org>; Tue, 19 May 2026 10:21:33 +0000 (UTC)
-Received: by mail-wr1-f54.google.com with SMTP id
- ffacd0b85a97d-43d734223e4so2116454f8f.0
- for <amd-gfx@lists.freedesktop.org>; Tue, 19 May 2026 03:21:33 -0700 (PDT)
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com
+ [209.85.221.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1B63710EBFB
+ for <amd-gfx@lists.freedesktop.org>; Tue, 19 May 2026 10:21:30 +0000 (UTC)
+Received: by mail-wr1-f51.google.com with SMTP id
+ ffacd0b85a97d-44a5174670eso1872053f8f.1
+ for <amd-gfx@lists.freedesktop.org>; Tue, 19 May 2026 03:21:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1779186092; x=1779790892; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1779186089; x=1779790889; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=CqGAPLlG8EwaSYETtmidkLTdJdAHU8Ah+vlKDfh/0iU=;
- b=bD+6oRmlk4gi29xnoHIV4qKYg0EE2tFbfo1136OfnobssJelDhJ+50ybpNpK+dquzV
- dnIM3swzC2/zz1UgVAUlZMaYhaQFqTxmvBv743K+vex/raR7TjS9C2dQVilqTKbjrkUR
- B4/5gWsHNpyZnA85bIg/NWT5rdminiLvYYGXgtujV3D9QlBRfMOTdeJnbpUFWW2gcnuU
- gOyxN1ZkURXDyNwKuHFiYoWatIevsm7P7lHIxar0xJAquUQbpN9siNiCOc9y5fK0ZRCj
- UYHH6je54OdFDM3uBaJEvINpFHa4OcGkn7JK9XmkyBXtINtcjSoOw2Y7ZwRwWxvoKvdC
- KEhA==
+ bh=XBtkZ2gf/Jj5M+m4sGia3yHihFthLzwruBg7fP1JRdQ=;
+ b=ldK6yBabjLWyyyPShC6qVxjkkr+pzdDUKZclXdzwR9m0pUg7WctCbDEASmidsfI2/9
+ WQj7SxjHLochbrrpquheWKrtObjessRKJjSRZm5Q5PQXpOZUYgPXg2xs3Re2lyzQV4ZJ
+ FqeN0gt07xI7aSnoIr3dx/Amv0R5o0xpOZlNZF9fbGvX/6BmuBng6bT9H6gtb2zZIbDX
+ awDJaso3lNKciKybNTsNZvMLDFTWnNkomFP5PBordrRK1HvAjIVai8s5iVFo6oqYODpN
+ 9dpEv9XKhVbNGZ/SVtYHGKooUI9IBnzAEKndaEmMfcMHnsagFEaw+hHxsuK3EWOmVQ8+
+ 4DNQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779186092; x=1779790892;
+ d=1e100.net; s=20251104; t=1779186089; x=1779790889;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=CqGAPLlG8EwaSYETtmidkLTdJdAHU8Ah+vlKDfh/0iU=;
- b=IeWOwidnTzGu+8RM7AiNZN24oNtLPwl3aBhTRENNdcD9CPoDtfKSWAuY/+oPO15iSL
- 7J/ScgTEjAvH10IZUpBMeJcm8VBDQV+di1XAJlyyRl74FQuYMXOpjte+rRomW8Zw96mH
- mhmAXQt2skWmvqxmg6valxoYTWL5dAUumT9iTv3Vtkhg/0s9RVq3F977KQkQzhxNrxcK
- mrH8A7KT2YRMNf61JJsJTZlIRH33Fdd0l5TqaqW0mxC9nSicQo0MNGi/JjWujBJV4mTI
- oRshFGcqHCnXgoDVX86nRJbb7ggVJE2fMx4RlRiiQeePbfhTpadnVZr4X4KqbU8p9iQs
- NPAQ==
-X-Gm-Message-State: AOJu0YwvuXwcw6RngTRQx191p3crXFAzfX+o0x/yqmj9SXoEDbtFArOk
- uq5kHCRYs/IR6ea4Eo0HI6t8P6hrZDupFU6X3SEmouvFO+QEsgInB4oIR7ISRAaC
-X-Gm-Gg: Acq92OEJ7GvC9pE/Fh0mBYWpaOlD9IGvha78LBkL2JOsfSPTwGHW+LBPxA7ar5HZR+5
- AYWvAP1HKAOGhYDHAJaFoTym6MyKkJmLYhOH+HnpFKmT2VCKvKihOhvu3N0MVmTyAwemGGVTWjE
- Ag2OK54/eiJcSxX5ZUOF19Rlet/C5dbdgiHvtfoej3CgN5SCX1cZLnTmz7CTeZZdpyv08h8HaWo
- TCoHW0XUcP9+qsxovZ/igjkQCVZZdHTrGDTS9GwY7Cv9yuYYkBVEc9BWLNejy2EIABmzEMFlTbx
- kN6n57gp9hjtF5yoFI5yoFVztTLRsVQilM1ZWJ50AxWMMH9uBGWNl5uIfnQKmFJulNpiYEdEAmB
- oSNL2yQAfm9BTK131Sc7woyM9BhZmIEl1+pbYc2E9J+jwGie3EtuzXidclFEoxPwd4qDZ8qZ+wB
- 6AEM8mN5tmhS7Nq7WHkajAU95EQ3Txx/gKWtKyn9ZgKfOuBUWbiyLYuhRDR5XNPFfTxE4TpXVxf
- es=
-X-Received: by 2002:a5d:4561:0:b0:45e:88f5:cd07 with SMTP id
- ffacd0b85a97d-45e88f5cf51mr2821069f8f.25.1779186091935; 
- Tue, 19 May 2026 03:21:31 -0700 (PDT)
+ bh=XBtkZ2gf/Jj5M+m4sGia3yHihFthLzwruBg7fP1JRdQ=;
+ b=esdHiTUJzaKFx8/dgHy9CAUuJySdv1S6q5ygBD1+6ERT3ZsIDZtsd3L/wJTTpxNezz
+ tXBqOXrhsCMZi+ZQ/8p2rIE1dllICjifx8s4KS3gVeQnpuToRQJgKRN01gcPMUVU9Brl
+ CW3ccbR6p7ntr8hYXZ7hfDwUuYT7+x4Wqp0WAAl5VoEtv3/Iozfv/L2ohuE7SCShb78h
+ u96YCAzGwVzZTuJiOxwd7KDKqXOWV9XdcsiFPZU8f1+4/V+vA3ZGUfW6rOlBNdgbeh2u
+ rriLjmE0LSqgdHt/hcM6E4s3wN054qfG0TmxSKvmydDN3qSJD+XA36ElkeJQYD/PSRWi
+ h18g==
+X-Gm-Message-State: AOJu0Yxr0gdlT0aihHUfoSnEesNrma/Ggm1lTBaq/c4oaUsdztOsyOFm
+ 8MddtApUz9P0cOHezHMQVbY2SDLw9OubFEVECkBNAlJNZ2Zd7mz8rW98Bnl4xnfo
+X-Gm-Gg: Acq92OGRR7g6MdkRg2MWN/imqysUuMIvloTbGasL8PBStHC6vqdV2oPQ57AuffD+jGW
+ tGpKVpOcGAPjkDt0vg4rQI6AyBJCjCDSMKaea6GQXFvAio+S7uO6f4aPbp7qXT5ovdCHXSnOYMG
+ I2aMGCoVu9UhBZ+OfrmyN6JpF5vPP/ZuRTet+cGT4G8J5n9RDzOUn/a2GWU8jCTA0rbeu3MoMSR
+ KrAsInxbhs3OiC8+Ah8rRMxlD7arPvRJMGR3NskKk4esInWNrCYp4H5SJCwDUTXpPOnPZCcq1fA
+ kiB3e2dis9URmbmLmzLxc+GGA4WiIIRIBvtgBb1xZ+bFop47oq8VzGCjdf3ZD7kEwfTZdbHpXTi
+ wDCv1dD1QzdBUJ14B2x/SqHvtcXR6EuuKinVMOE2teGSR11tFCVBjQWdzw5bXcLA41caVqwHwbP
+ kgDKbsMqY71VIhbj3E65zg7HSwobxhPkUrrtZX8Dlc6RjTwnXAX51ZiFcDQ/MrZ6MTyfDVD7j9x
+ w8=
+X-Received: by 2002:a05:6000:2405:b0:43d:e31:68d1 with SMTP id
+ ffacd0b85a97d-45e5c5cf18bmr30129076f8f.21.1779186088597; 
+ Tue, 19 May 2026 03:21:28 -0700 (PDT)
 Received: from Timur-Hyperion.home (54001290.dsl.pool.telekom.hu.
  [84.0.18.144]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-45da0fe0fecsm41028224f8f.26.2026.05.19.03.21.31
+ ffacd0b85a97d-45da0fe0fecsm41028224f8f.26.2026.05.19.03.21.27
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 19 May 2026 03:21:31 -0700 (PDT)
+ Tue, 19 May 2026 03:21:28 -0700 (PDT)
 From: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
 To: amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
  christian.koenig@amd.com, Natalie Vock <natalie.vock@gmx.de>,
@@ -68,10 +68,10 @@ To: amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
  Alex Hung <alex.hung@amd.com>, Roman Li <Roman.Li@amd.com>,
  Leo Li <sunpeng.li@amd.com>, Mario Limonciello <mario.limonciello@amd.com>
 Cc: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
-Subject: [PATCH 10/14] drm/amd/pm: Delete dummy get_dal_power_level
- implementations
-Date: Tue, 19 May 2026 12:21:14 +0200
-Message-ID: <20260519102118.246466-11-timur.kristof@gmail.com>
+Subject: [PATCH 07/14] drm/amd/display: Delete disp_clk_voltage from
+ integrated info (v2)
+Date: Tue, 19 May 2026 12:21:11 +0200
+Message-ID: <20260519102118.246466-8-timur.kristof@gmail.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260519102118.246466-1-timur.kristof@gmail.com>
 References: <20260519102118.246466-1-timur.kristof@gmail.com>
@@ -92,146 +92,156 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-These implementations did not actually return
-the DAL power level, so they were effectively
-a no-op.
+Only DCE 11.0 relies on this information and even that
+didn't use this field, because it queries the information
+from the pplib. It also filled the field incorrectly on
+that version.
+
+On newer GPUs, the VIOS integrated info no longer contains
+display clock voltage dependencies, so we don't need it.
+
+v2:
+- Also delete some code wrapped in #if 0
 
 Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
 Reviewed-by: Melissa Wen <mwen@igalia.com>
 ---
- .../drm/amd/pm/powerplay/hwmgr/smu10_hwmgr.c    |  7 -------
- .../drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c   | 15 ---------------
- .../drm/amd/pm/powerplay/hwmgr/vega12_hwmgr.c   | 16 ----------------
- .../drm/amd/pm/powerplay/hwmgr/vega20_hwmgr.c   | 17 -----------------
- 4 files changed, 55 deletions(-)
+ .../gpu/drm/amd/display/dc/bios/bios_parser.c | 36 -------------------
+ .../drm/amd/display/dc/bios/bios_parser2.c    | 18 ----------
+ .../display/include/grph_object_ctrl_defs.h   |  9 -----
+ 3 files changed, 63 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu10_hwmgr.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu10_hwmgr.c
-index 8de8d66df95f..5be6f82ecc6f 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu10_hwmgr.c
-+++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu10_hwmgr.c
-@@ -963,12 +963,6 @@ static int smu10_store_cc6_data(struct pp_hwmgr *hwmgr, uint32_t separation_time
- 	return 0;
- }
+diff --git a/drivers/gpu/drm/amd/display/dc/bios/bios_parser.c b/drivers/gpu/drm/amd/display/dc/bios/bios_parser.c
+index 05f299ec5463..2c7cca697f5f 100644
+--- a/drivers/gpu/drm/amd/display/dc/bios/bios_parser.c
++++ b/drivers/gpu/drm/amd/display/dc/bios/bios_parser.c
+@@ -2419,15 +2419,6 @@ static enum bp_result get_integrated_info_v8(
+ 	info->dentist_vco_freq = le32_to_cpu(info_v8->ulDentistVCOFreq) * 10;
+ 	info->boot_up_uma_clock = le32_to_cpu(info_v8->ulBootUpUMAClock) * 10;
  
--static int smu10_get_dal_power_level(struct pp_hwmgr *hwmgr,
--		struct amd_pp_simple_clock_info *info)
--{
--	return -EINVAL;
--}
+-	for (i = 0; i < NUMBER_OF_DISP_CLK_VOLTAGE; ++i) {
+-		/* Convert [10KHz] into [KHz] */
+-		info->disp_clk_voltage[i].max_supported_clk =
+-			le32_to_cpu(info_v8->sDISPCLK_Voltage[i].
+-				    ulMaximumSupportedCLK) * 10;
+-		info->disp_clk_voltage[i].voltage_index =
+-			le32_to_cpu(info_v8->sDISPCLK_Voltage[i].ulVoltageIndex);
+-	}
 -
- static int smu10_force_clock_level(struct pp_hwmgr *hwmgr,
- 		enum pp_clock_type type, uint32_t mask)
- {
-@@ -1664,7 +1658,6 @@ static const struct pp_hwmgr_func smu10_hwmgr_funcs = {
- 	.store_cc6_data = smu10_store_cc6_data,
- 	.force_clock_level = smu10_force_clock_level,
- 	.emit_clock_levels = smu10_emit_clock_levels,
--	.get_dal_power_level = smu10_get_dal_power_level,
- 	.get_performance_level = smu10_get_performance_level,
- 	.get_current_shallow_sleep_clocks = smu10_get_current_shallow_sleep_clocks,
- 	.get_clock_by_type_with_latency = smu10_get_clock_by_type_with_latency,
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c
-index 1b8a57d98759..12f47ec87997 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c
-+++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c
-@@ -4387,20 +4387,6 @@ static uint32_t vega10_get_fan_control_mode(struct pp_hwmgr *hwmgr)
- 		return AMD_FAN_CTRL_AUTO;
- }
+ 	info->boot_up_req_display_vector =
+ 		le32_to_cpu(info_v8->ulBootUpReqDisplayVector);
+ 	info->gpu_cap_info =
+@@ -2570,14 +2561,6 @@ static enum bp_result get_integrated_info_v9(
+ 	info->dentist_vco_freq = le32_to_cpu(info_v9->ulDentistVCOFreq) * 10;
+ 	info->boot_up_uma_clock = le32_to_cpu(info_v9->ulBootUpUMAClock) * 10;
  
--static int vega10_get_dal_power_level(struct pp_hwmgr *hwmgr,
--		struct amd_pp_simple_clock_info *info)
--{
--	struct phm_ppt_v2_information *table_info =
--			(struct phm_ppt_v2_information *)hwmgr->pptable;
--	struct phm_clock_and_voltage_limits *max_limits =
--			&table_info->max_clock_voltage_on_ac;
+-	for (i = 0; i < NUMBER_OF_DISP_CLK_VOLTAGE; ++i) {
+-		/* Convert [10KHz] into [KHz] */
+-		info->disp_clk_voltage[i].max_supported_clk =
+-			le32_to_cpu(info_v9->sDISPCLK_Voltage[i].ulMaximumSupportedCLK) * 10;
+-		info->disp_clk_voltage[i].voltage_index =
+-			le32_to_cpu(info_v9->sDISPCLK_Voltage[i].ulVoltageIndex);
+-	}
 -
--	info->engine_max_clock = max_limits->sclk;
--	info->memory_max_clock = max_limits->mclk;
--
--	return 0;
--}
--
- static void vega10_get_sclks(struct pp_hwmgr *hwmgr,
- 		struct pp_clock_levels_with_latency *clocks)
- {
-@@ -5645,7 +5631,6 @@ static const struct pp_hwmgr_func vega10_hwmgr_funcs = {
- 	.set_fan_control_mode = vega10_set_fan_control_mode,
- 	.get_fan_control_mode = vega10_get_fan_control_mode,
- 	.read_sensor = vega10_read_sensor,
--	.get_dal_power_level = vega10_get_dal_power_level,
- 	.get_clock_by_type_with_latency = vega10_get_clock_by_type_with_latency,
- 	.get_clock_by_type_with_voltage = vega10_get_clock_by_type_with_voltage,
- 	.set_watermarks_for_clocks_ranges = vega10_set_watermarks_for_clocks_ranges,
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega12_hwmgr.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega12_hwmgr.c
-index 5a987a535e73..6f2bb8fe0317 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega12_hwmgr.c
-+++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega12_hwmgr.c
-@@ -1822,21 +1822,6 @@ static uint32_t vega12_get_fan_control_mode(struct pp_hwmgr *hwmgr)
- 		return AMD_FAN_CTRL_AUTO;
- }
- 
--static int vega12_get_dal_power_level(struct pp_hwmgr *hwmgr,
--		struct amd_pp_simple_clock_info *info)
--{
--#if 0
--	struct phm_ppt_v2_information *table_info =
--			(struct phm_ppt_v2_information *)hwmgr->pptable;
--	struct phm_clock_and_voltage_limits *max_limits =
--			&table_info->max_clock_voltage_on_ac;
--
--	info->engine_max_clock = max_limits->sclk;
--	info->memory_max_clock = max_limits->mclk;
--#endif
--	return 0;
--}
--
- static int vega12_get_clock_ranges(struct pp_hwmgr *hwmgr,
- 		uint32_t *clock,
- 		PPCLK_e clock_select,
-@@ -2963,7 +2948,6 @@ static const struct pp_hwmgr_func vega12_hwmgr_funcs = {
- 	.set_fan_control_mode = vega12_set_fan_control_mode,
- 	.get_fan_control_mode = vega12_get_fan_control_mode,
- 	.read_sensor = vega12_read_sensor,
--	.get_dal_power_level = vega12_get_dal_power_level,
- 	.get_clock_by_type_with_latency = vega12_get_clock_by_type_with_latency,
- 	.get_clock_by_type_with_voltage = vega12_get_clock_by_type_with_voltage,
- 	.set_watermarks_for_clocks_ranges = vega12_set_watermarks_for_clocks_ranges,
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_hwmgr.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_hwmgr.c
-index 5193b7d0e11b..2a06d3e0253f 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_hwmgr.c
-+++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_hwmgr.c
-@@ -2796,22 +2796,6 @@ static void vega20_set_fan_control_mode(struct pp_hwmgr *hwmgr, uint32_t mode)
+ 	info->boot_up_req_display_vector =
+ 		le32_to_cpu(info_v9->ulBootUpReqDisplayVector);
+ 	info->gpu_cap_info = le32_to_cpu(info_v9->ulGPUCapInfo);
+@@ -2719,25 +2702,6 @@ static enum bp_result construct_integrated_info(
+ 		}
  	}
+ 
+-	/* Sort voltage table from low to high*/
+-	if (result == BP_RESULT_OK) {
+-		int32_t i;
+-		int32_t j;
+-
+-		for (i = 1; i < NUMBER_OF_DISP_CLK_VOLTAGE; ++i) {
+-			for (j = i; j > 0; --j) {
+-				if (
+-						info->disp_clk_voltage[j].max_supported_clk <
+-						info->disp_clk_voltage[j-1].max_supported_clk) {
+-					/* swap j and j - 1*/
+-					swap(info->disp_clk_voltage[j - 1],
+-					     info->disp_clk_voltage[j]);
+-				}
+-			}
+-		}
+-
+-	}
+-
+ 	return result;
  }
  
--static int vega20_get_dal_power_level(struct pp_hwmgr *hwmgr,
--		struct amd_pp_simple_clock_info *info)
--{
--#if 0
--	struct phm_ppt_v2_information *table_info =
--			(struct phm_ppt_v2_information *)hwmgr->pptable;
--	struct phm_clock_and_voltage_limits *max_limits =
--			&table_info->max_clock_voltage_on_ac;
+diff --git a/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c b/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c
+index 39668db6d472..d19ae67ebfac 100644
+--- a/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c
++++ b/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c
+@@ -2671,15 +2671,6 @@ static enum bp_result get_integrated_info_v11(
+ 	info->dentist_vco_freq = le32_to_cpu(info_v11->ulDentistVCOFreq) * 10;
+ 	info->boot_up_uma_clock = le32_to_cpu(info_v8->ulBootUpUMAClock) * 10;
+ 
+-	for (i = 0; i < NUMBER_OF_DISP_CLK_VOLTAGE; ++i) {
+-		/* Convert [10KHz] into [KHz] */
+-		info->disp_clk_voltage[i].max_supported_clk =
+-		le32_to_cpu(info_v11->sDISPCLK_Voltage[i].
+-			ulMaximumSupportedCLK) * 10;
+-		info->disp_clk_voltage[i].voltage_index =
+-		le32_to_cpu(info_v11->sDISPCLK_Voltage[i].ulVoltageIndex);
+-	}
 -
--	info->engine_max_clock = max_limits->sclk;
--	info->memory_max_clock = max_limits->mclk;
--#endif
--	return 0;
--}
+ 	info->boot_up_req_display_vector =
+ 			le32_to_cpu(info_v11->ulBootUpReqDisplayVector);
+ 	info->boot_up_nb_voltage =
+@@ -3032,7 +3023,6 @@ static enum bp_result construct_integrated_info(
+ 	struct atom_data_revision revision;
+ 
+ 	int32_t i;
+-	int32_t j;
+ 
+ 	if (!info)
+ 		return result;
+@@ -3134,14 +3124,6 @@ static enum bp_result construct_integrated_info(
+ 			DC_LOG_BIOS("driver forced fixdpvoltageswing = %d\n", info->ext_disp_conn_info.fixdpvoltageswing);
+ 		}
+ 	}
+-	/* Sort voltage table from low to high*/
+-	for (i = 1; i < NUMBER_OF_DISP_CLK_VOLTAGE; ++i) {
+-		for (j = i; j > 0; --j) {
+-			if (info->disp_clk_voltage[j].max_supported_clk <
+-			    info->disp_clk_voltage[j-1].max_supported_clk)
+-				swap(info->disp_clk_voltage[j-1], info->disp_clk_voltage[j]);
+-		}
+-	}
+ 
+ 	return result;
+ }
+diff --git a/drivers/gpu/drm/amd/display/include/grph_object_ctrl_defs.h b/drivers/gpu/drm/amd/display/include/grph_object_ctrl_defs.h
+index a0f03fb67605..3e4e8d55dd0f 100644
+--- a/drivers/gpu/drm/amd/display/include/grph_object_ctrl_defs.h
++++ b/drivers/gpu/drm/amd/display/include/grph_object_ctrl_defs.h
+@@ -273,7 +273,6 @@ struct transmitter_configuration {
+ #define NUMBER_OF_UCHAR_FOR_GUID 16
+ #define MAX_NUMBER_OF_EXT_DISPLAY_PATH 7
+ #define NUMBER_OF_CSR_M3_ARB 10
+-#define NUMBER_OF_DISP_CLK_VOLTAGE 4
+ #define NUMBER_OF_AVAILABLE_SCLK 5
+ 
+ struct i2c_reg_info {
+@@ -302,14 +301,6 @@ struct edp_info {
+ 
+ /* V6 */
+ struct integrated_info {
+-	struct clock_voltage_caps {
+-		/* The Voltage Index indicated by FUSE, same voltage index
+-		shared with SCLK DPM fuse table */
+-		uint32_t voltage_index;
+-		/* Maximum clock supported with specified voltage index */
+-		uint32_t max_supported_clk; /* in KHz */
+-	} disp_clk_voltage[NUMBER_OF_DISP_CLK_VOLTAGE];
 -
--
- static int vega20_get_sclks(struct pp_hwmgr *hwmgr,
- 		struct pp_clock_levels_with_latency *clocks)
- {
-@@ -4446,7 +4430,6 @@ static const struct pp_hwmgr_func vega20_hwmgr_funcs = {
- 	/* export to DAL */
- 	.get_sclk = vega20_dpm_get_sclk,
- 	.get_mclk = vega20_dpm_get_mclk,
--	.get_dal_power_level = vega20_get_dal_power_level,
- 	.get_clock_by_type_with_latency = vega20_get_clock_by_type_with_latency,
- 	.get_clock_by_type_with_voltage = vega20_get_clock_by_type_with_voltage,
- 	.set_watermarks_for_clocks_ranges = vega20_set_watermarks_for_clocks_ranges,
+ 	struct display_connection_info {
+ 		struct external_display_path {
+ 			/* A bit vector to show what devices are supported */
 -- 
 2.54.0
 
