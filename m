@@ -4,28 +4,28 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5E98CCD4F57
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E9861CD4851
 	for <amd-gfx@archiver.kernel.org>; Tue, 19 May 2026 10:18:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A55A710E397;
+	by gabe.freedesktop.org (Postfix) with ESMTP id ABD3E10EBC7;
 	Tue, 19 May 2026 10:18:15 +0000 (UTC)
 Received: from rtg-sunil-navi33.amd.com (unknown [165.204.156.251])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B40E410E39E
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C229810EBDC
  for <amd-gfx@lists.freedesktop.org>; Tue, 19 May 2026 10:18:13 +0000 (UTC)
 Received: from rtg-sunil-navi33.amd.com (localhost [127.0.0.1])
  by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Debian-22ubuntu3) with ESMTP id
- 64JAI8YF871899; Tue, 19 May 2026 15:48:08 +0530
+ 64JAI8p5871894; Tue, 19 May 2026 15:48:08 +0530
 Received: (from sunil@localhost)
- by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 64JAI81R871898;
+ by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 64JAI8Zp871893;
  Tue, 19 May 2026 15:48:08 +0530
 From: Sunil Khatri <sunil.khatri@amd.com>
 To: Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Cc: amd-gfx@lists.freedesktop.org, Sunil Khatri <sunil.khatri@amd.com>
-Subject: [PATCH v5 4/8] drm/amdgpu/userq: clean up wptr_obj along with
- mqd_destroy
-Date: Tue, 19 May 2026 15:47:51 +0530
-Message-Id: <20260519101755.871750-5-sunil.khatri@amd.com>
+Subject: [PATCH v5 3/8] drm/amdgpu: simplify return value in
+ amdgpu_userq_get_doorbell_index
+Date: Tue, 19 May 2026 15:47:50 +0530
+Message-Id: <20260519101755.871750-4-sunil.khatri@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260519101755.871750-1-sunil.khatri@amd.com>
 References: <20260519101755.871750-1-sunil.khatri@amd.com>
@@ -45,30 +45,85 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-During queue creation failure, when we clean up mqd via
-mqd_destroy we arent doing the wptr_obj cleanup and hence
-adding that clean up.
+amdgpu_userq_get_doorbell_index returns a uint64 type index
+as well as a int type failure values. Simplifying this and
+using a int type return value and getting the index in input pointer
+of type uint64 type.
+
+Also since it's used at once place making it static would be better.
 
 Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 19 ++++++++++---------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h |  4 ----
+ 2 files changed, 10 insertions(+), 13 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-index 0737636fac43..47a38fefad89 100644
+index 3bfb9ae2cb3a..0737636fac43 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-@@ -835,6 +835,10 @@ amdgpu_userq_create(struct drm_file *filp, union drm_amdgpu_userq *args)
- erase_doorbell:
- 	xa_erase_irq(&adev->userq_doorbell_xa, index);
- clean_mqd:
-+	amdgpu_bo_reserve(queue->wptr_obj.obj, true);
-+	amdgpu_bo_unpin(queue->wptr_obj.obj);
-+	amdgpu_bo_unreserve(queue->wptr_obj.obj);
-+	amdgpu_bo_unref(&queue->wptr_obj.obj);
- 	uq_funcs->mqd_destroy(queue);
- clean_doorbell_bo:
- 	amdgpu_bo_reserve(queue->db_obj.obj, true);
+@@ -536,12 +536,13 @@ void amdgpu_userq_destroy_object(struct amdgpu_userq_mgr *uq_mgr,
+ 	amdgpu_bo_unref(&userq_obj->obj);
+ }
+ 
+-uint64_t
++static int
+ amdgpu_userq_get_doorbell_index(struct amdgpu_userq_mgr *uq_mgr,
+ 				struct amdgpu_db_info *db_info,
+-				struct drm_file *filp)
++				struct drm_file *filp,
++				uint64_t *index)
+ {
+-	uint64_t index;
++	uint64_t doorbell_index;
+ 	struct drm_gem_object *gobj;
+ 	struct amdgpu_userq_obj *db_obj = db_info->db_obj;
+ 	int r, db_size;
+@@ -588,12 +589,13 @@ amdgpu_userq_get_doorbell_index(struct amdgpu_userq_mgr *uq_mgr,
+ 		goto unpin_bo;
+ 	}
+ 
+-	index = amdgpu_doorbell_index_on_bar(uq_mgr->adev, db_obj->obj,
++	doorbell_index = amdgpu_doorbell_index_on_bar(uq_mgr->adev, db_obj->obj,
+ 					     db_info->doorbell_offset, db_size);
+ 	drm_dbg_driver(adev_to_drm(uq_mgr->adev),
+-		       "[Usermode queues] doorbell index=%lld\n", index);
++		       "[Usermode queues] doorbell index=%lld\n", doorbell_index);
+ 	amdgpu_bo_unreserve(db_obj->obj);
+-	return index;
++	*index = doorbell_index;
++	return 0;
+ 
+ unpin_bo:
+ 	amdgpu_bo_unpin(db_obj->obj);
+@@ -776,10 +778,9 @@ amdgpu_userq_create(struct drm_file *filp, union drm_amdgpu_userq *args)
+ 	db_info.doorbell_handle = queue->doorbell_handle;
+ 	db_info.db_obj = &queue->db_obj;
+ 	db_info.doorbell_offset = args->in.doorbell_offset;
+-	index = amdgpu_userq_get_doorbell_index(uq_mgr, &db_info, filp);
+-	if (index == (uint64_t)-EINVAL) {
++	r = amdgpu_userq_get_doorbell_index(uq_mgr, &db_info, filp, &index);
++	if (r) {
+ 		drm_file_err(uq_mgr->file, "Failed to get doorbell for queue\n");
+-		r = -EINVAL;
+ 		goto clean_mapping;
+ 	}
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
+index 49b33e2d6932..033b8a0de6b1 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
+@@ -163,10 +163,6 @@ void amdgpu_userq_evict(struct amdgpu_userq_mgr *uq_mgr);
+ void amdgpu_userq_ensure_ev_fence(struct amdgpu_userq_mgr *userq_mgr,
+ 				  struct amdgpu_eviction_fence_mgr *evf_mgr);
+ 
+-uint64_t amdgpu_userq_get_doorbell_index(struct amdgpu_userq_mgr *uq_mgr,
+-					 struct amdgpu_db_info *db_info,
+-					     struct drm_file *filp);
+-
+ u32 amdgpu_userq_get_supported_ip_mask(struct amdgpu_device *adev);
+ bool amdgpu_userq_enabled(struct drm_device *dev);
+ 
 -- 
 2.34.1
 
