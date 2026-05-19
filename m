@@ -4,85 +4,86 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7A007CD4F5B
-	for <amd-gfx@archiver.kernel.org>; Tue, 19 May 2026 16:21:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0E30CCD4F5E
+	for <amd-gfx@archiver.kernel.org>; Tue, 19 May 2026 16:23:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 165DA10E3B8;
-	Tue, 19 May 2026 16:21:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8374A10ED9C;
+	Tue, 19 May 2026 16:23:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="XoHWkeeO";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="GvBIcgVS";
 	dkim-atps=neutral
-Received: from mail-dl1-f48.google.com (mail-dl1-f48.google.com [74.125.82.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 903DA10E3B8
- for <amd-gfx@lists.freedesktop.org>; Tue, 19 May 2026 16:21:27 +0000 (UTC)
-Received: by mail-dl1-f48.google.com with SMTP id
- a92af1059eb24-12dc1c0b724so124869c88.1
- for <amd-gfx@lists.freedesktop.org>; Tue, 19 May 2026 09:21:27 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1779207687; cv=none;
+Received: from mail-dl1-f53.google.com (mail-dl1-f53.google.com [74.125.82.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4363010ED9C
+ for <amd-gfx@lists.freedesktop.org>; Tue, 19 May 2026 16:23:55 +0000 (UTC)
+Received: by mail-dl1-f53.google.com with SMTP id
+ a92af1059eb24-134e41fee21so139657c88.1
+ for <amd-gfx@lists.freedesktop.org>; Tue, 19 May 2026 09:23:55 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1779207834; cv=none;
  d=google.com; s=arc-20240605;
- b=D1U3Yw/M02gjpa+HrNl33Whltdjzwq5VJ6Eb2/OUlz++xGsP/yjRCB73Qmwi0Vo8bl
- VCTUpEqvJJNt85MrwCMuEZz+NkRgXJT7ssyLV/Zqb8jwKRunrZ7cXGJCS90gM9Sb+XzQ
- d38dK800FQiq2y3CZTRpHqtknza/qY27Q04VHWoFgFJy3YMa9xmmqxQ4iGYPtAjvQ4cc
- 9mJAGPmSOgWwXdcw5Vzgp7tLM08NISIlehVW9WSBPc4a0n85cLhpnK72rNVL7uoEcgyL
- 0TJpOFF4NrWNxn5p+fPtUH+/oj668D3z3Ig5qXLa2rqPSTKbgjgFEyKnXCjnLXSEzWh3
- TYzA==
+ b=hMuG3j2jdGs4ksogYCbRxkq4RLtjiaEfXXistJEDqbqONBHachLXLy7e4aGpB5p23A
+ ew+lqC+n8r1MSFnNbT51/J9wHo1yWij1c696N74gRWCsESzZ50iV8UyYQkanc4iv6V2t
+ +2YGsiOST0Qm4zq42h3uDVKrx3ep0wSplAEPaJ5Py2hGizbsHWgj5ZOwGaZ16Ti+9C7q
+ W9/qXV+jJ+CXi+pJCPEpu6cFQ3WRdDD7pH+nmunnl8XRWDDo4s34ILX0eTxW1A5tqV5i
+ OAnaslkqHXAwWIUK2FwaFqjrk578QytPg1UTQ3+ejr6hv6WbCDE54Xg4AJiBWEgaV/mY
+ U8Ow==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20240605; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=I2ayHD3/ZfYeNPZK5j/sFZV+P7L6fxNXe23iAOBkRZA=;
+ bh=T+zeIzpyK0qjlPU0AuWsjL1v+AbG68v3PvQfqVL8RKo=;
  fh=328T9GRFRZ0Ry2IYaUGQb2Y6Pxk1+sxW1A/L2dQeS2g=;
- b=V/FerGMLBf4k9+a0LKjZ+JYod0Qbg4sTh2kYyc2fCaUiQT0kHA02m17db7xmADFCWN
- xIZbzdRqdYaKzsyCspVuAJcvIN3ve8RCN/dD57MJ6kfDR2a9uAZcS+DmRSj+h7T7feGi
- 8vfgQdbZzjdI4BcYJ1pKbz7QkxPR6AJrq8X/QZBeSbOVAjIPU1pkyeu+ghKICKHi0AEG
- +Mha54NzRQmttkDo5eAuvnyg7rpU0q+LY9SHweI4vhuTfVDVECSBM9IAGXv5u0LKSHbJ
- HWS7/fLIic+268FjAmJC1pIGP4v/NJJkhiemH1gsHTQSYOEosbIG3aZsrSCnJq0FLOuV
- Z40Q==; darn=lists.freedesktop.org
+ b=gMu9E9MdyBQtM1wAGEa0F05L0YrkjVzQlKgERTRbeFlM8daW9jSk+zyKicAjvaFcO+
+ CtUSLBcUZkhTWNwdF7ti94q22JI4XGlU3KDk9cT78e1sL3z2jbB1WvLRe/9RHRR3UgqR
+ RwntoeDHeEZQlt/J8RiORcwK7k8oP3dDJdTkc/BZwjK9JZebfKio1wbA5XWuiFdlIN+s
+ iE7vlF7YCRqf2Yo44lTUj8JNHbl2WqXWp42VDOMXR6O2mKiGqUHG9jU+GHlOXi3KlJ0t
+ 223tQSrO4Y/OC2SuIhuWlWwzvoBKUJZRG/Vven8/54j5D4QeFEHbWBASwevjxve7jMOm
+ sz2A==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1779207687; x=1779812487; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1779207834; x=1779812634; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=I2ayHD3/ZfYeNPZK5j/sFZV+P7L6fxNXe23iAOBkRZA=;
- b=XoHWkeeOe1LMkvVRa/nq25T2GMEwEGzo+DHiKKM+pFdh+Fc3NF2hzSXoI4uEixv4ly
- ONHuvAO/2WgHhwpj4yMZKfFc0aaOu9OCVy/O5Pqe9ush4DC9C+g93qZDNOuWuV7mlWIS
- wcfq4tEyu3E6X2wvRbJTJ/Vrxt3fgi8MNg/Phc2VMCPqJSIVWb8UCUMzPCPMh3ECeQTq
- tt0nhHhRupe8luTWUm7SGmVOO0KkMk2q07axGrEQkzBU8YJc3D64jS9wt+SguFaEnfXR
- EViD72ikd7gZgoyUL+ocTn/rVqZ5Tjh2AZedvFHeQSyNnqyImfim16aQa9L0katccUUw
- wMig==
+ bh=T+zeIzpyK0qjlPU0AuWsjL1v+AbG68v3PvQfqVL8RKo=;
+ b=GvBIcgVSo7inuBg45aCb03r7z1D7dD1SVYpdxAwPIEXbBtPeC3pstxDYq6QwldatK9
+ eORZxR8s/+YzsrPzEktdFy75raOhHJmYMri8dfS9fGiOek+dnLIOVvlTbfuSysuKlxKQ
+ o5XiF4buLn7RVqiKXDZ9493Y+xvXF+EnIDZmJctnCd5BKIOIcIPuVLifev+l8BvIz+2U
+ idIpPqa/1n4Q7BenDT0HSEPqtiQ/lO9bfOocb7UV1p1r1JMVnQaw0j09aq5My2gVA56v
+ Aaq3RLc1+/bRpTYRadsaI9BrqSI/ICmZFE3qtxoCTnUw/OKd5UweMVgAQY0TwtlH3J2N
+ fUgw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779207687; x=1779812487;
+ d=1e100.net; s=20251104; t=1779207834; x=1779812634;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=I2ayHD3/ZfYeNPZK5j/sFZV+P7L6fxNXe23iAOBkRZA=;
- b=J1wOikSGWLjMHww/EevH1DZlJDT7l7cNqyKvOFataM91P/DQERV3xyljvsev1uA1kY
- /b0zLSZFtdbwKDt3ydl1InrbOCPkTQDN9aiYoqcDQpKLt6py+VC09zp+LVu3eeUkuHY0
- hAya+5VAv59H3skBjbZISBZEB+XnD5ja3DCXDNDbYo+ofycoeFDkscvdx8BImFk0693N
- Y4S+mwkTvkXH+TjliH6+uzJuXkzF79IQk/ynKMAXNb3+vML6pPwFgwXzJdToxblAky1S
- upll03XJD+pcwpOAmDVeljcWQamhOh/DYhTOIWOBxnqUsjrsiQ7Y31GG772gfp45+3ND
- ttPA==
-X-Gm-Message-State: AOJu0YzKG4RFrYJ4cI8RGPUYKNBYYLkjciTn+CHA6DsNR9GaZZcMAx5q
- yFUsc3HdNBH9veB5Tt0NKZtKrvet8O4b57gK60qAYrfDZny6MhcAWcG9hIFNsIZxTApx8+iP/rB
- j7ajVeaUdjdW5O/xCwVryalZPOIkjmN4=
-X-Gm-Gg: Acq92OEp9/TOCvkE5YNi65+751y+Yu4kxBpPPmHefLSstfA60ShgenI0Y6QBud0yHuw
- 2Kk+d/RSOy1a+Ft5D63bVCiIN3HDLd7msT4uPCQArgIiVrjuvRMRT5+nqaR0u9OLjnUVEnp+QhM
- I4k8Dg0StgkYZ+nnQXxNdTa3u8RPH2CXQNTyuXXlbVWt6qKYc0lSsHIz6j+tLeqOcBxDQ0BOw3s
- lXkqS/jNjxGUHxA5hlMCnvXwYP9ltmbePBf+VF69c3yKq9QpjdZjptOGa7xjhWmwAR35YfJRH+t
- hBhjGFyeabT+hf7ULpPiLiAA0BOWzJukou3nCNLLfmbAE5zoPFoLN6MnfRfj+f5jSN4nyV0tFt6
- zCV5v
-X-Received: by 2002:a05:7022:689f:b0:12c:8862:368d with SMTP id
- a92af1059eb24-13504943b3bmr3592808c88.4.1779207686739; Tue, 19 May 2026
- 09:21:26 -0700 (PDT)
+ bh=T+zeIzpyK0qjlPU0AuWsjL1v+AbG68v3PvQfqVL8RKo=;
+ b=mtDt4EU+k2k4oS06VwzSQNYsV0dywG9ZJgSuS6HfPQJoA8sCsbg3sIBfUD8SOWEla1
+ MnPFJOlx6M44y+2GzFwZWQIWSDxc/GCg57U543xrk8O461lY8DR0etXzLTbHYHCxfsrk
+ E+VpRTjbpN3HWQ3Ao/Trr3AsnG5pV8zlZtXzzOKCSqIfGpsz6XQfqEzFJR8TUEoQakw/
+ rrX62X2yma5cPH0jR7BGE+mq2n8tIFHQ4ocwKHBbRG4IqV61sWP61C7kdKb/y0ME/3pe
+ +zZE9et9vcLMiIlRAWjG7R44RAcNVCwUDhtTSsYkNewJQWf5G2FFjrY3FYTVD40h3nvT
+ Ez5g==
+X-Gm-Message-State: AOJu0YxJfSiguqquV7qWTVMWSBRRkfYPhtKP0LsfWFdyf14ka9yV/s4w
+ yNNFJPqm7CGbQiOdgRiGymsPsv3vH+NsiqTF+1wpXTDqdeDmd0fD3e+T+364d8NX1f+WRRIIUFl
+ E7bGnkdLATAwqzMzjxPW0ChaxV3wCkDE=
+X-Gm-Gg: Acq92OGVeeLYRTzy1bidrZiX1OWK4t+F5agX9lmgfQ6YQwIVXWrv5XbV2xF1YIFktzG
+ P7PLjIGMYRaENnpH9ehxzyKg8n6JYUMFR4JaL3xMooLp9WKbDYz4+hfUlG/46NByopcyZN29sGV
+ aOXM9UB+gUrJP/wFqBD+CgQ9fR+X8bqkDu7WTbRpvbyj+XUphgRA1Z3lPvvNF8O4JZJDEST2h3t
+ VTYRTxecvUfDvpNGVnLi4EyNfqOlj0VPmkBxiUUz0SFcUPIfU9iCLtLRXkEG278GEhVZEHM5qFY
+ SYYFnMomDgBZ+TQ4WjA9zn+9ULIPt8ECM1Y8RKkQ87qQeTbmJYxLrWn6ym0ZKwDY17H5riBqR9X
+ KT+h5
+X-Received: by 2002:a05:7022:4596:b0:12c:888b:aaab with SMTP id
+ a92af1059eb24-1350451b228mr3618786c88.0.1779207834463; Tue, 19 May 2026
+ 09:23:54 -0700 (PDT)
 MIME-Version: 1.0
-References: <20260507200408.208219-1-jinhuieric.huang@amd.com>
-In-Reply-To: <20260507200408.208219-1-jinhuieric.huang@amd.com>
+References: <20260512150535.75401-1-jinhuieric.huang@amd.com>
+In-Reply-To: <20260512150535.75401-1-jinhuieric.huang@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 19 May 2026 12:21:15 -0400
-X-Gm-Features: AVHnY4Kswwri0TWyrGwT42Qsq523oeHqm8mO6l8KZu6-pILthAQqGQdoW4Qq9VA
-Message-ID: <CADnq5_PQY2L0vyngpCmfT5j2ZgKOkvQnXqQj+EmSt=hqemK=YA@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdkfd: fix NULL pointer bug in svm_range_set_attr
+Date: Tue, 19 May 2026 12:23:42 -0400
+X-Gm-Features: AVHnY4IjYworgOFTMfVUonEft6h6X1OeDYCbQgIMxUhaLS_acLfJr2ikzMI8qk0
+Message-ID: <CADnq5_MzA_-tjzGcTesehuvkZ=0+=jgQuAbQzR5HXLctSGF=YA@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdkfd: fix a vulnerability of integer overflow in
+ kfd debugger
 To: Eric Huang <jinhuieric.huang@amd.com>
 Cc: amd-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="UTF-8"
@@ -101,36 +102,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, May 7, 2026 at 4:24=E2=80=AFPM Eric Huang <jinhuieric.huang@amd.com=
-> wrote:
+On Tue, May 12, 2026 at 11:24=E2=80=AFAM Eric Huang <jinhuieric.huang@amd.c=
+om> wrote:
 >
-> The process_info could be NULL if user doesn't call kfd_ioctl_acquire_vm
-> before calling kfd_ioctl_svm.
+> get_queue_ids() computes array_size =3D num_queues * sizeof(uint32_t),
+> which could overflow on 32-bit size_t build. using array_size()
+> instead, it saturates to SIZE_MAX on overflow.
 >
 > Signed-off-by: Eric Huang <jinhuieric.huang@amd.com>
 
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
 
 > ---
->  drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 3 +++
->  1 file changed, 3 insertions(+)
+>  drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c | 8 +++++---
+>  1 file changed, 5 insertions(+), 3 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/a=
-mdkfd/kfd_svm.c
-> index 25b3ecf85f30..72cfb4a6ab3e 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-> @@ -3732,6 +3732,9 @@ svm_range_set_attr(struct kfd_process *p, struct mm=
-_struct *mm,
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/driv=
+ers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+> index 2e6923528342..b34f29501ff8 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+> @@ -3468,12 +3468,14 @@ static void copy_context_work_handler(struct work=
+_struct *work)
 >
->         svms =3D &p->svms;
+>  static uint32_t *get_queue_ids(uint32_t num_queues, uint32_t *usr_queue_=
+id_array)
+>  {
+> -       size_t array_size =3D num_queues * sizeof(uint32_t);
+> -
+>         if (!usr_queue_id_array)
+>                 return NULL;
 >
-> +       if (!process_info)
-> +               return -EINVAL;
+> -       return memdup_user(usr_queue_id_array, array_size);
+> +       if (num_queues > KFD_MAX_NUM_OF_QUEUES_PER_PROCESS)
+> +               return ERR_PTR(-EINVAL);
 > +
->         mutex_lock(&process_info->lock);
+> +       return memdup_user(usr_queue_id_array,
+> +                          array_size(num_queues, sizeof(uint32_t)));
+>  }
 >
->         svm_range_list_lock_and_flush_work(svms, mm);
+>  int resume_queues(struct kfd_process *p,
 > --
 > 2.34.1
 >
