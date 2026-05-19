@@ -4,71 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 50AFACD4F52
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AC185CD4851
 	for <amd-gfx@archiver.kernel.org>; Tue, 19 May 2026 08:42:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E609010E393;
-	Tue, 19 May 2026 08:42:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 406CC10EB62;
+	Tue, 19 May 2026 08:42:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="W8PbIrKi";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="I9RJzHHz";
 	dkim-atps=neutral
 Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com
  [209.85.128.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F3C1810E393
- for <amd-gfx@lists.freedesktop.org>; Tue, 19 May 2026 08:42:02 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BBAA610E393
+ for <amd-gfx@lists.freedesktop.org>; Tue, 19 May 2026 08:42:03 +0000 (UTC)
 Received: by mail-wm1-f51.google.com with SMTP id
- 5b1f17b1804b1-48e82c23840so25404835e9.3
- for <amd-gfx@lists.freedesktop.org>; Tue, 19 May 2026 01:42:02 -0700 (PDT)
+ 5b1f17b1804b1-488a88aeec9so38654895e9.2
+ for <amd-gfx@lists.freedesktop.org>; Tue, 19 May 2026 01:42:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1779180121; x=1779784921; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=JuTb9mrv6IYSWv7eR3Y+e7bQVnq6tTfGs37LJAnhhEw=;
- b=W8PbIrKiVNASeHXHVEE8ZMDafxf64x7vRQ4lKAASTlYd3HGSH1KHEeQPrdVB7vWTYo
- fkgpRbkvPMSxHHogMT2nPrkMOzcp/ABwFbQ4rGPu+kRB9FuGMCt7OgOFv1E7IH9DlAIm
- yeTdhnOz5zOihPMXUGCo2A2g4nMIaRNAEeg9PVgntqwWWUhq+4Q7RTGBmTLiJDo5DCD0
- dgrAUomw6fVY5Xc9jcEk3m7bYokK+5HlHNA0En5G3fq/E15ttdDlTsNH81r4ThbxzCiB
- jVosZK3q0z/z9suJbWi2ds7+frOU3WnpPzNc0fOYQn0cBHZhwQNaKyqcThrbmk2orfXv
- cp7w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779180121; x=1779784921;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=gmail.com; s=20251104; t=1779180122; x=1779784922; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=JuTb9mrv6IYSWv7eR3Y+e7bQVnq6tTfGs37LJAnhhEw=;
- b=cA0aN+I4145EX/2GIfEI6dxJusy4gIpJM/zXvlKTqqo6ooicMxvn7islSTE1gSuKGG
- hbWBMobC7ZvAgrUPPa0YvNpiNtlXVRtd+1UQxbm7XegupDcrcTxbSYZ68WpiMKBwMkLa
- xfir1CrcPasUw/TVUxNh+8bczXCuDDwlUulaF1VnCjCWnGR0jiGNqW3XaGRbe+f4asnG
- aMWoJhbW83jRuy9MrbFoVPxhFc0hu3uyJ5OJ4dq4k0qmjIlPpIHIQsvhWUaV6CqAyyB+
- B322tMlASlnk0wZ1T4sIow0sCxHaZ5JY+8oTG5n23HK+RbNz8CN5WbVJ8uGyXbNu+7QW
- 31Mw==
-X-Gm-Message-State: AOJu0YyDnpJs1XZY+o4SR0flYSPPdlJjEU76mmeFlI8+K408iwsWvPGp
- ZeZILAsYQlw46LrF02DyR8wocSqQDMtgGA5wBS8Lkef28zd2gXNuGYBx2rR+Zw==
-X-Gm-Gg: Acq92OGShL0emozWU79xPPSesnlZUTw1Q6YSbEhzQ3sObI+l78UXZuFrhynWYA4RESS
- R+O9GuTvzBRDKfibbzzXkylKQ6lBAjRBG1AzBMjksexFw8nnf+kWkty7WvZji53Jn9eGmcYc5Nk
- TGrUOLhNH6SPRrBGRFa5g9wGaiaFJQQlbcVytQwDRxzOiXQchhpQ841WKKEloSjpjAJq7vP+wvZ
- y19kmXmKXVqtne57SwheroV/4K5olKbHhuhBxGIpGO4Sq0szZMx4ya28AwlnMo027e++R6RPMbD
- 3u6/ui48naOoeTHGNuL+eGHTFxFY9DxLgDoyalFXjPyScDEVgzJnr1UjH+zhBZSZFU9v0VaFuO6
- dWQg5WWy+28dnFesczdrnUS8o9xjTDNAj2f1/SzoAbYwaH5AZurFbl94vFjQp2mj68rH5++7KRt
- N3Qjejt/8t0O+Ti+g7vCiHsqE9QAAz1IUMumXF+nSFiuPzCbH3brE5TGukRNxB8TnKVC0LYR1KR
- Vo=
-X-Received: by 2002:a05:600c:8189:b0:48e:89f9:9408 with SMTP id
- 5b1f17b1804b1-48fe632374fmr284697035e9.20.1779180121214; 
- Tue, 19 May 2026 01:42:01 -0700 (PDT)
+ bh=2fw6TIXThyXb+AsmhdfNo5fn73O96mr7VQ8c3z3lnkE=;
+ b=I9RJzHHzbN43B1j7Ub9IQ59KhZWXbrw0sLQOXuYGEm8p3pFFQAMFoDo3sLxVhQi9v3
+ uwRFsm0A+tkGIE5suJ0dT7lgD6n8d5D7uaSkoVgmr3a8xxvW/vOLtbvd296u2iHwJ8AH
+ k1SYTF8+ocNIcfISEJ2BeErbVE0hO1VGs+YXEmipoI+j9gM66vj25mzJINltfPs5qynm
+ 3pxOAiG/7Wir1Ea4xIQB7uDj8geWmnOblexgygl6jMQtkHGow/w0seKpTR63NHY/WiF8
+ J5FvGev0GdzsIMcjGMofQDvt34MuJOvNS8xpV5s9stDWYt5jHBNSTVD8EVNU/7fFGQFl
+ aJtQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1779180122; x=1779784922;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=2fw6TIXThyXb+AsmhdfNo5fn73O96mr7VQ8c3z3lnkE=;
+ b=Gjt4NKtAXYilDQxBUSbdiHse6gXCMSpCxAyI0x1mZQZu5z7jmC3b5pI3vmkTbBf7FP
+ 10z8Qyo5EIwtT/gPvMGxCSbo+e+PbrTSEGWsyYNFHgYNf/xdLNyZYyQwjNqrkCVEf+T0
+ urW+l3sZJjcDNkrNE8vedwXo+JOlUb3pl8a8Y4akpNhzx3GruBLF6Uss24AVBmxEC9FU
+ 3S+3rH+3x9tFtPpw4MBPVOsYzbfKq9eGhPQ9vgoxISXLrAHcpe68V7WZQW2P//QZp38c
+ 2wMrJE2HxuAdImXpH6MDrosXuA8lM16NyIGCqKBtKFDw+B7vGIL/sMSeLGpszckcONbG
+ CYQA==
+X-Gm-Message-State: AOJu0Yyao6KGb8YFbonCp68ICTx8u8JS5KtBG38LhlVexTwn+1q8Pm9e
+ qUvh4jDNQQpMZu4cVyHu++g/iViYea9SpbdKCKs4fFz3uEjh3ItkMPg3UHZZ6g==
+X-Gm-Gg: Acq92OE52EZxmyMk3dlnTJjf+FojyQEMX6XgnKdIBtlw0Ogj21gPsvyp12SaZpNkdms
+ xy0VFHIQTAuv4EBK8BVl62lpzbsszIkebCn0dI1/q2rIimdiayusmE/96SMzpbQLVWFnQPiWXNV
+ 9Je0vDb3KARxJMmk6DP8ibD979jLViShh9d+6/PMZgZ22fdBcmIy3iGtPvGS8qW2F8Pylfb/2NP
+ 6mPJBZk/8LZJ7JXkidLybUjvUMtY38IR5YiFRmjahFsyDnfPMkaj3sTY3WnI0AmISNEJyGOE9KK
+ gP5MutHkkevgyUyTLl1Ev9/Ke130Xvp7WHaQRm+Wa1RbfwgfzqKajL0oSz+R60VtvrOggVGBdRP
+ Hrjufxq56WTXThT0F+Ly5eYeAbmw0htltHpLEO44yduotSOvS32pF0e4LkzxGuKFjZl8Mx5/fyQ
+ DMCG2aNQwrVA1icaZ0yYdAPybk0i/drMzqJIpc8AV6CPXhXAojEeNXObg26WkCp/B2
+X-Received: by 2002:a05:600c:3492:b0:48a:52ee:5776 with SMTP id
+ 5b1f17b1804b1-48fe60e79eemr297112825e9.11.1779180122197; 
+ Tue, 19 May 2026 01:42:02 -0700 (PDT)
 Received: from Timur-Hyperion.home (54001290.dsl.pool.telekom.hu.
  [84.0.18.144]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-48ff2cb4ae0sm141935945e9.0.2026.05.19.01.42.00
+ 5b1f17b1804b1-48ff2cb4ae0sm141935945e9.0.2026.05.19.01.42.01
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 19 May 2026 01:42:00 -0700 (PDT)
+ Tue, 19 May 2026 01:42:01 -0700 (PDT)
 From: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
 To: amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
  christian.koenig@amd.com, Natalie Vock <natalie.vock@gmx.de>,
  Jeremy Klarenbeek <jeremy.klarenbeek99@gmail.com>
 Cc: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
-Subject: [PATCH 0/5] drm/amd/pm: Fix laptop issues on SMU6-7
-Date: Tue, 19 May 2026 10:41:53 +0200
-Message-ID: <20260519084158.72960-1-timur.kristof@gmail.com>
+Subject: [PATCH 1/5] drm/amd/pm/si: Disregard vblank time when no displays are
+ connected
+Date: Tue, 19 May 2026 10:41:54 +0200
+Message-ID: <20260519084158.72960-2-timur.kristof@gmail.com>
 X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260519084158.72960-1-timur.kristof@gmail.com>
+References: <20260519084158.72960-1-timur.kristof@gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -86,34 +89,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Fix various issues with the clocks stuck on SI
-laptop dGPUs:
+When no displays are connected, there is no vblank
+happening so the power management code shouldn't
+worry about it.
 
-* vblank mistake when there are no displays connected
-* forgot to notify SMU about DC->AC switch
-* inconsistent values in VBIOS
+This fixes a regression that caused the memory clock
+to be stuck at maximum when there were no displays
+connected to a SI GPU.
 
-While we are at it, also implement the DC->AC notification
-for SMU7 as well, which is supposed to work the same way.
+Fixes: 9003a0746864 ("drm/amd/pm: Treat zero vblank time as too short in si_dpm (v3)")
+Fixes: 9d73b107a61b ("drm/amd/pm: Use pm_display_cfg in legacy DPM (v2)")
+Tested-by: Jeremy Klarenbeek <jeremy.klarenbeek99@gmail.com>
+Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
+---
+ drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-Jeremy Klarenbeek (2):
-  drm/amd/pm/si: Fix updating clock limits from power states
-  drm/amd/pm/si: Notify the SMC when switching to AC
-
-Timur Kristóf (3):
-  drm/amd/pm/si: Disregard vblank time when no displays are connected
-  drm/amd/pm: Rename enable_bapm() to notify_ac_dc()
-  drm/amd/pm/smu7: Notify SMU7 of DC->AC switch
-
- .../gpu/drm/amd/include/kgd_pp_interface.h    |  2 +-
- drivers/gpu/drm/amd/pm/amdgpu_dpm.c           |  8 +--
- drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c    |  6 +--
- drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c    | 50 ++++++++++++++-----
- .../gpu/drm/amd/pm/powerplay/amd_powerplay.c  | 12 +++++
- .../drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c   | 15 ++++++
- drivers/gpu/drm/amd/pm/powerplay/inc/hwmgr.h  |  1 +
- 7 files changed, 74 insertions(+), 20 deletions(-)
-
+diff --git a/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c b/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
+index b75a6031c68a..5afe42918497 100644
+--- a/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
++++ b/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
+@@ -3076,6 +3076,10 @@ static bool si_dpm_vblank_too_short(void *handle)
+ 	/* we never hit the non-gddr5 limit so disable it */
+ 	u32 switch_limit = adev->gmc.vram_type == AMDGPU_VRAM_TYPE_GDDR5 ? 450 : 0;
+ 
++	/* Disregard vblank time when there are no displays connected */
++	if (!adev->pm.pm_display_cfg.num_display)
++		return false;
++
+ 	/* Consider zero vblank time too short and disable MCLK switching.
+ 	 * Note that the vblank time is set to maximum when no displays are attached,
+ 	 * so we'll still enable MCLK switching in that case.
 -- 
 2.54.0
 
