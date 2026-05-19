@@ -4,70 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5E11CCD4F52
-	for <amd-gfx@archiver.kernel.org>; Tue, 19 May 2026 08:42:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 63ABFCD4851
+	for <amd-gfx@archiver.kernel.org>; Tue, 19 May 2026 08:42:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EDF2F10EB14;
-	Tue, 19 May 2026 08:42:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F1AF810EB68;
+	Tue, 19 May 2026 08:42:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="iJor/2If";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="FKmy1tRv";
 	dkim-atps=neutral
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com
- [209.85.128.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DBD8810EB14
- for <amd-gfx@lists.freedesktop.org>; Tue, 19 May 2026 08:42:05 +0000 (UTC)
-Received: by mail-wm1-f46.google.com with SMTP id
- 5b1f17b1804b1-488af96f6b2so35675825e9.0
- for <amd-gfx@lists.freedesktop.org>; Tue, 19 May 2026 01:42:05 -0700 (PDT)
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com
+ [209.85.128.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9374D10EB14
+ for <amd-gfx@lists.freedesktop.org>; Tue, 19 May 2026 08:42:06 +0000 (UTC)
+Received: by mail-wm1-f47.google.com with SMTP id
+ 5b1f17b1804b1-4891c0620bcso20132675e9.1
+ for <amd-gfx@lists.freedesktop.org>; Tue, 19 May 2026 01:42:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1779180124; x=1779784924; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1779180125; x=1779784925; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=bbkVZm9huwk5DqPliqJm3CtpFt7jRXNZ8wXXHRzSOM4=;
- b=iJor/2IfMgDg6fmo5Fe6Ua2va6CQqQsvsfLAizJjYcA+CBt0cmNDAPnyM+7dRg4tU+
- n/UdYJ6hH0PcNSm/Ho5v31KFedI8YGwV6JVSrCgSmeZyHcO5y+SUF9mgeb2C+tdNZQoA
- W/01YrVLMFklrjszWcWXxWnVibIeu1za/NxzC+kfgcLXRI77rUtvAjFi+ueyFCBbPh95
- MhapFuszZfaSEOGt9A4c8SkSYVLUJTW9gMlHDaW4Oc5ZXtp0ADnadDOFQZskOrly1z/0
- nf3+VpEAcjPKHJ4XSX2l/8Rh433Ghj5XoxYsPm9WZG+FcuraONJhpjnHK5EvqFDoBgt+
- 7P4Q==
+ bh=CHLk0edh/Ay9/heyZKDPmNy6X7yR0fUCIgeiLMGJb0w=;
+ b=FKmy1tRv4jcSUzh6L+QVVPkqi4RSifFarxpnpe01Mn4/xOI9p0p7it0dWKAeiSCzFc
+ CWHCusvllG5PBv07tpve+ZCWLQunr1zwvPLVt1dXdDRtzEcBbEzFviI7pFjPBXoEtavz
+ XzcdGrh8ldf5SBCe3HqQ20VWr5YO1SqR1sy168337tMUB1X/7YCoYicM2FpSo7h2AnKB
+ gCGaSe/fFYnDrANPPk8YiRFDoYBceiWA4yVFlEOHYSvQleP4094X5u5WvKwDgJQ58yQy
+ cTtIjgXTm7he7iC9scO0sDYOzKUcaPtaNCPhOEh6jOX8ES/5Fg89duvHp4pjEhspvUaM
+ Fyjw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779180124; x=1779784924;
+ d=1e100.net; s=20251104; t=1779180125; x=1779784925;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=bbkVZm9huwk5DqPliqJm3CtpFt7jRXNZ8wXXHRzSOM4=;
- b=BkvZvI4E1PTelkre7meGylU3fXzfRLm9+nyA3EPbpQfYKOsAHHFVAWewQCffBtzHqO
- 7+ziGSAPs1ntVLG4nksLSRq0HAs1SlWc6jhBbAupQ2+bOqibqbeCYrRr0pbX3QGPqThS
- PaaaM3dE8OrJbiKrhXG/6QR4cg6oCxRSy+NLe2C6NafE/xB5qYmNCeLkqBCSuZDsnfAC
- BpvMeKT+CHi/sMzNUOz6BxfMEnpHmd/CNKl4ilQSjYq80s+2pmsCAsP2T3eZQOWuiL0S
- fn/C+zyzvmwfASGzwaNCt+B7gZveEz6I8aR8PXI6JMsAc10W0PnU+IPZzdZJ9Jwjwaly
- oOAQ==
-X-Gm-Message-State: AOJu0Yz1Is5B2bzcbrZxgYPNio8uPdtEnAvI8YuaP66C5Jc7fuQia4S1
- aghRmFJwbQI15WEG9+A+kJJeBRzE526u7mjQ7TCOswjT94m16GWFXiN0c+Dnag==
-X-Gm-Gg: Acq92OESjNGmn05Blh0t7jsL1MDBirS3eLjHgCafXYW/+fbW+XUoNhtkmlSosdDZXUR
- 4TATd3c4IxXNaJBjyAAqySYkmoMARbTU8w75EAdKTjXPVSJBorWtE+ip2A72+AzUOd7dKoegAs7
- gUl9TwlwGJbl1Kvq1rmY7GhTsyQTkFo/smCdvoElGKzyjp6MZoExKklBGmfyDg3uF3OSwMeSmvO
- Un9NaYp4HoC4ioGkEMoKsS7B6GA0NHZcbOpcfr6ZhxVpxdRO8xrKus9BdMauWuPPNw3N8n4DX15
- 9OytH3On2QHfXRGUIlIMzFEZgoYvWL1TsN3TBXy908pOfa3WY8RZ9g/Oif4HxexIs/XwvSm5Y4/
- KIdL6reALcad8O8GgJBlQ0PLdjTP+u0VQJ/mBv4pau0bpZMNBUXhGca5qjhoDB51eb2yPqDhkYQ
- 7vZgq8KnOzNin1iDigTCAacfJ1IbG1t9Hq7mPC9EglJ9sn7qYgIBIN28dDuwp1u4tt
-X-Received: by 2002:a05:600c:46cf:b0:48e:8974:c377 with SMTP id
- 5b1f17b1804b1-48fe6626ba1mr274274775e9.29.1779180124187; 
- Tue, 19 May 2026 01:42:04 -0700 (PDT)
+ bh=CHLk0edh/Ay9/heyZKDPmNy6X7yR0fUCIgeiLMGJb0w=;
+ b=VxLgmRzvxq5CX0H3fNY/Z9nbC1l6aLgT0UHmSqEUwO1AfOd6l3igUoOAnwTEROyru3
+ wJC3LOyxtp7t3DuHJUUzc7SVgXkjnSmMChh5WQWGtYGP0AjRUntDsTgkIW2twDj5FMhl
+ +P5wSzkD5h55+eWneVX72l7zg0HyJQP2K3kO64uf+v0/367RGzdLPwbPvB5n4xQsuCzh
+ mYWYJHoH+FZA4CHdxMoiTO5ax89QXIfanOQ80Ozr0R7O50BS1OAFoVVIUCohK3byPuCi
+ AVuVsYokdnnYgeTLzrOxBepDdpGDNjC/wNr4fVyEeJrWGii8O/2tkhnDLNlcPlY40kI5
+ PNRQ==
+X-Gm-Message-State: AOJu0YzLF+fmaBUsHMoO+/LA+WkH73kmdm7H9x2PHnhUG5kbX+0O/YUE
+ Cv5jIMRPGvjzsC/rMQln1qT5yEPhadEFIkV/egc9D1dCNemS2tKgs9b0Yxn06g==
+X-Gm-Gg: Acq92OFTBT9fRwGLxqaIiW5wLnqsRU0TT/PXNXGMT8ELiu5iD7qFP8NZWFVdAPJBQgV
+ lqtow0OrPaD+yB4w0ysVyvDe089e+sSgk/12dUsGKnsc2AVXCMPp3gbBe4t1GtuS+9AI2iXl+8j
+ zDIdMSaCvD/w5Oeq9k1Q0F11n1XEcrfjoCDAlk6bHibMkvNVHW85HT7RMuJj7QyKfyYyS0yCOGI
+ liVQUiPxcWK1WI3ED5mdjOtbuFVruu8nyyDNIf4Dx50aKshBU9ZCmnj66c07BPm7o+E7Q65mOoH
+ xmIZbxuiTkeAAWeCQF2R3OFuFs6iLjye7tU+7/frrL+zJmbPzDudpOV12Tr9MRlhP/i8uYZPLVj
+ 7fM+LbGwixY40+1sOYfzRjoIuAtdK6+NI+0ZE/3J4BmO5m0x6OvyXNlV9U/bd2CocJxY12sKJVi
+ OJXIH6NfrkcCLP0SZl3RUVlHydJctijkhawJ6/k7vbnmyzo8Fx8qMsHP9sNKeq3Rk/NB/SKAPB5
+ 90=
+X-Received: by 2002:a05:600c:8901:b0:48e:526e:1040 with SMTP id
+ 5b1f17b1804b1-48fe63021f9mr268636465e9.23.1779180125040; 
+ Tue, 19 May 2026 01:42:05 -0700 (PDT)
 Received: from Timur-Hyperion.home (54001290.dsl.pool.telekom.hu.
  [84.0.18.144]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-48ff2cb4ae0sm141935945e9.0.2026.05.19.01.42.03
+ 5b1f17b1804b1-48ff2cb4ae0sm141935945e9.0.2026.05.19.01.42.04
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 19 May 2026 01:42:03 -0700 (PDT)
+ Tue, 19 May 2026 01:42:04 -0700 (PDT)
 From: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
 To: amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
  christian.koenig@amd.com, Natalie Vock <natalie.vock@gmx.de>,
  Jeremy Klarenbeek <jeremy.klarenbeek99@gmail.com>
 Cc: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
-Subject: [PATCH 3/5] drm/amd/pm/smu7: Notify SMU7 of DC->AC switch
-Date: Tue, 19 May 2026 10:41:56 +0200
-Message-ID: <20260519084158.72960-4-timur.kristof@gmail.com>
+Subject: [PATCH 4/5] drm/amd/pm/si: Fix updating clock limits from power states
+Date: Tue, 19 May 2026 10:41:57 +0200
+Message-ID: <20260519084158.72960-5-timur.kristof@gmail.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260519084158.72960-1-timur.kristof@gmail.com>
 References: <20260519084158.72960-1-timur.kristof@gmail.com>
@@ -88,97 +89,82 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-When ATOM_PP_PLATFORM_CAP_HARDWAREDC is set,
-the SMU has a GPIO pin for detecting AC/DC switch
-and everything works automatically.
+From: Jeremy Klarenbeek <jeremy.klarenbeek99@gmail.com>
 
-Otherwise when there is no GPIO pin, the SMU can
-automatically detect switching to DC, but needs
-to be notified of switching to AC.
+VBIOS can contain conflicting values between:
+- the maximum allowed clocks and voltages on AC or DC
+- the clocks and voltages in power states on AC or DC
 
-Use PPSMC_MSG_RunningOnAC to notify the SMC
-when switching to AC.
+Update maximum clock (and voltage) limits for both AC/DC
+and take the highest value from the VBIOS limits and
+the performance/battery power states. Previously this
+was only done for AC, but is also needed for DC.
 
+This commit fixes the behaviour on some laptop GPUs,
+where the VBIOS limit was set to the lowest possible
+clock frequency, so the GPU was stuck on the lowest
+possible power level on battery.
+
+Some affected GPUs are:
+FirePro W4170M (Dell Precision M2800)
+Radeon HD 8790M (Dell Latitude E6540)
+and possibly other laptop GPUs.
+
+Co-developed-by: Timur Kristóf <timur.kristof@gmail.com>
 Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
+Signed-off-by: Jeremy Klarenbeek <jeremy.klarenbeek99@gmail.com>
 ---
- drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c  | 12 ++++++++++++
- .../gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c   | 15 +++++++++++++++
- drivers/gpu/drm/amd/pm/powerplay/inc/hwmgr.h      |  1 +
- 3 files changed, 28 insertions(+)
+ drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c | 29 ++++++++++++++++++----
+ 1 file changed, 24 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c b/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
-index 0bbb89788335..19e74baa2b85 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
-+++ b/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
-@@ -1550,6 +1550,17 @@ static void pp_pm_compute_clocks(void *handle)
- 			      NULL);
+diff --git a/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c b/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
+index 5afe42918497..04f3ba5f8f46 100644
+--- a/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
++++ b/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
+@@ -7240,6 +7240,7 @@ static void si_parse_pplib_clock_info(struct amdgpu_device *adev,
+ 	struct evergreen_power_info *eg_pi = evergreen_get_pi(adev);
+ 	struct si_power_info *si_pi = si_get_pi(adev);
+ 	struct  si_ps *ps = si_get_ps(rps);
++	struct amdgpu_clock_and_voltage_limits *limits;
+ 	u16 leakage_voltage;
+ 	struct rv7xx_pl *pl = &ps->performance_levels[index];
+ 	int ret;
+@@ -7299,12 +7300,30 @@ static void si_parse_pplib_clock_info(struct amdgpu_device *adev,
+ 		si_pi->mvdd_bootup_value = mvdd;
+ 	}
+ 
++	/*
++	 * Update maximum allowed clock limits.
++	 * VBIOS can contain conflicting values between:
++	 * - the maximum allowed clocks and voltages on AC or DC
++	 * - the clocks and voltages in power states on AC or DC
++	 */
+ 	if ((rps->class & ATOM_PPLIB_CLASSIFICATION_UI_MASK) ==
+-	    ATOM_PPLIB_CLASSIFICATION_UI_PERFORMANCE) {
+-		adev->pm.dpm.dyn_state.max_clock_voltage_on_ac.sclk = pl->sclk;
+-		adev->pm.dpm.dyn_state.max_clock_voltage_on_ac.mclk = pl->mclk;
+-		adev->pm.dpm.dyn_state.max_clock_voltage_on_ac.vddc = pl->vddc;
+-		adev->pm.dpm.dyn_state.max_clock_voltage_on_ac.vddci = pl->vddci;
++	    ATOM_PPLIB_CLASSIFICATION_UI_PERFORMANCE)
++		limits = &adev->pm.dpm.dyn_state.max_clock_voltage_on_ac;
++	else if ((rps->class & ATOM_PPLIB_CLASSIFICATION_UI_MASK) ==
++		 ATOM_PPLIB_CLASSIFICATION_UI_BATTERY)
++		limits = &adev->pm.dpm.dyn_state.max_clock_voltage_on_dc;
++	else
++		limits = NULL;
++
++	if (limits) {
++		if (pl->sclk > limits->sclk)
++			limits->sclk = pl->sclk;
++		if (pl->mclk > limits->mclk)
++			limits->mclk = pl->mclk;
++		if (pl->vddc > limits->vddc)
++			limits->vddc = pl->vddc;
++		if (pl->vddci > limits->vddci)
++			limits->vddci = pl->vddci;
+ 	}
  }
  
-+static void pp_dpm_notify_ac_dc(void *handle)
-+{
-+	struct pp_hwmgr *hwmgr = handle;
-+
-+	if (!hwmgr || !hwmgr->pm_en)
-+		return;
-+
-+	if (hwmgr->hwmgr_func->notify_ac_dc)
-+		hwmgr->hwmgr_func->notify_ac_dc(hwmgr);
-+}
-+
- static const struct amd_pm_funcs pp_dpm_funcs = {
- 	.load_firmware = pp_dpm_load_fw,
- 	.wait_for_fw_loading_complete = pp_dpm_fw_loading_complete,
-@@ -1615,4 +1626,5 @@ static const struct amd_pm_funcs pp_dpm_funcs = {
- 	.gfx_state_change_set = pp_gfx_state_change_set,
- 	.get_smu_prv_buf_details = pp_get_prv_buffer_details,
- 	.pm_compute_clocks = pp_pm_compute_clocks,
-+	.notify_ac_dc = pp_dpm_notify_ac_dc,
- };
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
-index 4436ab2bb51f..416b9380a70e 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
-+++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
-@@ -5854,6 +5854,20 @@ static int smu7_power_off_asic(struct pp_hwmgr *hwmgr)
- 	return result;
- }
- 
-+static void smu7_notify_ac_dc(struct pp_hwmgr *hwmgr)
-+{
-+	struct amdgpu_device *adev = (struct amdgpu_device *)(hwmgr->adev);
-+
-+	/* Check if the platform already manages the AC/DC switch via dedicated GPIO. */
-+	if (phm_cap_enabled(hwmgr->platform_descriptor.platformCaps,
-+			    PHM_PlatformCaps_AutomaticDCTransition))
-+		return;
-+
-+	/* The SMU automatically notices DC, but needs to be notified when switching to AC. */
-+	if (adev->pm.ac_power)
-+		smum_send_msg_to_smc(hwmgr, PPSMC_MSG_RunningOnAC, NULL);
-+}
-+
- static const struct pp_hwmgr_func smu7_hwmgr_funcs = {
- 	.backend_init = &smu7_hwmgr_backend_init,
- 	.backend_fini = &smu7_hwmgr_backend_fini,
-@@ -5916,6 +5930,7 @@ static const struct pp_hwmgr_func smu7_hwmgr_funcs = {
- 	.get_asic_baco_state = smu7_baco_get_state,
- 	.set_asic_baco_state = smu7_baco_set_state,
- 	.power_off_asic = smu7_power_off_asic,
-+	.notify_ac_dc = smu7_notify_ac_dc,
- };
- 
- uint8_t smu7_get_sleep_divider_id_from_clock(uint32_t clock,
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/inc/hwmgr.h b/drivers/gpu/drm/amd/pm/powerplay/inc/hwmgr.h
-index 3ae45eac0c5c..84de2ccad7a3 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/inc/hwmgr.h
-+++ b/drivers/gpu/drm/amd/pm/powerplay/inc/hwmgr.h
-@@ -364,6 +364,7 @@ struct pp_hwmgr_func {
- 					bool disable);
- 	ssize_t (*get_gpu_metrics)(struct pp_hwmgr *hwmgr, void **table);
- 	int (*gfx_state_change)(struct pp_hwmgr *hwmgr, uint32_t state);
-+	void (*notify_ac_dc)(struct pp_hwmgr *hwmgr);
- };
- 
- struct pp_table_func {
 -- 
 2.54.0
 
