@@ -4,125 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 18A20CD4F57
-	for <amd-gfx@archiver.kernel.org>; Tue, 19 May 2026 09:07:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C2930CD4851
+	for <amd-gfx@archiver.kernel.org>; Tue, 19 May 2026 09:16:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 69E0B10EB9E;
-	Tue, 19 May 2026 09:07:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5AAAE10E37E;
+	Tue, 19 May 2026 09:16:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="WCqDRkb7";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="KAKeiqwt";
 	dkim-atps=neutral
-Received: from PH0PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11011001.outbound.protection.outlook.com [40.107.208.1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5711210EB9E
- for <amd-gfx@lists.freedesktop.org>; Tue, 19 May 2026 09:07:00 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=HyQR+XE/7AivJeb6Vs3p88eh3OU9dOW1NSIma9xLkfcIBGtYbt0RTE04DHWjMwEW4/mIMRjrjLiW1GEKRSmuNoJP89zthWsAVi4YJUZaeBXYn7lX6JXJQdG5b0c62uXG97vH9f5ef7S0D4QM5YP7c0IpZmWykHA4ZJlpPVTNXFqy7JiyVFD4gKTv7PlXB5ULnbW1FTW9LDz8CKdeXbyHOpW+A3+Vz+Wf72Ymq+u5VOGIFVZcXWoLgnA8osBOrpBTioOJhpysx27KFANmE+0Pqz1dJUQPfVzwGMghvEdibH2FwYGYnWsXBK32iFh2AHqtNN7wmaQxLh79mopwhA5M4A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=uHr+7L7dgLrzhLvoTnYD5VlQAcOWZdoMYLZ2X9s3c/g=;
- b=V1maJmxqn36JwX8IIFLVDyehyEu3vpF6vRcf3oUlWNQXvNzbUEZ3lkIdoUYQMZedRQN608TiX4TLz9v8HS2E/SIFjZH7LKu3NQVi2NuwHMf1quS04BOgEiIdS8R3A7kkt/oiUI11cmANJ7Ake5bd+05gcjJt08Yr9kozB7Dlmv/c22NgFQFwr5zuNrqUFcY7wF7nVRhkXNnGaUeWKdbKAdILnTMSj0vUF3z1Bp3oYX7l2cl3UXUEb9RuNilSBUpJq0o5mBK8l5gQPd2tnPXYv1jOad8wAfUE1lx73Hpv1muK92QXluUwufxIys9bDHDsZakp9dCt/9sdaCFOmC+2sw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=uHr+7L7dgLrzhLvoTnYD5VlQAcOWZdoMYLZ2X9s3c/g=;
- b=WCqDRkb7rKuDtxz6SNAR0S/X+2RAatIRM669OshfU4g5QJtHYtY6btmRr2BIqr+NU4P8wRbmXX7iY6T7G+5dKHbhqHDjYKEAUCB8EVqDaIU3+XzS/cSOBwgpXbtR3dNU627WvY2QDJjSsJeYtPtTS4o+EAGChFEu46bhs20MgVw=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by CH1PPFC8B3B7859.namprd12.prod.outlook.com
- (2603:10b6:61f:fc00::622) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9913.12; Tue, 19 May
- 2026 09:06:57 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0025.022; Tue, 19 May 2026
- 09:06:56 +0000
-Message-ID: <be651c7b-a9f0-4cbd-bf0a-30b2499b2ef1@amd.com>
-Date: Tue, 19 May 2026 11:06:51 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 4/5] drm/amdgpu/uvd: Fix forcing BOs into UVD segment when
- it isn't at 0
-To: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>,
- amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
+Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com
+ [209.85.221.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0982F10E37E
+ for <amd-gfx@lists.freedesktop.org>; Tue, 19 May 2026 09:16:32 +0000 (UTC)
+Received: by mail-wr1-f45.google.com with SMTP id
+ ffacd0b85a97d-45e6a4d0be0so1294856f8f.1
+ for <amd-gfx@lists.freedesktop.org>; Tue, 19 May 2026 02:16:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1779182190; x=1779786990; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
+ :reply-to; bh=a9ZUDQXmoyvcKeSwLboM1ib6wkSlBll0X/tbIyopiYc=;
+ b=KAKeiqwt8El8dRkHR87uw2aUHW5FeYKe9KVD3adrTaS4YR+pfF7ef1Km04LP6NOcO7
+ HbaNixo+j/qRCyaakkXhHcEr9+VyLar4IBJlZShMIYhkB8FfL5QRYWmkRrrDs+svXcfi
+ Yp3N7nlN/K+EXaHLhfQNl+vReEYk2DoL89ILB92EAeYH9fd5icKGrm0sW1ddyw/KQEhf
+ MeZV4IfTSgHpSN5JlId0rXD2x2Lo4wR+Rq/Z0XPbIK9nurhwW5YLbTnq4nKESAoAbU33
+ 9TtdJBdT0Er/AhyQafWJlZ0JvpSUlANM5TF5ZN1A81D3TZsYeTSug+v1ndGB9XQeGx6p
+ UvrQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1779182190; x=1779786990;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=a9ZUDQXmoyvcKeSwLboM1ib6wkSlBll0X/tbIyopiYc=;
+ b=HuZQaO9GS9mswH0wwc6dTvBJce90qY8NGYhfZYaE9W+qZC+0Sltr4oE9YNdPjeDJfk
+ SlyAQ61MZGZ98PohooeHwUNIjUUdMI+RYVVE/2cvUJvpnADUB3C4DToBaeku0jOhbQHF
+ crhc4N8qeYu/U0TMbKp/GxCuTFgrhwrfPlXPTm0et0sN8LjgI9PfofKMtYMh/xl30cin
+ CiPXJGVYAhC0Ue5XUOOLgeXU0siAG9zn44p+X4hX7QQyRsEWD4PZlVsVchAm6FHkTi8U
+ vVyp8iixohsJq3jFeaQ8NqTZuPBS9bbdiQ6GXLlrdcAQjhPe6JT9sGEadhRO2OCitBae
+ EZtA==
+X-Gm-Message-State: AOJu0YyPtQuerDMnR6/Ut37VX2Zvh/L9YMMC6hwf+ipw9ewVd9r5QaY2
+ mFWOCe+K2dgYDYQrwEPe1brWr0wdxJTsadDS2veeEaqLYHibZfx6Obw4hYNt/Q==
+X-Gm-Gg: Acq92OGnPavoicaDEjgKDDrYEYaZi6D6anVpKo4F8FXiSAp8qxF7PwXEtQOAGhdSclY
+ IeaBQgNGka0tVIT7EHZTu0ENBO8g65GZGFzSjdxm3+Za3HAqwZhhHZq9fag1fRvvzdbchzYXe/u
+ +RB07mA7kRSI03fVL3KfDJ8KhvWzKa9ddbgHpBcnmD+cf5eCITwKcgGSwwC8xJUlY5oW22NAlVb
+ S2lyj+P9k7+4QfxxnW6EzVNQNtWQtswJpAYbvuHDYeS8v6W2bz6l/ulTjZVuPevJDUbTzRY0X2u
+ vfEC2b9+ln1/CMnms0YMdnqRxa/Zr83if5AoY/EWBN8sdQh1hd5gNRJOaVYAQIeWzueyclaLZ/r
+ dEeqjEZT7drSQFhY2OqJYyeu/T87gSb5IlxWjC7MSNShDfcQMmBzdZUZMp70vgJv0Pey89K38ak
+ 8M4fA2ujjot3+CYm1o7GsrX229fRLO1VPR+FAU8z1wxEugj0QtZ2+fQVFzBculGCkptUf+/UvR6
+ zj0LMDQhJtORASB1QM=
+X-Received: by 2002:a05:6000:1acf:b0:44b:c220:f8ce with SMTP id
+ ffacd0b85a97d-45e5c5b3c3cmr29458480f8f.6.1779182190445; 
+ Tue, 19 May 2026 02:16:30 -0700 (PDT)
+Received: from timur-hyperion.localnet (54001290.dsl.pool.telekom.hu.
+ [84.0.18.144]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-45da0a17ec2sm41194617f8f.24.2026.05.19.02.16.29
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 19 May 2026 02:16:30 -0700 (PDT)
+From: Timur =?UTF-8?B?S3Jpc3TDs2Y=?= <timur.kristof@gmail.com>
+To: amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
  Natalie Vock <natalie.vock@gmx.de>, John Olender <john.olender@gmail.com>,
- Liu Leo <Leo.Liu@amd.com>
+ Liu Leo <Leo.Liu@amd.com>,
+ Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>
+Subject: Re: [PATCH 2/5] drm/amdgpu: Use placements of 256M GART segments for
+ SI/CIK
+Date: Tue, 19 May 2026 11:16:29 +0200
+Message-ID: <3693368.dWV9SEqChM@timur-hyperion>
+In-Reply-To: <97a4608b-133b-4c87-ab61-ea45c638693d@amd.com>
 References: <20260519082204.60811-1-timur.kristof@gmail.com>
- <20260519082204.60811-5-timur.kristof@gmail.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260519082204.60811-5-timur.kristof@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR4P281CA0210.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:e5::11) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+ <2219923.9o76ZdvQCi@timur-hyperion>
+ <97a4608b-133b-4c87-ab61-ea45c638693d@amd.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|CH1PPFC8B3B7859:EE_
-X-MS-Office365-Filtering-Correlation-Id: b9068f2c-1a46-4b28-4ed6-08deb585fa39
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|1800799024|376014|4143699003|18002099003|22082099003|56012099003|11063799006;
-X-Microsoft-Antispam-Message-Info: 7g9yEwpn8eoyBnkhRzyGNzifhVWENNmaO6JjgaM+ucexP5N8s8ynuCv+7Ch7OQ6gUm3OJ0SfxkUmZ1luJSpYlz7l5ITfxuOyCWtw2b274JTJ0HpUqVnBJ7+z2pgGFSEpPFbRKGDfhuL6X6/L3hZNPpUzgmMZiy2Mwcnr63AfOw/WnhOt5FNIoZh+FboXARZhu03Fgvup+ogvSScJqvrisOxEjCP9n27l8/iwmnWRCnPcHgL946bzPQr2JcdHdamOK3cBz8D+n60VMe37DxHRkUC7cHlGXgYbOYRAtvWvwmPWMRYWb6k//KBjfR2/DzQTrg18I6B8KMuPRcqV0c5doeijifdLUVeYVOc8dX2+obZufEOSosF1dysTQhHatKTZiISCBYPlUWh8H4+A9Ru3htXOAf2Fu6unRPMTc40RrRQcXDMfoNEKWQshvvSqYrIDmuA5atbbi7vcpmrH6P/R1aGPREjc58faTC9iQvvTaZa6Y+H92SjDj+iHnk/Gsli6ekV/4Fpo9+WvR2IXglGMWUGh4SKI/3eQduXXfIiCrE6xMOGYxUlHp3kTRQEtO6nJaHDMlfklNIqCIePmGrm2nzOb8LC0IsyvEADIE1u/TyYr9ZLY6rXIjeyuwAakLvgTiFjnhTZdNdtFvvMSpz/sXw==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014)(4143699003)(18002099003)(22082099003)(56012099003)(11063799006);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Q3d5TWJZUTNmZUJZOWM3TDFuNTYyN245cVJERUtJMGk1Y3FOTW5qbjRLQ0dY?=
- =?utf-8?B?WS9GQzhMNVcvM09zaGtkVVowVG1vdCs3dVlPWHBoNXZBanVYekkyK0QwU2pk?=
- =?utf-8?B?d3gxUEFSSkJ3ZnpTWnVNanIyaXVJekxIbmtKQlBYTHp0cGJTV1dFQVcrZG9v?=
- =?utf-8?B?d2RMQm5YSGVQVVJVelU0Z1Bjc2tMRG83SEJ2YjFGdCtTdHZEN3g1a1ZlUWVj?=
- =?utf-8?B?N3JmTUNKWUFqQTVDZlg2djJBUVRhSDg3eFhNampTSmMrK0dOdnR5bmpkSG14?=
- =?utf-8?B?QXVDbHhDeDdiaHBBeGdhWHB3SzhPaEpzWDlMYy9RbXRnV3BHYy8rR28yNCtN?=
- =?utf-8?B?bWpmaStUb3Fid3BKY1NEbVg4RllWaHB2VjRPamN3NGNObHVMaHNkWXdybENM?=
- =?utf-8?B?OG82VUIweUM2NGRuMnZKbU1aUTFrT0k4Y3hUOXZVYXEreDhOZHVTdjRhQyta?=
- =?utf-8?B?b2NzUFpjWnVUNXFTMXZ4VDlSdzl3TFdPYU95eXY5d05tNjNUUXUxVXVlVklQ?=
- =?utf-8?B?enBINFpQamFCSDc5cTNFYnJMeGlKZWh1Wlo2SWowMnlYY1h0TnN0b3ZUU0lS?=
- =?utf-8?B?cE5MMGk5NVhqcUc2cUpaNDdvSUtnY0t4cTQ5NTBLUFF1ZDJLYUtaUjFJYlAz?=
- =?utf-8?B?WXhobUE0YS9QblZZZXU0THExN1JlODMzbXZjY2I5aHozNTFmcTZrSEd5NDlD?=
- =?utf-8?B?T0pGcG9Mc2NUb2ZGVklsSkxkZDg4OTM4SDRoTG9oNld5RkRSYURqQWVSV21E?=
- =?utf-8?B?SGU5R2JqN01wZEU1NGlqano5Mjk5dkRPSTVHc29mTE1pZFB5THFPZEJ1eS9Q?=
- =?utf-8?B?STd6SnQzNUZHbUVMYWNLWmUzODljbVNzd2FxVkRRK3NSbEhkVVpSVjFBa2dM?=
- =?utf-8?B?c2VndTBjUUs2bGJ0a2UvSy80RWxGZEZUcHpqZy91VjdrUkZwSDExdEppQVcv?=
- =?utf-8?B?Y1l3ZlArZ01QdXRnQ01xRlVaU0lGeE1VSW9uaG52UXRWdDR1SlZrODZhVFhr?=
- =?utf-8?B?ZHZkV0lSeHJPSHVhRElzdTN0OWwrSU8rSFBWN3c3VkIrRFp3VHdyNlk0cHdi?=
- =?utf-8?B?QzZWQ3k0NDlIK0tWSFJJTmpLNHRyMzFhczZsZUtIQjJYS0FMMlVnL1d3bVRo?=
- =?utf-8?B?b2JKckJDMWkwaGk2Sk1NMUFwc0NLeFVKR2FVNFRaWGlVeFdCVkJDSkxQc1Bh?=
- =?utf-8?B?YTUxVVlJdXVWd1V5UUUyN0VLdFlIR2VQRzQzWFVJVXZ4ZEl5N0x0UnA0K2pk?=
- =?utf-8?B?QzFiWXplNWhuNjVmK25qc3UzUDdWV3BDUVBCVDJxcWNsTVNJZDhxT21zQTFr?=
- =?utf-8?B?d1JHck5rc3AwZVJKeEI0TldTcGEyYVNMNm1FeU1HazllVG53d01ydW5zNGx4?=
- =?utf-8?B?OTQ0U2FpVFVIVm9jVkpDYkdCeFJOcDkxNUp1NnFuWG4rRW5ReUVoai9QUFJQ?=
- =?utf-8?B?WUluQVBIWTM5MmZkUnc0ZzRLVk1FbVFQZy9GdUtCRGRIU0xQa2Z2ZFNzL0gz?=
- =?utf-8?B?NGNMS0hyK3VqbWNJbWdQRWtGRGhEbkpxOW1iaXREUDBxeVZ6ZkJUSUdZbXlZ?=
- =?utf-8?B?WHpEd0J6aVhjRUcwMm5mMkgvazZTVDdPUUxJaXJjUHhOUmZWNGE5UG1VTEE5?=
- =?utf-8?B?NDFxVU9tNWhweEZCYnhJdmtVRjFGclpHRi9ianZXdkRMeDI4Z29TR3RpOXFU?=
- =?utf-8?B?dmhpWkVMY2lXUTBmREsvaXhWVDMzNTZhWUQxUGZJN2E2OE9CYllxSFNycTZQ?=
- =?utf-8?B?TENTUEJZZUg5TWhvUmJvRHd0MEROWTNpaTlQS0tCQkI3dWJpUEoxWDFGY29s?=
- =?utf-8?B?NitJbVdSMUt5WUMvVWJqYUNUMWtVRzdNdjM5Wi9FYXhJZHYzZTB4TkxrL3lW?=
- =?utf-8?B?VUgzRWphSnl1TlV3cS95NWdXZVJUbnNOS256amVYbWU3TXp6Ti9Hd3V3dWpm?=
- =?utf-8?B?ZTJqWHpBK2VwWXpZNzBtYVBjUG9IQjFSRDZjaWF1cW1yRGtsN3pNZXc1NFNx?=
- =?utf-8?B?cVRYaWNXYU5uMnVWU0VlNk5jUjQ1WGg3OTl3T1h0S1BhRmpqUlZwUVpmWDZO?=
- =?utf-8?B?clV3Zm8xMUZsNWlIdmRzZi9GcVRQTE9BLzBzamh4dHJoWllPOUx4OTBZU0M0?=
- =?utf-8?B?VGVobHRyV1JneWtydnpqZEhIeHRtRXM2clRXQzloSmFudk4zM2s3NEpWdEdj?=
- =?utf-8?B?OHFNc2xaZTBxRE56d08yNzVQUnRLMTFuT1M4Qm4xdnMwSnd4WFgzQVYxMmdY?=
- =?utf-8?B?c3NFVHppUFFZWGU0RTFOOVk2TVNCc09neUJTdEkwajV2NWpOTVVXQitQVktE?=
- =?utf-8?Q?Bv+qI1bt9E6GrwA1Bb?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b9068f2c-1a46-4b28-4ed6-08deb585fa39
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 May 2026 09:06:56.8218 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: bUwmUTCMMLmyUJtJzn0+xJxz7jIgfdQYMGAGDM7Xeuvp//OkMFxb3nlQhzakaVIR
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH1PPFC8B3B7859
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,94 +90,218 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 5/19/26 10:22, Timur Kristóf wrote:
-> UVD 4.x and older can only access FB and MSG buffers from a
-> specific 256M VRAM segment that the VCPU BO is also located in.
-> We already modify all placements of the given BO to ensure
-> the BO is placed within this segment.
-> 
-> Previously, amdgpu_uvd_force_into_uvd_segment() always assumed
-> that the UVD segment is the first 256M of VRAM, even though
-> under some conditions the VCPU BO could be allocated outside
-> this segment, which made UVD non-functional as the BOs were
-> not inside the same segment as the UVD VCPU BO.
-> 
-> Solve that by using the segment where the VCPU BO actually is.
-> 
-> This fixes an issue with UVD failing to initialize on SI/CIK
-> when resizable BAR is enabled and the VCPU BO is allocated
-> in a different segment.
-> 
-> Closes: https://gitlab.freedesktop.org/drm/amd/-/work_items/3851
-> Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c | 36 +++++++++++++++----------
->  1 file changed, 22 insertions(+), 14 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
-> index 1e59ca924abe..993957927782 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
-> @@ -550,16 +550,29 @@ void amdgpu_uvd_free_handles(struct amdgpu_device *adev, struct drm_file *filp)
->  	}
->  }
->  
-> +/**
-> + * amdgpu_uvd_force_into_uvd_segment() - Forces placement of a BO into the UVD segment
-> + *
-> + * @abo: buffer object whose placement is forced
-> + *
-> + * UVD 4.x and older can only access FB and MSG buffers from a specific 256M VRAM segment
-> + * that the VCPU BO is also located in. Force the BO into that segment.
-> + */
->  static void amdgpu_uvd_force_into_uvd_segment(struct amdgpu_bo *abo)
->  {
-> -	int i;
-> +	struct amdgpu_device *adev = amdgpu_ttm_adev(abo->tbo.bdev);
-> +	struct amdgpu_bo *vcpu_bo = adev->uvd.inst[0].vcpu_bo;
-> +	struct amdgpu_res_cursor vcpu_cur;
->  
-> -	for (i = 0; i < abo->placement.num_placement; ++i) {
-> -		abo->placements[i].fpfn = 0 >> PAGE_SHIFT;
-> -		abo->placements[i].lpfn = (256 * 1024 * 1024) >> PAGE_SHIFT;
-> -		if (abo->placements[i].mem_type == TTM_PL_VRAM)
-> -			abo->placements[i].flags |= TTM_PL_FLAG_CONTIGUOUS;
-> -	}
-> +	amdgpu_res_first(vcpu_bo->tbo.resource, 0, amdgpu_bo_size(vcpu_bo), &vcpu_cur);
-> +
-> +	abo->placement.num_placement = 1;
-> +	abo->placements[0].fpfn = ALIGN_DOWN(vcpu_cur.start, SZ_256M) >> PAGE_SHIFT;
-> +	abo->placements[0].lpfn = abo->placements[0].fpfn + (SZ_256M >> PAGE_SHIFT);
-> +	abo->placements[0].mem_type = adev->uvd.inst[0].vcpu_bo->tbo.resource->mem_type;
+On Tuesday, May 19, 2026 11:01:48=E2=80=AFAM Central European Summer Time C=
+hristian=20
+K=C3=B6nig wrote:
+> On 5/19/26 10:59, Timur Krist=C3=B3f wrote:
+> > On Tuesday, May 19, 2026 10:54:10=E2=80=AFAM Central European Summer Ti=
+me
+> > Christian
+> >=20
+> > K=C3=B6nig wrote:
+> >> On 5/19/26 10:22, Timur Krist=C3=B3f wrote:
+> >>> UVD 4.x and older require that BOs don't cross 256M segments.
+> >>> We need to respect that in amdgpu_ttm_alloc_gart().
+> >>> We can't move the BOs later because GTT->GTT moves are
+> >>> not implemented. We also can't force all BOs to VRAM
+> >>> because that becomes very problematic in low VRAM scenarios.
+> >>>=20
+> >>> This fixes UVD CS BOs crossing 256M segments
+> >>> when they are placed in the GART.
+> >>=20
+> >> Clear NAK for that approach.
+> >>=20
+> >> This is the general TTM interface function and shouldn't have any HW
+> >> generation dependent code in it.
+> >=20
+> > I don't see how else to solve this, since GTT->GTT moves are not
+> > implemented, so we can't move the BO to a suitable address later. We al=
+so
+> > can't move it to VRAM.
+>=20
+> GTT to GTT moves should be relatively easy to implement.
+>=20
+> We just need to wait for the BO to be idle, unbind, move and bind again.
 
-This should clearly be applied to all placements, it's just that VRAM should use the vcpu segment and GTT the first one.
+Implementing GTT->GTT moves sounds like a bigger task and cannot be backpor=
+ted=20
+as that would be a new feature not a bug fix. So I strongly prefer to solve=
+=20
+this problem with the tools we already have available.
 
-> +
-> +	if (abo->placements[0].mem_type == TTM_PL_VRAM)
-> +		abo->placements[0].flags |= TTM_PL_FLAG_CONTIGUOUS;
->  }
->  
->  static u64 amdgpu_uvd_get_addr_from_ctx(struct amdgpu_uvd_cs_ctx *ctx)
-> @@ -600,13 +613,8 @@ static int amdgpu_uvd_cs_pass1(struct amdgpu_uvd_cs_ctx *ctx)
->  	if (!ctx->parser->adev->uvd.address_64_bit) {
->  		/* check if it's a message or feedback command */
->  		cmd = amdgpu_ib_get_value(ctx->ib, ctx->idx) >> 1;
-> -		if (cmd == 0x0 || cmd == 0x3) {
-> -			/* yes, force it into VRAM */
-> -			uint32_t domain = AMDGPU_GEM_DOMAIN_VRAM;
-> -
-> -			amdgpu_bo_placement_from_domain(bo, domain);
-> -		}
-> -		amdgpu_uvd_force_into_uvd_segment(bo);
-> +		if (cmd == 0x0 || cmd == 0x3)
-> +			amdgpu_uvd_force_into_uvd_segment(bo);
+Also, I would prefer to not have to move the BO at all and give it a suitab=
+le=20
+address from the beginning, to avoid the overhead of the move.
 
-The existing code was already correct. We just messed up the GTT handling by not having the correct check in the manager and not supporting GTT->GTT moves.
+As far as I understand you take issue with checking adev->family in=20
+amdgpu_ttm_alloc_gart(), right? So, how about one of these alternatives:
 
-Regards,
-Christian.
+=2D add a bool argument so the caller can request 256M segments, then the c=
+aller=20
+can check the GPU generation
+=2D add an optional argument so the caller can just pass in a placements ar=
+ray
 
->  
->  		r = ttm_bo_validate(&bo->tbo, &bo->placement, &tctx);
->  	}
+Or, if you have a different suggestion, let me know.
+
+Thanks,
+Timur
+
+> >>=20
+> >>> Closes: https://gitlab.freedesktop.org/drm/amd/-/work_items/4799
+> >>> Signed-off-by: Timur Krist=C3=B3f <timur.kristof@gmail.com>
+> >>> ---
+> >>>=20
+> >>>  drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 56 ++++++++++++++++++++++-=
+=2D-
+> >>>  drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h |  3 ++
+> >>>  2 files changed, 53 insertions(+), 6 deletions(-)
+> >>>=20
+> >>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> >>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c index
+> >>> 6c6ab4dd6ea9..a106c7e77e26 100644
+> >>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> >>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> >>> @@ -959,6 +959,40 @@ static int amdgpu_ttm_backend_bind(struct
+> >>> ttm_device
+> >>> *bdev,>
+> >>>=20
+> >>>  	return 0;
+> >>> =20
+> >>>  }
+> >>>=20
+> >>> +/**
+> >>> + * amdgpu_ttm_fill_gart_256M_placements() - Fill placements array wi=
+th
+> >>> 256M GART segments + *
+> >>> + * @bo: TTM buffer objects whose placements should be filled
+> >>> + * @placements: Pointer to an array of placements
+> >>> + * @max_placements: Size of the placements array
+> >>> + *
+> >>> + * Fill the specified placements array with 256M GART segments,
+> >>> + * starting from the highest address in order to reduce the
+> >>> + * contention of the lowest segment.
+> >>> + *
+> >>> + * Returns the number of placements filled.
+> >>> + */
+> >>> +u32 amdgpu_ttm_fill_gart_256M_placements(struct ttm_buffer_object *b=
+o,
+> >>> +					 struct ttm_place
+> >=20
+> > *placements,
+> >=20
+> >>> +					 u32 max_placements)
+> >>> +{
+> >>> +	struct amdgpu_device *adev =3D amdgpu_ttm_adev(bo->bdev);
+> >>> +	u32 i;
+> >>> +
+> >>> +	/* Fill the placements array with 256M segments, starting from
+> >=20
+> > highest.
+> >=20
+> >>> */ +	for (i =3D 0; i < max_placements; ++i) {
+> >>> +		if (i * SZ_256M >=3D adev->gmc.gart_size)
+> >>> +			break;
+> >>> +
+> >>> +		placements[i].lpfn =3D (adev->gmc.gart_size - i *
+> >=20
+> > SZ_256M) >> PAGE_SHIFT;
+> >=20
+> >>> +		placements[i].fpfn =3D ALIGN_DOWN(placements[i].lpfn - 1,
+> >=20
+> > SZ_256M >>
+> >=20
+> >>> PAGE_SHIFT); +		placements[i].mem_type =3D TTM_PL_TT;
+> >>> +		placements[i].flags =3D bo->resource->placement;
+> >>> +	}
+> >>> +
+> >>> +	return i;
+> >>> +}
+> >>> +
+> >>>=20
+> >>>  /*
+> >>> =20
+> >>>   * amdgpu_ttm_alloc_gart - Make sure buffer object is accessible eit=
+her
+> >>>   * through AGP or GART aperture.
+> >>>=20
+> >>> @@ -973,7 +1007,7 @@ int amdgpu_ttm_alloc_gart(struct ttm_buffer_obje=
+ct
+> >>> *bo)>
+> >>>=20
+> >>>  	struct ttm_operation_ctx ctx =3D { false, false };
+> >>>  	struct amdgpu_ttm_tt *gtt =3D ttm_to_amdgpu_ttm_tt(bo->ttm);
+> >>>  	struct ttm_placement placement;
+> >>>=20
+> >>> -	struct ttm_place placements;
+> >>> +	struct ttm_place placements[AMDGPU_BO_MAX_PLACEMENTS];
+> >>>=20
+> >>>  	struct ttm_resource *tmp;
+> >>>  	uint64_t addr, flags;
+> >>>  	int r;
+> >>>=20
+> >>> @@ -987,11 +1021,21 @@ int amdgpu_ttm_alloc_gart(struct
+> >>> ttm_buffer_object
+> >>> *bo)>
+> >>>=20
+> >>>  	/* allocate GART space */
+> >>>  	placement.num_placement =3D 1;
+> >>>=20
+> >>> -	placement.placement =3D &placements;
+> >>> -	placements.fpfn =3D 0;
+> >>> -	placements.lpfn =3D adev->gmc.gart_size >> PAGE_SHIFT;
+> >>> -	placements.mem_type =3D TTM_PL_TT;
+> >>> -	placements.flags =3D bo->resource->placement;
+> >>> +	placement.placement =3D &placements[0];
+> >>> +	placements[0].fpfn =3D 0;
+> >>> +	placements[0].lpfn =3D adev->gmc.gart_size >> PAGE_SHIFT;
+> >>> +	placements[0].mem_type =3D TTM_PL_TT;
+> >>> +	placements[0].flags =3D bo->resource->placement;
+> >>> +
+> >>> +	/*
+> >>> +	 * UVD 4.x and older require that BOs don't cross 256M segments.
+> >>> +	 * We need to respect that here. We can't move the BO later
+> >>> +	 * because GTT->GTT moves are not implemented.
+> >>> +	 */
+> >>> +	if (bo->base.size < SZ_256M && adev->family <=3D AMDGPU_FAMILY_KV)
+> >>> +		placement.num_placement =3D
+> >>> +			amdgpu_ttm_fill_gart_256M_placements(bo,
+> >=20
+> > placements,
+> >=20
+> >>> +
+> >=20
+> > ARRAY_SIZE(placements));
+> >=20
+> >>>  	r =3D ttm_bo_mem_space(bo, &placement, &tmp, &ctx);
+> >>>  	if (unlikely(r))
+> >>>=20
+> >>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
+> >>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h index
+> >>> 2d72fa217274..e9de628c8d2d 100644
+> >>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
+> >>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
+> >>> @@ -202,6 +202,9 @@ int amdgpu_ttm_clear_buffer(struct
+> >>> amdgpu_ttm_buffer_entity *entity,>
+> >>>=20
+> >>>  			    u64 k_job_id);
+> >>> =20
+> >>>  struct amdgpu_ttm_buffer_entity *amdgpu_ttm_next_clear_entity(struct
+> >>>  amdgpu_device *adev);>
+> >>>=20
+> >>> +u32 amdgpu_ttm_fill_gart_256M_placements(struct ttm_buffer_object *b=
+o,
+> >>> +					 struct ttm_place
+> >=20
+> > *placements,
+> >=20
+> >>> +					 u32 max_placements);
+> >>>=20
+> >>>  int amdgpu_ttm_alloc_gart(struct ttm_buffer_object *bo);
+> >>>  void amdgpu_ttm_recover_gart(struct ttm_buffer_object *tbo);
+> >>>  uint64_t amdgpu_ttm_domain_start(struct amdgpu_device *adev, uint32_t
+> >>>  type);
+
+
+
 
