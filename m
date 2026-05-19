@@ -4,27 +4,28 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A6BBFCD4851
-	for <amd-gfx@archiver.kernel.org>; Tue, 19 May 2026 11:18:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0C120CD4F57
+	for <amd-gfx@archiver.kernel.org>; Tue, 19 May 2026 11:18:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 466BF10EC59;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9D29910EC5D;
 	Tue, 19 May 2026 11:18:15 +0000 (UTC)
 Received: from rtg-sunil-navi33.amd.com (unknown [165.204.156.251])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9142210EC56
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5D35A10E3B3
  for <amd-gfx@lists.freedesktop.org>; Tue, 19 May 2026 11:18:08 +0000 (UTC)
 Received: from rtg-sunil-navi33.amd.com (localhost [127.0.0.1])
  by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Debian-22ubuntu3) with ESMTP id
- 64JBI4aV1436019; Tue, 19 May 2026 16:48:04 +0530
+ 64JBI4U61436009; Tue, 19 May 2026 16:48:04 +0530
 Received: (from sunil@localhost)
- by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 64JBI4Su1436018;
+ by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 64JBI4ZU1436008;
  Tue, 19 May 2026 16:48:04 +0530
 From: Sunil Khatri <sunil.khatri@amd.com>
 To: Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Cc: amd-gfx@lists.freedesktop.org, Sunil Khatri <sunil.khatri@amd.com>
-Subject: [PATCH v6 6/8] drm/amdgpu/userq: reserve root bo without interruption
-Date: Tue, 19 May 2026 16:47:59 +0530
-Message-Id: <20260519111801.1435954-6-sunil.khatri@amd.com>
+Subject: [PATCH v6 4/8] drm/amdgpu/userq: clean up wptr_obj along with
+ mqd_destroy
+Date: Tue, 19 May 2026 16:47:57 +0530
+Message-Id: <20260519111801.1435954-4-sunil.khatri@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260519111801.1435954-1-sunil.khatri@amd.com>
 References: <20260519111801.1435954-1-sunil.khatri@amd.com>
@@ -44,31 +45,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Fix the code to make it an uninterruptible reservation
-for root bo.
+During queue creation failure, when we clean up mqd via
+mqd_destroy we arent doing the wptr_obj cleanup and hence
+adding that clean up.
 
 Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 6 +-----
- 1 file changed, 1 insertion(+), 5 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-index 47a38fefad89..c8f7bb23e2c3 100644
+index 0737636fac43..47a38fefad89 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-@@ -620,11 +620,7 @@ amdgpu_userq_destroy(struct amdgpu_userq_mgr *uq_mgr, struct amdgpu_usermode_que
- 	/* Cancel any pending hang detection work and cleanup */
- 	cancel_delayed_work_sync(&queue->hang_detect_work);
- 
--	r = amdgpu_bo_reserve(vm->root.bo, false);
--	if (r) {
--		drm_file_err(uq_mgr->file, "Failed to reserve root bo during userqueue destroy\n");
--		return r;
--	}
-+	amdgpu_bo_reserve(vm->root.bo, true);
- 	amdgpu_userq_buffer_vas_list_cleanup(adev, queue);
- 	amdgpu_bo_unreserve(vm->root.bo);
- 
+@@ -835,6 +835,10 @@ amdgpu_userq_create(struct drm_file *filp, union drm_amdgpu_userq *args)
+ erase_doorbell:
+ 	xa_erase_irq(&adev->userq_doorbell_xa, index);
+ clean_mqd:
++	amdgpu_bo_reserve(queue->wptr_obj.obj, true);
++	amdgpu_bo_unpin(queue->wptr_obj.obj);
++	amdgpu_bo_unreserve(queue->wptr_obj.obj);
++	amdgpu_bo_unref(&queue->wptr_obj.obj);
+ 	uq_funcs->mqd_destroy(queue);
+ clean_doorbell_bo:
+ 	amdgpu_bo_reserve(queue->db_obj.obj, true);
 -- 
 2.34.1
 
