@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 01AE2CD4F54
-	for <amd-gfx@archiver.kernel.org>; Wed, 20 May 2026 05:50:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 80D5ECD4F54
+	for <amd-gfx@archiver.kernel.org>; Wed, 20 May 2026 06:39:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 852BC10E04A;
-	Wed, 20 May 2026 05:50:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EFB5110E07F;
+	Wed, 20 May 2026 06:39:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="QrYdEJ1o";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="QDi9YWzf";
 	dkim-atps=neutral
-Received: from SN4PR2101CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11012061.outbound.protection.outlook.com
- [40.93.195.61])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 61F8A10E04A
- for <amd-gfx@lists.freedesktop.org>; Wed, 20 May 2026 05:50:34 +0000 (UTC)
+Received: from SA9PR02CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11013008.outbound.protection.outlook.com
+ [40.93.196.8])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F1AB510E07F
+ for <amd-gfx@lists.freedesktop.org>; Wed, 20 May 2026 06:39:29 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=eYehKClXTgrd4xOgTVUQgH0mhB7xW0GKd7OvnnNB7++F3kX+KKaBpdOLk3bKQrDe7TkZK27fr272g/r9xoTAe4aq9By05azj+hzGA0mkTVG0/k43LRWJgMT58pF8Miwatbtxv1ZySomRa6LNmpxuMGeAUH6ONV+0hwPZFNBPi9i5jzouDku7WG14XIpIoIz6pU6lXaxu1FObMeVw8R+sDQty9ZT6uk6BgzCIzkDZ9r6oLLRERcZApK/n7iE1OqLV8ZRb+c0CXP2Ol7sqSCgRiZd0RbwPokuMm/kyl58LZdZqt0EcKb1s+nszJsYxI3PdyOxBaDpjRzd1OTVYSw3ftw==
+ b=aP9hEgP/9t5wo7fpf/hc7BlOvaTk/Tly0mAK/wkB1SGqHPKCxsBj2i/HXsm2kIyv9zN5yZ+H1KPzSxVKY/rqKr+ZSa9le7RF18X/0c7g9ZIjq5Z8MoeHfSYF3mVoyWldExtumIXU9rOzLw2U5thVVXMsfgYuzeGLW592bo78tcWtf8xk964Izx3/kSjt3kaV+JgHratE0v/P7109ML03Z7d/IEWKSdLHzMT3MUurfF196n0vDRC/O21I0LSttTl+fOxjDANFJAZetrRT//h7e1ERmqXaCNL8LSSy/fd+yKt5a8fYYzPm2IyYRp2cnXViC16GvScnBFLHGQCui9a0fw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=rVQQXbyGnQXDvBdyMZGr+jzJfpnimo0hdhuDeuiefdU=;
- b=Y71R0tXaUeP/VIduXmWAVX6bKwVJRj5xj7RtEqQOYeJAGKqZmZ2WsOCQ+7voPVbiVCiTLdkquZ5kBswxV8LfnkHW83SWBQaaNgymVjmDrniZXKCXOqnagZlZnEDcPhG/kbkGk/lcV1fjN+C9GtorZaJDw4+jVRgUSwt7x0aKbMOWR+XhVqdPBiJkiOW2cRBv/ebVSFLOQp4sV8Cn73EOOikGfmxRg/npRbKf21y7dUmbmlKS/0LjiMG9dcw0v/wDWSsAtIeKL8Hnjxq1jVHTP79vQNJRFU2f2icebGnXkrIMKCAO4sLj/XbegAWUA4SSRIAsNH6UKr/4yaJgS8QH6Q==
+ bh=HUgu8cbfftClfuFl3PBIGtoB83LA0GoERz9S381sU20=;
+ b=S+HMyq0togGWrKVmh2VmIBeilf6+VmKZNXFbPaPsoUc26BQDNVyjjq/k8KzepWy5wsAS/UjnGF2+5QNwStnChdUVcYGz5gw0AYnTfq61Awn7vcWmh0lFvDhTNUdXj5IZjj4V9C1uPOGR4iaDsNd7p8LXTI7/TXqk9nsiTOMQrzE89wyR5xNaZOfqqCI2Emmfi2jT2OCJ2ZVtB/S9EOhPUYk4Q2+zzRt4YE/su7bvtsyG/St5wxNXYQfCBHQL4+7xbeKLcXFgfkTk335ixAcMOmOs6O2bH4FN6WtRW3QSy/W4BbqjWw/0CQs493x0FbxjSqVqe5Vwl9UJ6Vr99F/tSg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rVQQXbyGnQXDvBdyMZGr+jzJfpnimo0hdhuDeuiefdU=;
- b=QrYdEJ1oHukG16eeXQYC3/Fq7tg44BKhbRhjwM3bWgB6Am8zo9+MaBwXonAurGX/T+s3bqGJizcqfSe4+mkRi2F5ZPCqilXtuDMICbR7GYLygy24MOdX02gScYLSPQHhXMnW7zfDcNICRyTdKqflOgO43WLA5a9f2vPwu6y+BwQ=
-Received: from DS7PR05CA0044.namprd05.prod.outlook.com (2603:10b6:8:2f::10) by
- MN0PR12MB6293.namprd12.prod.outlook.com (2603:10b6:208:3c2::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.25.23; Wed, 20 May
- 2026 05:50:29 +0000
-Received: from SN1PEPF0002BA4D.namprd03.prod.outlook.com
- (2603:10b6:8:2f:cafe::99) by DS7PR05CA0044.outlook.office365.com
- (2603:10b6:8:2f::10) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.48.15 via Frontend Transport; Wed, 20
- May 2026 05:50:29 +0000
+ bh=HUgu8cbfftClfuFl3PBIGtoB83LA0GoERz9S381sU20=;
+ b=QDi9YWzfJPolxCMHCv8tq4ohJuj9MOCMoTGkdEzDogFsu28MzZjme76cxiaa8cVW+EADpOOvDmb4uWvYY9POC16kLV0nBqL8x3qAwCnbmpZa21ePtj86Eej66cSATqZ0187HeK5Jj6xwh+ICkiny8BweqSYArkw0WtQi3KeqHG0=
+Received: from SJ0PR03CA0353.namprd03.prod.outlook.com (2603:10b6:a03:39c::28)
+ by CY3PR12MB9554.namprd12.prod.outlook.com (2603:10b6:930:109::19)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.48.14; Wed, 20 May
+ 2026 06:39:25 +0000
+Received: from SJ5PEPF000001F6.namprd05.prod.outlook.com
+ (2603:10b6:a03:39c:cafe::35) by SJ0PR03CA0353.outlook.office365.com
+ (2603:10b6:a03:39c::28) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.48.16 via Frontend Transport; Wed, 20
+ May 2026 06:39:25 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -49,57 +49,52 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- SN1PEPF0002BA4D.mail.protection.outlook.com (10.167.242.70) with Microsoft
+ SJ5PEPF000001F6.mail.protection.outlook.com (10.167.242.74) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.48.11 via Frontend Transport; Wed, 20 May 2026 05:50:28 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
+ 15.21.48.11 via Frontend Transport; Wed, 20 May 2026 06:39:25 +0000
+Received: from prike-code-pc.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Wed, 20 May
- 2026 00:50:27 -0500
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Wed, 20 May
- 2026 00:50:27 -0500
-Received: from ray-Ubuntu.amd.com (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
- Transport; Wed, 20 May 2026 00:50:20 -0500
-From: Ray Wu <ray.wu@amd.com>
+ 2026 01:39:23 -0500
+From: Prike Liang <Prike.Liang@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-CC: Harry Wentland <harry.wentland@amd.com>, Alex Hung <alex.hung@amd.com>,
- Alexander Deucher <Alexander.Deucher@amd.com>, Ray Wu <Ray.Wu@amd.com>, "Ray
- Wu" <ray.wu@amd.com>
-Subject: [PATCH] drm/amd/display: Fix amdgpu_dm KUnit allmodconfig build
-Date: Wed, 20 May 2026 13:50:16 +0800
-Message-ID: <20260520055018.800558-1-ray.wu@amd.com>
-X-Mailer: git-send-email 2.43.0
+CC: <Alexander.Deucher@amd.com>, <christian.koenig@amd.com>,
+ <pierre-eric.pelloux-prayer@amd.com>, Prike Liang <Prike.Liang@amd.com>
+Subject: [PATCH 1/3] drm/amdgpu: add userq create and destroy tracepoints
+Date: Wed, 20 May 2026 14:38:57 +0800
+Message-ID: <20260520063859.15914-1-Prike.Liang@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN1PEPF0002BA4D:EE_|MN0PR12MB6293:EE_
-X-MS-Office365-Filtering-Correlation-Id: c01e6a19-8418-49bd-d3fc-08deb633b26e
+X-MS-TrafficTypeDiagnostic: SJ5PEPF000001F6:EE_|CY3PR12MB9554:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5997783b-99b7-454a-c857-08deb63a88fe
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|36860700016|376014|1800799024|3023799007|56012099003|18002099003|11063799006;
-X-Microsoft-Antispam-Message-Info: R2N5nbSTKRkzQtz9eIkphFVQOjVOg4ZfPyBXDRQ1L0vsz2vFVZc2jS8tY6iBYfhMbJlQbk1AlfrQc97397Hn/uFSGW6BkZWaDGYhV0EO5VC3JMPsHbfkfpALU1j5bhlId3CaP9D3OyeVsl6oy20kENl+jsWazWhmYAmn2kdBmi5NND1+H0R+f3v+spgyn98FCJxqwgq7pQAz3gUw4hwC+kbhZUu+qarEspmY5/MW/9GkCTxxsSNWPSBn1DfmVkYIuuXlPgLTrU9k76OW8wDuQyNYrynBEyOIqCm2q8kvJAB/0H073FwjmjyqCr9pw7NZvv2pDmBJodMlhdzNB6laeHIRT2FToOUIw3Dvjz3GXn99ZKFUbXGZb3oZOd3SX5YbCM/ZgpHwi74gTHocfkfveHnBMeUtp/JfCnU2s5U3XWN/bitJPKN2hvpzwqiAe94AMX5bgqYOiKIrADLORDIxt6LI0PRyKignx+yJnTOOuyp+vxNnae7GPOSTFuGFbJB71KqP/F1E9f5c4HzlurYZMvkibUK6PIIt4ykbZf+px96MfarF4ydfAd/tG85w2hBbcZ9xujmQjTdJK68sRSf7YXIlDpAFCHRuGhFHTSFpW4l6PJ9Cei4Q9mNTorM0Ndd343gtdgvoJMTtr9fNy6UK/t7XhYYGHYogUb9Ck1rMdL+F+LhLdwr1LtGWxa9VYlRCkYsLn+QChPcgQ66s0UeQDVz8LFqmYPwz91Ri+5ZKlhM=
+ ARA:13230040|376014|36860700016|1800799024|82310400026|56012099003|18002099003|11063799006;
+X-Microsoft-Antispam-Message-Info: N+Rpl5S+evgM3sd5UslqPGO/zAjqHmnrYwvWr+9W/gtS0273mp2c23DIeeo22Z0qlKbI1RDnXwZqeVTkBBNKdWdasCcZnmELrXIg69Kk4a2JbFxbDgyk0KDV76xWsu4Y+3qQSJFYUijddlDVPuigcrIqQwX3+EVb7tK0eImmbUAKECgTZ/uIiiY+kIqh5ZFZnE2Kr7o0xYw/beuOzJ3VB6vt9nTiItuBoD11Vo8xBklssek/TbMPZb1ItmKdHUkGwhqfr2JlxE6caYlZTHPFrQ2R7OVUam6TVm7EXv2nh/ZVSXPcKVsuFd+UjfrhkRw6pqj8CERXT+V/cpdNTsp8Z1f66CkCM7kSn+xdhKm9o6FUGqvtAk3xNAZKenJh7WN6a7syGYJO7VwI9R7gKs4eMTbblUwwXW+ejtzNxiRzW1jWpoLdBnX9nnpzN0HrT7/lnCqZ8vAf5EISAUbxugfGPriwDJFc3T9R/M0Jh7MqoIWnMgEaAivFoqE9u/M7sVlQQLpuxa1b8U5WHRWnxo7Zy2fJVlNVtSBE/H4IM/2/nKN+AbACU3Knmb1IljpdWTE9m1+2yh4zW6wEl+3vFfKg7z0s+0vmYoXPPiRXGHh5bOAIp0fN24Vq8DYuLO9U0hTS1iC/oPjAE+oBsldCCBb7ajJe7dUYKGsnGONAV0nG1977915eJLuJdsgEuYAJ7K8Yo7sCT/UBOK1AE5cpFlNcZ+uYNtEILcmzJqXtHaPTCno=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(36860700016)(376014)(1800799024)(3023799007)(56012099003)(18002099003)(11063799006);
+ SFS:(13230040)(376014)(36860700016)(1800799024)(82310400026)(56012099003)(18002099003)(11063799006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: AKKMkOVQ4gNgmQagnGmC/9JbGs0EdBJxoBmV6uqUuRpC1gKKR09hTZx+nD31yRFmkcLcaGppVn4jpPY1Cv4OcTUSy+y2W7cvAZwis/3OdKlVvfh8qvkH0vnQZTn2njlih8pVK+O8YD4X/zKGQqOf5Lo81O0p1uhZNutdJak8f0spWi2+gxIlLsyrOoshu2yp8V3BqWO56kwfbz3xbD171yXApnWGdxhYHjgBV1QibwOmNJ4o+q9E6t4TH/BkGG8HGfjV/TKWquwTAPRJbG3704ILqr3TyMtvd+jzpzvtAS/kg7K1GxbL4SmXtJXDPbg5zXx2wGo6ejQ+ghXVECcd6aR230kZuofCkd3JQVDOpsVP6/7lygfbo55GyifHe0VadQ5Nst9Ojw9B9tTossJQ9//dN/basYWMzxMc/IIrucNZfDFENUL/+PDojUsbbTRj
+X-MS-Exchange-AntiSpam-MessageData-0: yZIXu8ZEgitmXGNCdCxACewJvEMnUi0WWgqhETfdmIvlYONZyjF9vQu+uV8NHUowh4joPVpeHiU5X0/lKlqhMAjWeAXzitEDn3m1GDpgmNrxhHPcndCJvhDeWNL3wQ53QS6LVIH1c9vXOHnzJlS/4Jvv+2Oeh2Y4M5uleiUOlrSZTUOlJICUBLUuDABMBCBDHOVKRAAmMOxOO+aldbz71jUzf/ledGvgkhL/SHjKoph/Z0QY4iIF5JAh48keZcVw9e34/0NUqOVDje0PHPk/tRHZEeL7UzMf4SSLmb9wOQMgzXAwpVQ2/YqtiVxgU24fm0CIm+DaDKH2pvIMJkFEYXLps0QrqP841IXs8YTxDoN/nJl5HdSiiv8KYkUi4sLZkOkfM4v5EKwshhi3ileSYq5hy7kEDcsEF3kShyjfw1kFWuzCuqr3SQfxewDtyCwa
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 May 2026 05:50:28.5720 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c01e6a19-8418-49bd-d3fc-08deb633b26e
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 May 2026 06:39:25.4565 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5997783b-99b7-454a-c857-08deb63a88fe
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF0002BA4D.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF000001F6.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6293
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY3PR12MB9554
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,150 +109,160 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[Why]
-With CONFIG_DRM_AMD_DC_KUNIT_TEST=m, allmodconfig only defines the
-_MODULE variant. Four KUnit helper headers gate their declarations
-with #ifdef CONFIG_DRM_AMD_DC_KUNIT_TEST, so the declarations vanish
-while the matching .c files (driven by IS_ENABLED() via
-STATIC_IFN_KUNIT) keep the functions non-static. The build breaks
-with implicit declarations and -Werror=missing-prototypes.
+Add ftrace events around user queue creation and destruction to profile
+queue setup and teardown latency.
 
-amdgpu_dm_crc.h additionally uses symbols that its test file does not
-pull in indirectly, amdgpu_dm_colorop_test.c has a copy-paste
-duplicate function, and the three colorop TF bitmasks are not
-exported for modpost.
-
-[How]
-- Switch the crc/hdcp/color/psr KUnit guards to IS_ENABLED().
-- Make amdgpu_dm_crc.h self-contained (dc_types.h + forward decl).
-- Rename the duplicated shaper test back to its intended name.
-- Export amdgpu_dm_supported_{degam,shaper,blnd}_tfs via
-  EXPORT_IF_KUNIT().
-
-Assisted-by: Copilot:claude-4-opus
-
-Reviewed-by: Alex Hung <alex.hung@amd.com>
-Signed-off-by: Ray Wu <ray.wu@amd.com>
+Signed-off-by: Prike Liang <Prike.Liang@amd.com>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.h      | 2 +-
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.c    | 4 ++++
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.h        | 5 ++++-
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.h       | 2 +-
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.h        | 2 +-
- .../drm/amd/display/amdgpu_dm/tests/amdgpu_dm_colorop_test.c | 2 +-
- 6 files changed, 12 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h | 58 +++++++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 11 +++++
+ 2 files changed, 69 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.h
-index 5e484359b8a7..19d3a13572f5 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.h
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.h
-@@ -42,7 +42,7 @@ struct dc_rgb;
- struct fixed31_32;
- struct tetrahedral_params;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h
+index d13e64a69e25..5a01f63d1f32 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h
+@@ -578,6 +578,64 @@ TRACE_EVENT(amdgpu_reset_reg_dumps,
+ 		      __entry->value)
+ );
  
--#ifdef CONFIG_DRM_AMD_DC_KUNIT_TEST
-+#if IS_ENABLED(CONFIG_DRM_AMD_DC_KUNIT_TEST)
- /*
-  * Prototypes for functions exposed to KUnit tests. The enum types
-  * used below (dc_transfer_func_predefined, amdgpu_transfer_function,
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.c
-index 212c13b745d0..7c83fe6df395 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.c
-@@ -31,6 +31,7 @@
- 
- #include "amdgpu.h"
- #include "amdgpu_dm_colorop.h"
-+#include "amdgpu_dm_kunit_helpers.h"
- #include "dc.h"
- 
- const u64 amdgpu_dm_supported_degam_tfs =
-@@ -38,18 +39,21 @@ const u64 amdgpu_dm_supported_degam_tfs =
- 	BIT(DRM_COLOROP_1D_CURVE_PQ_125_EOTF) |
- 	BIT(DRM_COLOROP_1D_CURVE_BT2020_INV_OETF) |
- 	BIT(DRM_COLOROP_1D_CURVE_GAMMA22);
-+EXPORT_IF_KUNIT(amdgpu_dm_supported_degam_tfs);
- 
- const u64 amdgpu_dm_supported_shaper_tfs =
- 	BIT(DRM_COLOROP_1D_CURVE_SRGB_INV_EOTF) |
- 	BIT(DRM_COLOROP_1D_CURVE_PQ_125_INV_EOTF) |
- 	BIT(DRM_COLOROP_1D_CURVE_BT2020_OETF) |
- 	BIT(DRM_COLOROP_1D_CURVE_GAMMA22_INV);
-+EXPORT_IF_KUNIT(amdgpu_dm_supported_shaper_tfs);
- 
- const u64 amdgpu_dm_supported_blnd_tfs =
- 	BIT(DRM_COLOROP_1D_CURVE_SRGB_EOTF) |
- 	BIT(DRM_COLOROP_1D_CURVE_PQ_125_EOTF) |
- 	BIT(DRM_COLOROP_1D_CURVE_BT2020_INV_OETF) |
- 	BIT(DRM_COLOROP_1D_CURVE_GAMMA22);
-+EXPORT_IF_KUNIT(amdgpu_dm_supported_blnd_tfs);
- 
- #define MAX_COLOR_PIPELINE_OPS 10
- 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.h
-index 76731ee44e13..c9aa0c82038f 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.h
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.h
-@@ -27,8 +27,11 @@
- #ifndef AMD_DAL_DEV_AMDGPU_DM_AMDGPU_DM_CRC_H_
- #define AMD_DAL_DEV_AMDGPU_DM_AMDGPU_DM_CRC_H_
- 
-+#include "dc_types.h"
++DECLARE_EVENT_CLASS(amdgpu_userq_queue,
++	    TP_PROTO(struct amdgpu_usermode_queue *queue),
++	    TP_ARGS(queue),
++	    TP_STRUCT__entry(
++			     __field(struct amdgpu_usermode_queue *, queue)
++			     __field(u64, doorbell_index)
++			     __field(int, queue_type)
++			     __field(int, state)
++			     __field(u32, xcp_id)
++			     ),
++	    TP_fast_assign(
++			   __entry->queue = queue;
++			   __entry->doorbell_index = queue ? queue->doorbell_index : 0;
++			   __entry->queue_type = queue ? queue->queue_type : -1;
++			   __entry->state = queue ? queue->state : -1;
++			   __entry->xcp_id = queue ? queue->xcp_id : 0;
++			   ),
++	    TP_printk("queue=%p, doorbell=%llu, type=%d, state=%d, xcp_id=%u",
++		      __entry->queue, __entry->doorbell_index,
++		      __entry->queue_type, __entry->state, __entry->xcp_id)
++);
++DEFINE_EVENT(amdgpu_userq_queue, amdgpu_userq_create_start,
++	     TP_PROTO(struct amdgpu_usermode_queue *queue),
++	     TP_ARGS(queue));
++DEFINE_EVENT(amdgpu_userq_queue, amdgpu_userq_destroy_start,
++	     TP_PROTO(struct amdgpu_usermode_queue *queue),
++	     TP_ARGS(queue));
++DECLARE_EVENT_CLASS(amdgpu_userq_queue_result,
++	    TP_PROTO(struct amdgpu_usermode_queue *queue, int result),
++	    TP_ARGS(queue, result),
++	    TP_STRUCT__entry(
++			     __field(struct amdgpu_usermode_queue *, queue)
++			     __field(u64, doorbell_index)
++			     __field(int, queue_type)
++			     __field(int, state)
++			     __field(u32, xcp_id)
++			     __field(int, result)
++			     ),
++	    TP_fast_assign(
++			   __entry->queue = queue;
++			   __entry->doorbell_index = queue ? queue->doorbell_index : 0;
++			   __entry->queue_type = queue ? queue->queue_type : -1;
++			   __entry->state = queue ? queue->state : -1;
++			   __entry->xcp_id = queue ? queue->xcp_id : 0;
++			   __entry->result = result;
++			   ),
++	    TP_printk("queue=%p, doorbell=%llu, type=%d, state=%d, xcp_id=%u, result=%d",
++		      __entry->queue, __entry->doorbell_index,
++		      __entry->queue_type, __entry->state,
++		      __entry->xcp_id, __entry->result)
++);
++DEFINE_EVENT(amdgpu_userq_queue_result, amdgpu_userq_create_end,
++	     TP_PROTO(struct amdgpu_usermode_queue *queue, int result),
++	     TP_ARGS(queue, result));
++DEFINE_EVENT(amdgpu_userq_queue_result, amdgpu_userq_destroy_end,
++	     TP_PROTO(struct amdgpu_usermode_queue *queue, int result),
++	     TP_ARGS(queue, result));
 +
- struct drm_crtc;
- struct dm_crtc_state;
-+struct amdgpu_device;
- 
- enum amdgpu_dm_pipe_crc_source {
- 	AMDGPU_DM_PIPE_CRC_SOURCE_NONE = 0,
-@@ -148,7 +151,7 @@ void amdgpu_dm_crtc_secure_display_create_contexts(struct amdgpu_device *adev);
- #define amdgpu_dm_crtc_secure_display_create_contexts(x)
+ #undef AMDGPU_JOB_GET_TIMELINE_NAME
  #endif
  
--#ifdef CONFIG_DRM_AMD_DC_KUNIT_TEST
-+#if IS_ENABLED(CONFIG_DRM_AMD_DC_KUNIT_TEST)
- enum amdgpu_dm_pipe_crc_source dm_parse_crc_source(const char *source);
- bool dm_is_crc_source_crtc(enum amdgpu_dm_pipe_crc_source src);
- bool dm_is_crc_source_dprx(enum amdgpu_dm_pipe_crc_source src);
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.h
-index 4bb072cfac1e..90b18c450ca6 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.h
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.h
-@@ -94,7 +94,7 @@ void hdcp_destroy(struct kobject *kobj, struct hdcp_workqueue *work);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+index 3bfb9ae2cb3a..e27f9a76f986 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+@@ -33,6 +33,7 @@
+ #include "amdgpu_userq.h"
+ #include "amdgpu_hmm.h"
+ #include "amdgpu_userq_fence.h"
++#include "amdgpu_trace.h"
  
- struct hdcp_workqueue *hdcp_create_workqueue(struct amdgpu_device *adev, struct cp_psp *cp_psp, struct dc *dc);
- 
--#ifdef CONFIG_DRM_AMD_DC_KUNIT_TEST
-+#if IS_ENABLED(CONFIG_DRM_AMD_DC_KUNIT_TEST)
- void process_output(struct hdcp_workqueue *hdcp_work);
- #endif
- 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.h
-index 1a41d9b99eb4..9f3e22520ca0 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.h
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.h
-@@ -40,7 +40,7 @@ bool amdgpu_dm_psr_set_event(struct amdgpu_display_manager *dm,
- 		struct dc_stream_state *stream, bool set_event,	enum psr_event event,
- 		bool wait_for_disable);
- 
--#ifdef CONFIG_DRM_AMD_DC_KUNIT_TEST
-+#if IS_ENABLED(CONFIG_DRM_AMD_DC_KUNIT_TEST)
- void amdgpu_dm_psr_fill_caps(struct dc_link *link, struct psr_caps *caps);
- #endif
- 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_colorop_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_colorop_test.c
-index 8bdebcaf42b2..30b5adb23570 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_colorop_test.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_colorop_test.c
-@@ -72,7 +72,7 @@ static void dm_test_supported_shaper_tfs_has_gamma22(struct kunit *test)
- 			  BIT(DRM_COLOROP_1D_CURVE_GAMMA22));
- }
- 
--static void dm_test_supported_degam_tfs_no_extra_bits(struct kunit *test)
-+static void dm_test_supported_shaper_tfs_no_extra_bits(struct kunit *test)
+ u32 amdgpu_userq_get_supported_ip_mask(struct amdgpu_device *adev)
  {
- 	u64 expected = BIT(DRM_COLOROP_1D_CURVE_SRGB_EOTF) |
- 		       BIT(DRM_COLOROP_1D_CURVE_PQ_125_EOTF) |
+@@ -613,6 +614,8 @@ amdgpu_userq_destroy(struct amdgpu_userq_mgr *uq_mgr, struct amdgpu_usermode_que
+ 
+ 	int r = 0;
+ 
++	trace_amdgpu_userq_destroy_start(queue);
++
+ 	cancel_delayed_work_sync(&uq_mgr->resume_work);
+ 
+ 	/* Cancel any pending hang detection work and cleanup */
+@@ -621,6 +624,7 @@ amdgpu_userq_destroy(struct amdgpu_userq_mgr *uq_mgr, struct amdgpu_usermode_que
+ 	r = amdgpu_bo_reserve(vm->root.bo, false);
+ 	if (r) {
+ 		drm_file_err(uq_mgr->file, "Failed to reserve root bo during userqueue destroy\n");
++		trace_amdgpu_userq_destroy_end(queue, r);
+ 		return r;
+ 	}
+ 	amdgpu_userq_buffer_vas_list_cleanup(adev, queue);
+@@ -646,6 +650,7 @@ amdgpu_userq_destroy(struct amdgpu_userq_mgr *uq_mgr, struct amdgpu_usermode_que
+ 	amdgpu_bo_unpin(queue->wptr_obj.obj);
+ 	amdgpu_bo_unreserve(queue->wptr_obj.obj);
+ 	amdgpu_bo_unref(&queue->wptr_obj.obj);
++	trace_amdgpu_userq_destroy_end(queue, r);
+ 	kfree(queue);
+ 
+ 	pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
+@@ -748,6 +753,7 @@ amdgpu_userq_create(struct drm_file *filp, union drm_amdgpu_userq *args)
+ 	INIT_DELAYED_WORK(&queue->hang_detect_work,
+ 			  amdgpu_userq_hang_detect_work);
+ 
++	trace_amdgpu_userq_create_start(queue);
+ 	r = amdgpu_userq_fence_driver_alloc(adev, &queue->fence_drv);
+ 	if (r)
+ 		goto free_queue;
+@@ -807,6 +813,7 @@ amdgpu_userq_create(struct drm_file *filp, union drm_amdgpu_userq *args)
+ 		r = amdgpu_userq_map_helper(queue);
+ 		if (r) {
+ 			drm_file_err(uq_mgr->file, "Failed to map Queue\n");
++			trace_amdgpu_userq_create_end(queue, r);
+ 			mutex_unlock(&uq_mgr->userq_mutex);
+ 			goto erase_doorbell;
+ 		}
+@@ -823,11 +830,13 @@ amdgpu_userq_create(struct drm_file *filp, union drm_amdgpu_userq *args)
+ 		 * This drops the last reference which should take care of
+ 		 * all cleanup.
+ 		 */
++		trace_amdgpu_userq_create_end(queue, r);
+ 		amdgpu_userq_put(queue);
+ 		return r;
+ 	}
+ 
+ 	amdgpu_debugfs_userq_init(filp, queue, qid);
++	trace_amdgpu_userq_create_end(queue, 0);
+ 	args->out.queue_id = qid;
+ 	return 0;
+ 
+@@ -847,6 +856,8 @@ amdgpu_userq_create(struct drm_file *filp, union drm_amdgpu_userq *args)
+ free_fence_drv:
+ 	amdgpu_userq_fence_driver_free(queue);
+ free_queue:
++	if (queue)
++		trace_amdgpu_userq_create_end(queue, r);
+ 	kfree(queue);
+ err_pm_runtime:
+ 	pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
 -- 
-2.43.0
+2.34.1
 
