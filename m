@@ -4,75 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ED153CD4F3C
-	for <amd-gfx@archiver.kernel.org>; Thu, 21 May 2026 07:01:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9DB2BCD343F
+	for <amd-gfx@archiver.kernel.org>; Thu, 21 May 2026 07:01:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5CC0F10E477;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 67A4410F21F;
 	Thu, 21 May 2026 07:01:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=usp.br header.i=@usp.br header.b="PZZPPhAG";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="XY/yDG76";
 	dkim-atps=neutral
-Received: from mail-vk1-f182.google.com (mail-vk1-f182.google.com
- [209.85.221.182])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B479610F177
- for <amd-gfx@lists.freedesktop.org>; Wed, 20 May 2026 22:43:17 +0000 (UTC)
-Received: by mail-vk1-f182.google.com with SMTP id
- 71dfb90a1353d-575eaa32c7cso1829171e0c.0
- for <amd-gfx@lists.freedesktop.org>; Wed, 20 May 2026 15:43:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=usp.br; s=usp-google; t=1779316996; x=1779921796; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=Dd83DKF3frqmG4DXmGPzNS34lS70vyOR5YrJhziAaCg=;
- b=PZZPPhAGCvVENZERFvGOnNncyhMUJTmfGgCwgR8AbrC1wnXEAwO1oFpvxz+tLnYJNX
- /mXYSGC3OeP4Isi7qXSjmFciURPC965URQulcNxpIJHWE/2MxGQ8Mr99pWUXceJNctfP
- vSmYBIrp/f7TmdzxNVRKArZbFD5QFJ0u4YVY6CSF5INu7fYAuivQCTPd2BXzCEm3HoR+
- e9SPrzN/VXpH8z/Wg/GR5WQqlFxEsDm885yNVuVFFrWOChGPKjSNcKucM/lZQdDuQDC8
- rWDhp/wxTfb2F2UaERs8ClYttGcpvcznle862KY3gV00wQojw1pvK1UqI6LjTNVleprB
- FBGQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779316996; x=1779921796;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=Dd83DKF3frqmG4DXmGPzNS34lS70vyOR5YrJhziAaCg=;
- b=s9j6S9MVV4++dajhBkQ2T9mG0PUHrxq26ZcMxY6CKF0FFLEn/9WkH+zg3LR2XdE540
- EXoa7VDAZ7cKfXI2qfMEnvBcyDjKCoIV0V1aqkTQDM5+QM8LtpIUfghEES5hv4r0W7vV
- WBf2ENzUow1u6liijZ+FPbIimJpATYCq8GLD+N9KF2mtmzbcN5sg4TG0mJws+ez6aar8
- Kbrk/xQNdm64ny63glRa8WHffpLSAgnycty7bCvdcwuz/HWPE636eG6yX97hdCppLuP4
- 23s+WGdNbXW2nghISem2zwg0OkDmtY6d6/VFXaRQBnOXytkM2Ef92pwSpGO9QMEbEDwO
- 1qZg==
-X-Forwarded-Encrypted: i=1;
- AFNElJ/JRKNc74TzJ5c6FUIhzV8hRQORebGGGLHXpO2co7lWN6Pa/66485BxrGKLYwglqSKTceVwyybx@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxuGmB+fqQgmRi1YtuE1RQ33yrxfJtThdQ2iWqnxC2zngw4Yg3j
- twfcDjwPIVQeQ7yB5OtMARVIfsCCdKDybn+AOOTWYSwa85OTeFlHPrMfIUj2ge6/QoY=
-X-Gm-Gg: Acq92OEaJrXuxh2QP2ZcnhhuYvzxA23R2c9UdokAgnSMVzZDyvUTbwq8plSBgaO6EEZ
- MC7TuGB0qjloVvQakM5MMH7SUotM/EqAn1UJ9SNqKRNMExzMjWTu6CmEwufVrwGeEV5KMeRqtp7
- 83SJRlopi5TMM2FjSDYf/7ZhBULlRf/H47plhUlr4iyvycyoffKnRJfiq2yE7z7WJzO615cOJLD
- +IZI7sQGsBhYBHq6CDWdiO+COFHdiSOCWVRIqzjiggFJwJnJNcp/UFFKMIXCWYDJwu0ptAg15Ku
- QR7r9GYobsayUwzDGR8WJCYkl/cwGQCrfj2sz7kJ1qCdbcThzuseppSGfSUDsfYUqhM20lGKVJj
- JZKJ4h4HH6N4lvdBavncs59GOx9dl6WMu+ngQTVPQ08zvqYe2d0tUEIFBYlYWv1m4cVvlziDwuu
- 0fIcFIGrTfbw==
-X-Received: by 2002:a05:6102:f91:b0:633:3040:ca5d with SMTP id
- ada2fe7eead31-6738e4da513mr294017137.9.1779316996343; 
- Wed, 20 May 2026 15:43:16 -0700 (PDT)
-Received: from arch-ideapad ([2804:7f0:3df:2617:4b61:1102:6d3e:92b4])
- by smtp.gmail.com with ESMTPSA id
- a1e0cc1a2514c-95fc29cda8bsm11281113241.0.2026.05.20.15.43.13
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 20 May 2026 15:43:15 -0700 (PDT)
-From: Ryan Oliveira <ryan.oliveiraf@usp.br>
-X-Google-Original-From: Ryan Oliveira
-To: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
- simona@ffwll.ch
-Cc: Ryan Oliveira <ryan.oliveiraf@usp.br>, Kaiky Cintra <kaikycintra@usp.br>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Subject: [PATCH] drm/amdgpu: Unify vm_fault_interrupt_state logic for gmc v10
- and v12_0
-Date: Wed, 20 May 2026 19:42:13 -0300
-Message-ID: <20260520224217.17615-1-ryan.oliveiraf@usp.br>
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2439310EFEC;
+ Wed, 20 May 2026 10:17:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1779272237; x=1810808237;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=2+TZnBOjtxQ+7sgnE4dyyDqIf36lmebFPCa1N4eu7nA=;
+ b=XY/yDG76HhazP5bVOpuXsrikWcURtLBmuqdJ4pgdY0xsxDCg2oE2uz+H
+ uR+gotMdzxPeNVJlmLMLvp4YxjEm7TsNqdLAw+WfZBDvAG9Btlyz79IfZ
+ uuOdudr6roI1KC4/4r2gg8y5C5LXZY+J8/YSt0+QmVgJDawkIzHq3FTwU
+ kgI7pQba/sI51NHoQ+s0sVtprynYjJugQ5WlU75H4KxT2yusStXjINrQK
+ V4aDJqjbAy0KIpkMtT2KpsEa8wMwQk4lLQA3JUJjmvyoGrE8o3BRpk3pu
+ dlkjmZo+aGnJFqDZjgGc9+bklAelWcWlyZSV/FBBpl+wcuLYROrpYp4bA w==;
+X-CSE-ConnectionGUID: 1vdvtZ1MR42i3Atr0LwAcQ==
+X-CSE-MsgGUID: 7WH3u+EVRYagfDo9AX3fJg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11791"; a="102843277"
+X-IronPort-AV: E=Sophos;i="6.23,244,1770624000"; d="scan'208";a="102843277"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+ by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 May 2026 03:17:16 -0700
+X-CSE-ConnectionGUID: 8nMwht/ST7eAzWXdyzN2Eg==
+X-CSE-MsgGUID: D9rW5Y7HQOuRjiNm7VZm7w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,244,1770624000"; d="scan'208";a="244114053"
+Received: from vpanait-mobl.ger.corp.intel.com (HELO fedora) ([10.245.245.175])
+ by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 May 2026 03:17:11 -0700
+From: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
+To: intel-xe@lists.freedesktop.org
+Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Felix Kuehling <Felix.Kuehling@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Danilo Krummrich <dakr@kernel.org>,
+ Matthew Brost <matthew.brost@intel.com>, Alice Ryhl <aliceryhl@google.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
+Subject: [PATCH v2 1/4] drm/exec: Remove the index parameter from
+ drm_exec_for_each_locked_obj[_reverse]
+Date: Wed, 20 May 2026 12:16:13 +0200
+Message-ID: <20260520101616.41284-2-thomas.hellstrom@linux.intel.com>
 X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260520101616.41284-1-thomas.hellstrom@linux.intel.com>
+References: <20260520101616.41284-1-thomas.hellstrom@linux.intel.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 21 May 2026 07:01:28 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -89,200 +85,216 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Ryan Oliveira <ryan.oliveiraf@usp.br>
+Nobody makes any use of it. Possible internal future users can
+instead use the _index variable. External users shouldn't use
+it since the array it's pointing into is internal drm_exec state.
 
-This patch consolidates vm_fault_interrupt_state handling logic found
-in gmc_v10_0.c and gmc_v12_0.c into a shared helper function inside
-amdgpu_gmc.c
+v2:
+- Use a unique id for the loop variable (Christian)
 
-Since the v10 and v12_0 implementations are identical copies, moving
-this to amdgpu_gmc simplifies maintenance and reduces code duplication.
-
-Signed-off-by: Ryan Oliveira <ryan.oliveiraf@usp.br>
-Co-developed-by: Kaiky Cintra <kaikycintra@usp.br>
-Signed-off-by: Kaiky Cintra <kaikycintra@usp.br>
+Assisted-by: GitHub Copilot:claude-sonnet-4.6
+Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c | 37 +++++++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h |  3 ++
- drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c  | 39 +------------------------
- drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c  | 38 +-----------------------
- 4 files changed, 42 insertions(+), 75 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c        |  9 +++------
+ .../drm/amd/amdgpu/amdgpu_eviction_fence.c    |  3 +--
+ drivers/gpu/drm/drm_exec.c                    |  6 ++----
+ drivers/gpu/drm/drm_gpuvm.c                   |  3 +--
+ drivers/gpu/drm/xe/xe_vm.c                    |  3 +--
+ include/drm/drm_exec.h                        | 20 +++++++++++--------
+ 6 files changed, 20 insertions(+), 24 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-index 13bec8461cde..eebf5c17efb4 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-@@ -590,6 +590,43 @@ int amdgpu_gmc_handle_retry_fault(struct amdgpu_device *adev,
- 	return 0;
- }
- 
-+int amdgpu_gmc_vm_fault_interrupt_state(struct amdgpu_device *adev,
-+				   struct amdgpu_irq_src *src, unsigned int type,
-+				   enum amdgpu_interrupt_state state)
-+{
-+	switch (state) {
-+	case AMDGPU_IRQ_STATE_DISABLE:
-+		/* MM HUB */
-+		amdgpu_gmc_set_vm_fault_masks(adev, AMDGPU_MMHUB0(0), false);
-+		/* GFX HUB */
-+		/* This works because this interrupt is only
-+		 * enabled at init/resume and disabled in
-+		 * fini/suspend, so the overall state doesn't
-+		 * change over the course of suspend/resume.
-+		 */
-+		if (!adev->in_s0ix)
-+			amdgpu_gmc_set_vm_fault_masks(adev, AMDGPU_GFXHUB(0), false);
-+		break;
-+	case AMDGPU_IRQ_STATE_ENABLE:
-+		/* MM HUB */
-+		amdgpu_gmc_set_vm_fault_masks(adev, AMDGPU_MMHUB0(0), true);
-+		/* GFX HUB */
-+		/* This works because this interrupt is only
-+		 * enabled at init/resume and disabled in
-+		 * fini/suspend, so the overall state doesn't
-+		 * change over the course of suspend/resume.
-+		 */
-+		if (!adev->in_s0ix)
-+			amdgpu_gmc_set_vm_fault_masks(adev, AMDGPU_GFXHUB(0), true);
-+		break;
-+	default:
-+		break;
-+	}
-+
-+	return 0;
-+}
-+
-+
- int amdgpu_gmc_ras_sw_init(struct amdgpu_device *adev)
- {
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+index 32af8cce3df8..97a851ae7bd8 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+@@ -850,7 +850,6 @@ static int amdgpu_cs_parser_bos(struct amdgpu_cs_parser *p,
+ 	struct amdgpu_vm *vm = &fpriv->vm;
+ 	struct amdgpu_bo_list_entry *e;
+ 	struct drm_gem_object *obj;
+-	unsigned long index;
+ 	unsigned int i;
  	int r;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
-index 676e3aaa1f27..386e5f292c4e 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
-@@ -437,6 +437,9 @@ int amdgpu_gmc_handle_retry_fault(struct amdgpu_device *adev,
- 				  u32 cam_index,
- 				  u32 node_id,
- 				  bool write_fault);
-+int amdgpu_gmc_vm_fault_interrupt_state(struct amdgpu_device *adev,
-+				   struct amdgpu_irq_src *src, unsigned int type,
-+				   enum amdgpu_interrupt_state state);
- int amdgpu_gmc_ras_sw_init(struct amdgpu_device *adev);
- int amdgpu_gmc_ras_late_init(struct amdgpu_device *adev);
- void amdgpu_gmc_ras_fini(struct amdgpu_device *adev);
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-index 8523833a74fb..4aaa3c65e186 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-@@ -59,43 +59,6 @@ static int gmc_v10_0_ecc_interrupt_state(struct amdgpu_device *adev,
- 	return 0;
+ 
+@@ -961,7 +960,7 @@ static int amdgpu_cs_parser_bos(struct amdgpu_cs_parser *p,
+ 		goto out_free_user_pages;
+ 	}
+ 
+-	drm_exec_for_each_locked_object(&p->exec, index, obj) {
++	drm_exec_for_each_locked_object(&p->exec, obj) {
+ 		r = amdgpu_cs_bo_validate(p, gem_to_amdgpu_bo(obj));
+ 		if (unlikely(r))
+ 			goto out_free_user_pages;
+@@ -1201,7 +1200,6 @@ static int amdgpu_cs_sync_rings(struct amdgpu_cs_parser *p)
+ 	struct drm_gpu_scheduler *sched;
+ 	struct drm_gem_object *obj;
+ 	struct dma_fence *fence;
+-	unsigned long index;
+ 	unsigned int i;
+ 	int r;
+ 
+@@ -1212,7 +1210,7 @@ static int amdgpu_cs_sync_rings(struct amdgpu_cs_parser *p)
+ 		return r;
+ 	}
+ 
+-	drm_exec_for_each_locked_object(&p->exec, index, obj) {
++	drm_exec_for_each_locked_object(&p->exec, obj) {
+ 		struct amdgpu_bo *bo = gem_to_amdgpu_bo(obj);
+ 
+ 		struct dma_resv *resv = bo->tbo.base.resv;
+@@ -1281,7 +1279,6 @@ static int amdgpu_cs_submit(struct amdgpu_cs_parser *p,
+ 	struct amdgpu_job *leader = p->gang_leader;
+ 	struct amdgpu_bo_list_entry *e;
+ 	struct drm_gem_object *gobj;
+-	unsigned long index;
+ 	unsigned int i;
+ 	uint64_t seq;
+ 	int r;
+@@ -1331,7 +1328,7 @@ static int amdgpu_cs_submit(struct amdgpu_cs_parser *p,
+ 	}
+ 
+ 	p->fence = dma_fence_get(&leader->base.s_fence->finished);
+-	drm_exec_for_each_locked_object(&p->exec, index, gobj) {
++	drm_exec_for_each_locked_object(&p->exec, gobj) {
+ 
+ 		ttm_bo_move_to_lru_tail_unlocked(&gem_to_amdgpu_bo(gobj)->tbo);
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.c
+index 4c5e38dea4c2..f6b7522c3c82 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.c
+@@ -121,7 +121,6 @@ int amdgpu_evf_mgr_rearm(struct amdgpu_eviction_fence_mgr *evf_mgr,
+ {
+ 	struct amdgpu_eviction_fence *ev_fence;
+ 	struct drm_gem_object *obj;
+-	unsigned long index;
+ 
+ 	/* Create and initialize a new eviction fence */
+ 	ev_fence = kzalloc_obj(*ev_fence);
+@@ -140,7 +139,7 @@ int amdgpu_evf_mgr_rearm(struct amdgpu_eviction_fence_mgr *evf_mgr,
+ 	evf_mgr->ev_fence = &ev_fence->base;
+ 
+ 	/* And add it to all existing BOs */
+-	drm_exec_for_each_locked_object(exec, index, obj) {
++	drm_exec_for_each_locked_object(exec, obj) {
+ 		struct amdgpu_bo *bo = gem_to_amdgpu_bo(obj);
+ 
+ 		amdgpu_evf_mgr_attach_fence(evf_mgr, bo);
+diff --git a/drivers/gpu/drm/drm_exec.c b/drivers/gpu/drm/drm_exec.c
+index 8d0601400182..746210f3f6c2 100644
+--- a/drivers/gpu/drm/drm_exec.c
++++ b/drivers/gpu/drm/drm_exec.c
+@@ -24,7 +24,6 @@
+  *
+  *	struct drm_gem_object *obj;
+  *	struct drm_exec exec;
+- *	unsigned long index;
+  *	int ret;
+  *
+  *	drm_exec_init(&exec, DRM_EXEC_INTERRUPTIBLE_WAIT);
+@@ -40,7 +39,7 @@
+  *			goto error;
+  *	}
+  *
+- *	drm_exec_for_each_locked_object(&exec, index, obj) {
++ *	drm_exec_for_each_locked_object(&exec, obj) {
+  *		dma_resv_add_fence(obj->resv, fence, DMA_RESV_USAGE_READ);
+  *		...
+  *	}
+@@ -56,9 +55,8 @@
+ static void drm_exec_unlock_all(struct drm_exec *exec)
+ {
+ 	struct drm_gem_object *obj;
+-	unsigned long index;
+ 
+-	drm_exec_for_each_locked_object_reverse(exec, index, obj) {
++	drm_exec_for_each_locked_object_reverse(exec, obj) {
+ 		dma_resv_unlock(obj->resv);
+ 		drm_gem_object_put(obj);
+ 	}
+diff --git a/drivers/gpu/drm/drm_gpuvm.c b/drivers/gpu/drm/drm_gpuvm.c
+index 83020b6cf9ba..c422c5af1f4b 100644
+--- a/drivers/gpu/drm/drm_gpuvm.c
++++ b/drivers/gpu/drm/drm_gpuvm.c
+@@ -1557,9 +1557,8 @@ drm_gpuvm_resv_add_fence(struct drm_gpuvm *gpuvm,
+ 			 enum dma_resv_usage extobj_usage)
+ {
+ 	struct drm_gem_object *obj;
+-	unsigned long index;
+ 
+-	drm_exec_for_each_locked_object(exec, index, obj) {
++	drm_exec_for_each_locked_object(exec, obj) {
+ 		dma_resv_assert_held(obj->resv);
+ 		dma_resv_add_fence(obj->resv, fence,
+ 				   drm_gpuvm_is_extobj(gpuvm, obj) ?
+diff --git a/drivers/gpu/drm/xe/xe_vm.c b/drivers/gpu/drm/xe/xe_vm.c
+index b01f31ed4417..080c2fff0e95 100644
+--- a/drivers/gpu/drm/xe/xe_vm.c
++++ b/drivers/gpu/drm/xe/xe_vm.c
+@@ -373,7 +373,6 @@ int xe_vm_validate_rebind(struct xe_vm *vm, struct drm_exec *exec,
+ 			  unsigned int num_fences)
+ {
+ 	struct drm_gem_object *obj;
+-	unsigned long index;
+ 	int ret;
+ 
+ 	do {
+@@ -386,7 +385,7 @@ int xe_vm_validate_rebind(struct xe_vm *vm, struct drm_exec *exec,
+ 			return ret;
+ 	} while (!list_empty(&vm->gpuvm.evict.list));
+ 
+-	drm_exec_for_each_locked_object(exec, index, obj) {
++	drm_exec_for_each_locked_object(exec, obj) {
+ 		ret = dma_resv_reserve_fences(obj->resv, num_fences);
+ 		if (ret)
+ 			return ret;
+diff --git a/include/drm/drm_exec.h b/include/drm/drm_exec.h
+index aa786b828a0a..dee6ebdbe416 100644
+--- a/include/drm/drm_exec.h
++++ b/include/drm/drm_exec.h
+@@ -65,31 +65,35 @@ drm_exec_obj(struct drm_exec *exec, unsigned long index)
+ 	return index < exec->num_objects ? exec->objects[index] : NULL;
  }
  
--static int
--gmc_v10_0_vm_fault_interrupt_state(struct amdgpu_device *adev,
--				   struct amdgpu_irq_src *src, unsigned int type,
--				   enum amdgpu_interrupt_state state)
--{
--	switch (state) {
--	case AMDGPU_IRQ_STATE_DISABLE:
--		/* MM HUB */
--		amdgpu_gmc_set_vm_fault_masks(adev, AMDGPU_MMHUB0(0), false);
--		/* GFX HUB */
--		/* This works because this interrupt is only
--		 * enabled at init/resume and disabled in
--		 * fini/suspend, so the overall state doesn't
--		 * change over the course of suspend/resume.
--		 */
--		if (!adev->in_s0ix)
--			amdgpu_gmc_set_vm_fault_masks(adev, AMDGPU_GFXHUB(0), false);
--		break;
--	case AMDGPU_IRQ_STATE_ENABLE:
--		/* MM HUB */
--		amdgpu_gmc_set_vm_fault_masks(adev, AMDGPU_MMHUB0(0), true);
--		/* GFX HUB */
--		/* This works because this interrupt is only
--		 * enabled at init/resume and disabled in
--		 * fini/suspend, so the overall state doesn't
--		 * change over the course of suspend/resume.
--		 */
--		if (!adev->in_s0ix)
--			amdgpu_gmc_set_vm_fault_masks(adev, AMDGPU_GFXHUB(0), true);
--		break;
--	default:
--		break;
--	}
--
--	return 0;
--}
--
- static int gmc_v10_0_process_interrupt(struct amdgpu_device *adev,
- 				       struct amdgpu_irq_src *source,
- 				       struct amdgpu_iv_entry *entry)
-@@ -168,7 +131,7 @@ static int gmc_v10_0_process_interrupt(struct amdgpu_device *adev,
- }
++/* Helper for drm_exec_for_each_locked_object(). Internal use only. */
++#define __drm_exec_for_each_locked_object(exec, obj, __index)		\
++	for (unsigned long __index = 0; ((obj) = drm_exec_obj(exec, __index)); ++__index)
+ /**
+  * drm_exec_for_each_locked_object - iterate over all the locked objects
+  * @exec: drm_exec object
+- * @index: unsigned long index for the iteration
+  * @obj: the current GEM object
+  *
+  * Iterate over all the locked GEM objects inside the drm_exec object.
+  */
+-#define drm_exec_for_each_locked_object(exec, index, obj)		\
+-	for ((index) = 0; ((obj) = drm_exec_obj(exec, index)); ++(index))
++#define drm_exec_for_each_locked_object(exec, obj)			\
++	__drm_exec_for_each_locked_object(exec, obj, __UNIQUE_ID(drm_exec))
  
- static const struct amdgpu_irq_src_funcs gmc_v10_0_irq_funcs = {
--	.set = gmc_v10_0_vm_fault_interrupt_state,
-+	.set = amdgpu_gmc_vm_fault_interrupt_state,
- 	.process = gmc_v10_0_process_interrupt,
- };
++/* Helper for drm_exec_for_each_locked_object_reverse(). Internal use only. */
++#define __drm_exec_for_each_locked_object_reverse(exec, obj, __index)	\
++	for (unsigned long __index = (exec)->num_objects - 1;		\
++	     ((obj) = drm_exec_obj(exec, __index)); --__index)
+ /**
+  * drm_exec_for_each_locked_object_reverse - iterate over all the locked
+  * objects in reverse locking order
+  * @exec: drm_exec object
+- * @index: unsigned long index for the iteration
+  * @obj: the current GEM object
+  *
+  * Iterate over all the locked GEM objects inside the drm_exec object in
+- * reverse locking order. Note that @index may go below zero and wrap,
++ * reverse locking order. Note that the internal index may wrap around,
+  * but that will be caught by drm_exec_obj(), returning a NULL object.
+  */
+-#define drm_exec_for_each_locked_object_reverse(exec, index, obj)	\
+-	for ((index) = (exec)->num_objects - 1;				\
+-	     ((obj) = drm_exec_obj(exec, index)); --(index))
++#define drm_exec_for_each_locked_object_reverse(exec, obj)		\
++	__drm_exec_for_each_locked_object_reverse(exec, obj, __UNIQUE_ID(drm_exec))
  
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
-index 586703ec0dfa..d3eabe3b6dff 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
-@@ -53,42 +53,6 @@ static int gmc_v12_0_ecc_interrupt_state(struct amdgpu_device *adev,
- 	return 0;
- }
- 
--static int gmc_v12_0_vm_fault_interrupt_state(struct amdgpu_device *adev,
--					      struct amdgpu_irq_src *src, unsigned type,
--					      enum amdgpu_interrupt_state state)
--{
--	switch (state) {
--	case AMDGPU_IRQ_STATE_DISABLE:
--		/* MM HUB */
--		amdgpu_gmc_set_vm_fault_masks(adev, AMDGPU_MMHUB0(0), false);
--		/* GFX HUB */
--		/* This works because this interrupt is only
--		 * enabled at init/resume and disabled in
--		 * fini/suspend, so the overall state doesn't
--		 * change over the course of suspend/resume.
--		 */
--		if (!adev->in_s0ix)
--			amdgpu_gmc_set_vm_fault_masks(adev, AMDGPU_GFXHUB(0), false);
--		break;
--	case AMDGPU_IRQ_STATE_ENABLE:
--		/* MM HUB */
--		amdgpu_gmc_set_vm_fault_masks(adev, AMDGPU_MMHUB0(0), true);
--		/* GFX HUB */
--		/* This works because this interrupt is only
--		 * enabled at init/resume and disabled in
--		 * fini/suspend, so the overall state doesn't
--		 * change over the course of suspend/resume.
--		 */
--		if (!adev->in_s0ix)
--			amdgpu_gmc_set_vm_fault_masks(adev, AMDGPU_GFXHUB(0), true);
--		break;
--	default:
--		break;
--	}
--
--	return 0;
--}
--
- static int gmc_v12_0_process_interrupt(struct amdgpu_device *adev,
- 				       struct amdgpu_irq_src *source,
- 				       struct amdgpu_iv_entry *entry)
-@@ -160,7 +124,7 @@ static int gmc_v12_0_process_interrupt(struct amdgpu_device *adev,
- }
- 
- static const struct amdgpu_irq_src_funcs gmc_v12_0_irq_funcs = {
--	.set = gmc_v12_0_vm_fault_interrupt_state,
-+	.set = amdgpu_gmc_vm_fault_interrupt_state,
- 	.process = gmc_v12_0_process_interrupt,
- };
- 
+ /**
+  * drm_exec_until_all_locked - loop until all GEM objects are locked
 -- 
 2.54.0
 
