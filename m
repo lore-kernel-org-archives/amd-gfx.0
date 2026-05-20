@@ -4,59 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C445CCD4F3D
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 50321CD343F
 	for <amd-gfx@archiver.kernel.org>; Thu, 21 May 2026 07:01:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6081F10F225;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2B05610F223;
 	Thu, 21 May 2026 07:01:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="oIe0SWWu";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="jght+Hfs";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4FD1F10E632;
- Wed, 20 May 2026 13:10:26 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0A59510E128;
+ Wed, 20 May 2026 13:31:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1779282626; x=1810818626;
+ t=1779283862; x=1810819862;
  h=from:to:cc:subject:in-reply-to:references:date:
  message-id:mime-version;
- bh=CbXmx3WjavP5kcQTkedrx5HHgI1eIETQcIYgrhmAYQo=;
- b=oIe0SWWuNjrCte/gRGnwZlK+YvSy/akwRVwzxWkhp0psa+bS6JT4ai4B
- U1lAvYYwxXnavsgKNHh08DsugQRvdjqOT5FlYAAx3Am/vzN1Xk55mvZ3T
- uqeIj0/jCOYa+5/Mbic6r92pdhMWxOOBCx74baByMbBut5FEwS6nbOj5D
- RvFGXa22sPgtX2++4zuCMj29Z+P8otVLCIqdwOvyf1wB2WoYdNKO7CKAj
- DmbLMlqhE2HZuF1zX03ex0tG1kccKuaK5XKA6oNHcZXXF5zbVgvyrINvH
- nHeDauV4UbDGN15EM1G7Dqa7aqUaIKcAnG0roAlcWWf1CfMCMwQ0YvsYG g==;
-X-CSE-ConnectionGUID: HouFfHUPSmaEJVzVy8hRHQ==
-X-CSE-MsgGUID: KTsxXvaxToem5Bj9cNeg1A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11792"; a="67707244"
-X-IronPort-AV: E=Sophos;i="6.23,244,1770624000"; d="scan'208";a="67707244"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
- by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 May 2026 06:10:26 -0700
-X-CSE-ConnectionGUID: shJXQyHSQVGAtZP3+q1NSQ==
-X-CSE-MsgGUID: MUs3v0JHSfWXemzAWlO4Hw==
+ bh=QZYoI+VQgQ2Nuf+G4GfEMCrOLYQjkwJ7NXjD7ev4TWo=;
+ b=jght+HfsWFU6Txu05IlmgCBg7N5H4YJGUWmIB757QNA/YK+C0gFjwRJZ
+ ncZTHJqR3rvqulMfoswi3aAzLsgjkZTgGf6Bvj6R77YMljZgPbhePW2Ul
+ y5eVV1ryMHHKs0YYVtkSzL5I6cfmb/O0SLBuxObTTqhDt1emExxCICMYL
+ YCpdByO8g+aShenjkvEPNFW5iDG9hwrWrD88d+al60lGQzcRQWFhylvA+
+ n5AwqBUcdIFFiFUWz7s7yMi8fN4IKwJ9CbJAwDsrMYW1DxjGdrt1DwlT3
+ JjpZqx15wgv5RMkjomf6SCBAAWH3pQIfEEZcFxfI8rBZIqbhUox1YACuY g==;
+X-CSE-ConnectionGUID: yR6jcgKqTV6sLOcbxuXlBg==
+X-CSE-MsgGUID: 46SrWJ2XQ22FbmuX/JpJMQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11792"; a="102859133"
+X-IronPort-AV: E=Sophos;i="6.23,244,1770624000"; d="scan'208";a="102859133"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+ by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 May 2026 06:31:02 -0700
+X-CSE-ConnectionGUID: WdO4FvWuRgKrtTgCvGISHQ==
+X-CSE-MsgGUID: IuQ6JddYQz6Sh8lRhPG17w==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,244,1770624000"; d="scan'208";a="245158844"
+X-IronPort-AV: E=Sophos;i="6.23,244,1770624000"; d="scan'208";a="244177950"
 Received: from klitkey1-mobl1.ger.corp.intel.com (HELO localhost)
  ([10.245.245.148])
- by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 May 2026 06:10:22 -0700
+ by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 May 2026 06:30:58 -0700
 From: Jani Nikula <jani.nikula@intel.com>
 To: Chenyu Chen <chen-yu.chen@amd.com>, amd-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org
 Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, Ray
  Wu <Ray.Wu@amd.com>, Limonciello Mario <Mario.Limonciello@amd.com>, Chenyu
  Chen <chen-yu.chen@amd.com>, Mario Limonciello <superm1@kernel.org>
-Subject: Re: [PATCH v2 1/3] drm/edid: extract section header processing into
- helper
-In-Reply-To: <20260520021432.1301326-2-chen-yu.chen@amd.com>
+Subject: Re: [PATCH v2 2/3] drm/edid: parse panel type from DisplayID 2.x
+ Display Parameters
+In-Reply-To: <20260520021432.1301326-3-chen-yu.chen@amd.com>
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
  6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
 References: <20260520021432.1301326-1-chen-yu.chen@amd.com>
- <20260520021432.1301326-2-chen-yu.chen@amd.com>
-Date: Wed, 20 May 2026 16:10:19 +0300
-Message-ID: <636d8a5c5d0b626852cee0446c2ebdaadff346c1@intel.com>
+ <20260520021432.1301326-3-chen-yu.chen@amd.com>
+Date: Wed, 20 May 2026 16:30:55 +0300
+Message-ID: <4ca47af4a86601462cf5c0e723b2055005118762@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain
 X-Mailman-Approved-At: Thu, 21 May 2026 07:01:28 +0000
@@ -75,97 +75,198 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 On Wed, 20 May 2026, Chenyu Chen <chen-yu.chen@amd.com> wrote:
-> Extract the DisplayID section header logging and non_desktop
-> detection from update_displayid_info() into a dedicated helper,
-> drm_displayid_process_section_header(). Remove the break so the
-> iterator walks through all data blocks, preparing for future
-> patches that will parse additional block types within the loop.
+> Parse the Display Parameters Data Block (tag 0x21) defined in
+> DisplayID v2.1a Section 4.2.6. Extract the Display Device Technology
+> field from payload byte 27 bits [6:4], which indicates whether the
+> panel uses LCD (001b) or OLED (010b) technology.
 >
-> The helper is called only once for the base section via a
-> header_processed flag. Since version and primary_use are only
-> captured from the base section, and extension sections carry a
-> primary use of zero per spec, the non_desktop logic is unaffected.
->
-> No functional change.
+> Add a did_panel_type field to struct drm_display_info and populate it
+> during DisplayID iteration so downstream drivers can use it for
+> panel-type-dependent behavior. Add DRM_MODE_PANEL_TYPE_LCD to the
+> UAPI constants for use as an internal communication value between
+> DRM core and drivers.
 >
 > Assisted-by: Copilot:Claude-Opus-4.6
 > Signed-off-by: Chenyu Chen <chen-yu.chen@amd.com>
 > Reviewed-by: Mario Limonciello (AMD) <superm1@kernel.org>
 > ---
->  drivers/gpu/drm/drm_edid.c | 37 +++++++++++++++++++++----------------
->  1 file changed, 21 insertions(+), 16 deletions(-)
+>  drivers/gpu/drm/drm_displayid_internal.h | 25 ++++++++++++++
+>  drivers/gpu/drm/drm_edid.c               | 44 ++++++++++++++++++++++++
+>  include/drm/drm_connector.h              |  6 ++++
+>  include/uapi/drm/drm_mode.h              |  1 +
+>  4 files changed, 76 insertions(+)
 >
+> diff --git a/drivers/gpu/drm/drm_displayid_internal.h b/drivers/gpu/drm/drm_displayid_internal.h
+> index 5b1b32f73516..e0f7c54d2987 100644
+> --- a/drivers/gpu/drm/drm_displayid_internal.h
+> +++ b/drivers/gpu/drm/drm_displayid_internal.h
+> @@ -142,6 +142,31 @@ struct displayid_formula_timing_block {
+>  	struct displayid_formula_timings_9 timings[];
+>  } __packed;
+>  
+> +/*
+> + * DisplayID v2.x Display Parameters Data Block (tag 0x21).
+> + *
+> + * Per VESA DisplayID v2.1a, Section 4.2.6, Table 4-14:
+> + * Offset 0x1E (payload byte 27) contains Native Color Depth and
+> + * Display Device Technology fields.
+> + *   bits [2:0] = Native Color Depth
+> + *   bit  [3]   = RESERVED
+> + *   bits [6:4] = Display Device Technology
+> + *     000b = not specified, 001b = LCD, 010b = OLED, others reserved
+> + *   bit  [7]   = Display Device Theme Preference
+> + */
+
+Please drop the comment...
+
+> +#define DISPLAYID_DISPLAY_PARAMS_DEVICE_TECH	GENMASK(6, 4)
+> +
+> +struct displayid_display_params_block {
+> +	struct displayid_block base;
+> +	u8 payload[27];
+> +	u8 device_tech_byte; /* bits [6:4] = Display Device Technology */
+> +	u8 reserved;
+
+...and actually define the information here.
+
+Sure, you're only interested in one thing, but don't leave the rest for
+someone who comes after you, since you clearly have access to the spec,
+and whoever reviews this also needs to have access to the spec.
+
+> +} __packed;
+> +
+> +#define DISPLAYID_DISPLAY_PARAMS_MIN_LEN	\
+> +	(sizeof(struct displayid_display_params_block) -	\
+> +	 sizeof(struct displayid_block))
+
+Is this helpful? Do you suggest we should add the define for all of the
+blocks? What about when there's a minimum, and you can optionally have
+more?
+
+> +
+>  #define DISPLAYID_VESA_MSO_OVERLAP	GENMASK(3, 0)
+>  #define DISPLAYID_VESA_MSO_MODE		GENMASK(6, 5)
+>  
 > diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
-> index 8031f021d4d0..04878478ab78 100644
+> index 04878478ab78..d1de1a398677 100644
 > --- a/drivers/gpu/drm/drm_edid.c
 > +++ b/drivers/gpu/drm/drm_edid.c
-> @@ -6715,30 +6715,35 @@ static void drm_reset_display_info(struct drm_connector *connector)
+> @@ -6713,6 +6713,8 @@ static void drm_reset_display_info(struct drm_connector *connector)
+>  
+>  	info->source_physical_address = CEC_PHYS_ADDR_INVALID;
 >  	memset(&info->amd_vsdb, 0, sizeof(info->amd_vsdb));
+> +
+> +	info->did_panel_type = DRM_MODE_PANEL_TYPE_UNKNOWN;
 >  }
 >  
-> +static void drm_displayid_process_section_header(struct drm_connector *connector,
-> +				  const struct displayid_iter *iter)
-
-The name's a bit grandiose, yet loses the bit about "base section" which
-was the crucial part in the comment that gets removed below.
-
+>  static void drm_displayid_process_section_header(struct drm_connector *connector,
+> @@ -6731,6 +6733,44 @@ static void drm_displayid_process_section_header(struct drm_connector *connector
+>  		info->non_desktop = true;
+>  }
+>  
+> +static void
+> +drm_displayid_parse_display_params(struct drm_connector *connector,
+> +				   const struct displayid_block *block)
 > +{
 > +	struct drm_display_info *info = &connector->display_info;
+> +	const struct displayid_display_params_block *params =
+> +		(const struct displayid_display_params_block *)block;
+> +
+
+Superfluous blank line.
+
+> +	u8 tech;
+> +
+> +	if (block->num_bytes < DISPLAYID_DISPLAY_PARAMS_MIN_LEN) {
+> +		drm_dbg_kms(connector->dev,
+> +			    "[CONNECTOR:%d:%s] DisplayID Display Parameters block too short (%u < %zu)\n",
+> +			    connector->base.id, connector->name,
+> +			    block->num_bytes,
+> +			    DISPLAYID_DISPLAY_PARAMS_MIN_LEN);
+> +		return;
+> +	}
+> +
+> +	tech = FIELD_GET(DISPLAYID_DISPLAY_PARAMS_DEVICE_TECH,
+> +			 params->device_tech_byte);
 > +
 > +	drm_dbg_kms(connector->dev,
-> +			"[CONNECTOR:%d:%s] DisplayID extension version 0x%02x, primary use 0x%02x\n",
-> +			connector->base.id, connector->name,
-> +			displayid_version(iter),
-> +			displayid_primary_use(iter));
-> +	if (displayid_version(iter) == DISPLAY_ID_STRUCTURE_VER_20 &&
-> +		(displayid_primary_use(iter) == PRIMARY_USE_HEAD_MOUNTED_VR ||
-> +			displayid_primary_use(iter) == PRIMARY_USE_HEAD_MOUNTED_AR))
-> +		info->non_desktop = true;
+> +		    "[CONNECTOR:%d:%s] DisplayID Display Parameters: device technology %u\n",
+> +		    connector->base.id, connector->name, tech);
+
+It would be more useful to print LCD or OLED, not the number.
+
+> +
+> +	switch (tech) {
+> +	case 1: /* LCD */
+> +		info->did_panel_type = DRM_MODE_PANEL_TYPE_LCD;
+> +		break;
+> +	case 2: /* OLED */
+
+The comments above are useless.
+
+> +		info->did_panel_type = DRM_MODE_PANEL_TYPE_OLED;
+> +		break;
+> +	default:
+> +		break;
+> +	}
 > +}
-
-The indent is all wrong in this function.
-
 > +
 >  static void update_displayid_info(struct drm_connector *connector,
 >  				  const struct drm_edid *drm_edid)
 >  {
-> -	struct drm_display_info *info = &connector->display_info;
->  	const struct displayid_block *block;
->  	struct displayid_iter iter;
-> +	bool header_processed = false;
->  
->  	displayid_iter_edid_begin(drm_edid, &iter);
->  	displayid_iter_for_each(block, &iter) {
-> -		drm_dbg_kms(connector->dev,
-> -			    "[CONNECTOR:%d:%s] DisplayID extension version 0x%02x, primary use 0x%02x\n",
-> -			    connector->base.id, connector->name,
-> -			    displayid_version(&iter),
-> -			    displayid_primary_use(&iter));
-> -		if (displayid_version(&iter) == DISPLAY_ID_STRUCTURE_VER_20 &&
-> -		    (displayid_primary_use(&iter) == PRIMARY_USE_HEAD_MOUNTED_VR ||
-> -		     displayid_primary_use(&iter) == PRIMARY_USE_HEAD_MOUNTED_AR))
-> -			info->non_desktop = true;
-> -
-> -		/*
-> -		 * We're only interested in the base section here, no need to
-> -		 * iterate further.
-> -		 */
-> -		break;
-> +		if (!header_processed) {
-> +			drm_displayid_process_section_header(connector, &iter);
-> +			header_processed = true;
+> @@ -6744,6 +6784,10 @@ static void update_displayid_info(struct drm_connector *connector,
+>  			drm_displayid_process_section_header(connector, &iter);
+>  			header_processed = true;
+>  		}
+> +
+> +		if (displayid_version(&iter) == DISPLAY_ID_STRUCTURE_VER_20 &&
+> +		    block->tag == DATA_BLOCK_2_DISPLAY_PARAMETERS)
+> +			drm_displayid_parse_display_params(connector, block);
+>  	}
+>  	displayid_iter_end(&iter);
+>  }
+> diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
+> index c398dbc68bbc..b95aec34ddb7 100644
+> --- a/include/drm/drm_connector.h
+> +++ b/include/drm/drm_connector.h
+> @@ -899,6 +899,12 @@ struct drm_display_info {
+>  	 * @amd_vsdb: AMD-specific VSDB information.
+>  	 */
+>  	struct drm_amd_vsdb_info amd_vsdb;
+> +
+> +	/**
+> +	 * @did_panel_type: Panel type from DisplayID Display Parameters
+> +	 * Data Block (tag 0x21). Uses DRM_MODE_PANEL_TYPE_* constants.
+> +	 */
+> +	u8 did_panel_type;
 
-Every DisplayID Section has a header. Every DisplayID Data Block within
-a DisplayID Section has a header. This is about handling the information
-in the Base Section header only. IMO header_processed is misleading.
+What does the did_ prefix give us?
+
+>  };
+>  
+>  int drm_display_info_set_bus_formats(struct drm_display_info *info,
+> diff --git a/include/uapi/drm/drm_mode.h b/include/uapi/drm/drm_mode.h
+> index 3693d82b5279..d7ca1040b92e 100644
+> --- a/include/uapi/drm/drm_mode.h
+> +++ b/include/uapi/drm/drm_mode.h
+> @@ -169,6 +169,7 @@ extern "C" {
+>  /* Panel type property */
+>  #define DRM_MODE_PANEL_TYPE_UNKNOWN	0
+>  #define DRM_MODE_PANEL_TYPE_OLED	1
+> +#define DRM_MODE_PANEL_TYPE_LCD		2
+
+This is a UABI header.
+
+Should we add this to the panel type property too?
+
 
 BR,
 Jani.
 
-> +		}
->  	}
->  	displayid_iter_end(&iter);
->  }
+
+>  
+>  /*
+>   * DRM_MODE_ROTATE_<degrees>
 
 -- 
 Jani Nikula, Intel
