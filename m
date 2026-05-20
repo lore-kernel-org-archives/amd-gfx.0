@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1A6DACD4F3D
-	for <amd-gfx@archiver.kernel.org>; Wed, 20 May 2026 15:46:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 42129CD4F3D
+	for <amd-gfx@archiver.kernel.org>; Wed, 20 May 2026 15:46:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A839B10E19A;
-	Wed, 20 May 2026 15:46:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B4C4910E235;
+	Wed, 20 May 2026 15:46:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Bb3+xtAU";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="k0txnuG+";
 	dkim-atps=neutral
 Received: from SN4PR2101CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11012005.outbound.protection.outlook.com
- [40.93.195.5])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6044810E19A
- for <amd-gfx@lists.freedesktop.org>; Wed, 20 May 2026 15:46:36 +0000 (UTC)
+ (mail-southcentralusazon11012047.outbound.protection.outlook.com
+ [40.93.195.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3EC0410E235
+ for <amd-gfx@lists.freedesktop.org>; Wed, 20 May 2026 15:46:40 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=nDA1sCocqV12a+g6TkpVvk/dG9eQE2kDQM2juH3aqTCmGDPUQTwmrFoLg0GSwwT8v39NX3iCwG8I5aTkPZ+l3W8OW1JFP0/046l8L48xoZTeHtCZp8VKQnvIz4pnrh8ixSrSRVTU0fUkL0ObfUVErGLrLelgCJUH1RL3YCusEEHss/3QTIqA+s6MFo5DjfUhE3JbdWCeqUVP+HLpwuKKHSE5rhs4MwNO0jKdl3vXPOpsWB+0f6jGd+l/+Dfed1uYAH4QFviYFSagFYD36+E7t4MiadFCLm4L/i+QFa6SDZO/3YrI5LLZPUACh2gilC/XxvamaS6iJLMW2C9WAdUYZw==
+ b=WXPWXgEvnfG7yyy/VEsYV2NzrrqVUBCGKKAaEM3cVp+ks2JpV+88wmDYvyHrHy6teCDIB3JUoWcNEK5S2EQPW/o8QDLFCt2nLbC9f1V3VJGOXkzZtu4+OEJhrkcx/jb0gExfmXa2xhYDbA3V+NBVpxM4Yf9RNJKQwHM0Z9mcGmuHBr7QzvD7590BXJDLv8iCYTPc61OFKDe+eAJQ+K/LPFMYMu/UwVFh1udv02fGBC+aob7NDH8NVX/9OFBQwAGV3bP14a23LINYg78qjMS2hGoDETA4ZEJQPH1So2KYgVwlqiW3r1XzxXvQnlxlZ/d/LG/zUAo0na1DSRpM38LbRg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=qYPS8o9eVyyTzspsDlfz7MLdO7/RJsYEEv4bIPofVbs=;
- b=ijXYobesoZSmxl2g7s/cN1+Xh3Aa+o5rdx2qTmcYH3ic+YWZ6edvAfpSwlcwQL7qXb9H8ZL//HRBIuG9pnInF1MnFgkPAHugD9iegBvRjXFrxpCEIbOHbh0irXnwM+xoUbef1PtPGZ/xIVv4Q5hNCf2Fk7IurDWn+7A/CKZObZG7CacznghVydKdgJAZThx/0C6M1yK//A88dZa0GuR++TAqMdbEyHueu7SRUCajsc+vcMNuEim2yToEwnp3NCBvtLObJb1U/ntrxSq0xyq/A4jti8mreia3obQaym0UIXC3mAm5DN2UbDuV/Z5rlABWibkI32CIHrQVYmw8hCCJyA==
+ bh=20NrArr5oNFHyfAwjNO+iNGymxWiSRrtVojynb3QMPI=;
+ b=f1H39xJo23lUMiRmX45JrDZF1o6OS1TGDBmin0duRCWe91uHaVsEuTd8VlSmTUQpDhG1gH9yM1nIF6rEC/9+8xkkM1YYz2S96cuTuNGSJK9NXZQXZ/hdugEz5R6TN/UmXkCsykriwjeta3zEDOMLhv4y0YpYUabmNjlqwWvDXJ+Vj+T7vXRsoXDGej5ahW2lWGKDEgvpxtv93bBu4sJMbWFP8xXVM/WT0mbw5gLp4XUuF8zbOuTyvFI9cjVx2MEvrQjcGjDACKrlI5iPxoA05BwUg8PE+4RfG8e37I2MyLG5k83unwdN2jEilkQbgv5v8QXN679zXJvP1jHM5wSByA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qYPS8o9eVyyTzspsDlfz7MLdO7/RJsYEEv4bIPofVbs=;
- b=Bb3+xtAU4y4YuCZ3r6CjYC6dCjsjzzedYxAqk0IUNvz5UyFGsKoAp3QV2n5cGVlr1Ygknue4Pl7dLoQ/axu1nBjIowmctIJ/c0hqVIepTEBe2X3DTE66Wd0yA9TBTHVOHHA99ywJoDbLWVfmqkEAwFPEaEc/kgdpW5vivJOAcAU=
-Received: from CH2PR18CA0044.namprd18.prod.outlook.com (2603:10b6:610:55::24)
- by SN7PR12MB6983.namprd12.prod.outlook.com (2603:10b6:806:261::20)
+ bh=20NrArr5oNFHyfAwjNO+iNGymxWiSRrtVojynb3QMPI=;
+ b=k0txnuG+QVREezylluUPgk+bOLSRyhkGhw/gtlwnab/5mt8eF6DdGeiAR0IK/nMxQPU9ChG9xCj9WpHqmXQvRGmp1YOlqtXUnLH6XoJYY5QHVjStUOtXZzfnqBVKt9vGTeRVXL9fEbmn3gIhS14dC4lXbXo53IWVH4WZL4NcNAg=
+Received: from CH2PR18CA0042.namprd18.prod.outlook.com (2603:10b6:610:55::22)
+ by BY5PR12MB4291.namprd12.prod.outlook.com (2603:10b6:a03:20c::22)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.48.14; Wed, 20 May
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.25.24; Wed, 20 May
  2026 15:46:31 +0000
 Received: from DS2PEPF00003442.namprd04.prod.outlook.com
- (2603:10b6:610:55:cafe::ff) by CH2PR18CA0044.outlook.office365.com
- (2603:10b6:610:55::24) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.48.16 via Frontend Transport; Wed, 20
- May 2026 15:46:28 +0000
+ (2603:10b6:610:55:cafe::3b) by CH2PR18CA0042.outlook.office365.com
+ (2603:10b6:610:55::22) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.48.14 via Frontend Transport; Wed, 20
+ May 2026 15:46:31 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -51,7 +51,7 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from satlexmb07.amd.com (165.204.84.17) by
  DS2PEPF00003442.mail.protection.outlook.com (10.167.17.69) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.48.11 via Frontend Transport; Wed, 20 May 2026 15:46:28 +0000
+ 15.21.48.11 via Frontend Transport; Wed, 20 May 2026 15:46:31 +0000
 Received: from ausmlimonci-lx1.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Wed, 20 May
@@ -59,10 +59,9 @@ Received: from ausmlimonci-lx1.amd.com (10.180.168.240) by satlexmb07.amd.com
 From: Mario Limonciello <mario.limonciello@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Mario Limonciello <mario.limonciello@amd.com>
-Subject: [PATCH 1/2] drm/amd: Add dedicated helper for
- amdgpu_device_find_parent()
-Date: Wed, 20 May 2026 10:46:17 -0500
-Message-ID: <20260520154618.809699-2-mario.limonciello@amd.com>
+Subject: [PATCH 2/2] drm/amd: Adjust _PR3 detection
+Date: Wed, 20 May 2026 10:46:18 -0500
+Message-ID: <20260520154618.809699-3-mario.limonciello@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260520154618.809699-1-mario.limonciello@amd.com>
 References: <20260520154618.809699-1-mario.limonciello@amd.com>
@@ -74,29 +73,29 @@ X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS2PEPF00003442:EE_|SN7PR12MB6983:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3745d47a-6f4b-414a-3dfe-08deb686f4c5
+X-MS-TrafficTypeDiagnostic: DS2PEPF00003442:EE_|BY5PR12MB4291:EE_
+X-MS-Office365-Filtering-Correlation-Id: c4bdcf6c-ba74-4ca0-6238-08deb686f6d1
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|82310400026|36860700016|376014|22082099003|18002099003|11063799006|56012099003;
-X-Microsoft-Antispam-Message-Info: 2dJ8wpCt5e/pjtTDL5procEkOx3Mg3yTPWPbJbHGNjJLg4VnR+9+VfrMGPyavBa6N9ohsPgvus4M4xzmic6WPzIYIoiCx/3I93PTZF1avFPo22hCZaJQRKRBu0yPooLwVEfvij+72P7HcHXwfRB9m2YldcT19oqGhFnu0coL8283+/xslqFsXZHuYxCysdgfLkP0NgzSKBojoPtzy/kvcRLvHIaccThCk1SH3s+J1g5pAoTRskEOCxL3jIkbCEbnAfiTciOMIjWZWwez0eUZSVvK6LJzj/08rZw3nFLMGeWNZ6fvE9M43zvWTmwjcozndYGEFXVgRlMAjbCoBRB+HwyMIHYFee6XnfuJVroPqKrlQkPK/h48mHSX4Mk72t/K7zT57xq3UegMzwrE2Ey6R9dSQ0ONlqUtGG5zy09/YGIBTw2Xl0BvdDTwQCnwPNCnIZbHVFPQB4n8DIpuB3KrzyXwn5DqZtE94nIONC4l10/tJc1T6ts97rpN1XvL97hohvgyQ7avThtPmL1CESSiEYfh+KbhbQmNyhfc8/JWWDeCozb5jyQQwY1a6aZ8zk9ckS62iq8PNEsrbtDWpEns7SBy/GzB718oOtATCVlqX7o54OFGc5EoUr8oFCkzqt5RmfO3gguCsYZ+NrO5ZJjlke18aZVeNQxUAvoLDswjXy4ep6mabfifSG0vXXIhxsNg/b757AmeVGNO0YqvGZ1CwRPEbI5onN6pT1FSkf20tWQ=
+ ARA:13230040|36860700016|376014|82310400026|1800799024|22082099003|56012099003|18002099003|11063799006;
+X-Microsoft-Antispam-Message-Info: FocRn1swNfgO3MFJT4jndatEuC7FYx115bnfyZJxAbq8y5IV6/HTgfFl4RlI7p1+hQLmb6navODn5hTbX7hJ9TVk0BriBZYKy1uhg+y0W1lQI+wEjxYhMHbLb8Gh3BCiSa44ByLyNVTcqfHc6zXEhihas1UFHJes3sCHmCAWd0IMNIqXu+JiEL6HqTrh/iH4DMNiSNv9AnXxm/Lj//kTYDIfXOjuX7qe2xw5TpwQlnAUa1wt5o0VyKah4hX14E7SMJIUpuOimM7kEqevGXq+lbKsvP3P6MUsQcHSmUG+lDMF25RiKlYLOn6EVo/FqOS0MMglHXpsTyZtYL0yFdEl6qMEt7SZmXNejZhHIk8/3GS9H1IZBMs2psEyMawsBNjP2lmgBpMVET/a5ROq1teH3Jn6YAcEOBgQT4vqRhVBa7IkMaaaRf0ybAIsLPeMhk1qcCkK0xXo10LuXhNL/DYZ01Q2XXC+TFmShOdkPuKEyURID2UFQLKTEKigbCzjeqIBz3SzDQpg3tlV5k9IpE4xXQ0LowKCTk5StJhpfaNL8d8wUmkBsTIFHvxktR7AcI2FEE9KIIuaDrZ9jSJFN8Vj6WIllHCH6HtVicrZ+eIcghtSFK/BYsLEeYvdQCaBhEK8OVETvLwC8EMEBCLU+piyRcNDPF9nAM1tBxfLJ1auw2uk2pOJeJFGBo0W8JEhUkl8/n+b4QQzsXtWW7kNztvxQq28+tF4eL7BaHrzzU/FsRk=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(82310400026)(36860700016)(376014)(22082099003)(18002099003)(11063799006)(56012099003);
+ SFS:(13230040)(36860700016)(376014)(82310400026)(1800799024)(22082099003)(56012099003)(18002099003)(11063799006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: DBP00LN9u7Z3jFErkAaJF9/MTvJkvAbyCSqlAo55yM0HAIfEKg4K1fa2zBkbn2NcHJx7mQKhDiM/cZpiUYnVlfi7K/iBTlXOzSMbob7Ic12xqXsrLVOwrB7M3NQ4XkJCEFV7KVRYC1bQTFT8JT84jeQXtibQi/c+COKWxS/AsbJm9rxLRvfPsnQPbF1De0kNBuxpQhN73lMEfUAo7IMaKH0natUbmohnRUPWszrBz6eEXCKs5ERVEUn0MT/2DDv9Tvk2l9WrrOE/hfNX5SwxSBr3iwrBGyqdasFsRjQXcfPzJIDL40tQrYn08joWDX4n8SF/T2jkrevgRwa7sxY3OMgyMM35C3zCpXHWYE7aKdkgVCC/FUIhcpQVmJwMcqNPzaFUBE1/OGQVy8rt+O2xlz+UDJxYSv2n3ISFYqWVgNbktVnIv6PbDDAZrwYG4xCH
+X-MS-Exchange-AntiSpam-MessageData-0: 8hq76dPYhiss8/QcPuqGGJcw0u5c6fuFznnL0JJTmNDPuqPlS3Yt8Mk6A4P9w/5qxuGa1hYo7/PECqHyZglRMxc2HafC5/HcHUdqm2KkpV3VKYRv2sMPiJ0dY+j48OkdmgSUj1uiwdi6Q6fzvatgu2cH8kv5Bdh0104VuI2AAmDnWc28B3LP342HujNvDDvyIaosy/UKAjQrVRzsAaK87vv9LkjddAucCc2YY9nv+a6v8L6xqFljdlQ807p3U0ZKgdRyRaqLxyB+e7/EcYQeu5AqqE63wWCwYapX0/UrtqO+lQYp1xCisZ07Dwo1gqrDh38khIFg3d+3bzELlWIdvkFt1D8W/2O/uDIVwYhEO4nDLXXTk9gWiZMVptyAkHB9ub9ZUfgYEZzXJFEDOvB2gvG9pU8dYHBcd1RdfUkrgY5UDuCl8xvzOl8lOePKJGPd
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 May 2026 15:46:28.0931 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3745d47a-6f4b-414a-3dfe-08deb686f4c5
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 May 2026 15:46:31.5297 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: c4bdcf6c-ba74-4ca0-6238-08deb686f6d1
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: DS2PEPF00003442.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB6983
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4291
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,98 +110,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-There are a few cases that code walks up the topology to find the
-link partner of the integrated switch in a dGPU.  Split this out
-to a helper and call in all places.
+_PR3 detection was changed in commit 134b8c5d8674e ("drm/amd: Fix
+detection of _PR3 on the PCIe root port") to look at the root port
+of the topology containing the GPU.  This however was too far because
+it ignored whether or not all the intermediary bridges could power
+off the device.  The original design in commit b10c1c5b3a4e3 ("drm/amdgpu:
+add check for ACPI power resources") was too narrow because it matched
+the switches internal to the GPU.
 
-This does have a functional change that amdgpu_device_gpu_bandwidth()
-doesn't cache the internal link but only the parent.
+Use the goldilocks approach and look for the first bridge outside of the
+GPU and check for _PR3 on that device.
 
+Fixes: 134b8c5d8674e ("drm/amd: Fix detection of _PR3 on the PCIe root port")
 Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 44 +++++++++++-----------
- 1 file changed, 23 insertions(+), 21 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 7 ++-----
+ 1 file changed, 2 insertions(+), 5 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index 073f632f295a3..b6a24faaf78dd 100644
+index b6a24faaf78dd..7319467b11a94 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -1913,6 +1913,19 @@ static void amdgpu_uid_fini(struct amdgpu_device *adev)
- 	adev->uid_info = NULL;
- }
- 
-+static struct pci_dev *amdgpu_device_find_parent(struct amdgpu_device *adev)
-+{
-+	struct pci_dev *parent = adev->pdev;
-+
-+	/* skip upstream/downstream switches internal to dGPU */
-+	while ((parent = pci_upstream_bridge(parent))) {
-+		if (parent->vendor == PCI_VENDOR_ID_ATI)
-+			continue;
-+	}
-+
-+	return parent;
-+}
-+
- /**
-  * amdgpu_device_ip_early_init - run early init for hardware IPs
-  *
-@@ -5913,8 +5926,6 @@ static void amdgpu_device_partner_bandwidth(struct amdgpu_device *adev,
- 					    enum pci_bus_speed *speed,
- 					    enum pcie_link_width *width)
+@@ -1939,7 +1939,6 @@ static struct pci_dev *amdgpu_device_find_parent(struct amdgpu_device *adev)
+ static int amdgpu_device_ip_early_init(struct amdgpu_device *adev)
  {
--	struct pci_dev *parent = adev->pdev;
--
- 	if (!speed || !width)
- 		return;
+ 	struct amdgpu_ip_block *ip_block;
+-	struct pci_dev *parent;
+ 	bool total, skip_bios;
+ 	uint32_t bios_flags;
+ 	int i, r;
+@@ -2026,10 +2025,8 @@ static int amdgpu_device_ip_early_init(struct amdgpu_device *adev)
+ 	    !dev_is_removable(&adev->pdev->dev))
+ 		adev->flags |= AMD_IS_PX;
  
-@@ -5922,13 +5933,11 @@ static void amdgpu_device_partner_bandwidth(struct amdgpu_device *adev,
- 	*width = PCIE_LNK_WIDTH_UNKNOWN;
+-	if (!(adev->flags & AMD_IS_APU)) {
+-		parent = pcie_find_root_port(adev->pdev);
+-		adev->has_pr3 = parent ? pci_pr3_present(parent) : false;
+-	}
++	if (!(adev->flags & AMD_IS_APU))
++		adev->has_pr3 = pci_pr3_present(amdgpu_device_find_parent(adev));
  
- 	if (amdgpu_device_pcie_dynamic_switching_supported(adev)) {
--		while ((parent = pci_upstream_bridge(parent))) {
--			/* skip upstream/downstream switches internal to dGPU*/
--			if (parent->vendor == PCI_VENDOR_ID_ATI)
--				continue;
-+		struct pci_dev *parent = amdgpu_device_find_parent(adev);
-+
-+		if (parent) {
- 			*speed = pcie_get_speed_cap(parent);
- 			*width = pcie_get_width_cap(parent);
--			break;
- 		}
- 	} else {
- 		/* use the current speeds rather than max if switching is not supported */
-@@ -5955,22 +5964,15 @@ static void amdgpu_device_gpu_bandwidth(struct amdgpu_device *adev,
- 	if (!speed || !width)
- 		return;
- 
--	parent = pci_upstream_bridge(parent);
--	if (parent && parent->vendor == PCI_VENDOR_ID_ATI) {
--		/* use the upstream/downstream switches internal to dGPU */
-+	/* use the device itself */
-+	*speed = pcie_get_speed_cap(adev->pdev);
-+	*width = pcie_get_width_cap(adev->pdev);
-+
-+	/* use the link outside the device */
-+	parent = amdgpu_device_find_parent(adev);
-+	if (parent) {
- 		*speed = pcie_get_speed_cap(parent);
- 		*width = pcie_get_width_cap(parent);
--		while ((parent = pci_upstream_bridge(parent))) {
--			if (parent->vendor == PCI_VENDOR_ID_ATI) {
--				/* use the upstream/downstream switches internal to dGPU */
--				*speed = pcie_get_speed_cap(parent);
--				*width = pcie_get_width_cap(parent);
--			}
--		}
--	} else {
--		/* use the device itself */
--		*speed = pcie_get_speed_cap(adev->pdev);
--		*width = pcie_get_width_cap(adev->pdev);
- 	}
- }
- 
+ 	adev->pm.pp_feature = amdgpu_pp_feature_mask;
+ 	if (amdgpu_sriov_vf(adev) || sched_policy == KFD_SCHED_POLICY_NO_HWS)
 -- 
 2.43.0
 
