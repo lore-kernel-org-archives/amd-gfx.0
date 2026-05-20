@@ -4,131 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 40031CD4F3C
-	for <amd-gfx@archiver.kernel.org>; Wed, 20 May 2026 11:01:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A5726CD4F54
+	for <amd-gfx@archiver.kernel.org>; Wed, 20 May 2026 11:19:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CF72B10E42C;
-	Wed, 20 May 2026 11:01:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2E61410E0DC;
+	Wed, 20 May 2026 11:19:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="N/VSuZot";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="MvQF/Ydj";
 	dkim-atps=neutral
-Received: from SA9PR02CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11013031.outbound.protection.outlook.com
- [40.93.196.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9B96410E41B;
- Wed, 20 May 2026 11:01:20 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Uk54t6ZZQ+h6g+icAlCGilAwl2GtejVizwlpfwQgcm6EyfyRXp4bqcRZCrUxrKXh+6GD16l3n32nlI0WHnmtjzOSZSUkjteRWrOquVapd5XUbzN+RhDLzduN1VlPgFstkoQ17v7HDzL5It63voLIJWEet4Rfy+ThKPXidKl6AvfLbdCh+3ulnFSLawThQqE8Hsa5lZVR/s7U0sedTCQxy00eZuMEvMySSiRTyWq08ajlKScKFJR6PHQzHbkv++fBnbbqCu4qj9jOHsx+9l5g9FukdjHXJY7TBhz20N0hapOXoSym4muKGRG+2ulvV5xouGj3AEtOHc6/4oCAh7tJHw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=cE9syY8pECyheGWS6oDJjf+otkW4VIL4d5jEgVMVBMA=;
- b=m+bJsD7+hIyQ9lkThbaMHN8m8NRYmRj4c2bruYZ0MvHRgJBmS4FjFNtT+Kj1eXGsa0RjLFo1FpRL91OcrTzYLVpXyF8nVf895UpExGURMELUjVZiaIeoKS3x0jsU3xfAH2yvmMfHmvFQELH5VH+Gz9Od9M7SRg8ltRATJhmjtMYyncJAAp7UzqSD1olxwVCilN7E72cID4zh+zCcZJRq0X+AOAcGkoEg7r/VscF+q/SShzz9xyhlPnq5GHITOpt1Yo7sPP20k+QfEZUKIuoVHZgqmRbmjwyoCc5HnovqDuyOMgik8568Mv60SqbvJlFLXj1b3FPxjhNF9LJSncS1gg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=cE9syY8pECyheGWS6oDJjf+otkW4VIL4d5jEgVMVBMA=;
- b=N/VSuZotZzbjfzX2neiLKp47z5nf5QcgoAqSyV/z4B5wU6Zmp8/eB7eNBYsMczrbriyvd2FVFD2kGht4B9TxWKoX/yExmBGyeYIWyDkScoBZq/4o6tx5LlpFW8TlsT9AbyST9uUCpsB58nAHBEq6K5t53sxSwf9dPrErS3JDNnU=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by DS0PR12MB8441.namprd12.prod.outlook.com (2603:10b6:8:123::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.25.22; Wed, 20 May
- 2026 11:01:16 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0025.022; Wed, 20 May 2026
- 11:01:16 +0000
-Message-ID: <5970c2a0-365d-4cef-97af-644159ea2779@amd.com>
-Date: Wed, 20 May 2026 13:01:09 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] drm/amdgpu: fix recursive ww_mutex acquire in
- amdgpu_devcoredump_format
-To: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Alex Deucher <alexander.deucher@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
- linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org
-References: <20260429143743.50743-1-mikhail.v.gavrilov@gmail.com>
- <20260519161541.19994-1-mikhail.v.gavrilov@gmail.com>
- <45bbcc75-f852-46c2-bcff-8cacb9413376@amd.com>
- <CABXGCsPRY+jk_ArYMOXqNTw31W95FBgNzqFq0_pvi3paYR=KDQ@mail.gmail.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <CABXGCsPRY+jk_ArYMOXqNTw31W95FBgNzqFq0_pvi3paYR=KDQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: MN2PR06CA0003.namprd06.prod.outlook.com
- (2603:10b6:208:23d::8) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3ADC710E0D6;
+ Wed, 20 May 2026 11:19:48 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id ED23841859;
+ Wed, 20 May 2026 11:19:47 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB3D61F00894;
+ Wed, 20 May 2026 11:19:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1779275987;
+ bh=mcqkHPast5WaMmLnbX6eWr/yFuCYSCjUIJOTaNfPubo=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References;
+ b=MvQF/YdjYaGupaCD3AK1UqEIAYBYB4qTSmkY8nRhJ4tw48PLl7E3BjjtykUtfjLqY
+ hUlNTb9g+oR0j6wTmEsipCgy/1Af7DhHynfR5Z/uejlUO89a58Sb7l+bQO2Wtq341K
+ Tc4+TOqm3ldyH01WT5DnQDn8eo78fi/MPLQZzNEz5N9yWOvn+Pkte0Pd4hYBZfkkN5
+ cf7UCL+PTjLL2FO3HRsdPmH9x58+1TjTtzfJyb+uz+J/7qWVGoeWnPGCLerIsHLEN4
+ p4FEzxyhqW/cjq+FIyKQ4kfT7XgZH65uRmUSv2Dxk3WW4Bz6NwMrvNa0yLrv9EPQI/
+ HF+//0igbC/bw==
+From: Sasha Levin <sashal@kernel.org>
+To: patches@lists.linux.dev,
+	stable@vger.kernel.org
+Cc: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Prike Liang <Prike.Liang@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
+ airlied@gmail.com, simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [PATCH AUTOSEL 7.0] drm/amdgpu: remove deadlocks from
+ amdgpu_userq_pre_reset
+Date: Wed, 20 May 2026 07:18:34 -0400
+Message-ID: <20260520111944.3424570-2-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260520111944.3424570-1-sashal@kernel.org>
+References: <20260520111944.3424570-1-sashal@kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DS0PR12MB8441:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1d376aa3-eb9f-45b3-e4bc-08deb65f1d5c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|366016|1800799024|18002099003|11063799006|4143699003|22082099003|56012099003;
-X-Microsoft-Antispam-Message-Info: 86CI8u23YSr+bBkCaUBeBtX3f80NQgOpFoKs8DcrkwwHTG05JnhWZmX6lSMOSX8OWJ1z1z/gVKLkRS0ImZFq3zPMVVtYphuFOJBMugmkUnEEhM8jQD6BVXWpkxU18sKByhKKyARwQQgENM9X1qgySSKyAoGs1kStzUkQtVdXWm1139/8l10QIVhwQJ0ZnJ2R/GO30yK67jPvegXc4R3nSti1YctniHK7LpWBYMCjx0GA0vaqe5sh0ksoZDAKPbOtUy6sJno20Mtxiy58CoIKnvC34vHqRWAgyXLYtNN3tQeaXggiC/+atTnFljs+08MgIjg2XbwcUxd7qOtaMhhXD7nPMMbK6bk4dSm1FzAImXzBEcJZWZ9ciPPrsC0dFgjuYf16q/sZ12vt3JDiQ2mQzqJBqLvp0INE4UZnVoXSzx0gKf1rQrDdyaH8tSQ0m8Po8eTlWLZYdmIvlFQUzC+caqOWmiNtW0lpZ5hjHxhTqh97ZQp3JLXYsHbaut7Z6uiAKkdIKWvnvoLVvMpap7XuogGIbIQzjkryItFBxWCe39oHCJBL84Nhc6/eSTEIXAQCn69Kg2Rgzyp+5MmibPYf8hcNOw4h16Lu0rtBsV8/RPPsMWSbdeDp9+KWFxBXdk/8JYcmdtw1WsxwHPa1rnbWDe1CI0pkCuVTWaUjU8WC7FPWt8AEPzvfbuP2gZoDK42B
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(1800799024)(18002099003)(11063799006)(4143699003)(22082099003)(56012099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?LzBOSG90YlNrcDkveGJ2VFR0UWlaWTExTUxpR3Z4OXdhaTd5enVFNzZDTmJr?=
- =?utf-8?B?c2JnWlcwWGF1L25KdU9jajBFUkFBNHlQd0tlOVd5THZKcTF2RUtzTmRIejQr?=
- =?utf-8?B?VFZvNERDVElVWXM5cjR3UnY2aWdUY2tmc3dpSUY5NDc2RGk4YUdEN3pWSG5z?=
- =?utf-8?B?WmpERk16eUtEdDJuSG1jcXJyMlY5T2s4VnZCbzZTalpqRGZyZ3BUSzJ6YWZu?=
- =?utf-8?B?Y3lHaml4MUwreVlKTnpRbkREbFlkeTVubE5uTGFoTjZSQlJ6S2IrUTNRczZm?=
- =?utf-8?B?U0hyc0xhN1k2elo3WTVaSVFRdHRTdkRKbldqdlR2NDJDaEc2QWdxazUxS3dG?=
- =?utf-8?B?MEdGQlpRN1FqTHcwS1hVcVE0SkZjUDhUbjcwdEJSSnJCakRQUTBYSDVlL3pO?=
- =?utf-8?B?RzQvL0ZTWG42aGgwQnhvZWpXZjRLSVRvYmZvOFFJRmRJSlI4NzFock1ITXZh?=
- =?utf-8?B?aUNaYmJDUmRFZ3hGQzE2MERvTHIrYklYRVpqS2tmTGFKNzd0blA0VWl3SHVJ?=
- =?utf-8?B?K2hVOWlZZHN2RHpuUVhxQ20rZ09HZVZsMlVETXRGSC9xU0NIV2w3Umdja05M?=
- =?utf-8?B?TFJ1Vkx2Rmh4akR4QjllM2lCenkvcnJYeEI3dE1uaW1HUUU0QSt5a01XbktB?=
- =?utf-8?B?WEJFMGJhNjUxL2VHWEtFYkptZk9MOFJDTUVWNTdCWTZFdC94aUFhRXlpd05Q?=
- =?utf-8?B?dDN0Z3p2OHNuMnIzRnhMNHU5OVozVFM5ZVQyVnFBdC9aOVZUeTcvZDJsV1R6?=
- =?utf-8?B?UHM5UndsSDlGd3VuTm5FdlNpQlJ5Y3c2UnNNNU5yZjV0cnN1aVNubk9INTJY?=
- =?utf-8?B?L3F2UkU5d1FNWndYOEcxd1h5elhYT0dBUUkxVDMwaXVwTWdMQVF5eDVRNFZv?=
- =?utf-8?B?RXZpeDNlTUtkcFRLbWhMYk84SDhIWnhOU0VaN1BnREJCTjU2TFJKbXNxbUN1?=
- =?utf-8?B?YXh5dU9UWXhtWkN3WmpYbjBMVlpDMHlpMy9xYk9ZWThmMmQvdWRUT21QUUZ4?=
- =?utf-8?B?UURsc3NTK3p2Nk9MQjNTTjNCTGY3N1NRTi8wOXpMdUNjcjZwSURaVFdKUElv?=
- =?utf-8?B?NzZvZGY5czVVTVllTU4zYndUU0NEeDA1S3N4TFFGbDQrL1c5S3R5YkpvZFNJ?=
- =?utf-8?B?NlRRODB0dFpxMURMZXlQUHZ0eXIrTVN0Wm5yb3BVbUhoVHZ5VFhNNEpQdkNP?=
- =?utf-8?B?MkZIZytubzR2QjcydFpoZzc3SGVkbkF5MDRUOXVqUmc3S2l0RkZTNjFUcnU4?=
- =?utf-8?B?VXE1SlQrZmhqTWdEajkzZnhHT3FrUmM1Zmx4S1BTRHR3bEpTWVNLNGQ1cVhJ?=
- =?utf-8?B?QS9wbTlNYy8ybHpGUGdvdzJyQVFGRnpMTGRtKzNYTmVKN2UrZEhJQUtCS3FE?=
- =?utf-8?B?V29vSllSeGVrZGkvS2NHZmluUTZva1ltcnVzSk10MVhuckRtL1B4VHBONEtN?=
- =?utf-8?B?ZnJoNDNDOVNxN1dCcm9MM2Q5NngyamtoczlSaXVaY1FKMjFhcjlyVDFDNFdp?=
- =?utf-8?B?ZjV2YWQvSDdwK0VRUUtOZkJJZ0NIczVOOWIrNEEyaVkvdzc0Q1hMYjU0WTlL?=
- =?utf-8?B?QkhtLytBMDlseVNmdXgvUTBITWtPTXE5a3I2MlR5UUlQUzVqS0d1dzJKTFVp?=
- =?utf-8?B?OG5rUCtvZmJzcFBYNXhHR21yczZIdXJ6SU9BUk9JWk40L3BiUktSTW1YUmpJ?=
- =?utf-8?B?N2pEMlRCZHJwUWF4L0tJRlVaY3ZnREtSaTlNK0w3dVFlUjB1a0FwajBuVHdz?=
- =?utf-8?B?c3l2YkxVQzloZktiVE05NzZrTzh6bkxWZDQ3MmhLdEJFZ1JOdWp0M3ZDK0s4?=
- =?utf-8?B?YnpXbGg3RkEyS2o4VUY4ZXJxRXQvUUtUQlJaZzhFNHJIbHl1L2RLd2p4dUlN?=
- =?utf-8?B?eXdiNTVESjMwdUxzOEppeHlMdFkyNTJwTktvSiswaGtmRjNGek5DamJ0c2cx?=
- =?utf-8?B?WEhzNVBsOGN1UGdzK3FCUXBSU05hVEpjY1NWWjJPVCtUam5mbHlnQW5Ud1o2?=
- =?utf-8?B?bFV4ZHRSQW04cVhGSFhWbWhaTHN1OFpVZW5XYXFQTGgrUzlkaW9WZ3Y2cUYw?=
- =?utf-8?B?eHVYK1I3N1FuSFNJR1VxZ2t2S1hwaC9ralBIbW1oYXZMa0lhNWRrWWZQNGtP?=
- =?utf-8?B?eDAzR3l4QjNSZTVTOHYvdW83bklucnN1SXF5Z3pWeTFZeVJlZnpLTjZWa3ZF?=
- =?utf-8?B?S0xzaVczVnNxL3AraUV1ZHVJQnE0Q0N4L2h6R0RlcEtpN3JqN1ZCUjZQUjE3?=
- =?utf-8?B?ZWNvYXBoblhTS04zVmQ5MzVZSnNpcjVFaVZxQWUxL2RIT245V28zRm9MWTNn?=
- =?utf-8?Q?pc2oyFlFyr/ygGkzmJ?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1d376aa3-eb9f-45b3-e4bc-08deb65f1d5c
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 May 2026 11:01:16.5045 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: OZuIYcAcYD4MTrRrHawjK9+n3Zbxf2Zpmn2u6k9gg8d8xGPNTuCxBA/UrQ90vnEM
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8441
+Content-Type: text/plain; charset=UTF-8
+X-stable: review
+X-Patchwork-Hint: Ignore
+X-stable-base: Linux 7.0.9
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -143,33 +65,221 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 5/20/26 10:07, Mikhail Gavrilov wrote:
-> On Wed, May 20, 2026 at 12:08 PM Christian König
-> <christian.koenig@amd.com> wrote:
->>
->> That whole infrastructure is superflous. You just need to modify amdgpu_vm_lock_by_pasid() to take a drm_exec object to lock the root BO.
->>
-> 
-> Christian, modifying amdgpu_vm_lock_by_pasid() to take a drm_exec turns
-> out to also require converting its other caller, amdgpu_vm_handle_fault(),
-> to drm_exec — most of the diff is that conversion, not the helper itself.
-> 
-> I can:
->  (a) convert both in a 2-patch series (handle_fault becomes
->      drm_exec_init + drm_exec_until_all_locked + drm_exec_fini, ~30 lines),
->      or
->  (b) keep the loop inside amdgpu_vm_lock_by_pasid() so handle_fault stays
->      a one-liner — but then the devcoredump caller can't add the IB BOs
->      to the same ticket, which is the whole point.
-> 
-> (a) seems unavoidable if we want one helper. Is that what you had in mind,
-> or did you intend something lighter — e.g. a separate
-> amdgpu_vm_lock_by_pasid_exec() leaving handle_fault untouched?
-> 
+From: Christian König <christian.koenig@amd.com>
 
-Just make that two patches, first switching over amdgpu_vm_lock_by_pasid() to using drm_exec() on both use cases.
+[ Upstream commit d5971c5c34303a00bf841a902ca00a703602c500 ]
 
-And then changing the one for device core dumping to lock all BOs at once.
+The purpose of a GPU reset is to make sure that fence can be signaled
+again and the signal and resume workers can make progress again.
 
-Thanks,
-Christian.
+So waiting for the resume worker or any fence in the GPU reset path is
+just utterly nonsense.
+
+Signed-off-by: Christian König <christian.koenig@amd.com>
+Reviewed-by: Prike Liang <Prike.Liang@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+(cherry picked from commit fcd5f065eab46993af43442fd77ee8d9eb9c5bdf)
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+
+LLM Generated explanations, may be completely bogus:
+
+## Decision Summary
+This should be backported for stable trees that contain
+`amdgpu_userq_pre_reset()`. It removes two blocking waits from the GPU
+reset path: `cancel_delayed_work_sync(&uqm->resume_work)` and
+`amdgpu_userq_wait_for_last_fence()`, where the latter waits on
+`dma_fence_wait_timeout(..., MAX_SCHEDULE_TIMEOUT)`. The reset path is
+precisely what is supposed to let those fences/workers make progress, so
+waiting there can deadlock GPU recovery.
+
+The patch is one-function, one-file, no new API, and `git apply --check`
+succeeds against this `7.0.y` checkout. Main concern: the review thread
+confirms broader queue-state locking concerns remain, but those are pre-
+existing and the accepted patch was explicitly scoped to removing the
+obvious deadlock.
+
+## Phase Walkthrough
+Phase 1:
+- Record 1.1: subsystem `drm/amdgpu`; action `remove`; intent is to
+  remove deadlocks from `amdgpu_userq_pre_reset()`.
+- Record 1.2: tags present: `Signed-off-by: Christian König`, `Reviewed-
+  by: Prike Liang`, `Signed-off-by: Alex Deucher`; no `Fixes:`,
+  `Reported-by:`, `Tested-by:`, `Acked-by:`, `Link:`, or `Cc: stable`.
+- Record 1.3: commit body says GPU reset exists to allow fences and
+  signal/resume workers to progress; waiting for resume worker or fences
+  inside reset is wrong. Failure mode: reset can hang/deadlock.
+- Record 1.4: not hidden; it is explicitly a deadlock fix.
+
+Phase 2:
+- Record 2.1: one file, `drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c`,
+  `+12/-14`; only `amdgpu_userq_pre_reset()` changed; single-file
+  surgical fix.
+- Record 2.2: before, reset path canceled `resume_work` synchronously
+  and waited for `last_fence` before unmapping mapped queues. After, it
+  skips non-mapped queues and directly unmaps/marks hung/force-completes
+  mapped queues.
+- Record 2.3: bug category is deadlock/hang. Mechanism: reset path
+  waited on work/fences that may require reset progress to complete.
+- Record 2.4: fix is minimal. Regression risk is low-to-medium because
+  queue-state locking is still called out by the TODO and review
+  discussion, but no new API or broad behavior is added.
+
+Phase 3:
+- Record 3.1: `git blame` shows the reset function came from
+  `290f46cf57265` (`drm/amdgpu: Implement user queue reset
+  functionality`); current textual lines were later touched by
+  `473f12f820956` and `dc21e39fd20c7` helper/signature cleanups. `git
+  describe --contains 290f46cf...` points to `v6.19-rc1`, so older
+  stable trees before v6.19 likely do not contain this exact code.
+- Record 3.2: no `Fixes:` tag, so no Fixes target to follow.
+- Record 3.3: recent file history shows active userq work and related
+  reset/fence changes; this patch applies standalone to current `7.0.y`.
+- Record 3.4: `MAINTAINERS` lists Christian König and Alex Deucher as
+  AMDGPU DRM maintainers; author/committer are subsystem maintainers.
+- Record 3.5: no compile dependency found; patch is part of an 11-patch
+  series but applies cleanly by itself.
+
+Phase 4:
+- Record 4.1: `b4 dig` failed because the commit object is absent
+  locally. Fallback found the original patch at
+  `lists.freedesktop.org/archives/amd-gfx/2026-April/143199.html`;
+  committed version matches the patch content with `Reviewed-by` added.
+- Record 4.2: `b4 -w` failed; lore thread shows Alex Deucher, Prike
+  Liang, Sunil Khatri, and `amd-gfx` were involved.
+- Record 4.3: no external bug report or syzbot link found.
+- Record 4.4: series context exists (`[PATCH 02/11]`), with later
+  userq/fence/reset cleanups, but no hard prerequisite was identified
+  for this specific deadlock removal.
+- Record 4.5: web search did not find stable-list discussion for this
+  exact patch.
+
+Phase 5:
+- Record 5.1: modified function: `amdgpu_userq_pre_reset()`.
+- Record 5.2: callers: local search shows only
+  `amdgpu_device_halt_activities()`, called from
+  `amdgpu_device_gpu_recover()` and PCI error handling.
+- Record 5.3: affected callees include `userq_funcs->unmap()` and
+  `amdgpu_userq_fence_driver_force_completion()`; removed callees
+  include `cancel_delayed_work_sync()` and
+  `amdgpu_userq_wait_for_last_fence()`.
+- Record 5.4: reachable through AMDGPU recovery paths, including job
+  timeout/GPU recovery paths; exact unprivileged trigger policy was not
+  fully verified.
+- Record 5.5: similar wait/cancel patterns remain in non-reset paths
+  such as destroy/suspend/eviction, but the reset-path instance is the
+  one fixed here.
+
+Phase 6:
+- Record 6.1: buggy code exists in this `7.0.y` tree and appears
+  introduced for `v6.19-rc1`; likely relevant to v6.19+ stable trees
+  containing userq reset support.
+- Record 6.2: `git apply --check` succeeds against this checkout, so
+  current `7.0.y` backport difficulty is clean.
+- Record 6.3: no exact related stable replacement fix found locally or
+  in web stable search.
+
+Phase 7:
+- Record 7.1: subsystem is AMDGPU DRM driver; criticality is IMPORTANT,
+  driver-specific but for widely used GPU hardware.
+- Record 7.2: subsystem/file is active; recent history contains many
+  userq reset/fence fixes and refactors.
+
+Phase 8:
+- Record 8.1: affected users are AMDGPU users with user queues enabled
+  who hit GPU reset/recovery.
+- Record 8.2: trigger is GPU reset while user queues have pending resume
+  work or unsignaled fences; commonality depends on userq usage and GPU
+  hangs.
+- Record 8.3: failure mode is GPU reset deadlock/hang; severity HIGH to
+  CRITICAL because recovery can stall.
+- Record 8.4: benefit is high for affected systems; risk is low-to-
+  medium due small scope but reset-path concurrency sensitivity. Ratio
+  favors backport.
+
+Phase 9:
+- Record 9.1 FOR: fixes deadlock, reset-path hang, small one-function
+  diff, maintainer-authored, reviewed, applies cleanly. AGAINST: no
+  reported user bug, no stable tag, part of a larger userq series,
+  residual queue-state locking TODO. UNRESOLVED: no runtime
+  reproduction/build, exact applicability to every active stable branch
+  not verified.
+- Record 9.2 stable rules: obviously correct enough by code and
+  maintainer review: yes; fixes real bug: yes, deadlock; important
+  issue: yes, recovery hang; small/contained: yes; no new API/features:
+  yes; can apply to current stable tree: yes.
+- Record 9.3 exception category: none.
+- Record 9.4 decision: backport to stable trees containing this userq
+  reset code.
+
+## Verification
+- [Phase 1] Parsed GitHub patch and lore message: confirmed subject,
+  body, tags, and lack of `Fixes`/`Cc stable`.
+- [Phase 2] Compared diff: confirmed one-file `+12/-14` change removing
+  `cancel_delayed_work_sync()` and `amdgpu_userq_wait_for_last_fence()`.
+- [Phase 3] `git blame`: confirmed reset code origin/refactor history
+  around `amdgpu_userq_pre_reset()`.
+- [Phase 3] `git describe --contains`: confirmed introduction is in the
+  v6.19 era.
+- [Phase 3] `MAINTAINERS`: confirmed Christian König and Alex Deucher
+  maintain AMDGPU DRM.
+- [Phase 4] `b4 dig -c/-a/-w`: failed because commit object is not in
+  this checkout.
+- [Phase 4] WebFetch GitHub patch and freedesktop lore: confirmed
+  original patch, review discussion, and `Reviewed-by: Prike Liang`.
+- [Phase 5] `rg` and file reads: confirmed caller path through
+  `amdgpu_device_halt_activities()` and `amdgpu_device_gpu_recover()`.
+- [Phase 6] `git apply --check`: confirmed clean application to current
+  `7.0.y`.
+- UNVERIFIED: no kernel build or runtime reproduction was performed;
+  exact applicability to all non-`7.0.y` stable trees was not fully
+  checked.
+
+**YES**
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 26 +++++++++++------------
+ 1 file changed, 12 insertions(+), 14 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+index 0a1b93259887a..6f49ba3bd0394 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+@@ -1583,23 +1583,21 @@ void amdgpu_userq_pre_reset(struct amdgpu_device *adev)
+ {
+ 	const struct amdgpu_userq_funcs *userq_funcs;
+ 	struct amdgpu_usermode_queue *queue;
+-	struct amdgpu_userq_mgr *uqm;
+ 	unsigned long queue_id;
+ 
++	/* TODO: We probably need a new lock for the queue state */
+ 	xa_for_each(&adev->userq_doorbell_xa, queue_id, queue) {
+-		uqm = queue->userq_mgr;
+-		cancel_delayed_work_sync(&uqm->resume_work);
+-		if (queue->state == AMDGPU_USERQ_STATE_MAPPED) {
+-			amdgpu_userq_wait_for_last_fence(queue);
+-			userq_funcs = adev->userq_funcs[queue->queue_type];
+-			userq_funcs->unmap(queue);
+-			/* just mark all queues as hung at this point.
+-			 * if unmap succeeds, we could map again
+-			 * in amdgpu_userq_post_reset() if vram is not lost
+-			 */
+-			queue->state = AMDGPU_USERQ_STATE_HUNG;
+-			amdgpu_userq_fence_driver_force_completion(queue);
+-		}
++		if (queue->state != AMDGPU_USERQ_STATE_MAPPED)
++			continue;
++
++		userq_funcs = adev->userq_funcs[queue->queue_type];
++		userq_funcs->unmap(queue);
++		/* just mark all queues as hung at this point.
++		 * if unmap succeeds, we could map again
++		 * in amdgpu_userq_post_reset() if vram is not lost
++		 */
++		queue->state = AMDGPU_USERQ_STATE_HUNG;
++		amdgpu_userq_fence_driver_force_completion(queue);
+ 	}
+ }
+ 
+-- 
+2.53.0
+
