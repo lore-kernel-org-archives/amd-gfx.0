@@ -4,30 +4,28 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 62972CD4F5E
-	for <amd-gfx@archiver.kernel.org>; Wed, 20 May 2026 02:53:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8FB12CD4F5E
+	for <amd-gfx@archiver.kernel.org>; Wed, 20 May 2026 05:32:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8603410EECC;
-	Wed, 20 May 2026 02:53:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3069E10E045;
+	Wed, 20 May 2026 05:32:00 +0000 (UTC)
 Received: from rtg-sunil-navi33.amd.com (unknown [165.204.156.251])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9C90510E053
- for <amd-gfx@lists.freedesktop.org>; Wed, 20 May 2026 02:53:19 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9755310E045
+ for <amd-gfx@lists.freedesktop.org>; Wed, 20 May 2026 05:31:58 +0000 (UTC)
 Received: from rtg-sunil-navi33.amd.com (localhost [127.0.0.1])
  by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Debian-22ubuntu3) with ESMTP id
- 64K2r90s1866867; Wed, 20 May 2026 08:23:09 +0530
+ 64K5VrpH2024879; Wed, 20 May 2026 11:01:53 +0530
 Received: (from sunil@localhost)
- by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 64K2r9jK1866866;
- Wed, 20 May 2026 08:23:09 +0530
+ by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 64K5VrrZ2024878;
+ Wed, 20 May 2026 11:01:53 +0530
 From: Sunil Khatri <sunil.khatri@amd.com>
 To: Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Cc: amd-gfx@lists.freedesktop.org, Sunil Khatri <sunil.khatri@amd.com>
-Subject: [PATCH 2/4] drm/amdgpu/userq: reserve the object before pinning it
-Date: Wed, 20 May 2026 08:22:56 +0530
-Message-Id: <20260520025258.1866776-2-sunil.khatri@amd.com>
+Subject: [PATCH v2 1/5] drm/amdgpu/userq: clean amdgpu_userq_destroy_object
+Date: Wed, 20 May 2026 11:01:47 +0530
+Message-Id: <20260520053152.2024851-1-sunil.khatri@amd.com>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260520025258.1866776-1-sunil.khatri@amd.com>
-References: <20260520025258.1866776-1-sunil.khatri@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -44,29 +42,75 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-In amdgpu_userq_destroy_object, we should reserve the object
-before unpin the object.
+amdgpu_userq_destroy_object does not use userq_mgr
+reference and hence cleaning that up.
 
 Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c  |  3 +--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h  |  3 +--
+ drivers/gpu/drm/amd/amdgpu/mes_userqueue.c | 10 ++++------
+ 3 files changed, 6 insertions(+), 10 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-index 0607b7078518..758bf099f0bc 100644
+index 798998d65e17..0607b7078518 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-@@ -528,8 +528,10 @@ int amdgpu_userq_create_object(struct amdgpu_userq_mgr *uq_mgr,
- 
- void amdgpu_userq_destroy_object(struct amdgpu_userq_obj *userq_obj)
- {
-+	amdgpu_bo_reserve(userq_obj->obj, true);
- 	amdgpu_bo_kunmap(userq_obj->obj);
- 	amdgpu_bo_unpin(userq_obj->obj);
-+	amdgpu_bo_unreserve(userq_obj->obj);
- 	amdgpu_bo_unref(&userq_obj->obj);
+@@ -526,8 +526,7 @@ int amdgpu_userq_create_object(struct amdgpu_userq_mgr *uq_mgr,
+ 	return r;
  }
  
+-void amdgpu_userq_destroy_object(struct amdgpu_userq_mgr *uq_mgr,
+-				 struct amdgpu_userq_obj *userq_obj)
++void amdgpu_userq_destroy_object(struct amdgpu_userq_obj *userq_obj)
+ {
+ 	amdgpu_bo_kunmap(userq_obj->obj);
+ 	amdgpu_bo_unpin(userq_obj->obj);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
+index 033b8a0de6b1..fe89e35b0d85 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
+@@ -155,8 +155,7 @@ int amdgpu_userq_create_object(struct amdgpu_userq_mgr *uq_mgr,
+ 			       struct amdgpu_userq_obj *userq_obj,
+ 			       int size);
+ 
+-void amdgpu_userq_destroy_object(struct amdgpu_userq_mgr *uq_mgr,
+-				 struct amdgpu_userq_obj *userq_obj);
++void amdgpu_userq_destroy_object(struct amdgpu_userq_obj *userq_obj);
+ 
+ void amdgpu_userq_evict(struct amdgpu_userq_mgr *uq_mgr);
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c b/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
+index 2d95203ec58e..69b36ebfe7ac 100644
+--- a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
++++ b/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
+@@ -432,10 +432,10 @@ static int mes_userq_mqd_create(struct amdgpu_usermode_queue *queue,
+ 	return 0;
+ 
+ free_ctx:
+-	amdgpu_userq_destroy_object(uq_mgr, &queue->fw_obj);
++	amdgpu_userq_destroy_object(&queue->fw_obj);
+ 
+ free_mqd:
+-	amdgpu_userq_destroy_object(uq_mgr, &queue->mqd);
++	amdgpu_userq_destroy_object(&queue->mqd);
+ 
+ free_props:
+ 	kfree(userq_props);
+@@ -445,11 +445,9 @@ static int mes_userq_mqd_create(struct amdgpu_usermode_queue *queue,
+ 
+ static void mes_userq_mqd_destroy(struct amdgpu_usermode_queue *queue)
+ {
+-	struct amdgpu_userq_mgr *uq_mgr = queue->userq_mgr;
+-
+-	amdgpu_userq_destroy_object(uq_mgr, &queue->fw_obj);
++	amdgpu_userq_destroy_object(&queue->fw_obj);
+ 	kfree(queue->userq_prop);
+-	amdgpu_userq_destroy_object(uq_mgr, &queue->mqd);
++	amdgpu_userq_destroy_object(&queue->mqd);
+ }
+ 
+ static int mes_userq_preempt(struct amdgpu_usermode_queue *queue)
 -- 
 2.34.1
 
