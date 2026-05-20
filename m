@@ -4,51 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 40C82CD4F54
-	for <amd-gfx@archiver.kernel.org>; Wed, 20 May 2026 07:18:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1D7E6CD4F5E
+	for <amd-gfx@archiver.kernel.org>; Wed, 20 May 2026 07:49:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A8F7410EF34;
-	Wed, 20 May 2026 07:18:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A10A010E091;
+	Wed, 20 May 2026 07:49:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=mandelbit.com header.i=@mandelbit.com header.b="fPq9HNtE";
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="q5GWE7J4";
 	dkim-atps=neutral
-X-Greylist: delayed 448 seconds by postgrey-1.36 at gabe;
- Tue, 19 May 2026 14:53:19 UTC
-Received: from mout-b-112.mailbox.org (mout-b-112.mailbox.org [195.10.208.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 96E4510ED56;
- Tue, 19 May 2026 14:53:19 +0000 (UTC)
-Received: from smtp202.mailbox.org (smtp202.mailbox.org [10.196.197.202])
+Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AFE4310EF49
+ for <amd-gfx@lists.freedesktop.org>; Wed, 20 May 2026 07:49:22 +0000 (UTC)
+Received: from smtp102.mailbox.org (smtp102.mailbox.org
+ [IPv6:2001:67c:2050:b231:465::102])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by mout-b-112.mailbox.org (Postfix) with ESMTPS id 4gKct30mMpzDvNT;
- Tue, 19 May 2026 16:45:47 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandelbit.com;
- s=MBO0001; t=1779201947;
+ by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4gL3b32G3Lz9v8b;
+ Wed, 20 May 2026 09:49:19 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; t=1779263359;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding;
- bh=YQU4ivIdjjL1ZhRZIDFlRUv7sSpl+HPITDd5i1bcM8I=;
- b=fPq9HNtET3CT0gfeEqQrESL6ndpCzyO0uwlTGcpSIGiWmwCWN0wvLiHPZoyM3DSyRgubwG
- 4v6eJuGJFXpVwnUh47VGTu+y4RXWMJVOvYYUEkh5GC+ZBdZg6pdguBUFblpko+F0xCdw49
- ebc98bKMD/oETsf7fKpd40UzM4KnGwieKRSUllFZvXIUX6yQy1OC5j+RBCXe2jZrN/iUyl
- 675m9z6Bz2WDkbG4A+WVmIP57cVVcdsbFLS/5FI2oPeswJvcFCHHZZuxfTg1Is8F4TPOEW
- i6RyCa48y51FTlqKw1wG0Hl6t6u/92dSoNlInjfP3PHD/gR1ByZ43OfrBZpu6A==
-From: Antonio Quartulli <antonio@mandelbit.com>
-To: amd-gfx@lists.freedesktop.org
-Cc: antonio@mandelbit.com, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, martin.leung@amd.com, bpinnint@amd.com,
- aurabindo.pillai@amd.com, Muhammad.Ahmed@amd.com, Karen.Chen@amd.com,
- leo.chen@amd.com, gaghik.khachatrian@amd.com, roman.li@amd.com,
- wayne.lin@amd.com, nicholas.kazlauskas@amd.com, christian.koenig@amd.com,
- alexander.deucher@amd.com, siqueira@igalia.com, simona@ffwll.ch,
- airlied@gmail.com, sunpeng.li@amd.com, harry.wentland@amd.com
-Subject: [RFC] amdgpu: fix compressed buffer config routine waiting time
-Date: Tue, 19 May 2026 16:45:09 +0200
-Message-ID: <20260519144509.2646680-1-antonio@mandelbit.com>
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=kneXu0dudDxw2Q/FUh/dwchoPSoTiKGSuKWrOuL0Z20=;
+ b=q5GWE7J4BIRPX4ppu3UgQ0tsZ9xoAg1YNCMdnFGghmiqom0v/IED63Zg5g+PyBIGu9B/c1
+ 4BVXbD6OIATDXlXThc5hoCbR6PbuMs0lQb67VNc+Gum2wosjEBDf9lE+6iTUsXKklVDe6L
+ 1XA6JE5y7BFWSdWmCpN0DTpGzhfZTsyjfrFa9jpm+QOupmOouY1VOXkrz82RoWEJ0wGw+M
+ u6/j6/0HqJzO4fo1kdyo4C/LGhmdF8ota8JqT4XrPyWxvlL/a7Z24hXoF8iXgPv/Lpk3Uz
+ gvpra7CI6ZZoPOrwBVWAPFsMoWhX2IcpfhPGQjw1vQsU4hG6vOI9+uWWjRgaLw==
+Message-ID: <7a9021cd-fd78-4b0d-846b-135d0d72224e@mailbox.org>
+Date: Wed, 20 May 2026 09:49:17 +0200
 MIME-Version: 1.0
+Subject: Re: Test result / finding of "drm/amd/display: Consult MCCS FreeSync
+ cap only if requested & supported"
+To: Pei-Hsin Yang <peihsiny@valvesoftware.com>
+References: <44069eb146824aa195312f5b02c49287@valvesoftware.com>
+From: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>
+Content-Language: en-CA
+Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+In-Reply-To: <44069eb146824aa195312f5b02c49287@valvesoftware.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Wed, 20 May 2026 07:18:22 +0000
+X-MBO-RS-ID: 7d5863e5518f2d7eb06
+X-MBO-RS-META: djog3ijsh8zpqd6d5qfa6coxnzdfjjfa
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,78 +63,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Starting with commit 592c5b80110d5 ("drm/amd/display: Migrate HUBBUB register access from hwseq to hubbub component.")
-the amdgpu driver is reporting the following WARNING in the kernel log
-during boot time:
+On 5/19/26 22:12, Pei-Hsin Yang wrote:
+> 
+> Here is my test result and finding after applying Michel Dänzer’s patch on May 18, 2026 to SteamOS 6.16 branch.
+> 
+>  
+> 
+> Applied patch from Michael Dänzer to SteamOS 6.16.
+> 
+>  
+> 
+> Tested with 3 HDMI sinks with different FreeSync/HDMI VRR capabilities.  I saw one case that a FreeSync sink (Dell S2721HS) with E6h VCP code supported was detected as FreeSync capable at beginning but identified as not FreeSync capable later – after do_mccs is changed from true to false.
 
-[   15.464476] amdgpu 0000:0c:00.0: [drm] REG_WAIT timeout 1us * 100 tries - dcn31_program_compbuf_size line:141
-[   15.464522] ------------[ cut here ]------------
-[   15.464523] !(generic_reg_get(hubbub2->base.ctx, hubbub2->regs->DCHUBBUB_COMPBUF_CTRL, hubbub2->shifts->CONFIG_ERROR, hubbub2->masks->CONFIG_ERROR, &compbuf_size_segments) && !compbuf_size_segments)
-[   15.464524] WARNING: drivers/gpu/drm/amd/amdgpu/../display/dc/hubbub/dcn31/dcn31_hubbub.c:151 at dcn31_program_compbuf_size+0x20e/0x220 [amdgpu], CPU#2: kworker/2:2/184
-[   15.464906] Workqueue: events drm_mode_rmfb_work_fn
-[   15.464910] RIP: 0010:dcn31_program_compbuf_size+0x20e/0x220 [amdgpu]
-[   15.465200]  <TASK>
-[   15.465202]  dcn20_optimize_bandwidth+0x110/0x210 [amdgpu]
-[   15.465556]  dc_commit_state_no_check+0x14ff/0x18a0 [amdgpu]
-[   15.465925]  dc_commit_streams+0x471/0x640 [amdgpu]
-[   15.466252]  amdgpu_dm_atomic_commit_tail+0x903/0x4430 [amdgpu]
-[   15.467401]  commit_tail+0x242/0x2e0
-[   15.467405]  drm_atomic_helper_commit+0x28b/0x2a0
-[   15.467407]  drm_atomic_commit+0xc3/0xf0
-[   15.467416]  drm_mode_rmfb_work_fn+0x85/0xb0
-[   15.467436]  ret_from_fork_asm+0x1a/0x30
-[   15.467441]  </TASK>
+And that doesn't happen without my patch applied?
 
-After boot this results in unstable video output, specifically after
-resuming from screen sleep. The video may not come back at all
-or may come up partly messed up.
 
-This problem seems to affect various people on AMD iGPU, as discussed
-on the related GitHub issue.
+> I understood the recent implementation to determine freesync_capable is trusting hardware (via MCCS VCP transaction) over EDID.  But in real world application, it does cause certain false detection to inadvertently disable the VRR.
+> 
+>  
+> 
+> My opinion is: If EDID has AMD FreeSync VSDB specified with valid refresh rate range, then it should be determined as FreeSync capable.  As for MCCS VCP Code support, it is used to send Set command to sink to enable/disable the VRR handling.  Result of dm_helpers_read_mccs_caps() at runtime should not override the freesync_capable value.  Because the impact of MCCS VCP Code Set command failure is significantly lower than the disabling VRR when sink is capable.
 
-Giuseppe Ranieri digged up the issue and suggested the proposed code
-change.
+I basically agree.
 
-There was also a previous report on the amd-gfx ml (see related link below)
-but it got nowhere.
 
-By looking at the offending commit I am not truly able to understand why
-it is breaking. Hence I am posting this patch as RFC only.
+TBH I don't really want to be fixing the regression I hit, I'd prefer the AMD display team to handle it.
 
-What I can say is that this fix has been solid on my platform running
-7.1.0-rc3 with this patch.
 
-I am on:
-Gigabyte Technology Co., Ltd. B850M DS3H/B850M DS3H + AMD Ryzen 9 9950X
-
-Fixes: 592c5b80110d5 ("drm/amd/display: Migrate HUBBUB register access from hwseq to hubbub component.")
-Link: https://github.com/CachyOS/linux-cachyos/issues/810
-Link: https://lore.kernel.org/amd-gfx/20260316094232.6bb6f0bf@schienar/
-Suggested-by: Giuseppe Ranieri
-Signed-off-by: Antonio Quartulli <antonio@mandelbit.com>
----
- .../gpu/drm/amd/display/dc/hubbub/dcn31/dcn31_hubbub.c    | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/dc/hubbub/dcn31/dcn31_hubbub.c b/drivers/gpu/drm/amd/display/dc/hubbub/dcn31/dcn31_hubbub.c
-index 3c298192f3596..9dc1db4524500 100644
---- a/drivers/gpu/drm/amd/display/dc/hubbub/dcn31/dcn31_hubbub.c
-+++ b/drivers/gpu/drm/amd/display/dc/hubbub/dcn31/dcn31_hubbub.c
-@@ -138,10 +138,10 @@ static void dcn31_program_compbuf_size(struct hubbub *hubbub, unsigned int compb
- 
- 	if (safe_to_increase || compbuf_size_segments <= hubbub2->compbuf_size_segments) {
- 		if (compbuf_size_segments > hubbub2->compbuf_size_segments) {
--			REG_WAIT(DCHUBBUB_DET0_CTRL, DET0_SIZE_CURRENT, hubbub2->det0_size, 1, 100);
--			REG_WAIT(DCHUBBUB_DET1_CTRL, DET1_SIZE_CURRENT, hubbub2->det1_size, 1, 100);
--			REG_WAIT(DCHUBBUB_DET2_CTRL, DET2_SIZE_CURRENT, hubbub2->det2_size, 1, 100);
--			REG_WAIT(DCHUBBUB_DET3_CTRL, DET3_SIZE_CURRENT, hubbub2->det3_size, 1, 100);
-+			dcn31_wait_for_det_apply(hubbub, 0);
-+			dcn31_wait_for_det_apply(hubbub, 1);
-+			dcn31_wait_for_det_apply(hubbub, 2);
-+			dcn31_wait_for_det_apply(hubbub, 3);
- 		}
- 		/* Should never be hit, if it is we have an erroneous hw config*/
- 		ASSERT(hubbub2->det0_size + hubbub2->det1_size + hubbub2->det2_size
 -- 
-2.53.0
-
+Earthling Michel Dänzer       \        GNOME / Xwayland / Mesa developer
+https://redhat.com             \               Libre software enthusiast
