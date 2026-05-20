@@ -4,72 +4,83 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E72EDCD5BAB
-	for <amd-gfx@archiver.kernel.org>; Thu, 21 May 2026 07:01:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E52C7CD5BAE
+	for <amd-gfx@archiver.kernel.org>; Thu, 21 May 2026 07:01:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 708D710F222;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5F28910F219;
 	Thu, 21 May 2026 07:01:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="J+OQfKQi";
+	dkim=pass (1024-bit key; unprotected) header.d=valvesoftware.com header.i=@valvesoftware.com header.b="eVkNDVpl";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0C98810EFF7;
- Wed, 20 May 2026 10:17:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1779272242; x=1810808242;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=Eyqg+cXE3zQi+HGwpHNc4vqhQE2TgtWXcssaKXnp8L0=;
- b=J+OQfKQigk92ozm/BSHbO8Kbvp0SGSo1Y29Zr0fM7EgYQ0i7KAj7HAE8
- 1tpsA/z4yH3UNmVpbv2nO1kHqb/LjrLxspMkQRpDXnjG2ctAtYqaKhN0+
- E/czi/o2vnS7O1wbtRSZUfkiBcrLaSjCiTY59TeaE0m4iEuBEZvac+CdC
- 7E8UP1EfliwobCf1w0OZ578zmb+DFKvcVaZ8KdmOAQqgj1ysUUyXmI2x4
- 3lUJjyYSBSQpJ4YXBNmK6ev19YEjSwDtIrpJ2BvtjpjyiWqoiwXc846GV
- r4uUjKl3bnRrqXTTFqOQPj/Fn4qSphmU0RjHvq1g02TNnTQdT9aAmF4ft Q==;
-X-CSE-ConnectionGUID: wQ1NiPQmTyqFBox8HcHBUA==
-X-CSE-MsgGUID: 5NeTvn8oTOGrGF5JnEtnsg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11791"; a="102843291"
-X-IronPort-AV: E=Sophos;i="6.23,244,1770624000"; d="scan'208";a="102843291"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
- by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 May 2026 03:17:21 -0700
-X-CSE-ConnectionGUID: ieDKYrn4R0WJGtIaIh7CfA==
-X-CSE-MsgGUID: 0Qjo2TgJQcCyXtlrUbycng==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,244,1770624000"; d="scan'208";a="244114093"
-Received: from vpanait-mobl.ger.corp.intel.com (HELO fedora) ([10.245.245.175])
- by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 May 2026 03:17:17 -0700
-From: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-To: intel-xe@lists.freedesktop.org
-Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Felix Kuehling <Felix.Kuehling@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Danilo Krummrich <dakr@kernel.org>,
- Matthew Brost <matthew.brost@intel.com>, Alice Ryhl <aliceryhl@google.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
-Subject: [PATCH v2 2/4] drm/exec: Make the drm_exec_until_all_locked() macro
- more readable
-Date: Wed, 20 May 2026 12:16:14 +0200
-Message-ID: <20260520101616.41284-3-thomas.hellstrom@linux.intel.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260520101616.41284-1-thomas.hellstrom@linux.intel.com>
-References: <20260520101616.41284-1-thomas.hellstrom@linux.intel.com>
+Received: from us-smtp-delivery-172.mimecast.com
+ (us-smtp-delivery-172.mimecast.com [170.10.133.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CFD1210E40B
+ for <amd-gfx@lists.freedesktop.org>; Wed, 20 May 2026 15:54:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=valvesoftware.com;
+ s=mc20150811; t=1779292469;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=QC0YmIsanLoiRyxG4DmUrGh0QSwkWom/J3JAIjzDhXE=;
+ b=eVkNDVplhyiCdYNdpl+QOv8Ac36d3okvTxdD76epqfzj+5RK7O1NAOI1T0Ac3zNzl2+1Oo
+ AAjEaYgk66KsAkKHr3KuQKDCDfTuPkUf1RLyT8Q2mN2BtnLX5ncX6T9UKRLXKjM51kmzrC
+ dl/ca9ZdfTgzbGModawwTjPc4TZMflY=
+Received: from smtp-02-tuk3.valvesoftware.com
+ (smtp-02-blv1.valvesoftware.com [208.64.203.182]) by relay.mimecast.com
+ with ESMTP with STARTTLS (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384)
+ id us-mta-360-UgAzB-7iMuucCVOxK_QDng-1; Wed, 20 May 2026 11:54:26 -0400
+X-MC-Unique: UgAzB-7iMuucCVOxK_QDng-1
+X-Mimecast-MFC-AGG-ID: UgAzB-7iMuucCVOxK_QDng_1779292466
+Received: from antispam.valve.org ([172.16.1.107])
+ by smtp-02-tuk3.valvesoftware.com with esmtp (Exim 4.97)
+ (envelope-from <peihsiny@valvesoftware.com>)
+ id 1wPjFa-00000003txU-0N2x for amd-gfx@lists.freedesktop.org;
+ Wed, 20 May 2026 08:54:26 -0700
+Received: from antispam.valve.org (127.0.0.1) id h1ncj40171s7 for
+ <amd-gfx@lists.freedesktop.org>;
+ Wed, 20 May 2026 08:54:26 -0700 (envelope-from <peihsiny@valvesoftware.com>)
+Received: from mail2.valvemail.org ([172.16.144.23])
+ by antispam.valve.org ([172.16.1.107]) (SonicWall 10.0.15.7233)
+ with ESMTP id o202605201554250020756-5; Wed, 20 May 2026 08:54:25 -0700
+Received: from mail2.valvemail.org (172.16.144.23) by mail2.valvemail.org
+ (172.16.144.23) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Wed, 20 May
+ 2026 08:54:25 -0700
+Received: from mail2.valvemail.org ([::1]) by mail2.valvemail.org ([::1]) with
+ mapi id 15.02.2562.017; Wed, 20 May 2026 08:54:25 -0700
+From: Pei-Hsin Yang <peihsiny@valvesoftware.com>
+To: =?utf-8?B?TWljaGVsIETDpG56ZXI=?= <michel.daenzer@mailbox.org>
+CC: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Subject: RE: [External Mail] Re: Test result / finding of "drm/amd/display:
+ Consult MCCS FreeSync cap only if requested & supported"
+Thread-Topic: [External Mail] Re: Test result / finding of "drm/amd/display:
+ Consult MCCS FreeSync cap only if requested & supported"
+Thread-Index: AdznyYW5KuL81IotTPmWr+1olc6y4wAnk9yAAAH0cTA=
+Date: Wed, 20 May 2026 15:54:25 +0000
+Message-ID: <16231b1742004f848af243ce398281ec@valvesoftware.com>
+References: <44069eb146824aa195312f5b02c49287@valvesoftware.com>
+ <7a9021cd-fd78-4b0d-846b-135d0d72224e@mailbox.org>
+In-Reply-To: <7a9021cd-fd78-4b0d-846b-135d0d72224e@mailbox.org>
+Accept-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [172.22.19.68]
 MIME-Version: 1.0
+X-Mlf-DSE-Version: 6871
+X-Mlf-Rules-Version: s20260520005434; ds20230628172248;
+ di20260507172443; ri20160318003319; fs20260520154049
+X-Mlf-Smartnet-Version: 20210917223710
+X-Mlf-Envelope-From: peihsiny@valvesoftware.com
+X-Mlf-Version: 10.0.15.7233
+X-Mlf-License: BSV_C_AP_T_R
+X-Mlf-UniqueId: o202605201554250020756
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: dOSOfUGL2j4dixIis34BHnbTpDpIBN9t-_OJQRWXfx4_1779292466
+X-Mimecast-Originator: valvesoftware.com
+Content-Language: en-US
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: base64
 X-Mailman-Approved-At: Thu, 21 May 2026 07:01:28 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -85,62 +96,55 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Use __UNIQUE_ID as done elsewhere in the kernel rather than a
-hand-rolled __PASTE to craft a unique id.
-
-Also use __maybe_unused rather than (void) to signify that a
-variable, althrough written to, may not actually be used.
-
-v2:
-- Move assignment to declaration (Christian)
-- Declare the retry pointer as void *const.
-
-Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
----
- include/drm/drm_exec.h | 21 ++++++++++++---------
- 1 file changed, 12 insertions(+), 9 deletions(-)
-
-diff --git a/include/drm/drm_exec.h b/include/drm/drm_exec.h
-index dee6ebdbe416..18f84faabbb9 100644
---- a/include/drm/drm_exec.h
-+++ b/include/drm/drm_exec.h
-@@ -95,6 +95,17 @@ drm_exec_obj(struct drm_exec *exec, unsigned long index)
- #define drm_exec_for_each_locked_object_reverse(exec, obj)		\
- 	__drm_exec_for_each_locked_object_reverse(exec, obj, __UNIQUE_ID(drm_exec))
- 
-+/*
-+ * Helper to drm_exec_until_all_locked(). Don't use directly.
-+ *
-+ * Since labels can't be defined local to the loop's body we use a jump pointer
-+ * to make sure that the retry is only used from within the loop's body.
-+ */
-+#define __drm_exec_until_all_locked(exec, _label)			 \
-+_label:									 \
-+	for (void *const __maybe_unused __drm_exec_retry_ptr = &&_label; \
-+	     drm_exec_cleanup(exec);)
-+
- /**
-  * drm_exec_until_all_locked - loop until all GEM objects are locked
-  * @exec: drm_exec object
-@@ -102,17 +113,9 @@ drm_exec_obj(struct drm_exec *exec, unsigned long index)
-  * Core functionality of the drm_exec object. Loops until all GEM objects are
-  * locked and no more contention exists. At the beginning of the loop it is
-  * guaranteed that no GEM object is locked.
-- *
-- * Since labels can't be defined local to the loops body we use a jump pointer
-- * to make sure that the retry is only used from within the loops body.
-  */
- #define drm_exec_until_all_locked(exec)					\
--__PASTE(__drm_exec_, __LINE__):						\
--	for (void *__drm_exec_retry_ptr; ({				\
--		__drm_exec_retry_ptr = &&__PASTE(__drm_exec_, __LINE__);\
--		(void)__drm_exec_retry_ptr;				\
--		drm_exec_cleanup(exec);					\
--	});)
-+	__drm_exec_until_all_locked(exec, __UNIQUE_ID(drm_exec))
- 
- /**
-  * drm_exec_retry_on_contention - restart the loop to grap all locks
--- 
-2.54.0
+SGkgTWljaGVsLA0KDQo+IFRlc3RlZCB3aXRoIDMgSERNSSBzaW5rcyB3aXRoIGRpZmZlcmVudCBG
+cmVlU3luYy9IRE1JIFZSUiBjYXBhYmlsaXRpZXMuICBJIHNhdyBvbmUgY2FzZSB0aGF0IGEgRnJl
+ZVN5bmMgc2luayAoRGVsbCBTMjcyMUhTKSB3aXRoIEU2aCBWQ1AgY29kZSBzdXBwb3J0ZWQgd2Fz
+IGRldGVjdGVkIGFzIEZyZWVTeW5jIGNhcGFibGUgYXQgYmVnaW5uaW5nIGJ1dCBpZGVudGlmaWVk
+IGFzIG5vdCBGcmVlU3luYyBjYXBhYmxlIGxhdGVyIOKAkyBhZnRlciBkb19tY2NzIGlzIGNoYW5n
+ZWQgZnJvbSB0cnVlIHRvIGZhbHNlLg0KDQo+PiBBbmQgdGhhdCBkb2Vzbid0IGhhcHBlbiB3aXRo
+b3V0IG15IHBhdGNoIGFwcGxpZWQ/DQoNClRoZXJlIGFyZSBvdGhlciBpc3N1ZXMgd2l0aG91dCB5
+b3VyIHBhdGNoIGFwcGxpZWQuICAgT25lIGlzc3VlIGlzIHRoYXQgaWYgYSBGcmVlU3luYyBjYXBh
+YmxlIHNpbmsgd2l0aCBNQ0NTIFZDUCBDb2RlID0gMCAobW9zdGx5IGFyZSBUVnMpLCBpdCB3aWxs
+IGJlIGRldGVjdGVkIGFzIG5vdCBGcmVlU3luYyBzdXBwb3J0ZWQgYW5kIFZSUiB3aWxsIGJlIGRp
+c2FibGVkLg0KDQo+PiBUQkggSSBkb24ndCByZWFsbHkgd2FudCB0byBiZSBmaXhpbmcgdGhlIHJl
+Z3Jlc3Npb24gSSBoaXQsIEknZCBwcmVmZXIgdGhlIEFNRCBkaXNwbGF5IHRlYW0gdG8gaGFuZGxl
+IGl0Lg0KDQpZZXMsIGFncmVlZC4gIEFzIEZyZWVTeW5jIE1DQ1Mgc3VwcG9ydCBoYXMgaW1tZWRp
+YXRlIGltcGFjdHMgdG8gVmFsdmUncyBTdGVhbSBkZXZpY2VzLCBJIHdpbGwgd29yayB3aXRoIEFN
+RCBkaXNwbGF5IHRlYW0gdG8gaGFuZGxlIGl0LiAgIEhETUkgMi4xIFZSUiBhbmQgVlRFTSBwYWNr
+ZXQgc2VuZGluZyBzdXBwb3J0IG5lZWQgdG8gYmUgaW5jbHVkZWQgYXMgd2VsbC4NCg0KVGhhbmtz
+LA0KUGVpLUhzaW4NCg0KLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCkZyb206IE1pY2hlbCBE
+w6RuemVyIDxtaWNoZWwuZGFlbnplckBtYWlsYm94Lm9yZz4gDQpTZW50OiBXZWRuZXNkYXksIE1h
+eSAyMCwgMjAyNiAxMjo0OSBBTQ0KVG86IFBlaS1Ic2luIFlhbmcgPHBlaWhzaW55QHZhbHZlc29m
+dHdhcmUuY29tPg0KQ2M6IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnDQpTdWJqZWN0OiBb
+RXh0ZXJuYWwgTWFpbF0gUmU6IFRlc3QgcmVzdWx0IC8gZmluZGluZyBvZiAiZHJtL2FtZC9kaXNw
+bGF5OiBDb25zdWx0IE1DQ1MgRnJlZVN5bmMgY2FwIG9ubHkgaWYgcmVxdWVzdGVkICYgc3VwcG9y
+dGVkIg0KDQpPbiA1LzE5LzI2IDIyOjEyLCBQZWktSHNpbiBZYW5nIHdyb3RlOg0KPiANCj4gSGVy
+ZSBpcyBteSB0ZXN0IHJlc3VsdCBhbmQgZmluZGluZyBhZnRlciBhcHBseWluZyBNaWNoZWwgRMOk
+bnplcuKAmXMgcGF0Y2ggb24gTWF5IDE4LCAyMDI2IHRvIFN0ZWFtT1MgNi4xNiBicmFuY2guDQo+
+IA0KPiDCoA0KPiANCj4gQXBwbGllZCBwYXRjaCBmcm9tIE1pY2hhZWwgRMOkbnplciB0byBTdGVh
+bU9TIDYuMTYuDQo+IA0KPiDCoA0KPiANCj4gVGVzdGVkIHdpdGggMyBIRE1JIHNpbmtzIHdpdGgg
+ZGlmZmVyZW50IEZyZWVTeW5jL0hETUkgVlJSIGNhcGFiaWxpdGllcy7CoCBJIHNhdyBvbmUgY2Fz
+ZSB0aGF0IGEgRnJlZVN5bmMgc2luayAoRGVsbCBTMjcyMUhTKSB3aXRoIEU2aCBWQ1AgY29kZSBz
+dXBwb3J0ZWQgd2FzIGRldGVjdGVkIGFzIEZyZWVTeW5jIGNhcGFibGUgYXQgYmVnaW5uaW5nIGJ1
+dCBpZGVudGlmaWVkIGFzIG5vdCBGcmVlU3luYyBjYXBhYmxlIGxhdGVyIOKAkyBhZnRlciBkb19t
+Y2NzIGlzIGNoYW5nZWQgZnJvbSB0cnVlIHRvIGZhbHNlLg0KDQpBbmQgdGhhdCBkb2Vzbid0IGhh
+cHBlbiB3aXRob3V0IG15IHBhdGNoIGFwcGxpZWQ/DQoNCg0KPiBJIHVuZGVyc3Rvb2QgdGhlIHJl
+Y2VudCBpbXBsZW1lbnRhdGlvbiB0byBkZXRlcm1pbmUgZnJlZXN5bmNfY2FwYWJsZSBpcyB0cnVz
+dGluZyBoYXJkd2FyZSAodmlhIE1DQ1MgVkNQIHRyYW5zYWN0aW9uKSBvdmVyIEVESUQuwqAgQnV0
+IGluIHJlYWwgd29ybGQgYXBwbGljYXRpb24sIGl0IGRvZXMgY2F1c2UgY2VydGFpbiBmYWxzZSBk
+ZXRlY3Rpb24gdG8gaW5hZHZlcnRlbnRseSBkaXNhYmxlIHRoZSBWUlIuDQo+IA0KPiDCoA0KPiAN
+Cj4gTXkgb3BpbmlvbiBpczogSWYgRURJRCBoYXMgQU1EIEZyZWVTeW5jIFZTREIgc3BlY2lmaWVk
+IHdpdGggdmFsaWQgcmVmcmVzaCByYXRlIHJhbmdlLCB0aGVuIGl0IHNob3VsZCBiZSBkZXRlcm1p
+bmVkIGFzIEZyZWVTeW5jIGNhcGFibGUuwqAgQXMgZm9yIE1DQ1MgVkNQIENvZGUgc3VwcG9ydCwg
+aXQgaXMgdXNlZCB0byBzZW5kIFNldCBjb21tYW5kIHRvIHNpbmsgdG8gZW5hYmxlL2Rpc2FibGUg
+dGhlIFZSUiBoYW5kbGluZy7CoCBSZXN1bHQgb2YgZG1faGVscGVyc19yZWFkX21jY3NfY2Fwcygp
+IGF0IHJ1bnRpbWUgc2hvdWxkIG5vdCBvdmVycmlkZSB0aGUgZnJlZXN5bmNfY2FwYWJsZSB2YWx1
+ZS7CoCBCZWNhdXNlIHRoZSBpbXBhY3Qgb2YgTUNDUyBWQ1AgQ29kZSBTZXQgY29tbWFuZCBmYWls
+dXJlIGlzIHNpZ25pZmljYW50bHkgbG93ZXIgdGhhbiB0aGUgZGlzYWJsaW5nIFZSUiB3aGVuIHNp
+bmsgaXMgY2FwYWJsZS4NCg0KSSBiYXNpY2FsbHkgYWdyZWUuDQoNCg0KVEJIIEkgZG9uJ3QgcmVh
+bGx5IHdhbnQgdG8gYmUgZml4aW5nIHRoZSByZWdyZXNzaW9uIEkgaGl0LCBJJ2QgcHJlZmVyIHRo
+ZSBBTUQgZGlzcGxheSB0ZWFtIHRvIGhhbmRsZSBpdC4NCg0KDQotLSANCkVhcnRobGluZyBNaWNo
+ZWwgRMOkbnplciAgICAgICBcICAgICAgICBHTk9NRSAvIFh3YXlsYW5kIC8gTWVzYSBkZXZlbG9w
+ZXINCmh0dHBzOi8vcmVkaGF0LmNvbSAgICAgICAgICAgICBcICAgICAgICAgICAgICAgTGlicmUg
+c29mdHdhcmUgZW50aHVzaWFzdA0KDQo=
 
