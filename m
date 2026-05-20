@@ -4,31 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 14C7DCD4F54
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 34B6ACD4F3C
 	for <amd-gfx@archiver.kernel.org>; Wed, 20 May 2026 12:10:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 95A2C10E154;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9E1AD10E42D;
 	Wed, 20 May 2026 12:10:28 +0000 (UTC)
 Received: from rtg-sunil-navi33.amd.com (unknown [165.204.156.251])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DF46A10E613
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DACCE10E42D
  for <amd-gfx@lists.freedesktop.org>; Wed, 20 May 2026 12:10:26 +0000 (UTC)
 Received: from rtg-sunil-navi33.amd.com (localhost [127.0.0.1])
  by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Debian-22ubuntu3) with ESMTP id
- 64KCALOi2581428; Wed, 20 May 2026 17:40:21 +0530
+ 64KCALh22581438; Wed, 20 May 2026 17:40:21 +0530
 Received: (from sunil@localhost)
- by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 64KCALKB2581427;
+ by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 64KCALWI2581437;
  Wed, 20 May 2026 17:40:21 +0530
 From: Sunil Khatri <sunil.khatri@amd.com>
 To: Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Cc: amd-gfx@lists.freedesktop.org, Sunil Khatri <sunil.khatri@amd.com>
-Subject: [PATCH 1/3] drm/amdgpu/userq: remove
- amdgpu_userq_create/destroy_object wrapper
-Date: Wed, 20 May 2026 17:40:17 +0530
-Message-Id: <20260520121019.2581398-1-sunil.khatri@amd.com>
+Subject: [PATCH 3/3] drm/amdgpu/userq: use array instead of list for userq_vas
+Date: Wed, 20 May 2026 17:40:19 +0530
+Message-Id: <20260520121019.2581398-3-sunil.khatri@amd.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260520121019.2581398-1-sunil.khatri@amd.com>
+References: <20260520121019.2581398-1-sunil.khatri@amd.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -44,190 +44,296 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Remove the amdgpu_userq_create/destroy_object wrapper functions and
-use directly the kernel bo allocation function which does all the
-things which are done in wrapper.
+Use array instead of list for userq_vas since these are fixed no
+of bos and its better to use userq_vas and we dont have to clean
+up later since this array would be free along with queue only.
 
 Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
-Suggested-by: Christian König <christian.koenig@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c  | 67 ----------------------
- drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h  |  7 ---
- drivers/gpu/drm/amd/amdgpu/mes_userqueue.c | 29 +++++++---
- 3 files changed, 21 insertions(+), 82 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c  | 89 ++++++----------------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h  | 20 +++--
+ drivers/gpu/drm/amd/amdgpu/mes_userqueue.c | 14 ++--
+ 3 files changed, 46 insertions(+), 77 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-index 798998d65e17..eaaffcdd6960 100644
+index 8cc3c8e7e166..62f65118d37c 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-@@ -465,74 +465,7 @@ amdgpu_userq_ensure_ev_fence(struct amdgpu_userq_mgr *uq_mgr,
- 	dma_fence_put(ev_fence);
+@@ -215,33 +215,17 @@ void amdgpu_userq_process_fence_irq(struct amdgpu_device *adev, u32 doorbell)
+ 	xa_unlock_irqrestore(xa, flags);
  }
  
--int amdgpu_userq_create_object(struct amdgpu_userq_mgr *uq_mgr,
--			       struct amdgpu_userq_obj *userq_obj,
--			       int size)
+-static int amdgpu_userq_buffer_va_list_add(struct amdgpu_usermode_queue *queue,
+-					   struct amdgpu_bo_va_mapping *va_map, u64 addr)
 -{
--	struct amdgpu_device *adev = uq_mgr->adev;
--	struct amdgpu_bo_param bp;
--	int r;
+-	struct amdgpu_userq_va_cursor *va_cursor;
+-	struct userq_va_list;
 -
--	memset(&bp, 0, sizeof(bp));
--	bp.byte_align = PAGE_SIZE;
--	bp.domain = AMDGPU_GEM_DOMAIN_GTT;
--	bp.flags = AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS |
--		   AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED;
--	bp.type = ttm_bo_type_kernel;
--	bp.size = size;
--	bp.resv = NULL;
--	bp.bo_ptr_size = sizeof(struct amdgpu_bo);
--
--	r = amdgpu_bo_create(adev, &bp, &userq_obj->obj);
--	if (r) {
--		drm_file_err(uq_mgr->file, "Failed to allocate BO for userqueue (%d)", r);
--		return r;
--	}
+-	va_cursor = kzalloc(sizeof(*va_cursor), GFP_KERNEL);
+-	if (!va_cursor)
+-		return -ENOMEM;
  
--	r = amdgpu_bo_reserve(userq_obj->obj, true);
--	if (r) {
--		drm_file_err(uq_mgr->file, "Failed to reserve BO to map (%d)", r);
--		goto free_obj;
--	}
+-	INIT_LIST_HEAD(&va_cursor->list);
+-	va_cursor->gpu_addr = addr;
+-	va_map->bo_va->userq_va_mapped = true;
+-	list_add(&va_cursor->list, &queue->userq_va_list);
 -
--	r = amdgpu_bo_pin(userq_obj->obj, AMDGPU_GEM_DOMAIN_GTT);
--	if (r)
--		goto unresv;
--
--	r = amdgpu_ttm_alloc_gart(&(userq_obj->obj)->tbo);
--	if (r) {
--		drm_file_err(uq_mgr->file, "Failed to alloc GART for userqueue object (%d)", r);
--		goto unpin_bo;
--	}
--
--	r = amdgpu_bo_kmap(userq_obj->obj, &userq_obj->cpu_ptr);
--	if (r) {
--		drm_file_err(uq_mgr->file, "Failed to map BO for userqueue (%d)", r);
--		goto unpin_bo;
--	}
--
--	userq_obj->gpu_addr = amdgpu_bo_gpu_offset(userq_obj->obj);
--	amdgpu_bo_unreserve(userq_obj->obj);
--	memset(userq_obj->cpu_ptr, 0, size);
 -	return 0;
--
--unpin_bo:
--	amdgpu_bo_unpin(userq_obj->obj);
--unresv:
--	amdgpu_bo_unreserve(userq_obj->obj);
--free_obj:
--	amdgpu_bo_unref(&userq_obj->obj);
--
--	return r;
--}
--
--void amdgpu_userq_destroy_object(struct amdgpu_userq_mgr *uq_mgr,
--				 struct amdgpu_userq_obj *userq_obj)
--{
--	amdgpu_bo_kunmap(userq_obj->obj);
--	amdgpu_bo_unpin(userq_obj->obj);
--	amdgpu_bo_unref(&userq_obj->obj);
 -}
  
- static int
- amdgpu_userq_get_doorbell_index(struct amdgpu_userq_mgr *uq_mgr,
+ int amdgpu_userq_input_va_validate(struct amdgpu_device *adev,
+ 				   struct amdgpu_usermode_queue *queue,
+-				   u64 addr, u64 expected_size)
++				   u64 addr, u64 expected_size,
++				   u64 *va_out)
+ {
+ 	struct amdgpu_bo_va_mapping *va_map;
+ 	struct amdgpu_vm *vm = queue->vm;
+ 	u64 user_addr;
+ 	u64 size;
+-	int r = 0;
+ 
+ 	/* Caller must hold vm->root.bo reservation */
+ 	dma_resv_assert_held(queue->vm->root.bo->tbo.base.resv);
+@@ -250,20 +234,18 @@ int amdgpu_userq_input_va_validate(struct amdgpu_device *adev,
+ 	size = expected_size >> AMDGPU_GPU_PAGE_SHIFT;
+ 
+ 	va_map = amdgpu_vm_bo_lookup_mapping(vm, user_addr);
+-	if (!va_map) {
+-		r = -EINVAL;
+-		goto out_err;
+-	}
++	if (!va_map)
++		return -EINVAL;
++
+ 	/* Only validate the userq whether resident in the VM mapping range */
+ 	if (user_addr >= va_map->start  &&
+ 	    va_map->last - user_addr + 1 >= size) {
+-		amdgpu_userq_buffer_va_list_add(queue, va_map, user_addr);
++		va_map->bo_va->userq_va_mapped = true;
++		*va_out = user_addr;
+ 		return 0;
+ 	}
+ 
+-	r = -EINVAL;
+-out_err:
+-	return r;
++	return -EINVAL;
+ }
+ 
+ static bool amdgpu_userq_buffer_va_mapped(struct amdgpu_vm *vm, u64 addr)
+@@ -284,14 +266,16 @@ static bool amdgpu_userq_buffer_va_mapped(struct amdgpu_vm *vm, u64 addr)
+ 
+ static bool amdgpu_userq_buffer_vas_mapped(struct amdgpu_usermode_queue *queue)
+ {
+-	struct amdgpu_userq_va_cursor *va_cursor, *tmp;
+-	int r = 0;
++	int i, r = 0;
+ 
+-	list_for_each_entry_safe(va_cursor, tmp, &queue->userq_va_list, list) {
+-		r += amdgpu_userq_buffer_va_mapped(queue->vm, va_cursor->gpu_addr);
++	for (i = 0; i < ARRAY_SIZE(queue->userq_vas.va_array); i++) {
++		if (!queue->userq_vas.va_array[i])
++			continue;
++		r += amdgpu_userq_buffer_va_mapped(queue->vm,
++						   queue->userq_vas.va_array[i]);
+ 		dev_dbg(queue->userq_mgr->adev->dev,
+ 			"validate the userq mapping:%p va:%llx r:%d\n",
+-			queue, va_cursor->gpu_addr, r);
++			queue, queue->userq_vas.va_array[i], r);
+ 	}
+ 
+ 	if (r != 0)
+@@ -300,24 +284,7 @@ static bool amdgpu_userq_buffer_vas_mapped(struct amdgpu_usermode_queue *queue)
+ 	return false;
+ }
+ 
+-static void amdgpu_userq_buffer_vas_list_cleanup(struct amdgpu_device *adev,
+-						 struct amdgpu_usermode_queue *queue)
+-{
+-	struct amdgpu_userq_va_cursor *va_cursor, *tmp;
+-	struct amdgpu_bo_va_mapping *mapping;
+-
+-	/* Caller must hold vm->root.bo reservation */
+-	dma_resv_assert_held(queue->vm->root.bo->tbo.base.resv);
+ 
+-	list_for_each_entry_safe(va_cursor, tmp, &queue->userq_va_list, list) {
+-		mapping = amdgpu_vm_bo_lookup_mapping(queue->vm, va_cursor->gpu_addr);
+-		if (mapping)
+-			dev_dbg(adev->dev, "delete the userq:%p va:%llx\n",
+-				queue, va_cursor->gpu_addr);
+-		list_del(&va_cursor->list);
+-		kfree(va_cursor);
+-	}
+-}
+ 
+ static int amdgpu_userq_preempt_helper(struct amdgpu_usermode_queue *queue)
+ {
+@@ -539,8 +506,6 @@ static int
+ amdgpu_userq_destroy(struct amdgpu_userq_mgr *uq_mgr, struct amdgpu_usermode_queue *queue)
+ {
+ 	struct amdgpu_device *adev = uq_mgr->adev;
+-	struct amdgpu_fpriv *fpriv = uq_mgr_to_fpriv(uq_mgr);
+-	struct amdgpu_vm *vm = &fpriv->vm;
+ 	const struct amdgpu_userq_funcs *uq_funcs;
+ 
+ 	int r = 0;
+@@ -561,13 +526,9 @@ amdgpu_userq_destroy(struct amdgpu_userq_mgr *uq_mgr, struct amdgpu_usermode_que
+ 	mutex_unlock(&uq_mgr->userq_mutex);
+ 
+ 	cancel_delayed_work_sync(&queue->hang_detect_work);
+-	amdgpu_bo_reserve(vm->root.bo, true);
+-	amdgpu_userq_buffer_vas_list_cleanup(adev, queue);
+-	amdgpu_bo_unreserve(vm->root.bo);
+-	list_del(&queue->userq_va_list);
+-	queue->userq_mgr = NULL;
+ 	uq_funcs = adev->userq_funcs[queue->queue_type];
+ 	uq_funcs->mqd_destroy(queue);
++	queue->userq_mgr = NULL;
+ 
+ 	amdgpu_bo_reserve(queue->db_obj.obj, true);
+ 	amdgpu_bo_unpin(queue->db_obj.obj);
+@@ -671,7 +632,6 @@ amdgpu_userq_create(struct drm_file *filp, union drm_amdgpu_userq *args)
+ 	}
+ 
+ 	kref_init(&queue->refcount);
+-	INIT_LIST_HEAD(&queue->userq_va_list);
+ 	queue->doorbell_handle = args->in.doorbell_handle;
+ 	queue->queue_type = args->in.ip_type;
+ 	queue->vm = &fpriv->vm;
+@@ -692,14 +652,17 @@ amdgpu_userq_create(struct drm_file *filp, union drm_amdgpu_userq *args)
+ 		goto free_fence_drv;
+ 
+ 	if (amdgpu_userq_input_va_validate(adev, queue, args->in.queue_va,
+-					   args->in.queue_size) ||
++					   args->in.queue_size,
++					   &queue->userq_vas.va.queue_rb) ||
+ 	    amdgpu_userq_input_va_validate(adev, queue, args->in.rptr_va,
+-					   AMDGPU_GPU_PAGE_SIZE) ||
++					   AMDGPU_GPU_PAGE_SIZE,
++					   &queue->userq_vas.va.rptr) ||
+ 	    amdgpu_userq_input_va_validate(adev, queue, args->in.wptr_va,
+-					   AMDGPU_GPU_PAGE_SIZE)) {
++					   AMDGPU_GPU_PAGE_SIZE,
++					   &queue->userq_vas.va.wptr)) {
+ 		r = -EINVAL;
+ 		amdgpu_bo_unreserve(fpriv->vm.root.bo);
+-		goto clean_mapping;
++		goto free_fence_drv;
+ 	}
+ 	amdgpu_bo_unreserve(fpriv->vm.root.bo);
+ 
+@@ -711,7 +674,7 @@ amdgpu_userq_create(struct drm_file *filp, union drm_amdgpu_userq *args)
+ 	r = amdgpu_userq_get_doorbell_index(uq_mgr, &db_info, filp, &index);
+ 	if (r) {
+ 		drm_file_err(uq_mgr->file, "Failed to get doorbell for queue\n");
+-		goto clean_mapping;
++		goto free_fence_drv;
+ 	}
+ 
+ 	queue->doorbell_index = index;
+@@ -771,10 +734,6 @@ amdgpu_userq_create(struct drm_file *filp, union drm_amdgpu_userq *args)
+ 	amdgpu_bo_unpin(queue->db_obj.obj);
+ 	amdgpu_bo_unreserve(queue->db_obj.obj);
+ 	amdgpu_bo_unref(&queue->db_obj.obj);
+-clean_mapping:
+-	amdgpu_bo_reserve(fpriv->vm.root.bo, true);
+-	amdgpu_userq_buffer_vas_list_cleanup(adev, queue);
+-	amdgpu_bo_unreserve(fpriv->vm.root.bo);
+ free_fence_drv:
+ 	amdgpu_userq_fence_driver_free(queue);
+ free_queue:
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
-index 033b8a0de6b1..76ef5cfab52e 100644
+index 76ef5cfab52e..28cfc6682333 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
-@@ -151,13 +151,6 @@ void amdgpu_userq_mgr_cancel_reset_work(struct amdgpu_device *adev);
- void amdgpu_userq_mgr_cancel_resume(struct amdgpu_userq_mgr *userq_mgr);
- void amdgpu_userq_mgr_fini(struct amdgpu_userq_mgr *userq_mgr);
+@@ -48,11 +48,6 @@ struct amdgpu_userq_obj {
+ 	struct amdgpu_bo *obj;
+ };
  
--int amdgpu_userq_create_object(struct amdgpu_userq_mgr *uq_mgr,
--			       struct amdgpu_userq_obj *userq_obj,
--			       int size);
+-struct amdgpu_userq_va_cursor {
+-	u64			gpu_addr;
+-	struct list_head	list;
+-};
 -
--void amdgpu_userq_destroy_object(struct amdgpu_userq_mgr *uq_mgr,
--				 struct amdgpu_userq_obj *userq_obj);
--
- void amdgpu_userq_evict(struct amdgpu_userq_mgr *uq_mgr);
+ struct amdgpu_usermode_queue {
+ 	int			queue_type;
+ 	enum amdgpu_userq_state state;
+@@ -93,7 +88,17 @@ struct amdgpu_usermode_queue {
+ 	struct delayed_work	hang_detect_work;
+ 	struct kref		refcount;
  
- void amdgpu_userq_ensure_ev_fence(struct amdgpu_userq_mgr *userq_mgr,
+-	struct list_head	userq_va_list;
++	union {
++		struct {
++			u64 queue_rb;
++			u64 wptr;
++			u64 rptr;
++			u64 eop;
++			u64 shadow;
++			u64 csa;
++		} va;
++		u64 va_array[6];
++	} userq_vas;
+ };
+ 
+ struct amdgpu_userq_funcs {
+@@ -174,7 +179,8 @@ void amdgpu_userq_process_fence_irq(struct amdgpu_device *adev, u32 doorbell);
+ 
+ int amdgpu_userq_input_va_validate(struct amdgpu_device *adev,
+ 				   struct amdgpu_usermode_queue *queue,
+-				   u64 addr, u64 expected_size);
++				   u64 addr, u64 expected_size, u64 *va_out);
++
+ void amdgpu_userq_gem_va_unmap_validate(struct amdgpu_device *adev,
+ 					struct amdgpu_bo_va_mapping *mapping,
+ 					uint64_t saddr);
 diff --git a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c b/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
-index 2d95203ec58e..ebd4e90cce63 100644
+index ebd4e90cce63..9f4f2121a4de 100644
 --- a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
 +++ b/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
-@@ -192,12 +192,16 @@ static int mes_userq_create_ctx_space(struct amdgpu_userq_mgr *uq_mgr,
- 	 * for the same.
- 	 */
- 	size = AMDGPU_USERQ_PROC_CTX_SZ + AMDGPU_USERQ_GANG_CTX_SZ;
--	r = amdgpu_userq_create_object(uq_mgr, ctx, size);
-+	r = amdgpu_bo_create_kernel(uq_mgr->adev, size, PAGE_SIZE,
-+				   AMDGPU_GEM_DOMAIN_GTT,
-+				   &ctx->obj, &ctx->gpu_addr,
-+				   &ctx->cpu_ptr);
- 	if (r) {
- 		DRM_ERROR("Failed to allocate ctx space bo for userqueue, err:%d\n", r);
- 		return r;
- 	}
+@@ -318,8 +318,9 @@ static int mes_userq_mqd_create(struct amdgpu_usermode_queue *queue,
+ 			kfree(compute_mqd);
+ 			goto free_mqd;
+ 		}
+-		r = amdgpu_userq_input_va_validate(adev, queue, compute_mqd->eop_va,
+-						   2048);
++		r = amdgpu_userq_input_va_validate(adev, queue,
++						   compute_mqd->eop_va, 2048,
++						   &queue->userq_vas.va.eop);
+ 		amdgpu_bo_unreserve(queue->vm->root.bo);
+ 		if (r) {
+ 			kfree(compute_mqd);
+@@ -368,7 +369,8 @@ static int mes_userq_mqd_create(struct amdgpu_usermode_queue *queue,
+ 			goto free_mqd;
+ 		}
+ 		r = amdgpu_userq_input_va_validate(adev, queue, mqd_gfx_v11->shadow_va,
+-						   shadow_info.shadow_size);
++						   shadow_info.shadow_size,
++						   &queue->userq_vas.va.shadow);
+ 		if (r) {
+ 			amdgpu_bo_unreserve(queue->vm->root.bo);
+ 			kfree(mqd_gfx_v11);
+@@ -376,7 +378,8 @@ static int mes_userq_mqd_create(struct amdgpu_usermode_queue *queue,
+ 		}
  
-+	memset(ctx->cpu_ptr, 0, size);
- 	return 0;
- }
- 
-@@ -270,13 +274,19 @@ static int mes_userq_mqd_create(struct amdgpu_usermode_queue *queue,
- 		return -ENOMEM;
- 	}
- 
--	r = amdgpu_userq_create_object(uq_mgr, &queue->mqd,
--			AMDGPU_MQD_SIZE_ALIGN(mqd_hw_default->mqd_size));
-+	r = amdgpu_bo_create_kernel(adev,
-+				   AMDGPU_MQD_SIZE_ALIGN(mqd_hw_default->mqd_size),
-+				   PAGE_SIZE, AMDGPU_GEM_DOMAIN_GTT,
-+				   &queue->mqd.obj, &queue->mqd.gpu_addr,
-+				   &queue->mqd.cpu_ptr);
- 	if (r) {
- 		DRM_ERROR("Failed to create MQD object for userqueue\n");
- 		goto free_props;
- 	}
- 
-+	memset(queue->mqd.cpu_ptr, 0,
-+	       AMDGPU_MQD_SIZE_ALIGN(mqd_hw_default->mqd_size));
-+
- 	/* Initialize the MQD BO with user given values */
- 	userq_props->wptr_gpu_addr = mqd_user->wptr_va;
- 	userq_props->rptr_gpu_addr = mqd_user->rptr_va;
-@@ -432,10 +442,12 @@ static int mes_userq_mqd_create(struct amdgpu_usermode_queue *queue,
- 	return 0;
- 
- free_ctx:
--	amdgpu_userq_destroy_object(uq_mgr, &queue->fw_obj);
-+	amdgpu_bo_free_kernel(&queue->fw_obj.obj, &queue->fw_obj.gpu_addr,
-+			      &queue->fw_obj.cpu_ptr);
- 
- free_mqd:
--	amdgpu_userq_destroy_object(uq_mgr, &queue->mqd);
-+	amdgpu_bo_free_kernel(&queue->mqd.obj, &queue->mqd.gpu_addr,
-+			      &queue->mqd.cpu_ptr);
- 
- free_props:
- 	kfree(userq_props);
-@@ -445,11 +457,12 @@ static int mes_userq_mqd_create(struct amdgpu_usermode_queue *queue,
- 
- static void mes_userq_mqd_destroy(struct amdgpu_usermode_queue *queue)
- {
--	struct amdgpu_userq_mgr *uq_mgr = queue->userq_mgr;
- 
--	amdgpu_userq_destroy_object(uq_mgr, &queue->fw_obj);
-+	amdgpu_bo_free_kernel(&queue->fw_obj.obj, &queue->fw_obj.gpu_addr,
-+			      &queue->fw_obj.cpu_ptr);
- 	kfree(queue->userq_prop);
--	amdgpu_userq_destroy_object(uq_mgr, &queue->mqd);
-+	amdgpu_bo_free_kernel(&queue->mqd.obj, &queue->mqd.gpu_addr,
-+			      &queue->mqd.cpu_ptr);
- }
- 
- static int mes_userq_preempt(struct amdgpu_usermode_queue *queue)
+ 		r = amdgpu_userq_input_va_validate(adev, queue, mqd_gfx_v11->csa_va,
+-						   shadow_info.csa_size);
++						   shadow_info.csa_size,
++						   &queue->userq_vas.va.csa);
+ 		amdgpu_bo_unreserve(queue->vm->root.bo);
+ 		if (r) {
+ 			kfree(mqd_gfx_v11);
+@@ -406,7 +409,8 @@ static int mes_userq_mqd_create(struct amdgpu_usermode_queue *queue,
+ 			goto free_mqd;
+ 		}
+ 		r = amdgpu_userq_input_va_validate(adev, queue, mqd_sdma_v11->csa_va,
+-						   32);
++						   32,
++						   &queue->userq_vas.va.csa);
+ 		amdgpu_bo_unreserve(queue->vm->root.bo);
+ 		if (r) {
+ 			kfree(mqd_sdma_v11);
 -- 
 2.34.1
 
