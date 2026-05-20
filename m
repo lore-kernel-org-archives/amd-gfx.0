@@ -4,92 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8F39FCD4F3C
-	for <amd-gfx@archiver.kernel.org>; Wed, 20 May 2026 14:24:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AC547CD4F3D
+	for <amd-gfx@archiver.kernel.org>; Wed, 20 May 2026 15:17:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1754310EDA3;
-	Wed, 20 May 2026 14:24:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3F8AA10F0AB;
+	Wed, 20 May 2026 15:17:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="tL80+Obj";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="DZ++54/7";
 	dkim-atps=neutral
-Received: from mail-dl1-f46.google.com (mail-dl1-f46.google.com [74.125.82.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7DC3C10ED01
- for <amd-gfx@lists.freedesktop.org>; Wed, 20 May 2026 14:24:41 +0000 (UTC)
-Received: by mail-dl1-f46.google.com with SMTP id
- a92af1059eb24-12c750eaf4cso242434c88.0
- for <amd-gfx@lists.freedesktop.org>; Wed, 20 May 2026 07:24:41 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1779287081; cv=none;
- d=google.com; s=arc-20240605;
- b=g7wU4/QRs5h8eoPphNMLew4+b0iAWwztCtlNeafNhB1Y2UM0h6Khb+64zUBT3lWiCb
- s+R+118oLSiEW6slhFSge6iWOcMYCg9S4YYMV6JxxevlVqX3kRyHjRWDPF6tYW6KIO39
- xZ0HFs/qhUBzp/DinI1Y3DV6/y+KLNCiMLHuOZrQY4i7BBkdNyhu3uGcfa5JSBvPCFSl
- +NOjS+8qLD0qCX7UrPHvwbXXU3tZEAX1vUFYwxlNMLznoXPDu0fJisADRMiBrZS7+Z7L
- GBe+/zKuFzG6ivQZkftf+/JvMl+KAo3nruKBgpwOfNcAIvAsDyRs6HpBotyQtu3RmbuM
- C74g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=aoa72Vlm6YG6Db2Pq6NIKZszk0rEB/eaZDyIsm0RtZU=;
- fh=XO+31KTmBjEuRDud09vqMlaEz1H66xQ4VPgpO6PJXxw=;
- b=OUodPDCngDoTRh3Zgt+rOTEDH0s4KS5RxXIDo/t3iR1l2nxpxNpEi7XnZNwDLvGtoW
- W5WEkhQ+v/GqHNfTV1S7H7FH8mxsf1KGTROE4bBdQ3pAt0t0/gKoFaVMiTbC5eY5wgvs
- oLXzZed0qi9A6i5LXmtsQlnD4s6hXuD9BSgAdSc+9xcLQxM6q3yL6P0l/8eP9M5BxgNa
- 7n05pLDE79O/3GMyULcBDzC8apXfnx2tFAzIaBf6VSYnPqiCbtAvqjgL0mALXy8g2vsZ
- +rH5m+JidvomEacnjPSJNesSWkpJAm7SpblhXIvybOGkGiQjyxLSpP6PagMrIT79KKnk
- 6S0A==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mail-lf1-f41.google.com (mail-lf1-f41.google.com
+ [209.85.167.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 604DE10F0AB
+ for <amd-gfx@lists.freedesktop.org>; Wed, 20 May 2026 15:17:49 +0000 (UTC)
+Received: by mail-lf1-f41.google.com with SMTP id
+ 2adb3069b0e04-5a995ab70d1so7414152e87.3
+ for <amd-gfx@lists.freedesktop.org>; Wed, 20 May 2026 08:17:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1779287081; x=1779891881; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
+ d=gmail.com; s=20251104; t=1779290267; x=1779895067; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=aoa72Vlm6YG6Db2Pq6NIKZszk0rEB/eaZDyIsm0RtZU=;
- b=tL80+ObjD6pqTi4Bcu0mSx53Sr06xqq8ns6Fq+4cSySZJq4FPsoRwdIL8QlmdQoYNQ
- ALKdQl1m/TMuFN0dbnpLzpcsVAThy5BPJtVAPChn1NJ1cd+/ujgwA+Mm7293CVUKxLyK
- VIq10emGY495vmCI/YO/Enx9hbm8kGfajtGLGzyJ+vidQTzOEY3xu8r/skXs/dPVek6B
- Zlvaep4voqxAsLwm4wPvTnvndn3wfsTWRq85Ujtalicsvwct8k7zd2dQOtChDWxJK+Vt
- H0ni4nK8rybdHEEKb2fOng+pDLF7Impw/asdR2s1CoNKN0+ZmAI526jan2lzdl5VsE5A
- 0ULA==
+ bh=ircF4PWSycvWSmAyVL8auld82Bsa3FQOWa7WNmN+a+A=;
+ b=DZ++54/7DHhSq5NGsUH9H2iJzjv+Me2uCFsdcdWKDTFIaVh7ZzoF3DSPKmoen1STym
+ qD0uWcJrLfpJswAKj43MMCjH+ViEUA0WydgvBO3tBCg+xYFVrrRqwnW6uTwxILZqazIt
+ VpKRTC3u4na7gocOAqbeAO9073ytMmnFp57LXmz6wUpwTA/1fDNI0hIM5ciYuX/wL94y
+ ojTR67mMYjWwVcgNMSBE5afGubGGEWPiU50jJQke34iHxgV/VQsAYUjl2O8tp2GWjcPj
+ Sl4b+gXALBvPj+rrZFfNrSoFUhwyVgHY3OSxl0PxMut9MURqOXcCfNLl7TparmZVFRwI
+ HZCQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779287081; x=1779891881;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ d=1e100.net; s=20251104; t=1779290267; x=1779895067;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=aoa72Vlm6YG6Db2Pq6NIKZszk0rEB/eaZDyIsm0RtZU=;
- b=aeUkQW5LrYVmwyp4339WyszLMaRbIuEhrJOYGCeDeeDaKtBWG/RQ5PL509WhofHXX7
- GqrzZbJl9QEL2xioF1/V2yZKP7XX5EOY4Jw+SsdJTa1REU6zaYIAaTCcL1wffJHASVgC
- ylM3Yhoy1Upnw8XWH8nuuK6XtKHj6peu/AOWMXCjY06HJS7X8BGmG/3FYIRBZ1S7WoH4
- d1r+lolNU79Y9T/E73tStK7G+vC4TtsjnOedp9hv+owEegr6uAEtu1+WBREC4bn9UKWJ
- NJHF6/RMOQa8BGhVO5uMPb2bKW2R/j0ePzTnkHJ6gBzkaSG+KFEsUTfVgCOXBdJ4cmlf
- sHsw==
-X-Forwarded-Encrypted: i=1;
- AFNElJ9UReeaC7KeqQZFs/qNdN1Zquf3furq2FdKvselcIPNt/1WM6Qq9YTkEu10Ai3sw/Scm89kJgT5@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yxp5z5K0NSVwEyQSAiNavNRmFRJrNt927VYRsAoLfeJa4/Vvj4a
- izYfxpmWyqE1rWFoLcuu8bXFbS3fLNXwj9zBcwBO2cNNXKSGTsXrcAnz2RB7x0CWE69dqkAXD+5
- Yp527CHF9HjE4NhUCrEALDWT+zkLpOYQxiyuq
-X-Gm-Gg: Acq92OGuCnkPgjw9ycRXNZELeBFPvyzIJSq372viUrGUdNavZWJQg4ilmg/GZEqndoW
- EqjlFMaVczVon6uuRMUw/9HdWs8U9hgoFwP4/wlAylz6Avx/F4LjKUo1cuL56dxTBgob3S+AcRN
- fP9HMc2tQi4swxwAQNutK23oRYLVnqdVN5PV98nB461n/P9kdsqe1yZpo140MTwq1ymprnBXih3
- DcEYo1JLfD2dbySyPXTjq4FfmKqQ/nQBZD50+cMGbUOxSWqWrI8ZOkY1+2qGnLHBStq9f9jOX3P
- l4nCXOSWS7T6E9qsZudRwXZ6/sd5i/9P+8Skn7aHpEFN5LS8Rtk+JXofTywnC5Z4PkEDjQ==
-X-Received: by 2002:a05:7022:909:b0:12c:888b:aa92 with SMTP id
- a92af1059eb24-1350452217amr4844001c88.1.1779287080589; Wed, 20 May 2026
- 07:24:40 -0700 (PDT)
+ bh=ircF4PWSycvWSmAyVL8auld82Bsa3FQOWa7WNmN+a+A=;
+ b=S52/p4CEaZNELYE5b7FIKehDfT0Fg9cO8JGtdCuAwIEp0nTqQjqFTCIk0fIiBQVSb0
+ uchsJMn/myAbHuRt9RiaE/nFnjiu2NcainrtcvsP8KMvw/VgB7y8eVZ4ZpzPlpDarZXa
+ WoAcBAuJFPcVy0AoUh/69D+eT6KBDISvTPCpmp1wOOeXcw4Ahd3cmdyYhwTNlHfLhvgx
+ hFhMZ10ELHK1YCPXRSlnncxIdE7IQt1TJXVfed/r+MoHxCwdAC23q8dfsuIME+5JwzQn
+ oBmBbTWLMEU7Ls6Gx2dmjbnbSLQnOkwfTxPmwNktQlLicnBw1rfLkdQPtuQ3RseVOP31
+ Tgbg==
+X-Gm-Message-State: AOJu0YzkV/rstcC30vOsYcLVyBfIlPnSAh1JXHzKZjw1V5udtCyecWQX
+ m07/kRMNtIVEJvmJmq0olUQV9xP4IshsPpVkFV7ZO4bKlodFseNeJ4T/N1d1KEZB9h2clueo
+X-Gm-Gg: Acq92OH6YFehBo7VB/9qzvfMDLiQwUapoxmTW0PiHe05rJQKK+NlJC/SqIk++9+NjPU
+ XLzdUs6jTDjRifDdny2JgyOLOJQrpWEIN+hiPQRr/2YHusHsi5VJ5W/d+Dl9BWBHFNgg63Oq6M3
+ Dc9W5xt7x0e9gremL18Ea4ZkCpo+sNUAYG/Q8PBD3DZ511LxJmPeeCuOq+bTDvtz+yb+9KIfl9V
+ +n68XnoyCGrG3TvnhtupDOQ0W6cSYMKudeODQJm4MxF/mcXcsSrhOiNw14zE9jfOAeyVACL+esM
+ Fzfi945p+/OU5WhbkgQyiFYf+WRggRk3BerNpac13oLTlbimrKH6M4pi5OfwoXyHTxefFGVNZgB
+ TmLQCHWFkjEER3VO+XKZBD5++9W23Wd2Jt7hXToVJ5QCJlNYsiHbbFdgjizRkbSh7qKRSZR3vGb
+ 21eSrHdPugCHUH6XglA9f/cpdpCYQK97dq
+X-Received: by 2002:a05:6512:1252:b0:5a4:1672:59d0 with SMTP id
+ 2adb3069b0e04-5aa0e7278f0mr9211402e87.19.1779290267082; 
+ Wed, 20 May 2026 08:17:47 -0700 (PDT)
+Received: from localhost ([188.234.148.119]) by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-5a90f10c8b2sm5022470e87.17.2026.05.20.08.17.45
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 20 May 2026 08:17:46 -0700 (PDT)
+From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+To: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>, linux-media@vger.kernel.org,
+ linaro-mm-sig@lists.linaro.org,
+ Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+Subject: [PATCH v3 0/2] drm/amdgpu: fix recursive ww_mutex in devcoredump IB
+ dump
+Date: Wed, 20 May 2026 20:17:38 +0500
+Message-ID: <20260520151741.50575-1-mikhail.v.gavrilov@gmail.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260429143743.50743-1-mikhail.v.gavrilov@gmail.com>
+References: <20260429143743.50743-1-mikhail.v.gavrilov@gmail.com>
 MIME-Version: 1.0
-References: <20260520082328.1773691-1-jmuthyal@amd.com>
-In-Reply-To: <20260520082328.1773691-1-jmuthyal@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 20 May 2026 10:24:29 -0400
-X-Gm-Features: AVHnY4K0G5tavl7ScULYPchT0uoaIIkFr6EhbYMKiP4V_KUCqsRaSS_BDSppiu8
-Message-ID: <CADnq5_PGkMxg6yrRaOrBWzq56aZkrhGZ3r6Jw5WHEB3WFVJOPg@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu/vcn5.0.0: enable secure submission on unified
- ring
-To: Jeevana Muthyala <jmuthyal@amd.com>
-Cc: Alexander.Deucher@amd.com, amd-gfx@lists.freedesktop.org, 
- Jeevana Muthyala <Jeevana.Muthyala2@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,100 +93,69 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, May 20, 2026 at 4:29=E2=80=AFAM Jeevana Muthyala <jmuthyal@amd.com>=
- wrote:
->
-> From: Jeevana Muthyala <Jeevana.Muthyala2@amd.com>
->
-> Signed-off-by: Jeevana Muthyala <jmuthyal@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c | 40 ++++++++++++++++++++++++-
->  1 file changed, 39 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c b/drivers/gpu/drm/am=
-d/amdgpu/vcn_v5_0_0.c
-> index d5f49fa33bee..4223159c9a3b 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c
-> @@ -1234,6 +1234,38 @@ static const struct amdgpu_ring_funcs vcn_v5_0_0_u=
-nified_ring_vm_funcs =3D {
->         .reset =3D vcn_v5_0_0_ring_reset,
->  };
->
-> +static const struct amdgpu_ring_funcs vcn_v5_0_0_unified_ring_vm_funcs_s=
-ecure =3D {
-> +       .type =3D AMDGPU_RING_TYPE_VCN_ENC,
-> +       .align_mask =3D 0x3f,
-> +       .nop =3D VCN_ENC_CMD_NO_OP,
-> +       .secure_submission_supported =3D true,
-> +       .no_user_fence =3D true,
-> +       .get_rptr =3D vcn_v5_0_0_unified_ring_get_rptr,
-> +       .get_wptr =3D vcn_v5_0_0_unified_ring_get_wptr,
-> +       .set_wptr =3D vcn_v5_0_0_unified_ring_set_wptr,
-> +       .emit_frame_size =3D
-> +               SOC15_FLUSH_GPU_TLB_NUM_WREG * 3 +
-> +               SOC15_FLUSH_GPU_TLB_NUM_REG_WAIT * 4 +
-> +               4 + /* vcn_v2_0_enc_ring_emit_vm_flush */
-> +               5 + 5 + /* vcn_v2_0_enc_ring_emit_fence x2 vm fence */
-> +               1, /* vcn_v2_0_enc_ring_insert_end */
-> +       .emit_ib_size =3D 5, /* vcn_v2_0_enc_ring_emit_ib */
-> +       .emit_ib =3D vcn_v2_0_enc_ring_emit_ib,
-> +       .emit_fence =3D vcn_v2_0_enc_ring_emit_fence,
-> +       .emit_vm_flush =3D vcn_v2_0_enc_ring_emit_vm_flush,
-> +       .test_ring =3D amdgpu_vcn_enc_ring_test_ring,
-> +       .test_ib =3D amdgpu_vcn_unified_ring_test_ib,
-> +       .insert_nop =3D amdgpu_ring_insert_nop,
-> +       .insert_end =3D vcn_v2_0_enc_ring_insert_end,
-> +       .pad_ib =3D amdgpu_ring_generic_pad_ib,
-> +       .begin_use =3D amdgpu_vcn_ring_begin_use,
-> +       .end_use =3D amdgpu_vcn_ring_end_use,
-> +       .emit_wreg =3D vcn_v2_0_enc_ring_emit_wreg,
-> +       .emit_reg_wait =3D vcn_v2_0_enc_ring_emit_reg_wait,
-> +       .emit_reg_write_reg_wait =3D amdgpu_ring_emit_reg_write_reg_wait_=
-helper,
-> +       .reset =3D vcn_v5_0_0_ring_reset,
-> +};
-> +
->  /**
->   * vcn_v5_0_0_set_unified_ring_funcs - set unified ring functions
->   *
-> @@ -1244,12 +1276,18 @@ static const struct amdgpu_ring_funcs vcn_v5_0_0_=
-unified_ring_vm_funcs =3D {
->  static void vcn_v5_0_0_set_unified_ring_funcs(struct amdgpu_device *adev=
-)
->  {
->         int i;
-> +       const struct amdgpu_ring_funcs *funcs;
-> +
-> +       if (amdgpu_ip_version(adev, VCN_HWIP, 0) =3D=3D IP_VERSION(5, 3, =
-0))
-> +               funcs =3D &vcn_v5_0_0_unified_ring_vm_funcs_secure;
-> +       else
-> +               funcs =3D &vcn_v5_0_0_unified_ring_vm_funcs;
->
->         for (i =3D 0; i < adev->vcn.num_vcn_inst; ++i) {
->                 if (adev->vcn.harvest_config & (1 << i))
->                         continue;
->
-> -               adev->vcn.inst[i].ring_enc[0].funcs =3D &vcn_v5_0_0_unifi=
-ed_ring_vm_funcs;
-> +               adev->vcn.inst[i].ring_enc[0].funcs =3D funcs;
+This series fixes a lockdep "possible recursive locking" splat in
+amdgpu_devcoredump_format() that fires on every GPU timeout once a job
+with a PASID context is involved. With amdgpu.gpu_recovery=0 the timeout
+handler refires every ~2 s, so the splat repeats until it drowns the
+kernel ring buffer. It is also a real self-deadlock for IB BOs that
+share their dma_resv with the root PD (the always-valid case).
+ 
+The root cause: amdgpu_devcoredump_format() holds the VM root PD's
+reservation and then reserves each IB BO on top of it, nesting two
+reservation_ww_class_mutex acquires without a ww_acquire_ctx.
+ 
+v1 fixed this with a snapshot helper that collected BO references under
+the root reservation and reserved them one by one afterwards. Christian
+pointed out that drm_exec already solves exactly this — lock everything
+in one ww ticket — and suggested teaching amdgpu_vm_lock_by_pasid()
+to take a drm_exec context. This v3 follows that approach.
+ 
+Because amdgpu_vm_lock_by_pasid() has a second caller in the page-fault
+path, the series is split so each patch builds and works on its own:
+ 
+  1/2  Convert amdgpu_vm_lock_by_pasid() to take a drm_exec context and
+       lock the root PD via amdgpu_vm_lock_pd(). Updates the existing
+       caller, amdgpu_vm_handle_fault(). Pure refactor, no functional
+       change to the page-fault path.
+ 
+  2/2  Use the new signature in amdgpu_devcoredump_format(): lock the
+       root PD and every IB BO together in one drm_exec ticket. The
+       per-IB amdgpu_bo_reserve() nesting is gone, along with a BO
+       refcount leak on the old reserve-failure path. This is the
+       actual bug fix and carries the Fixes: tag.
+ 
+Tested on Linux 7.1-rc4 + this series, Radeon RX 7900 XTX (gfx1100),
+KASAN + PROVE_LOCKING enabled, using a small libdrm_amdgpu reproducer
+that submits a GFX IB chained at GPU VA 0 and waits for the hang. Before
+the series the splat fires on every TDR; after it the dmesg is clean
+across repeated timeouts and the devcoredump output is unchanged.
+ 
+v1: https://lore.kernel.org/amd-gfx/20260429143743.50743-1-mikhail.v.gavrilov@gmail.com/
+v2: https://lore.kernel.org/amd-gfx/20260519161541.19994-1-mikhail.v.gavrilov@gmail.com/
+ 
+Changes since v2:
+- Reworked along the lines Christian suggested: instead of a private
+  snapshot helper and a separate drm_exec pass, amdgpu_vm_lock_by_pasid()
+  now takes a drm_exec context directly (patch 1), and the devcoredump
+  code locks the root PD and all IB BOs in a single ticket (patch 2).
+- Dropped the amdgpu_devcoredump_ib_ref struct and the three
+  collect/lock/release helpers from v2 entirely.
+ 
+Changes since v1:
+- Switched from per-IB amdgpu_bo_reserve() to drm_exec.
+- Dropped the Cc: stable tag: the regression only landed in 7.1-rc1, so
+  the fix reaches 7.1 via drm-fixes without a stable backport.
 
-This could be simplified to just:
+Mikhail Gavrilov (2):
+  drm/amdgpu: convert amdgpu_vm_lock_by_pasid() to drm_exec
+  drm/amdgpu: fix recursive ww_mutex acquire in
+    amdgpu_devcoredump_format
 
-if (amdgpu_ip_version(adev, VCN_HWIP, 0) =3D=3D IP_VERSION(5, 3, 0))
-    adev->vcn.inst[i].ring_enc[0].funcs =3D
-&vcn_v5_0_0_unified_ring_vm_funcs_secure;
-else
-    adev->vcn.inst[i].ring_enc[0].funcs =3D &vcn_v5_0_0_unified_ring_vm_fun=
-cs;
+ .../gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c  | 103 ++++++++++++------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c        |  72 ++++++++----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h        |   3 +-
+ 3 files changed, 122 insertions(+), 56 deletions(-)
 
-With that fixed,
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+-- 
+2.54.0
 
->                 adev->vcn.inst[i].ring_enc[0].me =3D i;
->         }
->  }
-> --
-> 2.43.0
->
