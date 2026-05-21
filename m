@@ -4,123 +4,130 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AEC4CCD5BA4
-	for <amd-gfx@archiver.kernel.org>; Thu, 21 May 2026 11:25:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 81475CD5BA4
+	for <amd-gfx@archiver.kernel.org>; Thu, 21 May 2026 12:39:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4B82110E151;
-	Thu, 21 May 2026 11:25:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C536810E4E2;
+	Thu, 21 May 2026 12:39:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="SsVooeHG";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="SQskeNd7";
 	dkim-atps=neutral
-Received: from MW6PR02CU001.outbound.protection.outlook.com
- (mail-westus2azon11012034.outbound.protection.outlook.com [52.101.48.34])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F3F3E10E151
- for <amd-gfx@lists.freedesktop.org>; Thu, 21 May 2026 11:25:28 +0000 (UTC)
+Received: from CO1PR03CU002.outbound.protection.outlook.com
+ (mail-westus2azon11010003.outbound.protection.outlook.com [52.101.46.3])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D859F10E4D1;
+ Thu, 21 May 2026 12:39:16 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=mhht1IegwJrYIVCldQ/G9mVad5usCUDUYbXs/f+PemOinq7XQexzXTDnQRShhnBG9x2j+fHqrLh68C9RmkqVjr1GGFk675fX1T/j5njYXPpujw5mP04vLsahmMX2mE2zyAzh3Utrx4fyxBLMecaBfWjK/RhUdxNG3KHYMtnHmHMf5SNk9c1wnmXmhx6boVJjXsaD3Rjc5O7vP8msx9TxspNsC3xyIleqhlgLNb9E0mPEZbD1vRhiFyDVd/+J7yLZMnrgI9Px/KytY54n+kVK1WVUjfJ02YDVEY/C1dWdy1kY5ggDXg31SfH47snR8ZGdKo7XJmjANgqgRCoffTT98Q==
+ b=L6t5vPrYXpJF/lM74EyuvK8p5cSb64qMDb7rM1h+yOPA8OqE7nXOTmT9TajfZA1d4SrU7U3t1BlUePMmUfWfKqMJIzxOG+Ju0fwusVeFUTXO/xcBLhwubPL+s/GCATHoTcbe/8D0u27J+z2aKmnFuQI37MJEmHgPxA33bpghTWQ2/AqVh1TotDmRMBjMPsPPNwoByQF/vnbWREgsIFUh72G4wtkkZuNy5w3dR0O5Sfi+iHLKCwG+GZjvbPpRpshXnV2OSjwDIyJ1d5uwx0akyWmo9trRYJ5kAGZfA71wdrkK6oVeUT+xPpkAVa02WzYBCdN38MR10L/W84+9GZ0wOg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=kyDPOpMvBilb+ri7dU0pWEVaeHJKsfyN94xr4rNclEA=;
- b=XRruI4NEerJGwPW9RH01zHU3PwelE9ew6Rc1rS3+EJWIuJ8sXaKCSidTFwaGlNVCibQLHU0VdGkuaskS/eDwR/vr3eHnT2oiFyHNlnWssbjRLD9JDNuijioWJAjPetg7S+kYSQFwu3N9J9mL+g8Oe1jD5R8dDiJu+iv+9/a8zfY0AJte1Kd7jo5uo4tBG39n6pPNJXbhOSmqGWXHuu4yBGn4SLA+cd8EfpjJX7Vg/qTiWU19f6OKbyUwdGiJsgClybGTCsint7T6d0zeoDoVCRPXHKfNlwZjHcKOLv/56OWoVvkMVnRfS9M1wo6EoeJkSVE34F7WgKUcjwNQGbqFkw==
+ bh=qB7DG/Qoe6AxYIXu8MQKx/ll6syNJYZzRyJc7mjTS50=;
+ b=PS3HYZXYJJZ3rw58oKN4Noew1bcWmQqVRHdnivUFtS8ZGs6frN6bGGRvr09ydmkZFvdJ5e6sGsoG062amivMH58e2pxOUSftPh9Dat0R48S9XBQwV51TrbNxjCiJ87PDl/Ga82c+hzxt/dFXW/XXFcGGEP3Vq7SndnfPk03cnsagh1Dy+TtcFdHJuAbHDH8qbXDbs3FC0+qvPDvCUUmAzmQ4br5tAXJKlAsQdHWjqxQ3nrpJqIBKe/+IOM/VVOxrW1WTNutI9nzlJDOG8vR3LjraCIpuNLWCJkR75bnkKDjZA8rDA2JnX9v3lMPU/feE/JAOT2h+fOLLMvtDm2jDpQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=kyDPOpMvBilb+ri7dU0pWEVaeHJKsfyN94xr4rNclEA=;
- b=SsVooeHGOJvB5s0haAyrPiGBs+NFlGiSy6rzO5tGMbcajDF0o0tm/sKu1PAOyYEj50VuZAjYdQXWjr2xG+J6jzE/kmOyyNBkNhyrvnQXDUkSXRnzOv3Z3rlnefmsmglO85d/RDX6uBJ+FgYZojeS5loUXc8/BOzHPo13SSEqnHI=
-Received: from BN9PR12MB5306.namprd12.prod.outlook.com (2603:10b6:408:103::12)
- by CY8PR12MB7514.namprd12.prod.outlook.com (2603:10b6:930:92::21)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.48.17; Thu, 21 May
- 2026 11:25:23 +0000
-Received: from BN9PR12MB5306.namprd12.prod.outlook.com
- ([fe80::9976:3768:a636:3c3d]) by BN9PR12MB5306.namprd12.prod.outlook.com
- ([fe80::9976:3768:a636:3c3d%2]) with mapi id 15.21.0048.016; Thu, 21 May 2026
- 11:25:23 +0000
-From: "Chai, Thomas" <YiPeng.Chai@amd.com>
-To: "Xie, Chenglei" <Chenglei.Xie@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-CC: "Chan, Hing Pong" <Jeffrey.Chan@amd.com>, "Luo, Zhigang"
- <Zhigang.Luo@amd.com>, "Deucher, Alexander" <Alexander.Deucher@amd.com>
-Subject: RE: [PATCH v3] drm/amdgpu: change VF RAS bad bage space to dynamic
- allocation
-Thread-Topic: [PATCH v3] drm/amdgpu: change VF RAS bad bage space to dynamic
- allocation
-Thread-Index: AQHc4h3e6ICpTNDZ3UeoqNCoasrzaLYYZMZg
-Date: Thu, 21 May 2026 11:25:23 +0000
-Message-ID: <BN9PR12MB53066582CECDF8947FD4E9DCFC0E2@BN9PR12MB5306.namprd12.prod.outlook.com>
-References: <20260508180705.217683-1-Chenglei.Xie@amd.com>
- <20260512144429.213175-1-Chenglei.Xie@amd.com>
-In-Reply-To: <20260512144429.213175-1-Chenglei.Xie@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-05-21T11:09:44.0000000Z;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD General
- v26; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=3;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard
-authentication-results: dkim=none (message not signed)
+ bh=qB7DG/Qoe6AxYIXu8MQKx/ll6syNJYZzRyJc7mjTS50=;
+ b=SQskeNd7kr1W7bRvvVlK1uvrNZF4qTsqXlxwagPsmY8cE5gAAbdNBEsOHoqcadtRfFfKvbObl5TPfq3WSJL1Avqeia4Et08dp4Eq3+YRydpiTFZKNoyPrcijnBlhvpyOy42826+E75ZMwe6mHqRb2F+c4q6LOJ/Te0SUpuhgv+k=
+Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BN9PR12MB5306:EE_|CY8PR12MB7514:EE_
-x-ms-office365-filtering-correlation-id: 0cb160cd-e464-45ab-66a9-08deb72ba654
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|1800799024|366016|376014|38070700021|18002099003|56012099003|22082099003|11063799006|4143699003;
-x-microsoft-antispam-message-info: +6aVdSgz/44ELOFSmwZHWgbMZy+rgI0ZeO/SWX9YVEKSXd7SdRzQp/pfOAxs0tronSo1TOJIVG77IfuU960rhsVAP/qIywEyX/9TY7dGNltClASzzq0957d1tLsRugJYLUBKpJz9JEErU3Wx0kZla5QxkdwOe8n3vNr61pl8jLjGvDkbIH5QU/BMPGTYtVPzpquYROsWy6Y1jBKcUXLETc2yqtnmAGhOYK2rHsKKnMBJQVlB+Wz37ANkpadJIbkxkOcPPJNF8ORHqVsCcd1pkvGWZNFeWQiLw783VQNMDgcECnf6vfspBVAEDSL1+AaYnHLSXJIUPVEWL/GyHk9d2Ee8xZAf/AXyb/r8Xd5PcN6w76ercZYRcvK7Xf3mEiXicio6K69WOfTWY0wxI7wgYhUZb5uMUXOAWpNb9YtLCYqE8FFWZoevuTOCDkQYZOfw2jpSH4l6tESqYpPCizMsV7ecNou10RDoccldVv6hP/4axO/k9xZpai6Is9ZlLOXBDwjV0OItlC3pBmewmZaiNJNFQi1UDX0/+Gh4FC7rYQPf5Ylqx4krvPxlVkGDemGthrnVLR/99ZcWhXGbrVKUTgObG5EIy+JZgs3BzuChwAl5YeLsSBnb6I+LXBcE649jWbNLa1pqm4rDd3Zqk95qwd8RcFQuh+VOfBaY+nt3HXSuGDaIrJ/xZJytTEa/J50pAp9L0aWOjO+Fgfl1O9zYx83TsisumsLG4HP2tj1u86WgSUjD5AcFsixP3EibAnMg
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5306.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014)(38070700021)(18002099003)(56012099003)(22082099003)(11063799006)(4143699003);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?JlFQXAj9LUNv1wSjUgFjSWbruVCnxblV22UmU55cWRc0W6AoQXZiqGOiVMf2?=
- =?us-ascii?Q?/0aZ91CFs+P6Xo5eQ9XunyIaYPekC7tsoJSfjamWSjkqWrcgXXltRstkX5/K?=
- =?us-ascii?Q?21yRpUhj/WVlMb8TT4hI8CCp/4x705FUP03sivBA0qeUJLJUyQG3OPQXQ6p5?=
- =?us-ascii?Q?bMg+RLmRngDDRML76CiTZVpfGSkaz6I4iwAFK6WYovgWKsEuIXBoqsPCmVzD?=
- =?us-ascii?Q?LLwFUX94C6Rb5w9aBbugRM+m30EsRW+sZTLPt1ViVZqdp5t9VF/VYUGuirQz?=
- =?us-ascii?Q?lzRqCo17qDIBgrrvCQd+j27YBH/AbvP+SZi+vrEriB41NupqZWwaWII5tFkw?=
- =?us-ascii?Q?HxO2jkloFNDFU0omQNpdJxR8i5YblYoSZvg+i3iOGZ90w79zvjcgXJt2FKzE?=
- =?us-ascii?Q?Eq/nFTmu24l4OVZ1c0OTYFaCMkffRum6d1/4Lfnj5XAO2DySlK5zCO+27S3p?=
- =?us-ascii?Q?JtPiAHLCVNBdvF23EFrCTaUxwaEhIFlTW+ZuChtOcWFCVvWCsjD7bd15XgeH?=
- =?us-ascii?Q?fNhygfQvfnrpO2odB3hocGYR71wDstb2TenYFsttARpBnWffHKyDTuP4at2+?=
- =?us-ascii?Q?yQAmr8RRt+KXM9eKSgBr0KBSQPdV3ylVOCmDxlvqTNYptwC9YmPTSMTjqHtW?=
- =?us-ascii?Q?VQEdUH82dO2NZkT5gPMw9sTemPjWF9LXFu9iCadXePVju9EqwwTJyXd9oUaY?=
- =?us-ascii?Q?sUzpiSap5dqCX19EYRQGNJvnw0rF6/sM1hqAxEp9SCH7O2YhdFqllRoPsEW2?=
- =?us-ascii?Q?qpiqTYo8+pkZtSr0RzwDy2/9IoSn8GRpbWROPy1al/8l8QuM0T3aEFxbnO1Y?=
- =?us-ascii?Q?NkAniz8U2qvUVIbsA/MIU7qtbJ7+fyjNZawy7NocWTRcRVnU99FYHaB/4R2N?=
- =?us-ascii?Q?q2AsNiHGPYpefBpoFCBDtrzsNwaVEatZnLb9fXW0ebbETWvkA6HMN5gDZHOU?=
- =?us-ascii?Q?BZUbpVidydsKYyaBHiyV5gCIuyvVvROOGWS5z0X+TLn8MusazciIIpWqRC8x?=
- =?us-ascii?Q?awJuhxjvPtDp3O7XTuaXVXuexYYUXkZdVNzy0CMpMxFu+VekOFsVxazO+fmQ?=
- =?us-ascii?Q?kvMFhVdb8b/HG47z5/K77HTWveiGEEA8ocLkd0HaKL9khe+vMqBi/aTL17f8?=
- =?us-ascii?Q?R8C8Fn7XqYhBbnQCfuOxmhFjS0MakK6hllcsZTXRq8v1+DiOAoKIYzIEmm+U?=
- =?us-ascii?Q?KfKPN+7zBiJdiR/c9+wiCMXgggZkyez42SdZHQ8LaTurvgiL+wOzybBc0w+6?=
- =?us-ascii?Q?uFcK09APnJPOJAc1m1MFDwpnaSsZTbMjZKCODxPCB2QLcMOd/eS+R+dw6nMY?=
- =?us-ascii?Q?7VWuVqPMi8UIJpVC/QTrDdq5Dmp26Q8nGAJx29tRyqZa6MiHhTkoI/JyToZa?=
- =?us-ascii?Q?Uxd8rHxaCdIGIaEXXa4/WxW3ja9Rilq+vkQS8wm+CWXf1SnOMWt06SfjjHkH?=
- =?us-ascii?Q?AuHM9Rv8AcNyt0kNTIW66VCSSsWnxZXZoauzF3JWfS/XM3FlRc0itr09d17A?=
- =?us-ascii?Q?iFMv3Kb91utv4/7ss1ggCl2DOYzx/UExycKabiiZkmLo+h9KxNc73A0ORCxP?=
- =?us-ascii?Q?JHwCoesSBXRtd73nXGaba1VqOWYUdivDETE6oVajJYz9+Xn8OwHVDR2anFoB?=
- =?us-ascii?Q?GuQZmMrN5M6WHBNVsx1frb26Me+cKj4wfCZXRCfRkYp4CtXGSb14nB5zy4+y?=
- =?us-ascii?Q?IoJiDhUlagb3GrTri0MB2ZppuI5ZYiA77DaemwGyqTVF7KoD?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by SA5PPF916D632A9.namprd12.prod.outlook.com
+ (2603:10b6:80f:fc04::8d6) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9913.11; Thu, 21 May
+ 2026 12:39:14 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0025.022; Thu, 21 May 2026
+ 12:39:13 +0000
+Message-ID: <24b58d4c-7fa8-4bd4-a799-701f69cfbc06@amd.com>
+Date: Thu, 21 May 2026 14:39:07 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 1/2] drm/amdgpu: convert amdgpu_vm_lock_by_pasid() to
+ drm_exec
+To: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Cc: Alex Deucher <alexander.deucher@amd.com>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>, linux-media@vger.kernel.org,
+ linaro-mm-sig@lists.linaro.org
+References: <20260520151741.50575-1-mikhail.v.gavrilov@gmail.com>
+ <20260521104335.28978-1-mikhail.v.gavrilov@gmail.com>
+ <20260521104335.28978-2-mikhail.v.gavrilov@gmail.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20260521104335.28978-2-mikhail.v.gavrilov@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR2P281CA0029.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:14::16) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SA5PPF916D632A9:EE_
+X-MS-Office365-Filtering-Correlation-Id: cc5ffeda-48d1-46b0-3c94-08deb735f6e6
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|1800799024|376014|22082099003|56012099003|18002099003|4143699003|11063799006|3023799007|6133799003;
+X-Microsoft-Antispam-Message-Info: 9G9gh9T4Cq47uC9APOgbqbMcND6VgSWsntlU999vAIUDtn5oRHRGRmlYGByyeh3ghcB04P/PY2BUDo5GtgxqhTTKS8mPujGiPV9bSwimT9tjNNYvceziSUk9NmNZWsxFKllm+bmFA8vbek0enCMAKbf6FyU5dSJPkIvsELlKqgr8Vb3S/QWWd3XHxHI9sfERCmfV1hd++PFg17WTgM/y6fJcmmZr2hEzekf33QhgefrZ4ZnAhEVOTN72hUhW6BAfJ+S/6LnJlGDIm8e38u+H6zisRXtIXFkQSGKxslvZ0jg6z4gUNp24+UlaeS8dJfoRi51Jyxavlc7egZiRL77SKHQPhHh/dYaS19sheRkHf1pXKzpBcfHQ5+DDPm9XFpkAOHimt3+ON+DL32eQ8K5AZrxOR5TcmZHnSnePxVXfjeq7KvDO/0kzkca71+goKCXv68OG8dB8teFT39/IU8W4q9Tnyi5c2NC8HEmtVmFUi5cAKHkhm+CG8Y9C+o1aMWR2p/Py/mDqgr+PFhlaeddLPcL5ahYRQlkuh9PSMLhb5+TehZsvPDD9c2p74bwnaatpfpOjDsZf7PiBlIw9ZP5IqhnWGJC2c1DPXCVPCPuWo7FhrsI2VgtWXfntKNCQRVIktrF5gV0wFed5BkPZQ2dDOoHc05O9wp1GeLXUX5hhtAej7wCj1xSVs84nC/65btMU
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(376014)(22082099003)(56012099003)(18002099003)(4143699003)(11063799006)(3023799007)(6133799003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SVhOQ1BlK252andmYW1qN1dySVFqcE5DRXdpekxqMFA1T2ZSU1UxTlZHeUFs?=
+ =?utf-8?B?N3ZrbUVlVHpNalF6ZzVjUzFnWWZjNzdBUFZJbm52WERDR1JOdW1MaVFaRnVv?=
+ =?utf-8?B?N011dkxRNFZFMWRvckcxTG9UN21TbEJsVmR4VzErUDhzdGVMSW16Yk9ZcDZm?=
+ =?utf-8?B?WmhPR0E5ZEZpRmlMZnhKOU9EY2kyM1FteUdOL0FDcUI5NTFxSlNFU296eUVL?=
+ =?utf-8?B?OWtPcWlXdkpsWGlacmFweUZoZ040M2t2TXczUmZ0eXlWVmZsZHMvRk9rdG53?=
+ =?utf-8?B?NUhwOXhOTm8zWndHdUY2dlhCWHhmcDk2ZDlIbVU5b1BlVDJEWldkdlJOL1cz?=
+ =?utf-8?B?bmdrQ2doUyt1QVorMjZhMm9FUUFLbmNYZjBrbk9PMHFDQWRFOVB3cFVmQVE2?=
+ =?utf-8?B?bzZCZnhZMFJ4R2g3T2hBT0JjdzRtclpLWUJYd3R4ZWhPcEhiTGVhRkhrNzNG?=
+ =?utf-8?B?dHFCditjK0VZWkhPaHMxWmsvN2lsVk5qZXRlRFdSTExEcVY3K0F0MThSVTZm?=
+ =?utf-8?B?UGxWNUFGbGkveC9RYUNROU01VU5LNS8zc00xek5sQmV5OSszR2QxNEl2L2c0?=
+ =?utf-8?B?ZGdIaHltODh5U1hVa3JzQmRuVUcvdWkyLzVjWmw2MFVnV2c5UjlDc203cTNr?=
+ =?utf-8?B?NDVkSHlsYUMzck1iSTBiRDkzQTgvL09vV3ZFd1pDZmx1YXRudVBCRjAzSGlH?=
+ =?utf-8?B?YzVSTWpEcnF0dlVrVWJlc25tdGVxMnpyVTJyWUhCeDFjN2t3Wm5tamVRWUpY?=
+ =?utf-8?B?VTltMlZHRWhtMTVNNmhvWnVDeHVUMGZpeTBXdlMwcDh4ZWZLdHNicnk4Zmoz?=
+ =?utf-8?B?akVkU2NZTklvUHpVTTdJbm5IbEpPV20rOVJFV0dSSGJvbkdPTUZJeW1yaDNV?=
+ =?utf-8?B?KzlINmgwa0tjYThVa1VvazZLK1NPYzdndGVYU0dOWHdrUmJjZmxjaEhVK0ho?=
+ =?utf-8?B?NDZxMFBYMzZKUFE4WStEekRodTVReTdxMnlKOHhSR0Y2SVNncDdmbCtLQjJI?=
+ =?utf-8?B?UG9DZlZVRlZ1N0Fic0l0ckFvTjNoSkJPMUEwNzlVdWxCOGRhSWZpN3lVWmho?=
+ =?utf-8?B?R0F1Sllydkd1T0FlWWNiL1BGcDNCRVY5VDdpd0xCUEZYeGorRlNXbGxxY3NW?=
+ =?utf-8?B?VmhzNHg3OWRoeHZHOEk5Z0haeGlhSkdSbkJrMlc4UzRPSHFjN3hOSmh2eWN4?=
+ =?utf-8?B?L1ZNRks2VXNaOXhmQ0FBT0NmVDlJVjhFSE1BdWs0UUluOFhCS0lVc2VhT0F1?=
+ =?utf-8?B?WnlVb3pwaTRDZSt6cXJpOEZVVEgrZVhiMnV2a21wMFJFT3o1UUhBNTJrckVs?=
+ =?utf-8?B?ak03T2tYRGFpaEVzaGlZYW4rNEp5VFBXUnMxZG1IZUVDeExvdHlEOVdOUW90?=
+ =?utf-8?B?YWxLTk9IMFQrQ3ZJUUdoYkVhZzlnZVgvUmlZTGc5cE9BZ1M0MEZnWnFVbXpT?=
+ =?utf-8?B?VDJmTytYdW14aUhoZ012NXZhcTBSSjU0SURQdytUL3Q1Y1I0bWJOd1ZSTFRj?=
+ =?utf-8?B?ZllwU3ZNRTBOZ2twYjNLZFhUOGpoK2NaME80R0JKWVFCVSt1cldrSXB6MER6?=
+ =?utf-8?B?d2ZvbnJlZUN5dUJMV05IR3pId3pJRGNJdjlaN2l1Qnl5Z3NZdmRQTFphb1Vk?=
+ =?utf-8?B?Si81Y3cvQnBCV1RDTmMwbGxvZkpiUGJBd2hRYjZHV2Y0N05aVUN3RkhpSC91?=
+ =?utf-8?B?dmVzQXRIMDE5TVNGalZ3S3F3NG9icHVSQmgxLzc0Y3dsT2VMM0tLd3VHVGZR?=
+ =?utf-8?B?SVFWVlo0Unl5eUwrN0pNRnlCMFJPbzRYZW45ZmFkaEtqNU1ZTjNXbnNGbnl5?=
+ =?utf-8?B?QmpkZ1NHZWNZVGsrMVFhWU9yeVcza0g1ZDZyVlN2azJTQW4xYWY5Ly9id3Ny?=
+ =?utf-8?B?K05mdGZDVTI4TFJvNnYvOEZnYVEyZS9la1NCNjZtdG9kVWluT2FJUXNvelhN?=
+ =?utf-8?B?cnlreVRBNDkxa0tVR1pGOUUvT3AwU0gxM09rZTlHRUlzM2ZjajZjaGF5SDM0?=
+ =?utf-8?B?clE0THlXdmxUM0lHc1cvVTRkWEFyYVNFaXVKMkRmaFNEcmNIaWhFdlFmWkJV?=
+ =?utf-8?B?bEZmUEVoOTNqemZxYXhmY0ZqUVFrUkJZNXduOXkybDRNRUIwMVNKN1BoOGxR?=
+ =?utf-8?B?T2U1ZzVWZ0FpNmV1NXp1d3hPWWJYOGpQOW5pbEl3RS9WM2I4bmdTamU4bXFm?=
+ =?utf-8?B?d094NlltenZ1L2hvT1hnYWsrQjlSdEQ5WmdBZFJzM0h2MmJoc0djUEFDWTUz?=
+ =?utf-8?B?VWpMUk84NkhhaHo4NGc3NndMSkxJREhnRkZNU2JJY1RwYm5QVERhOVlyNER3?=
+ =?utf-8?Q?wMTycSXD5dJui3XH6T?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: cc5ffeda-48d1-46b0-3c94-08deb735f6e6
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5306.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0cb160cd-e464-45ab-66a9-08deb72ba654
-X-MS-Exchange-CrossTenant-originalarrivaltime: 21 May 2026 11:25:23.5163 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: E9LSPOwijOb1/I15nBPFdCAI68lIhHCmQY9Gt4vUBStPrUKW5bWTPFfEpoqDIjYsceNmEe+lo/1awfgraVtYqw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7514
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 May 2026 12:39:13.8207 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: G8y2f64Sk/eaXA8zxfuLIo1cvfU2D1Vkz1BeEa4yyxD76zrdU+udMQZN4t1OrPNS
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA5PPF916D632A9
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,246 +142,223 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-AMD General
+On 5/21/26 12:43, Mikhail Gavrilov wrote:
+> amdgpu_vm_lock_by_pasid() looks up a VM by PASID and reserves its root
+> PD with a bare amdgpu_bo_reserve(), returning the still-reserved root to
+> the caller. A caller that then needs to reserve further BOs (for example
+> the devcoredump IB dump) ends up nesting reservation_ww_class_mutex
+> acquires without a ww_acquire_ctx, which lockdep flags as recursive
+> locking.
+> 
+> Convert the helper to take a drm_exec context and lock the root PD with
+> drm_exec_lock_obj(). Callers now run it inside a
+> drm_exec_until_all_locked() loop and can lock additional BOs in the same
+> ww ticket, so there is no nested ww_mutex acquire.
+> 
+> The drm_exec context holds its own reference on the locked root BO, so
+> the helper no longer hands a root reference back to the caller: the
+> root output parameter is dropped, and the transient reference taken
+> across the PASID lookup is released before returning.
+> 
+> The only existing caller, amdgpu_vm_handle_fault(), is updated
+> accordingly. Its is_compute_context path, which previously dropped the
+> root reservation around svm_range_restore_pages() and re-took it, now
+> finalises the drm_exec context and re-initialises a fresh one; behaviour
+> is otherwise unchanged.
+> 
+> No functional change intended for the page-fault path.
+> 
+> Signed-off-by: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 91 ++++++++++++++++----------
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h |  2 +-
+>  2 files changed, 58 insertions(+), 35 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> index 9ba9de16a27a..591980907211 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> @@ -2950,47 +2950,56 @@ int amdgpu_vm_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
+>  }
+>  
+>  /**
+> - * amdgpu_vm_lock_by_pasid - return an amdgpu_vm and its root bo from a pasid, if possible.
+> + * amdgpu_vm_lock_by_pasid - look up a VM by PASID and lock its root PD
+>   * @adev: amdgpu device pointer
+> - * @root: root BO of the VM
+>   * @pasid: PASID of the VM
+> - * The caller needs to unreserve and unref the root bo on success.
+> + * @exec: drm_exec context to lock the root PD in
+> + *
+> + * Must be called from within a drm_exec_until_all_locked() loop; the caller
+> + * runs drm_exec_retry_on_contention() afterwards. The drm_exec context holds
+> + * a reference on the root BO until it is finalised.
+> + *
+> + * Return: the VM on success, or NULL if the PASID has no VM, the VM is being
+> + * torn down, or locking the root PD failed.
+>   */
+>  struct amdgpu_vm *amdgpu_vm_lock_by_pasid(struct amdgpu_device *adev,
+> -					  struct amdgpu_bo **root, u32 pasid)
+> +					  u32 pasid, struct drm_exec *exec)
+>  {
+>  	unsigned long irqflags;
+> +	struct amdgpu_bo *root;
+>  	struct amdgpu_vm *vm;
+>  	int r;
+>  
+>  	xa_lock_irqsave(&adev->vm_manager.pasids, irqflags);
+>  	vm = xa_load(&adev->vm_manager.pasids, pasid);
+> -	*root = vm ? amdgpu_bo_ref(vm->root.bo) : NULL;
+> +	root = vm ? amdgpu_bo_ref(vm->root.bo) : NULL;
+>  	xa_unlock_irqrestore(&adev->vm_manager.pasids, irqflags);
+>  
+> -	if (!*root)
+> +	if (!root)
+>  		return NULL;
+>  
+> -	r = amdgpu_bo_reserve(*root, true);
+> -	if (r)
+> -		goto error_unref;
+> +	r = drm_exec_lock_obj(exec, &root->tbo.base);
+> +	if (r) {
+> +		amdgpu_bo_unref(&root);
+> +		return NULL;
+> +	}
+>  
+>  	/* Double check that the VM still exists */
+>  	xa_lock_irqsave(&adev->vm_manager.pasids, irqflags);
+>  	vm = xa_load(&adev->vm_manager.pasids, pasid);
+> -	if (vm && vm->root.bo != *root)
+> +	if (vm && vm->root.bo != root)
+>  		vm = NULL;
+>  	xa_unlock_irqrestore(&adev->vm_manager.pasids, irqflags);
+> -	if (!vm)
+> -		goto error_unlock;
+> +	if (!vm) {
+> +		drm_exec_unlock_obj(exec, &root->tbo.base);
+> +		amdgpu_bo_unref(&root);
+> +		return NULL;
+> +	}
+>  
+> -	return vm;
+> -error_unlock:
+> -	amdgpu_bo_unreserve(*root);
+> +	/* The drm_exec context holds its own reference on the root BO. */
+> +	amdgpu_bo_unref(&root);
+>  
+> -error_unref:
+> -	amdgpu_bo_unref(root);
+> -	return NULL;
+> +	return vm;
+>  }
+>  
+>  /**
+> @@ -3012,33 +3021,49 @@ bool amdgpu_vm_handle_fault(struct amdgpu_device *adev, u32 pasid,
+>  			    uint64_t ts, bool write_fault)
+>  {
+>  	bool is_compute_context = false;
+> -	struct amdgpu_bo *root;
+> +	struct drm_exec exec;
+>  	uint64_t value, flags;
+>  	struct amdgpu_vm *vm;
+>  	int r;
+>  
+> -	vm = amdgpu_vm_lock_by_pasid(adev, &root, pasid);
+> -	if (!vm)
+> +	drm_exec_init(&exec, 0, 0);
 
-Best Regards,
-Thomas
------Original Message-----
-From: Chenglei Xie <Chenglei.Xie@amd.com>
-Sent: Tuesday, May 12, 2026 10:44 PM
-To: amd-gfx@lists.freedesktop.org
-Cc: jeffrey.chan@amd.com; zhigang.luo@amd.com; alexander.deucher@amd.com; c=
-henglei.xie@amd.com; YiPeng.Chai@amd.com
-Subject: [PATCH v3] drm/amdgpu: change VF RAS bad bage space to dynamic all=
-ocation
+Make the last parameter 1 here since we are expecting to lock 1 object.
 
-The VF RAS error handler stored bad pages in fixed-size arrays. If the PF2V=
-F block described more entries than fit, amdgpu_virt_ras_add_bps() could me=
-mcpy past the end of those arrays.
+Not a must have, it will work without but it is just a little bit more optimal.
 
-Track table length in a capacity field, allocate a small initial table, and=
- grow bps / bps_bo together when count + pages would exceed capacity.
-Keep amdgpu_virt_ras_add_bps() as the single append path: validate the addi=
-tion, grow if needed, then memcpy and bump count.
+Apart from that Reviewed-by: Christian König <christian.koenig@amd.com>.
 
-On allocation failure the existing tables are left unchanged and the caller=
- stops ingesting more bad pages from the message.
+Thanks,
+Christian.
 
-Signed-off-by: Chenglei Xie <Chenglei.Xie@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c | 109 ++++++++++++++++++-----
- drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h |   2 +
- 2 files changed, 90 insertions(+), 21 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c b/drivers/gpu/drm/amd=
-/amdgpu/amdgpu_virt.c
-index 6974b1c5b56c2..beb2693e4c704 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
-@@ -283,14 +283,63 @@ unsigned int amd_sriov_msg_checksum(void *obj,
-        return ret;
- }
-
-+#define AMDGPU_VIRT_RAS_BAD_PAGE_TABLE_INIT_CAPACITY   512
-+
-+/**
-+ * amdgpu_virt_ras_realloc_eh_data_space - alloc/realloc VF bad-page
-+@data->bps and @data->bps_bo
-+ * @adev: amdgpu device
-+ * @data: VF RAS error-handler data
-+ * @pages: minimum number of new slots to add beyond @data->capacity
-+ *
-+ * Return: 0 on success, %-ENOMEM on failure.
-+ */
-+static int amdgpu_virt_ras_realloc_eh_data_space(struct amdgpu_device *ade=
-v,
-+               struct amdgpu_virt_ras_err_handler_data *data,
-+               int pages)
-+{
-+       struct eeprom_table_record *new_bps;
-+       struct amdgpu_bo **new_bo;
-+       unsigned int old_space;
-+       unsigned int new_space;
-+       unsigned int align_space;
-+
-+       old_space =3D (unsigned int)data->capacity;
-+       new_space =3D old_space + max_t(unsigned int, (unsigned int)pages,
-+                                     (unsigned int)AMDGPU_VIRT_RAS_BAD_PAG=
-E_TABLE_INIT_CAPACITY);
-+       if (new_space < old_space || new_space > INT_MAX)
-
-[Thomas] Using INT_MAX as the upper bound check is too permissive. It shoul=
-d be set to the maximum realistically acceptable value instead. The same ap=
-plies to the other INT_MAX checks below.
-
-+               return -ENOMEM;
-+
-+       align_space =3D ALIGN(new_space, AMDGPU_VIRT_RAS_BAD_PAGE_TABLE_INI=
-T_CAPACITY);
-+       if (align_space > INT_MAX)
-+               return -ENOMEM;
-+
-+       new_bps =3D kmalloc_array(align_space, sizeof(*data->bps), GFP_KERN=
-EL);
-+       new_bo =3D kcalloc(align_space, sizeof(*data->bps_bo), GFP_KERNEL);
-+       if (!new_bps || !new_bo) {
-+               kfree(new_bps);
-+               kfree(new_bo);
-+               dev_warn_ratelimited(adev->dev,
-+                                    "RAS WARN: failed to grow bad page tab=
-le to %u slots\n",
-+                                    align_space);
-+               return -ENOMEM;
-+       }
-+
-+       memcpy(new_bps, data->bps, data->count * sizeof(*data->bps));
-+       memcpy(new_bo, data->bps_bo, data->count * sizeof(*data->bps_bo));
-+
-+       kfree(data->bps);
-+       kfree(data->bps_bo);
-+       data->bps =3D new_bps;
-+       data->bps_bo =3D new_bo;
-+       data->capacity =3D (int)align_space;
-+
-+       return 0;
-+}
-+
- static int amdgpu_virt_init_ras_err_handler_data(struct amdgpu_device *ade=
-v)  {
-        struct amdgpu_virt *virt =3D &adev->virt;
-        struct amdgpu_virt_ras_err_handler_data **data =3D &virt->virt_eh_d=
-ata;
--       /* GPU will be marked bad on host if bp count more then 10,
--        * so alloc 512 is enough.
--        */
--       unsigned int align_space =3D 512;
-
-
-[Thomas] If set align_space =3D AMDGPU_VIRT_RAS_BAD_PAGE_TABLE_INIT_CAPACIT=
-Y , can avoid to change so much code in this function ?
-
-
-        void *bps =3D NULL;
-        struct amdgpu_bo **bps_bo =3D NULL;
-
-@@ -298,16 +347,17 @@ static int amdgpu_virt_init_ras_err_handler_data(stru=
-ct amdgpu_device *adev)
-        if (!*data)
-                goto data_failure;
-
--       bps =3D kmalloc_array(align_space, sizeof(*(*data)->bps), GFP_KERNE=
-L);
-+       bps =3D kmalloc_array(AMDGPU_VIRT_RAS_BAD_PAGE_TABLE_INIT_CAPACITY,
-+sizeof(*(*data)->bps), GFP_KERNEL);
-        if (!bps)
-                goto bps_failure;
-
--       bps_bo =3D kmalloc_array(align_space, sizeof(*(*data)->bps_bo), GFP=
-_KERNEL);
-+       bps_bo =3D kcalloc(AMDGPU_VIRT_RAS_BAD_PAGE_TABLE_INIT_CAPACITY,
-+sizeof(*(*data)->bps_bo), GFP_KERNEL);
-        if (!bps_bo)
-                goto bps_bo_failure;
-
-        (*data)->bps =3D bps;
-        (*data)->bps_bo =3D bps_bo;
-+       (*data)->capacity =3D AMDGPU_VIRT_RAS_BAD_PAGE_TABLE_INIT_CAPACITY;
-        (*data)->count =3D 0;
-        (*data)->last_reserved =3D 0;
-
-@@ -361,17 +411,32 @@ void amdgpu_virt_release_ras_err_handler_data(struct =
-amdgpu_device *adev)
-        virt->virt_eh_data =3D NULL;
- }
-
--static void amdgpu_virt_ras_add_bps(struct amdgpu_device *adev,
--               struct eeprom_table_record *bps, int pages)
-+static bool amdgpu_virt_ras_add_bps(struct amdgpu_device *adev,
-+               const struct eeprom_table_record *bps, int pages)
- {
-        struct amdgpu_virt *virt =3D &adev->virt;
-        struct amdgpu_virt_ras_err_handler_data *data =3D virt->virt_eh_dat=
-a;
-+       int need;
-
--       if (!data)
--               return;
-+       if (!data || pages <=3D 0)
-+               return false;
-+
-+       if (pages > INT_MAX - data->count) {
-+               dev_warn_ratelimited(adev->dev,
-+                                    "RAS WARN: bad page table size overflo=
-w (count=3D%d pages=3D%d)\n",
-+                                    data->count, pages);
-+               return false;
-+       }
-+
-+       need =3D data->count + pages;
-+       if (need > data->capacity &&
-+           amdgpu_virt_ras_realloc_eh_data_space(adev, data, need - data->=
-capacity))
-+               return false;
-
-        memcpy(&data->bps[data->count], bps, pages * sizeof(*data->bps));
-        data->count +=3D pages;
-+
-+       return true;
- }
-
- static void amdgpu_virt_ras_reserve_bps(struct amdgpu_device *adev) @@ -44=
-3,20 +508,22 @@ static void amdgpu_virt_add_bad_page(struct amdgpu_device *=
-adev,
-
-        memset(&bp, 0, sizeof(bp));
-
--       if (bp_block_size) {
--               bp_cnt =3D bp_block_size / sizeof(uint64_t);
--               for (bp_idx =3D 0; bp_idx < bp_cnt; bp_idx++) {
--                       retired_page =3D *(uint64_t *)(vram_usage_va +
--                                       bp_block_offset + bp_idx * sizeof(u=
-int64_t));
--                       bp.retired_page =3D retired_page;
-+       if (!bp_block_size)
-+               return;
-
--                       if (amdgpu_virt_ras_check_bad_page(adev, retired_pa=
-ge))
--                               continue;
-+       bp_cnt =3D bp_block_size / sizeof(uint64_t);
-+       for (bp_idx =3D 0; bp_idx < bp_cnt; bp_idx++) {
-+               retired_page =3D *(uint64_t *)(vram_usage_va +
-+                               bp_block_offset + bp_idx * sizeof(uint64_t)=
-);
-+               bp.retired_page =3D retired_page;
-
--                       amdgpu_virt_ras_add_bps(adev, &bp, 1);
-+               if (amdgpu_virt_ras_check_bad_page(adev, retired_page))
-+                       continue;
-
--                       amdgpu_virt_ras_reserve_bps(adev);
--               }
-+               if (!amdgpu_virt_ras_add_bps(adev, &bp, 1))
-+                       break;
-+
-+               amdgpu_virt_ras_reserve_bps(adev);
-        }
- }
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h b/drivers/gpu/drm/amd=
-/amdgpu/amdgpu_virt.h
-index 9da0c6e9b8695..af2acf8eee6e2 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
-@@ -263,6 +263,8 @@ struct amdgpu_virt_ras_err_handler_data {
-        struct eeprom_table_record *bps;
-        /* point to reserved bo array */
-        struct amdgpu_bo **bps_bo;
-+       /* number of slots in bps[] / bps_bo[] (always >=3D count) */
-+       int capacity;
-        /* the count of entries */
-        int count;
-        /* last reserved entry's index + 1 */
---
-2.34.1
+> +	drm_exec_until_all_locked(&exec) {
+> +		vm = amdgpu_vm_lock_by_pasid(adev, pasid, &exec);
+> +		drm_exec_retry_on_contention(&exec);
+> +		if (!vm)
+> +			break;
+> +	}
+> +	if (!vm) {
+> +		drm_exec_fini(&exec);
+>  		return false;
+> +	}
+>  
+>  	is_compute_context = vm->is_compute_context;
+>  
+>  	if (is_compute_context) {
+> -		/* Unreserve root since svm_range_restore_pages might try to reserve it. */
+> -		/* TODO: rework svm_range_restore_pages so that this isn't necessary. */
+> -		amdgpu_bo_unreserve(root);
+> +		/* Release the root PD lock since svm_range_restore_pages
+> +		 * might try to take it.
+> +		 * TODO: rework svm_range_restore_pages so that this isn't
+> +		 * necessary.
+> +		 */
+> +		drm_exec_fini(&exec);
+>  
+>  		if (!svm_range_restore_pages(adev, pasid, vmid,
+> -					     node_id, addr >> PAGE_SHIFT, ts, write_fault)) {
+> -			amdgpu_bo_unref(&root);
+> +					     node_id, addr >> PAGE_SHIFT, ts, write_fault))
+>  			return true;
+> -		}
+> -		amdgpu_bo_unref(&root);
+>  
+>  		/* Re-acquire the VM lock, could be that the VM was freed in between. */
+> -		vm = amdgpu_vm_lock_by_pasid(adev, &root, pasid);
+> -		if (!vm)
+> +		drm_exec_init(&exec, 0, 0);
+> +		drm_exec_until_all_locked(&exec) {
+> +			vm = amdgpu_vm_lock_by_pasid(adev, pasid, &exec);
+> +			drm_exec_retry_on_contention(&exec);
+> +			if (!vm)
+> +				break;
+> +		}
+> +		if (!vm) {
+> +			drm_exec_fini(&exec);
+>  			return false;
+> +		}
+>  	}
+>  
+>  	addr /= AMDGPU_GPU_PAGE_SIZE;
+> @@ -3062,7 +3087,7 @@ bool amdgpu_vm_handle_fault(struct amdgpu_device *adev, u32 pasid,
+>  		value = 0;
+>  	}
+>  
+> -	r = dma_resv_reserve_fences(root->tbo.base.resv, 1);
+> +	r = dma_resv_reserve_fences(vm->root.bo->tbo.base.resv, 1);
+>  	if (r) {
+>  		pr_debug("failed %d to reserve fence slot\n", r);
+>  		goto error_unlock;
+> @@ -3076,12 +3101,10 @@ bool amdgpu_vm_handle_fault(struct amdgpu_device *adev, u32 pasid,
+>  	r = amdgpu_vm_update_pdes(adev, vm, true);
+>  
+>  error_unlock:
+> -	amdgpu_bo_unreserve(root);
+> +	drm_exec_fini(&exec);
+>  	if (r < 0)
+>  		dev_err(adev->dev, "Can't handle page fault (%d)\n", r);
+>  
+> -	amdgpu_bo_unref(&root);
+> -
+>  	return false;
+>  }
+>  
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+> index d083d7aab75c..0c6e3e0368c7 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+> @@ -593,7 +593,7 @@ bool amdgpu_vm_handle_fault(struct amdgpu_device *adev, u32 pasid,
+>  			    bool write_fault);
+>  
+>  struct amdgpu_vm *amdgpu_vm_lock_by_pasid(struct amdgpu_device *adev,
+> -					  struct amdgpu_bo **root, u32 pasid);
+> +					  u32 pasid, struct drm_exec *exec);
+>  
+>  void amdgpu_vm_set_task_info(struct amdgpu_vm *vm);
+>  
 
