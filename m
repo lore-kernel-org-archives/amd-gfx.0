@@ -4,61 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 75075CD4F3D
-	for <amd-gfx@archiver.kernel.org>; Thu, 21 May 2026 15:08:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0BFB8CD5BB4
+	for <amd-gfx@archiver.kernel.org>; Thu, 21 May 2026 15:08:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 58C2610F3A3;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5048910F399;
 	Thu, 21 May 2026 15:08:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ArJgcB1y";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="G6Vgu8j3";
 	dkim-atps=neutral
-Received: from mail-lf1-f52.google.com (mail-lf1-f52.google.com
- [209.85.167.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A79EC10F399
- for <amd-gfx@lists.freedesktop.org>; Thu, 21 May 2026 15:08:50 +0000 (UTC)
-Received: by mail-lf1-f52.google.com with SMTP id
- 2adb3069b0e04-5a8c6fc5fd3so6892372e87.0
- for <amd-gfx@lists.freedesktop.org>; Thu, 21 May 2026 08:08:50 -0700 (PDT)
+Received: from mail-lf1-f54.google.com (mail-lf1-f54.google.com
+ [209.85.167.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 77C9210F3A3
+ for <amd-gfx@lists.freedesktop.org>; Thu, 21 May 2026 15:08:52 +0000 (UTC)
+Received: by mail-lf1-f54.google.com with SMTP id
+ 2adb3069b0e04-5a995ab70d1so8670558e87.3
+ for <amd-gfx@lists.freedesktop.org>; Thu, 21 May 2026 08:08:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1779376129; x=1779980929; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1779376130; x=1779980930; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=1PYTv8RRPyhzNb2k3u7IsJEhmouq09DPN/7fCUe9rJc=;
- b=ArJgcB1yTC8ZH63JDzl+lqszZsOGhmz47P8CWCy/3FIBoI+IkixPhhQDT3N/i7Gl+i
- GDDJrnGj/0h5g1jKAtnLqJHOgazditI2IQtZbgvwO1ib2xCgyl0ztrHNlc8Psv24yIBK
- 3fLXfS6v5kdVd9EAmsYmfIwDI4O0oDyzJ67uZOEPpYZ+vLASqw1YVh4YVO1klviYLNKl
- 68RdhgnIvebIsZ+yfdFODeO31NwvYRQP0oxR+T1mGiDwgPyreD+9HiHpQ2eJkB8XK7Xu
- XRznlLyKqdA1GpkKIkqtT5tzkUYE6QQVYv//RxDDKl/2+lzEFR0wpsStX2Igcd+5gwKB
- DJMQ==
+ bh=V2MVfvQBPeY6Pwia0clIRhZPiWkl2nWuf72y0t9gH4Q=;
+ b=G6Vgu8j3lThph8oLczX9M1s7DHvj+IugLsxm5N+WKEAoS43uWnAKdKXxaeS0xNgwbJ
+ SHMun+ZJmqBr3hx8nbej671sQ+71md17gl+Wh3V6mTK80k6fvC+rShYdPK92iAo187kx
+ w67e8BuFmRlR9teZGHERyOnjoUb5xzYClOHMs4vxYbl2RMgjeIHridWadJIcv2RlrOlI
+ lJH1qzPREsLmiWcm8A00L5/kexEmgJJunZXwungHKTDGjLmxqsd3XMkBKE39YKM9cnjC
+ noeMl7fBTcW/ufTQEU0RP3vXi6QLNcgHubd/q/n3YNMU+3WLtdRuTeRo0jF6gKYGKEYI
+ z/ww==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779376129; x=1779980929;
+ d=1e100.net; s=20251104; t=1779376130; x=1779980930;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=1PYTv8RRPyhzNb2k3u7IsJEhmouq09DPN/7fCUe9rJc=;
- b=epKpn3vTsMp8m9ZJkh1A4myf9AdiZBkZfNSS/u4hFVum1nro/N7APRDDFf/o89hclC
- QTxk28UkJD03uOjGnWBTxgp+SK4mG0hl0cM95ieAgKWRVXbjaopCPoaXN0mRNVeCWsOP
- BRgzEJY+u0wlw7AGlxOZwf7+ofQHMTXpdrAAl8cGzNgs3HPMZ0y9HJqspVlRQcGIG40m
- lR00Qr6dkcqwb2BwSQaWgXBe6ah+DQhJk0+kVUGCW/w0wHdt8i6PP7ZomCcp1CDpMKt3
- sjXy6f/5q+Z5iXOt+rMapEJp3J/U7TFxohTjiD8e+/BZqx/haWotZbKqELY1d2jjcsLD
- Cowg==
-X-Gm-Message-State: AOJu0Yx7q10XBhfQ0YTAsJVd1S0NUe8mMfdaw2e0luasV1Rj/phDTYGZ
- AqbGFyQSoaGgOvhF8kGWs2kEc2Y1cajVneInlaLenedAG1Q1uPV4hJgTT/HkmZa6UUZCa+7v
-X-Gm-Gg: Acq92OH6E646LMOL0ceH+FGMHWjpaRx4QYxGshqoJX7OW1/9RyTI1jaic59FXnp35Tr
- KadiMnMe07JvPml9FsAExfPdlzHIgCbGUGU94sonHdQTUjPQhjK/9DAvpq9+XMMcS5cc/E8Mk34
- YJCWCTZ/eS4QIeXzWOFtmdb2uAoU0EXDrPYG6nTTOxC6+dL4HckKmCV5+IWlDKPCGwG1CWnyM2c
- E082Esn+H38AkyMEC83vbrBmsmv5T8x6TjeBPWye1w2TFTdAiO1gtOn9yGfo9A6Ts58NHhfGrPN
- t5FmAVUTGiT4ci9VdlugsNyxM8Kwhi+KPAEL/wNxwVyjhviFi9Bu7jfrw+Su1xPUCEgT+IT+TFl
- TuP5jADNsQlV8ayma2P9NjRwQ6LuYH/yIJnKIGxST0plAejCzMNtFDGvdL2zwMmOkj8e0D5G7rc
- lPTfzUTaSak1z6IQeVyicCBsFt1f194aS7
-X-Received: by 2002:a05:6512:4608:b0:5a8:837a:2a98 with SMTP id
- 2adb3069b0e04-5aa2ba859admr1199599e87.14.1779376128530; 
- Thu, 21 May 2026 08:08:48 -0700 (PDT)
+ bh=V2MVfvQBPeY6Pwia0clIRhZPiWkl2nWuf72y0t9gH4Q=;
+ b=kwPNdvCJ9ZaIdwJF9BewjEQCzYBkZjcNZCyF/pbC3Yja7gdd8SSumPL4OiAEGdnFvZ
+ VY7S4amxM5f1EOhcKpysooq5vDlRM+gtTIUb8XMzl5B+NnkLjyN1O6MFrPWdnXWLAbob
+ xd4tRN7rKFIx8RfyFFbKIWCUley9B5UY2J/ac7hlw4wsuTEjTYHjnBt+EMotOTtAUvih
+ GSGgsfY0ftRVodKsW+RTNmcrvvfxWuBcA4xc0d7Zmhiy2Gt/Fj3bId6wjUplz19jo/VZ
+ xPev8zkLNrkG3sdihFpswGH07Q+xt2tmdQQgmr2KE0NxMp4qFfOxXh4QfU/LCrmQFhwL
+ KTtA==
+X-Gm-Message-State: AOJu0Yxbx3sNe/nHOcoJAJLGt+RoLUsxkhrgRfRke4UqZzNtBDYP0QFt
+ vcF2zBHjJuzxJNBrPj+hgn7GispD4NN9LKex2FDyusPrVo4Nq3DezajrdAnO54et9KffYrW1
+X-Gm-Gg: Acq92OEVMpeoSPWXYr7tMqeLQVGdHVDmLbESGL/3JB/ZBhG4uugxv2vWQgM6LoTrrBA
+ TucLaepBoQgsLXncTVaGHNZ8yks/LPULQat6LZYEH2orGg3nfWJFx4mcmDmN8Yyd7+aEkOgM4rv
+ J+I4XMtKrlsuSCFQt/0vLaozkwPj1Fz6tkKb0X/j2+q2i5ieAWCiKkguPZA3Gc1VDIe6qY9YBm7
+ P37gWWmxK9RuJzl6il9BjfuMmcH4SMLKeiVDgmoJnGaz2SOLd2pjhKAS0jeBhGHmWgkGBrkdsJv
+ BVjtLWi2Tft6mF2UcxPmHkeU0SwO1md/irWnQMKOxbPrFH3TdMMMGwXoj25Z41sNH1HStJtG4Ai
+ +r78OouC6kN7mrIPYKhr/kympWVfsMo9laEVzhr6Pore6SqJKckaXsJsZH17yR2XnXPUQE/11mo
+ 4UQ5NF0xbv0tpf+q7PpXvxnohGhtW+si6c
+X-Received: by 2002:ac2:5dcd:0:b0:5a8:a754:f9d5 with SMTP id
+ 2adb3069b0e04-5aa2ba9ac3bmr843915e87.39.1779376130152; 
+ Thu, 21 May 2026 08:08:50 -0700 (PDT)
 Received: from localhost ([188.234.148.119]) by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5aa2f120c6esm335686e87.19.2026.05.21.08.08.47
+ 2adb3069b0e04-5aa2f120c6esm335686e87.19.2026.05.21.08.08.48
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 21 May 2026 08:08:47 -0700 (PDT)
+ Thu, 21 May 2026 08:08:49 -0700 (PDT)
 From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
 To: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org
@@ -69,10 +69,10 @@ Cc: Alex Deucher <alexander.deucher@amd.com>,
  Sumit Semwal <sumit.semwal@linaro.org>, linux-media@vger.kernel.org,
  linaro-mm-sig@lists.linaro.org,
  Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
-Subject: [PATCH v5 1/2] drm/amdgpu: convert amdgpu_vm_lock_by_pasid() to
- drm_exec
-Date: Thu, 21 May 2026 20:08:39 +0500
-Message-ID: <20260521150841.20625-2-mikhail.v.gavrilov@gmail.com>
+Subject: [PATCH v5 2/2] drm/amdgpu: fix recursive ww_mutex acquire in
+ amdgpu_devcoredump_format
+Date: Thu, 21 May 2026 20:08:40 +0500
+Message-ID: <20260521150841.20625-3-mikhail.v.gavrilov@gmail.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260521150841.20625-1-mikhail.v.gavrilov@gmail.com>
 References: <20260521104335.28978-1-mikhail.v.gavrilov@gmail.com>
@@ -94,215 +94,248 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-amdgpu_vm_lock_by_pasid() looks up a VM by PASID and reserves its root
-PD with a bare amdgpu_bo_reserve(), returning the still-reserved root to
-the caller. A caller that then needs to reserve further BOs (for example
-the devcoredump IB dump) ends up nesting reservation_ww_class_mutex
-acquires without a ww_acquire_ctx, which lockdep flags as recursive
-locking.
+When dumping IB contents from a hung job, amdgpu_devcoredump_format()
+acquired the VM root PD's reservation via amdgpu_vm_lock_by_pasid() and
+then, for each IB, called amdgpu_bo_reserve() on the BO backing the IB.
+Both reservations are reservation_ww_class_mutex objects and neither
+used a ww_acquire_ctx, which trips lockdep:
 
-Convert the helper to take a drm_exec context and lock the root PD with
-drm_exec_lock_obj(). Callers now run it inside a
-drm_exec_until_all_locked() loop and can lock additional BOs in the same
-ww ticket, so there is no nested ww_mutex acquire.
+  WARNING: possible recursive locking detected
+  --------------------------------------------
+  kworker/u128:0 is trying to acquire lock:
+  ffff88838b16e1f0 (reservation_ww_class_mutex){+.+.}-{4:4},
+    at: amdgpu_devcoredump_format+0x1594/0x23f0 [amdgpu]
 
-The drm_exec context holds its own reference on the locked root BO, so
-the helper no longer hands a root reference back to the caller: the
-root output parameter is dropped, and the transient reference taken
-across the PASID lookup is released before returning.
+  but task is already holding lock:
+  ffff8882f82681f0 (reservation_ww_class_mutex){+.+.}-{4:4},
+    at: amdgpu_devcoredump_format+0x1594/0x23f0 [amdgpu]
 
-The only existing caller, amdgpu_vm_handle_fault(), is updated
-accordingly. Its is_compute_context path, which previously dropped the
-root reservation around svm_range_restore_pages() and re-took it, now
-finalises the drm_exec context and re-initialises a fresh one; behaviour
-is otherwise unchanged.
+   Possible unsafe locking scenario:
+         CPU0
+         ----
+    lock(reservation_ww_class_mutex);
+    lock(reservation_ww_class_mutex);
 
-No functional change intended for the page-fault path.
+   *** DEADLOCK ***
+   May be due to missing lock nesting notation
 
-Reviewed-by: Christian König <christian.koenig@amd.com>
+  Workqueue: events_unbound amdgpu_devcoredump_deferred_work [amdgpu]
+  Call Trace:
+   __ww_mutex_lock.constprop.0
+   ww_mutex_lock
+   amdgpu_bo_reserve
+   amdgpu_devcoredump_format+0x1594 [amdgpu]
+   amdgpu_devcoredump_deferred_work+0xea [amdgpu]
+
+The two reservations are on different BOs in the captured trace, so the
+splat is a lockdep-correctness warning, not an observed deadlock. It
+becomes a real self-deadlock whenever the IB BO shares its dma_resv with
+the root PD (the always-valid case, see amdgpu_vm_is_bo_always_valid()):
+amdgpu_bo_reserve(abo) re-acquires the same ww_mutex without a ticket
+and blocks forever.
+
+With amdgpu.gpu_recovery=0 the timeout handler refires every ~2 s and
+each invocation produces this splat, drowning the kernel ring buffer.
+
+Now that amdgpu_vm_lock_by_pasid() takes a drm_exec context, lock the
+root PD and every IB BO together in a single drm_exec ticket.
+DRM_EXEC_IGNORE_DUPLICATES handles IB BOs that share a dma_resv (e.g.
+always-valid BOs, or two IBs backed by the same BO). Every lock is now
+a top-level acquire under one ww_acquire_ctx, so the recursive ww_mutex
+condition is gone, and the per-IB amdgpu_bo_reserve()/amdgpu_bo_unref()
+dance -- including a BO refcount leak on the amdgpu_bo_reserve() failure
+path -- is removed.
+
+Reproducer (~150 LoC libdrm_amdgpu): submit a single GFX IB containing
+PACKET3_INDIRECT_BUFFER chained at GPU VA 0 and wait for the fence. The
+TDR fires within ~10 s and the deferred coredump worker produces the
+splat above on every invocation; with this change applied the splat is
+gone.
+
+Fixes: 7b15fc2d1f1a ("drm/amdgpu: dump job ibs in the devcoredump")
+Suggested-by: Christian König <christian.koenig@amd.com>
 Signed-off-by: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 91 ++++++++++++++++----------
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h |  2 +-
- 2 files changed, 58 insertions(+), 35 deletions(-)
+ .../gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c  | 105 ++++++++++++------
+ 1 file changed, 71 insertions(+), 34 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-index 9ba9de16a27a..d734d8c0de6e 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-@@ -2950,47 +2950,56 @@ int amdgpu_vm_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
- }
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c
+index d386bc775d03..456ea9911d48 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c
+@@ -24,6 +24,7 @@
  
- /**
-- * amdgpu_vm_lock_by_pasid - return an amdgpu_vm and its root bo from a pasid, if possible.
-+ * amdgpu_vm_lock_by_pasid - look up a VM by PASID and lock its root PD
-  * @adev: amdgpu device pointer
-- * @root: root BO of the VM
-  * @pasid: PASID of the VM
-- * The caller needs to unreserve and unref the root bo on success.
-+ * @exec: drm_exec context to lock the root PD in
-+ *
-+ * Must be called from within a drm_exec_until_all_locked() loop; the caller
-+ * runs drm_exec_retry_on_contention() afterwards. The drm_exec context holds
-+ * a reference on the root BO until it is finalised.
-+ *
-+ * Return: the VM on success, or NULL if the PASID has no VM, the VM is being
-+ * torn down, or locking the root PD failed.
-  */
- struct amdgpu_vm *amdgpu_vm_lock_by_pasid(struct amdgpu_device *adev,
--					  struct amdgpu_bo **root, u32 pasid)
-+					  u32 pasid, struct drm_exec *exec)
- {
- 	unsigned long irqflags;
-+	struct amdgpu_bo *root;
- 	struct amdgpu_vm *vm;
- 	int r;
+ #include <generated/utsrelease.h>
+ #include <linux/devcoredump.h>
++#include <drm/drm_exec.h>
+ #include "amdgpu_dev_coredump.h"
+ #include "atom.h"
  
- 	xa_lock_irqsave(&adev->vm_manager.pasids, irqflags);
- 	vm = xa_load(&adev->vm_manager.pasids, pasid);
--	*root = vm ? amdgpu_bo_ref(vm->root.bo) : NULL;
-+	root = vm ? amdgpu_bo_ref(vm->root.bo) : NULL;
- 	xa_unlock_irqrestore(&adev->vm_manager.pasids, irqflags);
+@@ -214,13 +215,9 @@ amdgpu_devcoredump_format(char *buffer, size_t count, struct amdgpu_coredump_inf
+ 	struct drm_printer p;
+ 	struct drm_print_iterator iter;
+ 	struct amdgpu_vm_fault_info *fault_info;
+-	struct amdgpu_bo_va_mapping *mapping;
+ 	struct amdgpu_ip_block *ip_block;
+ 	struct amdgpu_res_cursor cursor;
+-	struct amdgpu_bo *abo, *root;
+-	uint64_t va_start, offset;
+ 	struct amdgpu_ring *ring;
+-	struct amdgpu_vm *vm;
+ 	u32 *ib_content;
+ 	uint8_t *kptr;
+ 	int ver, i, j, r;
+@@ -343,43 +340,84 @@ amdgpu_devcoredump_format(char *buffer, size_t count, struct amdgpu_coredump_inf
+ 		drm_printf(&p, "VRAM is lost due to GPU reset!\n");
  
--	if (!*root)
-+	if (!root)
- 		return NULL;
+ 	if (coredump->num_ibs) {
+-		/* Don't try to lookup the VM or map the BOs when calculating the
+-		 * size required to store the devcoredump.
++		struct amdgpu_bo_va_mapping *mapping;
++		struct amdgpu_bo *abo;
++		struct drm_exec exec;
++		struct amdgpu_vm *vm;
++		u64 va_start, offset;
++		bool locked = false;
++
++		/*
++		 * Lock the VM root PD and every IB BO together in a single
++		 * drm_exec ticket. Reserving the IB BOs one by one while the
++		 * root PD is held would be a recursive reservation_ww_class_mutex
++		 * acquire without a ww_acquire_ctx, which trips lockdep and
++		 * self-deadlocks for IB BOs that share their dma_resv with the
++		 * root PD (always-valid BOs).
++		 *
++		 * Skip locking entirely on the sizing pass: it does not write
++		 * IB content, so the size estimate doesn't depend on whether
++		 * the BOs are reachable.
+ 		 */
+-		if (sizing_pass)
+-			vm = NULL;
+-		else
+-			vm = amdgpu_vm_lock_by_pasid(adev, &root, coredump->pasid);
++		if (!sizing_pass) {
++			drm_exec_init(&exec, DRM_EXEC_IGNORE_DUPLICATES,
++				      1 + coredump->num_ibs);
++			drm_exec_until_all_locked(&exec) {
++				vm = amdgpu_vm_lock_by_pasid(adev, coredump->pasid,
++							     &exec);
++				drm_exec_retry_on_contention(&exec);
++				if (!vm)
++					break;
++
++				for (int i = 0; i < coredump->num_ibs; i++) {
++					u64 pfn;
++
++					va_start = coredump->ibs[i].gpu_addr &
++						   AMDGPU_GMC_HOLE_MASK;
++					pfn = va_start / AMDGPU_GPU_PAGE_SIZE;
++					mapping = amdgpu_vm_bo_lookup_mapping(vm, pfn);
++					if (!mapping)
++						continue;
++
++					abo = mapping->bo_va->base.bo;
++					r = drm_exec_lock_obj(&exec, &abo->tbo.base);
++					drm_exec_retry_on_contention(&exec);
++					if (r)
++						break;
++				}
++				if (r)
++					break;
++			}
++			if (vm && !r)
++				locked = true;
++			else
++				drm_exec_fini(&exec);
++		}
++
++		for (int i = 0; i < coredump->num_ibs; i++) {
++			bool emit_content = sizing_pass;
  
--	r = amdgpu_bo_reserve(*root, true);
--	if (r)
--		goto error_unref;
-+	r = drm_exec_lock_obj(exec, &root->tbo.base);
-+	if (r) {
-+		amdgpu_bo_unref(&root);
-+		return NULL;
-+	}
+-		for (int i = 0; i < coredump->num_ibs && (sizing_pass || vm); i++) {
+ 			ib_content = kvmalloc_array(coredump->ibs[i].ib_size_dw, 4,
+ 						    GFP_KERNEL);
+ 			if (!ib_content)
+ 				continue;
  
- 	/* Double check that the VM still exists */
- 	xa_lock_irqsave(&adev->vm_manager.pasids, irqflags);
- 	vm = xa_load(&adev->vm_manager.pasids, pasid);
--	if (vm && vm->root.bo != *root)
-+	if (vm && vm->root.bo != root)
- 		vm = NULL;
- 	xa_unlock_irqrestore(&adev->vm_manager.pasids, irqflags);
--	if (!vm)
--		goto error_unlock;
-+	if (!vm) {
-+		drm_exec_unlock_obj(exec, &root->tbo.base);
-+		amdgpu_bo_unref(&root);
-+		return NULL;
-+	}
+-			/* vm=NULL can only happen when 'sizing_pass' is true. Skip to the
+-			 * drm_printf() calls (ib_content doesn't need to be initialized
+-			 * as its content won't be written anywhere).
+-			 */
+-			if (!vm)
++			if (!locked)
+ 				goto output_ib_content;
  
--	return vm;
--error_unlock:
--	amdgpu_bo_unreserve(*root);
-+	/* The drm_exec context holds its own reference on the root BO. */
-+	amdgpu_bo_unref(&root);
+ 			va_start = coredump->ibs[i].gpu_addr & AMDGPU_GMC_HOLE_MASK;
+ 			mapping = amdgpu_vm_bo_lookup_mapping(vm, va_start / AMDGPU_GPU_PAGE_SIZE);
+ 			if (!mapping)
+-				goto free_ib_content;
++				goto output_ib_content;
  
--error_unref:
--	amdgpu_bo_unref(root);
--	return NULL;
-+	return vm;
- }
+-			offset = va_start - (mapping->start * AMDGPU_GPU_PAGE_SIZE);
+-			abo = amdgpu_bo_ref(mapping->bo_va->base.bo);
+-			r = amdgpu_bo_reserve(abo, false);
+-			if (r)
+-				goto free_ib_content;
++			abo = mapping->bo_va->base.bo;
++			offset = va_start - mapping->start * AMDGPU_GPU_PAGE_SIZE;
  
- /**
-@@ -3012,33 +3021,49 @@ bool amdgpu_vm_handle_fault(struct amdgpu_device *adev, u32 pasid,
- 			    uint64_t ts, bool write_fault)
- {
- 	bool is_compute_context = false;
--	struct amdgpu_bo *root;
-+	struct drm_exec exec;
- 	uint64_t value, flags;
- 	struct amdgpu_vm *vm;
- 	int r;
+ 			if (abo->flags & AMDGPU_GEM_CREATE_NO_CPU_ACCESS) {
+ 				off = 0;
  
--	vm = amdgpu_vm_lock_by_pasid(adev, &root, pasid);
--	if (!vm)
-+	drm_exec_init(&exec, 0, 1);
-+	drm_exec_until_all_locked(&exec) {
-+		vm = amdgpu_vm_lock_by_pasid(adev, pasid, &exec);
-+		drm_exec_retry_on_contention(&exec);
-+		if (!vm)
-+			break;
-+	}
-+	if (!vm) {
-+		drm_exec_fini(&exec);
- 		return false;
-+	}
+ 				if (abo->tbo.resource->mem_type != TTM_PL_VRAM)
+-					goto unreserve_abo;
++					goto output_ib_content;
  
- 	is_compute_context = vm->is_compute_context;
+ 				amdgpu_res_first(abo->tbo.resource, offset,
+ 						 coredump->ibs[i].ib_size_dw * 4,
+@@ -391,12 +429,13 @@ amdgpu_devcoredump_format(char *buffer, size_t count, struct amdgpu_coredump_inf
+ 					off += cursor.size;
+ 					amdgpu_res_next(&cursor, cursor.size);
+ 				}
++				emit_content = true;
+ 			} else {
+ 				r = ttm_bo_kmap(&abo->tbo, 0,
+ 						PFN_UP(abo->tbo.base.size),
+ 						&abo->kmap);
+ 				if (r)
+-					goto unreserve_abo;
++					goto output_ib_content;
  
- 	if (is_compute_context) {
--		/* Unreserve root since svm_range_restore_pages might try to reserve it. */
--		/* TODO: rework svm_range_restore_pages so that this isn't necessary. */
--		amdgpu_bo_unreserve(root);
-+		/* Release the root PD lock since svm_range_restore_pages
-+		 * might try to take it.
-+		 * TODO: rework svm_range_restore_pages so that this isn't
-+		 * necessary.
-+		 */
-+		drm_exec_fini(&exec);
+ 				kptr = amdgpu_bo_kptr(abo);
+ 				kptr += offset;
+@@ -404,23 +443,21 @@ amdgpu_devcoredump_format(char *buffer, size_t count, struct amdgpu_coredump_inf
+ 				       coredump->ibs[i].ib_size_dw * 4);
  
- 		if (!svm_range_restore_pages(adev, pasid, vmid,
--					     node_id, addr >> PAGE_SHIFT, ts, write_fault)) {
+ 				amdgpu_bo_kunmap(abo);
++				emit_content = true;
+ 			}
+ 
+ output_ib_content:
+ 			drm_printf(&p, "\nIB #%d 0x%llx %d dw\n",
+ 				   i, coredump->ibs[i].gpu_addr, coredump->ibs[i].ib_size_dw);
+-			for (int j = 0; j < coredump->ibs[i].ib_size_dw; j++)
+-				drm_printf(&p, "0x%08x\n", ib_content[j]);
+-unreserve_abo:
+-			if (vm)
+-				amdgpu_bo_unreserve(abo);
+-free_ib_content:
++			if (emit_content) {
++				for (int j = 0; j < coredump->ibs[i].ib_size_dw; j++)
++					drm_printf(&p, "0x%08x\n", ib_content[j]);
++			}
+ 			kvfree(ib_content);
+ 		}
+-		if (vm) {
+-			amdgpu_bo_unreserve(root);
 -			amdgpu_bo_unref(&root);
-+					     node_id, addr >> PAGE_SHIFT, ts, write_fault))
- 			return true;
 -		}
--		amdgpu_bo_unref(&root);
- 
- 		/* Re-acquire the VM lock, could be that the VM was freed in between. */
--		vm = amdgpu_vm_lock_by_pasid(adev, &root, pasid);
--		if (!vm)
-+		drm_exec_init(&exec, 0, 1);
-+		drm_exec_until_all_locked(&exec) {
-+			vm = amdgpu_vm_lock_by_pasid(adev, pasid, &exec);
-+			drm_exec_retry_on_contention(&exec);
-+			if (!vm)
-+				break;
-+		}
-+		if (!vm) {
++
++		if (locked)
 +			drm_exec_fini(&exec);
- 			return false;
-+		}
  	}
  
- 	addr /= AMDGPU_GPU_PAGE_SIZE;
-@@ -3062,7 +3087,7 @@ bool amdgpu_vm_handle_fault(struct amdgpu_device *adev, u32 pasid,
- 		value = 0;
- 	}
- 
--	r = dma_resv_reserve_fences(root->tbo.base.resv, 1);
-+	r = dma_resv_reserve_fences(vm->root.bo->tbo.base.resv, 1);
- 	if (r) {
- 		pr_debug("failed %d to reserve fence slot\n", r);
- 		goto error_unlock;
-@@ -3076,12 +3101,10 @@ bool amdgpu_vm_handle_fault(struct amdgpu_device *adev, u32 pasid,
- 	r = amdgpu_vm_update_pdes(adev, vm, true);
- 
- error_unlock:
--	amdgpu_bo_unreserve(root);
-+	drm_exec_fini(&exec);
- 	if (r < 0)
- 		dev_err(adev->dev, "Can't handle page fault (%d)\n", r);
- 
--	amdgpu_bo_unref(&root);
--
- 	return false;
- }
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-index d083d7aab75c..0c6e3e0368c7 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-@@ -593,7 +593,7 @@ bool amdgpu_vm_handle_fault(struct amdgpu_device *adev, u32 pasid,
- 			    bool write_fault);
- 
- struct amdgpu_vm *amdgpu_vm_lock_by_pasid(struct amdgpu_device *adev,
--					  struct amdgpu_bo **root, u32 pasid);
-+					  u32 pasid, struct drm_exec *exec);
- 
- void amdgpu_vm_set_task_info(struct amdgpu_vm *vm);
- 
+ 	return count - iter.remain;
 -- 
 2.54.0
 
