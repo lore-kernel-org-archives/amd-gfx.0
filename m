@@ -4,64 +4,95 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 713A5CD5BAC
-	for <amd-gfx@archiver.kernel.org>; Thu, 21 May 2026 13:28:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C6D6CD5BAC
+	for <amd-gfx@archiver.kernel.org>; Thu, 21 May 2026 13:29:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E6D7B10E50A;
-	Thu, 21 May 2026 13:28:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1DB8B10E1A6;
+	Thu, 21 May 2026 13:29:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="kHkJGorh";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="3avmWB/T";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D491010F31B;
- Thu, 21 May 2026 13:28:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=1pt8cC1q/6uiiKUcEF8O51ow/PRF5dt+UW1IXwaqmeI=; b=kHkJGorhA+vU2fWMYTRysB2GW0
- yoAQesc8hnkUV+WgFa0gcQr+nl04M4mnkBWjhsD5q9xVHPvU9i4e/IqWZcKRYjXGkSlcyKXP70anZ
- l5EcNJg2uhbMESmQfEMhTQmKuWmWh0w+MsJ5vn2uHdppoZgtJ//q5KtjlYIkiNDQrVaQzePoQuuKn
- y3SF8XJ2HFzuJVT+Takvl7kLO84h4DcbAoJpWduxD0b9zkPJ4jElp+LHgZA38CdvfLxUUMkN/cjWg
- EpkN2ag7iNi8/bNcoDfSASHxTUJyUckv4aw4n89uRRd0euqCg03Ib4FsJy/vlIARFhfsonEcy1ZcR
- vY7Gc3AA==;
-Received: from [79.117.146.159] (helo=[192.168.1.135])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1wQ3RN-004MeT-2b; Thu, 21 May 2026 15:27:57 +0200
-Message-ID: <86bb4dc7-ba05-418f-8978-4d9e8fd6a3a7@igalia.com>
-Date: Thu, 21 May 2026 15:27:55 +0200
+Received: from DM5PR21CU001.outbound.protection.outlook.com
+ (mail-centralusazon11011064.outbound.protection.outlook.com [52.101.62.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BA68510E1A6
+ for <amd-gfx@lists.freedesktop.org>; Thu, 21 May 2026 13:29:13 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=l3D/AYYzLC8c7OycrBoDnCbbr3jFBWx66fdwI5Ddy4xzMslh1DfedoUrFaK5k5KLW02plQ/CQf9ZCBzDcBpU3+uP9N3F0GM8+mRsB9mVxJm8yX2+Zf2hN9kvn+f5PSBRRRQ+XxfIPF6Oze1gLiZeKz3iYMIEaofXrAIHUg0Db17l2s+8SIgMvUj6h14TdC1H9oqKo3RHzwtDQ/MWXmN6shK7idgv4Lm3pNixwnvx8us/xZ5ZeE0Pe9P35uhPV3eiGf58vBeckkNqOAXbbQBRBDEZP6TanjprUTnW5xOvIO6WHW+rGIDiDtLpIE+R750vDaXX9w5aUQbdnZnCjzRozA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=o9cRqaPP+yFxD8nEO4KqxbibwIAEUPwky7kO2oxhfpU=;
+ b=PmhkKqsx99LNeQPczUsQTVDV76Gqaem8WcSqKp57g2fBAanQ4QZ+bjjzkeVKr4SSj1hAvu/R88h9reKhMOFfihTPhTvbWZ5gdMSp7mgqGMWosXlKmuQfvBFqRcMxkZD+k9KcSUguYZzMpsQaaUONT+1WsTwvXFa+YCaIMYg3dcnr5rJzSyQ6X3zWeSthNY+5QqsQpcuUKF10WcMDro1Ib93f/F7Kp0CiKfUHcCAKn1GsRdGoxZR+O3FzcLlxofDpGyXEEB7gWsrEajVwXRonqD/LB1PkwzJY5Eb7UGQJXwmkV/D1WPXqfSEDBIGbfdUoamjMyu52K+5qdgN+exQvQA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=o9cRqaPP+yFxD8nEO4KqxbibwIAEUPwky7kO2oxhfpU=;
+ b=3avmWB/TFp95oBdfNVAHTWJm3VJ4J63Bo3iTeERSBy0ek4JaAHDjbUP2wDrWO2q1fkF16DEv1Ce+wKgyaQybv5jzvjGtVUUESZN/wo/SPZUxYy1ZUFGk011DQ+uenexYFHTTyklN7SLKUECKy3vexI03bQaA0H2z2MtBXn1160M=
+Received: from BN9PR03CA0134.namprd03.prod.outlook.com (2603:10b6:408:fe::19)
+ by DS7PR12MB6165.namprd12.prod.outlook.com (2603:10b6:8:9a::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.25.24; Thu, 21 May
+ 2026 13:29:08 +0000
+Received: from BN1PEPF00004681.namprd03.prod.outlook.com
+ (2603:10b6:408:fe:cafe::18) by BN9PR03CA0134.outlook.office365.com
+ (2603:10b6:408:fe::19) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.48.17 via Frontend Transport; Thu, 21
+ May 2026 13:29:08 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BN1PEPF00004681.mail.protection.outlook.com (10.167.243.87) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.71.7 via Frontend Transport; Thu, 21 May 2026 13:29:07 +0000
+Received: from fdavid-dev.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Thu, 21 May
+ 2026 08:29:06 -0500
+From: David Francis <David.Francis@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: David Francis <David.Francis@amd.com>
+Subject: [PATCH] drm/amdkfd: Check bounds in allocate_event_notification_slot
+Date: Thu, 21 May 2026 09:28:54 -0400
+Message-ID: <20260521132854.1016622-1-David.Francis@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 4/6] drm/colorop: make lut(1/3)d_interpolation mutable
-To: "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>,
- airlied@gmail.com, alexander.deucher@amd.com, christian.koenig@amd.com,
- harry.wentland@amd.com, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, simona@ffwll.ch, siqueira@igalia.com,
- sunpeng.li@amd.com, tzimmermann@suse.de
-Cc: Alex Hung <alex.hung@amd.com>, Simon Ser <contact@emersion.fr>,
- Uma Shankar <uma.shankar@intel.com>, Xaver Hugl <xaver.hugl@kde.org>,
- Pekka Paalanen <pekka.paalanen@collabora.com>,
- Louis Chauvet <louis.chauvet@bootlin.com>,
- Matthew Schwartz <matthew.schwartz@linux.dev>,
- amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com,
- Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
- <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-References: <20260519211111.228303-1-mwen@igalia.com>
- <20260519211111.228303-5-mwen@igalia.com>
- <ebee1103-c76e-46c3-9a71-84f5e84fd76c@intel.com>
-Content-Language: en-US
-From: Melissa Wen <mwen@igalia.com>
-In-Reply-To: <ebee1103-c76e-46c3-9a71-84f5e84fd76c@intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN1PEPF00004681:EE_|DS7PR12MB6165:EE_
+X-MS-Office365-Filtering-Correlation-Id: 506a7ee9-b565-467e-663c-08deb73cefa9
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|1800799024|36860700016|82310400026|56012099003|18002099003|11063799006;
+X-Microsoft-Antispam-Message-Info: oF+YYIezL0f+/excNSyuQ/sgJ5bRKdGVmVh7ozuEAM3/H9vI3bAEdPKGXtrrqk+QA207449haY08iKYBdTicpSv53+ucvgKU8l0vNcNWDwJvmxKriyc6LOF7XRa2qgS20FKQu1zk5tDOcvGgcA9etvnaQCvjC9cYqzcNjPGc1kGezLSRv9/nwBZPbvcygkrcfIldg2qFe0BosNu1bmdhGvHMIitG1l4y+ZHzPtitBGGNWmNMnXJqVgmJ03iZsgtz6TTW7rn86YbYkSayq6GRJJu+nSSpOZbXg99q/gaOGtwQG0krbDqzLfFF+qr0aFSgZhQ8mw371GkCVWCJ+GONJAFMS8ISX9OwuAMRV+SZyL0d/l8bMuIYPUtspDb/mTts4fJVIW/XMSPQAv0y4IDNveSnQMW+LSuYlj8pOtrK/mLw7xKn3hXampJmnp5ToyCMNXscpdxmxEoC6stvGDWIS+49riOUWqBOEWpteA3yCxjTkAZaledUEUE4r/gfR2d0V3fCy4JQmFZcwHZE/S5iLyyCDAchSnJ4jtMuirF/+PQcu+viH3ip2/bwhEJfQjNquPEwRdzo1blfVl0r2Zp/DhX/1Zaw6+DxLRA+1vmqM7Bwyt1kLPrhsChto8AC8ABvamG9mWVBjmahhng7nMAUjHe5QxBEcX/1K9vUrNrV9H47vpLyCSRJ/dcRJGj5Jg73O7Iwrtj+DHLcc6lw5l+OpRYhJAao9KqY9TeP/3UgrZE=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(36860700016)(82310400026)(56012099003)(18002099003)(11063799006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: 240sXkF0MLV7f6qJq7K3bXADLh2JTmLZY7zWSyc50DqgriRoJ6aqXkOj6gEO8CJN/4ZaTpiZ95jsN7A7/YyEEC3vIIZlKI460aocIt08uSkKwzXSfSeQiOg0pB4gtheVZ6o/O9jdlela9g/RSOfniUL3epw8Srpj75z5BS3UjPTX17JLXJQ4bRLdXGqlZ22UweeXxUZHug/5Nd4hl9n0K42PhIEZFRs5+EJjoOI43tyqXF0Wn5B0IFp3Ki6VmcBiEiUtg5xCmUOfHS7Z3y+vj+FaVu4yPK2Qhi+p9a79vfxpI/u3mVqdnU28+5WRZFixDOH4Kf4hEVXGd0Rm8lNI9Z/vmuwGVK/UJJdJefhZRqRsnzqvElu4AeEAvxoX/6e1SRLaDd55srMMwVgO0uIyLeg8pq77HLHg7dMXlepS142AzYTG4fxVegRnstjtSaG3
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 May 2026 13:29:07.9538 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 506a7ee9-b565-467e-663c-08deb73cefa9
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN1PEPF00004681.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6165
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,190 +107,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+The valid event ids go from 0 to signal_mapped_size / 8
+(usually 256).
 
+allocate_event_notification_slot has an option to specify
+an event id to allocate at, used by CRIU. We weren't checking
+the bounds on that value.
 
-On 21/05/2026 13:17, Borah, Chaitanya Kumar wrote:
->
->
-> On 5/20/2026 2:39 AM, Melissa Wen wrote:
->> As it's not immutable anymore, any changes should be handled by
->> drm_colorop_state. Move their enum and make it correctly behaves as
->> mutable.
->>
->> Reviewed-by: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
->> Signed-off-by: Melissa Wen <mwen@igalia.com>
->>
->> ---
->>
->> v6:
->> - check drm_object_property_get_default_value() before set interp props
->> ---
->>   drivers/gpu/drm/drm_atomic.c      |  4 ++--
->>   drivers/gpu/drm/drm_atomic_uapi.c |  8 ++++----
->>   drivers/gpu/drm/drm_colorop.c     | 16 ++++++++++++++--
->>   include/drm/drm_colorop.h         | 28 ++++++++++++++--------------
->>   4 files changed, 34 insertions(+), 22 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
->> index 659cf56150e5..b26212e719b2 100644
->> --- a/drivers/gpu/drm/drm_atomic.c
->> +++ b/drivers/gpu/drm/drm_atomic.c
->> @@ -857,7 +857,7 @@ static void drm_atomic_colorop_print_state(struct 
->> drm_printer *p,
->>       case DRM_COLOROP_1D_LUT:
->>           drm_printf_indent(p, 1, "size=%d\n", colorop->size);
->>           drm_printf_indent(p, 1, "interpolation=%s\n",
->> - 
->> drm_get_colorop_lut1d_interpolation_name(colorop->lut1d_interpolation));
->> + drm_get_colorop_lut1d_interpolation_name(state->lut1d_interpolation));
->>           drm_printf_indent(p, 1, "data blob id=%d\n", state->data ? 
->> state->data->base.id : 0);
->>           break;
->>       case DRM_COLOROP_CTM_3X4:
->> @@ -869,7 +869,7 @@ static void drm_atomic_colorop_print_state(struct 
->> drm_printer *p,
->>       case DRM_COLOROP_3D_LUT:
->>           drm_printf_indent(p, 1, "size=%d\n", colorop->size);
->>           drm_printf_indent(p, 1, "interpolation=%s\n",
->> - 
->> drm_get_colorop_lut3d_interpolation_name(colorop->lut3d_interpolation));
->> + drm_get_colorop_lut3d_interpolation_name(state->lut3d_interpolation));
->>           drm_printf_indent(p, 1, "data blob id=%d\n", state->data ? 
->> state->data->base.id : 0);
->>           break;
->>       default:
->> diff --git a/drivers/gpu/drm/drm_atomic_uapi.c 
->> b/drivers/gpu/drm/drm_atomic_uapi.c
->> index 6441b55cc274..78423905051e 100644
->> --- a/drivers/gpu/drm/drm_atomic_uapi.c
->> +++ b/drivers/gpu/drm/drm_atomic_uapi.c
->> @@ -751,13 +751,13 @@ static int 
->> drm_atomic_colorop_set_property(struct drm_colorop *colorop,
->>       if (property == colorop->bypass_property) {
->>           state->bypass = val;
->>       } else if (property == colorop->lut1d_interpolation_property) {
->> -        colorop->lut1d_interpolation = val;
->> +        state->lut1d_interpolation = val;
->>       } else if (property == colorop->curve_1d_type_property) {
->>           state->curve_1d_type = val;
->>       } else if (property == colorop->multiplier_property) {
->>           state->multiplier = val;
->>       } else if (property == colorop->lut3d_interpolation_property) {
->> -        colorop->lut3d_interpolation = val;
->> +        state->lut3d_interpolation = val;
->>       } else if (property == colorop->data_property) {
->>           return drm_atomic_color_set_data_property(colorop, state,
->>                                 property, val);
->> @@ -782,7 +782,7 @@ drm_atomic_colorop_get_property(struct 
->> drm_colorop *colorop,
->>       else if (property == colorop->bypass_property)
->>           *val = state->bypass;
->>       else if (property == colorop->lut1d_interpolation_property)
->> -        *val = colorop->lut1d_interpolation;
->> +        *val = state->lut1d_interpolation;
->>       else if (property == colorop->curve_1d_type_property)
->>           *val = state->curve_1d_type;
->>       else if (property == colorop->multiplier_property)
->> @@ -790,7 +790,7 @@ drm_atomic_colorop_get_property(struct 
->> drm_colorop *colorop,
->>       else if (property == colorop->size_property)
->>           *val = colorop->size;
->>       else if (property == colorop->lut3d_interpolation_property)
->> -        *val = colorop->lut3d_interpolation;
->> +        *val = state->lut3d_interpolation;
->>       else if (property == colorop->data_property)
->>           *val = (state->data) ? state->data->base.id : 0;
->>       else
->> diff --git a/drivers/gpu/drm/drm_colorop.c 
->> b/drivers/gpu/drm/drm_colorop.c
->> index 764d12060666..b0a9a8094dfe 100644
->> --- a/drivers/gpu/drm/drm_colorop.c
->> +++ b/drivers/gpu/drm/drm_colorop.c
->> @@ -342,7 +342,6 @@ int drm_plane_colorop_curve_1d_lut_init(struct 
->> drm_device *dev, struct drm_color
->>         colorop->lut1d_interpolation_property = prop;
->>       drm_object_attach_property(&colorop->base, prop, interpolation);
->> -    colorop->lut1d_interpolation = interpolation;
->>         /* data */
->>       ret = drm_colorop_create_data_prop(dev, colorop);
->> @@ -442,7 +441,6 @@ int drm_plane_colorop_3dlut_init(struct 
->> drm_device *dev, struct drm_colorop *col
->>         colorop->lut3d_interpolation_property = prop;
->>       drm_object_attach_property(&colorop->base, prop, interpolation);
->> -    colorop->lut3d_interpolation = interpolation;
->>         /* data */
->>       ret = drm_colorop_create_data_prop(dev, colorop);
->> @@ -521,6 +519,20 @@ static void __drm_colorop_state_reset(struct 
->> drm_colorop_state *colorop_state,
->>                                  &val))
->>               colorop_state->curve_1d_type = val;
->>       }
->> +
->> +    if (colorop->lut1d_interpolation_property) {
->> + if(!drm_object_property_get_default_value(&colorop->base,
->> + colorop->lut1d_interpolation_property,
->> +                              &val));
->> +            colorop_state->lut1d_interpolation = val;
->> +    }
->> +
->> +    if (colorop->lut3d_interpolation_property) {
->> + if(!drm_object_property_get_default_value(&colorop->base,
->> + colorop->lut3d_interpolation_property,
->> +                              &val);
->> +            colorop_state->lut3d_interpolation = val;
->> +    }
->
-> I see you fixed the ; in the next patch, better to fix it within this 
-> patch. Also needs space between if and (.
+Check them.
 
-Ouch, thanks for pointing it out.
+Signed-off-by: David Francis <David.Francis@amd.com>
+---
+ drivers/gpu/drm/amd/amdkfd/kfd_events.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
->
->>   }
->>     /**
->> diff --git a/include/drm/drm_colorop.h b/include/drm/drm_colorop.h
->> index 53a2148082d5..d08a6a8a8392 100644
->> --- a/include/drm/drm_colorop.h
->> +++ b/include/drm/drm_colorop.h
->> @@ -183,6 +183,20 @@ struct drm_colorop_state {
->>        */
->>       struct drm_property_blob *data;
->>   +    /**
->> +     * @lut1d_interpolation:
->> +     *
->> +     * Interpolation for DRM_COLOROP_1D_LUT
->> +     */
->> +    enum drm_colorop_lut1d_interpolation_type lut1d_interpolation;
->> +
->> +    /**
->> +     * @lut3d_interpolation:
->> +     *
->> +     * Interpolation for DRM_COLOROP_3D_LUT
->> +     */
->> +    enum drm_colorop_lut3d_interpolation_type lut3d_interpolation;
->> +
->>       /** @state: backpointer to global drm_atomic_commit */
->>       struct drm_atomic_commit *state;
->>   };
->> @@ -306,20 +320,6 @@ struct drm_colorop {
->>        */
->>       uint32_t size;
->>   -    /**
->> -     * @lut1d_interpolation:
->> -     *
->> -     * Interpolation for DRM_COLOROP_1D_LUT
->> -     */
->> -    enum drm_colorop_lut1d_interpolation_type lut1d_interpolation;
->> -
->> -    /**
->> -     * @lut3d_interpolation:
->> -     *
->> -     * Interpolation for DRM_COLOROP_3D_LUT
->> -     */
->> -    enum drm_colorop_lut3d_interpolation_type lut3d_interpolation;
->> -
->>       /**
->>        * @lut1d_interpolation_property:
->>        *
->
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_events.c b/drivers/gpu/drm/amd/amdkfd/kfd_events.c
+index e9be798c0a2b..5a4fe68a7986 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_events.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_events.c
+@@ -107,6 +107,9 @@ static int allocate_event_notification_slot(struct kfd_process *p,
+ 	}
+ 
+ 	if (restore_id) {
++		if (*restore_id < 0 || *restore_id >= p->signal_mapped_size / 8)
++			return -EINVAL;
++
+ 		id = idr_alloc(&p->event_idr, ev, *restore_id, *restore_id + 1,
+ 				GFP_KERNEL);
+ 	} else {
+-- 
+2.34.1
 
