@@ -4,79 +4,142 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2FFDDCD5BD5
-	for <amd-gfx@archiver.kernel.org>; Tue, 26 May 2026 07:53:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3FB51CD5BDD
+	for <amd-gfx@archiver.kernel.org>; Tue, 26 May 2026 07:53:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7BBDE10E558;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D754710E55C;
 	Tue, 26 May 2026 07:53:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="kquULobU";
+	dkim=pass (2048-bit key; secure) header.d=web.de header.i=spasswolf@web.de header.b="g2m2dhZh";
 	dkim-atps=neutral
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
- [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CEB3610F59F;
- Fri, 22 May 2026 12:32:47 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1779453158; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=DRxf6qXHl/ME4nKYyJqEiQ1puxx+BUrTL95HeHWOqMh0GurCMyYmxmU+MFi348etu8d97kMH6GrTFL0ElalHTD9IVf9AK5EbN1PP4aPAlqgmRmDg42G7bn8ZGvzAau6NounR0RgOVv+RwALYPOGoXhSqRagdGwPBC325RNX1x0g=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1779453158;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=uMEEZn+x23X3/iGLCH74HTpR0e0r7hhMuh0rntSsrbY=; 
- b=Zl+oxgs4L5SyfPaYR3Wrji2oG/hAe9x2x+p53VeHYlOei44IPU02cPCXcI6FmSOG+NkiXQw86qKw7a4/LWq3uX43+Sq3lzuclbig+aUaSOO6Fh7TPZYHiK6+eIgQdf0QQTUNjgSksNNVSpO8FrnMr9UQyQkwlBbPa/hFgsfnotY=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
- dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1779453158; 
- s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
- h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:References:In-Reply-To:To:To:Cc:Cc:Reply-To;
- bh=uMEEZn+x23X3/iGLCH74HTpR0e0r7hhMuh0rntSsrbY=;
- b=kquULobUxq239Flf5gXvPo/a6NUKQKrpaX329LEg1IQsU3Lw7tWWi+I/8ik1jS4A
- ZeZTxZfaM+e41TzetIYop6pM7QUlY0C96ydpKdOrrQkls7nitQRdP3KEZGPO78/+vzu
- 8S+P97OwdXKAfQ1OtJUHFz6+O2cjLrX/kjRPD/1U=
-Received: by mx.zohomail.com with SMTPS id 1779453157599856.9324824226866;
- Fri, 22 May 2026 05:32:37 -0700 (PDT)
-From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Date: Fri, 22 May 2026 14:31:52 +0200
-Subject: [PATCH v15 01/28] drm/amd/display: Remove unnecessary
- SIGNAL_TYPE_HDMI_TYPE_A check
+Received: from mout.web.de (mout.web.de [212.227.15.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7319510E4B4
+ for <amd-gfx@lists.freedesktop.org>; Thu, 21 May 2026 11:51:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
+ s=s29768273; t=1779364249; x=1779969049; i=spasswolf@web.de;
+ bh=46wu/BQ1dJ9x/IfhbitVCxS5L/x16bf2eQWkaOr3syc=;
+ h=X-UI-Sender-Class:Message-ID:Subject:From:To:Cc:Date:In-Reply-To:
+ References:Content-Type:MIME-Version:Content-Transfer-Encoding:cc:
+ content-transfer-encoding:content-type:date:from:message-id:
+ mime-version:reply-to:subject:to;
+ b=g2m2dhZhsvU9BmiHakEjJvwj2z4Zw6EDPrvgnQuWrHUSCV971ozHZqiQv9OyGAC6
+ 03bsUDMnIxR+pDuX9zVUjH8kKB57hD/1RE6ApiD/IXAwsqsh8/6uFcNC4UvtV6Rn+
+ U5N4gSwmnyJe8VYBfrMB0CKAaLvJLgBcB41jMqQiN4UACwT1oIZbjv4OO6AX/HeJj
+ VtsDWZmAOFqrwrXZ3hQNCc5tpBZT2AGNAxBY2dHAigPJHZw0gLxpbi5FwYxKRthDO
+ js3P7ohIwVFLNcb6Bn+8yiy0jtTSag6iu9AvDriKkl0M6AbQp1SQNQCvgMH6YfXN0
+ Kfa9iBtimQJBsROAqA==
+X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
+Received: from client.hidden.invalid by smtp.web.de (mrweb006
+ [213.165.67.108]) with ESMTPSA (Nemesis) id 1MhFlm-1x2vNL1V8k-00j33x; Thu, 21
+ May 2026 13:50:49 +0200
+Message-ID: <70676dae700e6a40989315bf31ea269a509ddc0f.camel@web.de>
+Subject: Re: context switch within RCU read-side critical section in
+ next-20260518+ with PREEMPT_RT
+From: Bert Karwatzki <spasswolf@web.de>
+To: Mateusz Guzik <mjguzik@gmail.com>
+Cc: Thomas Gleixner <tglx@linutronix.de>, spasswolf@web.de, Christian
+ Brauner	 <brauner@kernel.org>, spasswolf@web.de,
+ linux-kernel@vger.kernel.org, 	linux-next@vger.kernel.org,
+ linux-rt-devel@lists.linux.dev, 	linux-fsdevel@vger.kernel.org,
+ adobriyan@gmail.com, jack@suse.cz, 	viro@zeniv.linux.org.uk, Sebastian
+ Andrzej Siewior <bigeasy@linutronix.de>,  Alex Deucher
+ <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
+Date: Thu, 21 May 2026 13:50:48 +0200
+In-Reply-To: <CAGudoHGk1CP3gRQLCV85AFHKx6vBEyKySOn4J+AZVAP2FkrN3g@mail.gmail.com>
+References: <20260520225245.2962-1-spasswolf@web.de>
+ <fnrz73n5jojl2wlbgrsjdtu5zuwykwbcjzznaijbquuovpoand@i6ihdqn7a6zv>
+ <s7cu3dpioidx6mepmai6eyj2pxjs4skbw7v534zbzs6g2fwcis@cvokidcxy3xa>
+ <4f548d61b2dd12e01f401ce4b8c865f238f7b23c.camel@web.de>
+ <878q9dvzh0.ffs@tglx>
+ <50e5e76bc13256e3f5b3301e92f159957c3d6762.camel@web.de>
+ <CAGudoHGk1CP3gRQLCV85AFHKx6vBEyKySOn4J+AZVAP2FkrN3g@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+User-Agent: Evolution 3.56.2-0+deb13u1 
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260522-color-format-v15-1-21fb136c9df2@collabora.com>
-References: <20260522-color-format-v15-0-21fb136c9df2@collabora.com>
-In-Reply-To: <20260522-color-format-v15-0-21fb136c9df2@collabora.com>
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
- Rodrigo Siqueira <siqueira@igalia.com>, 
- Alex Deucher <alexander.deucher@amd.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Sandy Huang <hjc@rock-chips.com>, 
- =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
- Andy Yan <andy.yan@rock-chips.com>, 
- Jani Nikula <jani.nikula@linux.intel.com>, 
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
- Tvrtko Ursulin <tursulin@ursulin.net>, Dmitry Baryshkov <lumag@kernel.org>, 
- Sascha Hauer <s.hauer@pengutronix.de>, Rob Herring <robh@kernel.org>, 
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
- Daniel Stone <daniel@fooishbar.org>
-Cc: kernel@collabora.com, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
- linux-doc@vger.kernel.org, wayland-devel@lists.freedesktop.org, 
- Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, 
- Werner Sembach <wse@tuxedocomputers.com>, 
- Andri Yngvason <andri@yngvason.is>
-X-Mailer: b4 0.15.2
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:b0YjzjBbpycIh+Vx4jEqQGJJi9mz4mrX9EVOFfLmdi44KkCTDCa
+ Z7R59O5GVSigRauHi6BxJ/Qp8LQkfUE+W2cAjTwrSk6gPv0Wqic6NC0jQZvrPRekbYblJ76
+ I16JEwdEMiyoVCiowLVTYeeLqv/GH+5+Q7hT1ZussCLnpaHP+9e7hocFxBszeOWLPZg8qHI
+ SBQDhxkKTPiWZfiWVKonQ==
+UI-OutboundReport: notjunk:1;M01:P0:BR+z4UO6B9g=;V4J3w27dCNHtvm6ooveJF+qh/wg
+ 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
+ YMjb3A==
 X-Mailman-Approved-At: Tue, 26 May 2026 07:53:08 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -92,49 +155,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Werner Sembach <wse@tuxedocomputers.com>
 
-Remove unnecessary SIGNAL_TYPE_HDMI_TYPE_A check that was performed in the
-drm_mode_is_420_only() case, but not in the drm_mode_is_420_also() &&
-force_yuv420_output case.
+>=20
+> Can you please do the following:
+> 1. go back to the known crashing-tag, add my fix, verify you still get
+> the amd splat and then try out the fix provided by Thomas
+> 2. regardless if the above helps, can you boot a kernel built with
+> CONFIG_KASAN=3Dy
+>=20
+> fwiw I verified my patch works fine with KASAN, including by
+> intentionally miscalculating the size of the target buffer and seeing
+> a nice splat from it so I'm confident I'm not corrupting anything.
+> However, as there are new mallocs + free flying around at early boot,
+> it is *plausible* amd was getting zeroed memory without asking for it
+> and it worked by accident.
 
-Without further knowledge if YCbCr 4:2:0 is supported outside of HDMI,
-there is no reason to use RGB when the display
-reports drm_mode_is_420_only() even on a non HDMI connection.
+I think the warnning from amdgpu is only displayed with CONFIG_LOCKDEP=3Dy=
+, so
+your "improved fix" does not silence the warning from amdgpu.=20
 
-This patch also moves both checks in the same if-case. This  eliminates an
-extra else-if-case.
+The additional fix from Thomas fixes the amdgpu warning.
 
-Signed-off-by: Werner Sembach <wse@tuxedocomputers.com>
-Signed-off-by: Andri Yngvason <andri@yngvason.is>
-Tested-by: Andri Yngvason <andri@yngvason.is>
-Reviewed-by: Daniel Stone <daniel@fooishbar.org>
-Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
----
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 9 +++------
- 1 file changed, 3 insertions(+), 6 deletions(-)
+I also built the kernel with CONFIG_KASAN and get no error messages.
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index ba7f98a87808..dfe97897127c 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -6917,12 +6917,9 @@ static void fill_stream_properties_from_drm_display_mode(
- 	timing_out->v_border_top = 0;
- 	timing_out->v_border_bottom = 0;
- 	/* TODO: un-hardcode */
--	if (drm_mode_is_420_only(info, mode_in)
--			&& stream->signal == SIGNAL_TYPE_HDMI_TYPE_A)
--		timing_out->pixel_encoding = PIXEL_ENCODING_YCBCR420;
--	else if (drm_mode_is_420_also(info, mode_in)
--			&& aconnector
--			&& aconnector->force_yuv420_output)
-+	if (drm_mode_is_420_only(info, mode_in) ||
-+	    (aconnector && aconnector->force_yuv420_output &&
-+	     drm_mode_is_420_also(info, mode_in)))
- 		timing_out->pixel_encoding = PIXEL_ENCODING_YCBCR420;
- 	else if ((connector->display_info.color_formats & BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR422))
- 			&& aconnector
-
--- 
-2.54.0
-
+Bert Karwatzki
