@@ -4,82 +4,171 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BDB4BCD5BA4
-	for <amd-gfx@archiver.kernel.org>; Thu, 21 May 2026 10:43:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A89ADCD4F5E
+	for <amd-gfx@archiver.kernel.org>; Thu, 21 May 2026 11:00:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 49AA910F2F1;
-	Thu, 21 May 2026 10:43:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 25C8810F2F8;
+	Thu, 21 May 2026 11:00:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="beer0ebB";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ciLZjTG4";
 	dkim-atps=neutral
-Received: from mail-lf1-f48.google.com (mail-lf1-f48.google.com
- [209.85.167.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9F8AC10F2DC
- for <amd-gfx@lists.freedesktop.org>; Thu, 21 May 2026 10:43:47 +0000 (UTC)
-Received: by mail-lf1-f48.google.com with SMTP id
- 2adb3069b0e04-5a88de2b52eso8009580e87.2
- for <amd-gfx@lists.freedesktop.org>; Thu, 21 May 2026 03:43:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1779360226; x=1779965026; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=V2MVfvQBPeY6Pwia0clIRhZPiWkl2nWuf72y0t9gH4Q=;
- b=beer0ebBTsh18cCGqZ+LFI4XOeOxcJRwGeDboF8Kbz9T4wEnyB8miweue6duQOD7uk
- gBR//EdSwbCH4WQug0D8FyJu5GjExwK2f1GJEaxf8osfyRRiM4yyFxEM9gzxos7GFbUW
- yZdpwyaVsSOwmDA+DfFj8aKoRiAtCFmNGkJ/MDWOJBCnAY4DIGfJxxEhGL/Jk0ClxQFu
- 3qc7QrWOSDJHHj1ZC90JcARx5sJeM2+P58w1MCO38kXIeD/VsX3K/zFeHEiioDps5J7/
- ChDVahFiRgCuXIb/lhF/L0/mukjO8RN0j+IFHIl9RbNLZ5kj1yXzaLwUxn/sOSlgkqGx
- eMaw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779360226; x=1779965026;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=V2MVfvQBPeY6Pwia0clIRhZPiWkl2nWuf72y0t9gH4Q=;
- b=bZxwRLZLPSJcYSrR16LSRsuuQqQFzoUyTgHWygpqpLaXOCJpBCQhr0AvIauDxZzMnG
- Gwjm9vjkDFv+FGwVeTvdzCt8OLT7ajFwtXY2irknPL9F9aa4O1klGzAkgk5YEAxNBx3L
- dnXF0OZ+ouRXxZqR4V7vFxvopvF8U6mQURN2VtmvkjmDZnFOHslv9PlsalA3mM9B30gZ
- DXJsLGFDAYutGqCmbVzgTTbT0LViav1LZ5BswGYdv+GNCorVfMoYvYf22eXoZrhg0aDV
- fEJb3OSKnEMgDPaJEicucZpNE8y8D39Rz6OJ327KZoVtlXpkWfZ2isP4HMu9wPMbXmfN
- mCXA==
-X-Gm-Message-State: AOJu0Yz1TJ/CLTcK2fw3LRSa2+7hZngaZRum/9a8RswQ83spxUcxjQCS
- ucknZSSXALuTBeYKIEUbB3tD/JahjHbc8zIXJABDc13mmp27N60bUdvD27xTvDJB9C/CHE+M
-X-Gm-Gg: Acq92OEfIqMggVoQ0MPo75tEwYvq20cp+orDhRd7qI1PXAuWris2M2GpdtFD7kCEU6T
- TxsMpM55rA0m/F/DsT0mEMh9nRJCbIj58BKxZOyVwlPZsxQNybttpQlznFDzHXG4KSiHHeLKFKz
- V+ltlRUxGLpV8CZ7mdrsUWY7Kb+ZJfRSipKvhCTpDv1qnEqBkfqd2P3wCV0MEVtfwwGdgf/OXqJ
- Cq6iHqkKfas8IJRkhBR+Ns33pKJ5/+SddcATKHvmHeOwXNvRpPuVt/0MKPzp8Fo7WMg584xAYIQ
- VUEL0ftV4JcFwGCNllqO+R9rBZhW60nwuCLK8MuQUmzXAw6C/PwTwl7d9sPIqHYsWm3oj0MN71n
- zJex1GwVHBuqe91Sq8YAskQSA4FJkP31kufrbgQE4oHjCLtuNMcx21EObqk0aMK0to5xHELUV1H
- J1Q6QzSrY9DNs/Iv5dNdqRFEGFN/2Ija/pusRWVNAiya50
-X-Received: by 2002:ac2:46ea:0:b0:5a8:89ad:e172 with SMTP id
- 2adb3069b0e04-5aa2ba9afecmr629800e87.37.1779360225752; 
- Thu, 21 May 2026 03:43:45 -0700 (PDT)
-Received: from localhost ([188.234.148.119]) by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-395d0b49073sm1595611fa.31.2026.05.21.03.43.44
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 21 May 2026 03:43:45 -0700 (PDT)
-From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
-To: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
- Sumit Semwal <sumit.semwal@linaro.org>, linux-media@vger.kernel.org,
- linaro-mm-sig@lists.linaro.org,
- Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
-Subject: [PATCH v4 2/2] drm/amdgpu: fix recursive ww_mutex acquire in
- amdgpu_devcoredump_format
-Date: Thu, 21 May 2026 15:43:33 +0500
-Message-ID: <20260521104335.28978-3-mikhail.v.gavrilov@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260521104335.28978-1-mikhail.v.gavrilov@gmail.com>
-References: <20260520151741.50575-1-mikhail.v.gavrilov@gmail.com>
- <20260521104335.28978-1-mikhail.v.gavrilov@gmail.com>
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8A9C010E37C;
+ Thu, 21 May 2026 11:00:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1779361243; x=1810897243;
+ h=message-id:date:subject:to:cc:references:from:
+ in-reply-to:content-transfer-encoding:mime-version;
+ bh=cTm7mYY29LnI8Xz7uhyFwyYtmSzW7AKyRnkKZBdtylk=;
+ b=ciLZjTG47evOoMQ4TXHRArl+EqONx8Zcge0goPu3G0o3RwvlcgmfF6i9
+ iuSIzKD3mzlm4qvAytskpbZChdkrCfNCN3O+sfaamxRYZjy9CQmnueUPg
+ o55VtzB906X/Tor18wQ6+7+TkRwa9n9eEa8XdoBj47H5vTPp/NFu4djfS
+ /RgfY1QXj9KjSix30BkjXH6o9Ts67O7lUiKUiFOsJU1kYwf0WuNq/Ecil
+ oqo3otYROC2Ea5ehEZY97CR29lIa83w8IQmFbKtIKTWcjMXoOPSWCcoeF
+ CYVIio5SV1l4rcxlsYRpFnkIk0H20Neg9oDxiudwZUUBwTEgT5XOQ4hFp g==;
+X-CSE-ConnectionGUID: OmJUdttvSKCWeGZLiYVxrw==
+X-CSE-MsgGUID: QuoXsdVOSmuKALuGlIxnaQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11792"; a="83894859"
+X-IronPort-AV: E=Sophos;i="6.23,246,1770624000"; d="scan'208";a="83894859"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+ by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 May 2026 04:00:42 -0700
+X-CSE-ConnectionGUID: XJbZ6/W7R8q4CjaLrfXUmw==
+X-CSE-MsgGUID: s9OxaWjEToqwdIyMXOerJQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,246,1770624000"; d="scan'208";a="264303414"
+Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
+ by fmviesa001.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 May 2026 04:00:41 -0700
+Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
+ fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37; Thu, 21 May 2026 04:00:41 -0700
+Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
+ FMSMSX901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37 via Frontend Transport; Thu, 21 May 2026 04:00:41 -0700
+Received: from CH5PR02CU005.outbound.protection.outlook.com (40.107.200.7) by
+ edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37; Thu, 21 May 2026 04:00:41 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=mcOmiGaDTK5V/1O2bz2d+ONo+yTqF/1LLeUhIhoLmu8n/lI4nueqURIKiuty1l8b/R7yKV8dZ+hLocPL78EsztYoDez9XswISq4QH8B311mUSop7ESr3sd69Diod0gI9QOqhg9h3dIxVD1a2CA4DHmiLp/EiyVzhbTVHD02gSJOa3lt7owHfZdxS97QvJ47+s7hXA4ZDKtIZhtAHLhJq6Y/ylzOCAgLIt1KKoIhsYGnbTLozdslEzde3LLceEZKMUd9Uk7qjagUis9QpxWMEvkdxbgmsvTD58c1CIcG+6BEw7OxDPO0yJGkrm3LF+n4Z988+9w1T0gg0uue9DBodpQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=7W3gdQDx++oywrwS9YQYM09yvz0Aye4z928LonlJcl8=;
+ b=iJOPK+IDOHiTvY9YOTYVky1FgHkIsjtTescPeXtZCG9JnP+AedUuv11vnXG7fQ4IQf4DmfBLHkUXRO6RO8BKj2ejLwd0ersl40pZaixSdIns0Ru3hNtXDiWPb32o1MRqrzgOpIrqXJeFisw/aT5Z9L4VqLTSkqq+KIENe3zThQ2ceU0pZMHmmR3E44hMTgyuiGERvVwPKFoyJYFinAWDpCoNy6va+p6tvAuOwQVJe/HVPH2Qnz0NuyaxQubVv7pUSCB052cWZixqloF/w9bcWdoKZWnWTpE8qRCop5g5FLSBKYSffATNB50iJ56Mg7HcLixmvC9KYQZPVIuJmHdE8A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from SJ1PR11MB6129.namprd11.prod.outlook.com (2603:10b6:a03:488::12)
+ by DM4PR11MB6214.namprd11.prod.outlook.com (2603:10b6:8:ac::7) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.48.17; Thu, 21 May 2026 11:00:34 +0000
+Received: from SJ1PR11MB6129.namprd11.prod.outlook.com
+ ([fe80::45f:5907:efdb:cb5b]) by SJ1PR11MB6129.namprd11.prod.outlook.com
+ ([fe80::45f:5907:efdb:cb5b%3]) with mapi id 15.21.0048.013; Thu, 21 May 2026
+ 11:00:31 +0000
+Message-ID: <5caac879-5063-4999-941f-d062da040879@intel.com>
+Date: Thu, 21 May 2026 16:30:19 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 2/6] drm/atomic: reject colorop update from inactive
+ color pipeline
+To: Melissa Wen <mwen@igalia.com>, <airlied@gmail.com>,
+ <alexander.deucher@amd.com>, <christian.koenig@amd.com>,
+ <harry.wentland@amd.com>, <maarten.lankhorst@linux.intel.com>,
+ <mripard@kernel.org>, <simona@ffwll.ch>, <siqueira@igalia.com>,
+ <sunpeng.li@amd.com>, <tzimmermann@suse.de>
+CC: Alex Hung <alex.hung@amd.com>, Simon Ser <contact@emersion.fr>, "Uma
+ Shankar" <uma.shankar@intel.com>, Xaver Hugl <xaver.hugl@kde.org>, "Pekka
+ Paalanen" <pekka.paalanen@collabora.com>, Louis Chauvet
+ <louis.chauvet@bootlin.com>, Matthew Schwartz <matthew.schwartz@linux.dev>,
+ <amd-gfx@lists.freedesktop.org>, <kernel-dev@igalia.com>, Rob Clark
+ <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>, "Abhinav
+ Kumar" <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>,
+ "Sean Paul" <sean@poorly.run>, Marijn Suijten
+ <marijn.suijten@somainline.org>, <linux-arm-msm@vger.kernel.org>,
+ <freedreno@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>
+References: <20260519211111.228303-1-mwen@igalia.com>
+ <20260519211111.228303-3-mwen@igalia.com>
+Content-Language: en-GB
+From: "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>
+In-Reply-To: <20260519211111.228303-3-mwen@igalia.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MA5P287CA0106.INDP287.PROD.OUTLOOK.COM
+ (2603:1096:a01:1b5::17) To SJ1PR11MB6129.namprd11.prod.outlook.com
+ (2603:10b6:a03:488::12)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PR11MB6129:EE_|DM4PR11MB6214:EE_
+X-MS-Office365-Filtering-Correlation-Id: d053b4b9-0d11-4f06-cc17-08deb7282d18
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|366016|376014|7416014|22082099003|18002099003|56012099003|7136999003|921020|4143699003|11063799006;
+X-Microsoft-Antispam-Message-Info: NNFDkPIWxy/fWXMzALzE/iiHMXfdTSMk/kJo+y3v0uyCoU/YuYO2mjoJV3mVbMGt56Rp/p9n0HOUIDqzwNuv561r2DedyQ2ll6pKtgBJAl63lJLW3h/8c8WakhOC5HwcuCxNPISSmfUVcl/4HCmJlhSEsL4767cFvKI1hsC2+pH20hu6X9STmRri3DWbbDvLfEycZb6E9joewDyvdSei/d7xUZYT59HXZeADdQOAdZM7vzyB9MGGa3G47BoYOv6XLKBV4fJHUxXjDw/X5JdmkLjYnhj9I4ao4r/Nz0ViX0JAtCnycUNzkZcaUrnHgdU3lQP7pLa4x8o0GsQ8zQO1IODSsdviQ62/fRH+YqoLql6d4RSE+MEkvP3+9W7udAQIAfyueCe2NkiJBYf1uawvztmo5EIFTALZ6soQKwDjmZXYaMS9EzP3cVHOwjUQjxaWVGPgL/Yce6cxA6QUyj9wLh9T57YOVjIaGXi7fspCVkHiKuQ9gfuVTeseD7R+HJyCHCaqSOQpjjKKs455nnYCNzqoxvz6aSwKwdgIGjkic/0+TvQFQSrVCb1PDYUAsCk1SMa2/8iCD2vIJb5yxBUF/6oaadG0EFwoHIus9jR5tLrSCMESxguyIBCbfD3hDEyOCMY/U2Pbx8UkcLaaspEnOIJlb+0iF1HaBOAmO7eHVpInUO35jxEVl+lGlZoSzMQa
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SJ1PR11MB6129.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(376014)(7416014)(22082099003)(18002099003)(56012099003)(7136999003)(921020)(4143699003)(11063799006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZUM3QWVSRXFPbXVwR0x4UW4wb2UyTmhnY0NieHd4RkY5RTlMalllR3ZUelVu?=
+ =?utf-8?B?aUNlTm44ckRCMCtEaVVTWmphQlprS0JHcDkyeFUxYXBxeHBLNzVwRmh5ZWZU?=
+ =?utf-8?B?bnprYTZLQmRwZjRqR05kRnVFWUxQZ3QrV0p3cU5ZMVVseDR6a1hScEhZVk9W?=
+ =?utf-8?B?a3FSbFJnZnJaUHppWnhDK3dDcG5iR041STNqT0FEaHpsQ3VHT1p3dEJUWm0x?=
+ =?utf-8?B?aTZINDN6bHBicUUxc0tjZFZrYjZ6Wlpsb0F0Rzd6UnNzT29VbS9OMGc2YWpo?=
+ =?utf-8?B?d3pxNmZBUVNNaVZYM0dCaWNRYkpvRGl2WFZlMDYzMEprRjJmdTVxdU0yRlg4?=
+ =?utf-8?B?YkFVMERVN0lqNFZremxFQ3pNaFlnM3RlK0xWWStoUDZTWmVrSkJSanduUnVy?=
+ =?utf-8?B?Q3R2ZnR0Y1dsTVhQVGRhMVhMYTdzbFhXQ2hJcXdPZndld3dGbDdrOWF2aW9N?=
+ =?utf-8?B?bEJDNEQ4cGFqU0tTZE9TSWhiaG04Yys3aG1RSUsrZkphMmhIWktObndvR0FW?=
+ =?utf-8?B?S2ZabVFsZEZvKzRCemg1VDg0eFRZRnFGbU1Mc1dKa29Gd3N6b3dRSjJQM2cr?=
+ =?utf-8?B?OUl0WmpkOHpWUGFlSXdMU25PS0h3ZXFoWWpGWmJsYmx4Z1hENWJiUlUxRjFE?=
+ =?utf-8?B?NXhrbGNSVGNmSXlhRTdIdDJyNlRObFhicE00YkpaNDhmWk5BaUovc1VMVTFT?=
+ =?utf-8?B?MDZkRTdXQVF5WHJvVUM5bG9QWmpVKy9BRjd0WDVMRUZROWdNaFdUVDlPYld2?=
+ =?utf-8?B?NkRseFhuS0JWOHJpeVBDNllUVy92VlNORTJ6ZWNkdTZPQTljSDlxRFpaZWxn?=
+ =?utf-8?B?UDNkV25TY25ldFlFeGRWb01hYVhnWVBXT0gzRVdOYjF5WHIwc0tlOEc5UlZX?=
+ =?utf-8?B?WFhOR3BpT2JUUXpZaU9YRlBYUnhCNHNmYUkxTEkwZ3BJbXB3anZoUEVwMUkv?=
+ =?utf-8?B?cWdzUjgzTHl2bzVGMGVVTmZ1QjltTlZyUXdmMkFJWWtnNU4yeCtsempZcXFJ?=
+ =?utf-8?B?SEZaWHVjRHEwT2JMZC9HUmpLMGcyL0VTMFNOUjB6SFhvOTltU2kyYjc4S3Az?=
+ =?utf-8?B?K3VvYytzN013T3BEd2xqOWVGMmFMQ0M1RzZBbm1kTUhVdXRmVDR4RW4vblhk?=
+ =?utf-8?B?WjRGRWxCblVVQWdOYUhLRVcrYXdBTWhrbUY4ZDZsTXhXMFVrMzc1NE1Ldk5E?=
+ =?utf-8?B?cHRBU2RRNUNLbHJnT1F6N09pTmRKQ3BoUm5raEpIVWYzNGp1S0x0dFQ0aEov?=
+ =?utf-8?B?Lzh3Rjkzbmd5MzlFUTRpQi9jVmd3SHpJL3hIejJIb0daRkErL0NMOEppdjla?=
+ =?utf-8?B?VWcrV0RudzUvU2xwN0pnNEo2emhwdUFQM3R5RlRqK0FmN2xBdkJ4YU83Yk5X?=
+ =?utf-8?B?aWh3dFdyN0pOUkZOQ2FCU2FydjdOWjJJYVR6bzJnTlY1SFNDNG9CNWp6eWsr?=
+ =?utf-8?B?MndaOGlMNHNTTDZrNVh4SGVPWndqbTBsdFY4QUF2M2VKUXhMdWN4RmduZWV2?=
+ =?utf-8?B?RDhmbzhvd1plclhtZlg4YUFzNVM4bE5WMHhKY3Z6c09wNzFJOVhPeFVvbjNK?=
+ =?utf-8?B?VVNQM3c4M0UzRjhCVFpCTVZGTDVuWFBxSGk0YjIrV2Q2K05oaHQ3RXpJSUEy?=
+ =?utf-8?B?SFdrb3Q5Yys3TEtOZFUwY1g1VGJoQTIrMjBUdjVBbWYrMWRjRStIemJVSTFm?=
+ =?utf-8?B?QThYcDkxTWtKU2F6WERQR1doaDJnWW1rOENKZkhQOEhWYXB3Uzl2Z3ErTzdl?=
+ =?utf-8?B?OWZJRG1IK1lhQ3JDZ3FBMHZYMDR4d0d5bnUzbUdNVm5nUnhzSWY5blZpRndS?=
+ =?utf-8?B?d1hLTG00NmpPdy93WjBvNDNJSGNYUklPbWtIQnl6SmNxMjNpNm8wb2pwa0dP?=
+ =?utf-8?B?d2JkTzNaUFdETXErS2FGdHI5akwxQ1JTTGJFeGxDakFGR2dOQUIya1l6Yll0?=
+ =?utf-8?B?REo3MDYwdFJLcmw5c2FJR3VJVENyM1p6eGxxdlZzcjVKYk9ialB0ZHFkcGFE?=
+ =?utf-8?B?b29QbzBPK1p5WUZoK2ZBcHVlK3liL291WERwOUZpSmpvMjVQVVB1MWtSTXk2?=
+ =?utf-8?B?S2xSQ3l0eEovakFPdXJnNktVeHBMZVNaTjlma2phYUpCRklLc2JDQktoUWpT?=
+ =?utf-8?B?Zk5NL1k0MG1meWxsY25Td2JvS1hBaHRpbjNhRTRqZDBtNzV1Tk1BTStWUXZl?=
+ =?utf-8?B?QWd3OStzRjNsVTNwajlnbEJ5MGN6dndkUFMrVmY4alhhVVVrTERobWJ6bXE3?=
+ =?utf-8?B?SE5pajlabThweGRVckl5ZnJUMGhsMGJiMkJEKzRKRHZ2eXBKSzgxdXBMWnp6?=
+ =?utf-8?B?K2p5eS9lMktJKzNRc2NpL05iMUl6cGZMTjgxQ3EwZG9rUk1ReTE0L0JaVVpB?=
+ =?utf-8?Q?/anb1HGtLfsZi3n8=3D?=
+X-Exchange-RoutingPolicyChecked: Sxl3MLJdO7v6pEyThRlvlXh2krdmDCgtXWFVtu9MM78RDOJHTcURclvSlwzz9kHTtD2GSVDvD6+qltIcgu8yl9jC08Nj63GIFhMtnXuX5WXI+SRjEk1/2va8vgVTCv/U2gtvAfLtbd+RFpv+6eP/PwnUWvsPgA6kWqX6y2W5SwA/u4n4qFwOUTBvZP3N4x5HlmOCSevkvChzFWGv6SaJ6f3U+mpota6AqMrGyrn6PLmSfJEbODsYCkZ0UIjnQ7+Zqo9VdX8VzAlielyRx2Vq0H+/X9+i2Czl0wXTqiJSG1Kyx52SWNE8J+zbnoA2+tE32IGleY5hTPqYHYltzWyZeg==
+X-MS-Exchange-CrossTenant-Network-Message-Id: d053b4b9-0d11-4f06-cc17-08deb7282d18
+X-MS-Exchange-CrossTenant-AuthSource: SJ1PR11MB6129.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 May 2026 11:00:31.8092 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: AsV5GRcIk1pFjxnqyFirEW372Xl8u1xTsSPctWgbsSFu4mOkwjSLlx2VD+W0CPw3Q4k1/rzNdpJWW+rd39UcP/amkH4hPTS/TfOzHtlq29E=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR11MB6214
+X-OriginatorOrg: intel.com
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,248 +183,125 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-When dumping IB contents from a hung job, amdgpu_devcoredump_format()
-acquired the VM root PD's reservation via amdgpu_vm_lock_by_pasid() and
-then, for each IB, called amdgpu_bo_reserve() on the BO backing the IB.
-Both reservations are reservation_ww_class_mutex objects and neither
-used a ww_acquire_ctx, which trips lockdep:
 
-  WARNING: possible recursive locking detected
-  --------------------------------------------
-  kworker/u128:0 is trying to acquire lock:
-  ffff88838b16e1f0 (reservation_ww_class_mutex){+.+.}-{4:4},
-    at: amdgpu_devcoredump_format+0x1594/0x23f0 [amdgpu]
 
-  but task is already holding lock:
-  ffff8882f82681f0 (reservation_ww_class_mutex){+.+.}-{4:4},
-    at: amdgpu_devcoredump_format+0x1594/0x23f0 [amdgpu]
+On 5/20/2026 2:39 AM, Melissa Wen wrote:
+> Only allow updates on colorops that are part of an active pipeline.
+> Check if a colorop in a new state belongs to a color pipeline which was
+> set as a plane color_pipeline property and therefore is an active color
+> pipeline. If not, reject the atomic state. Performing this check later
+> in drm_atomic_check_only() to remove the ordering dependency that would
+> exist if done at the time of colorop property setting.
+> 
+> Suggested-by: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
+> Signed-off-by: Melissa Wen <mwen@igalia.com>
+> ---
+>   drivers/gpu/drm/drm_atomic.c | 38 ++++++++++++++++++++++++++++++++++++
+>   1 file changed, 38 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
+> index 28831a548b0c..659cf56150e5 100644
+> --- a/drivers/gpu/drm/drm_atomic.c
+> +++ b/drivers/gpu/drm/drm_atomic.c
+> @@ -812,6 +812,33 @@ static int drm_atomic_plane_check(const struct drm_plane_state *old_plane_state,
+>   	return 0;
+>   }
+>   
+> +/**
+> + * drm_atomic_colorop_check - check new colorop state
+> + * @new_colorop_state: new colorop state to check
+> + *
+> + * Ensure that the colorop in @new_colorop_state belongs to an active color
+> + * pipeline, i.e. it's in the chain of colorops set to the color_pipeline
+> + * property of a plane state.
+> + *
+> + * Returns: 0 on success, -EINVAL otherwise.
+> + */
+> +static int drm_atomic_colorop_check(const struct drm_colorop_state *new_colorop_state)
+> +{
+> +	struct drm_colorop *colorop, *color_pipeline;
+> +	struct drm_plane_state *new_plane_state;
+> +
+> +	new_plane_state = drm_atomic_get_new_plane_state(new_colorop_state->state,
+> +							 new_colorop_state->colorop->plane);
+> +	color_pipeline = new_plane_state ? new_plane_state->color_pipeline :
+> +			 new_colorop_state->colorop->plane->state->color_pipeline;
+> +
+> +	for (colorop = color_pipeline; colorop; colorop = colorop->next)
+> +		if (colorop == new_colorop_state->colorop)
+> +			return 0;
+> +
+> +	return -EINVAL;
+> +}
+> +
 
-   Possible unsafe locking scenario:
-         CPU0
-         ----
-    lock(reservation_ww_class_mutex);
-    lock(reservation_ww_class_mutex);
+This causes regression in our CI[1].
 
-   *** DEADLOCK ***
-   May be due to missing lock nesting notation
+I looked into it and looks like the following sequence in 
+igt@kms_color_pipeline causes the error
 
-  Workqueue: events_unbound amdgpu_devcoredump_deferred_work [amdgpu]
-  Call Trace:
-   __ww_mutex_lock.constprop.0
-   ww_mutex_lock
-   amdgpu_bo_reserve
-   amdgpu_devcoredump_format+0x1594 [amdgpu]
-   amdgpu_devcoredump_deferred_work+0xea [amdgpu]
+         set_color_pipeline_bypass(plane);
+         reset_colorops(colorops);
+         igt_plane_set_fb(plane, NULL);
+         igt_display_commit_atomic(&data->display, 0, NULL);
 
-The two reservations are on different BOs in the captured trace, so the
-splat is a lockdep-correctness warning, not an observed deadlock. It
-becomes a real self-deadlock whenever the IB BO shares its dma_resv with
-the root PD (the always-valid case, see amdgpu_vm_is_bo_always_valid()):
-amdgpu_bo_reserve(abo) re-acquires the same ww_mutex without a ticket
-and blocks forever.
+So this change restricts bypassing/disabling both the pipeline and a 
+colorop within it in a single commit.
 
-With amdgpu.gpu_recovery=0 the timeout handler refires every ~2 s and
-each invocation produces this splat, drowning the kernel ring buffer.
+Also Sashiko had the following to say
 
-Now that amdgpu_vm_lock_by_pasid() takes a drm_exec context, lock the
-root PD and every IB BO together in a single drm_exec ticket.
-DRM_EXEC_IGNORE_DUPLICATES handles IB BOs that share a dma_resv (e.g.
-always-valid BOs, or two IBs backed by the same BO). Every lock is now
-a top-level acquire under one ww_acquire_ctx, so the recursive ww_mutex
-condition is gone, and the per-IB amdgpu_bo_reserve()/amdgpu_bo_unref()
-dance -- including a BO refcount leak on the amdgpu_bo_reserve() failure
-path -- is removed.
+"Furthermore, does this unnecessarily restrict UAPI by preventing userspace
+from configuring inactive pipelines before enabling them, or from resetting
+properties on a pipeline in the same commit that switches away from it?"
 
-Reproducer (~150 LoC libdrm_amdgpu): submit a single GFX IB containing
-PACKET3_INDIRECT_BUFFER chained at GPU VA 0 and wait for the fence. The
-TDR fires within ~10 s and the deferred coredump worker produces the
-splat above on every invocation; with this change applied the splat is
-gone.
+So this will also fail a commit which tries to change a pipeline and 
+disable the colorops in an old pipeline.
 
-Fixes: 7b15fc2d1f1a ("drm/amdgpu: dump job ibs in the devcoredump")
-Suggested-by: Christian König <christian.koenig@amd.com>
-Signed-off-by: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
----
- .../gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c  | 105 ++++++++++++------
- 1 file changed, 71 insertions(+), 34 deletions(-)
+That got me thinking whether the first patch[3] in the series is also 
+correct, since it is quite similar to the change[4] I added, where 
+colorops are only added to the state when a pipeline is active. In both 
+cases, we could end up ignoring colorops that are not part of the 
+currently selected pipeline.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c
-index d386bc775d03..456ea9911d48 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c
-@@ -24,6 +24,7 @@
- 
- #include <generated/utsrelease.h>
- #include <linux/devcoredump.h>
-+#include <drm/drm_exec.h>
- #include "amdgpu_dev_coredump.h"
- #include "atom.h"
- 
-@@ -214,13 +215,9 @@ amdgpu_devcoredump_format(char *buffer, size_t count, struct amdgpu_coredump_inf
- 	struct drm_printer p;
- 	struct drm_print_iterator iter;
- 	struct amdgpu_vm_fault_info *fault_info;
--	struct amdgpu_bo_va_mapping *mapping;
- 	struct amdgpu_ip_block *ip_block;
- 	struct amdgpu_res_cursor cursor;
--	struct amdgpu_bo *abo, *root;
--	uint64_t va_start, offset;
- 	struct amdgpu_ring *ring;
--	struct amdgpu_vm *vm;
- 	u32 *ib_content;
- 	uint8_t *kptr;
- 	int ver, i, j, r;
-@@ -343,43 +340,84 @@ amdgpu_devcoredump_format(char *buffer, size_t count, struct amdgpu_coredump_inf
- 		drm_printf(&p, "VRAM is lost due to GPU reset!\n");
- 
- 	if (coredump->num_ibs) {
--		/* Don't try to lookup the VM or map the BOs when calculating the
--		 * size required to store the devcoredump.
-+		struct amdgpu_bo_va_mapping *mapping;
-+		struct amdgpu_bo *abo;
-+		struct drm_exec exec;
-+		struct amdgpu_vm *vm;
-+		u64 va_start, offset;
-+		bool locked = false;
-+
-+		/*
-+		 * Lock the VM root PD and every IB BO together in a single
-+		 * drm_exec ticket. Reserving the IB BOs one by one while the
-+		 * root PD is held would be a recursive reservation_ww_class_mutex
-+		 * acquire without a ww_acquire_ctx, which trips lockdep and
-+		 * self-deadlocks for IB BOs that share their dma_resv with the
-+		 * root PD (always-valid BOs).
-+		 *
-+		 * Skip locking entirely on the sizing pass: it does not write
-+		 * IB content, so the size estimate doesn't depend on whether
-+		 * the BOs are reachable.
- 		 */
--		if (sizing_pass)
--			vm = NULL;
--		else
--			vm = amdgpu_vm_lock_by_pasid(adev, &root, coredump->pasid);
-+		if (!sizing_pass) {
-+			drm_exec_init(&exec, DRM_EXEC_IGNORE_DUPLICATES,
-+				      1 + coredump->num_ibs);
-+			drm_exec_until_all_locked(&exec) {
-+				vm = amdgpu_vm_lock_by_pasid(adev, coredump->pasid,
-+							     &exec);
-+				drm_exec_retry_on_contention(&exec);
-+				if (!vm)
-+					break;
-+
-+				for (int i = 0; i < coredump->num_ibs; i++) {
-+					u64 pfn;
-+
-+					va_start = coredump->ibs[i].gpu_addr &
-+						   AMDGPU_GMC_HOLE_MASK;
-+					pfn = va_start / AMDGPU_GPU_PAGE_SIZE;
-+					mapping = amdgpu_vm_bo_lookup_mapping(vm, pfn);
-+					if (!mapping)
-+						continue;
-+
-+					abo = mapping->bo_va->base.bo;
-+					r = drm_exec_lock_obj(&exec, &abo->tbo.base);
-+					drm_exec_retry_on_contention(&exec);
-+					if (r)
-+						break;
-+				}
-+				if (r)
-+					break;
-+			}
-+			if (vm && !r)
-+				locked = true;
-+			else
-+				drm_exec_fini(&exec);
-+		}
-+
-+		for (int i = 0; i < coredump->num_ibs; i++) {
-+			bool emit_content = sizing_pass;
- 
--		for (int i = 0; i < coredump->num_ibs && (sizing_pass || vm); i++) {
- 			ib_content = kvmalloc_array(coredump->ibs[i].ib_size_dw, 4,
- 						    GFP_KERNEL);
- 			if (!ib_content)
- 				continue;
- 
--			/* vm=NULL can only happen when 'sizing_pass' is true. Skip to the
--			 * drm_printf() calls (ib_content doesn't need to be initialized
--			 * as its content won't be written anywhere).
--			 */
--			if (!vm)
-+			if (!locked)
- 				goto output_ib_content;
- 
- 			va_start = coredump->ibs[i].gpu_addr & AMDGPU_GMC_HOLE_MASK;
- 			mapping = amdgpu_vm_bo_lookup_mapping(vm, va_start / AMDGPU_GPU_PAGE_SIZE);
- 			if (!mapping)
--				goto free_ib_content;
-+				goto output_ib_content;
- 
--			offset = va_start - (mapping->start * AMDGPU_GPU_PAGE_SIZE);
--			abo = amdgpu_bo_ref(mapping->bo_va->base.bo);
--			r = amdgpu_bo_reserve(abo, false);
--			if (r)
--				goto free_ib_content;
-+			abo = mapping->bo_va->base.bo;
-+			offset = va_start - mapping->start * AMDGPU_GPU_PAGE_SIZE;
- 
- 			if (abo->flags & AMDGPU_GEM_CREATE_NO_CPU_ACCESS) {
- 				off = 0;
- 
- 				if (abo->tbo.resource->mem_type != TTM_PL_VRAM)
--					goto unreserve_abo;
-+					goto output_ib_content;
- 
- 				amdgpu_res_first(abo->tbo.resource, offset,
- 						 coredump->ibs[i].ib_size_dw * 4,
-@@ -391,12 +429,13 @@ amdgpu_devcoredump_format(char *buffer, size_t count, struct amdgpu_coredump_inf
- 					off += cursor.size;
- 					amdgpu_res_next(&cursor, cursor.size);
- 				}
-+				emit_content = true;
- 			} else {
- 				r = ttm_bo_kmap(&abo->tbo, 0,
- 						PFN_UP(abo->tbo.base.size),
- 						&abo->kmap);
- 				if (r)
--					goto unreserve_abo;
-+					goto output_ib_content;
- 
- 				kptr = amdgpu_bo_kptr(abo);
- 				kptr += offset;
-@@ -404,23 +443,21 @@ amdgpu_devcoredump_format(char *buffer, size_t count, struct amdgpu_coredump_inf
- 				       coredump->ibs[i].ib_size_dw * 4);
- 
- 				amdgpu_bo_kunmap(abo);
-+				emit_content = true;
- 			}
- 
- output_ib_content:
- 			drm_printf(&p, "\nIB #%d 0x%llx %d dw\n",
- 				   i, coredump->ibs[i].gpu_addr, coredump->ibs[i].ib_size_dw);
--			for (int j = 0; j < coredump->ibs[i].ib_size_dw; j++)
--				drm_printf(&p, "0x%08x\n", ib_content[j]);
--unreserve_abo:
--			if (vm)
--				amdgpu_bo_unreserve(abo);
--free_ib_content:
-+			if (emit_content) {
-+				for (int j = 0; j < coredump->ibs[i].ib_size_dw; j++)
-+					drm_printf(&p, "0x%08x\n", ib_content[j]);
-+			}
- 			kvfree(ib_content);
- 		}
--		if (vm) {
--			amdgpu_bo_unreserve(root);
--			amdgpu_bo_unref(&root);
--		}
-+
-+		if (locked)
-+			drm_exec_fini(&exec);
- 	}
- 
- 	return count - iter.remain;
--- 
-2.54.0
+[1] 
+https://intel-gfx-ci.01.org/tree/intel-xe/xe-pw-166922v1/shard-lnl-5/igt@kms_color_pipeline@plane-ctm3x4@pipe-a-plane-2.html
+[2] 
+https://sashiko.dev/#/patchset/20260520073827.3395745-3-chaitanya.kumar.borah%40intel.com
+[3] 
+https://lore.kernel.org/dri-devel/20260519211111.228303-2-mwen@igalia.com/
+[4] 
+https://lore.kernel.org/dri-devel/148df44d-2456-40e3-8be6-f98b89b7ee4d@amd.com/
+
+P.S. Can you please send the next version to intel-gfx and intel-xe too?
+
+==
+Chaitanya
+>   static void drm_atomic_colorop_print_state(struct drm_printer *p,
+>   					   const struct drm_colorop_state *state)
+>   {
+> @@ -1665,6 +1692,8 @@ int drm_atomic_check_only(struct drm_atomic_commit *state)
+>   	struct drm_plane *plane;
+>   	struct drm_plane_state *old_plane_state;
+>   	struct drm_plane_state *new_plane_state;
+> +	struct drm_colorop *colorop;
+> +	struct drm_colorop_state *new_colorop_state;
+>   	struct drm_crtc *crtc;
+>   	struct drm_crtc_state *old_crtc_state;
+>   	struct drm_crtc_state *new_crtc_state;
+> @@ -1681,6 +1710,15 @@ int drm_atomic_check_only(struct drm_atomic_commit *state)
+>   			requested_crtc |= drm_crtc_mask(crtc);
+>   	}
+>   
+> +	for_each_new_colorop_in_state(state, colorop, new_colorop_state, i) {
+> +		ret = drm_atomic_colorop_check(new_colorop_state);
+> +		if (ret) {
+> +			drm_dbg_atomic(dev, "[COLOROP:%d:%d] is not part of an active color pipeline.\n",
+> +				       colorop->base.id, colorop->type);
+> +			return ret;
+> +		}
+> +	}
+> +
+>   	for_each_oldnew_plane_in_state(state, plane, old_plane_state, new_plane_state, i) {
+>   		ret = drm_atomic_plane_check(old_plane_state, new_plane_state);
+>   		if (ret) {
 
