@@ -4,73 +4,96 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 00028CD343F
-	for <amd-gfx@archiver.kernel.org>; Thu, 21 May 2026 07:01:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 93058CD343F
+	for <amd-gfx@archiver.kernel.org>; Thu, 21 May 2026 07:05:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 80D0810F230;
-	Thu, 21 May 2026 07:01:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3463010E45B;
+	Thu, 21 May 2026 07:05:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="bJOIRG8W";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Nf9+QkV6";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 09C0410EFFF;
- Wed, 20 May 2026 10:17:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1779272252; x=1810808252;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=eOlOBfiJj7Bv4YUhSkUqIibhF6y3L5ddhXYlMCE6R8o=;
- b=bJOIRG8WzNO3cRYvlbNdteikVPajoVrLDBPkeSuj1YrpVmxNrLv6z+QM
- 4bFS62mcfpUrL2I3357u77ad3vCU8QNeBp0Ydo/a2luv4/LJuAK/8/KgD
- gHUuRkSFaz9lvWkGn2owzo9JbkCLKTOSoUt+oRanCSRbnjNdED+etQj6j
- ydK2gYjUL2anzFboaIaC2I3awXhTLScPQ1QeKaEdYkwWhyrFUdmd+dHjw
- tHbnQ+dRqQG6kYXNI6Alo63d5MSR1kswWgfZ0JvmbVA7G01AXdTXAuNPU
- JQdLOxUWggK5zcchkX+Hb2ubDp3V97LfiNqrTmhpK9S5nK7BoJ0E8OlIY Q==;
-X-CSE-ConnectionGUID: kFjYHq6bTBeBu/j6WGYh6A==
-X-CSE-MsgGUID: 1mYaSfHlSres+npb58NSNQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11791"; a="102843317"
-X-IronPort-AV: E=Sophos;i="6.23,244,1770624000"; d="scan'208";a="102843317"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
- by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 May 2026 03:17:31 -0700
-X-CSE-ConnectionGUID: c+w11R1bT82yxF92bdIqGQ==
-X-CSE-MsgGUID: suprNGISQamG4TXx5V+Cyw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,244,1770624000"; d="scan'208";a="244114163"
-Received: from vpanait-mobl.ger.corp.intel.com (HELO fedora) ([10.245.245.175])
- by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 May 2026 03:17:27 -0700
-From: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-To: intel-xe@lists.freedesktop.org
-Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Felix Kuehling <Felix.Kuehling@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Danilo Krummrich <dakr@kernel.org>,
- Matthew Brost <matthew.brost@intel.com>, Alice Ryhl <aliceryhl@google.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
-Subject: [PATCH v2 4/4] drm/exec, drm/xe,
- drm/amdgpu: Add an accessor for struct drm_exec::ticket
-Date: Wed, 20 May 2026 12:16:16 +0200
-Message-ID: <20260520101616.41284-5-thomas.hellstrom@linux.intel.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260520101616.41284-1-thomas.hellstrom@linux.intel.com>
-References: <20260520101616.41284-1-thomas.hellstrom@linux.intel.com>
+Received: from CH4PR04CU002.outbound.protection.outlook.com
+ (mail-northcentralusazon11013041.outbound.protection.outlook.com
+ [40.107.201.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1F8F910E45B
+ for <amd-gfx@lists.freedesktop.org>; Thu, 21 May 2026 07:05:16 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=gX7ttS/qGwUM+hQvGB+wLuj8tP9aYaHIYYS+L2fG3nTqjdt96OzRGx4GiZ0GaLlrki+UcMuygoOmOalbJ5SchDDhVcBeSFdAAAzHwigOP5sy/GBNlk1fdzZFlzdFjkbMfqyzbaOiPJrb/dLKasQWRX7Wbumnh0yqKVwa0SBPhZZUYT8/VnwpJ61hSRgITLajauiS3rQGO7pZgB8Q15y75L3Svofb1EXG3D/tK7VBC20je0zXfEkXucnovAC4HYKQw4g549s13cNV+MikLCfIWEkdUnAV/kQuNjqgEFI5aonDesdRgTtN6wuB+ZMEtpXDf2oQvR1pdmARbJMsYAdshA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=LL5z1ggZJg68n4WbOaa1Ux3uIaeeeRI6Rt9ZBg4XSbY=;
+ b=Y5tQJYOW6wbIOuA19zNh4jDIf0KkONWkMg++FfcFeDqmb1QBL92bcqQwQAsx1igvJbeoxT7VDb4rP0kF9v4tU/a04JuO0GbFY7lCb7QdK/0lFElMDLs7roPjJnslaT8gbrqM71Es5dYbyHa41uKx4+zye/6H5ARSVbs3Vo9U7SSer57uEW4bQLgY/i/xPWN/JGRieLVSKWo9gpzX+x89VZlX++tQrJ1lsYyLrPZL4TIfiZF/lVRn0r/pyVHU5klZCLzJTqAopctRtqjquMz4/DNV3fdjGaEnyOH39umXVdpOINbO8/k2lmuMPQfR1cb0FNKONdcMAp6wsn/Ff2SVZw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=LL5z1ggZJg68n4WbOaa1Ux3uIaeeeRI6Rt9ZBg4XSbY=;
+ b=Nf9+QkV6ca9QSYer0odNiUA3LGLo6v5wK9zASsXvlKNaIqli4PFy57sBp8/NVNJ7JMnmycrQfUfRRLudl7btgq5BSJCvOjU2q6cnFmc91k/FoQ5osvsTaIBhVRwCRkzCbixqxI17mgHk8G7bdCJwgPISZK2cS/1kqT6DvXyMCJM=
+Received: from BLAPR05CA0035.namprd05.prod.outlook.com (2603:10b6:208:335::16)
+ by BN7PPFD6BF22047.namprd12.prod.outlook.com
+ (2603:10b6:40f:fc02::6e4) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9818.25; Thu, 21 May
+ 2026 07:05:10 +0000
+Received: from BN2PEPF000044AA.namprd04.prod.outlook.com
+ (2603:10b6:208:335:cafe::95) by BLAPR05CA0035.outlook.office365.com
+ (2603:10b6:208:335::16) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.71.6 via Frontend Transport; Thu, 21
+ May 2026 07:05:09 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BN2PEPF000044AA.mail.protection.outlook.com (10.167.243.105) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.48.11 via Frontend Transport; Thu, 21 May 2026 07:05:08 +0000
+Received: from jeevana-X570-AORUS-ELITE.amd.com (10.180.168.240) by
+ satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.41; Thu, 21 May 2026 02:05:07 -0500
+From: Jeevana Muthyala <jmuthyal@amd.com>
+To: <Alexander.Deucher@amd.com>, <amd-gfx@lists.freedesktop.org>
+CC: Jeevana Muthyala <Jeevana.Muthyala2@amd.com>
+Subject: [PATCH] drm/amdgpu/vcn5.0.0: enable secure submission on unified ring
+Date: Thu, 21 May 2026 12:34:58 +0530
+Message-ID: <20260521070458.3365711-1-jmuthyal@amd.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Thu, 21 May 2026 07:01:28 +0000
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN2PEPF000044AA:EE_|BN7PPFD6BF22047:EE_
+X-MS-Office365-Filtering-Correlation-Id: 79afcb87-4536-423a-70a6-08deb7074b5b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|82310400026|36860700016|1800799024|18002099003|56012099003|11063799006|6133799003;
+X-Microsoft-Antispam-Message-Info: 2h14LuYCuA4oWspCLFajmhwOIdNJcTcJAzoM5rfkVTU9OkX9ytyyvkzG3TqlCKJaddvl+YOVcDK2sKmoNp38D5rzfS8wOuU/Bv2jvhyhxMS3tuqpwl1uyzO4XRFhjPaHd96W9uxSXlrN4hLze1csL4LMIseFLJdYG9ROG4a13HkS4cqmdQlAk6TZ7iBgPffMIM2rceu0aZ70lfYoucVEpsPn+DeClQGLt2vSupgGWUy7jg8kZToENEjId3uj3Ye90PPWJWsRufHLY2DhO4NTTHSa7tfqyFOENMHDZMozXQDDlXeVa0F0GAE81EK+6bMOKaemuirqx0qCNTJ1WkU4hAnSNRyZ+/wZIPgs0tjznonvlf/Wm5wiLjslEX65ppYHiL6ElZ0BLmt26JhLA000ODv7hPhec5h/zDYu66niK4wcT8EcBKoe6bGd9hkL3mlPRDl4T8HjfC+jKGRIDT3FP6p90gP0+fXLHzVmFTBcqfCGbPKSh6UFt/O9Hs5DveVCXUIZ7eqsmCi3rC6/pnvsRwysFdtr2+2Zr7UoEab0yZEAnxykTvty2HMOyFydbAgL+mqC92wVBJJVz7FvSsGoYo3FW+kVgjUUnv4lz7vfE+vTmnYsSHjS8VZ6gVmDSb9TOimLrUBVJgWiKsza798kcmX0xRkDRg0yzCZxLxLIPedpcxmDTpcQmbvN0PnGdj2JVgnfpZA0bPY9irW4v8o5zwt7JixPELmtdwnff04ESw8=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(82310400026)(36860700016)(1800799024)(18002099003)(56012099003)(11063799006)(6133799003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: QRU+wIo2ZQJzREjmt0LuHbFzbPIzup8a07bymVXimBugrbyF8tNY1tPbqylMRZaDyMOFu0FQfQzUNrwDIAOm8mkoYMPQY8x8RVEqiai3E1bLs3luILGiiuzl0Yw+aFKK3EQSGFjPbrR8q0TlqZlhVgtynuAMo1mIarQK7u3mH5Dbn9N8NYhNAaQYSZq60WLnzwcmL0Jhg1xzGcPl8osFbWQJTwu20LTna4QBOz489U6FjMisI8QfEbwalXxAkJ/oQ9WOZ/19ZpWsgarr9AoW5sMWTfONOD5rPHbrEzpzZ0T1TvOsgju+XBdozWyABA1w51dTL58QhWI3NiAF7iYx2IT7fGnKPu/7taSLqi0WRpxPn26qJo11dhsp4aAhfQY3Y0KNV9QaIQEOgOWqArhFrRkOzV7QPQCDBq1eevrQrCFSlWED59UNFQjhdbpOjjS4
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 May 2026 07:05:08.9739 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 79afcb87-4536-423a-70a6-08deb7074b5b
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF000044AA.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN7PPFD6BF22047
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,122 +108,67 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Drivers were accessing this drm_exec member directly.
-While that may seem harmless, it will require action if
-the drm_exec utility is made a subclass of a dma-resv transaction
-utility as outlined in the cover-letter.
+From: Jeevana Muthyala <Jeevana.Muthyala2@amd.com>
 
-Provide an accessor, drm_exec_ticket() to avoid that.
-
-v2:
-- Fix amdgpu compile error (Intel CI)
-- Update the commit message.
-
-Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c |  4 ++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c           |  6 +++---
- drivers/gpu/drm/xe/xe_validation.c               |  4 ++--
- include/drm/drm_exec.h                           | 11 +++++++++++
- 4 files changed, 18 insertions(+), 7 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c | 37 ++++++++++++++++++++++++-
+ 1 file changed, 36 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-index 72a5a29e63f6..d54794e5b18b 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-@@ -2999,7 +2999,7 @@ int amdgpu_amdkfd_gpuvm_restore_process_bos(void *info, struct dma_fence __rcu *
- 	/* Validate PDs, PTs and evicted DMABuf imports last. Otherwise BO
- 	 * validations above would invalidate DMABuf imports again.
- 	 */
--	ret = process_validate_vms(process_info, &exec.ticket);
-+	ret = process_validate_vms(process_info, drm_exec_ticket(&exec));
- 	if (ret) {
- 		pr_debug("Validating VMs failed, ret: %d\n", ret);
- 		goto validate_map_fail;
-@@ -3040,7 +3040,7 @@ int amdgpu_amdkfd_gpuvm_restore_process_bos(void *info, struct dma_fence __rcu *
- 			goto validate_map_fail;
- 		}
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c
+index d5f49fa33bee..3bef5ac200ef 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c
+@@ -1234,6 +1234,38 @@ static const struct amdgpu_ring_funcs vcn_v5_0_0_unified_ring_vm_funcs = {
+ 	.reset = vcn_v5_0_0_ring_reset,
+ };
  
--		ret = amdgpu_vm_handle_moved(adev, peer_vm, &exec.ticket);
-+		ret = amdgpu_vm_handle_moved(adev, peer_vm, drm_exec_ticket(&exec));
- 		if (ret) {
- 			dev_dbg(adev->dev,
- 				"Memory eviction: handle moved failed, pid %8d. Try again.\n",
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-index 97a851ae7bd8..6ada57abce9d 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-@@ -1157,7 +1157,7 @@ static int amdgpu_cs_vm_handling(struct amdgpu_cs_parser *p)
- 			return r;
- 	}
- 
--	r = amdgpu_vm_handle_moved(adev, vm, &p->exec.ticket);
-+	r = amdgpu_vm_handle_moved(adev, vm, drm_exec_ticket(&p->exec));
- 	if (r)
- 		return r;
- 
-@@ -1359,7 +1359,7 @@ static int amdgpu_cs_submit(struct amdgpu_cs_parser *p,
- 	cs->out.handle = seq;
- 	leader->uf_sequence = seq;
- 
--	amdgpu_vm_bo_trace_cs(&fpriv->vm, &p->exec.ticket);
-+	amdgpu_vm_bo_trace_cs(&fpriv->vm, drm_exec_ticket(&p->exec));
- 	for (i = 0; i < p->gang_size; ++i) {
- 		amdgpu_job_free_resources(p->jobs[i]);
- 		trace_amdgpu_cs_ioctl(p->jobs[i]);
-@@ -1794,7 +1794,7 @@ int amdgpu_cs_find_mapping(struct amdgpu_cs_parser *parser,
- 	*map = mapping;
- 
- 	/* Double check that the BO is reserved by this CS */
--	if (dma_resv_locking_ctx((*bo)->tbo.base.resv) != &parser->exec.ticket)
-+	if (dma_resv_locking_ctx((*bo)->tbo.base.resv) != drm_exec_ticket(&parser->exec))
- 		return -EINVAL;
- 
- 	/* Make sure VRAM is allocated contigiously */
-diff --git a/drivers/gpu/drm/xe/xe_validation.c b/drivers/gpu/drm/xe/xe_validation.c
-index a611438eaafe..8dff4d0ec895 100644
---- a/drivers/gpu/drm/xe/xe_validation.c
-+++ b/drivers/gpu/drm/xe/xe_validation.c
-@@ -156,7 +156,7 @@ int xe_validation_ctx_init(struct xe_validation_ctx *ctx, struct xe_validation_d
- 
- #ifdef CONFIG_DEBUG_WW_MUTEX_SLOWPATH
- /*
-- * This abuses both drm_exec and ww_mutex internals and should be
-+ * This abuses ww_mutex internals and should be
-  * replaced by checking for -EDEADLK when we can make TTM
-  * stop converting -EDEADLK to -ENOMEM.
-  * An alternative is to not have exhaustive eviction with
-@@ -164,7 +164,7 @@ int xe_validation_ctx_init(struct xe_validation_ctx *ctx, struct xe_validation_d
-  */
- static bool xe_validation_contention_injected(struct drm_exec *exec)
- {
--	return !!exec->ticket.contending_lock;
-+	return !!drm_exec_ticket(exec)->contending_lock;
- }
- 
- #else
-diff --git a/include/drm/drm_exec.h b/include/drm/drm_exec.h
-index 99c7e1bb3c5b..8725ba92ff91 100644
---- a/include/drm/drm_exec.h
-+++ b/include/drm/drm_exec.h
-@@ -161,6 +161,17 @@ static inline bool drm_exec_is_contended(struct drm_exec *exec)
- 		goto *__drm_exec_retry_ptr;			\
- 	} while (0)
- 
-+/**
-+ * drm_exec_ticket - return the ww_acquire_ctx for this exec context
-+ * @exec: drm_exec object
-+ *
-+ * Return: Pointer to the ww_acquire_ctx embedded in @exec.
-+ */
-+static inline struct ww_acquire_ctx *drm_exec_ticket(struct drm_exec *exec)
-+{
-+	return &exec->ticket;
-+}
++static const struct amdgpu_ring_funcs vcn_v5_0_0_unified_ring_vm_funcs_secure = {
++	.type = AMDGPU_RING_TYPE_VCN_ENC,
++	.align_mask = 0x3f,
++	.nop = VCN_ENC_CMD_NO_OP,
++	.secure_submission_supported = true,
++	.no_user_fence = true,
++	.get_rptr = vcn_v5_0_0_unified_ring_get_rptr,
++	.get_wptr = vcn_v5_0_0_unified_ring_get_wptr,
++	.set_wptr = vcn_v5_0_0_unified_ring_set_wptr,
++	.emit_frame_size =
++		SOC15_FLUSH_GPU_TLB_NUM_WREG * 3 +
++		SOC15_FLUSH_GPU_TLB_NUM_REG_WAIT * 4 +
++		4 + /* vcn_v2_0_enc_ring_emit_vm_flush */
++		5 + 5 + /* vcn_v2_0_enc_ring_emit_fence x2 vm fence */
++		1, /* vcn_v2_0_enc_ring_insert_end */
++	.emit_ib_size = 5, /* vcn_v2_0_enc_ring_emit_ib */
++	.emit_ib = vcn_v2_0_enc_ring_emit_ib,
++	.emit_fence = vcn_v2_0_enc_ring_emit_fence,
++	.emit_vm_flush = vcn_v2_0_enc_ring_emit_vm_flush,
++	.test_ring = amdgpu_vcn_enc_ring_test_ring,
++	.test_ib = amdgpu_vcn_unified_ring_test_ib,
++	.insert_nop = amdgpu_ring_insert_nop,
++	.insert_end = vcn_v2_0_enc_ring_insert_end,
++	.pad_ib = amdgpu_ring_generic_pad_ib,
++	.begin_use = amdgpu_vcn_ring_begin_use,
++	.end_use = amdgpu_vcn_ring_end_use,
++	.emit_wreg = vcn_v2_0_enc_ring_emit_wreg,
++	.emit_reg_wait = vcn_v2_0_enc_ring_emit_reg_wait,
++	.emit_reg_write_reg_wait = amdgpu_ring_emit_reg_write_reg_wait_helper,
++	.reset = vcn_v5_0_0_ring_reset,
++};
 +
- void drm_exec_init(struct drm_exec *exec, u32 flags, unsigned nr);
- void drm_exec_fini(struct drm_exec *exec);
- bool drm_exec_cleanup(struct drm_exec *exec);
+ /**
+  * vcn_v5_0_0_set_unified_ring_funcs - set unified ring functions
+  *
+@@ -1249,7 +1281,10 @@ static void vcn_v5_0_0_set_unified_ring_funcs(struct amdgpu_device *adev)
+ 		if (adev->vcn.harvest_config & (1 << i))
+ 			continue;
+ 
+-		adev->vcn.inst[i].ring_enc[0].funcs = &vcn_v5_0_0_unified_ring_vm_funcs;
++		if (amdgpu_ip_version(adev, VCN_HWIP, 0) == IP_VERSION(5, 3, 0))
++		   adev->vcn.inst[i].ring_enc[0].funcs = (const struct amdgpu_ring_funcs *)&vcn_v5_0_0_unified_ring_vm_funcs_secure;
++		else
++		   adev->vcn.inst[i].ring_enc[0].funcs = (const struct amdgpu_ring_funcs *)&vcn_v5_0_0_unified_ring_vm_funcs;
+ 		adev->vcn.inst[i].ring_enc[0].me = i;
+ 	}
+ }
 -- 
-2.54.0
+2.43.0
 
