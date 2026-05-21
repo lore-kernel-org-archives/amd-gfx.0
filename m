@@ -4,78 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 15207CD5BD5
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 94400CD5BCF
 	for <amd-gfx@archiver.kernel.org>; Tue, 26 May 2026 07:53:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 00A0910E540;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3140C10E547;
 	Tue, 26 May 2026 07:53:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="MTjaABLN";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="eda3QdVS";
 	dkim-atps=neutral
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
- [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9B20F10E5BA;
- Sat, 23 May 2026 19:45:53 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1779565542; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=hPu1QOxB+uXhkyliCh5MwcQDmWLNhTDqd7mD3rXI5u3Rb2Lp0i1UKO0x29dFQdrfmLc50jfjdrIH9UI0Zv6DqcX5WnPx9tZ/lChOCq6HOqZCZt/draaYtmnRQiWKBOJXVriW4YeyDdytgCIyz/giVz3Mf6oLbmxZkRrrNZLvgA0=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1779565542;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=/PUt4P68/4rpObwZlHYIVoutXtcTKnMeaTTL4VAZHho=; 
- b=ApL9qITGgwOhpfl6NS8T4UC5psaCG8Di+C2BdvslNlJSWs9RyVhsZ90+jO/jxOcm8nFbqJhKUyaXpxyngabeHskMxxe8EQw8WuOryVwWqH6wVpF+iymmfMapvPI6FA1I+TPhxNELNaKdv76d+El/2ga5ce77PwpwTds73ENnJjY=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
- dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1779565542; 
- s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
- h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:References:In-Reply-To:To:To:Cc:Cc:Reply-To;
- bh=/PUt4P68/4rpObwZlHYIVoutXtcTKnMeaTTL4VAZHho=;
- b=MTjaABLNgoKR/VdG3f92EOX4ZeJz3cyTeefdCUEb2TvNbRm5YOAxs/UirI6/kRXm
- 9ZIZHoRuJSi2wc4mxwsyrGE+8jQQXaGhDZhzMXeJPlg5kpQXXpWsidYSlS52BefGvY2
- d1LBUIVUMq847KueLUVtjL4z1cub59F71D8f8AzQ=
-Received: by mx.zohomail.com with SMTPS id 1779565539762386.90206842057194;
- Sat, 23 May 2026 12:45:39 -0700 (PDT)
-From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Date: Sat, 23 May 2026 21:43:42 +0200
-Subject: [PATCH v16 07/28] drm/atomic-helper: Add HDMI bridge output bus
- formats helper
+Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com
+ [209.85.210.178])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D57E310F334
+ for <amd-gfx@lists.freedesktop.org>; Thu, 21 May 2026 13:35:42 +0000 (UTC)
+Received: by mail-pf1-f178.google.com with SMTP id
+ d2e1a72fcca58-8379e010b01so2655634b3a.1
+ for <amd-gfx@lists.freedesktop.org>; Thu, 21 May 2026 06:35:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1779370542; x=1779975342; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=BIK/4TSUzg+Gt9duY3olQGpqAgCO2S6UZFsGeUBiZ8Q=;
+ b=eda3QdVS6rlW6+i2X7zCdlDaDzztXkjLC8OQpnJDYazmI2Mon7IKMSV9TnRhKs0RVT
+ 9UVxMYNFeJFMrB5j2M6AS7aEk8UHBEV+iUeFfIZvItbyJ4hP0xtDnjpTB4twO9R9npei
+ 2QSw8HesKg/swV1wOweczJcNrFQcGIySBenJufJXPP/oRzkNCP3elIcGs7uwXv270U1N
+ c8ybHarWK9vOlr/5oY+ckEH8kkwx0Pe+F9zQd4bOAE2NzFfmGvIDeqYiWZ9rPy1vrf7o
+ ZRbfvaPVQJ9vyhDdA8K20UbMUvNY1usrwBrBGGV+XXSm5KKorBJ324Mz+ZwrgQTwU9di
+ q4+A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1779370542; x=1779975342;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=BIK/4TSUzg+Gt9duY3olQGpqAgCO2S6UZFsGeUBiZ8Q=;
+ b=m7KGNyp4z/1q8gQbnOSlg1/t6WlTf2FiGJTDVijC6/UkfknZ9ImgzHCSWb914NVbp/
+ UTw3svnKiFoiQz+YP74dWblm2f8VwnHADdwnmJyTJx1r+mlsOIj2YjvrO6JGmhbtsy28
+ +u21rLIalutX6iEqEXs4udY7H20TFYOt3xsfrf15cLE2A2MAOO7PXt9k44qWZg8fY7TY
+ fcnJqA+fP2YvrbE4Qp9xXyoRmdow3dZZnW0W6bNo5otxtxTgnY1O0QPZlsXSvt6ISWkI
+ jUzCA4cp+D1APCFSdo4wFWwdIrdRHBE0yzSI5RQkHJdc21YIe//HeX7R8OHJQUF61LMe
+ SEoQ==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ9clm3g27n9bKi50YSvPTYOkjB+Hj09eb45BO+7PHWuUH78zqv/m/eDPiOtxINDPWe1W8xVZKnX@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzdxVmpZRn2P6sNy/qfTsD6XEsLPrK4AUURu299Ax2HYE59KWGB
+ GUtWfYOJyro9xwBMmmWl76l7iyJGcqSjrT2ZLbcjoe8KmV9fTH4WTw7t
+X-Gm-Gg: Acq92OH6rBkSqhwZkognR/18BnsFByMtP4q6chV7cMkHHjMY688WqfVtqoNBrKl4Aes
+ AQVvnZdP5lYs0pjeckAURHaTv+kdUVe4MguX7QwD5is8c5o4cvSJJdHnfjlzi3+F78PSJUvgFs3
+ Zb+MqDHRJ1fYqprOLMEclJdEh1HXNNyssPEnQvPDtDFQfJ1j9Nr1b5WOvVhxODfxnaVitjFQ549
+ mXXfd5VZq5c9ASeoygf8toT3AeUUO5jQ/Mq+juI1403pySBZlh5WkKhh/g/wUIsxYgXum/UOt01
+ 85I7DmX60WUULfgQX8jGu/67DJHPFzYjC1qVSXB+Sx+rV7GLOlv5dKlbrG46RUX7UvEgN3EmJxR
+ L7F4Kj39dUh+DYOnCFXxKxZ5Hp6rnyCyf0QBvSvi7Z+yz2PBszTbWd5ZP0hgipWb5js8zIypcaZ
+ HF+QoLpf0TmiKZcvSN1nuY/h0GHnA1eDTLvbrxekN82Q1vA50BGexZ1VMgohc=
+X-Received: by 2002:a05:6a00:950e:b0:835:3f51:72fb with SMTP id
+ d2e1a72fcca58-8414ac893c1mr3157356b3a.12.1779370542273; 
+ Thu, 21 May 2026 06:35:42 -0700 (PDT)
+Received: from csl-conti-dell7858.ntu.edu.sg ([155.69.195.57])
+ by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-84154b1bfc1sm1286174b3a.26.2026.05.21.06.35.39
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 21 May 2026 06:35:41 -0700 (PDT)
+From: Maoyi Xie <maoyixie.tju@gmail.com>
+To: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH] drm/amdgpu: remove dead empty checks in ring_mux
+ ib_mark_offset and end_ib
+Date: Thu, 21 May 2026 21:35:37 +0800
+Message-Id: <20260521133537.3438468-1-maoyixie.tju@gmail.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260523-color-format-v16-7-24340c5e4732@collabora.com>
-References: <20260523-color-format-v16-0-24340c5e4732@collabora.com>
-In-Reply-To: <20260523-color-format-v16-0-24340c5e4732@collabora.com>
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
- Rodrigo Siqueira <siqueira@igalia.com>, 
- Alex Deucher <alexander.deucher@amd.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Sandy Huang <hjc@rock-chips.com>, 
- =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
- Andy Yan <andy.yan@rock-chips.com>, 
- Jani Nikula <jani.nikula@linux.intel.com>, 
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
- Tvrtko Ursulin <tursulin@ursulin.net>, Dmitry Baryshkov <lumag@kernel.org>, 
- Sascha Hauer <s.hauer@pengutronix.de>, Rob Herring <robh@kernel.org>, 
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
- Daniel Stone <daniel@fooishbar.org>
-Cc: kernel@collabora.com, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
- linux-doc@vger.kernel.org, wayland-devel@lists.freedesktop.org, 
- Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 26 May 2026 07:53:08 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -91,151 +90,57 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The drm_bridge_funcs atomic_get_output_bus_fmts operation should be the
-same for likely every HDMI connector bridge, unless such an HDMI
-connector bridge has some special hardware restrictions that I cannot
-envision yet.
+amdgpu_ring_mux_ib_mark_offset() and amdgpu_ring_mux_end_ib() read
+e->list with list_last_entry() and then test the returned pointer
+against NULL. list_last_entry() never returns NULL. On an empty
+list it returns container_of(&e->list, struct amdgpu_mux_chunk,
+entry), which is an aliased pointer derived from the list head.
+The "cannot find chunk!" error path is dead code.
 
-To avoid code duplication and standardize on a set of media bus formats
-that the HDMI output color formats translate to, add a common helper
-function that implements this operation to the drm bridge helpers.
+These callsites run on the software ring submission path, after
+amdgpu_ring_mux_start_ib() has linked a fresh chunk into e->list.
+By the IB API contract, mark_offset and end_ib only execute between
+start_ib and the chunk's removal in scan_and_remove_signaled_chunk(),
+so e->list is non-empty at the read. The defensive check is
+misleading and never fires.
 
-The function returns a list of output bus formats based on the HDMI
-bridge's current output bits-per-component, and its bitmask of supported
-color formats.
+Drop the dead block on both sites. The list_last_entry() read stays.
+If a future change broke the precondition, callers would crash on
+the aliased pointer, which is louder than the current silent error
+log and easier to debug.
 
-To guard against future expansion of DRM_OUTPUT_COLOR_FORMAT outgrowing
-the hweight8 call, add a BUILD_BUG_ON statement where it's used that
-checks for DRM_OUTPUT_COLOR_FORMAT_COUNT. The justification for not
-using hweight32 in all cases is that not all ISAs have a popcount
-instruction, and will benefit from a smaller/faster software
-implementation that doesn't have to operate across all bits.
-
-The justification for not defining an hweight_color depending on the
-value of DRM_OUTPUT_COLOR_FORMAT_COUNT is that this count enum value is
-only known at compile time, not at preprocessor time.
-
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Reviewed-by: Daniel Stone <daniel@fooishbar.org>
-Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+Suggested-by: Christian König <christian.koenig@amd.com>
+Signed-off-by: Maoyi Xie <maoyixie.tju@gmail.com>
 ---
- drivers/gpu/drm/drm_atomic_helper.c | 81 +++++++++++++++++++++++++++++++++++++
- include/drm/drm_atomic_helper.h     |  7 ++++
- 2 files changed, 88 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ring_mux.c | 8 --------
+ 1 file changed, 8 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_atomic_helper.c b/drivers/gpu/drm/drm_atomic_helper.c
-index 3547f797a850..285aac3554df 100644
---- a/drivers/gpu/drm/drm_atomic_helper.c
-+++ b/drivers/gpu/drm/drm_atomic_helper.c
-@@ -28,6 +28,7 @@
- #include <linux/export.h>
- #include <linux/dma-fence.h>
- #include <linux/ktime.h>
-+#include <linux/media-bus-format.h>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring_mux.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring_mux.c
+index 6e64a96fa285..83d62d9f76d4 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring_mux.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring_mux.c
+@@ -495,10 +495,6 @@ void amdgpu_ring_mux_ib_mark_offset(struct amdgpu_ring_mux *mux,
+ 	}
  
- #include <drm/drm_atomic.h>
- #include <drm/drm_atomic_helper.h>
-@@ -4107,3 +4108,83 @@ drm_atomic_helper_bridge_propagate_bus_fmt(struct drm_bridge *bridge,
- 	return input_fmts;
- }
- EXPORT_SYMBOL(drm_atomic_helper_bridge_propagate_bus_fmt);
-+
-+/**
-+ * drm_atomic_helper_bridge_get_hdmi_output_bus_fmts - helper implementing
-+ *                                           atomic_get_output_bus_fmts for HDMI
-+ * @bridge: pointer to &struct drm_bridge
-+ * @bridge_state: pointer to the current bridge state
-+ * @crtc_state: pointer to the current CRTC state
-+ * @conn_state: pointer to the current connector state
-+ * @num_output_fmts: pointer to where the number of entries in the returned array
-+ *                   will be stored. Set to 0 if unsuccessful.
-+ *
-+ * Common implementation for the &drm_bridge_funcs.atomic_get_output_bus_fmts
-+ * operation that's applicable to HDMI connectors.
-+ *
-+ * Returns: a newly allocated array of u32 values of length \*@num_output_fmts,
-+ * representing all the MEDIA_BUS_FMTS\_ for the current connector state's
-+ * chosen HDMI output bits per compoennt, or %NULL if it fails to allocate one.
-+ */
-+u32 *
-+drm_atomic_helper_bridge_get_hdmi_output_bus_fmts(struct drm_bridge *bridge,
-+					struct drm_bridge_state *bridge_state,
-+					struct drm_crtc_state *crtc_state,
-+					struct drm_connector_state *conn_state,
-+					unsigned int *num_output_fmts)
-+{
-+	unsigned int num_fmts = 0;
-+	u32 *out_fmts;
-+
-+	/*
-+	 * bridge->supported_formats is a bit field of BIT(enum drm_output_color_format)
-+	 * values. The smallest hweight that is smaller than or equal to
-+	 * %DRM_OUTPUT_COLOR_FORMAT_COUNT will do for counting set bits here.
-+	 */
-+	BUILD_BUG_ON(const_true(DRM_OUTPUT_COLOR_FORMAT_COUNT > 8));
-+	out_fmts = kmalloc_array(hweight8(bridge->supported_formats),
-+				 sizeof(u32), GFP_KERNEL);
-+	if (!out_fmts) {
-+		*num_output_fmts = 0;
-+		return NULL;
-+	}
-+
-+	switch (conn_state->hdmi.output_bpc) {
-+	case 12:
-+		if (bridge->supported_formats & BIT(DRM_OUTPUT_COLOR_FORMAT_RGB444))
-+			out_fmts[num_fmts++] = MEDIA_BUS_FMT_RGB121212_1X36;
-+		if (bridge->supported_formats & BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR444))
-+			out_fmts[num_fmts++] = MEDIA_BUS_FMT_YUV12_1X36;
-+		if (bridge->supported_formats & BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR422))
-+			out_fmts[num_fmts++] = MEDIA_BUS_FMT_UYVY12_1X24;
-+		if (bridge->supported_formats & BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR420))
-+			out_fmts[num_fmts++] = MEDIA_BUS_FMT_UYYVYY12_0_5X36;
-+		break;
-+	case 10:
-+		if (bridge->supported_formats & BIT(DRM_OUTPUT_COLOR_FORMAT_RGB444))
-+			out_fmts[num_fmts++] = MEDIA_BUS_FMT_RGB101010_1X30;
-+		if (bridge->supported_formats & BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR444))
-+			out_fmts[num_fmts++] = MEDIA_BUS_FMT_YUV10_1X30;
-+		if (bridge->supported_formats & BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR422))
-+			out_fmts[num_fmts++] = MEDIA_BUS_FMT_UYVY10_1X20;
-+		if (bridge->supported_formats & BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR420))
-+			out_fmts[num_fmts++] = MEDIA_BUS_FMT_UYYVYY10_0_5X30;
-+		break;
-+	default:
-+		if (bridge->supported_formats & BIT(DRM_OUTPUT_COLOR_FORMAT_RGB444))
-+			out_fmts[num_fmts++] = MEDIA_BUS_FMT_RGB888_1X24;
-+		if (bridge->supported_formats & BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR444))
-+			out_fmts[num_fmts++] = MEDIA_BUS_FMT_YUV8_1X24;
-+		if (bridge->supported_formats & BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR422))
-+			out_fmts[num_fmts++] = MEDIA_BUS_FMT_UYVY8_1X16;
-+		if (bridge->supported_formats & BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR420))
-+			out_fmts[num_fmts++] = MEDIA_BUS_FMT_UYYVYY8_0_5X24;
-+		break;
-+	}
-+
-+	*num_output_fmts = num_fmts;
-+
-+	return out_fmts;
-+}
-+EXPORT_SYMBOL(drm_atomic_helper_bridge_get_hdmi_output_bus_fmts);
-+
-diff --git a/include/drm/drm_atomic_helper.h b/include/drm/drm_atomic_helper.h
-index b84152810abb..4cfeec70d648 100644
---- a/include/drm/drm_atomic_helper.h
-+++ b/include/drm/drm_atomic_helper.h
-@@ -295,4 +295,11 @@ drm_atomic_helper_bridge_propagate_bus_fmt(struct drm_bridge *bridge,
- 					u32 output_fmt,
- 					unsigned int *num_input_fmts);
+ 	chunk = list_last_entry(&e->list, struct amdgpu_mux_chunk, entry);
+-	if (!chunk) {
+-		DRM_ERROR("cannot find chunk!\n");
+-		return;
+-	}
  
-+u32 *
-+drm_atomic_helper_bridge_get_hdmi_output_bus_fmts(struct drm_bridge *bridge,
-+					struct drm_bridge_state *bridge_state,
-+					struct drm_crtc_state *crtc_state,
-+					struct drm_connector_state *conn_state,
-+					unsigned int *num_output_fmts);
-+
- #endif /* DRM_ATOMIC_HELPER_H_ */
-
+ 	switch (type) {
+ 	case AMDGPU_MUX_OFFSET_TYPE_CONTROL:
+@@ -528,10 +524,6 @@ void amdgpu_ring_mux_end_ib(struct amdgpu_ring_mux *mux, struct amdgpu_ring *rin
+ 	}
+ 
+ 	chunk = list_last_entry(&e->list, struct amdgpu_mux_chunk, entry);
+-	if (!chunk) {
+-		DRM_ERROR("cannot find chunk!\n");
+-		return;
+-	}
+ 
+ 	chunk->end = ring->wptr;
+ 	chunk->sync_seq = READ_ONCE(ring->fence_drv.sync_seq);
 -- 
-2.54.0
+2.34.1
 
