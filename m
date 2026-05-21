@@ -4,120 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 15524CD5BB5
-	for <amd-gfx@archiver.kernel.org>; Thu, 21 May 2026 14:53:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C8A1FCD4F3D
+	for <amd-gfx@archiver.kernel.org>; Thu, 21 May 2026 15:08:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3FFDC10F375;
-	Thu, 21 May 2026 14:53:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4B06910E0CC;
+	Thu, 21 May 2026 15:08:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=fooishbar.org header.i=@fooishbar.org header.b="X4Cm0eRa";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="OSjwBA+3";
 	dkim-atps=neutral
-Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com
- [209.85.216.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 680A610F372
- for <amd-gfx@lists.freedesktop.org>; Thu, 21 May 2026 14:53:53 +0000 (UTC)
-Received: by mail-pj1-f51.google.com with SMTP id
- 98e67ed59e1d1-366375c4076so2457523a91.3
- for <amd-gfx@lists.freedesktop.org>; Thu, 21 May 2026 07:53:53 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1779375233; cv=none;
- d=google.com; s=arc-20240605;
- b=QZrSKz8EY9BRbZd8sQeHpwJ2rrpq45qib/U7ZFbyiXOnb+2M8MgqAx24AjGD+09zZx
- Bf9w01eyGJbVzT0vY4IPyZWaOFxIje98G2WY8Di2XqzcCZi5ZqJEfHRnqkXxf5q0rPfi
- qNZArlRF+PooRDovluAQsAzZ1ByLZh9b2TzSskPKc9m+dQmHXG2jdYKwS7JstmlGWIs4
- E8DyfzxxCzCSbenS9SzR+tQ8LHRUlhEVWWC9/UEFYqEErWodnm/RbA3SO3wg6fp9SIgK
- d6HuT84G148+MqJp7GqKMUUfAk0/Se+f0/zewEczNePNDZEMZkC/YVjMBsYaqmilIhKA
- lSLw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:dkim-signature;
- bh=bA/ypZiwvOF7bLYV81VPBE2mEbMWo9wKAEc1kqSaHPI=;
- fh=u57OcBc8WSFkMFYUJHcOXBaKhvJ/TXWtRHFzzujK1ZM=;
- b=QaQY4PKJrSSIOvtARCxR4FKM4sp8xRmj2M567+w5OhKYjY9p06tSeK0Wmh6U44agbq
- 0R5nynbvfuqxOaL02LpESLOZ+fmsXJ1eDsQPZGyeVjMe+9rkQb80U0ggjiIyO1+/xUuk
- ViCafYIg+XhmLtWSUYzqY7CgHLsKX13XJMF8boIqvg2lyw+H1nTBe9QkDcDlFJEJ2tBH
- k4AaQ9eS//MtFTjIQBVDjPoKo/jvDk5rutXvbF4BoSpauCLCJwAUegAntnAk4kJMAbMH
- /Xsd+haxxo/+XrbAHQVQdqTI3Ox2standvgnIwXg4yJ8Sla9Rj2Z0pve01GNdgXnLq+/
- tf3Q==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mail-lf1-f46.google.com (mail-lf1-f46.google.com
+ [209.85.167.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4918A10F37D
+ for <amd-gfx@lists.freedesktop.org>; Thu, 21 May 2026 15:08:49 +0000 (UTC)
+Received: by mail-lf1-f46.google.com with SMTP id
+ 2adb3069b0e04-5a8c94cefcdso5270825e87.0
+ for <amd-gfx@lists.freedesktop.org>; Thu, 21 May 2026 08:08:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=fooishbar.org; s=google; t=1779375233; x=1779980033;
- darn=lists.freedesktop.org; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=bA/ypZiwvOF7bLYV81VPBE2mEbMWo9wKAEc1kqSaHPI=;
- b=X4Cm0eRalOhD7aPfWdgBAVBQsTDZXCODGprWlAk7HpUnnY+QmW9ikUAQrBoFUV066h
- PDq+nDNKvUEK2MsIIG6juPz1PheewyhtGHPFuPAPBtp2mrTxzoJghs+yb/ppOeUeoZea
- hoO6TCqDTrAq0SopDvvkHIDjNYLqX7sCHKPLZvyHx1qYa4pGVD4MupVlPKM+IVFcW5Sa
- A5qso4bpIuub5uH4u1gwjA3BzgPAxnmrVcCSjEs1Z2bIlIHfGiu9gkCs3B2WsL7cLyyv
- BPcsGzUNRznfDwlBxAoewe/5/5HxNBKViHyx5FnJziIrSFAIAgz48nptWdoERrpqnJYU
- 6gwQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779375233; x=1779980033;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=gmail.com; s=20251104; t=1779376127; x=1779980927; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=bA/ypZiwvOF7bLYV81VPBE2mEbMWo9wKAEc1kqSaHPI=;
- b=AamTYItX2sbZjGO6zKeXiSyZAr+2DXk6+oz86wFzn2kTIyfT1yxc5/EMaDPiwuSKnD
- z4IlIJ/k0ikJNBtmiQ/vN7oFDGSO0Lc12dnkNJYUMcuCsS/zEKznrLZcc+e8XChCiL8q
- i25ecEoZ8z4fHeDEL3B+elimUcsTPuYuak9aD6p9m9+BmYYVjIi9ry7hxlc+O0SvlMjS
- 89C8P35oFmIxgRmWvZwxR1q5iIkdnwjkXC+gc4dOoXcpuzEZo9PXoSlUmlfgTLe3rDmZ
- HOHeDkoPDhG5UYa4mbCuJOiuyj6V5aXuTaQW5kn3+BujK8AEK1JgKQsOur/FcQaeVVs3
- aESA==
-X-Forwarded-Encrypted: i=1;
- AFNElJ/1ab0xZuFgogFs+GDu4HScgloItxn5hh4afC/cc9rteIFFQS3QNCQQ4fSVftIHBuCFa2Z4k9xI@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwcHNNtZc8fX8CrMKDg9HPLM9T7+DahGveytKyqYbyb+DcPjbvF
- 7uI2EBoqFXvvkisaQC7TS95CTlwOmO1NZX55ujGApTJQBRk/B1FhV3wuvpMOMIGEpcta+evHoyo
- NbJLdeDgn/88Lo9JpWGy47BFfAccLrP+RW+AB3ql2jQ==
-X-Gm-Gg: Acq92OFEy1nocFFMRuavNTadXalefffRqTPfDJ/BWxp3LQExlnRQHdnJSqB12EBjslD
- skgDwkOYWJruR3lM2y7Kr4W2Ue0tVxZEza9MyCoOW8Ku3jOJYpWDi5Y4d7xLmnv1xT4vUOq8r7H
- pt72xFouoi6AAEtPT53w7B1lk3DzaEgISQUPNPsGY/lDm6a9MbQaa0cObAU9aqP7KcFSIVfkmfu
- UUSRSX14WUTmszF6x5j2TUIipalBVnTgsUoYteBLYCsl104FwiGzatDE6tA310/y1ZCNZa09sQL
- yo85Nh/jOIMy6+aBnPREoAbGUd3HhCfeeG5o4Po=
-X-Received: by 2002:a17:90b:2d50:b0:368:78da:803 with SMTP id
- 98e67ed59e1d1-36a451816e0mr3680773a91.12.1779375232901; Thu, 21 May 2026
- 07:53:52 -0700 (PDT)
+ bh=mR8YNzhzHv5g5ezNdxi/IR56+HrSSzrEa6IF1DOutaU=;
+ b=OSjwBA+3szqkYhv7PgaHCrEWeu84xCagI4SucUvypjbLgdVDHy7Wx+gl3joSwmkvgl
+ /LDyjJjlvgTl5eH+Qt2Vxf/ShOa2WTqWByljk+ixv/6g/7MjjLvwhjcho95/oh5H0cPF
+ cPlDlN8rX7FSzfMhDig1TJDdh2ujjxG5Fnu8v1lLgTyn+kYHHx2zUepFTgZ7XgnTv+Xp
+ ipbF68tswMxn1NBOEQOz/krfaApKZm0EKpARZDQOVeZHXSWCeHhTo9E0IcYk2lMS43sz
+ khlFn4gZjbuEXBjY8I9BzccfZu1CFe6buDlj73bwFdtnRPXXYmEl0+XdUXBZpxQXh3CU
+ 5lpQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1779376127; x=1779980927;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=mR8YNzhzHv5g5ezNdxi/IR56+HrSSzrEa6IF1DOutaU=;
+ b=cRrhLw0S7OTePqFsM+lcDzMwNkUbuFswd2clELAKD3XfZyEpemu+g8A/qNLmOu0iXA
+ BuTsevk4RvA61VjZvfwCuiyxA4PCMtN1HWCv6J9X8vJhC4vM/Fga6qhMQrvndDWoRA82
+ 03G+5gqCgeJv3NSAimattQd0eSh16NUCnE6r3bgQcuBfo5ZZ26ULCFnI8C2D5NDGQzWC
+ 8v1IAJnKjTOB7DoQ4fiEaffw4DxzMaGnDw5KekgkX/lU6r8q6D/ION47Pt+s8IyG12Tb
+ hZM4JZ/oABDCWm7pBXoVHyeFq6Xe6Os7NOkSLKgQy2qnb0Os9VULdw7h5hkv85XcTv9G
+ oDyg==
+X-Gm-Message-State: AOJu0Ywthg6FX+bwm09MHAS4y0Rr3lFY7Po8aRAJGRPOe1rcoqzDFyEc
+ 468UkyBe4HVnv1x8YfkXPo1947UoNfoM2pvmxapxWN3IqDE1WXuFgqUccJWrQbKHYuRjHRUK
+X-Gm-Gg: Acq92OHbfZQg4AzqoobokbkGLbqPwrbBoQ9XHcDI3MCTVP3iKMyKLGnYwVmccwdPcRv
+ V2Kaidp+uK0n0KS2YQkmEflT+ynzt33Ni23SEHpXq5sF7ig8NqVy52IVbCJWtfwXORqUchr9Nc2
+ EsshJh7yPDu3n9g6cz77ADezafV2H6VCZtIqKQKzSVwT/iRJR4iYURhSa0/BInDOZrLaZIxs/Aa
+ Oy0oUYM/ltHhwJxWO+K7/+HKMmR7vxyyNFKRpA4gChfXU8WIDv6Bp2pkmztoYY4LaqGPw38xaLj
+ PZ+xT5uboFXuL+PQIFXFJROGRLlJUEDhCjPUF56ArJy7G1/WmWmHg6LGNfgvaBH1GcaJHDmzIUb
+ JbSx2ym1IRxVlvAaG4Hw7pSY/nWPH613iE3LuUVPLZgtz6CjnUbnzGpOdXpOXHFbLrHnGm21yf+
+ dP83O8O0Sx3duiEqk5GaQw9kQHbg39DNMXJyb9BIT/bFE=
+X-Received: by 2002:a19:7001:0:b0:5aa:265f:acd0 with SMTP id
+ 2adb3069b0e04-5aa2bc90bacmr751255e87.39.1779376126773; 
+ Thu, 21 May 2026 08:08:46 -0700 (PDT)
+Received: from localhost ([188.234.148.119]) by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-5aa2f120c6esm335686e87.19.2026.05.21.08.08.45
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 21 May 2026 08:08:46 -0700 (PDT)
+From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+To: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>, linux-media@vger.kernel.org,
+ linaro-mm-sig@lists.linaro.org,
+ Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+Subject: [PATCH v5 0/2] drm/amdgpu: fix recursive ww_mutex in devcoredump IB
+ dump
+Date: Thu, 21 May 2026 20:08:38 +0500
+Message-ID: <20260521150841.20625-1-mikhail.v.gavrilov@gmail.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260521104335.28978-1-mikhail.v.gavrilov@gmail.com>
+References: <20260521104335.28978-1-mikhail.v.gavrilov@gmail.com>
 MIME-Version: 1.0
-References: <20260423-color-format-v14-0-449a419ccbd4@collabora.com>
-In-Reply-To: <20260423-color-format-v14-0-449a419ccbd4@collabora.com>
-From: Daniel Stone <daniel@fooishbar.org>
-Date: Thu, 21 May 2026 15:53:41 +0100
-X-Gm-Features: AVHnY4KPQYYiaRNDiAsU-wmS8JuOZnjSnShN4CXgg2DHzWx0LVSgQ_nHQROoprA
-Message-ID: <CAPj87rOFnB+csoswOOSBR2-=abtCDbsKq2uJ_PgYKPWh-G8m9w@mail.gmail.com>
-Subject: Re: [PATCH v14 00/28] Add new general DRM property "color format"
-To: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
- Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>,
- Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>, Sandy Huang <hjc@rock-chips.com>, 
- =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
- Andy Yan <andy.yan@rock-chips.com>, Jani Nikula <jani.nikula@linux.intel.com>, 
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
- Tvrtko Ursulin <tursulin@ursulin.net>, Dmitry Baryshkov <lumag@kernel.org>, 
- Sascha Hauer <s.hauer@pengutronix.de>, Rob Herring <robh@kernel.org>, 
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- kernel@collabora.com, 
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-rockchip@lists.infradead.org, intel-gfx@lists.freedesktop.org, 
- intel-xe@lists.freedesktop.org, linux-doc@vger.kernel.org, 
- wayland-devel@lists.freedesktop.org, Werner Sembach <wse@tuxedocomputers.com>, 
- Andri Yngvason <andri@yngvason.is>,
- Cristian Ciocaltea <cristian.ciocaltea@collabora.com>, 
- Marius Vlad <marius.vlad@collabora.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Andy Yan <andyshrk@163.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,42 +93,89 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi there,
+This series fixes a lockdep "possible recursive locking" splat in
+amdgpu_devcoredump_format() that fires on every GPU timeout once a job
+with a PASID context is involved. With amdgpu.gpu_recovery=0 the timeout
+handler refires every ~2 s, so the splat repeats until it drowns the
+kernel ring buffer. It is also a real self-deadlock for IB BOs that
+share their dma_resv with the root PD (the always-valid case).
+ 
+The root cause: amdgpu_devcoredump_format() holds the VM root PD's
+reservation and then reserves each IB BO on top of it, nesting two
+reservation_ww_class_mutex acquires without a ww_acquire_ctx.
+ 
+The fix teaches amdgpu_vm_lock_by_pasid() to lock the root PD in a
+drm_exec context, so the devcoredump path can lock the root PD and all
+the IB BOs together in one ww ticket. Because amdgpu_vm_lock_by_pasid()
+has a second caller in the page-fault path, the series is split so each
+patch builds and works on its own:
+ 
+  1/2  Convert amdgpu_vm_lock_by_pasid() to take a drm_exec context and
+       lock the root PD with drm_exec_lock_obj(). The drm_exec context
+       holds the root BO reference, so the root output parameter is
+       dropped. Updates the existing caller, amdgpu_vm_handle_fault().
+       Pure refactor, no functional change to the page-fault path.
+ 
+  2/2  Use the new signature in amdgpu_devcoredump_format(): lock the
+       root PD and every IB BO together in one drm_exec ticket. The
+       per-IB amdgpu_bo_reserve() nesting is gone, along with a BO
+       refcount leak on the old reserve-failure path. This is the
+       actual bug fix and carries the Fixes: tag.
+ 
+Tested on Linux 7.1-rc4 + this series, Radeon RX 7900 XTX (gfx1100),
+KASAN + PROVE_LOCKING enabled, using a small libdrm_amdgpu reproducer
+that submits a GFX IB chained at GPU VA 0 and waits for the hang. Before
+the series the splat fires on every TDR; after it the dmesg is clean
+across repeated timeouts and the devcoredump IB dump is produced
+correctly.
+ 
+v1: https://lore.kernel.org/amd-gfx/20260429143743.50743-1-mikhail.v.gavrilov@gmail.com/
+v2: https://lore.kernel.org/amd-gfx/20260519161541.19994-1-mikhail.v.gavrilov@gmail.com/
+v3: https://lore.kernel.org/amd-gfx/20260520151741.50575-1-mikhail.v.gavrilov@gmail.com/
+v4: https://lore.kernel.org/amd-gfx/20260521104335.28978-1-mikhail.v.gavrilov@gmail.com/
+ 
+Changes since v4:
+- Pass nr=1 to drm_exec_init() in amdgpu_vm_handle_fault(), since
+  exactly one object (the root PD) is locked there (Christian).
+- Picked up Christian's Reviewed-by on patch 1.
+ 
+Changes since v3:
+- Lock the root PD with drm_exec_lock_obj() instead of
+  amdgpu_vm_lock_pd(): the latter dereferences the VM pointer, which is
+  not yet re-validated at that point (Christian).
+- Drop the root output parameter of amdgpu_vm_lock_by_pasid() entirely;
+  the drm_exec context already holds a reference on the locked root BO,
+  so the extra reference and the parameter are unnecessary (Christian).
+- Unlock the root BO with drm_exec_unlock_obj() on the VM-recheck-failed
+  path (Christian).
+- amdgpu_vm_handle_fault() and amdgpu_devcoredump_format() updated for
+  the simplified signature; both lose their root variable.
+- Drops the v3 kernel-doc "*root" reference, which also resolves the
+  docutils "Inline emphasis start-string without end-string" warning
+  the kernel test robot reported against v3.
+ 
+Changes since v2:
+- Reworked along the lines Christian suggested: amdgpu_vm_lock_by_pasid()
+  takes a drm_exec context directly (patch 1), and the devcoredump code
+  locks the root PD and all IB BOs in a single ticket (patch 2). The
+  amdgpu_devcoredump_ib_ref struct and the three collect/lock/release
+  helpers from v2 are gone.
+ 
+Changes since v1:
+- Switched from per-IB amdgpu_bo_reserve() to drm_exec.
+- Dropped the Cc: stable tag: the regression only landed in 7.1-rc1, so
+  the fix reaches 7.1 via drm-fixes without a stable backport.
 
-On Thu, 23 Apr 2026 at 20:04, Nicolas Frattaroli
-<nicolas.frattaroli@collabora.com> wrote:
-> We have an implementation in Weston at
-> https://gitlab.freedesktop.org/wayland/weston/-/merge_requests/1825 that
-> adds support for this property. This patch series has been tested
-> against that MR on i915 (HDMI, DP), amdgpu (HDMI, DP) and on rockchip
-> (HDMI).
+Mikhail Gavrilov (2):
+  drm/amdgpu: convert amdgpu_vm_lock_by_pasid() to drm_exec
+  drm/amdgpu: fix recursive ww_mutex acquire in
+    amdgpu_devcoredump_format
 
-This MR is R-b me.
+ .../gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c  | 105 ++++++++++++------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c        |  91 +++++++++------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h        |   2 +-
+ 3 files changed, 129 insertions(+), 69 deletions(-)
 
-> General notes on the approach taken by me: instead of silently switching
-> to a different format than was explicitly requested, or even worse,
-> outputting something to the sink the sink doesn't support, bubble up an
-> error to userspace instead. "color format" is a "I want this" type
-> property, not a "force this" type property, i.e. the kernel will respect
-> the limits imposed by the hardware.
+-- 
+2.54.0
 
-Yes! If userspace wants a fallback chain, it should encode it itself
-through a series of test commits, rather than adding the sequential
-logic to the kernel. Doing that might work for one axis, but pretty
-quickly disintegrates when there are multiple parameters to perhaps
-fall back on.
-
-I had minor comments on 03 and 20, but they're Rb me with the obvious
-fixes. 11, 12, and 19 are Acked-by me, as I don't quite know the
-hardware specifics well enough to say. The rest are Reviewed-by me.
-
-I suggest you merge the common code and VOP2/DW-QP implementations via
-drm-misc, leaving Intel and AMD to merge through their own trees
-whenever they're ready. We'll merge the Weston implementation when it
-lands in DRM.
-
-Thanks to you and all prior cooks for all the work, and to Maxime and
-Dmitry for the help and review as well.
-
-Cheers,
-Daniel
