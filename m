@@ -4,62 +4,163 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0E6B8CD5BAF
-	for <amd-gfx@archiver.kernel.org>; Fri, 22 May 2026 00:34:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DA3FACD4F5B
+	for <amd-gfx@archiver.kernel.org>; Fri, 22 May 2026 04:21:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1118D10F498;
-	Fri, 22 May 2026 00:34:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4DE2510E23C;
+	Fri, 22 May 2026 04:21:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Fix2vKPk";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="B8Y33shN";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6BD1010F497;
- Fri, 22 May 2026 00:34:02 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0372610E05F;
+ Fri, 22 May 2026 04:21:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1779410042; x=1810946042;
- h=date:from:to:cc:subject:message-id;
- bh=r1xUBXluIgV8O6LXapirGIrJa02+P2xK9qYwBVmvKFw=;
- b=Fix2vKPkLAzwGsLPWkGCkYh11ppXI3Sfj/yNEgFpVQyRdnx/hhKHFv29
- 1iK6U/gx8+9SRch2lPTpwc9euVUp/3cYylQy9witFW9vEmvuhPZ5v+dSf
- rfN/xT+XY1S4Kbrx4BZuPradTatNvfmhpuv7n0sHIdiEGhs7Ql4jAI0cY
- AZDSfO9lkeZUCjoXWXweHh31k2gfaJvjIRo72A0VGflAaFjohNywPnRHB
- ThK2lvDCNbdE+9Iqe1kkxUxz+53+3jJ/ER7Zzk2i7ZZ7TkX9NqociV1PC
- tubtVfVpRqCGHf/O/D2MWXSG31sDCIGNk55I7tSxcuFGNUud/Mm11Dy2T w==;
-X-CSE-ConnectionGUID: 2F7w0XENTQ29yJ21Z6eejA==
-X-CSE-MsgGUID: Z8yHWslNTjWvrztU3N3nEA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11793"; a="105803380"
-X-IronPort-AV: E=Sophos;i="6.24,161,1774335600"; d="scan'208";a="105803380"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
- by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 May 2026 17:34:01 -0700
-X-CSE-ConnectionGUID: +fORRaL0TbuBc92UEGQa1w==
-X-CSE-MsgGUID: JtSUS+S4TC6ZEi3SMqvMoQ==
+ t=1779423681; x=1810959681;
+ h=from:to:subject:date:message-id:references:in-reply-to:
+ content-transfer-encoding:mime-version;
+ bh=az/5JfWElrKNpf0+/sL/ZUY4m40MbsFdzy1hax9yCiU=;
+ b=B8Y33shNwzkJ5fv/ps1I1xwNB0VeJ2KTLwvElxAToakJC7rdsprtoi6e
+ ZbH7Dflq0MEUwS8QX0dhQSe9qhv07f+pl0csNQPapcsdX6GwXjiCvljzr
+ rYp2R9K7JPE09QYeNyzC17+5fHHVIYrwZqk0EQkJvMForzkgmnTvACyb0
+ cXbtD1tVD9O5Ax1kKdwdkGyxD8TKMRvHPyvPNeF8ueztFl+9CSBa+vvUA
+ V2vkyq1sDneszXrisC5GP8Hz2k7g5nnDnPObNjHxPYwsn+4R7A4u+ItyV
+ rg8jbm9/V/LfvRJhKrwG80iK0iXSL0Sld1C67YaTf2Q2zULPnd2YGeGyQ g==;
+X-CSE-ConnectionGUID: 49m5aqpbSZiEt9iDxvEUCw==
+X-CSE-MsgGUID: i6TvPndZQza8/yuEGTgyag==
+X-IronPort-AV: E=McAfee;i="6800,10657,11793"; a="80333219"
+X-IronPort-AV: E=Sophos;i="6.24,161,1774335600"; d="scan'208";a="80333219"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+ by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 May 2026 21:21:20 -0700
+X-CSE-ConnectionGUID: uQCJmrIBQ+qjoaiBdj3IxA==
+X-CSE-MsgGUID: y5ZbI4hxQ7WS3uYgLCKTvw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,161,1774335600"; d="scan'208";a="245772703"
-Received: from lkp-server01.sh.intel.com (HELO fdb68b0ce653) ([10.239.97.150])
- by fmviesa005.fm.intel.com with ESMTP; 21 May 2026 17:33:56 -0700
-Received: from kbuild by fdb68b0ce653 with local (Exim 4.98.2)
- (envelope-from <lkp@intel.com>) id 1wQDpp-000000001TN-1FOt;
- Fri, 22 May 2026 00:33:53 +0000
-Date: Fri, 22 May 2026 08:33:24 +0800
-From: kernel test robot <lkp@intel.com>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: Linux Memory Management List <linux-mm@kvack.org>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- kexec@lists.infradead.org, keyrings@vger.kernel.org,
- linux-aio@kvack.org, linux-block@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, linux-gpio@vger.kernel.org,
- linux-hexagon@vger.kernel.org, linux-modules@vger.kernel.org,
- linux-nfs@vger.kernel.org, linux-perf-users@vger.kernel.org,
- linux-riscv@lists.infradead.org, linux-security-module@vger.kernel.org,
- linux-serial@vger.kernel.org, linux-um@lists.infradead.org,
- linuxppc-dev@lists.ozlabs.org, netdev@vger.kernel.org,
- sparclinux@vger.kernel.org, Mark Brown <broonie@kernel.org>
-Subject: [linux-next:master] BUILD REGRESSION
- 550604d6c9b9efc8d068aff94dc301694a7afdee
-Message-ID: <202605220843.g8Ikcqqz-lkp@intel.com>
-User-Agent: s-nail v14.9.25
+X-IronPort-AV: E=Sophos;i="6.24,161,1774335600"; d="scan'208";a="238160969"
+Received: from fmsmsx901.amr.corp.intel.com ([10.18.126.90])
+ by fmviesa008.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 May 2026 21:21:20 -0700
+Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
+ fmsmsx901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37; Thu, 21 May 2026 21:21:19 -0700
+Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
+ FMSMSX901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37 via Frontend Transport; Thu, 21 May 2026 21:21:19 -0700
+Received: from PH0PR06CU001.outbound.protection.outlook.com (40.107.208.15) by
+ edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37; Thu, 21 May 2026 21:21:19 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=gQvF23PvGP7niabV2wZ16F55czRuLn47G4gdXnUKrZxLtHYPs7t5qlbyQbZtqK5qu0k6idqhYIt7IoKxO4s7IeVwp5sX9XIvS8gbV2D9d0oUotsnuYulH0Se/WJ0168dhE8Wh1eRD41vFLs+JGiWNl10vc02CUcEjSPGPqPZPn0MBO6UxkfcImTlBsPLlRzWmsCHscXgSqQMP/8OZUA92n9widdKIOUsc6BIIh3OccZfl/vCK/nU4/oy99K/0S1y3hUqkiuUzWcjU+cFo2D9vGoyfNOymaHBqX4bGclof9pzDJQkDiGvmWaOhuxNw8rGeV6+nD6ul28XIH+181Fr7Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=az/5JfWElrKNpf0+/sL/ZUY4m40MbsFdzy1hax9yCiU=;
+ b=YMy+RMKAcF8U57WJ9ufRj4HEyIFGpdkHsqcoRg1VIWO5picLRS3hDoKGKBi00BGxgvzjbmW/kVcBIkeAxkUtMpfvXSKnBtU/Q1ZmfNbmI/eT/m2N5FWUAcb+f0BZhS1nghTY0MQygb6Aqgc9mtCjm7SQWs6hTK0XCxnKYr0JtRVia+MnOpIaC4O2V9oikrtGXkRIlobab5fwFqnvwqrROEz5ty4ZhQnvUseaOH8EqFBrPZKmhxHN2L41Da4QOG/B39NfM3RxR2yg1Fr/ai8jkUZQuZzAbLiug9lFx0hwvs67lB8eQBDoTVq+4NotWuG65aXs3RO9hRC8LEYasgHm/w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Received: from DM3PPF208195D8D.namprd11.prod.outlook.com
+ (2603:10b6:f:fc00::f13) by PH8PR11MB9879.namprd11.prod.outlook.com
+ (2603:10b6:510:3c5::10) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.48.17; Fri, 22 May
+ 2026 04:21:12 +0000
+Received: from DM3PPF208195D8D.namprd11.prod.outlook.com
+ ([fe80::8015:f6df:e093:52bd]) by DM3PPF208195D8D.namprd11.prod.outlook.com
+ ([fe80::8015:f6df:e093:52bd%8]) with mapi id 15.21.0048.016; Fri, 22 May 2026
+ 04:21:12 +0000
+From: "Kandpal, Suraj" <suraj.kandpal@intel.com>
+To: John Harrison <John.Harrison@Igalia.com>,
+ "freedreno@lists.freedesktop.org" <freedreno@lists.freedesktop.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "kernel-list@raspberrypi.com" <kernel-list@raspberrypi.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>,
+ "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH v4 0/7] Refactor drm_writeback_connector structure
+Thread-Topic: [PATCH v4 0/7] Refactor drm_writeback_connector structure
+Thread-Index: AQHc6OPs++x9WBuM1kOckmuHvNZjJbYY1VMAgACdZbA=
+Date: Fri, 22 May 2026 04:21:12 +0000
+Message-ID: <DM3PPF208195D8D4F9A49CF8335279F238BE30F2@DM3PPF208195D8D.namprd11.prod.outlook.com>
+References: <20260521053708.1475129-1-suraj.kandpal@intel.com>
+ <add51789-7291-40d6-9c8a-f68f46f1f11c@Igalia.com>
+In-Reply-To: <add51789-7291-40d6-9c8a-f68f46f1f11c@Igalia.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DM3PPF208195D8D:EE_|PH8PR11MB9879:EE_
+x-ms-office365-filtering-correlation-id: a5cf489c-e6ce-4f65-3f75-08deb7b98ede
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|366016|1800799024|376014|56012099003|18002099003|22082099003|38070700021|4143699003|11063799006;
+x-microsoft-antispam-message-info: 0Og0egBMx/UyG+QmRobLJ+ho8ywsHxMdVeMAT5APxB4+eqY072bk3ZZEoOq+fjIjjZBFM+H4jvsj0pBmTQ3F7at3p1mvnRawBXcckJrU6qw5wMZBA3HDxEqHokjnMipd30m3u9rb5w1C+GQrRPtKOa5jyKHaiwzl2KogSVX8M6XwFIZfCwExxASnKW5HU0jo/j/yHjRV5losKny5LvIJ59JuT2tPc22qXH+ncBzOAZHcjTkwFjYkUC854J/vJo0SO1CCF8gvmpdBYdOpx7lttAmzvi7vC+KI6NbiW2/X8fdOlAkjpRlUobafmTA8qE9EHR0E0OwvZ0gBd+aT6BU/LdpWbHROTSI/SEBxG6RhnXq6fcNyLcdQjbncqcRXoqRKw2VXVAlP7LR+iiZoePtEbOF7P5ivYLad1fP/WJ+7AX3T+Kl4nLsbocPjFobBeMGJWKZet+H14uCgwUyuHu7UJZEBzQZb0ma1ANANK8toFhhinR5FoUigXFVUbyJ9JJOmlRDZJ6YWFijPYvrYZwzEd1CX+zNs0f/aZAhst5RRtO11bSF1gge5KBeywvJf0/mcMWIH9zvpSy+TQthZFpFdme/YwKa8xIqMhUXvJz2IfjfKOCP1seUt8H13XaMtmRmyHGRHOTPdBmWylO1xA5Kkxz5kYgO1ZAxYQcGJUcBGlNRrg4pKtux7eao7t5pPoFOX
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM3PPF208195D8D.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(376014)(56012099003)(18002099003)(22082099003)(38070700021)(4143699003)(11063799006);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?T2U1QVBJVUczT2twTGNmbTZmN293a3JGY1dSQmROaDhGWU96TVlrRFRtNCtX?=
+ =?utf-8?B?NHU5bzE0N2gwVnFqcFNuOFExVVpna3BEcERJZjEyNzJmMTVxVE9qejJxSXEr?=
+ =?utf-8?B?T2ltZGo5MXNDekVHeSs0OXhSMGFBbHhDZkpYUmhNYzNyUWhPTVlvZGNrQkdh?=
+ =?utf-8?B?cHRhbDlsN3MvNU1DcGxmRXl6dmFyTy9RL1ovV1VncXpvM3N1Q3F3TC9SS0ht?=
+ =?utf-8?B?cUpiaFNzQ1hyaWVTQmdkUVJuM0dWSEZqUGZteUJlSXJRODRaR3R1QUhRRUtq?=
+ =?utf-8?B?aHNNUkhqaWFkZkhtOGNkdFhvMnMzSXl4Z213dUJsSkVqMmFZd2xXZEVHVUo3?=
+ =?utf-8?B?TG5abDFEamRvOW96MDVtZURnRDRtRWFCcVlKdFNKT1RDWnNIQXlUaEFKR2Rl?=
+ =?utf-8?B?aGtPTUJSbXBibHZybEhrbTlPdEVNT0wyeWFUTmhvUFJycXpGVkxGblRYbUE0?=
+ =?utf-8?B?S1B2REdGeHFvYXBVSjJURm9hSk04SU5kWHptUjRQMTE5K2lpMXhMRFVQaG4r?=
+ =?utf-8?B?RHQ0SUozMGM5RWJ5T0pKTllPQ1RJU2llU2M1QWYyTUJVT1QyODZESWVHNFI0?=
+ =?utf-8?B?VFBiQ0xDZFFEcllPOTNiR2xETzVxb0JMZlA0K1JNSE1Zc3hORFhDcStwby9x?=
+ =?utf-8?B?M1dzSjZQNTNveEk0VmJuRTdUdDE5SnZDTTVaRmJYVVVKY2xEZE96MGtrS1p1?=
+ =?utf-8?B?WHhQRTMyK2cxemsxRFk1SDNHeXJSM2xBWDErS2N1QTJ1UlFaSytabEw0NFJy?=
+ =?utf-8?B?cHFvTU00WjE0TlhMY1YwRlE5OUQ1NG5Eck1jMnErdFVFK25NNWtZTitSc25y?=
+ =?utf-8?B?dEtaeFZrc0ttNHh2ZVdGc0RrVzJVQUdNdkRSMG8zVG5mTXl6aFhDSy9HM29Z?=
+ =?utf-8?B?TldjdFRSTFIzdjdzMXdXdi84WFFjRTViUTI2VnBWNDhYK1gxUFRjY0N3SzJR?=
+ =?utf-8?B?cnloOFYrMzhsZjVWeDFBUlUyRmRPMnQ5Wnc2UTRrbDNxMzBTUHVYSnU0Q2l0?=
+ =?utf-8?B?SmZoWGs5Rk94MkMvaVFrYzg4MTYrLzk1cCs4KzJWRTN2T2w1S25PV1NhMEY0?=
+ =?utf-8?B?TXFYYURyVG1tMXF2ZC83cXZpNUZlRHVQdGJqcnk1TGZycGlIUStVWWdlc1Ft?=
+ =?utf-8?B?WEo2YUkvVU5NT0QxUy9pQ3JmTHhkdzFZRmhrOG9Nd0FSOWtOaTBxM0JtRnpV?=
+ =?utf-8?B?eGExeFMxYTZUaUFhcGdOZnpFOWtnSE5IWUVnZzN6Tks4eWxpZmpnMkdMb2Mw?=
+ =?utf-8?B?RFZHd2dxbFFGLzRxWDVISGJFU0Zsc2UzUDNISmpLY2c3djZGa0YyTHRnZDBC?=
+ =?utf-8?B?TzhHeGRXaU5uaStrNzR5RXZvOFc1ak55NDIxcm1xaWFxNnlJVFZlazBGcUkz?=
+ =?utf-8?B?ak9xVlZIN1IxaHVHalZ5OXRXRkVJbnNiMkFqNkVpd0JzRnNDeTFwTldEVUlD?=
+ =?utf-8?B?Z2IvQnZGd203bHdPUVhNSlJVbGtudkZEMnRISHR5L01QSDVKNG9IQ0ZYQ1dD?=
+ =?utf-8?B?R1NSNDVyODFzTENqREN5Z3Bwek90UTZoWUd3OENhVitKWU9odWtOT01xZ0tm?=
+ =?utf-8?B?UGE2YWt2VVpFMlk0K1Y5dTE3TTM2MUthNkpNdWVncU9UZUJraE9vbzM2eVZt?=
+ =?utf-8?B?YWpNR2NkMHNEejJpanJNS2hTM2J0Vk5va3Bva0p6K3pUTCtyTWg1VGNwdUlT?=
+ =?utf-8?B?WW5vajR4SlRUQ3VDbmpXL2lmK0laVXh4N0NCRUdWU3N5QzVadERoN0dhSys2?=
+ =?utf-8?B?OHVyeDc2cS9KaG9XaytSaTcwczR5VTNRWkZ3Z2k1ZFR0eDNaZ201bGdxTnJT?=
+ =?utf-8?B?dTd2TTh4MXJZSUxxaUN2MVU4Y3IwT3htWTBXQTQwOWxvVCt0bjZVV1dudGl0?=
+ =?utf-8?B?ZXVwUWFaTFpyUFVsdXF0SVNmTmNicWkzSFZJMVE2Q0xTZDA2K2tBSUd3NVA3?=
+ =?utf-8?B?QTJtTUdtMG1NTVMrUy9kNkNSUTBlNGNHb3drMUFGS1JybDd5UzhJemRIMXRt?=
+ =?utf-8?B?Nks1Q1BveXVOd0dvZUpGUHY3ZWNDeEpkeW9CUXFldmZDa2hpYkNCQjUyVEF3?=
+ =?utf-8?B?ZWtRMWQvUUI2V2lWb0RQTUlVUVRHTC92S20vVVFQa0RzRVVyUE0wZGhYaUVY?=
+ =?utf-8?B?UXo0WWdjeDlyQzFkMXVnVmpVWXBJM1RtNEMzSExtSjBnRExoWnE5QlFtUjBU?=
+ =?utf-8?B?SnBmUzlldm5rUC9iY0RsRklNNkxONlpNa2Y1Lzc4MzZITFpoRjluMGw3QUpx?=
+ =?utf-8?B?blhRelBnVEszZ0dMdTR4bzhMWHQzNzVoRU95RnE1SGMrYUhuc1d5S3pQZUNl?=
+ =?utf-8?B?MStDNXdOSWpFSWFKWllpbkRGR0lqM1BMQ1k0dERvaExKdmtKTkwvdz09?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+X-Exchange-RoutingPolicyChecked: og/MADh+tGXkz5yQWCOoO3ZooL/2IolsBzBTMmdt8Iq9Y4wZ3y/ti0nOIoBY/TN+svgIr7Wi9NH2PlL949tjDn2hJNErPx88Ckfsv4E4M0GwIeW4ZAICfL8CtsMfohUWo8zDTCjCCChULxvp1oJFQPVl3JHtyspW43aqND4r/8Q/Ztm/CFv+V/HHSwPwkia4aZZEB0rHE4oOgoioCFpzQZeO3Vld0M3o/yMHMMDk45A1itB3JiM8SeNNNsRGdYKlXviuWEd4g19r3cEilzPSre3BSAPRbaOEPTvXmGHxOgly0H/jSvWeSF+h5950+BePua9C6xJfSk2SKv+2gnSmGw==
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DM3PPF208195D8D.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a5cf489c-e6ce-4f65-3f75-08deb7b98ede
+X-MS-Exchange-CrossTenant-originalarrivaltime: 22 May 2026 04:21:12.6339 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: y+fClsl4rnLY55Cew7I4Za9JvjkOLpycf33BgcSk15npjZ1H0/ZDmJyR83Rhv8VVZjWK9AMl9n8ZrGnnIVnHOg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR11MB9879
+X-OriginatorOrg: intel.com
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,1337 +175,76 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
-branch HEAD: 550604d6c9b9efc8d068aff94dc301694a7afdee  Add linux-next specific files for 20260521
-
-Error/Warning (recently discovered and may have been fixed):
-
-    https://lore.kernel.org/oe-kbuild-all/202605212104.SAIMqegX-lkp@intel.com
-    https://lore.kernel.org/oe-kbuild-all/202605220247.dQAHslyv-lkp@intel.com
-    https://lore.kernel.org/oe-kbuild-all/202605220312.Pu7UO05u-lkp@intel.com
-    https://lore.kernel.org/oe-kbuild-all/202605220631.ugDr2VPb-lkp@intel.com
-
-    /usr/bin/ld: sound/soc/codecs/es9356.o:(.rodata+0x2c30): undefined reference to `sdca_asoc_q78_get_volsw'
-    /usr/bin/ld: sound/soc/codecs/es9356.o:(.rodata+0x2c38): undefined reference to `sdca_asoc_q78_put_volsw'
-    arch/hexagon/kernel/syscalltab.c:19:1: error: unknown warning group '-Wattribute-alias', ignored [-Werror,-Wunknown-warning-option]
-    arch/powerpc/kernel/pci_64.c:226:1: error: unknown warning group '-Wattribute-alias', ignored [-Werror,-Wunknown-warning-option]
-    arch/powerpc/kernel/rtas.c:1850:1: error: unknown warning group '-Wattribute-alias', ignored [-Werror,-Wunknown-warning-option]
-    arch/powerpc/kernel/signal_32.c:990:1: error: unknown warning group '-Wattribute-alias', ignored [-Werror,-Wunknown-warning-option]
-    arch/powerpc/kernel/signal_64.c:657:1: error: unknown warning group '-Wattribute-alias', ignored [-Werror,-Wunknown-warning-option]
-    arch/powerpc/kernel/sys_ppc32.c:70:1: error: unknown warning group '-Wattribute-alias', ignored [-Werror,-Wunknown-warning-option]
-    arch/powerpc/kernel/syscalls.c:52:1: error: unknown warning group '-Wattribute-alias', ignored [-Werror,-Wunknown-warning-option]
-    arch/riscv/kernel/sys_hwprobe.c:606:1: error: unknown warning group '-Wattribute-alias', ignored [-Werror,-Wunknown-warning-option]
-    arch/riscv/kernel/sys_riscv.c:43:1: error: unknown warning group '-Wattribute-alias', ignored [-Werror,-Wunknown-warning-option]
-    arch/sparc/kernel/sys_sparc32.c:54:1: error: unknown warning group '-Wattribute-alias', ignored [-Werror,-Wunknown-warning-option]
-    arch/sparc/kernel/sys_sparc_64.c:351:1: error: unknown warning group '-Wattribute-alias', ignored [-Werror,-Wunknown-warning-option]
-    arch/x86/um/syscalls_64.c:43:1: error: unknown warning group '-Wattribute-alias', ignored [-Werror,-Wunknown-warning-option]
-    block/ioprio.c:65:1: error: unknown warning group '-Wattribute-alias', ignored [-Werror,-Wunknown-warning-option]
-    drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_crat.c:1830:26: error: cannot take the address of an rvalue of type 'int'
-    drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_crat.c:1830:27: error: call to undeclared function 'cpu_data'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
-    drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_crat.c:1833:23: error: use of undeclared identifier 'X86_VENDOR_AMD'
-    drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_crat.c:1833:7: error: incomplete definition of type 'struct cpuinfo_x86'
-    drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_topology.c:2353:41: error: member reference base type 'int' is not a structure or union
-    drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_topology.c:2353:9: error: call to undeclared function 'cpu_data'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
-    drivers/gpu/drm/amd/amdgpu/jpeg_v2_5.c:152:68: warning: '%d' directive output may be truncated writing between 1 and 11 bytes into a region of size 7 [-Wformat-truncation=]
-    drivers/gpu/drm/scheduler/tests/tests_scheduler.c:675:10: error: initializer element is not a compile-time constant
-    drivers/pinctrl/pinctrl-generic.c:130:5: error: redefinition of 'pinctrl_generic_pins_function_dt_node_to_map'
-    drivers/pinctrl/pinctrl-generic.c:20:5: error: conflicting types for 'pinctrl_generic_to_map'; have 'int(struct pinctrl_dev *, struct device_node *, struct device_node *, struct pinctrl_map **, unsigned int *, unsigned int *, const char **, unsigned int,  const char **, unsigned int *, unsigned int)'
-    fs/aio.c:1436:1: error: unknown warning group '-Wattribute-alias', ignored [-Werror,-Wunknown-warning-option]
-    fs/d_path.c:413:1: error: unknown warning group '-Wattribute-alias', ignored [-Werror,-Wunknown-warning-option]
-    fs/eventfd.c:414:1: error: unknown warning group '-Wattribute-alias', ignored [-Werror,-Wunknown-warning-option]
-    fs/eventpoll.c:2200:1: error: unknown warning group '-Wattribute-alias', ignored [-Werror,-Wunknown-warning-option]
-    fs/eventpoll.c:2483:1: error: unknown warning group '-Wattribute-alias', ignored [-Werror,-Wunknown-warning-option]
-    fs/exec.c:1924:1: error: unknown warning group '-Wattribute-alias', ignored [-Werror,-Wunknown-warning-option]
-    fs/exec.c:1925:1: error: unknown warning group '-Wattribute-alias', ignored [-Werror,-Wunknown-warning-option]
-    fs/fcntl.c:587:1: error: unknown warning group '-Wattribute-alias', ignored [-Werror,-Wunknown-warning-option]
-    fs/fhandle.c:129:1: error: unknown warning group '-Wattribute-alias', ignored [-Werror,-Wunknown-warning-option]
-    fs/file.c:818:1: error: unknown warning group '-Wattribute-alias', ignored [-Werror,-Wunknown-warning-option]
-    fs/file.c:819:1: error: unknown warning group '-Wattribute-alias', ignored [-Werror,-Wunknown-warning-option]
-    fs/file_attr.c:374:1: error: unknown warning group '-Wattribute-alias', ignored [-Werror,-Wunknown-warning-option]
-    fs/fsopen.c:120:1: error: unknown warning group '-Wattribute-alias', ignored [-Werror,-Wunknown-warning-option]
-    fs/ioctl.c:583:1: error: unknown warning group '-Wattribute-alias', ignored [-Werror,-Wunknown-warning-option]
-    fs/locks.c:2214:1: error: unknown warning group '-Wattribute-alias', ignored [-Werror,-Wunknown-warning-option]
-    fs/locks.c:2280:1: error: unknown warning group '-Wattribute-alias', ignored [-Werror,-Wunknown-warning-option]
-    fs/namei.c:5186:1: error: unknown warning group '-Wattribute-alias', ignored [-Werror,-Wunknown-warning-option]
-    fs/namei.c:5197:1: error: unknown warning group '-Wattribute-alias', ignored [-Werror,-Wunknown-warning-option]
-    fs/namespace.c:2068:1: error: unknown warning group '-Wattribute-alias', ignored [-Werror,-Wunknown-warning-option]
-    fs/namespace.c:2073:1: error: unknown warning group '-Wattribute-alias', ignored [-Werror,-Wunknown-warning-option]
-    fs/notify/inotify/inotify_user.c:720:1: error: unknown warning group '-Wattribute-alias', ignored [-Werror,-Wunknown-warning-option]
-    fs/open.c:152:1: error: unknown warning group '-Wattribute-alias', ignored [-Werror,-Wunknown-warning-option]
-    fs/pipe.c:1054:1: error: unknown warning group '-Wattribute-alias', ignored [-Werror,-Wunknown-warning-option]
-    fs/pipe.c:1055:1: error: unknown warning group '-Wattribute-alias', ignored [-Werror,-Wunknown-warning-option]
-    fs/read_write.c:412:1: error: unknown warning group '-Wattribute-alias', ignored [-Werror,-Wunknown-warning-option]
-    fs/readdir.c:215:1: error: unknown warning group '-Wattribute-alias', ignored [-Werror,-Wunknown-warning-option]
-    fs/readdir.c:304:1: error: unknown warning group '-Wattribute-alias', ignored [-Werror,-Wunknown-warning-option]
-    fs/select.c:722:1: error: unknown warning group '-Wattribute-alias', ignored [-Werror,-Wunknown-warning-option]
-    fs/select.c:733:1: error: unknown warning group '-Wattribute-alias', ignored [-Werror,-Wunknown-warning-option]
-    fs/signalfd.c:299:1: error: unknown warning group '-Wattribute-alias', ignored [-Werror,-Wunknown-warning-option]
-    fs/splice.c:1578:1: error: unknown warning group '-Wattribute-alias', ignored [-Werror,-Wunknown-warning-option]
-    fs/stat.c:420:1: error: unknown warning group '-Wattribute-alias', ignored [-Werror,-Wunknown-warning-option]
-    fs/stat.c:505:1: error: unknown warning group '-Wattribute-alias', ignored [-Werror,-Wunknown-warning-option]
-    fs/statfs.c:191:1: error: unknown warning group '-Wattribute-alias', ignored [-Werror,-Wunknown-warning-option]
-    fs/sync.c:148:1: error: unknown warning group '-Wattribute-alias', ignored [-Werror,-Wunknown-warning-option]
-    fs/timerfd.c:394:1: error: unknown warning group '-Wattribute-alias', ignored [-Werror,-Wunknown-warning-option]
-    fs/timerfd.c:424:1: error: unknown warning group '-Wattribute-alias', ignored [-Werror,-Wunknown-warning-option]
-    fs/utimes.c:142:1: error: unknown warning group '-Wattribute-alias', ignored [-Werror,-Wunknown-warning-option]
-    fs/xattr.c:732:1: error: unknown warning group '-Wattribute-alias', ignored [-Werror,-Wunknown-warning-option]
-    fs/xattr.c:735:1: error: unknown warning group '-Wattribute-alias', ignored [-Werror,-Wunknown-warning-option]
-    ipc/msg.c:315:1: error: unknown warning group '-Wattribute-alias', ignored [-Werror,-Wunknown-warning-option]
-    ipc/sem.c:624:1: error: unknown warning group '-Wattribute-alias', ignored [-Werror,-Wunknown-warning-option]
-    ipc/shm.c:847:1: error: unknown warning group '-Wattribute-alias', ignored [-Werror,-Wunknown-warning-option]
-    ipc/shm.c:849:1: error: unknown warning group '-Wattribute-alias', ignored [-Werror,-Wunknown-warning-option]
-    kernel/capability.c:137:1: error: unknown warning group '-Wattribute-alias', ignored [-Werror,-Wunknown-warning-option]
-    kernel/events/core.c:13844:1: error: unknown warning group '-Wattribute-alias', ignored [-Werror,-Wunknown-warning-option]
-    kernel/events/core.c:13853:1: error: unknown warning group '-Wattribute-alias', ignored [-Werror,-Wunknown-warning-option]
-    kernel/exec_domain.c:38:1: error: unknown warning group '-Wattribute-alias', ignored [-Werror,-Wunknown-warning-option]
-    kernel/exit.c:1082:1: error: unknown warning group '-Wattribute-alias', ignored [-Werror,-Wunknown-warning-option]
-    kernel/exit.c:1112:1: error: unknown warning group '-Wattribute-alias', ignored [-Werror,-Wunknown-warning-option]
-    kernel/fork.c:1785:1: error: unknown warning group '-Wattribute-alias', ignored [-Werror,-Wunknown-warning-option]
-    kernel/fork.c:1808:1: error: unknown warning group '-Wattribute-alias', ignored [-Werror,-Wunknown-warning-option]
-    kernel/futex/syscalls.c:28:1: error: unknown warning group '-Wattribute-alias', ignored [-Werror,-Wunknown-warning-option]
-    kernel/groups.c:161:1: error: unknown warning group '-Wattribute-alias', ignored [-Werror,-Wunknown-warning-option]
-    kernel/kcmp.c:135:1: error: unknown warning group '-Wattribute-alias', ignored [-Werror,-Wunknown-warning-option]
-    kernel/kexec.c:242:1: error: unknown warning group '-Wattribute-alias', ignored [-Werror,-Wunknown-warning-option]
-    kernel/module/main.c:804:1: error: unknown warning group '-Wattribute-alias', ignored [-Werror,-Wunknown-warning-option]
-    kernel/nsproxy.c:569:1: error: unknown warning group '-Wattribute-alias', ignored [-Werror,-Wunknown-warning-option]
-    kernel/nstree.c:763:1: error: unknown warning group '-Wattribute-alias', ignored [-Werror,-Wunknown-warning-option]
-    kernel/pid.c:695:1: error: unknown warning group '-Wattribute-alias', ignored [-Werror,-Wunknown-warning-option]
-    kernel/printk/printk.c:1853:1: error: unknown warning group '-Wattribute-alias', ignored [-Werror,-Wunknown-warning-option]
-    kernel/ptrace.c:1388:1: error: unknown warning group '-Wattribute-alias', ignored [-Werror,-Wunknown-warning-option]
-    kernel/ptrace.c:1415:1: error: unknown warning group '-Wattribute-alias', ignored [-Werror,-Wunknown-warning-option]
-    kernel/reboot.c:728:1: error: unknown warning group '-Wattribute-alias', ignored [-Werror,-Wunknown-warning-option]
-    kernel/rseq.c:547:1: error: unknown warning group '-Wattribute-alias', ignored [-Werror,-Wunknown-warning-option]
-    kernel/sched/membarrier.c:634:1: error: unknown warning group '-Wattribute-alias', ignored [-Werror,-Wunknown-warning-option]
-    kernel/sched/membarrier.c:636:1: error: unknown warning group '-Wattribute-alias', ignored [-Werror,-Wunknown-warning-option]
-    kernel/sched/syscalls.c:132:1: error: unknown warning group '-Wattribute-alias', ignored [-Werror,-Wunknown-warning-option]
-    kernel/seccomp.c:2126:1: error: unknown warning group '-Wattribute-alias', ignored [-Werror,-Wunknown-warning-option]
-    kernel/signal.c:3319:1: error: unknown warning group '-Wattribute-alias', ignored [-Werror,-Wunknown-warning-option]
-    kernel/sys.c:259:1: error: unknown warning group '-Wattribute-alias', ignored [-Werror,-Wunknown-warning-option]
-    kernel/time/hrtimer.c:2381:1: error: unknown warning group '-Wattribute-alias', ignored [-Werror,-Wunknown-warning-option]
-    kernel/time/hrtimer.c:2466:1: error: unknown warning group '-Wattribute-alias', ignored [-Werror,-Wunknown-warning-option]
-    kernel/time/hrtimer.c:2487:1: error: unknown warning group '-Wattribute-alias', ignored [-Werror,-Wunknown-warning-option]
-    kernel/time/itimer.c:113:1: error: unknown warning group '-Wattribute-alias', ignored [-Werror,-Wunknown-warning-option]
-    kernel/time/posix-stubs.c:26:1: error: unknown warning group '-Wattribute-alias', ignored [-Werror,-Wunknown-warning-option]
-    kernel/time/posix-timers.c:566:1: error: unknown warning group '-Wattribute-alias', ignored [-Werror,-Wunknown-warning-option]
-    kernel/time/posix-timers.c:574:1: error: unknown warning group '-Wattribute-alias', ignored [-Werror,-Wunknown-warning-option]
-    kernel/time/time.c:105:1: error: unknown warning group '-Wattribute-alias', ignored [-Werror,-Wunknown-warning-option]
-    kernel/time/time.c:140:1: error: unknown warning group '-Wattribute-alias', ignored [-Werror,-Wunknown-warning-option]
-    kernel/time/time.c:62:1: error: unknown warning group '-Wattribute-alias', ignored [-Werror,-Wunknown-warning-option]
-    kernel/uid16.c:23:1: error: unknown warning group '-Wattribute-alias', ignored [-Werror,-Wunknown-warning-option]
-    ld.lld: error: undefined symbol: sdca_asoc_q78_get_volsw
-    ld.lld: error: undefined symbol: sdca_asoc_q78_put_volsw
-    mm/fadvise.c:200:1: error: unknown warning group '-Wattribute-alias', ignored [-Werror,-Wunknown-warning-option]
-    mm/filemap.c:4713:1: error: unknown warning group '-Wattribute-alias', ignored [-Werror,-Wunknown-warning-option]
-    mm/filemap.c:4718:1: error: unknown warning group '-Wattribute-alias', ignored [-Werror,-Wunknown-warning-option]
-    mm/madvise.c:2013:1: error: unknown warning group '-Wattribute-alias', ignored [-Werror,-Wunknown-warning-option]
-    mm/madvise.c:2029:1: error: unknown warning group '-Wattribute-alias', ignored [-Werror,-Wunknown-warning-option]
-    mm/memfd.c:505:1: error: unknown warning group '-Wattribute-alias', ignored [-Werror,-Wunknown-warning-option]
-    mm/mincore.c:292:1: error: unknown warning group '-Wattribute-alias', ignored [-Werror,-Wunknown-warning-option]
-    mm/mlock.c:665:1: error: unknown warning group '-Wattribute-alias', ignored [-Werror,-Wunknown-warning-option]
-    mm/mmap.c:116:1: error: unknown warning group '-Wattribute-alias', ignored [-Werror,-Wunknown-warning-option]
-    mm/mprotect.c:985:1: error: unknown warning group '-Wattribute-alias', ignored [-Werror,-Wunknown-warning-option]
-    mm/mremap.c:2023:1: error: unknown warning group '-Wattribute-alias', ignored [-Werror,-Wunknown-warning-option]
-    mm/msync.c:32:1: error: unknown warning group '-Wattribute-alias', ignored [-Werror,-Wunknown-warning-option]
-    mm/oom_kill.c:1195:1: error: unknown warning group '-Wattribute-alias', ignored [-Werror,-Wunknown-warning-option]
-    mm/process_vm_access.c:292:1: error: unknown warning group '-Wattribute-alias', ignored [-Werror,-Wunknown-warning-option]
-    mm/readahead.c:736:1: error: unknown warning group '-Wattribute-alias', ignored [-Werror,-Wunknown-warning-option]
-    mm/readahead.c:760:1: error: unknown warning group '-Wattribute-alias', ignored [-Werror,-Wunknown-warning-option]
-    mm/swapfile.c:2903:1: error: unknown warning group '-Wattribute-alias', ignored [-Werror,-Wunknown-warning-option]
-    mm/swapfile.c:3124:1: error: unknown warning group '-Wattribute-alias', ignored [-Werror,-Wunknown-warning-option]
-    net/socket.c:1818:1: error: unknown warning group '-Wattribute-alias', ignored [-Werror,-Wunknown-warning-option]
-    net/socket.c:1833:1: error: unknown warning group '-Wattribute-alias', ignored [-Werror,-Wunknown-warning-option]
-    security/keys/compat.c:17:1: error: unknown warning group '-Wattribute-alias', ignored [-Werror,-Wunknown-warning-option]
-    security/keys/keyctl.c:74:1: error: unknown warning group '-Wattribute-alias', ignored [-Werror,-Wunknown-warning-option]
-    security/landlock/syscalls.c:203:1: error: unknown warning group '-Wattribute-alias', ignored [-Werror,-Wunknown-warning-option]
-    security/lsm_syscalls.c:57:1: error: unknown warning group '-Wattribute-alias', ignored [-Werror,-Wunknown-warning-option]
-
-Unverified Error/Warning (likely false positive, kindly check if interested):
-
-    Warning: block/blk-map.c:366 Excess function parameter 'op' description in 'bio_copy_kern'
-    csky-linux-ld: sound/soc/codecs/es9356.o:(.rodata+0x16c8): undefined reference to `sdca_asoc_q78_get_volsw'
-    csky-linux-ld: sound/soc/codecs/es9356.o:(.rodata+0x16cc): undefined reference to `sdca_asoc_q78_put_volsw'
-    drivers/android/binder_alloc.c:389:1: internal compiler error: in final_scan_insn_1, at final.cc:2813
-    drivers/auxdisplay/panel.c:1508:1: internal compiler error: in final_scan_insn_1, at final.cc:2813
-    drivers/base/regmap/regmap-debugfs.c:180:1: internal compiler error: in final_scan_insn_1, at final.cc:2813
-    drivers/char/xillybus/xillybus_core.c:425:1: internal compiler error: in final_scan_insn_1, at final.cc:2813
-    drivers/dma/qcom/hidma.c:389:1: internal compiler error: in final_scan_insn_1, at final.cc:2813
-    drivers/gpu/drm/amd/amdgpu/dce_v10_0.c:2853:1: internal compiler error: in final_scan_insn_1, at final.cc:2813
-    drivers/gpu/drm/nouveau/nvkm/subdev/acr/base.c:357:1: internal compiler error: in final_scan_insn_1, at final.cc:2813
-    drivers/gpu/drm/nouveau/nvkm/subdev/iccsense/base.c:295:1: internal compiler error: in final_scan_insn_1, at final.cc:2813
-    drivers/gpu/drm/udl/udl_main.c:260:1: internal compiler error: in final_scan_insn_1, at final.cc:2813
-    drivers/gpu/drm/xe/xe_sched_job.c:162:1: internal compiler error: in final_scan_insn_1, at final.cc:2813
-    drivers/greybus/es2.c:1428:1: internal compiler error: in final_scan_insn_1, at final.cc:2813
-    drivers/hwmon/ibmpex.c:433:1: internal compiler error: in final_scan_insn_1, at final.cc:2813
-    drivers/media/i2c/ds90ub960.c:4790:1: internal compiler error: in final_scan_insn_1, at final.cc:2813
-    drivers/mtd/parsers/redboot.c:304:1: internal compiler error: in final_scan_insn_1, at final.cc:2813
-    drivers/mtd/spi-nor/core.c:1645:1: internal compiler error: in final_scan_insn_1, at final.cc:2813
-    drivers/net/ethernet/mellanox/mlx5/core/cmd.c:1508:1: internal compiler error: in final_scan_insn_1, at final.cc:2813
-    drivers/scsi/aacraid/commsup.c:1928:1: internal compiler error: in final_scan_insn_1, at final.cc:2813
-    drivers/scsi/aacraid/dpcsup.c:216:1: internal compiler error: in final_scan_insn_1, at final.cc:2813
-    drivers/thunderbolt/stream.c:1388:1: internal compiler error: in final_scan_insn_1, at final.cc:2813
-    drivers/tty/serial/max310x.c:1727:24: error: incompatible pointer types passing 'struct i2c_driver *' to parameter of type 'struct spi_driver *' [-Wincompatible-pointer-types]
-    drivers/tty/serial/max310x.c:1727:25: error: use of undeclared identifier 'max310x_spi_driver'; did you mean 'max310x_i2c_driver'?
-    drivers/tty/serial/max310x.c:1727:32: error: 'max310x_spi_driver' undeclared (first use in this function); did you mean 'max310x_i2c_driver'?
-    drivers/tty/serial/max310x.c:1745:25: error: 'max310x_spi_driver' undeclared (first use in this function); did you mean 'max310x_i2c_driver'?
-    drivers/tty/serial/max310x.c:1745:32: error: 'max310x_spi_driver' undeclared (first use in this function); did you mean 'max310x_i2c_driver'?
-    drivers/usb/host/xhci-mem.c:866:1: internal compiler error: in final_scan_insn_1, at final.cc:2813
-    drivers/usb/misc/usbtest.c:1416:1: internal compiler error: in final_scan_insn_1, at final.cc:2813
-    drivers/usb/serial/usb_wwan.c:501:1: internal compiler error: in final_scan_insn_1, at final.cc:2813
-    fs/btrfs/file.c:3288:1: internal compiler error: in final_scan_insn_1, at final.cc:2813
-    fs/btrfs/inode.c:8975:1: internal compiler error: in final_scan_insn_1, at final.cc:2813
-    fs/isofs/inode.c:1267:1: internal compiler error: in final_scan_insn_1, at final.cc:2813
-    fs/nilfs2/recovery.c:397:1: internal compiler error: in final_scan_insn_1, at final.cc:2813
-    fs/xfs/scrub/bitmap.c:116:1: internal compiler error: in final_scan_insn_1, at final.cc:2813
-    kernel/bpf/syscall.c:3797:1: internal compiler error: in final_scan_insn_1, at final.cc:2813
-    kernel/events/core.c:12131:1: internal compiler error: in final_scan_insn_1, at final.cc:2813
-    kernel/trace/ring_buffer.c:2348:1: internal compiler error: in final_scan_insn_1, at final.cc:2813
-    ld.lld: error: call to __compiletime_assert_537 marked "dontcall-error": BUILD_BUG_ON failed: 21 - 1 != HWEIGHT32( (VALID_OPENAT2_FLAGS & ~(O_NONBLOCK | O_NDELAY)) | __FMODE_EXEC)
-    lib/raid/raid6/powerpc/altivec1.c:37:16: sparse: sparse: Trying to use reserved word 'signed' as identifier
-    lib/raid/raid6/powerpc/altivec1.c:37:16: sparse: sparse: two or more data types in declaration specifiers
-    lib/raid/raid6/powerpc/altivec2.c:37:16: sparse: sparse: Trying to use reserved word 'signed' as identifier
-    lib/raid/raid6/powerpc/altivec2.c:37:16: sparse: sparse: two or more data types in declaration specifiers
-    lib/raid/raid6/powerpc/altivec4.c:37:16: sparse: sparse: Trying to use reserved word 'signed' as identifier
-    lib/raid/raid6/powerpc/altivec4.c:37:16: sparse: sparse: two or more data types in declaration specifiers
-    lib/raid/raid6/powerpc/altivec8.c:37:16: sparse: sparse: Trying to use reserved word 'signed' as identifier
-    lib/raid/raid6/powerpc/altivec8.c:37:16: sparse: sparse: two or more data types in declaration specifiers
-    net/bluetooth/mgmt.c:4400:1: internal compiler error: in final_scan_insn_1, at final.cc:2813
-
-Error/Warning ids grouped by kconfigs:
-
-recent_errors
-|-- alpha-allnoconfig
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- alpha-allyesconfig
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- alpha-defconfig
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- alpha-randconfig-r052-20260521
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- arc-allmodconfig
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- arc-allnoconfig
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- arc-defconfig
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- arm-allnoconfig
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- arm-allyesconfig
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- arm-defconfig
-|   |-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|   |-- block-ioprio.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-aio.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-d_path.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-eventfd.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-eventpoll.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-exec.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-fcntl.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-fhandle.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-file.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-file_attr.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-fsopen.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-ioctl.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-locks.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-namei.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-namespace.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-notify-inotify-inotify_user.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-open.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-pipe.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-read_write.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-readdir.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-select.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-signalfd.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-splice.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-stat.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-statfs.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-sync.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-timerfd.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-utimes.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-xattr.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- ipc-msg.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- ipc-sem.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- ipc-shm.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-capability.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-events-core.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-exec_domain.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-exit.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-fork.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-futex-syscalls.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-groups.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-kcmp.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-kexec.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-module-main.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-nsproxy.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-nstree.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-pid.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-printk-printk.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-ptrace.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-reboot.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-rseq.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-sched-membarrier.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-sched-syscalls.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-seccomp.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-signal.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-sys.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-time-hrtimer.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-time-itimer.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-time-posix-timers.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-time-time.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-uid16.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- mm-fadvise.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- mm-filemap.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- mm-madvise.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- mm-memfd.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- mm-mincore.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- mm-mlock.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- mm-mmap.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- mm-mprotect.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- mm-mremap.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- mm-msync.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- mm-oom_kill.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- mm-process_vm_access.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- mm-readahead.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- mm-swapfile.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- net-socket.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   `-- security-keys-keyctl.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|-- arm-randconfig-001-20260521
-|   |-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|   `-- block-ioprio.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|-- arm-randconfig-002-20260521
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- arm-randconfig-004-20260521
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- arm-randconfig-r062-20260521
-|   |-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|   |-- block-ioprio.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-d_path.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-eventfd.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-eventpoll.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-exec.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-fcntl.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-file.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-file_attr.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-fsopen.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-ioctl.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-namei.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-namespace.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-notify-inotify-inotify_user.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-open.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-pipe.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-read_write.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-readdir.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-select.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-signalfd.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-splice.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-stat.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-statfs.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-sync.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-utimes.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-xattr.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- ipc-msg.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- ipc-sem.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- ipc-shm.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-capability.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-events-core.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-exec_domain.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-exit.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-fork.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-futex-syscalls.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-groups.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-module-main.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-nsproxy.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-nstree.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-pid.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-printk-printk.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-ptrace.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-reboot.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-rseq.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-sched-membarrier.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-sched-syscalls.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-signal.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-sys.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-time-hrtimer.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-time-itimer.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-time-posix-timers.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-time-time.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-uid16.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- mm-fadvise.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- mm-filemap.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- mm-madvise.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- mm-memfd.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- mm-mincore.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- mm-mlock.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- mm-mmap.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- mm-mprotect.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- mm-mremap.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- mm-msync.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- mm-oom_kill.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- mm-process_vm_access.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- mm-readahead.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- net-socket.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   `-- security-keys-keyctl.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|-- arm64-allnoconfig
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- arm64-defconfig
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- arm64-randconfig-001-20260521
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- arm64-randconfig-003-20260521
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- arm64-randconfig-004
-|   |-- ld.lld:error:undefined-symbol:sdca_asoc_q78_get_volsw
-|   `-- ld.lld:error:undefined-symbol:sdca_asoc_q78_put_volsw
-|-- arm64-randconfig-004-20260521
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- arm64-randconfig-r072-20260521
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- csky-allmodconfig
-|   `-- drivers-thunderbolt-stream.c:internal-compiler-error:in-final_scan_insn_1-at-final.cc
-|-- csky-allnoconfig
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- csky-defconfig
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- csky-randconfig-001-20260521
-|   |-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|   |-- drivers-base-regmap-regmap-debugfs.c:internal-compiler-error:in-final_scan_insn_1-at-final.cc
-|   |-- drivers-gpu-drm-nouveau-nvkm-subdev-acr-base.c:internal-compiler-error:in-final_scan_insn_1-at-final.cc
-|   |-- drivers-gpu-drm-nouveau-nvkm-subdev-iccsense-base.c:internal-compiler-error:in-final_scan_insn_1-at-final.cc
-|   |-- drivers-gpu-drm-udl-udl_main.c:internal-compiler-error:in-final_scan_insn_1-at-final.cc
-|   |-- drivers-gpu-drm-xe-xe_sched_job.c:internal-compiler-error:in-final_scan_insn_1-at-final.cc
-|   |-- drivers-greybus-es2.c:internal-compiler-error:in-final_scan_insn_1-at-final.cc
-|   |-- drivers-mtd-parsers-redboot.c:internal-compiler-error:in-final_scan_insn_1-at-final.cc
-|   |-- drivers-scsi-aacraid-commsup.c:internal-compiler-error:in-final_scan_insn_1-at-final.cc
-|   |-- drivers-scsi-aacraid-dpcsup.c:internal-compiler-error:in-final_scan_insn_1-at-final.cc
-|   |-- drivers-usb-host-xhci-mem.c:internal-compiler-error:in-final_scan_insn_1-at-final.cc
-|   |-- drivers-usb-misc-usbtest.c:internal-compiler-error:in-final_scan_insn_1-at-final.cc
-|   |-- drivers-usb-serial-usb_wwan.c:internal-compiler-error:in-final_scan_insn_1-at-final.cc
-|   |-- fs-btrfs-file.c:internal-compiler-error:in-final_scan_insn_1-at-final.cc
-|   |-- fs-btrfs-inode.c:internal-compiler-error:in-final_scan_insn_1-at-final.cc
-|   |-- fs-isofs-inode.c:internal-compiler-error:in-final_scan_insn_1-at-final.cc
-|   |-- fs-nilfs2-recovery.c:internal-compiler-error:in-final_scan_insn_1-at-final.cc
-|   `-- fs-xfs-scrub-bitmap.c:internal-compiler-error:in-final_scan_insn_1-at-final.cc
-|-- csky-randconfig-002-20260521
-|   |-- csky-linux-ld:sound-soc-codecs-es9356.o:(.rodata):undefined-reference-to-sdca_asoc_q78_get_volsw
-|   |-- csky-linux-ld:sound-soc-codecs-es9356.o:(.rodata):undefined-reference-to-sdca_asoc_q78_put_volsw
-|   |-- drivers-android-binder_alloc.c:internal-compiler-error:in-final_scan_insn_1-at-final.cc
-|   |-- drivers-auxdisplay-panel.c:internal-compiler-error:in-final_scan_insn_1-at-final.cc
-|   |-- drivers-char-xillybus-xillybus_core.c:internal-compiler-error:in-final_scan_insn_1-at-final.cc
-|   |-- drivers-hwmon-ibmpex.c:internal-compiler-error:in-final_scan_insn_1-at-final.cc
-|   |-- drivers-media-i2c-ds90ub960.c:internal-compiler-error:in-final_scan_insn_1-at-final.cc
-|   |-- drivers-mtd-spi-nor-core.c:internal-compiler-error:in-final_scan_insn_1-at-final.cc
-|   |-- kernel-events-core.c:internal-compiler-error:in-final_scan_insn_1-at-final.cc
-|   `-- kernel-trace-ring_buffer.c:internal-compiler-error:in-final_scan_insn_1-at-final.cc
-|-- csky-randconfig-r062-20260521
-|   |-- drivers-dma-qcom-hidma.c:internal-compiler-error:in-final_scan_insn_1-at-final.cc
-|   |-- drivers-gpu-drm-amd-amdgpu-dce_v10_0.c:internal-compiler-error:in-final_scan_insn_1-at-final.cc
-|   |-- drivers-net-ethernet-mellanox-mlx5-core-cmd.c:internal-compiler-error:in-final_scan_insn_1-at-final.cc
-|   |-- kernel-bpf-syscall.c:internal-compiler-error:in-final_scan_insn_1-at-final.cc
-|   `-- net-bluetooth-mgmt.c:internal-compiler-error:in-final_scan_insn_1-at-final.cc
-|-- hexagon-allmodconfig
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- hexagon-allnoconfig
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- hexagon-defconfig
-|   |-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|   `-- arch-hexagon-kernel-syscalltab.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|-- hexagon-randconfig-001-20260521
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- hexagon-randconfig-002
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- i386-allnoconfig
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- i386-buildonly-randconfig-001
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- i386-buildonly-randconfig-001-20260521
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- i386-buildonly-randconfig-003
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- i386-buildonly-randconfig-003-20260521
-|   |-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|   `-- drivers-tty-serial-max31.c:error:use-of-undeclared-identifier-max31_spi_driver
-|-- i386-buildonly-randconfig-004
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- i386-buildonly-randconfig-005-20260521
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- i386-buildonly-randconfig-006-20260521
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- i386-defconfig
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- i386-randconfig-001
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- i386-randconfig-001-20260521
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- i386-randconfig-002
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- i386-randconfig-002-20260521
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- i386-randconfig-003-20260521
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- i386-randconfig-004
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- i386-randconfig-005
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- i386-randconfig-006-20260521
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- i386-randconfig-007
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- i386-randconfig-051-20260521
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- i386-randconfig-052-20260521
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- i386-randconfig-054-20260521
-|   |-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|   `-- drivers-tty-serial-max31.c:error:max31_spi_driver-undeclared-(first-use-in-this-function)
-|-- i386-randconfig-062-20260522
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- i386-randconfig-063-20260522
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- loongarch-allnoconfig
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- loongarch-defconfig
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- loongarch-randconfig-001
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- loongarch-randconfig-002
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- m68k-allmodconfig
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- m68k-allnoconfig
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- m68k-allyesconfig
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- m68k-defconfig
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- microblaze-allnoconfig
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- microblaze-defconfig
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- microblaze-randconfig-r061-20260521
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- mips-allnoconfig
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- mips-randconfig-r071-20260521
-|   |-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|   |-- kernel-time-posix-stubs.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   `-- security-keys-keyctl.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|-- nios2-allmodconfig
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- nios2-allnoconfig
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- nios2-defconfig
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- nios2-randconfig-001
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- nios2-randconfig-002
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- nios2-randconfig-r054-20260521
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- openrisc-allmodconfig
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- openrisc-allnoconfig
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- parisc-allnoconfig
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- parisc-allyesconfig
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- parisc-defconfig
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- parisc-randconfig-r073-20260521
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- parisc64-defconfig
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- powerpc-allnoconfig
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- powerpc-randconfig-r063-20260521
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- powerpc-randconfig-r064-20260521
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- powerpc-sam440ep_defconfig
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- powerpc64-randconfig-r061-20260522
-|   |-- arch-powerpc-kernel-pci_64.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- arch-powerpc-kernel-rtas.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- arch-powerpc-kernel-signal_32.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- arch-powerpc-kernel-signal_64.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- arch-powerpc-kernel-sys_ppc32.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   `-- arch-powerpc-kernel-syscalls.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|-- powerpc64-randconfig-r131-20260521
-|   |-- lib-raid-raid6-powerpc-altivec1.c:sparse:sparse:Trying-to-use-reserved-word-signed-as-identifier
-|   |-- lib-raid-raid6-powerpc-altivec1.c:sparse:sparse:two-or-more-data-types-in-declaration-specifiers
-|   |-- lib-raid-raid6-powerpc-altivec2.c:sparse:sparse:Trying-to-use-reserved-word-signed-as-identifier
-|   |-- lib-raid-raid6-powerpc-altivec2.c:sparse:sparse:two-or-more-data-types-in-declaration-specifiers
-|   |-- lib-raid-raid6-powerpc-altivec4.c:sparse:sparse:Trying-to-use-reserved-word-signed-as-identifier
-|   |-- lib-raid-raid6-powerpc-altivec4.c:sparse:sparse:two-or-more-data-types-in-declaration-specifiers
-|   |-- lib-raid-raid6-powerpc-altivec8.c:sparse:sparse:Trying-to-use-reserved-word-signed-as-identifier
-|   `-- lib-raid-raid6-powerpc-altivec8.c:sparse:sparse:two-or-more-data-types-in-declaration-specifiers
-|-- riscv-allnoconfig
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- riscv-allyesconfig
-|   |-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|   `-- drivers-gpu-drm-scheduler-tests-tests_scheduler.c:error:initializer-element-is-not-a-compile-time-constant
-|-- riscv-defconfig
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- riscv-randconfig-001-20260521
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- riscv-randconfig-002
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- riscv-randconfig-002-20260521
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- riscv-randconfig-r131-20260521
-|   |-- arch-riscv-kernel-sys_hwprobe.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- arch-riscv-kernel-sys_riscv.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   `-- ld.lld:error:call-to-__compiletime_assert_NNN-marked-dontcall-error:BUILD_BUG_ON-failed:HWEIGHT32(-(VALID_OPENAT2_FLAGS-(O_NONBLOCK-O_NDELAY))-__FMODE_EXEC)
-|-- s390-allmodconfig
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- s390-allnoconfig
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- s390-defconfig
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- s390-randconfig-001
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- s390-randconfig-001-20260521
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- s390-randconfig-002-20260521
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- s390-randconfig-r064-20260522
-|   `-- drivers-tty-serial-max31.c:error:incompatible-pointer-types-passing-struct-i2c_driver-to-parameter-of-type-struct-spi_driver
-|-- sh-allmodconfig
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- sh-allnoconfig
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- sh-allyesconfig
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- sh-defconfig
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- sh-randconfig-001
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- sh-randconfig-001-20260521
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- sh-randconfig-002
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- sh-randconfig-002-20260521
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- sparc-allnoconfig
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- sparc-defconfig
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- sparc-randconfig-001
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- sparc-randconfig-001-20260521
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- sparc-randconfig-002
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- sparc-randconfig-002-20260521
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- sparc64-allmodconfig
-|   |-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|   |-- arch-sparc-kernel-sys_sparc32.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- arch-sparc-kernel-sys_sparc_64.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- block-ioprio.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-aio.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-d_path.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-eventfd.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-eventpoll.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-exec.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-fcntl.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-fhandle.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-file.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-file_attr.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-fsopen.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-ioctl.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-locks.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-namei.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-namespace.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-notify-inotify-inotify_user.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-open.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-pipe.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-read_write.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-readdir.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-select.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-signalfd.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-splice.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-stat.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-statfs.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-sync.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-timerfd.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-utimes.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-xattr.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- ipc-msg.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- ipc-sem.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- ipc-shm.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-capability.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-events-core.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-exec_domain.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-exit.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-fork.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-futex-syscalls.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-groups.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-kcmp.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-module-main.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-nsproxy.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-nstree.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-pid.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-printk-printk.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-ptrace.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-reboot.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-sched-membarrier.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-sched-syscalls.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-seccomp.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-signal.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-sys.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-time-hrtimer.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-time-itimer.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-time-posix-timers.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-time-time.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-uid16.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- mm-fadvise.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- mm-filemap.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- mm-madvise.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- mm-memfd.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- mm-mincore.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- mm-mlock.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- mm-mmap.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- mm-mprotect.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- mm-mremap.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- mm-msync.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- mm-oom_kill.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- mm-process_vm_access.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- mm-readahead.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- mm-swapfile.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- net-socket.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- security-keys-compat.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- security-landlock-syscalls.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   `-- security-lsm_syscalls.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|-- sparc64-defconfig
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- sparc64-randconfig-001
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- sparc64-randconfig-001-20260521
-|   |-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|   `-- drivers-tty-serial-max31.c:error:max31_spi_driver-undeclared-(first-use-in-this-function)
-|-- sparc64-randconfig-002
-|   |-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|   |-- arch-sparc-kernel-sys_sparc32.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- arch-sparc-kernel-sys_sparc_64.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- block-ioprio.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-aio.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-d_path.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-eventfd.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-eventpoll.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-exec.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-fcntl.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-fhandle.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-file.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-file_attr.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-fsopen.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-ioctl.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-locks.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-namei.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-namespace.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-notify-inotify-inotify_user.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-open.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-pipe.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-read_write.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-readdir.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-select.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-signalfd.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-splice.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-stat.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-statfs.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-sync.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-timerfd.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-utimes.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-xattr.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-capability.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-events-core.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-exec_domain.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-exit.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-fork.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-futex-syscalls.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-groups.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-kcmp.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-nsproxy.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-nstree.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-pid.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-printk-printk.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-ptrace.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-reboot.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-sched-membarrier.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-sched-syscalls.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-seccomp.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-signal.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-sys.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-time-hrtimer.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-time-itimer.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-time-posix-timers.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-time-time.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-uid16.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- mm-fadvise.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- mm-filemap.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- mm-madvise.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- mm-mincore.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- mm-mlock.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- mm-mmap.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- mm-mprotect.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- mm-mremap.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- mm-msync.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- mm-oom_kill.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- mm-process_vm_access.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- mm-readahead.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- net-socket.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- security-keys-compat.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- security-keys-keyctl.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   `-- security-lsm_syscalls.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|-- sparc64-randconfig-002-20260521
-|   |-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|   `-- drivers-tty-serial-max31.c:error:max31_spi_driver-undeclared-(first-use-in-this-function)
-|-- um-allmodconfig
-|   |-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|   |-- drivers-gpu-drm-amd-amdgpu-..-amdkfd-kfd_crat.c:error:call-to-undeclared-function-cpu_data-ISO-C99-and-later-do-not-support-implicit-function-declarations
-|   |-- drivers-gpu-drm-amd-amdgpu-..-amdkfd-kfd_crat.c:error:cannot-take-the-address-of-an-rvalue-of-type-int
-|   |-- drivers-gpu-drm-amd-amdgpu-..-amdkfd-kfd_crat.c:error:incomplete-definition-of-type-struct-cpuinfo_x86
-|   |-- drivers-gpu-drm-amd-amdgpu-..-amdkfd-kfd_crat.c:error:use-of-undeclared-identifier-X86_VENDOR_AMD
-|   |-- drivers-gpu-drm-amd-amdgpu-..-amdkfd-kfd_topology.c:error:call-to-undeclared-function-cpu_data-ISO-C99-and-later-do-not-support-implicit-function-declarations
-|   `-- drivers-gpu-drm-amd-amdgpu-..-amdkfd-kfd_topology.c:error:member-reference-base-type-int-is-not-a-structure-or-union
-|-- um-allnoconfig
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- um-allyesconfig
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- um-defconfig
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- um-i386_defconfig
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- um-randconfig-001
-|   |-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|   |-- block-ioprio.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-d_path.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-eventfd.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-eventpoll.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-exec.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-fcntl.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-fhandle.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-file.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-file_attr.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-fsopen.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-ioctl.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-namei.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-namespace.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-open.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-pipe.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-read_write.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-readdir.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-select.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-splice.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-stat.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-statfs.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-sync.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-timerfd.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-utimes.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-xattr.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-exec_domain.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-exit.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-fork.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-kcmp.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-nsproxy.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-nstree.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-pid.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-printk-printk.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-ptrace.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-reboot.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-sched-syscalls.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-signal.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-sys.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-time-hrtimer.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-time-posix-stubs.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-time-time.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- mm-mincore.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- mm-mlock.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- mm-mmap.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- mm-mprotect.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- mm-mremap.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- mm-msync.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- mm-oom_kill.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- mm-process_vm_access.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- mm-readahead.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- net-socket.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   `-- security-keys-keyctl.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|-- um-randconfig-001-20260521
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- um-randconfig-002
-|   |-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|   |-- arch-x86-um-syscalls_64.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- block-ioprio.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-aio.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-d_path.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-eventfd.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-eventpoll.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-exec.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-fcntl.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-fhandle.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-file.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-file_attr.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-fsopen.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-ioctl.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-locks.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-namei.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-namespace.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-notify-inotify-inotify_user.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-open.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-pipe.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-read_write.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-readdir.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-select.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-signalfd.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-splice.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-stat.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-statfs.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-sync.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-timerfd.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-utimes.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- fs-xattr.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-capability.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-exec_domain.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-exit.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-fork.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-futex-syscalls.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-groups.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-module-main.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-nsproxy.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-nstree.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-pid.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-printk-printk.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-ptrace.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-reboot.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-sched-membarrier.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-sched-syscalls.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-seccomp.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-signal.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-sys.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-time-hrtimer.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-time-itimer.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-time-posix-timers.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-time-time.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- kernel-uid16.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- mm-fadvise.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- mm-filemap.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- mm-madvise.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- mm-mincore.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- mm-mlock.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- mm-mmap.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- mm-mprotect.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- mm-mremap.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- mm-msync.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- mm-oom_kill.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- mm-process_vm_access.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- mm-readahead.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   |-- mm-swapfile.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|   `-- security-keys-keyctl.c:error:unknown-warning-group-Wattribute-alias-ignored-Werror-Wunknown-warning-option
-|-- um-randconfig-002-20260521
-|   |-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|   |-- drivers-tty-serial-max31.c:error:max31_spi_driver-undeclared-(first-use-in-this-function)
-|   |-- usr-bin-ld:sound-soc-codecs-es9356.o:(.rodata):undefined-reference-to-sdca_asoc_q78_get_volsw
-|   `-- usr-bin-ld:sound-soc-codecs-es9356.o:(.rodata):undefined-reference-to-sdca_asoc_q78_put_volsw
-|-- um-randconfig-r053-20260521
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- um-x86_64_defconfig
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- x86_64-allnoconfig
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- x86_64-buildonly-randconfig-002-20260521
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- x86_64-buildonly-randconfig-003-20260521
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- x86_64-buildonly-randconfig-004-20260521
-|   |-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|   |-- drivers-gpu-drm-amd-amdgpu-jpeg_v2_5.c:warning:d-directive-output-may-be-truncated-writing-between-and-bytes-into-a-region-of-size
-|   |-- drivers-pinctrl-pinctrl-generic.c:error:conflicting-types-for-pinctrl_generic_to_map-have-int(struct-pinctrl_dev-struct-device_node-struct-device_node-struct-pinctrl_map-unsigned-int-unsigned-int-cons
-|   |-- drivers-pinctrl-pinctrl-generic.c:error:redefinition-of-pinctrl_generic_pins_function_dt_node_to_map
-|   `-- drivers-tty-serial-max31.c:error:max31_spi_driver-undeclared-(first-use-in-this-function)
-|-- x86_64-buildonly-randconfig-005-20260521
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- x86_64-defconfig
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- x86_64-kexec
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- x86_64-randconfig-001-20260521
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- x86_64-randconfig-002-20260521
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- x86_64-randconfig-004-20260521
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- x86_64-randconfig-006-20260521
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- x86_64-randconfig-011-20260521
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- x86_64-randconfig-012-20260521
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- x86_64-randconfig-013-20260521
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- x86_64-randconfig-014-20260521
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- x86_64-randconfig-015-20260521
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- x86_64-randconfig-016-20260521
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- x86_64-randconfig-071
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- x86_64-randconfig-071-20260521
-|   |-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|   `-- drivers-pinctrl-pinctrl-generic.c:error:redefinition-of-pinctrl_generic_pins_function_dt_node_to_map
-|-- x86_64-randconfig-072
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- x86_64-randconfig-072-20260521
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- x86_64-randconfig-073-20260521
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- x86_64-randconfig-074
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- x86_64-randconfig-074-20260521
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- x86_64-randconfig-075
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- x86_64-randconfig-076
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- x86_64-randconfig-076-20260521
-|   `-- drivers-pinctrl-pinctrl-generic.c:error:redefinition-of-pinctrl_generic_pins_function_dt_node_to_map
-|-- x86_64-randconfig-101
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- x86_64-randconfig-101-20260521
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- x86_64-randconfig-102
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- x86_64-randconfig-102-20260521
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- x86_64-randconfig-103
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- x86_64-randconfig-104
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- x86_64-randconfig-104-20260521
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- x86_64-randconfig-121-20260522
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- x86_64-randconfig-122-20260522
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- x86_64-randconfig-123-20260522
-|   |-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|   `-- drivers-pinctrl-pinctrl-generic.c:error:redefinition-of-pinctrl_generic_pins_function_dt_node_to_map
-|-- x86_64-randconfig-161
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- x86_64-rhel-9.4
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- x86_64-rhel-9.4-bpf
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- x86_64-rhel-9.4-func
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- x86_64-rhel-9.4-kselftests
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- x86_64-rhel-9.4-kunit
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- x86_64-rhel-9.4-ltp
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- xtensa-allnoconfig
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- xtensa-allyesconfig
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- xtensa-randconfig-001
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|-- xtensa-randconfig-001-20260521
-|   |-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-|   `-- drivers-tty-serial-max31.c:error:max31_spi_driver-undeclared-(first-use-in-this-function)
-|-- xtensa-randconfig-002
-|   `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-`-- xtensa-randconfig-002-20260521
-    `-- Warning:block-blk-map.c-Excess-function-parameter-op-description-in-bio_copy_kern
-
-elapsed time: 724m
-
-configs tested: 282
-configs skipped: 11
-
-tested configs:
-alpha                             allnoconfig    gcc-15.2.0
-alpha                            allyesconfig    gcc-15.2.0
-alpha                               defconfig    gcc-15.2.0
-arc                              allmodconfig    clang-16
-arc                              allmodconfig    gcc-15.2.0
-arc                               allnoconfig    gcc-15.2.0
-arc                              allyesconfig    clang-23
-arc                              allyesconfig    gcc-15.2.0
-arc                                 defconfig    gcc-15.2.0
-arc                            randconfig-001    gcc-8.5.0
-arc                   randconfig-001-20260521    gcc-13.4.0
-arc                   randconfig-001-20260521    gcc-8.5.0
-arc                            randconfig-002    gcc-8.5.0
-arc                   randconfig-002-20260521    gcc-12.5.0
-arc                   randconfig-002-20260521    gcc-8.5.0
-arm                               allnoconfig    clang-23
-arm                               allnoconfig    gcc-15.2.0
-arm                              allyesconfig    clang-16
-arm                              allyesconfig    gcc-15.2.0
-arm                                 defconfig    clang-23
-arm                                 defconfig    gcc-15.2.0
-arm                            randconfig-001    gcc-8.5.0
-arm                   randconfig-001-20260521    clang-23
-arm                   randconfig-001-20260521    gcc-8.5.0
-arm                            randconfig-002    gcc-11.5.0
-arm                   randconfig-002-20260521    gcc-12.5.0
-arm                   randconfig-002-20260521    gcc-8.5.0
-arm                            randconfig-003    clang-20
-arm                   randconfig-003-20260521    gcc-13.4.0
-arm                   randconfig-003-20260521    gcc-8.5.0
-arm                            randconfig-004    gcc-14.3.0
-arm                   randconfig-004-20260521    gcc-8.5.0
-arm64                            allmodconfig    clang-19
-arm64                            allmodconfig    clang-23
-arm64                             allnoconfig    gcc-15.2.0
-arm64                               defconfig    gcc-15.2.0
-arm64                 randconfig-001-20260521    clang-23
-arm64                 randconfig-001-20260521    gcc-8.5.0
-arm64                 randconfig-002-20260521    gcc-8.5.0
-arm64                 randconfig-003-20260521    gcc-8.5.0
-arm64                 randconfig-004-20260521    gcc-8.5.0
-csky                             allmodconfig    gcc-15.2.0
-csky                              allnoconfig    gcc-15.2.0
-csky                                defconfig    gcc-15.2.0
-csky                  randconfig-001-20260521    gcc-15.2.0
-csky                  randconfig-001-20260521    gcc-8.5.0
-csky                  randconfig-002-20260521    gcc-15.2.0
-csky                  randconfig-002-20260521    gcc-8.5.0
-hexagon                          allmodconfig    clang-17
-hexagon                          allmodconfig    gcc-15.2.0
-hexagon                           allnoconfig    clang-23
-hexagon                           allnoconfig    gcc-15.2.0
-hexagon                             defconfig    clang-23
-hexagon                             defconfig    gcc-15.2.0
-hexagon                        randconfig-001    gcc-11.5.0
-hexagon               randconfig-001-20260521    clang-23
-hexagon               randconfig-001-20260521    gcc-11.5.0
-hexagon                        randconfig-002    gcc-11.5.0
-hexagon               randconfig-002-20260521    clang-23
-hexagon               randconfig-002-20260521    gcc-11.5.0
-i386                             allmodconfig    clang-20
-i386                             allmodconfig    gcc-14
-i386                              allnoconfig    gcc-14
-i386                              allnoconfig    gcc-15.2.0
-i386                             allyesconfig    clang-20
-i386                             allyesconfig    gcc-14
-i386                 buildonly-randconfig-001    clang-20
-i386        buildonly-randconfig-001-20260521    clang-20
-i386        buildonly-randconfig-001-20260522    clang-20
-i386                 buildonly-randconfig-002    clang-20
-i386        buildonly-randconfig-002-20260521    clang-20
-i386        buildonly-randconfig-002-20260522    gcc-14
-i386                 buildonly-randconfig-003    clang-20
-i386        buildonly-randconfig-003-20260521    clang-20
-i386        buildonly-randconfig-003-20260522    clang-20
-i386                 buildonly-randconfig-004    clang-20
-i386        buildonly-randconfig-004-20260521    clang-20
-i386        buildonly-randconfig-004-20260522    gcc-14
-i386                 buildonly-randconfig-005    clang-20
-i386        buildonly-randconfig-005-20260521    clang-20
-i386        buildonly-randconfig-005-20260522    clang-20
-i386                 buildonly-randconfig-006    clang-20
-i386        buildonly-randconfig-006-20260521    clang-20
-i386        buildonly-randconfig-006-20260522    gcc-13
-i386                                defconfig    clang-20
-i386                                defconfig    gcc-15.2.0
-i386                  randconfig-001-20260521    clang-20
-i386                  randconfig-002-20260521    gcc-14
-i386                  randconfig-003-20260521    clang-20
-i386                  randconfig-004-20260521    gcc-14
-i386                  randconfig-005-20260521    clang-20
-i386                  randconfig-006-20260521    clang-20
-i386                  randconfig-007-20260521    clang-20
-i386                  randconfig-011-20260521    gcc-14
-i386                  randconfig-012-20260521    clang-20
-i386                  randconfig-013-20260521    gcc-13
-i386                  randconfig-014-20260521    gcc-14
-i386                  randconfig-015-20260521    gcc-14
-i386                  randconfig-016-20260521    clang-20
-i386                  randconfig-017-20260521    clang-20
-loongarch                        allmodconfig    clang-19
-loongarch                        allmodconfig    clang-23
-loongarch                         allnoconfig    clang-23
-loongarch                         allnoconfig    gcc-15.2.0
-loongarch                           defconfig    clang-19
-loongarch                      randconfig-001    gcc-11.5.0
-loongarch             randconfig-001-20260521    gcc-11.5.0
-loongarch             randconfig-001-20260521    gcc-12.5.0
-loongarch                      randconfig-002    gcc-11.5.0
-loongarch             randconfig-002-20260521    gcc-11.5.0
-loongarch             randconfig-002-20260521    gcc-15.2.0
-m68k                             allmodconfig    gcc-15.2.0
-m68k                              allnoconfig    gcc-15.2.0
-m68k                             allyesconfig    clang-16
-m68k                             allyesconfig    gcc-15.2.0
-m68k                                defconfig    clang-19
-m68k                                defconfig    gcc-15.2.0
-microblaze                        allnoconfig    gcc-15.2.0
-microblaze                       allyesconfig    gcc-15.2.0
-microblaze                          defconfig    clang-19
-microblaze                          defconfig    gcc-15.2.0
-mips                             allmodconfig    gcc-15.2.0
-mips                              allnoconfig    gcc-15.2.0
-mips                             allyesconfig    gcc-15.2.0
-nios2                            allmodconfig    clang-23
-nios2                            allmodconfig    gcc-11.5.0
-nios2                             allnoconfig    clang-23
-nios2                             allnoconfig    gcc-11.5.0
-nios2                               defconfig    clang-19
-nios2                               defconfig    gcc-11.5.0
-nios2                          randconfig-001    gcc-11.5.0
-nios2                 randconfig-001-20260521    gcc-11.5.0
-nios2                          randconfig-002    gcc-11.5.0
-nios2                 randconfig-002-20260521    gcc-11.5.0
-openrisc                         allmodconfig    clang-23
-openrisc                         allmodconfig    gcc-15.2.0
-openrisc                          allnoconfig    clang-23
-openrisc                          allnoconfig    gcc-15.2.0
-openrisc                            defconfig    gcc-15.2.0
-parisc                           allmodconfig    gcc-15.2.0
-parisc                            allnoconfig    clang-23
-parisc                            allnoconfig    gcc-15.2.0
-parisc                           allyesconfig    clang-19
-parisc                           allyesconfig    gcc-15.2.0
-parisc                              defconfig    gcc-15.2.0
-parisc                randconfig-001-20260521    gcc-12.5.0
-parisc                randconfig-002-20260521    gcc-15.2.0
-parisc64                            defconfig    clang-19
-parisc64                            defconfig    gcc-15.2.0
-powerpc                          allmodconfig    gcc-15.2.0
-powerpc                           allnoconfig    clang-23
-powerpc                           allnoconfig    gcc-15.2.0
-powerpc               randconfig-001-20260521    clang-23
-powerpc               randconfig-002-20260521    clang-17
-powerpc                    sam440ep_defconfig    gcc-15.2.0
-powerpc64             randconfig-001-20260521    clang-23
-powerpc64             randconfig-002-20260521    gcc-12.5.0
-riscv                            allmodconfig    clang-23
-riscv                             allnoconfig    clang-23
-riscv                             allnoconfig    gcc-15.2.0
-riscv                            allyesconfig    clang-16
-riscv                               defconfig    gcc-15.2.0
-riscv                          randconfig-001    gcc-15.2.0
-riscv                 randconfig-001-20260521    clang-23
-riscv                 randconfig-001-20260521    gcc-15.2.0
-riscv                          randconfig-002    gcc-15.2.0
-riscv                 randconfig-002-20260521    gcc-13.4.0
-riscv                 randconfig-002-20260521    gcc-15.2.0
-s390                             allmodconfig    clang-18
-s390                             allmodconfig    clang-19
-s390                              allnoconfig    clang-23
-s390                             allyesconfig    gcc-15.2.0
-s390                                defconfig    gcc-15.2.0
-s390                           randconfig-001    gcc-15.2.0
-s390                  randconfig-001-20260521    gcc-15.2.0
-s390                  randconfig-001-20260521    gcc-8.5.0
-s390                           randconfig-002    gcc-15.2.0
-s390                  randconfig-002-20260521    clang-17
-s390                  randconfig-002-20260521    gcc-15.2.0
-sh                               allmodconfig    gcc-15.2.0
-sh                                allnoconfig    clang-23
-sh                                allnoconfig    gcc-15.2.0
-sh                               allyesconfig    clang-19
-sh                               allyesconfig    gcc-15.2.0
-sh                                  defconfig    gcc-14
-sh                                  defconfig    gcc-15.2.0
-sh                             randconfig-001    gcc-15.2.0
-sh                    randconfig-001-20260521    gcc-15.2.0
-sh                             randconfig-002    gcc-15.2.0
-sh                    randconfig-002-20260521    gcc-12.5.0
-sh                    randconfig-002-20260521    gcc-15.2.0
-sh                          rsk7264_defconfig    gcc-15.2.0
-sparc                             allnoconfig    clang-23
-sparc                             allnoconfig    gcc-15.2.0
-sparc                               defconfig    gcc-15.2.0
-sparc                          randconfig-001    gcc-8.5.0
-sparc                 randconfig-001-20260521    gcc-8.5.0
-sparc                          randconfig-002    gcc-8.5.0
-sparc                 randconfig-002-20260521    gcc-8.5.0
-sparc64                          allmodconfig    clang-23
-sparc64                             defconfig    clang-20
-sparc64                             defconfig    gcc-14
-sparc64                        randconfig-001    gcc-8.5.0
-sparc64               randconfig-001-20260521    gcc-8.5.0
-sparc64                        randconfig-002    gcc-8.5.0
-sparc64               randconfig-002-20260521    gcc-8.5.0
-um                               allmodconfig    clang-19
-um                                allnoconfig    clang-23
-um                               allyesconfig    gcc-14
-um                               allyesconfig    gcc-15.2.0
-um                                  defconfig    clang-23
-um                                  defconfig    gcc-14
-um                             i386_defconfig    gcc-14
-um                             randconfig-001    gcc-8.5.0
-um                    randconfig-001-20260521    gcc-14
-um                    randconfig-001-20260521    gcc-8.5.0
-um                             randconfig-002    gcc-8.5.0
-um                    randconfig-002-20260521    gcc-14
-um                    randconfig-002-20260521    gcc-8.5.0
-um                           x86_64_defconfig    clang-23
-um                           x86_64_defconfig    gcc-14
-x86_64                           allmodconfig    clang-20
-x86_64                            allnoconfig    clang-20
-x86_64                            allnoconfig    clang-23
-x86_64                           allyesconfig    clang-20
-x86_64      buildonly-randconfig-001-20260521    clang-20
-x86_64      buildonly-randconfig-001-20260521    gcc-12
-x86_64      buildonly-randconfig-002-20260521    clang-20
-x86_64      buildonly-randconfig-002-20260521    gcc-14
-x86_64      buildonly-randconfig-003-20260521    clang-20
-x86_64      buildonly-randconfig-004-20260521    clang-20
-x86_64      buildonly-randconfig-004-20260521    gcc-14
-x86_64      buildonly-randconfig-005-20260521    clang-20
-x86_64      buildonly-randconfig-006-20260521    clang-20
-x86_64                              defconfig    gcc-14
-x86_64                                  kexec    clang-20
-x86_64                randconfig-001-20260521    clang-20
-x86_64                randconfig-002-20260521    clang-20
-x86_64                randconfig-003-20260521    clang-20
-x86_64                randconfig-003-20260521    gcc-14
-x86_64                randconfig-004-20260521    clang-20
-x86_64                randconfig-005-20260521    clang-20
-x86_64                randconfig-006-20260521    clang-20
-x86_64                randconfig-011-20260521    clang-20
-x86_64                randconfig-011-20260521    gcc-14
-x86_64                randconfig-012-20260521    clang-20
-x86_64                randconfig-012-20260521    gcc-14
-x86_64                randconfig-013-20260521    clang-20
-x86_64                randconfig-013-20260521    gcc-14
-x86_64                randconfig-014-20260521    clang-20
-x86_64                randconfig-014-20260521    gcc-14
-x86_64                randconfig-015-20260521    clang-20
-x86_64                randconfig-015-20260521    gcc-14
-x86_64                randconfig-016-20260521    gcc-14
-x86_64                         randconfig-071    gcc-14
-x86_64                randconfig-071-20260521    clang-20
-x86_64                         randconfig-072    gcc-14
-x86_64                randconfig-072-20260521    clang-20
-x86_64                         randconfig-073    clang-20
-x86_64                randconfig-073-20260521    clang-20
-x86_64                         randconfig-074    gcc-14
-x86_64                randconfig-074-20260521    gcc-14
-x86_64                         randconfig-075    gcc-13
-x86_64                randconfig-075-20260521    clang-20
-x86_64                         randconfig-076    clang-20
-x86_64                randconfig-076-20260521    clang-20
-x86_64                               rhel-9.4    clang-20
-x86_64                           rhel-9.4-bpf    gcc-14
-x86_64                          rhel-9.4-func    clang-20
-x86_64                    rhel-9.4-kselftests    clang-20
-x86_64                         rhel-9.4-kunit    gcc-14
-x86_64                           rhel-9.4-ltp    gcc-14
-x86_64                          rhel-9.4-rust    clang-20
-xtensa                            allnoconfig    clang-23
-xtensa                            allnoconfig    gcc-15.2.0
-xtensa                           allyesconfig    clang-23
-xtensa                           allyesconfig    gcc-15.2.0
-xtensa                         randconfig-001    gcc-8.5.0
-xtensa                randconfig-001-20260521    gcc-8.5.0
-xtensa                         randconfig-002    gcc-8.5.0
-xtensa                randconfig-002-20260521    gcc-11.5.0
-xtensa                randconfig-002-20260521    gcc-8.5.0
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+PiBTdWJqZWN0OiBSZTogW1BBVENIIHY0IDAvN10gUmVmYWN0b3IgZHJtX3dyaXRlYmFja19jb25u
+ZWN0b3Igc3RydWN0dXJlDQo+IA0KPiBPbiA1LzIwLzI2IDIyOjM3LCBTdXJhaiBLYW5kcGFsIHdy
+b3RlOg0KPiA+IFNvbWUgZHJpdmVycyBjYW5ub3Qgd29yayB3aXRoIHRoZSBjdXJyZW50IGRlc2ln
+biB3aGVyZSB0aGUgY29ubmVjdG9yDQo+ID4gaXMgZW1iZWRkZWQgd2l0aGluIHRoZSBkcm1fd3Jp
+dGViYWNrX2Nvbm5lY3RvciBzdWNoIGFzIGludGVsIGFuZCBzb21lDQo+ID4gZHJpdmVycyB0aGF0
+IGNhbiBnZXQgaXQgd29ya2luZyBlbmQgdXAgYWRkaW5nIGEgbG90IG9mIGNoZWNrcyBhbGwNCj4g
+PiBhcm91bmQgdGhlIGNvZGUgdG8gY2hlY2sgaWYgaXQncyBhIHdyaXRlYmFjayBjb25lbmN0b3Ig
+b3Igbm90Lg0KPiA+IFRoaXMgaXMgZHVlIHRvIHRoZSBpbmhlcml0YW5jZSBsaW1pdGF0aW9uIGlu
+IEMuDQo+ID4gVGhpcyBzZXJpZXMgaW50ZW5kcyB0byBzb2x2ZSBpdCBieSBtb3ZpbmcgdGhlIGRy
+bV93cml0ZWJhY2tfY29ubmVjdG9yDQo+ID4gd2l0aGluIHRoZSBkcm1fY29ubmVjdG9yIGFuZCBy
+ZW1vdmUgdGhlIGRybV9jb25uZWN0b3IgYmFzZSB3aGljaCB3YXMNCj4gPiBpbiBkcm1fd3JpdGVi
+YWNrX2Nvbm5lY3Rvci4gVGhpcyBpcyBkb25lIGluIHVuaW9uIHdpdGggaGRtaSBjb25uZWN0b3IN
+Cj4gPiB3aXRoaW4gZHJtX2Nvbm5lY3RvciB0byBzYXZlIG1lbW9yeSBhbmQgc2luY2UgZHJtX2Nv
+bm5lY3RvciBjYW5ub3QgYmUNCj4gPiBib3RoIGhkbWkgYW5kIHdyaXRlYmFjayBpdCBzZXJ2ZXMg
+aXMgd2VsbC4NCj4gPiBBIFJGQyB2ZXJzaW9uIHdhcyBmbG9hdGVkIGFuZCBkaXNjdXNzaW9uIGhh
+ZCB0YWtlbiBwbGFjZSBhdCBbMV0gd2hpY2gNCj4gPiBraWNrZWQgb2YgdGhpcyBtb3JlIGNsZWFu
+ZXIgc2VyaWVzLg0KPiA+IFdlIGRvIGFsbCBvdGhlciByZXF1aXJlZCBtb2RpZmljYXRpb25zIHRo
+YXQgY29tZSB3aXRoIHRoZXNlIGNoYW5nZXMNCj4gPiBhbG9uZyB3aXRoIGFkZGl0aW9uIG9mIG5l
+dyBmdW5jdGlvbiB3aGljaCByZXR1cm5zIHRoZSBkcm1fY29ubmVjdG9yDQo+ID4gd2hlbiBkcm1f
+d3JpdGViYWNrX2Nvbm5lY3RvciBpcyBwcmVzZW50Lg0KPiA+IFRoaXMgc2VyaWVzIGFsc28gY29u
+dGFpbnMgc29tZSB3cml0ZWJhY2sgQVBJIGNsZWFudXBzIGFzIGEgY29uc2VxdWVuY2UNCj4gPiBv
+ZiB3cml0ZWJhY2sgY29ubmVjdG9yIG1vdmluZyBpbnRvIGRybV9jb25uZWN0b3IgQWxsIGRyaXZl
+cnMgd2lsbCBiZQ0KPiA+IGV4cGVjdGVkIHRvIGFsbG9jYXRlIHRoZSBkcm1fY29ubmVjdG9yLg0K
+PiA+IFRoaXMgZGlzY3Vzc2lvbiB3YXMgdGlnZ2VyZWQgZnJvbSBbMl0gYW5kIHNpdHMgb24gdG9w
+IG9mIERtaXRyeSdzDQo+ID4gc2VyaWVzIHNlZSBbM10uDQo+ID4NCj4gPiBbMV0gaHR0cHM6Ly9w
+YXRjaHdvcmsuZnJlZWRlc2t0b3Aub3JnL3Nlcmllcy8xNTI3NTgvDQo+ID4gWzJdIGh0dHBzOi8v
+cGF0Y2h3b3JrLmZyZWVkZXNrdG9wLm9yZy9zZXJpZXMvMTUyMTA2Lw0KPiA+IFszXSBodHRwczov
+L3BhdGNod29yay5mcmVlZGVza3RvcC5vcmcvc2VyaWVzLzE1MjQyMC8NCj4gUVE6IFdoYXQgdHJl
+ZSBpcyB0aGlzIHBhdGNoIHNldCBiYXNlZCBvbj8gSSB0cmllZCB0byBhcHBseSBpdCBsb2NhbGx5
+IGJ1dCBJIGdldA0KPiBjb25mbGljdHMgbm8gbWF0dGVyIHdoYXQgYmFzZWxpbmUgSSB1c2UuIEkn
+dmUgdHJpZWQgZnVsbCBrZXJuZWwsIGRybS10aXAgYW5kIGRybS0NCj4gbmV4dC4gRG1pdHJ5J3Mg
+cGF0Y2ggc2V0LCBbM10gYWJvdmUsIGFwcGxpZXMgZmluZSBidXQgSSBnZXQgY29uZmxpY3RzIGlu
+IHRoZSByY2FyDQo+IGFuZCBtYWxpIGZpbGVzIHdoZW4gdHJ5aW5nIHRvIGFwcGx5IHRoaXMgc2V0
+Lg0KDQpIbW0gSSBwcm9iYWJseSBuZWVkIHRvIHRha2UgaGlzIGxhdGVzdCByZXZpc2lvbiBhbmQg
+YXBwbHkgbXkgc2VyaWVzIG9uIHRvcCBvZiBpdCBhZ2FpbiB0aGVuIHNlbmQgSXQgdGhhdCBzaG91
+bGQgcmVzb2x2ZSBpdC4NClRoaXMgc2hvdWxkIGJlIGZpeGVkIGJ5IG5leHQgcmV2aXNpb24uDQoN
+ClJlZ2FyZHMsDQpTdXJhaiBLYW5kcGFsIA0KDQo+IA0KPiBUaGFua3MsDQo+IEpvaG4uDQo+IA0K
+PiA+DQo+ID4gU2lnbmVkLW9mZi1ieTogU3VyYWogS2FuZHBhbCA8c3VyYWoua2FuZHBhbEBpbnRl
+bC5jb20+DQo+ID4NCj4gPiBTdXJhaiBLYW5kcGFsICg3KToNCj4gPiAgICBkcm06IHdyaXRlYmFj
+azogUmVmYWN0b3IgZHJtX3dyaXRlYmFja19jb25uZWN0b3Igc3RydWN0dXJlDQo+ID4gICAgZHJt
+OiB3cml0ZWJhY2s6IE1vZGlmeSB3cml0ZWJhY2sgaW5pdCBoZWxwZXJzDQo+ID4gICAgZHJtOiB3
+cml0ZWJhY2s6IE1vZGlmeSBkcm1fd3JpdGViYWNrX3F1ZXVlX2pvYiBoZWxwZXINCj4gPiAgICBk
+cm06IHdyaXRlYmFjazogTW9kaWZ5IGRybV93cml0ZWJhY2tfc2lnbmFsX2NvbXBsZXRpb24gaGVs
+cGVyDQo+ID4gICAgZHJtOiB3cml0ZWJhY2s6IE1vZGlmeSBkcm1fd3JpdGViYWNrX2dldF9vdXRf
+ZmVuY2UgaGVscGVyDQo+ID4gICAgZHJtOiB3cml0ZWJhY2s6IE1vZGlmeSBwcmVwYXJlX3dyaXRl
+YmFja19qb2IgaGVscGVyDQo+ID4gICAgZHJtOiB3cml0ZWJhY2s6IE1vZGlmeSBjbGVhbnVwX3dy
+aXRlYmFja19qb2IgaGVscGVyDQo+ID4NCj4gPiAgIC4uLi9ncHUvZHJtL2FtZC9kaXNwbGF5L2Ft
+ZGdwdV9kbS9hbWRncHVfZG0uYyB8IDEwICstLQ0KPiA+ICAgLi4uL2dwdS9kcm0vYW1kL2Rpc3Bs
+YXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5oIHwgIDIgKy0NCj4gPiAgIC4uLi9kcm0vYW1kL2Rpc3Bs
+YXkvYW1kZ3B1X2RtL2FtZGdwdV9kbV93Yi5jICB8IDEyICstLQ0KPiA+ICAgLi4uL2dwdS9kcm0v
+YXJtL2Rpc3BsYXkva29tZWRhL2tvbWVkYV9jcnRjLmMgIHwgIDIgKy0NCj4gPiAgIC4uLi9ncHUv
+ZHJtL2FybS9kaXNwbGF5L2tvbWVkYS9rb21lZGFfa21zLmggICB8ICA2ICstDQo+ID4gICAuLi4v
+YXJtL2Rpc3BsYXkva29tZWRhL2tvbWVkYV93Yl9jb25uZWN0b3IuYyAgfCAxMSArLS0NCj4gPiAg
+IGRyaXZlcnMvZ3B1L2RybS9hcm0vbWFsaWRwX2NydGMuYyAgICAgICAgICAgICB8ICAyICstDQo+
+ID4gICBkcml2ZXJzL2dwdS9kcm0vYXJtL21hbGlkcF9kcnYuaCAgICAgICAgICAgICAgfCAgMiAr
+LQ0KPiA+ICAgZHJpdmVycy9ncHUvZHJtL2FybS9tYWxpZHBfbXcuYyAgICAgICAgICAgICAgIHwg
+IDcgKy0NCj4gPiAgIGRyaXZlcnMvZ3B1L2RybS9kcm1fYXRvbWljX3VhcGkuYyAgICAgICAgICAg
+ICB8ICA0ICstDQo+ID4gICBkcml2ZXJzL2dwdS9kcm0vZHJtX3dyaXRlYmFjay5jICAgICAgICAg
+ICAgICAgfCA1MCArKysrKysrLS0tLS0NCj4gPiAgIC4uLi9kcm0vbXNtL2Rpc3AvZHB1MS9kcHVf
+ZW5jb2Rlcl9waHlzX3diLmMgICB8ICA5ICsrLQ0KPiA+ICAgZHJpdmVycy9ncHUvZHJtL21zbS9k
+aXNwL2RwdTEvZHB1X3dyaXRlYmFjay5jIHwgMTAgKy0tDQo+ID4gICBkcml2ZXJzL2dwdS9kcm0v
+bXNtL2Rpc3AvZHB1MS9kcHVfd3JpdGViYWNrLmggfCAgNCArLQ0KPiA+ICAgLi4uL2dwdS9kcm0v
+cmVuZXNhcy9yY2FyLWR1L3JjYXJfZHVfY3J0Yy5oICAgIHwgIDYgKy0NCj4gPiAgIC4uLi9kcm0v
+cmVuZXNhcy9yY2FyLWR1L3JjYXJfZHVfd3JpdGViYWNrLmMgICB8IDE2ICsrLS0NCj4gPiAgIGRy
+aXZlcnMvZ3B1L2RybS92YzQvdmM0X3R4cC5jICAgICAgICAgICAgICAgICB8ICA4ICstDQo+ID4g
+ICBkcml2ZXJzL2dwdS9kcm0vdmttcy92a21zX2Rydi5oICAgICAgICAgICAgICAgfCAgMiArLQ0K
+PiA+ICAgZHJpdmVycy9ncHUvZHJtL3ZrbXMvdmttc193cml0ZWJhY2suYyAgICAgICAgIHwgMTUg
+KystLQ0KPiA+ICAgaW5jbHVkZS9kcm0vZHJtX2Nvbm5lY3Rvci5oICAgICAgICAgICAgICAgICAg
+IHwgNjkgKysrKysrKysrKysrKysrKy0NCj4gPiAgIGluY2x1ZGUvZHJtL2RybV9tb2Rlc2V0X2hl
+bHBlcl92dGFibGVzLmggICAgICB8ICA0ICstDQo+ID4gICBpbmNsdWRlL2RybS9kcm1fd3JpdGVi
+YWNrLmggICAgICAgICAgICAgICAgICAgfCA3NiArKy0tLS0tLS0tLS0tLS0tLS0tDQo+ID4gICAy
+MiBmaWxlcyBjaGFuZ2VkLCAxNjQgaW5zZXJ0aW9ucygrKSwgMTYzIGRlbGV0aW9ucygtKQ0KPiA+
+DQoNCg==
