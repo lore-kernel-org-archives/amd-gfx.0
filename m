@@ -4,47 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 37F66CD5BDD
-	for <amd-gfx@archiver.kernel.org>; Tue, 26 May 2026 07:54:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 65DB2CD5BB4
+	for <amd-gfx@archiver.kernel.org>; Tue, 26 May 2026 07:54:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A2DA510E5CD;
-	Tue, 26 May 2026 07:54:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EAADD10E5AD;
+	Tue, 26 May 2026 07:54:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="H5NQiiS8";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="FpcOQBzO";
 	dkim-atps=neutral
 Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
  [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2AD1E10F6F0;
- Fri, 22 May 2026 12:36:24 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1779453375; cv=none; 
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6A44310F6D8;
+ Fri, 22 May 2026 12:35:55 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1779453347; cv=none; 
  d=zohomail.com; s=zohoarc; 
- b=gy2ayTFEIQuirQQU4yznHj0BUQlX1Ro3MxHICurN2raFups/h8P6iKdWU0dIwvvHNA3UZGMNw0IyAThXYdO/kbuzGLnh+i2xRLBa0BEQshRX0ErzBxUXPBPAkst2mJvRP9Cv1gao9EGGMkw49r1B0X5Z2egH1yl0h7bmHQGrRTQ=
+ b=JMPJvuTa2RfTR0gKAtxDXX/rO7miLRL9BvHzGCcP/GY+6N6Hdtt3A8XCWL3OLtbI3Ei5kH8Vg9Oos84ZFcr2Yy48yjxO4FcwX+9VT9cvomizfRAbYorHDLbpCciFzSsmBv8FUrsBANI+RLb4SAlqlKyXI+Ns74moh0+H4Xs6frg=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1779453375;
+ s=zohoarc; t=1779453347;
  h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=V6NGKmNcpyTzZhH7CwH7YfxhhTqCvTDidL8jJ47zf0M=; 
- b=DNuyIDmNhYOpu5rK5wDBAnWvhgEBa9ZSNf3PtPaLWL0F606zBCsNIWCdY2/SxQzllqaGCtx9vZDpEG6ONu0TkF+lJ7z/DC7zEUS3DLxS4Day/QL+NbUQqkSAuI9OZm01yVFbxPM0GwlMoovThrSREh1WoAbCxVKW58pt7yC+JpM=
+ bh=8uhvifl0KjV7h78DpGOaJw8xIKxgprEXatY1NDwlp1s=; 
+ b=Mg5+1xHivchbAFfO/EvBTvURe3mREdwZO2pz+ub007qxv6VehLgzDumZND6OkFsRWQsgmqZ5yPhzqJnCFqvAjZIm/4ienmRKjq53EjScfMXWSmf3v1MP/N7KrV49LRSiC2x7UqkApRnz+CiRq82bOo/3TXkbPUT1IM+T6f1OpjQ=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
  dkim=pass  header.i=collabora.com;
  spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
  dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1779453375; 
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1779453347; 
  s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
  h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:References:In-Reply-To:To:To:Cc:Cc:Reply-To;
- bh=V6NGKmNcpyTzZhH7CwH7YfxhhTqCvTDidL8jJ47zf0M=;
- b=H5NQiiS8fJ6TklkJ+1nOGsyKpQlzLngK+JvZdtf0AZX1lc6WSXHnqlj5Zh5fiv03
- 15ndcGwW//q/HGF8SiXd/fgQi0GMSpj5uoeL04s48XR8R4iRLtEM0+V77J5jSzVvQdQ
- jZ+Q3jVB3BbryjIXjSHZAfFsJp4LjL9ZldRg0L3s=
-Received: by mx.zohomail.com with SMTPS id 1779453373732942.5233270182885;
- Fri, 22 May 2026 05:36:13 -0700 (PDT)
+ bh=8uhvifl0KjV7h78DpGOaJw8xIKxgprEXatY1NDwlp1s=;
+ b=FpcOQBzOEVPnMBxfHBqW2QdjzN4pzPtEhZ1MOjN8pAXVbm/IkNLzSFdvMgU5NRat
+ o5bineT2mO+yrZFOOjPTU7AC5VrgZnzlNXJbcdgoZNh9gnbhnFv42VQ9p9bP7d3LYdN
+ bTpbYhNQfDWfE+wulJ30eyaAiw19bZWZQQz+0T0Y=
+Received: by mx.zohomail.com with SMTPS id 1779453346251347.45496126688056;
+ Fri, 22 May 2026 05:35:46 -0700 (PDT)
 From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Date: Fri, 22 May 2026 14:32:15 +0200
-Subject: [PATCH v15 24/28] drm/tests: hdmi: Add tests for HDMI helper's
- mode_valid
+Date: Fri, 22 May 2026 14:32:12 +0200
+Subject: [PATCH v15 21/28] drm/rockchip: dw_hdmi_qp: Set supported_formats
+ platdata
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260522-color-format-v15-24-21fb136c9df2@collabora.com>
+Message-Id: <20260522-color-format-v15-21-21fb136c9df2@collabora.com>
 References: <20260522-color-format-v15-0-21fb136c9df2@collabora.com>
 In-Reply-To: <20260522-color-format-v15-0-21fb136c9df2@collabora.com>
 To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
@@ -73,7 +73,8 @@ Cc: kernel@collabora.com, amd-gfx@lists.freedesktop.org,
  linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
  intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
  linux-doc@vger.kernel.org, wayland-devel@lists.freedesktop.org, 
- Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+ Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, 
+ Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 X-Mailer: b4 0.15.2
 X-Mailman-Approved-At: Tue, 26 May 2026 07:53:08 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -90,148 +91,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add some KUnit tests to verify that the HDMI state helper's mode_valid
-implementation does not improperly reject chroma subsampled modes on the
-basis of their clock rate not being satisfiable in RGB.
+With the introduction of the supported_formats member in the
+dw-hdmi-qp platform data struct, drivers that have access to this
+information should now set it.
 
-Reviewed-by: Maxime Ripard <mripard@kernel.org>
+Set it in the rockchip dw_hdmi_qp glue driver.
+
+This allows this information to be passed down to the dw-hdmi-qp core,
+which sets it in the bridge it creates, and consequently will allow the
+common HDMI bridge code to act on it.
+
+Reviewed-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 Reviewed-by: Daniel Stone <daniel@fooishbar.org>
 Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 ---
- drivers/gpu/drm/tests/drm_hdmi_state_helper_test.c | 109 +++++++++++++++++++++
- 1 file changed, 109 insertions(+)
+ drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/drivers/gpu/drm/tests/drm_hdmi_state_helper_test.c b/drivers/gpu/drm/tests/drm_hdmi_state_helper_test.c
-index 504956cde348..eaada1af3029 100644
---- a/drivers/gpu/drm/tests/drm_hdmi_state_helper_test.c
-+++ b/drivers/gpu/drm/tests/drm_hdmi_state_helper_test.c
-@@ -77,6 +77,23 @@ static struct drm_display_mode *find_420_only_mode(struct drm_connector *connect
- 	return NULL;
- }
+diff --git a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
+index b77ef92ae954..815f9ea7bcbe 100644
+--- a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
++++ b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
+@@ -602,6 +602,10 @@ static int dw_hdmi_qp_rockchip_bind(struct device *dev, struct device *master,
+ 	plat_data.phy_data = hdmi;
+ 	plat_data.max_bpc = 10;
  
-+static struct drm_display_mode *find_420_also_mode(struct drm_connector *connector)
-+{
-+	struct drm_device *drm = connector->dev;
-+	struct drm_display_mode *mode;
++	plat_data.supported_formats = BIT(DRM_OUTPUT_COLOR_FORMAT_RGB444) |
++				      BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR444) |
++				      BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR422);
 +
-+	mutex_lock(&drm->mode_config.mutex);
-+	list_for_each_entry(mode, &connector->modes, head) {
-+		if (drm_mode_is_420_also(&connector->display_info, mode)) {
-+			mutex_unlock(&drm->mode_config.mutex);
-+			return mode;
-+		}
-+	}
-+	mutex_unlock(&drm->mode_config.mutex);
-+
-+	return NULL;
-+}
-+
- static int set_connector_edid(struct kunit *test, struct drm_connector *connector,
- 			      const void *edid, size_t edid_len)
- {
-@@ -2745,11 +2762,103 @@ static void drm_test_check_mode_valid_reject_max_clock(struct kunit *test)
- 	KUNIT_EXPECT_EQ(test, preferred->clock, 25200);
- }
- 
-+/*
-+ * Test that drm_hdmi_connector_mode_valid() will accept modes that require a
-+ * 4:2:0 chroma subsampling, even if said mode would violate maximum clock
-+ * constraints if it used RGB 4:4:4.
-+ */
-+static void drm_test_check_mode_valid_yuv420_only_max_clock(struct kunit *test)
-+{
-+	struct drm_atomic_helper_connector_hdmi_priv *priv;
-+	struct drm_display_mode *dank;
-+	struct drm_connector *conn;
-+
-+	priv = drm_kunit_helper_connector_hdmi_init_with_edid_funcs(test,
-+				BIT(HDMI_COLORSPACE_RGB) |
-+				BIT(HDMI_COLORSPACE_YUV420),
-+				8,
-+				&dummy_connector_hdmi_funcs,
-+				test_edid_hdmi_1080p_rgb_yuv_4k_yuv420_dc_max_200mhz);
-+	KUNIT_ASSERT_NOT_NULL(test, priv);
-+
-+	conn = &priv->connector;
-+	KUNIT_ASSERT_EQ(test, conn->display_info.max_tmds_clock, 200 * 1000);
-+
-+	dank = find_420_only_mode(conn);
-+	KUNIT_ASSERT_NOT_NULL(test, dank);
-+	KUNIT_EXPECT_EQ(test, dank->hdisplay, 3840);
-+	KUNIT_EXPECT_EQ(test, dank->vdisplay, 2160);
-+
-+	/*
-+	 * Note: The mode's "clock" here is not accurate to the actual TMDS
-+	 * clock that HDMI will use for a subsampled mode. Hence, why the mode's
-+	 * clock is above the .max_tmds_clock of 200MHz.
-+	 */
-+	KUNIT_EXPECT_EQ(test, dank->clock, 297000);
-+}
-+
-+/*
-+ * Test that drm_hdmi_connector_mode_valid() will reject modes that require
-+ * 4:2:0 chroma subsampling, if the connector does not support 4:2:0.
-+ */
-+static void
-+drm_test_check_mode_valid_reject_yuv420_only_connector(struct kunit *test)
-+{
-+	struct drm_atomic_helper_connector_hdmi_priv *priv;
-+	struct drm_display_mode *dank;
-+	struct drm_connector *conn;
-+
-+	priv = drm_kunit_helper_connector_hdmi_init_with_edid_funcs(test,
-+				BIT(HDMI_COLORSPACE_RGB),
-+				8,
-+				&dummy_connector_hdmi_funcs,
-+				test_edid_hdmi_1080p_rgb_yuv_4k_yuv420_dc_max_200mhz);
-+	KUNIT_ASSERT_NOT_NULL(test, priv);
-+
-+	conn = &priv->connector;
-+	KUNIT_ASSERT_EQ(test, conn->display_info.max_tmds_clock, 200 * 1000);
-+
-+	dank = find_420_only_mode(conn);
-+	KUNIT_EXPECT_NULL(test, dank);
-+}
-+
-+/*
-+ * Test that drm_hdmi_connector_mode_valid() will accept modes that allow (among
-+ * other color formats) 4:2:0 chroma subsampling, even if the connector does not
-+ * support 4:2:0, but the mode's clock works for RGB 4:4:4.
-+ */
-+static void
-+drm_test_check_mode_valid_accept_yuv420_also_connector_rgb(struct kunit *test)
-+{
-+	struct drm_atomic_helper_connector_hdmi_priv *priv;
-+	struct drm_display_mode *mode;
-+	struct drm_connector *conn;
-+
-+	priv = drm_kunit_helper_connector_hdmi_init_with_edid_funcs(test,
-+				BIT(HDMI_COLORSPACE_RGB),
-+				8,
-+				&dummy_connector_hdmi_funcs,
-+				test_edid_hdmi_4k_rgb_yuv420_dc_max_340mhz);
-+	KUNIT_ASSERT_NOT_NULL(test, priv);
-+
-+	conn = &priv->connector;
-+	KUNIT_ASSERT_EQ(test, conn->display_info.max_tmds_clock, 340 * 1000);
-+
-+	mode = find_420_also_mode(conn);
-+	KUNIT_ASSERT_NOT_NULL(test, mode);
-+	KUNIT_EXPECT_EQ(test, mode->hdisplay, 3840);
-+	KUNIT_EXPECT_EQ(test, mode->vdisplay, 2160);
-+	KUNIT_EXPECT_EQ(test, mode->clock, 297000);
-+}
-+
- static struct kunit_case drm_atomic_helper_connector_hdmi_mode_valid_tests[] = {
- 	KUNIT_CASE(drm_test_check_mode_valid),
- 	KUNIT_CASE(drm_test_check_mode_valid_reject),
- 	KUNIT_CASE(drm_test_check_mode_valid_reject_rate),
- 	KUNIT_CASE(drm_test_check_mode_valid_reject_max_clock),
-+	KUNIT_CASE(drm_test_check_mode_valid_yuv420_only_max_clock),
-+	KUNIT_CASE(drm_test_check_mode_valid_reject_yuv420_only_connector),
-+	KUNIT_CASE(drm_test_check_mode_valid_accept_yuv420_also_connector_rgb),
- 	{ }
- };
+ 	encoder = &hdmi->encoder.encoder;
+ 	encoder->possible_crtcs = drm_of_find_possible_crtcs(drm, dev->of_node);
  
 
 -- 
