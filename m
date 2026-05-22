@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6EDEACD5BD1
-	for <amd-gfx@archiver.kernel.org>; Tue, 26 May 2026 07:53:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6D66CCD5BDD
+	for <amd-gfx@archiver.kernel.org>; Tue, 26 May 2026 07:53:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 72BED10E533;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 78AFC10E535;
 	Tue, 26 May 2026 07:53:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="E2euYcKY";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="Iq5LaUkG";
 	dkim-atps=neutral
 Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
  [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A207A10E317;
- Sat, 23 May 2026 19:46:10 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1779565560; cv=none; 
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 28C1F10F664;
+ Fri, 22 May 2026 12:35:08 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1779453301; cv=none; 
  d=zohomail.com; s=zohoarc; 
- b=EiLOGQyNI2BKl4ebifa9yWW5fv8YsaBtJuxJXVRw1IOiQKJE82/TX8sesMWbi0rrFfhl6swEcZq0NXfmECAA+7jXRsG9MUbJ+txFYhr0hhYuxhLWCD8qJiYp/ezKW/rcmXxOiJwk2X4exiXd+bqQcsDN4Q23gNcj6eDeyQ7HH3o=
+ b=FUTh4Mywy+7xMNOuhhhDuALBrbR00CMy7h+2/X6JuFQvzcnaLdJDbRZQF09Opi7GOXrZadtc1Ph75qeOoKvdXZkR8JRIZA8mIqgsZw1DPN/Ustse7yeurkM4NyjXBXdlakNvSOxGcSi78l2SC9OUOEpDV/gbINa+HctbLEVO6t4=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1779565560;
+ s=zohoarc; t=1779453301;
  h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=bW1GUfwkTTOiZ4VYC59WQXvld7KrjevOkEZb6bQuBzk=; 
- b=TUacPQv5fF4tyi/TM0uVbOidTaj8atkMm03iAS0DSt0C+gwx4i8JdID+N8X3lWjkpd6Jlx83CgVbWIJyiizI+FUqaxTjJ2/IXgXKVKUxLUVLMreyO3Db28DPUHhD2Ho/nvrK9X7iNrSbK9eyRXgq9iIgQdAko2PbRbhJkTGbk5w=
+ bh=27zEwOtXJrBMBnHQwkLTjVD6n+CH7JKtJblWcUpdbqQ=; 
+ b=baMQabsgUD6BaifRsUksjV+uYcQ1nzCljvkCBvz5WUvdYKxnRNLH4VbgaRXkPThzaKLOdVmgszHE7w6KsEKlfS0C962h8gtb70po0kdVIeIoNW5XvtnH8A2OoO9c/KoYRP1kcFgxtq/BLTrDJGSOHoMTQ4SLDSmIUlG8OJQpa3Q=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
  dkim=pass  header.i=collabora.com;
  spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
  dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1779565560; 
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1779453301; 
  s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
  h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:References:In-Reply-To:To:To:Cc:Cc:Reply-To;
- bh=bW1GUfwkTTOiZ4VYC59WQXvld7KrjevOkEZb6bQuBzk=;
- b=E2euYcKYvLFUMKtpOVoJW+Myb9l8cwKZEplG2qpDjjGaqUJRkDekCV2kyivuENeY
- TlB0m8YUszVRUSUt9gTzMFgfsSSzEUoBw0/KA/lwVvhOF2F/gwCvT3AQR9VEnwkWY28
- XdNhlsLjMs9drMba29x9kAvv5jvgRbbLfNuH61mI=
-Received: by mx.zohomail.com with SMTPS id 1779565557416382.26283011026703;
- Sat, 23 May 2026 12:45:57 -0700 (PDT)
+ bh=27zEwOtXJrBMBnHQwkLTjVD6n+CH7JKtJblWcUpdbqQ=;
+ b=Iq5LaUkG26Uftvjk0+luxzb5Vfq1P7T2h2KI87WmFMpcw0MPF2Ht6sePOe2DP8Nu
+ cKKojZuAZAFtbSdgt0Mzktk7iQLWwQxCDvKrqhn8QN/4hDTBSptPvq/i0rdDI65aOj7
+ +skGhOnnkex03vLOfDJm3mIArvpTjBlMiFBO94Dw=
+Received: by mx.zohomail.com with SMTPS id 1779453299324733.4769972371035;
+ Fri, 22 May 2026 05:34:59 -0700 (PDT)
 From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Date: Sat, 23 May 2026 21:43:44 +0200
-Subject: [PATCH v16 09/28] drm/display: hdmi-state-helper: Try subsampling
- in mode_valid
+Date: Fri, 22 May 2026 14:32:07 +0200
+Subject: [PATCH v15 16/28] drm/rockchip: vop2: Add RK3576 to the RG swap
+ special case
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260523-color-format-v16-9-24340c5e4732@collabora.com>
-References: <20260523-color-format-v16-0-24340c5e4732@collabora.com>
-In-Reply-To: <20260523-color-format-v16-0-24340c5e4732@collabora.com>
+Message-Id: <20260522-color-format-v15-16-21fb136c9df2@collabora.com>
+References: <20260522-color-format-v15-0-21fb136c9df2@collabora.com>
+In-Reply-To: <20260522-color-format-v15-0-21fb136c9df2@collabora.com>
 To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
  Rodrigo Siqueira <siqueira@igalia.com>, 
  Alex Deucher <alexander.deucher@amd.com>, 
@@ -74,7 +74,7 @@ Cc: kernel@collabora.com, amd-gfx@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
  linux-doc@vger.kernel.org, wayland-devel@lists.freedesktop.org, 
  Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+ Andy Yan <andyshrk@163.com>
 X-Mailer: b4 0.15.2
 X-Mailman-Approved-At: Tue, 26 May 2026 07:53:08 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -91,55 +91,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-drm_hdmi_connector_mode_valid assumes modes are only valid if they work
-with RGB. The reality is more complex however: YCbCr 4:2:0
-chroma-subsampled modes only require half the pixel clock that the same
-mode would require in RGB.
+Much like RK3588, RK3576 requires an RG swap to be performed for YUV444
+8-bit and YUV444 10-bit bus formats.
 
-This leads to drm_hdmi_connector_mode_valid rejecting perfectly valid
-420-only or 420-also modes.
+Add its version to the already existing check for RK3588, so that YUV444
+output is correct on this platform.
 
-Fix this by checking whether the mode is 420-capable first. If so, then
-proceed by checking it with DRM_OUTPUT_COLOR_FORMAT_YCBCR420 so long as
-the connector has legalized 420, otherwise error out. If the mode is not
-420-capable, check with RGB as was previously always the case.
-
-Fixes: 47368ab437fd ("drm/display: hdmi: add generic mode_valid helper")
-Reviewed-by: Maxime Ripard <mripard@kernel.org>
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Fixes: 944757a4cba6 ("drm/rockchip: vop2: Add support for rk3576")
+Reviewed-by: Andy Yan <andyshrk@163.com>
 Reviewed-by: Daniel Stone <daniel@fooishbar.org>
 Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 ---
- drivers/gpu/drm/display/drm_hdmi_state_helper.c | 15 ++++++++++++++-
- 1 file changed, 14 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/rockchip/rockchip_drm_vop2.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/display/drm_hdmi_state_helper.c b/drivers/gpu/drm/display/drm_hdmi_state_helper.c
-index 1c54e6feac61..acb9b4ada47e 100644
---- a/drivers/gpu/drm/display/drm_hdmi_state_helper.c
-+++ b/drivers/gpu/drm/display/drm_hdmi_state_helper.c
-@@ -942,8 +942,21 @@ drm_hdmi_connector_mode_valid(struct drm_connector *connector,
- 			      const struct drm_display_mode *mode)
+diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
+index a160077a507f..be7830c9001c 100644
+--- a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
++++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
+@@ -337,7 +337,8 @@ static bool vop2_output_uv_swap(u32 bus_format, u32 output_mode)
+ 
+ static bool vop2_output_rg_swap(struct vop2 *vop2, u32 bus_format)
  {
- 	unsigned long long clock;
-+	enum drm_output_color_format fmt;
-+
-+	if (drm_mode_is_420_only(&connector->display_info, mode)) {
-+		if (connector->ycbcr_420_allowed)
-+			fmt = DRM_OUTPUT_COLOR_FORMAT_YCBCR420;
-+		else
-+			return MODE_NO_420;
-+	} else if (drm_mode_is_420_also(&connector->display_info, mode) &&
-+		   connector->ycbcr_420_allowed) {
-+		fmt = DRM_OUTPUT_COLOR_FORMAT_YCBCR420;
-+	} else {
-+		fmt = DRM_OUTPUT_COLOR_FORMAT_RGB444;
-+	}
- 
--	clock = drm_hdmi_compute_mode_clock(mode, 8, DRM_OUTPUT_COLOR_FORMAT_RGB444);
-+	clock = drm_hdmi_compute_mode_clock(mode, 8, fmt);
- 	if (!clock)
- 		return MODE_ERROR;
- 
+-	if (vop2->version == VOP_VERSION_RK3588) {
++	if (vop2->version == VOP_VERSION_RK3588 ||
++	    vop2->version == VOP_VERSION_RK3576) {
+ 		if (bus_format == MEDIA_BUS_FMT_YUV8_1X24 ||
+ 		    bus_format == MEDIA_BUS_FMT_YUV10_1X30)
+ 			return true;
 
 -- 
 2.54.0
