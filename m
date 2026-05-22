@@ -4,47 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CBDABCD6E41
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2FFDDCD5BD5
 	for <amd-gfx@archiver.kernel.org>; Tue, 26 May 2026 07:53:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A170B10E55B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7BBDE10E558;
 	Tue, 26 May 2026 07:53:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="ahKiG3u8";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="kquULobU";
 	dkim-atps=neutral
 Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
  [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2B7D710F5B8;
- Fri, 22 May 2026 12:33:18 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1779453188; cv=none; 
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CEB3610F59F;
+ Fri, 22 May 2026 12:32:47 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1779453158; cv=none; 
  d=zohomail.com; s=zohoarc; 
- b=F/lkO6r5U0DhE/3H1eqNFa8fgGQdxsebDWvUBowiKY9X/yyscynY8CJQSK9G17+bby5PPJmtmbzJu3ICx+ZhWUh7S0f9SjI+N8vPaJM8VqBWmWUwB24LF9tC/DDf3U/LdDCaz7bQ8KlN0/asH8w03bykB8q9IDaigeMYkLEuZ2o=
+ b=DRxf6qXHl/ME4nKYyJqEiQ1puxx+BUrTL95HeHWOqMh0GurCMyYmxmU+MFi348etu8d97kMH6GrTFL0ElalHTD9IVf9AK5EbN1PP4aPAlqgmRmDg42G7bn8ZGvzAau6NounR0RgOVv+RwALYPOGoXhSqRagdGwPBC325RNX1x0g=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1779453188;
+ s=zohoarc; t=1779453158;
  h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=E8Lo2br7VH451pW8mbm3IAG619TpKWYG57DGcDu/ZNs=; 
- b=X2IL4wPpdc3yBmPExhKTxBJEaVKLawlSKvhoFSk+hgqpuPGAvb+TeITVpWJHOkI0fWa/8Of0fztTKfrmF/+IaAX5b7hiqNyTW9EiHO4Jl2pfBtlsKCPyvkId2ufv0umX9M5pr3d8Q3xrHudqZI32zIbpNHUrCQT+MccWonWa90k=
+ bh=uMEEZn+x23X3/iGLCH74HTpR0e0r7hhMuh0rntSsrbY=; 
+ b=Zl+oxgs4L5SyfPaYR3Wrji2oG/hAe9x2x+p53VeHYlOei44IPU02cPCXcI6FmSOG+NkiXQw86qKw7a4/LWq3uX43+Sq3lzuclbig+aUaSOO6Fh7TPZYHiK6+eIgQdf0QQTUNjgSksNNVSpO8FrnMr9UQyQkwlBbPa/hFgsfnotY=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
  dkim=pass  header.i=collabora.com;
  spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
  dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1779453188; 
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1779453158; 
  s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
  h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:References:In-Reply-To:To:To:Cc:Cc:Reply-To;
- bh=E8Lo2br7VH451pW8mbm3IAG619TpKWYG57DGcDu/ZNs=;
- b=ahKiG3u8Dax7FvJR9oPzyttnytssci5R/kR8+hX5cSdjETuNZ3PZCpSqgIQYub08
- 5BEJihKhFMytUZnCW3LOr/S9g0aIyDNBhchqF55hdQ29tJFpGkMOMwGn+x9pMaSPe0c
- 9AatAXy199lZf7yyD/ey4mKYfmnqjU5Gkydbo+1s=
-Received: by mx.zohomail.com with SMTPS id 1779453186609808.6322459481415;
- Fri, 22 May 2026 05:33:06 -0700 (PDT)
+ bh=uMEEZn+x23X3/iGLCH74HTpR0e0r7hhMuh0rntSsrbY=;
+ b=kquULobUxq239Flf5gXvPo/a6NUKQKrpaX329LEg1IQsU3Lw7tWWi+I/8ik1jS4A
+ ZeZTxZfaM+e41TzetIYop6pM7QUlY0C96ydpKdOrrQkls7nitQRdP3KEZGPO78/+vzu
+ 8S+P97OwdXKAfQ1OtJUHFz6+O2cjLrX/kjRPD/1U=
+Received: by mx.zohomail.com with SMTPS id 1779453157599856.9324824226866;
+ Fri, 22 May 2026 05:32:37 -0700 (PDT)
 From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Date: Fri, 22 May 2026 14:31:55 +0200
-Subject: [PATCH v15 04/28] drm/connector: Let connectors have a say in
- their color format
+Date: Fri, 22 May 2026 14:31:52 +0200
+Subject: [PATCH v15 01/28] drm/amd/display: Remove unnecessary
+ SIGNAL_TYPE_HDMI_TYPE_A check
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260522-color-format-v15-4-21fb136c9df2@collabora.com>
+Message-Id: <20260522-color-format-v15-1-21fb136c9df2@collabora.com>
 References: <20260522-color-format-v15-0-21fb136c9df2@collabora.com>
 In-Reply-To: <20260522-color-format-v15-0-21fb136c9df2@collabora.com>
 To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
@@ -74,7 +74,8 @@ Cc: kernel@collabora.com, amd-gfx@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
  linux-doc@vger.kernel.org, wayland-devel@lists.freedesktop.org, 
  Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+ Werner Sembach <wse@tuxedocomputers.com>, 
+ Andri Yngvason <andri@yngvason.is>
 X-Mailer: b4 0.15.2
 X-Mailman-Approved-At: Tue, 26 May 2026 07:53:08 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -91,79 +92,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add a function to get the connector color format from a connector state,
-and a new function pointer in drm_connector_funcs to allow connectors to
-override what connector color format it returns.
+From: Werner Sembach <wse@tuxedocomputers.com>
 
-This is useful for the bridge chain recursive bus format selection code,
-which does not wish to implement connector implementation specific
-checks like whether it involves HDMI.
+Remove unnecessary SIGNAL_TYPE_HDMI_TYPE_A check that was performed in the
+drm_mode_is_420_only() case, but not in the drm_mode_is_420_also() &&
+force_yuv420_output case.
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Without further knowledge if YCbCr 4:2:0 is supported outside of HDMI,
+there is no reason to use RGB when the display
+reports drm_mode_is_420_only() even on a non HDMI connection.
+
+This patch also moves both checks in the same if-case. This  eliminates an
+extra else-if-case.
+
+Signed-off-by: Werner Sembach <wse@tuxedocomputers.com>
+Signed-off-by: Andri Yngvason <andri@yngvason.is>
+Tested-by: Andri Yngvason <andri@yngvason.is>
 Reviewed-by: Daniel Stone <daniel@fooishbar.org>
 Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 ---
- drivers/gpu/drm/drm_connector.c | 16 ++++++++++++++++
- include/drm/drm_connector.h     | 12 ++++++++++++
- 2 files changed, 28 insertions(+)
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 9 +++------
+ 1 file changed, 3 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
-index a0fca522f18f..41a5ab1e563e 100644
---- a/drivers/gpu/drm/drm_connector.c
-+++ b/drivers/gpu/drm/drm_connector.c
-@@ -3685,6 +3685,22 @@ void drm_connector_oob_hotplug_event(struct fwnode_handle *connector_fwnode,
- }
- EXPORT_SYMBOL(drm_connector_oob_hotplug_event);
- 
-+/**
-+ * drm_connector_get_color_format - Return connector color format of @conn_state
-+ * @conn_state: pointer to the &struct drm_connector_state to go check
-+ *
-+ */
-+enum drm_connector_color_format
-+drm_connector_get_color_format(const struct drm_connector_state *conn_state)
-+{
-+	struct drm_connector *connector = conn_state->connector;
-+
-+	if (connector->funcs->color_format)
-+		return connector->funcs->color_format(conn_state);
-+
-+	return conn_state->color_format;
-+}
-+EXPORT_SYMBOL(drm_connector_get_color_format);
- 
- /**
-  * DOC: Tile group
-diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
-index 03e42c36175d..c9aad2bc8227 100644
---- a/include/drm/drm_connector.h
-+++ b/include/drm/drm_connector.h
-@@ -1787,6 +1787,16 @@ struct drm_connector_funcs {
- 	 * Allows connectors to create connector-specific debugfs files.
- 	 */
- 	void (*debugfs_init)(struct drm_connector *connector, struct dentry *root);
-+
-+	/**
-+	 * @color_format:
-+	 *
-+	 * Allows connectors to return a connector color format other than
-+	 * @conn_state.color_format for purposes of e.g. display protocol
-+	 * specific helper logic having already mapped it to an output format.
-+	 */
-+	enum drm_connector_color_format (*color_format)(
-+		const struct drm_connector_state *conn_state);
- };
- 
- /**
-@@ -2603,6 +2613,8 @@ drm_connector_is_unregistered(struct drm_connector *connector)
- 
- void drm_connector_oob_hotplug_event(struct fwnode_handle *connector_fwnode,
- 				     enum drm_connector_status status);
-+enum drm_connector_color_format
-+drm_connector_get_color_format(const struct drm_connector_state *conn_state);
- const char *drm_get_connector_type_name(unsigned int connector_type);
- const char *drm_get_connector_status_name(enum drm_connector_status status);
- const char *drm_get_subpixel_order_name(enum subpixel_order order);
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index ba7f98a87808..dfe97897127c 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -6917,12 +6917,9 @@ static void fill_stream_properties_from_drm_display_mode(
+ 	timing_out->v_border_top = 0;
+ 	timing_out->v_border_bottom = 0;
+ 	/* TODO: un-hardcode */
+-	if (drm_mode_is_420_only(info, mode_in)
+-			&& stream->signal == SIGNAL_TYPE_HDMI_TYPE_A)
+-		timing_out->pixel_encoding = PIXEL_ENCODING_YCBCR420;
+-	else if (drm_mode_is_420_also(info, mode_in)
+-			&& aconnector
+-			&& aconnector->force_yuv420_output)
++	if (drm_mode_is_420_only(info, mode_in) ||
++	    (aconnector && aconnector->force_yuv420_output &&
++	     drm_mode_is_420_also(info, mode_in)))
+ 		timing_out->pixel_encoding = PIXEL_ENCODING_YCBCR420;
+ 	else if ((connector->display_info.color_formats & BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR422))
+ 			&& aconnector
 
 -- 
 2.54.0
