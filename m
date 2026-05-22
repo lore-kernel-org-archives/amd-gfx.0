@@ -4,47 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5FE81CD5BDF
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 026E2CD5BD5
 	for <amd-gfx@archiver.kernel.org>; Tue, 26 May 2026 07:54:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A7B1A10E5F6;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 71CBF10E5C4;
 	Tue, 26 May 2026 07:54:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="WgaCAY3E";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="UkycH1wI";
 	dkim-atps=neutral
 Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
  [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 94CF510F721;
- Fri, 22 May 2026 12:37:00 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1779453411; cv=none; 
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3929810F5F3;
+ Fri, 22 May 2026 12:34:51 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1779453283; cv=none; 
  d=zohomail.com; s=zohoarc; 
- b=OZrUo1WYc2zkFyjS/Q4vGR//2hqTKcz6X0SAScJjxyBVfvZu+gFXXqjMKAWknoZjGriHA9hmmmMqlMmMy3pMDP/Cm07HidJFKehE8gajqvKWU1Mmf4XJsyrMy8eRe5W9yI6X/a/htdL6fmHI5PLDaDQIX9OETHoPRf1CtgjiH00=
+ b=PA9w8C18cuFh0hgAHArTv3Y+1+3dL0jRQLxmiEGCu8K1Nvu+Ca0d5TxL9BeVAW7bouxH8SyXPgqRJD+8nk9DaueVdW9Fzg8mClZi1XmrIZcyTPgrOl/RBDD3F6Mc/lWJVgq5pbtXDTmS8+wbq+VpaodtdaO9LAibIzP922DcVfY=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1779453411;
+ s=zohoarc; t=1779453283;
  h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=26EFTuIhlqnsc4uUzyuaHx+9wSdJArl+zaLC9veBaX4=; 
- b=AxZIQ0iZI5ov3PdaO7thHVLkcHajpuj/P3iFwjQFAiCUvR0VKW86lD2JN4k96fHmE2xCsCxGJJ2uVU5s06kkd5HfzLL8maT4kdF9/zB6ztGN8Vv2t7DiOaxEAH4MOaLcKpEiHXtIih0tQwWzeI8bYJU543N/QaXBs2dMxOFxhyA=
+ bh=5omWCMcSq9SbEyxk6K5YZ717nLlxbBSQdsTOUDmRNDE=; 
+ b=Fw0c4N8U4TMp9kQrXXjjHM5VLqukXQ9kQFrDt6I3GYvj0Fuou89kFOY2JKf1ro14oRCpMgOF362QiKffxgjbHA0BGZtclb53qvUkpGN6hKF16f9IHfuYhFnAAB3BQzj+YKIV6xhHs/Gdba/xUDQEBBVAXjGKesOy/giNDl1NK84=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
  dkim=pass  header.i=collabora.com;
  spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
  dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1779453411; 
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1779453283; 
  s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
  h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:References:In-Reply-To:To:To:Cc:Cc:Reply-To;
- bh=26EFTuIhlqnsc4uUzyuaHx+9wSdJArl+zaLC9veBaX4=;
- b=WgaCAY3ElQAIEMmoGTQDPDiSDLigtnAiKKiXLrNgQW9ISknxT60ysRE8k/lOT8Yb
- PvAUK6V7Z21bTRXAROnZLm8ra4QB/ZEMZ7vHLzub8jwLgIO8Q7FtT8soDQR/dRXyqQk
- DTtoH0Dtvu9Dc2yP7JxJR6RXiUH/uMcpoqIHIS/s=
-Received: by mx.zohomail.com with SMTPS id 177945341033966.33667935734206;
- Fri, 22 May 2026 05:36:50 -0700 (PDT)
+ bh=5omWCMcSq9SbEyxk6K5YZ717nLlxbBSQdsTOUDmRNDE=;
+ b=UkycH1wIQ8vOvbc7MHefzo4Eoa+UFQeFgjdemnCxHeKVJkz1F2DA7CZaEjZbUGwM
+ tc96rtCDpZMrSzHppIBydPCVtD5A63cSZmGz9swsqCod7QSK/869rMCdoTS5lllHPWh
+ niHeXtDZ9T8jX3P8NNKj4LTSsePdGcPoZKP/1XZ8=
+Received: by mx.zohomail.com with SMTPS id 1779453280591371.7485348952348;
+ Fri, 22 May 2026 05:34:40 -0700 (PDT)
 From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Date: Fri, 22 May 2026 14:32:19 +0200
-Subject: [PATCH v15 28/28] drm/connector: Update docs of "colorspace" for
- color format prop
+Date: Fri, 22 May 2026 14:32:05 +0200
+Subject: [PATCH v15 14/28] drm/i915/dp: Implement "color format" DRM property
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260522-color-format-v15-28-21fb136c9df2@collabora.com>
+Message-Id: <20260522-color-format-v15-14-21fb136c9df2@collabora.com>
 References: <20260522-color-format-v15-0-21fb136c9df2@collabora.com>
 In-Reply-To: <20260522-color-format-v15-0-21fb136c9df2@collabora.com>
 To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
@@ -90,36 +89,117 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The colorspace property's documentation states that BT2020_RGB and
-BT2020_YCC are equivalent, and the output format depends on the driver.
+Implement the "color format" DRM property for DP. The values of the
+property include RGB, YCbCr420, YCbCr444 and Auto. Auto will pick RGB,
+with a fallback to YCbCr420.
 
-Now that there is a "color format" property that userspace can use to
-explicitly set a format, update the colorspace docs to mention this.
+The mask of supported formats by the source exposed by the property is
+an optimistic scenario, as specific DFP-related caveats can't be
+established before an EDID is present.
 
-The behaviour here is not changed for userspace that doesn't know about
-the color format property yet, as the color format property defaults to
-"AUTO", where the choice of output format is left up to drivers.
+Should the explicitly requested color format not be supported by the
+sink (or by the source in combination with the sink), then an error is
+returned to userspace, so that it can make a better choice.
 
 Reviewed-by: Daniel Stone <daniel@fooishbar.org>
 Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 ---
- drivers/gpu/drm/drm_connector.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/display/intel_dp.c | 61 ++++++++++++++++++++++++++++++---
+ 1 file changed, 57 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
-index b91c1f76355e..52f9a6a8daf7 100644
---- a/drivers/gpu/drm/drm_connector.c
-+++ b/drivers/gpu/drm/drm_connector.c
-@@ -2573,7 +2573,8 @@ EXPORT_SYMBOL(drm_mode_create_aspect_ratio_property);
-  *		conversion matrix and convert to the appropriate quantization
-  *		range.
-  *		The variants BT2020_RGB and BT2020_YCC are equivalent and the
-- *		driver chooses between RGB and YCbCr on its own.
-+ *		driver chooses between RGB and YCbCr based on the color format
-+ *		property.
-  *
-  *	SMPTE_170M_YCC:
-  *	BT709_YCC:
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index 143ed85224be..c18c5e034738 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -3436,10 +3436,10 @@ intel_dp_compute_output_format(struct intel_encoder *encoder,
+ }
+ 
+ static int
+-intel_dp_compute_formats(struct intel_encoder *encoder,
+-			 struct intel_crtc_state *crtc_state,
+-			 struct drm_connector_state *conn_state,
+-			 bool respect_downstream_limits)
++intel_dp_compute_formats_auto(struct intel_encoder *encoder,
++			      struct intel_crtc_state *crtc_state,
++			      struct drm_connector_state *conn_state,
++			      bool respect_downstream_limits)
+ {
+ 	struct intel_display *display = to_intel_display(encoder);
+ 	struct intel_dp *intel_dp = enc_to_intel_dp(encoder);
+@@ -3475,6 +3475,34 @@ intel_dp_compute_formats(struct intel_encoder *encoder,
+ 	return ret;
+ }
+ 
++static int
++intel_dp_compute_formats(struct intel_encoder *encoder,
++			 struct intel_crtc_state *crtc_state,
++			 struct drm_connector_state *conn_state,
++			 bool respect_downstream_limits)
++{
++	switch (conn_state->color_format) {
++	case DRM_CONNECTOR_COLOR_FORMAT_RGB444:
++		return intel_dp_compute_output_format(encoder, crtc_state, conn_state,
++						      respect_downstream_limits,
++						      INTEL_OUTPUT_FORMAT_RGB);
++	case DRM_CONNECTOR_COLOR_FORMAT_YCBCR444:
++		return intel_dp_compute_output_format(encoder, crtc_state, conn_state,
++						      respect_downstream_limits,
++						      INTEL_OUTPUT_FORMAT_YCBCR444);
++	case DRM_CONNECTOR_COLOR_FORMAT_YCBCR420:
++		return intel_dp_compute_output_format(encoder, crtc_state, conn_state,
++						      respect_downstream_limits,
++						      INTEL_OUTPUT_FORMAT_YCBCR420);
++	case DRM_CONNECTOR_COLOR_FORMAT_AUTO:
++		return intel_dp_compute_formats_auto(encoder, crtc_state, conn_state,
++						     respect_downstream_limits);
++	default:
++		MISSING_CASE(conn_state->color_format);
++		return -EINVAL;
++	}
++}
++
+ void
+ intel_dp_audio_compute_config(struct intel_encoder *encoder,
+ 			      struct intel_crtc_state *pipe_config,
+@@ -7028,6 +7056,29 @@ intel_dp_has_gamut_metadata_dip(struct intel_encoder *encoder)
+ 	return false;
+ }
+ 
++static void
++intel_dp_attach_color_format_property(struct intel_dp *intel_dp)
++{
++	struct intel_connector *connector = intel_dp->attached_connector;
++	struct intel_digital_port *dig_port = dp_to_dig_port(intel_dp);
++	unsigned long fmts = BIT(DRM_OUTPUT_COLOR_FORMAT_RGB444);
++	bool has_pcon = false;
++
++	if (!connector)
++		return;
++
++	if (dig_port && intel_bios_encoder_is_lspcon(dig_port->base.devdata))
++		has_pcon = true;
++
++	if (has_pcon || source_can_output(intel_dp, INTEL_OUTPUT_FORMAT_YCBCR420))
++		fmts |= BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR420);
++
++	if (has_pcon || source_can_output(intel_dp, INTEL_OUTPUT_FORMAT_YCBCR444))
++		fmts |= BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR444);
++
++	drm_connector_attach_color_format_property(&connector->base, fmts);
++}
++
+ static void
+ intel_dp_add_properties(struct intel_dp *intel_dp, struct drm_connector *_connector)
+ {
+@@ -7060,6 +7111,8 @@ intel_dp_add_properties(struct intel_dp *intel_dp, struct drm_connector *_connec
+ 
+ 	if (HAS_VRR(display))
+ 		drm_connector_attach_vrr_capable_property(&connector->base);
++
++	intel_dp_attach_color_format_property(intel_dp);
+ }
+ 
+ static void
 
 -- 
 2.54.0
