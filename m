@@ -4,75 +4,99 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3388ACD5BB0
-	for <amd-gfx@archiver.kernel.org>; Fri, 22 May 2026 09:31:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B9F02CD5BB1
+	for <amd-gfx@archiver.kernel.org>; Fri, 22 May 2026 11:29:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C3C3010F523;
-	Fri, 22 May 2026 09:31:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4F11F10E1E6;
+	Fri, 22 May 2026 11:29:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="r7LrG3cb";
+	dkim=pass (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.b="MM7mB5y5";
 	dkim-atps=neutral
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com
- [209.85.128.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 19B3610F522
- for <amd-gfx@lists.freedesktop.org>; Fri, 22 May 2026 09:31:51 +0000 (UTC)
-Received: by mail-wm1-f41.google.com with SMTP id
- 5b1f17b1804b1-4903f7a90d1so8994475e9.2
- for <amd-gfx@lists.freedesktop.org>; Fri, 22 May 2026 02:31:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1779442309; x=1780047109; darn=lists.freedesktop.org;
- h=content-transfer-encoding:reply-to:mime-version:message-id:date
- :subject:to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=BIfl9QMpKfJfVry55fy6HvqQlJ4boThZ95rv0873Pwg=;
- b=r7LrG3cbe10RvVs1vqe8/8ZoJ41dIl1d0U0B0ZyBBnCu33WWRBdbYvnAFS6xUIk9Uy
- MokYP3rXGOd4mgZQw7o++P3ynLJ3Rx/vljwdda/vdBmi2R3fUE6FHkrmhnGYk7MRXE7n
- KV3bJRjJh66z32BTLQdtm9vcX0DnoDGFaMs3bYY5TP4TtoLUxBJePFSFczDdebEcAxoT
- NspCV9XalGvf5xUkhWiurakH73YSj1FPBtHQzLACiEL9/0fzoKw4FbBbhb5AFYnLC+l2
- xW83q2h/D0oPqdb+NOb/b+kuvgJcl8q+c1b0WZCY6uBnqIOyBz/ruJxXzeiMYQvd5ezO
- 9M4A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779442309; x=1780047109;
- h=content-transfer-encoding:reply-to:mime-version:message-id:date
- :subject:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=BIfl9QMpKfJfVry55fy6HvqQlJ4boThZ95rv0873Pwg=;
- b=fDbTCrdmOkROnGvWxhxbjBNdJBkAcclQKfGgXZ9YmWumQ3fWsft2mQ/M0irpTq0JVe
- UP6BzS+6ASENd1jWOpkRR8DhtliockIHt/6SM8A02vlUIjRyL1R/If92xVIaaX+CznTi
- jcASZhvI9OjwsJT0aDtgboC+cAewa4PVphIbiWLqL422sjb7tqTR7UNhQwglkheXazkp
- 5VmaB/GuZJG7QQVSRkW4ZHBDuAiRhn8teyO5/DTzYuj5txdNnmq5pe5SdIUQO7kdyl0u
- IaM8mmzdJUyWzZwjw2PIvRuWXxdAI2zXKRJ6hs2FWBO9T5vXH6/OmstJGTtWL303da0c
- 0RdQ==
-X-Forwarded-Encrypted: i=1;
- AFNElJ9hlUzQEqA8s63t5juMGbJ2Aa1IBUqoEK1ohQBhmC/fTSPsnrrzNsuzzut1B0B7SyUwdL62oxM9@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyP4VuoQ0YMRinHCxX465/543kptP66+APoU6R4jMr+10BuYXAR
- t7xxOPjBkV5/L1HJZkNa6jyOfL7Lxb762gWEA50dFHRoCAioVALmiaNH
-X-Gm-Gg: Acq92OEJpWpC/+jBr7RR/ikTkE5tcQ6YNEdWYv6dPzmbX89eCs+IAvgfAqq/L8Cramy
- xCaCHPMTRD9audWkHlFvSIthi6L12g1124JmMN1Do2QQwY5tZPs1h0MIG4akgQpNlIYolMAiMR5
- U022aH4C+4Joh1nrOWSVpPg/EXSIIxthEm3XKKv5aJlInPyHFVMMdjFK9TqY98meow+uYV3xjp/
- 3f5VsyAs7yRZccOmsw3lSICmGU3zT6wvFs1xk5mFIRc0MNWMIDfba5+wVLf9DpcoKblDt83xt4g
- glXDHKq/D1mC8UedXuY5Ztu4+PL5n6iyDaZSkpmqDqSn7uY5xPErhW1ZHgdAVaN4CjSygBif108
- V3f9uHLOxoO0I9C+jvAX22qCrsCvxzAJ0iHArjDa5ZJY9Wfj0Da02112rwTWH6PveEHF+LvmoRa
- 6IHtaYd5LPKXB8X0IIWxRvfk0BbVDFT0lj6v/9
-X-Received: by 2002:a05:600c:444b:b0:48f:e3e7:3d39 with SMTP id
- 5b1f17b1804b1-490424aa04fmr35132285e9.11.1779442309273; 
- Fri, 22 May 2026 02:31:49 -0700 (PDT)
-Received: from able.fritz.box ([2a00:e180:15a5:b300:333a:f9ca:ce66:bcda])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-490454c5eb0sm33305375e9.2.2026.05.22.02.31.48
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 22 May 2026 02:31:48 -0700 (PDT)
-From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
-X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
- <christian.koenig@amd.com>
-To: alexander.deucher@amd.com,
-	amd-gfx@lists.freedesktop.org
-Subject: [PATCH] drm/amdgpu: fix amdgpu_vm_bo_reset_state_machine
-Date: Fri, 22 May 2026 11:31:47 +0200
-Message-ID: <20260522093147.11192-1-christian.koenig@amd.com>
-X-Mailer: git-send-email 2.43.0
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1E3C810E1E6
+ for <amd-gfx@lists.freedesktop.org>; Fri, 22 May 2026 11:29:02 +0000 (UTC)
+Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 64M5A0if552016; Fri, 22 May 2026 11:28:59 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+ :content-transfer-encoding:date:from:message-id:mime-version
+ :subject:to; s=pp1; bh=j0F3UOKf+F1sukXWxtjosOMf4ilwBikpDZkP88l1f
+ AU=; b=MM7mB5y5X7YOp/scG+Vcmi55F819e+rqzjSlp+MyeqIAW75Gmi0Y+YfiI
+ WP2s9Oqu+jPAOmpiqFWcyzvOpbcd0TTEWxNpMvu8EIXIvjIywfJJUwf+aU9upQoc
+ mRcf1eVIGy7pAjW7AfA45TSX0Zh1ROHugXmRsPuLHBfkIcN4L1CC0GffhwMLzpUE
+ HkgJkm+4Dx9m1Y+mAJYQ/klKJdHpKALXKPi9qwM84o9QJkFpVoIday0P4u9Q61UJ
+ auFTPoU5qnO5JoWPcmjVAkfKzXzgog0/E2YvRclEOjWIdlH7JtduH6uZQEoH8ihj
+ L1Obfn+i1SjB/q4KqKIP3D/oUjc3A==
+Received: from ppma11.dal12v.mail.ibm.com
+ (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
+ by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4e6h9ybsgh-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 22 May 2026 11:28:58 +0000 (GMT)
+Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
+ by ppma11.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 64MBO5YY022338;
+ Fri, 22 May 2026 11:28:57 GMT
+Received: from smtprelay02.fra02v.mail.ibm.com ([9.218.2.226])
+ by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4e75kygc6x-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 22 May 2026 11:28:57 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com
+ [10.20.54.101])
+ by smtprelay02.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 64MBSrZx34079000
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Fri, 22 May 2026 11:28:53 GMT
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id C244B20043;
+ Fri, 22 May 2026 11:28:53 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 806E520040;
+ Fri, 22 May 2026 11:28:49 +0000 (GMT)
+Received: from li-218185cc-29b5-11b2-a85c-9a1300ae2e6e.ibm.com.com (unknown
+ [9.124.215.133])
+ by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTP;
+ Fri, 22 May 2026 11:28:49 +0000 (GMT)
+From: Donet Tom <donettom@linux.ibm.com>
+To: amd-gfx@lists.freedesktop.org, Felix Kuehling <Felix.Kuehling@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Alex Deucher <alexdeucher@gmail.com>, christian.koenig@amd.com,
+ Philip Yang <yangp@amd.com>
+Cc: David.YatSin@amd.com, Kent.Russell@amd.com,
+ Ritesh Harjani <ritesh.list@gmail.com>,
+ Vaidyanathan Srinivasan <svaidy@linux.ibm.com>,
+ Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
+ Simona Vetter <simona@ffwll.ch>, donettom@linux.ibm.com
+Subject: [PATCH] drm/amdgpu: Fix num_pages calculation in
+ amdgpu_ttm_map_buffer() for non-4K page sizes
+Date: Fri, 22 May 2026 16:58:38 +0530
+Message-ID: <20260522112838.1311531-1-donettom@linux.ibm.com>
+X-Mailer: git-send-email 2.52.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTIyMDExMSBTYWx0ZWRfXzuy2OR5RqMw8
+ jmjNkp+vX7w2WSBDBi8erEDzpSEE47fp+O+HbUHPS0XA8XCymDEyoweEpa7rxqx0Rvr9sK+Q/6S
+ YHhkyJNeEeQDhxESbC4QeloJLc2QLty8Vk0OhEcY27EeF0ItPvnx7ayTZIVyKens5o7r6srK2Jw
+ 2QUXrcod0RrjUWIcuyMAvF/8MMa05V702Ksf06b/+9GnxHWn44yWiJ1Ulm4fhYoGQE1AJ0piGLm
+ GnMew5j7fvl9VO3FP3V+Yj50CV5sOuGhqO+gNstAPxIfru25OHn16xd7pFdRwNn8+ao4BqFBdQ3
+ zUOvTG+Y8N/hIv6oiY+ynYwPT1fvuHAUH5w4Xn/7IFXyoJwik0+pmS8Y89JoMuCIIXvIFhh6mIY
+ BH7c1H2iYavgZqWN3hHmNg5iC2maMR9MXSNu2lPC/w2RzOw2t+Mal38nfp0zd/4cV9Ah9800nzq
+ A83A4XIwIbChRWMb5sQ==
+X-Authority-Analysis: v=2.4 cv=BNuDalQG c=1 sm=1 tr=0 ts=6a103dfa cx=c_pps
+ a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
+ a=NGcC8JguVDcA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
+ a=iQ6ETzBq9ecOQQE5vZCe:22 a=VnNF1IyMAAAA:8 a=a8vC4wPsTAyIL7P2QdwA:9
+X-Proofpoint-ORIG-GUID: BhwFp5tigKGL03duB2L8DmCUJP9wLhqf
+X-Proofpoint-GUID: swo9z9t92GQO68IWQMeS85dvFIPyzrLa
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-22_02,2026-05-18_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 priorityscore=1501 malwarescore=0 impostorscore=0 suspectscore=0
+ lowpriorityscore=0 phishscore=0 bulkscore=0 spamscore=0 clxscore=1011
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605220111
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,50 +108,35 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Can't splice the list but need to handle each entry individually.
+amdgpu_gart_map_vram_range() expects the number of pages (num_pages) in
+4K page units. However, in amdgpu_ttm_map_buffer(), the number of pages
+is calculated based on the system page size. On systems with non-4K page
+sizes, this results in an incorrect number of pages being passed to
+amdgpu_gart_map_vram_range().
 
-Otherwise we run into issues after a GPU reset.
+Fix this by calculating the number of pages correctly before passing it
+to amdgpu_gart_map_vram_range().
 
-Signed-off-by: Christian König <christian.koenig@amd.com>
+Signed-off-by: Donet Tom <donettom@linux.ibm.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 17 ++++++++++++++---
- 1 file changed, 14 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-index b523a7b97d6f..e91504f04d97 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-@@ -266,12 +266,23 @@ static void amdgpu_vm_bo_idle(struct amdgpu_vm_bo_base *vm_bo)
-  */
- static void amdgpu_vm_bo_reset_state_machine(struct amdgpu_vm *vm)
- {
-+	struct amdgpu_vm_bo_base *vm_bo, *tmp;
-+
-+	/*
-+	 * Don't use list splice here, we need the special handling for the root
-+	 * PD and set the moved flag appropriately.
-+	 */
- 	amdgpu_vm_assert_locked(vm);
--	list_splice_init(&vm->kernel.idle, &vm->kernel.moved);
--	list_splice_init(&vm->always_valid.idle, &vm->always_valid.moved);
-+	list_for_each_entry_safe(vm_bo, tmp, &vm->kernel.idle, vm_status)
-+		amdgpu_vm_bo_moved(vm_bo);
-+	list_for_each_entry_safe(vm_bo, tmp, &vm->always_valid.idle, vm_status)
-+		amdgpu_vm_bo_moved(vm_bo);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+index 3d2e00efc741..2904a9400605 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+@@ -269,6 +269,7 @@ static int amdgpu_ttm_map_buffer(struct amdgpu_ttm_buffer_entity *entity,
+ 		amdgpu_gart_map(adev, 0, num_pages, dma_addr, flags, cpu_addr);
+ 	} else {
+ 		u64 pa = mm_cur->start + adev->vm_manager.vram_base_offset;
++		num_pages *= AMDGPU_GPU_PAGES_IN_CPU_PAGE;
  
- 	spin_lock(&vm->individual_lock);
--	list_splice_init(&vm->individual.idle, &vm->individual.moved);
-+	list_for_each_entry_safe(vm_bo, tmp, &vm->individual.idle, vm_status) {
-+		vm_bo->moved = true;
-+		list_move(&vm_bo->vm_status, &vm->individual.moved);
-+	}
- 	spin_unlock(&vm->individual_lock);
- }
- 
+ 		amdgpu_gart_map_vram_range(adev, pa, 0, num_pages, flags, cpu_addr);
+ 	}
 -- 
-2.43.0
+2.47.3
 
