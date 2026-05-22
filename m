@@ -4,81 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 52C3ACD5BDD
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5FE81CD5BDF
 	for <amd-gfx@archiver.kernel.org>; Tue, 26 May 2026 07:54:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 946E710E5E7;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A7B1A10E5F6;
 	Tue, 26 May 2026 07:54:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="U2xKswx8";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="WgaCAY3E";
 	dkim-atps=neutral
-Received: from mail-pg1-f177.google.com (mail-pg1-f177.google.com
- [209.85.215.177])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A3FAA10E0D7
- for <amd-gfx@lists.freedesktop.org>; Sat, 23 May 2026 16:57:36 +0000 (UTC)
-Received: by mail-pg1-f177.google.com with SMTP id
- 41be03b00d2f7-c82de129a40so3639220a12.1
- for <amd-gfx@lists.freedesktop.org>; Sat, 23 May 2026 09:57:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1779555456; x=1780160256; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=XhLvA3TfrJzOyIZPC1ppqWVZ5nG/suASGnYJNqiPlkY=;
- b=U2xKswx8PFGgaa26u0e+rvpnyx+4DPpPKX6LvvWIQunGSipvR60SAqcx9CAkH5HtoN
- 12d0sXffFbwcEDDBmd8KPwT4EFjoIhpJC5rZ2nTqjwdwCSjra/70rOzG5Bm/K9OVYLwI
- SyfjwLpz1QbIBvWdv0+Nw2A/Kc2njvkwDXC5Pbt/HpwECmlAl28+KoRyGX7elmslxub9
- 5sYdJbjAoUi4F67RG36KuTF3Ec+B3RVnRKFUnsszbMcJPL6LAcDOlhw0Gp3ZKsX02Fno
- XCwbIboY4SRS2ba3SBec0o1RuiXyG5JxdCPkH7tG2CZoOOdz5Al0/lYRae3O9QJzMZlg
- iSmQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779555456; x=1780160256;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=XhLvA3TfrJzOyIZPC1ppqWVZ5nG/suASGnYJNqiPlkY=;
- b=YT8dzJhehm0QdPUOgSEdImB4RQJz3eZtY5H92n/e2NNKnCRTLouiAn8fOVyVdPgZNb
- P0y/87xzcYwq5hTPyIqY3Fajb11Z86fo1R1z7rPb2w/9bB91EfVqORxShgVgWgadmwUj
- QrGJZJW4OHHaCVqrI02V5mz7k7/O5EX5M3U8VRvHj6HVzwlPiWB/IPTKKMqnNuZCbgGr
- MyEsTWtC+V1NdFVTliEwlOWJMqAbZ1KvqQQMr9s9idwShgGrMAgHUD130GtdDHC4FYrI
- PfVh1XHSd7eioY/+NGcU5l7It0aygMzRWnOpTDH4Vi4p3hG5l7V8frWTDF6n28bsbGZk
- X3IA==
-X-Forwarded-Encrypted: i=1;
- AFNElJ8siJvnHxwZFYG6Bcu4It8deq5o08Q9UvOXGBa+2vcrUsZESpj8YjfIuCr34tko0QuQ8E/Qbn+F@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyyPO6DxiElSbKvPDriBuOkN/0YfzSm52NVSSDv6SIwCUGy/SHD
- TRtcMDRv2TpmZKnVTL0gT3JRiBiXE24WlBovbXSRCgimltCPLq/f/eN8
-X-Gm-Gg: Acq92OHM4124gE15ssX4OhGFQOtuFwF+lZR525PGmiHvlAz8hnA5L53QRwQhzkX9YVI
- wIQ3YfznzkcLxNoxnzTMol6icVFgvQRV7HCwmbxJO7M8DpsSAsjMzdZbzxGioOQXxUljg5UrSWy
- vvo3HhOnMfGsuKJ9uSMKLBfvW0aRJ/sim+tafWngtmujj1WhyjFtR89xHts+VtWFeaTFLHgxXW0
- J5CoreUzcqRRaiiKcHovE5b4aAOhdjxXvFphfFnSy3ToTXzX0WbsIx+tgl/QmvPkDY/qP+lZrfn
- 26sglG2MthCrNN36EBHU//lc1lsRiZZPyMVrIE2zR1CcvyLYtT0xxcOA4dq3KHoDOB2QrsIqqe6
- g+eHfd/40E/bTKzOldWF5/sfEXsnErHOcgqDAon1uP6+yTUZjco6KmEhuDx7XEfiDf/wUxwaLaQ
- 4KVojZTnDFrFywNOcsgbeezC44VVgLdReKvnmiau8oHGouwB39Nu0Fqzn3YXme6rb0qciOuNc+l
- lFAVk1S919hpMD0ufwuJvuGlS1NUwyn2Flvwlc8e3jB0nYhRh4QaySIl0HT+ROtRvBUmT/vs9lr
- 9sKFwty3rTY=
-X-Received: by 2002:a17:903:2b0c:b0:2ae:825b:49a5 with SMTP id
- d9443c01a7336-2beb0582ba0mr82866055ad.0.1779555456134; 
- Sat, 23 May 2026 09:57:36 -0700 (PDT)
-Received: from
- codespaces-78f0a7.mimvmn1ww3huhhjmzljqefhnig.rx.internal.cloudapp.net
- ([4.240.39.193]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2beb58c69a0sm47832065ad.59.2026.05.23.09.57.32
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 23 May 2026 09:57:35 -0700 (PDT)
-From: Muhammad Bilal <meatuni001@gmail.com>
-To: Felix.Kuehling@amd.com
-Cc: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
- simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, Muhammad Bilal <meatuni001@gmail.com>
-Subject: [PATCH] drm/amdkfd: fix NULL dereference in get_queue_ids()
-Date: Sat, 23 May 2026 16:56:46 +0000
-Message-ID: <20260523165646.25645-1-meatuni001@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260523142645.39102-1-meatuni001@gmail.com>
-References: <20260523142645.39102-1-meatuni001@gmail.com>
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
+ [136.143.188.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 94CF510F721;
+ Fri, 22 May 2026 12:37:00 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1779453411; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=OZrUo1WYc2zkFyjS/Q4vGR//2hqTKcz6X0SAScJjxyBVfvZu+gFXXqjMKAWknoZjGriHA9hmmmMqlMmMy3pMDP/Cm07HidJFKehE8gajqvKWU1Mmf4XJsyrMy8eRe5W9yI6X/a/htdL6fmHI5PLDaDQIX9OETHoPRf1CtgjiH00=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1779453411;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=26EFTuIhlqnsc4uUzyuaHx+9wSdJArl+zaLC9veBaX4=; 
+ b=AxZIQ0iZI5ov3PdaO7thHVLkcHajpuj/P3iFwjQFAiCUvR0VKW86lD2JN4k96fHmE2xCsCxGJJ2uVU5s06kkd5HfzLL8maT4kdF9/zB6ztGN8Vv2t7DiOaxEAH4MOaLcKpEiHXtIih0tQwWzeI8bYJU543N/QaXBs2dMxOFxhyA=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
+ dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1779453411; 
+ s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
+ h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:References:In-Reply-To:To:To:Cc:Cc:Reply-To;
+ bh=26EFTuIhlqnsc4uUzyuaHx+9wSdJArl+zaLC9veBaX4=;
+ b=WgaCAY3ElQAIEMmoGTQDPDiSDLigtnAiKKiXLrNgQW9ISknxT60ysRE8k/lOT8Yb
+ PvAUK6V7Z21bTRXAROnZLm8ra4QB/ZEMZ7vHLzub8jwLgIO8Q7FtT8soDQR/dRXyqQk
+ DTtoH0Dtvu9Dc2yP7JxJR6RXiUH/uMcpoqIHIS/s=
+Received: by mx.zohomail.com with SMTPS id 177945341033966.33667935734206;
+ Fri, 22 May 2026 05:36:50 -0700 (PDT)
+From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+Date: Fri, 22 May 2026 14:32:19 +0200
+Subject: [PATCH v15 28/28] drm/connector: Update docs of "colorspace" for
+ color format prop
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260522-color-format-v15-28-21fb136c9df2@collabora.com>
+References: <20260522-color-format-v15-0-21fb136c9df2@collabora.com>
+In-Reply-To: <20260522-color-format-v15-0-21fb136c9df2@collabora.com>
+To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
+ Rodrigo Siqueira <siqueira@igalia.com>, 
+ Alex Deucher <alexander.deucher@amd.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Sandy Huang <hjc@rock-chips.com>, 
+ =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
+ Andy Yan <andy.yan@rock-chips.com>, 
+ Jani Nikula <jani.nikula@linux.intel.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, Dmitry Baryshkov <lumag@kernel.org>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, Rob Herring <robh@kernel.org>, 
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+ Daniel Stone <daniel@fooishbar.org>
+Cc: kernel@collabora.com, amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
+ linux-doc@vger.kernel.org, wayland-devel@lists.freedesktop.org, 
+ Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+X-Mailer: b4 0.15.2
 X-Mailman-Approved-At: Tue, 26 May 2026 07:53:08 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -94,41 +90,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-When usr_queue_id_array is NULL and num_queues is non-zero,
-get_queue_ids() returns NULL. The callers check only IS_ERR() on the
-return value; since IS_ERR(NULL) == false the check passes, and
-suspend_queues() calls q_array_invalidate() which immediately
-dereferences NULL while iterating num_queues times.
+The colorspace property's documentation states that BT2020_RGB and
+BT2020_YCC are equivalent, and the output format depends on the driver.
 
-Userspace can trigger this via kfd_ioctl_set_debug_trap() by supplying
-num_queues > 0 with a zero queue_array_ptr, causing a kernel panic.
+Now that there is a "color format" property that userspace can use to
+explicitly set a format, update the colorspace docs to mention this.
 
-A NULL usr_queue_id_array with num_queues == 0 is a legitimate no-op
-(q_array_invalidate never executes, and resume_queues already guards
-all queue_ids dereferences behind a NULL check). Return ERR_PTR(-EINVAL)
-only when num_queues is non-zero and the pointer is absent; both callers
-already propagate IS_ERR() returns correctly to userspace.
+The behaviour here is not changed for userspace that doesn't know about
+the color format property yet, as the color format property defaults to
+"AUTO", where the choice of output format is left up to drivers.
 
-Fixes: a70a93fa568b ("drm/amdkfd: add debug suspend and resume process queues operation")
-Cc: stable@vger.kernel.org
-Signed-off-by: Muhammad Bilal <meatuni001@gmail.com>
+Reviewed-by: Daniel Stone <daniel@fooishbar.org>
+Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/drm_connector.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-index c08ad718dbd7..8488b3a6c2ba 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-@@ -3312,7 +3312,7 @@ static uint32_t *get_queue_ids(uint32_t num_queues, uint32_t *usr_queue_id_array
- 	size_t array_size;
- 
- 	if (!usr_queue_id_array)
--		return NULL;
-+		return num_queues ? ERR_PTR(-EINVAL) : NULL;
- 
- 	if (check_mul_overflow((size_t)num_queues, sizeof(uint32_t), &array_size))
- 		return ERR_PTR(-EINVAL);
+diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
+index b91c1f76355e..52f9a6a8daf7 100644
+--- a/drivers/gpu/drm/drm_connector.c
++++ b/drivers/gpu/drm/drm_connector.c
+@@ -2573,7 +2573,8 @@ EXPORT_SYMBOL(drm_mode_create_aspect_ratio_property);
+  *		conversion matrix and convert to the appropriate quantization
+  *		range.
+  *		The variants BT2020_RGB and BT2020_YCC are equivalent and the
+- *		driver chooses between RGB and YCbCr on its own.
++ *		driver chooses between RGB and YCbCr based on the color format
++ *		property.
+  *
+  *	SMPTE_170M_YCC:
+  *	BT709_YCC:
+
 -- 
-2.53.0
+2.54.0
 
