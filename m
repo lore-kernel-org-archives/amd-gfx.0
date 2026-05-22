@@ -4,47 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 65DB2CD5BB4
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 92B39CD5BD1
 	for <amd-gfx@archiver.kernel.org>; Tue, 26 May 2026 07:54:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EAADD10E5AD;
-	Tue, 26 May 2026 07:54:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2866510E5B4;
+	Tue, 26 May 2026 07:54:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="FpcOQBzO";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="LOQ2weZ3";
 	dkim-atps=neutral
 Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
  [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6A44310F6D8;
- Fri, 22 May 2026 12:35:55 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1779453347; cv=none; 
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 92DA110F63D;
+ Fri, 22 May 2026 12:34:31 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1779453263; cv=none; 
  d=zohomail.com; s=zohoarc; 
- b=JMPJvuTa2RfTR0gKAtxDXX/rO7miLRL9BvHzGCcP/GY+6N6Hdtt3A8XCWL3OLtbI3Ei5kH8Vg9Oos84ZFcr2Yy48yjxO4FcwX+9VT9cvomizfRAbYorHDLbpCciFzSsmBv8FUrsBANI+RLb4SAlqlKyXI+Ns74moh0+H4Xs6frg=
+ b=M1wp7Yluen1yJaxSf0GcW7gs5kYaagDLWZ8K2gVEYVKZLEgmYiWvv0O93Mx/c/zS5i+dMxWGrJZfEsJQrMq56GMRyW2WnoWxwoheq/g+eXgps7rlQj8rtlMJ2V1FNBae3nsUnzeZzgWuvB7iAyjmQvJw1mif6Eirp0E3dMODju0=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1779453347;
+ s=zohoarc; t=1779453263;
  h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=8uhvifl0KjV7h78DpGOaJw8xIKxgprEXatY1NDwlp1s=; 
- b=Mg5+1xHivchbAFfO/EvBTvURe3mREdwZO2pz+ub007qxv6VehLgzDumZND6OkFsRWQsgmqZ5yPhzqJnCFqvAjZIm/4ienmRKjq53EjScfMXWSmf3v1MP/N7KrV49LRSiC2x7UqkApRnz+CiRq82bOo/3TXkbPUT1IM+T6f1OpjQ=
+ bh=sOLEAkI5gETXkoLZdPGIuztxmFaAGgZSuDezJ+aqrYs=; 
+ b=D6NYlGYC+yfqc86I8vn4S+3+sizmXw3e7MQV6U8MhYxfzU6aJo4hSFm2+/p8ziSPqgLBrA04Vk7jWR/UDOIizSyfLkCf1nRM2RDktc9l/VPPZmU8OX3tig3MARwNV1Qj8wbkR5zrsEUcVZqlkkGUn+k2wOmfnop7wJVpU2pkOa8=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
  dkim=pass  header.i=collabora.com;
  spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
  dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1779453347; 
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1779453263; 
  s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
  h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:References:In-Reply-To:To:To:Cc:Cc:Reply-To;
- bh=8uhvifl0KjV7h78DpGOaJw8xIKxgprEXatY1NDwlp1s=;
- b=FpcOQBzOEVPnMBxfHBqW2QdjzN4pzPtEhZ1MOjN8pAXVbm/IkNLzSFdvMgU5NRat
- o5bineT2mO+yrZFOOjPTU7AC5VrgZnzlNXJbcdgoZNh9gnbhnFv42VQ9p9bP7d3LYdN
- bTpbYhNQfDWfE+wulJ30eyaAiw19bZWZQQz+0T0Y=
-Received: by mx.zohomail.com with SMTPS id 1779453346251347.45496126688056;
- Fri, 22 May 2026 05:35:46 -0700 (PDT)
+ bh=sOLEAkI5gETXkoLZdPGIuztxmFaAGgZSuDezJ+aqrYs=;
+ b=LOQ2weZ3znDdksHlx8JNB9yOiI+9zZDkA2cawWlsnmSPqDYqHX6YMoYsL8rOov/5
+ Lc/A//LPDFDMqvydklmnqMSejFXoUfMoF20GCOz5ISvzU5J93pG0Ef8XAuPaPRFu6KQ
+ oqASR4ODYeR185k9mAdj2KpgL+DcXpb30RjG7Qds=
+Received: by mx.zohomail.com with SMTPS id 1779453262097465.4756774241332;
+ Fri, 22 May 2026 05:34:22 -0700 (PDT)
 From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Date: Fri, 22 May 2026 14:32:12 +0200
-Subject: [PATCH v15 21/28] drm/rockchip: dw_hdmi_qp: Set supported_formats
- platdata
+Date: Fri, 22 May 2026 14:32:03 +0200
+Subject: [PATCH v15 12/28] drm/i915/dp: Add YCBCR444 handling for sink formats
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260522-color-format-v15-21-21fb136c9df2@collabora.com>
+Message-Id: <20260522-color-format-v15-12-21fb136c9df2@collabora.com>
 References: <20260522-color-format-v15-0-21fb136c9df2@collabora.com>
 In-Reply-To: <20260522-color-format-v15-0-21fb136c9df2@collabora.com>
 To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
@@ -73,8 +72,7 @@ Cc: kernel@collabora.com, amd-gfx@lists.freedesktop.org,
  linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
  intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
  linux-doc@vger.kernel.org, wayland-devel@lists.freedesktop.org, 
- Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, 
- Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+ Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 X-Mailer: b4 0.15.2
 X-Mailman-Approved-At: Tue, 26 May 2026 07:53:08 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -91,38 +89,59 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-With the introduction of the supported_formats member in the
-dw-hdmi-qp platform data struct, drivers that have access to this
-information should now set it.
+In anticipation of userspace being able to explicitly select supported
+sink formats, add handling of the YCBCR444 sink format. The AUTO path
+does not choose this format, but with explicit format selection added to
+the driver, it becomes a possibility.
 
-Set it in the rockchip dw_hdmi_qp glue driver.
+Check for both source and sink support of YCBCR444 in
+intel_dp_sink_format_valid.
 
-This allows this information to be passed down to the dw-hdmi-qp core,
-which sets it in the bridge it creates, and consequently will allow the
-common HDMI bridge code to act on it.
-
-Reviewed-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Reviewed-by: Daniel Stone <daniel@fooishbar.org>
+Acked-by: Daniel Stone <daniel@fooishbar.org>
 Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 ---
- drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ drivers/gpu/drm/i915/display/intel_dp.c | 21 +++++++++++++++++++++
+ 1 file changed, 21 insertions(+)
 
-diff --git a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
-index b77ef92ae954..815f9ea7bcbe 100644
---- a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
-+++ b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
-@@ -602,6 +602,10 @@ static int dw_hdmi_qp_rockchip_bind(struct device *dev, struct device *master,
- 	plat_data.phy_data = hdmi;
- 	plat_data.max_bpc = 10;
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index 1920d2f02666..143ed85224be 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -1344,6 +1344,20 @@ intel_dp_mode_valid_downstream(struct intel_connector *connector,
+ 					 8, sink_format, true);
+ }
  
-+	plat_data.supported_formats = BIT(DRM_OUTPUT_COLOR_FORMAT_RGB444) |
-+				      BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR444) |
-+				      BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR422);
++static bool
++intel_dp_can_ycbcr444(struct intel_dp *intel_dp)
++{
++	if (source_can_output(intel_dp, INTEL_OUTPUT_FORMAT_YCBCR444) &&
++	    !drm_dp_is_branch(intel_dp->dpcd))
++		return true;
 +
- 	encoder = &hdmi->encoder.encoder;
- 	encoder->possible_crtcs = drm_of_find_possible_crtcs(drm, dev->of_node);
++	if (source_can_output(intel_dp, INTEL_OUTPUT_FORMAT_RGB) &&
++	    dfp_can_convert_from_rgb(intel_dp, INTEL_OUTPUT_FORMAT_YCBCR444))
++		return true;
++
++	return false;
++}
++
+ static enum drm_mode_status
+ intel_dp_sink_format_valid(struct intel_connector *connector,
+ 			   const struct drm_display_mode *mode,
+@@ -1364,6 +1378,13 @@ intel_dp_sink_format_valid(struct intel_connector *connector,
  
+ 		return MODE_OK;
+ 	case INTEL_OUTPUT_FORMAT_RGB:
++		return MODE_OK;
++	case INTEL_OUTPUT_FORMAT_YCBCR444:
++		if (!(info->color_formats & BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR444)))
++			return MODE_BAD;
++		if (!intel_dp_can_ycbcr444(intel_dp))
++			return MODE_BAD;
++
+ 		return MODE_OK;
+ 	default:
+ 		MISSING_CASE(sink_format);
 
 -- 
 2.54.0
