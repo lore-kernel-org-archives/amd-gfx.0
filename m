@@ -4,48 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CFDB7CD6E4A
-	for <amd-gfx@archiver.kernel.org>; Tue, 26 May 2026 07:53:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A8764CD6E4D
+	for <amd-gfx@archiver.kernel.org>; Tue, 26 May 2026 07:53:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E194D10E55D;
-	Tue, 26 May 2026 07:53:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 42C7E10E573;
+	Tue, 26 May 2026 07:53:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="JjHOY+EI";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="J2EgMZ/v";
 	dkim-atps=neutral
 Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
  [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0D5D710E5EF;
- Sat, 23 May 2026 19:46:44 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1779565594; cv=none; 
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C915810F627;
+ Fri, 22 May 2026 12:34:23 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1779453255; cv=none; 
  d=zohomail.com; s=zohoarc; 
- b=Wl80Zh8J7BlR+eCxW7sTmV+Czqsy6b3bYrzyIcGago3SIw1d+N4JMKF5Ec4XtpFt81lumaPiAeVu/U7Ok3NqyYIGLctbDfQ6loLDQpap/ql0Njvgj52TPDMXL9a1+w+zUPXcMm1CFuE9IEI7dIEDeTc3x9Zwdm1caAjNU8TEjuY=
+ b=BcdsJ1K08oKXNS8C1UyaawvJkyWvgdGUI+QnL/O9XQ0tm7tpXD2iwqyjuJC5WtngiJaWDwb8zXaXDVmuvNm94AzYABIsSEIxYpuaVDzHGw7/gtuYE05BK/0GwWA77SBfKceWJ9P7Uvk2Gp/jJNsfS0CXtbAD7y2VcT+wAk8y00w=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1779565594;
+ s=zohoarc; t=1779453255;
  h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=fyWNAHICY2KhYaf6kzOMrIfDJnWrHa9uDl/uAd31SJY=; 
- b=mZt8R5EJzKFapBWYp2tEIURKURpnmWq4OoxZssWmKXNfSj+6RF8pj+oHRSAdSnaqvh4Hc2AQqqyjHLv8tw+r/8hn7iZMg/qixxge2gi4Qd4M8pBRamcm1tjNlJHRIO9ejA1zymFrZyZf7lmIahR+xqpniEV20rqiHk3ascD4e6s=
+ bh=ywenQ69J/b7LlrDRwDze80PwdOeaNhyh73HTr8LVnNg=; 
+ b=YQtZxlBsaDDhqXYyApzj4Yd7dQe5qXh2Z3DIC2xx0hUyKto9ICJhMFWdZ5T4YArVpXmdQB2LW5Kup9kSx4pIUC4zIo+1S1LWOAyscBb/e/SWA1AT1GDig21im0mgzPnLa3oZ08Hr+Fm6B7Irfg2euT3RhnBcEYndGsQH50yMRvI=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
  dkim=pass  header.i=collabora.com;
  spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
  dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1779565594; 
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1779453255; 
  s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
  h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:References:In-Reply-To:To:To:Cc:Cc:Reply-To;
- bh=fyWNAHICY2KhYaf6kzOMrIfDJnWrHa9uDl/uAd31SJY=;
- b=JjHOY+EISbSfYtHI4LGQl/VHwP3Mjj0lPcFZy5A3c60dnB0Ts3Jhgf1OhwZSKk3/
- Ccm220vhC7JwILm2Hh0nkC9wcffp41q4MaPUg19TNWn96Z35z2+WbX3gvGXJag+X3XH
- wqQRnhUOHa1DgCne1AFftbYR8kTEyfUICj8rlPFA=
-Received: by mx.zohomail.com with SMTPS id 1779565592661853.8523974765195;
- Sat, 23 May 2026 12:46:32 -0700 (PDT)
+ bh=ywenQ69J/b7LlrDRwDze80PwdOeaNhyh73HTr8LVnNg=;
+ b=J2EgMZ/vmCmU0sAmiieIoyV9DB+2wjimCW2ADfMDIf6zp0bq8qlU3pzShkvIfwQj
+ Z9gGwO26LoYTgnE9YSjnoDORJ8X0KnfdgS3vz74onHCp5wvYHWOT/0OFShLgj6e3cNw
+ KDYgD3kSzo2iCYy8qsA9V80Em8IvBi2CrNomqv0Y=
+Received: by mx.zohomail.com with SMTPS id 1779453252764761.0499853718718;
+ Fri, 22 May 2026 05:34:12 -0700 (PDT)
 From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Date: Sat, 23 May 2026 21:43:48 +0200
-Subject: [PATCH v16 13/28] drm/i915/hdmi: Implement "color format" DRM property
+Date: Fri, 22 May 2026 14:32:02 +0200
+Subject: [PATCH v15 11/28] drm/i915/hdmi: Add YCBCR444 handling for sink
+ formats
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260523-color-format-v16-13-24340c5e4732@collabora.com>
-References: <20260523-color-format-v16-0-24340c5e4732@collabora.com>
-In-Reply-To: <20260523-color-format-v16-0-24340c5e4732@collabora.com>
+Message-Id: <20260522-color-format-v15-11-21fb136c9df2@collabora.com>
+References: <20260522-color-format-v15-0-21fb136c9df2@collabora.com>
+In-Reply-To: <20260522-color-format-v15-0-21fb136c9df2@collabora.com>
 To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
  Rodrigo Siqueira <siqueira@igalia.com>, 
  Alex Deucher <alexander.deucher@amd.com>, 
@@ -89,108 +90,84 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Implement the "color format" DRM property for HDMI. The values of the
-property include RGB, YCbCr420, YCbCr444 and Auto. Auto will pick RGB,
-with a fallback to YCbCr420.
+In anticipation of userspace being able to explicitly select supported
+sink formats, add handling of the YCBCR444 sink format. The AUTO path
+does not choose this format, but with explicit format selection added to
+the driver, it becomes a possibility.
 
-The mask of supported formats by the source exposed by the property is
-an optimistic scenario, as specific DFP-related caveats can't be
-established before an EDID is present.
+Check for YCBCR444 support on the sink in sink_bpc_possible, and on the
+source and sink in sink_format_valid.
 
-Should the explicitly requested color format not be supported by the
-sink (or by the source in combination with the sink), then an error is
-returned to userspace, so that it can make a better choice.
-
-Reviewed-by: Daniel Stone <daniel@fooishbar.org>
+Acked-by: Daniel Stone <daniel@fooishbar.org>
 Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 ---
- drivers/gpu/drm/i915/display/intel_hdmi.c | 52 ++++++++++++++++++++++++++++---
- 1 file changed, 48 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/i915/display/intel_hdmi.c | 32 +++++++++++++++++++++++++++++++
+ 1 file changed, 32 insertions(+)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.c b/drivers/gpu/drm/i915/display/intel_hdmi.c
-index 6c6a3a0677fe..9e5d88f07262 100644
+index 9076c2b176ec..97cb321e6568 100644
 --- a/drivers/gpu/drm/i915/display/intel_hdmi.c
 +++ b/drivers/gpu/drm/i915/display/intel_hdmi.c
-@@ -2322,10 +2322,10 @@ static int intel_hdmi_compute_output_format(struct intel_encoder *encoder,
- 	return intel_hdmi_compute_clock(encoder, crtc_state, respect_downstream_limits);
+@@ -1966,6 +1966,8 @@ static bool intel_hdmi_sink_bpc_possible(struct drm_connector *_connector,
+ 
+ 		if (sink_format == INTEL_OUTPUT_FORMAT_YCBCR420)
+ 			return hdmi->y420_dc_modes & DRM_EDID_YCBCR420_DC_36;
++		else if (sink_format == INTEL_OUTPUT_FORMAT_YCBCR444)
++			return info->edid_hdmi_ycbcr444_dc_modes & DRM_EDID_HDMI_DC_36;
+ 		else
+ 			return info->edid_hdmi_rgb444_dc_modes & DRM_EDID_HDMI_DC_36;
+ 	case 10:
+@@ -1974,6 +1976,8 @@ static bool intel_hdmi_sink_bpc_possible(struct drm_connector *_connector,
+ 
+ 		if (sink_format == INTEL_OUTPUT_FORMAT_YCBCR420)
+ 			return hdmi->y420_dc_modes & DRM_EDID_YCBCR420_DC_30;
++		else if (sink_format == INTEL_OUTPUT_FORMAT_YCBCR444)
++			return info->edid_hdmi_ycbcr444_dc_modes & DRM_EDID_HDMI_DC_30;
+ 		else
+ 			return info->edid_hdmi_rgb444_dc_modes & DRM_EDID_HDMI_DC_30;
+ 	case 8:
+@@ -2021,6 +2025,27 @@ intel_hdmi_mode_clock_valid(struct drm_connector *_connector, int clock,
+ 	return status;
  }
  
--static int intel_hdmi_compute_formats(struct intel_encoder *encoder,
--				      struct intel_crtc_state *crtc_state,
--				      const struct drm_connector_state *conn_state,
--				      bool respect_downstream_limits)
-+static int intel_hdmi_compute_formats_auto(struct intel_encoder *encoder,
-+					   struct intel_crtc_state *crtc_state,
-+					   const struct drm_connector_state *conn_state,
-+					   bool respect_downstream_limits)
- {
- 	struct intel_display *display = to_intel_display(encoder);
- 	struct intel_connector *connector = to_intel_connector(conn_state->connector);
-@@ -2360,6 +2360,35 @@ static int intel_hdmi_compute_formats(struct intel_encoder *encoder,
- 	return ret;
- }
- 
-+static int intel_hdmi_compute_formats(struct intel_encoder *encoder,
-+				      struct intel_crtc_state *crtc_state,
-+				      const struct drm_connector_state *conn_state,
-+				      bool respect_downstream_limits)
++/**
++ * intel_hdmi_can_ycbcr444 - Check whether connector can output YCbCr444
++ * @connector: pointer to &struct intel_connector to check
++ *
++ * Checks whether the hardware that backs @connector is capable of outputting
++ * YCbCr444 video over HDMI. Does not check whether currently connected sink is
++ * capable of receiving it.
++ *
++ * Returns: %true if source supports outputting YCbCr444, %false otherwise.
++ */
++static bool
++intel_hdmi_can_ycbcr444(struct intel_connector *connector)
 +{
-+	struct intel_connector *connector = to_intel_connector(conn_state->connector);
++	const struct intel_display *display = to_intel_display(connector);
 +
-+	switch (conn_state->color_format) {
-+	case DRM_CONNECTOR_COLOR_FORMAT_RGB444:
-+		return intel_hdmi_compute_output_format(encoder, crtc_state, connector,
-+							respect_downstream_limits,
-+							INTEL_OUTPUT_FORMAT_RGB);
-+	case DRM_CONNECTOR_COLOR_FORMAT_YCBCR444:
-+		return intel_hdmi_compute_output_format(encoder, crtc_state, connector,
-+							respect_downstream_limits,
-+							INTEL_OUTPUT_FORMAT_YCBCR444);
-+	case DRM_CONNECTOR_COLOR_FORMAT_YCBCR420:
-+		return intel_hdmi_compute_output_format(encoder, crtc_state, connector,
-+							respect_downstream_limits,
-+							INTEL_OUTPUT_FORMAT_YCBCR420);
-+	case DRM_CONNECTOR_COLOR_FORMAT_AUTO:
-+		return intel_hdmi_compute_formats_auto(encoder, crtc_state, conn_state,
-+						       respect_downstream_limits);
-+	default:
-+		MISSING_CASE(conn_state->color_format);
-+		return -EINVAL;
-+	}
++	if (HAS_GMCH(display))
++		return true;
++
++	return false;
 +}
 +
- static bool intel_hdmi_is_cloned(const struct intel_crtc_state *crtc_state)
- {
- 	return crtc_state->uapi.encoder_mask &&
-@@ -2732,6 +2761,20 @@ static const struct drm_connector_helper_funcs intel_hdmi_connector_helper_funcs
- 	.atomic_check = intel_hdmi_connector_atomic_check,
- };
+ static enum drm_mode_status
+ intel_hdmi_sink_format_valid(struct intel_connector *connector,
+ 			     const struct drm_display_mode *mode,
+@@ -2038,6 +2063,13 @@ intel_hdmi_sink_format_valid(struct intel_connector *connector,
  
-+static void
-+intel_hdmi_attach_color_format_property(struct intel_connector *connector)
-+{
-+	unsigned long fmts = BIT(DRM_OUTPUT_COLOR_FORMAT_RGB444);
+ 		return MODE_OK;
+ 	case INTEL_OUTPUT_FORMAT_RGB:
++		return MODE_OK;
++	case INTEL_OUTPUT_FORMAT_YCBCR444:
++		if (!intel_hdmi_can_ycbcr444(connector))
++			return MODE_BAD;
++		if (!(info->color_formats & BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR444)))
++			return MODE_BAD;
 +
-+	if (connector->base.ycbcr_420_allowed)
-+		fmts |= BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR420);
-+
-+	if (intel_hdmi_can_ycbcr444(connector))
-+		fmts |= BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR444);
-+
-+	drm_connector_attach_color_format_property(&connector->base, fmts);
-+}
-+
- static void
- intel_hdmi_add_properties(struct intel_hdmi *intel_hdmi, struct drm_connector *_connector)
- {
-@@ -2744,6 +2787,7 @@ intel_hdmi_add_properties(struct intel_hdmi *intel_hdmi, struct drm_connector *_
- 
- 	intel_attach_hdmi_colorspace_property(&connector->base);
- 	drm_connector_attach_content_type_property(&connector->base);
-+	intel_hdmi_attach_color_format_property(connector);
- 
- 	if (DISPLAY_VER(display) >= 10)
- 		drm_connector_attach_hdr_output_metadata_property(&connector->base);
+ 		return MODE_OK;
+ 	default:
+ 		MISSING_CASE(sink_format);
 
 -- 
 2.54.0
