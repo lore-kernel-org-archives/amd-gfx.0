@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CEA47CD5BD5
-	for <amd-gfx@archiver.kernel.org>; Tue, 26 May 2026 07:53:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 14764CD6E52
+	for <amd-gfx@archiver.kernel.org>; Tue, 26 May 2026 07:53:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C93D510E593;
-	Tue, 26 May 2026 07:53:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1C65610E59B;
+	Tue, 26 May 2026 07:53:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="QORsbq6I";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="LyfykuGc";
 	dkim-atps=neutral
 Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
  [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 80B9510F59D;
- Fri, 22 May 2026 12:33:36 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1779453206; cv=none; 
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 784A610E5CC;
+ Sat, 23 May 2026 19:45:43 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1779565532; cv=none; 
  d=zohomail.com; s=zohoarc; 
- b=GKRewkuaoYYbhkz3L7dKLwo7lxvPJU6FzzpFULBhEq+Qaf69qH72CIqCK8HQwhVfUAtMtiHl3+vU9SULNIu/0R+wEhzpWNgbCzaRxMLN2teXlrxdn21+KSd/fIHJLbzKLpzgpszMDoCyHxnCkZ4u34lgIurZ9piJt77PslvJuA0=
+ b=IMHX5KGZKKVZ54AEt8SV6WNFtJdbNIvL4cJpzFnAvR59EabibCb9qPEA3dZZIyTVtaeaTGMM+lY/KQ1aMhrduNCq32welpf2LLzv1CIh8Hf9v4fJDJJDvMehe2XR2qkn9G3VYjcJah6g+/J3+VKGrI+l23GGcgbrZN/zVfWPYpI=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1779453206;
+ s=zohoarc; t=1779565532;
  h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
  bh=QcHdI6qcIbZRru+epTGYwHq+JtnbwIYAlw5Lb861Jl0=; 
- b=fgSLxWa0dv7IRdIrpwxrdmR+XvZpFxo3i2ZSKGd4jJ0PD5DRwJ6H1rrjDE+s4NutMS3TdxklAToA0dpQ0RwwZnDSC3nGD9sBbMQqDb+ND4Hr+gf09iUM3e6VwLAp69TpT40WWqXyOnRTzl/4QM0wHKreKpGa6UjCI2C9/QV7dFw=
+ b=CbIlYFIqUXnq7efk4ba+UY8pjERg6u2/TgCUCA17RBpjRZ4X7Td0lTCHWRExwkuv9nrNcVSTehc7zR3Kb0th1iR5gyngDkYpx50if3/QOUUqnKm8UiI/yJoKNiPoUPY1buyPh6LLY44RT9YnEqqf8hp++S/Lp3LzYRXHYvuCnj8=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
  dkim=pass  header.i=collabora.com;
  spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
  dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1779453206; 
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1779565532; 
  s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
  h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:References:In-Reply-To:To:To:Cc:Cc:Reply-To;
  bh=QcHdI6qcIbZRru+epTGYwHq+JtnbwIYAlw5Lb861Jl0=;
- b=QORsbq6I25mwprH3zx/r6vjycVYwLLyFcDUV/iPiGyFvgNbGYS16OTmk4Rpi5mKD
- 4opfUVyEsQOxrSbDtERgQtBXUqP+VSiakQwDh7XIOv/1GEpk0keq9Vf6RnLlt5oNSFm
- UoByEU0MJCB8nEZnMcmntqJJqXgqpwHQNMA0Zz8k=
-Received: by mx.zohomail.com with SMTPS id 1779453205330585.7057346224859;
- Fri, 22 May 2026 05:33:25 -0700 (PDT)
+ b=LyfykuGcylXGeFPeM+vwY92nuHd2FCAIrdrrqviI8epLFGd9DV31zD+F7bgZeyhz
+ 9Budc1w+cTwQqCLb/EkCeYHeA3F0fBUwfrVK+kAJBAn4d7sAsmX2AmcPpeP/YMZ4L1w
+ byZCLKS3FtiGbrS+hEC4EcSEr3ruOrLn3ljO7oDQ=
+Received: by mx.zohomail.com with SMTPS id 177956553085518.919082045884807;
+ Sat, 23 May 2026 12:45:30 -0700 (PDT)
 From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Date: Fri, 22 May 2026 14:31:57 +0200
-Subject: [PATCH v15 06/28] drm/bridge: Act on the DRM color format property
+Date: Sat, 23 May 2026 21:43:41 +0200
+Subject: [PATCH v16 06/28] drm/bridge: Act on the DRM color format property
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260522-color-format-v15-6-21fb136c9df2@collabora.com>
-References: <20260522-color-format-v15-0-21fb136c9df2@collabora.com>
-In-Reply-To: <20260522-color-format-v15-0-21fb136c9df2@collabora.com>
+Message-Id: <20260523-color-format-v16-6-24340c5e4732@collabora.com>
+References: <20260523-color-format-v16-0-24340c5e4732@collabora.com>
+In-Reply-To: <20260523-color-format-v16-0-24340c5e4732@collabora.com>
 To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
  Rodrigo Siqueira <siqueira@igalia.com>, 
  Alex Deucher <alexander.deucher@amd.com>, 
