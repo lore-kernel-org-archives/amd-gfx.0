@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4C094CD5BCF
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B49EACD5BD1
 	for <amd-gfx@archiver.kernel.org>; Tue, 26 May 2026 07:53:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 83E0410E53D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7DA1110E538;
 	Tue, 26 May 2026 07:53:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="gS8m+G0n";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="Ljb4h6WQ";
 	dkim-atps=neutral
 Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
  [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4AB1010F648;
- Fri, 22 May 2026 12:35:00 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1779453291; cv=none; 
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 75F3D10E6FB;
+ Sat, 23 May 2026 19:47:54 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1779565664; cv=none; 
  d=zohomail.com; s=zohoarc; 
- b=BPZ0kFe1uI6bFIQujU50PJ1FpPcldIWkL1nRxt1vkHyFmzjJEQSy5uhcppvGG1UFZjS0Ly6ApcWfqBkc6G5ZF2aZpth9o1IyYXyX/d8apLye3BNdKD1FFsVcs79LnraUB5KjGYbZbsiqzZpnxMyC/DNkuMHz5jIBIrent3Q3e5o=
+ b=C5+ss83jlTWiNNN8SnL85UjX5I0culn6swToROnHeDDIr2oFCgak1aAMENv4ALK4Q5FkyTjdwJ1h5/sQO4ThtxgRr4zhjMht2ixR2wvQ1ZQBGCBrSj+lvFIdm01x9Nr0MUjOP2LKXjHwdwU+J4QxWQso6xazws0syTxDEoM+ggs=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1779453291;
+ s=zohoarc; t=1779565664;
  h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=9vPktzYkxEYQeJ67sQhefbSkE1bTIZj46s1NiCPokAk=; 
- b=igP/p/HxF0L6fyF/IaTFE1DFlhP7Sjn32o5WJN70F6aNrW4hlw/3kYDcCmWUk5k6Q8YtiC4JQNcnvecY9fwWeVZLsI9nuAftSB+lRybzpqrpvwU5UlS3XaPyHQwzYsDSyVmodBtt9L/vB5WYRsCy/qm9gze++b9L++jdnTKETZo=
+ bh=8uhvifl0KjV7h78DpGOaJw8xIKxgprEXatY1NDwlp1s=; 
+ b=ZZ6FgfHnAt+wFMZxs5x0zLmWHdKbIuPztCq68A9pa8JElcmeWc6YUSXLGrYdbh0VH4fuePZflrlb3APZ2Yk8WIYLh7H11H02+LoftmRIxeREInGdVSVeTbKW38vADgpp+lN9EPIPAH5SjTS800IgmtyjeQ+b+hXe4zo6abKZ2x8=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
  dkim=pass  header.i=collabora.com;
  spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
  dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1779453291; 
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1779565664; 
  s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
  h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:References:In-Reply-To:To:To:Cc:Cc:Reply-To;
- bh=9vPktzYkxEYQeJ67sQhefbSkE1bTIZj46s1NiCPokAk=;
- b=gS8m+G0ngsNkUO1UwSfcLk8aUY0iEluq2mgCgQEDuAhLPzPpucEx6oPRV7kPgy1u
- vXuHCpYdhd4ScvQlqLY+8DBKphhGqzAFiVFvwUBwrTAT3zsys5lbMmZ6w2pGEhjLAJF
- S1AT4hNTfugfApo59pHFna7R3aJQsf6GWEPQfAKU=
-Received: by mx.zohomail.com with SMTPS id 1779453289962629.7637221364517;
- Fri, 22 May 2026 05:34:49 -0700 (PDT)
+ bh=8uhvifl0KjV7h78DpGOaJw8xIKxgprEXatY1NDwlp1s=;
+ b=Ljb4h6WQFoe5ixZNfzJ7P1Wyw4reyAuieM717GU5bWV3/PcIybphms4Y9a+pxjkl
+ Vyhuryw7ewXDJxJpmf6aTIKC6iPb26NP/TBqQazlTKhNLede/yS/hs9dPSi+4heTuj/
+ 32NgHGnNoEdvdb95MQORnTyQOfOP9kLeKY+iarRc=
+Received: by mx.zohomail.com with SMTPS id 177956566336735.659644389422056;
+ Sat, 23 May 2026 12:47:43 -0700 (PDT)
 From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Date: Fri, 22 May 2026 14:32:06 +0200
-Subject: [PATCH v15 15/28] drm/rockchip: Add YUV422 output mode constants
- for VOP2
+Date: Sat, 23 May 2026 21:43:56 +0200
+Subject: [PATCH v16 21/28] drm/rockchip: dw_hdmi_qp: Set supported_formats
+ platdata
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260522-color-format-v15-15-21fb136c9df2@collabora.com>
-References: <20260522-color-format-v15-0-21fb136c9df2@collabora.com>
-In-Reply-To: <20260522-color-format-v15-0-21fb136c9df2@collabora.com>
+Message-Id: <20260523-color-format-v16-21-24340c5e4732@collabora.com>
+References: <20260523-color-format-v16-0-24340c5e4732@collabora.com>
+In-Reply-To: <20260523-color-format-v16-0-24340c5e4732@collabora.com>
 To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
  Rodrigo Siqueira <siqueira@igalia.com>, 
  Alex Deucher <alexander.deucher@amd.com>, 
@@ -74,7 +74,7 @@ Cc: kernel@collabora.com, amd-gfx@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
  linux-doc@vger.kernel.org, wayland-devel@lists.freedesktop.org, 
  Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, 
- Andy Yan <andyshrk@163.com>
+ Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 X-Mailer: b4 0.15.2
 X-Mailman-Approved-At: Tue, 26 May 2026 07:53:08 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -91,38 +91,38 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The Rockchip display controller has a general YUV422 output mode, and
-some SoC-specific connector-specific output modes for RK3576.
+With the introduction of the supported_formats member in the
+dw-hdmi-qp platform data struct, drivers that have access to this
+information should now set it.
 
-Add them, based on the values in downstream and the TRM (dsp_out_mode in
-RK3576 TRM Part 2, register POST*_CTRL_POST_DSP_CTRL).
+Set it in the rockchip dw_hdmi_qp glue driver.
 
-Reviewed-by: Andy Yan <andyshrk@163.com>
+This allows this information to be passed down to the dw-hdmi-qp core,
+which sets it in the bridge it creates, and consequently will allow the
+common HDMI bridge code to act on it.
+
+Reviewed-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 Reviewed-by: Daniel Stone <daniel@fooishbar.org>
 Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 ---
- drivers/gpu/drm/rockchip/rockchip_drm_drv.h | 4 ++++
+ drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c | 4 ++++
  1 file changed, 4 insertions(+)
 
-diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_drv.h b/drivers/gpu/drm/rockchip/rockchip_drm_drv.h
-index 2e86ad00979c..4705dc6b8bd7 100644
---- a/drivers/gpu/drm/rockchip/rockchip_drm_drv.h
-+++ b/drivers/gpu/drm/rockchip/rockchip_drm_drv.h
-@@ -30,10 +30,14 @@
- #define ROCKCHIP_OUT_MODE_P565		2
- #define ROCKCHIP_OUT_MODE_BT656		5
- #define ROCKCHIP_OUT_MODE_S888		8
-+#define ROCKCHIP_OUT_MODE_YUV422	9
- #define ROCKCHIP_OUT_MODE_S888_DUMMY	12
- #define ROCKCHIP_OUT_MODE_YUV420	14
- /* for use special outface */
- #define ROCKCHIP_OUT_MODE_AAAA		15
-+/* SoC specific output modes */
-+#define ROCKCHIP_OUT_MODE_YUV422_RK3576_DP	12
-+#define ROCKCHIP_OUT_MODE_YUV422_RK3576_HDMI	13
+diff --git a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
+index b77ef92ae954..815f9ea7bcbe 100644
+--- a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
++++ b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
+@@ -602,6 +602,10 @@ static int dw_hdmi_qp_rockchip_bind(struct device *dev, struct device *master,
+ 	plat_data.phy_data = hdmi;
+ 	plat_data.max_bpc = 10;
  
- /* output flags */
- #define ROCKCHIP_OUTPUT_DSI_DUAL	BIT(0)
++	plat_data.supported_formats = BIT(DRM_OUTPUT_COLOR_FORMAT_RGB444) |
++				      BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR444) |
++				      BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR422);
++
+ 	encoder = &hdmi->encoder.encoder;
+ 	encoder->possible_crtcs = drm_of_find_possible_crtcs(drm, dev->of_node);
+ 
 
 -- 
 2.54.0
