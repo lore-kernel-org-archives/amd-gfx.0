@@ -4,47 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CD9D2CD6E41
-	for <amd-gfx@archiver.kernel.org>; Tue, 26 May 2026 07:54:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 15352CD6E42
+	for <amd-gfx@archiver.kernel.org>; Tue, 26 May 2026 07:54:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DEECD10E5FD;
-	Tue, 26 May 2026 07:54:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 42BBC10E5D5;
+	Tue, 26 May 2026 07:54:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="AuTtPEmZ";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="Ft8u24hW";
 	dkim-atps=neutral
 Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
  [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 870E010E317;
- Sat, 23 May 2026 19:44:58 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1779565488; cv=none; 
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B25C510E6AF;
+ Sat, 23 May 2026 19:47:03 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1779565612; cv=none; 
  d=zohomail.com; s=zohoarc; 
- b=GeW0j8HgfdnTz/6VO/sIo4i6siH4Y2uICsByq8WzQ08xC2z5CIohPUCw6eapODwdcJem9J9kjIHu5IUkLF4dRldrlofQ7G62DsnpQV5afKN5iOzMMtcVTd6/+BG9vEJOr4FQ5m9g57jQvp0ueA17h11vwV4f0Jq5HoQvJUA5XY0=
+ b=MtQZfAsp9iwSn5zIjYMqcJhStniLpbPtjNHLLhoeBYXjv92ztW23VeO3z3JV0o/IIYFRUifeHVDgc4uIqFqzyH/SqYxPjZlmRJHQY86X2HPBn3EJj/wpX7tN5ysC1rx2E5bEMGvfBl+C15EonGEAJggDlO6T+PMA9VA45S6vYhU=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1779565488;
+ s=zohoarc; t=1779565612;
  h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=uMEEZn+x23X3/iGLCH74HTpR0e0r7hhMuh0rntSsrbY=; 
- b=j0yrkzvB+4OGrnyHRIkkGTX97ahcewFaCNupHxmKhKl/5Q7f4kbEiFsYpOSCcK/9vuuHIXF33b3sQneUez9CZdh05SqGtvglbn3R/efQDqRDZnI5lv0ddOp2AF5GGWa3bIE21DHbBWerEd5/e8hfHX8Fj0wDJoJsWN4NinzVmIQ=
+ bh=9vPktzYkxEYQeJ67sQhefbSkE1bTIZj46s1NiCPokAk=; 
+ b=YakzedjTIpc5EzCy4krFZ/s8n1kDr1zjFdPRlYjko2CwIPRXAFrA+9Bk1L2ZB3Dla6LTmxWvwHC99PYnejKV+zZtJ6DpKRpclcVEfRwoKI+DbljVdmODg1DkcLHv/94D3b1+dqn0lSgSdErp+FKkinEDcyrOaJjSXC3x0f7tNnk=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
  dkim=pass  header.i=collabora.com;
  spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
  dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1779565487; 
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1779565612; 
  s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
  h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:References:In-Reply-To:To:To:Cc:Cc:Reply-To;
- bh=uMEEZn+x23X3/iGLCH74HTpR0e0r7hhMuh0rntSsrbY=;
- b=AuTtPEmZzY7WREJoBUB3CUFqgr+IScEBNoMDYDFQ1rZsZS6T+STalkSLJKEKPXKK
- 2bIwDf4497PrknHu1TanCVK55rn2ztJAt/QmpRUb1uvyzWaxBBKemAvXe1CSW3JnaLU
- L1ezBjRjWPzIipF0HholfjcSgO34BfdhbLspD5Lk=
-Received: by mx.zohomail.com with SMTPS id 1779565485684287.4308773740099;
- Sat, 23 May 2026 12:44:45 -0700 (PDT)
+ bh=9vPktzYkxEYQeJ67sQhefbSkE1bTIZj46s1NiCPokAk=;
+ b=Ft8u24hWXCW5f0SIdhTv1hziQ3/ysD3vr+bqvr7YzWJZWPFM0Iy2sezlKduq2gBL
+ H00++5dj55euhS4hREG7T7xUBiJ4tBrJ4lf2wAaoISfQ3MkZQOSLmfIxKpjUQ5xwUMH
+ zLmGZXRF6Y/jhT7H41/uMuUGfAtaJKnuUXKJNGaU=
+Received: by mx.zohomail.com with SMTPS id 177956561016637.02386865049584;
+ Sat, 23 May 2026 12:46:50 -0700 (PDT)
 From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Date: Sat, 23 May 2026 21:43:36 +0200
-Subject: [PATCH v16 01/28] drm/amd/display: Remove unnecessary
- SIGNAL_TYPE_HDMI_TYPE_A check
+Date: Sat, 23 May 2026 21:43:50 +0200
+Subject: [PATCH v16 15/28] drm/rockchip: Add YUV422 output mode constants
+ for VOP2
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260523-color-format-v16-1-24340c5e4732@collabora.com>
+Message-Id: <20260523-color-format-v16-15-24340c5e4732@collabora.com>
 References: <20260523-color-format-v16-0-24340c5e4732@collabora.com>
 In-Reply-To: <20260523-color-format-v16-0-24340c5e4732@collabora.com>
 To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
@@ -74,8 +74,7 @@ Cc: kernel@collabora.com, amd-gfx@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
  linux-doc@vger.kernel.org, wayland-devel@lists.freedesktop.org, 
  Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, 
- Werner Sembach <wse@tuxedocomputers.com>, 
- Andri Yngvason <andri@yngvason.is>
+ Andy Yan <andyshrk@163.com>
 X-Mailer: b4 0.15.2
 X-Mailman-Approved-At: Tue, 26 May 2026 07:53:08 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -92,48 +91,38 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Werner Sembach <wse@tuxedocomputers.com>
+The Rockchip display controller has a general YUV422 output mode, and
+some SoC-specific connector-specific output modes for RK3576.
 
-Remove unnecessary SIGNAL_TYPE_HDMI_TYPE_A check that was performed in the
-drm_mode_is_420_only() case, but not in the drm_mode_is_420_also() &&
-force_yuv420_output case.
+Add them, based on the values in downstream and the TRM (dsp_out_mode in
+RK3576 TRM Part 2, register POST*_CTRL_POST_DSP_CTRL).
 
-Without further knowledge if YCbCr 4:2:0 is supported outside of HDMI,
-there is no reason to use RGB when the display
-reports drm_mode_is_420_only() even on a non HDMI connection.
-
-This patch also moves both checks in the same if-case. This  eliminates an
-extra else-if-case.
-
-Signed-off-by: Werner Sembach <wse@tuxedocomputers.com>
-Signed-off-by: Andri Yngvason <andri@yngvason.is>
-Tested-by: Andri Yngvason <andri@yngvason.is>
+Reviewed-by: Andy Yan <andyshrk@163.com>
 Reviewed-by: Daniel Stone <daniel@fooishbar.org>
 Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 9 +++------
- 1 file changed, 3 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/rockchip/rockchip_drm_drv.h | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index ba7f98a87808..dfe97897127c 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -6917,12 +6917,9 @@ static void fill_stream_properties_from_drm_display_mode(
- 	timing_out->v_border_top = 0;
- 	timing_out->v_border_bottom = 0;
- 	/* TODO: un-hardcode */
--	if (drm_mode_is_420_only(info, mode_in)
--			&& stream->signal == SIGNAL_TYPE_HDMI_TYPE_A)
--		timing_out->pixel_encoding = PIXEL_ENCODING_YCBCR420;
--	else if (drm_mode_is_420_also(info, mode_in)
--			&& aconnector
--			&& aconnector->force_yuv420_output)
-+	if (drm_mode_is_420_only(info, mode_in) ||
-+	    (aconnector && aconnector->force_yuv420_output &&
-+	     drm_mode_is_420_also(info, mode_in)))
- 		timing_out->pixel_encoding = PIXEL_ENCODING_YCBCR420;
- 	else if ((connector->display_info.color_formats & BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR422))
- 			&& aconnector
+diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_drv.h b/drivers/gpu/drm/rockchip/rockchip_drm_drv.h
+index 2e86ad00979c..4705dc6b8bd7 100644
+--- a/drivers/gpu/drm/rockchip/rockchip_drm_drv.h
++++ b/drivers/gpu/drm/rockchip/rockchip_drm_drv.h
+@@ -30,10 +30,14 @@
+ #define ROCKCHIP_OUT_MODE_P565		2
+ #define ROCKCHIP_OUT_MODE_BT656		5
+ #define ROCKCHIP_OUT_MODE_S888		8
++#define ROCKCHIP_OUT_MODE_YUV422	9
+ #define ROCKCHIP_OUT_MODE_S888_DUMMY	12
+ #define ROCKCHIP_OUT_MODE_YUV420	14
+ /* for use special outface */
+ #define ROCKCHIP_OUT_MODE_AAAA		15
++/* SoC specific output modes */
++#define ROCKCHIP_OUT_MODE_YUV422_RK3576_DP	12
++#define ROCKCHIP_OUT_MODE_YUV422_RK3576_HDMI	13
+ 
+ /* output flags */
+ #define ROCKCHIP_OUTPUT_DSI_DUAL	BIT(0)
 
 -- 
 2.54.0
