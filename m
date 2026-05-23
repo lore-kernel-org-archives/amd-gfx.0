@@ -4,46 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0CEE3CD6E46
-	for <amd-gfx@archiver.kernel.org>; Tue, 26 May 2026 07:53:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B0F0CCD6E57
+	for <amd-gfx@archiver.kernel.org>; Tue, 26 May 2026 07:53:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3363710E5B2;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8F6A510E5B5;
 	Tue, 26 May 2026 07:53:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="JrEbsDdz";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="E97PahUT";
 	dkim-atps=neutral
 Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
  [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6464310E778;
- Sat, 23 May 2026 19:48:49 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1779565718; cv=none; 
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B315A10E6E9;
+ Sat, 23 May 2026 19:46:51 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1779565602; cv=none; 
  d=zohomail.com; s=zohoarc; 
- b=iS1XKWee5Q8UjkjGM+ZWQhLMA23nQNlWAlo+em12zPo/HyC5MA4o77xTUh/y1Dn6fe/MmP6p1n/comOCvE8LOjqRqWvHc+BwthkOrRwl7kVI8GPs+VcnvoM12ti40hlp9xn0MMXkqoaWRfJRISLHg0bl8D3eo97ZYkYEgFs/xFw=
+ b=hE21EA1vl4B+sZkhT7os+r5stZqGItYxQ6je3zhspVBkqKD3QXUOv2dqMGSajXB91/SntsTo/ra276sQ2+9lai2oDc5nm+SjvXby6c1VX33OLXb/X48Km+gsuLc0H4AzQYWN4Rv0SxINW28TCPkMBcgGeY5v0n7tcEIgXKE8h6U=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1779565718;
+ s=zohoarc; t=1779565602;
  h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=Xfpcy5Pc7GXDdgpxKAx9vJpVILZgmDMu0yUlgXlNu5c=; 
- b=Z3vkRD2rYqMy+j6d0KsZs3SqJJhtEjRECuULzNIO+knjRrob0hX5JUytBbKKPT6yh774besYSQouN9keSpJW4YSI0CTStug5A7hkr4al3PED6ZIz69u4PcbA9GpE7yIJvNLt1jwmKl0ZeW3nBIajCTYKk9BrRq921zPx9SAAfOo=
+ bh=11mrw5ERpgGzjDqAImvICD/uybnyecRT/PgLC2hXYL4=; 
+ b=nPkpe6feDq3zFSmb8ZCQmXt3UlMxrpPQNXs3jvlpFhX1bjXr2FbnS8Fmy5X7t3woBkrS4ThSHyvCN0o8fi/HsCWfPOb5TVRQ3bZGX6MqXQR7t9lWSuAUE7JSdXPJ4BaxhbMpPElrdHyzkq+eD4IVaKDzlxjfvY28r8Ptw1FuzKo=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
  dkim=pass  header.i=collabora.com;
  spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
  dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1779565718; 
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1779565602; 
  s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
  h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:References:In-Reply-To:To:To:Cc:Cc:Reply-To;
- bh=Xfpcy5Pc7GXDdgpxKAx9vJpVILZgmDMu0yUlgXlNu5c=;
- b=JrEbsDdz8qXxpwr7rSVFTFDX8VcwRuc7quGh4jGcc3++ipvzmNhYFq2XUcmLCmiM
- QaGGO7DfYRnCQJ+QZdrbPyzbJxS5U0YgyY12m+HO7AAv8DMUlyl8RPSX7Cg8BMnGSu6
- UzdI7ElDxr9rnNZn301DVhB8Sy9mXUB4m75cK5Uk=
-Received: by mx.zohomail.com with SMTPS id 1779565715787918.2798085690775;
- Sat, 23 May 2026 12:48:35 -0700 (PDT)
+ bh=11mrw5ERpgGzjDqAImvICD/uybnyecRT/PgLC2hXYL4=;
+ b=E97PahUT+jYCDDKWt1CdraS7l2peI1T/SgnoDQigOLlktayz2XGQVu/QTMul48Lk
+ eusmiold/+vZiYVJz4MkU9hqAY5/AO8pCTnHtaXOj+1EoMNolAajp6soHoaKH+dh3jj
+ T8l5JM1g5D+HyNa1RMnKCpon7DqwmJiNmydgahmA=
+Received: by mx.zohomail.com with SMTPS id 1779565601318512.2082188037197;
+ Sat, 23 May 2026 12:46:41 -0700 (PDT)
 From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Date: Sat, 23 May 2026 21:44:02 +0200
-Subject: [PATCH v16 27/28] drm/bridge: Document bridge chain format selection
+Date: Sat, 23 May 2026 21:43:49 +0200
+Subject: [PATCH v16 14/28] drm/i915/dp: Implement "color format" DRM property
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260523-color-format-v16-27-24340c5e4732@collabora.com>
+Message-Id: <20260523-color-format-v16-14-24340c5e4732@collabora.com>
 References: <20260523-color-format-v16-0-24340c5e4732@collabora.com>
 In-Reply-To: <20260523-color-format-v16-0-24340c5e4732@collabora.com>
 To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
@@ -89,91 +89,117 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The bridge chain format selection behaviour was, until now,
-undocumented. With the addition of the "color format" DRM property, it's
-not sufficiently complex enough that documentation is warranted,
-especially for driver authors trying to do the right thing.
+Implement the "color format" DRM property for DP. The values of the
+property include RGB, YCbCr420, YCbCr444 and Auto. Auto will pick RGB,
+with a fallback to YCbCr420.
 
-Add a high-level overview of how the process is supposed to work, and
-mention what the display driver is supposed to do if it wants to make
-use of this functionality.
+The mask of supported formats by the source exposed by the property is
+an optimistic scenario, as specific DFP-related caveats can't be
+established before an EDID is present.
 
-Reviewed-by: Maxime Ripard <mripard@kernel.org>
+Should the explicitly requested color format not be supported by the
+sink (or by the source in combination with the sink), then an error is
+returned to userspace, so that it can make a better choice.
+
 Reviewed-by: Daniel Stone <daniel@fooishbar.org>
 Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 ---
- Documentation/gpu/drm-kms-helpers.rst |  6 ++++++
- drivers/gpu/drm/drm_bridge.c          | 40 +++++++++++++++++++++++++++++++++++
- 2 files changed, 46 insertions(+)
+ drivers/gpu/drm/i915/display/intel_dp.c | 61 ++++++++++++++++++++++++++++++---
+ 1 file changed, 57 insertions(+), 4 deletions(-)
 
-diff --git a/Documentation/gpu/drm-kms-helpers.rst b/Documentation/gpu/drm-kms-helpers.rst
-index 80453dda33b8..94cfc26acecc 100644
---- a/Documentation/gpu/drm-kms-helpers.rst
-+++ b/Documentation/gpu/drm-kms-helpers.rst
-@@ -171,6 +171,12 @@ Bridge Operations
- .. kernel-doc:: drivers/gpu/drm/drm_bridge.c
-    :doc: bridge operations
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index 380933579178..041e40c3ae8a 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -3435,10 +3435,10 @@ intel_dp_compute_output_format(struct intel_encoder *encoder,
+ }
  
-+Bridge Chain Format Selection
-+-----------------------------
-+
-+.. kernel-doc:: drivers/gpu/drm/drm_bridge.c
-+   :doc: bridge chain format selection
-+
- Bridge Connector Helper
- -----------------------
+ static int
+-intel_dp_compute_formats(struct intel_encoder *encoder,
+-			 struct intel_crtc_state *crtc_state,
+-			 struct drm_connector_state *conn_state,
+-			 bool respect_downstream_limits)
++intel_dp_compute_formats_auto(struct intel_encoder *encoder,
++			      struct intel_crtc_state *crtc_state,
++			      struct drm_connector_state *conn_state,
++			      bool respect_downstream_limits)
+ {
+ 	struct intel_display *display = to_intel_display(encoder);
+ 	struct intel_dp *intel_dp = enc_to_intel_dp(encoder);
+@@ -3474,6 +3474,34 @@ intel_dp_compute_formats(struct intel_encoder *encoder,
+ 	return ret;
+ }
  
-diff --git a/drivers/gpu/drm/drm_bridge.c b/drivers/gpu/drm/drm_bridge.c
-index 6ec8c23b36b5..5cb170328850 100644
---- a/drivers/gpu/drm/drm_bridge.c
-+++ b/drivers/gpu/drm/drm_bridge.c
-@@ -198,6 +198,46 @@
-  * driver.
-  */
- 
-+/**
-+ * DOC: bridge chain format selection
-+ *
-+ * A bridge chain, from display output processor to connector, may contain
-+ * bridges capable of converting between bus formats on their inputs, and
-+ * output formats on their outputs. For example, a bridge may be able to convert
-+ * from RGB to YCbCr 4:4:4, and pass through YCbCr 4:2:0 as-is, but not convert
-+ * from RGB to YCbCr 4:2:0. This means not all input formats map to all output
-+ * formats.
-+ *
-+ * Further adding to this, a desired output color format, as specified with the
-+ * "color format" DRM property, might not correspond 1:1 to what the display
-+ * driver should set at its output. The bridge chain it feeds into may only be
-+ * able to reach the desired output format, if a conversion from a different
-+ * starting format is performed.
-+ *
-+ * To deal with this complexity, the recursive bridge chain bus format selection
-+ * logic starts with the last bridge in the chain, usually the connector, and
-+ * then recursively walks the chain of bridges backwards to the first bridge,
-+ * trying to find a path.
-+ *
-+ * For a display driver to work in such a scenario, it should read the first
-+ * bridge's bridge state to figure out which bus format the chain resolved to.
-+ * If the first bridge's input format resolved to %MEDIA_BUS_FMT_FIXED, then its
-+ * output format should be used.
-+ *
-+ * Special handling is done for HDMI as it relates to format selection. Instead
-+ * of directly using the "color format" DRM property for bridge chains that end
-+ * in HDMI bridges, the bridge chain format selection logic will trust the logic
-+ * that set the HDMI output format. For the common HDMI state helper
-+ * functionality, this means that %DRM_CONNECTOR_COLOR_FORMAT_AUTO will allow
-+ * fallbacks to YCBCr 4:2:0 if the bandwidth requirements would otherwise be too
-+ * high but the mode and connector allow it.
-+ *
-+ * For bridge chains that do not end in an HDMI bridge,
-+ * %DRM_CONNECTOR_COLOR_FORMAT_AUTO will be satisfied with the first output
-+ * format on the last bridge for which it can find a path back to the first
-+ * bridge.
-+ */
++static int
++intel_dp_compute_formats(struct intel_encoder *encoder,
++			 struct intel_crtc_state *crtc_state,
++			 struct drm_connector_state *conn_state,
++			 bool respect_downstream_limits)
++{
++	switch (conn_state->color_format) {
++	case DRM_CONNECTOR_COLOR_FORMAT_RGB444:
++		return intel_dp_compute_output_format(encoder, crtc_state, conn_state,
++						      respect_downstream_limits,
++						      INTEL_OUTPUT_FORMAT_RGB);
++	case DRM_CONNECTOR_COLOR_FORMAT_YCBCR444:
++		return intel_dp_compute_output_format(encoder, crtc_state, conn_state,
++						      respect_downstream_limits,
++						      INTEL_OUTPUT_FORMAT_YCBCR444);
++	case DRM_CONNECTOR_COLOR_FORMAT_YCBCR420:
++		return intel_dp_compute_output_format(encoder, crtc_state, conn_state,
++						      respect_downstream_limits,
++						      INTEL_OUTPUT_FORMAT_YCBCR420);
++	case DRM_CONNECTOR_COLOR_FORMAT_AUTO:
++		return intel_dp_compute_formats_auto(encoder, crtc_state, conn_state,
++						     respect_downstream_limits);
++	default:
++		MISSING_CASE(conn_state->color_format);
++		return -EINVAL;
++	}
++}
 +
- /* Protect bridge_list and bridge_lingering_list */
- static DEFINE_MUTEX(bridge_lock);
- static LIST_HEAD(bridge_list);
+ void
+ intel_dp_audio_compute_config(struct intel_encoder *encoder,
+ 			      struct intel_crtc_state *pipe_config,
+@@ -7027,6 +7055,29 @@ intel_dp_has_gamut_metadata_dip(struct intel_encoder *encoder)
+ 	return false;
+ }
+ 
++static void
++intel_dp_attach_color_format_property(struct intel_dp *intel_dp)
++{
++	struct intel_connector *connector = intel_dp->attached_connector;
++	struct intel_digital_port *dig_port = dp_to_dig_port(intel_dp);
++	unsigned long fmts = BIT(DRM_OUTPUT_COLOR_FORMAT_RGB444);
++	bool has_pcon = false;
++
++	if (!connector)
++		return;
++
++	if (dig_port && intel_bios_encoder_is_lspcon(dig_port->base.devdata))
++		has_pcon = true;
++
++	if (has_pcon || source_can_output(intel_dp, INTEL_OUTPUT_FORMAT_YCBCR420))
++		fmts |= BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR420);
++
++	if (has_pcon || source_can_output(intel_dp, INTEL_OUTPUT_FORMAT_YCBCR444))
++		fmts |= BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR444);
++
++	drm_connector_attach_color_format_property(&connector->base, fmts);
++}
++
+ static void
+ intel_dp_add_properties(struct intel_dp *intel_dp, struct drm_connector *_connector)
+ {
+@@ -7059,6 +7110,8 @@ intel_dp_add_properties(struct intel_dp *intel_dp, struct drm_connector *_connec
+ 
+ 	if (HAS_VRR(display))
+ 		drm_connector_attach_vrr_capable_property(&connector->base);
++
++	intel_dp_attach_color_format_property(intel_dp);
+ }
+ 
+ static void
 
 -- 
 2.54.0
