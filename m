@@ -4,46 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E9979CD6E5A
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0CEE3CD6E46
 	for <amd-gfx@archiver.kernel.org>; Tue, 26 May 2026 07:53:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E775110E5C0;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3363710E5B2;
 	Tue, 26 May 2026 07:53:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="iNi8yvRe";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="JrEbsDdz";
 	dkim-atps=neutral
 Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
  [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 82EDD10E676;
- Sat, 23 May 2026 19:46:36 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1779565586; cv=none; 
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6464310E778;
+ Sat, 23 May 2026 19:48:49 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1779565718; cv=none; 
  d=zohomail.com; s=zohoarc; 
- b=g5eslkFU6W8Q8XdvE/G7bw+AWYwNR0cLnvO8aqaJxMFAA6hgZ5oiiDeLWT6C5sgCtSAK53EXKubaoDMvWohRE3uas4x71NaH48f110FwFy9PxL1UHmFXk2cZl3JSfbBBmVNX6r70KBcu04IZVE/4v7MClIDiF+0OaI+JZs1xOJQ=
+ b=iS1XKWee5Q8UjkjGM+ZWQhLMA23nQNlWAlo+em12zPo/HyC5MA4o77xTUh/y1Dn6fe/MmP6p1n/comOCvE8LOjqRqWvHc+BwthkOrRwl7kVI8GPs+VcnvoM12ti40hlp9xn0MMXkqoaWRfJRISLHg0bl8D3eo97ZYkYEgFs/xFw=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1779565586;
+ s=zohoarc; t=1779565718;
  h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=oLXsRk5n6kDSbBXqAg0ZgpidZO8HnPrxM/c4jPhcHYA=; 
- b=PPCNhAPMKDvP7I04TsbiBbcsIntiYCQiqwgTYrzPuniVlXCIUvOqU3xnE4ehLa5LNs5zhFp15R0ubu8wdQwkkYhu/60J68rXnRAIGNXvB1z4PWa+cZ72F5VaTPwfbeeounL42KCzszKYQ/qk+whBnG1BnQLo/+xrUCTlsUcnp/w=
+ bh=Xfpcy5Pc7GXDdgpxKAx9vJpVILZgmDMu0yUlgXlNu5c=; 
+ b=Z3vkRD2rYqMy+j6d0KsZs3SqJJhtEjRECuULzNIO+knjRrob0hX5JUytBbKKPT6yh774besYSQouN9keSpJW4YSI0CTStug5A7hkr4al3PED6ZIz69u4PcbA9GpE7yIJvNLt1jwmKl0ZeW3nBIajCTYKk9BrRq921zPx9SAAfOo=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
  dkim=pass  header.i=collabora.com;
  spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
  dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1779565586; 
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1779565718; 
  s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
  h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:References:In-Reply-To:To:To:Cc:Cc:Reply-To;
- bh=oLXsRk5n6kDSbBXqAg0ZgpidZO8HnPrxM/c4jPhcHYA=;
- b=iNi8yvReRR1hsM0PZYOxJ6lr7uXgV6P+XpxpYxKLhO+lSKmyArO6OnxGxFASJ2kH
- WSkVf9yJyoxBYqVCVpJ5Ot66wpF+c+ThGSu2T4OIbrpwLBQPSs+/jK3vjmaKOcHcgPq
- 4KRD7TG8iP416elVeZ+z0i33IwVJUPdko+Z6xrWo=
-Received: by mx.zohomail.com with SMTPS id 1779565584064562.6777512097248;
- Sat, 23 May 2026 12:46:24 -0700 (PDT)
+ bh=Xfpcy5Pc7GXDdgpxKAx9vJpVILZgmDMu0yUlgXlNu5c=;
+ b=JrEbsDdz8qXxpwr7rSVFTFDX8VcwRuc7quGh4jGcc3++ipvzmNhYFq2XUcmLCmiM
+ QaGGO7DfYRnCQJ+QZdrbPyzbJxS5U0YgyY12m+HO7AAv8DMUlyl8RPSX7Cg8BMnGSu6
+ UzdI7ElDxr9rnNZn301DVhB8Sy9mXUB4m75cK5Uk=
+Received: by mx.zohomail.com with SMTPS id 1779565715787918.2798085690775;
+ Sat, 23 May 2026 12:48:35 -0700 (PDT)
 From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Date: Sat, 23 May 2026 21:43:47 +0200
-Subject: [PATCH v16 12/28] drm/i915/dp: Add YCBCR444 handling for sink formats
+Date: Sat, 23 May 2026 21:44:02 +0200
+Subject: [PATCH v16 27/28] drm/bridge: Document bridge chain format selection
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260523-color-format-v16-12-24340c5e4732@collabora.com>
+Message-Id: <20260523-color-format-v16-27-24340c5e4732@collabora.com>
 References: <20260523-color-format-v16-0-24340c5e4732@collabora.com>
 In-Reply-To: <20260523-color-format-v16-0-24340c5e4732@collabora.com>
 To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
@@ -89,58 +89,91 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-In anticipation of userspace being able to explicitly select supported
-sink formats, add handling of the YCBCR444 sink format. The AUTO path
-does not choose this format, but with explicit format selection added to
-the driver, it becomes a possibility.
+The bridge chain format selection behaviour was, until now,
+undocumented. With the addition of the "color format" DRM property, it's
+not sufficiently complex enough that documentation is warranted,
+especially for driver authors trying to do the right thing.
 
-Check for both source and sink support of YCBCR444 in
-intel_dp_sink_format_valid.
+Add a high-level overview of how the process is supposed to work, and
+mention what the display driver is supposed to do if it wants to make
+use of this functionality.
 
-Acked-by: Daniel Stone <daniel@fooishbar.org>
+Reviewed-by: Maxime Ripard <mripard@kernel.org>
+Reviewed-by: Daniel Stone <daniel@fooishbar.org>
 Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 ---
- drivers/gpu/drm/i915/display/intel_dp.c | 20 ++++++++++++++++++++
- 1 file changed, 20 insertions(+)
+ Documentation/gpu/drm-kms-helpers.rst |  6 ++++++
+ drivers/gpu/drm/drm_bridge.c          | 40 +++++++++++++++++++++++++++++++++++
+ 2 files changed, 46 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index 1920d2f02666..380933579178 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -1344,6 +1344,16 @@ intel_dp_mode_valid_downstream(struct intel_connector *connector,
- 					 8, sink_format, true);
- }
+diff --git a/Documentation/gpu/drm-kms-helpers.rst b/Documentation/gpu/drm-kms-helpers.rst
+index 80453dda33b8..94cfc26acecc 100644
+--- a/Documentation/gpu/drm-kms-helpers.rst
++++ b/Documentation/gpu/drm-kms-helpers.rst
+@@ -171,6 +171,12 @@ Bridge Operations
+ .. kernel-doc:: drivers/gpu/drm/drm_bridge.c
+    :doc: bridge operations
  
-+static bool
-+intel_dp_can_ycbcr444(struct intel_dp *intel_dp)
-+{
-+	if (source_can_output(intel_dp, INTEL_OUTPUT_FORMAT_YCBCR444) &&
-+	    !drm_dp_is_branch(intel_dp->dpcd))
-+		return true;
++Bridge Chain Format Selection
++-----------------------------
 +
-+	return false;
-+}
++.. kernel-doc:: drivers/gpu/drm/drm_bridge.c
++   :doc: bridge chain format selection
 +
- static enum drm_mode_status
- intel_dp_sink_format_valid(struct intel_connector *connector,
- 			   const struct drm_display_mode *mode,
-@@ -1362,6 +1372,16 @@ intel_dp_sink_format_valid(struct intel_connector *connector,
- 		    !drm_mode_is_420(info, mode))
- 			return MODE_NO_420;
+ Bridge Connector Helper
+ -----------------------
  
-+		return MODE_OK;
-+	case INTEL_OUTPUT_FORMAT_YCBCR444:
-+		if (intel_dp->dfp.min_tmds_clock &&
-+		    !intel_dp_has_hdmi_sink(intel_dp))
-+			return MODE_BAD;
-+		if (!intel_dp_can_ycbcr444(intel_dp))
-+			return MODE_BAD;
-+		if (!(info->color_formats & BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR444)))
-+			return MODE_BAD;
+diff --git a/drivers/gpu/drm/drm_bridge.c b/drivers/gpu/drm/drm_bridge.c
+index 6ec8c23b36b5..5cb170328850 100644
+--- a/drivers/gpu/drm/drm_bridge.c
++++ b/drivers/gpu/drm/drm_bridge.c
+@@ -198,6 +198,46 @@
+  * driver.
+  */
+ 
++/**
++ * DOC: bridge chain format selection
++ *
++ * A bridge chain, from display output processor to connector, may contain
++ * bridges capable of converting between bus formats on their inputs, and
++ * output formats on their outputs. For example, a bridge may be able to convert
++ * from RGB to YCbCr 4:4:4, and pass through YCbCr 4:2:0 as-is, but not convert
++ * from RGB to YCbCr 4:2:0. This means not all input formats map to all output
++ * formats.
++ *
++ * Further adding to this, a desired output color format, as specified with the
++ * "color format" DRM property, might not correspond 1:1 to what the display
++ * driver should set at its output. The bridge chain it feeds into may only be
++ * able to reach the desired output format, if a conversion from a different
++ * starting format is performed.
++ *
++ * To deal with this complexity, the recursive bridge chain bus format selection
++ * logic starts with the last bridge in the chain, usually the connector, and
++ * then recursively walks the chain of bridges backwards to the first bridge,
++ * trying to find a path.
++ *
++ * For a display driver to work in such a scenario, it should read the first
++ * bridge's bridge state to figure out which bus format the chain resolved to.
++ * If the first bridge's input format resolved to %MEDIA_BUS_FMT_FIXED, then its
++ * output format should be used.
++ *
++ * Special handling is done for HDMI as it relates to format selection. Instead
++ * of directly using the "color format" DRM property for bridge chains that end
++ * in HDMI bridges, the bridge chain format selection logic will trust the logic
++ * that set the HDMI output format. For the common HDMI state helper
++ * functionality, this means that %DRM_CONNECTOR_COLOR_FORMAT_AUTO will allow
++ * fallbacks to YCBCr 4:2:0 if the bandwidth requirements would otherwise be too
++ * high but the mode and connector allow it.
++ *
++ * For bridge chains that do not end in an HDMI bridge,
++ * %DRM_CONNECTOR_COLOR_FORMAT_AUTO will be satisfied with the first output
++ * format on the last bridge for which it can find a path back to the first
++ * bridge.
++ */
 +
- 		return MODE_OK;
- 	case INTEL_OUTPUT_FORMAT_RGB:
- 		return MODE_OK;
+ /* Protect bridge_list and bridge_lingering_list */
+ static DEFINE_MUTEX(bridge_lock);
+ static LIST_HEAD(bridge_list);
 
 -- 
 2.54.0
