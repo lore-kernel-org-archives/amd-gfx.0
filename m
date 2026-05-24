@@ -4,48 +4,105 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E01BCCD5BB8
-	for <amd-gfx@archiver.kernel.org>; Sun, 24 May 2026 02:14:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 05F19CD4F54
+	for <amd-gfx@archiver.kernel.org>; Sun, 24 May 2026 06:18:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 754F610E073;
-	Sun, 24 May 2026 02:14:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3226210E062;
+	Sun, 24 May 2026 06:18:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Nz5DbKvD";
+	dkim=pass (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.b="Pcss/Abf";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 81E8B10E073;
- Sun, 24 May 2026 02:14:53 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 40DDA42B26;
- Sun, 24 May 2026 02:14:53 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 68A461F000E9;
- Sun, 24 May 2026 02:14:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1779588893;
- bh=G5R/Msk4mdpDZchRzMLag6qpLqWVwDUZRhGt+9XswAU=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=Nz5DbKvDsy3l8olga2/R4cLLUAEmJ3wCPdbMdVRC4/pvVL76tZr6fJshjg0pJktaF
- 8+BtbmQ5A1RfEwRPp/EyPCOzjTsfW5ygkBIxxcXJUtxP9fqwDCmPj3fJxgAAEL5K8F
- 4AxmdO0yCzCDyBauu8/Tccp8eedsnmrJh+Ku2DQddd1DWgc8jzT/rNx0j9rN24Nj4O
- 39sBSZU726hg2NiaKf2r97VTLsOjB0nIRYm5rMP93qhiXhY/UlUJu1fzTkKZod883f
- p4A04VQIoctrfwVJgPBNKfWj6JhKy2ko/kg9/vHtuSpKZ9PxQQJmecxPT6Eo/a18l/
- 8CWysG5BqszgQ==
-Message-ID: <ece17b5e-143e-4196-8b07-57efff2e3954@kernel.org>
-Date: Sat, 23 May 2026 21:14:51 -0500
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D1CA410E062
+ for <amd-gfx@lists.freedesktop.org>; Sun, 24 May 2026 06:18:00 +0000 (UTC)
+Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 64NJmQV7227724; Sun, 24 May 2026 06:17:57 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+ :content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=pp1; bh=XuegOV
+ y4pNZlaxyzTvZgCV5NLqnyGyYRazvgp1KhDHg=; b=Pcss/AbfxIxCm3uOpJk8ZK
+ 0kGBFWzWPgx3HexZHNL0DeG5O83CKXBL5saNpVRdkA0qw5mGVrN0XVDE61QYwKUo
+ 3ZtQ7wD6bcNRfC5+9g6KxGQvI0H5kncLfSoQvwa0pPwgFMcG/ImqNIyJ7pbJIOI1
+ iDsYQntKKBX62PZ2Dl56I3836kgLGvWxUNbGTGZhc75jpwgAzTQVqTOcWm/OUROf
+ I9xXAMB1457oVEsQSjWGw6R0vGg1NFbxGYmPaFE19zCZYzO1LZrzzEinU20MedNf
+ gzS2S5UGEUh1Rf20rRGv4uZ6G5N57UpedNOVi6vmjn20MSKfzgmWb4D3L8Fw3XPA
+ ==
+Received: from ppma13.dal12v.mail.ibm.com
+ (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
+ by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4eb4nbtvqq-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Sun, 24 May 2026 06:17:57 +0000 (GMT)
+Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
+ by ppma13.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 64O6950H005262;
+ Sun, 24 May 2026 06:17:56 GMT
+Received: from smtprelay04.wdc07v.mail.ibm.com ([172.16.1.71])
+ by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4ebrsg0fcy-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Sun, 24 May 2026 06:17:56 +0000 (GMT)
+Received: from smtpav01.dal12v.mail.ibm.com (smtpav01.dal12v.mail.ibm.com
+ [10.241.53.100])
+ by smtprelay04.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 64O6HtSp36569762
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Sun, 24 May 2026 06:17:55 GMT
+Received: from smtpav01.dal12v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 5D7CD58058;
+ Sun, 24 May 2026 06:17:55 +0000 (GMT)
+Received: from smtpav01.dal12v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id AA9AF58057;
+ Sun, 24 May 2026 06:17:50 +0000 (GMT)
+Received: from [9.39.18.98] (unknown [9.39.18.98])
+ by smtpav01.dal12v.mail.ibm.com (Postfix) with ESMTP;
+ Sun, 24 May 2026 06:17:50 +0000 (GMT)
+Message-ID: <2685af20-398f-4c02-a1c4-50456cbebd07@linux.ibm.com>
+Date: Sun, 24 May 2026 11:47:48 +0530
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 0/8] Add support for a DRM backlight capability
-To: Sebastian Wick <sebastian.wick@redhat.com>,
- Mario Limonciello <mario.limonciello@amd.com>
-Cc: dri-devel@lists.freedesktop.org, harry.wentland@amd.com,
- Xaver Hugl <xaver.hugl@gmail.com>, amd-gfx@lists.freedesktop.org
-References: <20260424220953.167058-1-mario.limonciello@amd.com>
- <CA+hFU4wEODFP=oPw522MyQs1asGq+KyYw6rcKpxxxj0y75fPXg@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: Fix num_pages calculation in
+ amdgpu_ttm_map_buffer() for non-4K page sizes
+To: "Kuehling, Felix" <felix.kuehling@amd.com>, amd-gfx@lists.freedesktop.org, 
+ Alex Deucher <alexander.deucher@amd.com>,
+ Alex Deucher <alexdeucher@gmail.com>, christian.koenig@amd.com,
+ Philip Yang <yangp@amd.com>
+Cc: David.YatSin@amd.com, Kent.Russell@amd.com,
+ Ritesh Harjani <ritesh.list@gmail.com>,
+ Vaidyanathan Srinivasan <svaidy@linux.ibm.com>,
+ Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
+ Simona Vetter <simona@ffwll.ch>
+References: <20260522112838.1311531-1-donettom@linux.ibm.com>
+ <324818a5-5169-4822-9364-033f7bed208a@amd.com>
 Content-Language: en-US
-From: Mario Limonciello <superm1@kernel.org>
-In-Reply-To: <CA+hFU4wEODFP=oPw522MyQs1asGq+KyYw6rcKpxxxj0y75fPXg@mail.gmail.com>
+From: Donet Tom <donettom@linux.ibm.com>
+In-Reply-To: <324818a5-5169-4822-9364-033f7bed208a@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Authority-Analysis: v=2.4 cv=VvYTxe2n c=1 sm=1 tr=0 ts=6a129815 cx=c_pps
+ a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
+ a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=V8glGbnc2Ofi9Qvn3v5h:22 a=VnNF1IyMAAAA:8
+ a=Wsw0RTbig2Dux1eSHHYA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+X-Proofpoint-ORIG-GUID: ot3-e3DrSb9ZkKzuHz_mujor28iYd2Hm
+X-Proofpoint-GUID: hw2D-UYkM4By4uEMcZw44ERnmlPQcAZw
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTI0MDA2MCBTYWx0ZWRfX9nBO2skluqcW
+ IjjC4ks4To30oxbWAtlmrxzMuQRd10zXH0v/se8dAwhHjTTfMrYcbUy76NaoHbxFchoqLWORncL
+ LaIA/L8XW9sGheIl5G2i7Mj1kl+mWhYFG1XIsYl7HC9dg52tTvXi7YKPRdF1vkLLW2XPCfSLpkX
+ QJ3V8Eu6mk26uW5XUf2WPHzNsLmgdxCWX9j615VyZy4CWhgbtAFc/rRaBIAurXNKRJsAw9IovXd
+ T2sYD6fpN/PHx0TmZQNBX5g8yr8VrTEFIgqIu49GfXEraXrVOV7uSkbMBMrZTYy6Q3VnVOWvDQr
+ Rt/fEDT7fCwxMAyd7NHiMh3TSHEziE46T4lIopJ2O9AwzInPV7E7kXZu6nd5vSma4r1dJ9TidxX
+ oFZZuxQOuqeQmgqc1li7EILIhFL1OCjBpQ7Var3kApafTcZhxx1l74aI0/4frwaVJFctbxAxKDV
+ /ptWso3Ba0QeLrrt1bw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-24_02,2026-05-18_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 phishscore=0 priorityscore=1501 spamscore=0 adultscore=0
+ lowpriorityscore=0 malwarescore=0 impostorscore=0 clxscore=1015 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605240060
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,117 +118,52 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
+On 5/22/26 9:32 PM, Kuehling, Felix wrote:
+>
+> On 2026-05-22 07:28, Donet Tom wrote:
+>> amdgpu_gart_map_vram_range() expects the number of pages (num_pages) in
+>> 4K page units. However, in amdgpu_ttm_map_buffer(), the number of pages
+>> is calculated based on the system page size. On systems with non-4K page
+>> sizes, this results in an incorrect number of pages being passed to
+>> amdgpu_gart_map_vram_range().
+>>
+>> Fix this by calculating the number of pages correctly before passing it
+>> to amdgpu_gart_map_vram_range().
+>>
+>> Signed-off-by: Donet Tom <donettom@linux.ibm.com>
+>> ---
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 1 +
+>>   1 file changed, 1 insertion(+)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c 
+>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+>> index 3d2e00efc741..2904a9400605 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+>> @@ -269,6 +269,7 @@ static int amdgpu_ttm_map_buffer(struct 
+>> amdgpu_ttm_buffer_entity *entity,
+>>           amdgpu_gart_map(adev, 0, num_pages, dma_addr, flags, 
+>> cpu_addr);
+>>       } else {
+>>           u64 pa = mm_cur->start + adev->vm_manager.vram_base_offset;
+>> +        num_pages *= AMDGPU_GPU_PAGES_IN_CPU_PAGE;
+>>             amdgpu_gart_map_vram_range(adev, pa, 0, num_pages, flags, 
+>> cpu_addr);
+>
+> IMO it would be cleaner to change the definition of 
+> amdgpu_gart_map_vram_range to use the same page size as amdgpu_gart_map.
 
-On 5/11/26 6:11 PM, Sebastian Wick wrote:
-> On Sat, Apr 25, 2026 at 12:10 AM Mario Limonciello
-> <mario.limonciello@amd.com> wrote:
->>
->> From: Mario Limonciello (AMD) <superm1@kernel.org>
->>
->> At Display Next Hackfest 2025 we discussed the renewed need for moving
->> brightness control into the DRM connector properties.  I've taken the
->> previous efforts from David and Marta, rebased and adjusted for the
->> current kernel.
-> 
-> Thanks a lot for this!
+Thank you, Felix, for the review.
 
-Sure!
+I will make the suggested changes in amdgpu_gart_map_vram_range() and 
+post a v2 patch.
 
-> 
-> I've wired it up for mutter but I don't have a machine with AMD
-> graphics and an internal panel, so I can't really test it.
-> 
-> https://gitlab.gnome.org/swick/mutter/-/commits/wip/kms-luminance-prop
 
-Awesome!  I have been caught up with a few other things so I haven't 
-been able to give this a shot, but wanted to before the hackfest.
+-Donet
 
-But I have never used a dev version of mutter, so can you give me a 
-little hand holding or pointers?
-
-I was able to build/install your branch into /usr/local.  I otherwise 
-have GNOME 50 set up on this system.
-How do I actually "use" the mutter built from your dev branch?
-
-Will picking GNOME session at my login manager pick mutter from 
-/usr/local or do I need to do anything?
-> 
-> I've also noticed a few things while doing so:
-> 
-> 1. There isn't a bit of information which tells user space if the
-> property is actually backed by anything
-> 2. A fixed range from 0 to uint16_t max might be problematic for
-> backlights with very few steps
-> 
-> Could maybe fix both of those issues by making the range dynamic to
-> the actual numbers of steps, where zero means that there isn't any
-> backing backlight device.
-
-I'll play with this idea and see how well it works.
-> 
->> The legacy sysfs interface is synchronized with the DRM connector (although
->> the scale may be different as DRM connector property is u16).
->>
->> Later after this has been adopted by enough userspace, it may make sense to
->> configure the legacy sysfs interface to be configurable so that only
->> DRM master controls backlight.
->>
->> I've done a first implementation with amdgpu with eDP connectors; but
->> conceivably this can be extended to other connectors like DP for displays
->> that can be controlled via DDC as well later.
->>
->> I have also used DRM review prompts to review this series and fix some bugs
->> which were caught with two different Claude models.  The fixes are squashed
->> into the patches.
->>
->> Assisted-by: Claude Opus
->> Assisted-by: Claude Sonnet
->>
->> For ease of testing; this series is also available on this branch:
->> https://git.kernel.org/pub/scm/linux/kernel/git/superm1/linux.git/log/?h=superm1/backlight-property-v3
->>
->> David Rheinsberg (1):
->>    backlight: add kernel-internal backlight API
->>
->> Mario Limonciello (6):
->>    drm: link connectors to backlight devices
->>    DRM: Add support for client and driver indicating support for
->>      luminance
->>    drm/amd/display: Pass up errors reading actual brightness
->>    drm/amd: Indicate driver supports luminance
->>    drm/amd/display: Allow backlight registration to fail
->>    drm/amd/display: use drm backlight
->>
->> Marta Lofstedt (1):
->>    backlight: expose the current brightness in the new kernel API
->>
->>   drivers/gpu/drm/Kconfig                       |   1 +
->>   drivers/gpu/drm/Makefile                      |   2 +
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       |   1 +
->>   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  88 +++-
->>   drivers/gpu/drm/drm_atomic_uapi.c             |  24 ++
->>   drivers/gpu/drm/drm_backlight.c               | 406 ++++++++++++++++++
->>   drivers/gpu/drm/drm_connector.c               |  12 +
->>   drivers/gpu/drm/drm_drv.c                     |   8 +
->>   drivers/gpu/drm/drm_ioctl.c                   |  10 +
->>   drivers/gpu/drm/drm_mode_config.c             |   7 +
->>   drivers/gpu/drm/drm_mode_object.c             |  66 ++-
->>   drivers/gpu/drm/drm_sysfs.c                   |  54 +++
->>   drivers/video/backlight/backlight.c           |  83 ++++
->>   include/drm/drm_backlight.h                   |  45 ++
->>   include/drm/drm_connector.h                   |   8 +
->>   include/drm/drm_drv.h                         |   7 +
->>   include/drm/drm_file.h                        |   8 +
->>   include/drm/drm_mode_config.h                 |   5 +
->>   include/linux/backlight.h                     |  30 ++
->>   include/uapi/drm/drm.h                        |  10 +
->>   20 files changed, 852 insertions(+), 23 deletions(-)
->>   create mode 100644 drivers/gpu/drm/drm_backlight.c
->>   create mode 100644 include/drm/drm_backlight.h
->>
->> --
->> 2.53.0
->>
-> 
-> 
-
+>
+> Regards,
+>   Felix
+>
+>
+>>       }
