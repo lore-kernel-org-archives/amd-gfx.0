@@ -4,51 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 18C4CCD5BB8
-	for <amd-gfx@archiver.kernel.org>; Sat, 23 May 2026 14:39:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E01BCCD5BB8
+	for <amd-gfx@archiver.kernel.org>; Sun, 24 May 2026 02:14:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AE65E10E30E;
-	Sat, 23 May 2026 14:39:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 754F610E073;
+	Sun, 24 May 2026 02:14:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ubuntu.com header.i=@ubuntu.com header.b="V+dtONP3";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Nz5DbKvD";
 	dkim-atps=neutral
-Received: from smtp.forwardemail.net (smtp.forwardemail.net [121.127.44.66])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4F08A10E30A
- for <amd-gfx@lists.freedesktop.org>; Sat, 23 May 2026 14:39:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ubuntu.com;
- h=In-Reply-To: References: Cc: To: From: Subject: Message-Id: Date:
- Content-Type: Content-Transfer-Encoding: Mime-Version; q=dns/txt;
- s=fe-953a8a3ca9; t=1779547190;
- bh=Pn12cVETERiqXM/KtCikTRcu1bEOhJ+MYUmkPE9RJvM=;
- b=V+dtONP3hbKIse3VBgIr2jJNubEvlcUj15geYJWmHLVz73CK6R26i/S7jXOJODC+Ev2hkmyFB
- mVWBKDdFc1P/lZY1A7PzvP0+4NfY8yk2xSbe1AOxgzYHnXGnHQMe8bvEVtLfh57QV+spZHmw9uY
- KsyWTH1QBil6zohtoSaGJBVh2KKQimpV2z5eOYKHNlw5R0nwuU/f3N0fXBZrK120ltCUUNgueKa
- Qde4VOsHOm+1GrKlgDfMzm8zsjBSgIWGHkH3wPkCqDg2bbJncVIhs0BZ0OeET4twgsDOPy9oUB4
- 0SsOtyQNgljbfBFFGSlZPio8WfXBt28PbxjxLc1pBk6w==
-X-Forward-Email-ID: 6a11bc340f40c56579f094b2
-X-Forward-Email-Sender: rfc822; jpeisach@ubuntu.com, smtp.forwardemail.net,
- 121.127.44.66
-X-Forward-Email-Version: 2.8.15
-X-Forward-Email-Website: https://forwardemail.net
-X-Complaints-To: abuse@forwardemail.net
-X-Report-Abuse: abuse@forwardemail.net
-X-Report-Abuse-To: abuse@forwardemail.net
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8; format=Flowed
-Date: Sat, 23 May 2026 10:39:47 -0400
-Message-Id: <DIQ4TW7HUOSA.2U038AIIZP1IW@ubuntu.com>
-Subject: Re: [PATCH NEXT 1/2] drm/radeon/radeon_connectors: use struct
- drm_edid instead of struct edid
-From: "Joshua Peisach" <jpeisach@ubuntu.com>
-To: "Joshua Peisach" <jpeisach@ubuntu.com>, <amd-gfx@lists.freedesktop.org>,
- <dri-devel@lists.freedesktop.org>
-Cc: "Alex Deucher" <alexander.deucher@amd.com>,
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-X-Mailer: aerc 0.21.0
-References: <20260523142748.50034-1-jpeisach@ubuntu.com>
- <20260523142748.50034-2-jpeisach@ubuntu.com>
-In-Reply-To: <20260523142748.50034-2-jpeisach@ubuntu.com>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 81E8B10E073;
+ Sun, 24 May 2026 02:14:53 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 40DDA42B26;
+ Sun, 24 May 2026 02:14:53 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 68A461F000E9;
+ Sun, 24 May 2026 02:14:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1779588893;
+ bh=G5R/Msk4mdpDZchRzMLag6qpLqWVwDUZRhGt+9XswAU=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To;
+ b=Nz5DbKvDsy3l8olga2/R4cLLUAEmJ3wCPdbMdVRC4/pvVL76tZr6fJshjg0pJktaF
+ 8+BtbmQ5A1RfEwRPp/EyPCOzjTsfW5ygkBIxxcXJUtxP9fqwDCmPj3fJxgAAEL5K8F
+ 4AxmdO0yCzCDyBauu8/Tccp8eedsnmrJh+Ku2DQddd1DWgc8jzT/rNx0j9rN24Nj4O
+ 39sBSZU726hg2NiaKf2r97VTLsOjB0nIRYm5rMP93qhiXhY/UlUJu1fzTkKZod883f
+ p4A04VQIoctrfwVJgPBNKfWj6JhKy2ko/kg9/vHtuSpKZ9PxQQJmecxPT6Eo/a18l/
+ 8CWysG5BqszgQ==
+Message-ID: <ece17b5e-143e-4196-8b07-57efff2e3954@kernel.org>
+Date: Sat, 23 May 2026 21:14:51 -0500
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 0/8] Add support for a DRM backlight capability
+To: Sebastian Wick <sebastian.wick@redhat.com>,
+ Mario Limonciello <mario.limonciello@amd.com>
+Cc: dri-devel@lists.freedesktop.org, harry.wentland@amd.com,
+ Xaver Hugl <xaver.hugl@gmail.com>, amd-gfx@lists.freedesktop.org
+References: <20260424220953.167058-1-mario.limonciello@amd.com>
+ <CA+hFU4wEODFP=oPw522MyQs1asGq+KyYw6rcKpxxxj0y75fPXg@mail.gmail.com>
+Content-Language: en-US
+From: Mario Limonciello <superm1@kernel.org>
+In-Reply-To: <CA+hFU4wEODFP=oPw522MyQs1asGq+KyYw6rcKpxxxj0y75fPXg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,38 +60,118 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Sat May 23, 2026 at 10:27 AM EDT, Joshua Peisach wrote:
-> @@ -280,19 +280,19 @@ static void radeon_connector_get_edid(struct drm_co=
-nnector *connector)
->  		if ((dig->dp_sink_type =3D=3D CONNECTOR_OBJECT_ID_DISPLAYPORT ||
->  		     dig->dp_sink_type =3D=3D CONNECTOR_OBJECT_ID_eDP) &&
->  		    radeon_connector->ddc_bus->has_aux)
-> -			radeon_connector->edid =3D drm_get_edid(&radeon_connector->base,
-> -							      &radeon_connector->ddc_bus->aux.ddc);
-> +			radeon_connector->edid =3D drm_edid_read_ddc(&radeon_connector->base,
-> +								   &radeon_connector->ddc_bus->aux.ddc);
->  		else if (radeon_connector->ddc_bus)
-> -			radeon_connector->edid =3D drm_get_edid(&radeon_connector->base,
-> -							      &radeon_connector->ddc_bus->adapter);
-> +			radeon_connector->edid =3D drm_edid_read_ddc(&radeon_connector->base,
-> +								   &radeon_connector->ddc_bus->adapter);
->  	} else if (vga_switcheroo_handler_flags() & VGA_SWITCHEROO_CAN_SWITCH_D=
-DC &&
->  		   connector->connector_type =3D=3D DRM_MODE_CONNECTOR_LVDS &&
->  		   radeon_connector->ddc_bus) {
-> -		radeon_connector->edid =3D drm_get_edid_switcheroo(&radeon_connector->=
-base,
-> -								 &radeon_connector->ddc_bus->adapter);
-> +		radeon_connector->edid =3D drm_edid_read_switcheroo(&radeon_connector-=
->base,
-> +								  &radeon_connector->ddc_bus->adapter);
->  	} else if (radeon_connector->ddc_bus) {
-> -		radeon_connector->edid =3D drm_get_edid(&radeon_connector->base,
-> -						      &radeon_connector->ddc_bus->adapter);
-> +		radeon_connector->edid =3D drm_edid_read_ddc(&radeon_connector->base,
-> +							   &radeon_connector->ddc_bus->adapter);
->  	}
-> =20
 
-Question: For all of these, should we actually call with connector
-instead of &radeon_connector->base?
+
+On 5/11/26 6:11 PM, Sebastian Wick wrote:
+> On Sat, Apr 25, 2026 at 12:10 AM Mario Limonciello
+> <mario.limonciello@amd.com> wrote:
+>>
+>> From: Mario Limonciello (AMD) <superm1@kernel.org>
+>>
+>> At Display Next Hackfest 2025 we discussed the renewed need for moving
+>> brightness control into the DRM connector properties.  I've taken the
+>> previous efforts from David and Marta, rebased and adjusted for the
+>> current kernel.
+> 
+> Thanks a lot for this!
+
+Sure!
+
+> 
+> I've wired it up for mutter but I don't have a machine with AMD
+> graphics and an internal panel, so I can't really test it.
+> 
+> https://gitlab.gnome.org/swick/mutter/-/commits/wip/kms-luminance-prop
+
+Awesome!  I have been caught up with a few other things so I haven't 
+been able to give this a shot, but wanted to before the hackfest.
+
+But I have never used a dev version of mutter, so can you give me a 
+little hand holding or pointers?
+
+I was able to build/install your branch into /usr/local.  I otherwise 
+have GNOME 50 set up on this system.
+How do I actually "use" the mutter built from your dev branch?
+
+Will picking GNOME session at my login manager pick mutter from 
+/usr/local or do I need to do anything?
+> 
+> I've also noticed a few things while doing so:
+> 
+> 1. There isn't a bit of information which tells user space if the
+> property is actually backed by anything
+> 2. A fixed range from 0 to uint16_t max might be problematic for
+> backlights with very few steps
+> 
+> Could maybe fix both of those issues by making the range dynamic to
+> the actual numbers of steps, where zero means that there isn't any
+> backing backlight device.
+
+I'll play with this idea and see how well it works.
+> 
+>> The legacy sysfs interface is synchronized with the DRM connector (although
+>> the scale may be different as DRM connector property is u16).
+>>
+>> Later after this has been adopted by enough userspace, it may make sense to
+>> configure the legacy sysfs interface to be configurable so that only
+>> DRM master controls backlight.
+>>
+>> I've done a first implementation with amdgpu with eDP connectors; but
+>> conceivably this can be extended to other connectors like DP for displays
+>> that can be controlled via DDC as well later.
+>>
+>> I have also used DRM review prompts to review this series and fix some bugs
+>> which were caught with two different Claude models.  The fixes are squashed
+>> into the patches.
+>>
+>> Assisted-by: Claude Opus
+>> Assisted-by: Claude Sonnet
+>>
+>> For ease of testing; this series is also available on this branch:
+>> https://git.kernel.org/pub/scm/linux/kernel/git/superm1/linux.git/log/?h=superm1/backlight-property-v3
+>>
+>> David Rheinsberg (1):
+>>    backlight: add kernel-internal backlight API
+>>
+>> Mario Limonciello (6):
+>>    drm: link connectors to backlight devices
+>>    DRM: Add support for client and driver indicating support for
+>>      luminance
+>>    drm/amd/display: Pass up errors reading actual brightness
+>>    drm/amd: Indicate driver supports luminance
+>>    drm/amd/display: Allow backlight registration to fail
+>>    drm/amd/display: use drm backlight
+>>
+>> Marta Lofstedt (1):
+>>    backlight: expose the current brightness in the new kernel API
+>>
+>>   drivers/gpu/drm/Kconfig                       |   1 +
+>>   drivers/gpu/drm/Makefile                      |   2 +
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       |   1 +
+>>   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  88 +++-
+>>   drivers/gpu/drm/drm_atomic_uapi.c             |  24 ++
+>>   drivers/gpu/drm/drm_backlight.c               | 406 ++++++++++++++++++
+>>   drivers/gpu/drm/drm_connector.c               |  12 +
+>>   drivers/gpu/drm/drm_drv.c                     |   8 +
+>>   drivers/gpu/drm/drm_ioctl.c                   |  10 +
+>>   drivers/gpu/drm/drm_mode_config.c             |   7 +
+>>   drivers/gpu/drm/drm_mode_object.c             |  66 ++-
+>>   drivers/gpu/drm/drm_sysfs.c                   |  54 +++
+>>   drivers/video/backlight/backlight.c           |  83 ++++
+>>   include/drm/drm_backlight.h                   |  45 ++
+>>   include/drm/drm_connector.h                   |   8 +
+>>   include/drm/drm_drv.h                         |   7 +
+>>   include/drm/drm_file.h                        |   8 +
+>>   include/drm/drm_mode_config.h                 |   5 +
+>>   include/linux/backlight.h                     |  30 ++
+>>   include/uapi/drm/drm.h                        |  10 +
+>>   20 files changed, 852 insertions(+), 23 deletions(-)
+>>   create mode 100644 drivers/gpu/drm/drm_backlight.c
+>>   create mode 100644 include/drm/drm_backlight.h
+>>
+>> --
+>> 2.53.0
+>>
+> 
+> 
+
