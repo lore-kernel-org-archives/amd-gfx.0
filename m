@@ -4,101 +4,87 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B6331CD6E44
-	for <amd-gfx@archiver.kernel.org>; Tue, 26 May 2026 07:53:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 98C46CD6E47
+	for <amd-gfx@archiver.kernel.org>; Tue, 26 May 2026 07:53:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3B1B310E572;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 10FFF10E569;
 	Tue, 26 May 2026 07:53:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ZUYr4wL/";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="fXq/CoBq";
 	dkim-atps=neutral
-Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com
- [209.85.218.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7166810E463
- for <amd-gfx@lists.freedesktop.org>; Thu, 21 May 2026 10:33:22 +0000 (UTC)
-Received: by mail-ej1-f48.google.com with SMTP id
- a640c23a62f3a-b936331786dso766034666b.3
- for <amd-gfx@lists.freedesktop.org>; Thu, 21 May 2026 03:33:22 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1779359601; cv=none;
+Received: from mail-oa1-f51.google.com (mail-oa1-f51.google.com
+ [209.85.160.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BB4D110E0B8
+ for <amd-gfx@lists.freedesktop.org>; Sun, 24 May 2026 06:38:53 +0000 (UTC)
+Received: by mail-oa1-f51.google.com with SMTP id
+ 586e51a60fabf-43496e6a964so6285322fac.2
+ for <amd-gfx@lists.freedesktop.org>; Sat, 23 May 2026 23:38:53 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1779604733; cv=none;
  d=google.com; s=arc-20240605;
- b=Mi25QMlgSEvv2Vc+dOpmrjwYQ62abb/JqNWsgP6dBYx5xQk7IWIxPj4JoEY0ggG1ni
- zqg8GiGbGwtETcZWi4hG2LLI0+VnSjhSL/ScOIgAO3fyPIjpj0n69eM+0DEbW3fZiQSm
- 6THodKgpE83w2gIEL1f8Dix/4H1pxy3ax7z29fuaBnkosP3ieCqWIE85bbDTwxfzLnG5
- akFQn2ZtcO6h/8ZNMXq8vO663J8BpUSzE/B3R1DP+g93PvdJ3aokV7bClztgzG3d5uev
- wg2SKZFnD3rZSQTCzzNrPqvgzGXtxhdjwI9s/RlaxdImKc6D14w/fjm2HBK5aDUwXRCH
- hXxA==
+ b=V7GauR5XZ9xEYhsUUKp+NhVi0WzWYqoHWRiEbg5ft+GopbtQosbfajbo58Q3chNtdq
+ n2ZQbDcHvvd7jHDjqtU+cLq1C4ovSn+3OrXbvubjD9PA8QLlmpUrm3X1Bo3LmDtAsTqP
+ JkTyV9k15dGAOX3/ZVFBb5cxNNTFsjQMNCXxLPx+YU3N3lYA3EHPgSES1LbgifpMkRyK
+ 05bP7lSW0EitO+h+gOBxVtX3OqnzYLMuAiDkMQ2ogLR05a/WMJCfqMegFBP6XV6Bpsv1
+ oMzuy+L3C19uaqujPvBbHU4d4Iyv63A/6a9GIyNdJ1mFiFY28J7ZAoKdgYZk7zP7C4gf
+ PXxw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=IThpfbJj5lVx9bX19w2rDZ86dOF54I7D/VpHa207rl0=;
- fh=RxqLTf8TMniqfsNK/PDUt8EyIszaKkngpmxKDoAR9IQ=;
- b=HZ6mU9+Sd14ULLpbtNMtOo0/TanGY/cJ3imYBPpbUCUhHbY885nYumEkIEEeRANnzM
- AaGnTeCiT4yYrAfk8nb/rYBmz/FMCL9n8JTilY84FgaaeP+U/6/neDanA1ApRHcKZ48G
- 91xsIrQV2A+hw95dxpI9jgMwEZXjV3HN3hIPhpr5EEfwU/RSJYTgg88cfOBAyHmfhmBg
- KirMglxWEGWnw6j9DNA2o1gGHTc1PjG/qZ6OmQAie0jFsCSC8xxr5VI0YS1bnBtY0KVL
- Rw0yxiBF6vYVbzJPKDwgeHmn4zjYiK6tZRs0y5iy70mi3iCTO+600T7xW+6UDuEsT82I
- tcGw==; darn=lists.freedesktop.org
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:dkim-signature;
+ bh=QaMfln2ByBFUQ+J3B2UtN1L1gX2XLG038KWWEXFitTI=;
+ fh=ek6b5uMEeNDVeRr9FvJqwX5rAOxeGnLDMnth00heuWE=;
+ b=bzXf8flQu7/DHFD1WKm4iQlbrK1nMhc0UtfsvOB9fOwrCPeE9W6USC2lph1c+ezmEf
+ nXL9+ebphoDoQUsF5O+gXNyLMN0WCBjOtCmRTamKfZyj6yq8OgziUtHjIk84jYGE9mTs
+ FtMaBf2Kz8IcoBCKABbZnBEhfeqAmRQBrBxpAxYzj08Q+xmNftwHFs1z9uy4iw9I8aox
+ 2qDPEkio+XlijlirpVkOAmDhbvosvc+MN8Sf6IexCeW7fZxog/SCtvbThm/M6VebQyt5
+ XXVLg59tdByJ2CG9sFqoB2AePcP1h68r3ovehCXNkf4jtwlcWvbmlBZHCmDmow+jE0yJ
+ AJkQ==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1779359601; x=1779964401; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=IThpfbJj5lVx9bX19w2rDZ86dOF54I7D/VpHa207rl0=;
- b=ZUYr4wL/PgdWCEAdRs0w5TteD02have3uM1xgSbLPIwFKouDDeZbAnaStPmd4p5Ep6
- yQ0VICNypaUkFfX0cK+DyUy3KLve0moKvQPQ+z0k0a/mw8PERXdBA2TmBVR3nzxgArBA
- OwzZWOTq1CV32wvDVoplaoH575vOh3WMr2sGNzyPwf8qbkS4f2KZllEpoKHGbZF7kG5w
- KBFZFnp6JGaNYPei6yB/bCyDJdyp1lpNyq/0MlfxQqw6MSepJbftWN1K1zkUnDSEgaKJ
- /guVzkqwRGh/L7IGn1Oq/wDoWHy7jlqmG6KApbIFjOq+KLb+yhG24AwokXmKFwXgDDco
- 98UA==
+ d=gmail.com; s=20251104; t=1779604733; x=1780209533; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=QaMfln2ByBFUQ+J3B2UtN1L1gX2XLG038KWWEXFitTI=;
+ b=fXq/CoBqb5HWMDkhLsfZL35NNC37EQb0Wk+AJNGXljZamyhVG2RheB3rWp9EHKDu/h
+ mfmPd4mksotE6xk8kCYgbO3jKHtSv+F+8HtMUdQILmmr1xtrP72AJMgqhJ8UqQOiolAV
+ zmoL+1YC3eKmxoHqnAYCRMpso1+tLvdercqftZ0K2vnJxANWAlVngvhKpUbcaTCS2Fxf
+ lXHnDQ/W3lpEph5nA4Pf5+oi0ElilUv8LbIuRIF+IODa4ug4snDplReCx02n1IaUbP7O
+ paov4nkSQMNk+vqVVtjjGbasckwPqp1y5q5A7lOkRcXtpS+8VKxEUdDbLQubw52wXlz2
+ orTw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779359601; x=1779964401;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=IThpfbJj5lVx9bX19w2rDZ86dOF54I7D/VpHa207rl0=;
- b=kal3y8WXzKGNZ8KrG6dYA06c9N/uJDYmmKRrr/LdmfX5EQnPaJ3jeDyeninkz6OOq4
- svcsAiPyQooUQU8z5+vpaH23sdIkIzxsVTpd6aOG/yUIpaCC0AGv9tm8G1p39A/PujBe
- Cb56t3qX22SfXQ2sKIJue3islVM1mwT6aFsEdqROQf6xtzFHbjYtrMWsRwkyiMyvIT/4
- a5T4Tcwg77xA2pY7LWAfMucvHI/JC+8QDvj3TOuzCX+VD7QKgzFBtM+M39s1/W62KbUv
- NpfWHQQpYaDFcET6URisrCJrMG8NyM5Bzfe3uVS3cWY6D6o7RnNIV5sq7rU5Qj0XPkEd
- PA7g==
-X-Forwarded-Encrypted: i=1;
- AFNElJ9LGbW2B22AafSIKLyy/bLQMNmiQ41bRa93t4UDzzvp01QYMb9rFpW4sXWdruh3tT6Xj3TejacF@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzOmfv/6F7hhVKA7aOH5C06JddvJWSnZ+ZRHcq/EG0WzXz5PGg4
- A3o46AuPtzW26T5V7uvoOc5PR5TCSc+wWGp4oLqp3ieBAprkQ5S1uofHrqsSNTzNswQDbJ2c7md
- mhT4zCl57PrLl7O3viJbJXo+m3Ku3rTs=
-X-Gm-Gg: Acq92OGwvGQvN+buFqCVUEbHKiI+OBh01uanNtnF8cQr990hrjiWPSheWi4S4b++ogN
- an/j07nG3PfuhigyWkoPZuccLOzEOrKX3dR//l1p6Rhf1dMPP6MiiO3OasPoTQzk8guipnMKaNt
- nrYazonnBIbkitWW0JhcH21xy+V29Y2QTQNgKyyGKSX3KWXKwnC9xTy47mu9RoftulZ4JUgq07j
- zYocZ2gEifMr5q8+oQzk2blrnP+ml7CEYxjYFRPMe1B0wtC3h1UUXbrG7nAo/fiorIu8nqw7NYJ
- laEry3b7Q8jQSUrGjAhaNxpNeTvPfXKMJWVJ4Ds=
-X-Received: by 2002:a17:907:c389:b0:bcc:9130:69ee with SMTP id
- a640c23a62f3a-bdc1407e248mr135759066b.32.1779359600593; Thu, 21 May 2026
- 03:33:20 -0700 (PDT)
+ d=1e100.net; s=20251104; t=1779604733; x=1780209533;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=QaMfln2ByBFUQ+J3B2UtN1L1gX2XLG038KWWEXFitTI=;
+ b=j0vcTTU6VGkFrPPRA7SWTEA2cZRIgiN+zH9C/fGAzvZgBIr10GHZ+MoWnKCgxpsFZv
+ Z6/THrjo/p0OaprkD2xYKw00SiRyKbNMaTTcfGhW3mS8IPfxzC6DJkDI6ieTwYGYR6M/
+ AE34DAc9nmXQfjvlKa2vLZLaS3mVMrfgjyKYVjbMg+5YARpRjavRf3zKdFkUEyPvb5Mx
+ jI4i3RZ5LqvafcrPm19VqsDR8XIftGQJhZ5SzQ7DndK6xb5FBaC8o6Re+GURXPWt/iTt
+ f5z/nuBsVdDhu2nN9AKYh20dAIfKS+Ov9zZvQ5IhxcHhkAzdJuIktQuBroiX7L1rssnb
+ KVLg==
+X-Gm-Message-State: AOJu0Yz6FZ05pOkbJzqSyFq3YY+OuxsE2vbabvwLkj7Exuy01edv9qwV
+ dzYkuwcryYQkRe5Q5pZJ0nEbbB8hDa5qPnlwSEx9mrbpwSlCNQy8W3WCcLnZtumhL29PpUD+GHi
+ Axp3fD7k+jqzNFwNtrYUM32ZlDPaIxYYk2CzFzHU=
+X-Gm-Gg: Acq92OHZ+i+pNRWrjz7qZcGD7DM39eOYtUTYg5lK58Z5XUvDeShp228lCO4WSnFmLMJ
+ vqyG4VHVGzWap147lCwNEltKejcFq6QrVuDNjV/bleVvYTHJRchs5BkMNAZe2lBZjKyiFyOEwxo
+ 26IygytvEPPEa6hFcXjcQwSp9C3RNnO2tlIYV8uaDjMxwBiEF5uRgksGNRdeSv5fk4PBEfqe3VK
+ UTgDuiNmYg6lS3SV6IvKTqG9vYUKjZ06KnrpuiPz1CwUh5OU4R9S6TgphOrZ5NweL7jyW+Ovp08
+ lLaVSvWLxia046H29XvDa+i2inPYBaL4KjjP9KR6XwHZLP6C2Nno
+X-Received: by 2002:a05:6870:c292:b0:41b:e633:baf4 with SMTP id
+ 586e51a60fabf-43b5a9a2430mr6262543fac.3.1779604732811; Sat, 23 May 2026
+ 23:38:52 -0700 (PDT)
 MIME-Version: 1.0
-References: <20260520225245.2962-1-spasswolf@web.de>
- <fnrz73n5jojl2wlbgrsjdtu5zuwykwbcjzznaijbquuovpoand@i6ihdqn7a6zv>
- <s7cu3dpioidx6mepmai6eyj2pxjs4skbw7v534zbzs6g2fwcis@cvokidcxy3xa>
- <4f548d61b2dd12e01f401ce4b8c865f238f7b23c.camel@web.de> <878q9dvzh0.ffs@tglx>
- <50e5e76bc13256e3f5b3301e92f159957c3d6762.camel@web.de>
-In-Reply-To: <50e5e76bc13256e3f5b3301e92f159957c3d6762.camel@web.de>
-From: Mateusz Guzik <mjguzik@gmail.com>
-Date: Thu, 21 May 2026 12:33:08 +0200
-X-Gm-Features: AVHnY4Jje4HjIBnLpcbAm9vbr6lITbDpMmmHM3YkFG9Qov4_XQBMx4ast0LHC-8
-Message-ID: <CAGudoHGk1CP3gRQLCV85AFHKx6vBEyKySOn4J+AZVAP2FkrN3g@mail.gmail.com>
-Subject: Re: context switch within RCU read-side critical section in
- next-20260518+ with PREEMPT_RT
-To: Bert Karwatzki <spasswolf@web.de>
-Cc: Thomas Gleixner <tglx@linutronix.de>,
- Christian Brauner <brauner@kernel.org>, linux-kernel@vger.kernel.org, 
- linux-next@vger.kernel.org, linux-rt-devel@lists.linux.dev, 
- linux-fsdevel@vger.kernel.org, adobriyan@gmail.com, jack@suse.cz, 
- viro@zeniv.linux.org.uk, Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
- Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+References: <20260519084158.72960-1-timur.kristof@gmail.com>
+In-Reply-To: <20260519084158.72960-1-timur.kristof@gmail.com>
+From: Jeremy Klarenbeek <jeremy.klarenbeek99@gmail.com>
+Date: Sun, 24 May 2026 08:38:41 +0200
+X-Gm-Features: AVHnY4IbV09zlnkTeMoe1rVsbwWJGog2myT2i81SQicCmWsTA4wyut9YZiVN53E
+Message-ID: <CAOGA6Hix7yPkF2o3hapz9zfpRZ5HHjaaJuDcyWjp+Aoihxf9-A@mail.gmail.com>
+Subject: Re: [PATCH 0/5] drm/amd/pm: Fix laptop issues on SMU6-7
+To: amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com
+Cc: timur.kristof@gmail.com
+Content-Type: multipart/alternative; boundary="000000000000f09e1d06528a83a1"
 X-Mailman-Approved-At: Tue, 26 May 2026 07:53:08 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -114,129 +100,138 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, May 21, 2026 at 12:22=E2=80=AFPM Bert Karwatzki <spasswolf@web.de> =
+--000000000000f09e1d06528a83a1
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+Apologies for my late reply. I tested the patch series (SI laptop
+1002:6606) and the problem remains where the clock speeds don't boost upon
+switching to AC. Timur and I investigated this and found 2 problems:
+
+1. It seems that it is necessary after all to recompute clock speeds when
+toggling AC/DC. Sending PPSMC_MSG_RunningOnAC on its own has no effect.
+Each ASIC family's apply_state_adjust_rules appears to be responsible for
+the switch by setting the max_limits, and this function is only called as
+part of computing clocks. I'm considering removing the .notify_ac_dc field
+from the IP block entirely and just calling .pm_compute_clocks from
+amdgpu_pm_acpi_event_handler, but I only know for certain that this works
+for my GPU.
+2. The ATOM_PP_PLATFORM_CAP_HARDWAREDC flag is enabled for my GPU, causing
+PPSMC_MSG_RunningOnAC to never be sent. Either the flag is enabled
+erroneously, or we're interpreting its intended usage incorrectly.
+
+Unfortunately we're a bit stumped without either having documentation or a
+stack of old laptops and could use some guidance on how to best proceed.
+Thankfully the merged series doesn't seem to be causing any regressions at
+least. I am currently running this workaround patch on top of the original
+5:
+https://github.com/luisfonsivevo/linux/commit/d74aa4e6fe4212c0a90467c45646b=
+d138cea9a9d
+
+On Tue, May 19, 2026 at 10:42=E2=80=AFAM Timur Krist=C3=B3f <timur.kristof@=
+gmail.com>
 wrote:
+
+> Fix various issues with the clocks stuck on SI
+> laptop dGPUs:
 >
-> Am Donnerstag, dem 21.05.2026 um 12:17 +0200 schrieb Thomas Gleixner:
-> > On Thu, May 21 2026 at 11:20, Bert Karwatzki wrote:
-> > > Am Donnerstag, dem 21.05.2026 um 11:09 +0200 schrieb Mateusz Guzik:
-> > >
-> > > with next-20260519 (no RT, no LOCKDEP) and got no crash so far (4 boo=
-ts only though (next-20260619
-> > > crashed in 2 out of 3 boots without RT)) but I get this warning on ev=
-ery boot:
-> > >
-> > > [    2.793416] [    T331] ------------[ cut here ]------------
-> > > [    2.793433] [    T331] DEBUG_LOCKS_WARN_ON(lock->magic !=3D lock)
-> > > [    2.793434] [    T331] WARNING: kernel/locking/mutex.c:625 at __mu=
-tex_lock+0x586/0x10c0, CPU#17: (udev-worker)/331
-> >
-> > So either the mutex is corrupted or was never initialized.
-> >
-> > > [    2.793463] [    T331] Modules linked in: amdgpu(+) hid_generic us=
-bhid drm_client_lib i2c_algo_bit drm_buddy hid drm_ttm_helper ttm drm_exec
-> > > drm_suballoc_helper mfd_core drm_panel_backlight_quirks gpu_sched amd=
-xcp drm_display_helper drm_kms_helper ahci libahci xhci_pci libata xhci_hcd=
- drm nvme
-> > > scsi_mod igc usbcore nvme_core scsi_common video nvme_keyring i2c_pii=
-x4 cec nvme_auth usb_common crc16 i2c_smbus wmi gpio_amdpt gpio_generic
-> > > [    2.793518] [    T331] CPU: 17 UID: 0 PID: 331 Comm: (udev-worker)=
- Not tainted 7.1.0-rc4-next-20260519-rcunortlockdep-dirty #465 PREEMPT
-> > > [    2.793534] [    T331] Hardware name: ASUS System Product Name/ROG=
- STRIX B850-F GAMING WIFI, BIOS 1627 02/05/2026
-> > > [    2.793547] [    T331] RIP: 0010:__mutex_lock+0x58d/0x10c0
-> > > [    2.793555] [    T331] Code: 4c 8b 4d 88 85 c0 0f 84 f8 fa ff ff 4=
-4 8b 15 ca 9b 81 00 45 85 d2 0f 85 e8 fa ff ff 48 8d 3d 1a 57 82 00 48 c7 c=
-6 a6 51 9e 83
-> > > <67> 48 0f b9 3a 4c 8b 4d 88 e9 cc fa ff ff 48 8b bd 78 ff ff ff e8
-> > > [    2.793579] [    T331] RSP: 0018:ffffa497016c3510 EFLAGS: 00010246
-> > > [    2.793588] [    T331] RAX: 0000000000000001 RBX: ffff88c33a4c2ad8=
- RCX: 0000000000000000
-> > > [    2.793598] [    T331] RDX: 0000000000000001 RSI: ffffffff839e51a6=
- RDI: ffffffff83de3c00
-> > > [    2.793609] [    T331] RBP: ffffa497016c35c0 R08: ffffffffc0a55d92=
- R09: 0000000000000000
-> > > [    2.793619] [    T331] R10: 0000000000000000 R11: 0000000000000000=
- R12: 0000000000000000
-> > > [    2.793629] [    T331] R13: 0000000000000002 R14: ffffa497016c3550=
- R15: 0000000000268000
-> > > [    2.793641] [    T331] FS:  00007f1f32e5b9c0(0000) GS:ffff88d23b2c=
-a000(0000) knlGS:0000000000000000
-> > > [    2.793653] [    T331] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080=
-050033
-> > > [    2.793662] [    T331] CR2: 000055cdfa28f588 CR3: 0000000112e73000=
- CR4: 0000000000f50ef0
-> > > [    2.793673] [    T331] PKRU: 55555554
-> > > [    2.793678] [    T331] Call Trace:
-> > > [    2.793683] [    T331]  <TASK>
-> > > [    2.793687] [    T331]  ? lock_acquire+0xbe/0x2d0
-> > > [    2.793696] [    T331]  ? init_mqd+0x122/0x190 [amdgpu]
-> > > [    2.793809] [    T331]  ? lock_release+0xc6/0x2a0
-> > > [    2.793816] [    T331]  ? init_mqd+0x122/0x190 [amdgpu]
-> > > [    2.793902] [    T331]  init_mqd+0x122/0x190 [amdgpu]
-> > > [    2.793961] [    T331]  init_mqd_hiq+0xd/0x20 [amdgpu]
-> > > [    2.794015] [    T331]  kq_initialize.constprop.0+0x2b8/0x370 [amd=
-gpu]
-> > > [    2.794071] [    T331]  kernel_queue_init+0x3f/0x60 [amdgpu]
-> > > [    2.794125] [    T331]  pm_init+0x6b/0x100 [amdgpu]
-> > > [    2.794178] [    T331]  start_cpsch+0x1d6/0x270 [amdgpu]
-> > > [    2.794234] [    T331]  kgd2kfd_device_init.cold+0x7b9/0xa1a [amdg=
-pu]
-> > > [    2.794365] [    T331]  amdgpu_amdkfd_device_init+0x190/0x260 [amd=
-gpu]
-> >
-> > amdgpu_amdkfd_device_init()
-> >   kgd2kfd_device_init() {
-> >       ....
-> >         init_mqd()
-> >           mutex_lock(... profiler_lock); <- FAIL
-> >
-> >       mutex_init(...profiler_lock);
-> >   }
-> >
-> > Seems the famous graphics CI failed to catch this...
-> >
-> > Thanks,
-> >
-> >         tglx
-> > ---
-> > --- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-> > +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-> > @@ -744,6 +744,9 @@ bool kgd2kfd_device_init(struct kfd_dev
-> >                       KGD_ENGINE_SDMA1);
-> >       kfd->shared_resources =3D *gpu_resources;
-> >
-> > +     kfd->profiler_process =3D NULL;
-> > +     mutex_init(&kfd->profiler_lock);
-> > +
-> >       kfd->num_nodes =3D amdgpu_xcp_get_num_xcp(kfd->adev->xcp_mgr);
-> >
-> >       if (kfd->num_nodes =3D=3D 0) {
-> > @@ -936,9 +939,6 @@ bool kgd2kfd_device_init(struct kfd_dev
-> >
-> >       svm_range_set_max_pages(kfd->adev);
-> >
-> > -     kfd->profiler_process =3D NULL;
-> > -     mutex_init(&kfd->profiler_lock);
-> > -
-> >       kfd->init_complete =3D true;
-> >       dev_info(kfd_device, "added device %x:%x\n", kfd->adev->pdev->ven=
-dor,
-> >                kfd->adev->pdev->device);
+> * vblank mistake when there are no displays connected
+> * forgot to notify SMU about DC->AC switch
+> * inconsistent values in VBIOS
 >
-> Actually, when I test next-20260519 with the improved fix, I do not see
-> the warning from amdgpu.
+> While we are at it, also implement the DC->AC notification
+> for SMU7 as well, which is supposed to work the same way.
+>
+> Jeremy Klarenbeek (2):
+>   drm/amd/pm/si: Fix updating clock limits from power states
+>   drm/amd/pm/si: Notify the SMC when switching to AC
+>
+> Timur Krist=C3=B3f (3):
+>   drm/amd/pm/si: Disregard vblank time when no displays are connected
+>   drm/amd/pm: Rename enable_bapm() to notify_ac_dc()
+>   drm/amd/pm/smu7: Notify SMU7 of DC->AC switch
+>
+>  .../gpu/drm/amd/include/kgd_pp_interface.h    |  2 +-
+>  drivers/gpu/drm/amd/pm/amdgpu_dpm.c           |  8 +--
+>  drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c    |  6 +--
+>  drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c    | 50 ++++++++++++++-----
+>  .../gpu/drm/amd/pm/powerplay/amd_powerplay.c  | 12 +++++
+>  .../drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c   | 15 ++++++
+>  drivers/gpu/drm/amd/pm/powerplay/inc/hwmgr.h  |  1 +
+>  7 files changed, 74 insertions(+), 20 deletions(-)
+>
+> --
+> 2.54.0
+>
 >
 
-Can you please do the following:
-1. go back to the known crashing-tag, add my fix, verify you still get
-the amd splat and then try out the fix provided by Thomas
-2. regardless if the above helps, can you boot a kernel built with
-CONFIG_KASAN=3Dy
+--000000000000f09e1d06528a83a1
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-fwiw I verified my patch works fine with KASAN, including by
-intentionally miscalculating the size of the target buffer and seeing
-a nice splat from it so I'm confident I'm not corrupting anything.
-However, as there are new mallocs + free flying around at early boot,
-it is *plausible* amd was getting zeroed memory without asking for it
-and it worked by accident.
+<div dir=3D"ltr">Apologies for my late reply. I tested the patch series (SI=
+ laptop 1002:6606) and the problem remains where the clock speeds don&#39;t=
+ boost upon switching to AC. Timur and I investigated this and found 2 prob=
+lems:<br><br>1. It seems that it is necessary after all to recompute clock =
+speeds when toggling AC/DC. Sending=C2=A0PPSMC_MSG_RunningOnAC on its own h=
+as no effect. Each ASIC family&#39;s=C2=A0apply_state_adjust_rules appears =
+to be responsible for the switch by setting the max_limits, and this functi=
+on is only called as part of computing clocks. I&#39;m considering removing=
+ the .notify_ac_dc field from the IP=C2=A0block=C2=A0entirely and just call=
+ing=C2=A0.pm_compute_clocks from amdgpu_pm_acpi_event_handler, but I only k=
+now for certain that this works for my GPU.<div>2. The=C2=A0ATOM_PP_PLATFOR=
+M_CAP_HARDWAREDC flag is enabled for my GPU, causing PPSMC_MSG_RunningOnAC =
+to never be sent. Either the flag is enabled erroneously, or we&#39;re inte=
+rpreting its intended usage incorrectly.<br><br>Unfortunately we&#39;re a b=
+it stumped without either having documentation or a stack of old laptops an=
+d could use some guidance on how to best proceed. Thankfully the merged ser=
+ies doesn&#39;t seem to be causing any regressions at least. I am currently=
+ running this workaround patch on top of the original 5:=C2=A0<a href=3D"ht=
+tps://github.com/luisfonsivevo/linux/commit/d74aa4e6fe4212c0a90467c45646bd1=
+38cea9a9d">https://github.com/luisfonsivevo/linux/commit/d74aa4e6fe4212c0a9=
+0467c45646bd138cea9a9d</a></div></div><br><div class=3D"gmail_quote gmail_q=
+uote_container"><div dir=3D"ltr" class=3D"gmail_attr">On Tue, May 19, 2026 =
+at 10:42=E2=80=AFAM Timur Krist=C3=B3f &lt;<a href=3D"mailto:timur.kristof@=
+gmail.com">timur.kristof@gmail.com</a>&gt; wrote:<br></div><blockquote clas=
+s=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid r=
+gb(204,204,204);padding-left:1ex">Fix various issues with the clocks stuck =
+on SI<br>
+laptop dGPUs:<br>
+<br>
+* vblank mistake when there are no displays connected<br>
+* forgot to notify SMU about DC-&gt;AC switch<br>
+* inconsistent values in VBIOS<br>
+<br>
+While we are at it, also implement the DC-&gt;AC notification<br>
+for SMU7 as well, which is supposed to work the same way.<br>
+<br>
+Jeremy Klarenbeek (2):<br>
+=C2=A0 drm/amd/pm/si: Fix updating clock limits from power states<br>
+=C2=A0 drm/amd/pm/si: Notify the SMC when switching to AC<br>
+<br>
+Timur Krist=C3=B3f (3):<br>
+=C2=A0 drm/amd/pm/si: Disregard vblank time when no displays are connected<=
+br>
+=C2=A0 drm/amd/pm: Rename enable_bapm() to notify_ac_dc()<br>
+=C2=A0 drm/amd/pm/smu7: Notify SMU7 of DC-&gt;AC switch<br>
+<br>
+=C2=A0.../gpu/drm/amd/include/kgd_pp_interface.h=C2=A0 =C2=A0 |=C2=A0 2 +-<=
+br>
+=C2=A0drivers/gpu/drm/amd/pm/amdgpu_dpm.c=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0|=C2=A0 8 +--<br>
+=C2=A0drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c=C2=A0 =C2=A0 |=C2=A0 6 +--=
+<br>
+=C2=A0drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c=C2=A0 =C2=A0 | 50 ++++++++=
+++++++-----<br>
+=C2=A0.../gpu/drm/amd/pm/powerplay/amd_powerplay.c=C2=A0 | 12 +++++<br>
+=C2=A0.../drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c=C2=A0 =C2=A0| 15 ++++++<b=
+r>
+=C2=A0drivers/gpu/drm/amd/pm/powerplay/inc/hwmgr.h=C2=A0 |=C2=A0 1 +<br>
+=C2=A07 files changed, 74 insertions(+), 20 deletions(-)<br>
+<br>
+-- <br>
+2.54.0<br>
+<br>
+</blockquote></div>
+
+--000000000000f09e1d06528a83a1--
