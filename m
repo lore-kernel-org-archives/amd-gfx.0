@@ -4,63 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D1E43CD5BDE
-	for <amd-gfx@archiver.kernel.org>; Mon, 25 May 2026 10:06:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D29BFCD5BD0
+	for <amd-gfx@archiver.kernel.org>; Mon, 25 May 2026 11:22:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7328510E141;
-	Mon, 25 May 2026 10:06:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6E43810E0F4;
+	Mon, 25 May 2026 11:22:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="CVZoYFPP";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="h4p4lOqG";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1627210E10C;
- Mon, 25 May 2026 10:06:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
- Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=vW8EALGYTy/WpC33rrQSfEN/yWS4dck6KWQC4Mwe7uo=; b=CVZoYFPPODITDGwU2nf2BEXTWc
- NxgS1V5vYje6wGZaND8lCzoo0poCrsUAel0WjA4vdiYLPkpOuq6kwGAKR9rPvtPy+6p26z+1DuMfd
- V1rUQg6sunlwfWBvu+GWpcURsme2JXfPXjfS2RXPDgGyr1/CnsMkZXcqKx2n20RZYtH4g/PFaTAYi
- y1o4ecIApL4nOGKQeWfCg+7NFRmiBj/2SKpg0WhDZYhq6Z6z/5+5QVgGc9gPzkfFZn4nD/Av59Hrt
- Rb06lxcUeVOcUFQn+5guyMuRdNC4Z+ATZmtIV0k0yKnhrIKa4TwibQxInT9WMgI3MeAXYq0mDIcV9
- YECfcl9Q==;
-Received: from [79.117.146.159] (helo=killbill.home)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wRSBq-007xuT-DV; Mon, 25 May 2026 12:05:42 +0200
-From: Melissa Wen <mwen@igalia.com>
-To: airlied@gmail.com, alexander.deucher@amd.com, christian.koenig@amd.com,
- harry.wentland@amd.com, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, simona@ffwll.ch, siqueira@igalia.com,
- sunpeng.li@amd.com, tzimmermann@suse.de
-Cc: Alex Hung <alex.hung@amd.com>, Simon Ser <contact@emersion.fr>,
- Uma Shankar <uma.shankar@intel.com>,
- Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>,
- Xaver Hugl <xaver.hugl@kde.org>,
- Pekka Paalanen <pekka.paalanen@collabora.com>,
- Louis Chauvet <louis.chauvet@bootlin.com>,
- Matthew Schwartz <matthew.schwartz@linux.dev>,
- amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com,
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Subject: [PATCH v7 4/4] drm/amd/display: use plane color_mgmt_changed to track
- colorop changes
-Date: Mon, 25 May 2026 11:50:01 +0200
-Message-ID: <20260525100524.304263-5-mwen@igalia.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260525100524.304263-1-mwen@igalia.com>
-References: <20260525100524.304263-1-mwen@igalia.com>
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com
+ [209.85.221.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 89E4C10E0F4
+ for <amd-gfx@lists.freedesktop.org>; Mon, 25 May 2026 11:22:08 +0000 (UTC)
+Received: by mail-wr1-f47.google.com with SMTP id
+ ffacd0b85a97d-444826c16ffso8123782f8f.1
+ for <amd-gfx@lists.freedesktop.org>; Mon, 25 May 2026 04:22:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1779708127; x=1780312927; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=TR4eWP7zFCU/FkJrQjiTvGV3X1n9lSJQpAdko06zQKw=;
+ b=h4p4lOqG1dX1EyJZBuJdZYUP2J77CI6dF1jWEbV6xIzTHfwd9t5qD1wWuAOLxMNoaE
+ q1FNoUt4qh92MXgWYrnPFrr5cb9/xm5FiLayu0EDkNAikItTER4lbGDtj24Y7X89yumz
+ qRL9tNqxA02BOe6JnLFLtVmVrt1HQ5h7Nu+O0Aq63z4IKn+XUrHP1rlQWlK8qcyqaCUi
+ Yt7eKEHw3cLpS1yrU/+lZDYpX4GRsHLHC7NUTDl7ZRLlM9kzvpWCPTYJEhSiHGhTBXk2
+ GtmmiHV/Jre5ACwcgbYDkKIW9LtWfkHt81F39gWXNA3/vzmmCcfNfTYU8vn7FvDyek73
+ uiIg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1779708127; x=1780312927;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=TR4eWP7zFCU/FkJrQjiTvGV3X1n9lSJQpAdko06zQKw=;
+ b=O2mWo1JwkzzwuxDeP8qTxkx3G23GEWo7+lGnq6qd17SYk8fUjp/etqGW+gORnbovVr
+ WCDMrI5vuMp9+ILj3FKF4XHeYBDZfPz81Vd1vTky/OCc08GRySf7cBF3w9EffY5pSTm8
+ Kf+o+NRxiGEfX8unLS7kiaGHuGvxFqKb0y787MG8xQf+AcwMA7hC6+oTtWBd4EjaPNFx
+ 4QtmZwGLMbj0s9sWVyBiVOSiMJLUkZksrXU0mlW3Fe03vbqBjDqIz2HfRSoZx7qCxpNY
+ W/0GpYyURPakRFqkT6N/c3yDBL9IUqcfUmVu8YkNJSLzkoFF6GAc8d4n+Z07OkGlwC+q
+ liMA==
+X-Gm-Message-State: AOJu0YybDE1coPYY3w58OLgmwrzvDmSCiOBuM5W0a0lXKWWrBvCIcIWu
+ qT2s8Tgcf1q+tM+IQoUArtJ5TfhqhEfaOVf8h9R3f4kHyXKyE03ZVoM2Zg9X/g==
+X-Gm-Gg: Acq92OFtrmh9tnVVXG3O42YKa1Q+HIFE/Q3Sb4PQQTLfWwQVOaVk6LeN8ztmmD0v89A
+ F5mAg7PshbQk1uhh3jgatPVKY4Eni3HRw3p6esDCebCeRTm85JUMHt8rBxAEsB+POSLk59pGkoQ
+ EqWtGMpJCjjBTgRERwqmwCg68Pag7jeh0Kjn3T7uifWVOdxLjhYuZuf7ZabcfiIYlwbzYXzI4kK
+ R0AUk3oQ39rAZrY6g3WXbgdBmX4mR4IkoHuJhmxNmz6b1//NuZVxWDjPaz+2Me4UZTMFs/9aIde
+ FThfBfayY2hlhUCdp3c1GuBbmRK/U/rBfMOrAhfqCZvqz95movZv4B1NF84yhL4q1we7wJrGiDh
+ dinj6uQeKMh6o/HUMUC9rX2IzZpOll3w8Ur+zHdlSUq4j4XZFkQ/qnraiIc03DZm/y5KJWWtPmG
+ 0Tk/LFtxN3CLDxBzVZzLNuseCRvFD8oFdpuaIMkOPNXOOIEM84VRjIhTUHy7gEqqeq
+X-Received: by 2002:a05:6000:25e1:b0:43d:77f4:7145 with SMTP id
+ ffacd0b85a97d-45eb389d3e1mr24925668f8f.19.1779708126658; 
+ Mon, 25 May 2026 04:22:06 -0700 (PDT)
+Received: from Timur-Hyperion.home (54001290.dsl.pool.telekom.hu.
+ [84.0.18.144]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-45eb6bc5479sm28185624f8f.0.2026.05.25.04.22.05
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 25 May 2026 04:22:06 -0700 (PDT)
+From: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
+To: amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
+ christian.koenig@amd.com, Natalie Vock <natalie.vock@gmx.de>,
+ Mario Limonciello <mario.limonciello@amd.com>
+Cc: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
+Subject: [PATCH] drm/amdgpu: Align amdgpu_gtt_mgr entries to TLB size on all SI
+Date: Mon, 25 May 2026 13:22:04 +0200
+Message-ID: <20260525112204.12604-1-timur.kristof@gmail.com>
+X-Mailer: git-send-email 2.54.0
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -76,42 +85,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Ensure the driver tracks changes in any colorop property of a plane
-color pipeline by using the same mechanism of CRTC color management and
-update plane color blocks when any colorop property changes. It fixes an
-issue observed on gamescope settings for night mode which is done via
-shaper/3D-LUT updates.
+It seems that Pitcairn has the same issues as Tahiti
+with regards to the TLB size. This commit fixes a
+VCE1 FW validation timeout on suspend/resume on Pitcairn.
 
-Reviewed-by: Harry Wentland <harry.wentland@amd.com>
-Signed-off-by: Melissa Wen <mwen@igalia.com>
+Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index d590f0df6abd..36425d9c2a67 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -10198,7 +10198,7 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_commit *state,
- 			continue;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c
+index 02f85802f579..cd0fd77578d1 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c
+@@ -203,7 +203,7 @@ int amdgpu_gtt_mgr_alloc_entries(struct amdgpu_gtt_mgr *mgr,
+ 	int r;
  
- 		bundle->surface_updates[planes_count].surface = dc_plane;
--		if (new_pcrtc_state->color_mgmt_changed) {
-+		if (new_pcrtc_state->color_mgmt_changed || new_plane_state->color_mgmt_changed) {
- 			bundle->surface_updates[planes_count].gamma = &dc_plane->gamma_correction;
- 			bundle->surface_updates[planes_count].in_transfer_func = &dc_plane->in_transfer_func;
- 			bundle->surface_updates[planes_count].gamut_remap_matrix = &dc_plane->gamut_remap_matrix;
-@@ -12024,6 +12024,10 @@ static bool should_reset_plane(struct drm_atomic_commit *state,
- 	if (new_crtc_state->color_mgmt_changed)
- 		return true;
- 
-+	/* Plane color pipeline or its colorop changes. */
-+	if (new_plane_state->color_mgmt_changed)
-+		return true;
-+
- 	/*
- 	 * On zpos change, planes need to be reordered by removing and re-adding
- 	 * them one by one to the dc state, in order of descending zpos.
+ 	/* Align to TLB L2 cache entry size to work around "V bit HW bug" */
+-	if (adev->asic_type == CHIP_TAHITI) {
++	if (adev->family == AMDGPU_FAMILY_SI) {
+ 		alignment = 32 * 1024 / AMDGPU_GPU_PAGE_SIZE;
+ 		num_pages = ALIGN(num_pages, alignment);
+ 	}
 -- 
-2.53.0
+2.54.0
 
