@@ -4,74 +4,97 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6A5C7CD5BB1
-	for <amd-gfx@archiver.kernel.org>; Sun, 24 May 2026 11:32:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DBB1FCD5BAB
+	for <amd-gfx@archiver.kernel.org>; Mon, 25 May 2026 01:08:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D002210E11D;
-	Sun, 24 May 2026 11:32:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6F67610E013;
+	Mon, 25 May 2026 01:08:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="YV+9Om6a";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="RsnzGNNA";
 	dkim-atps=neutral
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com
- [209.85.128.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9D39A10E11D
- for <amd-gfx@lists.freedesktop.org>; Sun, 24 May 2026 11:32:22 +0000 (UTC)
-Received: by mail-wm1-f44.google.com with SMTP id
- 5b1f17b1804b1-4903f7a90d1so21578375e9.2
- for <amd-gfx@lists.freedesktop.org>; Sun, 24 May 2026 04:32:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1779622341; x=1780227141; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
- :reply-to; bh=sB9xgGrJZKURSlZrCf4F0dGYjJQvnBVfot6PTQUJHHk=;
- b=YV+9Om6aDgBhTPsUpdCs30qK+FureBc47zrDaryZXGeR7mbpcxm2HmB6UCftaERiEf
- 2pAgVoZu00b1qMz4zdTKEMWNCucR9GbeBkAw7QuxBkWCjwwf0HJEMwU2ePVQRIZJ13ml
- 35fbXxlxTUSDkZmjSlg0gjC+YvYxCES1vO0tIqRFCYFcOoU/vVwTNSSUUyNTQ4Pvw/rJ
- 6PaSWnEj+Ic0seHnRwaf2dA1zREfEaTok0Lg8Rm39UkRIJItGLQQt7H6BHmetX6cGVNI
- O09jwU/PMyAjdnaPE1XFcebfugK0TPig3qqoN4mTVNzzVy5DgZHLMznmfVgQpdNAn+Gc
- 0gcQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779622341; x=1780227141;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to;
- bh=sB9xgGrJZKURSlZrCf4F0dGYjJQvnBVfot6PTQUJHHk=;
- b=JH6yFd/YvZXYp99mW7B7dJk+CQaeUOBF2p5ZXj4S8ojc3bVkk8UB1wLnYhmBYclnSj
- /Q3mdZlKe52IPTGUDv7Q0vlifvzrrNPTkj4jpWF2DUexkdaMdoJ3Lqkyz/2HKzpmIS0U
- lcU/rapZm7Ci+f5E5yiOr+Dz+Rl8DjuFFft4zCkJncQUSa4a/NTIr63OoROT6ZdX3oA9
- V5uLyLobSwth4Vkb+noIs/0L8Z0RbiAJkYZl6cptCoT5lGH5PUUyNej4p0bdaXNiz0O0
- hDQ3klIGw636TLIPy7Fw2SUZQL9a4zHPUgiYFkr3Vd9HzrSCuiwM6NprJadmhNLp5PwY
- tURw==
-X-Gm-Message-State: AOJu0Yx+EsGWjeE74ZOX5tQKWc9r3DlEQf7LI0ozPGzLdODfI950jYER
- OKhlJzP5yj5I/f16IYHPofq9ssqURrfTLB2UCMWalPxVOrQatSYtHhb094Xeag==
-X-Gm-Gg: Acq92OGqY33XnmA5AjjVsII0Ujk8gla/X69PQ87eXPpO7sH31wgQPW99s45FiKbOA2x
- BKf8ujZ0mkJulhRWqmePqRPspFHydIcH6Zbw6/sVgsbHOe3QWAsrXEHRrlUamsiJarnAx+qEgaY
- 7xr7z1F8LMCGqxGcyst1rWFJqJ+Q99sFnCbiSZ7sXqgZAPd1TwfcU5Rq6HG3UKg6RvjLDIrwC/V
- K/XBNMAXH3GyTxqL+2LKZbzV5uGT4W94I7ljpd32MhUwrSA2Ean7aiU6F2wzrxXEwfGeZToVcgQ
- o+IohMPxD5Zv7YYbemsz7/3qMllyBmOjpdYIpY+dg12zSvKxmsa56jWACsbnvjM7PYX9UrpHHe3
- sqy6YVq/iBhWLB7Gxv/sJZSmCB2Y2nrUS8M569BHzHvW7kyJgptbHE5ZhV2qbMj6I5p/Z+5mjQc
- jzQKat4eRPSWU5r0V9QEpP0RQLx+RJpiiR4MHHGr1uH1Xyc9bAFgxGeJixd6hvD5Lv2zwnGzWn0
- HpsUAUYEsq5lYO4/Eg=
-X-Received: by 2002:a05:600c:5298:b0:48f:e230:1d12 with SMTP id
- 5b1f17b1804b1-490428dd63emr175841625e9.31.1779622340816; 
- Sun, 24 May 2026 04:32:20 -0700 (PDT)
-Received: from timur-hyperion.localnet (54001290.dsl.pool.telekom.hu.
- [84.0.18.144]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-490428e5adcsm66823295e9.21.2026.05.24.04.32.19
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 24 May 2026 04:32:20 -0700 (PDT)
-From: Timur =?UTF-8?B?S3Jpc3TDs2Y=?= <timur.kristof@gmail.com>
-To: amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com,
- Jeremy Klarenbeek <jeremy.klarenbeek99@gmail.com>
-Subject: Re: [PATCH 0/5] drm/amd/pm: Fix laptop issues on SMU6-7
-Date: Sun, 24 May 2026 13:32:19 +0200
-Message-ID: <3626507.sQuhbGJ8Bu@timur-hyperion>
-In-Reply-To: <CAOGA6Hix7yPkF2o3hapz9zfpRZ5HHjaaJuDcyWjp+Aoihxf9-A@mail.gmail.com>
-References: <20260519084158.72960-1-timur.kristof@gmail.com>
- <CAOGA6Hix7yPkF2o3hapz9zfpRZ5HHjaaJuDcyWjp+Aoihxf9-A@mail.gmail.com>
+Received: from CH5PR02CU005.outbound.protection.outlook.com
+ (mail-northcentralusazon11012060.outbound.protection.outlook.com
+ [40.107.200.60])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EB9FD10E013
+ for <amd-gfx@lists.freedesktop.org>; Mon, 25 May 2026 01:08:13 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=CITltSJ7BzPosgUizrkEJoQmyrTPaHkVkVI005djEkMv06G3UM2RqR387tkMtHTdFgFmhZ6lN/VwaDuAuhCU6EaiJ04JsUoqUYuXVJ6kQVZX5ghNGAo7ZlQLDdvqUYsJWcE9x5Wt1AUUOQ0uIG5I+30qkefw57opnIz8g2YHEXXhQfxwEbWCJPqPXnz400aWXM9QYkOombvUYe4xUInmJUM7khx2xNKBo+ln9FPAVid9m0Mf49LHnzDrijTwOZpBFPZ+GD1oCDtyQNIEW9g4Sqx57vp/5nDSRgagUbgzimCbZBo4IsCF/TaYoiFZWl4a1eqiaRS26xnFs/yPG4uFaQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=gAqgoZtWgOWFZm1ArEXrC064RCeEpeuFi9ZZp+shaZ8=;
+ b=IJCeAPpudeT8MDt3bpWTApf6WXX3AUqRG6/XJTehRtnVyX7p2vuuQi48KYh1T6f5FVC8wAJ82rMudtJq/xCOwmVgBeV13mj2esmjTLOF2cdSql5YIzgK0y0KNaqeQUn5AjpguT+T3cIz3zRK9Tb+X74rG8nVA77moECt0GJZ333z+SnC2T9mJV214c5cOBu5qPPWidbcsUW8eV+NuCBJs6i8yFTk4y/e2yvezZBWl+4D5UZ0HI7WAwJLV9C6Querk7VjEbR7xxrIADbA0rZFMNkqX6Ze54oyktPXj9yZgh3PQT/LrVzRyhybjyLmZI1D98ky7SctA07ymyGUcvVsfg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=gAqgoZtWgOWFZm1ArEXrC064RCeEpeuFi9ZZp+shaZ8=;
+ b=RsnzGNNAV9KOp5eWDd22hm+lWEr6qAUC00ySyuBLS4Iayy1H92GjRJj6wq7XV1ybath3BiSXvx9ZNsnykKVmo5pBUzwAXIOgiley3yjeeuy9L9WPScOphdIZr8cDp+6yvMNiRm/ttxO3xpg7I29E5z51bfMih5YtdTFnIcvbUvk=
+Received: from IA1P220CA0020.NAMP220.PROD.OUTLOOK.COM (2603:10b6:208:464::13)
+ by CH1PPFB21296325.namprd12.prod.outlook.com
+ (2603:10b6:61f:fc00::620) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.48.19; Mon, 25 May
+ 2026 01:08:09 +0000
+Received: from BL02EPF0001A0FD.namprd03.prod.outlook.com
+ (2603:10b6:208:464:cafe::86) by IA1P220CA0020.outlook.office365.com
+ (2603:10b6:208:464::13) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.48.19 via Frontend Transport; Mon, 25
+ May 2026 01:08:09 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BL02EPF0001A0FD.mail.protection.outlook.com (10.167.242.104) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.71.7 via Frontend Transport; Mon, 25 May 2026 01:08:08 +0000
+Received: from kevin-mlse-vm.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Sun, 24 May
+ 2026 20:08:03 -0500
+From: Yang Wang <kevinyang.wang@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <alexander.deucher@amd.com>, <hawking.zhang@amd.com>,
+ <kenneth.feng@amd.com>
+Subject: [PATCH] drm/amd/pm: apply SMU 13.0.10 workaround during MP1 unload
+Date: Mon, 25 May 2026 09:07:53 +0800
+Message-ID: <20260525010753.16210-1-kevinyang.wang@amd.com>
+X-Mailer: git-send-email 2.47.3
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL02EPF0001A0FD:EE_|CH1PPFB21296325:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2160806c-24c4-43d7-d693-08deb9fa153e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|36860700016|82310400026|376014|13003099007|18002099003|56012099003|11063799006;
+X-Microsoft-Antispam-Message-Info: GfI9/VjntOZJ1kbNg0NdQVJ7iU8y+sErEXa0oH9CZZ2ch7p1OyIU1PGwGjBjn/jivmXyyqjOE8w1ltHeOV7lg1eByNPQsWKkadjwavCFfIMPx2pQM7nRKNEMvNyICLz0tUk8RCcJMhvaqFYX7StC/ywWtWtzQrKwBa/yuRaksUgry+q83cpTW2tdQ69clPlH+ZuKmucEuDjiu2Dj82/m9BFA4M3hizld0a3ccZkxqhKxzLCJP0RlQv1HnCR8R9TrqW4YnydrKpWC/nx0CumqVxfZ/AfdNyhVK+bjD0Cdxwu6gpdGOZbZuAZNXs6ugmXxf290ETM6j/TYufL6z5ZVhjn6a1PlNch82kAa1icwgElbhavl+RxB/JsWY9ZuFgQ6+DRv46mI/ienoQfF/YHWAhEU5kFHIUvkcJ81p7muY2c5EhNqOyKgyQuKVFxUn84ZqQnNDH1FQF5BO8fC629cDpZPO96yPl50FIWI6cHAIGLF4A22Je+ZylIH6t0nTperuBRjBDsKLr/7/Shp2zeKmxqLkeoMe1aAZTBHhKNTHHWnFUmnkOrjNFswri4LSXd5U0WDgg3WW1WKg9e29AdZnKzQG10ms7XU6M7FZyln4UZXlbPN5LQ9V3JmkxUhE0XmyHJrmJUlpnF0SKAot+0ffLP7wYVt+C/H65UMMoHyaw4Mg78vLE3Nservo19RtcUC
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(36860700016)(82310400026)(376014)(13003099007)(18002099003)(56012099003)(11063799006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: aarQKX7kW7F39CKBlRxsU2PFaIdP8UXWUSg9btu15wJ+5iwAEK1WRmn/7JPIGCUAwBxSXRu0eZetFCV0a26io41A3hEYRFGKqTB1mtteJxyI4HZi3FP3p9HoVcj7S3cD/gGtwOTD421XVaA1OfFm1BAHrEWSfSYOr4fCp1teLen/DH073qh19nu7kcmoT6U9bsC8w6fi5hm3ZwqO+CYZske/1x2fo9ibozv+DgznZD/aqKuCtTsP5sPqOHgqIqgmInn24h+1Armg93DfzUmT6t/Y7eQ3coEMefZEHc0z56P8SDsRT5Bb/vYC6ajPmS8hHPMzD/22yfaEMTkhMHQdnUWFg7tLJ4jxmmJa2rpnXv2Bz+IJcis82dajN4gl1NEUHpTBliyfsmHGCXdLFRPESvg4oswpBmJxapV0ZLDQYS6OHPQElRIrG34W9WU/tZhV
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 May 2026 01:08:08.2244 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2160806c-24c4-43d7-d693-08deb9fa153e
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BL02EPF0001A0FD.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH1PPFB21296325
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,77 +109,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Jeremy & Alex,
+On SMU v13.0.10, sending PrepareMp1ForUnload with the default
+parameter may leave the device in an inaccessible state. This can
+affect runtime power management and partial PnP flows.
+Pass the required workaround parameter, 0x55, when preparing MP1 for
+unload on SMU v13.0.10. Keep the existing behavior for other SMU
+versions.
 
-> Apologies for my late reply. I tested the patch series (SI laptop
-> 1002:6606) and the problem remains where the clock speeds don't boost upon
-> switching to AC. Timur and I investigated this and found 2 problems
+Closes: https://gitlab.freedesktop.org/drm/amd/-/work_items/5133
 
-Thanks for getting back to us on this topic.
-At Alex's suggestion, I removed the clock recalculation and added the check to 
-verify ATOM_PP_PLATFORM_CAP_HARDWAREDC. I'm sad to hear that this broke your 
-patches. I apologize for that.
+Signed-off-by: Yang Wang <kevinyang.wang@amd.com>
+---
+ drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-Unfortunately I don't have a SI laptop GPU to test this stuff, so there was no 
-way for me to verify the correctness of those changes before I sent the 
-patches to the mailing list.
-
-> 1. It seems that it is necessary after all to recompute clock speeds when
-> toggling AC/DC. Sending PPSMC_MSG_RunningOnAC on its own has no effect.
-> Each ASIC family's apply_state_adjust_rules appears to be responsible for
-> the switch by setting the max_limits, and this function is only called as
-> part of computing clocks.
-
-That's right. I took another look at:
-si_apply_state_adjust_rules()
-smu7_apply_state_adjust_rules()
-
-Both of these rely on adev->pm.ac_power when determining max_limits, and they 
-set the maximum clocks accordingly. We should indeed re-calculate these clocks 
-on both SI and SMU7 when there is an AC/DC switch to make sure to apply the 
-updated max_limits. Additionally I think we should probably lock the mutexes 
-to ensure that we are sending only one message at a time.
-
-My suggestion would be to call pm_compute_clocks() inside notify_ac_dc(), and 
-also to lock the mutexes:
-https://gitlab.freedesktop.org/Venemo/linux/-/commit/
-e98279dff480cc297cbb1fe50c2b71ebd65b9576
-
-if that works, I'd like to submit that patch (and will also port it to SMU7).
-
-> I'm considering removing the .notify_ac_dc field
-> from the IP block entirely and just calling .pm_compute_clocks from
-> amdgpu_pm_acpi_event_handler, but I only know for certain that this works
-> for my GPU.
-
-I don't agree with that. amdgpu_dpm is generic between all supported HW 
-generations and shouldn't contain HW generation specific code. Also, it clearly 
-doesn't work the same way on every GPU generation, so we shouldn't generalize.
-
-Furthermore, we should minimize the amount of messages we send to the SMU, so 
-we shouldn't send the RunningOnAC message every time we recompute the clocks, 
-only when it actually switches to AC.
-
-> 2. The ATOM_PP_PLATFORM_CAP_HARDWAREDC flag is enabled for my GPU, causing
-> PPSMC_MSG_RunningOnAC to never be sent. Either the flag is enabled
-> erroneously, or we're interpreting its intended usage incorrectly.
-
-It's hard to judge that without having access to the hardware or docs.
-Are you actually sure that the PPSMC_MSG_RunningOnAC is necessary on your 
-laptop? Isn't it enough to just re-compute the clocks?
-
-Can you check what exactly is the value of adev->pm.dpm.platform_caps on your 
-laptop? Maybe we are looking at the wrong flag, or maybe the HARDWAREDC flag 
-only refers to the AC->DC transition and not the DC->AC transition.
-
-This is just guesswork on my part, but maybe we should look at the 
-SBIOSPOWERSOURCE flag instead, which is explained in pptable_v1_0.h:
-/* This cap indicates whether power source notificaiton is done by SBIOS 
-directly. */
-Can you check if this flag is set on your laptop?
-
-Thanks & best regards,
-Timur
-
-
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
+index 9e74a5c4be43..8781cd9f10e0 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
+@@ -2806,11 +2806,15 @@ static void smu_v13_0_0_i2c_control_fini(struct smu_context *smu)
+ static int smu_v13_0_0_set_mp1_state(struct smu_context *smu,
+ 				     enum pp_mp1_state mp1_state)
+ {
++	uint32_t param;
+ 	int ret;
+ 
+ 	switch (mp1_state) {
+ 	case PP_MP1_STATE_UNLOAD:
+-		ret = smu_cmn_set_mp1_state(smu, mp1_state);
++		param = amdgpu_ip_version(smu->adev, MP1_HWIP, 0) == IP_VERSION(13, 0, 10) ?
++			0x55 : 0x00;
++		ret = smu_cmn_send_smc_msg_with_param(smu, SMU_MSG_PrepareMp1ForUnload,
++						      param, NULL);
+ 		break;
+ 	default:
+ 		/* Ignore others */
+-- 
+2.47.3
 
