@@ -4,122 +4,101 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 39C9DCD5BB1
-	for <amd-gfx@archiver.kernel.org>; Mon, 25 May 2026 19:02:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A95F1CD5BC9
+	for <amd-gfx@archiver.kernel.org>; Mon, 25 May 2026 19:06:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CC39A10E1EA;
-	Mon, 25 May 2026 19:02:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2977710E3C2;
+	Mon, 25 May 2026 19:06:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="tYOuP8/O";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="UVZaw36n";
 	dkim-atps=neutral
-Received: from BL2PR02CU003.outbound.protection.outlook.com
- (mail-eastusazon11011057.outbound.protection.outlook.com [52.101.52.57])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7932310E3C2
- for <amd-gfx@lists.freedesktop.org>; Mon, 25 May 2026 19:02:26 +0000 (UTC)
+Received: from CY7PR03CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11010019.outbound.protection.outlook.com
+ [40.93.198.19])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9C58210E3C2
+ for <amd-gfx@lists.freedesktop.org>; Mon, 25 May 2026 19:06:11 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=bPN+ws2pX2T93h6OA0UsV5rgQG0XmY4Of5/4+e0NYJHRn13KCfUfbeqkLAjvDyhqWf4bdU5J8mHWDXFctxXllkRo7q5j0iHFascxz+wljjzVTaOOo7dQzOa/cw2IhPHTIjpKw9EdRuMDRJlbC+BYDix1Eg/LXhSNiYoIu5IaC6ldWhKzIbCYDMgLidpPpAFIY2TU4hAdlI76GEDfjXvVV1+Bjn/F8DzPiGkuxC6aqO7jkY4LSe7Nf0fz+O4saUXPoX3TSOZ6DUciS8OPlUKQB/fhGxOGpb3QqP03G2H3ETt4gbGU6emdVNz2KmYqQSQINTvkF8vd4Z9QIS/bitSKeA==
+ b=jDekInnM3p33gsFEyDFOhJC1BsnV7OXs/Y1wrg7/Jr94xGPVfmJnjmq4L8LW4ZCxhv0DIJwS4zA0pKtBkxSHYGoEVud2libz8Tm0Qs2qhZIDX17ioxf6hajJJFv+GvS0k5f3bJa9qGLNuBte/bKrTv4aEuf50sQzybUkG+BfeVvMcKe2ybuLgIV4lFvoFqBv8fnRzBeS7+ToganWFY2xGtGU5Ew/AoKKihWSzIl3VWbJRPkTpVp34estbsn4D3PJbC7in7Ozf/bpJpnzOuHuNAx5jtGRm1xsHxjzuG0aAfnMlNWf4dHB9ZFOCikKpzW9dbor+SE6YgxVKfB8v8iqJw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=gXTSXQWcZwXQWjpxLkz8LLTzoPfjS3P3tdkakNAqYAc=;
- b=imMLDNmniWHIeTUJ7QafBxzoy251Q6Jo+PaRfJw4VUyTunblnJSfQF9SXPO8ufcXqHB9N+ZY8o98gJhZkmdDZiG9WbKgS5kJ1R+s4g/nn5Xs79kfrGroCCqP/UtJIb3uRPp9gZd9MS4qFXcCS9Mv/OjJ3QaXlBXOs4Jvw2AsbeDswUyfYVy+Ein7NQfz7vu2SIRxAGqXwZThFABiSJ/q8NaeCsMQUv4GokQ+fODvKh3JxgijlC84xjl0ekgFDmoeDiaPw/ogwbymYtK3wbCHeEGz9M966tmfYopRszwjbCMngn0n+1QVjMeGQ2cJCZikrh4U/Q6MApKtSDjmGMPXCA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=li07gtg7u6HjUkWH/hVNpyoW4SNA4TWbfw1/13giBw8=;
+ b=XFXwu6Iy6LAXfJaStPB2s0LehFSRtbPpJCWTWB1iCq82t9ZFpFs3ReMvJDQnR0M3e74ELK8fh2fwYnLz1f1ux1cKzfU6vz0McqjuLy8xB5DQowE3tRL1T9+AORdZb2CsiaCJcJJAXfdIvFRAev0dDytU/HjpDPTTsm8Viq5s7S9u2dDo09enGORwBDX3WqpidAgrsnViZJdsf/BmrM/VVZIebaqMtPkbd2D69wbkqJ2/o8r1MSjYpFvi7M5cHXBE05pH0ix5jnGuQAakn4ObBgESfYssQ7XK/MlywudgBSIiat8Od1XzTEy/vh58NJ/ptec2c9IgckwuNELhkJgl5w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=gXTSXQWcZwXQWjpxLkz8LLTzoPfjS3P3tdkakNAqYAc=;
- b=tYOuP8/OmVfa3B60CQfLOapk6U49FJCiZROgACFaqf0Fbd+IIo3rMfyzcpRBKrDPrsccdqkxsy76uqs1khv/3u+/Jyk1yTpHAkQYdproYHGP9oy+SmIZP50lD0eHDhTD30ubMK4f61PBzpeCw+5ro3z1I4MtO2NbnHVfXRrOLXE=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by SJ2PR12MB8740.namprd12.prod.outlook.com (2603:10b6:a03:53f::16)
- with Microsoft SMTP Server (version=TLS1_2,
+ bh=li07gtg7u6HjUkWH/hVNpyoW4SNA4TWbfw1/13giBw8=;
+ b=UVZaw36nBuAqVEyol4H89qUZaa8g2PsE+p5yq5kKo8suTEJcsmPf0RfO6ioKBm7fN8PmtGGyejfEWomPAIn5sINq345kP1+9/W9EPCWaqA2mMeRPUEWt+vaD0FoyNrc7ZP7SYGouYYoVDHr909sU2wzODcjvwOs5mrcn/LiFUzY=
+Received: from SA9PR13CA0116.namprd13.prod.outlook.com (2603:10b6:806:24::31)
+ by DM3PR12MB9352.namprd12.prod.outlook.com (2603:10b6:0:4a::20) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.48.20; Mon, 25 May
- 2026 19:02:23 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0048.016; Mon, 25 May 2026
- 19:02:23 +0000
-Message-ID: <53d1f30e-96d1-48a8-a933-c922439e9cdb@amd.com>
-Date: Mon, 25 May 2026 21:02:19 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu: implement per-process MES context
-To: Zhu Lingshan <lingshan.zhu@amd.com>, amd-gfx@lists.freedesktop.org,
- Alexander.Deucher@amd.com
-Cc: Ray.Huang@amd.com
-References: <20260525082359.5510-1-lingshan.zhu@amd.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260525082359.5510-1-lingshan.zhu@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR4P281CA0209.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:e5::8) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+ 2026 19:06:07 +0000
+Received: from SA2PEPF00001506.namprd04.prod.outlook.com
+ (2603:10b6:806:24:cafe::41) by SA9PR13CA0116.outlook.office365.com
+ (2603:10b6:806:24::31) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.71.11 via Frontend Transport; Mon, 25
+ May 2026 19:06:07 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SA2PEPF00001506.mail.protection.outlook.com (10.167.242.38) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.71.7 via Frontend Transport; Mon, 25 May 2026 19:06:06 +0000
+Received: from MKM-D1-FRANKSU9.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Mon, 25 May
+ 2026 14:06:06 -0500
+From: Chenglei Xie <Chenglei.Xie@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <jeffrey.chan@amd.com>, <zhigang.luo@amd.com>,
+ <alexander.deucher@amd.com>, <chenglei.xie@amd.com>, <YiPeng.Chai@amd.com>,
+ <Tony.Yi@amd.com>
+Subject: [PATCH v5] drm/amdgpu: grow VF RAS bad page table with bounded
+ dynamic alloc
+Date: Mon, 25 May 2026 15:06:00 -0400
+Message-ID: <20260525190600.2910538-1-Chenglei.Xie@amd.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260508180705.217683-1-Chenglei.Xie@amd.com>
+References: <20260508180705.217683-1-Chenglei.Xie@amd.com>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SJ2PR12MB8740:EE_
-X-MS-Office365-Filtering-Correlation-Id: a426a4f3-0fd2-479b-c2ae-08deba902733
+X-MS-TrafficTypeDiagnostic: SA2PEPF00001506:EE_|DM3PR12MB9352:EE_
+X-MS-Office365-Filtering-Correlation-Id: f7e09a65-dbe5-42f1-114e-08deba90aca2
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|366016|56012099003|22082099003|18002099003|11063799006;
-X-Microsoft-Antispam-Message-Info: zbPGDW9PB+/UoFg6v37rDBaDYgE+aNHI/Vp+bDb+RSgnorwHY/+2QIs7iOuk1CUEtelMETll1WqaEZsEW5slegl9F+iBCv6dCBAXujdh5CZl/rnGVeNAIGVwWriueiWTmgAR9GgPDFXQOa8SoiGxUeHNoCSIyN79swZ9jX9O7H5blj3iiNJaqKlDQc3jCyi7cREUpt+inDIinzfSf2MymYg4V1yQYXg0FsaGD7oMVMhCzVbBDAHS8To7XzU6fbkCy5qUU2Ue9DCuKaVuFidJ/5T5bKJv13Epj/NXx7+f9ySD86vQwD5HFf2qgM278+yk/wxPHf7aA4YucLO0AJ1ym1Oo3xa0Qpbs2ImfQos6EhiNDW+wAKg+RCvA38OqI52e3uB8sq9BFGYzZmj5DwyczJwr560tipc0pwJ4ytefNA5ZkcnGKZyT5tAG2h3jpIvwl8lWkqeLP2CQwOIsHh4yJ5JU30LpI8pCG5RgYTVMMTwTyqTmu2YT1HU/P9Boi2RYLFEZR1vwnLg0ejtAoyGMI2z0qq8j29fl+JDvn4T97Okm+LlHguWnwvpZoOQirkbxU8tXrzqT5q6kD15ECqnhR4Eqi3anUFvsz4f5gO3hj8q3SB1e6XBEc8ai/VXeNAiD1otQjqn58b9xakTBSXawjOka2RSZISPo4Kep9b7MeHJtWHK0qsx/OEfcypRnwxB6
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(366016)(56012099003)(22082099003)(18002099003)(11063799006);
+ ARA:13230040|376014|82310400026|36860700016|1800799024|11063799006|56012099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: uqz5I37lVgSvZjU1+OfmL64TTiS02pRTx404VJ3wvq62Iikvh4A61/U6Mb4p7MuEDLrS0Mj/lctzFpq6CAVTXqriNWkGJsWefPtKRu4S4/dWoHdqytjVnf4nAOKCK9rhlHmttvdw7OoL6JdsGb1bSskCsQIpU3lWBgPFqXQZ889vvNfC0AqjE8mlFtXlruS/PiF+d4kB9l4PO3He0sJfTCOnZUQC0SNgc8oabqP1lZujS545uG69vDNHCAR28rG25IeFnric9Ugfo4KeTmnkrXUQv0EB0bVKjhFslqhecQvjSj13JBoNDa3QGi19/ZauQQg6hc1KkCSdeUIAMqBESn4n7cIvyPgkGfzspYiryyPPdQyiISa1EDBTQgxdigAnwfj05HIjSaIXR5NgABkS8jj+tL1G/bn3EVkGDqomHSfMhQoGGlM12Es7VUGjTP8ik+aVeWb7YiczPqlDPY2MtJruaPDYdIcxku/vUVAbsGCJBTDNIGJk1QmYZqQoNaIe3xpzVLQxOg8Q62Ce9/tCxXEyxV4AUjPSlPSJy+zIrc9Efh6l9mJye0nsLPiPKRDQYcCTP8cy4Xl6VVraG/xXfxW8QO5WZq9liGZVoX5SP/rKaUHzcjyegfbdTDQj8ty/b8QzhTvjCMShM5WFvw1+7X/JS7VEreiU5OhE3fnuqp4xO+fSOfuJgeK4kyClzm72soXVh1rLStNa/SovRKb8UEElcaPHFmm9ZakiwB2th+0=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(82310400026)(36860700016)(1800799024)(11063799006)(56012099003)(18002099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?QnRuV1k0dlRZeklrcVIvTW01dDNXZnlubHlFY0NIcWJkcTFoYTJaN0xZMysz?=
- =?utf-8?B?YVhmTVgzdlRQamJielJXMGdHWGJRN1ExY21neHFGbUhaRVFoQUNjYno4am1m?=
- =?utf-8?B?Wks2SU1RdXpBQWhObGVuUHdlOXVmZEhWbFg3aExBYmtHTXcxemJWR1pKSWdM?=
- =?utf-8?B?MFZsN0JYZ0psNXA3QnVzVnpkSTdVb3hiKzlpUWg1dDd2YkVFenBtU2ZibnUz?=
- =?utf-8?B?MSszbExNUmg4YUZpREM1RzVBL3kwTkN4VEkzaGxvbXBndzdWc0JReFEzakYz?=
- =?utf-8?B?dmMvbThVbWtKa2VUQnNPNHo5VGNwcHZmSFFNc0QyclhDQ1RkaWtsYktDYXpM?=
- =?utf-8?B?SjJnVmtnTWxrNHJpdDlaVzN0dTJTTGc2VDM4U3ZZdnBKc0xQSFYyeXAvbzE3?=
- =?utf-8?B?Yk04SzA0K0J0Z09yWEVhMFVaSEYxWlp3bGF5cXU1a2R5cmFzQ1Y2eER3cVY1?=
- =?utf-8?B?UHlrMlUwRlBsZEp0YTI2WjkrVGpaVGEyVkRMTHA3V1F4endCWEZsbHNITHZD?=
- =?utf-8?B?ME12dFhKSVJOTlU4OVkvTjcrWVJ3TzRwYk0rOUNXRHBUcDJ0NnZGdzErR0pJ?=
- =?utf-8?B?MU54bVd4dzFpN2liT0RsMmcvS0JNeDRjOWZXMFZLcFJmSDF6RXdkeHk0MkJR?=
- =?utf-8?B?YlpNdElIaUZiVW45QURTT05yQm4xYitxanZQanZRb2lnZmZKZ1dyZHhzY3dY?=
- =?utf-8?B?WStwblFMU2d5c0FrY1FpTGNlSTE1MHk1RXREYzM3WFVuNVFwZ0ZhbkthRUg1?=
- =?utf-8?B?UjYxUmJQYzVBd0NvcXZvMDVrcnBrUmRPZVhPeGRQNWZ2QWFuRm4yTXAzekJa?=
- =?utf-8?B?QlI0ejRLRmd2SVhYNkM0dFluL29DN3gyOEVwSTZvREgrNEFjVG5nU05QdkFl?=
- =?utf-8?B?b0RvSHBGMzkxUWtZRmRYK2F5MHRmOWhwQTI4N2tJa3VhaGxLd0p2N2hQdk0r?=
- =?utf-8?B?L1NqUUFCaFRmNENFb05ublUrQ09QSU1ZbWZYTTg0MytSL0dRMFFQbmlSL1FX?=
- =?utf-8?B?cXl0cnhmQldPbkJGT21zallleFc0eTIzZWZaMEx0dWRiRkY0YkpTTlNXYnJj?=
- =?utf-8?B?aEZIVm5ZeXpNUEd6dXpZZFRYM1lXQW5RRlgzRUdSZW9EeWlwZHo0TjdvL2Zs?=
- =?utf-8?B?Q2VtSit4MlJxRE15UlpCeHpsNzdnME9IOVlPMEk0eXVlaHRGWlEzeHVCL3VQ?=
- =?utf-8?B?eEo1MXFRZFB2VmtyT2Q1UG1qWEVGN3BhNThBdFpYblJXNGVPbk9jemVSVDB4?=
- =?utf-8?B?RURNa29Fd0lBV2E3NnZVcDNDSU1FdVhwNm81OWg1ayt4aURhZkdMNE9uMmFn?=
- =?utf-8?B?R1pVL2tFOGx6SzlsMUUzSWdWWExQQzhVOFArZDlxK3ZrUWdiTHZPdUUxaVF3?=
- =?utf-8?B?czFMekM2eUlUR2RPSVd2T2xQdGNaQlRsYjJuZ2JqMHpNOU0yTUY2WU42blgr?=
- =?utf-8?B?bHBveUhoMEVRczIxNlN0WnFGS0NEcVpuS2FFRGRCYVJlSjFPQ3Y2aHRMVE1W?=
- =?utf-8?B?a0dVLzVNMmtUdXlHWllKZU9YbSt4bUJseGVGOHl6MmVncVR3NnJMb2FqZDQ1?=
- =?utf-8?B?T08xTTBMRWRseTFWeWNvcEtLZnhhVW84S1NSVy9CZFFXdjlJTEhpZEY4YllG?=
- =?utf-8?B?dTd1WTZGQ2NSR0tjQi80SWNFRGJ4REZxRXlLRWhHSm5oRHRNa1FYekNMYzh1?=
- =?utf-8?B?aEdtT3crSmJBQmVyZWlaOUlWU0ErS2trVDdPR1JvbXRCckRGNVdKRXA1b01Y?=
- =?utf-8?B?bDFGVUpra0NoWWM5SVBWMUVGcDhFc3E1RG9yVDlIR0ZjRWVSNXJBaExVZm5S?=
- =?utf-8?B?SFlWVEx1aXlJZ25OcjFKY3JoT0d0NHNqcTZydmYwY0psM2x6U3JXM2loNmVq?=
- =?utf-8?B?RUFINk5WdHZQWmh6aEVUL0pqMDVvSDJZOHdXQVNtWVB3cmJ3QlRYSkxlaThw?=
- =?utf-8?B?YzBRN0cxd3k4dlNLZFVZNUUvaXFIUmJXQkRKTVlMb3kvZFhvRVR6SkJoa1pN?=
- =?utf-8?B?dUJpdmhUZTVtUlhmZTd0SEZJWlk3L3dWeGxwcDVvcm5CQWdmbzZnNndKVmJW?=
- =?utf-8?B?L1k3OTV4eUZzRmo0OSszeXFYUVZ0NXMyTWRZVDJNN1lNN2NNYUo0Lys3QmM1?=
- =?utf-8?B?T2x4alpxN3hQMUUvRWF1SUlXR0NtSjBFQzI3NGZDaExwU0x1MndZaUFhSkYz?=
- =?utf-8?B?c2tLQnJZelFSWUdKZWpsckFWd2UraHc3dVhoSkFjdmVpaWV5NjVpZ0JRSEZK?=
- =?utf-8?B?Y21VU3FmWERuSWVKdml0dUZ4eVdwNjJuK1EwNlpFRWdLYkI2SmRyaHlhTU00?=
- =?utf-8?Q?omYvxoEixF8tVSDrwZ?=
+X-MS-Exchange-AntiSpam-MessageData-0: L3eHxKyHSh8PBI/omUM7b2WoJiMVhr4GEE8ud1qthvVAFOmjU3kqTneNMK/IkHB0gRy/vcdOx2PcF+x2eFcwzmZRIm7wzOyn7GyjPVQgIkdZj9NW1qkJY0wsUV7xzIN0j9oXWgms+mS5olIZkQbPjY0hCgXS4M5teeaHPy4eTg+sonRlPa4U356jTA/D41lj1P8fyJL0TcrhWoU/gBBSZhovmy9yVxi9FSM4lQSCh0sv3d5uEHNNNulb2ALVIhV56IK1obhguiIIxoTx34MWwNTpiGWzMrcB1IwnhyE693Dg7/OEW5SEqswLZ9a2Sq3RbA1XyYbKuOB17bwnbB4HmE+iK7SDaLfdL5Y1Gc/iFgBpAl3lL1xyR4SMJIR8QQcUrA2sMLCQOPpgXg/dtLzp7MPGj2BpSvvXSF1tvaSktqBZvwRiQyT82RVE3Q/wI4bF
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a426a4f3-0fd2-479b-c2ae-08deba902733
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 May 2026 19:02:23.0631 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 May 2026 19:06:06.6884 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f7e09a65-dbe5-42f1-114e-08deba90aca2
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: kjg4oiqXuYWQakBP/tvCIVcfOZqPSK1HglmQdVCxWzx4igw0l7zidvlHVCzsu775
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8740
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SA2PEPF00001506.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM3PR12MB9352
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,178 +113,198 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+The VF RAS error handler used fixed-size bps[] / bps_bo[] arrays (512
+slots). When the PF2VF bad-page block listed more entries than fit,
+amdgpu_virt_ras_add_bps() could memcpy() past the end of those arrays.
 
+Replace the fixed backing store with a dynamically grown table:
+- Add capacity to track allocated slots separately from count.
+- Start at 512 slots and realloc bps / bps_bo together when full.
+- Refuse growth beyond maximum EEPROM record limit (AMDGPU_VIRT_RAS_BAD_PAGE_TABLE_MAX_CAPACITY).
+- Return failure from amdgpu_virt_ras_add_bps() and stop processing
+  the PF2VF block if allocation fails or the cap is reached.
 
-On 5/25/26 10:23, Zhu Lingshan wrote:
-> MES process context is a process-level page
-> where process specific context is saved for
-> MES scheduler.
-> 
-> However, current user-queue code path assigns
-> fw_obj of a queue to MES process_context_addr
-> when adding the queue to MES.
-> 
-> This means every new queue from the same process
-> would replace the previous process context address
-> with that queue's fw_obj address.
-> What's worse is, when user space frees a queue,
-> its fw_obj will be freed as well, causing MES
-> working on a NULL page pointer.
-> 
-> This issue leads to inconsistency and crash
-> in the scheduler.
-> 
-> This commit allocates a process-level page for
-> MES process contexts for a process other than queue-level
-> 
-> Signed-off-by: Zhu Lingshan <lingshan.zhu@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c  |  5 +++
->  drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h  |  1 +
->  drivers/gpu/drm/amd/amdgpu/mes_userqueue.c | 48 ++++++++++++++++------
->  3 files changed, 42 insertions(+), 12 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-> index 38e310a8694d..0c4d6f80616e 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-> @@ -1225,6 +1225,11 @@ void amdgpu_userq_mgr_fini(struct amdgpu_userq_mgr *userq_mgr)
->  	 */
->  	cancel_work_sync(&userq_mgr->reset_work);
->  
-> +	if (userq_mgr->proc_ctx_obj.obj)
+Signed-off-by: Chenglei Xie <Chenglei.Xie@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c | 111 +++++++++++++++++++----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h |   2 +
+ 2 files changed, 93 insertions(+), 20 deletions(-)
 
-Please drop that check it is unecessary.
-
-> +		amdgpu_bo_free_kernel(&userq_mgr->proc_ctx_obj.obj,
-> +				      &userq_mgr->proc_ctx_obj.gpu_addr,
-> +				      &userq_mgr->proc_ctx_obj.cpu_ptr);
-> +
->  	mutex_destroy(&userq_mgr->userq_mutex);
->  }
->  
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
-> index 28cfc6682333..fe85234e58b3 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
-> @@ -127,6 +127,7 @@ struct amdgpu_userq_mgr {
->  	struct amdgpu_device		*adev;
->  	struct delayed_work		resume_work;
->  	struct drm_file			*file;
-> +	struct amdgpu_userq_obj		proc_ctx_obj;
->  
->  	/**
->  	 * @reset_work:
-> diff --git a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c b/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
-> index e9189f07c6dc..3022025bc2ec 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
-> @@ -133,8 +133,8 @@ static int mes_userq_map(struct amdgpu_usermode_queue *queue)
->  	queue_input.gang_quantum = 10000;
->  	queue_input.paging = false;
->  
-> -	queue_input.process_context_addr = ctx->gpu_addr;
-> -	queue_input.gang_context_addr = ctx->gpu_addr + AMDGPU_USERQ_PROC_CTX_SZ;
-> +	queue_input.process_context_addr = uq_mgr->proc_ctx_obj.gpu_addr;
-> +	queue_input.gang_context_addr = ctx->gpu_addr;
->  	queue_input.inprocess_gang_priority = AMDGPU_MES_PRIORITY_LEVEL_NORMAL;
->  	queue_input.gang_global_priority_level = convert_to_mes_priority(queue->priority);
->  
-> @@ -169,7 +169,7 @@ static int mes_userq_unmap(struct amdgpu_usermode_queue *queue)
->  
->  	memset(&queue_input, 0x0, sizeof(struct mes_remove_queue_input));
->  	queue_input.doorbell_offset = queue->doorbell_index;
-> -	queue_input.gang_context_addr = ctx->gpu_addr + AMDGPU_USERQ_PROC_CTX_SZ;
-> +	queue_input.gang_context_addr = ctx->gpu_addr;
->  
->  	amdgpu_mes_lock(&adev->mes);
->  	r = adev->mes.funcs->remove_hw_queue(&adev->mes, &queue_input);
-> @@ -186,12 +186,8 @@ static int mes_userq_create_ctx_space(struct amdgpu_userq_mgr *uq_mgr,
->  	struct amdgpu_userq_obj *ctx = &queue->fw_obj;
->  	int r, size;
->  
-> -	/*
-> -	 * The FW expects at least one page space allocated for
-> -	 * process ctx and gang ctx each. Create an object
-> -	 * for the same.
-> -	 */
-> -	size = AMDGPU_USERQ_PROC_CTX_SZ + AMDGPU_USERQ_GANG_CTX_SZ;
-> +	/* The FW expects at least one page space allocated for gang ctx. */
-> +	size = AMDGPU_USERQ_GANG_CTX_SZ;
->  	r = amdgpu_bo_create_kernel(uq_mgr->adev, size, 0,
->  				    AMDGPU_GEM_DOMAIN_GTT,
->  				    &ctx->obj, &ctx->gpu_addr,
-> @@ -257,6 +253,27 @@ static int mes_userq_detect_and_reset(struct amdgpu_device *adev,
->  	return r;
->  }
->  
-> +static int mes_userq_create_proc_ctx_space(struct amdgpu_userq_mgr *uq_mgr)
-> +{
-> +	int r = 0;
-> +
-> +	mutex_lock(&uq_mgr->userq_mutex);
-
-Clear NAK. We can't allocate anything while holding that lock.
-
-Please add a different lock to protected the buffer or just oportunistically allocate it with CMPXCHG().
-
-> +	if (!uq_mgr->proc_ctx_obj.obj) {
-
-Please drop that check, amdgpu_bo_create_kernel() should already take care of that.
-
-Regards,
-Christian.
-
-> +		r = amdgpu_bo_create_kernel(uq_mgr->adev, AMDGPU_USERQ_PROC_CTX_SZ,
-> +					    0, AMDGPU_GEM_DOMAIN_GTT,
-> +					    &uq_mgr->proc_ctx_obj.obj,
-> +					    &uq_mgr->proc_ctx_obj.gpu_addr,
-> +					    &uq_mgr->proc_ctx_obj.cpu_ptr);
-> +
-> +		if (!r)
-> +			memset(uq_mgr->proc_ctx_obj.cpu_ptr, 0, AMDGPU_USERQ_PROC_CTX_SZ);
-> +	}
-> +
-> +	mutex_unlock(&uq_mgr->userq_mutex);
-> +
-> +	return r;
-> +}
-> +
->  static int mes_userq_mqd_create(struct amdgpu_usermode_queue *queue,
->  				struct drm_amdgpu_userq_in *args_in)
->  {
-> @@ -429,7 +446,14 @@ static int mes_userq_mqd_create(struct amdgpu_usermode_queue *queue,
->  		goto free_mqd;
->  	}
->  
-> -	/* Create BO for FW operations */
-> +	/* Create per-process MES process context BO */
-> +	r = mes_userq_create_proc_ctx_space(uq_mgr);
-> +	if (r) {
-> +		DRM_ERROR("Failed to allocate MES process context space bo, error: %d\n", r);
-> +		goto free_mqd;
-> +	}
-> +
-> +	/* Create BO of a gang for FW operations */
->  	r = mes_userq_create_ctx_space(uq_mgr, queue, mqd_user);
->  	if (r) {
->  		DRM_ERROR("Failed to allocate BO for userqueue (%d)", r);
-> @@ -492,7 +516,7 @@ static int mes_userq_preempt(struct amdgpu_usermode_queue *queue)
->  	*fence_ptr = 0;
->  
->  	memset(&queue_input, 0x0, sizeof(struct mes_suspend_gang_input));
-> -	queue_input.gang_context_addr = ctx->gpu_addr + AMDGPU_USERQ_PROC_CTX_SZ;
-> +	queue_input.gang_context_addr = ctx->gpu_addr;
->  	queue_input.suspend_fence_addr = fence_gpu_addr;
->  	queue_input.suspend_fence_value = 1;
->  	amdgpu_mes_lock(&adev->mes);
-> @@ -529,7 +553,7 @@ static int mes_userq_restore(struct amdgpu_usermode_queue *queue)
->  		return 0;
->  
->  	memset(&queue_input, 0x0, sizeof(struct mes_resume_gang_input));
-> -	queue_input.gang_context_addr = ctx->gpu_addr + AMDGPU_USERQ_PROC_CTX_SZ;
-> +	queue_input.gang_context_addr = ctx->gpu_addr;
->  
->  	amdgpu_mes_lock(&adev->mes);
->  	r = adev->mes.funcs->resume_gang(&adev->mes, &queue_input);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+index f8e58d12e39ae..7b0d425101611 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+@@ -283,14 +283,66 @@ unsigned int amd_sriov_msg_checksum(void *obj,
+ 	return ret;
+ }
+ 
++#define AMDGPU_VIRT_RAS_BAD_PAGE_TABLE_INIT_CAPACITY	512
++/* Max bad page slots allowed for SRIOV*/
++#define AMDGPU_VIRT_RAS_BAD_PAGE_TABLE_MAX_CAPACITY	10665U
++
++/**
++ * amdgpu_virt_ras_realloc_eh_data_space - alloc/realloc VF bad-page @data->bps and @data->bps_bo
++ * @adev: amdgpu device
++ * @data: VF RAS error-handler data
++ * @pages: minimum number of new slots to add beyond @data->capacity
++ *
++ * Return: 0 on success, %-ENOMEM on failure.
++ */
++static int amdgpu_virt_ras_realloc_eh_data_space(struct amdgpu_device *adev,
++		struct amdgpu_virt_ras_err_handler_data *data,
++		int pages)
++{
++	struct eeprom_table_record *new_bps;
++	struct amdgpu_bo **new_bo;
++	unsigned int old_space;
++	unsigned int new_space;
++	unsigned int align_space;
++
++	old_space = (unsigned int)data->capacity;
++	new_space = old_space + max_t(unsigned int, (unsigned int)pages,
++				      (unsigned int)AMDGPU_VIRT_RAS_BAD_PAGE_TABLE_INIT_CAPACITY);
++	if (new_space < old_space || new_space > AMDGPU_VIRT_RAS_BAD_PAGE_TABLE_MAX_CAPACITY)
++		return -ENOMEM;
++
++	align_space = ALIGN(new_space, AMDGPU_VIRT_RAS_BAD_PAGE_TABLE_INIT_CAPACITY);
++	if (align_space > AMDGPU_VIRT_RAS_BAD_PAGE_TABLE_MAX_CAPACITY)
++		return -ENOMEM;
++
++	new_bps = kmalloc_array(align_space, sizeof(*data->bps), GFP_KERNEL);
++	new_bo = kcalloc(align_space, sizeof(*data->bps_bo), GFP_KERNEL);
++	if (!new_bps || !new_bo) {
++		kfree(new_bps);
++		kfree(new_bo);
++		dev_warn_ratelimited(adev->dev,
++				     "RAS WARN: failed to grow bad page table to %u slots\n",
++				     align_space);
++		return -ENOMEM;
++	}
++
++	memcpy(new_bps, data->bps, data->count * sizeof(*data->bps));
++	memcpy(new_bo, data->bps_bo, data->count * sizeof(*data->bps_bo));
++
++	kfree(data->bps);
++	kfree(data->bps_bo);
++	data->bps = new_bps;
++	data->bps_bo = new_bo;
++	data->capacity = (int)align_space;
++
++	return 0;
++}
++
+ static int amdgpu_virt_init_ras_err_handler_data(struct amdgpu_device *adev)
+ {
+ 	struct amdgpu_virt *virt = &adev->virt;
+ 	struct amdgpu_virt_ras_err_handler_data **data = &virt->virt_eh_data;
+-	/* GPU will be marked bad on host if bp count more then 10,
+-	 * so alloc 512 is enough.
+-	 */
+-	unsigned int align_space = 512;
++	unsigned int align_space = AMDGPU_VIRT_RAS_BAD_PAGE_TABLE_INIT_CAPACITY;
+ 	void *bps = NULL;
+ 	struct amdgpu_bo **bps_bo = NULL;
+ 
+@@ -302,12 +354,13 @@ static int amdgpu_virt_init_ras_err_handler_data(struct amdgpu_device *adev)
+ 	if (!bps)
+ 		goto bps_failure;
+ 
+-	bps_bo = kmalloc_array(align_space, sizeof(*(*data)->bps_bo), GFP_KERNEL);
++	bps_bo = kcalloc(align_space, sizeof(*(*data)->bps_bo), GFP_KERNEL);
+ 	if (!bps_bo)
+ 		goto bps_bo_failure;
+ 
+ 	(*data)->bps = bps;
+ 	(*data)->bps_bo = bps_bo;
++	(*data)->capacity = align_space;
+ 	(*data)->count = 0;
+ 	(*data)->last_reserved = 0;
+ 
+@@ -361,17 +414,33 @@ void amdgpu_virt_release_ras_err_handler_data(struct amdgpu_device *adev)
+ 	virt->virt_eh_data = NULL;
+ }
+ 
+-static void amdgpu_virt_ras_add_bps(struct amdgpu_device *adev,
+-		struct eeprom_table_record *bps, int pages)
++static bool amdgpu_virt_ras_add_bps(struct amdgpu_device *adev,
++		const struct eeprom_table_record *bps, int pages)
+ {
+ 	struct amdgpu_virt *virt = &adev->virt;
+ 	struct amdgpu_virt_ras_err_handler_data *data = virt->virt_eh_data;
++	int need;
+ 
+-	if (!data)
+-		return;
++	if (!data || pages <= 0)
++		return false;
++
++	if (pages > AMDGPU_VIRT_RAS_BAD_PAGE_TABLE_MAX_CAPACITY - data->count) {
++		dev_warn_ratelimited(adev->dev,
++				     "RAS WARN: bad page table at capacity (count=%d pages=%d max=%u)\n",
++				     data->count, pages,
++				     AMDGPU_VIRT_RAS_BAD_PAGE_TABLE_MAX_CAPACITY);
++		return false;
++	}
++
++	need = data->count + pages;
++	if (need > data->capacity &&
++	    amdgpu_virt_ras_realloc_eh_data_space(adev, data, need - data->capacity))
++		return false;
+ 
+ 	memcpy(&data->bps[data->count], bps, pages * sizeof(*data->bps));
+ 	data->count += pages;
++
++	return true;
+ }
+ 
+ static void amdgpu_virt_ras_reserve_bps(struct amdgpu_device *adev)
+@@ -443,20 +512,22 @@ static void amdgpu_virt_add_bad_page(struct amdgpu_device *adev,
+ 
+ 	memset(&bp, 0, sizeof(bp));
+ 
+-	if (bp_block_size) {
+-		bp_cnt = bp_block_size / sizeof(uint64_t);
+-		for (bp_idx = 0; bp_idx < bp_cnt; bp_idx++) {
+-			retired_page = *(uint64_t *)(vram_usage_va +
+-					bp_block_offset + bp_idx * sizeof(uint64_t));
+-			bp.retired_page = retired_page;
++	if (!bp_block_size)
++		return;
+ 
+-			if (amdgpu_virt_ras_check_bad_page(adev, retired_page))
+-				continue;
++	bp_cnt = bp_block_size / sizeof(uint64_t);
++	for (bp_idx = 0; bp_idx < bp_cnt; bp_idx++) {
++		retired_page = *(uint64_t *)(vram_usage_va +
++				bp_block_offset + bp_idx * sizeof(uint64_t));
++		bp.retired_page = retired_page;
+ 
+-			amdgpu_virt_ras_add_bps(adev, &bp, 1);
++		if (amdgpu_virt_ras_check_bad_page(adev, retired_page))
++			continue;
+ 
+-			amdgpu_virt_ras_reserve_bps(adev);
+-		}
++		if (!amdgpu_virt_ras_add_bps(adev, &bp, 1))
++			break;
++
++		amdgpu_virt_ras_reserve_bps(adev);
+ 	}
+ }
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
+index d563deec0916b..d8500c3e48a17 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
+@@ -265,6 +265,8 @@ struct amdgpu_virt_ras_err_handler_data {
+ 	struct eeprom_table_record *bps;
+ 	/* point to reserved bo array */
+ 	struct amdgpu_bo **bps_bo;
++	/* number of slots in bps[] / bps_bo[] (always >= count) */
++	int capacity;
+ 	/* the count of entries */
+ 	int count;
+ 	/* last reserved entry's index + 1 */
+-- 
+2.34.1
 
