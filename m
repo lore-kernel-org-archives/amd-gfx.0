@@ -4,79 +4,98 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3E012CD5BD0
-	for <amd-gfx@archiver.kernel.org>; Mon, 25 May 2026 11:45:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AB74BCD5BD0
+	for <amd-gfx@archiver.kernel.org>; Mon, 25 May 2026 12:18:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CB12F10E2D2;
-	Mon, 25 May 2026 11:45:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D33B710E126;
+	Mon, 25 May 2026 12:18:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="bV/Y6ZNr";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="3yoF7wgf";
 	dkim-atps=neutral
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com
- [209.85.128.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E5B4110E2B7
- for <amd-gfx@lists.freedesktop.org>; Mon, 25 May 2026 11:45:17 +0000 (UTC)
-Received: by mail-wm1-f47.google.com with SMTP id
- 5b1f17b1804b1-49040362e4aso38309945e9.0
- for <amd-gfx@lists.freedesktop.org>; Mon, 25 May 2026 04:45:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1779709516; x=1780314316; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=xJu6SMu1v5icLTZuoKFGCejvwnBt1QXyQY4jbQr6tKI=;
- b=bV/Y6ZNr6Xvqbis9PGhwotcJodIk1KCSTVSw4pO7psf4VfHhDGwgHNNadHuuWcMegz
- BG//UOhI1fyNSydmRUAFaeaIwOsk/+8Fi7RZ8iHJMGUfwjfv0b/o75ZNVTfwaye9sRf3
- c77TV2LqaInv/As63UxhvqQeUs3dt/3I+3Qr779/1EFwPnrMIwDweLZmS7twIprK/9Ou
- O2NuDTxPA39THxKF6DemlaehwKfzEG4aFtwe0hKOZ8Q4hWFyWdhxDYczGy8wjJX1DIqd
- C1TsvK0PwrK8nG+82IZfQBYL09zsv8Yp06qMXH+rOG3gv1bltx1cdWGmky8zFmuOdhmF
- POLQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779709516; x=1780314316;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=xJu6SMu1v5icLTZuoKFGCejvwnBt1QXyQY4jbQr6tKI=;
- b=UqQl6GCL2t7iTKzE9YXYyZwwWLApeslqgCsTYDnVaDw5JIoPoEt5RqHHd8eHFPZOLC
- yTz9lujKUqa1/SyuoEeYRFuVcmx9IkLn0brLKvleGzVa7QfYhM1iyExRRe+77xKCtzad
- 2ZAYL3jia9fURlsgGTMvnjhrZOyRt1qSS+VPBc7Qv3M/e95LS3yljvLS4CjEzyHSzhX/
- wjgmOPg/J2rOcxTWrr+05zUgCGa0+AlTR3iZCTlGRz5p7v1wKhR2y2Ufx9HMmFhv1fva
- GL1ZaoJDZzcpQMtNBKzHWkgvrFPCfrUNKw1uJigwGWPnWaBzvjPrIcOfySg+EsEVHdwP
- 4kHQ==
-X-Gm-Message-State: AOJu0YxY8nYiVtk+Rt3AvnZ/7Qb2f9qN4E/FMMD0JPB0g7ZVu52Z+8qW
- 09KxEWmossbmnSsA+JwOGsDs7Aw9CRpiC98H7k7GIZlHI24LnlK4vTPDi0Z5Nw==
-X-Gm-Gg: Acq92OHU1MZqH76H1bSj1M4NP2cD5L+t06EnjnRyZAzrX0M5/S98tFHBKFy6E9tL0R2
- E2HxOCqGbcpBUxLvY8fXSBHxXs13ZtDzBg/TR+OuXlipHmQkQnQHPLjs5TFDEI8RQQmbj6VojLp
- ZfnYKvVCN+lnandGjJ4ekX+3Q6CjK9AIVlbIioEB/BIKwv7TnZs8tJlh6MjV0i7dL1vH1iARLrH
- AU7xRD8Urj15DH2rmT1mKU/jHEggRE1bfCbNzlqAu+Vj61FFbiFtKe0E76AL7yiQmhA9+IVKwTN
- s2VDaWtgIn4eXVjeTKil+QSo5yi5X5Hi5ZNRTq9TlUu9GFHpkjw+yRSHmOuWrcsEiASdsd2XhSb
- BEdUsSRrxww4co99F5lpJiYIGbeDO2EnC6hp57t86sGHaGT1vyojAYcbOd7aUWrs1qtWRnvInpR
- BBBfbWLsCImpnPlNFnCqfCQ4ozWk6RLMz4ThHLGBB/i2vnmoPN/SPowCy7Elpafyunyt7VuiNwd
- +E=
-X-Received: by 2002:a05:600c:6995:b0:490:482c:4384 with SMTP id
- 5b1f17b1804b1-490482c44ddmr223160365e9.24.1779709516360; 
- Mon, 25 May 2026 04:45:16 -0700 (PDT)
-Received: from Timur-Hyperion.home (54001290.dsl.pool.telekom.hu.
- [84.0.18.144]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4904527f7f7sm365533885e9.7.2026.05.25.04.45.15
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 25 May 2026 04:45:16 -0700 (PDT)
-From: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
-To: amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
- christian.koenig@amd.com, Natalie Vock <natalie.vock@gmx.de>,
- Mario Limonciello <mario.limonciello@amd.com>,
- Amir Shetaia <Amir.Shetaia@amd.com>,
- =?UTF-8?q?Marek=20Ol=C5=A1=C3=A1k?= <maraeo@gmail.com>
-Cc: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
-Subject: [PATCH 7/7] drm/amdgpu: Enable retry CAM on Navi 3 dGPUs
-Date: Mon, 25 May 2026 13:45:07 +0200
-Message-ID: <20260525114507.24566-8-timur.kristof@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260525114507.24566-1-timur.kristof@gmail.com>
-References: <20260525114507.24566-1-timur.kristof@gmail.com>
+Received: from DM1PR04CU001.outbound.protection.outlook.com
+ (mail-centralusazon11010062.outbound.protection.outlook.com [52.101.61.62])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D679A10E126
+ for <amd-gfx@lists.freedesktop.org>; Mon, 25 May 2026 12:18:50 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=eEpAtdwTEvdcHdTCKXR4bijNOBFkB5kOh/1ANi/h3pxNxCAPyEsJsUAJszKkvdUkmpaFK0k8RrkTUg9qRXBZMz+8rUSamXuVAOlXU/Y3EMYoatYTvG7MgJ06gb1tsIL03sV5hfMhE8s2GIFxrFEESmO3OGOowgq6BfffECkT+t3ir8md5XvwdMRgvo7bOM9kiKlJETJzOH3Kpz7MThSjfKYY/ou6oof4nWbEosjRUZQSlK+Ymhevad1J4C9XwOwaC9lL16GK4WjbV5i+dC3EYtBf5nb4BEH9xkghMJtuRjnRZIXXL4rChRq21pwINdqWHJQ9XJviJbR1l1r06UAQQw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=zYZUWk80Mty5z3xUMTE55+M6OPOqSG32E4Z/Dx/duVc=;
+ b=TyxFQ4AEyBDGIKP/D5+Jxgov1+y8+LWCEeqrwHWlQovYd8mbPY8748datA0pndJPXBifSUCC3bF7khNm4OQzGrR+dWUaY5aMC7mNN02tpON3W9S8csFIrffVgkE4Qxe4IamiIMKA6S+jDGkNxUUsvO1zviq7w+ioTmMgtny5BJaa9Zb+tEBMfKzps2UgpZQTC3Yioqqiwq/I0ZdDi9Sruowf7ienvg/1pkGHLNSQkDA2BC9emT6X7sXaWhC8GRy81zQu8NwHXe1jmePHVIzPEptCp7a3WvbizhAmhMkvRxVUW1S7Rxkd4JmoQjVeUkGIG29DQYggpUQxwWhG4qh+1w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=zYZUWk80Mty5z3xUMTE55+M6OPOqSG32E4Z/Dx/duVc=;
+ b=3yoF7wgf12AlCD1qVuvdqhs2NN7JWfuae/NfnRomrdQFCaTTlqWTiEGVrAEMQcHeipuQFvFzjvXV93JX3vLaEF7dMd+05E7xFL+FQWCdvQvOkm7IUWlgOFjQqc6SDSLB2LYTFzgyrYKAyWPL5L+JHchNJCfsaU/LdBZ1E3nNO3g=
+Received: from SJ0PR13CA0199.namprd13.prod.outlook.com (2603:10b6:a03:2c3::24)
+ by DS7PR12MB8348.namprd12.prod.outlook.com (2603:10b6:8:e5::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.48.20; Mon, 25 May
+ 2026 12:18:44 +0000
+Received: from SJ5PEPF000001EB.namprd05.prod.outlook.com
+ (2603:10b6:a03:2c3:cafe::b) by SJ0PR13CA0199.outlook.office365.com
+ (2603:10b6:a03:2c3::24) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.71.11 via Frontend Transport; Mon, 25
+ May 2026 12:18:44 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SJ5PEPF000001EB.mail.protection.outlook.com (10.167.242.199) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.71.7 via Frontend Transport; Mon, 25 May 2026 12:18:43 +0000
+Received: from shubhankar-X570-AORUS-ELITE.amd.com (10.180.168.240) by
+ satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.41; Mon, 25 May 2026 07:18:41 -0500
+From: Shubhankar Milind Sardeshpande <Shubhankar.MilindSardeshpande@amd.com>
+To: <Alexander.Deucher@amd.com>, <amd-gfx@lists.freedesktop.org>,
+ <Lijo.Lazar@amd.com>
+CC: Shubhankar Milind Sardeshpande <Shubhankar.MilindSardeshpande@amd.com>,
+ Suresh Guttula <Suresh.Guttula@amd.com>
+Subject: [PATCH] drm/amd/amdgpu: re-enable MC access after hw_fini on SMU V15
+ APUs
+Date: Mon, 25 May 2026 17:48:06 +0530
+Message-ID: <20260525121812.2250104-1-Shubhankar.MilindSardeshpande@amd.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ5PEPF000001EB:EE_|DS7PR12MB8348:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9e2788cb-688e-4da6-dc36-08deba57c395
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|82310400026|376014|1800799024|36860700016|56012099003|11063799006|18002099003;
+X-Microsoft-Antispam-Message-Info: vJ4p4wGOwLtqjxlQearklLnhDE3cd1bSvUR1b9Mn4CeBLoFXlbcMeQEOUCidztBf0cvkpcAHrgOQGOMTsEMYOlvN0aKTidzKus4DHvqfTI/Kt8eJidJbmvDYPIpcLJg65M9ZP447pLAolY81bQfa1yudGCoiG8Y222tzBOumq7sr3WbijD+AVGghiBSsSY5bJ3c3F+6qUsO/Jh7DAdKAEbUfHquVhJQ5bITRFpDlJxjX+8V9eOEkQ4ziwuyqLu/1qYgHSnnYtgjICQ581QGACVYIsGvNZTRleI11t8ZDlrfNddyq4q81LKpyE1Ym69I4JNT5Bk57e8lott+oWqu10Z3Hj+R4T0SkVAK7mx2IKpqaPc7//uxPExi+hg0PyF9z2+2kTAjLj++07nUl+NIREtkuWkdYxKfCeo+tS4Om6pJwWGrRxLeZXoNjVDEcyuC/RSJ/OAoXD0MWDvDV6He9FVnqpcJcfmwstLNEeqqYoetJpdMFxOTttQAl9vgIfxikdf/ghQiKLnEo0zTWTYFmcZRetIeEDZ0Z2PjY5P26EpeQB0vb0Vt0SHw+7aD5ukd4K6n29viocx9RrHPkOIMnNmb70LWvzTdOCk5npCuKcQQqaWwBTqa/y6eNYIvtR7kTqO9+ECOiKSSi2a/7wnJKjbOQWpxF3cEkO56CncoXDaHP5KMpzQyCuYwdbUnPYsVNfmRja3lUjtFYyj4tDPPXFvZ+kqhV7bF9P+YjkM3NwjQ=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(376014)(1800799024)(36860700016)(56012099003)(11063799006)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: +Jd4+zYF7uVvD6S1uoVuAomooj89iGY8PYVRfUAIgPBCpK0Y5ZZE0nVt+Qp6nHMhsMzeMZ/pZQxxjGeZQ6Raiu2j6KTLFosBQB62V+AfiS14YwWQAzXIgK+Q/kniaZnuocJQjt7TjQZAYPRWHbWUZxp085V0EJKLzd1q1wzrIeKt+FyOvgdZp1MkgfHtNvDgT5D4nD36NTaKo45yAO7dBozPOEND1Sv0DpGFEkV3RyMfu8YeJq1r6MVuN930L+YOpDGfsz1UPtDyqsxBbsasiGMA0Qq8KWj7GmTktHyfbQftQC+URA8OaKdS40ulYvtOl1rLxz1ECjTRfxuMZ4LvqBoDKTWTixoGOX5pmBuJWoWWVUodov0rxbLFHGFL8WS2YtdJVkGzKLfsYSXjtDQvssHjgJN1I7utoza83U/xS6AxMiIOfDrbVwKRKdTMqyXz
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 May 2026 12:18:43.8144 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9e2788cb-688e-4da6-dc36-08deba57c395
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF000001EB.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB8348
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,83 +110,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The retry CAM can filter interrupts which occur repeatedly,
-such as page fault interrupts when retry faults are enabled.
-This makes processing those interrupts much more efficient,
-because the CPU won't have to deal with processing the same
-interrupt repeatedly.
+During amdgpu_ip_block_hw_fini(), the driver sends a prepare-for-unload
+message to PMFW. PMFW then performs nBIF and SYSHUB function-level
+resets (FLR), disabling PCIe CFG space reset, which clears the FB
+enable bit to zero and disables MC (memory controller) access from the
+host.
 
-Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
+Re-enable MC access via the nbio mc_access_enable callback after
+hw_fini completes, scoped to APUs with SMU V15.
+
+Signed-off-by: Shubhankar Milind Sardeshpande <Shubhankar.MilindSardeshpande@amd.com>
+Signed-off-by: Suresh Guttula <Suresh.Guttula@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c |  5 ++++-
- drivers/gpu/drm/amd/amdgpu/ih_v6_0.c   | 18 +++++++++++++++++-
- 2 files changed, 21 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
-index 16388e3caea3..2a226b4c9e09 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
-@@ -108,13 +108,16 @@ static int gmc_v11_0_process_interrupt(struct amdgpu_device *adev,
- 	bool write_fault = !!(entry->src_data[1] &
- 			      AMDGPU_GMC9_FAULT_SOURCE_DATA_WRITE);
- 	uint32_t status = 0;
-+	uint32_t cam_index;
- 	u64 addr;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index 5ccbe6c885cf..7af9065ee5d6 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -2826,6 +2826,13 @@ static int amdgpu_device_ip_fini_early(struct amdgpu_device *adev)
+ 		amdgpu_ip_block_hw_fini(&adev->ip_blocks[i]);
+ 	}
  
- 	addr = (u64)entry->src_data[0] << 12;
- 	addr |= ((u64)entry->src_data[1] & 0xf) << 44;
- 
- 	if (retry_fault) {
--		int ret = amdgpu_gmc_handle_retry_fault(adev, entry, addr, 0, 0,
-+		cam_index = entry->src_data[2] & 0x3ff;
++	/* SMU resets BIF_FB_EN to zero during hw_fini, re-enable MC access
++	 * on APUs with SMU V15 */
++	if ((adev->flags & AMD_IS_APU) &&
++	    amdgpu_ip_version(adev, MP1_HWIP, 0) == IP_VERSION(15, 0, 0) &&
++	    adev->nbio.funcs && adev->nbio.funcs->mc_access_enable)
++		adev->nbio.funcs->mc_access_enable(adev, true);
 +
-+		int ret = amdgpu_gmc_handle_retry_fault(adev, entry, addr, cam_index, 0,
- 							write_fault);
- 		/* Returning 1 here also prevents sending the IV to the KFD */
- 		if (ret == 1)
-diff --git a/drivers/gpu/drm/amd/amdgpu/ih_v6_0.c b/drivers/gpu/drm/amd/amdgpu/ih_v6_0.c
-index 333e9c30c091..0a87c3126d1e 100644
---- a/drivers/gpu/drm/amd/amdgpu/ih_v6_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/ih_v6_0.c
-@@ -307,6 +307,11 @@ static int ih_v6_0_enable_ring(struct amdgpu_device *adev,
- 	return 0;
- }
- 
-+static void ih_v6_0_retry_cam_ack(struct amdgpu_device *adev, u32 cam_index)
-+{
-+	WREG32_SOC15(OSSSYS, 0, regIH_RETRY_CAM_ACK, cam_index);
-+}
-+
- /**
-  * ih_v6_0_irq_init - init and enable the interrupt ring
-  *
-@@ -392,6 +397,16 @@ static int ih_v6_0_irq_init(struct amdgpu_device *adev)
- 
- 	pci_set_master(adev->pdev);
- 
-+	if (!(adev->flags & AMD_IS_APU)) {
-+		/* Enable IH Retry CAM */
-+		tmp = RREG32_SOC15(OSSSYS, 0, regIH_RETRY_INT_CAM_CNTL);
-+		tmp = REG_SET_FIELD(tmp, IH_RETRY_INT_CAM_CNTL, ENABLE, 1);
-+		tmp = REG_SET_FIELD(tmp, IH_RETRY_INT_CAM_CNTL, CAM_SIZE, 0xF);
-+		WREG32_SOC15(OSSSYS, 0, regIH_RETRY_INT_CAM_CNTL, tmp);
-+
-+		adev->irq.retry_cam_enabled = true;
-+	}
-+
- 	/* enable interrupts */
- 	ret = ih_v6_0_toggle_interrupts(adev, true);
- 	if (ret)
-@@ -800,7 +815,8 @@ static const struct amdgpu_ih_funcs ih_v6_0_funcs = {
- 	.get_wptr = ih_v6_0_get_wptr,
- 	.decode_iv = amdgpu_ih_decode_iv_helper,
- 	.decode_iv_ts = amdgpu_ih_decode_iv_ts_helper,
--	.set_rptr = ih_v6_0_set_rptr
-+	.set_rptr = ih_v6_0_set_rptr,
-+	.retry_cam_ack = ih_v6_0_retry_cam_ack,
- };
- 
- static void ih_v6_0_set_interrupt_funcs(struct amdgpu_device *adev)
+ 	if (amdgpu_sriov_vf(adev)) {
+ 		if (amdgpu_virt_release_full_gpu(adev, false))
+ 			dev_err(adev->dev,
 -- 
-2.54.0
+2.43.0
 
