@@ -4,34 +4,34 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F385ECD5BB1
-	for <amd-gfx@archiver.kernel.org>; Tue, 26 May 2026 16:07:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 67E18CD5BD5
+	for <amd-gfx@archiver.kernel.org>; Tue, 26 May 2026 16:07:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 87E2E10E6B4;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C8A5910E6C5;
 	Tue, 26 May 2026 16:07:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="Hv2JHHt+";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="pz9tEYG3";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5308110E0CC
- for <amd-gfx@lists.freedesktop.org>; Tue, 26 May 2026 16:07:00 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EA71710E0CC
+ for <amd-gfx@lists.freedesktop.org>; Tue, 26 May 2026 16:06:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
- h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
- Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:
+ Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:Content-Description:
+ Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
+ In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=riGIpcV0otuR2ImQjrSix7plvSXsp3JT51HCodGCLiI=; b=Hv2JHHt+DsE05uw3KTsQMs7wwx
- JV+1Pgcn2NqgM/5MPksrSzhfJHPuh26SFn9BT3Io0D92G7ZBEkAh8+G9++fga3FHNSRx4smOyyMUp
- pG3FQH/AaJrzoIeLdhXu1wKHIKMt+7SBNlN1VL8S+WBT4q3DCGEWz7fwifHG4rdP6xMTCv3s4GI2E
- AOKiEhVp2e7YMvp9oZLWKC/t0NHojEHsX170T1cjOP0qvHoFAbBt0LYucopUaEDzFZpNnc3s/CYCR
- GV4y1RvhsdqFADaUPu9mpsmiVTZvkIucQf/0zJaB7CcysxkBomJArO/dhPXhQREHkKChzM3TxOj5V
- V1VGw4Wg==;
+ bh=j1y0KPF5djGZq9vRfG0XVigRrWpGZYhYmO/L9RYE0uA=; b=pz9tEYG3JhF5RjGiYVVVhUmEeK
+ hxYzfo5PGDzuTcz4Q2B26rLgr4KqQ+dquVYRfSnqZjJBZFpmyDrzkPrK1+vI293G/SdywKc5POGqU
+ NAIBFGIYZR34HyLeZ15fSqf1a8tjp9obR1WSVAk8+RYes/NUMp8wEkYSrvhS3bXK7JMTC0w9dR6yI
+ Kgj2vxCCjLVYMHLmJmZJtHOIzsAsCmqBGDiuIjCcUgqPMDGjGdSlt9CY0Pki5NTMx/lha1wK6zfE8
+ GBu2u/WISBkH4pdyeKXPUSlvvvA4tRiXF98NoeNOpDYGQD+XFo29cskuBuhUDwiCb5F63xLVofzR7
+ wsz1+l5g==;
 Received: from [90.240.106.137] (helo=localhost)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wRuJ0-008VbO-H0; Tue, 26 May 2026 18:06:58 +0200
+ id 1wRuIx-008Vb1-4A; Tue, 26 May 2026 18:06:55 +0200
 From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 To: amd-gfx@lists.freedesktop.org
 Cc: kernel-dev@igalia.com, David Francis <David.Francis@amd.com>,
@@ -40,12 +40,10 @@ Cc: kernel-dev@igalia.com, David Francis <David.Francis@amd.com>,
  Felix Kuehling <Felix.Kuehling@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
  Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Subject: [RFC 4/5] drm/amdgpu: Add context handle renaming operation
-Date: Tue, 26 May 2026 17:06:29 +0100
-Message-ID: <20260526160630.35562-5-tvrtko.ursulin@igalia.com>
+Subject: [RFC 0/5] Tiny steps towards amdgpu checkpoint and restore
+Date: Tue, 26 May 2026 17:06:25 +0100
+Message-ID: <20260526160630.35562-1-tvrtko.ursulin@igalia.com>
 X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260526160630.35562-1-tvrtko.ursulin@igalia.com>
-References: <20260526160630.35562-1-tvrtko.ursulin@igalia.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -62,81 +60,98 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Identical in principle to DRM_IOCTL_GEM_CHANGE_HANDLE, we need a method
-for renaming the driver specific context handles.
+I am sending this early with the main goal of getting a feel on how it will be
+received etc.
 
-We add a new operation (AMDGPU_CTX_OP_CHANGE_HANDLE) to the
-DRM_IOCTL_AMDGPU_CTX ioctl.
+Cover letter is written mostly for people who already know what checkpoint and
+restore is, so I will just restate the high level goal - To be able to
+checkpoint and restore purely a rendernode process (so no kfd in the picture).
 
-Source handle is given in the existing input handle field, while the
-destination handle needs to be passed in the existing flags field.
+And for people not too familiar what it is, probably best to first read about it
+here: https://criu.org/Main_Page.
 
-Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c | 30 +++++++++++++++++++++++++
- include/uapi/drm/amdgpu_drm.h           |  1 +
- 2 files changed, 31 insertions(+)
+There are three pieces of work here:
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
-index 15bf247c38f2..01a74eb6e721 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
-@@ -541,6 +541,33 @@ static int amdgpu_ctx_free(struct amdgpu_fpriv *fpriv, uint32_t id)
- 	return ctx ? 0 : -EINVAL;
- }
- 
-+static int amdgpu_ctx_change_handle(struct amdgpu_fpriv *fpriv,
-+				    uint32_t old, uint32_t id)
-+{
-+	struct amdgpu_ctx_mgr *mgr = &fpriv->ctx_mgr;
-+	struct amdgpu_ctx *ctx;
-+	int r = -EINVAL;
-+
-+	if (!old || !id || old == id)
-+		return -EINVAL;
-+
-+	mutex_lock(&mgr->lock);
-+
-+	ctx = idr_find(&mgr->ctx_handles, old);
-+	if (!ctx)
-+		goto out;
-+
-+	r = idr_alloc(&mgr->ctx_handles, ctx, id, id + 1, GFP_KERNEL);
-+	if (r < 0)
-+		goto out;
-+
-+	idr_remove(&mgr->ctx_handles, old);
-+
-+out:
-+	mutex_unlock(&mgr->lock);
-+	return r;
-+}
-+
- static int amdgpu_ctx_query(struct amdgpu_device *adev,
- 			    struct amdgpu_fpriv *fpriv, uint32_t id,
- 			    union drm_amdgpu_ctx_out *out)
-@@ -727,6 +754,9 @@ int amdgpu_ctx_ioctl(struct drm_device *dev, void *data,
- 			return -EINVAL;
- 		r = amdgpu_ctx_stable_pstate(adev, fpriv, id, true, &stable_pstate);
- 		break;
-+	case AMDGPU_CTX_OP_CHANGE_HANDLE:
-+		r = amdgpu_ctx_change_handle(fpriv, id, args->in.flags);
-+		break;
- 	default:
- 		return -EINVAL;
- 	}
-diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h
-index 15da4d9c44fd..d2a7b4e9daed 100644
---- a/include/uapi/drm/amdgpu_drm.h
-+++ b/include/uapi/drm/amdgpu_drm.h
-@@ -251,6 +251,7 @@ union drm_amdgpu_bo_list {
- #define AMDGPU_CTX_OP_QUERY_STATE2	4
- #define AMDGPU_CTX_OP_GET_STABLE_PSTATE	5
- #define AMDGPU_CTX_OP_SET_STABLE_PSTATE	6
-+#define AMDGPU_CTX_OP_CHANGE_HANDLE	7
- 
- /* GPU reset status */
- #define AMDGPU_CTX_NO_RESET		0
+1.
+This kernel series which adds new uapi to amdgpu.
+
+2.
+A new IGT test case which helped me find what doesn't work and to verify what I
+added.
+
+https://cgit.freedesktop.org/~tursulin/intel-gpu-tools/log/?h=amd-criu
+
+The IGT starts out adding some very basic tests (first commit) which are laid
+out in order of increasing complexity.
+
+Following commits then add more tests and by the end, with all these series
+combined, they all pass apart from the forking subtest. But that one I am
+leaving out of scope for now.
+
+(And to be clear, before this work, none of the tests cases can pass.)
+
+3.
+Changes to the amdgpu CRIU plugin which use the above uapi, among other changes.
+
+https://github.com/tursulin/criu/pull/new/amdgpu-render-node-rfc
+
+As a picture is worth a thousand words the best I can do is some from terminal
+pastes showing it all in action.
+
+Terminal 1:
+
+$ sudo ~/build-holo/tests/amdgpu/amd_criu --r busy-client-content
+IGT-Version: 2.3-ge37a85b91 (x86_64) (Linux: 7.1.0-rc2-cfs x86_64)
+Using IGT_SRANDOM=1779805687 for randomisation
+Opened device: /dev/dri/renderD128
+Starting subtest: busy-client-content
+Start checkpointing within 10 seconds...
+
+Now switch to terminal 2:
+
+$ sudo /usr/local/sbin/criu dump -t `pgrep amd_criu | head -1` \
+  -L /usr/local/lib/criu/ -vvv -o criu.log -j --link-remap --tcp-established \
+  --file-locks --ext-unix-sk
+
+Back to terminal 1:
+
+...
+Killed # This is normal - CRIU dump has saved and terminated the process
+
+Back to terminal 2, lets restore it:
+
+$ sudo /usr/local/sbin/criu restore  -L /usr/local/lib/criu/ -vvv \
+  -o restore.log --shell-job --link-remap --tcp-established --file-locks 
+  --ext-unix-sk
+Subtest busy-client-content: SUCCESS (10.739s)
+
+And that is it. Client which was busy looping submitting a SDMA_NOP IB was
+successfuly checkpointed and restored to completion. It both ran for the
+remainder of the indented duration and we checked buffer content was as
+expected at the end.
+
+There is definitely more to do. Play more with exported buffers, syncobjs,
+fences, buffer objects lists, but for now, as said, I am looking for some early
+feedback etc.
+
+Tvrtko Ursulin (5):
+  drm/amdgpu: Extend listing of buffer handles with the userptr object
+    flag
+  drm/amdgpu: Add a reserved VM ID query
+  drm/amdgpu: Add a new ioctl for listing client contexts
+  drm/amdgpu: Add context handle renaming operation
+  drm/amdgpu: Add driver managed buffer copy
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c | 132 ++++++++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c |   2 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c | 120 +++++++++++++++++++--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h |   4 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c |  54 ++++++----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h |  26 ++++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c  |   4 +
+ include/uapi/drm/amdgpu_drm.h           |  54 +++++++++-
+ 8 files changed, 365 insertions(+), 31 deletions(-)
+
 -- 
 2.54.0
 
