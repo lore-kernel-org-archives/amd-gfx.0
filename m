@@ -4,96 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 10F34CD5BC8
-	for <amd-gfx@archiver.kernel.org>; Tue, 26 May 2026 14:53:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9AFFCCD5BC8
+	for <amd-gfx@archiver.kernel.org>; Tue, 26 May 2026 14:56:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A32AF10E1AF;
-	Tue, 26 May 2026 14:53:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2C60F10E6C6;
+	Tue, 26 May 2026 14:56:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="MVc26bQD";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="kZ2lohPz";
 	dkim-atps=neutral
-Received: from mail-dl1-f53.google.com (mail-dl1-f53.google.com [74.125.82.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B522C10E1AF
- for <amd-gfx@lists.freedesktop.org>; Tue, 26 May 2026 14:53:05 +0000 (UTC)
-Received: by mail-dl1-f53.google.com with SMTP id
- a92af1059eb24-12db2e9b3bcso342201c88.3
- for <amd-gfx@lists.freedesktop.org>; Tue, 26 May 2026 07:53:05 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1779807185; cv=none;
+Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com
+ [74.125.82.178])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 290EF10E6C6
+ for <amd-gfx@lists.freedesktop.org>; Tue, 26 May 2026 14:56:45 +0000 (UTC)
+Received: by mail-dy1-f178.google.com with SMTP id
+ 5a478bee46e88-2f5ae07e2b5so880505eec.2
+ for <amd-gfx@lists.freedesktop.org>; Tue, 26 May 2026 07:56:45 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1779807404; cv=none;
  d=google.com; s=arc-20240605;
- b=AUZhVBiT60X7EpOQUv6t7XrNJHu3sWaPd4UvhMWJkOQifxEu8PDdHBAcIl6buwtqrM
- mQL75B8LOErapOOvLNs4K9bjCPXoICqQbM5oXvgDe463mf+Qzdb3XOlPh8bFEXhObnzq
- MwVqhuTfqsPWVjuuwynkRRrYXmPi9OatKpGOtEsdy+6iA4pMcl4X9tCfLF2TPUYquAhc
- 5fykQL1sjT0LXFR2clRUXq7OLPApE5cR81kg6v7mHfdO3oO+YIXf+PNiBm683AiyuEWf
- SUxArOAe1kmIr7ArI7oYH6ulU3Q6Ci6PSbVWei5h/jb9peV9L/QpQL/1w3ojhA4E48QR
- xSoQ==
+ b=TBlRKUapyivRnINf89oka3P4flE4N6kzK8EbQSz530oZV+kGXGL7lxLUCIMgGjvEoB
+ VDuem2nqhcJhRAqD1z3cPAZufs6Kj3YztBJwOJAcdLVFkTXSY3wsIWItCm0JU9JuV9Pv
+ e/fj1ihCkFvnbw5r0SOoyo1mJp26Dxfv1dw2rMEXu2O9mxhXQewcW5zisGT8P5p6kgMI
+ Z2jH/rIzyU/uylaOYx6ku6ivWfGkmialcNk6CqpHS8Tildk5HWvfMd1E+j9kbV0fMQQy
+ iplX4Aw8YaDxkGKF7/pzXZ0hy1cCmTrII5v3l3kKGVmz9uejdOIci2aSEhwym1v+VgXe
+ ATAA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20240605; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=kuzpY6XgB0sl9R2wkZih4Zz2Dy5QZS8ND0a9lUvUZwQ=;
- fh=/rtGc6rf8PspTycm3VZjfWvkfqBZxwpogWlPVMaXuoc=;
- b=VO8ttoVtZdJlADYjImzqgLAk7/EP9+DtducB9P9A5akWR08XXR5GIZnY7tTmT40UWA
- Zda8w2qNACXzpQCHlmWrjWz54a7jgcthfqBoYl6HFv+jPac+3ONoDPJAQzvBtJdW1i/t
- s6+DBqIARO2VXR4fxS3j6ERN+Z3dvV1zsSMYAvdNcJdZjlmi3uflAFH+NmadOzBRAnD4
- GIGa1w2OHgbWH7aBbSBgvuiTJicRkSs+pp7KEbVl90cG/0LxJtj/DDhIa8AJhtFqd21S
- E6RuQ5QagVIJwVqKoVrc9AXQQ2ybAuRetekuPppDVocn7b0aLm/ddYzQPqUH2lMtUSJV
- 8I/Q==; darn=lists.freedesktop.org
+ bh=tI22CPFGaKrd01fmh2ZM4WpxkHdvHkakusZ+j/F0kqk=;
+ fh=cwZWq2y/UFVxAjysJ5chknycDngSNUSdj6WZMuPulsM=;
+ b=ZivTu/rUd9pZvz1wXDJwNLH0KPyxTvnFzeX3FLxHZdQ/4TKRkr+LTTjpBTWZGJ0sTm
+ YUxRMGMbn6KmXUAyskMq2lNqG5uyn92KUZAjQ/ZP0oGsn9968R2rajZ8mEeDvzyu43Uo
+ kf0dXt6mjflqcDU/T55gc+9huKSaBWC1XkUKEw5GtPM4PUcQjJgQIRX3SLIS/kLKk7V8
+ YjhtE+o1w4+5Y04jOx1osjVVJuog9yLWXjGojzxwkSFlSNGwYIzjxasaFjQZf4ub1Ntr
+ URB/igu3erSW/9rOOYYlrzcUiqH/y7JQGG0faP4Gahjg69Y471luo5NFKYA9q1OyTvWM
+ Zn2A==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1779807185; x=1780411985; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1779807404; x=1780412204; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=kuzpY6XgB0sl9R2wkZih4Zz2Dy5QZS8ND0a9lUvUZwQ=;
- b=MVc26bQDm4q0rXKyurX2HyLEwCa/yeFIYFAP8FDXcpKNJVdap7aaSRqLY8IbCru1Hr
- 6w/0xdyspfjUqCP31c1AiZfIApCYO3b848HTT4l/CJVUWyJLt/Fw92ASFjxAG/mv2gWx
- BVwln6XFAaXjOtCm6oSIEiogfbM4DV1c3d7TkfzrnbRlXKjzDFR6ZvTG1PY8NqtLxumK
- KLomk7ltzjY1rcpNDNBI5Yjkf9lSdyrtEgsfih5yDk0IEPJoJLLwIbdsmqHVSVvEovWg
- aHbhP4Vri4n0jw3OjnbTn+DS5zU/fIiNCkO7jz1hVMAL+VbiJQ/E69aDqsRffMJU72lK
- 2P2Q==
+ bh=tI22CPFGaKrd01fmh2ZM4WpxkHdvHkakusZ+j/F0kqk=;
+ b=kZ2lohPzTYZI9qioi/zTf8JsgSTA5VgoUdhW91kV/OyMZ7s4gUH+V0Dilac9Cav7G9
+ u7hDIH02bIswXJ0dMkoVoKWN+BNLbW3/bLpbWvUbC9FSR6BE4jvYntc8yI29iW6Ey5zR
+ +I4kjs7s9MV1QDdPTRxIOCCCmRgn4HDEj1RFYNCvqvGCqgN2Wp3D3giG5XXG5gsmHs7r
+ HxQyHsPps/kCc44hYjP+3y68JXEsu0bxgFsobG9AqiNJOUmo9s7ypaUrD2OwnX9z8hEs
+ f7luy33Gr9hMhF0byzcO/AF2KqqaseyOKN4lmOLXpwE4G5xY+gf6cXcl86vES7IU3s6M
+ SzfQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779807185; x=1780411985;
+ d=1e100.net; s=20251104; t=1779807404; x=1780412204;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=kuzpY6XgB0sl9R2wkZih4Zz2Dy5QZS8ND0a9lUvUZwQ=;
- b=ZQowuiFdSlu3OGGk22BOzluNqXF7+sWUeupzmYYYmWyIxahR3uHAA/6dCwidTT6s89
- 5oEndJ/Sdq9or4qIYJ8BaW3+LFeT5kUOrN2AW0KYY050dyWpMptWd2zU3Yi0oKtjcqsA
- /Auft8z/47jCAFZP2G4qfqHrboKlDtvwLtKElhM7zJEuAPDhJ7d9e7VrMmAkkKNvwlOG
- l8AYSypr7w3FVFR7hZ4EFmzMVaz6xMcReQA2VX9v/jlXGoNf/GKsd5ZXoQOtCo8fb3vd
- bTSMtB6KSQ8b3kv0MBAACjeYQoOrtFH12TPsVmCVfT1YV1OGbWMQqwF1J2v1PP+7ptjE
- lk2Q==
-X-Forwarded-Encrypted: i=1;
- AFNElJ/D5OSQy9Wm8w5f3SQJ+gVwx4+OCt+tHYkAjxbQWu+h1CI/HrSy4diBs/xtp+GewWpeJbnhwnax@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwZJxP40rNBFfvYtrG6lvfanDpS+blxYwU/oqCogssEmWFec17W
- zzgRWJE6w9IS+j/0LI7qlpg0ct+jUxbgs56KP/lnF0i62+pCzsTvBbupWQJJRbI+lZzJYxbvd1F
- ZGqr8adYpDuwxVknRsitQOa3o1rGB9jc=
-X-Gm-Gg: Acq92OHGIQr056/dM3iUWvEH0cHHhc5SE/CkybSfGUbMZODQSMjHNDI/5j42X3YCTiG
- CpLvsZps5id5BN2L8hADNNJB8PUdOjnPMzh9/ritzcTjQxfUldiZjMqWcAceBWJ53UlgULQ0Wox
- xfjXjxIoORxi+cpucfb+AspwFrbg0rR27qxgNCRQgIX8cCTk5urwk691Nzv3XOR5xjSifBNRBkV
- tQWE//e06t5J15TvZtHKP7o4v3e25RWOzLaIox4yhB+gqM4SyPQjOAUDOxqC9ngLCtlCS9JRn/j
- g+K66VV0uat2T1oGhlv1sJ2gKgkenZbEsL5JQDvITOTS5Ez8fwh4W4s9HV2VRPmYdAKidXJXIpG
- mlwO1
-X-Received: by 2002:a05:7022:626:b0:134:d037:aca3 with SMTP id
- a92af1059eb24-1365fa3ef8bmr3010059c88.3.1779807184983; Tue, 26 May 2026
- 07:53:04 -0700 (PDT)
+ bh=tI22CPFGaKrd01fmh2ZM4WpxkHdvHkakusZ+j/F0kqk=;
+ b=B+C2rN8FcMBMi8beOvYjRz12uuM/6bHhkM2hP0QrcUv0SWiqq/UBNAKk9e517YgmDx
+ P8z3pHoo7Ym6RWB3nVnnsOhZ89anlMUG0cMRiWh8GMG6HZqzBs19ydYhAj4sCOJfCOVN
+ BOW28BDhmPZhFR/U10FiE+qSkUmpMYSYgGAd7VgDEvroW8Y2wQY456gXionB2JVBZPBW
+ 1VnedB3XWvqFjVUXJlbHNa8+lMv8Shtm8zdUEBMB7f1395FfcSqztHQxmOMEZcamPVLa
+ m09ItHWxunynklCZIbLAmkPE7IQzslEZj8Tr01prG7CLhBxgqWQH3BCMilB945uU/C35
+ xFOQ==
+X-Gm-Message-State: AOJu0Yzf3q2SwNWqgiF5kbmeNRSHMXJZOsAc8bfc6M5fBi0v3uBBF6iV
+ QLFub9fneVzKY/za3Cbdu0/VddEqFpRaWA/tpoGTXOrCoxz0ER5vkc/Qcpn98V3d+aiFNeqm679
+ QSCCv2Rz3mNlieDsGpRejaNLGWcXNC+U=
+X-Gm-Gg: Acq92OFGcD+BPNgh7fH3UizBvrnf9iXWP4sBEXzdkCpmiJot1yeQjPt/d0Hh8IPripy
+ egAog1R2W1lz5c1LwKPABOKbrHsVNtUPUttErk10KaZUQV+HxgS1p7BkIaj/a9UM/csrRRb+TLH
+ kjF5PJNAJua6Vcl1eP5OyBYKNIPYvUiy1Brmn2xKeFv8uesplRSZPynJLu2GnCnOKOGKp16DqzE
+ eU6cXgBen/arxLfz6lz5JvhdFbNR5PFU64vF6J6dp47r588YV0SzkPnWwvxztg1uCzVuRQyUFaK
+ PHP72EKtXbQgiSFs7HarqMeR8Eeh4/Vpj4tCo8+2h7REUbaao8yWVQqqblPWQ1h8W7KQqg==
+X-Received: by 2002:a05:7022:68a3:b0:135:1b09:db43 with SMTP id
+ a92af1059eb24-1365fb651b4mr3207115c88.6.1779807404343; Tue, 26 May 2026
+ 07:56:44 -0700 (PDT)
 MIME-Version: 1.0
-References: <20260519030624.51613-1-leorize+oss@disroot.org>
- <20260519030624.51613-2-leorize+oss@disroot.org>
-In-Reply-To: <20260519030624.51613-2-leorize+oss@disroot.org>
+References: <20260526072954.7665-1-cesun102@amd.com>
+In-Reply-To: <20260526072954.7665-1-cesun102@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 26 May 2026 10:52:53 -0400
-X-Gm-Features: AVHnY4LcPsiYYQmh-1BOJDsIdKpDtx2NbLr3E_yI9k27EGP0u5MvvjHIjHnWQ-Q
-Message-ID: <CADnq5_MrUaLRP70hwb5YGawjfft9qUaH4h_t4TQ17AEgAwj3ww@mail.gmail.com>
-Subject: Re: [PATCH 1/1] drm/amd/display: set MSA MISC1 bit 6 when using VSC
- SDP for DCE 11.x
-To: Leorize <leorize+oss@disroot.org>, "Leo (Sunpeng) Li" <Sunpeng.Li@amd.com>,
- "Wentland, Harry" <Harry.Wentland@amd.com>
-Cc: linux-kernel@vger.kernel.org, Rodrigo Siqueira <siqueira@igalia.com>, 
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Date: Tue, 26 May 2026 10:56:33 -0400
+X-Gm-Features: AVHnY4IJ8OsRWWzV2aooOjtP9jWJ4Cn4cFoObNnTKjAkUgcyOSY_iDPieDLp_u8
+Message-ID: <CADnq5_OtqC1MSCyqWXauNbJPKXh43A3uDbNbttHMMo6gbG0LsA@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: Fix user-triggerable BUG()/BUG_ON() calls
+To: Ce Sun <cesun102@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, Hawking.Zhang@amd.com, YiPeng.Chai@amd.com, 
+ Tao.Zhou1@amd.com, stanley.yang@amd.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -110,98 +102,114 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-@Leo (Sunpeng) Li
-, @Wentland, Harry
+On Tue, May 26, 2026 at 3:30=E2=80=AFAM Ce Sun <cesun102@amd.com> wrote:
+>
+> Replace BUG()/BUG_ON() with error logs and safe returns in several
+> places where they can be triggered by invalid userspace input,
+> preventing DoS via kernel panic.
+>
+> Signed-off-by: Ce Sun <cesun102@amd.com>
 
-Can you take a look at this?
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
 
-On Tue, May 19, 2026 at 3:19=E2=80=AFAM Leorize <leorize+oss@disroot.org> w=
-rote:
->
-> When BT.2020 colorimetry is selected, the driver sends information using
-> VSC SDP but does not set "ignore MSA colorimetry" bit on older GPUs with
-> DCE-based IPs. This causes certain sinks to prefer colorimetry
-> information in DP MSA, resulting in terrible color rendering ("dull"
-> colors) when HDR is enabled.
->
-> This commit wires up the MISC1 bit 6 for GPUs with DCE 11.x based IPs to
-> correctly configure sinks to ignore colorimetry information in MSA,
-> resolving the color rendering issue.
->
-> Closes: https://gitlab.freedesktop.org/drm/amd/-/work_items/4849
-> Assisted-by: oh-my-pi:GPT-5.5
-> Signed-off-by: Leorize <leorize+oss@disroot.org>
 > ---
->  .../drm/amd/display/dc/dce/dce_stream_encoder.c   | 15 ++++++++++++++-
->  .../drm/amd/display/dc/dce/dce_stream_encoder.h   |  3 ++-
->  2 files changed, 16 insertions(+), 2 deletions(-)
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c         |  7 ++++++-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_reg_access.c     | 14 ++++++++++----
+>  drivers/gpu/drm/amd/amdgpu/mxgpu_vi.c              |  2 +-
+>  .../drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c  |  2 +-
+>  4 files changed, 18 insertions(+), 7 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_stream_encoder.c b/dr=
-ivers/gpu/drm/amd/display/dc/dce/dce_stream_encoder.c
-> index ed407e779c12..2c3a20d35fe9 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dce/dce_stream_encoder.c
-> +++ b/drivers/gpu/drm/amd/display/dc/dce/dce_stream_encoder.c
-> @@ -271,7 +271,6 @@ static void dce110_stream_encoder_dp_set_stream_attri=
-bute(
->         bool use_vsc_sdp_for_colorimetry,
->         uint32_t enable_sdp_splitting)
->  {
-> -       (void)use_vsc_sdp_for_colorimetry;
->         (void)enable_sdp_splitting;
->         uint32_t h_active_start;
->         uint32_t v_active_start;
-> @@ -334,6 +333,16 @@ static void dce110_stream_encoder_dp_set_stream_attr=
-ibute(
->         if (REG(DP_MSA_MISC))
->                 misc1 =3D REG_READ(DP_MSA_MISC);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm=
+/amd/amdgpu/amdgpu_device.c
+> index 5ccbe6c885cf..8fbaaf62f7a5 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> @@ -717,7 +717,12 @@ void amdgpu_device_mm_access(struct amdgpu_device *a=
+dev, loff_t pos,
+>         if (!drm_dev_enter(adev_to_drm(adev), &idx))
+>                 return;
 >
-> +       /* For YCbCr420 and BT2020 Colorimetry Formats, VSC SDP shall be =
-used.
-> +        * When MISC1, bit 6, is Set to 1, a Source device uses a VSC SDP=
- to indicate the
-> +        * Pixel Encoding/Colorimetry Format and that a Sink device shall=
- ignore MISC1, bit 7,
-> +        * and MISC0, bits 7:1 (MISC1, bit 7, and MISC0, bits 7:1, become=
- "don't care").
-> +        */
-> +       if (use_vsc_sdp_for_colorimetry)
-> +               misc1 =3D misc1 | 0x40;
-> +       else
-> +               misc1 =3D misc1 & ~0x40;
+> -       BUG_ON(!IS_ALIGNED(pos, 4) || !IS_ALIGNED(size, 4));
+> +       if (!IS_ALIGNED(pos, 4) || !IS_ALIGNED(size, 4)) {
+> +               dev_err(adev->dev, "unaligned pos/size (pos=3D0x%llx, siz=
+e=3D0x%zx)\n",
+> +                       pos, size);
+> +               drm_dev_exit(idx);
+> +               return;
+> +       }
+>
+>         spin_lock_irqsave(&adev->mmio_idx_lock, flags);
+>         for (last =3D pos + size; pos < last; pos +=3D 4) {
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_reg_access.c b/drivers/gpu=
+/drm/amd/amdgpu/amdgpu_reg_access.c
+> index daefbeeee4d2..7468855c16a2 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_reg_access.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_reg_access.c
+> @@ -406,7 +406,10 @@ uint8_t amdgpu_mm_rreg8(struct amdgpu_device *adev, =
+uint32_t offset)
+>
+>         if (offset < adev->rmmio_size)
+>                 return (readb(adev->rmmio + offset));
+> -       BUG();
 > +
->         /* set color depth */
->
->         switch (hw_crtc_timing.display_color_depth) {
-> @@ -499,6 +508,10 @@ static void dce110_stream_encoder_dp_set_stream_attr=
-ibute(
->                                 hw_crtc_timing.h_addressable + hw_crtc_ti=
-ming.h_border_right,
->                                 DP_MSA_VHEIGHT, hw_crtc_timing.v_border_t=
-op +
->                                 hw_crtc_timing.v_addressable + hw_crtc_ti=
-ming.v_border_bottom);
-> +       } else {
-> +               /* DCE-only path */
-> +               if (REG(DP_MSA_MISC))
-> +                       REG_WRITE(DP_MSA_MISC, misc1);   /* MSA_MISC1 */
->         }
+> +       dev_err(adev->dev, "invalid MMIO read offset 0x%x (rmmio size 0x%=
+x)\n",
+> +               offset, (unsigned int)adev->rmmio_size);
+> +       return 0;
 >  }
 >
-> diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_stream_encoder.h b/dr=
-ivers/gpu/drm/amd/display/dc/dce/dce_stream_encoder.h
-> index 342c0afe6a94..88d6044904d1 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dce/dce_stream_encoder.h
-> +++ b/drivers/gpu/drm/amd/display/dc/dce/dce_stream_encoder.h
-> @@ -96,7 +96,8 @@
+>  /**
+> @@ -469,10 +472,13 @@ void amdgpu_mm_wreg8(struct amdgpu_device *adev, ui=
+nt32_t offset, uint8_t value)
+>         if (amdgpu_device_skip_hw_access(adev))
+>                 return;
 >
->  #define SE_COMMON_REG_LIST(id)\
->         SE_COMMON_REG_LIST_DCE_BASE(id), \
-> -       SRI(AFMT_CNTL, DIG, id)
-> +       SRI(AFMT_CNTL, DIG, id), \
-> +       SRI(DP_MSA_MISC, DP, id)
+> -       if (offset < adev->rmmio_size)
+> +       if (offset < adev->rmmio_size) {
+>                 writeb(value, adev->rmmio + offset);
+> -       else
+> -               BUG();
+> +       } else {
+> +               dev_err(adev->dev, "invalid MMIO write offset 0x%x (rmmio=
+ size 0x%x)\n",
+> +                       offset, (unsigned int)adev->rmmio_size);
+> +               return;
+> +       }
+>  }
 >
->  #define SE_DCN_REG_LIST(id)\
->         SE_COMMON_REG_LIST_BASE(id),\
+>  /**
+> diff --git a/drivers/gpu/drm/amd/amdgpu/mxgpu_vi.c b/drivers/gpu/drm/amd/=
+amdgpu/mxgpu_vi.c
+> index e1d63bed84bf..c3293e5a658c 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/mxgpu_vi.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/mxgpu_vi.c
+> @@ -308,7 +308,7 @@ void xgpu_vi_init_golden_registers(struct amdgpu_devi=
+ce *adev)
+>                                                                 xgpu_tong=
+a_golden_common_all));
+>                 break;
+>         default:
+> -               BUG_ON("Doesn't support chip type.\n");
+> +               dev_err(adev->dev, "Doesn't support chip type %d\n", adev=
+->asic_type);
+>                 break;
+>         }
+>  }
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c b/=
+drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+> index c491af21a34c..0f6e2b55625a 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+> @@ -961,7 +961,7 @@ bool dm_helpers_is_dp_sink_present(struct dc_link *li=
+nk)
+>         struct amdgpu_dm_connector *aconnector =3D link->priv;
+>
+>         if (!aconnector) {
+> -               BUG_ON("Failed to find connector for link!");
+> +               DRM_ERROR("Failed to find connector for link!");
+>                 return true;
+>         }
+>
 > --
-> 2.54.0
+> 2.34.1
 >
