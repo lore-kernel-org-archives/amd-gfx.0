@@ -4,124 +4,101 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F1CBECD5BB4
-	for <amd-gfx@archiver.kernel.org>; Tue, 26 May 2026 07:09:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 29936CD5BCF
+	for <amd-gfx@archiver.kernel.org>; Tue, 26 May 2026 07:14:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 93F5410E4BA;
-	Tue, 26 May 2026 07:09:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BC2A010E4CD;
+	Tue, 26 May 2026 07:14:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="g6/F85nR";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="pk0aM4RZ";
 	dkim-atps=neutral
-Received: from BN1PR04CU002.outbound.protection.outlook.com
- (mail-eastus2azon11010012.outbound.protection.outlook.com [52.101.56.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C4EE610E4BA
- for <amd-gfx@lists.freedesktop.org>; Tue, 26 May 2026 07:09:23 +0000 (UTC)
+Received: from PH8PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11012029.outbound.protection.outlook.com [40.107.209.29])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C9DFA10E0E0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 26 May 2026 07:14:32 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=hMsS0auLTf0qDvtHix604HyOmliO7636ofaWWoAODJuI9LosHK9JHsUiMicQF10aUPK8MLqYbCtWmJ79uFYTGXsN3E9yzCL9/DQ388c4siKPTSmJW51Qb+mXS+xFMhYuxJ9QLDxbREXTLyxQpV6n31uGenZEFh6iIju8IXu3Xnzabnmep/D71Sa6zfrrrMjDTjiabMb4/Jt0mg0gTyfXYttZZt/VVa+iAdYq9t3jHB12sFo3VNbt7cI+QC6JXX5pdgNXm3GeJgFzDA1bO3yNkWziuALKqmpKgKgaMseFfeD8Qq57xKhVCA8QJGj5QNXZ1WSpMo+fHaC9k4UlVwgMVQ==
+ b=WIp1I7RlZwq+KEKpkGkgesxDsIQDhFYgD0RbOsHpT+uWkY3C8mhAYQbCGezUgOAyO7nGTWpnsuzaMusTIP3NFkG4VKWm/HXuyQvG0eC1sglBP3w08lLANifI/X8cBQEmW+ISUL+z84mDJU/CMBVL+f1g5YRuHI9x5jx96P7ctoLU9LsZbnXYfZteQKMXRzJpKiDw18cRZy0JptJsLGh5sa0fHOHjmbItHIttwf8OiuHr1vH/ffj57Leq97Edozsx6ijAWSJO9xqzvZ5VPepy6qCiRUnKuzuXLhUSCcv2J7YQY6DbOhI91JWsI58uox8pT7tcCIwhLgwmrO07jw9nHA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=n2PS3zszYXHYM/Qcf+PQ8DLzQv8R2cSnaFRJd4L25+Y=;
- b=MO1IuAL1TKT7jMG7RklROlbugKyRx17UEKlieD6C/rxrNMp2Wf3WBy+fLLDuPPnPD5V/XDbGdq2UZcm877jw+hzj+1fMS9jZEWIRa5WV23k3YctKWK0gCQWiPH/STPXX6JIZ90OHPqePrKyjhCro7T66ahmVHG2QblFb317qCWEihrQXFn3yLzAJ0X5+Q/sHOACHr39ElsbI7KKc5e38ejKMcr3SatKsYwH+90gA7lAljqdHpJyuu5kzXg2bQBbUA9WJmBsoK1x74vt3NUxrHPVYQ5LRWaD7gwRBGP4FwxbM25lnuZPSWSfzjgmxQiPBK3aA+0r0Sn1BIZcqLz9j2A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=CgedfZXKpOwixuVj53djfadU+dflb7YywjQbroOtiOs=;
+ b=PEGNRk9roPGHNa180ugRr0AgFf5F9QaJXO7NAax58YlKNUQUgdanU/v6mEoGgr3xiDspuznpqCCKjv2L2yoXb0ZugnkXes+2QVi67Wc4C+p20UFInibspeKxAUGIRzdRNUtVme8xMNM1sT7f92cmnkVYjmYRXX3ydiTmxLdJCUnwz2LQ8AtlNfYa15FhftyOKo7aLxEU2iKHBPw3DuyL0lpQVrxSG+NsCs7hGAijtRlVbhnL5ab7qjG/kYW8+FZMMpOak2bZkIfEY/9E5g/WL5M6C/uw1xsAlRLdQyvp+xtEIhp60mk3SQIM1uj5pfbhoR3g6cqMUah+U9pkjLLmFg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=n2PS3zszYXHYM/Qcf+PQ8DLzQv8R2cSnaFRJd4L25+Y=;
- b=g6/F85nRCfsiAUyg+mrr/h5KazwSBRkGw5bjk6/GnJ8S6n5Z+LlNpq+67CobeawNfHqU8QGDwbkZeQuq7BkkuW59rKq0ZvR4jV3VaZkHW7n5XMKbDQ7IRkah2Sw89CEAUaIi6GVlAgdpF0noposHH2WPsE8vyS+LcqL6ZCpWDdI=
-Received: from BN9PR12MB5306.namprd12.prod.outlook.com (2603:10b6:408:103::12)
- by DS0PR12MB6415.namprd12.prod.outlook.com (2603:10b6:8:cc::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.48.19; Tue, 26 May
- 2026 07:09:20 +0000
-Received: from BN9PR12MB5306.namprd12.prod.outlook.com
- ([fe80::9976:3768:a636:3c3d]) by BN9PR12MB5306.namprd12.prod.outlook.com
- ([fe80::9976:3768:a636:3c3d%2]) with mapi id 15.21.0071.010; Tue, 26 May 2026
- 07:09:20 +0000
-From: "Chai, Thomas" <YiPeng.Chai@amd.com>
-To: "Xie, Chenglei" <Chenglei.Xie@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-CC: "Chan, Hing Pong" <Jeffrey.Chan@amd.com>, "Luo, Zhigang"
- <Zhigang.Luo@amd.com>, "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Yi, 
- Tony" <Tony.Yi@amd.com>
-Subject: RE: [PATCH v5] drm/amdgpu: grow VF RAS bad page table with bounded
- dynamic alloc
-Thread-Topic: [PATCH v5] drm/amdgpu: grow VF RAS bad page table with bounded
- dynamic alloc
-Thread-Index: AQHc7HmMWgWFjIfvbkeS8BawvBOaJLYf4/VA
-Date: Tue, 26 May 2026 07:09:19 +0000
-Message-ID: <BN9PR12MB5306BA43DAA6A99CBF37EFCAFC0B2@BN9PR12MB5306.namprd12.prod.outlook.com>
-References: <20260508180705.217683-1-Chenglei.Xie@amd.com>
- <20260525190600.2910538-1-Chenglei.Xie@amd.com>
-In-Reply-To: <20260525190600.2910538-1-Chenglei.Xie@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-05-26T07:08:28.0000000Z;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD General
- v26; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=3;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BN9PR12MB5306:EE_|DS0PR12MB6415:EE_
-x-ms-office365-filtering-correlation-id: d3897c7f-cca2-45fd-6ba5-08debaf5b519
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|376014|1800799024|366016|38070700021|11063799006|4143699003|22082099003|56012099003|18002099003;
-x-microsoft-antispam-message-info: y+s21DVpc5MgPXWaU2ytJdBFcCrV78hyz43Xf513KaVZj0Hkzy4l3kl1FaFVG8HulO0mUTQFqGz7nsFSsoEWdwaEjAUz2EouOtSDRaB//Hb+cBYoMGXNcvONgg58HK1ltosC8plD/rzh1uOZYvT8uuFrGYC+VJl8SAKizRkKLfCt5rkj9j7mU4ZnQbSvxyg6mSQeySDKxlWvQdZL4dOPMzoylZv/00W1/zyv+LAODz6Q9WxvtjsMdj0954g4o1ayWdf/ER6AbjLqH1SHHq8qPfNumaPZu8Sr0oJtqJh7ChcYsKK/33u04vXo1YOF9IXLFSNe4g9fhPieWfNjg61EHIvitdhvU3esiDxoce4Stx5ZUQ/0i5b6LJfEVaEsQxu4rtBIpkTG7jvoqqShh/i82tH0R2Iz2VsB1vE49RcEVcuJwSVgVyyomRQ4MeKaObX93HcsgjmfK2R5tCM7TVjGncYyNosA23sI/HxSTk7QDoZqP6nHnOQQ3/ym/MZEV+zIr25dx6HiC3H8TrJMQmDhjU2jSDZ2MnDyNFsyVcO3kvoNmkC9XLqMr7jzGjphoZxVzsfMdFPHIK1jI0Ez31k/yPJJsWspPQ51BgLP2DPoqvugRetieLgLMwEGC8PV25rxRvZx4WDp/FmjXDJRTB3yqv4MYkuSUlcTPNP03V14PF968hff9t8OluZFVpvc2eBSR84DkstNd0wcZh2QlCzACTtwMhA09forxfvZiYf0+vF9l60WoguGBwegoJ5ssCpH
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5306.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(366016)(38070700021)(11063799006)(4143699003)(22082099003)(56012099003)(18002099003);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?uvnPf+BETnhMzsB0BeTtnmmGY1Pk0UetL9t9OeQhTf7SuAg6hwvFg1OEmoCb?=
- =?us-ascii?Q?5xXZUdXy9sq/nnE6NgMLYkHiQs+u9nrRq1QORC3GF94mdNnWNqGGSv0c+Kgs?=
- =?us-ascii?Q?YQI1EQi/T4fiyPWrK8BUo43JOLGEYIArmc98ryUwEWqi85qTIg2B9JP5urS2?=
- =?us-ascii?Q?GjjFkqHk74jNpcpJyivnLFH0pKkksYafM4xbHAIUsPtmqV4u3YETN6GMTEaW?=
- =?us-ascii?Q?LfbSWRtzjm/g5YGlhBwODCpDeOuqzalARNjTOULLcq/bVc4MD6tf+lJfnzDC?=
- =?us-ascii?Q?RvSU/JQTQmbtCsNpIIu6aP9aY6CHAxOlccB1okTTfn7+NZRjhwBQGMQeejf8?=
- =?us-ascii?Q?MCpcTuE55E+rSyYgWi1qulJJI4TAYPM+prlx9nXHESJAqiELpf60sVKXZJ3C?=
- =?us-ascii?Q?rE+eHFYMHBA9edj9YG8irOVbFeFd1zarOys+up835NUq8YKQYGS0/CJd8fJs?=
- =?us-ascii?Q?suyeFwhIAd6rCJKUQzK24WmEppfJFCGQJNmihFxCxfhXAxRQT9ZVetFI1qQi?=
- =?us-ascii?Q?FVmonryUDnTa4eMlPCLeT7e7lkuUgT3jnM1vyeN1AIkx0HI+46GTL8HYsdV8?=
- =?us-ascii?Q?iNMLM8xghpiJHTmlNQZpKkj3nBYUnlANNwRgMUOa7TlO+l70Y30gBxQq/o46?=
- =?us-ascii?Q?R0Fyj4zPRTMBXftuFnhaTkGbZzlQwCn8brQAL8mg0TkYEvnpAx6H+biZR32S?=
- =?us-ascii?Q?DBI41rd07wh7OywTkl+pAk1Qgj3zhlzgiXyjWtajcUdav+htMGR3iKK7TCWA?=
- =?us-ascii?Q?r3NUI19feF1xzhH6NTFKCp3rZRbfofiI0JHWNIzoG0nCNkw2BihvEs9Ela1A?=
- =?us-ascii?Q?KDXCf0Sl5U5bqs4CrcrCTMF16EzQz7rKLxYl+od7nE+HNfcgHK6LdImFwG4e?=
- =?us-ascii?Q?UqTKh/XqLN1cocOItLLEGIwGPwfP6fI1MIJttDHAQzqxI8CTi4tjfYO1Hpgc?=
- =?us-ascii?Q?mD8U16AVsiDu/UjYde+YoekIGtYFgu6T7HBkCDrAbYNmniqH4Ua2g5sdpkrZ?=
- =?us-ascii?Q?1Q4ZsaJzBar+/KTOqzxSwqEFvsZH2d+hjQOpiBbor9c1luc4+lXxuNSXlnRb?=
- =?us-ascii?Q?TWQM29bxyIMj+d0rOiMXA2llOtsABNukyMK9bsyMcxvw9NoOyT1loZxQ02rq?=
- =?us-ascii?Q?g2nbJVqpOLtlY1Z2vgSwDFb29TtXRMxZOGOdTmL7C8liH9W2i9QmDOuIPgxM?=
- =?us-ascii?Q?gj88CTh+Hie/UeQ0fGAq5ex8LW1XUz1fb+7WXp1IZvaaYm557IElJq/vKYyd?=
- =?us-ascii?Q?JxYq4CQmvYMWPk4U5oFS0Vi5y7YGa7JP/NY3ScPldkoCNVDVOF9azccpmsXs?=
- =?us-ascii?Q?mipkeXLu2eP/HhrUtC/gxGURx5bAuG0Y+250EAgaHY7BOgpDN+sMyVfevX8e?=
- =?us-ascii?Q?EbTV0cs0WmDEMDbylCXiup+/iggPLHXlpObNBXgc2zGk8eG38fYbsnJhxVt+?=
- =?us-ascii?Q?jqFRWsWOF1/gNLU7/+LpLhnWp4QT+deFYh3G9JwDBGhp7f6Kr06AA1fNImVN?=
- =?us-ascii?Q?B0vNrwEsD01VpOcnl21deUDzi2YF+57ci/ma13owMIODY92z/UxBYsF6Y1+l?=
- =?us-ascii?Q?Ddk5DbhwU6SJ5nrHtaS3jNOpcRkdGWFf6gf/FXEr3LPr7fXXlzAhVqK6npGC?=
- =?us-ascii?Q?9rYMCcQwHEb94J4QpAqV58uFfz/WXU4LTNVSkNtbgmFHbe1LJxh3EsILq6zF?=
- =?us-ascii?Q?qDrQsk1NeMKxSVuc6LWOVkoeE84vuUVaErtmLDCAXk2tFeGA?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+ bh=CgedfZXKpOwixuVj53djfadU+dflb7YywjQbroOtiOs=;
+ b=pk0aM4RZItgkGUTNwovJtQuArWGRLJs8BxDum8az3fg07h/aCJOi3SUFOzrMBvz8fX2IBaxlUHj3kej8teVVcWrJDQEn8L5bZPpjXvnJsnTDudeCmDnkfaCBMvvk+X1XLHQaTvmp7zXn3lLFsf/+xYAXEyanLlKRivPyZZYMzg0=
+Received: from PH7PR17CA0005.namprd17.prod.outlook.com (2603:10b6:510:324::14)
+ by LV8PR12MB9230.namprd12.prod.outlook.com (2603:10b6:408:186::9)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.11; Tue, 26 May
+ 2026 07:14:28 +0000
+Received: from CY4PEPF0000E9D8.namprd05.prod.outlook.com
+ (2603:10b6:510:324:cafe::a) by PH7PR17CA0005.outlook.office365.com
+ (2603:10b6:510:324::14) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.71.11 via Frontend Transport; Tue, 26
+ May 2026 07:14:27 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ CY4PEPF0000E9D8.mail.protection.outlook.com (10.167.241.71) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.71.7 via Frontend Transport; Tue, 26 May 2026 07:14:27 +0000
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Tue, 26 May
+ 2026 02:14:26 -0500
+Received: from ray-Ubuntu.amd.com (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
+ Transport; Tue, 26 May 2026 02:14:18 -0500
+From: Ray Wu <ray.wu@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Aurabindo Pillai <aurabindo.pillai@amd.com>, Roman Li <roman.li@amd.com>,
+ Wayne Lin <wayne.lin@amd.com>, Tom Chung <chiahsuan.chung@amd.com>, "Fangzhi
+ Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
+ <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
+ <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
+ <Chen-Yu.Chen@amd.com>, Ray Wu <ray.wu@amd.com>
+Subject: [PATCH 00/41] DC Patches June 1 2026
+Date: Tue, 26 May 2026 15:01:23 +0800
+Message-ID: <20260526071413.2181251-1-ray.wu@amd.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000E9D8:EE_|LV8PR12MB9230:EE_
+X-MS-Office365-Filtering-Correlation-Id: fe951cc3-7415-4452-fffb-08debaf66c2f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|82310400026|1800799024|36860700016|376014|3023799007|11063799006|6133799003|18002099003|56012099003;
+X-Microsoft-Antispam-Message-Info: agUPO/jk9h4KMintPBl59Cj+gYiYwc4YLV3A2UYdZpeXAlfEhoSGjQMjmrTSwpBDrhQV6Am5st4by+8+1FTt9+dCNK/1bBqX6PRW91sp1x7OmtZAQSAs3uPdJt17j/1ko45XEbolByB1siaNBA7uuXr+iIkf3vHAaZ0NlCjeCyfQDzhoIyZDTheWzl19wjT8t6s7K7qw9ti4ulOZqbiWtnG8w2o/QDF8fJrQ7xuYV9wp43ElGyY99GojI1+88J2YbfNvhg2xq4JOJbz9K647iLhskA83luiVvh2mWl+uqeS2pC0tTBvs8T9PWmRQKFMj+8dOfrmaKsNtrbpYPwCwjIZ1E4dV+zgnBc1EvQD8W22S6DXrGBKctcvI5X3CmL8HQ5wkvzyXO5LoXVYm4wG7pLuY4q/xy9zvGrhr/AH8VVlOEjjk0v2hZuBjOMDm2DBf0KjQQS/5kJ955tWFlp4LX9MnYrDzOhfB8fZ+XBPEWzJtkkeNC4znRp3YqVWkTDYYFQfxwhH4K/1MuaLqjSFhm85831mrjfmxZLd8VRjSUetDZM/ChqonOJGTkQcT1+CumLra+A6I4jc3MiILGNEf80VJgS1Bkfh/PL5b+JrqQpz37Hme+1kfMDTIcaNO+WlgVmd3P4p8MldzEL9qmkezHpMn/Qz0u5HtV/Vy5yEAMDSEMtLOurjQhbeN7qj2Y3DeT/4JW3Aj9HVXUtLUtfRMh+qN3KAd4I6kUuuZtTGWqgI=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(1800799024)(36860700016)(376014)(3023799007)(11063799006)(6133799003)(18002099003)(56012099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: c0r5qRcNm1/G7W7o0Y5U7VnsMSlp4bgcp8LNtDQDp7cndPMGlgfBrO3zQnBPVGcymMMq2zAs6HVlWfHO/eCtc1hBTDn4U0k1YEB4eHmeTq3dvwEm5PitR5TKTr2MFfmWWKlxxJGfrpNa0ebxQG40p1UpblyNFysiZOpdmJcl3eQbitKpY3g7P2hESssOUEcYa+cLZ8TBzR8F2g8yDAodHCKyw2thSZTLXXcHBmJeUbXThHDAefpQZ87VVGcgvWnQ7AQsTmbfX4VSlfCnCYFmQgH6Kjn3xapGsyolsEqKycWbOgVczgmu98KDHoCuRAYfkoNCDyLI7aP0sygWonFeTEs9/8epYxNlTegPt+fOElLx0LIkUC41AQmKno6rowecISOeSPqCMn9qEZq8E/QXyW4W9fiaFDEVYSaLUitw6ML/5xdkER1REtq1prbdoYNZ
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5306.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d3897c7f-cca2-45fd-6ba5-08debaf5b519
-X-MS-Exchange-CrossTenant-originalarrivaltime: 26 May 2026 07:09:20.0891 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 3+4K1TmbbSmvlvaKUNg4Hm56A2Xrv2e/16LM8027J8ivtoX0H3jEVZwLBYJHSMk6/xXXIpbMRY1cT/W+Fomiog==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB6415
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 May 2026 07:14:27.2132 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: fe951cc3-7415-4452-fffb-08debaf66c2f
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000E9D8.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9230
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,240 +113,250 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-AMD General
+This DC patchset brings improvements in multiple areas. In summary, we highlight:
 
-Reviewed-by: YiPeng Chai <YiPeng.Chai@amd.com>
+- Enable DCN 4.2.1:
+  * Add register header files for DCN42B
+  * Add DCN42B DC resource files
+  * Add DCN42B DMUB support
+  * Add DCN42B code to DC and dcn42b_soc_bb to DML2
+  * Add DCN42 PMO init_for_pstate_support
+  * Enable DCN42 PMO policy and pstate pmo
+  * Enable DCN 4.2.1 in amdgpu_dm
+  * Enable DM for DCN 4.2.1
+- Add no_native_i2c codepath
+- Add amdgpu_dm KUnit tests for:
+  * amdgpu_dm_psr_set_event
+  * dm_ism_dispatch_next_event and additional ISM functions
+  * amdgpu_dm_colorop
+  * color LUT functions and transfer function helpers
+- Enable gcov coverage for amdgpu_dm KUnit builds
+- Extract dm_ism_dispatch_next_event and transfer function helpers
+- Refactor amdgpu_dm_initialize_default_pipeline
+- Clean up PSR helper functions
+- Fix gamma 2.2 colorop TF direction in tests
+- Handle aux_inst for connectors without DDC pin
+- Fix DP_PIXEL_FORMAT fields & update clk_src for DCN4x
+- Avoid DPMS-on for phantom stream
+- Change default driver setting for "Force ODM2:1 for eDP" policy
+- Add DC_VALIDATE_MODE_AND_PROGRAMMING condition check for force odm2:1
+- Check for sharpening case when calculating max vtaps for scaler
+- Add DRAM table fields to clk_mgr_internal
+- Enable frame skipping in 0x37B
+- Bound VBIOS record-chain walk loops
+- Clamp HDMI HDCP2 rx_id_list read to buffer size
+- Clamp VBIOS HDMI retimer register count to array size
+- Reject gpio_bitshift >= 32 in bios_parser_get_gpio_pin_info()
+- Use krealloc_array() in dal_vector_reserve()
+- Fix NULL deref and buffer over-read in SDP debugfs
+- Fix out-of-bounds read in dp_get_eq_aux_rd_interval()
+- FW Release 0.1.61.0
 
-Best Regards,
-Thomas
------Original Message-----
-From: Xie, Chenglei <Chenglei.Xie@amd.com>
-Sent: Tuesday, May 26, 2026 3:06 AM
-To: amd-gfx@lists.freedesktop.org
-Cc: Chan, Hing Pong <Jeffrey.Chan@amd.com>; Luo, Zhigang <Zhigang.Luo@amd.c=
-om>; Deucher, Alexander <Alexander.Deucher@amd.com>; Xie, Chenglei <Chengle=
-i.Xie@amd.com>; Chai, Thomas <YiPeng.Chai@amd.com>; Yi, Tony <Tony.Yi@amd.c=
-om>
-Subject: [PATCH v5] drm/amdgpu: grow VF RAS bad page table with bounded dyn=
-amic alloc
+Cc: Daniel Wheeler <daniel.wheeler@amd.com>
 
-The VF RAS error handler used fixed-size bps[] / bps_bo[] arrays (512 slots=
-). When the PF2VF bad-page block listed more entries than fit,
-amdgpu_virt_ras_add_bps() could memcpy() past the end of those arrays.
+Alex Hung (12):
+  drm/amd/display: Enable gcov coverage for amdgpu_dm KUnit builds
+  drm/amd/display: Add KUnit tests for color LUT functions
+  drm/amd/display: Extract transfer function helpers
+  drm/amd/display: Add more color KUnit tests
+  drm/amd/display: Refactor amdgpu_dm_initialize_default_pipeline
+  drm/amd/display: Fix gamma 2.2 colorop TF direction in tests
+  drm/amd/display: Add KUnit tests for amdgpu_dm_colorop
+  drm/amd/display: Add more KUnit tests for amdgpu_dm_ism
+  drm/amd/display: Extract dm_ism_dispatch_next_event
+  drm/amd/display: Add KUnit tests for dm_ism_dispatch_next_event
+  drm/amd/display: Add KUnit tests for amdgpu_dm_psr_set_event
+  drm/amd/display: Clean up PSR helper functions
 
-Replace the fixed backing store with a dynamically grown table:
-- Add capacity to track allocated slots separately from count.
-- Start at 512 slots and realloc bps / bps_bo together when full.
-- Refuse growth beyond maximum EEPROM record limit (AMDGPU_VIRT_RAS_BAD_PAG=
-E_TABLE_MAX_CAPACITY).
-- Return failure from amdgpu_virt_ras_add_bps() and stop processing
-  the PF2VF block if allocation fails or the cap is reached.
+Charlene Liu (1):
+  drm/amd/display: Add DC_VALIDATE_MODE_AND_PROGRAMMING condition check
+    for force odm2:1
 
-Signed-off-by: Chenglei Xie <Chenglei.Xie@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c | 111 +++++++++++++++++++----
- drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h |   2 +
- 2 files changed, 93 insertions(+), 20 deletions(-)
+Chuntao Tso (1):
+  drm/amd/display: Enable frame skipping in 0x37B
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c b/drivers/gpu/drm/amd=
-/amdgpu/amdgpu_virt.c
-index f8e58d12e39ae..7b0d425101611 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
-@@ -283,14 +283,66 @@ unsigned int amd_sriov_msg_checksum(void *obj,
-        return ret;
- }
+Dmytro Laktyushkin (2):
+  drm/amd/display: Enable dcn42 pstate pmo
+  drm/amd/display: Add DCN42 PMO init_for_pstate_support
 
-+#define AMDGPU_VIRT_RAS_BAD_PAGE_TABLE_INIT_CAPACITY   512
-+/* Max bad page slots allowed for SRIOV*/
-+#define AMDGPU_VIRT_RAS_BAD_PAGE_TABLE_MAX_CAPACITY    10665U
-+
-+/**
-+ * amdgpu_virt_ras_realloc_eh_data_space - alloc/realloc VF bad-page
-+@data->bps and @data->bps_bo
-+ * @adev: amdgpu device
-+ * @data: VF RAS error-handler data
-+ * @pages: minimum number of new slots to add beyond @data->capacity
-+ *
-+ * Return: 0 on success, %-ENOMEM on failure.
-+ */
-+static int amdgpu_virt_ras_realloc_eh_data_space(struct amdgpu_device *ade=
-v,
-+               struct amdgpu_virt_ras_err_handler_data *data,
-+               int pages)
-+{
-+       struct eeprom_table_record *new_bps;
-+       struct amdgpu_bo **new_bo;
-+       unsigned int old_space;
-+       unsigned int new_space;
-+       unsigned int align_space;
-+
-+       old_space =3D (unsigned int)data->capacity;
-+       new_space =3D old_space + max_t(unsigned int, (unsigned int)pages,
-+                                     (unsigned int)AMDGPU_VIRT_RAS_BAD_PAG=
-E_TABLE_INIT_CAPACITY);
-+       if (new_space < old_space || new_space > AMDGPU_VIRT_RAS_BAD_PAGE_T=
-ABLE_MAX_CAPACITY)
-+               return -ENOMEM;
-+
-+       align_space =3D ALIGN(new_space, AMDGPU_VIRT_RAS_BAD_PAGE_TABLE_INI=
-T_CAPACITY);
-+       if (align_space > AMDGPU_VIRT_RAS_BAD_PAGE_TABLE_MAX_CAPACITY)
-+               return -ENOMEM;
-+
-+       new_bps =3D kmalloc_array(align_space, sizeof(*data->bps), GFP_KERN=
-EL);
-+       new_bo =3D kcalloc(align_space, sizeof(*data->bps_bo), GFP_KERNEL);
-+       if (!new_bps || !new_bo) {
-+               kfree(new_bps);
-+               kfree(new_bo);
-+               dev_warn_ratelimited(adev->dev,
-+                                    "RAS WARN: failed to grow bad page tab=
-le to %u slots\n",
-+                                    align_space);
-+               return -ENOMEM;
-+       }
-+
-+       memcpy(new_bps, data->bps, data->count * sizeof(*data->bps));
-+       memcpy(new_bo, data->bps_bo, data->count * sizeof(*data->bps_bo));
-+
-+       kfree(data->bps);
-+       kfree(data->bps_bo);
-+       data->bps =3D new_bps;
-+       data->bps_bo =3D new_bo;
-+       data->capacity =3D (int)align_space;
-+
-+       return 0;
-+}
-+
- static int amdgpu_virt_init_ras_err_handler_data(struct amdgpu_device *ade=
-v)  {
-        struct amdgpu_virt *virt =3D &adev->virt;
-        struct amdgpu_virt_ras_err_handler_data **data =3D &virt->virt_eh_d=
-ata;
--       /* GPU will be marked bad on host if bp count more then 10,
--        * so alloc 512 is enough.
--        */
--       unsigned int align_space =3D 512;
-+       unsigned int align_space =3D
-+AMDGPU_VIRT_RAS_BAD_PAGE_TABLE_INIT_CAPACITY;
-        void *bps =3D NULL;
-        struct amdgpu_bo **bps_bo =3D NULL;
+Gabe Teeger (1):
+  drm/amd/display: Handle aux_inst for connectors without DDC pin
 
-@@ -302,12 +354,13 @@ static int amdgpu_virt_init_ras_err_handler_data(stru=
-ct amdgpu_device *adev)
-        if (!bps)
-                goto bps_failure;
+Harry Wentland (7):
+  drm/amd/display: Fix out-of-bounds read in dp_get_eq_aux_rd_interval()
+  drm/amd/display: Clamp VBIOS HDMI retimer register count to array size
+  drm/amd/display: Fix NULL deref and buffer over-read in SDP debugfs
+  drm/amd/display: Use krealloc_array() in dal_vector_reserve()
+  drm/amd/display: Reject gpio_bitshift >= 32 in
+    bios_parser_get_gpio_pin_info()
+  drm/amd/display: Clamp HDMI HDCP2 rx_id_list read to buffer size
+  drm/amd/display: Bound VBIOS record-chain walk loops
 
--       bps_bo =3D kmalloc_array(align_space, sizeof(*(*data)->bps_bo), GFP=
-_KERNEL);
-+       bps_bo =3D kcalloc(align_space, sizeof(*(*data)->bps_bo), GFP_KERNE=
-L);
-        if (!bps_bo)
-                goto bps_bo_failure;
+Ilya Bakoulin (1):
+  drm/amd/display: Avoid DPMS-on for phantom stream
 
-        (*data)->bps =3D bps;
-        (*data)->bps_bo =3D bps_bo;
-+       (*data)->capacity =3D align_space;
-        (*data)->count =3D 0;
-        (*data)->last_reserved =3D 0;
+Matthew Stewart (8):
+  drm/amd/display: Add no_native_i2c codepath
+  drm/amd: Add register header files for DCN42B
+  drm/amd/display: Add DCN42B DC resource files
+  drm/amd/display: Add dcn42b_soc_bb to DML2
+  drm/amd/display: Add DCN42B code to DC
+  drm/amd/display: Add DCN42B DMUB support
+  drm/amd/display: Enable DCN 4.2.1 in amdgpu_dm
+  drm/amd/display: Enable DM for DCN 4.2.1
 
-@@ -361,17 +414,33 @@ void amdgpu_virt_release_ras_err_handler_data(struct =
-amdgpu_device *adev)
-        virt->virt_eh_data =3D NULL;
- }
+Nicholas Kazlauskas (1):
+  drm/amd/display: Enable DCN42 PMO policy
 
--static void amdgpu_virt_ras_add_bps(struct amdgpu_device *adev,
--               struct eeprom_table_record *bps, int pages)
-+static bool amdgpu_virt_ras_add_bps(struct amdgpu_device *adev,
-+               const struct eeprom_table_record *bps, int pages)
- {
-        struct amdgpu_virt *virt =3D &adev->virt;
-        struct amdgpu_virt_ras_err_handler_data *data =3D virt->virt_eh_dat=
-a;
-+       int need;
+Ovidiu Bunea (3):
+  drm/amd/display: Update get_pixel_clk_frequency() for DCN4x DCCG DP
+    DTO
+  drm/amd/display: Change default driver setting for "Force ODM2:1 for
+    eDP" policy
+  drm/amd/display: Fix DP_PIXEL_FORMAT fields & update clk_src for DCN4x
 
--       if (!data)
--               return;
-+       if (!data || pages <=3D 0)
-+               return false;
-+
-+       if (pages > AMDGPU_VIRT_RAS_BAD_PAGE_TABLE_MAX_CAPACITY - data->cou=
-nt) {
-+               dev_warn_ratelimited(adev->dev,
-+                                    "RAS WARN: bad page table at capacity =
-(count=3D%d pages=3D%d max=3D%u)\n",
-+                                    data->count, pages,
-+                                    AMDGPU_VIRT_RAS_BAD_PAGE_TABLE_MAX_CAP=
-ACITY);
-+               return false;
-+       }
-+
-+       need =3D data->count + pages;
-+       if (need > data->capacity &&
-+           amdgpu_virt_ras_realloc_eh_data_space(adev, data, need - data->=
-capacity))
-+               return false;
+Samson Tam (1):
+  drm/amd/display: Check for sharpening case when calculating max vtaps
+    for scaler
 
-        memcpy(&data->bps[data->count], bps, pages * sizeof(*data->bps));
-        data->count +=3D pages;
-+
-+       return true;
- }
+Taimur Hassan (2):
+  ddrm/amd/display: [FW Promotion] Release 0.1.61.0
+  drm/amd/display: Promote DC to 3.2.384
 
- static void amdgpu_virt_ras_reserve_bps(struct amdgpu_device *adev) @@ -44=
-3,20 +512,22 @@ static void amdgpu_virt_add_bad_page(struct amdgpu_device *=
-adev,
+Wenjing Liu (1):
+  drm/amd/display: Add DRAM table fields to clk_mgr_internal
 
-        memset(&bp, 0, sizeof(bp));
+ drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c |     1 +
+ drivers/gpu/drm/amd/display/Kconfig           |     2 +-
+ .../gpu/drm/amd/display/amdgpu_dm/Makefile    |     3 +
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |    29 +-
+ .../amd/display/amdgpu_dm/amdgpu_dm_color.c   |    69 +-
+ .../amd/display/amdgpu_dm/amdgpu_dm_color.h   |    29 +
+ .../amd/display/amdgpu_dm/amdgpu_dm_colorop.c |    22 +-
+ .../amd/display/amdgpu_dm/amdgpu_dm_colorop.h |     5 +
+ .../amd/display/amdgpu_dm/amdgpu_dm_debugfs.c |     5 +
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_ism.c |    83 +-
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_ism.h |     7 +
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c |    20 +-
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_psr.h |     4 +-
+ .../amd/display/amdgpu_dm/tests/.kunitconfig  |     8 +
+ .../amdgpu_dm/tests/amdgpu_dm_color_test.c    |   568 +
+ .../amdgpu_dm/tests/amdgpu_dm_colorop_test.c  |   102 +-
+ .../amdgpu_dm/tests/amdgpu_dm_ism_test.c      |   302 +
+ .../amdgpu_dm/tests/amdgpu_dm_psr_test.c      |    46 +-
+ .../gpu/drm/amd/display/dc/basics/vector.c    |     4 +-
+ .../gpu/drm/amd/display/dc/bios/bios_parser.c |    15 +-
+ .../drm/amd/display/dc/bios/bios_parser2.c    |   148 +-
+ .../amd/display/dc/bios/bios_parser_helper.h  |     5 +
+ .../display/dc/bios/command_table_helper2.c   |     1 +
+ .../gpu/drm/amd/display/dc/clk_mgr/Makefile   |    10 +
+ .../gpu/drm/amd/display/dc/clk_mgr/clk_mgr.c  |    15 +
+ .../dc/clk_mgr/dcn42b/dcn42b_clk_mgr.c        |   483 +
+ .../dc/clk_mgr/dcn42b/dcn42b_clk_mgr.h        |    48 +
+ drivers/gpu/drm/amd/display/dc/core/dc.c      |     4 +-
+ .../gpu/drm/amd/display/dc/core/dc_resource.c |     6 +
+ drivers/gpu/drm/amd/display/dc/dc.h           |    10 +-
+ .../gpu/drm/amd/display/dc/dc_bios_types.h    |     4 +
+ drivers/gpu/drm/amd/display/dc/dc_dp_types.h  |     7 +-
+ drivers/gpu/drm/amd/display/dc/dc_fused_io.c  |     4 +-
+ drivers/gpu/drm/amd/display/dc/dc_helper.c    |     2 +
+ .../gpu/drm/amd/display/dc/dc_spl_translate.c |     1 +
+ drivers/gpu/drm/amd/display/dc/dce/dce_aux.c  |   181 +-
+ drivers/gpu/drm/amd/display/dc/dce/dce_aux.h  |     4 +
+ .../drm/amd/display/dc/dce/dce_clock_source.c |    83 +-
+ .../drm/amd/display/dc/dce/dce_clock_source.h |    26 +-
+ .../gpu/drm/amd/display/dc/dcn31/dcn31_apg.h  |    13 +
+ .../dc/dio/dcn42/dcn42_dio_link_encoder.h     |    95 +
+ .../dc/dio/dcn42/dcn42_dio_stream_encoder.c   |    64 +-
+ .../dc/dio/dcn42/dcn42_dio_stream_encoder.h   |     6 +
+ .../dml2_0/dml21/dml21_translation_helper.c   |     5 +-
+ .../dml21/inc/bounding_boxes/dcn42b_soc_bb.h  |   227 +
+ .../dc/dml2_0/dml21/inc/dml_top_types.h       |     1 +
+ .../dml21/src/dml2_pmo/dml2_pmo_dcn42.c       |   223 +-
+ .../dml21/src/dml2_pmo/dml2_pmo_dcn42.h       |     2 +
+ .../dml21/src/dml2_pmo/dml2_pmo_dcn4_fams2.c  |    30 +-
+ .../dml21/src/dml2_pmo/dml2_pmo_dcn4_fams2.h  |    46 +-
+ .../dml21/src/dml2_pmo/dml2_pmo_factory.c     |    16 +
+ .../dml21/src/dml2_top/dml2_top_soc15.c       |    30 +-
+ .../drm/amd/display/dc/dml2_0/dml2_wrapper.h  |     1 +
+ .../amd/display/dc/dpp/dcn401/dcn401_dpp.c    |     8 +-
+ drivers/gpu/drm/amd/display/dc/gpio/Makefile  |     8 +
+ .../dc/gpio/dcn42b/hw_factory_dcn42b.c        |   313 +
+ .../dc/gpio/dcn42b/hw_factory_dcn42b.h        |    11 +
+ .../dc/gpio/dcn42b/hw_translate_dcn42b.c      |   192 +
+ .../dc/gpio/dcn42b/hw_translate_dcn42b.h      |    13 +
+ .../gpu/drm/amd/display/dc/gpio/hw_factory.c  |     4 +
+ .../drm/amd/display/dc/gpio/hw_translate.c    |     4 +
+ .../hpo/dcn31/dcn31_hpo_dp_stream_encoder.h   |    47 +
+ .../display/dc/hubbub/dcn35/dcn35_hubbub.h    |   198 +
+ .../amd/display/dc/hubp/dcn42/dcn42_hubp.h    |    19 +
+ drivers/gpu/drm/amd/display/dc/hwss/Makefile  |     8 +
+ .../amd/display/dc/hwss/dcn10/dcn10_hwseq.c   |     4 +-
+ .../amd/display/dc/hwss/dcn401/dcn401_hwseq.c |    27 +
+ .../amd/display/dc/hwss/dcn42b/dcn42b_hwseq.c |   238 +
+ .../amd/display/dc/hwss/dcn42b/dcn42b_hwseq.h |    15 +
+ .../amd/display/dc/hwss/dcn42b/dcn42b_init.c  |    20 +
+ .../amd/display/dc/hwss/dcn42b/dcn42b_init.h  |    14 +
+ .../gpu/drm/amd/display/dc/inc/clock_source.h |     4 +-
+ .../gpu/drm/amd/display/dc/inc/hw/clk_mgr.h   |    21 +
+ .../amd/display/dc/inc/hw/clk_mgr_internal.h  |    44 +-
+ drivers/gpu/drm/amd/display/dc/inc/resource.h |     2 +
+ .../display/dc/link/accessories/link_dp_cts.c |     2 +
+ .../drm/amd/display/dc/link/link_factory.c    |    86 +-
+ .../amd/display/dc/link/protocols/link_ddc.c  |    60 +-
+ .../dc/link/protocols/link_dp_capability.c    |     6 +
+ .../link/protocols/link_edp_panel_control.c   |     7 +-
+ .../amd/display/dc/optc/dcn42/dcn42_optc.h    |   179 +
+ .../amd/display/dc/pg/dcn42/dcn42_pg_cntl.h   |    86 +
+ .../gpu/drm/amd/display/dc/resource/Makefile  |     7 +
+ .../dc/resource/dcn401/dcn401_resource.c      |     4 +-
+ .../dc/resource/dcn42/dcn42_resource.c        |    17 +-
+ .../dc/resource/dcn42/dcn42_resource.h        |     3 +-
+ .../dc/resource/dcn42b/dcn42b_resource.c      |  2404 +
+ .../dc/resource/dcn42b/dcn42b_resource.h      |   672 +
+ .../dcn42/dcn42_soc_and_ip_translator.c       |     6 +-
+ .../soc_and_ip_translator.c                   |     1 +
+ drivers/gpu/drm/amd/display/dmub/dmub_srv.h   |     1 +
+ .../gpu/drm/amd/display/dmub/inc/dmub_cmd.h   |   606 +-
+ drivers/gpu/drm/amd/display/dmub/src/Makefile |     1 +
+ .../drm/amd/display/dmub/src/dmub_dcn42b.c    |    34 +
+ .../drm/amd/display/dmub/src/dmub_dcn42b.h    |    13 +
+ .../gpu/drm/amd/display/dmub/src/dmub_srv.c   |     4 +
+ .../amd/display/include/bios_parser_types.h   |     1 +
+ .../gpu/drm/amd/display/include/dal_asic_id.h |     3 +
+ .../gpu/drm/amd/display/include/dal_types.h   |     1 +
+ .../drm/amd/display/modules/hdcp/hdcp_ddc.c   |     3 +-
+ .../gpu/drm/amd/display/modules/power/power.c |     9 +-
+ .../drm/amd/display/modules/power/power_abm.c |    16 +-
+ .../include/asic_reg/clk/clk_15_0_5_offset.h  |    41 +
+ .../include/asic_reg/clk/clk_15_0_5_sh_mask.h |    44 +
+ .../include/asic_reg/dcn/dcn_4_2_1_offset.h   | 16304 +++++
+ .../include/asic_reg/dcn/dcn_4_2_1_sh_mask.h  | 60622 ++++++++++++++++
+ .../include/asic_reg/dpcs/dpcs_4_0_1_offset.h |   108 +
+ .../asic_reg/dpcs/dpcs_4_0_1_sh_mask.h        |   412 +
+ 108 files changed, 85760 insertions(+), 342 deletions(-)
+ create mode 100644 drivers/gpu/drm/amd/display/dc/clk_mgr/dcn42b/dcn42b_clk_mgr.c
+ create mode 100644 drivers/gpu/drm/amd/display/dc/clk_mgr/dcn42b/dcn42b_clk_mgr.h
+ create mode 100644 drivers/gpu/drm/amd/display/dc/dml2_0/dml21/inc/bounding_boxes/dcn42b_soc_bb.h
+ create mode 100644 drivers/gpu/drm/amd/display/dc/gpio/dcn42b/hw_factory_dcn42b.c
+ create mode 100644 drivers/gpu/drm/amd/display/dc/gpio/dcn42b/hw_factory_dcn42b.h
+ create mode 100644 drivers/gpu/drm/amd/display/dc/gpio/dcn42b/hw_translate_dcn42b.c
+ create mode 100644 drivers/gpu/drm/amd/display/dc/gpio/dcn42b/hw_translate_dcn42b.h
+ create mode 100644 drivers/gpu/drm/amd/display/dc/hwss/dcn42b/dcn42b_hwseq.c
+ create mode 100644 drivers/gpu/drm/amd/display/dc/hwss/dcn42b/dcn42b_hwseq.h
+ create mode 100644 drivers/gpu/drm/amd/display/dc/hwss/dcn42b/dcn42b_init.c
+ create mode 100644 drivers/gpu/drm/amd/display/dc/hwss/dcn42b/dcn42b_init.h
+ create mode 100644 drivers/gpu/drm/amd/display/dc/resource/dcn42b/dcn42b_resource.c
+ create mode 100644 drivers/gpu/drm/amd/display/dc/resource/dcn42b/dcn42b_resource.h
+ create mode 100644 drivers/gpu/drm/amd/display/dmub/src/dmub_dcn42b.c
+ create mode 100644 drivers/gpu/drm/amd/display/dmub/src/dmub_dcn42b.h
+ create mode 100644 drivers/gpu/drm/amd/include/asic_reg/clk/clk_15_0_5_offset.h
+ create mode 100644 drivers/gpu/drm/amd/include/asic_reg/clk/clk_15_0_5_sh_mask.h
+ create mode 100644 drivers/gpu/drm/amd/include/asic_reg/dcn/dcn_4_2_1_offset.h
+ create mode 100644 drivers/gpu/drm/amd/include/asic_reg/dcn/dcn_4_2_1_sh_mask.h
+ create mode 100644 drivers/gpu/drm/amd/include/asic_reg/dpcs/dpcs_4_0_1_offset.h
+ create mode 100644 drivers/gpu/drm/amd/include/asic_reg/dpcs/dpcs_4_0_1_sh_mask.h
 
--       if (bp_block_size) {
--               bp_cnt =3D bp_block_size / sizeof(uint64_t);
--               for (bp_idx =3D 0; bp_idx < bp_cnt; bp_idx++) {
--                       retired_page =3D *(uint64_t *)(vram_usage_va +
--                                       bp_block_offset + bp_idx * sizeof(u=
-int64_t));
--                       bp.retired_page =3D retired_page;
-+       if (!bp_block_size)
-+               return;
-
--                       if (amdgpu_virt_ras_check_bad_page(adev, retired_pa=
-ge))
--                               continue;
-+       bp_cnt =3D bp_block_size / sizeof(uint64_t);
-+       for (bp_idx =3D 0; bp_idx < bp_cnt; bp_idx++) {
-+               retired_page =3D *(uint64_t *)(vram_usage_va +
-+                               bp_block_offset + bp_idx * sizeof(uint64_t)=
-);
-+               bp.retired_page =3D retired_page;
-
--                       amdgpu_virt_ras_add_bps(adev, &bp, 1);
-+               if (amdgpu_virt_ras_check_bad_page(adev, retired_page))
-+                       continue;
-
--                       amdgpu_virt_ras_reserve_bps(adev);
--               }
-+               if (!amdgpu_virt_ras_add_bps(adev, &bp, 1))
-+                       break;
-+
-+               amdgpu_virt_ras_reserve_bps(adev);
-        }
- }
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h b/drivers/gpu/drm/amd=
-/amdgpu/amdgpu_virt.h
-index d563deec0916b..d8500c3e48a17 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
-@@ -265,6 +265,8 @@ struct amdgpu_virt_ras_err_handler_data {
-        struct eeprom_table_record *bps;
-        /* point to reserved bo array */
-        struct amdgpu_bo **bps_bo;
-+       /* number of slots in bps[] / bps_bo[] (always >=3D count) */
-+       int capacity;
-        /* the count of entries */
-        int count;
-        /* last reserved entry's index + 1 */
---
-2.34.1
+-- 
+2.43.0
 
