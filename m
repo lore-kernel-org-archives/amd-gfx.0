@@ -4,43 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 84EFBCD5BCF
-	for <amd-gfx@archiver.kernel.org>; Tue, 26 May 2026 07:15:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 97F22CD5BB4
+	for <amd-gfx@archiver.kernel.org>; Tue, 26 May 2026 07:15:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1EA5510E4CF;
-	Tue, 26 May 2026 07:15:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3262210E4DB;
+	Tue, 26 May 2026 07:15:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="mlmRmFiQ";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="b6imkYiV";
 	dkim-atps=neutral
-Received: from DM5PR21CU001.outbound.protection.outlook.com
- (mail-centralusazon11011009.outbound.protection.outlook.com [52.101.62.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B819610E4CF
- for <amd-gfx@lists.freedesktop.org>; Tue, 26 May 2026 07:15:43 +0000 (UTC)
+Received: from CY7PR03CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11010069.outbound.protection.outlook.com
+ [40.93.198.69])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4445210E4F2
+ for <amd-gfx@lists.freedesktop.org>; Tue, 26 May 2026 07:15:52 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Fif1HCVSJNd8EP/w2nG3fuK7e+/vv98lIi3jjWeRLErSmqCZB/8aHxjH3aYrCrqDwUFTpcZ9i7rRb69NyapeOLNdAVK7+oanBmZmUsC55D3zCUpdmftVAZEF/E+4eX3ZApVyyOCWRtkg/wyh5MjriXcMWE5NZEmOkdL8vuB/DxtbkFaUfVOlpG3gV9bnaCbL7QIbQpLqoekwE8IKK3CQWIvHNatXjpgDz4UhTmWVWYP5f+VuXk8zXGAzPbGtCP2XpMmMNPC1fdq33dPTAgH8G8lVVOwi4cS2QVlrrc7vTdZFUEJn74+o6gOo/ZdV0BG5Ir0itac6FOTyM19TpbGQkA==
+ b=oHXg1ecuZvsbY+aXaSJA4tE3L+c2PTNc3sWpUEfGNlBuy69PFOkVVH088RsgAKE7ZIxCJqUVst3Oi7KW+0de/t5tUBdmbtEk8LmG5VttrxcYgCkALJ3Nb77uWyylN5JyTH2fje2r1xUTCLaubxCRSwgJANsFGlrWZt3TdqX9Ac/z933rFhR1yRBpofX7sfLvOjpzI0tg4rnfjQoidfxQ+LEDKrvZijg5fcXVrw3wf2k58U4kSPD463O1ZID63SafOOu2hMhEptmwAn6AlxQDqEFFN2ZV4yENDuvCvHNFVJ3ClFT7j2nOyqov1hE6nvobZE3sH1r6aRuEJKr+QLo1Hg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=t2G84vB222IN5XxB5hQftvvLn0w0b2Y4tmdm8WSDfug=;
- b=dD3vesxGHsk30zaoJ0+jV9BQRCM6/cVtoPfwXzWdkFQDJIm58apReNNIpSLMf/Php9Qld0o8swzaN6cSFfmS3x2hz1AegfZtQ+9Fk3iSzWQFCnDRc+d5edjVz4ItzftbNCSSVeLONew2SlchGT2THLjOlCss+3CKjrOWV9aNmmBsXGHJ85xticsA7GaLkoI2b5Gzk81+taKCXkAoSLP2QYuK5AlyTfd1OLI5TiFrS31cgo6vtv9++EGGHD9Y0vYyLDhmLpkwmRYeMWXuBjWfjet0Pem1WEdsd0SOCeNVrYqzdeVIkntLi6PYTlzpcp3DC54IRQwIxwqMedpnWnvtnQ==
+ bh=B8hut455VHThxYWhLwJg6k3tqQuxlGnrVdw9U3HROxg=;
+ b=F9FGpHYMT43HT/WpPdoh+WQ6HA+H6Pe/Ccmhh2FbEEcf2MCToPcKA1fnAX/JKj8vfLSJZ/otxnx+wjtJAY/o3O8A6nWr8Lct7OhVtmvO7Tj6WsCrVZb3vo21aSqxgPF6GEU7npTeLPau2PZ/ILtpeyS0T+m4OBUvH16qwqlbmI9GVBzBbRAWOSnNoc7pzfXlZkvPYhlAbSZCiJNl9c4KNQe3Ty+5UOkzShN6V9f/L6BZiCCCcBLE4BNYy9c20e0HZ2cl0GINFp4xkOgJ8aMXkXJvGO1yY2Ke2sUUFr/IyAi9jr3ecbCsH5fwWfTwlyyuEsgz2udbiAilQQeFmUd38w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=t2G84vB222IN5XxB5hQftvvLn0w0b2Y4tmdm8WSDfug=;
- b=mlmRmFiQQACGnT4/lkJCg5icyOIQ5FI1ZVy8OFEo/gX5P/rfxdblbKmywmaPACSR/wjxrEtiq5XPHtGT6egDbL1AIzw0H6N+PdNhKZdlOeyCztyeUcIcjCCHIejpnXjmGnQfVOiPj66UJDx3NjnqlIVXbCmS9D2DaGm9jMHFoS0=
-Received: from PH8P223CA0026.NAMP223.PROD.OUTLOOK.COM (2603:10b6:510:2db::16)
- by DS7PR12MB8201.namprd12.prod.outlook.com (2603:10b6:8:ef::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.48.20; Tue, 26 May
- 2026 07:15:39 +0000
-Received: from CY4PEPF0000FCC3.namprd03.prod.outlook.com
- (2603:10b6:510:2db:cafe::44) by PH8P223CA0026.outlook.office365.com
- (2603:10b6:510:2db::16) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.71.11 via Frontend Transport; Tue, 26
- May 2026 07:15:39 +0000
+ bh=B8hut455VHThxYWhLwJg6k3tqQuxlGnrVdw9U3HROxg=;
+ b=b6imkYiVBxXJ9sj2qTQ8veWL8M/6W0+dhKfDD9M8V7Ji9nOhMZ1TtWDJUYOoH/CIqFsSbbsoQAIRqmjjxGW5C4u781OQjUlhOqTDRX4KrSzis4vmAyiv42KisWjduUVu7aFuiYucuxNnGIafFD9UBuN0eZiYsKuvyoo0AxytAco=
+Received: from CY5PR20CA0011.namprd20.prod.outlook.com (2603:10b6:930:3::6) by
+ CY8PR12MB7730.namprd12.prod.outlook.com (2603:10b6:930:85::17) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.48.20; Tue, 26 May 2026 07:15:46 +0000
+Received: from CY4PEPF0000FCC0.namprd03.prod.outlook.com
+ (2603:10b6:930:3:cafe::3e) by CY5PR20CA0011.outlook.office365.com
+ (2603:10b6:930:3::6) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.48.20 via Frontend Transport; Tue, 26
+ May 2026 07:15:46 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,20 +49,20 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
 Received: from satlexmb08.amd.com (165.204.84.17) by
- CY4PEPF0000FCC3.mail.protection.outlook.com (10.167.242.105) with Microsoft
+ CY4PEPF0000FCC0.mail.protection.outlook.com (10.167.242.102) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.71.7 via Frontend Transport; Tue, 26 May 2026 07:15:39 +0000
+ 15.21.71.7 via Frontend Transport; Tue, 26 May 2026 07:15:46 +0000
 Received: from SATLEXMB04.amd.com (10.181.40.145) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.41; Tue, 26 May
- 2026 02:15:28 -0500
+ 2026 02:15:37 -0500
 Received: from satlexmb08.amd.com (10.181.42.217) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 26 May
- 2026 02:15:28 -0500
+ 2026 02:15:37 -0500
 Received: from ray-Ubuntu.amd.com (10.180.168.240) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
- Transport; Tue, 26 May 2026 02:15:19 -0500
+ Transport; Tue, 26 May 2026 02:15:28 -0500
 From: Ray Wu <ray.wu@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -70,12 +71,12 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
  <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
- <Chen-Yu.Chen@amd.com>, Samson Tam <Samson.Tam@amd.com>, Charlene Liu
- <charlene.liu@amd.com>, Ray Wu <ray.wu@amd.com>
-Subject: [PATCH 08/41] drm/amd/display: Check for sharpening case when
- calculating max vtaps for scaler
-Date: Tue, 26 May 2026 15:01:31 +0800
-Message-ID: <20260526071413.2181251-9-ray.wu@amd.com>
+ <Chen-Yu.Chen@amd.com>, Charlene Liu <Charlene.Liu@amd.com>, Ovidiu Bunea
+ <ovidiu.bunea@amd.com>, Ray Wu <ray.wu@amd.com>
+Subject: [PATCH 09/41] drm/amd/display: Add DC_VALIDATE_MODE_AND_PROGRAMMING
+ condition check for force odm2:1
+Date: Tue, 26 May 2026 15:01:32 +0800
+Message-ID: <20260526071413.2181251-10-ray.wu@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260526071413.2181251-1-ray.wu@amd.com>
 References: <20260526071413.2181251-1-ray.wu@amd.com>
@@ -86,29 +87,29 @@ Received-SPF: None (SATLEXMB04.amd.com: ray.wu@amd.com does not designate
  permitted sender hosts)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000FCC3:EE_|DS7PR12MB8201:EE_
-X-MS-Office365-Filtering-Correlation-Id: 88933287-de9d-49e9-ffd4-08debaf696fa
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000FCC0:EE_|CY8PR12MB7730:EE_
+X-MS-Office365-Filtering-Correlation-Id: 776f0acd-ee67-4127-20e9-08debaf69b52
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|82310400026|376014|36860700016|18002099003|22082099003|56012099003|11063799006;
-X-Microsoft-Antispam-Message-Info: 2IpfCWuwm2jR1XoIbj0x+HPdLVUucGt7rXl7ifEs5pUkUgJsw6kmxQfQt7od38dTCOJoTvld3Q8X4enzuViyq4IHg5MnGWYvuyqgmYQ5iGE1Bg3RDPzesCOIuOn22kGR1dDma6PUXsp2nLseN4hgofgU8kyM4Q8eO6cSw2XOXSvV9XLZKOFsNNNHtdMesZT+De/HeW7A/Kb6TFt19T/5GHWf754m+iTkBBN5fbJYztgPIRvD4FSNwyimugHAR4BrcJkhoMMXzrp2ucjsyLFhsnl6+dsNusp02gkszsv+ICj94L+qGkuw7s44f3NnyE/V2e4vm+NrYZCsQcD/30gcK1xxXxU/GIlqjVbBmWeSbh7oJGxmJ2yXIs/cdx6/TVlpNdVUkcmK/OWZBWWi3W/ZvcORPBpYzcIl3Hzixlbsb5y9CYBANk7ubBWTbgpRbxzAhKz+04Jb/33hXwemIDY19yCIfbm6E8uzySO+9+wYrve8Szxmh/ALe+CqdRmDk5IvRu9tBEKaQ5PL/zMP+ko4dgg7gewMQZzwS6dEfVONYPSQ/dlwSlqy9fkmRC2FlKVtDqECxyODVid/ayZ1zrixPrA+dWnCMQL3GDuYLIxAZf5lPlR8exc02xTawBfXhc8tX4WFgVzK2uCv2+bS6FRj4I/Cfu1eay4R+3zrRw+dlQGV/kOIbZobIvqhDPmoCeZobKcLmI0c032xbHkipYmuIuPYE6LwMzhBJ/dTcT+CdGI=
+ ARA:13230040|1800799024|82310400026|36860700016|376014|22082099003|18002099003|56012099003|3023799007|11063799006;
+X-Microsoft-Antispam-Message-Info: 4wGAnQi2nU1nRYtEOtwE32FGZ7D0uZSDcawFx7qAsZM83OogdgzsLJi3+62nc3uvk1xLvmx1PCPeNtadMTxNvpy+4K1mb88vdoG21uOT7uUMfd63WRHIv6dBPWkOFJBFFFPZ/Q5dv+L7Sv/bzqBwx2Z1sQbiUUW6taps0qvOHR+Xlwmp+Bt0yiyORVbLKu8VSzvOVdVSFMO4QwOZfxBcvavHEC85ipmjqQ0ss6SsggqFGPf+ITaIlOaaZUKw+WksAGRRXgm3j9qV3HW9vFtXNZC/iPqNiM/5uOkHnvoLg9LGgjddM7Zmrp6jtH26+iPV4n/+mrBBuuzmBrnM26u+ik0ZBNYEm5WcXe4a7cYqSGvaKF7Kk0fFPJNktwuB34ljyruU6bXrTTx01Mt112ffCzC2Wo6rVYMxiwoRUWBFufCLsV+UWuV2wDv2tQFsrdyOZytRMPdR0gFdPz00GULln4JYQUayv92BRH0NXkeWSmlOMHPs5SjNg2v16/4mI3ueEFYXhNHT5i/NrKby/UHc8dnU++XRnQV4UxLXe0/DNTZ/7gA/Dvh1oi2HJMxUJaJNsTPFmegSupujhjFSxsJz7a2ST+94aHbURwFioX55VJZUSl5Jh4qfJatz6qaL2UCpd5HA7eWbGXaoCQL8cLZJWXBzJPiVU2WcBVVPr5tkHQDVudyw5BXkt+v0C+0n3bE3CR2A2Ryz6XEi1jXNmrW6W4XATLNe3UE7VmkRtSX6rtU=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(82310400026)(376014)(36860700016)(18002099003)(22082099003)(56012099003)(11063799006);
+ SFS:(13230040)(1800799024)(82310400026)(36860700016)(376014)(22082099003)(18002099003)(56012099003)(3023799007)(11063799006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: P2OR9jtwCCAQ95R+VmIxVNpiSUH7vjYm05xczjCrnE2Mqj74MwkJ4Lwflzm4XINLHj03wb/THTLeR+fcdv7BQCMexNjBjG+HQSZV+75UWd0FkzU3YUTeiEuPkU/hpEciP3QOoHUwFmIYME0KNUUzfAK6+asHL92aZ5NMnhs0K6EcerRWqXoMVOq6jfUx37R/GNoP0e5v+I5ixS3KxMJsz3gawlzj7wCHVufkfoe/O92milwxIgmLs06vrfXNLnut6MY+Ycc2nZGyBBWTXkEWrv8tpuma5LaKhfuTqMbtngt2XIuOVVAsXv03lJOLmXj4+tz/sbo3iy3NtmF3KLxmlzGJ9meULOgQeG0PYxHEMO7WljLsQzh3Qgiufpd0KIxQqLGaTWk/F184xkFYuimhUoeyozd0IsSOJemoILoLkZw9QvSba+wreqVTc4Z1byCO
+X-MS-Exchange-AntiSpam-MessageData-0: U1lcj/au7KUgbnbzvwRXO30GczptObRkqj8a9VqZndezFhNgiDhvRJsLChwv1BoUL1TMOiM7z5LB6FHuAP28JF6sQLf8iwGT5e1Iz1jru832mAlqwW7YKUzldPZUo1TehpNEPgA5aKj/EwAQW8APGw6iumbz+o9TOp89Q473RjCnfONwwwcxGWvLdwHBYtiAvhNdUXeDyY+cY26mDeTkhxtnLZx40luj2bBKBb9ZS1+KrgWPM1y6DZyd89H8pLT7XOiA9K0vdvgL3fTl992gTYpQIlKZGwXRdoiJASpKy2FYyWAL1rPgXPT3cMkJsE215gqdhA23DIR3w76OeVrDVOxfh6rMbV5Sx1Dxt0N8YDcKlJRJGZiBU8OBVL+U3ffQvimjiEVAUJFNWiPl3rFQHJPsfv8+D+p6RE1hv7CB2ZUIRKjHWFaF0yhpfPVM52zy
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 May 2026 07:15:39.0079 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 88933287-de9d-49e9-ffd4-08debaf696fa
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 May 2026 07:15:46.3357 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 776f0acd-ee67-4127-20e9-08debaf69b52
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000FCC3.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000FCC0.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB8201
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7730
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -123,53 +124,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Samson Tam <Samson.Tam@amd.com>
+From: Charlene Liu <Charlene.Liu@amd.com>
 
 [Why & How]
-- calc_lb_num_partitions has check when scaler is not enabled to use
- larger LB in calculations for max vtaps based on viewport being 1:1
-- however, scaler is forced on when sharpening is enabled, so need
- to consider this in check
-- taps is predetermined in spl_get_optimal_number_of_taps prior to
- calc_lb_num_partitions.  Add check for taps not 1 to handle
- sharpening case
+Need to limit force ODM 2:1 to DC_VALIDATE_MODE_AND_PROGRAMMING only,
+i.e. not block isCofunc check for topology mapping allowed.
 
-Reviewed-by: Charlene Liu <charlene.liu@amd.com>
-Signed-off-by: Samson Tam <Samson.Tam@amd.com>
+Reviewed-by: Ovidiu Bunea <ovidiu.bunea@amd.com>
+Signed-off-by: Charlene Liu <Charlene.Liu@amd.com>
 Signed-off-by: Ray Wu <ray.wu@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/dpp/dcn401/dcn401_dpp.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+ .../gpu/drm/amd/display/dc/resource/dcn42/dcn42_resource.c  | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dpp/dcn401/dcn401_dpp.c b/drivers/gpu/drm/amd/display/dc/dpp/dcn401/dcn401_dpp.c
-index 2d6a646462e2..8e0fa7be34ee 100644
---- a/drivers/gpu/drm/amd/display/dc/dpp/dcn401/dcn401_dpp.c
-+++ b/drivers/gpu/drm/amd/display/dc/dpp/dcn401/dcn401_dpp.c
-@@ -390,9 +390,11 @@ void dscl401_spl_calc_lb_num_partitions(
- 		lb_memory_size_a = 1290;
- 	} else if (lb_config == LB_MEMORY_CONFIG_3) {
- 		if (scl_data->viewport.width  == scl_data->h_active &&
--			scl_data->viewport.height == scl_data->v_active) {
-+			scl_data->viewport.height == scl_data->v_active &&
-+			scl_data->taps.h_taps == 1 && scl_data->taps.v_taps == 1) {
- 			/* 420 mode: luma using all 3 mem from Y, plus 3rd mem from Cr and Cb */
- 			/* use increased LB size for calculation only if Scaler not enabled */
-+			/* Scaler is forced on when sharpening is on. Add check for taps = 1 */
- 			lb_memory_size = 970 + 1290 + 1170 + 1170 + 1170;
- 			lb_memory_size_c = 970 + 1290;
- 			lb_memory_size_a = 970 + 1290 + 1170;
-@@ -404,8 +406,10 @@ void dscl401_spl_calc_lb_num_partitions(
- 		}
- 	} else {
- 		if (scl_data->viewport.width  == scl_data->h_active &&
--			scl_data->viewport.height == scl_data->v_active) {
-+			scl_data->viewport.height == scl_data->v_active &&
-+			scl_data->taps.h_taps == 1 && scl_data->taps.v_taps == 1) {
- 			/* use increased LB size for calculation only if Scaler not enabled */
-+			/* Scaler is forced on when sharpening is on. Add check for taps = 1 */
- 			lb_memory_size = 970 + 1290 + 1170;
- 			lb_memory_size_c = 970 + 1290 + 1170;
- 			lb_memory_size_a = 970 + 1290 + 1170;
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn42/dcn42_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn42/dcn42_resource.c
+index efe025ca4ed3..b9f998ea2d0f 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dcn42/dcn42_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dcn42/dcn42_resource.c
+@@ -1725,8 +1725,10 @@ enum dc_status dcn42_validate_bandwidth(struct dc *dc,
+ 	bool out = false;
+ 
+ 	DC_FP_START();
+-
+-	dcn42_decide_odm_override(dc, context);
++	if (validate_mode == DC_VALIDATE_MODE_AND_PROGRAMMING) {
++		/*only do this when programing HW*/
++		dcn42_decide_odm_override(dc, context);
++	}
+ 
+ 	out = dml2_validate(dc, context, context->bw_ctx.dml2,
+ 						validate_mode);
 -- 
 2.43.0
 
