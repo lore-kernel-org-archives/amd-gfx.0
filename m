@@ -4,104 +4,150 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 08CEECD5BC8
-	for <amd-gfx@archiver.kernel.org>; Tue, 26 May 2026 17:17:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9A381CD5BC8
+	for <amd-gfx@archiver.kernel.org>; Tue, 26 May 2026 18:46:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8447F10E4BE;
-	Tue, 26 May 2026 17:17:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2C4F910E4BD;
+	Tue, 26 May 2026 18:46:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="5a8QicqC";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="jkODDQDk";
 	dkim-atps=neutral
-Received: from CH5PR02CU005.outbound.protection.outlook.com
- (mail-northcentralusazon11012054.outbound.protection.outlook.com
- [40.107.200.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B99AD10E49C
- for <amd-gfx@lists.freedesktop.org>; Tue, 26 May 2026 17:17:30 +0000 (UTC)
+Received: from CY7PR03CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11010041.outbound.protection.outlook.com
+ [40.93.198.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 108D910E1B1;
+ Tue, 26 May 2026 18:46:39 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ZhYrv60Q/ODiq9IlaV4f0/rPREYUhyb+SKkEZOiciPXq/J2M/ADvIh4MJHpLRXwb3vR4d/YJaboJUmNDz/y3VGi1JVQAFy4P4fVn98ni67LJDaIWQfjPAqbYA/wqyqPj/gSzyghA6ZCHy+SlesPUWXYTw/8xoQpeheFPLJhQv2J5uUHA5cwmqEl6qIm3PJ2u1/0i2vGRNp7KdFxBcSbJnZTfwP5W0TBBMm/AEIecOM5p1zw8jswT51fvw5FwSiVUtyDAGDKOl9sWvjTcZ0xx+1xSdePof2JWmPhK9r295Dbr1KkjW0qfnFZ09iVhd8MUORdvYd3ZUuUfpT8UFwvcXw==
+ b=qe2gM3kuiy5tg9hI6w7FlfVmRgu47aClpNJh9LdwSTiPsfkUw7ZSJClS8cLFq7NfodUE7BYcjVrbLu2zZdbJ6gTysOKwCduyHSBcASNM+lJV6pvotUBOUIOcTPBnQFh3OAKTNM1i0cxNeDE/yzcEmIHv8nnzTiQ9b3WYhYZyB1euaMh/FHbP0YjsLvJxfvNlAU2hy+ci0FGOpZACgsSN5Yn5zuBVP7g0CpZehtEKuUSWjomgFsDBGCP9YGekLnUtv6CBttq71ewwPXZh0k2+ISui/4DMy+8YsbirTJYSUGft0n7uOM1G1fbiZgDs174itD37CY35+ziAiP6mCu1nYA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=l19RjVEpRcVYktecaS1m4wU/ypgmLWx+FiuUqQlUkOs=;
- b=Iw2Y0wA9WDpRbzpPZCH/HbUFLSMi06USMoSuRxtsvyTb06G+ilAN6xfc7gPedcyf9ID6dQtiE2pF70swLnvu8mSnxImDLIEoa6Ywrum8bRE9Oi5fs42ErMnjGXuY4j3gKumf8KrJ1c3Q9f7oTEHrMioJcZDwVXL011s6CARLoOnG0/aAYLiIXz81NKB5usS0kHYvGtuRDU3tDW8U8c+ox92r8ou4KiH+V5HOTvIKgkiD1YolVZAcAlMnHva/3g/KY/zjTYZC/Y0v4+yqktWivISa6DWVIF8vHFM77uI/EtLYc4ezB3iCVr99F0l8MWUwTD6JjYZMP7ak5XaqLBgXsg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
+ bh=usmq5QS9PZSu1k4Wjaqclft5D5ClHR0nk+5vOHKFCwY=;
+ b=HzV5HhOw/1HVL9lMXtBCvFMrS3P+bGdj2D19JhgJX3luse2VK9XMTdxepdNVbn07MxNA9VjGfU3CeoTUNCfHAkdMAiTRSQr8lgZxSRle8dnBNm0wNI1Tll0HDw+oifiWBj/k1tPXZJSUS69EAA3OrkRjS2qS1NRLF/TJuTEHEPqIHCcNz8Nw86jFGJ+BQZgz9rakOAd7S9CiiyOgjCMFUq8a2f1K9OMmVHYXMF5mnt//bk1CPe42DWOF8AKyXvUfSJyLOmce29Cgm+f3WVXKctYvqtVyaTWePJXvE6jyCb8v0rLaL+8Ic6/jD8i60w7LlkrLqnKSqcj+bVIkpz/cBA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=l19RjVEpRcVYktecaS1m4wU/ypgmLWx+FiuUqQlUkOs=;
- b=5a8QicqCmGxOWM9jaiVGIJBlm2oI5bIWF1G/HlmKmYSA6PSy7wR2pTaxoE/NL7kIgEmTwRjNyCm11cwLl/EEdd11OQhOXDXSx6YN2F3besa5EwvLR5kaYbRWIZ9Dnf+igUFwssRZ08FkeDwhwR3PtbMxm9rLOiod67YJQcPVw4U=
-Received: from SJ0PR03CA0065.namprd03.prod.outlook.com (2603:10b6:a03:331::10)
- by SA1PR12MB8885.namprd12.prod.outlook.com (2603:10b6:806:376::22)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.48.20; Tue, 26 May
- 2026 17:17:26 +0000
-Received: from SJ1PEPF0000231B.namprd03.prod.outlook.com
- (2603:10b6:a03:331:cafe::60) by SJ0PR03CA0065.outlook.office365.com
- (2603:10b6:a03:331::10) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.71.12 via Frontend Transport; Tue, 26
- May 2026 17:17:24 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- SJ1PEPF0000231B.mail.protection.outlook.com (10.167.242.232) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.71.7 via Frontend Transport; Tue, 26 May 2026 17:17:24 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.41; Tue, 26 May
- 2026 12:17:23 -0500
-Received: from satlexmb07.amd.com (10.181.42.216) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 26 May
- 2026 12:17:23 -0500
-Received: from AB350-desktop.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
- Transport; Tue, 26 May 2026 12:17:23 -0500
-From: <vitaly.prosyak@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: Vitaly Prosyak <vitaly.prosyak@amd.com>, Christian Konig
- <christian.koenig@amd.com>, Alex Deucher <alexander.deucher@amd.com>
-Subject: [PATCH] drm/amdgpu: Add lockdep annotations for lock ordering
- validation
-Date: Tue, 26 May 2026 13:16:37 -0400
-Message-ID: <20260526171721.39484-1-vitaly.prosyak@amd.com>
-X-Mailer: git-send-email 2.54.0
+ bh=usmq5QS9PZSu1k4Wjaqclft5D5ClHR0nk+5vOHKFCwY=;
+ b=jkODDQDk4VwOh/NMuGuhLnONP8b46sAqQlhFSEvP+YDDhNHDXcYCn5EE6wPkNu5s41bwEhNjBds01g6ZoIcfAyO4dquw7AlxM+s0dY7FZxDzYF4mX4cX4BdEc1afK9gqyxjPt7iAbuPib1hfP86rEx3lHFOQ6bAkL2jBmsO1EGM=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DM4PR12MB8476.namprd12.prod.outlook.com (2603:10b6:8:17e::15)
+ by IA0PR12MB8908.namprd12.prod.outlook.com (2603:10b6:208:48a::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.12; Tue, 26 May
+ 2026 18:46:34 +0000
+Received: from DM4PR12MB8476.namprd12.prod.outlook.com
+ ([fe80::2d79:122f:c62b:1cd8]) by DM4PR12MB8476.namprd12.prod.outlook.com
+ ([fe80::2d79:122f:c62b:1cd8%6]) with mapi id 15.21.0071.010; Tue, 26 May 2026
+ 18:46:34 +0000
+Message-ID: <27db214f-b57b-45ab-8deb-da2aa8efb9d7@amd.com>
+Date: Tue, 26 May 2026 12:46:30 -0600
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 2/8] drm/amd/display: use
+ drmm_writeback_connector_init()
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ "Kandpal, Suraj" <suraj.kandpal@intel.com>,
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Liviu Dudau <liviu.dudau@arm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
+ <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>,
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
+ Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>,
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Magnus Damm <magnus.damm@gmail.com>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+ Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Louis Chauvet <louis.chauvet@bootlin.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org
+References: <20260505-wb-drop-encoder-v5-0-42567b7c7af2@oss.qualcomm.com>
+ <20260505-wb-drop-encoder-v5-2-42567b7c7af2@oss.qualcomm.com>
+Content-Language: en-US
+From: Alex Hung <alex.hung@amd.com>
+In-Reply-To: <20260505-wb-drop-encoder-v5-2-42567b7c7af2@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MW4PR04CA0373.namprd04.prod.outlook.com
+ (2603:10b6:303:81::18) To DM4PR12MB8476.namprd12.prod.outlook.com
+ (2603:10b6:8:17e::15)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-Received-SPF: None (SATLEXMB04.amd.com: vitaly.prosyak@amd.com does not
- designate permitted sender hosts)
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF0000231B:EE_|SA1PR12MB8885:EE_
-X-MS-Office365-Filtering-Correlation-Id: 63cdef9b-f52f-489d-f545-08debb4aa73b
+X-MS-TrafficTypeDiagnostic: DM4PR12MB8476:EE_|IA0PR12MB8908:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5c6440b8-df28-4c2b-9ee1-08debb571be8
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|36860700016|82310400026|1800799024|11063799006|6133799003|18002099003|56012099006;
-X-Microsoft-Antispam-Message-Info: loD9Y95vBoAU0W7A8ebPxiRMOMnI/rflEPzD+pf4bRiGC8KkhAgG0AchT/KT+ZQ/KvTe7gVp70nylY5lRjIk8j4eEM+ydpvs+n17SKVhDAF9DID5rEENGVt9Vy/ZlwZUuXd7tzE67n9zPUMo50lA0O2+hJwiiZzWVUfb3G6Z1xvAh0H06SzJy7lQHtYphpz6mgbVkPLWBsHT8s62YEa7Cv8PlMpzdbLt/ZQ7tpKNqsSGpC+MajUbZcpUymKs/Q0DV0qDjW9PbK8zSCdBQymdM1KNQSqSiEMw43joLVXoiBUIz2vU0zeAF7zJFICx7fqIogugE/TPFGIPV9fLESVh17uro05+w0yUcBzaUtKL/HwkW+iAyPj+7PYUH1bRELRhc6Kazf/HUIhoB8oLsH9CGz40lvrxxFNwRve2wItCd5eD13TcjXyHl/x49Zh8sdHNlw3M/K60a045QwJ4HFfXkuVqUlIqRJWaFZ+NYUBm0vCTtxEVdiTCW0Q2tjpp2yhmJxLcFFiAymjiU1qIBfgDa7tVNPtbQjhXN2gQf1huPx7i9sCAnnRwAQZiptbnRZbHIyZX3AvNgV4LzLH+kM3bRQOVz228dIJ2mixTmQllATMMXoNuf2aOOSlv21nfi+3H1S5wSp5WHKANhuuAMoeR4TU3VvS+Pp3NJIYBrpf8eeTIxZLOJiZCvcqZqvSMW85YiXjdvDByZ8cIqS7nZy4RjaYh5o646AfFwx881cWjiak=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(36860700016)(82310400026)(1800799024)(11063799006)(6133799003)(18002099003)(56012099006);
+ ARA:13230040|366016|1800799024|7416014|376014|921020|11063799006|4143699003|22082099003|18002099003|56012099006;
+X-Microsoft-Antispam-Message-Info: ZeDg00k6sX2zVdXsLIJBFA6DJSBWr0PnHvTOrKI+GMnZvGYDjuaT1p0Ymo6P8hYg87jNYjOn5FP0PULpiXZWTT0xXJ6GJzf6U3hggCG6Bjge2MqODdbOS+2QlDT3mWoINJmhRyQFVQC8khCKBzJ92XMK6u/1NW4EusyYTiWgEmGfn9kdVnxo7DhOQt3E2ty6EAN+LcCVTFKuAJ0noSkWEgvSIiKXw2Q7IsXOLK0CDEjQFHJFOWh9V6YWJpQgoGc4T1v9ABXWmE10Zxu35lXYTZV5jSQLc8rZnRQdSkZ8hiKkoAjqe44Z2QoNLbsHYGn0gurXPlQWgN0ceA0mNHCuTXyU2/aWx6oxqW2ASrhBHrZnrMqx0bczt/GJJ6WXL61wathm30FT39hIAF62iiM3qGplbCw5tp06LifA/cbCzsGD2FlasonSmxg3UYbR9439qtwo6ip8Q0+9mJyrWM07Ok917hTh54ny2XWGKqKuZ1f1zTGbdrop21NQmgs1Vk4NE5IUyDoQ0L67Ut86DwI0QlQR0qoRlQPaevRuabEMLLGdkSXnAIisk4zo64HnnFcERFM9OD2Q+c6VItciatCnkrMOlMozN3CHjf96DpxOx4m557r/3fXDjHc1lqfF7uDtSnmIx3/MFVGMwtcU5rM/RrEDhr5WQ31XoLI8hpzWj23jy5bBFbGm415xspAf5A00OHSel807DhDMjRz9wH0U4jIhfywMxa5ShVUZO++8oUk=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB8476.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(7416014)(376014)(921020)(11063799006)(4143699003)(22082099003)(18002099003)(56012099006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: xqexy23+Rl3F7WE7dMdkFdWgobDCXGJt2WcOcDsI3x9sSqlrBWHRSTjuAD7xiHgxQEQLxlga47SEPSyxWXr4ShbfjXl/hvvlgmFd/NTftEpmF9YkIkvHtEFAxov3U+cFgilb0fBkM5VzHcGjxnwzaxq02Bm18gCkeUcIPLawqJABqnzbVUoWI3TIJITRQn34VyKvftjXTdh8C0PkL++SncKi8aeDZ0xxsFpP9Uf9ZX8YN+x73N0VM9gfSGqwpmOK2jQ2rLI3lUhLUSMbNmYKCXwl7gleKICdoD3l/JEJk2D0t51ZDrl4SzVbw9s6gInx3mtDTXq1HsBbX7VIcATdwTfsj8V4CDjcf8KStTqQGvwzKVAgtiP3DQDoFzWvNzIpVxJTNszUj/59OcK2cc3TyRJJXY+Io+alk4jgtusxX3Yb7z+k44NdMNwFYsnqv1Uv
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Nk0yNUVURlJVdlN3bzBrNWVDcTA3cWpvUUlON3lpemtMY0VMVXVOWTVnbm9q?=
+ =?utf-8?B?Y0FGT3huOEN0ZzRiN1llMjBDSDNxWm9sY2gxS3I2VE5pTlVBSjJPTDZpZmhC?=
+ =?utf-8?B?emxZS2k3UmQyYkI1eTFZZFBWWmpSZFJ0Z1FWZlJGNStVcFFCNG9xd0ZCOC9L?=
+ =?utf-8?B?TU1BNHZoald1WXRUSnNqVjhTSzBOc0diWlJOSDVDVUI2RDQwUEJEL3hOWHp0?=
+ =?utf-8?B?NXVtdkwyVEtESTkwMHdoVTN1aVpWWEtuUU5HRVRPYVZQTDA1WHNrTUdycXNq?=
+ =?utf-8?B?UnI1amJKWGtIb2FjZkxUdnZ0TmhkN0tHYUQreWZYQk5DMVZHNVZWNDBNZUJ1?=
+ =?utf-8?B?cjFSQTd6T0doK0d2V3pGQWhuVWRtdFdyOFlNM3NMb0hYVHl6Q1ZqaGlzS1lo?=
+ =?utf-8?B?R2JhdUoySGtEOCthbkEyS3B3d0dFMXJ2ZmZpK3JEUDZ5NWdEa2h6YVU2eUJ1?=
+ =?utf-8?B?dEZGVEFBMlhidjRKWldsczZCOGs4Vm1NbWN2R2NHTnp1MnNPckdsMUQveU42?=
+ =?utf-8?B?ZjIyKzdlU3Q1SFE5ZTduZ0RvTmFQTGMyS0hydmVEQ25YNmpLdmoxa1NTRy9J?=
+ =?utf-8?B?Z080VGxyRkoxcVZnc2JiNVoySm05cXhFTU5RaERLallzak5valJKa0JxaUhz?=
+ =?utf-8?B?WHhNNmJmNit4d1pYdTBTUXVRVDJrblNlTUNseXUzNzRVN0JQbGFGdFZlYzE5?=
+ =?utf-8?B?eFEwN083bUFETmlMTTh3UVNHWFBhYlczbDdtYzVDWnBDQktrRlg5bHc1MFdM?=
+ =?utf-8?B?aGZmcUxKN1kzN3dwcEk3STFPS1ZSTWVMNWw2ZUc5cmRpT3pLaVFabURucmNL?=
+ =?utf-8?B?UmJqN2t1V1VxWE04eE43Wlk0OEVBb2Q1SHpxWVBmK0lZbjh3YWpZemtUYTBx?=
+ =?utf-8?B?WStTNVZ5YWhZaExSL3RPYldlcEFYMTJ1ek00VjFNWFp6elBpVytMUnV6dDFx?=
+ =?utf-8?B?aFJabDBpU1hNUnJCSWgxN2ZlN2g4UUovNWsyc0krOWdXbWNhZ3BwaGRsVnhx?=
+ =?utf-8?B?clJhM05JOExxVXVONWtWL2ZGVi84aVo2d3dua3BxRHZ1SzdsMFpKd1JtbVpG?=
+ =?utf-8?B?Z0FuNE1TRU9mRmRKSFhjOGtaWHJXWjR5blQ2eHgzcHo4UUh2ckRwQXZQK0cz?=
+ =?utf-8?B?d0pGV2RjZ244Z1doMXhMZkwxVFRWcjZhNGhhT2Q3SXBWOG9rRnZ1MWRxWDRC?=
+ =?utf-8?B?K09HMUtGeG9UeStDOXU1YTdRYkFaQ3dRMlpubHhmRVQ2QTYyeTJidHJSODY4?=
+ =?utf-8?B?SlFUVW8za1BKK3lnS3JaaE5udTJ5VHNKVVN2R3pOMzRoR0ZVK2l4dUdqNSs0?=
+ =?utf-8?B?bXhqMTJxbHpKRnJSWTBZbUhUSnFLMER5RC96TEZJTTBVMHBXVW1ncC9TS0xY?=
+ =?utf-8?B?WGdQbEsrbVNQekdGQ2FQQWJxdjVXVzdpa21hWk1JeFRGcEU0T091QmRjTGdJ?=
+ =?utf-8?B?YWR5VC81YnNtc1dtSllhUm1HbExCMnRxSWY5bUhMalBReHRWck4xR21weGkx?=
+ =?utf-8?B?Z3dMSDJqaUc4UWMrU0hYSGx4ZGFGSlQ2SHBvV0tCQzVnUXQ1NXZRbFQ5SWd5?=
+ =?utf-8?B?ZUtjQytDeGtVbFlSRWZzWWl3K3NiTVNlcm42QXl3czdpTDFpSUNVNlVxMS85?=
+ =?utf-8?B?UTlWUWN5TEtKemZOVU1OdjNvVnBLcjRubDdUZ0JKbnduVThjV1ZRZWFFWkRK?=
+ =?utf-8?B?aDh0cERJWXhsVmd0U2Q4b2F0Q01nY3gyVS9oZG9HZDR6dmU1N1p0WlhSdkIy?=
+ =?utf-8?B?UFRNS3lONk9MbzJFSUF0Tlk5dE5xZlhNMjlrMjBncXc3cnlERTdRMUx2ZWRP?=
+ =?utf-8?B?czl2WG9MU3kyb3E2aWFpWC9wekJzVHBCbmVERzd6blowVmJ6NmdvbCtDZ0tx?=
+ =?utf-8?B?R3VzL0xsc1NuSDVGejAwOHNyOHl4VXpYVmN3RGs0OThMRFE0cXFmSTJxZWdw?=
+ =?utf-8?B?cXJDa201RFpNZzhWZnJxcklWdWN4QzBxVjIrS3hzTFVGakxPdkw3dlNOY01S?=
+ =?utf-8?B?TFhJS1QxSVBpTkw2elRGcEowdXBUNGY5cS8zaXB3Y1VRTFdrcksxeDRHbU1y?=
+ =?utf-8?B?bEdxbnRSenlQY2trSUFxcHFpWmloOTFEcHc1QVdwZlZCYnBYY29yOUF2Tms1?=
+ =?utf-8?B?WGZ6TS9MV3ZYYW1aY2Uza3RDTURGWXlQOFBJMUxLZWtIYzkvVUdkRWJkRHAw?=
+ =?utf-8?B?aGJjUHVyZDdZcEZEb0llTURmNXFBRkNtNDg3Z0M3SGxlVVo1aGhmSWY1ZUJQ?=
+ =?utf-8?B?SnAwNkErTEZ0UGZBQWlmUUtTNGY3U0NtdFlNQWhMSTNNV2E0TVllN0FYNG9D?=
+ =?utf-8?B?NDBYeFFQc2NFOEtCSG05dlYyNHlDYlVpbloxOG4yQ2J3Nml2S21jZz09?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 May 2026 17:17:24.0061 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 63cdef9b-f52f-489d-f545-08debb4aa73b
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5c6440b8-df28-4c2b-9ee1-08debb571be8
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB8476.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 May 2026 18:46:33.9598 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF0000231B.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8885
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: jvjeCAD2BI77z78UAtaW+h4eqDcnD6vZvs/mrvi3B8y2FmN5LLomaL2oghRsVwejLguSZdvAq1mAy+vVUTfseA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8908
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,380 +162,106 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Vitaly Prosyak <vitaly.prosyak@amd.com>
+Will allocating wbcon with drmm_kzalloc before calling 
+amdgpu_dm_wb_connector_init be more memory-safe as below?
 
-Add lockdep annotations to teach lockdep the correct lock hierarchy
-and catch ordering violations during development. This follows the
-pattern established by dma-resv in drivers/dma-buf/dma-resv.c.
 
-Lock ordering hierarchy (outermost to innermost):
+@@ -5790,7 +5791,8 @@ static int amdgpu_dm_initialize_drm_device(struct 
+amdgpu_device *adev)
+  		link = dc_get_link_at_index(dm->dc, i);
 
-1. userq_sch_mutex   - Global userq scheduler (enforce_isolation)
-2. userq_mutex       - Per-context userq (held across queue create/destroy)
-3. notifier_lock     - MMU notifier synchronization
-4. vram_lock         - VRAM memory allocator
-5. reset_domain->sem - GPU reset synchronization
-6. reset_lock        - Reset control mutex
-7. srbm_mutex        - SRBM register access
-8. grbm_idx_mutex    - GRBM index register access
-9. mmio_idx_lock     - MMIO index access (spinlock)
+  		if (link->connector_signal == SIGNAL_TYPE_VIRTUAL) {
+-			struct amdgpu_dm_wb_connector *wbcon = kzalloc_obj(*wbcon);
++			struct amdgpu_dm_wb_connector *wbcon =
++				drmm_kzalloc(adev_to_drm(adev), sizeof(*wbcon), GFP_KERNEL);
 
-The implementation provides:
-- Lock ordering training at module init (amdgpu_lockdep_init)
-- Lock class association for real driver locks (amdgpu_lockdep_set_class)
+  			if (!wbcon) {
+  				drm_err(adev_to_drm(adev), "KMS: Failed to allocate writeback 
+connector\n");
+@@ -5799,7 +5801,6 @@ static int amdgpu_dm_initialize_drm_device(struct 
+amdgpu_device *adev)
 
-Dummy locks are associated with the same class keys as real driver locks
-via lockdep_set_class(), ensuring lockdep connects the training ordering
-with actual runtime locks.
+  			if (amdgpu_dm_wb_connector_init(dm, wbcon, i)) {
+  				drm_err(adev_to_drm(adev), "KMS: Failed to initialize writeback 
+connector\n");
+-				kfree(wbcon);
+  				continue;
+  			}
 
-Testing:
-  Build the kernel with CONFIG_PROVE_LOCKING=y (enables CONFIG_LOCKDEP):
-    scripts/config --enable PROVE_LOCKING
-    scripts/config --enable DEBUG_LOCKDEP
-
-  On boot, dmesg should show:
-    AMDGPU: Lockdep annotations initialized (9 lock levels)
-
-  The companion IGT test (tests/amdgpu/amd_lockdep) exercises lock-heavy
-  GPU code paths concurrently to trigger lockdep warnings on violations:
-    sudo ./build/tests/amdgpu/amd_lockdep
-    sudo dmesg | grep -A 50 "circular locking dependency"
-
-  IGT subtests:
-    concurrent-reset-and-submit  - reset_sem vs submission locks
-    concurrent-mmap-and-evict    - mmap_lock vs vram_lock
-    concurrent-userptr-and-reset - notifier_lock vs reset_sem
-    stress-all-paths             - all of the above simultaneously
-
-  A clean dmesg (no "circular locking dependency" or "possible recursive
-  locking detected" messages) confirms no lock ordering violations.
-
-  For CI integration, the test should be run on kernels compiled with
-  CONFIG_LOCKDEP=y; dmesg is scanned post-run for lockdep splats.
-
-v2: (Christian)
-- Move notifier_lock and vram_lock before reset locks in hierarchy.
-  HMM invalidation holds notifier_lock and can wait for GPU reset
-  completion, so notifier_lock must be outer to reset_domain->sem.
-- Associate dummy locks with lock class keys via lockdep_set_class()
-  so lockdep connects training with real driver locks.
-- Update commit message to list all 9 lock levels.
-
-Requires CONFIG_PROVE_LOCKING=y to activate.
-
-Cc: Christian Konig <christian.koenig@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Vitaly Prosyak <vitaly.prosyak@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/Makefile         |   2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu.h         |   1 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c  |   3 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c     |   3 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_lockdep.c | 195 ++++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_lockdep.h |  39 ++++
- 6 files changed, 242 insertions(+), 1 deletion(-)
- create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_lockdep.c
- create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_lockdep.h
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/Makefile b/drivers/gpu/drm/amd/amdgpu/Makefile
-index ee3574797bc2..ba80542ead9d 100644
---- a/drivers/gpu/drm/amd/amdgpu/Makefile
-+++ b/drivers/gpu/drm/amd/amdgpu/Makefile
-@@ -69,7 +69,7 @@ amdgpu-y += amdgpu_device.o amdgpu_reg_access.o amdgpu_doorbell_mgr.o amdgpu_kms
- 	amdgpu_vm_sdma.o amdgpu_discovery.o amdgpu_ras_eeprom.o amdgpu_nbio.o \
- 	amdgpu_umc.o smu_v11_0_i2c.o amdgpu_fru_eeprom.o amdgpu_rap.o \
- 	amdgpu_fw_attestation.o amdgpu_securedisplay.o \
--	amdgpu_eeprom.o amdgpu_mca.o amdgpu_psp_ta.o amdgpu_lsdma.o \
-+	amdgpu_eeprom.o amdgpu_mca.o amdgpu_psp_ta.o amdgpu_lsdma.o amdgpu_lockdep.o \
- 	amdgpu_ring_mux.o amdgpu_xcp.o amdgpu_seq64.o amdgpu_aca.o amdgpu_dev_coredump.o \
- 	amdgpu_cper.o amdgpu_userq_fence.o amdgpu_eviction_fence.o amdgpu_ip.o
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-index 5d7bfa59424a..7b09410d6d8f 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-@@ -105,6 +105,7 @@
- #include "amdgpu_mca.h"
- #include "amdgpu_aca.h"
- #include "amdgpu_ras.h"
-+#include "amdgpu_lockdep.h"
- #include "amdgpu_cper.h"
- #include "amdgpu_xcp.h"
- #include "amdgpu_seq64.h"
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index 5ff224163bab..10e485ff055c 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -3752,6 +3752,9 @@ int amdgpu_device_init(struct amdgpu_device *adev,
- 	mutex_init(&adev->pm.stable_pstate_ctx_lock);
- 	mutex_init(&adev->benchmark_mutex);
- 	mutex_init(&adev->gfx.reset_sem_mutex);
-+
-+	/* Associate locks with lockdep classes for ordering validation */
-+	amdgpu_lockdep_set_class(adev);
- 	/* Initialize the mutex for cleaner shader isolation between GFX and compute processes */
- 	mutex_init(&adev->enforce_isolation_mutex);
- 	for (i = 0; i < MAX_XCP; ++i) {
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-index 1781c0c3d010..bf4260269681 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-@@ -3158,6 +3158,9 @@ static int __init amdgpu_init(void)
- {
- 	int r;
- 
-+	/* Train lockdep on correct lock ordering */
-+	amdgpu_lockdep_init();
-+
- 	r = amdgpu_sync_init();
- 	if (r)
- 		return r;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_lockdep.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_lockdep.c
-new file mode 100644
-index 000000000000..d5d71fd7c70d
---- /dev/null
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_lockdep.c
-@@ -0,0 +1,195 @@
-+// SPDX-License-Identifier: MIT
-+/*
-+ * Copyright 2024 Advanced Micro Devices, Inc.
-+ *
-+ * Lockdep annotation for AMDGPU lock ordering
-+ *
-+ * This module teaches lockdep the correct lock ordering to catch
-+ * potential deadlocks at development time rather than runtime.
-+ *
-+ * Based on dma-resv lockdep approach from:
-+ * drivers/dma-buf/dma-resv.c:dma_resv_lockdep()
-+ */
-+
-+#include "amdgpu.h"
-+#include "amdgpu_reset.h"
-+
-+#ifdef CONFIG_LOCKDEP
-+
-+/* Lock class keys for associating with real driver locks */
-+static struct lock_class_key amdgpu_userq_sch_mutex_key;
-+static struct lock_class_key amdgpu_userq_mutex_key;
-+static struct lock_class_key amdgpu_notifier_lock_key;
-+static struct lock_class_key amdgpu_vram_lock_key;
-+static struct lock_class_key amdgpu_reset_sem_key;
-+static struct lock_class_key amdgpu_reset_lock_key;
-+static struct lock_class_key amdgpu_srbm_lock_key;
-+static struct lock_class_key amdgpu_grbm_lock_key;
-+static struct lock_class_key amdgpu_mmio_lock_key;
-+
-+/**
-+ * amdgpu_lockdep_set_class - Associate lock class keys with real locks
-+ * @adev: AMDGPU device
-+ *
-+ * Call during device init to associate lock classes with actual locks
-+ * so lockdep can track them properly.
-+ */
-+void amdgpu_lockdep_set_class(struct amdgpu_device *adev)
-+{
-+	lockdep_set_class(&adev->gfx.userq_sch_mutex,
-+			  &amdgpu_userq_sch_mutex_key);
-+	lockdep_set_class(&adev->notifier_lock, &amdgpu_notifier_lock_key);
-+	lockdep_set_class(&adev->srbm_mutex, &amdgpu_srbm_lock_key);
-+	lockdep_set_class(&adev->grbm_idx_mutex, &amdgpu_grbm_lock_key);
-+	lockdep_set_class(&adev->mmio_idx_lock, &amdgpu_mmio_lock_key);
-+
-+	if (adev->reset_domain)
-+		lockdep_set_class(&adev->reset_domain->sem,
-+				  &amdgpu_reset_sem_key);
-+}
-+
-+/**
-+ * amdgpu_lockdep_init - Teach lockdep the correct lock ordering
-+ *
-+ * Instantiates dummy objects and takes locks in the correct order to
-+ * train lockdep. This helps catch lock ordering violations during
-+ * development.
-+ *
-+ * Lock ordering hierarchy (outermost to innermost):
-+ *
-+ * 1. userq_sch_mutex     - Global userq scheduler (enforce_isolation)
-+ * 2. userq_mutex         - Per-context userq (held across queue create/destroy)
-+ * 3. notifier_lock       - MMU notifier lock
-+ * 4. vram_lock           - VRAM allocator lock
-+ * 5. reset_domain->sem   - GPU reset synchronization
-+ * 6. reset_lock          - Reset control lock
-+ * 7. srbm_mutex          - SRBM register access
-+ * 8. grbm_idx_mutex      - GRBM index access
-+ * 9. mmio_idx_lock       - MMIO index access (spinlock)
-+ *
-+ * Evidence:
-+ * - userq_sch_mutex -> userq_mutex: amdgpu_gfx_kfd_sch_ctrl() calls
-+ *   amdgpu_userq_stop_sched_for_enforce_isolation() which takes userq_mutex
-+ * - userq_mutex -> notifier_lock: userq paths may trigger MMU notifier
-+ *   invalidation which acquires notifier_lock
-+ * - notifier_lock -> reset_domain->sem: HMM invalidation callback holds
-+ *   notifier_lock and can wait for GPU reset completion, so notifier_lock
-+ *   must be outer to reset_domain->sem
-+ * - vram_lock -> reset_domain->sem: VRAM management paths may need to
-+ *   wait for ongoing reset to complete
-+ *
-+ * Note: mmap_lock ordering relative to GPU locks is already taught
-+ * by dma-resv (drivers/dma-buf/dma-resv.c).
-+ */
-+int amdgpu_lockdep_init(void)
-+{
-+	struct amdgpu_reset_domain *reset_domain = NULL;
-+	struct amdgpu_reset_control reset_ctl;
-+	struct mutex userq_sch_mutex;
-+	struct mutex userq_mutex;
-+	struct mutex notifier_lock;
-+	struct mutex vram_lock;
-+	struct mutex srbm_mutex;
-+	struct mutex grbm_idx_mutex;
-+	spinlock_t mmio_idx_lock;
-+	unsigned long flags;
-+
-+	/*
-+	 * Initialize dummy reset domain
-+	 */
-+	reset_domain = amdgpu_reset_create_reset_domain(SINGLE_DEVICE,
-+							"lockdep_test");
-+	if (!reset_domain)
-+		return -ENOMEM;
-+
-+	/* Initialize dummy locks */
-+	mutex_init(&userq_sch_mutex);
-+	mutex_init(&userq_mutex);
-+	mutex_init(&notifier_lock);
-+	mutex_init(&vram_lock);
-+	mutex_init(&reset_ctl.reset_lock);
-+	mutex_init(&srbm_mutex);
-+	mutex_init(&grbm_idx_mutex);
-+	spin_lock_init(&mmio_idx_lock);
-+
-+	/*
-+	 * Associate dummy locks with the same class keys used for real
-+	 * driver locks. This ensures lockdep connects the ordering learned
-+	 * here with the actual locks used at runtime.
-+	 */
-+	lockdep_set_class(&userq_sch_mutex, &amdgpu_userq_sch_mutex_key);
-+	lockdep_set_class(&userq_mutex, &amdgpu_userq_mutex_key);
-+	lockdep_set_class(&notifier_lock, &amdgpu_notifier_lock_key);
-+	lockdep_set_class(&vram_lock, &amdgpu_vram_lock_key);
-+	lockdep_set_class(&reset_domain->sem, &amdgpu_reset_sem_key);
-+	lockdep_set_class(&reset_ctl.reset_lock, &amdgpu_reset_lock_key);
-+	lockdep_set_class(&srbm_mutex, &amdgpu_srbm_lock_key);
-+	lockdep_set_class(&grbm_idx_mutex, &amdgpu_grbm_lock_key);
-+	lockdep_set_class(&mmio_idx_lock, &amdgpu_mmio_lock_key);
-+
-+	/*
-+	 * Take locks in the correct order to train lockdep.
-+	 * This establishes the dependency chain.
-+	 */
-+
-+	/* Level 1: Global userq scheduler mutex (outermost) */
-+	mutex_lock(&userq_sch_mutex);
-+
-+	/* Level 2: Per-context userq mutex */
-+	mutex_lock(&userq_mutex);
-+
-+	/* Level 3: MMU notifier lock */
-+	mutex_lock(&notifier_lock);
-+
-+	/* Level 4: VRAM allocator lock */
-+	mutex_lock(&vram_lock);
-+
-+	/* Level 5: Reset domain semaphore */
-+	down_read(&reset_domain->sem);
-+
-+	/* Level 6: Reset control lock */
-+	mutex_lock(&reset_ctl.reset_lock);
-+
-+	/*
-+	 * Mark potential memory reclaim boundary.
-+	 * GPU operations might trigger memory allocation/reclaim.
-+	 */
-+	fs_reclaim_acquire(GFP_KERNEL);
-+
-+	/* Level 7: SRBM register access */
-+	mutex_lock(&srbm_mutex);
-+
-+	/* Level 8: GRBM index access */
-+	mutex_lock(&grbm_idx_mutex);
-+
-+	/* Level 9: MMIO index access (innermost lock, spinlock) */
-+	spin_lock_irqsave(&mmio_idx_lock, flags);
-+
-+	/*
-+	 * All locks acquired in order.
-+	 * Lockdep has now learned the valid dependency chain.
-+	 */
-+
-+	/* Release in reverse order */
-+	spin_unlock_irqrestore(&mmio_idx_lock, flags);
-+	mutex_unlock(&grbm_idx_mutex);
-+	mutex_unlock(&srbm_mutex);
-+
-+	fs_reclaim_release(GFP_KERNEL);
-+
-+	mutex_unlock(&reset_ctl.reset_lock);
-+	up_read(&reset_domain->sem);
-+	mutex_unlock(&vram_lock);
-+	mutex_unlock(&notifier_lock);
-+	mutex_unlock(&userq_mutex);
-+	mutex_unlock(&userq_sch_mutex);
-+
-+	/* Cleanup */
-+	amdgpu_reset_put_reset_domain(reset_domain);
-+
-+	pr_info("AMDGPU: Lockdep annotations initialized (9 lock levels)\n");
-+
-+	return 0;
-+}
-+
-+#endif /* CONFIG_LOCKDEP */
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_lockdep.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_lockdep.h
-new file mode 100644
-index 000000000000..04adb58665bf
---- /dev/null
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_lockdep.h
-@@ -0,0 +1,39 @@
-+/* SPDX-License-Identifier: MIT */
-+/*
-+ * Copyright 2024 Advanced Micro Devices, Inc.
-+ *
-+ * Lockdep annotation interface for AMDGPU
-+ */
-+
-+#ifndef __AMDGPU_LOCKDEP_H__
-+#define __AMDGPU_LOCKDEP_H__
-+
-+#include <linux/lockdep.h>
-+
-+struct amdgpu_device;
-+
-+#ifdef CONFIG_LOCKDEP
-+
-+/**
-+ * amdgpu_lockdep_init - Train lockdep on correct lock ordering
-+ *
-+ * Call once during module init to establish the lock dependency chain.
-+ */
-+int amdgpu_lockdep_init(void);
-+
-+/**
-+ * amdgpu_lockdep_set_class - Associate lock class keys with real locks
-+ * @adev: AMDGPU device
-+ *
-+ * Call during device init to associate lock classes with actual locks.
-+ */
-+void amdgpu_lockdep_set_class(struct amdgpu_device *adev);
-+
-+#else /* !CONFIG_LOCKDEP */
-+
-+static inline int amdgpu_lockdep_init(void) { return 0; }
-+static inline void amdgpu_lockdep_set_class(struct amdgpu_device *adev) {}
-+
-+#endif /* CONFIG_LOCKDEP */
-+
-+#endif /* __AMDGPU_LOCKDEP_H__ */
--- 
-2.54.0
+On 5/4/26 18:24, Dmitry Baryshkov wrote:
+> The driver uses drm_writeback_connector_init() instead of its drmm
+> counterpart, but it doesn't perform the job queue cleanup (neither
+> manually nor by calling drm_writeback_connector_cleanup()). On the
+> contrary, the drmm_writeback_connector_init() function ensures the
+> proper cleanup of the job queue.
+> 
+> Use drmm_plain_encoder_alloc() to allocate simple encoder and
+> drmm_writeback_connector_init() in order to initialize writeback
+> connector instance.
+> 
+> Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
+> Reviewed-by: Suraj Kandpal <suraj.kandpal@intel.com>
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> ---
+>   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c    |  2 +-
+>   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c | 18 +++++++++++++-----
+>   2 files changed, 14 insertions(+), 6 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index e96a12ff2d31..2ac64495cdb7 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -10683,7 +10683,7 @@ static void dm_set_writeback(struct amdgpu_display_manager *dm,
+>   		return;
+>   	}
+>   
+> -	acrtc = to_amdgpu_crtc(wb_conn->encoder.crtc);
+> +	acrtc = to_amdgpu_crtc(crtc_state->base.crtc);
+>   	if (!acrtc) {
+>   		drm_err(adev_to_drm(adev), "no amdgpu_crtc found\n");
+>   		kfree(wb_info);
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c
+> index 110f0173eee6..fdc3da40452f 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c
+> @@ -169,7 +169,6 @@ static const struct drm_encoder_helper_funcs amdgpu_dm_wb_encoder_helper_funcs =
+>   
+>   static const struct drm_connector_funcs amdgpu_dm_wb_connector_funcs = {
+>   	.fill_modes = drm_helper_probe_single_connector_modes,
+> -	.destroy = drm_connector_cleanup,
+>   	.reset = amdgpu_dm_connector_funcs_reset,
+>   	.atomic_duplicate_state = amdgpu_dm_connector_atomic_duplicate_state,
+>   	.atomic_destroy_state = drm_atomic_helper_connector_destroy_state,
+> @@ -188,17 +187,26 @@ int amdgpu_dm_wb_connector_init(struct amdgpu_display_manager *dm,
+>   	struct dc *dc = dm->dc;
+>   	struct dc_link *link = dc_get_link_at_index(dc, link_index);
+>   	int res = 0;
+> +	struct drm_encoder *encoder;
+> +
+> +	encoder = drmm_plain_encoder_alloc(&dm->adev->ddev, NULL,
+> +					   DRM_MODE_ENCODER_VIRTUAL, NULL);
+> +	if (IS_ERR(encoder))
+> +		return PTR_ERR(encoder);
+> +
+> +	drm_encoder_helper_add(encoder, &amdgpu_dm_wb_encoder_helper_funcs);
+> +
+> +	encoder->possible_crtcs = amdgpu_dm_get_encoder_crtc_mask(dm->adev);
+>   
+>   	wbcon->link = link;
+>   
+>   	drm_connector_helper_add(&wbcon->base.base, &amdgpu_dm_wb_conn_helper_funcs);
+>   
+> -	res = drm_writeback_connector_init(&dm->adev->ddev, &wbcon->base,
+> +	res = drmm_writeback_connector_init(&dm->adev->ddev, &wbcon->base,
+>   					    &amdgpu_dm_wb_connector_funcs,
+> -					    &amdgpu_dm_wb_encoder_helper_funcs,
+> +					    encoder,
+>   					    amdgpu_dm_wb_formats,
+> -					    ARRAY_SIZE(amdgpu_dm_wb_formats),
+> -					    amdgpu_dm_get_encoder_crtc_mask(dm->adev));
+> +					    ARRAY_SIZE(amdgpu_dm_wb_formats));
+>   
+>   	if (res)
+>   		return res;
+> 
 
