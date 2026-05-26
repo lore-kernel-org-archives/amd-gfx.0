@@ -4,150 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9A381CD5BC8
-	for <amd-gfx@archiver.kernel.org>; Tue, 26 May 2026 18:46:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2D1D1CD5BC8
+	for <amd-gfx@archiver.kernel.org>; Tue, 26 May 2026 20:18:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2C4F910E4BD;
-	Tue, 26 May 2026 18:46:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C50B510E211;
+	Tue, 26 May 2026 20:18:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="jkODDQDk";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Y5UvNknY";
 	dkim-atps=neutral
-Received: from CY7PR03CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11010041.outbound.protection.outlook.com
- [40.93.198.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 108D910E1B1;
- Tue, 26 May 2026 18:46:39 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=qe2gM3kuiy5tg9hI6w7FlfVmRgu47aClpNJh9LdwSTiPsfkUw7ZSJClS8cLFq7NfodUE7BYcjVrbLu2zZdbJ6gTysOKwCduyHSBcASNM+lJV6pvotUBOUIOcTPBnQFh3OAKTNM1i0cxNeDE/yzcEmIHv8nnzTiQ9b3WYhYZyB1euaMh/FHbP0YjsLvJxfvNlAU2hy+ci0FGOpZACgsSN5Yn5zuBVP7g0CpZehtEKuUSWjomgFsDBGCP9YGekLnUtv6CBttq71ewwPXZh0k2+ISui/4DMy+8YsbirTJYSUGft0n7uOM1G1fbiZgDs174itD37CY35+ziAiP6mCu1nYA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=usmq5QS9PZSu1k4Wjaqclft5D5ClHR0nk+5vOHKFCwY=;
- b=HzV5HhOw/1HVL9lMXtBCvFMrS3P+bGdj2D19JhgJX3luse2VK9XMTdxepdNVbn07MxNA9VjGfU3CeoTUNCfHAkdMAiTRSQr8lgZxSRle8dnBNm0wNI1Tll0HDw+oifiWBj/k1tPXZJSUS69EAA3OrkRjS2qS1NRLF/TJuTEHEPqIHCcNz8Nw86jFGJ+BQZgz9rakOAd7S9CiiyOgjCMFUq8a2f1K9OMmVHYXMF5mnt//bk1CPe42DWOF8AKyXvUfSJyLOmce29Cgm+f3WVXKctYvqtVyaTWePJXvE6jyCb8v0rLaL+8Ic6/jD8i60w7LlkrLqnKSqcj+bVIkpz/cBA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=usmq5QS9PZSu1k4Wjaqclft5D5ClHR0nk+5vOHKFCwY=;
- b=jkODDQDk4VwOh/NMuGuhLnONP8b46sAqQlhFSEvP+YDDhNHDXcYCn5EE6wPkNu5s41bwEhNjBds01g6ZoIcfAyO4dquw7AlxM+s0dY7FZxDzYF4mX4cX4BdEc1afK9gqyxjPt7iAbuPib1hfP86rEx3lHFOQ6bAkL2jBmsO1EGM=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB8476.namprd12.prod.outlook.com (2603:10b6:8:17e::15)
- by IA0PR12MB8908.namprd12.prod.outlook.com (2603:10b6:208:48a::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.12; Tue, 26 May
- 2026 18:46:34 +0000
-Received: from DM4PR12MB8476.namprd12.prod.outlook.com
- ([fe80::2d79:122f:c62b:1cd8]) by DM4PR12MB8476.namprd12.prod.outlook.com
- ([fe80::2d79:122f:c62b:1cd8%6]) with mapi id 15.21.0071.010; Tue, 26 May 2026
- 18:46:34 +0000
-Message-ID: <27db214f-b57b-45ab-8deb-da2aa8efb9d7@amd.com>
-Date: Tue, 26 May 2026 12:46:30 -0600
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 2/8] drm/amd/display: use
- drmm_writeback_connector_init()
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- "Kandpal, Suraj" <suraj.kandpal@intel.com>,
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Liviu Dudau <liviu.dudau@arm.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
- <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
- Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>,
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
- Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>,
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Magnus Damm <magnus.damm@gmail.com>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
- Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Louis Chauvet <louis.chauvet@bootlin.com>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org
-References: <20260505-wb-drop-encoder-v5-0-42567b7c7af2@oss.qualcomm.com>
- <20260505-wb-drop-encoder-v5-2-42567b7c7af2@oss.qualcomm.com>
-Content-Language: en-US
-From: Alex Hung <alex.hung@amd.com>
-In-Reply-To: <20260505-wb-drop-encoder-v5-2-42567b7c7af2@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MW4PR04CA0373.namprd04.prod.outlook.com
- (2603:10b6:303:81::18) To DM4PR12MB8476.namprd12.prod.outlook.com
- (2603:10b6:8:17e::15)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F17F210E211
+ for <amd-gfx@lists.freedesktop.org>; Tue, 26 May 2026 20:18:47 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id CC620600CB;
+ Tue, 26 May 2026 20:18:46 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1F8E81F000E9;
+ Tue, 26 May 2026 20:18:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1779826726;
+ bh=47iIZXKRidiLTOF6lAPeXDmDm898asPSwXJLd/b4t54=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=Y5UvNknYb5IR9ajgDgPL4kSenD/+YbGZpfOGnVjZQVKa2gfrACcyoag3B0ld3czET
+ UzQxeXfqsyCs+WZ8tygiHhrIgSa7g3rbwu1ctPQR6f/wbl/mL9FG28Q42stvj/aPb0
+ /uSLt5LUwTNJ1eNqvVJvRgbrVfjOB98qxw3VOU6sJZnTDhQv6qLQvnRaI4OcgauELt
+ tDWDHXYNLcNcN7zheCa9CMXgajRrZBS5fNAT3mfPSZIsD/i7MnA9BaXBbecLg8Druv
+ L1Au9NZZ7odHNCa/I3v+Sj0UeBkqpC2ExoiALlFxfw5zPeLZrapbTM125MXH6X1szJ
+ XGHLi98frXCEQ==
+Received: from phl-compute-10.internal (phl-compute-10.internal [10.202.2.50])
+ by mailfauth.phl.internal (Postfix) with ESMTP id 6641CF4007B;
+ Tue, 26 May 2026 16:18:45 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+ by phl-compute-10.internal (MEProxy); Tue, 26 May 2026 16:18:45 -0400
+X-ME-Sender: <xms:JQAWalEB-0IsRTLSwkiSmJdfQufyFeEE6OQ9n3nqqxeNcqwrY2QyDA>
+ <xme:JQAWapZQIwsIJqdJcwcYxzplXv_c_joFk6GBEGH-Gy9PUhU0VcVWZrO7kSVR044fM
+ zApixKaemdVTgrmX5p__IOvz8k9y03cWotNyt2JbtsYyruz5MHdaw>
+X-ME-Received: <xmr:JQAWatXRRGqJz6dUc5bk6NOdqQktXj30cpW16V_d2-5f5APKXSm-d0UoNSmKGPdFQBPoljZiI1fK_Ax02sVEoDRyQiALjokI>
+X-ME-Proxy-Cause: dmFkZTG3thSBC5a1jgixtCNlMIow7u8H/RHRECRviaMLOn1B3gbhrRmoOyivz8ntfIP46e
+ QE07pbgXupVZQE9Yzxh0pJB6S6lv76AzWWwv/RpGQ7XTuVXkF1mqaQye6WUzv2i4PCIlR+
+ MKDCQ8nGDW8bvvbiiXYTuUBLiYV8UQdhwB6ZWqkcmFFS3Htto1YXTteH5Vt+wI9AKmBUsj
+ RkUr6SdE4j1Ow3p94OnJYoBwP//+VOOoci8uBtkgb7fm9IngHx6a2V0d0X8zOucV6Wu44a
+ 5bsJzXasv5X01Im0bjy2dBhKboYXd+WFveZ9VuvWPf4FcNBeYho+oA8cFIthEpooGsBMWt
+ 1gqYKgCczJ6Nbx4YsNMKSJG3VOiyUwIPtKfErm+ONlPgZqJ6gFlXENJL2liPN7V37yweMD
+ PE5m4HUIzoj1BinPKrt8JXlgZu3XGcR1nfoqi8eaN2MwT0wJlee4ngb/BwHUa1eHVuoD8Y
+ pL5fp3ZnGHBn5C1EPZeXd8tyiiNxVzXPtm7ebGar9cCdsquobO/EGYn3ryDC0I+XeYOanu
+ Oii6kWzRhIYL54ll9pQZKMeHFZoyNd6MPLSjNwGJ9dJCQXln3Q9kFYX/AtvpWjnYKgCeJ+
+ B+QkR6AlntanKm1BME0CMMuPTkvBMX6puDRXYdbDhHMTosYmbAHvIi3drpeg
+X-ME-Proxy: <xmx:JQAWannTF6-gy72NICkqjoglWvzB37AE2_XWzxcnHFfF1zTKjylyOA>
+ <xmx:JQAWagBP7v51_zgDdeMjpr3ShObs1XclOiA8HSitzVOySwYRa-tLdw>
+ <xmx:JQAWauigKVvspCgvNLq4VhuuaTyQPGBncKpHHqPsDID7gKutaeQm2w>
+ <xmx:JQAWalxD7T9G-s2g6N5-SBdne1c8tQDDcHRobn3wJVuInP6kIuDQ4g>
+ <xmx:JQAWan02Dnb8TSbANdu37eOHAHadjoX77WUw-A0n2JIwnN1mUeNYYklX>
+Feedback-ID: i8dbe485b:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 26 May 2026 16:18:44 -0400 (EDT)
+Date: Tue, 26 May 2026 13:18:43 -0700
+From: Boqun Feng <boqun@kernel.org>
+To: Alex Deucher <alexander.deucher@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, christian.koenig@amd.com,
+ sunil.khatri@amd.com, Amber.Lin@amd.com, Jesse.Zhang@amd.com,
+ Shaoyun.Liu@amd.com
+Subject: Re: [PATCH 00/42] Enable pipe reset for compute
+Message-ID: <ahYAIzazFpb0YsDP@tardis.local>
+References: <20260522002048.98506-1-alexander.deucher@amd.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB8476:EE_|IA0PR12MB8908:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5c6440b8-df28-4c2b-9ee1-08debb571be8
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|1800799024|7416014|376014|921020|11063799006|4143699003|22082099003|18002099003|56012099006;
-X-Microsoft-Antispam-Message-Info: ZeDg00k6sX2zVdXsLIJBFA6DJSBWr0PnHvTOrKI+GMnZvGYDjuaT1p0Ymo6P8hYg87jNYjOn5FP0PULpiXZWTT0xXJ6GJzf6U3hggCG6Bjge2MqODdbOS+2QlDT3mWoINJmhRyQFVQC8khCKBzJ92XMK6u/1NW4EusyYTiWgEmGfn9kdVnxo7DhOQt3E2ty6EAN+LcCVTFKuAJ0noSkWEgvSIiKXw2Q7IsXOLK0CDEjQFHJFOWh9V6YWJpQgoGc4T1v9ABXWmE10Zxu35lXYTZV5jSQLc8rZnRQdSkZ8hiKkoAjqe44Z2QoNLbsHYGn0gurXPlQWgN0ceA0mNHCuTXyU2/aWx6oxqW2ASrhBHrZnrMqx0bczt/GJJ6WXL61wathm30FT39hIAF62iiM3qGplbCw5tp06LifA/cbCzsGD2FlasonSmxg3UYbR9439qtwo6ip8Q0+9mJyrWM07Ok917hTh54ny2XWGKqKuZ1f1zTGbdrop21NQmgs1Vk4NE5IUyDoQ0L67Ut86DwI0QlQR0qoRlQPaevRuabEMLLGdkSXnAIisk4zo64HnnFcERFM9OD2Q+c6VItciatCnkrMOlMozN3CHjf96DpxOx4m557r/3fXDjHc1lqfF7uDtSnmIx3/MFVGMwtcU5rM/RrEDhr5WQ31XoLI8hpzWj23jy5bBFbGm415xspAf5A00OHSel807DhDMjRz9wH0U4jIhfywMxa5ShVUZO++8oUk=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB8476.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(7416014)(376014)(921020)(11063799006)(4143699003)(22082099003)(18002099003)(56012099006);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Nk0yNUVURlJVdlN3bzBrNWVDcTA3cWpvUUlON3lpemtMY0VMVXVOWTVnbm9q?=
- =?utf-8?B?Y0FGT3huOEN0ZzRiN1llMjBDSDNxWm9sY2gxS3I2VE5pTlVBSjJPTDZpZmhC?=
- =?utf-8?B?emxZS2k3UmQyYkI1eTFZZFBWWmpSZFJ0Z1FWZlJGNStVcFFCNG9xd0ZCOC9L?=
- =?utf-8?B?TU1BNHZoald1WXRUSnNqVjhTSzBOc0diWlJOSDVDVUI2RDQwUEJEL3hOWHp0?=
- =?utf-8?B?NXVtdkwyVEtESTkwMHdoVTN1aVpWWEtuUU5HRVRPYVZQTDA1WHNrTUdycXNq?=
- =?utf-8?B?UnI1amJKWGtIb2FjZkxUdnZ0TmhkN0tHYUQreWZYQk5DMVZHNVZWNDBNZUJ1?=
- =?utf-8?B?cjFSQTd6T0doK0d2V3pGQWhuVWRtdFdyOFlNM3NMb0hYVHl6Q1ZqaGlzS1lo?=
- =?utf-8?B?R2JhdUoySGtEOCthbkEyS3B3d0dFMXJ2ZmZpK3JEUDZ5NWdEa2h6YVU2eUJ1?=
- =?utf-8?B?dEZGVEFBMlhidjRKWldsczZCOGs4Vm1NbWN2R2NHTnp1MnNPckdsMUQveU42?=
- =?utf-8?B?ZjIyKzdlU3Q1SFE5ZTduZ0RvTmFQTGMyS0hydmVEQ25YNmpLdmoxa1NTRy9J?=
- =?utf-8?B?Z080VGxyRkoxcVZnc2JiNVoySm05cXhFTU5RaERLallzak5valJKa0JxaUhz?=
- =?utf-8?B?WHhNNmJmNit4d1pYdTBTUXVRVDJrblNlTUNseXUzNzRVN0JQbGFGdFZlYzE5?=
- =?utf-8?B?eFEwN083bUFETmlMTTh3UVNHWFBhYlczbDdtYzVDWnBDQktrRlg5bHc1MFdM?=
- =?utf-8?B?aGZmcUxKN1kzN3dwcEk3STFPS1ZSTWVMNWw2ZUc5cmRpT3pLaVFabURucmNL?=
- =?utf-8?B?UmJqN2t1V1VxWE04eE43Wlk0OEVBb2Q1SHpxWVBmK0lZbjh3YWpZemtUYTBx?=
- =?utf-8?B?WStTNVZ5YWhZaExSL3RPYldlcEFYMTJ1ek00VjFNWFp6elBpVytMUnV6dDFx?=
- =?utf-8?B?aFJabDBpU1hNUnJCSWgxN2ZlN2g4UUovNWsyc0krOWdXbWNhZ3BwaGRsVnhx?=
- =?utf-8?B?clJhM05JOExxVXVONWtWL2ZGVi84aVo2d3dua3BxRHZ1SzdsMFpKd1JtbVpG?=
- =?utf-8?B?Z0FuNE1TRU9mRmRKSFhjOGtaWHJXWjR5blQ2eHgzcHo4UUh2ckRwQXZQK0cz?=
- =?utf-8?B?d0pGV2RjZ244Z1doMXhMZkwxVFRWcjZhNGhhT2Q3SXBWOG9rRnZ1MWRxWDRC?=
- =?utf-8?B?K09HMUtGeG9UeStDOXU1YTdRYkFaQ3dRMlpubHhmRVQ2QTYyeTJidHJSODY4?=
- =?utf-8?B?SlFUVW8za1BKK3lnS3JaaE5udTJ5VHNKVVN2R3pOMzRoR0ZVK2l4dUdqNSs0?=
- =?utf-8?B?bXhqMTJxbHpKRnJSWTBZbUhUSnFLMER5RC96TEZJTTBVMHBXVW1ncC9TS0xY?=
- =?utf-8?B?WGdQbEsrbVNQekdGQ2FQQWJxdjVXVzdpa21hWk1JeFRGcEU0T091QmRjTGdJ?=
- =?utf-8?B?YWR5VC81YnNtc1dtSllhUm1HbExCMnRxSWY5bUhMalBReHRWck4xR21weGkx?=
- =?utf-8?B?Z3dMSDJqaUc4UWMrU0hYSGx4ZGFGSlQ2SHBvV0tCQzVnUXQ1NXZRbFQ5SWd5?=
- =?utf-8?B?ZUtjQytDeGtVbFlSRWZzWWl3K3NiTVNlcm42QXl3czdpTDFpSUNVNlVxMS85?=
- =?utf-8?B?UTlWUWN5TEtKemZOVU1OdjNvVnBLcjRubDdUZ0JKbnduVThjV1ZRZWFFWkRK?=
- =?utf-8?B?aDh0cERJWXhsVmd0U2Q4b2F0Q01nY3gyVS9oZG9HZDR6dmU1N1p0WlhSdkIy?=
- =?utf-8?B?UFRNS3lONk9MbzJFSUF0Tlk5dE5xZlhNMjlrMjBncXc3cnlERTdRMUx2ZWRP?=
- =?utf-8?B?czl2WG9MU3kyb3E2aWFpWC9wekJzVHBCbmVERzd6blowVmJ6NmdvbCtDZ0tx?=
- =?utf-8?B?R3VzL0xsc1NuSDVGejAwOHNyOHl4VXpYVmN3RGs0OThMRFE0cXFmSTJxZWdw?=
- =?utf-8?B?cXJDa201RFpNZzhWZnJxcklWdWN4QzBxVjIrS3hzTFVGakxPdkw3dlNOY01S?=
- =?utf-8?B?TFhJS1QxSVBpTkw2elRGcEowdXBUNGY5cS8zaXB3Y1VRTFdrcksxeDRHbU1y?=
- =?utf-8?B?bEdxbnRSenlQY2trSUFxcHFpWmloOTFEcHc1QVdwZlZCYnBYY29yOUF2Tms1?=
- =?utf-8?B?WGZ6TS9MV3ZYYW1aY2Uza3RDTURGWXlQOFBJMUxLZWtIYzkvVUdkRWJkRHAw?=
- =?utf-8?B?aGJjUHVyZDdZcEZEb0llTURmNXFBRkNtNDg3Z0M3SGxlVVo1aGhmSWY1ZUJQ?=
- =?utf-8?B?SnAwNkErTEZ0UGZBQWlmUUtTNGY3U0NtdFlNQWhMSTNNV2E0TVllN0FYNG9D?=
- =?utf-8?B?NDBYeFFQc2NFOEtCSG05dlYyNHlDYlVpbloxOG4yQ2J3Nml2S21jZz09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5c6440b8-df28-4c2b-9ee1-08debb571be8
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB8476.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 May 2026 18:46:33.9598 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: jvjeCAD2BI77z78UAtaW+h4eqDcnD6vZvs/mrvi3B8y2FmN5LLomaL2oghRsVwejLguSZdvAq1mAy+vVUTfseA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8908
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260522002048.98506-1-alexander.deucher@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -162,106 +84,113 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Will allocating wbcon with drmm_kzalloc before calling 
-amdgpu_dm_wb_connector_init be more memory-safe as below?
+Hi Alex,
 
-
-@@ -5790,7 +5791,8 @@ static int amdgpu_dm_initialize_drm_device(struct 
-amdgpu_device *adev)
-  		link = dc_get_link_at_index(dm->dc, i);
-
-  		if (link->connector_signal == SIGNAL_TYPE_VIRTUAL) {
--			struct amdgpu_dm_wb_connector *wbcon = kzalloc_obj(*wbcon);
-+			struct amdgpu_dm_wb_connector *wbcon =
-+				drmm_kzalloc(adev_to_drm(adev), sizeof(*wbcon), GFP_KERNEL);
-
-  			if (!wbcon) {
-  				drm_err(adev_to_drm(adev), "KMS: Failed to allocate writeback 
-connector\n");
-@@ -5799,7 +5801,6 @@ static int amdgpu_dm_initialize_drm_device(struct 
-amdgpu_device *adev)
-
-  			if (amdgpu_dm_wb_connector_init(dm, wbcon, i)) {
-  				drm_err(adev_to_drm(adev), "KMS: Failed to initialize writeback 
-connector\n");
--				kfree(wbcon);
-  				continue;
-  			}
-
-On 5/4/26 18:24, Dmitry Baryshkov wrote:
-> The driver uses drm_writeback_connector_init() instead of its drmm
-> counterpart, but it doesn't perform the job queue cleanup (neither
-> manually nor by calling drm_writeback_connector_cleanup()). On the
-> contrary, the drmm_writeback_connector_init() function ensures the
-> proper cleanup of the job queue.
-> 
-> Use drmm_plain_encoder_alloc() to allocate simple encoder and
-> drmm_writeback_connector_init() in order to initialize writeback
-> connector instance.
-> 
-> Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
-> Reviewed-by: Suraj Kandpal <suraj.kandpal@intel.com>
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> ---
->   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c    |  2 +-
->   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c | 18 +++++++++++++-----
->   2 files changed, 14 insertions(+), 6 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index e96a12ff2d31..2ac64495cdb7 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -10683,7 +10683,7 @@ static void dm_set_writeback(struct amdgpu_display_manager *dm,
->   		return;
->   	}
->   
-> -	acrtc = to_amdgpu_crtc(wb_conn->encoder.crtc);
-> +	acrtc = to_amdgpu_crtc(crtc_state->base.crtc);
->   	if (!acrtc) {
->   		drm_err(adev_to_drm(adev), "no amdgpu_crtc found\n");
->   		kfree(wb_info);
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c
-> index 110f0173eee6..fdc3da40452f 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c
-> @@ -169,7 +169,6 @@ static const struct drm_encoder_helper_funcs amdgpu_dm_wb_encoder_helper_funcs =
->   
->   static const struct drm_connector_funcs amdgpu_dm_wb_connector_funcs = {
->   	.fill_modes = drm_helper_probe_single_connector_modes,
-> -	.destroy = drm_connector_cleanup,
->   	.reset = amdgpu_dm_connector_funcs_reset,
->   	.atomic_duplicate_state = amdgpu_dm_connector_atomic_duplicate_state,
->   	.atomic_destroy_state = drm_atomic_helper_connector_destroy_state,
-> @@ -188,17 +187,26 @@ int amdgpu_dm_wb_connector_init(struct amdgpu_display_manager *dm,
->   	struct dc *dc = dm->dc;
->   	struct dc_link *link = dc_get_link_at_index(dc, link_index);
->   	int res = 0;
-> +	struct drm_encoder *encoder;
-> +
-> +	encoder = drmm_plain_encoder_alloc(&dm->adev->ddev, NULL,
-> +					   DRM_MODE_ENCODER_VIRTUAL, NULL);
-> +	if (IS_ERR(encoder))
-> +		return PTR_ERR(encoder);
-> +
-> +	drm_encoder_helper_add(encoder, &amdgpu_dm_wb_encoder_helper_funcs);
-> +
-> +	encoder->possible_crtcs = amdgpu_dm_get_encoder_crtc_mask(dm->adev);
->   
->   	wbcon->link = link;
->   
->   	drm_connector_helper_add(&wbcon->base.base, &amdgpu_dm_wb_conn_helper_funcs);
->   
-> -	res = drm_writeback_connector_init(&dm->adev->ddev, &wbcon->base,
-> +	res = drmm_writeback_connector_init(&dm->adev->ddev, &wbcon->base,
->   					    &amdgpu_dm_wb_connector_funcs,
-> -					    &amdgpu_dm_wb_encoder_helper_funcs,
-> +					    encoder,
->   					    amdgpu_dm_wb_formats,
-> -					    ARRAY_SIZE(amdgpu_dm_wb_formats),
-> -					    amdgpu_dm_get_encoder_crtc_mask(dm->adev));
-> +					    ARRAY_SIZE(amdgpu_dm_wb_formats));
->   
->   	if (res)
->   		return res;
+On Thu, May 21, 2026 at 08:20:06PM -0400, Alex Deucher wrote:
+> There are certain corner cases where a queue reset is not
+> able to recover a hung queue.  A pipe reset can recover
+> some of those cases, however, when the pipe is reset
+> all queues on that pipe are reset.  This requires
+> coordination across all components using compute queues.
+> There is quite a bit of prep work in this series, some
+> of which I sent out previously. Another prerequisite
+> for this was reworking the userq reset path.  It should
+> be more straight-forward now.  The final patch also
+> needs to be updated once the new MES firmware is relased so
+> we can check the proper firmware versions. Using older
+> MES firmware may fail and end up in an adapter reset in some
+> cases where the pipe reset would have worked so it should
+> be comparable to the current behavior.
 > 
 
+Do you have a branch somewhere I can test with? Or what's the base
+commit of this patchset? Thanks!
+
+Regards,
+Boqun
+
+> Alex Deucher (34):
+>   drm/amdkfd: always resume_all after suspend_all
+>   drm/amdgpu: don't reemit if there is nothing to reemit
+>   drm/amdgpu: track guilty fence for queue reset
+>   drm/amdgpu/fence: add helper to extract the guilty fence
+>   drm/amdgpu: amdgpu_ring_set_fence_errors_and_reemit() handle NULL
+>     fence
+>   drm/amdgpu/vcn: handle pipe reset more gracefully
+>   drm/amdgpu/sdma: handle pipe reset more gracefully
+>   drm/amdgpu/mes12: use proper grbm_select function
+>   drm/amdgpu/gfx11: only need to remap KCQs when reset via MMIO
+>   drm/amdgpu/gfx12: only need to remap KCQs when reset via MMIO
+>   drm/amdgpu/mes11: move pipe reset to mes use_mmio patch
+>   drm/amdgpu/mes12: move pipe reset to mes use_mmio patch
+>   drm/amdgpu/mes: add userq reset helper
+>   drm/amdgpu/mes: add a MMIO queue reset helper
+>   drm/amdgpu/userq: split the queue reset from adapter reset
+>   drm/amdgpu/userq: add per queue reset callback
+>   drm/amdgpu/userq: add mes userq reset callback
+>   drm/amdgpu/userq: switch to per queue reset
+>   drm/amdgpu/userq: drop detect_and_reset callback
+>   drm/amdkfd: rework MES queue reset sequence
+>   drm/amdgpu/gfx: add a helper for MQD restore
+>   drm/amdgpu/gfx11: use the new MQD helper for queue reset
+>   drm/amdgpu/gfx12: use the new MQD helper for queue reset
+>   drm/amdgpu/gfx11: unmap the queue via MES on reset for MMIO path
+>   drm/amdgpu/gfx12: unmap the queue via MES on reset for MMIO path
+>   drm/amdgpu: store whether to use MMIO or MES for reset
+>   drm/amdgpu: Use a common KGQ and KCQ reset helper for gfx11/12
+>   drm/amdkfd: split out mes queue reset sequence into standalone
+>     function
+>   drm/amdkfd: plumb a helper to reset a KFD user queue
+>   drm/amdgpu/userq: add MES userq reset helper
+>   drm/amdgpu/gfx: add a common helper to handle MES compute resets
+>   drm/amdgpu: use a single entry point for mes compute reset
+>   drm/amdgpu/mes11: enable compute MMIO pipe reset
+>   drm/amdgpu/mes12: enable compute MMIO pipe reset
+> 
+> Amber Lin (3):
+>   drm/amdgpu: Allocate enough space for hpd info on gfx11
+>   drm/amdkfd: Update queue reset support on KFD topology
+>   drm/amdgpu: Expand MES queue/pipe reset support
+> 
+> Jesse Zhang (4):
+>   drm/amdgpu/mes_v12_0: use mes schedule pipe for legacy queues on
+>     unified MES
+>   drm/amdgpu/mes_v12_1: use mes schedule pipe for legacy queues on
+>     unified MES
+>   drm/amdgpu/gfx11: Refactor compute pipe reset and add HQD cleanup
+>   drm/amdgpu/gfx12: Refactor compute pipe reset and add HQD cleanup
+> 
+> Shaoyun Liu (1):
+>   drm/amd/amdgpu/include : update mes api header v11/v12
+> 
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c    |  14 +
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h    |  16 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c     |  54 +++-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c       | 193 +++++++++++++
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h       |  16 ++
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c       |  67 ++++-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h       |  14 +
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h      |   3 +
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c      |  19 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c     |  84 +++---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h     |   3 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c       |  64 +++--
+>  drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c        | 264 +-----------------
+>  drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c        | 216 +-------------
+>  drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c        |   2 +
+>  drivers/gpu/drm/amd/amdgpu/mes_userqueue.c    | 111 ++++----
+>  drivers/gpu/drm/amd/amdgpu/mes_userqueue.h    |   9 +
+>  drivers/gpu/drm/amd/amdgpu/mes_v11_0.c        | 250 ++++++++++++++++-
+>  drivers/gpu/drm/amd/amdgpu/mes_v12_0.c        | 263 +++++++++++++++--
+>  drivers/gpu/drm/amd/amdgpu/mes_v12_1.c        |  22 +-
+>  drivers/gpu/drm/amd/amdkfd/kfd_device.c       |  24 ++
+>  .../drm/amd/amdkfd/kfd_device_queue_manager.c | 135 ++++-----
+>  .../drm/amd/amdkfd/kfd_device_queue_manager.h |   2 +
+>  drivers/gpu/drm/amd/amdkfd/kfd_topology.c     |   3 +-
+>  drivers/gpu/drm/amd/include/mes_v11_api_def.h |   5 +-
+>  drivers/gpu/drm/amd/include/mes_v12_api_def.h |   5 +-
+>  26 files changed, 1150 insertions(+), 708 deletions(-)
+> 
+> -- 
+> 2.54.0
+> 
