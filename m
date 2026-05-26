@@ -4,41 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 28869CD5BC8
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C5791CD6E41
 	for <amd-gfx@archiver.kernel.org>; Tue, 26 May 2026 14:12:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A85C110E689;
-	Tue, 26 May 2026 14:12:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 479D810E691;
+	Tue, 26 May 2026 14:12:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="T/9u5COQ";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Qzk81VLH";
 	dkim-atps=neutral
-Received: from BN8PR05CU002.outbound.protection.outlook.com
- (mail-eastus2azon11011000.outbound.protection.outlook.com [52.101.57.0])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1C0A610E68E
- for <amd-gfx@lists.freedesktop.org>; Tue, 26 May 2026 14:12:11 +0000 (UTC)
+Received: from CY3PR05CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11013067.outbound.protection.outlook.com
+ [40.93.201.67])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 13AE510E67E
+ for <amd-gfx@lists.freedesktop.org>; Tue, 26 May 2026 14:12:13 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=S+feSn/eJBS8bdWb3ATXrYicMA/oQZU5lBoKFHd95ie5GETyZOJ4oaa2PWFJYBX7zCkILIKoi+cpTx6pLXUz+pcJiJ+Ae6J5Dy/68PlVFpNZhlkKnsY28Z2Y2vvNBUJ6TIpCobKT9UorTdAZJmCu+NQhFotJlSee6JV1xHq5gLd6bImzYgWe4zLhco43pqMZvWd4wgU/W89iAJaWC2DNV55LxbKvhNgYh6rmrmej64XwH5VcD1W9klOWRN4sRoGNCg3uqyA3n+1a3Aa3buvrCw8J4Yu3cDTfZ1pGqFXhjpv/ietmzp3LDTqRtqmyPDrvueptUy2bxl59D8LBgThj+g==
+ b=PRRwPwXRQZMutce3XKJblq5FsiqmK7VgV2RbrodrDcQOGgUV17stoH84d+Iz9dvUQtesF+VYGmLLxc7DdgsT5yatDV8Y9bb8hTLuXkuKVB84VQ1oxEjSdLluXNlLIW5jN3VdQ5F2+wlpKzVQiSZcc4fKTLI6hVNPKXBsp6OlThEmNGinb6Vc37oXUtDyI2Cv4okC28LqWtndLvg8ITsTomuiZAyiTxZpr8RaewBetGM9clqOD5cxJVVARHEAqYltPM9ChB72u0kqQP7f0kGgi5YPvDjZVO7ptvXJqIvvik/qGc+HN4762Ni0WxUvWSHSZJK/3ONI5PnJtiC+fb7qFA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=kWMFrl5AWI1SpN5BxDji6Rvc9+yORHuxW5A9xa2NZfk=;
- b=aC5q3vdFhX7tPqdmNe2acnSKvEA3R8/H3A++uX74AfVo1jIt3Wv4UulYVK77cxPN3TF+OLY/eojZ+RqOd611lV2TMwPRAvHRYbiDOu6sSto+db6wC6ABZeLfW9MCW8vjdD5xOcHPfUP2LwV6N23ndCRHawuP3UI8XnKKIwFT8mhUibhNRVwdZgsemlcY5OlLyh6WDvYqfXqLpHKcYmoqD5glgUdg5/awcFhunjeRKG3MWLu+iCSnvDR/wvMUP/2NtVs2bU7Ww7qRQoTFoeCLMQznGdNnkajqTT0L9ISrnNH3x6Aqr/OZSROaDcp+TZVQKYIRkclikP8b+0oTcv+Lmw==
+ bh=Wk8LfImObALAzFCgHDFREHaVM3/4JTFk+Y4aSLEG7F0=;
+ b=kmyqmGVbTYHZ0lMxIJb956vD84l6ExWRl0VWeqyRJJyaR+MX0AViqv2+w2jux5WfIWp2V9iN5fIeca0KMyEzUwsU63TmEvDgvkAzUupbLED6XbDzKDiC/Er93sMYrTFnu4iZe+nQPMKOYXwxTgomjT+WDndpiVwLBRyJq9q2I5MsVQVm/rcgOdkcbiQA9aG89mOKi1Di2fqtE2a3eaYq65TS0pX44VaaA2CGshQMZIBBBQHX8Hpe+fUIN2Fglr8zLqZD3qSKX3z6xYH5ix9QJK9r72cKuIzOAtTezgBk/t8wiFh7ABsR8GJRSfP2I1v8FzwKfu+VX8kYH8PWiKlJcg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=kWMFrl5AWI1SpN5BxDji6Rvc9+yORHuxW5A9xa2NZfk=;
- b=T/9u5COQaeB1iD+gC6vPJi12QT1asScepQAn6Pyun0b62UF9ohHCC/w7NlPY+bxZfqFBKitwmNY/vD80UGs00+D5JKvWsMcCmLFmcu51PSMQIQWAD1u5kxCDxf4HbW9LDGSi/kcs4cWWVFC1Y3vdi2OkYqmiAy//ijP3U+fT5Q8=
-Received: from BN9PR03CA0679.namprd03.prod.outlook.com (2603:10b6:408:10e::24)
- by BN7PPFA8145BD40.namprd12.prod.outlook.com
- (2603:10b6:40f:fc02::6de) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.12; Tue, 26 May
- 2026 14:12:04 +0000
+ bh=Wk8LfImObALAzFCgHDFREHaVM3/4JTFk+Y4aSLEG7F0=;
+ b=Qzk81VLH47Apq2vuQH6vQmB0T0Z5qbRgPq179bMqnFKzIYUljRs5t43kYvjS66vqmDFYqH+iOYEQ8Nltdc2KrxIXtPfer2VJKnhoRKElgTV4ge2X4Dyy+b4OMwfOb/cafWqahSeB8PpRm5PEaYJyVbrrCRflw3cza4g0g7qRJV4=
+Received: from BN9PR03CA0686.namprd03.prod.outlook.com (2603:10b6:408:10e::31)
+ by BL1PR12MB5922.namprd12.prod.outlook.com (2603:10b6:208:399::5)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.48.20; Tue, 26 May
+ 2026 14:12:05 +0000
 Received: from BN3PEPF0000B078.namprd04.prod.outlook.com
- (2603:10b6:408:10e:cafe::86) by BN9PR03CA0679.outlook.office365.com
- (2603:10b6:408:10e::24) with Microsoft SMTP Server (version=TLS1_3,
+ (2603:10b6:408:10e:cafe::40) by BN9PR03CA0686.outlook.office365.com
+ (2603:10b6:408:10e::31) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.71.12 via Frontend Transport; Tue, 26
  May 2026 14:12:04 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
@@ -58,43 +59,43 @@ Received: from work-495456.amd.com (10.180.168.240) by satlexmb07.amd.com
 From: James Zhu <James.Zhu@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <alexander.deucher@amd.com>, <Bing.Ma@amd.com>, <jamesz@amd.com>
-Subject: [PATCH v4 14/17] drm/amdgpu: workaround for spm ring buffer overflow
-Date: Tue, 26 May 2026 10:11:26 -0400
-Message-ID: <20260526141129.592886-14-James.Zhu@amd.com>
+Subject: [PATCH v4 15/17] drm/amdgpu: workaround for hw stall issue
+Date: Tue, 26 May 2026 10:11:27 -0400
+Message-ID: <20260526141129.592886-15-James.Zhu@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260526141129.592886-1-James.Zhu@amd.com>
 References: <20260526141129.592886-1-James.Zhu@amd.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
 X-Originating-IP: [10.180.168.240]
 X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN3PEPF0000B078:EE_|BN7PPFA8145BD40:EE_
-X-MS-Office365-Filtering-Correlation-Id: b2e3de44-4f06-4af7-d9c4-08debb30c376
+X-MS-TrafficTypeDiagnostic: BN3PEPF0000B078:EE_|BL1PR12MB5922:EE_
+X-MS-Office365-Filtering-Correlation-Id: 68ca0e8b-7336-44ff-140b-08debb30c39c
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|36860700016|1800799024|376014|11063799006|3023799007|22082099003|18002099003|56012099003;
-X-Microsoft-Antispam-Message-Info: ZjO5V0ptAN8Gw2VXD700+BxmCa7GfctOZlJf9ln+tqfo0i42xJtqkI0SmXK1IMPOEF9xAM+4AmAz79xYn3Lfrb61sKZbQLsyeTpbF4uc4E0JFLktE0Ke1Nq5QNNcv7CHk4FnSDun9aYqk9k0kQQJtGNqrF8/97+cHw9TZwfui52x46ls0JN382fACMw8LlgdHnIUEPFiV4Yfaa7p/O1Lp55C4XpCt3OP/Ir44FjX7bOVsImNUrH5o7H5mUzXfle3o84dkYirXqsb47Iu0FAHfPTMRTWbJWZWh90W0y0DVV175qfX6JbqOKETIaDuJ5VsUm/j1G05zrdGu8UjE24IdVTfhE7V8sm1xsmCKHErG3MpKKxjKIXxweGpmdMv9WYEG/87H29EsDUIOYWPh0VKROxH4mOrQm2A2SNcC+pkRa0Pt/GknJe85oIKGmMnZmeb2uloKrPOTzUaznInVFwCxmvySG3pGxt43h48CND0N1r3Xs//OYv+QefubS2l2MwEF3/YA3Akiy4j4Dy1mgrzfb7phAKuA1zUdN8NaGGAdz1jU0QkiiOR70WgegIWaU6fXJ9PUa+Gu1po/8g2PRMBSf4f54rbgfNzH7GLv6QVBRPve6qQAYKpxE8x8OiDq4giXoclK0kUgrC0Wx+KZlnXR5EZUu0CN/QR+TN6FWG1PdNN7yTqqwL7wbHEvGd09EL37ORCcDhiUR+iWwKUsoqXrn3ctkB6l4maUTOpDQiLtzc=
+ ARA:13230040|1800799024|36860700016|82310400026|376014|22082099003|56012099003|18002099003|11063799006|6133799003;
+X-Microsoft-Antispam-Message-Info: hY9bNN3dv74OvAtTbwn+Cdm6rQ4qyvmRjcvZbBYf8pB9UOSjl56ebi0ZUKtqnF8JsNtZh4v+UhYqOYLTUwDO3BKfU14FktVXPKpJZegn06dnTNHk54GRfdjJu3+uweNNk6LWODeOoKQHQ/JmLaJ82Rax6fFPKVcrwVK3gUI7AEuwd9TlVukA/6srExN80G3Pok8uRSVSEW3qIbnLO26IcK0+EaGusabO4aytc42cQd4IpK31f9jhkTLRWZuQNBAW1aDP2r8tBpRZIf/5LL6nKebEgwJCWJoLPfWDVWBNR/ht2w0ZgfLPsn4w1h4gZ8sbHdbOxFU0clNUadmy57Qrt+8oJ7sCS2VXwPDm8sxDnld8+E1Al6Lxxyr6EvKScciigbhb/+ObcUaNl81sqGUzumZ6UhIaHLiH1MIdeW/UYzJwA8Uxd+P8kUsrHbUYzKqmQrpK4lGfQkZMmad6Eu5CKfToL5TUiKsPZAC0rypcaf2Tenl1dGgb8sDOdj4j9O7w5PLwv1NTzAODF4PTvdw+0Dt0H7YIUOE1hWYJ8o256Ydx2FzrUo1Deyk13CvI/agi3gI4ocBcS1ty/Ja+FJQwV1YcPWLeAvt8YX7Jg4vwJjEmeqKmPJPuJb+iFrrjZLLLi2t2MQc9sErZPYN0rm6DlR1fkswpMMN/e6lvJAgrcbHes1+PKTOERjnktMb+HCuSa/9j7Sv83NVHezO3njGG3I5tGRpZFiBrpCjv3xfBpgc=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(36860700016)(1800799024)(376014)(11063799006)(3023799007)(22082099003)(18002099003)(56012099003);
+ SFS:(13230040)(1800799024)(36860700016)(82310400026)(376014)(22082099003)(56012099003)(18002099003)(11063799006)(6133799003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: +pn8sjd7y8863u1+3ayFx1tba0NkT7+7qfUcJAk0th111fpbKvBh90r2/gEvwoX4DVpVuPekct1jCUfH1Q57mS/aD+fpq6vtcQxNLBs/fmuqLRfiyIx6zw89FtiUsQR8e0SOk0K8TYDfaXVhNnbneHBASI/MfKDxgm+fKHdcfFtig/+14wWFjgim1Vq5674d3Y3OtIDyW8QeBuc5ZVkSpDeKLCPAl5BQq8LHwC94cRFXJoYC4h+fUCA5Mk1An5OJjSX0EQ2iELCPHRQ17XEyq7Vpcdu6X9oMPVC8H18VleeTIB2rCSLHAR61nXBxzwycGFpNbQbZgPj8BIykf+sdZZWll/b8wIF8U6S7W7fVEq2LQVGR+i3T2r5tIvhWcbLDS3sQVXzB3ob3bzaw1Obsf12eSJJb8RFakCG5djPn3T2pLwoeiR1+dmB1mIsOKZam
+X-MS-Exchange-AntiSpam-MessageData-0: YJtqvkVrbfr1KMQBVzpc/8eAB1vs7QENB8Ak9SFER7M8fZvpJ7KcmGEjT2V3xoSJJSTGaJ6u9FJsJAs4ixJgsERO4t1Ox7oJvaZqkMRIkpyQU2ts3eQBjtXRENcnYtrpINloO8pcty8moDpfoPGCLuK3BchIEO4rbWtMZptTT0CyKfwZ7HCzaNZLAfwxaUR9Ve1OaAPMv1ACwga2VWvn5M4bWWex17uokIE082/fO5LfrRYgNHQJ3k1apFZIkAe28tO6lmxqBpQ7gS70UvJJaofVawRm8shl3GR2G70SD0o7L9BDl/eYXduHNu6NqmBC+J7H0td0CrZ9C69kCbR5Dy37rpgkHKDoDFgaDo6uE9uuGWKI6MUNZ5QvKxJ+EfUnCh0Aeu/fIfMQIrvfD2VXFOI5tYlxmwr2oWCsh5jtveE96RhBgqlGDQswfjM2COGh
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 May 2026 14:12:04.4941 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: b2e3de44-4f06-4af7-d9c4-08debb30c376
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 May 2026 14:12:04.7380 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 68ca0e8b-7336-44ff-140b-08debb30c39c
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: BN3PEPF0000B078.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN7PPFA8145BD40
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5922
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,169 +110,248 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-reserve space to avoid page fault and data loss.
+When RLC_SPM_PERFMON_CNTL.PERFMON_RING_MODE is set to 0x11, the SPM
+hardware is designed to fire a warning interrupt when the ring fill level
+reaches RLC_SPM_SEGMENT_THRESHOLD, and stall only when the ring is
+completely full. A hardware bug causes both the stall and the warning
+interrupt to trigger simultaneously at RLC_SPM_SEGMENT_THRESHOLD, resulting
+in an unexpected early hardware stall at interrupt time, which causes data
+loss before the ring buffer is actually full.
 
-A hardware bug on GFX IP versions earlier than 11.0.1 causes the RLC
-SPM hardware to write slightly beyond the end of the declared ring
-buffer when the ring wraps around. This can corrupt adjacent memory
-and cause page faults or silent data loss.
+This patch replaces interrupt-driven ring drain scheduling with a software
+polling monitor thread to avoid triggering the premature stall.
 
-The workaround reserves an extra 0x400 bytes (1 KiB) of guard space
-immediately after the ring buffer's declared end, pads it with a known
-sentinel value (SPM_OVERFLOW_MAGIC = 0xBEEFABCDDEADABCDULL), and
-recovers any counter data that spilled into this region before it is
-overwritten by the next wrap-around. The overflow size varies, the
-overflow data is valid data, and the wrap-around write starts from
-cpu_addr + overflow_size + 0x20 instead of cpu_addr + 0x20.
+Software polling monitor (amdgpu_spm_monitor_thread):
+  A kthread named "spm_<render_index>" polls each active XCC instance
+  in a tight loop with usleep_range(1, 11) (1-11 us per iteration).
+  On each iteration, it attempts to acquire spm_worker_mutex with
+  mutex_trylock() (skipping if contended) and for each active XCC checks
+  whether the amount of unconsumed data in the ring exceeds half the ring
+  capacity, computed as:
+    (ring_size + ring_wptr - ring_rptr) % ring_size > (ring_size >> 1)
+  This condition fires only once per rptr advancement (guarded by
+  warned_ring_rptr != ring_rptr) to avoid redundant scheduling.
+  When triggered, schedules amdgpu_spm_work to drain the ring and logs
+  a "soft interrupt" debug message with the current rptr and wptr.
 
-Implementation:
-amdgpu_spm_init_device():
-  Detects affected hardware via ip_versions[GC_HWIP][0] <
-  IP_VERSION(12, 0, 0) and sets spm_overflow_reserved = 0x400.
-  This field is zero on unaffected hardware, making the entire
-  workaround a no-op for GFX11+.
+warned_ring_rptr (u32, added to amdgpu_spm_base):
+  Tracks the rptr value at which the last soft interrupt was issued.
+  Initialized to ~0U (U32_MAX) on acquire and on each SPM start/stop to
+  ensure the first polling check always passes. Updated to the current
+  rptr at the start of each ring buffer read to suppress duplicate
+  scheduling for the same rptr position.
 
-_amdgpu_spm_acquire():
-  Before calling amdgpu_rlc_spm_acquire(), subtracts
-  spm_overflow_reserved from ring_size so the hardware is told a
-  smaller ring size, leaving the guard region beyond the hardware's
-  declared ring end. After the 0x20-byte metadata subtraction, calls
-  amdgpu_spm_preset() to fill the guard region with SPM_OVERFLOW_MAGIC.
+Monitor thread lifecycle:
+  - Started lazily on the first SET_DEST_BUF call that starts the SPM
+    hardware (dest_buf != NULL, is_spm_started transitions false→true).
+    Only one thread is created per SPM session regardless of XCC count.
+  - Stopped on SET_DEST_BUF with dest_buf=NULL (SPM stopped) and on
+    AMDGPU_SPM_OP_RELEASE. spm_monitor_thread is initialized to NULL
+    in amdgpu_spm_acquire() and set back to NULL by the thread itself
+    on exit.
 
-amdgpu_spm_preset(spm, size):
-  Writes SPM_OVERFLOW_MAGIC to the guard region starting at
-  cpu_addr + ring_size + 0x20 for 'size' bytes. Writes are 0x20-byte
-  (32-byte) stride aligned, matching the SPM hardware's fill granularity.
+amdgpu_spm_interrupt():
+  - schedules amdgpu_spm_work directly. But when detects affected hardware
+    via ip_versions[GC_HWIP][0] < IP_VERSION(12, 0, 0), the polling thread
+    is responsible for all ring drain scheduling in this mode. the hardware
+    interrupt only sets has_data_loss=1  under spm_irq_lock (indicating the
+     ring reached the stall threshold) and logs a debug message.
 
-amdgpu_spm_read_ring_buffer() wrap-around path:
-  When wptr < rptr (ring has wrapped), scans the guard region in 0x20-
-  byte steps to measure how many bytes of overflow data were written by
-  the hardware (overflow_size): stops at the first 64-bit word still
-  containing SPM_OVERFLOW_MAGIC (unwritten). If overflow_size > 0, logs
-  a debug message and copies the overflow data back to ring_start
-  (cpu_addr + 0x20) via memcpy() to make it available for normal copy
-  processing. After the ring drain completes, calls amdgpu_spm_preset()
-  to re-arm the guard region with SPM_OVERFLOW_MAGIC for the next
-  wrap-around.
+-v3: signal_pending using current instead of spm_mgr->spm_monitor_thread to
+     fix race condition issue
+     use _spm_start/_spm_stop
 
 Signed-off-by: James Zhu <James.Zhu@amd.com>
 Reviewed-by: Bing Ma <Bing.Ma@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_spm.c | 42 +++++++++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_spm.h |  2 ++
- 2 files changed, 44 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_spm.c | 102 +++++++++++++++++++++++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_spm.h |   2 +
+ 2 files changed, 102 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_spm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_spm.c
-index 4a04f53b3df9..cbe7a2b61bb8 100644
+index cbe7a2b61bb8..d4b6408f818d 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_spm.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_spm.c
-@@ -32,9 +32,24 @@
- #define AMDGPU_SPM_MAJOR_VERSION	0
- #define AMDGPU_SPM_MINOR_VERSION	1
- 
-+/* used to detect SPM overflow */
-+#define SPM_OVERFLOW_MAGIC        0xBEEFABCDDEADABCDULL
-+
+@@ -38,6 +38,77 @@
  static int amdgpu_spm_release(struct amdgpu_spm_mgr *spm_mgr, struct drm_file *filp);
  static void _amdgpu_spm_release(struct amdgpu_spm_mgr *spm_mgr, int inst, struct drm_file *filp);
  
-+static void amdgpu_spm_preset(struct amdgpu_spm_base *spm, u32 size)
++static int amdgpu_spm_monitor_thread(void *param)
 +{
-+	uint64_t *overflow_ptr, *overflow_end_ptr;
-+
-+	overflow_ptr = (uint64_t *)((uint64_t)spm->cpu_addr
-+				+ spm->ring_size + 0x20);
-+	overflow_end_ptr = overflow_ptr + (size >> 3);
-+	/* SPM data filling is 0x20 alignment */
-+	for ( ;  overflow_ptr < overflow_end_ptr; overflow_ptr += 4)
-+		*overflow_ptr = SPM_OVERFLOW_MAGIC;
-+}
-+
- static int amdgpu_spm_data_copy(struct amdgpu_spm_mgr *spm_mgr, u32 size_to_copy, int inst)
- {
- 	struct amdgpu_spm_base *spm = &(spm_mgr->spm_cntr->spm[inst]);
-@@ -79,6 +94,7 @@ static int amdgpu_spm_read_ring_buffer(struct amdgpu_spm_mgr *spm_mgr, int inst)
- {
- 	struct amdgpu_device *adev = mgr_to_adev(spm_mgr, spm_mgr);
- 	struct amdgpu_spm_base *spm = &(spm_mgr->spm_cntr->spm[inst]);
-+	u32 overflow_size = 0;
- 	u32 size_to_copy;
- 	int ret = 0;
- 	u32 ring_wptr;
-@@ -110,6 +126,22 @@ static int amdgpu_spm_read_ring_buffer(struct amdgpu_spm_mgr *spm_mgr, int inst)
- 		size_to_copy = ring_wptr - spm->ring_rptr;
- 		ret = amdgpu_spm_data_copy(spm_mgr, size_to_copy, inst);
- 	} else {
-+		uint64_t *ring_start, *ring_end;
-+
-+		ring_start = (uint64_t *)((uint64_t)spm->cpu_addr + 0x20);
-+		ring_end = ring_start + (spm->ring_size >> 3);
-+		for ( ; overflow_size < spm_mgr->spm_overflow_reserved; overflow_size += 0x20) {
-+			uint64_t *overflow_ptr = ring_end + (overflow_size >> 3);
-+
-+			if (*overflow_ptr == SPM_OVERFLOW_MAGIC)
-+				break;
-+		}
-+		if (overflow_size)
-+			dev_dbg(adev->dev,
-+				"SPM ring buffer overflow size 0x%x", overflow_size);
-+		/* move overflow counters into ring buffer to avoid data loss */
-+		memcpy(ring_start, ring_end, overflow_size);
-+
- 		size_to_copy = spm->ring_size - spm->ring_rptr;
- 		ret = amdgpu_spm_data_copy(spm_mgr, size_to_copy, inst);
- 
-@@ -128,6 +160,7 @@ static int amdgpu_spm_read_ring_buffer(struct amdgpu_spm_mgr *spm_mgr, int inst)
- 	}
- 
- exit:
-+	amdgpu_spm_preset(spm, overflow_size);
- 	amdgpu_rlc_spm_set_rdptr(adev, inst, spm->ring_rptr);
- 	return ret;
- }
-@@ -169,6 +202,12 @@ static void amdgpu_spm_work(struct work_struct *work)
- 
- static void amdgpu_spm_init_device(struct amdgpu_spm_mgr *spm_mgr)
- {
++	struct amdgpu_spm_mgr *spm_mgr = param;
 +	struct amdgpu_device *adev = mgr_to_adev(spm_mgr, spm_mgr);
 +
-+	/* pre-gfx11 spm has a hardware bug to cause overflow */
-+	if (adev->ip_versions[GC_HWIP][0] < IP_VERSION(12, 0, 0))
-+		spm_mgr->spm_overflow_reserved = 0x400;
++	allow_signal(SIGKILL);
++	while (!kthread_should_stop() &&
++			!signal_pending(current) && spm_mgr->spm_cntr) {
++		bool need_schedule = false;
++		u32 inst;
 +
- 	spm_mgr->spm_cntr = NULL;
- }
++		usleep_range(1, 11);
++
++		if (!mutex_trylock(&spm_mgr->spm_cntr->spm_worker_mutex))
++			continue;
++
++		for_each_inst(inst, AMDGPU_XCC_MASK(adev)) {
++			struct amdgpu_spm_base *spm = &(spm_mgr->spm_cntr->spm[inst]);
++			u32 warned_ring_rptr;
++			u32 ring_size;
++			u32 ring_rptr;
++			u32 ring_wptr;
++
++			if (!spm->is_spm_started)
++				continue;
++
++			ring_size = spm->ring_size;
++			ring_rptr = spm->ring_rptr;
++			warned_ring_rptr = spm->warned_ring_rptr;
++			ring_wptr = READ_ONCE(spm->cpu_addr[0]);
++
++			if (need_schedule || (ring_rptr != warned_ring_rptr &&
++				(ring_size + ring_wptr - ring_rptr) % ring_size >
++					(ring_size >> 1))) {
++				spm->warned_ring_rptr = ring_rptr;
++				if (!need_schedule) {
++					dev_dbg(adev->dev,
++						"[SPM#%d] soft interrupt rptr:0x%08x--wptr:0x%08x",
++						 inst, ring_rptr, ring_wptr);
++					need_schedule = true;
++				}
++			}
++		}
++		mutex_unlock(&spm_mgr->spm_cntr->spm_worker_mutex);
++		if (need_schedule)
++			schedule_work(&spm_mgr->spm_work);
++	}
++	spm_mgr->spm_monitor_thread = NULL;
++	return 0;
++}
++
++static int amdgpu_spm_monitor_thread_start(struct amdgpu_spm_mgr *spm_mgr)
++{
++	struct amdgpu_device *adev = mgr_to_adev(spm_mgr, spm_mgr);
++	char thread_name[16];
++	int ret = 0;
++
++	snprintf(thread_name, 16, "spm_%d", adev->ddev.render->index);
++	spm_mgr->spm_monitor_thread =
++		kthread_run(amdgpu_spm_monitor_thread, spm_mgr, thread_name);
++
++	if (IS_ERR(spm_mgr->spm_monitor_thread)) {
++		ret = PTR_ERR(spm_mgr->spm_monitor_thread);
++		spm_mgr->spm_monitor_thread = NULL;
++		dev_dbg(adev->dev, "Failed to create spm monitor thread %s with ret = %d.",
++			thread_name, ret);
++	}
++
++	return ret;
++}
++
+ static void amdgpu_spm_preset(struct amdgpu_spm_base *spm, u32 size)
+ {
+ 	uint64_t *overflow_ptr, *overflow_end_ptr;
+@@ -122,6 +193,7 @@ static int amdgpu_spm_read_ring_buffer(struct amdgpu_spm_mgr *spm_mgr, int inst)
+ 	if (spm->ring_rptr == ring_wptr)
+ 		goto exit;
  
-@@ -194,6 +233,8 @@ static int _amdgpu_spm_acquire(struct amdgpu_spm_mgr *spm_mgr, int inst, struct
- 	if (ret)
- 		goto out;
- 
-+	/* reserve space to fix spm overflow */
-+	spm->ring_size -= spm_mgr->spm_overflow_reserved;
- 	ret = amdgpu_rlc_spm_acquire(adev, inst, drm_priv_to_vm(filp),
- 			spm->gpu_addr, spm->ring_size);
- 	if (ret)
-@@ -204,6 +245,7 @@ static int _amdgpu_spm_acquire(struct amdgpu_spm_mgr *spm_mgr, int inst, struct
- 	 *  and are instead part of the Meta data area.
++	spm->warned_ring_rptr = spm->ring_rptr;
+ 	if (ring_wptr > spm->ring_rptr) {
+ 		size_to_copy = ring_wptr - spm->ring_rptr;
+ 		ret = amdgpu_spm_data_copy(spm_mgr, size_to_copy, inst);
+@@ -246,6 +318,7 @@ static int _amdgpu_spm_acquire(struct amdgpu_spm_mgr *spm_mgr, int inst, struct
  	 */
  	spm->ring_size -= 0x20;
-+	amdgpu_spm_preset(spm, spm_mgr->spm_overflow_reserved);
+ 	amdgpu_spm_preset(spm, spm_mgr->spm_overflow_reserved);
++	spm->warned_ring_rptr = ~0;
  
  	goto out;
  
+@@ -290,6 +363,7 @@ static int amdgpu_spm_acquire(struct amdgpu_spm_mgr *spm_mgr, struct drm_file *f
+ 	INIT_WORK(&spm_mgr->spm_work, amdgpu_spm_work);
+ 
+ 	spin_lock_init(&spm_mgr->spm_irq_lock);
++	spm_mgr->spm_monitor_thread = NULL;
+ 	spm_mgr->file = filp;
+ 
+ 	goto out;
+@@ -324,8 +398,21 @@ static int _spm_start(struct amdgpu_spm_mgr *spm_mgr,
+ 	 * wptr will become 0, adjust rptr accordingly.
+ 	 */
+ 	spm->ring_rptr = 0;
++	spm->warned_ring_rptr = ~0;
+ 	spin_unlock_irqrestore(&spm_mgr->spm_irq_lock, flags);
+ 
++	if (!spm_mgr->spm_monitor_thread) {
++		ret = amdgpu_spm_monitor_thread_start(spm_mgr);
++		if (ret) {
++			/* Thread failed to start, revert state */
++			dev_dbg(adev->dev,
++				"Failed to start SPM monitor thread, ret = %d\n", ret);
++			spin_lock_irqsave(&spm_mgr->spm_irq_lock, flags);
++			spm->is_spm_started = false;
++			spin_unlock_irqrestore(&spm_mgr->spm_irq_lock, flags);
++			amdgpu_rlc_spm_cntl(adev, inst, 0);
++		}
++	}
+ 	return ret;
+ }
+ 
+@@ -335,6 +422,9 @@ static void _spm_stop(struct amdgpu_spm_mgr *spm_mgr,
+ 	struct amdgpu_spm_base *spm = &(spm_mgr->spm_cntr->spm[inst]);
+ 	unsigned long flags;
+ 
++	if (spm_mgr->spm_monitor_thread)
++		kthread_stop(spm_mgr->spm_monitor_thread);
++
+ 	amdgpu_rlc_spm_cntl(adev, inst, 0);
+ 	spin_lock_irqsave(&spm_mgr->spm_irq_lock, flags);
+ 	spm_mgr->spm_cntr->spm[inst].is_spm_started = false;
+@@ -342,6 +432,7 @@ static void _spm_stop(struct amdgpu_spm_mgr *spm_mgr,
+ 	 * Adjust rptr accordingly
+ 	 */
+ 	spm->ring_rptr = 0;
++	spm->warned_ring_rptr = ~0;
+ 	spin_unlock_irqrestore(&spm_mgr->spm_irq_lock, flags);
+ }
+ 
+@@ -633,8 +724,15 @@ void amdgpu_spm_interrupt(struct amdgpu_device *adev, int xcc_id)
+ 
+ 	spm_mgr = &(adev->prof_mgr.prof_xcp_mgr[xcp_id].spm_mgr);
+ 
++	/*  watermark threshold is triggered */
+ 	spin_lock_irqsave(&spm_mgr->spm_irq_lock, flags);
+-	if (spm_mgr->spm_cntr && spm_mgr->spm_cntr->spm[xcc_id].is_spm_started)
+-		schedule_work(&spm_mgr->spm_work);
++	if (spm_mgr->spm_cntr && spm_mgr->spm_cntr->spm[xcc_id].is_spm_started) {
++		if (adev->ip_versions[GC_HWIP][0] < IP_VERSION(12, 0, 0))
++			spm_mgr->spm_cntr->spm[xcc_id].has_data_loss = 1;
++		else
++			schedule_work(&spm_mgr->spm_work);
++	}
+ 	spin_unlock_irqrestore(&spm_mgr->spm_irq_lock, flags);
++
++	dev_dbg(adev->dev, "[SPM#%d:%d] ring buffer stall.", xcp_id, xcc_id);
+ }
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_spm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_spm.h
-index 5eed6aa6482a..f00a4751643e 100644
+index f00a4751643e..db440b2e11f0 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_spm.h
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_spm.h
-@@ -61,6 +61,8 @@ struct amdgpu_spm_mgr {
- 	struct amdgpu_spm_cntr *spm_cntr;
- 	struct work_struct spm_work;
- 	spinlock_t spm_irq_lock;
-+	/* reserve space to fix spm overflow */
-+	u32    spm_overflow_reserved;
+@@ -41,6 +41,7 @@ struct amdgpu_spm_base {
+ 	bool   has_user_buf;
+ 	bool   is_user_buf_filled;
+ 	bool   is_spm_started;
++	u32    warned_ring_rptr;
  };
  
- int amdgpu_spm_ioctl(struct drm_device *dev, void *data,
+ struct amdgpu_spm_cntr {
+@@ -53,6 +54,7 @@ struct amdgpu_spm_cntr {
+ };
+ 
+ struct amdgpu_spm_mgr {
++	struct task_struct *spm_monitor_thread;
+ 	struct drm_file *file;
+ 
+ 	struct task_struct *lead_thread;
 -- 
 2.34.1
 
