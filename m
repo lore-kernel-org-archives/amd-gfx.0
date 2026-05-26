@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C9A2BCD5BB1
-	for <amd-gfx@archiver.kernel.org>; Tue, 26 May 2026 14:12:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2BE9BCD5BD0
+	for <amd-gfx@archiver.kernel.org>; Tue, 26 May 2026 14:12:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5F5B810E66D;
-	Tue, 26 May 2026 14:12:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B387C10E676;
+	Tue, 26 May 2026 14:12:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="4DSOcp9x";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="m6YQUlqO";
 	dkim-atps=neutral
-Received: from CY7PR03CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11010062.outbound.protection.outlook.com
- [40.93.198.62])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 45FC110E66D
- for <amd-gfx@lists.freedesktop.org>; Tue, 26 May 2026 14:11:59 +0000 (UTC)
+Received: from PH0PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11011029.outbound.protection.outlook.com [40.107.208.29])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9ADB110E671
+ for <amd-gfx@lists.freedesktop.org>; Tue, 26 May 2026 14:12:02 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=OGi9dhRyX/mLlqZDjV1EHsiX2Nb4fGKkdFlcI7yDU3rrYvNxXibF/Z4dBOS1KIzi0P3oqfVpF9Fz1q8vPaWORdNXe8nIuHKdmcPKenRZHcxcKz2Mja3JBfZfuS00k4xUYJ1mNrEtF7xxsR8+zMMl0BBul1izzwGjQvslkaxD9dqMJ1rb+SFqwEPdz7IaP4ogJ/03wKyGnjvw+xmhVKDVWkhuW3x/MBWqv1JpIAf3jK5PqOeJuN6ybmB5AIVnHQfkSg7KBLDru2pu4bw2TgYFlqHydLt5W7P89o9VzvcSexB5cmG7k27zIOTUh+aOqV/F+GlkTmJuqhC2DOGLs0NX/g==
+ b=LhnQ/Ir9kjWmnTuImx/t8zVRaf8OkCABmU0IWDlTr4WpSDhDqUL/XmM11nX+juGi5Ze0xOgJfxA0OCopB7IyllkrBmMqfDrd974rhnmoVi0EmOI+lZObVMBammpHtg92ihmaZxlsEzDXb60bTVZbGlzXToPT2B7Q2jRQkbzcmAi4GPU2O+afXb2G190XXotE0NlRTj/spNiH6BXHRbMqB3Rjf44shUzEmYVu4jbKd1PypEbkIt/qdxW2dQ0kGO/8w1dXyvyTLcFW5E6nNeIjSXvKS+5XVrXjzKKxtGN81++T1uZvisWqrhCx/IoKcdeaiAqFT7MDtmC+N2ufpkZQiQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=lThJDVAijv362mJDP7XbTSCU4tsr3uzarSFtJusWTwA=;
- b=WoVtX9Cjk2aP4kqw4sc/dWsp3jB8+c++0avVfPcjLcB2pWrXbnFyNwT2nuehtnABeAb37YX8s+aK91W0nAg9LvCmXYQw3Ft7n0H7Mu4F2qET77oHgwql5SAO1chp5dX0FSl9Ap82WMHA9Aui6tvm+rYohIawI3nmxRnrMqdYB6fBFC4scT2Fu7wjadW18r8uw6Ud7OoXXaaCzVw2awsyWjpD1j4pJcuYCOEzO1QFlQTI3ttDZiiN0aUPE6lp9g3zQAU5nl+dRiRdHdpYj1cEpYzqwrqR/FXTftcbdemWcclJU41JMBFlz4YhQy+01fGJnoa/uaeCu8NM6olgfp1Z5g==
+ bh=vIDRQHobJXf9Kp8ndj9viifTobsWlZRo49c4VMpMe8Q=;
+ b=MnE95QGxSDUO1DtT2YTXpMpyrgD5Ej9V1BHZSm/X2GQGcm4FOPPx6MHew/cFWwNbkx23wtCMZ3KMuEh3GSTptGQKpstuFQsKjJ7e7ZahDH6qdebv+xTQne5MFlI2imEOIKjDpI+OGS6VSLElo+CO+l0oCRKJ7QMPEPXCvSvg+c18iIbsl9qA2r4vSwn+yQimGqsuMZ8azBpJ7f6OwtgvSg267hj+J8azBOSWhJ/8TblMJsCj5SeUdOK2DY3WCTuBqwjPmOmC+VYZi89eXkAYoETA7yuvfMTrhMjFfEN/IwRw/KTWUHYaeGVu5HNBm8P61qAaQzmjR2fxwpgCZmpBbg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=lThJDVAijv362mJDP7XbTSCU4tsr3uzarSFtJusWTwA=;
- b=4DSOcp9xM2nR26YRXgh999aaD36ccTFf1w2J4OQcuQHnlpkck6jSAF+JPVmgmUQuJ9+c4xXmm/k1DQAOaMoFUF/y1Mi8e1719hPIlKxeAMQpedyBacz6snZyKMI6ySbXuql37RvdypAmIstDxnpxjKUuMMdF3VUztirB6PbQof4=
-Received: from BN9PR03CA0678.namprd03.prod.outlook.com (2603:10b6:408:10e::23)
- by CH3PR12MB7593.namprd12.prod.outlook.com (2603:10b6:610:141::20)
+ bh=vIDRQHobJXf9Kp8ndj9viifTobsWlZRo49c4VMpMe8Q=;
+ b=m6YQUlqO4VuXaEx+axhAMmk+Dy5/UmFPqLPHbg/YW+wxwF64MuwFtxyR6MaYjOQmOTgw1ncfGRG+JI/VV2yUGdcpYic+VOXyUTBNjP/XJbScEhhOqRZlM+vLQLtA1G5iUcR8D5MCb0/sqK6Lrx0XW3gbmvQxTaKyOXPMjlCmxtc=
+Received: from BN9PR03CA0679.namprd03.prod.outlook.com (2603:10b6:408:10e::24)
+ by LV8PR12MB9406.namprd12.prod.outlook.com (2603:10b6:408:20b::20)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.48.20; Tue, 26 May
- 2026 14:11:54 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.11; Tue, 26 May
+ 2026 14:11:58 +0000
 Received: from BN3PEPF0000B078.namprd04.prod.outlook.com
- (2603:10b6:408:10e:cafe::98) by BN9PR03CA0678.outlook.office365.com
- (2603:10b6:408:10e::23) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.71.11 via Frontend Transport; Tue, 26
- May 2026 14:11:54 +0000
+ (2603:10b6:408:10e:cafe::31) by BN9PR03CA0679.outlook.office365.com
+ (2603:10b6:408:10e::24) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.71.12 via Frontend Transport; Tue, 26
+ May 2026 14:11:58 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -51,17 +50,17 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from satlexmb07.amd.com (165.204.84.17) by
  BN3PEPF0000B078.mail.protection.outlook.com (10.167.243.123) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.71.7 via Frontend Transport; Tue, 26 May 2026 14:11:54 +0000
+ 15.21.71.7 via Frontend Transport; Tue, 26 May 2026 14:11:58 +0000
 Received: from work-495456.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Tue, 26 May
- 2026 09:11:50 -0500
+ 2026 09:11:52 -0500
 From: James Zhu <James.Zhu@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <alexander.deucher@amd.com>, <Bing.Ma@amd.com>, <jamesz@amd.com>
-Subject: [PATCH v4 03/17] drm/amdgpu: implement profiler ioctl
-Date: Tue, 26 May 2026 10:11:15 -0400
-Message-ID: <20260526141129.592886-3-James.Zhu@amd.com>
+Subject: [PATCH v4 09/17] drm/amdgpu: add profiler/spm ioctl
+Date: Tue, 26 May 2026 10:11:21 -0400
+Message-ID: <20260526141129.592886-9-James.Zhu@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260526141129.592886-1-James.Zhu@amd.com>
 References: <20260526141129.592886-1-James.Zhu@amd.com>
@@ -73,29 +72,29 @@ X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN3PEPF0000B078:EE_|CH3PR12MB7593:EE_
-X-MS-Office365-Filtering-Correlation-Id: 512428bb-4e8a-4db8-7705-08debb30bd66
+X-MS-TrafficTypeDiagnostic: BN3PEPF0000B078:EE_|LV8PR12MB9406:EE_
+X-MS-Office365-Filtering-Correlation-Id: a9c4f1c6-f99e-483e-af14-08debb30bfbe
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700016|1800799024|82310400026|376014|18002099003|22082099003|56012099003|11063799006;
-X-Microsoft-Antispam-Message-Info: u2+3yrHjyp+BLNu+6PRdsfVsTtF//8WQUjL6e/YZZGNmnqI6z20RSRYEFCYO/ROGl2PY5VWdyc0usYuvXfrZoDTeTyFn06zrH/4ELD3pGP/10rcDernC1S0TkwO3g8dox6jGFclj/DF6MGG7RL7F034YzDBiEqjIOk2iByDlk+RiNqHFI8cEF0IEY/AV/orLUWf4ApOHUMinZEn0Qdgea+eTgEqHEZ9PAbQzvTg6+D4fN37zFHpbCyUu2EumSp4YcUXSUXk1LWXQlgy1zYabI7uvF1O+5ktxYUVUXZQsryxvNA7oCBq5CMHGFiG8h9jfQMwi60zabJmW/DAUmRaav26ps0QG97VyJCdbS1BqI+2u+TZBeo3PWUbYvU50u0RAshpL9KF+FlCNMGs0kROKFjbHbMmwDhZZm5g2hNv4neKe19K5YwARP+Y5sRj221CgPc1+7q2wMnmF6LPy9pmzucH9Q3vD7KtnV0Vqnp47o9OTSy+S1kCVoAZc3XhYUhwz+zhXRMMo0IgO6c/l/RV7U+2G8rA75Wttb0m/mx33rTXUN9x/HaSlxScOrZatmOb36pbUG8d0xzLJvdq8xKDt2S0V78RY+VucrLBYZ5Vb5hNmFhrFpnZ1TWRHj3clWvoLM/vJ4H76KubJSpAF8IVYFHf1eavXZD1W1du5hEE7a571bvmKV5NqF5kW+/LDgZdI5t9Y/g8O2YrGC+/Zl8T/IaGs7hqXBReADv9hdYs2btU=
+ ARA:13230040|1800799024|82310400026|376014|36860700016|11063799006|18002099003|56012099003|22082099003;
+X-Microsoft-Antispam-Message-Info: e2eise30XzVUf84Zz3aYZlgoXRQT3+pRNunBpW/bowYSQ6P5bkQb3hZ9o1HZyEu9tBt7q6nS1Gag/Cul0/mYf02BLF2cfFw58EnsjWdcItkiK9rwI2liON9vBovvjOeGUc74wuIorCSTXvvo2+sn6s5fu6Axz5Gbl9/LUUyyGh2HUNrmmwyUSWyxrurJNJcQ/pzE7GUa1bCMGl0wgZZVSsa3qK7kBF0uyWePjvDuG4/6/XH5cl7zAbDB5iChIip0bLe7jeem1QHAL1fUHH5itn7xg2muQSQw+yw9NZuz+Bea7lCy0VFyDWXurCnh6X69cwatAHMvPNTveqbhhsxdsIi5PXEHzwgfd1RieLobrXaRd2Rv+28HR5kimSngVkG0D8ilO/g1lcUiTPiBHBUvfSY09SqHvH7WL4nm86DwFmiT/RgigW2bhxEmL2C8X6Ghu02d89aKwQK8kg3R1i5vugJUD3efwaE0dy116ne1s/LjjqbeGxGFiMi6pauRd7/PsuH7WUItopecMmdXhJxqRXZsEn3qkK/SqT0drAv8hrIJPYJLfbPfNipqXR+5k9MDylnBR9qOfYb/D8TVeSgwxUXVskMwSsEkkaVBg534kyh245OSd9g+0LF0EpB0FUMasiWkZLcT6g+BjFeKhMFxZUnh8CQOB5MCmDqwWI9NthvBS2t3b52+M1dgjQO6o0Aflgzy7UfbQC6eiJhUpdwSAfXs0W7ISXN+8/Ov3/YBQeQ=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700016)(1800799024)(82310400026)(376014)(18002099003)(22082099003)(56012099003)(11063799006);
+ SFS:(13230040)(1800799024)(82310400026)(376014)(36860700016)(11063799006)(18002099003)(56012099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 9GVKBop8Khhe2IqLvcjOJHBEHgiQrO5JV9m+FeKXLSY9+irxX05J1Y+yAMKCEaLxJ/k/sRztq+kdKN+V7RG4QW0UkDFy5Xzt/1kG18EWngla7Op5doz9wSpd9/hrlCLf3EsmV6xKJQ2YTKCj+O1o9v6gTu7ogKNbxrFxki0q3TC8k5PLCf0nzitAP2QY7LfRB2+C+dqVvJ9c0Qy7haGTOSU4z5CZ2HekEZdykq5+bSX/mcZ2Tj+l2quw3oeLrUSBe5TuG6o55QwrGxiRH5yBCpk+qcXRcHbykTvlSEq3fudELP2Vo3yZjUeyKPlKLcfSTtaXAS5LQR+QyVMwUCzcSDyWbkdq2AEEFDJAWwsuY9sWfK3hagmWXVwtySzWdIz1cMXJWA0ZiJUO57GgtijG2tOwmjOTm9QvMRRSR0cz829NUEVjUwSvd0rpHDycpuAW
+X-MS-Exchange-AntiSpam-MessageData-0: 6dEtuN/S1TJo5Wf3VBVOtDT94s4IxoX2gc5GE99YSp0/E1knnBpwueP1tF/3cVNk99m+AOMz4VKw+IZUT/nghOlwF3ypGIOUm6fK0n5m0aSWvu4U6M/QYc3j83eUTtZdPQUOzGLkZiu8m9jshejgb4Y/sjADb4e52JINSWsAMYSwb+Y+NlinyHd5R0F6X80odJxEFfMihOOes/9H6LCIj45eGiDVXWDE36ZJhaZoBAlBPuFKfoW32rPH03mB35D95zaejqIeB5xhj7c3yYKAYHQu17KkBWHqOFZ4reRsx7o6t56SmrWJ/n4PIVvR/RqP10I0BSnvPpRVXuLxfEqTQ/qST9Ad4tfwyp2OOCGA1Yh1Y4BZ9z3s2EHYLEZ2aw5BkSBaEOg02Ievu3oEDzTot9eSQ7kkoEL1lF0gofTJlwzxn2x/lP2VMObP0o1QYKqU
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 May 2026 14:11:54.3210 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 512428bb-4e8a-4db8-7705-08debb30bd66
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 May 2026 14:11:58.2533 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a9c4f1c6-f99e-483e-af14-08debb30bfbe
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: BN3PEPF0000B078.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB7593
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9406
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,98 +109,82 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-with wire up the DRM_AMDGPU_PROFILER ioctl introduced in the
-UAPI patch by registering amdgpu_profiler_ioctl() as its
-handler with DRM_AUTH|DRM_RENDER_ALLOW permissions.
+to wire the AMDGPU_PROFILER_SPM operation into the profiler ioctl
+dispatch path, and introduce amdgpu_spm_ioctl() as the dedicated
+SPM sub-ioctl handler.
 
-Implement the first operation AMDGPU_PROFILER_VERSION, which
-returns the profiler UAPI version to user space by packing
-the major version into bits 31:16 and the minor version into
-bits 15:0 of the args->version field. Unknown operations
-return -EINVAL.
+In amdgpu_profiler_ioctl(), the new AMDGPU_PROFILER_SPM case extracts
+the embedded drm_amdgpu_spm_args from the profiler args union and
+forwards it to amdgpu_spm_ioctl(dev, &args->spm, filp).
 
-A helper macro AMDGPU_XCP_ID() is added to normalize the XCP
-partition ID for display purposes: AMDGPU_XCP_NO_PARTITION
-(device not yet initialized) is mapped to 0, while valid
-partition IDs are passed through unchanged.
+amdgpu_spm_ioctl() resolves the per-device amdgpu_device from the
+drm_file's driver_priv and switches on args->op. At this point only
+the default error path is present, returning -EINVAL for all unknown
+operations. Subsequent patches will add cases for
+AMDGPU_SPM_OP_ACQUIRE, AMDGPU_SPM_OP_SET_DEST_BUF, and
+AMDGPU_SPM_OP_RELEASE.
 
 Signed-off-by: James Zhu <James.Zhu@amd.com>
 Reviewed-by: Bing Ma <Bing.Ma@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c      |  1 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_profiler.c | 25 ++++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_profiler.h |  3 +++
- 3 files changed, 29 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_profiler.c |  3 +++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_spm.c      | 14 ++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_spm.h      |  3 +++
+ 3 files changed, 20 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-index 476d40dde319..6af189fe93b4 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-@@ -3080,6 +3080,7 @@ const struct drm_ioctl_desc amdgpu_ioctls_kms[] = {
- 	DRM_IOCTL_DEF_DRV(AMDGPU_USERQ_SIGNAL, amdgpu_userq_signal_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
- 	DRM_IOCTL_DEF_DRV(AMDGPU_USERQ_WAIT, amdgpu_userq_wait_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
- 	DRM_IOCTL_DEF_DRV(AMDGPU_GEM_LIST_HANDLES, amdgpu_gem_list_handles_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
-+	DRM_IOCTL_DEF_DRV(AMDGPU_PROFILER, amdgpu_profiler_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
- };
- 
- static const struct drm_driver amdgpu_kms_driver = {
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_profiler.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_profiler.c
-index ffe65664e1d4..f40d8de6771d 100644
+index 7ea3c57ccd39..16884d58b074 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_profiler.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_profiler.c
-@@ -32,6 +32,31 @@
- #define AMDGPU_PROFILER_VERSION_MAJOR 1
- #define AMDGPU_PROFILER_VERSION_MINOR 1
+@@ -50,6 +50,9 @@ int amdgpu_profiler_ioctl(
+ 					AMDGPU_PROFILER_VERSION_MINOR;
+ 		return 0;
  
-+int amdgpu_profiler_ioctl(
-+		struct drm_device *dev,
-+		void *data,
-+		struct drm_file *filp)
++	case AMDGPU_PROFILER_SPM:
++		return amdgpu_spm_ioctl(dev, &args->spm, filp);
++
+ 	default:
+ 		dev_dbg(adev->dev, "Invalid option: %i", args->op);
+ 	}
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_spm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_spm.c
+index af7ee74aaa35..6ff88dfabf1c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_spm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_spm.c
+@@ -47,6 +47,20 @@ static int amdgpu_spm_release(struct amdgpu_spm_mgr *spm_mgr, struct drm_file *f
+ 	return 0;
+ }
+ 
++int amdgpu_spm_ioctl(struct drm_device *dev, void *data,
++		       struct drm_file *filp)
 +{
 +	struct amdgpu_fpriv *fpriv = filp->driver_priv;
 +	struct amdgpu_device *adev = fpriv_to_adev(fpriv);
-+	struct drm_amdgpu_profiler_args *args = data;
-+
-+	dev_dbg(adev->dev, "Profiler IOCTL op %d on render node %d xcp %d",
-+		args->op, adev->ddev.render->index, AMDGPU_XCP_ID(fpriv->xcp_id));
++	struct drm_amdgpu_spm_args *args = data;
 +
 +	switch (args->op) {
-+	case AMDGPU_PROFILER_VERSION:
-+		args->version = AMDGPU_PROFILER_VERSION_MAJOR << 16 |
-+					AMDGPU_PROFILER_VERSION_MINOR;
-+		return 0;
-+
 +	default:
-+		dev_dbg(adev->dev, "Invalid option: %i", args->op);
++		dev_dbg(adev->dev, "Invalid option: %i\n", args->op);
++		return -EINVAL;
 +	}
-+
-+	return -EINVAL;
 +}
 +
- int amdgpu_profiler_mgr_init(
- 		struct amdgpu_profiler_mgr *prof_mgr,
- 		struct amdgpu_fpriv *fpriv)
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_profiler.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_profiler.h
-index c33018f01d0c..e73a49c9a41f 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_profiler.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_profiler.h
-@@ -25,6 +25,7 @@
- #ifndef AMDGPU_PROFILER_H_
- #define AMDGPU_PROFILER_H_
- 
-+#define AMDGPU_XCP_ID(x) (x == AMDGPU_XCP_NO_PARTITION ? 0 : x)
- #define fpriv_to_prof_mgr(fpriv) (&(fpriv)->userq_mgr.adev->prof_mgr)
- #define fpriv_to_adev(fpriv) ((fpriv)->userq_mgr.adev)
- 
-@@ -40,6 +41,8 @@ struct amdgpu_profiler_mgr {
- 	struct amdgpu_profiler_xcp_mgr prof_xcp_mgr[MAX_XCP];
+ int amdgpu_spm_mgr_init(struct amdgpu_spm_mgr *spm_mgr)
+ {
+ 	amdgpu_spm_init_device(spm_mgr);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_spm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_spm.h
+index ade50abfa590..dc55d2a8f016 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_spm.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_spm.h
+@@ -28,6 +28,9 @@ struct amdgpu_spm_mgr {
+ 	struct drm_file *file;
  };
  
-+int amdgpu_profiler_ioctl(struct drm_device *dev, void *data,
-+					struct drm_file *filp);
- int amdgpu_profiler_mgr_init(struct amdgpu_profiler_mgr *prof_mgr,
- 					struct amdgpu_fpriv *fpriv);
- void amdgpu_profiler_mgr_fini(struct amdgpu_profiler_mgr *prof_mgr,
++int amdgpu_spm_ioctl(struct drm_device *dev, void *data,
++		       struct drm_file *filp);
++
+ int amdgpu_spm_mgr_init(struct amdgpu_spm_mgr *spm_mgr);
+ void amdgpu_spm_mgr_fini(struct amdgpu_spm_mgr *spm_mgr);
+ void amdgpu_spm_interrupt(struct amdgpu_device *adev, int xcc_id);
 -- 
 2.34.1
 
